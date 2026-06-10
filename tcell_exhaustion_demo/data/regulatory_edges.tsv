@@ -1,0 +1,48 @@
+# Signed, directed regulatory edges for the CD8 T-cell exhaustion/effector module.
+# Real PPI from STRING/BioGRID is UNDIRECTED and UNSIGNED, so it cannot be turned
+# into Boolean logic directly. To auto-generate a Boolean model you need causal,
+# signed, directed edges -- the kind found in SIGNOR / Reactome causal / OmniPath.
+# This file is that layer (hand-curated here from the cited literature).
+#
+# Columns: source  target  sign   (+ = activates, - = inhibits)
+# Confidence is taken as 1.0 for all curated edges; add a 4th column to weight.
+#
+# The block below the genes are DECOY housekeeping hubs (ACTB, GAPDH, TUBB):
+# high-degree but NOT differentially expressed, included to show that
+# differential RWR filters degree-biased hubs out of the top ranking.
+
+NFAT	NR4A	+
+NFAT	TOX	+
+NFAT	IRF4	+
+AP1	TOX	-
+AP1	NR4A	-
+AP1	TBX21	+
+AP1	IFNG	+
+TOX	TOX	+
+TOX	TCF7	-
+TCF7	TOX	-
+TOX	NR4A	+
+TOX	BATF	+
+TOX	PDCD1	+
+TOX	HAVCR2	+
+TOX	LAG3	+
+TOX	IFNG	-
+NR4A	PDCD1	+
+NR4A	HAVCR2	+
+BATF	IRF4	+
+TBX21	IFNG	+
+TBX21	PRDM1	+
+TBX21	TOX	-
+TCF7	PRDM1	-
+PRDM1	TCF7	-
+TCF7	EOMES	+
+TBX21	EOMES	+
+ACTB	GAPDH	+
+GAPDH	ACTB	+
+ACTB	TUBB	+
+TUBB	GAPDH	+
+ACTB	TOX	+
+GAPDH	TCF7	+
+TUBB	NR4A	+
+ACTB	TBX21	+
+GAPDH	PDCD1	+

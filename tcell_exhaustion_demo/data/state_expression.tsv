@@ -1,0 +1,24 @@
+# State-specific node weights (stand-in for scRNA-seq / proteomics pseudobulk).
+# These become the RWR restart vectors. Values are relative activity 0..1.
+# Decoy housekeeping genes (ACTB/GAPDH/TUBB) are high but EQUAL in both states,
+# so their differential signal is ~0 and RWR ranks them low despite high degree.
+#
+# Columns: gene  exhausted  effector
+
+NFAT	0.9	0.6
+AP1	0.1	0.9
+TOX	0.95	0.05
+TCF7	0.1	0.9
+NR4A	0.9	0.1
+TBX21	0.1	0.85
+PRDM1	0.4	0.5
+BATF	0.8	0.2
+IRF4	0.75	0.3
+PDCD1	0.95	0.1
+HAVCR2	0.9	0.05
+LAG3	0.85	0.1
+EOMES	0.6	0.6
+IFNG	0.05	0.9
+ACTB	0.95	0.95
+GAPDH	0.95	0.95
+TUBB	0.9	0.9
