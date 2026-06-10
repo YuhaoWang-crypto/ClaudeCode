@@ -107,11 +107,15 @@ The toy `data/*.tsv` are synthetic. These scripts build **real** inputs.
   effector CD8 cells, gated by the allowlist) or, in the sandbox, a realistic
   **simulated single-cell count matrix** (negative-binomial counts with
   library-size variation and dropout) so the processing actually executes.
-  Steps: library-size normalize → log1p → per-cell exhaustion/effector marker
-  scoring → **gate cells into states from the data** → collapse gene families to
-  logical nodes → pseudobulk → global min-max scale to [0,1]. The gating is
-  reported against ground truth (~84% concordance on simulated data — realistic,
-  not perfect).
+  Steps: library-size normalize → log1p → **PCA → kNN graph → Louvain
+  clustering (unsupervised; cell labels never used)** → annotate each cluster by
+  canonical exhaustion vs effector marker module scores → collapse gene families
+  to logical nodes → pseudobulk → global min-max scale to [0,1]. This mirrors a
+  real Leiden/Louvain scRNA-seq workflow (clusters are discovered from the data,
+  then named with published markers). Cluster labels are reported against ground
+  truth (~84% concordance on simulated data — the misses are genuinely ambiguous
+  intermediate clusters, which is realistic, not perfect). Run with `--knn K` /
+  `--cells N` / `--seed S`.
 
 ```bash
 pip install pyreadr requests numpy networkx

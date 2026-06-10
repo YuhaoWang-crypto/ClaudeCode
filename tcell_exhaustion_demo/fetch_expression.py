@@ -13,21 +13,24 @@ SAME `process_scrnaseq()` runs on either source:
       processing path run end-to-end in the sandbox and be inspected.
 
 Processing steps (standard scRNA-seq):
-  library-size normalize -> log1p  ->  per-cell exhaustion/effector marker
-  scoring  ->  GATE cells into the two states (states are re-derived from the
-  data, not taken as given)  ->  collapse gene families to logical nodes  ->
-  pseudobulk (mean per state)  ->  global min-max scale to [0,1].
+  library-size normalize -> log1p  ->  PCA  ->  kNN graph  ->  Louvain
+  clustering (UNSUPERVISED; cell labels never used)  ->  annotate each cluster
+  with canonical exhaustion/effector marker module scores  ->  assign clusters
+  to states  ->  collapse gene families to logical nodes  ->  pseudobulk (mean
+  per state)  ->  global min-max scale to [0,1].
 
 Output: data/state_expression_real.tsv  (gene exhausted effector)  + provenance.
 
-Run:  python3 fetch_expression.py [--cells N] [--seed S]
-Deps: numpy, pandas
+Run:  python3 fetch_expression.py [--cells N] [--seed S] [--knn K]
+Deps: numpy, pandas, networkx
 """
 
 import argparse
 import os
 import numpy as np
 import pandas as pd
+import networkx as nx
+from networkx.algorithms.community import louvain_communities
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 OUT = os.path.join(HERE, "data", "state_expression_real.tsv")
@@ -68,8 +71,11 @@ GENE_TRUE = {
     "GAPDH":      (0.95, 0.95),
     "TUBB":       (0.90, 0.90),
 }
-EXH_MARKERS = ["TOX", "PDCD1", "HAVCR2", "LAG3", "NR4A1"]
-EFF_MARKERS = ["TCF7", "TBX21", "IFNG"]
+# Canonical marker gene SETS used only to ANNOTATE unsupervised clusters.
+# These are published Tex / Teff markers (identity only) -- the simulation's
+# GENE_TRUE levels are never consulted by the clustering or annotation.
+EXH_MARKERS = ["TOX", "PDCD1", "HAVCR2", "LAG3"]   # terminal exhaustion
+EFF_MARKERS = ["TCF7", "TBX21", "IFNG"]            # effector / memory
 
 
 # --------------------------------------------------------------------------
@@ -131,9 +137,59 @@ def simulate_counts(genes, n_cells=800, seed=0, depth=4000, dropout=0.15):
 
 
 # --------------------------------------------------------------------------
+# Unsupervised clustering (PCA -> kNN graph -> Louvain), then marker annotation
+# --------------------------------------------------------------------------
+def pca(z, n_comp=15, seed=0):
+    """Top principal components via SVD on the (cells x genes) z-scored matrix."""
+    z = z - z.mean(0)
+    u, s, _ = np.linalg.svd(z, full_matrices=False)
+    n = min(n_comp, s.shape[0])
+    return u[:, :n] * s[:n]
+
+
+def knn_graph(emb, k=15):
+    """Undirected kNN graph in embedding space (Euclidean)."""
+    d2 = ((emb[:, None, :] - emb[None, :, :]) ** 2).sum(-1)
+    np.fill_diagonal(d2, np.inf)
+    g = nx.Graph()
+    g.add_nodes_from(range(emb.shape[0]))
+    for i in range(emb.shape[0]):
+        for j in np.argsort(d2[i])[:k]:
+            g.add_edge(i, int(j))
+    return g
+
+
+def cluster_and_annotate(logn, gidx, seed=0, k=15):
+    """UNSUPERVISED: PCA -> kNN -> Louvain communities; then label each
+    community by its dominant marker module (exhaustion vs effector)."""
+    z = (logn - logn.mean(0)) / (logn.std(0) + 1e-9)
+    emb = pca(z, seed=seed)
+    g = knn_graph(emb, k=k)
+    comms = louvain_communities(g, seed=seed)
+
+    exh_cols = [gidx[x] for x in EXH_MARKERS if x in gidx]
+    eff_cols = [gidx[x] for x in EFF_MARKERS if x in gidx]
+    cell_state = np.empty(logn.shape[0], dtype=object)
+    summary = []
+    for ci, cells in enumerate(sorted(comms, key=len, reverse=True)):
+        cells = list(cells)
+        es = z[np.ix_(cells, exh_cols)].mean()
+        fs = z[np.ix_(cells, eff_cols)].mean()
+        state = "exhausted" if es > fs else "effector"
+        cell_state[cells] = state
+        summary.append((ci, len(cells), es, fs, state))
+    print(f"      Louvain found {len(comms)} clusters (unsupervised); "
+          f"annotated by marker module score:")
+    for ci, n, es, fs, state in summary:
+        print(f"        cluster {ci}: {n:4d} cells  exh_score={es:+.2f} "
+              f"eff_score={fs:+.2f}  -> {state}")
+    return cell_state
+
+
+# --------------------------------------------------------------------------
 # THE processing pipeline (shared by both sources)
 # --------------------------------------------------------------------------
-def process_scrnaseq(counts, genes, true_labels=None):
+def process_scrnaseq(counts, genes, true_labels=None, knn=15, seed=0):
     counts = np.asarray(counts, dtype=float)
     gidx = {g: j for j, g in enumerate(genes)}
 
@@ -142,18 +198,11 @@ def process_scrnaseq(counts, genes, true_labels=None):
     lib[lib == 0] = 1.0
     logn = np.log1p(counts / lib * 1e4)
 
-    # 2. z-score each gene across cells; score cells by marker panels
-    z = (logn - logn.mean(0)) / (logn.std(0) + 1e-9)
-    exh_cols = [gidx[g] for g in EXH_MARKERS if g in gidx]
-    eff_cols = [gidx[g] for g in EFF_MARKERS if g in gidx]
-    exh_score = z[:, exh_cols].mean(1)
-    eff_score = z[:, eff_cols].mean(1)
-
-    # 3. GATE cells into states from the data
-    gated = np.where(exh_score > eff_score, "exhausted", "effector")
+    # 2-3. unsupervised clustering, then annotate clusters with marker modules
+    gated = cluster_and_annotate(logn, gidx, seed=seed, k=knn)
     if true_labels is not None:
         acc = (gated == true_labels).mean()
-        print(f"      gating concordance vs ground truth: {acc:.1%}  "
+        print(f"      cluster-label concordance vs ground truth: {acc:.1%}  "
               f"(exhausted={np.sum(gated=='exhausted')}, "
               f"effector={np.sum(gated=='effector')} cells)")
 
@@ -181,6 +230,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--cells", type=int, default=800)
     ap.add_argument("--seed", type=int, default=0)
+    ap.add_argument("--knn", type=int, default=15)
     args = ap.parse_args()
 
     genes = list(GENE_TRUE.keys())
@@ -195,7 +245,7 @@ def main():
         counts, labels = simulate_counts(genes, n_cells=args.cells, seed=args.seed)
         source = "scrnaseq-pseudobulk (simulated counts)"
 
-    M = process_scrnaseq(counts, genes, true_labels=labels)
+    M = process_scrnaseq(counts, genes, true_labels=labels, knn=args.knn, seed=args.seed)
 
     with open(OUT, "w") as fh:
         fh.write("# Per-state node activity (RWR restart vectors), relative 0..1.\n")
