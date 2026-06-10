@@ -1,0 +1,5 @@
+numpy
+networkx
+pyboolnet      # only for tcell_exhaustion_boolean_demo.py
+pyreadr        # only for fetch_data.py (parse DoRothEA .rda)
+requests       # only for fetch_data.py / fetch_expression.py

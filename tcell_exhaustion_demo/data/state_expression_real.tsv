@@ -1,0 +1,17 @@
+# Per-state node activity (RWR restart vectors), relative 0..1.
+# source: curated-literature
+# gene	exhausted	effector
+AP1	0.1	0.9
+BATF	0.8	0.25
+EOMES	0.6	0.6
+HAVCR2	0.9	0.05
+IFNG	0.05	0.9
+IRF4	0.75	0.3
+LAG3	0.85	0.1
+NFAT	0.9	0.55
+NR4A	0.9	0.1
+PDCD1	0.95	0.1
+PRDM1	0.45	0.5
+TBX21	0.15	0.85
+TCF7	0.1	0.9
+TOX	0.95	0.05
