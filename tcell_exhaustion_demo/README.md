@@ -115,7 +115,11 @@ The toy `data/*.tsv` are synthetic. These scripts build **real** inputs.
   then named with published markers). Cluster labels are reported against ground
   truth (~84% concordance on simulated data — the misses are genuinely ambiguous
   intermediate clusters, which is realistic, not perfect). Run with `--knn K` /
-  `--cells N` / `--seed S`.
+  `--cells N` / `--seed S`. It also prints two text diagnostics to confirm the
+  annotation by eye: a **marker × cluster z-score heatmap** (columns grouped by
+  state — exhaustion-marker rows should darken under X clusters, effector-marker
+  rows under O clusters) and an **ASCII PC1×PC2 projection** (X=exhausted,
+  o=effector, `*`=mixed) showing the two states occupy distinct regions.
 
 ```bash
 pip install pyreadr requests numpy networkx

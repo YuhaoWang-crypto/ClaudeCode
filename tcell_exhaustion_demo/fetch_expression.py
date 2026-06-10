@@ -161,7 +161,8 @@ def knn_graph(emb, k=15):
 
 def cluster_and_annotate(logn, gidx, seed=0, k=15):
     """UNSUPERVISED: PCA -> kNN -> Louvain communities; then label each
-    community by its dominant marker module (exhaustion vs effector)."""
+    community by its dominant marker module (exhaustion vs effector).
+    Also prints a marker heatmap and a 2D projection to sanity-check labels."""
     z = (logn - logn.mean(0)) / (logn.std(0) + 1e-9)
     emb = pca(z, seed=seed)
     g = knn_graph(emb, k=k)
@@ -170,20 +171,82 @@ def cluster_and_annotate(logn, gidx, seed=0, k=15):
     exh_cols = [gidx[x] for x in EXH_MARKERS if x in gidx]
     eff_cols = [gidx[x] for x in EFF_MARKERS if x in gidx]
     cell_state = np.empty(logn.shape[0], dtype=object)
+    cell_cluster = np.full(logn.shape[0], -1, dtype=int)
     summary = []
-    for ci, cells in enumerate(sorted(comms, key=len, reverse=True)):
+    ordered = sorted(comms, key=len, reverse=True)
+    for ci, cells in enumerate(ordered):
         cells = list(cells)
         es = z[np.ix_(cells, exh_cols)].mean()
         fs = z[np.ix_(cells, eff_cols)].mean()
         state = "exhausted" if es > fs else "effector"
         cell_state[cells] = state
+        cell_cluster[cells] = ci
         summary.append((ci, len(cells), es, fs, state))
     print(f"      Louvain found {len(comms)} clusters (unsupervised); "
           f"annotated by marker module score:")
     for ci, n, es, fs, state in summary:
         print(f"        cluster {ci}: {n:4d} cells  exh_score={es:+.2f} "
               f"eff_score={fs:+.2f}  -> {state}")
+
+    cstate = {ci: st for ci, _, _, _, st in summary}
+    _marker_heatmap(z, gidx, cell_cluster, list(range(len(ordered))), cstate)
+    _ascii_projection(emb[:, :2], cell_state)
     return cell_state
+
+
+# --------------------------------------------------------------------------
+# Text diagnostics: marker heatmap + 2D projection (annotation sanity check)
+# --------------------------------------------------------------------------
+_SHADE = " .:-=+*#%@"          # low -> high
+
+
+def _shade(v, lo, hi):
+    t = min(max((v - lo) / (hi - lo + 1e-9), 0.0), 1.0)
+    return _SHADE[int(t * (len(_SHADE) - 1))]
+
+
+def _marker_heatmap(z, gidx, cell_cluster, clusters, cstate):
+    markers = ([(g, "exh") for g in EXH_MARKERS if g in gidx]
+               + [(g, "eff") for g in EFF_MARKERS if g in gidx])
+    sym = {"exhausted": "X", "effector": "O"}
+    # group columns by state (exhausted clusters first) so the block stands out
+    clusters = sorted(clusters, key=lambda ci: (0 if cstate[ci] == "exhausted" else 1, ci))
+    means, vals = {}, []
+    for ci in clusters:
+        cells = np.where(cell_cluster == ci)[0]
+        for g, _ in markers:
+            m = z[cells, gidx[g]].mean()
+            means[(g, ci)] = m
+            vals.append(m)
+    lo, hi = min(vals), max(vals)
+    print("\n      marker x cluster mean z-score "
+          f"(shade '{_SHADE[1]}'->'{_SHADE[-1]}' = low->high; columns grouped by state):")
+    print("        " + "gene".ljust(8) + "".join(f"c{ci}".rjust(3) for ci in clusters))
+    print("        " + "state".ljust(8)
+          + "".join(sym[cstate[ci]].rjust(3) for ci in clusters)
+          + "    X=exhausted  O=effector")
+    for g, grp in markers:
+        row = "".join(_shade(means[(g, ci)], lo, hi).rjust(3) for ci in clusters)
+        print(f"        {g.ljust(8)}{row}    [{grp} marker]")
+    print("      -> exh-marker rows should darken under X columns,"
+          " eff-marker rows under O columns.")
+
+
+def _ascii_projection(emb2, cell_state, width=56, height=16):
+    x, y = emb2[:, 0], emb2[:, 1]
+    gx = ((x - x.min()) / (np.ptp(x) + 1e-9) * (width - 1)).astype(int)
+    gy = ((y - y.min()) / (np.ptp(y) + 1e-9) * (height - 1)).astype(int)
+    grid = [[" "] * width for _ in range(height)]
+    for i in range(len(cell_state)):
+        sym = "X" if cell_state[i] == "exhausted" else "o"
+        r, c = height - 1 - gy[i], gx[i]
+        cur = grid[r][c]
+        grid[r][c] = sym if cur == " " else (cur if cur == sym else "*")
+    print("\n      PC1 x PC2 projection (X=exhausted  o=effector  *=mixed):")
+    for row in grid:
+        print("        |" + "".join(row) + "|")
+    print("      -> well-annotated states occupy distinct regions;"
+          " '*' marks the ambiguous boundary.")
 
 
 # --------------------------------------------------------------------------
