@@ -1,5 +1,6 @@
 numpy
 networkx
+pandas         # fetch_expression.py (scRNA-seq processing)
 pyboolnet      # only for tcell_exhaustion_boolean_demo.py
 pyreadr        # only for fetch_data.py (parse DoRothEA .rda)
-requests       # only for fetch_data.py / fetch_expression.py
+requests       # fetch_data.py / fetch_expression.py (downloads)

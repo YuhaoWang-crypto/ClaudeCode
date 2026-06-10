@@ -100,9 +100,18 @@ The toy `data/*.tsv` are synthetic. These scripts build **real** inputs.
   NFATC1/2→NFAT, JUN/FOS→AP1), and **merges provenance-tagged literature edges**
   (each with a PMID) for the recent TOX circuit. Every edge carries a
   `provenance` column (`DoRothEA:<conf>` or `PMID:...`).
-- **`fetch_expression.py` → `data/state_expression_real.tsv`.** Intended to
-  pseudobulk CELLxGENE Census (exhausted vs effector CD8); falls back to a
-  curated published Tex-vs-Teff signature.
+- **`fetch_expression.py` → `data/state_expression_real.tsv`.** A real
+  **scRNA-seq processing pipeline** (the chosen data layer — transcriptomics,
+  because the network is TF-centric and needs cell-state resolution). One
+  `process_scrnaseq()` runs on either source: CELLxGENE Census (real exhausted/
+  effector CD8 cells, gated by the allowlist) or, in the sandbox, a realistic
+  **simulated single-cell count matrix** (negative-binomial counts with
+  library-size variation and dropout) so the processing actually executes.
+  Steps: library-size normalize → log1p → per-cell exhaustion/effector marker
+  scoring → **gate cells into states from the data** → collapse gene families to
+  logical nodes → pseudobulk → global min-max scale to [0,1]. The gating is
+  reported against ground truth (~84% concordance on simulated data — realistic,
+  not perfect).
 
 ```bash
 pip install pyreadr requests numpy networkx
