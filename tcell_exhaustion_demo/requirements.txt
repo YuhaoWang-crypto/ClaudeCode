@@ -1,5 +1,6 @@
 numpy
 networkx
+scipy          # ppi_min.py (networkx pagerank, sparse)
 pandas         # fetch_expression.py (scRNA-seq processing)
 pyboolnet      # only for tcell_exhaustion_boolean_demo.py
 pyreadr        # only for fetch_data.py (parse DoRothEA .rda)
