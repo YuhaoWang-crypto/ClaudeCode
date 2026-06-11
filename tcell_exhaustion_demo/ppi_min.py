@@ -31,6 +31,7 @@ Deps: numpy, scipy, networkx
 """
 
 import argparse
+import gzip
 import os
 import numpy as np
 import networkx as nx
@@ -40,6 +41,14 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 PPI_FILE = os.path.join(HERE, "data", "ppi_edges.tsv")
 STATE_EXPR = os.path.join(HERE, "data", "state_expression_real.tsv")
 PRODATA_URL = "http://prodata.swmed.edu/humanPPI/bulk_download"
+PRED_EDGES = os.path.join(HERE, "data", "ppi_pred90.tsv.gz")
+PRED_NODES = os.path.join(HERE, "data", "ppi_pred90_nodes.tsv.gz")
+
+# Immune / exhaustion functional module used to seed the real predicted network.
+IMMUNE_SEEDS = ["TOX", "PDCD1", "LAG3", "HAVCR2", "TIGIT", "CTLA4", "BATF", "IRF4",
+                "NR4A1", "NR4A2", "NR4A3", "TCF7", "TBX21", "IFNG", "JUN", "FOS",
+                "FOSB", "NFATC1", "NFATC2", "PRDM1", "EOMES", "BCL6", "ID2", "ID3",
+                "IL7R"]
 
 PANEL_EXH = ["TOX", "PDCD1", "HAVCR2", "LAG3", "NR4A", "BATF", "IRF4"]
 PANEL_EFF = ["TCF7", "TBX21", "IFNG", "AP1", "EOMES"]
@@ -168,7 +177,8 @@ def load_state_weights(path, state="exhausted"):
 def ppr(G, restart, alpha=0.15):
     z = sum(restart.values())
     pers = {n: restart.get(n, 0.0) / z for n in G.nodes()}
-    return nx.pagerank(G, alpha=1 - alpha, personalization=pers)
+    wt = "weight" if nx.get_edge_attributes(G, "weight") else None
+    return nx.pagerank(G, alpha=1 - alpha, personalization=pers, weight=wt)
 
 
 def degree_corrected_test(G, restart, alpha=0.15, n_perm=60, seed=0):
@@ -230,14 +240,150 @@ def compensatory(G, restart, target, alpha=0.15, top=10):
 
 
 # --------------------------------------------------------------------------
+# Real predicted-PPI dataset (Grishin lab RF2-PPI/AF2) loader + runner
+# --------------------------------------------------------------------------
+def _open(path):
+    return gzip.open(path, "rt") if path.endswith(".gz") else open(path)
+
+
+def load_predictions(edges_path, nodes_path, min_prob=0.0):
+    """Weighted undirected graph from the predicted-PPI edge list; edges carry
+    rfprob (weight), source pipeline, and PDB-template availability."""
+    G = nx.Graph()
+    with _open(edges_path) as fh:
+        for line in fh:
+            if line.startswith("#") or not line.strip():
+                continue
+            c = line.rstrip("\n").split("\t")
+            if len(c) < 3 or c[0] == c[1]:
+                continue
+            if c[0] in ("none", "", "NA", "-") or c[1] in ("none", "", "NA", "-"):
+                continue
+            w = float(c[2])
+            if w < min_prob:
+                continue
+            pdbtemp = c[5] if len(c) > 5 else "none"
+            G.add_edge(c[0], c[1], weight=w, pdbtemp=pdbtemp)
+    meta = {}
+    if os.path.exists(nodes_path):
+        with _open(nodes_path) as fh:
+            for line in fh:
+                if line.startswith("#") or not line.strip():
+                    continue
+                c = line.rstrip("\n").split("\t")
+                known = None
+                try:
+                    known = float(c[1])
+                except (ValueError, IndexError):
+                    pass
+                meta[c[0]] = {"known": known,
+                              "pubmed": c[2] if len(c) > 2 else "",
+                              "function": c[3] if len(c) > 3 else ""}
+    return G, meta
+
+
+def _structure_ready(G, node, seeds):
+    """True if any edge from node to a seed has a PDB template (binding-site work)."""
+    for s in seeds:
+        if G.has_edge(node, s) and G[node][s].get("pdbtemp", "none") != "none":
+            return True
+    return False
+
+
+def run_predictions(args):
+    print("=" * 78)
+    print("REAL PREDICTED-PPI NETWORK | Grishin lab RF2-PPI/AF2 (humanPPI)")
+    print("=" * 78)
+    G, meta = load_predictions(args.predictions, args.nodes, args.min_prob)
+    giant = max(nx.connected_components(G), key=len)
+    print(f"network: {G.number_of_nodes()} genes, {G.number_of_edges()} predicted PPIs, "
+          f"<k>={2*G.number_of_edges()/G.number_of_nodes():.1f}, "
+          f"giant component={len(giant)}")
+
+    seeds = [g for g in IMMUNE_SEEDS if g in G]
+    print(f"immune/exhaustion seed module present ({len(seeds)}): {', '.join(seeds)}")
+    restart = {g: 1.0 for g in seeds}
+
+    print("\n-- 1. Novel neighbors of the module (personalized PageRank; "
+          "degree-corrected significance) --")
+    obs, stats = degree_corrected_test(G, restart, n_perm=args.perms)
+    # rank by propagation strength (PPR); degree-corrected p is a significance flag
+    # (the permutation z is unstable for low-degree seed neighbors, so not a sort key)
+    ranked = [n for n in sorted(G.nodes(), key=lambda n: -obs[n]) if n not in seeds]
+    rows = []
+    print(f"   {'gene':10}{'PPR':>8}{'p':>7}{'deg':>5}  {'known':>6} {'struct':6} "
+          f"{'dark':5} function")
+    for n in ranked[:args.top_k]:
+        m = meta.get(n, {})
+        known = m.get("known")
+        dark = "DARK" if (known is not None and known < 2) else ""
+        struct = "PDB" if _structure_ready(G, n, seeds) else ""
+        p = stats[n][2]
+        sig = "*" if p <= 0.05 else " "
+        fn = m.get("function", "")[:36]
+        print(f"   {n:10}{obs[n]:>8.4f}{p:>6.3f}{sig}{G.degree(n):>5}  "
+              f"{str(known):>6} {struct:6} {dark:5} {fn}")
+        rows.append((n, round(obs[n], 5), round(stats[n][1], 1), round(p, 4),
+                     G.degree(n), known, "yes" if struct else "no",
+                     "yes" if dark else "no", fn))
+
+    os.makedirs(os.path.join(HERE, "results"), exist_ok=True)
+    out = os.path.join(HERE, "results", "immune_module_novel_neighbors_pred90.tsv")
+    with open(out, "w") as fh:
+        fh.write("# Top novel predicted interactors of the immune/exhaustion module.\n")
+        fh.write("# Network: Grishin lab RF2-PPI/AF2 90% precision set, seeded on "
+                 + ",".join(seeds) + "\n")
+        fh.write("gene\tppr\tz\tp_degree_corrected\tdegree\tknown_unknome"
+                 "\tstructure_ready\tdark\tfunction\n")
+        for r in rows:
+            fh.write("\t".join(str(x) for x in r) + "\n")
+    print(f"\n   wrote ranked table -> results/{os.path.basename(out)}")
+
+    print("\n-- 2. Minimal connected subnetwork over module + top novel neighbors --")
+    terminals = seeds[:6] + ranked[:4]
+    terminals = [t for t in terminals if t in giant]
+    if len(terminals) >= 2:
+        T, connectors = minimal_subnetwork(G.subgraph(giant), terminals)
+        print(f"   terminals: {', '.join(terminals)}")
+        print(f"   minimal subnetwork: {T.number_of_nodes()} nodes, "
+              f"{T.number_of_edges()} edges")
+        print(f"   connector proteins: {', '.join(map(str, [c for c in T.nodes() if c not in terminals])) or '(none)'}")
+
+    target = ranked[0]
+    print(f"\n-- 3. Compensatory pathways after removing top novel hub {target} --")
+    _, _, gainers = compensatory(G, restart, target)
+    shown = 0
+    for n, g in gainers:
+        if g > 1e-6 and shown < 8:
+            fn = meta.get(n, {}).get("function", "")[:40]
+            print(f"   {str(n):10} Δrank=+{g:.5f}  deg={G.degree(n)}  {fn}")
+            shown += 1
+    if shown == 0:
+        print("   (no protein gains appreciable rank — target is on a redundant branch)")
+
+    print("\n" + "=" * 78)
+    print("Read straight off the REAL predicted-PPI network: the top novel")
+    print("interactors of the exhaustion module, flagged for druggable structure")
+    print("(PDB templates) and for poorly-characterized 'dark' proteins.")
+    print("=" * 78)
+
+
 def main():
     ap = argparse.ArgumentParser()
+    ap.add_argument("--predictions", nargs="?", const=PRED_EDGES, default=None,
+                    help="run on the Grishin predicted-PPI set (default: data/ppi_pred90.tsv.gz)")
+    ap.add_argument("--nodes", default=PRED_NODES)
+    ap.add_argument("--min-prob", type=float, default=0.0)
     ap.add_argument("--ppi", default=PPI_FILE)
     ap.add_argument("--state-expr", default=STATE_EXPR)
     ap.add_argument("--state", default="exhausted", choices=["exhausted", "effector"])
     ap.add_argument("--perms", type=int, default=60)
     ap.add_argument("--top-k", type=int, default=12)
     args = ap.parse_args()
+
+    if args.predictions:
+        run_predictions(args)
+        return
 
     print("=" * 72)
     print("PPI-ONLY PIPELINE | rank -> minimal subnetwork -> compensatory paths")

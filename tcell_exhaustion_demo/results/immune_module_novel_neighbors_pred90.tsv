@@ -1,0 +1,15 @@
+# Top novel predicted interactors of the immune/exhaustion module.
+# Network: Grishin lab RF2-PPI/AF2 90% precision set, seeded on TOX,PDCD1,LAG3,TIGIT,CTLA4,BATF,NR4A1,TCF7,IFNG,JUN,FOS,FOSB,NFATC1,PRDM1,BCL6,ID2,ID3,IL7R
+gene	ppr	z	p_degree_corrected	degree	known_unknome	structure_ready	dark	function
+IFNGR1	0.01521	62459.6	0.0244	2	10.3	yes	no	Interferon gamma receptor 1
+IFNGR2	0.01493	62378.3	0.0244	2	6.5	yes	no	Interferon gamma receptor 2
+CMC4	0.01208	449.5	0.0244	2	0.0	no	yes	Cx9C motif-containing protein 4
+KIAA1549	0.01092	1237.5	0.0244	3	0.0	no	yes	UPF0606 protein KIAA1549
+COQ5	0.01064	9.8	0.0244	9	4.0	no	no	2-methoxy-6-polyprenyl-1,4-benzoquin
+CDKN2D	0.00957	861.4	0.0244	2	13.2	no	no	Cyclin-dependent kinase 4 inhibitor 
+RTN4IP1	0.00953	130.9	0.0244	3	0.5	no	yes	Reticulon-4-interacting protein 1, m
+LCN12	0.00868	13.4	0.0244	7	0.5	yes	yes	Epididymal-specific lipocalin-12
+CD226	0.00812	221.3	0.0244	7	14.2	yes	no	CD226 antigen
+CDK4	0.00766	58.6	0.0244	6	15.6	no	no	Cyclin-dependent kinase 4
+FLT3LG	0.00753	402.9	0.0244	9	4.4	no	no	Fms-related tyrosine kinase 3 ligand
+CD274	0.00743	22.2	0.0244	8	17.0	yes	no	Programmed cell death 1 ligand 1
