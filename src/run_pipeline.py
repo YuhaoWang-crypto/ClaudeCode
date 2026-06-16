@@ -56,9 +56,17 @@ def run_target(key, spec, defaults):
     recovery = ana.recovery_stats(result, spec.get("known_allosteric", []))
 
     write_report(key, spec, ref, alt, result, top_regions, library, recovery)
+    # also emit the difference plot for this target
+    plot_path = None
+    try:
+        import plot_diff
+        plot_path = os.path.join(RESULTS, f"{key}_displacement.png")
+        plot_diff.plot(key, spec, cfg, result, plot_path)
+    except Exception as e:
+        print(f"   (plot skipped for {key}: {e})")
     return {"key": key, "status": "ok", "n_regions": len(regions),
             "n_pairs": len(library["pairs"]), "n_triplets": len(library["triplets"]),
-            "recovery": recovery}
+            "recovery": recovery, "plot": plot_path}
 
 
 def write_report(key, spec, ref, alt, result, regions, library, recovery):
