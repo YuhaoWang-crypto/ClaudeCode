@@ -1,0 +1,130 @@
+# =============================================================================
+# Target table for the "structure-shift -> distal allosteric pocket" workflow
+# =============================================================================
+# Curated from the project brief + primary literature. For each enzyme we list
+# a conformer PAIR (a reference state and a perturbed/ligand-bound state) so the
+# pipeline can align them and look for distal conformational response.
+#
+# Fields per target:
+#   priority_compute : rank for the computational demo order (GCK->PTP1B->AdK->PFK->ATCase)
+#   priority_wetlab  : rank for the wet-lab Zn-switch engineering order
+#   oligomer         : monomer / oligomer (oligomers complicate alignment)
+#   pair.ref / pair.alt : PDB id + chain for the two states to superpose
+#   active_site      : residue numbers defining the catalytic/active center
+#                      (centroid of these CA = "active center"; distal = far from it)
+#   known_allosteric : residue numbers of the LITERATURE allosteric/effector site
+#                      (ground truth: a good run should rank these highly)
+#   offline_files    : optional local files (used when RCSB egress is blocked)
+#
+# NOTE: active_site / known_allosteric lists are best-effort representative sets
+# meant to seed the analysis; refine them against the actual ligand contacts in
+# each deposited structure. They are intentionally easy to edit.
+# =============================================================================
+
+defaults:
+  distal_cutoff_A: 15.0      # a residue is "distal" if its CA is > this from active-center centroid
+  displacement_pctl: 75      # responsive = CA displacement above this percentile (after rigid-core fit)
+  his_pair_dist_A:  [5.5, 9.0]   # Cα-Cα window for a 2-His (bidentate) metal bridge
+  his_triplet_dist_A: [5.0, 9.5] # pairwise Cα-Cα window for a 3-His facial site
+  min_region_len: 2          # minimum contiguous residues to call a candidate region
+  metals: [Zn, Ni, Co]
+
+targets:
+
+  GCK:
+    name: Human glucokinase (hexokinase IV)
+    priority_compute: 1
+    priority_wetlab: 4
+    oligomer: monomer
+    pair:
+      ref: {pdb: 1V4T, chain: A, state: "super-open / inactive (apo)"}
+      alt: {pdb: 1V4S, chain: A, state: "closed / active (glucose + small-molecule activator)"}
+    active_site: [168, 169, 204, 205, 225, 231, 256, 290, 410, 416]   # glucose-binding catalytic residues
+    known_allosteric: [62, 63, 210, 211, 214, 231, 235, 451, 452, 455, 456, 459]  # GK activator (GKA) pocket ~20 A from active site
+    expected_signal: "Large open->closed domain (large+small lobe) motion; activator pocket at the hinge/cleft."
+    notes: "Cleanest monomeric positive control: big global conformational change, ground-truth activator pocket."
+
+  PTP1B:
+    name: Protein tyrosine phosphatase 1B
+    priority_compute: 2
+    priority_wetlab: 1
+    oligomer: monomer
+    pair:
+      ref: {pdb: 2HNP, chain: A, state: "apo (WPD loop open)"}
+      alt: {pdb: 1T49, chain: A, state: "allosteric-inhibitor bound (BB site)"}
+    active_site: [181, 182, 183, 184, 185, 215, 216, 217, 218, 221, 262]  # WPD loop (179-187) + P-loop Cys215/Arg221
+    known_allosteric: [192, 196, 264, 276, 280, 282, 283, 290, 291, 294, 295]  # benzofuran (BB) allosteric site, alpha3/alpha6/alpha7, ~20 A away
+    expected_signal: "Smaller motion than GCK; signal lives in WPD-loop mobility + alpha7 ordering, not raw max displacement."
+    notes: "Known distal allosteric inhibitor site ~20 A from catalytic Cys215; pNPP assay is simple. Top drug-discovery demo."
+
+  AdK:
+    name: E. coli adenylate kinase
+    priority_compute: 3
+    priority_wetlab: 1   # tie with PTP1B: best de-novo Zn-switch object (large open/closed, clear hinges, small protein)
+    oligomer: monomer
+    pair:
+      ref: {pdb: 4AKE, chain: A, state: "apo / open"}
+      alt: {pdb: 1AKE, chain: A, state: "Ap5A-bound / closed (transition-state mimic)"}
+    active_site: [7, 8, 9, 10, 11, 12, 13, 31, 36, 57, 84, 88, 92, 123, 156, 167, 200]  # P-loop + catalytic Arg/Lys/Asp/Gln around Ap5A
+    known_allosteric: []  # no natural allosteric site; this is a DESIGN target (find engineerable distal hinge/counterweight)
+    domains:
+      CORE: [[1,29],[68,117],[161,214]]
+      NMP:  [[30,67]]
+      LID:  [[118,160]]
+    offline_files:
+      ref: prody:4akeA_alg_fixed.pdb     # ProDy-bundled, chain A, 214 res
+      alt: prody:pdb1ake.pdb             # ProDy-bundled, chain A, 214 res
+    expected_signal: "Large LID (118-160) and NMP (30-67) closure over CORE; hinges at ~30/60/118/160; distal mobile 'counterweight'."
+    notes: "Small, expressible, biggest open/closed motion -> ideal for de-novo His-pair/His-triplet Zn switch at a hinge."
+
+  PFK:
+    name: E. coli phosphofructokinase-1
+    priority_compute: 4
+    priority_wetlab: 3
+    oligomer: tetramer
+    pair:
+      ref: {pdb: 2PFK, chain: A, state: "unliganded"}
+      alt: {pdb: 1PFK, chain: A, state: "products + allosteric activator ADP/Mg2+"}
+    active_site: [72, 103, 104, 125, 127, 162, 169, 171]   # F6P / ATP site
+    known_allosteric: [21, 25, 54, 55, 57, 59, 187, 211, 213, 214]  # ADP/Mg2+ effector site at subunit interface
+    expected_signal: "Effector-site and subunit-interface contact-map changes; analyze per-chain then interfaces, not raw global RMSD."
+    notes: "Natural oligomeric allostery benchmark. Tetramer rigid-body motion complicates single-chain alignment."
+
+  ATCase:
+    name: E. coli aspartate transcarbamoylase
+    priority_compute: 5
+    priority_wetlab: 6
+    oligomer: dodecamer (A6B6)
+    pair:
+      ref: {pdb: 6AT1, chain: A, state: "T-state (apo/CTP)"}
+      alt: {pdb: 1D09, chain: A, state: "R-state + PALA (bisubstrate analogue)"}
+    active_site: [54, 55, 80, 84, 105, 134, 137, 167, 229]  # catalytic chain active site
+    known_allosteric: []  # nucleotide effector site is on the REGULATORY chain (different subunit) - see notes
+    expected_signal: "Global T<->R quaternary transition; regulatory-chain nucleotide site is the allosteric ground truth (separate chain)."
+    notes: "Classic strong allostery but very large hetero-12-mer; computational benchmark only, not a first Zn wet-lab object."
+
+  GP:
+    name: Human liver glycogen phosphorylase
+    priority_compute: 6
+    priority_wetlab: 7
+    oligomer: dimer
+    pair:
+      ref: {pdb: 1FA9, chain: A, state: "R-state (active-like)"}
+      alt: {pdb: 3CEH, chain: A, state: "T-state + allosteric inhibitor AVE5688 (AMP site)"}
+    active_site: [569, 571, 574, 675, 680]  # catalytic site near PLP-Lys680
+    known_allosteric: [42, 43, 44, 45, 47, 72, 76, 242, 309, 310, 314]  # AMP / nucleotide allosteric site
+    expected_signal: "Inhibitor at AMP site stabilizes inactive tense conformation; recover the AMP/nucleotide allosteric pocket."
+    notes: "Drug-type allosteric benchmark; large human dimer, harder expression/assay than bacterial enzymes."
+
+  cpTEM1:
+    name: Circularly permuted TEM-1 beta-lactamase (literature reproduction)
+    priority_compute: null
+    priority_wetlab: 5
+    oligomer: monomer
+    pair:
+      ref: {pdb: 1BTL, chain: A, state: "wild-type TEM-1 reference (cp construct not in PDB)"}
+      alt: null
+    active_site: [70, 73, 130, 166, 234, 235, 236]  # Ser70 catalytic + active-site residues; Omega loop 161-179
+    known_allosteric: []
+    expected_signal: "Engineered hinge metal site; His3 -> weak Zn activation, His2 -> Zn/Ni/Co down-regulation (paper)."
+    notes: "Closest to the source paper. No conformer pair in PDB -> sequence/single-structure analysis only. Use purified-enzyme/chromogenic assay; do NOT center the project on antibiotic resistance screening."
