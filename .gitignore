@@ -1,0 +1,7 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+.env
+config.yaml
+small_molecule_pipeline/data/output/
+*.log

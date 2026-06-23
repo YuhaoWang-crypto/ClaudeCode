@@ -1,0 +1,17 @@
+# Core chemistry
+rdkit>=2023.3.0
+
+# HTTP
+requests>=2.31.0
+urllib3>=2.0.0
+
+# Data handling
+pandas>=2.0.0
+numpy>=1.24.0
+
+# Optional: YAML config support
+PyYAML>=6.0
+
+# Optional: DrugCLIP (install separately, requires GPU)
+# torch>=2.0.0
+# drugclip @ git+https://github.com/bowen-gao/DrugCLIP.git

@@ -1,0 +1,27 @@
+# Small-molecule pipeline configuration
+# Copy to config.yaml and edit as needed.
+# Environment variables override YAML values.
+
+input_path: data/input/molecules.smi
+output_dir: data/output
+
+# Steps to run: list any subset of [1, 2, 3, 4, 5, 6, 7, 8]
+steps: [1, 2, 3, 4, 5, 6, 7, 8]
+
+# Step 2 — ChEMBL
+chembl_max_activities: 100
+
+# Step 4 — SwissTargetPrediction organism filter
+stp_organism: "Homo sapiens"
+
+# Step 4 — DrugCLIP (local model; leave empty to disable)
+# drugclip_model_path: /path/to/drugclip.ckpt
+# drugclip_target_db:  /path/to/target_embeddings.pt
+
+# Step 7 — CMap (Clue.io; leave empty to disable)
+# clue_api_key: YOUR_CLUE_API_KEY
+
+# Step 8 — EPA CompTox (unauthenticated if empty)
+# comptox_api_key: YOUR_COMPTOX_KEY
+
+log_level: INFO
