@@ -1,0 +1,164 @@
+[
+ {
+  "id": "S1o_W_1",
+  "seq": "SLEELSKLLEEISKLIEEWSKLGSPGSEELLKKLEEALKKLEEHLKKLGSDGTSEEIRKLAEEIKKLAEELKKLG",
+  "family": "S1_bundle_opt",
+  "note": "bundle H1=W loops GSPGS/GSDGT"
+ },
+ {
+  "id": "S1o_W_2",
+  "seq": "SLEELSKLLEEISKLIEEWSKLGGSGGEELLKKLEEALKKLEEHLKKLGNSGPSEEIRKLAEEIKKLAEELKKLG",
+  "family": "S1_bundle_opt",
+  "note": "bundle H1=W loops GGSGG/GNSGP"
+ },
+ {
+  "id": "S1o_F_3",
+  "seq": "SLEELSKLLEEISKLIEEFSKLGSPGSEELLKKLEEALKKLEEHLKKLGSDGTSEEIRKLAEEIKKLAEELKKLG",
+  "family": "S1_bundle_opt",
+  "note": "bundle H1=F loops GSPGS/GSDGT"
+ },
+ {
+  "id": "S1o_F_4",
+  "seq": "SLEELSKLLEEISKLIEEFSKLGGSGGEELLKKLEEALKKLEEHLKKLGNSGPSEEIRKLAEEIKKLAEELKKLG",
+  "family": "S1_bundle_opt",
+  "note": "bundle H1=F loops GGSGG/GNSGP"
+ },
+ {
+  "id": "S1o_Y_5",
+  "seq": "SLEELSKLLEEISKLIEEYSKLGSPGSEELLKKLEEALKKLEEHLKKLGSDGTSEEIRKLAEEIKKLAEELKKLG",
+  "family": "S1_bundle_opt",
+  "note": "bundle H1=Y loops GSPGS/GSDGT"
+ },
+ {
+  "id": "S1o_Y_6",
+  "seq": "SLEELSKLLEEISKLIEEYSKLGGSGGEELLKKLEEALKKLEEHLKKLGNSGPSEEIRKLAEEIKKLAEELKKLG",
+  "family": "S1_bundle_opt",
+  "note": "bundle H1=Y loops GGSGG/GNSGP"
+ },
+ {
+  "id": "S1o_WF_7",
+  "seq": "SLEELSKLFEEISKLIEEWSKLGSPGSEELLKKLEEALKKLEEHLKKLGSDGTSEEIRKLAEEIKKLAEELKKLG",
+  "family": "S1_bundle_opt",
+  "note": "bundle H1=WF loops GSPGS/GSDGT"
+ },
+ {
+  "id": "S1o_WF_8",
+  "seq": "SLEELSKLFEEISKLIEEWSKLGGSGGEELLKKLEEALKKLEEHLKKLGNSGPSEEIRKLAEEIKKLAEELKKLG",
+  "family": "S1_bundle_opt",
+  "note": "bundle H1=WF loops GGSGG/GNSGP"
+ },
+ {
+  "id": "S1o_W2_9",
+  "seq": "SLEELSKLLEEIWKLIEEWSKLGSPGSEELLKKLEEALKKLEEHLKKLGSDGTSEEIRKLAEEIKKLAEELKKLG",
+  "family": "S1_bundle_opt",
+  "note": "bundle H1=W2 loops GSPGS/GSDGT"
+ },
+ {
+  "id": "S1o_W2_10",
+  "seq": "SLEELSKLLEEIWKLIEEWSKLGGSGGEELLKKLEEALKKLEEHLKKLGNSGPSEEIRKLAEEIKKLAEELKKLG",
+  "family": "S1_bundle_opt",
+  "note": "bundle H1=W2 loops GGSGG/GNSGP"
+ },
+ {
+  "id": "S1o_tight_11",
+  "seq": "SLEELSKLLEELSKLIEEWSKLGSPGSEELLKKLEEALKKLEEHLKKLGSDGTSEEIRKLAEEIKKLAEELKKLG",
+  "family": "S1_bundle_opt",
+  "note": "bundle H1=tight loops GSPGS/GSDGT"
+ },
+ {
+  "id": "S1o_tight_12",
+  "seq": "SLEELSKLLEELSKLIEEWSKLGGSGGEELLKKLEEALKKLEEHLKKLGNSGPSEEIRKLAEEIKKLAEELKKLG",
+  "family": "S1_bundle_opt",
+  "note": "bundle H1=tight loops GGSGG/GNSGP"
+ },
+ {
+  "id": "S1o_short",
+  "seq": "SLEELSKLLEEISKLIEEFSKLGSPGEELLKKLEEALKKLEEHLKKLGNSGSEEIRKLAEEIKKLG",
+  "family": "S1_bundle_opt",
+  "note": "shorter core"
+ },
+ {
+  "id": "S1o_ext",
+  "seq": "SLEELSKLLEEISKLIEEWSKLAGSPGSEELLKKLEEALKKLEEHLKKLGSDGTSEEIRKLAEEIKKLAEELKKLGAEELKKLG",
+  "family": "S1_bundle_opt",
+  "note": "extended termini"
+ },
+ {
+  "id": "S2o_F_hpA",
+  "seq": "KTVTLTVEGKTYTVTVSDGSKLEGSPSLEELSKLLEEISKLIEEFSKLG",
+  "family": "S2_mixed_opt",
+  "note": "hairpin hpA + F-anchor helix"
+ },
+ {
+  "id": "S2o_F_hpB",
+  "seq": "TTVKVTINGKTYTVEVSDGKATVKVSPSLEELSKLLEEISKLIEEFSKLG",
+  "family": "S2_mixed_opt",
+  "note": "hairpin hpB + F-anchor helix"
+ },
+ {
+  "id": "S2o_F_hpC",
+  "seq": "KYTVKVEGNKTYTVTVKDGKTLEVSPSLEELSKLLEEISKLIEEFSKLG",
+  "family": "S2_mixed_opt",
+  "note": "hairpin hpC + F-anchor helix"
+ },
+ {
+  "id": "S2o_W_hpA",
+  "seq": "KTVTLTVEGKTYTVTVSDGSKLEGSPSLEELSKLLEEISKLIEEWSKLG",
+  "family": "S2_mixed_opt",
+  "note": "hairpin hpA + W-anchor helix"
+ },
+ {
+  "id": "S2o_W_hpB",
+  "seq": "TTVKVTINGKTYTVEVSDGKATVKVSPSLEELSKLLEEISKLIEEWSKLG",
+  "family": "S2_mixed_opt",
+  "note": "hairpin hpB + W-anchor helix"
+ },
+ {
+  "id": "S2o_W_hpC",
+  "seq": "KYTVKVEGNKTYTVTVKDGKTLEVSPSLEELSKLLEEISKLIEEWSKLG",
+  "family": "S2_mixed_opt",
+  "note": "hairpin hpC + W-anchor helix"
+ },
+ {
+  "id": "S2o_Y_hpA",
+  "seq": "KTVTLTVEGKTYTVTVSDGSKLEGSPSLEELSKLLEEISKLIEEYSKLG",
+  "family": "S2_mixed_opt",
+  "note": "hairpin hpA + Y-anchor helix"
+ },
+ {
+  "id": "S2o_Y_hpB",
+  "seq": "TTVKVTINGKTYTVEVSDGKATVKVSPSLEELSKLLEEISKLIEEYSKLG",
+  "family": "S2_mixed_opt",
+  "note": "hairpin hpB + Y-anchor helix"
+ },
+ {
+  "id": "S2o_Y_hpC",
+  "seq": "KYTVKVEGNKTYTVTVKDGKTLEVSPSLEELSKLLEEISKLIEEYSKLG",
+  "family": "S2_mixed_opt",
+  "note": "hairpin hpC + Y-anchor helix"
+ },
+ {
+  "id": "S2o_F_hpD",
+  "seq": "TKVTFEVNGKKYTVTVEDGSTLKVGSPSLEELSKLLEEISKLIEEFSKLG",
+  "family": "S2_mixed_opt",
+  "note": "hpD + F"
+ },
+ {
+  "id": "S2o_W_hpD",
+  "seq": "TKVTFEVNGKKYTVTVEDGSTLKVGSPSLEELSKLLEEISKLIEEWSKLG",
+  "family": "S2_mixed_opt",
+  "note": "hpD + W"
+ },
+ {
+  "id": "S2o_Y_hpD",
+  "seq": "TKVTFEVNGKKYTVTVEDGSTLKVGSPSLEELSKLLEEISKLIEEYSKLG",
+  "family": "S2_mixed_opt",
+  "note": "hpD + Y"
+ },
+ {
+  "id": "S2o_F_hpE",
+  "seq": "EVKLTVTGKTYEVTVPEGKSLEDGSPSSLEELSKLLEEISKLIEEFSKLG",
+  "family": "S2_mixed_opt",
+  "note": "hpE+F long link"
+ }
+]

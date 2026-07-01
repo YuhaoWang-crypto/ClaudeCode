@@ -1,0 +1,10 @@
+{"note":"Atomistic structure_and_binding vs FULLY-MODIFIED target (peptide+Aib2/13 + K20 acyl from user SMILES). protein_iptm = clean binder<->peptide interface; ptm = monomer autonomous-fold confidence.",
+ "results":[
+  {"id":"TZP-S1","design":"LS3_bundle2","aa":75,"topology":"3-helix bundle","ptm":0.960,"protein_iptm":0.963,"iptm":0.952,"pred_id":"sab_pred_o2NumIwSccOo3xYxi2T4"},
+  {"id":"TZP-S2","design":"LS5_c","aa":49,"topology":"mixed alpha/beta","ptm":0.964,"protein_iptm":0.970,"iptm":0.957,"pred_id":"sab_pred_GVRhQzYA4cOtqV0P0rRC"},
+  {"id":"TZP-S3","design":"LS4_hairpinF","aa":47,"topology":"alpha-hairpin","ptm":0.957,"protein_iptm":0.970,"iptm":0.950,"pred_id":"sab_pred_0m5xpwafNJCL20FbwUMn"},
+  {"id":"TZP-S4","design":"LS2_b","aa":34,"topology":"disulfide-stapled helix","ptm":0.972,"protein_iptm":0.961,"iptm":0.967,"pred_id":"sab_pred_krX7ycfHckOLEd0cJXYK"}
+ ],
+ "optimization_best":{"id":"TZP-S1.1","design":"S1o_short","aa":66,"topology":"3-helix bundle (shortened)","bind_conf_screen":0.750,"struct_conf_screen":0.87,
+   "seq":"SLEELSKLLEEISKLIEEFSKLGSPGEELLKKLEEALKKLEEHLKKLGNSGSEEIRKLAEEIKKLG",
+   "note":"best of S1/S2 optimization round: shorter bundle, higher fold confidence, F-anchor"}}

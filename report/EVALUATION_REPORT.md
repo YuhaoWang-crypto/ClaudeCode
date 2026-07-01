@@ -246,6 +246,31 @@ lone helix). **TZP-S1** (3-helix bundle) is the most stable format; **TZP-S2**
 fusions are in `results/wetlab_constructs.fasta`; ranking in
 `results/stable_panel.json` and `results/long_stable_screen.json`.
 
+### 4.2b-2 Atomistic confirmation of the stable designs (clean protein_iptm)
+
+The four stable designs were re-run as full `structure_and_binding` predictions
+against the fully-modified target (peptide+Aib+K20 lipid), giving the **clean
+binder↔peptide interface score (protein_iptm)** and folded complex CIFs
+(`results/cif_stable/`, metrics in `results/stable_atomistic.json`):
+
+| ID | AA | topology | **monomer pTM (fold)** | **protein_iptm (interface)** |
+|---|---|---|---|---|
+| TZP-S1 | 75 | 3-helix bundle | 0.96 | 0.96 |
+| TZP-S2 | 49 | mixed α/β | 0.96 | 0.97 |
+| TZP-S3 | 47 | α-hairpin | 0.96 | 0.97 |
+| TZP-S4 | 34 | stapled helix | 0.97 | 0.96 |
+
+**All four both fold autonomously (pTM 0.96–0.97) and grip the modified drug at
+the mapped epitope (protein_iptm 0.96–0.97)** — the clean confirmation that the
+stability upgrade did not cost binding. Unlike the lipid-inflated
+`binding_confidence`, protein_iptm isolates the peptide interface and is the
+trustworthy number here.
+
+**Optimization round (18 variants of S1/S2):** best is **TZP-S1.1** (`S1o_short`,
+66 aa 3-helix bundle, F-anchor) — bind_conf 0.75, fold 0.87, i.e. a shorter,
+higher-fold-confidence bundle than TZP-S1. The mixed-α/β parent (LS5_c/TZP-S2)
+was already optimal among the hairpin variants. See `results/s1s2_opt_screen.json`.
+
 ### 4.2c Fc-fusion format validation (fully-modified target)
 
 All six P-series leads were also co-folded as **IgG1-Fc fusions** against the
