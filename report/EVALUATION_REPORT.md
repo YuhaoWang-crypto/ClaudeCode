@@ -223,6 +223,43 @@ Include TZP-B1 as an orthogonal-scaffold positive-diversity arm (recombinant).
 5. **Iterate:** feed SPR KD back into another Boltz maturation round on the
    winning scaffold (the pipeline here converges in ~2 min/round).
 
+### 4.2b Longer, autonomously-folding binders (stability upgrade)
+
+The Tier-A peptides (P1–P6) are single amphipathic α-helices of 21–34 aa; a lone
+short helix is only marginally stable in isolation (relies on binding-induced
+folding). To give **more stable, autonomously-folding** reagents with their own
+hydrophobic core (and, where asked, β-structure), a round of 23 longer designs
+(34–75 aa: capped/stapled helices, 3-helix bundles, α-hairpins, mixed α/β) was
+generated and screened against the fully-modified target. The best fold **and**
+bind on par with the short peptides:
+
+| ID | src | AA | topology | bind_conf(mod) | fold (struct_conf) | α / β |
+|---|---|---|---|---|---|---|
+| **TZP-S1** | LS3_bundle2 | 75 | 3-helix bundle | 0.74 | 0.85 | 85% α |
+| **TZP-S2** | LS5_c | 49 | **mixed α/β** (β-hairpin+helix) | 0.74 | 0.82 | 43% α / **33% β** |
+| **TZP-S3** | LS4_hairpinF | 47 | α-hairpin (2 helices) | 0.73 | 0.86 | 77% α |
+| **TZP-S4** | LS2_b | 34 | disulfide-stapled helix | 0.73 | 0.85 | 94% α |
+
+`structure_confidence` 0.82–0.86 indicates a well-defined autonomous fold (vs a
+lone helix). **TZP-S1** (3-helix bundle) is the most stable format; **TZP-S2**
+(mixed α/β) provides real β-sheet content as requested. Sequences + IgG1-Fc
+fusions are in `results/wetlab_constructs.fasta`; ranking in
+`results/stable_panel.json` and `results/long_stable_screen.json`.
+
+### 4.2c Fc-fusion format validation (fully-modified target)
+
+All six P-series leads were also co-folded as **IgG1-Fc fusions** against the
+fully-modified target (`results/mod_leads_fc.json`). Fusion preserves binding —
+interface ipTM 0.88–0.95 (bind_conf 0.37–0.57; the 273-aa Fc lowers the
+aggregate score but not the binder interface). P3_Fc ranked best. Peptibody
+format is compatible; bivalent Fc dimerization should add avidity.
+
+> Note: with the K20 lipid present in the target, screen `binding_confidence`
+> rose to ~0.65–0.76 for all binders — partly because the hydrophobic binders can
+> also contact the greasy acyl chain, so these are **upper-bound** triage values.
+> The cleaner metric for the peptide epitope is the atomistic protein_iptm
+> (0.95–0.98, §1.1).
+
 ### 4.3 Honest expectations
 
 - Boltz-2 `binding_confidence` ≈ 0.4 is **encouraging but not a guarantee** of

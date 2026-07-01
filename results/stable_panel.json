@@ -1,0 +1,62 @@
+[
+ {
+  "wetlab_id": "TZP-S1",
+  "src": "LS3_bundle2",
+  "len": 75,
+  "note": "3-helix bundle, 75aa; most stable autonomous fold",
+  "bind_conf_mod": 0.741257905960083,
+  "struct_conf": 0.8491562008857727,
+  "helix": 0.8533333539962769,
+  "sheet": 0,
+  "net_charge": -4,
+  "gravy": -0.7,
+  "cys": 0,
+  "n_liab": 1,
+  "seq": "SLEELSKLLEEISKLIEEWSKLGSPGSEELLKKLEEALKKLEEHLKKLGSDGTSEEIRKLAEEIKKLAEELKKLG"
+ },
+ {
+  "wetlab_id": "TZP-S2",
+  "src": "LS5_c",
+  "len": 49,
+  "note": "mixed alpha/beta (beta-hairpin+helix), 49aa; F-anchor",
+  "bind_conf_mod": 0.7377963066101074,
+  "struct_conf": 0.823253870010376,
+  "helix": 0.4285714328289032,
+  "sheet": 0.3265306055545807,
+  "net_charge": -3,
+  "gravy": -0.21,
+  "cys": 0,
+  "n_liab": 1,
+  "seq": "KTVTLTVEGKTYTVTVSDGSKLEGSPSLEELSKLLEEISKLIEEFSKLG"
+ },
+ {
+  "wetlab_id": "TZP-S3",
+  "src": "LS4_hairpinF",
+  "len": 47,
+  "note": "alpha-hairpin (two helices), 47aa; F-anchor",
+  "bind_conf_mod": 0.7277601957321167,
+  "struct_conf": 0.8580193519592285,
+  "helix": 0.7659574151039124,
+  "sheet": 0,
+  "net_charge": -1,
+  "gravy": -0.51,
+  "cys": 0,
+  "n_liab": 1,
+  "seq": "SLEELSKLLEEISKLIEEFSKLGPNGKELKKLAEELKKLAEELKKLA"
+ },
+ {
+  "wetlab_id": "TZP-S4",
+  "src": "LS2_b",
+  "len": 34,
+  "note": "disulfide-stapled helix, 34aa",
+  "bind_conf_mod": 0.7298303246498108,
+  "struct_conf": 0.8518054485321045,
+  "helix": 0.9411764740943909,
+  "sheet": 0,
+  "net_charge": -3,
+  "gravy": -0.12,
+  "cys": 2,
+  "n_liab": 0,
+  "seq": "SAEELLKKLCELSKLLEEICKLIEEWLKKLEELG"
+ }
+]

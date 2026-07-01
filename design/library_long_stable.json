@@ -1,0 +1,140 @@
+[
+ {
+  "id": "LS1_a",
+  "seq": "SPEELAKLLEELSKLLEEISKLIEEWAKLLEELGKKG",
+  "family": "LS1_capped_helix",
+  "note": "capped+saltbridge, W-anchor, ~37aa"
+ },
+ {
+  "id": "LS1_b",
+  "seq": "SPEELAKLLEELSKLLEEISKLIEEFAKLLEELGKKG",
+  "family": "LS1_capped_helix",
+  "note": "F-anchor variant"
+ },
+ {
+  "id": "LS1_c",
+  "seq": "DTAELLKKLNELSKLLEEISKLIEEWLKKLEELAKKLG",
+  "family": "LS1_capped_helix",
+  "note": "Asp N-cap, extended 38aa"
+ },
+ {
+  "id": "LS1_d",
+  "seq": "SAEELLKKLEELSKLLEEISKLIEEWLKKLEELG",
+  "family": "LS1_capped_helix",
+  "note": "34aa compact"
+ },
+ {
+  "id": "LS1_e",
+  "seq": "SPEELLKKLEELAKLLEEISKLIEEWLKKLEELAKKLAEG",
+  "family": "LS1_capped_helix",
+  "note": "40aa long"
+ },
+ {
+  "id": "LS1_f",
+  "seq": "SKEELLEKLEELSKLLEKISELIEKWLEELKKLGEG",
+  "family": "LS1_capped_helix",
+  "note": "Glu-rich acidic, 35aa"
+ },
+ {
+  "id": "LS2_a",
+  "seq": "SPEELCKLLEELSKLCEEISKLIEEWAKLLEELGKKG",
+  "family": "LS2_stapled_helix",
+  "note": "i,i+7 Cys staple (pos6/13-ish)"
+ },
+ {
+  "id": "LS2_b",
+  "seq": "SAEELLKKLCELSKLLEEICKLIEEWLKKLEELG",
+  "family": "LS2_stapled_helix",
+  "note": "staple mid"
+ },
+ {
+  "id": "LS2_c",
+  "seq": "SPEELLKKLEELCKLLEEISKLICEWLKKLEELAKKLG",
+  "family": "LS2_stapled_helix",
+  "note": "staple C-half"
+ },
+ {
+  "id": "LS2_d",
+  "seq": "GCEELLKKLEELSKLLEEISKLIEEWLKKLEECGKG",
+  "family": "LS2_stapled_helix",
+  "note": "terminal C..C clamp"
+ },
+ {
+  "id": "LS3_bundle1",
+  "seq": "SLEELSKLLEEISKLIEEWSKLGSPGSEELLKKLEEALKKLEEHLKKLGNSGPSEEIRKLAEEIKKLAEELKKLG",
+  "family": "LS3_3helix_bundle",
+  "note": "3-helix bundle, loops GSPGS/GNSGP, ~68aa"
+ },
+ {
+  "id": "LS3_bundle2",
+  "seq": "SLEELSKLLEEISKLIEEWSKLGSPGSEELLKKLEEALKKLEEHLKKLGSDGTSEEIRKLAEEIKKLAEELKKLG",
+  "family": "LS3_3helix_bundle",
+  "note": "3-helix bundle, loops GSPGS/GSDGT, ~68aa"
+ },
+ {
+  "id": "LS3_bundle3",
+  "seq": "SLEELSKLLEEISKLIEEWSKLGGSGGEELLKKLEEALKKLEEHLKKLGNSGPSEEIRKLAEEIKKLAEELKKLG",
+  "family": "LS3_3helix_bundle",
+  "note": "3-helix bundle, loops GGSGG/GNSGP, ~68aa"
+ },
+ {
+  "id": "LS3_bundle4",
+  "seq": "SLEELSKLLEEISKLIEEWSKLGGSGGEELLKKLEEALKKLEEHLKKLGSDGTSEEIRKLAEEIKKLAEELKKLG",
+  "family": "LS3_3helix_bundle",
+  "note": "3-helix bundle, loops GGSGG/GSDGT, ~68aa"
+ },
+ {
+  "id": "LS3_bundleF",
+  "seq": "SLEELSKLLEEISKLIEEFSKLGSPGSEELLKKLEEALKKLEEHLKKLGNSGPSEEIRKLAEEIKKLAEELKKLG",
+  "family": "LS3_3helix_bundle",
+  "note": "F-anchor bundle"
+ },
+ {
+  "id": "LS3_bundleShort",
+  "seq": "SLEELSKLLEEISKLIEEWSKLGSPGEELLKKLEEALKKLEEHLKKLGNSGSEEIRKLAEEIKKLG",
+  "family": "LS3_3helix_bundle",
+  "note": "shorter bundle ~60aa"
+ },
+ {
+  "id": "LS4_hairpin1",
+  "seq": "SLEELSKLLEEISKLIEEWSKLGPNGKELKKLAEELKKLAEELKKLA",
+  "family": "LS4_alpha_hairpin",
+  "note": "alpha-hairpin ~47aa, packer 1"
+ },
+ {
+  "id": "LS4_hairpin2",
+  "seq": "SLEELSKLLEEISKLIEEWSKLGPNGKEIRELAKKIEELAKKIEELA",
+  "family": "LS4_alpha_hairpin",
+  "note": "alpha-hairpin ~47aa, packer 2"
+ },
+ {
+  "id": "LS4_hairpin3",
+  "seq": "SLEELSKLLEEISKLIEEWSKLGPNGKKLEELKKLAEELKKLAEELG",
+  "family": "LS4_alpha_hairpin",
+  "note": "alpha-hairpin ~47aa, packer 3"
+ },
+ {
+  "id": "LS4_hairpinF",
+  "seq": "SLEELSKLLEEISKLIEEFSKLGPNGKELKKLAEELKKLAEELKKLA",
+  "family": "LS4_alpha_hairpin",
+  "note": "F-anchor hairpin"
+ },
+ {
+  "id": "LS5_a",
+  "seq": "KTVTLTVEGKTYTVTVSDGSKLEGSPSLEELSKLLEEISKLIEEWSKLG",
+  "family": "LS5_mixed_ab",
+  "note": "beta-hairpin + recognition helix ~48aa"
+ },
+ {
+  "id": "LS5_b",
+  "seq": "EVKLTVTGKTYEVTVPEGKSLEDGSPSLEELSKLLEEISKLIEEWSKLG",
+  "family": "LS5_mixed_ab",
+  "note": "beta-hairpin variant + helix"
+ },
+ {
+  "id": "LS5_c",
+  "seq": "KTVTLTVEGKTYTVTVSDGSKLEGSPSLEELSKLLEEISKLIEEFSKLG",
+  "family": "LS5_mixed_ab",
+  "note": "F-anchor mixed a/b"
+ }
+]
