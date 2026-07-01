@@ -1,0 +1,80 @@
+[
+ {
+  "id": "grB_spec_03_win",
+  "seq": "KVTTPYLDFSEPKCLSNGLCFIVVVDAKEKLVGVYLVDPEDPTKYELLATLKPGET",
+  "family": "B_graft_window",
+  "note": "paratope window of spec_03 (8-63)"
+ },
+ {
+  "id": "grB_spec_03_cyc",
+  "seq": "ACKVTTPYLDFSEPKCLSNGLCFIVVVDAKEKLVGVYLVDPEDPTKYELLATLKPGETCG",
+  "family": "B_graft_cyc",
+  "note": "disulfide-stapled paratope window of spec_03"
+ },
+ {
+  "id": "grB_spec_03_seg0",
+  "seq": "VTTPYLDFSEPKC",
+  "family": "B_graft_seg",
+  "note": "paratope segment 0 of spec_03"
+ },
+ {
+  "id": "grB_spec_03_seg1",
+  "seq": "CFIVVVDAKEKLVGVYLVDP",
+  "family": "B_graft_seg",
+  "note": "paratope segment 1 of spec_03"
+ },
+ {
+  "id": "grB_spec_03_seg2",
+  "seq": "EDPTKYELLATLKPGE",
+  "family": "B_graft_seg",
+  "note": "paratope segment 2 of spec_03"
+ },
+ {
+  "id": "grB_spec_13_seg0",
+  "seq": "MVSKTFTVTLPTGA",
+  "family": "B_graft_seg",
+  "note": "paratope segment 0 of spec_13"
+ },
+ {
+  "id": "grB_spec_13_seg6",
+  "seq": "LECPALGATFTFTLNLS",
+  "family": "B_graft_seg",
+  "note": "paratope segment 6 of spec_13"
+ },
+ {
+  "id": "grB_spec_16_win",
+  "seq": "IVAEKTFSDGKVAYVVVSTEDGTKLVLKQWSDTSFNLYDANGNWIGGGTA",
+  "family": "B_graft_window",
+  "note": "paratope window of spec_16 (15-64)"
+ },
+ {
+  "id": "grB_spec_16_cyc",
+  "seq": "ACIVAEKTFSDGKVAYVVVSTEDGTKLVLKQWSDTSFNLYDANGNWIGGGTACG",
+  "family": "B_graft_cyc",
+  "note": "disulfide-stapled paratope window of spec_16"
+ },
+ {
+  "id": "grB_spec_16_seg0",
+  "seq": "VAEKTFSDGKVAYVVV",
+  "family": "B_graft_seg",
+  "note": "paratope segment 0 of spec_16"
+ },
+ {
+  "id": "grB_spec_16_seg1",
+  "seq": "GTKLVLKQWSDTSFNLYDANGNWIGGGT",
+  "family": "B_graft_seg",
+  "note": "paratope segment 1 of spec_16"
+ },
+ {
+  "id": "grB_spec_63_win",
+  "seq": "AAPTGAVVECGGVLCVVVATASSGGSVAKSFYTGRK",
+  "family": "B_graft_window",
+  "note": "paratope window of spec_63 (7-42)"
+ },
+ {
+  "id": "grB_spec_63_cyc",
+  "seq": "ACAAPTGAVVECGGVLCVVVATASSGGSVAKSFYTGRKCG",
+  "family": "B_graft_cyc",
+  "note": "disulfide-stapled paratope window of spec_63"
+ }
+]

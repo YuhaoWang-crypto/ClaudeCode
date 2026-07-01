@@ -1,0 +1,10 @@
+[
+ {"id":"R2_035","seq":"SLSTLENELSTLENEISTIENEWSTGLENEISTG","iptm":0.9515,"bind":0.4089,"pae":0.353,"struct":0.426},
+ {"id":"R2_008","seq":"SLSTLENELSTLENEISTIENEFSTG","iptm":0.9233,"bind":0.3693,"pae":0.445,"struct":0.532},
+ {"id":"R2_002","seq":"SLSTLENELSTLENEISTIENEWSTG","iptm":0.9137,"bind":0.3675,"pae":0.435,"struct":0.533},
+ {"id":"R2_010","seq":"SLSTLENELSTLENEISTIENEYSTG","iptm":0.9480,"bind":0.3534,"pae":0.327,"struct":0.701},
+ {"id":"R2_007","seq":"SLSTWENELSTLENEISTIENEWSTG","iptm":0.9226,"bind":0.3367,"pae":0.443,"struct":0.555},
+ {"id":"R2_034","seq":"SLSTLENELSTLENEISTIEG","iptm":0.9404,"bind":0.3302,"pae":0.417,"struct":0.683},
+ {"id":"NB094","seq":"SMSTMENELSTLENEISTIENEWSTG","iptm":0.8890,"bind":0.1774,"pae":0.562,"struct":0.579},
+ {"id":"spec_13","seq":"MVSKTFTVTLPTGATLTVTVTYDYETNVLTVKVTLPQTGKSDEATFKVAAGVTVETILPGVGLVVKAHYDAEKNTITITLECPALGATFTFTLNLS","iptm":0.7140,"bind":0.1992,"pae":3.310,"struct":0.081}
+]

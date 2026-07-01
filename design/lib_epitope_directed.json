@@ -1,0 +1,362 @@
+[
+ {
+  "id": "deF_W_KE_24",
+  "seq": "SWSTWKNELSTLKNEWSTWKNELSTG",
+  "family": "F_epitope_helix",
+  "note": "epitope-directed helix knob=W charge=KE len~24"
+ },
+ {
+  "id": "deF_W_KE_31",
+  "seq": "SWSTWKNELSTLKNEWSTWKNELSTLKNEISTG",
+  "family": "F_epitope_helix",
+  "note": "epitope-directed helix knob=W charge=KE len~31"
+ },
+ {
+  "id": "deF_W_EK_24",
+  "seq": "SWSTWENKLSTLENKWSTWENKLSTG",
+  "family": "F_epitope_helix",
+  "note": "epitope-directed helix knob=W charge=EK len~24"
+ },
+ {
+  "id": "deF_W_EK_31",
+  "seq": "SWSTWENKLSTLENKWSTWENKLSTLENKISTG",
+  "family": "F_epitope_helix",
+  "note": "epitope-directed helix knob=W charge=EK len~31"
+ },
+ {
+  "id": "deF_W_KK_24",
+  "seq": "SWSTWKNKLSTLKNKWSTWKNKLSTG",
+  "family": "F_epitope_helix",
+  "note": "epitope-directed helix knob=W charge=KK len~24"
+ },
+ {
+  "id": "deF_W_KK_31",
+  "seq": "SWSTWKNKLSTLKNKWSTWKNKLSTLKNKISTG",
+  "family": "F_epitope_helix",
+  "note": "epitope-directed helix knob=W charge=KK len~31"
+ },
+ {
+  "id": "deF_W_EE_24",
+  "seq": "SWSTWENELSTLENEWSTWENELSTG",
+  "family": "F_epitope_helix",
+  "note": "epitope-directed helix knob=W charge=EE len~24"
+ },
+ {
+  "id": "deF_W_EE_31",
+  "seq": "SWSTWENELSTLENEWSTWENELSTLENEISTG",
+  "family": "F_epitope_helix",
+  "note": "epitope-directed helix knob=W charge=EE len~31"
+ },
+ {
+  "id": "deF_W_QN_24",
+  "seq": "SWSTWQNNLSTLQNNWSTWQNNLSTG",
+  "family": "F_epitope_helix",
+  "note": "epitope-directed helix knob=W charge=QN len~24"
+ },
+ {
+  "id": "deF_W_QN_31",
+  "seq": "SWSTWQNNLSTLQNNWSTWQNNLSTLQNNISTG",
+  "family": "F_epitope_helix",
+  "note": "epitope-directed helix knob=W charge=QN len~31"
+ },
+ {
+  "id": "deF_F_KE_24",
+  "seq": "SFSTFKNELSTLKNEFSTFKNEISTG",
+  "family": "F_epitope_helix",
+  "note": "epitope-directed helix knob=F charge=KE len~24"
+ },
+ {
+  "id": "deF_F_KE_31",
+  "seq": "SFSTFKNELSTLKNEFSTFKNEISTIKNEVSTG",
+  "family": "F_epitope_helix",
+  "note": "epitope-directed helix knob=F charge=KE len~31"
+ },
+ {
+  "id": "deF_F_EK_24",
+  "seq": "SFSTFENKLSTLENKFSTFENKISTG",
+  "family": "F_epitope_helix",
+  "note": "epitope-directed helix knob=F charge=EK len~24"
+ },
+ {
+  "id": "deF_F_EK_31",
+  "seq": "SFSTFENKLSTLENKFSTFENKISTIENKVSTG",
+  "family": "F_epitope_helix",
+  "note": "epitope-directed helix knob=F charge=EK len~31"
+ },
+ {
+  "id": "deF_F_KK_24",
+  "seq": "SFSTFKNKLSTLKNKFSTFKNKISTG",
+  "family": "F_epitope_helix",
+  "note": "epitope-directed helix knob=F charge=KK len~24"
+ },
+ {
+  "id": "deF_F_KK_31",
+  "seq": "SFSTFKNKLSTLKNKFSTFKNKISTIKNKVSTG",
+  "family": "F_epitope_helix",
+  "note": "epitope-directed helix knob=F charge=KK len~31"
+ },
+ {
+  "id": "deF_F_EE_24",
+  "seq": "SFSTFENELSTLENEFSTFENEISTG",
+  "family": "F_epitope_helix",
+  "note": "epitope-directed helix knob=F charge=EE len~24"
+ },
+ {
+  "id": "deF_F_EE_31",
+  "seq": "SFSTFENELSTLENEFSTFENEISTIENEVSTG",
+  "family": "F_epitope_helix",
+  "note": "epitope-directed helix knob=F charge=EE len~31"
+ },
+ {
+  "id": "deF_F_QN_24",
+  "seq": "SFSTFQNNLSTLQNNFSTFQNNISTG",
+  "family": "F_epitope_helix",
+  "note": "epitope-directed helix knob=F charge=QN len~24"
+ },
+ {
+  "id": "deF_F_QN_31",
+  "seq": "SFSTFQNNLSTLQNNFSTFQNNISTIQNNVSTG",
+  "family": "F_epitope_helix",
+  "note": "epitope-directed helix knob=F charge=QN len~31"
+ },
+ {
+  "id": "deF_L_KE_24",
+  "seq": "SLSTLKNEISTIKNEVSTVKNELSTG",
+  "family": "F_epitope_helix",
+  "note": "epitope-directed helix knob=L charge=KE len~24"
+ },
+ {
+  "id": "deF_L_KE_31",
+  "seq": "SLSTLKNEISTIKNEVSTVKNELSTLKNEISTG",
+  "family": "F_epitope_helix",
+  "note": "epitope-directed helix knob=L charge=KE len~31"
+ },
+ {
+  "id": "deF_L_EK_24",
+  "seq": "SLSTLENKISTIENKVSTVENKLSTG",
+  "family": "F_epitope_helix",
+  "note": "epitope-directed helix knob=L charge=EK len~24"
+ },
+ {
+  "id": "deF_L_EK_31",
+  "seq": "SLSTLENKISTIENKVSTVENKLSTLENKISTG",
+  "family": "F_epitope_helix",
+  "note": "epitope-directed helix knob=L charge=EK len~31"
+ },
+ {
+  "id": "deF_L_KK_24",
+  "seq": "SLSTLKNKISTIKNKVSTVKNKLSTG",
+  "family": "F_epitope_helix",
+  "note": "epitope-directed helix knob=L charge=KK len~24"
+ },
+ {
+  "id": "deF_L_KK_31",
+  "seq": "SLSTLKNKISTIKNKVSTVKNKLSTLKNKISTG",
+  "family": "F_epitope_helix",
+  "note": "epitope-directed helix knob=L charge=KK len~31"
+ },
+ {
+  "id": "deF_L_EE_24",
+  "seq": "SLSTLENEISTIENEVSTVENELSTG",
+  "family": "F_epitope_helix",
+  "note": "epitope-directed helix knob=L charge=EE len~24"
+ },
+ {
+  "id": "deF_L_EE_31",
+  "seq": "SLSTLENEISTIENEVSTVENELSTLENEISTG",
+  "family": "F_epitope_helix",
+  "note": "epitope-directed helix knob=L charge=EE len~31"
+ },
+ {
+  "id": "deF_L_QN_24",
+  "seq": "SLSTLQNNISTIQNNVSTVQNNLSTG",
+  "family": "F_epitope_helix",
+  "note": "epitope-directed helix knob=L charge=QN len~24"
+ },
+ {
+  "id": "deF_L_QN_31",
+  "seq": "SLSTLQNNISTIQNNVSTVQNNLSTLQNNISTG",
+  "family": "F_epitope_helix",
+  "note": "epitope-directed helix knob=L charge=QN len~31"
+ },
+ {
+  "id": "deF_M_KE_24",
+  "seq": "SMSTMKNELSTLKNEISTIKNEWSTG",
+  "family": "F_epitope_helix",
+  "note": "epitope-directed helix knob=M charge=KE len~24"
+ },
+ {
+  "id": "deF_M_KE_31",
+  "seq": "SMSTMKNELSTLKNEISTIKNEWSTWKNELSTG",
+  "family": "F_epitope_helix",
+  "note": "epitope-directed helix knob=M charge=KE len~31"
+ },
+ {
+  "id": "deF_M_EK_24",
+  "seq": "SMSTMENKLSTLENKISTIENKWSTG",
+  "family": "F_epitope_helix",
+  "note": "epitope-directed helix knob=M charge=EK len~24"
+ },
+ {
+  "id": "deF_M_EK_31",
+  "seq": "SMSTMENKLSTLENKISTIENKWSTWENKLSTG",
+  "family": "F_epitope_helix",
+  "note": "epitope-directed helix knob=M charge=EK len~31"
+ },
+ {
+  "id": "deF_M_KK_24",
+  "seq": "SMSTMKNKLSTLKNKISTIKNKWSTG",
+  "family": "F_epitope_helix",
+  "note": "epitope-directed helix knob=M charge=KK len~24"
+ },
+ {
+  "id": "deF_M_KK_31",
+  "seq": "SMSTMKNKLSTLKNKISTIKNKWSTWKNKLSTG",
+  "family": "F_epitope_helix",
+  "note": "epitope-directed helix knob=M charge=KK len~31"
+ },
+ {
+  "id": "deF_M_EE_24",
+  "seq": "SMSTMENELSTLENEISTIENEWSTG",
+  "family": "F_epitope_helix",
+  "note": "epitope-directed helix knob=M charge=EE len~24"
+ },
+ {
+  "id": "deF_M_EE_31",
+  "seq": "SMSTMENELSTLENEISTIENEWSTWENELSTG",
+  "family": "F_epitope_helix",
+  "note": "epitope-directed helix knob=M charge=EE len~31"
+ },
+ {
+  "id": "deF_M_QN_24",
+  "seq": "SMSTMQNNLSTLQNNISTIQNNWSTG",
+  "family": "F_epitope_helix",
+  "note": "epitope-directed helix knob=M charge=QN len~24"
+ },
+ {
+  "id": "deF_M_QN_31",
+  "seq": "SMSTMQNNLSTLQNNISTIQNNWSTWQNNLSTG",
+  "family": "F_epitope_helix",
+  "note": "epitope-directed helix knob=M charge=QN len~31"
+ },
+ {
+  "id": "deF_Y_KE_24",
+  "seq": "SYSTYKNELSTLKNEWSTWKNEFSTG",
+  "family": "F_epitope_helix",
+  "note": "epitope-directed helix knob=Y charge=KE len~24"
+ },
+ {
+  "id": "deF_Y_KE_31",
+  "seq": "SYSTYKNELSTLKNEWSTWKNEFSTFKNEISTG",
+  "family": "F_epitope_helix",
+  "note": "epitope-directed helix knob=Y charge=KE len~31"
+ },
+ {
+  "id": "deF_Y_EK_24",
+  "seq": "SYSTYENKLSTLENKWSTWENKFSTG",
+  "family": "F_epitope_helix",
+  "note": "epitope-directed helix knob=Y charge=EK len~24"
+ },
+ {
+  "id": "deF_Y_EK_31",
+  "seq": "SYSTYENKLSTLENKWSTWENKFSTFENKISTG",
+  "family": "F_epitope_helix",
+  "note": "epitope-directed helix knob=Y charge=EK len~31"
+ },
+ {
+  "id": "deF_Y_KK_24",
+  "seq": "SYSTYKNKLSTLKNKWSTWKNKFSTG",
+  "family": "F_epitope_helix",
+  "note": "epitope-directed helix knob=Y charge=KK len~24"
+ },
+ {
+  "id": "deF_Y_KK_31",
+  "seq": "SYSTYKNKLSTLKNKWSTWKNKFSTFKNKISTG",
+  "family": "F_epitope_helix",
+  "note": "epitope-directed helix knob=Y charge=KK len~31"
+ },
+ {
+  "id": "deF_Y_EE_24",
+  "seq": "SYSTYENELSTLENEWSTWENEFSTG",
+  "family": "F_epitope_helix",
+  "note": "epitope-directed helix knob=Y charge=EE len~24"
+ },
+ {
+  "id": "deF_Y_EE_31",
+  "seq": "SYSTYENELSTLENEWSTWENEFSTFENEISTG",
+  "family": "F_epitope_helix",
+  "note": "epitope-directed helix knob=Y charge=EE len~31"
+ },
+ {
+  "id": "deF_Y_QN_24",
+  "seq": "SYSTYQNNLSTLQNNWSTWQNNFSTG",
+  "family": "F_epitope_helix",
+  "note": "epitope-directed helix knob=Y charge=QN len~24"
+ },
+ {
+  "id": "deF_Y_QN_31",
+  "seq": "SYSTYQNNLSTLQNNWSTWQNNFSTFQNNISTG",
+  "family": "F_epitope_helix",
+  "note": "epitope-directed helix knob=Y charge=QN len~31"
+ },
+ {
+  "id": "deF2_a",
+  "seq": "SWEELKKLFEEWLKKLFEELKKWLG",
+  "family": "F_epitope_helix",
+  "note": "hand-tuned epitope clamp helix"
+ },
+ {
+  "id": "deF2_b",
+  "seq": "TKEEWLRLFKELWDRLFKELWDRLK",
+  "family": "F_epitope_helix",
+  "note": "hand-tuned epitope clamp helix"
+ },
+ {
+  "id": "deF2_c",
+  "seq": "SEEWLKKFWEELKKFWEELKKFLKG",
+  "family": "F_epitope_helix",
+  "note": "hand-tuned epitope clamp helix"
+ },
+ {
+  "id": "deF2_d",
+  "seq": "GDKEWLFKLAEEWLFKLAEEWLFKLKG",
+  "family": "F_epitope_helix",
+  "note": "hand-tuned epitope clamp helix"
+ },
+ {
+  "id": "deF2_e",
+  "seq": "SEQIWKELQKIWEELQKIWKELQKG",
+  "family": "F_epitope_helix",
+  "note": "hand-tuned epitope clamp helix"
+ },
+ {
+  "id": "deF2_f",
+  "seq": "TWDELKKIWDELKKIWDELKKIWG",
+  "family": "F_epitope_helix",
+  "note": "hand-tuned epitope clamp helix"
+ },
+ {
+  "id": "deF3_0",
+  "seq": "SITVKVEWLFVKTLTVEGKPYLI",
+  "family": "F_epitope_strand",
+  "note": "beta-strand/PPPS engager"
+ },
+ {
+  "id": "deF3_1",
+  "seq": "KVTLSVEFWKLLTVKTEGSVYLW",
+  "family": "F_epitope_strand",
+  "note": "beta-strand/PPPS engager"
+ },
+ {
+  "id": "deF3_2",
+  "seq": "TVEVKLSWLYELVKTITKEGPFI",
+  "family": "F_epitope_strand",
+  "note": "beta-strand/PPPS engager"
+ },
+ {
+  "id": "deF3_3",
+  "seq": "EVKLTVWFIKLLTVKVEGSKYLF",
+  "family": "F_epitope_strand",
+  "note": "beta-strand/PPPS engager"
+ }
+]

@@ -1,0 +1,352 @@
+[
+ {
+  "id": "R2_003",
+  "iptm": 0.7858135104179382,
+  "bind": 0.03232228010892868,
+  "struct": 0.41202831268310547,
+  "pae": 1.0671873092651367,
+  "seq": "SISTIENELSTLENEISTIENEWSTG",
+  "note": "Met->I (deox)",
+  "cif": "<expired-signed-url-removed>"
+ },
+ {
+  "id": "R2_001",
+  "iptm": 0.878848671913147,
+  "bind": 0.18578550219535828,
+  "struct": 0.5558329224586487,
+  "pae": 0.6530312299728394,
+  "seq": "SMSTMENELSTLENEISTIENEWSTG",
+  "note": "NB094 parent",
+  "cif": "<expired-signed-url-removed>"
+ },
+ {
+  "id": "R2_004",
+  "iptm": 0.8645626306533813,
+  "bind": 0.00010016521264333278,
+  "struct": 0.4681425392627716,
+  "pae": 0.6269357800483704,
+  "seq": "SFSTFENELSTLENEISTIENEWSTG",
+  "note": "Met->F (deox)",
+  "cif": "<expired-signed-url-removed>"
+ },
+ {
+  "id": "R2_006",
+  "iptm": 0.7633783221244812,
+  "bind": 0.014982828870415688,
+  "struct": 0.26304197311401367,
+  "pae": 1.4636186361312866,
+  "seq": "SVSTVENELSTLENEISTIENEWSTG",
+  "note": "Met->V (deox)",
+  "cif": "<expired-signed-url-removed>"
+ },
+ {
+  "id": "R2_018",
+  "iptm": 0.9400932192802429,
+  "bind": 9.768745076144114e-05,
+  "struct": 0.644330620765686,
+  "pae": 0.42266201972961426,
+  "seq": "SLSTLKNELSTLWNEISTIKNELSTG",
+  "note": "deMet helix charge=KE len~24 W-anchor",
+  "cif": "<expired-signed-url-removed>"
+ },
+ {
+  "id": "R2_016",
+  "iptm": 0.9201233983039856,
+  "bind": 6.106961518526077e-05,
+  "struct": 0.6500216126441956,
+  "pae": 0.5895264744758606,
+  "seq": "SLSTLENKLSTLWNKISTIENKLSTLENG",
+  "note": "deMet helix charge=EK len~27 W-anchor",
+  "cif": "<expired-signed-url-removed>"
+ },
+ {
+  "id": "R2_033",
+  "iptm": 0.8426865339279175,
+  "bind": 9.398291877005249e-05,
+  "struct": 0.4416690468788147,
+  "pae": 1.246471643447876,
+  "seq": "SLSTLENEFSTFWNELSTLENEISTIENG",
+  "note": "knob palette LF, ENE, len27",
+  "cif": "<expired-signed-url-removed>"
+ },
+ {
+  "id": "R2_011",
+  "iptm": 0.9082916975021362,
+  "bind": 0.3273523151874542,
+  "struct": 0.48298272490501404,
+  "pae": 0.4995005130767822,
+  "seq": "SLSTYENELSTLENEISTIENEYSTG",
+  "note": "deMet + Y5/Y23 double aromatic",
+  "cif": "<expired-signed-url-removed>"
+ },
+ {
+  "id": "R2_002",
+  "iptm": 0.9140676856040955,
+  "bind": 0.3669617176055908,
+  "struct": 0.5178315043449402,
+  "pae": 0.46024084091186523,
+  "seq": "SLSTLENELSTLENEISTIENEWSTG",
+  "note": "Met->L (deox)",
+  "cif": "<expired-signed-url-removed>"
+ },
+ {
+  "id": "R2_012",
+  "iptm": 0.8906261324882507,
+  "bind": 8.36062099551782e-05,
+  "struct": 0.6120339632034302,
+  "pae": 0.7100950479507446,
+  "seq": "SLSTLENELSTLWNEISTIENELSTG",
+  "note": "deMet helix charge=ENE len~24 W-anchor",
+  "cif": "<expired-signed-url-removed>"
+ },
+ {
+  "id": "R2_019",
+  "iptm": 0.893578052520752,
+  "bind": 2.774964741547592e-05,
+  "struct": 0.522956907749176,
+  "pae": 0.9396913647651672,
+  "seq": "SLSTLKNELSTLWNEISTIKNELSTLKNG",
+  "note": "deMet helix charge=KE len~27 W-anchor",
+  "cif": "<expired-signed-url-removed>"
+ },
+ {
+  "id": "R2_030",
+  "iptm": 0.9298712611198425,
+  "bind": 0.00022051170526538044,
+  "struct": 0.5466959476470947,
+  "pae": 0.5200992822647095,
+  "seq": "SWSTWENELSTLWNEWSTWENELSTLENG",
+  "note": "knob palette W, ENE, len27",
+  "cif": "<expired-signed-url-removed>"
+ },
+ {
+  "id": "R2_024",
+  "iptm": 0.7536236643791199,
+  "bind": 0.00016476857126690447,
+  "struct": 0.32160377502441406,
+  "pae": 2.1862130165100098,
+  "seq": "SLSTLQNNLSTLWNNISTIQNNLSTG",
+  "note": "deMet helix charge=QN len~24 W-anchor",
+  "cif": "<expired-signed-url-removed>"
+ },
+ {
+  "id": "R2_013",
+  "iptm": 0.9436478614807129,
+  "bind": 4.600948886945844e-05,
+  "struct": 0.6942226886749268,
+  "pae": 0.41152438521385193,
+  "seq": "SLSTLENELSTLWNEISTIENELSTLENG",
+  "note": "deMet helix charge=ENE len~27 W-anchor",
+  "cif": "<expired-signed-url-removed>"
+ },
+ {
+  "id": "R2_015",
+  "iptm": 0.8551452159881592,
+  "bind": 0.00012357560626696795,
+  "struct": 0.4846205413341522,
+  "pae": 0.9573637247085571,
+  "seq": "SLSTLENKLSTLWNKISTIENKLSTG",
+  "note": "deMet helix charge=EK len~24 W-anchor",
+  "cif": "<expired-signed-url-removed>"
+ },
+ {
+  "id": "R2_009",
+  "iptm": 0.9207599759101868,
+  "bind": 0.29425668716430664,
+  "struct": 0.48675572872161865,
+  "pae": 0.5529941916465759,
+  "seq": "SLSTFENELSTLENEISTIENEFSTG",
+  "note": "deMet + F5/F23 double aromatic",
+  "cif": "<expired-signed-url-removed>"
+ },
+ {
+  "id": "R2_014",
+  "iptm": 0.929986834526062,
+  "bind": 3.132471101707779e-05,
+  "struct": 0.6327298283576965,
+  "pae": 0.49047717452049255,
+  "seq": "SLSTLENELSTLWNEISTIENELSTLENEISTG",
+  "note": "deMet helix charge=ENE len~31 W-anchor",
+  "cif": "<expired-signed-url-removed>"
+ },
+ {
+  "id": "R2_008",
+  "iptm": 0.9530061483383179,
+  "bind": 0.3746487498283386,
+  "struct": 0.6311321258544922,
+  "pae": 0.32062584161758423,
+  "seq": "SLSTLENELSTLENEISTIENEFSTG",
+  "note": "deMet + F23 anchor",
+  "cif": "<expired-signed-url-removed>"
+ },
+ {
+  "id": "R2_010",
+  "iptm": 0.9381644129753113,
+  "bind": 0.35649919509887695,
+  "struct": 0.676754891872406,
+  "pae": 0.3430318236351013,
+  "seq": "SLSTLENELSTLENEISTIENEYSTG",
+  "note": "deMet + Y23 anchor",
+  "cif": "<expired-signed-url-removed>"
+ },
+ {
+  "id": "R2_022",
+  "iptm": 0.8883363008499146,
+  "bind": 0.00013111039879731834,
+  "struct": 0.44711872935295105,
+  "pae": 0.9481729865074158,
+  "seq": "SLSTLKNKLSTLWNKISTIKNKLSTLKNG",
+  "note": "deMet helix charge=KK len~27 W-anchor",
+  "cif": "<expired-signed-url-removed>"
+ },
+ {
+  "id": "R2_031",
+  "iptm": 0.9115209579467773,
+  "bind": 3.1595824111718684e-05,
+  "struct": 0.6077151298522949,
+  "pae": 0.6575762033462524,
+  "seq": "SFSTFENELSTLWNEFSTFENEISTIENG",
+  "note": "knob palette F, ENE, len27",
+  "cif": "<expired-signed-url-removed>"
+ },
+ {
+  "id": "R2_027",
+  "iptm": 0.8127570748329163,
+  "bind": 5.941932613495737e-05,
+  "struct": 0.49489283561706543,
+  "pae": 1.5731741189956665,
+  "seq": "SLSTLENDLSTLWNDISTIENDLSTG",
+  "note": "deMet helix charge=ED len~24 W-anchor",
+  "cif": "<expired-signed-url-removed>"
+ },
+ {
+  "id": "R2_035",
+  "iptm": 0.9391734004020691,
+  "bind": 0.40807580947875977,
+  "struct": 0.2622618079185486,
+  "pae": 0.41280317306518555,
+  "seq": "SLSTLENELSTLENEISTIENEWSTGLENEISTG",
+  "note": "deMet parent extended",
+  "cif": "<expired-signed-url-removed>"
+ },
+ {
+  "id": "R2_021",
+  "iptm": 0.812730610370636,
+  "bind": 9.37029835768044e-05,
+  "struct": 0.42197805643081665,
+  "pae": 1.3648123741149902,
+  "seq": "SLSTLKNKLSTLWNKISTIKNKLSTG",
+  "note": "deMet helix charge=KK len~24 W-anchor",
+  "cif": "<expired-signed-url-removed>"
+ },
+ {
+  "id": "R2_029",
+  "iptm": 0.9389395713806152,
+  "bind": 0.0001955802144948393,
+  "struct": 0.6590665578842163,
+  "pae": 0.4674154818058014,
+  "seq": "SLSTLENDLSTLWNDISTIENDLSTLENDISTG",
+  "note": "deMet helix charge=ED len~31 W-anchor",
+  "cif": "<expired-signed-url-removed>"
+ },
+ {
+  "id": "R2_025",
+  "iptm": 0.8224550485610962,
+  "bind": 0.00013498682528734207,
+  "struct": 0.34425783157348633,
+  "pae": 1.5820040702819824,
+  "seq": "SLSTLQNNLSTLWNNISTIQNNLSTLQNG",
+  "note": "deMet helix charge=QN len~27 W-anchor",
+  "cif": "<expired-signed-url-removed>"
+ },
+ {
+  "id": "R2_005",
+  "iptm": 0.9253989458084106,
+  "bind": 6.478814611909911e-05,
+  "struct": 0.6935359239578247,
+  "pae": 0.4454251229763031,
+  "seq": "SWSTWENELSTLENEISTIENEWSTG",
+  "note": "Met->W (deox)",
+  "cif": "<expired-signed-url-removed>"
+ },
+ {
+  "id": "R2_028",
+  "iptm": 0.8881396651268005,
+  "bind": 0.00013435307482723147,
+  "struct": 0.5051588416099548,
+  "pae": 1.241577386856079,
+  "seq": "SLSTLENDLSTLWNDISTIENDLSTLENG",
+  "note": "deMet helix charge=ED len~27 W-anchor",
+  "cif": "<expired-signed-url-removed>"
+ },
+ {
+  "id": "R2_034",
+  "iptm": 0.9337771534919739,
+  "bind": 0.3217475116252899,
+  "struct": 0.6461851000785828,
+  "pae": 0.44550710916519165,
+  "seq": "SLSTLENELSTLENEISTIEG",
+  "note": "deMet parent truncated 20",
+  "cif": "<expired-signed-url-removed>"
+ },
+ {
+  "id": "R2_026",
+  "iptm": 0.8143578767776489,
+  "bind": 0.00010099394421558827,
+  "struct": 0.26851898431777954,
+  "pae": 2.1889662742614746,
+  "seq": "SLSTLQNNLSTLWNNISTIQNNLSTLQNNISTG",
+  "note": "deMet helix charge=QN len~31 W-anchor",
+  "cif": "<expired-signed-url-removed>"
+ },
+ {
+  "id": "R2_023",
+  "iptm": 0.931018590927124,
+  "bind": 0.0001886162208393216,
+  "struct": 0.47676438093185425,
+  "pae": 0.520523726940155,
+  "seq": "SLSTLKNKLSTLWNKISTIKNKLSTLKNKISTG",
+  "note": "deMet helix charge=KK len~31 W-anchor",
+  "cif": "<expired-signed-url-removed>"
+ },
+ {
+  "id": "R2_020",
+  "iptm": 0.8735467791557312,
+  "bind": 7.06087812432088e-05,
+  "struct": 0.4033717215061188,
+  "pae": 1.3455754518508911,
+  "seq": "SLSTLKNELSTLWNEISTIKNELSTLKNEISTG",
+  "note": "deMet helix charge=KE len~31 W-anchor",
+  "cif": "<expired-signed-url-removed>"
+ },
+ {
+  "id": "R2_007",
+  "iptm": 0.9067484140396118,
+  "bind": 0.34463316202163696,
+  "struct": 0.4824806749820709,
+  "pae": 0.5053625702857971,
+  "seq": "SLSTWENELSTLENEISTIENEWSTG",
+  "note": "deMet + W5/W23 double aromatic",
+  "cif": "<expired-signed-url-removed>"
+ },
+ {
+  "id": "R2_017",
+  "iptm": 0.8062010407447815,
+  "bind": 1.9604911358328536e-05,
+  "struct": 0.2753808796405792,
+  "pae": 1.6995625495910645,
+  "seq": "SLSTLENKLSTLWNKISTIENKLSTLENKISTG",
+  "note": "deMet helix charge=EK len~31 W-anchor",
+  "cif": "<expired-signed-url-removed>"
+ },
+ {
+  "id": "R2_032",
+  "iptm": 0.8922906517982483,
+  "bind": 0.0003206320689059794,
+  "struct": 0.5099313855171204,
+  "pae": 0.6726346611976624,
+  "seq": "SYSTYENELSTLWNEWSTWENELSTLENG",
+  "note": "knob palette Y, ENE, len27",
+  "cif": "<expired-signed-url-removed>"
+ }
+]

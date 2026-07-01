@@ -1,0 +1,290 @@
+[
+ {
+  "id": "deA_aromWL_acidic_28",
+  "seq": "SWSEWETKLSELETKYSEYETKLSELETKG",
+  "family": "A_helix",
+  "note": "amphipathic helix; knobs=aromWL; face=acidic; len~28"
+ },
+ {
+  "id": "deA_aromWL_acidic_35",
+  "seq": "SWSEWETKLSELETKYSEYETKLSELETKFSEFETKG",
+  "family": "A_helix",
+  "note": "amphipathic helix; knobs=aromWL; face=acidic; len~35"
+ },
+ {
+  "id": "deA_aromWL_basic_28",
+  "seq": "SWTKWKSELTKLKSEYTKYKSELTKLKSEG",
+  "family": "A_helix",
+  "note": "amphipathic helix; knobs=aromWL; face=basic; len~28"
+ },
+ {
+  "id": "deA_aromWL_basic_35",
+  "seq": "SWTKWKSELTKLKSEYTKYKSELTKLKSEFTKFKSEG",
+  "family": "A_helix",
+  "note": "amphipathic helix; knobs=aromWL; face=basic; len~35"
+ },
+ {
+  "id": "deA_aromWL_neutral_28",
+  "seq": "SWSQWNTSLSQLNTSYSQYNTSLSQLNTSG",
+  "family": "A_helix",
+  "note": "amphipathic helix; knobs=aromWL; face=neutral; len~28"
+ },
+ {
+  "id": "deA_aromWL_neutral_35",
+  "seq": "SWSQWNTSLSQLNTSYSQYNTSLSQLNTSFSQFNTSG",
+  "family": "A_helix",
+  "note": "amphipathic helix; knobs=aromWL; face=neutral; len~35"
+ },
+ {
+  "id": "deA_aliphLIV_acidic_28",
+  "seq": "SLSELETKISEIETKVSEVETKLSELETKG",
+  "family": "A_helix",
+  "note": "amphipathic helix; knobs=aliphLIV; face=acidic; len~28"
+ },
+ {
+  "id": "deA_aliphLIV_acidic_35",
+  "seq": "SLSELETKISEIETKVSEVETKLSELETKISEIETKG",
+  "family": "A_helix",
+  "note": "amphipathic helix; knobs=aliphLIV; face=acidic; len~35"
+ },
+ {
+  "id": "deA_aliphLIV_basic_28",
+  "seq": "SLTKLKSEITKIKSEVTKVKSELTKLKSEG",
+  "family": "A_helix",
+  "note": "amphipathic helix; knobs=aliphLIV; face=basic; len~28"
+ },
+ {
+  "id": "deA_aliphLIV_basic_35",
+  "seq": "SLTKLKSEITKIKSEVTKVKSELTKLKSEITKIKSEG",
+  "family": "A_helix",
+  "note": "amphipathic helix; knobs=aliphLIV; face=basic; len~35"
+ },
+ {
+  "id": "deA_aliphLIV_neutral_28",
+  "seq": "SLSQLNTSISQINTSVSQVNTSLSQLNTSG",
+  "family": "A_helix",
+  "note": "amphipathic helix; knobs=aliphLIV; face=neutral; len~28"
+ },
+ {
+  "id": "deA_aliphLIV_neutral_35",
+  "seq": "SLSQLNTSISQINTSVSQVNTSLSQLNTSISQINTSG",
+  "family": "A_helix",
+  "note": "amphipathic helix; knobs=aliphLIV; face=neutral; len~35"
+ },
+ {
+  "id": "deA_mixFM_acidic_28",
+  "seq": "SFSEFETKLSELETKMSEMETKISEIETKG",
+  "family": "A_helix",
+  "note": "amphipathic helix; knobs=mixFM; face=acidic; len~28"
+ },
+ {
+  "id": "deA_mixFM_acidic_35",
+  "seq": "SFSEFETKLSELETKMSEMETKISEIETKWSEWETKG",
+  "family": "A_helix",
+  "note": "amphipathic helix; knobs=mixFM; face=acidic; len~35"
+ },
+ {
+  "id": "deA_mixFM_basic_28",
+  "seq": "SFTKFKSELTKLKSEMTKMKSEITKIKSEG",
+  "family": "A_helix",
+  "note": "amphipathic helix; knobs=mixFM; face=basic; len~28"
+ },
+ {
+  "id": "deA_mixFM_basic_35",
+  "seq": "SFTKFKSELTKLKSEMTKMKSEITKIKSEWTKWKSEG",
+  "family": "A_helix",
+  "note": "amphipathic helix; knobs=mixFM; face=basic; len~35"
+ },
+ {
+  "id": "deA_mixFM_neutral_28",
+  "seq": "SFSQFNTSLSQLNTSMSQMNTSISQINTSG",
+  "family": "A_helix",
+  "note": "amphipathic helix; knobs=mixFM; face=neutral; len~28"
+ },
+ {
+  "id": "deA_mixFM_neutral_35",
+  "seq": "SFSQFNTSLSQLNTSMSQMNTSISQINTSWSQWNTSG",
+  "family": "A_helix",
+  "note": "amphipathic helix; knobs=mixFM; face=neutral; len~35"
+ },
+ {
+  "id": "deA_hm1",
+  "seq": "SEELWKELAKLAEEWLKKLAELGKKLWELLKQLA",
+  "family": "A_helix",
+  "note": "high hydrophobic-moment aromatic helix"
+ },
+ {
+  "id": "deA_hm2",
+  "seq": "TKEIWDEIKKLWEEIKKLWDELKKLGEIWEKLKK",
+  "family": "A_helix",
+  "note": "charged-complementary aromatic helix"
+ },
+ {
+  "id": "deA_hm3",
+  "seq": "SQELLKKFAEELLKKFAEWLLKKFAEELGKKFA",
+  "family": "A_helix",
+  "note": "Phe-ladder amphipathic helix"
+ },
+ {
+  "id": "deA_hm4",
+  "seq": "GEEWLARLKELAEKWLARLKELAEKWLARLKKLG",
+  "family": "A_helix",
+  "note": "heptad LxxLxxx aromatic anchor helix"
+ },
+ {
+  "id": "deC_gipr_ecd1",
+  "seq": "CQEGWLYWEATNKTGTWQELEDCGRIWLPWSK",
+  "family": "C_receptor_mimetic",
+  "note": "GIPR-ECD-like Trp-cage groove w/ disulfide"
+ },
+ {
+  "id": "deC_gipr_ecd2",
+  "seq": "SWGEFTLCDWLHSQNMTREYCELLWNILKAG",
+  "family": "C_receptor_mimetic",
+  "note": "GIPR-ECD groove variant"
+ },
+ {
+  "id": "deC_glp1r_ecd1",
+  "seq": "CLDEYACWHYAESGKSWSREYCDLLWRLIEG",
+  "family": "C_receptor_mimetic",
+  "note": "GLP-1R-ECD-like aromatic groove"
+ },
+ {
+  "id": "deC_glp1r_ecd2",
+  "seq": "TWSEYLDWLLQKNGSWQRECEKLWNTLREAG",
+  "family": "C_receptor_mimetic",
+  "note": "GLP-1R-ECD groove variant"
+ },
+ {
+  "id": "deC_groove1",
+  "seq": "WEYLDKAWQELGKSWNEIKKLWDELGKAWEK",
+  "family": "C_receptor_mimetic",
+  "note": "idealized aromatic groove helix-loop"
+ },
+ {
+  "id": "deC_groove2",
+  "seq": "FEYWDKLAQEWGKSFNEIKKFWDELGKAFEW",
+  "family": "C_receptor_mimetic",
+  "note": "Phe/Trp groove variant"
+ },
+ {
+  "id": "deD_mac_1",
+  "seq": "ACKTLTVEWLYELFNGKVTITKCG",
+  "family": "D_macrocycle",
+  "note": "disulfide hairpin; loop=WLYELF; turn=NG"
+ },
+ {
+  "id": "deD_mac_2",
+  "seq": "ACKTLTVEWLYELFPGKVTITKCG",
+  "family": "D_macrocycle",
+  "note": "disulfide hairpin; loop=WLYELF; turn=PG"
+ },
+ {
+  "id": "deD_mac_3",
+  "seq": "ACKTLTVEFWKLLINGKVTITKCG",
+  "family": "D_macrocycle",
+  "note": "disulfide hairpin; loop=FWKLLI; turn=NG"
+ },
+ {
+  "id": "deD_mac_4",
+  "seq": "ACKTLTVEFWKLLIPGKVTITKCG",
+  "family": "D_macrocycle",
+  "note": "disulfide hairpin; loop=FWKLLI; turn=PG"
+ },
+ {
+  "id": "deD_mac_5",
+  "seq": "ACKTLTVEWIYKLWNGKVTITKCG",
+  "family": "D_macrocycle",
+  "note": "disulfide hairpin; loop=WIYKLW; turn=NG"
+ },
+ {
+  "id": "deD_mac_6",
+  "seq": "ACKTLTVEWIYKLWPGKVTITKCG",
+  "family": "D_macrocycle",
+  "note": "disulfide hairpin; loop=WIYKLW; turn=PG"
+ },
+ {
+  "id": "deD_mac_7",
+  "seq": "ACSVEITVWLYELFNGTVKVSDCG",
+  "family": "D_macrocycle",
+  "note": "disulfide hairpin; loop=WLYELF; turn=NG"
+ },
+ {
+  "id": "deD_mac_8",
+  "seq": "ACSVEITVWLYELFPGTVKVSDCG",
+  "family": "D_macrocycle",
+  "note": "disulfide hairpin; loop=WLYELF; turn=PG"
+ },
+ {
+  "id": "deD_mac_9",
+  "seq": "ACSVEITVFWKLLINGTVKVSDCG",
+  "family": "D_macrocycle",
+  "note": "disulfide hairpin; loop=FWKLLI; turn=NG"
+ },
+ {
+  "id": "deD_mac_10",
+  "seq": "ACSVEITVFWKLLIPGTVKVSDCG",
+  "family": "D_macrocycle",
+  "note": "disulfide hairpin; loop=FWKLLI; turn=PG"
+ },
+ {
+  "id": "deD_mac_11",
+  "seq": "ACSVEITVWIYKLWNGTVKVSDCG",
+  "family": "D_macrocycle",
+  "note": "disulfide hairpin; loop=WIYKLW; turn=NG"
+ },
+ {
+  "id": "deD_mac_12",
+  "seq": "ACSVEITVWIYKLWPGTVKVSDCG",
+  "family": "D_macrocycle",
+  "note": "disulfide hairpin; loop=WIYKLW; turn=PG"
+ },
+ {
+  "id": "deD_mac_13",
+  "seq": "ACEVKLTAWLYELFNGTLKVEGCG",
+  "family": "D_macrocycle",
+  "note": "disulfide hairpin; loop=WLYELF; turn=NG"
+ },
+ {
+  "id": "deD_mac_14",
+  "seq": "ACEVKLTAWLYELFPGTLKVEGCG",
+  "family": "D_macrocycle",
+  "note": "disulfide hairpin; loop=WLYELF; turn=PG"
+ },
+ {
+  "id": "deD_mac_15",
+  "seq": "ACEVKLTAFWKLLINGTLKVEGCG",
+  "family": "D_macrocycle",
+  "note": "disulfide hairpin; loop=FWKLLI; turn=NG"
+ },
+ {
+  "id": "deD_mac_16",
+  "seq": "ACEVKLTAFWKLLIPGTLKVEGCG",
+  "family": "D_macrocycle",
+  "note": "disulfide hairpin; loop=FWKLLI; turn=PG"
+ },
+ {
+  "id": "deD_mac_17",
+  "seq": "ACEVKLTAWIYKLWNGTLKVEGCG",
+  "family": "D_macrocycle",
+  "note": "disulfide hairpin; loop=WIYKLW; turn=NG"
+ },
+ {
+  "id": "deD_mac_18",
+  "seq": "ACEVKLTAWIYKLWPGTLKVEGCG",
+  "family": "D_macrocycle",
+  "note": "disulfide hairpin; loop=WIYKLW; turn=PG"
+ },
+ {
+  "id": "deD_big1",
+  "seq": "ACKTLTVEWLYELFNGKVTITKCGSPGACSVEITVFWKLLIPGTVKVSDCG",
+  "family": "D_macrocycle",
+  "note": "bis-hairpin stapled"
+ },
+ {
+  "id": "deD_big2",
+  "seq": "ACEVKLTAWIYKLWDGTLKVEGCG",
+  "family": "D_macrocycle",
+  "note": "compact stapled hairpin"
+ }
+]

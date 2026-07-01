@@ -1,0 +1,702 @@
+[
+ {
+  "id": "grB_spec_03_win",
+  "seq": "KVTTPYLDFSEPKCLSNGLCFIVVVDAKEKLVGVYLVDPEDPTKYELLATLKPGET",
+  "family": "B_graft_window",
+  "note": "paratope window of spec_03 (8-63)",
+  "lib_id": "NB001"
+ },
+ {
+  "id": "grB_spec_16_win",
+  "seq": "IVAEKTFSDGKVAYVVVSTEDGTKLVLKQWSDTSFNLYDANGNWIGGGTA",
+  "family": "B_graft_window",
+  "note": "paratope window of spec_16 (15-64)",
+  "lib_id": "NB002"
+ },
+ {
+  "id": "grB_spec_63_win",
+  "seq": "AAPTGAVVECGGVLCVVVATASSGGSVAKSFYTGRK",
+  "family": "B_graft_window",
+  "note": "paratope window of spec_63 (7-42)",
+  "lib_id": "NB003"
+ },
+ {
+  "id": "grB_spec_03_cyc",
+  "seq": "ACKVTTPYLDFSEPKCLSNGLCFIVVVDAKEKLVGVYLVDPEDPTKYELLATLKPGETCG",
+  "family": "B_graft_cyc",
+  "note": "disulfide-stapled paratope window of spec_03",
+  "lib_id": "NB004"
+ },
+ {
+  "id": "grB_spec_16_cyc",
+  "seq": "ACIVAEKTFSDGKVAYVVVSTEDGTKLVLKQWSDTSFNLYDANGNWIGGGTACG",
+  "family": "B_graft_cyc",
+  "note": "disulfide-stapled paratope window of spec_16",
+  "lib_id": "NB005"
+ },
+ {
+  "id": "grB_spec_63_cyc",
+  "seq": "ACAAPTGAVVECGGVLCVVVATASSGGSVAKSFYTGRKCG",
+  "family": "B_graft_cyc",
+  "note": "disulfide-stapled paratope window of spec_63",
+  "lib_id": "NB006"
+ },
+ {
+  "id": "grB_spec_03_seg0",
+  "seq": "VTTPYLDFSEPKC",
+  "family": "B_graft_seg",
+  "note": "paratope segment 0 of spec_03",
+  "lib_id": "NB007"
+ },
+ {
+  "id": "grB_spec_03_seg1",
+  "seq": "CFIVVVDAKEKLVGVYLVDP",
+  "family": "B_graft_seg",
+  "note": "paratope segment 1 of spec_03",
+  "lib_id": "NB008"
+ },
+ {
+  "id": "grB_spec_03_seg2",
+  "seq": "EDPTKYELLATLKPGE",
+  "family": "B_graft_seg",
+  "note": "paratope segment 2 of spec_03",
+  "lib_id": "NB009"
+ },
+ {
+  "id": "grB_spec_13_seg0",
+  "seq": "MVSKTFTVTLPTGA",
+  "family": "B_graft_seg",
+  "note": "paratope segment 0 of spec_13",
+  "lib_id": "NB010"
+ },
+ {
+  "id": "grB_spec_13_seg6",
+  "seq": "LECPALGATFTFTLNLS",
+  "family": "B_graft_seg",
+  "note": "paratope segment 6 of spec_13",
+  "lib_id": "NB011"
+ },
+ {
+  "id": "grB_spec_16_seg0",
+  "seq": "VAEKTFSDGKVAYVVV",
+  "family": "B_graft_seg",
+  "note": "paratope segment 0 of spec_16",
+  "lib_id": "NB012"
+ },
+ {
+  "id": "grB_spec_16_seg1",
+  "seq": "GTKLVLKQWSDTSFNLYDANGNWIGGGT",
+  "family": "B_graft_seg",
+  "note": "paratope segment 1 of spec_16",
+  "lib_id": "NB013"
+ },
+ {
+  "id": "deF_W_KE_24",
+  "seq": "SWSTWKNELSTLKNEWSTWKNELSTG",
+  "family": "F_epitope_helix",
+  "note": "epitope-directed helix knob=W charge=KE len~24",
+  "lib_id": "NB014"
+ },
+ {
+  "id": "deF_W_KE_31",
+  "seq": "SWSTWKNELSTLKNEWSTWKNELSTLKNEISTG",
+  "family": "F_epitope_helix",
+  "note": "epitope-directed helix knob=W charge=KE len~31",
+  "lib_id": "NB015"
+ },
+ {
+  "id": "deF_W_EK_24",
+  "seq": "SWSTWENKLSTLENKWSTWENKLSTG",
+  "family": "F_epitope_helix",
+  "note": "epitope-directed helix knob=W charge=EK len~24",
+  "lib_id": "NB016"
+ },
+ {
+  "id": "deF_W_EK_31",
+  "seq": "SWSTWENKLSTLENKWSTWENKLSTLENKISTG",
+  "family": "F_epitope_helix",
+  "note": "epitope-directed helix knob=W charge=EK len~31",
+  "lib_id": "NB017"
+ },
+ {
+  "id": "deF_W_KK_24",
+  "seq": "SWSTWKNKLSTLKNKWSTWKNKLSTG",
+  "family": "F_epitope_helix",
+  "note": "epitope-directed helix knob=W charge=KK len~24",
+  "lib_id": "NB018"
+ },
+ {
+  "id": "deF_W_KK_31",
+  "seq": "SWSTWKNKLSTLKNKWSTWKNKLSTLKNKISTG",
+  "family": "F_epitope_helix",
+  "note": "epitope-directed helix knob=W charge=KK len~31",
+  "lib_id": "NB019"
+ },
+ {
+  "id": "deF_W_EE_24",
+  "seq": "SWSTWENELSTLENEWSTWENELSTG",
+  "family": "F_epitope_helix",
+  "note": "epitope-directed helix knob=W charge=EE len~24",
+  "lib_id": "NB020"
+ },
+ {
+  "id": "deF_W_EE_31",
+  "seq": "SWSTWENELSTLENEWSTWENELSTLENEISTG",
+  "family": "F_epitope_helix",
+  "note": "epitope-directed helix knob=W charge=EE len~31",
+  "lib_id": "NB021"
+ },
+ {
+  "id": "deF_W_QN_24",
+  "seq": "SWSTWQNNLSTLQNNWSTWQNNLSTG",
+  "family": "F_epitope_helix",
+  "note": "epitope-directed helix knob=W charge=QN len~24",
+  "lib_id": "NB022"
+ },
+ {
+  "id": "deF_W_QN_31",
+  "seq": "SWSTWQNNLSTLQNNWSTWQNNLSTLQNNISTG",
+  "family": "F_epitope_helix",
+  "note": "epitope-directed helix knob=W charge=QN len~31",
+  "lib_id": "NB023"
+ },
+ {
+  "id": "deF_F_KE_24",
+  "seq": "SFSTFKNELSTLKNEFSTFKNEISTG",
+  "family": "F_epitope_helix",
+  "note": "epitope-directed helix knob=F charge=KE len~24",
+  "lib_id": "NB024"
+ },
+ {
+  "id": "deF_F_KE_31",
+  "seq": "SFSTFKNELSTLKNEFSTFKNEISTIKNEVSTG",
+  "family": "F_epitope_helix",
+  "note": "epitope-directed helix knob=F charge=KE len~31",
+  "lib_id": "NB025"
+ },
+ {
+  "id": "deF_F_EK_24",
+  "seq": "SFSTFENKLSTLENKFSTFENKISTG",
+  "family": "F_epitope_helix",
+  "note": "epitope-directed helix knob=F charge=EK len~24",
+  "lib_id": "NB026"
+ },
+ {
+  "id": "deF_F_EK_31",
+  "seq": "SFSTFENKLSTLENKFSTFENKISTIENKVSTG",
+  "family": "F_epitope_helix",
+  "note": "epitope-directed helix knob=F charge=EK len~31",
+  "lib_id": "NB027"
+ },
+ {
+  "id": "deF_F_KK_24",
+  "seq": "SFSTFKNKLSTLKNKFSTFKNKISTG",
+  "family": "F_epitope_helix",
+  "note": "epitope-directed helix knob=F charge=KK len~24",
+  "lib_id": "NB028"
+ },
+ {
+  "id": "deF_F_KK_31",
+  "seq": "SFSTFKNKLSTLKNKFSTFKNKISTIKNKVSTG",
+  "family": "F_epitope_helix",
+  "note": "epitope-directed helix knob=F charge=KK len~31",
+  "lib_id": "NB029"
+ },
+ {
+  "id": "deF_F_EE_24",
+  "seq": "SFSTFENELSTLENEFSTFENEISTG",
+  "family": "F_epitope_helix",
+  "note": "epitope-directed helix knob=F charge=EE len~24",
+  "lib_id": "NB030"
+ },
+ {
+  "id": "deF_F_EE_31",
+  "seq": "SFSTFENELSTLENEFSTFENEISTIENEVSTG",
+  "family": "F_epitope_helix",
+  "note": "epitope-directed helix knob=F charge=EE len~31",
+  "lib_id": "NB031"
+ },
+ {
+  "id": "deF_F_QN_24",
+  "seq": "SFSTFQNNLSTLQNNFSTFQNNISTG",
+  "family": "F_epitope_helix",
+  "note": "epitope-directed helix knob=F charge=QN len~24",
+  "lib_id": "NB032"
+ },
+ {
+  "id": "deF_F_QN_31",
+  "seq": "SFSTFQNNLSTLQNNFSTFQNNISTIQNNVSTG",
+  "family": "F_epitope_helix",
+  "note": "epitope-directed helix knob=F charge=QN len~31",
+  "lib_id": "NB033"
+ },
+ {
+  "id": "deF_L_KE_24",
+  "seq": "SLSTLKNEISTIKNEVSTVKNELSTG",
+  "family": "F_epitope_helix",
+  "note": "epitope-directed helix knob=L charge=KE len~24",
+  "lib_id": "NB034"
+ },
+ {
+  "id": "deF_L_KE_31",
+  "seq": "SLSTLKNEISTIKNEVSTVKNELSTLKNEISTG",
+  "family": "F_epitope_helix",
+  "note": "epitope-directed helix knob=L charge=KE len~31",
+  "lib_id": "NB035"
+ },
+ {
+  "id": "deF_L_EK_24",
+  "seq": "SLSTLENKISTIENKVSTVENKLSTG",
+  "family": "F_epitope_helix",
+  "note": "epitope-directed helix knob=L charge=EK len~24",
+  "lib_id": "NB036"
+ },
+ {
+  "id": "deF_L_EK_31",
+  "seq": "SLSTLENKISTIENKVSTVENKLSTLENKISTG",
+  "family": "F_epitope_helix",
+  "note": "epitope-directed helix knob=L charge=EK len~31",
+  "lib_id": "NB037"
+ },
+ {
+  "id": "deF_L_KK_24",
+  "seq": "SLSTLKNKISTIKNKVSTVKNKLSTG",
+  "family": "F_epitope_helix",
+  "note": "epitope-directed helix knob=L charge=KK len~24",
+  "lib_id": "NB038"
+ },
+ {
+  "id": "deF_L_KK_31",
+  "seq": "SLSTLKNKISTIKNKVSTVKNKLSTLKNKISTG",
+  "family": "F_epitope_helix",
+  "note": "epitope-directed helix knob=L charge=KK len~31",
+  "lib_id": "NB039"
+ },
+ {
+  "id": "deF_L_EE_24",
+  "seq": "SLSTLENEISTIENEVSTVENELSTG",
+  "family": "F_epitope_helix",
+  "note": "epitope-directed helix knob=L charge=EE len~24",
+  "lib_id": "NB040"
+ },
+ {
+  "id": "deF_L_EE_31",
+  "seq": "SLSTLENEISTIENEVSTVENELSTLENEISTG",
+  "family": "F_epitope_helix",
+  "note": "epitope-directed helix knob=L charge=EE len~31",
+  "lib_id": "NB041"
+ },
+ {
+  "id": "deF_L_QN_24",
+  "seq": "SLSTLQNNISTIQNNVSTVQNNLSTG",
+  "family": "F_epitope_helix",
+  "note": "epitope-directed helix knob=L charge=QN len~24",
+  "lib_id": "NB042"
+ },
+ {
+  "id": "deF_L_QN_31",
+  "seq": "SLSTLQNNISTIQNNVSTVQNNLSTLQNNISTG",
+  "family": "F_epitope_helix",
+  "note": "epitope-directed helix knob=L charge=QN len~31",
+  "lib_id": "NB043"
+ },
+ {
+  "id": "deF_M_KE_24",
+  "seq": "SMSTMKNELSTLKNEISTIKNEWSTG",
+  "family": "F_epitope_helix",
+  "note": "epitope-directed helix knob=M charge=KE len~24",
+  "lib_id": "NB044"
+ },
+ {
+  "id": "deF_M_KE_31",
+  "seq": "SMSTMKNELSTLKNEISTIKNEWSTWKNELSTG",
+  "family": "F_epitope_helix",
+  "note": "epitope-directed helix knob=M charge=KE len~31",
+  "lib_id": "NB045"
+ },
+ {
+  "id": "deF3_0",
+  "seq": "SITVKVEWLFVKTLTVEGKPYLI",
+  "family": "F_epitope_strand",
+  "note": "beta-strand/PPPS engager",
+  "lib_id": "NB046"
+ },
+ {
+  "id": "deF3_1",
+  "seq": "KVTLSVEFWKLLTVKTEGSVYLW",
+  "family": "F_epitope_strand",
+  "note": "beta-strand/PPPS engager",
+  "lib_id": "NB047"
+ },
+ {
+  "id": "deF3_2",
+  "seq": "TVEVKLSWLYELVKTITKEGPFI",
+  "family": "F_epitope_strand",
+  "note": "beta-strand/PPPS engager",
+  "lib_id": "NB048"
+ },
+ {
+  "id": "deF3_3",
+  "seq": "EVKLTVWFIKLLTVKVEGSKYLF",
+  "family": "F_epitope_strand",
+  "note": "beta-strand/PPPS engager",
+  "lib_id": "NB049"
+ },
+ {
+  "id": "deC_gipr_ecd1",
+  "seq": "CQEGWLYWEATNKTGTWQELEDCGRIWLPWSK",
+  "family": "C_receptor_mimetic",
+  "note": "GIPR-ECD-like Trp-cage groove w/ disulfide",
+  "lib_id": "NB050"
+ },
+ {
+  "id": "deC_gipr_ecd2",
+  "seq": "SWGEFTLCDWLHSQNMTREYCELLWNILKAG",
+  "family": "C_receptor_mimetic",
+  "note": "GIPR-ECD groove variant",
+  "lib_id": "NB051"
+ },
+ {
+  "id": "deC_glp1r_ecd1",
+  "seq": "CLDEYACWHYAESGKSWSREYCDLLWRLIEG",
+  "family": "C_receptor_mimetic",
+  "note": "GLP-1R-ECD-like aromatic groove",
+  "lib_id": "NB052"
+ },
+ {
+  "id": "deC_glp1r_ecd2",
+  "seq": "TWSEYLDWLLQKNGSWQRECEKLWNTLREAG",
+  "family": "C_receptor_mimetic",
+  "note": "GLP-1R-ECD groove variant",
+  "lib_id": "NB053"
+ },
+ {
+  "id": "deC_groove1",
+  "seq": "WEYLDKAWQELGKSWNEIKKLWDELGKAWEK",
+  "family": "C_receptor_mimetic",
+  "note": "idealized aromatic groove helix-loop",
+  "lib_id": "NB054"
+ },
+ {
+  "id": "deC_groove2",
+  "seq": "FEYWDKLAQEWGKSFNEIKKFWDELGKAFEW",
+  "family": "C_receptor_mimetic",
+  "note": "Phe/Trp groove variant",
+  "lib_id": "NB055"
+ },
+ {
+  "id": "deD_mac_1",
+  "seq": "ACKTLTVEWLYELFNGKVTITKCG",
+  "family": "D_macrocycle",
+  "note": "disulfide hairpin; loop=WLYELF; turn=NG",
+  "lib_id": "NB056"
+ },
+ {
+  "id": "deD_mac_2",
+  "seq": "ACKTLTVEWLYELFPGKVTITKCG",
+  "family": "D_macrocycle",
+  "note": "disulfide hairpin; loop=WLYELF; turn=PG",
+  "lib_id": "NB057"
+ },
+ {
+  "id": "deD_mac_3",
+  "seq": "ACKTLTVEFWKLLINGKVTITKCG",
+  "family": "D_macrocycle",
+  "note": "disulfide hairpin; loop=FWKLLI; turn=NG",
+  "lib_id": "NB058"
+ },
+ {
+  "id": "deD_mac_4",
+  "seq": "ACKTLTVEFWKLLIPGKVTITKCG",
+  "family": "D_macrocycle",
+  "note": "disulfide hairpin; loop=FWKLLI; turn=PG",
+  "lib_id": "NB059"
+ },
+ {
+  "id": "deD_mac_5",
+  "seq": "ACKTLTVEWIYKLWNGKVTITKCG",
+  "family": "D_macrocycle",
+  "note": "disulfide hairpin; loop=WIYKLW; turn=NG",
+  "lib_id": "NB060"
+ },
+ {
+  "id": "deD_mac_6",
+  "seq": "ACKTLTVEWIYKLWPGKVTITKCG",
+  "family": "D_macrocycle",
+  "note": "disulfide hairpin; loop=WIYKLW; turn=PG",
+  "lib_id": "NB061"
+ },
+ {
+  "id": "deD_mac_7",
+  "seq": "ACSVEITVWLYELFNGTVKVSDCG",
+  "family": "D_macrocycle",
+  "note": "disulfide hairpin; loop=WLYELF; turn=NG",
+  "lib_id": "NB062"
+ },
+ {
+  "id": "deD_mac_8",
+  "seq": "ACSVEITVWLYELFPGTVKVSDCG",
+  "family": "D_macrocycle",
+  "note": "disulfide hairpin; loop=WLYELF; turn=PG",
+  "lib_id": "NB063"
+ },
+ {
+  "id": "deD_mac_9",
+  "seq": "ACSVEITVFWKLLINGTVKVSDCG",
+  "family": "D_macrocycle",
+  "note": "disulfide hairpin; loop=FWKLLI; turn=NG",
+  "lib_id": "NB064"
+ },
+ {
+  "id": "deD_mac_10",
+  "seq": "ACSVEITVFWKLLIPGTVKVSDCG",
+  "family": "D_macrocycle",
+  "note": "disulfide hairpin; loop=FWKLLI; turn=PG",
+  "lib_id": "NB065"
+ },
+ {
+  "id": "deD_mac_11",
+  "seq": "ACSVEITVWIYKLWNGTVKVSDCG",
+  "family": "D_macrocycle",
+  "note": "disulfide hairpin; loop=WIYKLW; turn=NG",
+  "lib_id": "NB066"
+ },
+ {
+  "id": "deD_mac_12",
+  "seq": "ACSVEITVWIYKLWPGTVKVSDCG",
+  "family": "D_macrocycle",
+  "note": "disulfide hairpin; loop=WIYKLW; turn=PG",
+  "lib_id": "NB067"
+ },
+ {
+  "id": "deD_mac_13",
+  "seq": "ACEVKLTAWLYELFNGTLKVEGCG",
+  "family": "D_macrocycle",
+  "note": "disulfide hairpin; loop=WLYELF; turn=NG",
+  "lib_id": "NB068"
+ },
+ {
+  "id": "deD_mac_14",
+  "seq": "ACEVKLTAWLYELFPGTLKVEGCG",
+  "family": "D_macrocycle",
+  "note": "disulfide hairpin; loop=WLYELF; turn=PG",
+  "lib_id": "NB069"
+ },
+ {
+  "id": "deD_mac_15",
+  "seq": "ACEVKLTAFWKLLINGTLKVEGCG",
+  "family": "D_macrocycle",
+  "note": "disulfide hairpin; loop=FWKLLI; turn=NG",
+  "lib_id": "NB070"
+ },
+ {
+  "id": "deD_mac_16",
+  "seq": "ACEVKLTAFWKLLIPGTLKVEGCG",
+  "family": "D_macrocycle",
+  "note": "disulfide hairpin; loop=FWKLLI; turn=PG",
+  "lib_id": "NB071"
+ },
+ {
+  "id": "deD_mac_17",
+  "seq": "ACEVKLTAWIYKLWNGTLKVEGCG",
+  "family": "D_macrocycle",
+  "note": "disulfide hairpin; loop=WIYKLW; turn=NG",
+  "lib_id": "NB072"
+ },
+ {
+  "id": "deD_mac_18",
+  "seq": "ACEVKLTAWIYKLWPGTLKVEGCG",
+  "family": "D_macrocycle",
+  "note": "disulfide hairpin; loop=WIYKLW; turn=PG",
+  "lib_id": "NB073"
+ },
+ {
+  "id": "deA_aromWL_acidic_28",
+  "seq": "SWSEWETKLSELETKYSEYETKLSELETKG",
+  "family": "A_helix",
+  "note": "amphipathic helix; knobs=aromWL; face=acidic; len~28",
+  "lib_id": "NB074"
+ },
+ {
+  "id": "deA_aromWL_acidic_35",
+  "seq": "SWSEWETKLSELETKYSEYETKLSELETKFSEFETKG",
+  "family": "A_helix",
+  "note": "amphipathic helix; knobs=aromWL; face=acidic; len~35",
+  "lib_id": "NB075"
+ },
+ {
+  "id": "deA_aromWL_basic_28",
+  "seq": "SWTKWKSELTKLKSEYTKYKSELTKLKSEG",
+  "family": "A_helix",
+  "note": "amphipathic helix; knobs=aromWL; face=basic; len~28",
+  "lib_id": "NB076"
+ },
+ {
+  "id": "deA_aromWL_basic_35",
+  "seq": "SWTKWKSELTKLKSEYTKYKSELTKLKSEFTKFKSEG",
+  "family": "A_helix",
+  "note": "amphipathic helix; knobs=aromWL; face=basic; len~35",
+  "lib_id": "NB077"
+ },
+ {
+  "id": "deA_aromWL_neutral_28",
+  "seq": "SWSQWNTSLSQLNTSYSQYNTSLSQLNTSG",
+  "family": "A_helix",
+  "note": "amphipathic helix; knobs=aromWL; face=neutral; len~28",
+  "lib_id": "NB078"
+ },
+ {
+  "id": "deA_aromWL_neutral_35",
+  "seq": "SWSQWNTSLSQLNTSYSQYNTSLSQLNTSFSQFNTSG",
+  "family": "A_helix",
+  "note": "amphipathic helix; knobs=aromWL; face=neutral; len~35",
+  "lib_id": "NB079"
+ },
+ {
+  "id": "deA_aliphLIV_acidic_28",
+  "seq": "SLSELETKISEIETKVSEVETKLSELETKG",
+  "family": "A_helix",
+  "note": "amphipathic helix; knobs=aliphLIV; face=acidic; len~28",
+  "lib_id": "NB080"
+ },
+ {
+  "id": "deA_aliphLIV_acidic_35",
+  "seq": "SLSELETKISEIETKVSEVETKLSELETKISEIETKG",
+  "family": "A_helix",
+  "note": "amphipathic helix; knobs=aliphLIV; face=acidic; len~35",
+  "lib_id": "NB081"
+ },
+ {
+  "id": "deA_aliphLIV_basic_28",
+  "seq": "SLTKLKSEITKIKSEVTKVKSELTKLKSEG",
+  "family": "A_helix",
+  "note": "amphipathic helix; knobs=aliphLIV; face=basic; len~28",
+  "lib_id": "NB082"
+ },
+ {
+  "id": "deA_aliphLIV_basic_35",
+  "seq": "SLTKLKSEITKIKSEVTKVKSELTKLKSEITKIKSEG",
+  "family": "A_helix",
+  "note": "amphipathic helix; knobs=aliphLIV; face=basic; len~35",
+  "lib_id": "NB083"
+ },
+ {
+  "id": "deA_aliphLIV_neutral_28",
+  "seq": "SLSQLNTSISQINTSVSQVNTSLSQLNTSG",
+  "family": "A_helix",
+  "note": "amphipathic helix; knobs=aliphLIV; face=neutral; len~28",
+  "lib_id": "NB084"
+ },
+ {
+  "id": "deA_aliphLIV_neutral_35",
+  "seq": "SLSQLNTSISQINTSVSQVNTSLSQLNTSISQINTSG",
+  "family": "A_helix",
+  "note": "amphipathic helix; knobs=aliphLIV; face=neutral; len~35",
+  "lib_id": "NB085"
+ },
+ {
+  "id": "deA_mixFM_acidic_28",
+  "seq": "SFSEFETKLSELETKMSEMETKISEIETKG",
+  "family": "A_helix",
+  "note": "amphipathic helix; knobs=mixFM; face=acidic; len~28",
+  "lib_id": "NB086"
+ },
+ {
+  "id": "deA_mixFM_acidic_35",
+  "seq": "SFSEFETKLSELETKMSEMETKISEIETKWSEWETKG",
+  "family": "A_helix",
+  "note": "amphipathic helix; knobs=mixFM; face=acidic; len~35",
+  "lib_id": "NB087"
+ },
+ {
+  "id": "deA_mixFM_basic_28",
+  "seq": "SFTKFKSELTKLKSEMTKMKSEITKIKSEG",
+  "family": "A_helix",
+  "note": "amphipathic helix; knobs=mixFM; face=basic; len~28",
+  "lib_id": "NB088"
+ },
+ {
+  "id": "deA_mixFM_basic_35",
+  "seq": "SFTKFKSELTKLKSEMTKMKSEITKIKSEWTKWKSEG",
+  "family": "A_helix",
+  "note": "amphipathic helix; knobs=mixFM; face=basic; len~35",
+  "lib_id": "NB089"
+ },
+ {
+  "id": "deF_M_EK_24",
+  "seq": "SMSTMENKLSTLENKISTIENKWSTG",
+  "family": "F_epitope_helix",
+  "note": "epitope-directed helix knob=M charge=EK len~24",
+  "lib_id": "NB090"
+ },
+ {
+  "id": "deF_M_EK_31",
+  "seq": "SMSTMENKLSTLENKISTIENKWSTWENKLSTG",
+  "family": "F_epitope_helix",
+  "note": "epitope-directed helix knob=M charge=EK len~31",
+  "lib_id": "NB091"
+ },
+ {
+  "id": "deF_M_KK_24",
+  "seq": "SMSTMKNKLSTLKNKISTIKNKWSTG",
+  "family": "F_epitope_helix",
+  "note": "epitope-directed helix knob=M charge=KK len~24",
+  "lib_id": "NB092"
+ },
+ {
+  "id": "deF_M_KK_31",
+  "seq": "SMSTMKNKLSTLKNKISTIKNKWSTWKNKLSTG",
+  "family": "F_epitope_helix",
+  "note": "epitope-directed helix knob=M charge=KK len~31",
+  "lib_id": "NB093"
+ },
+ {
+  "id": "deF_M_EE_24",
+  "seq": "SMSTMENELSTLENEISTIENEWSTG",
+  "family": "F_epitope_helix",
+  "note": "epitope-directed helix knob=M charge=EE len~24",
+  "lib_id": "NB094"
+ },
+ {
+  "id": "deF_M_EE_31",
+  "seq": "SMSTMENELSTLENEISTIENEWSTWENELSTG",
+  "family": "F_epitope_helix",
+  "note": "epitope-directed helix knob=M charge=EE len~31",
+  "lib_id": "NB095"
+ },
+ {
+  "id": "deF_M_QN_24",
+  "seq": "SMSTMQNNLSTLQNNISTIQNNWSTG",
+  "family": "F_epitope_helix",
+  "note": "epitope-directed helix knob=M charge=QN len~24",
+  "lib_id": "NB096"
+ },
+ {
+  "id": "deF_M_QN_31",
+  "seq": "SMSTMQNNLSTLQNNISTIQNNWSTWQNNLSTG",
+  "family": "F_epitope_helix",
+  "note": "epitope-directed helix knob=M charge=QN len~31",
+  "lib_id": "NB097"
+ },
+ {
+  "id": "deF_Y_KE_24",
+  "seq": "SYSTYKNELSTLKNEWSTWKNEFSTG",
+  "family": "F_epitope_helix",
+  "note": "epitope-directed helix knob=Y charge=KE len~24",
+  "lib_id": "NB098"
+ },
+ {
+  "id": "deF_Y_KE_31",
+  "seq": "SYSTYKNELSTLKNEWSTWKNEFSTFKNEISTG",
+  "family": "F_epitope_helix",
+  "note": "epitope-directed helix knob=Y charge=KE len~31",
+  "lib_id": "NB099"
+ },
+ {
+  "id": "deF_Y_EK_24",
+  "seq": "SYSTYENKLSTLENKWSTWENKFSTG",
+  "family": "F_epitope_helix",
+  "note": "epitope-directed helix knob=Y charge=EK len~24",
+  "lib_id": "NB100"
+ }
+]

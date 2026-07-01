@@ -1,0 +1,212 @@
+[
+ {
+  "id": "v094_wt",
+  "seq": "SMSTMENELSTLENEISTIENEWSTG",
+  "note": "NB094 parent",
+  "lib_id": "R2_001"
+ },
+ {
+  "id": "v094_M2M5L",
+  "seq": "SLSTLENELSTLENEISTIENEWSTG",
+  "note": "Met->L (deox)",
+  "lib_id": "R2_002"
+ },
+ {
+  "id": "v094_M2M5I",
+  "seq": "SISTIENELSTLENEISTIENEWSTG",
+  "note": "Met->I (deox)",
+  "lib_id": "R2_003"
+ },
+ {
+  "id": "v094_M2M5F",
+  "seq": "SFSTFENELSTLENEISTIENEWSTG",
+  "note": "Met->F (deox)",
+  "lib_id": "R2_004"
+ },
+ {
+  "id": "v094_M2M5W",
+  "seq": "SWSTWENELSTLENEISTIENEWSTG",
+  "note": "Met->W (deox)",
+  "lib_id": "R2_005"
+ },
+ {
+  "id": "v094_M2M5V",
+  "seq": "SVSTVENELSTLENEISTIENEWSTG",
+  "note": "Met->V (deox)",
+  "lib_id": "R2_006"
+ },
+ {
+  "id": "v094_W5_W23",
+  "seq": "SLSTWENELSTLENEISTIENEWSTG",
+  "note": "deMet + W5/W23 double aromatic",
+  "lib_id": "R2_007"
+ },
+ {
+  "id": "v094_L_F23",
+  "seq": "SLSTLENELSTLENEISTIENEFSTG",
+  "note": "deMet + F23 anchor",
+  "lib_id": "R2_008"
+ },
+ {
+  "id": "v094_F5_F23",
+  "seq": "SLSTFENELSTLENEISTIENEFSTG",
+  "note": "deMet + F5/F23 double aromatic",
+  "lib_id": "R2_009"
+ },
+ {
+  "id": "v094_L_Y23",
+  "seq": "SLSTLENELSTLENEISTIENEYSTG",
+  "note": "deMet + Y23 anchor",
+  "lib_id": "R2_010"
+ },
+ {
+  "id": "v094_Y5_Y23",
+  "seq": "SLSTYENELSTLENEISTIENEYSTG",
+  "note": "deMet + Y5/Y23 double aromatic",
+  "lib_id": "R2_011"
+ },
+ {
+  "id": "v094_ENE_24",
+  "seq": "SLSTLENELSTLWNEISTIENELSTG",
+  "note": "deMet helix charge=ENE len~24 W-anchor",
+  "lib_id": "R2_012"
+ },
+ {
+  "id": "v094_ENE_27",
+  "seq": "SLSTLENELSTLWNEISTIENELSTLENG",
+  "note": "deMet helix charge=ENE len~27 W-anchor",
+  "lib_id": "R2_013"
+ },
+ {
+  "id": "v094_ENE_31",
+  "seq": "SLSTLENELSTLWNEISTIENELSTLENEISTG",
+  "note": "deMet helix charge=ENE len~31 W-anchor",
+  "lib_id": "R2_014"
+ },
+ {
+  "id": "v094_EK_24",
+  "seq": "SLSTLENKLSTLWNKISTIENKLSTG",
+  "note": "deMet helix charge=EK len~24 W-anchor",
+  "lib_id": "R2_015"
+ },
+ {
+  "id": "v094_EK_27",
+  "seq": "SLSTLENKLSTLWNKISTIENKLSTLENG",
+  "note": "deMet helix charge=EK len~27 W-anchor",
+  "lib_id": "R2_016"
+ },
+ {
+  "id": "v094_EK_31",
+  "seq": "SLSTLENKLSTLWNKISTIENKLSTLENKISTG",
+  "note": "deMet helix charge=EK len~31 W-anchor",
+  "lib_id": "R2_017"
+ },
+ {
+  "id": "v094_KE_24",
+  "seq": "SLSTLKNELSTLWNEISTIKNELSTG",
+  "note": "deMet helix charge=KE len~24 W-anchor",
+  "lib_id": "R2_018"
+ },
+ {
+  "id": "v094_KE_27",
+  "seq": "SLSTLKNELSTLWNEISTIKNELSTLKNG",
+  "note": "deMet helix charge=KE len~27 W-anchor",
+  "lib_id": "R2_019"
+ },
+ {
+  "id": "v094_KE_31",
+  "seq": "SLSTLKNELSTLWNEISTIKNELSTLKNEISTG",
+  "note": "deMet helix charge=KE len~31 W-anchor",
+  "lib_id": "R2_020"
+ },
+ {
+  "id": "v094_KK_24",
+  "seq": "SLSTLKNKLSTLWNKISTIKNKLSTG",
+  "note": "deMet helix charge=KK len~24 W-anchor",
+  "lib_id": "R2_021"
+ },
+ {
+  "id": "v094_KK_27",
+  "seq": "SLSTLKNKLSTLWNKISTIKNKLSTLKNG",
+  "note": "deMet helix charge=KK len~27 W-anchor",
+  "lib_id": "R2_022"
+ },
+ {
+  "id": "v094_KK_31",
+  "seq": "SLSTLKNKLSTLWNKISTIKNKLSTLKNKISTG",
+  "note": "deMet helix charge=KK len~31 W-anchor",
+  "lib_id": "R2_023"
+ },
+ {
+  "id": "v094_QN_24",
+  "seq": "SLSTLQNNLSTLWNNISTIQNNLSTG",
+  "note": "deMet helix charge=QN len~24 W-anchor",
+  "lib_id": "R2_024"
+ },
+ {
+  "id": "v094_QN_27",
+  "seq": "SLSTLQNNLSTLWNNISTIQNNLSTLQNG",
+  "note": "deMet helix charge=QN len~27 W-anchor",
+  "lib_id": "R2_025"
+ },
+ {
+  "id": "v094_QN_31",
+  "seq": "SLSTLQNNLSTLWNNISTIQNNLSTLQNNISTG",
+  "note": "deMet helix charge=QN len~31 W-anchor",
+  "lib_id": "R2_026"
+ },
+ {
+  "id": "v094_ED_24",
+  "seq": "SLSTLENDLSTLWNDISTIENDLSTG",
+  "note": "deMet helix charge=ED len~24 W-anchor",
+  "lib_id": "R2_027"
+ },
+ {
+  "id": "v094_ED_27",
+  "seq": "SLSTLENDLSTLWNDISTIENDLSTLENG",
+  "note": "deMet helix charge=ED len~27 W-anchor",
+  "lib_id": "R2_028"
+ },
+ {
+  "id": "v094_ED_31",
+  "seq": "SLSTLENDLSTLWNDISTIENDLSTLENDISTG",
+  "note": "deMet helix charge=ED len~31 W-anchor",
+  "lib_id": "R2_029"
+ },
+ {
+  "id": "v094_knobW",
+  "seq": "SWSTWENELSTLWNEWSTWENELSTLENG",
+  "note": "knob palette W, ENE, len27",
+  "lib_id": "R2_030"
+ },
+ {
+  "id": "v094_knobF",
+  "seq": "SFSTFENELSTLWNEFSTFENEISTIENG",
+  "note": "knob palette F, ENE, len27",
+  "lib_id": "R2_031"
+ },
+ {
+  "id": "v094_knobY",
+  "seq": "SYSTYENELSTLWNEWSTWENELSTLENG",
+  "note": "knob palette Y, ENE, len27",
+  "lib_id": "R2_032"
+ },
+ {
+  "id": "v094_knobLF",
+  "seq": "SLSTLENEFSTFWNELSTLENEISTIENG",
+  "note": "knob palette LF, ENE, len27",
+  "lib_id": "R2_033"
+ },
+ {
+  "id": "v094_trunc20",
+  "seq": "SLSTLENELSTLENEISTIEG",
+  "note": "deMet parent truncated 20",
+  "lib_id": "R2_034"
+ },
+ {
+  "id": "v094_ext",
+  "seq": "SLSTLENELSTLENEISTIENEWSTGLENEISTG",
+  "note": "deMet parent extended",
+  "lib_id": "R2_035"
+ }
+]

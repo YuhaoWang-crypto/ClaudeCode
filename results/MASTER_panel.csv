@@ -1,0 +1,8 @@
+wetlab_id,source_id,tier,class,length,boltz_bind_conf_epitope_forced,boltz_bind_conf_UNFORCED,iptm_unforced,net_charge,gravy,aromatic_frac,cys,n_liabilities,liabilities,sequence
+TZP-P3,R2_035,A,de novo helix (extended),34,0.409,0.409,0.952,-8,-0.57,0.029,0,0,none,SLSTLENELSTLENEISTIENEWSTGLENEISTG
+TZP-P1,R2_008,A,de novo helix (Phe-anchor),26,0.375,0.369,0.923,-6,-0.45,0.038,0,0,none,SLSTLENELSTLENEISTIENEFSTG
+TZP-P2,R2_002,A,de novo helix (Trp-anchor),26,0.367,0.368,0.914,-6,-0.59,0.038,0,0,none,SLSTLENELSTLENEISTIENEWSTG
+TZP-P4,R2_010,A,de novo helix (Tyr-anchor),26,0.356,0.353,0.948,-6,-0.61,0.038,0,0,none,SLSTLENELSTLENEISTIENEYSTG
+TZP-B1,spec_13,A,existing mini-binder (best; orthogonal scaffold),96,0.2,0.199,0.714,-2,0.39,0.073,1,2,glycosite@94;Met_ox(1),MVSKTFTVTLPTGATLTVTVTYDYETNVLTVKVTLPQTGKSDEATFKVAAGVTVETILPGVGLVVKAHYDAEKNTITITLECPALGATFTFTLNLS
+TZP-P5,R2_007,B,de novo helix (di-Trp),26,0.345,0.337,0.923,-6,-0.77,0.077,0,0,none,SLSTWENELSTLENEISTIENEWSTG
+TZP-P6,R2_034,B,"de novo helix (21-mer, minimal)",21,0.322,0.33,0.94,-5,-0.29,0.0,0,0,none,SLSTLENELSTLENEISTIEG
