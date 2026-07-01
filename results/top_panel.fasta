@@ -1,0 +1,24 @@
+>TZP-S1.1 | S1o_short | 66aa | 3-helix bundle (opt) | bind(screen)=0.75, fold=0.87
+SLEELSKLLEEISKLIEEFSKLGSPGEELLKKLEEALKKLEEHLKKLGNSGSEEIRKLAEEIKKLG
+>TZP-S1 | LS3_bundle2 | 75aa | 3-helix bundle | protein_iptm=0.96, pTM=0.96
+SLEELSKLLEEISKLIEEWSKLGSPGSEELLKKLEEALKKLEEHLKKLGSDGTSEEIRKLAEEIKKLAEELKKLG
+>TZP-S2 | LS5_c | 49aa | mixed alpha/beta | protein_iptm=0.97, pTM=0.96
+KTVTLTVEGKTYTVTVSDGSKLEGSPSLEELSKLLEEISKLIEEFSKLG
+>TZP-S3 | LS4_hairpinF | 47aa | alpha-hairpin | protein_iptm=0.97, pTM=0.96
+SLEELSKLLEEISKLIEEFSKLGPNGKELKKLAEELKKLAEELKKLA
+>TZP-S4 | LS2_b | 34aa | disulfide-stapled helix | protein_iptm=0.96, pTM=0.97
+SAEELLKKLCELSKLLEEICKLIEEWLKKLEELG
+>TZP-P3 | R2_035 | 34aa | amphipathic helix | bind(un-forced)=0.41
+SLSTLENELSTLENEISTIENEWSTGLENEISTG
+>TZP-P1 | R2_008 | 26aa | amphipathic helix | bind(un-forced)=0.37
+SLSTLENELSTLENEISTIENEFSTG
+>TZP-P2 | R2_002 | 26aa | amphipathic helix | bind(un-forced)=0.37
+SLSTLENELSTLENEISTIENEWSTG
+>TZP-P4 | R2_010 | 26aa | amphipathic helix | bind(un-forced)=0.35
+SLSTLENELSTLENEISTIENEYSTG
+>TZP-P5 | R2_007 | 26aa | amphipathic helix | bind(un-forced)=0.34
+SLSTWENELSTLENEISTIENEWSTG
+>TZP-P6 | R2_034 | 21aa | amphipathic helix | bind(un-forced)=0.33
+SLSTLENELSTLENEISTIEG
+>TZP-B1 | design_spec_13 | 96aa | mixed alpha/beta mini-protein | bind(un-forced)=0.20
+MVSKTFTVTLPTGATLTVTVTYDYETNVLTVKVTLPQTGKSDEATFKVAAGVTVETILPGVGLVVKAHYDAEKNTITITLECPALGATFTFTLNLS
