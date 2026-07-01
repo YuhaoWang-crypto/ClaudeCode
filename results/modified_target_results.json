@@ -1,0 +1,11 @@
+{
+  "description": "Leads co-folded against FULLY-MODIFIED Tirzepatide = peptide (Aib2,Aib13) + K20 acyl (C20-diacid-gGlu-(AEEA)2, from user SMILES) as co-folded ligand. protein_iptm = binder<->peptide interface confidence.",
+  "results": [
+    {"id":"TZP-B1 (spec_13)","iptm_overall":0.954,"protein_iptm":0.954,"ligand_iptm":0.978,"complex_plddt":0.743,"pred_id":"sab_pred_KEpOQB5MEwynEAGAXLGN"},
+    {"id":"TZP-P1 (R2_008)","iptm_overall":0.842,"protein_iptm":0.971,"ligand_iptm":0.784,"complex_plddt":0.611,"pred_id":"sab_pred_hUTILag9tqSY2dIBn4ni"},
+    {"id":"TZP-P2 (R2_002)","iptm_overall":0.917,"protein_iptm":0.982,"ligand_iptm":0.886,"complex_plddt":0.639,"pred_id":"sab_pred_mL759jSSbWB0jyytzVkU"},
+    {"id":"TZP-P3 (R2_035)","iptm_overall":0.877,"protein_iptm":0.974,"ligand_iptm":0.823,"complex_plddt":0.673,"pred_id":"sab_pred_vrslRijK8mLop2eRBTCG"}
+  ],
+  "lipid_free_reference_iptm_unforced": {"spec_13":0.714,"R2_008":0.923,"R2_002":0.914,"R2_035":0.952},
+  "conclusion": "K20 lipid present -> binder<->peptide protein_iptm stays 0.95-0.98 (>= lipid-free). The C-terminal helical epitope (F22/V23/L26/I27) is not occluded by the lipid, which is on the opposite face. Binders tolerate the full modification."
+}

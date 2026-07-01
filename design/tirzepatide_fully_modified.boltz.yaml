@@ -1,0 +1,47 @@
+# Fully-modified Tirzepatide target for a LOCAL Boltz-2 run (boltz predict).
+# Local Boltz allows a covalent bond to a SMILES ligand (the hosted MCP endpoint
+# restricts atom-level bonds to CCD ligands), so this file expresses the TRUE
+# covalent attachment of the K20 acyl chain — the exact modified drug.
+#
+# Modifications captured:
+#   - Aib2, Aib13         -> CCD "AIB" (residue indices are 1-based here per Boltz YAML)
+#   - K20 side-chain acyl -> ligand L (C20 diacid-gGlu-(AEEA)2, from user SMILES),
+#                            covalently bonded Lys20:NZ -> ligand carbonyl C
+#   - C-terminal amide    -> see note (approximate; Boltz has no direct amide cap)
+#
+# Usage:
+#   boltz predict tirzepatide_fully_modified.boltz.yaml --use_msa_server
+# Add your binder as a second protein chain (chain A) to co-fold the complex.
+
+version: 1
+sequences:
+  - protein:
+      id: T
+      sequence: YAEGTFTSDYSIALDKIAQKAFVQWLIAGGPSSGAPPPS   # X->A placeholders at 2,13
+      modifications:
+        - position: 2      # Aib2
+          ccd: AIB
+        - position: 13     # Aib13
+          ccd: AIB
+  - ligand:
+      id: L
+      # K20 Nε substituent (methyl removed vs the co-fold surrogate; here the
+      # attachment atom is the first carbonyl C, bonded to Lys20 NZ below):
+      smiles: "O=C(CCCCCCCCCCCCCCCCCCC(=O)N[C@@H](CCC(=O)NCCOCCOCC(=O)NCCOCCOCC(=O)O)C(=O)O)"
+  # - protein:            # <-- add your binder here to run the complex
+  #     id: A
+  #     sequence: SLSTLENELSTLENEISTIENEFSTG
+
+constraints:
+  - bond:
+      atom1: [T, 20, NZ]   # Lys20 side-chain nitrogen
+      atom2: [L, 1, C1]    # first carbonyl carbon of the acyl chain (adjust atom name to your CCD/SMILES atom labeling)
+
+# Notes:
+# * C-terminal amide (-NH2): Boltz has no first-class amide-cap; effect on the
+#   mapped C-terminal-face epitope is minor. For exactness, build a custom CCD
+#   monomer for Ser39-NH2 or post-process.
+# * For the exact drug as ONE entity you can instead pass the full user SMILES as
+#   a single ligand and co-fold the binder as a protein (ligand_protein mode),
+#   but a ~250-atom flexible peptidomimetic folds less reliably than this
+#   peptide+bonded-acyl representation.

@@ -32,6 +32,34 @@ peptide backbone/side chains. The lipid at K20 is a solubility/half-life
 appendage and is the *least* attractive epitope (flexible, albumin-shielded), so
 the peptide-only model is the right target for binder discovery.
 
+### 1.1 Fully-modified-target validation (K20 lipid included)
+
+To confirm the leads work against the **actual modified drug** (not just the
+backbone), the K20 acyl group (C20-diacid–γGlu–(AEEA)₂, extracted verbatim from
+the supplied SMILES) was co-folded as a ligand alongside the Aib-containing
+peptide, and the leads were re-run (`results/modified_target_results.json`,
+complexes in `results/cif_modified/`):
+
+| Lead | protein_iptm (binder↔peptide) | overall ipTM | vs lipid-free |
+|---|---|---|---|
+| TZP-B1 (spec_13) | 0.95 | 0.95 | ↑ (was 0.71) |
+| TZP-P1 (R2_008) | 0.97 | 0.84 | ≈ (was 0.92) |
+| TZP-P2 (R2_002) | 0.98 | 0.92 | ↑ (was 0.91) |
+| TZP-P3 (R2_035) | 0.97 | 0.88 | ≈ (was 0.95) |
+
+**The K20 lipid does not disrupt binding** — the binder↔peptide interface
+confidence stays 0.95–0.98, consistent with the mapped epitope (F22/V23/L26/I27,
+C-terminal face) sitting on the opposite side from K20. (Lower *overall* ipTM
+just reflects the floppy lipid tail dragging the whole-complex metric down; the
+protein–protein sub-score is what matters.)
+
+**Feasibility limits of the hosted endpoint:** (i) atom-level covalent bonds are
+allowed only to CCD ligands, so the lipid is co-folded as a *proximal, non-bonded*
+ligand rather than a true Lys20-Nζ bond; (ii) the C-terminal amide is not
+representable. For the **exact covalent model**, a local Boltz-2 run with the
+provided `design/tirzepatide_fully_modified.boltz.yaml` (covalent bond to the
+SMILES acyl) is the route.
+
 ---
 
 ## 2. Unified evaluation of the 90 existing binders
