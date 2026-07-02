@@ -1,0 +1,17 @@
+# Core ML interatomic potential library (FAIR Chemistry, Meta).
+# Provides the UMA universal model + legacy OMat24 / EquiformerV2 checkpoints.
+fairchem-core>=2.20
+
+# PyTorch — install the CPU build explicitly on machines without a GPU:
+#   pip install torch==2.5.1 --index-url https://download.pytorch.org/whl/cpu
+# (On a CUDA machine just `pip install torch` and remove the line below.)
+torch>=2.4
+
+# Atomistic simulation environment: structures, optimizers, MD, I/O.
+ase>=3.23
+
+# Reading crystal structures (CIF), building MOF / molecular-crystal cells.
+pymatgen>=2024.1
+
+# HuggingFace client — required to download the (gated) UMA / OMAT24 weights.
+huggingface_hub>=0.24

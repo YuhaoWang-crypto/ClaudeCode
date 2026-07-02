@@ -1,0 +1,47 @@
+"""Sanity check: verify the stack is installed and report GPU/token status.
+
+Runs WITHOUT downloading any gated model weights, so it works before you have
+set up HuggingFace access. Run:  python examples/check_install.py
+"""
+
+import importlib
+import os
+
+
+def check(name: str) -> str:
+    try:
+        mod = importlib.import_module(name)
+        return f"  ok   {name:16s} {getattr(mod, '__version__', '?')}"
+    except Exception as exc:  # noqa: BLE001
+        return f"  MISS {name:16s} ({exc})"
+
+
+def main() -> None:
+    print("Dependency check:")
+    for pkg in ("torch", "ase", "fairchem", "pymatgen", "huggingface_hub"):
+        print(check(pkg))
+
+    print("\nCompute:")
+    try:
+        import torch
+
+        cuda = torch.cuda.is_available()
+        print(f"  CUDA available : {cuda}")
+        if cuda:
+            print(f"  GPU            : {torch.cuda.get_device_name(0)}")
+        else:
+            print("  Running on CPU — fine for small tests, slow for big cells.")
+    except Exception as exc:  # noqa: BLE001
+        print(f"  torch not usable: {exc}")
+
+    tok = os.environ.get("HF_TOKEN") or os.environ.get("HUGGING_FACE_HUB_TOKEN")
+    print("\nHuggingFace access:")
+    print("  HF token       :", "set" if tok else "NOT set")
+    print("  Needed to download gated UMA / OMAT24 weights.")
+    print("  1) create account, 2) accept license at")
+    print("     https://huggingface.co/facebook/UMA")
+    print("  3) `huggingface-cli login` or `export HF_TOKEN=...`")
+
+
+if __name__ == "__main__":
+    main()
