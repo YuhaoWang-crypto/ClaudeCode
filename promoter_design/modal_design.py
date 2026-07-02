@@ -86,6 +86,17 @@ gpu_image = (
         "mkdir -p /tmp/uv_cache', 1)\n"
         "open(p, 'w').write(s)\n"
         "print('PATCHED evo2 setup.sh -> cuda 12.4, cu124 torch index, local uv cache')\n"
+        "# AlphaGenome setup.sh has the same Volume uv-cache EPERM issue -> same fix.\n"
+        "q = os.path.join(os.path.dirname(proto_tools.__file__),"
+        "'tools/sequence_scoring/alphagenome/standalone/setup.sh')\n"
+        "t = open(q).read()\n"
+        "t = t.replace('pip install uv',\n"
+        "  'pip install uv\\n"
+        "export UV_CACHE_DIR=/tmp/uv_cache\\n"
+        "export UV_LINK_MODE=copy\\n"
+        "mkdir -p /tmp/uv_cache', 1)\n"
+        "open(q, 'w').write(t)\n"
+        "print('PATCHED alphagenome setup.sh -> local uv cache + copy links')\n"
         "EOF")
     .env({
         "PROTO_HOME": "/proto_home",
