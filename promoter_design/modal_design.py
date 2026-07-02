@@ -60,6 +60,19 @@ gpu_image = (
     .run_commands(
         "curl -Ls https://micro.mamba.pm/api/micromamba/linux-64/latest "
         "| tar -xj -C /usr/local bin/micromamba && chmod +x /usr/local/bin/micromamba")
+    # PATCH evo2 setup.sh: its `micromamba create ... cuda-toolkit` is unpinned and
+    # pulls CUDA 13.3, which breaks torch2.6/flash-attn2.7 (need CUDA 12.x). Pin it.
+    .run_commands(
+        "python - <<'EOF'\n"
+        "import proto_tools, os\n"
+        "p = os.path.join(os.path.dirname(proto_tools.__file__),"
+        "'tools/causal_models/evo2/standalone/setup.sh')\n"
+        "s = open(p).read()\n"
+        "assert 'cuda-toolkit' in s and 'cuda-version' not in s\n"
+        "s = s.replace('cuda-toolkit', '\"cuda-version=12.*\" cuda-toolkit', 1)\n"
+        "open(p, 'w').write(s)\n"
+        "print('PATCHED evo2 setup.sh -> pinned cuda-version=12.*')\n"
+        "EOF")
     .env({
         "PROTO_HOME": "/proto_home",
         "HF_HOME": "/proto_home/hf",
@@ -67,11 +80,32 @@ gpu_image = (
         "MAMBA_BIN": "/usr/local/bin/micromamba",
         "MAMBA_ROOT_PREFIX": "/proto_home/mamba",
         "PROTO_MODEL_CACHE": "/proto_home/models",
+        # keep AlphaGenome's CUDA toolkit on the 12.x line too (jax[cuda12]).
+        "ALPHAGENOME_CUDA_TOOLKIT_CONSTRAINT": "12.*",
     })
     # local files LAST.
     .add_local_dir(".", **_MNT)
 )
 CACHE = {"/proto_home": proto_cache}
+
+
+@app.function(image=image, timeout=600)
+def dump_evo2_setup():
+    """CPU: full evo2 setup.sh + env_vars.txt + the cuda-toolkit pin mechanism."""
+    import os, glob, json, proto_tools
+    d = os.path.join(os.path.dirname(proto_tools.__file__),
+                     "tools/causal_models/evo2/standalone")
+    out = {}
+    for name in ["setup.sh", "env_vars.txt", "python_version.txt", "requirements.txt"]:
+        p = os.path.join(d, name)
+        if os.path.exists(p):
+            out[name] = open(p).read()
+    # standalone_helpers.sh (has proto_install_cuda_toolkit / MAMBA create logic)
+    for h in glob.glob(os.path.dirname(proto_tools.__file__) + "/**/standalone_helpers.sh", recursive=True):
+        out["standalone_helpers.sh"] = open(h).read()
+        break
+    print("EVO2_SETUP " + json.dumps(out, indent=2)[:8000])
+    return out
 
 
 @app.function(image=image, timeout=900)
@@ -98,13 +132,20 @@ def validate_design(stimulus: str = "interferon_typeII", target: str = "THP1",
 @app.function(image=gpu_image, gpu=GPU, secrets=[hf], volumes=CACHE, timeout=10800)
 def full_design(stimulus: str = "interferon_typeII", target: str = "THP1",
                 lineage: str | None = None, num_steps: int = 2, num_results: int = 1,
-                evo2_model: str = "evo2_1b_base"):
+                evo2_model: str = "evo2_1b_base", reset_evo2: bool = False):
     """GPU: trigger the Evo2 + AlphaGenome standalone builds (first call compiles
     them into the Volume) and run the real design. Long on first run."""
-    import sys, os, json, traceback, subprocess
+    import sys, os, json, traceback, subprocess, shutil
     sys.path.insert(0, "/root/pd")
     for d in ("/proto_home/hf", "/proto_home/mamba", "/proto_home/models"):
         os.makedirs(d, exist_ok=True)
+    # Clear a broken/partial Evo2 env (e.g. from the CUDA-13 build) so the patched
+    # setup.sh rebuilds it cleanly.
+    if reset_evo2:
+        for p in ("/proto_home/proto_tool_envs/evo2_env",):
+            if os.path.isdir(p):
+                shutil.rmtree(p, ignore_errors=True)
+                print(f"reset: removed {p}")
     print("GPU:", subprocess.run(["nvidia-smi", "--query-gpu=name,memory.total",
           "--format=csv,noheader"], capture_output=True, text=True).stdout.strip())
     import design_pipeline as dp
