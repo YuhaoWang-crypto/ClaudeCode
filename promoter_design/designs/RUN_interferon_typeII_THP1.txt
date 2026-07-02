@@ -1,0 +1,16 @@
+Modal run: proto-promoter-design::full_design
+Stimulus: interferon_typeII (IFN-gamma -> STAT1 -> GAS)
+Target cell: THP1  (AlphaGenome ontology CL:0001054, CD14+ monocyte)
+Generator: Evo2 (evo2_1b_base, BF16)   Scorer: AlphaGenome RNA_SEQ
+Optimizer: MCMC, 2 steps x 16 candidates
+
+Designed cassette (best):
+gctagcAGGACCGGTctTTCCCGGAActtgcaactTTCCCGGAActtgcaactTTCCCGGAActCTCTTCCGgggtatataatggggggccgccaccATGgGCTAGCggtaccGAattc
+
+Annotated:
+  gctagcAGGACCGGT                                   5' insulator (NheI/AgeI)
+  ctTTCCCGGAActtgcaa ctTTCCCGGAActtgcaa ctTTCCCGGAAct   3x GAS element (TTCCCGGAA) = IFN-gamma responsive
+  CTCTTCCG                                          <-- Evo2-DESIGNED spacer (AlphaGenome-scored)
+  gggtatataatggggggcc                               E1b minimal promoter (TATA)
+  gccaccATGg                                        Kozak/TSS stub
+  GCTAGCggtaccGAattc                                3' handle (KpnI/EcoRI)
