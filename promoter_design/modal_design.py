@@ -44,7 +44,8 @@ _MNT = dict(remote_path="/root/pd", ignore=["designs/*", "__pycache__/*"])
 # CPU image: base + local design code (add_local_dir must be LAST).
 image = base_image.add_local_dir(".", **_MNT)
 
-GPU = "A100"          # Evo2 needs a large-VRAM GPU; adjust to your model size.
+GPU = "H100"          # Evo2 uses FP8 (transformer-engine) -> needs compute
+                      # capability >=8.9. A100 is 8.0 (fails); H100 is 9.0.
 hf = modal.Secret.from_name("huggingface")
 
 # --- Self-hosted runtime (Evo2 + AlphaGenome via proto-tools standalone envs) --
