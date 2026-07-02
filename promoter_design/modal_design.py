@@ -69,9 +69,17 @@ gpu_image = (
         "'tools/causal_models/evo2/standalone/setup.sh')\n"
         "s = open(p).read()\n"
         "assert 'cuda-toolkit' in s and 'cuda-version' not in s\n"
+        "# (1) pin CUDA toolkit to 12.x (13.3 breaks torch2.6/flash-attn2.7)\n"
         "s = s.replace('cuda-toolkit', '\"cuda-version=12.*\" cuda-toolkit', 1)\n"
+        "# (2) uv cache on the Modal Volume can't persist temp files (EPERM); use\n"
+        "#     local disk + copy link-mode so installs into the Volume venv work.\n"
+        "s = s.replace('pip install uv',\n"
+        "  'pip install uv\\n"
+        "export UV_CACHE_DIR=/tmp/uv_cache\\n"
+        "export UV_LINK_MODE=copy\\n"
+        "mkdir -p /tmp/uv_cache', 1)\n"
         "open(p, 'w').write(s)\n"
-        "print('PATCHED evo2 setup.sh -> pinned cuda-version=12.*')\n"
+        "print('PATCHED evo2 setup.sh -> cuda-version=12.*, local uv cache + copy links')\n"
         "EOF")
     .env({
         "PROTO_HOME": "/proto_home",
