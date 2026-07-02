@@ -19,6 +19,10 @@ STRUCTS = [
  ("TZP-P2 · lead peptide (26 aa) + target",             "results/cif_leads/R2_002.cif", False),
  ("TZP-B1 · spec_13 mini-protein + modified target",    "results/cif_modified/TZP-B1_spec13.cif", True),
  ("spec_13 · existing binder + target (lipid-free)",    "results/cif/design_spec_13.cif", False),
+ ("ab2-mat2 (H3:A9Y) scFv + peptide · atomistic",       "results/antibody/atomistic/ab2mat2_A9Y_best.cif", False),
+ ("ab2-mat1 (H3:A8Y) scFv + peptide · atomistic",       "results/antibody/atomistic/ab2mat1_A8Y_best.cif", False),
+ ("ab2 WT scFv + peptide · atomistic (baseline)",       "results/antibody/atomistic/ab2WT_sample1_best.cif", False),
+ ("ab2-mat3 (triple) scFv + peptide · atomistic",       "results/antibody/atomistic/ab2mat3_triple_best.cif", False),
 ]
 
 def b64(path):
@@ -28,6 +32,37 @@ def b64(path):
 structs_js = [{"label": lbl, "cif": b64(p), "lipid": lip} for lbl, p, lip in STRUCTS]
 
 fig_b64 = b64("results/figure_maturation.png")
+
+# ---- Antibody / maturation data (loaded from result JSONs) ----
+_mat  = json.load(open(os.path.join(ROOT,"results/maturation_ranked.json")))
+_val  = {x["id"]:x for x in json.load(open(os.path.join(ROOT,"results/validation_ranked.json")))}
+_atom = json.load(open(os.path.join(ROOT,"results/antibody/atomistic/metrics.json")))
+_pf   = {x["id"]:x for x in json.load(open(os.path.join(ROOT,"results/prior_forced_ranked.json")))}
+_pu   = {x["id"]:x for x in json.load(open(os.path.join(ROOT,"results/prior_unforced_ranked.json")))}
+_plip = {x["id"]:x for x in json.load(open(os.path.join(ROOT,"results/prior_lipid_sensitivity.json")))}
+_prior= {o["id"]:o for o in json.load(open(os.path.join(ROOT,"design/prior_designs.json")))}
+
+# curated matured-lead summary: [lead, mutation, forced, unforced, atom_piptm, atom_ppbind, verdict]
+AB_LEADS = [
+ ["ab2-mat2","H3:A9Y",0.687,_val["V_A9Y"]["bind_unforced"],_atom["ab2mat2_A9Y"]["protein_iptm_best"],_atom["ab2mat2_A9Y"]["pp_binding_confidence"],"Best atomistic interface (ipTM 0.895, PAE 0.84 Å)"],
+ ["ab2-mat1","H3:A8Y",0.709,_val["V_A8Y"]["bind_unforced"],_atom["ab2mat1_A8Y"]["protein_iptm_best"],_atom["ab2mat1_A8Y"]["pp_binding_confidence"],"Top honest score; highest pp-binding 0.533"],
+ ["ab2-WT","(parent)",0.558,_val["V_ab2WT"]["bind_unforced"],_atom["ab2WT"]["protein_iptm_best"],_atom["ab2WT"]["pp_binding_confidence"],"Baseline lead"],
+ ["ab2-mat3","H3:A2Y+A4W+A8Y",0.693,None,_atom["ab2mat3_triple"]["protein_iptm_best"],_atom["ab2mat3_triple"]["pp_binding_confidence"],"Triple stack REGRESSES — epistasis"],
+]
+# round-1 single-point scan (top 12), [lib_id, mut, bind_forced, iptm]
+AB_SINGLES = [[r["lib_id"],r["mut"],round(r["bind_conf"],3),round(r["iptm"],2)]
+              for r in _mat if r["lib_id"] not in ("M00","M01")][:12]
+# prior designs failure table, [their_rank, id, forced, unforced+lipid, naked, dlip, their_iptm, liab, glycosite]
+_gly = {"design_spec_7":"CDR-H2 (NGS@55)","design_spec_0":"CDR-H2 ×2","design_spec_4":"CDR-H1 (NGT@30)",
+        "design_spec_9":"CDR-H2 (NGT@54)","design_spec_5":"CDR-H2 (NGS@54)"}
+_pord = ["design_spec_4","design_spec_9","design_spec_8","design_spec_7","design_spec_1",
+         "design_spec_2","design_spec_0","design_spec_3","design_spec_6","design_spec_5"]
+AB_PRIOR = []
+for did in _pord:
+    ext = next(k for k in _pf if k.startswith(did))
+    AB_PRIOR.append([_prior[did]["final_rank"], did, round(_pf[ext]["bind"],3), round(_pu[ext]["bind"],3),
+                     round(_plip[did]["bind_nolipid"],3), round(_prior[did]["their_iptm"],3),
+                     _prior[did]["liability"], _gly.get(did,"—")])
 
 # ---- candidate table data ----
 CANDS = [
@@ -51,6 +86,9 @@ LINK="GGGGSGGGGSGGGGS"
 
 data_js = json.dumps(CANDS)
 structs_json = json.dumps(structs_js)
+ableads_js = json.dumps(AB_LEADS)
+absingles_js = json.dumps(AB_SINGLES)
+abprior_js = json.dumps(AB_PRIOR)
 
 html = """<!DOCTYPE html>
 <html lang="en"><head>
@@ -114,6 +152,7 @@ code{background:#1d2740;padding:1px 5px;border-radius:4px}
 <nav>
   <button data-t="ov" class="active">Overview</button>
   <button data-t="seq">Sequences</button>
+  <button data-t="ab">Antibody &amp; Maturation</button>
   <button data-t="view">3D Docking Viewer</button>
   <button data-t="meth">Methods &amp; Caveats</button>
 </nav>
@@ -148,6 +187,40 @@ code{background:#1d2740;padding:1px 5px;border-radius:4px}
     <th data-k="5">Sequence</th><th data-k="9">Notes</th>
   </tr></thead><tbody></tbody></table>
   <p class="note">Full sequences incl. IgG1/IgG4-Fc fusions: <code>results/wetlab_constructs.fasta</code>. Fc cassette appended to any lead as <code>[binder]-(G4S)₃-[human IgG1 hinge-CH2-CH3]</code>.</p>
+</section>
+
+<section id="ab">
+  <h2>Antibody scFv — affinity maturation of lead <span class="mono">ab2</span></h2>
+  <p class="note">CDR point-mutation of the anti-Tirzepatide scFv <b>ab2</b>, co-folded against the <b>fully-modified</b> drug
+  (Aib2/Aib13 + K20 acyl chain), epitope-directed. 81 co-folds across 3 rounds + atomistic validation.
+  Primary signal = <code>binding_confidence</code>; leads confirmed by un-forced re-score and atomistic <code>protein_iptm</code>.</p>
+  <div class="cards">
+    <div class="card"><div class="n">48/50</div><div class="l">single CDR mutations that improved WT</div></div>
+    <div class="card"><div class="n">+0.10</div><div class="l">un-forced binding gain (WT 0.63→0.73)</div></div>
+    <div class="card"><div class="n">0.895</div><div class="l">best matured protein_ipTM (A9Y, atomistic)</div></div>
+    <div class="card"><div class="n">0.84 Å</div><div class="l">best interface PAE (A9Y)</div></div>
+  </div>
+
+  <h2>Recommended matured leads <span class="pill">click a header to sort</span></h2>
+  <div class="note" style="margin:6px 0">Advance the two single-point leads (liability-clean, no CDR glycosite). The triple stack regresses — a real epistasis signal caught by validation. View complexes in the <b>3D Docking Viewer</b> tab (the <code>ab2-mat…·atomistic</code> entries).</div>
+  <table id="tblLead" class="sortable"><thead><tr>
+    <th>Lead</th><th>CDR-H3 mutation</th><th data-num="1">bind (forced)</th><th data-num="1">bind (un-forced)</th>
+    <th data-num="1">protein_ipTM</th><th data-num="1">pp-binding</th><th>verdict</th>
+  </tr></thead><tbody></tbody></table>
+
+  <h2>Round 1 — single-point CDR-H3 scan (top 12)</h2>
+  <table id="tblSing" class="sortable"><thead><tr>
+    <th>Variant</th><th>mutation</th><th data-num="1">binding_confidence (forced)</th><th data-num="1">ipTM</th>
+  </tr></thead><tbody></tbody></table>
+  <p class="note">Aromatic (W/Y/F) substitutions dominate — consistent with engaging Tirzepatide's hydrophobic C-terminal face. Full narrative: <code>results/MATURATION_REPORT.md</code> · atomistic: <code>results/MATURATION_ATOMISTIC.md</code>.</p>
+
+  <h2>Why the prior (unmodified-target) scFv failed in wet-lab</h2>
+  <p class="warn"><b>Honest headline:</b> Boltz <code>binding_confidence</code> alone does <b>not</b> reproduce the failure — several priors score fine vs the modified drug. The real, sequence-level causes it doesn't model are below. <b>5/10 designs (incl. the preferred <span class="mono">design_spec_7</span>) carry an N-glycosylation sequon inside a CDR</b> → paratope glycan blocks binding in mammalian expression.</p>
+  <table id="tblPrior" class="sortable"><thead><tr>
+    <th data-num="1">their rank</th><th>design</th><th data-num="1">forced</th><th data-num="1">un-forced (+lipid)</th>
+    <th data-num="1">naked peptide</th><th data-num="1">their ipTM (unmod)</th><th data-num="1">liability</th><th>CDR glycosite</th>
+  </tr></thead><tbody></tbody></table>
+  <p class="note"><b>naked peptide</b> = binding_confidence with the lipid removed; most priors collapse to ≈0, i.e. weak intrinsic peptide grip. Full analysis: <code>results/PRIOR_DESIGNS_EVALUATION.md</code>. Matured constructs (scFv/scFv-Fc/IgG1): <code>results/antibody/matured_constructs.fasta</code>.</p>
 </section>
 
 <section id="view">
@@ -193,6 +266,7 @@ code{background:#1d2740;padding:1px 5px;border-radius:4px}
 
 <script>
 const CANDS=%DATA%, STRUCTS=%STRUCTS%;
+const AB_LEADS=%ABLEADS%, AB_SINGLES=%ABSINGLES%, AB_PRIOR=%ABPRIOR%;
 // tabs
 document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>{
   document.querySelectorAll('nav button').forEach(x=>x.classList.remove('active'));
@@ -221,6 +295,33 @@ function sortby(k){const num=document.querySelector(`th[data-k="${k}"]`).dataset
   render(rows);}
 document.querySelectorAll('#tbl th').forEach(th=>th.onclick=()=>sortby(+th.dataset.k));
 sortby(7);
+
+// ---- antibody / maturation tables (generic sortable) ----
+function fmt(v){return v==null?'–':(typeof v==='number'?(Math.abs(v)<10?v.toFixed(3):v):v);}
+function cellHTML(v,ci,kind){
+  if(kind==='lead'){ if(ci===0)return `<b class="mono">${v}</b>`; if(ci===1)return `<span class="mono">${v}</span>`;
+    if(ci>=2&&ci<=5)return `<b>${fmt(v)}</b>`; return `<span class="note">${v}</span>`; }
+  if(kind==='sing'){ if(ci===0)return `<span class="mono">${v}</span>`; if(ci===1)return `<span class="mono note">${v}</span>`; return fmt(v); }
+  if(kind==='prior'){ if(ci===1)return `<span class="mono">${v}</span>`;
+    if(ci===6)return `<b style="color:${v>=180?'#E4572E':'var(--ink)'}">${v}</b>`;
+    if(ci===7)return v==='—'?'<span class="note">—</span>':`<b style="color:#E4572E">${v}</b>`;
+    if(ci===4)return `<span style="color:${v<0.1?'#E4572E':'var(--ink)'}">${fmt(v)}</span>`; return fmt(v); }
+  return fmt(v);
+}
+function mkTable(tid,data,kind,defcol){
+  const tb=document.querySelector('#'+tid+' tbody');
+  const ths=[...document.querySelectorAll('#'+tid+' th')];
+  let sk=defcol,sd=-1;
+  function paint(rows){tb.innerHTML='';rows.forEach(r=>{const tr=document.createElement('tr');
+    tr.innerHTML=r.map((v,ci)=>`<td>${cellHTML(v,ci,kind)}</td>`).join('');tb.appendChild(tr);});}
+  function srt(k){const num=ths[k].dataset.num; if(k===sk)sd=-sd;else{sk=k;sd=num?-1:1;}
+    const rows=[...data].sort((a,b)=>{let x=a[k],y=b[k];if(x==null)x=num?-1:'';if(y==null)y=num?-1:'';
+      return num?(x-y)*sd:(''+x).localeCompare(''+y)*sd;}); paint(rows);}
+  ths.forEach((th,k)=>th.onclick=()=>srt(k)); srt(defcol);
+}
+mkTable('tblLead',AB_LEADS,'lead',4);   // sort by protein_ipTM
+mkTable('tblSing',AB_SINGLES,'sing',2); // sort by forced bind
+mkTable('tblPrior',AB_PRIOR,'prior',6); // sort by liability
 // viewer
 let glv;
 function initViewer(){
@@ -280,7 +381,8 @@ function style(){
 </body></html>
 """
 
-html = html.replace("%DATA%", data_js).replace("%STRUCTS%", structs_json).replace("%FIG%", fig_b64)
+html = (html.replace("%DATA%", data_js).replace("%STRUCTS%", structs_json).replace("%FIG%", fig_b64)
+            .replace("%ABLEADS%", ableads_js).replace("%ABSINGLES%", absingles_js).replace("%ABPRIOR%", abprior_js))
 out = os.path.join(ROOT, "report", "tzp_report.html")
 with open(out, "w") as fh:
     fh.write(html)
