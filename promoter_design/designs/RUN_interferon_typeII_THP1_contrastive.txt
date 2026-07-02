@@ -1,0 +1,22 @@
+Modal run: proto-promoter-design::full_design --contrastive
+Stimulus: interferon_typeII (IFN-gamma -> GAS)   Target: THP1 (CL:0001054, CD14+ monocyte)
+Off-targets penalized: CL:0002518 (kidney/HEK293), CL:0000182 (hepatocyte/HepG2),
+  CL:0002327 (mammary/MCF7), CL:0000084 (T-cell/Jurkat), CL:0002319 (neural/SH-SY5Y)
+Generator: Evo2 (evo2_1b_base, BF16)   Scorer: AlphaGenome RNA_SEQ   Optimizer: MCMC 2x16
+
+Best cassette:
+gctagcAGGACCGGTctTTCCCGGAActtgcaactTTCCCGGAActtgcaactTTCCCGGAActAATAATATgggtatataatggggggccgccaccATGgGCTAGCggtaccGAattc
+  (Evo2-designed spacer = AATAATAT)
+
+AlphaGenome contrastive scores (real):
+  interval_mean_signal   (THP1 RNA-seq)         = 5.47e-05
+  contrastive_mean_signal(mean of 5 off-targets)= 2.64e-04
+  contrastive_margin     (target - off-target)  = -2.09e-04
+  track_score (sigmoid, inflection@0)           = 0.500
+
+Note: contrastive scoring works end-to-end. This particular design is NOT yet
+THP1-specific (margin ~0) because the search was tiny (2 steps x 16) and the only
+designable region is an 8-bp spacer -- too little leverage over AlphaGenome's
+16384-bp window, which is dominated by the fixed GAS enhancer + minimal promoter.
+To get real specificity: more steps, larger designable region, and/or make the
+enhancer copies/minimal promoter designable too.
