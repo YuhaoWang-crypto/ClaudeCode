@@ -75,13 +75,16 @@ gpu_image = (
         "s = s.replace('cuda-toolkit', '\"cuda-version=12.4\" cuda-toolkit', 1)\n"
         "# (2) uv cache on the Modal Volume can't persist temp files (EPERM); use\n"
         "#     local disk + copy link-mode so installs into the Volume venv work.\n"
+        "# (3) proto-tools sets RECOMMENDED_TORCH_INDEX=cu128 (from the driver), but\n"
+        "#     torch==2.6.0 isn't on cu128; force cu124 (has 2.6.0, matches toolkit).\n"
         "s = s.replace('pip install uv',\n"
         "  'pip install uv\\n"
         "export UV_CACHE_DIR=/tmp/uv_cache\\n"
         "export UV_LINK_MODE=copy\\n"
+        "export RECOMMENDED_TORCH_INDEX=https://download.pytorch.org/whl/cu124\\n"
         "mkdir -p /tmp/uv_cache', 1)\n"
         "open(p, 'w').write(s)\n"
-        "print('PATCHED evo2 setup.sh -> cuda-version=12.*, local uv cache + copy links')\n"
+        "print('PATCHED evo2 setup.sh -> cuda 12.4, cu124 torch index, local uv cache')\n"
         "EOF")
     .env({
         "PROTO_HOME": "/proto_home",
