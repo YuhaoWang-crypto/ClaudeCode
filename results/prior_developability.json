@@ -1,0 +1,136 @@
+[
+ {
+  "id": "design_spec_4",
+  "their_liab": 190,
+  "n": 7,
+  "liab": [
+   "deamid@31",
+   "deamid@56",
+   "deamid@180",
+   "deamid@195",
+   "glycosite@31",
+   "Met_ox(4)",
+   "hydrophobic_run@174"
+  ]
+ },
+ {
+  "id": "design_spec_9",
+  "their_liab": 125,
+  "n": 3,
+  "liab": [
+   "deamid@55",
+   "glycosite@55",
+   "Met_ox(5)"
+  ]
+ },
+ {
+  "id": "design_spec_8",
+  "their_liab": 100,
+  "n": 7,
+  "liab": [
+   "deamid@56",
+   "isomer@31",
+   "isomer@141",
+   "isomer@165",
+   "Met_ox(3)",
+   "hydrophobic_run@171",
+   "hydrophobic_run@184"
+  ]
+ },
+ {
+  "id": "design_spec_7",
+  "their_liab": 220,
+  "n": 8,
+  "liab": [
+   "deamid@56",
+   "deamid@79",
+   "deamid@86",
+   "isomer@238",
+   "glycosite@56",
+   "Met_ox(4)",
+   "hydrophobic_run@48",
+   "hydrophobic_run@229"
+  ]
+ },
+ {
+  "id": "design_spec_1",
+  "their_liab": 70,
+  "n": 6,
+  "liab": [
+   "deamid@100",
+   "isomer@55",
+   "isomer@137",
+   "Met_ox(3)",
+   "hydrophobic_run@164",
+   "hydrophobic_run@177"
+  ]
+ },
+ {
+  "id": "design_spec_2",
+  "their_liab": 95,
+  "n": 6,
+  "liab": [
+   "deamid@45",
+   "deamid@78",
+   "deamid@88",
+   "Met_ox(4)",
+   "hydrophobic_run@49",
+   "hydrophobic_run@215"
+  ]
+ },
+ {
+  "id": "design_spec_0",
+  "their_liab": 200,
+  "n": 10,
+  "liab": [
+   "deamid@53",
+   "deamid@56",
+   "deamid@85",
+   "isomer@31",
+   "glycosite@53",
+   "glycosite@56",
+   "Met_ox(2)",
+   "hydrophobic_run@171",
+   "hydrophobic_run@185",
+   "hydrophobic_run@222"
+  ]
+ },
+ {
+  "id": "design_spec_3",
+  "their_liab": 105,
+  "n": 8,
+  "liab": [
+   "deamid@81",
+   "deamid@88",
+   "deamid@170",
+   "deamid@172",
+   "deamid@193",
+   "isomer@106",
+   "glycosite@33",
+   "Met_ox(4)"
+  ]
+ },
+ {
+  "id": "design_spec_6",
+  "their_liab": 120,
+  "n": 2,
+  "liab": [
+   "Met_ox(6)",
+   "hydrophobic_run@179"
+  ]
+ },
+ {
+  "id": "design_spec_5",
+  "their_liab": 120,
+  "n": 7,
+  "liab": [
+   "deamid@55",
+   "deamid@84",
+   "deamid@171",
+   "deamid@236",
+   "glycosite@55",
+   "Met_ox(5)",
+   "hydrophobic_run@187"
+  ]
+ }
+]

@@ -1,0 +1,104 @@
+[
+ {
+  "id": "design_spec_4",
+  "their_rank": 1,
+  "bind_nolipid": 0.25721219182014465,
+  "bind_withlipid": 0.6957319378852844,
+  "delta_lipid": -0.43851974606513977,
+  "their_liab": 190,
+  "cdr_glycosite": "CDR-H1 (NGT@30)"
+ },
+ {
+  "id": "design_spec_9",
+  "their_rank": 2,
+  "bind_nolipid": 0.3473236858844757,
+  "bind_withlipid": 0.691865861415863,
+  "delta_lipid": -0.34454217553138733,
+  "their_liab": 125,
+  "cdr_glycosite": "CDR-H2 (NGT@54)"
+ },
+ {
+  "id": "design_spec_8",
+  "their_rank": 3,
+  "bind_nolipid": 0.0004352941468823701,
+  "bind_withlipid": 0.7225276231765747,
+  "delta_lipid": -0.7220923290296923,
+  "their_liab": 100,
+  "cdr_glycosite": "-"
+ },
+ {
+  "id": "design_spec_7",
+  "their_rank": 4,
+  "bind_nolipid": 0.40615978837013245,
+  "bind_withlipid": 0.6533013582229614,
+  "delta_lipid": -0.24714156985282898,
+  "their_liab": 220,
+  "cdr_glycosite": "CDR-H2 (NGS@55)"
+ },
+ {
+  "id": "design_spec_1",
+  "their_rank": 5,
+  "bind_nolipid": 0.0973789393901825,
+  "bind_withlipid": 0.7244254946708679,
+  "delta_lipid": -0.6270465552806854,
+  "their_liab": 70,
+  "cdr_glycosite": "-"
+ },
+ {
+  "id": "design_spec_2",
+  "their_rank": 6,
+  "bind_nolipid": 0.010218125768005848,
+  "bind_withlipid": 0.7738508582115173,
+  "delta_lipid": -0.7636327324435115,
+  "their_liab": 95,
+  "cdr_glycosite": "-"
+ },
+ {
+  "id": "design_spec_0",
+  "their_rank": 7,
+  "bind_nolipid": 0.000275291851721704,
+  "bind_withlipid": 0.6801854968070984,
+  "delta_lipid": -0.6799102049553767,
+  "their_liab": 200,
+  "cdr_glycosite": "CDR-H2 x2 (NGS@52,55)"
+ },
+ {
+  "id": "design_spec_3",
+  "their_rank": 8,
+  "bind_nolipid": 0.0003246714477427304,
+  "bind_withlipid": 0.6203392148017883,
+  "delta_lipid": -0.6200145433540456,
+  "their_liab": 105,
+  "cdr_glycosite": "-"
+ },
+ {
+  "id": "design_spec_6",
+  "their_rank": 9,
+  "bind_nolipid": 0.0004203444404993206,
+  "bind_withlipid": 0.6363625526428223,
+  "delta_lipid": -0.635942208202323,
+  "their_liab": 120,
+  "cdr_glycosite": "-"
+ },
+ {
+  "id": "design_spec_5",
+  "their_rank": 10,
+  "bind_nolipid": 0.23125258088111877,
+  "bind_withlipid": 0.5423902273178101,
+  "delta_lipid": -0.3111376464366913,
+  "their_liab": 120,
+  "cdr_glycosite": "CDR-H2 (NGS@54)"
+ },
+ {
+  "id": "REF_ab2WT",
+  "bind_nolipid": 0.32542815804481506,
+  "bind_withlipid": 0.6401116847991943,
+  "delta_lipid": -0.3146835267543793
+ },
+ {
+  "id": "REF_ab2mat1_A8Y",
+  "bind_nolipid": 0.2990924119949341,
+  "bind_withlipid": 0.6184576749801636,
+  "delta_lipid": -0.3193652629852295
+ }
+]
