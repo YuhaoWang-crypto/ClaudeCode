@@ -1,0 +1,17 @@
+[build-system]
+requires = ["setuptools>=64"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mdscreen"
+version = "0.1.0"
+description = "Run making-it-rain-style molecular dynamics on Modal GPUs to screen small molecules for activity and allosteric effects."
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = ["modal>=0.64", "pyyaml>=6.0", "numpy>=1.24"]
+
+[project.scripts]
+mdscreen = "mdscreen.cli:main"
+
+[tool.setuptools]
+packages = ["mdscreen"]

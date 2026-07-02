@@ -1,0 +1,17 @@
+# mdscreen dependencies.
+#
+# For the LOCAL orchestrator you only need `modal` and `pyyaml`; the heavy MD
+# stack is installed inside the Modal GPU image (see modal_app.py).
+#
+#   pip install modal pyyaml
+#
+# To run the pipeline LOCALLY (workstation with a GPU) install the full stack.
+# The MD packages are best installed via conda/mamba from conda-forge:
+#
+#   mamba install -c conda-forge openmm openmmforcefields openff-toolkit \
+#       ambertools pdbfixer rdkit mdanalysis numpy scipy matplotlib networkx
+#
+# pip-only extras:
+modal>=0.64
+pyyaml>=6.0
+numpy>=1.24

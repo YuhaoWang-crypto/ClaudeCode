@@ -1,0 +1,45 @@
+# Example activity + allostery screen.
+#
+# Screens a small congeneric series against a receptor. For each ligand the
+# system runs a short protein-ligand MD, estimates MM/GBSA binding free energy,
+# checks pose stability, and (via an apo reference run) tests for allosteric
+# perturbation. Ligands are then ranked and classified.
+#
+# Run it:
+#   modal run modal_app.py::screen --config examples/screen_config.yaml
+#   # or locally (needs the MD stack installed):
+#   python -m mdscreen.cli screen --config examples/screen_config.yaml
+
+# Receptor: a local PDB path OR a 4-letter RCSB id (auto-downloaded).
+# 3POZ = EGFR kinase domain with TAK-285 — a convenient kinase test case.
+receptor: "3poz"
+
+# Ligands: each entry is a SMILES string or a path to an SDF/MOL2 file.
+ligands:
+  - "Cc1ccc(cc1)S(=O)(=O)N"                 # a sulfonamide fragment
+  - "CC(=O)Oc1ccccc1C(=O)O"                 # aspirin
+  - "COc1cc2ncnc(Nc3ccc(F)c(Cl)c3)c2cc1OCCCN1CCOCC1"   # gefitinib-like
+
+ligand_names:
+  - sulfonamide
+  - aspirin
+  - gefitinib_like
+
+# Run an apo (ligand-free) trajectory so holo-vs-apo dynamics can be compared.
+# Required to detect allosteric effects.
+run_apo_reference: true
+compute_binding: true
+compute_allostery: true
+
+# Classification thresholds (kcal/mol; MM/GBSA, entropy omitted -> ranking only).
+active_dg_threshold: -6.0     # <= this -> likely active binder
+strong_dg_threshold: -9.0     # <= this -> strong binder
+pose_rmsd_stable_nm: 0.25     # ligand RMSD below this -> stable pose
+
+# Simulation settings (short for screening; raise production_ns for rigor).
+sim:
+  production_ns: 2.0
+  nvt_equil_ps: 100.0
+  npt_equil_ps: 100.0
+  temperature_k: 300.0
+  platform: "CUDA"
