@@ -64,6 +64,16 @@ for did in _pord:
                      round(_plip[did]["bind_nolipid"],3), round(_prior[did]["their_iptm"],3),
                      _prior[did]["liability"], _gly.get(did,"—")])
 
+# MD + MM/GBSA cross-validation (5 ns explicit-solvent, chain-split MM/GBSA)
+_mdnote = {"ab2WT":"ab2 family · no glycosite","ab2mat1_A8Y":"ab2 family · no glycosite",
+           "ab2mat2_A9Y":"ab2 family · no glycosite",
+           "design_spec_4":"failed WL · CDR-H1 glycosite","design_spec_7":"failed WL · CDR-H2 glycosite"}
+_md = json.load(open(os.path.join(ROOT,"results/antibody/md/md_mmgbsa_ranked.json")))
+AB_MD = [[m["system"], round(m["dg_bind_kcal"],1), round(m["dg_std_kcal"],1),
+          round(m["binder_rmsd_mean_nm"],2), round(m["contact_retention"],2),
+          round(m["interface_contacts_mean"]), round(m["dg_per_contact"],3),
+          _mdnote.get(m["system"],"")] for m in _md]
+
 # ---- candidate table data ----
 CANDS = [
  # cls, id, src, len, topology, seq, metric_label, metric, fold, note
@@ -89,6 +99,7 @@ structs_json = json.dumps(structs_js)
 ableads_js = json.dumps(AB_LEADS)
 absingles_js = json.dumps(AB_SINGLES)
 abprior_js = json.dumps(AB_PRIOR)
+abmd_js = json.dumps(AB_MD)
 
 html = """<!DOCTYPE html>
 <html lang="en"><head>
@@ -221,6 +232,19 @@ code{background:#1d2740;padding:1px 5px;border-radius:4px}
     <th data-num="1">naked peptide</th><th data-num="1">their ipTM (unmod)</th><th data-num="1">liability</th><th>CDR glycosite</th>
   </tr></thead><tbody></tbody></table>
   <p class="note"><b>naked peptide</b> = binding_confidence with the lipid removed; most priors collapse to ≈0, i.e. weak intrinsic peptide grip. Full analysis: <code>results/PRIOR_DESIGNS_EVALUATION.md</code>. Matured constructs (scFv/scFv-Fc/IgG1): <code>results/antibody/matured_constructs.fasta</code>.</p>
+
+  <h2>MD + MM/GBSA cross-validation <span class="pill">5 ns explicit-solvent · OpenMM/Modal</span></h2>
+  <p class="note" style="margin:6px 0">Independent physics check of the Boltz static scores: 5 ns MD per complex, then chain-split end-state <b>MM/GBSA</b> ΔG + pose stability (binder RMSD after target superposition; inter-chain contact retention). Trajectories PBC-unwrapped + target min-imaged before scoring.</p>
+  <table id="tblMD" class="sortable"><thead><tr>
+    <th data-num="1">MM/GBSA ΔG</th><th>system</th><th data-num="1">± </th><th data-num="1">binder RMSD (nm)</th>
+    <th data-num="1">contact retention</th><th data-num="1">⟨contacts⟩</th><th data-num="1">ΔG / contact</th><th>note</th>
+  </tr></thead><tbody></tbody></table>
+  <p class="warn"><b>Read this correctly.</b> All 5 Boltz poses are <b>dynamically stable</b> (binder RMSD 0.26–0.50 nm, contact retention ≈0.9–1.3) — the docking modes are physically plausible. Within the ab2 scaffold, <b>A8Y improves MM/GBSA ~+9 kcal/mol over WT</b> (a 3rd independent vote for ab2-mat1). BUT raw MM/GBSA ranks the <b>failed</b> spec_7/spec_4 highest — a well-known <b>interface-size bias</b> (spec_7 buries the most atoms). On <b>ΔG-per-contact</b> the ab2 family is the most efficient, and both Boltz <i>and</i> MM/GBSA miss spec_7's CDR-glycosylation failure: affinity scores can't predict a developability failure. Use MM/GBSA only <b>within a scaffold</b>, paired with liability screening. Detail: <code>results/MD_CROSSVALIDATION.md</code>.</p>
+  <div class="cards">
+    <div class="card"><div class="n">0</div><div class="l">N-glyc sequons in ab2 WT/A8Y/A9Y (vs spec_7: CDR-H2)</div></div>
+    <div class="card"><div class="n">5/5</div><div class="l">complexes stable over 5 ns MD</div></div>
+    <div class="card"><div class="n">+9</div><div class="l">kcal/mol A8Y MM/GBSA gain vs WT (same scaffold)</div></div>
+  </div>
 </section>
 
 <section id="view">
@@ -266,7 +290,7 @@ code{background:#1d2740;padding:1px 5px;border-radius:4px}
 
 <script>
 const CANDS=%DATA%, STRUCTS=%STRUCTS%;
-const AB_LEADS=%ABLEADS%, AB_SINGLES=%ABSINGLES%, AB_PRIOR=%ABPRIOR%;
+const AB_LEADS=%ABLEADS%, AB_SINGLES=%ABSINGLES%, AB_PRIOR=%ABPRIOR%, AB_MD=%ABMD%;
 // tabs
 document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>{
   document.querySelectorAll('nav button').forEach(x=>x.classList.remove('active'));
@@ -306,6 +330,9 @@ function cellHTML(v,ci,kind){
     if(ci===6)return `<b style="color:${v>=180?'#E4572E':'var(--ink)'}">${v}</b>`;
     if(ci===7)return v==='—'?'<span class="note">—</span>':`<b style="color:#E4572E">${v}</b>`;
     if(ci===4)return `<span style="color:${v<0.1?'#E4572E':'var(--ink)'}">${fmt(v)}</span>`; return fmt(v); }
+  if(kind==='md'){ if(ci===0)return `<b>${fmt(v)}</b>`; if(ci===1)return `<span class="mono">${v}</span>`;
+    if(ci===7)return `<span class="note" style="color:${/failed/.test(v)?'#E4572E':'#7ee2a8'}">${v}</span>`;
+    return fmt(v); }
   return fmt(v);
 }
 function mkTable(tid,data,kind,defcol){
@@ -322,6 +349,7 @@ function mkTable(tid,data,kind,defcol){
 mkTable('tblLead',AB_LEADS,'lead',4);   // sort by protein_ipTM
 mkTable('tblSing',AB_SINGLES,'sing',2); // sort by forced bind
 mkTable('tblPrior',AB_PRIOR,'prior',6); // sort by liability
+mkTable('tblMD',AB_MD,'md',0);          // sort by MM/GBSA dG
 // viewer
 let glv;
 function initViewer(){
@@ -382,7 +410,8 @@ function style(){
 """
 
 html = (html.replace("%DATA%", data_js).replace("%STRUCTS%", structs_json).replace("%FIG%", fig_b64)
-            .replace("%ABLEADS%", ableads_js).replace("%ABSINGLES%", absingles_js).replace("%ABPRIOR%", abprior_js))
+            .replace("%ABLEADS%", ableads_js).replace("%ABSINGLES%", absingles_js).replace("%ABPRIOR%", abprior_js)
+            .replace("%ABMD%", abmd_js))
 out = os.path.join(ROOT, "report", "tzp_report.html")
 with open(out, "w") as fh:
     fh.write(html)
