@@ -180,6 +180,83 @@ def inspect_extras():
     return out
 
 
+@app.function(image=image, timeout=600)
+def dump_evo2_source():
+    """CPU: print the evo2 tool's model-loading lines so we build the exact runtime."""
+    import os, re, proto_tools.tools.causal_models.evo2 as e2
+    d = os.path.dirname(e2.__file__)
+    hits = []
+    for f in sorted(os.listdir(d)):
+        if not f.endswith(".py"):
+            continue
+        for i, line in enumerate(open(os.path.join(d, f)), 1):
+            if re.search(r"import (evo2|vortex|transformer_engine|flash_attn|torch|transformers)"
+                         r"|from (evo2|vortex|transformers)"
+                         r"|from_pretrained|AutoModel|Evo2\(|load_checkpoint|hf_hub|snapshot_download",
+                         line):
+                hits.append(f"{f}:{i}: {line.rstrip()[:140]}")
+    print("EVO2_SRC\n" + "\n".join(hits))
+    return hits
+
+
+@app.function(image=image, timeout=600)
+def dump_dispatch():
+    """CPU: how does proto_tools run a tool? Local weights vs hosted proto-client?"""
+    import os, re, json, glob
+    out = {}
+    # (a) full evo2 tool dir + source
+    import proto_tools.tools.causal_models.evo2 as e2
+    d = os.path.dirname(e2.__file__)
+    out["evo2_files"] = sorted(os.listdir(d))
+    src = {}
+    for f in glob.glob(d + "/*.py"):
+        src[os.path.basename(f)] = open(f).read()[:1500]
+    out["evo2_init_head"] = src.get("__init__.py", "")[:1500]
+    # (b) proto_client: base URL / API-key env
+    try:
+        import proto_client, inspect
+        pc_dir = os.path.dirname(proto_client.__file__)
+        envs, urls = set(), set()
+        for f in glob.glob(pc_dir + "/**/*.py", recursive=True):
+            s = open(f).read()
+            envs |= set(re.findall(r"(?:environ(?:\.get)?\(|getenv\()\s*[\"']([^\"']+)", s))
+            urls |= set(re.findall(r"https?://[a-zA-Z0-9\.\-/]+", s))
+        out["proto_client_env_vars"] = sorted(envs)
+        out["proto_client_urls"] = sorted(urls)[:10]
+        out["proto_client_attrs"] = [a for a in dir(proto_client) if not a.startswith("_")][:30]
+    except Exception as e:
+        out["proto_client_err"] = str(e)
+    # (c) does proto_tools have a tool runner that chooses local vs remote?
+    try:
+        import proto_tools, glob as g
+        base = os.path.dirname(proto_tools.__file__)
+        run_hits = []
+        for f in g.glob(base + "/**/*.py", recursive=True):
+            s = open(f).read()
+            if re.search(r"proto_client|BACKEND|remote|hosted|api_key|ARC_", s):
+                run_hits.append(os.path.relpath(f, base))
+        out["files_mentioning_client_or_backend"] = run_hits[:25]
+    except Exception as e:
+        out["runner_err"] = str(e)
+    print("DISPATCH " + json.dumps(out, indent=2)[:6000])
+    return out
+
+
+@app.function(image=image, timeout=600)
+def dump_evo2_dispatch():
+    """CPU: show how run_evo2_sample chooses hosted (proto_client) vs local."""
+    import os, re, proto_tools.tools.causal_models.evo2.evo2_sample as s
+    src = open(s.__file__).read()
+    lines = src.splitlines()
+    keep = []
+    for i, ln in enumerate(lines):
+        if re.search(r"proto_client|PROTO_API_KEY|def run_evo2_sample|remote|local|standalone|"
+                     r"backend|ProtoClient|create_run|\.run\(|getenv|environ|raise ", ln):
+            keep.append(f"{i+1}: {ln[:150]}")
+    print("EVO2_DISPATCH\n" + "\n".join(keep[:60]))
+    return keep[:60]
+
+
 @app.function(image=image, gpu=GPU, secrets=[hf], timeout=1800)
 def smoke():
     """GPU: minimal proof that Evo2 + AlphaGenome are callable in this image."""
