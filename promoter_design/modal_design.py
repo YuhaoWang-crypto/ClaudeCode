@@ -44,8 +44,8 @@ _MNT = dict(remote_path="/root/pd", ignore=["designs/*", "__pycache__/*"])
 # CPU image: base + local design code (add_local_dir must be LAST).
 image = base_image.add_local_dir(".", **_MNT)
 
-GPU = "H100"          # Evo2 uses FP8 (transformer-engine) -> needs compute
-                      # capability >=8.9. A100 is 8.0 (fails); H100 is 9.0.
+GPU = "A100"          # With FP8 disabled (BF16), any modern GPU works; A100 is
+                      # cheaper. (Evo2's FP8 GEMM rejects our short sequences.)
 hf = modal.Secret.from_name("huggingface")
 
 # --- Self-hosted runtime (Evo2 + AlphaGenome via proto-tools standalone envs) --
@@ -146,13 +146,26 @@ def validate_design(stimulus: str = "interferon_typeII", target: str = "THP1",
 @app.function(image=gpu_image, gpu=GPU, secrets=[hf], volumes=CACHE, timeout=10800)
 def full_design(stimulus: str = "interferon_typeII", target: str = "THP1",
                 lineage: str | None = None, num_steps: int = 2, num_results: int = 1,
-                evo2_model: str = "evo2_1b_base", reset_evo2: bool = False):
+                evo2_model: str = "evo2_1b_base", reset_evo2: bool = False,
+                disable_fp8: bool = True):
     """GPU: trigger the Evo2 + AlphaGenome standalone builds (first call compiles
     them into the Volume) and run the real design. Long on first run."""
-    import sys, os, json, traceback, subprocess, shutil
+    import sys, os, json, traceback, subprocess, shutil, glob
     sys.path.insert(0, "/root/pd")
     for d in ("/proto_home/hf", "/proto_home/mamba", "/proto_home/models"):
         os.makedirs(d, exist_ok=True)
+    # Evo2's FP8 GEMM (transformer-engine) rejects our short sequences on all GPUs
+    # ("unsupported value or parameter"). Disable FP8 -> dense layers run in BF16
+    # (same weights, higher precision). Patch vortex in the cached env venv.
+    if disable_fp8:
+        for lp in glob.glob("/proto_home/proto_tool_envs/evo2_env/lib/python*/"
+                            "site-packages/vortex/model/layers.py"):
+            s = open(lp).read()
+            if "fp8_autocast(enabled=True" in s:
+                open(lp, "w").write(s.replace("fp8_autocast(enabled=True",
+                                              "fp8_autocast(enabled=False"))
+                print(f"patched FP8 off in {lp}")
+        proto_cache.commit()
     # Clear a broken/partial Evo2 env (e.g. from the CUDA-13 build) so the patched
     # setup.sh rebuilds it cleanly.
     if reset_evo2:
