@@ -7,6 +7,13 @@ set up HuggingFace access. Run:  python examples/check_install.py
 import importlib
 import os
 
+try:  # pick up HF_TOKEN from a local .env if present
+    from dotenv import load_dotenv
+
+    load_dotenv()
+except Exception:  # noqa: BLE001
+    pass
+
 
 def check(name: str, dist: str | None = None) -> str:
     try:

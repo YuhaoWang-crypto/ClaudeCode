@@ -14,6 +14,21 @@ All heads share one checkpoint, so you download the weights once.
 
 from __future__ import annotations
 
+
+def _load_dotenv() -> None:
+    """Load HF_TOKEN etc. from a local .env if python-dotenv is available.
+    Silently no-ops when the file or the package is absent (e.g. when the
+    token is injected as a real environment variable, as on Claude cloud)."""
+    try:
+        from dotenv import load_dotenv
+
+        load_dotenv()
+    except Exception:  # noqa: BLE001
+        pass
+
+
+_load_dotenv()
+
 VALID_TASKS = {"omat", "omol", "odac", "omc", "oc20", "oc22", "oc25"}
 
 

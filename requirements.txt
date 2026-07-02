@@ -16,3 +16,6 @@ ase>=3.23
 
 # HuggingFace client — required to download the (gated) UMA / OMAT24 weights.
 huggingface_hub>=0.24
+
+# Loads HF_TOKEN from a local .env file (optional; scripts no-op without it).
+python-dotenv>=1.0
