@@ -152,36 +152,44 @@ def mof_adsorption(cif: str, adsorbate: str = "H2O"):
 #    confirm the top candidates with dispersion-corrected DFT.
 # ---------------------------------------------------------------------------
 @app.function(gpu=GPU, secrets=[hf_secret], volumes={CACHE_DIR: model_cache}, timeout=3600)
-def _polymorph_rank(cifs: dict, z_per_cell: dict | None = None, fmax: float = 0.03):
+def _polymorph_rank(cifs: dict, atoms_per_molecule: int, fmax: float = 0.03):
     import io
     from ase.io import read
     from ase.optimize import BFGS
     from ase.filters import FrechetCellFilter
 
     calc = _load_calc("omc")
-    z_per_cell = z_per_cell or {}
     results = []
     for name, cif_text in cifs.items():
         atoms = read(io.StringIO(cif_text), format="cif")
         atoms.calc = calc
+        e0 = atoms.get_potential_energy()  # as-published (unrelaxed) energy
         # relax atoms AND cell (variable-cell) for molecular crystals
         BFGS(FrechetCellFilter(atoms), logfile=None).run(fmax=fmax, steps=400)
         e = atoms.get_potential_energy()
-        z = z_per_cell.get(name, 1)
-        results.append({"name": name, "E_total_eV": float(e),
-                        "Z": z, "E_per_molecule_eV": float(e) / z})
+        n = len(atoms)
+        # infer molecules-per-cell (Z) from the actual atom count -> robust to
+        # whether the CIF reader expanded symmetry or not.
+        z = max(1, round(n / atoms_per_molecule))
+        results.append({"name": name, "n_atoms": n, "Z": z,
+                        "E_unrelaxed_eV": float(e0),
+                        "E_relaxed_eV": float(e),
+                        "E_per_molecule_eV": float(e) / z})
     model_cache.commit()
     results.sort(key=lambda r: r["E_per_molecule_eV"])
     lowest = results[0]["E_per_molecule_eV"]
     for r in results:
-        r["dE_meV_per_mol"] = (r["E_per_molecule_eV"] - lowest) * 1000.0
+        r["dE_kJ_per_mol"] = (r["E_per_molecule_eV"] - lowest) * 96.485  # eV -> kJ/mol
     return {"ranking": results,
-            "warning": "MLIP polymorph gaps are approximate; verify top hits with DFT-D."}
+            "warning": "MLIP polymorph gaps are approximate (often <2 kJ/mol, near MLIP "
+                       "accuracy limit); verify ordering with dispersion-corrected DFT."}
 
 
 @app.local_entrypoint()
-def polymorph_rank(cif_dir: str):
+def polymorph_rank(cif_dir: str, atoms_per_molecule: int = 0):
     import os, json
+    if atoms_per_molecule <= 0:
+        raise SystemExit("Pass --atoms-per-molecule (e.g. paracetamol C8H9NO2 = 20)")
     cifs = {}
     for fn in sorted(os.listdir(cif_dir)):
         if fn.lower().endswith(".cif"):
@@ -191,7 +199,7 @@ def polymorph_rank(cif_dir: str):
         print(f"No .cif files found in {cif_dir}")
         return
     print(f"Ranking {len(cifs)} polymorph candidates via UMA/omc ...")
-    print(json.dumps(_polymorph_rank.remote(cifs), indent=2))
+    print(json.dumps(_polymorph_rank.remote(cifs, atoms_per_molecule), indent=2))
 
 
 # ---------------------------------------------------------------------------
