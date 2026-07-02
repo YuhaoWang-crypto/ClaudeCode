@@ -24,8 +24,9 @@ def load_config(path: str) -> dict:
 def load_shift_tables(cfg: dict) -> pd.DataFrame:
     """Read each state's goal_state_shift stats and stack them.
 
-    Expects columns including a gene identifier and a shift score. Column names
-    from geneformer stats vary by version; we normalize the common ones.
+    Verified against geneformer's InSilicoPerturberStats(mode="goal_state_shift")
+    output columns: Gene, Gene_name, Ensembl_ID, Shift_to_goal_end,
+    Goal_end_vs_random_pval, Goal_end_FDR, N_Detections, Sig.
     """
     frames = []
     for state in cfg["target_cell_states"]:
@@ -38,6 +39,7 @@ def load_shift_tables(cfg: dict) -> pd.DataFrame:
             continue
         df = pd.read_csv(path)
         df = _normalize_columns(df)
+        df = _apply_significance(df, cfg)
         df["cell_state"] = name
         frames.append(df)
     if not frames:
@@ -45,20 +47,39 @@ def load_shift_tables(cfg: dict) -> pd.DataFrame:
     return pd.concat(frames, ignore_index=True)
 
 
+# Confirmed geneformer goal_state_shift column names -> our canonical names.
+_COL_MAP = {
+    "Gene_name": "gene_symbol",
+    "Ensembl_ID": "ensembl_id",
+    "Shift_to_goal_end": "goal_shift",
+    "Goal_end_FDR": "fdr",
+    "Sig": "sig",
+}
+
+
 def _normalize_columns(df: pd.DataFrame) -> pd.DataFrame:
-    ren = {}
-    for c in df.columns:
-        cl = c.lower()
-        if cl in ("gene_name", "gene", "gene_symbol"):
-            ren[c] = "gene_symbol"
-        elif "shift" in cl and "goal" in cl:
-            ren[c] = "goal_shift"
-        elif cl in ("shift_to_goal_end", "test_stat"):
-            ren.setdefault(c, "goal_shift")
+    # Case-insensitive rename so minor version casing differences still map.
+    lower = {c.lower(): c for c in df.columns}
+    ren = {lower[k.lower()]: v for k, v in _COL_MAP.items() if k.lower() in lower}
     df = df.rename(columns=ren)
     if "gene_symbol" not in df or "goal_shift" not in df:
-        raise ValueError(f"Unexpected stats columns: {list(df.columns)}")
-    return df[["gene_symbol", "goal_shift"]]
+        raise ValueError(
+            f"Unexpected stats columns: {list(df.columns)} "
+            f"(expected geneformer goal_state_shift output)"
+        )
+    keep = [c for c in ("gene_symbol", "ensembl_id", "goal_shift", "fdr", "sig")
+            if c in df.columns]
+    return df[keep]
+
+
+def _apply_significance(df: pd.DataFrame, cfg: dict) -> pd.DataFrame:
+    """Keep only significant knockouts before ranking, if the flags are present."""
+    fdr_max = cfg["ranking"].get("fdr_max", 0.05)
+    if "sig" in df.columns:
+        df = df[df["sig"] == 1]
+    elif "fdr" in df.columns:
+        df = df[df["fdr"] <= fdr_max]
+    return df
 
 
 def apply_novelty_gate(df: pd.DataFrame, cfg: dict) -> pd.DataFrame:

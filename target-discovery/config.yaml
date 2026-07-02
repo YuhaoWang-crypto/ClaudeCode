@@ -36,7 +36,13 @@ tokenize:
 
 # ---- Step 3: in-silico perturbation ---------------------------------------
 perturbation:
-  model_dir: "checkpoints/geneformer"   # from bionemo-recipes/recipes/geneformer
+  # Checkpoint options (verified):
+  #  - Pretrained Geneformer from HF `ctheodoris/Geneformer` (e.g. gf-12L-95M-i4096
+  #    / Geneformer-V2-104M). Use with model_type: "Pretrained" for embedding-shift.
+  #  - For goal_state modeling, fine-tune a CellClassifier on your cell_state labels
+  #    using the bionemo-recipes/recipes/geneformer training recipe, then point
+  #    model_dir at that output and set model_type: "CellClassifier".
+  model_dir: "checkpoints/geneformer"
   model_type: "CellClassifier"          # or "Pretrained" for embedding-shift mode
   perturb_type: "delete"                # virtual knockout
   # Rank genes by how strongly their deletion shifts cells from pathological
@@ -50,6 +56,7 @@ perturbation:
 # ---- Step 4: ranking + novelty gate ---------------------------------------
 ranking:
   top_n: 50
+  fdr_max: 0.05          # keep only significant KOs (uses Sig flag if present, else FDR)
   # Targets already crowded in the clinic get down-weighted (see data/crowded_targets.csv)
   novelty_penalty: 0.5
   crowded_targets_csv: "data/crowded_targets.csv"

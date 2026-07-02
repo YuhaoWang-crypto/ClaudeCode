@@ -63,9 +63,14 @@ python src/05_evidence_triage.py --config config.yaml         # emits the dossie
 
 ## Model provenance
 
-- **Geneformer** — from `NVIDIA-BioNeMo/bionemo-recipes` (`recipes/geneformer`).
-  Fine-tune / load per the recipe; this pipeline uses the checkpoint for
-  in-silico perturbation via the `geneformer` package's `InSilicoPerturber`.
+- **Geneformer** — pretrained checkpoint from HF `ctheodoris/Geneformer`
+  (e.g. `gf-12L-95M-i4096` / `Geneformer-V2-104M`). For goal-state perturbation,
+  fine-tune a `CellClassifier` on the `cell_state` labels using the
+  `NVIDIA-BioNeMo/bionemo-recipes` `recipes/geneformer` training recipe, then run
+  in-silico deletion via the `geneformer` package's `InSilicoPerturber` /
+  `InSilicoPerturberStats(mode="goal_state_shift")`. Verified stats output columns
+  (`Gene_name`, `Shift_to_goal_end`, `Goal_end_FDR`, `Sig`) are consumed in
+  `04_rank_and_gate.py`. Pin the `geneformer` version to match column casing.
 - **ESM-2** — from `bionemo-recipes` (`models/esm2`), HF checkpoint
   `facebook/esm2_t33_650M_UR50D` or the 15B TE-accelerated variant, for protein
   representation and variant-effect scoring of nominated targets.

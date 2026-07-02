@@ -1,0 +1,3 @@
+gene_symbol,run,boltz_prediction_id,structure_confidence,ptm,iptm,ligand_iptm,complex_plddt,binding_confidence,optimization_score,interpretation
+PTGES,protein+1nM_inhibitor,sab_pred_nYrd5vkKzF9etZAHlfQz,0.894,0.916,0.777,0.777,0.923,0.505,0.333,"well-folded; credible ligand pocket (monomer underestimates trimer-interface site)"
+MDK,apo_structure,sab_pred_ft00zoVgNC7TeRw6A5vC,0.666,0.515,0.0,0.0,0.704,,,"flexible/partly disordered secreted factor; no deep small-molecule pocket -> biologic/glycan route"
