@@ -56,6 +56,34 @@ python -m pip install -r requirements.txt
 - 确认 `pip` 与你运行脚本的 `python` 是**同一个解释器**（本环境两者曾不一致，
   用 `python -m pip ...` 最保险）。
 
+## 在 Claude Code cloud 上运行（重要）
+
+云端容器默认是 **Trusted** 网络级别，只放行了包管理器（pip 能用），**huggingface.co
+被代理拦截 (403)**。所以下载 gated 权重前，必须在环境设置里做两件事，然后**新开一个
+session** 生效：
+
+1. **加 HF token（作为环境变量，别贴进聊天）**
+   编辑环境 → Environment variables（`.env` 格式，**不要加引号**）：
+   ```
+   HF_TOKEN=hf_你的token
+   ```
+   `huggingface_hub` 会自动读取 `HF_TOKEN`。注意：云端目前**无专用 secrets 保险库**，
+   环境变量对可编辑该环境的人可见。
+
+2. **把 HuggingFace 加入网络白名单**
+   编辑环境 → Network access 选 **Custom** → Allowed domains 每行一个，并勾选
+   "Also include default list of common package managers"：
+   ```
+   huggingface.co
+   *.huggingface.co
+   *.hf.co
+   ```
+
+3. **接受模型许可**：用同一 HF 账号在 <https://huggingface.co/facebook/UMA>
+   （及 `facebook/OMAT24`）点接受（研究用途）。
+
+三步齐了、开新 session 后，`python examples/mof_adsorption.py ...` 会自动下载权重并运行。
+
 ## 快速检查（无需下载模型）
 
 ```bash
