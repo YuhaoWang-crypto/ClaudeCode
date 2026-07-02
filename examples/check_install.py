@@ -8,18 +8,29 @@ import importlib
 import os
 
 
-def check(name: str) -> str:
+def check(name: str, dist: str | None = None) -> str:
     try:
         mod = importlib.import_module(name)
-        return f"  ok   {name:16s} {getattr(mod, '__version__', '?')}"
+        ver = getattr(mod, "__version__", None)
+        if ver is None:
+            from importlib.metadata import version as _v
+
+            try:
+                ver = _v(dist or name)
+            except Exception:  # noqa: BLE001
+                ver = "?"
+        return f"  ok   {name:16s} {ver}"
     except Exception as exc:  # noqa: BLE001
         return f"  MISS {name:16s} ({exc})"
 
 
 def main() -> None:
     print("Dependency check:")
-    for pkg in ("torch", "ase", "fairchem", "pymatgen", "huggingface_hub"):
-        print(check(pkg))
+    print(check("torch"))
+    print(check("ase"))
+    print(check("fairchem", dist="fairchem-core"))
+    print(check("huggingface_hub"))
+    print(check("pymatgen") + "   (optional; ASE already reads CIF)")
 
     print("\nCompute:")
     try:

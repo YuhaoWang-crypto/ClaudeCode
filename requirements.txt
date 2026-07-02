@@ -10,8 +10,9 @@ torch>=2.4
 # Atomistic simulation environment: structures, optimizers, MD, I/O.
 ase>=3.23
 
-# Reading crystal structures (CIF), building MOF / molecular-crystal cells.
-pymatgen>=2024.1
+# Optional: richer structure handling / building. The examples only need ASE
+# (which already reads CIF), so this is not required to run them.
+# pymatgen>=2024.1
 
 # HuggingFace client — required to download the (gated) UMA / OMAT24 weights.
 huggingface_hub>=0.24

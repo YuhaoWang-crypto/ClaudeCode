@@ -44,7 +44,11 @@ python -m pip install --upgrade pip setuptools wheel   # 旧 setuptools 会导�
 python -m pip install -r requirements.txt
 ```
 
-安装注意（本仓库 CPU 环境实测）：
+已在本仓库 CPU 环境**实测安装并导入成功**：`fairchem-core 2.21.0` + `torch 2.8.0`
+（CPU 模式）+ `ase 3.29`，UMA API (`FAIRChemCalculator`, `pretrained_mlip`) 可正常导入，
+三个示例脚本均可正常解析运行（模型权重需你自备 HF token 才能下载，见下）。
+
+安装注意（本仓库 CPU 环境踩坑）：
 - 装依赖前**先升级 `setuptools`/`wheel`**，否则 `antlr4-python3-runtime`（fairchem 依赖）
   会以 `AttributeError: install_layout` 编译失败。
 - **不要用** `--index-url https://download.pytorch.org/whl/cpu` 装 torch：该主机在本
