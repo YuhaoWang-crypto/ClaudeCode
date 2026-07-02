@@ -1,0 +1,15 @@
+{
+  "dg_bind_kcal": -47.94590162074862,
+  "dg_std_kcal": 5.302088458370914,
+  "e_complex": -5075.735932397226,
+  "e_binder": -4675.391888246108,
+  "e_target": -352.39814253037116,
+  "n_frames_used": 50,
+  "binder_rmsd_mean_nm": 0.35162265874487936,
+  "binder_rmsd_max_nm": 1.0023256284821604,
+  "interface_contacts_t0": 154,
+  "interface_contacts_mean": 150.26,
+  "contact_retention": 0.9757142857142856,
+  "n_binder_atoms": 3501,
+  "n_target_atoms": 564
+}
