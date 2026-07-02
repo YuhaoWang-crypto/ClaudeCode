@@ -74,6 +74,72 @@ AB_MD = [[m["system"], round(m["dg_bind_kcal"],1), round(m["dg_std_kcal"],1),
           round(m["interface_contacts_mean"]), round(m["dg_per_contact"],3),
           _mdnote.get(m["system"],"")] for m in _md]
 
+# ---- Antibody sequences (VH/VL/CDR/scFv/scFv-Fc/IgG) for the report ----
+_constructs = json.load(open(os.path.join(ROOT,"results/antibody/matured_constructs.json")))
+_by_lead = {}
+for r in _constructs:
+    lead, part = r["name"].split("__", 1)
+    _by_lead.setdefault(lead, {})[part] = r["seq"]
+_LEAD_ORDER = ["ab2-mat1_H3-A8Y", "ab2-mat2_H3-A9Y", "ab2-mat3_H3-A2Y-A4W-A8Y", "ab1-wt"]
+_LEAD_META = {
+ "ab2-mat1_H3-A8Y": ("ab2-mat1", "H3:A8Y", "lead — best MM/GBSA in scaffold, no glycosite"),
+ "ab2-mat2_H3-A9Y": ("ab2-mat2", "H3:A9Y", "lead — best atomistic protein_ipTM"),
+ "ab2-mat3_H3-A2Y-A4W-A8Y": ("ab2-mat3", "H3:A2Y+A4W+A8Y", "triple — regresses (epistasis); shown for completeness"),
+ "ab1-wt": ("ab1-wt", "wildtype", "orthogonal lineage backup (λ light)"),
+}
+_PART_ORDER = [  # (json key substring, display label)
+ ("__VH", "VH"), ("VL_ab2_lambda", "VL (λ)"),
+ ("scFv_VH-G4Sx3-VL", "scFv  (VH–(G4S)₃–VL)"),
+ ("scFv-Fc", "scFv-Fc  (+ human IgG1 hinge-CH2-CH3)"),
+ ("IgG1_HeavyChain", "IgG1 Heavy chain  (VH–CH1-hinge-CH2-CH3)"),
+ ("IgG1_LightChain", "IgG1 Light chain  (VL–Cλ)"),
+]
+import re as _re
+def _h3(vh):
+    m = _re.search(r"Y[YF]C[A-Z]{2}([A-Z]+?)WG.G", vh)
+    return m.group(1) if m else "?"
+_leads_data = []
+for lead in _LEAD_ORDER:
+    parts = _by_lead.get(lead, {})
+    short, mut, note = _LEAD_META[lead]
+    vh = next((v for k, v in parts.items() if k.endswith("VH")), None)
+    cdrh3 = _h3(vh) if vh else ""
+    items = []
+    for sub, label in _PART_ORDER:
+        key = next((k for k in parts if sub in k), None)
+        if key:
+            items.append([label, len(parts[key]), parts[key]])
+    _leads_data.append({"short": short, "mut": mut, "note": note, "cdrh3": cdrh3, "items": items})
+
+# human constant cassettes
+_const = []
+_hdr = None
+for line in open(os.path.join(ROOT,"results/antibody/human_constant_regions.fasta")):
+    line = line.rstrip("\n")
+    if line.startswith(">"): _hdr = line[1:]
+    elif line and _hdr: _const.append([_hdr, len(line), line]); _hdr = None
+
+def _seqrow(label, n, seq):
+    return (f'<div class="kv" style="align-items:flex-start"><span style="min-width:220px">{label} '
+            f'<span class="note">({n} aa)</span></span>'
+            f'<span class="seq" style="flex:1">{seq}'
+            f'<button class="copy" data-s="{seq}">copy</button></span></div>')
+
+_abseq = ['<p class="note" style="margin:6px 0">All wet-lab-ready sequences for the matured antibody leads. '
+          'Formats: <b>scFv</b> (research/phage), <b>scFv-Fc</b> and full <b>IgG1</b> (bivalent, preferred for stability + avidity). '
+          'Light chain is <b>λ</b>. Machine-readable: <code>results/antibody/matured_constructs.fasta</code>.</p>']
+for L in _leads_data:
+    _abseq.append(f'<div class="card" style="margin:14px 0">'
+                  f'<div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px">'
+                  f'<b style="font-size:15px">{L["short"]}</b>'
+                  f'<span class="pill">CDR-H3: <span class="mono">{L["cdrh3"]}</span> · {L["mut"]}</span></div>'
+                  f'<div class="note" style="margin:2px 0 8px">{L["note"]}</div>'
+                  + "".join(_seqrow(lbl, n, s) for lbl, n, s in L["items"]) + '</div>')
+_abseq.append('<h2>Human constant-region cassettes <span class="pill">mix &amp; match</span></h2>')
+_abseq.append('<div class="card" style="margin:10px 0">' +
+              "".join(_seqrow(lbl, n, s) for lbl, n, s in _const) + '</div>')
+ABSEQ_HTML = "\n".join(_abseq)
+
 # ---- candidate table data ----
 CANDS = [
  # cls, id, src, len, topology, seq, metric_label, metric, fold, note
@@ -164,6 +230,7 @@ code{background:#1d2740;padding:1px 5px;border-radius:4px}
   <button data-t="ov" class="active">Overview</button>
   <button data-t="seq">Sequences</button>
   <button data-t="ab">Antibody &amp; Maturation</button>
+  <button data-t="abseq">Antibody Sequences</button>
   <button data-t="view">3D Docking Viewer</button>
   <button data-t="meth">Methods &amp; Caveats</button>
 </nav>
@@ -247,6 +314,11 @@ code{background:#1d2740;padding:1px 5px;border-radius:4px}
   </div>
 </section>
 
+<section id="abseq">
+  <h2>Antibody sequences <span class="pill">click “copy” on any row</span></h2>
+  %ABSEQHTML%
+</section>
+
 <section id="view">
   <h2>3D docking viewer <span class="pill">drag=rotate · scroll=zoom · Boltz-2 predicted complex</span></h2>
   <div class="viewwrap">
@@ -309,8 +381,11 @@ function render(rows){tb.innerHTML='';rows.forEach(r=>{
    <td><span class="seq">${r[5]}</span><button class="copy" data-s="${r[5]}">copy</button></td>
    <td class="note">${r[9]}</td>`;
   tb.appendChild(tr);});
-  document.querySelectorAll('.copy').forEach(c=>c.onclick=()=>{navigator.clipboard.writeText(c.dataset.s);c.textContent='✓';setTimeout(()=>c.textContent='copy',900);});
 }
+// one delegated copy handler for every .copy button (tables + sequence rows)
+document.addEventListener('click',e=>{const c=e.target.closest('.copy');if(!c)return;
+  navigator.clipboard.writeText(c.dataset.s);const t=c.textContent;c.textContent='✓';
+  setTimeout(()=>c.textContent=t,900);});
 let sortk=7,dir=-1;
 function sortby(k){const num=document.querySelector(`th[data-k="${k}"]`).dataset.num;
   if(k===sortk)dir=-dir;else{sortk=k;dir=(k===3||k===7||k===8)?-1:1;}
@@ -411,7 +486,7 @@ function style(){
 
 html = (html.replace("%DATA%", data_js).replace("%STRUCTS%", structs_json).replace("%FIG%", fig_b64)
             .replace("%ABLEADS%", ableads_js).replace("%ABSINGLES%", absingles_js).replace("%ABPRIOR%", abprior_js)
-            .replace("%ABMD%", abmd_js))
+            .replace("%ABMD%", abmd_js).replace("%ABSEQHTML%", ABSEQ_HTML))
 out = os.path.join(ROOT, "report", "tzp_report.html")
 with open(out, "w") as fh:
     fh.write(html)
