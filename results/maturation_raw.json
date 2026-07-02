@@ -1,0 +1,1780 @@
+{
+ "type": "protein_screen_results",
+ "job_id": "prot_scr_SAlb4E3KrEdF3qUOg5bz",
+ "organization_id": null,
+ "workspace_id": null,
+ "limit": 60,
+ "has_more": false,
+ "first_id": "pres_jQqvAveySOpKw1HusWWb",
+ "last_id": "pres_XObUQINJFDBewJ5iOwXv",
+ "results": [
+  {
+   "id": "pres_jQqvAveySOpKw1HusWWb",
+   "external_id": "M27_H3_P7W",
+   "metrics": {
+    "structure_confidence": 0.6431336998939514,
+    "binding_confidence": 0.5430864095687866,
+    "min_interaction_pae": 1.3147428035736084,
+    "iptm": 0.8905173540115356,
+    "loop_fraction": 0.46721309423446655,
+    "helix_fraction": 0.07786884903907776,
+    "sheet_fraction": 0.4549179971218109
+   },
+   "artifacts": {
+    "structure": {
+     "url": "<signed-url-removed>",
+     "url_expires_at": "2026-07-02T20:50:58.592Z"
+    },
+    "archive": {
+     "url": "https://boltz-platform-prod-compute-api-storage.s3.us-east-1.amazonaws.com/org/08bc578e-dfdb-4dc0-bb7c-32fa6cb78d7b/workspace/ws_aQfDjROuzeGAPFS3Afwo/pipeline/prot_scr_SAlb4E3KrEdF3qUOg5bz/output/public/psmp_Ab1jpnMOkEQnt1ht6d2Y_archive.tar.gz?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=ASIAWEIZ7O2MO3W4RKMP%2F20260702%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20260702T202058Z&X-Amz-Expires=1800&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEDQaCXVzLWVhc3QtMSJGMEQCID6ePIIQ9RvR17zl9ETrYsYcRcjfaUIHCwTQigBcyGX7AiBW9lOlfX9hfCg%2FvbeKe2GhzBq6PQzxO0fYbvvAgYWwcCrSBQj9%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAAaDDQyMTQ5ODE1NjY5NiIMefVCfHXLj8zSlPI0KqYFEKIMorcyiG7lqSug1FbR9ZgyTeHfw5LLGvmq4VlY9V8uaRUTSs9J0NVlB%2FLDVy%2B4Nvleln4OL%2F8LIFW1IIjbkvkQG6yKYAHMSG09yjd5A5ur7YRs9%2FUAWudPiDVC6F%2FMmmhA6uzODA1fkxI%2BmfN3IVSAKfWEHYejOmD1jNHPoRMYfRozNTzEZ8yyGVdr88CGbpvqJ5AxdyHczQ4nEWfIszdY2lCSKTExX3i4ERAtC1R2219aiPowRQJl7A21YTDNO0HrXAhxW6w4x%2F3In26HOQKBV7iFzGf0HfNiYm9fcCm8Px3gc2Ukupz6lf%2FdQLDAt%2B1Iu42GCWCzW6AckjD8U5dON9plIbE9wEYaUX2P5HEZb9V7gLzBCFfRQMgd%2FyyCjF2eNORk6Ry%2FbZMbmtRWM2MEbUH9UVssvZVYrcHC7FQGkqqm2txtmN2YDt6WiOgjB%2Fx%2BIFMTF7fpMGPtSisK%2BnEL6LQ5UBe82%2FzYVH2otaKzdaehFGk4%2BsFju5FCTpDvAuZcFu6lWJ%2FprnRWn0lMic119Hags9NmyJqec5LFrmaCkw8dIX3weyDjv0xgKgnlyHeTCCJujT7TGfqObVJquXJiCNwaE%2FGV6WUvW%2BNW8rcfi%2B2YESMP8SsV%2B9Gy3uToZwd49qoDwdZGeqZZ8j1yVx9DuPsGhJahLevfC4n0RzPwOaO7FkPxODPgp%2FlzPtPoT1dlyqPLfaGpmhh5EpuF2%2FQqjIQpRAcB4PFvsXJ1xOl1tkRWsh%2Fap9cfodTZUfdSYKTdY8WM0qO7iwrc93R1kqQBdz6g6SnNNAYw2Lxuogya8Qiup5RN40n94bn1IzGKfU%2F52NBzYwwa4WEiI%2Ba6UrXQZJhSNpeHoG%2BruUpzWzYAadMdjMUajjTP8AQGLow7%2BarKiO9iMLH8mtIGOpEBrw324hOjmvFLwbok7jydaGZOrsyqHsdJ7GCEvr4%2F0tvztKEbxi08DCz3uy668l7ypJfEtBxBi3K%2ByD%2B8oNBN67AbY8bBCrxZWW4UkgsR%2BwQ5QSR7TD4dJIQF2Fr0B2rvdmvii6PqZP4D9zyNwkeICRKQj5tPk%2BvNI8AMwc%2BX%2BC6VINWHiIwqMpLiMtFLlnv4wg%3D%3D&X-Amz-Signature=bce68d21fd9db84910b99d6fde8f92bc192297bd58771019a3ffe2c805acaf21&X-Amz-SignedHeaders=host&x-id=GetObject",
+     "url_expires_at": "2026-07-02T20:50:58.604Z"
+    }
+   },
+   "warning_count": 0,
+   "created_at": "2026-07-02T20:18:43.188Z",
+   "entities": [
+    {
+     "type": "protein",
+     "chain_ids": [
+      "A"
+     ],
+     "sequence_length": 244
+    }
+   ]
+  },
+  {
+   "id": "pres_xlQxJbsoymL3ayWKANzI",
+   "external_id": "M21_H3_S5D",
+   "metrics": {
+    "structure_confidence": 0.7887398600578308,
+    "binding_confidence": 0.6685724258422852,
+    "min_interaction_pae": 0.7152241468429565,
+    "iptm": 0.9672185778617859,
+    "loop_fraction": 0.4795081615447998,
+    "helix_fraction": 0.06557376682758331,
+    "sheet_fraction": 0.4549179971218109
+   },
+   "artifacts": {
+    "structure": {
+     "url": "<signed-url-removed>",
+     "url_expires_at": "2026-07-02T20:50:58.592Z"
+    },
+    "archive": {
+     "url": "https://boltz-platform-prod-compute-api-storage.s3.us-east-1.amazonaws.com/org/08bc578e-dfdb-4dc0-bb7c-32fa6cb78d7b/workspace/ws_aQfDjROuzeGAPFS3Afwo/pipeline/prot_scr_SAlb4E3KrEdF3qUOg5bz/output/public/psmp_dPypxfDzm3yRNQa8PRA7_archive.tar.gz?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=ASIAWEIZ7O2MO3W4RKMP%2F20260702%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20260702T202058Z&X-Amz-Expires=1800&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEDQaCXVzLWVhc3QtMSJGMEQCID6ePIIQ9RvR17zl9ETrYsYcRcjfaUIHCwTQigBcyGX7AiBW9lOlfX9hfCg%2FvbeKe2GhzBq6PQzxO0fYbvvAgYWwcCrSBQj9%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAAaDDQyMTQ5ODE1NjY5NiIMefVCfHXLj8zSlPI0KqYFEKIMorcyiG7lqSug1FbR9ZgyTeHfw5LLGvmq4VlY9V8uaRUTSs9J0NVlB%2FLDVy%2B4Nvleln4OL%2F8LIFW1IIjbkvkQG6yKYAHMSG09yjd5A5ur7YRs9%2FUAWudPiDVC6F%2FMmmhA6uzODA1fkxI%2BmfN3IVSAKfWEHYejOmD1jNHPoRMYfRozNTzEZ8yyGVdr88CGbpvqJ5AxdyHczQ4nEWfIszdY2lCSKTExX3i4ERAtC1R2219aiPowRQJl7A21YTDNO0HrXAhxW6w4x%2F3In26HOQKBV7iFzGf0HfNiYm9fcCm8Px3gc2Ukupz6lf%2FdQLDAt%2B1Iu42GCWCzW6AckjD8U5dON9plIbE9wEYaUX2P5HEZb9V7gLzBCFfRQMgd%2FyyCjF2eNORk6Ry%2FbZMbmtRWM2MEbUH9UVssvZVYrcHC7FQGkqqm2txtmN2YDt6WiOgjB%2Fx%2BIFMTF7fpMGPtSisK%2BnEL6LQ5UBe82%2FzYVH2otaKzdaehFGk4%2BsFju5FCTpDvAuZcFu6lWJ%2FprnRWn0lMic119Hags9NmyJqec5LFrmaCkw8dIX3weyDjv0xgKgnlyHeTCCJujT7TGfqObVJquXJiCNwaE%2FGV6WUvW%2BNW8rcfi%2B2YESMP8SsV%2B9Gy3uToZwd49qoDwdZGeqZZ8j1yVx9DuPsGhJahLevfC4n0RzPwOaO7FkPxODPgp%2FlzPtPoT1dlyqPLfaGpmhh5EpuF2%2FQqjIQpRAcB4PFvsXJ1xOl1tkRWsh%2Fap9cfodTZUfdSYKTdY8WM0qO7iwrc93R1kqQBdz6g6SnNNAYw2Lxuogya8Qiup5RN40n94bn1IzGKfU%2F52NBzYwwa4WEiI%2Ba6UrXQZJhSNpeHoG%2BruUpzWzYAadMdjMUajjTP8AQGLow7%2BarKiO9iMLH8mtIGOpEBrw324hOjmvFLwbok7jydaGZOrsyqHsdJ7GCEvr4%2F0tvztKEbxi08DCz3uy668l7ypJfEtBxBi3K%2ByD%2B8oNBN67AbY8bBCrxZWW4UkgsR%2BwQ5QSR7TD4dJIQF2Fr0B2rvdmvii6PqZP4D9zyNwkeICRKQj5tPk%2BvNI8AMwc%2BX%2BC6VINWHiIwqMpLiMtFLlnv4wg%3D%3D&X-Amz-Signature=6859a4a00e8c912583a3305dc15db01b847e56c6309189e7e6ec9c8bc2a4d8b5&X-Amz-SignedHeaders=host&x-id=GetObject",
+     "url_expires_at": "2026-07-02T20:50:58.604Z"
+    }
+   },
+   "warning_count": 0,
+   "created_at": "2026-07-02T20:19:15.594Z",
+   "entities": [
+    {
+     "type": "protein",
+     "chain_ids": [
+      "A"
+     ],
+     "sequence_length": 244
+    }
+   ]
+  },
+  {
+   "id": "pres_fOrTNyd7SYNpDs7hmlbE",
+   "external_id": "M44_H3_H11F",
+   "metrics": {
+    "structure_confidence": 0.7183062434196472,
+    "binding_confidence": 0.592513382434845,
+    "min_interaction_pae": 0.6670607924461365,
+    "iptm": 0.972900390625,
+    "loop_fraction": 0.49590161442756653,
+    "helix_fraction": 0.049180325120687485,
+    "sheet_fraction": 0.4549179971218109
+   },
+   "artifacts": {
+    "structure": {
+     "url": "<signed-url-removed>",
+     "url_expires_at": "2026-07-02T20:50:58.592Z"
+    },
+    "archive": {
+     "url": "https://boltz-platform-prod-compute-api-storage.s3.us-east-1.amazonaws.com/org/08bc578e-dfdb-4dc0-bb7c-32fa6cb78d7b/workspace/ws_aQfDjROuzeGAPFS3Afwo/pipeline/prot_scr_SAlb4E3KrEdF3qUOg5bz/output/public/psmp_3qc9a2CuppIcFs0X7uvC_archive.tar.gz?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=ASIAWEIZ7O2MO3W4RKMP%2F20260702%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20260702T202058Z&X-Amz-Expires=1800&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEDQaCXVzLWVhc3QtMSJGMEQCID6ePIIQ9RvR17zl9ETrYsYcRcjfaUIHCwTQigBcyGX7AiBW9lOlfX9hfCg%2FvbeKe2GhzBq6PQzxO0fYbvvAgYWwcCrSBQj9%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAAaDDQyMTQ5ODE1NjY5NiIMefVCfHXLj8zSlPI0KqYFEKIMorcyiG7lqSug1FbR9ZgyTeHfw5LLGvmq4VlY9V8uaRUTSs9J0NVlB%2FLDVy%2B4Nvleln4OL%2F8LIFW1IIjbkvkQG6yKYAHMSG09yjd5A5ur7YRs9%2FUAWudPiDVC6F%2FMmmhA6uzODA1fkxI%2BmfN3IVSAKfWEHYejOmD1jNHPoRMYfRozNTzEZ8yyGVdr88CGbpvqJ5AxdyHczQ4nEWfIszdY2lCSKTExX3i4ERAtC1R2219aiPowRQJl7A21YTDNO0HrXAhxW6w4x%2F3In26HOQKBV7iFzGf0HfNiYm9fcCm8Px3gc2Ukupz6lf%2FdQLDAt%2B1Iu42GCWCzW6AckjD8U5dON9plIbE9wEYaUX2P5HEZb9V7gLzBCFfRQMgd%2FyyCjF2eNORk6Ry%2FbZMbmtRWM2MEbUH9UVssvZVYrcHC7FQGkqqm2txtmN2YDt6WiOgjB%2Fx%2BIFMTF7fpMGPtSisK%2BnEL6LQ5UBe82%2FzYVH2otaKzdaehFGk4%2BsFju5FCTpDvAuZcFu6lWJ%2FprnRWn0lMic119Hags9NmyJqec5LFrmaCkw8dIX3weyDjv0xgKgnlyHeTCCJujT7TGfqObVJquXJiCNwaE%2FGV6WUvW%2BNW8rcfi%2B2YESMP8SsV%2B9Gy3uToZwd49qoDwdZGeqZZ8j1yVx9DuPsGhJahLevfC4n0RzPwOaO7FkPxODPgp%2FlzPtPoT1dlyqPLfaGpmhh5EpuF2%2FQqjIQpRAcB4PFvsXJ1xOl1tkRWsh%2Fap9cfodTZUfdSYKTdY8WM0qO7iwrc93R1kqQBdz6g6SnNNAYw2Lxuogya8Qiup5RN40n94bn1IzGKfU%2F52NBzYwwa4WEiI%2Ba6UrXQZJhSNpeHoG%2BruUpzWzYAadMdjMUajjTP8AQGLow7%2BarKiO9iMLH8mtIGOpEBrw324hOjmvFLwbok7jydaGZOrsyqHsdJ7GCEvr4%2F0tvztKEbxi08DCz3uy668l7ypJfEtBxBi3K%2ByD%2B8oNBN67AbY8bBCrxZWW4UkgsR%2BwQ5QSR7TD4dJIQF2Fr0B2rvdmvii6PqZP4D9zyNwkeICRKQj5tPk%2BvNI8AMwc%2BX%2BC6VINWHiIwqMpLiMtFLlnv4wg%3D%3D&X-Amz-Signature=ec8c40bc6dccb46a4847f69a085ebb1b02259c3a50b2adde160a496d8bf66b82&X-Amz-SignedHeaders=host&x-id=GetObject",
+     "url_expires_at": "2026-07-02T20:50:58.604Z"
+    }
+   },
+   "warning_count": 0,
+   "created_at": "2026-07-02T20:19:16.595Z",
+   "entities": [
+    {
+     "type": "protein",
+     "chain_ids": [
+      "A"
+     ],
+     "sequence_length": 244
+    }
+   ]
+  },
+  {
+   "id": "pres_FAZt9RUaiSDYbNoAxRqC",
+   "external_id": "M37_H3_A9D",
+   "metrics": {
+    "structure_confidence": 0.7187207341194153,
+    "binding_confidence": 0.5978373289108276,
+    "min_interaction_pae": 0.8913432359695435,
+    "iptm": 0.9583134055137634,
+    "loop_fraction": 0.49590161442756653,
+    "helix_fraction": 0.049180325120687485,
+    "sheet_fraction": 0.4549179971218109
+   },
+   "artifacts": {
+    "structure": {
+     "url": "<signed-url-removed>",
+     "url_expires_at": "2026-07-02T20:50:58.592Z"
+    },
+    "archive": {
+     "url": "https://boltz-platform-prod-compute-api-storage.s3.us-east-1.amazonaws.com/org/08bc578e-dfdb-4dc0-bb7c-32fa6cb78d7b/workspace/ws_aQfDjROuzeGAPFS3Afwo/pipeline/prot_scr_SAlb4E3KrEdF3qUOg5bz/output/public/psmp_uLdckh4OYVK6lxdwICkN_archive.tar.gz?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=ASIAWEIZ7O2MO3W4RKMP%2F20260702%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20260702T202058Z&X-Amz-Expires=1800&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEDQaCXVzLWVhc3QtMSJGMEQCID6ePIIQ9RvR17zl9ETrYsYcRcjfaUIHCwTQigBcyGX7AiBW9lOlfX9hfCg%2FvbeKe2GhzBq6PQzxO0fYbvvAgYWwcCrSBQj9%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAAaDDQyMTQ5ODE1NjY5NiIMefVCfHXLj8zSlPI0KqYFEKIMorcyiG7lqSug1FbR9ZgyTeHfw5LLGvmq4VlY9V8uaRUTSs9J0NVlB%2FLDVy%2B4Nvleln4OL%2F8LIFW1IIjbkvkQG6yKYAHMSG09yjd5A5ur7YRs9%2FUAWudPiDVC6F%2FMmmhA6uzODA1fkxI%2BmfN3IVSAKfWEHYejOmD1jNHPoRMYfRozNTzEZ8yyGVdr88CGbpvqJ5AxdyHczQ4nEWfIszdY2lCSKTExX3i4ERAtC1R2219aiPowRQJl7A21YTDNO0HrXAhxW6w4x%2F3In26HOQKBV7iFzGf0HfNiYm9fcCm8Px3gc2Ukupz6lf%2FdQLDAt%2B1Iu42GCWCzW6AckjD8U5dON9plIbE9wEYaUX2P5HEZb9V7gLzBCFfRQMgd%2FyyCjF2eNORk6Ry%2FbZMbmtRWM2MEbUH9UVssvZVYrcHC7FQGkqqm2txtmN2YDt6WiOgjB%2Fx%2BIFMTF7fpMGPtSisK%2BnEL6LQ5UBe82%2FzYVH2otaKzdaehFGk4%2BsFju5FCTpDvAuZcFu6lWJ%2FprnRWn0lMic119Hags9NmyJqec5LFrmaCkw8dIX3weyDjv0xgKgnlyHeTCCJujT7TGfqObVJquXJiCNwaE%2FGV6WUvW%2BNW8rcfi%2B2YESMP8SsV%2B9Gy3uToZwd49qoDwdZGeqZZ8j1yVx9DuPsGhJahLevfC4n0RzPwOaO7FkPxODPgp%2FlzPtPoT1dlyqPLfaGpmhh5EpuF2%2FQqjIQpRAcB4PFvsXJ1xOl1tkRWsh%2Fap9cfodTZUfdSYKTdY8WM0qO7iwrc93R1kqQBdz6g6SnNNAYw2Lxuogya8Qiup5RN40n94bn1IzGKfU%2F52NBzYwwa4WEiI%2Ba6UrXQZJhSNpeHoG%2BruUpzWzYAadMdjMUajjTP8AQGLow7%2BarKiO9iMLH8mtIGOpEBrw324hOjmvFLwbok7jydaGZOrsyqHsdJ7GCEvr4%2F0tvztKEbxi08DCz3uy668l7ypJfEtBxBi3K%2ByD%2B8oNBN67AbY8bBCrxZWW4UkgsR%2BwQ5QSR7TD4dJIQF2Fr0B2rvdmvii6PqZP4D9zyNwkeICRKQj5tPk%2BvNI8AMwc%2BX%2BC6VINWHiIwqMpLiMtFLlnv4wg%3D%3D&X-Amz-Signature=22d30d6fee01dfa47af534778c83253b44e0cf60f6bc9993379a3f3da3d4c8b6&X-Amz-SignedHeaders=host&x-id=GetObject",
+     "url_expires_at": "2026-07-02T20:50:58.604Z"
+    }
+   },
+   "warning_count": 0,
+   "created_at": "2026-07-02T20:19:17.163Z",
+   "entities": [
+    {
+     "type": "protein",
+     "chain_ids": [
+      "A"
+     ],
+     "sequence_length": 244
+    }
+   ]
+  },
+  {
+   "id": "pres_NGmtB8dYkNnr2NXJgCa5",
+   "external_id": "M39_H3_H10W",
+   "metrics": {
+    "structure_confidence": 0.7170392870903015,
+    "binding_confidence": 0.5861734747886658,
+    "min_interaction_pae": 0.9669172763824463,
+    "iptm": 0.9572520852088928,
+    "loop_fraction": 0.47131145000457764,
+    "helix_fraction": 0.07786884903907776,
+    "sheet_fraction": 0.45081964135169983
+   },
+   "artifacts": {
+    "structure": {
+     "url": "<signed-url-removed>",
+     "url_expires_at": "2026-07-02T20:50:58.592Z"
+    },
+    "archive": {
+     "url": "https://boltz-platform-prod-compute-api-storage.s3.us-east-1.amazonaws.com/org/08bc578e-dfdb-4dc0-bb7c-32fa6cb78d7b/workspace/ws_aQfDjROuzeGAPFS3Afwo/pipeline/prot_scr_SAlb4E3KrEdF3qUOg5bz/output/public/psmp_186it1lRGjz4OR9LxDtS_archive.tar.gz?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=ASIAWEIZ7O2MO3W4RKMP%2F20260702%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20260702T202058Z&X-Amz-Expires=1800&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEDQaCXVzLWVhc3QtMSJGMEQCID6ePIIQ9RvR17zl9ETrYsYcRcjfaUIHCwTQigBcyGX7AiBW9lOlfX9hfCg%2FvbeKe2GhzBq6PQzxO0fYbvvAgYWwcCrSBQj9%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAAaDDQyMTQ5ODE1NjY5NiIMefVCfHXLj8zSlPI0KqYFEKIMorcyiG7lqSug1FbR9ZgyTeHfw5LLGvmq4VlY9V8uaRUTSs9J0NVlB%2FLDVy%2B4Nvleln4OL%2F8LIFW1IIjbkvkQG6yKYAHMSG09yjd5A5ur7YRs9%2FUAWudPiDVC6F%2FMmmhA6uzODA1fkxI%2BmfN3IVSAKfWEHYejOmD1jNHPoRMYfRozNTzEZ8yyGVdr88CGbpvqJ5AxdyHczQ4nEWfIszdY2lCSKTExX3i4ERAtC1R2219aiPowRQJl7A21YTDNO0HrXAhxW6w4x%2F3In26HOQKBV7iFzGf0HfNiYm9fcCm8Px3gc2Ukupz6lf%2FdQLDAt%2B1Iu42GCWCzW6AckjD8U5dON9plIbE9wEYaUX2P5HEZb9V7gLzBCFfRQMgd%2FyyCjF2eNORk6Ry%2FbZMbmtRWM2MEbUH9UVssvZVYrcHC7FQGkqqm2txtmN2YDt6WiOgjB%2Fx%2BIFMTF7fpMGPtSisK%2BnEL6LQ5UBe82%2FzYVH2otaKzdaehFGk4%2BsFju5FCTpDvAuZcFu6lWJ%2FprnRWn0lMic119Hags9NmyJqec5LFrmaCkw8dIX3weyDjv0xgKgnlyHeTCCJujT7TGfqObVJquXJiCNwaE%2FGV6WUvW%2BNW8rcfi%2B2YESMP8SsV%2B9Gy3uToZwd49qoDwdZGeqZZ8j1yVx9DuPsGhJahLevfC4n0RzPwOaO7FkPxODPgp%2FlzPtPoT1dlyqPLfaGpmhh5EpuF2%2FQqjIQpRAcB4PFvsXJ1xOl1tkRWsh%2Fap9cfodTZUfdSYKTdY8WM0qO7iwrc93R1kqQBdz6g6SnNNAYw2Lxuogya8Qiup5RN40n94bn1IzGKfU%2F52NBzYwwa4WEiI%2Ba6UrXQZJhSNpeHoG%2BruUpzWzYAadMdjMUajjTP8AQGLow7%2BarKiO9iMLH8mtIGOpEBrw324hOjmvFLwbok7jydaGZOrsyqHsdJ7GCEvr4%2F0tvztKEbxi08DCz3uy668l7ypJfEtBxBi3K%2ByD%2B8oNBN67AbY8bBCrxZWW4UkgsR%2BwQ5QSR7TD4dJIQF2Fr0B2rvdmvii6PqZP4D9zyNwkeICRKQj5tPk%2BvNI8AMwc%2BX%2BC6VINWHiIwqMpLiMtFLlnv4wg%3D%3D&X-Amz-Signature=6ebc7ca481904628a8f9756f6d3e04060e67fd58c017f33c0aa838146e2523c9&X-Amz-SignedHeaders=host&x-id=GetObject",
+     "url_expires_at": "2026-07-02T20:50:58.604Z"
+    }
+   },
+   "warning_count": 0,
+   "created_at": "2026-07-02T20:19:17.984Z",
+   "entities": [
+    {
+     "type": "protein",
+     "chain_ids": [
+      "A"
+     ],
+     "sequence_length": 244
+    }
+   ]
+  },
+  {
+   "id": "pres_0dOQ5prZ6FVZpjoXc6lo",
+   "external_id": "M08_H3_A2F",
+   "metrics": {
+    "structure_confidence": 0.7679218649864197,
+    "binding_confidence": 0.6473925113677979,
+    "min_interaction_pae": 0.5908131003379822,
+    "iptm": 0.9623953104019165,
+    "loop_fraction": 0.4836065173149109,
+    "helix_fraction": 0.05327868461608887,
+    "sheet_fraction": 0.46311473846435547
+   },
+   "artifacts": {
+    "structure": {
+     "url": "<signed-url-removed>",
+     "url_expires_at": "2026-07-02T20:50:58.592Z"
+    },
+    "archive": {
+     "url": "https://boltz-platform-prod-compute-api-storage.s3.us-east-1.amazonaws.com/org/08bc578e-dfdb-4dc0-bb7c-32fa6cb78d7b/workspace/ws_aQfDjROuzeGAPFS3Afwo/pipeline/prot_scr_SAlb4E3KrEdF3qUOg5bz/output/public/psmp_BQxjeNuufFyV7l5kok0x_archive.tar.gz?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=ASIAWEIZ7O2MO3W4RKMP%2F20260702%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20260702T202058Z&X-Amz-Expires=1800&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEDQaCXVzLWVhc3QtMSJGMEQCID6ePIIQ9RvR17zl9ETrYsYcRcjfaUIHCwTQigBcyGX7AiBW9lOlfX9hfCg%2FvbeKe2GhzBq6PQzxO0fYbvvAgYWwcCrSBQj9%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAAaDDQyMTQ5ODE1NjY5NiIMefVCfHXLj8zSlPI0KqYFEKIMorcyiG7lqSug1FbR9ZgyTeHfw5LLGvmq4VlY9V8uaRUTSs9J0NVlB%2FLDVy%2B4Nvleln4OL%2F8LIFW1IIjbkvkQG6yKYAHMSG09yjd5A5ur7YRs9%2FUAWudPiDVC6F%2FMmmhA6uzODA1fkxI%2BmfN3IVSAKfWEHYejOmD1jNHPoRMYfRozNTzEZ8yyGVdr88CGbpvqJ5AxdyHczQ4nEWfIszdY2lCSKTExX3i4ERAtC1R2219aiPowRQJl7A21YTDNO0HrXAhxW6w4x%2F3In26HOQKBV7iFzGf0HfNiYm9fcCm8Px3gc2Ukupz6lf%2FdQLDAt%2B1Iu42GCWCzW6AckjD8U5dON9plIbE9wEYaUX2P5HEZb9V7gLzBCFfRQMgd%2FyyCjF2eNORk6Ry%2FbZMbmtRWM2MEbUH9UVssvZVYrcHC7FQGkqqm2txtmN2YDt6WiOgjB%2Fx%2BIFMTF7fpMGPtSisK%2BnEL6LQ5UBe82%2FzYVH2otaKzdaehFGk4%2BsFju5FCTpDvAuZcFu6lWJ%2FprnRWn0lMic119Hags9NmyJqec5LFrmaCkw8dIX3weyDjv0xgKgnlyHeTCCJujT7TGfqObVJquXJiCNwaE%2FGV6WUvW%2BNW8rcfi%2B2YESMP8SsV%2B9Gy3uToZwd49qoDwdZGeqZZ8j1yVx9DuPsGhJahLevfC4n0RzPwOaO7FkPxODPgp%2FlzPtPoT1dlyqPLfaGpmhh5EpuF2%2FQqjIQpRAcB4PFvsXJ1xOl1tkRWsh%2Fap9cfodTZUfdSYKTdY8WM0qO7iwrc93R1kqQBdz6g6SnNNAYw2Lxuogya8Qiup5RN40n94bn1IzGKfU%2F52NBzYwwa4WEiI%2Ba6UrXQZJhSNpeHoG%2BruUpzWzYAadMdjMUajjTP8AQGLow7%2BarKiO9iMLH8mtIGOpEBrw324hOjmvFLwbok7jydaGZOrsyqHsdJ7GCEvr4%2F0tvztKEbxi08DCz3uy668l7ypJfEtBxBi3K%2ByD%2B8oNBN67AbY8bBCrxZWW4UkgsR%2BwQ5QSR7TD4dJIQF2Fr0B2rvdmvii6PqZP4D9zyNwkeICRKQj5tPk%2BvNI8AMwc%2BX%2BC6VINWHiIwqMpLiMtFLlnv4wg%3D%3D&X-Amz-Signature=dba3f5b63d14fe0e5d2b42986443aabdd5ef1bd95a8c187e73ff8b6605906f37&X-Amz-SignedHeaders=host&x-id=GetObject",
+     "url_expires_at": "2026-07-02T20:50:58.604Z"
+    }
+   },
+   "warning_count": 0,
+   "created_at": "2026-07-02T20:19:18.102Z",
+   "entities": [
+    {
+     "type": "protein",
+     "chain_ids": [
+      "A"
+     ],
+     "sequence_length": 244
+    }
+   ]
+  },
+  {
+   "id": "pres_xYl0Z4cVK7du1yXvAUlR",
+   "external_id": "M00_ab2_WT",
+   "metrics": {
+    "structure_confidence": 0.6754949688911438,
+    "binding_confidence": 0.5583372116088867,
+    "min_interaction_pae": 0.969489574432373,
+    "iptm": 0.9409648180007935,
+    "loop_fraction": 0.5040983557701111,
+    "helix_fraction": 0.049180325120687485,
+    "sheet_fraction": 0.44672128558158875
+   },
+   "artifacts": {
+    "structure": {
+     "url": "<signed-url-removed>",
+     "url_expires_at": "2026-07-02T20:50:58.592Z"
+    },
+    "archive": {
+     "url": "https://boltz-platform-prod-compute-api-storage.s3.us-east-1.amazonaws.com/org/08bc578e-dfdb-4dc0-bb7c-32fa6cb78d7b/workspace/ws_aQfDjROuzeGAPFS3Afwo/pipeline/prot_scr_SAlb4E3KrEdF3qUOg5bz/output/public/psmp_GI61JNxYGiC1gCZ2QdzM_archive.tar.gz?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=ASIAWEIZ7O2MO3W4RKMP%2F20260702%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20260702T202058Z&X-Amz-Expires=1800&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEDQaCXVzLWVhc3QtMSJGMEQCID6ePIIQ9RvR17zl9ETrYsYcRcjfaUIHCwTQigBcyGX7AiBW9lOlfX9hfCg%2FvbeKe2GhzBq6PQzxO0fYbvvAgYWwcCrSBQj9%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAAaDDQyMTQ5ODE1NjY5NiIMefVCfHXLj8zSlPI0KqYFEKIMorcyiG7lqSug1FbR9ZgyTeHfw5LLGvmq4VlY9V8uaRUTSs9J0NVlB%2FLDVy%2B4Nvleln4OL%2F8LIFW1IIjbkvkQG6yKYAHMSG09yjd5A5ur7YRs9%2FUAWudPiDVC6F%2FMmmhA6uzODA1fkxI%2BmfN3IVSAKfWEHYejOmD1jNHPoRMYfRozNTzEZ8yyGVdr88CGbpvqJ5AxdyHczQ4nEWfIszdY2lCSKTExX3i4ERAtC1R2219aiPowRQJl7A21YTDNO0HrXAhxW6w4x%2F3In26HOQKBV7iFzGf0HfNiYm9fcCm8Px3gc2Ukupz6lf%2FdQLDAt%2B1Iu42GCWCzW6AckjD8U5dON9plIbE9wEYaUX2P5HEZb9V7gLzBCFfRQMgd%2FyyCjF2eNORk6Ry%2FbZMbmtRWM2MEbUH9UVssvZVYrcHC7FQGkqqm2txtmN2YDt6WiOgjB%2Fx%2BIFMTF7fpMGPtSisK%2BnEL6LQ5UBe82%2FzYVH2otaKzdaehFGk4%2BsFju5FCTpDvAuZcFu6lWJ%2FprnRWn0lMic119Hags9NmyJqec5LFrmaCkw8dIX3weyDjv0xgKgnlyHeTCCJujT7TGfqObVJquXJiCNwaE%2FGV6WUvW%2BNW8rcfi%2B2YESMP8SsV%2B9Gy3uToZwd49qoDwdZGeqZZ8j1yVx9DuPsGhJahLevfC4n0RzPwOaO7FkPxODPgp%2FlzPtPoT1dlyqPLfaGpmhh5EpuF2%2FQqjIQpRAcB4PFvsXJ1xOl1tkRWsh%2Fap9cfodTZUfdSYKTdY8WM0qO7iwrc93R1kqQBdz6g6SnNNAYw2Lxuogya8Qiup5RN40n94bn1IzGKfU%2F52NBzYwwa4WEiI%2Ba6UrXQZJhSNpeHoG%2BruUpzWzYAadMdjMUajjTP8AQGLow7%2BarKiO9iMLH8mtIGOpEBrw324hOjmvFLwbok7jydaGZOrsyqHsdJ7GCEvr4%2F0tvztKEbxi08DCz3uy668l7ypJfEtBxBi3K%2ByD%2B8oNBN67AbY8bBCrxZWW4UkgsR%2BwQ5QSR7TD4dJIQF2Fr0B2rvdmvii6PqZP4D9zyNwkeICRKQj5tPk%2BvNI8AMwc%2BX%2BC6VINWHiIwqMpLiMtFLlnv4wg%3D%3D&X-Amz-Signature=8117e80729d52d778dabe2fdc5e2cbd3573c9dc37cc1126d48c60edad2cdfbe0&X-Amz-SignedHeaders=host&x-id=GetObject",
+     "url_expires_at": "2026-07-02T20:50:58.604Z"
+    }
+   },
+   "warning_count": 0,
+   "created_at": "2026-07-02T20:19:18.335Z",
+   "entities": [
+    {
+     "type": "protein",
+     "chain_ids": [
+      "A"
+     ],
+     "sequence_length": 244
+    }
+   ]
+  },
+  {
+   "id": "pres_ljNPIDgqKi4CfNoyBlsy",
+   "external_id": "M45_H3_H11D",
+   "metrics": {
+    "structure_confidence": 0.7528684735298157,
+    "binding_confidence": 0.6407507658004761,
+    "min_interaction_pae": 1.0494824647903442,
+    "iptm": 0.9422283172607422,
+    "loop_fraction": 0.5409835577011108,
+    "helix_fraction": 0.024590162560343742,
+    "sheet_fraction": 0.4344262182712555
+   },
+   "artifacts": {
+    "structure": {
+     "url": "<signed-url-removed>",
+     "url_expires_at": "2026-07-02T20:50:58.592Z"
+    },
+    "archive": {
+     "url": "https://boltz-platform-prod-compute-api-storage.s3.us-east-1.amazonaws.com/org/08bc578e-dfdb-4dc0-bb7c-32fa6cb78d7b/workspace/ws_aQfDjROuzeGAPFS3Afwo/pipeline/prot_scr_SAlb4E3KrEdF3qUOg5bz/output/public/psmp_vACEbXzAP46lJdVnBF9Q_archive.tar.gz?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=ASIAWEIZ7O2MO3W4RKMP%2F20260702%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20260702T202058Z&X-Amz-Expires=1800&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEDQaCXVzLWVhc3QtMSJGMEQCID6ePIIQ9RvR17zl9ETrYsYcRcjfaUIHCwTQigBcyGX7AiBW9lOlfX9hfCg%2FvbeKe2GhzBq6PQzxO0fYbvvAgYWwcCrSBQj9%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAAaDDQyMTQ5ODE1NjY5NiIMefVCfHXLj8zSlPI0KqYFEKIMorcyiG7lqSug1FbR9ZgyTeHfw5LLGvmq4VlY9V8uaRUTSs9J0NVlB%2FLDVy%2B4Nvleln4OL%2F8LIFW1IIjbkvkQG6yKYAHMSG09yjd5A5ur7YRs9%2FUAWudPiDVC6F%2FMmmhA6uzODA1fkxI%2BmfN3IVSAKfWEHYejOmD1jNHPoRMYfRozNTzEZ8yyGVdr88CGbpvqJ5AxdyHczQ4nEWfIszdY2lCSKTExX3i4ERAtC1R2219aiPowRQJl7A21YTDNO0HrXAhxW6w4x%2F3In26HOQKBV7iFzGf0HfNiYm9fcCm8Px3gc2Ukupz6lf%2FdQLDAt%2B1Iu42GCWCzW6AckjD8U5dON9plIbE9wEYaUX2P5HEZb9V7gLzBCFfRQMgd%2FyyCjF2eNORk6Ry%2FbZMbmtRWM2MEbUH9UVssvZVYrcHC7FQGkqqm2txtmN2YDt6WiOgjB%2Fx%2BIFMTF7fpMGPtSisK%2BnEL6LQ5UBe82%2FzYVH2otaKzdaehFGk4%2BsFju5FCTpDvAuZcFu6lWJ%2FprnRWn0lMic119Hags9NmyJqec5LFrmaCkw8dIX3weyDjv0xgKgnlyHeTCCJujT7TGfqObVJquXJiCNwaE%2FGV6WUvW%2BNW8rcfi%2B2YESMP8SsV%2B9Gy3uToZwd49qoDwdZGeqZZ8j1yVx9DuPsGhJahLevfC4n0RzPwOaO7FkPxODPgp%2FlzPtPoT1dlyqPLfaGpmhh5EpuF2%2FQqjIQpRAcB4PFvsXJ1xOl1tkRWsh%2Fap9cfodTZUfdSYKTdY8WM0qO7iwrc93R1kqQBdz6g6SnNNAYw2Lxuogya8Qiup5RN40n94bn1IzGKfU%2F52NBzYwwa4WEiI%2Ba6UrXQZJhSNpeHoG%2BruUpzWzYAadMdjMUajjTP8AQGLow7%2BarKiO9iMLH8mtIGOpEBrw324hOjmvFLwbok7jydaGZOrsyqHsdJ7GCEvr4%2F0tvztKEbxi08DCz3uy668l7ypJfEtBxBi3K%2ByD%2B8oNBN67AbY8bBCrxZWW4UkgsR%2BwQ5QSR7TD4dJIQF2Fr0B2rvdmvii6PqZP4D9zyNwkeICRKQj5tPk%2BvNI8AMwc%2BX%2BC6VINWHiIwqMpLiMtFLlnv4wg%3D%3D&X-Amz-Signature=a03f72e2fe6ef8259bf70868d2a0a6f00d6e47b50c11c4bb45c36fb73aaf140a&X-Amz-SignedHeaders=host&x-id=GetObject",
+     "url_expires_at": "2026-07-02T20:50:58.604Z"
+    }
+   },
+   "warning_count": 0,
+   "created_at": "2026-07-02T20:19:21.474Z",
+   "entities": [
+    {
+     "type": "protein",
+     "chain_ids": [
+      "A"
+     ],
+     "sequence_length": 244
+    }
+   ]
+  },
+  {
+   "id": "pres_2p6JPKarYrgRjDLtkoop",
+   "external_id": "M36_H3_A9F",
+   "metrics": {
+    "structure_confidence": 0.7856721878051758,
+    "binding_confidence": 0.6615481376647949,
+    "min_interaction_pae": 0.6466909646987915,
+    "iptm": 0.9739392399787903,
+    "loop_fraction": 0.4999999701976776,
+    "helix_fraction": 0.049180325120687485,
+    "sheet_fraction": 0.45081964135169983
+   },
+   "artifacts": {
+    "structure": {
+     "url": "<signed-url-removed>",
+     "url_expires_at": "2026-07-02T20:50:58.592Z"
+    },
+    "archive": {
+     "url": "https://boltz-platform-prod-compute-api-storage.s3.us-east-1.amazonaws.com/org/08bc578e-dfdb-4dc0-bb7c-32fa6cb78d7b/workspace/ws_aQfDjROuzeGAPFS3Afwo/pipeline/prot_scr_SAlb4E3KrEdF3qUOg5bz/output/public/psmp_i8yG4UDxOZPmT4hKI0fL_archive.tar.gz?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=ASIAWEIZ7O2MO3W4RKMP%2F20260702%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20260702T202058Z&X-Amz-Expires=1800&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEDQaCXVzLWVhc3QtMSJGMEQCID6ePIIQ9RvR17zl9ETrYsYcRcjfaUIHCwTQigBcyGX7AiBW9lOlfX9hfCg%2FvbeKe2GhzBq6PQzxO0fYbvvAgYWwcCrSBQj9%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAAaDDQyMTQ5ODE1NjY5NiIMefVCfHXLj8zSlPI0KqYFEKIMorcyiG7lqSug1FbR9ZgyTeHfw5LLGvmq4VlY9V8uaRUTSs9J0NVlB%2FLDVy%2B4Nvleln4OL%2F8LIFW1IIjbkvkQG6yKYAHMSG09yjd5A5ur7YRs9%2FUAWudPiDVC6F%2FMmmhA6uzODA1fkxI%2BmfN3IVSAKfWEHYejOmD1jNHPoRMYfRozNTzEZ8yyGVdr88CGbpvqJ5AxdyHczQ4nEWfIszdY2lCSKTExX3i4ERAtC1R2219aiPowRQJl7A21YTDNO0HrXAhxW6w4x%2F3In26HOQKBV7iFzGf0HfNiYm9fcCm8Px3gc2Ukupz6lf%2FdQLDAt%2B1Iu42GCWCzW6AckjD8U5dON9plIbE9wEYaUX2P5HEZb9V7gLzBCFfRQMgd%2FyyCjF2eNORk6Ry%2FbZMbmtRWM2MEbUH9UVssvZVYrcHC7FQGkqqm2txtmN2YDt6WiOgjB%2Fx%2BIFMTF7fpMGPtSisK%2BnEL6LQ5UBe82%2FzYVH2otaKzdaehFGk4%2BsFju5FCTpDvAuZcFu6lWJ%2FprnRWn0lMic119Hags9NmyJqec5LFrmaCkw8dIX3weyDjv0xgKgnlyHeTCCJujT7TGfqObVJquXJiCNwaE%2FGV6WUvW%2BNW8rcfi%2B2YESMP8SsV%2B9Gy3uToZwd49qoDwdZGeqZZ8j1yVx9DuPsGhJahLevfC4n0RzPwOaO7FkPxODPgp%2FlzPtPoT1dlyqPLfaGpmhh5EpuF2%2FQqjIQpRAcB4PFvsXJ1xOl1tkRWsh%2Fap9cfodTZUfdSYKTdY8WM0qO7iwrc93R1kqQBdz6g6SnNNAYw2Lxuogya8Qiup5RN40n94bn1IzGKfU%2F52NBzYwwa4WEiI%2Ba6UrXQZJhSNpeHoG%2BruUpzWzYAadMdjMUajjTP8AQGLow7%2BarKiO9iMLH8mtIGOpEBrw324hOjmvFLwbok7jydaGZOrsyqHsdJ7GCEvr4%2F0tvztKEbxi08DCz3uy668l7ypJfEtBxBi3K%2ByD%2B8oNBN67AbY8bBCrxZWW4UkgsR%2BwQ5QSR7TD4dJIQF2Fr0B2rvdmvii6PqZP4D9zyNwkeICRKQj5tPk%2BvNI8AMwc%2BX%2BC6VINWHiIwqMpLiMtFLlnv4wg%3D%3D&X-Amz-Signature=a022fd4f2e790347e05304c0ae52b6772dc2cbc5a2db9f0a248fe838a3165d7d&X-Amz-SignedHeaders=host&x-id=GetObject",
+     "url_expires_at": "2026-07-02T20:50:58.604Z"
+    }
+   },
+   "warning_count": 0,
+   "created_at": "2026-07-02T20:19:23.114Z",
+   "entities": [
+    {
+     "type": "protein",
+     "chain_ids": [
+      "A"
+     ],
+     "sequence_length": 244
+    }
+   ]
+  },
+  {
+   "id": "pres_OwsVaccc0SDtLgtpiXRf",
+   "external_id": "M47_H3_V12W",
+   "metrics": {
+    "structure_confidence": 0.7375901341438293,
+    "binding_confidence": 0.6263905167579651,
+    "min_interaction_pae": 0.8055058717727661,
+    "iptm": 0.9639626145362854,
+    "loop_fraction": 0.5081967115402222,
+    "helix_fraction": 0.05327868461608887,
+    "sheet_fraction": 0.4385245740413666
+   },
+   "artifacts": {
+    "structure": {
+     "url": "<signed-url-removed>",
+     "url_expires_at": "2026-07-02T20:50:58.592Z"
+    },
+    "archive": {
+     "url": "https://boltz-platform-prod-compute-api-storage.s3.us-east-1.amazonaws.com/org/08bc578e-dfdb-4dc0-bb7c-32fa6cb78d7b/workspace/ws_aQfDjROuzeGAPFS3Afwo/pipeline/prot_scr_SAlb4E3KrEdF3qUOg5bz/output/public/psmp_ZFhKdusEiQoPVDZKoeer_archive.tar.gz?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=ASIAWEIZ7O2MO3W4RKMP%2F20260702%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20260702T202058Z&X-Amz-Expires=1800&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEDQaCXVzLWVhc3QtMSJGMEQCID6ePIIQ9RvR17zl9ETrYsYcRcjfaUIHCwTQigBcyGX7AiBW9lOlfX9hfCg%2FvbeKe2GhzBq6PQzxO0fYbvvAgYWwcCrSBQj9%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAAaDDQyMTQ5ODE1NjY5NiIMefVCfHXLj8zSlPI0KqYFEKIMorcyiG7lqSug1FbR9ZgyTeHfw5LLGvmq4VlY9V8uaRUTSs9J0NVlB%2FLDVy%2B4Nvleln4OL%2F8LIFW1IIjbkvkQG6yKYAHMSG09yjd5A5ur7YRs9%2FUAWudPiDVC6F%2FMmmhA6uzODA1fkxI%2BmfN3IVSAKfWEHYejOmD1jNHPoRMYfRozNTzEZ8yyGVdr88CGbpvqJ5AxdyHczQ4nEWfIszdY2lCSKTExX3i4ERAtC1R2219aiPowRQJl7A21YTDNO0HrXAhxW6w4x%2F3In26HOQKBV7iFzGf0HfNiYm9fcCm8Px3gc2Ukupz6lf%2FdQLDAt%2B1Iu42GCWCzW6AckjD8U5dON9plIbE9wEYaUX2P5HEZb9V7gLzBCFfRQMgd%2FyyCjF2eNORk6Ry%2FbZMbmtRWM2MEbUH9UVssvZVYrcHC7FQGkqqm2txtmN2YDt6WiOgjB%2Fx%2BIFMTF7fpMGPtSisK%2BnEL6LQ5UBe82%2FzYVH2otaKzdaehFGk4%2BsFju5FCTpDvAuZcFu6lWJ%2FprnRWn0lMic119Hags9NmyJqec5LFrmaCkw8dIX3weyDjv0xgKgnlyHeTCCJujT7TGfqObVJquXJiCNwaE%2FGV6WUvW%2BNW8rcfi%2B2YESMP8SsV%2B9Gy3uToZwd49qoDwdZGeqZZ8j1yVx9DuPsGhJahLevfC4n0RzPwOaO7FkPxODPgp%2FlzPtPoT1dlyqPLfaGpmhh5EpuF2%2FQqjIQpRAcB4PFvsXJ1xOl1tkRWsh%2Fap9cfodTZUfdSYKTdY8WM0qO7iwrc93R1kqQBdz6g6SnNNAYw2Lxuogya8Qiup5RN40n94bn1IzGKfU%2F52NBzYwwa4WEiI%2Ba6UrXQZJhSNpeHoG%2BruUpzWzYAadMdjMUajjTP8AQGLow7%2BarKiO9iMLH8mtIGOpEBrw324hOjmvFLwbok7jydaGZOrsyqHsdJ7GCEvr4%2F0tvztKEbxi08DCz3uy668l7ypJfEtBxBi3K%2ByD%2B8oNBN67AbY8bBCrxZWW4UkgsR%2BwQ5QSR7TD4dJIQF2Fr0B2rvdmvii6PqZP4D9zyNwkeICRKQj5tPk%2BvNI8AMwc%2BX%2BC6VINWHiIwqMpLiMtFLlnv4wg%3D%3D&X-Amz-Signature=26b6643b6c4614a899e5125eddd8f32cc34da4e1979889e61095e79c05c7b3a6&X-Amz-SignedHeaders=host&x-id=GetObject",
+     "url_expires_at": "2026-07-02T20:50:58.604Z"
+    }
+   },
+   "warning_count": 0,
+   "created_at": "2026-07-02T20:19:25.503Z",
+   "entities": [
+    {
+     "type": "protein",
+     "chain_ids": [
+      "A"
+     ],
+     "sequence_length": 244
+    }
+   ]
+  },
+  {
+   "id": "pres_2bKurdsFJyp0TG79TBJ8",
+   "external_id": "M42_H3_H11Y",
+   "metrics": {
+    "structure_confidence": 0.7825217247009277,
+    "binding_confidence": 0.6547924876213074,
+    "min_interaction_pae": 0.5646449327468872,
+    "iptm": 0.979258120059967,
+    "loop_fraction": 0.4999999701976776,
+    "helix_fraction": 0.049180325120687485,
+    "sheet_fraction": 0.45081964135169983
+   },
+   "artifacts": {
+    "structure": {
+     "url": "<signed-url-removed>",
+     "url_expires_at": "2026-07-02T20:50:58.592Z"
+    },
+    "archive": {
+     "url": "https://boltz-platform-prod-compute-api-storage.s3.us-east-1.amazonaws.com/org/08bc578e-dfdb-4dc0-bb7c-32fa6cb78d7b/workspace/ws_aQfDjROuzeGAPFS3Afwo/pipeline/prot_scr_SAlb4E3KrEdF3qUOg5bz/output/public/psmp_W0Yo5AVVssc9jlmMPpNa_archive.tar.gz?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=ASIAWEIZ7O2MO3W4RKMP%2F20260702%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20260702T202058Z&X-Amz-Expires=1800&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEDQaCXVzLWVhc3QtMSJGMEQCID6ePIIQ9RvR17zl9ETrYsYcRcjfaUIHCwTQigBcyGX7AiBW9lOlfX9hfCg%2FvbeKe2GhzBq6PQzxO0fYbvvAgYWwcCrSBQj9%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAAaDDQyMTQ5ODE1NjY5NiIMefVCfHXLj8zSlPI0KqYFEKIMorcyiG7lqSug1FbR9ZgyTeHfw5LLGvmq4VlY9V8uaRUTSs9J0NVlB%2FLDVy%2B4Nvleln4OL%2F8LIFW1IIjbkvkQG6yKYAHMSG09yjd5A5ur7YRs9%2FUAWudPiDVC6F%2FMmmhA6uzODA1fkxI%2BmfN3IVSAKfWEHYejOmD1jNHPoRMYfRozNTzEZ8yyGVdr88CGbpvqJ5AxdyHczQ4nEWfIszdY2lCSKTExX3i4ERAtC1R2219aiPowRQJl7A21YTDNO0HrXAhxW6w4x%2F3In26HOQKBV7iFzGf0HfNiYm9fcCm8Px3gc2Ukupz6lf%2FdQLDAt%2B1Iu42GCWCzW6AckjD8U5dON9plIbE9wEYaUX2P5HEZb9V7gLzBCFfRQMgd%2FyyCjF2eNORk6Ry%2FbZMbmtRWM2MEbUH9UVssvZVYrcHC7FQGkqqm2txtmN2YDt6WiOgjB%2Fx%2BIFMTF7fpMGPtSisK%2BnEL6LQ5UBe82%2FzYVH2otaKzdaehFGk4%2BsFju5FCTpDvAuZcFu6lWJ%2FprnRWn0lMic119Hags9NmyJqec5LFrmaCkw8dIX3weyDjv0xgKgnlyHeTCCJujT7TGfqObVJquXJiCNwaE%2FGV6WUvW%2BNW8rcfi%2B2YESMP8SsV%2B9Gy3uToZwd49qoDwdZGeqZZ8j1yVx9DuPsGhJahLevfC4n0RzPwOaO7FkPxODPgp%2FlzPtPoT1dlyqPLfaGpmhh5EpuF2%2FQqjIQpRAcB4PFvsXJ1xOl1tkRWsh%2Fap9cfodTZUfdSYKTdY8WM0qO7iwrc93R1kqQBdz6g6SnNNAYw2Lxuogya8Qiup5RN40n94bn1IzGKfU%2F52NBzYwwa4WEiI%2Ba6UrXQZJhSNpeHoG%2BruUpzWzYAadMdjMUajjTP8AQGLow7%2BarKiO9iMLH8mtIGOpEBrw324hOjmvFLwbok7jydaGZOrsyqHsdJ7GCEvr4%2F0tvztKEbxi08DCz3uy668l7ypJfEtBxBi3K%2ByD%2B8oNBN67AbY8bBCrxZWW4UkgsR%2BwQ5QSR7TD4dJIQF2Fr0B2rvdmvii6PqZP4D9zyNwkeICRKQj5tPk%2BvNI8AMwc%2BX%2BC6VINWHiIwqMpLiMtFLlnv4wg%3D%3D&X-Amz-Signature=ad2bb751152f05aa98b08be5d9e26d02f97ecf8e94315355962f02a5964e1264&X-Amz-SignedHeaders=host&x-id=GetObject",
+     "url_expires_at": "2026-07-02T20:50:58.604Z"
+    }
+   },
+   "warning_count": 0,
+   "created_at": "2026-07-02T20:19:25.588Z",
+   "entities": [
+    {
+     "type": "protein",
+     "chain_ids": [
+      "A"
+     ],
+     "sequence_length": 244
+    }
+   ]
+  },
+  {
+   "id": "pres_2hNH80Qu0v3ZvLv1E6SO",
+   "external_id": "M38_H3_H10Y",
+   "metrics": {
+    "structure_confidence": 0.6921659708023071,
+    "binding_confidence": 0.5818944573402405,
+    "min_interaction_pae": 0.6550265550613403,
+    "iptm": 0.9687541723251343,
+    "loop_fraction": 0.49590161442756653,
+    "helix_fraction": 0.049180325120687485,
+    "sheet_fraction": 0.4549179971218109
+   },
+   "artifacts": {
+    "structure": {
+     "url": "<signed-url-removed>",
+     "url_expires_at": "2026-07-02T20:50:58.592Z"
+    },
+    "archive": {
+     "url": "https://boltz-platform-prod-compute-api-storage.s3.us-east-1.amazonaws.com/org/08bc578e-dfdb-4dc0-bb7c-32fa6cb78d7b/workspace/ws_aQfDjROuzeGAPFS3Afwo/pipeline/prot_scr_SAlb4E3KrEdF3qUOg5bz/output/public/psmp_qsPb8XLv2U7HV3F2HXnw_archive.tar.gz?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=ASIAWEIZ7O2MO3W4RKMP%2F20260702%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20260702T202058Z&X-Amz-Expires=1800&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEDQaCXVzLWVhc3QtMSJGMEQCID6ePIIQ9RvR17zl9ETrYsYcRcjfaUIHCwTQigBcyGX7AiBW9lOlfX9hfCg%2FvbeKe2GhzBq6PQzxO0fYbvvAgYWwcCrSBQj9%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAAaDDQyMTQ5ODE1NjY5NiIMefVCfHXLj8zSlPI0KqYFEKIMorcyiG7lqSug1FbR9ZgyTeHfw5LLGvmq4VlY9V8uaRUTSs9J0NVlB%2FLDVy%2B4Nvleln4OL%2F8LIFW1IIjbkvkQG6yKYAHMSG09yjd5A5ur7YRs9%2FUAWudPiDVC6F%2FMmmhA6uzODA1fkxI%2BmfN3IVSAKfWEHYejOmD1jNHPoRMYfRozNTzEZ8yyGVdr88CGbpvqJ5AxdyHczQ4nEWfIszdY2lCSKTExX3i4ERAtC1R2219aiPowRQJl7A21YTDNO0HrXAhxW6w4x%2F3In26HOQKBV7iFzGf0HfNiYm9fcCm8Px3gc2Ukupz6lf%2FdQLDAt%2B1Iu42GCWCzW6AckjD8U5dON9plIbE9wEYaUX2P5HEZb9V7gLzBCFfRQMgd%2FyyCjF2eNORk6Ry%2FbZMbmtRWM2MEbUH9UVssvZVYrcHC7FQGkqqm2txtmN2YDt6WiOgjB%2Fx%2BIFMTF7fpMGPtSisK%2BnEL6LQ5UBe82%2FzYVH2otaKzdaehFGk4%2BsFju5FCTpDvAuZcFu6lWJ%2FprnRWn0lMic119Hags9NmyJqec5LFrmaCkw8dIX3weyDjv0xgKgnlyHeTCCJujT7TGfqObVJquXJiCNwaE%2FGV6WUvW%2BNW8rcfi%2B2YESMP8SsV%2B9Gy3uToZwd49qoDwdZGeqZZ8j1yVx9DuPsGhJahLevfC4n0RzPwOaO7FkPxODPgp%2FlzPtPoT1dlyqPLfaGpmhh5EpuF2%2FQqjIQpRAcB4PFvsXJ1xOl1tkRWsh%2Fap9cfodTZUfdSYKTdY8WM0qO7iwrc93R1kqQBdz6g6SnNNAYw2Lxuogya8Qiup5RN40n94bn1IzGKfU%2F52NBzYwwa4WEiI%2Ba6UrXQZJhSNpeHoG%2BruUpzWzYAadMdjMUajjTP8AQGLow7%2BarKiO9iMLH8mtIGOpEBrw324hOjmvFLwbok7jydaGZOrsyqHsdJ7GCEvr4%2F0tvztKEbxi08DCz3uy668l7ypJfEtBxBi3K%2ByD%2B8oNBN67AbY8bBCrxZWW4UkgsR%2BwQ5QSR7TD4dJIQF2Fr0B2rvdmvii6PqZP4D9zyNwkeICRKQj5tPk%2BvNI8AMwc%2BX%2BC6VINWHiIwqMpLiMtFLlnv4wg%3D%3D&X-Amz-Signature=5bc9d96453e9b504e5b06b5087bf5ed2f57e0629c6879fa0a46670348c2ad971&X-Amz-SignedHeaders=host&x-id=GetObject",
+     "url_expires_at": "2026-07-02T20:50:58.604Z"
+    }
+   },
+   "warning_count": 0,
+   "created_at": "2026-07-02T20:19:26.539Z",
+   "entities": [
+    {
+     "type": "protein",
+     "chain_ids": [
+      "A"
+     ],
+     "sequence_length": 244
+    }
+   ]
+  },
+  {
+   "id": "pres_yq7PLjFFSvgMh4i2cmPJ",
+   "external_id": "M19_H3_S5W",
+   "metrics": {
+    "structure_confidence": 0.7833897471427917,
+    "binding_confidence": 0.6400662064552307,
+    "min_interaction_pae": 0.609383225440979,
+    "iptm": 0.9721778631210327,
+    "loop_fraction": 0.5040983557701111,
+    "helix_fraction": 0.04098360240459442,
+    "sheet_fraction": 0.4549179971218109
+   },
+   "artifacts": {
+    "structure": {
+     "url": "<signed-url-removed>",
+     "url_expires_at": "2026-07-02T20:50:58.592Z"
+    },
+    "archive": {
+     "url": "https://boltz-platform-prod-compute-api-storage.s3.us-east-1.amazonaws.com/org/08bc578e-dfdb-4dc0-bb7c-32fa6cb78d7b/workspace/ws_aQfDjROuzeGAPFS3Afwo/pipeline/prot_scr_SAlb4E3KrEdF3qUOg5bz/output/public/psmp_hNIrtOxk0IR8aBdTrZRw_archive.tar.gz?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=ASIAWEIZ7O2MO3W4RKMP%2F20260702%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20260702T202058Z&X-Amz-Expires=1800&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEDQaCXVzLWVhc3QtMSJGMEQCID6ePIIQ9RvR17zl9ETrYsYcRcjfaUIHCwTQigBcyGX7AiBW9lOlfX9hfCg%2FvbeKe2GhzBq6PQzxO0fYbvvAgYWwcCrSBQj9%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAAaDDQyMTQ5ODE1NjY5NiIMefVCfHXLj8zSlPI0KqYFEKIMorcyiG7lqSug1FbR9ZgyTeHfw5LLGvmq4VlY9V8uaRUTSs9J0NVlB%2FLDVy%2B4Nvleln4OL%2F8LIFW1IIjbkvkQG6yKYAHMSG09yjd5A5ur7YRs9%2FUAWudPiDVC6F%2FMmmhA6uzODA1fkxI%2BmfN3IVSAKfWEHYejOmD1jNHPoRMYfRozNTzEZ8yyGVdr88CGbpvqJ5AxdyHczQ4nEWfIszdY2lCSKTExX3i4ERAtC1R2219aiPowRQJl7A21YTDNO0HrXAhxW6w4x%2F3In26HOQKBV7iFzGf0HfNiYm9fcCm8Px3gc2Ukupz6lf%2FdQLDAt%2B1Iu42GCWCzW6AckjD8U5dON9plIbE9wEYaUX2P5HEZb9V7gLzBCFfRQMgd%2FyyCjF2eNORk6Ry%2FbZMbmtRWM2MEbUH9UVssvZVYrcHC7FQGkqqm2txtmN2YDt6WiOgjB%2Fx%2BIFMTF7fpMGPtSisK%2BnEL6LQ5UBe82%2FzYVH2otaKzdaehFGk4%2BsFju5FCTpDvAuZcFu6lWJ%2FprnRWn0lMic119Hags9NmyJqec5LFrmaCkw8dIX3weyDjv0xgKgnlyHeTCCJujT7TGfqObVJquXJiCNwaE%2FGV6WUvW%2BNW8rcfi%2B2YESMP8SsV%2B9Gy3uToZwd49qoDwdZGeqZZ8j1yVx9DuPsGhJahLevfC4n0RzPwOaO7FkPxODPgp%2FlzPtPoT1dlyqPLfaGpmhh5EpuF2%2FQqjIQpRAcB4PFvsXJ1xOl1tkRWsh%2Fap9cfodTZUfdSYKTdY8WM0qO7iwrc93R1kqQBdz6g6SnNNAYw2Lxuogya8Qiup5RN40n94bn1IzGKfU%2F52NBzYwwa4WEiI%2Ba6UrXQZJhSNpeHoG%2BruUpzWzYAadMdjMUajjTP8AQGLow7%2BarKiO9iMLH8mtIGOpEBrw324hOjmvFLwbok7jydaGZOrsyqHsdJ7GCEvr4%2F0tvztKEbxi08DCz3uy668l7ypJfEtBxBi3K%2ByD%2B8oNBN67AbY8bBCrxZWW4UkgsR%2BwQ5QSR7TD4dJIQF2Fr0B2rvdmvii6PqZP4D9zyNwkeICRKQj5tPk%2BvNI8AMwc%2BX%2BC6VINWHiIwqMpLiMtFLlnv4wg%3D%3D&X-Amz-Signature=0daa71da1bc6f15834723db47252e9fe6919d589eb202b651c07fb7d2ea7beb7&X-Amz-SignedHeaders=host&x-id=GetObject",
+     "url_expires_at": "2026-07-02T20:50:58.604Z"
+    }
+   },
+   "warning_count": 0,
+   "created_at": "2026-07-02T20:19:26.577Z",
+   "entities": [
+    {
+     "type": "protein",
+     "chain_ids": [
+      "A"
+     ],
+     "sequence_length": 244
+    }
+   ]
+  },
+  {
+   "id": "pres_4GP2A6Nbf1r5It5Py6vY",
+   "external_id": "M41_H3_H10D",
+   "metrics": {
+    "structure_confidence": 0.7418525815010071,
+    "binding_confidence": 0.615792453289032,
+    "min_interaction_pae": 0.8456961512565613,
+    "iptm": 0.9627693891525269,
+    "loop_fraction": 0.5081967115402222,
+    "helix_fraction": 0.049180325120687485,
+    "sheet_fraction": 0.44262292981147766
+   },
+   "artifacts": {
+    "structure": {
+     "url": "<signed-url-removed>",
+     "url_expires_at": "2026-07-02T20:50:58.592Z"
+    },
+    "archive": {
+     "url": "https://boltz-platform-prod-compute-api-storage.s3.us-east-1.amazonaws.com/org/08bc578e-dfdb-4dc0-bb7c-32fa6cb78d7b/workspace/ws_aQfDjROuzeGAPFS3Afwo/pipeline/prot_scr_SAlb4E3KrEdF3qUOg5bz/output/public/psmp_XqyxaYHSIvZnZMw0iYyt_archive.tar.gz?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=ASIAWEIZ7O2MO3W4RKMP%2F20260702%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20260702T202058Z&X-Amz-Expires=1800&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEDQaCXVzLWVhc3QtMSJGMEQCID6ePIIQ9RvR17zl9ETrYsYcRcjfaUIHCwTQigBcyGX7AiBW9lOlfX9hfCg%2FvbeKe2GhzBq6PQzxO0fYbvvAgYWwcCrSBQj9%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAAaDDQyMTQ5ODE1NjY5NiIMefVCfHXLj8zSlPI0KqYFEKIMorcyiG7lqSug1FbR9ZgyTeHfw5LLGvmq4VlY9V8uaRUTSs9J0NVlB%2FLDVy%2B4Nvleln4OL%2F8LIFW1IIjbkvkQG6yKYAHMSG09yjd5A5ur7YRs9%2FUAWudPiDVC6F%2FMmmhA6uzODA1fkxI%2BmfN3IVSAKfWEHYejOmD1jNHPoRMYfRozNTzEZ8yyGVdr88CGbpvqJ5AxdyHczQ4nEWfIszdY2lCSKTExX3i4ERAtC1R2219aiPowRQJl7A21YTDNO0HrXAhxW6w4x%2F3In26HOQKBV7iFzGf0HfNiYm9fcCm8Px3gc2Ukupz6lf%2FdQLDAt%2B1Iu42GCWCzW6AckjD8U5dON9plIbE9wEYaUX2P5HEZb9V7gLzBCFfRQMgd%2FyyCjF2eNORk6Ry%2FbZMbmtRWM2MEbUH9UVssvZVYrcHC7FQGkqqm2txtmN2YDt6WiOgjB%2Fx%2BIFMTF7fpMGPtSisK%2BnEL6LQ5UBe82%2FzYVH2otaKzdaehFGk4%2BsFju5FCTpDvAuZcFu6lWJ%2FprnRWn0lMic119Hags9NmyJqec5LFrmaCkw8dIX3weyDjv0xgKgnlyHeTCCJujT7TGfqObVJquXJiCNwaE%2FGV6WUvW%2BNW8rcfi%2B2YESMP8SsV%2B9Gy3uToZwd49qoDwdZGeqZZ8j1yVx9DuPsGhJahLevfC4n0RzPwOaO7FkPxODPgp%2FlzPtPoT1dlyqPLfaGpmhh5EpuF2%2FQqjIQpRAcB4PFvsXJ1xOl1tkRWsh%2Fap9cfodTZUfdSYKTdY8WM0qO7iwrc93R1kqQBdz6g6SnNNAYw2Lxuogya8Qiup5RN40n94bn1IzGKfU%2F52NBzYwwa4WEiI%2Ba6UrXQZJhSNpeHoG%2BruUpzWzYAadMdjMUajjTP8AQGLow7%2BarKiO9iMLH8mtIGOpEBrw324hOjmvFLwbok7jydaGZOrsyqHsdJ7GCEvr4%2F0tvztKEbxi08DCz3uy668l7ypJfEtBxBi3K%2ByD%2B8oNBN67AbY8bBCrxZWW4UkgsR%2BwQ5QSR7TD4dJIQF2Fr0B2rvdmvii6PqZP4D9zyNwkeICRKQj5tPk%2BvNI8AMwc%2BX%2BC6VINWHiIwqMpLiMtFLlnv4wg%3D%3D&X-Amz-Signature=63363c4f393af172a7b0162b083ce17c39c7ac5602d39ac3d0a4766add0545a8&X-Amz-SignedHeaders=host&x-id=GetObject",
+     "url_expires_at": "2026-07-02T20:50:58.604Z"
+    }
+   },
+   "warning_count": 0,
+   "created_at": "2026-07-02T20:19:26.662Z",
+   "entities": [
+    {
+     "type": "protein",
+     "chain_ids": [
+      "A"
+     ],
+     "sequence_length": 244
+    }
+   ]
+  },
+  {
+   "id": "pres_vOlb9ExyRNItQcWXlr5Z",
+   "external_id": "M33_H3_A8D",
+   "metrics": {
+    "structure_confidence": 0.712552011013031,
+    "binding_confidence": 0.6091662049293518,
+    "min_interaction_pae": 0.7170902490615845,
+    "iptm": 0.9673420190811157,
+    "loop_fraction": 0.48770490288734436,
+    "helix_fraction": 0.03688524290919304,
+    "sheet_fraction": 0.4754098057746887
+   },
+   "artifacts": {
+    "structure": {
+     "url": "<signed-url-removed>",
+     "url_expires_at": "2026-07-02T20:50:58.592Z"
+    },
+    "archive": {
+     "url": "https://boltz-platform-prod-compute-api-storage.s3.us-east-1.amazonaws.com/org/08bc578e-dfdb-4dc0-bb7c-32fa6cb78d7b/workspace/ws_aQfDjROuzeGAPFS3Afwo/pipeline/prot_scr_SAlb4E3KrEdF3qUOg5bz/output/public/psmp_BgSXn16Po8wAwyHJ47oi_archive.tar.gz?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=ASIAWEIZ7O2MO3W4RKMP%2F20260702%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20260702T202058Z&X-Amz-Expires=1800&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEDQaCXVzLWVhc3QtMSJGMEQCID6ePIIQ9RvR17zl9ETrYsYcRcjfaUIHCwTQigBcyGX7AiBW9lOlfX9hfCg%2FvbeKe2GhzBq6PQzxO0fYbvvAgYWwcCrSBQj9%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAAaDDQyMTQ5ODE1NjY5NiIMefVCfHXLj8zSlPI0KqYFEKIMorcyiG7lqSug1FbR9ZgyTeHfw5LLGvmq4VlY9V8uaRUTSs9J0NVlB%2FLDVy%2B4Nvleln4OL%2F8LIFW1IIjbkvkQG6yKYAHMSG09yjd5A5ur7YRs9%2FUAWudPiDVC6F%2FMmmhA6uzODA1fkxI%2BmfN3IVSAKfWEHYejOmD1jNHPoRMYfRozNTzEZ8yyGVdr88CGbpvqJ5AxdyHczQ4nEWfIszdY2lCSKTExX3i4ERAtC1R2219aiPowRQJl7A21YTDNO0HrXAhxW6w4x%2F3In26HOQKBV7iFzGf0HfNiYm9fcCm8Px3gc2Ukupz6lf%2FdQLDAt%2B1Iu42GCWCzW6AckjD8U5dON9plIbE9wEYaUX2P5HEZb9V7gLzBCFfRQMgd%2FyyCjF2eNORk6Ry%2FbZMbmtRWM2MEbUH9UVssvZVYrcHC7FQGkqqm2txtmN2YDt6WiOgjB%2Fx%2BIFMTF7fpMGPtSisK%2BnEL6LQ5UBe82%2FzYVH2otaKzdaehFGk4%2BsFju5FCTpDvAuZcFu6lWJ%2FprnRWn0lMic119Hags9NmyJqec5LFrmaCkw8dIX3weyDjv0xgKgnlyHeTCCJujT7TGfqObVJquXJiCNwaE%2FGV6WUvW%2BNW8rcfi%2B2YESMP8SsV%2B9Gy3uToZwd49qoDwdZGeqZZ8j1yVx9DuPsGhJahLevfC4n0RzPwOaO7FkPxODPgp%2FlzPtPoT1dlyqPLfaGpmhh5EpuF2%2FQqjIQpRAcB4PFvsXJ1xOl1tkRWsh%2Fap9cfodTZUfdSYKTdY8WM0qO7iwrc93R1kqQBdz6g6SnNNAYw2Lxuogya8Qiup5RN40n94bn1IzGKfU%2F52NBzYwwa4WEiI%2Ba6UrXQZJhSNpeHoG%2BruUpzWzYAadMdjMUajjTP8AQGLow7%2BarKiO9iMLH8mtIGOpEBrw324hOjmvFLwbok7jydaGZOrsyqHsdJ7GCEvr4%2F0tvztKEbxi08DCz3uy668l7ypJfEtBxBi3K%2ByD%2B8oNBN67AbY8bBCrxZWW4UkgsR%2BwQ5QSR7TD4dJIQF2Fr0B2rvdmvii6PqZP4D9zyNwkeICRKQj5tPk%2BvNI8AMwc%2BX%2BC6VINWHiIwqMpLiMtFLlnv4wg%3D%3D&X-Amz-Signature=d9eebfa4b4632709b2cee917958b45831771b9a1f254b803754380b8ee63b401&X-Amz-SignedHeaders=host&x-id=GetObject",
+     "url_expires_at": "2026-07-02T20:50:58.604Z"
+    }
+   },
+   "warning_count": 0,
+   "created_at": "2026-07-02T20:19:29.972Z",
+   "entities": [
+    {
+     "type": "protein",
+     "chain_ids": [
+      "A"
+     ],
+     "sequence_length": 244
+    }
+   ]
+  },
+  {
+   "id": "pres_LzhFxCvYgIPKAnLqhzdi",
+   "external_id": "M01_ab1_WT",
+   "metrics": {
+    "structure_confidence": 0.830143928527832,
+    "binding_confidence": 0.7247582077980042,
+    "min_interaction_pae": 0.7082804441452026,
+    "iptm": 0.9580667018890381,
+    "loop_fraction": 0.46370965242385864,
+    "helix_fraction": 0.03629032149910927,
+    "sheet_fraction": 0.5
+   },
+   "artifacts": {
+    "structure": {
+     "url": "<signed-url-removed>",
+     "url_expires_at": "2026-07-02T20:50:58.592Z"
+    },
+    "archive": {
+     "url": "https://boltz-platform-prod-compute-api-storage.s3.us-east-1.amazonaws.com/org/08bc578e-dfdb-4dc0-bb7c-32fa6cb78d7b/workspace/ws_aQfDjROuzeGAPFS3Afwo/pipeline/prot_scr_SAlb4E3KrEdF3qUOg5bz/output/public/psmp_CRP0OngSD9xgziJlgWMC_archive.tar.gz?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=ASIAWEIZ7O2MO3W4RKMP%2F20260702%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20260702T202058Z&X-Amz-Expires=1800&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEDQaCXVzLWVhc3QtMSJGMEQCID6ePIIQ9RvR17zl9ETrYsYcRcjfaUIHCwTQigBcyGX7AiBW9lOlfX9hfCg%2FvbeKe2GhzBq6PQzxO0fYbvvAgYWwcCrSBQj9%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAAaDDQyMTQ5ODE1NjY5NiIMefVCfHXLj8zSlPI0KqYFEKIMorcyiG7lqSug1FbR9ZgyTeHfw5LLGvmq4VlY9V8uaRUTSs9J0NVlB%2FLDVy%2B4Nvleln4OL%2F8LIFW1IIjbkvkQG6yKYAHMSG09yjd5A5ur7YRs9%2FUAWudPiDVC6F%2FMmmhA6uzODA1fkxI%2BmfN3IVSAKfWEHYejOmD1jNHPoRMYfRozNTzEZ8yyGVdr88CGbpvqJ5AxdyHczQ4nEWfIszdY2lCSKTExX3i4ERAtC1R2219aiPowRQJl7A21YTDNO0HrXAhxW6w4x%2F3In26HOQKBV7iFzGf0HfNiYm9fcCm8Px3gc2Ukupz6lf%2FdQLDAt%2B1Iu42GCWCzW6AckjD8U5dON9plIbE9wEYaUX2P5HEZb9V7gLzBCFfRQMgd%2FyyCjF2eNORk6Ry%2FbZMbmtRWM2MEbUH9UVssvZVYrcHC7FQGkqqm2txtmN2YDt6WiOgjB%2Fx%2BIFMTF7fpMGPtSisK%2BnEL6LQ5UBe82%2FzYVH2otaKzdaehFGk4%2BsFju5FCTpDvAuZcFu6lWJ%2FprnRWn0lMic119Hags9NmyJqec5LFrmaCkw8dIX3weyDjv0xgKgnlyHeTCCJujT7TGfqObVJquXJiCNwaE%2FGV6WUvW%2BNW8rcfi%2B2YESMP8SsV%2B9Gy3uToZwd49qoDwdZGeqZZ8j1yVx9DuPsGhJahLevfC4n0RzPwOaO7FkPxODPgp%2FlzPtPoT1dlyqPLfaGpmhh5EpuF2%2FQqjIQpRAcB4PFvsXJ1xOl1tkRWsh%2Fap9cfodTZUfdSYKTdY8WM0qO7iwrc93R1kqQBdz6g6SnNNAYw2Lxuogya8Qiup5RN40n94bn1IzGKfU%2F52NBzYwwa4WEiI%2Ba6UrXQZJhSNpeHoG%2BruUpzWzYAadMdjMUajjTP8AQGLow7%2BarKiO9iMLH8mtIGOpEBrw324hOjmvFLwbok7jydaGZOrsyqHsdJ7GCEvr4%2F0tvztKEbxi08DCz3uy668l7ypJfEtBxBi3K%2ByD%2B8oNBN67AbY8bBCrxZWW4UkgsR%2BwQ5QSR7TD4dJIQF2Fr0B2rvdmvii6PqZP4D9zyNwkeICRKQj5tPk%2BvNI8AMwc%2BX%2BC6VINWHiIwqMpLiMtFLlnv4wg%3D%3D&X-Amz-Signature=698b1bf7c59295bcc9b6f990ea936dfdbe61f1394077f77b82830159453aa956&X-Amz-SignedHeaders=host&x-id=GetObject",
+     "url_expires_at": "2026-07-02T20:50:58.604Z"
+    }
+   },
+   "warning_count": 0,
+   "created_at": "2026-07-02T20:19:30.576Z",
+   "entities": [
+    {
+     "type": "protein",
+     "chain_ids": [
+      "A"
+     ],
+     "sequence_length": 248
+    }
+   ]
+  },
+  {
+   "id": "pres_nPPxjIWPbr26oOXQjxlX",
+   "external_id": "M10_H3_P3Y",
+   "metrics": {
+    "structure_confidence": 0.7861448526382446,
+    "binding_confidence": 0.678276002407074,
+    "min_interaction_pae": 0.6575932502746582,
+    "iptm": 0.959162175655365,
+    "loop_fraction": 0.5040983557701111,
+    "helix_fraction": 0.024590162560343742,
+    "sheet_fraction": 0.47131145000457764
+   },
+   "artifacts": {
+    "structure": {
+     "url": "<signed-url-removed>",
+     "url_expires_at": "2026-07-02T20:50:58.592Z"
+    },
+    "archive": {
+     "url": "https://boltz-platform-prod-compute-api-storage.s3.us-east-1.amazonaws.com/org/08bc578e-dfdb-4dc0-bb7c-32fa6cb78d7b/workspace/ws_aQfDjROuzeGAPFS3Afwo/pipeline/prot_scr_SAlb4E3KrEdF3qUOg5bz/output/public/psmp_W8Cnjj9MiuNZdYINmzht_archive.tar.gz?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=ASIAWEIZ7O2MO3W4RKMP%2F20260702%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20260702T202058Z&X-Amz-Expires=1800&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEDQaCXVzLWVhc3QtMSJGMEQCID6ePIIQ9RvR17zl9ETrYsYcRcjfaUIHCwTQigBcyGX7AiBW9lOlfX9hfCg%2FvbeKe2GhzBq6PQzxO0fYbvvAgYWwcCrSBQj9%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAAaDDQyMTQ5ODE1NjY5NiIMefVCfHXLj8zSlPI0KqYFEKIMorcyiG7lqSug1FbR9ZgyTeHfw5LLGvmq4VlY9V8uaRUTSs9J0NVlB%2FLDVy%2B4Nvleln4OL%2F8LIFW1IIjbkvkQG6yKYAHMSG09yjd5A5ur7YRs9%2FUAWudPiDVC6F%2FMmmhA6uzODA1fkxI%2BmfN3IVSAKfWEHYejOmD1jNHPoRMYfRozNTzEZ8yyGVdr88CGbpvqJ5AxdyHczQ4nEWfIszdY2lCSKTExX3i4ERAtC1R2219aiPowRQJl7A21YTDNO0HrXAhxW6w4x%2F3In26HOQKBV7iFzGf0HfNiYm9fcCm8Px3gc2Ukupz6lf%2FdQLDAt%2B1Iu42GCWCzW6AckjD8U5dON9plIbE9wEYaUX2P5HEZb9V7gLzBCFfRQMgd%2FyyCjF2eNORk6Ry%2FbZMbmtRWM2MEbUH9UVssvZVYrcHC7FQGkqqm2txtmN2YDt6WiOgjB%2Fx%2BIFMTF7fpMGPtSisK%2BnEL6LQ5UBe82%2FzYVH2otaKzdaehFGk4%2BsFju5FCTpDvAuZcFu6lWJ%2FprnRWn0lMic119Hags9NmyJqec5LFrmaCkw8dIX3weyDjv0xgKgnlyHeTCCJujT7TGfqObVJquXJiCNwaE%2FGV6WUvW%2BNW8rcfi%2B2YESMP8SsV%2B9Gy3uToZwd49qoDwdZGeqZZ8j1yVx9DuPsGhJahLevfC4n0RzPwOaO7FkPxODPgp%2FlzPtPoT1dlyqPLfaGpmhh5EpuF2%2FQqjIQpRAcB4PFvsXJ1xOl1tkRWsh%2Fap9cfodTZUfdSYKTdY8WM0qO7iwrc93R1kqQBdz6g6SnNNAYw2Lxuogya8Qiup5RN40n94bn1IzGKfU%2F52NBzYwwa4WEiI%2Ba6UrXQZJhSNpeHoG%2BruUpzWzYAadMdjMUajjTP8AQGLow7%2BarKiO9iMLH8mtIGOpEBrw324hOjmvFLwbok7jydaGZOrsyqHsdJ7GCEvr4%2F0tvztKEbxi08DCz3uy668l7ypJfEtBxBi3K%2ByD%2B8oNBN67AbY8bBCrxZWW4UkgsR%2BwQ5QSR7TD4dJIQF2Fr0B2rvdmvii6PqZP4D9zyNwkeICRKQj5tPk%2BvNI8AMwc%2BX%2BC6VINWHiIwqMpLiMtFLlnv4wg%3D%3D&X-Amz-Signature=0fb49683f66a4088e7c622141cc32a73268720cd771c7b0eee4a8b91a2d48643&X-Amz-SignedHeaders=host&x-id=GetObject",
+     "url_expires_at": "2026-07-02T20:50:58.604Z"
+    }
+   },
+   "warning_count": 0,
+   "created_at": "2026-07-02T20:19:31.102Z",
+   "entities": [
+    {
+     "type": "protein",
+     "chain_ids": [
+      "A"
+     ],
+     "sequence_length": 244
+    }
+   ]
+  },
+  {
+   "id": "pres_Z8llt8pexRFcbDtRv5th",
+   "external_id": "M04_H3_T1F",
+   "metrics": {
+    "structure_confidence": 0.7837985754013062,
+    "binding_confidence": 0.6682031750679016,
+    "min_interaction_pae": 0.5981367826461792,
+    "iptm": 0.9637483358383179,
+    "loop_fraction": 0.47131145000457764,
+    "helix_fraction": 0.07377048581838608,
+    "sheet_fraction": 0.4549179971218109
+   },
+   "artifacts": {
+    "structure": {
+     "url": "<signed-url-removed>",
+     "url_expires_at": "2026-07-02T20:50:58.592Z"
+    },
+    "archive": {
+     "url": "https://boltz-platform-prod-compute-api-storage.s3.us-east-1.amazonaws.com/org/08bc578e-dfdb-4dc0-bb7c-32fa6cb78d7b/workspace/ws_aQfDjROuzeGAPFS3Afwo/pipeline/prot_scr_SAlb4E3KrEdF3qUOg5bz/output/public/psmp_xb7RuTBmB8MVn7iJ509b_archive.tar.gz?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=ASIAWEIZ7O2MO3W4RKMP%2F20260702%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20260702T202058Z&X-Amz-Expires=1800&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEDQaCXVzLWVhc3QtMSJGMEQCID6ePIIQ9RvR17zl9ETrYsYcRcjfaUIHCwTQigBcyGX7AiBW9lOlfX9hfCg%2FvbeKe2GhzBq6PQzxO0fYbvvAgYWwcCrSBQj9%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAAaDDQyMTQ5ODE1NjY5NiIMefVCfHXLj8zSlPI0KqYFEKIMorcyiG7lqSug1FbR9ZgyTeHfw5LLGvmq4VlY9V8uaRUTSs9J0NVlB%2FLDVy%2B4Nvleln4OL%2F8LIFW1IIjbkvkQG6yKYAHMSG09yjd5A5ur7YRs9%2FUAWudPiDVC6F%2FMmmhA6uzODA1fkxI%2BmfN3IVSAKfWEHYejOmD1jNHPoRMYfRozNTzEZ8yyGVdr88CGbpvqJ5AxdyHczQ4nEWfIszdY2lCSKTExX3i4ERAtC1R2219aiPowRQJl7A21YTDNO0HrXAhxW6w4x%2F3In26HOQKBV7iFzGf0HfNiYm9fcCm8Px3gc2Ukupz6lf%2FdQLDAt%2B1Iu42GCWCzW6AckjD8U5dON9plIbE9wEYaUX2P5HEZb9V7gLzBCFfRQMgd%2FyyCjF2eNORk6Ry%2FbZMbmtRWM2MEbUH9UVssvZVYrcHC7FQGkqqm2txtmN2YDt6WiOgjB%2Fx%2BIFMTF7fpMGPtSisK%2BnEL6LQ5UBe82%2FzYVH2otaKzdaehFGk4%2BsFju5FCTpDvAuZcFu6lWJ%2FprnRWn0lMic119Hags9NmyJqec5LFrmaCkw8dIX3weyDjv0xgKgnlyHeTCCJujT7TGfqObVJquXJiCNwaE%2FGV6WUvW%2BNW8rcfi%2B2YESMP8SsV%2B9Gy3uToZwd49qoDwdZGeqZZ8j1yVx9DuPsGhJahLevfC4n0RzPwOaO7FkPxODPgp%2FlzPtPoT1dlyqPLfaGpmhh5EpuF2%2FQqjIQpRAcB4PFvsXJ1xOl1tkRWsh%2Fap9cfodTZUfdSYKTdY8WM0qO7iwrc93R1kqQBdz6g6SnNNAYw2Lxuogya8Qiup5RN40n94bn1IzGKfU%2F52NBzYwwa4WEiI%2Ba6UrXQZJhSNpeHoG%2BruUpzWzYAadMdjMUajjTP8AQGLow7%2BarKiO9iMLH8mtIGOpEBrw324hOjmvFLwbok7jydaGZOrsyqHsdJ7GCEvr4%2F0tvztKEbxi08DCz3uy668l7ypJfEtBxBi3K%2ByD%2B8oNBN67AbY8bBCrxZWW4UkgsR%2BwQ5QSR7TD4dJIQF2Fr0B2rvdmvii6PqZP4D9zyNwkeICRKQj5tPk%2BvNI8AMwc%2BX%2BC6VINWHiIwqMpLiMtFLlnv4wg%3D%3D&X-Amz-Signature=8a2d42953a8a905a03759badfd61ac03cd0e204279960d9a0aef7b4b62a00501&X-Amz-SignedHeaders=host&x-id=GetObject",
+     "url_expires_at": "2026-07-02T20:50:58.604Z"
+    }
+   },
+   "warning_count": 0,
+   "created_at": "2026-07-02T20:19:31.867Z",
+   "entities": [
+    {
+     "type": "protein",
+     "chain_ids": [
+      "A"
+     ],
+     "sequence_length": 244
+    }
+   ]
+  },
+  {
+   "id": "pres_gz8SCdzNhOHPlGXNr60e",
+   "external_id": "M22_H3_L6Y",
+   "metrics": {
+    "structure_confidence": 0.7608333826065063,
+    "binding_confidence": 0.6333904266357422,
+    "min_interaction_pae": 0.6721850633621216,
+    "iptm": 0.963660478591919,
+    "loop_fraction": 0.49590161442756653,
+    "helix_fraction": 0.06147540733218193,
+    "sheet_fraction": 0.44262292981147766
+   },
+   "artifacts": {
+    "structure": {
+     "url": "<signed-url-removed>",
+     "url_expires_at": "2026-07-02T20:50:58.592Z"
+    },
+    "archive": {
+     "url": "https://boltz-platform-prod-compute-api-storage.s3.us-east-1.amazonaws.com/org/08bc578e-dfdb-4dc0-bb7c-32fa6cb78d7b/workspace/ws_aQfDjROuzeGAPFS3Afwo/pipeline/prot_scr_SAlb4E3KrEdF3qUOg5bz/output/public/psmp_0glv5Hj3VhxiILrALZmP_archive.tar.gz?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=ASIAWEIZ7O2MO3W4RKMP%2F20260702%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20260702T202058Z&X-Amz-Expires=1800&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEDQaCXVzLWVhc3QtMSJGMEQCID6ePIIQ9RvR17zl9ETrYsYcRcjfaUIHCwTQigBcyGX7AiBW9lOlfX9hfCg%2FvbeKe2GhzBq6PQzxO0fYbvvAgYWwcCrSBQj9%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAAaDDQyMTQ5ODE1NjY5NiIMefVCfHXLj8zSlPI0KqYFEKIMorcyiG7lqSug1FbR9ZgyTeHfw5LLGvmq4VlY9V8uaRUTSs9J0NVlB%2FLDVy%2B4Nvleln4OL%2F8LIFW1IIjbkvkQG6yKYAHMSG09yjd5A5ur7YRs9%2FUAWudPiDVC6F%2FMmmhA6uzODA1fkxI%2BmfN3IVSAKfWEHYejOmD1jNHPoRMYfRozNTzEZ8yyGVdr88CGbpvqJ5AxdyHczQ4nEWfIszdY2lCSKTExX3i4ERAtC1R2219aiPowRQJl7A21YTDNO0HrXAhxW6w4x%2F3In26HOQKBV7iFzGf0HfNiYm9fcCm8Px3gc2Ukupz6lf%2FdQLDAt%2B1Iu42GCWCzW6AckjD8U5dON9plIbE9wEYaUX2P5HEZb9V7gLzBCFfRQMgd%2FyyCjF2eNORk6Ry%2FbZMbmtRWM2MEbUH9UVssvZVYrcHC7FQGkqqm2txtmN2YDt6WiOgjB%2Fx%2BIFMTF7fpMGPtSisK%2BnEL6LQ5UBe82%2FzYVH2otaKzdaehFGk4%2BsFju5FCTpDvAuZcFu6lWJ%2FprnRWn0lMic119Hags9NmyJqec5LFrmaCkw8dIX3weyDjv0xgKgnlyHeTCCJujT7TGfqObVJquXJiCNwaE%2FGV6WUvW%2BNW8rcfi%2B2YESMP8SsV%2B9Gy3uToZwd49qoDwdZGeqZZ8j1yVx9DuPsGhJahLevfC4n0RzPwOaO7FkPxODPgp%2FlzPtPoT1dlyqPLfaGpmhh5EpuF2%2FQqjIQpRAcB4PFvsXJ1xOl1tkRWsh%2Fap9cfodTZUfdSYKTdY8WM0qO7iwrc93R1kqQBdz6g6SnNNAYw2Lxuogya8Qiup5RN40n94bn1IzGKfU%2F52NBzYwwa4WEiI%2Ba6UrXQZJhSNpeHoG%2BruUpzWzYAadMdjMUajjTP8AQGLow7%2BarKiO9iMLH8mtIGOpEBrw324hOjmvFLwbok7jydaGZOrsyqHsdJ7GCEvr4%2F0tvztKEbxi08DCz3uy668l7ypJfEtBxBi3K%2ByD%2B8oNBN67AbY8bBCrxZWW4UkgsR%2BwQ5QSR7TD4dJIQF2Fr0B2rvdmvii6PqZP4D9zyNwkeICRKQj5tPk%2BvNI8AMwc%2BX%2BC6VINWHiIwqMpLiMtFLlnv4wg%3D%3D&X-Amz-Signature=161908cc1a00ecfed461cd58823445e88af7aa9d95485227f8e9075caab1c6a1&X-Amz-SignedHeaders=host&x-id=GetObject",
+     "url_expires_at": "2026-07-02T20:50:58.604Z"
+    }
+   },
+   "warning_count": 0,
+   "created_at": "2026-07-02T20:19:34.608Z",
+   "entities": [
+    {
+     "type": "protein",
+     "chain_ids": [
+      "A"
+     ],
+     "sequence_length": 244
+    }
+   ]
+  },
+  {
+   "id": "pres_SopFsUpU9cjB8y9LZNEg",
+   "external_id": "M30_H3_A8Y",
+   "metrics": {
+    "structure_confidence": 0.8203097581863403,
+    "binding_confidence": 0.7094147801399231,
+    "min_interaction_pae": 0.5078728795051575,
+    "iptm": 0.9780466556549072,
+    "loop_fraction": 0.5040983557701111,
+    "helix_fraction": 0.05327868461608887,
+    "sheet_fraction": 0.44262292981147766
+   },
+   "artifacts": {
+    "structure": {
+     "url": "<signed-url-removed>",
+     "url_expires_at": "2026-07-02T20:50:58.592Z"
+    },
+    "archive": {
+     "url": "https://boltz-platform-prod-compute-api-storage.s3.us-east-1.amazonaws.com/org/08bc578e-dfdb-4dc0-bb7c-32fa6cb78d7b/workspace/ws_aQfDjROuzeGAPFS3Afwo/pipeline/prot_scr_SAlb4E3KrEdF3qUOg5bz/output/public/psmp_x8cFFif4c8tMAqn2NbIr_archive.tar.gz?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=ASIAWEIZ7O2MO3W4RKMP%2F20260702%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20260702T202058Z&X-Amz-Expires=1800&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEDQaCXVzLWVhc3QtMSJGMEQCID6ePIIQ9RvR17zl9ETrYsYcRcjfaUIHCwTQigBcyGX7AiBW9lOlfX9hfCg%2FvbeKe2GhzBq6PQzxO0fYbvvAgYWwcCrSBQj9%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAAaDDQyMTQ5ODE1NjY5NiIMefVCfHXLj8zSlPI0KqYFEKIMorcyiG7lqSug1FbR9ZgyTeHfw5LLGvmq4VlY9V8uaRUTSs9J0NVlB%2FLDVy%2B4Nvleln4OL%2F8LIFW1IIjbkvkQG6yKYAHMSG09yjd5A5ur7YRs9%2FUAWudPiDVC6F%2FMmmhA6uzODA1fkxI%2BmfN3IVSAKfWEHYejOmD1jNHPoRMYfRozNTzEZ8yyGVdr88CGbpvqJ5AxdyHczQ4nEWfIszdY2lCSKTExX3i4ERAtC1R2219aiPowRQJl7A21YTDNO0HrXAhxW6w4x%2F3In26HOQKBV7iFzGf0HfNiYm9fcCm8Px3gc2Ukupz6lf%2FdQLDAt%2B1Iu42GCWCzW6AckjD8U5dON9plIbE9wEYaUX2P5HEZb9V7gLzBCFfRQMgd%2FyyCjF2eNORk6Ry%2FbZMbmtRWM2MEbUH9UVssvZVYrcHC7FQGkqqm2txtmN2YDt6WiOgjB%2Fx%2BIFMTF7fpMGPtSisK%2BnEL6LQ5UBe82%2FzYVH2otaKzdaehFGk4%2BsFju5FCTpDvAuZcFu6lWJ%2FprnRWn0lMic119Hags9NmyJqec5LFrmaCkw8dIX3weyDjv0xgKgnlyHeTCCJujT7TGfqObVJquXJiCNwaE%2FGV6WUvW%2BNW8rcfi%2B2YESMP8SsV%2B9Gy3uToZwd49qoDwdZGeqZZ8j1yVx9DuPsGhJahLevfC4n0RzPwOaO7FkPxODPgp%2FlzPtPoT1dlyqPLfaGpmhh5EpuF2%2FQqjIQpRAcB4PFvsXJ1xOl1tkRWsh%2Fap9cfodTZUfdSYKTdY8WM0qO7iwrc93R1kqQBdz6g6SnNNAYw2Lxuogya8Qiup5RN40n94bn1IzGKfU%2F52NBzYwwa4WEiI%2Ba6UrXQZJhSNpeHoG%2BruUpzWzYAadMdjMUajjTP8AQGLow7%2BarKiO9iMLH8mtIGOpEBrw324hOjmvFLwbok7jydaGZOrsyqHsdJ7GCEvr4%2F0tvztKEbxi08DCz3uy668l7ypJfEtBxBi3K%2ByD%2B8oNBN67AbY8bBCrxZWW4UkgsR%2BwQ5QSR7TD4dJIQF2Fr0B2rvdmvii6PqZP4D9zyNwkeICRKQj5tPk%2BvNI8AMwc%2BX%2BC6VINWHiIwqMpLiMtFLlnv4wg%3D%3D&X-Amz-Signature=99124745748c48a7e9f93052d241ee0a3c2dccba873bcf80042bedaa3b42079c&X-Amz-SignedHeaders=host&x-id=GetObject",
+     "url_expires_at": "2026-07-02T20:50:58.604Z"
+    }
+   },
+   "warning_count": 0,
+   "created_at": "2026-07-02T20:19:34.682Z",
+   "entities": [
+    {
+     "type": "protein",
+     "chain_ids": [
+      "A"
+     ],
+     "sequence_length": 244
+    }
+   ]
+  },
+  {
+   "id": "pres_G3ab3DKbDNk22FUaFG37",
+   "external_id": "M20_H3_S5F",
+   "metrics": {
+    "structure_confidence": 0.8085050582885742,
+    "binding_confidence": 0.6792226433753967,
+    "min_interaction_pae": 0.5662349462509155,
+    "iptm": 0.9698047637939453,
+    "loop_fraction": 0.5081967115402222,
+    "helix_fraction": 0.05327868461608887,
+    "sheet_fraction": 0.4385245740413666
+   },
+   "artifacts": {
+    "structure": {
+     "url": "<signed-url-removed>",
+     "url_expires_at": "2026-07-02T20:50:58.592Z"
+    },
+    "archive": {
+     "url": "https://boltz-platform-prod-compute-api-storage.s3.us-east-1.amazonaws.com/org/08bc578e-dfdb-4dc0-bb7c-32fa6cb78d7b/workspace/ws_aQfDjROuzeGAPFS3Afwo/pipeline/prot_scr_SAlb4E3KrEdF3qUOg5bz/output/public/psmp_81kp0GdG9w0HJLzeZczC_archive.tar.gz?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=ASIAWEIZ7O2MO3W4RKMP%2F20260702%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20260702T202058Z&X-Amz-Expires=1800&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEDQaCXVzLWVhc3QtMSJGMEQCID6ePIIQ9RvR17zl9ETrYsYcRcjfaUIHCwTQigBcyGX7AiBW9lOlfX9hfCg%2FvbeKe2GhzBq6PQzxO0fYbvvAgYWwcCrSBQj9%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAAaDDQyMTQ5ODE1NjY5NiIMefVCfHXLj8zSlPI0KqYFEKIMorcyiG7lqSug1FbR9ZgyTeHfw5LLGvmq4VlY9V8uaRUTSs9J0NVlB%2FLDVy%2B4Nvleln4OL%2F8LIFW1IIjbkvkQG6yKYAHMSG09yjd5A5ur7YRs9%2FUAWudPiDVC6F%2FMmmhA6uzODA1fkxI%2BmfN3IVSAKfWEHYejOmD1jNHPoRMYfRozNTzEZ8yyGVdr88CGbpvqJ5AxdyHczQ4nEWfIszdY2lCSKTExX3i4ERAtC1R2219aiPowRQJl7A21YTDNO0HrXAhxW6w4x%2F3In26HOQKBV7iFzGf0HfNiYm9fcCm8Px3gc2Ukupz6lf%2FdQLDAt%2B1Iu42GCWCzW6AckjD8U5dON9plIbE9wEYaUX2P5HEZb9V7gLzBCFfRQMgd%2FyyCjF2eNORk6Ry%2FbZMbmtRWM2MEbUH9UVssvZVYrcHC7FQGkqqm2txtmN2YDt6WiOgjB%2Fx%2BIFMTF7fpMGPtSisK%2BnEL6LQ5UBe82%2FzYVH2otaKzdaehFGk4%2BsFju5FCTpDvAuZcFu6lWJ%2FprnRWn0lMic119Hags9NmyJqec5LFrmaCkw8dIX3weyDjv0xgKgnlyHeTCCJujT7TGfqObVJquXJiCNwaE%2FGV6WUvW%2BNW8rcfi%2B2YESMP8SsV%2B9Gy3uToZwd49qoDwdZGeqZZ8j1yVx9DuPsGhJahLevfC4n0RzPwOaO7FkPxODPgp%2FlzPtPoT1dlyqPLfaGpmhh5EpuF2%2FQqjIQpRAcB4PFvsXJ1xOl1tkRWsh%2Fap9cfodTZUfdSYKTdY8WM0qO7iwrc93R1kqQBdz6g6SnNNAYw2Lxuogya8Qiup5RN40n94bn1IzGKfU%2F52NBzYwwa4WEiI%2Ba6UrXQZJhSNpeHoG%2BruUpzWzYAadMdjMUajjTP8AQGLow7%2BarKiO9iMLH8mtIGOpEBrw324hOjmvFLwbok7jydaGZOrsyqHsdJ7GCEvr4%2F0tvztKEbxi08DCz3uy668l7ypJfEtBxBi3K%2ByD%2B8oNBN67AbY8bBCrxZWW4UkgsR%2BwQ5QSR7TD4dJIQF2Fr0B2rvdmvii6PqZP4D9zyNwkeICRKQj5tPk%2BvNI8AMwc%2BX%2BC6VINWHiIwqMpLiMtFLlnv4wg%3D%3D&X-Amz-Signature=ddb4d57bca62202aa88b91feeb413a2dca93346339ef3341561c8a9e15012847&X-Amz-SignedHeaders=host&x-id=GetObject",
+     "url_expires_at": "2026-07-02T20:50:58.604Z"
+    }
+   },
+   "warning_count": 0,
+   "created_at": "2026-07-02T20:19:37.293Z",
+   "entities": [
+    {
+     "type": "protein",
+     "chain_ids": [
+      "A"
+     ],
+     "sequence_length": 244
+    }
+   ]
+  },
+  {
+   "id": "pres_XW8yxGo7quTlO0oIdvxG",
+   "external_id": "M32_H3_A8F",
+   "metrics": {
+    "structure_confidence": 0.7396266460418701,
+    "binding_confidence": 0.6242956519126892,
+    "min_interaction_pae": 0.7539277076721191,
+    "iptm": 0.9604332447052002,
+    "loop_fraction": 0.4795081615447998,
+    "helix_fraction": 0.06557376682758331,
+    "sheet_fraction": 0.4549179971218109
+   },
+   "artifacts": {
+    "structure": {
+     "url": "<signed-url-removed>",
+     "url_expires_at": "2026-07-02T20:50:58.592Z"
+    },
+    "archive": {
+     "url": "https://boltz-platform-prod-compute-api-storage.s3.us-east-1.amazonaws.com/org/08bc578e-dfdb-4dc0-bb7c-32fa6cb78d7b/workspace/ws_aQfDjROuzeGAPFS3Afwo/pipeline/prot_scr_SAlb4E3KrEdF3qUOg5bz/output/public/psmp_4eEYkhTvnKsPK7kwOYre_archive.tar.gz?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=ASIAWEIZ7O2MO3W4RKMP%2F20260702%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20260702T202058Z&X-Amz-Expires=1800&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEDQaCXVzLWVhc3QtMSJGMEQCID6ePIIQ9RvR17zl9ETrYsYcRcjfaUIHCwTQigBcyGX7AiBW9lOlfX9hfCg%2FvbeKe2GhzBq6PQzxO0fYbvvAgYWwcCrSBQj9%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAAaDDQyMTQ5ODE1NjY5NiIMefVCfHXLj8zSlPI0KqYFEKIMorcyiG7lqSug1FbR9ZgyTeHfw5LLGvmq4VlY9V8uaRUTSs9J0NVlB%2FLDVy%2B4Nvleln4OL%2F8LIFW1IIjbkvkQG6yKYAHMSG09yjd5A5ur7YRs9%2FUAWudPiDVC6F%2FMmmhA6uzODA1fkxI%2BmfN3IVSAKfWEHYejOmD1jNHPoRMYfRozNTzEZ8yyGVdr88CGbpvqJ5AxdyHczQ4nEWfIszdY2lCSKTExX3i4ERAtC1R2219aiPowRQJl7A21YTDNO0HrXAhxW6w4x%2F3In26HOQKBV7iFzGf0HfNiYm9fcCm8Px3gc2Ukupz6lf%2FdQLDAt%2B1Iu42GCWCzW6AckjD8U5dON9plIbE9wEYaUX2P5HEZb9V7gLzBCFfRQMgd%2FyyCjF2eNORk6Ry%2FbZMbmtRWM2MEbUH9UVssvZVYrcHC7FQGkqqm2txtmN2YDt6WiOgjB%2Fx%2BIFMTF7fpMGPtSisK%2BnEL6LQ5UBe82%2FzYVH2otaKzdaehFGk4%2BsFju5FCTpDvAuZcFu6lWJ%2FprnRWn0lMic119Hags9NmyJqec5LFrmaCkw8dIX3weyDjv0xgKgnlyHeTCCJujT7TGfqObVJquXJiCNwaE%2FGV6WUvW%2BNW8rcfi%2B2YESMP8SsV%2B9Gy3uToZwd49qoDwdZGeqZZ8j1yVx9DuPsGhJahLevfC4n0RzPwOaO7FkPxODPgp%2FlzPtPoT1dlyqPLfaGpmhh5EpuF2%2FQqjIQpRAcB4PFvsXJ1xOl1tkRWsh%2Fap9cfodTZUfdSYKTdY8WM0qO7iwrc93R1kqQBdz6g6SnNNAYw2Lxuogya8Qiup5RN40n94bn1IzGKfU%2F52NBzYwwa4WEiI%2Ba6UrXQZJhSNpeHoG%2BruUpzWzYAadMdjMUajjTP8AQGLow7%2BarKiO9iMLH8mtIGOpEBrw324hOjmvFLwbok7jydaGZOrsyqHsdJ7GCEvr4%2F0tvztKEbxi08DCz3uy668l7ypJfEtBxBi3K%2ByD%2B8oNBN67AbY8bBCrxZWW4UkgsR%2BwQ5QSR7TD4dJIQF2Fr0B2rvdmvii6PqZP4D9zyNwkeICRKQj5tPk%2BvNI8AMwc%2BX%2BC6VINWHiIwqMpLiMtFLlnv4wg%3D%3D&X-Amz-Signature=8bac59a719f62f66b0c49b77f39490223a32270a811d10d3645590572b152b40&X-Amz-SignedHeaders=host&x-id=GetObject",
+     "url_expires_at": "2026-07-02T20:50:58.604Z"
+    }
+   },
+   "warning_count": 0,
+   "created_at": "2026-07-02T20:19:38.657Z",
+   "entities": [
+    {
+     "type": "protein",
+     "chain_ids": [
+      "A"
+     ],
+     "sequence_length": 244
+    }
+   ]
+  },
+  {
+   "id": "pres_bsOHGI1UMvCWTxmrKPpB",
+   "external_id": "M50_L3_N7Y",
+   "metrics": {
+    "structure_confidence": 0.7893049716949463,
+    "binding_confidence": 0.6773754358291626,
+    "min_interaction_pae": 0.6731951236724854,
+    "iptm": 0.9666728377342224,
+    "loop_fraction": 0.49180325865745544,
+    "helix_fraction": 0.06147540733218193,
+    "sheet_fraction": 0.44672128558158875
+   },
+   "artifacts": {
+    "structure": {
+     "url": "<signed-url-removed>",
+     "url_expires_at": "2026-07-02T20:50:58.592Z"
+    },
+    "archive": {
+     "url": "https://boltz-platform-prod-compute-api-storage.s3.us-east-1.amazonaws.com/org/08bc578e-dfdb-4dc0-bb7c-32fa6cb78d7b/workspace/ws_aQfDjROuzeGAPFS3Afwo/pipeline/prot_scr_SAlb4E3KrEdF3qUOg5bz/output/public/psmp_XrhjUVO3namDMHhissLZ_archive.tar.gz?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=ASIAWEIZ7O2MO3W4RKMP%2F20260702%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20260702T202058Z&X-Amz-Expires=1800&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEDQaCXVzLWVhc3QtMSJGMEQCID6ePIIQ9RvR17zl9ETrYsYcRcjfaUIHCwTQigBcyGX7AiBW9lOlfX9hfCg%2FvbeKe2GhzBq6PQzxO0fYbvvAgYWwcCrSBQj9%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAAaDDQyMTQ5ODE1NjY5NiIMefVCfHXLj8zSlPI0KqYFEKIMorcyiG7lqSug1FbR9ZgyTeHfw5LLGvmq4VlY9V8uaRUTSs9J0NVlB%2FLDVy%2B4Nvleln4OL%2F8LIFW1IIjbkvkQG6yKYAHMSG09yjd5A5ur7YRs9%2FUAWudPiDVC6F%2FMmmhA6uzODA1fkxI%2BmfN3IVSAKfWEHYejOmD1jNHPoRMYfRozNTzEZ8yyGVdr88CGbpvqJ5AxdyHczQ4nEWfIszdY2lCSKTExX3i4ERAtC1R2219aiPowRQJl7A21YTDNO0HrXAhxW6w4x%2F3In26HOQKBV7iFzGf0HfNiYm9fcCm8Px3gc2Ukupz6lf%2FdQLDAt%2B1Iu42GCWCzW6AckjD8U5dON9plIbE9wEYaUX2P5HEZb9V7gLzBCFfRQMgd%2FyyCjF2eNORk6Ry%2FbZMbmtRWM2MEbUH9UVssvZVYrcHC7FQGkqqm2txtmN2YDt6WiOgjB%2Fx%2BIFMTF7fpMGPtSisK%2BnEL6LQ5UBe82%2FzYVH2otaKzdaehFGk4%2BsFju5FCTpDvAuZcFu6lWJ%2FprnRWn0lMic119Hags9NmyJqec5LFrmaCkw8dIX3weyDjv0xgKgnlyHeTCCJujT7TGfqObVJquXJiCNwaE%2FGV6WUvW%2BNW8rcfi%2B2YESMP8SsV%2B9Gy3uToZwd49qoDwdZGeqZZ8j1yVx9DuPsGhJahLevfC4n0RzPwOaO7FkPxODPgp%2FlzPtPoT1dlyqPLfaGpmhh5EpuF2%2FQqjIQpRAcB4PFvsXJ1xOl1tkRWsh%2Fap9cfodTZUfdSYKTdY8WM0qO7iwrc93R1kqQBdz6g6SnNNAYw2Lxuogya8Qiup5RN40n94bn1IzGKfU%2F52NBzYwwa4WEiI%2Ba6UrXQZJhSNpeHoG%2BruUpzWzYAadMdjMUajjTP8AQGLow7%2BarKiO9iMLH8mtIGOpEBrw324hOjmvFLwbok7jydaGZOrsyqHsdJ7GCEvr4%2F0tvztKEbxi08DCz3uy668l7ypJfEtBxBi3K%2ByD%2B8oNBN67AbY8bBCrxZWW4UkgsR%2BwQ5QSR7TD4dJIQF2Fr0B2rvdmvii6PqZP4D9zyNwkeICRKQj5tPk%2BvNI8AMwc%2BX%2BC6VINWHiIwqMpLiMtFLlnv4wg%3D%3D&X-Amz-Signature=988626d517e37864517547b0a098cb555966bdea99a51b1b65d6d8f0ba36067c&X-Amz-SignedHeaders=host&x-id=GetObject",
+     "url_expires_at": "2026-07-02T20:50:58.604Z"
+    }
+   },
+   "warning_count": 0,
+   "created_at": "2026-07-02T20:19:38.975Z",
+   "entities": [
+    {
+     "type": "protein",
+     "chain_ids": [
+      "A"
+     ],
+     "sequence_length": 244
+    }
+   ]
+  },
+  {
+   "id": "pres_pRRBlYIP1MWaAdBxyETf",
+   "external_id": "M11_H3_P3W",
+   "metrics": {
+    "structure_confidence": 0.7599786520004272,
+    "binding_confidence": 0.6497868895530701,
+    "min_interaction_pae": 0.6012824177742004,
+    "iptm": 0.9658471941947937,
+    "loop_fraction": 0.49590161442756653,
+    "helix_fraction": 0.03688524290919304,
+    "sheet_fraction": 0.46721309423446655
+   },
+   "artifacts": {
+    "structure": {
+     "url": "<signed-url-removed>",
+     "url_expires_at": "2026-07-02T20:50:58.592Z"
+    },
+    "archive": {
+     "url": "https://boltz-platform-prod-compute-api-storage.s3.us-east-1.amazonaws.com/org/08bc578e-dfdb-4dc0-bb7c-32fa6cb78d7b/workspace/ws_aQfDjROuzeGAPFS3Afwo/pipeline/prot_scr_SAlb4E3KrEdF3qUOg5bz/output/public/psmp_4gj67BOKhzKuOBp2Y92M_archive.tar.gz?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=ASIAWEIZ7O2MO3W4RKMP%2F20260702%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20260702T202058Z&X-Amz-Expires=1800&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEDQaCXVzLWVhc3QtMSJGMEQCID6ePIIQ9RvR17zl9ETrYsYcRcjfaUIHCwTQigBcyGX7AiBW9lOlfX9hfCg%2FvbeKe2GhzBq6PQzxO0fYbvvAgYWwcCrSBQj9%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAAaDDQyMTQ5ODE1NjY5NiIMefVCfHXLj8zSlPI0KqYFEKIMorcyiG7lqSug1FbR9ZgyTeHfw5LLGvmq4VlY9V8uaRUTSs9J0NVlB%2FLDVy%2B4Nvleln4OL%2F8LIFW1IIjbkvkQG6yKYAHMSG09yjd5A5ur7YRs9%2FUAWudPiDVC6F%2FMmmhA6uzODA1fkxI%2BmfN3IVSAKfWEHYejOmD1jNHPoRMYfRozNTzEZ8yyGVdr88CGbpvqJ5AxdyHczQ4nEWfIszdY2lCSKTExX3i4ERAtC1R2219aiPowRQJl7A21YTDNO0HrXAhxW6w4x%2F3In26HOQKBV7iFzGf0HfNiYm9fcCm8Px3gc2Ukupz6lf%2FdQLDAt%2B1Iu42GCWCzW6AckjD8U5dON9plIbE9wEYaUX2P5HEZb9V7gLzBCFfRQMgd%2FyyCjF2eNORk6Ry%2FbZMbmtRWM2MEbUH9UVssvZVYrcHC7FQGkqqm2txtmN2YDt6WiOgjB%2Fx%2BIFMTF7fpMGPtSisK%2BnEL6LQ5UBe82%2FzYVH2otaKzdaehFGk4%2BsFju5FCTpDvAuZcFu6lWJ%2FprnRWn0lMic119Hags9NmyJqec5LFrmaCkw8dIX3weyDjv0xgKgnlyHeTCCJujT7TGfqObVJquXJiCNwaE%2FGV6WUvW%2BNW8rcfi%2B2YESMP8SsV%2B9Gy3uToZwd49qoDwdZGeqZZ8j1yVx9DuPsGhJahLevfC4n0RzPwOaO7FkPxODPgp%2FlzPtPoT1dlyqPLfaGpmhh5EpuF2%2FQqjIQpRAcB4PFvsXJ1xOl1tkRWsh%2Fap9cfodTZUfdSYKTdY8WM0qO7iwrc93R1kqQBdz6g6SnNNAYw2Lxuogya8Qiup5RN40n94bn1IzGKfU%2F52NBzYwwa4WEiI%2Ba6UrXQZJhSNpeHoG%2BruUpzWzYAadMdjMUajjTP8AQGLow7%2BarKiO9iMLH8mtIGOpEBrw324hOjmvFLwbok7jydaGZOrsyqHsdJ7GCEvr4%2F0tvztKEbxi08DCz3uy668l7ypJfEtBxBi3K%2ByD%2B8oNBN67AbY8bBCrxZWW4UkgsR%2BwQ5QSR7TD4dJIQF2Fr0B2rvdmvii6PqZP4D9zyNwkeICRKQj5tPk%2BvNI8AMwc%2BX%2BC6VINWHiIwqMpLiMtFLlnv4wg%3D%3D&X-Amz-Signature=d5a853d1c8ee346eef364135fe42e1dc9e663a0dc480fd2debb4721ebc1846ae&X-Amz-SignedHeaders=host&x-id=GetObject",
+     "url_expires_at": "2026-07-02T20:50:58.604Z"
+    }
+   },
+   "warning_count": 0,
+   "created_at": "2026-07-02T20:19:38.986Z",
+   "entities": [
+    {
+     "type": "protein",
+     "chain_ids": [
+      "A"
+     ],
+     "sequence_length": 244
+    }
+   ]
+  },
+  {
+   "id": "pres_WCxMKBR2Q8xEu5pciUId",
+   "external_id": "M05_H3_T1D",
+   "metrics": {
+    "structure_confidence": 0.7906394600868225,
+    "binding_confidence": 0.6793885827064514,
+    "min_interaction_pae": 0.6673057079315186,
+    "iptm": 0.9750258326530457,
+    "loop_fraction": 0.47131145000457764,
+    "helix_fraction": 0.06147540733218193,
+    "sheet_fraction": 0.46721309423446655
+   },
+   "artifacts": {
+    "structure": {
+     "url": "<signed-url-removed>",
+     "url_expires_at": "2026-07-02T20:50:58.592Z"
+    },
+    "archive": {
+     "url": "https://boltz-platform-prod-compute-api-storage.s3.us-east-1.amazonaws.com/org/08bc578e-dfdb-4dc0-bb7c-32fa6cb78d7b/workspace/ws_aQfDjROuzeGAPFS3Afwo/pipeline/prot_scr_SAlb4E3KrEdF3qUOg5bz/output/public/psmp_7F1FvUf5k6aeYHKTA4fY_archive.tar.gz?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=ASIAWEIZ7O2MO3W4RKMP%2F20260702%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20260702T202058Z&X-Amz-Expires=1800&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEDQaCXVzLWVhc3QtMSJGMEQCID6ePIIQ9RvR17zl9ETrYsYcRcjfaUIHCwTQigBcyGX7AiBW9lOlfX9hfCg%2FvbeKe2GhzBq6PQzxO0fYbvvAgYWwcCrSBQj9%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAAaDDQyMTQ5ODE1NjY5NiIMefVCfHXLj8zSlPI0KqYFEKIMorcyiG7lqSug1FbR9ZgyTeHfw5LLGvmq4VlY9V8uaRUTSs9J0NVlB%2FLDVy%2B4Nvleln4OL%2F8LIFW1IIjbkvkQG6yKYAHMSG09yjd5A5ur7YRs9%2FUAWudPiDVC6F%2FMmmhA6uzODA1fkxI%2BmfN3IVSAKfWEHYejOmD1jNHPoRMYfRozNTzEZ8yyGVdr88CGbpvqJ5AxdyHczQ4nEWfIszdY2lCSKTExX3i4ERAtC1R2219aiPowRQJl7A21YTDNO0HrXAhxW6w4x%2F3In26HOQKBV7iFzGf0HfNiYm9fcCm8Px3gc2Ukupz6lf%2FdQLDAt%2B1Iu42GCWCzW6AckjD8U5dON9plIbE9wEYaUX2P5HEZb9V7gLzBCFfRQMgd%2FyyCjF2eNORk6Ry%2FbZMbmtRWM2MEbUH9UVssvZVYrcHC7FQGkqqm2txtmN2YDt6WiOgjB%2Fx%2BIFMTF7fpMGPtSisK%2BnEL6LQ5UBe82%2FzYVH2otaKzdaehFGk4%2BsFju5FCTpDvAuZcFu6lWJ%2FprnRWn0lMic119Hags9NmyJqec5LFrmaCkw8dIX3weyDjv0xgKgnlyHeTCCJujT7TGfqObVJquXJiCNwaE%2FGV6WUvW%2BNW8rcfi%2B2YESMP8SsV%2B9Gy3uToZwd49qoDwdZGeqZZ8j1yVx9DuPsGhJahLevfC4n0RzPwOaO7FkPxODPgp%2FlzPtPoT1dlyqPLfaGpmhh5EpuF2%2FQqjIQpRAcB4PFvsXJ1xOl1tkRWsh%2Fap9cfodTZUfdSYKTdY8WM0qO7iwrc93R1kqQBdz6g6SnNNAYw2Lxuogya8Qiup5RN40n94bn1IzGKfU%2F52NBzYwwa4WEiI%2Ba6UrXQZJhSNpeHoG%2BruUpzWzYAadMdjMUajjTP8AQGLow7%2BarKiO9iMLH8mtIGOpEBrw324hOjmvFLwbok7jydaGZOrsyqHsdJ7GCEvr4%2F0tvztKEbxi08DCz3uy668l7ypJfEtBxBi3K%2ByD%2B8oNBN67AbY8bBCrxZWW4UkgsR%2BwQ5QSR7TD4dJIQF2Fr0B2rvdmvii6PqZP4D9zyNwkeICRKQj5tPk%2BvNI8AMwc%2BX%2BC6VINWHiIwqMpLiMtFLlnv4wg%3D%3D&X-Amz-Signature=8fdaf876f3807dbdcd12e7e070e5c1e4ffc369c9de8cccf77f6472add3156639&X-Amz-SignedHeaders=host&x-id=GetObject",
+     "url_expires_at": "2026-07-02T20:50:58.604Z"
+    }
+   },
+   "warning_count": 0,
+   "created_at": "2026-07-02T20:19:40.193Z",
+   "entities": [
+    {
+     "type": "protein",
+     "chain_ids": [
+      "A"
+     ],
+     "sequence_length": 244
+    }
+   ]
+  },
+  {
+   "id": "pres_naUESj7kbafrpBL9EBsy",
+   "external_id": "M25_H3_L6D",
+   "metrics": {
+    "structure_confidence": 0.7810614705085754,
+    "binding_confidence": 0.6543034911155701,
+    "min_interaction_pae": 0.8078092336654663,
+    "iptm": 0.9328792691230774,
+    "loop_fraction": 0.5163934230804443,
+    "helix_fraction": 0.03688524290919304,
+    "sheet_fraction": 0.44672128558158875
+   },
+   "artifacts": {
+    "structure": {
+     "url": "<signed-url-removed>",
+     "url_expires_at": "2026-07-02T20:50:58.592Z"
+    },
+    "archive": {
+     "url": "https://boltz-platform-prod-compute-api-storage.s3.us-east-1.amazonaws.com/org/08bc578e-dfdb-4dc0-bb7c-32fa6cb78d7b/workspace/ws_aQfDjROuzeGAPFS3Afwo/pipeline/prot_scr_SAlb4E3KrEdF3qUOg5bz/output/public/psmp_WAsfstrRt6VpVJp18LlU_archive.tar.gz?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=ASIAWEIZ7O2MO3W4RKMP%2F20260702%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20260702T202058Z&X-Amz-Expires=1800&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEDQaCXVzLWVhc3QtMSJGMEQCID6ePIIQ9RvR17zl9ETrYsYcRcjfaUIHCwTQigBcyGX7AiBW9lOlfX9hfCg%2FvbeKe2GhzBq6PQzxO0fYbvvAgYWwcCrSBQj9%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAAaDDQyMTQ5ODE1NjY5NiIMefVCfHXLj8zSlPI0KqYFEKIMorcyiG7lqSug1FbR9ZgyTeHfw5LLGvmq4VlY9V8uaRUTSs9J0NVlB%2FLDVy%2B4Nvleln4OL%2F8LIFW1IIjbkvkQG6yKYAHMSG09yjd5A5ur7YRs9%2FUAWudPiDVC6F%2FMmmhA6uzODA1fkxI%2BmfN3IVSAKfWEHYejOmD1jNHPoRMYfRozNTzEZ8yyGVdr88CGbpvqJ5AxdyHczQ4nEWfIszdY2lCSKTExX3i4ERAtC1R2219aiPowRQJl7A21YTDNO0HrXAhxW6w4x%2F3In26HOQKBV7iFzGf0HfNiYm9fcCm8Px3gc2Ukupz6lf%2FdQLDAt%2B1Iu42GCWCzW6AckjD8U5dON9plIbE9wEYaUX2P5HEZb9V7gLzBCFfRQMgd%2FyyCjF2eNORk6Ry%2FbZMbmtRWM2MEbUH9UVssvZVYrcHC7FQGkqqm2txtmN2YDt6WiOgjB%2Fx%2BIFMTF7fpMGPtSisK%2BnEL6LQ5UBe82%2FzYVH2otaKzdaehFGk4%2BsFju5FCTpDvAuZcFu6lWJ%2FprnRWn0lMic119Hags9NmyJqec5LFrmaCkw8dIX3weyDjv0xgKgnlyHeTCCJujT7TGfqObVJquXJiCNwaE%2FGV6WUvW%2BNW8rcfi%2B2YESMP8SsV%2B9Gy3uToZwd49qoDwdZGeqZZ8j1yVx9DuPsGhJahLevfC4n0RzPwOaO7FkPxODPgp%2FlzPtPoT1dlyqPLfaGpmhh5EpuF2%2FQqjIQpRAcB4PFvsXJ1xOl1tkRWsh%2Fap9cfodTZUfdSYKTdY8WM0qO7iwrc93R1kqQBdz6g6SnNNAYw2Lxuogya8Qiup5RN40n94bn1IzGKfU%2F52NBzYwwa4WEiI%2Ba6UrXQZJhSNpeHoG%2BruUpzWzYAadMdjMUajjTP8AQGLow7%2BarKiO9iMLH8mtIGOpEBrw324hOjmvFLwbok7jydaGZOrsyqHsdJ7GCEvr4%2F0tvztKEbxi08DCz3uy668l7ypJfEtBxBi3K%2ByD%2B8oNBN67AbY8bBCrxZWW4UkgsR%2BwQ5QSR7TD4dJIQF2Fr0B2rvdmvii6PqZP4D9zyNwkeICRKQj5tPk%2BvNI8AMwc%2BX%2BC6VINWHiIwqMpLiMtFLlnv4wg%3D%3D&X-Amz-Signature=9df3b3739951c1ad8fb4233db077db498a0231bfd56a6f114d2ee94ebc16010c&X-Amz-SignedHeaders=host&x-id=GetObject",
+     "url_expires_at": "2026-07-02T20:50:58.604Z"
+    }
+   },
+   "warning_count": 0,
+   "created_at": "2026-07-02T20:19:44.919Z",
+   "entities": [
+    {
+     "type": "protein",
+     "chain_ids": [
+      "A"
+     ],
+     "sequence_length": 244
+    }
+   ]
+  },
+  {
+   "id": "pres_23lYEhyKAFWQLq1gycF5",
+   "external_id": "M49_L3_P5W",
+   "metrics": {
+    "structure_confidence": 0.7553869485855103,
+    "binding_confidence": 0.6566281914710999,
+    "min_interaction_pae": 0.6315811276435852,
+    "iptm": 0.963478684425354,
+    "loop_fraction": 0.49180325865745544,
+    "helix_fraction": 0.049180325120687485,
+    "sheet_fraction": 0.4590163826942444
+   },
+   "artifacts": {
+    "structure": {
+     "url": "<signed-url-removed>",
+     "url_expires_at": "2026-07-02T20:50:58.592Z"
+    },
+    "archive": {
+     "url": "https://boltz-platform-prod-compute-api-storage.s3.us-east-1.amazonaws.com/org/08bc578e-dfdb-4dc0-bb7c-32fa6cb78d7b/workspace/ws_aQfDjROuzeGAPFS3Afwo/pipeline/prot_scr_SAlb4E3KrEdF3qUOg5bz/output/public/psmp_IMKgIQeXXGjDU7v4TQiw_archive.tar.gz?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=ASIAWEIZ7O2MO3W4RKMP%2F20260702%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20260702T202058Z&X-Amz-Expires=1800&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEDQaCXVzLWVhc3QtMSJGMEQCID6ePIIQ9RvR17zl9ETrYsYcRcjfaUIHCwTQigBcyGX7AiBW9lOlfX9hfCg%2FvbeKe2GhzBq6PQzxO0fYbvvAgYWwcCrSBQj9%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAAaDDQyMTQ5ODE1NjY5NiIMefVCfHXLj8zSlPI0KqYFEKIMorcyiG7lqSug1FbR9ZgyTeHfw5LLGvmq4VlY9V8uaRUTSs9J0NVlB%2FLDVy%2B4Nvleln4OL%2F8LIFW1IIjbkvkQG6yKYAHMSG09yjd5A5ur7YRs9%2FUAWudPiDVC6F%2FMmmhA6uzODA1fkxI%2BmfN3IVSAKfWEHYejOmD1jNHPoRMYfRozNTzEZ8yyGVdr88CGbpvqJ5AxdyHczQ4nEWfIszdY2lCSKTExX3i4ERAtC1R2219aiPowRQJl7A21YTDNO0HrXAhxW6w4x%2F3In26HOQKBV7iFzGf0HfNiYm9fcCm8Px3gc2Ukupz6lf%2FdQLDAt%2B1Iu42GCWCzW6AckjD8U5dON9plIbE9wEYaUX2P5HEZb9V7gLzBCFfRQMgd%2FyyCjF2eNORk6Ry%2FbZMbmtRWM2MEbUH9UVssvZVYrcHC7FQGkqqm2txtmN2YDt6WiOgjB%2Fx%2BIFMTF7fpMGPtSisK%2BnEL6LQ5UBe82%2FzYVH2otaKzdaehFGk4%2BsFju5FCTpDvAuZcFu6lWJ%2FprnRWn0lMic119Hags9NmyJqec5LFrmaCkw8dIX3weyDjv0xgKgnlyHeTCCJujT7TGfqObVJquXJiCNwaE%2FGV6WUvW%2BNW8rcfi%2B2YESMP8SsV%2B9Gy3uToZwd49qoDwdZGeqZZ8j1yVx9DuPsGhJahLevfC4n0RzPwOaO7FkPxODPgp%2FlzPtPoT1dlyqPLfaGpmhh5EpuF2%2FQqjIQpRAcB4PFvsXJ1xOl1tkRWsh%2Fap9cfodTZUfdSYKTdY8WM0qO7iwrc93R1kqQBdz6g6SnNNAYw2Lxuogya8Qiup5RN40n94bn1IzGKfU%2F52NBzYwwa4WEiI%2Ba6UrXQZJhSNpeHoG%2BruUpzWzYAadMdjMUajjTP8AQGLow7%2BarKiO9iMLH8mtIGOpEBrw324hOjmvFLwbok7jydaGZOrsyqHsdJ7GCEvr4%2F0tvztKEbxi08DCz3uy668l7ypJfEtBxBi3K%2ByD%2B8oNBN67AbY8bBCrxZWW4UkgsR%2BwQ5QSR7TD4dJIQF2Fr0B2rvdmvii6PqZP4D9zyNwkeICRKQj5tPk%2BvNI8AMwc%2BX%2BC6VINWHiIwqMpLiMtFLlnv4wg%3D%3D&X-Amz-Signature=805d3b903bf95b4c22a2d37fafca6198c05ed2089a3383d2a36a78f09ec57b93&X-Amz-SignedHeaders=host&x-id=GetObject",
+     "url_expires_at": "2026-07-02T20:50:58.604Z"
+    }
+   },
+   "warning_count": 0,
+   "created_at": "2026-07-02T20:19:52.510Z",
+   "entities": [
+    {
+     "type": "protein",
+     "chain_ids": [
+      "A"
+     ],
+     "sequence_length": 244
+    }
+   ]
+  },
+  {
+   "id": "pres_Wk4rssKAHlNRDeqQ9P66",
+   "external_id": "M07_H3_A2W",
+   "metrics": {
+    "structure_confidence": 0.6440227627754211,
+    "binding_confidence": 0.5560755133628845,
+    "min_interaction_pae": 1.2690794467926025,
+    "iptm": 0.8815992474555969,
+    "loop_fraction": 0.5081967115402222,
+    "helix_fraction": 0.03688524290919304,
+    "sheet_fraction": 0.4549179971218109
+   },
+   "artifacts": {
+    "structure": {
+     "url": "<signed-url-removed>",
+     "url_expires_at": "2026-07-02T20:50:58.592Z"
+    },
+    "archive": {
+     "url": "https://boltz-platform-prod-compute-api-storage.s3.us-east-1.amazonaws.com/org/08bc578e-dfdb-4dc0-bb7c-32fa6cb78d7b/workspace/ws_aQfDjROuzeGAPFS3Afwo/pipeline/prot_scr_SAlb4E3KrEdF3qUOg5bz/output/public/psmp_oe5sniU9t5Emzjnhn49u_archive.tar.gz?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=ASIAWEIZ7O2MO3W4RKMP%2F20260702%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20260702T202058Z&X-Amz-Expires=1800&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEDQaCXVzLWVhc3QtMSJGMEQCID6ePIIQ9RvR17zl9ETrYsYcRcjfaUIHCwTQigBcyGX7AiBW9lOlfX9hfCg%2FvbeKe2GhzBq6PQzxO0fYbvvAgYWwcCrSBQj9%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAAaDDQyMTQ5ODE1NjY5NiIMefVCfHXLj8zSlPI0KqYFEKIMorcyiG7lqSug1FbR9ZgyTeHfw5LLGvmq4VlY9V8uaRUTSs9J0NVlB%2FLDVy%2B4Nvleln4OL%2F8LIFW1IIjbkvkQG6yKYAHMSG09yjd5A5ur7YRs9%2FUAWudPiDVC6F%2FMmmhA6uzODA1fkxI%2BmfN3IVSAKfWEHYejOmD1jNHPoRMYfRozNTzEZ8yyGVdr88CGbpvqJ5AxdyHczQ4nEWfIszdY2lCSKTExX3i4ERAtC1R2219aiPowRQJl7A21YTDNO0HrXAhxW6w4x%2F3In26HOQKBV7iFzGf0HfNiYm9fcCm8Px3gc2Ukupz6lf%2FdQLDAt%2B1Iu42GCWCzW6AckjD8U5dON9plIbE9wEYaUX2P5HEZb9V7gLzBCFfRQMgd%2FyyCjF2eNORk6Ry%2FbZMbmtRWM2MEbUH9UVssvZVYrcHC7FQGkqqm2txtmN2YDt6WiOgjB%2Fx%2BIFMTF7fpMGPtSisK%2BnEL6LQ5UBe82%2FzYVH2otaKzdaehFGk4%2BsFju5FCTpDvAuZcFu6lWJ%2FprnRWn0lMic119Hags9NmyJqec5LFrmaCkw8dIX3weyDjv0xgKgnlyHeTCCJujT7TGfqObVJquXJiCNwaE%2FGV6WUvW%2BNW8rcfi%2B2YESMP8SsV%2B9Gy3uToZwd49qoDwdZGeqZZ8j1yVx9DuPsGhJahLevfC4n0RzPwOaO7FkPxODPgp%2FlzPtPoT1dlyqPLfaGpmhh5EpuF2%2FQqjIQpRAcB4PFvsXJ1xOl1tkRWsh%2Fap9cfodTZUfdSYKTdY8WM0qO7iwrc93R1kqQBdz6g6SnNNAYw2Lxuogya8Qiup5RN40n94bn1IzGKfU%2F52NBzYwwa4WEiI%2Ba6UrXQZJhSNpeHoG%2BruUpzWzYAadMdjMUajjTP8AQGLow7%2BarKiO9iMLH8mtIGOpEBrw324hOjmvFLwbok7jydaGZOrsyqHsdJ7GCEvr4%2F0tvztKEbxi08DCz3uy668l7ypJfEtBxBi3K%2ByD%2B8oNBN67AbY8bBCrxZWW4UkgsR%2BwQ5QSR7TD4dJIQF2Fr0B2rvdmvii6PqZP4D9zyNwkeICRKQj5tPk%2BvNI8AMwc%2BX%2BC6VINWHiIwqMpLiMtFLlnv4wg%3D%3D&X-Amz-Signature=8929c71beefef8d28d790a4c029a27115fd005791052eeee82fea058a026c753&X-Amz-SignedHeaders=host&x-id=GetObject",
+     "url_expires_at": "2026-07-02T20:50:58.604Z"
+    }
+   },
+   "warning_count": 0,
+   "created_at": "2026-07-02T20:19:56.166Z",
+   "entities": [
+    {
+     "type": "protein",
+     "chain_ids": [
+      "A"
+     ],
+     "sequence_length": 244
+    }
+   ]
+  },
+  {
+   "id": "pres_cTVindrqYFjyqqCoUbaH",
+   "external_id": "M13_H3_P3D",
+   "metrics": {
+    "structure_confidence": 0.7477573752403259,
+    "binding_confidence": 0.6379915475845337,
+    "min_interaction_pae": 0.7615400552749634,
+    "iptm": 0.9506990909576416,
+    "loop_fraction": 0.49180325865745544,
+    "helix_fraction": 0.03688524290919304,
+    "sheet_fraction": 0.47131145000457764
+   },
+   "artifacts": {
+    "structure": {
+     "url": "<signed-url-removed>",
+     "url_expires_at": "2026-07-02T20:50:58.592Z"
+    },
+    "archive": {
+     "url": "https://boltz-platform-prod-compute-api-storage.s3.us-east-1.amazonaws.com/org/08bc578e-dfdb-4dc0-bb7c-32fa6cb78d7b/workspace/ws_aQfDjROuzeGAPFS3Afwo/pipeline/prot_scr_SAlb4E3KrEdF3qUOg5bz/output/public/psmp_yC5bDgau92yI2TSeLR6L_archive.tar.gz?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=ASIAWEIZ7O2MO3W4RKMP%2F20260702%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20260702T202058Z&X-Amz-Expires=1800&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEDQaCXVzLWVhc3QtMSJGMEQCID6ePIIQ9RvR17zl9ETrYsYcRcjfaUIHCwTQigBcyGX7AiBW9lOlfX9hfCg%2FvbeKe2GhzBq6PQzxO0fYbvvAgYWwcCrSBQj9%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAAaDDQyMTQ5ODE1NjY5NiIMefVCfHXLj8zSlPI0KqYFEKIMorcyiG7lqSug1FbR9ZgyTeHfw5LLGvmq4VlY9V8uaRUTSs9J0NVlB%2FLDVy%2B4Nvleln4OL%2F8LIFW1IIjbkvkQG6yKYAHMSG09yjd5A5ur7YRs9%2FUAWudPiDVC6F%2FMmmhA6uzODA1fkxI%2BmfN3IVSAKfWEHYejOmD1jNHPoRMYfRozNTzEZ8yyGVdr88CGbpvqJ5AxdyHczQ4nEWfIszdY2lCSKTExX3i4ERAtC1R2219aiPowRQJl7A21YTDNO0HrXAhxW6w4x%2F3In26HOQKBV7iFzGf0HfNiYm9fcCm8Px3gc2Ukupz6lf%2FdQLDAt%2B1Iu42GCWCzW6AckjD8U5dON9plIbE9wEYaUX2P5HEZb9V7gLzBCFfRQMgd%2FyyCjF2eNORk6Ry%2FbZMbmtRWM2MEbUH9UVssvZVYrcHC7FQGkqqm2txtmN2YDt6WiOgjB%2Fx%2BIFMTF7fpMGPtSisK%2BnEL6LQ5UBe82%2FzYVH2otaKzdaehFGk4%2BsFju5FCTpDvAuZcFu6lWJ%2FprnRWn0lMic119Hags9NmyJqec5LFrmaCkw8dIX3weyDjv0xgKgnlyHeTCCJujT7TGfqObVJquXJiCNwaE%2FGV6WUvW%2BNW8rcfi%2B2YESMP8SsV%2B9Gy3uToZwd49qoDwdZGeqZZ8j1yVx9DuPsGhJahLevfC4n0RzPwOaO7FkPxODPgp%2FlzPtPoT1dlyqPLfaGpmhh5EpuF2%2FQqjIQpRAcB4PFvsXJ1xOl1tkRWsh%2Fap9cfodTZUfdSYKTdY8WM0qO7iwrc93R1kqQBdz6g6SnNNAYw2Lxuogya8Qiup5RN40n94bn1IzGKfU%2F52NBzYwwa4WEiI%2Ba6UrXQZJhSNpeHoG%2BruUpzWzYAadMdjMUajjTP8AQGLow7%2BarKiO9iMLH8mtIGOpEBrw324hOjmvFLwbok7jydaGZOrsyqHsdJ7GCEvr4%2F0tvztKEbxi08DCz3uy668l7ypJfEtBxBi3K%2ByD%2B8oNBN67AbY8bBCrxZWW4UkgsR%2BwQ5QSR7TD4dJIQF2Fr0B2rvdmvii6PqZP4D9zyNwkeICRKQj5tPk%2BvNI8AMwc%2BX%2BC6VINWHiIwqMpLiMtFLlnv4wg%3D%3D&X-Amz-Signature=ac816b930609b13a13b0e442c3c21cfb73eb4ca6f1cd7687ff2f1cce67f7bf7e&X-Amz-SignedHeaders=host&x-id=GetObject",
+     "url_expires_at": "2026-07-02T20:50:58.604Z"
+    }
+   },
+   "warning_count": 0,
+   "created_at": "2026-07-02T20:19:57.407Z",
+   "entities": [
+    {
+     "type": "protein",
+     "chain_ids": [
+      "A"
+     ],
+     "sequence_length": 244
+    }
+   ]
+  },
+  {
+   "id": "pres_pZlBji9prHtQo60R7tVK",
+   "external_id": "M23_H3_L6W",
+   "metrics": {
+    "structure_confidence": 0.7273923754692078,
+    "binding_confidence": 0.6181424260139465,
+    "min_interaction_pae": 0.7835795879364014,
+    "iptm": 0.9634270668029785,
+    "loop_fraction": 0.4999999701976776,
+    "helix_fraction": 0.05327868461608887,
+    "sheet_fraction": 0.44672128558158875
+   },
+   "artifacts": {
+    "structure": {
+     "url": "<signed-url-removed>",
+     "url_expires_at": "2026-07-02T20:50:58.592Z"
+    },
+    "archive": {
+     "url": "https://boltz-platform-prod-compute-api-storage.s3.us-east-1.amazonaws.com/org/08bc578e-dfdb-4dc0-bb7c-32fa6cb78d7b/workspace/ws_aQfDjROuzeGAPFS3Afwo/pipeline/prot_scr_SAlb4E3KrEdF3qUOg5bz/output/public/psmp_OunhhIA8SMquNaI1EsnZ_archive.tar.gz?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=ASIAWEIZ7O2MO3W4RKMP%2F20260702%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20260702T202058Z&X-Amz-Expires=1800&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEDQaCXVzLWVhc3QtMSJGMEQCID6ePIIQ9RvR17zl9ETrYsYcRcjfaUIHCwTQigBcyGX7AiBW9lOlfX9hfCg%2FvbeKe2GhzBq6PQzxO0fYbvvAgYWwcCrSBQj9%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAAaDDQyMTQ5ODE1NjY5NiIMefVCfHXLj8zSlPI0KqYFEKIMorcyiG7lqSug1FbR9ZgyTeHfw5LLGvmq4VlY9V8uaRUTSs9J0NVlB%2FLDVy%2B4Nvleln4OL%2F8LIFW1IIjbkvkQG6yKYAHMSG09yjd5A5ur7YRs9%2FUAWudPiDVC6F%2FMmmhA6uzODA1fkxI%2BmfN3IVSAKfWEHYejOmD1jNHPoRMYfRozNTzEZ8yyGVdr88CGbpvqJ5AxdyHczQ4nEWfIszdY2lCSKTExX3i4ERAtC1R2219aiPowRQJl7A21YTDNO0HrXAhxW6w4x%2F3In26HOQKBV7iFzGf0HfNiYm9fcCm8Px3gc2Ukupz6lf%2FdQLDAt%2B1Iu42GCWCzW6AckjD8U5dON9plIbE9wEYaUX2P5HEZb9V7gLzBCFfRQMgd%2FyyCjF2eNORk6Ry%2FbZMbmtRWM2MEbUH9UVssvZVYrcHC7FQGkqqm2txtmN2YDt6WiOgjB%2Fx%2BIFMTF7fpMGPtSisK%2BnEL6LQ5UBe82%2FzYVH2otaKzdaehFGk4%2BsFju5FCTpDvAuZcFu6lWJ%2FprnRWn0lMic119Hags9NmyJqec5LFrmaCkw8dIX3weyDjv0xgKgnlyHeTCCJujT7TGfqObVJquXJiCNwaE%2FGV6WUvW%2BNW8rcfi%2B2YESMP8SsV%2B9Gy3uToZwd49qoDwdZGeqZZ8j1yVx9DuPsGhJahLevfC4n0RzPwOaO7FkPxODPgp%2FlzPtPoT1dlyqPLfaGpmhh5EpuF2%2FQqjIQpRAcB4PFvsXJ1xOl1tkRWsh%2Fap9cfodTZUfdSYKTdY8WM0qO7iwrc93R1kqQBdz6g6SnNNAYw2Lxuogya8Qiup5RN40n94bn1IzGKfU%2F52NBzYwwa4WEiI%2Ba6UrXQZJhSNpeHoG%2BruUpzWzYAadMdjMUajjTP8AQGLow7%2BarKiO9iMLH8mtIGOpEBrw324hOjmvFLwbok7jydaGZOrsyqHsdJ7GCEvr4%2F0tvztKEbxi08DCz3uy668l7ypJfEtBxBi3K%2ByD%2B8oNBN67AbY8bBCrxZWW4UkgsR%2BwQ5QSR7TD4dJIQF2Fr0B2rvdmvii6PqZP4D9zyNwkeICRKQj5tPk%2BvNI8AMwc%2BX%2BC6VINWHiIwqMpLiMtFLlnv4wg%3D%3D&X-Amz-Signature=14901d1688c1936d1e9724896f7c71a44015841ae8ca32c03741bf203f1c707f&X-Amz-SignedHeaders=host&x-id=GetObject",
+     "url_expires_at": "2026-07-02T20:50:58.604Z"
+    }
+   },
+   "warning_count": 0,
+   "created_at": "2026-07-02T20:19:57.679Z",
+   "entities": [
+    {
+     "type": "protein",
+     "chain_ids": [
+      "A"
+     ],
+     "sequence_length": 244
+    }
+   ]
+  },
+  {
+   "id": "pres_nQRcnpAJCchvDvbKACMP",
+   "external_id": "M14_H3_A4Y",
+   "metrics": {
+    "structure_confidence": 0.8117587566375732,
+    "binding_confidence": 0.6971073746681213,
+    "min_interaction_pae": 0.6362259387969971,
+    "iptm": 0.9629669189453125,
+    "loop_fraction": 0.4836065173149109,
+    "helix_fraction": 0.049180325120687485,
+    "sheet_fraction": 0.46721309423446655
+   },
+   "artifacts": {
+    "structure": {
+     "url": "<signed-url-removed>",
+     "url_expires_at": "2026-07-02T20:50:58.592Z"
+    },
+    "archive": {
+     "url": "https://boltz-platform-prod-compute-api-storage.s3.us-east-1.amazonaws.com/org/08bc578e-dfdb-4dc0-bb7c-32fa6cb78d7b/workspace/ws_aQfDjROuzeGAPFS3Afwo/pipeline/prot_scr_SAlb4E3KrEdF3qUOg5bz/output/public/psmp_i5Xec0SVSj2X3BNjbtpU_archive.tar.gz?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=ASIAWEIZ7O2MO3W4RKMP%2F20260702%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20260702T202058Z&X-Amz-Expires=1800&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEDQaCXVzLWVhc3QtMSJGMEQCID6ePIIQ9RvR17zl9ETrYsYcRcjfaUIHCwTQigBcyGX7AiBW9lOlfX9hfCg%2FvbeKe2GhzBq6PQzxO0fYbvvAgYWwcCrSBQj9%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAAaDDQyMTQ5ODE1NjY5NiIMefVCfHXLj8zSlPI0KqYFEKIMorcyiG7lqSug1FbR9ZgyTeHfw5LLGvmq4VlY9V8uaRUTSs9J0NVlB%2FLDVy%2B4Nvleln4OL%2F8LIFW1IIjbkvkQG6yKYAHMSG09yjd5A5ur7YRs9%2FUAWudPiDVC6F%2FMmmhA6uzODA1fkxI%2BmfN3IVSAKfWEHYejOmD1jNHPoRMYfRozNTzEZ8yyGVdr88CGbpvqJ5AxdyHczQ4nEWfIszdY2lCSKTExX3i4ERAtC1R2219aiPowRQJl7A21YTDNO0HrXAhxW6w4x%2F3In26HOQKBV7iFzGf0HfNiYm9fcCm8Px3gc2Ukupz6lf%2FdQLDAt%2B1Iu42GCWCzW6AckjD8U5dON9plIbE9wEYaUX2P5HEZb9V7gLzBCFfRQMgd%2FyyCjF2eNORk6Ry%2FbZMbmtRWM2MEbUH9UVssvZVYrcHC7FQGkqqm2txtmN2YDt6WiOgjB%2Fx%2BIFMTF7fpMGPtSisK%2BnEL6LQ5UBe82%2FzYVH2otaKzdaehFGk4%2BsFju5FCTpDvAuZcFu6lWJ%2FprnRWn0lMic119Hags9NmyJqec5LFrmaCkw8dIX3weyDjv0xgKgnlyHeTCCJujT7TGfqObVJquXJiCNwaE%2FGV6WUvW%2BNW8rcfi%2B2YESMP8SsV%2B9Gy3uToZwd49qoDwdZGeqZZ8j1yVx9DuPsGhJahLevfC4n0RzPwOaO7FkPxODPgp%2FlzPtPoT1dlyqPLfaGpmhh5EpuF2%2FQqjIQpRAcB4PFvsXJ1xOl1tkRWsh%2Fap9cfodTZUfdSYKTdY8WM0qO7iwrc93R1kqQBdz6g6SnNNAYw2Lxuogya8Qiup5RN40n94bn1IzGKfU%2F52NBzYwwa4WEiI%2Ba6UrXQZJhSNpeHoG%2BruUpzWzYAadMdjMUajjTP8AQGLow7%2BarKiO9iMLH8mtIGOpEBrw324hOjmvFLwbok7jydaGZOrsyqHsdJ7GCEvr4%2F0tvztKEbxi08DCz3uy668l7ypJfEtBxBi3K%2ByD%2B8oNBN67AbY8bBCrxZWW4UkgsR%2BwQ5QSR7TD4dJIQF2Fr0B2rvdmvii6PqZP4D9zyNwkeICRKQj5tPk%2BvNI8AMwc%2BX%2BC6VINWHiIwqMpLiMtFLlnv4wg%3D%3D&X-Amz-Signature=d85e13cf504deec03dc1c02f934e4b6a564d6f824c12bc6bfc487e9da6d84d5f&X-Amz-SignedHeaders=host&x-id=GetObject",
+     "url_expires_at": "2026-07-02T20:50:58.604Z"
+    }
+   },
+   "warning_count": 0,
+   "created_at": "2026-07-02T20:19:58.731Z",
+   "entities": [
+    {
+     "type": "protein",
+     "chain_ids": [
+      "A"
+     ],
+     "sequence_length": 244
+    }
+   ]
+  },
+  {
+   "id": "pres_p2r99JgSiPHGVEkoRqvI",
+   "external_id": "M26_H3_P7Y",
+   "metrics": {
+    "structure_confidence": 0.7721036672592163,
+    "binding_confidence": 0.6425220370292664,
+    "min_interaction_pae": 0.7854611277580261,
+    "iptm": 0.9660463333129883,
+    "loop_fraction": 0.5122950673103333,
+    "helix_fraction": 0.049180325120687485,
+    "sheet_fraction": 0.4385245740413666
+   },
+   "artifacts": {
+    "structure": {
+     "url": "<signed-url-removed>",
+     "url_expires_at": "2026-07-02T20:50:58.592Z"
+    },
+    "archive": {
+     "url": "https://boltz-platform-prod-compute-api-storage.s3.us-east-1.amazonaws.com/org/08bc578e-dfdb-4dc0-bb7c-32fa6cb78d7b/workspace/ws_aQfDjROuzeGAPFS3Afwo/pipeline/prot_scr_SAlb4E3KrEdF3qUOg5bz/output/public/psmp_b3GXOuGctoAlM8Ue6PRy_archive.tar.gz?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=ASIAWEIZ7O2MO3W4RKMP%2F20260702%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20260702T202058Z&X-Amz-Expires=1800&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEDQaCXVzLWVhc3QtMSJGMEQCID6ePIIQ9RvR17zl9ETrYsYcRcjfaUIHCwTQigBcyGX7AiBW9lOlfX9hfCg%2FvbeKe2GhzBq6PQzxO0fYbvvAgYWwcCrSBQj9%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAAaDDQyMTQ5ODE1NjY5NiIMefVCfHXLj8zSlPI0KqYFEKIMorcyiG7lqSug1FbR9ZgyTeHfw5LLGvmq4VlY9V8uaRUTSs9J0NVlB%2FLDVy%2B4Nvleln4OL%2F8LIFW1IIjbkvkQG6yKYAHMSG09yjd5A5ur7YRs9%2FUAWudPiDVC6F%2FMmmhA6uzODA1fkxI%2BmfN3IVSAKfWEHYejOmD1jNHPoRMYfRozNTzEZ8yyGVdr88CGbpvqJ5AxdyHczQ4nEWfIszdY2lCSKTExX3i4ERAtC1R2219aiPowRQJl7A21YTDNO0HrXAhxW6w4x%2F3In26HOQKBV7iFzGf0HfNiYm9fcCm8Px3gc2Ukupz6lf%2FdQLDAt%2B1Iu42GCWCzW6AckjD8U5dON9plIbE9wEYaUX2P5HEZb9V7gLzBCFfRQMgd%2FyyCjF2eNORk6Ry%2FbZMbmtRWM2MEbUH9UVssvZVYrcHC7FQGkqqm2txtmN2YDt6WiOgjB%2Fx%2BIFMTF7fpMGPtSisK%2BnEL6LQ5UBe82%2FzYVH2otaKzdaehFGk4%2BsFju5FCTpDvAuZcFu6lWJ%2FprnRWn0lMic119Hags9NmyJqec5LFrmaCkw8dIX3weyDjv0xgKgnlyHeTCCJujT7TGfqObVJquXJiCNwaE%2FGV6WUvW%2BNW8rcfi%2B2YESMP8SsV%2B9Gy3uToZwd49qoDwdZGeqZZ8j1yVx9DuPsGhJahLevfC4n0RzPwOaO7FkPxODPgp%2FlzPtPoT1dlyqPLfaGpmhh5EpuF2%2FQqjIQpRAcB4PFvsXJ1xOl1tkRWsh%2Fap9cfodTZUfdSYKTdY8WM0qO7iwrc93R1kqQBdz6g6SnNNAYw2Lxuogya8Qiup5RN40n94bn1IzGKfU%2F52NBzYwwa4WEiI%2Ba6UrXQZJhSNpeHoG%2BruUpzWzYAadMdjMUajjTP8AQGLow7%2BarKiO9iMLH8mtIGOpEBrw324hOjmvFLwbok7jydaGZOrsyqHsdJ7GCEvr4%2F0tvztKEbxi08DCz3uy668l7ypJfEtBxBi3K%2ByD%2B8oNBN67AbY8bBCrxZWW4UkgsR%2BwQ5QSR7TD4dJIQF2Fr0B2rvdmvii6PqZP4D9zyNwkeICRKQj5tPk%2BvNI8AMwc%2BX%2BC6VINWHiIwqMpLiMtFLlnv4wg%3D%3D&X-Amz-Signature=3ac0eeb5063679ddb51bd9902280060eef85bcef58464dfaae5440fe6cc9da4f&X-Amz-SignedHeaders=host&x-id=GetObject",
+     "url_expires_at": "2026-07-02T20:50:58.604Z"
+    }
+   },
+   "warning_count": 0,
+   "created_at": "2026-07-02T20:19:59.092Z",
+   "entities": [
+    {
+     "type": "protein",
+     "chain_ids": [
+      "A"
+     ],
+     "sequence_length": 244
+    }
+   ]
+  },
+  {
+   "id": "pres_L9mARwr7fnkETnQqKDkZ",
+   "external_id": "M34_H3_A9Y",
+   "metrics": {
+    "structure_confidence": 0.8054529428482056,
+    "binding_confidence": 0.6872402429580688,
+    "min_interaction_pae": 0.5453581213951111,
+    "iptm": 0.9787960052490234,
+    "loop_fraction": 0.5122950673103333,
+    "helix_fraction": 0.03688524290919304,
+    "sheet_fraction": 0.45081964135169983
+   },
+   "artifacts": {
+    "structure": {
+     "url": "<signed-url-removed>",
+     "url_expires_at": "2026-07-02T20:50:58.592Z"
+    },
+    "archive": {
+     "url": "https://boltz-platform-prod-compute-api-storage.s3.us-east-1.amazonaws.com/org/08bc578e-dfdb-4dc0-bb7c-32fa6cb78d7b/workspace/ws_aQfDjROuzeGAPFS3Afwo/pipeline/prot_scr_SAlb4E3KrEdF3qUOg5bz/output/public/psmp_WnUnSHvy7IrbnrMilIgE_archive.tar.gz?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=ASIAWEIZ7O2MO3W4RKMP%2F20260702%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20260702T202058Z&X-Amz-Expires=1800&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEDQaCXVzLWVhc3QtMSJGMEQCID6ePIIQ9RvR17zl9ETrYsYcRcjfaUIHCwTQigBcyGX7AiBW9lOlfX9hfCg%2FvbeKe2GhzBq6PQzxO0fYbvvAgYWwcCrSBQj9%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAAaDDQyMTQ5ODE1NjY5NiIMefVCfHXLj8zSlPI0KqYFEKIMorcyiG7lqSug1FbR9ZgyTeHfw5LLGvmq4VlY9V8uaRUTSs9J0NVlB%2FLDVy%2B4Nvleln4OL%2F8LIFW1IIjbkvkQG6yKYAHMSG09yjd5A5ur7YRs9%2FUAWudPiDVC6F%2FMmmhA6uzODA1fkxI%2BmfN3IVSAKfWEHYejOmD1jNHPoRMYfRozNTzEZ8yyGVdr88CGbpvqJ5AxdyHczQ4nEWfIszdY2lCSKTExX3i4ERAtC1R2219aiPowRQJl7A21YTDNO0HrXAhxW6w4x%2F3In26HOQKBV7iFzGf0HfNiYm9fcCm8Px3gc2Ukupz6lf%2FdQLDAt%2B1Iu42GCWCzW6AckjD8U5dON9plIbE9wEYaUX2P5HEZb9V7gLzBCFfRQMgd%2FyyCjF2eNORk6Ry%2FbZMbmtRWM2MEbUH9UVssvZVYrcHC7FQGkqqm2txtmN2YDt6WiOgjB%2Fx%2BIFMTF7fpMGPtSisK%2BnEL6LQ5UBe82%2FzYVH2otaKzdaehFGk4%2BsFju5FCTpDvAuZcFu6lWJ%2FprnRWn0lMic119Hags9NmyJqec5LFrmaCkw8dIX3weyDjv0xgKgnlyHeTCCJujT7TGfqObVJquXJiCNwaE%2FGV6WUvW%2BNW8rcfi%2B2YESMP8SsV%2B9Gy3uToZwd49qoDwdZGeqZZ8j1yVx9DuPsGhJahLevfC4n0RzPwOaO7FkPxODPgp%2FlzPtPoT1dlyqPLfaGpmhh5EpuF2%2FQqjIQpRAcB4PFvsXJ1xOl1tkRWsh%2Fap9cfodTZUfdSYKTdY8WM0qO7iwrc93R1kqQBdz6g6SnNNAYw2Lxuogya8Qiup5RN40n94bn1IzGKfU%2F52NBzYwwa4WEiI%2Ba6UrXQZJhSNpeHoG%2BruUpzWzYAadMdjMUajjTP8AQGLow7%2BarKiO9iMLH8mtIGOpEBrw324hOjmvFLwbok7jydaGZOrsyqHsdJ7GCEvr4%2F0tvztKEbxi08DCz3uy668l7ypJfEtBxBi3K%2ByD%2B8oNBN67AbY8bBCrxZWW4UkgsR%2BwQ5QSR7TD4dJIQF2Fr0B2rvdmvii6PqZP4D9zyNwkeICRKQj5tPk%2BvNI8AMwc%2BX%2BC6VINWHiIwqMpLiMtFLlnv4wg%3D%3D&X-Amz-Signature=796e82fdfff7dd01b7cc3e99e0d05d98becf729b26e710c5473d9cfe17ef01eb&X-Amz-SignedHeaders=host&x-id=GetObject",
+     "url_expires_at": "2026-07-02T20:50:58.604Z"
+    }
+   },
+   "warning_count": 0,
+   "created_at": "2026-07-02T20:19:59.899Z",
+   "entities": [
+    {
+     "type": "protein",
+     "chain_ids": [
+      "A"
+     ],
+     "sequence_length": 244
+    }
+   ]
+  },
+  {
+   "id": "pres_CiOI26YsOCg4oS80lwv7",
+   "external_id": "M17_H3_A4D",
+   "metrics": {
+    "structure_confidence": 0.7585940361022949,
+    "binding_confidence": 0.6447339057922363,
+    "min_interaction_pae": 0.6185734272003174,
+    "iptm": 0.9702382683753967,
+    "loop_fraction": 0.49590161442756653,
+    "helix_fraction": 0.049180325120687485,
+    "sheet_fraction": 0.4549179971218109
+   },
+   "artifacts": {
+    "structure": {
+     "url": "<signed-url-removed>",
+     "url_expires_at": "2026-07-02T20:50:58.592Z"
+    },
+    "archive": {
+     "url": "https://boltz-platform-prod-compute-api-storage.s3.us-east-1.amazonaws.com/org/08bc578e-dfdb-4dc0-bb7c-32fa6cb78d7b/workspace/ws_aQfDjROuzeGAPFS3Afwo/pipeline/prot_scr_SAlb4E3KrEdF3qUOg5bz/output/public/psmp_s0dcYhE84COvaoo87usD_archive.tar.gz?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=ASIAWEIZ7O2MO3W4RKMP%2F20260702%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20260702T202058Z&X-Amz-Expires=1800&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEDQaCXVzLWVhc3QtMSJGMEQCID6ePIIQ9RvR17zl9ETrYsYcRcjfaUIHCwTQigBcyGX7AiBW9lOlfX9hfCg%2FvbeKe2GhzBq6PQzxO0fYbvvAgYWwcCrSBQj9%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAAaDDQyMTQ5ODE1NjY5NiIMefVCfHXLj8zSlPI0KqYFEKIMorcyiG7lqSug1FbR9ZgyTeHfw5LLGvmq4VlY9V8uaRUTSs9J0NVlB%2FLDVy%2B4Nvleln4OL%2F8LIFW1IIjbkvkQG6yKYAHMSG09yjd5A5ur7YRs9%2FUAWudPiDVC6F%2FMmmhA6uzODA1fkxI%2BmfN3IVSAKfWEHYejOmD1jNHPoRMYfRozNTzEZ8yyGVdr88CGbpvqJ5AxdyHczQ4nEWfIszdY2lCSKTExX3i4ERAtC1R2219aiPowRQJl7A21YTDNO0HrXAhxW6w4x%2F3In26HOQKBV7iFzGf0HfNiYm9fcCm8Px3gc2Ukupz6lf%2FdQLDAt%2B1Iu42GCWCzW6AckjD8U5dON9plIbE9wEYaUX2P5HEZb9V7gLzBCFfRQMgd%2FyyCjF2eNORk6Ry%2FbZMbmtRWM2MEbUH9UVssvZVYrcHC7FQGkqqm2txtmN2YDt6WiOgjB%2Fx%2BIFMTF7fpMGPtSisK%2BnEL6LQ5UBe82%2FzYVH2otaKzdaehFGk4%2BsFju5FCTpDvAuZcFu6lWJ%2FprnRWn0lMic119Hags9NmyJqec5LFrmaCkw8dIX3weyDjv0xgKgnlyHeTCCJujT7TGfqObVJquXJiCNwaE%2FGV6WUvW%2BNW8rcfi%2B2YESMP8SsV%2B9Gy3uToZwd49qoDwdZGeqZZ8j1yVx9DuPsGhJahLevfC4n0RzPwOaO7FkPxODPgp%2FlzPtPoT1dlyqPLfaGpmhh5EpuF2%2FQqjIQpRAcB4PFvsXJ1xOl1tkRWsh%2Fap9cfodTZUfdSYKTdY8WM0qO7iwrc93R1kqQBdz6g6SnNNAYw2Lxuogya8Qiup5RN40n94bn1IzGKfU%2F52NBzYwwa4WEiI%2Ba6UrXQZJhSNpeHoG%2BruUpzWzYAadMdjMUajjTP8AQGLow7%2BarKiO9iMLH8mtIGOpEBrw324hOjmvFLwbok7jydaGZOrsyqHsdJ7GCEvr4%2F0tvztKEbxi08DCz3uy668l7ypJfEtBxBi3K%2ByD%2B8oNBN67AbY8bBCrxZWW4UkgsR%2BwQ5QSR7TD4dJIQF2Fr0B2rvdmvii6PqZP4D9zyNwkeICRKQj5tPk%2BvNI8AMwc%2BX%2BC6VINWHiIwqMpLiMtFLlnv4wg%3D%3D&X-Amz-Signature=05a87dc30ce62a822dbcb6a870c3b7a39c5873f03259f3537c81e27705246f69&X-Amz-SignedHeaders=host&x-id=GetObject",
+     "url_expires_at": "2026-07-02T20:50:58.604Z"
+    }
+   },
+   "warning_count": 0,
+   "created_at": "2026-07-02T20:20:02.671Z",
+   "entities": [
+    {
+     "type": "protein",
+     "chain_ids": [
+      "A"
+     ],
+     "sequence_length": 244
+    }
+   ]
+  },
+  {
+   "id": "pres_MYze3tVLwi8StrELjkaC",
+   "external_id": "M48_L3_D4Y",
+   "metrics": {
+    "structure_confidence": 0.6863188743591309,
+    "binding_confidence": 0.5681204199790955,
+    "min_interaction_pae": 0.9581758379936218,
+    "iptm": 0.9530179500579834,
+    "loop_fraction": 0.48770490288734436,
+    "helix_fraction": 0.06557376682758331,
+    "sheet_fraction": 0.44672128558158875
+   },
+   "artifacts": {
+    "structure": {
+     "url": "<signed-url-removed>",
+     "url_expires_at": "2026-07-02T20:50:58.592Z"
+    },
+    "archive": {
+     "url": "https://boltz-platform-prod-compute-api-storage.s3.us-east-1.amazonaws.com/org/08bc578e-dfdb-4dc0-bb7c-32fa6cb78d7b/workspace/ws_aQfDjROuzeGAPFS3Afwo/pipeline/prot_scr_SAlb4E3KrEdF3qUOg5bz/output/public/psmp_Niw2XRaV6y44kUudsITC_archive.tar.gz?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=ASIAWEIZ7O2MO3W4RKMP%2F20260702%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20260702T202058Z&X-Amz-Expires=1800&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEDQaCXVzLWVhc3QtMSJGMEQCID6ePIIQ9RvR17zl9ETrYsYcRcjfaUIHCwTQigBcyGX7AiBW9lOlfX9hfCg%2FvbeKe2GhzBq6PQzxO0fYbvvAgYWwcCrSBQj9%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAAaDDQyMTQ5ODE1NjY5NiIMefVCfHXLj8zSlPI0KqYFEKIMorcyiG7lqSug1FbR9ZgyTeHfw5LLGvmq4VlY9V8uaRUTSs9J0NVlB%2FLDVy%2B4Nvleln4OL%2F8LIFW1IIjbkvkQG6yKYAHMSG09yjd5A5ur7YRs9%2FUAWudPiDVC6F%2FMmmhA6uzODA1fkxI%2BmfN3IVSAKfWEHYejOmD1jNHPoRMYfRozNTzEZ8yyGVdr88CGbpvqJ5AxdyHczQ4nEWfIszdY2lCSKTExX3i4ERAtC1R2219aiPowRQJl7A21YTDNO0HrXAhxW6w4x%2F3In26HOQKBV7iFzGf0HfNiYm9fcCm8Px3gc2Ukupz6lf%2FdQLDAt%2B1Iu42GCWCzW6AckjD8U5dON9plIbE9wEYaUX2P5HEZb9V7gLzBCFfRQMgd%2FyyCjF2eNORk6Ry%2FbZMbmtRWM2MEbUH9UVssvZVYrcHC7FQGkqqm2txtmN2YDt6WiOgjB%2Fx%2BIFMTF7fpMGPtSisK%2BnEL6LQ5UBe82%2FzYVH2otaKzdaehFGk4%2BsFju5FCTpDvAuZcFu6lWJ%2FprnRWn0lMic119Hags9NmyJqec5LFrmaCkw8dIX3weyDjv0xgKgnlyHeTCCJujT7TGfqObVJquXJiCNwaE%2FGV6WUvW%2BNW8rcfi%2B2YESMP8SsV%2B9Gy3uToZwd49qoDwdZGeqZZ8j1yVx9DuPsGhJahLevfC4n0RzPwOaO7FkPxODPgp%2FlzPtPoT1dlyqPLfaGpmhh5EpuF2%2FQqjIQpRAcB4PFvsXJ1xOl1tkRWsh%2Fap9cfodTZUfdSYKTdY8WM0qO7iwrc93R1kqQBdz6g6SnNNAYw2Lxuogya8Qiup5RN40n94bn1IzGKfU%2F52NBzYwwa4WEiI%2Ba6UrXQZJhSNpeHoG%2BruUpzWzYAadMdjMUajjTP8AQGLow7%2BarKiO9iMLH8mtIGOpEBrw324hOjmvFLwbok7jydaGZOrsyqHsdJ7GCEvr4%2F0tvztKEbxi08DCz3uy668l7ypJfEtBxBi3K%2ByD%2B8oNBN67AbY8bBCrxZWW4UkgsR%2BwQ5QSR7TD4dJIQF2Fr0B2rvdmvii6PqZP4D9zyNwkeICRKQj5tPk%2BvNI8AMwc%2BX%2BC6VINWHiIwqMpLiMtFLlnv4wg%3D%3D&X-Amz-Signature=186a91a14d8daf1357bafa56f4a03dbcc16747559c0cae5cdece393bf31d8f60&X-Amz-SignedHeaders=host&x-id=GetObject",
+     "url_expires_at": "2026-07-02T20:50:58.604Z"
+    }
+   },
+   "warning_count": 0,
+   "created_at": "2026-07-02T20:20:04.321Z",
+   "entities": [
+    {
+     "type": "protein",
+     "chain_ids": [
+      "A"
+     ],
+     "sequence_length": 244
+    }
+   ]
+  },
+  {
+   "id": "pres_dxaPrhVaWGdlnW8gpFZ7",
+   "external_id": "M03_H3_T1W",
+   "metrics": {
+    "structure_confidence": 0.7499380111694336,
+    "binding_confidence": 0.6414962410926819,
+    "min_interaction_pae": 0.7757211327552795,
+    "iptm": 0.9453940987586975,
+    "loop_fraction": 0.49590161442756653,
+    "helix_fraction": 0.03688524290919304,
+    "sheet_fraction": 0.46721309423446655
+   },
+   "artifacts": {
+    "structure": {
+     "url": "<signed-url-removed>",
+     "url_expires_at": "2026-07-02T20:50:58.592Z"
+    },
+    "archive": {
+     "url": "https://boltz-platform-prod-compute-api-storage.s3.us-east-1.amazonaws.com/org/08bc578e-dfdb-4dc0-bb7c-32fa6cb78d7b/workspace/ws_aQfDjROuzeGAPFS3Afwo/pipeline/prot_scr_SAlb4E3KrEdF3qUOg5bz/output/public/psmp_Z8xSVAbOLshGdfS2tBrH_archive.tar.gz?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=ASIAWEIZ7O2MO3W4RKMP%2F20260702%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20260702T202058Z&X-Amz-Expires=1800&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEDQaCXVzLWVhc3QtMSJGMEQCID6ePIIQ9RvR17zl9ETrYsYcRcjfaUIHCwTQigBcyGX7AiBW9lOlfX9hfCg%2FvbeKe2GhzBq6PQzxO0fYbvvAgYWwcCrSBQj9%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAAaDDQyMTQ5ODE1NjY5NiIMefVCfHXLj8zSlPI0KqYFEKIMorcyiG7lqSug1FbR9ZgyTeHfw5LLGvmq4VlY9V8uaRUTSs9J0NVlB%2FLDVy%2B4Nvleln4OL%2F8LIFW1IIjbkvkQG6yKYAHMSG09yjd5A5ur7YRs9%2FUAWudPiDVC6F%2FMmmhA6uzODA1fkxI%2BmfN3IVSAKfWEHYejOmD1jNHPoRMYfRozNTzEZ8yyGVdr88CGbpvqJ5AxdyHczQ4nEWfIszdY2lCSKTExX3i4ERAtC1R2219aiPowRQJl7A21YTDNO0HrXAhxW6w4x%2F3In26HOQKBV7iFzGf0HfNiYm9fcCm8Px3gc2Ukupz6lf%2FdQLDAt%2B1Iu42GCWCzW6AckjD8U5dON9plIbE9wEYaUX2P5HEZb9V7gLzBCFfRQMgd%2FyyCjF2eNORk6Ry%2FbZMbmtRWM2MEbUH9UVssvZVYrcHC7FQGkqqm2txtmN2YDt6WiOgjB%2Fx%2BIFMTF7fpMGPtSisK%2BnEL6LQ5UBe82%2FzYVH2otaKzdaehFGk4%2BsFju5FCTpDvAuZcFu6lWJ%2FprnRWn0lMic119Hags9NmyJqec5LFrmaCkw8dIX3weyDjv0xgKgnlyHeTCCJujT7TGfqObVJquXJiCNwaE%2FGV6WUvW%2BNW8rcfi%2B2YESMP8SsV%2B9Gy3uToZwd49qoDwdZGeqZZ8j1yVx9DuPsGhJahLevfC4n0RzPwOaO7FkPxODPgp%2FlzPtPoT1dlyqPLfaGpmhh5EpuF2%2FQqjIQpRAcB4PFvsXJ1xOl1tkRWsh%2Fap9cfodTZUfdSYKTdY8WM0qO7iwrc93R1kqQBdz6g6SnNNAYw2Lxuogya8Qiup5RN40n94bn1IzGKfU%2F52NBzYwwa4WEiI%2Ba6UrXQZJhSNpeHoG%2BruUpzWzYAadMdjMUajjTP8AQGLow7%2BarKiO9iMLH8mtIGOpEBrw324hOjmvFLwbok7jydaGZOrsyqHsdJ7GCEvr4%2F0tvztKEbxi08DCz3uy668l7ypJfEtBxBi3K%2ByD%2B8oNBN67AbY8bBCrxZWW4UkgsR%2BwQ5QSR7TD4dJIQF2Fr0B2rvdmvii6PqZP4D9zyNwkeICRKQj5tPk%2BvNI8AMwc%2BX%2BC6VINWHiIwqMpLiMtFLlnv4wg%3D%3D&X-Amz-Signature=1bebca81630153f2d88f2dfe4ca6eedce75674d125442989c1608a8cfef66faa&X-Amz-SignedHeaders=host&x-id=GetObject",
+     "url_expires_at": "2026-07-02T20:50:58.604Z"
+    }
+   },
+   "warning_count": 0,
+   "created_at": "2026-07-02T20:20:07.105Z",
+   "entities": [
+    {
+     "type": "protein",
+     "chain_ids": [
+      "A"
+     ],
+     "sequence_length": 244
+    }
+   ]
+  },
+  {
+   "id": "pres_W0r1ZzCYzoL085MkBhXn",
+   "external_id": "M29_H3_P7D",
+   "metrics": {
+    "structure_confidence": 0.7550116181373596,
+    "binding_confidence": 0.628983736038208,
+    "min_interaction_pae": 0.8665140271186829,
+    "iptm": 0.9572562575340271,
+    "loop_fraction": 0.5122950673103333,
+    "helix_fraction": 0.049180325120687485,
+    "sheet_fraction": 0.4385245740413666
+   },
+   "artifacts": {
+    "structure": {
+     "url": "<signed-url-removed>",
+     "url_expires_at": "2026-07-02T20:50:58.592Z"
+    },
+    "archive": {
+     "url": "https://boltz-platform-prod-compute-api-storage.s3.us-east-1.amazonaws.com/org/08bc578e-dfdb-4dc0-bb7c-32fa6cb78d7b/workspace/ws_aQfDjROuzeGAPFS3Afwo/pipeline/prot_scr_SAlb4E3KrEdF3qUOg5bz/output/public/psmp_YwXtybBTEKLh82Eaj0Oq_archive.tar.gz?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=ASIAWEIZ7O2MO3W4RKMP%2F20260702%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20260702T202058Z&X-Amz-Expires=1800&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEDQaCXVzLWVhc3QtMSJGMEQCID6ePIIQ9RvR17zl9ETrYsYcRcjfaUIHCwTQigBcyGX7AiBW9lOlfX9hfCg%2FvbeKe2GhzBq6PQzxO0fYbvvAgYWwcCrSBQj9%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAAaDDQyMTQ5ODE1NjY5NiIMefVCfHXLj8zSlPI0KqYFEKIMorcyiG7lqSug1FbR9ZgyTeHfw5LLGvmq4VlY9V8uaRUTSs9J0NVlB%2FLDVy%2B4Nvleln4OL%2F8LIFW1IIjbkvkQG6yKYAHMSG09yjd5A5ur7YRs9%2FUAWudPiDVC6F%2FMmmhA6uzODA1fkxI%2BmfN3IVSAKfWEHYejOmD1jNHPoRMYfRozNTzEZ8yyGVdr88CGbpvqJ5AxdyHczQ4nEWfIszdY2lCSKTExX3i4ERAtC1R2219aiPowRQJl7A21YTDNO0HrXAhxW6w4x%2F3In26HOQKBV7iFzGf0HfNiYm9fcCm8Px3gc2Ukupz6lf%2FdQLDAt%2B1Iu42GCWCzW6AckjD8U5dON9plIbE9wEYaUX2P5HEZb9V7gLzBCFfRQMgd%2FyyCjF2eNORk6Ry%2FbZMbmtRWM2MEbUH9UVssvZVYrcHC7FQGkqqm2txtmN2YDt6WiOgjB%2Fx%2BIFMTF7fpMGPtSisK%2BnEL6LQ5UBe82%2FzYVH2otaKzdaehFGk4%2BsFju5FCTpDvAuZcFu6lWJ%2FprnRWn0lMic119Hags9NmyJqec5LFrmaCkw8dIX3weyDjv0xgKgnlyHeTCCJujT7TGfqObVJquXJiCNwaE%2FGV6WUvW%2BNW8rcfi%2B2YESMP8SsV%2B9Gy3uToZwd49qoDwdZGeqZZ8j1yVx9DuPsGhJahLevfC4n0RzPwOaO7FkPxODPgp%2FlzPtPoT1dlyqPLfaGpmhh5EpuF2%2FQqjIQpRAcB4PFvsXJ1xOl1tkRWsh%2Fap9cfodTZUfdSYKTdY8WM0qO7iwrc93R1kqQBdz6g6SnNNAYw2Lxuogya8Qiup5RN40n94bn1IzGKfU%2F52NBzYwwa4WEiI%2Ba6UrXQZJhSNpeHoG%2BruUpzWzYAadMdjMUajjTP8AQGLow7%2BarKiO9iMLH8mtIGOpEBrw324hOjmvFLwbok7jydaGZOrsyqHsdJ7GCEvr4%2F0tvztKEbxi08DCz3uy668l7ypJfEtBxBi3K%2ByD%2B8oNBN67AbY8bBCrxZWW4UkgsR%2BwQ5QSR7TD4dJIQF2Fr0B2rvdmvii6PqZP4D9zyNwkeICRKQj5tPk%2BvNI8AMwc%2BX%2BC6VINWHiIwqMpLiMtFLlnv4wg%3D%3D&X-Amz-Signature=a340cba8a454229d698148b7a6eed3f88609fea2b3610ca28145b10360ee9bb7&X-Amz-SignedHeaders=host&x-id=GetObject",
+     "url_expires_at": "2026-07-02T20:50:58.604Z"
+    }
+   },
+   "warning_count": 0,
+   "created_at": "2026-07-02T20:20:07.132Z",
+   "entities": [
+    {
+     "type": "protein",
+     "chain_ids": [
+      "A"
+     ],
+     "sequence_length": 244
+    }
+   ]
+  },
+  {
+   "id": "pres_k5kpwVFXIqNJ7A78dfpA",
+   "external_id": "M12_H3_P3F",
+   "metrics": {
+    "structure_confidence": 0.7317731380462646,
+    "binding_confidence": 0.631878137588501,
+    "min_interaction_pae": 0.6882527470588684,
+    "iptm": 0.958976686000824,
+    "loop_fraction": 0.5163934230804443,
+    "helix_fraction": 0.024590162560343742,
+    "sheet_fraction": 0.4590163826942444
+   },
+   "artifacts": {
+    "structure": {
+     "url": "<signed-url-removed>",
+     "url_expires_at": "2026-07-02T20:50:58.592Z"
+    },
+    "archive": {
+     "url": "https://boltz-platform-prod-compute-api-storage.s3.us-east-1.amazonaws.com/org/08bc578e-dfdb-4dc0-bb7c-32fa6cb78d7b/workspace/ws_aQfDjROuzeGAPFS3Afwo/pipeline/prot_scr_SAlb4E3KrEdF3qUOg5bz/output/public/psmp_kxIZrGvD7QR2RZuYzHlj_archive.tar.gz?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=ASIAWEIZ7O2MO3W4RKMP%2F20260702%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20260702T202058Z&X-Amz-Expires=1800&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEDQaCXVzLWVhc3QtMSJGMEQCID6ePIIQ9RvR17zl9ETrYsYcRcjfaUIHCwTQigBcyGX7AiBW9lOlfX9hfCg%2FvbeKe2GhzBq6PQzxO0fYbvvAgYWwcCrSBQj9%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAAaDDQyMTQ5ODE1NjY5NiIMefVCfHXLj8zSlPI0KqYFEKIMorcyiG7lqSug1FbR9ZgyTeHfw5LLGvmq4VlY9V8uaRUTSs9J0NVlB%2FLDVy%2B4Nvleln4OL%2F8LIFW1IIjbkvkQG6yKYAHMSG09yjd5A5ur7YRs9%2FUAWudPiDVC6F%2FMmmhA6uzODA1fkxI%2BmfN3IVSAKfWEHYejOmD1jNHPoRMYfRozNTzEZ8yyGVdr88CGbpvqJ5AxdyHczQ4nEWfIszdY2lCSKTExX3i4ERAtC1R2219aiPowRQJl7A21YTDNO0HrXAhxW6w4x%2F3In26HOQKBV7iFzGf0HfNiYm9fcCm8Px3gc2Ukupz6lf%2FdQLDAt%2B1Iu42GCWCzW6AckjD8U5dON9plIbE9wEYaUX2P5HEZb9V7gLzBCFfRQMgd%2FyyCjF2eNORk6Ry%2FbZMbmtRWM2MEbUH9UVssvZVYrcHC7FQGkqqm2txtmN2YDt6WiOgjB%2Fx%2BIFMTF7fpMGPtSisK%2BnEL6LQ5UBe82%2FzYVH2otaKzdaehFGk4%2BsFju5FCTpDvAuZcFu6lWJ%2FprnRWn0lMic119Hags9NmyJqec5LFrmaCkw8dIX3weyDjv0xgKgnlyHeTCCJujT7TGfqObVJquXJiCNwaE%2FGV6WUvW%2BNW8rcfi%2B2YESMP8SsV%2B9Gy3uToZwd49qoDwdZGeqZZ8j1yVx9DuPsGhJahLevfC4n0RzPwOaO7FkPxODPgp%2FlzPtPoT1dlyqPLfaGpmhh5EpuF2%2FQqjIQpRAcB4PFvsXJ1xOl1tkRWsh%2Fap9cfodTZUfdSYKTdY8WM0qO7iwrc93R1kqQBdz6g6SnNNAYw2Lxuogya8Qiup5RN40n94bn1IzGKfU%2F52NBzYwwa4WEiI%2Ba6UrXQZJhSNpeHoG%2BruUpzWzYAadMdjMUajjTP8AQGLow7%2BarKiO9iMLH8mtIGOpEBrw324hOjmvFLwbok7jydaGZOrsyqHsdJ7GCEvr4%2F0tvztKEbxi08DCz3uy668l7ypJfEtBxBi3K%2ByD%2B8oNBN67AbY8bBCrxZWW4UkgsR%2BwQ5QSR7TD4dJIQF2Fr0B2rvdmvii6PqZP4D9zyNwkeICRKQj5tPk%2BvNI8AMwc%2BX%2BC6VINWHiIwqMpLiMtFLlnv4wg%3D%3D&X-Amz-Signature=4d45530f4949d3d698faaa1d62eb5c2c974663ed03b4b5a7233f77d210d597a0&X-Amz-SignedHeaders=host&x-id=GetObject",
+     "url_expires_at": "2026-07-02T20:50:58.604Z"
+    }
+   },
+   "warning_count": 0,
+   "created_at": "2026-07-02T20:20:07.132Z",
+   "entities": [
+    {
+     "type": "protein",
+     "chain_ids": [
+      "A"
+     ],
+     "sequence_length": 244
+    }
+   ]
+  },
+  {
+   "id": "pres_3O1gnZy84VRTv93I20wV",
+   "external_id": "M09_H3_A2D",
+   "metrics": {
+    "structure_confidence": 0.7957217693328857,
+    "binding_confidence": 0.6730984449386597,
+    "min_interaction_pae": 0.6097216010093689,
+    "iptm": 0.9619481563568115,
+    "loop_fraction": 0.5122950673103333,
+    "helix_fraction": 0.03688524290919304,
+    "sheet_fraction": 0.45081964135169983
+   },
+   "artifacts": {
+    "structure": {
+     "url": "<signed-url-removed>",
+     "url_expires_at": "2026-07-02T20:50:58.592Z"
+    },
+    "archive": {
+     "url": "https://boltz-platform-prod-compute-api-storage.s3.us-east-1.amazonaws.com/org/08bc578e-dfdb-4dc0-bb7c-32fa6cb78d7b/workspace/ws_aQfDjROuzeGAPFS3Afwo/pipeline/prot_scr_SAlb4E3KrEdF3qUOg5bz/output/public/psmp_cYYf43ze6SmFZ20ncGyw_archive.tar.gz?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=ASIAWEIZ7O2MO3W4RKMP%2F20260702%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20260702T202058Z&X-Amz-Expires=1800&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEDQaCXVzLWVhc3QtMSJGMEQCID6ePIIQ9RvR17zl9ETrYsYcRcjfaUIHCwTQigBcyGX7AiBW9lOlfX9hfCg%2FvbeKe2GhzBq6PQzxO0fYbvvAgYWwcCrSBQj9%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAAaDDQyMTQ5ODE1NjY5NiIMefVCfHXLj8zSlPI0KqYFEKIMorcyiG7lqSug1FbR9ZgyTeHfw5LLGvmq4VlY9V8uaRUTSs9J0NVlB%2FLDVy%2B4Nvleln4OL%2F8LIFW1IIjbkvkQG6yKYAHMSG09yjd5A5ur7YRs9%2FUAWudPiDVC6F%2FMmmhA6uzODA1fkxI%2BmfN3IVSAKfWEHYejOmD1jNHPoRMYfRozNTzEZ8yyGVdr88CGbpvqJ5AxdyHczQ4nEWfIszdY2lCSKTExX3i4ERAtC1R2219aiPowRQJl7A21YTDNO0HrXAhxW6w4x%2F3In26HOQKBV7iFzGf0HfNiYm9fcCm8Px3gc2Ukupz6lf%2FdQLDAt%2B1Iu42GCWCzW6AckjD8U5dON9plIbE9wEYaUX2P5HEZb9V7gLzBCFfRQMgd%2FyyCjF2eNORk6Ry%2FbZMbmtRWM2MEbUH9UVssvZVYrcHC7FQGkqqm2txtmN2YDt6WiOgjB%2Fx%2BIFMTF7fpMGPtSisK%2BnEL6LQ5UBe82%2FzYVH2otaKzdaehFGk4%2BsFju5FCTpDvAuZcFu6lWJ%2FprnRWn0lMic119Hags9NmyJqec5LFrmaCkw8dIX3weyDjv0xgKgnlyHeTCCJujT7TGfqObVJquXJiCNwaE%2FGV6WUvW%2BNW8rcfi%2B2YESMP8SsV%2B9Gy3uToZwd49qoDwdZGeqZZ8j1yVx9DuPsGhJahLevfC4n0RzPwOaO7FkPxODPgp%2FlzPtPoT1dlyqPLfaGpmhh5EpuF2%2FQqjIQpRAcB4PFvsXJ1xOl1tkRWsh%2Fap9cfodTZUfdSYKTdY8WM0qO7iwrc93R1kqQBdz6g6SnNNAYw2Lxuogya8Qiup5RN40n94bn1IzGKfU%2F52NBzYwwa4WEiI%2Ba6UrXQZJhSNpeHoG%2BruUpzWzYAadMdjMUajjTP8AQGLow7%2BarKiO9iMLH8mtIGOpEBrw324hOjmvFLwbok7jydaGZOrsyqHsdJ7GCEvr4%2F0tvztKEbxi08DCz3uy668l7ypJfEtBxBi3K%2ByD%2B8oNBN67AbY8bBCrxZWW4UkgsR%2BwQ5QSR7TD4dJIQF2Fr0B2rvdmvii6PqZP4D9zyNwkeICRKQj5tPk%2BvNI8AMwc%2BX%2BC6VINWHiIwqMpLiMtFLlnv4wg%3D%3D&X-Amz-Signature=b95a50cf3c7243b05194470700f3a95ce8e030b04a84f2bd7d5d6a6ef83c1dfa&X-Amz-SignedHeaders=host&x-id=GetObject",
+     "url_expires_at": "2026-07-02T20:50:58.604Z"
+    }
+   },
+   "warning_count": 0,
+   "created_at": "2026-07-02T20:20:07.391Z",
+   "entities": [
+    {
+     "type": "protein",
+     "chain_ids": [
+      "A"
+     ],
+     "sequence_length": 244
+    }
+   ]
+  },
+  {
+   "id": "pres_8j3S8PNCDXOPw2zjsnXl",
+   "external_id": "M15_H3_A4W",
+   "metrics": {
+    "structure_confidence": 0.8486283421516418,
+    "binding_confidence": 0.7512127757072449,
+    "min_interaction_pae": 0.5445256233215332,
+    "iptm": 0.9700291156768799,
+    "loop_fraction": 0.5040983557701111,
+    "helix_fraction": 0.049180325120687485,
+    "sheet_fraction": 0.44672128558158875
+   },
+   "artifacts": {
+    "structure": {
+     "url": "<signed-url-removed>",
+     "url_expires_at": "2026-07-02T20:50:58.592Z"
+    },
+    "archive": {
+     "url": "https://boltz-platform-prod-compute-api-storage.s3.us-east-1.amazonaws.com/org/08bc578e-dfdb-4dc0-bb7c-32fa6cb78d7b/workspace/ws_aQfDjROuzeGAPFS3Afwo/pipeline/prot_scr_SAlb4E3KrEdF3qUOg5bz/output/public/psmp_nCfa6L4jgiwZHJxmqeV4_archive.tar.gz?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=ASIAWEIZ7O2MO3W4RKMP%2F20260702%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20260702T202058Z&X-Amz-Expires=1800&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEDQaCXVzLWVhc3QtMSJGMEQCID6ePIIQ9RvR17zl9ETrYsYcRcjfaUIHCwTQigBcyGX7AiBW9lOlfX9hfCg%2FvbeKe2GhzBq6PQzxO0fYbvvAgYWwcCrSBQj9%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAAaDDQyMTQ5ODE1NjY5NiIMefVCfHXLj8zSlPI0KqYFEKIMorcyiG7lqSug1FbR9ZgyTeHfw5LLGvmq4VlY9V8uaRUTSs9J0NVlB%2FLDVy%2B4Nvleln4OL%2F8LIFW1IIjbkvkQG6yKYAHMSG09yjd5A5ur7YRs9%2FUAWudPiDVC6F%2FMmmhA6uzODA1fkxI%2BmfN3IVSAKfWEHYejOmD1jNHPoRMYfRozNTzEZ8yyGVdr88CGbpvqJ5AxdyHczQ4nEWfIszdY2lCSKTExX3i4ERAtC1R2219aiPowRQJl7A21YTDNO0HrXAhxW6w4x%2F3In26HOQKBV7iFzGf0HfNiYm9fcCm8Px3gc2Ukupz6lf%2FdQLDAt%2B1Iu42GCWCzW6AckjD8U5dON9plIbE9wEYaUX2P5HEZb9V7gLzBCFfRQMgd%2FyyCjF2eNORk6Ry%2FbZMbmtRWM2MEbUH9UVssvZVYrcHC7FQGkqqm2txtmN2YDt6WiOgjB%2Fx%2BIFMTF7fpMGPtSisK%2BnEL6LQ5UBe82%2FzYVH2otaKzdaehFGk4%2BsFju5FCTpDvAuZcFu6lWJ%2FprnRWn0lMic119Hags9NmyJqec5LFrmaCkw8dIX3weyDjv0xgKgnlyHeTCCJujT7TGfqObVJquXJiCNwaE%2FGV6WUvW%2BNW8rcfi%2B2YESMP8SsV%2B9Gy3uToZwd49qoDwdZGeqZZ8j1yVx9DuPsGhJahLevfC4n0RzPwOaO7FkPxODPgp%2FlzPtPoT1dlyqPLfaGpmhh5EpuF2%2FQqjIQpRAcB4PFvsXJ1xOl1tkRWsh%2Fap9cfodTZUfdSYKTdY8WM0qO7iwrc93R1kqQBdz6g6SnNNAYw2Lxuogya8Qiup5RN40n94bn1IzGKfU%2F52NBzYwwa4WEiI%2Ba6UrXQZJhSNpeHoG%2BruUpzWzYAadMdjMUajjTP8AQGLow7%2BarKiO9iMLH8mtIGOpEBrw324hOjmvFLwbok7jydaGZOrsyqHsdJ7GCEvr4%2F0tvztKEbxi08DCz3uy668l7ypJfEtBxBi3K%2ByD%2B8oNBN67AbY8bBCrxZWW4UkgsR%2BwQ5QSR7TD4dJIQF2Fr0B2rvdmvii6PqZP4D9zyNwkeICRKQj5tPk%2BvNI8AMwc%2BX%2BC6VINWHiIwqMpLiMtFLlnv4wg%3D%3D&X-Amz-Signature=3d5d180f5977abe0a991f72281ee8e1c8cd3ef79323021535e6dc2f22634c79c&X-Amz-SignedHeaders=host&x-id=GetObject",
+     "url_expires_at": "2026-07-02T20:50:58.604Z"
+    }
+   },
+   "warning_count": 0,
+   "created_at": "2026-07-02T20:20:07.461Z",
+   "entities": [
+    {
+     "type": "protein",
+     "chain_ids": [
+      "A"
+     ],
+     "sequence_length": 244
+    }
+   ]
+  },
+  {
+   "id": "pres_91dN46rc988tYzG9IdM9",
+   "external_id": "M51_L3_A1R",
+   "metrics": {
+    "structure_confidence": 0.7814267873764038,
+    "binding_confidence": 0.6584580540657043,
+    "min_interaction_pae": 0.4790725111961365,
+    "iptm": 0.980951726436615,
+    "loop_fraction": 0.48770490288734436,
+    "helix_fraction": 0.05737704783678055,
+    "sheet_fraction": 0.4549179971218109
+   },
+   "artifacts": {
+    "structure": {
+     "url": "<signed-url-removed>",
+     "url_expires_at": "2026-07-02T20:50:58.592Z"
+    },
+    "archive": {
+     "url": "https://boltz-platform-prod-compute-api-storage.s3.us-east-1.amazonaws.com/org/08bc578e-dfdb-4dc0-bb7c-32fa6cb78d7b/workspace/ws_aQfDjROuzeGAPFS3Afwo/pipeline/prot_scr_SAlb4E3KrEdF3qUOg5bz/output/public/psmp_wKaEzFNWxgUGLbHinLNW_archive.tar.gz?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=ASIAWEIZ7O2MO3W4RKMP%2F20260702%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20260702T202058Z&X-Amz-Expires=1800&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEDQaCXVzLWVhc3QtMSJGMEQCID6ePIIQ9RvR17zl9ETrYsYcRcjfaUIHCwTQigBcyGX7AiBW9lOlfX9hfCg%2FvbeKe2GhzBq6PQzxO0fYbvvAgYWwcCrSBQj9%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAAaDDQyMTQ5ODE1NjY5NiIMefVCfHXLj8zSlPI0KqYFEKIMorcyiG7lqSug1FbR9ZgyTeHfw5LLGvmq4VlY9V8uaRUTSs9J0NVlB%2FLDVy%2B4Nvleln4OL%2F8LIFW1IIjbkvkQG6yKYAHMSG09yjd5A5ur7YRs9%2FUAWudPiDVC6F%2FMmmhA6uzODA1fkxI%2BmfN3IVSAKfWEHYejOmD1jNHPoRMYfRozNTzEZ8yyGVdr88CGbpvqJ5AxdyHczQ4nEWfIszdY2lCSKTExX3i4ERAtC1R2219aiPowRQJl7A21YTDNO0HrXAhxW6w4x%2F3In26HOQKBV7iFzGf0HfNiYm9fcCm8Px3gc2Ukupz6lf%2FdQLDAt%2B1Iu42GCWCzW6AckjD8U5dON9plIbE9wEYaUX2P5HEZb9V7gLzBCFfRQMgd%2FyyCjF2eNORk6Ry%2FbZMbmtRWM2MEbUH9UVssvZVYrcHC7FQGkqqm2txtmN2YDt6WiOgjB%2Fx%2BIFMTF7fpMGPtSisK%2BnEL6LQ5UBe82%2FzYVH2otaKzdaehFGk4%2BsFju5FCTpDvAuZcFu6lWJ%2FprnRWn0lMic119Hags9NmyJqec5LFrmaCkw8dIX3weyDjv0xgKgnlyHeTCCJujT7TGfqObVJquXJiCNwaE%2FGV6WUvW%2BNW8rcfi%2B2YESMP8SsV%2B9Gy3uToZwd49qoDwdZGeqZZ8j1yVx9DuPsGhJahLevfC4n0RzPwOaO7FkPxODPgp%2FlzPtPoT1dlyqPLfaGpmhh5EpuF2%2FQqjIQpRAcB4PFvsXJ1xOl1tkRWsh%2Fap9cfodTZUfdSYKTdY8WM0qO7iwrc93R1kqQBdz6g6SnNNAYw2Lxuogya8Qiup5RN40n94bn1IzGKfU%2F52NBzYwwa4WEiI%2Ba6UrXQZJhSNpeHoG%2BruUpzWzYAadMdjMUajjTP8AQGLow7%2BarKiO9iMLH8mtIGOpEBrw324hOjmvFLwbok7jydaGZOrsyqHsdJ7GCEvr4%2F0tvztKEbxi08DCz3uy668l7ypJfEtBxBi3K%2ByD%2B8oNBN67AbY8bBCrxZWW4UkgsR%2BwQ5QSR7TD4dJIQF2Fr0B2rvdmvii6PqZP4D9zyNwkeICRKQj5tPk%2BvNI8AMwc%2BX%2BC6VINWHiIwqMpLiMtFLlnv4wg%3D%3D&X-Amz-Signature=6221f069d568a3c00874c8e6d548156ab8d9580229f585700f81ee8aa8fa7016&X-Amz-SignedHeaders=host&x-id=GetObject",
+     "url_expires_at": "2026-07-02T20:50:58.604Z"
+    }
+   },
+   "warning_count": 0,
+   "created_at": "2026-07-02T20:20:11.445Z",
+   "entities": [
+    {
+     "type": "protein",
+     "chain_ids": [
+      "A"
+     ],
+     "sequence_length": 244
+    }
+   ]
+  },
+  {
+   "id": "pres_hieD1cQYMTXWkI23rWD9",
+   "external_id": "M18_H3_S5Y",
+   "metrics": {
+    "structure_confidence": 0.7174126505851746,
+    "binding_confidence": 0.5907472372055054,
+    "min_interaction_pae": 0.8188579082489014,
+    "iptm": 0.9451889395713806,
+    "loop_fraction": 0.5163934230804443,
+    "helix_fraction": 0.03688524290919304,
+    "sheet_fraction": 0.44672128558158875
+   },
+   "artifacts": {
+    "structure": {
+     "url": "<signed-url-removed>",
+     "url_expires_at": "2026-07-02T20:50:58.592Z"
+    },
+    "archive": {
+     "url": "https://boltz-platform-prod-compute-api-storage.s3.us-east-1.amazonaws.com/org/08bc578e-dfdb-4dc0-bb7c-32fa6cb78d7b/workspace/ws_aQfDjROuzeGAPFS3Afwo/pipeline/prot_scr_SAlb4E3KrEdF3qUOg5bz/output/public/psmp_YN6jWwwqXe7ubsgUslTc_archive.tar.gz?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=ASIAWEIZ7O2MO3W4RKMP%2F20260702%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20260702T202058Z&X-Amz-Expires=1800&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEDQaCXVzLWVhc3QtMSJGMEQCID6ePIIQ9RvR17zl9ETrYsYcRcjfaUIHCwTQigBcyGX7AiBW9lOlfX9hfCg%2FvbeKe2GhzBq6PQzxO0fYbvvAgYWwcCrSBQj9%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAAaDDQyMTQ5ODE1NjY5NiIMefVCfHXLj8zSlPI0KqYFEKIMorcyiG7lqSug1FbR9ZgyTeHfw5LLGvmq4VlY9V8uaRUTSs9J0NVlB%2FLDVy%2B4Nvleln4OL%2F8LIFW1IIjbkvkQG6yKYAHMSG09yjd5A5ur7YRs9%2FUAWudPiDVC6F%2FMmmhA6uzODA1fkxI%2BmfN3IVSAKfWEHYejOmD1jNHPoRMYfRozNTzEZ8yyGVdr88CGbpvqJ5AxdyHczQ4nEWfIszdY2lCSKTExX3i4ERAtC1R2219aiPowRQJl7A21YTDNO0HrXAhxW6w4x%2F3In26HOQKBV7iFzGf0HfNiYm9fcCm8Px3gc2Ukupz6lf%2FdQLDAt%2B1Iu42GCWCzW6AckjD8U5dON9plIbE9wEYaUX2P5HEZb9V7gLzBCFfRQMgd%2FyyCjF2eNORk6Ry%2FbZMbmtRWM2MEbUH9UVssvZVYrcHC7FQGkqqm2txtmN2YDt6WiOgjB%2Fx%2BIFMTF7fpMGPtSisK%2BnEL6LQ5UBe82%2FzYVH2otaKzdaehFGk4%2BsFju5FCTpDvAuZcFu6lWJ%2FprnRWn0lMic119Hags9NmyJqec5LFrmaCkw8dIX3weyDjv0xgKgnlyHeTCCJujT7TGfqObVJquXJiCNwaE%2FGV6WUvW%2BNW8rcfi%2B2YESMP8SsV%2B9Gy3uToZwd49qoDwdZGeqZZ8j1yVx9DuPsGhJahLevfC4n0RzPwOaO7FkPxODPgp%2FlzPtPoT1dlyqPLfaGpmhh5EpuF2%2FQqjIQpRAcB4PFvsXJ1xOl1tkRWsh%2Fap9cfodTZUfdSYKTdY8WM0qO7iwrc93R1kqQBdz6g6SnNNAYw2Lxuogya8Qiup5RN40n94bn1IzGKfU%2F52NBzYwwa4WEiI%2Ba6UrXQZJhSNpeHoG%2BruUpzWzYAadMdjMUajjTP8AQGLow7%2BarKiO9iMLH8mtIGOpEBrw324hOjmvFLwbok7jydaGZOrsyqHsdJ7GCEvr4%2F0tvztKEbxi08DCz3uy668l7ypJfEtBxBi3K%2ByD%2B8oNBN67AbY8bBCrxZWW4UkgsR%2BwQ5QSR7TD4dJIQF2Fr0B2rvdmvii6PqZP4D9zyNwkeICRKQj5tPk%2BvNI8AMwc%2BX%2BC6VINWHiIwqMpLiMtFLlnv4wg%3D%3D&X-Amz-Signature=243e1f8af07b477372a763fb68f40ba63c0f0fb9700fbb137d1c11eb462a67ca&X-Amz-SignedHeaders=host&x-id=GetObject",
+     "url_expires_at": "2026-07-02T20:50:58.604Z"
+    }
+   },
+   "warning_count": 0,
+   "created_at": "2026-07-02T20:20:12.280Z",
+   "entities": [
+    {
+     "type": "protein",
+     "chain_ids": [
+      "A"
+     ],
+     "sequence_length": 244
+    }
+   ]
+  },
+  {
+   "id": "pres_ueMiXREGshOHz84LvL25",
+   "external_id": "M24_H3_L6F",
+   "metrics": {
+    "structure_confidence": 0.7900351881980896,
+    "binding_confidence": 0.6654082536697388,
+    "min_interaction_pae": 0.5482285022735596,
+    "iptm": 0.968662679195404,
+    "loop_fraction": 0.49180325865745544,
+    "helix_fraction": 0.05327868461608887,
+    "sheet_fraction": 0.4549179971218109
+   },
+   "artifacts": {
+    "structure": {
+     "url": "<signed-url-removed>",
+     "url_expires_at": "2026-07-02T20:50:58.592Z"
+    },
+    "archive": {
+     "url": "https://boltz-platform-prod-compute-api-storage.s3.us-east-1.amazonaws.com/org/08bc578e-dfdb-4dc0-bb7c-32fa6cb78d7b/workspace/ws_aQfDjROuzeGAPFS3Afwo/pipeline/prot_scr_SAlb4E3KrEdF3qUOg5bz/output/public/psmp_6M88bg25yYLAkFEnGC8S_archive.tar.gz?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=ASIAWEIZ7O2MO3W4RKMP%2F20260702%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20260702T202058Z&X-Amz-Expires=1800&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEDQaCXVzLWVhc3QtMSJGMEQCID6ePIIQ9RvR17zl9ETrYsYcRcjfaUIHCwTQigBcyGX7AiBW9lOlfX9hfCg%2FvbeKe2GhzBq6PQzxO0fYbvvAgYWwcCrSBQj9%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAAaDDQyMTQ5ODE1NjY5NiIMefVCfHXLj8zSlPI0KqYFEKIMorcyiG7lqSug1FbR9ZgyTeHfw5LLGvmq4VlY9V8uaRUTSs9J0NVlB%2FLDVy%2B4Nvleln4OL%2F8LIFW1IIjbkvkQG6yKYAHMSG09yjd5A5ur7YRs9%2FUAWudPiDVC6F%2FMmmhA6uzODA1fkxI%2BmfN3IVSAKfWEHYejOmD1jNHPoRMYfRozNTzEZ8yyGVdr88CGbpvqJ5AxdyHczQ4nEWfIszdY2lCSKTExX3i4ERAtC1R2219aiPowRQJl7A21YTDNO0HrXAhxW6w4x%2F3In26HOQKBV7iFzGf0HfNiYm9fcCm8Px3gc2Ukupz6lf%2FdQLDAt%2B1Iu42GCWCzW6AckjD8U5dON9plIbE9wEYaUX2P5HEZb9V7gLzBCFfRQMgd%2FyyCjF2eNORk6Ry%2FbZMbmtRWM2MEbUH9UVssvZVYrcHC7FQGkqqm2txtmN2YDt6WiOgjB%2Fx%2BIFMTF7fpMGPtSisK%2BnEL6LQ5UBe82%2FzYVH2otaKzdaehFGk4%2BsFju5FCTpDvAuZcFu6lWJ%2FprnRWn0lMic119Hags9NmyJqec5LFrmaCkw8dIX3weyDjv0xgKgnlyHeTCCJujT7TGfqObVJquXJiCNwaE%2FGV6WUvW%2BNW8rcfi%2B2YESMP8SsV%2B9Gy3uToZwd49qoDwdZGeqZZ8j1yVx9DuPsGhJahLevfC4n0RzPwOaO7FkPxODPgp%2FlzPtPoT1dlyqPLfaGpmhh5EpuF2%2FQqjIQpRAcB4PFvsXJ1xOl1tkRWsh%2Fap9cfodTZUfdSYKTdY8WM0qO7iwrc93R1kqQBdz6g6SnNNAYw2Lxuogya8Qiup5RN40n94bn1IzGKfU%2F52NBzYwwa4WEiI%2Ba6UrXQZJhSNpeHoG%2BruUpzWzYAadMdjMUajjTP8AQGLow7%2BarKiO9iMLH8mtIGOpEBrw324hOjmvFLwbok7jydaGZOrsyqHsdJ7GCEvr4%2F0tvztKEbxi08DCz3uy668l7ypJfEtBxBi3K%2ByD%2B8oNBN67AbY8bBCrxZWW4UkgsR%2BwQ5QSR7TD4dJIQF2Fr0B2rvdmvii6PqZP4D9zyNwkeICRKQj5tPk%2BvNI8AMwc%2BX%2BC6VINWHiIwqMpLiMtFLlnv4wg%3D%3D&X-Amz-Signature=b55a88abed0217ffaadce99af75dbd0733af87d5ae8c0536196ffd2aa534eb5f&X-Amz-SignedHeaders=host&x-id=GetObject",
+     "url_expires_at": "2026-07-02T20:50:58.604Z"
+    }
+   },
+   "warning_count": 0,
+   "created_at": "2026-07-02T20:20:12.431Z",
+   "entities": [
+    {
+     "type": "protein",
+     "chain_ids": [
+      "A"
+     ],
+     "sequence_length": 244
+    }
+   ]
+  },
+  {
+   "id": "pres_js4XHFUbAkwBrVUALJIF",
+   "external_id": "M35_H3_A9W",
+   "metrics": {
+    "structure_confidence": 0.7422541379928589,
+    "binding_confidence": 0.6097471714019775,
+    "min_interaction_pae": 0.6899826526641846,
+    "iptm": 0.9682023525238037,
+    "loop_fraction": 0.5081967115402222,
+    "helix_fraction": 0.03688524290919304,
+    "sheet_fraction": 0.4549179971218109
+   },
+   "artifacts": {
+    "structure": {
+     "url": "<signed-url-removed>",
+     "url_expires_at": "2026-07-02T20:50:58.592Z"
+    },
+    "archive": {
+     "url": "https://boltz-platform-prod-compute-api-storage.s3.us-east-1.amazonaws.com/org/08bc578e-dfdb-4dc0-bb7c-32fa6cb78d7b/workspace/ws_aQfDjROuzeGAPFS3Afwo/pipeline/prot_scr_SAlb4E3KrEdF3qUOg5bz/output/public/psmp_IFWEflYVemcg3t3e0Osz_archive.tar.gz?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=ASIAWEIZ7O2MO3W4RKMP%2F20260702%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20260702T202058Z&X-Amz-Expires=1800&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEDQaCXVzLWVhc3QtMSJGMEQCID6ePIIQ9RvR17zl9ETrYsYcRcjfaUIHCwTQigBcyGX7AiBW9lOlfX9hfCg%2FvbeKe2GhzBq6PQzxO0fYbvvAgYWwcCrSBQj9%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAAaDDQyMTQ5ODE1NjY5NiIMefVCfHXLj8zSlPI0KqYFEKIMorcyiG7lqSug1FbR9ZgyTeHfw5LLGvmq4VlY9V8uaRUTSs9J0NVlB%2FLDVy%2B4Nvleln4OL%2F8LIFW1IIjbkvkQG6yKYAHMSG09yjd5A5ur7YRs9%2FUAWudPiDVC6F%2FMmmhA6uzODA1fkxI%2BmfN3IVSAKfWEHYejOmD1jNHPoRMYfRozNTzEZ8yyGVdr88CGbpvqJ5AxdyHczQ4nEWfIszdY2lCSKTExX3i4ERAtC1R2219aiPowRQJl7A21YTDNO0HrXAhxW6w4x%2F3In26HOQKBV7iFzGf0HfNiYm9fcCm8Px3gc2Ukupz6lf%2FdQLDAt%2B1Iu42GCWCzW6AckjD8U5dON9plIbE9wEYaUX2P5HEZb9V7gLzBCFfRQMgd%2FyyCjF2eNORk6Ry%2FbZMbmtRWM2MEbUH9UVssvZVYrcHC7FQGkqqm2txtmN2YDt6WiOgjB%2Fx%2BIFMTF7fpMGPtSisK%2BnEL6LQ5UBe82%2FzYVH2otaKzdaehFGk4%2BsFju5FCTpDvAuZcFu6lWJ%2FprnRWn0lMic119Hags9NmyJqec5LFrmaCkw8dIX3weyDjv0xgKgnlyHeTCCJujT7TGfqObVJquXJiCNwaE%2FGV6WUvW%2BNW8rcfi%2B2YESMP8SsV%2B9Gy3uToZwd49qoDwdZGeqZZ8j1yVx9DuPsGhJahLevfC4n0RzPwOaO7FkPxODPgp%2FlzPtPoT1dlyqPLfaGpmhh5EpuF2%2FQqjIQpRAcB4PFvsXJ1xOl1tkRWsh%2Fap9cfodTZUfdSYKTdY8WM0qO7iwrc93R1kqQBdz6g6SnNNAYw2Lxuogya8Qiup5RN40n94bn1IzGKfU%2F52NBzYwwa4WEiI%2Ba6UrXQZJhSNpeHoG%2BruUpzWzYAadMdjMUajjTP8AQGLow7%2BarKiO9iMLH8mtIGOpEBrw324hOjmvFLwbok7jydaGZOrsyqHsdJ7GCEvr4%2F0tvztKEbxi08DCz3uy668l7ypJfEtBxBi3K%2ByD%2B8oNBN67AbY8bBCrxZWW4UkgsR%2BwQ5QSR7TD4dJIQF2Fr0B2rvdmvii6PqZP4D9zyNwkeICRKQj5tPk%2BvNI8AMwc%2BX%2BC6VINWHiIwqMpLiMtFLlnv4wg%3D%3D&X-Amz-Signature=6c646e14f2e0acaea06ef136516ee6c1f1dc8a89d707c7c5d6b4312ac2719b55&X-Amz-SignedHeaders=host&x-id=GetObject",
+     "url_expires_at": "2026-07-02T20:50:58.604Z"
+    }
+   },
+   "warning_count": 0,
+   "created_at": "2026-07-02T20:20:12.547Z",
+   "entities": [
+    {
+     "type": "protein",
+     "chain_ids": [
+      "A"
+     ],
+     "sequence_length": 244
+    }
+   ]
+  },
+  {
+   "id": "pres_FGvvz9CzmhtAiGIXFdeJ",
+   "external_id": "M43_H3_H11W",
+   "metrics": {
+    "structure_confidence": 0.7592580318450928,
+    "binding_confidence": 0.6410155892372131,
+    "min_interaction_pae": 0.6675478219985962,
+    "iptm": 0.9729411602020264,
+    "loop_fraction": 0.49590161442756653,
+    "helix_fraction": 0.049180325120687485,
+    "sheet_fraction": 0.4549179971218109
+   },
+   "artifacts": {
+    "structure": {
+     "url": "<signed-url-removed>",
+     "url_expires_at": "2026-07-02T20:50:58.592Z"
+    },
+    "archive": {
+     "url": "https://boltz-platform-prod-compute-api-storage.s3.us-east-1.amazonaws.com/org/08bc578e-dfdb-4dc0-bb7c-32fa6cb78d7b/workspace/ws_aQfDjROuzeGAPFS3Afwo/pipeline/prot_scr_SAlb4E3KrEdF3qUOg5bz/output/public/psmp_IumJMdY5qqLjwCnJmixC_archive.tar.gz?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=ASIAWEIZ7O2MO3W4RKMP%2F20260702%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20260702T202058Z&X-Amz-Expires=1800&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEDQaCXVzLWVhc3QtMSJGMEQCID6ePIIQ9RvR17zl9ETrYsYcRcjfaUIHCwTQigBcyGX7AiBW9lOlfX9hfCg%2FvbeKe2GhzBq6PQzxO0fYbvvAgYWwcCrSBQj9%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAAaDDQyMTQ5ODE1NjY5NiIMefVCfHXLj8zSlPI0KqYFEKIMorcyiG7lqSug1FbR9ZgyTeHfw5LLGvmq4VlY9V8uaRUTSs9J0NVlB%2FLDVy%2B4Nvleln4OL%2F8LIFW1IIjbkvkQG6yKYAHMSG09yjd5A5ur7YRs9%2FUAWudPiDVC6F%2FMmmhA6uzODA1fkxI%2BmfN3IVSAKfWEHYejOmD1jNHPoRMYfRozNTzEZ8yyGVdr88CGbpvqJ5AxdyHczQ4nEWfIszdY2lCSKTExX3i4ERAtC1R2219aiPowRQJl7A21YTDNO0HrXAhxW6w4x%2F3In26HOQKBV7iFzGf0HfNiYm9fcCm8Px3gc2Ukupz6lf%2FdQLDAt%2B1Iu42GCWCzW6AckjD8U5dON9plIbE9wEYaUX2P5HEZb9V7gLzBCFfRQMgd%2FyyCjF2eNORk6Ry%2FbZMbmtRWM2MEbUH9UVssvZVYrcHC7FQGkqqm2txtmN2YDt6WiOgjB%2Fx%2BIFMTF7fpMGPtSisK%2BnEL6LQ5UBe82%2FzYVH2otaKzdaehFGk4%2BsFju5FCTpDvAuZcFu6lWJ%2FprnRWn0lMic119Hags9NmyJqec5LFrmaCkw8dIX3weyDjv0xgKgnlyHeTCCJujT7TGfqObVJquXJiCNwaE%2FGV6WUvW%2BNW8rcfi%2B2YESMP8SsV%2B9Gy3uToZwd49qoDwdZGeqZZ8j1yVx9DuPsGhJahLevfC4n0RzPwOaO7FkPxODPgp%2FlzPtPoT1dlyqPLfaGpmhh5EpuF2%2FQqjIQpRAcB4PFvsXJ1xOl1tkRWsh%2Fap9cfodTZUfdSYKTdY8WM0qO7iwrc93R1kqQBdz6g6SnNNAYw2Lxuogya8Qiup5RN40n94bn1IzGKfU%2F52NBzYwwa4WEiI%2Ba6UrXQZJhSNpeHoG%2BruUpzWzYAadMdjMUajjTP8AQGLow7%2BarKiO9iMLH8mtIGOpEBrw324hOjmvFLwbok7jydaGZOrsyqHsdJ7GCEvr4%2F0tvztKEbxi08DCz3uy668l7ypJfEtBxBi3K%2ByD%2B8oNBN67AbY8bBCrxZWW4UkgsR%2BwQ5QSR7TD4dJIQF2Fr0B2rvdmvii6PqZP4D9zyNwkeICRKQj5tPk%2BvNI8AMwc%2BX%2BC6VINWHiIwqMpLiMtFLlnv4wg%3D%3D&X-Amz-Signature=d76abf3dbf02f9a0c0228ff674c30d3f0e585ec07a80aa8753cc0a83a8895312&X-Amz-SignedHeaders=host&x-id=GetObject",
+     "url_expires_at": "2026-07-02T20:50:58.604Z"
+    }
+   },
+   "warning_count": 0,
+   "created_at": "2026-07-02T20:20:14.927Z",
+   "entities": [
+    {
+     "type": "protein",
+     "chain_ids": [
+      "A"
+     ],
+     "sequence_length": 244
+    }
+   ]
+  },
+  {
+   "id": "pres_IAUUZH8fG9zSNGAJ8TGN",
+   "external_id": "M06_H3_A2Y",
+   "metrics": {
+    "structure_confidence": 0.8152580261230469,
+    "binding_confidence": 0.7015296220779419,
+    "min_interaction_pae": 0.547058641910553,
+    "iptm": 0.9678047299385071,
+    "loop_fraction": 0.49590161442756653,
+    "helix_fraction": 0.05327868461608887,
+    "sheet_fraction": 0.45081964135169983
+   },
+   "artifacts": {
+    "structure": {
+     "url": "<signed-url-removed>",
+     "url_expires_at": "2026-07-02T20:50:58.592Z"
+    },
+    "archive": {
+     "url": "https://boltz-platform-prod-compute-api-storage.s3.us-east-1.amazonaws.com/org/08bc578e-dfdb-4dc0-bb7c-32fa6cb78d7b/workspace/ws_aQfDjROuzeGAPFS3Afwo/pipeline/prot_scr_SAlb4E3KrEdF3qUOg5bz/output/public/psmp_LB5Bn3pOCmS8okUq1FqZ_archive.tar.gz?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=ASIAWEIZ7O2MO3W4RKMP%2F20260702%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20260702T202058Z&X-Amz-Expires=1800&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEDQaCXVzLWVhc3QtMSJGMEQCID6ePIIQ9RvR17zl9ETrYsYcRcjfaUIHCwTQigBcyGX7AiBW9lOlfX9hfCg%2FvbeKe2GhzBq6PQzxO0fYbvvAgYWwcCrSBQj9%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAAaDDQyMTQ5ODE1NjY5NiIMefVCfHXLj8zSlPI0KqYFEKIMorcyiG7lqSug1FbR9ZgyTeHfw5LLGvmq4VlY9V8uaRUTSs9J0NVlB%2FLDVy%2B4Nvleln4OL%2F8LIFW1IIjbkvkQG6yKYAHMSG09yjd5A5ur7YRs9%2FUAWudPiDVC6F%2FMmmhA6uzODA1fkxI%2BmfN3IVSAKfWEHYejOmD1jNHPoRMYfRozNTzEZ8yyGVdr88CGbpvqJ5AxdyHczQ4nEWfIszdY2lCSKTExX3i4ERAtC1R2219aiPowRQJl7A21YTDNO0HrXAhxW6w4x%2F3In26HOQKBV7iFzGf0HfNiYm9fcCm8Px3gc2Ukupz6lf%2FdQLDAt%2B1Iu42GCWCzW6AckjD8U5dON9plIbE9wEYaUX2P5HEZb9V7gLzBCFfRQMgd%2FyyCjF2eNORk6Ry%2FbZMbmtRWM2MEbUH9UVssvZVYrcHC7FQGkqqm2txtmN2YDt6WiOgjB%2Fx%2BIFMTF7fpMGPtSisK%2BnEL6LQ5UBe82%2FzYVH2otaKzdaehFGk4%2BsFju5FCTpDvAuZcFu6lWJ%2FprnRWn0lMic119Hags9NmyJqec5LFrmaCkw8dIX3weyDjv0xgKgnlyHeTCCJujT7TGfqObVJquXJiCNwaE%2FGV6WUvW%2BNW8rcfi%2B2YESMP8SsV%2B9Gy3uToZwd49qoDwdZGeqZZ8j1yVx9DuPsGhJahLevfC4n0RzPwOaO7FkPxODPgp%2FlzPtPoT1dlyqPLfaGpmhh5EpuF2%2FQqjIQpRAcB4PFvsXJ1xOl1tkRWsh%2Fap9cfodTZUfdSYKTdY8WM0qO7iwrc93R1kqQBdz6g6SnNNAYw2Lxuogya8Qiup5RN40n94bn1IzGKfU%2F52NBzYwwa4WEiI%2Ba6UrXQZJhSNpeHoG%2BruUpzWzYAadMdjMUajjTP8AQGLow7%2BarKiO9iMLH8mtIGOpEBrw324hOjmvFLwbok7jydaGZOrsyqHsdJ7GCEvr4%2F0tvztKEbxi08DCz3uy668l7ypJfEtBxBi3K%2ByD%2B8oNBN67AbY8bBCrxZWW4UkgsR%2BwQ5QSR7TD4dJIQF2Fr0B2rvdmvii6PqZP4D9zyNwkeICRKQj5tPk%2BvNI8AMwc%2BX%2BC6VINWHiIwqMpLiMtFLlnv4wg%3D%3D&X-Amz-Signature=fa962ac99831369cd309d8a745f36433447e3d452e6e7cf276d5f84fc56dd474&X-Amz-SignedHeaders=host&x-id=GetObject",
+     "url_expires_at": "2026-07-02T20:50:58.604Z"
+    }
+   },
+   "warning_count": 0,
+   "created_at": "2026-07-02T20:20:18.737Z",
+   "entities": [
+    {
+     "type": "protein",
+     "chain_ids": [
+      "A"
+     ],
+     "sequence_length": 244
+    }
+   ]
+  },
+  {
+   "id": "pres_MXD3HJsELlwA77aLKQZx",
+   "external_id": "M02_H3_T1Y",
+   "metrics": {
+    "structure_confidence": 0.7287582755088806,
+    "binding_confidence": 0.6052013039588928,
+    "min_interaction_pae": 0.7978524565696716,
+    "iptm": 0.9508981108665466,
+    "loop_fraction": 0.49180325865745544,
+    "helix_fraction": 0.049180325120687485,
+    "sheet_fraction": 0.4590163826942444
+   },
+   "artifacts": {
+    "structure": {
+     "url": "<signed-url-removed>",
+     "url_expires_at": "2026-07-02T20:50:58.592Z"
+    },
+    "archive": {
+     "url": "https://boltz-platform-prod-compute-api-storage.s3.us-east-1.amazonaws.com/org/08bc578e-dfdb-4dc0-bb7c-32fa6cb78d7b/workspace/ws_aQfDjROuzeGAPFS3Afwo/pipeline/prot_scr_SAlb4E3KrEdF3qUOg5bz/output/public/psmp_oNivUhMu3ZXHEiYWQrYY_archive.tar.gz?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=ASIAWEIZ7O2MO3W4RKMP%2F20260702%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20260702T202058Z&X-Amz-Expires=1800&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEDQaCXVzLWVhc3QtMSJGMEQCID6ePIIQ9RvR17zl9ETrYsYcRcjfaUIHCwTQigBcyGX7AiBW9lOlfX9hfCg%2FvbeKe2GhzBq6PQzxO0fYbvvAgYWwcCrSBQj9%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAAaDDQyMTQ5ODE1NjY5NiIMefVCfHXLj8zSlPI0KqYFEKIMorcyiG7lqSug1FbR9ZgyTeHfw5LLGvmq4VlY9V8uaRUTSs9J0NVlB%2FLDVy%2B4Nvleln4OL%2F8LIFW1IIjbkvkQG6yKYAHMSG09yjd5A5ur7YRs9%2FUAWudPiDVC6F%2FMmmhA6uzODA1fkxI%2BmfN3IVSAKfWEHYejOmD1jNHPoRMYfRozNTzEZ8yyGVdr88CGbpvqJ5AxdyHczQ4nEWfIszdY2lCSKTExX3i4ERAtC1R2219aiPowRQJl7A21YTDNO0HrXAhxW6w4x%2F3In26HOQKBV7iFzGf0HfNiYm9fcCm8Px3gc2Ukupz6lf%2FdQLDAt%2B1Iu42GCWCzW6AckjD8U5dON9plIbE9wEYaUX2P5HEZb9V7gLzBCFfRQMgd%2FyyCjF2eNORk6Ry%2FbZMbmtRWM2MEbUH9UVssvZVYrcHC7FQGkqqm2txtmN2YDt6WiOgjB%2Fx%2BIFMTF7fpMGPtSisK%2BnEL6LQ5UBe82%2FzYVH2otaKzdaehFGk4%2BsFju5FCTpDvAuZcFu6lWJ%2FprnRWn0lMic119Hags9NmyJqec5LFrmaCkw8dIX3weyDjv0xgKgnlyHeTCCJujT7TGfqObVJquXJiCNwaE%2FGV6WUvW%2BNW8rcfi%2B2YESMP8SsV%2B9Gy3uToZwd49qoDwdZGeqZZ8j1yVx9DuPsGhJahLevfC4n0RzPwOaO7FkPxODPgp%2FlzPtPoT1dlyqPLfaGpmhh5EpuF2%2FQqjIQpRAcB4PFvsXJ1xOl1tkRWsh%2Fap9cfodTZUfdSYKTdY8WM0qO7iwrc93R1kqQBdz6g6SnNNAYw2Lxuogya8Qiup5RN40n94bn1IzGKfU%2F52NBzYwwa4WEiI%2Ba6UrXQZJhSNpeHoG%2BruUpzWzYAadMdjMUajjTP8AQGLow7%2BarKiO9iMLH8mtIGOpEBrw324hOjmvFLwbok7jydaGZOrsyqHsdJ7GCEvr4%2F0tvztKEbxi08DCz3uy668l7ypJfEtBxBi3K%2ByD%2B8oNBN67AbY8bBCrxZWW4UkgsR%2BwQ5QSR7TD4dJIQF2Fr0B2rvdmvii6PqZP4D9zyNwkeICRKQj5tPk%2BvNI8AMwc%2BX%2BC6VINWHiIwqMpLiMtFLlnv4wg%3D%3D&X-Amz-Signature=af4faa250d088da32a91bbbfb586db748f9bf68badda2cf3dfd31a524fc47203&X-Amz-SignedHeaders=host&x-id=GetObject",
+     "url_expires_at": "2026-07-02T20:50:58.604Z"
+    }
+   },
+   "warning_count": 0,
+   "created_at": "2026-07-02T20:20:19.899Z",
+   "entities": [
+    {
+     "type": "protein",
+     "chain_ids": [
+      "A"
+     ],
+     "sequence_length": 244
+    }
+   ]
+  },
+  {
+   "id": "pres_iOK6Sz1uirZTdEU7z2Mb",
+   "external_id": "M46_H3_V12Y",
+   "metrics": {
+    "structure_confidence": 0.7356135845184326,
+    "binding_confidence": 0.6407517194747925,
+    "min_interaction_pae": 0.7802438735961914,
+    "iptm": 0.9632313847541809,
+    "loop_fraction": 0.4754098057746887,
+    "helix_fraction": 0.069672130048275,
+    "sheet_fraction": 0.4549179971218109
+   },
+   "artifacts": {
+    "structure": {
+     "url": "<signed-url-removed>",
+     "url_expires_at": "2026-07-02T20:50:58.592Z"
+    },
+    "archive": {
+     "url": "https://boltz-platform-prod-compute-api-storage.s3.us-east-1.amazonaws.com/org/08bc578e-dfdb-4dc0-bb7c-32fa6cb78d7b/workspace/ws_aQfDjROuzeGAPFS3Afwo/pipeline/prot_scr_SAlb4E3KrEdF3qUOg5bz/output/public/psmp_JpV0CioBaVcTldVzEcy5_archive.tar.gz?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=ASIAWEIZ7O2MO3W4RKMP%2F20260702%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20260702T202058Z&X-Amz-Expires=1800&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEDQaCXVzLWVhc3QtMSJGMEQCID6ePIIQ9RvR17zl9ETrYsYcRcjfaUIHCwTQigBcyGX7AiBW9lOlfX9hfCg%2FvbeKe2GhzBq6PQzxO0fYbvvAgYWwcCrSBQj9%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAAaDDQyMTQ5ODE1NjY5NiIMefVCfHXLj8zSlPI0KqYFEKIMorcyiG7lqSug1FbR9ZgyTeHfw5LLGvmq4VlY9V8uaRUTSs9J0NVlB%2FLDVy%2B4Nvleln4OL%2F8LIFW1IIjbkvkQG6yKYAHMSG09yjd5A5ur7YRs9%2FUAWudPiDVC6F%2FMmmhA6uzODA1fkxI%2BmfN3IVSAKfWEHYejOmD1jNHPoRMYfRozNTzEZ8yyGVdr88CGbpvqJ5AxdyHczQ4nEWfIszdY2lCSKTExX3i4ERAtC1R2219aiPowRQJl7A21YTDNO0HrXAhxW6w4x%2F3In26HOQKBV7iFzGf0HfNiYm9fcCm8Px3gc2Ukupz6lf%2FdQLDAt%2B1Iu42GCWCzW6AckjD8U5dON9plIbE9wEYaUX2P5HEZb9V7gLzBCFfRQMgd%2FyyCjF2eNORk6Ry%2FbZMbmtRWM2MEbUH9UVssvZVYrcHC7FQGkqqm2txtmN2YDt6WiOgjB%2Fx%2BIFMTF7fpMGPtSisK%2BnEL6LQ5UBe82%2FzYVH2otaKzdaehFGk4%2BsFju5FCTpDvAuZcFu6lWJ%2FprnRWn0lMic119Hags9NmyJqec5LFrmaCkw8dIX3weyDjv0xgKgnlyHeTCCJujT7TGfqObVJquXJiCNwaE%2FGV6WUvW%2BNW8rcfi%2B2YESMP8SsV%2B9Gy3uToZwd49qoDwdZGeqZZ8j1yVx9DuPsGhJahLevfC4n0RzPwOaO7FkPxODPgp%2FlzPtPoT1dlyqPLfaGpmhh5EpuF2%2FQqjIQpRAcB4PFvsXJ1xOl1tkRWsh%2Fap9cfodTZUfdSYKTdY8WM0qO7iwrc93R1kqQBdz6g6SnNNAYw2Lxuogya8Qiup5RN40n94bn1IzGKfU%2F52NBzYwwa4WEiI%2Ba6UrXQZJhSNpeHoG%2BruUpzWzYAadMdjMUajjTP8AQGLow7%2BarKiO9iMLH8mtIGOpEBrw324hOjmvFLwbok7jydaGZOrsyqHsdJ7GCEvr4%2F0tvztKEbxi08DCz3uy668l7ypJfEtBxBi3K%2ByD%2B8oNBN67AbY8bBCrxZWW4UkgsR%2BwQ5QSR7TD4dJIQF2Fr0B2rvdmvii6PqZP4D9zyNwkeICRKQj5tPk%2BvNI8AMwc%2BX%2BC6VINWHiIwqMpLiMtFLlnv4wg%3D%3D&X-Amz-Signature=ca920bd9a96421671d22d0d06be2b0d03ee8b81257bcf30d32e199718c90c524&X-Amz-SignedHeaders=host&x-id=GetObject",
+     "url_expires_at": "2026-07-02T20:50:58.604Z"
+    }
+   },
+   "warning_count": 0,
+   "created_at": "2026-07-02T20:20:20.038Z",
+   "entities": [
+    {
+     "type": "protein",
+     "chain_ids": [
+      "A"
+     ],
+     "sequence_length": 244
+    }
+   ]
+  },
+  {
+   "id": "pres_lQTaFlI62uhKi9YDY2Ej",
+   "external_id": "M31_H3_A8W",
+   "metrics": {
+    "structure_confidence": 0.604422926902771,
+    "binding_confidence": 0.5222584009170532,
+    "min_interaction_pae": 0.9490032196044922,
+    "iptm": 0.9480641484260559,
+    "loop_fraction": 0.4999999701976776,
+    "helix_fraction": 0.03688524290919304,
+    "sheet_fraction": 0.46311473846435547
+   },
+   "artifacts": {
+    "structure": {
+     "url": "<signed-url-removed>",
+     "url_expires_at": "2026-07-02T20:50:58.592Z"
+    },
+    "archive": {
+     "url": "https://boltz-platform-prod-compute-api-storage.s3.us-east-1.amazonaws.com/org/08bc578e-dfdb-4dc0-bb7c-32fa6cb78d7b/workspace/ws_aQfDjROuzeGAPFS3Afwo/pipeline/prot_scr_SAlb4E3KrEdF3qUOg5bz/output/public/psmp_PhplZSbnTec3oik2qPMh_archive.tar.gz?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=ASIAWEIZ7O2MO3W4RKMP%2F20260702%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20260702T202058Z&X-Amz-Expires=1800&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEDQaCXVzLWVhc3QtMSJGMEQCID6ePIIQ9RvR17zl9ETrYsYcRcjfaUIHCwTQigBcyGX7AiBW9lOlfX9hfCg%2FvbeKe2GhzBq6PQzxO0fYbvvAgYWwcCrSBQj9%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAAaDDQyMTQ5ODE1NjY5NiIMefVCfHXLj8zSlPI0KqYFEKIMorcyiG7lqSug1FbR9ZgyTeHfw5LLGvmq4VlY9V8uaRUTSs9J0NVlB%2FLDVy%2B4Nvleln4OL%2F8LIFW1IIjbkvkQG6yKYAHMSG09yjd5A5ur7YRs9%2FUAWudPiDVC6F%2FMmmhA6uzODA1fkxI%2BmfN3IVSAKfWEHYejOmD1jNHPoRMYfRozNTzEZ8yyGVdr88CGbpvqJ5AxdyHczQ4nEWfIszdY2lCSKTExX3i4ERAtC1R2219aiPowRQJl7A21YTDNO0HrXAhxW6w4x%2F3In26HOQKBV7iFzGf0HfNiYm9fcCm8Px3gc2Ukupz6lf%2FdQLDAt%2B1Iu42GCWCzW6AckjD8U5dON9plIbE9wEYaUX2P5HEZb9V7gLzBCFfRQMgd%2FyyCjF2eNORk6Ry%2FbZMbmtRWM2MEbUH9UVssvZVYrcHC7FQGkqqm2txtmN2YDt6WiOgjB%2Fx%2BIFMTF7fpMGPtSisK%2BnEL6LQ5UBe82%2FzYVH2otaKzdaehFGk4%2BsFju5FCTpDvAuZcFu6lWJ%2FprnRWn0lMic119Hags9NmyJqec5LFrmaCkw8dIX3weyDjv0xgKgnlyHeTCCJujT7TGfqObVJquXJiCNwaE%2FGV6WUvW%2BNW8rcfi%2B2YESMP8SsV%2B9Gy3uToZwd49qoDwdZGeqZZ8j1yVx9DuPsGhJahLevfC4n0RzPwOaO7FkPxODPgp%2FlzPtPoT1dlyqPLfaGpmhh5EpuF2%2FQqjIQpRAcB4PFvsXJ1xOl1tkRWsh%2Fap9cfodTZUfdSYKTdY8WM0qO7iwrc93R1kqQBdz6g6SnNNAYw2Lxuogya8Qiup5RN40n94bn1IzGKfU%2F52NBzYwwa4WEiI%2Ba6UrXQZJhSNpeHoG%2BruUpzWzYAadMdjMUajjTP8AQGLow7%2BarKiO9iMLH8mtIGOpEBrw324hOjmvFLwbok7jydaGZOrsyqHsdJ7GCEvr4%2F0tvztKEbxi08DCz3uy668l7ypJfEtBxBi3K%2ByD%2B8oNBN67AbY8bBCrxZWW4UkgsR%2BwQ5QSR7TD4dJIQF2Fr0B2rvdmvii6PqZP4D9zyNwkeICRKQj5tPk%2BvNI8AMwc%2BX%2BC6VINWHiIwqMpLiMtFLlnv4wg%3D%3D&X-Amz-Signature=d82cfaf9a9f3670d975d00752025e344c7a88b3f5c348b985f1fd48a25890208&X-Amz-SignedHeaders=host&x-id=GetObject",
+     "url_expires_at": "2026-07-02T20:50:58.604Z"
+    }
+   },
+   "warning_count": 0,
+   "created_at": "2026-07-02T20:20:20.464Z",
+   "entities": [
+    {
+     "type": "protein",
+     "chain_ids": [
+      "A"
+     ],
+     "sequence_length": 244
+    }
+   ]
+  },
+  {
+   "id": "pres_oiS6LOF4aw45QXtemWI6",
+   "external_id": "M40_H3_H10F",
+   "metrics": {
+    "structure_confidence": 0.7444689869880676,
+    "binding_confidence": 0.6066630482673645,
+    "min_interaction_pae": 0.86882483959198,
+    "iptm": 0.9607768654823303,
+    "loop_fraction": 0.4795081615447998,
+    "helix_fraction": 0.06557376682758331,
+    "sheet_fraction": 0.4549179971218109
+   },
+   "artifacts": {
+    "structure": {
+     "url": "<signed-url-removed>",
+     "url_expires_at": "2026-07-02T20:50:58.592Z"
+    },
+    "archive": {
+     "url": "https://boltz-platform-prod-compute-api-storage.s3.us-east-1.amazonaws.com/org/08bc578e-dfdb-4dc0-bb7c-32fa6cb78d7b/workspace/ws_aQfDjROuzeGAPFS3Afwo/pipeline/prot_scr_SAlb4E3KrEdF3qUOg5bz/output/public/psmp_3KkvZmth56Hlw76MEtPz_archive.tar.gz?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=ASIAWEIZ7O2MO3W4RKMP%2F20260702%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20260702T202058Z&X-Amz-Expires=1800&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEDQaCXVzLWVhc3QtMSJGMEQCID6ePIIQ9RvR17zl9ETrYsYcRcjfaUIHCwTQigBcyGX7AiBW9lOlfX9hfCg%2FvbeKe2GhzBq6PQzxO0fYbvvAgYWwcCrSBQj9%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAAaDDQyMTQ5ODE1NjY5NiIMefVCfHXLj8zSlPI0KqYFEKIMorcyiG7lqSug1FbR9ZgyTeHfw5LLGvmq4VlY9V8uaRUTSs9J0NVlB%2FLDVy%2B4Nvleln4OL%2F8LIFW1IIjbkvkQG6yKYAHMSG09yjd5A5ur7YRs9%2FUAWudPiDVC6F%2FMmmhA6uzODA1fkxI%2BmfN3IVSAKfWEHYejOmD1jNHPoRMYfRozNTzEZ8yyGVdr88CGbpvqJ5AxdyHczQ4nEWfIszdY2lCSKTExX3i4ERAtC1R2219aiPowRQJl7A21YTDNO0HrXAhxW6w4x%2F3In26HOQKBV7iFzGf0HfNiYm9fcCm8Px3gc2Ukupz6lf%2FdQLDAt%2B1Iu42GCWCzW6AckjD8U5dON9plIbE9wEYaUX2P5HEZb9V7gLzBCFfRQMgd%2FyyCjF2eNORk6Ry%2FbZMbmtRWM2MEbUH9UVssvZVYrcHC7FQGkqqm2txtmN2YDt6WiOgjB%2Fx%2BIFMTF7fpMGPtSisK%2BnEL6LQ5UBe82%2FzYVH2otaKzdaehFGk4%2BsFju5FCTpDvAuZcFu6lWJ%2FprnRWn0lMic119Hags9NmyJqec5LFrmaCkw8dIX3weyDjv0xgKgnlyHeTCCJujT7TGfqObVJquXJiCNwaE%2FGV6WUvW%2BNW8rcfi%2B2YESMP8SsV%2B9Gy3uToZwd49qoDwdZGeqZZ8j1yVx9DuPsGhJahLevfC4n0RzPwOaO7FkPxODPgp%2FlzPtPoT1dlyqPLfaGpmhh5EpuF2%2FQqjIQpRAcB4PFvsXJ1xOl1tkRWsh%2Fap9cfodTZUfdSYKTdY8WM0qO7iwrc93R1kqQBdz6g6SnNNAYw2Lxuogya8Qiup5RN40n94bn1IzGKfU%2F52NBzYwwa4WEiI%2Ba6UrXQZJhSNpeHoG%2BruUpzWzYAadMdjMUajjTP8AQGLow7%2BarKiO9iMLH8mtIGOpEBrw324hOjmvFLwbok7jydaGZOrsyqHsdJ7GCEvr4%2F0tvztKEbxi08DCz3uy668l7ypJfEtBxBi3K%2ByD%2B8oNBN67AbY8bBCrxZWW4UkgsR%2BwQ5QSR7TD4dJIQF2Fr0B2rvdmvii6PqZP4D9zyNwkeICRKQj5tPk%2BvNI8AMwc%2BX%2BC6VINWHiIwqMpLiMtFLlnv4wg%3D%3D&X-Amz-Signature=c281347f54291ecf1d84974d5f795e869293ffdf3f1b87f48018b51ead4acd2d&X-Amz-SignedHeaders=host&x-id=GetObject",
+     "url_expires_at": "2026-07-02T20:50:58.604Z"
+    }
+   },
+   "warning_count": 0,
+   "created_at": "2026-07-02T20:20:20.618Z",
+   "entities": [
+    {
+     "type": "protein",
+     "chain_ids": [
+      "A"
+     ],
+     "sequence_length": 244
+    }
+   ]
+  },
+  {
+   "id": "pres_1I3k1Vw6lpBSHhhOntMR",
+   "external_id": "M28_H3_P7F",
+   "metrics": {
+    "structure_confidence": 0.7929555177688599,
+    "binding_confidence": 0.6771783828735352,
+    "min_interaction_pae": 0.588504433631897,
+    "iptm": 0.9626224040985107,
+    "loop_fraction": 0.5081967115402222,
+    "helix_fraction": 0.03688524290919304,
+    "sheet_fraction": 0.4549179971218109
+   },
+   "artifacts": {
+    "structure": {
+     "url": "<signed-url-removed>",
+     "url_expires_at": "2026-07-02T20:50:58.592Z"
+    },
+    "archive": {
+     "url": "https://boltz-platform-prod-compute-api-storage.s3.us-east-1.amazonaws.com/org/08bc578e-dfdb-4dc0-bb7c-32fa6cb78d7b/workspace/ws_aQfDjROuzeGAPFS3Afwo/pipeline/prot_scr_SAlb4E3KrEdF3qUOg5bz/output/public/psmp_HrQ1MfJAFB7LFlgv9Qxe_archive.tar.gz?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=ASIAWEIZ7O2MO3W4RKMP%2F20260702%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20260702T202058Z&X-Amz-Expires=1800&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEDQaCXVzLWVhc3QtMSJGMEQCID6ePIIQ9RvR17zl9ETrYsYcRcjfaUIHCwTQigBcyGX7AiBW9lOlfX9hfCg%2FvbeKe2GhzBq6PQzxO0fYbvvAgYWwcCrSBQj9%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAAaDDQyMTQ5ODE1NjY5NiIMefVCfHXLj8zSlPI0KqYFEKIMorcyiG7lqSug1FbR9ZgyTeHfw5LLGvmq4VlY9V8uaRUTSs9J0NVlB%2FLDVy%2B4Nvleln4OL%2F8LIFW1IIjbkvkQG6yKYAHMSG09yjd5A5ur7YRs9%2FUAWudPiDVC6F%2FMmmhA6uzODA1fkxI%2BmfN3IVSAKfWEHYejOmD1jNHPoRMYfRozNTzEZ8yyGVdr88CGbpvqJ5AxdyHczQ4nEWfIszdY2lCSKTExX3i4ERAtC1R2219aiPowRQJl7A21YTDNO0HrXAhxW6w4x%2F3In26HOQKBV7iFzGf0HfNiYm9fcCm8Px3gc2Ukupz6lf%2FdQLDAt%2B1Iu42GCWCzW6AckjD8U5dON9plIbE9wEYaUX2P5HEZb9V7gLzBCFfRQMgd%2FyyCjF2eNORk6Ry%2FbZMbmtRWM2MEbUH9UVssvZVYrcHC7FQGkqqm2txtmN2YDt6WiOgjB%2Fx%2BIFMTF7fpMGPtSisK%2BnEL6LQ5UBe82%2FzYVH2otaKzdaehFGk4%2BsFju5FCTpDvAuZcFu6lWJ%2FprnRWn0lMic119Hags9NmyJqec5LFrmaCkw8dIX3weyDjv0xgKgnlyHeTCCJujT7TGfqObVJquXJiCNwaE%2FGV6WUvW%2BNW8rcfi%2B2YESMP8SsV%2B9Gy3uToZwd49qoDwdZGeqZZ8j1yVx9DuPsGhJahLevfC4n0RzPwOaO7FkPxODPgp%2FlzPtPoT1dlyqPLfaGpmhh5EpuF2%2FQqjIQpRAcB4PFvsXJ1xOl1tkRWsh%2Fap9cfodTZUfdSYKTdY8WM0qO7iwrc93R1kqQBdz6g6SnNNAYw2Lxuogya8Qiup5RN40n94bn1IzGKfU%2F52NBzYwwa4WEiI%2Ba6UrXQZJhSNpeHoG%2BruUpzWzYAadMdjMUajjTP8AQGLow7%2BarKiO9iMLH8mtIGOpEBrw324hOjmvFLwbok7jydaGZOrsyqHsdJ7GCEvr4%2F0tvztKEbxi08DCz3uy668l7ypJfEtBxBi3K%2ByD%2B8oNBN67AbY8bBCrxZWW4UkgsR%2BwQ5QSR7TD4dJIQF2Fr0B2rvdmvii6PqZP4D9zyNwkeICRKQj5tPk%2BvNI8AMwc%2BX%2BC6VINWHiIwqMpLiMtFLlnv4wg%3D%3D&X-Amz-Signature=1aca6e0bd9c017b1d77fef29be6be4a90a029439002cb9adb9c63ebec6f341b7&X-Amz-SignedHeaders=host&x-id=GetObject",
+     "url_expires_at": "2026-07-02T20:50:58.604Z"
+    }
+   },
+   "warning_count": 0,
+   "created_at": "2026-07-02T20:20:45.429Z",
+   "entities": [
+    {
+     "type": "protein",
+     "chain_ids": [
+      "A"
+     ],
+     "sequence_length": 244
+    }
+   ]
+  },
+  {
+   "id": "pres_XObUQINJFDBewJ5iOwXv",
+   "external_id": "M16_H3_A4F",
+   "metrics": {
+    "structure_confidence": 0.7321537733078003,
+    "binding_confidence": 0.6113834977149963,
+    "min_interaction_pae": 0.7001053690910339,
+    "iptm": 0.9611957669258118,
+    "loop_fraction": 0.49590161442756653,
+    "helix_fraction": 0.03688524290919304,
+    "sheet_fraction": 0.46721309423446655
+   },
+   "artifacts": {
+    "structure": {
+     "url": "<signed-url-removed>",
+     "url_expires_at": "2026-07-02T20:50:58.592Z"
+    },
+    "archive": {
+     "url": "https://boltz-platform-prod-compute-api-storage.s3.us-east-1.amazonaws.com/org/08bc578e-dfdb-4dc0-bb7c-32fa6cb78d7b/workspace/ws_aQfDjROuzeGAPFS3Afwo/pipeline/prot_scr_SAlb4E3KrEdF3qUOg5bz/output/public/psmp_OnI7IQOJMT9Ob5Iw7Aeu_archive.tar.gz?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=ASIAWEIZ7O2MO3W4RKMP%2F20260702%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20260702T202058Z&X-Amz-Expires=1800&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEDQaCXVzLWVhc3QtMSJGMEQCID6ePIIQ9RvR17zl9ETrYsYcRcjfaUIHCwTQigBcyGX7AiBW9lOlfX9hfCg%2FvbeKe2GhzBq6PQzxO0fYbvvAgYWwcCrSBQj9%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAAaDDQyMTQ5ODE1NjY5NiIMefVCfHXLj8zSlPI0KqYFEKIMorcyiG7lqSug1FbR9ZgyTeHfw5LLGvmq4VlY9V8uaRUTSs9J0NVlB%2FLDVy%2B4Nvleln4OL%2F8LIFW1IIjbkvkQG6yKYAHMSG09yjd5A5ur7YRs9%2FUAWudPiDVC6F%2FMmmhA6uzODA1fkxI%2BmfN3IVSAKfWEHYejOmD1jNHPoRMYfRozNTzEZ8yyGVdr88CGbpvqJ5AxdyHczQ4nEWfIszdY2lCSKTExX3i4ERAtC1R2219aiPowRQJl7A21YTDNO0HrXAhxW6w4x%2F3In26HOQKBV7iFzGf0HfNiYm9fcCm8Px3gc2Ukupz6lf%2FdQLDAt%2B1Iu42GCWCzW6AckjD8U5dON9plIbE9wEYaUX2P5HEZb9V7gLzBCFfRQMgd%2FyyCjF2eNORk6Ry%2FbZMbmtRWM2MEbUH9UVssvZVYrcHC7FQGkqqm2txtmN2YDt6WiOgjB%2Fx%2BIFMTF7fpMGPtSisK%2BnEL6LQ5UBe82%2FzYVH2otaKzdaehFGk4%2BsFju5FCTpDvAuZcFu6lWJ%2FprnRWn0lMic119Hags9NmyJqec5LFrmaCkw8dIX3weyDjv0xgKgnlyHeTCCJujT7TGfqObVJquXJiCNwaE%2FGV6WUvW%2BNW8rcfi%2B2YESMP8SsV%2B9Gy3uToZwd49qoDwdZGeqZZ8j1yVx9DuPsGhJahLevfC4n0RzPwOaO7FkPxODPgp%2FlzPtPoT1dlyqPLfaGpmhh5EpuF2%2FQqjIQpRAcB4PFvsXJ1xOl1tkRWsh%2Fap9cfodTZUfdSYKTdY8WM0qO7iwrc93R1kqQBdz6g6SnNNAYw2Lxuogya8Qiup5RN40n94bn1IzGKfU%2F52NBzYwwa4WEiI%2Ba6UrXQZJhSNpeHoG%2BruUpzWzYAadMdjMUajjTP8AQGLow7%2BarKiO9iMLH8mtIGOpEBrw324hOjmvFLwbok7jydaGZOrsyqHsdJ7GCEvr4%2F0tvztKEbxi08DCz3uy668l7ypJfEtBxBi3K%2ByD%2B8oNBN67AbY8bBCrxZWW4UkgsR%2BwQ5QSR7TD4dJIQF2Fr0B2rvdmvii6PqZP4D9zyNwkeICRKQj5tPk%2BvNI8AMwc%2BX%2BC6VINWHiIwqMpLiMtFLlnv4wg%3D%3D&X-Amz-Signature=e5d8024379800409a33fa3bc319f9d558ab9774f2f8301fadc03dfa8e24590d2&X-Amz-SignedHeaders=host&x-id=GetObject",
+     "url_expires_at": "2026-07-02T20:50:58.604Z"
+    }
+   },
+   "warning_count": 0,
+   "created_at": "2026-07-02T20:20:49.386Z",
+   "entities": [
+    {
+     "type": "protein",
+     "chain_ids": [
+      "A"
+     ],
+     "sequence_length": 244
+    }
+   ]
+  }
+ ]
+}

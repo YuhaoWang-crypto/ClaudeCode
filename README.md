@@ -43,9 +43,21 @@ report/      EVALUATION_REPORT.md
 | protein_screen (epitope) | prot_scr_lbhTypFeQABzEqrYY7w9 | 35 | NB094 affinity maturation |
 | protein_screen (un-forced) | prot_scr_7ZbIFOwLhyJbWwfhUpy8 | 12 | honest binding check, leads |
 | protein_screen (un-forced) | prot_scr_Rv6ZsCz6SeOinuGZaDSN | 8 | honest binding check, matured |
+| protein_screen (Ab maturation) | prot_scr_SAlb4E3KrEdF3qUOg5bz | 52 | ab2 scFv CDR single-point scan vs modified drug |
+| protein_screen (Ab combo) | prot_scr_ScBhRFLCYYTqcRGepPBK | 17 | stack best CDR positions |
+| protein_screen (Ab un-forced) | prot_scr_cc4FyMeY0pAH8Vgqpvfg | 12 | honest validation of matured scFv |
 
-Total ≈ 175 Boltz-2 predictions (~$4.4 est). Reproduce metrics via the scripts
+Total ≈ 255 Boltz-2 predictions (~$6.5 est). Reproduce metrics via the scripts
 in `analysis/` and `design/`.
+
+## Antibody affinity maturation (latest)
+Point-mutated the CDRs of lead scFv **ab2** and co-folded each variant against the
+**fully-modified Tirzepatide** (Aib2/Aib13 + K20 acyl chain), epitope-directed, then
+validated the top panel un-forced. See **`results/MATURATION_REPORT.md`**.
+- ab2 WT sits at rank 49/52 — **48 single CDR mutations improved it** (self-consistent signal).
+- Robust, cross-validated winners: **H3:A8Y** (un-forced 0.731, +0.10 vs WT), **H3:A9Y** (0.720),
+  triple **H3:A2Y+A4W+A8Y** (0.711). Combining beyond ~3 aromatics saturates/declines (epistasis).
+- Matured wet-lab constructs (scFv / scFv-Fc / full IgG1, λ light): **`results/antibody/matured_constructs.fasta`**.
 
 ## Key caveat
 Tirzepatide is a small, heavily modified, partly-disordered peptide — a hard

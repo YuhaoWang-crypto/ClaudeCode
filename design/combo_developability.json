@@ -1,0 +1,172 @@
+[
+ {
+  "id": "A_ab2WT",
+  "mut": "ab2_WT",
+  "nmut": 0,
+  "aromatic_frac": 0.074,
+  "gravy": -0.21,
+  "net_charge": 4,
+  "n_liab": 6,
+  "liab": "deamid@200;isomer@52;isomer@226;Met_ox(5);hydrophobic_run@109;hydrophobic_run@180"
+ },
+ {
+  "id": "C01",
+  "mut": "A4W",
+  "nmut": 1,
+  "aromatic_frac": 0.078,
+  "gravy": -0.22,
+  "net_charge": 4,
+  "n_liab": 6,
+  "liab": "deamid@200;isomer@52;isomer@226;Met_ox(5);hydrophobic_run@109;hydrophobic_run@180"
+ },
+ {
+  "id": "C02",
+  "mut": "A4W+A8Y",
+  "nmut": 2,
+  "aromatic_frac": 0.082,
+  "gravy": -0.23,
+  "net_charge": 4,
+  "n_liab": 6,
+  "liab": "deamid@200;isomer@52;isomer@226;Met_ox(5);hydrophobic_run@109;hydrophobic_run@180"
+ },
+ {
+  "id": "C03",
+  "mut": "A4W+A8Y+A2Y",
+  "nmut": 3,
+  "aromatic_frac": 0.086,
+  "gravy": -0.25,
+  "net_charge": 4,
+  "n_liab": 6,
+  "liab": "deamid@200;isomer@52;isomer@226;Met_ox(5);hydrophobic_run@109;hydrophobic_run@180"
+ },
+ {
+  "id": "C04",
+  "mut": "A4W+A8Y+A2Y+A9Y",
+  "nmut": 4,
+  "aromatic_frac": 0.09,
+  "gravy": -0.26,
+  "net_charge": 4,
+  "n_liab": 6,
+  "liab": "deamid@200;isomer@52;isomer@226;Met_ox(5);hydrophobic_run@109;hydrophobic_run@180"
+ },
+ {
+  "id": "C05",
+  "mut": "A4W+A8Y+A2Y+A9Y+S5F",
+  "nmut": 5,
+  "aromatic_frac": 0.094,
+  "gravy": -0.24,
+  "net_charge": 4,
+  "n_liab": 6,
+  "liab": "deamid@200;isomer@52;isomer@226;Met_ox(5);hydrophobic_run@109;hydrophobic_run@180"
+ },
+ {
+  "id": "C06",
+  "mut": "A4W+A8Y+A2Y+A9Y+S5F+P3Y",
+  "nmut": 6,
+  "aromatic_frac": 0.098,
+  "gravy": -0.24,
+  "net_charge": 4,
+  "n_liab": 7,
+  "liab": "deamid@200;isomer@52;isomer@226;Met_ox(5);hydrophobic_run@99;hydrophobic_run@109;hydrophobic_run@180"
+ },
+ {
+  "id": "C07",
+  "mut": "A4W+A8Y+A9Y (compact aromatic)",
+  "nmut": 3,
+  "aromatic_frac": 0.086,
+  "gravy": -0.25,
+  "net_charge": 4,
+  "n_liab": 6,
+  "liab": "deamid@200;isomer@52;isomer@226;Met_ox(5);hydrophobic_run@109;hydrophobic_run@180"
+ },
+ {
+  "id": "C08",
+  "mut": "A4W+A8Y+S5F",
+  "nmut": 3,
+  "aromatic_frac": 0.086,
+  "gravy": -0.22,
+  "net_charge": 4,
+  "n_liab": 6,
+  "liab": "deamid@200;isomer@52;isomer@226;Met_ox(5);hydrophobic_run@109;hydrophobic_run@180"
+ },
+ {
+  "id": "C09",
+  "mut": "A4W+A8Y+H11Y",
+  "nmut": 3,
+  "aromatic_frac": 0.086,
+  "gravy": -0.22,
+  "net_charge": 4,
+  "n_liab": 6,
+  "liab": "deamid@200;isomer@52;isomer@226;Met_ox(5);hydrophobic_run@108;hydrophobic_run@180"
+ },
+ {
+  "id": "C10",
+  "mut": "A4W+A8Y+A2Y+N7Y(L3)",
+  "nmut": 4,
+  "aromatic_frac": 0.09,
+  "gravy": -0.24,
+  "net_charge": 4,
+  "n_liab": 6,
+  "liab": "deamid@200;isomer@52;isomer@226;Met_ox(5);hydrophobic_run@109;hydrophobic_run@180"
+ },
+ {
+  "id": "C11",
+  "mut": "A4W+A8Y+A2Y+A1R(L3 charge)",
+  "nmut": 4,
+  "aromatic_frac": 0.086,
+  "gravy": -0.27,
+  "net_charge": 5,
+  "n_liab": 6,
+  "liab": "deamid@200;isomer@52;isomer@226;Met_ox(5);hydrophobic_run@109;hydrophobic_run@180"
+ },
+ {
+  "id": "C12",
+  "mut": "A4W+A8Y+A2Y+N7Y+A1R(L3x2)",
+  "nmut": 5,
+  "aromatic_frac": 0.09,
+  "gravy": -0.26,
+  "net_charge": 5,
+  "n_liab": 6,
+  "liab": "deamid@200;isomer@52;isomer@226;Met_ox(5);hydrophobic_run@109;hydrophobic_run@180"
+ },
+ {
+  "id": "C13",
+  "mut": "A4W+A8Y+A2Y+A9Y+N7Y+A1R",
+  "nmut": 6,
+  "aromatic_frac": 0.094,
+  "gravy": -0.27,
+  "net_charge": 5,
+  "n_liab": 6,
+  "liab": "deamid@200;isomer@52;isomer@226;Met_ox(5);hydrophobic_run@109;hydrophobic_run@180"
+ },
+ {
+  "id": "C14",
+  "mut": "A4W+A2Y+P3Y (N-lobe aromatic)",
+  "nmut": 3,
+  "aromatic_frac": 0.086,
+  "gravy": -0.23,
+  "net_charge": 4,
+  "n_liab": 6,
+  "liab": "deamid@200;isomer@52;isomer@226;Met_ox(5);hydrophobic_run@109;hydrophobic_run@180"
+ },
+ {
+  "id": "C15",
+  "mut": "A4W+A8Y+P7Y+H11Y (C-lobe)",
+  "nmut": 4,
+  "aromatic_frac": 0.09,
+  "gravy": -0.22,
+  "net_charge": 4,
+  "n_liab": 6,
+  "liab": "deamid@200;isomer@52;isomer@226;Met_ox(5);hydrophobic_run@108;hydrophobic_run@180"
+ },
+ {
+  "id": "C16",
+  "mut": "A4W+A8Y+A2Y+A9Y+P3Y+H11Y+N7Y",
+  "nmut": 7,
+  "aromatic_frac": 0.102,
+  "gravy": -0.24,
+  "net_charge": 4,
+  "n_liab": 6,
+  "liab": "deamid@200;isomer@52;isomer@226;Met_ox(5);hydrophobic_run@108;hydrophobic_run@180"
+ }
+]
