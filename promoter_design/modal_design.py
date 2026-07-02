@@ -257,6 +257,89 @@ def dump_evo2_dispatch():
     return keep[:60]
 
 
+@app.function(image=image, timeout=600)
+def dump_weight_sources():
+    """CPU: where do evo2 & alphagenome get their weights? Read the tools'
+    links.yaml / license.yaml manifests and grep for HF repos / API keys."""
+    import os, re, glob, json
+    import proto_tools
+    base = os.path.dirname(proto_tools.__file__)
+    out = {}
+    for tool in ["causal_models/evo2", "sequence_scoring/alphagenome"]:
+        d = os.path.join(base, "tools", tool)
+        info = {"files": []}
+        if os.path.isdir(d):
+            info["files"] = sorted(os.listdir(d))
+            for man in ["links.yaml", "license.yaml"]:
+                p = os.path.join(d, man)
+                if os.path.exists(p):
+                    info[man] = open(p).read()[:1500]
+            # grep standalone + tool for hf repos / download urls / api keys
+            refs = set(); keys = set()
+            for f in glob.glob(d + "/**/*.py", recursive=True):
+                s = open(f).read()
+                refs |= set(re.findall(r"(?:huggingface\.co/|hf_hub_download\([^)]*repo_id=?['\"]?|snapshot_download\([^)]*repo_id=?['\"]?)([A-Za-z0-9_\-/\.]+)", s))
+                refs |= set(re.findall(r"https?://[A-Za-z0-9\.\-/]+\.(?:pt|ckpt|safetensors|tar|zip)", s))
+                keys |= set(re.findall(r"[A-Z][A-Z0-9_]*(?:API_KEY|CHECKPOINT|TOKEN|API)[A-Z0-9_]*", s))
+            info["weight_refs"] = sorted(refs)[:15]
+            info["key_env"] = sorted(keys)[:15]
+        out[tool] = info
+    print("WEIGHT_SOURCES " + json.dumps(out, indent=2)[:6000])
+    return out
+
+
+hf_check_image = modal.Image.debian_slim(python_version="3.11").pip_install("huggingface_hub")
+
+
+@app.function(image=hf_check_image, secrets=[hf], timeout=600)
+def check_hf_access():
+    """CPU: does HF_TOKEN have access to the Evo2 + AlphaGenome repos? No full
+    download — just repo metadata (gated repos raise/40x if not accepted)."""
+    import os, json
+    from huggingface_hub import HfApi
+    tok = os.environ.get("HF_TOKEN")
+    api = HfApi(token=tok)
+    out = {"hf_token_present": bool(tok)}
+    try:
+        who = api.whoami(token=tok)
+        out["hf_user"] = who.get("name")
+    except Exception as e:
+        out["whoami_error"] = f"{type(e).__name__}: {str(e)[:120]}"
+    for repo in ["arcinstitute/evo2_1b_base", "google/alphagenome-all-folds"]:
+        rec = {}
+        try:
+            info = api.model_info(repo, token=tok, files_metadata=False)
+            rec["accessible"] = True
+            rec["gated"] = getattr(info, "gated", None)
+            rec["siblings"] = len(getattr(info, "siblings", []) or [])
+        except Exception as e:
+            rec["accessible"] = False
+            rec["error"] = f"{type(e).__name__}: {str(e)[:160]}"
+        out[repo] = rec
+    print("HF_ACCESS " + json.dumps(out, indent=2))
+    return out
+
+
+@app.function(image=image, timeout=600)
+def dump_standalone_specs():
+    """CPU: pinned install recipes from evo2 & alphagenome standalone/ dirs."""
+    import os, glob, json, proto_tools
+    base = os.path.join(os.path.dirname(proto_tools.__file__), "tools")
+    out = {}
+    for tool in ["causal_models/evo2", "sequence_scoring/alphagenome"]:
+        d = os.path.join(base, tool, "standalone")
+        info = {"exists": os.path.isdir(d)}
+        if info["exists"]:
+            info["tree"] = [os.path.relpath(p, d) for p in glob.glob(d + "/**/*", recursive=True)][:40]
+            for pat in ["requirements*.txt", "pyproject.toml", "setup.py", "*.sh",
+                        "environment*.yml", "uv.lock", "*.toml"]:
+                for p in glob.glob(d + "/**/" + pat, recursive=True):
+                    info[os.path.relpath(p, d)] = open(p).read()[:2000]
+        out[tool] = info
+    print("STANDALONE " + json.dumps(out, indent=2)[:8000])
+    return out
+
+
 @app.function(image=image, gpu=GPU, secrets=[hf], timeout=1800)
 def smoke():
     """GPU: minimal proof that Evo2 + AlphaGenome are callable in this image."""
