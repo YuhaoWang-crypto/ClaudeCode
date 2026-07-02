@@ -34,3 +34,14 @@ Designed with Boltz-2 protein_design (curated **human antibody** frameworks), CD
 
 ## Honest read
 High ipTM (0.82–0.97) = confident docking geometry; binding_confidence 0.10–0.14 (top) is modest — expected for a small, flexible, modified-peptide antigen. These are **triage-ranked hypotheses for wet-lab test**, not affinity guarantees. Recommend expressing top 3–4 as scFv-Fc, test by SPR/BLI vs synthetic (modified) tirzepatide; affinity-mature CDR-H3 on the best.
+
+## scFv-format validation vs FULLY-MODIFIED drug (Aib + K20 lipid)
+Top scFvs (single-chain VH-(G4S)₃-VL) co-folded with the complete modified Tirzepatide:
+
+| scFv | fold pTM | protein_iptm (interface) | complex pLDDT |
+|---|---|---|---|
+| **ab2** | 0.94 | **0.93** | 0.81 |
+| **ab1** | 0.93 | **0.89** | 0.86 |
+| ab5 (κ) | 0.89 | 0.82 | 0.79 |
+
+All three fold well as scFv and engage the modified drug at the mapped epitope → the designed VH/VL work in scFv format. **ab2 is the top antibody lead.** Complex CIFs in `results/antibody/cif_scfv_modified/`.

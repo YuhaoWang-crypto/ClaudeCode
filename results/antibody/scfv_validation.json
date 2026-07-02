@@ -1,0 +1,6 @@
+{"note":"Top scFv (VH-(G4S)3-VL, single chain) co-folded vs FULLY-MODIFIED Tirzepatide (Aib2/13 + K20 lipid). protein_iptm = scFv<->peptide interface (clean); ptm = scFv fold confidence.",
+ "results":[
+  {"id":"ab2","scfv_len":244,"ptm":0.939,"protein_iptm":0.933,"iptm":0.917,"complex_plddt":0.809,"pred_id":"sab_pred_gXnfovqaWDKlrNMLV6IR","note":"top antibody lead"},
+  {"id":"ab1","scfv_len":248,"ptm":0.934,"protein_iptm":0.889,"iptm":0.861,"complex_plddt":0.855,"pred_id":"sab_pred_HfxTwoZ08056OlwGXcDe"},
+  {"id":"ab5","scfv_len":241,"ptm":0.892,"protein_iptm":0.819,"iptm":0.759,"complex_plddt":0.792,"pred_id":"sab_pred_94OiSTGQKNGWtiWqAGFz","note":"kappa light chain"}
+ ]}
