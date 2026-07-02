@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools>=64", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "alphagenome-evo2"
+version = "0.1.0"
+description = "Closed-loop regulatory-element design pairing Evo 2 (generation) with AlphaGenome (oracle)."
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "MIT" }
+authors = [{ name = "ClaudeCode" }]
+keywords = ["genomics", "alphagenome", "evo2", "enhancer", "promoter", "sequence-design", "active-learning"]
+dependencies = []  # core loop is pure-Python; real backends are optional extras
+
+[project.optional-dependencies]
+alphagenome = ["alphagenome"]
+evo2 = ["evo2"]
+real = ["alphagenome", "evo2"]
+dev = ["pytest>=7"]
+
+[project.scripts]
+alphagenome-evo2 = "alphagenome_evo2.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
