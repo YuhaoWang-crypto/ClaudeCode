@@ -1,0 +1,9 @@
+# FairChem (UMA / OMat24 / ODAC / OMol / OMC) 材料与分子机器学习势
+# 需要 Python 3.11–3.13
+#
+# 说明：torch 建议按你机器的硬件单独安装（见 setup.sh）。
+# 这里只固定上层依赖，torch 交给 setup.sh 选 CPU / CUDA 轮子。
+fairchem-core>=2.21.0
+ase>=3.26.0
+# 可选：吸附位点枚举 / 结构处理
+pymatgen>=2024.0.0
