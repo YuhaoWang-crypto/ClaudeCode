@@ -152,8 +152,11 @@ def cell_type_constraint(spacer, target_cell: str, off_cells: list[str],
 # --------------------------------------------------------------- optimise -----
 def design(stimulus: str, target_cell: str, *, lineage: str | None = None,
            num_steps: int = 20, num_results: int = 4, use_evo2: bool = True,
-           evo2_model: str = "evo2_1b_base", build_only: bool = False):
-    off_cells = [c for c in CELL_CONTEXTS if c != target_cell]
+           evo2_model: str = "evo2_1b_base", build_only: bool = False,
+           contrastive: bool = True):
+    # contrastive=False -> maximize target-cell expression only (single ontology);
+    # True -> also penalize off-target cells (the cell-type-specificity objective).
+    off_cells = [c for c in CELL_CONTEXTS if c != target_cell] if contrastive else []
     segs, spacer, meta = make_segments(stimulus, target_cell, lineage=lineage)
     construct = Construct(segs, label=f"{stimulus}__{target_cell}"
                           + (f"__AND_{lineage}" if lineage else ""))

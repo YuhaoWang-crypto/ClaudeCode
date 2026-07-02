@@ -223,23 +223,25 @@ MINIMAL_PROMOTERS = {
 # (cell-line-specific EFO terms like EFO:xxxx for HepG2/THP-1 are often available
 # and give sharper contrast).
 CELL_CONTEXTS = {
-    "HEK293":  {"tissue": "embryonic kidney", "ontology": "UBERON:0002113",  # kidney
+    # `ontology` values are AlphaGenome CL terms VERIFIED to carry RNA_SEQ tracks
+    # (from AlphaGenome's biosample metadata); the biosample name is in the comment.
+    "HEK293":  {"tissue": "embryonic kidney", "ontology": "CL:0002518",  # kidney epithelial cell
                 "good_for": ["camp", "er_stress_xbp1", "er_stress_atf6",
                 "er_stress_atf4", "hypoxia"],
                 "weak_for": ["estrogen", "interferon_typeII"]},
-    "HepG2":   {"tissue": "hepatocyte", "ontology": "UBERON:0002107",  # liver
+    "HepG2":   {"tissue": "hepatocyte", "ontology": "CL:0000182",  # hepatocyte
                 "good_for": ["glucocorticoid", "oxidative_stress", "hypoxia",
                 "er_stress_atf6"], "weak_for": ["estrogen"]},
-    "THP1":    {"tissue": "monocyte/macrophage", "ontology": "CL:0000576",  # monocyte
+    "THP1":    {"tissue": "monocyte/macrophage", "ontology": "CL:0001054",  # CD14+ monocyte
                 "good_for": ["inflammation", "interferon_typeI",
                 "interferon_typeII"], "weak_for": ["estrogen", "glucocorticoid"]},
-    "MCF7":    {"tissue": "ER+ breast", "ontology": "UBERON:0000310",  # breast
+    "MCF7":    {"tissue": "ER+ breast", "ontology": "CL:0002327",  # mammary epithelial cell
                 "good_for": ["estrogen", "glucocorticoid", "hypoxia"],
                 "weak_for": ["interferon_typeII"]},
-    "Jurkat":  {"tissue": "T lymphocyte", "ontology": "CL:0000084",  # T cell
+    "Jurkat":  {"tissue": "T lymphocyte", "ontology": "CL:0000084",  # T-cell
                 "good_for": ["inflammation", "interferon_typeI"],
                 "weak_for": ["estrogen"]},
-    "SHSY5Y":  {"tissue": "neuronal", "ontology": "CL:0000540",  # neuron
+    "SHSY5Y":  {"tissue": "neuronal", "ontology": "CL:0002319",  # neural cell
                 "good_for": ["camp", "oxidative_stress"],
                 "weak_for": ["estrogen", "inflammation"]},
 }

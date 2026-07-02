@@ -115,6 +115,48 @@ CACHE = {"/proto_home": proto_cache}
 
 
 @app.function(image=image, timeout=600)
+def dump_ag_outputs():
+    """CPU: valid AlphaGenome OutputTypeName literals + ontology handling +
+    any bundled metadata listing supported ontology terms."""
+    import os, re, glob, json, proto_tools
+    base = os.path.dirname(proto_tools.__file__)
+    agdir = os.path.join(base, "tools/sequence_scoring/alphagenome")
+    out = {}
+    # OutputTypeName literal + OutputType enums in shared_data_models
+    sdm = os.path.join(agdir, "shared_data_models.py")
+    if os.path.exists(sdm):
+        s = open(sdm).read()
+        out["OutputTypeName_literals"] = re.findall(r"OutputTypeName\s*=\s*Literal\[([^\]]+)\]", s)
+        out["output_type_tokens"] = sorted(set(re.findall(r"\"([A-Z][A-Z0-9_]{2,})\"", s)))[:40]
+    # ontology mentions across the tool + how predict builds requested outputs
+    inf = os.path.join(agdir, "standalone", "inference.py")
+    if os.path.exists(inf):
+        si = open(inf).read()
+        out["inference_ontology_refs"] = sorted(set(re.findall(r"ontology[_a-z]*", si)))[:20]
+        out["inference_output_refs"] = sorted(set(re.findall(r"OutputType\.[A-Z_]+|requested_outputs|RNA_SEQ|CAGE|ATAC|DNASE", si)))[:20]
+        out["inference_metadata_calls"] = sorted(set(re.findall(r"output_metadata|\.metadata|ontology_terms|filter[_a-z]*", si)))[:20]
+    # any bundled json/tsv listing ontologies
+    metas = [os.path.relpath(p, agdir) for p in glob.glob(agdir + "/**/*", recursive=True)
+             if re.search(r"ontolog|metadata|tracks|\.json$|\.tsv$|\.csv$", p)]
+    out["candidate_metadata_files"] = metas[:20]
+    # extract distinct (output_type -> ontology_curie) pairs from example CSVs so
+    # we pick an ontology that actually has RNA_SEQ tracks.
+    import csv as _csv
+    rna_bios = {}
+    for cf in glob.glob(agdir + "/examples/**/*.csv", recursive=True):
+        with open(cf) as fh:
+            for row in _csv.DictReader(fh):
+                if (row.get("output_type") or "").strip() == "RNA_SEQ":
+                    oc = (row.get("ontology_curie") or "").strip()
+                    bn = (row.get("biosample_name") or "").strip()
+                    if oc:
+                        rna_bios[oc] = bn
+    out["RNA_SEQ_ontology_to_biosample"] = dict(sorted(rna_bios.items()))
+    print("AG_OUTPUTS " + json.dumps(out, indent=2, default=str)[:7500])
+    return out
+
+
+@app.function(image=image, timeout=600)
 def dump_evo2_setup():
     """CPU: full evo2 setup.sh + env_vars.txt + the cuda-toolkit pin mechanism."""
     import os, glob, json, proto_tools
@@ -158,7 +200,7 @@ def validate_design(stimulus: str = "interferon_typeII", target: str = "THP1",
 def full_design(stimulus: str = "interferon_typeII", target: str = "THP1",
                 lineage: str | None = None, num_steps: int = 2, num_results: int = 1,
                 evo2_model: str = "evo2_1b_base", reset_evo2: bool = False,
-                disable_fp8: bool = True):
+                disable_fp8: bool = True, contrastive: bool = False):
     """GPU: trigger the Evo2 + AlphaGenome standalone builds (first call compiles
     them into the Volume) and run the real design. Long on first run."""
     import sys, os, json, traceback, subprocess, shutil, glob
@@ -193,8 +235,23 @@ def full_design(stimulus: str = "interferon_typeII", target: str = "THP1",
               "evo2_model": evo2_model}
     try:
         opt = dp.design(stimulus, target, lineage=lineage, num_steps=num_steps,
-                        num_results=num_results, use_evo2=True, evo2_model=evo2_model)
-        result["designed"] = [getattr(s, "sequence", "") for s in getattr(opt, "segments", [])]
+                        num_results=num_results, use_evo2=True, evo2_model=evo2_model,
+                        contrastive=contrastive)
+        # Full designed cassettes (Construct.joined_sequences -> Sequence.sequence).
+        cassettes = []
+        for c in getattr(opt, "constructs", []):
+            try:
+                cassettes += [getattr(js, "sequence", str(js)) for js in c.joined_sequences]
+            except Exception as ce:
+                cassettes.append(f"<joined_sequences error: {ce}>")
+        # Just the optimized spacer(s).
+        spacers = []
+        for s in getattr(opt, "segments", []):
+            v = getattr(s, "initial_sequence", None) or getattr(s, "sequence", None)
+            if isinstance(v, str):
+                spacers.append(v)
+        result["designed_cassettes"] = cassettes
+        result["designed_spacers"] = spacers
         result["status"] = "ok"
     except Exception as e:
         result["status"] = "error"
