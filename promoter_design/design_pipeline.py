@@ -78,14 +78,17 @@ def make_segments(stimulus: str, target_cell: str, *,
     Returns (segments, designable_segment). `lineage` -> add a cell-lineage RE
     block to build a stimulus-AND-cell-type gate.
     """
+    # Uppercase everything: lowercase is only a human-readable convention in
+    # elements.py (uppercase=binding site, lowercase=spacer); Evo2 and AlphaGenome
+    # both require uppercase A/C/G/T/N.
     e = ELEMENTS[stimulus]
-    stim_block = multimerise(e["seed"], e["spacer"], stim_copies)
+    stim_block = multimerise(e["seed"], e["spacer"], stim_copies).upper()
     lin_block = (multimerise(LINEAGE_ELEMENTS[lineage]["seed"],
-                             LINEAGE_ELEMENTS[lineage]["spacer"], lineage_copies)
+                             LINEAGE_ELEMENTS[lineage]["spacer"], lineage_copies).upper()
                  if lineage else "")
-    minp = clean(MINIMAL_PROMOTERS[min_promoter])
-    tail = clean(KOZAK_STUB) + clean(FLANK3)
-    f5 = clean(FLANK5)
+    minp = clean(MINIMAL_PROMOTERS[min_promoter]).upper()
+    tail = (clean(KOZAK_STUB) + clean(FLANK3)).upper()
+    f5 = clean(FLANK5).upper()
 
     segs = [Segment(sequence=f5, sequence_type="dna", label="insulator5"),
             Segment(sequence=stim_block, sequence_type="dna", label=f"{stimulus}_x{stim_copies}")]
