@@ -137,6 +137,108 @@ def _mof_adsorption(cif_text: str, adsorbate: str = "H2O", fmax: float = 0.05):
     }
 
 
+def _parse_sdf(sdf_text):
+    """Minimal SDF V2000 -> (symbols, positions). Robust to PubChem 3D records."""
+    lines = sdf_text.splitlines()
+    natoms = int(lines[3][:3])
+    symbols, pos = [], []
+    for ln in lines[4:4 + natoms]:
+        t = ln.split()
+        pos.append([float(t[0]), float(t[1]), float(t[2])])
+        symbols.append(t[3])
+    return symbols, pos
+
+
+def _largest_void(atoms, n=12):
+    """Coarse grid search for the point in the cell farthest from any framework
+    atom (minimum-image) -- a cheap proxy for the largest pore centre."""
+    import numpy as np
+    cell = np.array(atoms.cell)
+    frac_atoms = atoms.get_scaled_positions()
+    best, best_d = None, -1.0
+    grid = [(i + 0.5) / n for i in range(n)]
+    for fx in grid:
+        for fy in grid:
+            for fz in grid:
+                fp = np.array([fx, fy, fz])
+                df = frac_atoms - fp
+                df -= np.round(df)                    # minimum image
+                d = np.linalg.norm(df @ cell, axis=1).min()
+                if d > best_d:
+                    best_d, best = d, fp
+    return best @ cell, best_d
+
+
+# ---------------------------------------------------------------------------
+# 1b. Drug loading in a MOF: host-guest interaction energy
+#     E_int = E(MOF+drug) - E(MOF) - E(drug).  More negative = stronger
+#     framework affinity -> higher loading / slower release.
+# ---------------------------------------------------------------------------
+@app.function(gpu=GPU, secrets=[hf_secret], volumes={CACHE_DIR: model_cache}, timeout=5400)
+def _drug_loading(mof_cif: str, drugs: dict, fmax: float = 0.05):
+    import io
+    import numpy as np
+    from ase import Atoms
+    from ase.io import read
+    from ase.optimize import BFGS
+    from ase.constraints import FixAtoms
+
+    calc = _load_calc("odac")  # MOF host + molecular guest; one head = consistent refs
+
+    mof = read(io.StringIO(mof_cif), format="cif")
+    mof.calc = calc
+    BFGS(mof, logfile=None).run(fmax=fmax, steps=200)   # relax framework (cell fixed)
+    e_mof = mof.get_potential_energy()
+    void_cart, void_r = _largest_void(mof)
+
+    results = []
+    for name, sdf in drugs.items():
+        symbols, positions = _parse_sdf(sdf)
+        drug = Atoms(symbols=symbols, positions=positions)
+
+        # isolated drug reference (same cell, vacuum), relaxed
+        iso = drug.copy(); iso.set_cell(mof.cell); iso.set_pbc(True); iso.center()
+        iso.calc = calc
+        BFGS(iso, logfile=None).run(fmax=fmax, steps=300)
+        e_drug = iso.get_potential_energy()
+
+        # place drug COM at the largest void, relax guest with framework fixed
+        g = drug.copy(); g.translate(void_cart - g.get_positions().mean(axis=0))
+        combo = mof.copy(); combo += g
+        combo.set_pbc(True); combo.calc = calc
+        combo.set_constraint(FixAtoms(indices=list(range(len(mof)))))
+        BFGS(combo, logfile=None).run(fmax=fmax, steps=400)
+        e_combo = combo.get_potential_energy()
+
+        e_int = e_combo - e_mof - e_drug
+        results.append({"drug": name, "n_atoms": len(drug),
+                        "E_MOF_eV": float(e_mof), "E_drug_eV": float(e_drug),
+                        "E_complex_eV": float(e_combo),
+                        "E_interaction_eV": float(e_int),
+                        "E_interaction_kJ_per_mol": float(e_int) * 96.485})
+    model_cache.commit()
+    results.sort(key=lambda r: r["E_interaction_eV"])  # most favorable first
+    return {"void_radius_A": float(void_r), "ranking": results,
+            "note": "E_int<0 = favorable loading. Single centred pose + fixed framework; "
+                    "for capacity/selectivity sample multiple poses and see GCMC."}
+
+
+@app.local_entrypoint()
+def drug_loading(mof_cif: str, drug_dir: str):
+    import os, json
+    with open(mof_cif) as f:
+        cif_text = f.read()
+    drugs = {}
+    for fn in sorted(os.listdir(drug_dir)):
+        if fn.lower().endswith(".sdf"):
+            with open(os.path.join(drug_dir, fn)) as f:
+                drugs[os.path.splitext(fn)[0]] = f.read()
+    if not drugs:
+        print(f"No .sdf drug files in {drug_dir}"); return
+    print(f"Drug loading in {os.path.basename(mof_cif)} for {list(drugs)} via UMA/odac ...")
+    print(json.dumps(_drug_loading.remote(cif_text, drugs), indent=2))
+
+
 @app.local_entrypoint()
 def mof_adsorption(cif: str, adsorbate: str = "H2O"):
     with open(cif) as f:
