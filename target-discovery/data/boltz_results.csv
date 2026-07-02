@@ -1,3 +1,4 @@
 gene_symbol,run,boltz_prediction_id,structure_confidence,ptm,iptm,ligand_iptm,complex_plddt,binding_confidence,optimization_score,interpretation
-PTGES,protein+1nM_inhibitor,sab_pred_nYrd5vkKzF9etZAHlfQz,0.894,0.916,0.777,0.777,0.923,0.505,0.333,"well-folded; credible ligand pocket (monomer underestimates trimer-interface site)"
+PTGES,monomer+1nM_inhibitor,sab_pred_nYrd5vkKzF9etZAHlfQz,0.894,0.916,0.777,0.777,0.923,0.505,0.333,"well-folded; credible ligand pocket (monomer underestimates trimer-interface site)"
+PTGES,trimer+1nM_inhibitor,sab_pred_x8cp7WZf2Wr9dRqW1ETp,0.951,0.978,0.972,0.850,0.946,0.476,0.315,"biological homotrimer assembles (protein_iptm 0.99); ligand in well-defined inter-subunit pocket (ligand_iptm 0.78->0.85, iPDE 3.1->1.35); pocket confirmed but binding_confidence scalar flat ~0.48"
 MDK,apo_structure,sab_pred_ft00zoVgNC7TeRw6A5vC,0.666,0.515,0.0,0.0,0.704,,,"flexible/partly disordered secreted factor; no deep small-molecule pocket -> biologic/glycan route"

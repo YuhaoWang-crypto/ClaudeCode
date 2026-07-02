@@ -22,17 +22,27 @@ Boltz predictions expire from the workspace after ~7 days; IDs recorded in
   **IC50 = 1 nM (pChEMBL 9.0)**, many sub-10 nM, ligand efficiency LE 0.40–0.46.
   17 co-crystal PDB structures. Mature, tractable small-molecule chemotypes
   (e.g. carbazole/dibenzazole scaffolds).
-- **Structural tractability (Boltz-2.1, real)**: protein + 1 nM inhibitor complex
-  predicted at **structure_confidence 0.89, pTM 0.92, complex pLDDT 0.92,
-  ligand_iPTM 0.78, binding_confidence 0.50**. Well-folded with a credible defined
-  ligand pocket. Caveat: mPGES-1 acts as a homotrimer with inhibitor sites at the
-  subunit interface — the single-chain run underestimates the true pocket; a trimer
-  prediction should raise the binding score.
+- **Structural tractability (Boltz-2.1, real — monomer vs trimer)**:
+  - *Monomer* + 1 nM inhibitor: structure_confidence 0.89, pTM 0.92,
+    ligand_iPTM 0.78, complex iPLDDT 0.75, binding_confidence 0.50.
+  - *Homotrimer* (A/B/C) + 1 nM inhibitor: structure_confidence **0.95**,
+    pTM 0.98, **protein_iPTM 0.987** (biological trimer assembles cleanly),
+    **ligand_iPTM 0.85**, complex iPLDDT **0.90**, interface error (iPDE)
+    **3.1→1.35 Å**, binding_confidence 0.48.
+  - **Read**: the trimer confirms the inhibitor binds a **well-defined
+    inter-subunit pocket** — all geometric/interface confidence rose sharply,
+    validating the true druggable site. The `binding_confidence` affinity-proxy
+    stayed flat (~0.48) and is *not* a calibrated Kd, so pocket tractability is
+    strong while the model's affinity estimate is modest. IDs in
+    `data/boltz_results.csv` (monomer `sab_pred_nYrd5vkK…`, trimer
+    `sab_pred_x8cp7WZf…`).
 - **Suggested modality**: small molecule (orthosteric mPGES-1 inhibitor).
 - **Key risks**: mPGES-1 inhibitors well-precedented in inflammation but none yet
   approved; verify lung-fibroblast expression specificity and PGE2-shunting to
-  other prostanoids. **Recommended next step**: re-run Boltz as the homotrimer;
-  confirm IPF fibroblast expression from the single-cell atlas (Step 3).
+  other prostanoids. **Trimer re-run: done** (pocket confirmed at subunit
+  interface). **Recommended next step**: confirm IPF fibroblast expression from
+  the single-cell atlas (Step 3); optionally dock a diverse inhibitor panel to
+  rank chemotypes against the confirmed interface pocket.
 
 ## 2. MDK / Midkine  (UniProt P21741, CHEMBL1949490)
 
