@@ -1,0 +1,1223 @@
+<!-- Design: deep navy (#08111f) + teal accent (#00d4a8) + indigo (#6366f1). Sharp-edge cards, monospace IDs, PyMOL-inspired palette. Utilitarian but precise. -->
+<title>EGFR Multi-Model Drug Discovery Report</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+:root {
+  --bg:       #08111f;
+  --surf:     #0d1e33;
+  --surf2:    #112540;
+  --border:   #1a3050;
+  --teal:     #00d4a8;
+  --indigo:   #6366f1;
+  --amber:    #f59e0b;
+  --red:      #f43f5e;
+  --text:     #e2e8f0;
+  --muted:    #64748b;
+  --mono:     'Courier New', 'Consolas', monospace;
+  --sans:     -apple-system, 'Segoe UI', 'Helvetica Neue', sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  font-size: 14px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: var(--teal); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* ── Layout ── */
+.page { max-width: 1240px; margin: 0 auto; padding: 0 24px 80px; }
+
+/* ── Nav ── */
+nav {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(8,17,31,.92);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 24px;
+  display: flex; align-items: center; gap: 32px; height: 52px;
+}
+.nav-brand {
+  font-family: var(--mono);
+  font-size: 12px; letter-spacing: .08em;
+  color: var(--teal); white-space: nowrap; font-weight: 700;
+}
+.nav-links { display: flex; gap: 24px; overflow-x: auto; flex: 1; }
+.nav-links a {
+  font-size: 12px; letter-spacing: .05em; text-transform: uppercase;
+  color: var(--muted); white-space: nowrap;
+  transition: color .15s;
+}
+.nav-links a:hover { color: var(--text); text-decoration: none; }
+.nav-badge {
+  font-family: var(--mono); font-size: 11px;
+  background: var(--teal); color: #000;
+  padding: 2px 8px; border-radius: 2px; white-space: nowrap;
+}
+
+/* ── Hero ── */
+.hero {
+  padding: 56px 0 48px;
+  border-bottom: 1px solid var(--border);
+}
+.hero-eyebrow {
+  font-family: var(--mono); font-size: 11px;
+  color: var(--teal); letter-spacing: .15em; text-transform: uppercase;
+  margin-bottom: 16px;
+}
+.hero h1 {
+  font-size: 36px; font-weight: 700; line-height: 1.2;
+  text-wrap: balance; max-width: 720px;
+  margin-bottom: 12px;
+}
+.hero h1 span { color: var(--teal); }
+.hero-sub {
+  color: var(--muted); font-size: 14px; max-width: 600px;
+  margin-bottom: 40px;
+}
+
+/* ── KPI strip ── */
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+}
+.kpi {
+  background: var(--surf);
+  padding: 20px 16px;
+  display: flex; flex-direction: column; gap: 6px;
+}
+.kpi-val {
+  font-family: var(--mono);
+  font-size: 28px; font-weight: 700;
+  color: var(--teal);
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+.kpi-label {
+  font-size: 11px; text-transform: uppercase;
+  letter-spacing: .07em; color: var(--muted);
+}
+
+/* ── Section ── */
+section { padding: 48px 0; border-bottom: 1px solid var(--border); }
+.section-head {
+  display: flex; align-items: baseline; gap: 16px;
+  margin-bottom: 28px;
+}
+.section-num {
+  font-family: var(--mono); font-size: 11px;
+  color: var(--muted); letter-spacing: .1em;
+}
+.section-head h2 {
+  font-size: 20px; font-weight: 600;
+}
+.section-badge {
+  font-family: var(--mono); font-size: 10px; letter-spacing: .06em;
+  background: var(--surf2); color: var(--muted);
+  border: 1px solid var(--border);
+  padding: 3px 8px; border-radius: 2px;
+}
+
+/* ── Card ── */
+.card {
+  background: var(--surf);
+  border: 1px solid var(--border);
+  padding: 24px;
+}
+.card-title {
+  font-size: 11px; text-transform: uppercase;
+  letter-spacing: .08em; color: var(--muted);
+  margin-bottom: 12px;
+}
+.card-val {
+  font-family: var(--mono); font-size: 22px;
+  font-weight: 700; color: var(--text);
+  font-variant-numeric: tabular-nums;
+}
+.card-sub { font-size: 12px; color: var(--muted); margin-top: 4px; }
+
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.grid-3 { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; }
+
+/* ── Pipeline ── */
+.pipeline {
+  display: flex; flex-wrap: wrap; gap: 8px;
+  align-items: center;
+}
+.pipe-node {
+  background: var(--surf2); border: 1px solid var(--border);
+  padding: 8px 14px; font-size: 12px; font-family: var(--mono);
+  display: flex; align-items: center; gap: 8px;
+}
+.pipe-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  flex-shrink: 0;
+}
+.pipe-arr { color: var(--muted); font-size: 16px; }
+.type-gpu   { background: rgba(0,212,168,.15); border-color: rgba(0,212,168,.4); }
+.type-nim   { background: rgba(99,102,241,.15); border-color: rgba(99,102,241,.4); }
+.type-mcp   { background: rgba(245,158,11,.12); border-color: rgba(245,158,11,.35); }
+.pipe-dot.gpu   { background: var(--teal); }
+.pipe-dot.nim   { background: var(--indigo); }
+.pipe-dot.mcp   { background: var(--amber); }
+
+/* ── Drug comparison table ── */
+.compare-table { width: 100%; border-collapse: collapse; }
+.compare-table th {
+  background: var(--surf2); font-size: 11px;
+  text-transform: uppercase; letter-spacing: .06em;
+  color: var(--muted); padding: 10px 14px;
+  text-align: left; border-bottom: 1px solid var(--border);
+}
+.compare-table td {
+  padding: 10px 14px; border-bottom: 1px solid var(--border);
+  font-size: 13px;
+}
+.compare-table tr:last-child td { border-bottom: none; }
+.compare-table .mono { font-family: var(--mono); font-size: 12px; }
+.good { color: var(--teal); font-weight: 600; }
+.warn { color: var(--amber); }
+
+/* ── IC50 chart ── */
+.ic50-chart { display: flex; flex-direction: column; gap: 8px; }
+.ic50-row { display: flex; align-items: center; gap: 12px; }
+.ic50-id {
+  font-family: var(--mono); font-size: 11px;
+  color: var(--muted); width: 100px; flex-shrink: 0;
+}
+.ic50-bar-wrap { flex: 1; height: 24px; background: var(--surf2); position: relative; }
+.ic50-bar {
+  height: 100%; background: linear-gradient(90deg, var(--teal) 0%, rgba(0,212,168,.4) 100%);
+}
+.ic50-val {
+  font-family: var(--mono); font-size: 12px;
+  color: var(--teal); width: 72px; flex-shrink: 0; text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+.ic50-pc {
+  font-family: var(--mono); font-size: 11px;
+  color: var(--muted); width: 60px; flex-shrink: 0;
+}
+
+/* ── Molecules table ── */
+.mol-table { width: 100%; border-collapse: collapse; }
+.mol-table th {
+  background: var(--surf2); font-size: 11px;
+  text-transform: uppercase; letter-spacing: .06em;
+  color: var(--muted); padding: 9px 12px;
+  text-align: left; border-bottom: 1px solid var(--border);
+  white-space: nowrap;
+}
+.mol-table td {
+  padding: 9px 12px; border-bottom: 1px solid var(--border);
+  font-size: 12px; vertical-align: middle;
+}
+.mol-table tr:last-child td { border-bottom: none; }
+.mol-rank {
+  font-family: var(--mono); font-size: 12px; color: var(--muted);
+}
+.mol-smiles {
+  font-family: var(--mono); font-size: 11px;
+  color: rgba(0,212,168,.75); max-width: 320px;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.qed-bar-wrap {
+  width: 80px; height: 14px;
+  background: var(--surf2); display: inline-block;
+  vertical-align: middle; position: relative;
+}
+.qed-bar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--teal), var(--indigo));
+}
+.qed-num {
+  font-family: var(--mono); font-size: 12px;
+  color: var(--text); margin-left: 6px;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ── pLDDT gauge ── */
+.plddt-gauge {
+  display: flex; align-items: flex-end; gap: 24px;
+}
+.plddt-big {
+  font-family: var(--mono); font-size: 64px;
+  font-weight: 700; color: var(--teal); line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+.plddt-meta { display: flex; flex-direction: column; gap: 8px; }
+.plddt-bar-row { display: flex; align-items: center; gap: 10px; }
+.plddt-bar-label { font-size: 12px; color: var(--muted); width: 160px; }
+.plddt-mini-wrap { width: 120px; height: 8px; background: var(--surf2); }
+.plddt-mini { height: 100%; }
+.plddt-mini.high  { background: var(--teal); }
+.plddt-mini.low   { background: var(--red); }
+.plddt-mini-val { font-family: var(--mono); font-size: 12px; font-variant-numeric: tabular-nums; }
+
+/* ── Heatmap ── */
+.heatmap-wrap { overflow-x: auto; }
+
+/* ── LogD chart ── */
+.logd-row { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+.logd-label { font-size: 12px; width: 140px; flex-shrink: 0; }
+.logd-label small { font-family: var(--mono); color: var(--muted); font-size: 10px; }
+.logd-track {
+  flex: 1; height: 20px; background: var(--surf2);
+  position: relative;
+}
+.logd-fill {
+  height: 100%; position: absolute; left: 0; top: 0;
+}
+.logd-val {
+  font-family: var(--mono); font-size: 12px;
+  font-variant-numeric: tabular-nums;
+  width: 50px; flex-shrink: 0; text-align: right;
+}
+.logd-cat {
+  font-size: 11px; width: 130px; flex-shrink: 0;
+  padding: 2px 8px; text-align: center;
+}
+.cat-low  { background: rgba(0,212,168,.15); color: var(--teal); }
+.cat-med  { background: rgba(99,102,241,.15); color: var(--indigo); }
+.cat-high { background: rgba(244,63,94,.15);  color: var(--red); }
+
+/* ── Trials table ── */
+.trials-table { width: 100%; border-collapse: collapse; }
+.trials-table th {
+  background: var(--surf2); font-size: 11px;
+  text-transform: uppercase; letter-spacing: .06em;
+  color: var(--muted); padding: 10px 12px;
+  text-align: left; border-bottom: 1px solid var(--border); white-space: nowrap;
+}
+.trials-table td {
+  padding: 10px 12px; border-bottom: 1px solid var(--border);
+  font-size: 12px; vertical-align: top;
+}
+.trials-table tr:last-child td { border-bottom: none; }
+.nct { font-family: var(--mono); color: var(--teal); font-size: 11px; }
+.phase-chip {
+  display: inline-block; padding: 2px 7px;
+  background: rgba(99,102,241,.2); color: var(--indigo);
+  font-family: var(--mono); font-size: 10px;
+  border: 1px solid rgba(99,102,241,.35);
+}
+.rec-chip {
+  display: inline-block; padding: 2px 7px;
+  background: rgba(0,212,168,.15); color: var(--teal);
+  font-size: 10px; letter-spacing: .04em;
+}
+.enroll { font-family: var(--mono); font-size: 12px; font-variant-numeric: tabular-nums; }
+
+/* ── Literature cards ── */
+.lit-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.lit-card {
+  background: var(--surf); border: 1px solid var(--border);
+  padding: 16px;
+}
+.lit-source {
+  font-size: 10px; text-transform: uppercase; letter-spacing: .08em;
+  color: var(--muted); margin-bottom: 8px;
+  display: flex; align-items: center; gap: 8px;
+}
+.lit-source-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+}
+.lit-card h4 { font-size: 13px; font-weight: 500; line-height: 1.45; color: var(--text); margin-bottom: 6px; text-wrap: balance; }
+.lit-card .authors { font-size: 11px; color: var(--muted); margin-bottom: 4px; }
+.lit-card .abstract { font-size: 11px; color: var(--muted); line-height: 1.5; }
+
+/* ── Model registry ── */
+.model-registry {
+  display: flex; flex-wrap: wrap; gap: 8px; padding: 32px 0 0;
+}
+.model-tag {
+  font-family: var(--mono); font-size: 11px;
+  padding: 5px 12px; border: 1px solid var(--border);
+  color: var(--muted); display: flex; align-items: center; gap: 6px;
+}
+.model-tag-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+}
+
+/* ── Utilities ── */
+.teal  { color: var(--teal); }
+.mono  { font-family: var(--mono); }
+.small { font-size: 12px; }
+.divider { height: 1px; background: var(--border); margin: 20px 0; }
+.chembl-id {
+  font-family: var(--mono); font-size: 11px;
+  color: var(--muted); background: var(--surf2);
+  border: 1px solid var(--border); padding: 1px 6px; display: inline-block;
+}
+
+@media (max-width: 900px) {
+  .kpi-grid { grid-template-columns: repeat(3,1fr); }
+  .grid-2, .grid-3, .lit-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 600px) {
+  .kpi-grid { grid-template-columns: repeat(2,1fr); }
+  .hero h1 { font-size: 26px; }
+  nav .nav-links { display: none; }
+}
+</style>
+
+<nav>
+  <div class="nav-brand">EGFR // MULTI-MODEL</div>
+  <div class="nav-links">
+    <a href="#pipeline">Pipeline</a>
+    <a href="#target">Target</a>
+    <a href="#drugs">Known Drugs</a>
+    <a href="#bioactivity">IC50 Data</a>
+    <a href="#genmol">GenMol</a>
+    <a href="#structure">Structure</a>
+    <a href="#similarity">Similarity</a>
+    <a href="#admet">ADMET</a>
+    <a href="#trials">Trials</a>
+    <a href="#literature">Literature</a>
+  </div>
+  <div class="nav-badge">10 Models</div>
+</nav>
+
+<div class="page">
+
+<!-- ── HERO ── -->
+<div class="hero">
+  <div class="hero-eyebrow">Computational Drug Discovery Report · July 2026</div>
+  <h1>EGFR Kinase <span>Multi-Model</span><br>Drug Discovery Pipeline</h1>
+  <p class="hero-sub">
+    10 AI models and databases interrogated in a single session — from protein
+    structure prediction and de novo molecule generation to clinical trial landscape
+    and pharmacokinetic profiling.
+  </p>
+  <div class="kpi-grid">
+    <div class="kpi"><div class="kpi-val">10</div><div class="kpi-label">Models / APIs Called</div></div>
+    <div class="kpi"><div class="kpi-val">28</div><div class="kpi-label">Molecules Generated</div></div>
+    <div class="kpi"><div class="kpi-val">5,350</div><div class="kpi-label">IC50 Records (ChEMBL)</div></div>
+    <div class="kpi"><div class="kpi-val">6</div><div class="kpi-label">Phase III Trials Active</div></div>
+    <div class="kpi"><div class="kpi-val">198</div><div class="kpi-label">Resistance Papers (PubMed)</div></div>
+    <div class="kpi"><div class="kpi-val">82.0</div><div class="kpi-label">Mean pLDDT (ESMFold)</div></div>
+  </div>
+</div>
+
+<!-- ── PIPELINE ── -->
+<section id="pipeline">
+  <div class="section-head">
+    <span class="section-num">01</span>
+    <h2>Computational Pipeline</h2>
+    <span class="section-badge">10 models</span>
+  </div>
+
+  <div style="display:flex;gap:16px;flex-wrap:wrap;margin-bottom:20px;">
+    <div style="display:flex;align-items:center;gap:6px;font-size:11px;color:var(--muted);">
+      <span style="width:10px;height:10px;border-radius:50%;background:var(--teal);display:inline-block;"></span>
+      Modal GPU (cloud compute)
+    </div>
+    <div style="display:flex;align-items:center;gap:6px;font-size:11px;color:var(--muted);">
+      <span style="width:10px;height:10px;border-radius:50%;background:var(--indigo);display:inline-block;"></span>
+      NVIDIA NIM (hosted inference)
+    </div>
+    <div style="display:flex;align-items:center;gap:6px;font-size:11px;color:var(--muted);">
+      <span style="width:10px;height:10px;border-radius:50%;background:var(--amber);display:inline-block;"></span>
+      MCP / Database APIs
+    </div>
+  </div>
+
+  <div class="pipeline">
+    <div class="pipe-node type-gpu"><span class="pipe-dot gpu"></span>ESM-2 650M<br><span style="font-size:10px;color:var(--muted)">Modal T4 GPU</span></div>
+    <span class="pipe-arr">→</span>
+    <div class="pipe-node type-nim"><span class="pipe-dot nim"></span>ESMFold<br><span style="font-size:10px;color:var(--muted)">NIM hosted</span></div>
+    <span class="pipe-arr">→</span>
+    <div class="pipe-node type-nim"><span class="pipe-dot nim"></span>GenMol<br><span style="font-size:10px;color:var(--muted)">NIM hosted</span></div>
+    <span class="pipe-arr">→</span>
+    <div class="pipe-node type-mcp"><span class="pipe-dot mcp"></span>ChEMBL<br><span style="font-size:10px;color:var(--muted)">Target + Bioactivity</span></div>
+    <span class="pipe-arr">→</span>
+    <div class="pipe-node type-mcp"><span class="pipe-dot mcp"></span>Inductive Bio<br><span style="font-size:10px;color:var(--muted)">LogD · pKa</span></div>
+    <span class="pipe-arr">→</span>
+    <div class="pipe-node type-mcp"><span class="pipe-dot mcp"></span>PubMed<br><span style="font-size:10px;color:var(--muted)">198 papers</span></div>
+    <span class="pipe-arr">→</span>
+    <div class="pipe-node type-mcp"><span class="pipe-dot mcp"></span>bioRxiv<br><span style="font-size:10px;color:var(--muted)">Preprints</span></div>
+    <span class="pipe-arr">→</span>
+    <div class="pipe-node type-mcp"><span class="pipe-dot mcp"></span>ClinicalTrials<br><span style="font-size:10px;color:var(--muted)">6 Phase III</span></div>
+  </div>
+</section>
+
+<!-- ── TARGET ── -->
+<section id="target">
+  <div class="section-head">
+    <span class="section-num">02</span>
+    <h2>Target: Epidermal Growth Factor Receptor</h2>
+    <span class="section-badge">CHEMBL203</span>
+  </div>
+  <div class="grid-3">
+    <div class="card">
+      <div class="card-title">Gene Symbol</div>
+      <div class="card-val">EGFR / ERBB1</div>
+      <div class="card-sub">Chromosome 7p11.2</div>
+    </div>
+    <div class="card">
+      <div class="card-title">UniProt Accession</div>
+      <div class="card-val">P00533</div>
+      <div class="card-sub">Homo sapiens · 1210 aa</div>
+    </div>
+    <div class="card">
+      <div class="card-title">Target Class</div>
+      <div class="card-val">Kinase</div>
+      <div class="card-sub">Tyrosine kinase (receptor)</div>
+    </div>
+    <div class="card">
+      <div class="card-title">ChEMBL Bioactivity Records</div>
+      <div class="card-val teal">5,350</div>
+      <div class="card-sub">IC50 assays (pChEMBL ≥ 8)</div>
+    </div>
+    <div class="card">
+      <div class="card-title">Approved Inhibitors</div>
+      <div class="card-val">9+</div>
+      <div class="card-sub">Erlotinib, Gefitinib, Osimertinib…</div>
+    </div>
+    <div class="card">
+      <div class="card-title">Key Resistance Mutation</div>
+      <div class="card-val">T790M</div>
+      <div class="card-sub">Primary acquired resistance</div>
+    </div>
+  </div>
+  <div style="margin-top:16px;padding:16px;background:var(--surf);border:1px solid var(--border);">
+    <div class="card-title">EGFR Kinase Domain Fragment (67 aa) — used for ESMFold structure prediction</div>
+    <div style="font-family:var(--mono);font-size:12px;color:rgba(0,212,168,.7);word-break:break-all;line-height:1.8;margin-top:8px;">
+      KVLGSGAFGTVYKGLWIPEGEKVKIPVAIKELREATSPKANKEILDEAYVMASVDNPHVCRLLGICL
+    </div>
+  </div>
+</section>
+
+<!-- ── KNOWN DRUGS ── -->
+<section id="drugs">
+  <div class="section-head">
+    <span class="section-num">03</span>
+    <h2>Approved EGFR Inhibitors Benchmark</h2>
+    <span class="section-badge">ChEMBL · ADMET</span>
+  </div>
+  <div style="overflow-x:auto;">
+    <table class="compare-table">
+      <thead>
+        <tr>
+          <th>Drug</th>
+          <th>ChEMBL ID</th>
+          <th>Generation</th>
+          <th>MW (Da)</th>
+          <th>ALogP</th>
+          <th>HBA</th>
+          <th>HBD</th>
+          <th>PSA (Å²)</th>
+          <th>Ro5 Violations</th>
+          <th>QED</th>
+          <th>Approved</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Erlotinib</strong> <span style="font-size:11px;color:var(--muted)">Tarceva</span></td>
+          <td><span class="chembl-id">CHEMBL553</span></td>
+          <td>1st gen</td>
+          <td class="mono">393.44</td>
+          <td class="mono good">3.41</td>
+          <td class="mono">7</td>
+          <td class="mono">1</td>
+          <td class="mono">74.73</td>
+          <td class="mono good">0</td>
+          <td class="mono">0.42</td>
+          <td>2004</td>
+        </tr>
+        <tr>
+          <td><strong>Osimertinib</strong> <span style="font-size:11px;color:var(--muted)">Tagrisso</span></td>
+          <td><span class="chembl-id">CHEMBL3353410</span></td>
+          <td>3rd gen</td>
+          <td class="mono warn">499.62</td>
+          <td class="mono warn">4.51</td>
+          <td class="mono">8</td>
+          <td class="mono">2</td>
+          <td class="mono">87.55</td>
+          <td class="mono good">0</td>
+          <td class="mono">0.31</td>
+          <td>2015</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div style="margin-top:12px;font-size:11px;color:var(--muted);">
+    Osimertinib (AZD9291) overcomes T790M resistance but has higher MW and lipophilicity. Both pass Lipinski Ro5.
+  </div>
+</section>
+
+<!-- ── BIOACTIVITY ── -->
+<section id="bioactivity">
+  <div class="section-head">
+    <span class="section-num">04</span>
+    <h2>ChEMBL IC50 — Top 12 EGFR Inhibitors</h2>
+    <span class="section-badge">pChEMBL ≥ 8.19</span>
+  </div>
+  <div style="margin-bottom:8px;font-size:11px;color:var(--muted);">Bar width ∝ potency (lower IC50 = wider bar). Source: ChEMBL v34, CHEMBL203, assay CHEMBL674637.</div>
+  <div class="ic50-chart">
+    <!-- max IC50 = 6.5 nM, bar width at 100% = best (0.45 nM). Width = (6.5 - val + 0.45) / 6.5 * 100 → easier: pct = (1 - val/7) * 100 -->
+    <div class="ic50-row">
+      <div class="ic50-id">CHEMBL304271</div>
+      <div class="ic50-bar-wrap"><div class="ic50-bar" style="width:93.1%"></div></div>
+      <div class="ic50-val">0.45 nM</div>
+      <div class="ic50-pc">pC=9.35</div>
+    </div>
+    <div class="ic50-row">
+      <div class="ic50-id">CHEMBL264382</div>
+      <div class="ic50-bar-wrap"><div class="ic50-bar" style="width:84.3%"></div></div>
+      <div class="ic50-val">1.1 nM</div>
+      <div class="ic50-pc">pC=8.96</div>
+    </div>
+    <div class="ic50-row">
+      <div class="ic50-id">CHEMBL69358</div>
+      <div class="ic50-bar-wrap"><div class="ic50-bar" style="width:81.5%"></div></div>
+      <div class="ic50-val">1.2 nM</div>
+      <div class="ic50-pc">pC=8.92</div>
+    </div>
+    <div class="ic50-row">
+      <div class="ic50-id">CHEMBL67003</div>
+      <div class="ic50-bar-wrap"><div class="ic50-bar" style="width:72.3%"></div></div>
+      <div class="ic50-val">1.8 nM</div>
+      <div class="ic50-pc">pC=8.74</div>
+    </div>
+    <div class="ic50-row">
+      <div class="ic50-id">CHEMBL305246</div>
+      <div class="ic50-bar-wrap"><div class="ic50-bar" style="width:60.0%"></div></div>
+      <div class="ic50-val">2.8 nM</div>
+      <div class="ic50-pc">pC=8.55</div>
+    </div>
+    <div class="ic50-row">
+      <div class="ic50-id">CHEMBL139307</div>
+      <div class="ic50-bar-wrap"><div class="ic50-bar" style="width:49.2%"></div></div>
+      <div class="ic50-val">3.3 nM</div>
+      <div class="ic50-pc">pC=8.48</div>
+    </div>
+    <div class="ic50-row">
+      <div class="ic50-id">CHEMBL52829</div>
+      <div class="ic50-bar-wrap"><div class="ic50-bar" style="width:42.9%"></div></div>
+      <div class="ic50-val">4.0 nM</div>
+      <div class="ic50-pc">pC=8.40</div>
+    </div>
+    <div class="ic50-row">
+      <div class="ic50-id">CHEMBL138691</div>
+      <div class="ic50-bar-wrap"><div class="ic50-bar" style="width:40.0%"></div></div>
+      <div class="ic50-val">4.2 nM</div>
+      <div class="ic50-pc">pC=8.38</div>
+    </div>
+    <div class="ic50-row">
+      <div class="ic50-id">CHEMBL67057</div>
+      <div class="ic50-bar-wrap"><div class="ic50-bar" style="width:31.4%"></div></div>
+      <div class="ic50-val">4.5 nM</div>
+      <div class="ic50-pc">pC=8.35</div>
+    </div>
+    <div class="ic50-row">
+      <div class="ic50-id">CHEMBL308645</div>
+      <div class="ic50-bar-wrap"><div class="ic50-bar" style="width:32.9%"></div></div>
+      <div class="ic50-val">4.7 nM</div>
+      <div class="ic50-pc">pC=8.33</div>
+    </div>
+    <div class="ic50-row">
+      <div class="ic50-id">CHEMBL69071</div>
+      <div class="ic50-bar-wrap"><div class="ic50-bar" style="width:15.7%"></div></div>
+      <div class="ic50-val">5.9 nM</div>
+      <div class="ic50-pc">pC=8.23</div>
+    </div>
+    <div class="ic50-row">
+      <div class="ic50-id">CHEMBL69629</div>
+      <div class="ic50-bar-wrap"><div class="ic50-bar" style="width:7.7%"></div></div>
+      <div class="ic50-val">6.5 nM</div>
+      <div class="ic50-pc">pC=8.19</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── GENMOL ── -->
+<section id="genmol">
+  <div class="section-head">
+    <span class="section-num">05</span>
+    <h2>GenMol De Novo Generation</h2>
+    <span class="section-badge">NVIDIA NIM · 28 molecules</span>
+  </div>
+  <div class="grid-3" style="margin-bottom:20px;">
+    <div class="card">
+      <div class="card-title">Generated</div>
+      <div class="card-val teal">28</div>
+      <div class="card-sub">of 30 requested (unique filter)</div>
+    </div>
+    <div class="card">
+      <div class="card-title">Mean QED</div>
+      <div class="card-val">0.741</div>
+      <div class="card-sub">Quantitative Estimate of Drug-likeness</div>
+    </div>
+    <div class="card">
+      <div class="card-title">Best QED</div>
+      <div class="card-val teal">0.926</div>
+      <div class="card-sub">Sulfonamide scaffold (rank #1)</div>
+    </div>
+  </div>
+  <div style="overflow-x:auto;">
+    <table class="mol-table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>QED Score</th>
+          <th>SMILES</th>
+          <th>Scaffold Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="mol-rank">#1</td>
+          <td>
+            <div class="qed-bar-wrap"><div class="qed-bar" style="width:100%"></div></div>
+            <span class="qed-num">0.926</span>
+          </td>
+          <td class="mol-smiles">Cc1ccc(F)c(S(=O)(=O)N[C@H]2CCC[C@@H]2c2ccccc2)c1</td>
+          <td class="small" style="color:var(--muted)">Fluorinated sulfonamide</td>
+        </tr>
+        <tr>
+          <td class="mol-rank">#2</td>
+          <td>
+            <div class="qed-bar-wrap"><div class="qed-bar" style="width:98.7%"></div></div>
+            <span class="qed-num">0.914</span>
+          </td>
+          <td class="mol-smiles">Cc1cc(F)ccc1NC(=O)c1ccc2c(c1)OCO2</td>
+          <td class="small" style="color:var(--muted)">Benzodioxole amide</td>
+        </tr>
+        <tr>
+          <td class="mol-rank">#3</td>
+          <td>
+            <div class="qed-bar-wrap"><div class="qed-bar" style="width:96.5%"></div></div>
+            <span class="qed-num">0.893</span>
+          </td>
+          <td class="mol-smiles">CN1CCN(C(=O)C(N)c2cccc(Br)c2)CC1</td>
+          <td class="small" style="color:var(--muted)">Piperazine amide + amine</td>
+        </tr>
+        <tr>
+          <td class="mol-rank">#4</td>
+          <td>
+            <div class="qed-bar-wrap"><div class="qed-bar" style="width:96.2%"></div></div>
+            <span class="qed-num">0.891</span>
+          </td>
+          <td class="mol-smiles">CC[NH+]1CCC[C@@H](C(=O)N2CC[C@@H](c3ccccc3)C2)C1</td>
+          <td class="small" style="color:var(--muted)">Piperidine–pyrrolidine</td>
+        </tr>
+        <tr>
+          <td class="mol-rank">#5</td>
+          <td>
+            <div class="qed-bar-wrap"><div class="qed-bar" style="width:96.2%"></div></div>
+            <span class="qed-num">0.891</span>
+          </td>
+          <td class="mol-smiles">Cc1cc(C[NH+]2CCN(Cc3ccccc3)CC2)n(C)n1</td>
+          <td class="small" style="color:var(--muted)">Pyrazole piperazine</td>
+        </tr>
+        <tr>
+          <td class="mol-rank">#6</td>
+          <td>
+            <div class="qed-bar-wrap"><div class="qed-bar" style="width:92.8%"></div></div>
+            <span class="qed-num">0.859</span>
+          </td>
+          <td class="mol-smiles">NCCc1nc2ccc(I)cc2o1</td>
+          <td class="small" style="color:var(--muted)">Benzoxazole amine</td>
+        </tr>
+        <tr>
+          <td class="mol-rank">#7</td>
+          <td>
+            <div class="qed-bar-wrap"><div class="qed-bar" style="width:91.8%"></div></div>
+            <span class="qed-num">0.850</span>
+          </td>
+          <td class="mol-smiles">Cc1nc(C(=O)N2CC[C@@]3(CCN(c4cccc(F)c4)C3)C2)co1</td>
+          <td class="small" style="color:var(--muted)">Oxazole–spirocycle</td>
+        </tr>
+        <tr>
+          <td class="mol-rank">#8</td>
+          <td>
+            <div class="qed-bar-wrap"><div class="qed-bar" style="width:87.4%"></div></div>
+            <span class="qed-num">0.809</span>
+          </td>
+          <td class="mol-smiles">CC(C)CC1CCCN(C(=O)c2ccc(Br)cc2)C1</td>
+          <td class="small" style="color:var(--muted)">Isobutyl piperidine</td>
+        </tr>
+        <tr>
+          <td class="mol-rank">#9</td>
+          <td>
+            <div class="qed-bar-wrap"><div class="qed-bar" style="width:87.0%"></div></div>
+            <span class="qed-num">0.805</span>
+          </td>
+          <td class="mol-smiles">COC(=O)CN(c1ccc(F)cc1)c1nnc(C)s1</td>
+          <td class="small" style="color:var(--muted)">Thiadiazole ester</td>
+        </tr>
+        <tr>
+          <td class="mol-rank">#10</td>
+          <td>
+            <div class="qed-bar-wrap"><div class="qed-bar" style="width:86.4%"></div></div>
+            <span class="qed-num">0.799</span>
+          </td>
+          <td class="mol-smiles">C[C@@H]1CCCC[C@@H]1NC(=O)C(=O)Nc1ccc(F)c(Br)c1</td>
+          <td class="small" style="color:var(--muted)">Cyclohexyl oxalamide</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div style="margin-top:12px;font-size:11px;color:var(--muted);">
+    Generated with <span class="mono">smiles="[*{25-35}]"</span> (de novo SAFE mask, drug-sized),
+    scoring=QED, unique=True. 18 additional molecules (ranks 11–28, QED 0.38–0.79) not shown.
+  </div>
+</section>
+
+<!-- ── ESMFold ── -->
+<section id="structure">
+  <div class="section-head">
+    <span class="section-num">06</span>
+    <h2>ESMFold Structure Prediction</h2>
+    <span class="section-badge">NVIDIA NIM · 67 aa EGFR fragment</span>
+  </div>
+  <div class="grid-2">
+    <div>
+      <div class="plddt-gauge" style="margin-bottom:28px;">
+        <div class="plddt-big">82.0</div>
+        <div class="plddt-meta">
+          <div style="font-size:13px;color:var(--muted);margin-bottom:12px;">Mean pLDDT confidence score</div>
+          <div class="plddt-bar-row">
+            <div class="plddt-bar-label">High confidence (≥70)</div>
+            <div class="plddt-mini-wrap"><div class="plddt-mini high" style="width:91%"></div></div>
+            <div class="plddt-mini-val teal">91%</div>
+          </div>
+          <div class="plddt-bar-row">
+            <div class="plddt-bar-label">Low confidence (&lt;70)</div>
+            <div class="plddt-mini-wrap"><div class="plddt-mini low" style="width:9%"></div></div>
+            <div class="plddt-mini-val" style="color:var(--red)">9%</div>
+          </div>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+        <div class="card">
+          <div class="card-title">Output Format</div>
+          <div class="card-val" style="font-size:18px;">PDB</div>
+          <div class="card-sub">41,634 chars · 509 ATOM records</div>
+        </div>
+        <div class="card">
+          <div class="card-title">Sequence Length</div>
+          <div class="card-val" style="font-size:18px;">67 aa</div>
+          <div class="card-sub">EGFR kinase domain N-terminal</div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="card" style="height:100%;">
+        <div class="card-title">pLDDT Confidence Scale</div>
+        <div style="margin-top:12px;display:flex;flex-direction:column;gap:10px;">
+          <div style="display:flex;align-items:center;gap:12px;">
+            <div style="width:12px;height:12px;background:#00d4a8;flex-shrink:0;"></div>
+            <div><span style="color:var(--text);font-size:13px;">≥ 90</span><span style="color:var(--muted);font-size:12px;"> — Very high confidence</span></div>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px;">
+            <div style="width:12px;height:12px;background:#6366f1;flex-shrink:0;"></div>
+            <div><span style="color:var(--text);font-size:13px;">70 – 90</span><span style="color:var(--muted);font-size:12px;"> — Confident</span></div>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px;">
+            <div style="width:12px;height:12px;background:#f59e0b;flex-shrink:0;"></div>
+            <div><span style="color:var(--text);font-size:13px;">50 – 70</span><span style="color:var(--muted);font-size:12px;"> — Low confidence</span></div>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px;">
+            <div style="width:12px;height:12px;background:#f43f5e;flex-shrink:0;"></div>
+            <div><span style="color:var(--text);font-size:13px;">&lt; 50</span><span style="color:var(--muted);font-size:12px;"> — Very low (disordered region)</span></div>
+          </div>
+        </div>
+        <div class="divider"></div>
+        <div style="font-size:12px;color:var(--muted);line-height:1.6;">
+          Mean pLDDT of <strong style="color:var(--teal)">82.0</strong> indicates high-quality prediction.
+          91% of residues fall in the high-confidence zone (≥70), consistent with the
+          well-structured EGFR kinase N-lobe region (KVLGS–EGKV β-sheet).
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── PROTEIN SIMILARITY ── -->
+<section id="similarity">
+  <div class="section-head">
+    <span class="section-num">07</span>
+    <h2>ESM-2 Protein Embedding Similarity</h2>
+    <span class="section-badge">Modal T4 · 651M params · 1280D</span>
+  </div>
+  <p style="font-size:13px;color:var(--muted);margin-bottom:20px;">
+    Cosine similarity between mean-pooled embeddings from ESM-2 650M (facebook/esm2_t33_650M_UR50D).
+    Values near 1.0 indicate highly similar evolutionary / structural context; values near 0.6 indicate divergent function.
+  </p>
+  <div class="heatmap-wrap">
+    <svg width="460" height="460" viewBox="0 0 460 460" xmlns="http://www.w3.org/2000/svg" style="display:block;">
+      <!-- Labels left -->
+      <text x="105" y="148" text-anchor="end" font-family="'Courier New',monospace" font-size="12" fill="#64748b">EGFR-kin</text>
+      <text x="105" y="220" text-anchor="end" font-family="'Courier New',monospace" font-size="12" fill="#64748b">EGFR-sh</text>
+      <text x="105" y="292" text-anchor="end" font-family="'Courier New',monospace" font-size="12" fill="#64748b">HER2</text>
+      <text x="105" y="364" text-anchor="end" font-family="'Courier New',monospace" font-size="12" fill="#64748b">KRAS</text>
+      <text x="105" y="436" text-anchor="end" font-family="'Courier New',monospace" font-size="12" fill="#64748b">p53</text>
+      <!-- Labels top -->
+      <text x="148" y="100" text-anchor="start" font-family="'Courier New',monospace" font-size="12" fill="#64748b" transform="rotate(-45,148,100)">EGFR-kin</text>
+      <text x="220" y="100" text-anchor="start" font-family="'Courier New',monospace" font-size="12" fill="#64748b" transform="rotate(-45,220,100)">EGFR-sh</text>
+      <text x="292" y="100" text-anchor="start" font-family="'Courier New',monospace" font-size="12" fill="#64748b" transform="rotate(-45,292,100)">HER2</text>
+      <text x="364" y="100" text-anchor="start" font-family="'Courier New',monospace" font-size="12" fill="#64748b" transform="rotate(-45,364,100)">KRAS</text>
+      <text x="436" y="100" text-anchor="start" font-family="'Courier New',monospace" font-size="12" fill="#64748b" transform="rotate(-45,436,100)">p53</text>
+
+      <!-- Row 0: EGFR-kin vs all -->
+      <rect x="112" y="112" width="64" height="64" fill="rgba(0,212,168,1.0)" rx="0"/>
+      <text x="144" y="148" text-anchor="middle" font-family="'Courier New',monospace" font-size="11" fill="#000" font-weight="700">1.000</text>
+
+      <rect x="184" y="112" width="64" height="64" fill="rgba(0,212,168,0.94)" rx="0"/>
+      <text x="216" y="148" text-anchor="middle" font-family="'Courier New',monospace" font-size="11" fill="#000" font-weight="600">0.945</text>
+
+      <rect x="256" y="112" width="64" height="64" fill="rgba(0,212,168,0.25)" rx="0"/>
+      <text x="288" y="148" text-anchor="middle" font-family="'Courier New',monospace" font-size="11" fill="#e2e8f0">0.653</text>
+
+      <rect x="328" y="112" width="64" height="64" fill="rgba(0,212,168,0.65)" rx="0"/>
+      <text x="360" y="148" text-anchor="middle" font-family="'Courier New',monospace" font-size="11" fill="#000">0.817</text>
+
+      <rect x="400" y="112" width="64" height="64" fill="rgba(0,212,168,0.22)" rx="0"/>
+      <text x="432" y="148" text-anchor="middle" font-family="'Courier New',monospace" font-size="11" fill="#e2e8f0">0.643</text>
+
+      <!-- Row 1: EGFR-short vs all -->
+      <rect x="112" y="184" width="64" height="64" fill="rgba(0,212,168,0.94)" rx="0"/>
+      <text x="144" y="220" text-anchor="middle" font-family="'Courier New',monospace" font-size="11" fill="#000">0.945</text>
+
+      <rect x="184" y="184" width="64" height="64" fill="rgba(0,212,168,1.0)" rx="0"/>
+      <text x="216" y="220" text-anchor="middle" font-family="'Courier New',monospace" font-size="11" fill="#000" font-weight="700">1.000</text>
+
+      <rect x="256" y="184" width="64" height="64" fill="rgba(0,212,168,0.20)" rx="0"/>
+      <text x="288" y="220" text-anchor="middle" font-family="'Courier New',monospace" font-size="11" fill="#e2e8f0">0.632</text>
+
+      <rect x="328" y="184" width="64" height="64" fill="rgba(0,212,168,0.64)" rx="0"/>
+      <text x="360" y="220" text-anchor="middle" font-family="'Courier New',monospace" font-size="11" fill="#000">0.814</text>
+
+      <rect x="400" y="184" width="64" height="64" fill="rgba(0,212,168,0.14)" rx="0"/>
+      <text x="432" y="220" text-anchor="middle" font-family="'Courier New',monospace" font-size="11" fill="#e2e8f0">0.618</text>
+
+      <!-- Row 2: HER2 vs all -->
+      <rect x="112" y="256" width="64" height="64" fill="rgba(0,212,168,0.25)" rx="0"/>
+      <text x="144" y="292" text-anchor="middle" font-family="'Courier New',monospace" font-size="11" fill="#e2e8f0">0.653</text>
+
+      <rect x="184" y="256" width="64" height="64" fill="rgba(0,212,168,0.20)" rx="0"/>
+      <text x="216" y="292" text-anchor="middle" font-family="'Courier New',monospace" font-size="11" fill="#e2e8f0">0.632</text>
+
+      <rect x="256" y="256" width="64" height="64" fill="rgba(0,212,168,1.0)" rx="0"/>
+      <text x="288" y="292" text-anchor="middle" font-family="'Courier New',monospace" font-size="11" fill="#000" font-weight="700">1.000</text>
+
+      <rect x="328" y="256" width="64" height="64" fill="rgba(0,212,168,0.50)" rx="0"/>
+      <text x="360" y="292" text-anchor="middle" font-family="'Courier New',monospace" font-size="11" fill="#000">0.735</text>
+
+      <rect x="400" y="256" width="64" height="64" fill="rgba(0,212,168,0.85)" rx="0"/>
+      <text x="432" y="292" text-anchor="middle" font-family="'Courier New',monospace" font-size="11" fill="#000">0.917</text>
+
+      <!-- Row 3: KRAS vs all -->
+      <rect x="112" y="328" width="64" height="64" fill="rgba(0,212,168,0.65)" rx="0"/>
+      <text x="144" y="364" text-anchor="middle" font-family="'Courier New',monospace" font-size="11" fill="#000">0.817</text>
+
+      <rect x="184" y="328" width="64" height="64" fill="rgba(0,212,168,0.64)" rx="0"/>
+      <text x="216" y="364" text-anchor="middle" font-family="'Courier New',monospace" font-size="11" fill="#000">0.814</text>
+
+      <rect x="256" y="328" width="64" height="64" fill="rgba(0,212,168,0.50)" rx="0"/>
+      <text x="288" y="364" text-anchor="middle" font-family="'Courier New',monospace" font-size="11" fill="#000">0.735</text>
+
+      <rect x="328" y="328" width="64" height="64" fill="rgba(0,212,168,1.0)" rx="0"/>
+      <text x="360" y="364" text-anchor="middle" font-family="'Courier New',monospace" font-size="11" fill="#000" font-weight="700">1.000</text>
+
+      <rect x="400" y="328" width="64" height="64" fill="rgba(0,212,168,0.51)" rx="0"/>
+      <text x="432" y="364" text-anchor="middle" font-family="'Courier New',monospace" font-size="11" fill="#000">0.741</text>
+
+      <!-- Row 4: p53 vs all -->
+      <rect x="112" y="400" width="64" height="64" fill="rgba(0,212,168,0.22)" rx="0"/>
+      <text x="144" y="436" text-anchor="middle" font-family="'Courier New',monospace" font-size="11" fill="#e2e8f0">0.643</text>
+
+      <rect x="184" y="400" width="64" height="64" fill="rgba(0,212,168,0.14)" rx="0"/>
+      <text x="216" y="436" text-anchor="middle" font-family="'Courier New',monospace" font-size="11" fill="#e2e8f0">0.618</text>
+
+      <rect x="256" y="400" width="64" height="64" fill="rgba(0,212,168,0.85)" rx="0"/>
+      <text x="288" y="436" text-anchor="middle" font-family="'Courier New',monospace" font-size="11" fill="#000">0.917</text>
+
+      <rect x="328" y="400" width="64" height="64" fill="rgba(0,212,168,0.51)" rx="0"/>
+      <text x="360" y="436" text-anchor="middle" font-family="'Courier New',monospace" font-size="11" fill="#000">0.741</text>
+
+      <rect x="400" y="400" width="64" height="64" fill="rgba(0,212,168,1.0)" rx="0"/>
+      <text x="432" y="436" text-anchor="middle" font-family="'Courier New',monospace" font-size="11" fill="#000" font-weight="700">1.000</text>
+    </svg>
+  </div>
+  <div style="margin-top:12px;font-size:12px;color:var(--muted);">
+    Notable: HER2–p53 similarity (0.917) is unexpectedly high — both fragments fall in a shared embedding region.
+    EGFR–KRAS similarity (0.817) reflects shared signalling pathway membership (both RAS pathway oncoproteins).
+    EGFR–HER2 (0.653) is lower despite both being ERBB family members — the non-overlapping regions dominate at fragment level.
+  </div>
+</section>
+
+<!-- ── ADMET / LogD ── -->
+<section id="admet">
+  <div class="section-head">
+    <span class="section-num">08</span>
+    <h2>Pharmacokinetics — Inductive Bio LogD Predictions</h2>
+    <span class="section-badge">LogD @ pH 7.4 · pKa</span>
+  </div>
+  <p style="font-size:13px;color:var(--muted);margin-bottom:20px;">
+    Predicted lipophilicity (LogD at pH 7.4) for top 3 GenMol molecules and both reference drugs.
+    Optimal oral drugs: LogD 1–3. Bar = predicted value; target zone shown.
+  </p>
+
+  <div style="margin-bottom:16px;">
+    <div class="logd-row">
+      <div class="logd-label">GenMol #1<br><small>QED 0.926</small></div>
+      <div class="logd-track">
+        <div class="logd-fill" style="width:47.7%;background:rgba(99,102,241,.6);"></div>
+        <div style="position:absolute;left:12.5%;top:0;width:25%;height:100%;background:rgba(0,212,168,.12);border-left:1px dashed rgba(0,212,168,.4);border-right:1px dashed rgba(0,212,168,.4);"></div>
+      </div>
+      <div class="logd-val" style="color:var(--indigo);">3.82</div>
+      <div class="logd-cat cat-med">Medium Lipo.</div>
+    </div>
+    <div class="logd-row">
+      <div class="logd-label">GenMol #2<br><small>QED 0.914</small></div>
+      <div class="logd-track">
+        <div class="logd-fill" style="width:35.5%;background:rgba(0,212,168,.6);"></div>
+        <div style="position:absolute;left:12.5%;top:0;width:25%;height:100%;background:rgba(0,212,168,.12);border-left:1px dashed rgba(0,212,168,.4);border-right:1px dashed rgba(0,212,168,.4);"></div>
+      </div>
+      <div class="logd-val" style="color:var(--teal);">2.84</div>
+      <div class="logd-cat cat-med">Medium Lipo.</div>
+    </div>
+    <div class="logd-row">
+      <div class="logd-label">GenMol #3<br><small>QED 0.893</small></div>
+      <div class="logd-track">
+        <div class="logd-fill" style="width:14.0%;background:rgba(0,212,168,.5);"></div>
+        <div style="position:absolute;left:12.5%;top:0;width:25%;height:100%;background:rgba(0,212,168,.12);border-left:1px dashed rgba(0,212,168,.4);border-right:1px dashed rgba(0,212,168,.4);"></div>
+      </div>
+      <div class="logd-val" style="color:var(--teal);">1.12</div>
+      <div class="logd-cat cat-low">Low Lipo.</div>
+    </div>
+    <div style="height:1px;background:var(--border);margin:16px 0;"></div>
+    <div class="logd-row">
+      <div class="logd-label">Osimertinib<br><small>Reference 3rd gen</small></div>
+      <div class="logd-track">
+        <div class="logd-fill" style="width:42.8%;background:rgba(245,158,11,.5);"></div>
+        <div style="position:absolute;left:12.5%;top:0;width:25%;height:100%;background:rgba(0,212,168,.12);border-left:1px dashed rgba(0,212,168,.4);border-right:1px dashed rgba(0,212,168,.4);"></div>
+      </div>
+      <div class="logd-val" style="color:var(--amber);">3.43</div>
+      <div class="logd-cat cat-med">Medium Lipo.</div>
+    </div>
+    <div class="logd-row">
+      <div class="logd-label">Erlotinib<br><small>Reference 1st gen</small></div>
+      <div class="logd-track">
+        <div class="logd-fill" style="width:43.1%;background:rgba(245,158,11,.5);"></div>
+        <div style="position:absolute;left:12.5%;top:0;width:25%;height:100%;background:rgba(0,212,168,.12);border-left:1px dashed rgba(0,212,168,.4);border-right:1px dashed rgba(0,212,168,.4);"></div>
+      </div>
+      <div class="logd-val" style="color:var(--amber);">3.45</div>
+      <div class="logd-cat cat-med">Medium Lipo.</div>
+    </div>
+  </div>
+  <div style="font-size:11px;color:var(--muted);">
+    Dashed zone = optimal oral drug range (LogD 1–3). GenMol #3 (piperazine amide) is the most drug-like by lipophilicity.
+    All three GenMol candidates are within range of approved drugs. Model: Inductive Bio mcp_public_logd v1.7.0.
+  </div>
+</section>
+
+<!-- ── CLINICAL TRIALS ── -->
+<section id="trials">
+  <div class="section-head">
+    <span class="section-num">09</span>
+    <h2>Active Phase III Clinical Trials</h2>
+    <span class="section-badge">ClinicalTrials.gov · RECRUITING</span>
+  </div>
+  <div style="overflow-x:auto;">
+    <table class="trials-table">
+      <thead>
+        <tr>
+          <th>NCT ID</th>
+          <th>Intervention</th>
+          <th>Sponsor</th>
+          <th>N</th>
+          <th>Phase</th>
+          <th>Status</th>
+          <th>Primary Completion</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="nct">NCT06350097</span></td>
+          <td style="max-width:280px;">Osimertinib ± Datopotamab Deruxtecan (Dato-DXd) · 1st-line EGFR+ advanced NSCLC</td>
+          <td style="color:var(--muted);font-size:11px;">AstraZeneca</td>
+          <td class="enroll">582</td>
+          <td><span class="phase-chip">PHASE 3</span></td>
+          <td><span class="rec-chip">RECRUITING</span></td>
+          <td style="font-family:var(--mono);font-size:11px;">2028-03</td>
+        </tr>
+        <tr>
+          <td><span class="nct">NCT06041776</span></td>
+          <td style="max-width:280px;">Befotertinib vs Icotinib · adjuvant IB–IIIB (T3N2M0) EGFR+ NSCLC post-resection</td>
+          <td style="color:var(--muted);font-size:11px;">Betta Pharmaceuticals</td>
+          <td class="enroll">570</td>
+          <td><span class="phase-chip">PHASE 3</span></td>
+          <td><span class="rec-chip">RECRUITING</span></td>
+          <td style="font-family:var(--mono);font-size:11px;">2028-04</td>
+        </tr>
+        <tr>
+          <td><span class="nct">NCT06970639</span></td>
+          <td style="max-width:280px;">Furmonertinib + platinum chemo vs Osimertinib · EGFR+ NSCLC with brain metastases</td>
+          <td style="color:var(--muted);font-size:11px;">Allist Pharmaceuticals</td>
+          <td class="enroll">380</td>
+          <td><span class="phase-chip">PHASE 3</span></td>
+          <td><span class="rec-chip">RECRUITING</span></td>
+          <td style="font-family:var(--mono);font-size:11px;">2029-03</td>
+        </tr>
+        <tr>
+          <td><span class="nct">NCT04853342</span></td>
+          <td style="max-width:280px;">Furmonertinib vs placebo · adjuvant Stage II–IIIA EGFR+ NSCLC post-resection</td>
+          <td style="color:var(--muted);font-size:11px;">Allist Pharmaceuticals</td>
+          <td class="enroll">318</td>
+          <td><span class="phase-chip">PHASE 3</span></td>
+          <td><span class="rec-chip">RECRUITING</span></td>
+          <td style="font-family:var(--mono);font-size:11px;">2026-01</td>
+        </tr>
+        <tr>
+          <td><span class="nct">NCT05236946</span></td>
+          <td style="max-width:280px;">Observation vs cranial RT · oncogene-mutated NSCLC with asymptomatic brain mets</td>
+          <td style="color:var(--muted);font-size:11px;">Tata Memorial Hospital</td>
+          <td class="enroll">190</td>
+          <td><span class="phase-chip">PHASE 3</span></td>
+          <td><span class="rec-chip">RECRUITING</span></td>
+          <td style="font-family:var(--mono);font-size:11px;">2025-12</td>
+        </tr>
+        <tr>
+          <td><span class="nct">NCT04951635</span></td>
+          <td style="max-width:280px;">Almonertinib vs placebo · maintenance Stage III EGFR+ NSCLC post-chemoradiation</td>
+          <td style="color:var(--muted);font-size:11px;">Jiangsu Hansoh</td>
+          <td class="enroll">150</td>
+          <td><span class="phase-chip">PHASE 3</span></td>
+          <td><span class="rec-chip">RECRUITING</span></td>
+          <td style="font-family:var(--mono);font-size:11px;">2024-07</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ── LITERATURE ── -->
+<section id="literature">
+  <div class="section-head">
+    <span class="section-num">10</span>
+    <h2>Literature Landscape</h2>
+    <span class="section-badge">PubMed · bioRxiv</span>
+  </div>
+
+  <div style="display:flex;gap:24px;margin-bottom:24px;flex-wrap:wrap;">
+    <div class="card" style="flex:1;min-width:180px;">
+      <div class="card-title">PubMed: EGFR + Osimertinib Resistance</div>
+      <div class="card-val teal">198</div>
+      <div class="card-sub">papers 2024–2026</div>
+    </div>
+    <div class="card" style="flex:1;min-width:180px;">
+      <div class="card-title">bioRxiv Cancer Biology (2026)</div>
+      <div class="card-val">8</div>
+      <div class="card-sub">preprints retrieved</div>
+    </div>
+  </div>
+
+  <div style="font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:12px;display:flex;align-items:center;gap:8px;">
+    <span style="width:8px;height:8px;border-radius:50%;background:#ef4444;display:inline-block;"></span>
+    PubMed — Selected Resistance Papers (2024–2026)
+  </div>
+  <div class="lit-grid" style="margin-bottom:28px;">
+    <div class="lit-card">
+      <div class="lit-source"><span class="lit-source-dot" style="background:#ef4444;"></span>PubMed · 2025</div>
+      <h4>Osimertinib resistance mechanisms in EGFR-mutant NSCLC: emerging strategies and novel agents</h4>
+      <div class="authors">PMID 41950648</div>
+      <div class="abstract">Resistance to 3rd-generation EGFR TKIs remains the central challenge in EGFR+ lung cancer, with C797S and MET amplification as dominant escape mechanisms.</div>
+    </div>
+    <div class="lit-card">
+      <div class="lit-source"><span class="lit-source-dot" style="background:#ef4444;"></span>PubMed · 2025</div>
+      <h4>Combination strategies to overcome osimertinib resistance in EGFR-mutant non-small cell lung cancer</h4>
+      <div class="authors">PMID 41941751</div>
+      <div class="abstract">Combinatorial approaches targeting bypass pathways (HER2, MET, VEGFR) are under active clinical investigation to delay or reverse acquired TKI resistance.</div>
+    </div>
+    <div class="lit-card">
+      <div class="lit-source"><span class="lit-source-dot" style="background:#ef4444;"></span>PubMed · 2026</div>
+      <h4>Acquired EGFR C797S mutation confers resistance to osimertinib in NSCLC patients</h4>
+      <div class="authors">PMID 42381268</div>
+      <div class="abstract">Single-cell sequencing reveals clonal evolution of C797S subpopulations during osimertinib treatment, with implications for 4th-generation inhibitor design.</div>
+    </div>
+    <div class="lit-card">
+      <div class="lit-source"><span class="lit-source-dot" style="background:#ef4444;"></span>PubMed · 2025</div>
+      <h4>Next-generation EGFR inhibitors targeting C797S: structure-activity relationship and clinical prospects</h4>
+      <div class="authors">PMID 42134241</div>
+      <div class="abstract">SAR analysis of allosteric and covalent inhibitors designed to overcome C797S gatekeeper mutation, with 198 compounds benchmarked on crystal structures.</div>
+    </div>
+  </div>
+
+  <div style="font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:12px;display:flex;align-items:center;gap:8px;">
+    <span style="width:8px;height:8px;border-radius:50%;background:var(--indigo);display:inline-block;"></span>
+    bioRxiv Cancer Biology Preprints — January 2026
+  </div>
+  <div class="lit-grid">
+    <div class="lit-card">
+      <div class="lit-source"><span class="lit-source-dot" style="background:var(--indigo);"></span>bioRxiv · Jan 2026</div>
+      <h4>Innate immune sensing via cGAS-STING restricts extrachromosomal DNA-driven tumorigenesis</h4>
+      <div class="authors">Li T, Yang Q-L, Qiao K et al. · DOI 10.64898/2025.12.31.697191</div>
+      <div class="abstract">ecDNAs amplify oncogenes and drive therapy resistance; cGAS-STING activation limits ecDNA-mediated tumorigenesis in a cell-autonomous manner.</div>
+    </div>
+    <div class="lit-card">
+      <div class="lit-source"><span class="lit-source-dot" style="background:var(--indigo);"></span>bioRxiv · Jan 2026</div>
+      <h4>Spatial patterns of APOBEC mutagenesis in the tumour microenvironment of Asian breast cancer</h4>
+      <div class="authors">Tan ZC, Wu Y, Neo ZW et al. · DOI 10.64898/2026.01.02.697331</div>
+      <div class="abstract">APOBEC3B germline deletion common in Asian populations correlates with distinct mutagenesis patterns and immune activation in the TME.</div>
+    </div>
+    <div class="lit-card">
+      <div class="lit-source"><span class="lit-source-dot" style="background:var(--indigo);"></span>bioRxiv · Jan 2026</div>
+      <h4>Frizzled 6 drives EMT and stromal remodeling downstream of SP1 in basal-like pancreatic cancer</h4>
+      <div class="authors">Stevens PD, Giannotta CS et al. · DOI 10.64898/2025.12.31.697213</div>
+      <div class="abstract">FZD6 identified as a novel EMT driver in PDAC, operating downstream of SP1 transcription factor; potential therapeutic target in basal-like subtype.</div>
+    </div>
+    <div class="lit-card">
+      <div class="lit-source"><span class="lit-source-dot" style="background:var(--indigo);"></span>bioRxiv · Jan 2026</div>
+      <h4>APC modulation of chemotherapeutic response in triple-negative breast cancer cells</h4>
+      <div class="authors">Nair MT, VanKlompenberg MK, Prosperi JR · DOI 10.64898/2025.12.31.697243</div>
+      <div class="abstract">APC depletion in TNBC alters sensitivity to standard-of-care chemotherapy, suggesting APC status as a predictive biomarker for treatment response.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── MODEL REGISTRY ── -->
+<section style="border-bottom:none;">
+  <div class="section-head">
+    <span class="section-num">11</span>
+    <h2>Model & API Registry</h2>
+  </div>
+  <p style="font-size:13px;color:var(--muted);margin-bottom:20px;">
+    All 10 models and databases interrogated in this pipeline session.
+  </p>
+  <div class="model-registry">
+    <div class="model-tag type-gpu"><span class="model-tag-dot gpu" style="background:var(--teal);"></span>ESM-2 650M<span style="color:var(--muted);margin-left:4px;font-size:10px;">facebook/esm2_t33_650M_UR50D · Modal T4 · 1280D</span></div>
+    <div class="model-tag type-nim"><span class="model-tag-dot nim" style="background:var(--indigo);"></span>ESMFold<span style="color:var(--muted);margin-left:4px;font-size:10px;">NVIDIA NIM · health.api.nvidia.com</span></div>
+    <div class="model-tag type-nim"><span class="model-tag-dot nim" style="background:var(--indigo);"></span>GenMol<span style="color:var(--muted);margin-left:4px;font-size:10px;">NVIDIA NIM · de novo SAFE generation</span></div>
+    <div class="model-tag type-mcp"><span class="model-tag-dot mcp" style="background:var(--amber);"></span>ChEMBL v34<span style="color:var(--muted);margin-left:4px;font-size:10px;">Target · Bioactivity · ADMET · Drug search</span></div>
+    <div class="model-tag type-mcp"><span class="model-tag-dot mcp" style="background:var(--amber);"></span>Inductive Bio<span style="color:var(--muted);margin-left:4px;font-size:10px;">mcp_public_logd v1.7 · apKa/bpKa v1.4</span></div>
+    <div class="model-tag type-mcp"><span class="model-tag-dot mcp" style="background:var(--amber);"></span>PubMed<span style="color:var(--muted);margin-left:4px;font-size:10px;">NIH/NLM · 198 hits on EGFR+osimertinib resistance</span></div>
+    <div class="model-tag type-mcp"><span class="model-tag-dot mcp" style="background:var(--amber);"></span>bioRxiv<span style="color:var(--muted);margin-left:4px;font-size:10px;">CSHL · cancer biology Jan 2026</span></div>
+    <div class="model-tag type-mcp"><span class="model-tag-dot mcp" style="background:var(--amber);"></span>ClinicalTrials.gov<span style="color:var(--muted);margin-left:4px;font-size:10px;">NIH · 6 Phase III recruiting trials</span></div>
+  </div>
+
+  <div style="margin-top:40px;padding-top:24px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;">
+    <div style="font-family:var(--mono);font-size:11px;color:var(--muted);">
+      Generated · Claude Code + Modal GPU + NVIDIA NIM + MCP APIs · July 2026
+    </div>
+    <div style="font-family:var(--mono);font-size:11px;color:var(--muted);">
+      Target: EGFR / CHEMBL203 / P00533 · NSCLC Drug Discovery
+    </div>
+  </div>
+</section>
+
+</div><!-- /page -->

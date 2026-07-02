@@ -1,0 +1,242 @@
+{
+  "esm2": {
+    "model": "ESM-2 650M",
+    "gpu": "Tesla T4",
+    "embedding_dim": 1280,
+    "sequences": {
+      "EGFR_kinase": {
+        "length": 67,
+        "name": "EGFR_kinase"
+      },
+      "EGFR_short": {
+        "length": 33,
+        "name": "EGFR_short"
+      },
+      "HER2_fragment": {
+        "length": 203,
+        "name": "HER2_fragment"
+      },
+      "KRAS_fragment": {
+        "length": 40,
+        "name": "KRAS_fragment"
+      },
+      "p53_fragment": {
+        "length": 100,
+        "name": "p53_fragment"
+      }
+    },
+    "similarity_matrix": {
+      "EGFR_kinase|EGFR_kinase": 1.0,
+      "EGFR_kinase|EGFR_short": 0.9446,
+      "EGFR_kinase|HER2_fragment": 0.6526,
+      "EGFR_kinase|KRAS_fragment": 0.8174,
+      "EGFR_kinase|p53_fragment": 0.6427,
+      "EGFR_short|EGFR_kinase": 0.9446,
+      "EGFR_short|EGFR_short": 1.0,
+      "EGFR_short|HER2_fragment": 0.6323,
+      "EGFR_short|KRAS_fragment": 0.8136,
+      "EGFR_short|p53_fragment": 0.6179,
+      "HER2_fragment|EGFR_kinase": 0.6526,
+      "HER2_fragment|EGFR_short": 0.6323,
+      "HER2_fragment|HER2_fragment": 1.0,
+      "HER2_fragment|KRAS_fragment": 0.7347,
+      "HER2_fragment|p53_fragment": 0.9167,
+      "KRAS_fragment|EGFR_kinase": 0.8174,
+      "KRAS_fragment|EGFR_short": 0.8136,
+      "KRAS_fragment|HER2_fragment": 0.7347,
+      "KRAS_fragment|KRAS_fragment": 1.0,
+      "KRAS_fragment|p53_fragment": 0.7409,
+      "p53_fragment|EGFR_kinase": 0.6427,
+      "p53_fragment|EGFR_short": 0.6179,
+      "p53_fragment|HER2_fragment": 0.9167,
+      "p53_fragment|KRAS_fragment": 0.7409,
+      "p53_fragment|p53_fragment": 1.0
+    },
+    "sequence_names": [
+      "EGFR_kinase",
+      "EGFR_short",
+      "HER2_fragment",
+      "KRAS_fragment",
+      "p53_fragment"
+    ]
+  },
+  "esmfold": {
+    "model": "ESMFold (NIM)",
+    "sequence": "KVLGSGAFGTVYKGLWIPEGEKVKIPVAIKELREATSPKANKEILDEAYVMASVDNPHVCRLLGICL",
+    "sequence_length": 67,
+    "pdb_length": 41634,
+    "atom_count": 509,
+    "mean_plddt": 81.99,
+    "high_confidence_pct": 91.0,
+    "pdb_preview": "PARENT N/A                                                                      \nMODEL     1                                                                     \nATOM      1  N   LYS A   1       3.754  15.667   2.773  1.00 83.84           N  \nATOM      2  CA  LYS A   1       4.664  15.739   1.634  1.00 86.27           C  \nATOM      3  C   LYS A   1       4.483  14.539   0.709  1.00 89.60           C  \nATOM      4  CB  LYS A   1       6.115  15.820   2.109  1.00 82.48           C  \nATOM      5  O"
+  },
+  "genmol": {
+    "model": "GenMol (NIM)",
+    "total_generated": 28,
+    "molecules": [
+      {
+        "rank": 1,
+        "smiles": "Cc1ccc(F)c(S(=O)(=O)N[C@H]2CCC[C@@H]2c2ccccc2)c1",
+        "qed": 0.926
+      },
+      {
+        "rank": 2,
+        "smiles": "Cc1cc(F)ccc1NC(=O)c1ccc2c(c1)OCO2",
+        "qed": 0.914
+      },
+      {
+        "rank": 3,
+        "smiles": "CN1CCN(C(=O)C(N)c2cccc(Br)c2)CC1",
+        "qed": 0.893
+      },
+      {
+        "rank": 4,
+        "smiles": "CC[NH+]1CCC[C@@H](C(=O)N2CC[C@@H](c3ccccc3)C2)C1",
+        "qed": 0.891
+      },
+      {
+        "rank": 5,
+        "smiles": "Cc1cc(C[NH+]2CCN(Cc3ccccc3)CC2)n(C)n1",
+        "qed": 0.891
+      },
+      {
+        "rank": 6,
+        "smiles": "NCCc1nc2ccc(I)cc2o1",
+        "qed": 0.859
+      },
+      {
+        "rank": 7,
+        "smiles": "Cc1nc(C(=O)N2CC[C@@]3(CCN(c4cccc(F)c4)C3)C2)co1",
+        "qed": 0.85
+      },
+      {
+        "rank": 8,
+        "smiles": "CC(C)CC1CCCN(C(=O)c2ccc(Br)cc2)C1",
+        "qed": 0.809
+      },
+      {
+        "rank": 9,
+        "smiles": "COC(=O)CN(c1ccc(F)cc1)c1nnc(C)s1",
+        "qed": 0.805
+      },
+      {
+        "rank": 10,
+        "smiles": "C[C@@H]1CCCC[C@@H]1NC(=O)C(=O)Nc1ccc(F)c(Br)c1",
+        "qed": 0.799
+      },
+      {
+        "rank": 11,
+        "smiles": "C[C@@H]1[C@@H](C)OCCN1C(=O)N[C@H]1[C@@H](C)CC12CC2",
+        "qed": 0.775
+      },
+      {
+        "rank": 12,
+        "smiles": "COC(=O)C(CCN)c1cccc(F)c1",
+        "qed": 0.766
+      },
+      {
+        "rank": 13,
+        "smiles": "CC(C)OC(=O)c1cc2ccccc2[nH]1",
+        "qed": 0.762
+      },
+      {
+        "rank": 14,
+        "smiles": "COc1ccc(SCc2cc(C)on2)cc1",
+        "qed": 0.762
+      },
+      {
+        "rank": 15,
+        "smiles": "Cc1cc(CCCN)ccc1F",
+        "qed": 0.732
+      },
+      {
+        "rank": 16,
+        "smiles": "CC1CCCC1CNC(=O)CCCCN1CCOCC1",
+        "qed": 0.727
+      },
+      {
+        "rank": 17,
+        "smiles": "Cc1cccc(NC(=O)c2cc3ccc(Cl)cc3[nH]2)c1",
+        "qed": 0.72
+      },
+      {
+        "rank": 18,
+        "smiles": "Nc1ccc(Nc2cccc(C(=O)O)c2)cc1",
+        "qed": 0.706
+      },
+      {
+        "rank": 19,
+        "smiles": "Nc1ccc(CNC(=O)Cc2c[nH]c3ccccc23)s1",
+        "qed": 0.689
+      },
+      {
+        "rank": 20,
+        "smiles": "CC(O)=NC1CCCN(C(C)c2ccccc2)CC1",
+        "qed": 0.666
+      },
+      {
+        "rank": 21,
+        "smiles": "Cc1ccc(CNc2ccc(-c3ccc(O)cc3)cc2)cc1Cl",
+        "qed": 0.652
+      },
+      {
+        "rank": 22,
+        "smiles": "Nc1ccc(OCCOc2ccc(Cl)cc2N)cc1",
+        "qed": 0.652
+      },
+      {
+        "rank": 23,
+        "smiles": "O=C(C[NH+]1CCNCC1)c1ccccc1",
+        "qed": 0.643
+      },
+      {
+        "rank": 24,
+        "smiles": "Oc1ccc(Br)cc1",
+        "qed": 0.637
+      },
+      {
+        "rank": 25,
+        "smiles": "Nc1ccccc1COC(=O)C(F)(F)F",
+        "qed": 0.61
+      },
+      {
+        "rank": 26,
+        "smiles": "CCc1ccc(Oc2ccc(-c3ccccc3)cc2)cc1",
+        "qed": 0.592
+      },
+      {
+        "rank": 27,
+        "smiles": "CC(=O)C1CN(Cc2cccc(C)c2)C1=O",
+        "qed": 0.569
+      },
+      {
+        "rank": 28,
+        "smiles": "CCCCCN=C(O)N1CCC[NH+](Cc2ccccc2Br)CC1",
+        "qed": 0.451
+      }
+    ],
+    "top5": [
+      {
+        "smiles": "Cc1ccc(F)c(S(=O)(=O)N[C@H]2CCC[C@@H]2c2ccccc2)c1",
+        "score": 0.926
+      },
+      {
+        "smiles": "Cc1cc(F)ccc1NC(=O)c1ccc2c(c1)OCO2",
+        "score": 0.914
+      },
+      {
+        "smiles": "CN1CCN(C(=O)C(N)c2cccc(Br)c2)CC1",
+        "score": 0.893
+      },
+      {
+        "smiles": "CC[NH+]1CCC[C@@H](C(=O)N2CC[C@@H](c3ccccc3)C2)C1",
+        "score": 0.891
+      },
+      {
+        "smiles": "Cc1cc(C[NH+]2CCN(Cc3ccccc3)CC2)n(C)n1",
+        "score": 0.891
+      }
+    ],
+    "mean_qed": 0.741
+  }
+}
