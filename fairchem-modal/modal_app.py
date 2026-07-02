@@ -53,7 +53,7 @@ model_cache = modal.Volume.from_name("hf-cache", create_if_missing=True)
 CACHE_DIR = "/root/.cache/huggingface"
 
 GPU = "A10G"          # cheap; bump to "A100" for large MOF supercells
-MODEL_TAG = "uma-s-1" # confirm the exact tag you have access to
+MODEL_TAG = "uma-s-1p2"  # latest UMA-small; other options: uma-m-1p1, esen-sm-full-odac25
 
 
 def _load_calc(task_name: str):
