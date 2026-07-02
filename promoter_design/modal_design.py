@@ -31,14 +31,18 @@ import modal
 
 app = modal.App("proto-promoter-design")
 
-image = (
+# Base image: proto-language + proto-tools framework (NO local files yet, so we
+# can still append build steps for the GPU variant below).
+base_image = (
     modal.Image.debian_slim(python_version="3.11")
     .apt_install("git", "build-essential")
     .pip_install("proto-language")
     .run_commands("pip install git+https://github.com/evo-design/proto-tools.git")
-    # Mount our design code so it is importable inside the container.
-    .add_local_dir(".", remote_path="/root/pd", ignore=["designs/*", "__pycache__/*"])
 )
+
+_MNT = dict(remote_path="/root/pd", ignore=["designs/*", "__pycache__/*"])
+# CPU image: base + local design code (add_local_dir must be LAST).
+image = base_image.add_local_dir(".", **_MNT)
 
 GPU = "A100"          # Evo2 needs a large-VRAM GPU; adjust to your model size.
 hf = modal.Secret.from_name("huggingface")
@@ -50,8 +54,8 @@ hf = modal.Secret.from_name("huggingface")
 proto_cache = modal.Volume.from_name("proto-cache", create_if_missing=True)
 
 gpu_image = (
-    image
-    .apt_install("git", "curl", "build-essential", "bzip2")
+    base_image
+    .apt_install("curl", "bzip2")
     # micromamba binary for the standalone-env builder.
     .run_commands(
         "curl -Ls https://micro.mamba.pm/api/micromamba/linux-64/latest "
@@ -64,6 +68,8 @@ gpu_image = (
         "MAMBA_ROOT_PREFIX": "/proto_home/mamba",
         "PROTO_MODEL_CACHE": "/proto_home/models",
     })
+    # local files LAST.
+    .add_local_dir(".", **_MNT)
 )
 CACHE = {"/proto_home": proto_cache}
 
