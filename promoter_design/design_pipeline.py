@@ -56,11 +56,23 @@ except Exception as exc:  # proto_tools missing / CPU-only box
     _IMPORT_ERR = exc
 
 
+# Deterministic neutral filler (balanced GC, 47-mer prime unit to avoid periodic
+# motif artifacts) used to pad the AlphaGenome context window around the cassette.
+_NEUTRAL_UNIT = "ACTGACAGTCGATCAGTACGATCGTACAGTCAGATCGTACGATCAGTA"  # 48 bp
+
+
+def neutral_flank(n: int) -> str:
+    if n <= 0:
+        return ""
+    reps = (n // len(_NEUTRAL_UNIT)) + 1
+    return (_NEUTRAL_UNIT * reps)[:n]
+
+
 # --------------------------------------------------------------- assembly -----
 def make_segments(stimulus: str, target_cell: str, *,
                   stim_copies: int = 3, lineage: str | None = None,
                   lineage_copies: int = 2, min_promoter: str = "E1b_TATA",
-                  spacer_len: int = 8):
+                  spacer_len: int = 8, context_length: int = 16384):
     """Ordered list of Segments: fixed RE modules + one DESIGNABLE spacer.
 
     Returns (segments, designable_segment). `lineage` -> add a cell-lineage RE
@@ -85,16 +97,25 @@ def make_segments(stimulus: str, target_cell: str, *,
     segs.append(Segment(sequence=minp, sequence_type="dna", label=f"minprom_{min_promoter}"))
     segs.append(Segment(sequence=tail, sequence_type="dna", label="tss_stub_3handle"))
 
-    # meta computed from the raw strings (no Segment-internals guessing).
-    # The AlphaGenome constraint scores an interval WITHIN the designable spacer,
-    # embedded in the fixed cassette via left/right context.
+    # AlphaGenome scores a fixed-size window (context_length, e.g. 16384 bp): the
+    # designable spacer must be embedded with left+right context summing to
+    # context_length - spacer_len. The functional cassette sits immediately beside
+    # the spacer; the rest is neutral filler.
+    upstream = f5 + stim_block                       # real cassette left of spacer
+    downstream = lin_block + minp + tail             # real cassette right of spacer
+    need = max(context_length - spacer_len, len(upstream) + len(downstream))
+    left_len = need // 2
+    right_len = need - left_len
+    left_ctx = neutral_flank(max(left_len - len(upstream), 0)) + upstream
+    right_ctx = downstream + neutral_flank(max(right_len - len(downstream), 0))
     meta = {
-        "prompt_ctx": f5 + stim_block,               # Evo2 prompt = fixed upstream
-        "left_ctx": f5 + stim_block,                 # upstream of spacer
-        "right_ctx": lin_block + minp + tail,        # downstream of spacer
+        "prompt_ctx": upstream,                      # Evo2 prompt = fixed upstream
+        "left_ctx": left_ctx[-left_len:] if left_len else upstream,
+        "right_ctx": right_ctx[:right_len] if right_len else downstream,
         "total_len": len(f5) + len(stim_block) + spacer_len + len(lin_block)
                      + len(minp) + len(tail),
         "spacer_len": spacer_len,
+        "context_length": context_length,
     }
     return segs, spacer, meta
 
