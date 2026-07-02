@@ -168,7 +168,7 @@ def _plot_matrix(outdir, name, mat):
 
 def _save_delta(outdir, resids, d_rmsf):
     import csv
-    with open(os.path.join(outdir, "delta_rmsf.csv"), "w", newline="") as fh:
+    with open(os.path.join(outdir, "delta_rmsf.csv"), "w", newline="", encoding="utf-8") as fh:
         w = csv.writer(fh)
         w.writerow(["resid", "delta_rmsf_ang"])
         for r, d in zip(resids, d_rmsf):

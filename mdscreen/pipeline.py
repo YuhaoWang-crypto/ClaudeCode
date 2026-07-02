@@ -168,7 +168,7 @@ def _dispatch(runner, fn_name: str, kwargs: dict) -> dict:
 def _write_screen_table(outdir: str, results: List[dict]) -> None:
     import csv
     path = os.path.join(outdir, "screen_ranking.csv")
-    with open(path, "w", newline="") as fh:
+    with open(path, "w", newline="", encoding="utf-8") as fh:
         w = csv.writer(fh)
         w.writerow(["rank", "name", "dg_bind_kcal", "pose_rmsd_nm",
                     "stable_pose", "verdict", "confidence", "allosteric_verdict"])

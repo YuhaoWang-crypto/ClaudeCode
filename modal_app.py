@@ -48,7 +48,7 @@ image = (
         channels=["conda-forge"],
     )
     # CUDA runtime so OpenMM's CUDA platform is available on the GPU worker.
-    .env({"OPENMM_CPU_THREADS": "4"})
+    .env({"OPENMM_CPU_THREADS": "4", "PYTHONUTF8": "1", "PYTHONIOENCODING": "utf-8"})
     .add_local_python_source("mdscreen")
 )
 

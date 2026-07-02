@@ -163,7 +163,7 @@ def _save_series(outdir, name, y, ylabel):
 def _save_xy(outdir, name, x, y, xlabel, ylabel):
     import csv
     csv_path = os.path.join(outdir, f"{name}.csv")
-    with open(csv_path, "w", newline="") as fh:
+    with open(csv_path, "w", newline="", encoding="utf-8") as fh:
         w = csv.writer(fh)
         w.writerow([xlabel, ylabel])
         for xi, yi in zip(x, y):
