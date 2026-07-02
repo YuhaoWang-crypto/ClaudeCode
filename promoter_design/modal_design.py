@@ -38,6 +38,21 @@ base_image = (
     .apt_install("git", "build-essential")
     .pip_install("proto-language")
     .run_commands("pip install git+https://github.com/evo-design/proto-tools.git")
+    # Evo2 occasionally emits a lowercase base; AlphaGenome's input validator
+    # rejects anything but uppercase A/C/G/T/N. Uppercase the composed sequences
+    # inside the AlphaGenome constraint so any generator output is tolerated.
+    .run_commands(
+        "python - <<'EOF'\n"
+        "import proto_language, os\n"
+        "p = os.path.join(os.path.dirname(proto_language.__file__),"
+        "'constraint/sequence_annotation/alphagenome_interval_track_constraint.py')\n"
+        "s = open(p).read()\n"
+        "assert 'AlphaGenomePredictSequencesInput(sequences=composed_sequences)' in s\n"
+        "s = s.replace('AlphaGenomePredictSequencesInput(sequences=composed_sequences)',"
+        "'AlphaGenomePredictSequencesInput(sequences=[__z.upper() for __z in composed_sequences])')\n"
+        "open(p, 'w').write(s)\n"
+        "print('PATCHED alphagenome constraint -> uppercase composed sequences')\n"
+        "EOF")
 )
 
 _MNT = dict(remote_path="/root/pd", ignore=["designs/*", "__pycache__/*"])
