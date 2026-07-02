@@ -256,6 +256,98 @@ def screen(config: str):
     _persist_report.remote(rid, {"receptor": sc.receptor, "ranked_results": results})
 
 
+@app.function(timeout=60 * 60, volumes={OUT_ROOT: volume})
+def rescore_pp(run_id: str, name: str, pdb_ref, cfg_dict: dict) -> dict:
+    """CPU-only: recompute chain-split MM/GBSA + pose stability from an EXISTING
+    trajectory in the volume (used to re-analyse after fixing PBC handling)."""
+    import tempfile
+    from mdscreen import binding_pp
+    work = tempfile.mkdtemp()
+    pdb = _stage_ref(pdb_ref, ".pdb", work)
+    base = os.path.join(OUT_ROOT, run_id, name)
+    top = os.path.join(base, "complex_topology.pdb")
+    dcd = os.path.join(base, "complex_production.dcd")
+    res = binding_pp.compute_mmgbsa_pp(pdb, top, dcd, _sim_cfg(cfg_dict), base)
+    volume.commit()
+    return {"name": name, **res.__dict__}
+
+
+@app.local_entrypoint()
+def rescorepp(run_id: str, pdbs: str, names: str = ""):
+    """Re-analyse existing trajectories (no MD). Fans out on CPU."""
+    from mdscreen.config import SimConfig
+    cfg = SimConfig().to_dict()
+    paths = [p.strip() for p in pdbs.split(",") if p.strip()]
+    nm = [n.strip() for n in names.split(",") if n.strip()] or \
+         [os.path.splitext(os.path.basename(p))[0] for p in paths]
+    print(f"[mdscreen] rescorepp run_id={run_id}  systems={len(paths)}")
+    args = [(run_id, n, _ref_from_arg(p), cfg) for p, n in zip(paths, nm)]
+    rows = list(rescore_pp.starmap(args))
+    rows.sort(key=lambda r: (r.get("dg_bind_kcal") if r.get("dg_bind_kcal") is not None else 1e9))
+    print("\n============ MM/GBSA + POSE STABILITY (re-imaged) ============")
+    print(f"{'rank':<5}{'system':<22}{'dG(kcal/mol)':<18}{'binderRMSD(nm)':<16}"
+          f"{'contactRet':<12}{'contacts(mean)'}")
+    for i, r in enumerate(rows, 1):
+        dg = "%.2f+/-%.2f" % (r["dg_bind_kcal"], r["dg_std_kcal"])
+        rmsd = "%.2f" % r["binder_rmsd_mean_nm"]
+        ret = "%.2f" % r["contact_retention"]
+        print(f"{i:<5}{r['name']:<22}{dg:<18}{rmsd:<16}{ret:<12}"
+              f"{r['interface_contacts_mean']:.0f}")
+    _persist_report.remote(run_id, {"kind": "rescorepp", "rows": rows})
+
+
+@app.function(gpu=GPU, timeout=TIMEOUT, volumes={OUT_ROOT: volume})
+def complex_pp_md(run_id: str, name: str, pdb_ref, cfg_dict: dict,
+                  compute_binding: bool = True) -> dict:
+    """Protein–peptide/protein–protein complex MD + pose stability + MM/GBSA."""
+    import tempfile
+    from mdscreen import pipeline
+    work = tempfile.mkdtemp()
+    pdb = _stage_ref(pdb_ref, ".pdb", work)
+    outdir = os.path.join(OUT_ROOT, run_id, name)
+    summary = pipeline.run_complex_pp_md(pdb, _sim_cfg(cfg_dict), outdir,
+                                         compute_binding=compute_binding)
+    volume.commit()
+    return summary
+
+
+@app.local_entrypoint()
+def complexpp(pdbs: str, ns: float = 5.0, names: str = ""):
+    """Protein–peptide MD + chain-split MM/GBSA for one or more docked complexes.
+
+    ``pdbs`` = comma-separated PDB paths (binder chain first, target second).
+    All complexes fan out to their own GPU in parallel.
+    """
+    from mdscreen.config import SimConfig
+    cfg = SimConfig(production_ns=ns).to_dict()
+    rid = _run_id()
+    paths = [p.strip() for p in pdbs.split(",") if p.strip()]
+    nm = [n.strip() for n in names.split(",") if n.strip()] or \
+         [os.path.splitext(os.path.basename(p))[0] for p in paths]
+    print(f"[mdscreen] complexpp run_id={rid}  systems={len(paths)}  ns={ns}  gpu={GPU}")
+    args = [(rid, n, _ref_from_arg(p), cfg, True) for p, n in zip(paths, nm)]
+    summaries = list(complex_pp_md.starmap(args))
+
+    rows = []
+    for n, s in zip(nm, summaries):
+        mm = s.get("mmgbsa_pp") or {}
+        rows.append((n, mm.get("dg_bind_kcal"), mm.get("binder_rmsd_mean_nm"),
+                     mm.get("contact_retention"), mm.get("interface_contacts_mean")))
+    rows.sort(key=lambda r: (r[1] if r[1] is not None else 1e9))
+    print("\n==================== MM/GBSA + POSE STABILITY ====================")
+    print(f"{'rank':<5}{'system':<22}{'dG(kcal/mol)':<14}{'binderRMSD(nm)':<16}"
+          f"{'contactRet':<12}{'contacts'}")
+    for i, (n, dg, rmsd, ret, cm) in enumerate(rows, 1):
+        print(f"{i:<5}{n:<22}{(f'{dg:.2f}' if dg is not None else 'n/a'):<14}"
+              f"{(f'{rmsd:.3f}' if rmsd is not None else 'n/a'):<16}"
+              f"{(f'{ret:.2f}' if ret is not None else 'n/a'):<12}"
+              f"{(f'{cm:.0f}' if cm is not None else 'n/a')}")
+    _persist_report.remote(rid, {"kind": "complexpp",
+                                 "systems": [{"name": n, "summary": s}
+                                             for n, s in zip(nm, summaries)]})
+    print(f"\nPull results:  modal volume get mdscreen-outputs {rid} ./results")
+
+
 @app.function(volumes={OUT_ROOT: volume})
 def _persist_report(run_id: str, report: dict):
     from mdscreen.utils import write_json

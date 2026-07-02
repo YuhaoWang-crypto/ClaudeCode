@@ -27,6 +27,29 @@ def run_protein_md(pdb: str, cfg: SimConfig, outdir: str) -> dict:
     return summary
 
 
+def run_complex_pp_md(pdb: str, cfg: SimConfig, outdir: str,
+                      compute_binding: bool = True) -> dict:
+    """Protein–peptide/protein–protein complex MD (both chains ff14SB) +
+    pose-stability analysis + chain-split MM/GBSA. Input ``pdb`` must contain
+    the binder chain first and the target chain second."""
+    from . import prepare, simulate, analyze, binding_pp
+    ensure_dir(outdir)
+    prepared = prepare.build_protein(pdb, cfg)          # both chains = protein
+    sim = simulate.run(prepared, cfg, outdir, tag="complex")
+    summary = analyze.analyze(sim.topology_pdb, sim.trajectory_dcd, outdir,
+                              ligand_resname=None, tag="complex")
+    if compute_binding:
+        try:
+            b = binding_pp.compute_mmgbsa_pp(pdb, sim.topology_pdb,
+                                             sim.trajectory_dcd, cfg, outdir)
+            summary["mmgbsa_pp"] = b.__dict__
+        except Exception as exc:  # pragma: no cover
+            log.warning("MM/GBSA(pp) failed: %s", exc)
+            summary["mmgbsa_pp"] = {"error": str(exc)}
+    summary["artifacts"] = sim.__dict__
+    return summary
+
+
 def run_ligand_md(ligand: str, cfg: SimConfig, outdir: str,
                   name: str = "LIG", solvate: bool = True) -> dict:
     from . import prepare, simulate, analyze
