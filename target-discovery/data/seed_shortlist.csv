@@ -1,0 +1,7 @@
+gene_symbol,uniprot,target_class,cell_state,druggability_chembl,ipf_evidence,suggested_modality,tier
+PTGES,O14684,secreted-pathway enzyme (mPGES-1),pathologic_fibroblast,"strong: 17 co-crystal PDBs, mature inhibitor chemistry (MAPEG)",prostaglandin metabolism / anti-fibrotic,small molecule,1
+MDK,P21741,secreted growth factor (midkine),aberrant_basaloid,"medium: secreted, PDB 1MKC/1MKN, Pharos-listed",aberrant basaloid secretion / pro-EMT,biologic,1
+SFRP2,Q96HF1,secreted Wnt modulator,pathologic_fibroblast,"none: zero ChEMBL ligands (novel, unproven)",pathologic fibroblast marker (Tsukui 2020),biologic,2
+CDKN2A,P42771,senescence switch (p16INK4a),aberrant_basaloid,"medium: PDB present, target is senescent cell",SASP / cellular senescence core,senolytic,2
+PRRX1,P54821,fibroblast-fate TF (homeobox),pathologic_fibroblast,"weak: TF, essentially no ligands",upstream fibroblast fate switch,degrader/ASO,3
+TWIST1,Q15672,fibroblast-fate TF (bHLH),pathologic_fibroblast,"weak: not in ChEMBL as ligandable",upstream fibroblast fate switch,degrader/ASO,3

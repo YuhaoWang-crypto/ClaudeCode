@@ -1,0 +1,17 @@
+gene_symbol,target_or_mechanism,example_drug,sponsor,max_phase,crowding
+PDE4B,PDE4B inhibitor,nerandomilast (BI 1015550),Boehringer Ingelheim,3,high
+LPAR1,LPA1 receptor antagonist,admilparant (BMS-986278),Bristol-Myers Squibb,3,high
+LPAR1,LPA1 receptor antagonist,PIPE-791,Contineum Therapeutics,2,high
+ITGB6,integrin alpha-v/beta-6 (TGF-beta activation),BI 765423,Boehringer Ingelheim,2,medium
+AGTR2,AT2 receptor agonist,buloxibutid,Vicore Pharma,2,medium
+ROCK2,ROCK2 inhibitor,zelasudil (RXC007),Redx Pharma,2,medium
+CSF1R,CSF1R antibody,axatilimab,Syndax Pharmaceuticals,2,medium
+TGM2,transglutaminase 2 inhibitor,zampilimab (CHF10067),Chiesi,2,medium
+WISP1,anti-WISP1/CCN4,MTX-463,Mediar Therapeutics,2,low
+SRC,Src-family kinase inhibitor,saracatinib,National Jewish Health,2,medium
+ARG1,arginase inhibitor,AZD8965,AstraZeneca,2,low
+KCNN4,KCa3.1 channel blocker,senicapoc,Vejle Hospital,2,low
+TBXA2R,thromboxane receptor antagonist,ifetroban,Cumberland,2,low
+# Reformulations / repurposing of existing antifibrotics (down-weight, not novel):
+FLT1,nintedanib (RTK inhibitor) reformulation,inhaled/oral nintedanib,multiple,3,high
+NA,pirfenidone analog,deupirfenidone (LYT-100),PureTech,3,high

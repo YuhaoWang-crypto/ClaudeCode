@@ -1,0 +1,61 @@
+# IPF target-discovery pipeline configuration
+
+disease:
+  name: "Idiopathic Pulmonary Fibrosis"
+  short: "IPF"
+
+# ---- Step 1: data ----------------------------------------------------------
+data:
+  # CELLxGENE Census is the least-friction source for harmonized IPF lung atlases.
+  # Alternatively set geo_accessions to pull raw matrices (Habermann/Adams).
+  source: "cellxgene_census"          # or "geo"
+  census_version: "2024-07-01"
+  organism: "Homo sapiens"
+  tissue: "lung"
+  # Disease labels as they appear in the atlas obs; healthy = control reference.
+  disease_label: "idiopathic pulmonary fibrosis"
+  healthy_label: "normal"
+  geo_accessions: ["GSE135893", "GSE136831"]   # Habermann 2020, Adams 2020
+  raw_dir: "data/raw"
+  processed_h5ad: "data/processed/ipf_lung.h5ad"
+
+# ---- target cell populations (the "whitespace" from single-cell biology) ----
+# These are the pathological states we want perturbation to push back to health.
+target_cell_states:
+  - name: "aberrant_basaloid"
+    markers: ["KRT17", "KRT5", "CDKN1A", "CDKN2A", "SOX4", "ITGB6", "TP63"]
+  - name: "pathologic_fibroblast"
+    markers: ["CTHRC1", "SFRP2", "POSTN", "COL1A1", "COL3A1", "TWIST1", "PRRX1"]
+healthy_reference_state: "alveolar"   # e.g. AT2 / normal fibroblast target state
+
+# ---- Step 2: tokenization --------------------------------------------------
+tokenize:
+  model_input_size: 2048
+  token_dictionary: null       # use Geneformer default gene->token mapping
+  out_dataset: "data/processed/ipf.dataset"
+
+# ---- Step 3: in-silico perturbation ---------------------------------------
+perturbation:
+  model_dir: "checkpoints/geneformer"   # from bionemo-recipes/recipes/geneformer
+  model_type: "CellClassifier"          # or "Pretrained" for embedding-shift mode
+  perturb_type: "delete"                # virtual knockout
+  # Rank genes by how strongly their deletion shifts cells from pathological
+  # state embedding toward the healthy reference embedding (cosine goal-shift).
+  emb_mode: "cell"
+  num_workers: 4
+  batch_size: 32
+  max_cells_per_state: 5000
+  out_dir: "results/perturbation"
+
+# ---- Step 4: ranking + novelty gate ---------------------------------------
+ranking:
+  top_n: 50
+  # Targets already crowded in the clinic get down-weighted (see data/crowded_targets.csv)
+  novelty_penalty: 0.5
+  crowded_targets_csv: "data/crowded_targets.csv"
+  out_csv: "results/ranked_targets.csv"
+
+# ---- Step 5: evidence triage (MCP-backed) ---------------------------------
+triage:
+  top_n: 15
+  out_dossier: "results/target_dossier.md"

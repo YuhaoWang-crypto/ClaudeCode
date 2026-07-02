@@ -1,0 +1,10 @@
+# Generated pipeline artifacts
+results/
+# Downloaded / processed single-cell data (large)
+data/raw/
+data/processed/
+# Model checkpoints
+checkpoints/
+# Python
+__pycache__/
+*.pyc

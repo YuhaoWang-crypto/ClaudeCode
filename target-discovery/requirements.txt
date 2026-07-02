@@ -1,0 +1,23 @@
+# Core single-cell + Geneformer stack
+scanpy>=1.10
+anndata>=0.10
+numpy>=1.26
+pandas>=2.2
+scipy>=1.13
+pyyaml>=6.0
+
+# Geneformer (in-silico perturbation) — install from source per bionemo-recipes
+# pip install git+https://huggingface.co/ctheodoris/Geneformer.git
+# geneformer
+
+# Transformers / torch — align versions with your bionemo-recipes environment
+torch>=2.3
+transformers>=4.44
+datasets>=2.20
+
+# ESM-2 protein readout (optional, Step 2 protein layer)
+# fair-esm  or  transformers ESM classes
+
+# Data access
+cellxgene-census>=1.15   # pull IPF lung atlases without manual GEO wrangling
+requests>=2.32
