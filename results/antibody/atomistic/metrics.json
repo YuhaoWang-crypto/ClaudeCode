@@ -1,0 +1,38 @@
+{
+ "ab2WT": {
+  "protein_iptm_best": 0.866,
+  "protein_iptm_mean": 0.854,
+  "struct_conf": 0.903,
+  "ptm": 0.925,
+  "complex_ipde": 1.19,
+  "pp_binding_confidence": 0.394,
+  "pred_id": "sab_pred_SfWKJ9B51nXqH9YoE8ML"
+ },
+ "ab2mat1_A8Y": {
+  "protein_iptm_best": 0.885,
+  "protein_iptm_mean": 0.883,
+  "struct_conf": 0.916,
+  "ptm": 0.927,
+  "complex_ipde": 0.886,
+  "pp_binding_confidence": 0.533,
+  "pred_id": "sab_pred_0CIPL1g678hyEdsAi99y"
+ },
+ "ab2mat2_A9Y": {
+  "protein_iptm_best": 0.895,
+  "protein_iptm_mean": 0.892,
+  "struct_conf": 0.928,
+  "ptm": 0.933,
+  "complex_ipde": 0.843,
+  "pp_binding_confidence": 0.507,
+  "pred_id": "sab_pred_pXwYSPxcsQOky5yJ47fM"
+ },
+ "ab2mat3_triple": {
+  "protein_iptm_best": 0.8,
+  "protein_iptm_mean": 0.777,
+  "struct_conf": 0.877,
+  "ptm": 0.916,
+  "complex_ipde": 1.976,
+  "pp_binding_confidence": 0.345,
+  "pred_id": "sab_pred_ovDq8AvG506v7qBFWTkB"
+ }
+}
