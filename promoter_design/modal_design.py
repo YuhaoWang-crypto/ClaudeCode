@@ -13,8 +13,19 @@ Notes
 - The image is the SAME one built/verified by modal_setup.py (proto-language +
   git proto-tools). Building it here reuses Modal's cached layers.
 - `design` needs a GPU + the 'huggingface' secret (gated Evo2 / AlphaGenome).
-  AlphaGenome also requires you to have accepted its license on your HF account.
 - `assemble` is CPU-only and free-ish; use it to sanity-check the mount.
+
+RUNTIME REALITY (verified via the inspect_* functions below)
+------------------------------------------------------------
+The base proto-tools install is a thin orchestration layer: it has the tool
+WRAPPERS but NOT the heavy model runtimes. Confirmed missing from this image:
+torch, evo2, flash_attn, transformer_engine, alphagenome. To actually run:
+  * Evo2   -> build on a CUDA image with torch + evo2 (+ flash-attn /
+              transformer_engine) and accept the arcinstitute Evo2 HF license.
+              model_checkpoint default 'evo2_7b'; smallest is 'evo2_1b_base'.
+  * AlphaGenome -> `pip install alphagenome` AND set ALPHAGENOME_CHECKPOINT_PATH
+              to the gated DeepMind checkpoint (you must download it; not public).
+The inspect_* functions (CPU, free) re-check all of this on demand.
 """
 import modal
 
@@ -65,6 +76,108 @@ def design(stimulus: str = "interferon_typeII", target: str = "THP1",
     seqs = [getattr(s, "sequence", "") for s in getattr(opt, "segments", [])]
     return {"stimulus": stimulus, "target": target, "lineage": lineage,
             "designed_spacers_or_segments": seqs}
+
+
+@app.function(image=image, timeout=600)
+def inspect_evo2():
+    """CPU: dump Evo2GeneratorConfig fields + defaults and the evo2 tool's default
+    model, so we size the GPU / pick the model before spending GPU budget."""
+    import json
+    from proto_language import Evo2GeneratorConfig
+    fields = {}
+    for name, fi in Evo2GeneratorConfig.model_fields.items():
+        default = fi.default
+        try:
+            json.dumps(default)
+        except Exception:
+            default = repr(default)
+        fields[name] = {"default": default, "annotation": str(fi.annotation)}
+    out = {"config_fields": fields}
+    # Any module-level default model constant in the proto_tools evo2 tool?
+    try:
+        import proto_tools.tools.causal_models.evo2 as e2
+        consts = {k: getattr(e2, k) for k in dir(e2)
+                  if k.isupper() and isinstance(getattr(e2, k), (str, int, float, list, dict))}
+        out["evo2_module_constants"] = consts
+    except Exception as ex:
+        out["evo2_introspect_error"] = f"{type(ex).__name__}: {ex}"
+    print("EVO2_INSPECT " + json.dumps(out, indent=2, default=str))
+    return out
+
+
+@app.function(image=image, timeout=600)
+def inspect_alphagenome():
+    """CPU: find out how proto_tools' AlphaGenome tool obtains the model — does it
+    need an API key / license env var? Grep its source + dump any config."""
+    import os, re, json, glob
+    import proto_tools.tools.sequence_scoring.alphagenome as ag
+    root = os.path.dirname(ag.__file__)
+    keys, env_refs = set(), set()
+    for f in glob.glob(root + "/**/*.py", recursive=True):
+        try:
+            src = open(f).read()
+        except Exception:
+            continue
+        for m in re.findall(r"[A-Z][A-Z0-9_]*(?:API|KEY|TOKEN|LICENSE)[A-Z0-9_]*", src):
+            keys.add(m)
+        for m in re.findall(r"os\.environ(?:\.get)?\(\s*[\"']([^\"']+)[\"']", src):
+            env_refs.add(m)
+        for m in re.findall(r"getenv\(\s*[\"']([^\"']+)[\"']", src):
+            env_refs.add(m)
+    out = {"module_dir": root, "keyish_tokens": sorted(keys),
+           "env_vars_referenced": sorted(env_refs),
+           "files": [os.path.basename(x) for x in glob.glob(root + "/*.py")]}
+    print("AG_INSPECT " + json.dumps(out, indent=2))
+    return out
+
+
+@app.function(image=image, timeout=600)
+def inspect_runtime():
+    """CPU: which heavy inference deps are actually present in the image?"""
+    import importlib, json
+    mods = ["torch", "evo2", "vortex", "flash_attn", "transformer_engine",
+            "alphagenome", "enformer_pytorch", "borzoi_pytorch", "esm"]
+    out = {}
+    for m in mods:
+        try:
+            mod = importlib.import_module(m)
+            out[m] = getattr(mod, "__version__", "present")
+        except Exception as e:
+            out[m] = f"MISSING ({type(e).__name__})"
+    print("RUNTIME_INSPECT " + json.dumps(out, indent=2))
+    return out
+
+
+@app.function(image=image, timeout=600)
+def inspect_extras():
+    """CPU: proto-tools optional-dependency extras + how the evo2 tool imports its
+    runtime (native `evo2` pkg vs HF transformers). Decides the GPU image recipe."""
+    import importlib.metadata as md, json, inspect, os, re
+    out = {}
+    try:
+        meta = md.metadata("proto-tools")
+        out["provides_extra"] = meta.get_all("Provides-Extra") or []
+        reqs = md.requires("proto-tools") or []
+        out["conditional_requires"] = [r for r in reqs if "extra ==" in r]
+    except Exception as e:
+        out["meta_error"] = str(e)
+    # How does the evo2 tool load the model?
+    try:
+        import proto_tools.tools.causal_models.evo2 as e2
+        d = os.path.dirname(e2.__file__)
+        imports = set()
+        for f in [x for x in os.listdir(d) if x.endswith(".py")]:
+            src = open(os.path.join(d, f)).read()
+            for m in re.findall(r"^\s*(?:import|from)\s+([a-zA-Z0-9_\.]+)", src, re.M):
+                top = m.split(".")[0]
+                if top in {"evo2","vortex","transformers","torch","flash_attn",
+                           "transformer_engine","huggingface_hub"}:
+                    imports.add(top)
+        out["evo2_runtime_imports"] = sorted(imports)
+    except Exception as e:
+        out["evo2_introspect_error"] = str(e)
+    print("EXTRAS_INSPECT " + json.dumps(out, indent=2))
+    return out
 
 
 @app.function(image=image, gpu=GPU, secrets=[hf], timeout=1800)
