@@ -244,14 +244,32 @@ def full_design(stimulus: str = "interferon_typeII", target: str = "THP1",
                 cassettes += [getattr(js, "sequence", str(js)) for js in c.joined_sequences]
             except Exception as ce:
                 cassettes.append(f"<joined_sequences error: {ce}>")
-        # Just the optimized spacer(s).
-        spacers = []
+        # Optimized spacer(s) + any AlphaGenome score metadata on the sequences.
+        spacers, scoremeta = [], []
+        for c in getattr(opt, "constructs", []):
+            try:
+                for js in c.joined_sequences:
+                    md = {}
+                    for a in ("metadata", "_constraints_metadata", "_generator_metadata"):
+                        m = getattr(js, a, None)
+                        if isinstance(m, dict) and m:
+                            md[a] = {k: (v if isinstance(v, (int, float, str, list)) else str(v))
+                                     for k, v in m.items()}
+                    if md:
+                        scoremeta.append(md)
+            except Exception:
+                pass
         for s in getattr(opt, "segments", []):
             v = getattr(s, "initial_sequence", None) or getattr(s, "sequence", None)
             if isinstance(v, str):
                 spacers.append(v)
+        # Scalar attributes on the optimizer (energies / best score).
+        opt_scalars = {a: getattr(opt, a) for a in dir(opt)
+                       if not a.startswith("_") and isinstance(getattr(opt, a, None), (int, float))}
         result["designed_cassettes"] = cassettes
         result["designed_spacers"] = spacers
+        result["score_metadata"] = scoremeta[:4]
+        result["optimizer_scalars"] = opt_scalars
         result["status"] = "ok"
     except Exception as e:
         result["status"] = "error"
