@@ -135,6 +135,61 @@ ELEMENTS = {
     },
 }
 
+# --- Cell-lineage-restricted modules (for stimulus-AND-cell-type gating) ------
+# These are bound by lineage-defining TFs that are expressed only in certain
+# cell types. Combined with a stimulus module upstream of a minimal promoter,
+# they give analog AND behaviour: strong output needs BOTH the signal (stimulus
+# RE occupied) AND the right cell (lineage RE occupied). Cores are well
+# established; validate lineage selectivity with AlphaGenome contrastive scoring.
+
+LINEAGE_ELEMENTS = {
+    "myeloid": {          # monocyte / macrophage (THP-1)
+        "tf": "SPI1 / PU.1 (ETS)",
+        "core": "GAGGAA",
+        "seed": "aaAGAGGAAGTGaa",
+        "spacer": "gccta",
+        "ontology": "CL:0000576",   # monocyte
+    },
+    "hepatocyte": {       # liver (HepG2)
+        "tf": "HNF4A (DR1)",
+        "core": "AGGTCAAAGGTCA",
+        "seed": "cAGGTCAAAGGTCAg",
+        "spacer": "gttaa",
+        "ontology": "CL:0000182",   # hepatocyte
+    },
+    "hepatocyte_hnf1": {  # liver, orthogonal HNF1 site
+        "tf": "HNF1A",
+        "core": "GTTAATNATTAAC",
+        "seed": "gGTTAATGATTAACg",
+        "spacer": "gatca",
+        "ontology": "CL:0000182",
+    },
+    "hematopoietic": {    # erythroid / blood (K562, Jurkat)
+        "tf": "GATA1/2 (WGATAR)",
+        "core": "AGATAA",
+        "seed": "agAGATAAGCag",
+        "spacer": "gcaat",
+        "ontology": "CL:0000094",   # granulocyte-ish blood lineage placeholder
+    },
+    "neuronal": {         # neuron (SH-SY5Y)
+        "tf": "NeuroD / E-box",
+        "core": "CAGCTG",
+        "seed": "gcCAGCTGgc",
+        "spacer": "gttca",
+        "ontology": "CL:0000540",   # neuron
+    },
+}
+
+# --- Composite sensors: multi-element single-cassette designs -----------------
+# pan_interferon: ISRE + GAS in one enhancer -> fires on type I OR type II IFN.
+COMPOSITE = {
+    "pan_interferon": {
+        "description": "Pan-interferon sensor: type I (ISRE) + type II (GAS)",
+        "modules": ["interferon_typeI", "interferon_typeII"],  # keys in ELEMENTS
+        "layout": "interleave",   # ISRE-GAS-ISRE-GAS...
+    },
+}
+
 # --- Minimal (core) promoters -------------------------------------------------
 # The enhancer module sets WHAT signal turns the promoter on; the minimal
 # promoter sets baseline strength and contributes cell-type tuning. Swap these
@@ -161,20 +216,30 @@ MINIMAL_PROMOTERS = {
 # track families to score against. Use to (a) pick a stimulus that CAN fire in
 # the cell and (b) filter for ON-in-target / OFF-elsewhere designs.
 
+# `ontology` = AlphaGenome ontology term for that cell/tissue, used as the
+# target (ontology_terms) or off-target (contrastive_ontology_terms) in scoring.
+# Tissue-level UBERON/CL terms are given (more robustly supported); confirm the
+# exact term against your AlphaGenome build's output_metadata before running
+# (cell-line-specific EFO terms like EFO:xxxx for HepG2/THP-1 are often available
+# and give sharper contrast).
 CELL_CONTEXTS = {
-    "HEK293":  {"tissue": "embryonic kidney", "good_for": ["camp", "er_stress_xbp1",
-                "er_stress_atf6", "er_stress_atf4", "hypoxia"],
+    "HEK293":  {"tissue": "embryonic kidney", "ontology": "UBERON:0002113",  # kidney
+                "good_for": ["camp", "er_stress_xbp1", "er_stress_atf6",
+                "er_stress_atf4", "hypoxia"],
                 "weak_for": ["estrogen", "interferon_typeII"]},
-    "HepG2":   {"tissue": "hepatocyte", "good_for": ["glucocorticoid",
-                "oxidative_stress", "hypoxia", "er_stress_atf6"],
+    "HepG2":   {"tissue": "hepatocyte", "ontology": "UBERON:0002107",  # liver
+                "good_for": ["glucocorticoid", "oxidative_stress", "hypoxia",
+                "er_stress_atf6"], "weak_for": ["estrogen"]},
+    "THP1":    {"tissue": "monocyte/macrophage", "ontology": "CL:0000576",  # monocyte
+                "good_for": ["inflammation", "interferon_typeI",
+                "interferon_typeII"], "weak_for": ["estrogen", "glucocorticoid"]},
+    "MCF7":    {"tissue": "ER+ breast", "ontology": "UBERON:0000310",  # breast
+                "good_for": ["estrogen", "glucocorticoid", "hypoxia"],
+                "weak_for": ["interferon_typeII"]},
+    "Jurkat":  {"tissue": "T lymphocyte", "ontology": "CL:0000084",  # T cell
+                "good_for": ["inflammation", "interferon_typeI"],
                 "weak_for": ["estrogen"]},
-    "THP1":    {"tissue": "monocyte/macrophage", "good_for": ["inflammation",
-                "interferon_typeI", "interferon_typeII"],
-                "weak_for": ["estrogen", "glucocorticoid"]},
-    "MCF7":    {"tissue": "ER+ breast", "good_for": ["estrogen", "glucocorticoid",
-                "hypoxia"], "weak_for": ["interferon_typeII"]},
-    "Jurkat":  {"tissue": "T lymphocyte", "good_for": ["inflammation",
-                "interferon_typeI"], "weak_for": ["estrogen"]},
-    "SHSY5Y":  {"tissue": "neuronal", "good_for": ["camp", "oxidative_stress"],
+    "SHSY5Y":  {"tissue": "neuronal", "ontology": "CL:0000540",  # neuron
+                "good_for": ["camp", "oxidative_stress"],
                 "weak_for": ["estrogen", "inflammation"]},
 }

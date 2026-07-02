@@ -6,18 +6,33 @@ defined cell type.
 
 ## Tooling reality (read first)
 
-This repo was built in a session with **no access to Modal, Evo2, or
-AlphaGenome** (no GPU, no credentials, no such endpoints). So the split is:
+Install status from this session:
 
-| Step | Where it runs | Needs GPU/model? |
-|------|---------------|------------------|
-| Response-element modules + cassette assembly (`build_constructs.py`) | anywhere | no |
-| Evo2 naturalness + AlphaGenome expression scoring (`design_pipeline.py`) | **your Modal env** | yes |
+- ✅ **`proto-language` (v0.1.0) installed from PyPI** (`pip install proto-language`).
+  The pipeline is written against its **real, verified API** — `Segment` /
+  `Construct` / `Constraint`, `Evo2Generator`, `MCMCOptimizer`, `Program`, and
+  `alphagenome_interval_track_constraint` (signatures read from the installed
+  source, incl. its doctests).
+- ❌ **`proto-tools` (the GPU/model execution layer) NOT installable here.** It is
+  GitHub-only (`evo-design/proto-tools`, not on PyPI), and this sandbox's proxy
+  only allows your own repo, so the clone 403s. It also needs a GPU + HF-gated
+  weights. It provides the Evo2 / AlphaGenome / Enformer / Borzoi wrappers.
+- ❌ **Modal / Evo2 / AlphaGenome endpoints** — no tool, credential, or endpoint
+  is exposed to this session. Check your own apps with `modal app list`.
 
-Verify your Modal apps yourself with `modal app list`. The pipeline's two
-`score_*` functions are documented **adapters** — wire them to your Evo2 /
-AlphaGenome endpoints (names vary by proto-tools version; check
-`help(proto_tools)`).
+So the split is:
+
+| Step | Where it runs | Needs proto-tools + GPU? |
+|------|---------------|--------------------------|
+| RE modules + cassette assembly (`build_constructs.py`, `dual_and_designs.py`) | anywhere (done here) | no |
+| Evo2 fill + AlphaGenome cell-type scoring (`design_pipeline.py`) | **your Modal env** | yes |
+
+`design_pipeline.py` imports the execution layer lazily: without `proto-tools`
+it prints the concrete **design plan** (generator + exact AlphaGenome
+`ontology_terms` / `contrastive_ontology_terms`); with it, it runs the optimiser.
+On your Modal box:
+`pip install "git+https://github.com/evo-design/proto-tools.git"` then
+`export HF_TOKEN=...`.
 
 ## The design logic
 
@@ -51,22 +66,48 @@ The sequences in `elements.py` are literature-grounded **seeds**, not final
 answers — the pipeline optimises copy number, spacers, flanks and minimal
 promoter, then ranks by Evo2 likelihood + AlphaGenome inducibility/specificity.
 
+## Composite designs (the two you asked for)
+
+**1. ISRE + GAS pan-interferon sensor** (`dual_and_designs.py` -> `COMPOSITE`):
+one enhancer interleaving ISRE and GAS, so it fires on **type I IFN (ISGF3->ISRE)
+OR type II IFN (STAT1->GAS)**. Built at 2x/3x/4x on the low-baseline E1b core.
+
+**2. Stimulus-AND-cell-type gates** (analog AND from enhancer synergy):
+`[stimulus RE]xN + [lineage RE]xM + minimal promoter`. Strong output needs BOTH
+the signal AND the lineage TF. Worked examples shipped:
+IFN×myeloid (SPI1), hypoxia×hepatocyte (HNF4A), oxidative×hepatocyte (HNF1),
+cAMP×neuronal (E-box). Cell selectivity is then *verified* by AlphaGenome
+contrastive scoring — `ontology_terms`=target vs `contrastive_ontology_terms`=
+off-targets. For a **digital** AND, use a two-component relay (stimulus-driven
+split transactivator whose halves are each cell-restricted) rather than one
+composite enhancer.
+
 ## Files
 
-- `elements.py` — modules, minimal promoters, per-cell-line context map.
-- `build_constructs.py` — assemble FASTA cassettes (no GPU). Run:
-  `python build_constructs.py --copies 4 --min_promoter E1b_TATA`
-- `design_pipeline.py` — Evo2 + AlphaGenome scoring/optimisation loop (Modal).
-- `designs/*.fasta` — pre-built cassettes, clone-ready (with NheI/AgeI/KpnI/EcoRI handles).
+- `elements.py` — stimulus modules, **lineage modules**, **composite specs**,
+  minimal promoters, per-cell-line context + AlphaGenome ontology map.
+- `build_constructs.py` — assemble the 11 single-stimulus cassettes (no GPU).
+- `dual_and_designs.py` — build pan-IFN sensor + AND-gate cassettes (no GPU).
+- `design_pipeline.py` — real proto-language optimiser: Evo2 generator over a
+  designable spacer + AlphaGenome contrastive cell-type scoring (Modal).
+- `designs/*.fasta` — clone-ready cassettes (NheI/AgeI/KpnI/EcoRI handles).
 
 ## Run order on Modal
 
 ```bash
-pip install git+https://github.com/evo-design/proto-language.git
+pip install proto-language
+pip install "git+https://github.com/evo-design/proto-tools.git"
 export HF_TOKEN=...            # gated Evo2 / AlphaGenome
-# implement score_evo2 / score_alphagenome against your endpoints, then:
-python design_pipeline.py     # optimises one promoter per (stimulus, cell)
+# stimulus-responsive, cell-type-selective design:
+python design_pipeline.py --stimulus interferon_typeII --target THP1
+# stimulus-AND-cell-type gate:
+python design_pipeline.py --stimulus hypoxia --target HepG2 --lineage hepatocyte
 ```
+
+> Confirm the AlphaGenome ontology terms in `elements.CELL_CONTEXTS` /
+> `LINEAGE_ELEMENTS` against your AlphaGenome build's `output_metadata` before
+> running — tissue-level UBERON/CL terms are given; cell-line EFO terms sharpen
+> the contrast.
 
 ## Caveats
 
