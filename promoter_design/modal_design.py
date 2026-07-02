@@ -38,21 +38,21 @@ base_image = (
     .apt_install("git", "build-essential")
     .pip_install("proto-language")
     .run_commands("pip install git+https://github.com/evo-design/proto-tools.git")
-    # Evo2 occasionally emits a lowercase base; AlphaGenome's input validator
-    # rejects anything but uppercase A/C/G/T/N. Uppercase the composed sequences
-    # inside the AlphaGenome constraint so any generator output is tolerated.
+    # Evo2 occasionally emits a non-ACGTN character; AlphaGenome's input validator
+    # rejects anything but A/C/G/T/N. Sanitize (uppercase + map others to N) the
+    # composed sequences inside the AlphaGenome constraint. Shipped base64 to avoid
+    # shell/heredoc quote-escaping issues (verified to compile against the real file).
     .run_commands(
-        "python - <<'EOF'\n"
-        "import proto_language, os\n"
-        "p = os.path.join(os.path.dirname(proto_language.__file__),"
-        "'constraint/sequence_annotation/alphagenome_interval_track_constraint.py')\n"
-        "s = open(p).read()\n"
-        "assert 'AlphaGenomePredictSequencesInput(sequences=composed_sequences)' in s\n"
-        "s = s.replace('AlphaGenomePredictSequencesInput(sequences=composed_sequences)',"
-        "'AlphaGenomePredictSequencesInput(sequences=[__z.upper() for __z in composed_sequences])')\n"
-        "open(p, 'w').write(s)\n"
-        "print('PATCHED alphagenome constraint -> uppercase composed sequences')\n"
-        "EOF")
+        "echo aW1wb3J0IHByb3RvX2xhbmd1YWdlLCBvcwpwID0gb3MucGF0aC5qb2luKG9zLnBhdGgu"
+        "ZGlybmFtZShwcm90b19sYW5ndWFnZS5fX2ZpbGVfXyksJ2NvbnN0cmFpbnQvc2VxdWVuY2Vf"
+        "YW5ub3RhdGlvbi9hbHBoYWdlbm9tZV9pbnRlcnZhbF90cmFja19jb25zdHJhaW50LnB5JykK"
+        "cyA9IG9wZW4ocCkucmVhZCgpCnQgPSAiQWxwaGFHZW5vbWVQcmVkaWN0U2VxdWVuY2VzSW5w"
+        "dXQoc2VxdWVuY2VzPWNvbXBvc2VkX3NlcXVlbmNlcykiCmFzc2VydCB0IGluIHMsICd0YXJn"
+        "ZXQgbm90IGZvdW5kJwpyID0gIkFscGhhR2Vub21lUHJlZGljdFNlcXVlbmNlc0lucHV0KHNl"
+        "cXVlbmNlcz1bJycuam9pbigoYyBpZiBjIGluICdBQ0dUTicgZWxzZSAnTicpIGZvciBjIGlu"
+        "IHoudXBwZXIoKSkgZm9yIHogaW4gY29tcG9zZWRfc2VxdWVuY2VzXSkiCm9wZW4ocCwndycp"
+        "LndyaXRlKHMucmVwbGFjZSh0LHIpKQpwcmludCgnUEFUQ0hFRCBhbHBoYWdlbm9tZSBjb25z"
+        "dHJhaW50IC0+IHNhbml0aXplIHRvIEFDR1ROJykK | base64 -d | python -")
 )
 
 _MNT = dict(remote_path="/root/pd", ignore=["designs/*", "__pycache__/*"])
