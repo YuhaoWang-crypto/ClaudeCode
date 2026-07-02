@@ -74,6 +74,27 @@ gpu_image = (
 CACHE = {"/proto_home": proto_cache}
 
 
+@app.function(image=image, timeout=900)
+def validate_design(stimulus: str = "interferon_typeII", target: str = "THP1",
+                    lineage: str | None = None):
+    """CPU: build the full design graph (Segment/Construct/Constraint/Evo2Generator/
+    MCMCOptimizer/Program) WITHOUT running it — validates all API wiring for free."""
+    import sys, json, traceback
+    sys.path.insert(0, "/root/pd")
+    import design_pipeline as dp
+    out = {"ready": dp._READY}
+    if not dp._READY:
+        out["import_error"] = str(dp._IMPORT_ERR); print("VALIDATE " + json.dumps(out)); return out
+    try:
+        out["result"] = dp.design(stimulus, target, lineage=lineage, build_only=True)
+        out["status"] = "ok"
+    except Exception as e:
+        out["status"] = "error"; out["error"] = f"{type(e).__name__}: {e}"
+        out["traceback"] = traceback.format_exc()[-2500:]
+    print("VALIDATE " + json.dumps(out, indent=2)[:3500])
+    return out
+
+
 @app.function(image=gpu_image, gpu=GPU, secrets=[hf], volumes=CACHE, timeout=10800)
 def full_design(stimulus: str = "interferon_typeII", target: str = "THP1",
                 lineage: str | None = None, num_steps: int = 2, num_results: int = 1,

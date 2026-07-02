@@ -67,40 +67,55 @@ def make_segments(stimulus: str, target_cell: str, *,
     block to build a stimulus-AND-cell-type gate.
     """
     e = ELEMENTS[stimulus]
-    segs = []
-    segs.append(Segment(sequence=clean(FLANK5), sequence_type="dna", label="insulator5"))
-    segs.append(Segment(sequence=multimerise(e["seed"], e["spacer"], stim_copies),
-                        sequence_type="dna", label=f"{stimulus}_x{stim_copies}"))
-    # Designable spacer: this is what the generator/optimizer searches.
+    stim_block = multimerise(e["seed"], e["spacer"], stim_copies)
+    lin_block = (multimerise(LINEAGE_ELEMENTS[lineage]["seed"],
+                             LINEAGE_ELEMENTS[lineage]["spacer"], lineage_copies)
+                 if lineage else "")
+    minp = clean(MINIMAL_PROMOTERS[min_promoter])
+    tail = clean(KOZAK_STUB) + clean(FLANK3)
+    f5 = clean(FLANK5)
+
+    segs = [Segment(sequence=f5, sequence_type="dna", label="insulator5"),
+            Segment(sequence=stim_block, sequence_type="dna", label=f"{stimulus}_x{stim_copies}")]
     spacer = Segment(length=spacer_len, sequence_type="dna", label="designable_spacer")
     segs.append(spacer)
     if lineage:
-        l = LINEAGE_ELEMENTS[lineage]
-        segs.append(Segment(sequence=multimerise(l["seed"], l["spacer"], lineage_copies),
-                            sequence_type="dna", label=f"lineage_{lineage}_x{lineage_copies}"))
-    segs.append(Segment(sequence=clean(MINIMAL_PROMOTERS[min_promoter]),
-                        sequence_type="dna", label=f"minprom_{min_promoter}"))
-    segs.append(Segment(sequence=clean(KOZAK_STUB) + clean(FLANK3),
-                        sequence_type="dna", label="tss_stub_3handle"))
-    return segs, spacer
+        segs.append(Segment(sequence=lin_block, sequence_type="dna",
+                            label=f"lineage_{lineage}_x{lineage_copies}"))
+    segs.append(Segment(sequence=minp, sequence_type="dna", label=f"minprom_{min_promoter}"))
+    segs.append(Segment(sequence=tail, sequence_type="dna", label="tss_stub_3handle"))
+
+    # meta computed from the raw strings (no Segment-internals guessing).
+    # The AlphaGenome constraint scores an interval WITHIN the designable spacer,
+    # embedded in the fixed cassette via left/right context.
+    meta = {
+        "prompt_ctx": f5 + stim_block,               # Evo2 prompt = fixed upstream
+        "left_ctx": f5 + stim_block,                 # upstream of spacer
+        "right_ctx": lin_block + minp + tail,        # downstream of spacer
+        "total_len": len(f5) + len(stim_block) + spacer_len + len(lin_block)
+                     + len(minp) + len(tail),
+        "spacer_len": spacer_len,
+    }
+    return segs, spacer, meta
 
 
 # --------------------------------------------------------------- scoring ------
-def cell_type_constraint(construct, target_cell: str, off_cells: list[str]):
-    """AlphaGenome interval-track constraint that rewards RNA_SEQ signal in the
-    TARGET cell ontology while penalising OFF-target ontologies (the contrastive
-    margin). Maximising this yields stimulus-responsive AND cell-selective output.
+def cell_type_constraint(spacer, target_cell: str, off_cells: list[str],
+                         left_ctx: str, right_ctx: str, interval_len: int):
+    """AlphaGenome interval-track constraint on the DESIGNABLE spacer, embedded in
+    the fixed cassette (left/right context). Rewards RNA_SEQ signal in the TARGET
+    cell ontology while penalising OFF-target ontologies (contrastive margin) ->
+    stimulus-responsive AND cell-selective output.
     """
     target_term = CELL_CONTEXTS[target_cell]["ontology"]
     off_terms = [CELL_CONTEXTS[c]["ontology"] for c in off_cells]
-    total_len = sum(len(s.sequence or "") or (s.length or 0)
-                    for s in construct.segments) if hasattr(construct, "segments") else 0
     return Constraint(
-        inputs=[construct],
+        inputs=[spacer],                       # a Segment (has num_proposals)
         function=alphagenome_interval_track_constraint,
         function_config={
-            # Score the whole assembled cassette window.
-            "intervals": [(0, max(total_len, 1))],
+            "intervals": [(0, max(interval_len, 1))],   # within the spacer segment
+            "left_context": left_ctx,
+            "right_context": right_ctx,
             "requested_output": "RNA_SEQ",
             "ontology_terms": [target_term],
             "contrastive_ontology_terms": off_terms or None,
@@ -116,18 +131,16 @@ def cell_type_constraint(construct, target_cell: str, off_cells: list[str]):
 # --------------------------------------------------------------- optimise -----
 def design(stimulus: str, target_cell: str, *, lineage: str | None = None,
            num_steps: int = 20, num_results: int = 4, use_evo2: bool = True,
-           evo2_model: str = "evo2_1b_base"):
+           evo2_model: str = "evo2_1b_base", build_only: bool = False):
     off_cells = [c for c in CELL_CONTEXTS if c != target_cell]
-    segs, spacer = make_segments(stimulus, target_cell, lineage=lineage)
+    segs, spacer, meta = make_segments(stimulus, target_cell, lineage=lineage)
     construct = Construct(segs, label=f"{stimulus}__{target_cell}"
                           + (f"__AND_{lineage}" if lineage else ""))
 
     # Generator drives the designable spacer. Evo2 = naturalness-aware fill;
     # RandomNucleotide = cheap baseline. Both are assigned to the spacer segment.
     if use_evo2:
-        # Prompt Evo2 with the fixed upstream context (guaranteed non-empty).
-        fixed_ctx = "".join((s.sequence or "") for s in segs if getattr(s, "sequence", None))
-        prompt = (fixed_ctx or "ACGT")[:96]
+        prompt = (meta["prompt_ctx"] or "ACGT")[:96]
         gen = Evo2Generator(Evo2GeneratorConfig(
             model_checkpoint=evo2_model,
             prompts=[prompt], temperature=0.7, top_k=4, prepend_prompt=False))
@@ -135,7 +148,9 @@ def design(stimulus: str, target_cell: str, *, lineage: str | None = None,
         gen = RandomNucleotideGenerator(RandomNucleotideGeneratorConfig())
     gen.assign(spacer)
 
-    constraint = cell_type_constraint(construct, target_cell, off_cells)
+    constraint = cell_type_constraint(spacer, target_cell, off_cells,
+                                      meta["left_ctx"], meta["right_ctx"],
+                                      meta["spacer_len"])
 
     optimizer = MCMCOptimizer(
         constructs=[construct],
@@ -144,6 +159,12 @@ def design(stimulus: str, target_cell: str, *, lineage: str | None = None,
         config=MCMCOptimizerConfig(num_results=num_results,
                                    proposals_per_result=16, num_steps=num_steps),
     )
+    # build_only stops before the GPU-bound run so the wiring can be validated
+    # on a cheap CPU container.
+    if build_only:
+        return {"ok": True, "total_len": meta["total_len"], "prompt": prompt if use_evo2 else None,
+                "n_segments": len(segs), "spacer_len": meta["spacer_len"],
+                "construct_label": construct.label}
     Program(optimizers=[optimizer], num_results=num_results).run()
     return optimizer
 
