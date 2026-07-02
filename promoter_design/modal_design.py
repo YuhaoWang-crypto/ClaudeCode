@@ -340,6 +340,78 @@ def dump_standalone_specs():
     return out
 
 
+@app.function(image=image, timeout=600)
+def dump_venv_manager():
+    """CPU: find proto-tools' standalone-venv orchestration + host prereqs
+    (micromamba/MAMBA_BIN, PROTO_HOME, how setup.sh is invoked)."""
+    import os, re, glob, json, proto_tools
+    base = os.path.dirname(proto_tools.__file__)
+    hits = {}
+    for f in glob.glob(base + "/**/*.py", recursive=True):
+        s = open(f).read()
+        if re.search(r"MAMBA_BIN|micromamba|standalone_helpers|VENV_PATH|setup\.sh|PROTO_HOME|standalone_env|make_venv|ensure_venv", s):
+            rel = os.path.relpath(f, base)
+            found = sorted(set(re.findall(r"MAMBA_BIN|micromamba|standalone_helpers\.sh|VENV_PATH|setup\.sh|PROTO_HOME|def [a-z_]*venv[a-z_]*|def [a-z_]*standalone[a-z_]*", s)))
+            hits[rel] = found
+    # find standalone_helpers.sh + any manager module
+    helpers = glob.glob(base + "/**/standalone_helpers.sh", recursive=True)
+    mgr = [os.path.relpath(f, base) for f in glob.glob(base + "/**/*.py", recursive=True)
+           if re.search(r"venv|standalone", os.path.basename(f))]
+    out = {"files_touching_venv": hits, "standalone_helpers_paths":
+           [os.path.relpath(h, base) for h in helpers], "manager_modules": mgr[:20]}
+    print("VENV_MGR " + json.dumps(out, indent=2)[:6000])
+    return out
+
+
+@app.function(image=image, timeout=600)
+def dump_registry_setup():
+    """CPU: read tool_registry standalone/micromamba logic + cli eject cmd."""
+    import os, re, proto_tools, json
+    base = os.path.dirname(proto_tools.__file__)
+    out = {}
+    for rel in ["tools/tool_registry.py", "cli.py"]:
+        p = os.path.join(base, rel)
+        s = open(p).read()
+        lines = s.splitlines()
+        keep = [f"{i+1}: {ln[:150]}" for i, ln in enumerate(lines)
+                if re.search(r"micromamba|MAMBA|PROTO_HOME|standalone|setup\.sh|def _?cmd|def has_|def (ensure|build|prepare|setup|make)|download|VENV_PATH|env_vars\.txt|subprocess|\.run\(", ln)]
+        out[rel] = keep[:55]
+    # env vars proto-tools reads
+    envs = sorted(set(re.findall(r"(?:environ(?:\.get)?\(|getenv\()\s*[\"']([A-Z_]+)",
+                                 open(os.path.join(base, "tools/tool_registry.py")).read())))
+    out["registry_env_vars"] = envs
+    print("REG_SETUP " + json.dumps(out, indent=2)[:7000])
+    return out
+
+
+@app.function(image=image, timeout=600)
+def find_executor():
+    """CPU: find the module that actually builds the standalone env (runs setup.sh,
+    sets MAMBA_BIN/VENV_PATH, downloads micromamba) + how it's triggered."""
+    import os, re, glob, json, proto_tools
+    base = os.path.dirname(proto_tools.__file__)
+    exec_files = {}
+    for f in glob.glob(base + "/**/*.py", recursive=True):
+        s = open(f).read()
+        # the executor RUNS setup.sh and sets these env vars for the child
+        if re.search(r"setup\.sh", s) and re.search(r"MAMBA_BIN|VENV_PATH|micromamba|env=", s):
+            rel = os.path.relpath(f, base)
+            lines = s.splitlines()
+            keep = [f"{i+1}: {ln.strip()[:150]}" for i, ln in enumerate(lines)
+                    if re.search(r"setup\.sh|MAMBA_BIN|VENV_PATH|micromamba|PROTO_HOME|def [a-z_]+|subprocess|download.*mamba|https?://", ln)]
+            exec_files[rel] = keep[:40]
+    # env vars used across proto_tools utils (esp PROTO_HOME, micromamba url)
+    allenv = set(); mamba_urls = set()
+    for f in glob.glob(base + "/utils/**/*.py", recursive=True) + glob.glob(base + "/**/*worker*.py", recursive=True) + glob.glob(base + "/**/*pool*.py", recursive=True):
+        s = open(f).read()
+        allenv |= set(re.findall(r"(?:environ(?:\.get)?\(|getenv\()\s*[\"']([A-Z_]+)", s))
+        mamba_urls |= set(re.findall(r"https?://[^\s\"']*(?:micromamba|mamba)[^\s\"']*", s))
+    out = {"executor_files": exec_files, "utils_env_vars": sorted(allenv),
+           "micromamba_urls": sorted(mamba_urls)}
+    print("EXECUTOR " + json.dumps(out, indent=2)[:7000])
+    return out
+
+
 @app.function(image=image, gpu=GPU, secrets=[hf], timeout=1800)
 def smoke():
     """GPU: minimal proof that Evo2 + AlphaGenome are callable in this image."""
