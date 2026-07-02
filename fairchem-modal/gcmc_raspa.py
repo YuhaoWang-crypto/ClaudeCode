@@ -52,17 +52,45 @@ def _raspa_dir():
 # ---------------------------------------------------------------------------
 @app.function(timeout=600)
 def _check():
-    import os, glob
+    import os, glob, subprocess
     prefix, sim = _raspa_dir()
-    data = os.path.join(prefix, "share", "raspa2")
-    ff = sorted(os.path.basename(p) for p in glob.glob(os.path.join(data, "forcefield", "*")))
-    mols = sorted(os.path.basename(p) for p in glob.glob(os.path.join(data, "molecules", "*")))
+    # RASPA data is marked by pseudo_atoms.def / force_field*.def and a molecules dir.
+    # conda-forge may not place it at <prefix>/share/raspa2 -- search for it.
+    hits = subprocess.run(
+        ["find", "/opt/conda", "-name", "pseudo_atoms.def", "-o", "-name", "force_field_mixing_rules.def"],
+        capture_output=True, text=True, timeout=120).stdout.strip().splitlines()
+    # directories that contain example molecule defs (CO2.def, tip5p.def, ...)
+    moldirs = subprocess.run(
+        ["find", "/opt/conda", "-type", "d", "-name", "molecules"],
+        capture_output=True, text=True, timeout=120).stdout.strip().splitlines()
+    ffdirs = subprocess.run(
+        ["find", "/opt/conda", "-type", "d", "-name", "forcefield"],
+        capture_output=True, text=True, timeout=120).stdout.strip().splitlines()
+    # guess RASPA_DIR = parent of share/raspa2
+    guess = None
+    for d in ffdirs:
+        # d = <root>/share/raspa2/forcefield/<name>  OR  <root>/share/raspa2/forcefield
+        parts = d.split(os.sep)
+        if "share" in parts:
+            guess = os.sep.join(parts[: parts.index("share")])
+            break
+    DATA = "/opt/conda/share/raspa"
+    ff_names = sorted(os.path.basename(p) for p in glob.glob(os.path.join(DATA, "forcefield", "*")))
+    mol_sets = sorted(os.path.basename(p) for p in glob.glob(os.path.join(DATA, "molecules", "*")))
+    # locate CO2 / water model defs and report which molecule-set holds them
+    wanted = {}
+    for target in ("CO2.def", "Tip5p.def", "tip5p.def", "Tip4p.def", "tip4p.def", "Water.def", "H2O.def"):
+        found = subprocess.run(["find", os.path.join(DATA, "molecules"), "-name", target],
+                               capture_output=True, text=True, timeout=60).stdout.strip().splitlines()
+        if found:
+            wanted[target] = [p.replace(DATA + "/molecules/", "") for p in found]
     return {
         "simulate_bin": sim,
-        "raspa_data": data,
-        "data_exists": os.path.isdir(data),
-        "forcefields": ff[:20],
-        "molecule_sets": mols[:20],
+        "RASPA_DIR": "/opt/conda",
+        "DATA": DATA,
+        "forcefields": ff_names,
+        "molecule_sets": mol_sets,
+        "adsorbate_defs_found": wanted,
     }
 
 
@@ -81,8 +109,7 @@ def _isotherm(cif_text: str, framework_name: str, molecule: str,
               init_cycles: int, forcefield: str, unit_cells: str):
     import os, re, subprocess, glob, tempfile
 
-    prefix, sim = _raspa_dir()
-    data = os.path.join(prefix, "share", "raspa2")
+    prefix, sim = _raspa_dir()  # prefix = /opt/conda; RASPA reads share/raspa/ under it
 
     workroot = tempfile.mkdtemp(prefix="gcmc_")
     # RASPA looks up the framework CIF relative to RASPA_DIR/share/raspa2/structures/cif
@@ -116,7 +143,7 @@ ExternalTemperature {temperature}
 ExternalPressure {pressure}
 
 Component 0 MoleculeName             {molecule}
-            MoleculeDefinition       TraPPE
+            MoleculeDefinition       ExampleDefinitions
             TranslationProbability   1.0
             RotationProbability      1.0
             ReinsertionProbability   1.0
@@ -150,7 +177,7 @@ Component 0 MoleculeName             {molecule}
 @app.local_entrypoint()
 def isotherm(cif: str, molecule: str = "CO2", temperature: float = 298.0,
              pressures: str = "1e3,1e4,1e5", cycles: int = 5000,
-             init_cycles: int = 2000, forcefield: str = "GenericMOFs",
+             init_cycles: int = 2000, forcefield: str = "ExampleMOFsForceField",
              unit_cells: str = "1 1 1"):
     import os, json
     with open(cif) as f:
