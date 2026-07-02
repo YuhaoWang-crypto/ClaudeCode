@@ -115,7 +115,8 @@ def cell_type_constraint(construct, target_cell: str, off_cells: list[str]):
 
 # --------------------------------------------------------------- optimise -----
 def design(stimulus: str, target_cell: str, *, lineage: str | None = None,
-           num_steps: int = 20, num_results: int = 4, use_evo2: bool = True):
+           num_steps: int = 20, num_results: int = 4, use_evo2: bool = True,
+           evo2_model: str = "evo2_1b_base"):
     off_cells = [c for c in CELL_CONTEXTS if c != target_cell]
     segs, spacer = make_segments(stimulus, target_cell, lineage=lineage)
     construct = Construct(segs, label=f"{stimulus}__{target_cell}"
@@ -124,9 +125,12 @@ def design(stimulus: str, target_cell: str, *, lineage: str | None = None,
     # Generator drives the designable spacer. Evo2 = naturalness-aware fill;
     # RandomNucleotide = cheap baseline. Both are assigned to the spacer segment.
     if use_evo2:
+        # Prompt Evo2 with the fixed upstream context (guaranteed non-empty).
+        fixed_ctx = "".join((s.sequence or "") for s in segs if getattr(s, "sequence", None))
+        prompt = (fixed_ctx or "ACGT")[:96]
         gen = Evo2Generator(Evo2GeneratorConfig(
-            prompts=[construct.joined_sequences[0].sequence[:64]],  # local context prompt
-            temperature=0.7, top_k=4, prepend_prompt=False))
+            model_checkpoint=evo2_model,
+            prompts=[prompt], temperature=0.7, top_k=4, prepend_prompt=False))
     else:
         gen = RandomNucleotideGenerator(RandomNucleotideGeneratorConfig())
     gen.assign(spacer)

@@ -43,6 +43,61 @@ image = (
 GPU = "A100"          # Evo2 needs a large-VRAM GPU; adjust to your model size.
 hf = modal.Secret.from_name("huggingface")
 
+# --- Self-hosted runtime (Evo2 + AlphaGenome via proto-tools standalone envs) --
+# proto-tools builds per-tool micromamba envs (CUDA toolkit, flash-attn, evo2 /
+# jax, alphagenome) and downloads weights on first call. A persistent Volume
+# caches all of it under PROTO_HOME so later runs are fast.
+proto_cache = modal.Volume.from_name("proto-cache", create_if_missing=True)
+
+gpu_image = (
+    image
+    .apt_install("git", "curl", "build-essential", "bzip2")
+    # micromamba binary for the standalone-env builder.
+    .run_commands(
+        "curl -Ls https://micro.mamba.pm/api/micromamba/linux-64/latest "
+        "| tar -xj -C /usr/local bin/micromamba && chmod +x /usr/local/bin/micromamba")
+    .env({
+        "PROTO_HOME": "/proto_home",
+        "HF_HOME": "/proto_home/hf",
+        "HUGGINGFACE_HUB_CACHE": "/proto_home/hf/hub",
+        "MAMBA_BIN": "/usr/local/bin/micromamba",
+        "MAMBA_ROOT_PREFIX": "/proto_home/mamba",
+        "PROTO_MODEL_CACHE": "/proto_home/models",
+    })
+)
+CACHE = {"/proto_home": proto_cache}
+
+
+@app.function(image=gpu_image, gpu=GPU, secrets=[hf], volumes=CACHE, timeout=10800)
+def full_design(stimulus: str = "interferon_typeII", target: str = "THP1",
+                lineage: str | None = None, num_steps: int = 2, num_results: int = 1,
+                evo2_model: str = "evo2_1b_base"):
+    """GPU: trigger the Evo2 + AlphaGenome standalone builds (first call compiles
+    them into the Volume) and run the real design. Long on first run."""
+    import sys, os, json, traceback, subprocess
+    sys.path.insert(0, "/root/pd")
+    for d in ("/proto_home/hf", "/proto_home/mamba", "/proto_home/models"):
+        os.makedirs(d, exist_ok=True)
+    print("GPU:", subprocess.run(["nvidia-smi", "--query-gpu=name,memory.total",
+          "--format=csv,noheader"], capture_output=True, text=True).stdout.strip())
+    import design_pipeline as dp
+    if not dp._READY:
+        return {"error": f"proto stack import failed: {dp._IMPORT_ERR}"}
+    result = {"stimulus": stimulus, "target": target, "lineage": lineage,
+              "evo2_model": evo2_model}
+    try:
+        opt = dp.design(stimulus, target, lineage=lineage, num_steps=num_steps,
+                        num_results=num_results, use_evo2=True, evo2_model=evo2_model)
+        result["designed"] = [getattr(s, "sequence", "") for s in getattr(opt, "segments", [])]
+        result["status"] = "ok"
+    except Exception as e:
+        result["status"] = "error"
+        result["error"] = f"{type(e).__name__}: {e}"
+        result["traceback"] = traceback.format_exc()[-3000:]
+    proto_cache.commit()
+    print("FULL_DESIGN_RESULT " + json.dumps(result, indent=2)[:4000])
+    return result
+
 
 @app.function(image=image, timeout=1200)
 def assemble(copies: int = 3, min_promoter: str = "minCMV"):
