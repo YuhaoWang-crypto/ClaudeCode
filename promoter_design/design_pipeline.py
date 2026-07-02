@@ -153,11 +153,14 @@ def cell_type_constraint(spacer, target_cell: str, off_cells: list[str],
 def design(stimulus: str, target_cell: str, *, lineage: str | None = None,
            num_steps: int = 20, num_results: int = 4, use_evo2: bool = True,
            evo2_model: str = "evo2_1b_base", build_only: bool = False,
-           contrastive: bool = True):
+           contrastive: bool = True, spacer_len: int = 8):
     # contrastive=False -> maximize target-cell expression only (single ontology);
     # True -> also penalize off-target cells (the cell-type-specificity objective).
+    # spacer_len = size of the designable proximal region (the AlphaGenome-scored,
+    # Evo2-designed segment). Larger -> more leverage over cell-type specificity.
     off_cells = [c for c in CELL_CONTEXTS if c != target_cell] if contrastive else []
-    segs, spacer, meta = make_segments(stimulus, target_cell, lineage=lineage)
+    segs, spacer, meta = make_segments(stimulus, target_cell, lineage=lineage,
+                                       spacer_len=spacer_len)
     construct = Construct(segs, label=f"{stimulus}__{target_cell}"
                           + (f"__AND_{lineage}" if lineage else ""))
 

@@ -200,7 +200,8 @@ def validate_design(stimulus: str = "interferon_typeII", target: str = "THP1",
 def full_design(stimulus: str = "interferon_typeII", target: str = "THP1",
                 lineage: str | None = None, num_steps: int = 2, num_results: int = 1,
                 evo2_model: str = "evo2_1b_base", reset_evo2: bool = False,
-                disable_fp8: bool = True, contrastive: bool = False):
+                disable_fp8: bool = True, contrastive: bool = False,
+                spacer_len: int = 8):
     """GPU: trigger the Evo2 + AlphaGenome standalone builds (first call compiles
     them into the Volume) and run the real design. Long on first run."""
     import sys, os, json, traceback, subprocess, shutil, glob
@@ -236,7 +237,7 @@ def full_design(stimulus: str = "interferon_typeII", target: str = "THP1",
     try:
         opt = dp.design(stimulus, target, lineage=lineage, num_steps=num_steps,
                         num_results=num_results, use_evo2=True, evo2_model=evo2_model,
-                        contrastive=contrastive)
+                        contrastive=contrastive, spacer_len=spacer_len)
         # Full designed cassettes (Construct.joined_sequences -> Sequence.sequence).
         cassettes = []
         for c in getattr(opt, "constructs", []):
