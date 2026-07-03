@@ -1,0 +1,14 @@
+rank,result_id,iptm,structure_confidence,min_interaction_pae,length,note
+1,pres_yo4ZrbwchF13s3lHE7n1,0.833,0.634,3.11,118,best interface confidence
+2,pres_6zt27oLobJpIWXmFcY1P,0.787,0.492,4.18,129,
+3,pres_LpygOdiCSJj8DR1OzSBG,0.748,0.534,4.53,118,
+4,pres_9wUI8hJDVqrir2mIBqLz,0.744,0.553,4.94,118,
+5,pres_8LvRLGnVvBqf9IV0CF9f,0.738,0.483,5.27,118,
+6,pres_B2DYgN84a1fakN5jIfFt,0.738,0.483,5.27,118,
+7,pres_o34fzL4JKgz8VsOfCY8V,0.451,0.071,10.96,118,low confidence
+8,pres_l8vxyH0HUjsm1tEJsZMO,0.555,0.115,10.82,118,low confidence
+9,pres_KNv7HLNmDT8VtcQFAIwr,0.436,0.049,10.80,118,low confidence
+10,pres_o2bLn5FLT1cBOSMkilxT,0.253,0.006,16.61,129,low confidence
+# Boltz-2.1 protein_design, boltz_curated nanobody, target = mature SFRP2 (Q96HF1 CRD+netrin).
+# Job prot_des_50UeQrfeJJSvtvBPNMJF. Ranked by interface iptm (structures expire ~7 days).
+# Top 5 (iptm 0.74-0.83, interaction PAE 3.1-5.3 A) are credible starting binders for lab validation.
