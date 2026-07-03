@@ -232,16 +232,11 @@ def perturb(max_ncells: int = 500):
     from geneformer import (EmbExtractor, InSilicoPerturber,
                             InSilicoPerturberStats)
 
-    import pickle
     med, tok, mapf = _gc104m_dicts()
     gene_name_id = tok.replace("token_dictionary", "gene_name_id_dict")
     model_dir = f"{MODEL_DIR}/Geneformer/{CKPT}"
-    hvg = json.load(open(HVG_JSON))
-    # Keep only HVGs that are real Geneformer tokens (protein-coding/miRNA);
-    # drops IG/lncRNA/MT genes not in the vocabulary.
-    token_keys = set(pickle.load(open(tok, "rb")).keys())
-    hvg = [g for g in hvg if g in token_keys]
-    print(f"{len(hvg)} HVGs are in the token dictionary")
+    # Genome-wide: perturb every expressed gene individually (a gene LIST is
+    # interpreted by geneformer as one combined deletion, which we don't want).
     os.makedirs(PERT_OUT, exist_ok=True)
 
     # V2-104M prepends a <cls> token, so embeddings must use emb_mode='cls'.
@@ -260,11 +255,11 @@ def perturb(max_ncells: int = 500):
 
     # 2) in-silico deletion of the HVG set in fibrosis cells
     isp = InSilicoPerturber(
-        perturb_type="delete", genes_to_perturb=hvg, combos=0,
+        perturb_type="delete", genes_to_perturb="all", combos=0,
         model_type="Pretrained", num_classes=0, emb_mode="cls",
         cell_states_to_model=STATES,
         state_embs_dict=state_embs, max_ncells=max_ncells,
-        forward_batch_size=32, nproc=4, token_dictionary_file=tok,
+        forward_batch_size=64, nproc=4, token_dictionary_file=tok,
     )
     isp.perturb_data(model_directory=model_dir, input_data_file=DATASET,
                      output_directory=PERT_OUT, output_prefix="ipf_delete")
@@ -272,7 +267,7 @@ def perturb(max_ncells: int = 500):
 
     # 3) aggregate to per-gene goal-state shift
     isps = InSilicoPerturberStats(
-        mode="goal_state_shift", genes_perturbed=hvg,
+        mode="goal_state_shift", genes_perturbed="all",
         cell_states_to_model=STATES, token_dictionary_file=tok,
         gene_name_id_dictionary_file=gene_name_id,
     )
@@ -296,4 +291,4 @@ def perturb(max_ncells: int = 500):
 
 @app.local_entrypoint()
 def main():
-    print(perturb.remote())
+    print(perturb.remote(max_ncells=250))
