@@ -1,0 +1,115 @@
+{
+  "backend": "pca",
+  "n_cells": 3000,
+  "k_states": 6,
+  "silhouette": 0.168,
+  "inflammation_module": [
+    "IL13RA2",
+    "IL11",
+    "TNFRSF11B",
+    "OSM",
+    "OSMR",
+    "TREM1",
+    "S100A8",
+    "S100A9",
+    "IL1B",
+    "CXCL13",
+    "TIMP1",
+    "TNF",
+    "CXCL9",
+    "CXCL10"
+  ],
+  "inflammatory_state_cluster": 5,
+  "state_summary": {
+    "0": {
+      "n": 409,
+      "inflammation_score": 0.342,
+      "inflamed_enrichment": 1.24,
+      "top_markers": [
+        "IL1B",
+        "S100A9",
+        "S100A8",
+        "TREM1",
+        "LYZ",
+        "CD14",
+        "NOISE15",
+        "NOISE23"
+      ]
+    },
+    "1": {
+      "n": 288,
+      "inflammation_score": -0.03,
+      "inflamed_enrichment": 0.98,
+      "top_markers": [
+        "TIMP1",
+        "COL1A1",
+        "COL3A1",
+        "PDGFRB",
+        "NOISE19",
+        "NOISE20",
+        "NOISE27",
+        "NOISE13"
+      ]
+    },
+    "2": {
+      "n": 413,
+      "inflammation_score": -0.176,
+      "inflamed_enrichment": 0.97,
+      "top_markers": [
+        "MZB1",
+        "MS4A1",
+        "CD79A",
+        "IGHG1",
+        "NOISE0",
+        "NOISE11",
+        "NOISE38",
+        "NOISE23"
+      ]
+    },
+    "3": {
+      "n": 1028,
+      "inflammation_score": -0.181,
+      "inflamed_enrichment": 0.77,
+      "top_markers": [
+        "KRT18",
+        "KRT8",
+        "BEST4",
+        "EPCAM",
+        "NOISE7",
+        "NOISE16",
+        "NOISE30",
+        "NOISE3"
+      ]
+    },
+    "4": {
+      "n": 641,
+      "inflammation_score": -0.177,
+      "inflamed_enrichment": 0.94,
+      "top_markers": [
+        "CD3E",
+        "IL17A",
+        "CD3D",
+        "CD8A",
+        "NOISE6",
+        "NOISE9",
+        "NOISE26",
+        "NOISE29"
+      ]
+    },
+    "5": {
+      "n": 221,
+      "inflammation_score": 1.09,
+      "inflamed_enrichment": 1.88,
+      "top_markers": [
+        "IL13RA2",
+        "CXCL10",
+        "CXCL13",
+        "TNF",
+        "TNFRSF11B",
+        "OSM",
+        "IL11",
+        "CXCL9"
+      ]
+    }
+  }
+}
