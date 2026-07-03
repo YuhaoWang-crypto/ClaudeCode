@@ -1,0 +1,2 @@
+molecule_chembl_id,smiles,standard_type,pchembl,mw,class
+CHEMBL5894489,O=C(N[C@H]1[C@H]2OC[C@](CO)(O2)[C@H](O)[C@@H]1O)C(F)F,Kd,6.16,269.20000000000005,small_molecule

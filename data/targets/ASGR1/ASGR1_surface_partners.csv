@@ -1,0 +1,97 @@
+AF_Score,BG,DCA_Score,Function,Gene Name,Interacting Partner,Protein Name,RF_Score,SP,Subcellular Locality,UP,confident,pdb,is_membrane,is_cell_surface,AF
+0.741,N,0.153,NA,SUN3,Q8TAQ9,SUN domain-containing protein 3,0.3044,N,"Membrane, Nucleus",N,Not confident,none,True,False,0.741
+0.7104,Y,0.379,"Host cell receptor for virus entry, Host-virus interaction, Receptor",CLEC4G,Q6UXB4,C-type lectin domain family 4 member G,0.1964,N,"Cell membrane, Membrane",N,Not confident,none,True,True,0.7104
+0.5723,N,0.859,"Adaptive immunity, Endocytosis, Immunity, Innate immunity",CLEC10A,Q8IUN9,C-type lectin domain family 10 member A,0.1788,N,Membrane,N,Not confident,none,True,False,0.5723
+0.4949,N,0.147,"Differentiation, Spermatogenesis",SUN5,Q8TC36,SUN domain-containing protein 5,0.41,N,"Golgi apparatus, Membrane, Nucleus",N,Not confident,none,True,False,0.4949
+0.4045,N,0.723,"Endocytosis, Host-virus interaction, Receptor",ASGR2,P07307,Asialoglycoprotein receptor 2,0.2812,C,Membrane,N,Not confident,none,True,False,0.4045
+0.347,N,0.147,"Apoptosis, Hydrolase, Lipid metabolism, Sphingolipid metabolism",ASAH2,Q9NR71,Neutral ceramidase,0.3115,N,"Cell membrane, Golgi apparatus, Membrane, Mitochondrion, Secreted",N,Not confident,none,True,True,0.347
+0.3345,N,0.124,"Ion transport, Iron transport, Transport",HFE,Q30201,Hereditary hemochromatosis protein,0.6484,N,"Cell membrane, Membrane",N,Not confident,none,True,True,0.3345
+0.3052,Y,0.062,NA,MCEMP1,Q8IX19,Mast cell-expressed membrane protein 1,0.05634,N,Membrane,Y,Not confident,none,True,False,0.3052
+0.2925,N,0.052,"Adaptive immunity, Immunity",IGLJ1,A0A0A0MT76,Immunoglobulin lambda joining 1,0.009544,N,"Cell membrane, Immunoglobulin, Membrane, Secreted",N,Not confident,none,True,True,0.2925
+0.2489,Y,0.112,Developmental protein,SPRY4,Q9C004,Protein sprouty homolog 4,0.0003364,Y,"Cell membrane, Cell projection, Cytoplasm, Membrane",N,Not confident,none,True,True,0.2489
+0.2336,C,0.146,"Lipid biosynthesis, Lipid metabolism, Transferase",CERS2,Q96G23,Ceramide synthase 2,0.04434,Y,"Endoplasmic reticulum, Membrane",Y,Not confident,none,True,False,0.2336
+0.1996,Y,0.183,Oxidoreductase,VKORC1,Q9BQB6,Vitamin K epoxide reductase complex subunit 1,0.001556,N,"Endoplasmic reticulum, Membrane",N,Not confident,none,True,False,0.1996
+0.1948,N,0.216,"Collagen degradation, Hydrolase, Protease, Serine protease",PRTN3,P24158,Myeloblastin,0.4624,N,"Cell membrane, Membrane, Secreted",N,Not confident,none,True,True,0.1948
+0.1757,N,0.147,NA,MALRD1,Q5VYJ5,MAM and LDL-receptor class A domain-containing protein 1,0.3713,N,"Cytoplasmic vesicle, Membrane",N,Not confident,none,True,False,0.1757
+0.1624,N,0.159,"Immunity, Inflammatory response, Innate immunity, Receptor",TLR9,Q9NR96,Toll-like receptor 9,0.4092,N,"Cytoplasmic vesicle, Endoplasmic reticulum, Endosome, Lysosome, Membrane",N,Not confident,none,True,False,0.1624
+0.1569,Y,0.12,Receptor,VSIR,Q9H7M9,V-type immunoglobulin domain-containing suppressor of T-cell activation,0.1492,N,"Cell membrane, Membrane",Y,Not confident,none,True,True,0.1569
+0.1515,N,0.17,"Immunity, Inflammatory response, Innate immunity, Receptor, RNA-binding",TLR3,O15455,Toll-like receptor 3,0.5034,N,"Endoplasmic reticulum, Endosome, Membrane",N,Not confident,none,True,False,0.1515
+0.1392,N,0.095,NA,LYPD1,Q8N2G4,Ly6/PLAUR domain-containing protein 1,0.000221,N,"Cell membrane, Membrane",N,Not confident,none,True,True,0.1392
+0.1301,N,0.153,"Receptor, Transport",FOLR2,P14207,Folate receptor beta,0.4624,N,"Cell membrane, Membrane, Secreted",N,Not confident,none,True,True,0.1301
+0.1299,N,0.151,"G-protein coupled receptor, Receptor, Transducer",C5AR2,Q9P296,C5a anaphylatoxin chemotactic receptor 2,0.3296,N,"Cell membrane, Membrane",N,Not confident,none,True,True,0.1299
+0.1267,N,0.185,"Immunity, Innate immunity",FCN1,O00602,Ficolin-1,0.3127,N,"Cell membrane, Membrane, Secreted",N,Not confident,none,True,True,0.1267
+0.1266,N,0.162,NA,CLEC2B,Q92478,C-type lectin domain family 2 member B,0.675,N,Membrane,N,Not confident,none,True,False,0.1266
+0.1259,N,0.165,"Receptor, Transport",FOLR1,P15328,Folate receptor alpha,0.5444,N,"Cell membrane, Cytoplasmic vesicle, Endosome, Membrane, Secreted",N,Not confident,none,True,True,0.1259
+0.1189,N,0.147,"Lipid metabolism, Monooxygenase, Oxidoreductase",CYP4X1,Q8N118,Cytochrome P450 4X1,0.3298,N,"Endoplasmic reticulum, Membrane, Microsome",N,Not confident,none,True,False,0.1189
+0.1185,N,0.204,"Blood coagulation, Cell adhesion, Hemostasis",GP1BA,P07359,Platelet glycoprotein Ib alpha chain,0.2986,N,Membrane,N,Not confident,none,True,False,0.1185
+0.1171,Y,0.106,NA,SUSD3,Q96L08,Sushi domain-containing protein 3,0.0025,N,"Cell membrane, Membrane",Y,Not confident,none,True,True,0.1171
+0.1149,Y,0.051,"Differentiation, Spermatogenesis",FAM209A,Q5JX71,Protein FAM209A,0.004284,N,"Membrane, Nucleus",Y,Not confident,none,True,False,0.1149
+0.1128,N,0.124,"Immunity, Receptor",CD40,P25942,Tumor necrosis factor receptor superfamily member 5,0.4858,N,"Cell membrane, Membrane, Secreted",N,Not confident,none,True,True,0.1128
+0.11194,N,0.158,"Apoptosis, Hydrolase, Protein phosphatase",PTPRH,Q9HD43,Receptor-type tyrosine-protein phosphatase H,0.4011,N,"Cell membrane, Cell projection, Cytoplasm, Membrane",N,Not confident,none,True,True,0.11194
+0.1098,N,0.123,Tumor antigen,EPCAM,P16422,Epithelial cell adhesion molecule,0.03056,Y,"Cell junction, Cell membrane, Membrane, Tight junction",N,Not confident,none,True,True,0.1098
+0.1087,Y,0.107,"Glycosyltransferase, Transferase",GALNT12,Q8IXK2,Polypeptide N-acetylgalactosaminyltransferase 12,0.19,Y,"Golgi apparatus, Membrane",N,Not confident,none,True,False,0.1087
+0.1049,Y,0.171,NA,TMX2,Q9Y320,Thioredoxin-related transmembrane protein 2,0.00485,N,"Endoplasmic reticulum, Membrane, Mitochondrion",Y,Not confident,none,True,False,0.1049
+0.1041,N,0.131,"Adaptive immunity, Host cell receptor for virus entry, Host-virus interaction, Immunity, Innate immunity, Receptor",TNFRSF14,Q92956,Tumor necrosis factor receptor superfamily member 14,0.5957,N,"Cell membrane, Membrane",N,Not confident,none,True,True,0.1041
+0.10156,N,0.142,NA,LRRN4,Q8WUT4,Leucine-rich repeat neuronal protein 4,0.3088,N,Membrane,N,Not confident,none,True,False,0.10156
+0.1013,Y,0.157,"Transcription, Transcription regulation",ATP1B4,Q9UN42,Protein ATP1B4,0.04663,N,"Membrane, Nucleus",Y,Not confident,none,True,False,0.1013
+0.09784,N,0.213,"Immunity, Inflammatory response, Innate immunity, Receptor",TLR8,Q9NR97,Toll-like receptor 8,0.3303,N,"Endosome, Membrane",N,Not confident,none,True,False,0.09784
+0.09143,Y,0.193,"Cholesterol biosynthesis, Cholesterol metabolism, Lipid biosynthesis, Lipid metabolism, Oxidoreductase, Steroid biosynthesis, Steroid metabolism, Sterol biosynthesis, Sterol metabolism",CYB5R3,P00387,NADH-cytochrome b5 reductase 3,0.00454,N,"Cytoplasm, Endoplasmic reticulum, Membrane, Mitochondrion, Mitochondrion outer membrane",Y,Not confident,none,True,False,0.09143
+0.09143,Y,0.07,NA,FNDC9,Q8TBE3,Fibronectin type III domain-containing protein 9,0.0003312,N,Membrane,Y,Not confident,none,True,False,0.09143
+0.09125,Y,0.193,"Oxidoreductase, Peroxidase",GPX8,Q8TED1,Probable glutathione peroxidase 8,0.006645,N,Membrane,Y,Not confident,none,True,False,0.09125
+0.0831,N,0.229,Growth factor binding,LRRC32,Q14392,Transforming growth factor beta activator LRRC32,0.3015,N,"Cell membrane, Membrane",N,Not confident,none,True,True,0.0831
+0.0828,N,0.151,Cell adhesion,ICAM5,Q9UMF0,Intercellular adhesion molecule 5,0.2505,N,Membrane,N,Not confident,none,True,False,0.0828
+0.0823,N,0.142,"Adaptive immunity, Immunity, Receptor",CD274,Q9NZQ7,Programmed cell death 1 ligand 1,0.4626,N,"Cell membrane, Endosome, Membrane, Nucleus, Secreted",N,Not confident,none,True,True,0.0823
+0.0795,N,0.359,"Adaptive immunity, Host-virus interaction, Immunity, Innate immunity",CLEC4A,Q9UMR7,C-type lectin domain family 4 member A,0.1875,N,"Cell membrane, Membrane",N,Not confident,none,True,True,0.0795
+0.0778,N,0.158,"Fertilization, Receptor",IZUMO1R,A6ND01,Sperm-egg fusion protein Juno,0.404,N,"Cell membrane, Cell projection, Membrane",N,Not confident,none,True,True,0.0778
+0.0748,N,0.099,"Host-virus interaction, Receptor",CLEC1B,Q9P126,C-type lectin domain family 1 member B,0.2418,N,Membrane,N,Not confident,none,True,False,0.0748
+0.0747,N,0.214,"Immunity, Inflammatory response, Innate immunity, Receptor",TLR5,O60602,Toll-like receptor 5,0.3188,N,"Cell membrane, Membrane",N,Not confident,none,True,True,0.0747
+0.06714,N,0.245,NA,LRRC15,Q8TF66,Leucine-rich repeat-containing protein 15,0.4573,N,"Cell membrane, Membrane",N,Not confident,none,True,True,0.06714
+0.06647,N,0.151,"Cell adhesion, Protease inhibitor, Serine protease inhibitor",COL28A1,Q2UY09,Collagen alpha-1(XXVIII) chain,0.9194,N,"Basement membrane, Extracellular matrix, Secreted",N,Not confident,none,True,False,0.06647
+0.066,Y,0.147,Notch signaling pathway,APH1A,Q96BI3,Gamma-secretase subunit APH-1A,0.01797,N,"Endoplasmic reticulum, Golgi apparatus, Membrane",Y,Not confident,none,True,False,0.066
+0.06586,Y,0.118,"Hydrolase, Protein phosphatase",PTPN2,P17706,Tyrosine-protein phosphatase non-receptor type 2,0.0609,Y,"Cell membrane, Cytoplasm, Endoplasmic reticulum, Membrane, Nucleus",N,Not confident,none,True,True,0.06586
+0.06354,N,0.124,"Complement alternate pathway, Complement pathway, Cytolysis, Immunity, Innate immunity",C7,P10643,Complement component C7,0.5967,N,"Membrane attack complex, Secreted",N,Not confident,none,True,False,0.06354
+0.063,N,0.18,"Cell adhesion, Endocytosis",SIGLEC1,Q9BZZ2,Sialoadhesin,0.1549,Y,"Cell membrane, Membrane, Secreted",N,Not confident,none,True,True,0.063
+0.06177,N,0.108,"Blood coagulation, Hemostasis, Receptor",THBD,P07204,Thrombomodulin,0.2808,N,Membrane,N,Not confident,none,True,False,0.06177
+0.06155,N,0.15,"Adaptive immunity, Immunity",IGHV3-9,P01782,Immunoglobulin heavy variable 3-9,0.002481,N,"Cell membrane, Immunoglobulin, Membrane, Secreted",N,Not confident,none,True,True,0.06155
+0.0595,N,0.142,"Chemotaxis, Developmental protein, Differentiation, Neurogenesis, Receptor",ROBO3,Q96MS0,Roundabout homolog 3,0.426,N,Membrane,N,Not confident,none,True,False,0.0595
+0.0568,N,0.129,"Host-virus interaction, Hydrolase, Protein phosphatase",PTPRC,P08575,Receptor-type tyrosine-protein phosphatase C,0.22,Y,"Cell membrane, Membrane",N,Not confident,none,True,True,0.0568
+0.0562,N,0.085,Receptor,KIR2DL3,P43628,Killer cell immunoglobulin-like receptor 2DL3,0.0788,N,"Cell membrane, Membrane",Y,Not confident,none,True,True,0.0562
+0.0558,N,0.16,"Cell cycle, GTPase activation, Signal transduction inhibitor, Translation regulation",RGS2,P41220,Regulator of G-protein signaling 2,0.001275,N,"Cell membrane, Cytoplasm, Membrane, Mitochondrion, Nucleus",N,Not confident,none,True,True,0.0558
+0.0553,Y,0.123,"ER-Golgi transport, Transport",ERGIC3,Q9Y282,Endoplasmic reticulum-Golgi intermediate compartment protein 3,0.04034,N,"Endoplasmic reticulum, Golgi apparatus, Membrane",Y,Not confident,none,True,False,0.0553
+0.0552,N,0.205,NA,CD69,Q07108,Early activation antigen CD69,0.2275,N,Membrane,N,Not confident,none,True,False,0.0552
+0.05435,N,0.078,"IgA-binding protein, Receptor",FCAR,P24071,Immunoglobulin alpha Fc receptor,0.05444,Y,"Cell membrane, Membrane, Secreted",N,Not confident,none,True,True,0.05435
+0.05295,N,0.148,"Angiogenesis, Apoptosis, Chemotaxis, G-protein coupled receptor, Receptor, Transducer",CXCR3,P49682,C-X-C chemokine receptor type 3,0.8525,N,"Cell membrane, Membrane",N,Not confident,none,True,True,0.05295
+0.05133,N,0.185,tRNA processing,QTRT2,Q9H974,Queuine tRNA-ribosyltransferase accessory subunit 2,0.484,N,"Cytoplasm, Membrane, Mitochondrion, Mitochondrion outer membrane",N,Not confident,none,True,False,0.05133
+0.0502,Y,0.121,"Glycosyltransferase, Transferase",GALNT5,Q7Z7M9,Polypeptide N-acetylgalactosaminyltransferase 5,0.1471,Y,"Golgi apparatus, Membrane",N,Not confident,none,True,False,0.0502
+0.0472,Y,0.099,NA,PDZK1IP1,Q13113,PDZK1-interacting protein 1,0.000617,N,Membrane,Y,Not confident,none,True,False,0.0472
+0.04678,Y,0.16,Erythrocyte maturation,NEMP1,O14524,Nuclear envelope integral membrane protein 1,0.0469,N,"Membrane, Nucleus",Y,Not confident,none,True,False,0.04678
+0.04657,Y,0.188,"Cell adhesion, Developmental protein, Differentiation, Neurogenesis",AMIGO1,Q86WK6,Amphoterin-induced protein 1,0.0842,N,"Cell membrane, Cell projection, Membrane",Y,Not confident,none,True,True,0.04657
+0.04004,N,0.15,NA,CD82,P27701,CD82 antigen,0.4866,N,"Cell membrane, Membrane",N,Not confident,none,True,True,0.04004
+0.04004,N,0.238,"DNA-binding, mRNA transport, RNA-binding, Transcription, Transcription regulation, Transport",LRPPRC,P42704,"Leucine-rich PPR motif-containing protein, mitochondrial",0.3408,N,"Membrane, Mitochondrion, Nucleus",N,Not confident,none,True,False,0.04004
+0.03986,Y,0.193,"Differentiation, Spermatogenesis",SPAG4,Q9NPE6,Sperm-associated antigen 4 protein,0.078,N,"Cell projection, Cilium, Cytoplasm, Cytoskeleton, Flagellum, Membrane, Nucleus",Y,Not confident,none,True,False,0.03986
+0.03702,N,0.126,"Ion channel, Ion transport, Potassium channel, Potassium transport, Transport, Voltage-gated channel",KCNK15,Q9H427,Potassium channel subfamily K member 15,0.67,N,Membrane,N,Not confident,none,True,False,0.03702
+0.0353,N,0.099,NA,CLEC1A,Q8NC01,C-type lectin domain family 1 member A,0.3606,N,Membrane,N,Not confident,none,True,False,0.0353
+0.03482,Y,0.124,"Adaptive immunity, Immunity, Transferase, Ubl conjugation pathway",RNF19B,Q6ZMZ0,E3 ubiquitin-protein ligase RNF19B,0.05624,N,"Endoplasmic reticulum, Membrane",Y,Not confident,none,True,False,0.03482
+0.0348,N,0.173,NA,PROM1,O43490,Prominin-1,0.2627,N,"Cell membrane, Cell projection, Cilium, Endoplasmic reticulum, Membrane",N,Not confident,none,True,True,0.0348
+0.03403,N,0.14,"Adaptive immunity, Chaperone, Immunity",CD74,P04233,HLA class II histocompatibility antigen gamma chain,0.4248,N,"Cell membrane, Endoplasmic reticulum, Endosome, Golgi apparatus, Lysosome, Membrane, Secreted",N,Not confident,none,True,True,0.03403
+0.0325,Y,0.127,"Stress response, Transferase, Ubl conjugation pathway",SYVN1,Q86TM6,E3 ubiquitin-protein ligase synoviolin,0.1262,Y,"Endoplasmic reticulum, Membrane",N,Not confident,none,True,False,0.0325
+0.0321,N,0.06,"Ion channel, Ion transport, Transport",TMC3,Q7Z5M5,Transmembrane channel-like protein 3,0.135,N,Membrane,N,Not confident,none,True,False,0.0321
+0.02875,Y,0.134,"IgG-binding protein, Immunity, Innate immunity, Receptor",FCGR1A,P12314,High affinity immunoglobulin gamma Fc receptor I,0.1405,N,"Cell membrane, Membrane",Y,Not confident,none,True,True,0.02875
+0.02855,Y,0.184,Transport,SLC35C2,Q9NQQ7,Solute carrier family 35 member C2,0.0356,N,"Golgi apparatus, Membrane",Y,Not confident,none,True,False,0.02855
+0.0285,Y,0.15,"Activator, Developmental protein, DNA-binding, Host-virus interaction, Transcription, Transcription regulation, Unfolded protein response",CREB3L1,Q96BA8,Cyclic AMP-responsive element-binding protein 3-like protein 1,0.0003078,N,"Endoplasmic reticulum, Membrane, Nucleus",Y,Not confident,none,True,False,0.0285
+0.02808,N,0.16,"Hydrolase, Metalloprotease, Protease, Ubl conjugation pathway",STAMBP,O95630,STAM-binding protein,0.3208,N,"Cytoplasm, Endosome, Membrane, Nucleus",N,Not confident,none,True,False,0.02808
+0.02708,Y,0.096,"Developmental protein, Differentiation, Kinase, Serine/threonine-protein kinase, Transferase, Wnt signaling pathway",MARK2,Q7KZI7,Serine/threonine-protein kinase MARK2,0.04416,N,"Cell membrane, Cell projection, Cytoplasm, Cytoskeleton, Membrane",N,Not confident,none,True,True,0.02708
+0.02682,Y,0.113,NA,CLDN7,O95471,Claudin-7,0.007446,N,"Cell junction, Cell membrane, Membrane, Tight junction",Y,Not confident,none,True,True,0.02682
+0.02386,Y,0.109,Unfolded protein response,EDEM1,Q92611,ER degradation-enhancing alpha-mannosidase-like protein 1,0.10565,Y,"Endoplasmic reticulum, Membrane",N,Not confident,none,True,False,0.02386
+0.02356,Y,0.136,"Host cell receptor for virus entry, Host-virus interaction, Ion transport, Lipid transport, Receptor, Sodium transport, Symport, Transport",SLC10A1,Q14973,Hepatic sodium/bile acid cotransporter,0.03226,N,"Cell membrane, Membrane",Y,Not confident,none,True,True,0.02356
+0.02063,N,0.122,"G-protein coupled receptor, Olfaction, Receptor, Sensory transduction, Transducer",OR51A7,Q8NH64,Olfactory receptor 51A7,0.3645,N,"Cell membrane, Membrane",N,Not confident,none,True,True,0.02063
+0.01768,Y,0.094,NA,GOLM1,Q8NBJ4,Golgi membrane protein 1,0.118,Y,"Golgi apparatus, Membrane",N,Not confident,none,True,False,0.01768
+0.01762,N,0.918,"Cell adhesion, Immunity, Inflammatory response, Receptor",OLR1,P78380,Oxidized low-density lipoprotein receptor 1,0.1804,N,"Cell membrane, Membrane, Secreted",N,Not confident,none,True,True,0.01762
+0.01668,Y,0.095,"Kinase, Serine/threonine-protein kinase, Transferase",RAF1,P04049,RAF proto-oncogene serine/threonine-protein kinase,0.08545,N,"Cell membrane, Cytoplasm, Membrane, Mitochondrion, Nucleus",N,Not confident,none,True,True,0.01668
+0.01627,Y,0.085,NA,PLVAP,Q9BX97,Plasmalemma vesicle-associated protein,0.1006,Y,"Cell membrane, Cytoplasm, Membrane",N,Not confident,none,True,True,0.01627
+0.0161,Y,0.139,"Chaperone, Host-virus interaction",CANX,P27824,Calnexin,0.07184,Y,"Endoplasmic reticulum, Membrane, Mitochondrion",N,Not confident,none,True,False,0.0161
+0.01494,Y,0.141,"Apoptosis, Cell cycle",BLCAP,P62952,Bladder cancer-associated protein,0.0005956,N,Membrane,Y,Not confident,none,True,False,0.01494
+0.01141,N,0.108,"Cell adhesion, Host cell receptor for virus entry, Host-virus interaction, Receptor",ICAM1,P05362,Intercellular adhesion molecule 1,0.2734,N,Membrane,N,Not confident,none,True,False,0.01141
+0.01067,N,0.151,"Cell adhesion, Phagocytosis",PECAM1,P16284,Platelet endothelial cell adhesion molecule,0.2913,N,"Cell junction, Cell membrane, Membrane",N,Not confident,none,True,True,0.01067
+0.00969,Y,0.107,"Apoptosis, Cell adhesion, Endocytosis, Heparin-binding, Notch signaling pathway, Protease inhibitor, Serine protease inhibitor",APP,P05067,Amyloid-beta precursor protein,0.0952,N,"Amyloid, Cell membrane, Cell projection, Coated pit, Cytoplasm, Cytoplasmic vesicle, Endoplasmic reticulum, Endosome, Golgi apparatus, Membrane, Nucleus, Secreted",N,Not confident,none,True,True,0.00969
+0.00449,Y,0.089,"Exocytosis, Neurotransmitter transport, Sensory transduction, Transport, Vision",CPLX4,Q7Z7G2,Complexin-4,0.1654,N,"Cell membrane, Membrane, Synapse",Y,Not confident,none,True,True,0.00449

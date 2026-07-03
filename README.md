@@ -33,6 +33,15 @@ Delivered:
 - **GLP1R pilot (Problem B)**: 1,422 real GLP1R ligands pulled from ChEMBL
   (`scripts/fetch_glp1r_ligands.py` → `data/targets/GLP1R/`); strategy +
   Boltz-validation plan in [`docs/PROBLEM_B_GLP1R.md`](docs/PROBLEM_B_GLP1R.md).
+- **Mined predicted databases**: DrugCLIP (`scripts/fetch_drugclip.py`) and
+  humanPPI (`scripts/fetch_humanppi.py`) — APIs reverse-engineered, generic by UniProt.
+- **Cross-comparison + enrichment** ([`docs/GLP1R_crosscompare.md`](docs/GLP1R_crosscompare.md)):
+  ChEMBL × DrugCLIP × humanPPI. DrugCLIP hits ≠ measured pharmacology (a fragment
+  library); GLP1R interactome is significantly cell-surface enriched.
+- **Generic one-command pipeline** ([`docs/PIPELINE.md`](docs/PIPELINE.md)):
+  `python analysis/run_target.py --uniprot <id> --name <NAME>` mines all three
+  sources + runs all enrichment analyses for ANY target. Validated: the enrichment
+  machinery detects real similarity at 1674× on a positive control.
 - Reference lipids, resource inventory, full plan under `docs/`.
 
 ## Quickstart
