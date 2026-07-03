@@ -65,3 +65,56 @@ size/space — e.g. a target whose DrugCLIP hits are lead-sized, or when compari
 DrugCLIP against a fragment screen. Re-run for any target:
 `python analysis/crosscompare_glp1r.py` after mining that target with the
 `fetch_drugclip.py` / `fetch_glp1r_ligands.py` scripts.
+
+---
+
+## Follow-up 1 — fragment-aware (substructure) matching
+
+Because DrugCLIP hits are fragments, a fragment could be *contained inside* a
+larger active even at low whole-molecule Tanimoto. `analysis/fragment_match_glp1r.py`
+tests this: is each neutralised DrugCLIP fragment a **substructure** of ≥1 measured
+active, and is that enriched vs the EGFR decoy?
+
+Result — still negative, and robust across fragment-size thresholds (≥4…≥12 heavy atoms):
+
+| set | fragments contained in ≥1 active |
+|---|---|
+| GLP1R DrugCLIP | **1 / 173 (0.6%)** |
+| EGFR decoy | 1 / 874 (0.1%) |
+| Fisher exact (GLP1R > decoy) | OR = 5.1, **p = 0.30 (n.s.)** |
+| Murcko-scaffold exact matches | 0 |
+
+The negative is now **triangulated** at three levels — whole-molecule similarity,
+scaffold, and fragment/substructure. DrugCLIP's GLP1R fragments are simply not the
+building blocks of the known actives. (Figure: `results/figures/glp1r_fragment_match.png`.)
+
+## Follow-up 2 — protein-layer enrichment (humanPPI) — a positive result
+
+`analysis/humanppi_enrichment_glp1r.py`. The molecular streams don't agree, but the
+protein layer does carry signal: **GLP1R's predicted interactome is significantly
+enriched for cell-surface proteins**, tested against two decoy proteins from the
+same database and a genome baseline.
+
+| comparison | cell-surface fraction | test |
+|---|---|---|
+| **GLP1R** | **95/259 = 36.7%** | — |
+| vs GAPDH (soluble) | 17.1% | Fisher OR = 2.81, **p = 4.6e-11** |
+| vs EGFR (another membrane receptor) | 20.3% | Fisher OR = 2.28, **p = 2.8e-09** |
+| vs genome baseline (~25%) | — | binomial **p = 2e-5** |
+
+GLP1R is more surface-enriched than even another membrane receptor — a specific,
+not generic, signal. **Caveat**: humanPPI's binary "confident" flag is very strict
+(only 2/259 pass), so individual predictions are mostly low-confidence; rank the
+shortlist by the continuous AF_Score.
+
+**Actionable shortlist** (`data/targets/GLP1R/GLP1R_surface_partners.csv`, top by
+AF_Score): CYSTM1 (high conf), PLD5, LRRC55, LRTM2, **DLK1**, **PAM**, TMEFF2,
+SEMA5B. Notably **DLK1** and **PAM** are islet/β-cell membrane proteins — biologically
+plausible GLP1R neighbours and candidate co-targeting handles on GLP1R⁺ cells.
+(Figure: `results/figures/glp1r_humanppi_enrichment.png`.)
+
+### Net conclusion for GLP1R
+- Small-molecule virtual hits (DrugCLIP) ≠ measured pharmacology → don't chase them.
+- Peptide-first targeting stands (GLP-1 → ECD).
+- The protein layer adds real value: a surface-enriched interactome and a short
+  list of plausible surface co-targets (DLK1, PAM, …) worth structural follow-up.

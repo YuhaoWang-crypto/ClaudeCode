@@ -1,0 +1,2 @@
+ligand_id,smiles,smiles,source,drugclip_score,docking_score,n_active_hits,scaffold_in_actives,nearby_residues
+Z1699914571,FCCn1nc(Cl)c2ccccc21,FCCn1nc(Cl)c2ccccc21,REAL,5.8531,-7.302,1,False,GLU262;TYR269;ARG176;TYR250;LEU254

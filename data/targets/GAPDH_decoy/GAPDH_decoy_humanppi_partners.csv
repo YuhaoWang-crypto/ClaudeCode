@@ -1,0 +1,979 @@
+Interacting Partner,Gene Name,Protein Name,Subcellular Locality,AF_Score,RF_Score,DCA_Score,confident,Function,pdb
+O14556,GAPDHS,"Glyceraldehyde-3-phosphate dehydrogenase, testis-specific",Cytoplasm,0.985,0.2096,1.656,high,"Glycolysis, Oxidoreductase",['O14556_S0__P04406_S0.pdb']
+Q9UIG0,BAZ1B,Tyrosine-protein kinase BAZ1B,Nucleus,0.7803,0.5693,0.183,Not confident,"DNA damage, Kinase, Transcription, Transcription regulation, Transferase, Tyrosine-protein kinase",none
+Q5H9R7,PPP6R3,Serine/threonine-protein phosphatase 6 regulatory subunit 3,"Cytoplasm, Nucleus",0.624,0.3225,0.202,Not confident,NA,none
+P05386,RPLP1,Large ribosomal subunit protein P1,NA,0.6025,0.2751,0.164,Not confident,"Ribonucleoprotein, Ribosomal protein",none
+Q8N3A8,PARP8,Protein mono-ADP-ribosyltransferase PARP8,NA,0.5815,0.1854,0.062,Not confident,"Glycosyltransferase, Nucleotidyltransferase, Transferase",none
+A0A0A0MT82,IGLJ2,Immunoglobulin lambda joining 2,NA,0.5596,-,0.016,Not confident,NA,none
+Q9HCL2,GPAM,"Glycerol-3-phosphate acyltransferase 1, mitochondrial","Membrane, Mitochondrion, Mitochondrion outer membrane",0.5356,0.274,0.176,Not confident,"Acyltransferase, Lipid biosynthesis, Lipid metabolism, Phospholipid biosynthesis, Phospholipid metabolism, Transferase",none
+Q8NG27,PJA1,E3 ubiquitin-protein ligase Praja-1,NA,0.4197,0.1183,0.118,Not confident,"Transferase, Ubl conjugation pathway",none
+O75925,PIAS1,E3 SUMO-protein ligase PIAS1,"Cytoplasm, Cytoskeleton, Nucleus",0.3877,0.1472,0.264,Not confident,"DNA-binding, Host-virus interaction, Transcription, Transcription regulation, Transferase, Ubl conjugation pathway",none
+O15355,PPM1G,Protein phosphatase 1G,"Cytoplasm, Membrane",0.3828,0.2698,0.222,Not confident,"Hydrolase, Protein phosphatase",none
+P19338,NCL,Nucleolin,"Cytoplasm, Nucleus",0.3804,0.0608,0.247,Not confident,"DNA-binding, RNA-binding",none
+Q9H3M7,TXNIP,Thioredoxin-interacting protein,Cytoplasm,0.378,0.1226,0.098,Not confident,"Cell cycle, Transcription, Transcription regulation",none
+Q9H6X2,ANTXR1,Anthrax toxin receptor 1,"Cell membrane, Cell projection, Membrane",0.3608,0.2656,0.052,Not confident,Receptor,none
+P58335,ANTXR2,Anthrax toxin receptor 2,"Cell membrane, Endoplasmic reticulum, Membrane, Secreted",0.3257,0.2896,0.069,Not confident,Receptor,none
+Q7Z417,NUFIP2,FMR1-interacting protein NUFIP2,"Cytoplasm, Nucleus",0.3076,0.09875,0.04,Not confident,RNA-binding,none
+Q13323,BIK,Bcl-2-interacting killer,"Membrane, Mitochondrion",0.2747,0.0257,0.018,Not confident,Apoptosis,none
+P26641,EEF1G,Elongation factor 1-gamma,NA,0.2737,0.2208,0.237,Not confident,"Elongation factor, Protein biosynthesis",none
+O14874,BCKDK,Branched-chain alpha-ketoacid dehydrogenase kinase,Mitochondrion,0.2703,0.1625,0.215,Not confident,"Kinase, Transferase",none
+Q00987,MDM2,E3 ubiquitin-protein ligase Mdm2,"Cytoplasm, Nucleus",0.2512,0.1473,0.11,Not confident,"Apoptosis, Host-virus interaction, Transferase, Ubl conjugation pathway",none
+Q6P995,FAM171B,Protein FAM171B,Membrane,0.2429,0.2079,0.034,Not confident,NA,none
+Q7L014,DDX46,Probable ATP-dependent RNA helicase DDX46,"Nucleus, Spliceosome",0.238,0.2986,0.246,Not confident,"Helicase, Hydrolase, mRNA processing, mRNA splicing, RNA-binding",none
+Q9P2C4,TMEM181,Transmembrane protein 181,Membrane,0.2356,0.356,0.129,Not confident,NA,none
+Q9ULH1,ASAP1,"Arf-GAP with SH3 domain, ANK repeat and PH domain-containing protein 1","Cytoplasm, Golgi apparatus, Membrane",0.2307,0.2598,0.138,Not confident,"Cilium biogenesis/degradation, GTPase activation",none
+A1A4G5,LNP1,Leukemia NUP98 fusion partner 1,NA,0.2303,0.065,0.034,Not confident,NA,none
+P04920,SLC4A2,Anion exchange protein 2,"Cell membrane, Membrane",0.227,0.2532,0.182,Not confident,"Anion exchange, Antiport, Ion transport, Transport",none
+P49768,PSEN1,Presenilin-1,"Cell membrane, Cell projection, Endoplasmic reticulum, Endosome, Golgi apparatus, Membrane, Synapse",0.2206,0.0404,0.142,Not confident,"Apoptosis, Cell adhesion, Hydrolase, Notch signaling pathway, Protease",none
+O43390,HNRNPR,Heterogeneous nuclear ribonucleoprotein R,"Cytoplasm, Endoplasmic reticulum, Microsome, Nucleus, Spliceosome",0.2122,0.09705,0.2,Not confident,"mRNA processing, mRNA splicing, Ribonucleoprotein, RNA-binding",none
+Q86VM9,ZC3H18,Zinc finger CCCH domain-containing protein 18,Nucleus,0.2086,0.1279,0.187,Not confident,NA,none
+Q6P1J9,CDC73,Parafibromin,Nucleus,0.2026,0.2202,0.162,Not confident,"Cell cycle, Transcription, Transcription regulation, Wnt signaling pathway",none
+Q8WU10,PYROXD1,Pyridine nucleotide-disulfide oxidoreductase domain-containing protein 1,"Cytoplasm, Nucleus",0.2015,0.3093,0.295,Not confident,Oxidoreductase,none
+P23434,GCSH,"Glycine cleavage system H protein, mitochondrial",Mitochondrion,0.1995,0.2551,0.259,Not confident,NA,none
+Q9UKT7,FBXL3,F-box/LRR-repeat protein 3,"Cytoplasm, Nucleus",0.1991,0.5527,0.097,Not confident,"Biological rhythms, Ubl conjugation pathway",none
+O76041,NEBL,Nebulette,Cytoplasm,0.1973,0.1617,0.118,Not confident,Actin-binding,none
+P16333,NCK1,SH2/SH3 adapter protein NCK1,"Cytoplasm, Endoplasmic reticulum, Nucleus",0.1868,0.1237,0.164,Not confident,Translation regulation,none
+P04632,CAPNS1,Calpain small subunit 1,"Cell membrane, Cytoplasm, Membrane",0.1866,0.0388,0.154,Not confident,NA,none
+Q9NT62,ATG3,Ubiquitin-like-conjugating enzyme ATG3,Cytoplasm,0.1858,0.1958,0.189,Not confident,"Autophagy, Protein transport, Transferase, Transport, Ubl conjugation pathway",none
+P51610,HCFC1,Host cell factor 1,"Cytoplasm, Nucleus",0.1833,0.1202,0.2,Not confident,"Cell cycle, Chromatin regulator, Host-virus interaction",none
+Q9Y266,NUDC,Nuclear migration protein nudC,"Cytoplasm, Cytoskeleton, Microtubule, Nucleus",0.1791,0.1028,0.196,Not confident,"Cell cycle, Cell division, Mitosis",none
+Q99558,MAP3K14,Mitogen-activated protein kinase kinase kinase 14,Cytoplasm,0.1783,0.1143,0.144,Not confident,"Kinase, Serine/threonine-protein kinase, Transferase",none
+Q9ULE0,WWC3,Protein WWC3,Cytoplasm,0.1776,0.3362,0.143,Not confident,"Repressor, Transcription, Transcription regulation",none
+Q9C0F0,ASXL3,Putative Polycomb group protein ASXL3,Nucleus,0.1772,0.08124,0.126,Not confident,"Repressor, Transcription, Transcription regulation",none
+Q9BRY0,SLC39A3,Zinc transporter ZIP3,"Cell membrane, Membrane",0.1725,0.336,0.24,Not confident,"Ion transport, Transport, Zinc transport",none
+Q8WVD3,RNF138,E3 ubiquitin-protein ligase RNF138,Chromosome,0.1725,0.02318,0.091,Not confident,"DNA damage, DNA repair, DNA-binding, Transferase, Ubl conjugation pathway, Wnt signaling pathway",none
+Q96NS8,CLUHP3,Putative protein CLUHP3,NA,0.1721,0.002243,0.015,Not confident,NA,none
+B2RPK0,HMGB1P1,Putative high mobility group protein B1-like 1,"Chromosome, Nucleus",0.172,0.01619,0.226,Not confident,DNA-binding,none
+Q99442,SEC62,Translocation protein SEC62,"Endoplasmic reticulum, Membrane",0.1716,0.155,0.182,Not confident,"Protein transport, Translocation, Transport",none
+P46821,MAP1B,Microtubule-associated protein 1B,"Cell projection, Cytoplasm, Cytoskeleton, Microtubule, Synapse",0.1715,0.135,0.193,Not confident,NA,none
+Q6P589,TNFAIP8L2,Tumor necrosis factor alpha-induced protein 8-like protein 2,"Cytoplasm, Lysosome, Nucleus",0.1713,0.4446,0.114,Not confident,"Immunity, Innate immunity",none
+P49588,AARS1,"Alanine--tRNA ligase, cytoplasmic",Cytoplasm,0.1708,0.315,0.233,Not confident,"Aminoacyl-tRNA synthetase, Ligase, Protein biosynthesis, RNA-binding, tRNA-binding",none
+O00469,PLOD2,"Procollagen-lysine,2-oxoglutarate 5-dioxygenase 2","Endoplasmic reticulum, Membrane",0.1691,0.2676,0.179,Not confident,"Dioxygenase, Oxidoreductase",none
+Q13017,ARHGAP5,Rho GTPase-activating protein 5,"Cell membrane, Cytoplasm, Membrane",0.1691,0.258,0.108,Not confident,GTPase activation,none
+P03986,TRGC2,T cell receptor gamma constant 2,"Cell membrane, Membrane, T cell receptor",0.1665,0.02011,0.036,Not confident,"Adaptive immunity, Immunity, Receptor",none
+Q14761,PTPRCAP,Protein tyrosine phosphatase receptor type C-associated protein,Membrane,0.1653,0.04233,0.028,Not confident,NA,none
+Q9UQF0,ERVW-1,Syncytin-1,"Cell membrane, Membrane, Viral envelope protein, Virion",0.1636,0.06854,0.074,Not confident,NA,none
+Q7Z4Q2,HEATR3,HEAT repeat-containing protein 3,NA,0.1627,0.264,0.172,Not confident,"Erythrocyte maturation, Ribosome biogenesis",none
+Q9UBE0,SAE1,SUMO-activating enzyme subunit 1,Nucleus,0.16,0.33,0.28,Not confident,"Ligase, Ubl conjugation pathway",none
+P13693,TPT1,Translationally-controlled tumor protein,Cytoplasm,0.1595,0.355,0.173,Not confident,NA,none
+Q9NQC7,CYLD,Ubiquitin carboxyl-terminal hydrolase CYLD,"Cell membrane, Cell projection, Cytoplasm, Cytoskeleton, Membrane, Microtubule",0.1594,0.1605,0.132,Not confident,"Cell cycle, Hydrolase, Immunity, Innate immunity, Protease, Thiol protease, Ubl conjugation pathway, Wnt signaling pathway",none
+P50897,PPT1,Palmitoyl-protein thioesterase 1,"Lysosome, Secreted",0.1576,0.03973,0.243,Not confident,"Hydrolase, Sensory transduction, Vision",none
+Q96TA1,NIBAN2,Protein Niban 2,"Cell junction, Cytoplasm, Membrane",0.1558,0.1041,0.028,Not confident,NA,none
+Q9NQ40,SLC52A3,"Solute carrier family 52, riboflavin transporter, member 3","Cell membrane, Cytoplasm, Membrane, Nucleus",0.1552,0.3176,0.171,Not confident,Transport,none
+Q9NWS0,PIH1D1,PIH1 domain-containing protein 1,Nucleus,0.1543,0.064,0.212,Not confident,"Transcription, Transcription regulation",none
+Q6ZNL6,FGD5,"FYVE, RhoGEF and PH domain-containing protein 5","Cell membrane, Cell projection, Cytoplasm, Cytoskeleton, Endoplasmic reticulum, Endosome, Golgi apparatus, Membrane",0.1534,0.10565,0.135,Not confident,Guanine-nucleotide releasing factor,none
+Q92696,RABGGTA,Geranylgeranyl transferase type-2 subunit alpha,NA,0.1532,0.2448,0.261,Not confident,"Prenyltransferase, Transferase",none
+P63151,PPP2R2A,Serine/threonine-protein phosphatase 2A 55 kDa regulatory subunit B alpha isoform,NA,0.1514,0.1181,0.146,Not confident,NA,none
+O75891,ALDH1L1,Cytosolic 10-formyltetrahydrofolate dehydrogenase,Cytoplasm,0.151,0.2917,0.204,Not confident,"One-carbon metabolism, Oxidoreductase",none
+P49411,TUFM,"Elongation factor Tu, mitochondrial",Mitochondrion,0.1489,0.1111,0.176,Not confident,"Elongation factor, Host-virus interaction, Protein biosynthesis",none
+P02751,FN1,Fibronectin,"Extracellular matrix, Secreted",0.1475,0.1296,0.161,Not confident,"Acute phase, Angiogenesis, Cell adhesion, Cell shape, Heparin-binding",none
+Q8TBK2,SETD6,N-lysine methyltransferase SETD6,Nucleus,0.147,0.3047,0.256,Not confident,"Methyltransferase, Transferase",none
+P54259,ATN1,Atrophin-1,"Cell junction, Cytoplasm, Nucleus",0.1466,0.127,0.079,Not confident,"Transcription, Transcription regulation",none
+P21589,NT5E,5'-nucleotidase,"Cell membrane, Membrane",0.1458,0.2822,0.23,Not confident,Hydrolase,none
+P35658,NUP214,Nuclear pore complex protein Nup214,"Nuclear pore complex, Nucleus",0.1455,0.4565,0.244,Not confident,"Host-virus interaction, mRNA transport, Protein transport, Translocation, Transport",none
+P62993,GRB2,Growth factor receptor-bound protein 2,"Cytoplasm, Endosome, Golgi apparatus, Nucleus",0.1455,0.1415,0.139,Not confident,Host-virus interaction,none
+P04198,MYCN,N-myc proto-oncogene protein,Nucleus,0.1455,0.06232,0.145,Not confident,"Activator, DNA-binding, Transcription, Transcription regulation",none
+P29375,KDM5A,Lysine-specific demethylase 5A,Nucleus,0.1454,0.3618,0.201,Not confident,"Activator, Biological rhythms, Chromatin regulator, Developmental protein, Dioxygenase, Oxidoreductase, Transcription, Transcription regulation",none
+P51687,SUOX,"Sulfite oxidase, mitochondrial",Mitochondrion,0.145,0.4946,0.253,Not confident,Oxidoreductase,none
+P50579,METAP2,Methionine aminopeptidase 2,Cytoplasm,0.1447,0.08356,0.17,Not confident,"Aminopeptidase, Hydrolase, Protease",none
+P49913,CAMP,Cathelicidin antimicrobial peptide,Secreted,0.144,0.03583,0.04,Not confident,"Antibiotic, Antimicrobial, Immunity, Innate immunity",none
+Q13371,PDCL,Phosducin-like protein,Cell projection,0.1433,0.5625,0.248,Not confident,"Chaperone, Cilium biogenesis/degradation, Sensory transduction, Vision",none
+Q96AT1,KIAA1143,Uncharacterized protein KIAA1143,NA,0.1433,0.369,0.133,Not confident,NA,none
+Q96DC9,OTUB2,Ubiquitin thioesterase OTUB2,NA,0.1433,0.04074,0.205,Not confident,"Hydrolase, Protease, Thiol protease, Ubl conjugation pathway",none
+P49841,GSK3B,Glycogen synthase kinase-3 beta,"Cell membrane, Cytoplasm, Membrane, Nucleus",0.1427,0.07733,0.132,Not confident,"Biological rhythms, Carbohydrate metabolism, Developmental protein, Differentiation, Glycogen metabolism, Kinase, Neurogenesis, Serine/threonine-protein kinase, Signal transduction inhibitor, Transferase, Wnt signaling pathway",none
+Q13685,AAMP,Angio-associated migratory cell protein,"Cell membrane, Cytoplasm, Membrane",0.1422,0.4312,0.257,Not confident,"Angiogenesis, Developmental protein, Differentiation",none
+Q9BSH4,TACO1,Translational activator of cytochrome c oxidase 1,Mitochondrion,0.1422,0.11145,0.266,Not confident,"Activator, Translation regulation",none
+Q9NVM4,PRMT7,Protein arginine N-methyltransferase 7,"Cytoplasm, Nucleus",0.1418,0.3142,0.21,Not confident,"Chromatin regulator, Differentiation, Methyltransferase, Transcription, Transcription regulation, Transferase",none
+P48039,MTNR1A,Melatonin receptor type 1A,"Cell membrane, Membrane",0.1409,0.074,0.15,Not confident,"G-protein coupled receptor, Receptor, Transducer",none
+P49770,EIF2B2,Translation initiation factor eIF2B subunit beta,Cytoplasm,0.1367,0.3042,0.208,Not confident,"Initiation factor, Protein biosynthesis",none
+Q14019,COTL1,Coactosin-like protein,"Cytoplasm, Cytoskeleton, Nucleus",0.1362,0.29,0.158,Not confident,"Actin-binding, Chaperone",none
+P08173,CHRM4,Muscarinic acetylcholine receptor M4,"Cell membrane, Membrane, Postsynaptic cell membrane, Synapse",0.135,0.2507,0.124,Not confident,"G-protein coupled receptor, Receptor, Transducer",none
+P63208,SKP1,S-phase kinase-associated protein 1,NA,0.135,0.01683,0.147,Not confident,"Host-virus interaction, Ubl conjugation pathway",none
+P14923,JUP,Junction plakoglobin,"Cell junction, Cytoplasm, Cytoskeleton, Membrane",0.1345,0.1812,0.106,Not confident,Cell adhesion,none
+P09467,FBP1,"Fructose-1,6-bisphosphatase 1",NA,0.1342,0.5576,0.18,Not confident,"Allosteric enzyme, Carbohydrate metabolism, Gluconeogenesis, Hydrolase",none
+Q00535,CDK5,Cyclin-dependent kinase 5,"Cell membrane, Cell projection, Cytoplasm, Membrane, Nucleus, Synapse",0.133,0.10376,0.161,Not confident,"Apoptosis, Biological rhythms, Cell cycle, Cell division, Kinase, Neurogenesis, Serine/threonine-protein kinase, Transferase",none
+Q9Y5U4,INSIG2,Insulin-induced gene 2 protein,"Endoplasmic reticulum, Membrane",0.1328,0.03964,0.126,Not confident,"Cholesterol metabolism, Lipid metabolism, Steroid metabolism, Sterol metabolism",none
+P55957,BID,BH3-interacting domain death agonist,"Cytoplasm, Membrane, Mitochondrion, Mitochondrion outer membrane",0.1327,0.2795,0.034,Not confident,Apoptosis,none
+P24941,CDK2,Cyclin-dependent kinase 2,"Cytoplasm, Cytoskeleton, Endosome, Nucleus",0.1326,0.3262,0.199,Not confident,"Cell cycle, Cell division, DNA damage, DNA repair, Kinase, Meiosis, Mitosis, Serine/threonine-protein kinase, Transferase",none
+Q6UXM1,LRIG3,Leucine-rich repeats and immunoglobulin-like domains protein 3,"Cell membrane, Cytoplasmic vesicle, Membrane",0.1309,0.251,0.268,Not confident,Developmental protein,none
+Q9Y618,NCOR2,Nuclear receptor corepressor 2,Nucleus,0.1304,0.1539,0.154,Not confident,"DNA-binding, Repressor, Transcription, Transcription regulation",none
+P61081,UBE2M,NEDD8-conjugating enzyme Ubc12,NA,0.1304,0.04828,0.197,Not confident,"Transferase, Ubl conjugation pathway",none
+O75808,CAPN15,Calpain-15,NA,0.1296,0.3103,0.138,Not confident,"Hydrolase, Protease, Thiol protease",none
+O15294,OGT,UDP-N-acetylglucosamine--peptide N-acetylglucosaminyltransferase 110 kDa subunit,"Cell membrane, Cell projection, Cytoplasm, Membrane, Mitochondrion, Nucleus",0.1296,0.1869,0.18,Not confident,"Apoptosis, Biological rhythms, Chromatin regulator, Glycosyltransferase, Host-virus interaction, Transferase, Ubl conjugation pathway",none
+Q9Y2Z2,MTO1,"Protein MTO1 homolog, mitochondrial",Mitochondrion,0.1278,0.2742,0.24,Not confident,tRNA processing,none
+O00757,FBP2,"Fructose-1,6-bisphosphatase isozyme 2","Cell junction, Cytoplasm, Nucleus",0.1274,0.452,0.165,Not confident,"Allosteric enzyme, Carbohydrate metabolism, Gluconeogenesis, Hydrolase",none
+P37840,SNCA,Alpha-synuclein,"Amyloid, Cell projection, Cytoplasm, Membrane, Nucleus, Secreted, Synapse",0.1266,0.01449,0.022,Not confident,NA,none
+Q96SW2,CRBN,Protein cereblon,"Cytoplasm, Membrane, Nucleus",0.1265,0.3105,0.182,Not confident,Ubl conjugation pathway,none
+P53597,SUCLG1,"Succinate--CoA ligase [ADP/GDP-forming] subunit alpha, mitochondrial",Mitochondrion,0.1263,0.7036,0.161,Not confident,"Ligase, Tricarboxylic acid cycle",none
+P41595,HTR2B,5-hydroxytryptamine receptor 2B,"Cell membrane, Membrane, Synapse, Synaptosome",0.1256,0.2524,0.132,Not confident,"Behavior, G-protein coupled receptor, Receptor, Transducer",none
+Q9HBH9,MKNK2,MAP kinase-interacting serine/threonine-protein kinase 2,"Cytoplasm, Nucleus",0.1254,0.10046,0.202,Not confident,"Apoptosis, Kinase, Serine/threonine-protein kinase, Transferase, Translation regulation",none
+Q14515,SPARCL1,SPARC-like protein 1,"Extracellular matrix, Secreted",0.1254,0.06903,0.082,Not confident,NA,none
+Q96AC1,FERMT2,Fermitin family homolog 2,"Cell junction, Cell membrane, Cell projection, Cytoplasm, Cytoskeleton, Membrane, Nucleus",0.1252,0.1627,0.097,Not confident,"Cell adhesion, Cell shape, Wnt signaling pathway",none
+P00167,CYB5A,Cytochrome b5,"Cytoplasm, Endoplasmic reticulum, Membrane, Microsome",0.1246,0.5396,0.199,Not confident,"Electron transport, Transport",none
+P35611,ADD1,Alpha-adducin,"Cell membrane, Cytoplasm, Cytoskeleton, Membrane",0.12427,0.113,0.154,Not confident,"Actin-binding, Calmodulin-binding",none
+O60303,KATNIP,Katanin-interacting protein,"Cell projection, Cytoplasm, Cytoskeleton",0.1231,0.433,0.172,Not confident,NA,none
+P05121,SERPINE1,Plasminogen activator inhibitor 1,Secreted,0.1229,0.1265,0.215,Not confident,"Protease inhibitor, Serine protease inhibitor",none
+P05067,APP,Amyloid-beta precursor protein,"Amyloid, Cell membrane, Cell projection, Coated pit, Cytoplasm, Cytoplasmic vesicle, Endoplasmic reticulum, Endosome, Golgi apparatus, Membrane, Nucleus, Secreted",0.12286,0.1339,0.113,Not confident,"Apoptosis, Cell adhesion, Endocytosis, Heparin-binding, Notch signaling pathway, Protease inhibitor, Serine protease inhibitor",none
+P13804,ETFA,"Electron transfer flavoprotein subunit alpha, mitochondrial",Mitochondrion,0.1221,0.3364,0.215,Not confident,"Electron transport, Transport",none
+P08758,ANXA5,Annexin A5,NA,0.12195,0.0757,0.188,Not confident,"Blood coagulation, Hemostasis",none
+Q6N021,TET2,Methylcytosine dioxygenase TET2,"Chromosome, Nucleus",0.12115,0.1164,0.127,Not confident,"Cell cycle, Chromatin regulator, Dioxygenase, DNA-binding, Oxidoreductase",none
+P14550,AKR1A1,Aldo-keto reductase family 1 member A1,"Cell membrane, Cytoplasm, Membrane",0.12036,0.0441,0.275,Not confident,"Lipid metabolism, Oxidoreductase",none
+P41743,PRKCI,Protein kinase C iota type,"Cytoplasm, Endosome, Membrane, Nucleus",0.12,0.1086,0.146,Not confident,"Kinase, Serine/threonine-protein kinase, Transferase",none
+A0PJK1,SLC5A10,Sodium/mannose cotransporter SLC5A10,"Cell membrane, Membrane",0.11847,0.341,0.154,Not confident,"Ion transport, Sodium transport, Sugar transport, Transport",none
+P15502,ELN,Elastin,"Extracellular matrix, Secreted",0.11816,0.01985,0.028,Not confident,NA,none
+Q9BYB0,SHANK3,SH3 and multiple ankyrin repeat domains protein 3,"Cell projection, Cytoplasm, Synapse",0.1175,0.1113,0.118,Not confident,Actin-binding,none
+Q14527,HLTF,Helicase-like transcription factor,"Cytoplasm, Nucleus",0.1174,0.3945,0.32,Not confident,"Activator, Chromatin regulator, DNA-binding, Helicase, Hydrolase, Multifunctional enzyme, Transcription, Transferase, Ubl conjugation pathway",none
+P67775,PPP2CA,Serine/threonine-protein phosphatase 2A catalytic subunit alpha isoform,"Centromere, Chromosome, Cytoplasm, Cytoskeleton, Nucleus",0.1171,0.3755,0.118,Not confident,"Hydrolase, Meiosis, Protein phosphatase",none
+Q14207,NPAT,Protein NPAT,Nucleus,0.1164,0.1198,0.073,Not confident,"Activator, Cell cycle, Transcription, Transcription regulation",none
+Q13547,HDAC1,Histone deacetylase 1,Nucleus,0.1163,0.1327,0.169,Not confident,"Biological rhythms, Chromatin regulator, Hydrolase, Repressor, Transcription, Transcription regulation",none
+P24534,EEF1B2,Elongation factor 1-beta,NA,0.11615,0.5596,0.185,Not confident,"Elongation factor, Protein biosynthesis",none
+P14543,NID1,Nidogen-1,"Basement membrane, Extracellular matrix, Secreted",0.1161,0.1383,0.135,Not confident,Cell adhesion,none
+Q9P2U7,SLC17A7,Vesicular glutamate transporter 1,"Cell membrane, Cytoplasmic vesicle, Membrane, Synapse, Synaptosome",0.1156,0.1357,0.173,Not confident,"Antiport, Chloride channel, Ion channel, Ion transport, Neurotransmitter transport, Phosphate transport, Sodium transport, Symport, Transport",none
+Q96FW1,OTUB1,Ubiquitin thioesterase OTUB1,Cytoplasm,0.1156,0.06073,0.212,Not confident,"Adaptive immunity, DNA damage, DNA repair, Hydrolase, Immunity, Protease, Thiol protease, Ubl conjugation pathway",none
+Q99683,MAP3K5,Mitogen-activated protein kinase kinase kinase 5,"Cytoplasm, Endoplasmic reticulum",0.1145,0.1648,0.152,Not confident,"Apoptosis, Host-virus interaction, Immunity, Innate immunity, Kinase, Serine/threonine-protein kinase, Stress response, Transferase",none
+O14802,POLR3A,DNA-directed RNA polymerase III subunit RPC1,"Cytoplasm, DNA-directed RNA polymerase, Nucleus",0.11426,0.3176,0.178,Not confident,"Antiviral defense, Immunity, Innate immunity, Nucleotidyltransferase, Transcription, Transferase",none
+Q5T7P8,SYT6,Synaptotagmin-6,"Cell membrane, Cytoplasm, Cytoplasmic vesicle, Membrane, Synapse",0.11426,0.0818,0.173,Not confident,NA,none
+P20073,ANXA7,Annexin A7,NA,0.11334,0.1268,0.202,Not confident,NA,none
+P35222,CTNNB1,Catenin beta-1,"Cell junction, Cell membrane, Cell projection, Cytoplasm, Cytoskeleton, Membrane, Nucleus, Synapse",0.1131,0.2009,0.101,Not confident,"Activator, Cell adhesion, Host-virus interaction, Neurogenesis, Transcription, Transcription regulation, Wnt signaling pathway",none
+Q14181,POLA2,DNA polymerase alpha subunit B,Nucleus,0.11273,0.2766,0.29,Not confident,DNA replication,none
+Q8TF40,FNIP1,Folliculin-interacting protein 1,"Cytoplasm, Lysosome, Membrane",0.1121,0.4365,0.185,Not confident,NA,none
+Q8N6T7,SIRT6,NAD-dependent protein deacylase sirtuin-6,"Chromosome, Endoplasmic reticulum, Nucleus, Telomere",0.11163,0.0346,0.232,Not confident,"Acyltransferase, Chromatin regulator, Developmental protein, DNA damage, DNA repair, DNA-binding, Glycosyltransferase, Nucleotidyltransferase, RNA-binding, Transferase",none
+A6NMY6,ANXA2P2,Putative annexin A2-like protein,"Basement membrane, Extracellular matrix, Secreted",0.11127,0.05988,0.209,Not confident,NA,none
+Q9UMS0,NFU1,"NFU1 iron-sulfur cluster scaffold homolog, mitochondrial","Cytoplasm, Mitochondrion",0.1109,0.6763,0.165,Not confident,NA,none
+O43150,ASAP2,"Arf-GAP with SH3 domain, ANK repeat and PH domain-containing protein 2","Cell membrane, Cytoplasm, Golgi apparatus, Membrane",0.1109,0.3171,0.132,Not confident,GTPase activation,none
+Q9Y6J0,CABIN1,Calcineurin-binding protein cabin-1,Nucleus,0.1107,0.317,0.187,Not confident,Chromatin regulator,none
+O75190,DNAJB6,DnaJ homolog subfamily B member 6,"Cytoplasm, Nucleus",0.11017,0.1595,0.271,Not confident,Chaperone,none
+Q92560,BAP1,Ubiquitin carboxyl-terminal hydrolase BAP1,"Cytoplasm, Nucleus",0.1099,0.138,0.154,Not confident,"Chromatin regulator, Hydrolase, Protease, Thiol protease, Ubl conjugation pathway",none
+Q07820,MCL1,Induced myeloid leukemia cell differentiation protein Mcl-1,"Cytoplasm, Membrane, Mitochondrion, Nucleus",0.1099,0.01492,0.095,Not confident,"Apoptosis, Developmental protein, Differentiation",none
+Q5VYX0,RNLS,Renalase,Secreted,0.10986,0.02068,0.149,Not confident,Oxidoreductase,none
+Q9HD15,SRA1,Steroid receptor RNA activator 1,"Cytoplasm, Nucleus",0.10956,0.0596,0.152,Not confident,"Activator, Apoptosis, Receptor, Ribonucleoprotein, Transcription, Transcription regulation",none
+A0N4Z3,TRAJ14,HCG2039775,NA,0.10956,0.001157,-,Not confident,NA,none
+Q9HB71,CACYBP,Calcyclin-binding protein,"Cytoplasm, Nucleus",0.1095,0.04688,0.174,Not confident,Ubl conjugation pathway,none
+Q8NBJ5,COLGALT1,Procollagen galactosyltransferase 1,Endoplasmic reticulum,0.10944,0.1674,0.221,Not confident,"Glycosyltransferase, Transferase",none
+Q9BQ67,GRWD1,Glutamate-rich WD repeat-containing protein 1,"Chromosome, Nucleus",0.10876,0.1179,0.225,Not confident,DNA replication,none
+A6NHR9,SMCHD1,Structural maintenance of chromosomes flexible hinge domain-containing protein 1,Chromosome,0.1087,0.2698,0.097,Not confident,"Chromatin regulator, DNA damage, DNA repair, DNA-binding, Hydrolase",none
+P02730,SLC4A1,Band 3 anion transport protein,"Cell membrane, Membrane",0.1087,0.2343,0.19,Not confident,"Anion exchange, Blood group antigen, Ion transport, Transport",none
+O95754,SEMA4F,Semaphorin-4F,"Cell membrane, Cell projection, Membrane, Synapse",0.1087,-,0.089,Not confident,"Developmental protein, Differentiation, Neurogenesis",none
+P51531,SMARCA2,Probable global transcription activator SNF2L2,Nucleus,0.10785,0.1887,0.235,Not confident,"Activator, DNA-binding, Helicase, Hydrolase, Neurogenesis, Transcription, Transcription regulation",none
+Q96EB6,SIRT1,NAD-dependent protein deacetylase sirtuin-1,"Cytoplasm, Mitochondrion, Nucleus",0.10754,0.1366,0.24,Not confident,"Apoptosis, Biological rhythms, Developmental protein, Differentiation, Host-virus interaction, Myogenesis, Transcription, Transcription regulation, Transferase",none
+P13051,UNG,Uracil-DNA glycosylase,"Mitochondrion, Nucleus",0.10724,0.03906,0.266,Not confident,"DNA damage, DNA repair, Host-virus interaction, Hydrolase",none
+Q13489,BIRC3,Baculoviral IAP repeat-containing protein 3,"Cytoplasm, Nucleus",0.1072,0.07404,0.227,Not confident,"Apoptosis, Transferase, Ubl conjugation pathway",none
+P17540,CKMT2,"Creatine kinase S-type, mitochondrial","Membrane, Mitochondrion, Mitochondrion inner membrane",0.107,0.251,0.132,Not confident,"Kinase, Transferase",none
+O43169,CYB5B,Cytochrome b5 type B,"Membrane, Mitochondrion, Mitochondrion outer membrane",0.1064,0.327,0.206,Not confident,"Electron transport, Transport",none
+P36268,GGT2P,Inactive glutathione hydrolase 2,"Cytoplasm, Endoplasmic reticulum",0.1063,0.10724,0.289,Not confident,NA,none
+Q14839,CHD4,Chromodomain-helicase-DNA-binding protein 4,"Cytoplasm, Cytoskeleton, Nucleus",0.1062,0.2024,0.212,Not confident,"Chromatin regulator, DNA-binding, Helicase, Hydrolase, Transcription, Transcription regulation",none
+Q13952,NFYC,Nuclear transcription factor Y subunit gamma,Nucleus,0.1059,0.0779,0.216,Not confident,"Activator, DNA-binding, Transcription, Transcription regulation",none
+Q86UY6,NAA40,N-alpha-acetyltransferase 40,"Cytoplasm, Nucleus",0.1059,0.02997,0.246,Not confident,"Acyltransferase, Transferase",none
+P24522,GADD45A,Growth arrest and DNA damage-inducible protein GADD45 alpha,Nucleus,0.1059,0.02097,0.086,Not confident,"Cell cycle, DNA damage, Growth arrest",none
+Q9NXU5,ARL15,ADP-ribosylation factor-like protein 15,NA,0.1055,0.02481,0.156,Not confident,NA,none
+P12277,CKB,Creatine kinase B-type,"Cell membrane, Cytoplasm, Membrane, Mitochondrion",0.1053,0.325,0.113,Not confident,"Kinase, Transferase",none
+Q07817,BCL2L1,Bcl-2-like protein 1,"Cytoplasm, Cytoplasmic vesicle, Cytoskeleton, Membrane, Mitochondrion, Mitochondrion inner membrane, Mitochondrion outer membrane, Nucleus, Synapse",0.10504,0.032,0.111,Not confident,"Apoptosis, Endocytosis",none
+P48637,GSS,Glutathione synthetase,NA,0.1049,0.1643,0.303,Not confident,"Glutathione biosynthesis, Ligase",none
+Q2NL67,PARP6,Protein mono-ADP-ribosyltransferase PARP6,NA,0.1049,0.1432,0.137,Not confident,"Glycosyltransferase, Nucleotidyltransferase, Transferase",none
+O75663,TIPRL,TIP41-like protein,Cytoplasm,0.10364,0.2869,0.241,Not confident,NA,none
+P01106,MYC,Myc proto-oncogene protein,"Cytoplasm, Nucleus",0.10364,0.10443,0.123,Not confident,"Activator, DNA-binding, Transcription, Transcription regulation",none
+P06454,PTMA,Prothymosin alpha,Nucleus,0.1033,0.03958,0.023,Not confident,NA,none
+P04083,ANXA1,Annexin A1,"Cell membrane, Cell projection, Cilium, Cytoplasm, Cytoplasmic vesicle, Endosome, Membrane, Nucleus, Secreted",0.10297,0.0947,0.197,Not confident,"Adaptive immunity, Immunity, Inflammatory response, Innate immunity, Phospholipase A2 inhibitor",none
+Q02809,PLOD1,"Procollagen-lysine,2-oxoglutarate 5-dioxygenase 1","Endoplasmic reticulum, Membrane",0.1026,0.4822,0.176,Not confident,"Dioxygenase, Oxidoreductase",none
+Q96MM6,HSPA12B,Heat shock 70 kDa protein 12B,NA,0.10254,0.3496,0.128,Not confident,NA,none
+Q8WWX8,SLC5A11,Sodium/myo-inositol cotransporter 2,"Cell membrane, Membrane",0.10175,0.2852,0.154,Not confident,"Apoptosis, Ion transport, Sodium transport, Sugar transport, Symport, Transport",none
+P00558,PGK1,Phosphoglycerate kinase 1,Cytoplasm,0.1013,0.1316,0.179,Not confident,"Glycolysis, Kinase, Transferase",none
+Q04446,GBE1,"1,4-alpha-glucan-branching enzyme",NA,0.101,0.278,0.171,Not confident,"Glycogen biosynthesis, Glycosyltransferase, Transferase",none
+O60941,DTNB,Dystrobrevin beta,"Cell membrane, Cell projection, Cytoplasm, Membrane, Nucleus, Synapse",0.10095,0.1226,0.095,Not confident,NA,none
+P78318,IGBP1,Immunoglobulin-binding protein 1,Cytoplasm,0.1009,0.3042,0.277,Not confident,"B-cell activation, Chaperone",none
+Q9Y2H6,FNDC3A,Fibronectin type-III domain-containing protein 3A,"Golgi apparatus, Membrane",0.1009,0.11707,0.187,Not confident,NA,none
+Q96EQ8,RNF125,E3 ubiquitin-protein ligase RNF125,"Golgi apparatus, Membrane",0.10046,0.01046,0.138,Not confident,"Adaptive immunity, Immunity, Transferase, Ubl conjugation pathway",none
+Q8TB22,SPATA20,Spermatogenesis-associated protein 20,Secreted,0.10034,0.305,0.236,Not confident,"Developmental protein, Differentiation, Spermatogenesis",none
+O15091,PRORP,Mitochondrial ribonuclease P catalytic subunit,Mitochondrion,0.10004,0.3435,0.24,Not confident,"Hydrolase, Nuclease, tRNA processing",none
+P26583,HMGB2,High mobility group protein B2,"Chromosome, Cytoplasm, Nucleus, Secreted",0.0998,0.01471,0.223,Not confident,"Chemotaxis, DNA recombination, DNA-binding, Immunity, Inflammatory response, Innate immunity, Transcription, Transcription regulation",none
+Q15119,PDK2,"[Pyruvate dehydrogenase (acetyl-transferring)] kinase isozyme 2, mitochondrial",Mitochondrion,0.09875,0.1653,0.171,Not confident,"Kinase, Transferase",none
+Q00341,HDLBP,Vigilin,"Cytoplasm, HDL, Nucleus",0.09845,0.1438,0.281,Not confident,"Cholesterol metabolism, Lipid metabolism, Lipid transport, RNA-binding, Steroid metabolism, Sterol metabolism, Transport",none
+Q15118,PDK1,"[Pyruvate dehydrogenase (acetyl-transferring)] kinase isozyme 1, mitochondrial",Mitochondrion,0.09827,0.11896,0.172,Not confident,"Kinase, Transferase",none
+Q9UHP3,USP25,Ubiquitin carboxyl-terminal hydrolase 25,"Cytoplasm, Nucleus",0.09814,0.1669,0.154,Not confident,"Hydrolase, Protease, Thiol protease, Ubl conjugation pathway",none
+P63104,YWHAZ,14-3-3 protein zeta/delta,Cytoplasm,0.09814,0.1234,0.16,Not confident,Host-virus interaction,none
+Q8N0Y7,PGAM4,Probable phosphoglycerate mutase 4,NA,0.0981,0.0359,0.155,Not confident,"Glycolysis, Hydrolase, Isomerase",none
+P62258,YWHAE,14-3-3 protein epsilon,"Cytoplasm, Nucleus",0.0978,0.1295,0.14,Not confident,Host-virus interaction,none
+P10586,PTPRF,Receptor-type tyrosine-protein phosphatase F,Membrane,0.0977,0.156,0.203,Not confident,"Cell adhesion, Heparin-binding, Hydrolase, Protein phosphatase, Receptor",none
+Q9BXM7,PINK1,"Serine/threonine-protein kinase PINK1, mitochondrial","Cytoplasm, Membrane, Mitochondrion, Mitochondrion inner membrane, Mitochondrion outer membrane",0.0977,0.1498,0.201,Not confident,"Autophagy, Kinase, Serine/threonine-protein kinase, Transferase",none
+Q6P6C2,ALKBH5,RNA demethylase ALKBH5,Nucleus,0.0971,0.0509,0.102,Not confident,"Differentiation, Dioxygenase, Oxidoreductase, Spermatogenesis",none
+P55769,SNU13,NHP2-like protein 1,"Nucleus, Spliceosome",0.097,0.5312,0.162,Not confident,"mRNA processing, mRNA splicing, Ribonucleoprotein, RNA-binding",none
+O95757,HSPA4L,Heat shock 70 kDa protein 4L,"Cytoplasm, Nucleus",0.097,0.2815,0.205,Not confident,"Chaperone, Stress response",none
+Q9Y5T5,USP16,Ubiquitin carboxyl-terminal hydrolase 16,"Cytoplasm, Nucleus",0.09644,0.127,0.292,Not confident,"Activator, Cell cycle, Cell division, Chromatin regulator, Hydrolase, Mitosis, Protease, Thiol protease, Transcription, Transcription regulation, Ubl conjugation pathway",none
+P01116,KRAS,GTPase KRas,"Cell membrane, Cytoplasm, Membrane",0.09607,0.02707,0.171,Not confident,Hydrolase,none
+Q3KP44,ANKRD55,Ankyrin repeat domain-containing protein 55,NA,0.0959,0.10876,0.339,Not confident,NA,none
+P07550,ADRB2,Beta-2 adrenergic receptor,"Cell membrane, Endosome, Golgi apparatus, Membrane",0.0957,0.2324,0.123,Not confident,"G-protein coupled receptor, Receptor, Transducer",none
+P68366,TUBA4A,Tubulin alpha-4A chain,"Cytoplasm, Cytoskeleton, Microtubule",0.0956,0.09863,0.085,Not confident,Hydrolase,none
+P27487,DPP4,Dipeptidyl peptidase 4,"Cell junction, Cell membrane, Cell projection, Membrane, Secreted",0.09515,0.3555,0.282,Not confident,"Aminopeptidase, Cell adhesion, Host-virus interaction, Hydrolase, Protease, Receptor, Serine protease",none
+P52298,NCBP2,Nuclear cap-binding protein subunit 2,"Cytoplasm, Nucleus",0.09515,0.1975,0.175,Not confident,"mRNA processing, mRNA splicing, mRNA transport, Nonsense-mediated mRNA decay, RNA-binding, RNA-mediated gene silencing, Translation regulation, Transport",none
+P31946,YWHAB,14-3-3 protein beta/alpha,"Cytoplasm, Membrane, Vacuole",0.0949,0.1307,0.161,Not confident,Host-virus interaction,none
+P27701,CD82,CD82 antigen,"Cell membrane, Membrane",0.0948,0.1476,0.156,Not confident,NA,none
+P62937,PPIA,Peptidyl-prolyl cis-trans isomerase A,"Cytoplasm, Nucleus, Secreted",0.0948,0.05698,0.195,Not confident,"Apoptosis, Host-virus interaction, Isomerase, Rotamase",none
+Q03405,PLAUR,Urokinase plasminogen activator surface receptor,"Cell junction, Cell membrane, Cell projection, Membrane, Secreted",0.0948,0.02492,0.036,Not confident,Receptor,none
+O15264,MAPK13,Mitogen-activated protein kinase 13,NA,0.0947,0.0423,0.176,Not confident,"Cell cycle, Kinase, Serine/threonine-protein kinase, Stress response, Transcription, Transcription regulation, Transferase",none
+Q9Y625,GPC6,Glypican-6,"Cell membrane, Membrane, Secreted",0.09424,0.235,0.139,Not confident,NA,none
+P54274,TERF1,Telomeric repeat-binding factor 1,"Chromosome, Cytoplasm, Cytoskeleton, Nucleus, Telomere",0.09424,0.0603,0.07,Not confident,"Cell cycle, Cell division, DNA-binding, Mitosis",none
+P10768,ESD,S-formylglutathione hydrolase,"Cytoplasm, Cytoplasmic vesicle",0.0942,0.763,0.236,Not confident,"Hydrolase, Serine esterase",none
+P27348,YWHAQ,14-3-3 protein theta,Cytoplasm,0.0938,0.1511,0.186,Not confident,NA,none
+P40926,MDH2,"Malate dehydrogenase, mitochondrial",Mitochondrion,0.0937,0.1267,0.172,Not confident,"Oxidoreductase, Tricarboxylic acid cycle",none
+P61204,ARF3,ADP-ribosylation factor 3,"Cytoplasm, Golgi apparatus",0.0935,0.0955,0.123,Not confident,"ER-Golgi transport, Protein transport, Transport",none
+P17612,PRKACA,cAMP-dependent protein kinase catalytic subunit alpha,"Cell membrane, Cell projection, Cilium, Cytoplasm, Cytoplasmic vesicle, Flagellum, Membrane, Mitochondrion, Nucleus",0.0935,0.0839,0.146,Not confident,"Kinase, Serine/threonine-protein kinase, Transferase",none
+Q92963,RIT1,GTP-binding protein Rit1,"Cell membrane, Membrane",0.09326,0.0511,0.181,Not confident,Hydrolase,none
+P49589,CARS1,"Cysteine--tRNA ligase, cytoplasmic",Cytoplasm,0.09314,0.3164,0.263,Not confident,"Aminoacyl-tRNA synthetase, Ligase, Protein biosynthesis",none
+P28482,MAPK1,Mitogen-activated protein kinase 1,"Cell junction, Cytoplasm, Cytoskeleton, Membrane, Nucleus",0.09296,0.1278,0.156,Not confident,"Apoptosis, Cell cycle, DNA-binding, Host-virus interaction, Kinase, Repressor, Serine/threonine-protein kinase, Transcription, Transcription regulation, Transferase",none
+P31749,AKT1,RAC-alpha serine/threonine-protein kinase,"Cell membrane, Cytoplasm, Membrane, Nucleus",0.0928,0.1403,0.152,Not confident,"Apoptosis, Carbohydrate metabolism, Developmental protein, Glucose metabolism, Glycogen biosynthesis, Glycogen metabolism, Kinase, Neurogenesis, Serine/threonine-protein kinase, Sugar transport, Transferase, Translation regulation, Transport",none
+Q8NG31,KNL1,Kinetochore scaffold 1,"Centromere, Chromosome, Kinetochore, Nucleus",0.0926,0.1323,0.054,Not confident,"Cell cycle, Cell division, Chromosome partition, Mitosis",none
+P15259,PGAM2,Phosphoglycerate mutase 2,NA,0.0925,0.04965,0.187,Not confident,"Glycolysis, Hydrolase, Isomerase",none
+Q96JY0,MAEL,Protein maelstrom homolog,"Cytoplasm, Nucleus",0.09247,0.0653,0.189,Not confident,"Developmental protein, Differentiation, DNA-binding, Meiosis, RNA-mediated gene silencing, Spermatogenesis",none
+P54252,ATXN3,Ataxin-3,"Lysosome, Membrane, Nucleus",0.0918,0.0797,0.185,Not confident,"Hydrolase, Protease, Thiol protease, Transcription, Transcription regulation, Ubl conjugation pathway",none
+P50613,CDK7,Cyclin-dependent kinase 7,"Cytoplasm, Nucleus",0.0917,0.1039,0.18,Not confident,"Cell cycle, Cell division, DNA damage, DNA repair, Kinase, Serine/threonine-protein kinase, Transcription, Transcription regulation, Transferase",none
+P50750,CDK9,Cyclin-dependent kinase 9,"Cytoplasm, Nucleus",0.0917,0.0853,0.189,Not confident,"DNA damage, DNA repair, Host-virus interaction, Kinase, Serine/threonine-protein kinase, Transcription, Transcription regulation, Transferase",none
+P42262,GRIA2,Glutamate receptor 2,"Cell membrane, Endoplasmic reticulum, Membrane, Postsynaptic cell membrane, Synapse",0.0915,0.1508,0.128,Not confident,"Ion channel, Ion transport, Ligand-gated ion channel, Receptor, Transport",none
+P11498,PC,"Pyruvate carboxylase, mitochondrial",Mitochondrion,0.0914,0.4946,0.151,Not confident,"Gluconeogenesis, Ligase, Lipid biosynthesis, Lipid metabolism, Multifunctional enzyme",none
+O43301,HSPA12A,Heat shock 70 kDa protein 12A,"Cytoplasm, Nucleus",0.09125,0.2666,0.136,Not confident,NA,none
+Q00537,CDK17,Cyclin-dependent kinase 17,NA,0.09106,0.09106,0.138,Not confident,"Kinase, Serine/threonine-protein kinase, Transferase",none
+P68400,CSNK2A1,Casein kinase II subunit alpha,Nucleus,0.09076,0.8047,0.134,Not confident,"Apoptosis, Biological rhythms, Cell cycle, Kinase, Serine/threonine-protein kinase, Transcription, Transcription regulation, Transferase, Wnt signaling pathway",none
+Q4L235,AASDH,Beta-alanine-activating enzyme,NA,0.09076,0.3267,0.301,Not confident,"Fatty acid metabolism, Ligase, Lipid metabolism",none
+P22894,MMP8,Neutrophil collagenase,"Extracellular matrix, Secreted",0.0904,0.08746,0.153,Not confident,"Collagen degradation, Hydrolase, Metalloprotease, Protease",none
+Q16363,LAMA4,Laminin subunit alpha-4,"Basement membrane, Extracellular matrix, Secreted",0.09033,0.1029,0.178,Not confident,Cell adhesion,none
+Q92993,KAT5,Histone acetyltransferase KAT5,"Centromere, Chromosome, Cytoplasm, Cytoskeleton, Kinetochore, Nucleus",0.09033,0.1021,0.158,Not confident,"Activator, Acyltransferase, Chromatin regulator, DNA damage, DNA repair, Growth regulation, Host-virus interaction, Immunity, Innate immunity, Transcription, Transcription regulation, Transferase",none
+Q9H1Z9,TSPAN10,Tetraspanin-10,"Cell membrane, Membrane",0.0903,0.0834,0.122,Not confident,NA,none
+P08254,MMP3,Stromelysin-1,"Cytoplasm, Extracellular matrix, Nucleus, Secreted",0.09015,0.1039,0.17,Not confident,"Collagen degradation, Hydrolase, Immunity, Innate immunity, Metalloprotease, Protease",none
+P49915,GMPS,GMP synthase [glutamine-hydrolyzing],Cytoplasm,0.09,0.2778,0.159,Not confident,"GMP biosynthesis, Ligase, Purine biosynthesis",none
+P60033,CD81,CD81 antigen,"Cell membrane, Membrane",0.08984,0.03653,0.143,Not confident,"Adaptive immunity, Host cell receptor for virus entry, Host-virus interaction, Immunity, Receptor",none
+A8MT65,ZNF891,Zinc finger protein 891,Nucleus,0.0896,0.02325,0.257,Not confident,"DNA-binding, Transcription, Transcription regulation",none
+O95396,MOCS3,Adenylyltransferase and sulfurtransferase MOCS3,Cytoplasm,0.0891,0.2825,0.318,Not confident,"Molybdenum cofactor biosynthesis, Multifunctional enzyme, Transferase, tRNA processing",none
+Q9Y312,AAR2,Protein AAR2 homolog,Spliceosome,0.089,0.2289,0.269,Not confident,"mRNA processing, mRNA splicing",none
+P07205,PGK2,Phosphoglycerate kinase 2,Cytoplasm,0.089,0.2026,0.186,Not confident,"Glycolysis, Kinase, Transferase",none
+Q8WVJ2,NUDCD2,NudC domain-containing protein 2,"Centromere, Chromosome, Cytoplasm, Cytoskeleton, Kinetochore",0.0888,0.02563,0.184,Not confident,NA,none
+Q7Z478,DHX29,ATP-dependent RNA helicase DHX29,Cytoplasm,0.0886,0.2532,0.305,Not confident,"Helicase, Hydrolase, Initiation factor, Protein biosynthesis",none
+Q7Z5N4,SDK1,Protein sidekick-1,"Cell membrane, Membrane, Synapse",0.08844,0.3604,0.173,Not confident,Cell adhesion,none
+Q9NUB1,ACSS1,"Acetyl-coenzyme A synthetase 2-like, mitochondrial",Mitochondrion,0.08813,0.2954,0.191,Not confident,"Ligase, Lipid metabolism",none
+P09429,HMGB1,High mobility group protein B1,"Cell membrane, Chromosome, Cytoplasm, Endoplasmic reticulum, Endosome, Membrane, Nucleus, Secreted",0.0881,0.01101,0.234,Not confident,"Adaptive immunity, Autophagy, Chemotaxis, DNA damage, DNA recombination, DNA repair, DNA-binding, Host-virus interaction, Immunity, Inflammatory response, Innate immunity",none
+O14578,CIT,Citron Rho-interacting kinase,Cytoplasm,0.08795,0.1454,0.209,Not confident,"Cell cycle, Cell division, Developmental protein, Differentiation, Kinase, Mitosis, Neurogenesis, Serine/threonine-protein kinase, Transferase",none
+P61964,WDR5,WD repeat-containing protein 5,Nucleus,0.0878,0.0754,0.227,Not confident,"Chromatin regulator, Host-virus interaction, Transcription, Transcription regulation",none
+Q3B8N2,LGALS9B,Galectin-9B,NA,0.0872,0.02477,0.154,Not confident,NA,none
+Q9HC38,GLOD4,Glyoxalase domain-containing protein 4,Mitochondrion,0.0871,0.0471,0.186,Not confident,NA,none
+P19784,CSNK2A2,Casein kinase II subunit alpha',"Cytoplasm, Nucleus",0.08685,0.3625,0.125,Not confident,"Apoptosis, Cell cycle, Kinase, Serine/threonine-protein kinase, Transcription, Transcription regulation, Transferase, Wnt signaling pathway",none
+P30405,PPIF,"Peptidyl-prolyl cis-trans isomerase F, mitochondrial",Mitochondrion,0.08655,0.4136,0.204,Not confident,"Apoptosis, Isomerase, Necrosis, Rotamase",none
+P15328,FOLR1,Folate receptor alpha,"Cell membrane, Cytoplasmic vesicle, Endosome, Membrane, Secreted",0.0865,0.00448,0.134,Not confident,"Receptor, Transport",none
+P15927,RPA2,Replication protein A 32 kDa subunit,Nucleus,0.0861,0.3528,0.256,Not confident,"DNA damage, DNA recombination, DNA repair, DNA replication, DNA-binding",none
+Q8N1E6,FBXL14,F-box/LRR-repeat protein 14,Cytoplasm,0.08594,0.358,0.26,Not confident,Ubl conjugation pathway,none
+P41252,IARS1,"Isoleucine--tRNA ligase, cytoplasmic",Cytoplasm,0.0855,0.3298,0.206,Not confident,"Aminoacyl-tRNA synthetase, Ligase, Protein biosynthesis",none
+P37287,PIGA,Phosphatidylinositol N-acetylglucosaminyltransferase subunit A,"Endoplasmic reticulum, Membrane",0.0852,0.255,0.209,Not confident,"Glycosyltransferase, GPI-anchor biosynthesis, Lipid metabolism, Transferase",none
+P17812,CTPS1,CTP synthase 1,Cytoplasm,0.08514,0.3774,0.19,Not confident,"Immunity, Ligase, Pyrimidine biosynthesis",none
+P18669,PGAM1,Phosphoglycerate mutase 1,NA,0.08514,0.0625,0.169,Not confident,"Glycolysis, Hydrolase, Isomerase",none
+P49917,LIG4,DNA ligase 4,Nucleus,0.085,0.1636,0.29,Not confident,"Cell cycle, Cell division, DNA damage, DNA recombination, DNA repair, Ligase",none
+Q7L2J0,MEPCE,7SK snRNA methylphosphate capping enzyme,Nucleus,0.08484,0.2394,0.226,Not confident,"Methyltransferase, Transferase",none
+P00747,PLG,Plasminogen,Secreted,0.0847,0.10785,0.104,Not confident,"Blood coagulation, Fibrinolysis, Hemostasis, Hydrolase, Protease, Serine protease, Tissue remodeling",none
+O00743,PPP6C,Serine/threonine-protein phosphatase 6 catalytic subunit,"Cytoplasm, Mitochondrion",0.0843,0.1259,0.156,Not confident,"Cell cycle, Hydrolase, Immunity, Innate immunity, Protein phosphatase",none
+O43930,PRKY,Putative serine/threonine-protein kinase PRKY,NA,0.0843,0.079,0.18,Not confident,"Kinase, Serine/threonine-protein kinase, Transferase",none
+Q16654,PDK4,"[Pyruvate dehydrogenase (acetyl-transferring)] kinase isozyme 4, mitochondrial",Mitochondrion,0.0839,0.10516,0.164,Not confident,"Kinase, Transferase",none
+P11142,HSPA8,Heat shock cognate 71 kDa protein,"Cell membrane, Cytoplasm, Lysosome, Membrane, Nucleus, Spliceosome",0.08386,0.1913,0.122,Not confident,"Autophagy, Chaperone, Host-virus interaction, Hydrolase, mRNA processing, mRNA splicing, Repressor, Stress response, Transcription, Transcription regulation",none
+P14635,CCNB1,G2/mitotic-specific cyclin-B1,"Cytoplasm, Cytoskeleton, Nucleus",0.0838,0.02837,0.239,Not confident,"Cell cycle, Cell division, Cyclin, Mitosis",none
+Q6IN85,PPP4R3A,Serine/threonine-protein phosphatase 4 regulatory subunit 3A,"Cytoplasm, Cytoskeleton, Nucleus",0.0837,0.1526,0.216,Not confident,NA,none
+P25705,ATP5F1A,"ATP synthase subunit alpha, mitochondrial","Cell membrane, CF(1), Membrane, Mitochondrion, Mitochondrion inner membrane",0.0835,0.2588,0.098,Not confident,"ATP synthesis, Hydrogen ion transport, Ion transport, Transport",none
+O15511,ARPC5,Actin-related protein 2/3 complex subunit 5,"Cell projection, Cytoplasm, Cytoskeleton, Nucleus",0.0833,0.381,0.173,Not confident,Actin-binding,none
+Q9UDR5,AASS,"Alpha-aminoadipic semialdehyde synthase, mitochondrial",Mitochondrion,0.08295,0.2942,0.203,Not confident,"Multifunctional enzyme, Oxidoreductase",none
+Q96RI1,NR1H4,Bile acid receptor,Nucleus,0.0825,0.1007,0.09,Not confident,"Activator, DNA-binding, Immunity, Inflammatory response, Innate immunity, Receptor, Repressor, Transcription, Transcription regulation",none
+Q9Y5P6,GMPPB,Mannose-1-phosphate guanyltransferase beta,Cytoplasm,0.08234,0.4353,0.159,Not confident,"Nucleotidyltransferase, Transferase",none
+P61019,RAB2A,Ras-related protein Rab-2A,"Cytoplasmic vesicle, Endoplasmic reticulum, Golgi apparatus, Membrane",0.08234,0.07574,0.171,Not confident,"ER-Golgi transport, Hydrolase, Protein transport, Transport",none
+Q99873,PRMT1,Protein arginine N-methyltransferase 1,"Cytoplasm, Lysosome, Membrane, Nucleus",0.08215,0.2976,0.179,Not confident,"Methyltransferase, Transferase",none
+P02787,TF,Serotransferrin,Secreted,0.08215,0.1471,0.147,Not confident,"Ion transport, Iron transport, Transport",none
+Q15382,RHEB,GTP-binding protein Rheb,"Cytoplasm, Endoplasmic reticulum, Golgi apparatus, Lysosome, Membrane",0.08215,0.0926,0.176,Not confident,Hydrolase,none
+P11171,EPB41,Protein 4.1,"Cytoplasm, Cytoskeleton, Nucleus",0.0821,0.116,0.102,Not confident,"Actin-binding, Calmodulin-binding, Cell cycle, Cell division, Mitosis, Transport",none
+Q92630,DYRK2,Dual specificity tyrosine-phosphorylation-regulated kinase 2,"Cytoplasm, Nucleus",0.082,0.153,0.183,Not confident,"Apoptosis, Kinase, Serine/threonine-protein kinase, Transferase, Tyrosine-protein kinase, Ubl conjugation pathway",none
+O14901,KLF11,Krueppel-like factor 11,Nucleus,0.082,0.02115,0.203,Not confident,"Activator, Apoptosis, DNA-binding, Repressor, Transcription, Transcription regulation",none
+Q10471,GALNT2,Polypeptide N-acetylgalactosaminyltransferase 2,"Golgi apparatus, Membrane, Secreted",0.08167,0.2932,0.123,Not confident,"Glycosyltransferase, Transferase",none
+Q9NVX2,NLE1,Notchless protein homolog 1,Nucleus,0.08154,0.322,0.204,Not confident,Notch signaling pathway,none
+P38606,ATP6V1A,V-type proton ATPase catalytic subunit A,"Cytoplasm, Cytoplasmic vesicle, Lysosome, Membrane",0.0811,0.2588,0.132,Not confident,"Hydrogen ion transport, Ion transport, Translocase, Transport",none
+O75764,TCEA3,Transcription elongation factor A protein 3,Nucleus,0.08105,0.3003,0.258,Not confident,"DNA-binding, Transcription, Transcription regulation",none
+P61981,YWHAG,14-3-3 protein gamma,Cytoplasm,0.08105,0.2433,0.15,Not confident,NA,none
+Q9HBX8,LGR6,Leucine-rich repeat-containing G-protein coupled receptor 6,"Cell membrane, Membrane",0.08093,0.2593,0.299,Not confident,"G-protein coupled receptor, Receptor, Transducer, Wnt signaling pathway",none
+P42285,MTREX,Exosome RNA helicase MTR4,"Nucleus, Spliceosome",0.08093,0.2578,0.228,Not confident,"DNA damage, Helicase, Hydrolase, mRNA processing, mRNA splicing, rRNA processing",none
+P14672,SLC2A4,"Solute carrier family 2, facilitated glucose transporter member 4","Cell membrane, Cytoplasm, Membrane",0.0809,0.215,0.276,Not confident,"Sugar transport, Transport",none
+Q9Y5B9,SUPT16H,FACT complex subunit SPT16,"Chromosome, Nucleus",0.08057,0.3127,0.214,Not confident,"DNA damage, DNA repair, DNA replication, Host-virus interaction, Transcription, Transcription regulation",none
+P00492,HPRT1,Hypoxanthine-guanine phosphoribosyltransferase,Cytoplasm,0.0803,0.3853,0.167,Not confident,"Glycosyltransferase, Purine salvage, Transferase",none
+P00441,SOD1,Superoxide dismutase [Cu-Zn],"Cytoplasm, Nucleus",0.0803,0.01892,0.196,Not confident,"Antioxidant, Oxidoreductase",none
+A6NCE7,MAP1LC3B2,Microtubule-associated proteins 1A/1B light chain 3 beta 2,"Cytoplasm, Cytoplasmic vesicle, Cytoskeleton, Membrane, Microtubule",0.0802,0.003138,0.146,Not confident,"Autophagy, Ubl conjugation pathway",none
+Q9UHD9,UBQLN2,Ubiquilin-2,"Cytoplasm, Cytoplasmic vesicle, Membrane, Nucleus",0.08014,0.1126,0.187,Not confident,Autophagy,none
+P18583,SON,Protein SON,Nucleus,0.08,0.2542,0.139,Not confident,"Cell cycle, DNA-binding, mRNA processing, mRNA splicing, RNA-binding",none
+Q15102,PAFAH1B3,Platelet-activating factor acetylhydrolase IB subunit alpha1,Cytoplasm,0.08,0.05548,0.147,Not confident,"Hydrolase, Lipid degradation, Lipid metabolism",none
+Q00526,CDK3,Cyclin-dependent kinase 3,NA,0.0799,0.2534,0.183,Not confident,"Cell cycle, Cell division, Kinase, Mitosis, Serine/threonine-protein kinase, Transferase",none
+P54253,ATXN1,Ataxin-1,"Cytoplasm, Nucleus",0.07983,0.0921,0.112,Not confident,"DNA-binding, Repressor, RNA-binding, Transcription, Transcription regulation",none
+P05814,CSN2,Beta-casein,Secreted,0.0794,0.03473,0.035,Not confident,Milk protein,none
+P52756,RBM5,RNA-binding protein 5,"Nucleus, Spliceosome",0.07935,0.1095,0.192,Not confident,"Apoptosis, mRNA processing, mRNA splicing, RNA-binding",none
+P0DME0,SETSIP,Protein SETSIP,"Cytoplasm, Nucleus",0.0792,0.1226,0.218,Not confident,"Activator, Differentiation, Transcription, Transcription regulation",none
+Q96AP0,ACD,Adrenocortical dysplasia protein homolog,"Chromosome, Nucleus, Telomere",0.0791,0.05917,0.03,Not confident,DNA-binding,none
+P17066,HSPA6,Heat shock 70 kDa protein 6,NA,0.079,0.2375,0.1,Not confident,Stress response,none
+Q99700,ATXN2,Ataxin-2,Cytoplasm,0.0789,0.1742,0.141,Not confident,NA,none
+P49821,NDUFV1,"NADH dehydrogenase [ubiquinone] flavoprotein 1, mitochondrial","Membrane, Mitochondrion, Mitochondrion inner membrane",0.0788,0.3416,0.111,Not confident,"Electron transport, Oxidoreductase, Respiratory chain, Translocase, Transport",none
+Q9BRS2,RIOK1,Serine/threonine-protein kinase RIO1,Cytoplasm,0.0788,0.06073,0.231,Not confident,"Hydrolase, Kinase, Ribosome biogenesis, Serine/threonine-protein kinase, Transferase",none
+Q8N335,GPD1L,Glycerol-3-phosphate dehydrogenase 1-like protein,Cytoplasm,0.0785,0.2783,0.21,Not confident,Oxidoreductase,none
+Q9BZX2,UCK2,Uridine-cytidine kinase 2,NA,0.07837,0.02774,0.202,Not confident,"Kinase, Transferase",none
+P48751,SLC4A3,Anion exchange protein 3,"Cell membrane, Membrane",0.078,0.2278,0.16,Not confident,"Anion exchange, Antiport, Ion transport, Transport",none
+P09972,ALDOC,Fructose-bisphosphate aldolase C,NA,0.0774,0.1121,0.162,Not confident,"Glycolysis, Lyase",none
+Q96FC7,PHYHIPL,Phytanoyl-CoA hydroxylase-interacting protein-like,NA,0.07733,0.0784,0.055,Not confident,NA,none
+O15229,KMO,Kynurenine 3-monooxygenase,"Membrane, Mitochondrion, Mitochondrion outer membrane",0.0772,0.2927,0.243,Not confident,"Monooxygenase, Oxidoreductase, Pyridine nucleotide biosynthesis",none
+P63261,ACTG1,"Actin, cytoplasmic 2","Cytoplasm, Cytoskeleton",0.07715,0.06525,0.071,Not confident,Hydrolase,none
+Q92905,COPS5,COP9 signalosome complex subunit 5,"Cytoplasm, Cytoplasmic vesicle, Nucleus, Signalosome, Synapse",0.0771,0.11957,0.172,Not confident,"Hydrolase, Metalloprotease, Protease",none
+P62068,USP46,Ubiquitin carboxyl-terminal hydrolase 46,Cytoplasm,0.077,0.3638,0.184,Not confident,"Behavior, Hydrolase, Protease, Thiol protease, Ubl conjugation pathway",none
+Q969F9,HPS3,BLOC-2 complex member HPS3,Cytoplasm,0.07697,0.10864,0.12,Not confident,NA,none
+Q9HA47,UCK1,Uridine-cytidine kinase 1,NA,0.0762,0.02164,0.181,Not confident,"Kinase, Transferase",none
+Q96AP4,ZUP1,Zinc finger-containing ubiquitin peptidase 1,"Cytoplasm, Nucleus",0.0757,0.12335,0.188,Not confident,Hydrolase,none
+P0CJ87,DUX4L4,Double homeobox protein 4-like protein 4,Nucleus,0.0757,0.01631,0.154,Not confident,"DNA-binding, Transcription, Transcription regulation",none
+O95425,SVIL,Supervillin,"Cell junction, Cell membrane, Cell projection, Cytoplasm, Cytoskeleton, Membrane",0.0756,0.1732,0.183,Not confident,Actin-binding,none
+Q92882,OSTF1,Osteoclast-stimulating factor 1,Cytoplasm,0.0756,0.03117,0.197,Not confident,NA,none
+Q9Y697,NFS1,Cysteine desulfurase,"Cytoplasm, Cytoskeleton, Mitochondrion, Nucleus",0.0754,0.421,0.159,Not confident,"Molybdenum cofactor biosynthesis, Transferase",none
+P02788,LTF,Lactotransferrin,"Cytoplasm, Nucleus, Secreted",0.0754,0.15,0.138,Not confident,"Antibiotic, Antimicrobial, DNA-binding, Heparin-binding, Hydrolase, Immunity, Ion transport, Iron transport, Osteogenesis, Protease, Serine protease, Transcription, Transcription regulation, Transport",none
+P25788,PSMA3,Proteasome subunit alpha type-3,"Cytoplasm, Nucleus, Proteasome",0.0751,0.2537,0.184,Not confident,Host-virus interaction,none
+P14866,HNRNPL,Heterogeneous nuclear ribonucleoprotein L,"Cytoplasm, Nucleus",0.0751,0.12286,0.131,Not confident,"Ribonucleoprotein, RNA-binding",none
+P60709,ACTB,"Actin, cytoplasmic 1","Cytoplasm, Cytoskeleton, Nucleus",0.07495,0.07904,0.071,Not confident,Hydrolase,none
+Q9UBX2,DUX4,Double homeobox protein 4,Nucleus,0.07495,0.02724,0.165,Not confident,"Activator, Developmental protein, DNA-binding, Transcription, Transcription regulation",none
+Q96Q91,SLC4A9,Anion exchange protein 4,"Cell membrane, Membrane",0.0748,0.32,0.154,Not confident,"Anion exchange, Antiport, Ion transport, Transport",none
+Q9UGL1,KDM5B,Lysine-specific demethylase 5B,Nucleus,0.0748,0.2705,0.217,Not confident,"Biological rhythms, Chromatin regulator, Dioxygenase, Oxidoreductase, Repressor, Transcription, Transcription regulation",none
+Q9NV88,INTS9,Integrator complex subunit 9,Nucleus,0.0746,0.2435,0.168,Not confident,NA,none
+Q9HAB3,SLC52A2,"Solute carrier family 52, riboflavin transporter, member 2","Cell membrane, Membrane",0.0742,0.3374,0.156,Not confident,"Host cell receptor for virus entry, Receptor, Transport",none
+P04792,HSPB1,Heat shock protein beta-1,"Cytoplasm, Cytoskeleton, Nucleus",0.0741,0.0774,0.126,Not confident,"Chaperone, Host-virus interaction, Stress response",none
+Q5KSL6,DGKK,Diacylglycerol kinase kappa,"Cell membrane, Membrane",0.07404,0.313,0.141,Not confident,"Kinase, Lipid metabolism, Transferase",none
+Q9UHW9,SLC12A6,Solute carrier family 12 member 6,"Cell membrane, Membrane",0.07404,0.2957,0.158,Not confident,"Ion transport, Potassium transport, Symport, Transport",none
+Q8IY57,YAF2,YY1-associated factor 2,Nucleus,0.07404,0.1288,0.114,Not confident,"Transcription, Transcription regulation",none
+Q9BY14,TEX101,Testis-expressed protein 101,"Cell membrane, Cytoplasmic vesicle, Membrane, Secreted",0.074,0.0235,0.03,Not confident,NA,none
+Q13144,EIF2B5,Translation initiation factor eIF2B subunit epsilon,Cytoplasm,0.07385,0.5205,0.256,Not confident,"Initiation factor, Protein biosynthesis",none
+Q01814,ATP2B2,Plasma membrane calcium-transporting ATPase 2,"Cell membrane, Membrane, Synapse",0.0738,0.3728,0.238,Not confident,"Calcium transport, Calmodulin-binding, Ion transport, Translocase, Transport",none
+Q06187,BTK,Tyrosine-protein kinase BTK,"Cell membrane, Cytoplasm, Membrane, Nucleus",0.0736,0.09204,0.114,Not confident,"Adaptive immunity, Apoptosis, Immunity, Innate immunity, Kinase, Transcription, Transcription regulation, Transferase, Tyrosine-protein kinase",none
+Q70IA8,MOB3C,MOB kinase activator 3C,NA,0.0735,0.0474,0.156,Not confident,NA,none
+P07437,TUBB,Tubulin beta chain,"Cytoplasm, Cytoskeleton, Microtubule",0.0734,0.13,0.072,Not confident,NA,none
+Q15058,KIF14,Kinesin-like protein KIF14,"Cytoplasm, Cytoskeleton, Microtubule, Nucleus",0.0734,0.1178,0.225,Not confident,Motor protein,none
+P04629,NTRK1,High affinity nerve growth factor receptor,"Cell membrane, Endosome, Membrane",0.0733,0.1477,0.1,Not confident,"Developmental protein, Differentiation, Kinase, Neurogenesis, Receptor, Transferase, Tyrosine-protein kinase",none
+P06748,NPM1,Nucleophosmin,"Cytoplasm, Cytoskeleton, Nucleus",0.0731,0.09247,0.065,Not confident,"Chaperone, Host-virus interaction, RNA-binding",none
+Q9NRF8,CTPS2,CTP synthase 2,NA,0.07294,0.277,0.183,Not confident,"Ligase, Pyrimidine biosynthesis",none
+P05177,CYP1A2,Cytochrome P450 1A2,"Endoplasmic reticulum, Membrane, Microsome",0.0728,0.1169,0.245,Not confident,"Fatty acid metabolism, Lipid metabolism, Lyase, Monooxygenase, Oxidoreductase, Steroid metabolism, Sterol metabolism",none
+P34931,HSPA1L,Heat shock 70 kDa protein 1-like,NA,0.0727,0.1917,0.102,Not confident,NA,none
+Q9UIJ7,AK3,"GTP:AMP phosphotransferase AK3, mitochondrial",Mitochondrion,0.0727,0.02487,0.226,Not confident,"Kinase, Transferase",none
+Q9Y6M7,SLC4A7,Sodium bicarbonate cotransporter 3,"Cell membrane, Cell projection, Membrane",0.0726,0.2563,0.154,Not confident,"Ion transport, Sodium transport, Symport, Transport",none
+P20290,BTF3,Transcription factor BTF3,"Cytoplasm, Nucleus",0.0724,0.10297,0.147,Not confident,"Chaperone, Protein transport, Transcription, Transcription regulation, Transport",none
+Q01844,EWSR1,RNA-binding protein EWS,"Cell membrane, Cytoplasm, Membrane, Nucleus",0.07214,0.1576,0.168,Not confident,"Calmodulin-binding, Repressor, RNA-binding, Transcription, Transcription regulation",none
+O94979,SEC31A,Protein transport protein Sec31A,"Cytoplasm, Cytoplasmic vesicle, Endoplasmic reticulum, Membrane",0.07184,0.2517,0.202,Not confident,"ER-Golgi transport, Protein transport, Transport",none
+P54652,HSPA2,Heat shock-related 70 kDa protein 2,"Cytoplasm, Cytoskeleton",0.07166,0.253,0.111,Not confident,"Chaperone, Differentiation, Spermatogenesis, Stress response",none
+P46937,YAP1,Transcriptional coactivator YAP1,"Cell junction, Cytoplasm, Nucleus",0.0714,0.1407,0.143,Not confident,"Activator, Repressor, Transcription, Transcription regulation",none
+Q12873,CHD3,Chromodomain-helicase-DNA-binding protein 3,"Cytoplasm, Cytoskeleton, Nucleus",0.07135,0.1859,0.208,Not confident,"Chromatin regulator, DNA-binding, Helicase, Host-virus interaction, Hydrolase, Transcription, Transcription regulation",none
+P10599,TXN,Thioredoxin,"Cytoplasm, Nucleus, Secreted",0.07117,0.01481,0.294,Not confident,"Activator, Electron transport, Transcription, Transcription regulation, Transport",none
+Q9Y5P8,PPP2R3B,Serine/threonine-protein phosphatase 2A regulatory subunit B'' subunit beta,Nucleus,0.071,0.3726,0.15,Not confident,NA,none
+Q76L83,ASXL2,Putative Polycomb group protein ASXL2,Nucleus,0.07056,0.1199,0.088,Not confident,"Repressor, Transcription, Transcription regulation",none
+P53794,SLC5A3,Sodium/myo-inositol cotransporter,"Cell membrane, Membrane",0.0702,0.2576,0.138,Not confident,"Ion transport, Sodium transport, Symport, Transport",none
+Q6ZNW5,GDPGP1,GDP-D-glucose phosphorylase 1,Cytoplasm,0.0702,0.0144,0.185,Not confident,"Guanine-nucleotide releasing factor, Hydrolase, Nucleotidyltransferase, Transferase",none
+Q96DE9,EOLA2,Protein EOLA2,NA,0.0701,0.02524,0.042,Not confident,NA,none
+O00182,LGALS9,Galectin-9,"Cytoplasm, Nucleus, Secreted",0.0701,0.02486,0.164,Not confident,"Chemotaxis, Immunity",none
+P48506,GCLC,Glutamate--cysteine ligase catalytic subunit,NA,0.06995,0.3083,0.208,Not confident,"Glutathione biosynthesis, Ligase",none
+P30041,PRDX6,Peroxiredoxin-6,"Cytoplasm, Lysosome",0.0696,0.0686,0.201,Not confident,"Antioxidant, Hydrolase, Lipid degradation, Lipid metabolism, Multifunctional enzyme, Oxidoreductase, Peroxidase, Transferase",none
+Q7L523,RRAGA,Ras-related GTP-binding protein A,"Cytoplasm, Lysosome, Membrane, Nucleus",0.0694,0.3098,0.147,Not confident,"Apoptosis, Host-virus interaction, Hydrolase",none
+Q9Y4K0,LOXL2,Lysyl oxidase homolog 2,"Basement membrane, Chromosome, Endoplasmic reticulum, Extracellular matrix, Nucleus, Secreted",0.06934,0.11584,0.118,Not confident,"Chromatin regulator, Oxidoreductase, Repressor, Transcription, Transcription regulation",none
+Q7L7V1,DHX32,Putative pre-mRNA-splicing factor ATP-dependent RNA helicase DHX32,"Mitochondrion, Nucleus",0.0693,0.285,0.131,Not confident,"Helicase, Hydrolase",none
+P48147,PREP,Prolyl endopeptidase,Cytoplasm,0.0693,0.2563,0.197,Not confident,"Hydrolase, Protease, Serine protease",none
+Q7L273,KCTD9,BTB/POZ domain-containing protein KCTD9,NA,0.0693,0.1666,0.15,Not confident,Ubl conjugation pathway,none
+P08047,SP1,Transcription factor Sp1,"Cytoplasm, Nucleus",0.0693,0.1131,0.15,Not confident,"Activator, Biological rhythms, DNA-binding, Host-virus interaction, Repressor, Transcription, Transcription regulation",none
+Q02790,FKBP4,Peptidyl-prolyl cis-trans isomerase FKBP4,"Cell projection, Cytoplasm, Cytoskeleton, Microtubule, Mitochondrion, Nucleus",0.0692,0.279,0.212,Not confident,"Chaperone, Isomerase, Rotamase",none
+O43353,RIPK2,Receptor-interacting serine/threonine-protein kinase 2,"Cell membrane, Cytoplasm, Endoplasmic reticulum, Membrane",0.06915,0.0761,0.229,Not confident,"Adaptive immunity, Apoptosis, Immunity, Innate immunity, Kinase, Serine/threonine-protein kinase, Transferase",none
+P29803,PDHA2,"Pyruvate dehydrogenase E1 component subunit alpha, testis-specific form, mitochondrial",Mitochondrion,0.0691,0.2744,0.169,Not confident,"Carbohydrate metabolism, Glucose metabolism, Oxidoreductase, Tricarboxylic acid cycle",none
+O75147,OBSL1,Obscurin-like protein 1,"Cytoplasm, Cytoskeleton, Golgi apparatus",0.069,0.11224,0.215,Not confident,NA,none
+P51784,USP11,Ubiquitin carboxyl-terminal hydrolase 11,"Chromosome, Cytoplasm, Nucleus",0.06885,0.1797,0.29,Not confident,"Host-virus interaction, Hydrolase, Protease, Thiol protease, Ubl conjugation pathway",none
+O95932,TGM6,Protein-glutamine gamma-glutamyltransferase 6,Cytoplasm,0.0688,0.283,0.171,Not confident,"Acyltransferase, Transferase",none
+Q9UKT9,IKZF3,Zinc finger protein Aiolos,"Cytoplasm, Nucleus",0.06854,0.0685,0.211,Not confident,"B-cell activation, DNA-binding, Transcription, Transcription regulation",none
+Q96L12,CALR3,Calreticulin-3,Endoplasmic reticulum,0.0684,0.1742,0.159,Not confident,"Chaperone, Differentiation, Spermatogenesis",none
+Q8WUM0,NUP133,Nuclear pore complex protein Nup133,"Centromere, Chromosome, Kinetochore, Nuclear pore complex, Nucleus",0.0682,0.1686,0.201,Not confident,"mRNA transport, Protein transport, Translocation, Transport",none
+P36404,ARL2,ADP-ribosylation factor-like protein 2,"Cytoplasm, Cytoskeleton, Mitochondrion, Nucleus",0.06805,0.3416,0.215,Not confident,Cell cycle,none
+Q9UNA4,POLI,DNA polymerase iota,Nucleus,0.068,0.2815,0.234,Not confident,"DNA damage, DNA repair, DNA replication, DNA synthesis, DNA-binding, DNA-directed DNA polymerase, Mutator protein, Nucleotidyltransferase, Transferase",none
+Q9H270,VPS11,Vacuolar protein sorting-associated protein 11 homolog,"Cytoplasmic vesicle, Endosome, Lysosome, Membrane",0.068,0.2722,0.277,Not confident,"Autophagy, Protein transport, Transport",none
+P33121,ACSL1,Long-chain-fatty-acid--CoA ligase 1,"Endoplasmic reticulum, Membrane, Microsome, Mitochondrion, Mitochondrion outer membrane, Peroxisome",0.0675,0.3013,0.233,Not confident,"Fatty acid metabolism, Ligase, Lipid metabolism",none
+Q9UJ55,MAGEL2,MAGE-like protein 2,"Cytoplasm, Endosome, Nucleus",0.0674,0.1462,0.115,Not confident,"Biological rhythms, Repressor, Transcription, Transcription regulation, Transport, Ubl conjugation pathway",none
+Q9Y6F9,WNT6,Protein Wnt-6,"Extracellular matrix, Secreted",0.06726,0.273,0.128,Not confident,"Developmental protein, Wnt signaling pathway",none
+Q9NXR5,ANKRD10,Ankyrin repeat domain-containing protein 10,NA,0.06696,0.08435,0.252,Not confident,NA,none
+P31040,SDHA,"Succinate dehydrogenase [ubiquinone] flavoprotein subunit, mitochondrial","Membrane, Mitochondrion, Mitochondrion inner membrane",0.0668,0.3252,0.11,Not confident,"Electron transport, Oxidoreductase, Transport, Tricarboxylic acid cycle",none
+O94761,RECQL4,ATP-dependent DNA helicase Q4,"Cytoplasm, Nucleus",0.0666,0.196,0.242,Not confident,"DNA-binding, Helicase, Hydrolase, Isomerase",none
+O94813,SLIT2,Slit homolog 2 protein,Secreted,0.0665,0.2588,0.245,Not confident,"Chemotaxis, Developmental protein, Differentiation, Heparin-binding, Neurogenesis",none
+P05455,SSB,Lupus La protein,Nucleus,0.0659,0.0913,0.249,Not confident,RNA-binding,none
+P63267,ACTG2,"Actin, gamma-enteric smooth muscle","Cytoplasm, Cytoskeleton",0.0659,0.06537,0.077,Not confident,"Hydrolase, Muscle protein",none
+O94805,ACTL6B,Actin-like protein 6B,Nucleus,0.0657,0.1926,0.186,Not confident,"Chromatin regulator, Neurogenesis, Transcription, Transcription regulation",none
+P35228,NOS2,"Nitric oxide synthase, inducible",Cytoplasm,0.0657,0.1443,0.235,Not confident,"Calmodulin-binding, Oxidoreductase",none
+Q13148,TARDBP,TAR DNA-binding protein 43,"Cytoplasm, Mitochondrion, Nucleus",0.06555,0.04846,0.204,Not confident,"Biological rhythms, DNA-binding, mRNA processing, mRNA splicing, Repressor, RNA-binding, Transcription, Transcription regulation",none
+O75093,SLIT1,Slit homolog 1 protein,Secreted,0.0655,0.2634,0.232,Not confident,"Developmental protein, Differentiation, Neurogenesis",none
+Q16720,ATP2B3,Plasma membrane calcium-transporting ATPase 3,"Cell membrane, Cell projection, Membrane, Synapse",0.0655,0.2627,0.281,Not confident,"Calcium transport, Calmodulin-binding, Ion transport, Translocase, Transport",none
+Q9NPI5,NMRK2,Nicotinamide riboside kinase 2,NA,0.06537,0.02455,0.231,Not confident,"Kinase, Pyridine nucleotide biosynthesis, Transferase",none
+P23528,CFL1,Cofilin-1,"Cell membrane, Cell projection, Cytoplasm, Cytoskeleton, Membrane, Nucleus",0.06537,0.01498,0.209,Not confident,"Actin-binding, Host-virus interaction",none
+Q08AH3,ACSM2A,"Acyl-coenzyme A synthetase ACSM2A, mitochondrial",Mitochondrion,0.0653,0.2922,0.246,Not confident,"Fatty acid metabolism, Ligase, Lipid metabolism",none
+O95750,FGF19,Fibroblast growth factor 19,Secreted,0.06525,0.287,0.041,Not confident,Growth factor,none
+P51991,HNRNPA3,Heterogeneous nuclear ribonucleoprotein A3,"Nucleus, Spliceosome",0.06464,0.02571,0.218,Not confident,"mRNA processing, mRNA splicing, Ribonucleoprotein, RNA-binding",none
+O43639,NCK2,Cytoplasmic protein NCK2,"Cytoplasm, Endoplasmic reticulum",0.0646,0.1506,0.173,Not confident,Translation regulation,none
+Q96GW9,MARS2,"Methionine--tRNA ligase, mitochondrial",Mitochondrion,0.06445,0.3066,0.27,Not confident,"Aminoacyl-tRNA synthetase, Ligase, Protein biosynthesis",none
+P38935,IGHMBP2,DNA-binding protein SMUBP-2,"Cell projection, Cytoplasm, Nucleus",0.06433,0.4219,0.262,Not confident,"Activator, DNA-binding, Helicase, Hydrolase, Ribonucleoprotein, RNA-binding, Transcription, Transcription regulation, tRNA-binding",none
+Q13164,MAPK7,Mitogen-activated protein kinase 7,"Cytoplasm, Nucleus",0.064,0.11285,0.181,Not confident,"Cell cycle, Differentiation, Kinase, Serine/threonine-protein kinase, Transferase",none
+Q6P1M0,SLC27A4,Long-chain fatty acid transport protein 4,"Endoplasmic reticulum, Membrane",0.0639,0.2568,0.248,Not confident,"Fatty acid metabolism, Ligase, Lipid metabolism, Lipid transport, Transport",none
+Q05513,PRKCZ,Protein kinase C zeta type,"Cell junction, Cytoplasm, Endosome, Membrane",0.06384,0.1095,0.154,Not confident,"Inflammatory response, Kinase, Serine/threonine-protein kinase, Transferase",none
+O60547,GMDS,"GDP-mannose 4,6 dehydratase",NA,0.0635,0.427,0.176,Not confident,Lyase,none
+P13612,ITGA4,Integrin alpha-4,Membrane,0.0635,0.1919,0.147,Not confident,"Cell adhesion, Integrin, Receptor",none
+P09603,CSF1,Macrophage colony-stimulating factor 1,"Cell membrane, Membrane, Secreted",0.0634,0.05286,0.027,Not confident,"Cytokine, Growth factor, Immunity, Inflammatory response, Innate immunity",none
+O15321,TM9SF1,Transmembrane 9 superfamily member 1,"Cytoplasmic vesicle, Lysosome, Membrane",0.06323,0.4507,0.175,Not confident,Autophagy,none
+Q86V21,AACS,Acetoacetyl-CoA synthetase,Cytoplasm,0.06305,0.3003,0.212,Not confident,"Fatty acid metabolism, Ligase, Lipid metabolism",none
+Q9UHX1,PUF60,Poly(U)-binding-splicing factor PUF60,Nucleus,0.06305,0.103,0.184,Not confident,"Apoptosis, DNA-binding, mRNA processing, mRNA splicing, Repressor, Ribonucleoprotein, RNA-binding, Transcription, Transcription regulation",none
+C9J202,ALG1L2,Putative glycosyltransferase ALG1L2,NA,0.063,0.0673,0.252,Not confident,"Glycosyltransferase, Transferase",none
+P22626,HNRNPA2B1,Heterogeneous nuclear ribonucleoproteins A2/B1,"Cytoplasm, Nucleus, Secreted, Spliceosome",0.0628,0.1637,0.271,Not confident,"Host-virus interaction, mRNA processing, mRNA splicing, mRNA transport, Ribonucleoprotein, RNA-binding, Transport",none
+P26639,TARS1,"Threonine--tRNA ligase 1, cytoplasmic",Cytoplasm,0.06274,0.3423,0.185,Not confident,"Aminoacyl-tRNA synthetase, Ligase, Protein biosynthesis, RNA-binding, tRNA-binding",none
+Q01105,SET,Protein SET,"Cytoplasm, Endoplasmic reticulum, Nucleus",0.06274,0.1076,0.232,Not confident,"Chaperone, DNA-binding, Host-virus interaction",none
+Q15120,PDK3,"[Pyruvate dehydrogenase (acetyl-transferring)] kinase isozyme 3, mitochondrial",Mitochondrion,0.0627,0.1525,0.164,Not confident,"Kinase, Transferase",none
+Q8WXK1,ASB15,Ankyrin repeat and SOCS box protein 15,NA,0.0627,0.1079,0.287,Not confident,Ubl conjugation pathway,none
+Q8TAD8,SNIP1,Smad nuclear-interacting protein 1,"Nucleus, Spliceosome",0.06226,0.1294,0.239,Not confident,"mRNA processing, mRNA splicing, RNA-mediated gene silencing",none
+Q5T6S3,PHF19,PHD finger protein 19,Nucleus,0.0621,0.08606,0.124,Not confident,"Chromatin regulator, Repressor, Transcription, Transcription regulation",none
+P35637,FUS,RNA-binding protein FUS,Nucleus,0.06198,0.0414,0.161,Not confident,"DNA-binding, RNA-binding",none
+P60174,TPI1,Triosephosphate isomerase,Cytoplasm,0.06195,0.1161,0.222,Not confident,"Gluconeogenesis, Glycolysis, Isomerase, Lyase",none
+Q9NR19,ACSS2,"Acetyl-coenzyme A synthetase, cytoplasmic","Cytoplasm, Nucleus",0.0619,0.2815,0.147,Not confident,"Activator, Ligase, Lipid metabolism, Transcription, Transcription regulation",none
+Q96K76,USP47,Ubiquitin carboxyl-terminal hydrolase 47,Cytoplasm,0.06183,0.1547,0.185,Not confident,"DNA damage, DNA repair, Hydrolase, Protease, Thiol protease, Ubl conjugation pathway",none
+Q9UL54,TAOK2,Serine/threonine-protein kinase TAO2,"Cell projection, Cytoplasm, Cytoplasmic vesicle, Cytoskeleton, Membrane, Nucleus",0.0618,0.3015,0.216,Not confident,"Kinase, Serine/threonine-protein kinase, Transferase",none
+Q5I0G3,MDH1B,Putative malate dehydrogenase 1B,NA,0.06177,0.1002,0.178,Not confident,"Oxidoreductase, Tricarboxylic acid cycle",none
+Q8WWZ4,ABCA10,ATP-binding cassette sub-family A member 10,Membrane,0.06165,0.3784,0.287,Not confident,"Translocase, Transport",none
+P46100,ATRX,Transcriptional regulator ATRX,"Chromosome, Nucleus, Telomere",0.06143,0.2866,0.268,Not confident,"Chromatin regulator, DNA damage, DNA repair, DNA-binding, Helicase, Hydrolase, Transcription, Transcription regulation",none
+Q5VW32,BROX,BRO1 domain-containing protein BROX,"Membrane, Nucleus",0.0613,0.3154,0.177,Not confident,NA,none
+Q63HK5,TSHZ3,Teashirt homolog 3,"Cell projection, Nucleus",0.06097,0.05875,0.029,Not confident,"Developmental protein, DNA-binding, Repressor, Transcription, Transcription regulation",none
+Q8TB24,RIN3,Ras and Rab interactor 3,"Cytoplasm, Cytoplasmic vesicle, Endosome",0.06094,0.1181,0.078,Not confident,GTPase activation,none
+P04626,ERBB2,Receptor tyrosine-protein kinase erbB-2,"Cell membrane, Cell projection, Cytoplasm, Endosome, Membrane, Nucleus",0.06085,0.1205,0.188,Not confident,"Activator, Kinase, Receptor, Transcription, Transcription regulation, Transferase, Tyrosine-protein kinase",none
+Q9BZE9,ASPSCR1,Tether containing UBX domain for GLUT4,"Cytoplasm, Membrane, Nucleus",0.06082,0.0958,0.241,Not confident,NA,none
+O95994,AGR2,Anterior gradient protein 2 homolog,"Endoplasmic reticulum, Secreted",0.06082,0.00941,0.084,Not confident,NA,none
+Q9Y6B6,SAR1B,GTP-binding protein SAR1b,"Endoplasmic reticulum, Golgi apparatus, Membrane",0.0607,0.0903,0.149,Not confident,"ER-Golgi transport, Protein transport, Transport",none
+P61764,STXBP1,Syntaxin-binding protein 1,"Cytoplasm, Membrane",0.06064,0.267,0.189,Not confident,"Protein transport, Transport",none
+P04908,"H2AC4,H2AC8",Histone H2A type 1-B/E,"Chromosome, Nucleosome core, Nucleus",0.06058,0.0329,0.12,Not confident,DNA-binding,none
+Q9NTK5,OLA1,Obg-like ATPase 1,"Cytoplasm, Nucleus",0.06052,0.0668,0.164,Not confident,Hydrolase,none
+P05161,ISG15,Ubiquitin-like protein ISG15,"Cytoplasm, Secreted",0.06052,0.03128,0.105,Not confident,"Antiviral defense, Host-virus interaction, Immunity, Innate immunity, Ubl conjugation pathway",none
+P00533,EGFR,Epidermal growth factor receptor,"Cell membrane, Endoplasmic reticulum, Endosome, Golgi apparatus, Membrane, Nucleus, Secreted",0.06042,0.1798,0.173,Not confident,"Developmental protein, Host cell receptor for virus entry, Host-virus interaction, Kinase, Receptor, Transferase, Tyrosine-protein kinase",none
+Q68CK6,ACSM2B,"Acyl-coenzyme A synthetase ACSM2B, mitochondrial",Mitochondrion,0.06036,0.2676,0.244,Not confident,"Fatty acid metabolism, Ligase, Lipid metabolism",none
+P08238,HSP90AB1,Heat shock protein HSP 90-beta,"Cell membrane, Cytoplasm, Membrane, Nucleus, Secreted",0.06036,0.1796,0.113,Not confident,"Chaperone, Stress response",none
+P21549,AGXT,Alanine--glyoxylate aminotransferase,Peroxisome,0.06015,0.2974,0.228,Not confident,"Aminotransferase, Transferase",none
+Q9HBL8,NMRAL1,NmrA-like family domain-containing protein 1,"Cytoplasm, Nucleus",0.06003,0.02592,0.249,Not confident,NA,none
+Q9NZL9,MAT2B,Methionine adenosyltransferase 2 subunit beta,NA,0.06,0.0418,0.231,Not confident,One-carbon metabolism,none
+P14314,PRKCSH,Glucosidase 2 subunit beta,Endoplasmic reticulum,0.0599,0.2969,0.321,Not confident,NA,none
+P28288,ABCD3,ATP-binding cassette sub-family D member 3,"Membrane, Peroxisome",0.05984,0.3618,0.174,Not confident,"Hydrolase, Translocase, Transport",none
+Q9BSK4,FEM1A,Protein fem-1 homolog A,"Cytoplasm, Mitochondrion",0.05957,0.3909,0.127,Not confident,Ubl conjugation pathway,none
+O14732,IMPA2,Inositol monophosphatase 2,Cytoplasm,0.05957,0.3176,0.238,Not confident,Hydrolase,none
+Q16637,"SMN1,SMN2",Survival motor neuron protein,"Cell projection, Cytoplasm, Nucleus",0.05942,0.02502,0.151,Not confident,"mRNA processing, mRNA splicing, Neurogenesis, RNA-binding",none
+O14967,CLGN,Calmegin,"Endoplasmic reticulum, Membrane",0.05936,0.2705,0.227,Not confident,Chaperone,none
+P0DMV9,HSPA1B,Heat shock 70 kDa protein 1B,"Cytoplasm, Cytoskeleton",0.05923,0.2343,0.107,Not confident,"Chaperone, Host cell receptor for virus entry, Host-virus interaction, Receptor, Stress response",none
+Q99592,ZBTB18,Zinc finger and BTB domain-containing protein 18,Nucleus,0.05902,0.03674,0.161,Not confident,"Developmental protein, DNA-binding, Repressor, Transcription, Transcription regulation",none
+Q8NHQ9,DDX55,ATP-dependent RNA helicase DDX55,NA,0.05896,0.307,0.261,Not confident,"Helicase, Hydrolase, RNA-binding",none
+P30101,PDIA3,Protein disulfide-isomerase A3,Endoplasmic reticulum,0.05887,0.1509,0.263,Not confident,"Adaptive immunity, Immunity, Isomerase",none
+O00154,ACOT7,Cytosolic acyl coenzyme A thioester hydrolase,"Cytoplasm, Mitochondrion",0.05887,0.1359,0.102,Not confident,"Fatty acid metabolism, Hydrolase, Lipid metabolism, Serine esterase",none
+O60341,KDM1A,Lysine-specific histone demethylase 1A,Nucleus,0.05878,0.2578,0.2,Not confident,"Chromatin regulator, Developmental protein, Oxidoreductase, Repressor, Transcription, Transcription regulation",none
+Q9BW92,TARS2,"Threonine--tRNA ligase, mitochondrial",Mitochondrion,0.05875,0.284,0.189,Not confident,"Aminoacyl-tRNA synthetase, Ligase, Protein biosynthesis",none
+P40123,CAP2,Adenylyl cyclase-associated protein 2,"Cell membrane, Membrane",0.05853,0.3508,0.236,Not confident,NA,none
+P43004,SLC1A2,Excitatory amino acid transporter 2,"Cell membrane, Membrane",0.05844,0.1643,0.158,Not confident,"Amino-acid transport, Symport, Transport",none
+P32119,PRDX2,Peroxiredoxin-2,Cytoplasm,0.05835,0.0757,0.175,Not confident,"Antioxidant, Oxidoreductase, Peroxidase",none
+O43895,XPNPEP2,Xaa-Pro aminopeptidase 2,"Cell membrane, Membrane",0.0581,0.3652,0.272,Not confident,"Aminopeptidase, Hydrolase, Metalloprotease, Protease",none
+P53041,PPP5C,Serine/threonine-protein phosphatase 5,"Amyloid, Cell membrane, Cytoplasm, Membrane, Nucleus",0.05777,0.2644,0.197,Not confident,"DNA damage, DNA repair, Hydrolase, Protein phosphatase",none
+P04278,SHBG,Sex hormone-binding globulin,Secreted,0.05777,0.04382,0.138,Not confident,NA,none
+Q8NFJ5,GPRC5A,Retinoic acid-induced protein 3,"Cell membrane, Cytoplasmic vesicle, Membrane",0.05765,0.0092,0.101,Not confident,"G-protein coupled receptor, Receptor, Transducer",none
+P37837,TALDO1,Transaldolase,"Cytoplasm, Nucleus",0.0576,0.0999,0.24,Not confident,"Pentose shunt, Transferase",none
+Q8NG11,TSPAN14,Tetraspanin-14,"Cell membrane, Membrane",0.0576,0.068,0.116,Not confident,NA,none
+Q16630,CPSF6,Cleavage and polyadenylation specificity factor subunit 6,"Cytoplasm, Nucleus",0.0575,0.0919,0.191,Not confident,"mRNA processing, RNA-binding",none
+Q8TDU9,RXFP4,Relaxin-3 receptor 2,"Cell membrane, Membrane",0.05746,0.03555,0.108,Not confident,"G-protein coupled receptor, Receptor, Transducer",none
+P21291,CSRP1,Cysteine and glycine-rich protein 1,Nucleus,0.05743,0.126,0.188,Not confident,NA,none
+Q96I99,SUCLG2,"Succinate--CoA ligase [GDP-forming] subunit beta, mitochondrial",Mitochondrion,0.05737,0.4626,0.186,Not confident,"Ligase, Tricarboxylic acid cycle",none
+Q9UQM7,CAMK2A,Calcium/calmodulin-dependent protein kinase type II subunit alpha,"Cell projection, Synapse",0.05728,0.1326,0.17,Not confident,"Calmodulin-binding, Kinase, Serine/threonine-protein kinase, Transferase",none
+Q92834,RPGR,X-linked retinitis pigmentosa GTPase regulator,"Cell projection, Cilium, Cytoplasm, Cytoskeleton, Flagellum, Golgi apparatus",0.05713,0.3958,0.263,Not confident,"Cilium biogenesis/degradation, Guanine-nucleotide releasing factor, Sensory transduction, Vision",none
+Q16851,UGP2,UTP--glucose-1-phosphate uridylyltransferase,Cytoplasm,0.05695,0.4204,0.15,Not confident,"Nucleotidyltransferase, Transferase",none
+Q9H8T0,AKTIP,AKT-interacting protein,"Cell membrane, Cytoplasm, Membrane",0.0569,0.05133,0.189,Not confident,"Apoptosis, Protein transport, Transport",none
+O95166,GABARAP,Gamma-aminobutyric acid receptor-associated protein,"Cytoplasm, Cytoplasmic vesicle, Cytoskeleton, Golgi apparatus, Membrane, Microtubule",0.05685,0.02998,0.162,Not confident,"Apoptosis, Autophagy, Protein transport, Transport",none
+P13929,ENO3,Beta-enolase,Cytoplasm,0.05673,0.409,0.163,Not confident,"Glycolysis, Lyase",none
+P09110,ACAA1,"3-ketoacyl-CoA thiolase, peroxisomal",Peroxisome,0.05658,0.458,0.197,Not confident,"Acyltransferase, Fatty acid metabolism, Lipid metabolism, Transferase",none
+Q8IUQ4,SIAH1,E3 ubiquitin-protein ligase SIAH1,"Cytoplasm, Nucleus",0.05652,0.06885,0.074,Not confident,"Apoptosis, Cell cycle, Developmental protein, Differentiation, Spermatogenesis, Transferase, Ubl conjugation pathway",none
+O15350,TP73,Tumor protein p73,"Cytoplasm, Nucleus",0.05646,0.0941,0.09,Not confident,"Activator, Apoptosis, Cell cycle, DNA-binding, Host-virus interaction, Transcription, Transcription regulation",none
+P63010,AP2B1,AP-2 complex subunit beta,"Cell membrane, Coated pit, Membrane",0.0563,0.1917,0.127,Not confident,"Endocytosis, Protein transport, Transport",none
+Q9NRK6,ABCB10,"ATP-binding cassette sub-family B member 10, mitochondrial","Membrane, Mitochondrion, Mitochondrion inner membrane",0.05627,0.2646,0.214,Not confident,Transport,none
+Q71U36,TUBA1A,Tubulin alpha-1A chain,"Cytoplasm, Cytoskeleton, Microtubule",0.05627,0.1838,0.087,Not confident,Hydrolase,none
+P09104,ENO2,Gamma-enolase,"Cell membrane, Cytoplasm, Membrane",0.05618,0.3943,0.155,Not confident,"Glycolysis, Lyase",none
+P14859,POU2F1,"POU domain, class 2, transcription factor 1",Nucleus,0.05603,0.1451,0.122,Not confident,"Activator, DNA-binding, Transcription, Transcription regulation",none
+Q6ICL3,TANGO2,Transport and Golgi organization protein 2 homolog,"Cytoplasm, Golgi apparatus, Mitochondrion",0.05588,0.01936,0.315,Not confident,NA,none
+O60260,PRKN,E3 ubiquitin-protein ligase parkin,"Cell projection, Cytoplasm, Endoplasmic reticulum, Membrane, Mitochondrion, Mitochondrion outer membrane, Nucleus, Synapse",0.05582,0.1432,0.191,Not confident,"Autophagy, Transcription, Transcription regulation, Transferase, Ubl conjugation pathway",none
+Q96LA8,PRMT6,Protein arginine N-methyltransferase 6,Nucleus,0.05566,0.3118,0.217,Not confident,"Chromatin regulator, DNA damage, DNA repair, Host-virus interaction, Methyltransferase, Repressor, Transcription, Transcription regulation, Transferase",none
+P52306,RAP1GDS1,Rap1 GTPase-GDP dissociation stimulator 1,"Cytoplasm, Endoplasmic reticulum, Mitochondrion, Nucleus",0.05557,0.2444,0.199,Not confident,Guanine-nucleotide releasing factor,none
+Q16777,H2AC20,Histone H2A type 2-C,"Chromosome, Nucleosome core, Nucleus",0.05548,0.03012,0.117,Not confident,DNA-binding,none
+Q14565,DMC1,Meiotic recombination protein DMC1/LIM15 homolog,"Chromosome, Nucleus",0.05545,0.3508,0.176,Not confident,"Cell cycle, DNA-binding, Meiosis",none
+Q7Z4B0,LINC00305,Putative uncharacterized protein encoded by LINC00305,Secreted,0.05545,0.02773,-,Not confident,NA,none
+Q99467,CD180,CD180 antigen,"Cell membrane, Membrane",0.05508,0.2747,0.254,Not confident,"Immunity, Inflammatory response, Innate immunity, Receptor",none
+P27824,CANX,Calnexin,"Endoplasmic reticulum, Membrane, Mitochondrion",0.05508,0.2537,0.21,Not confident,"Chaperone, Host-virus interaction",none
+O00231,PSMD11,26S proteasome non-ATPase regulatory subunit 11,"Cytoplasm, Nucleus, Proteasome",0.05508,0.1759,0.191,Not confident,NA,none
+P05062,ALDOB,Fructose-bisphosphate aldolase B,"Cytoplasm, Cytoskeleton",0.055,0.1177,0.157,Not confident,"Glycolysis, Lyase",none
+Q9H040,SPRTN,DNA-dependent metalloprotease SPRTN,"Chromosome, Nucleus",0.05493,0.1232,0.193,Not confident,"DNA damage, DNA repair, Hydrolase, Metalloprotease, Protease",none
+Q6PD62,CTR9,RNA polymerase-associated protein CTR9 homolog,Nucleus,0.0548,0.3267,0.207,Not confident,"Transcription, Transcription regulation, Wnt signaling pathway",none
+O75602,SPAG6,Sperm-associated antigen 6,"Cell projection, Cilium, Cytoplasm, Cytoskeleton, Flagellum, Microtubule",0.0548,0.1394,0.155,Not confident,Cilium biogenesis/degradation,none
+P33316,DUT,"Deoxyuridine 5'-triphosphate nucleotidohydrolase, mitochondrial","Mitochondrion, Nucleus",0.0544,0.04358,0.189,Not confident,"Hydrolase, Nucleotide metabolism",none
+Q06830,PRDX1,Peroxiredoxin-1,Cytoplasm,0.0544,0.04263,0.183,Not confident,"Antioxidant, Oxidoreductase, Peroxidase",none
+O15455,TLR3,Toll-like receptor 3,"Endoplasmic reticulum, Endosome, Membrane",0.05438,0.2507,0.266,Not confident,"Immunity, Inflammatory response, Innate immunity, Receptor, RNA-binding",none
+P62826,RAN,GTP-binding nuclear protein Ran,"Cytoplasm, Nucleus",0.05417,0.1641,0.105,Not confident,"Cell cycle, Cell division, Host-virus interaction, Hydrolase, Mitosis, Protein transport, Transport",none
+Q99816,TSG101,Tumor susceptibility gene 101 protein,"Cytoplasm, Cytoskeleton, Endosome, Membrane, Nucleus",0.05417,0.1088,0.266,Not confident,"Cell cycle, Cell division, Growth regulation, Host-virus interaction, Protein transport, Transport",none
+Q15046,KARS1,Lysine--tRNA ligase,"Cell membrane, Cytoplasm, Membrane, Mitochondrion, Nucleus, Secreted",0.0541,0.1846,0.186,Not confident,"Aminoacyl-tRNA synthetase, Host-virus interaction, Ligase, Protein biosynthesis, Transferase",none
+Q99729,HNRNPAB,Heterogeneous nuclear ribonucleoprotein A/B,"Cytoplasm, Nucleus",0.0541,0.135,0.232,Not confident,RNA-binding,none
+Q9NPF4,OSGEP,tRNA N6-adenosine threonylcarbamoyltransferase,"Cytoplasm, Nucleus",0.05396,0.3376,0.19,Not confident,"Acyltransferase, Transferase, tRNA processing",none
+Q8IXL7,MSRB3,Methionine-R-sulfoxide reductase B3,"Endoplasmic reticulum, Mitochondrion",0.05368,0.02496,0.217,Not confident,Oxidoreductase,none
+Q96CF2,CHMP4C,Charged multivesicular body protein 4c,"Cytoplasm, Endosome, Membrane",0.05356,0.04504,0.155,Not confident,"Protein transport, Transport",none
+P57060,RWDD2B,RWD domain-containing protein 2B,NA,0.05356,0.03998,0.223,Not confident,NA,none
+O95340,PAPSS2,Bifunctional 3'-phosphoadenosine 5'-phosphosulfate synthase 2,NA,0.05295,0.2573,0.135,Not confident,"Kinase, Multifunctional enzyme, Nucleotidyltransferase, Transferase",none
+Q9Y6H6,KCNE3,Potassium voltage-gated channel subfamily E member 3,"Cell membrane, Cell projection, Cytoplasm, Membrane",0.05292,0.00766,0.033,Not confident,"Ion channel, Ion transport, Potassium channel, Potassium transport, Transport, Voltage-gated channel",none
+Q96KP4,CNDP2,Cytosolic non-specific dipeptidase,Cytoplasm,0.05276,0.12213,0.201,Not confident,"Carboxypeptidase, Hydrolase, Metalloprotease, Protease",none
+P00505,GOT2,"Aspartate aminotransferase, mitochondrial","Cell membrane, Membrane, Mitochondrion",0.05273,0.3462,0.192,Not confident,"Aminotransferase, Lipid transport, Transferase, Transport",none
+Q8N264,ARHGAP24,Rho GTPase-activating protein 24,"Cell junction, Cell projection, Cytoplasm, Cytoskeleton",0.05273,0.10345,0.142,Not confident,"Angiogenesis, Developmental protein, Differentiation, GTPase activation",none
+P03372,ESR1,Estrogen receptor,"Cell membrane, Cytoplasm, Golgi apparatus, Membrane, Nucleus",0.05273,0.0764,0.085,Not confident,"Activator, DNA-binding, Receptor, Transcription, Transcription regulation",none
+O75581,LRP6,Low-density lipoprotein receptor-related protein 6,"Cell membrane, Endoplasmic reticulum, Membrane",0.05267,0.2917,0.159,Not confident,"Developmental protein, Endocytosis, Receptor, Wnt signaling pathway",none
+O75400,PRPF40A,Pre-mRNA-processing factor 40 homolog A,Nucleus,0.05252,0.1146,0.24,Not confident,"Cell cycle, Cell division, mRNA processing, mRNA splicing",none
+P00709,LALBA,Alpha-lactalbumin,Secreted,0.0525,0.002405,0.093,Not confident,"Lactose biosynthesis, Milk protein",none
+P49771,FLT3LG,Fms-related tyrosine kinase 3 ligand,"Cell membrane, Membrane, Secreted",0.05243,0.02237,0.034,Not confident,Cytokine,none
+O75530,EED,Polycomb protein EED,"Chromosome, Nucleus",0.05237,0.2336,0.184,Not confident,"Chromatin regulator, Host-virus interaction, Repressor, Transcription, Transcription regulation",none
+P10155,RO60,RNA-binding protein RO60,Cytoplasm,0.05222,0.1898,0.16,Not confident,"Cilium biogenesis/degradation, Ribonucleoprotein, RNA-binding",none
+P27797,CALR,Calreticulin,"Cytoplasm, Cytoplasmic vesicle, Endoplasmic reticulum, Extracellular matrix, Lysosome, Sarcoplasmic reticulum, Secreted",0.05215,0.2009,0.201,Not confident,Chaperone,none
+Q15435,PPP1R7,Protein phosphatase 1 regulatory subunit 7,Nucleus,0.05212,0.2805,0.221,Not confident,NA,none
+P07814,EPRS1,Bifunctional glutamate/proline--tRNA ligase,"Cytoplasm, Membrane",0.05203,0.2437,0.167,Not confident,"Aminoacyl-tRNA synthetase, Ligase, Multifunctional enzyme, Protein biosynthesis, RNA-binding, Translation regulation",none
+P11413,G6PD,Glucose-6-phosphate 1-dehydrogenase,"Cytoplasm, Membrane",0.05182,0.2578,0.178,Not confident,"Carbohydrate metabolism, Glucose metabolism, Oxidoreductase",none
+Q4G0Z9,MCMDC2,Minichromosome maintenance domain-containing protein 2,NA,0.05176,0.1515,0.086,Not confident,"DNA damage, DNA repair, Meiosis",none
+Q14541,HNF4G,Hepatocyte nuclear factor 4-gamma,Nucleus,0.05167,0.0845,0.101,Not confident,"DNA-binding, Receptor, Transcription, Transcription regulation",none
+Q15006,EMC2,ER membrane protein complex subunit 2,"Endoplasmic reticulum, Membrane",0.0516,0.06183,0.215,Not confident,NA,none
+Q99972,MYOC,Myocilin,"Cell projection, Cilium, Cytoplasmic vesicle, Endoplasmic reticulum, Extracellular matrix, Golgi apparatus, Membrane, Mitochondrion, Mitochondrion inner membrane, Mitochondrion outer membrane, Secreted",0.05136,0.1004,0.089,Not confident,NA,none
+P04839,CYBB,Cytochrome b-245 heavy chain,"Cell membrane, Membrane",0.05133,0.3376,0.17,Not confident,"Electron transport, Ion channel, Ion transport, Oxidoreductase, Transport, Voltage-gated channel",none
+Q13151,HNRNPA0,Heterogeneous nuclear ribonucleoprotein A0,Nucleus,0.0513,0.0333,0.214,Not confident,"Ribonucleoprotein, RNA-binding",none
+Q9HCE5,METTL14,N6-adenosine-methyltransferase non-catalytic subunit,Nucleus,0.05112,0.1621,0.158,Not confident,"Differentiation, RNA-binding, Spermatogenesis",none
+P21796,VDAC1,Voltage-dependent anion-selective channel protein 1,"Cell membrane, Membrane, Mitochondrion, Mitochondrion outer membrane",0.05106,0.0156,0.155,Not confident,"Apoptosis, Host-virus interaction, Ion transport, Porin, Transport",none
+Q86U70,LDB1,LIM domain-binding protein 1,Nucleus,0.0508,0.2747,0.104,Not confident,Developmental protein,none
+P23526,AHCY,Adenosylhomocysteinase,"Cytoplasm, Endoplasmic reticulum, Nucleus",0.05078,0.5264,0.123,Not confident,"Hydrolase, One-carbon metabolism",none
+Q6PCB7,SLC27A1,Long-chain fatty acid transport protein 1,"Cell membrane, Cytoplasm, Membrane",0.05075,0.2747,0.299,Not confident,"Fatty acid metabolism, Ligase, Lipid metabolism, Lipid transport, Transport",none
+P06733,ENO1,Alpha-enolase,"Cell membrane, Cytoplasm, Membrane, Nucleus",0.0505,0.4033,0.159,Not confident,"DNA-binding, Glycolysis, Lyase, Plasminogen activation, Repressor, Transcription, Transcription regulation",none
+Q8IXJ9,ASXL1,Polycomb group protein ASXL1,Nucleus,0.05035,0.1432,0.071,Not confident,"Chromatin regulator, Repressor, Transcription, Transcription regulation, Ubl conjugation pathway",none
+P06132,UROD,Uroporphyrinogen decarboxylase,Cytoplasm,0.05032,0.698,0.213,Not confident,"Decarboxylase, Heme biosynthesis, Lyase, Porphyrin biosynthesis",none
+Q9NUX5,POT1,Protection of telomeres protein 1,"Chromosome, Nucleus, Telomere",0.05023,0.1292,0.124,Not confident,DNA-binding,none
+Q9NUT2,ABCB8,Mitochondrial potassium channel ATP-binding subunit,"Membrane, Mitochondrion, Mitochondrion inner membrane",0.05017,0.3306,0.241,Not confident,"Ion transport, Potassium transport, Transport",none
+Q9Y6R1,SLC4A4,Electrogenic sodium bicarbonate cotransporter 1,"Cell membrane, Membrane",0.05008,0.2869,0.153,Not confident,"Ion transport, Sodium transport, Symport, Transport",none
+Q9BYF1,ACE2,Angiotensin-converting enzyme 2,"Cell membrane, Cell projection, Cytoplasm, Membrane, Secreted",0.05002,0.1708,0.147,Not confident,"Carboxypeptidase, Host cell receptor for virus entry, Host-virus interaction, Hydrolase, Metalloprotease, Protease, Receptor",none
+O95573,ACSL3,Fatty acid CoA ligase Acsl3,"Endoplasmic reticulum, Membrane, Microsome, Mitochondrion, Mitochondrion outer membrane, Peroxisome",0.04993,0.302,0.218,Not confident,"Fatty acid metabolism, Ligase, Lipid metabolism",none
+Q9NZQ8,TRPM5,Transient receptor potential cation channel subfamily M member 5,"Cell membrane, Membrane",0.04993,0.3005,0.142,Not confident,"Ion channel, Ion transport, Ligand-gated ion channel, Receptor, Transport, Voltage-gated channel",none
+Q53FZ2,ACSM3,"Acyl-coenzyme A synthetase ACSM3, mitochondrial",Mitochondrion,0.04968,0.2773,0.244,Not confident,"Fatty acid metabolism, Ligase, Lipid metabolism",none
+O00629,KPNA4,Importin subunit alpha-3,"Cytoplasm, Nucleus",0.04965,0.2673,0.176,Not confident,"Host-virus interaction, Protein transport, Transport",none
+P16157,ANK1,Ankyrin-1,"Cytoplasm, Cytoskeleton, Membrane, Sarcoplasmic reticulum",0.04965,0.1814,0.326,Not confident,NA,none
+P52292,KPNA2,Importin subunit alpha-1,"Cytoplasm, Endoplasmic reticulum, Golgi apparatus, Membrane, Nucleus",0.04965,0.1788,0.208,Not confident,"Host-virus interaction, Protein transport, Transport",none
+O95292,VAPB,Vesicle-associated membrane protein-associated protein B/C,"Endoplasmic reticulum, Membrane",0.0496,0.04044,0.223,Not confident,"Host-virus interaction, Unfolded protein response",none
+P30044,PRDX5,"Peroxiredoxin-5, mitochondrial","Cytoplasm, Mitochondrion, Peroxisome",0.0495,0.02525,0.216,Not confident,"Antioxidant, Oxidoreductase, Peroxidase",none
+Q9Y490,TLN1,Talin-1,"Cell junction, Cell membrane, Cell projection, Cytoplasm, Cytoskeleton, Membrane",0.04947,0.2788,0.121,Not confident,Host-virus interaction,none
+Q6ZU64,CFAP65,Cilia- and flagella-associated protein 65,"Cell membrane, Cell projection, Cilium, Cytoplasm, Cytoplasmic vesicle, Flagellum, Membrane",0.04926,0.307,0.146,Not confident,Cilium biogenesis/degradation,none
+Q9UGI0,ZRANB1,Ubiquitin thioesterase ZRANB1,"Cytoplasm, Nucleus",0.04926,0.2338,0.112,Not confident,"Hydrolase, Protease, Thiol protease, Ubl conjugation pathway, Wnt signaling pathway",none
+P35612,ADD2,Beta-adducin,"Cell membrane, Cytoplasm, Cytoskeleton, Membrane",0.04926,0.1048,0.147,Not confident,"Actin-binding, Calmodulin-binding",none
+P12694,BCKDHA,"2-oxoisovalerate dehydrogenase subunit alpha, mitochondrial",Mitochondrion,0.04922,0.1572,0.224,Not confident,Oxidoreductase,none
+P12814,ACTN1,Alpha-actinin-1,"Cell junction, Cell membrane, Cell projection, Cytoplasm, Cytoskeleton, Membrane",0.04922,0.11523,0.125,Not confident,Actin-binding,none
+P07237,P4HB,Protein disulfide-isomerase,"Cell membrane, Endoplasmic reticulum, Membrane",0.0492,0.265,0.249,Not confident,"Chaperone, Isomerase",none
+P34932,HSPA4,Heat shock 70 kDa protein 4,Cytoplasm,0.04907,0.284,0.197,Not confident,Stress response,none
+Q8N2N9,ANKRD36B,Ankyrin repeat domain-containing protein 36B,NA,0.04895,0.0971,0.341,Not confident,NA,none
+P08240,SRPRA,Signal recognition particle receptor subunit alpha,"Endoplasmic reticulum, Membrane",0.04892,0.1746,0.184,Not confident,Receptor,none
+Q14596,NBR1,Next to BRCA1 gene 1 protein,"Cytoplasm, Cytoplasmic vesicle, Lysosome",0.04886,0.1142,0.085,Not confident,Host-virus interaction,none
+Q9H0J4,QRICH2,Glutamine-rich protein 2,"Cell projection, Cilium, Cytoplasm, Flagellum, Membrane, Nucleus",0.04837,0.10834,0.068,Not confident,NA,none
+Q9Y570,PPME1,Protein phosphatase methylesterase 1,NA,0.04825,0.183,0.25,Not confident,"Hydrolase, Serine esterase",none
+Q9UEY8,ADD3,Gamma-adducin,"Cell membrane, Cytoplasm, Cytoskeleton, Membrane",0.04825,0.1346,0.124,Not confident,"Actin-binding, Calmodulin-binding",none
+Q9UMX0,UBQLN1,Ubiquilin-1,"Cell membrane, Cytoplasm, Cytoplasmic vesicle, Endoplasmic reticulum, Membrane, Nucleus, Proteasome",0.0482,0.085,0.212,Not confident,Autophagy,none
+P09417,QDPR,Dihydropteridine reductase,NA,0.04816,0.3176,0.166,Not confident,"Oxidoreductase, Tetrahydrobiopterin biosynthesis",none
+P61158,ACTR3,Actin-related protein 3,"Cell projection, Cytoplasm, Cytoskeleton, Nucleus",0.0479,0.1554,0.119,Not confident,"Actin-binding, Cilium biogenesis/degradation",none
+Q96C11,FGGY,FGGY carbohydrate kinase domain-containing protein,NA,0.04773,0.323,0.231,Not confident,"Kinase, Transferase",none
+P00338,LDHA,L-lactate dehydrogenase A chain,Cytoplasm,0.0477,0.0415,0.169,Not confident,Oxidoreductase,none
+P32121,ARRB2,Beta-arrestin-2,"Cell membrane, Coated pit, Cytoplasm, Cytoplasmic vesicle, Membrane, Nucleus",0.0476,0.0677,0.07,Not confident,"Protein transport, Signal transduction inhibitor, Transport",none
+P68104,EEF1A1,Elongation factor 1-alpha 1,"Cell membrane, Cytoplasm, Membrane, Nucleus",0.04758,0.0834,0.107,Not confident,"Elongation factor, Host-virus interaction, Hydrolase, Protein biosynthesis, Transcription, Transcription regulation",none
+Q96CW1,AP2M1,AP-2 complex subunit mu,"Cell membrane, Coated pit, Membrane",0.04755,0.2025,0.15,Not confident,"Endocytosis, Protein transport, Transport",none
+O00418,EEF2K,Eukaryotic elongation factor 2 kinase,NA,0.0475,0.258,0.114,Not confident,"Calmodulin-binding, Kinase, Serine/threonine-protein kinase, Transferase",none
+P99999,CYCS,Cytochrome c,Mitochondrion,0.04712,0.1445,0.172,Not confident,"Apoptosis, Electron transport, Respiratory chain, Transport",none
+Q9C0K3,ACTR3C,Actin-related protein 3C,NA,0.04706,0.1963,0.134,Not confident,Actin-binding,none
+P27694,RPA1,Replication protein A 70 kDa DNA-binding subunit,Nucleus,0.04703,0.1918,0.24,Not confident,"DNA damage, DNA recombination, DNA repair, DNA replication, DNA-binding",none
+Q8NB90,AFG2A,ATPase family gene 2 protein homolog A,"Cytoplasm, Cytoskeleton, Mitochondrion",0.04697,0.3352,0.22,Not confident,"Chaperone, Developmental protein, Differentiation, Hydrolase, Ribosome biogenesis, Spermatogenesis",none
+Q9UBT2,UBA2,SUMO-activating enzyme subunit 2,"Cytoplasm, Nucleus",0.04694,0.2568,0.28,Not confident,"Transferase, Ubl conjugation pathway",none
+Q05682,CALD1,Caldesmon,"Cytoplasm, Cytoskeleton",0.04666,0.1289,0.108,Not confident,"Actin-binding, Calmodulin-binding, Muscle protein",none
+Q9Y285,FARSA,Phenylalanine--tRNA ligase alpha subunit,Cytoplasm,0.04663,0.2998,0.186,Not confident,"Aminoacyl-tRNA synthetase, Ligase, Protein biosynthesis",none
+Q3MIX3,ADCK5,Uncharacterized aarF domain-containing protein kinase 5,Membrane,0.04657,0.1632,0.266,Not confident,"Kinase, Serine/threonine-protein kinase, Transferase",none
+Q9H172,ABCG4,ATP-binding cassette sub-family G member 4,"Cell membrane, Cytoplasmic vesicle, Endosome, Membrane",0.04648,0.336,0.239,Not confident,"Lipid transport, Translocase, Transport",none
+Q52LW3,ARHGAP29,Rho GTPase-activating protein 29,NA,0.04648,0.267,0.181,Not confident,GTPase activation,none
+A0A075B6R9,IGKV2D-24,Probable non-functional immunoglobulin kappa variable 2D-24,"Cell membrane, Immunoglobulin, Membrane, Secreted",0.0464,0.001258,0.04,Not confident,"Adaptive immunity, Immunity",none
+P23284,PPIB,Peptidyl-prolyl cis-trans isomerase B,"Endoplasmic reticulum, Virion",0.04636,0.03433,0.206,Not confident,"Isomerase, Rotamase",none
+P11766,ADH5,Alcohol dehydrogenase class-3,Cytoplasm,0.04633,0.3984,0.166,Not confident,"Lipid metabolism, Oxidoreductase",none
+P04049,RAF1,RAF proto-oncogene serine/threonine-protein kinase,"Cell membrane, Cytoplasm, Membrane, Mitochondrion, Nucleus",0.04633,0.0737,0.187,Not confident,"Kinase, Serine/threonine-protein kinase, Transferase",none
+Q9NWW6,NMRK1,Nicotinamide riboside kinase 1,NA,0.04633,0.009895,0.216,Not confident,"Kinase, Pyridine nucleotide biosynthesis, Transferase",none
+P55036,PSMD4,26S proteasome non-ATPase regulatory subunit 4,Proteasome,0.04623,0.2732,0.185,Not confident,NA,none
+Q96GZ6,SLC41A3,Solute carrier family 41 member 3,"Membrane, Mitochondrion, Mitochondrion inner membrane",0.0457,0.0855,0.148,Not confident,"Ion transport, Transport",none
+Q5T7N2,L1TD1,LINE-1 type transposase domain-containing protein 1,NA,0.04526,0.0995,0.051,Not confident,NA,none
+Q00613,HSF1,Heat shock factor protein 1,"Centromere, Chromosome, Cytoplasm, Cytoskeleton, Kinetochore, Nucleus",0.0452,0.026,0.232,Not confident,"Activator, DNA damage, DNA repair, DNA-binding, Host-virus interaction, mRNA processing, mRNA transport, Stress response, Transcription, Transcription regulation, Transport",none
+Q12791,KCNMA1,Calcium-activated potassium channel subunit alpha-1,"Cell membrane, Membrane",0.04498,0.339,0.133,Not confident,"Ion channel, Ion transport, Potassium channel, Potassium transport, Transport, Voltage-gated channel",none
+P10809,HSPD1,"60 kDa heat shock protein, mitochondrial",Mitochondrion,0.04465,0.11316,0.132,Not confident,"Chaperone, Host-virus interaction, Isomerase",none
+O75879,GATB,"Glutamyl-tRNA(Gln) amidotransferase subunit B, mitochondrial",Mitochondrion,0.04462,0.3354,0.268,Not confident,"Ligase, Protein biosynthesis",none
+Q9H3G5,CPVL,Probable serine carboxypeptidase CPVL,NA,0.04425,0.329,0.271,Not confident,"Carboxypeptidase, Hydrolase, Protease",none
+O75083,WDR1,WD repeat-containing protein 1,"Cell junction, Cell projection, Cytoplasm, Cytoskeleton",0.04404,0.2808,0.223,Not confident,Actin-binding,none
+P09622,DLD,"Dihydrolipoyl dehydrogenase, mitochondrial","Cell projection, Cilium, Cytoplasmic vesicle, Flagellum, Mitochondrion, Nucleus",0.0438,0.2815,0.159,Not confident,Oxidoreductase,none
+P22681,CBL,E3 ubiquitin-protein ligase CBL,"Cell membrane, Cell projection, Cytoplasm, Golgi apparatus, Membrane",0.04352,0.11646,0.092,Not confident,"Transferase, Ubl conjugation pathway",none
+Q12906,ILF3,Interleukin enhancer-binding factor 3,"Cytoplasm, Nucleus",0.04352,0.1102,0.084,Not confident,"Antiviral defense, DNA-binding, RNA-binding, Transcription, Transcription regulation",none
+Q8TB96,ITFG1,T-cell immunomodulatory protein,"Membrane, Secreted",0.0435,0.1605,0.239,Not confident,NA,none
+Q92747,ARPC1A,Actin-related protein 2/3 complex subunit 1A,"Cytoplasm, Cytoskeleton, Nucleus",0.04337,0.2825,0.199,Not confident,Actin-binding,none
+Q13367,AP3B2,AP-3 complex subunit beta-2,"Cytoplasmic vesicle, Golgi apparatus, Membrane",0.0433,0.373,0.216,Not confident,"Protein transport, Transport",none
+P09651,HNRNPA1,Heterogeneous nuclear ribonucleoprotein A1,"Cytoplasm, Nucleus, Spliceosome",0.04324,0.0516,0.223,Not confident,"Host-virus interaction, mRNA processing, mRNA splicing, mRNA transport, Ribonucleoprotein, RNA-binding, Transport",none
+O75419,CDC45,Cell division control protein 45 homolog,"Chromosome, Nucleus",0.0432,0.2583,0.236,Not confident,"Cell cycle, DNA replication",none
+P41002,CCNF,Cyclin-F,"Cytoplasm, Cytoskeleton, Nucleus",0.043,0.166,0.098,Not confident,"Cell cycle, Cell division, Cyclin, Mitosis, Ubl conjugation pathway",none
+P50453,SERPINB9,Serpin B9,Cytoplasm,0.04285,0.0631,0.286,Not confident,"Protease inhibitor, Serine protease inhibitor",none
+Q13177,PAK2,Serine/threonine-protein kinase PAK 2,"Cytoplasm, Membrane, Nucleus",0.04276,0.10065,0.131,Not confident,"Allosteric enzyme, Apoptosis, Growth regulation, Host-virus interaction, Kinase, Serine/threonine-protein kinase, Transferase",none
+Q13422,IKZF1,DNA-binding protein Ikaros,"Cytoplasm, Nucleus",0.04272,0.04694,0.191,Not confident,"Activator, Cell cycle, Chromatin regulator, Developmental protein, DNA-binding, Repressor, Transcription, Transcription regulation",none
+P11940,PABPC1,Polyadenylate-binding protein 1,"Cell projection, Cytoplasm, Nucleus, Spliceosome",0.0427,0.1178,0.149,Not confident,"Host-virus interaction, mRNA processing, mRNA splicing, Nonsense-mediated mRNA decay, RNA-binding",none
+Q01518,CAP1,Adenylyl cyclase-associated protein 1,"Cell membrane, Membrane",0.0426,0.2402,0.268,Not confident,Actin-binding,none
+Q9NQW7,XPNPEP1,Xaa-Pro aminopeptidase 1,Cytoplasm,0.04257,0.3823,0.268,Not confident,"Aminopeptidase, Hydrolase, Metalloprotease, Protease",none
+Q12905,ILF2,Interleukin enhancer-binding factor 2,"Cytoplasm, Nucleus",0.04257,0.1284,0.113,Not confident,"Activator, DNA-binding, Transcription, Transcription regulation",none
+P35527,KRT9,"Keratin, type I cytoskeletal 9","Intermediate filament, Keratin",0.0425,0.068,0.11,Not confident,NA,none
+O15143,ARPC1B,Actin-related protein 2/3 complex subunit 1B,"Cytoplasm, Cytoskeleton, Nucleus",0.04245,0.2644,0.187,Not confident,Actin-binding,none
+P51451,BLK,Tyrosine-protein kinase Blk,"Cell membrane, Membrane",0.04233,0.1244,0.185,Not confident,"Kinase, Transferase, Tyrosine-protein kinase",none
+P0C672,TSPAN19,Tetraspanin-19,Membrane,0.04224,0.0428,0.125,Not confident,NA,none
+Q00839,HNRNPU,Heterogeneous nuclear ribonucleoprotein U,"Centromere, Chromosome, Cytoplasm, Cytoskeleton, Kinetochore, Nucleus, Spliceosome",0.04218,0.194,0.189,Not confident,"Activator, Biological rhythms, Cell cycle, Cell division, Chromatin regulator, Developmental protein, Differentiation, DNA-binding, Host-virus interaction, Mitosis, mRNA processing, mRNA splicing, Repressor, Ribonucleoprotein, RNA-binding, Transcription, Transcription regulation",none
+Q15303,ERBB4,Receptor tyrosine-protein kinase erbB-4,"Cell membrane, Membrane, Mitochondrion, Nucleus",0.0421,0.1278,0.222,Not confident,"Activator, Apoptosis, Developmental protein, Kinase, Lactation, Receptor, Transcription, Transcription regulation, Transferase, Tyrosine-protein kinase",none
+P54136,RARS1,"Arginine--tRNA ligase, cytoplasmic",Cytoplasm,0.04208,0.1763,0.213,Not confident,"Aminoacyl-tRNA synthetase, Ligase, Protein biosynthesis",none
+Q92624,APPBP2,Amyloid protein-binding protein 2,"Cytoplasm, Cytoskeleton, Membrane, Microtubule, Nucleus",0.04202,0.261,0.131,Not confident,"Protein transport, Transport, Ubl conjugation pathway",none
+A6NCI8,C2orf78,Uncharacterized protein C2orf78,NA,0.04202,0.04156,0.024,Not confident,NA,none
+P17600,SYN1,Synapsin-1,"Cell projection, Cytoplasmic vesicle, Golgi apparatus, Synapse",0.042,0.203,0.089,Not confident,Actin-binding,none
+Q96NE9,FRMD6,FERM domain-containing protein 6,"Cell membrane, Cytoplasm, Membrane",0.04175,0.2788,0.098,Not confident,NA,none
+O75600,GCAT,"2-amino-3-ketobutyrate coenzyme A ligase, mitochondrial","Mitochondrion, Nucleus",0.04166,0.2515,0.201,Not confident,"Acyltransferase, Transferase",none
+Q13283,G3BP1,Ras GTPase-activating protein-binding protein 1,"Cytoplasm, Nucleus",0.0416,0.2137,0.273,Not confident,"DNA-binding, Endonuclease, Helicase, Host-virus interaction, Hydrolase, Immunity, Innate immunity, Nuclease, RNA-binding, Transport",none
+P04637,TP53,Cellular tumor antigen p53,"Cytoplasm, Cytoskeleton, Endoplasmic reticulum, Mitochondrion, Nucleus",0.04126,0.07,0.138,Not confident,"Activator, Apoptosis, Biological rhythms, Cell cycle, DNA-binding, Host-virus interaction, Necrosis, Repressor, Transcription, Transcription regulation",none
+Q16082,HSPB2,Heat shock protein beta-2,"Cytoplasm, Nucleus",0.04126,0.01136,0.126,Not confident,Stress response,none
+P04075,ALDOA,Fructose-bisphosphate aldolase A,Cytoplasm,0.04117,0.144,0.163,Not confident,"Glycolysis, Lyase",none
+O43761,SYNGR3,Synaptogyrin-3,"Cytoplasmic vesicle, Membrane, Synapse",0.0411,0.02026,0.106,Not confident,NA,none
+P23396,RPS3,Small ribosomal subunit protein uS3,"Cytoplasm, Cytoskeleton, Membrane, Mitochondrion, Mitochondrion inner membrane, Nucleus",0.041,0.10626,0.141,Not confident,"Apoptosis, Cell cycle, Cell division, DNA damage, DNA repair, DNA-binding, Lyase, Mitosis, Ribonucleoprotein, Ribosomal protein, RNA-binding, Transcription, Transcription regulation, Translation regulation",none
+P06702,S100A9,Protein S100-A9,"Cell membrane, Cytoplasm, Cytoskeleton, Membrane, Secreted",0.04092,0.005802,0.049,Not confident,"Antimicrobial, Antioxidant, Apoptosis, Autophagy, Chemotaxis, Immunity, Inflammatory response, Innate immunity",none
+Q13838,DDX39B,Spliceosome RNA helicase DDX39B,"Cytoplasm, Nucleus, Spliceosome",0.0409,0.05966,0.114,Not confident,"Helicase, Hydrolase, mRNA processing, mRNA splicing, mRNA transport, RNA-binding, Transport",none
+O95718,ESRRB,Steroid hormone receptor ERR2,"Chromosome, Cytoplasm, Nucleus",0.0408,0.1754,0.103,Not confident,"DNA-binding, Receptor, Transcription, Transcription regulation",none
+Q01860,POU5F1,"POU domain, class 5, transcription factor 1","Cytoplasm, Nucleus",0.04037,0.01817,0.097,Not confident,"Developmental protein, DNA-binding, Transcription, Transcription regulation",none
+P29034,S100A2,Protein S100-A2,NA,0.0403,0.02722,0.03,Not confident,NA,none
+Q00610,CLTC,Clathrin heavy chain 1,"Coated pit, Cytoplasm, Cytoplasmic vesicle, Cytoskeleton, Membrane",0.04022,0.4915,0.144,Not confident,"Autophagy, Cell cycle, Cell division, Mitosis",none
+P17844,DDX5,Probable ATP-dependent RNA helicase DDX5,"Cytoplasm, Nucleus, Spliceosome",0.04004,0.26,0.167,Not confident,"Biological rhythms, Helicase, Hydrolase, mRNA processing, mRNA splicing, RNA-binding, Transcription, Transcription regulation",none
+Q99759,MAP3K3,Mitogen-activated protein kinase kinase kinase 3,NA,0.04004,0.088,0.184,Not confident,"Kinase, Serine/threonine-protein kinase, Transferase",none
+P19971,TYMP,Thymidine phosphorylase,NA,0.03998,0.2042,0.156,Not confident,"Angiogenesis, Chemotaxis, Developmental protein, Differentiation, Glycosyltransferase, Growth factor, Transferase",none
+P34810,CD68,Macrosialin,"Cell membrane, Endosome, Lysosome, Membrane",0.03998,0.1287,0.082,Not confident,NA,none
+Q8WW22,DNAJA4,DnaJ homolog subfamily A member 4,Membrane,0.03995,0.2683,0.213,Not confident,Chaperone,none
+P68032,ACTC1,"Actin, alpha cardiac muscle 1","Cytoplasm, Cytoskeleton",0.03986,0.08075,0.08,Not confident,"Hydrolase, Muscle protein",none
+Q969S9,GFM2,"Ribosome-releasing factor 2, mitochondrial",Mitochondrion,0.03983,0.3054,0.264,Not confident,"Hydrolase, Protein biosynthesis",none
+Q9UBC5,MYO1A,Unconventional myosin-Ia,NA,0.03976,0.3086,0.203,Not confident,"Actin-binding, Calmodulin-binding, Motor protein, Myosin",none
+Q13087,PDIA2,Protein disulfide-isomerase A2,Endoplasmic reticulum,0.03967,0.07324,0.267,Not confident,"Chaperone, Isomerase",none
+Q9UK17,KCND3,Potassium voltage-gated channel subfamily D member 3,"Cell membrane, Cell projection, Membrane",0.03955,0.2983,0.108,Not confident,"Ion channel, Ion transport, Potassium channel, Potassium transport, Transport, Voltage-gated channel",none
+P0C6A0,ZGLP1,GATA-type zinc finger protein 1,Nucleus,0.03955,0.03674,0.147,Not confident,"Activator, Developmental protein, Differentiation, DNA-binding, Oogenesis, Repressor, Spermatogenesis, Transcription, Transcription regulation",none
+Q9Y295,DRG1,Developmentally-regulated GTP-binding protein 1,"Cytoplasm, Nucleus",0.0395,0.5933,0.135,Not confident,Hydrolase,none
+Q8NEA9,GMCL2,Germ cell-less protein-like 2,Nucleus,0.03925,0.1247,0.133,Not confident,"Developmental protein, Differentiation, Spermatogenesis, Ubl conjugation pathway",none
+Q9H2B4,SLC26A1,Sulfate anion transporter 1,"Cell membrane, Membrane",0.0391,0.3342,0.207,Not confident,"Anion exchange, Antiport, Ion channel, Ion transport, Transport",none
+Q7RTP0,NIPA1,Magnesium transporter NIPA1,"Cell membrane, Endosome, Membrane",0.0389,0.01047,0.175,Not confident,"Ion transport, Transport",none
+P54578,USP14,Ubiquitin carboxyl-terminal hydrolase 14,"Cell membrane, Cytoplasm, Membrane, Proteasome",0.03876,0.1278,0.251,Not confident,"Hydrolase, Immunity, Innate immunity, Protease, Thiol protease, Ubl conjugation pathway",none
+P07900,HSP90AA1,Heat shock protein HSP 90-alpha,"Cell membrane, Cytoplasm, Membrane, Mitochondrion, Nucleus",0.03867,0.2229,0.11,Not confident,"Chaperone, Host-virus interaction, Hydrolase, Stress response",none
+P09211,GSTP1,Glutathione S-transferase P,"Cytoplasm, Mitochondrion, Nucleus",0.03867,0.01791,0.196,Not confident,"Lipid metabolism, Transferase",none
+P25398,RPS12,Small ribosomal subunit protein eS12,"Cytoplasm, Nucleus",0.0385,0.04108,0.162,Not confident,"Ribonucleoprotein, Ribosomal protein",none
+P61160,ACTR2,Actin-related protein 2,"Cell projection, Cytoplasm, Cytoskeleton, Nucleus",0.03845,0.2229,0.126,Not confident,Actin-binding,none
+P29692,EEF1D,Elongation factor 1-delta,Nucleus,0.0384,0.683,0.201,Not confident,"DNA-binding, Elongation factor, Protein biosynthesis, Transcription, Transcription regulation",none
+Q14409,GK3,Glycerol kinase 3,"Cytoplasm, Membrane, Mitochondrion, Mitochondrion outer membrane",0.03836,0.475,0.251,Not confident,"Glycerol metabolism, Kinase, Transferase",none
+P30837,ALDH1B1,"Aldehyde dehydrogenase X, mitochondrial",Mitochondrion,0.03833,0.1885,0.193,Not confident,Oxidoreductase,none
+O14602,EIF1AY,"Eukaryotic translation initiation factor 1A, Y-chromosomal",Cytoplasm,0.03824,0.387,0.153,Not confident,"Initiation factor, Protein biosynthesis, RNA-binding, tRNA-binding",none
+Q9NQH7,XPNPEP3,Xaa-Pro aminopeptidase 3,"Cytoplasm, Mitochondrion",0.03818,0.1225,0.261,Not confident,"Aminopeptidase, Hydrolase, Metalloprotease, Protease",none
+Q14410,GK2,Glycerol kinase 2,"Cytoplasm, Membrane, Mitochondrion, Mitochondrion outer membrane",0.03815,0.3665,0.246,Not confident,"Differentiation, Glycerol metabolism, Kinase, Spermatogenesis, Transferase",none
+P15104,GLUL,Glutamine synthetase,"Cell membrane, Cytoplasm, Endoplasmic reticulum, Membrane, Microsome, Mitochondrion",0.0381,0.2998,0.154,Not confident,"Angiogenesis, Ligase, Transferase",none
+Q9UQQ1,NAALADL1,Aminopeptidase NAALADL1,"Cell membrane, Membrane",0.0381,0.2676,0.224,Not confident,"Aminopeptidase, Hydrolase, Metalloprotease, Protease",none
+Q9UKU0,ACSL6,Long-chain-fatty-acid--CoA ligase 6,"Endoplasmic reticulum, Membrane, Microsome, Mitochondrion, Mitochondrion outer membrane, Peroxisome",0.03806,0.278,0.226,Not confident,"Fatty acid metabolism, Ligase, Lipid metabolism",none
+P14618,PKM,Pyruvate kinase PKM,"Cytoplasm, Nucleus",0.03787,0.2229,0.178,Not confident,"Allosteric enzyme, Glycolysis, Kinase, Transferase, Translation regulation",none
+Q15843,NEDD8,NEDD8,Nucleus,0.03787,0.00357,0.168,Not confident,Ubl conjugation pathway,none
+Q04864,REL,Proto-oncogene c-Rel,Nucleus,0.03778,0.09576,0.124,Not confident,"Activator, DNA-binding, Transcription, Transcription regulation",none
+Q9HAC7,SUGCT,Succinate--hydroxymethylglutarate CoA-transferase,Mitochondrion,0.03775,0.0886,0.218,Not confident,Transferase,none
+O00330,PDHX,"Pyruvate dehydrogenase protein X component, mitochondrial",Mitochondrion,0.03766,0.3374,0.242,Not confident,NA,none
+Q14498,RBM39,RNA-binding protein 39,Nucleus,0.03745,0.135,0.219,Not confident,"Activator, mRNA processing, mRNA splicing, RNA-binding, Transcription, Transcription regulation",none
+Q92947,GCDH,"Glutaryl-CoA dehydrogenase, mitochondrial",Mitochondrion,0.03732,0.3015,0.166,Not confident,Oxidoreductase,none
+P60508,ERVFRD-1,Syncytin-2,"Cell membrane, Membrane, Viral envelope protein, Virion",0.03732,0.02405,0.081,Not confident,NA,none
+Q9H9Z2,LIN28A,Protein lin-28 homolog A,"Cytoplasm, Endoplasmic reticulum, Nucleus",0.03732,0.0169,0.165,Not confident,"RNA-binding, RNA-mediated gene silencing",none
+Q8TDI7,TMC2,Transmembrane channel-like protein 2,"Cell membrane, Membrane",0.03726,0.237,0.107,Not confident,"Ion channel, Ion transport, Transport",none
+Q9BQE3,TUBA1C,Tubulin alpha-1C chain,"Cytoplasm, Cytoskeleton, Microtubule",0.03726,0.1437,0.089,Not confident,Hydrolase,none
+Q86U42,PABPN1,Polyadenylate-binding protein 2,"Cytoplasm, Nucleus",0.03717,0.1373,0.219,Not confident,"mRNA processing, RNA-binding",none
+Q9NVZ3,NECAP2,Adaptin ear-binding coat-associated protein 2,"Cell membrane, Cytoplasmic vesicle, Membrane",0.03717,0.0778,0.225,Not confident,"Endocytosis, Protein transport, Transport",none
+Q9Y2Z9,COQ6,"Ubiquinone biosynthesis monooxygenase COQ6, mitochondrial","Cell projection, Golgi apparatus, Membrane, Mitochondrion, Mitochondrion inner membrane",0.0371,0.2388,0.253,Not confident,"Monooxygenase, Oxidoreductase, Ubiquinone biosynthesis",none
+P56524,HDAC4,Histone deacetylase 4,"Cytoplasm, Nucleus",0.0371,0.126,0.147,Not confident,"Chromatin regulator, Hydrolase, Repressor, Transcription, Transcription regulation",none
+Q9BQ87,TBL1Y,F-box-like/WD repeat-containing protein TBL1Y,Nucleus,0.03705,0.268,0.204,Not confident,"Activator, Transcription, Transcription regulation, Ubl conjugation pathway",none
+Q9UG63,ABCF2,ATP-binding cassette sub-family F member 2,NA,0.037,0.293,0.135,Not confident,NA,none
+Q8IWP9,CCDC28A,Coiled-coil domain-containing protein 28A,NA,0.037,0.0004113,0.122,Not confident,NA,none
+O60506,SYNCRIP,Heterogeneous nuclear ribonucleoprotein Q,"Cytoplasm, Endoplasmic reticulum, Microsome, Nucleus, Spliceosome",0.0368,0.12427,0.194,Not confident,"Host-virus interaction, mRNA processing, mRNA splicing, Ribonucleoprotein, RNA-binding, Translation regulation",none
+O60885,BRD4,Bromodomain-containing protein 4,"Chromosome, Nucleus",0.03662,0.1722,0.252,Not confident,"Chromatin regulator, DNA damage, Host-virus interaction, Transcription, Transcription regulation",none
+O75954,TSPAN9,Tetraspanin-9,Membrane,0.03656,0.03012,0.14,Not confident,NA,none
+P60903,S100A10,Protein S100-A10,NA,0.03653,0.002693,0.027,Not confident,NA,none
+P05388,RPLP0,Large ribosomal subunit protein uL10,"Cytoplasm, Nucleus",0.0364,0.2084,0.186,Not confident,"Ribonucleoprotein, Ribosomal protein",none
+O94992,HEXIM1,Protein HEXIM1,"Cytoplasm, Nucleus",0.03635,0.131,0.132,Not confident,"Immunity, Innate immunity, Repressor, Transcription, Transcription regulation",none
+Q05329,GAD2,Glutamate decarboxylase 2,"Cell membrane, Cell projection, Cytoplasm, Cytoplasmic vesicle, Golgi apparatus, Membrane, Synapse",0.03622,0.2622,0.203,Not confident,"Decarboxylase, Lyase, Neurotransmitter biosynthesis",none
+Q00325,SLC25A3,Solute carrier family 25 member 3,"Membrane, Mitochondrion, Mitochondrion inner membrane",0.0361,0.03137,0.167,Not confident,"Symport, Transport",none
+O43707,ACTN4,Alpha-actinin-4,"Cell junction, Cytoplasm, Cytoskeleton, Nucleus",0.03604,0.1305,0.131,Not confident,"Actin-binding, Protein transport, Transport",none
+P47897,QARS1,Glutamine--tRNA ligase,Cytoplasm,0.036,0.2485,0.185,Not confident,"Aminoacyl-tRNA synthetase, Ligase, Protein biosynthesis",none
+Q9H4L7,SMARCAD1,SWI/SNF-related matrix-associated actin-dependent regulator of chromatin subfamily A containing DEAD/H box 1,"Chromosome, Nucleus",0.03595,0.2769,0.223,Not confident,"Chromatin regulator, DNA damage, DNA repair, DNA-binding, Helicase, Hydrolase",none
+P48444,ARCN1,Coatomer subunit delta,"Cytoplasm, Cytoplasmic vesicle, Golgi apparatus, Membrane",0.03552,0.258,0.221,Not confident,"ER-Golgi transport, Protein transport, Transport",none
+Q5VTE0,EEF1A1P5,Putative elongation factor 1-alpha-like 3,Cytoplasm,0.03543,0.0758,0.109,Not confident,"Elongation factor, Protein biosynthesis",none
+Q86UK7,ZNF598,E3 ubiquitin-protein ligase ZNF598,Cytoplasm,0.0352,0.1231,0.273,Not confident,"Transferase, Translation regulation, Ubl conjugation pathway",none
+Q7L5N1,COPS6,COP9 signalosome complex subunit 6,"Cytoplasm, Nucleus, Signalosome",0.03516,0.11725,0.205,Not confident,Host-virus interaction,none
+O14974,PPP1R12A,Protein phosphatase 1 regulatory subunit 12A,"Cytoplasm, Cytoskeleton",0.0351,0.0958,0.268,Not confident,NA,none
+Q01813,PFKP,"ATP-dependent 6-phosphofructokinase, platelet type",Cytoplasm,0.0349,0.3694,0.144,Not confident,"Allosteric enzyme, Glycolysis, Kinase, Transferase",none
+Q9Y6X3,MAU2,MAU2 chromatid cohesion factor homolog,"Chromosome, Nucleus",0.0349,0.2122,0.116,Not confident,"Cell cycle, Cell division, Chromosome partition, Mitosis",none
+P32455,GBP1,Guanylate-binding protein 1,"Cell membrane, Cytoplasm, Cytoplasmic vesicle, Golgi apparatus, Membrane, Secreted",0.03488,0.118,0.114,Not confident,"Antiviral defense, Hydrolase, Immunity, Innate immunity",none
+Q9NRD1,FBXO6,F-box only protein 6,Cytoplasm,0.03488,0.06464,0.155,Not confident,"DNA damage, DNA repair, Ubl conjugation pathway, Unfolded protein response",none
+Q9H0I9,TKTL2,Transketolase-like protein 2,NA,0.0348,0.1963,0.19,Not confident,Transferase,none
+P04183,TK1,"Thymidine kinase, cytosolic",Cytoplasm,0.0348,0.04147,0.164,Not confident,"DNA synthesis, Kinase, Transferase",none
+P52209,PGD,"6-phosphogluconate dehydrogenase, decarboxylating",Cytoplasm,0.0347,0.383,0.148,Not confident,"Gluconate utilization, Oxidoreductase, Pentose shunt",none
+P06241,FYN,Tyrosine-protein kinase Fyn,"Cell membrane, Cytoplasm, Membrane, Nucleus",0.0346,0.1268,0.199,Not confident,"Adaptive immunity, Developmental protein, Host-virus interaction, Immunity, Kinase, Transferase, Tyrosine-protein kinase",none
+Q9NWZ5,UCKL1,Uridine-cytidine kinase-like 1,"Cytoplasm, Nucleus",0.03458,0.1604,0.181,Not confident,"Host-virus interaction, Kinase, Transferase",none
+P27695,APEX1,DNA repair nuclease/redox regulator APEX1,"Cytoplasm, Endoplasmic reticulum, Mitochondrion, Nucleus",0.03455,0.03314,0.229,Not confident,"Activator, DNA damage, DNA recombination, DNA repair, DNA-binding, Endonuclease, Exonuclease, Hydrolase, Nuclease, Repressor, RNA-binding, Transcription, Transcription regulation",none
+P26038,MSN,Moesin,"Cell membrane, Cell projection, Cytoplasm, Cytoskeleton, Membrane",0.03452,0.1236,0.093,Not confident,Host-virus interaction,none
+Q9BX79,STRA6,Receptor for retinol uptake STRA6,"Cell membrane, Membrane",0.0339,0.2668,0.062,Not confident,"Receptor, Transport",none
+Q09472,EP300,Histone acetyltransferase p300,"Chromosome, Cytoplasm, Nucleus",0.0339,0.1423,0.123,Not confident,"Acyltransferase, Biological rhythms, Cell cycle, Host-virus interaction, Transcription, Transcription regulation, Transferase",none
+Q00796,SORD,Sorbitol dehydrogenase,"Cell projection, Cilium, Flagellum, Membrane, Mitochondrion",0.0335,0.089,0.253,Not confident,Oxidoreductase,none
+P12004,PCNA,Proliferating cell nuclear antigen,Nucleus,0.0335,0.06415,0.181,Not confident,"DNA damage, DNA repair, DNA replication, DNA-binding, Host-virus interaction",none
+Q15915,ZIC1,Zinc finger protein ZIC 1,"Cytoplasm, Nucleus",0.0335,0.00602,0.211,Not confident,"Activator, Developmental protein, Differentiation, DNA-binding, Neurogenesis, Transcription, Transcription regulation",none
+Q96C86,DCPS,m7GpppX diphosphatase,"Cytoplasm, Nucleus",0.03348,0.05682,0.273,Not confident,"Hydrolase, mRNA processing, mRNA splicing",none
+Q8N163,CCAR2,Cell cycle and apoptosis regulator protein 2,"Cytoplasm, Cytoskeleton, Nucleus",0.03345,0.1053,0.16,Not confident,"Activator, Apoptosis, Biological rhythms, Cell cycle, DNA damage, Metalloenzyme inhibitor, mRNA processing, mRNA splicing, Repressor, Transcription, Transcription regulation, Wnt signaling pathway",none
+Q9BVV7,TIMM21,Mitochondrial import inner membrane translocase subunit Tim21,"Membrane, Mitochondrion",0.0333,0.3032,0.174,Not confident,"Protein transport, Translocation, Transport",none
+Q96HY6,DDRGK1,DDRGK domain-containing protein 1,"Endoplasmic reticulum, Membrane",0.03326,0.1026,0.154,Not confident,Ubl conjugation pathway,none
+Q03936,ZNF92,Zinc finger protein 92,Nucleus,0.03296,0.1019,0.294,Not confident,"DNA-binding, Transcription, Transcription regulation",none
+Q9P1U1,ACTR3B,Actin-related protein 3B,"Cell projection, Cytoplasm, Cytoskeleton",0.0328,0.183,0.118,Not confident,Actin-binding,none
+P05783,KRT18,"Keratin, type I cytoskeletal 18","Cytoplasm, Intermediate filament, Keratin, Nucleus",0.0326,0.0832,0.094,Not confident,"Cell cycle, Host-virus interaction",none
+Q05397,PTK2,Focal adhesion kinase 1,"Cell junction, Cell membrane, Cell projection, Cytoplasm, Cytoskeleton, Membrane, Nucleus",0.03256,0.1605,0.126,Not confident,"Angiogenesis, Developmental protein, Kinase, Transferase, Tyrosine-protein kinase",none
+P26447,S100A4,Protein S100-A4,"Cytoplasm, Nucleus, Secreted",0.0325,0.0004687,0.028,Not confident,NA,none
+O75344,FKBP6,Inactive peptidyl-prolyl cis-trans isomerase FKBP6,"Cytoplasm, Nucleus",0.03238,0.03513,0.198,Not confident,"Differentiation, Meiosis, RNA-mediated gene silencing, Spermatogenesis",none
+Q8NC51,SERBP1,SERPINE1 mRNA-binding protein 1,"Cytoplasm, Nucleus",0.0323,0.10394,0.223,Not confident,"RNA-binding, Translation regulation",none
+Q14469,HES1,Transcription factor HES-1,Nucleus,0.03226,0.035,0.136,Not confident,"DNA-binding, Repressor, Transcription, Transcription regulation",none
+Q9H4M7,PLEKHA4,Pleckstrin homology domain-containing family A member 4,"Cytoplasm, Membrane",0.032,0.05414,0.128,Not confident,NA,none
+Q8TCG5,CPT1C,Palmitoyl thioesterase CPT1C,"Cell projection, Endoplasmic reticulum, Membrane",0.03198,0.2754,0.184,Not confident,"Acyltransferase, Fatty acid metabolism, Hydrolase, Lipid metabolism, Transferase",none
+P21397,MAOA,Amine oxidase [flavin-containing] A,"Membrane, Mitochondrion, Mitochondrion outer membrane",0.03186,0.4285,0.237,Not confident,"Catecholamine metabolism, Neurotransmitter degradation, Oxidoreductase",none
+Q9Y5S8,NOX1,NADPH oxidase 1,"Cell junction, Cell membrane, Cell projection, Membrane",0.0318,0.3208,0.17,Not confident,"Electron transport, Ion channel, Ion transport, Oxidoreductase, Transport, Voltage-gated channel",none
+P51955,NEK2,Serine/threonine-protein kinase Nek2,"Centromere, Chromosome, Cytoplasm, Cytoskeleton, Kinetochore, Microtubule, Nucleus",0.0318,0.078,0.22,Not confident,"Cell cycle, Cell division, Chromosome partition, Kinase, Meiosis, Mitosis, Serine/threonine-protein kinase, Transferase",none
+Q9GZR7,DDX24,ATP-dependent RNA helicase DDX24,NA,0.03168,0.205,0.283,Not confident,"Helicase, Hydrolase, RNA-binding",none
+Q9BXS9,SLC26A6,Solute carrier family 26 member 6,"Cell membrane, Cytoplasmic vesicle, Endoplasmic reticulum, Membrane, Microsome",0.03146,0.2966,0.213,Not confident,"Anion exchange, Antiport, Chloride channel, Ion channel, Ion transport, Transferase, Transport",none
+P06703,S100A6,Protein S100-A6,"Cell membrane, Cytoplasm, Membrane, Nucleus",0.0313,0.0010195,0.036,Not confident,NA,none
+P20333,TNFRSF1B,Tumor necrosis factor receptor superfamily member 1B,"Cell membrane, Membrane, Secreted",0.03119,0.001715,0.089,Not confident,"Apoptosis, Receptor",none
+Q8NER1,TRPV1,Transient receptor potential cation channel subfamily V member 1,"Cell membrane, Cell projection, Membrane, Postsynaptic cell membrane, Synapse",0.03096,0.2676,0.093,Not confident,"Calcium channel, Calcium transport, Calmodulin-binding, Ion channel, Ion transport, Transport",none
+P15336,ATF2,Cyclic AMP-dependent transcription factor ATF-2,"Cytoplasm, Membrane, Mitochondrion, Mitochondrion outer membrane, Nucleus",0.03094,0.0629,0.288,Not confident,"Activator, DNA damage, DNA-binding, Transcription, Transcription regulation",none
+P60520,GABARAPL2,Gamma-aminobutyric acid receptor-associated protein-like 2,"Cytoplasmic vesicle, Endoplasmic reticulum, Golgi apparatus, Membrane",0.03094,0.0077,0.156,Not confident,"Autophagy, Protein transport, Transport",none
+Q13098,GPS1,COP9 signalosome complex subunit 1,"Cytoplasm, Nucleus, Signalosome",0.0309,0.1279,0.226,Not confident,NA,none
+P05091,ALDH2,"Aldehyde dehydrogenase, mitochondrial",Mitochondrion,0.03078,0.2788,0.205,Not confident,Oxidoreductase,none
+Q96G25,MED8,Mediator of RNA polymerase II transcription subunit 8,Nucleus,0.03075,0.04758,0.123,Not confident,"Activator, Transcription, Transcription regulation, Ubl conjugation pathway",none
+P30566,ADSL,Adenylosuccinate lyase,NA,0.03046,0.3225,0.173,Not confident,"Lyase, Purine biosynthesis",none
+Q92544,TM9SF4,Transmembrane 9 superfamily member 4,"Endosome, Golgi apparatus, Membrane",0.03018,0.309,0.157,Not confident,NA,none
+P36542,ATP5F1C,"ATP synthase subunit gamma, mitochondrial","CF(1), Membrane, Mitochondrion, Mitochondrion inner membrane",0.03014,0.2725,0.218,Not confident,"ATP synthesis, Hydrogen ion transport, Ion transport, Transport",none
+Q8N3Z0,PRSS35,Inactive serine protease 35,Secreted,0.03014,0.04318,0.062,Not confident,Serine protease homolog,none
+Q96PR1,KCNC2,Potassium voltage-gated channel subfamily C member 2,"Cell membrane, Cell projection, Membrane, Postsynaptic cell membrane, Synapse, Synaptosome",0.02997,0.4065,0.125,Not confident,"Ion channel, Ion transport, Potassium channel, Potassium transport, Transport, Voltage-gated channel",none
+P05187,ALPP,"Alkaline phosphatase, placental type","Cell membrane, Membrane",0.02989,0.3936,0.211,Not confident,Hydrolase,none
+Q9NQW6,ANLN,Anillin,"Cell projection, Cytoplasm, Cytoskeleton, Nucleus",0.02956,0.0916,0.132,Not confident,"Actin-binding, Cell cycle, Cell division, Mitosis",none
+P09086,POU2F2,"POU domain, class 2, transcription factor 2","Cytoplasm, Nucleus",0.02936,0.03262,0.105,Not confident,"Activator, DNA-binding, Transcription, Transcription regulation",none
+P57740,NUP107,Nuclear pore complex protein Nup107,"Centromere, Chromosome, Kinetochore, Membrane, Nuclear pore complex, Nucleus",0.02934,0.2783,0.254,Not confident,"mRNA transport, Protein transport, Translocation, Transport",none
+P27986,PIK3R1,Phosphatidylinositol 3-kinase regulatory subunit alpha,NA,0.0293,0.1412,0.114,Not confident,"Host-virus interaction, Protein transport, Stress response, Transport",none
+Q96HN2,AHCYL2,Adenosylhomocysteinase 3,"Cytoplasm, Endoplasmic reticulum, Microsome",0.02928,0.4312,0.108,Not confident,"Hydrolase, One-carbon metabolism",none
+P10275,AR,Androgen receptor,"Cytoplasm, Nucleus",0.02928,0.047,0.046,Not confident,"Activator, DNA-binding, Receptor, Transcription, Transcription regulation",none
+Q14264,ERV3-1,Endogenous retrovirus group 3 member 1 Env polyprotein,"Viral envelope protein, Virion",0.02917,0.09076,0.059,Not confident,NA,none
+Q16698,DECR1,"2,4-dienoyl-CoA reductase [(3E)-enoyl-CoA-producing], mitochondrial",Mitochondrion,0.0291,0.02538,0.232,Not confident,"Fatty acid metabolism, Lipid metabolism, Oxidoreductase",none
+P60880,SNAP25,Synaptosomal-associated protein 25,"Cell membrane, Cytoplasm, Membrane, Synapse, Synaptosome",0.02908,0.08984,0.18,Not confident,NA,none
+P29401,TKT,Transketolase,NA,0.02895,0.2876,0.173,Not confident,Transferase,none
+O14593,RFXANK,DNA-binding protein RFXANK,"Cytoplasm, Nucleus",0.0289,0.3184,0.265,Not confident,"Activator, DNA-binding, Transcription, Transcription regulation",none
+Q99650,OSMR,Oncostatin-M-specific receptor subunit beta,Membrane,0.0289,0.08014,0.113,Not confident,Receptor,none
+P61247,RPS3A,Small ribosomal subunit protein eS1,"Cytoplasm, Nucleus",0.02882,0.1225,0.143,Not confident,"Differentiation, Ribonucleoprotein, Ribosomal protein",none
+O76064,RNF8,E3 ubiquitin-protein ligase RNF8,"Chromosome, Cytoplasm, Nucleus, Telomere",0.02881,0.078,0.155,Not confident,"Cell cycle, Cell division, Chromatin regulator, DNA damage, DNA repair, Host-virus interaction, Mitosis, Transferase, Ubl conjugation pathway",none
+Q99832,CCT7,T-complex protein 1 subunit eta,Cytoplasm,0.02866,0.2123,0.144,Not confident,Chaperone,none
+O96019,ACTL6A,Actin-like protein 6A,Nucleus,0.02853,0.1652,0.199,Not confident,"Activator, Chromatin regulator, DNA damage, DNA recombination, DNA repair, Growth regulation, Neurogenesis, Transcription, Transcription regulation",none
+Q12931,TRAP1,"Heat shock protein 75 kDa, mitochondrial","Membrane, Mitochondrion, Mitochondrion inner membrane",0.02853,0.1633,0.166,Not confident,Chaperone,none
+P00488,F13A1,Coagulation factor XIII A chain,"Cytoplasm, Secreted",0.02834,0.4592,0.151,Not confident,"Acyltransferase, Blood coagulation, Hemostasis, Transferase",none
+P35244,RPA3,Replication protein A 14 kDa subunit,Nucleus,0.02832,0.015,0.116,Not confident,"DNA damage, DNA recombination, DNA repair, DNA replication",none
+Q3LXA3,TKFC,Triokinase/FMN cyclase,NA,0.02826,0.274,0.278,Not confident,"Kinase, Lyase, Multifunctional enzyme, Transferase",none
+Q06416,POU5F1B,"Putative POU domain, class 5, transcription factor 1B",Nucleus,0.02824,0.01857,0.104,Not confident,"Activator, DNA-binding, Transcription, Transcription regulation",none
+P00390,GSR,"Glutathione reductase, mitochondrial","Cytoplasm, Mitochondrion",0.02805,0.2788,0.212,Not confident,Oxidoreductase,none
+Q9UNN5,FAF1,FAS-associated factor 1,Nucleus,0.02803,0.2144,0.175,Not confident,Apoptosis,none
+P32189,GK,Glycerol kinase,"Cytoplasm, Membrane, Mitochondrion, Mitochondrion outer membrane, Nucleus",0.028,0.3865,0.246,Not confident,"Glycerol metabolism, Kinase, Transferase",none
+O75494,SRSF10,Serine/arginine-rich splicing factor 10,"Cytoplasm, Nucleus",0.02797,0.06256,0.23,Not confident,"mRNA processing, mRNA splicing, RNA-binding",none
+Q13363,CTBP1,C-terminal-binding protein 1,"Cytoplasm, Nucleus",0.02785,0.1265,0.21,Not confident,"Differentiation, Host-virus interaction, Oxidoreductase, Repressor, Transcription, Transcription regulation",none
+O43175,PHGDH,D-3-phosphoglycerate dehydrogenase,NA,0.02754,0.2297,0.156,Not confident,"Amino-acid biosynthesis, Oxidoreductase, Serine biosynthesis",none
+P49903,SEPHS1,"Selenide, water dikinase 1","Cell membrane, Cytoplasm, Membrane, Nucleus",0.0275,0.2683,0.134,Not confident,"Kinase, Transferase",none
+Q08257,CRYZ,Quinone oxidoreductase,Cytoplasm,0.0274,0.275,0.239,Not confident,"Oxidoreductase, RNA-binding",none
+Q05DH4,FHIP1A,FHF complex subunit HOOK-interacting protein 1A,NA,0.0274,0.145,0.127,Not confident,NA,none
+O15015,ZNF646,Zinc finger protein 646,Nucleus,0.02728,0.06976,0.247,Not confident,"DNA-binding, Transcription, Transcription regulation",none
+Q9Y3I1,FBXO7,F-box only protein 7,"Cytoplasm, Mitochondrion, Nucleus",0.02725,0.1058,0.136,Not confident,Ubl conjugation pathway,none
+O43865,AHCYL1,S-adenosylhomocysteine hydrolase-like protein 1,"Cell membrane, Cytoplasm, Endoplasmic reticulum, Membrane, Microsome",0.02724,0.2983,0.123,Not confident,"One-carbon metabolism, RNA-binding",none
+O60861,GAS7,Growth arrest-specific protein 7,Cytoplasm,0.02713,0.0801,0.125,Not confident,"Developmental protein, Differentiation, Neurogenesis",none
+Q9HBY0,NOX3,NADPH oxidase 3,"Cell membrane, Membrane",0.02711,0.421,0.173,Not confident,Oxidoreductase,none
+O00232,PSMD12,26S proteasome non-ATPase regulatory subunit 12,Proteasome,0.02702,0.3452,0.186,Not confident,NA,none
+P31948,STIP1,Stress-induced-phosphoprotein 1,"Cytoplasm, Nucleus",0.02692,0.149,0.241,Not confident,NA,none
+Q96L21,RPL10L,Ribosomal protein uL16-like,Cytoplasm,0.02684,0.07263,0.154,Not confident,"Differentiation, Meiosis, Ribonucleoprotein, Ribosomal protein, Spermatogenesis",none
+Q9NWF4,SLC52A1,"Solute carrier family 52, riboflavin transporter, member 1","Cell membrane, Membrane",0.0267,0.378,0.169,Not confident,"Host cell receptor for virus entry, Receptor, Transport",none
+Q99608,NDN,Necdin,Nucleus,0.02661,0.1177,0.091,Not confident,"DNA-binding, Growth regulation, Transcription, Transcription regulation",none
+O95793,STAU1,Double-stranded RNA-binding protein Staufen homolog 1,"Cytoplasm, Endoplasmic reticulum",0.02657,0.1796,0.132,Not confident,"Host-virus interaction, RNA-binding",none
+Q9NRD0,FBXO8,F-box only protein 8,NA,0.02614,0.3203,0.148,Not confident,Guanine-nucleotide releasing factor,none
+P35226,BMI1,Polycomb complex protein BMI-1,"Cytoplasm, Nucleus",0.02605,0.1558,0.155,Not confident,"Chromatin regulator, Repressor, Transcription, Transcription regulation",none
+Q8N5Z0,AADAT,"Kynurenine/alpha-aminoadipate aminotransferase, mitochondrial",Mitochondrion,0.02597,0.3384,0.226,Not confident,"Aminotransferase, Transferase",none
+Q14145,KEAP1,Kelch-like ECH-associated protein 1,"Cytoplasm, Nucleus",0.02597,0.1598,0.115,Not confident,"Host-virus interaction, Ubl conjugation pathway",none
+Q9H0W5,CCDC8,Coiled-coil domain-containing protein 8,"Cytoplasm, Cytoskeleton",0.02597,0.05115,0.018,Not confident,NA,none
+P47756,CAPZB,F-actin-capping protein subunit beta,"Cytoplasm, Cytoskeleton",0.02588,0.0703,0.175,Not confident,"Actin capping, Actin-binding",none
+Q13415,ORC1,Origin recognition complex subunit 1,Nucleus,0.02582,0.2507,0.251,Not confident,"DNA replication, DNA-binding",none
+Q14103,HNRNPD,Heterogeneous nuclear ribonucleoprotein D0,"Cytoplasm, Nucleus",0.02579,0.03525,0.213,Not confident,"Biological rhythms, DNA-binding, Ribonucleoprotein, RNA-binding, Transcription, Transcription regulation",none
+Q8N0X4,CLYBL,"Citramalyl-CoA lyase, mitochondrial",Mitochondrion,0.02567,0.224,0.212,Not confident,"Hydrolase, Lyase, Transferase",none
+P32456,GBP2,Guanylate-binding protein 2,"Cytoplasm, Cytoplasmic vesicle, Golgi apparatus, Membrane",0.02563,0.1082,0.116,Not confident,"Antimicrobial, Hydrolase, Immunity, Innate immunity",none
+Q8TCJ2,STT3B,Dolichyl-diphosphooligosaccharide--protein glycosyltransferase subunit STT3B,"Endoplasmic reticulum, Membrane",0.02557,0.3313,0.15,Not confident,"Glycosyltransferase, Transferase",none
+O14817,TSPAN4,Tetraspanin-4,Membrane,0.02542,0.0553,0.173,Not confident,NA,none
+P49736,MCM2,DNA replication licensing factor MCM2,"Chromosome, Nucleus",0.02533,0.1536,0.136,Not confident,"Cell cycle, DNA replication, DNA-binding, Helicase, Hydrolase",none
+P06744,GPI,Glucose-6-phosphate isomerase,"Cytoplasm, Secreted",0.02505,0.1747,0.174,Not confident,"Cytokine, Gluconeogenesis, Glycolysis, Growth factor, Isomerase",none
+Q15842,KCNJ8,ATP-sensitive inward rectifier potassium channel 8,Membrane,0.02501,0.09204,0.11,Not confident,"Ion channel, Ion transport, Potassium transport, Transport, Voltage-gated channel",none
+P55039,DRG2,Developmentally-regulated GTP-binding protein 2,"Cytoplasm, Nucleus",0.02498,0.337,0.151,Not confident,Hydrolase,none
+P36957,DLST,"Dihydrolipoyllysine-residue succinyltransferase component of 2-oxoglutarate dehydrogenase complex, mitochondrial","Mitochondrion, Nucleus",0.02484,0.3367,0.167,Not confident,"Acyltransferase, Transferase, Tricarboxylic acid cycle",none
+Q04695,KRT17,"Keratin, type I cytoskeletal 17","Cytoplasm, Intermediate filament, Keratin",0.0248,0.0859,0.084,Not confident,NA,none
+Q8IX04,UEVLD,Ubiquitin-conjugating enzyme E2 variant 3,NA,0.02475,0.0891,0.107,Not confident,Ubl conjugation pathway,none
+Q15417,CNN3,Calponin-3,NA,0.02458,0.1083,0.156,Not confident,"Actin-binding, Calmodulin-binding",none
+O75874,IDH1,Isocitrate dehydrogenase [NADP] cytoplasmic,"Cytoplasm, Peroxisome",0.02457,0.2815,0.15,Not confident,"Glyoxylate bypass, Oxidoreductase, Tricarboxylic acid cycle",none
+P12956,XRCC6,X-ray repair cross-complementing protein 6,"Chromosome, Nucleus",0.0245,0.2583,0.258,Not confident,"Activator, DNA damage, DNA recombination, DNA repair, DNA-binding, Helicase, Host-virus interaction, Hydrolase, Immunity, Innate immunity, Lyase, Multifunctional enzyme, Transcription, Transcription regulation",none
+Q9UNX3,RPL26L1,Ribosomal protein uL24-like,NA,0.02448,0.2688,0.181,Not confident,"Ribonucleoprotein, Ribosomal protein",none
+P19838,NFKB1,Nuclear factor NF-kappa-B p105 subunit,"Cytoplasm, Nucleus",0.0244,0.1691,0.157,Not confident,"Activator, Apoptosis, DNA-binding, Transcription, Transcription regulation",none
+Q9UHR6,ZNHIT2,Zinc finger HIT domain-containing protein 2,NA,0.02435,0.3494,0.201,Not confident,NA,none
+Q969V6,MRTFA,Myocardin-related transcription factor A,"Cytoplasm, Nucleus",0.0243,0.1221,0.129,Not confident,"Actin-binding, Transcription, Transcription regulation",none
+P58743,SLC26A5,Prestin,"Cell membrane, Membrane",0.02425,0.497,0.225,Not confident,"Cell shape, Hearing, Motor protein",none
+O95139,NDUFB6,NADH dehydrogenase [ubiquinone] 1 beta subcomplex subunit 6,"Membrane, Mitochondrion, Mitochondrion inner membrane",0.02415,0.013,0.093,Not confident,"Electron transport, Respiratory chain, Transport",none
+P45880,VDAC2,Voltage-dependent anion-selective channel protein 2,"Membrane, Mitochondrion, Mitochondrion outer membrane",0.02403,0.01645,0.174,Not confident,"Ion transport, Porin, Transport",none
+O60636,TSPAN2,Tetraspanin-2,Membrane,0.02403,0.0141,0.154,Not confident,NA,none
+Q96NS5,ASB16,Ankyrin repeat and SOCS box protein 16,NA,0.024,0.0926,0.247,Not confident,Ubl conjugation pathway,none
+Q9H9L7,AKIRIN1,Akirin-1,Nucleus,0.02382,0.1256,0.128,Not confident,NA,none
+P17174,GOT1,"Aspartate aminotransferase, cytoplasmic",Cytoplasm,0.0238,0.3591,0.234,Not confident,"Amino-acid biosynthesis, Aminotransferase, Transferase",none
+P49326,FMO5,Flavin-containing monooxygenase 5,"Endoplasmic reticulum, Membrane, Microsome",0.02359,0.3557,0.272,Not confident,"Lipid metabolism, Monooxygenase, Oxidoreductase",none
+Q04837,SSBP1,"Single-stranded DNA-binding protein, mitochondrial","Mitochondrion, Mitochondrion nucleoid",0.02344,0.07056,0.154,Not confident,"DNA replication, DNA-binding",none
+O95219,SNX4,Sorting nexin-4,"Endosome, Membrane",0.02333,0.3044,0.176,Not confident,"Protein transport, Transport",none
+Q8TD30,GPT2,Alanine aminotransferase 2,NA,0.02328,0.3164,0.228,Not confident,"Aminotransferase, Transferase",none
+Q99518,FMO2,Flavin-containing monooxygenase 2,"Endoplasmic reticulum, Membrane, Microsome",0.02327,0.319,0.275,Not confident,"Monooxygenase, Oxidoreductase",none
+Q9BYZ2,LDHAL6B,L-lactate dehydrogenase A-like 6B,NA,0.02324,0.0755,0.162,Not confident,Oxidoreductase,none
+Q53H80,AKIRIN2,Akirin-2,"Cytoplasm, Membrane, Nucleus",0.02322,0.1886,0.115,Not confident,"Adaptive immunity, Developmental protein, Immunity, Innate immunity, Protein transport, Repressor, Transcription, Transcription regulation, Transport",none
+P39023,RPL3,Large ribosomal subunit protein uL3,"Cytoplasm, Nucleus",0.02315,0.08234,0.118,Not confident,"Ribonucleoprotein, Ribosomal protein",none
+O95863,SNAI1,Zinc finger protein SNAI1,"Cytoplasm, Nucleus",0.02296,0.01628,0.187,Not confident,"Developmental protein, DNA-binding",none
+Q9UM11,FZR1,Fizzy-related protein homolog,"Cytoplasm, Nucleus",0.02295,0.1284,0.161,Not confident,"Cell cycle, Cell division, DNA damage, DNA repair, Mitosis, Ubl conjugation pathway",none
+Q9Y277,VDAC3,Voltage-dependent anion-selective channel protein 3,"Membrane, Mitochondrion, Mitochondrion outer membrane",0.02283,0.02292,0.168,Not confident,"Ion transport, Porin, Transport",none
+Q9NV31,IMP3,U3 small nucleolar ribonucleoprotein protein IMP3,Nucleus,0.02275,0.2563,0.191,Not confident,"Ribonucleoprotein, Ribosome biogenesis, RNA-binding, rRNA processing, rRNA-binding",none
+O43511,SLC26A4,Pendrin,"Cell membrane, Membrane",0.0227,0.2861,0.215,Not confident,Transport,none
+Q9BX70,BTBD2,BTB/POZ domain-containing protein 2,Cytoplasm,0.02264,0.147,0.111,Not confident,NA,none
+Q8IY33,MICALL2,MICAL-like protein 2,"Cell junction, Cell membrane, Cell projection, Cytoplasm, Cytoskeleton, Endosome, Membrane, Tight junction",0.02242,0.08655,0.146,Not confident,NA,none
+P49189,ALDH9A1,4-trimethylaminobutyraldehyde dehydrogenase,Cytoplasm,0.02226,0.2754,0.231,Not confident,Oxidoreductase,none
+Q9BSI4,TINF2,TERF1-interacting nuclear factor 2,"Chromosome, Nucleus, Telomere",0.02219,0.03943,0.033,Not confident,NA,none
+P43351,RAD52,DNA repair protein RAD52 homolog,Nucleus,0.02211,0.04144,0.158,Not confident,"DNA damage, DNA recombination, DNA repair, DNA-binding",none
+P50990,CCT8,T-complex protein 1 subunit theta,"Cell projection, Cilium, Cytoplasm, Cytoskeleton",0.0221,0.5684,0.197,Not confident,Chaperone,none
+Q9BZY9,TRIM31,E3 ubiquitin-protein ligase TRIM31,"Cytoplasm, Mitochondrion",0.0221,0.0221,0.105,Not confident,"Antiviral defense, Immunity, Inflammatory response, Innate immunity, Transferase, Ubl conjugation pathway",none
+Q13155,AIMP2,Aminoacyl tRNA synthase complex-interacting multifunctional protein 2,"Cytoplasm, Nucleus",0.02205,0.0852,0.157,Not confident,"Apoptosis, Developmental protein, Differentiation, Protein biosynthesis",none
+Q8NG04,SLC26A10P,Putative solute carrier family 26 member 10P,Membrane,0.02162,0.5557,0.227,Not confident,"Antiport, Transport",none
+P50991,CCT4,T-complex protein 1 subunit delta,"Cell projection, Cytoplasm, Cytoskeleton",0.02162,0.2147,0.158,Not confident,Chaperone,none
+P47974,ZFP36L2,mRNA decay activator protein ZFP36L2,"Cytoplasm, Nucleus",0.02162,0.0848,0.218,Not confident,"Developmental protein, Ribonucleoprotein, RNA-binding",none
+P43699,NKX2-1,Homeobox protein Nkx-2.1,Nucleus,0.02145,0.0241,0.108,Not confident,"Activator, Biological rhythms, DNA-binding, Repressor, Transcription, Transcription regulation",none
+Q86U44,METTL3,N6-adenosine-methyltransferase catalytic subunit,"Cytoplasm, Nucleus",0.02126,0.0997,0.144,Not confident,"Biological rhythms, Differentiation, DNA damage, Immunity, Innate immunity, Methyltransferase, Oogenesis, RNA-binding, Spermatogenesis, Transferase",none
+Q5C9Z4,NOM1,Nucleolar MIF4G domain-containing protein 1,Nucleus,0.02121,0.3376,0.304,Not confident,NA,none
+Q03721,KCNC4,Potassium voltage-gated channel subfamily C member 4,Membrane,0.02118,0.2563,0.112,Not confident,"Ion channel, Ion transport, Potassium channel, Potassium transport, Transport, Voltage-gated channel",none
+O43504,LAMTOR5,Ragulator complex protein LAMTOR5,"Cytoplasm, Lysosome",0.02113,0.006844,0.112,Not confident,NA,none
+Q14003,KCNC3,Potassium voltage-gated channel subfamily C member 3,"Cell membrane, Cell projection, Cytoplasm, Cytoskeleton, Membrane, Postsynaptic cell membrane, Synapse",0.02112,0.3018,0.11,Not confident,"Ion channel, Ion transport, Potassium channel, Potassium transport, Transport, Voltage-gated channel",none
+P40227,CCT6A,T-complex protein 1 subunit zeta,Cytoplasm,0.02109,0.2202,0.16,Not confident,Chaperone,none
+P33992,MCM5,DNA replication licensing factor MCM5,"Chromosome, Nucleus",0.02106,0.1764,0.163,Not confident,"Cell cycle, DNA replication, DNA-binding, Helicase, Hydrolase",none
+P51659,HSD17B4,Peroxisomal multifunctional enzyme type 2,Peroxisome,0.02097,0.4287,0.191,Not confident,"Fatty acid metabolism, Isomerase, Lipid metabolism, Lyase, Oxidoreductase",none
+Q96TC7,RMDN3,Regulator of microtubule dynamics protein 3,"Cytoplasm, Cytoskeleton, Membrane, Microtubule, Mitochondrion, Mitochondrion outer membrane, Nucleus",0.02087,0.2622,0.146,Not confident,"Apoptosis, Differentiation",none
+Q9HAV7,GRPEL1,"GrpE protein homolog 1, mitochondrial",Mitochondrion,0.02087,0.2583,0.22,Not confident,Chaperone,none
+O75489,NDUFS3,"NADH dehydrogenase [ubiquinone] iron-sulfur protein 3, mitochondrial","Membrane, Mitochondrion, Mitochondrion inner membrane",0.02083,0.07245,0.165,Not confident,"Electron transport, Oxidoreductase, Respiratory chain, Translocase, Transport",none
+P21266,GSTM3,Glutathione S-transferase Mu 3,Cytoplasm,0.02063,0.0362,0.188,Not confident,Transferase,none
+Q9UJZ1,STOML2,"Stomatin-like protein 2, mitochondrial","Cell membrane, Cytoplasm, Cytoskeleton, Membrane, Mitochondrion, Mitochondrion inner membrane",0.02054,0.2651,0.179,Not confident,NA,none
+Q15050,RRS1,Ribosome biogenesis regulatory protein homolog,Nucleus,0.0205,0.3076,0.227,Not confident,Ribosome biogenesis,none
+P56545,CTBP2,C-terminal-binding protein 2,"Nucleus, Synapse",0.02046,0.08624,0.182,Not confident,"Differentiation, Host-virus interaction, Oxidoreductase, Repressor, Transcription, Transcription regulation",none
+Q12800,TFCP2,Alpha-globin transcription factor CP2,Nucleus,0.02045,0.1355,0.116,Not confident,"DNA-binding, Transcription, Transcription regulation",none
+P05556,ITGB1,Integrin beta-1,"Cell junction, Cell membrane, Cell projection, Endosome, Membrane",0.02022,0.2042,0.139,Not confident,"Cell adhesion, Host cell receptor for virus entry, Host-virus interaction, Integrin, Myogenesis, Receptor",none
+Q9UHD2,TBK1,Serine/threonine-protein kinase TBK1,Cytoplasm,0.02017,0.1454,0.126,Not confident,"Antiviral defense, Host-virus interaction, Immunity, Innate immunity, Kinase, Serine/threonine-protein kinase, Transferase",none
+Q14194,CRMP1,Dihydropyrimidinase-related protein 1,"Cell projection, Cytoplasm, Cytoskeleton",0.02016,0.2303,0.198,Not confident,NA,none
+P18084,ITGB5,Integrin beta-5,"Cell membrane, Membrane",0.02013,0.1659,0.146,Not confident,"Cell adhesion, Host cell receptor for virus entry, Host-virus interaction, Integrin, Receptor",none
+P51854,TKTL1,Transketolase-like protein 1,Cytoplasm,0.0201,0.264,0.218,Not confident,"Developmental protein, Transferase",none
+Q9BYD1,MRPL13,Large ribosomal subunit protein uL13m,Mitochondrion,0.02005,0.02702,0.181,Not confident,"Ribonucleoprotein, Ribosomal protein",none
+P27338,MAOB,Amine oxidase [flavin-containing] B,"Membrane, Mitochondrion, Mitochondrion outer membrane",0.0199,0.2927,0.235,Not confident,Oxidoreductase,none
+Q99459,CDC5L,Cell division cycle 5-like protein,"Cytoplasm, Nucleus, Spliceosome",0.01971,0.1366,0.271,Not confident,"Activator, Cell cycle, DNA damage, DNA repair, DNA-binding, mRNA processing, mRNA splicing, RNA-binding, Transcription, Transcription regulation",none
+O94874,UFL1,E3 UFM1-protein ligase 1,"Chromosome, Cytoplasm, Endoplasmic reticulum, Membrane, Nucleus",0.01955,0.2063,0.196,Not confident,"DNA damage, DNA repair, Transferase, Ubl conjugation pathway",none
+O75822,EIF3J,Eukaryotic translation initiation factor 3 subunit J,Cytoplasm,0.01952,0.313,0.204,Not confident,"Initiation factor, Protein biosynthesis",none
+Q6ZMR3,LDHAL6A,L-lactate dehydrogenase A-like 6A,Cytoplasm,0.01932,0.0333,0.171,Not confident,Oxidoreductase,none
+P43003,SLC1A3,Excitatory amino acid transporter 1,"Cell membrane, Membrane",0.01921,0.1403,0.161,Not confident,"Amino-acid transport, Symport, Transport",none
+Q12996,CSTF3,Cleavage stimulation factor subunit 3,Nucleus,0.01917,0.1488,0.211,Not confident,mRNA processing,none
+P38646,HSPA9,"Stress-70 protein, mitochondrial","Cytoplasm, Mitochondrion, Nucleus",0.01913,0.2101,0.153,Not confident,Chaperone,none
+Q8TBZ2,MYCBPAP,MYCBP-associated protein,"Cytoplasm, Membrane",0.01894,0.138,0.143,Not confident,"Developmental protein, Differentiation, Spermatogenesis",none
+P07864,LDHC,L-lactate dehydrogenase C chain,Cytoplasm,0.01892,0.1256,0.159,Not confident,Oxidoreductase,none
+O43791,SPOP,Speckle-type POZ protein,"Cytoplasm, Nucleus",0.01877,0.1595,0.162,Not confident,"Host-virus interaction, Ubl conjugation pathway",none
+P04424,ASL,Argininosuccinate lyase,NA,0.01872,0.3967,0.23,Not confident,"Amino-acid biosynthesis, Arginine biosynthesis, Lyase, Urea cycle",none
+Q13619,CUL4A,Cullin-4A,NA,0.0186,0.1635,0.221,Not confident,"Biological rhythms, DNA damage, DNA repair, Host-virus interaction, Ubl conjugation pathway",none
+P48735,IDH2,"Isocitrate dehydrogenase [NADP], mitochondrial",Mitochondrion,0.01848,0.2537,0.16,Not confident,"Glyoxylate bypass, Oxidoreductase, Tricarboxylic acid cycle",none
+P22492,H1-6,Histone H1t,"Chromosome, Nucleus",0.01843,0.02,0.132,Not confident,"Developmental protein, Differentiation, DNA-binding, Spermatogenesis",none
+Q13617,CUL2,Cullin-2,Nucleus,0.01808,0.1497,0.183,Not confident,"Host-virus interaction, Ubl conjugation pathway",none
+Q16555,DPYSL2,Dihydropyrimidinase-related protein 2,"Cytoplasm, Cytoskeleton, Membrane",0.01799,0.1986,0.178,Not confident,"Developmental protein, Differentiation, Neurogenesis",none
+O00273,DFFA,DNA fragmentation factor subunit alpha,Cytoplasm,0.01791,0.0761,0.094,Not confident,Apoptosis,none
+Q9BUL8,PDCD10,Programmed cell death protein 10,"Cell membrane, Cytoplasm, Golgi apparatus, Membrane",0.01791,0.02336,0.108,Not confident,"Angiogenesis, Apoptosis",none
+Q9HD45,TM9SF3,Transmembrane 9 superfamily member 3,Membrane,0.0179,0.5137,0.171,Not confident,NA,none
+Q9UGC7,MTRF1L,"Peptide chain release factor 1-like, mitochondrial",Mitochondrion,0.01788,0.328,0.26,Not confident,Protein biosynthesis,none
+O95470,SGPL1,Sphingosine-1-phosphate lyase 1,"Endoplasmic reticulum, Membrane",0.01779,0.4014,0.227,Not confident,"Apoptosis, Lipid metabolism, Lyase, Sphingolipid metabolism",none
+P28331,NDUFS1,"NADH-ubiquinone oxidoreductase 75 kDa subunit, mitochondrial","Membrane, Mitochondrion, Mitochondrion inner membrane",0.01778,0.2778,0.152,Not confident,"Electron transport, Oxidoreductase, Respiratory chain, Translocase, Transport",none
+P38398,BRCA1,Breast cancer type 1 susceptibility protein,"Chromosome, Cytoplasm, Nucleus",0.0176,0.0819,0.127,Not confident,"Activator, Cell cycle, DNA damage, DNA recombination, DNA repair, DNA-binding, Fatty acid biosynthesis, Fatty acid metabolism, Lipid biosynthesis, Lipid metabolism, Transcription, Transcription regulation, Transferase, Ubl conjugation pathway",none
+P01730,CD4,T-cell surface glycoprotein CD4,"Cell membrane, Membrane",0.01752,0.09814,0.061,Not confident,"Adaptive immunity, Host cell receptor for virus entry, Host-virus interaction, Immunity, Receptor",none
+Q6A163,KRT39,"Keratin, type I cytoskeletal 39","Intermediate filament, Keratin",0.01752,0.0633,0.112,Not confident,NA,none
+Q13099,IFT88,Intraflagellar transport protein 88 homolog,"Cell projection, Cilium, Cytoplasm, Cytoskeleton, Flagellum",0.01733,0.2727,0.136,Not confident,Cilium biogenesis/degradation,none
+Q13217,DNAJC3,DnaJ homolog subfamily C member 3,Endoplasmic reticulum,0.01727,0.3196,0.258,Not confident,"Antiviral defense, Chaperone, Repressor, Stress response, Translation regulation, Unfolded protein response",none
+Q02878,RPL6,Large ribosomal subunit protein eL6,"Cytoplasm, Endoplasmic reticulum",0.01726,0.4976,0.192,Not confident,"Ribonucleoprotein, Ribosomal protein",none
+P38936,CDKN1A,Cyclin-dependent kinase inhibitor 1,"Cytoplasm, Nucleus",0.01688,0.002373,0.075,Not confident,"Cell cycle, Protein kinase inhibitor",none
+P60568,IL2,Interleukin-2,Secreted,0.01639,0.0433,0.024,Not confident,"Adaptive immunity, Cytokine, Growth factor, Immunity",none
+P40425,PBX2,Pre-B-cell leukemia transcription factor 2,Nucleus,0.01622,0.1127,0.069,Not confident,"Activator, DNA-binding, Transcription, Transcription regulation",none
+P42357,HAL,Histidine ammonia-lyase,NA,0.01613,0.3994,0.175,Not confident,"Histidine metabolism, Lyase",none
+Q9NPH2,ISYNA1,Inositol-3-phosphate synthase 1,Cytoplasm,0.01613,0.3325,0.161,Not confident,"Inositol biosynthesis, Isomerase, Lipid biosynthesis, Lipid metabolism, Phospholipid biosynthesis, Phospholipid metabolism",none
+P10636,MAPT,Microtubule-associated protein tau,"Cell membrane, Cell projection, Cytoplasm, Cytoskeleton, Membrane, Microtubule, Secreted",0.01593,0.1445,0.126,Not confident,NA,none
+A6QL64,ANKRD36,Ankyrin repeat domain-containing protein 36A,NA,0.01566,0.09045,0.126,Not confident,NA,none
+P62805,"H4C1,H4C2,H4C3,H4C4,H4C5,H4C6,H4C8,H4C9,H4C11,H4C12,H4C13,H4C14,H4C15,H4C16",Histone H4,"Chromosome, Nucleosome core, Nucleus",0.01564,0.0005484,0.115,Not confident,DNA-binding,none
+Q07955,SRSF1,Serine/arginine-rich splicing factor 1,"Cytoplasm, Nucleus, Spliceosome",0.01548,0.0996,0.219,Not confident,"mRNA processing, mRNA splicing, mRNA transport, RNA-binding, Transport",none
+Q13620,CUL4B,Cullin-4B,"Cytoplasm, Nucleus",0.0154,0.1573,0.258,Not confident,"Cell cycle, DNA damage, DNA repair, Ubl conjugation pathway",none
+P07954,FH,"Fumarate hydratase, mitochondrial","Chromosome, Cytoplasm, Mitochondrion, Nucleus",0.01527,0.4453,0.154,Not confident,"DNA damage, DNA repair, Lyase, Tricarboxylic acid cycle",none
+O95352,ATG7,Ubiquitin-like modifier-activating enzyme ATG7,Cytoplasm,0.01523,0.2227,0.301,Not confident,"Autophagy, Biological rhythms, Protein transport, Transport, Ubl conjugation pathway",none
+Q14258,TRIM25,E3 ubiquitin/ISG15 ligase TRIM25,"Cytoplasm, Nucleus",0.01458,0.0717,0.093,Not confident,"Antiviral defense, Host-virus interaction, Immunity, Innate immunity, Ligase, Transferase, Ubl conjugation pathway",none
+P00966,ASS1,Argininosuccinate synthase,Cytoplasm,0.01408,0.2158,0.162,Not confident,"Amino-acid biosynthesis, Arginine biosynthesis, Ligase, Urea cycle",none
+Q5UCC4,EMC10,ER membrane protein complex subunit 10,"Endoplasmic reticulum, Membrane, Secreted",0.01402,0.3342,0.18,Not confident,Angiogenesis,none
+Q13077,TRAF1,TNF receptor-associated factor 1,NA,0.01395,0.0577,0.133,Not confident,Apoptosis,none
+P05109,S100A8,Protein S100-A8,"Cell membrane, Cytoplasm, Cytoskeleton, Membrane, Secreted",0.01386,0.002178,0.036,Not confident,"Antimicrobial, Apoptosis, Autophagy, Chemotaxis, Immunity, Inflammatory response, Innate immunity",none
+Q99615,DNAJC7,DnaJ homolog subfamily C member 7,"Cytoplasm, Cytoskeleton, Nucleus",0.013855,0.2379,0.244,Not confident,Chaperone,none
+Q9C002,NMES1,Normal mucosa of esophagus-specific gene 1 protein,Nucleus,0.01368,0.0198,0.051,Not confident,NA,none
+Q6UY14,ADAMTSL4,ADAMTS-like protein 4,"Extracellular matrix, Secreted",0.01361,0.1326,0.166,Not confident,Apoptosis,none
+Q69YH5,CDCA2,Cell division cycle-associated protein 2,Nucleus,0.01357,0.004673,0.087,Not confident,"Cell cycle, Cell division, Mitosis",none
+Q13616,CUL1,Cullin-1,NA,0.013115,0.1316,0.173,Not confident,"Host-virus interaction, Ubl conjugation pathway",none
+P0C7P0,CISD3,"CDGSH iron-sulfur domain-containing protein 3, mitochondrial",Mitochondrion,0.013,0.01797,0.158,Not confident,NA,none
+O75306,NDUFS2,"NADH dehydrogenase [ubiquinone] iron-sulfur protein 2, mitochondrial","Membrane, Mitochondrion, Mitochondrion inner membrane",0.012794,0.2554,0.116,Not confident,"Electron transport, Oxidoreductase, Respiratory chain, Translocase, Transport",none
+Q13310,PABPC4,Polyadenylate-binding protein 4,Cytoplasm,0.01209,0.1946,0.155,Not confident,RNA-binding,none
+Q6ZTA4,TRIM67,Tripartite motif-containing protein 67,"Cytoplasm, Cytoskeleton",0.01209,0.1187,0.105,Not confident,NA,none
+P62753,RPS6,Small ribosomal subunit protein eS6,"Cytoplasm, Nucleus",0.012054,0.1239,0.154,Not confident,"Ribonucleoprotein, Ribosomal protein",none
+Q9BPW9,DHRS9,Dehydrogenase/reductase SDR family member 9,"Endoplasmic reticulum, Membrane, Microsome",0.01192,0.02948,0.287,Not confident,"Lipid metabolism, Oxidoreductase, Steroid metabolism",none
+O00471,EXOC5,Exocyst complex component 5,Cytoplasm,0.01175,0.2062,0.184,Not confident,"Exocytosis, Protein transport, Transport",none
+P10412,H1-4,Histone H1.4,"Chromosome, Nucleus",0.011444,0.01056,0.144,Not confident,DNA-binding,none
+Q8N4V1,MMGT1,ER membrane protein complex subunit 5,"Endoplasmic reticulum, Endosome, Golgi apparatus, Membrane",0.011024,0.005165,0.134,Not confident,Transport,none
+P05362,ICAM1,Intercellular adhesion molecule 1,Membrane,0.01083,0.078,0.081,Not confident,"Cell adhesion, Host cell receptor for virus entry, Host-virus interaction, Receptor",none
+P36543,ATP6V1E1,V-type proton ATPase subunit E 1,"Cell membrane, Cytoplasmic vesicle, Membrane, Synapse",0.010826,0.09607,0.22,Not confident,"Hydrogen ion transport, Ion transport, Transport",none
+P67809,YBX1,Y-box-binding protein 1,"Cytoplasm, Nucleus, Secreted",0.01071,0.1235,0.203,Not confident,"Activator, DNA-binding, Mitogen, mRNA processing, mRNA splicing, Repressor, RNA-binding, Transcription, Transcription regulation",none
+O15541,RNF113A,E3 ubiquitin-protein ligase RNF113A,"Nucleus, Spliceosome",0.010376,0.1029,0.215,Not confident,"DNA damage, DNA repair, mRNA processing, mRNA splicing, Transferase, Ubl conjugation pathway",none
+Q92575,UBXN4,UBX domain-containing protein 4,"Endoplasmic reticulum, Membrane, Nucleus",0.0102,0.3901,0.305,Not confident,Unfolded protein response,none
+Q13618,CUL3,Cullin-3,"Cell projection, Cilium, Cytoplasm, Cytoskeleton, Flagellum, Golgi apparatus, Nucleus",0.00997,0.1302,0.232,Not confident,"Cell cycle, Cell division, Cilium biogenesis/degradation, ER-Golgi transport, Mitosis, Transport, Ubl conjugation pathway",none
+P78317,RNF4,E3 ubiquitin-protein ligase RNF4,"Cytoplasm, Nucleus",0.00995,0.01261,0.229,Not confident,"Activator, DNA-binding, Transcription, Transcription regulation, Transferase, Ubl conjugation pathway",none
+Q15051,IQCB1,IQ calmodulin-binding motif-containing protein 1,"Cytoplasm, Cytoskeleton",0.00974,0.11115,0.072,Not confident,"Calmodulin-binding, Cilium biogenesis/degradation",none
+P36406,TRIM23,E3 ubiquitin-protein ligase TRIM23,"Cytoplasm, Golgi apparatus, Lysosome, Membrane",0.00971,0.10236,0.065,Not confident,"Host-virus interaction, Immunity, Innate immunity, Transferase, Ubl conjugation pathway",none
+Q96EA4,SPDL1,Protein Spindly,"Centromere, Chromosome, Cytoplasm, Cytoskeleton, Kinetochore, Nucleus",0.00951,0.1588,0.116,Not confident,"Cell cycle, Cell division, Mitosis",none
+Q5J8M3,EMC4,ER membrane protein complex subunit 4,"Endoplasmic reticulum, Membrane",0.009125,0.0217,0.164,Not confident,Apoptosis,none
+Q02241,KIF23,Kinesin-like protein KIF23,"Cytoplasm, Cytoskeleton, Microtubule, Nucleus",0.009056,0.11017,0.265,Not confident,"Cell cycle, Cell division, Mitosis, Motor protein",none
+P40429,RPL13A,Large ribosomal subunit protein uL13,Cytoplasm,0.00873,0.03714,0.16,Not confident,"Ribonucleoprotein, Ribosomal protein, Translation regulation",none
+Q9H0G5,NSRP1,Nuclear speckle splicing regulatory protein 1,Nucleus,0.00842,0.1144,0.245,Not confident,"mRNA processing, mRNA splicing, RNA-binding",none
+Q9H9A6,LRRC40,Leucine-rich repeat-containing protein 40,NA,0.008385,0.2566,0.304,Not confident,NA,none
+P26373,RPL13,Large ribosomal subunit protein eL13,Cytoplasm,0.008316,0.09875,0.192,Not confident,"Ribonucleoprotein, Ribosomal protein",none
+P25205,MCM3,DNA replication licensing factor MCM3,"Chromosome, Nucleus",0.00812,0.271,0.15,Not confident,"Cell cycle, DNA replication, DNA-binding, Helicase, Hydrolase",none
+P49116,NR2C2,Nuclear receptor subfamily 2 group C member 2,Nucleus,0.007744,0.1097,0.125,Not confident,"Activator, Differentiation, DNA-binding, Receptor, Repressor, Spermatogenesis, Transcription, Transcription regulation",none
+O75955,FLOT1,Flotillin-1,"Cell membrane, Endosome, Membrane",0.007713,0.0789,0.142,Not confident,NA,none
+P11182,DBT,"Lipoamide acyltransferase component of branched-chain alpha-keto acid dehydrogenase complex, mitochondrial",Mitochondrion,0.00736,0.3892,0.262,Not confident,"Acyltransferase, Transferase",none
+Q9UQE7,SMC3,Structural maintenance of chromosomes protein 3,"Centromere, Chromosome, Nucleus",0.006844,0.1355,0.241,Not confident,"Cell cycle, Cell division, DNA damage, DNA repair, Meiosis, Mitosis",none
+Q9BRX2,PELO,Protein pelota homolog,Cytoplasm,0.00675,0.2676,0.192,Not confident,"Cell cycle, Cell division, Translation regulation",none
+O94972,TRIM37,E3 ubiquitin-protein ligase TRIM37,"Chromosome, Cytoplasm, Membrane, Peroxisome",0.006718,0.1749,0.099,Not confident,"Repressor, Transcription, Transferase, Ubl conjugation pathway",none
+P46781,RPS9,Small ribosomal subunit protein uS4,"Cytoplasm, Nucleus",0.006443,0.05637,0.114,Not confident,"Ribonucleoprotein, Ribosomal protein, RNA-binding, rRNA-binding",none
+P19320,VCAM1,Vascular cell adhesion protein 1,"Cell membrane, Membrane, Secreted",0.005806,0.091,0.183,Not confident,Cell adhesion,none
+Q5TZA2,CROCC,Rootletin,"Cell projection, Cilium, Cytoplasm, Cytoskeleton",0.00556,0.1236,0.159,Not confident,"Cell cycle, Cilium biogenesis/degradation",none
+O43242,PSMD3,26S proteasome non-ATPase regulatory subunit 3,Proteasome,0.005497,0.1879,0.167,Not confident,NA,none
+O43663,PRC1,Protein regulator of cytokinesis 1,"Chromosome, Cytoplasm, Cytoskeleton, Microtubule, Nucleus",0.004745,0.1747,0.236,Not confident,"Cell cycle, Cell division",none
+Q8TAG9,EXOC6,Exocyst complex component 6,"Cell projection, Cytoplasm",0.004726,0.3083,0.15,Not confident,"Exocytosis, Protein transport, Transport",none
+Q96B96,LDAF1,Lipid droplet assembly factor 1,"Endoplasmic reticulum, Lipid droplet, Membrane",0.004635,0.001086,0.051,Not confident,NA,none
+P08670,VIM,Vimentin,"Cell membrane, Cytoplasm, Cytoskeleton, Intermediate filament, Membrane, Nucleus",0.00459,0.0422,0.13,Not confident,Host-virus interaction,none
+Q9UKS6,PACSIN3,Protein kinase C and casein kinase substrate in neurons protein 3,"Cell membrane, Cytoplasm, Membrane",0.004387,0.2625,0.19,Not confident,Endocytosis,none
+Q9UN74,PCDHA4,Protocadherin alpha-4,"Cell membrane, Membrane",0.003828,0.082,0.211,Not confident,Cell adhesion,none
+P29590,PML,Protein PML,"Cytoplasm, Endoplasmic reticulum, Endosome, Membrane, Nucleus",0.00367,0.076,0.072,Not confident,"Activator, Antiviral defense, Apoptosis, Biological rhythms, DNA-binding, Host-virus interaction, Immunity, Innate immunity, Transcription, Transcription regulation, Transferase",none
+P47914,RPL29,Large ribosomal subunit protein eL29,Cytoplasm,0.0034,0.01974,0.129,Not confident,"Heparin-binding, Ribonucleoprotein, Ribosomal protein",none
+P04264,KRT1,"Keratin, type II cytoskeletal 1","Cell membrane, Cytoplasm, Intermediate filament, Keratin, Membrane",0.002811,0.10266,0.092,Not confident,NA,none
+Q9NS69,TOMM22,Mitochondrial import receptor subunit TOM22 homolog,"Membrane, Mitochondrion, Mitochondrion outer membrane",0.001173,0.3774,0.139,Not confident,"Protein transport, Receptor, Translocation, Transport",none
+P02545,LMNA,Prelamin-A/C,"Intermediate filament, Nucleus",0.0006557,0.0938,0.127,Not confident,NA,none
+Q502W7,CCDC38,Coiled-coil domain-containing protein 38,"Cytoplasm, Cytoskeleton",0.0,0.09186,0.13,Not confident,NA,none
+O94905,ERLIN2,Erlin-2,"Endoplasmic reticulum, Membrane",0.0,0.079,0.106,Not confident,"Cholesterol metabolism, Lipid metabolism, Steroid metabolism, Sterol metabolism",none
+Q8NFZ5,TNIP2,TNFAIP3-interacting protein 2,"Cytoplasm, Nucleus",0.0,0.05994,0.069,Not confident,"Apoptosis, Host-virus interaction, Inflammatory response, Transcription, Transcription regulation",none
+O00483,NDUFA4,Cytochrome c oxidase subunit NDUFA4,"Membrane, Mitochondrion, Mitochondrion inner membrane",0.0,0.004517,0.104,Not confident,"Electron transport, Respiratory chain, Transport",none
