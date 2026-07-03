@@ -454,13 +454,13 @@ def finetune(epochs: float = 1.0):
 
 
 @app.function(image=gf_image, volumes={DATA_DIR: data_vol}, timeout=300)
-def read_shifts():
+def read_shifts(out_name: str = "perturb_targeted"):
     """Compute per-gene goal-shift directly from the raw perturbation pickles."""
     import os
     import pickle
     import numpy as np
 
-    out = f"{DATA_DIR}/perturb_targeted"
+    out = f"{DATA_DIR}/{out_name}"
     print("== all entries in", out, "==")
     for root, dirs, fs in os.walk(out):
         for fn in sorted(fs):
@@ -506,4 +506,4 @@ def read_shifts():
 
 @app.local_entrypoint()
 def main():
-    print(read_shifts.remote())
+    print(read_shifts.remote(out_name="perturb_ft"))
