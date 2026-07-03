@@ -1,0 +1,11 @@
+compound_id,role,exp_ic50_nM,chemotype,optimization_score,binding_confidence,iptm,complex_plddt,adme_solubility,adme_logp
+P1_pheninhib,active,1,phenanthridine-benzimidazole/diCF3-carbinol,0.338,0.510,0.456,0.756,high-risk,4.81
+P2_phen,active,5,phenanthridine-imidazole,0.287,0.657,0.442,0.719,high-risk,4.36
+P4_indoleacetic,active,12,indole acetic acid,0.418,0.523,0.718,0.717,high-confidence,1.21
+P3_phen,active,36,phenanthridine (base),0.277,0.669,0.436,0.708,high-risk,4.40
+P5_carbinol,active,45,carbazole diCF3-carbinol,0.371,0.546,0.451,0.703,high-risk,3.82
+decoy_aspirin,decoy,,acetylsalicylic acid,0.000,0.357,0.599,0.828,high-confidence,-1.46
+decoy_caffeine,decoy,,xanthine,0.011,0.390,0.676,0.799,high-confidence,-0.21
+# Boltz-2.1 small_molecule_screen vs PTGES monomer (job sm_scr_wPJARXGD0Wisa7xWIznq).
+# optimization_score cleanly separates actives (0.28-0.42) from decoys (0.00-0.01).
+# Within-series IC50 rank NOT recovered (monomer target; ~45x IC50 spread only).

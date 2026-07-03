@@ -36,7 +36,20 @@ Boltz predictions expire from the workspace after ~7 days; IDs recorded in
     strong while the model's affinity estimate is modest. IDs in
     `data/boltz_results.csv` (monomer `sab_pred_nYrd5vkK…`, trimer
     `sab_pred_x8cp7WZf…`).
-- **Suggested modality**: small molecule (orthosteric mPGES-1 inhibitor).
+- **Chemotype screen (Boltz-2.1, real)**: a 7-compound panel (5 ChEMBL
+  actives 1–45 nM + aspirin/caffeine decoys) screened vs PTGES
+  (`data/ptges_screen_results.csv`, job `sm_scr_wPJARXGD…`).
+  **`optimization_score` cleanly separates actives (0.28–0.42) from decoys
+  (0.00–0.01)** — the screen correctly discriminates mPGES-1 binders from
+  non-binders. Fine within-series potency rank is *not* recovered (monomer
+  target; only ~45× IC50 spread). ADME flags all halogenated actives
+  "high-risk" solubility (logP 4.4–4.8); the indole-acetic-acid chemotype has
+  the cleanest ADME and the top optimization_score — the more attractive
+  starting scaffold. Note: Boltz's default SMARTS alert filter rejects these
+  halogen-rich chemotypes, so the screen must set
+  `boltz_smarts_catalog_filter_level: disabled`.
+- **Suggested modality**: small molecule (orthosteric mPGES-1 inhibitor);
+  favor the indole-acetic-acid chemotype on combined predicted binding + ADME.
 - **Key risks**: mPGES-1 inhibitors well-precedented in inflammation but none yet
   approved; verify lung-fibroblast expression specificity and PGE2-shunting to
   other prostanoids. **Trimer re-run: done** (pocket confirmed at subunit
