@@ -415,10 +415,18 @@ def finetune(epochs: float = 1.0):
     )
     cc.prepare_data(input_data_file=DATASET, output_directory=FT_OUT,
                     output_prefix="ipf_cc")
+    # discover the actual prepared-dataset + id_class file names (they vary)
+    entries = os.listdir(FT_OUT)
+    print("prepare_data wrote:", entries)
+    labeled = next((f"{FT_OUT}/{e}" for e in entries
+                    if e.endswith(".dataset")), None)
+    idclass = next((f"{FT_OUT}/{e}" for e in entries
+                    if "id_class" in e and e.endswith(".pkl")), None)
+    print("using labeled:", labeled, "| id_class:", idclass)
     metrics = cc.validate(
         model_directory=model_dir,
-        prepared_input_data_file=f"{FT_OUT}/ipf_cc_labeled.dataset",
-        id_class_dict_file=f"{FT_OUT}/ipf_cc_id_class_dict.pkl",
+        prepared_input_data_file=labeled,
+        id_class_dict_file=idclass,
         output_directory=FT_OUT, output_prefix="ipf_cc", split_id_dict=None,
     )
     # locate the datestamped fine-tuned model dir and stabilize its path
