@@ -55,6 +55,10 @@ image = (
         # uv venvs omit setuptools; hyperopt (a chemprop dep) needs pkg_resources
         "uv pip install --python /opt/lnp38/bin/python setuptools wheel chemprop==1.7.0",
         f"git clone --depth 1 {REPO} {REPO_DIR}",
+        # make LiON's hardcoded 5-fold ensemble configurable via LION_CV_NUM, so a
+        # lightweight run can train/predict with fewer folds (both train & predict
+        # loops read cv_num). Surgical one-liner; default stays 5.
+        f"""sed -i "s/cv_num = 5/cv_num = int(__import__('os').environ.get('LION_CV_NUM','5'))/g" {SCRIPTS}/main_script.py""",
     )
 )
 
@@ -62,12 +66,16 @@ app = modal.App("lion-lnp")
 vol = modal.Volume.from_name("lion-models", create_if_missing=True)
 
 
-def _run(cmd: list[str]) -> None:
+def _run(cmd: list[str], env_extra: dict | None = None) -> None:
     # cmd[0] == "python" -> run with the 3.8 Chemprop interpreter
     if cmd and cmd[0] == "python":
         cmd = [CHEMPROP_PY] + cmd[1:]
+    import os
+    env = os.environ.copy()
+    if env_extra:
+        env.update({k: str(v) for k, v in env_extra.items()})
     print("+", " ".join(cmd), flush=True)
-    subprocess.run(cmd, cwd=SCRIPTS, check=True)
+    subprocess.run(cmd, cwd=SCRIPTS, check=True, env=env)
 
 
 def _restore_split_from_volume(split: str) -> None:
@@ -92,11 +100,26 @@ def _save_split_to_volume(split: str) -> None:
 
 
 @app.function(image=image, gpu="A10G", volumes={MODELS_MNT: vol}, timeout=60 * 60 * 6)
-def train(split: str = "all_random_split_for_paper", epochs: int = 30) -> str:
-    """Train the D-MPNN ensemble on a pre-made cross-validation split."""
-    _run(["python", "main_script.py", "train", split, "--epochs", str(epochs)])
+def train(split: str = "all_random_split_for_paper", epochs: int = 30,
+          folds: int = 5) -> str:
+    """Train the D-MPNN ensemble on a pre-made split (full: 5 folds, 30 epochs)."""
+    _run(["python", "main_script.py", "train", split, "--epochs", str(epochs)],
+         env_extra={"LION_CV_NUM": folds})
     _save_split_to_volume(split)
-    return f"trained '{split}' ({epochs} epochs); models persisted to volume"
+    return f"trained '{split}' ({folds} folds, {epochs} epochs); models on volume"
+
+
+@app.function(image=image, gpu="T4", volumes={MODELS_MNT: vol}, timeout=60 * 60 * 2)
+def train_lite(split: str = "all_random_split_for_paper", epochs: int = 15,
+               folds: int = 1) -> str:
+    """Lightweight training on the FULL dataset: a single fold, fewer epochs, on a
+    cheaper T4 GPU. ~5-10x cheaper/faster than the 5-fold ensemble; yields one
+    usable model (no ensemble averaging / cross-val error bars). Screen it with
+    ``screen(..., folds=1)``."""
+    _run(["python", "main_script.py", "train", split, "--epochs", str(epochs)],
+         env_extra={"LION_CV_NUM": folds})
+    _save_split_to_volume(split)
+    return f"lite-trained '{split}' ({folds} fold(s), {epochs} epochs, T4)"
 
 
 @app.function(image=image, gpu="A10G", volumes={MODELS_MNT: vol}, timeout=60 * 60 * 2)
@@ -170,14 +193,16 @@ def _write_library(smiles: list[str], name: str, context: str) -> None:
 
 @app.function(image=image, gpu="A10G", volumes={MODELS_MNT: vol}, timeout=60 * 60 * 2)
 def screen(smiles_json: str = "", split: str = "all_random_split_for_paper",
-           context: str = "KK_HeLa", name: str = "user_screen") -> str:
-    """Score a user library. ``smiles_json`` is a JSON list of SMILES strings."""
+           context: str = "KK_HeLa", name: str = "user_screen", folds: int = 5) -> str:
+    """Score a user library. ``smiles_json`` is a JSON list of SMILES strings.
+    Set ``folds=1`` to match a ``train_lite`` model (must equal the trained folds)."""
     _restore_split_from_volume(split)
     smiles = json.loads(smiles_json) if smiles_json else []
     if not smiles:
         return "no SMILES provided"
     _write_library(smiles, name, context)
-    _run(["python", "main_script.py", "predict", split, name])
+    _run(["python", "main_script.py", "predict", split, name],
+         env_extra={"LION_CV_NUM": folds})
 
     # LiON writes screen output to "<model_folder>_preds/<library>/"
     pred = (Path(REPO_DIR) / "results" / "screen_results" / f"{split}_preds" / name / "pred_file.csv")

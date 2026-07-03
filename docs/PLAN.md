@@ -162,9 +162,25 @@ Build gotchas solved (all encoded in the image):
 - LiON writes screen output to `<split>_preds/<library>/pred_file.csv`.
 - This environment's proxy needs `modal[api-proxy-support]` / `python-socks`.
 
-Next Modal step (needs GPU-hours, ask first): full train on
-`all_random_split_for_paper` (30 epochs, ~3 h) then `analyze` for held-out
-Pearson/Spearman/Kendall, matching the paper.
+### Two training tiers (both verified on Modal)
+
+| mode | command | folds × epochs | GPU | time | use |
+|---|---|---|---|---|---|
+| **lite** | `modal run modal_app/lion.py::train_lite` | 1 × 15 | T4 | **~6 min** | fast, cheap; one usable model |
+| **full** | `modal run modal_app/lion.py::train --epochs 30` | 5 × 30 | A10G | ~40–60 min | paper-faithful ensemble + error bars |
+
+The lite tier trains on the **full ~13k-point dataset** (single fold, fewer epochs,
+cheaper GPU) — ~10× cheaper than the ensemble. Implemented by making LiON's
+hardcoded `cv_num = 5` read `LION_CV_NUM` (a one-line sed patch in the image), so
+both `train`/`train_lite` and `screen(folds=…)` honour the fold count.
+
+Verified lite run: 1-fold, 15-epoch train on `all_random_split_for_paper` → test
+RMSE 0.90 (z-scored delivery) in 6 min on T4; screening the 5 clinical ionizable
+lipids ranked MC3 highest in the HeLa/in-vitro context. Screen a lite model with
+`screen(..., folds=1)`.
+
+Next Modal step (optional, more GPU-hours): the full 5-fold ensemble + `analyze`
+for held-out Pearson/Spearman/Kendall, matching the paper.
 
 ### Phase 5 — deploy at scale
 - Modal apps for: Chemprop training/inference, DrugCLIP screen, Boltz batch,
