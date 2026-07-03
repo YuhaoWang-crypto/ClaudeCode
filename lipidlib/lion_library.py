@@ -23,6 +23,102 @@ from dataclasses import dataclass, field
 from pathlib import Path
 
 import pandas as pd
+from rdkit import Chem, RDLogger
+from rdkit.Chem import AllChem, Descriptors
+
+RDLogger.DisableLog("rdApp.*")
+
+# aza-Michael addition: an amine N-H adds across the acrylate/acrylamide C=C,
+# giving a tertiary amine + an ester/amide-linked tail. Generic in the linker:
+# the [*:6] captures the ester -O-R or amide -N(H)-R of the Michael acceptor.
+# nucleophile is an AMINE N-H (exclude amide/carbonyl-adjacent N, else the
+# acrylamide's own N-H would react and runaway-polymerise).
+_MICHAEL = AllChem.ReactionFromSmarts(
+    "[N;!H0;!$(N-C=O);!$(N=*):1].[CH2:2]=[CH1:3][C:4](=[O:5])[*:6]>>"
+    "[N:1][CH2:2][CH2:3][C:4](=[O:5])[*:6]")
+
+
+def _exhaustively_alkylate(head_smiles: str, acceptor_smiles: str) -> str | None:
+    """Add the Michael acceptor to every N-H of the head (NH2 -> 2 tails, NH -> 1)."""
+    cur = Chem.MolFromSmiles(head_smiles)
+    acc = Chem.MolFromSmiles(acceptor_smiles)
+    if cur is None or acc is None:
+        return None
+    for _ in range(12):  # safety cap; each pass consumes one N-H
+        prods = _MICHAEL.RunReactants((cur, acc))
+        if not prods:
+            break
+        nxt = None
+        for (p,) in prods:
+            try:
+                Chem.SanitizeMol(p)
+                nxt = p
+                break
+            except Exception:
+                continue
+        if nxt is None:
+            break
+        cur = nxt
+    return Chem.MolToSmiles(cur)
+
+
+def _acceptor(linker: str, tail_smiles: str) -> str:
+    """Build the Michael acceptor reagent for a linker + tail.
+    ester -> acrylate  CH2=CH-C(=O)-O-R ; amide -> acrylamide CH2=CH-C(=O)-NH-R."""
+    if linker == "ester":
+        return f"C=CC(=O)O{tail_smiles}"
+    if linker == "amide":
+        return f"C=CC(=O)N{tail_smiles}"
+    raise ValueError(f"unknown linker {linker!r}")
+
+
+_AMINE_NH = Chem.MolFromSmarts("[N;!H0;!$(N-C=O);!$(N=*)]")
+
+
+def _n_reactive_nh(smiles: str) -> int:
+    """Count reactive AMINE N-H (excludes amide/imine N-H)."""
+    m = Chem.MolFromSmiles(smiles)
+    if m is None:
+        return 0
+    return sum(m.GetAtomWithIdx(i[0]).GetTotalNumHs() for i in m.GetSubstructMatches(_AMINE_NH))
+
+
+def enumerate_michael_lipids(
+    heads: dict[str, str],
+    tails: dict[str, str],
+    linkers: tuple[str, ...] = ("ester", "amide"),
+    mw_range: tuple[float, float] = (400.0, 1400.0),
+) -> pd.DataFrame:
+    """Combinatorially enumerate ionizable lipids by aza-Michael addition.
+
+    ``heads`` / ``tails`` map id -> SMILES (tail = an alkyl/hetero group R; it is
+    attached as the ester -O-R or amide -N(H)-R of an acrylate). Every head N-H is
+    alkylated, so the tail count = the head's reactive N-H count. Products outside
+    ``mw_range`` or that fail to build are dropped.
+
+    Returns a DataFrame: head, linker, tail, n_tails, mw, smiles.
+    """
+    rows, seen = [], set()
+    for hid, hsmi in heads.items():
+        nh = _n_reactive_nh(hsmi)
+        for linker in linkers:
+            for tid, tsmi in tails.items():
+                smi = _exhaustively_alkylate(hsmi, _acceptor(linker, tsmi))
+                if not smi or smi in seen:
+                    continue
+                m = Chem.MolFromSmiles(smi)
+                if m is None:
+                    continue
+                mw = Descriptors.MolWt(m)
+                if not (mw_range[0] <= mw <= mw_range[1]):
+                    continue
+                # require a fully-substituted amine (no remaining N-H) and >=2 tails
+                if _n_reactive_nh(smi) > 0 or nh < 2:
+                    continue
+                seen.add(smi)
+                rows.append({"head": hid, "linker": linker, "tail": tid,
+                             "n_tails": nh, "mw": round(mw, 1), "smiles": smi})
+    return pd.DataFrame(rows)
 
 # --- exact X_val schema from data/libraries/test_screen/*_extra_x.csv ---------
 
