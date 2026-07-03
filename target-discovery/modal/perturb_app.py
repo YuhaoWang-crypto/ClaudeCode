@@ -162,6 +162,60 @@ def fetch_ipf_data(max_per_state: int = 4000):
     return {"n_obs": int(adata.n_obs), "n_vars": int(adata.n_vars)}
 
 
+DATASET = f"{DATA_DIR}/ipf.dataset"
+HVG_JSON = f"{DATA_DIR}/hvg_ensembl.json"
+PERT_OUT = f"{DATA_DIR}/perturb"
+STATES = {"state_key": "disease", "start_state": "pulmonary fibrosis",
+          "goal_state": "normal", "alt_states": []}
+
+
+def _gc104m_dicts():
+    """Absolute paths to the gc104M dictionaries in the installed package."""
+    import os
+    import geneformer
+    d = os.path.dirname(geneformer.__file__)
+    return (f"{d}/gene_median_dictionary_gc104M.pkl",
+            f"{d}/token_dictionary_gc104M.pkl",
+            f"{d}/ensembl_mapping_dict_gc104M.pkl")
+
+
+@app.function(image=gf_image, volumes={DATA_DIR: data_vol}, timeout=1800)
+def tokenize(n_hvg: int = 256):
+    """Geneformer rank-value tokenization + unbiased HVG selection."""
+    import json
+    import os
+    import scanpy as sc
+    from geneformer import TranscriptomeTokenizer
+
+    med, tok, mapf = _gc104m_dicts()
+    adata = sc.read_h5ad(IPF_H5AD)
+
+    # Unbiased HVG selection (data-driven) to bound the perturbation set.
+    a = adata.copy()
+    sc.pp.normalize_total(a, target_sum=1e4)
+    sc.pp.log1p(a)
+    sc.pp.highly_variable_genes(a, n_top_genes=n_hvg)
+    hvg = adata.var.loc[a.var["highly_variable"].to_numpy(), "ensembl_id"].tolist()
+    json.dump(hvg, open(HVG_JSON, "w"))
+    print(f"selected {len(hvg)} HVGs")
+
+    tok_in = f"{DATA_DIR}/tok_in"
+    os.makedirs(tok_in, exist_ok=True)
+    adata.write_h5ad(f"{tok_in}/ipf.h5ad")
+
+    tk = TranscriptomeTokenizer(
+        custom_attr_name_dict={"disease": "disease", "cell_type": "cell_type"},
+        nproc=4, model_input_size=4096, special_token=True,
+        gene_median_file=med, token_dictionary_file=tok, gene_mapping_file=mapf,
+    )
+    tk.tokenize_data(tok_in, DATA_DIR, "ipf", file_format="h5ad")
+    data_vol.commit()
+    from datasets import load_from_disk
+    ds = load_from_disk(DATASET)
+    print(f"[done] dataset {DATASET}: {ds}")
+    return {"n_cells": ds.num_rows, "n_hvg": len(hvg), "cols": ds.column_names}
+
+
 @app.local_entrypoint()
 def main():
-    print(fetch_ipf_data.remote())
+    print(tokenize.remote())
