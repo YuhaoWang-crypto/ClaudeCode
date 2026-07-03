@@ -291,4 +291,4 @@ def perturb(max_ncells: int = 500):
 
 @app.local_entrypoint()
 def main():
-    print(perturb.remote(max_ncells=100))
+    print(perturb.remote(max_ncells=24))
