@@ -1,0 +1,22 @@
+{
+ "ab2mat1_A8Y_20ns": {
+  "dg_bind_kcal": -53.13,
+  "dg_std_kcal": 3.42,
+  "binder_rmsd_mean_nm": 0.48,
+  "interface_contacts_t0": 157,
+  "interface_contacts_mean": 145,
+  "contact_retention": 0.93,
+  "ns": 20,
+  "source": "md20_done.log"
+ },
+ "ab2mat2_A9Y_20ns": {
+  "dg_bind_kcal": -41.63,
+  "dg_std_kcal": 4.6,
+  "binder_rmsd_mean_nm": 0.66,
+  "interface_contacts_t0": 101,
+  "interface_contacts_mean": 103,
+  "contact_retention": 1.02,
+  "ns": 20,
+  "source": "md20_done.log"
+ }
+}

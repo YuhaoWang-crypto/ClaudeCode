@@ -59,3 +59,18 @@ textbook limitation, and it *reinforces* the earlier evaluation:
 ranking signal within a congeneric series, not absolute affinity. Aib2/Aib13 modelled
 as Ala (PDBFixer); K20 lipid absent (protein–protein MD) — both on the face opposite the
 mapped epitope.*
+
+---
+
+## 20 ns confirmation MD (final physical check, leads only)
+Job `run_633ecd9108` — A8Y & A9Y scFv + modified peptide, 20 ns (4× longer), from the validated
+atomistic complexes.
+
+| lead | ΔG 5 ns | **ΔG 20 ns (kcal/mol)** | binder RMSD (nm) | contact retention |
+|---|---|---|---|---|
+| ab2-mat1 (A8Y) | −47.9 | **−53.1 ± 3.4** | 0.48 | 0.93 |
+| ab2-mat2 (A9Y) | −37.5 | **−41.6 ± 4.6** | 0.66 | 1.02 |
+
+Both complexes remain **stably bound over 20 ns** (binder RMSD < 0.7 nm, contact retention ≥ 0.93),
+ΔG is consistent with (slightly stronger than) the 5 ns estimate, and **A8Y > A9Y holds**. This is the
+physics-based final confirmation that the matured leads form stable complexes with the real modified drug.

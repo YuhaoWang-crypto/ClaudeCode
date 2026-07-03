@@ -21,6 +21,7 @@ plus local biophysical analysis. Output is a wet-lab-ready candidate panel.
   fusion** constructs, predicted complex structures.
 
 ## Start here
+- **`results/MASTER_SUMMARY.md`** — single entry point: leads, all evidence lines, file index.
 - **`report/EVALUATION_REPORT.md`** — full narrative, methods, honest caveats.
 - **`results/MASTER_panel.md`** / `.csv` — the recommended wet-lab panel.
 - **`results/wetlab_constructs.fasta`** — peptides + Fc-fusion sequences to order.
