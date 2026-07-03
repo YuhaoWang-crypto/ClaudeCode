@@ -109,6 +109,54 @@ def train(split: str = "all_random_split_for_paper", epochs: int = 30,
     return f"trained '{split}' ({folds} folds, {epochs} epochs); models on volume"
 
 
+def _train_single_fold(split: str, fold: int, epochs: int) -> None:
+    """Train exactly one CV fold and persist just that fold's model to the volume.
+
+    Works around LiON's ``for cv in range(cv_num)`` loop (which always starts at 0)
+    by training in a throwaway single-fold split whose cv_0 is a copy of the target
+    fold, then copying the trained model to ``<split>/cv_<fold>`` on the volume.
+    """
+    import shutil
+    real = Path(REPO_DIR) / "data" / "crossval_splits" / split
+    tmp_name = f"{split}__f{fold}"
+    tmp = Path(REPO_DIR) / "data" / "crossval_splits" / tmp_name
+    if tmp.exists():
+        shutil.rmtree(tmp)
+    tmp.mkdir(parents=True)
+    shutil.copytree(real / f"cv_{fold}", tmp / "cv_0")
+    _run(["python", "main_script.py", "train", tmp_name, "--epochs", str(epochs)],
+         env_extra={"LION_CV_NUM": 1})
+    dst = Path(MODELS_MNT) / split / f"cv_{fold}"
+    if dst.exists():
+        shutil.rmtree(dst)
+    shutil.copytree(tmp / "cv_0", dst)
+    (dst / ".epochs").write_text(str(epochs))  # tag training setting
+    vol.commit()
+
+
+@app.function(image=image, gpu="A10G", volumes={MODELS_MNT: vol}, timeout=60 * 60 * 6)
+def train_resilient(split: str = "all_random_split_for_paper", epochs: int = 30,
+                    folds: int = 5) -> str:
+    """Preemption-resilient full training: train each fold separately, persist it,
+    and skip folds already on the volume. If the worker is preempted, the restart
+    resumes from the first unfinished fold instead of from scratch."""
+    vol.reload()
+    done = []
+    for k in range(folds):
+        cvdir = Path(MODELS_MNT) / split / f"cv_{k}"
+        model = cvdir / "model_0" / "model.pt"
+        tag = cvdir / ".epochs"
+        # skip only folds trained at THIS epoch setting (ignore a stale lite model)
+        if model.exists() and tag.exists() and tag.read_text().strip() == str(epochs):
+            print(f"fold {k} already trained ({epochs} ep) — skipping", flush=True)
+            done.append(k)
+            continue
+        print(f"training fold {k}/{folds} …", flush=True)
+        _train_single_fold(split, k, epochs)
+        done.append(k)
+    return f"ensemble ready for '{split}': folds {done} ({epochs} epochs each)"
+
+
 @app.function(image=image, gpu="T4", volumes={MODELS_MNT: vol}, timeout=60 * 60 * 2)
 def train_lite(split: str = "all_random_split_for_paper", epochs: int = 15,
                folds: int = 1) -> str:
