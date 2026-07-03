@@ -1,0 +1,8 @@
+{"job":"prot_scr_6N1ZijBr4pqN7tE6ogiz","note":"forced +lipid",
+ "results":{
+  "WT_scFv":{"bind":0.638,"struct":0.769,"iptm":0.960,"ipae":0.70},
+  "A8Y_scFv":{"bind":0.664,"struct":0.776,"iptm":0.967,"ipae":0.51},
+  "A9Y_scFv":{"bind":0.621,"struct":0.728,"iptm":0.959,"ipae":0.90},
+  "WT_scFvFc_monomer":{"bind":0.137,"struct":0.117,"iptm":0.832,"ipae":1.31,"artifact":"Fc monomer misfold"},
+  "A8Y_scFvFc_monomer":{"bind":0.025,"struct":0.008,"iptm":0.792,"ipae":1.27,"artifact":"Fc monomer misfold"},
+  "A9Y_scFvFc_monomer":{"bind":0.010,"struct":0.002,"iptm":0.717,"ipae":1.66,"artifact":"Fc monomer misfold"}}}
