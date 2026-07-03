@@ -217,7 +217,7 @@ def tokenize(n_hvg: int = 256):
 
 
 @app.function(image=gf_image, volumes={DATA_DIR: data_vol, MODEL_DIR: model_vol},
-              gpu="A10G", timeout=3600)
+              gpu="A100", timeout=3600)
 def perturb(max_ncells: int = 500):
     """In-silico deletion of HVGs; rank by shift of fibrosis->normal state.
 
@@ -259,7 +259,7 @@ def perturb(max_ncells: int = 500):
         model_type="Pretrained", num_classes=0, emb_mode="cls",
         cell_states_to_model=STATES,
         state_embs_dict=state_embs, max_ncells=max_ncells,
-        forward_batch_size=64, nproc=4, token_dictionary_file=tok,
+        forward_batch_size=16, nproc=4, token_dictionary_file=tok,
     )
     isp.perturb_data(model_directory=model_dir, input_data_file=DATASET,
                      output_directory=PERT_OUT, output_prefix="ipf_delete")
@@ -291,4 +291,4 @@ def perturb(max_ncells: int = 500):
 
 @app.local_entrypoint()
 def main():
-    print(perturb.remote(max_ncells=250))
+    print(perturb.remote(max_ncells=100))
