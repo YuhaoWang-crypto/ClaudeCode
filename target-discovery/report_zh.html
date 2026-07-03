@@ -1,0 +1,294 @@
+<title>IPF 靶点挖掘 — 完整报告</title>
+<style>
+  :root{
+    --paper:#F6F8F7; --panel:#FFFFFF; --ink:#141C18; --muted:#5B6A63;
+    --line:#DBE2DF; --teal:#0C7C6E; --teal-soft:#0C7C6E1a; --amber:#B26A1E;
+    --amber-soft:#B26A1E1a; --good:#2E7D5B; --bad:#B23A48; --code:#0E332D;
+    --serif:"Songti SC","STSong","Iowan Old Style",Georgia,serif;
+    --sans:system-ui,-apple-system,"PingFang SC","Microsoft YaHei","Segoe UI",Roboto,sans-serif;
+    --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  }
+  @media (prefers-color-scheme:dark){
+    :root{
+      --paper:#0D1411; --panel:#141C18; --ink:#E7ECE9; --muted:#93A39A;
+      --line:#25302B; --teal:#38B8A4; --teal-soft:#38B8A422; --amber:#D79A55;
+      --amber-soft:#D79A5522; --good:#5FCf9c; --bad:#E8808C; --code:#B9E7DE;
+    }
+  }
+  :root[data-theme="light"]{
+    --paper:#F6F8F7; --panel:#FFFFFF; --ink:#141C18; --muted:#5B6A63;
+    --line:#DBE2DF; --teal:#0C7C6E; --teal-soft:#0C7C6E1a; --amber:#B26A1E;
+    --amber-soft:#B26A1E1a; --good:#2E7D5B; --bad:#B23A48; --code:#0E332D;
+  }
+  :root[data-theme="dark"]{
+    --paper:#0D1411; --panel:#141C18; --ink:#E7ECE9; --muted:#93A39A;
+    --line:#25302B; --teal:#38B8A4; --teal-soft:#38B8A422; --amber:#D79A55;
+    --amber-soft:#D79A5522; --good:#5FCf9c; --bad:#E8808C; --code:#B9E7DE;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);
+    line-height:1.75;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:880px;margin:0 auto;padding:clamp(1.5rem,4vw,4rem) clamp(1.1rem,4vw,2rem)}
+  .eyebrow{font-family:var(--mono);font-size:.7rem;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--teal);margin:0 0 .6rem}
+  h1{font-family:var(--serif);font-weight:700;font-size:clamp(1.9rem,5vw,2.9rem);
+    line-height:1.15;margin:0 0 .6rem;text-wrap:balance;letter-spacing:.01em}
+  h2{font-family:var(--serif);font-weight:700;font-size:clamp(1.35rem,3vw,1.7rem);
+    margin:0 0 .3rem;text-wrap:balance}
+  h3{font-family:var(--serif);font-weight:700;font-size:1.12rem;margin:1.4rem 0 .3rem}
+  p{margin:.6rem 0;max-width:42em}
+  a{color:var(--teal);text-underline-offset:2px}
+  .lede{font-size:1.08rem;color:var(--muted);max-width:40em}
+  .masthead{border-bottom:2px solid var(--ink);padding-bottom:1.4rem;margin-bottom:1.2rem}
+  .meta{display:flex;flex-wrap:wrap;gap:.5rem 1.3rem;margin-top:1rem;
+    font-family:var(--mono);font-size:.72rem;color:var(--muted);letter-spacing:.02em}
+  .meta b{color:var(--ink);font-weight:600}
+  section{padding:2.2rem 0;border-bottom:1px solid var(--line)}
+  section:last-of-type{border-bottom:none}
+  .sec-num{font-family:var(--mono);font-size:.72rem;color:var(--teal);
+    letter-spacing:.12em;display:block;margin-bottom:.5rem}
+  .funnel{display:flex;flex-direction:column;gap:.4rem;margin:1.2rem 0}
+  .step{display:grid;grid-template-columns:1.6rem 7rem 1fr;gap:.8rem;align-items:baseline;
+    padding:.55rem .8rem;background:var(--panel);border:1px solid var(--line);
+    border-radius:7px;border-left:3px solid var(--teal)}
+  .step .k{font-family:var(--mono);color:var(--teal);font-size:.8rem}
+  .step .t{font-weight:600}
+  .step .d{color:var(--muted);font-size:.9rem}
+  .scroll{overflow-x:auto;margin:1.1rem 0;border:1px solid var(--line);border-radius:9px}
+  table{border-collapse:collapse;width:100%;font-size:.9rem;min-width:560px}
+  th,td{text-align:left;padding:.6rem .85rem;border-bottom:1px solid var(--line);vertical-align:top}
+  thead th{background:var(--panel);font-family:var(--mono);font-size:.68rem;
+    letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:600}
+  tbody tr:last-child td{border-bottom:none}
+  td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;font-family:var(--mono)}
+  code,.mono{font-family:var(--mono);font-size:.82em;background:var(--teal-soft);
+    color:var(--code);padding:.08em .35em;border-radius:4px}
+  .tag{font-family:var(--mono);font-size:.66rem;letter-spacing:.03em;padding:.12em .5em;
+    border-radius:100px;white-space:nowrap;display:inline-block}
+  .tag.run{background:var(--teal-soft);color:var(--teal)}
+  .tag.scaf{background:var(--amber-soft);color:var(--amber)}
+  .white{color:var(--amber);font-weight:600}
+  .good{color:var(--good);font-variant-numeric:tabular-nums;font-family:var(--mono)}
+  .bad{color:var(--bad);font-variant-numeric:tabular-nums;font-family:var(--mono)}
+  .call{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--amber);
+    border-radius:8px;padding:1rem 1.15rem;margin:1.2rem 0}
+  .call h3{margin:0 0 .3rem}
+  .grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:.9rem;margin:1.1rem 0}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:9px;padding:1rem 1.1rem}
+  .card .stat{font-family:var(--serif);font-size:1.7rem;font-weight:700;line-height:1;
+    font-variant-numeric:tabular-nums}
+  .card .lab{font-family:var(--mono);font-size:.68rem;letter-spacing:.06em;
+    text-transform:uppercase;color:var(--muted);margin-top:.35rem}
+  .card .sub{font-size:.84rem;color:var(--muted);margin-top:.4rem}
+  ol.play{list-style:none;counter-reset:p;padding:0;margin:1.2rem 0;display:flex;
+    flex-direction:column;gap:.7rem}
+  ol.play>li{counter-increment:p;display:grid;grid-template-columns:2rem 1fr;gap:.9rem;
+    padding:.85rem 1rem;background:var(--panel);border:1px solid var(--line);border-radius:8px}
+  ol.play>li::before{content:counter(p,upper-alpha);font-family:var(--serif);font-weight:700;
+    font-size:1.2rem;color:var(--teal);line-height:1.6}
+  ol.play b{font-weight:600}
+  ol.play .d{color:var(--muted);font-size:.9rem}
+  .foot{color:var(--muted);font-size:.8rem;font-family:var(--mono);letter-spacing:.02em}
+  ul.tight{margin:.5rem 0;padding-left:1.2rem}
+  ul.tight li{margin:.35rem 0}
+  @media (max-width:560px){
+    .step{grid-template-columns:1.4rem 1fr}.step .d{grid-column:1/-1}
+  }
+</style>
+
+<div class="wrap">
+  <header class="masthead">
+    <p class="eyebrow">基础模型驱动的靶点挖掘 · 方法与结果</p>
+    <h1>为特发性肺纤维化挖掘全新药物靶点</h1>
+    <p class="lede">一条“反事实”流水线:把生物大分子基础模型和由权威数据库组成的证据层结合起来
+      —— 通过追问“敲除某个基因会对病态细胞<em>做什么</em>”来提名靶点,再逐一检验其新颖性、
+      可成药性与结构可行性,然后才决定投入。</p>
+    <div class="meta">
+      <span><b>适应症</b> IPF(孤儿病)</span>
+      <span><b>引擎</b> Geneformer-V2-104M</span>
+      <span><b>算力</b> Modal GPU + Boltz</span>
+      <span><b>分支</b> claude/drug-target-discovery-t5dgtl</span>
+    </div>
+  </header>
+
+  <section>
+    <span class="sec-num">01 · 漏斗</span>
+    <h2>一个靶点是怎样被提名的</h2>
+    <p>五个阶段。引擎负责生成假设;外围的证据层只保留那些<strong>新颖、可成药、结构可攻击</strong>的候选。</p>
+    <div class="funnel">
+      <div class="step"><span class="k">01</span><span class="t">疾病地图</span><span class="d">文献 + 竞争格局 → 划定“白区”</span></div>
+      <div class="step"><span class="k">02</span><span class="t">假设引擎</span><span class="d">Geneformer 虚拟敲除 → goal-shift 排名</span></div>
+      <div class="step"><span class="k">03</span><span class="t">新颖性闸门</span><span class="d">给临床上已拥挤的机制降权</span></div>
+      <div class="step"><span class="k">04</span><span class="t">可成药性</span><span class="d">ChEMBL 活性 + Boltz 结构/结合/设计</span></div>
+      <div class="step"><span class="k">05</span><span class="t">靶点档案</span><span class="d">综合 → 带证据的排序候选</span></div>
+    </div>
+  </section>
+
+  <section>
+    <span class="sec-num">02 · 模型与工具</span>
+    <h2>每个模型:用途、输入、输出</h2>
+    <p>引擎是一个单细胞基础模型;其余都是证据或验证仪器。“状态”一列标明本次实际跑过的部分。</p>
+    <div class="scroll">
+      <table>
+        <thead><tr>
+          <th>模型 / 工具</th><th>用途</th><th>输入</th><th>输出</th><th>状态</th>
+        </tr></thead>
+        <tbody>
+          <tr>
+            <td><b>Geneformer-V2-104M</b><br><span class="foot">bionemo-recipes</span></td>
+            <td>反事实靶点发现 —— 敲除某基因如何把病态细胞的状态推向健康。</td>
+            <td>单细胞 raw counts(Ensembl ID)→ rank-value token;起始态(疾病)与目标态(正常)。</td>
+            <td>每基因 <b>goal-shift</b> 分数与排名;可选微调出疾病分类器。</td>
+            <td><span class="tag run">已跑 · GPU</span></td>
+          </tr>
+          <tr>
+            <td><b>ESM-2</b><br><span class="foot">bionemo-recipes</span></td>
+            <td>蛋白表征 —— 家族、折叠信号、变异效应。</td>
+            <td>蛋白氨基酸序列。</td>
+            <td>残基级 / 蛋白级嵌入;变异效应分。</td>
+            <td><span class="tag scaf">已搭架</span></td>
+          </tr>
+          <tr>
+            <td><b>Boltz-2.1</b><br><span class="foot">Boltz API</span></td>
+            <td>结构 + 结合:折叠复合物、找口袋、对接/排序配体、设计 binder。</td>
+            <td>蛋白序列 + 可选 SMILES / 化合物库 / binder 规格。</td>
+            <td>3D 结构(CIF)、置信度(pTM/iPTM/pLDDT)、结合分、ADME、设计出的 binder。</td>
+            <td><span class="tag run">已跑</span></td>
+          </tr>
+          <tr>
+            <td><b>ChEMBL</b></td>
+            <td>可成药性与活性 —— 靶点是否可配体化、用什么化学。</td>
+            <td>基因符号 / 靶点 / 化合物 ID。</td>
+            <td>靶点类别 + PDB 数、配体及 IC50/Ki/Kd + pChEMBL、ADMET。</td>
+            <td><span class="tag run">已跑</span></td>
+          </tr>
+          <tr>
+            <td><b>PubMed / bioRxiv</b></td>
+            <td>疾病机制地图;每个候选的功能/遗传学证据。</td>
+            <td>查询字符串。</td>
+            <td>排序文献(PMID / DOI)+ 摘要。</td>
+            <td><span class="tag run">已跑</span></td>
+          </tr>
+          <tr>
+            <td><b>ClinicalTrials.gov</b></td>
+            <td>竞争格局 / 新颖性闸门 —— 哪些机制已拥挤。</td>
+            <td>病种 / 干预 / 期别。</td>
+            <td>在研试验及申办方、期别、机制。</td>
+            <td><span class="tag run">已跑</span></td>
+          </tr>
+          <tr>
+            <td><b>Claude</b></td>
+            <td>编排 —— 选适应症、定义状态、编写/调试 GPU 任务、权衡证据、汇总档案。</td>
+            <td>以上全部。</td>
+            <td>排序后的靶点档案。</td>
+            <td><span class="tag run">已跑</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <span class="sec-num">03 · 结果 · 引擎</span>
+    <h2>微调让 goal-shift 变得可验证</h2>
+    <p>第一版直接用预训练模型,结果<em>有方向但偏噪声</em>。用 2 倍细胞微调出一个疾病分类器后,
+      模型获得了“纤维化↔正常”的学习到的判别边界 —— 排名随即变得符合生物学。</p>
+
+    <div class="grid2">
+      <div class="card"><div class="stat">94.9%</div><div class="lab">分类器准确率</div><div class="sub">纤维化 vs 正常,16k 细胞,macro-F1 0.949</div></div>
+      <div class="card"><div class="stat">~10×</div><div class="lab">信号强于首版</div><div class="sub">位移量级 1e-4 vs 1e-5</div></div>
+      <div class="card"><div class="stat">6 / 6</div><div class="lab">白区候选全为正</div><div class="sub">敲除均把细胞推向正常</div></div>
+    </div>
+
+    <p><b>最关键的验证:</b>已知纤维化效应基因升到顶部,管家基因沉到底部 —— 对照组表现正常,
+      而这正是首版无法做到的。</p>
+    <div class="scroll">
+      <table>
+        <thead><tr>
+          <th>基因</th><th>类别</th><th class="num">→ 正常位移</th><th>解读</th>
+        </tr></thead>
+        <tbody>
+          <tr><td><code>FAP</code></td><td>已知效应</td><td class="good">+1.82e-4</td><td>成纤维细胞活化蛋白 —— 正确的头名</td></tr>
+          <tr><td><code>POSTN</code></td><td>已知效应</td><td class="good">+1.37e-4</td><td>骨膜蛋白 —— 纤维化核心</td></tr>
+          <tr><td><code>CTHRC1</code></td><td>已知效应</td><td class="good">+1.04e-4</td><td>病理成纤维标志</td></tr>
+          <tr><td><code>TWIST1</code></td><td class="white">白区</td><td class="good">+7.9e-5</td><td>成纤维命运转录因子</td></tr>
+          <tr><td><code>PTGES</code></td><td class="white">白区</td><td class="good">+7.7e-5</td><td>mPGES-1 —— 可成药酶</td></tr>
+          <tr><td><code>TGFB1</code></td><td>已知效应</td><td class="good">+6.1e-5</td><td>纤维化主控细胞因子</td></tr>
+          <tr><td><code>SFRP2</code></td><td class="white">白区</td><td class="good">+2.0e-5</td><td>为正;预训练版曾排第 1</td></tr>
+          <tr><td><code>GAPDH</code></td><td>管家</td><td class="bad">−3.9e-6</td><td>对照 —— 近零/为负</td></tr>
+          <tr><td><code>B2M</code></td><td>管家</td><td class="bad">−2.7e-5</td><td>对照 —— 为负</td></tr>
+          <tr><td><code>ACTB</code></td><td>管家</td><td class="bad">−1.0e-4</td><td>对照 —— 最负</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="foot">Geneformer 微调 CellClassifier · 纤维化→正常虚拟敲除 · 200 扰动细胞 · 完整表见 data/geneformer_goalshift_finetuned.csv</p>
+  </section>
+
+  <section>
+    <span class="sec-num">04 · 结果 · 可成药性</span>
+    <h2>把“靶点”变成“可攻击的靶点”</h2>
+    <div class="grid2">
+      <div class="card">
+        <h3 style="margin-top:0">PTGES / mPGES-1</h3>
+        <p style="margin:.2rem 0;font-size:.9rem">小分子路线。ChEMBL 最优 IC50 <b>1&nbsp;nM</b>,
+          LE 0.40–0.46,17 个共晶 PDB。Boltz 三聚体证实抑制剂位于明确的亚基间口袋
+          (protein-iPTM <b>0.987</b>,界面误差 3.1→1.35&nbsp;Å)。7 化合物筛选把活性物
+          (opt-score 0.28–0.42)与诱饵(0.00–0.01)干净分开。</p>
+      </div>
+      <div class="card">
+        <h3 style="margin-top:0">MDK / 中期因子</h3>
+        <p style="margin:.2rem 0;font-size:.9rem">生物药路线。ChEMBL 里 nM 级结合物只有硫酸化
+          糖模拟物;Boltz apo 结构柔性、无深口袋 —— 应作为分泌因子去中和,而非小分子靶点。</p>
+      </div>
+    </div>
+
+    <div class="call">
+      <h3>SFRP2 —— 模型提名与人体生物学的交汇</h3>
+      <p style="margin:.3rem 0">预训练引擎的头名,据 PubMed 是 IPF 中
+        <b>异常基底样(aberrant-basaloid)转变的因果驱动者</b>:一个 TGF-β1 成纤维靶基因,
+        经 Frizzled-5 开启 KRT5+ 基底细胞程序
+        (<a href="https://doi.org/10.1172/JCI174598">Cohen 等,J&nbsp;Clin&nbsp;Invest 2024</a>),
+        并标记肌成纤维前体
+        (<a href="https://doi.org/10.1038/s41467-021-24607-6">Tabib 等,Nat&nbsp;Commun 2021</a>)。
+        分泌型、ChEMBL 零配体 → 生物药。Boltz 设计了 10 个抗 SFRP2 纳米抗体,最优界面
+        iPTM <b>0.83</b>(相互作用 PAE 3.1&nbsp;Å)—— 可供实验验证的起点 binder。</p>
+    </div>
+
+    <h3>新颖性闸门</h3>
+    <p>IPF 现有 <b>55</b> 项在研 Ph2/3。已拥挤的机制 —— PDE4B、LPA1、整合素 αvβ6、ROCK2、
+      CSF1R、TG2 —— 会被降权,让流水线把注意力留给 first-in-class 白区。</p>
+  </section>
+
+  <section>
+    <span class="sec-num">05 · 复用</span>
+    <h2>迁移到新适应症</h2>
+    <p>流水线与病种无关。只有 4 处随病种变;其余(tokenizer、模型、Boltz 调用、打分)原样复用。</p>
+    <ol class="play">
+      <li><div><b>Landscape</b> <span class="d">—— ClinicalTrials <code>search_trials(condition)</code> → 拥挤靶点清单;PubMed/bioRxiv → 机制图与候选基因;ChEMBL <code>drug_search(indication)</code> → 已知靶点。</span></div></li>
+      <li><div><b>数据</b> <span class="d">—— 跑 <code>inspect_census</code> 找到该病在 Census 的确切 disease 标签、dataset_id 与细胞谱系(每个病都不同)。改 <code>PF_DATASET</code>、<code>LINEAGE</code>、<code>STATES</code>;跑 <code>fetch_ipf_data</code>。</span></div></li>
+      <li><div><b>引擎</b> <span class="d">—— <code>tokenize</code> → <code>finetune</code> 疾病分类器 → <code>perturb_targeted</code>(或全基因组)→ <code>read_shifts</code>。</span></div></li>
+      <li><div><b>可成药性与档案</b> <span class="d">—— Top 命中过 ChEMBL、Boltz 结构/筛选/设计、PubMed;汇总排序档案。</span></div></li>
+    </ol>
+    <p class="foot">随病种变的仅:ClinicalTrials/PubMed 查询 · Census disease 标签 + dataset_id + 谱系 · STATES 起始标签 · 候选基因清单</p>
+  </section>
+
+  <section>
+    <span class="sec-num">06 · 说明</span>
+    <h2>算力、成本与诚实的边界</h2>
+    <div class="grid2">
+      <div class="card"><div class="lab">算力</div><p style="margin:.4rem 0 0;font-size:.9rem">Modal —— T4(模型冒烟)、A100(扰动、微调)。镜像 + 418 MB 权重缓存在 Volume。</p></div>
+      <div class="card"><div class="lab">Boltz 花费</div><p style="margin:.4rem 0 0;font-size:.9rem">共计约 &lt;$1:结构预测、抑制剂筛选、10 个纳米抗体设计。</p></div>
+    </div>
+    <h3>哪些可信,哪些不宜过度解读</h3>
+    <ul class="tight">
+      <li>微调后的排名在<b>方向上达可验证级</b>:效应基因居顶、对照沉底。但绝对量级很小,并非标定过的亲和力。</li>
+      <li>目标扰动只覆盖候选集,而非全基因组 —— 全基因组分类器扫描是下一步扩规模(需更多 GPU 预算)。</li>
+      <li>SFRP2 是一个<b>有强独立支持的假设</b>,而非已验证的药物靶点;纳米抗体是计算设计,供湿实验分诊。</li>
+      <li>每个 GPU 阶段都经过真实调试(权重下载、transformers 版本锁定、CUDA-fork、张量放置)—— 全部固化进已提交代码,重跑即干净。</li>
+    </ul>
+  </section>
+
+  <p class="foot" style="padding:1.5rem 0">全部代码、数据、档案、报告见分支
+    <code>claude/drug-target-discovery-t5dgtl</code> · 流水线在
+    <code>target-discovery/modal/perturb_app.py</code></p>
+</div>
