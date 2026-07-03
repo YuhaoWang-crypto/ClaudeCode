@@ -1,0 +1,175 @@
+<title>模型/工具 I/O 参考 + 新适应症迁移手册</title>
+<style>
+  :root{
+    --bg:#f7f8fa; --panel:#ffffff; --ink:#1a1f2b; --muted:#5c6675; --line:#e4e8ee;
+    --accent:#3b6ef5; --accent2:#12a594; --warn:#c9740a; --chip:#eef1f6;
+    --gen:#12a594; --nuc:#3b6ef5; --mech:#8a5cf6; --ev:#c9740a; --orc:#d1435b;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#0f1319; --panel:#161b24; --ink:#e8ecf3; --muted:#9aa5b5; --line:#252c38;
+      --accent:#6b93ff; --accent2:#2bd4bd; --warn:#e0902f; --chip:#1e2530;
+      --gen:#2bd4bd; --nuc:#6b93ff; --mech:#a78bfa; --ev:#e0902f; --orc:#ff6b83;
+    }
+  }
+  :root[data-theme="dark"]{
+      --bg:#0f1319; --panel:#161b24; --ink:#e8ecf3; --muted:#9aa5b5; --line:#252c38;
+      --accent:#6b93ff; --accent2:#2bd4bd; --warn:#e0902f; --chip:#1e2530;
+      --gen:#2bd4bd; --nuc:#6b93ff; --mech:#a78bfa; --ev:#e0902f; --orc:#ff6b83;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.62 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"PingFang SC","Microsoft YaHei",sans-serif;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1080px;margin:0 auto;padding:40px 22px 80px}
+  header.hero{border:1px solid var(--line);background:linear-gradient(135deg,var(--panel),transparent);border-radius:16px;padding:28px 26px;margin-bottom:24px}
+  h1{font-size:25px;margin:0 0 6px;letter-spacing:-.02em}
+  .sub{color:var(--muted);margin:0}
+  h2{font-size:19px;margin:34px 0 6px;letter-spacing:-.01em;display:flex;align-items:center;gap:9px}
+  h2 .dot{width:11px;height:11px;border-radius:3px;display:inline-block}
+  section{border-top:1px solid var(--line);padding-top:8px}
+  p{margin:9px 0}
+  .scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:12px 0}
+  table{border-collapse:collapse;width:100%;font-size:13.4px;min-width:720px}
+  th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{color:var(--muted);font-weight:600;font-size:11.5px;text-transform:uppercase;letter-spacing:.03em;background:var(--panel);position:sticky;top:0}
+  td.n{font-weight:600;white-space:nowrap}
+  .io td:nth-child(2){color:var(--ink)}
+  .io td:nth-child(3),.io td:nth-child(4){color:var(--muted)}
+  code{background:var(--chip);border:1px solid var(--line);border-radius:5px;padding:1px 5px;font-size:12.5px}
+  a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}
+  .flowbox{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px;margin:14px 0;overflow-x:auto}
+  pre{margin:0;font:12.5px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--ink);white-space:pre}
+  .note{border-left:3px solid var(--accent2);padding:9px 14px;background:var(--chip);border-radius:0 8px 8px 0;font-size:13.6px;margin:14px 0}
+  .steps{counter-reset:s;list-style:none;padding:0;margin:10px 0}
+  .steps li{counter-increment:s;position:relative;padding:6px 0 6px 34px;border-bottom:1px solid var(--line)}
+  .steps li::before{content:counter(s);position:absolute;left:0;top:6px;width:22px;height:22px;border-radius:50%;background:var(--accent);color:#fff;font-size:12px;font-weight:700;display:grid;place-items:center}
+  .tag{display:inline-block;font-size:11px;font-weight:600;border-radius:5px;padding:1px 7px;color:#fff}
+  footer{margin-top:36px;color:var(--muted);font-size:12.5px;border-top:1px solid var(--line);padding-top:14px}
+</style>
+
+<div class="wrap">
+<header class="hero">
+  <h1>模型 / 工具 I/O 参考 + 新适应症迁移手册</h1>
+  <p class="sub">每个采用的模型：<b>用途 · 输入 · 输出</b>；末尾是把整套流程搬到任意新适应症的通用操作步骤。</p>
+</header>
+
+<section>
+<h2><span class="dot" style="background:var(--gen)"></span>1 · 基础模型层（生成候选）</h2>
+<div class="scroll"><table class="io">
+<tr><th>模型</th><th>用途</th><th>输入</th><th>输出</th></tr>
+<tr><td class="n">Geneformer <span class="tag" style="background:var(--gen)">核心</span></td>
+  <td>单细胞上下文嵌入；<b>de novo 细胞态发现</b>、疾病/应答分型、<b>in-silico 扰动</b>定位驱动基因、网络中心性</td>
+  <td>scRNA 计数矩阵（细胞×基因，<b>Ensembl ID</b> + <code>n_counts</code>），rank-value 编码（表达/中位数 降序取 token，截断 2048）；可选细胞标签</td>
+  <td>每细胞嵌入（V1-10M=256维）；聚类/细胞态标签；扰动"状态位移分"；（微调后）分类预测</td></tr>
+<tr><td class="n">ESM-2 / AMPLIFY</td>
+  <td>变异效应预测（VEP，零样本）、蛋白功能/家族嵌入、抗原性辅助</td>
+  <td>蛋白氨基酸序列（野生型 + 变异型），或仅序列</td>
+  <td>每残基/序列嵌入；<b>变异有害性分</b>（wt vs mut 掩码 LM 伪对数似然差 Δpll）</td></tr>
+</table></div>
+<div class="note"><b>Geneformer 落地要点</b>：词表须与模型匹配（V1↔gc30M，V2↔gc104M）；按供体/中心分层防批次效应；<b>需真实 scRNA 才有真实信号</b>——合成随机基因无共表达结构，预训练嵌入不会分离（见 <code>geneformer-gpu-run-results.md</code>）。</div>
+</section>
+
+<section>
+<h2><span class="dot" style="background:var(--nuc)"></span>2 · PROTO（核酸/调控层平台）</h2>
+<p>PROTO = 生物学"高级编程语言"，把多个核酸模型编排成"设计+打分"流程。biomarker 挖掘里角色 = <b>候选基因的调控/剪接变异功能验证</b>（判断"基因型层通路激活度"）。文档：<a href="https://proto.evodesign.org">proto.evodesign.org</a></p>
+<div class="scroll"><table class="io">
+<tr><th>子模型</th><th>用途</th><th>输入</th><th>输出</th></tr>
+<tr><td class="n">Evo2</td><td>基因组 DNA FM；非编码/调控变异效应、序列打分/生成</td><td>DNA 序列窗口（ref/alt，变异居中）</td><td>序列似然 / 调控影响分</td></tr>
+<tr><td class="n">AlphaGenome / Enformer / Borzoi</td><td>序列→功能：表达、染色质可及性预测</td><td>DNA 窗口（以变异/位点居中）</td><td>调控轨迹预测；ref−alt 差 = 变异效应</td></tr>
+<tr><td class="n">SpliceAI / Pangolin</td><td>剪接改变预测</td><td>DNA 序列 + 变异位置</td><td>剪接改变概率（供/受体位点增益/丢失 Δ）</td></tr>
+<tr><td class="n">ViennaRNA</td><td>RNA 二级结构</td><td>RNA 序列</td><td>最小自由能结构、碱基配对概率</td></tr>
+<tr><td class="n">PROTO 整体</td><td>设计/打分核酸序列（启动子、调控元件）</td><td>序列(DNA/RNA)、变异、约束</td><td>每变异功能影响分（表达/染色质/剪接）；优化序列</td></tr>
+</table></div>
+</section>
+
+<section>
+<h2><span class="dot" style="background:var(--mech)"></span>3 · 机制验证与配对层</h2>
+<div class="scroll"><table class="io">
+<tr><th>工具</th><th>用途</th><th>输入</th><th>输出</th></tr>
+<tr><td class="n">Boltz</td><td>结构 + 结合亲和力共折叠；变异后果/耐药机制背书</td><td>蛋白序列(+配体/伙伴)，可选变异</td><td>3D 结构、结合亲和力/置信度；ref vs mut 结构改变</td></tr>
+<tr><td class="n">EDEN</td><td>免疫原性预测、抗菌肽生成</td><td>肽/蛋白序列</td><td>免疫原性分；生成的 AMP 序列</td></tr>
+<tr><td class="n">Inductive Bio</td><td>小分子性质（ADMET 类）预测</td><td>分子（SMILES）</td><td>预测性质（吸收/代谢/毒性…）</td></tr>
+<tr><td class="n">ChEMBL</td><td>靶点/活性/药物/机制库；可成药性、CDx 配对</td><td>化合物/靶点/适应症查询</td><td>靶点、活性(IC50/Ki)、机制、药物、ADMET</td></tr>
+</table></div>
+</section>
+
+<section>
+<h2><span class="dot" style="background:var(--ev)"></span>4 · 证据与临床数据层</h2>
+<div class="scroll"><table class="io">
+<tr><th>工具</th><th>用途</th><th>输入</th><th>输出</th></tr>
+<tr><td class="n">PubMed</td><td>已知 biomarker、机制、新颖性核查、证据三角</td><td>检索词 / PMID</td><td>文章元数据 + 摘要 + <b>DOI</b>（须署名）</td></tr>
+<tr><td class="n">bioRxiv / medRxiv</td><td>最新预印本、研究趋势</td><td>日期 / 领域 / DOI</td><td>预印本元数据、全文</td></tr>
+<tr><td class="n">ClinicalTrials.gov</td><td>竞争基线、入组、终点、验证队列</td><td>适应症 / 干预 / 申办方</td><td>试验（设计/终点/入组/NCT）</td></tr>
+</table></div>
+</section>
+
+<section>
+<h2><span class="dot" style="background:var(--orc)"></span>5 · 编排与算力</h2>
+<div class="scroll"><table class="io">
+<tr><th>组件</th><th>用途</th><th>输入</th><th>输出</th></tr>
+<tr><td class="n">Claude</td><td>编排全流程、证据三角、候选排序、生成证据卡片/评分卡/代码</td><td>上述所有</td><td>候选 panel、<code>candidates.yaml</code>、评分卡、报告、脚本</td></tr>
+<tr><td class="n">Modal</td><td>无服务器 GPU（跑 Geneformer 等）</td><td>Python app + 数据</td><td>运行结果（嵌入/报告）</td></tr>
+</table></div>
+</section>
+
+<section>
+<h2>6 · 数据在模型间的流动</h2>
+<div class="flowbox"><pre>       临床问题(BEST类别) + 对比组
+                 │
+   ┌─────────────┼───────────────┬───────────────┐
+   ▼             ▼               ▼               ▼
+基因组变异     scRNA计数        蛋白序列         已知证据
+   │             │               │               │
+ESM-2 VEP     Geneformer      ESM-2/Boltz     PubMed/Trials
+ (Δpll)      (细胞态/嵌入)    (功能/结构)     (基线/新颖性)
+   │             │               │               │
+   └── PROTO ────┘               │               │
+   (Evo2/AlphaGenome/SpliceAI    │               │
+    非编码变异功能分)             │               │
+                 └───────┬───────┴───────┬───────┘
+                         ▼               ▼
+                  多模态交叉印证 →  Claude 证据三角
+                         │
+                         ▼
+       组合评分卡（每机制一个应答概率 + 疾病负荷趋势）</pre></div>
+</section>
+
+<section>
+<h2>7 · 迁移到新适应症：通用手册</h2>
+<p>整套流程与代码<b>与适应症无关</b>，六步不变，只换 6 样东西。</p>
+<h3 style="font-size:15px;margin:16px 0 6px">六步流程</h3>
+<ol class="steps">
+  <li><b>定义问题</b>：选适应症 + 1–2 个 BEST 类别 + <b>明确对比组</b>（responder vs NR / progressor vs stable / disease vs healthy）</li>
+  <li><b>证据接地</b>：PubMed/bioRxiv/Trials/ChEMBL → 已知 biomarker、竞争基线、新颖性缺口</li>
+  <li><b>候选生成</b>：Geneformer（scRNA 细胞态）+ ESM-2 VEP（编码变异）+ PROTO（调控变异）</li>
+  <li><b>机制过滤</b>：Boltz / EDEN / ChEMBL</li>
+  <li><b>临床筛</b>：新颖性 / 可及性 / 临床对齐 三门槛</li>
+  <li><b>组合评分卡</b> + 前瞻验证</li>
+</ol>
+<h3 style="font-size:15px;margin:18px 0 6px">换掉的 6 样（其余代码不动）</h3>
+<div class="scroll"><table>
+<tr><th>#</th><th>换什么</th><th>从哪找</th><th>对应文件</th></tr>
+<tr><td>1</td><td>适应症 + 对比组</td><td>临床问题</td><td>各 panel meta</td></tr>
+<tr><td>2</td><td>scRNA/组学数据集</td><td>GEO、Single Cell Portal、<b>CELLxGENE</b>、HCA</td><td><code>scRNA_datasets.md</code></td></tr>
+<tr><td>3</td><td>机制/药物类别</td><td>该病在研药 → Trials/ChEMBL</td><td><code>candidates.yaml</code></td></tr>
+<tr><td>4</td><td>疾病特异基因模块</td><td>文献 + de novo 发现</td><td><code>geneformer_denovo_discovery.py</code></td></tr>
+<tr><td>5</td><td>候选变异清单</td><td>GWAS Catalog / Open Targets</td><td><code>proto_variants_*.tsv</code></td></tr>
+<tr><td>6</td><td>验证队列</td><td>该适应症 Trials（NCT）</td><td>各 panel validation_cohort</td></tr>
+</table></div>
+<h3 style="font-size:15px;margin:18px 0 6px">两个迁移示例</h3>
+<div class="scroll"><table>
+<tr><th>环节</th><th>例A：NSCLC 免疫治疗</th><th>例B：MASH/NASH（肝）</th></tr>
+<tr><td class="n">BEST 重心</td><td>Predictive/CDx（超越 PD-L1/TMB）</td><td>Diagnostic + Prognostic（纤维化进展）</td></tr>
+<tr><td class="n">对比组</td><td>ICI 应答 vs 原发耐药</td><td>进展性纤维化 vs 稳定</td></tr>
+<tr><td class="n">scRNA 数据</td><td>肿瘤/免疫 scRNA（GEO/CELLxGENE）</td><td>肝 scRNA 图谱</td></tr>
+<tr><td class="n">疾病模块</td><td>T 细胞耗竭 / 抗原呈递</td><td>星状细胞活化 / 纤维化程序</td></tr>
+<tr><td class="n">变异清单</td><td>HLA / JAK 通路</td><td>PNPLA3 / TM6SF2 / HSD17B13</td></tr>
+<tr><td class="n">机制类别</td><td>anti-PD1 / anti-CTLA4 / LAG3</td><td>FGF21 / THRβ / GLP1</td></tr>
+<tr><td class="n">验证队列</td><td>ICI 试验 NCT</td><td>MASH 试验 NCT</td></tr>
+</table></div>
+<div class="note"><b>核心不变</b>：按 BEST 定义问题 → 三条组学腿并行生成候选 → Geneformer 扰动 + Boltz/EDEN 机制过滤 → Trials/PubMed 新颖性与临床筛 → <b>多模态交叉印证</b>组合成评分卡。多模态交叉印证是降假阳性的通用关键。</div>
+</section>
+
+<footer>
+文献/数据引用来自 PubMed 与 ClinicalTrials.gov（见各配套文件的 DOI/NCT）。模型：<code>ctheodoris/Geneformer</code>、ESM-2、PROTO（proto.evodesign.org，集成 Evo2/AlphaGenome 等）、Boltz、EDEN、ChEMBL。配套：<code>models-io-reference.md</code> · <code>report.html</code> · <code>candidates.yaml</code>
+</footer>
+</div>
