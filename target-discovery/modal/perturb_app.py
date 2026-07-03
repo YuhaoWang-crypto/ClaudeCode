@@ -216,6 +216,77 @@ def tokenize(n_hvg: int = 256):
     return {"n_cells": ds.num_rows, "n_hvg": len(hvg), "cols": ds.column_names}
 
 
+@app.function(image=gf_image, volumes={DATA_DIR: data_vol, MODEL_DIR: model_vol},
+              gpu="A10G", timeout=3600)
+def perturb(max_ncells: int = 500):
+    """In-silico deletion of HVGs; rank by shift of fibrosis->normal state.
+
+    Pretrained-model goal-state workflow:
+      EmbExtractor.get_state_embs  -> mean embeddings of each disease state
+      InSilicoPerturber.perturb_data (delete each HVG in fibrosis cells)
+      InSilicoPerturberStats(goal_state_shift) -> per-gene Shift_to_goal_end
+    """
+    import json
+    import os
+    import pandas as pd
+    from geneformer import (EmbExtractor, InSilicoPerturber,
+                            InSilicoPerturberStats)
+
+    med, tok, mapf = _gc104m_dicts()
+    gene_name_id = tok.replace("token_dictionary", "gene_name_id_dict")
+    model_dir = f"{MODEL_DIR}/Geneformer/{CKPT}"
+    hvg = json.load(open(HVG_JSON))
+    os.makedirs(PERT_OUT, exist_ok=True)
+
+    # 1) state embeddings (mean cell embedding per disease state)
+    embex = EmbExtractor(
+        model_type="Pretrained", num_classes=0, emb_mode="cell",
+        cell_emb_style="mean_pool", max_ncells=1000, forward_batch_size=32,
+        nproc=4, token_dictionary_file=tok,
+    )
+    state_embs = embex.get_state_embs(
+        cell_states_to_model=STATES, model_directory=model_dir,
+        input_data_file=DATASET, output_directory=PERT_OUT,
+        output_prefix="state_embs",
+    )
+    print("[1/3] state embeddings computed for:", list(state_embs.keys()))
+
+    # 2) in-silico deletion of the HVG set in fibrosis cells
+    isp = InSilicoPerturber(
+        perturb_type="delete", genes_to_perturb=hvg, combos=0,
+        model_type="Pretrained", num_classes=0, emb_mode="cell",
+        cell_emb_style="mean_pool", cell_states_to_model=STATES,
+        state_embs_dict=state_embs, max_ncells=max_ncells,
+        forward_batch_size=32, nproc=4, token_dictionary_file=tok,
+    )
+    isp.perturb_data(model_directory=model_dir, input_data_file=DATASET,
+                     output_directory=PERT_OUT, output_prefix="ipf_delete")
+    print("[2/3] perturbation done")
+
+    # 3) aggregate to per-gene goal-state shift
+    isps = InSilicoPerturberStats(
+        mode="goal_state_shift", genes_perturbed=hvg,
+        cell_states_to_model=STATES, token_dictionary_file=tok,
+        gene_name_id_dictionary_file=gene_name_id,
+    )
+    isps.get_stats(input_data_directory=PERT_OUT, null_dist_data_directory=None,
+                   output_directory=PERT_OUT, output_prefix="ipf_goalshift")
+    data_vol.commit()
+
+    stats_csv = f"{PERT_OUT}/ipf_goalshift.csv"
+    df = pd.read_csv(stats_csv)
+    print("[3/3] stats columns:", list(df.columns))
+    col = "Shift_to_goal_end"
+    if col in df:
+        top = df.sort_values(col, ascending=False).head(20)
+        print("\n== TOP 20 goal-shift genes (KO pushes fibrosis -> normal) ==")
+        show = [c for c in ["Gene_name", "Ensembl_ID", col,
+                            "Goal_end_FDR", "Sig"] if c in df.columns]
+        print(top[show].to_string(index=False))
+    return {"stats_csv": stats_csv, "n_genes": len(df),
+            "columns": list(df.columns)}
+
+
 @app.local_entrypoint()
 def main():
-    print(tokenize.remote())
+    print(perturb.remote())
