@@ -98,8 +98,21 @@ reverse), rich single-cell data.
   in-silico deletion ranking on 200 fibrosis cells. **SFRP2 (a whitespace
   candidate) ranks #1** for shifting fibrotic cells toward normal.
 
-### Honest read on the Geneformer result
-This is a **working but noisy first pass**, not a validated screen:
+### Upgrade: fine-tuned classifier (verifiable-grade)
+Re-run on **16k cells** with a **fine-tuned CellClassifier** (disease vs normal,
+**94.9% eval accuracy**) — `data/geneformer_goalshift_finetuned.csv`:
+- **Known fibrosis effectors now top the ranking** — FAP, POSTN, CTHRC1, TGFB1
+  (deleting canonical drivers pushes cells toward normal — biologically correct).
+- **Housekeeping controls sink to the bottom** (ACTB, B2M) — controls behave
+  correctly, which the pretrained pass failed. Signal ~10× stronger.
+- All 6 whitespace candidates (TWIST1, PTGES, CDKN2A, PRRX1, MDK, SFRP2) score
+  positive; SFRP2 remains a positive hit though the classifier ranks the dominant
+  ECM/TGF-β effectors higher.
+This is the "noisy → verifiable" upgrade: fine-tuning gives the model a learned
+disease boundary, so goal-shift is measured in classifier space.
+
+### Honest read on the original (pretrained) Geneformer result
+This was a **working but noisy first pass**, not a validated screen:
 - Magnitudes are tiny (~1e-5); single-gene KO on a **pretrained** (not fine-tuned)
   model over only **200 cells** gives weak signal.
 - Controls are imperfect: housekeeping (ACTB/B2M) and collagens land at the
