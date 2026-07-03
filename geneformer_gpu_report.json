@@ -1,0 +1,33 @@
+{
+  "backend": "geneformer_gpu",
+  "device": "cuda",
+  "model_class": "BertModel",
+  "model_dir": "Geneformer-V1-10M",
+  "n_cells": 1200,
+  "emb_dim": 256,
+  "k_states": 4,
+  "silhouette": 0.048,
+  "inflammatory_state_cluster": 0,
+  "state_summary": {
+    "0": {
+      "n": 318,
+      "mean_infl_token_frac": 0.0659,
+      "inflamed_frac": 0.528
+    },
+    "1": {
+      "n": 301,
+      "mean_infl_token_frac": 0.063,
+      "inflamed_frac": 0.475
+    },
+    "2": {
+      "n": 268,
+      "mean_infl_token_frac": 0.0637,
+      "inflamed_frac": 0.485
+    },
+    "3": {
+      "n": 313,
+      "mean_infl_token_frac": 0.0649,
+      "inflamed_frac": 0.508
+    }
+  }
+}
