@@ -378,6 +378,68 @@ def perturb_targeted(max_ncells: int = 200):
             "columns": list(df.columns)}
 
 
+FT_OUT = f"{DATA_DIR}/finetune"
+FT_MODEL = f"{DATA_DIR}/ft_model"
+
+
+@app.function(image=gf_image, volumes={DATA_DIR: data_vol, MODEL_DIR: model_vol},
+              gpu="A100", timeout=3600)
+def finetune(epochs: float = 1.0):
+    """Fine-tune a Geneformer CellClassifier on disease (fibrosis vs normal).
+
+    A fine-tuned classifier gives InSilicoPerturber a learned decision boundary,
+    so goal-shift is measured in classifier space (cleaner than raw pretrained
+    embedding cosine). Run after re-tokenizing a larger cell set.
+    """
+    import os
+    import shutil
+    from geneformer import Classifier
+
+    med, tok, mapf = _gc104m_dicts()
+    model_dir = f"{MODEL_DIR}/Geneformer/{CKPT}"
+    if os.path.exists(FT_OUT):
+        shutil.rmtree(FT_OUT)
+    os.makedirs(FT_OUT, exist_ok=True)
+
+    cc = Classifier(
+        classifier="cell",
+        cell_state_dict={"state_key": "disease",
+                         "states": ["pulmonary fibrosis", "normal"]},
+        training_args={"num_train_epochs": epochs, "learning_rate": 5e-5,
+                       "per_device_train_batch_size": 8,
+                       "per_device_eval_batch_size": 8, "seed": 42,
+                       "weight_decay": 0.001, "warmup_steps": 100,
+                       "logging_steps": 50},
+        freeze_layers=4, num_crossval_splits=1, forward_batch_size=16,
+        nproc=4, token_dictionary_file=tok,
+    )
+    cc.prepare_data(input_data_file=DATASET, output_directory=FT_OUT,
+                    output_prefix="ipf_cc")
+    metrics = cc.validate(
+        model_directory=model_dir,
+        prepared_input_data_file=f"{FT_OUT}/ipf_cc_labeled.dataset",
+        id_class_dict_file=f"{FT_OUT}/ipf_cc_id_class_dict.pkl",
+        output_directory=FT_OUT, output_prefix="ipf_cc", split_id_dict=None,
+    )
+    # locate the datestamped fine-tuned model dir and stabilize its path
+    cands = [r for r, _, fs in os.walk(FT_OUT)
+             if "config.json" in fs
+             and any(f.startswith("model") or f.endswith(".safetensors")
+                     for f in fs)]
+    print("fine-tuned model candidates:", cands)
+    if cands:
+        if os.path.exists(FT_MODEL):
+            shutil.rmtree(FT_MODEL)
+        shutil.copytree(cands[0], FT_MODEL)
+    data_vol.commit()
+    print("[done] fine-tuned model at", FT_MODEL)
+    try:
+        print("metrics:", metrics)
+    except Exception:
+        pass
+    return {"model": FT_MODEL, "candidates": cands}
+
+
 @app.function(image=gf_image, volumes={DATA_DIR: data_vol}, timeout=300)
 def read_shifts():
     """Compute per-gene goal-shift directly from the raw perturbation pickles."""
