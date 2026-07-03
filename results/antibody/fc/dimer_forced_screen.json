@@ -1,0 +1,8 @@
+{"job":"prot_scr_4s6KLQcbz1pJxLPPCipD","note":"scFv-Fc HOMODIMER (chains A+B), epitope-forced, +K20 lipid",
+ "results":{
+  "spec4_scFvFc_dimer":{"bind":3.4e-6,"struct":2.4e-8,"iptm":0.528,"ipae":11.28},
+  "A8Y_scFvFc_dimer":{"bind":5.6e-7,"struct":2.2e-9,"iptm":0.429,"ipae":15.01},
+  "WT_scFvFc_dimer":{"bind":1.7e-6,"struct":1.1e-8,"iptm":0.479,"ipae":13.07},
+  "A9Y_scFvFc_dimer":{"bind":5.3e-6,"struct":5.3e-8,"iptm":0.501,"ipae":13.25},
+  "spec7_scFvFc_dimer":{"bind":1.6e-6,"struct":9.3e-9,"iptm":0.413,"ipae":13.09}},
+ "verdict":"uniform collapse to ~0 for ALL constructs -> whole-antibody co-fold is non-discriminative (artifact), not loss of binding"}

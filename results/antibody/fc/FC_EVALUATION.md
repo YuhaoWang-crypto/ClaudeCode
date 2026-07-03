@@ -66,3 +66,28 @@ help. To *quantify* the Fc-format binding, the right tools are **experiment**
 (express scFv-Fc / IgG1, measure by SPR/BLI — avidity included) or MD of the
 **Fv + peptide** (done); whole-antibody static co-folding is not a valid readout.
 Recommended lead format: **A8Y (or A9Y) as scFv-Fc or full IgG1** (λ light).
+
+---
+
+## Follow-up: all 5 MM/GBSA-top binders as scFv-Fc HOMODIMER (epitope-forced, +lipid)
+Job `prot_scr_4s6KLQcbz1pJxLPPCipD` — each candidate = scFv-Fc dimer (chains A+B) vs modified Tirzepatide.
+
+| construct (dimer) | binding_conf | structure_conf | ipTM | bare-scFv bind (valid ref) |
+|---|---|---|---|---|
+| spec4_scFvFc | 3.4e-6 | 2.4e-8 | 0.53 | 0.714 |
+| A9Y_scFvFc | 5.3e-6 | 5.3e-8 | 0.50 | 0.621 |
+| WT_scFvFc | 1.7e-6 | 1.1e-8 | 0.48 | 0.638 |
+| spec7_scFvFc | 1.6e-6 | 9.3e-9 | 0.41 | 0.623 |
+| A8Y_scFvFc | 5.6e-7 | 2.2e-9 | 0.43 | 0.664 |
+
+**All five collapse to binding_confidence ≈ 1e-6 / structure_confidence ≈ 1e-8 — uniformly, regardless of
+which binder.** This is a non-discriminative **artifact** of co-folding a ~980-residue flexible bivalent
+assembly (the two arms' orientation vs the Fc is unresolved → whole-complex confidence ≈ 0; earlier the
+A8Y dimer even mislocalised the peptide onto the Fc, not the CDRs). It is **not** evidence that any of them
+stop binding — the bare-scFv (paratope) values (last column) remain the valid readout and are all healthy.
+
+**Bottom line for "validate the 5 tops with human Fc":** Boltz whole-antibody co-folding cannot do it —
+it returns ~0 for every Fc construct. The Fc is distal to the paratope (separate module across the hinge),
+so per-arm binding = the bare-scFv result, unchanged; and the Fc adds bivalent avidity (a gain). To get a
+real Fc-format number, use MD of the dimer+peptide with a correct starting pose, or experiment (SPR/BLI on
+the expressed scFv-Fc / IgG1).
