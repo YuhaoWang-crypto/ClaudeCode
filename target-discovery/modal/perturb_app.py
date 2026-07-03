@@ -319,6 +319,8 @@ def perturb_targeted(max_ncells: int = 200, model_type: str = "Pretrained",
     gene_name_id = tok.replace("token_dictionary", "gene_name_id_dict")
     model_dir = model_path or f"{MODEL_DIR}/Geneformer/{CKPT}"
     n_classes = 2 if model_type == "CellClassifier" else 0
+    # classifier loads CUDA first; geneformer .map(nproc>1) then forks -> crash
+    nproc = 1 if model_type == "CellClassifier" else 4
     out = f"{DATA_DIR}/{out_name}"
     os.makedirs(out, exist_ok=True)
 
@@ -338,7 +340,7 @@ def perturb_targeted(max_ncells: int = 200, model_type: str = "Pretrained",
     # state embeddings (fibrosis vs normal), CLS mode for V2
     embex = EmbExtractor(model_type=model_type, num_classes=n_classes,
                          emb_mode="cls", max_ncells=1000, forward_batch_size=16,
-                         nproc=4, token_dictionary_file=tok,
+                         nproc=nproc, token_dictionary_file=tok,
                          summary_stat="exact_mean")
     state_embs = embex.get_state_embs(
         cell_states_to_model=STATES, model_directory=model_dir,
@@ -351,7 +353,7 @@ def perturb_targeted(max_ncells: int = 200, model_type: str = "Pretrained",
             perturb_type="delete", genes_to_perturb=[ens], combos=0,
             model_type=model_type, num_classes=n_classes, emb_mode="cls",
             cell_states_to_model=STATES, state_embs_dict=state_embs,
-            max_ncells=max_ncells, forward_batch_size=16, nproc=4,
+            max_ncells=max_ncells, forward_batch_size=16, nproc=nproc,
             token_dictionary_file=tok)
         isp.perturb_data(model_directory=model_dir, input_data_file=DATASET,
                          output_directory=out, output_prefix=f"pert_{sym}")
