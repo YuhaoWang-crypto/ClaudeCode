@@ -79,6 +79,89 @@ def inspect_census():
     return {"disease_labels": list(map(str, dz.head(30).index)), "fibrosis": fib}
 
 
+# Fibrosis lung atlas dataset in Census (from inspect_census).
+PF_DATASET = "9f222629-9e39-47d0-b83f-e08d610c7479"
+# Epithelial + fibroblast lineage = the whitespace compartments (basaloid proxy
+# = respiratory basal cell) plus a healthy epithelial/fibroblast reference.
+LINEAGE = [
+    "respiratory basal cell",
+    "pulmonary alveolar type 2 cell",
+    "pulmonary alveolar type 1 cell",
+    "myofibroblast cell",
+    "alveolar adventitial fibroblast",
+    "alveolar type 1 fibroblast cell",
+    "bronchus fibroblast of lung",
+    "epithelial cell of lower respiratory tract",
+]
+IPF_H5AD = f"{DATA_DIR}/ipf_lung_raw.h5ad"
+
+
+@app.function(image=data_image, volumes={DATA_DIR: data_vol}, timeout=2400)
+def fetch_ipf_data(max_per_state: int = 4000):
+    """Fetch raw-count fibrosis + normal cells (epithelial/fibroblast lineage)."""
+    import cellxgene_census
+    import numpy as np
+
+    lineage = "[" + ", ".join(f"'{c}'" for c in LINEAGE) + "]"
+    vf = (
+        f"dataset_id == '{PF_DATASET}' and "
+        f"disease in ['pulmonary fibrosis', 'normal'] and "
+        f"cell_type in {lineage}"
+    )
+    with cellxgene_census.open_soma(census_version="stable") as census:
+        adata = cellxgene_census.get_anndata(
+            census, organism="Homo sapiens", X_name="raw",
+            obs_value_filter=vf,
+            column_names={"obs": ["disease", "cell_type", "dataset_id"],
+                          "var": ["feature_id", "feature_name"]},
+        )
+    print(f"fetched {adata.n_obs:,} cells x {adata.n_vars:,} genes")
+    print("disease:\n", adata.obs["disease"].value_counts().to_string())
+
+    # If this dataset lacks normals, pull a normal reference from the same lineage.
+    if (adata.obs["disease"] == "normal").sum() < 200:
+        print("[info] few normals in dataset; pulling normal reference broadly")
+        vf_norm = (
+            f"tissue_general == 'lung' and disease == 'normal' and "
+            f"cell_type in {lineage}"
+        )
+        with cellxgene_census.open_soma(census_version="stable") as census:
+            norm = cellxgene_census.get_anndata(
+                census, organism="Homo sapiens", X_name="raw",
+                obs_value_filter=vf_norm,
+                column_names={"obs": ["disease", "cell_type", "dataset_id"],
+                              "var": ["feature_id", "feature_name"]},
+            )
+        import anndata as ad
+        # cap normals before concat to keep it bounded
+        if norm.n_obs > max_per_state:
+            idx = np.linspace(0, norm.n_obs - 1, max_per_state).astype(int)
+            norm = norm[idx].copy()
+        adata = ad.concat([adata[adata.obs["disease"] == "pulmonary fibrosis"], norm])
+
+    # Balanced subsample per disease state.
+    keep = []
+    for dz in ["pulmonary fibrosis", "normal"]:
+        idx = np.where(adata.obs["disease"].to_numpy() == dz)[0]
+        if len(idx) > max_per_state:
+            idx = np.random.RandomState(0).choice(idx, max_per_state, replace=False)
+        keep.append(idx)
+    keep = np.sort(np.concatenate(keep))
+    adata = adata[keep].copy()
+
+    # Geneformer needs Ensembl IDs + raw counts + n_counts.
+    adata.var["ensembl_id"] = adata.var["feature_id"].values
+    adata.obs["n_counts"] = np.asarray(adata.X.sum(axis=1)).ravel()
+    adata.obs["disease"] = adata.obs["disease"].astype(str)
+
+    adata.write_h5ad(IPF_H5AD)
+    data_vol.commit()
+    print(f"\n[done] wrote {IPF_H5AD}")
+    print("final disease balance:\n", adata.obs["disease"].value_counts().to_string())
+    print("final cell_type:\n", adata.obs["cell_type"].value_counts().to_string())
+    return {"n_obs": int(adata.n_obs), "n_vars": int(adata.n_vars)}
+
+
 @app.local_entrypoint()
 def main():
-    print(inspect_census.remote())
+    print(fetch_ipf_data.remote())
