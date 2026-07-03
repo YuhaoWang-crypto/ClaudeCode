@@ -67,6 +67,32 @@ pose + binding-affinity readout. The Boltz MCP tools are live in this session:
 `boltz_start_structure_and_binding` → `boltz_get_job_status/results`. Validate the
 peptide GLP-1 analog first as a positive control, then novel candidates.
 
+## Mined predicted data (already in the repo)
+
+Both "pre-predicted" databases you pointed to are queryable by UniProt and have
+been mined for GLP1R (`P43220`):
+
+- **DrugCLIP** (`data/targets/GLP1R/GLP1R_drugclip_predicted.csv`) — **173
+  predicted small-molecule binders** (93 Enamine REAL + 80 ZINC, both
+  purchasable), each with a DrugCLIP retrieval score (4.9–7.3), an AutoDock
+  docking score, the binding pocket, and its nearby residues (e.g. TYR250,
+  GLU262, CYS174). These are ready-made small-molecule targeting candidates and a
+  strong independent cross-check against our ChEMBL actives.
+  Rebuild: `python scripts/fetch_drugclip.py --uniprot P43220 --name GLP1R`.
+
+- **humanPPI** (`data/targets/GLP1R/GLP1R_humanppi_partners.csv`) — **259
+  predicted protein interactors** (181 membrane-localized), each with AlphaFold /
+  RoseTTAFold / DCA interface scores + subcellular locality. Useful for
+  PPI/peptide-derived targeting and for understanding GLP1R's surface
+  neighbourhood.
+  Rebuild: `python scripts/fetch_humanppi.py --uniprot P43220 --name GLP1R`.
+
+Three independent evidence streams for GLP1R binders now converge in-repo:
+ChEMBL measured actives + DrugCLIP predicted virtual hits + humanPPI protein
+partners. Cross-referencing them (and validating with Boltz) is the screening
+core of this pilot. Both miners are generic — pass any UniProt to target another
+receptor from the screenshot table (ASGPR `P07306`, TfR `P02786`, CD206 `P22897`…).
+
 ## Immediate next actions
 - [ ] Pull the GLP1R **ECD sequence** (UniProt P43220, residues ~24–145) for Boltz.
 - [ ] Boltz positive-control: co-fold GLP-1(7-37) ↔ ECD; confirm sensible pose/affinity.

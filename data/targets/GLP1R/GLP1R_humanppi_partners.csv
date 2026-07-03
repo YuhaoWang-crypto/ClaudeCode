@@ -1,0 +1,260 @@
+Interacting Partner,Gene Name,Protein Name,Subcellular Locality,AF_Score,RF_Score,DCA_Score,confident,Function,pdb
+Q9H1C7,CYSTM1,Cysteine-rich and transmembrane domain-containing protein 1,Membrane,0.7305,0.02104,0.065,high,NA,['P43220_S0__Q9H1C7_S0.pdb']
+Q8N7P1,PLD5,Inactive phospholipase D5,Membrane,0.5845,0.3987,0.125,Not confident,NA,none
+Q6ZSA7,LRRC55,Leucine-rich repeat-containing protein 55,"Cell membrane, Membrane",0.5186,0.5073,0.152,Not confident,"Ion channel, Ion transport, Transport",none
+Q8N967,LRTM2,Leucine-rich repeat and transmembrane domain-containing protein 2,Membrane,0.518,0.4417,0.149,Not confident,NA,none
+P80370,DLK1,Protein delta homolog 1,"Cytoplasm, Membrane",0.4949,0.448,0.166,Not confident,NA,none
+P19021,PAM,Peptidyl-glycine alpha-amidating monooxygenase,"Cytoplasmic vesicle, Membrane, Secreted",0.4285,0.2229,0.105,Not confident,"Lipid metabolism, Lyase, Monooxygenase, Multifunctional enzyme, Oxidoreductase",none
+Q9UIK5,TMEFF2,Tomoregulin-2,"Membrane, Secreted",0.4194,0.3367,0.148,Not confident,NA,none
+Q9P283,SEMA5B,Semaphorin-5B,Membrane,0.3528,0.6084,0.129,Not confident,"Developmental protein, Differentiation, Neurogenesis",none
+Q9HBL6,LRTM1,Leucine-rich repeat and transmembrane domain-containing protein 1,Membrane,0.335,0.3982,0.17,Not confident,NA,none
+Q8TDF5,NETO1,Neuropilin and tolloid-like protein 1,"Cell membrane, Membrane, Postsynaptic cell membrane, Secreted, Synapse",0.3293,0.306,0.128,Not confident,Receptor,none
+O00264,PGRMC1,Membrane-associated progesterone receptor component 1,"Endoplasmic reticulum, Membrane, Microsome, Mitochondrion, Mitochondrion outer membrane, Secreted",0.2815,0.0756,0.152,Not confident,Receptor,none
+Q9BX67,JAM3,Junctional adhesion molecule C,"Cell junction, Cell membrane, Membrane, Secreted, Tight junction",0.278,0.3862,0.12,Not confident,"Angiogenesis, Cell adhesion, Differentiation, Spermatogenesis",none
+P05981,HPN,Serine protease hepsin,"Cell membrane, Membrane",0.2725,0.19,0.104,Not confident,"Hydrolase, Protease, Serine protease",none
+Q8N7C0,LRRC52,Leucine-rich repeat-containing protein 52,"Cell membrane, Membrane",0.2678,0.468,0.125,Not confident,"Ion channel, Ion transport, Transport",none
+Q5VT99,LRRC38,Leucine-rich repeat-containing protein 38,"Cell membrane, Membrane",0.2622,0.501,0.127,Not confident,"Ion channel, Ion transport, Transport",none
+Q8IWE4,DCUN1D3,DCN1-like protein 3,"Cell membrane, Cytoplasm, Membrane, Nucleus",0.2416,0.3433,0.145,Not confident,NA,none
+P60660,MYL6,Myosin light polypeptide 6,NA,0.2393,0.06192,0.125,Not confident,"Motor protein, Muscle protein, Myosin",none
+O60909,B4GALT2,"Beta-1,4-galactosyltransferase 2","Golgi apparatus, Membrane",0.2386,0.4153,0.134,Not confident,"Glycosyltransferase, Transferase",none
+Q9UKF7,PITPNC1,Cytoplasmic phosphatidylinositol transfer protein 1,Cytoplasm,0.2374,0.0891,0.125,Not confident,"Lipid transport, Transport",none
+Q86YD5,LDLRAD3,Low-density lipoprotein receptor class A domain-containing protein 3,"Cell membrane, Membrane",0.2356,0.4434,0.137,Not confident,"Host-virus interaction, Receptor",none
+Q96B49,TOMM6,Mitochondrial import receptor subunit TOM6 homolog,"Membrane, Mitochondrion, Mitochondrion outer membrane",0.2299,0.03317,0.054,Not confident,"Protein transport, Transport",none
+Q86VH5,LRRTM3,Leucine-rich repeat transmembrane neuronal protein 3,"Cell membrane, Membrane, Postsynaptic cell membrane, Synapse",0.2261,0.3682,0.123,Not confident,NA,none
+P19397,CD53,Leukocyte surface antigen CD53,"Cell junction, Cell membrane, Membrane",0.224,0.644,0.136,Not confident,NA,none
+Q92859,NEO1,Neogenin,"Cell membrane, Membrane",0.2156,0.521,0.121,Not confident,Cell adhesion,none
+Q8WW18,C17orf50,Uncharacterized protein C17orf50,NA,0.197,0.0544,0.011,Not confident,NA,none
+Q9H1U4,MEGF9,Multiple epidermal growth factor-like domains protein 9,Membrane,0.1924,0.393,0.155,Not confident,NA,none
+P08962,CD63,CD63 antigen,"Cell membrane, Endosome, Lysosome, Membrane, Secreted",0.1663,0.2401,0.145,Not confident,"Protein transport, Transport",none
+Q6UXZ0,TMIGD1,Transmembrane and immunoglobulin domain-containing protein 1,"Cell membrane, Cytoplasm, Membrane",0.1556,0.4495,0.138,Not confident,NA,none
+Q2VWP7,PRTG,Protogenin,Membrane,0.1539,0.5796,0.144,Not confident,Developmental protein,none
+O95665,NTSR2,Neurotensin receptor type 2,"Cell membrane, Membrane",0.1526,0.2898,0.105,Not confident,"G-protein coupled receptor, Receptor, Transducer",none
+Q8N111,CEND1,Cell cycle exit and neuronal differentiation protein 1,Membrane,0.1526,0.06122,0.027,Not confident,Differentiation,none
+P49407,ARRB1,Beta-arrestin-1,"Cell membrane, Cell projection, Coated pit, Cytoplasm, Cytoplasmic vesicle, Membrane, Nucleus",0.1505,0.08105,0.1,Not confident,"Protein transport, Signal transduction inhibitor, Transcription, Transcription regulation, Transport",none
+Q9BTY7,HGH1,Protein HGH1 homolog,NA,0.146,0.3098,0.141,Not confident,NA,none
+Q9NZJ5,EIF2AK3,Eukaryotic translation initiation factor 2-alpha kinase 3,"Endoplasmic reticulum, Membrane",0.1412,0.299,0.106,Not confident,"Kinase, Serine/threonine-protein kinase, Stress response, Transferase, Translation regulation, Unfolded protein response",none
+Q7Z429,GRINA,Protein lifeguard 1,Membrane,0.1356,0.03238,0.152,Not confident,NA,none
+Q12907,LMAN2,Vesicular integral-membrane protein VIP36,"Endoplasmic reticulum, Golgi apparatus, Membrane",0.1321,0.3418,0.121,Not confident,"Protein transport, Transport",none
+P41595,HTR2B,5-hydroxytryptamine receptor 2B,"Cell membrane, Membrane, Synapse, Synaptosome",0.1251,0.27,0.113,Not confident,"Behavior, G-protein coupled receptor, Receptor, Transducer",none
+Q9NRY6,PLSCR3,Phospholipid scramblase 3,"Membrane, Mitochondrion, Mitochondrion inner membrane, Nucleus",0.12274,0.03772,0.113,Not confident,"Apoptosis, Lipid transport, Transport",none
+O60469,DSCAM,Cell adhesion molecule DSCAM,"Cell membrane, Cell projection, Membrane, Secreted, Synapse",0.11865,0.3345,0.086,Not confident,"Cell adhesion, Neurogenesis",none
+Q9ULH1,ASAP1,"Arf-GAP with SH3 domain, ANK repeat and PH domain-containing protein 1","Cytoplasm, Golgi apparatus, Membrane",0.1139,0.3542,0.129,Not confident,"Cilium biogenesis/degradation, GTPase activation",none
+Q9Y6X1,SERP1,Stress-associated endoplasmic reticulum protein 1,"Endoplasmic reticulum, Membrane",0.11365,0.02907,0.158,Not confident,"Protein transport, Translocation, Transport, Unfolded protein response",none
+P32121,ARRB2,Beta-arrestin-2,"Cell membrane, Coated pit, Cytoplasm, Cytoplasmic vesicle, Membrane, Nucleus",0.1132,0.0862,0.105,Not confident,"Protein transport, Signal transduction inhibitor, Transport",none
+Q8N511,TMEM199,Transmembrane protein 199,"Cytoplasmic vesicle, Endoplasmic reticulum, Membrane",0.1111,0.353,0.144,Not confident,NA,none
+Q9UGQ2,CACFD1,Calcium channel flower homolog,"Cell membrane, Cytoplasmic vesicle, Endoplasmic reticulum, Endosome, Golgi apparatus, Membrane, Synapse",0.11017,0.6157,0.133,Not confident,NA,none
+Q96PB8,LRRC3B,Leucine-rich repeat-containing protein 3B,Membrane,0.1082,0.414,0.146,Not confident,NA,none
+Q9NVN3,RIC8B,Synembryn-B,Cytoplasm,0.1055,0.2532,0.115,Not confident,Guanine-nucleotide releasing factor,none
+O94985,CLSTN1,Calsyntenin-1,"Cell membrane, Cell projection, Endoplasmic reticulum, Golgi apparatus, Membrane, Nucleus, Postsynaptic cell membrane, Synapse",0.1054,0.371,0.131,Not confident,Cell adhesion,none
+Q14165,MLEC,Malectin,"Endoplasmic reticulum, Membrane",0.1049,0.502,0.126,Not confident,Carbohydrate metabolism,none
+Q9NZC2,TREM2,Triggering receptor expressed on myeloid cells 2,"Cell membrane, Membrane, Secreted",0.1036,0.1373,0.036,Not confident,Receptor,none
+P81172,HAMP,Hepcidin,Secreted,0.10034,0.0589,0.021,Not confident,"Antibiotic, Antimicrobial, Fungicide, Hormone",none
+Q92686,NRGN,Neurogranin,NA,0.0996,0.004395,0.095,Not confident,Calmodulin-binding,none
+Q9NXW2,DNAJB12,DnaJ homolog subfamily B member 12,"Endoplasmic reticulum, Membrane, Nucleus",0.09955,0.3232,0.134,Not confident,"Chaperone, Host-virus interaction",none
+P48230,TM4SF4,Transmembrane 4 L6 family member 4,Membrane,0.0995,0.03,0.067,Not confident,NA,none
+Q9P2W7,B3GAT1,Galactosylgalactosylxylosylprotein 3-beta-glucuronosyltransferase 1,"Endoplasmic reticulum, Golgi apparatus, Membrane, Secreted",0.09894,0.3027,0.129,Not confident,Transferase,none
+P21964,COMT,Catechol O-methyltransferase,"Cell membrane, Cytoplasm, Membrane",0.0983,0.0586,0.059,Not confident,"Catecholamine metabolism, Lipid metabolism, Methyltransferase, Neurotransmitter degradation, Transferase",none
+O95292,VAPB,Vesicle-associated membrane protein-associated protein B/C,"Endoplasmic reticulum, Membrane",0.0983,0.0548,0.142,Not confident,"Host-virus interaction, Unfolded protein response",none
+P08069,IGF1R,Insulin-like growth factor 1 receptor,"Cell membrane, Membrane",0.0975,0.2627,0.102,Not confident,"Host-virus interaction, Kinase, Receptor, Transferase, Tyrosine-protein kinase",none
+Q9Y575,ASB3,Ankyrin repeat and SOCS box protein 3,NA,0.0968,0.355,0.125,Not confident,Ubl conjugation pathway,none
+Q9NZ72,STMN3,Stathmin-3,"Cell projection, Cytoplasm, Golgi apparatus",0.096,0.0469,0.134,Not confident,NA,none
+P56817,BACE1,Beta-secretase 1,"Cell membrane, Cell projection, Cytoplasmic vesicle, Endoplasmic reticulum, Endosome, Golgi apparatus, Lysosome, Membrane",0.0959,0.319,0.073,Not confident,"Aspartyl protease, Hydrolase, Protease",none
+Q13795,ARFRP1,ADP-ribosylation factor-related protein 1,Golgi apparatus,0.0939,0.0629,0.116,Not confident,NA,none
+Q13308,PTK7,Inactive tyrosine-protein kinase 7,"Cell junction, Membrane",0.0918,0.4373,0.122,Not confident,"Cell adhesion, Receptor, Wnt signaling pathway",none
+P81274,GPSM2,G-protein-signaling modulator 2,"Cell membrane, Cytoplasm, Cytoskeleton, Membrane",0.08997,0.486,0.125,Not confident,"Cell cycle, Cell division, Mitosis, Transport",none
+P63165,SUMO1,Small ubiquitin-related modifier 1,"Cell membrane, Cytoplasm, Membrane, Nucleus",0.0884,0.012,0.091,Not confident,"Host-virus interaction, Ubl conjugation pathway",none
+P01275,GCG,Pro-glucagon,Secreted,0.0831,0.1066,0.055,Not confident,Hormone,none
+Q96JA1,LRIG1,Leucine-rich repeats and immunoglobulin-like domains protein 1,"Cell membrane, Membrane",0.08307,0.3958,0.144,Not confident,NA,none
+Q99437,ATP6V0B,V-type proton ATPase 21 kDa proteolipid subunit c'',"Cytoplasmic vesicle, Membrane",0.08307,0.2006,0.131,Not confident,"Hydrogen ion transport, Ion transport, Transport",none
+Q9P003,CNIH4,Protein cornichon homolog 4,"Endoplasmic reticulum, Membrane",0.0823,0.3135,0.143,Not confident,"ER-Golgi transport, Protein transport, Transport",none
+Q8TBM8,DNAJB14,DnaJ homolog subfamily B member 14,"Endoplasmic reticulum, Membrane, Nucleus",0.08215,0.4016,0.123,Not confident,"Chaperone, Host-virus interaction",none
+Q9Y5M8,SRPRB,Signal recognition particle receptor subunit beta,"Endoplasmic reticulum, Membrane",0.0808,0.474,0.139,Not confident,Receptor,none
+Q13591,SEMA5A,Semaphorin-5A,Membrane,0.0802,0.562,0.124,Not confident,"Developmental protein, Differentiation, Neurogenesis",none
+Q9P2K1,CC2D2A,Coiled-coil and C2 domain-containing protein 2A,"Cell projection, Cilium, Cytoplasm, Cytoskeleton",0.0798,0.1678,0.092,Not confident,Cilium biogenesis/degradation,none
+Q13367,AP3B2,AP-3 complex subunit beta-2,"Cytoplasmic vesicle, Golgi apparatus, Membrane",0.07965,0.3552,0.123,Not confident,"Protein transport, Transport",none
+Q9Y5S8,NOX1,NADPH oxidase 1,"Cell junction, Cell membrane, Cell projection, Membrane",0.07874,0.18,0.104,Not confident,"Electron transport, Ion channel, Ion transport, Oxidoreductase, Transport, Voltage-gated channel",none
+P48546,GIPR,Gastric inhibitory polypeptide receptor,"Cell membrane, Membrane",0.07855,0.331,0.747,Not confident,"G-protein coupled receptor, Receptor, Transducer",none
+Q8N3C7,CLIP4,CAP-Gly domain-containing linker protein 4,NA,0.0784,0.0985,0.088,Not confident,NA,none
+Q5T6S3,PHF19,PHD finger protein 19,Nucleus,0.077,0.1222,0.093,Not confident,"Chromatin regulator, Repressor, Transcription, Transcription regulation",none
+O95857,TSPAN13,Tetraspanin-13,Membrane,0.0766,0.1439,0.122,Not confident,NA,none
+P07478,PRSS2,Trypsin-2,Secreted,0.0758,0.10474,0.139,Not confident,"Digestion, Hydrolase, Protease, Serine protease",none
+O75197,LRP5,Low-density lipoprotein receptor-related protein 5,"Endoplasmic reticulum, Membrane",0.07574,0.3108,0.123,Not confident,"Developmental protein, Endocytosis, Receptor, Wnt signaling pathway",none
+Q9H1E3,NUCKS1,Nuclear ubiquitous casein and cyclin-dependent kinase substrate 1,"Chromosome, Nucleus",0.0756,0.06082,0.045,Not confident,"DNA damage, DNA repair",none
+Q00987,MDM2,E3 ubiquitin-protein ligase Mdm2,"Cytoplasm, Nucleus",0.0741,0.3386,0.079,Not confident,"Apoptosis, Host-virus interaction, Transferase, Ubl conjugation pathway",none
+P50053,KHK,Ketohexokinase,NA,0.074,0.11237,0.118,Not confident,"Carbohydrate metabolism, Kinase, Transferase",none
+Q16620,NTRK2,BDNF/NT-3 growth factors receptor,"Cell membrane, Cell projection, Cytoplasm, Endosome, Membrane, Synapse",0.0738,0.2847,0.062,Not confident,"Developmental protein, Differentiation, Kinase, Neurogenesis, Receptor, Transferase, Tyrosine-protein kinase",none
+P60033,CD81,CD81 antigen,"Cell membrane, Membrane",0.0727,0.1244,0.105,Not confident,"Adaptive immunity, Host cell receptor for virus entry, Host-virus interaction, Immunity, Receptor",none
+Q9NPR9,GPR108,Protein GPR108,"Golgi apparatus, Membrane",0.07227,0.1714,0.094,Not confident,Host-virus interaction,none
+Q02809,PLOD1,"Procollagen-lysine,2-oxoglutarate 5-dioxygenase 1","Endoplasmic reticulum, Membrane",0.07166,0.3318,0.135,Not confident,"Dioxygenase, Oxidoreductase",none
+O15354,GPR37,Prosaposin receptor GPR37,"Cell membrane, Cell projection, Endoplasmic reticulum, Membrane, Synapse",0.0698,0.1278,0.089,Not confident,"G-protein coupled receptor, Receptor, Transducer",none
+Q9H4L4,SENP3,Sentrin-specific protease 3,"Cytoplasm, Nucleus",0.068,0.114,0.122,Not confident,"Hydrolase, Protease, Thiol protease, Ubl conjugation pathway",none
+Q8WVX3,C4orf3,Uncharacterized protein C4orf3,Membrane,0.06726,0.01211,0.057,Not confident,NA,none
+Q96NE9,FRMD6,FERM domain-containing protein 6,"Cell membrane, Cytoplasm, Membrane",0.06604,0.1467,0.088,Not confident,NA,none
+Q9H8H2,DDX31,Probable ATP-dependent RNA helicase DDX31,Nucleus,0.0658,0.1384,0.104,Not confident,"Helicase, Hydrolase, RNA-binding",none
+P51148,RAB5C,Ras-related protein Rab-5C,"Cell membrane, Endosome, Membrane",0.06555,0.03247,0.12,Not confident,"Hydrolase, Protein transport, Transport",none
+P23284,PPIB,Peptidyl-prolyl cis-trans isomerase B,"Endoplasmic reticulum, Virion",0.0646,0.02634,0.131,Not confident,"Isomerase, Rotamase",none
+Q13416,ORC2,Origin recognition complex subunit 2,Nucleus,0.064,-,0.189,Not confident,DNA replication,none
+Q3YBM2,TMEM176B,Transmembrane protein 176B,"Membrane, Nucleus",0.0624,0.2568,0.025,Not confident,Differentiation,none
+P55061,TMBIM6,Bax inhibitor 1,"Endoplasmic reticulum, Membrane",0.06238,0.02837,0.138,Not confident,"Apoptosis, Autophagy, Unfolded protein response",none
+P35414,APLNR,Apelin receptor,"Cell membrane, Membrane",0.06113,0.251,0.106,Not confident,"Angiogenesis, Developmental protein, G-protein coupled receptor, Gastrulation, Host-virus interaction, Receptor, Transducer",none
+Q9UKY4,POMT2,Protein O-mannosyl-transferase 2,"Endoplasmic reticulum, Membrane",0.06107,0.1443,0.106,Not confident,"Glycosyltransferase, Transferase",none
+P35568,IRS1,Insulin receptor substrate 1,NA,0.06036,0.256,0.107,Not confident,Transducer,none
+Q9NQR9,G6PC2,Glucose-6-phosphatase 2,"Endoplasmic reticulum, Membrane",0.06027,0.282,0.094,Not confident,"Gluconeogenesis, Hydrolase",none
+P08861,CELA3B,Chymotrypsin-like elastase family member 3B,NA,0.0598,0.0626,0.124,Not confident,"Hydrolase, Protease, Serine protease",none
+P06307,CCK,Cholecystokinin,Secreted,0.05725,0.0728,0.076,Not confident,Hormone,none
+Q9NXG6,P4HTM,Transmembrane prolyl 4-hydroxylase,"Endoplasmic reticulum, Membrane",0.05722,0.0942,0.103,Not confident,"Dioxygenase, Oxidoreductase",none
+P36956,SREBF1,Sterol regulatory element-binding protein 1,"Cytoplasmic vesicle, Endoplasmic reticulum, Golgi apparatus, Membrane, Nucleus",0.05548,0.2927,0.082,Not confident,"Activator, Cholesterol metabolism, DNA-binding, Lipid metabolism, Steroid metabolism, Sterol metabolism, Transcription, Transcription regulation",none
+P54753,EPHB3,Ephrin type-B receptor 3,"Cell membrane, Cell projection, Membrane",0.05524,0.253,0.089,Not confident,"Angiogenesis, Developmental protein, Kinase, Neurogenesis, Receptor, Transferase, Tyrosine-protein kinase",none
+O43826,SLC37A4,Glucose-6-phosphate exchanger SLC37A4,"Endoplasmic reticulum, Membrane",0.05487,0.2659,0.088,Not confident,"Antiport, Sugar transport, Transport",none
+A1KZ92,PXDNL,Probable oxidoreductase PXDNL,"Cell membrane, Cytoplasm, Endoplasmic reticulum, Membrane, Secreted",0.05435,0.271,0.101,Not confident,"Endonuclease, Hydrolase, Nuclease, Oxidoreductase",none
+P49961,ENTPD1,Ectonucleoside triphosphate diphosphohydrolase 1,Membrane,0.0538,0.3184,0.103,Not confident,Hydrolase,none
+Q9H210,OR2D2,Olfactory receptor 2D2,"Cell membrane, Membrane",0.05368,0.452,0.131,Not confident,"G-protein coupled receptor, Olfaction, Receptor, Sensory transduction, Transducer",none
+Q96RJ0,TAAR1,Trace amine-associated receptor 1,"Cell membrane, Membrane",0.05325,0.3232,0.122,Not confident,"G-protein coupled receptor, Receptor, Transducer",none
+P05067,APP,Amyloid-beta precursor protein,"Amyloid, Cell membrane, Cell projection, Coated pit, Cytoplasm, Cytoplasmic vesicle, Endoplasmic reticulum, Endosome, Golgi apparatus, Membrane, Nucleus, Secreted",0.05307,0.3179,0.079,Not confident,"Apoptosis, Cell adhesion, Endocytosis, Heparin-binding, Notch signaling pathway, Protease inhibitor, Serine protease inhibitor",none
+Q9HD20,ATP13A1,Endoplasmic reticulum transmembrane helix translocase,"Endoplasmic reticulum, Membrane",0.05307,0.1372,0.122,Not confident,"Protein transport, Translocase, Transport",none
+Q9BWS9,CHID1,Chitinase domain-containing protein 1,"Lysosome, Secreted",0.05255,-,0.151,Not confident,"Immunity, Innate immunity",none
+Q56VL3,OCIAD2,OCIA domain-containing protein 2,Endosome,0.05225,0.002504,0.095,Not confident,NA,none
+P61803,DAD1,Dolichyl-diphosphooligosaccharide--protein glycosyltransferase subunit DAD1,"Endoplasmic reticulum, Membrane",0.05212,0.002645,0.142,Not confident,Apoptosis,none
+Q9P0B6,CCDC167,Coiled-coil domain-containing protein 167,Membrane,0.0517,0.01651,0.075,Not confident,NA,none
+P37268,FDFT1,Squalene synthase,"Endoplasmic reticulum, Membrane",0.05115,0.1417,0.051,Not confident,"Cholesterol biosynthesis, Cholesterol metabolism, Lipid biosynthesis, Lipid metabolism, Multifunctional enzyme, Steroid biosynthesis, Steroid metabolism, Sterol biosynthesis, Sterol metabolism, Transferase",none
+P16520,GNB3,Guanine nucleotide-binding protein G(I)/G(S)/G(T) subunit beta-3,NA,0.0511,0.1088,0.09,Not confident,Transducer,none
+P23786,CPT2,"Carnitine O-palmitoyltransferase 2, mitochondrial","Membrane, Mitochondrion, Mitochondrion inner membrane",0.05106,0.2747,0.125,Not confident,"Acyltransferase, Fatty acid metabolism, Lipid metabolism, Transferase, Transport",none
+O43824,GTPBP6,Putative GTP-binding protein 6,NA,0.0506,0.3088,0.168,Not confident,NA,none
+P08754,GNAI3,Guanine nucleotide-binding protein G(i) subunit alpha-3,"Cell membrane, Cytoplasm, Cytoskeleton, Membrane",0.05023,0.0823,0.115,Not confident,"Cell cycle, Cell division, Transducer",none
+Q969W0,SPTSSA,Serine palmitoyltransferase small subunit A,"Endoplasmic reticulum, Membrane",0.0501,0.00964,0.067,Not confident,"Lipid metabolism, Sphingolipid metabolism",none
+O14775,GNB5,Guanine nucleotide-binding protein subunit beta-5,Membrane,0.04984,0.0947,0.098,Not confident,Transducer,none
+Q96CB9,NSUN4,5-methylcytosine rRNA methyltransferase NSUN4,Mitochondrion,0.0497,0.05536,0.157,Not confident,"Methyltransferase, Ribosome biogenesis, RNA-binding, rRNA processing, rRNA-binding, Transferase",none
+O95838,GLP2R,Glucagon-like peptide 2 receptor,"Cell membrane, Membrane",0.04944,0.369,0.55,Not confident,"G-protein coupled receptor, Receptor, Transducer",none
+Q5JWF2,GNAS,Guanine nucleotide-binding protein G(s) subunit alpha isoforms XLas,"Cell membrane, Membrane",0.04874,0.0812,0.112,Not confident,Transducer,none
+Q9BV10,ALG12,"Dol-P-Man:Man(7)GlcNAc(2)-PP-Dol alpha-1,6-mannosyltransferase","Endoplasmic reticulum, Membrane",0.0479,0.4568,0.13,Not confident,"Glycosyltransferase, Transferase",none
+P48556,PSMD8,26S proteasome non-ATPase regulatory subunit 8,Proteasome,0.04736,0.05844,0.129,Not confident,NA,none
+Q9BW60,ELOVL1,Very long chain fatty acid elongase 1,"Endoplasmic reticulum, Membrane",0.04666,0.04483,0.142,Not confident,"Fatty acid biosynthesis, Fatty acid metabolism, Lipid biosynthesis, Lipid metabolism, Transferase",none
+Q9NVV5,AIG1,Androgen-induced gene 1 protein,"Cell membrane, Membrane",0.04645,0.02448,0.133,Not confident,"Hydrolase, Lipid metabolism",none
+P47900,P2RY1,P2Y purinoceptor 1,"Cell membrane, Membrane",0.0464,0.1313,0.091,Not confident,"Blood coagulation, G-protein coupled receptor, Hemostasis, Receptor, Transducer",none
+P61020,RAB5B,Ras-related protein Rab-5B,"Cell membrane, Endosome, Membrane",0.04553,0.0344,0.116,Not confident,"Hydrolase, Protein transport, Transport",none
+P47871,GCGR,Glucagon receptor,"Cell membrane, Membrane",0.0455,0.1968,0.563,Not confident,"G-protein coupled receptor, Receptor, Transducer",none
+P41180,CASR,Extracellular calcium-sensing receptor,"Cell membrane, Membrane",0.04514,0.1969,0.099,Not confident,"G-protein coupled receptor, Receptor, Transducer",none
+P32238,CCKAR,Cholecystokinin receptor type A,"Cell membrane, Membrane",0.04468,0.1267,0.119,Not confident,"G-protein coupled receptor, Receptor, Transducer",none
+Q6UWJ1,TMCO3,Transmembrane and coiled-coil domain-containing protein 3,Membrane,0.04462,0.1398,0.038,Not confident,"Antiport, Ion transport, Transport",none
+Q9BY50,SEC11C,Signal peptidase complex catalytic subunit SEC11C,"Endoplasmic reticulum, Membrane",0.04428,0.004925,0.11,Not confident,"Hydrolase, Protease",none
+P07307,ASGR2,Asialoglycoprotein receptor 2,Membrane,0.04373,0.06744,0.098,Not confident,"Endocytosis, Host-virus interaction, Receptor",none
+P21926,CD9,CD9 antigen,"Cell membrane, Membrane, Secreted",0.04343,0.3657,0.124,Not confident,"Cell adhesion, Fertilization",none
+A8MXY4,ZNF99,Zinc finger protein 99,Nucleus,0.04337,0.1126,0.178,Not confident,"DNA-binding, Transcription, Transcription regulation",none
+Q8N2H4,SYS1,Protein SYS1 homolog,"Golgi apparatus, Membrane",0.0431,0.233,0.131,Not confident,"Protein transport, Transport",none
+Q96MH6,TMEM68,DGAT1/2-independent enzyme synthesizing storage lipids,"Endoplasmic reticulum, Membrane",0.04288,0.3079,0.138,Not confident,"Acyltransferase, Lipid metabolism, Transferase",none
+Q08830,FGL1,Fibrinogen-like protein 1,Secreted,0.04248,0.10474,0.116,Not confident,"Adaptive immunity, Immunity",none
+P47872,SCTR,Secretin receptor,"Cell membrane, Membrane",0.04236,0.2463,0.58,Not confident,"G-protein coupled receptor, Receptor, Transducer",none
+Q7RTX0,TAS1R3,Taste receptor type 1 member 3,"Cell membrane, Membrane",0.04196,0.2917,0.101,Not confident,"G-protein coupled receptor, Receptor, Sensory transduction, Taste, Transducer",none
+P62879,GNB2,Guanine nucleotide-binding protein G(I)/G(S)/G(T) subunit beta-2,"Cell membrane, Cytoplasm, Membrane",0.04153,0.05823,0.097,Not confident,Transducer,none
+Q96BI3,APH1A,Gamma-secretase subunit APH-1A,"Endoplasmic reticulum, Golgi apparatus, Membrane",0.0412,0.0695,0.131,Not confident,Notch signaling pathway,none
+Q86VH4,LRRTM4,Leucine-rich repeat transmembrane neuronal protein 4,"Cell membrane, Membrane, Postsynaptic cell membrane, Synapse",0.04108,0.4265,0.127,Not confident,NA,none
+Q6TCH4,PAQR6,Membrane progestin receptor delta,"Cell membrane, Membrane",0.04037,0.04468,0.088,Not confident,Receptor,none
+P35575,G6PC1,Glucose-6-phosphatase catalytic subunit 1,"Endoplasmic reticulum, Membrane",0.0402,0.361,0.081,Not confident,"Gluconeogenesis, Hydrolase",none
+P54851,EMP2,Epithelial membrane protein 2,"Cell membrane, Cytoplasm, Golgi apparatus, Membrane, Nucleus",0.04,0.04984,0.068,Not confident,NA,none
+Q8TCD1,C18orf32,UPF0729 protein C18orf32,"Endoplasmic reticulum, Lipid droplet",0.03928,0.0208,0.098,Not confident,NA,none
+Q8NCK7,SLC16A11,Monocarboxylate transporter 11,"Cell membrane, Endoplasmic reticulum, Membrane",0.03925,0.3127,0.14,Not confident,"Lipid metabolism, Symport, Transport",none
+P25101,EDNRA,Endothelin-1 receptor,"Cell membrane, Membrane",0.03848,0.2676,0.103,Not confident,"G-protein coupled receptor, Receptor, Transducer",none
+P41143,OPRD1,Delta-type opioid receptor,"Cell membrane, Membrane",0.03757,0.2654,0.124,Not confident,"G-protein coupled receptor, Receptor, Transducer",none
+Q9HAV0,GNB4,Guanine nucleotide-binding protein subunit beta-4,NA,0.03714,0.0755,0.099,Not confident,Transducer,none
+O75787,ATP6AP2,Renin receptor,"Cell membrane, Cell projection, Cytoplasmic vesicle, Endoplasmic reticulum, Endosome, Lysosome, Membrane, Postsynaptic cell membrane, Synapse",0.03687,0.454,0.113,high,Receptor,['O75787_S0__P43220_S0.pdb']
+Q99942,RNF5,E3 ubiquitin-protein ligase RNF5,"Cell membrane, Endoplasmic reticulum, Membrane, Mitochondrion",0.03616,0.1393,0.122,Not confident,"Transferase, Ubl conjugation pathway",none
+P27487,DPP4,Dipeptidyl peptidase 4,"Cell junction, Cell membrane, Cell projection, Membrane, Secreted",0.0356,0.2725,0.119,Not confident,"Aminopeptidase, Cell adhesion, Host-virus interaction, Hydrolase, Protease, Receptor, Serine protease",none
+Q9BVK8,TMEM147,BOS complex subunit TMEM147,"Cell membrane, Endoplasmic reticulum, Membrane, Nucleus",0.03552,0.10547,0.107,Not confident,NA,none
+P02792,FTL,Ferritin light chain,NA,0.03534,0.03983,0.125,Not confident,Iron storage,none
+O60656,UGT1A9,UDP-glucuronosyltransferase 1A9,"Endoplasmic reticulum, Membrane",0.03485,0.1483,0.117,Not confident,"Glycosyltransferase, Lipid metabolism, Transferase",none
+Q8N697,SLC15A4,Solute carrier family 15 member 4,"Endosome, Lysosome, Membrane",0.03436,0.2253,0.069,Not confident,"Immunity, Innate immunity, Peptide transport, Protein transport, Symport, Transport",none
+Q9BXS9,SLC26A6,Solute carrier family 26 member 6,"Cell membrane, Cytoplasmic vesicle, Endoplasmic reticulum, Membrane, Microsome",0.03406,0.3376,0.122,Not confident,"Anion exchange, Antiport, Chloride channel, Ion channel, Ion transport, Transferase, Transport",none
+P00846,MT-ATP6,ATP synthase subunit a,"CF(0), Membrane, Mitochondrion, Mitochondrion inner membrane",0.03363,0.0654,0.115,Not confident,"ATP synthesis, Hydrogen ion transport, Ion transport, Transport",none
+Q9NY84,NA,Vascular non-inflammatory molecule 3,Secreted,0.03308,0.3562,0.13,Not confident,Hydrolase,none
+P49683,PRLHR,Prolactin-releasing peptide receptor,"Cell membrane, Membrane",0.03278,0.3442,0.104,Not confident,"G-protein coupled receptor, Receptor, Transducer",none
+P04118,CLPS,Colipase,Secreted,0.03268,0.1525,0.049,Not confident,"Digestion, Lipid degradation, Lipid metabolism",none
+Q9NWU5,MRPL22,Large ribosomal subunit protein uL22m,Mitochondrion,0.03232,0.06122,0.151,Not confident,"Ribonucleoprotein, Ribosomal protein",none
+O95473,SYNGR4,Synaptogyrin-4,Membrane,0.0317,0.02687,0.105,Not confident,NA,none
+P08034,GJB1,Gap junction beta-1 protein,"Cell junction, Cell membrane, Gap junction, Membrane",0.03165,0.04947,0.046,Not confident,NA,none
+O95197,RTN3,Reticulon-3,"Endoplasmic reticulum, Golgi apparatus, Membrane",0.0313,0.03528,0.132,Not confident,"Apoptosis, ER-Golgi transport, Host-virus interaction, Stress response, Transport",none
+P50148,GNAQ,Guanine nucleotide-binding protein G(q) subunit alpha,"Cell membrane, Golgi apparatus, Membrane, Nucleus",0.03125,0.0901,0.117,Not confident,Transducer,none
+P35858,IGFALS,Insulin-like growth factor-binding protein complex acid labile subunit,Secreted,0.03078,0.3188,0.106,Not confident,Cell adhesion,none
+P01009,SERPINA1,Alpha-1-antitrypsin,"Endoplasmic reticulum, Extracellular matrix, Secreted",0.03064,0.1652,0.131,Not confident,"Acute phase, Blood coagulation, Hemostasis, Protease inhibitor, Serine protease inhibitor",none
+Q07627,KRTAP1-1,Keratin-associated protein 1-1,Keratin,0.03023,0.04337,0.011,Not confident,NA,none
+P21549,AGXT,Alanine--glyoxylate aminotransferase,Peroxisome,0.03001,0.09607,0.13,Not confident,"Aminotransferase, Transferase",none
+P63215,GNG3,Guanine nucleotide-binding protein G(I)/G(S)/G(O) subunit gamma-3,"Cell membrane, Membrane",0.02972,0.00839,0.094,Not confident,Transducer,none
+Q15125,EBP,"3-beta-hydroxysteroid-Delta(8),Delta(7)-isomerase","Cytoplasmic vesicle, Endoplasmic reticulum, Membrane, Nucleus",0.02917,0.05017,0.068,Not confident,"Cholesterol biosynthesis, Cholesterol metabolism, Isomerase, Lipid biosynthesis, Lipid metabolism, Steroid biosynthesis, Steroid metabolism, Sterol biosynthesis, Sterol metabolism",none
+P62873,GNB1,Guanine nucleotide-binding protein G(I)/G(S)/G(T) subunit beta-1,NA,0.02869,0.0643,0.096,Not confident,"Host-virus interaction, Transducer",none
+Q8IUG1,KRTAP1-3,Keratin-associated protein 1-3,Keratin,0.0278,0.03183,0.01,Not confident,NA,none
+Q8N4V2,SVOP,Synaptic vesicle 2-related protein,"Cytoplasmic vesicle, Membrane, Synapse",0.02704,0.1747,0.096,Not confident,Transport,none
+Q9P2W3,GNG13,Guanine nucleotide-binding protein G(I)/G(S)/G(O) subunit gamma-13,"Cell membrane, Membrane",0.027,0.0184,0.122,Not confident,Transducer,none
+Q9Y6C9,MTCH2,Mitochondrial carrier homolog 2,"Membrane, Mitochondrion, Mitochondrion outer membrane",0.02693,0.1569,0.123,Not confident,Transport,none
+P02768,ALB,Albumin,Secreted,0.0268,0.1227,0.039,Not confident,NA,none
+Q9P2S2,NRXN2,Neurexin-2,"Cell membrane, Cell projection, Membrane, Synapse",0.02654,0.3186,0.123,Not confident,Cell adhesion,none
+O43613,HCRTR1,Orexin/Hypocretin receptor type 1,"Cell membrane, Membrane",0.02623,0.2915,0.106,Not confident,"G-protein coupled receptor, Receptor, Transducer",none
+P08833,IGFBP1,Insulin-like growth factor-binding protein 1,Secreted,0.02582,0.3418,0.099,Not confident,Growth factor binding,none
+P09681,GIP,Gastric inhibitory polypeptide,Secreted,0.02553,0.08997,0.02,Not confident,Hormone,none
+A8MQ03,CYSRT1,Cysteine-rich tail protein 1,NA,0.02536,0.05804,0.012,Not confident,NA,none
+Q96CW1,AP2M1,AP-2 complex subunit mu,"Cell membrane, Coated pit, Membrane",0.02524,0.0715,0.078,Not confident,"Endocytosis, Protein transport, Transport",none
+Q15012,LAPTM4A,Lysosomal-associated transmembrane protein 4A,Membrane,0.02457,0.2144,0.078,Not confident,Transport,none
+O43761,SYNGR3,Synaptogyrin-3,"Cytoplasmic vesicle, Membrane, Synapse",0.02419,0.71,0.131,Not confident,NA,none
+P0DPK4,NOTCH2NLC,Notch homolog 2 N-terminal-like protein C,Secreted,0.02406,0.04135,0.209,Not confident,Notch signaling pathway,none
+Q9UBU3,GHRL,Appetite-regulating hormone,Secreted,0.02405,0.06024,0.015,Not confident,Hormone,none
+O75899,GABBR2,Gamma-aminobutyric acid type B receptor subunit 2,"Cell membrane, Membrane, Postsynaptic cell membrane, Synapse",0.02396,0.1854,0.075,Not confident,"G-protein coupled receptor, Receptor, Transducer",none
+P51693,APLP1,Amyloid beta precursor like protein 1,"Cell membrane, Cytoplasm, Membrane",0.02391,0.162,0.074,Not confident,"Apoptosis, Cell adhesion, Endocytosis, Heparin-binding",none
+Q9Y224,RTRAF,"RNA transcription, translation and transport factor protein","Cytoplasm, Cytoskeleton, Nucleus",0.02376,0.0877,0.125,Not confident,"Host-virus interaction, RNA-binding, Transcription, Transcription regulation",none
+Q8N5M9,JAGN1,Protein jagunal homolog 1,"Endoplasmic reticulum, Membrane",0.02362,0.732,0.152,Not confident,"Immunity, Protein transport, Transport",none
+O95471,CLDN7,Claudin-7,"Cell junction, Cell membrane, Membrane, Tight junction",0.0235,0.0854,0.077,Not confident,NA,none
+O75556,SCGB2A1,Mammaglobin-B,Secreted,0.02316,0.03888,0.01,Not confident,NA,none
+Q9NSA1,FGF21,Fibroblast growth factor 21,Secreted,0.02284,0.0721,0.078,Not confident,Growth factor,none
+Q4G176,ACSF3,"Malonate--CoA ligase ACSF3, mitochondrial",Mitochondrion,0.02272,0.1888,0.126,Not confident,"Fatty acid metabolism, Ligase, Lipid metabolism",none
+O43772,SLC25A20,Mitochondrial carnitine/acylcarnitine carrier protein,"Membrane, Mitochondrion, Mitochondrion inner membrane",0.02225,0.3362,0.146,Not confident,"Lipid transport, Transport",none
+Q9NQC3,RTN4,Reticulon-4,"Cell junction, Cell membrane, Endoplasmic reticulum, Membrane, Synapse",0.02145,0.1276,0.12,Not confident,Neurogenesis,none
+Q01628,IFITM3,Interferon-induced transmembrane protein 3,"Cell membrane, Cytoplasm, Endosome, Lysosome, Membrane",0.02144,0.1509,0.077,Not confident,"Antiviral defense, Immunity, Innate immunity",none
+P09683,SCT,Secretin,Secreted,0.02095,0.03757,0.011,Not confident,Hormone,none
+P10082,PYY,Peptide YY,Secreted,0.02092,0.01223,0.067,Not confident,Hormone,none
+P0DJI8,SAA1,Serum amyloid A-1 protein,"Amyloid, HDL, Secreted",0.02022,0.0675,0.075,Not confident,"Acute phase, Heparin-binding",none
+P26371,KRTAP5-9,Keratin-associated protein 5-9,Keratin,0.02016,0.02286,0.008,Not confident,NA,none
+P46695,IER3,Radiation-inducible immediate-early gene IEX-1,Membrane,0.01979,0.05075,0.046,Not confident,NA,none
+P03901,MT-ND4L,NADH-ubiquinone oxidoreductase chain 4L,"Membrane, Mitochondrion, Mitochondrion inner membrane",0.01956,0.01067,0.087,Not confident,"Electron transport, Respiratory chain, Translocase, Transport",none
+O15432,SLC31A2,Protein SLC31A2,"Cytoplasmic vesicle, Endosome, Lysosome, Membrane",0.01881,0.02943,0.151,Not confident,"Copper transport, Ion transport, Transport",none
+Q9NP78,ABCB9,ABC-type oligopeptide transporter ABCB9,"Lysosome, Membrane",0.01799,0.3403,0.121,Not confident,"Peptide transport, Protein transport, Translocase, Transport",none
+Q9UBI6,GNG12,Guanine nucleotide-binding protein G(I)/G(S)/G(O) subunit gamma-12,"Cell membrane, Membrane",0.01714,0.000788,0.143,Not confident,Transducer,none
+Q8NER1,TRPV1,Transient receptor potential cation channel subfamily V member 1,"Cell membrane, Cell projection, Membrane, Postsynaptic cell membrane, Synapse",0.01671,0.306,0.081,Not confident,"Calcium channel, Calcium transport, Calmodulin-binding, Ion channel, Ion transport, Transport",none
+Q6N075,MFSD5,Molybdate-anion transporter,"Cell membrane, Membrane",0.01654,0.11084,0.081,Not confident,"Ion transport, Transport",none
+Q96DM1,PGBD4,PiggyBac transposable element-derived protein 4,NA,0.01628,0.1542,0.122,Not confident,NA,none
+Q9Y394,DHRS7,Dehydrogenase/reductase SDR family member 7,"Endoplasmic reticulum, Membrane",0.01627,0.1445,0.198,Not confident,Oxidoreductase,none
+P59768,GNG2,Guanine nucleotide-binding protein G(I)/G(S)/G(O) subunit gamma-2,"Cell membrane, Membrane",0.016,0.002583,0.123,Not confident,"Host-virus interaction, Transducer",none
+Q8TF66,LRRC15,Leucine-rich repeat-containing protein 15,"Cell membrane, Membrane",0.0159,0.3374,0.142,Not confident,NA,none
+Q8IVN8,SBSPON,Somatomedin-B and thrombospondin type-1 domain-containing protein,"Extracellular matrix, Secreted",0.01567,-,0.106,Not confident,NA,none
+P05156,CFI,Complement factor I,Secreted,0.015396,0.1985,0.12,Not confident,"Complement pathway, Host-virus interaction, Hydrolase, Immunity, Innate immunity, Protease, Serine protease",none
+P60369,KRTAP10-3,Keratin-associated protein 10-3,Keratin,0.015015,0.00985,0.016,Not confident,NA,none
+P01282,VIP,VIP peptides,Secreted,0.014694,0.02992,0.046,Not confident,Hormone,none
+P01189,POMC,Pro-opiomelanocortin,Secreted,0.014305,0.0776,0.065,Not confident,"Endorphin, Hormone",none
+P48201,ATP5MC3,"ATP synthase F(0) complex subunit C3, mitochondrial","CF(0), Membrane, Mitochondrion",0.01206,0.00897,0.135,Not confident,"Hydrogen ion transport, Ion transport, Transport",none
+Q15067,ACOX1,Peroxisomal acyl-coenzyme A oxidase 1,Peroxisome,0.01204,0.264,0.109,Not confident,"Fatty acid metabolism, Lipid metabolism, Oxidoreductase",none
+P55089,UCN,Urocortin,Secreted,0.01154,0.00223,0.054,Not confident,"Hearing, Hormone",none
+Q7Z3S9,NOTCH2NLA,Notch homolog 2 N-terminal-like protein A,"Cytoplasm, Secreted",0.01136,0.0753,0.189,Not confident,"Developmental protein, Differentiation, Notch signaling pathway",none
+P25705,ATP5F1A,"ATP synthase subunit alpha, mitochondrial","Cell membrane, CF(1), Membrane, Mitochondrion, Mitochondrion inner membrane",0.010864,0.0864,0.092,Not confident,"ATP synthesis, Hydrogen ion transport, Ion transport, Transport",none
+P60410,KRTAP10-8,Keratin-associated protein 10-8,Keratin,0.01057,0.01862,0.019,Not confident,NA,none
+P16949,STMN1,Stathmin,"Cytoplasm, Cytoskeleton, Microtubule",0.01035,0.04633,0.091,Not confident,"Developmental protein, Differentiation, Neurogenesis",none
+P0C6T2,OST4,Dolichyl-diphosphooligosaccharide--protein glycosyltransferase subunit 4,"Endoplasmic reticulum, Membrane",0.010345,0.01036,0.095,Not confident,NA,none
+P0DP25,CALM3,Calmodulin-3,"Cytoplasm, Cytoskeleton",0.010185,0.0797,0.057,Not confident,NA,none
+P06850,CRH,Corticoliberin,Secreted,0.0101,0.005917,0.05,Not confident,Hormone,none
+O14610,GNGT2,Guanine nucleotide-binding protein G(I)/G(S)/G(O) subunit gamma-T2,"Cell membrane, Membrane",0.008835,0.00229,0.108,Not confident,Transducer,none
+O43676,NDUFB3,NADH dehydrogenase [ubiquinone] 1 beta subcomplex subunit 3,"Membrane, Mitochondrion, Mitochondrion inner membrane",0.00865,0.3518,0.162,Not confident,"Electron transport, Respiratory chain, Transport",none
+P01270,PTH,Parathyroid hormone,Secreted,0.00807,0.02527,0.063,Not confident,Hormone,none
+P69849,NOMO3,BOS complex subunit NOMO3,"Endoplasmic reticulum, Membrane",0.008064,0.3325,0.125,Not confident,NA,none
+Q9NPA0,EMC7,Endoplasmic reticulum membrane protein complex subunit 7,"Endoplasmic reticulum, Membrane",0.00802,0.0762,0.128,Not confident,NA,none
+Q9UK08,GNG8,Guanine nucleotide-binding protein G(I)/G(S)/G(O) subunit gamma-8,"Cell membrane, Membrane",0.007736,0.00187,0.095,Not confident,Transducer,none
+S4R460,NA,Immunoglobulin heavy variable 3/OR16-9 (non-functional),NA,0.007175,0.01701,0.079,Not confident,NA,none
+A0A075B6W5,TRAV23DV6,T cell receptor alpha variable 23/delta variable 6,"Cell membrane, Membrane, T cell receptor",0.00629,0.04672,0.085,Not confident,"Adaptive immunity, Immunity, Receptor",none
+Q969E3,UCN3,Urocortin-3,Secreted,0.006054,0.009766,0.054,Not confident,Hormone,none
+P55259,GP2,Pancreatic secretory granule membrane major glycoprotein GP2,"Cell membrane, Cytoplasmic vesicle, Endosome, Membrane, Secreted",0.00576,0.1026,0.054,Not confident,"Immunity, Innate immunity, Receptor",none
+P30040,ERP29,Endoplasmic reticulum resident protein 29,Endoplasmic reticulum,0.00518,0.1138,0.123,Not confident,NA,none
+P61952,GNG11,Guanine nucleotide-binding protein G(I)/G(S)/G(O) subunit gamma-11,"Cell membrane, Membrane",0.004944,0.0001366,0.113,Not confident,Transducer,none
+P60411,KRTAP10-9,Keratin-associated protein 10-9,Keratin,0.001287,0.00493,0.021,Not confident,NA,none
+Q5T1A1,DCST2,DC-STAMP domain-containing protein 2,"Cytoplasmic vesicle, Membrane",0.0,0.3647,0.123,Not confident,NA,none
+Q9UJZ1,STOML2,"Stomatin-like protein 2, mitochondrial","Cell membrane, Cytoplasm, Cytoskeleton, Membrane, Mitochondrion, Mitochondrion inner membrane",0.0,0.073,0.135,Not confident,NA,none
+Q9BYP8,KRTAP17-1,Keratin-associated protein 17-1,Keratin,0.0,0.04684,0.01,Not confident,NA,none
+P50150,GNG4,Guanine nucleotide-binding protein G(I)/G(S)/G(O) subunit gamma-4,"Cell membrane, Membrane",0.0,0.02997,0.122,Not confident,Transducer,none
+Q03135,CAV1,Caveolin-1,"Cell membrane, Golgi apparatus, Membrane",0.0,0.014534,0.103,Not confident,Host-virus interaction,none
+P63211,GNGT1,Guanine nucleotide-binding protein G(T) subunit gamma-T1,"Cell membrane, Membrane",0.0,0.00429,0.099,Not confident,Transducer,none
+O60262,GNG7,Guanine nucleotide-binding protein G(I)/G(S)/G(O) subunit gamma-7,"Cell membrane, Membrane",0.0,0.002762,0.119,Not confident,Transducer,none
+P63218,GNG5,Guanine nucleotide-binding protein G(I)/G(S)/G(O) subunit gamma-5,"Cell membrane, Membrane",0.0,0.00129,0.093,Not confident,Transducer,none
+P50151,GNG10,Guanine nucleotide-binding protein G(I)/G(S)/G(O) subunit gamma-10,"Cell membrane, Membrane",0.0,0.0003455,0.1,Not confident,Transducer,none
