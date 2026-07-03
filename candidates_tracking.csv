@@ -1,0 +1,11 @@
+priority,candidate_id,mechanism_class,symbol,grade,novelty,landing,supporting,contradicting,engines,paired_drug,validation_cohort,status
+9.4,A-ITG-01,alpha4beta7,ITGA4|ITGB7|MADCAM1,3,known_mechanism_make_blood_assay,medium,3,0,geneformer;proto;esm2_vep,vedolizumab,NCT05428345|NCT06227910,candidate
+8.8,A-TNF-01,anti_TNF,OSM|OSMR,3,known_extend_to_multiclass_serum_panel,high,2,1,geneformer;proto;esm2_vep,infliximab|adalimumab|golimumab,NCT06227910|NCT07181525,candidate
+8.1,A-TNF-04,anti_TNF,GIMATS_module,3,known_anchor_for_scRNA_approach,medium,1,0,geneformer,infliximab|adalimumab,NCT06227910|NCT07132333,candidate
+7.5,A-TNF-02,anti_TNF,TNFSF14|HGF|TGFA,2,semi_novel_as_combination,high,1,0,geneformer;proto,infliximab,NCT07132333,candidate
+7.5,A-IL23-01,IL23_IL12,IL23R,1,novel_high_value,medium,2,0,geneformer;proto;esm2_vep,ustekinumab|risankizumab,NCT05387031|NCT07071519,candidate
+7.1,A-JAK-01,JAK,TYK2,1,novel_high_value,medium,1,0,geneformer;proto;esm2_vep,tofacitinib|upadacitinib,NCT06227910,candidate
+6.4,A-IL23-02,IL23_IL12,IL12B|IL22|STAT3|IL17A,1,novel_high_value,medium,0,0,geneformer;proto,ustekinumab|risankizumab,NCT05387031|NCT07071519,candidate
+6.4,A-JAK-02,JAK,JAK1|STAT1|IFN_signature,1,novel_high_value,medium,0,0,geneformer;proto,tofacitinib|upadacitinib,NCT06227910,candidate
+6.3,A-TNF-05,anti_TNF,SIRPA,2,emerging_2025,low_medium,1,0,geneformer,infliximab|adalimumab,NCT07132333,candidate
+6.2,A-TNF-03,anti_TNF,TREM1,2,known_but_validation_conflicted,high,2,1,geneformer;proto,infliximab|adalimumab,NCT06227910,candidate

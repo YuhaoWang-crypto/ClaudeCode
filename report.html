@@ -1,0 +1,200 @@
+<title>IBD Biomarker Discovery — Strategy & Candidate Report</title>
+<style>
+  :root{
+    --bg:#f7f8fa; --panel:#ffffff; --ink:#1a1f2b; --muted:#5c6675; --line:#e4e8ee;
+    --accent:#3b6ef5; --accent2:#12a594; --warn:#c9740a; --bad:#d1435b;
+    --g3:#12a594; --g2:#3b6ef5; --g1:#8a5cf6; --chip:#eef1f6;
+  }
+  :root[data-theme="dark"], :root:not([data-theme="light"]){}
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#0f1319; --panel:#161b24; --ink:#e8ecf3; --muted:#9aa5b5; --line:#252c38;
+      --accent:#6b93ff; --accent2:#2bd4bd; --warn:#e0902f; --bad:#ff6b83; --chip:#1e2530;
+      --g3:#2bd4bd; --g2:#6b93ff; --g1:#a78bfa;
+    }
+  }
+  :root[data-theme="dark"]{
+      --bg:#0f1319; --panel:#161b24; --ink:#e8ecf3; --muted:#9aa5b5; --line:#252c38;
+      --accent:#6b93ff; --accent2:#2bd4bd; --warn:#e0902f; --bad:#ff6b83; --chip:#1e2530;
+      --g3:#2bd4bd; --g2:#6b93ff; --g1:#a78bfa;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.62 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"PingFang SC","Microsoft YaHei",sans-serif;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1060px;margin:0 auto;padding:40px 22px 80px}
+  header.hero{border:1px solid var(--line);background:linear-gradient(135deg,var(--panel),transparent);border-radius:16px;padding:30px 28px;margin-bottom:26px}
+  h1{font-size:26px;margin:0 0 6px;letter-spacing:-.02em}
+  .sub{color:var(--muted);font-size:15px;margin:0}
+  .meta{margin-top:16px;display:flex;flex-wrap:wrap;gap:8px}
+  .chip{background:var(--chip);border:1px solid var(--line);color:var(--muted);border-radius:999px;padding:3px 11px;font-size:12.5px}
+  h2{font-size:19px;margin:38px 0 12px;padding-top:10px;letter-spacing:-.01em}
+  h3{font-size:15.5px;margin:22px 0 8px}
+  p{margin:10px 0}
+  section{border-top:1px solid var(--line);padding-top:6px}
+  .panel{background:var(--panel);border:1px solid var(--line);border-radius:13px;padding:18px 20px;margin:14px 0}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:15px 16px}
+  .card h4{margin:0 0 6px;font-size:14px}
+  .card p{margin:0;color:var(--muted);font-size:13.5px}
+  .tag{display:inline-block;font-size:11.5px;font-weight:600;border-radius:6px;padding:1px 8px;color:#fff}
+  .g3{background:var(--g3)}.g2{background:var(--g2)}.g1{background:var(--g1)}
+  .scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:14px 0}
+  table{border-collapse:collapse;width:100%;font-size:13.3px;min-width:640px}
+  th,td{text-align:left;padding:9px 11px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{color:var(--muted);font-weight:600;font-size:12px;text-transform:uppercase;letter-spacing:.03em;position:sticky;top:0;background:var(--panel)}
+  td.gene{font-weight:600;white-space:nowrap}
+  a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}
+  .doi{font-size:12px}
+  .flow{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:12px 0;font-size:13px}
+  .flow .step{background:var(--chip);border:1px solid var(--line);border-radius:9px;padding:8px 12px}
+  .flow .arr{color:var(--muted)}
+  .note{border-left:3px solid var(--warn);padding:8px 14px;background:var(--chip);border-radius:0 8px 8px 0;font-size:13.5px;color:var(--ink)}
+  .k{color:var(--accent2);font-weight:600}
+  ul{margin:8px 0;padding-left:20px}li{margin:4px 0}
+  footer{margin-top:40px;color:var(--muted);font-size:12.5px;border-top:1px solid var(--line);padding-top:16px}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  @media(max-width:680px){.two{grid-template-columns:1fr}}
+</style>
+
+<div class="wrap">
+<header class="hero">
+  <h1>面向单一适应症的新 Biomarker 挖掘</h1>
+  <p class="sub">整合 BioNeMo（Geneformer / ESM-2）· PROTO（Evo2 / AlphaGenome 核酸调控层）· 临床数据源 · Claude 编排 —— 以 <b>IBD（炎症性肠病）</b>为旗舰，覆盖预测、疗效、监测、入组、伴随诊断、进程六类用途。</p>
+  <div class="meta">
+    <span class="chip">适应症类别：自身免疫 / 炎症</span>
+    <span class="chip">旗舰：IBD (CD/UC)</span>
+    <span class="chip">证据来源：PubMed + ClinicalTrials.gov</span>
+    <span class="chip">日期：2026-07</span>
+  </div>
+</header>
+
+<section>
+<h2>1 · 核心框架：按临床用途定义 biomarker（BEST）</h2>
+<p>用户列出的每个用途都对应 FDA-NIH <b>BEST</b> 的一个标准类别。<span class="k">关键洞察：同一个基因/蛋白在不同语境下角色不同</span>——所以挖掘时要问"它属于哪个类别、和谁比、在什么样本里测得到"，而非"它是不是 biomarker"。</p>
+<div class="scroll"><table>
+<tr><th>你的说法</th><th>BEST 类别</th><th>回答的问题</th><th>本报告进度</th></tr>
+<tr><td>疾病预测（风险）</td><td>Susceptibility/Risk</td><td>未来会不会得病</td><td>框架已定</td></tr>
+<tr><td>疾病预测（诊断/分型）</td><td>Diagnostic</td><td>现在是否患病、哪个亚型</td><td>框架已定</td></tr>
+<tr><td>入组富集 / 伴随诊断</td><td><b>Predictive</b></td><td>对哪类疗法应答</td><td><b>用途 A · 已起草候选</b></td></tr>
+<tr><td>疗效评估</td><td>Response (PD)</td><td>药有没有起作用</td><td>用途 B · 已起草</td></tr>
+<tr><td>治疗程度</td><td><b>Monitoring</b></td><td>疾病负荷如何变化</td><td><b>用途 B · 已起草候选</b></td></tr>
+<tr><td>进程分析</td><td>Prognostic</td><td>病会怎么发展</td><td>框架已定</td></tr>
+</table></div>
+</section>
+
+<section>
+<h2>2 · 引擎地图：每个模型回答哪类问题</h2>
+<div class="grid">
+  <div class="card"><h4>Geneformer <span class="tag g3">单细胞</span></h4><p>黏膜 scRNA 上下文嵌入 + <b>in-silico 扰动</b>。定位驱动性基因（非旁观者）、发现疾病/应答细胞态。诊断、预后、应答的主力。</p></div>
+  <div class="card"><h4>PROTO <span class="tag g2">核酸/调控</span></h4><p>Evo2 · AlphaGenome · Enformer/Borzoi · SpliceAI。对候选基因的<b>调控/剪接变异</b>打功能影响分——判断"基因型层的通路激活度"。</p></div>
+  <div class="card"><h4>ESM-2 / AMPLIFY <span class="tag g1">蛋白序列</span></h4><p>编码变异有害性零样本打分（VEP），蛋白功能/家族嵌入。</p></div>
+  <div class="card"><h4>Boltz <span class="tag g2">结构</span></h4><p>结构 + 结合亲和力，为变异后果与耐药机制背书。</p></div>
+  <div class="card"><h4>临床/药物层</h4><p>ClinicalTrials.gov · ChEMBL · PubMed/bioRxiv：竞争基线、可成药性、新颖性核查。</p></div>
+  <div class="card"><h4>Claude 编排</h4><p>证据三角、候选排序、跨源核对、生成可审计证据卡片。</p></div>
+</div>
+</section>
+
+<section>
+<h2>3 · 为什么以 IBD 为旗舰</h2>
+<p>自身免疫里 IBD 缺口最清晰、四类用途全占、数据模态齐全。<span class="k">最大痛点</span>：5 类机制生物制剂（anti-TNF / IL-12·23 ustekinumab / IL-23 risankizumab / α4β7 vedolizumab / JAK upadacitinib），<b>原发无应答率 ~40%</b>，却没有验证过的选药依据。真实在招试验 <b>NCT07181525</b>（北大第一医院）正在做"不同生物制剂疗效预测模型"，印证这是公认待解的临床问题。</p>
+</section>
+
+<section>
+<h2>4 · 用途 × 模态 组合矩阵</h2>
+<p>一个完整方案是把一整行填满，<span class="k">多模态交叉印证</span>是降假阳性的核心：候选若在变异（基因组）、表达（单细胞）、蛋白（血清）三层一致，可信度远高于单层。</p>
+<div class="scroll"><table>
+<tr><th>用途</th><th>基因组 (Evo2/ESM-VEP)</th><th>单细胞 (Geneformer)</th><th>蛋白/血清</th><th>机制 (Boltz/EDEN)</th></tr>
+<tr><td>风险预测</td><td>胚系变异打分 ★</td><td>高危细胞态</td><td>循环基线</td><td>—</td></tr>
+<tr><td>诊断/分型</td><td>驱动突变</td><td>细胞态分型 ★</td><td>蛋白亚型</td><td>结构确认</td></tr>
+<tr><td><b>入组/CDx</b></td><td>抗性/敏感突变 ★</td><td>应答细胞态 ★</td><td>血浆 predictive ★</td><td>耐药机制 ★</td></tr>
+<tr><td>疗效 (PD)</td><td>—</td><td>通路开关扰动</td><td>PD 血浆蛋白 ★</td><td>结合占据</td></tr>
+<tr><td><b>监测</b></td><td>ctDNA 负荷</td><td>残留病细胞态</td><td>纵向血浆蛋白 ★</td><td>—</td></tr>
+<tr><td>进程/预后</td><td>克隆演化</td><td>网络中心性漂移 ★</td><td>蛋白轨迹</td><td>—</td></tr>
+</table></div>
+</section>
+
+<section>
+<h2>5 · 用途 A（选药 / CDx）候选 Panel</h2>
+<p>系统检索四个机制类，证据三角后得到 10 个候选。<span class="tag g3">3</span> 有直接多队列证据 · <span class="tag g2">2</span> 单队列/强机制 · <span class="tag g1">1</span> 假设/缺口。据 PubMed，逐条附 DOI。</p>
+<div class="scroll"><table>
+<tr><th>ID</th><th>标志物</th><th>机制类</th><th>方向 / 样本</th><th>级</th><th>关键证据 (DOI)</th></tr>
+<tr><td>A-TNF-01</td><td class="gene">OSM / OSMR</td><td>anti-TNF</td><td>高→无应答 · 黏膜+血清</td><td><span class="tag g3">3</span></td><td>West <i>Nat Med</i> 2017 <a class="doi" href="https://doi.org/10.1038/nm.4307">10.1038/nm.4307</a>；<b>矛盾</b>：儿科阴性 <a class="doi" href="https://doi.org/10.1097/MPG.0000000000003201">MPG…3201</a></td></tr>
+<tr><td>A-TNF-02</td><td class="gene">TNFSF14/HGF/TGFα</td><td>anti-TNF</td><td>高→难缓解 · 血清 Olink</td><td><span class="tag g2">2</span></td><td>Jongsma <i>JCC</i> 2023 <a class="doi" href="https://doi.org/10.1093/ecco-jcc/jjad049">jjad049</a></td></tr>
+<tr><td>A-TNF-03</td><td class="gene">TREM1</td><td>anti-TNF</td><td>低→应答 · 全血</td><td><span class="tag g2">2</span></td><td>Verstockt 2019 <a class="doi" href="https://doi.org/10.1016/j.ebiom.2019.01.027">ebiom…027</a>；<b>RCT 反转</b> SERENE 2024 <a class="doi" href="https://doi.org/10.1093/ecco-jcc/jjad170">jjad170</a></td></tr>
+<tr><td>A-TNF-04</td><td class="gene">GIMATS 模块</td><td>anti-TNF</td><td>存在→无持久缓解 · scRNA</td><td><span class="tag g3">3</span></td><td>Martin <i>Cell</i> 2019, n=441 <a class="doi" href="https://doi.org/10.1016/j.cell.2019.08.008">cell…008</a></td></tr>
+<tr><td>A-TNF-05</td><td class="gene">SIRPα+ 髓系</td><td>anti-TNF</td><td>高→难治 · 黏膜</td><td><span class="tag g2">2</span></td><td>Munasinghe 2025 <a class="doi" href="https://doi.org/10.1016/j.jcmgh.2025.101636">jcmgh…636</a></td></tr>
+<tr><td>A-ITG-01</td><td class="gene">α4β7 / MAdCAM-1</td><td>α4β7</td><td>高→vedo 应答 · 黏膜+血</td><td><span class="tag g3">3</span></td><td>Roosenboom 2023 <a class="doi" href="https://doi.org/10.1093/ibd/izad123">izad123</a>；Allner 2020 <a class="doi" href="https://doi.org/10.1186/s12876-020-01253-8">…01253-8</a></td></tr>
+<tr><td>A-IL23-01</td><td class="gene">IL23R</td><td>IL-23</td><td>通路激活/基因型 · 组织+血</td><td><span class="tag g1">1</span></td><td>R381Q LoF：Pidasheva 2011 <a class="doi" href="https://doi.org/10.1371/journal.pone.0025038">pone.0025038</a></td></tr>
+<tr><td>A-IL23-02</td><td class="gene">IL-23 通路签名</td><td>IL-23</td><td>de novo 发现 · 黏膜</td><td><span class="tag g1">1</span></td><td>缺口 — Geneformer 待挖</td></tr>
+<tr><td>A-JAK-01</td><td class="gene">TYK2 变异</td><td>JAK</td><td>非保护基因型→应答 · 血</td><td><span class="tag g1">1</span></td><td>Diogo 2015 <a class="doi" href="https://doi.org/10.1371/journal.pone.0122271">pone.0122271</a></td></tr>
+<tr><td>A-JAK-02</td><td class="gene">JAK/STAT·IFN 签名</td><td>JAK</td><td>de novo 发现 · 黏膜</td><td><span class="tag g1">1</span></td><td>缺口 — Geneformer 待挖</td></tr>
+</table></div>
+<div class="note"><b>证据三角亮点</b>：TREM1 呈"发现队列阳性（AUC 0.78）→ Ph3 RCT 验证反转"，OSM 呈"成人阳性 / 儿科阴性"。任何候选都必须按 CD/UC、成人/儿科、黏膜/血清分层验证——这正是需要独立队列与对抗性验证的原因。</div>
+</section>
+
+<section>
+<h2>6 · 最大机会：IL-23 / JAK 空白 + PROTO 变异清单</h2>
+<div class="two">
+<div class="panel"><h3>为什么是空白 = 机会</h3><p>系统检索显示 IL-23 类应答预测证据薄弱、JAK 类近乎为零（命中多为银屑病或安全性）。<span class="k">谁先做出来，价值最高。</span></p>
+<p>而遗传学提供了"通路可预测"的生物学基础：<b>IL23R R381Q</b> 功能缺失/保护（STAT3 磷酸化下降）、<b>TYK2 P1104A/A928V/I684S</b> 降激酶活性/保护——相当于天然的"部分抑制人体模型"。</p></div>
+<div class="panel"><h3>PROTO 待打分变异（节选）</h3>
+<div class="scroll"><table style="min-width:auto;font-size:12.6px">
+<tr><th>基因</th><th>变异</th><th>引擎</th></tr>
+<tr><td class="gene">IL23R</td><td>R381Q (rs11209026)</td><td>ESM-2 VEP</td></tr>
+<tr><td class="gene">IL23R</td><td>rs7517847 内含子</td><td>Evo2+AlphaGenome</td></tr>
+<tr><td class="gene">IL23R</td><td>rs11465804 近剪接</td><td>SpliceAI</td></tr>
+<tr><td class="gene">IL23R</td><td>rs10889677 3′UTR</td><td>AlphaGenome</td></tr>
+<tr><td class="gene">TYK2</td><td>P1104A (rs34536443)</td><td>ESM-2 + Boltz</td></tr>
+<tr><td class="gene">TYK2</td><td>A928V / I684S</td><td>ESM-2 VEP</td></tr>
+</table></div>
+<p style="font-size:12.3px;color:var(--muted)">完整 9 变异见 <code>proto_variants_il23r_tyk2.tsv</code>；非确证 rsID 已标 <code>to_validate</code>。</p></div>
+</div>
+</section>
+
+<section>
+<h2>7 · 用途 B（疗效 / 监测）候选</h2>
+<p>目标：血液/粪便可测、纵向、优于 FCP/CRP 的 PD/monitoring 标志物，减少肠镜。据 PubMed：</p>
+<div class="scroll"><table>
+<tr><th>标志物</th><th>角色</th><th>样本</th><th>级</th><th>证据 (DOI)</th></tr>
+<tr><td class="gene">粪钙卫蛋白 (FCP)</td><td>监测/复发预测（金标准对照）</td><td>粪</td><td><span class="tag g3">3</span></td><td>Cassinotti 2021 <a class="doi" href="https://doi.org/10.1016/j.cgh.2021.06.014">cgh…014</a></td></tr>
+<tr><td class="gene">CRP</td><td>活动度（不特异，疗效差）</td><td>血</td><td><span class="tag g2">2</span></td><td>Sakurai 2022 <a class="doi" href="https://doi.org/10.1159/000527846">000527846</a></td></tr>
+<tr><td class="gene">LRG1</td><td>内镜活动度优于 CRP</td><td>血清</td><td><span class="tag g2">2</span></td><td>Sakurai 2022 <a class="doi" href="https://doi.org/10.1159/000527846">000527846</a></td></tr>
+<tr><td class="gene">EHI（13 蛋白）</td><td>血清替代内镜（UC/CD）</td><td>血清</td><td><span class="tag g2">2</span></td><td>Alsoud 2023 <a class="doi" href="https://doi.org/10.14309/ajg.0000000000002518">…002518</a></td></tr>
+<tr><td class="gene">OSM / 抗αvβ6 / miRNA</td><td>新兴监测候选</td><td>血/组织</td><td><span class="tag g1">1</span></td><td>Sakurai 2022 <a class="doi" href="https://doi.org/10.1159/000527846">000527846</a></td></tr>
+</table></div>
+<div class="note"><b>B 的引擎重心不同于 A</b>：监测靠 Geneformer（残留病细胞态）+ 血清蛋白纵向签名；PROTO/ESM-2 作用较小。空白 = 发现"机制特异、血清可测、纵向优于 FCP"的 PD panel。详见 <code>ibd-candidate-panel-B-monitoring.md</code>。</div>
+</section>
+
+<section>
+<h2>8 · 组合评分卡（最终产出形态）</h2>
+<p>不追求单基因，而是"每类机制一个应答概率 + 一个疾病负荷趋势"的多标志物评分卡：</p>
+<div class="grid">
+  <div class="card"><h4>anti-TNF 无应答概率</h4><p>OSM + TNFSF14/HGF/TGFα + TREM1 + GIMATS + SIRPα</p></div>
+  <div class="card"><h4>vedolizumab 应答概率</h4><p>α4β7 / MAdCAM 轴</p></div>
+  <div class="card"><h4>IL-23 应答概率</h4><p>IL23R 基因型 + IL-23 通路签名（待挖）</p></div>
+  <div class="card"><h4>JAK 应答概率</h4><p>TYK2 基因型 + JAK/STAT·IFN 签名（待挖）</p></div>
+  <div class="card"><h4>疾病负荷趋势</h4><p>FCP + LRG1/EHI 纵向 + 残留细胞态</p></div>
+</div>
+</section>
+
+<section>
+<h2>9 · 落地路线</h2>
+<div class="flow">
+  <span class="step">建前瞻纵向多组学队列</span><span class="arr">→</span>
+  <span class="step">Geneformer 挖 IL-23/JAK 应答态</span><span class="arr">→</span>
+  <span class="step">PROTO 跑 IL23R/TYK2 变异</span><span class="arr">→</span>
+  <span class="step">Boltz/ChEMBL 机制背书</span><span class="arr">→</span>
+  <span class="step">组合评分卡 + 前瞻验证</span>
+</div>
+<ul>
+  <li><b>一次采集，多类复用</b>：同一批病人数据服务 A（基线）、B（纵向）、诊断/预后。</li>
+  <li><b>先攻 A（选药 CDx）+ B（监测）</b>：价值和可及性最高。</li>
+  <li><b>把算力压在 IL-23/JAK 空白</b>：最可能挖出"新且有用"的 biomarker。</li>
+  <li><b>诚实边界</b>：级别 1 候选是有遗传学支撑的假设，真正签名需 Geneformer 在真实 scRNA 上跑出，非纯文献可完成。</li>
+</ul>
+</section>
+
+<footer>
+证据来自 <b>PubMed</b>（According to PubMed），DOI 链接见正文各处。临床试验编号来自 ClinicalTrials.gov（2026-07 在招）。本报告为发现与假设结构化，不构成临床建议；所有候选须经分析验证与独立前瞻临床验证方可落地。<br>
+配套文件：<code>biomarker-discovery-strategy.md</code> · <code>biomarker-discovery-autoimmune-IBD.md</code> · <code>ibd-candidate-panel-A-predictive.md</code> · <code>ibd-il23-jak-gap-mining.md</code> · <code>ibd-candidate-panel-B-monitoring.md</code> · <code>candidates.yaml</code> · <code>proto_variants_il23r_tyk2.tsv</code> · <code>score_candidates.py</code>
+</footer>
+</div>
