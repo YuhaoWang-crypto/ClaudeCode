@@ -1,0 +1,26 @@
+gene,group,mean_shift_to_normal,n_cells
+SFRP2,whitespace,8.845627e-06,200
+FN1,known_effector,5.714297e-06,200
+TWIST1,whitespace,6.560862e-07,137
+PRRX1,whitespace,-3.651083e-06,200
+PTGES,whitespace,-3.752112e-06,200
+FAP,known_effector,-4.413724e-06,200
+CTHRC1,known_effector,-5.629361e-06,200
+ACTA2,known_effector,-6.168485e-06,200
+SPP1,known_effector,-6.934404e-06,200
+TGFB1,known_effector,-7.404685e-06,200
+MDK,whitespace,-7.688999e-06,200
+GAPDH,housekeeping,-9.009242e-06,200
+POSTN,known_effector,-1.529098e-05,200
+TIMP1,known_effector,-1.798093e-05,200
+CDKN2A,whitespace,-1.871079e-05,141
+COL3A1,known_effector,-2.780616e-05,200
+COL1A1,known_effector,-3.662229e-05,200
+B2M,housekeeping,-4.580408e-05,200
+ACTB,housekeeping,-5.006820e-05,200
+# Geneformer-V2-104M in-silico deletion, fibrosis->normal goal-state shift.
+# Positive = KO moves fibrotic epithelial/fibroblast cells toward normal-lung state.
+# 200 fibrosis cells, pretrained model (not fine-tuned). First-pass, noisy:
+# magnitudes ~1e-5; housekeeping/collagen controls not cleanly neutral, so treat
+# ranking as directional not definitive. SFRP2 (pathologic-fibroblast Wnt
+# modulator, a whitespace candidate) ranks #1.

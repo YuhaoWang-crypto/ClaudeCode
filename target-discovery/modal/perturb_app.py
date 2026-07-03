@@ -378,6 +378,57 @@ def perturb_targeted(max_ncells: int = 200):
             "columns": list(df.columns)}
 
 
+@app.function(image=gf_image, volumes={DATA_DIR: data_vol}, timeout=300)
+def read_shifts():
+    """Compute per-gene goal-shift directly from the raw perturbation pickles."""
+    import os
+    import pickle
+    import numpy as np
+
+    out = f"{DATA_DIR}/perturb_targeted"
+    print("== all entries in", out, "==")
+    for root, dirs, fs in os.walk(out):
+        for fn in sorted(fs):
+            p = os.path.join(root, fn)
+            print(f"  {os.path.relpath(p, out)}  ({os.path.getsize(p)} b)")
+    files = [f for f in sorted(os.listdir(out))
+             if f.endswith(".pickle") and "state_embs" not in f]
+    if not files:
+        print("no perturbation pickles found at top level")
+        return []
+    # show the structure of one pickle so we know what we're aggregating
+    sample = pickle.load(open(f"{out}/{files[0]}", "rb"))
+    print("sample file:", files[0], "| type:", type(sample).__name__)
+    if isinstance(sample, dict):
+        k = list(sample.keys())[:3]
+        print("sample keys:", k)
+        v = sample[list(sample.keys())[0]]
+        print("sample value type:", type(v).__name__,
+              "| preview:", str(v)[:200])
+
+    # Per-gene mean cosine shift toward the goal, using the START (fibrosis)
+    # state cells. Positive = deletion moves fibrotic cells toward normal.
+    start = STATES["start_state"]
+    rows = []
+    for fn in files:
+        sym = fn.split("pert_")[1].split("_cell_embs")[0]
+        d = pickle.load(open(f"{out}/{fn}", "rb"))
+        vals = []
+        for key, lst in d.get(start, {}).items():
+            vals.extend(float(v) for v in lst)
+        vals = [v for v in vals if not np.isnan(v)]
+        if vals:
+            rows.append((sym, float(np.mean(vals)), len(vals)))
+    rows.sort(key=lambda r: r[1], reverse=True)
+
+    grp = {s: g for g, syms in CANDIDATES.items() for s in syms}
+    print("\n== per-gene mean goal-shift (fibrosis -> normal), ranked ==")
+    print(f"{'gene':10s} {'group':14s} {'mean_shift':>12s} {'n':>6s}")
+    for sym, m, n in rows:
+        print(f"{sym:10s} {grp.get(sym,''):14s} {m:12.6e} {n:6d}")
+    return [(s, m, grp.get(s, "")) for s, m, n in rows]
+
+
 @app.local_entrypoint()
 def main():
-    print(perturb_targeted.remote(max_ncells=200))
+    print(read_shifts.remote())
