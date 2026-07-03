@@ -345,6 +345,11 @@ def perturb_targeted(max_ncells: int = 200, model_type: str = "Pretrained",
     state_embs = embex.get_state_embs(
         cell_states_to_model=STATES, model_directory=model_dir,
         input_data_file=DATASET, output_directory=out, output_prefix="state_embs")
+    # move state embeddings to CPU so geneformer's internal .map workers don't
+    # deserialize CUDA tensors in a fork (CUDA-cannot-reinit-in-fork crash)
+    import torch
+    state_embs = {k: (v.detach().cpu() if torch.is_tensor(v) else v)
+                  for k, v in state_embs.items()}
     print("[1/3] state embeddings:", list(state_embs.keys()))
 
     # delete each gene individually into the shared output dir
