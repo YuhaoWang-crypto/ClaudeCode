@@ -37,12 +37,25 @@ REPO_DIR = "/LNP_ML"
 SCRIPTS = f"{REPO_DIR}/scripts"
 MODELS_MNT = "/models"
 
+# Chemprop 1.7.0 hard-pins Python >=3.7,<3.9, but Modal's image builder only
+# supports >=3.10. So the Modal *function* runs in 3.10 (its client needs that),
+# while Chemprop lives in a separate 3.8 venv built with `uv` inside the image.
+# main_script.py is invoked with that 3.8 interpreter via subprocess.
+CHEMPROP_PY = "/opt/lnp38/bin/python"
+
 image = (
-    modal.Image.debian_slim(python_version="3.8")
-    .apt_install("git")
-    # chemprop 1.7.0 pulls a CUDA-enabled torch on linux; rdkit/pandas come along.
-    .pip_install("chemprop==1.7.0")
-    .run_commands(f"git clone --depth 1 {REPO} {REPO_DIR}")
+    modal.Image.debian_slim(python_version="3.10")
+    .apt_install("git", "build-essential",
+                 # RDKit's Draw module (imported by main_script.py) needs these
+                 "libxrender1", "libxext6", "libsm6", "libglib2.0-0")
+    .pip_install("uv", "pandas")  # pandas for the function's own post-processing (3.10)
+    .run_commands(
+        # standalone Python 3.8 + Chemprop 1.7.0 (pulls CUDA torch, rdkit, pandas…)
+        "uv venv --python 3.8 /opt/lnp38",
+        # uv venvs omit setuptools; hyperopt (a chemprop dep) needs pkg_resources
+        "uv pip install --python /opt/lnp38/bin/python setuptools wheel chemprop==1.7.0",
+        f"git clone --depth 1 {REPO} {REPO_DIR}",
+    )
 )
 
 app = modal.App("lion-lnp")
@@ -50,6 +63,9 @@ vol = modal.Volume.from_name("lion-models", create_if_missing=True)
 
 
 def _run(cmd: list[str]) -> None:
+    # cmd[0] == "python" -> run with the 3.8 Chemprop interpreter
+    if cmd and cmd[0] == "python":
+        cmd = [CHEMPROP_PY] + cmd[1:]
     print("+", " ".join(cmd), flush=True)
     subprocess.run(cmd, cwd=SCRIPTS, check=True)
 
@@ -163,7 +179,8 @@ def screen(smiles_json: str = "", split: str = "all_random_split_for_paper",
     _write_library(smiles, name, context)
     _run(["python", "main_script.py", "predict", split, name])
 
-    pred = (Path(REPO_DIR) / "results" / "screen_results" / split / name / "pred_file.csv")
+    # LiON writes screen output to "<model_folder>_preds/<library>/"
+    pred = (Path(REPO_DIR) / "results" / "screen_results" / f"{split}_preds" / name / "pred_file.csv")
     out = pred.read_text() if pred.exists() else "(no pred_file.csv produced)"
     # persist predictions
     dst = Path(MODELS_MNT) / f"screen__{name}.csv"
@@ -178,8 +195,19 @@ def demo_screen(split: str = "small_test_split_with_ultra_held_out_for_in_silico
     """Smoke test: train 3 epochs on the toy split and screen the shipped library."""
     _run(["python", "main_script.py", "train", split, "--epochs", "3"])
     _run(["python", "main_script.py", "predict", split, "test_screen"])
-    pred = (Path(REPO_DIR) / "results" / "screen_results" / split / "test_screen" / "pred_file.csv")
-    return pred.read_text()[:4000] if pred.exists() else "(no predictions)"
+    pred = (Path(REPO_DIR) / "results" / "screen_results" / f"{split}_preds" / "test_screen" / "pred_file.csv")
+    if not pred.exists():
+        return "(no pred_file.csv produced)"
+    import pandas as pd
+    df = pd.read_csv(pred)
+    # persist to volume and return a compact, ANSI-safe summary
+    (Path(MODELS_MNT) / "demo_pred_file.csv").write_text(pred.read_text())
+    vol.commit()
+    pred_col = [c for c in df.columns if "pred" in c.lower()]
+    head = df[["smiles"] + pred_col].head(5).to_string(index=False) if pred_col else df.head().to_string()
+    summary = f"OK: pred_file.csv has {len(df)} rows, cols={list(df.columns)}\n\ntop rows:\n{head}"
+    print(summary, flush=True)  # visible in container logs on any invocation
+    return summary
 
 
 @app.local_entrypoint()

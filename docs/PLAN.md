@@ -144,6 +144,28 @@ in parallel.
   Feed it (a) Problem-A endosomal-escape proxy and (b) Problem-B uptake rate to
   produce a single "predicted delivery/expression" number for a full design.
 
+### Modal — verified working (2026-07)
+
+`modal_app/lion.py` runs end-to-end on a Modal A10G GPU. Verified:
+`modal run modal_app/lion.py::demo_screen` builds the image, trains a 3-epoch
+toy ensemble, and produces a real LiON screen (`pred_file.csv`, 186 rows, with
+`cv_0..cv_4_pred_delivery` + `avg_pred_delivery`), persisted to the `lion-models`
+volume.
+
+Build gotchas solved (all encoded in the image):
+- Chemprop 1.7.0 hard-pins Python `>=3.7,<3.9`; Modal's builder needs `>=3.10`.
+  → function runs in 3.10, Chemprop lives in a `uv`-built 3.8 venv, invoked via
+  subprocess.
+- `uv` venvs omit setuptools → hyperopt's `pkg_resources` fails → install
+  `setuptools wheel` into the 3.8 venv.
+- RDKit `Draw` needs `libxrender1 libxext6 libsm6 libglib2.0-0` (apt).
+- LiON writes screen output to `<split>_preds/<library>/pred_file.csv`.
+- This environment's proxy needs `modal[api-proxy-support]` / `python-socks`.
+
+Next Modal step (needs GPU-hours, ask first): full train on
+`all_random_split_for_paper` (30 epochs, ~3 h) then `analyze` for held-out
+Pearson/Spearman/Kendall, matching the paper.
+
 ### Phase 5 — deploy at scale
 - Modal apps for: Chemprop training/inference, DrugCLIP screen, Boltz batch,
   DiffDock, and (if needed) MD. This session is CPU-only + ephemeral, so heavy
