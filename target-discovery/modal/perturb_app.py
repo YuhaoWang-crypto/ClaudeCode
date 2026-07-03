@@ -242,7 +242,7 @@ def perturb(max_ncells: int = 500):
     embex = EmbExtractor(
         model_type="Pretrained", num_classes=0, emb_mode="cell",
         cell_emb_style="mean_pool", max_ncells=1000, forward_batch_size=32,
-        nproc=4, token_dictionary_file=tok,
+        nproc=4, token_dictionary_file=tok, summary_stat="exact_mean",
     )
     state_embs = embex.get_state_embs(
         cell_states_to_model=STATES, model_directory=model_dir,
