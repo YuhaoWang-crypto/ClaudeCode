@@ -1,0 +1,10 @@
+gene	rsid	hgvs_protein	region	consequence	known_effect	primary_engine	proto_tasks	evidence_pmid	evidence_doi	rsid_status
+IL23R	rs11209026	p.Arg381Gln	exon	missense	loss_of_function_protective_CD_UC	esm2_vep	esm2_vep;boltz_structure;spliceai	22022372	10.1371/journal.pone.0025038	confirmed
+IL23R	rs7517847	intron	.	intronic	IBD_associated_regulatory_hypothesis	proto_regulatory	evo2_alphagenome_expression;enformer_borzoi_chromatin	.	.	to_validate_gwas_catalog
+IL23R	rs11465804	intron	.	intronic_near_splice	IBD_associated	proto_splicing	spliceai_pangolin;alphagenome_expression	.	.	to_validate_gwas_catalog
+IL23R	rs1004819	intron	.	intronic	IBD_associated_regulatory_hypothesis	proto_regulatory	evo2_alphagenome_expression	.	.	to_validate_gwas_catalog
+IL23R	rs10889677	3primeUTR	.	utr_variant	mRNA_stability_miRNA_binding_hypothesis	proto_regulatory	alphagenome_expression;viennarna_structure	.	.	to_validate_gwas_catalog
+TYK2	rs34536443	p.Pro1104Ala	exon	missense	reduced_kinase_activity_protective_autoimmune_IBD_suggestive	esm2_vep	esm2_vep;boltz_kinase_domain	25849893	10.1371/journal.pone.0122271	confirmed
+TYK2	rs35018800	p.Ala928Val	exon	missense	protective_rare	esm2_vep	esm2_vep;boltz_kinase_domain	25849893	10.1371/journal.pone.0122271	confirmed
+TYK2	rs12720356	p.Ile684Ser	exon	missense	protective	esm2_vep	esm2_vep	25849893	10.1371/journal.pone.0122271	confirmed
+TYK2	rs2304256	p.Val362Phe	exon	missense	autoimmune_associated	esm2_vep	esm2_vep;spliceai_pangolin	.	.	to_validate_gwas_catalog

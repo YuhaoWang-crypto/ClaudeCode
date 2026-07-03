@@ -1,0 +1,276 @@
+# IBD 用途 A（Predictive / 选药 CDx）候选 Panel — 机器可读版
+# schema 见 ibd-candidate-panel-A-predictive.md §1
+# 证据来源：PubMed（According to PubMed）；临床试验：ClinicalTrials.gov（2026-07）
+# evidence_grade: 3=直接IBD应答预测证据(多队列) / 2=单队列或强机制旁证 / 1=假设或缺口
+# 注意：PROTO = 核酸/调控层分析(Evo2/AlphaGenome/Enformer/Borzoi/SpliceAI)，非血浆蛋白
+
+meta:
+  indication: inflammatory_bowel_disease
+  disease_subtypes: [CD, UC]
+  use_case: A_predictive_CDx
+  question: predict_which_mechanism_class_a_patient_responds_to
+  mechanism_classes: [anti_TNF, IL23_IL12, alpha4beta7, JAK]
+  engines:
+    geneformer: mucosal_scRNA_embedding + in_silico_perturbation
+    proto: nucleic_acid_regulatory_variant_scoring   # Evo2/AlphaGenome/Enformer/Borzoi/SpliceAI
+    esm2_vep: coding_variant_zeroshot_deleteriousness
+
+candidates:
+
+  - candidate_id: A-TNF-01
+    symbol: [OSM, OSMR]
+    name: Oncostatin M and receptor
+    mechanism_class: anti_TNF
+    biomarker_role: predictive
+    direction: high_pretreatment_OSM -> anti_TNF_nonresponse
+    sample_type: [mucosal_biopsy, serum]
+    assayability: {method: [RNAseq, qPCR, Olink_serum], landing: high}
+    evidence:
+      supporting:
+        - {claim: "high pretreatment mucosal OSM assoc anti-TNF failure; >200 pts incl 2 Ph3 (infliximab, golimumab)", cohort: adult_CD_UC, disease: IBD, pmid: "28368383", doi: "10.1038/nm.4307", strength: strong}
+        - {claim: "serum CD-hi cluster (OSM,TNFSF14,HGF,TGFa) predicts lower infliximab remission (24% vs 58%)", cohort: pediatric_CD_RCT_TISKids, n: 86, pmid: "36934327", doi: "10.1093/ecco-jcc/jjad049", strength: moderate}
+      contradicting:
+        - {claim: "OSM did NOT predict response in pediatric cohort", cohort: pediatric, pmid: "34117193", doi: "10.1097/MPG.0000000000003201", note: age_cohort_dependent}
+      mechanistic:
+        - {claim: "OSM drives subepithelial myofibroblast proinflammatory phenotype (IL6, ICAM1, chemokines)", pmid: "38717842", doi: "10.1093/ibd/izae098"}
+    evidence_grade: 3
+    novelty: known_extend_to_multiclass_serum_panel
+    paired_drug: [infliximab, adalimumab, golimumab]
+    compute_nextstep:
+      geneformer: "verify OSM/OSMR+ stromal module drives inflammatory state; in-silico knockdown OSMR"
+      proto: "score OSM/OSMR regulatory/eQTL variants (Evo2+AlphaGenome)"
+      esm2_vep: "OSMR missense deleteriousness"
+    validation_cohort: [NCT06227910, NCT07181525]
+    risk_flags: [age_cohort_dependent, mucosal_vs_serum_accessibility]
+
+  - candidate_id: A-TNF-02
+    symbol: [TNFSF14, HGF, TGFA]
+    name: Serum Olink CD-hi inflammatory cluster (LIGHT/HGF/TGF-alpha)
+    mechanism_class: anti_TNF
+    biomarker_role: predictive
+    direction: high_baseline_serum -> infliximab_nonremission
+    sample_type: [serum]
+    assayability: {method: [Olink_92plex], landing: high}
+    evidence:
+      supporting:
+        - {claim: "baseline CD-hi cluster predicts failure to maintain remission w/o escalation at wk52", cohort: pediatric_CD_RCT_TISKids, n: 86, pmid: "36934327", doi: "10.1093/ecco-jcc/jjad049", strength: moderate}
+      contradicting: []
+      mechanistic: [linked_to_OSM_axis]
+    evidence_grade: 2
+    novelty: semi_novel_as_combination
+    paired_drug: [infliximab]
+    compute_nextstep:
+      geneformer: "map TNFSF14/HGF/TGFA-expressing cell modules across responder strata"
+      proto: "score TNFSF14/HGF/TGFA regulatory variants (AlphaGenome expression)"
+      esm2_vep: na
+    validation_cohort: [NCT07132333]
+    risk_flags: [single_RCT, pediatric_only, needs_adult_UC_validation]
+
+  - candidate_id: A-TNF-03
+    symbol: [TREM1]
+    name: Triggering receptor expressed on myeloid cells 1
+    mechanism_class: anti_TNF
+    biomarker_role: predictive
+    direction: low_whole_blood_TREM1 -> anti_TNF_response
+    sample_type: [whole_blood, mucosal_biopsy]
+    assayability: {method: [qPCR, RNAseq], landing: high}
+    evidence:
+      supporting:
+        - {claim: "low baseline whole-blood TREM1 predicts anti-TNF endoscopic remission (AUC 0.78); anti-TNF specific (not uste/vedo)", cohort: adult_CD_UC, n: 54, pmid: "30685385", doi: "10.1016/j.ebiom.2019.01.027", strength: moderate}
+        - {claim: "TREM1 among early-response gene signature", cohort: pediatric_IBD, n: 43, pmid: "32397546", doi: "10.3390/ijms21093364", strength: weak}
+      contradicting:
+        - {claim: "baseline TREM1 did NOT uniformly predict adalimumab response in SERENE-UC/CD Ph3", cohort: adult_RCT_SERENE, n: 201, pmid: "37801628", doi: "10.1093/ecco-jcc/jjad170", note: discovery_positive_RCT_validation_negative, strength: strong}
+      mechanistic: [myeloid_innate_activation]
+    evidence_grade: 2
+    novelty: known_but_validation_conflicted
+    paired_drug: [infliximab, adalimumab]
+    compute_nextstep:
+      geneformer: "test TREM1+ myeloid state separation across responders; check why RCT validation failed (subtype/assay batch)"
+      proto: "TREM1 regulatory variants expression scoring"
+      esm2_vep: na
+    validation_cohort: [NCT06227910]
+    risk_flags: [discovery_vs_RCT_contradiction, assay_platform_sensitivity, use_only_within_composite]
+
+  - candidate_id: A-TNF-04
+    symbol: [GIMATS_module]
+    name: "GIMATS cellular module (IgG plasma cells + inflammatory mononuclear phagocytes + activated T cells + stromal cells)"
+    mechanism_class: anti_TNF
+    biomarker_role: predictive
+    direction: module_present_at_diagnosis -> failure_of_durable_steroidfree_remission
+    sample_type: [mucosal_biopsy_scRNA]
+    assayability: {method: [scRNAseq, deconvolution_from_bulk, multiplex_IHC], landing: medium}
+    evidence:
+      supporting:
+        - {claim: "GIMATS module presence at diagnosis correlates with anti-TNF failure; replicated across 4 iCD cohorts", cohort: ileal_CD, n: 441, pmid: "31474370", doi: "10.1016/j.cell.2019.08.008", strength: strong}
+      contradicting: []
+      mechanistic: [ligand_receptor_network_connectivity_drives_module]
+    evidence_grade: 3
+    novelty: known_anchor_for_scRNA_approach
+    paired_drug: [infliximab, adalimumab]
+    compute_nextstep:
+      geneformer: "reconstruct GIMATS-like module de novo via embedding; in-silico perturbation of hub ligand-receptor pairs; extend to blood-detectable proxy"
+      proto: na
+      esm2_vep: na
+    validation_cohort: [NCT06227910, NCT07132333]
+    risk_flags: [requires_scRNA_or_deconvolution, tissue_accessibility]
+
+  - candidate_id: A-TNF-05
+    symbol: [SIRPA]
+    name: "SIRPa+ (CD33+HLA-DR+CD11c+) mucosal myeloid lineage"
+    mechanism_class: anti_TNF
+    biomarker_role: predictive
+    direction: high_mucosal_SIRPa_myeloid -> anti_TNF_refractory
+    sample_type: [mucosal_biopsy]
+    assayability: {method: [flow, scRNAseq], landing: low_medium}
+    evidence:
+      supporting:
+        - {claim: "refractory CD has highest mucosal SIRPa+ myeloid; proinflammatory, harms epithelium; blood levels unchanged", cohort: CD, pmid: "40998009", doi: "10.1016/j.jcmgh.2025.101636", strength: moderate}
+      contradicting: []
+      mechanistic: [CD47_ligation_proinflammatory_secretome]
+    evidence_grade: 2
+    novelty: emerging_2025
+    paired_drug: [infliximab, adalimumab]
+    compute_nextstep:
+      geneformer: "characterize SIRPa+ myeloid state; perturbation of CD47/SIRPA axis"
+      proto: na
+      esm2_vep: na
+    validation_cohort: [NCT07132333]
+    risk_flags: [mucosal_only_blood_negative, early_evidence]
+
+  - candidate_id: A-ITG-01
+    symbol: [ITGA4, ITGB7, MADCAM1]
+    name: alpha4beta7 integrin / MAdCAM-1 gut-homing axis
+    mechanism_class: alpha4beta7
+    biomarker_role: predictive
+    direction: high_mucosal_a4b7_and_MAdCAM_and_Tcell_adhesion -> vedolizumab_response
+    sample_type: [mucosal_biopsy, peripheral_blood_functional]
+    assayability: {method: [IHC, flow, adhesion_assay], landing: medium}
+    evidence:
+      supporting:
+        - {claim: "mucosal a4b7+ lymphocytes & MAdCAM+ venules predict vedolizumab response", cohort: UC, pmid: "37436917", doi: "10.1093/ibd/izad123", strength: moderate}
+        - {claim: "baseline dynamic CD4 T-cell adhesion to MAdCAM-1 correlates with vedolizumab clinical response", cohort: UC, pmid: "32293299", doi: "10.1186/s12876-020-01253-8", strength: moderate}
+        - {claim: "biomarkers associated with vedolizumab clinical/endoscopic outcomes", cohort: CD, pmid: "33240396", doi: "10.1177/1756284820971214", strength: weak}
+      contradicting: []
+      mechanistic: [drug_directly_blocks_a4b7_MAdCAM_self_consistent]
+    evidence_grade: 3
+    novelty: known_mechanism_make_blood_assay
+    paired_drug: [vedolizumab]
+    compute_nextstep:
+      geneformer: "gut-homing lymphocyte state (ITGA4/ITGB7/CCR9) abundance across responders; perturbation"
+      proto: "score ITGA4/ITGB7/MADCAM1 regulatory variants (AlphaGenome/Enformer)"
+      esm2_vep: "integrin subunit missense"
+    validation_cohort: [NCT05428345, NCT06227910]
+    risk_flags: [functional_assay_standardization]
+
+  - candidate_id: A-IL23-01
+    symbol: [IL23R]
+    name: IL-23 receptor (pathway activation / genotype dose)
+    mechanism_class: IL23_IL12
+    biomarker_role: predictive
+    direction: high_IL23_axis_activation_and_low_protective_genotype -> ustekinumab_risankizumab_response
+    sample_type: [mucosal_biopsy, blood_genotype]
+    assayability: {method: [RNAseq, genotyping, PROTO_variant_scoring], landing: medium}
+    evidence:
+      supporting:
+        - {claim: "R381Q (rs11209026) is loss-of-function protective allele; reduces IL-23-induced STAT3 phosphorylation", cohort: functional_primary_Tcells, pmid: "22022372", doi: "10.1371/journal.pone.0025038", strength: strong_genetic}
+        - {claim: "review of R381Q protective role across immune diseases incl IBD", pmid: "27043356", doi: "10.3109/1547691X.2015.1115448", strength: supportive}
+      contradicting: []
+      mechanistic: [IL23_Th17_axis]
+      gap_note: "direct IL-23-class RESPONSE-prediction evidence in IBD is sparse -> high novelty opportunity"
+    evidence_grade: 1
+    novelty: novel_high_value
+    paired_drug: [ustekinumab, risankizumab]
+    compute_nextstep:
+      geneformer: "de novo discover IL-23 responsive cell state in uste/risa responder scRNA; in-silico perturb IL23R/IL12B"
+      proto: "score IL23R variants (see proto_variants_il23r_tyk2.tsv): rs11209026 coding, rs7517847/rs11465804/rs1004819/rs10889677 regulatory-splicing"
+      esm2_vep: "R381Q and other IL23R missense"
+    validation_cohort: [NCT05387031, NCT07071519]
+    risk_flags: [needs_response_stratified_cohort, rsid_validation_required]
+
+  - candidate_id: A-IL23-02
+    symbol: [IL12B, IL22, STAT3, IL17A]
+    name: IL-23 pathway mucosal transcriptomic signature
+    mechanism_class: IL23_IL12
+    biomarker_role: predictive
+    direction: high_IL23_pathway_signature -> IL23_class_response
+    sample_type: [mucosal_biopsy]
+    assayability: {method: [RNAseq, qPCR_panel], landing: medium}
+    evidence:
+      supporting: []
+      contradicting: []
+      mechanistic: [IL23_IL12_Th17_ILC3_axis]
+      gap_note: "hypothesis; to be discovered de novo via Geneformer (no validated IBD signature yet)"
+    evidence_grade: 1
+    novelty: novel_high_value
+    paired_drug: [ustekinumab, risankizumab]
+    compute_nextstep:
+      geneformer: "unsupervised discovery + perturbation validation of IL-23 responsive module"
+      proto: "regulatory variants of IL12B/IL22/STAT3"
+      esm2_vep: na
+    validation_cohort: [NCT05387031, NCT07071519]
+    risk_flags: [no_prior_evidence_pure_discovery]
+
+  - candidate_id: A-JAK-01
+    symbol: [TYK2]
+    name: TYK2 protein-coding variant dose (JAK/TYK2 pathway dependence)
+    mechanism_class: JAK
+    biomarker_role: predictive
+    direction: nonprotective_TYK2_genotype_and_high_JAKSTAT_signature -> JAK_inhibitor_response
+    sample_type: [blood_genotype, mucosal_biopsy]
+    assayability: {method: [genotyping, PROTO_variant_scoring, RNAseq], landing: medium}
+    evidence:
+      supporting:
+        - {claim: "TYK2 P1104A/A928V/I684S reduce kinase activity, protect autoimmunity; P1104A/A928V suggestive protection in IBD", cohort: genetic_RA_SLE_IBD, pmid: "25849893", doi: "10.1371/journal.pone.0122271", strength: strong_genetic}
+      contradicting: []
+      mechanistic: [TYK2_natural_partial_inhibition_human_model_for_JAK]
+      gap_note: "no validated JAK-class RESPONSE predictor in IBD -> high novelty; also need safety biomarker (VTE/malignancy)"
+    evidence_grade: 1
+    novelty: novel_high_value
+    paired_drug: [tofacitinib, upadacitinib]
+    compute_nextstep:
+      geneformer: "JAK/STAT + interferon responsive cell states; perturb JAK1/TYK2"
+      proto: "score TYK2 variants (proto_variants_il23r_tyk2.tsv): rs34536443/rs35018800/rs12720356/rs2304256"
+      esm2_vep: "P1104A/A928V/I684S/V362F missense deleteriousness"
+    validation_cohort: [NCT06227910]
+    risk_flags: [pure_hypothesis_response, also_needs_safety_stratification]
+
+  - candidate_id: A-JAK-02
+    symbol: [JAK1, STAT1, IFN_signature]
+    name: JAK/STAT + interferon mucosal response signature
+    mechanism_class: JAK
+    biomarker_role: predictive
+    direction: high_JAKSTAT_IFN_signature -> JAK_inhibitor_response
+    sample_type: [mucosal_biopsy, blood]
+    assayability: {method: [RNAseq, phosphoflow_pSTAT], landing: medium}
+    evidence:
+      supporting: []
+      contradicting: []
+      mechanistic: [JAK_STAT_interferon_axis]
+      gap_note: "hypothesis; discover de novo via Geneformer"
+    evidence_grade: 1
+    novelty: novel_high_value
+    paired_drug: [tofacitinib, upadacitinib]
+    compute_nextstep:
+      geneformer: "unsupervised IFN/JAK-STAT module discovery + perturbation"
+      proto: "JAK1/STAT1 regulatory variants"
+      esm2_vep: na
+    validation_cohort: [NCT06227910]
+    risk_flags: [no_prior_evidence_pure_discovery]
+
+# 组合评分卡目标（非单基因）：
+scorecards:
+  - name: anti_TNF_nonresponse_probability
+    inputs: [A-TNF-01, A-TNF-02, A-TNF-03, A-TNF-04, A-TNF-05]
+  - name: vedolizumab_response_probability
+    inputs: [A-ITG-01]
+  - name: IL23_class_response_probability
+    inputs: [A-IL23-01, A-IL23-02]
+  - name: JAK_class_response_probability
+    inputs: [A-JAK-01, A-JAK-02]
+
+# 下一轮 TODO
+todo:
+  - validate_rsids_against_gwas_catalog_open_targets
+  - run_proto_on_proto_variants_il23r_tyk2_tsv
+  - geneformer_de_novo_discovery_IL23_and_JAK_response_states
+  - build_blood_detectable_proxy_for_GIMATS_module
