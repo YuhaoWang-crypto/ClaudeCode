@@ -52,26 +52,31 @@ def inspect_census():
     with cellxgene_census.open_soma(census_version="stable") as census:
         obs = cellxgene_census.get_obs(
             census, "homo_sapiens",
-            value_filter=(
-                "tissue_general == 'lung' and "
-                "disease == 'idiopathic pulmonary fibrosis'"
-            ),
-            column_names=["dataset_id", "cell_type", "assay", "disease"],
+            value_filter="tissue_general == 'lung'",
+            column_names=["dataset_id", "cell_type", "disease"],
         )
-    print(f"IPF lung cells in Census: {len(obs):,}")
-    print("\n== top datasets by IPF cell count ==")
-    print(obs["dataset_id"].value_counts().head(8).to_string())
-    print("\n== cell_type labels (top 30) ==")
-    print(obs["cell_type"].value_counts().head(30).to_string())
-    # flag any epithelial/basal/fibroblast labels relevant to our whitespace
-    kw = ["basal", "baso", "fibro", "aberr", "epitheli", "alveolar", "AT2", "AT1"]
-    hits = sorted({c for c in obs["cell_type"].unique()
-                   if any(k.lower() in c.lower() for k in kw)})
-    print("\n== relevant cell_type labels ==")
-    for h in hits:
-        print("  ", h)
-    return {"n_ipf": int(len(obs)),
-            "top_dataset": obs["dataset_id"].value_counts().index[0]}
+    print(f"lung cells in Census: {len(obs):,}")
+    # observed=True so we only see labels actually present (not empty categories)
+    dz = obs["disease"].value_counts()
+    dz = dz[dz > 0]
+    print("\n== disease labels present in lung ==")
+    print(dz.head(30).to_string())
+    # find the fibrosis-related label(s)
+    fib = [d for d in dz.index if "fibros" in str(d).lower()]
+    print("\n== fibrosis-related disease labels ==", fib)
+    if fib:
+        sub = obs[obs["disease"].isin(fib)]
+        print(f"\n== fibrosis cells: {len(sub):,} ==")
+        print("top datasets:")
+        print(sub["dataset_id"].value_counts().head(6).to_string())
+        kw = ["basal", "baso", "fibro", "aberr", "epitheli", "alveolar", "AT2", "AT1"]
+        hits = sorted({c for c in sub["cell_type"].unique()
+                       if any(k.lower() in str(c).lower() for k in kw)})
+        print("\n== relevant cell_type labels in fibrosis cells ==")
+        for h in hits:
+            n = int((sub["cell_type"] == h).sum())
+            print(f"   {h}: {n:,}")
+    return {"disease_labels": list(map(str, dz.head(30).index)), "fibrosis": fib}
 
 
 @app.local_entrypoint()
