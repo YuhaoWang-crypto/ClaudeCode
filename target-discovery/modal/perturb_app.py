@@ -301,12 +301,13 @@ CANDIDATES = {
 
 @app.function(image=gf_image, volumes={DATA_DIR: data_vol, MODEL_DIR: model_vol},
               gpu="A100", timeout=1800)
-def perturb_targeted(max_ncells: int = 200):
+def perturb_targeted(max_ncells: int = 200, model_type: str = "Pretrained",
+                     model_path: str = "", out_name: str = "perturb_targeted"):
     """Delete each candidate gene individually; rank by fibrosis->normal shift.
 
-    Targeted (not genome-wide) so it runs in minutes: a gene LIST is a combined
-    deletion in geneformer, so we loop one gene at a time into a shared output
-    dir, then aggregate with InSilicoPerturberStats.
+    model_type='Pretrained' uses the base checkpoint; 'CellClassifier' uses the
+    fine-tuned disease classifier (model_path), giving a learned state manifold
+    and a cleaner goal-shift.
     """
     import os
     import pickle
@@ -316,8 +317,9 @@ def perturb_targeted(max_ncells: int = 200):
 
     med, tok, mapf = _gc104m_dicts()
     gene_name_id = tok.replace("token_dictionary", "gene_name_id_dict")
-    model_dir = f"{MODEL_DIR}/Geneformer/{CKPT}"
-    out = f"{DATA_DIR}/perturb_targeted"
+    model_dir = model_path or f"{MODEL_DIR}/Geneformer/{CKPT}"
+    n_classes = 2 if model_type == "CellClassifier" else 0
+    out = f"{DATA_DIR}/{out_name}"
     os.makedirs(out, exist_ok=True)
 
     # map candidate symbols -> Ensembl, keep those in the token vocabulary
@@ -334,9 +336,10 @@ def perturb_targeted(max_ncells: int = 200):
           f"candidates in vocab: {sorted(sym2ens)}")
 
     # state embeddings (fibrosis vs normal), CLS mode for V2
-    embex = EmbExtractor(model_type="Pretrained", num_classes=0, emb_mode="cls",
-                         max_ncells=1000, forward_batch_size=16, nproc=4,
-                         token_dictionary_file=tok, summary_stat="exact_mean")
+    embex = EmbExtractor(model_type=model_type, num_classes=n_classes,
+                         emb_mode="cls", max_ncells=1000, forward_batch_size=16,
+                         nproc=4, token_dictionary_file=tok,
+                         summary_stat="exact_mean")
     state_embs = embex.get_state_embs(
         cell_states_to_model=STATES, model_directory=model_dir,
         input_data_file=DATASET, output_directory=out, output_prefix="state_embs")
@@ -346,7 +349,7 @@ def perturb_targeted(max_ncells: int = 200):
     for i, (sym, ens) in enumerate(sym2ens.items(), 1):
         isp = InSilicoPerturber(
             perturb_type="delete", genes_to_perturb=[ens], combos=0,
-            model_type="Pretrained", num_classes=0, emb_mode="cls",
+            model_type=model_type, num_classes=n_classes, emb_mode="cls",
             cell_states_to_model=STATES, state_embs_dict=state_embs,
             max_ncells=max_ncells, forward_batch_size=16, nproc=4,
             token_dictionary_file=tok)
