@@ -1,0 +1,67 @@
+[
+ {
+  "ab": "ab2-mat1",
+  "iptm_mean": 0.817,
+  "iptm_best": 0.83,
+  "iptm_sd": 0.01,
+  "bind": 0.453,
+  "sconf": 0.898,
+  "scfv_iptm": 0.885,
+  "scfv_bind": 0.731,
+  "n_epi": 15,
+  "core_retained": 5,
+  "epitope": "F6 Y10 K16 Q19 K20 F22 V23 Q24 L26 I27 A28 S32 S33 G34 A35"
+ },
+ {
+  "ab": "ab2-wt",
+  "iptm_mean": 0.817,
+  "iptm_best": 0.826,
+  "iptm_sd": 0.007,
+  "bind": 0.372,
+  "sconf": 0.907,
+  "scfv_iptm": 0.855,
+  "scfv_bind": 0.635,
+  "n_epi": 12,
+  "core_retained": 5,
+  "epitope": "Y1 A2 K16 Q19 K20 F22 V23 Q24 L26 I27 A28 S32"
+ },
+ {
+  "ab": "ab2-mat3",
+  "iptm_mean": 0.791,
+  "iptm_best": 0.819,
+  "iptm_sd": 0.025,
+  "bind": 0.349,
+  "sconf": 0.877,
+  "scfv_iptm": 0.8,
+  "scfv_bind": null,
+  "n_epi": 22,
+  "core_retained": 5,
+  "epitope": "Y1 A2 E3 F6 T7 Y10 I12 L14 Q19 K20 F22 V23 Q24 L26 I27 A28 G29 S32 S33 G34 A35 P38"
+ },
+ {
+  "ab": "ab2-mat2",
+  "iptm_mean": 0.818,
+  "iptm_best": 0.841,
+  "iptm_sd": 0.012,
+  "bind": 0.343,
+  "sconf": 0.906,
+  "scfv_iptm": 0.895,
+  "scfv_bind": 0.72,
+  "n_epi": 12,
+  "core_retained": 5,
+  "epitope": "Y1 A2 Q19 K20 F22 V23 Q24 L26 I27 A28 G29 S32"
+ },
+ {
+  "ab": "ab1-wt",
+  "iptm_mean": 0.836,
+  "iptm_best": 0.853,
+  "iptm_sd": 0.014,
+  "bind": 0.249,
+  "sconf": 0.927,
+  "scfv_iptm": null,
+  "scfv_bind": 0.694,
+  "n_epi": 14,
+  "core_retained": 5,
+  "epitope": "Y1 D15 K16 A18 Q19 K20 A21 F22 V23 Q24 L26 I27 G29 S32"
+ }
+]
