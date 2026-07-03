@@ -1,0 +1,32 @@
+{
+ "job": "prot_scr_mldVzPigBS5LqUfIJBgR",
+ "rep": "whole_drug_single_ligand_341_heavy_atoms",
+ "results": {
+  "A9Y_scFv": {
+   "bind": 0.27,
+   "struct": 0.223,
+   "iptm": 0.649,
+   "ipae": 5.85,
+   "cdr_contacts": 10
+  },
+  "spec7_scFv": {
+   "bind": 0.267,
+   "struct": 0.211,
+   "iptm": 0.688,
+   "ipae": 4.02
+  },
+  "A8Y_scFv": {
+   "bind": 0.193,
+   "struct": 0.134,
+   "iptm": 0.57,
+   "ipae": 6.67,
+   "cdr_contacts": 14
+  },
+  "WT_scFv": {
+   "bind": 0.175,
+   "struct": 0.126,
+   "iptm": 0.542,
+   "ipae": 7.05
+  }
+ }
+}
