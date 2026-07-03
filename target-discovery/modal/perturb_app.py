@@ -289,6 +289,95 @@ def perturb(max_ncells: int = 500):
             "columns": list(df.columns)}
 
 
+# Candidate genes to test individually: whitespace targets, known fibrosis
+# effectors (positive controls), and housekeeping genes (negative controls).
+CANDIDATES = {
+    "whitespace": ["MDK", "SFRP2", "PTGES", "TWIST1", "PRRX1", "CDKN2A"],
+    "known_effector": ["COL1A1", "COL3A1", "POSTN", "CTHRC1", "SPP1", "FN1",
+                        "TIMP1", "TGFB1", "ACTA2", "FAP"],
+    "housekeeping": ["ACTB", "GAPDH", "B2M"],
+}
+
+
+@app.function(image=gf_image, volumes={DATA_DIR: data_vol, MODEL_DIR: model_vol},
+              gpu="A100", timeout=1800)
+def perturb_targeted(max_ncells: int = 200):
+    """Delete each candidate gene individually; rank by fibrosis->normal shift.
+
+    Targeted (not genome-wide) so it runs in minutes: a gene LIST is a combined
+    deletion in geneformer, so we loop one gene at a time into a shared output
+    dir, then aggregate with InSilicoPerturberStats.
+    """
+    import os
+    import pickle
+    import pandas as pd
+    from geneformer import (EmbExtractor, InSilicoPerturber,
+                            InSilicoPerturberStats)
+
+    med, tok, mapf = _gc104m_dicts()
+    gene_name_id = tok.replace("token_dictionary", "gene_name_id_dict")
+    model_dir = f"{MODEL_DIR}/Geneformer/{CKPT}"
+    out = f"{DATA_DIR}/perturb_targeted"
+    os.makedirs(out, exist_ok=True)
+
+    # map candidate symbols -> Ensembl, keep those in the token vocabulary
+    name2id = pickle.load(open(gene_name_id, "rb"))
+    token_keys = set(pickle.load(open(tok, "rb")).keys())
+    sym2ens, group = {}, {}
+    for grp, syms in CANDIDATES.items():
+        for s in syms:
+            g = name2id.get(s)
+            if g and g in token_keys:
+                sym2ens[s] = g
+                group[s] = grp
+    print(f"resolved {len(sym2ens)}/{sum(len(v) for v in CANDIDATES.values())} "
+          f"candidates in vocab: {sorted(sym2ens)}")
+
+    # state embeddings (fibrosis vs normal), CLS mode for V2
+    embex = EmbExtractor(model_type="Pretrained", num_classes=0, emb_mode="cls",
+                         max_ncells=1000, forward_batch_size=16, nproc=4,
+                         token_dictionary_file=tok, summary_stat="exact_mean")
+    state_embs = embex.get_state_embs(
+        cell_states_to_model=STATES, model_directory=model_dir,
+        input_data_file=DATASET, output_directory=out, output_prefix="state_embs")
+    print("[1/3] state embeddings:", list(state_embs.keys()))
+
+    # delete each gene individually into the shared output dir
+    for i, (sym, ens) in enumerate(sym2ens.items(), 1):
+        isp = InSilicoPerturber(
+            perturb_type="delete", genes_to_perturb=[ens], combos=0,
+            model_type="Pretrained", num_classes=0, emb_mode="cls",
+            cell_states_to_model=STATES, state_embs_dict=state_embs,
+            max_ncells=max_ncells, forward_batch_size=16, nproc=4,
+            token_dictionary_file=tok)
+        isp.perturb_data(model_directory=model_dir, input_data_file=DATASET,
+                         output_directory=out, output_prefix=f"pert_{sym}")
+        print(f"  perturbed {i}/{len(sym2ens)}: {sym}")
+    print("[2/3] all candidates perturbed")
+
+    isps = InSilicoPerturberStats(
+        mode="goal_state_shift", genes_perturbed=list(sym2ens.values()),
+        cell_states_to_model=STATES, token_dictionary_file=tok,
+        gene_name_id_dictionary_file=gene_name_id)
+    isps.get_stats(input_data_directory=out, null_dist_data_directory=None,
+                   output_directory=out, output_prefix="targeted_goalshift")
+    data_vol.commit()
+
+    df = pd.read_csv(f"{out}/targeted_goalshift.csv")
+    if "Gene_name" in df:
+        df["group"] = df["Gene_name"].map(group)
+    print("[3/3] columns:", list(df.columns))
+    col = "Shift_to_goal_end"
+    if col in df:
+        df = df.sort_values(col, ascending=False)
+        show = [c for c in ["Gene_name", "group", col, "Goal_end_FDR", "Sig"]
+                if c in df.columns]
+        print("\n== goal-shift ranking (KO pushes fibrosis -> normal) ==")
+        print(df[show].to_string(index=False))
+    return {"csv": f"{out}/targeted_goalshift.csv", "n": len(df),
+            "columns": list(df.columns)}
+
+
 @app.local_entrypoint()
 def main():
-    print(perturb.remote(max_ncells=24))
+    print(perturb_targeted.remote(max_ncells=200))
