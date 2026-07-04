@@ -188,14 +188,25 @@ of the top-5 only **V257A** (and higher-risk A13S) qualify; L168K/H193R/F231Y/A2
 and would show ~no barrier change by construction. `xtb` (GFN2) is fast enough for **large-scale
 screening** of active-site-region variants and is the recommended first pass before DFT.
 
-### 6.2 A248K MD + MM-GBSA (protein–DNA binding) — running
-OpenMM explicit-solvent MD (ff19SB / OL21-DNA / TIP3P, PME, 4 fs HMR) of chain A + target/donor
-DNA, WT vs A248K, followed by single-trajectory **MM-GBSA (OBC2)** relative binding free energy.
-This directly tests the "added Lys → tighter DNA-backbone contact" hypothesis. *Results pending
-(job running on Modal; will be appended as `mdqm/WT.json` / `mdqm/A248K.json`).* Interpretation
-caveat: single-trajectory MM-GBSA on a charged protein–DNA interface is an **initial estimate**;
-a charge-adding mutation (Ala→Lys) is exactly the case where GB desolvation must offset raw
-Coulomb, so a rigorous **FEP/TI** ΔΔG is the recommended follow-up.
+### 6.2 A248K MD + MM-GBSA (protein–DNA binding) — direction confirmed
+OpenMM explicit-solvent MD (ff19SB / OL21-DNA / TIP3P, PME, 4 fs HMR; 1.5 ns, 100 snapshots) of
+chain A + target/donor DNA, WT vs A248K, followed by single-trajectory **MM-GBSA (OBC2)**.
+
+| System | ΔG_bind (kcal/mol) | E_complex | E_receptor | E_ligand |
+|---|---|---|---|---|
+| WT | −301.7 ± 1.4 | −30047 | −10629 | −19117 |
+| A248K | −339.3 ± 1.5 | −30109 | −10637 | −19133 |
+| **ΔΔG (A248K − WT)** | **−37.6 ± 2.1** (negative = tighter) | | | |
+
+**Direction confirms the structural hypothesis:** A248K strengthens protein–DNA binding, as
+expected for a Lys projecting a cation at the DNA phosphate backbone (dT14 O3′, 3.6 Å) beside
+the existing R246/R250 clamp. **The magnitude is not trustworthy** — single-trajectory MM-GBSA
+with a GB solvation model systematically *overestimates* the gain from adding a formal charge
+(the raw Coulomb attraction to the phosphates is not fully offset by the approximate desolvation
+penalty). Treat −37.6 kcal/mol as a **qualitative/directional** result; a rigorous **FEP/TI**
+alchemical ΔΔG (dual-topology Ala↔Lys, thermodynamic cycle) is required for a defensible number.
+Component energies (~−10⁴ kcal/mol) and the +12-atom Lys are sane, confirming the setup.
+Data: `mdqm/md_result.json`; stripped trajectories + prmtops are cached on the Modal volume.
 
 ### 6.3 Fold self-consistency (Boltz-2.1) — the 5-mutant does not disrupt the fold
 We folded the WT and the 5-mutant sequences with **Boltz-2.1** (apo monomer) and superposed on

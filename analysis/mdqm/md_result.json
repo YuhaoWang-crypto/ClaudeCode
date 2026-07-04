@@ -1,0 +1,9 @@
+{
+  "WT_dG": -301.672327096361,
+  "A248K_dG": -339.2865369382819,
+  "ddG_A248K_minus_WT": -37.61420984192091,
+  "ddG_sem": 2.091179093064026,
+  "direction": "A248K tighter DNA binding",
+  "method": "single-trajectory MM-GBSA (OBC2), 1.5 ns, 100 snapshots",
+  "caveat": "magnitude inflated (charge-adding mutation, GB desolvation approximate); direction only. FEP/TI recommended."
+}
