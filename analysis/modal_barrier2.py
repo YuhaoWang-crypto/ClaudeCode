@@ -42,16 +42,23 @@ def run(pdb: str, label: str, charge: int = 0):
 
     # ---- 1. relax reactant (cap anchors only); try candidate charges w/ SCF aids ----
     open("fix.inp","w").write(f"$fix\n  atoms: {fixs}\n$end\n")
+    # GFN-FF pre-relaxation clears steric clashes in the hand-built cluster (robust, no SCF)
+    subprocess.run(["xtb","h.xyz","--gfnff","--input","fix.inp","--opt","normal"],
+                   capture_output=True, text=True)
+    start = "xtbopt.xyz" if os.path.exists("xtbopt.xyz") else "h.xyz"
+    if start == "xtbopt.xyz":
+        os.rename("xtbopt.xyz", "ff.xyz"); start = "ff.xyz"
+    log["gfnff_preopt"] = (start == "ff.xyz")
     charge = None; relax_tail = ""
     for cc in cand_charges:
         for f in ("xtbopt.xyz","xtblast.xyz"):
             if os.path.exists(f): os.remove(f)
-        r = subprocess.run(["xtb","h.xyz","--input","fix.inp","--gfn","2","--chrg",str(cc),
-                            "--opt","normal","--etemp","400","--iterations","500"],
+        r = subprocess.run(["xtb",start,"--input","fix.inp","--gfn","2","--chrg",str(cc),
+                            "--opt","normal","--etemp","1000","--iterations","500"],
                            capture_output=True, text=True)
         if os.path.exists("xtbopt.xyz"):
             charge = cc; break
-        relax_tail = r.stdout[-800:]
+        relax_tail = r.stdout[-800:] + r.stderr[-400:]
     if charge is None:
         log["error"]="reactant relax failed for all charge candidates"; log["tail"]=relax_tail; return log
     log["charge"] = charge; log["n_electrons"] = Zsum - charge
