@@ -1,0 +1,9 @@
+visit,score,n_R,n_NR,AUC,pval
+Pre,memory,10,23,0.678,0.1126
+Pre,exhaustion,10,23,0.687,0.0959
+Pre,CD8_abundance,10,23,0.643,0.203
+Pre,state_diff,10,23,0.543,0.7098
+On,memory,13,25,0.711,0.0364
+On,exhaustion,13,25,0.748,0.0138
+On,CD8_abundance,13,25,0.775,0.0062
+On,state_diff,13,25,0.388,0.268
