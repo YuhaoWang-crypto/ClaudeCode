@@ -165,7 +165,79 @@ staged doubles/triples above.
 
 ---
 
-## 6. Honest caveats
+## 6. Physics-based validation (QM cluster · MD/MM-GBSA · fold self-consistency)
+
+The PLM/inverse-folding stage above is a **screen**. To move toward *confirming* activity we
+matched each mechanism to the appropriate physics-based method. Method must match mechanism:
+QM for chemistry (kcat), MD/MM-GBSA for binding/stability, fold prediction for foldability.
+
+### 6.1 QM active-site cluster (xtb + Psi4 DFT) — pipeline established
+From 8WT9 chain B we extracted the real **two-metal active site**: octahedral Mg²⁺ ligated by
+**Asp11, Glu60, two waters, and the scissile DNA phosphate** (chain H, dC17 O3′ / dC18 OP1) — a
+genuine catalytic geometry. A 17-heavy-atom cluster was protonated, optimized with
+**GFN2-xTB** (E = −62.78 Eh), and evaluated with **Psi4 B3LYP/def2-SVP** (closed-shell singlet,
+154 e⁻, E = −1492.72 Eh). The pipeline runs end-to-end on GPU/CPU (Modal).
+
+*Status: proof-of-concept.* This establishes the QM/MM-cluster machinery. It is **not** a
+reaction barrier: (a) 8WT9 is the **post-strand-exchange product** state, so a barrier needs the
+pre-cleavage **reactant** state (another state in the 8WT cryo-EM series); (b) the cluster
+protonation/charge is a modeling decision requiring manual curation (automated pH-7 protonation
+gave an odd-electron count at the naïve −1 charge; we used the closed-shell −2 state).
+Crucially, **QM barriers are only informative for active-site / second-shell mutations** —
+of the top-5 only **V257A** (and higher-risk A13S) qualify; L168K/H193R/F231Y/A248K are distal
+and would show ~no barrier change by construction. `xtb` (GFN2) is fast enough for **large-scale
+screening** of active-site-region variants and is the recommended first pass before DFT.
+
+### 6.2 A248K MD + MM-GBSA (protein–DNA binding) — running
+OpenMM explicit-solvent MD (ff19SB / OL21-DNA / TIP3P, PME, 4 fs HMR) of chain A + target/donor
+DNA, WT vs A248K, followed by single-trajectory **MM-GBSA (OBC2)** relative binding free energy.
+This directly tests the "added Lys → tighter DNA-backbone contact" hypothesis. *Results pending
+(job running on Modal; will be appended as `mdqm/WT.json` / `mdqm/A248K.json`).* Interpretation
+caveat: single-trajectory MM-GBSA on a charged protein–DNA interface is an **initial estimate**;
+a charge-adding mutation (Ala→Lys) is exactly the case where GB desolvation must offset raw
+Coulomb, so a rigorous **FEP/TI** ΔΔG is the recommended follow-up.
+
+### 6.3 Fold self-consistency (Boltz-2.1) — the 5-mutant does not disrupt the fold
+We folded the WT and the 5-mutant sequences with **Boltz-2.1** (apo monomer) and superposed on
+8WT9 chain A.
+
+![Fold self-consistency](analysis/figures/fig5_validation.png)
+
+| Comparison | Cα RMSD |
+|---|---|
+| WT vs 8WT9 — catalytic N-domain (12–125) | 2.26 Å |
+| 5-mutant vs 8WT9 — catalytic N-domain | **2.17 Å** (as good as WT) |
+| 5-mutant vs WT — catalytic N-domain | **0.45 Å** |
+| 5-mutant vs WT — C-domain (apo) | 1.80 Å |
+| pLDDT / pTM | WT 0.851 / 0.783 · 5-mut 0.849 / 0.767 (unchanged) |
+
+**Conclusions:** (1) the **catalytic RuvC domain is reproduced** (~2.2 Å) equally well by WT and
+the 5-mutant; (2) the mutant's catalytic domain is **0.45 Å from WT** and confidence is
+unchanged → the five mutations, even stacked, **do not destabilize or refold the enzyme**;
+(3) per-site local backbone change is negligible at L168K/H193R/F231Y (≤0.37 Å) and appears only
+at the two nucleic-acid-interface loops (A248K 3.8 Å, V257A 2.5 Å), which is expected because
+those loops are templated by DNA/RNA absent in the apo prediction. The large *global* WT-vs-8WT9
+RMSD (6.2 Å) is an **inter-domain hinge** difference (apo monomer vs RNA/DNA-bound complex),
+not a folding failure — which is itself the reason structure methods that ignore nucleic acid
+have limited reach here. This is exactly the **RFdiffusion-design self-consistency check** (fold
+the designed sequence, confirm it returns to the target backbone), applied to our point-mutation
+designs.
+
+### 6.4 RFdiffusion3 for enzyme optimization — assessment
+RFdiffusion3 (open-sourced Dec 2025; all-atom; designs DNA binders and enzymes) is a **de novo
+generator**, not a point-mutation optimizer. For *optimizing* IS621 the relevant mode is
+**partial diffusion** (noise the 8WT9 backbone, keep the catalytic motif fixed, denoise) +
+LigandMPNN resequencing → then the §6.3 fold self-consistency filter. Two caveats specific to
+this target: it excels at protein–DNA/ligand but the **bridge-RNA-templated ternary complex** is
+outside its comfort zone, and it **generates** candidates (which then need the same MD/QM
+validation), so it does not by itself *confirm* activity. Recommended only if the goal shifts
+from conservative point mutations to **redesigning the substrate-binding loops / active-site
+pocket**. Sources: [RFdiffusion3 preprint](https://www.biorxiv.org/content/10.1101/2025.09.18.676967v2),
+[IPD release](https://www.ipd.uw.edu/2025/12/rfdiffusion3-now-available/).
+
+---
+
+## 7. Honest caveats
 
 - **PLMs and inverse-folding models predict fitness/stability, not catalytic rate.** They reliably flag substitutions the protein will *tolerate* or that *stabilize* the fold; the link to higher **activity** is inferential (more folded enzyme, tighter binding). True kcat gains require active-site engineering, which these methods do not rank well — hence the catalytic core was fixed and only second-shell V257A/A13 probe turnover.
 - **Structure models are blind to nucleic acid.** ProteinMPNN and ESM-IF saw protein atoms only; the RNA/DNA-contact interpretations come from the 8WT9 geometry, not from the models. This is why F231Y/A248K lean on the structural annotation for their mechanism.
@@ -175,7 +247,7 @@ staged doubles/triples above.
 
 ---
 
-## 7. Files
+## 8. Files
 
 Interactive viewer (published artifact): **`analysis/is621_viewer.html`** — rotatable 8WT9
 complex, click any candidate to focus its side chain; toggles for RNA / DNA / catalytic core.
