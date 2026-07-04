@@ -20,6 +20,7 @@
 | [`11_加药臂候选药物菜单.md`](11_加药臂候选药物菜单.md) | 7 种已获批抑制剂的 ChEMBL 实查效力/靶点/匹配背景对照表 |
 | [`12_设计结果与方案对比分析.md`](12_设计结果与方案对比分析.md) | gRNA 设计结果解读 + 两种筛选方案效果对比 |
 | [`13_引导设计实跑结果.md`](13_引导设计实跑结果.md) | 实跑:512 激酶 × Brunello,98.8% 覆盖、on-target、脱靶 QC |
+| [`14_LatchBio运行说明.md`](14_LatchBio运行说明.md) | 补跑 rs3 打分 + GuideScan2 脱靶的运行说明(含 Latch 阻塞点) |
 
 配套模板：[`../../templates/sample_sheet.csv`](../../templates/sample_sheet.csv)（10 样本布局）。
 
