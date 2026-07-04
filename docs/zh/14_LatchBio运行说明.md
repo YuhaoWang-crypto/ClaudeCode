@@ -6,29 +6,27 @@
 
 ---
 
-## 0. 当前状态:被账号设置卡住(需你操作)
+## 0. 当前状态:workspace 已就绪 ✅
 
-我本会话多次调用 `list_workspaces`,返回始终是:
+`list_workspaces` 现返回 **`default_workspace_id: 42942`(名称 "Claude")**,Latch 连接
+完全可用。
 
-```json
-{"default_workspace_id": null, "workspaces": []}
-```
+### 但:Latch 目录里**没有引导设计/脱靶工作流**
 
-所有 Latch 工具(`list_workflows`/`launch_workflow`/…)都因此报错:
+我按 `guidescan / off-target / sgrna / crispr / screen` 逐个搜索,结论:
 
-```
-No default workspace is configured. Please make sure you have completed
-setting up your Latch account.
-```
+| 搜索 | 结果 |
+|------|------|
+| guidescan / off-target / sgrna | **无**——Latch 没有 GuideScan2 或引导脱靶设计工作流 |
+| crispr | CRISPResso2、nf-core/crisprseq(**编辑结局分析**,非引导设计) |
+| mageck | **MAGeCK Count / Test / MLE / Pathway / Plot**(**筛选数据分析**) |
 
-**这一步我无法代做**——Latch 的 MCP 工具里**没有"创建 workspace"能力**,只能列出/
-启动。需要**你在 Latch 控制台完成账号设置**:
+**结论:** 你想在 Latch 上跑的**脱靶打分(GuideScan2)在 Latch 目录里没有**,MCP 也
+不能启动任意 Pod/脚本——所以这一步仍走**路线 B**(Pod/本地 hg38,见下),且注意:
+**2,024 条 Brunello 引导原库已做脱靶过滤,真正需要新算脱靶的只有 30 条 de-novo 引导**。
 
-1. 登录 <https://console.latch.bio>
-2. 完成账号/团队设置,使账号拥有一个**默认 workspace**(新建或加入一个团队工作区)
-3. 完成后告诉我——我会重新 `list_workspaces` 确认拿到 `default_workspace_id`,即可继续
-
-> 会话是非交互的,我无法在这里替你走 OAuth/控制台流程;这一步必须在浏览器里由你完成。
+Latch 真正能帮上的是**下游筛选分析**(MAGeCK),那是 `06/09` 的分析阶段——需要**测序
+FASTQ**(本设计阶段还没有)。为让它即插即用,我已生成 MAGeCK 所需的库文件(见下)。
 
 ---
 
@@ -45,22 +43,27 @@ setting up your Latch account.
 
 ---
 
-## 2. workspace 就绪后,两条路任选
+## 1b. Latch 分析阶段:MAGeCK 库文件已备好
 
-### 路线 A —— 我用 MCP 直接在 Latch 上跑(推荐)
+Latch 的 MAGeCK Count 需要两样输入:**库文件**(sgRNA/序列/基因)+ **样本 FASTQ**。
+库文件我已从本设计生成:
 
-你把默认 workspace 建好后,我会:
+- **`data/mageck_library.csv`** —— **2,304 条**(511 激酶 + 250 NTC),列
+  `sgRNA,sequence,gene`,即 MAGeCK Count 的 `list_seq_file`。
+- **`data/control_sgrnas.txt`** —— 250 条 NTC 的 id 列表(供 MAGeCK/drugZ 归一)。
 
-1. `list_workflows`(search `guidescan` / `crispr` / `rule set`)找现成工作流;
-2. `get_workflow_schema` 读参数;
-3. 把 `data/all_spacers.txt`(或 `rs3_context.tsv`)传到 Latch Data;
-4. `launch_workflow` 启动,`get_execution` 轮询状态,失败时 `get_task_logs` 排查;
-5. 结果拉回,跑 `score_guides.py merge` 生成 `data/guides_scored.tsv`。
+**MAGeCK Count 工作流(id 85605)关键参数**(已核对 schema):
+`list_seq_file`=上传的库文件,`sample_fastqs`=各样本 FASTQ,`sample_labels`=样本名,
+`day0_label`=`T0`(打开负选 QC),`output_location`=`latch://42942.account/...`。
 
-> 若 workspace 里没有现成的 GuideScan2/引导设计工作流,我会改走路线 B,或帮你把脚本
-> 封装成一个可复用的 Latch 工作流(需要你的 workspace 有注册工作流的权限)。
+> **前提:** MAGeCK 需要**真实测序 FASTQ**——本设计阶段尚未产生,待实际筛选测序后才能跑。
+> 那时把 `mageck_library.csv` 和 FASTQ 传到 Latch Data,我就能 `launch_workflow`
+> 启动 Count → Test/MLE(A 线必需性),drugZ(B 线合成致死)在本地或 Pod 跑。
+>
+> **上传说明:** Latch 的 MCP 工具只有列出/下载,**没有上传**;文件需你在 console.latch.bio
+> 的 Data 页上传(或用 `latch` CLI `latch cp`)。传好后告诉我路径,我来启动工作流。
 
-### 路线 B —— 在 Latch Pod 或任何有 hg38 的机器上跑脚本
+## 2. 补跑脱靶/打分:在 Latch Pod 或任何有 hg38 的机器上跑脚本(路线 B)
 
 ```bash
 pip install rs3
