@@ -1,0 +1,11 @@
+sample_id,arm,timepoint,replicate,index_i7,index_i5,fastq,notes
+plasmid,reference,plasmid,1,IDX01,,plasmid.fastq.gz,文库输入参照/质检
+T0_1,shared,T0,1,IDX02,,T0_1.fastq.gz,嘌呤筛选后起点(两臂共用)
+T0_2,shared,T0,2,IDX03,,T0_2.fastq.gz,
+T0_3,shared,T0,3,IDX04,,T0_3.fastq.gz,
+DMSO_1,vehicle,Tend,1,IDX05,,DMSO_1.fastq.gz,溶剂臂;必需性实验组+加药对照
+DMSO_2,vehicle,Tend,2,IDX06,,DMSO_2.fastq.gz,
+DMSO_3,vehicle,Tend,3,IDX07,,DMSO_3.fastq.gz,
+DRUG_1,drug,Tend,1,IDX08,,DRUG_1.fastq.gz,加药臂@C_screen(IC20-IC30)
+DRUG_2,drug,Tend,2,IDX09,,DRUG_2.fastq.gz,
+DRUG_3,drug,Tend,3,IDX10,,DRUG_3.fastq.gz,
