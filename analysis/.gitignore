@@ -3,3 +3,5 @@ ProteinMPNN/
 __pycache__/
 test_render.py
 modal_smoke.py
+mdqm/WT.json
+mdqm/A248K.json

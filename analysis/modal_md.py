@@ -95,40 +95,45 @@ quit
 
     # ---- 4. MM-GBSA (single trajectory, OBC2) on stripped snapshots ----
     import parmed as pmd, mdtraj as md
-    dry = pmd.load_file("dry.prmtop")
-    # receptor = protein (strip nucleic), ligand = DNA (strip protein)
-    prot_mask = "@%" ; # build masks via residue names
-    rec = pmd.load_file("dry.prmtop"); rec.strip(":DA,DT,DG,DC")
-    lig = pmd.load_file("dry.prmtop"); lig.strip("!(:DA,DT,DG,DC)")
-    def mk(struct):
-        s = struct.createSystem(implicitSolvent=app_mm.OBC2, nonbondedMethod=app_mm.NoCutoff)
-        integ = mm.VerletIntegrator(1*unit.femtosecond)
-        c = mm.Context(s, integ, mm.Platform.getPlatformByName("CPU"))
-        return c
-    c_cpx, c_rec, c_lig = mk(dry), mk(rec), mk(lig)
-    n_prot = sum(1 for a in dry.atoms if a.residue.name not in ("DA","DT","DG","DC"))
-    # align frames: dry complex atom order = protein then DNA (as loaded); mdtraj trajectory
+    # trajectory (order follows sol.prmtop: protein, DNA, water, ions) -> strip to solute
     traj = md.load("prod.dcd", top="sol.prmtop")
-    # keep only solute (protein + DNA) to match dry complex atom order
     sel = traj.top.select("protein or nucleic")
     traj = traj.atom_slice(sel)
-    assert traj.n_atoms == len(dry.atoms), (traj.n_atoms, len(dry.atoms))
+    n_prot = int(len(traj.top.select("protein")))   # protein atoms are first
+    natom = traj.n_atoms
+    assert natom == len(pmd.load_file("dry.prmtop").atoms), (natom, "dry mismatch")
+    # split by ATOM INDEX (robust to tleap terminal-residue renaming DA5/DA3/...)
+    dry = pmd.load_file("dry.prmtop")
+    rec = pmd.load_file("dry.prmtop"); rec.strip(f"@{n_prot+1}-{natom}")   # keep protein
+    lig = pmd.load_file("dry.prmtop"); lig.strip(f"@1-{n_prot}")           # keep DNA
+    def mk(struct):
+        s = struct.createSystem(implicitSolvent=app_mm.OBC2, nonbondedMethod=app_mm.NoCutoff)
+        c = mm.Context(s, mm.VerletIntegrator(1*unit.femtosecond),
+                       mm.Platform.getPlatformByName("CPU"))
+        return c
+    c_cpx, c_rec, c_lig = mk(dry), mk(rec), mk(lig)
     def energy(c, xyz_nm):
         c.setPositions(xyz_nm)
         return c.getState(getEnergy=True).getPotentialEnergy().value_in_unit(unit.kilocalorie_per_mole)
-    dg = []
-    for i in range(0, traj.n_frames, max(1, traj.n_frames//60)):
-        xyz = traj.xyz[i]  # nm
-        E_c = energy(c_cpx, xyz)
-        E_r = energy(c_rec, xyz[:n_prot])
-        E_l = energy(c_lig, xyz[n_prot:])
-        dg.append(E_c - E_r - E_l)
+    dg, Ec_l, Er_l, El_l = [], [], [], []
+    stride = max(1, traj.n_frames // 60)
+    for i in range(0, traj.n_frames, stride):
+        xyz = traj.xyz[i]
+        E_c = energy(c_cpx, xyz); E_r = energy(c_rec, xyz[:n_prot]); E_l = energy(c_lig, xyz[n_prot:])
+        dg.append(E_c - E_r - E_l); Ec_l.append(E_c); Er_l.append(E_r); El_l.append(E_l)
     dg = np.array(dg)
+    log["n_prot_atoms"] = n_prot; log["n_solute_atoms"] = natom
+    log["mean_E_complex"] = float(np.mean(Ec_l)); log["mean_E_receptor"] = float(np.mean(Er_l))
+    log["mean_E_ligand"] = float(np.mean(El_l))
     log["dG_bind_kcal"] = float(dg.mean())
     log["dG_sem_kcal"] = float(dg.std()/np.sqrt(len(dg)))
     log["dg_per_frame"] = dg.tolist()
     log["n_snapshots"] = len(dg)
     log["method"] = DDGB_NOTE
+    # save stripped solute trajectory + dry prmtop to volume for cheap re-analysis
+    import shutil
+    np.save(f"/vol/{variant}_solute_xyz.npy", traj.xyz.astype("float32"))
+    shutil.copy("dry.prmtop", f"/vol/{variant}_dry.prmtop")
     # persist to volume so results survive local-client disconnects
     small = {k: v for k, v in log.items() if k != "tleap_tail"}
     with open(f"/vol/{variant}.json", "w") as f:
