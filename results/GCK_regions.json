@@ -1,0 +1,551 @@
+{
+  "system": "GCK",
+  "config": {
+    "bound": "1V4S",
+    "unbound": "1V4T",
+    "chain": "A",
+    "active_site": {
+      "ligand": "GLC"
+    },
+    "note": "large open<->closed domain motion; look for hinge + activator-site loops"
+  },
+  "stats": {
+    "n_common": 424,
+    "n_core": 297,
+    "core_rmsd": 1.05,
+    "overall_rmsd": 10.89,
+    "max_displacement": 39.46
+  },
+  "regions": [
+    {
+      "start": 85,
+      "end": 147,
+      "length": 63,
+      "mean_displacement": 20.52,
+      "max_displacement": 33.9,
+      "mean_dist_active_site": 24.17,
+      "residues": [
+        85,
+        86,
+        87,
+        88,
+        89,
+        90,
+        91,
+        92,
+        93,
+        94,
+        95,
+        96,
+        97,
+        98,
+        99,
+        100,
+        101,
+        102,
+        103,
+        104,
+        105,
+        106,
+        107,
+        108,
+        109,
+        110,
+        111,
+        112,
+        113,
+        114,
+        115,
+        116,
+        117,
+        118,
+        119,
+        120,
+        121,
+        122,
+        123,
+        124,
+        125,
+        126,
+        127,
+        128,
+        129,
+        130,
+        131,
+        132,
+        133,
+        134,
+        135,
+        136,
+        137,
+        138,
+        139,
+        140,
+        141,
+        142,
+        143,
+        144,
+        145,
+        146,
+        147
+      ],
+      "his_pair_candidates": [
+        {
+          "i": 85,
+          "j": 107,
+          "ca_ca": 4.53
+        },
+        {
+          "i": 91,
+          "j": 100,
+          "ca_ca": 4.53
+        },
+        {
+          "i": 123,
+          "j": 126,
+          "ca_ca": 4.61
+        },
+        {
+          "i": 121,
+          "j": 124,
+          "ca_ca": 4.63
+        },
+        {
+          "i": 94,
+          "j": 98,
+          "ca_ca": 4.74
+        },
+        {
+          "i": 83,
+          "j": 109,
+          "ca_ca": 4.88
+        }
+      ]
+    },
+    {
+      "start": 180,
+      "end": 201,
+      "length": 21,
+      "mean_displacement": 14.9,
+      "max_displacement": 30.09,
+      "mean_dist_active_site": 23.94,
+      "residues": [
+        180,
+        181,
+        183,
+        184,
+        185,
+        186,
+        187,
+        188,
+        189,
+        190,
+        191,
+        192,
+        193,
+        194,
+        195,
+        196,
+        197,
+        198,
+        199,
+        200,
+        201
+      ],
+      "his_pair_candidates": [
+        {
+          "i": 186,
+          "j": 189,
+          "ca_ca": 4.75
+        },
+        {
+          "i": 192,
+          "j": 194,
+          "ca_ca": 4.76
+        },
+        {
+          "i": 180,
+          "j": 183,
+          "ca_ca": 4.78
+        },
+        {
+          "i": 184,
+          "j": 187,
+          "ca_ca": 4.95
+        },
+        {
+          "i": 188,
+          "j": 191,
+          "ca_ca": 4.95
+        },
+        {
+          "i": 190,
+          "j": 192,
+          "ca_ca": 4.95
+        }
+      ]
+    },
+    {
+      "start": 446,
+      "end": 461,
+      "length": 16,
+      "mean_displacement": 11.14,
+      "max_displacement": 22.49,
+      "mean_dist_active_site": 22.11,
+      "residues": [
+        446,
+        447,
+        448,
+        449,
+        450,
+        451,
+        452,
+        453,
+        454,
+        455,
+        456,
+        457,
+        458,
+        459,
+        460,
+        461
+      ],
+      "his_pair_candidates": [
+        {
+          "i": 445,
+          "j": 448,
+          "ca_ca": 4.93
+        },
+        {
+          "i": 450,
+          "j": 453,
+          "ca_ca": 4.93
+        },
+        {
+          "i": 457,
+          "j": 460,
+          "ca_ca": 5.02
+        },
+        {
+          "i": 454,
+          "j": 457,
+          "ca_ca": 5.03
+        },
+        {
+          "i": 453,
+          "j": 456,
+          "ca_ca": 5.05
+        },
+        {
+          "i": 447,
+          "j": 450,
+          "ca_ca": 5.09
+        }
+      ]
+    },
+    {
+      "start": 65,
+      "end": 77,
+      "length": 13,
+      "mean_displacement": 10.96,
+      "max_displacement": 15.46,
+      "mean_dist_active_site": 25.17,
+      "residues": [
+        65,
+        66,
+        67,
+        68,
+        69,
+        70,
+        71,
+        72,
+        73,
+        74,
+        75,
+        76,
+        77
+      ],
+      "his_pair_candidates": [
+        {
+          "i": 65,
+          "j": 67,
+          "ca_ca": 5.6
+        },
+        {
+          "i": 64,
+          "j": 66,
+          "ca_ca": 5.84
+        },
+        {
+          "i": 63,
+          "j": 65,
+          "ca_ca": 6.13
+        },
+        {
+          "i": 69,
+          "j": 71,
+          "ca_ca": 6.24
+        },
+        {
+          "i": 67,
+          "j": 69,
+          "ca_ca": 6.42
+        },
+        {
+          "i": 66,
+          "j": 68,
+          "ca_ca": 6.5
+        }
+      ]
+    },
+    {
+      "start": 156,
+      "end": 156,
+      "length": 1,
+      "mean_displacement": 39.46,
+      "max_displacement": 39.46,
+      "mean_dist_active_site": 15.33,
+      "residues": [
+        156
+      ],
+      "his_pair_candidates": [
+        {
+          "i": 154,
+          "j": 156,
+          "ca_ca": 6.0
+        },
+        {
+          "i": 153,
+          "j": 155,
+          "ca_ca": 6.93
+        },
+        {
+          "i": 153,
+          "j": 156,
+          "ca_ca": 9.55
+        }
+      ]
+    },
+    {
+      "start": 340,
+      "end": 344,
+      "length": 5,
+      "mean_displacement": 3.18,
+      "max_displacement": 4.13,
+      "mean_dist_active_site": 32.23,
+      "residues": [
+        340,
+        341,
+        342,
+        343,
+        344
+      ],
+      "his_pair_candidates": [
+        {
+          "i": 337,
+          "j": 340,
+          "ca_ca": 4.95
+        },
+        {
+          "i": 343,
+          "j": 345,
+          "ca_ca": 5.25
+        },
+        {
+          "i": 337,
+          "j": 339,
+          "ca_ca": 5.32
+        },
+        {
+          "i": 338,
+          "j": 340,
+          "ca_ca": 5.41
+        },
+        {
+          "i": 344,
+          "j": 346,
+          "ca_ca": 5.41
+        },
+        {
+          "i": 341,
+          "j": 347,
+          "ca_ca": 5.42
+        }
+      ]
+    },
+    {
+      "start": 248,
+      "end": 250,
+      "length": 3,
+      "mean_displacement": 2.58,
+      "max_displacement": 2.74,
+      "mean_dist_active_site": 25.41,
+      "residues": [
+        248,
+        249,
+        250
+      ],
+      "his_pair_candidates": [
+        {
+          "i": 246,
+          "j": 248,
+          "ca_ca": 5.74
+        },
+        {
+          "i": 251,
+          "j": 253,
+          "ca_ca": 6.36
+        },
+        {
+          "i": 247,
+          "j": 249,
+          "ca_ca": 6.74
+        },
+        {
+          "i": 248,
+          "j": 250,
+          "ca_ca": 6.77
+        },
+        {
+          "i": 250,
+          "j": 252,
+          "ca_ca": 6.93
+        },
+        {
+          "i": 249,
+          "j": 251,
+          "ca_ca": 7.01
+        }
+      ]
+    },
+    {
+      "start": 443,
+      "end": 443,
+      "length": 1,
+      "mean_displacement": 3.86,
+      "max_displacement": 3.86,
+      "mean_dist_active_site": 16.74,
+      "residues": [
+        443
+      ],
+      "his_pair_candidates": [
+        {
+          "i": 441,
+          "j": 444,
+          "ca_ca": 4.68
+        },
+        {
+          "i": 442,
+          "j": 444,
+          "ca_ca": 5.28
+        },
+        {
+          "i": 443,
+          "j": 446,
+          "ca_ca": 5.55
+        },
+        {
+          "i": 443,
+          "j": 445,
+          "ca_ca": 5.57
+        },
+        {
+          "i": 444,
+          "j": 446,
+          "ca_ca": 5.79
+        },
+        {
+          "i": 441,
+          "j": 443,
+          "ca_ca": 5.9
+        }
+      ]
+    },
+    {
+      "start": 398,
+      "end": 398,
+      "length": 1,
+      "mean_displacement": 2.36,
+      "max_displacement": 2.36,
+      "mean_dist_active_site": 31.16,
+      "residues": [
+        398
+      ],
+      "his_pair_candidates": [
+        {
+          "i": 395,
+          "j": 397,
+          "ca_ca": 5.6
+        },
+        {
+          "i": 399,
+          "j": 401,
+          "ca_ca": 5.75
+        },
+        {
+          "i": 397,
+          "j": 399,
+          "ca_ca": 5.95
+        },
+        {
+          "i": 396,
+          "j": 398,
+          "ca_ca": 6.33
+        },
+        {
+          "i": 398,
+          "j": 400,
+          "ca_ca": 7.16
+        },
+        {
+          "i": 395,
+          "j": 398,
+          "ca_ca": 7.59
+        }
+      ]
+    },
+    {
+      "start": 417,
+      "end": 417,
+      "length": 1,
+      "mean_displacement": 2.06,
+      "max_displacement": 2.06,
+      "mean_dist_active_site": 22.54,
+      "residues": [
+        417
+      ],
+      "his_pair_candidates": [
+        {
+          "i": 418,
+          "j": 420,
+          "ca_ca": 5.41
+        },
+        {
+          "i": 416,
+          "j": 419,
+          "ca_ca": 5.54
+        },
+        {
+          "i": 416,
+          "j": 418,
+          "ca_ca": 5.74
+        },
+        {
+          "i": 415,
+          "j": 417,
+          "ca_ca": 6.13
+        },
+        {
+          "i": 417,
+          "j": 419,
+          "ca_ca": 6.21
+        },
+        {
+          "i": 414,
+          "j": 416,
+          "ca_ca": 6.22
+        }
+      ]
+    }
+  ]
+}

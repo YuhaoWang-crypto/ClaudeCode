@@ -1,0 +1,201 @@
+{
+  "system": "PTP1B",
+  "config": {
+    "bound": "1T49",
+    "unbound": "1SUG",
+    "chain": "A",
+    "active_site": {
+      "residues": [
+        215
+      ]
+    },
+    "note": "distal allosteric inhibitor site ~20 A from Cys215; WPD loop 177-185"
+  },
+  "stats": {
+    "n_common": 281,
+    "n_core": 197,
+    "core_rmsd": 0.18,
+    "overall_rmsd": 0.97,
+    "max_displacement": 6.11
+  },
+  "regions": [
+    {
+      "start": 279,
+      "end": 282,
+      "length": 4,
+      "mean_displacement": 3.5,
+      "max_displacement": 4.09,
+      "mean_dist_active_site": 27.47,
+      "residues": [
+        279,
+        280,
+        281,
+        282
+      ],
+      "his_pair_candidates": [
+        {
+          "i": 276,
+          "j": 279,
+          "ca_ca": 4.84
+        },
+        {
+          "i": 278,
+          "j": 281,
+          "ca_ca": 5.08
+        },
+        {
+          "i": 277,
+          "j": 280,
+          "ca_ca": 5.22
+        },
+        {
+          "i": 276,
+          "j": 278,
+          "ca_ca": 5.35
+        },
+        {
+          "i": 278,
+          "j": 280,
+          "ca_ca": 5.38
+        },
+        {
+          "i": 277,
+          "j": 279,
+          "ca_ca": 5.45
+        }
+      ]
+    },
+    {
+      "start": 239,
+      "end": 241,
+      "length": 3,
+      "mean_displacement": 3.78,
+      "max_displacement": 5.52,
+      "mean_dist_active_site": 32.2,
+      "residues": [
+        239,
+        240,
+        241
+      ],
+      "his_pair_candidates": [
+        {
+          "i": 238,
+          "j": 240,
+          "ca_ca": 5.18
+        },
+        {
+          "i": 241,
+          "j": 243,
+          "ca_ca": 5.29
+        },
+        {
+          "i": 242,
+          "j": 244,
+          "ca_ca": 5.4
+        },
+        {
+          "i": 238,
+          "j": 241,
+          "ca_ca": 5.43
+        },
+        {
+          "i": 240,
+          "j": 242,
+          "ca_ca": 5.44
+        },
+        {
+          "i": 240,
+          "j": 243,
+          "ca_ca": 5.63
+        }
+      ]
+    },
+    {
+      "start": 185,
+      "end": 186,
+      "length": 2,
+      "mean_displacement": 3.46,
+      "max_displacement": 4.15,
+      "mean_dist_active_site": 17.16,
+      "residues": [
+        185,
+        186
+      ],
+      "his_pair_candidates": [
+        {
+          "i": 187,
+          "j": 189,
+          "ca_ca": 5.29
+        },
+        {
+          "i": 185,
+          "j": 187,
+          "ca_ca": 5.42
+        },
+        {
+          "i": 185,
+          "j": 188,
+          "ca_ca": 6.37
+        },
+        {
+          "i": 184,
+          "j": 186,
+          "ca_ca": 6.38
+        },
+        {
+          "i": 182,
+          "j": 184,
+          "ca_ca": 6.64
+        },
+        {
+          "i": 186,
+          "j": 188,
+          "ca_ca": 6.82
+        }
+      ]
+    },
+    {
+      "start": 63,
+      "end": 63,
+      "length": 1,
+      "mean_displacement": 2.39,
+      "max_displacement": 2.39,
+      "mean_dist_active_site": 27.16,
+      "residues": [
+        63
+      ],
+      "his_pair_candidates": [
+        {
+          "i": 64,
+          "j": 66,
+          "ca_ca": 5.22
+        },
+        {
+          "i": 61,
+          "j": 65,
+          "ca_ca": 5.57
+        },
+        {
+          "i": 63,
+          "j": 65,
+          "ca_ca": 6.09
+        },
+        {
+          "i": 60,
+          "j": 65,
+          "ca_ca": 6.26
+        },
+        {
+          "i": 62,
+          "j": 64,
+          "ca_ca": 6.3
+        },
+        {
+          "i": 61,
+          "j": 63,
+          "ca_ca": 6.31
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "GCK": {
+    "stats": {
+      "n_common": 424,
+      "n_core": 297,
+      "core_rmsd": 1.05,
+      "overall_rmsd": 10.89,
+      "max_displacement": 39.46
+    },
+    "n_regions": 10
+  },
+  "PTP1B": {
+    "stats": {
+      "n_common": 281,
+      "n_core": 197,
+      "core_rmsd": 0.18,
+      "overall_rmsd": 0.97,
+      "max_displacement": 6.11
+    },
+    "n_regions": 4
+  },
+  "AdK": {
+    "stats": {
+      "n_common": 214,
+      "n_core": 150,
+      "core_rmsd": 2.02,
+      "overall_rmsd": 8.01,
+      "max_displacement": 24.1
+    },
+    "n_regions": 6
+  }
+}
