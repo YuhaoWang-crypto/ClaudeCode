@@ -1,0 +1,28 @@
+[cache] loading /home/user/ClaudeCode/data/adata_processed.h5ad
+[fractions] R vs NR:
+ cell_type  mean_frac_Responder  mean_frac_Non-responder  log2FC_R_vs_NR  pval_mannwhitney
+        B             0.160326                 0.041098        1.938152          0.002888
+    CD4 T             0.127131                 0.051738        1.280718          0.000833
+   Plasma             0.026841                 0.018939        0.481596          0.612037
+     Treg             0.163526                 0.159325        0.037313          0.897085
+    CD8 T             0.373201                 0.447486       -0.261252          0.148650
+       NK             0.098465                 0.136745       -0.469736          0.203411
+      pDC             0.007309                 0.021825       -1.457889          0.003268
+  Myeloid             0.043202                 0.122844       -1.486343          0.008796
+[fractions] Post vs Pre (all):
+ cell_type  mean_frac_Post  mean_frac_Pre  log2FC_Post_vs_Pre  pval_mannwhitney
+      pDC        0.018406       0.014055            0.366242          0.966258
+       NK        0.131904       0.109883            0.261349          0.381608
+  Myeloid        0.101084       0.084798            0.250734          0.751760
+    CD8 T        0.426189       0.413527            0.043407          0.816612
+     Treg        0.162249       0.158621            0.032419          0.499898
+   Plasma        0.021695       0.021804           -0.006891          0.331830
+        B        0.079012       0.089906           -0.184162          0.612334
+    CD4 T        0.059462       0.107405           -0.842345          0.057748
+[cd8] CD8 T cells: 6699
+[stratify] per-lesion signature AUC (R vs NR) = 0.827, Mann-Whitney p = 2.27e-04, n_lesions = 47
+[stratify] per-lesion TCF7+ fraction AUC (R vs NR) = 0.731
+WARNING: saving figure to file /home/user/ClaudeCode/results/figures/umap_celltypes.png
+WARNING: saving figure to file /home/user/ClaudeCode/results/figures/umap_cd8_signatures.png
+WARNING: saving figure to file /home/user/ClaudeCode/results/figures/umap_response.png
+[done] outputs in /home/user/ClaudeCode/results

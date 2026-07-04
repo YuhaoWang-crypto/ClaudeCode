@@ -1,0 +1,41 @@
+GSE120575 reanalysis summary
+============================================================
+cells analyzed: 16291
+clusters: 24  cell types: ['B', 'CD4 T', 'CD8 T', 'Myeloid', 'NK', 'Plasma', 'Treg', 'pDC']
+CD8 T cells: 6699
+per-lesion signature AUC (R vs NR): 0.827  p=2.27e-04  n_lesions=47
+per-lesion TCF7+ fraction AUC: 0.731
+
+Population enrichment (R vs NR), log2FC>0 = expanded in responders:
+cell_type  mean_frac_Responder  mean_frac_Non-responder  log2FC_R_vs_NR  pval_mannwhitney
+        B             0.160326                 0.041098        1.938152          0.002888
+    CD4 T             0.127131                 0.051738        1.280718          0.000833
+   Plasma             0.026841                 0.018939        0.481596          0.612037
+     Treg             0.163526                 0.159325        0.037313          0.897085
+    CD8 T             0.373201                 0.447486       -0.261252          0.148650
+       NK             0.098465                 0.136745       -0.469736          0.203411
+      pDC             0.007309                 0.021825       -1.457889          0.003268
+  Myeloid             0.043202                 0.122844       -1.486343          0.008796
+
+Population change WITH treatment (Post vs Pre, all lesions),
+log2FC>0 = expanded after therapy:
+cell_type  mean_frac_Post  mean_frac_Pre  log2FC_Post_vs_Pre  pval_mannwhitney
+      pDC        0.018406       0.014055            0.366242          0.966258
+       NK        0.131904       0.109883            0.261349          0.381608
+  Myeloid        0.101084       0.084798            0.250734          0.751760
+    CD8 T        0.426189       0.413527            0.043407          0.816612
+     Treg        0.162249       0.158621            0.032419          0.499898
+   Plasma        0.021695       0.021804           -0.006891          0.331830
+        B        0.079012       0.089906           -0.184162          0.612334
+    CD4 T        0.059462       0.107405           -0.842345          0.057748
+
+Population change WITH treatment in responders only (Post vs Pre):
+cell_type  mean_frac_Post  mean_frac_Pre  log2FC_Post_vs_Pre  pval_mannwhitney
+   Plasma        0.051148       0.005235            3.064181          0.262542
+      pDC        0.009887       0.005017            0.855524          0.960239
+    CD8 T        0.411398       0.339248            0.277451          0.672974
+       NK        0.107829       0.090142            0.255878          0.423447
+  Myeloid        0.042038       0.044237           -0.071900          0.664232
+        B        0.152858       0.166964           -0.126553          0.962567
+     Treg        0.143049       0.181728           -0.343141          0.370383
+    CD4 T        0.081794       0.167430           -1.024551          0.020650
