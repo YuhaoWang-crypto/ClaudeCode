@@ -183,9 +183,10 @@ reaction barrier: (a) 8WT9 is the **post-strand-exchange product** state, so a b
 pre-cleavage **reactant** state (another state in the 8WT cryo-EM series); (b) the cluster
 protonation/charge is a modeling decision requiring manual curation (automated pH-7 protonation
 gave an odd-electron count at the naïve −1 charge; we used the closed-shell −2 state).
-Crucially, **QM barriers are only informative for active-site / second-shell mutations** —
-of the top-5 only **V257A** (and higher-risk A13S) qualify; L168K/H193R/F231Y/A248K are distal
-and would show ~no barrier change by construction. `xtb` (GFN2) is fast enough for **large-scale
+Crucially, **QM barriers are only informative for genuine active-site / second-shell mutations**.
+A distance audit (§6.4) shows the only such candidate is **A13S** (6.7 Å from the scissile
+phosphate); V257A is ~20 Å away (a substrate-junction mutation) and the four others are distal —
+all would show ~no barrier change by construction. `xtb` (GFN2) is fast enough for **large-scale
 screening** of active-site-region variants and is the recommended first pass before DFT.
 
 ### 6.2 A248K MD + MM-GBSA (protein–DNA binding) — direction confirmed
@@ -234,28 +235,37 @@ have limited reach here. This is exactly the **RFdiffusion-design self-consisten
 the designed sequence, confirm it returns to the target backbone), applied to our point-mutation
 designs.
 
-### 6.4 A13S QM/MM reaction barrier — attempted; no valid barrier (negative result)
-A geometry check redirected this from V257A (which is ~20 Å from the scissile phosphate — a
-substrate-junction, not catalytic, mutation) to **A13S**, the true active-site second-shell
-candidate (4.2 Å to the DEDD tetrad, 6.7 Å to the scissile phosphate in catalytic protomer B).
-An expanded active-site cluster (Mg²⁺, D11, E60, 2 waters, scissile phosphate, A13/S13) was
-extracted and a relaxed **d(P–O3′) scan** (GFN2-xTB, scaffold anchored) run for WT vs A13S with
-Psi4 B3LYP endpoints.
+### 6.4 A13S QM/MM reaction barrier — three attempts; no valid barrier (honest negative)
+A distance audit over all four protomers redirected this calculation. **V257A is ~20 Å from the
+scissile phosphate** (a substrate-junction, not catalytic, mutation — its effect is binding/
+positioning, i.e. MD/FEP territory), so a barrier there is uninformative by construction. The
+genuine active-site second-shell candidate is **A13S**: 4.2 Å from the DEDD tetrad and **6.7 Å
+from the scissile phosphate** in the catalytically-loaded protomer B (where Mg²⁺ coordinates D11 +
+the scissile phosphate). Three escalating attempts were made:
 
-**Outcome: the calculation did not yield a physically valid barrier, and no ΔΔG‡ is reported.**
-The relaxed scan was pathological — energy jumped 130–250 kcal/mol on the first step and
-plateaued with non-converged, repeated values; the DFT single-points on those geometries gave an
-impossible **negative** "barrier" for A13S. Diagnosis: (a) 8WT9 is a **product state**, so
-driving O3′ back onto P from that geometry with an over-rigid anchored scaffold caused clashes
-rather than a smooth reverse-cleavage path; (b) only **one** Mg²⁺ is modeled, but RuvC chemistry
-is **two-metal**; (c) no in-line nucleophile is properly positioned; (d) DFT single-points on
-non-DFT-optimized xTB geometries are not a valid barrier. The pipeline (cluster → scan → DFT)
-runs, but **a trustworthy barrier requires**: a genuine pre-cleavage **Michaelis complex** (intact
-diester + both catalytic metals + in-line water/OH⁻), a proper antisymmetric reaction coordinate,
-**DFT-level** constrained optimization or a NEB/string search with a frequency-verified TS, and
-ideally full QM/MM with the protein/solvent environment rather than a rigid cluster. This is a
-multi-week expert calculation; the honest status here is *pipeline established, result
-inconclusive*. The raw (discarded) profile is in `mdqm/qmmm_barrier.json`.
+1. **Product-state cluster + d(P–O3′) scan** (Mg₁, D11, E60, 2 waters, phosphate, A13/S13):
+   pathological — energy jumped 130–250 kcal/mol on step 1 and plateaued (non-converged); DFT
+   single-points gave an impossible **negative** barrier. Cause: driving O3′ onto P from a
+   *product* geometry with a rigid scaffold clashes.
+2. **Purpose-built two-metal pre-cleavage Michaelis complex** — re-ligated P–O3′ diester, second
+   Mg²⁺ placed at the canonical B-site (OP2 + D105, ~3.8 Å from Mg₁), in-line metal-activated
+   water nucleophile (180° to the leaving O3′). Reactant relaxation **failed to converge** (SCF
+   non-convergence / wrong charge from automated protonation).
+3. **+ GFN-FF pre-relaxation and corrected anionic charge search** (0/−1/−2) and raised electronic
+   temperature: SCF then converged, but the **two Mg²⁺ collapsed together** (Mg–Mg 2.9 Å vs the
+   correct ~3.8 Å; Mg–P 2.4 Å) and the subsequent scan exploded (>10⁴ kcal/mol). The quality gate
+   rejected it.
+
+**Outcome: no ΔΔG‡ is reported — every attempt failed a physical-sanity gate, and the artifact
+numbers are discarded.** The decisive lesson from attempt 3 is mechanistic: a **bare cluster
+cannot hold the two-metal geometry** — without the surrounding protein scaffold and its
+electrostatics, the two Mg²⁺ are not restrained and collapse. This is precisely why a valid answer
+requires a **true QM/MM** (protein + solvent, electrostatic embedding) rather than a gas-phase
+cluster, built on an **MD-equilibrated Michaelis complex** with the metals restrained, **manually
+curated protonation**, and a **DFT-level TS search verified by frequency analysis** (single
+imaginary mode). That is a multi-week specialist calculation. Honest status: **pipeline and
+reactant-construction established; a converged barrier was not obtained; the kcat question remains
+computationally open.** Raw (discarded) records: `mdqm/qmmm_barrier.json`, `mdqm/barrier2.json`.
 
 ### 6.5 RFdiffusion3 for enzyme optimization — assessment
 RFdiffusion3 (open-sourced Dec 2025; all-atom; designs DNA binders and enzymes) is a **de novo
