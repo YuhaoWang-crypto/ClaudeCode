@@ -24,9 +24,10 @@ def run(pdb: str, label: str, charge: int = 0):
             for e, c in zip(els, xyz): f.write(f"{e} {c[0]:.6f} {c[1]:.6f} {c[2]:.6f}\n")
     els, xyz = read_xyz("h.xyz"); n = len(els)
     Z = {"H":1,"C":6,"N":7,"O":8,"P":15,"Mg":12,"MG":12}
-    tot = sum(Z[e] for e in els) - charge
-    if tot % 2 == 1: charge += 1; tot -= 1
-    log["charge"] = charge; log["n_atoms"] = n; log["n_electrons"] = tot
+    Zsum = sum(Z[e] for e in els)
+    # formal charge of this anionic two-metal cluster is ~0 to -2; pick even-electron candidates
+    cand_charges = [c for c in (0, -1, -2) if (Zsum - c) % 2 == 0]
+    log["n_atoms"] = n; log["Zsum"] = Zsum; log["charge_candidates"] = cand_charges
 
     iP = int([i for i in range(n) if els[i]=="P"][0]); P = xyz[iP]
     dP = np.linalg.norm(xyz-P, axis=1)
@@ -39,12 +40,21 @@ def run(pdb: str, label: str, charge: int = 0):
     log["iP"]=iP+1; log["iO3"]=iO3+1; log["n_anchors"]=len(anchors)
     fixs = ",".join(str(a+1) for a in anchors)
 
-    # ---- 1. relax reactant (cap anchors only) ----
+    # ---- 1. relax reactant (cap anchors only); try candidate charges w/ SCF aids ----
     open("fix.inp","w").write(f"$fix\n  atoms: {fixs}\n$end\n")
-    r = subprocess.run(["xtb","h.xyz","--input","fix.inp","--gfn","2","--chrg",str(charge),"--opt","tight"],
-                       capture_output=True, text=True)
-    if not os.path.exists("xtbopt.xyz"):
-        log["error"]="reactant relax failed"; log["tail"]=r.stdout[-1200:]+r.stderr[-800:]; return log
+    charge = None; relax_tail = ""
+    for cc in cand_charges:
+        for f in ("xtbopt.xyz","xtblast.xyz"):
+            if os.path.exists(f): os.remove(f)
+        r = subprocess.run(["xtb","h.xyz","--input","fix.inp","--gfn","2","--chrg",str(cc),
+                            "--opt","normal","--etemp","400","--iterations","500"],
+                           capture_output=True, text=True)
+        if os.path.exists("xtbopt.xyz"):
+            charge = cc; break
+        relax_tail = r.stdout[-800:]
+    if charge is None:
+        log["error"]="reactant relax failed for all charge candidates"; log["tail"]=relax_tail; return log
+    log["charge"] = charge; log["n_electrons"] = Zsum - charge
     els_r, xyz_r = read_xyz("xtbopt.xyz")
     d = lambda a,b: float(np.linalg.norm(xyz_r[a]-xyz_r[b]))
     imgs = [i for i in range(n) if els[i] in ("Mg","MG")]
@@ -58,7 +68,8 @@ def run(pdb: str, label: str, charge: int = 0):
     scan = (f"$fix\n  atoms: {fixs}\n$end\n$constrain\n  force constant=1.0\n"
             f"  distance: {iP+1},{iO3+1},{d0:.3f}\n$end\n$scan\n  1: {d0:.3f},3.40,18\n$end\n")
     open("scan.inp","w").write(scan)
-    r2 = subprocess.run(["xtb","react.xyz","--input","scan.inp","--gfn","2","--chrg",str(charge),"--opt","tight"],
+    r2 = subprocess.run(["xtb","react.xyz","--input","scan.inp","--gfn","2","--chrg",str(charge),
+                        "--opt","normal","--etemp","400","--iterations","500"],
                         capture_output=True, text=True)
     if not os.path.exists("xtbscan.log"):
         log["error"]="scan failed"; log["tail"]=r2.stdout[-1200:]; return log
