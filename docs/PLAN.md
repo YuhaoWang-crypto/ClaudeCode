@@ -139,10 +139,13 @@ in parallel.
    Deliverable: ranked ligand shortlist per receptor, each with a predicted
    binding pose + affinity, ready for PEG-lipid conjugation.
 
-### Phase 4 — delivery-efficiency estimate (mechanistic, both)
-- Implement the Mihaila/Müller ODE/stochastic uptake→escape→expression model.
-  Feed it (a) Problem-A endosomal-escape proxy and (b) Problem-B uptake rate to
-  produce a single "predicted delivery/expression" number for a full design.
+### Phase 4 — delivery-efficiency estimate (mechanistic, both)  ✅ DONE
+- `lipidlib/kinetics.py` + `analysis/delivery_kinetics.py`: 4-compartment
+  uptake→escape→translation ODE cascade (Müller 2024 / Mihaila 2017-19), with a
+  closed-form AUC (numeric match <1%). Reproduces the ~1.8% escape bottleneck and
+  ~13 h protein peak. Links to Track A by mapping LiON potency → escape rate →
+  expression dynamics (lipid sets amplitude, cargo stability sets timing). See
+  [`docs/DELIVERY_KINETICS.md`](DELIVERY_KINETICS.md).
 
 ### Modal — verified working (2026-07)
 

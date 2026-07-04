@@ -41,6 +41,7 @@ recognition element and is **not** extracted from the particle.
 | B2 | Cross-compare ChEMBL × DrugCLIP | **no consensus** (fragments ≠ drug-sized actives), triangulated | [GLP1R_crosscompare](docs/GLP1R_crosscompare.md) · `glp1r_crosscompare.png` |
 | B3 | humanPPI protein-layer enrichment | GLP1R interactome **cell-surface enriched** (p<1e-9); leads DLK1, PAM | `glp1r_humanppi_enrichment.png` |
 | B4 | Generic pipeline + validation | any-target one-command; enrichment machinery detects real similarity at **1674×** | [PIPELINE](docs/PIPELINE.md) · `pipeline_validation.png` |
+| M1 | Mechanistic delivery kinetics (Phase 4) | uptake→escape→translation ODE; ~1.8% escape bottleneck, ~13 h peak; links LiON potency → expression dynamics | [DELIVERY_KINETICS](docs/DELIVERY_KINETICS.md) · `delivery_kinetics.png` |
 
 ---
 
