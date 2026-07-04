@@ -234,7 +234,30 @@ have limited reach here. This is exactly the **RFdiffusion-design self-consisten
 the designed sequence, confirm it returns to the target backbone), applied to our point-mutation
 designs.
 
-### 6.4 RFdiffusion3 for enzyme optimization — assessment
+### 6.4 A13S QM/MM reaction barrier — attempted; no valid barrier (negative result)
+A geometry check redirected this from V257A (which is ~20 Å from the scissile phosphate — a
+substrate-junction, not catalytic, mutation) to **A13S**, the true active-site second-shell
+candidate (4.2 Å to the DEDD tetrad, 6.7 Å to the scissile phosphate in catalytic protomer B).
+An expanded active-site cluster (Mg²⁺, D11, E60, 2 waters, scissile phosphate, A13/S13) was
+extracted and a relaxed **d(P–O3′) scan** (GFN2-xTB, scaffold anchored) run for WT vs A13S with
+Psi4 B3LYP endpoints.
+
+**Outcome: the calculation did not yield a physically valid barrier, and no ΔΔG‡ is reported.**
+The relaxed scan was pathological — energy jumped 130–250 kcal/mol on the first step and
+plateaued with non-converged, repeated values; the DFT single-points on those geometries gave an
+impossible **negative** "barrier" for A13S. Diagnosis: (a) 8WT9 is a **product state**, so
+driving O3′ back onto P from that geometry with an over-rigid anchored scaffold caused clashes
+rather than a smooth reverse-cleavage path; (b) only **one** Mg²⁺ is modeled, but RuvC chemistry
+is **two-metal**; (c) no in-line nucleophile is properly positioned; (d) DFT single-points on
+non-DFT-optimized xTB geometries are not a valid barrier. The pipeline (cluster → scan → DFT)
+runs, but **a trustworthy barrier requires**: a genuine pre-cleavage **Michaelis complex** (intact
+diester + both catalytic metals + in-line water/OH⁻), a proper antisymmetric reaction coordinate,
+**DFT-level** constrained optimization or a NEB/string search with a frequency-verified TS, and
+ideally full QM/MM with the protein/solvent environment rather than a rigid cluster. This is a
+multi-week expert calculation; the honest status here is *pipeline established, result
+inconclusive*. The raw (discarded) profile is in `mdqm/qmmm_barrier.json`.
+
+### 6.5 RFdiffusion3 for enzyme optimization — assessment
 RFdiffusion3 (open-sourced Dec 2025; all-atom; designs DNA binders and enzymes) is a **de novo
 generator**, not a point-mutation optimizer. For *optimizing* IS621 the relevant mode is
 **partial diffusion** (noise the 8WT9 backbone, keep the catalytic motif fixed, denoise) +
