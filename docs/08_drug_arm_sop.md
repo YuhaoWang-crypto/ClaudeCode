@@ -109,9 +109,10 @@ with your data and the literature**:
 | PI3K-AKT-mTOR | alpelisib (PI3Kα), mTOR inhibitors | PIK3CA-mutant |
 | CDK4/6 | palbociclib | ER+ breast, RB-intact |
 
-> ChEMBL / clinical-trial sources can pull candidate inhibitors' mechanism,
-> potency (IC50/Ki), and clinical stage for your target — see the fully worked
-> `10_case_study_A375_BRAFi.md`, which does this for vemurafenib.
+> A **ChEMBL-verified, data-filled version** of this menu (7 approved inhibitors
+> with real potency, target genes, approval status, and matched cell backgrounds)
+> is in `11_drug_arm_candidate_menu.md`. The fully worked single-drug example is
+> `10_case_study_A375_BRAFi.md`.
 
 ---
 

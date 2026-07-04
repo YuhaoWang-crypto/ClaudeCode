@@ -19,6 +19,7 @@ construction, screen scale, sequencing depth, and analysis.
 | [`docs/08_drug_arm_sop.md`](docs/08_drug_arm_sop.md) | Drug-arm SOP: dose pre-experiment, dosing, drugZ matrix, expected hits |
 | [`docs/09_analysis_commands.md`](docs/09_analysis_commands.md) | Runnable MAGeCK / BAGEL2 / drugZ command cheat-sheet |
 | [`docs/10_case_study_A375_BRAFi.md`](docs/10_case_study_A375_BRAFi.md) | Fully worked case: A375 (BRAF^V600E) + vemurafenib, ChEMBL/clinical data |
+| [`docs/11_drug_arm_candidate_menu.md`](docs/11_drug_arm_candidate_menu.md) | ChEMBL-verified menu of 7 approved inhibitors: potency, target, matched background |
 | [`scripts/coverage_calculator.py`](scripts/coverage_calculator.py) | Runnable scale/depth calculator (cells, gDNA, reads) |
 | [`data/kinome_targets.md`](data/kinome_targets.md) | Target-set definition + authoritative source fetch |
 | [`templates/sample_sheet.csv`](templates/sample_sheet.csv) | 10-sample sheet layout for the dual-arm design |
