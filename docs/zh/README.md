@@ -18,6 +18,8 @@
 | [`09_分析命令速查.md`](09_分析命令速查.md) | MAGeCK / BAGEL2 / drugZ 可直接改用的命令清单 |
 | [`10_案例_A375_BRAFi.md`](10_案例_A375_BRAFi.md) | 完整案例：A375(BRAF^V600E)+vemurafenib，ChEMBL/临床实查数据填充 |
 | [`11_加药臂候选药物菜单.md`](11_加药臂候选药物菜单.md) | 7 种已获批抑制剂的 ChEMBL 实查效力/靶点/匹配背景对照表 |
+| [`12_设计结果与方案对比分析.md`](12_设计结果与方案对比分析.md) | gRNA 设计结果解读 + 两种筛选方案效果对比 |
+| [`13_引导设计实跑结果.md`](13_引导设计实跑结果.md) | 实跑:512 激酶 × Brunello,98.8% 覆盖、on-target、脱靶 QC |
 
 配套模板：[`../../templates/sample_sheet.csv`](../../templates/sample_sheet.csv)（10 样本布局）。
 

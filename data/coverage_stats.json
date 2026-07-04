@@ -1,0 +1,34 @@
+{
+  "kinome": 512,
+  "covered": 506,
+  "direct": 495,
+  "via_alias": 11,
+  "gap": [
+    "CDK8",
+    "GRK1",
+    "PDPK2P",
+    "PRAG1",
+    "RSKR",
+    "STK38"
+  ],
+  "guides": 2024,
+  "median_rs2": 0.668,
+  "mean_rs2": 0.669,
+  "frac_high": 0.927,
+  "frac_weak": 0.0,
+  "polyT": 0,
+  "gc_extreme": 4,
+  "collisions": 0,
+  "controls_available": 1000,
+  "groups": {
+    "CMGC": 62,
+    "Atypical": 30,
+    "Tyr": 171,
+    "TKL": 34,
+    "STE": 56,
+    "AGC": 57,
+    "CAMK": 74,
+    "CK1": 12,
+    "NEK": 16
+  }
+}
