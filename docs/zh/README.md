@@ -16,6 +16,7 @@
 | [`07_两种筛选设计.md`](07_两种筛选设计.md) | 必需性 + 化学基因组/合成致死：一次实验合并完成 |
 | [`08_加药臂实操与剂量预实验.md`](08_加药臂实操与剂量预实验.md) | 加药臂落地：剂量预实验、给药方案、drugZ 矩阵、命中判读（含范例） |
 | [`09_分析命令速查.md`](09_分析命令速查.md) | MAGeCK / BAGEL2 / drugZ 可直接改用的命令清单 |
+| [`10_案例_A375_BRAFi.md`](10_案例_A375_BRAFi.md) | 完整案例：A375(BRAF^V600E)+vemurafenib，ChEMBL/临床实查数据填充 |
 
 配套模板：[`../../templates/sample_sheet.csv`](../../templates/sample_sheet.csv)（10 样本布局）。
 
