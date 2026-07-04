@@ -118,7 +118,54 @@ bridge RNA (cyan); A248 by DNA (amber); V257 at the RNA:DNA junction.*
 
 ---
 
-## 5. Honest caveats
+## 5. Combination-mutation predictions
+
+The five sites are **spatially independent**: the minimum atom–atom distance between any
+pair is >18 Å for every pair *except* **F231Y–V257A (6.5 Å)** — both sit in the C-terminal
+bridge-RNA face. Independent sites should behave additively; only F231Y/V257A could show
+epistasis.
+
+To test this directly, all **26 multi-mutants** (10 doubles, 10 triples, 5 quadruples, the
+quintuple) were scored with ESM-1v and ESM2 in an **epistasis-aware** way: for each variant
+the full mutant sequence is built, each mutated position is masked *in the mutant context*
+(the other mutations present), and its log-likelihood ratio vs. wild type is summed. The
+difference from the additive single-mutant baseline is the **epistasis** term (positive =
+synergy, negative = interference).
+
+![Combination analysis](analysis/figures/fig4_combinations.png)
+
+**Result — the mutations are essentially additive with mild positive synergy.** Across all
+26 combinations the epistasis term is small (|epi| ≤ 0.31 log-lik units) and **uniformly
+non-negative — there is no predicted interference**, including the close F231Y+V257A pair
+(epi ≈ +0.04). The largest (favorable) synergies appear when a fold-stability mutation is
+combined with the binding/turnover mutations (e.g. L168K+F231Y+A248K, epi +0.20;
+L168K+F231Y+A248K+V257A, epi +0.31). In short: **stacking these mutations is low-risk**, and
+the joint favorability grows roughly with the sum of the singles.
+
+### Recommended staged build
+
+| Tier | Combination | Routes combined | Rationale |
+|---|---|---|---|
+| **1 — doubles** | **L168K + F231Y** | fold + guide-RNA | Highest-confidence stack: a stability gain plus a guide-affinity gain, 32 Å apart, epi +0.03 |
+| | **L168K + A248K** | fold + DNA-substrate | Stability + substrate affinity; note A248K is structure-favored but ESM2-skeptical |
+| **2 — triples** | **L168K + H193R + F231Y** | 2×fold + guide-RNA | Two independent stability mutations buffer the RNA-interface change (epi 0.00) |
+| | **L168K + F231Y + A248K** | fold + RNA + DNA | Covers all three activity routes; positive synergy (epi +0.20) |
+| **3 — upper bound** | **L168K + F231Y + A248K + V257A** | fold + RNA + DNA + turnover | Largest predicted synergy (epi +0.31); most aggressive |
+| | full 5-mutant | all four | Highest joint score, but least de-risked — treat as a ceiling, not a first build |
+
+Full combination table with per-model terms: `analysis/data/combo_ranked.json`.
+
+**Combination-specific caveats.** A high ESM joint score means the multi-mutant is predicted
+*foldable and tolerated*, **not** that activity rises monotonically with mutation count —
+piling on five substitutions can still reduce catalysis even when each is individually
+benign. The epistasis model covers **sequence** interactions only; structure-based methods
+(ProteinMPNN/ESM-IF) give per-position marginals, so their combination scores are additive
+by construction. Build singles first, confirm the direction of effect, then advance the
+staged doubles/triples above.
+
+---
+
+## 6. Honest caveats
 
 - **PLMs and inverse-folding models predict fitness/stability, not catalytic rate.** They reliably flag substitutions the protein will *tolerate* or that *stabilize* the fold; the link to higher **activity** is inferential (more folded enzyme, tighter binding). True kcat gains require active-site engineering, which these methods do not rank well — hence the catalytic core was fixed and only second-shell V257A/A13 probe turnover.
 - **Structure models are blind to nucleic acid.** ProteinMPNN and ESM-IF saw protein atoms only; the RNA/DNA-contact interpretations come from the 8WT9 geometry, not from the models. This is why F231Y/A248K lean on the structural annotation for their mechanism.
@@ -128,7 +175,7 @@ bridge RNA (cyan); A248 by DNA (amber); V257 at the RNA:DNA junction.*
 
 ---
 
-## 6. Files
+## 7. Files
 
 Interactive viewer (published artifact): **`analysis/is621_viewer.html`** — rotatable 8WT9
 complex, click any candidate to focus its side chain; toggles for RNA / DNA / catalytic core.
