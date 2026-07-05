@@ -2,11 +2,12 @@ import modal, json
 
 app = modal.App("is621-fep")
 vol = modal.Volume.from_name("is621-fep-vol", create_if_missing=True)
-# exact working-probe conda solve; add pdbfixer via no-deps pip so it can't perturb openff
+# exact working-probe conda solve + openeye-toolkits (perses hard-imports oechem; license
+# only needed at runtime for OE calls, which the protein-mutation path may not make).
 img = (modal.Image.micromamba(python_version="3.10")
        .micromamba_install("perses", "openmm", "openmmtools", "openff-toolkit",
-                           "openmmforcefields", "pymbar", "ambertools",
-                           "cudatoolkit=11.8", channels=["conda-forge"])
+                           "openmmforcefields", "pymbar", "ambertools", "openeye-toolkits",
+                           "cudatoolkit=11.8", channels=["openeye", "conda-forge"])
        .pip_install("pdbfixer", extra_options="--no-deps"))
 
 FF = ["amber14/protein.ff14SB.xml", "amber14/DNA.OL15.xml",
