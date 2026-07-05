@@ -267,7 +267,33 @@ imaginary mode). That is a multi-week specialist calculation. Honest status: **p
 reactant-construction established; a converged barrier was not obtained; the kcat question remains
 computationally open.** Raw (discarded) records: `mdqm/qmmm_barrier.json`, `mdqm/barrier2.json`.
 
-### 6.5 RFdiffusion3 for enzyme optimization — assessment
+### 6.5 FEP/TI relative binding free energy — engine works; blocked by a licensed dependency
+To replace the inflated MM-GBSA magnitude (§6.2) with a trustworthy ΔΔG_bind, we set up a
+relative alchemical FEP: thermodynamic cycle ΔΔG_bind = ΔG_mut(complex) − ΔG_mut(apo), targeting
+**F231Y** first (charge-neutral, adds only –OH → the clean case) then **A248K** (with perses's
+native `transform_waters_into_ions` charge correction for its +1 change). F231 contacts the
+**bridge RNA (U82)**, so its complex leg is protein+RNA; A248's is protein+DNA.
+
+**Status: the FEP engine is verified working, but the turnkey hybrid-topology tool is blocked.**
+Confirmed on Modal GPU: OpenMM 8.2 + openmmtools 0.25.3 + pymbar 4.2 (CUDA; alchemical factory +
+MBAR all functional). Cheap 5-iteration validation runs then caught, in sequence, (1) an
+`openff.units`/`openff.toolkit` version conflict (fixed by pinning the environment), and (2) that
+**perses `PointMutationExecutor` hard-imports the proprietary OpenEye toolkit** (`from openeye
+import oechem`), which is **not licensed** in this sandbox — installing the unlicensed package
+**segfaults** at runtime. perses is therefore unusable here for automated hybrid-topology
+generation. No ΔΔG_bind is reported rather than resort to an un-validated hand-built topology.
+
+**Viable routes to the rigorous number (all OpenEye-free except the first):**
+(a) perses in an **OpenEye-licensed** environment (`OE_LICENSE`) — turnkey; (b) **GROMACS + pmx**
+(Gapsys/de Groot) — the standard *open-source* protein-mutation FEP pipeline (pmx builds the
+hybrid topology, GROMACS runs λ windows, analysis via alchemlyb/BAR); (c) a custom
+single-topology TI in the verified openmmtools stack (most self-contained, but hand-building the
+Phe↔Tyr / Ala↔Lys hybrid + convergence validation is substantial). Each needs ~10–20 λ windows ×
+(complex+apo legs) × ns-scale sampling with MBAR overlap and forward/backward convergence checks.
+Setup scripts and validated inputs are in the repo (`modal_fep.py`, `mdqm/fep_*.pdb`) ready to
+run under (a) or adapt to (b).
+
+### 6.6 RFdiffusion3 for enzyme optimization — assessment
 RFdiffusion3 (open-sourced Dec 2025; all-atom; designs DNA binders and enzymes) is a **de novo
 generator**, not a point-mutation optimizer. For *optimizing* IS621 the relevant mode is
 **partial diffusion** (noise the 8WT9 backbone, keep the catalytic motif fixed, denoise) +
