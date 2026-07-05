@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="zh"><head><meta charset="utf-8"><title>抗替尔泊肽抗体设计报告 — 审阅备注与修订版</title>
+<style>
+body{font-family:-apple-system,'PingFang SC','Microsoft YaHei',BlinkMacSystemFont,sans-serif;max-width:1000px;margin:0 auto;padding:32px 24px;color:#1a1a1a;line-height:1.75}
+h1{font-size:26px;border-bottom:3px solid #2563eb;padding-bottom:10px}
+h2{font-size:20px;color:#1e40af;margin-top:38px;border-bottom:1px solid #ddd;padding-bottom:6px}
+h3{font-size:16px;color:#374151;margin-top:24px}
+table{border-collapse:collapse;width:100%;margin:16px 0;font-size:13.5px}
+th,td{border:1px solid #d1d5db;padding:7px 10px;text-align:left;vertical-align:top}
+th{background:#eff6ff;font-weight:600}
+tr:nth-child(even){background:#f9fafb}
+.seq{font-family:'SF Mono',Menlo,monospace;font-size:11px;word-break:break-all;background:#f3f4f6;padding:8px;border-radius:4px;border-left:3px solid #2563eb}
+.verdict{background:#f0fdf4;border-left:4px solid #16a34a;padding:12px 16px;margin:14px 0;border-radius:4px}
+.caveat{background:#fffbeb;border-left:4px solid #d97706;padding:12px 16px;margin:14px 0;border-radius:4px}
+.fail{background:#fef2f2;border-left:4px solid #dc2626;padding:12px 16px;margin:14px 0;border-radius:4px}
+.lead{background:#eff6ff;border-left:4px solid #2563eb;padding:12px 16px;margin:14px 0;border-radius:4px}
+.rev{background:#faf5ff;border-left:4px solid #7c3aed;padding:12px 16px;margin:14px 0;border-radius:4px}
+code{background:#f3f4f6;padding:1px 5px;border-radius:3px;font-size:12.5px}
+.small{font-size:12.5px;color:#6b7280}
+.tag{display:inline-block;font-size:11px;font-weight:600;padding:1px 8px;border-radius:20px;margin-right:6px}
+.t-ok{background:#dcfce7;color:#166534}.t-warn{background:#fef3c7;color:#92400e}.t-new{background:#ede9fe;color:#5b21b6}
+mark{background:#fde68a;padding:0 2px;border-radius:2px}
+ol,ul{padding-left:24px}
+hr{border:none;border-top:1px solid #e5e7eb;margin:28px 0}
+</style></head><body>
+
+<h1>抗替尔泊肽抗体设计报告 — 审阅备注与修订版</h1>
+<p class="small">
+本文件是对原始报告《抗替尔泊肽（Tirzepatide）抗体设计全流程报告》的独立审阅。审阅方法：使用 Boltz-2.1 对全部候选构建
+<b>Fab + 多肽</b>共折叠，并对我方本会话已生成的 5 个 Fab 结构做几何复核；对 mat7 序列做可开发性基序扫描。
+<span class="t-new tag">紫色框</span>为审阅者新增结论，其余为对原报告的复述与评注。所有指标仍为 co-fold 预测值，非实测亲和力。
+</p>
+
+<div class="rev">
+<b>审阅总结论。</b> 原报告的方法学成立，且在最关键的一点上是对的：<b>脂质感知（lipid-aware）</b>的建模。
+其先导 <b>ab2mat2_mat7</b> 的选择逻辑（埋脂质最少 + 双模型一致）经得起推敲，<b>维持推进 mat7 为全长人源化 IgG1 先导</b>。
+本审阅补充两项独立证据：
+<b>(1)</b> 用 5 个独立结构<b>正面证实</b>了原报告的核心论点——"裸赖氨酸建模会把脂质挂载点埋掉、从而给出误导性排名"；
+<b>(2)</b> 发现 mat7 自身的一个熟成突变在 CDR-L2 <b>新引入了一个 Asp-Gly 异构化热点</b>，是原报告可开发性质控漏掉的液相稳定性风险，建议在推进前做一版去风险改造。
+</div>
+
+<h2>一、复核对象与我方可用手段</h2>
+<p>原报告依托 Boltz-2 + Chai-1 双模型、LigandMPNN / RFdiffusion / ProteinMPNN、DiffDock-L，运行于 Modal A100。
+本审阅在本会话中<b>仅能独立运行 Boltz-2.1</b>，因此采取两条不依赖对方原始算力的核查路径：</p>
+<ul>
+<li><b>结构几何复核。</b> 我方本会话已对 5 个既有 binder（ab2-mat1 / ab2-mat2 / ab2-wt / ab1-wt / ab2-mat3）
+组装为 Fab（VH-CH1 + VL-Cλ）并与修饰多肽 co-fold（各 5 样本）。用这些结构直接测量 K20-Nε 的埋藏程度。</li>
+<li><b>序列基序扫描。</b> 对 mat7 的重/轻链可变域做 N-糖基化（N-X-[ST]）、脱酰胺（NG/NS/NT）、异构化（DG/DS）、
+游离半胱氨酸等液相/化学稳定性基序扫描，并与亲本逐位对比。</li>
+</ul>
+<p class="small">局限：我方无法复现 Chai-1、LigandMPNN 熟成或 de novo 流程，故对这些环节采取"逻辑审阅 + 可查证之处点验"，不做重算。</p>
+
+<h2>二、交叉验证一 —— K20-Nε 遮蔽：<span class="t-ok tag">证实原报告核心论点</span></h2>
+<p>原报告的立论是：既有 binder 在<b>未修饰</b>多肽上评分虚高，因为它们把 K20-Nε（真实药物中 762 Da 脂质的挂载点）埋进了互补位；
+一旦脂质在场就会空间冲突。为独立检验，我在我方 5 个 Fab 结构（K20 按<b>裸赖氨酸</b>建模）中，测量了 K20 侧链末端氮（Nε / NZ 原子）到抗体最近重原子的距离：</p>
+
+<table>
+<tr><th>构建（我方 Fab 结构）</th><th>K20-Nε → 抗体最近距 (Å)</th><th>K20 任意原子 → 抗体 (Å)</th><th>判定</th><th>备注</th></tr>
+<tr><td>ab2-mat1</td><td>4.01</td><td>2.85</td><td><span class="t-warn tag">埋住</span></td><td>我上一版按亲和力选的<b>主推</b></td></tr>
+<tr><td>ab2-mat2</td><td>3.68</td><td>2.89</td><td><span class="t-warn tag">埋住</span></td><td>报告用作熟成骨架的亲本</td></tr>
+<tr><td>ab2-wt</td><td>3.23</td><td>3.02</td><td><span class="t-warn tag">埋住</span></td><td>亲本基线</td></tr>
+<tr><td>ab1-wt</td><td>3.70</td><td>2.80</td><td><span class="t-warn tag">埋住</span></td><td>正交谱系</td></tr>
+<tr><td>ab2-mat3</td><td>3.73</td><td>2.54</td><td><span class="t-warn tag">埋住</span></td><td>三突变</td></tr>
+</table>
+
+<div class="rev">
+<b>结论（新增）。</b> <b>5/5 全部把 K20-Nε 埋在 3.2–4.0 Å 以内</b>，包括我上一版按 binding-head 排第一的 ab2-mat1。
+脂质不在场时，抗体会直接塌陷到空出来的 Nε 上——这正是原报告所述机理。由此得到两点：
+<ol>
+<li><b>原报告的"K20 遮蔽"诊断得到我方独立结构的正面佐证</b>（不同建模、不同流程，结论一致）。</li>
+<li><b>我上一版《全humanized IgG 重排序》里以裸赖氨酸 co-fold 的 binding-head 做的排序，对真实（脂质化）药物不具区分力，应作废；</b>
+以本报告"脂质在场"的评分为准。</li>
+</ol>
+</div>
+<p class="caveat"><b>方法学要点。</b> 判断一条抗体是否耐受修饰，必须在<b>脂质在场</b>的条件下 co-fold（原报告做法），
+或至少显式约束 K20-Nε 的可及性；裸赖氨酸模型只能告诉你"没有障碍时互补位落在哪"，不能预测真实药物的结合。</p>
+
+<h2>三、交叉验证二 —— mat7 的 CDR-L2 新增异构化位点：<span class="t-new tag">原报告漏报的液相风险</span></h2>
+<p>原报告的可开发性质控称三条先导"无 N-糖基化序列子、无游离半胱氨酸；仅有一处共有的 CDR-H2 D52-G 异构化位点（遗传自框架）"。
+我对 mat7 序列逐基序扫描后，确认了那处 H2 D-G，但<b>额外发现一处报告未列出的、且位于互补位内的 Asp-Gly（D-G）热点</b>，
+它是由 mat7 自身的熟成突变 <code>L-M47D</code> 引入的：</p>
+
+<table>
+<tr><th>位点</th><th>亲本 ab2-mat2</th><th>mat7</th><th>变化</th><th>风险</th></tr>
+<tr><td>CDR-L2</td><td class="seq" style="border:none;background:none;padding:0">…VLV<b>M</b>GE…</td>
+    <td class="seq" style="border:none;background:none;padding:0">…VLVF<mark><b>D</b></mark><mark>G</mark>E…</td>
+    <td>M47D（并伴 Y46F）→ 形成 <b>D-G</b></td>
+    <td><span class="t-warn tag">异构化/琥珀酰亚胺</span> 高易感，且在 CDR 内</td></tr>
+<tr><td>CDR-H2（原报告已列）</td><td class="seq" style="border:none;background:none;padding:0">…RI<b>D</b><b>G</b>S…</td>
+    <td class="seq" style="border:none;background:none;padding:0">…RI<b>D</b><b>G</b>S…</td><td>无变化（框架遗传）</td>
+    <td><span class="t-ok tag">已知</span> 位于主互补位之外</td></tr>
+</table>
+
+<div class="rev">
+<b>结论（新增）。</b> Asp-Gly 是最易发生异构化与琥珀酰亚胺形成的基序之一。此处新 D-G <b>位于 CDR-L2、正对互补位</b>，
+比框架里那处 H2 D52-G 更值得担心（会直接影响结合与批间一致性）。这是原报告可开发性小节的一处遗漏。
+<b>建议在湿实验前先做一版去风险：</b>
+<ul>
+<li>首选 <code>L-D47E</code>（Asp→Glu，消除 D-G 且大体保留 mat7 想要的"负电避脂质"效应）；或</li>
+<li><code>L-G48A</code>（打断 D-G 的甘氨酸邻位）；或</li>
+<li>回到亲本的非 D 残基但保留其余熟成突变，作对照。</li>
+</ul>
+对每个去风险变体，用与 mat7 相同的"脂质在场"双模型 co-fold 复评，确认埋脂质仍为 0 且界面不塌。
+</div>
+<p class="small">附：VH/VL 各含两处半胱氨酸（保守链内二硫键），确认<b>非</b>游离 Cys —— 此点与原报告"无游离半胱氨酸"一致，无异议。
+未在可变域检出 N-X-[ST] 糖基化序列子，与原报告一致。</p>
+
+<h2>四、逐节审阅</h2>
+<table>
+<tr><th>原报告章节</th><th>审阅意见</th></tr>
+<tr><td>一、药物结构与失败机理（K20 遮蔽）</td>
+    <td><span class="t-ok tag">同意 + 已佐证</span> 三法一致的遮蔽诊断，被我方 5 个独立结构正面证实（见第二节）。核心可信。</td></tr>
+<tr><td>二、亲和力熟成 → mat7</td>
+    <td><span class="t-ok tag">同意</span> "以埋脂质最少为胜出点、Chai 界面提升大多数变体共有"的自我剖析是诚实且正确的取舍。
+    <span class="t-warn tag">补充</span> 熟成引入的 L-M47D 带来 CDR-L2 D-G 风险（见第三节），建议去风险后再定稿。</td></tr>
+<tr><td>三、人源化 + Fc 组装</td>
+    <td><span class="t-ok tag">同意</span> "Fc 距互补位 &gt;100 Å、ipTM 小幅下降为度量稀释假象"的判断与我上一版结论一致（我方亦观察到加入恒定区后界面 ipTM 摊薄约 0.05–0.07）。
+    <span class="t-warn tag">留意</span> 报告自己已标：mat29/mat4 在 Boltz 的 Fab 构型下埋脂质飙升（0→38、1→28），仅 mat7 保持 Boltz 0——因此 mat29/mat4 作"备选"成色偏虚，需实验确认后才可并列。</td></tr>
+<tr><td>四、de novo C 端 binder</td>
+    <td><span class="t-warn tag">同意其保留态度</span> Boltz（0.78–0.91）与 Chai（0.14–0.18）严重不一致 → 预测不可信，本轮无先导，结论恰当。binder_28_d4 作"种子"而非先导的定性合理。</td></tr>
+<tr><td>五、结论与后续</td>
+    <td><span class="t-ok tag">基本同意</span> 推进 mat7 为唯一端到端过关先导的结论成立。<span class="t-new tag">修订</span>：把"去 CDR-L2 D-G"列为进入表达前的必做项（见修订版推荐）。</td></tr>
+</table>
+
+<h2>五、修订版推荐</h2>
+<div class="lead">
+<b>先导：ab2mat2_mat7（全长人源化 IgG1/λ）——维持。</b> 唯一在"脂质在场 + 双模型一致 + Fab 下避脂质（Boltz 0）"全链条过关的分子。
+</div>
+<div class="rev">
+<b>进入湿实验前的三步（修订新增/强化）：</b>
+<ol>
+<li><b>去风险改造。</b> 产出 mat7 的 CDR-L2 去 D-G 变体（首选 <code>L-D47E</code>），并用相同的脂质在场双模型 co-fold 复评埋脂质与界面。</li>
+<li><b>表达 &amp; 实测。</b> 表达 mat7（或其去风险版）为 IgG1/λ，SPR/BLI 测定对<b>真实修饰</b>替尔泊肽的亲和力；DSF/SEC 查稳定性与单体率。
+   将 mat29、mat4 作备选，但须先以实验确认其 Fab 构型下脂质埋藏不影响结合。</li>
+<li><b>强制降解验证。</b> 针对新识别的 CDR-L2 D-G，做低 pH / 高温强制降解 + 质谱，量化异构化速率，验证去风险是否奏效。</li>
+</ol>
+</div>
+
+<h3>mat7 序列（含审阅标注）</h3>
+<p class="small">熟成突变：重链 D31T / S32G / A105E / V109I / M110L；轻链 I45V / Y46F / <mark>M47D</mark>（← 引入 CDR-L2 D-G，建议改造）。</p>
+<b>重链（IgG1，453 aa）：</b>
+<div class="seq">VQLVQSGAEVKKPGASVKVSCKASGYTFTTTGGIAWVRQAPGQGLEWMGRIDGSGNTIINPKYRGRVTMTTDTSTSTAYMELRSLRSDDTAVYYCARTAPASLPEYHHILWLWGRGTLVTVSSASTKGPSVFPLAPSSKSTSGGTAALGCLVKDYFPEPVTVSWNSGALTSGVHTFPAVLQSSGLYSLSSVVTVPSSSLGTQTYICNVNHKPSNTKVDKKVEPKSCDKTHTCPPCPAPELLGGPSVFLFPPKPKDTLMISRTPEVTCVVVDVSHEDPEVKFNWYVDGVEVHNAKTKPREEQYNSTYRVVSVLTVLHQDWLNGKEYKCKVSNKALPAPIEKTISKAKGQPREPQVYTLPPSRDELTKNQVSLTCLVKGFYPSDIAVEWESNGQPENNYKTTPPVLDSDGSFFLYSKLTVDKSRWQQGNVFSCSVMHEALHNHYTQKSLSLSPGK</div>
+<b>轻链（λ，211 aa）——<mark>CDR-L2 的 …F<b>D</b><b>G</b>E… 即新增异构化热点</mark>：</b>
+<div class="seq">YVLTQPPSVSVAPGKTARITCTGVAEGQPVSWYQQKPGQAPVLVVFDGERPPGIPERFSGSNSGNTATLTISRVEAGDEADYYCATNDPSNAAGVVFGGGTKLTVLQPKAAPSVTLFPPSSEELQANKATLVCLISDFYPGAVTVAWKADSSPVKAGVETTTPSKQSNNKYAASSYLSLTPEQWKSHRSYSCQVTHEGSTVEKTVAPTECS</div>
+
+<hr>
+<p class="small">
+<b>审阅者声明。</b> 本审阅独立使用 Boltz-2.1 co-fold（我方 5 个 Fab 结构，各 5 样本）与序列基序扫描完成，未复现原报告的 Chai-1 / LigandMPNN / RFdiffusion / DiffDock 环节。
+第二节的 K20-Nε 距离取自我方 Fab+裸赖氨酸 co-fold 的最优构象；第三节的基序判定为序列层面确定性匹配。
+所有 co-fold 指标为预测值，最终以对真实修饰替尔泊肽的 SPR/BLI 实测为准。原报告图（<code>{{artifact:…}}</code>）未包含于本审阅件，请对照原始报告查看。
+生成日期 2026-07-05。</p>
+</body></html>
