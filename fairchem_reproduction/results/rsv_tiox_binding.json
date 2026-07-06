@@ -1,0 +1,39 @@
+{
+  "model": "uma-s-1p1",
+  "task": "omol",
+  "T_K": 298.15,
+  "RT_eV": 0.025692579120652998,
+  "fmax": 0.05,
+  "do_vib": false,
+  "systems": {
+    "n-type_TiO2-RSV": {
+      "report_dGbind_eV": -1.80825189,
+      "report_Ka": "3.8e30",
+      "E_rsv": -53577.09584065901,
+      "E_cluster": -223914.7316846045,
+      "E_complex": -277492.9473393403,
+      "dE_bind_eV": -1.1198140767664881,
+      "Ka_from_dE": {
+        "exponent_base_e": 43.585117379917875,
+        "log10_Ka": 18.928775971203848
+      }
+    },
+    "p-type_TiO-RSV": {
+      "report_dGbind_eV": -3.372142689,
+      "report_Ka": "1.0e57",
+      "E_rsv": -53577.09693283422,
+      "E_cluster": -346135.7909382348,
+      "E_complex": -399718.4677194133,
+      "dE_bind_eV": -5.579848344292259,
+      "Ka_from_dE": {
+        "exponent_base_e": 217.17743158789744,
+        "log10_Ka": 94.31896013254483
+      }
+    }
+  },
+  "relative": {
+    "dE_p_minus_n_eV": -4.460034267525771,
+    "stronger_binder": "p-type_TiO",
+    "report_says_stronger": "p-type_TiO"
+  }
+}

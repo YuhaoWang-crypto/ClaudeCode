@@ -1,0 +1,19 @@
+{
+  "level_of_theory": "B3LYP/6-31G(d) (PySCF), free molecule",
+  "note": "report's tabulated gap 0.065 eV was for the molecule adsorbed on Fe(110) metal; here is the free-molecule FMO",
+  "E_total_Ha": -1118.5500931263266,
+  "HOMO_index": 65,
+  "LUMO_index": 66,
+  "E_HOMO_eV": -6.324170048426475,
+  "E_LUMO_eV": -1.3038063533116762,
+  "gap_eV": 5.020363695114799,
+  "ionization_potential_eV": 6.324170048426475,
+  "electron_affinity_eV": 1.3038063533116762,
+  "electronegativity_chi_eV": 3.8139882008690753,
+  "hardness_eta_eV": 2.5101818475573996,
+  "softness_eV^-1": 0.3983775123595436,
+  "electrophilicity_omega_eV": 2.897500436178239,
+  "dipole_Debye": 5.174870111385028,
+  "scf_seconds": 124.97763180732727,
+  "n_basis": 276
+}

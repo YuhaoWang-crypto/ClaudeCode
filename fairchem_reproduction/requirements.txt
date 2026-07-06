@@ -1,0 +1,8 @@
+# Install torch CPU first:
+#   pip install torch --index-url https://download.pytorch.org/whl/cpu
+# Then (the SETUPTOOLS_USE_DISTUTILS=stdlib works around a Debian setuptools quirk):
+#   SETUPTOOLS_USE_DISTUTILS=stdlib pip install -r requirements.txt
+fairchem-core>=2.0
+ase>=3.26
+pyscf>=2.5
+rdkit>=2024.3

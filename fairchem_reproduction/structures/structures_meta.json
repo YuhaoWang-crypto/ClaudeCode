@@ -1,0 +1,45 @@
+{
+  "molecules": {
+    "inhibitor": {
+      "smiles": "Sc1nnc(-c2ccncc2)n1-c1ccccc1",
+      "formula": "C13H10N4S",
+      "natoms": 28,
+      "charge": 0,
+      "spin": 1
+    },
+    "rsv": {
+      "smiles": "CC(C)c1nc(N(C)S(C)(=O)=O)nc(-c2ccc(F)cc2)c1/C=C/[C@@H](O)C[C@@H](O)CC(=O)O",
+      "formula": "C22H28FN3O6S",
+      "natoms": 61,
+      "charge": 0,
+      "spin": 1
+    }
+  },
+  "fe110": {
+    "natoms": 100,
+    "size": [
+      5,
+      5,
+      4
+    ],
+    "a": 2.866,
+    "vacuum": 8.0,
+    "n_fixed": 50
+  },
+  "tio2_ntype": {
+    "formula": "H4O19Ti8",
+    "natoms": 31,
+    "nTi": 8,
+    "nO": 19,
+    "charge": 0,
+    "spin": 1
+  },
+  "tio_ptype": {
+    "formula": "O11Ti14",
+    "natoms": 25,
+    "nTi": 14,
+    "nO": 11,
+    "charge": 0,
+    "spin": 1
+  }
+}

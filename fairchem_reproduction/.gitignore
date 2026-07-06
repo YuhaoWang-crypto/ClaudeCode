@@ -1,0 +1,4 @@
+results/vib_*
+results/opt_*.log
+results/*_run.log
+__pycache__/

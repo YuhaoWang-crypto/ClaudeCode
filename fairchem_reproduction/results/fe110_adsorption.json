@@ -1,0 +1,43 @@
+{
+  "reference_report_eV": -2.88,
+  "task": "oc20",
+  "model": "uma-s-1p1",
+  "E_slab": -684.8537805391179,
+  "E_adsorbate": -183.2562973618167,
+  "configs": {
+    "S_down_top": {
+      "Eads_eV": -1.0403108588229486,
+      "steps": 130,
+      "fmax": 0.04995892196893692,
+      "min_SN_Fe_dist": 2.2263346365513113,
+      "time_s": 262
+    },
+    "N_down_top": {
+      "Eads_eV": -1.7975818995591624,
+      "steps": 112,
+      "fmax": 0.030233372002840042,
+      "min_SN_Fe_dist": 1.9331616581385584,
+      "time_s": 222
+    },
+    "N2_down_brg": {
+      "Eads_eV": -0.47168545862277256,
+      "steps": 86,
+      "fmax": 0.04934414103627205,
+      "min_SN_Fe_dist": 1.962830799670468,
+      "time_s": 178
+    },
+    "S_down_close": {
+      "Eads_eV": -1.017316756086501,
+      "steps": 103,
+      "fmax": 0.048595454543828964,
+      "min_SN_Fe_dist": 2.225572878553551,
+      "time_s": 211
+    },
+    "flat_multidentate": {
+      "Eads_eV": 0.9343240021313761
+    }
+  },
+  "best_config": "N_down_top",
+  "Eads_eV": -1.7975818995591624,
+  "Eads_diff_vs_report_eV": 1.0824181004408375
+}
