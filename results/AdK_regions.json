@@ -1,0 +1,367 @@
+{
+  "system": "AdK",
+  "config": {
+    "bound": "1AKE",
+    "unbound": "4AKE",
+    "chain": "A",
+    "active_site": {
+      "ligand": "AP5"
+    },
+    "note": "LID + NMP domain closure; hinge/counterweight = de novo Zn-switch target"
+  },
+  "stats": {
+    "n_common": 214,
+    "n_core": 150,
+    "core_rmsd": 2.02,
+    "overall_rmsd": 8.01,
+    "max_displacement": 24.1
+  },
+  "regions": [
+    {
+      "start": 117,
+      "end": 163,
+      "length": 47,
+      "mean_displacement": 12.97,
+      "max_displacement": 24.1,
+      "mean_dist_active_site": 29.99,
+      "residues": [
+        117,
+        118,
+        119,
+        120,
+        121,
+        122,
+        123,
+        124,
+        125,
+        126,
+        127,
+        128,
+        129,
+        130,
+        131,
+        132,
+        133,
+        134,
+        135,
+        136,
+        137,
+        138,
+        139,
+        140,
+        141,
+        142,
+        143,
+        144,
+        145,
+        146,
+        147,
+        148,
+        149,
+        150,
+        151,
+        152,
+        153,
+        154,
+        155,
+        156,
+        157,
+        158,
+        159,
+        160,
+        161,
+        162,
+        163
+      ],
+      "his_pair_candidates": [
+        {
+          "i": 123,
+          "j": 134,
+          "ca_ca": 4.53
+        },
+        {
+          "i": 135,
+          "j": 139,
+          "ca_ca": 4.77
+        },
+        {
+          "i": 134,
+          "j": 138,
+          "ca_ca": 4.8
+        },
+        {
+          "i": 146,
+          "j": 150,
+          "ca_ca": 4.85
+        },
+        {
+          "i": 124,
+          "j": 155,
+          "ca_ca": 4.87
+        },
+        {
+          "i": 127,
+          "j": 130,
+          "ca_ca": 4.91
+        }
+      ]
+    },
+    {
+      "start": 31,
+      "end": 70,
+      "length": 40,
+      "mean_displacement": 8.55,
+      "max_displacement": 17.73,
+      "mean_dist_active_site": 26.83,
+      "residues": [
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        38,
+        39,
+        40,
+        41,
+        42,
+        43,
+        44,
+        45,
+        46,
+        47,
+        48,
+        49,
+        50,
+        51,
+        52,
+        53,
+        54,
+        55,
+        56,
+        57,
+        58,
+        59,
+        60,
+        61,
+        62,
+        63,
+        64,
+        65,
+        66,
+        67,
+        68,
+        69,
+        70
+      ],
+      "his_pair_candidates": [
+        {
+          "i": 38,
+          "j": 43,
+          "ca_ca": 4.88
+        },
+        {
+          "i": 31,
+          "j": 34,
+          "ca_ca": 4.93
+        },
+        {
+          "i": 35,
+          "j": 38,
+          "ca_ca": 4.95
+        },
+        {
+          "i": 51,
+          "j": 54,
+          "ca_ca": 4.96
+        },
+        {
+          "i": 37,
+          "j": 40,
+          "ca_ca": 5.0
+        },
+        {
+          "i": 53,
+          "j": 56,
+          "ca_ca": 5.02
+        }
+      ]
+    },
+    {
+      "start": 10,
+      "end": 12,
+      "length": 3,
+      "mean_displacement": 2.35,
+      "max_displacement": 2.45,
+      "mean_dist_active_site": 19.91,
+      "residues": [
+        10,
+        11,
+        12
+      ],
+      "his_pair_candidates": [
+        {
+          "i": 12,
+          "j": 15,
+          "ca_ca": 5.27
+        },
+        {
+          "i": 10,
+          "j": 12,
+          "ca_ca": 5.42
+        },
+        {
+          "i": 13,
+          "j": 15,
+          "ca_ca": 5.53
+        },
+        {
+          "i": 8,
+          "j": 11,
+          "ca_ca": 5.59
+        },
+        {
+          "i": 9,
+          "j": 11,
+          "ca_ca": 5.71
+        },
+        {
+          "i": 12,
+          "j": 14,
+          "ca_ca": 5.72
+        }
+      ]
+    },
+    {
+      "start": 78,
+      "end": 79,
+      "length": 2,
+      "mean_displacement": 2.58,
+      "max_displacement": 2.81,
+      "mean_dist_active_site": 39.59,
+      "residues": [
+        78,
+        79
+      ],
+      "his_pair_candidates": [
+        {
+          "i": 77,
+          "j": 80,
+          "ca_ca": 5.26
+        },
+        {
+          "i": 77,
+          "j": 79,
+          "ca_ca": 5.35
+        },
+        {
+          "i": 75,
+          "j": 77,
+          "ca_ca": 5.51
+        },
+        {
+          "i": 77,
+          "j": 81,
+          "ca_ca": 5.61
+        },
+        {
+          "i": 76,
+          "j": 78,
+          "ca_ca": 5.8
+        },
+        {
+          "i": 75,
+          "j": 78,
+          "ca_ca": 5.85
+        }
+      ]
+    },
+    {
+      "start": 73,
+      "end": 73,
+      "length": 1,
+      "mean_displacement": 2.35,
+      "max_displacement": 2.35,
+      "mean_dist_active_site": 37.48,
+      "residues": [
+        73
+      ],
+      "his_pair_candidates": [
+        {
+          "i": 71,
+          "j": 73,
+          "ca_ca": 5.16
+        },
+        {
+          "i": 70,
+          "j": 73,
+          "ca_ca": 5.27
+        },
+        {
+          "i": 71,
+          "j": 74,
+          "ca_ca": 5.5
+        },
+        {
+          "i": 72,
+          "j": 74,
+          "ca_ca": 5.58
+        },
+        {
+          "i": 74,
+          "j": 76,
+          "ca_ca": 5.58
+        },
+        {
+          "i": 70,
+          "j": 72,
+          "ca_ca": 5.61
+        }
+      ]
+    },
+    {
+      "start": 7,
+      "end": 7,
+      "length": 1,
+      "mean_displacement": 2.3,
+      "max_displacement": 2.3,
+      "mean_dist_active_site": 16.7,
+      "residues": [
+        7
+      ],
+      "his_pair_candidates": [
+        {
+          "i": 8,
+          "j": 10,
+          "ca_ca": 6.31
+        },
+        {
+          "i": 4,
+          "j": 6,
+          "ca_ca": 6.37
+        },
+        {
+          "i": 7,
+          "j": 9,
+          "ca_ca": 6.7
+        },
+        {
+          "i": 5,
+          "j": 7,
+          "ca_ca": 6.85
+        },
+        {
+          "i": 6,
+          "j": 8,
+          "ca_ca": 7.38
+        },
+        {
+          "i": 7,
+          "j": 10,
+          "ca_ca": 8.07
+        }
+      ]
+    }
+  ]
+}

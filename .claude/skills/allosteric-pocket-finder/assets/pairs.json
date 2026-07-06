@@ -1,0 +1,5 @@
+{
+  "GCK":   {"bound": "1V4S", "unbound": "1V4T", "chain": "A", "active_site": {"ligand": "GLC"},   "note": "large open<->closed domain motion; hinge + activator-site loops"},
+  "PTP1B": {"bound": "1T49", "unbound": "1SUG", "chain": "A", "active_site": {"residues": [215]}, "note": "distal allosteric inhibitor site ~20 A from Cys215; WPD loop 177-185"},
+  "AdK":   {"bound": "1AKE", "unbound": "4AKE", "chain": "A", "active_site": {"ligand": "AP5"},    "note": "LID + NMP domain closure; hinge/counterweight = Zn-switch target"}
+}

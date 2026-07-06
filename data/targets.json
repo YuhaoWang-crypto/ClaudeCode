@@ -1,0 +1,95 @@
+{
+  "description": "Target enzyme systems for the allosteric-pocket / metal-switch demo. Each system lists PDB structures forming an 'active vs inactive' or 'apo vs ligand-bound' pair used to detect distal conformational responses (Ca displacement, hinge/interface motion) by structural alignment.",
+  "systems": [
+    {
+      "id": "GCK",
+      "name": "Human glucokinase (hexokinase-4)",
+      "uniprot": "P35557",
+      "organism": "Homo sapiens",
+      "oligomeric_state": "monomer",
+      "role": "positive control (large domain motion; known small-molecule allosteric activator site)",
+      "reference": "Kamata et al. 2004, Structure 12:429-438",
+      "structures": [
+        {"pdb": "1V4S", "state": "closed / active", "ligands": "glucose + synthetic allosteric activator", "chain": "A"},
+        {"pdb": "1V4T", "state": "super-open / inactive", "ligands": "apo", "chain": "A"}
+      ]
+    },
+    {
+      "id": "PTP1B",
+      "name": "Protein tyrosine phosphatase 1B",
+      "uniprot": "P18031",
+      "organism": "Homo sapiens",
+      "oligomeric_state": "monomer",
+      "role": "positive control (known distal allosteric inhibitor site ~20 A from catalytic Cys; WPD-loop coupling)",
+      "reference": "Wiesmann et al. 2004, Nat Struct Mol Biol 11:730-737",
+      "structures": [
+        {"pdb": "1T49", "state": "allosteric-inhibitor bound (WPD open, catalytic loop locked)", "ligands": "allosteric inhibitor (BB site)", "chain": "A"},
+        {"pdb": "1SUG", "state": "apo (WPD open)", "ligands": "apo", "chain": "A"},
+        {"pdb": "1PTY", "state": "orthosteric / WPD closed", "ligands": "phosphotyrosine-site ligand", "chain": "A"}
+      ]
+    },
+    {
+      "id": "AdK",
+      "name": "Adenylate kinase",
+      "uniprot": "P69441",
+      "organism": "Escherichia coli",
+      "oligomeric_state": "monomer",
+      "role": "engineering target (large open/closed motion; clear hinge; de novo Zn-switch candidate)",
+      "reference": "Muller & Schulz 1992 J Mol Biol 224:159; Muller et al. 1996 Structure 4:147",
+      "structures": [
+        {"pdb": "4AKE", "state": "apo / open", "ligands": "apo", "chain": "A"},
+        {"pdb": "1AKE", "state": "closed / transition-state mimic", "ligands": "Ap5A (two-substrate mimic)", "chain": "A"}
+      ]
+    },
+    {
+      "id": "PFK",
+      "name": "ATP-dependent 6-phosphofructokinase",
+      "uniprot": "P0A796",
+      "organism": "Escherichia coli",
+      "oligomeric_state": "homotetramer",
+      "role": "oligomeric allostery benchmark (natural effector site; ADP/Mg2+ activation)",
+      "reference": "Shirakihara & Evans 1988 J Mol Biol 204:973; Rypniewski & Evans 1990 J Mol Biol 213:159",
+      "structures": [
+        {"pdb": "1PFK", "state": "R-state / liganded", "ligands": "products + allosteric activator ADP/Mg2+", "chain": "A"},
+        {"pdb": "2PFK", "state": "unliganded", "ligands": "apo", "chain": "A"}
+      ]
+    },
+    {
+      "id": "TEM1",
+      "name": "TEM-1 beta-lactamase (scaffold for cpTEM-1 metal-switch replication)",
+      "uniprot": "P62593",
+      "organism": "Escherichia coli",
+      "oligomeric_state": "monomer",
+      "role": "literature replication scaffold (His-pair/His-triplet metal modulation); circular-permutant constructs have no direct PDB, use sequence",
+      "reference": "Jelsch et al. 1993 Proteins 16:364",
+      "structures": [
+        {"pdb": "1BTL", "state": "native", "ligands": "apo", "chain": "A"}
+      ]
+    },
+    {
+      "id": "ATCase",
+      "name": "Aspartate transcarbamoylase",
+      "uniprot": "P0A786",
+      "organism": "Escherichia coli",
+      "oligomeric_state": "A6B6 dodecamer (2 catalytic trimers + 3 regulatory dimers)",
+      "role": "classic strong-allostery benchmark (T/R transition, regulatory subunit interfaces)",
+      "reference": "Huang & Lipscomb 2004 (1D09, R-state PALA); Kim et al. 1987 (T-state)",
+      "structures": [
+        {"pdb": "1D09", "state": "R-state", "ligands": "PALA (bisubstrate analogue)", "chain": "A"},
+        {"pdb": "6AT1", "state": "T-state", "ligands": "apo/CTP", "chain": "A"}
+      ]
+    },
+    {
+      "id": "GP",
+      "name": "Glycogen phosphorylase, liver form",
+      "uniprot": "P06737",
+      "organism": "Homo sapiens",
+      "oligomeric_state": "homodimer",
+      "role": "drug-target allosteric benchmark (AMP site / allosteric inhibitor stabilizing tense state)",
+      "reference": "Human liver GP tense state with AVE5688 (3CEH)",
+      "structures": [
+        {"pdb": "3CEH", "state": "tense / inactive", "ligands": "allosteric inhibitor AVE5688 (AMP site)", "chain": "A"}
+      ]
+    }
+  ]
+}
