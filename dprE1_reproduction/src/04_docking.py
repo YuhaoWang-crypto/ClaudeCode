@@ -139,7 +139,7 @@ def native_pdbqt(pdb):
 
 
 # ---------------------------------------------------------------------- dock --
-def dock(receptor_pdbqt, center, ligand_pdbqt, box=22.0, exhaustiveness=16):
+def dock(receptor_pdbqt, center, ligand_pdbqt, box=22.0, exhaustiveness=10):
     from vina import Vina
     v = Vina(sf_name="vina", verbosity=0)
     v.set_receptor(receptor_pdbqt)
