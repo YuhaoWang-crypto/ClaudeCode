@@ -1,4 +1,10 @@
-__pycache__/
-*.pyc
-.modal.toml
+# Generated run outputs
+candidates_tracking.csv
+denovo_discovery_report.json
+denovo_markers.csv
+geneformer_gpu_report.json
+.claude/skills/*/scripts/candidates_tracking.csv
+.claude/skills/*/scripts/denovo_*.json
+.claude/skills/*/scripts/denovo_*.csv
 gf_out/
+__pycache__/
