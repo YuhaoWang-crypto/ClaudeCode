@@ -53,17 +53,22 @@ def _gaff2_param(work, sdf_path, resname, out_prefix, net_charge=None,
     ("bcc", "gas") so a slow/non-converging AM1-BCC falls back to Gasteiger
     (fine for a mostly-spectator cofactor: its internal charges cancel in the
     ligand MM-GBSA ΔG)."""
-    import subprocess
-    from openff.toolkit import Molecule
-    mol = Molecule.from_file(str(sdf_path), allow_undefined_stereo=True)
+    import subprocess, shutil
+    from rdkit import Chem
+    # net charge from the (already 3D, all-H) input SDF; antechamber reads SDF
+    # directly, so we avoid MOL2 writing (unavailable without OpenEye here).
     if net_charge is None:
-        net_charge = int(round(mol.total_charge.magnitude))
-    mol.to_file(str(work / f"{out_prefix}.mol2"), file_format="mol2")
+        mol = Chem.SDMolSupplier(str(sdf_path), removeHs=False, sanitize=True)[0]
+        if mol is None:  # FAD bond perception can fail sanitisation
+            mol = Chem.SDMolSupplier(str(sdf_path), removeHs=False,
+                                     sanitize=False)[0]
+        net_charge = Chem.GetFormalCharge(mol) if mol is not None else 0
+    shutil.copy(str(sdf_path), str(work / f"{out_prefix}.sdf"))
     last = None
     for cm in charge_methods:
         try:
             subprocess.run(
-                ["antechamber", "-i", f"{out_prefix}.mol2", "-fi", "mol2",
+                ["antechamber", "-i", f"{out_prefix}.sdf", "-fi", "sdf",
                  "-o", f"{out_prefix}_bcc.mol2", "-fo", "mol2", "-c", cm,
                  "-nc", str(net_charge), "-s", "2", "-at", "gaff2",
                  "-rn", resname], cwd=work, check=True, timeout=60 * 30)
