@@ -136,7 +136,8 @@ def simulate(system: str, protein_pdb: bytes, ligand_sdf: bytes,
         complex = combine {{ prot{cof_combine} LIG }}
         saveamberparm complex complex_dry.prmtop complex_dry.inpcrd
         solvateBox complex TIP3PBOX 12.0
-        addIons complex Na+ 0 Cl- 0
+        addIons complex Na+ 0
+        addIons complex Cl- 0
         saveamberparm complex SYS.prmtop SYS.inpcrd
         savepdb complex SYS_solvated.pdb
         quit
