@@ -25,6 +25,17 @@ construction, screen scale, sequencing depth, and analysis.
 | [`templates/sample_sheet.csv`](templates/sample_sheet.csv) | 10-sample sheet layout for the dual-arm design |
 | [`docs/zh/`](docs/zh/) | 中文对照版全套流程文档 (Chinese parallel of all docs) |
 
+## Reusable skills
+
+The steps that ran successfully are packaged as Claude Code skills under
+[`.claude/skills/`](.claude/skills/):
+
+| Skill | What it does |
+|-------|--------------|
+| `kinome-crispr-library` | Subset a published library (Brunello) to a gene set + coverage/alias/gap report; design de-novo guides for gaps from Ensembl CDS |
+| `crispr-guide-scoring` | On-target (Doench/Rule Set) + off-target CFD scoring and PASS/FAIL filter (FlashFry or rs3+GuideScan2) |
+| `crispr-screen-scale` | Cells, gDNA, and read-depth calculator for a pooled screen |
+
 ## Design at a glance
 
 - **Targets:** ~518 protein kinases (Manning classification); extendable to
