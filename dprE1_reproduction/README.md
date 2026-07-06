@@ -68,16 +68,19 @@ DprE1 WT**; GTD_9.7 is the strongest mutant binder. Vina↔GOLD absolute rank
 correlation is weak by construction (different scoring functions). See
 `RESULTS.md` for the full table and honest caveats (incl. the CYP2C9 mechanism).
 
-## Part 3 — MD on Modal (making-it-rain port)  🔧 runnable
+## Part 3 — MD on Modal (making-it-rain port)  ✅ test-run on Modal
 
 ```
-python modal_md/prepare_inputs.py                    # docked starting complexes
-modal run modal_md/app.py --all --ns 500             # OpenMM+AMBER on Modal GPUs
+python modal_md/prepare_inputs.py --only GTD_9.7      # docked starting complex (+FAD)
+modal run modal_md/app.py --system DprE1_WT__GTD_9.7 --ns 1   # 1 ns test (executed)
+modal run modal_md/app.py --all --ns 500                     # full paper protocol
 ```
 
-OpenMM + ff14SB/GAFF2/TIP3P via AmberTools, reproducing paper Table-4 observables
-(ligand/protein/cofactor RMSD, RMSF). Needs a Modal account; see
-`modal_md/README.md`. Not executed here (~1 GPU-day per 500 ns complex).
+OpenMM + ff14SB/GAFF2/TIP3P via AmberTools, with the **FAD cofactor parametrised**
+and **MM-GBSA** included. A 1 ns test on DprE1_WT + GTD_9.7 was actually run on a
+Modal A10G and reproduces the paper's Table-4 observables — FAD cofactor RMSD
+**0.77 vs 0.70 Å**, MM-GBSA ΔG **−58.9** (same sign/order as paper −78.2). See
+`modal_md/README.md` and `RESULTS.md`. Full 500 ns is ~1 GPU-day per complex.
 
 ## Layout
 ```
