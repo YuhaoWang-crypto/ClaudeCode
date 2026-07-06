@@ -1,0 +1,10 @@
+{
+  "model_system": "HCOOH on Ti2O4 (closed-shell demo)",
+  "engine": "PySCF PBE/def2-SVP (RI-J, Fermi smearing)",
+  "note": "tractable analog of RSV-TiOx; full systems via scripts/05_*",
+  "bader_total_electrons": 100.580166,
+  "bader_net_charge_adsorbate_e": 0.21078500000000022,
+  "bader_net_charge_cluster_e": -0.7909509999999997,
+  "charge_transfer_e": 0.21078500000000022,
+  "direction": "adsorbate->cluster"
+}

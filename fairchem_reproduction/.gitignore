@@ -1,4 +1,10 @@
 results/vib_*
 results/*.log
-__pycache__/
 results/*_partial.json
+results/*.cube
+results/BCF.dat
+tools/
+qe_inputs/pseudos/
+__pycache__/
+results/AVF.dat
+results/*.cube-atoms.dat
