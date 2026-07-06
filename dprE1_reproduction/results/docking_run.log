@@ -9,3 +9,41 @@ receptor ready: CYP2C9 (5W0C)  box center [-35.8  61.4   5.7]
   TCA1       Vina affinity =  -8.46 kcal/mol
   GTD_9.1    Vina affinity = -10.93 kcal/mol
   GTD_9.2    Vina affinity =  -9.79 kcal/mol
+  GTD_9.3    Vina affinity =  -8.72 kcal/mol
+  GTD_9.4    Vina affinity = -10.25 kcal/mol
+  GTD_9.5    Vina affinity = -10.05 kcal/mol
+  GTD_9.6    Vina affinity =  -9.55 kcal/mol
+  GTD_9.7    Vina affinity =  -9.45 kcal/mol
+  GTD_9.8    Vina affinity =  -9.92 kcal/mol
+  GTD_9.9    Vina affinity = -10.55 kcal/mol
+  GTD_9.10   Vina affinity =  -9.92 kcal/mol
+
+=== docking into DprE1_Y314C ===
+  TCA1       Vina affinity =  -9.87 kcal/mol
+  GTD_9.1    Vina affinity =  -9.21 kcal/mol
+  GTD_9.2    Vina affinity = -10.54 kcal/mol
+  GTD_9.3    Vina affinity = -10.29 kcal/mol
+  GTD_9.4    Vina affinity =  -9.12 kcal/mol
+  GTD_9.5    Vina affinity = -10.17 kcal/mol
+  GTD_9.6    Vina affinity =  -9.28 kcal/mol
+  GTD_9.7    Vina affinity = -10.91 kcal/mol
+  GTD_9.8    Vina affinity =  -9.77 kcal/mol
+  GTD_9.9    Vina affinity = -10.21 kcal/mol
+  GTD_9.10   Vina affinity = -10.09 kcal/mol
+
+=== docking into CYP2C9 ===
+  TCA1       Vina affinity =  -8.83 kcal/mol
+  GTD_9.1    Vina affinity =  -9.88 kcal/mol
+  GTD_9.2    Vina affinity = -11.21 kcal/mol
+  GTD_9.3    Vina affinity = -10.37 kcal/mol
+  GTD_9.4    Vina affinity = -10.23 kcal/mol
+  GTD_9.5    Vina affinity = -10.80 kcal/mol
+  GTD_9.6    Vina affinity = -10.25 kcal/mol
+  GTD_9.7    Vina affinity = -10.70 kcal/mol
+  GTD_9.8    Vina affinity = -11.48 kcal/mol
+  GTD_9.9    Vina affinity = -10.89 kcal/mol
+  GTD_9.10   Vina affinity = -10.13 kcal/mol
+
+Wrote /home/user/ClaudeCode/dprE1_reproduction/results/docking_results.json
+DprE1_WT: 10/10 GTD candidates dock better than TCA1 (TCA1=-8.46)
+DprE1_Y314C: 6/10 GTD candidates dock better than TCA1 (TCA1=-9.87)

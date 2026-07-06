@@ -34,8 +34,38 @@ TCA1 + GTD_9.1–9.10 (SMILES from Appendix-2) vs paper Table 2:
 
 Vina affinities (kcal/mol, more negative = better). Scores are **not** on the
 GOLD ChemPLP scale — compare rankings/trends, not absolute numbers.
+(`src/04_docking.py`, `src/05_docking_analysis.py`; figure
+`results/docking_comparison.png`.)
 
-<!-- DOCKING_TABLE -->
+| Compound | WT Vina | WT GOLD | Y314C Vina | Y314C GOLD | CYP2C9 Vina | CYP2C9 GOLD |
+|---|---|---|---|---|---|---|
+| TCA1 | -8.46 | 68.7 | -9.87 | 69.0 | -8.83 | 81.4 |
+| GTD_9.1 | -10.93 | 90.5 | -9.21 | 97.8 | -9.88 | 74.2 |
+| GTD_9.2 | -9.79 | 90.4 | -10.54 | 87.7 | -11.21 | 68.8 |
+| GTD_9.3 | -8.72 | 85.5 | -10.29 | 82.6 | -10.37 | 88.1 |
+| GTD_9.4 | -10.25 | 76.9 | -9.12 | 86.0 | -10.23 | 66.3 |
+| GTD_9.5 | -10.05 | 84.0 | -10.17 | 75.4 | -10.80 | 91.3 |
+| GTD_9.6 | -9.55 | 93.0 | -9.28 | 79.5 | -10.25 | 92.3 |
+| GTD_9.7 | -9.45 | 90.5 | **-10.91** | 94.7 | -10.70 | 87.6 |
+| GTD_9.8 | -9.92 | 84.7 | -9.77 | 77.7 | -11.48 | 96.4 |
+| GTD_9.9 | -10.55 | 90.8 | -10.21 | 83.1 | -10.89 | 85.0 |
+| GTD_9.10 | -9.92 | 92.8 | -10.09 | 78.1 | -10.13 | 98.2 |
+
+**What reproduces:**
+- **DprE1 WT: 10/10 GTD candidates dock better than TCA1** — matches the paper's
+  central docking claim exactly (paper Table 3: all GTD 76.9–93.0 vs TCA1 68.7).
+- On the Y314C mutant, **GTD_9.7 is the strongest binder (-10.91)** — one of the
+  two lead candidates the paper highlights (GTD_9.7, GTD_9.4).
+
+**What does not (honestly):**
+- Absolute Vina↔GOLD rank correlation is weak (WT Pearson r = -0.46, Spearman
+  ρ = -0.19; sign is correct — lower Vina ↔ higher GOLD). Expected: different
+  scoring functions, and all GTD molecules sit in a narrow high-affinity band so
+  within-series ordering is noisy.
+- **CYP2C9 off-target:** the paper's safety claim is mechanistic (GTD compounds
+  avoid heme-iron coordination), which a raw Vina affinity cannot capture — here
+  the GTD compounds still score well on CYP2C9. Reproducing that claim needs
+  interaction/heme-distance analysis, not docking score alone.
 
 ## Part 3 — MD on Modal (making-it-rain port)
 

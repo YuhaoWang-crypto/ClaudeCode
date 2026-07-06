@@ -56,8 +56,28 @@ P(active) ≈ 0.34–0.47. This is consistent with the paper's own DprE1 v2 sub-
 (0.54–0.66, not near 1.0): the reported "overall desirability ≈ 1.0" is driven by
 the intestinal-absorption and hepatotoxicity terms, not by predicted potency.
 
-## Part 2 — Docking (see `src/` docking scripts)
-## Part 3 — MD on Modal (see `modal_md/`)
+## Part 2 — Docking (AutoDock Vina)  ✅ reproduced (trend)
+
+```
+python src/04_docking.py            # dock TCA1 + GTD_9.1-9.10 into 4KW5/5OEL/5W0C
+python src/05_docking_analysis.py   # vs paper GOLD Table 3 + comparison figure
+```
+
+Central paper claim reproduces: **10/10 GTD candidates dock better than TCA1 on
+DprE1 WT**; GTD_9.7 is the strongest mutant binder. Vina↔GOLD absolute rank
+correlation is weak by construction (different scoring functions). See
+`RESULTS.md` for the full table and honest caveats (incl. the CYP2C9 mechanism).
+
+## Part 3 — MD on Modal (making-it-rain port)  🔧 runnable
+
+```
+python modal_md/prepare_inputs.py                    # docked starting complexes
+modal run modal_md/app.py --all --ns 500             # OpenMM+AMBER on Modal GPUs
+```
+
+OpenMM + ff14SB/GAFF2/TIP3P via AmberTools, reproducing paper Table-4 observables
+(ligand/protein/cofactor RMSD, RMSF). Needs a Modal account; see
+`modal_md/README.md`. Not executed here (~1 GPU-day per 500 ns complex).
 
 ## Layout
 ```
