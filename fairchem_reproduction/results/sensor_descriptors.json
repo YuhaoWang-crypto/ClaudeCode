@@ -1,0 +1,46 @@
+{
+  "panel": "DA / AA / UA electrochemical sensing benchmark",
+  "level": "UMA(omol) geometries + PySCF B3LYP/6-31G*, ddCOSMO(water)",
+  "SHE_abs_V": 4.44,
+  "descriptors": {
+    "dopamine": {
+      "HOMO_eV": -5.446206990987004,
+      "LUMO_eV": 0.2953910866097778,
+      "gap_eV": 5.741598077596781,
+      "chi_eV": 2.575407952188613,
+      "eta_eV": 2.8707990387983906,
+      "omega_eV": 1.155205577011158,
+      "dipole_D": 2.049204283474551,
+      "IP_gas_eV": 7.208695410665622,
+      "E_ox_vs_SHE_V": 0.9383964708156718
+    },
+    "ascorbic_acid": {
+      "HOMO_eV": -6.038757902873328,
+      "LUMO_eV": -0.35059211004707047,
+      "gap_eV": 5.688165792826257,
+      "chi_eV": 3.194675006460199,
+      "eta_eV": 2.8440828964131284,
+      "omega_eV": 1.7942424269301203,
+      "dipole_D": 7.19016549160278,
+      "IP_gas_eV": 7.843295884542284,
+      "E_ox_vs_SHE_V": 1.5059207075536536
+    },
+    "uric_acid": {
+      "HOMO_eV": -5.899630804259305,
+      "LUMO_eV": -0.7962914972536186,
+      "gap_eV": 5.103339307005686,
+      "chi_eV": 3.3479611507564617,
+      "eta_eV": 2.551669653502843,
+      "omega_eV": 2.1963744114735664,
+      "dipole_D": 3.0194261570910674,
+      "IP_gas_eV": 7.682741669546293,
+      "E_ox_vs_SHE_V": 1.051632145558905
+    }
+  },
+  "oxidation_order_easiest_first": [
+    "dopamine",
+    "uric_acid",
+    "ascorbic_acid"
+  ],
+  "note": "real DA/AA/UA oxidation is proton-coupled (PCET); absolute peak potentials are pH-dependent. Relative ordering / peak separation is the sensor-selectivity signal."
+}
