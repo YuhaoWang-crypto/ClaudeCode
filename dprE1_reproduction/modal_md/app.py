@@ -222,10 +222,14 @@ def analyse(outdir, work, have_cof, run_mmgbsa):
             # trajectory (solvated) -> Amber NetCDF; MMPBSA strips water via -sp
             traj.save_netcdf(f"{work}/prod.nc")
             # dry receptor(+FAD)/ligand topologies from the dry complex prmtop
-            subprocess.run(["ante-MMPBSA.py", "-p", "complex_dry.prmtop",
-                            "-c", "com.prmtop", "-r", "rec.prmtop", "-l", "lig.prmtop",
-                            "-n", ":LIG", "--radii", "mbondi2"],
-                           cwd=work, check=True)
+            ante = subprocess.run(
+                ["ante-MMPBSA.py", "-p", "complex_dry.prmtop",
+                 "-c", "com.prmtop", "-r", "rec.prmtop", "-l", "lig.prmtop",
+                 "-n", ":LIG", "--radii", "mbondi2"],
+                cwd=work, capture_output=True, text=True)
+            if not (work / "com.prmtop").exists():
+                raise RuntimeError("ante-MMPBSA failed: " +
+                                   ante.stdout[-800:] + " | " + ante.stderr[-800:])
             # MMPBSA namelist: names and closing '/' must be on their own lines
             (work / "mmgbsa.in").write_text(
                 "MM-GBSA igb=5 (GBSW-like)\n"
