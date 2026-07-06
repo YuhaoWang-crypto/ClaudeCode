@@ -218,23 +218,23 @@ def analyse(outdir, work, have_cof, run_mmgbsa):
 
     if run_mmgbsa:
         try:
-            # convert dcd -> Amber NetCDF for MMPBSA
+            # trajectory (solvated) -> Amber NetCDF; MMPBSA strips water via -sp
             traj.save_netcdf(f"{work}/prod.nc")
-            recmask = ":1-9998 & !:LIG"   # everything but ligand = receptor(+FAD)
-            # build dry receptor/ligand topologies from the dry complex prmtop
+            # dry receptor(+FAD)/ligand topologies from the dry complex prmtop
             subprocess.run(["ante-MMPBSA.py", "-p", "complex_dry.prmtop",
                             "-c", "com.prmtop", "-r", "rec.prmtop", "-l", "lig.prmtop",
-                            "-s", ":WAT,Na+,Cl-", "-n", ":LIG", "--radii", "mbondi2"],
+                            "-n", ":LIG", "--radii", "mbondi2"],
                            cwd=work, check=True)
             (work / "mmgbsa.in").write_text(textwrap.dedent("""
-                MM-GBSA (igb=5, GBSW-like), last-portion of trajectory
+                MM-GBSA (igb=5, GBSW-like)
                 &general startframe=1, interval=1, /
                 &gb igb=5, saltcon=0.15, /
             """))
+            # -sp = solvated topology so MMPBSA strips water/ions to match com.prmtop
             subprocess.run(
-                ["MMPBSA.py", "-O", "-i", "mmgbsa.in", "-cp", "com.prmtop",
-                 "-rp", "rec.prmtop", "-lp", "lig.prmtop", "-y", "prod.nc",
-                 "-o", "mmgbsa.dat"], cwd=work, check=True)
+                ["MMPBSA.py", "-O", "-i", "mmgbsa.in", "-sp", "SYS.prmtop",
+                 "-cp", "com.prmtop", "-rp", "rec.prmtop", "-lp", "lig.prmtop",
+                 "-y", "prod.nc", "-o", "mmgbsa.dat"], cwd=work, check=True)
             for line in (work / "mmgbsa.dat").read_text().splitlines():
                 if line.strip().startswith("DELTA TOTAL"):
                     m["mmgbsa_dG_kcal_mol"] = float(line.split()[2]); break
