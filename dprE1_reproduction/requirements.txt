@@ -1,0 +1,16 @@
+# Part 1 (activity model + candidate analysis) - runs anywhere
+rdkit>=2024.3
+scikit-learn>=1.3
+pandas
+numpy
+openpyxl
+joblib
+matplotlib
+py2opsin            # IUPAC -> SMILES (needs Java)
+openbabel-wheel     # reads ChemDraw .cdx -> SMILES
+
+# Part 2 (docking) - see src/README_docking.md
+#   meeko, vina  (AutoDock Vina python bindings) + a receptor-prep tool
+
+# Part 3 (MD on Modal) - installed inside the Modal image, see modal_md/
+#   modal, openmm, openmmforcefields, pdbfixer, mdtraj, openff-toolkit

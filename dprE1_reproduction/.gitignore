@@ -1,0 +1,6 @@
+data/ligands_extracted/
+data/*.zip
+data/cdx_smiles.json
+results/activity_rf_model.joblib
+__pycache__/
+*.pyc
