@@ -1,0 +1,33 @@
+{
+  "method": "1H+/1e- PCET (neutral radical), UMA geom + PySCF B3LYP/6-31G* ddCOSMO(water)",
+  "G_Hplus_aq_eV": -11.72,
+  "E_abs_SHE_V": 4.44,
+  "pH": 7.0,
+  "results": {
+    "dopamine": {
+      "E_ox_pH0_vs_SHE_V": 0.8705033007170995,
+      "E_ox_pH7_vs_SHE_V": 0.4563833007170995,
+      "n_radical_sites_tried": 4
+    },
+    "ascorbic_acid": {
+      "E_ox_pH0_vs_SHE_V": 0.7939599638992503,
+      "E_ox_pH7_vs_SHE_V": 0.3798399638992503,
+      "n_radical_sites_tried": 4
+    },
+    "uric_acid": {
+      "E_ox_pH0_vs_SHE_V": 1.0749383755972657,
+      "E_ox_pH7_vs_SHE_V": 0.6608183755972656,
+      "n_radical_sites_tried": 4
+    }
+  },
+  "oxidation_order_easiest_first": [
+    "ascorbic_acid",
+    "dopamine",
+    "uric_acid"
+  ],
+  "experimental_order_pH7": [
+    "ascorbic_acid",
+    "dopamine",
+    "uric_acid"
+  ]
+}

@@ -75,23 +75,53 @@ the basis on which a sensor material can discriminate them. The predicted 1e⁻
 oxidation peaks (left panel) put dopamine and uric acid close (+0.94/+1.05 V) and
 ascorbic acid well separated (+1.51 V).
 
-### Honest caveat — and why it is itself useful
+### 4b. The PCET fix — recovering the experimental order
 
-The **experimental** DA/AA/UA peak ordering is not reproduced exactly by this pure
-1-electron oxidation, because their real oxidation is **proton-coupled (PCET,
-2e⁻/2H⁺ for catechol→quinone and the enediol of ascorbate)** and therefore
-**pH-dependent**. This is exactly the kind of physics a screening pipeline should
-flag: to get quantitative peak potentials you must compute the **PCET** oxidation
-(add proton loss via a thermodynamic cycle with G(H⁺,aq) and a −0.059·pH term),
-not the bare radical cation. The bare descriptors (HOMO, η, ω, ΔQ, Δφ) remain valid
-*relative* reactivity/selectivity indicators; the redox stage just needs the PCET
-correction for absolute volts. Adding it is a small extension of the same cycle.
+The naive 1-electron radical-cation route above mis-orders these molecules
+(ascorbic acid comes out *hardest* to oxidise, which is wrong) because their real
+oxidation is **proton-coupled (PCET)**. The physically correct first oxidation is a
+**1H⁺/1e⁻ step forming the neutral radical** (the antioxidant mechanism):
+
+```
+RedH(aq) → Red•(aq) + H⁺(aq) + e⁻(vac)
+E°(vs SHE, pH 0) = [E(Red•,aq) − E(RedH,aq) + G(H⁺,aq)] − E_abs(SHE)
+E°(pH 7)         = E°(pH 0) − 0.05916 · 7                       (Nernst, 1H⁺/1e⁻)
+```
+
+`06b_pcet_oxidation.py` implements this: for each analyte it removes every O–H/N–H,
+UMA-relaxes the neutral radical, evaluates a solvated (ddCOSMO water) energy, and
+takes the most stable radical as the product (no hand-picking). Result:
+
+| Analyte | naive 1e⁻ (wrong) | **PCET, pH 7** | experiment (pH 7) |
+|---|---|---|---|
+| **Ascorbic acid** | +1.51 V (hardest ✗) | **+0.38 V** | ≈ 0.06–0.35 V |
+| **Dopamine**      | +0.94 V | **+0.46 V** | ≈ 0.38 V |
+| **Uric acid**     | +1.05 V | **+0.66 V** | ≈ 0.59 V |
+
+**Predicted order AA < DA < UA = experimental order**, and absolute values land
+within ~0.1 V. The physics: the best H-atom donor (strongest antioxidant, ascorbic
+acid) oxidises at the lowest potential — captured only when the coupled proton is
+included.
+
+![PCET oxidation potentials vs experiment](figures/sensor_pcet.png)
+
+Constants used: G(H⁺,aq) = −11.72 eV (−270.3 kcal/mol), E_abs(SHE) = 4.44 V (a
+uniform shift; using 4.28 V moves all values by +0.16 V and does not change the
+order). Absolute accuracy is also limited by functional/basis and the neglect of
+ZPE/thermal terms; the ordering and ~0.1 V agreement are the deliverable.
+
+> Take-away for sensor design: **the redox descriptor must use the right
+> electrochemical mechanism (PCET, pH) to be quantitative** — the naive electron
+> removal is only a rough reactivity proxy. This is exactly the kind of correction
+> a screening pipeline needs to build in for drug/metabolite analytes.
 
 ## 5. Reproduce
 
 ```bash
 python 06_sensor_descriptors.py   # DA/AA/UA descriptor fingerprint
 python plot_sensor.py             # figures/sensor_fingerprint.png
+python 06b_pcet_oxidation.py      # PCET oxidation potentials (correct order)
+python plot_pcet.py               # figures/sensor_pcet.png
 ```
 Swap the `ANALYTES` dict for your own SMILES to screen any drug/interferent panel.
 Add the surface descriptors (ΔQ, Δφ, DOS) with `05_full_systems_inputs.py` on HPC.
