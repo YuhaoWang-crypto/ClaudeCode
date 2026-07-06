@@ -5,5 +5,5 @@ results/activity_rf_model.joblib
 __pycache__/
 *.pyc
 data/prep/
-results/*_run.log
+results/*.log
 modal_md/inputs/
