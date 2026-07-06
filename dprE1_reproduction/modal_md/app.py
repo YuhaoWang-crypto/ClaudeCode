@@ -136,7 +136,13 @@ def simulate(system: str, protein_pdb: bytes, ligand_sdf: bytes,
         quit
     """)
     (work / "tleap.in").write_text(leap)
-    subprocess.run(["tleap", "-f", "tleap.in"], cwd=work, check=True)
+    r = subprocess.run(["tleap", "-f", "tleap.in"], cwd=work,
+                       capture_output=True, text=True)
+    if r.returncode != 0 or not (work / "SYS.prmtop").exists():
+        leaplog = (work / "leap.log").read_text()[-3000:] if \
+            (work / "leap.log").exists() else "(no leap.log)"
+        raise RuntimeError("tleap failed:\n" + r.stdout[-2000:] +
+                           "\n--- leap.log ---\n" + leaplog)
 
     # 4) OpenMM system (making-it-rain defaults)
     prmtop = AmberPrmtopFile(str(work / "SYS.prmtop"))
