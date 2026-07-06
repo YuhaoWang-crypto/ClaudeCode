@@ -1,0 +1,74 @@
+{
+  "TCA007_native(9W6)": {
+    "min_dist_to_Fe": 6.64,
+    "min_dist_to_porphyrin": 5.45,
+    "coordinates_heme": false,
+    "source": "crystal"
+  },
+  "TCA1": {
+    "min_dist_to_Fe": 4.61,
+    "min_dist_to_porphyrin": 3.62,
+    "coordinates_heme": false,
+    "source": "docked"
+  },
+  "GTD_9.1": {
+    "min_dist_to_Fe": 8.48,
+    "min_dist_to_porphyrin": 7.31,
+    "coordinates_heme": false,
+    "source": "docked"
+  },
+  "GTD_9.2": {
+    "min_dist_to_Fe": 6.2,
+    "min_dist_to_porphyrin": 6.14,
+    "coordinates_heme": false,
+    "source": "docked"
+  },
+  "GTD_9.3": {
+    "min_dist_to_Fe": 3.39,
+    "min_dist_to_porphyrin": 2.9,
+    "coordinates_heme": false,
+    "source": "docked"
+  },
+  "GTD_9.4": {
+    "min_dist_to_Fe": 4.03,
+    "min_dist_to_porphyrin": 3.27,
+    "coordinates_heme": false,
+    "source": "docked"
+  },
+  "GTD_9.5": {
+    "min_dist_to_Fe": 6.91,
+    "min_dist_to_porphyrin": 6.46,
+    "coordinates_heme": false,
+    "source": "docked"
+  },
+  "GTD_9.6": {
+    "min_dist_to_Fe": 4.22,
+    "min_dist_to_porphyrin": 3.35,
+    "coordinates_heme": false,
+    "source": "docked"
+  },
+  "GTD_9.7": {
+    "min_dist_to_Fe": 5.76,
+    "min_dist_to_porphyrin": 5.5,
+    "coordinates_heme": false,
+    "source": "docked"
+  },
+  "GTD_9.8": {
+    "min_dist_to_Fe": 4.21,
+    "min_dist_to_porphyrin": 2.78,
+    "coordinates_heme": false,
+    "source": "docked"
+  },
+  "GTD_9.9": {
+    "min_dist_to_Fe": 7.33,
+    "min_dist_to_porphyrin": 6.69,
+    "coordinates_heme": false,
+    "source": "docked"
+  },
+  "GTD_9.10": {
+    "min_dist_to_Fe": 6.71,
+    "min_dist_to_porphyrin": 5.1,
+    "coordinates_heme": false,
+    "source": "docked"
+  }
+}

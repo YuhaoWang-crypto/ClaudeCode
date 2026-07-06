@@ -40,9 +40,14 @@ def export_pose(receptor_pdbqt, center, name, smiles, target_pdb, out_sdf):
     v.dock(exhaustiveness=16, n_poses=10)
     pose_pdbqt = str(out_sdf).replace(".sdf", "_pose.pdbqt")
     v.write_poses(pose_pdbqt, n_poses=1, overwrite=True)
-    # pdbqt -> sdf (adds Hs, 3D preserved)
-    subprocess.run(["obabel", pose_pdbqt, "-osdf", "-O", str(out_sdf), "-h"],
-                   capture_output=True, text=True)
+    # reconstruct the FULL ligand (all H + bond orders) at the docked pose using
+    # meeko (the pdbqt carries the SMILES) -- obabel would drop nonpolar H.
+    from meeko import PDBQTMolecule, RDKitMolCreate
+    from rdkit import Chem
+    pmol = PDBQTMolecule.from_file(pose_pdbqt, skip_typing=True)
+    rdmols = RDKitMolCreate.from_pdbqt_mol(pmol)
+    mol = rdmols[0]
+    w = Chem.SDWriter(str(out_sdf)); w.write(mol); w.close()
     return out_sdf.exists()
 
 

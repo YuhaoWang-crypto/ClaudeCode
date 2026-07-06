@@ -45,23 +45,35 @@ RESULTS = "/results"
 
 
 # --------------------------------------------------- ligand/cofactor param ----
-def _gaff2_param(work, sdf_path, resname, out_prefix, net_charge=None):
-    """antechamber (AM1-BCC, GAFF2) + parmchk2 for one small molecule/cofactor."""
+def _gaff2_param(work, sdf_path, resname, out_prefix, net_charge=None,
+                 charge_methods=("bcc",)):
+    """antechamber (GAFF2) + parmchk2 for one small molecule/cofactor.
+
+    charge_methods is tried in order; large cofactors (FAD, 88 atoms) can pass
+    ("bcc", "gas") so a slow/non-converging AM1-BCC falls back to Gasteiger
+    (fine for a mostly-spectator cofactor: its internal charges cancel in the
+    ligand MM-GBSA ΔG)."""
     import subprocess
     from openff.toolkit import Molecule
     mol = Molecule.from_file(str(sdf_path), allow_undefined_stereo=True)
     if net_charge is None:
         net_charge = int(round(mol.total_charge.magnitude))
     mol.to_file(str(work / f"{out_prefix}.mol2"), file_format="mol2")
-    subprocess.run(
-        ["antechamber", "-i", f"{out_prefix}.mol2", "-fi", "mol2",
-         "-o", f"{out_prefix}_bcc.mol2", "-fo", "mol2", "-c", "bcc",
-         "-nc", str(net_charge), "-s", "2", "-at", "gaff2", "-rn", resname],
-        cwd=work, check=True)
-    subprocess.run(["parmchk2", "-i", f"{out_prefix}_bcc.mol2", "-f", "mol2",
-                    "-o", f"{out_prefix}.frcmod", "-s", "gaff2"],
-                   cwd=work, check=True)
-    return net_charge
+    last = None
+    for cm in charge_methods:
+        try:
+            subprocess.run(
+                ["antechamber", "-i", f"{out_prefix}.mol2", "-fi", "mol2",
+                 "-o", f"{out_prefix}_bcc.mol2", "-fo", "mol2", "-c", cm,
+                 "-nc", str(net_charge), "-s", "2", "-at", "gaff2",
+                 "-rn", resname], cwd=work, check=True, timeout=60 * 30)
+            subprocess.run(["parmchk2", "-i", f"{out_prefix}_bcc.mol2",
+                            "-f", "mol2", "-o", f"{out_prefix}.frcmod",
+                            "-s", "gaff2"], cwd=work, check=True)
+            return net_charge
+        except Exception as e:  # noqa
+            last = e
+    raise RuntimeError(f"antechamber failed for {out_prefix}: {last}")
 
 
 # ---------------------------------------------------------------- MD driver ----
@@ -94,7 +106,8 @@ def simulate(system: str, protein_pdb: bytes, ligand_sdf: bytes,
     have_cof = cofactor_sdf is not None
     if have_cof:
         (work / "cofactor.sdf").write_bytes(cofactor_sdf)
-        _gaff2_param(work, work / "cofactor.sdf", "FAD", "cof")
+        _gaff2_param(work, work / "cofactor.sdf", "FAD", "cof",
+                     charge_methods=("bcc", "gas"))
 
     # 3) tleap
     ff_line = {"ff14SB": "leaprc.protein.ff14SB",

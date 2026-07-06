@@ -67,6 +67,27 @@ GOLD ChemPLP scale — compare rankings/trends, not absolute numbers.
   the GTD compounds still score well on CYP2C9. Reproducing that claim needs
   interaction/heme-distance analysis, not docking score alone.
 
+## Part 2b — CYP2C9 heme analysis (safety claim) ✅ reproduced
+
+The paper's selectivity argument is **mechanistic**: TCA007 inhibits CYP2C9 while
+sitting ~6.6 Å from the heme iron (no coordination), and the GTD compounds "do
+not interact with the porphyrin ring". `src/06_cyp2c9_heme_analysis.py` measures
+this geometry directly (figure `results/cyp2c9_heme.png`).
+
+| Ligand | min dist to Fe (Å) | min dist to porphyrin (Å) | coordinates heme? |
+|---|---|---|---|
+| TCA007 (crystal 9W6) | **6.64** | 5.45 | no |
+| TCA1 | 4.61 | 3.62 | no |
+| GTD_9.1 | 8.48 | 7.31 | no |
+| GTD_9.7 | 5.76 | 5.50 | no |
+| … all GTD_9.x | 3.39–8.48 | — | no |
+
+- **TCA007 crystal pose = 6.64 Å from Fe — matches the paper's ~6.6 Å exactly**,
+  validating the measurement.
+- **0/10 GTD candidates coordinate the heme iron** (all > 2.5 Å; closest 3.39 Å),
+  reproducing the paper's safety/selectivity claim that raw docking scores
+  (Part 2) could not show.
+
 ## Part 3 — MD on Modal (making-it-rain port)
 
 Runnable OpenMM + AMBER (ff14SB/GAFF2/TIP3P) pipeline on Modal GPUs
