@@ -1,0 +1,11 @@
+4KW5: protein=3218 FAD=53 native(1W6)=25
+5OEL: protein=3398 FAD=53 native(1W6)=25
+5W0C: protein=3710 HEM=43 native(9W6)=25
+receptor ready: DprE1_WT (4KW5)  box center [ 14.1 -18.6  36.5]
+receptor ready: DprE1_Y314C (5OEL)  box center [ 13.4 -19.3  36.6]
+receptor ready: CYP2C9 (5W0C)  box center [-35.8  61.4   5.7]
+
+=== docking into DprE1_WT ===
+  TCA1       Vina affinity =  -8.46 kcal/mol
+  GTD_9.1    Vina affinity = -10.92 kcal/mol
+  GTD_9.2    Vina affinity =  -9.70 kcal/mol
