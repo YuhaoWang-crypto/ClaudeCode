@@ -1,3 +1,4 @@
 results/vib_*
 results/*.log
 __pycache__/
+results/*_partial.json
