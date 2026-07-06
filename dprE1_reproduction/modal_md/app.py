@@ -118,7 +118,7 @@ def simulate(system: str, protein_pdb: bytes, ligand_sdf: bytes,
     if have_cof:
         (work / "cofactor.sdf").write_bytes(cofactor_sdf)
         _gaff2_param(work, work / "cofactor.sdf", "FAD", "cof",
-                     charge_methods=("bcc", "gas"))
+                     charge_methods=("gas", "bcc"))
 
     # 3) tleap
     ff_line = {"ff14SB": "leaprc.protein.ff14SB",
@@ -136,7 +136,7 @@ def simulate(system: str, protein_pdb: bytes, ligand_sdf: bytes,
         complex = combine {{ prot{cof_combine} LIG }}
         saveamberparm complex complex_dry.prmtop complex_dry.inpcrd
         solvateBox complex TIP3PBOX 12.0
-        addIonsRand complex Na+ 0 Cl- 0
+        addIons complex Na+ 0 Cl- 0
         saveamberparm complex SYS.prmtop SYS.inpcrd
         savepdb complex SYS_solvated.pdb
         quit
