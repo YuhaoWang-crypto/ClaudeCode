@@ -1,0 +1,63 @@
+{
+  "model": "uma-s-1p1",
+  "task": "omol",
+  "method": "harmonic-oscillator \u0394F\u2248\u0394G (trans/rot neglected)",
+  "T_K": 298.15,
+  "RT_eV": 0.025692579120652998,
+  "F_components": {
+    "rsv": {
+      "E_elec": -53577.09693283422,
+      "F": -53564.64715670258,
+      "n_real": 175,
+      "n_imag": 5,
+      "seconds": 173
+    },
+    "tio2": {
+      "E_elec": -223914.73168496497,
+      "F": -223912.37840245158,
+      "n_real": 86,
+      "n_imag": 5,
+      "seconds": 46
+    },
+    "tio": {
+      "E_elec": -346135.79094154265,
+      "F": -346135.1256366704,
+      "n_real": 69,
+      "n_imag": 4,
+      "seconds": 30
+    },
+    "comp_n": {
+      "E_elec": -277492.94733872,
+      "F": -277478.30865355517,
+      "n_real": 265,
+      "n_imag": 7,
+      "seconds": 391
+    },
+    "comp_p": {
+      "E_elec": -399718.46772090555,
+      "F": -399705.3912998128,
+      "n_real": 246,
+      "n_imag": 6,
+      "seconds": 306
+    }
+  },
+  "n-type_TiO2-RSV": {
+    "dG_bind_eV": -1.2830944010129315,
+    "ln_Ka": 49.94027244160611,
+    "log10_Ka": 21.68878474613457,
+    "report_dG": -1.80825189,
+    "report_Ka": "3.8e30"
+  },
+  "p-type_TiO-RSV": {
+    "dG_bind_eV": -5.618506439852354,
+    "ln_Ka": 218.68207210602353,
+    "log10_Ka": 94.97241720681504,
+    "report_dG": -3.372142689,
+    "report_Ka": "1.0e57"
+  },
+  "relative": {
+    "dG_p_minus_n_eV": -4.335412038839422,
+    "stronger": "p-type",
+    "report_stronger": "p-type"
+  }
+}

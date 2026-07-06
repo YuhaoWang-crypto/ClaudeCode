@@ -118,11 +118,17 @@ part of the gap.
 Electronic binding energy `ΔE_bind = E(complex) − E(cluster) − E(RSV)` and the
 static complexation constant derived from it (`Kₐ = exp(−ΔE_bind/RT)`):
 
-| System | Report ΔG_bind | Report Kₐ | UMA ΔE_bind | UMA log₁₀Kₐ (from ΔE) |
-|---|---|---|---|---|
-| n-type **TiO₂**–RSV | −1.808 eV | 3.8×10³⁰ | **−1.12 eV** | ≈ 19 |
-| p-type **TiO**–RSV | −3.372 eV | 1.0×10⁵⁷ | **−5.58 eV** | ≈ 94 |
-| **Relative (p − n)** | −1.56 eV (p stronger) | p ≫ n | **−4.46 eV (p stronger)** | **p ≫ n ✓** |
+| System | Report ΔG_bind | Report Kₐ | UMA ΔE_bind | UMA ΔG_bind (harmonic) | UMA log₁₀Kₐ (ΔG) |
+|---|---|---|---|---|---|
+| n-type **TiO₂**–RSV | −1.808 eV | 3.8×10³⁰ | −1.12 eV | **−1.28 eV** | ≈ 22 |
+| p-type **TiO**–RSV | −3.372 eV | 1.0×10⁵⁷ | −5.58 eV | **−5.62 eV** | ≈ 95 |
+| **Relative (p − n)** | −1.56 eV (p stronger) | p ≫ n | −4.46 eV | **−4.34 eV (p stronger)** | **p ≫ n ✓** |
+
+The approximate harmonic ΔG_bind (adding vibrational free energy from UMA
+Hessians, ASE `HarmonicThermo`, `results/rsv_tiox_dG.json`) is close to ΔE_bind
+here: the vibrational correction is small (−0.16 eV for n-type, −0.04 eV for
+p-type) and, for n-type, moves ΔG toward the report's −1.81 eV. Each Hessian had
+only 4–7 small imaginary modes (dropped); see §4 caveat 4.
 
 **Verdict — reproduced (relative trend robustly, magnitudes order-of-magnitude).**
 The physically meaningful result the report stresses — *p-type TiO binds RSV much
