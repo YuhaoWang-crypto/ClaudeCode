@@ -1,0 +1,12 @@
+{
+  "ligand_RMSD_A": 1.519404649734497,
+  "protein_backbone_RMSD_A": 0.9838253855705261,
+  "protein_RMSF_A": 0.6266248226165771,
+  "cofactor_RMSD_A": 0.7364953756332397,
+  "n_frames": 100,
+  "mmgbsa_dG_kcal_mol": null,
+  "mmgbsa_error": "ante-MMPBSA failed: Creating receptor topology file by stripping :LIG from complex_dry.prmtop\nDone creating receptor topology file!\n\nCreating ligand topology file by stripping !(:LIG) from complex_dry.prmtop\nDone creating ligand topology file!\n\n | ",
+  "system": "DprE1_WT__GTD_9.7",
+  "production_ns": 1.0,
+  "cofactor": true
+}
