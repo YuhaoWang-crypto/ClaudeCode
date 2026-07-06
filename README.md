@@ -90,9 +90,23 @@ Flow: **mine (ChEMBL + DrugCLIP + humanPPI) → cross-compare → enrichment →
 
 ---
 
+## Skills (reusable capabilities)
+
+The pipeline is packaged as four Claude Code skills under
+[`.claude/skills/`](.claude/skills/README.md) — auto-discovered when this repo is
+the working directory:
+
+| skill | does |
+|---|---|
+| `lipid-library-screen` | enumerate + score + rank ionizable lipids (Track A, per-organ) |
+| `lion-modal` | train (lite/full) & screen the LiON model on Modal |
+| `target-evidence` | mine ChEMBL+DrugCLIP+humanPPI + enrichment for any target (Track B) |
+| `lnp-delivery-kinetics` | mechanistic ODE expression-dynamics model (Phase 4) |
+
 ## Repository map
 
 ```
+.claude/skills/      four skills packaging the platforms below
 lipidlib/            core library
   featurize.py         SMILES -> Morgan/MACCS/RDKit-2D
   lion_library.py      LiON screen-input builder + aza-Michael enumerator
