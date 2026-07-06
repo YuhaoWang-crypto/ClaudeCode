@@ -1,53 +1,42 @@
 """
 Part 3 - Protein-ligand MD on Modal, adapting the *making-it-rain*
-Protein_ligand workflow (Arantes et al.) to serverless GPU.
+Protein_ligand workflow (Arantes et al.) to serverless GPU, now with the
+**FAD cofactor** parametrised (GAFF2) and **MM-GBSA** binding energy, to match
+the paper's Table 4 fully.
 
-Faithful to making-it-rain's protein-ligand notebook:
+Faithful to making-it-rain protein-ligand:
   * protein  : AMBER ff14SB / ff19SB
-  * ligand   : GAFF2 with AM1-BCC charges (antechamber)
+  * ligand   : GAFF2 + AM1-BCC (antechamber)
+  * cofactor : FAD parametrised the same way (GAFF2 + AM1-BCC) and kept in the box
+               so the paper's *cofactor RMSD* and FAD pi-stacking are represented
+               (HEM/Fe is NOT supported this way - needs bonded-metal params)
   * water    : TIP3P, neutralising ions
   * topology : AmberTools tleap  ->  prmtop/inpcrd
   * engine   : OpenMM, LangevinMiddleIntegrator, 2 fs, HBonds, PME 1.0 nm
-  * ensemble : minimise -> NVT heat -> NPT equilibrate -> NPT production
-  * analysis : mdtraj (ligand/protein/cofactor RMSD, protein RMSF)  ->  paper Table 4
-               + optional MM-GBSA (AmberTools MMPBSA.py) as in the paper
+  * ensemble : minimise -> NPT equilibration -> NPT production
+  * analysis : mdtraj RMSD/RMSF (Table 4) + AmberTools MMPBSA.py (MM-GBSA, igb=5)
 
-Run (needs a Modal account, `pip install modal`, `modal token new`):
+Run (Modal account required; tokens via env or `modal token new`):
 
-    # one complex, short demo (default 5 ns)
-    modal run modal_md/app.py --system GTD_9.7
+    # 1 ns end-to-end test on one complex (recommended first)
+    modal run modal_md/app.py --system DprE1_WT__GTD_9.7 --ns 1
 
-    # full paper protocol (500 ns) for every candidate
+    # full paper protocol
     modal run modal_md/app.py --all --ns 500
-
-Inputs are produced locally by `prepare_inputs.py` (docked complexes from Part 2)
-and live in `modal_md/inputs/<system>/{protein.pdb, ligand.sdf}`.
 """
-import os
-import sys
 import pathlib
 import modal
 
 APP_DIR = pathlib.Path(__file__).parent
 INPUTS = APP_DIR / "inputs"
 
-# --- conda image: AmberTools + OpenMM(+CUDA) + analysis stack -----------------
 image = (
     modal.Image.micromamba(python_version="3.11")
     .micromamba_install(
-        "ambertools=23",
-        "openmm=8.1",
-        "openmmforcefields",
-        "openff-toolkit-base",
-        "pdbfixer",
-        "mdtraj",
-        "parmed",
-        "rdkit",
-        "numpy",
-        "scipy",
+        "ambertools=23", "openmm=8.1", "openff-toolkit-base", "pdbfixer",
+        "mdtraj", "parmed", "rdkit", "numpy", "scipy",
         channels=["conda-forge"],
     )
-    # CUDA runtime for OpenMM GPU platform is provided by Modal's GPU host
 )
 
 app = modal.App("dprE1-md-making-it-rain", image=image)
@@ -55,169 +44,193 @@ vol = modal.Volume.from_name("dprE1-md-results", create_if_missing=True)
 RESULTS = "/results"
 
 
+# --------------------------------------------------- ligand/cofactor param ----
+def _gaff2_param(work, sdf_path, resname, out_prefix, net_charge=None):
+    """antechamber (AM1-BCC, GAFF2) + parmchk2 for one small molecule/cofactor."""
+    import subprocess
+    from openff.toolkit import Molecule
+    mol = Molecule.from_file(str(sdf_path), allow_undefined_stereo=True)
+    if net_charge is None:
+        net_charge = int(round(mol.total_charge.magnitude))
+    mol.to_file(str(work / f"{out_prefix}.mol2"), file_format="mol2")
+    subprocess.run(
+        ["antechamber", "-i", f"{out_prefix}.mol2", "-fi", "mol2",
+         "-o", f"{out_prefix}_bcc.mol2", "-fo", "mol2", "-c", "bcc",
+         "-nc", str(net_charge), "-s", "2", "-at", "gaff2", "-rn", resname],
+        cwd=work, check=True)
+    subprocess.run(["parmchk2", "-i", f"{out_prefix}_bcc.mol2", "-f", "mol2",
+                    "-o", f"{out_prefix}.frcmod", "-s", "gaff2"],
+                   cwd=work, check=True)
+    return net_charge
+
+
 # ---------------------------------------------------------------- MD driver ----
 @app.function(gpu="A10G", timeout=60 * 60 * 24, volumes={RESULTS: vol})
 def simulate(system: str, protein_pdb: bytes, ligand_sdf: bytes,
-             ns: float = 5.0, protein_ff: str = "ff14SB",
-             equil_ns: float = 0.5, temperature: float = 300.0,
-             report_ps: float = 25.0):
-    """Parametrise (AMBER/GAFF2), solvate, equilibrate and run production MD."""
-    import subprocess
-    import textwrap
-    import numpy as np
+             cofactor_sdf: bytes | None = None, ns: float = 1.0,
+             protein_ff: str = "ff14SB", equil_ns: float = 0.2,
+             temperature: float = 300.0, report_ps: float = 10.0,
+             run_mmgbsa: bool = True):
+    import subprocess, textwrap, json
     from openmm import (LangevinMiddleIntegrator, MonteCarloBarostat,
                         Platform, unit)
     from openmm.app import (AmberPrmtopFile, AmberInpcrdFile, Simulation,
-                           StateDataReporter, DCDReporter, HBonds, PME)
-    from openff.toolkit import Molecule
+                           StateDataReporter, DCDReporter, HBonds, PME, PDBFile)
+    from pdbfixer import PDBFixer
 
-    work = pathlib.Path(f"/tmp/{system}")
-    work.mkdir(parents=True, exist_ok=True)
+    work = pathlib.Path(f"/tmp/{system}"); work.mkdir(parents=True, exist_ok=True)
     (work / "protein_in.pdb").write_bytes(protein_pdb)
     (work / "ligand.sdf").write_bytes(ligand_sdf)
-    outdir = pathlib.Path(RESULTS) / system
-    outdir.mkdir(parents=True, exist_ok=True)
+    outdir = pathlib.Path(RESULTS) / system; outdir.mkdir(parents=True, exist_ok=True)
 
-    # 1) clean protein with PDBFixer (add H at pH 7, missing heavy atoms)
-    from pdbfixer import PDBFixer
-    from openmm.app import PDBFile
+    # 1) protein prep
     fixer = PDBFixer(filename=str(work / "protein_in.pdb"))
     fixer.findMissingResidues(); fixer.findMissingAtoms()
     fixer.addMissingAtoms(); fixer.addMissingHydrogens(7.0)
-    PDBFile.writeFile(fixer.topology, fixer.positions,
-                      open(work / "protein.pdb", "w"))
+    PDBFile.writeFile(fixer.topology, fixer.positions, open(work / "protein.pdb", "w"))
 
-    # 2) ligand: AM1-BCC charges + GAFF2 via antechamber/parmchk2
-    mol = Molecule.from_file(str(work / "ligand.sdf"))
-    net_q = int(round(mol.total_charge.magnitude))
-    mol.to_file(str(work / "lig.mol2"), file_format="mol2")
-    subprocess.run(
-        ["antechamber", "-i", "lig.mol2", "-fi", "mol2", "-o", "lig_bcc.mol2",
-         "-fo", "mol2", "-c", "bcc", "-nc", str(net_q), "-s", "2", "-at", "gaff2"],
-        cwd=work, check=True)
-    subprocess.run(["parmchk2", "-i", "lig_bcc.mol2", "-f", "mol2",
-                    "-o", "lig.frcmod", "-s", "gaff2"], cwd=work, check=True)
+    # 2) ligand + optional FAD cofactor -> GAFF2
+    _gaff2_param(work, work / "ligand.sdf", "LIG", "lig")
+    have_cof = cofactor_sdf is not None
+    if have_cof:
+        (work / "cofactor.sdf").write_bytes(cofactor_sdf)
+        _gaff2_param(work, work / "cofactor.sdf", "FAD", "cof")
 
-    # 3) tleap: combine protein+ligand, solvate TIP3P, neutralise
+    # 3) tleap
     ff_line = {"ff14SB": "leaprc.protein.ff14SB",
                "ff19SB": "leaprc.protein.ff19SB"}[protein_ff]
+    cof_load = ("FAD = loadmol2 cof_bcc.mol2\nloadamberparams cof.frcmod\n"
+                if have_cof else "")
+    cof_combine = " FAD" if have_cof else ""
     leap = textwrap.dedent(f"""
         source {ff_line}
         source leaprc.gaff2
         source leaprc.water.tip3p
         LIG = loadmol2 lig_bcc.mol2
         loadamberparams lig.frcmod
-        prot = loadpdb protein.pdb
-        complex = combine {{ prot LIG }}
+        {cof_load}prot = loadpdb protein.pdb
+        complex = combine {{ prot{cof_combine} LIG }}
+        saveamberparm complex complex_dry.prmtop complex_dry.inpcrd
         solvateBox complex TIP3PBOX 12.0
         addIonsRand complex Na+ 0 Cl- 0
-        saveamberparm complex SYS_gaff2.prmtop SYS_gaff2.inpcrd
+        saveamberparm complex SYS.prmtop SYS.inpcrd
         savepdb complex SYS_solvated.pdb
         quit
     """)
     (work / "tleap.in").write_text(leap)
     subprocess.run(["tleap", "-f", "tleap.in"], cwd=work, check=True)
 
-    # 4) OpenMM system  (making-it-rain defaults)
-    prmtop = AmberPrmtopFile(str(work / "SYS_gaff2.prmtop"))
-    inpcrd = AmberInpcrdFile(str(work / "SYS_gaff2.inpcrd"))
-    system_omm = prmtop.createSystem(
-        nonbondedMethod=PME, nonbondedCutoff=1.0 * unit.nanometer,
-        constraints=HBonds)
+    # 4) OpenMM system (making-it-rain defaults)
+    prmtop = AmberPrmtopFile(str(work / "SYS.prmtop"))
+    inpcrd = AmberInpcrdFile(str(work / "SYS.inpcrd"))
+    system_omm = prmtop.createSystem(nonbondedMethod=PME,
+                                     nonbondedCutoff=1.0 * unit.nanometer,
+                                     constraints=HBonds)
     T = temperature * unit.kelvin
-    integrator = LangevinMiddleIntegrator(T, 1.0 / unit.picosecond,
-                                          0.002 * unit.picoseconds)
+    integ = LangevinMiddleIntegrator(T, 1.0 / unit.picosecond, 0.002 * unit.picoseconds)
     system_omm.addForce(MonteCarloBarostat(1.0 * unit.bar, T, 25))
     try:
-        platform = Platform.getPlatformByName("CUDA")
-        props = {"Precision": "mixed"}
+        platform, props = Platform.getPlatformByName("CUDA"), {"Precision": "mixed"}
     except Exception:
         platform, props = Platform.getPlatformByName("CPU"), {}
-    sim = Simulation(prmtop.topology, system_omm, integrator, platform, props)
+    sim = Simulation(prmtop.topology, system_omm, integ, platform, props)
     sim.context.setPositions(inpcrd.positions)
     if inpcrd.boxVectors is not None:
         sim.context.setPeriodicBoxVectors(*inpcrd.boxVectors)
 
-    steps_per_ps = int(1.0 / 0.002)          # 500 steps = 1 ps
-    report_stride = int(report_ps * steps_per_ps)
+    sps = 500                                   # steps per ps (2 fs)
+    stride = int(report_ps * sps)
 
-    # 5) minimise -> NVT heat -> NPT equilibrate -> NPT production
+    # 5) minimise -> equilibrate -> production
     sim.minimizeEnergy()
     sim.context.setVelocitiesToTemperature(T)
     sim.reporters.append(StateDataReporter(
-        str(outdir / "md_log.csv"), report_stride, step=True, time=True,
+        str(outdir / "md_log.csv"), stride, step=True, time=True,
         potentialEnergy=True, temperature=True, density=True, speed=True))
+    sim.step(int(equil_ns * 1000 * sps))
+    sim.reporters.append(DCDReporter(str(outdir / "production.dcd"), stride))
+    sim.step(int(ns * 1000 * sps))
 
-    sim.step(int(equil_ns * 1000 * steps_per_ps))            # equilibration
-    sim.reporters.append(DCDReporter(str(outdir / "production.dcd"),
-                                     report_stride))
-    prod_steps = int(ns * 1000 * steps_per_ps)
-    sim.step(prod_steps)                                      # production
-
-    # save final state + topology for analysis / MM-GBSA
-    from openmm.app import PDBFile as _PDB
-    state = sim.context.getState(getPositions=True)
-    _PDB.writeFile(prmtop.topology, state.getPositions(),
-                   open(outdir / "final.pdb", "w"))
-    for f in ("SYS_gaff2.prmtop", "SYS_solvated.pdb"):
+    st = sim.context.getState(getPositions=True)
+    PDBFile.writeFile(prmtop.topology, st.getPositions(), open(outdir / "final.pdb", "w"))
+    for f in ("SYS.prmtop", "complex_dry.prmtop", "SYS_solvated.pdb"):
         (outdir / f).write_bytes((work / f).read_bytes())
     vol.commit()
 
-    metrics = analyse(str(outdir))
-    metrics["system"] = system
-    metrics["production_ns"] = ns
-    import json
+    metrics = analyse(str(outdir), work, have_cof, run_mmgbsa)
+    metrics.update(system=system, production_ns=ns, cofactor=have_cof)
     (outdir / "metrics.json").write_text(json.dumps(metrics, indent=2))
     vol.commit()
     return metrics
 
 
-def analyse(outdir: str):
-    """mdtraj RMSD/RMSF matching paper Table 4 (ligand, protein, cofactor)."""
-    import mdtraj as md
-    import numpy as np
-    top = f"{outdir}/SYS_gaff2.prmtop"
-    traj = md.load(f"{outdir}/production.dcd", top=top)
-    traj = traj.superpose(traj, 0, atom_indices=traj.top.select("protein and backbone"))
-
-    lig = traj.top.select("resname LIG")
-    prot_bb = traj.top.select("protein and backbone")
-    cof = traj.top.select("resname FAD or resname HEM")
+def analyse(outdir, work, have_cof, run_mmgbsa):
+    """mdtraj RMSD/RMSF (Table 4) + optional MM-GBSA (MMPBSA.py, igb=5)."""
+    import mdtraj as md, numpy as np, subprocess, textwrap
+    traj = md.load(f"{outdir}/production.dcd", top=f"{outdir}/SYS.prmtop")
+    traj.superpose(traj, 0, atom_indices=traj.top.select("protein and backbone"))
 
     def rmsd(sel):
         if len(sel) == 0:
             return None
-        ref = traj[0].atom_slice(sel)
-        sub = traj.atom_slice(sel)
-        return float(np.mean(md.rmsd(sub, ref, 0) * 10.0))  # nm -> A
-
-    rmsf = None
-    if len(prot_bb):
-        rmsf = float(np.mean(md.rmsf(traj, traj, 0, atom_indices=prot_bb) * 10.0))
-
-    return {
-        "ligand_RMSD_A": rmsd(lig),
+        return float(np.mean(md.rmsd(traj.atom_slice(sel),
+                                     traj.atom_slice(sel)[0], 0) * 10.0))
+    prot_bb = traj.top.select("protein and backbone")
+    m = {
+        "ligand_RMSD_A": rmsd(traj.top.select("resname LIG")),
         "protein_backbone_RMSD_A": rmsd(prot_bb),
-        "protein_RMSF_A": rmsf,
-        "cofactor_RMSD_A": rmsd(cof),
+        "protein_RMSF_A": (float(np.mean(md.rmsf(traj, traj, 0,
+                          atom_indices=prot_bb) * 10.0)) if len(prot_bb) else None),
+        "cofactor_RMSD_A": rmsd(traj.top.select("resname FAD")),
         "n_frames": int(traj.n_frames),
+        "mmgbsa_dG_kcal_mol": None,
     }
 
+    if run_mmgbsa:
+        try:
+            # convert dcd -> Amber NetCDF for MMPBSA
+            traj.save_netcdf(f"{work}/prod.nc")
+            recmask = ":1-9998 & !:LIG"   # everything but ligand = receptor(+FAD)
+            # build dry receptor/ligand topologies from the dry complex prmtop
+            subprocess.run(["ante-MMPBSA.py", "-p", "complex_dry.prmtop",
+                            "-c", "com.prmtop", "-r", "rec.prmtop", "-l", "lig.prmtop",
+                            "-s", ":WAT,Na+,Cl-", "-n", ":LIG", "--radii", "mbondi2"],
+                           cwd=work, check=True)
+            (work / "mmgbsa.in").write_text(textwrap.dedent("""
+                MM-GBSA (igb=5, GBSW-like), last-portion of trajectory
+                &general startframe=1, interval=1, /
+                &gb igb=5, saltcon=0.15, /
+            """))
+            subprocess.run(
+                ["MMPBSA.py", "-O", "-i", "mmgbsa.in", "-cp", "com.prmtop",
+                 "-rp", "rec.prmtop", "-lp", "lig.prmtop", "-y", "prod.nc",
+                 "-o", "mmgbsa.dat"], cwd=work, check=True)
+            for line in (work / "mmgbsa.dat").read_text().splitlines():
+                if line.strip().startswith("DELTA TOTAL"):
+                    m["mmgbsa_dG_kcal_mol"] = float(line.split()[2]); break
+            import shutil
+            shutil.copy(work / "mmgbsa.dat", f"{outdir}/mmgbsa.dat")
+        except Exception as e:
+            m["mmgbsa_error"] = str(e)[:300]
+    return m
 
-# ------------------------------------------------------------------- entry -----
+
 @app.local_entrypoint()
-def main(system: str = "GTD_9.7", all: bool = False, ns: float = 5.0,
-         protein_ff: str = "ff14SB"):
+def main(system: str = "DprE1_WT__GTD_9.7", all: bool = False, ns: float = 1.0,
+         protein_ff: str = "ff14SB", cofactor: bool = True):
     systems = ([p.name for p in sorted(INPUTS.iterdir()) if p.is_dir()]
                if all else [system])
+    cof_bytes = None
     calls = []
     for s in systems:
         pdb = (INPUTS / s / "protein.pdb").read_bytes()
         sdf = (INPUTS / s / "ligand.sdf").read_bytes()
-        calls.append((s, simulate.spawn(s, pdb, sdf, ns, protein_ff)))
+        cof = (INPUTS / s / "cofactor.sdf")
+        cb = cof.read_bytes() if (cofactor and cof.exists()) else None
+        calls.append((s, simulate.spawn(s, pdb, sdf, cb, ns, protein_ff)))
     print(f"Launched {len(calls)} MD job(s) on Modal (ns={ns}, ff={protein_ff})")
-    for s, handle in calls:
-        m = handle.get()
-        print(f"[{s}] ligRMSD={m['ligand_RMSD_A']}  "
-              f"protRMSD={m['protein_backbone_RMSD_A']}  "
-              f"RMSF={m['protein_RMSF_A']}  cofRMSD={m['cofactor_RMSD_A']}")
+    for s, h in calls:
+        m = h.get()
+        print(f"[{s}] ligRMSD={m['ligand_RMSD_A']} protRMSD={m['protein_backbone_RMSD_A']} "
+              f"RMSF={m['protein_RMSF_A']} cofRMSD={m['cofactor_RMSD_A']} "
+              f"MMGBSA={m['mmgbsa_dG_kcal_mol']} kcal/mol")

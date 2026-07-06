@@ -61,17 +61,28 @@ def main():
     if args.only:
         ligands = {k: v for k, v in ligands.items() if k in args.only}
 
+    # extract the FAD cofactor from the crystal (keeps crystal coords, adds H)
+    # -> cofactor.sdf, parametrised with GAFF2 inside app.py. Only for DprE1
+    # targets (HEM/Fe of CYP2C9 is not supported by GAFF2).
+    cof_sdf = None
+    if t["cofactor"] == "FAD":
+        cof_pdb = d.PREP / f"{t['pdb']}_cofactor.pdb"
+        cof_sdf = d.PREP / f"{t['pdb']}_cofactor.sdf"
+        subprocess.run(["obabel", str(cof_pdb), "-osdf", "-O", str(cof_sdf),
+                        "-h"], capture_output=True, text=True)
+
     for name, smi in ligands.items():
         sysname = f"{args.target}__{name}"
         outdir = INPUTS / sysname
         outdir.mkdir(parents=True, exist_ok=True)
-        # protein (chain A, no cofactor -> parametrised by ff14SB in tleap;
-        # see README for adding FAD/HEM cofactor parameters)
         (outdir / "protein.pdb").write_bytes(
             (d.PREP / f"{t['pdb']}_protein.pdb").read_bytes())
         ok = export_pose(receptor_pdbqt, center, name, smi, t["pdb"],
                          outdir / "ligand.sdf")
-        print(f"{sysname}: {'OK' if ok else 'FAILED'}")
+        if cof_sdf and cof_sdf.exists():
+            (outdir / "cofactor.sdf").write_bytes(cof_sdf.read_bytes())
+        print(f"{sysname}: {'OK' if ok else 'FAILED'}"
+              f"{' (+FAD cofactor)' if cof_sdf else ''}")
 
     print(f"\nInputs written under {INPUTS}")
     print("Next:  modal run modal_md/app.py --all --ns 500   (or --system <name>)")
