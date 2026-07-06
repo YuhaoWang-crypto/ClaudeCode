@@ -1,0 +1,13 @@
+{
+  "_comment": "Worked example: IS621 bridge recombinase. Copy and edit the CONFIGURE blocks in scripts/ to match. Confirm SEQ/numbering with the user if it came from an unreadable upload.",
+  "name": "IS621_bridge_recombinase",
+  "pdb": "8WT9",
+  "sequence_1letter": "MEHELHYIGIDTAKEKLDVDVLRPDGRHRTKKFANTTKGHDELVSWLKGHKIDHAHICIEATGTYMEPVAECLYDAGYIVSVINPALGKAFAQSEGLRNKTDTVDARMLAEFCRQKRPAAWEAPHPLERALRALVVRHQALTDMHTQELNRTETAREVQRPSIDAHLLWLEAELKRLEKQIKDLTDDDPDMKHRRKLLESIPGIGEKTSAVLLAYIGLKDRFAHARQFAAFAGLTPRRYESGSSVRGASRMSKAGHVSLRRALYMPAMVATSKTEWGRAFRDRLAANGKKGKVILGAMMRKLAQVAYGVLKSGVPFDASRHNPVAA",
+  "chains": {"protein": ["A","B","C","D"], "rna": ["E","F"], "dna": ["G","H","I","J"], "modeled_protein_chain": "A", "modeled_residue_range": [4, 322]},
+  "catalytic_residues": [11, 18, 20, 60, 105],
+  "catalytic_note": "RuvC-like DEDD two-metal nuclease; Mg2+ (chain B) coordinates D11/E60 + scissile phosphate (chain H dC18)",
+  "top_candidates": {
+    "L168K": "fold/yield", "H193R": "fold/yield", "V257A": "strand-exchange junction",
+    "F231Y": "bridge-RNA affinity (contacts RNA U82)", "A248K": "DNA-backbone affinity (charge-changing)"
+  }
+}

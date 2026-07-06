@@ -1,0 +1,204 @@
+<title>IS621 Bridge Recombinase — Engineering Candidates</title>
+<style>
+  :root{
+    --bg:#0a0c12; --panel:#12151f; --panel2:#171b28; --line:#252b3b;
+    --ink:#d3d8e4; --mut:#9aa3b7; --faint:#6b7488;
+    --accent:#a3e635; --cat:#f43f5e; --rna:#22d3ee; --dna:#f59e0b;
+    --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+    --sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);
+    -webkit-font-smoothing:antialiased;overflow:hidden}
+  #app{display:grid;grid-template-rows:auto 1fr;height:100vh}
+
+  header{display:flex;align-items:center;justify-content:space-between;gap:16px;
+    padding:12px 20px;border-bottom:1px solid var(--line);background:var(--panel);flex-wrap:wrap}
+  .brand{display:flex;flex-direction:column;gap:2px;min-width:0}
+  .brand h1{margin:0;font-size:15px;font-weight:650;letter-spacing:.2px}
+  .brand .sub{font-family:var(--mono);font-size:11px;color:var(--mut);letter-spacing:.3px}
+  .toggles{display:flex;gap:8px;flex-wrap:wrap}
+  .tg{font-family:var(--mono);font-size:11px;letter-spacing:.4px;text-transform:uppercase;
+    padding:6px 11px;border-radius:7px;border:1px solid var(--line);background:var(--panel2);
+    color:var(--mut);cursor:pointer;display:flex;align-items:center;gap:7px;transition:all .15s}
+  .tg:hover{color:var(--ink);border-color:#3a4560}
+  .tg .dot{width:9px;height:9px;border-radius:50%;background:currentColor;opacity:.9}
+  .tg.on{color:var(--ink);background:#1f2536;border-color:#3d4a63}
+  .tg[data-k="rna"].on{box-shadow:inset 0 0 0 1px var(--rna)}
+  .tg[data-k="dna"].on{box-shadow:inset 0 0 0 1px var(--dna)}
+  .tg[data-k="cat"].on{box-shadow:inset 0 0 0 1px var(--cat)}
+  .tg[data-k="spin"].on{box-shadow:inset 0 0 0 1px var(--accent)}
+
+  main{display:grid;grid-template-columns:1fr 380px;min-height:0}
+  #viewwrap{position:relative;min-height:0}
+  #viewer{position:absolute;inset:0}
+  #viewer canvas{outline:none}
+  .vhint{position:absolute;left:16px;bottom:14px;font-family:var(--mono);font-size:11px;
+    color:var(--faint);background:rgba(10,12,18,.6);padding:6px 10px;border-radius:6px;
+    border:1px solid var(--line);pointer-events:none}
+
+  aside{border-left:1px solid var(--line);background:var(--panel);overflow-y:auto;padding:16px}
+  .eyebrow{font-family:var(--mono);font-size:10.5px;letter-spacing:1.4px;text-transform:uppercase;
+    color:var(--faint);margin:0 0 10px}
+  .card{border:1px solid var(--line);border-radius:11px;background:var(--panel2);
+    padding:13px 14px;margin-bottom:11px;cursor:pointer;transition:border-color .15s,transform .1s}
+  .card:hover{border-color:#3a445c}
+  .card.active{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent)}
+  .card .top{display:flex;align-items:baseline;justify-content:space-between;gap:10px}
+  .mutname{font-family:var(--mono);font-size:17px;font-weight:600;letter-spacing:.5px}
+  .mutname b{color:var(--accent)}
+  .role{font-family:var(--mono);font-size:10px;letter-spacing:.5px;text-transform:uppercase;
+    padding:3px 7px;border-radius:20px;border:1px solid var(--line);color:var(--mut);white-space:nowrap}
+  .mech{font-size:12.5px;line-height:1.5;color:var(--mut);margin:9px 0 11px}
+  .mech b{color:var(--ink);font-weight:600}
+  .consensus{display:flex;align-items:center;gap:9px;margin-bottom:9px}
+  .bar{flex:1;height:6px;border-radius:4px;background:#20263a;overflow:hidden}
+  .bar>i{display:block;height:100%;background:linear-gradient(90deg,#65a30d,var(--accent))}
+  .consensus .pct{font-family:var(--mono);font-size:12px;color:var(--accent);font-weight:600}
+  .consensus .lbl{font-family:var(--mono);font-size:10px;color:var(--faint);letter-spacing:.3px}
+  .methods{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+  .m{border:1px solid var(--line);border-radius:6px;padding:5px 4px;text-align:center;background:var(--panel)}
+  .m .mn{font-family:var(--mono);font-size:8.5px;letter-spacing:.2px;color:var(--faint);text-transform:uppercase}
+  .m .mv{font-family:var(--mono);font-size:12px;font-weight:600;margin-top:2px}
+  .pos{color:var(--accent)} .neg{color:var(--dna)}
+  .legend{margin-top:6px;padding-top:14px;border-top:1px solid var(--line)}
+  .lg{display:flex;align-items:center;gap:9px;font-size:12px;color:var(--mut);margin-bottom:7px}
+  .lg .sw{width:12px;height:12px;border-radius:3px;flex:none}
+  .note{font-size:11px;line-height:1.55;color:var(--faint);margin-top:12px}
+  .note code{font-family:var(--mono);color:var(--mut)}
+  @media (max-width:820px){ main{grid-template-columns:1fr;grid-template-rows:1fr auto}
+    aside{border-left:none;border-top:1px solid var(--line);max-height:44vh} }
+</style>
+
+<div id="app">
+  <header>
+    <div class="brand">
+      <h1>IS621 Bridge Recombinase — Engineering Candidates</h1>
+      <span class="sub">PDB 8WT9 · post-strand-exchange complex · 5 single mutations ranked by ESM-1v · ESM2 · ProteinMPNN · ESM-IF</span>
+    </div>
+    <div class="toggles">
+      <button class="tg on" data-k="cat"><span class="dot" style="color:var(--cat)"></span>Catalytic core</button>
+      <button class="tg on" data-k="rna"><span class="dot" style="color:var(--rna)"></span>Bridge RNA</button>
+      <button class="tg on" data-k="dna"><span class="dot" style="color:var(--dna)"></span>Target/donor DNA</button>
+      <button class="tg" data-k="spin"><span class="dot" style="color:var(--accent)"></span>Spin</button>
+      <button class="tg" data-k="reset">Reset view</button>
+    </div>
+  </header>
+  <main>
+    <div id="viewwrap">
+      <div id="viewer"></div>
+      <div class="vhint">drag to rotate · scroll to zoom · click a candidate to focus</div>
+    </div>
+    <aside>
+      <p class="eyebrow">Ranked candidates — click to focus</p>
+      <div id="cards"></div>
+      <div class="legend">
+        <div class="lg"><span class="sw" style="background:var(--accent)"></span>Mutation site (Cα sphere + side chain)</div>
+        <div class="lg"><span class="sw" style="background:var(--cat)"></span>Catalytic DEDD tetrad · D11 · D18 · D20 · E60 · D105</div>
+        <div class="lg"><span class="sw" style="background:var(--rna)"></span>Bridge RNA (guide)</div>
+        <div class="lg"><span class="sw" style="background:var(--dna)"></span>Target &amp; donor DNA</div>
+        <p class="note">Scores are log-likelihood ratios (mutant vs wild type); positive favors the mutant.
+        Consensus is the mean percentile rank across the four models. Catalytic residues are
+        held fixed and excluded from ranking. Structure-based models (<code>ProteinMPNN</code>,
+        <code>ESM-IF</code>) see protein atoms only — nucleic-acid effects are read from the 8WT9 geometry.</p>
+      </div>
+    </aside>
+  </main>
+</div>
+
+<script id="pdbdata" type="text/plain">__PDBDATA__</script>
+<script>__THREEDMOL__</script>
+<script>
+const CAND = __CANDIDATES__;
+const CAT = [11,18,20,60,105];
+const RNA = ["E","F"], DNA = ["G","H","I","J"];
+const C = {accent:"#a3e635", cat:"#f43f5e", rna:"#22d3ee", dna:"#f59e0b", prot:"#7f8aa3"};
+const state = {cat:true, rna:true, dna:true, spin:false, focus:null};
+
+const viewer = $3Dmol.createViewer(document.getElementById("viewer"),
+  {backgroundColor:"#0a0c12"});
+viewer.addModel(document.getElementById("pdbdata").textContent, "pdb");
+
+function paint(){
+  viewer.setStyle({}, {});
+  // protein protomer
+  viewer.setStyle({chain:"A"}, {cartoon:{color:C.prot, opacity:0.9, thickness:0.35}});
+  // nucleic acids
+  if(state.rna) viewer.setStyle({chain:RNA}, {cartoon:{color:C.rna}, stick:{radius:0.12,color:C.rna}});
+  else viewer.setStyle({chain:RNA}, {});
+  if(state.dna) viewer.setStyle({chain:DNA}, {cartoon:{color:C.dna}, stick:{radius:0.12,color:C.dna}});
+  else viewer.setStyle({chain:DNA}, {});
+  // catalytic
+  if(state.cat){
+    viewer.setStyle({chain:"A", resi:CAT}, {stick:{radius:0.28,color:C.cat}, cartoon:{color:C.cat}});
+    viewer.addStyle({chain:"A", resi:CAT}, {sphere:{radius:0.5,color:C.cat}});
+  }
+  // candidates
+  CAND.forEach(c=>{
+    const on = state.focus===null || state.focus===c.resi;
+    const col = state.focus===c.resi ? C.accent : (state.focus===null? C.accent : "#586179");
+    viewer.addStyle({chain:"A", resi:c.resi},
+      {stick:{radius: state.focus===c.resi?0.35:0.22, color:col},
+       sphere:{radius: state.focus===c.resi?0.9:0.6, color:col}});
+  });
+  viewer.render();
+}
+function labels(){
+  viewer.removeAllLabels();
+  CAND.forEach(c=>{
+    if(state.focus!==null && state.focus!==c.resi) return;
+    viewer.addLabel(c.mut, {position:{}, backgroundColor:"#12151f", backgroundOpacity:0.85,
+      fontColor:"#a3e635", fontSize:12, borderColor:"#252b3b", borderThickness:1,
+      alignment:"center"}, {chain:"A", resi:c.resi, atom:"CA"});
+  });
+}
+function focusOn(resi){
+  state.focus = (state.focus===resi? null : resi);
+  document.querySelectorAll(".card").forEach(el=>
+    el.classList.toggle("active", +el.dataset.resi===state.focus));
+  paint(); labels();
+  if(state.focus!==null){ state.spin=false; syncSpin();
+    viewer.zoomTo({chain:"A", resi:resi}); viewer.zoom(0.35); }
+  else viewer.zoomTo();
+  viewer.render();
+}
+function syncSpin(){
+  document.querySelector('[data-k="spin"]').classList.toggle("on", state.spin);
+  viewer.spin(state.spin ? "y" : false);
+}
+
+// build cards
+const cards = document.getElementById("cards");
+CAND.forEach(c=>{
+  const chip = (n,v)=>`<div class="m"><div class="mn">${n}</div>
+    <div class="mv ${v>=0?'pos':'neg'}">${v>=0?'+':''}${v.toFixed(2)}</div></div>`;
+  const el = document.createElement("div");
+  el.className="card"; el.dataset.resi=c.resi;
+  el.innerHTML = `<div class="top">
+      <span class="mutname"><b>${c.mut}</b></span>
+      <span class="role">${c.role}</span></div>
+    <div class="mech">${c.mech}</div>
+    <div class="consensus"><span class="lbl">CONSENSUS</span>
+      <span class="bar"><i style="width:${(c.cons*100).toFixed(0)}%"></i></span>
+      <span class="pct">${c.cons.toFixed(3)}</span></div>
+    <div class="methods">
+      ${chip("ESM-1v",c.s['ESM-1v'])}${chip("ESM2",c.s['ESM2'])}
+      ${chip("MPNN",c.s['ProteinMPNN'])}${chip("ESM-IF",c.s['ESM-IF'])}</div>`;
+  el.addEventListener("click", ()=>focusOn(c.resi));
+  cards.appendChild(el);
+});
+
+// toggles
+document.querySelectorAll(".tg").forEach(b=>{
+  b.addEventListener("click", ()=>{
+    const k=b.dataset.k;
+    if(k==="reset"){ state.focus=null; document.querySelectorAll(".card").forEach(e=>e.classList.remove("active"));
+      paint(); labels(); viewer.zoomTo(); viewer.render(); return; }
+    if(k==="spin"){ state.spin=!state.spin; syncSpin(); viewer.render(); return; }
+    state[k]=!state[k]; b.classList.toggle("on", state[k]); paint(); labels();
+  });
+});
+
+paint(); labels(); viewer.zoomTo(); viewer.render();
+</script>
