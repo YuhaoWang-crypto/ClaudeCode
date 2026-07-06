@@ -226,11 +226,11 @@ def analyse(outdir, work, have_cof, run_mmgbsa):
                             "-c", "com.prmtop", "-r", "rec.prmtop", "-l", "lig.prmtop",
                             "-n", ":LIG", "--radii", "mbondi2"],
                            cwd=work, check=True)
-            (work / "mmgbsa.in").write_text(textwrap.dedent("""
-                MM-GBSA (igb=5, GBSW-like)
-                &general startframe=1, interval=1, /
-                &gb igb=5, saltcon=0.15, /
-            """))
+            # MMPBSA namelist: names and closing '/' must be on their own lines
+            (work / "mmgbsa.in").write_text(
+                "MM-GBSA igb=5 (GBSW-like)\n"
+                "&general\n  startframe=1, interval=1,\n/\n"
+                "&gb\n  igb=5, saltcon=0.15,\n/\n")
             # -sp = solvated topology so MMPBSA strips water/ions to match com.prmtop
             subprocess.run(
                 ["MMPBSA.py", "-O", "-i", "mmgbsa.in", "-sp", "SYS.prmtop",
