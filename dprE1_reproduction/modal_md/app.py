@@ -134,6 +134,7 @@ def simulate(system: str, protein_pdb: bytes, ligand_sdf: bytes,
         loadamberparams lig.frcmod
         {cof_load}prot = loadpdb protein.pdb
         complex = combine {{ prot{cof_combine} LIG }}
+        set default PBRadii mbondi2
         saveamberparm complex complex_dry.prmtop complex_dry.inpcrd
         solvateBox complex TIP3PBOX 12.0
         addIons complex Na+ 0
@@ -221,13 +222,15 @@ def analyse(outdir, work, have_cof, run_mmgbsa):
         try:
             # trajectory (solvated) -> Amber NetCDF; MMPBSA strips water via -sp
             traj.save_netcdf(f"{work}/prod.nc")
-            # dry receptor(+FAD)/ligand topologies from the dry complex prmtop
+            # split dry complex into receptor(+FAD) and ligand topologies.
+            # ante-MMPBSA skips writing -c when there's no solvent to strip, so
+            # the complex topology is simply complex_dry.prmtop itself.
             ante = subprocess.run(
                 ["ante-MMPBSA.py", "-p", "complex_dry.prmtop",
-                 "-c", "com.prmtop", "-r", "rec.prmtop", "-l", "lig.prmtop",
+                 "-r", "rec.prmtop", "-l", "lig.prmtop",
                  "-n", ":LIG", "--radii", "mbondi2"],
                 cwd=work, capture_output=True, text=True)
-            if not (work / "com.prmtop").exists():
+            if not (work / "rec.prmtop").exists() or not (work / "lig.prmtop").exists():
                 raise RuntimeError("ante-MMPBSA failed: " +
                                    ante.stdout[-800:] + " | " + ante.stderr[-800:])
             # MMPBSA namelist: names and closing '/' must be on their own lines
@@ -236,10 +239,14 @@ def analyse(outdir, work, have_cof, run_mmgbsa):
                 "&general\n  startframe=1, interval=1,\n/\n"
                 "&gb\n  igb=5, saltcon=0.15,\n/\n")
             # -sp = solvated topology so MMPBSA strips water/ions to match com.prmtop
-            subprocess.run(
+            mm = subprocess.run(
                 ["MMPBSA.py", "-O", "-i", "mmgbsa.in", "-sp", "SYS.prmtop",
-                 "-cp", "com.prmtop", "-rp", "rec.prmtop", "-lp", "lig.prmtop",
-                 "-y", "prod.nc", "-o", "mmgbsa.dat"], cwd=work, check=True)
+                 "-cp", "complex_dry.prmtop", "-rp", "rec.prmtop",
+                 "-lp", "lig.prmtop", "-y", "prod.nc", "-o", "mmgbsa.dat"],
+                cwd=work, capture_output=True, text=True)
+            if not (work / "mmgbsa.dat").exists():
+                raise RuntimeError("MMPBSA failed: " + mm.stdout[-600:] +
+                                   " | " + mm.stderr[-600:])
             for line in (work / "mmgbsa.dat").read_text().splitlines():
                 if line.strip().startswith("DELTA TOTAL"):
                     m["mmgbsa_dG_kcal_mol"] = float(line.split()[2]); break
