@@ -100,11 +100,17 @@ def simulate(system: str, protein_pdb: bytes, ligand_sdf: bytes,
     (work / "ligand.sdf").write_bytes(ligand_sdf)
     outdir = pathlib.Path(RESULTS) / system; outdir.mkdir(parents=True, exist_ok=True)
 
-    # 1) protein prep
+    # 1) protein prep. Complete missing heavy atoms with PDBFixer but do NOT add
+    # hydrogens here (OpenMM H names clash with ff14SB templates -> tleap fatals).
+    # Skip building long missing loops (bad geometry / 20 A bonds); let pdb4amber
+    # add TER at real chain breaks and let tleap protonate with Amber naming.
     fixer = PDBFixer(filename=str(work / "protein_in.pdb"))
-    fixer.findMissingResidues(); fixer.findMissingAtoms()
-    fixer.addMissingAtoms(); fixer.addMissingHydrogens(7.0)
-    PDBFile.writeFile(fixer.topology, fixer.positions, open(work / "protein.pdb", "w"))
+    fixer.findMissingResidues(); fixer.missingResidues = {}
+    fixer.findMissingAtoms(); fixer.addMissingAtoms()
+    PDBFile.writeFile(fixer.topology, fixer.positions,
+                      open(work / "protein_noH.pdb", "w"), keepIds=True)
+    subprocess.run(["pdb4amber", "-i", "protein_noH.pdb", "-o", "protein.pdb",
+                    "-y"], cwd=work, check=True)  # -y strips hydrogens
 
     # 2) ligand + optional FAD cofactor -> GAFF2
     _gaff2_param(work, work / "ligand.sdf", "LIG", "lig")
