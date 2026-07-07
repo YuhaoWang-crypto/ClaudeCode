@@ -1,0 +1,509 @@
+<title>不可约网络 biomarker · 从头到尾的总结报告</title>
+<style>
+  :root {
+    --paper:#f4f6f8; --surface:#ffffff; --surface-2:#eef2f4;
+    --ink:#1a1f26; --ink-soft:#48545f; --ink-faint:#7a8792;
+    --line:#dce3e8; --line-strong:#c3ccd3;
+    --stable:#1f7a8c; --critical:#cf5f28; --critical-deep:#a83617;
+    --good:#2f7d5b; --warn:#a8791a;
+    --shadow:0 1px 2px rgba(20,30,40,.05), 0 8px 30px rgba(20,30,40,.06);
+    --maxw:72ch;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --paper:#111419; --surface:#181c22; --surface-2:#1f242b;
+      --ink:#e9edf0; --ink-soft:#a7b1bb; --ink-faint:#6b7681;
+      --line:#282f38; --line-strong:#38414c;
+      --stable:#4db4c9; --critical:#ee8a4d; --critical-deep:#f2a077;
+      --good:#5bb086; --warn:#d8a94e;
+      --shadow:0 1px 2px rgba(0,0,0,.3), 0 10px 34px rgba(0,0,0,.34);
+    }
+  }
+  :root[data-theme="light"]{
+    --paper:#f4f6f8; --surface:#ffffff; --surface-2:#eef2f4;
+    --ink:#1a1f26; --ink-soft:#48545f; --ink-faint:#7a8792;
+    --line:#dce3e8; --line-strong:#c3ccd3;
+    --stable:#1f7a8c; --critical:#cf5f28; --critical-deep:#a83617;
+    --good:#2f7d5b; --warn:#a8791a;
+    --shadow:0 1px 2px rgba(20,30,40,.05), 0 8px 30px rgba(20,30,40,.06);
+  }
+  :root[data-theme="dark"]{
+    --paper:#111419; --surface:#181c22; --surface-2:#1f242b;
+    --ink:#e9edf0; --ink-soft:#a7b1bb; --ink-faint:#6b7681;
+    --line:#282f38; --line-strong:#38414c;
+    --stable:#4db4c9; --critical:#ee8a4d; --critical-deep:#f2a077;
+    --good:#5bb086; --warn:#d8a94e;
+    --shadow:0 1px 2px rgba(0,0,0,.3), 0 10px 34px rgba(0,0,0,.34);
+  }
+
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0; background:var(--paper); color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Noto Sans CJK SC","Source Han Sans SC","Microsoft YaHei","Hiragino Sans GB",sans-serif;
+    font-size:16.5px; line-height:1.68; letter-spacing:.005em;
+    -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+  }
+  .serif{font-family:"Iowan Old Style","Palatino Linotype",Palatino,"Songti SC","Noto Serif CJK SC","Source Han Serif SC",STSong,"SimSun",Georgia,serif;}
+  .mono{font-family:ui-monospace,"SF Mono","JetBrains Mono",Menlo,Consolas,monospace;}
+  h1,h2,h3,.serif-head{
+    font-family:"Iowan Old Style","Palatino Linotype",Palatino,"Songti SC","Noto Serif CJK SC","Source Han Serif SC",STSong,"SimSun",Georgia,serif;
+    text-wrap:balance; font-weight:600; letter-spacing:-.005em;
+  }
+  a{color:var(--stable); text-decoration:none; border-bottom:1px solid color-mix(in srgb,var(--stable) 35%,transparent);}
+  a:hover{border-bottom-color:var(--stable)}
+  :focus-visible{outline:2px solid var(--critical); outline-offset:3px; border-radius:2px}
+
+  /* ---------- shell ---------- */
+  .wrap{max-width:1200px; margin:0 auto; padding:0 clamp(18px,4vw,48px)}
+  .layout{display:grid; grid-template-columns:1fr; gap:0}
+  @media(min-width:1020px){
+    .layout{grid-template-columns:230px minmax(0,1fr); gap:56px; align-items:start}
+  }
+
+  /* ---------- TOC spine ---------- */
+  nav.toc{display:none}
+  @media(min-width:1020px){
+    nav.toc{
+      display:block; position:sticky; top:0; align-self:start;
+      max-height:100vh; overflow-y:auto; padding:48px 0 40px;
+      font-size:13.5px; line-height:1.35;
+    }
+    nav.toc .eyebrow{font-size:11px; letter-spacing:.16em; text-transform:uppercase; color:var(--ink-faint); margin:0 0 14px}
+    nav.toc ol{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:1px}
+    nav.toc a{
+      display:grid; grid-template-columns:2.4em 1fr; gap:.5em; align-items:baseline;
+      padding:5px 8px 5px 0; color:var(--ink-soft); border:0; border-radius:6px;
+    }
+    nav.toc a:hover{background:var(--surface-2); color:var(--ink)}
+    nav.toc a .n{font-family:ui-monospace,Menlo,monospace; font-size:11.5px; color:var(--critical); text-align:right; font-variant-numeric:tabular-nums}
+    nav.toc a.part{margin-top:12px; grid-template-columns:1fr}
+    nav.toc a.part .lbl{font-family:inherit; font-weight:600; color:var(--ink); font-size:12.5px}
+  }
+
+  main{padding:0 0 90px; min-width:0}
+
+  /* ---------- hero ---------- */
+  header.hero{padding:clamp(40px,7vw,84px) 0 34px}
+  .kicker{
+    display:inline-flex; align-items:center; gap:.6em;
+    font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-faint);
+    margin:0 0 22px;
+  }
+  .kicker::before{content:""; width:26px; height:1px; background:var(--critical)}
+  h1{font-size:clamp(30px,5.4vw,50px); line-height:1.1; margin:0 0 .5em; max-width:20ch}
+  h1 em{font-style:normal; color:var(--critical)}
+  .dek{font-size:clamp(17px,2.3vw,21px); line-height:1.55; color:var(--ink-soft); max-width:52ch; margin:0}
+  .dek b{color:var(--ink); font-weight:600}
+  .meta-row{
+    display:flex; flex-wrap:wrap; gap:10px 8px; margin-top:30px;
+  }
+  .chip{
+    font-size:12.5px; padding:5px 11px; border-radius:100px;
+    background:var(--surface); border:1px solid var(--line); color:var(--ink-soft);
+    display:inline-flex; align-items:center; gap:.5em;
+  }
+  .chip b{color:var(--ink); font-weight:600; font-variant-numeric:tabular-nums}
+  .chip .dot{width:7px;height:7px;border-radius:50%}
+
+  /* eigen motif */
+  .eigen{margin:38px 0 0; background:var(--surface); border:1px solid var(--line); border-radius:14px; padding:22px 20px 14px; box-shadow:var(--shadow)}
+  .eigen figcaption{font-size:13px; color:var(--ink-soft); margin-top:8px; text-align:center}
+  .eigen figcaption b{color:var(--critical)}
+  .eigen svg{display:block; width:100%; height:auto}
+
+  /* ---------- sections ---------- */
+  section{padding:34px 0; border-top:1px solid var(--line)}
+  .part-label{
+    display:flex; align-items:baseline; gap:14px; margin:0 0 6px;
+    font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:var(--critical);
+  }
+  .part-label .rng{font-family:ui-monospace,Menlo,monospace; color:var(--ink-faint); letter-spacing:0}
+  h2{font-size:clamp(22px,3.2vw,29px); margin:.1em 0 .5em; max-width:26ch}
+  h3{font-size:18px; margin:1.8em 0 .4em; color:var(--ink)}
+  p{max-width:var(--maxw); margin:.75em 0}
+  .lead{font-size:17.5px; color:var(--ink-soft); max-width:var(--maxw)}
+  strong{font-weight:600}
+  em.term{font-style:normal; color:var(--stable); font-weight:500}
+  .crit{color:var(--critical); font-weight:600}
+
+  /* module card */
+  .mod{
+    display:grid; grid-template-columns:auto 1fr; gap:16px; align-items:start;
+    padding:16px 0; border-top:1px dashed var(--line);
+  }
+  .mod:first-of-type{border-top:0}
+  .mod .id{
+    font-family:ui-monospace,Menlo,monospace; font-size:13px; font-weight:600;
+    color:var(--surface); background:var(--ink); border-radius:7px;
+    padding:3px 8px; white-space:nowrap; letter-spacing:-.02em;
+  }
+  .mod.real .id{background:var(--stable)}
+  .mod.exact .id{background:var(--critical-deep)}
+  .mod h4{margin:0 0 3px; font-size:15.5px; font-weight:600; font-family:inherit}
+  .mod p{margin:.2em 0 0; font-size:14.5px; color:var(--ink-soft); max-width:64ch}
+  .mod .num{color:var(--ink); font-weight:600; font-variant-numeric:tabular-nums}
+
+  /* callout */
+  .call{
+    margin:24px 0; padding:18px 20px; border-radius:12px;
+    background:var(--surface); border:1px solid var(--line); border-left:3px solid var(--stable);
+    box-shadow:var(--shadow);
+  }
+  .call.warn{border-left-color:var(--warn)}
+  .call.crit{border-left-color:var(--critical)}
+  .call .t{font-size:12px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-faint); margin:0 0 6px; display:flex; align-items:center; gap:.5em}
+  .call p{margin:.3em 0; font-size:15px; max-width:66ch}
+  .call.warn .t{color:var(--warn)} .call.crit .t{color:var(--critical)} .call .t.ok{color:var(--good)}
+
+  /* tables */
+  .tbl-wrap{overflow-x:auto; margin:22px 0; border:1px solid var(--line); border-radius:12px; background:var(--surface); box-shadow:var(--shadow)}
+  table{border-collapse:collapse; width:100%; font-size:14px; min-width:520px}
+  th,td{text-align:left; padding:9px 14px; border-bottom:1px solid var(--line)}
+  thead th{font-size:11.5px; letter-spacing:.05em; text-transform:uppercase; color:var(--ink-faint); font-weight:600; background:var(--surface-2)}
+  tbody tr:last-child td{border-bottom:0}
+  td.num,th.num{text-align:right; font-variant-numeric:tabular-nums; font-family:ui-monospace,Menlo,monospace; font-size:13px}
+  .tag{display:inline-block; font-size:11px; padding:1px 7px; border-radius:100px; font-weight:600; letter-spacing:.02em}
+  .tag.ok{color:var(--good); background:color-mix(in srgb,var(--good) 14%,transparent)}
+  .tag.hy{color:var(--warn); background:color-mix(in srgb,var(--warn) 16%,transparent)}
+
+  /* bifurcation coverage */
+  .cover{display:grid; grid-template-columns:1fr; gap:16px; margin:24px 0}
+  @media(min-width:640px){.cover{grid-template-columns:repeat(3,1fr)}}
+  .bcard{background:var(--surface); border:1px solid var(--line); border-radius:14px; padding:18px; box-shadow:var(--shadow)}
+  .bcard svg{width:100%; height:76px; display:block; margin-bottom:12px}
+  .bcard h4{margin:0 0 2px; font-size:15px; font-family:inherit}
+  .bcard .sig{font-size:12.5px; color:var(--ink-faint); margin:0 0 8px}
+  .bcard p{font-size:13.5px; color:var(--ink-soft); margin:0; max-width:none}
+  .bcard .who{margin-top:10px; font-size:11.5px; color:var(--ink-faint); font-family:ui-monospace,Menlo,monospace}
+
+  /* rigor ledger */
+  details.ledger{margin:22px 0; border:1px solid var(--line); border-radius:12px; background:var(--surface); box-shadow:var(--shadow); overflow:hidden}
+  details.ledger summary{cursor:pointer; padding:14px 18px; font-weight:600; font-size:15px; list-style:none; display:flex; justify-content:space-between; align-items:center}
+  details.ledger summary::-webkit-details-marker{display:none}
+  details.ledger summary::after{content:"展开 ▾"; font-size:12px; color:var(--ink-faint); font-weight:400}
+  details.ledger[open] summary::after{content:"收起 ▴"}
+
+  /* closing */
+  .deliver{display:grid; grid-template-columns:1fr; gap:14px; margin:22px 0}
+  @media(min-width:680px){.deliver{grid-template-columns:1fr 1fr}}
+  .dcard{background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:16px 18px; box-shadow:var(--shadow)}
+  .dcard .n{font-family:ui-monospace,Menlo,monospace; font-size:12px; color:var(--critical)}
+  .dcard h4{margin:4px 0 5px; font-size:15.5px; font-family:inherit}
+  .dcard p{margin:0; font-size:14px; color:var(--ink-soft); max-width:none}
+
+  footer{border-top:1px solid var(--line); padding:30px 0 0; margin-top:20px; color:var(--ink-faint); font-size:13px}
+  footer p{max-width:var(--maxw)}
+  hr.rule{border:0; border-top:1px solid var(--line); margin:0}
+  .k{font-variant-numeric:tabular-nums; font-family:ui-monospace,Menlo,monospace; font-size:.92em}
+
+  @media (prefers-reduced-motion: reduce){*{animation:none !important; transition:none !important}}
+</style>
+
+<div class="wrap">
+<div class="layout">
+
+  <nav class="toc" aria-label="目录">
+    <p class="eyebrow">流水线主轴</p>
+    <ol>
+      <li><a class="part" href="#q"><span class="lbl">起点 · 一个问题</span></a></li>
+      <li><a href="#p1"><span class="n">M1–4</span><span>五步核心数学工具</span></a></li>
+      <li><a href="#p2"><span class="n">M5–10</span><span>接真实数据 KRAS/ERK</span></a></li>
+      <li><a href="#p3"><span class="n">M11–16</span><span>精确复现 + 报告补足</span></a></li>
+      <li><a href="#p4"><span class="n">M17–18</span><span>真实验证与诚实负结果</span></a></li>
+      <li><a href="#p5"><span class="n">M19–22</span><span>迁移到全景 · 三类分岔</span></a></li>
+      <li><a class="part" href="#close"><span class="lbl">交付了什么</span></a></li>
+      <li><a href="#ledger"><span class="n">▤</span><span>22 模块严格性台账</span></a></li>
+    </ol>
+  </nav>
+
+  <main>
+    <header class="hero" id="top">
+      <p class="kicker">数学 · 系统生物学 · 从头到尾的总结</p>
+      <h1 class="serif">能不能把纯数学搬到生物网络里，找到可<em>检测</em>的 biomarker？</h1>
+      <p class="dek">从一个概念问题出发——群论、对称、不可约、分岔理论能否作用于哺乳动物调控网络（~2 万蛋白、~1600 个转录因子）——最后落成一套 <b>22 个模块、可真跑</b>的分析流水线。每个数字都是<b>计算出来的</b>，每条结论都带严格性标注。</p>
+
+      <div class="meta-row">
+        <span class="chip"><span class="dot" style="background:var(--ink)"></span><b>22</b> 模块</span>
+        <span class="chip"><span class="dot" style="background:var(--stable)"></span><b>~25</b> 条通路</span>
+        <span class="chip"><span class="dot" style="background:var(--critical)"></span><b>3</b> 类分岔覆盖</span>
+        <span class="chip">真实数据 <b>KRAS G12C / ERK</b></span>
+        <span class="chip">2026-07</span>
+      </div>
+
+      <figure class="eigen">
+        <svg viewBox="0 0 720 190" role="img" aria-label="主特征值随药物剂量趋近零：稳定到临界">
+          <defs>
+            <linearGradient id="g1" x1="0" x2="1">
+              <stop offset="0" stop-color="var(--stable)"/>
+              <stop offset="0.7" stop-color="var(--stable)"/>
+              <stop offset="1" stop-color="var(--critical)"/>
+            </linearGradient>
+          </defs>
+          <!-- zero line -->
+          <line x1="40" y1="95" x2="700" y2="95" stroke="var(--line-strong)" stroke-width="1"/>
+          <text x="46" y="88" fill="var(--ink-faint)" font-size="12" font-family="ui-monospace,Menlo,monospace">λ = 0  （分岔 / 失稳）</text>
+          <!-- axis label -->
+          <text x="700" y="180" fill="var(--ink-faint)" font-size="12" text-anchor="end" font-family="ui-monospace,Menlo,monospace">药物占据 / 控制参数 →</text>
+          <!-- lambda curve: negative (stable) rising toward 0 -->
+          <path d="M40,150 C 220,150 360,146 470,132 C 560,120 630,104 690,96"
+                fill="none" stroke="url(#g1)" stroke-width="2.6" stroke-linecap="round"/>
+          <!-- sample dots -->
+          <circle cx="120" cy="150" r="4.5" fill="var(--stable)"/>
+          <circle cx="330" cy="147" r="4.5" fill="var(--stable)"/>
+          <circle cx="500" cy="127" r="4.5" fill="var(--stable)"/>
+          <circle cx="672" cy="98" r="5.5" fill="var(--critical)"/>
+          <text x="672" y="126" fill="var(--critical)" font-size="11.5" text-anchor="middle" font-family="ui-monospace,Menlo,monospace">τ→∞</text>
+          <text x="120" y="172" fill="var(--ink-faint)" font-size="11.5" text-anchor="middle">稳态深处</text>
+          <text x="672" y="80" fill="var(--critical)" font-size="11.5" text-anchor="middle">临界点</text>
+        </svg>
+        <figcaption>贯穿全篇的主线：靠近分岔时，<b>主特征值 = 最大李雅普诺夫指数 → 0</b>，恢复时间 τ 发散，方差 / 自相关升高——一个模型无关、可测量的失稳预警。</figcaption>
+      </figure>
+    </header>
+
+    <!-- ============ Q ============ -->
+    <section id="q">
+      <div class="part-label"><span>起点</span><span class="rng">最初的问题</span></div>
+      <h2 class="serif">如果调控网络也有"素因子"和"对称性"，它们能不能变成 biomarker？</h2>
+      <p class="lead">最初的直觉有三层：<em class="term">对称</em>（不同上游通路坍缩到同一节点，像群作用的轨道）、<em class="term">不可约</em>（网络里存在无法再分的最小功能模块，像素数 / 不可约多项式）、<em class="term">临界</em>（细胞命运翻转是一次动力学分岔，而某个小分子结合把系统的<strong>李雅普诺夫指数从负推向正</strong>，这个参数本身就是高度抽象的 biomarker）。</p>
+      <p>问题是：这些是漂亮的类比，还是能在具体网络上<strong>真正算出数字</strong>的东西？下面这条流水线就是逐一把类比变成计算——并在每一步诚实地标出哪里是严格结果、哪里是待验证的假设。</p>
+    </section>
+
+    <!-- ============ Part I ============ -->
+    <section id="p1">
+      <div class="part-label"><span>第一部分 · 五步核心工具</span><span class="rng">M1 – M4</span></div>
+      <h2 class="serif">四把抽象数学工具，在教学级小网络上逐一落地</h2>
+      <p class="lead">先在能验证每一步的小网络上把方法跑通，保证每个数字可复核，再去接真实大网络。</p>
+
+      <div class="mod">
+        <span class="id">M1</span>
+        <div><h4>图自同构 → 商网络：把"对称冗余"变成群论计算</h4>
+        <p>RTK→RAS→RAF→MEK→ERK 级联里，三个 RAS 旁系（HRAS/KRAS/NRAS）接线完全相同 → 自同构群 <span class="num">|Aut(G)| = 6 = S₃</span>；商掉这个轨道，网络 <span class="num">9 → 7</span> 节点，三个冗余节点坍缩成单个有效节点 <span class="mono">RAS*</span>。"不同上游通路坍缩到一个节点"由此成为严格的图论事实。</p></div>
+      </div>
+      <div class="mod">
+        <span class="id">M2</span>
+        <div><h4>CRNT 亏格 δ：一个整数决定网络"有没有资格"当开关</h4>
+        <p>Feinberg 亏格零定理：δ=0 且弱可逆 ⇒ 任意速率常数下唯一稳态 ⇒ <strong>不可能双稳</strong>。实测：A⇌B⇌C 环 <span class="num">δ=0</span>（单稳），经典 Schlögl <span class="num">δ=1</span>（双稳，X≈3.45 / 0.43 两个吸引子）。一个凌驾于所有浓度之上的拓扑不变量，从根上决定能否成为开关。</p></div>
+      </div>
+      <div class="mod">
+        <span class="id">M3</span>
+        <div><h4>初等通量模式（EFM）：代谢网络的"素因子 / 生成基"</h4>
+        <p>稳态通量锥的极射线 = EFM，是支撑最小、不可再分的通路。4 代谢物网络算出 <span class="num">3 个 EFM</span>；随机可行通量用非负最小二乘从 EFM 重构，残差 <span class="num">3.4e-16</span> ⇒ 任何稳态通量都是它们的非负组合。这是最接近"不可约分"的严格对象。</p></div>
+      </div>
+      <div class="mod">
+        <span class="id">M4</span>
+        <div><h4>DNB / 临界慢化 / 李雅普诺夫指数：直接回答那个核心问题</h4>
+        <p>先在 Rössler 吸引子上验证 Benettin 算法：<span class="num">LLE = +0.0737</span>（文献 ≈+0.071），证明"能算出正的李雅普诺夫指数并对应混沌"是真的。再把互激活基因对推过鞍结分岔：越靠近临界点，主特征值 <span class="crit">→ 0</span>，方差 / 自相关 / DNB 指数同步升 ~30 倍。</p></div>
+      </div>
+
+      <div class="call">
+        <p class="t ok">✅ 对那个李雅普诺夫假设的正面回答</p>
+        <p>"小分子结合把核心网络的最大李雅普诺夫指数从负推向正，这个参数就是抽象 biomarker"——<strong>方向完全正确，而且做出来了</strong>：λ 穿过 0 的那一刻就是失稳分岔点，是一个单一、抽象、可测量的稳定性参数。</p>
+      </div>
+      <div class="call warn">
+        <p class="t">⚠️ 诚实的边界</p>
+        <p>在这个 fold 系统里 λ 是从负<strong>趋近 0</strong>（失稳 = ON 态崩溃 = 命运翻转）；要严格为正（真正混沌）需 ≥3 维系统——这正是先在 Rössler 上验证的原因。分子动力学纳秒尺度的构象李雅普诺夫，与这里的网络 / 细胞尺度是<strong>两个不同尺度</strong>；"λ 变号 ⇒ 凋亡 / 毒性"是<strong>可检验的假设</strong>，不是已证定理。可严格交付的是：λ 在分岔点变号，作为模型内可计算的稳定性 biomarker。</p>
+      </div>
+    </section>
+
+    <!-- ============ Part II ============ -->
+    <section id="p2">
+      <div class="part-label"><span>第二部分 · 接真实数据</span><span class="rng">M5 – M10</span></div>
+      <h2 class="serif">把玩具网络换成真实靶点：KRAS G12C 与共价抑制剂</h2>
+      <p class="lead">全部用本会话连接的数据库实时拉取——ChEMBL 靶点 / 活性、Boltz-2.1 结合预测、Inductive Bio 理化性质、ClinicalTrials 终点。</p>
+
+      <div class="call crit">
+        <p class="t">全流程里最漂亮的一步 · 对称破缺 = 药物选择性</p>
+        <p>三个 RAS 旁系在真实 KRAS 信号邻域里仍是对称轨道 <span class="num">|Aut|=6=S₃</span>；G12C 共价药<strong>只结合 KRAS 节点</strong>，把它标成不同 → <span class="crit">对称破缺 S₃(6) → S₂(2)</span>。sotorasib 的 <span class="num">~1217×</span> G12C 选择性（30 nM vs 36500 nM，ChEMBL 实测）正是这个"节点区分"的实验签名。<strong>靶向共价药的选择性，在数学上就是对调控图做了一次对称群约化。</strong></p>
+      </div>
+
+      <div class="mod real"><span class="id">M6·7</span>
+        <div><h4>结合 → 网络稳定性 · Boltz 小分子筛选</h4>
+        <p>把 ChEMBL 活性 + Boltz 结合合成"占据强度 E"，映射到 M4 的扰动参数读出 DNB。对 10 个共价 G12C 配体真跑 Boltz 库筛选（踩到并修复了"丙烯酰胺弹头被反应性基团过滤器全滤掉"的真实坑）。</p></div>
+      </div>
+      <div class="mod real"><span class="id">M8·9</span>
+        <div><h4>映射临床终点 · 用真实占据率标定</h4>
+        <p>71 个 KRAS G12C 试验，取 CodeBreaK 100 终点：M4 的 LLE/DNB→ORR/DOR，占据 E→Cmax/AUC，λ→正→grade≥3 AE/QTc。以真实 IC50=30 nM 锚定：批准剂量下<strong>靶点占据 97.6%</strong> → μ=0.822 → 网络被推到凋亡临界点附近。模型给出的"为什么药有效"的结构性理由。</p></div>
+      </div>
+
+      <div class="call">
+        <p class="t ok">✅ M10 · 计算 vs 实验：一次推翻自己初步结论的自我修正</p>
+        <p>拉 6 个分子对 KRAS G12C 的<strong>实测 IC50</strong>检验 Boltz 排序，发现两个分数里用错了一个：<span class="mono">binding_confidence</span>（位姿置信度）<strong>不</strong>预测活性（Spearman <span class="crit">ρ=−0.20</span>，把 419 nM 弱结合物排到第 2）；<span class="mono">optimization_score</span>（亲和力向）才对（<span style="color:var(--good);font-weight:600">ρ=+0.60</span>）。<strong>这直接推翻了 M7 里"4 个类似物结合都超过 sotorasib"的说法</strong>——那是用错了指标。真正同测定下更强的只有 CHEMBL4539214（11 nM）一个，而 opt_score 也确实把它排在 sotorasib 之上。</p>
+      </div>
+    </section>
+
+    <!-- ============ Part III ============ -->
+    <section id="p3">
+      <div class="part-label"><span>第三部分 · 精确复现 + 报告补足</span><span class="rng">M11 – M16</span></div>
+      <h2 class="serif">从"复现拓扑"升级到"逐位复现文献模型"</h2>
+      <p class="lead">补上上传报告里四个没做的方法（纤维化 / 双磷酸 δ=2 / FIM-sloppy / 20 通路图谱），并把精确 ERK 开关接回临界慢化机制。</p>
+
+      <div class="mod"><span class="id">M11</span><div><h4>输入树纤维化（Morone-Leifer-Makse）</h4><p>比图自同构更一般：输入结构等价即同步。展开 MAPK 图 <span class="num">27 → 11</span> fibers，一次抓到全部 9 层旁系，每个 fiber 一个 pan-assay 代表读出。</p></div></div>
+      <div class="mod"><span class="id">M12</span><div><h4>真实 ERK 双位点磷酸化核心</h4><p>有序分布式双磷酸化质量作用网络，CRNT 亏格 <span class="num">δ=2</span>（与报告精确一致），实测双稳，EFM = 两个耦合 futile cycles。</p></div></div>
+      <div class="mod"><span class="id">M13</span><div><h4>FIM / Sloppy Model / Stiff Axes</h4><p>敏感度谱跨 <span class="num">~38 个数量级</span>；无量纲相对敏感度下<strong>比值型 biomarker（Mpp/M）载荷最高</strong>——比单一浓度更贴合刚性方向、更可辨识（修正了第一版被量纲误导的结论）。</p></div></div>
+      <div class="mod"><span class="id">M14</span><div><h4>18 通路系统评估（"其他通路可能性"）</h4><p><span class="num">170 → 82</span> fibers，平均压缩 <span class="num">2.07×</span>；JAK-STAT 压缩最强（3.0×），mevalonate 最低——都与报告一致。开关型 / 通量型 / 中间型三类分类。</p></div></div>
+
+      <div class="mod exact"><span class="id">M15</span>
+        <div><h4>精确 Markevich 2004 米氏速率律 · 逐位复现</h4>
+        <p>取论文原始参数 + 竞争性 MM 速率律，复现双稳滞后窗口 <span class="crit">[39.25, 57.38] nM</span>——与报告<strong>完全一致</strong>；三个稳态的 M/Mp/Mpp 与 λ_max 逐位吻合。图注漏掉的 Km5 从 OFF 稳态反解得 <span class="num">≈78</span>，且同时满足两个方程（强验证）。</p></div>
+      </div>
+      <div class="mod exact"><span class="id">M16</span>
+        <div><h4>把精确 ERK 开关接回 DNB / 李雅普诺夫（真实分岔边界）</h4>
+        <p>用真实鞍结边界（不是玩具 fold）算临界慢化：逼近 39.25 nM 时 ON 支 <span class="mono">λ_max→0⁻</span>，恢复时间 <span class="num">τ≈4720 s</span>——与报告 Table 9 逐位吻合；DNB/SD/自相关同步爬升。M5→M9 那条"结合→占据→μ→LLE/DNB"链，底层至此换成真实 Markevich 开关。</p></div>
+      </div>
+    </section>
+
+    <!-- ============ Part IV ============ -->
+    <section id="p4">
+      <div class="part-label"><span>第四部分 · 真实验证与诚实的负结果</span><span class="rng">M17 – M18</span></div>
+      <h2 class="serif">在真实单细胞数据上验证——以及一个有信息量的"部分阴性"</h2>
+
+      <div class="mod real"><span class="id">M17</span>
+        <div><h4>真实单细胞 ERK 成像（Pertz 实验室 EKAR）</h4>
+        <p>234+339 个细胞的 FRET ERK 时序。<strong>lag-1 自相关在 ERK 激活前显著升高</strong>（0.632→0.654，<span class="num">p=0.0037</span>）= M16 预测方向；但<strong>方差不升</strong>，早期预警只对了一半。三个独立测试（逼近脉冲 / 剂量扫描 / 细胞分层）结论一致：<strong>可用剂量全在阈上，没有细胞坐在分岔边界</strong>。</p></div>
+      </div>
+
+      <div class="call warn">
+        <p class="t">⚠️ 穷尽式找"跨阈值"数据集的结论（负结果本身有信息量）</p>
+        <p>逐一实查 Pertz EGF/FGF（全阈上）、Goglia <span class="mono">idr0064</span>（单一 2.5 µM 剂量、单细胞时序未沉积、动态特征文件 404）、Albeck 实验室全部仓库（只有分析代码，无沉积的滴定时序）——<strong>公开数据里没有现成可用的"跨阈值单细胞 ERK 时序"</strong>。这是领域普遍模式：代码 / 图像共享多，带滴定梯度的现成轨迹表极少。</p>
+      </div>
+
+      <div class="call">
+        <p class="t ok">✅ M18 · 正对照：一锤定音地解决"是没信号还是方法瞎"</p>
+        <p>用逐位复现的 M15 当真值模型，模拟一次<strong>跨越真实分岔 [39.25, 57.38] nM 的 MEKi 滴定</strong>（含异质细胞 + Langevin 内噪 + 测量噪声），跑与 M17 完全相同的分析代码。结果：方差与自相关在近阈剂量出现清晰尖峰，峰值 <span class="crit">≈4.9× 基线</span>，与 τ 发散完全同步。<strong>结论：流水线是灵敏的，不是瞎的；M17 的阴性 = 那批数据从没靠近开关。</strong>并精确预言了跨阈滴定实验应给出的 ~5× 尖峰判据。</p>
+      </div>
+    </section>
+
+    <!-- ============ Part V ============ -->
+    <section id="p5">
+      <div class="part-label"><span>第五部分 · 迁移到全景</span><span class="rng">M19 – M22</span></div>
+      <h2 class="serif">从 ERK 一条，扩到 ~25 条通路、三类动力学失稳</h2>
+
+      <div class="mod"><span class="id">M19</span>
+        <div><h4>动力学引擎迁移到 10 条双稳开关 · <span class="num">10/10</span> 检出</h4>
+        <p>MAPK、Rb-E2F、凋亡、Cdc2、CaMKII、Wnt、Cdc42、lac、Schlögl、master-TF——全部在各自鞍结分岔处给出方差+自相关尖峰。<strong>临界慢化不是 MAPK 特有，而是鞍结分岔的普适性质。</strong></p></div>
+      </div>
+      <div class="mod"><span class="id">M20</span>
+        <div><h4>文献多变量模型 + 迟滞（honest 版）</h4>
+        <p>Rb-E2F（Yao 2008）与凋亡（Eissing 2004）升级为带真实反馈拓扑的多变量模型，复现迟滞环，λ→0 at folds。诚实边界：两文献不在开放 PMC，只复现拓扑而非逐位参数——这个缺口在 M20b 被填上。</p></div>
+      </div>
+      <div class="mod exact"><span class="id">M20b</span>
+        <div><h4>补上 M20 的诚实缺口 · 找到了下载精确策展模型的方法</h4>
+        <p>方法：BioModels 在 <span class="mono">biomodels</span> GitHub 组织有一模型一仓库的镜像，<span class="mono">raw.githubusercontent</span> 代理可达（官网 403），配 libRoadRunner 零转录误差加载。验证一：官方 Markevich SBML 里 <span class="crit">Km5=78.0</span>——正是 M15 反解出的值，独立确认；states 逐位对齐。验证二：Legewie2006 凋亡官方模型在 XIAP 合成 <span class="mono">k18prod∈[0.08,0.14]</span> 双稳如文献所载。</p></div>
+      </div>
+      <div class="mod"><span class="id">M21</span>
+        <div><h4>扩到振荡通路（Hopf 分岔）</h4>
+        <p>Goodwin（昼夜节律）/ p53-Mdm2 / Brusselator 全部在 Hopf 处 Re(λ)→0；逼近时方差升 <strong>且</strong>固有频率处谱峰锐化——早期预警签名<strong>不同于</strong>鞍结（要看功率谱，不是自相关）。</p></div>
+      </div>
+      <div class="mod"><span class="id">M22</span>
+        <div><h4>混合分岔 SNIC（鞍结坐落在极限环上）</h4>
+        <p>细胞周期 / 可兴奋系统型。有限幅度尖峰，但<strong>周期发散</strong>：<span class="mono">T~π/√I</span>，log-log 斜率 <span class="crit">−0.50</span>（匹配理论），频率→0，ISI 均值与变异系数齐涨。第三种、与 Hopf 和纯鞍结都不同的签名。</p></div>
+      </div>
+
+      <h3 class="serif">统一框架覆盖三类失稳</h3>
+      <div class="cover">
+        <div class="bcard">
+          <svg viewBox="0 0 200 76" aria-label="鞍结分岔 S 形滞后曲线">
+            <path d="M8,60 C60,60 70,58 100,44 C130,30 140,16 192,16" fill="none" stroke="var(--stable)" stroke-width="2.4"/>
+            <path d="M100,44 C120,50 140,54 192,54" fill="none" stroke="var(--ink-faint)" stroke-width="1.4" stroke-dasharray="3 3"/>
+            <circle cx="100" cy="44" r="3.5" fill="var(--critical)"/>
+          </svg>
+          <h4>鞍结 · 开关</h4>
+          <p class="sig">signature</p>
+          <p>方差↑、自相关↑、恢复时间↑，<strong>无振荡</strong>。双稳滞后。</p>
+          <p class="who">M4 · M15 · M16 · M18 · M19 · M20 · M20b</p>
+        </div>
+        <div class="bcard">
+          <svg viewBox="0 0 200 76" aria-label="Hopf 分岔：增长的振荡">
+            <path d="M8,44 C24,44 28,40 36,40 C48,40 50,44 62,44 C78,44 80,34 94,34 C112,34 112,52 130,52 C150,52 150,20 172,20 C186,20 188,56 196,56" fill="none" stroke="var(--critical)" stroke-width="2.2"/>
+          </svg>
+          <h4>Hopf · 时钟</h4>
+          <p class="sig">signature</p>
+          <p>方差↑ <strong>且固定频率处谱峰锐化</strong>（幅度→0）。看功率谱。</p>
+          <p class="who">M21 — Goodwin / p53 / Brusselator</p>
+        </div>
+        <div class="bcard">
+          <svg viewBox="0 0 200 76" aria-label="SNIC：周期发散的尖峰">
+            <path d="M8,58 L20,58 Q24,14 28,58 L74,58 Q80,14 86,58 L150,58 Q160,14 170,58 L196,58" fill="none" stroke="var(--stable)" stroke-width="2.2"/>
+          </svg>
+          <h4>SNIC · 可兴奋 / 细胞周期</h4>
+          <p class="sig">signature</p>
+          <p>同幅尖峰，<strong>周期→∞（频率→0）</strong>，ISI 均值+CV 齐涨。</p>
+          <p class="who">M22 — θ / Ermentrout-Kopell</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ Closing ============ -->
+    <section id="close">
+      <div class="part-label"><span>收官</span><span class="rng">交付了什么</span></div>
+      <h2 class="serif">从概念类比，到可计算、可测量、可迁移的 biomarker 框架</h2>
+
+      <div class="deliver">
+        <div class="dcard"><p class="n">01 · 结构</p><h4>不可约核心节点身份</h4><p>自同构 / 纤维化商网络给出的 pan-assay 代表读出（pERK1/2、pSTAT、pSMAD2/3…），先验可定。</p></div>
+        <div class="dcard"><p class="n">02 · 拓扑</p><h4>亏格 δ = 距双稳有多远</h4><p>整数不变量，纯由网络拓扑计算，决定通路"有没有资格"当开关。</p></div>
+        <div class="dcard"><p class="n">03 · 通量</p><h4>EFM 使用率 / 限速生成元</h4><p>代谢网络的不可约生成基，¹³C 通量组学可测。</p></div>
+        <div class="dcard"><p class="n">04 · 动力学</p><h4>λ / DNB / 方差·自相关</h4><p><strong>模型无关</strong>：只要有足够采样率的时序即可算，最适合临界跃迁 / 毒性预警。</p></div>
+      </div>
+
+      <div class="call">
+        <p class="t ok">✅ 三条支柱都做实了</p>
+        <p><strong>一、</strong>一套统一的临界慢化 biomarker 框架，覆盖 ~25 条通路 + 三类分岔（开关 / 时钟 / 可兴奋周期），且模型无关信号可直接落到时序数据上。<strong>二、</strong>逐位复现的精确文献模型（Markevich 到小数点），并找到通用的策展模型下载法（biomodels 镜像 + libRoadRunner），M15 得到官方 SBML 独立验证（Km5=78）。<strong>三、</strong>真实数据端到端跑通，正对照证明方法灵敏，并给出决定性实验的判据。</p>
+      </div>
+
+      <div class="call crit">
+        <p class="t">下一步 · 唯一的决定性实验</p>
+        <p>做一次 <strong>MEK 抑制剂滴定梯度</strong>（如 PD0325901 / Trametinib）的单细胞 ERK-KTR/EKAR live imaging，剂量<strong>跨越 ERK 关断阈值</strong>，让一部分细胞的稳态落进双稳 / 鞍结区间。预测：去趋势残差的方差与 lag-1 自相关在<strong>近阈剂量出现 ~5× 尖峰</strong>，深 ON / 深 OFF 处回落。M16→M18 流水线已就绪，拿到这种数据即可直接判定那个李雅普诺夫 biomarker 假设。</p>
+      </div>
+
+      <div class="call warn">
+        <p class="t">⚠️ 全程守住的诚实边界</p>
+        <p>严格的（✅）：自同构 / 纤维化压缩、CRNT δ、EFM、λ 算法（Rössler 验证）、Markevich 逐位复现、10/10 迁移、三类分岔几何、官方模型下载与验证、真实数据统计量。待验证的假设（⚠️）："λ 变号 ⇒ 凋亡 / 毒性"需实验标定；E→μ 是单调示意耦合；PK 用近似标签值；跨阈单细胞数据尚未拿到，故临界慢化 biomarker <strong>仍未被决定性证实</strong>——这是当前真实状态。</p>
+      </div>
+    </section>
+
+    <!-- ============ Ledger ============ -->
+    <section id="ledger">
+      <div class="part-label"><span>附录</span><span class="rng">22 模块严格性台账</span></div>
+      <h2 class="serif">每个模块，一行，带严格性标注</h2>
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>模块</th><th>数学工具 / 内容</th><th>关键结果</th><th>严格性</th></tr></thead>
+          <tbody>
+            <tr><td class="mono">M1</td><td>图自同构 → 商</td><td>|Aut|=S₃；9→7 节点</td><td><span class="tag ok">严格</span></td></tr>
+            <tr><td class="mono">M2</td><td>CRNT 亏格 δ</td><td>δ=0 单稳 / δ=1 双稳</td><td><span class="tag ok">严格</span></td></tr>
+            <tr><td class="mono">M3</td><td>初等通量模式</td><td>3 个不可约生成元</td><td><span class="tag ok">严格</span></td></tr>
+            <tr><td class="mono">M4</td><td>DNB / 临界慢化 / LLE</td><td>Rössler +0.0737；λ→0 at fold</td><td><span class="tag ok">严格</span> + <span class="tag hy">假设</span></td></tr>
+            <tr><td class="mono">M5</td><td>真实靶点对称破缺</td><td>S₃→S₂；1217× 选择性</td><td><span class="tag ok">严格</span></td></tr>
+            <tr><td class="mono">M6</td><td>结合 → 网络稳定性</td><td>ChEMBL+Boltz→DNB</td><td><span class="tag ok">严格</span> + <span class="tag hy">示意耦合</span></td></tr>
+            <tr><td class="mono">M7</td><td>Boltz 小分子筛选</td><td>10 配体真跑排序</td><td><span class="tag ok">严格</span></td></tr>
+            <tr><td class="mono">M8</td><td>映射临床终点</td><td>CodeBreaK-100 对齐</td><td><span class="tag ok">严格</span></td></tr>
+            <tr><td class="mono">M9</td><td>占据率标定 μ</td><td>98% 占据 → 近临界</td><td><span class="tag ok">严格</span> + <span class="tag hy">PK 近似</span></td></tr>
+            <tr><td class="mono">M10</td><td>Boltz vs 实测 IC50</td><td>opt_score ρ=+0.6；纠正 M7</td><td><span class="tag ok">严格</span></td></tr>
+            <tr><td class="mono">M11</td><td>输入树纤维化</td><td>27→11 fibers</td><td><span class="tag ok">严格</span></td></tr>
+            <tr><td class="mono">M12</td><td>ERK 双磷酸核心</td><td>δ=2；双稳；2 futile cycles</td><td><span class="tag ok">严格</span></td></tr>
+            <tr><td class="mono">M13</td><td>FIM / sloppy / stiff</td><td>38 数量级；比值型胜出</td><td><span class="tag ok">严格</span></td></tr>
+            <tr><td class="mono">M14</td><td>18 通路图谱</td><td>平均 2.07×；JAK-STAT 顶</td><td><span class="tag ok">严格</span> + <span class="tag hy">分类假设</span></td></tr>
+            <tr><td class="mono">M15</td><td>精确 Markevich MM</td><td>窗口 [39.25,57.38]；逐位复现</td><td><span class="tag ok">严格</span></td></tr>
+            <tr><td class="mono">M16</td><td>接回 DNB/LLE 真边界</td><td>τ≈4720s；对齐 Table 9</td><td><span class="tag ok">严格</span></td></tr>
+            <tr><td class="mono">M17</td><td>真实单细胞 EKAR 验证</td><td>AR1↑ p=0.0037；方差平（部分）</td><td><span class="tag ok">严格</span> · 诚实负结果</td></tr>
+            <tr><td class="mono">M18</td><td>正对照 · 跨阈滴定</td><td>近阈 ~4.9× 尖峰</td><td><span class="tag ok">严格</span> · 机理仿真</td></tr>
+            <tr><td class="mono">M19</td><td>迁移 10 双稳开关</td><td>10/10 检出</td><td><span class="tag ok">严格</span></td></tr>
+            <tr><td class="mono">M20</td><td>多变量文献 + 迟滞</td><td>迟滞环；λ→0</td><td><span class="tag ok">严格</span> + <span class="tag hy">仅拓扑</span></td></tr>
+            <tr><td class="mono">M20b</td><td>精确策展模型下载+仿真</td><td>Km5=78 确认；Legewie 双稳</td><td><span class="tag ok">严格</span> · 独立验证</td></tr>
+            <tr><td class="mono">M21</td><td>振荡通路 Hopf</td><td>Re(λ)→0；谱峰锐化</td><td><span class="tag ok">严格</span></td></tr>
+            <tr><td class="mono">M22</td><td>SNIC 混合分岔</td><td>T~π/√I；斜率 −0.50</td><td><span class="tag ok">严格</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <footer>
+      <hr class="rule">
+      <p style="margin-top:22px"><strong style="color:var(--ink)">grn-pipeline</strong> · 22 个模块，从群论对称到 SNIC 分岔，把"数学能不能用在生物网络上"从类比做成了可复核的计算。完整代码与逐模块细节见仓库 <span class="mono">README.md</span> / <span class="mono">REPORT.md</span>；运行 <span class="mono">python3 -m grn_pipeline.run_all</span> 复现全部数字与图。</p>
+      <p style="margin-top:10px; color:var(--ink-faint)">图例：<span style="color:var(--good)">✅ 严格</span> = 确定性计算 / 逐位复现 / 实测统计量　·　<span style="color:var(--warn)">⚠️ 假设</span> = 待实验标定的可检验命题。所有严格性标注在本页与仓库报告中一致。</p>
+    </footer>
+
+  </main>
+</div>
+</div>
