@@ -137,3 +137,48 @@ Feinberg 亏格零定理:δ=0 且弱可逆 ⇒ 对**任意**速率常数唯一�
 - **Clinical Trials** — 把候选 biomarker 对到已有试验终点。
 
 告诉我你想先接哪一个真实系统(比如某条具体通路、某个药靶),我可以把玩具网络换成真实数据再跑一遍。
+
+---
+
+## M5 + M6 — 真实数据接入:KRAS G12C + 共价抑制剂
+
+已用本会话连接的数据库,把玩具网络换成**真实靶点**跑了一遍(`m5_kras_real.py`, `m6_integrate.py`)。
+
+**数据来源(全部本会话实时拉取):**
+
+| 来源 | 内容 |
+|---|---|
+| ChEMBL | 靶点 KRAS G12C(CHEMBL2189121, UniProt P01116);sotorasib(AMG-510, CHEMBL4535757)、adagrasib(MRTX849, CHEMBL4594350)机制 + IC50 |
+| Inductive Bio | logD / 酸碱 pKa 预测 |
+| Boltz-2.1 | sotorasib、adagrasib 与 KRAS G12C 的结构 + 结合预测(真跑,各 $0.05) |
+
+**M5 — 真实靶点邻域 + 对称性破缺(核心结果):**
+
+- 三个 RAS 旁系(HRAS/KRAS/NRAS)在真实 KRAS 信号邻域(EGFR→RAS→RAF/PI3K→MAPK/AKT + ERK 负反馈,12 节点)里仍是对称轨道:**|Aut| = 6 = S₃**。
+- G12C 共价药**只结合 KRAS 节点**,把它标记为不同 → **对称性破缺:S₃(6) → S₂(2)**,只剩 HRAS/NRAS 可互换。
+- sotorasib 的 **~1217× G12C-vs-G12S 选择性**(30 nM vs 36,500 nM,ChEMBL 真实数据)正是这个"节点区分 = 对称破缺"操作的实验签名。
+
+> **这是全流程里最漂亮的一步**:靶向共价药的选择性,在数学上就是对调控图做了一次对称群约化 S₃→S₂。
+
+**M5 — Boltz-2.1 真实结合预测:**
+
+| 药 | 结构置信度 | 界面 iPTM | binding_confidence | optimization_score |
+|---|---|---|---|---|
+| Sotorasib | 0.909 | 0.974 | 0.879 | 0.423 |
+| Adagrasib | 0.924 | 0.981 | 0.958 | 0.611 |
+
+两者都高置信结合 KRAS G12C(与"都是已批准共价 G12C 抑制剂"一致)。注意:`binding_confidence` 是置信度型分数,**不是** kcal/mol 的 ΔG。
+
+**M6 — 把真实结合接到网络稳定性 biomarker:**
+
+- 把 ChEMBL pIC50(功能)+ Boltz optimization_score(结构)合成"靶点占据强度 E ∈ [0,1]",单调映射到 M4 的扰动参数 μ,读出预测的 LLE / DNB。
+- 结果:sotorasib E=0.56、adagrasib E=0.61 → 两者都落在稳定谷(μ≈0.5,远未到 μ≈0.85 的 fold)。**DNB 是单调判别量**:adagrasib(0.006)> sotorasib(0.005),与其更强的 Boltz 结合一致。
+- 模型说:要把 KRAS-ON 核心推到凋亡临界点,需要**接近完全的靶点占据(E→1)**。图见 `figures/m6_integrated.png`。
+
+> 严格性:✅ 结合数字(ChEMBL/Boltz/Inductive Bio)、对称破缺(S₃→S₂)、M4 稳定曲线都是实算。
+> ⚠️ E→μ 的映射是**显式单调的示意耦合**,不是标定过的剂量模型;真实的是结合数据、稳定曲线、以及它们诱导的排序。
+
+**下一步可做**(告诉我选哪个):
+1. 用 Boltz 的 `optimization_score` 对一批 G12C 类似物做排序(小分子筛选),找结合更强的候选;
+2. 接 ClinicalTrials 把 biomarker 对到真实试验终点;
+3. 把 M4 的 μ 用真实靶点占据率(药代 + IC50)标定,做成可定量的毒性/疗效预警。
