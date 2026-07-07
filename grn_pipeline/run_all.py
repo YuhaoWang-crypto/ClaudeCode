@@ -12,7 +12,8 @@ from grn_pipeline import (m1_symmetry, m2_crnt, m3_efm, m4_dnb_lyapunov,
                           m8_clinical, m9_occupancy, m10_validate,
                           m11_fibration, m12_dualphos, m13_fim_sloppy,
                           m14_atlas, m15_markevich_mm, m16_erk_dnb,
-                          m18_titration_benchmark)
+                          m18_titration_benchmark,
+                          m19_switch_library)
 
 
 def main():
@@ -43,6 +44,7 @@ def main():
         r17 = None
         print(f"M17 real-data validation skipped ({type(e).__name__}: {e})\n")
     r18 = m18_titration_benchmark.report();  print()
+    r19 = m19_switch_library.report();       print()
 
     print("=" * 68)
     print("CONSOLIDATED SUMMARY")
@@ -97,6 +99,10 @@ def main():
         print(f"M18 positive ctl: simulated MEKi titration across the real "
               f"bifurcation -> variance & autocorr PEAK near threshold "
               f"({r18['peak_ratio']:.1f}x) -> pipeline is sensitive, not blind")
+    if r19:
+        print(f"M19 migration: critical-slowing engine applied to "
+              f"{len(r19['results'])} pathway switches; {r19['n_detected']} "
+              f"show the variance/autocorr peak at their saddle-node")
     print("\nAbstract, measurable biomarker candidates produced:")
     print("  * irreducible-core node identity        (M1 quotient)")
     print("  * deficiency delta / distance-to-bistability (M2)")
