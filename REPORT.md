@@ -425,3 +425,19 @@ v4 = k4cat·P·(Mp/Km4) / (1 + Mpp/Km3 + Mp/Km4 + M/Km5)  Mp → M
 > 需要一个**MEK 抑制剂(或 EGF)剂量梯度**、单细胞 ERK-KTR/EKAR 时序,且剂量要**跨越 ERK 关断阈值**(让一部分细胞的稳态 ERK 落在双稳/鞍结区间)。预测:去趋势残差的 lag-1 自相关和方差在**近阈剂量处出现峰值**,深 ON / 深 OFF 处回落。数据可在 IDR 的 Goglia 图像上重新 tracking,或在 MEKi 梯度下新做一批 live-cell 成像。M16→M17 的流水线已就绪,拿到这种数据即可直接判定。
 
 > 严格性:✅ 三个真实数据测试都是实算;数据可获取性结论基于实际列目录(jsDelivr/raw)与文件探查。⚠️ 未能拿到跨阈值数据,故"临界慢化 biomarker"仍是**未被决定性证实**——这是当前真实状态。
+
+### IDR 深查结论(Goglia 数据集的具体 accession 与可下载性)
+
+按要求实际查了 IDR(Image Data Resource),用 API + 附件逐一核实:
+
+- **Accession**:`idr0064-goglia-erkdynamics`,IDR **screen 2351**;Goglia et al. 2020 *Cell Systems*,PMID 32191874,DOI 10.1016/j.cels.2020.02.005,**CC BY 4.0**(开放许可)。小鼠角质细胞,ERK-KTR(KTR-BFP)+ H2B-RFP,2–3 min 间隔活细胞成像,9 块板。
+- **可下载的**:① 原始 TIFF 图像(在 IDR,量大);② well→药物注释表(`idr0064-screenA-annotation.csv`,可 raw 直取)。
+- **致命点 1 — 没有剂量梯度**:注释表 + study 协议都确认,**所有 ~430 个药(含全部 MEK/RAF/ERK 抑制剂:Trametinib、PD0325901、Selumetinib、Cobimetinib…)都只用单一 2.5 µM 剂量**。这是"一药一剂量"的广撒网筛选,不是滴定,**不跨越阈值**。
+- **致命点 2 — 单细胞时序没有存**:协议写明单细胞轨迹是 TrackMate 的 `.txt`(与 TIFF 配对),**未作为表格沉积**;要拿到得下多 GB 图像重跑分割/追踪/MATLAB 流程。
+- **致命点 3 — 连 well 级动态特征也拿不到**:study.txt 说的处理结果 `drug_test_noEQ.mat`(含 `mean_acorr` 自相关、`mean_a` ERK 活性等)在 GitHub 仓库是 **404**,IDR 唯一的附件 `bulk_annotations`(340 KB,HDF5 OMERO.table)里**只有药物映射列,没有这些动态特征列**。GitHub 仓库只放了一个测试 well(`test_24h.mat`)。
+
+**最终判定**:Goglia/idr0064 虽然开放且是完美的科学场景,但(单剂量 + 只沉积原始图像 + 动态特征未开放)**不能提供现成的"跨阈值单细胞 ERK 时序"**。用它需要:下载 IDR 图像 → 重跑 TrackMate + 分析流程(离线大工程),而且即便重跑,单剂量本身也**不构成阈值梯度**。
+
+**因此,决定性验证的现实路径只有两条**:
+1. **新做实验**:MEKi(如 PD0325901/Trametinib)**滴定梯度** + 单细胞 ERK-KTR live imaging,剂量跨越关断阈值;M16→M17 流水线已就绪,拿到即判。
+2. 找**别的**已公开、带滴定梯度且沉积了单细胞时序的数据集(本轮在 Pertz/Goglia/IDR 范围内未找到;可继续扩大到 Albeck 实验室 EGF 滴定的 MCF10A ERK-KTR 时序等,但需逐个核实沉积格式)。
