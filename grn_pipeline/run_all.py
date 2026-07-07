@@ -35,6 +35,12 @@ def main():
     r14 = m14_atlas.report();           print()
     r15 = m15_markevich_mm.report();    print()
     r16 = m16_erk_dnb.report();         print()
+    try:
+        from grn_pipeline import m17_realdata
+        r17 = m17_realdata.report();    print()
+    except Exception as e:              # needs network for the real data
+        r17 = None
+        print(f"M17 real-data validation skipped ({type(e).__name__}: {e})\n")
 
     print("=" * 68)
     print("CONSOLIDATED SUMMARY")
@@ -81,6 +87,10 @@ def main():
               f"(report 39.25-57.38); 3-state table reproduced to the decimal")
     print(f"M16 ERK-DNB  : at the real saddle-nodes lambda_max->0 (tau~4700s), "
           f"SD/autocorr/DNB rise -> early warning on the true ERK switch")
+    if r17:
+        print(f"M17 real data: on real single-cell EKAR traces, lag-1 autocorr "
+              f"rises before ERK pulses (p={r17['fgf']['p_ar']:.1g}); variance "
+              f"flat; EGF doses all supra-threshold (partial validation)")
     print("\nAbstract, measurable biomarker candidates produced:")
     print("  * irreducible-core node identity        (M1 quotient)")
     print("  * deficiency delta / distance-to-bistability (M2)")
