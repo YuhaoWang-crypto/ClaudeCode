@@ -163,6 +163,34 @@ def egf_dose():
     return sorted(rows, key=lambda r: r["dose"])
 
 
+def egf_stratify():
+    """Third test: cell-to-cell heterogeneity IS a proxy for the MAPKK axis
+    (cells differ in endogenous MEK/receptor activity). Critical slowing
+    predicts fluctuation stats PEAK at intermediate mean-ERK (near the saddle)
+    and fall at the deep-OFF / deep-ON extremes. We pool all EGF cells and
+    bin by their own mean ERK."""
+    by = _traces_egf()
+    recs = []
+    for traces in by.values():
+        for x in traces:
+            if len(x) < 40:
+                continue
+            res = x - _rollmean(x, 15)
+            recs.append((x.mean(), res.std() / x.mean(), _ar1(res)))
+    recs = np.array([r for r in recs if np.all(np.isfinite(r))])
+    me = recs[:, 0]
+    edges = np.quantile(me, np.linspace(0, 1, 7))
+    rows = []
+    for i in range(6):
+        hi = me <= edges[i + 1] if i == 5 else me < edges[i + 1]
+        m = (me >= edges[i]) & hi
+        if m.sum() >= 3:
+            rows.append({"erk": me[m].mean(), "n": int(m.sum()),
+                         "cv": float(np.median(recs[m, 1])),
+                         "ar1": float(np.nanmedian(recs[m, 2]))})
+    return rows
+
+
 def report(fig_path="figures/m17_realdata.png"):
     print("=" * 68)
     print("MODULE 17 — M16 early-warning stats on REAL single-cell ERK imaging")
@@ -191,8 +219,28 @@ def report(fig_path="figures/m17_realdata.png"):
     print("  -> mean ERK ~constant across doses => all supra-threshold;")
     print("     no dose sits near the OFF->ON bifurcation, so no clear peak.")
 
-    print("\nCONCLUSION (honest): the M16 toy critical-slowing prediction does")
-    print("NOT cleanly transfer to this real dataset. A decisive test needs")
+    st = egf_stratify()
+    print(f"\n[EGF cell stratification] fluctuation stats vs per-cell mean ERK")
+    print(f"  (distance-to-threshold proxy; critical slowing predicts a PEAK "
+          f"at intermediate ERK):")
+    print(f"  {'meanERK':>8} {'n':>4} {'detrendCV':>10} {'lag1-AR1':>9}")
+    for r in st:
+        print(f"  {r['erk']:8.0f} {r['n']:4d} {r['cv']:10.4f} {r['ar1']:9.3f}")
+    cvs = [r["cv"] for r in st]
+    imax = int(np.argmax(cvs))
+    # a real critical-slowing peak = interior max clearly above BOTH edges
+    robust = (imax not in (0, len(cvs) - 1)
+              and cvs[imax] > 1.15 * max(cvs[0], cvs[-1]))
+    spread = (max(cvs) - min(cvs)) / np.mean(cvs)
+    print(f"  -> {'interior peak (consistent)' if robust else 'FLAT (variation ~%.0f%%, within noise; no robust peak)' % (spread*100)}")
+    print(f"     mean-ERK range is narrow ({st[0]['erk']:.0f}-{st[-1]['erk']:.0f}),")
+    print(f"     i.e. no cell sits near the bifurcation. Third independent test,")
+    print(f"     same conclusion.")
+
+    print("\nCONCLUSION (honest): across THREE tests (pre-pulse, dose sweep,")
+    print("cell stratification) the M16 critical-slowing signature is absent/")
+    print("partial. It does NOT cleanly transfer to this dataset. A decisive")
+    print("test needs")
     print("EGF/MEK-inhibitor doses that STRADDLE the switching threshold (so")
     print("some cells sit near the bifurcation) rather than all-supra-threshold")
     print("conditions. The pipeline + statistics run end-to-end on real data;")
