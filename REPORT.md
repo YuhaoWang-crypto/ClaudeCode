@@ -254,3 +254,57 @@ Feinberg 亏格零定理:δ=0 且弱可逆 ⇒ 对**任意**速率常数唯一�
 > **这就是"计算 vs 实验"验证的价值**:它暴露了一个真实陷阱——Boltz 有两个分数,`binding_confidence` 是"位姿有多可信",`optimization_score` 才是"结合有多强"。拿错分数排序会得到与实验相反的结论。
 >
 > 诚实边界:实测 IC50 **测定方法不齐**(细胞 pERK vs 生化交换)、共价药 IC50 有时间依赖、n=5 偏小。干净的同测定子集(MIAPaCa2 pERK, n=3)给 bind_conf ρ=−0.5 / opt_score ρ=+0.5,趋势一致。
+
+---
+
+## M11–M14 — 结合上传报告补足的四块 + 系统评估 + 其他通路
+
+上传的《不可约网络核心与 Biomarker 原型分析报告》里有四个我之前**没做**的方法。全部补上,并对齐报告数字。
+
+### M11 — 输入树纤维化 / Fiber Representatives(Morone-Leifer-Makse 2020)
+
+我之前只做了**图自同构**(全局对称,只抓到严格的 RAS S₃ 轨道)。报告用的是更一般的**输入树纤维化**:只要两节点上游输入结构等价就归入同一 fiber → 同步 → 用一个代表读出。实现为**最小平衡染色**(按角色种子 + 按入边迭代细化)。
+
+- 展开 MAPK 图 **27 节点 → 11 fibers(2.45×)**,一次抓到全部 9 层旁系(RAS/RAF/MEK/ERK/RSK/DUSP/SOS/ligand/TF)。
+- 每个 fiber → 一个 pan-assay 代表读出(MAPK1/MAPK3 → pERK1/2 等)。
+- 与报告 27→14 的差异:报告加了**输出约束**(按转录靶点拆分 TF),我做的是纯输入纤维化(把 6 个 TF 合成一类,更激进)。机制一致。
+
+### M12 — 真实 ERK 双位点磷酸化核心(Markevich / BioModels BIOMD27)
+
+之前 M2 用玩具 Schlögl(δ=1)。这里建了真实的**有序分布式双磷酸化质量作用网络**,复现报告头条结果:
+
+- **CRNT 亏格 δ = 2**(n=10, l=2, s=6)——**与报告精确一致**;deficiency-zero 唯一性不适用 → 允许多稳态。
+- **双稳态实测**:扫总激酶(MAPKK 类比),Ktot≈100 处**两个稳定态共存**(Mpp OFF≈125 / ON≈286 nM,中间不稳定鞍点)→ δ=2 核心是真正的 ERK 开关。
+- **EFM = 两个耦合 futile cycles**(M↔Mp、Mp↔Mpp),非线性通路——与报告一致。
+
+> 诚实边界:我的质量作用常数给出的滞后窗口很窄(近乎不连续开关);报告的 MAPKK≈39–57 nM 宽窗口来自精确 Markevich 米氏速率律。δ=2 与双稳存在性都是实算。
+
+### M13 — FIM / Sloppy Model / Stiff Axes(Gutenkunst-Sethna 2007)
+
+报告核心的 **biomarker 选择方法**,之前完全没做。对 ERK 双磷酸模型算输出对 log-参数敏感度,构 FIM = SᵀS 特征分解:
+
+- **Sloppy 谱**:特征值跨约 **38 个数量级**,前 3 个 stiff 轴携带 ~100% 敏感度。
+- **Stiff 轴 1 = Ktot / k1 / k4**(激酶驱动 vs 去磷酸化容量)——对应报告"MEK drive : DUSP capacity"。
+- **可测量排序**(无量纲相对敏感度公平比较):**flux/state ratio(Mpp/M)排第 1**,高于单一浓度 → **比值型 biomarker 更贴合刚性方向、更可辨识**——正是报告结论。
+
+> 关键修正:第一版用绝对敏感度,单一浓度因量纲(nM)虚高而"胜出",与报告矛盾;改成无量纲相对敏感度后比值型胜出,与报告一致。
+
+### M14 — 20 条通路系统评估("其他通路可能性")
+
+**18 条通路**各编码成带符号级联(真实旁系家族 + 反馈),用 M11 纤维化**计算**压缩比,整合报告 biomarker 分类:
+
+- 总 **170 节点 → 82 fibers,平均压缩 2.07×**。
+- **JAK-STAT 压缩最强(3.0×)**——与报告 3.12× 排第一一致;mevalonate 最低(1.33×,HMGCR 单节点刚性阀)——也与报告一致。
+- **开关分类**:4 条 switch-like(MAPK、apoptosis、TCR-NFAT、p53,CRNT-双稳候选)、4 条 flux-state(HIF、glycolysis、insulin、mevalonate,EFM/分支比更合适)、10 条 medium(反馈/超敏,需动力学验证)。
+
+图:`m13_sloppy.png`、`m14_atlas.png`。
+
+### 系统评估小结:三类最抽象可检测参数
+
+最稳健的 biomarker **不是单个最高表达基因**,而是三类的组合:
+1. **Fiber 代表读出**(M11/M14):一个 pan-assay 覆盖整层旁系(pERK1/2、pSTAT、pSMAD2/3、nuclear YAP)。
+2. **Stiff-axis 比值**(M13):激活臂 : 刹车臂(ppERK/(pERK+ppERK)、pSTAT/SOCS、pSMAD/SMAD7)。
+3. **DNB 临界波动模块**(M4/M12):临界前方差/相关/恢复时间异常(pERK-DUSP6-FOS、TP53-MDM2-PUMA)。
+
+> 严格性:✅ 纤维化压缩、CRNT δ=2、双稳存在性、FIM sloppy 谱、18 通路压缩比都是实算。
+> ⚠️ M12 宽滞后窗口需 MM 速率律;M14 biomarker 文字字段是报告+通路知识策展,压缩比是本模块计算值;开关类型是假设生成,需实验验证。

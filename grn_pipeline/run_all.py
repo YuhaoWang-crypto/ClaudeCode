@@ -9,7 +9,9 @@ Pipeline:
 """
 from grn_pipeline import (m1_symmetry, m2_crnt, m3_efm, m4_dnb_lyapunov,
                           m5_kras_real, m6_integrate, m7_screen,
-                          m8_clinical, m9_occupancy, m10_validate)
+                          m8_clinical, m9_occupancy, m10_validate,
+                          m11_fibration, m12_dualphos, m13_fim_sloppy,
+                          m14_atlas)
 
 
 def main():
@@ -27,6 +29,10 @@ def main():
     m8_clinical.report();               print()
     r9 = m9_occupancy.report();         print()
     r10 = m10_validate.report();        print()
+    r11 = m11_fibration.report();       print()
+    r12 = m12_dualphos.report();        print()
+    r13 = m13_fim_sloppy.report();      print()
+    r14 = m14_atlas.report();           print()
 
     print("=" * 68)
     print("CONSOLIDATED SUMMARY")
@@ -57,6 +63,16 @@ def main():
     print(f"M10 validate : Boltz opt_score tracks ChEMBL potency "
           f"(rho={r10['rho_opt_score']:+.2f}) but binding_confidence does not "
           f"(rho={r10['rho_bind_conf']:+.2f})")
+    print(f"M11 fibration: input-tree fibration compresses MAPK "
+          f"{r11['n_nodes']}->{r11['n_fibers']} fibers "
+          f"(generalises M1 automorphism)")
+    print(f"M12 dualphos : real ERK double-phospho core has CRNT deficiency="
+          f"{r12['deficiency']} and is bistable (matches report)")
+    print(f"M13 FIM      : sloppy spectrum spans {r13['orders']:.0f} orders; "
+          f"flux-ratio observables load best on the stiff axis")
+    print(f"M14 atlas    : {len(r14['rows'])} pathways, mean compression "
+          f"{sum(r['compression'] for r in r14['rows'])/len(r14['rows']):.2f}x; "
+          f"JAK-STAT most compressible")
     print("\nAbstract, measurable biomarker candidates produced:")
     print("  * irreducible-core node identity        (M1 quotient)")
     print("  * deficiency delta / distance-to-bistability (M2)")
