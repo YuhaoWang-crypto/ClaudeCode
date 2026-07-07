@@ -11,7 +11,8 @@ from grn_pipeline import (m1_symmetry, m2_crnt, m3_efm, m4_dnb_lyapunov,
                           m5_kras_real, m6_integrate, m7_screen,
                           m8_clinical, m9_occupancy, m10_validate,
                           m11_fibration, m12_dualphos, m13_fim_sloppy,
-                          m14_atlas, m15_markevich_mm, m16_erk_dnb)
+                          m14_atlas, m15_markevich_mm, m16_erk_dnb,
+                          m18_titration_benchmark)
 
 
 def main():
@@ -41,6 +42,7 @@ def main():
     except Exception as e:              # needs network for the real data
         r17 = None
         print(f"M17 real-data validation skipped ({type(e).__name__}: {e})\n")
+    r18 = m18_titration_benchmark.report();  print()
 
     print("=" * 68)
     print("CONSOLIDATED SUMMARY")
@@ -91,6 +93,10 @@ def main():
         print(f"M17 real data: on real single-cell EKAR traces, lag-1 autocorr "
               f"rises before ERK pulses (p={r17['fgf']['p_ar']:.1g}); variance "
               f"flat; EGF doses all supra-threshold (partial validation)")
+    if r18:
+        print(f"M18 positive ctl: simulated MEKi titration across the real "
+              f"bifurcation -> variance & autocorr PEAK near threshold "
+              f"({r18['peak_ratio']:.1f}x) -> pipeline is sensitive, not blind")
     print("\nAbstract, measurable biomarker candidates produced:")
     print("  * irreducible-core node identity        (M1 quotient)")
     print("  * deficiency delta / distance-to-bistability (M2)")
