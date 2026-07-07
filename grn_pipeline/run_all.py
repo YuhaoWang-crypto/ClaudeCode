@@ -9,7 +9,7 @@ Pipeline:
 """
 from grn_pipeline import (m1_symmetry, m2_crnt, m3_efm, m4_dnb_lyapunov,
                           m5_kras_real, m6_integrate, m7_screen,
-                          m8_clinical, m9_occupancy)
+                          m8_clinical, m9_occupancy, m10_validate)
 
 
 def main():
@@ -26,6 +26,7 @@ def main():
     r7 = m7_screen.report();            print()
     m8_clinical.report();               print()
     r9 = m9_occupancy.report();         print()
+    r10 = m10_validate.report();        print()
 
     print("=" * 68)
     print("CONSOLIDATED SUMMARY")
@@ -53,6 +54,9 @@ def main():
     print(f"M9  occupancy: at approved exposure occupancy="
           f"{r9['occ_label']*100:.0f}% -> mu={r9['mu_label']:.2f} (near "
           f"tipping) -> DNB={r9['dnb_label']:.3f}")
+    print(f"M10 validate : Boltz opt_score tracks ChEMBL potency "
+          f"(rho={r10['rho_opt_score']:+.2f}) but binding_confidence does not "
+          f"(rho={r10['rho_bind_conf']:+.2f})")
     print("\nAbstract, measurable biomarker candidates produced:")
     print("  * irreducible-core node identity        (M1 quotient)")
     print("  * deficiency delta / distance-to-bistability (M2)")

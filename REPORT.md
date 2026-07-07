@@ -228,3 +228,29 @@ Feinberg 亏格零定理:δ=0 且弱可逆 ⇒ 对**任意**速率常数唯一�
 
 > 严格性:✅ Boltz 筛选、ChEMBL IC50、临床终点结构、占据/稳定曲线都是实算。
 > ⚠️ PK 的 Cmax/fu 是近似标签值(已标注),occ→μ 是单调标定框架,待真实试验 PK 精调。
+
+---
+
+## M10 — 用 ChEMBL 实测活性验证 Boltz 排序(计算预测 vs 实验真值)
+
+把 M7 里那 4 个"结合超过 sotorasib"的类似物 + 两个上市药,拉它们 ChEMBL 对 KRAS G12C 的**实测 IC50**,检验 Boltz 排序准不准。
+
+| 分子 | 实测 IC50 | pIC50 | Boltz bind_conf | Boltz opt_score | 测定方法 |
+|---|---|---|---|---|---|
+| CHEMBL4539214 | **11 nM** | 7.96 | 0.909 | 0.463 | A: MIAPaCa2 pERK |
+| adagrasib | 14 nM | 7.85 | 0.952 | 0.593 | NCI-H358 pERK |
+| **sotorasib** | 30 nM | 7.52 | 0.878 | 0.419 | A: MIAPaCa2 pERK |
+| CHEMBL4441771 | 128 nM | 6.89 | 0.918 | 0.426 | A: MIAPaCa2 pERK |
+| CHEMBL5918612 | **419 nM** | 6.38 | 0.927 | 0.420 | 生化核苷酸交换 |
+
+**关键发现(诚实、重要——推翻了 M7 的初步结论):**
+
+- **binding_confidence(位姿置信度)不预测活性**:Spearman **ρ = −0.20**。它把 419 nM 的弱结合物 CHEMBL5918612 排到第 2(bind_conf 0.927 > sotorasib 0.878),把最强的 11 nM CHEMBL4539214 排到靠后。**所以 M7 里"4 个类似物结合都超过 sotorasib"的说法在实验上站不住脚**——那是用错了指标。
+- **optimization_score(亲和力向指标)才对**:Spearman **ρ = +0.60**。这才是该拿来排序的 Boltz 指标。
+- 真正在**同一测定方法**下比 sotorasib 更强的,只有 **CHEMBL4539214(11 nM vs 30 nM)**一个——Boltz 的 opt_score 也确实给它排在 sotorasib 之上。
+
+图 `figures/m10_validation.png`:左图 bind_conf 散点几乎无关(ρ=−0.2),右图 opt_score 明显正相关(ρ=+0.6)。
+
+> **这就是"计算 vs 实验"验证的价值**:它暴露了一个真实陷阱——Boltz 有两个分数,`binding_confidence` 是"位姿有多可信",`optimization_score` 才是"结合有多强"。拿错分数排序会得到与实验相反的结论。
+>
+> 诚实边界:实测 IC50 **测定方法不齐**(细胞 pERK vs 生化交换)、共价药 IC50 有时间依赖、n=5 偏小。干净的同测定子集(MIAPaCa2 pERK, n=3)给 bind_conf ρ=−0.5 / opt_score ρ=+0.5,趋势一致。
