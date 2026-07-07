@@ -14,7 +14,7 @@ from grn_pipeline import (m1_symmetry, m2_crnt, m3_efm, m4_dnb_lyapunov,
                           m14_atlas, m15_markevich_mm, m16_erk_dnb,
                           m18_titration_benchmark,
                           m19_switch_library, m20_literature_bistable,
-                          m21_oscillators)
+                          m21_oscillators, m22_snic_mixed)
 
 
 def main():
@@ -48,6 +48,13 @@ def main():
     r19 = m19_switch_library.report();       print()
     r20 = m20_literature_bistable.report(); print()
     r21 = m21_oscillators.report();          print()
+    try:
+        from grn_pipeline import m20b_biomodels_exact
+        r20b = m20b_biomodels_exact.report(); print()
+    except Exception as e:               # needs network + libroadrunner
+        r20b = None
+        print(f"M20b exact-biomodels skipped ({type(e).__name__}: {e})\n")
+    r22 = m22_snic_mixed.report();           print()
 
     print("=" * 68)
     print("CONSOLIDATED SUMMARY")
@@ -115,6 +122,13 @@ def main():
         print(f"M21 oscillators: Hopf extension - Goodwin/p53-Mdm2/Brusselator "
               f"cross a Hopf; approaching it variance rises AND a spectral peak "
               f"emerges at the intrinsic frequency (distinct from saddle-node)")
+    if r20b:
+        print(f"M20b exact  : fetched official BioModels via GitHub mirror + "
+              f"libRoadRunner; Markevich Km5={r20b['km5']} confirms M15, "
+              f"Legewie apoptosis bistable (XIAP {r20b['apop_window']})")
+    print(f"M22 SNIC    : mixed saddle-node+oscillation; period diverges "
+          f"(T~1/sqrt, slope {r22['slope']:.2f}) -> frequency->0 signature "
+          f"distinct from Hopf and pure saddle-node")
     print("\nAbstract, measurable biomarker candidates produced:")
     print("  * irreducible-core node identity        (M1 quotient)")
     print("  * deficiency delta / distance-to-bistability (M2)")
