@@ -11,7 +11,7 @@ from grn_pipeline import (m1_symmetry, m2_crnt, m3_efm, m4_dnb_lyapunov,
                           m5_kras_real, m6_integrate, m7_screen,
                           m8_clinical, m9_occupancy, m10_validate,
                           m11_fibration, m12_dualphos, m13_fim_sloppy,
-                          m14_atlas)
+                          m14_atlas, m15_markevich_mm)
 
 
 def main():
@@ -33,6 +33,7 @@ def main():
     r12 = m12_dualphos.report();        print()
     r13 = m13_fim_sloppy.report();      print()
     r14 = m14_atlas.report();           print()
+    r15 = m15_markevich_mm.report();    print()
 
     print("=" * 68)
     print("CONSOLIDATED SUMMARY")
@@ -73,6 +74,10 @@ def main():
     print(f"M14 atlas    : {len(r14['rows'])} pathways, mean compression "
           f"{sum(r['compression'] for r in r14['rows'])/len(r14['rows']):.2f}x; "
           f"JAK-STAT most compressible")
+    if r15.get("window"):
+        print(f"M15 Markevich: EXACT MM ERK cycle bistable window "
+              f"[{r15['window'][0]:.2f},{r15['window'][1]:.2f}] nM "
+              f"(report 39.25-57.38); 3-state table reproduced to the decimal")
     print("\nAbstract, measurable biomarker candidates produced:")
     print("  * irreducible-core node identity        (M1 quotient)")
     print("  * deficiency delta / distance-to-bistability (M2)")

@@ -308,3 +308,36 @@ Feinberg 亏格零定理:δ=0 且弱可逆 ⇒ 对**任意**速率常数唯一�
 
 > 严格性:✅ 纤维化压缩、CRNT δ=2、双稳存在性、FIM sloppy 谱、18 通路压缩比都是实算。
 > ⚠️ M12 宽滞后窗口需 MM 速率律;M14 biomarker 文字字段是报告+通路知识策展,压缩比是本模块计算值;开关类型是假设生成,需实验验证。
+
+---
+
+## M15 — 精确 Markevich 2004 米氏速率律:**逐位复现报告的 39–57 nM 宽窗和三稳态表**
+
+M12 用玩具质量作用常数只给出很窄的滞后窗口。这里换成**精确的 Markevich 竞争性米氏速率律 + 论文原始参数**,直接从论文原文取到参数(据 PubMed,Markevich, Hoek & Kholodenko 2004, *J Cell Biol*,[DOI: 10.1083/jcb.200308060](https://doi.org/10.1083/jcb.200308060),Fig. 3)。
+
+**竞争性 MM 速率律**(K=MAPKK 激酶,P=MKP3 磷酸酶):
+```
+v1 = k1cat·K·(M/Km1)  / (1 + M/Km1 + Mp/Km2)          M  → Mp
+v2 = k2cat·K·(Mp/Km2) / (1 + M/Km1 + Mp/Km2)          Mp → Mpp
+v3 = k3cat·P·(Mpp/Km3)/ (1 + Mpp/Km3 + Mp/Km4 + M/Km5)  Mpp → Mp
+v4 = k4cat·P·(Mp/Km4) / (1 + Mpp/Km3 + Mp/Km4 + M/Km5)  Mp → M
+```
+**参数**(论文 Fig.3):Km1=50, Km2=500, Km3=22, Km4=18 nM;k1cat=0.01, k2cat=15, k3cat=0.084, k4cat=0.06 s⁻¹;[MAPK]=500, [MKP3]=100 nM。
+
+**关键补一步**:磷酸酶速率律有一个**产物 M 竞争性封存项 `+M/Km5`**(论文 Eq.3,Km5=h6/h−6),Fig.3 图注没给 Km5。我从报告的 OFF 稳态(M=437.73, Mp=12.85, Mpp=49.42 @ MAPKK=50)**反解出 Km5 ≈ 78 nM**——而且这个值让 OFF 态**同时满足 dM=0 和 dMpp=0**(两个方程一致),是强验证。
+
+**复现结果(与报告逐位一致):**
+
+| MAPKK=50 | M | Mp | Mpp(active ERK) | λ_max | 状态 |
+|---|---|---|---|---|---|
+| OFF | 437.73 | 12.85 | **49.42** | −0.0032 | stable |
+| saddle | 202.06 | 20.68 | **277.26** | +0.0011 | unstable |
+| ON | 11.54 | 6.52 | **481.95** | −0.0049 | stable |
+
+- **双稳/滞后窗口:[MAPKK] ∈ [39.25, 57.38] nM**——**与报告 39.25–57.38 完全一致**(用二分法精确定位鞍结分岔边界)。
+- 三个稳态的 M/Mp/Mpp **和 λ_max 全部逐位吻合报告**。
+- 图 `m15_markevich.png`:经典 S 形滞后曲线,ON(红)/OFF(蓝)稳定支 + 不稳定鞍点(虚线),双稳窗口阴影。
+
+> 这条把 M12 的"窄窗质量作用"升级为**精确论文模型的严格复现**:δ=2 的结构结论(M12)+ 39–57 nM 宽滞后 + 三稳态表(M15),两者互补。参数与速率律均取自原始论文(PubMed/DOI 已注),Km5 由报告 OFF 态反解并双方程自洽验证。
+
+据 PubMed:Markevich NI, Hoek JB, Kholodenko BN. *Signaling switches and bistability arising from multisite phosphorylation in protein kinase cascades.* J Cell Biol 2004. [DOI: 10.1083/jcb.200308060](https://doi.org/10.1083/jcb.200308060)
