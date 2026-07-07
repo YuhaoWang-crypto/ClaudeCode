@@ -8,7 +8,8 @@ Pipeline:
   M4  DNB / critical slowing down / Lyapunov exponent (tipping biomarker)
 """
 from grn_pipeline import (m1_symmetry, m2_crnt, m3_efm, m4_dnb_lyapunov,
-                          m5_kras_real, m6_integrate)
+                          m5_kras_real, m6_integrate, m7_screen,
+                          m8_clinical, m9_occupancy)
 
 
 def main():
@@ -22,6 +23,9 @@ def main():
     r4 = m4_dnb_lyapunov.report();      print()
     r5 = m5_kras_real.report();         print()
     r6 = m6_integrate.report();         print()
+    r7 = m7_screen.report();            print()
+    m8_clinical.report();               print()
+    r9 = m9_occupancy.report();         print()
 
     print("=" * 68)
     print("CONSOLIDATED SUMMARY")
@@ -41,13 +45,22 @@ def main():
           f"G12C-selective (ChEMBL)")
     print(f"M6  integrate: ChEMBL+Boltz binding -> engagement -> mu -> "
           f"network-stability biomarker (adagrasib slightly closer to edge)")
+    print(f"M7  screen   : Boltz-2.1 ranked 10 G12C ligands; "
+          f"{len(r7['better_than_sotorasib'])} analogues out-rank sotorasib "
+          f"in binding")
+    print(f"M8  clinical : biomarker layers mapped to CodeBreaK-100 endpoints "
+          f"(ORR/DOR, PFS/OS, Cmax/AUC, QTc)")
+    print(f"M9  occupancy: at approved exposure occupancy="
+          f"{r9['occ_label']*100:.0f}% -> mu={r9['mu_label']:.2f} (near "
+          f"tipping) -> DNB={r9['dnb_label']:.3f}")
     print("\nAbstract, measurable biomarker candidates produced:")
     print("  * irreducible-core node identity        (M1 quotient)")
     print("  * deficiency delta / distance-to-bistability (M2)")
     print("  * EFM usage / rate-limiting generator    (M3)")
     print("  * leading Lyapunov exponent & DNB index  (M4)")
     print("  * paralog-symmetry order as drug-selectivity readout (M5)")
-    print("  * binding-driven network-stability score (M6)")
+    print("  * binding-driven network-stability score (M6/M7)")
+    print("  * occupancy-calibrated mu tied to PK endpoints (M9)")
 
 
 if __name__ == "__main__":
