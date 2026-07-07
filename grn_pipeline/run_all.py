@@ -13,7 +13,8 @@ from grn_pipeline import (m1_symmetry, m2_crnt, m3_efm, m4_dnb_lyapunov,
                           m11_fibration, m12_dualphos, m13_fim_sloppy,
                           m14_atlas, m15_markevich_mm, m16_erk_dnb,
                           m18_titration_benchmark,
-                          m19_switch_library)
+                          m19_switch_library, m20_literature_bistable,
+                          m21_oscillators)
 
 
 def main():
@@ -45,6 +46,8 @@ def main():
         print(f"M17 real-data validation skipped ({type(e).__name__}: {e})\n")
     r18 = m18_titration_benchmark.report();  print()
     r19 = m19_switch_library.report();       print()
+    r20 = m20_literature_bistable.report(); print()
+    r21 = m21_oscillators.report();          print()
 
     print("=" * 68)
     print("CONSOLIDATED SUMMARY")
@@ -103,6 +106,15 @@ def main():
         print(f"M19 migration: critical-slowing engine applied to "
               f"{len(r19['results'])} pathway switches; {r19['n_detected']} "
               f"show the variance/autocorr peak at their saddle-node")
+    if r20:
+        print(f"M20 literature: Rb-E2F & apoptosis multi-variable switches "
+              f"reproduce documented bistability + hysteresis (Yao 2008 / "
+              f"Eissing 2004 topology); eigenvalue->0 at folds")
+    if r21:
+        hs = r21['hopf']
+        print(f"M21 oscillators: Hopf extension - Goodwin/p53-Mdm2/Brusselator "
+              f"cross a Hopf; approaching it variance rises AND a spectral peak "
+              f"emerges at the intrinsic frequency (distinct from saddle-node)")
     print("\nAbstract, measurable biomarker candidates produced:")
     print("  * irreducible-core node identity        (M1 quotient)")
     print("  * deficiency delta / distance-to-bistability (M2)")
