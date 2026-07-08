@@ -194,3 +194,118 @@
 ## 15. 结论
 
 在一个会话内，完成了 **市场→靶点→biomarker→多模态设计→GPU 实跑→亲和力/ADME 三重筛选→扩产→siRNA/formulation→CDx 策略→基因组模型上云→真实 hg38 变体打分** 的完整从头药物发现闭环，每一步都产出可核验的真实结果，并把可复用能力固化为 3 个 skills。**最强资产**为经界面+亲和力双验证的抗 myostatin 纳米抗体，**先导生物学**为人类 LOF 去风险的 INHBE，且 AlphaGenome 已在真实数据上验证了"调控/剪接归 AlphaGenome、编码 LoF 归 Evo2"的工具分工。
+
+---
+
+## 16. 靶点选择理由与理性设计（逐靶点）
+
+> 统一逻辑：优先 **人类遗传学功能缺失（LOF）已验证保护表型** 的非肠促胰岛素节点 —— 因为"人身上天然敲低/敲除该基因 → 更瘦、代谢更好"是最强的因果证据，直接把靶点方向（抑制/敲低）和安全性（LOF 携带者健康）一起去风险；再叠加 **白空间**（竞争少）与 **可成药性**（有口袋/有胞外域/可用 RNAi）。
+
+### 16.1 GPR75（孤儿 GPCR）
+- **为什么选**：Regeneron 64 万外显子研究（*Science* 2021）发现 *GPR75* 杂合 pLOF 携带者 BMI 更低、肥胖风险约降 50% —— 抑制/敲低方向被人类遗传学直接验证；ChEMBL 无任何已知配体（`CHEMBL4523861` 仅 2 条 GPCRome 筛点）→ **IP 白空间最大**。
+- **理性设计**：
+  - 孤儿 + 无实验结构 → 小分子设计时**不硬指定口袋**，改用 `reference_ligands`（20-HETE 拟配体 + 药物样锚点）引导模型在 7TM 束附近自动识别口袋，规避对 AlphaFold 低置信环区的过度依赖。
+  - siRNA 作为主打（表型直接模拟保护性 LOF，绕开孤儿正位口袋难题）。
+  - 溶解度优化：对最佳 binder 用 `reference_ligands` 锁定化学型 + RDKit 描述符过滤（logP≤3、TPSA≥60）做类似物再设计。
+
+### 16.2 INHBE / activin E（肝分泌配体）
+- **为什么选**：INHBE 肝限制表达；人类 *INHBE* LOF 携带者脂肪分布更健康（低 WHRadjBMI）、代谢获益；已有 WVE-007 / ARO-INHBE 同类进入 Ph1 → 生物学与递送双重去风险。**全组合的先导资产**。
+- **理性设计**：
+  - 肝限制表达 = **GalNAc-ASGPR siRNA 的教科书级靶点**（肝细胞特异摄取，皮下、季度给药）。
+  - 配体为平坦 cystine-knot → 小分子不推荐；生物药走中和抗体/配体 trap，靶向**成熟 TGF-β 结构域**（切掉前肽）。
+
+### 16.3 ALK7 / ACVR1C（I 型受体激酶）
+- **为什么选**：*ACVR1C* 保护性错义/LOF（如 I195/I482 类）改善脂肪分布；受体层可与 INHBE 配体层形成"配体+受体"双保险。
+- **理性设计（关键选择）**：
+  - 激酶 ATP 口袋与 **ALK4/ALK5 高度同源** → ATP 竞争抑制剂有 TGF-β 心毒/瓣膜风险。**首选抗体打胞外域（ECD, res 22–113）**，从机制上绕开激酶选择性陷阱。
+  - 若做小分子，优先**别构位点**（GS 域/背口袋）以拿到相对 ALK5 的选择性窗口；ATP 竞争型只作反筛备份（必须对 ALK5 `CHEMBL4439` 反筛）。
+  - 设计靶标用成熟 ECD（切掉信号肽与跨膜段），保证 binder 打在可及表位。
+
+### 16.4 ActRIIB / myostatin-GDF8（肌肉质量支柱）
+- **为什么选**：肠促胰岛素类减重会掉瘦体重；myostatin 通路抑制 → 增肌减脂（bimagrumab BELIEVE 类临床：~20% 脂肪下降 + 瘦体重上升）。这是让整个组合**能与 GLP-1 联用**的分化支柱。
+- **理性设计（选择性优先）**：
+  - **配体侧中和（纳米抗体/单抗打 myostatin 本身）优于打受体**：ActRIIB 混杂结合 activin/BMP，直接打受体有心血管风险；打配体更干净。
+  - 选**纳米抗体**：设计成本最低、稳定性/表达好、可多价化；靶标用 **GDF8 成熟域（res 267–375，切掉前肽/furin 位点）**；用 Fc 融合做半衰期延长。
+
+### 16.5 GDF15 / GFRAL（食欲/能量代谢）
+- **为什么选**：GDF15–GFRAL 脑干饱腹轴，激动可抑制食欲、增能量消耗；机制与肠促胰岛素**叠加**。
+- **理性设计（方向很关键）**：肥胖需要**激动**（长效 GDF15 类似物/激动型抗体）；而抗 GDF15/抗 GFRAL **拮抗**是**恶病质**方向（相反适应症，如 ponsegromab）。设计明确锁定成熟 GDF15（res 197–308）激动型 scaffold。三条生物药中该项 pilot 最弱、已降级。
+
+---
+
+## 17. 核酸药物：针对什么序列、做"切断/增加/修改"？
+
+**明确结论：本项目的核酸药是"切断→降解→敲低（减少蛋白）"机制，不是增加、也不是碱基编辑/修改。** 目的就是在人体内**药理性地复制保护性 LOF 表型**（把 GPR75 / INHBE 的蛋白量降下来）。
+
+| 模态 | 作用层 | 机制（切/增/改）| 针对的序列 |
+|---|---|---|---|
+| **siRNA（主打）** | mRNA | **切断/降解** → 敲低 | 靶 mRNA 编码区特定 19–21nt 窗口；引导链装载 RISC/Ago2 → **Ago2 在配对中心切割靶 mRNA** → 降解 → 蛋白下降 |
+| **ASO（GapmeR，备份）** | mRNA | **切断**（RNase-H1 降解 DNA:RNA 杂合）→ 敲低 | 同一转录本可及区；或（若改设计）**剪接调控 ASO = "修改"**剪接，但本项目用的是降解型 |
+| **GalNAc 偶联** | 递送 | 不改序列 | 三触角 GalNAc → 肝细胞 ASGPR 摄取 |
+
+**具体靶序列（真实 CDS，已验证）**：INHBE `NM_031479.5`、GPR75 `NM_006794.4`。导链候选（引导链 5'→3'，即靶义链的反向互补，切割靶 mRNA）：
+
+- **INHBE**（肝，主打）：
+  - E4（先导，CDS 556）`AGUCUAGUUGCAGUUUCAG`（GC 42%，G/C-run=1，最干净）
+  - E1(141) `AUCCAGGAUUUGCUGCUUG`；E2(271) `UAGCAAAGCUGAUGACCUC`；E3(410) `AAGAUCCUCAAGCAAAGAG`；E5(904) `AAGGAUUGUUGGCUUUGAG`
+- **GPR75**：G1(122)`AAAGUACAGGUCACCAAGG`；G2(176)`AAGAAGACAAUGAAGUUGC`；G3(260)`AUGAAGAGGUCACAGAAGG`；G4(1053)`AAACUGGUAAAGAAUGAAG`
+
+**为什么是"切/敲低"而非"增/改"**：靶点的**治疗方向是抑制**（人类 LOF 携带者更瘦）——所以要"减少"靶蛋白，RNAi 切割降解是最直接的手段；不需要"增加"（那是过表达/基因补充的场景），也不需要"修改/编辑"（那是纠正致病点突变的场景，本项目靶点不是点突变致病）。
+
+**AlphaGenome 对"剪接型"变体的佐证**：我们用 AlphaGenome 打分发现 INHBE 内含子 1 的**剪接位点变体**（rs375342858 供体、rs1870821812/rs150777893 受体，Δprob≈0.97，肝 RNA-seq 下降）会**破坏正常剪接 → 天然敲低 INHBE**——这从"序列如何影响 INHBE 表达量"侧面验证了"敲低 INHBE 有益"的方向，与我们 siRNA 敲低策略机制一致（一个是天然剪接破坏、一个是人工 RNAi 降解，殊途同归都是**减少** INHBE）。
+
+---
+
+## 18. 真实产出数据（序列 + 对接位点截图）
+
+> 以下为 GPU 实跑真实产出：设计出的分子/序列，以及预测复合物的对接界面图（binder–靶点接触残基高亮）。
+
+### 18.1 小分子（真实 SMILES，Boltz Enamine REAL 生成）
+- **ALK7 小分子先导** `pres_LQPPzraO1LN7SlonCWSH`：`Cc1cc(-c2nc(-c3cncc(Br)c3)no2)cnc1O`（结合置信 0.513，结构置信 0.856；ADME：溶解度中、亲脂性 2.55 → 结合+可开发性双优）
+- **GPR75 小分子先导** `pres_Gya8RsxmoWQiidojZ11K`：`CCOC(=O)c1snc2c(N3CC4CCC(C3)N(C(=O)OC(C)(C)C)C4)nc(Cl)nc12`（结合 0.491；溶解度高风险 → 触发类似物优化）
+- **GPR75 溶解度优化最佳平衡** a1：`O=S(=O)(Cc1cccc2nsnc12)NC1CCC2(C1)CC2(F)F`（结合 0.30，溶解度改善、亲脂性 2.28）
+
+### 18.2 设计出的生物药序列（纳米抗体/抗体，从预测复合物结构中提取，单字母）
+
+```
+>MSTN_nanobody | chain=NANO1 | 117aa  （★最强资产：界面+亲和力双验证，binding_conf 0.65）
+EVQLVESGGGLVQAGGSLRLSCAASAPLSAMGWFRQAPGKEREFVAAIGADGKNVYYAESVKGRFTISRDNAKNTVVLQMNSLKPEDTALYYCFAATGKYPNHKTYWGQGTQVTVSS
+
+>ALK7_antibody_heavy | chain=ABH1 | 118aa
+EVQLVQSGAEVKKPGESLKISCKGSGFDFSAHWIGWVRQMPGKGLEWMGIINPADGTTRYSPSFQGQVTISADKSISTAYLQWSSLKASDTAMYYCARINSAGSLDVWGQGTLVTVSS
+>ALK7_antibody_light | chain=ABL1 | 110aa
+QSVLTQPPSVSGAPGQRVTISCTGSSSDGLADGEVSWYQQLPGTAPKLLIYSASELPSGVPDRFSGSKSGTSASLAITGLQSEDEADYYCSTWDSDGNLVFGGGTKLTVL
+
+>GDF15_antibody_heavy | chain=ABH1 | 119aa
+EVQLLESGGGLVQPGGSLRLSCAASGFTFSSYNWAWVRQAPGKGLEWVASISASGKLVSYAPSVAGRFTISRDNAKNSLYLQMNSLRAEDTALYYCVRQGIGDSGFSHWGQGTLVTVSS
+>GDF15_antibody_light | chain=ABL1 | 113aa
+YVVMTQSPLSLPVTPGEPASISCKSSKSLTGSNGVTYVQWLLQKPGQSPQRLIYNASTLAPGVPDRFSGSGSGTDFTLKISRVEAEDVGVYYCLGSQFGTQYTFGQGTKVEIK
+```
+
+> 诚实标注：**MSTN 纳米抗体**是唯一经界面 + 独立亲和力双验证的生物药（binding_conf 0.65），可直接进入湿实验。**ALK7 Fab / GDF15 Fab** 界面 ipTM 很高（~0.97 / 0.92）但独立亲和力低（0.015 / ~5e-6）→ 属"几何一致但亲和力未佐证"，需表位定向再设计或实验验证（与 §6 三重筛选结论一致）。完整 FASTA（含 3 条靶点链）见 `.claude/skills/…` 附带与 `designed_sequences.fasta`。
+
+### 18.3 对接位点截图（Boltz 预测复合物界面，3Dmol.js 渲染）
+
+**图 1 · 抗 myostatin 纳米抗体 – GDF8 对接界面**
+
+![抗 myostatin 纳米抗体（NANO1）结合到 myostatin/GDF8 成熟域，界面残基以 stick 高亮](figures/fig_mstn_nanobody.png)
+
+- **靶点（GDF8）表位**：G28, W29, D30, W31, I32, I33, A34, K36, K39, L85, F87, N88, G89, E91, Q92, I93, I94, Y95 —— 落在 GDF8 的"指/腕"型受体结合面，符合**配体侧中和（阻断 GDF8–ActRIIB 结合）**的设计意图。
+- **纳米抗体 CDR 接触残基**：S29, A30, F34, E41, F44, A47, I48, G49, N54, Y56, Y57, A58, F94, A96, G98, K99, Y100, P101, N102, H103, K104, T105, W107（CDR1/CDR3 主导）。
+
+**图 2 · ALK7-ECD 抗体 Fab – ALK7 胞外域对接界面**
+
+![ALK7-ECD 抗体 Fab（重链橙 / 轻链金）结合到 ALK7 胞外域（浅蓝）](figures/fig_alk7_antibody.png)
+
+- **靶点（ALK7 ECD）表位**：G23, L45, L48, N49, A50, Q51, C54, H55, S56–N58, T61–C66, F67, H77, P79–M91, E92 —— 打在胞外域配体对接面，**从机制上绕开 ALK4/5 激酶选择性/心毒陷阱**（§16.3 的核心取舍）。
+- **重链接触**：S30, A31, H32, W33, I50, N52, R98–D106；**轻链接触**：R17, A31–L56, D62–S67, S74–W93, D94, S95, G97。
+- （注：该抗体独立亲和力偏低，图示为界面几何；需表位定向优化。）
+
+**图 3 · ALK7 小分子先导 – 激酶 ATP 口袋对接**
+
+![设计小分子（绿 stick，可见 Br）嵌入 ALK7 激酶 ATP 口袋，口袋残基以青色 stick 显示](figures/fig_alk7_smallmol_pocket.png)
+
+- **SMILES**：`Cc1cc(-c2nc(-c3cncc(Br)c3)no2)cnc1O`（结合置信 0.513）
+- **口袋接触残基（<5 Å）**：V41, V49, A60, **K62（催化 Lys）**, E75, Y79, L90, L108, V109, S110, E111, Y112, H113, E114, G116, S117, L156, A166, **D167（DFG motif Asp）** —— 同时接触催化 Lys 与 DFG，**确证为 ATP 位点结合**（与 §16.3 中"ATP 竞争型需对 ALK5 反筛"的判断一致）。
+
+> 说明：以上为 Boltz-2 预测复合物的**计算对接界面**，非实验结构；用于展示设计分子/序列打在靶点的哪个位点。原始 CIF 结构可经 `boltz_get_job_results` 重新下载。
