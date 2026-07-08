@@ -365,3 +365,37 @@ YVVMTQSPLSLPVTPGEPASISCKSSKSLTGSNGVTYVQWLLQKPGQSPQRLIYNASTLAPGVPDRFSGSGSGTDFTLKI
 | **效果确认 EFFICACY**（下游表型）| DEXA 瘦/脂 + 四肢瘦体重（MSTN/ActRIIB 保肌分支）；MRI-VAT + 脂肪量（GDF15–GFRAL/ALK7 脂肪分支）；HbA1c；体重 |
 
 > 结论：最小单元法**认证**了 ~13 个可测标志物即可捕获两条机制分支 >80% 的证据加权贡献 —— 给出一个**最小、可测、可认证**的 biomarker 面板，直接服务入组分层、PD 进程监测与疗效确认。数据文件：`biomarker_candidates.tsv`。
+
+---
+
+## 20. Biomarker 三方法交叉验证
+
+> 用户在另一分支 `claude/gene-regulation-network-c230hr` 有一个自建 skill **`network-biomarker`**（`grn_pipeline` 包：图自同构/fibration 不可约性 + CRNT 亏格 + DNB/临界慢化）。本节把**三种独立方法**在**同一肥胖网络**（activin/myostatin → ALK7/ActRIIB → SMAD2/3 + GDF15–GFRAL–RET）上各跑一遍，交叉验证核心 biomarker。**对该 skill 仅只读取用，未改动其分支。**
+
+### 20.1 三方法回答的是不同问题（互补，非竞争）
+| 方法 | 回答的问题 | 类型 |
+|---|---|---|
+| **§19 归因法** | 哪个**可测**节点有**疾病证据**（选 CDx 分层面板）| 静态·证据 |
+| **RWR 网络扩散** | 哪个节点在网络上**离种子最近/最中心** | 静态·拓扑 |
+| **network-biomarker skill** | 哪个模块**动力学不可约** + 哪个可测量**预警临界翻转**（DNB/临界慢化）| **动态·系统论** |
+
+### 20.2 方法二：RWR 纯拓扑交叉验证（vs §19）
+从 7 种子在 STRING 子网做随机游走重启（r=0.3）取 top-13，与 §19 最小核心对比：
+- **重叠 7/13，Jaccard 0.37**；**两法共享稳健核心 = GDF15、ACVR2B、GFRAL、MSTN、RET、FST、ACVR1**。
+- **尖锐发现**：**GPR75 在 STRING（≥700）零互作 → 纯拓扑方法根本"看不见"它**。而 GPR75 是 §19 里人类遗传学最强的肥胖靶点 —— 直接印证"只用网络法会漏掉孤儿但遗传学铁证的靶点"，§19 用"证据×可测+拓扑"混合是对的。INHBE/ALK7 虽掉在 §19 阈下，却在 RWR top-6 → 两正交框架都支持，反被救稳。
+
+![方法二 RWR 与 §19 对比：RWR top-13 排名条 + 两面板 Venn（高亮共享核心）+ Jaccard](figures/fig_biomarker_method_compare.png)
+
+### 20.3 方法三：network-biomarker skill（动力系统，用户自有）
+包自校验通过（Benettin-LLE 在 Rössler 上 **+0.0737** vs 文献 +0.071 ✅）。在我们的网络上按其 `adding-a-pathway` 新增 `m23_obesity_activin` 模块，复用其引擎（m1_symmetry / m11_fibration / m2_crnt / m12_dualphos / m19 / m4_dnb_lyapunov），产出（**按其 ✅严谨 / ⚠️假设 纪律标注**）：
+- **不可约核心（✅ 严谨）**：11 → **8 核心节点**，\|Aut(G)\|=12。自同构与 fibration **独立**塌缩同两类：**{INHBE, INHBA, MSTN} 三配体→1**、**{SMAD2, SMAD3}→1（pSMAD2/3 读数）**。核心轴 = `配体* → ACVR2B → ACVR1C → SMAD2/3 → SMAD4`。
+- **开关能力（✅ δ 严谨 / ⚠️ 动力学假设）**：SMAD2/3 双磷酸化核心 **CRNT 亏格 δ=2**（n=10, ℓ=2, s=6）→ 不满足亏格零唯一性 → **拓扑允许双稳**（m19 给出真实双稳窗口）。
+- **早期预警 biomarker（✅ 引擎+几何 / ⚠️ 生物学）**：分岔类别 = **鞍结（saddle-node）** → 读方差 + AR1（非频谱/ISI）。λ 从 −0.930→−0.225（→0，临界慢化）；在 {SMAD2,SMAD3} 上 **SD ×4.94、AR1 ×2.60、DNB ×45.8** → **biomarker = pSMAD2/3 的方差↑ / 自相关(AR1)↑ / DNB 指数↑**。
+
+![方法三 network-biomarker skill：SMAD2/3 鞍结分岔的临界慢化 DNB 早期预警（方差/AR1/DNB 随 λ→0 上升）](figures/fig_grn_dnb_obesity.png)
+
+### 20.4 三方法收敛结论
+- **三个完全正交的方法都收敛到 `ACVR2B → SMAD2/3` 这一段**（§19 列 SMAD3+ACVR2B；RWR 共享 ACVR2B；skill 的不可约核心 + DNB 节点 = SMAD2/3）—— 这是本项目**最可辩护的 biomarker 核心**。
+- **各自独家价值**：§19 = 疾病证据 + 可测性（选临床分层面板）；RWR = 网络中心性（SMAD2/3 枢纽）；**skill = 开关能力判定（δ=2，SMAD2/3 可双稳）+ 动态早期预警量（pSMAD2/3 方差/AR1，可预警治疗响应/细胞命运临界翻转）**—— 后两样是前两种静态排序法**结构上给不了**的。
+- **诚实边界**：不可约核心与 δ=2 是**严谨计算**；m19 双稳窗口用的是**规范机制速率常数（非文献拟合）**，所以严谨的是 **biomarker 几何与 δ**，不是窗口精确边界。
+- 产物：`grn_pipeline/m23_obesity_activin.py`、`fig_grn_dnb_obesity.png`、`grn_obesity_result.md`、`biomarker_rwr_compare.tsv`。
