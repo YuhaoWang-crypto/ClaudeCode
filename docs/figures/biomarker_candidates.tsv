@@ -1,0 +1,30 @@
+gene	branch	ensembl	obesity_assoc	bmi_assoc	assoc(max)	genetic_component	degree	betweenness	centrality	measurability	analyte	attribution	cum_coverage	in_minimal_set	clinical_role	role_note
+GDF15	GDF15-GFRAL/energy	ENSG00000130513	0.138	0.474	0.474	0.779	4	0.2301	0.586	1.0	circulating GDF15	0.8342	0.123	True	ENROLLMENT+PROGRESSION	baseline circulating GDF15 (stratify); PD target-engagement for GDF15/GFRAL agonists
+GPR75	GDF15-GFRAL/energy	ENSG00000119737	0.071	0.437	0.437	0.718	0	0.0	0.0	1.0	genotype (pLOF)	0.5802	0.208	True	ENROLLMENT	pLOF genotype / eQTL — baseline stratification of responders
+BMP8A	GDF15-GFRAL/energy	ENSG00000183682	0.069	0.419	0.419	0.69	3	0.0	0.055	1.0	circulating	0.5762	0.293	True	ENROLLMENT	baseline circulating — thermogenic tone stratification
+SMAD3	activin/myostatin-SMAD2/3	ENSG00000166949	0.071	0.393	0.393	0.647	12	0.0152	0.252	0.8	pSMAD3 assay	0.4886	0.364	True	PROGRESSION	pSMAD2/3 phospho-node — pathway-knockdown PD (biopsy/PBMC)
+INHBC	activin/myostatin-SMAD2/3	ENSG00000175189	0.005	0.343	0.343	0.564	5	0.0006	0.092	1.0	circulating	0.488	0.436	True	ENROLLMENT	baseline circulating activin C
+GFRAL	GDF15-GFRAL/energy	ENSG00000187871	0.06	0.489	0.489	0.805	3	0.0301	0.122	0.7	receptor occupancy/soluble	0.4848	0.507	True	PROGRESSION	GFRAL/RET receptor occupancy — PD for GDF15-axis agonists
+ACVR2B	activin/myostatin-SMAD2/3	ENSG00000114739	0.101	0.234	0.234	0.385	22	0.1678	0.774	0.7	receptor occupancy	0.4071	0.567	True	PROGRESSION	receptor occupancy — hub PD for ActRIIB antagonists (re-dose cadence)
+INHBA	activin/myostatin-SMAD2/3	ENSG00000122641	0.091	0.212	0.212	0.349	10	0.0117	0.208	1.0	circulating activin A	0.3546	0.619	True	ENROLLMENT+PROGRESSION	baseline circulating activin A; PD ligand-neutralization readout
+RET	GDF15-GFRAL/energy	ENSG00000165731	0.341	0.313	0.341	0.556	3	0.0301	0.122	0.7	receptor occupancy	0.3471	0.67	True	PROGRESSION	co-receptor occupancy (GDF15-GFRAL-RET) — PD
+MSTN	activin/myostatin-SMAD2/3	ENSG00000138379	0.127	0	0.127	0.0	12	0.08	0.397	1.0	circulating myostatin/GDF8	0.3073	0.715	True	PROGRESSION+EFFICACY	circulating myostatin ↓ PD; links to appendicular lean-mass efficacy
+ACVR1	activin/myostatin-SMAD2/3	ENSG00000115170	0	0.166	0.166	0.272	12	0.0326	0.291	0.7	receptor occupancy	0.2253	0.749	True	PROGRESSION	receptor occupancy PD
+GDF11	activin/myostatin-SMAD2/3	ENSG00000135414	0.094	0	0.094	0.0	10	0.0339	0.257	1.0	circulating	0.2155	0.78	True	PROGRESSION	circulating ligand ↓ PD
+FST	activin/myostatin-SMAD2/3	ENSG00000134363	0.061	0.038	0.061	0.062	14	0.0539	0.375	1.0	circulating follistatin	0.2124	0.811	True	PROGRESSION	circulating follistatin — antagonist-tone PD
+TGFBR2	activin/myostatin-SMAD2/3	ENSG00000163513	0.015	0	0.015	0.0	8	0.2691	0.745	0.7	receptor occupancy	0.1967	0.811	False	(below cut / supporting)	
+ACVR1C	activin/myostatin-SMAD2/3	ENSG00000123612	0.079	0.029	0.079	0.048	18	0.0412	0.419	0.7	receptor occupancy	0.1764	0.811	False	PROGRESSION	ALK7 receptor occupancy — PD for adipose ALK7 blockade
+SMAD2	activin/myostatin-SMAD2/3	ENSG00000175387	0.026	0.078	0.078	0.128	14	0.0305	0.323	0.8	pSMAD2 assay	0.1733	0.811	False	(below cut / supporting)	
+FSTL3	activin/myostatin-SMAD2/3	ENSG00000070404	0.093	0	0.093	0.0	4	0.0015	0.076	1.0	circulating FSTL3	0.1502	0.811	False	(below cut / supporting)	
+ACVR2A	activin/myostatin-SMAD2/3	ENSG00000121989	0.011	0.022	0.022	0.036	20	0.0638	0.506	0.7	receptor occupancy	0.144	0.811	False	(below cut / supporting)	
+ACVR1B	activin/myostatin-SMAD2/3	ENSG00000135503	0.019	0	0.019	0.0	17	0.0632	0.45	0.7	receptor occupancy	0.1275	0.811	False	(below cut / supporting)	
+TGFBR1	activin/myostatin-SMAD2/3	ENSG00000106799	0.01	0.052	0.052	0.086	12	0.0189	0.26	0.7	receptor occupancy	0.1124	0.811	False	(below cut / supporting)	
+INHBB	activin/myostatin-SMAD2/3	ENSG00000163083	0.01	0	0.01	0.0	9	0.011	0.188	1.0	circulating	0.0791	0.811	False	(below cut / supporting)	
+INHBE	activin/myostatin-SMAD2/3	ENSG00000139269	0.022	0.03	0.03	0.049	5	0.0006	0.092	1.0	circulating activin E	0.072	0.811	False	ENROLLMENT	pLOF genotype + AlphaGenome splice-donor evidence — hepatic activin E stratification
+WFIKKN2	activin/myostatin-SMAD2/3	ENSG00000173714	0.01	0	0.01	0.0	3	0.0002	0.055	1.0	circulating GASP-1	0.0322	0.811	False	(below cut / supporting)	
+WFIKKN1	activin/myostatin-SMAD2/3	ENSG00000127578	0	0	0	0	3	0.0002	0.055	1.0	circulating GASP-2	0.0192	0.811	False	(below cut / supporting)	
+DEXA lean/fat mass	phenotype-endpoint	-	-	-	-	-	-	-	-	1.0	imaging/clinical	-	-	endpoint	EFFICACY	downstream of MSTN/ACVR2B/ALK7 muscle-sparing branch
+appendicular lean mass	phenotype-endpoint	-	-	-	-	-	-	-	-	1.0	imaging/clinical	-	-	endpoint	EFFICACY	myostatin/ActRIIB output — muscle preservation
+MRI-VAT (visceral fat)	phenotype-endpoint	-	-	-	-	-	-	-	-	1.0	imaging/clinical	-	-	endpoint	EFFICACY	GDF15-GFRAL & ALK7 adipose output
+fat mass / body weight	phenotype-endpoint	-	-	-	-	-	-	-	-	1.0	imaging/clinical	-	-	endpoint	EFFICACY	integrated appetite/energy-homeostasis output
+HbA1c	phenotype-endpoint	-	-	-	-	-	-	-	-	1.0	imaging/clinical	-	-	endpoint	EFFICACY	metabolic downstream readout

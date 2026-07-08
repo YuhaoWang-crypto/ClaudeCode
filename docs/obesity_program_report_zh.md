@@ -309,3 +309,59 @@ YVVMTQSPLSLPVTPGEPASISCKSSKSLTGSNGVTYVQWLLQKPGQSPQRLIYNASTLAPGVPDRFSGSGSGTDFTLKI
 - **口袋接触残基（<5 Å）**：V41, V49, A60, **K62（催化 Lys）**, E75, Y79, L90, L108, V109, S110, E111, Y112, H113, E114, G116, S117, L156, A166, **D167（DFG motif Asp）** —— 同时接触催化 Lys 与 DFG，**确证为 ATP 位点结合**（与 §16.3 中"ATP 竞争型需对 ALK5 反筛"的判断一致）。
 
 > 说明：以上为 Boltz-2 预测复合物的**计算对接界面**，非实验结构；用于展示设计分子/序列打在靶点的哪个位点。原始 CIF 结构可经 `boltz_get_job_results` 重新下载。
+
+---
+
+## 19. Biomarker 筛选与挖掘：通路富集 + 最小单元归因（真跑）
+
+> 补上"**如何筛选/挖掘 biomarker**"这一步 —— 不是拍脑袋列策略，而是用可复现算法从公共证据（g:Profiler + STRING + Open Targets）里挖出**最小核心 biomarker 单元**，再落到入组/进程/效果三类用途。（计算性筛选，关联分为算法先验，非临床验证；AlphaGenome 调控证据用于交叉佐证。）
+
+### 19.1 方法：最小化归因 / 最小单元认证
+1. **通路富集**（g:Profiler，7 个靶基因）→ 锁定核心通路。
+2. **候选池** = 靶点 + STRING 一阶邻居，限定核心通路 → 24 节点。
+3. **归因评分** = 可测性 ×（0.65·关联_norm + 0.35·中心性）。关联 = Open Targets 对肥胖(MONDO_0011122)/BMI(EFO_0004340) 的 max 关联分；中心性 = 0.6·betweenness + 0.4·degree（STRING-700 子网，networkx 本地计算）；可测性权重 = 分泌型/基因型 1.0、磷酸化节点 0.8、影像代理 0.7、纯胞内 0.3。
+4. **最小单元认证** = 贪心最小覆盖：按归因降序累加，取累计归因 **≥80%** 的最小节点子集 = "最核心 biomarker 单元"。
+
+### 19.2 富集出的核心通路（两条机制分支）
+| 来源 | p-adj | 通路 |
+|---|---|---|
+| KEGG:04350 | 9.2e-04 | **TGF-β signaling** |
+| REAC | 2.3e-03 | **Signaling by Activin** |
+| GO:0141091 | 2.3e-03 | TGF-β 超家族 → **SMAD2/3** |
+| GO:0160144 | 5.5e-04 | **GDF15–GFRAL signaling** |
+| GO:0097009 | 2.1e-03 | **energy homeostasis（能量稳态）** |
+| GO:0002021/0002023 | 1.6e-04 | response / reduction of food intake（进食调控）|
+
+→ 确认两条分支：**(A) activin/myostatin → ActRIIB/ALK7 → SMAD2/3** 与 **(B) GDF15–GFRAL–RET 食欲/能量**。
+
+### 19.3 归因排序（top 12 / 24 节点池）
+| 基因 | 分支 | 关联 | 遗传 | 中心性 | 可测 | 归因 | 入核心 |
+|---|---|---|---|---|---|---|---|
+| GDF15 | 能量 | 0.47 | 0.78 | 0.59 | 1.0 | **0.834** | ✓ |
+| GPR75 | 能量 | 0.44 | 0.72 | 0.00 | 1.0 | 0.580 | ✓ |
+| BMP8A | 能量 | 0.42 | 0.69 | 0.06 | 1.0 | 0.576 | ✓ |
+| SMAD3 | SMAD2/3 | 0.39 | 0.65 | 0.25 | 0.8 | 0.489 | ✓ |
+| INHBC | SMAD2/3 | 0.34 | 0.56 | 0.09 | 1.0 | 0.488 | ✓ |
+| GFRAL | 能量 | 0.49 | 0.81 | 0.12 | 0.7 | 0.485 | ✓ |
+| ACVR2B | SMAD2/3 | 0.23 | 0.39 | 0.77(hub) | 0.7 | 0.407 | ✓ |
+| INHBA(activin A) | SMAD2/3 | 0.21 | 0.35 | 0.21 | 1.0 | 0.355 | ✓ |
+| RET | 能量 | 0.34 | 0.56 | 0.12 | 0.7 | 0.347 | ✓ |
+| MSTN | SMAD2/3 | 0.13 | 0.00 | 0.40 | 1.0 | 0.307 | ✓ |
+| ACVR1 | SMAD2/3 | 0.17 | 0.27 | 0.29 | 0.7 | 0.225 | ✓ |
+| GDF11 | SMAD2/3 | 0.09 | 0.00 | 0.26 | 1.0 | 0.215 | ✓ |
+
+### 19.4 最小核心 biomarker 单元（最小单元认证结果）
+**13 / 24 节点 → 覆盖 81.1% 的证据加权归因**：GDF15、GPR75、BMP8A、SMAD3、INHBC、GFRAL、ACVR2B、INHBA、RET、MSTN、ACVR1、GDF11、FST。其中**前 6 个（GDF15→GFRAL）已占 ~51%**。
+
+![Biomarker 归因排序与最小单元覆盖（绿=最小核心，曲线=累计覆盖，虚线=0.80 阈值 → 13/24）](figures/fig_biomarker_attribution.png)
+
+> **重要细节（多证据源交叉）**：INHBE（归因 0.072）与 ACVR1C/ALK7（0.176）这两个**项目主打靶点**落在 0.80 阈值**下方** —— 因为 Open Targets 尚未完整收录近期 INHBE pLOF–肥胖外显子信号（关联分偏薄）。但 INHBE 被 **AlphaGenome 调控证据救回**：其剪接供体变体 rs375342858 的 splice_sites Δprob≈0.97 + 肝 RNA-seq 大幅下降，直接支撑"肝 activin-E 功能缺失"的入组分层读数。这说明**单一数据库会漏掉新靶点，必须多证据源（遗传库 + 序列基座模型）交叉**。
+
+### 19.5 落到临床三类用途（入组 / 进程 / 效果）
+| 用途 | Biomarker（来自最小核心单元）|
+|---|---|
+| **入组 ENROLLMENT**（基线分层）| GPR75 pLOF 基因型；**INHBE pLOF + AlphaGenome 剪接证据**；基线循环 GDF15、activin A(INHBA)、activin C(INHBC)、BMP8A |
+| **进程 PROGRESSION / PD**（动态）| **pSMAD2/3 磷酸化节点（SMAD3）**；**ACVR2B / ALK7 受体占位（hub 级 PD）**；循环 myostatin/GDF11/activin A ↓；GFRAL–RET 占位（GDF15 轴激动剂）—— 复测/再给药周期依配体抑制动力学设定 |
+| **效果确认 EFFICACY**（下游表型）| DEXA 瘦/脂 + 四肢瘦体重（MSTN/ActRIIB 保肌分支）；MRI-VAT + 脂肪量（GDF15–GFRAL/ALK7 脂肪分支）；HbA1c；体重 |
+
+> 结论：最小单元法**认证**了 ~13 个可测标志物即可捕获两条机制分支 >80% 的证据加权贡献 —— 给出一个**最小、可测、可认证**的 biomarker 面板，直接服务入组分层、PD 进程监测与疗效确认。数据文件：`biomarker_candidates.tsv`。
