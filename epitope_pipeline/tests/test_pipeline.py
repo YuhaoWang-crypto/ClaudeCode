@@ -137,6 +137,33 @@ def test_mpnn_fasta_parse(tmp_path=None):
     assert vs[1].mpnn_score == 1.05 and vs[1].seq_recovery == 0.62
 
 
+def test_integrate_maps_skill_schema():
+    """Skill DataFrame rows -> EpitopeRecord with SB/WB mapping (offline)."""
+    try:
+        import pandas as pd
+    except ImportError:
+        return  # pandas optional; skip if absent
+    from pipeline import integrate, aggregate
+    df = pd.DataFrame([
+        {"id": "p", "source": "iedb", "model": "netmhcpan_el",
+         "allele": "HLA-A*02:01", "length": 9, "peptide": "NLVNAVPQL",
+         "position": 4, "affinity_nM": None, "percentile_rank": 0.05,
+         "score": 0.9, "is_binder": "strong"},
+        {"id": "p", "source": "iedb", "model": "netmhcpan_el",
+         "allele": "HLA-B*07:02", "length": 9, "peptide": "NPQKARVLL",
+         "position": 10, "affinity_nM": None, "percentile_rank": 1.5,
+         "score": 0.5, "is_binder": "weak"},
+    ])
+    recs = integrate._df_to_records(df, "NetMHCpan(IEDB)", "mhc_i")
+    assert recs[0].bind_level == "SB" and recs[1].bind_level == "WB"
+    assert recs[0].position == 5  # 0-indexed 4 -> 1-indexed 5
+    # flows through consensus (which keys on SB/WB)
+    from pipeline.runner import ModelResult
+    res = ModelResult("NetMHCpan(IEDB)", "mhc_i", "ok", records=recs)
+    cons = aggregate.consensus([res], top_n=5)
+    assert cons and cons[0]["best_rank_pct"] == 0.05
+
+
 def test_registry_shape():
     for key, spec in REGISTRY.items():
         assert spec.category in ("mhc_i", "mhc_ii", "bcell_linear",
