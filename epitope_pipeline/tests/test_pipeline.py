@@ -88,6 +88,55 @@ def test_biolib_needs_structure_is_skipped():
     assert res[0].status == "needs_structure"
 
 
+def test_deimmunize_loop():
+    """De-immunization loop with a stub ProteinMPNN + stub epitope oracle."""
+    from pipeline.deimmunize import Variant, deimmunize, positions_to_redesign
+
+    wt = "MKKKWEPITOPEXXKKMKK"            # 19 residues
+    # pretend residues 7..13 (E P I T O P E) are the epitope
+    epi = list(range(7, 14))
+
+    design = positions_to_redesign(len(wt), epi, keep_fixed=[10])
+    assert 10 not in design and 7 in design and 13 in design
+
+    # stub ProteinMPNN: returns variants that mutate epitope positions to 'A'
+    def fake_redesign(design_pos):
+        out = []
+        for k, temp in enumerate([0.0, 0.3, 0.6]):
+            s = list(wt)
+            for i, p in enumerate(design_pos):
+                if i <= k:                    # progressively more masking
+                    s[p - 1] = "A"
+            out.append(Variant(name=f"design_{k+1}", sequence="".join(s),
+                               mpnn_score=1.0 + temp, seq_recovery=1.0 - 0.05 * (k + 1)))
+        return out
+
+    # stub epitope oracle: immunogenicity ~ count of the 'EPITOPE' signature残基
+    def fake_score(seq):
+        return sum(1 for c in seq if c in "EPITO")
+
+    res = deimmunize(wt, epi, fake_redesign, fake_score, keep_fixed=[10])
+    assert res["wildtype_epitope_score"] > 0
+    assert res["n_candidates"] == 3
+    assert res["n_accepted"] >= 1
+    # best accepted must reduce epitope score vs wild type
+    assert res["best"]["epitope_score"] < res["wildtype_epitope_score"]
+    assert res["best"]["n_mutations"] >= 1
+
+
+def test_mpnn_fasta_parse(tmp_path=None):
+    from pipeline.deimmunize import parse_mpnn_fasta
+    import tempfile
+    p = os.path.join(tempfile.mkdtemp(), "seqs.fa")
+    with open(p, "w") as f:
+        f.write(">wt, score=0.80, seq_recovery=1.0\nMKKKWMKK\n")
+        f.write(">T=0.1, sample=1, score=1.05, seq_recovery=0.62\nMAKAWMKK\n")
+    vs = parse_mpnn_fasta(p)
+    assert len(vs) == 2
+    assert vs[0].name == "wildtype"
+    assert vs[1].mpnn_score == 1.05 and vs[1].seq_recovery == 0.62
+
+
 def test_registry_shape():
     for key, spec in REGISTRY.items():
         assert spec.category in ("mhc_i", "mhc_ii", "bcell_linear",

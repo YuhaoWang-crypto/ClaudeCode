@@ -21,6 +21,23 @@ sequence — exactly what EDEN expects.
 Score 0.805 for N is biologically sensible: the nucleocapsid is the dominant
 serological antigen in SARS-CoV-2 (the basis of most N-based antibody tests).
 
+### Low-immunogenicity controls (negative control)
+
+To validate the score with proteins expected to be *non*-immunogenic, two
+human self-proteins (immune-tolerated) were prepared as native CDS:
+
+| Antigen | CDS | length | expected |
+|---------|-----|--------|----------|
+| Human insulin (INS) | `examples/cds/human_insulin.cds.fasta` | 333 nt | low |
+| Human serum albumin (ALB) | `examples/cds/human_albumin.cds.fasta` | 1830 nt | low |
+
+These are queued to run through the same EDEN call; the run is pending because
+the EDEN MCP endpoint was intermittently dropping the connection during this
+session. Re-run (one line) when it is stable and compare against N = 0.805.
+Caveat: EDEN is best-calibrated on viral/bacterial antigens, so human self-
+proteins sit somewhat out of its core training distribution — read the controls
+as directional, not absolute.
+
 ### Reproduce
 
 ```python
