@@ -12,6 +12,7 @@ config.yaml / the CLI without touching code.
 
 from __future__ import annotations
 
+import os
 import re
 import shutil
 from dataclasses import dataclass, field
@@ -59,16 +60,23 @@ class EpitopeRecord:
 class ModelSpec:
     name: str
     category: str
-    binary: str                       # executable name expected on PATH
+    binary: str                       # executable name expected on PATH (cli backend)
     # build_command(spec, fasta, alleles, lengths, workdir) -> list[str]
     build_command: Callable
-    # parse(spec, stdout, fasta_ids) -> list[EpitopeRecord]
+    # parse(spec, stdout, fasta_ids) -> list[EpitopeRecord]   (cli backend)
     parse: Callable
     needs_alleles: bool = True
     needs_structure: bool = False     # DiscoTope etc. need a PDB, not FASTA
     default_lengths: tuple = ()
     homepage: str = ""
     install_hint: str = ""
+    # --- backend selection ---------------------------------------------- #
+    backend: str = "cli"              # "cli" (local binary) | "biolib" (cloud)
+    app_uri: str = ""                 # e.g. "DTU/BepiPred-3" (biolib backend)
+    # build_args(spec, fasta, workdir) -> str  (biolib CLI arg string)
+    build_args: Optional[Callable] = None
+    # parse_files(spec, outdir, fasta_ids) -> list[EpitopeRecord] (biolib)
+    parse_files: Optional[Callable] = None
 
     def resolve_binary(self, override: Optional[str] = None) -> Optional[str]:
         cand = override or self.binary
@@ -102,6 +110,26 @@ def _cmd_bepipred(spec, fasta, alleles, lengths, workdir):
 
 def _cmd_signalp(spec, fasta, alleles, lengths, workdir):
     return [spec.binary, "-fasta", fasta, "-org", "euk", "-format", "short"]
+
+
+# --------------------------------------------------------------------------- #
+# BioLib (cloud) argument builders — one FASTA/PDB in, files out
+# --------------------------------------------------------------------------- #
+def _args_bepipred(spec, fasta, structure, workdir):
+    return f"--fasta_file {fasta}"
+
+
+def _args_netsurfp(spec, fasta, structure, workdir):
+    return f"--input_data {fasta}"
+
+
+def _args_deeptmhmm(spec, fasta, structure, workdir):
+    return f"--fasta {fasta}"
+
+
+def _args_discotope(spec, fasta, structure, workdir):
+    # DiscoTope needs a 3D structure (PDB), supplied via --structure
+    return f"-f {structure} --struc_type solved"
 
 
 # --------------------------------------------------------------------------- #
@@ -245,6 +273,104 @@ def _parse_bepipred(spec, stdout, fasta_ids):
     return records
 
 
+def _find_output(outdir, *names):
+    """Return the first existing file matching any of `names` (recursive)."""
+    import glob
+    for name in names:
+        hits = glob.glob(os.path.join(outdir, "**", name), recursive=True)
+        if hits:
+            return hits[0]
+    return None
+
+
+def _pfiles_bepipred(spec, outdir, fasta_ids):
+    """Parse BioLib BepiPred-3 raw_output.csv (per-residue scores).
+
+    Header-driven: locate the accession/residue/score columns by name so the
+    parser survives minor column re-orderings across app versions.
+    """
+    import csv
+    path = _find_output(outdir, "raw_output.csv")
+    if not path:
+        return []
+    records: List[EpitopeRecord] = []
+    with open(path, newline="") as fh:
+        reader = csv.reader(fh)
+        header = next(reader, None)
+        if not header:
+            return []
+        cols = {h.strip().lower(): i for i, h in enumerate(header)}
+
+        def find(*keys, default=None):
+            for k in keys:
+                for name, i in cols.items():
+                    if k in name:
+                        return i
+            return default
+
+        i_acc = find("accession", "id", default=0)
+        i_res = find("residue", default=1)
+        i_score = find("bepipred-3.0 score", "epitope score", "score",
+                       default=len(header) - 1)
+        for pos, row in enumerate(reader, start=1):
+            if len(row) <= i_score:
+                continue
+            score = _to_float(row[i_score])
+            if score is None:
+                continue
+            records.append(EpitopeRecord(
+                model=spec.name, category=spec.category,
+                seq_id=row[i_acc] if i_acc < len(row) else "",
+                peptide=row[i_res] if i_res < len(row) else "",
+                position=pos, score=score,
+                bind_level="epitope" if score >= 0.1512 else ""))
+    return records
+
+
+def _pfiles_discotope(spec, outdir, fasta_ids):
+    """Parse DiscoTope-3 per-residue CSV(s): columns include residue, score, RSA."""
+    import csv
+    import glob
+    records: List[EpitopeRecord] = []
+    for path in glob.glob(os.path.join(outdir, "**", "*.csv"), recursive=True):
+        with open(path, newline="") as fh:
+            reader = csv.reader(fh)
+            header = next(reader, None)
+            if not header:
+                continue
+            cols = {h.strip().lower(): i for i, h in enumerate(header)}
+            i_score = next((i for n, i in cols.items()
+                            if "discotope" in n or "score" in n), None)
+            if i_score is None:
+                continue
+            i_res = next((i for n, i in cols.items() if "res" in n), 2)
+            pid = os.path.basename(path).split(".")[0]
+            for pos, row in enumerate(reader, start=1):
+                if len(row) <= i_score:
+                    continue
+                score = _to_float(row[i_score])
+                if score is None:
+                    continue
+                records.append(EpitopeRecord(
+                    model=spec.name, category=spec.category, seq_id=pid,
+                    peptide=row[i_res] if i_res < len(row) else "",
+                    position=pos, score=score,
+                    bind_level="epitope" if score >= 0.0 else ""))
+    return records
+
+
+def _pfiles_generic_md(spec, outdir, fasta_ids):
+    """Fallback: capture the main markdown/text output as one summary record."""
+    path = _find_output(outdir, "*.md", "output.md", "*_results.md")
+    text = ""
+    if path:
+        with open(path) as fh:
+            text = fh.read()[:2000]
+    return [EpitopeRecord(model=spec.name, category=spec.category,
+                          seq_id="(summary)", peptide="",
+                          extra={"summary": text})]
+
+
 def _parse_signalp(spec, stdout, fasta_ids):
     records: List[EpitopeRecord] = []
     for line in stdout.splitlines():
@@ -293,6 +419,40 @@ REGISTRY = {
         needs_alleles=False,
         homepage="https://services.healthtech.dtu.dk/services/BepiPred-3.0/",
         install_hint="pip install the BepiPred-3.0 package; exposes bepipred3_CLI.py.",
+    ),
+    # ---- BioLib cloud backend (no local install / license) ------------- #
+    "bepipred-cloud": ModelSpec(
+        name="BepiPred-3.0", category="bcell_linear", binary="",
+        build_command=_cmd_bepipred, parse=_parse_bepipred,
+        needs_alleles=False, backend="biolib", app_uri="DTU/BepiPred-3",
+        build_args=_args_bepipred, parse_files=_pfiles_bepipred,
+        homepage="https://biolib.com/DTU/BepiPred-3",
+        install_hint="pip install pybiolib; runs in the BioLib cloud.",
+    ),
+    "discotope-cloud": ModelSpec(
+        name="DiscoTope-3.0", category="bcell_conf", binary="",
+        build_command=_cmd_bepipred, parse=_parse_bepipred,
+        needs_alleles=False, needs_structure=True, backend="biolib",
+        app_uri="DTU/DiscoTope-3", build_args=_args_discotope,
+        parse_files=_pfiles_discotope,
+        homepage="https://biolib.com/DTU/DiscoTope-3",
+        install_hint="pip install pybiolib; needs a PDB structure (--structure).",
+    ),
+    "netsurfp-cloud": ModelSpec(
+        name="NetSurfP-3.0", category="aux", binary="",
+        build_command=_cmd_bepipred, parse=_parse_bepipred,
+        needs_alleles=False, backend="biolib", app_uri="DTU/NetSurfP-3",
+        build_args=_args_netsurfp, parse_files=_pfiles_generic_md,
+        homepage="https://biolib.com/DTU/NetSurfP-3",
+        install_hint="pip install pybiolib; runs in the BioLib cloud.",
+    ),
+    "deeptmhmm-cloud": ModelSpec(
+        name="DeepTMHMM", category="aux", binary="",
+        build_command=_cmd_bepipred, parse=_parse_bepipred,
+        needs_alleles=False, backend="biolib", app_uri="DTU/DeepTMHMM",
+        build_args=_args_deeptmhmm, parse_files=_pfiles_generic_md,
+        homepage="https://biolib.com/DTU/DeepTMHMM",
+        install_hint="pip install pybiolib; runs in the BioLib cloud.",
     ),
     "signalp": ModelSpec(
         name="SignalP-6.0", category="aux", binary="signalp6",

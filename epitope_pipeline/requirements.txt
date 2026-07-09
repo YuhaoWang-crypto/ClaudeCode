@@ -1,4 +1,5 @@
-# Core pipeline uses only the Python 3.9+ standard library.
+# Core CLI-backend pipeline uses only the Python 3.9+ standard library.
+pybiolib>=1.4      # BioLib cloud backend (BepiPred/DiscoTope/NetSurfP/DeepTMHMM)
 # Optional extras for analysis / testing:
 pytest>=7.0        # test runner (tests also run without it)
 pandas>=1.3        # convenient for merging/plotting the output CSVs

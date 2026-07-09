@@ -37,7 +37,9 @@ def build_parser() -> argparse.ArgumentParser:
         prog="epitope-pipeline",
         description="Run one protein through many DTU epitope/immunogenicity "
                     "models in parallel and merge the results.")
-    p.add_argument("--fasta", required=True, help="input protein FASTA")
+    p.add_argument("--fasta", help="input protein FASTA (required unless --list-models)")
+    p.add_argument("--structure", default=None,
+                   help="protein PDB structure (required for DiscoTope conformational epitopes)")
     p.add_argument("--models", default="netmhcpan,netmhciipan,netctlpan,bepipred",
                    help="comma list; known: " + ",".join(REGISTRY))
     p.add_argument("--alleles-i", default="HLA-A02:01,HLA-A01:01,HLA-B07:02",
@@ -62,11 +64,19 @@ def main(argv=None) -> int:
     args = build_parser().parse_args(argv)
 
     if args.list_models:
-        print(f"{'key':<14}{'name':<18}{'category':<14}{'binary':<18}homepage")
+        print(f"{'key':<16}{'name':<18}{'category':<14}{'backend':<8}"
+              f"{'how to enable':<40}")
         for k, m in REGISTRY.items():
-            print(f"{k:<14}{m.name:<18}{m.category:<14}{m.binary:<18}{m.homepage}")
+            enable = (m.install_hint if m.backend == "biolib"
+                      else f"binary '{m.binary}' on PATH")
+            print(f"{k:<16}{m.name:<18}{m.category:<14}{m.backend:<8}{enable}")
+        print("\ncloud = runs on BioLib (pip install pybiolib; free account).")
+        print("cli   = local stand-alone package from services.healthtech.dtu.dk.")
         return 0
 
+    if not args.fasta:
+        print("error: --fasta is required (or use --list-models)", file=sys.stderr)
+        return 2
     if not os.path.isfile(args.fasta):
         print(f"error: FASTA not found: {args.fasta}", file=sys.stderr)
         return 2
@@ -91,7 +101,8 @@ def main(argv=None) -> int:
         alleles_i=_csv(args.alleles_i), alleles_ii=_csv(args.alleles_ii),
         lengths_i=_lens(args.lengths_i), lengths_ii=_lens(args.lengths_ii),
         workdir=workdir, binary_overrides=overrides,
-        max_workers=args.workers, timeout=args.timeout)
+        max_workers=args.workers, timeout=args.timeout,
+        structure=args.structure)
 
     long_csv = aggregate.write_long_table(results, os.path.join(args.out, "all_predictions.csv"))
     cons = aggregate.consensus(results, args.top)

@@ -16,71 +16,88 @@ protein.fasta ──┬─► NetMHCpan   (MHC-I binding, CD8)      ─┐
 
 ---
 
-## Important: there is no DTU REST API
+## How to actually run these tools programmatically
 
-`services.healthtech.dtu.dk` (former CBS) does **not** expose a public REST/JSON
-API, and the old SOAP/WSDL endpoints were retired. The officially supported way
-to automate these tools is to **download the free-for-academia stand-alone
-command-line packages** and run them locally. This project is the orchestration
-layer around those binaries:
+`services.healthtech.dtu.dk` (former CBS) exposes **no public REST/JSON API**
+and the old SOAP/WSDL endpoints were retired. There are two real automation
+routes, and this pipeline supports **both** via a per-model `backend`:
 
-| Route | What it is | Verdict |
-|-------|-----------|---------|
-| **Stand-alone CLI packages** (what this repo uses) | Per-tool tarballs, run locally, batch-friendly | ✅ Supported, robust, this is the right way |
-| Scripting the web form (POST + scrape) | Emulate the website | ⚠️ Against the terms of use, fragile, rate-limited — avoid |
+| Route (`backend`) | What it is | Needs | Verdict |
+|---|---|---|---|
+| **BioLib cloud** (`biolib`) | Some DTU tools are published on [biolib.com](https://biolib.com/DTU/) and run in the cloud via the `pybiolib` Python API — no download, no local license | `pip install pybiolib` + a free BioLib account | ✅ Easiest; **a real API** — use it wherever the tool exists |
+| **Stand-alone CLI** (`cli`) | Per-tool tarball from the DTU download page, run locally | Academic licence download; binary on `PATH` | ✅ Required for licensed tools not on BioLib |
+| ~~Scrape the web form~~ | Emulate the website | — | ⚠️ Against the terms of use, fragile — avoid |
 
-Each tool's download tab is linked from its service page (e.g.
-<https://services.healthtech.dtu.dk/services/NetMHCpan-4.1/>). Academic users get
-a free licence; commercial users email `health-software@dtu.dk`.
+**The catch: not every tool is on BioLib.** Verified against the live BioLib API:
+
+| Tool | On BioLib? | app id | Backend to use |
+|------|-----------|--------|----------------|
+| BepiPred-3.0 (B-cell linear) | ✅ | `DTU/BepiPred-3` | `bepipred-cloud` |
+| DiscoTope-3.0 (B-cell conformational) | ✅ (needs PDB) | `DTU/DiscoTope-3` | `discotope-cloud` |
+| NetSurfP-3.0 (surface/2° structure) | ✅ | `DTU/NetSurfP-3` | `netsurfp-cloud` |
+| DeepTMHMM (transmembrane) | ✅ | `DTU/DeepTMHMM` | `deeptmhmm-cloud` |
+| **NetMHCpan / NetMHCIIpan / NetCTLpan** (MHC binding) | ❌ **not published** (separately licensed) | — | `cli` (local download) |
+
+So the practical setup is **hybrid**: B-cell / structural predictors run on
+BioLib cloud with zero install, while the licensed MHC binders run from the
+local CLI packages. One orchestrator, one merged report.
 
 ---
 
-## Install the underlying tools
-
-The pipeline runs whatever is on your `PATH`. Install only the models you need;
-missing ones are **skipped, not fatal**, so you can dry-run first.
+## Setup
 
 ```
-python -m pipeline.cli --list-models      # show the registry
+pip install pybiolib          # for the cloud backend
+biolib login                  # or export BIOLIB_TOKEN=...  (free account)
+python -m pipeline.cli --list-models      # show the registry + each backend
 ```
 
-| key | tool | binary expected | category |
-|-----|------|-----------------|----------|
-| `netmhcpan`   | NetMHCpan-4.1   | `netMHCpan`        | MHC-I (CD8) |
-| `netctlpan`   | NetCTLpan-1.1   | `netCTLpan`        | MHC-I / CTL |
-| `netmhciipan` | NetMHCIIpan-4.3 | `netMHCIIpan`      | MHC-II (CD4) |
-| `bepipred`    | BepiPred-3.0    | `bepipred3_CLI.py` | B-cell linear |
-| `signalp`     | SignalP-6.0     | `signalp6`         | aux |
+Install only what you need. Missing tools are **skipped, not fatal**, so you can
+dry-run first. Registry:
 
-After unpacking a tarball, either add its directory to `PATH` or point the
-pipeline straight at the executable:
+| key | tool | backend | how to enable | category |
+|-----|------|---------|---------------|----------|
+| `bepipred-cloud`  | BepiPred-3.0    | cloud | `pip install pybiolib` | B-cell linear |
+| `discotope-cloud` | DiscoTope-3.0   | cloud | pybiolib + `--structure` (PDB) | B-cell conformational |
+| `netsurfp-cloud`  | NetSurfP-3.0    | cloud | `pip install pybiolib` | aux (surface/2°) |
+| `deeptmhmm-cloud` | DeepTMHMM       | cloud | `pip install pybiolib` | aux (transmembrane) |
+| `netmhcpan`   | NetMHCpan-4.1   | cli   | `netMHCpan` on PATH        | MHC-I (CD8) |
+| `netctlpan`   | NetCTLpan-1.1   | cli   | `netCTLpan` on PATH        | MHC-I / CTL |
+| `netmhciipan` | NetMHCIIpan-4.3 | cli   | `netMHCIIpan` on PATH      | MHC-II (CD4) |
+| `bepipred`    | BepiPred-3.0    | cli   | `bepipred3_CLI.py` on PATH | B-cell linear (local) |
+| `signalp`     | SignalP-6.0     | cli   | `signalp6` on PATH         | aux |
+
+For a **licensed local tool**, unpack its tarball and either add its dir to
+`PATH` or point the pipeline straight at the executable:
 
 ```
 --binary netMHCpan=/opt/netMHCpan-4.1/netMHCpan
 ```
-
-> DiscoTope-3.0 (conformational B-cell epitopes) needs a **3D structure (PDB)**,
-> not a bare sequence — it is registered but marked `needs_structure` until a
-> `--structure` input is wired in.
 
 ---
 
 ## Usage
 
 ```bash
-# Dry run — proves the orchestration; skips tools you haven't installed yet
-python -m pipeline.cli --fasta examples/example.fasta --out results/
-
-# Real run once tools are on PATH
+# Cloud-only run — zero local install, just pybiolib + a BioLib account.
+# Runs B-cell + structural predictors in the BioLib cloud, in parallel.
 python -m pipeline.cli \
     --fasta my_protein.fasta \
-    --models netmhcpan,netctlpan,netmhciipan,bepipred \
+    --models bepipred-cloud,netsurfp-cloud,deeptmhmm-cloud \
+    --out results/
+
+# Hybrid run — cloud B-cell/structure + local licensed MHC binders together.
+python -m pipeline.cli \
+    --fasta my_protein.fasta \
+    --models netmhcpan,netctlpan,netmhciipan,bepipred-cloud \
     --alleles-i  HLA-A02:01,HLA-A01:01,HLA-B07:02 \
     --alleles-ii DRB1_0101,DRB1_0401,DRB1_1501 \
-    --lengths-i  8,9,10,11 \
-    --lengths-ii 15 \
-    --workers 8 \
-    --out results/
+    --lengths-i  8,9,10,11 --lengths-ii 15 \
+    --workers 8 --out results/
+
+# Conformational B-cell epitopes need a structure:
+python -m pipeline.cli --fasta my_protein.fasta --structure my_protein.pdb \
+    --models discotope-cloud --out results/
 ```
 
 ### Outputs (`results/`)
@@ -100,10 +117,15 @@ BepiPred B-cell region, ranks above a peptide only one model liked.
 ## How it's built (extending it)
 
 - `pipeline/models.py` — the model **registry**. Each `ModelSpec` bundles a
-  command builder + an output parser. **Add a new DTU tool by adding one entry**
-  (a `_cmd_*` builder and a `_parse_*` function) — no other file changes.
-- `pipeline/runner.py` — parallel executor (`ThreadPoolExecutor`); resolves
-  binaries, runs each model in its own workdir, captures stdout, never lets one
+  backend (`cli` or `biolib`), a command/arg builder, and an output parser.
+  **Add a tool by adding one entry** — a `cli` model needs a `_cmd_*` builder +
+  `_parse_*` (stdout); a `biolib` model needs `app_uri` + `_args_*` +
+  `_pfiles_*` (output files). No other file changes.
+- `pipeline/biolib_backend.py` — thin `pybiolib` wrapper: `biolib.load(app_uri)`
+  → `app.cli(args=...)` → `job.save_files()`. Imported lazily so the CLI-only
+  path never requires pybiolib.
+- `pipeline/runner.py` — parallel executor (`ThreadPoolExecutor`); dispatches
+  each model to its backend, runs it in its own workdir, and never lets one
   tool's failure sink the run.
 - `pipeline/aggregate.py` — normalization, %Rank binder-calling (DTU thresholds:
   MHC-I SB ≤0.5 / WB ≤2.0; MHC-II SB ≤1.0 / WB ≤5.0), consensus ranking, writers.

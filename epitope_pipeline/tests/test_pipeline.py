@@ -49,6 +49,45 @@ def test_full_run_with_mock():
     assert cons[0]["best_rank_pct"] is not None
 
 
+def test_biolib_backend_dispatch(monkeypatch=None):
+    """BioLib-backed model: stub the cloud call, verify dispatch + CSV parse."""
+    from pipeline import biolib_backend, runner
+    from pipeline.models import REGISTRY
+
+    def fake_run_app(app_uri, args, outdir, timeout=1800):
+        os.makedirs(outdir, exist_ok=True)
+        with open(os.path.join(outdir, "raw_output.csv"), "w") as f:
+            f.write("Accession,Residue,BepiPred-3.0 linear epitope score,"
+                    "BepiPred-3.0 score\n")
+            for i, r in enumerate("MFVFLVLLPLVSSQ"):
+                sc = 0.05 + (i % 7) * 0.03
+                f.write(f"test,{r},{sc:.3f},{sc:.3f}\n")
+        return os.path.abspath(outdir)
+
+    orig = biolib_backend.run_app
+    biolib_backend.run_app = fake_run_app
+    try:
+        spec = REGISTRY["bepipred-cloud"]
+        assert spec.backend == "biolib" and spec.app_uri == "DTU/BepiPred-3"
+        res = runner.run_models([spec], FASTA, [], [], None, None,
+                                "/tmp/ep_test_biolib", {}, max_workers=2)
+        assert res[0].status == "ok"
+        assert len(res[0].records) == 14
+        assert any(r.bind_level == "epitope" for r in res[0].records)
+        assert "DTU/BepiPred-3" in res[0].command
+    finally:
+        biolib_backend.run_app = orig
+
+
+def test_biolib_needs_structure_is_skipped():
+    from pipeline import runner
+    from pipeline.models import REGISTRY
+    spec = REGISTRY["discotope-cloud"]      # needs a PDB
+    res = runner.run_models([spec], FASTA, [], [], None, None,
+                            "/tmp/ep_test_ds", {}, max_workers=2, structure=None)
+    assert res[0].status == "needs_structure"
+
+
 def test_registry_shape():
     for key, spec in REGISTRY.items():
         assert spec.category in ("mhc_i", "mhc_ii", "bcell_linear",
