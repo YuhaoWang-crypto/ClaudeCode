@@ -21,22 +21,32 @@ sequence — exactly what EDEN expects.
 Score 0.805 for N is biologically sensible: the nucleocapsid is the dominant
 serological antigen in SARS-CoV-2 (the basis of most N-based antibody tests).
 
-### Low-immunogenicity controls (negative control)
+### Control experiment (completed live) — and an honest finding
 
-To validate the score with proteins expected to be *non*-immunogenic, two
-human self-proteins (immune-tolerated) were prepared as native CDS:
+Two human self-proteins (immune-tolerated) were run as native CDS, expecting
+*low* scores. All four EDEN runs below completed live:
 
-| Antigen | CDS | length | expected |
-|---------|-----|--------|----------|
-| Human insulin (INS) | `examples/cds/human_insulin.cds.fasta` | 333 nt | low |
-| Human serum albumin (ALB) | `examples/cds/human_albumin.cds.fasta` | 1830 nt | low |
+| Antigen | type | CDS | EDEN score |
+|---------|------|-----|------------|
+| Human serum albumin (ALB) | human self | `examples/cds/human_albumin.cds.fasta` | **0.934** (high!) |
+| SARS-CoV-2 Nucleocapsid (N) | viral | `examples/cds/sars2_N.cds.fasta` | 0.805 |
+| Human insulin (INS) | human self | `examples/cds/human_insulin.cds.fasta` | **0.424** (low) |
 
-These are queued to run through the same EDEN call; the run is pending because
-the EDEN MCP endpoint was intermittently dropping the connection during this
-session. Re-run (one line) when it is stable and compare against N = 0.805.
-Caveat: EDEN is best-calibrated on viral/bacterial antigens, so human self-
-proteins sit somewhat out of its core training distribution — read the controls
-as directional, not absolute.
+**The controls did NOT cleanly separate self from viral** — insulin scored low
+as hoped, but albumin scored *higher than the viral antigen*. This is the
+correct thing to report, and it teaches the model's scope:
+
+- **EDEN does not model host self-tolerance.** It scores an intrinsic,
+  sequence-level "does this look like it induces an immune response" signal —
+  not "will a human tolerate their own protein." A self-protein can still score
+  high.
+- **Human proteins are out of EDEN's distribution.** The tool explicitly warns
+  it is calibrated on viral/bacterial antigens; the albumin result is a live
+  demonstration of that caveat, not a contradiction of it.
+- Practical takeaway: use EDEN to rank **natural pathogen antigens** by
+  immunogenicity, not to judge whether a human/self/engineered protein is
+  "safe." For self/engineered sequences, use the per-epitope AA-level tools
+  (BepiPred / NetMHCpan) instead.
 
 ### Reproduce
 
