@@ -1,0 +1,293 @@
+<title>BIO2026 · Next-Wave Signal Read</title>
+<style>
+  :root{
+    --paper:#f3f5f7; --panel:#ffffff; --panel-2:#eef1f4;
+    --ink:#15212b; --ink-soft:#41525f; --ink-faint:#7c8a95;
+    --line:#dde3e8; --line-soft:#e8ecef;
+    --accent:#0f8fa0;           /* signal teal */
+    --heat:#d8912b;             /* rising / next-wave */
+    --peak:#b9553f;             /* crowded / peaking */
+    --rise:#2f8f5b;             /* good/semantic */
+    --shadow:0 1px 2px rgba(20,40,55,.05),0 8px 24px rgba(20,40,55,.06);
+  }
+  @media (prefers-color-scheme:dark){
+    :root{
+      --paper:#0d141a; --panel:#141e26; --panel-2:#0f1820;
+      --ink:#e7eef3; --ink-soft:#a7b6c1; --ink-faint:#6f8290;
+      --line:#243440; --line-soft:#1b2831;
+      --accent:#28b0c0; --heat:#e3a541; --peak:#d76b52; --rise:#4bb37e;
+      --shadow:0 1px 2px rgba(0,0,0,.3),0 10px 30px rgba(0,0,0,.35);
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper:#0d141a; --panel:#141e26; --panel-2:#0f1820;
+    --ink:#e7eef3; --ink-soft:#a7b6c1; --ink-faint:#6f8290;
+    --line:#243440; --line-soft:#1b2831;
+    --accent:#28b0c0; --heat:#e3a541; --peak:#d76b52; --rise:#4bb37e;
+    --shadow:0 1px 2px rgba(0,0,0,.3),0 10px 30px rgba(0,0,0,.35);
+  }
+  :root[data-theme="light"]{
+    --paper:#f3f5f7; --panel:#ffffff; --panel-2:#eef1f4;
+    --ink:#15212b; --ink-soft:#41525f; --ink-faint:#7c8a95;
+    --line:#dde3e8; --line-soft:#e8ecef;
+    --accent:#0f8fa0; --heat:#d8912b; --peak:#b9553f; --rise:#2f8f5b;
+    --shadow:0 1px 2px rgba(20,40,55,.05),0 8px 24px rgba(20,40,55,.06);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--paper);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.55;-webkit-font-smoothing:antialiased}
+  .serif{font-family:Charter,"Iowan Old Style",Georgia,"Times New Roman",serif}
+  .mono{font-family:"SF Mono",ui-monospace,"Roboto Mono",Menlo,Consolas,monospace}
+  .wrap{max-width:1060px;margin:0 auto;padding:0 24px}
+  .tnum{font-variant-numeric:tabular-nums}
+
+  /* header */
+  header{border-bottom:1px solid var(--line);background:
+     linear-gradient(180deg,var(--panel-2),transparent)}
+  .eyebrow{font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;
+     color:var(--accent);font-weight:600}
+  h1{font-size:clamp(2rem,4.6vw,3.3rem);line-height:1.05;margin:.35em 0 .25em;
+     font-weight:600;text-wrap:balance;letter-spacing:-.01em}
+  .dek{font-size:1.12rem;color:var(--ink-soft);max-width:62ch;text-wrap:pretty}
+  .meta{display:flex;flex-wrap:wrap;gap:22px;margin-top:26px;padding-top:18px;
+     border-top:1px solid var(--line-soft);font-size:.86rem;color:var(--ink-faint)}
+  .meta b{color:var(--ink);font-weight:600}
+
+  section{padding:52px 0}
+  .sechead{display:flex;align-items:baseline;gap:14px;margin-bottom:8px}
+  .sechead .n{font-size:.8rem;color:var(--accent);font-weight:700}
+  h2{font-size:1.6rem;font-weight:600;margin:0;letter-spacing:-.01em}
+  .sub{color:var(--ink-soft);max-width:70ch;margin:.4em 0 26px;text-wrap:pretty}
+
+  /* weighting formula */
+  .method{background:var(--panel);border:1px solid var(--line);border-radius:14px;
+     padding:26px 28px;box-shadow:var(--shadow)}
+  .terms{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin-top:6px}
+  .term{border-left:3px solid var(--line);padding:2px 0 2px 14px}
+  .term.plus{border-color:var(--rise)} .term.minus{border-color:var(--peak)}
+  .term .sign{font-weight:700;font-size:.9rem}
+  .term.plus .sign{color:var(--rise)} .term.minus .sign{color:var(--peak)}
+  .term .t{font-weight:600;font-size:.95rem;margin:.2em 0}
+  .term .d{font-size:.82rem;color:var(--ink-soft);line-height:1.4}
+
+  /* leaderboard */
+  .tier-label{font-size:.75rem;letter-spacing:.14em;text-transform:uppercase;
+     font-weight:700;color:var(--ink-faint);margin:26px 0 12px}
+  .row{display:grid;grid-template-columns:26px 1fr 128px;gap:16px;align-items:center;
+     padding:13px 0;border-bottom:1px solid var(--line-soft)}
+  .rank{font-size:.9rem;font-weight:700;color:var(--ink-faint);text-align:right}
+  .rmain .name{font-weight:600;font-size:1.02rem}
+  .rmain .facts{font-size:.8rem;color:var(--ink-faint);margin-top:3px;display:flex;
+     gap:14px;flex-wrap:wrap}
+  .rmain .facts b{color:var(--ink-soft);font-weight:600}
+  .bar{height:9px;border-radius:6px;background:var(--panel-2);overflow:hidden;position:relative}
+  .bar>i{display:block;height:100%;border-radius:6px;background:linear-gradient(90deg,var(--accent),var(--heat))}
+  .score{font-size:.82rem;color:var(--ink-soft);text-align:right;margin-top:5px}
+  .score b{color:var(--ink);font-weight:700}
+  /* phase mini-shape */
+  .phase{display:flex;height:6px;border-radius:3px;overflow:hidden;margin-top:6px;width:100%}
+  .phase i{display:block;height:100%}
+  .pe{background:var(--heat)} .pm{background:var(--accent)} .pl{background:var(--ink-faint)}
+
+  /* convergence grid */
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:13px;
+     padding:20px 20px 18px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+  .card::before{content:"";position:absolute;inset:0 auto 0 0;width:3px;background:var(--heat)}
+  .card h3{margin:0 0 6px;font-size:1.05rem;font-weight:600}
+  .card p{margin:0;font-size:.88rem;color:var(--ink-soft)}
+  .card .stat{display:flex;gap:16px;margin-top:14px;font-size:.8rem}
+  .card .stat div span{display:block;font-size:1.25rem;font-weight:700;color:var(--ink);
+     font-family:Charter,Georgia,serif}
+  .card .stat div small{color:var(--ink-faint)}
+
+  /* tags */
+  .tags{display:flex;flex-wrap:wrap;gap:9px}
+  .tag{background:var(--panel);border:1px solid var(--line);border-radius:20px;
+     padding:6px 13px;font-size:.83rem;color:var(--ink-soft)}
+  .tag b{color:var(--ink);font-weight:600}
+
+  /* peaking */
+  .peaklist{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+  .pk{border:1px solid var(--line);border-radius:11px;padding:14px 16px;background:var(--panel)}
+  .pk .n{font-weight:600}
+  .pk .why{font-size:.82rem;color:var(--ink-soft);margin-top:3px}
+  .pk .num{font-size:.78rem;color:var(--peak);font-weight:600;margin-top:6px}
+
+  .callout{background:var(--panel-2);border:1px solid var(--line);border-radius:13px;
+     padding:22px 24px}
+  .callout ul{margin:.4em 0 0;padding-left:1.1em}
+  .callout li{margin:.5em 0;color:var(--ink-soft);font-size:.92rem}
+  .callout li b{color:var(--ink)}
+  footer{border-top:1px solid var(--line);padding:30px 0 46px;color:var(--ink-faint);font-size:.82rem}
+  .legend{display:flex;gap:18px;flex-wrap:wrap;font-size:.78rem;color:var(--ink-faint);margin-bottom:6px}
+  .legend span{display:inline-flex;align-items:center;gap:6px}
+  .dot{width:10px;height:10px;border-radius:3px;display:inline-block}
+</style>
+
+<header>
+  <div class="wrap" style="padding-top:46px;padding-bottom:40px">
+    <div class="eyebrow">BIO 2026 · Asset-List Signal Read</div>
+    <h1 class="serif">卖家市场里，<br>下一波热点的领先信号</h1>
+    <p class="dek">对 BIO2026 全部 <b>11,976</b> 个对外推介资产（管线 + 公司）的结构化解读。核心方法：把"摆上货架的东西"当成<b>滞后/同期指标</b>去做偏倚校正，用早期 + 学术 + 未被买家验证的稀缺信号，反推 <b>2–4 年后的下一波</b>。</p>
+    <div class="meta">
+      <div><b>11,976</b> 资产 · <b>27.5%</b> 来自学术/院校</div>
+      <div>早期占比（临床前+Ph1+发现期）：<b>≈62%</b></div>
+      <div>已 partnered（买家已验证）：<b>仅 4.8%</b></div>
+      <div>数据源：AssetsExport.xlsx（卖方自报）</div>
+    </div>
+  </div>
+</header>
+
+<section>
+  <div class="wrap">
+    <div class="sechead"><span class="n">01</span><h2 class="serif">加权逻辑：为什么不能直接看"数量"</h2></div>
+    <p class="sub">卖家市场有系统性偏倚：卖方会把资产往<b>当下最好融资/最好授权</b>的热词上靠，所以"货架上最多的东西"（ADC、TCE、自免、细胞因子）其实是<b>当前这一波</b>的证据，往往已经拥挤、正在见顶。要找下一波，必须对原始数量做校正。每个主题的 Next-Wave 分数 = 5 个标准化项的加权和：</p>
+    <div class="method">
+      <div class="terms">
+        <div class="term plus"><div class="sign">＋ 1.2</div><div class="t">不成熟度差 (early − late)</div><div class="d">早期占比减晚期占比。形状在"上升"还是"见顶"。</div></div>
+        <div class="term plus"><div class="sign">＋ 1.1</div><div class="t">早期富集</div><div class="d">科学领先商业 2–4 年；集中在临床前/Ph1 = 方向。</div></div>
+        <div class="term plus"><div class="sign">＋ 1.0</div><div class="t">学术来源占比</div><div class="d">院校资产受"可发表的新颖性"驱动，最少被授权时尚污染。</div></div>
+        <div class="term minus"><div class="sign">− 0.7</div><div class="t">拥挤惩罚 log(N)</div><div class="d">货架上越多 = 交易越拥挤 = 越晚。惩罚纯数量。</div></div>
+        <div class="term minus"><div class="sign">− 0.6</div><div class="t">已 partnered 率</div><div class="d">已被买家验证 = 今天的波，不是下一波，价值已定价。</div></div>
+      </div>
+    </div>
+    <p class="sub" style="margin-top:16px">一句话：<b>高早期 + 高学术 + 上升形状 + 稀缺 + 未被买家抢</b> = 领先信号；<b>高数量 + 高 partnered</b> = 正在主流化的当前波。下面的排名就是这个分数从高到低。</p>
+  </div>
+</section>
+
+<section style="background:var(--panel-2)">
+  <div class="wrap">
+    <div class="sechead"><span class="n">02</span><h2 class="serif">加权后的下一波排行榜</h2></div>
+    <p class="sub">按 Next-Wave 分数排序。相位条：<span style="color:var(--heat);font-weight:600">早期</span> / <span style="color:var(--accent);font-weight:600">Ph1–2</span> / <span style="color:var(--ink-faint);font-weight:600">晚期</span> 的形状。</p>
+    <div class="legend">
+      <span><i class="dot" style="background:var(--heat)"></i>早期富集</span>
+      <span><i class="dot" style="background:var(--accent)"></i>临床中段</span>
+      <span><i class="dot" style="background:var(--ink-faint)"></i>晚期/已上市</span>
+    </div>
+    <div id="board"></div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sechead"><span class="n">03</span><h2 class="serif">真正的 α：模态 × 新领域的收敛点</h2></div>
+    <p class="sub">单一模态的排名会被"数量"拉平。下一波往往出现在<b>成熟模态跨进新适应症</b>的交叉口——这里数量还小、几乎全是早期、卖方还没大规模贴热词。这几个交叉点是这份货架里最值得盯的。</p>
+    <div class="grid" id="conv"></div>
+  </div>
+</section>
+
+<section style="background:var(--panel-2)">
+  <div class="wrap">
+    <div class="sechead"><span class="n">04</span><h2 class="serif">早期学术层里反复出现的具体靶点</h2></div>
+    <p class="sub">在 <b>1,633</b> 个"学术 + 早期"资产（用户最看重的那一层）里，高频复现的具体靶点/适应症 token。这些是还没进入商业热词、但科学动能已经在积累的名字。</p>
+    <div class="tags" id="targets"></div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sechead"><span class="n">05</span><h2 class="serif">正在主流化（货架很满 = 当前波，不是下一波）</h2></div>
+    <p class="sub">这些不是"不好"，而是<b>已经不再逆向</b>——货架上供给充足、买家已在追，估值已反映。对卖方是红海，对买方是"随时能买到"。</p>
+    <div class="peaklist" id="peak"></div>
+  </div>
+</section>
+
+<section style="background:var(--panel-2)">
+  <div class="wrap">
+    <div class="sechead"><span class="n">06</span><h2 class="serif">诚实的边界（这份预测的局限）</h2></div>
+    <div class="callout">
+      <ul>
+        <li><b>关键词匹配有噪声。</b>主题是靠名称/描述的正则聚合，"senescence/aging""cytokine"这类宽词会虚高；数字是量级参考，不是精确计数。</li>
+        <li><b>卖方自报。</b>适应症、阶段均为参展方自填，可能夸大阶段或蹭热点；partnered 字段缺失 11%。</li>
+        <li><b>"下一波"取决于你是谁。</b>对<b>授权/BD 买家</b>的下一波（此模型所指）≠ 对<b>二级市场</b>的下一波——后者时间轴更短、更看临床读出。</li>
+        <li><b>拥挤惩罚会误伤长青模态。</b>ADC、TCE 数量大被压分，不代表衰退——它们既是当前波、也仍在扩张，只是不再"逆向便宜"。</li>
+        <li><b>缺时间轴。</b>这是单次快照，无法看同比增速；真正的动能应叠加去年 BIO 对比（建议下一步）。</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    分析基于 BIO2026 AssetsExport（11,976 资产）· Next-Wave 分数为卖家市场偏倚校正后的相对排序，非绝对预测 · 生成于 2026-07-09
+  </div>
+</footer>
+
+<script>
+const board=[
+ {tier:"第一梯队 · 最强领先信号（稀缺 + 早期 + 上升形状）",items:[
+  {n:"Nanobody / VHH / 单域抗体",N:110,e:76,m:14,l:1,acad:11,part:0.9,s:2.87,note:"下一代多特异/口服/入脑的基础积木"},
+  {n:"KRAS / RAS（G12C 之外）",N:96,e:75,m:22,l:3,acad:16,part:1.0,s:2.79,note:"pan-RAS、G12D、RAS(ON) 的第二代竞赛"},
+  {n:"肿瘤间质靶向 PSMA / FAP",N:77,e:75,m:25,l:0,acad:16,part:3.9,s:2.50,note:"放射配体 + FAP-TCE 双线"},
+  {n:"衰老 / 长寿 (senescence)",N:43,e:60,m:37,l:0,acad:40,part:2.3,s:2.19,note:"体量小但 40% 学术，最上游"},
+  {n:"蛋白降解剂 PROTAC / 分子胶",N:262,e:75,m:14,l:1,acad:15,part:2.3,s:1.79,note:"从肿瘤外扩到自免/CNS"},
+ ]},
+ {tier:"第二梯队 · 强动能",items:[
+  {n:"二代神经退行 (tau / synuclein / TDP-43)",N:389,e:69,m:16,l:3,acad:37,part:2.3,s:1.63,note:"ALS / FTD 信号密集"},
+  {n:"mRNA（疫苗之外）",N:320,e:68,m:16,l:2,acad:37,part:2.5,s:1.57,note:"蛋白替代 / 体内表达"},
+  {n:"髓系 / 巨噬 / TME 重编程",N:478,e:73,m:15,l:4,acad:34,part:5.2,s:1.14,note:"GPR84 / CD74 / GARP 复现"},
+  {n:"寡核苷酸 siRNA / ASO",N:419,e:71,m:15,l:2,acad:31,part:4.3,s:1.08,note:"叠加 LNP/递送的组合放量"},
+  {n:"LNP / 纳米颗粒递送",N:195,e:67,m:13,l:3,acad:31,part:3.6,s:1.01,note:"所有核酸模态的瓶颈与共性平台"},
+  {n:"放射药 / theranostic（α 核素）",N:97,e:71,m:33,l:1,acad:22,part:7.2,s:0.86,note:"partnered 率已抬头，窗口在收窄"},
+ ]},
+];
+const conv=[
+ {n:"TCE → 自免 / I&I（非肿瘤）",d:"CD3 双抗从肿瘤跨进精准免疫，跟随 B 细胞清除治自免的浪潮。",a:"90",b:"80%",al:"资产",bl:"早期"},
+ {n:"降解剂 → I&I（肿瘤之外）",d:"PROTAC/分子胶进入炎症与自免靶点，绕开不可成药。",a:"57",b:"77%",al:"资产",bl:"早期"},
+ {n:"分子胶（molecular glue）",d:"比经典 PROTAC 更小、更口服友好的一整类，独立成势。",a:"59",b:"61%",al:"资产",bl:"早期"},
+ {n:"口服生物药 / 口服多肽",d:"把抗体/多肽做成口服——一旦跑通即重构给药经济学。",a:"296",b:"69%",al:"资产",bl:"早期"},
+ {n:"入脑生物药 / BBB 穿梭",d:"转铁蛋白受体等穿梭平台，打开 CNS 大分子的门。",a:"282",b:"65%",al:"资产",bl:"早期"},
+ {n:"体内 CAR / 体内细胞工程",d:"用 LNP/病毒在体内造 CAR，绕过离体制备成本。",a:"56",b:"66%",al:"资产",bl:"早期"},
+ {n:"条件激活 / 掩蔽抗体",d:"logic-gate、prodrug 抗体——只在肿瘤微环境开火，拓治疗窗。",a:"69",b:"70%",al:"资产",bl:"早期"},
+ {n:"放射药 × α 发射体",d:"225Ac / 锕系替代 β 核素，下一代放疗武器。",a:"11",b:"82%",al:"资产",bl:"早期"},
+];
+const targets=[
+ ["TDP-43 / ALS","42+83"],["FTD 额颞叶痴呆","24"],["GPR84（髓系 GPCR）","24"],
+ ["GARP / TGF-β / Treg","24"],["CD74","36"],["STAT3","26"],["TNBC 三阴乳腺","58"],
+ ["GBM / PDAC 难治实体瘤","32/25"],["AR（前列腺）","31"],["HDAC","24"],
+ ["AMD / 眼底","36"],["SCD 镰状细胞","26"],["GVHD","28"],["HLA 修饰","31"],
+];
+const peak=[
+ {n:"ADC / 偶联物",why:"658 个资产、货架最满；平台已验证，进入拼靶点/拼载荷阶段。",num:"N=658 · 已主流"},
+ {n:"通用型 TCE / CD3 双抗（肿瘤）",why:"553 个、学术仅 8%；纯商业驱动，红海。",num:"N=553 · 拥挤"},
+ {n:"细胞因子 / IL 工程",why:"625 个；IL-2/15/12 改造赛道已非常密集。",num:"N=625 · 拥挤"},
+ {n:"GLP-1 / 减重",why:"已是全行业主线，估值充分反映，非逆向。",num:"N=341+210 · 主流"},
+ {n:"广谱自免 / I&I",why:"789 个；除非有精准/口服角度，否则同质化。",num:"N=789 · 红海"},
+ {n:"AAV 基因治疗（经典）",why:"427 个但晚期占比升、partnered 未起——递送与商业化仍是老问题。",num:"N=427 · 待突破"},
+];
+
+const bd=document.getElementById('board');
+board.forEach(g=>{
+  const lab=document.createElement('div');lab.className='tier-label';lab.textContent=g.tier;bd.appendChild(lab);
+  const max=2.9;
+  g.items.forEach((it,i)=>{
+    const w=Math.max(6,Math.round((it.s/max)*100));
+    const row=document.createElement('div');row.className='row';
+    row.innerHTML=`<div class="rank tnum">${i+1}</div>
+      <div class="rmain">
+        <div class="name">${it.n}</div>
+        <div class="facts tnum"><span>N=<b>${it.N}</b></span><span>学术 <b>${it.acad}%</b></span><span>partnered <b>${it.part}%</b></span><span>${it.note}</span></div>
+        <div class="phase"><i class="pe" style="width:${it.e}%"></i><i class="pm" style="width:${it.m}%"></i><i class="pl" style="width:${it.l}%"></i></div>
+      </div>
+      <div>
+        <div class="bar"><i style="width:${w}%"></i></div>
+        <div class="score tnum">分数 <b>+${it.s.toFixed(2)}</b></div>
+      </div>`;
+    bd.appendChild(row);
+  });
+});
+const cv=document.getElementById('conv');
+conv.forEach(c=>{const el=document.createElement('div');el.className='card';
+  el.innerHTML=`<h3>${c.n}</h3><p>${c.d}</p>
+   <div class="stat"><div><span class="tnum">${c.a}</span><small>${c.al}</small></div><div><span class="tnum">${c.b}</span><small>${c.bl}</small></div></div>`;
+  cv.appendChild(el);});
+const tg=document.getElementById('targets');
+targets.forEach(t=>{const el=document.createElement('span');el.className='tag';
+  el.innerHTML=`<b>${t[0]}</b> · ${t[1]}`;tg.appendChild(el);});
+const pk=document.getElementById('peak');
+peak.forEach(p=>{const el=document.createElement('div');el.className='pk';
+  el.innerHTML=`<div class="n">${p.n}</div><div class="why">${p.why}</div><div class="num tnum">${p.num}</div>`;
+  pk.appendChild(el);});
+</script>
