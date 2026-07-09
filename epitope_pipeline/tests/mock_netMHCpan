@@ -1,0 +1,64 @@
+#!/usr/bin/env python3
+"""A tiny stand-in for the real `netMHCpan` binary.
+
+It accepts the real flags (-f, -a, -l, -BA), reads the FASTA, and emits a
+table in the NetMHCpan-4.1 column layout for a handful of 9mers. Used only to
+prove the orchestration + parser end-to-end without the licensed tool.
+"""
+import argparse
+import sys
+
+
+def main():
+    p = argparse.ArgumentParser()
+    p.add_argument("-f", dest="fasta", required=True)
+    p.add_argument("-a", dest="alleles", required=True)
+    p.add_argument("-l", dest="lengths", default="9")
+    p.add_argument("-BA", dest="ba", action="store_true")
+    args = p.parse_args()
+
+    # read first FASTA record
+    seq_id, seq = None, []
+    with open(args.fasta) as fh:
+        for line in fh:
+            if line.startswith(">"):
+                if seq_id is not None:
+                    break
+                seq_id = line[1:].split()[0]
+            elif seq_id is not None:
+                seq.append(line.strip())
+    seq = "".join(seq)
+    alleles = args.alleles.split(",")
+
+    print("# NetMHCpan version 4.1 (mock)")
+    print("-" * 100)
+    hdr = ("  Pos         MHC        Peptide      Core Of Gp Gl Ip Il "
+           "     Icore        Identity  Score_EL %Rank_EL  Score_BA "
+           "%Rank_BA  Aff(nM) BindLevel")
+    print(hdr)
+    print("-" * 100)
+    for allele in alleles:
+        # deterministic pseudo-scores so output is stable & testable
+        for pos in range(1, min(len(seq) - 9, 6) + 1):
+            pep = seq[pos - 1:pos + 8]
+            if len(pep) < 9:
+                continue
+            base = (sum(ord(c) for c in pep) + len(allele)) % 100 / 100.0
+            rank_el = round(0.05 + base * 4, 4)
+            rank_ba = round(0.10 + base * 6, 4)
+            score_el = round(1 - base, 4)
+            score_ba = round(0.9 - base * 0.5, 4)
+            aff = int(50 + base * 8000)
+            level = ""
+            if rank_ba <= 0.5:
+                level = " <= SB"
+            elif rank_ba <= 2.0:
+                level = " <= WB"
+            print(f"{pos:>5} {allele:>12} {pep:>14} {pep:>9}  0  0  0  0  0 "
+                  f"{pep:>10} {seq_id:>14} {score_el:>8} {rank_el:>8} "
+                  f"{score_ba:>8} {rank_ba:>8} {aff:>8}{level}")
+    print("-" * 100)
+
+
+if __name__ == "__main__":
+    main()
