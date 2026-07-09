@@ -1,0 +1,13 @@
+peptide,seq_id,n_models,models,categories,n_alleles,alleles,best_rank_pct,best_affinity_nM
+YYCAAGPTL,Public_Test_AAVX_VHH,1,NetMHCpan(IEDB),mhc_i,1,HLA-A*24:02,0.06,
+KPEDTAVYY,Public_Test_AAVX_VHH,1,NetMHCpan(IEDB),mhc_i,2,"HLA-A*01:01,HLA-B*07:02",0.21,
+SAVKGRFTL,Public_Test_AAVX_VHH,1,NetMHCpan(IEDB),mhc_i,2,"HLA-B*07:02,HLA-B*08:01",0.23,
+ASGRTHGMY,Public_Test_AAVX_VHH,1,NetMHCpan(IEDB),mhc_i,1,HLA-A*01:01,0.26,
+APGKEREFV,Public_Test_AAVX_VHH,1,NetMHCpan(IEDB),mhc_i,1,HLA-B*07:02,0.48,
+NLKPEDTAV,Public_Test_AAVX_VHH,1,NetMHCpan(IEDB),mhc_i,2,"HLA-A*02:01,HLA-B*08:01",0.54,
+DITASNTHY,Public_Test_AAVX_VHH,1,NetMHCpan(IEDB),mhc_i,1,HLA-A*01:01,0.58,
+GSYNSARDY,Public_Test_AAVX_VHH,1,NetMHCpan(IEDB),mhc_i,2,"HLA-A*01:01,HLA-A*03:01",0.66,
+GMYAMGWFR,Public_Test_AAVX_VHH,1,NetMHCpan(IEDB),mhc_i,1,HLA-A*03:01,0.7,
+AASGRTHGM,Public_Test_AAVX_VHH,1,NetMHCpan(IEDB),mhc_i,2,"HLA-B*07:02,HLA-B*08:01",0.72,
+YNSARDYDY,Public_Test_AAVX_VHH,1,NetMHCpan(IEDB),mhc_i,1,HLA-A*01:01,0.78,
+RDNAKNTAY,Public_Test_AAVX_VHH,1,NetMHCpan(IEDB),mhc_i,1,HLA-A*01:01,0.86,

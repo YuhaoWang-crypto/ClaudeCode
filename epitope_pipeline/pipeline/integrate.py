@@ -99,6 +99,57 @@ def run_iedb_mhci(fasta_path: str, alleles: Sequence[str], lengths=(9,),
                        duration_s=time.time() - t0)
 
 
+_IEDB_MHCII_URL = "http://tools-cluster-interface.iedb.org/tools_api/mhcii/"
+
+
+def run_iedb_mhcii(fasta_path: str, alleles: Sequence[str],
+                   method: str = "netmhciipan_el", timeout: int = 180,
+                   skill_dir: Optional[str] = None) -> ModelResult:
+    """MHC-II (HLA-DR/DQ/DP) via IEDB cloud NetMHCIIpan — the CD4/HLA-DR layer
+    the skill's IEDB helper did not cover. No token/license.
+
+    NetMHCIIpan EL %Rank convention (matches DTU/typical reports): strong <1,
+    weak 1-5. Returns a ModelResult of mhc_ii EpitopeRecords.
+    """
+    import io
+    import time
+    import requests
+    import pandas as pd
+    k = _load_kernel(skill_dir)
+    seqs = k.read_fasta(fasta_path)
+    t0 = time.time()
+    recs: List[EpitopeRecord] = []
+    try:
+        for name, seq in seqs.items():
+            for al in alleles:
+                r = requests.post(_IEDB_MHCII_URL, timeout=timeout, data={
+                    "method": method, "sequence_text": seq,
+                    "allele": al, "length": "15"})
+                r.raise_for_status()
+                df = pd.read_csv(io.StringIO(r.text), sep="\t")
+                df["rank"] = pd.to_numeric(df["rank"], errors="coerce")
+                for _, row in df.iterrows():
+                    rank = row.get("rank")
+                    rank = float(rank) if pd.notna(rank) else None
+                    level = "SB" if (rank is not None and rank < 1.0) else (
+                        "WB" if (rank is not None and rank < 5.0) else "")
+                    recs.append(EpitopeRecord(
+                        model="NetMHCIIpan(IEDB)", category="mhc_ii",
+                        seq_id=name, peptide=str(row.get("peptide", "")),
+                        position=int(row["start"]) if pd.notna(row.get("start")) else None,
+                        allele=row.get("allele"),
+                        core=str(row.get("core_peptide", "")),
+                        score=float(row["score"]) if pd.notna(row.get("score")) else None,
+                        rank=rank, bind_level=level))
+    except Exception as exc:
+        return ModelResult("NetMHCIIpan(IEDB)", "mhc_ii", "error",
+                           message=str(exc)[:300])
+    return ModelResult("NetMHCIIpan(IEDB)", "mhc_ii", "ok", records=recs,
+                       message=f"{len(recs)} peptide×allele (IEDB cloud)",
+                       command=f"IEDB tools_api/mhcii {method}",
+                       duration_s=time.time() - t0)
+
+
 def run_immunogenn(fasta_path: str, skill_dir: Optional[str] = None,
                    timeout: int = 1200) -> ModelResult:
     """MHC-II population immunogenicity via BioLib DTU/ImmunoGeNN (anonymous).
