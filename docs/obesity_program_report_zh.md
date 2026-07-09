@@ -399,3 +399,18 @@ YVVMTQSPLSLPVTPGEPASISCKSSKSLTGSNGVTYVQWLLQKPGQSPQRLIYNASTLAPGVPDRFSGSGSGTDFTLKI
 - **各自独家价值**：§19 = 疾病证据 + 可测性（选临床分层面板）；RWR = 网络中心性（SMAD2/3 枢纽）；**skill = 开关能力判定（δ=2，SMAD2/3 可双稳）+ 动态早期预警量（pSMAD2/3 方差/AR1，可预警治疗响应/细胞命运临界翻转）**—— 后两样是前两种静态排序法**结构上给不了**的。
 - **诚实边界**：不可约核心与 δ=2 是**严谨计算**；m19 双稳窗口用的是**规范机制速率常数（非文献拟合）**，所以严谨的是 **biomarker 几何与 δ**，不是窗口精确边界。
 - 产物：`grn_pipeline/m23_obesity_activin.py`、`fig_grn_dnb_obesity.png`、`grn_obesity_result.md`、`biomarker_rwr_compare.tsv`。
+
+---
+
+## 21. 独立复核交叉核对(对外部验证报告的再复核）
+
+> 收到一份对本项目肥胖轴的《独立验证报告》后,我用可溯源公开库(Open Targets Platform GraphQL、GWAS Catalog REST、STRING v12,均 live 拉取)做了**第三方再复核**。完整版见 `docs/independent_review_and_nsclc_repro_zh.md`。
+
+- **✅ 通路拓扑骨架逐位复现**:STRING v12 里 INHBA/MSTN→ACVR2B **0.999**、INHBE→ALK7 **0.952**(+ACVR2B 0.937)、ACVR2B/ALK7→SMAD2/3 0.96–0.98、SMAD2—SMAD3 0.999、GDF15→GFRAL 0.999→RET 0.998 —— 每条边**精确到小数位吻合**。这是全轴最扎实的部分,也与 §20 三方法收敛到 `ACVR2B→SMAD2/3` 一致。
+- **✅ 位点级遗传学复现**:GPR75 保护性 rs80328470(腰围 p=1e-14/体重 p=2e-15/BMI p=3e-13)、INHBE rs150777893(WHRadjBMI p=1e-9,剪接受体变异)均确认。
+- **⚠️ 需修正 1 — Open Targets 关联"分值"不可复现**:§16 一类表格里的 headline 数值(如 ACVR1C=0.658、GPR75=0.437)在 Open Targets **Platform** 逐一核对**对不上性状标签**(疑为 L2G 位点分或性状错配)。靶点—性状的**生物学是真的**(ACVR1C/INHBE 确为体脂分布基因),但**具体分值应按 REVISED 对待**,后续引用请改用 Platform 关联页实时取值。
+- **⚠️ 需修正 2 — MSTN"零肥胖遗传学"过陈述**:Open Targets 实际给 MSTN 肥胖 0.121(高于 ACVR1C 的 0.072)、GWAS 34 个 mapped SNP。把 MSTN 定位为"GLP-1 联用保肌加成"方向对,但"零遗传学"的定量说法需收敛。
+- **✅ ALK7 升为共同首发** —— 支持(体脂分布头号基因、五靶点里代谢关联最高)。
+- **❓ 设计层 ipTM(MSTN 纳米抗体 0.815、ALK7 binder 0.94)** 为一次性 GPU 产物,公开库无从核对;附带事实成立(ALK7 无实验结构、用 AF-Q8NER5;MSTN 5NTU 存在)。
+
+**一句话**:本项目肥胖轴的**通路与遗传学骨架经得起第三方溯源**;需要收敛的是 §16 的 Open Targets 分值标注与 MSTN 遗传学措辞,两者都是"解读层"而非"事实层"问题。

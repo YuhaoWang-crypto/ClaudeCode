@@ -1,0 +1,15 @@
+{
+  "note": "Independent Boltz-2.1 co-fold reproduction of NSCLC report ipTM claims. Modal GPU, org CD Bioparticles.",
+  "date": "2026-07-09",
+  "jobs": [
+    {"complex": "KRAS_G12C + sotorasib", "lead": "L5", "report_iptm": 0.96, "repro_iptm": 0.9774, "structure_confidence": 0.9409, "binding_confidence": 0.9251, "prediction_id": "sab_pred_GPxUsotl2TlaATVmVYGj", "verdict": "CONFIRMED (higher)"},
+    {"complex": "KRAS_G12C + adagrasib", "lead": "L5", "report_iptm": 0.97, "repro_iptm": 0.9842, "structure_confidence": 0.9637, "binding_confidence": 0.9710, "prediction_id": "sab_pred_3oQYDepHYYu89xRZuA87", "verdict": "CONFIRMED (higher)"},
+    {"complex": "KEAP1_Kelch(321-609) + NRF2_ETGE_peptide(LDEETGEFLPIQ)", "lead": "L1", "report_iptm": "0.90-0.99", "repro_iptm": 0.9551, "structure_confidence": 0.9673, "complex_plddt": 0.9703, "binding_confidence": 0.4473, "prediction_id": "sab_pred_Sp530lhOw7tcewzcodKl", "verdict": "iptm CONFIRMED but binding_confidence modest (0.447) -> geometry high, binding uncertain"}
+  ],
+  "inputs": {
+    "KRAS_G12C_1_169": "MTEYKLVVVGACGVGKSALTIQLIQNHFVDEYDPTIEDSYRKQVVIDGETCLLDILDTAGQEEYSAMRDQYMRTGEGFLCVFAINNTKSFEDIHHYREQIKRVKDSEDVPMVLVGNKCDLPSRTVDTKQAQDLARSYGIPFIETSAKTRQGVDDAFYTLVREIRKHKEK",
+    "sotorasib_smiles": "C=CC(=O)N1CCN(c2nc(=O)n(-c3c(C)ccnc3C(C)C)c3nc(-c4c(O)cccc4F)c(F)cc23)[C@@H](C)C1",
+    "adagrasib_smiles": "C=C(F)C(=O)N1CCN(c2nc(OC[C@@H]3CCCN3C)nc3c2CCN(c2cccc4cccc(Cl)c24)C3)C[C@@H]1CC#N",
+    "KEAP1_Kelch_Q14145_321_609": "APKVGRLIYTAGGYFRQSLSYLEAYNPSDGTWLRLADLQVPRSGLAGCVVGGLLYAVGGRNNSPDGNTDSSALDCYNPMTNQWSPCAPMSVPRNRIGVGVIDGHIYAVGGSHGCIHHNSVERYEPERDEWHLVAPMLTRRIGVGVAVLNRLLYAVGGFDGTNRLNSAECYYPERNEWRMITAMNTIRSGAGVCVLHNCIYAAGGYDGQDQLNSVERYDVETETWTFVAPMKHRRSALGITVHQGRIYVLGGYDGHTFLDSVECYDPDTDTWSEVTRMTSGRSGVGVAVT"
+  }
+}
