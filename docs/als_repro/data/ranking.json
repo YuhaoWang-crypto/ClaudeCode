@@ -1,0 +1,74 @@
+[
+ {
+  "id": "L1",
+  "name": "SOD1 ASO (gapmer敲低)",
+  "modality": "基因/ASO",
+  "feasibility": 5.0,
+  "potency_evidence": 4.5,
+  "safety": 4.0,
+  "developability": 4.5,
+  "evid": "tofersen已批准模态+真实序列;NfL PD",
+  "composite": 4.54,
+  "rank": 1
+ },
+ {
+  "id": "L3",
+  "name": "C9orf72 ASO (敲低重复)",
+  "modality": "基因/ASO",
+  "feasibility": 4.5,
+  "potency_evidence": 4.0,
+  "safety": 4.0,
+  "developability": 4.0,
+  "evid": "最常见家族性;tofersen类",
+  "composite": 4.15,
+  "rank": 2
+ },
+ {
+  "id": "L2",
+  "name": "STMN2 剪接开关ASO",
+  "modality": "基因/ASO",
+  "feasibility": 4.0,
+  "potency_evidence": 3.5,
+  "safety": 4.0,
+  "developability": 4.0,
+  "evid": "恢复全长;QRL-201临床",
+  "composite": 3.85,
+  "rank": 3
+ },
+ {
+  "id": "L5",
+  "name": "Ebselen (SOD1重利用)",
+  "modality": "小分子/重利用",
+  "feasibility": 3.5,
+  "potency_evidence": 3.0,
+  "safety": 4.5,
+  "developability": 4.0,
+  "evid": "co-fold ipTM0.824/bind0.66;Phase3已知药",
+  "composite": 3.66,
+  "rank": 4
+ },
+ {
+  "id": "L4",
+  "name": "SOD1 抗错误折叠纳米抗体",
+  "modality": "抗体/VHH",
+  "feasibility": 4.0,
+  "potency_evidence": 3.5,
+  "safety": 3.5,
+  "developability": 3.5,
+  "evid": "de-novo 100条,top ipTM 0.886/PAE 2.05",
+  "composite": 3.65,
+  "rank": 5
+ },
+ {
+  "id": "L6",
+  "name": "SOD1 de-novo 小分子",
+  "modality": "小分子",
+  "feasibility": 2.5,
+  "potency_evidence": 2.5,
+  "safety": 3.0,
+  "developability": 3.5,
+  "evid": "100条,bind只0.31→SOD1小分子难;2条ADME好",
+  "composite": 2.79,
+  "rank": 6
+ }
+]

@@ -1,0 +1,76 @@
+{
+ "indication": {
+  "name": "ALS 肌萎缩侧索硬化",
+  "mondo": "MONDO_0004976",
+  "composite": 3.985,
+  "rank_note": "AD名义第一但为研究体量伪影;ALS在决策相关维度(未满足5/遗传5/多模态4/白地3.5)胜出"
+ },
+ "axis": "SOD1/C9orf72/FUS(基因)→ TDP-43/TARDBP(蛋白病变枢纽)→ STMN2/UNC13A(隐蔽外显子效应器)→ NfL(读出)",
+ "ot_top": {
+  "SOD1": 0.887,
+  "TARDBP": 0.844,
+  "FUS": 0.84,
+  "TBK1": 0.828,
+  "VCP": 0.801,
+  "OPTN": 0.784,
+  "C9orf72": 0.658
+ },
+ "biomarker_triangulation": {
+  "pool": 40,
+  "m1_core": 20,
+  "jaccard": 0.74,
+  "shared_core": [
+   "TARDBP",
+   "FUS",
+   "SOD1",
+   "TBK1",
+   "OPTN",
+   "VCP",
+   "C9orf72",
+   "ATXN2",
+   "NEFH"
+  ]
+ },
+ "network_layer": {
+  "fibers": 3,
+  "crnt_delta": 1,
+  "variance_fold": 5.15,
+  "ar1_near": 0.989,
+  "early_warning": "NfL 方差↑/AR1↑ 预警 TDP-43 可溶->聚集"
+ },
+ "boltz_jobs": {
+  "sod1_ebselen_cofold": "sab_pred_WJBPeDorjm3WWvfKuU9c",
+  "sod1_smallmol_design_100": "sm_des_v2_zz7WbNWkQvGoWnKJa6kP",
+  "sod1_nanobody_design_100": "prot_des_l4WTHx2I9CjolfN9F3ni"
+ },
+ "aso_design": {
+  "SOD1": "100 gapmer (knockdown)",
+  "STMN2": "100 (splice-switch intent)",
+  "C9orf72": "100 gapmer (knockdown)"
+ },
+ "boltz_results": {
+  "sod1_ebselen": {
+   "iptm": 0.824,
+   "structure_confidence": 0.925,
+   "binding_confidence": 0.66,
+   "complex_plddt": 0.95
+  },
+  "sod1_smallmol_design": {
+   "n_total": 100,
+   "n_retrieved": 10,
+   "best_binding_confidence": 0.311,
+   "best_iptm": 0.674,
+   "note": "de-novo小分子 binding_confidence 0.15-0.31 偏低 -> SOD1无经典口袋,小分子难;2条ADME良好(高溶解, cLogP~2.5)",
+   "best_smiles": "CCOC(=O)c1c(Cl)ccc(NC(=O)Nc2csc3c2CCCC3)c1Cl"
+  },
+  "sod1_nanobody_design": {
+   "n_total": 100,
+   "n_retrieved": 15,
+   "best_iptm": 0.886,
+   "best_min_interaction_pae": 2.05,
+   "n_iptm_gt0.7": 6,
+   "n_iptm_gt0.5": 9,
+   "note": "de-novo VHH 强:top ipTM 0.886 (interaction PAE 2.05A);生物药>小分子对SOD1"
+  }
+ }
+}
