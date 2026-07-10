@@ -34,16 +34,18 @@ def _drug_name(term: str) -> str:
     return tail.rsplit("-", 1)[0]
 
 
-def main(cache_dir: str = "enrichr_cache") -> dict:
+def main(cache_dir: str = "enrichr_cache", disease: str = DISEASE,
+         label: str | None = None) -> dict:
+    label = label or "".join(w[:1].upper() for w in disease.split()) or "DIS"
     random.seed(SEED)
     print(f"Loading real perturbation libraries into {cache_dir}/ ...")
 
-    # 1. consensus IPF disease signature over its GEO replicates
+    # 1. consensus disease signature over its GEO replicates
     dis_up = enrichr.load_library("Disease_Perturbations_from_GEO_up", cache_dir)
     dis_dn = enrichr.load_library("Disease_Perturbations_from_GEO_down", cache_dir)
     ipf = enrichr.consensus_signature(
-        dis_up, dis_dn, match=lambda t: DISEASE in t.lower(),
-        name="IPF_consensus", min_recurrence=2)
+        dis_up, dis_dn, match=lambda t: disease.lower() in t.lower(),
+        name=f"{label}_consensus", min_recurrence=2)
     print(f"[disease] {ipf}  (consensus of {ipf.meta['n_replicates']} replicates)")
 
     # 2. real L1000 drug signatures (subsampled)
@@ -62,7 +64,7 @@ def main(cache_dir: str = "enrichr_cache") -> dict:
 
     # 4. single-agent reversers (most negative WTCS = strongest corrector)
     rev = rank_reversers(ipf, library, k=100)
-    print("\n=== Top single reversers of IPF (drug + CRISPR, one table) ===")
+    print(f"\n=== Top single reversers of {label} (drug + CRISPR, one table) ===")
     print(rev.head(10).to_string(index=False,
           formatters={"connectivity": "{:+.3f}".format}))
     print("\n--- top CRISPR-KO reversers ---")
@@ -82,15 +84,19 @@ def main(cache_dir: str = "enrichr_cache") -> dict:
             pool.append(s); seen.add(s.name)
     combos = best_combinations(ipf_bin, pool, k_genes=300,
                                require_cross_modality=True, top_n=8)
-    print("\n=== Best drug + CRISPR-KO combinations (coverage of IPF genes) ===")
+    print(f"\n=== Best drug + CRISPR-KO combinations (coverage of {label} genes) ===")
     print(combos[["pert_a", "pert_b", "coverage", "complementarity",
                   "combo_score"]].to_string(index=False,
                   float_format="{:.3f}".format))
 
     print("\nRIGOR: scores are deterministic; therapeutic/synergy claims are "
           "HYPOTHESES to validate experimentally.")
-    return {"disease": ipf, "reversers": rev, "combinations": combos}
+    return {"disease": ipf, "reversers": rev, "combinations": combos,
+            "n_drugs": len(drugs_all), "n_crispr": len(crispr)}
 
 
 if __name__ == "__main__":
-    main(sys.argv[1] if len(sys.argv) > 1 else "enrichr_cache")
+    # usage: python3 -m perturbomics.realdata_ipf [cache_dir] [disease substring]
+    cd = sys.argv[1] if len(sys.argv) > 1 else "enrichr_cache"
+    dz = sys.argv[2] if len(sys.argv) > 2 else DISEASE
+    main(cd, dz)
