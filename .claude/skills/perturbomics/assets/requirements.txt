@@ -1,0 +1,20 @@
+# Core (the perturbomics package + demo run on just these):
+numpy
+pandas
+scipy
+
+# Recommended for real single-cell perturbation DGE (pseudobulk.py auto-detects
+# and uses these when present; otherwise a numpy/scipy fallback is used):
+pydeseq2
+decoupler
+anndata
+scanpy
+
+# Optional, for Geneformer embeddings / in-silico perturbation (see
+# reference/geneformer.md). Heavy; install only when you need them:
+# torch
+# transformers
+# geneformer   # from https://huggingface.co/ctheodoris/Geneformer
+
+# Optional, for reading L1000/CMap .gctx signature matrices:
+# cmapPy
