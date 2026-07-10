@@ -94,10 +94,45 @@ network-biomarker says *where/how much + how to measure*, the drug servers say
 
 ```bash
 python3 -m perturbomics.demo_integrate      # offline 4-axis funnel, deterministic
+python3 examples/real_leads_ipf.py          # LIVE ChEMBL+ClinicalTrials worked run
 ```
 
 Then swap the synthetic `NetworkContext` for real network-biomarker output and
 the illustrative `DrugEvidence` for live ChEMBL/Boltz/ClinicalTrials calls.
+
+## A real worked run (IPF, live ChEMBL + ClinicalTrials)
+
+`examples/real_leads_ipf.py` takes the real IPF drug reversers, fetches their
+targets/potency/phase live, and fuses. The fetched evidence (this session):
+
+| drug | ChEMBL target | best IC50 → pIC50 | Ro5 viol | phase | CT.gov |
+|---|---|---|---|---|---|
+| canertinib | **EGFR** (+ERBB2/4) | 1.5 nM → 8.82 | 0 | 3 | 3 |
+| pevonedistat (MLN4924) | NAE / NEDD8 | 4.7 nM → 8.33 | 0 | 3 | 41 |
+| trichostatin A | HDAC | 1.4 nM → 8.84 | 0 | 1 | — |
+| procaterol | ADRB2 (β2) | agonist | 0 | 3 | — |
+
+Fused result — the funnel's whole point, on real data:
+
+```
+name             target  net_role   transcriptomic  network  engagement  clinical  INTEGRATED
+canertinib       EGFR    core            0.950        0.60      0.803      0.75      0.803  ◄ #1
+pevonedistat     NAE1    peripheral      0.991        0.00      0.722      0.75      0.653
+procaterol       ADRB2   peripheral      1.000        0.00        —        0.75      0.641
+trichostatin A   HDAC1   peripheral      0.996        0.00      0.807      0.25      0.597
+```
+
+`procaterol` **wins the transcriptomic axis alone** (−1.000) but is an off-
+pathway β2-agonist → 3rd; `trichostatin`/`pevonedistat` are the most potent but
+their targets aren't network-control nodes → mid-pack; **`canertinib` rises to
+#1 despite weaker connectivity** because EGFR is on-pathway (EGFR/ErbB signalling
+is genuinely implicated in IPF) AND it is potent + phase-3. No single axis ranks
+it first.
+
+Caveats kept explicit in the script: the network axis is an **⚠️ illustrative**
+IPF core/switch set (not a computed M1 quotient — swap in `m1_symmetry.report()`
+on an IPF GRN to make it rigorous), and the **Boltz** binding job (async, minutes)
+was not run this session, so engagement uses ChEMBL potency alone.
 
 ## Rigor discipline (unchanged, carried across the boundary)
 - ✅ **rigorous**: every |WTCS|, core/switch membership *given a network*, the
