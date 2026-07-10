@@ -30,6 +30,7 @@ reference/
   connectivity.md            GSEA enrichment score, CMap WTCS, NCS/τ, null models
   geneformer.md              embeddings + in-silico perturbation → signature
   integration.md             perturbomics × network-biomarker × drug-MCP funnel
+  repurposing.md             reuse an approved drug for a new indication
 assets/
   perturbomics/              the importable package
     signature.py             the common object + constructors from every source
@@ -38,12 +39,14 @@ assets/
     pseudobulk.py            raw counts → pseudobulk → signature (PyDESeq2 or fallback)
     enrichr.py               load REAL perturbation libraries (Enrichr, no login)
     integrate.py             NetworkContext, DrugEvidence, integrated_leads
+    repurpose.py             load_repurposing_hub, screen_repurposing (drug reuse)
     demo.py                  offline synthetic end-to-end (instant)
     demo_integrate.py        offline 4-axis funnel (instant)
     realdata_ipf.py          REAL run: Enrichr disease/drug/CRISPR → reversers+combos
   requirements.txt
 examples/
   real_leads_ipf.py          REAL integrated leads (live ChEMBL + ClinicalTrials)
+  repurpose_ipf.py           REAL drug-repurposing screen (Repurposing Hub + trials)
 figures/
   connectivity_report.html   self-contained report of the runs (open in a browser)
 ```
@@ -56,6 +59,7 @@ figures/
 | `python3 -m perturbomics.demo_integrate` | synthetic 4-axis lead funnel | no |
 | `python3 -m perturbomics.realdata_ipf <cache> "<disease>"` | real Enrichr reversers + combos for any CREEDS disease | downloads ~45 MB |
 | `python3 examples/real_leads_ipf.py` | real integrated leads (live ChEMBL/trials evidence) | live MCP |
+| `python3 examples/repurpose_ipf.py` | real drug-repurposing screen (Repurposing Hub + trials) | downloads data |
 | open `figures/connectivity_report.html` | the written report of all runs | no |
 
 ## The one idea

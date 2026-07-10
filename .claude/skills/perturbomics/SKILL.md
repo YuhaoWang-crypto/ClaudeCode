@@ -11,7 +11,10 @@ description: >-
   COMBINATIONS that jointly reverse a disease state. Use when the task is: build
   a perturbation signature from raw single-cell counts (pseudobulk DGE); compare
   or cluster drug vs CRISPR vs disease signatures; find compounds/genes that
-  reverse a signature; propose combination perturbations; or pull data from the
+  reverse a signature; propose combination perturbations; screen an approved drug
+  for a NEW indication (drug repurposing via the Drug Repurposing Hub —
+  launched-status + current-indication novelty); fuse hits with pathway control +
+  druggability + clinical status into integrated leads; or pull data from the
   Repurposing Hub, CMap/clue.io, GPP, or Geneformer. Runnable `perturbomics`
   package included. Enforces ✅-rigorous vs ⚠️-hypothesis labeling on every claim.
 ---
@@ -145,6 +148,31 @@ python3 -m perturbomics.demo_integrate     # offline 4-axis funnel, deterministi
 
 Full wiring (which `report()` keys and MCP calls feed each axis) →
 `reference/integration.md`.
+
+## Drug repurposing (reuse an approved drug for a new indication)
+
+The Connectivity Map's founding use case, and a thin specialisation of the above:
+a repurposing candidate is a drug that (a) **reverses** the disease signature,
+(b) is **already launched** (for something else), and (c) is **not already used
+for this disease**. `repurpose.py` adds exactly that on top of `rank_reversers`,
+using the real **Broad Drug Repurposing Hub** annotations (`clinical_phase`,
+`moa`, `target`, `disease_area`, `indication`) for approval status + current use:
+
+```python
+from perturbomics import rank_reversers, load_repurposing_hub, screen_repurposing
+rev  = rank_reversers(disease_sig, drug_library)
+hub  = load_repurposing_hub("repurposing_drugs_20200324.txt")
+cands = screen_repurposing(rev, hub, disease_terms=["pulmonary","fibros"],
+                           require_launched=True)   # score = |WTCS| × phase × novelty
+```
+
+Cross the shortlist against ClinicalTrials to split **de-risked** (already in
+trials for the disease) from **novel white-space** (untried) candidates. Real IPF
+run (`examples/repurpose_ipf.py`): surfaced **dasatinib** (CML → *already* in an
+IPF Ph1 trial, NCT02874989 — de-risked/confirmatory) and **neratinib** (breast
+cancer, EGFR inhibitor → no IPF trials — a novel hypothesis that aligns with the
+EGFR/canertinib finding). Full method + the real result table →
+`reference/repurposing.md`.
 
 ## The non-negotiable discipline: honesty labeling
 

@@ -173,6 +173,18 @@
     background:var(--surface-2);border:1px solid var(--line);border-radius:5px;padding:1px 6px}
   .tgt.core{color:var(--accent-ink);border-color:color-mix(in srgb,var(--accent) 35%,transparent)}
 
+  /* ---- repurposing modes ---- */
+  .mode{font-family:var(--font-mono);font-size:11px;font-weight:700;
+    border-radius:5px;padding:2px 8px;white-space:nowrap}
+  .mode.derisk{background:var(--good-bg);color:var(--good);
+    border:1px solid color-mix(in srgb,var(--good) 35%,transparent)}
+  .mode.novel{background:color-mix(in srgb,var(--accent) 12%,transparent);
+    color:var(--accent-ink);border:1px solid color-mix(in srgb,var(--accent) 35%,transparent)}
+  .mode.adj{background:var(--surface-2);color:var(--muted);border:1px solid var(--line)}
+  .revcell{display:flex;align-items:center;gap:8px;min-width:120px}
+  .revtrack{flex:1;background:var(--track);border-radius:5px;height:10px;min-width:50px}
+  .revbar{height:10px;border-radius:3px 5px 5px 3px;background:var(--drug)}
+
   /* ---- callout ---- */
   .callout{background:var(--surface-2);border:1px solid var(--line);
     border-left:3px solid var(--accent);border-radius:0 11px 11px 0;
@@ -225,6 +237,7 @@
       <span class="chip">Case A · <b>Idiopathic pulmonary fibrosis</b></span>
       <span class="chip">Case B · <b>Prostate cancer</b></span>
       <span class="chip">Case C · <b>4-axis integration</b></span>
+      <span class="chip">Case D · <b>drug repurposing</b></span>
       <span class="chip mono">2026-07-10</span>
       <span class="chip mono">reproducible · <b>PYTHONHASHSEED=0</b></span>
     </div>
@@ -499,6 +512,75 @@
         <b>⚠️ Caveats:</b> the network axis is an <em>illustrative</em> IPF
         core/switch set, not a computed M1 quotient; the Boltz binding job (async)
         was not run, so engageability uses ChEMBL potency alone.
+      </div>
+    </div>
+  </section>
+
+  <!-- REPURPOSING -->
+  <section>
+    <div class="kicker">Case D · drug repurposing</div>
+    <h2><span class="n">04</span>Reuse an approved drug for a new indication</h2>
+    <p class="sub">The same reversal logic, one filter tighter: keep only drugs
+      that are <b>already launched</b> (Drug Repurposing Hub) and <b>not already
+      used</b> for the disease. A launched drug that reverses the IPF signature
+      from a <em>different</em> indication is a repurposing candidate — scored
+      <span class="mono">|WTCS| × phase × indication-novelty</span>.</p>
+
+    <div class="card">
+      <h3 style="font-size:15px;font-weight:700;margin-bottom:10px">Launched drugs that reverse IPF, currently approved elsewhere <span class="mono" style="color:var(--muted);font-weight:400;font-size:13px">— live Repurposing Hub + ClinicalTrials</span></h3>
+      <div style="overflow-x:auto">
+      <table class="ctable" style="min-width:600px">
+        <thead><tr><th>Drug · mechanism</th><th>Currently approved for</th><th>Reverses IPF</th><th>Repurposing mode</th></tr></thead>
+        <tbody>
+          <tr>
+            <td class="pair"><span class="drg">neratinib</span> <span class="tgt core">EGFR inhibitor</span></td>
+            <td style="font-size:13.5px">breast cancer</td>
+            <td><div class="revcell"><div class="revtrack"><div class="revbar" style="width:79%"></div></div><span class="cval">0.79</span></div></td>
+            <td><span class="mode novel">◇ NOVEL · 0 IPF trials</span></td>
+          </tr>
+          <tr>
+            <td class="pair"><span class="drg">dasatinib</span> <span class="tgt">BCR-ABL / SRC TKI</span></td>
+            <td style="font-size:13.5px">CML / ALL</td>
+            <td><div class="revcell"><div class="revtrack"><div class="revbar" style="width:75%"></div></div><span class="cval">0.75</span></div></td>
+            <td><span class="mode derisk">✓ DE-RISKED · NCT02874989</span></td>
+          </tr>
+          <tr>
+            <td class="pair"><span class="drg">vorinostat</span> <span class="tgt">HDAC inhibitor</span></td>
+            <td style="font-size:13.5px">cutaneous T-cell lymphoma</td>
+            <td><div class="revcell"><div class="revtrack"><div class="revbar" style="width:73%"></div></div><span class="cval">0.73</span></div></td>
+            <td><span class="mode novel">◇ NOVEL</span></td>
+          </tr>
+          <tr>
+            <td class="pair"><span class="drg">idelalisib</span> <span class="tgt">PI3K inhibitor</span></td>
+            <td style="font-size:13.5px">chronic lymphocytic leukemia</td>
+            <td><div class="revcell"><div class="revtrack"><div class="revbar" style="width:77%"></div></div><span class="cval">0.77</span></div></td>
+            <td><span class="mode novel">◇ NOVEL</span></td>
+          </tr>
+          <tr>
+            <td class="pair"><span class="drg">amlodipine</span> <span class="tgt">Ca channel blocker</span></td>
+            <td style="font-size:13.5px">hypertension / angina</td>
+            <td><div class="revcell"><div class="revtrack"><div class="revbar" style="width:74%"></div></div><span class="cval">0.74</span></div></td>
+            <td><span class="mode novel">◇ NOVEL</span></td>
+          </tr>
+        </tbody>
+      </table>
+      </div>
+    </div>
+
+    <div class="callout">
+      <div class="h">Two kinds of repurposing hit — the method finds both</div>
+      <b>dasatinib</b>, nominated from transcriptomics alone, turns out to be
+      <b>genuinely in an IPF trial</b> (NCT02874989, Dasatinib + Quercetin
+      senolytic pilot) — the screen <em>recovered a real repurposing bet</em>, a
+      strong sanity check. <b>neratinib</b> (an EGFR inhibitor, like canertinib in
+      Case C) reverses IPF but has <b>no IPF trials</b> — a <em>novel white-space</em>
+      hypothesis with mechanistic backing.
+      <div style="margin-top:9px;font-size:13px;color:var(--muted)">
+        <b>⚠️ Caveat:</b> corticosteroids (betamethasone, budesonide) also score
+        high — an anti-inflammatory signature match — yet steroids are not
+        effective in IPF specifically. A reminder that signature reversal is a
+        hypothesis generator, not efficacy; every hit needs disease-specific
+        validation.
       </div>
     </div>
   </section>
