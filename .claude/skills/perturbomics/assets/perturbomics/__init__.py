@@ -26,6 +26,8 @@ from .connectivity import (
 )
 from .combine import rank_reversers, best_combinations, combination_score
 from .pseudobulk import pseudobulk, signature_from_pseudobulk
+from .integrate import (NetworkContext, DrugEvidence, integrated_leads,
+                        monitoring_biomarker)
 
 __all__ = [
     "Signature",
@@ -38,4 +40,8 @@ __all__ = [
     "combination_score",
     "pseudobulk",
     "signature_from_pseudobulk",
+    "NetworkContext",
+    "DrugEvidence",
+    "integrated_leads",
+    "monitoring_biomarker",
 ]

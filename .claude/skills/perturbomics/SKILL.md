@@ -115,6 +115,37 @@ but two *partial* agents that individually score ~0 can together cover ~90% of
 the disease — combination analysis surfaces exactly what single-agent
 connectivity misses.
 
+## Composing with pathway analysis & the drug-discovery pipeline
+
+perturbomics is the transcriptomic **front end** of a larger, multi-scale funnel.
+It nominates *what* to perturb; two sibling capabilities then say *where it acts*
+and *whether the molecule is real* — all three share one vocabulary (a **target
+gene** + a **perturbation magnitude**), so they compose with a thin bridge
+(`integrate.py`), no rewrites:
+
+1. **perturbomics** → ranked reversers + drug/CRISPR combinations (`|WTCS|`).
+2. **network-biomarker** (pathway/dynamics skill) → is the target an
+   **irreducible-core** (M1/M11) or **bistable-switch** (M2/M19) node? what
+   **early-warning biomarker** (M4 DNB) tracks a responder?
+3. **drug-discovery MCP servers** (ChEMBL/Boltz/ClinicalTrials — the same ones
+   network-biomarker's m6–m9 use) → **engageability** (pIC50 + Boltz binding/ADME)
+   and **clinical** phase.
+
+`integrated_leads(reversers, network, evidence)` fuses these four orthogonal axes
+into one ranked lead table (transparent weights, per-row renormalisation, missing
+axes flagged not zeroed). The payoff: a strong-but-promiscuous connectivity hit
+gets demoted and a moderate hit with a core+switch, druggable, clinical target
+gets promoted — which no single axis would surface. And via network-biomarker's
+`m6_integrate` a nominated compound can be pushed *back* through the dynamics to
+predict how far it moves the disease network toward its tipping point.
+
+```bash
+python3 -m perturbomics.demo_integrate     # offline 4-axis funnel, deterministic
+```
+
+Full wiring (which `report()` keys and MCP calls feed each axis) →
+`reference/integration.md`.
+
 ## The non-negotiable discipline: honesty labeling
 
 Every result carries one of:
