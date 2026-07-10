@@ -1,2 +1,4 @@
-__pycache__/
 *.pyc
+*.txt
+__pycache__/
+enrichr_cache/

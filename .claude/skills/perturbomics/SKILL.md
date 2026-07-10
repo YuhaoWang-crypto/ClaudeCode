@@ -62,15 +62,29 @@ Geneformer in-silico perturbation ───────┘            │
 ## Run the package
 
 ```bash
-pip install numpy pandas scipy          # core; demo needs only these
-python3 -m perturbomics.demo            # end-to-end synthetic multi-modal demo
+pip install numpy pandas scipy          # core; demos need only these
+python3 -m perturbomics.demo            # synthetic end-to-end (offline, instant)
+python3 -m perturbomics.realdata_ipf    # REAL data: downloads Enrichr libraries
 ```
 
-The demo plants a disease signature and a mixed drug/CRISPR library, then shows
+`demo.py` plants a disease signature and a mixed drug/CRISPR library, then shows
 (1) single-agent reversers by WTCS, (2) a connectivity map, (3) the best
 drug+CRISPR **combinations** by disease-coverage, and (4) a rigorous pseudobulk
 DGE recovering the planted genes. For real DGE also `pip install pydeseq2`
 (auto-detected; falls back to a numpy/scipy path otherwise).
+
+`realdata_ipf.py` runs the SAME pipeline on **genuine public data** — it
+downloads three Enrichr libraries (CREEDS disease DE, LINCS L1000 drug, LINCS
+CRISPR-KO signatures; ~45 MB, no login), builds a consensus idiopathic-
+pulmonary-fibrosis signature, and ranks real drugs + gene-KOs that reverse it
+plus the best drug+CRISPR combinations. Reproducible verified run (PYTHONHASHSEED=0):
+top drug reversers **trichostatin A** (HDAC inhibitor), **mln4924**,
+**canertinib** (pan-ErbB); top CRISPR-KO reversers **CDK13**, **NBAS**,
+**KIAA0907**; top cross-modality combination **canertinib + CDK13-KO** (covers
+~11% of the IPF signature, +3% from the genetic partner). All hits are ⚠️
+hypotheses to validate — the point is the *method* runs on real data. The
+Enrichr loaders live in `enrichr.py` (`load_library`, `paired_signatures`,
+`crispr_ko_signatures`, `consensus_signature`).
 
 Package layout (`assets/perturbomics/`):
 
