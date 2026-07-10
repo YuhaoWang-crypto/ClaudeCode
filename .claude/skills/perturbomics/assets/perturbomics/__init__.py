@@ -23,6 +23,7 @@ from .connectivity import (
     weighted_connectivity_score,
     connectivity_matrix,
     normalized_connectivity,
+    permutation_pvalue,
 )
 from .combine import rank_reversers, best_combinations, combination_score
 from .pseudobulk import pseudobulk, signature_from_pseudobulk
@@ -36,6 +37,7 @@ __all__ = [
     "weighted_connectivity_score",
     "connectivity_matrix",
     "normalized_connectivity",
+    "permutation_pvalue",
     "rank_reversers",
     "best_combinations",
     "combination_score",

@@ -224,9 +224,12 @@ believe a hit.
   and cDNA-overexpression add it (gain). A "reversal" between a KO signature and
   a drug signature only means what you think if both are oriented the same way
   (perturbation-induced Δexpression). State the convention.
-- **Raw WTCS is not calibrated across a heterogeneous reference.** Normalize
-  within cell-line × perturbation-type groups (`normalized_connectivity`) and
-  compare against a null before calling a hit — decoys can score moderately.
+- **Raw WTCS is not calibrated, and a perfect-looking score can be fragile.**
+  Normalize within cell-line × perturbation-type groups
+  (`normalized_connectivity`) and run `permutation_pvalue` before calling a hit.
+  On real IPF data the top raw reverser scored WTCS −1.000 yet **p ≈ 0.23** (it
+  rested on a few genes) — the null caught what the raw score hid. Decoys can
+  score moderately; the p-value is the guard.
 - **Geneformer's corpus is biased** (~9M brain cells, donors skewed <1yr old,
   non-diseased). In-silico perturbation shifts are hypotheses to confirm in the
   relevant tissue, not ground truth.

@@ -120,6 +120,43 @@ def connectivity_matrix(
     return pd.DataFrame(m, index=names, columns=names)
 
 
+def permutation_pvalue(
+    query: Signature, reference: Signature, k: int = 50, weight: float = 1.0,
+    n_perm: int = 200, seed: int = 0
+) -> tuple[float, float]:
+    """Empirical two-sided p-value for a WTCS against a random-gene-set null.
+
+    The single most important robustness guard for connectivity: random query
+    sets can reach non-trivial |WTCS| (see connectivity.md), so a raw score is
+    not evidence on its own. Here we hold the reference fixed and draw ``n_perm``
+    random up/down tag sets of the SAME sizes from the reference's gene universe,
+    then report how often |null WTCS| ≥ |observed|.
+
+    Null model: **gene-label permutation of the reference** (the standard GSEA
+    null). The reference's gene→score assignments are shuffled ``n_perm`` times
+    and the WTCS recomputed against the fixed query; under the null the
+    reference's ranked list is random with respect to the query's tags, so
+    enrichment collapses to ~0. This is self-contained (needs no external
+    background universe) and correctly calibrated for gene-set-style signatures.
+
+    Returns ``(observed_wtcs, p_value)`` with p = (hits+1)/(n_perm+1) (never 0).
+    Deterministic given ``seed``. ✅ rigorous; a small p means "stronger than
+    chance", still not a biological/therapeutic claim.
+    """
+    obs = weighted_connectivity_score(query, reference, k, weight)
+    vals = reference.scores.values.copy()
+    idx = reference.scores.index
+    rng = np.random.default_rng(seed)
+    hits = 0
+    for _ in range(n_perm):
+        ref_perm = Signature(pd.Series(rng.permutation(vals), index=idx),
+                             name="_perm")
+        null = weighted_connectivity_score(query, ref_perm, k, weight)
+        if abs(null) >= abs(obs):
+            hits += 1
+    return float(obs), (hits + 1) / (n_perm + 1)
+
+
 def normalized_connectivity(
     raw: pd.DataFrame, groups: dict[str, str] | None = None
 ) -> pd.DataFrame:

@@ -34,7 +34,7 @@ reference/
 assets/
   perturbomics/              the importable package
     signature.py             the common object + constructors from every source
-    connectivity.py          enrichment_score, weighted_connectivity_score, NCS
+    connectivity.py          enrichment_score, WTCS, NCS, permutation_pvalue
     combine.py               rank_reversers, best_combinations (cross-modality)
     pseudobulk.py            raw counts → pseudobulk → signature (PyDESeq2 or fallback)
     enrichr.py               load REAL perturbation libraries (Enrichr, no login)
@@ -47,9 +47,22 @@ assets/
 examples/
   real_leads_ipf.py          REAL integrated leads (live ChEMBL + ClinicalTrials)
   repurpose_ipf.py           REAL drug-repurposing screen (Repurposing Hub + trials)
+tests/
+  test_perturbomics.py       self-contained suite (26 tests, no pytest needed)
 figures/
   connectivity_report.html   self-contained report of the runs (open in a browser)
 ```
+
+## Validate
+
+```bash
+python3 tests/test_perturbomics.py      # 26 tests: math, edge cases, dirty data
+```
+
+Covers signature cleaning (dupes/NaN/inf), WTCS signs & the zero-out rule,
+combination coverage bounds (max-not-sum), pseudobulk recovery, the Enrichr /
+Repurposing-Hub parsers, integrated-leads weight renormalisation & NaN-target
+safety, repurposing novelty/launched filters, and the permutation-null p-value.
 
 ## The five entry points
 
@@ -61,6 +74,7 @@ figures/
 | `python3 examples/real_leads_ipf.py` | real integrated leads (live ChEMBL/trials evidence) | live MCP |
 | `python3 examples/repurpose_ipf.py` | real drug-repurposing screen (Repurposing Hub + trials) | downloads data |
 | open `figures/connectivity_report.html` | the written report of all runs | no |
+| `python3 tests/test_perturbomics.py` | validate the package (26 tests) | no |
 
 ## The one idea
 

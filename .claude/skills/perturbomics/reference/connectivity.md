@@ -80,9 +80,15 @@ rank_reversers(disease, library)   # ranked table, most-negative first
 
 ## Before you believe a hit
 
-- **Null model.** Random gene sets can score non-trivial WTCS (the demo shows
-  decoys reaching ≈−0.35). Compare against a permutation null or the NCS/τ
-  percentile; don't threshold raw WTCS blindly.
+- **Null model — use it.** Random gene sets can score non-trivial WTCS (the demo
+  shows decoys reaching ≈−0.35), and a *perfect-looking* score can rest on very
+  few genes. `permutation_pvalue(query, reference, n_perm=300)` returns an
+  empirical p from a **gene-label permutation of the reference** (the standard
+  GSEA null; self-contained, no background universe needed). Real IPF example:
+  the top raw reverser scored **WTCS −1.000 but p ≈ 0.23** — that "perfect"
+  connection is driven by a handful of overlapping genes and is *not* robust,
+  while a genuine broad reverser gives a small p. Always report the p (or the
+  NCS/τ percentile); never threshold raw WTCS blindly.
 - **Shared gene universe.** Score only on genes present in *both* signatures,
   mapped to a common ID (Ensembl). Mismatched universes silently deflate scores.
 - **`k` sensitivity.** Very small `k` is noisy; very large `k` dilutes the

@@ -163,7 +163,10 @@ def integrated_leads(
     rows = []
     for _, r in reversers.iterrows():
         name = r["name"]
-        tgt = (r.get(target_col) or "") if hasattr(r, "get") else ""
+        raw_tgt = r.get(target_col) if hasattr(r, "get") else None
+        # treat NaN / None / blank uniformly as "no target" so a missing target
+        # never pulls a fake network=0 axis into the score
+        tgt = "" if raw_tgt is None or pd.isna(raw_tgt) else str(raw_tgt).strip()
         de = ev.get(name)
         if not tgt and de is not None and de.target:
             tgt = de.target
