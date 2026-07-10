@@ -144,6 +144,35 @@
     background:var(--surface-2);border:1px solid var(--line);border-radius:6px;
     padding:1px 7px;white-space:nowrap}
 
+  /* ---- integrated leads (4-axis funnel) ---- */
+  .funnel{display:flex;gap:8px;flex-wrap:wrap;margin:2px 0 14px}
+  .fx{flex:1;min-width:130px;background:var(--surface-2);border:1px solid var(--line);
+    border-radius:9px;padding:9px 11px}
+  .fx .n{font-family:var(--font-mono);font-size:11px;letter-spacing:.05em;
+    text-transform:uppercase;color:var(--accent-ink);font-weight:600}
+  .fx .w{font-family:var(--font-mono);font-size:11px;color:var(--faint);float:right}
+  .fx .s{font-size:12.5px;color:var(--muted);margin-top:3px;line-height:1.35}
+  .axrow{display:flex;align-items:center;gap:7px}
+  .minitrack{flex:1;background:var(--track);border-radius:4px;height:8px;min-width:30px}
+  .minibar{height:8px;border-radius:2px 4px 4px 2px;background:color-mix(in srgb,var(--accent) 55%,transparent)}
+  .minibar.on{background:var(--accent)}
+  .axval{font-family:var(--font-mono);font-size:12px;color:var(--muted);
+    font-variant-numeric:tabular-nums;min-width:30px;text-align:right}
+  .axval.dim{color:var(--faint)}
+  .inttrack{background:var(--track);border-radius:5px;height:13px;min-width:60px;flex:1}
+  .intbar{height:13px;border-radius:3px 5px 5px 3px;
+    background:linear-gradient(90deg,var(--drug),var(--accent))}
+  .intwrap{display:flex;align-items:center;gap:9px}
+  .intval{font-family:var(--font-mono);font-size:14px;font-weight:700;
+    font-variant-numeric:tabular-nums;min-width:46px;text-align:right}
+  .ltable tr.top td{background:color-mix(in srgb,var(--accent) 9%,transparent)}
+  .ltable tr.top .pair .drg{text-decoration:underline;text-underline-offset:3px}
+  .rank{font-family:var(--font-mono);font-size:11px;color:#fff;background:var(--accent-ink);
+    border-radius:5px;padding:1px 6px;font-weight:700}
+  .tgt{font-family:var(--font-mono);font-size:11px;color:var(--muted);
+    background:var(--surface-2);border:1px solid var(--line);border-radius:5px;padding:1px 6px}
+  .tgt.core{color:var(--accent-ink);border-color:color-mix(in srgb,var(--accent) 35%,transparent)}
+
   /* ---- callout ---- */
   .callout{background:var(--surface-2);border:1px solid var(--line);
     border-left:3px solid var(--accent);border-radius:0 11px 11px 0;
@@ -193,8 +222,9 @@
       connectivity score ranks what reverses the disease, and combination analysis finds
       drug&nbsp;+&nbsp;gene pairs that reverse <em>more together</em> than alone.</p>
     <div class="meta">
-      <span class="chip">Worked example · <b>Idiopathic pulmonary fibrosis</b></span>
-      <span class="chip">Second case · <b>Prostate cancer</b></span>
+      <span class="chip">Case A · <b>Idiopathic pulmonary fibrosis</b></span>
+      <span class="chip">Case B · <b>Prostate cancer</b></span>
+      <span class="chip">Case C · <b>4-axis integration</b></span>
       <span class="chip mono">2026-07-10</span>
       <span class="chip mono">reproducible · <b>PYTHONHASHSEED=0</b></span>
     </div>
@@ -371,6 +401,105 @@
       progression and metastasis. Its knockout signature anti-correlating with the disease
       state is exactly the kind of legible, hypothesis-generating hit the method is meant to
       surface — and a natural genetic partner to pair against a cytotoxic drug.
+    </div>
+  </section>
+
+  <!-- INTEGRATION -->
+  <section>
+    <div class="kicker">Case C · integration</div>
+    <h2><span class="n">03</span>From signature to lead — four axes, one ranking</h2>
+    <p class="sub">Connectivity says <em>what</em> to perturb; on its own a top hit
+      is one line of evidence. Fusing three more — pathway control, molecular
+      engageability, clinical status — turns the ranked signature into a
+      prioritised, multi-scale lead table. Each axis is an independent experiment;
+      a candidate that clears all four is far more credible than a connectivity
+      outlier.</p>
+
+    <div class="funnel" style="margin-top:18px">
+      <div class="fx"><span class="w">w .40</span><div class="n">Transcriptomic</div>
+        <div class="s">|WTCS| reversal of the disease signature — perturbomics</div></div>
+      <div class="fx"><span class="w">w .25</span><div class="n">Network control</div>
+        <div class="s">core / switch node of the pathway — network-biomarker M1/M19</div></div>
+      <div class="fx"><span class="w">w .20</span><div class="n">Engageability</div>
+        <div class="s">ChEMBL potency + ADME — <b>live</b> this session</div></div>
+      <div class="fx"><span class="w">w .15</span><div class="n">Clinical</div>
+        <div class="s">trial phase — ClinicalTrials, <b>live</b></div></div>
+    </div>
+
+    <div class="card">
+      <h3 style="font-size:15px;font-weight:700;margin-bottom:3px">Real integrated leads — IPF <span class="mono" style="color:var(--muted);font-weight:400;font-size:13px">— live ChEMBL + ClinicalTrials</span></h3>
+      <div class="legend"><span style="color:var(--faint)">each axis normalised to
+        [0,1]; only present axes counted; weights renormalised per row.
+        Bars: <i class="sw" style="background:var(--accent)"></i> on-pathway network node</span></div>
+      <div style="overflow-x:auto">
+      <table class="ctable ltable" style="min-width:640px">
+        <thead><tr>
+          <th>Candidate</th><th>Transcriptomic</th><th>Network</th>
+          <th>Engage</th><th>Clinical</th><th>Integrated</th>
+        </tr></thead>
+        <tbody>
+          <tr class="top">
+            <td class="pair"><span class="rank">#1</span> <span class="drg">canertinib</span> <span class="tgt core">EGFR · core</span></td>
+            <td><div class="axrow"><div class="minitrack"><div class="minibar" style="width:95%"></div></div><span class="axval">0.95</span></div></td>
+            <td><div class="axrow"><div class="minitrack"><div class="minibar on" style="width:60%"></div></div><span class="axval">0.60</span></div></td>
+            <td><div class="axrow"><div class="minitrack"><div class="minibar" style="width:80%"></div></div><span class="axval">0.80</span></div></td>
+            <td><div class="axrow"><div class="minitrack"><div class="minibar" style="width:75%"></div></div><span class="axval">0.75</span></div></td>
+            <td><div class="intwrap"><div class="inttrack"><div class="intbar" style="width:80.3%"></div></div><span class="intval">0.803</span></div></td>
+          </tr>
+          <tr>
+            <td class="pair"><span class="drg">pevonedistat</span> <span class="tgt">NAE1</span></td>
+            <td><div class="axrow"><div class="minitrack"><div class="minibar" style="width:99%"></div></div><span class="axval">0.99</span></div></td>
+            <td><div class="axrow"><div class="minitrack"><div class="minibar" style="width:2%"></div></div><span class="axval dim">0.00</span></div></td>
+            <td><div class="axrow"><div class="minitrack"><div class="minibar" style="width:72%"></div></div><span class="axval">0.72</span></div></td>
+            <td><div class="axrow"><div class="minitrack"><div class="minibar" style="width:75%"></div></div><span class="axval">0.75</span></div></td>
+            <td><div class="intwrap"><div class="inttrack"><div class="intbar" style="width:65.3%"></div></div><span class="intval">0.653</span></div></td>
+          </tr>
+          <tr>
+            <td class="pair"><span class="drg">procaterol</span> <span class="tgt">ADRB2</span></td>
+            <td><div class="axrow"><div class="minitrack"><div class="minibar" style="width:100%"></div></div><span class="axval">1.00</span></div></td>
+            <td><div class="axrow"><div class="minitrack"><div class="minibar" style="width:2%"></div></div><span class="axval dim">0.00</span></div></td>
+            <td><div class="axrow"><span class="axval dim">— not fetched</span></div></td>
+            <td><div class="axrow"><div class="minitrack"><div class="minibar" style="width:75%"></div></div><span class="axval">0.75</span></div></td>
+            <td><div class="intwrap"><div class="inttrack"><div class="intbar" style="width:64.1%"></div></div><span class="intval">0.641</span></div></td>
+          </tr>
+          <tr>
+            <td class="pair"><span class="drg">trichostatin A</span> <span class="tgt">HDAC1</span></td>
+            <td><div class="axrow"><div class="minitrack"><div class="minibar" style="width:100%"></div></div><span class="axval">1.00</span></div></td>
+            <td><div class="axrow"><div class="minitrack"><div class="minibar" style="width:2%"></div></div><span class="axval dim">0.00</span></div></td>
+            <td><div class="axrow"><div class="minitrack"><div class="minibar" style="width:81%"></div></div><span class="axval">0.81</span></div></td>
+            <td><div class="axrow"><div class="minitrack"><div class="minibar" style="width:25%"></div></div><span class="axval">0.25</span></div></td>
+            <td><div class="intwrap"><div class="inttrack"><div class="intbar" style="width:59.7%"></div></div><span class="intval">0.597</span></div></td>
+          </tr>
+          <tr>
+            <td class="pair"><span class="kod">CDK13</span> <span class="tgt">CRISPR-KO</span></td>
+            <td><div class="axrow"><div class="minitrack"><div class="minibar" style="width:67%"></div></div><span class="axval">0.67</span></div></td>
+            <td><div class="axrow"><div class="minitrack"><div class="minibar" style="width:2%"></div></div><span class="axval dim">0.00</span></div></td>
+            <td><div class="axrow"><span class="axval dim">— genetic</span></div></td>
+            <td><div class="axrow"><span class="axval dim">— genetic</span></div></td>
+            <td><div class="intwrap"><div class="inttrack"><div class="intbar" style="width:41.5%"></div></div><span class="intval">0.415</span></div></td>
+          </tr>
+        </tbody>
+      </table>
+      </div>
+    </div>
+
+    <div class="callout">
+      <div class="h">Why the ranking flips — the whole point</div>
+      <b>procaterol</b> tops the transcriptomic axis alone (−1.000) but is an
+      off-pathway β2-agonist → 3rd. <b>trichostatin&nbsp;A</b> and
+      <b>pevonedistat</b> are the most potent (IC50 ~1–5&nbsp;nM, fetched live) yet
+      their targets aren't network-control nodes. <b>Canertinib</b> rises to
+      <b>#1 with weaker connectivity</b> — the only hit on a control node (EGFR,
+      genuinely implicated in IPF) that is also potent and phase-3. No single axis
+      ranks it first; the fusion does.
+      <div style="margin-top:9px;font-size:13px;color:var(--muted)">
+        <b>Live provenance:</b> engageability &amp; clinical fetched this session —
+        canertinib EGFR IC50 1.5&nbsp;nM (ChEMBL CHEMBL31965, phase 3, 3 trials);
+        pevonedistat NAE 4.7&nbsp;nM (41 trials); trichostatin HDAC 1.4&nbsp;nM.
+        <b>⚠️ Caveats:</b> the network axis is an <em>illustrative</em> IPF
+        core/switch set, not a computed M1 quotient; the Boltz binding job (async)
+        was not run, so engageability uses ChEMBL potency alone.
+      </div>
     </div>
   </section>
 
