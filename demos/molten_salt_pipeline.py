@@ -21,11 +21,11 @@ app = modal.App("molten-salt-mlp-v2")
 # ---------- images ----------
 cp2k_image = modal.Image.from_registry("cp2k/cp2k:2024.1", add_python="3.11")
 
+# torch + deepmd-kit both from PyPI so their C++ (CXX11) ABIs match.
+# (conda pytorch base image uses ABI=0, but the deepmd wheel needs ABI=1.)
 deepmd_image = (
-    modal.Image.from_registry(
-        "pytorch/pytorch:2.3.1-cuda12.1-cudnn8-runtime"
-    )
-    .pip_install("deepmd-kit", "numpy<2", "mpich")  # pt backend's cxx_op needs mpich metadata
+    modal.Image.debian_slim(python_version="3.11")
+    .pip_install("torch==2.10.0", "deepmd-kit", "numpy<2", "mpich")  # deepmd 3.1.3 op built vs torch 2.10.0
     .env({"MKL_THREADING_LAYER": "GNU", "MKL_SERVICE_FORCE_INTEL": "1"})
 )
 
