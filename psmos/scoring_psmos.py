@@ -92,8 +92,16 @@ def compute_hippo():
     except Exception:
         compara_simp = {}
 
-    # computed overlay: AlphaGenome R (human/mouse), if present
-    ag_R = _load(os.path.join(DATA, "alphagenome", "Hippo_R.json")) or {}
+    # computed overlay: AlphaGenome R (human↔mouse regulatory concordance).
+    # New format: {"R": {family: score}, "detail": {...}}. Mouse's R layer
+    # becomes the mean per-family concordance; human is the reference (R=1).
+    ag_raw = _load(os.path.join(DATA, "alphagenome", "Hippo_R.json")) or {}
+    ag_R = ag_raw.get("R", ag_raw) if isinstance(ag_raw, dict) else {}
+    ag_mouse_R = None
+    if ag_R:
+        vals = [v for v in ag_R.values() if isinstance(v, (int, float))]
+        if vals:
+            ag_mouse_R = round(sum(vals) / len(vals), 3)
 
     rows = []
     for sk, cur in CURATED_HIPPO.items():
@@ -107,12 +115,11 @@ def compute_hippo():
             layers["G"] = round(0.5 * cur["G"] + 0.5 * evo2_c, 3)
             prov["G"] = "computed:evo2+curated"
 
-        # R: if AlphaGenome ran (human/mouse), override R for those species.
-        if sk in ("human", "mouse") and ag_R:
-            rvals = [v for v in ag_R.values() if v is not None]
-            if rvals:
-                layers["R"] = round(sum(rvals) / len(rvals), 3)
-                prov["R"] = "computed:alphagenome"
+        # R: AlphaGenome gives a human↔mouse concordance. Human is the reference
+        # (R stays 1.0); mouse's R layer becomes the computed concordance.
+        if sk == "mouse" and ag_mouse_R is not None:
+            layers["R"] = ag_mouse_R
+            prov["R"] = "computed:alphagenome"
 
         rows.append(dict(
             key=sk, name=SPECIES[sk].name, clade=cur["clade"], note=cur["note"],
@@ -142,7 +149,7 @@ def compute_hippo():
                  "needs-key (adapter ready; human/mouse intervals resolved)")
     return dict(pathway=pw.label, rows=rows, profiles=profiles, winners=winners,
                 weights=WEIGHTS, evo2_live=sorted(norm.keys()),
-                alphagenome_status=ag_status)
+                alphagenome_status=ag_status, ag_R=ag_R, ag_mouse_R=ag_mouse_R)
 
 
 if __name__ == "__main__":

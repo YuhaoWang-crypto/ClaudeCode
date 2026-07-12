@@ -100,9 +100,12 @@ const CATCOL={mammal:'var(--c-mammal)',aqua:'var(--c-aqua)',invert:'var(--c-inve
 document.getElementById('evobanner').innerHTML =
  `<b>Evo2 状态:已接入(live)。</b> evo2_7b 在 Modal H100 上为 <b>${D.evo2_live.length}</b> 个物种(${D.evo2_live.join(', ')})的 YAP/TAZ + TEAD 真实 CDS 计算了对数似然;`+
  `G 层("核心基因正交 + 序列保守")对这些物种已是<b>curated ⊕ Evo2 实测</b>混合。旁系同源冗余由 Ensembl Compara <b>实测</b>。`;
-document.getElementById('agbanner').innerHTML =
- `<b>AlphaGenome(R 层)状态:${D.alphagenome_status}。</b> R 层(启动子/增强子/TF motif/剪接)只能覆盖<b>人与小鼠</b>(AlphaGenome 模型范围);`+
- `适配器已就绪、人鼠基因组区间已解析,设置 <code>ALPHAGENOME_API_KEY</code> 即用人鼠调控轨道实测值替换该层。`;
+const agLive = (D.alphagenome_status==='live');
+document.getElementById('agbanner').innerHTML = agLive
+ ? `<b>AlphaGenome(R 层)状态:已接入(live)。</b> 通过 AlphaGenome API 预测人/鼠 YAP、TEAD 位点的调控轨道(RNA-seq/ATAC/TF-ChIP),`+
+   `R = 人↔鼠 TSS 锚定调控谱一致性:<b>YAP ${(D.ag_R.yap_taz??0)}</b>、<b>TEAD ${(D.ag_R.tead??0)}</b>(TEAD 调控语法更保守)。`+
+   `小鼠 R 层已从策划值(0.90)替换为实测 <b>${D.ag_mouse_R}</b>——实测显示人鼠 Hippo 调控保守度低于先验,小鼠排名相应下调。仅限人/鼠(模型范围)。`
+ : `<b>AlphaGenome(R 层)状态:${D.alphagenome_status}。</b> R 层只能覆盖<b>人与小鼠</b>;适配器已就绪、人鼠区间已解析,设置 <code>ALPHAGENOME_API_KEY</code> 即用实测值替换。`;
 
 // role cards
 const roles={mechanistic:['机制解析 Mechanistic','拆解通路因果、上位性'],
@@ -178,7 +181,7 @@ draw(profs[0]);
 document.getElementById('foot').innerHTML=
  `<b>方法学:PSMOS 六层 v1(Evo2 live)。</b> `+
  `<b>实测层:</b>① G 的序列保守 ← Evo2-7B log-likelihood(Modal H100,真实 CDS,${D.evo2_live.length} 物种);② 冗余 ← Ensembl Compara 旁系同源计数;`+
- `③ R(人/鼠)← AlphaGenome(适配器就绪,待 API key)。<b>策划层:</b>N 网络拓扑、E 时空表达、X 工具/通量为 Hippo 比较生物学策划先验。`+
+ `③ R 调控语法(人/鼠)← AlphaGenome API(RNA-seq/ATAC/TF-ChIP,TSS 锚定人↔鼠一致性)。<b>策划层:</b>N 网络拓扑、E 时空表达、X 工具/通量为 Hippo 比较生物学策划先验。`+
  `<br><b>核心结论:</b>同一通路在同一问题下,机制/成像/遗传/转化/对照应选<b>不同</b>物种——果蝇 G 层因 Evo2 实测偏低仍是机制/遗传首选(单拷贝、遗传学无敌);`+
  `斑马鱼夺成像/再生;涡虫(天然重连)是最佳阴性/对照。"唯一最相似物种"是伪命题。`;
 </script></body></html>"""

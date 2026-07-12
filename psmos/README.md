@@ -17,7 +17,7 @@ the dashboards flagged as pending: `Evo2 状态:未接入` → **接入 (live on
 | Ortholog CDS (coding DNA) | Ensembl REST canonical transcript | ✅ **computed** (real sequences) |
 | Sequence constraint / "naturalness" | **Evo2-7B log-likelihood on Modal H100** | ✅ **computed** (live) |
 | Redundancy / low-copy (paralogue counts) | **Ensembl Compara** within-species paralogues | ✅ **computed** (live) |
-| Regulatory grammar (R layer, human/mouse) | **AlphaGenome** (API-only model) | 🟡 **adapter-ready** (intervals resolved; needs `ALPHAGENOME_API_KEY`) |
+| Regulatory grammar (R layer, human/mouse) | **AlphaGenome** (API RNA-seq/ATAC/TF-ChIP) | ✅ **computed** (live; human↔mouse concordance, mouse lifted to GRCm38) |
 | Architecture / network / expression / tractability | comparative-genomics priors | ⚠️ **curated** (labelled) |
 
 Pathways implemented: **Notch** (3 research goals) and **Hippo–YAP regeneration**

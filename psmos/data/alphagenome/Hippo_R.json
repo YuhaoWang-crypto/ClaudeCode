@@ -1,0 +1,18 @@
+{
+ "R": {
+  "yap_taz": 0.541,
+  "tead": 0.687
+ },
+ "detail": {
+  "yap_taz": {
+   "rna_seq": 0.518,
+   "atac": 0.518,
+   "chip_tf": 0.587
+  },
+  "tead": {
+   "rna_seq": 0.812,
+   "atac": 0.573,
+   "chip_tf": 0.677
+  }
+ }
+}
