@@ -10,8 +10,11 @@ loop finishes in minutes. Scaling to 郭硕's spec (50-100 atoms, 6 T points,
 ~10 ps equilibration) is just parameters + more steps -- see notes at the end.
 """
 import io, json, os, re, subprocess, sys
-import numpy as np
 import modal
+# NOTE: numpy is imported lazily inside functions, NOT at module top level.
+# Modal imports this whole module inside every container to hydrate functions,
+# and the CP2K image's Python cannot import numpy (add_python quirk) -- but the
+# CP2K function never needs numpy anyway.
 
 app = modal.App("molten-salt-mlp")
 
@@ -36,6 +39,7 @@ FORCE_AU_EVA = HARTREE_EV / BOHR_A      # Hartree/Bohr -> eV/Angstrom
 # ======================================================================
 def build_nacl(nx=2, ny=2, nz=2, a0=6.30):
     """Rocksalt NaCl supercell. a0 expanded toward molten density (~1.56 g/cc)."""
+    import numpy as np
     basis = [  # (element, fractional pos in conventional cubic cell)
         ("Na", (0.0, 0.0, 0.0)), ("Na", (0.0, 0.5, 0.5)),
         ("Na", (0.5, 0.0, 0.5)), ("Na", (0.5, 0.5, 0.0)),
@@ -196,6 +200,7 @@ def run_cp2k(inp: str):
 # ======================================================================
 def parse_xyz_frames(text):
     """Return list of (comment, np.array[N,3]) from a concatenated xyz."""
+    import numpy as np
     lines = text.splitlines()
     frames, i = [], 0
     while i < len(lines):
@@ -211,6 +216,7 @@ def parse_xyz_frames(text):
 
 
 def cp2k_to_arrays(pos_xyz, frc_xyz, syms, cell):
+    import numpy as np
     pos = parse_xyz_frames(pos_xyz)
     frc = parse_xyz_frames(frc_xyz)
     n = min(len(pos), len(frc))
@@ -303,6 +309,7 @@ def train_deepmd(arrays: dict, dp_input: dict):
 @app.local_entrypoint()
 def main(stage: str = "all", steps: int = 30, temp: float = 1200.0,
          nx: int = 2, ny: int = 2, nz: int = 2, dp_steps: int = 2000):
+    import numpy as np
     outdir = "/home/user/ClaudeCode/demos/msalt_out"
     os.makedirs(outdir, exist_ok=True)
 
