@@ -16,7 +16,7 @@ import modal
 # and the CP2K image's Python cannot import numpy (add_python quirk) -- but the
 # CP2K function never needs numpy anyway.
 
-app = modal.App("molten-salt-mlp")
+app = modal.App("molten-salt-mlp-v2")
 
 # ---------- images ----------
 cp2k_image = modal.Image.from_registry("cp2k/cp2k:2024.1", add_python="3.11")
