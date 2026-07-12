@@ -41,3 +41,28 @@ python3 -m grn_pipeline.m1_symmetry   # or any single module
 Figures are written to `figures/`. A full write-up with numbers, rigour
 labels, and the interpretation (including the Lyapunov-exponent biomarker
 question) is in [`REPORT.md`](REPORT.md).
+
+## `psmos/` — pathway-aware model-organism selection (Evo2-live)
+
+A separate, self-contained component (same "every number is computed or
+explicitly labelled curated" ethos) that answers a different question: *given a
+signalling pathway, which model organism is right to study it in, and for what
+purpose?* It grounds the sequence-constraint layer in a genome foundation model
+(**Evo2-7B**, run on Modal H100) instead of a divergence-time proxy.
+
+| Layer | Source | Status |
+|---|---|---|
+| Hard gate (is the pathway present?) | UniProt + Ensembl ortholog search | ✅ computed (yeast/plant confirmed absent) |
+| Ortholog coding DNA (CDS) | Ensembl canonical transcript | ✅ computed |
+| Sequence constraint / naturalness | Evo2-7B log-likelihood (Modal H100) | ✅ computed (live) |
+| Architecture / redundancy / tractability | Notch comparative-genomics priors | ⚠️ curated (labelled) |
+| Cross-species regulatory grammar | AlphaGenome (human/mouse only) | ⛔ not yet wired |
+
+```bash
+pip install modal python-socks requests
+export SSL_CERT_FILE=/root/.ccr/ca-bundle.crt      # trust the agent-proxy CA
+python3 -m psmos.run_all Notch                     # UniProt→Ensembl→Evo2→dashboard
+```
+
+Pilot pathway: **Notch** (`psmos/notch_dashboard_live.html`). See
+[`psmos/README.md`](psmos/README.md) for the full pipeline and honesty boundary.
