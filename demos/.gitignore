@@ -1,0 +1,4 @@
+# large / regenerable pipeline outputs
+msalt_out/*.pth
+msalt_out/*.xyz
+__pycache__/
