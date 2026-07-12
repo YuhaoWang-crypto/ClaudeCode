@@ -1,0 +1,37 @@
+{
+ "human": {
+  "receptor": -0.294812,
+  "csl": -0.169858
+ },
+ "mouse": {
+  "receptor": -0.368437,
+  "csl": -0.260524
+ },
+ "rat": {
+  "receptor": -0.368917,
+  "csl": -0.409106
+ },
+ "chicken": {
+  "receptor": -0.26255,
+  "csl": -0.308426
+ },
+ "frog": {
+  "receptor": -0.549457,
+  "csl": -0.404911
+ },
+ "zebrafish": {
+  "receptor": -0.483418,
+  "csl": -0.408767
+ },
+ "fly": {
+  "receptor": -0.489756,
+  "csl": -0.496671
+ },
+ "worm": {
+  "receptor": -1.061424,
+  "csl": -1.028642
+ },
+ "tunicate": {
+  "csl": -0.864978
+ }
+}
