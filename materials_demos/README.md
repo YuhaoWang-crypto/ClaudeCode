@@ -38,10 +38,48 @@
   逐条映射到**具体计算 → 方法 → 软件 → 量级**，并给出性价比排序的最小补充方案。
 - 核心建议：先做**声子谱(Phonopy)** + **Huang-Rhys 因子**，把"强电子-声子耦合"定量化。
 
+### Demo #4 — 熔盐宏观性质 + DeePMD 训练集打包工作流 ✅
+- 文件：`moltensalt_mlp_pipeline.py` → 图 `moltensalt_demo.png`，数据集 `deepmd_dataset/`
+- 对应客户（郭硕）：熔盐 AIMD → 训 DeepMD 势 → 算密度/粘度/扩散。
+- 用经典 LJ 液体作透明代理，跑 **6 个温度点** NVT MD，出 g(r)、扩散系数-温度(Arrhenius)曲线，
+  并把带能量/力标签的轨迹**打包成 DeePMD-kit `deepmd/npy` 格式**（客户指定的交付格式，已校验：
+  coord/box/energy/force.npy + type.raw）。
+- ⚠️ 力/能来自 LJ 而非 DFT。真实工作需 CP2K/VASP AIMD + DP 训练（HPC）；把 LJ 换成 AIMD 输出即可复用打包代码。
+
+### Demo #5 — 蛋白 Cd²⁺ 结合位点几何预测 ✅
+- 文件：`cd_binding_site_predictor.py` → 图 `cd_binding_sites.png`
+- 对应客户（bizlikery）：找蛋白里结合 Cd²⁺ 的位点 → 设计突变体做 MST。
+- 基于 HSAB 软硬酸碱（Cd²⁺ 偏好 Cys硫 > His氮 > 羧基氧），扫描配位原子做**团(clique)聚类**打分排序，
+  直接给出突变靶点。**验证**：在碳酸酐酶(1CA2)上第1位点精确命中已知金属位点 His94/His96/His119。
+- ⚠️ 是几何/启发式预测，非对接或 QM。真实工作用 AutoDock(Cd²⁺参数化)/MetalPDB + QM/MM 精修 top 位点。
+
+### Demo #6 — L/D 手性氨基酸在 Au 上 SERS 差异的分子级 DFT 论证 ✅
+- 文件：`sers_chirality_dft.py` → 图 `sers_chirality_demo.png`
+- 对应客户（旺仔秋秋唐）：L/D-精氨酸在金上吸附的 SERS 差异，DFT 算构型/吸附能/振动频率。
+- 用 L-丙氨酸作最小手性代理，DFT(PBE/6-31G) 优化 + 镜像构造 D-对映体，算两者振动频率，
+  **证明孤立分子 L≡D（谱完全重合）**——所以 SERS 差异必来自它们在金表面上的**不同吸附几何**。
+  附单原子 Au 吸附能计算演示吸附能工作流。
+- ⚠️ 丙氨酸/单 Au 原子是代理。真实 L/D SERS 差异需周期性 Au(111) slab + 色散 + 溶剂 + 表面 Raman 张量（HPC）——
+  本 demo 恰好从分子层面论证了"为什么必须做 slab 计算"。
+
 ## 运行方式
 
 ```bash
-pip install numpy matplotlib pyscf
-python3 qd_fss_model.py          # demo #1，秒级
-python3 metal_center_screen.py   # demo #2，约几分钟（6 金属 × 多自旋态 DFT）
+pip install numpy matplotlib pyscf ase dpdata biopython rdkit pyberny
+python3 qd_fss_model.py             # demo #1，秒级，纯解析
+python3 metal_center_screen.py      # demo #2，几分钟，金属中心 DFT 初筛
+python3 moltensalt_mlp_pipeline.py  # demo #4，几分钟，MD + DeePMD 打包
+python3 cd_binding_site_predictor.py [PDBID]   # demo #5，秒级，默认 1CA2
+python3 sers_chirality_dft.py       # demo #6，约 10 分钟，DFT 优化+频率
 ```
+
+## 三次需求的能力对照
+
+| 需求方向 | 本环境可跑的 demo | 必须上 HPC 的真实工作 |
+|---|---|---|
+| 量子点 FSS（图2/3） | #1 解析模型 ✅ | 原子级赝势超胞 |
+| 仿生酶催化金属筛选 | #2 分子 DFT 初筛 ✅ | 周期性 Cr-Co₃O₄ + NEB 能垒 |
+| 闪烁体/STE 审稿补算 | #3 方法学清单 ✅ | 声子/电子-声子/GW-BSE |
+| 熔盐 ML 势 | #4 MD+DeePMD 打包 ✅ | CP2K/VASP AIMD + DP 训练 |
+| 蛋白-Cd²⁺ 结合位点 | #5 几何位点预测 ✅ | AutoDock/QM-MM 精修 |
+| 手性 SERS on Au | #6 分子频率论证 ✅ | 周期性 Au slab + Raman |

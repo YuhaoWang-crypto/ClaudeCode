@@ -1,2 +1,3 @@
 __pycache__/
 *.pyc
+materials_demos/*.pdb
