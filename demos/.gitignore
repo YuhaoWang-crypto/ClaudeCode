@@ -2,3 +2,4 @@
 msalt_out/*.pth
 msalt_out/*.xyz
 __pycache__/
+msalt_out/*.log
