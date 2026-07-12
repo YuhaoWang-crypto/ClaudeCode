@@ -87,7 +87,11 @@ def fetch_pathway_paralogs(pathway, use_cache=True):
     out = []
     for fam_key, per_species in pathway.ortholog_seed.items():
         for sk, syms in per_species.items():
-            c = count_one(fam_key, sk, syms)
+            try:
+                c = count_one(fam_key, sk, syms)
+            except Exception as e:  # a transient Ensembl timeout must not abort the batch
+                c = ParalogCount(fam_key, sk, syms[0] if syms else "", 0, False,
+                                 f"query error: {str(e)[:40]}")
             out.append(c)
             print(f"  [{fam_key:12s}] {sk:15s} {c.gene:8s} paralogues={c.n_paralogues:2d} "
                   f"{'ok' if c.found else c.note}")

@@ -28,14 +28,17 @@ scoring — reuses the same code.
 
 See `assets/pathway_template.py` for a fill-in-the-blanks `Pathway`.
 
+## Worked example already in the package
+
+- **Wnt/β-catenin (regeneration ↔ fibrosis)** — `WNT` in `pathways.py`,
+  `CURATED_WNT` in `scoring_psmos.py`, `Wnt` in `build_psmos_dashboard.PATHWAY_UI`.
+  Gate = β-catenin (CTNNB1) + TCF/LEF; panel = planaria, zebrafish, axolotl,
+  mouse (liver), human (IPF), naked mole-rat (fibrosis-resistant), fly (arm/pan),
+  **yeast (live negative control — zero hits → disqualified)**. All three
+  computed layers run live. Copy this as the pattern for a new pathway.
+
 ## Good next candidates (from the framework's own case list)
 
-- **Wnt/β-catenin (regeneration ↔ fibrosis)** — ties directly into the existing
-  fibrosis / network work. Gate: β-catenin (CTNNB1) + TCF/LEF. Panel: planaria,
-  zebrafish, axolotl, mouse (liver), human (IPF). Question: why does one Wnt
-  pathway drive scar-free regeneration in some species and fibrosis in humans?
-  AlphaGenome `CONTACT_MAPS` + `SPLICE_JUNCTIONS` on human/mouse enhancer loops
-  is a natural R-layer extension here.
 - **cGAS–STING innate immunity** — drug-target weighting; the value is
   comparing ligand recognition / STING agonist pharmacology across species
   (human vs mouse STING pockets differ), flagging model–drug mismatch before

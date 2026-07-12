@@ -54,9 +54,9 @@ def run(pathway_key="Notch", do_evo2=True):
         print("\n=== 3. Evo2 scoring — SKIPPED (--no-evo2) ===")
 
     print(f"\n=== 4-5. Scoring + dashboard ===")
-    if pathway_key == "Hippo":
-        from .build_hippo_dashboard import build as build_hippo
-        build_hippo()
+    if pathway_key in ("Hippo", "Wnt"):
+        from .build_psmos_dashboard import build as build_psmos_dashboard
+        build_psmos_dashboard(pathway_key)
     else:
         from .scoring import compute, evo2_vs_curated_correlation
         _, scores = compute(pathway_key)

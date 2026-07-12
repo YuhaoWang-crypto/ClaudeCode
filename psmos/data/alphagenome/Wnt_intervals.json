@@ -1,0 +1,54 @@
+[
+ {
+  "family": "bcatenin",
+  "species_key": "human",
+  "gene": "CTNNB1",
+  "chrom": "chr3",
+  "tss": 41194741,
+  "start": 41186549,
+  "end": 41202933,
+  "strand": 1,
+  "assembly": "GRCh38",
+  "found": true,
+  "note": ""
+ },
+ {
+  "family": "bcatenin",
+  "species_key": "mouse",
+  "gene": "Ctnnb1",
+  "chrom": "chr9",
+  "tss": 120928356,
+  "start": 120920164,
+  "end": 120936548,
+  "strand": 1,
+  "assembly": "GRCm38",
+  "found": true,
+  "note": ""
+ },
+ {
+  "family": "tcf_lef",
+  "species_key": "human",
+  "gene": "TCF7L2",
+  "chrom": "chr10",
+  "tss": 112950015,
+  "start": 112941823,
+  "end": 112958207,
+  "strand": 1,
+  "assembly": "GRCh38",
+  "found": true,
+  "note": ""
+ },
+ {
+  "family": "tcf_lef",
+  "species_key": "mouse",
+  "gene": "Tcf7l2",
+  "chrom": "chr19",
+  "tss": 55741756,
+  "start": 55733564,
+  "end": 55749948,
+  "strand": 1,
+  "assembly": "GRCm38",
+  "found": true,
+  "note": ""
+ }
+]

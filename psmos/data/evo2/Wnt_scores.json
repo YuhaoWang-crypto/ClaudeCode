@@ -1,0 +1,22 @@
+{
+ "human": {
+  "bcatenin": -0.15048,
+  "tcf_lef": -0.225625
+ },
+ "mouse": {
+  "bcatenin": -0.278043,
+  "tcf_lef": -0.307247
+ },
+ "zebrafish": {
+  "bcatenin": -0.368939,
+  "tcf_lef": -0.408212
+ },
+ "fly": {
+  "bcatenin": -0.414663,
+  "tcf_lef": -1.114931
+ },
+ "naked_mole_rat": {
+  "bcatenin": -0.266892,
+  "tcf_lef": -0.656633
+ }
+}

@@ -1,0 +1,18 @@
+{
+ "R": {
+  "bcatenin": 0.59,
+  "tcf_lef": 0.582
+ },
+ "detail": {
+  "bcatenin": {
+   "rna_seq": 0.683,
+   "atac": 0.541,
+   "chip_tf": 0.545
+  },
+  "tcf_lef": {
+   "rna_seq": 0.655,
+   "atac": 0.548,
+   "chip_tf": 0.544
+  }
+ }
+}

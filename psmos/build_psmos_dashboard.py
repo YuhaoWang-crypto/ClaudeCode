@@ -1,37 +1,52 @@
 """
-build_hippo_dashboard.py — regenerate the Hippo–YAP regeneration PSMOS dashboard
-from computed data (Evo2 live, Compara live, AlphaGenome adapter-ready).
+build_psmos_dashboard.py — regenerate a PSMOS six-layer dashboard (Hippo, Wnt,
+…) from computed data (Evo2 + Compara + AlphaGenome live).
 
-Mirrors the PSMOS regeneration dashboard: five role cards, a fidelity×utility
-scatter, a G/D/N/R/E/X heatmap (with computed Evo2-constraint and Compara-
-redundancy columns), and weight-profile tabs — but the numbers are now driven by
-computed overlays where available, with provenance banners.
+Pathway-general: five role cards, a fidelity×utility scatter, a G/D/N/R/E/X
+heatmap (with computed Evo2-constraint and Compara-redundancy columns, gate-
+failed species greyed + 淘汰), and weight-profile tabs. Title/question/signature
+profile come from PATHWAY_UI; everything else from scoring_psmos.compute_psmos.
 
-Output: psmos/hippo_dashboard_live.html
+Output: psmos/<pathway>_dashboard_live.html
 """
 
 import json
 import os
 
-from .scoring_psmos import compute_hippo
+from .scoring_psmos import compute_psmos
 
-OUT = os.path.join(os.path.dirname(__file__), "hippo_dashboard_live.html")
+# Per-pathway dashboard framing: research question + the weight profile to show
+# first (its signature profile).
+PATHWAY_UI = {
+    "Hippo": dict(question="regeneration", signature="regeneration",
+                  title="Hippo–YAP/TAZ–TEAD 再生"),
+    "Wnt":   dict(question="regeneration ↔ fibrosis", signature="fibrosis",
+                  title="Wnt/β-catenin 再生↔纤维化"),
+}
 
 
-def build():
-    D = compute_hippo()
+def build(pathway_key="Hippo"):
+    ui = PATHWAY_UI.get(pathway_key, dict(question="", signature="default (PSMOS)", title=pathway_key))
+    D = compute_psmos(pathway_key)
+    # Put the signature profile first so its tab opens by default.
+    profs = D["profiles"]
+    if ui["signature"] in profs:
+        D["profiles"] = {ui["signature"]: profs[ui["signature"]],
+                         **{k: v for k, v in profs.items() if k != ui["signature"]}}
+    D["ui"] = ui
+    out = os.path.join(os.path.dirname(__file__), f"{pathway_key.lower()}_dashboard_live.html")
     html = TEMPLATE.replace("__DATA__", json.dumps(D, ensure_ascii=False))
-    with open(OUT, "w") as fh:
+    with open(out, "w") as fh:
         fh.write(html)
-    print(f"wrote {OUT}")
+    print(f"wrote {out}")
     print(f"  Evo2 live: {D['evo2_live']}")
     print(f"  AlphaGenome R: {D['alphagenome_status']}")
-    return OUT
+    return out
 
 
 TEMPLATE = r"""<!DOCTYPE html><html lang="zh"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>PSMOS · Hippo–YAP 再生 模式生物组合 (Evo2 live)</title>
+<title>PSMOS · 模式生物组合 (Evo2 live)</title>
 <style>
 :root{--s1:#fcfcfb;--s2:#f4f3f0;--bd:#e2e0da;--tp:#0b0b0b;--ts:#52514e;--tm:#8a887f;
  --c-mammal:#2a78d6;--c-aqua:#1baf7a;--c-invert:#eb6834;--c-ref:#8a887f;--evo:#7a3ff2;--ok:#1baf7a;
@@ -68,8 +83,8 @@ td.l,th.l{text-align:left}.hm{display:block;padding:4px 0;border-radius:3px}
 .foot{font-size:11px;color:var(--tm);margin-top:22px;border-top:1px solid var(--bd);padding-top:12px}
 b{color:var(--tp)}code{background:var(--s2);padding:1px 4px;border-radius:3px}
 </style></head><body>
-<h1>PSMOS · Hippo–YAP/TAZ–TEAD 再生 模式生物「组合」推荐</h1>
-<div class="sub">研究问题 <b>regeneration</b> · 参考 <b>Homo sapiens</b>。不给唯一答案,给<b>五类分工模型</b> + 六层打分(G/D/N/R/E/X)。</div>
+<h1 id="pwtitle">PSMOS · 模式生物「组合」推荐</h1>
+<div class="sub">研究问题 <b id="pwq"></b> · 参考 <b>Homo sapiens</b>。不给唯一答案,给<b>五类分工模型</b> + 六层打分(G/D/N/R/E/X)。</div>
 <div class="banner evo" id="evobanner"></div>
 <div class="banner ag" id="agbanner"></div>
 
@@ -95,16 +110,20 @@ b{color:var(--tp)}code{background:var(--s2);padding:1px 4px;border-radius:3px}
 <div class="foot" id="foot"></div>
 <script>
 const D=__DATA__;
-const CATCOL={mammal:'var(--c-mammal)',aqua:'var(--c-aqua)',invert:'var(--c-invert)',ref:'var(--c-ref)'};
+const CATCOL={mammal:'var(--c-mammal)',aqua:'var(--c-aqua)',invert:'var(--c-invert)',ref:'var(--c-ref)',fungus:'var(--tm)',flatworm:'var(--c-invert)'};
+document.getElementById('pwtitle').textContent='PSMOS · '+D.ui.title+' 模式生物「组合」推荐';
+document.getElementById('pwq').textContent=D.ui.question;
+document.title='PSMOS · '+D.ui.title+' (Evo2 live)';
 
 document.getElementById('evobanner').innerHTML =
- `<b>Evo2 状态:已接入(live)。</b> evo2_7b 在 Modal H100 上为 <b>${D.evo2_live.length}</b> 个物种(${D.evo2_live.join(', ')})的 YAP/TAZ + TEAD 真实 CDS 计算了对数似然;`+
+ `<b>Evo2 状态:已接入(live)。</b> evo2_7b 在 Modal H100 上为 <b>${D.evo2_live.length}</b> 个物种(${D.evo2_live.join(', ')})的门控基因真实 CDS 计算了对数似然;`+
  `G 层("核心基因正交 + 序列保守")对这些物种已是<b>curated ⊕ Evo2 实测</b>混合。旁系同源冗余由 Ensembl Compara <b>实测</b>。`;
 const agLive = (D.alphagenome_status==='live');
+const agParts = Object.entries(D.ag_R||{}).map(([k,v])=>`<b>${k} ${v}</b>`).join('、');
 document.getElementById('agbanner').innerHTML = agLive
- ? `<b>AlphaGenome(R 层)状态:已接入(live)。</b> 通过 AlphaGenome API 预测人/鼠 YAP、TEAD 位点的调控轨道(RNA-seq/ATAC/TF-ChIP),`+
-   `R = 人↔鼠 TSS 锚定调控谱一致性:<b>YAP ${(D.ag_R.yap_taz??0)}</b>、<b>TEAD ${(D.ag_R.tead??0)}</b>(TEAD 调控语法更保守)。`+
-   `小鼠 R 层已从策划值(0.90)替换为实测 <b>${D.ag_mouse_R}</b>——实测显示人鼠 Hippo 调控保守度低于先验,小鼠排名相应下调。仅限人/鼠(模型范围)。`
+ ? `<b>AlphaGenome(R 层)状态:已接入(live)。</b> 通过 AlphaGenome API 预测人/鼠门控基因位点的调控轨道(RNA-seq/ATAC/TF-ChIP),`+
+   `R = 人↔鼠 TSS 锚定调控谱一致性:${agParts}。`+
+   `小鼠 R 层已从策划值替换为实测 <b>${D.ag_mouse_R}</b>。仅限人/鼠(AlphaGenome 模型范围)。`
  : `<b>AlphaGenome(R 层)状态:${D.alphagenome_status}。</b> R 层只能覆盖<b>人与小鼠</b>;适配器已就绪、人鼠区间已解析,设置 <code>ALPHAGENOME_API_KEY</code> 即用实测值替换。`;
 
 // role cards
@@ -153,7 +172,8 @@ const L=[['G','G 基因'],['D','D 结构域'],['N','N 网络'],['R','R 调控'],
 let h='<table><tr><th class="l">物种</th>'+L.map(l=>`<th>${l[1]}</th>`).join('')+
  '<th style="background:var(--evo);color:#fff">Evo2约束</th><th style="background:var(--c-mammal);color:#fff">冗余(Compara)</th></tr>';
 D.rows.forEach(r=>{
- h+=`<tr><td class="l" style="border-left:3px solid ${CATCOL[r.clade]}">${r.name}</td>`+
+ const gd=!r.gate_ok;
+ h+=`<tr style="${gd?'opacity:.5':''}"><td class="l" style="border-left:3px solid ${CATCOL[r.clade]}">${r.name}${gd?' <span style=\"color:#e34948;font-size:9px\">淘汰</span>':''}</td>`+
   L.map(l=>{const v=r.layers[l[0]];const ink=v>.55?'#fff':'var(--tp)';
    const star=(r.prov[l[0]]||'').startsWith('computed')?'*':'';
    return`<td title="${r.prov[l[0]]}"><span class="hm" style="background:${ramp(v)};color:${ink}">${(v*100).toFixed(0)}${star}</span></td>`;}).join('');
@@ -170,22 +190,25 @@ document.getElementById('heat').innerHTML=h;
 // weight-profile tabs
 const profs=Object.keys(D.profiles),tabs=document.getElementById('tabs'),rank=document.getElementById('rank');
 function draw(p){const rows=D.profiles[p];const mx=Math.max(...rows.map(r=>r.psmos))||1;
- rank.innerHTML=rows.map((r,i)=>`<div class="row"><span class="rank">${i+1}</span>
-  <span class="name" style="color:${CATCOL[r.clade]}">${r.name.split(' (')[0]}</span>
+ rank.innerHTML=rows.map((r,i)=>`<div class="row" style="${r.gate===false?'opacity:.5':''}"><span class="rank">${i+1}</span>
+  <span class="name" style="color:${CATCOL[r.clade]}">${r.name.split(' (')[0]}${r.gate===false?' <span style=\"color:#e34948;font-size:9px\">淘汰</span>':''}</span>
   <span class="barwrap"><span class="bar" style="width:${Math.max(3,r.psmos/mx*100)}%;background:${CATCOL[r.clade]}"></span></span>
   <span class="val">${r.psmos.toFixed(0)}</span></div>`).join('');}
 profs.forEach((p,i)=>{const b=document.createElement('div');b.className='tab'+(i==0?' on':'');b.textContent=p;
  b.onclick=()=>{document.querySelectorAll('.tab').forEach(t=>t.classList.remove('on'));b.classList.add('on');draw(p);};tabs.appendChild(b);});
 draw(profs[0]);
 
+const W=D.winners;
 document.getElementById('foot').innerHTML=
  `<b>方法学:PSMOS 六层 v1(Evo2 live)。</b> `+
  `<b>实测层:</b>① G 的序列保守 ← Evo2-7B log-likelihood(Modal H100,真实 CDS,${D.evo2_live.length} 物种);② 冗余 ← Ensembl Compara 旁系同源计数;`+
- `③ R 调控语法(人/鼠)← AlphaGenome API(RNA-seq/ATAC/TF-ChIP,TSS 锚定人↔鼠一致性)。<b>策划层:</b>N 网络拓扑、E 时空表达、X 工具/通量为 Hippo 比较生物学策划先验。`+
- `<br><b>核心结论:</b>同一通路在同一问题下,机制/成像/遗传/转化/对照应选<b>不同</b>物种——果蝇 G 层因 Evo2 实测偏低仍是机制/遗传首选(单拷贝、遗传学无敌);`+
- `斑马鱼夺成像/再生;涡虫(天然重连)是最佳阴性/对照。"唯一最相似物种"是伪命题。`;
+ `③ R 调控语法(人/鼠)← AlphaGenome API(RNA-seq/ATAC/TF-ChIP,TSS 锚定人↔鼠一致性)。<b>策划层:</b>N 网络拓扑、E 时空表达、X 工具/通量为比较生物学策划先验。`+
+ `<br><b>核心结论:</b>同一通路在同一问题下,机制/成像/遗传/转化/对照应选<b>不同</b>物种——`+
+ `机制/遗传→<b>${W.mechanistic.name.split(' (')[0]}</b>、成像→<b>${W.imaging.name.split(' (')[0]}</b>、`+
+ `转化→<b>${W.translational.name.split(' (')[0]}</b>、阴性/对照→<b>${W.comparative.name.split(' (')[0]}</b>。"唯一最相似物种"是伪命题。`;
 </script></body></html>"""
 
 
 if __name__ == "__main__":
-    build()
+    import sys
+    build(sys.argv[1] if len(sys.argv) > 1 else "Hippo")

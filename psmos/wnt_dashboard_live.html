@@ -1,0 +1,163 @@
+<!DOCTYPE html><html lang="zh"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PSMOS · 模式生物组合 (Evo2 live)</title>
+<style>
+:root{--s1:#fcfcfb;--s2:#f4f3f0;--bd:#e2e0da;--tp:#0b0b0b;--ts:#52514e;--tm:#8a887f;
+ --c-mammal:#2a78d6;--c-aqua:#1baf7a;--c-invert:#eb6834;--c-ref:#8a887f;--evo:#7a3ff2;--ok:#1baf7a;
+ --seq1:#cde2fb;--seq2:#86b6ef;--seq3:#2a78d6;--seq4:#184f95;}
+@media(prefers-color-scheme:dark){:root{--s1:#1a1a19;--s2:#242422;--bd:#38382f;--tp:#fff;--ts:#c3c2b7;--tm:#8f8e82;
+ --c-mammal:#3987e5;--c-aqua:#199e70;--c-invert:#d95926;--c-ref:#8f8e82;--evo:#a889f7;--ok:#199e70;
+ --seq1:#104281;--seq2:#184f95;--seq3:#3987e5;--seq4:#86b6ef;}}
+*{box-sizing:border-box}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;
+ background:var(--s1);color:var(--tp);line-height:1.5;padding:20px;max-width:1000px;margin:0 auto}
+h1{font-size:20px;margin:0 0 4px}h2{font-size:15px;margin:24px 0 6px}
+.sub{color:var(--ts);font-size:13px;margin-bottom:6px}
+.banner{border:1px solid var(--bd);border-radius:6px;padding:9px 12px;font-size:12.5px;color:var(--ts);margin:8px 0;background:var(--s2)}
+.banner.evo{border-left:3px solid var(--evo)}.banner.ag{border-left:3px solid var(--c-invert)}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(165px,1fr));gap:10px;margin-top:12px}
+.card{border:1px solid var(--bd);border-radius:10px;padding:11px 12px;background:var(--s2)}
+.card .role{font-size:11px;color:var(--tm)}.card .org{font-size:14px;font-weight:600;margin:3px 0}.card .why{font-size:11px;color:var(--ts)}
+.legend{font-size:11px;color:var(--tm);margin:8px 0}
+.dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:3px;vertical-align:middle}
+.chip{display:inline-block;border-radius:3px;padding:1px 5px;margin-right:4px;font-size:10px}
+svg{width:100%;height:auto;display:block;margin-top:4px}
+.tick{fill:var(--tm);font-size:10px}.axlab{fill:var(--ts);font-size:11px}.pt-label{fill:var(--tp);font-size:10.5px;font-weight:500}
+table{border-collapse:collapse;width:100%;font-size:11.5px;margin-top:6px}
+th,td{border:1px solid var(--bd);padding:4px 6px;text-align:center}th{background:var(--s2)}
+td.l,th.l{text-align:left}.hm{display:block;padding:4px 0;border-radius:3px}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0}
+.tab{padding:6px 10px;border:1px solid var(--bd);border-radius:8px;background:var(--s2);cursor:pointer;font-size:12px;color:var(--ts)}
+.tab.on{background:var(--c-mammal);color:#fff;border-color:var(--c-mammal)}
+.row{display:flex;align-items:center;gap:8px;margin:4px 0;font-size:12.5px}
+.rank{width:16px;color:var(--tm);text-align:right}.name{width:220px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.barwrap{flex:1;background:var(--s2);border-radius:4px;height:18px;min-width:60px}
+.bar{display:block;height:100%;border-radius:4px;background:var(--seq3);min-width:3px}
+.val{width:34px;text-align:right;color:var(--ts);font-variant-numeric:tabular-nums}
+.foot{font-size:11px;color:var(--tm);margin-top:22px;border-top:1px solid var(--bd);padding-top:12px}
+b{color:var(--tp)}code{background:var(--s2);padding:1px 4px;border-radius:3px}
+</style></head><body>
+<h1 id="pwtitle">PSMOS · 模式生物「组合」推荐</h1>
+<div class="sub">研究问题 <b id="pwq"></b> · 参考 <b>Homo sapiens</b>。不给唯一答案,给<b>五类分工模型</b> + 六层打分(G/D/N/R/E/X)。</div>
+<div class="banner evo" id="evobanner"></div>
+<div class="banner ag" id="agbanner"></div>
+
+<h2>① 五类分工模型(核心输出)</h2>
+<div class="cards" id="cards"></div>
+
+<h2>② 保真度 × 可实施性(为什么没有"唯一最佳")</h2>
+<div class="legend">
+ <span class="dot" style="background:var(--c-mammal)"></span>哺乳
+ <span class="dot" style="background:var(--c-aqua)"></span>鱼/两栖
+ <span class="dot" style="background:var(--c-invert)"></span>无脊椎
+ <span class="dot" style="background:var(--c-ref)"></span>参考(人) · 右上=理想;左上=最像最难做;右下=最好做最不像。</div>
+<svg id="scatter" viewBox="0 0 700 440"></svg>
+
+<h2>③ 六层打分热图 (G/D/N/R/E/X) + 实测覆盖</h2>
+<div class="legend" id="provlegend"></div>
+<div id="heat"></div>
+
+<h2>④ 权重随研究问题变化 → 排序变化 (PSMOS)</h2>
+<div class="tabs" id="tabs"></div>
+<div id="rank"></div>
+
+<div class="foot" id="foot"></div>
+<script>
+const D={"pathway": "Wnt/β-catenin signalling", "rows": [{"key": "human", "name": "Homo sapiens (human, ref)", "clade": "ref", "note": "参考/靶标。人 IPF/器官纤维化中 Wnt/β-catenin 持续异常激活;活体再生研究几乎不可行。", "layers": {"G": 1.0, "D": 1.0, "N": 1.0, "R": 1.0, "E": 0.5, "X": 0.34}, "prov": {"G": "computed:evo2+curated", "D": "curated", "N": "curated", "R": "curated", "E": "curated", "X": "curated"}, "arch": {"mechanistic": 0.0, "imaging": 0.0, "genetic": 0.0, "translational": 0.0, "comparative": 0.0}, "fidelity": 0.91, "utility": 0.341, "gate_ok": true, "gate_prov": "computed:uniprot", "evo2_constraint": 1.0, "evo2_meanLL": -0.1881, "compara_simplicity": 0.222}, {"key": "mouse", "name": "Mus musculus (mouse)", "clade": "mammal", "note": "肝再生 + 肺/肾/肝纤维化模型齐全;哺乳类近人架构,纤维化↔修复转化首选。", "layers": {"G": 0.894, "D": 0.95, "N": 0.95, "R": 0.586, "E": 0.6, "X": 0.6}, "prov": {"G": "computed:evo2+curated", "D": "curated", "N": "curated", "R": "computed:alphagenome", "E": "curated", "X": "curated"}, "arch": {"mechanistic": 0.75, "imaging": 0.36, "genetic": 0.7, "translational": 0.88, "comparative": 0.0}, "fidelity": 0.87, "utility": 0.6, "gate_ok": true, "gate_prov": "computed:uniprot", "evo2_constraint": 0.819, "evo2_meanLL": -0.2926, "compara_simplicity": 0.333}, {"key": "zebrafish", "name": "Danio rerio (zebrafish)", "clade": "aqua", "note": "鳍/心脏无瘢痕再生由 Wnt 驱动;透明胚胎活体成像;CRISPR 高通量。硬骨鱼WGD冗余偏高。", "layers": {"G": 0.751, "D": 0.86, "N": 0.88, "R": 0.8, "E": 0.88, "X": 0.88}, "prov": {"G": "computed:evo2+curated", "D": "curated", "N": "curated", "R": "curated", "E": "curated", "X": "curated"}, "arch": {"mechanistic": 0.75, "imaging": 0.92, "genetic": 0.86, "translational": 0.28, "comparative": 0.1}, "fidelity": 0.85, "utility": 0.88, "gate_ok": true, "gate_prov": "computed:uniprot", "evo2_constraint": 0.652, "evo2_meanLL": -0.3886, "compara_simplicity": 0.0}, {"key": "axolotl", "name": "Ambystoma mexicanum (axolotl)", "clade": "aqua", "note": "附肢/多组织再生冠军,Wnt 为再生必需;工具改善中(大基因组),通量与成本受限。", "layers": {"G": 0.8, "D": 0.83, "N": 0.86, "R": 0.72, "E": 0.9, "X": 0.48}, "prov": {"G": "curated", "D": "curated", "N": "curated", "R": "curated", "E": "curated", "X": "curated"}, "arch": {"mechanistic": 0.68, "imaging": 0.55, "genetic": 0.48, "translational": 0.22, "comparative": 0.12}, "fidelity": 0.82, "utility": 0.48, "gate_ok": true, "gate_prov": "curated (no hit — likely query miss)", "evo2_constraint": null, "evo2_meanLL": null, "compara_simplicity": null}, {"key": "naked_mole_rat", "name": "Heterocephalus glaber (naked mole-rat)", "clade": "mammal", "note": "抗纤维化 / 抗癌;高分子量透明质酸-ECM 使损伤反应天然重连;哺乳类比较/对照。", "layers": {"G": 0.733, "D": 0.93, "N": 0.86, "R": 0.8, "E": 0.45, "X": 0.3}, "prov": {"G": "computed:evo2+curated", "D": "curated", "N": "curated", "R": "curated", "E": "curated", "X": "curated"}, "arch": {"mechanistic": 0.6, "imaging": 0.3, "genetic": 0.38, "translational": 0.7, "comparative": 0.3}, "fidelity": 0.8, "utility": 0.3, "gate_ok": true, "gate_prov": "computed:uniprot", "evo2_constraint": 0.525, "evo2_meanLL": -0.4618, "compara_simplicity": 0.222}, {"key": "fly", "name": "Drosophila melanogaster (fly)", "clade": "invert", "note": "arm/pan 是 Wnt 遗传学的发现体系;冗余低、遗传学无敌;但无器官纤维化对应。", "layers": {"G": 0.34, "D": 0.8, "N": 0.9, "R": 0.62, "E": 0.32, "X": 0.88}, "prov": {"G": "computed:evo2+curated", "D": "curated", "N": "curated", "R": "curated", "E": "curated", "X": "curated"}, "arch": {"mechanistic": 0.9, "imaging": 0.66, "genetic": 0.88, "translational": 0.18, "comparative": 0.2}, "fidelity": 0.7, "utility": 0.88, "gate_ok": true, "gate_prov": "computed:uniprot", "evo2_constraint": 0.0, "evo2_meanLL": -0.7648, "compara_simplicity": 1.0}, {"key": "planaria", "name": "Schmidtea mediterranea (planaria)", "clade": "invert", "note": "全身再生(neoblast);Wnt 定头尾极性(β-catenin 梯度),布线以极性为中心、远离人;RNAi 高通量。最佳阴性/对照。", "layers": {"G": 0.58, "D": 0.68, "N": 0.68, "R": 0.52, "E": 0.95, "X": 0.78}, "prov": {"G": "curated", "D": "curated", "N": "curated", "R": "curated", "E": "curated", "X": "curated"}, "arch": {"mechanistic": 0.75, "imaging": 0.66, "genetic": 0.8, "translational": 0.15, "comparative": 0.42}, "fidelity": 0.68, "utility": 0.78, "gate_ok": true, "gate_prov": "computed-partial (annotation gap → curated)", "evo2_constraint": null, "evo2_meanLL": null, "compara_simplicity": null}, {"key": "yeast", "name": "Saccharomyces cerevisiae (yeast)", "clade": "fungus", "note": "阴性对照:真菌无 Wnt/β-catenin–TCF 通路(门控检索零命中)。", "layers": {"G": 0.0, "D": 0.0, "N": 0.0, "R": 0.0, "E": 0.0, "X": 0.9}, "prov": {"G": "curated", "D": "curated", "N": "curated", "R": "curated", "E": "curated", "X": "curated"}, "arch": {"mechanistic": 0.0, "imaging": 0.0, "genetic": 0.0, "translational": 0.0, "comparative": 0.0}, "fidelity": 0.05, "utility": 0.9, "gate_ok": false, "gate_prov": "computed:uniprot (confirmed absent)", "evo2_constraint": null, "evo2_meanLL": null, "compara_simplicity": null}], "profiles": {"fibrosis": [{"key": "zebrafish", "name": "Danio rerio (zebrafish)", "clade": "aqua", "gate": true, "psmos": 85.0}, {"key": "human", "name": "Homo sapiens (human, ref)", "clade": "ref", "gate": true, "psmos": 80.1}, {"key": "axolotl", "name": "Ambystoma mexicanum (axolotl)", "clade": "aqua", "gate": true, "psmos": 77.6}, {"key": "mouse", "name": "Mus musculus (mouse)", "clade": "mammal", "gate": true, "psmos": 75.6}, {"key": "planaria", "name": "Schmidtea mediterranea (planaria)", "clade": "invert", "gate": true, "psmos": 71.0}, {"key": "naked_mole_rat", "name": "Heterocephalus glaber (naked mole-rat)", "clade": "mammal", "gate": true, "psmos": 67.9}, {"key": "fly", "name": "Drosophila melanogaster (fly)", "clade": "invert", "gate": true, "psmos": 66.3}, {"key": "yeast", "name": "Saccharomyces cerevisiae (yeast)", "clade": "fungus", "gate": false, "psmos": 0.0}], "default (PSMOS)": [{"key": "zebrafish", "name": "Danio rerio (zebrafish)", "clade": "aqua", "gate": true, "psmos": 84.0}, {"key": "human", "name": "Homo sapiens (human, ref)", "clade": "ref", "gate": true, "psmos": 82.6}, {"key": "mouse", "name": "Mus musculus (mouse)", "clade": "mammal", "gate": true, "psmos": 77.3}, {"key": "axolotl", "name": "Ambystoma mexicanum (axolotl)", "clade": "aqua", "gate": true, "psmos": 76.9}, {"key": "naked_mole_rat", "name": "Heterocephalus glaber (naked mole-rat)", "clade": "mammal", "gate": true, "psmos": 69.3}, {"key": "planaria", "name": "Schmidtea mediterranea (planaria)", "clade": "invert", "gate": true, "psmos": 69.0}, {"key": "fly", "name": "Drosophila melanogaster (fly)", "clade": "invert", "gate": true, "psmos": 64.5}, {"key": "yeast", "name": "Saccharomyces cerevisiae (yeast)", "clade": "fungus", "gate": false, "psmos": 0.0}], "regeneration": [{"key": "zebrafish", "name": "Danio rerio (zebrafish)", "clade": "aqua", "gate": true, "psmos": 85.1}, {"key": "axolotl", "name": "Ambystoma mexicanum (axolotl)", "clade": "aqua", "gate": true, "psmos": 78.3}, {"key": "human", "name": "Homo sapiens (human, ref)", "clade": "ref", "gate": true, "psmos": 76.6}, {"key": "mouse", "name": "Mus musculus (mouse)", "clade": "mammal", "gate": true, "psmos": 74.5}, {"key": "planaria", "name": "Schmidtea mediterranea (planaria)", "clade": "invert", "gate": true, "psmos": 73.4}, {"key": "naked_mole_rat", "name": "Heterocephalus glaber (naked mole-rat)", "clade": "mammal", "gate": true, "psmos": 65.0}, {"key": "fly", "name": "Drosophila melanogaster (fly)", "clade": "invert", "gate": true, "psmos": 62.2}, {"key": "yeast", "name": "Saccharomyces cerevisiae (yeast)", "clade": "fungus", "gate": false, "psmos": 0.0}], "drug-target": [{"key": "zebrafish", "name": "Danio rerio (zebrafish)", "clade": "aqua", "gate": true, "psmos": 84.7}, {"key": "human", "name": "Homo sapiens (human, ref)", "clade": "ref", "gate": true, "psmos": 81.8}, {"key": "mouse", "name": "Mus musculus (mouse)", "clade": "mammal", "gate": true, "psmos": 80.0}, {"key": "axolotl", "name": "Ambystoma mexicanum (axolotl)", "clade": "aqua", "gate": true, "psmos": 75.7}, {"key": "naked_mole_rat", "name": "Heterocephalus glaber (naked mole-rat)", "clade": "mammal", "gate": true, "psmos": 70.2}, {"key": "fly", "name": "Drosophila melanogaster (fly)", "clade": "invert", "gate": true, "psmos": 69.8}, {"key": "planaria", "name": "Schmidtea mediterranea (planaria)", "clade": "invert", "gate": true, "psmos": 69.6}, {"key": "yeast", "name": "Saccharomyces cerevisiae (yeast)", "clade": "fungus", "gate": false, "psmos": 0.0}], "enhancer/cis-reg": [{"key": "zebrafish", "name": "Danio rerio (zebrafish)", "clade": "aqua", "gate": true, "psmos": 83.7}, {"key": "human", "name": "Homo sapiens (human, ref)", "clade": "ref", "gate": true, "psmos": 82.6}, {"key": "axolotl", "name": "Ambystoma mexicanum (axolotl)", "clade": "aqua", "gate": true, "psmos": 75.1}, {"key": "mouse", "name": "Mus musculus (mouse)", "clade": "mammal", "gate": true, "psmos": 71.2}, {"key": "naked_mole_rat", "name": "Heterocephalus glaber (naked mole-rat)", "clade": "mammal", "gate": true, "psmos": 68.8}, {"key": "planaria", "name": "Schmidtea mediterranea (planaria)", "clade": "invert", "gate": true, "psmos": 67.0}, {"key": "fly", "name": "Drosophila melanogaster (fly)", "clade": "invert", "gate": true, "psmos": 64.6}, {"key": "yeast", "name": "Saccharomyces cerevisiae (yeast)", "clade": "fungus", "gate": false, "psmos": 0.0}], "development (spatiotemporal)": [{"key": "zebrafish", "name": "Danio rerio (zebrafish)", "clade": "aqua", "gate": true, "psmos": 85.0}, {"key": "axolotl", "name": "Ambystoma mexicanum (axolotl)", "clade": "aqua", "gate": true, "psmos": 78.3}, {"key": "human", "name": "Homo sapiens (human, ref)", "clade": "ref", "gate": true, "psmos": 75.1}, {"key": "planaria", "name": "Schmidtea mediterranea (planaria)", "clade": "invert", "gate": true, "psmos": 74.0}, {"key": "mouse", "name": "Mus musculus (mouse)", "clade": "mammal", "gate": true, "psmos": 73.1}, {"key": "naked_mole_rat", "name": "Heterocephalus glaber (naked mole-rat)", "clade": "mammal", "gate": true, "psmos": 63.7}, {"key": "fly", "name": "Drosophila melanogaster (fly)", "clade": "invert", "gate": true, "psmos": 60.2}, {"key": "yeast", "name": "Saccharomyces cerevisiae (yeast)", "clade": "fungus", "gate": false, "psmos": 0.0}], "signal-dynamics": [{"key": "zebrafish", "name": "Danio rerio (zebrafish)", "clade": "aqua", "gate": true, "psmos": 85.3}, {"key": "human", "name": "Homo sapiens (human, ref)", "clade": "ref", "gate": true, "psmos": 82.6}, {"key": "mouse", "name": "Mus musculus (mouse)", "clade": "mammal", "gate": true, "psmos": 78.5}, {"key": "axolotl", "name": "Ambystoma mexicanum (axolotl)", "clade": "aqua", "gate": true, "psmos": 77.8}, {"key": "planaria", "name": "Schmidtea mediterranea (planaria)", "clade": "invert", "gate": true, "psmos": 70.2}, {"key": "naked_mole_rat", "name": "Heterocephalus glaber (naked mole-rat)", "clade": "mammal", "gate": true, "psmos": 70.1}, {"key": "fly", "name": "Drosophila melanogaster (fly)", "clade": "invert", "gate": true, "psmos": 70.0}, {"key": "yeast", "name": "Saccharomyces cerevisiae (yeast)", "clade": "fungus", "gate": false, "psmos": 0.0}]}, "winners": {"mechanistic": {"key": "fly", "name": "Drosophila melanogaster (fly)", "score": 90.0}, "imaging": {"key": "zebrafish", "name": "Danio rerio (zebrafish)", "score": 92.0}, "genetic": {"key": "fly", "name": "Drosophila melanogaster (fly)", "score": 88.0}, "translational": {"key": "mouse", "name": "Mus musculus (mouse)", "score": 88.0}, "comparative": {"key": "planaria", "name": "Schmidtea mediterranea (planaria)", "score": 42.0}}, "weights": {"default (PSMOS)": {"G": 0.18, "D": 0.17, "N": 0.18, "R": 0.17, "E": 0.15, "X": 0.15}, "regeneration": {"G": 0.12, "D": 0.12, "N": 0.2, "R": 0.14, "E": 0.27, "X": 0.15}, "fibrosis": {"G": 0.1, "D": 0.12, "N": 0.25, "R": 0.18, "E": 0.2, "X": 0.15}, "drug-target": {"G": 0.15, "D": 0.28, "N": 0.17, "R": 0.1, "E": 0.1, "X": 0.2}, "enhancer/cis-reg": {"G": 0.1, "D": 0.1, "N": 0.15, "R": 0.35, "E": 0.15, "X": 0.15}, "development (spatiotemporal)": {"G": 0.12, "D": 0.12, "N": 0.16, "R": 0.15, "E": 0.3, "X": 0.15}, "signal-dynamics": {"G": 0.1, "D": 0.12, "N": 0.33, "R": 0.15, "E": 0.15, "X": 0.15}}, "evo2_live": ["fly", "human", "mouse", "naked_mole_rat", "zebrafish"], "alphagenome_status": "live", "ag_R": {"bcatenin": 0.59, "tcf_lef": 0.582}, "ag_mouse_R": 0.586, "ui": {"question": "regeneration ↔ fibrosis", "signature": "fibrosis", "title": "Wnt/β-catenin 再生↔纤维化"}};
+const CATCOL={mammal:'var(--c-mammal)',aqua:'var(--c-aqua)',invert:'var(--c-invert)',ref:'var(--c-ref)',fungus:'var(--tm)',flatworm:'var(--c-invert)'};
+document.getElementById('pwtitle').textContent='PSMOS · '+D.ui.title+' 模式生物「组合」推荐';
+document.getElementById('pwq').textContent=D.ui.question;
+document.title='PSMOS · '+D.ui.title+' (Evo2 live)';
+
+document.getElementById('evobanner').innerHTML =
+ `<b>Evo2 状态:已接入(live)。</b> evo2_7b 在 Modal H100 上为 <b>${D.evo2_live.length}</b> 个物种(${D.evo2_live.join(', ')})的门控基因真实 CDS 计算了对数似然;`+
+ `G 层("核心基因正交 + 序列保守")对这些物种已是<b>curated ⊕ Evo2 实测</b>混合。旁系同源冗余由 Ensembl Compara <b>实测</b>。`;
+const agLive = (D.alphagenome_status==='live');
+const agParts = Object.entries(D.ag_R||{}).map(([k,v])=>`<b>${k} ${v}</b>`).join('、');
+document.getElementById('agbanner').innerHTML = agLive
+ ? `<b>AlphaGenome(R 层)状态:已接入(live)。</b> 通过 AlphaGenome API 预测人/鼠门控基因位点的调控轨道(RNA-seq/ATAC/TF-ChIP),`+
+   `R = 人↔鼠 TSS 锚定调控谱一致性:${agParts}。`+
+   `小鼠 R 层已从策划值替换为实测 <b>${D.ag_mouse_R}</b>。仅限人/鼠(AlphaGenome 模型范围)。`
+ : `<b>AlphaGenome(R 层)状态:${D.alphagenome_status}。</b> R 层只能覆盖<b>人与小鼠</b>;适配器已就绪、人鼠区间已解析,设置 <code>ALPHAGENOME_API_KEY</code> 即用实测值替换。`;
+
+// role cards
+const roles={mechanistic:['机制解析 Mechanistic','拆解通路因果、上位性'],
+ imaging:['动态成像 Imaging','活体观察激活时程/命运'],
+ genetic:['遗传筛选 Genetic','高通量扰动/修饰子筛选'],
+ translational:['人体转化 Translational','向人外推、临床前验证'],
+ comparative:['因果/阴性对照 Comparative','天然重连→验证充分必要性']};
+const rowByKey={};D.rows.forEach(r=>rowByKey[r.key]=r);
+let ch='';
+for(const k of ['mechanistic','imaging','genetic','translational','comparative']){
+ const w=D.winners[k];const r=rowByKey[w.key];
+ ch+=`<div class="card"><div class="role">${roles[k][0]}</div>
+  <div class="org" style="color:${CATCOL[r.clade]}">${w.name.split(' (')[0]}</div>
+  <div class="why">${roles[k][1]}<br><span style="color:var(--tm)">拟合度 ${w.score.toFixed(0)}</span></div></div>`;}
+document.getElementById('cards').innerHTML=ch;
+
+// scatter
+(function(){const W=700,H=440,ml=52,mr=20,mt=16,mb=44;
+ const X=v=>ml+(v)*(W-ml-mr),Y=v=>H-mb-(v)*(H-mt-mb);
+ let s='';
+ for(let g=0;g<=1;g+=0.25){s+=`<line x1="${X(g)}" y1="${mt}" x2="${X(g)}" y2="${H-mb}" stroke="var(--bd)"/>`;
+  s+=`<line x1="${ml}" y1="${Y(g)}" x2="${W-mr}" y2="${Y(g)}" stroke="var(--bd)"/>`;
+  s+=`<text class="tick" x="${X(g)}" y="${H-mb+14}" text-anchor="middle">${(g*100).toFixed(0)}</text>`;
+  s+=`<text class="tick" x="${ml-6}" y="${Y(g)+3}" text-anchor="end">${(g*100).toFixed(0)}</text>`;}
+ s+=`<text class="axlab" x="${(ml+W-mr)/2}" y="${H-6}" text-anchor="middle">实验可实施性 Experimental Utility →</text>`;
+ s+=`<text class="axlab" transform="translate(14,${(mt+H-mb)/2}) rotate(-90)" text-anchor="middle">生物学保真度 Biological Fidelity →</text>`;
+ D.rows.forEach(r=>{const col=CATCOL[r.clade];const x=X(r.utility),y=Y(r.fidelity);
+  s+=`<circle cx="${x}" cy="${y}" r="6.5" fill="${col}" stroke="var(--s1)" stroke-width="2"/>`;
+  const lab=r.name.split(' (')[1]? r.name.split('(')[1].replace(')',''):r.name;
+  const anchor=x>W-140?'end':'start';const dx=x>W-140?-10:10;
+  s+=`<text class="pt-label" x="${x+dx}" y="${y+3}" text-anchor="${anchor}">${lab}</text>`;});
+ document.getElementById('scatter').innerHTML=s;})();
+
+// heatmap
+document.getElementById('provlegend').innerHTML=
+ `G基因·D结构域·N网络·R调控·E表达·X实验 + 两列实测覆盖。来源 `+
+ `<span class="chip" style="background:var(--evo);color:#fff">computed:evo2</span>`+
+ `<span class="chip" style="background:var(--c-mammal);color:#fff">computed:compara</span>`+
+ `<span class="chip" style="background:var(--s2);color:var(--ts);border:1px solid var(--bd)">curated</span>。`;
+function ramp(v,base){const st=base||[[205,226,251],[134,182,239],[42,120,214],[24,79,149]];
+ const t=Math.max(0,Math.min(1,v))*(st.length-1);const i=Math.floor(t),f=t-i;
+ const a=st[i],b=st[Math.min(i+1,st.length-1)];return`rgb(${a.map((x,k)=>Math.round(x+(b[k]-x)*f)).join(',')})`;}
+const EVORAMP=[[237,231,251],[199,180,244],[150,110,235],[104,52,205]];
+const L=[['G','G 基因'],['D','D 结构域'],['N','N 网络'],['R','R 调控'],['E','E 表达'],['X','X 实验']];
+let h='<table><tr><th class="l">物种</th>'+L.map(l=>`<th>${l[1]}</th>`).join('')+
+ '<th style="background:var(--evo);color:#fff">Evo2约束</th><th style="background:var(--c-mammal);color:#fff">冗余(Compara)</th></tr>';
+D.rows.forEach(r=>{
+ const gd=!r.gate_ok;
+ h+=`<tr style="${gd?'opacity:.5':''}"><td class="l" style="border-left:3px solid ${CATCOL[r.clade]}">${r.name}${gd?' <span style=\"color:#e34948;font-size:9px\">淘汰</span>':''}</td>`+
+  L.map(l=>{const v=r.layers[l[0]];const ink=v>.55?'#fff':'var(--tp)';
+   const star=(r.prov[l[0]]||'').startsWith('computed')?'*':'';
+   return`<td title="${r.prov[l[0]]}"><span class="hm" style="background:${ramp(v)};color:${ink}">${(v*100).toFixed(0)}${star}</span></td>`;}).join('');
+ if(r.evo2_constraint!=null){const c=ramp(r.evo2_constraint,EVORAMP);const ink=r.evo2_constraint>.5?'#fff':'var(--tp)';
+  h+=`<td title="meanLL ${r.evo2_meanLL}"><span class="hm" style="background:${c};color:${ink}">${(r.evo2_constraint*100).toFixed(0)}</span></td>`;}
+ else h+=`<td><span class="hm" style="background:var(--s2);color:var(--tm)">—</span></td>`;
+ if(r.compara_simplicity!=null){const c=ramp(r.compara_simplicity);const ink=r.compara_simplicity>.55?'#fff':'var(--tp)';
+  h+=`<td><span class="hm" style="background:${c};color:${ink}">${(r.compara_simplicity*100).toFixed(0)}</span></td>`;}
+ else h+=`<td><span class="hm" style="background:var(--s2);color:var(--tm)">—</span></td>`;
+ h+='</tr>';});
+h+='</table><div class="legend">* = 该层含实测覆盖(Evo2 混入 G / Compara 提供冗余)。</div>';
+document.getElementById('heat').innerHTML=h;
+
+// weight-profile tabs
+const profs=Object.keys(D.profiles),tabs=document.getElementById('tabs'),rank=document.getElementById('rank');
+function draw(p){const rows=D.profiles[p];const mx=Math.max(...rows.map(r=>r.psmos))||1;
+ rank.innerHTML=rows.map((r,i)=>`<div class="row" style="${r.gate===false?'opacity:.5':''}"><span class="rank">${i+1}</span>
+  <span class="name" style="color:${CATCOL[r.clade]}">${r.name.split(' (')[0]}${r.gate===false?' <span style=\"color:#e34948;font-size:9px\">淘汰</span>':''}</span>
+  <span class="barwrap"><span class="bar" style="width:${Math.max(3,r.psmos/mx*100)}%;background:${CATCOL[r.clade]}"></span></span>
+  <span class="val">${r.psmos.toFixed(0)}</span></div>`).join('');}
+profs.forEach((p,i)=>{const b=document.createElement('div');b.className='tab'+(i==0?' on':'');b.textContent=p;
+ b.onclick=()=>{document.querySelectorAll('.tab').forEach(t=>t.classList.remove('on'));b.classList.add('on');draw(p);};tabs.appendChild(b);});
+draw(profs[0]);
+
+const W=D.winners;
+document.getElementById('foot').innerHTML=
+ `<b>方法学:PSMOS 六层 v1(Evo2 live)。</b> `+
+ `<b>实测层:</b>① G 的序列保守 ← Evo2-7B log-likelihood(Modal H100,真实 CDS,${D.evo2_live.length} 物种);② 冗余 ← Ensembl Compara 旁系同源计数;`+
+ `③ R 调控语法(人/鼠)← AlphaGenome API(RNA-seq/ATAC/TF-ChIP,TSS 锚定人↔鼠一致性)。<b>策划层:</b>N 网络拓扑、E 时空表达、X 工具/通量为比较生物学策划先验。`+
+ `<br><b>核心结论:</b>同一通路在同一问题下,机制/成像/遗传/转化/对照应选<b>不同</b>物种——`+
+ `机制/遗传→<b>${W.mechanistic.name.split(' (')[0]}</b>、成像→<b>${W.imaging.name.split(' (')[0]}</b>、`+
+ `转化→<b>${W.translational.name.split(' (')[0]}</b>、阴性/对照→<b>${W.comparative.name.split(' (')[0]}</b>。"唯一最相似物种"是伪命题。`;
+</script></body></html>

@@ -1,0 +1,130 @@
+[
+ {
+  "family": "bcatenin",
+  "species_key": "human",
+  "gene": "CTNNB1",
+  "n_paralogues": 4,
+  "found": true,
+  "note": ""
+ },
+ {
+  "family": "bcatenin",
+  "species_key": "mouse",
+  "gene": "Ctnnb1",
+  "n_paralogues": 4,
+  "found": true,
+  "note": ""
+ },
+ {
+  "family": "bcatenin",
+  "species_key": "zebrafish",
+  "gene": "ctnnb1",
+  "n_paralogues": 6,
+  "found": true,
+  "note": ""
+ },
+ {
+  "family": "bcatenin",
+  "species_key": "fly",
+  "gene": "arm",
+  "n_paralogues": 1,
+  "found": true,
+  "note": ""
+ },
+ {
+  "family": "bcatenin",
+  "species_key": "axolotl",
+  "gene": "ctnnb1",
+  "n_paralogues": 0,
+  "found": false,
+  "note": "no Ensembl species map"
+ },
+ {
+  "family": "bcatenin",
+  "species_key": "naked_mole_rat",
+  "gene": "CTNNB1",
+  "n_paralogues": 4,
+  "found": true,
+  "note": ""
+ },
+ {
+  "family": "bcatenin",
+  "species_key": "planaria",
+  "gene": "ctnnb1",
+  "n_paralogues": 0,
+  "found": false,
+  "note": "no Ensembl species map"
+ },
+ {
+  "family": "bcatenin",
+  "species_key": "yeast",
+  "gene": "CTNNB1",
+  "n_paralogues": 0,
+  "found": false,
+  "note": "no Compara paralogues record"
+ },
+ {
+  "family": "tcf_lef",
+  "species_key": "human",
+  "gene": "TCF7L2",
+  "n_paralogues": 0,
+  "found": false,
+  "note": "query error: Ensembl Compara request failed: The read"
+ },
+ {
+  "family": "tcf_lef",
+  "species_key": "mouse",
+  "gene": "Tcf7l2",
+  "n_paralogues": 3,
+  "found": true,
+  "note": ""
+ },
+ {
+  "family": "tcf_lef",
+  "species_key": "zebrafish",
+  "gene": "tcf7l2",
+  "n_paralogues": 4,
+  "found": true,
+  "note": ""
+ },
+ {
+  "family": "tcf_lef",
+  "species_key": "fly",
+  "gene": "pan",
+  "n_paralogues": 0,
+  "found": true,
+  "note": ""
+ },
+ {
+  "family": "tcf_lef",
+  "species_key": "axolotl",
+  "gene": "tcf7l2",
+  "n_paralogues": 0,
+  "found": false,
+  "note": "no Ensembl species map"
+ },
+ {
+  "family": "tcf_lef",
+  "species_key": "naked_mole_rat",
+  "gene": "TCF7L2",
+  "n_paralogues": 4,
+  "found": true,
+  "note": ""
+ },
+ {
+  "family": "tcf_lef",
+  "species_key": "planaria",
+  "gene": "tcf",
+  "n_paralogues": 0,
+  "found": false,
+  "note": "no Ensembl species map"
+ },
+ {
+  "family": "tcf_lef",
+  "species_key": "yeast",
+  "gene": "TCF7L2",
+  "n_paralogues": 0,
+  "found": false,
+  "note": "no Compara paralogues record"
+ }
+]

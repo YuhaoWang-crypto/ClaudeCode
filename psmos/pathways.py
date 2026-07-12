@@ -198,7 +198,55 @@ HIPPO = Pathway(
 )
 
 
-PATHWAYS = {p.key: p for p in [NOTCH, HIPPO]}
+# ---- Wnt/β-catenin (regeneration ↔ fibrosis) ----------------------------- #
+# 7 component families. Gate = the transcriptional output module: β-catenin
+# effector + TCF/LEF DNA-binding partner. No canonical Wnt transcriptional
+# output without both (analogous to Notch receptor+CSL, Hippo YAP+TEAD).
+# Panel spans regeneration champions (planaria/axolotl/zebrafish), the mammalian
+# fibrosis↔repair axis (mouse liver, human IPF, fibrosis-resistant naked
+# mole-rat), the mechanistic/genetic invertebrate (fly arm/pan), and a true
+# negative control (yeast — no Wnt/β-catenin pathway at all).
+WNT = Pathway(
+    key="Wnt",
+    label="Wnt/β-catenin signalling",
+    reference_species="human",
+    families=[
+        Family("wnt_ligand", "Wnt ligand", ["WNT1", "WNT3A", "WNT5A", "WNT7B"]),
+        Family("frizzled", "Frizzled receptor", ["FZD1", "FZD5", "FZD7"]),
+        Family("lrp", "LRP5/6 co-receptor", ["LRP5", "LRP6"]),
+        Family("dvl", "Dishevelled", ["DVL1", "DVL2", "DVL3"]),
+        Family("destruction", "APC/AXIN/GSK3 destruction complex",
+               ["APC", "AXIN1", "AXIN2", "GSK3B", "CSNK1A1"]),
+        Family("bcatenin", "β-catenin (Armadillo) effector", ["CTNNB1"], is_gate=True),
+        Family("tcf_lef", "TCF/LEF transcription factor",
+               ["TCF7", "TCF7L1", "TCF7L2", "LEF1"], is_gate=True),
+    ],
+    ortholog_seed={
+        "bcatenin": {
+            "human":          ["CTNNB1"],
+            "mouse":          ["Ctnnb1"],
+            "zebrafish":      ["ctnnb1", "ctnnb2"],
+            "fly":            ["arm"],                 # armadillo
+            "axolotl":        ["ctnnb1"],
+            "naked_mole_rat": ["CTNNB1"],
+            "planaria":       ["ctnnb1", "Smed-bcatenin1"],
+            "yeast":          ["CTNNB1"],              # negative control (expect 0)
+        },
+        "tcf_lef": {
+            "human":          ["TCF7L2"],
+            "mouse":          ["Tcf7l2"],
+            "zebrafish":      ["tcf7l2", "tcf7l1a"],
+            "fly":            ["pan"],                 # pangolin (TCF)
+            "axolotl":        ["tcf7l2"],
+            "naked_mole_rat": ["TCF7L2"],
+            "planaria":       ["tcf", "tcf7l2"],
+            "yeast":          ["TCF7L2"],              # negative control (expect 0)
+        },
+    },
+)
+
+
+PATHWAYS = {p.key: p for p in [NOTCH, HIPPO, WNT]}
 
 
 def get_pathway(key: str) -> Pathway:

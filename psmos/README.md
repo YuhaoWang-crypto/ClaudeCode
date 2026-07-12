@@ -20,9 +20,12 @@ the dashboards flagged as pending: `Evo2 状态:未接入` → **接入 (live on
 | Regulatory grammar (R layer, human/mouse) | **AlphaGenome** (API RNA-seq/ATAC/TF-ChIP) | ✅ **computed** (live; human↔mouse concordance, mouse lifted to GRCm38) |
 | Architecture / network / expression / tractability | comparative-genomics priors | ⚠️ **curated** (labelled) |
 
-Pathways implemented: **Notch** (3 research goals) and **Hippo–YAP regeneration**
-(PSMOS six-layer G/D/N/R/E/X, five role models, regeneration-weighted). Adding a
-pathway = one `Pathway` entry in `pathways.py`.
+Pathways implemented: **Notch** (3 research goals), **Hippo–YAP regeneration**
+and **Wnt/β-catenin (regeneration ↔ fibrosis)** — the latter two use the PSMOS
+six-layer G/D/N/R/E/X model with five role models and a hard gate (Wnt's yeast
+row is a live negative control: zero ortholog hits → disqualified). All three
+run Evo2 (G) + Compara (redundancy) + AlphaGenome (R, human/mouse) live. Adding a
+pathway = one `Pathway` entry in `pathways.py` + a curated baseline.
 
 **Honesty boundary (enforced in code):** Evo2 log-likelihood measures sequence
 constraint *across the tree of life*, **not** "equivalence to human". So it is
