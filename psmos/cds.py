@@ -41,6 +41,9 @@ ENSEMBL_SPECIES = {
     "sea_anemone": "nematostella_vectensis",
     "yeast": "saccharomyces_cerevisiae",
     "plant": "arabidopsis_thaliana",
+    "naked_mole_rat": "heterocephalus_glaber_female",
+    # axolotl (Ambystoma mexicanum) and planaria (Schmidtea mediterranea) are
+    # not on the main Ensembl REST endpoint -> honest CDS/Evo2 gaps.
 }
 
 
@@ -151,9 +154,11 @@ def fetch_pathway_cds(pathway, orthologs, use_cache: bool = True) -> list[CDS]:
 
 
 if __name__ == "__main__":
+    import sys
     from psmos.pathways import get_pathway
     from psmos.orthologs import fetch_pathway_gates
-    pw = get_pathway("Notch")
+    pk = sys.argv[1] if len(sys.argv) > 1 else "Notch"
+    pw = get_pathway(pk)
     orths = fetch_pathway_gates(pw, use_cache=True)
     cdss = fetch_pathway_cds(pw, orths, use_cache=False)
     print(f"\nresolved CDS for {sum(c.found for c in cdss)}/{len(cdss)} orthologs")

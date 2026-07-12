@@ -53,6 +53,10 @@ SPECIES: dict[str, Species] = {
     "sea_anemone": Species("Nematostella vectensis (sea anemone)", 45351, 0.40, 0.45, "cnidarian"),
     "yeast":       Species("Saccharomyces cerevisiae (yeast)",   559292,  0.95, 0.98, "fungus"),
     "plant":       Species("Arabidopsis thaliana (plant)",         3702,  0.85, 0.80, "plant"),
+    # Regeneration-focused species (Hippo–YAP panel). CURATED tractability priors.
+    "axolotl":     Species("Ambystoma mexicanum (axolotl)",        8296,  0.50, 0.30, "amphibian"),
+    "naked_mole_rat": Species("Heterocephalus glaber (naked mole-rat)", 10181, 0.31, 0.20, "mammal"),
+    "planaria":    Species("Schmidtea mediterranea (planaria)",   79327,  0.76, 0.80, "flatworm"),
 }
 
 REFERENCE = "human"
@@ -152,7 +156,49 @@ NOTCH = Pathway(
 )
 
 
-PATHWAYS = {p.key: p for p in [NOTCH]}
+# ---- Hippo–YAP/TAZ–TEAD (regeneration) ----------------------------------- #
+# 7 component families. Gate = the transcriptional output module: YAP/TAZ
+# effector + TEAD DNA-binding partner. With no YAP/TAZ and no TEAD there is no
+# canonical Hippo transcriptional output (analogous to Notch receptor + CSL).
+HIPPO = Pathway(
+    key="Hippo",
+    label="Hippo–YAP/TAZ–TEAD signalling",
+    reference_species="human",
+    families=[
+        Family("mst_kinase", "MST1/2 (Hpo)", ["STK3", "STK4"]),
+        Family("sav", "SAV1 (Sav)", ["SAV1"]),
+        Family("lats_kinase", "LATS1/2 (Wts)", ["LATS1", "LATS2"]),
+        Family("mob", "MOB1 (Mats)", ["MOB1A", "MOB1B"]),
+        Family("yap_taz", "YAP/TAZ (Yki) effector", ["YAP1", "WWTR1"], is_gate=True),
+        Family("tead", "TEAD1-4 (Sd) transcription factor",
+               ["TEAD1", "TEAD2", "TEAD3", "TEAD4"], is_gate=True),
+        Family("upstream", "NF2 / KIBRA / FAT4 mechanical input",
+               ["NF2", "WWC1", "FAT4"]),
+    ],
+    ortholog_seed={
+        "yap_taz": {
+            "human":          ["YAP1", "WWTR1"],
+            "mouse":          ["Yap1", "Wwtr1"],
+            "zebrafish":      ["yap1", "wwtr1"],
+            "fly":            ["yki"],                 # yorkie
+            "naked_mole_rat": ["YAP1", "WWTR1"],
+            "axolotl":        ["yap1", "wwtr1"],
+            "planaria":       ["yki", "yap1"],
+        },
+        "tead": {
+            "human":          ["TEAD1"],
+            "mouse":          ["Tead1"],
+            "zebrafish":      ["tead1a", "tead1b"],
+            "fly":            ["sd"],                  # scalloped
+            "naked_mole_rat": ["TEAD1"],
+            "axolotl":        ["tead1"],
+            "planaria":       ["tead", "tead1"],
+        },
+    },
+)
+
+
+PATHWAYS = {p.key: p for p in [NOTCH, HIPPO]}
 
 
 def get_pathway(key: str) -> Pathway:

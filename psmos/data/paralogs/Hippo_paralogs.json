@@ -1,0 +1,114 @@
+[
+ {
+  "family": "yap_taz",
+  "species_key": "human",
+  "gene": "YAP1",
+  "n_paralogues": 1,
+  "found": true,
+  "note": ""
+ },
+ {
+  "family": "yap_taz",
+  "species_key": "mouse",
+  "gene": "Yap1",
+  "n_paralogues": 1,
+  "found": true,
+  "note": ""
+ },
+ {
+  "family": "yap_taz",
+  "species_key": "zebrafish",
+  "gene": "yap1",
+  "n_paralogues": 1,
+  "found": true,
+  "note": ""
+ },
+ {
+  "family": "yap_taz",
+  "species_key": "fly",
+  "gene": "yki",
+  "n_paralogues": 0,
+  "found": true,
+  "note": ""
+ },
+ {
+  "family": "yap_taz",
+  "species_key": "naked_mole_rat",
+  "gene": "YAP1",
+  "n_paralogues": 2,
+  "found": true,
+  "note": ""
+ },
+ {
+  "family": "yap_taz",
+  "species_key": "axolotl",
+  "gene": "yap1",
+  "n_paralogues": 0,
+  "found": false,
+  "note": "no Ensembl species map"
+ },
+ {
+  "family": "yap_taz",
+  "species_key": "planaria",
+  "gene": "yki",
+  "n_paralogues": 0,
+  "found": false,
+  "note": "no Ensembl species map"
+ },
+ {
+  "family": "tead",
+  "species_key": "human",
+  "gene": "TEAD1",
+  "n_paralogues": 3,
+  "found": true,
+  "note": ""
+ },
+ {
+  "family": "tead",
+  "species_key": "mouse",
+  "gene": "Tead1",
+  "n_paralogues": 3,
+  "found": true,
+  "note": ""
+ },
+ {
+  "family": "tead",
+  "species_key": "zebrafish",
+  "gene": "tead1a",
+  "n_paralogues": 3,
+  "found": true,
+  "note": ""
+ },
+ {
+  "family": "tead",
+  "species_key": "fly",
+  "gene": "sd",
+  "n_paralogues": 0,
+  "found": true,
+  "note": ""
+ },
+ {
+  "family": "tead",
+  "species_key": "naked_mole_rat",
+  "gene": "TEAD1",
+  "n_paralogues": 4,
+  "found": true,
+  "note": ""
+ },
+ {
+  "family": "tead",
+  "species_key": "axolotl",
+  "gene": "tead1",
+  "n_paralogues": 0,
+  "found": false,
+  "note": "no Ensembl species map"
+ },
+ {
+  "family": "tead",
+  "species_key": "planaria",
+  "gene": "tead",
+  "n_paralogues": 0,
+  "found": false,
+  "note": "no Ensembl species map"
+ }
+]

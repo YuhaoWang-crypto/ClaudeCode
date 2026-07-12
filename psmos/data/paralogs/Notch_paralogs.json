@@ -1,0 +1,194 @@
+[
+ {
+  "family": "receptor",
+  "species_key": "human",
+  "gene": "NOTCH1",
+  "n_paralogues": 7,
+  "found": true,
+  "note": ""
+ },
+ {
+  "family": "receptor",
+  "species_key": "mouse",
+  "gene": "Notch1",
+  "n_paralogues": 4,
+  "found": true,
+  "note": ""
+ },
+ {
+  "family": "receptor",
+  "species_key": "rat",
+  "gene": "Notch1",
+  "n_paralogues": 3,
+  "found": true,
+  "note": ""
+ },
+ {
+  "family": "receptor",
+  "species_key": "chicken",
+  "gene": "NOTCH1",
+  "n_paralogues": 3,
+  "found": true,
+  "note": ""
+ },
+ {
+  "family": "receptor",
+  "species_key": "frog",
+  "gene": "notch1",
+  "n_paralogues": 4,
+  "found": true,
+  "note": ""
+ },
+ {
+  "family": "receptor",
+  "species_key": "zebrafish",
+  "gene": "notch1a",
+  "n_paralogues": 8,
+  "found": true,
+  "note": ""
+ },
+ {
+  "family": "receptor",
+  "species_key": "tunicate",
+  "gene": "notch",
+  "n_paralogues": 0,
+  "found": false,
+  "note": "no Compara paralogues record"
+ },
+ {
+  "family": "receptor",
+  "species_key": "fly",
+  "gene": "N",
+  "n_paralogues": 1,
+  "found": true,
+  "note": ""
+ },
+ {
+  "family": "receptor",
+  "species_key": "worm",
+  "gene": "lin-12",
+  "n_paralogues": 0,
+  "found": true,
+  "note": ""
+ },
+ {
+  "family": "receptor",
+  "species_key": "sea_anemone",
+  "gene": "notch",
+  "n_paralogues": 0,
+  "found": false,
+  "note": "no Compara paralogues record"
+ },
+ {
+  "family": "receptor",
+  "species_key": "yeast",
+  "gene": "NOTCH1",
+  "n_paralogues": 0,
+  "found": false,
+  "note": "no Compara paralogues record"
+ },
+ {
+  "family": "receptor",
+  "species_key": "plant",
+  "gene": "NOTCH1",
+  "n_paralogues": 0,
+  "found": false,
+  "note": "no Compara paralogues record"
+ },
+ {
+  "family": "csl",
+  "species_key": "human",
+  "gene": "RBPJ",
+  "n_paralogues": 1,
+  "found": true,
+  "note": ""
+ },
+ {
+  "family": "csl",
+  "species_key": "mouse",
+  "gene": "Rbpj",
+  "n_paralogues": 1,
+  "found": true,
+  "note": ""
+ },
+ {
+  "family": "csl",
+  "species_key": "rat",
+  "gene": "Rbpj",
+  "n_paralogues": 1,
+  "found": true,
+  "note": ""
+ },
+ {
+  "family": "csl",
+  "species_key": "chicken",
+  "gene": "RBPJ",
+  "n_paralogues": 1,
+  "found": true,
+  "note": ""
+ },
+ {
+  "family": "csl",
+  "species_key": "frog",
+  "gene": "rbpj",
+  "n_paralogues": 0,
+  "found": true,
+  "note": ""
+ },
+ {
+  "family": "csl",
+  "species_key": "zebrafish",
+  "gene": "rbpja",
+  "n_paralogues": 2,
+  "found": true,
+  "note": ""
+ },
+ {
+  "family": "csl",
+  "species_key": "tunicate",
+  "gene": "su(h)",
+  "n_paralogues": 1,
+  "found": true,
+  "note": ""
+ },
+ {
+  "family": "csl",
+  "species_key": "fly",
+  "gene": "Su(H)",
+  "n_paralogues": 0,
+  "found": true,
+  "note": ""
+ },
+ {
+  "family": "csl",
+  "species_key": "worm",
+  "gene": "lag-1",
+  "n_paralogues": 0,
+  "found": true,
+  "note": ""
+ },
+ {
+  "family": "csl",
+  "species_key": "sea_anemone",
+  "gene": "su(h)",
+  "n_paralogues": 0,
+  "found": false,
+  "note": "no Compara paralogues record"
+ },
+ {
+  "family": "csl",
+  "species_key": "yeast",
+  "gene": "RBPJ",
+  "n_paralogues": 0,
+  "found": false,
+  "note": "no Compara paralogues record"
+ },
+ {
+  "family": "csl",
+  "species_key": "plant",
+  "gene": "RBPJ",
+  "n_paralogues": 0,
+  "found": false,
+  "note": "no Compara paralogues record"
+ }
+]

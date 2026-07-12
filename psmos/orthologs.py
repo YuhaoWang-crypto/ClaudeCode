@@ -166,7 +166,8 @@ def pathway_species(pathway, species_key):
 
 
 if __name__ == "__main__":
-    # smoke: fetch Notch gate orthologs and print provenance
+    import sys
     from psmos.pathways import get_pathway
-    orths = fetch_pathway_gates(get_pathway("Notch"), use_cache=False)
+    pk = sys.argv[1] if len(sys.argv) > 1 else "Notch"
+    orths = fetch_pathway_gates(get_pathway(pk), use_cache=False)
     print(f"\nfetched {sum(o.found for o in orths)}/{len(orths)} ortholog sequences")

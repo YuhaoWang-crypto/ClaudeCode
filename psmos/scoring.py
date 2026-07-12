@@ -98,7 +98,18 @@ def compute(pathway_key="Notch"):
             present.setdefault(o["species_key"], set()).add(o["family"])
     gate_families = {f.key for f in pw.gate_families}
 
-    # ---- computed layer 2: Evo2 constraint (log-likelihood) --------------- #
+    # ---- computed layer 2: paralogue counts (Ensembl Compara) ------------- #
+    # simplicity/low-redundancy axis, computed where Compara has data.
+    compara_simplicity, compara_meanpar = {}, {}
+    try:
+        from .paralogs import species_simplicity
+        pcache = os.path.join(DATA, "paralogs", f"{pathway_key}_paralogs.json")
+        if os.path.exists(pcache):
+            compara_meanpar, compara_simplicity = species_simplicity(pw, use_cache=True)
+    except Exception:
+        pass
+
+    # ---- computed layer 3: Evo2 constraint (log-likelihood) --------------- #
     evo2_raw = _load_json(os.path.join(DATA, "evo2", f"{pathway_key}_scores.json")) or {}
     # evo2_raw: {species_key: {family: mean_LL, ...}}  (natural-log per-token LL)
     per_species_meanLL = {}
@@ -116,7 +127,8 @@ def compute(pathway_key="Notch"):
     searched = {o["species_key"] for o in orths}
 
     scores = []
-    for sk, sp in SPECIES.items():
+    for sk in CURATED_NOTCH:                 # Notch panel only
+        sp = SPECIES[sk]
         cur = CURATED_NOTCH[sk]
         # Hard gate, done honestly. Absence of a UniProt hit is not the same as
         # a gene being absent — it can be an annotation gap. So:
@@ -153,6 +165,10 @@ def compute(pathway_key="Notch"):
             completeness="curated", fidelity="curated", simplicity="curated",
             arch_match="curated", tract="curated", thru="curated",
         )
+        # Upgrade simplicity from curated prior to computed Compara paralogue count.
+        if sk in compara_simplicity:
+            axes["simplicity"] = round(compara_simplicity[sk], 3)
+            prov["simplicity"] = "computed:compara"
         # If we empirically confirmed both gate families, completeness of the
         # gate is computed (2/2). Keep the full 7-family completeness curated.
         if gate_prov == "computed:uniprot":

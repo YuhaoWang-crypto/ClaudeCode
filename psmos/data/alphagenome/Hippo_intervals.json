@@ -1,0 +1,54 @@
+[
+ {
+  "family": "yap_taz",
+  "species_key": "human",
+  "gene": "YAP1",
+  "chrom": "chr11",
+  "tss": 102109968,
+  "start": 102059968,
+  "end": 102159968,
+  "strand": 1,
+  "assembly": "GRCh38",
+  "found": true,
+  "note": ""
+ },
+ {
+  "family": "yap_taz",
+  "species_key": "mouse",
+  "gene": "Yap1",
+  "chrom": "chr9",
+  "tss": 8004661,
+  "start": 7954661,
+  "end": 8054661,
+  "strand": -1,
+  "assembly": "GRCm39",
+  "found": true,
+  "note": ""
+ },
+ {
+  "family": "tead",
+  "species_key": "human",
+  "gene": "TEAD1",
+  "chrom": "chr11",
+  "tss": 12674371,
+  "start": 12624371,
+  "end": 12724371,
+  "strand": 1,
+  "assembly": "GRCh38",
+  "found": true,
+  "note": ""
+ },
+ {
+  "family": "tead",
+  "species_key": "mouse",
+  "gene": "Tead1",
+  "chrom": "chr7",
+  "tss": 112278522,
+  "start": 112228522,
+  "end": 112328522,
+  "strand": 1,
+  "assembly": "GRCm39",
+  "found": true,
+  "note": ""
+ }
+]

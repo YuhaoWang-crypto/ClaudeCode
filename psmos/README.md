@@ -15,9 +15,14 @@ the dashboards flagged as pending: `Evo2 状态:未接入` → **接入 (live on
 |---|---|---|
 | Hard gate — is the pathway even present? | UniProt + Ensembl ortholog search | ✅ **computed** (empirical; yeast/plant confirmed absent) |
 | Ortholog CDS (coding DNA) | Ensembl REST canonical transcript | ✅ **computed** (real sequences) |
-| Sequence constraint / "naturalness" | **Evo2-7B log-likelihood on Modal H100** | ✅ **computed** (the live layer) |
-| Architecture similarity, redundancy (paralogues), tractability/throughput | Notch comparative-genomics priors | ⚠️ **curated** (labelled) |
-| Cross-species regulatory grammar (R layer) | AlphaGenome (human/mouse) | ⛔ **not yet wired** (AlphaGenome covers human/mouse only) |
+| Sequence constraint / "naturalness" | **Evo2-7B log-likelihood on Modal H100** | ✅ **computed** (live) |
+| Redundancy / low-copy (paralogue counts) | **Ensembl Compara** within-species paralogues | ✅ **computed** (live) |
+| Regulatory grammar (R layer, human/mouse) | **AlphaGenome** (API-only model) | 🟡 **adapter-ready** (intervals resolved; needs `ALPHAGENOME_API_KEY`) |
+| Architecture / network / expression / tractability | comparative-genomics priors | ⚠️ **curated** (labelled) |
+
+Pathways implemented: **Notch** (3 research goals) and **Hippo–YAP regeneration**
+(PSMOS six-layer G/D/N/R/E/X, five role models, regeneration-weighted). Adding a
+pathway = one `Pathway` entry in `pathways.py`.
 
 **Honesty boundary (enforced in code):** Evo2 log-likelihood measures sequence
 constraint *across the tree of life*, **not** "equivalence to human". So it is
@@ -30,10 +35,13 @@ fidelity proxy is *reported*, never laundered into the composite silently.
 pathways.py         pathway core families + gate + curated priors + ortholog seed
   → orthologs.py    UniProt: real ortholog protein per (family, species)  [gate]
   → cds.py          Ensembl: canonical-transcript CDS (DNA) for each ortholog
+  → paralogs.py     Ensembl Compara: within-species paralogue counts (redundancy)
+  → alphagenome_r.py  Ensembl intervals + AlphaGenome R layer (human/mouse; key-gated)
   → evo2_modal.py   Modal app: evo2_7b on H100, score_sequences → mean log-LL
   → run_evo2_scoring.py   send CDS → Evo2, cache per-species constraint scores
-  → scoring.py      PSMOS G/D/N/R/E/X + hard gate + goal-weighted ranking
-  → build_dashboard.py    regenerate notch_dashboard_live.html from computed data
+  → scoring.py            Notch: 6-axis + hard gate + goal-weighted ranking
+  → scoring_psmos.py      Hippo: six-layer G/D/N/R/E/X with computed overlays
+  → build_dashboard.py / build_hippo_dashboard.py   regenerate the dashboards
 ```
 
 ## Run

@@ -211,8 +211,9 @@ let corrTxt = (D.corr!=null)
  : `Evo2 live 物种不足以估计相关性。`;
 document.getElementById('foot').innerHTML=
  `<b>方法学:PSMOS v1(Evo2 live)。</b> `+
- `<b>实测层:</b>① 硬门控 + 门控家族存在 ← UniProt/Ensembl 直系同源检索;② 序列约束 ← Evo2-7B log-likelihood(Modal H100,真实 CDS)。`+
- `<b>策划层(待接入):</b>架构相似度、低冗余(旁系同源计数)、可操作性/通量为 Notch 比较基因组学策划先验;`+
+ `<b>实测层:</b>① 硬门控 + 门控家族存在 ← UniProt/Ensembl 直系同源检索;② 序列约束 ← Evo2-7B log-likelihood(Modal H100,真实 CDS);`+
+ `③ 低冗余("低冗余"列)← Ensembl Compara 旁系同源计数(实测,斑马鱼因硬骨鱼WGD冗余最高)。`+
+ `<b>策划层(待接入):</b>架构相似度、可操作性/通量为 Notch 比较基因组学策划先验;`+
  `跨物种调控语法(R 层)需 AlphaGenome(人/鼠)。`+
  `<br>${corrTxt} 人均旁系同源/家族 = ${D.human_mean_paralogs}。`+
  `<br><b>诚实边界:</b>Evo2 log-likelihood 衡量的是“序列在生命之树上的约束/自然度”,<b>不是</b>“与人的等价性”;因此它作为独立实测维度呈现,而非直接覆盖策划的保真轴。`;
