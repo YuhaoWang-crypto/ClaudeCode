@@ -25,7 +25,8 @@ deepmd_image = (
     modal.Image.from_registry(
         "pytorch/pytorch:2.3.1-cuda12.1-cudnn8-runtime"
     )
-    .pip_install("deepmd-kit", "numpy<2")
+    .pip_install("deepmd-kit", "numpy<2", "mpich")  # pt backend's cxx_op needs mpich metadata
+    .env({"MKL_THREADING_LAYER": "GNU", "MKL_SERVICE_FORCE_INTEL": "1"})
 )
 
 # ---------- unit conversions ----------
