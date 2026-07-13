@@ -151,7 +151,7 @@ def biogrid_file(taxon: int = HUMAN_TAXON, force: bool = False) -> Path:
 
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(description="Cache STRING/BioGRID bulk data.")
-    ap.add_argument("--source", choices=["string", "biogrid", "all"],
+    ap.add_argument("--source", choices=["string", "biogrid", "humanppi", "all"],
                     default="all")
     ap.add_argument("--taxon", type=int, default=HUMAN_TAXON,
                     help="NCBI taxonomy id (9606 = human, the default)")
@@ -163,6 +163,13 @@ def main(argv: list[str] | None = None) -> int:
         string_files(taxon=args.taxon, force=args.force)
     if args.source in ("biogrid", "all"):
         biogrid_file(taxon=args.taxon, force=args.force)
+    if args.source in ("humanppi", "all"):
+        if args.taxon != HUMAN_TAXON:
+            print("  [skip  ] humanPPI is human-only; skipping for this taxon")
+        else:
+            from . import humanppi
+            print("humanPPI (Cong lab structural predictions)")
+            humanppi.download(precision=80, force=args.force)
     print("done.")
     return 0
 

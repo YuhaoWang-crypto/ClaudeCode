@@ -65,6 +65,36 @@ def _cmd_pathways(a):
         print(f"{r['category']}\t{r['fdr']:.2e}\t{r['number_of_genes']}\t{r['description']}")
 
 
+def _cmd_annotate(a):
+    from . import interpro
+    accs = _read_genes(a.accessions)  # UniProt accessions, one per line
+    print(f"# InterPro annotation for {len(accs)} proteins", file=sys.stderr)
+    print("uniprot\tinterpro\ttype\tname\tgo_terms")
+    for acc in accs:
+        try:
+            for e in interpro.entries_for_protein(acc):
+                gos = ",".join(g["id"] for g in e["go_terms"][:4])
+                print(f"{acc}\t{e['accession']}\t{e['type']}\t{e['name']}\t{gos}")
+        except Exception as e:
+            print(f"{acc}\tERROR\t\t{e}\t", file=sys.stderr)
+
+
+def _cmd_reactome(a):
+    from . import reactome, string_api
+    genes = _read_genes(a.genes)
+    try:
+        rows = reactome.top_pathways(genes, fdr_max=a.fdr, n=a.n)
+        print("fdr\tfound/total\tstId\tname")
+        for r in rows:
+            print(f"{r['fdr']:.2e}\t{r['found']}/{r['total']}\t{r['stId']}\t{r['name']}")
+    except reactome.ReactomeBlocked as e:
+        print(f"# {e}", file=sys.stderr)
+        print("# falling back to STRING's Reactome-category enrichment:", file=sys.stderr)
+        for r in string_api.top_pathways(genes, categories=("RCTM",),
+                                         fdr_max=a.fdr, n=a.n):
+            print(f"{r['fdr']:.2e}\t{r['number_of_genes']}\t{r['term']}\t{r['description']}")
+
+
 def _cmd_subnet(a):
     from . import network, subnetwork
     genes = _read_genes(a.genes)
@@ -104,6 +134,16 @@ def main(argv=None):
     p.add_argument("--fdr", type=float, default=0.05)
     p.add_argument("--n", type=int, default=25)
     p.set_defaults(func=_cmd_pathways)
+
+    an = sub.add_parser("annotate", help="InterPro domains/families/GO for UniProt accessions")
+    an.add_argument("accessions", help="file of UniProt accessions, one per line")
+    an.set_defaults(func=_cmd_annotate)
+
+    rx = sub.add_parser("reactome", help="Reactome pathway enrichment (falls back to STRING if blocked)")
+    rx.add_argument("genes")
+    rx.add_argument("--fdr", type=float, default=0.05)
+    rx.add_argument("--n", type=int, default=25)
+    rx.set_defaults(func=_cmd_reactome)
 
     s = sub.add_parser("subnet", help="offline PPI subnetwork + hub ranking")
     s.add_argument("genes")

@@ -15,7 +15,8 @@ Two entry points:
 See SKILL.md for the full workflow.
 """
 
-__all__ = ["download", "string_api", "network", "subnetwork", "enrich"]
+__all__ = ["download", "string_api", "network", "subnetwork", "enrich",
+           "humanppi", "interpro", "reactome"]
 __version__ = "0.1.0"
 
 # Human by default; every function takes `taxon=` so other species work too.

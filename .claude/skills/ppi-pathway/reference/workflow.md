@@ -96,8 +96,41 @@ early-warning biomarkers. Natural next step after you've isolated a module here.
 
 | Goal | Command |
 |---|---|
-| Cache data | `python -m ppi_pathway.cli download --source all` |
+| Cache data (STRING+BioGRID+humanPPI) | `python -m ppi_pathway.cli download --source all` |
 | Coherence + full enrichment | `python -m ppi_pathway.cli enrich genes.txt` |
 | Pathways only | `python -m ppi_pathway.cli pathways genes.txt --n 20` |
+| Reactome pathways (→STRING fallback) | `python -m ppi_pathway.cli reactome genes.txt --n 20` |
+| InterPro domains/families/GO | `python -m ppi_pathway.cli annotate accs.txt` |
 | Network module + hubs | `python -m ppi_pathway.cli subnet genes.txt --min-score 700 --expand 1 --out module` |
+| End-to-end demo test | `python -m ppi_pathway.demo` |
 | Other species | add `--taxon 10090` (mouse), etc. |
+
+## Multi-source consensus (highest confidence)
+
+After caching all three sources, overlay them and keep edges supported by 2+
+(ideally all 3) resources — predicted (STRING) + curated (BioGRID) + structural
+(humanPPI):
+
+```python
+from ppi_pathway import network, humanppi
+ov = network.overlay(string=network.load_string(min_score=700),
+                     biogrid=network.load_biogrid(),
+                     humanppi=humanppi.load(80))
+gold = [(u, v) for u, v, d in ov.edges(data=True) if d["support"] == 3]
+```
+
+In a validated run this yields ~8,000 edges backed by all three sources — a
+conservative, high-trust human interactome backbone.
+
+## Annotate the module's hubs (mechanism)
+
+Take the top hubs from step 3, resolve to UniProt, and pull InterPro domains:
+
+```python
+from ppi_pathway import interpro
+for e in interpro.entries_for_protein("P04637"):     # TP53
+    print(e["accession"], e["type"], e["name"])
+```
+
+`humanppi.load()` conveniently stores each gene's UniProt accession on the edge
+(`up1`/`up2`), so you can map hub symbols → accessions without another service.

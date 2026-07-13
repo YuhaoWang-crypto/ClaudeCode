@@ -67,6 +67,65 @@ validated physical only).
 for programmatic slices without downloading files. Not used by this skill; get a
 key at https://webservice.thebiogrid.org/ if you want it.
 
+## humanPPI (Cong lab structural predictions)
+
+Site: http://prodata.swmed.edu/humanPPI/ — Zhang, Humphreys, Pei, … Baker, Cong,
+*Science* 2025, "Predicting protein-protein interactions in the human proteome".
+A RoseTTAFold2-PPI / AlphaFold structural screen of the human interactome.
+
+Bulk download (tar.gz, ~14 MB):
+
+```
+https://conglab.swmed.edu/humanPPI/downloads/final_predictions.tar.gz
+```
+
+Contents:
+- `final_predictions_90.tsv` — expected precision 90% (~17.8k pairs)
+- `final_predictions_80.tsv` — expected precision 80% (~29.3k pairs, superset)
+
+Columns: `Protein1 Protein2` (UniProt AC), `Name1 Name2` (gene symbol), `RFprob`
+(RF2-PPI probability), `AFprob/AFprob5/AFMprob` (AlphaFold confidences), `Source`
+(D=database, S=STRING, P=predicted), `PDBtemp`, `confDBs`, `allDBs`, `STRING`
+(STRING score), `Known1/2`, `Count1/2`, `Locality1/2` (subcellular), `Disease1/2`,
+`Process1/2`, `Function1/2`, and PDB template columns.
+
+**Note on "model weights":** the download is the *prediction table*, not the
+neural-network weights. The predictions are what you use for network analysis;
+the RF2-PPI weights are a separate multi-GB artifact not needed here.
+
+**TLS note:** `conglab.swmed.edu` serves an incomplete certificate chain (it
+omits the *InCommon RSA Server CA 2* intermediate), which breaks strict
+verification. `humanppi.py` fixes this the compliant way — it fetches that one
+intermediate from `http://crt.usertrust.com/InCommonRSAServerCA2.crt` and adds
+it to the trust store. **Verification stays on; nothing is disabled.**
+
+## InterPro (protein families / domains / GO)
+
+REST API: `https://www.ebi.ac.uk/interpro/api/` — no key. Wrapped in
+`interpro.py`. Query by UniProt accession:
+
+```
+GET /entry/interpro/protein/reviewed/{uniprot_acc}/     -> integrated entries
+```
+
+Each entry has `accession` (IPRxxxxxx), `name`, `type` (family / domain /
+homologous_superfamily / repeat / site), `member_databases` (Pfam, PANTHER,
+PROSITE, SMART, CDD, …) and `go_terms`. Bulk files (if you need genome-scale
+annotation) live at https://ftp.ebi.ac.uk/pub/databases/interpro/ .
+
+## Reactome (curated pathways)
+
+- **AnalysisService** (enrichment): `https://reactome.org/AnalysisService` —
+  POST a newline-separated gene list to `identifiers/projection`.
+- **ContentService** (lookup/hierarchy/diagrams): `https://reactome.org/ContentService`.
+
+**Cloudflare caveat:** both are behind a bot-challenge that blocks datacenter
+IPs — from this cloud environment they return a "Just a moment…" HTML page, not
+JSON. `reactome.py` detects this and raises `ReactomeBlocked`. Fallback that is
+*not* blocked: STRING's enrichment already returns Reactome pathways under the
+`RCTM` category — use `string_api.top_pathways(..., categories=("RCTM",))` (the
+CLI `reactome` command does this automatically). Cite Milacic et al. (Reactome).
+
 ## Caching & storage
 
 - Default cache dir: `./ppi_data` (git-ignored). Override with `PPI_DATA_DIR`.

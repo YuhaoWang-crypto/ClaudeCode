@@ -165,3 +165,36 @@ def consensus_graph(string_g, biogrid_g):
     g.graph["source"] = "STRING ∩∪ BioGRID"
     g.graph["edges_in_both"] = both
     return g
+
+
+def overlay(**named_graphs):
+    """Overlay any number of source graphs (e.g. ``string=..., biogrid=...,
+    humanppi=...``). Each edge gets a boolean ``in_<name>`` flag plus a
+    ``support`` count = how many sources contain it. Edges supported by 2+
+    sources — especially STRING + BioGRID + humanPPI together — are the most
+    defensible for downstream analysis.
+    """
+    import networkx as nx
+
+    g = nx.Graph()
+    names = list(named_graphs)
+    for name, src in named_graphs.items():
+        if src is None:
+            continue
+        for u, v, d in src.edges(data=True):
+            if not g.has_edge(u, v):
+                g.add_edge(u, v, **{f"in_{n}": False for n in names}, support=0)
+            g[u][v][f"in_{name}"] = True
+            # carry a couple of useful per-source scores
+            if "score" in d:
+                g[u][v]["string_score"] = d["score"]
+            if "rfprob" in d:
+                g[u][v]["humanppi_rfprob"] = d["rfprob"]
+            if "evidence" in d:
+                g[u][v]["biogrid_evidence"] = d["evidence"]
+    for u, v, d in g.edges(data=True):
+        d["support"] = sum(1 for n in names if d.get(f"in_{n}"))
+    g.graph["source"] = " ∪ ".join(names)
+    g.graph["sources"] = names
+    return g
+

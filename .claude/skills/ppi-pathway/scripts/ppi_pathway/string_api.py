@@ -128,12 +128,18 @@ def ppi_enrichment(genes: Iterable[str], taxon: int = HUMAN_TAXON,
     return rows[0] if rows else {}
 
 
+# STRING's own category codes for the pathway databases:
+#   KEGG, RCTM (= Reactome), WikiPathways. (GO uses Process/Function/Component.)
+PATHWAY_CATEGORIES = ("KEGG", "RCTM", "WikiPathways")
+
+
 def top_pathways(genes: Iterable[str], taxon: int = HUMAN_TAXON,
                  fdr_max: float = 0.05,
-                 categories: tuple[str, ...] = ("KEGG", "Reactome Pathways",
-                                                "WikiPathways"),
+                 categories: tuple[str, ...] = PATHWAY_CATEGORIES,
                  n: int = 25) -> list[dict]:
-    """Convenience: enrichment filtered to pathway categories, FDR-sorted."""
+    """Convenience: enrichment filtered to pathway categories, FDR-sorted.
+
+    STRING category codes: ``KEGG``, ``RCTM`` (Reactome), ``WikiPathways``."""
     rows = enrichment(genes, taxon=taxon)
     keep = [r for r in rows
             if r.get("category") in categories and float(r.get("fdr", 1)) <= fdr_max]
