@@ -1,0 +1,32 @@
+# VASP NVT AIMD for a molten salt — ML-potential training data (alternative to CP2K)
+SYSTEM = molten-salt AIMD
+
+# --- electronic ---
+PREC   = Normal
+ENCUT  = 400          # eV — CONVERGE for your pseudopotentials (400-520 typical)
+EDIFF  = 1E-5
+ISMEAR = 0
+SIGMA  = 0.05         # liquid; broaden if metallic-like states appear
+ALGO   = Fast
+LREAL  = Auto
+NELM   = 60
+GGA    = PE           # PBE
+
+# --- MD (NVT, Nose-Hoover) ---
+IBRION = 0
+MDALGO = 2            # Nose-Hoover thermostat
+SMASS  = 0            # thermostat mass; 0-3 typical
+ISIF   = 2            # fixed cell, fixed volume (density set by builder)
+POTIM  = 1.0          # fs timestep
+NSW    = 20000        # 20 ps; discard first >=10 ps as equilibration
+TEBEG  = <<TEMP_K>>   # one run per temperature point
+TEEND  = <<TEMP_K>>
+
+# --- output for DeePMD (need forces every frame) ---
+NWRITE = 1
+LWAVE  = .FALSE.
+LCHARG = .FALSE.
+NBLOCK = 5           # write every 5 steps -> OUTCAR/vasprun.xml frames
+
+# KPOINTS: Gamma-only is usually fine for a large liquid supercell (see KPOINTS file)
+# Deliverable: vasprun.xml -> dpdata(fmt="vasp/outcar" or "vasp/xml") -> deepmd/npy

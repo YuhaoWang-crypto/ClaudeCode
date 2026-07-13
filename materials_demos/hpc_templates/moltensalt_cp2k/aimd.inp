@@ -1,0 +1,106 @@
+! CP2K Born-Oppenheimer AIMD for a molten salt (NVT), for ML-potential training data.
+! Placeholders: <<PROJECT>>, <<XYZ>>, <<CELL_ANG>>, <<TEMP_K>>, <<NSTEPS>>, <<DATA_DIR>>
+&GLOBAL
+  PROJECT <<PROJECT>>
+  RUN_TYPE MD
+  PRINT_LEVEL LOW
+&END GLOBAL
+
+&FORCE_EVAL
+  METHOD Quickstep
+  &DFT
+    BASIS_SET_FILE_NAME  <<DATA_DIR>>/BASIS_MOLOPT
+    POTENTIAL_FILE_NAME  <<DATA_DIR>>/GTH_POTENTIALS
+    &MGRID
+      CUTOFF 500          ! Ry — CONVERGE THIS for your salt (300-600 typical)
+      REL_CUTOFF 60
+    &END MGRID
+    &QS
+      EPS_DEFAULT 1.0E-12
+    &END QS
+    &SCF
+      SCF_GUESS ATOMIC
+      EPS_SCF 1.0E-6
+      MAX_SCF 40
+      &OT
+        MINIMIZER DIIS
+        PRECONDITIONER FULL_SINGLE_INVERSE
+      &END OT
+      &OUTER_SCF
+        EPS_SCF 1.0E-6
+        MAX_SCF 20
+      &END OUTER_SCF
+    &END SCF
+    &XC
+      &XC_FUNCTIONAL PBE     ! PBE for the melt; add &vdW (D3) below if needed
+      &END XC_FUNCTIONAL
+      &VDW_POTENTIAL
+        POTENTIAL_TYPE PAIR_POTENTIAL
+        &PAIR_POTENTIAL
+          TYPE DFTD3
+          PARAMETER_FILE_NAME <<DATA_DIR>>/dftd3.dat
+          REFERENCE_FUNCTIONAL PBE
+        &END PAIR_POTENTIAL
+      &END VDW_POTENTIAL
+    &END XC
+  &END DFT
+
+  &SUBSYS
+    &CELL
+      ABC <<CELL_ANG>> <<CELL_ANG>> <<CELL_ANG>>   ! from moltensalt_builder SYSTEM.md
+    &END CELL
+    &TOPOLOGY
+      COORD_FILE_NAME <<XYZ>>
+      COORD_FILE_FORMAT XYZ
+    &END TOPOLOGY
+    ! ---- one KIND block per element; example for FLiNaK: ----
+    &KIND Li
+      BASIS_SET DZVP-MOLOPT-SR-GTH
+      POTENTIAL GTH-PBE-q3
+    &END KIND
+    &KIND Na
+      BASIS_SET DZVP-MOLOPT-SR-GTH
+      POTENTIAL GTH-PBE-q9
+    &END KIND
+    &KIND K
+      BASIS_SET DZVP-MOLOPT-SR-GTH
+      POTENTIAL GTH-PBE-q9
+    &END KIND
+    &KIND F
+      BASIS_SET DZVP-MOLOPT-SR-GTH
+      POTENTIAL GTH-PBE-q7
+    &END KIND
+    ! for LiCl-KCl replace F with:
+    ! &KIND Cl
+    !   BASIS_SET DZVP-MOLOPT-SR-GTH
+    !   POTENTIAL GTH-PBE-q7
+    ! &END KIND
+  &END SUBSYS
+&END FORCE_EVAL
+
+&MOTION
+  &MD
+    ENSEMBLE NVT
+    STEPS <<NSTEPS>>        ! e.g. 20000 = 20 ps at 1 fs (>=10 ps equilibration first)
+    TIMESTEP 1.0            ! fs
+    TEMPERATURE <<TEMP_K>>  ! one run per temperature point
+    &THERMOSTAT
+      TYPE NOSE
+      &NOSE
+        TIMECON 50.0        ! fs
+      &END NOSE
+    &END THERMOSTAT
+  &END MD
+  &PRINT
+    &TRAJECTORY
+      &EACH
+        MD 5                ! sample every 5 fs -> uncorrelated frames for DeePMD
+      &END EACH
+    &END TRAJECTORY
+    &FORCES
+      &EACH
+        MD 5
+      &END EACH
+    &END FORCES
+  &END PRINT
+&END MOTION

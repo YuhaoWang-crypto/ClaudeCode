@@ -1,0 +1,26 @@
+# VASP: relax an amino acid adsorbed on Au(111) (upgrades demo #6 to the real surface)
+SYSTEM = arginine on Au(111)
+
+PREC   = Accurate
+ENCUT  = 400          # eV — converge
+EDIFF  = 1E-6
+EDIFFG = -0.02        # relax until forces < 0.02 eV/Å
+IBRION = 2
+NSW    = 200
+ISIF   = 2            # relax ions, fix cell (slab)
+ISMEAR = 1            # metal (Au) -> Methfessel-Paxton
+SIGMA  = 0.1
+GGA    = PE
+IVDW   = 12           # DFT-D3(BJ) dispersion — ESSENTIAL for molecule-on-metal
+LREAL  = Auto
+NELM   = 100
+# dipole correction along surface normal (asymmetric slab):
+LDIPOL = .TRUE.
+IDIPOL = 3
+# selective dynamics: fix bottom 2-3 Au layers (set in POSCAR), relax top + molecule
+#
+# Workflow:
+#   E_ads = E(mol@slab) - E(clean slab) - E(mol in vacuum)
+#   Compute BOTH enantiomers (L and D) in their preferred adsorption geometries;
+#   the difference in E_ads and geometry is the origin of the SERS spectral split
+#   that demo #6 proved is ABSENT for the free molecules.

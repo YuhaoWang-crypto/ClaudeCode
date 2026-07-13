@@ -1,0 +1,18 @@
+Phonons via DFPT (answers reviewer R7: "no phonon calculations provided")
+&inputph
+  prefix   = '<<PREFIX>>'
+  outdir   = './out'
+  fildyn   = '<<PREFIX>>.dyn'
+  tr2_ph   = 1.0d-14        ! phonon self-consistency threshold
+  ldisp    = .true.         ! phonons on a q-grid (for full dispersion + DOS)
+  nq1 = 2, nq2 = 2, nq3 = 2 ! q-mesh; use 1 1 1 for Gamma-only molecular crystal
+  epsil    = .true.         ! dielectric + Born charges (IR, LO-TO splitting)
+/
+! After ph.x:
+!   q2r.x   -> real-space force constants (<<PREFIX>>.fc)
+!   matdyn.x -> phonon dispersion along a path + phonon DOS
+!
+! Electron-phonon coupling (reviewer R3, "strong e-ph coupling unsupported"):
+!   for metals/semiconductors use the EPW code (Wannier interpolation) on top of
+!   this DFPT run; for localised-state / molecular scintillators the relevant
+!   quantity is the Huang-Rhys factor -> see huang_rhys.md.

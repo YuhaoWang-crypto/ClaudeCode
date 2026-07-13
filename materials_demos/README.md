@@ -73,6 +73,18 @@ python3 cd_binding_site_predictor.py [PDBID]   # demo #5，秒级，默认 1CA2
 python3 sers_chirality_dft.py       # demo #6，约 10 分钟，DFT 优化+频率
 ```
 
+## 从 demo 到生产：配套资源
+
+- **真实熔盐结构构建器** `moltensalt_builder.py`：按目标密度生成 FLiNaK / LiCl-KCl / NaCl
+  初始结构，输出 POSCAR + init.xyz（`moltensalt_FLiNaK/`、`moltensalt_LiCl-KCl/` 为示例）。
+- **HPC 输入文件模板** `hpc_templates/`：VASP/CP2K 熔盐 AIMD、DeePMD 训练配置、AutoDock+QM/MM
+  对接、Au(111) slab SERS、QE 声子/Huang-Rhys（STE）——每个方向的可提交模板 + SLURM，见其 README。
+- **对外能力展示页** `site/materials_capability.html`：自包含 HTML（内嵌真实 demo 图），
+  由 `site/build_capability_page.py` 生成，可作为对客户的能力介绍页。
+- **可复用 skill** `.claude/skills/materials-compute/`：把"分类需求 → 选/建本地代理 → 验证 →
+  scaffold 生产 HPC → 诚实标注"的方法固化，便于以后一键调用；`reference/request-playbook.md`
+  记录了这几个真实需求到方案的映射。
+
 ## 三次需求的能力对照
 
 | 需求方向 | 本环境可跑的 demo | 必须上 HPC 的真实工作 |

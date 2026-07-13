@@ -1,0 +1,28 @@
+&control
+  calculation = 'scf'
+  prefix      = '<<PREFIX>>'
+  outdir      = './out'
+  pseudo_dir  = '<<PSEUDO_DIR>>'
+  tprnfor     = .true.
+  tstress     = .true.
+/
+&system
+  ibrav       = 0            ! give CELL_PARAMETERS explicitly
+  nat         = <<NAT>>
+  ntyp        = <<NTYP>>
+  ecutwfc     = 60           ! Ry — CONVERGE
+  ecutrho     = 480          ! for ultrasoft/PAW (8x ecutwfc)
+  occupations = 'fixed'      ! insulator/scintillator; 'smearing' if it has a gap issue
+/
+&electrons
+  conv_thr    = 1.0d-10      ! tight — phonons need a well-converged ground state
+  mixing_beta = 0.7
+/
+ATOMIC_SPECIES
+  <<... element mass pseudo.UPF ...>>
+CELL_PARAMETERS angstrom
+  <<... 3x3 cell ...>>
+ATOMIC_POSITIONS crystal
+  <<... relaxed coordinates (relax first!) ...>>
+K_POINTS automatic
+  4 4 4 0 0 0               ! CONVERGE

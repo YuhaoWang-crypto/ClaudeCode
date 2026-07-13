@@ -1,0 +1,21 @@
+# AutoDock Vina config for Cd2+ near a predicted site.
+# CAVEAT: Vina's scoring is parameterised for organic ligand-protein binding,
+# not bare metal ions. Use this only to place/pose Cd2+ against the shortlisted
+# donors, then refine the coordination geometry with QM/MM (see qmmm_cluster.md).
+# For serious metal docking prefer AutoDock4+GPU with a Cd map, or GOLD.
+
+receptor = receptor.pdbqt
+ligand   = cd_ion.pdbqt          # single Cd2+ (or Cd(H2O)n cluster)
+
+# center on the predicted site centroid from demo #5 (edit these):
+center_x = <<CX>>
+center_y = <<CY>>
+center_z = <<CZ>>
+
+size_x = 18
+size_y = 18
+size_z = 18
+
+exhaustiveness = 32
+num_modes = 20
+energy_range = 4

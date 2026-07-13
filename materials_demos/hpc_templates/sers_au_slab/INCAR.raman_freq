@@ -1,0 +1,23 @@
+# VASP: vibrational frequencies of the adsorbed molecule (finite displacements)
+# Run AFTER INCAR.relax on the optimised mol@slab. Freeze Au, displace only the
+# molecule's atoms (via POTIM sign + selective dynamics) for an affordable Hessian.
+SYSTEM = adsorbed-molecule frequencies
+
+PREC   = Accurate
+ENCUT  = 400
+EDIFF  = 1E-7        # tight — frequencies need accurate forces
+IBRION = 5           # finite-difference Hessian
+NFREE  = 2
+POTIM  = 0.015       # displacement (Å)
+ISMEAR = 1
+SIGMA  = 0.1
+GGA    = PE
+IVDW   = 12
+LREAL  = .FALSE.     # real-space projection off for accurate forces
+NELM   = 120
+# In POSCAR selective dynamics: T T T only for molecule atoms, F F F for all Au.
+#
+# Raman intensities are not native in VASP: use the vasp_raman.py finite-field
+# approach (loop over modes, compute polarizability via LEPSILON/LCALCEPS), or
+# use Quantum ESPRESSO ph.x for a slab (heavier). IR intensities: LEPSILON=.TRUE.
+# Compare the L vs D adsorbed spectra -> the predicted SERS chirality difference.
