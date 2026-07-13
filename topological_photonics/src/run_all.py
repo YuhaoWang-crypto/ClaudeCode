@@ -54,9 +54,16 @@ def main(full=False):
               {k.replace(chr(10), ' '): round(v, 3) for k, v in d.items()})
         print("\n[7] Photonic vs phononic two-system comparison")
         phononic_compare.run()
+        import bott_disorder
+        import loss_budget
+        print("\n[8] Real-space spin Bott index under disorder (+ TAI)")
+        bott_disorder.run()
+        print("\n[9] Loss budget: absorption floor vs topology")
+        loss_budget.run()
         figs += ["fig5_fdfd_real_edge.png", "fig6_fdtd_snapshots.png",
                  "fdtd_bend.gif", "fig7_energy_delivery.png",
-                 "fig8_photonic_vs_phononic.png"]
+                 "fig8_photonic_vs_phononic.png", "fig9_spin_bott_disorder.png",
+                 "fig10_loss_budget.png"]
 
     print("\nDone. Figures written to ../figures/:")
     for f in figs:

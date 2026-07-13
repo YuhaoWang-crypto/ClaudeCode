@@ -70,7 +70,7 @@ def _sponge(Nxg, Nyg, width, smax=2.0):
 
 
 def run_fdtd(eps, h, freq, nsteps, src_xy, mon_xy=None, mon_lines=None,
-             snapshots=None, pulse=False, sponge_w=20):
+             snapshots=None, pulse=False, sponge_w=20, mat_loss=None):
     """
     Leapfrog TM FDTD. Returns dict with optional monitor time series and snapshots.
 
@@ -83,7 +83,11 @@ def run_fdtd(eps, h, freq, nsteps, src_xy, mon_xy=None, mon_lines=None,
     Hx = np.zeros((Nxg, Nyg))
     Hy = np.zeros((Nxg, Nyg))
     sig = _sponge(Nxg, Nyg, sponge_w)
+    # material absorption: conductivity sigma = omega * eps'' (normalized units).
+    # Applied to E only (a damping conductivity), on top of the boundary sponge.
+    mat = np.zeros_like(eps) if mat_loss is None else np.asarray(mat_loss)
     damp = np.exp(-sig * dt)
+    damp_E = np.exp(-(sig + mat / eps) * dt)
 
     si = int(src_xy[0] / h); sj = int(src_xy[1] / h)
     mons = {}
@@ -110,7 +114,7 @@ def run_fdtd(eps, h, freq, nsteps, src_xy, mon_xy=None, mon_lines=None,
         curl = np.zeros_like(Ez)
         curl[1:, 1:] = (Hy[1:, 1:] - Hy[:-1, 1:]) / h - (Hx[1:, 1:] - Hx[1:, :-1]) / h
         Ez += dt / eps * curl
-        Ez *= damp
+        Ez *= damp_E
         # soft source
         if pulse:
             amp = np.exp(-((t - 3 * tw) ** 2) / (2 * (tw / 3) ** 2)) * np.sin(w * t)

@@ -27,6 +27,18 @@ Everything is computed with open-source NumPy/SciPy — **no Lumerical/COMSOL**.
 | 8 | FDTD wave propagation: straight / sharp bend / defect + **animation** | `fdtd_transport.py` | `fig6`, `fdtd_bend.gif` | ✅ FDTD (qualitative) |
 | 9 | Backscattering-immunity metric (energy delivery) | `fdtd_transport.py` | `fig7` | ✅ FDTD |
 | 10 | **Phononic twin** — same lattice, acoustic kernel (two-system comparison) | `acoustic.py`, `phononic_compare.py` | `fig8` | ✅ acoustic PWE |
+| 11 | **Real-space spin Bott index** under disorder (+ topological Anderson insulator) | `bott.py`, `bott_disorder.py` | `fig9` | ✅ rigorous (no BZ) |
+| 12 | **Loss budget** — absorption floor from the real mode (Bi₂Se₃ vs SiO₂/Si) | `loss_budget.py` | `fig10` | ✅ perturbative (illustrative constants) |
+
+**Scientific scope (honest):** SiO₂ coating does not create topology (ref [1] is
+about colloidal stability/optics, not topological bands); the cited chip [2] and
+holey-*silicon* lattice [4] are methodology/material references, not a
+Bi₂Se₃@SiO₂ model; topology here is **geometry-induced**. A Dirac gap alone is not
+proof of topology — hence the invariant, interface states, edge dispersion and
+transport. The system is time-reversal symmetric so global Chern = 0; we report
+**spin-Chern / spin Bott**. Under disorder we use the **real-space Bott index**
+(k-space Berry curvature is invalid). "Ultralow-loss" is bounded by
+**absorption**, not topology. See `REPORT.md` §0b for the full ledger.
 
 ## The physics in one paragraph
 

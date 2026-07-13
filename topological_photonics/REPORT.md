@@ -27,6 +27,43 @@ complete-package extension.
 
 ---
 
+## 0b. Scientific scope & honest caveats (materials / claims)
+
+These bound what the package does and does **not** assert; they correct several
+framings in the original proposal.
+
+1. **Silica coating does not create topology.** SiO₂ is a trivial wide-gap
+   dielectric. Ref [1] (Bi₂Se₃@SiO₂) demonstrates colloidal stability,
+   biocompatibility and *retained optical properties* — **not** a topological
+   photonic/phononic band structure. In this package topology is **geometry-
+   induced** (the Wu-Hu C6 lattice); SiO₂/Si enter only as low-loss host media.
+2. **The cited chip [2] is a different platform.** It is a programmable Si
+   waveguide/microring/MZI lattice near 1525 nm — a valid *methodology* reference
+   for topological transport, **not** a Bi₂Se₃@SiO₂ material model.
+3. **"silicon" ≠ "silica".** The six-petal holey lattice [4] is *silicon* (a
+   stiff elastic solid), not SiO₂. Any elastic model must use the correct
+   density and elastic constants and the correct fabrication (unsuspended Si).
+   The phononic module here is a **scalar-acoustic** analogue, not the ref-[4]
+   full-vector elastic plate.
+4. **A Dirac gap is not proof of non-trivial topology.** We therefore also
+   provide: the C6 band-inversion indicator (§1.3), a topological invariant
+   (§1.4, §4.4), interface states between two *distinct* phases (§4.1, an
+   expanded|shrunken wall — both gapped but opposite character), edge-state
+   dispersion and field localisation (fig5), and propagation-direction transport
+   (fig6).
+5. **The invariant is symmetry-dependent — not hard-coded "Chern".** These
+   crystals are time-reversal symmetric, so the global Chern number is **0**
+   (verified: `C_total=0`). The reported invariant is the **spin-Chern / spin
+   Bott** index; a Z₂ or valley-Chern reading applies for the corresponding
+   symmetry class.
+6. **Under disorder, k-space Berry curvature is invalid.** §4.4 uses the
+   **real-space spin Bott index** instead (fig9), which needs no Brillouin zone.
+7. **"Ultralow-loss" is not implied by topology.** Topology removes
+   *backscattering* (fig7), but absorption/radiation/interface/roughness losses
+   set the floor. §4.5 quantifies the **absorption budget** from the real mode
+   profile (fig10): with Bi₂Se₃ in the mode, loss is catastrophic regardless of
+   topology.
+
 ## 1. Method
 
 ### 1.1 Photonic band structure — Plane-Wave Expansion (PWE), ✅ rigorous
@@ -106,6 +143,8 @@ R/a≈0.385, gap≈0.099.
 | Real-rod edge states in the gap (complete) | FDFD supercell | ✅ ab-initio |
 | Guiding / bend / defect bypass (complete) | FDTD | ✅ (qualitative transport) |
 | Phononic double Dirac cone + gap + inversion | acoustic PWE | ✅ ab-initio |
+| Disorder invariant + TAI (real space, no BZ) | spin Bott index | ✅ rigorous |
+| Absorption-limited propagation length / dB-cm | Γ (FDFD) + perturbation | ✅ method; ⚠️ illustrative ε'' |
 
 The topological *classification* (band inversion) is rigorous; in the basic
 package the invariant *number* and edge spectrum use the standard effective
@@ -153,6 +192,33 @@ to the photonic case — a genuine, material-dependent difference, not a bug. Th
 provides the second system for the photonic-vs-phononic comparison (the elastic
 GHz waveguide of ref [4] is the full-vector version of this scalar model).
 
+### 4.4 Real-space spin Bott index under disorder — `fig9` (✅ rigorous)
+Because disorder breaks periodicity, k-space Berry curvature no longer applies.
+We put the two BHZ Kramers blocks on an L=14 torus, add Anderson on-site
+disorder, and compute the Loring-Hastings Bott index of each block's occupied
+projector; the spin Bott index `B_s=(B↑−B↓)/2` is a real-space invariant with no
+Brillouin zone. Ensemble-averaged sweeps show two regimes:
+- clean topological (M=+1): `B_s=1` stays quantised, then **collapses** at strong
+  disorder (topology destroyed);
+- clean trivial (M=−0.6): `B_s` jumps **0→1** at intermediate disorder — a
+  **Topological Anderson Insulator** (disorder-*induced* topology), the mechanism
+  of the cited photonic topological-Anderson insulator [3].
+This replaces the naive "Berry curvature survives disorder" reasoning. (A full
+study would add the local Chern marker map and bulk/edge scattering transmission.)
+
+### 4.5 Loss budget — `fig10` (✅ perturbative, ⚠️ illustrative constants)
+Topology removes backscattering (fig7) but not absorption. From the **actual FDFD
+edge mode** we compute the confinement factor `Γ_rod=0.93` (the TM mode sits
+almost entirely in the rods) and feed the confinement-factor modal-loss formula
+`α = (2π/λ0)·Γ·κ`, `κ=ε''/(2√ε')`, at a≈0.71 µm (λ0≈1.55 µm):
+- low-loss Si/SiO₂ (ε''≈1e-3): α≈48 dB/cm, L_p≈1.8 mm — a real ultralow-loss guide;
+- SiO₂-shelled Bi₂Se₃ (ε''≈0.5): α≈2.4×10⁴ dB/cm, L_p≈4 µm;
+- bare Bi₂Se₃ (ε''≈8): α≈3.8×10⁵ dB/cm, L_p≈0.2 µm — catastrophic.
+**Conclusion:** "ultralow-loss" and "Bi₂Se₃ carries the mode" are in direct
+tension; the absorption floor is set by the Bi₂Se₃ fraction, not by topology.
+Optical constants are representative — dropping in measured Bi₂Se₃/SiO₂ values is
+a data step, not a code change.
+
 ## 5. Remaining extensions (not yet done)
 
 1. **Full-vector elastodynamics** (Lamb/plate waves) for the true ref-[4] system,
@@ -161,6 +227,9 @@ GHz waveguide of ref [4] is the full-vector version of this scalar model).
    and a full disorder-strength sweep (ensemble-averaged edge vs bulk).
 3. **Spin-Chern from real modes** via Wilson loops / Wannier-centre flow on the
    PWE/FDFD bands, removing the effective-model caveat on the invariant *number*.
+4. **Local Chern marker / spin Bott map** in real space + scattering-matrix
+   transmission, and **measured** Bi₂Se₃/SiO₂ optical constants for the loss
+   budget (radiation and surface-roughness terms included).
 
 ---
 
