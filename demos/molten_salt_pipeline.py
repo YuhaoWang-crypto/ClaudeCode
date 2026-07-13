@@ -309,13 +309,66 @@ def train_deepmd(arrays: dict, dp_input: dict):
 # ======================================================================
 @app.local_entrypoint()
 def main(stage: str = "all", steps: int = 30, temp: float = 1200.0,
-         nx: int = 2, ny: int = 2, nz: int = 2, dp_steps: int = 2000):
+         nx: int = 2, ny: int = 2, nz: int = 2, dp_steps: int = 2000,
+         temps: str = "900,1000,1100,1200,1300,1400"):
     import numpy as np
     outdir = "/home/user/ClaudeCode/demos/msalt_out"
     os.makedirs(outdir, exist_ok=True)
 
     syms, xyz, cell = build_nacl(nx, ny, nz)
     print(f"[geom] NaCl {len(syms)} atoms, cell {cell.round(2)} A")
+
+    # -------- production: multi-temperature sweep, CP2K runs in parallel --------
+    if stage == "production":
+        tlist = [float(t) for t in temps.split(",")]
+        inputs = [make_cp2k_input(syms, xyz, cell, steps, t) for t in tlist]
+        print(f"[sweep] {len(tlist)} temperatures {tlist} K, {steps} steps each, "
+              f"CP2K running in parallel on Modal ...")
+        allc, allf, alle, allb = [], [], [], []
+        # run_cp2k.map runs every temperature concurrently, results in order
+        for t, res in zip(tlist, run_cp2k.map(inputs)):
+            if res["returncode"] != 0:
+                print(f"[sweep] T={t}K FAILED rc={res['returncode']}: "
+                      f"{res['stderr_tail'][-400:]}")
+                continue
+            arr = cp2k_to_arrays(res["pos_xyz"], res["frc_xyz"], syms, cell)
+            n = arr["energy"].shape[0]
+            allc.append(arr["coord"]); allf.append(arr["force"])
+            alle.append(arr["energy"]); allb.append(arr["box"])
+            print(f"[sweep] T={t}K -> {n} frames, "
+                  f"E/atom {arr['energy'].mean()/len(syms):.3f} eV, "
+                  f"|F|max {np.abs(arr['force']).max():.2f} eV/A")
+        if not alle:
+            print("[sweep] no frames collected, aborting"); return
+        type_map = ["Na", "Cl"]
+        combined = dict(
+            type_map=type_map,
+            types=np.array([type_map.index(s) for s in syms]),
+            coord=np.concatenate(allc), force=np.concatenate(allf),
+            energy=np.concatenate(alle), box=np.concatenate(allb),
+        )
+        np.savez(os.path.join(outdir, "arrays_production.npz"), **combined)
+        N = combined["energy"].shape[0]
+        print(f"[sweep] combined dataset: {N} frames across {len(alle)} temperatures")
+
+        dp_input = json.loads(json.dumps(DP_INPUT))
+        dp_input["training"]["numb_steps"] = dp_steps
+        print(f"[deepmd] training {dp_steps} steps on GPU over {N} frames ...")
+        res = train_deepmd.remote(combined, dp_input)
+        print(f"[deepmd] gpu={res['gpu']} train_rc={res['train_rc']} "
+              f"freeze_rc={res['freeze_rc']} nframes={res['nframes']}")
+        if res["lcurve"]:
+            open(os.path.join(outdir, "lcurve_production.out"), "w").write(res["lcurve"])
+            lines = res["lcurve"].strip().splitlines()
+            print("[deepmd] learning curve (head/tail):")
+            for l in lines[:2] + ["..."] + lines[-3:]:
+                print("   ", l)
+        if res["model_bytes"]:
+            open(os.path.join(outdir, "model_production.pth"), "wb").write(res["model_bytes"])
+            print(f"[deepmd] saved model_production.pth ({len(res['model_bytes'])} bytes)")
+        if res["train_rc"] != 0:
+            print("[deepmd] TRAIN OUTPUT TAIL:\n", res["train_tail"][-2000:])
+        return
 
     if stage in ("aimd", "all"):
         inp = make_cp2k_input(syms, xyz, cell, steps, temp)
