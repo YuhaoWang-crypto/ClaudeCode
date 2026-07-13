@@ -153,7 +153,7 @@ def make_cp2k_input(syms, xyz, cell, steps, temp):
 # ======================================================================
 # STAGE 1 : CP2K AIMD  (CPU)
 # ======================================================================
-@app.function(image=cp2k_image, cpu=8.0, timeout=3600)
+@app.function(image=cp2k_image, cpu=4.0, memory=8192, timeout=3600)
 def run_cp2k(inp: str):
     import glob, shutil
     workdir = "/root/run"
@@ -177,7 +177,7 @@ def run_cp2k(inp: str):
     os.environ["CP2K_DATA_DIR"] = data_dir
 
     binary = shutil.which("cp2k.psmp") or shutil.which("cp2k.ssmp") or "cp2k.psmp"
-    env = dict(os.environ, OMP_NUM_THREADS="8")
+    env = dict(os.environ, OMP_NUM_THREADS="4")
     p = subprocess.run([binary, "-i", "salt.inp", "-o", "cp2k.log"],
                        env=env, capture_output=True, text=True)
 
@@ -328,8 +328,9 @@ def main(stage: str = "all", steps: int = 30, temp: float = 1200.0,
         # run_cp2k.map runs every temperature concurrently, results in order
         for t, res in zip(tlist, run_cp2k.map(inputs)):
             if res["returncode"] != 0:
-                print(f"[sweep] T={t}K FAILED rc={res['returncode']}: "
-                      f"{res['stderr_tail'][-400:]}")
+                print(f"[sweep] T={t}K FAILED rc={res['returncode']}")
+                print("   CP2K LOG:", res["log_tail"][-800:])
+                print("   STDERR:", res["stderr_tail"][-400:])
                 continue
             arr = cp2k_to_arrays(res["pos_xyz"], res["frc_xyz"], syms, cell)
             n = arr["energy"].shape[0]
