@@ -18,14 +18,17 @@
     &SCF
       SCF_GUESS ATOMIC
       EPS_SCF 1.0E-6
-      MAX_SCF 30
+      MAX_SCF 50
+      ! don't abort MD if one hard configuration won't fully converge
+      IGNORE_CONVERGENCE_FAILURE .TRUE.
       &OT
-        MINIMIZER DIIS
+        MINIMIZER CG
         PRECONDITIONER FULL_SINGLE_INVERSE
+        LINESEARCH 3PNT
       &END OT
       &OUTER_SCF
         EPS_SCF 1.0E-6
-        MAX_SCF 10
+        MAX_SCF 30
       &END OUTER_SCF
     &END SCF
     &XC
@@ -116,7 +119,7 @@
 &MOTION
   &MD
     ENSEMBLE NVT
-    STEPS 25
+    STEPS 12
     TIMESTEP 1.0
     TEMPERATURE 900.0
     &THERMOSTAT
