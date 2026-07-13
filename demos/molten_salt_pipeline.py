@@ -329,8 +329,14 @@ def main(stage: str = "all", steps: int = 30, temp: float = 1200.0,
         for t, res in zip(tlist, run_cp2k.map(inputs)):
             if res["returncode"] != 0:
                 print(f"[sweep] T={t}K FAILED rc={res['returncode']}")
-                print("   CP2K LOG:", res["log_tail"][-800:])
-                print("   STDERR:", res["stderr_tail"][-400:])
+                open(os.path.join(outdir, f"cp2k_fail_{int(t)}.log"), "w").write(
+                    res["log_tail"] + "\n---STDERR---\n" + res["stderr_tail"])
+                # show lines that mention the actual error
+                for ln in (res["log_tail"] + res["stderr_tail"]).splitlines():
+                    if any(k in ln.lower() for k in
+                           ("error", "abort", "cannot", "fail", "not converge",
+                            "missing", "warning")):
+                        print("   >", ln.strip()[:160])
                 continue
             arr = cp2k_to_arrays(res["pos_xyz"], res["frc_xyz"], syms, cell)
             n = arr["energy"].shape[0]
