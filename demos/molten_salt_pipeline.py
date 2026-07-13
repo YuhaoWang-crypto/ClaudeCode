@@ -155,9 +155,8 @@ def make_cp2k_input(syms, xyz, cell, steps, temp):
 # ======================================================================
 @app.function(image=cp2k_image, cpu=4.0, memory=8192, timeout=3600)
 def run_cp2k(inp: str):
-    import glob, shutil
-    workdir = "/root/run"
-    os.makedirs(workdir, exist_ok=True)
+    import glob, shutil, tempfile
+    workdir = tempfile.mkdtemp(prefix="cp2k_")   # fresh dir per call (container reuse safe)
     os.chdir(workdir)
     with open("salt.inp", "w") as f:
         f.write(inp)
@@ -323,10 +322,13 @@ def main(stage: str = "all", steps: int = 30, temp: float = 1200.0,
         tlist = [float(t) for t in temps.split(",")]
         inputs = [make_cp2k_input(syms, xyz, cell, steps, t) for t in tlist]
         print(f"[sweep] {len(tlist)} temperatures {tlist} K, {steps} steps each, "
-              f"CP2K running in parallel on Modal ...")
+              f"CP2K running sequentially on Modal ...")
         allc, allf, alle, allb = [], [], [], []
-        # run_cp2k.map runs every temperature concurrently, results in order
-        for t, res in zip(tlist, run_cp2k.map(inputs)):
+        # Sequential .remote() calls: one CP2K container at a time (reliable).
+        # To parallelize, swap for `run_cp2k.map(inputs)` -- but tune cpu/memory
+        # and account concurrency limits, which can abort co-scheduled MPI runs.
+        for t, inp in zip(tlist, inputs):
+            res = run_cp2k.remote(inp)
             if res["returncode"] != 0:
                 print(f"[sweep] T={t}K FAILED rc={res['returncode']}")
                 open(os.path.join(outdir, f"cp2k_fail_{int(t)}.log"), "w").write(
