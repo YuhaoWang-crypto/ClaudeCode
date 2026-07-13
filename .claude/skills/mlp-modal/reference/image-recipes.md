@@ -21,9 +21,15 @@ cp2k_image = modal.Image.from_registry("cp2k/cp2k:2024.1", add_python="3.11")
   MPI launcher flag differences.
 - ⚠️ Reserve `memory=` and use a **fresh `tempfile.mkdtemp()` workdir per call** so a
   reused warm container can't collide on output files.
-- ⚠️ Concurrency: co-scheduling many CP2K containers via `.map()` aborted the MPI
-  runs (`MPI_Abort(1)`). Run temperatures **sequentially** via `.remote()` in a loop,
-  or tune `cpu`/`memory` and account concurrency limits before parallelizing.
+- ⚠️ Concurrency: run temperatures **sequentially** via `.remote()` in a loop by
+  default; tune `cpu`/`memory` and account concurrency limits before parallelizing.
+- ⚠️ **SCF robustness for AIMD** (the real cause of most `MPI_Abort(1)` aborts — not
+  parallelism!): OT/DIIS SCF fails to converge on liquid-like configurations as the
+  MD disorders, and CP2K aborts. Fixes, in the `&SCF` block:
+  `MINIMIZER CG` + `LINESEARCH 3PNT` (more robust than DIIS), `MAX_SCF 50` with
+  `&OUTER_SCF MAX_SCF 30`, and `IGNORE_CONVERGENCE_FAILURE .TRUE.` as a safety net so
+  one hard frame can't kill the trajectory. A run that works for 6 steps near the
+  starting lattice can still fail at step 10+ — always test with enough steps.
 
 ## DeepMD-kit image (GPU training)
 
