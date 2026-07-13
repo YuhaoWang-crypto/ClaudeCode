@@ -19,6 +19,15 @@ Everything is computed with open-source NumPy/SciPy — **no Lumerical/COMSOL**.
 | 5 | One set of edge-state / wave-propagation simulations | `edge_states.py` | `fig3` | ⚠️ effective model |
 | 6 | Basic result figures + explanation | this README + `REPORT.md` | all | ✅ |
 
+### Complete-package stages (added)
+
+| # | Deliverable | Module | Figure | Status |
+|---|---|---|---|---|
+| 7 | **Real-rod** edge states (removes the ⚠️ of #5) | `fdfd_edge.py` | `fig5` | ✅ ab-initio FDFD |
+| 8 | FDTD wave propagation: straight / sharp bend / defect + **animation** | `fdtd_transport.py` | `fig6`, `fdtd_bend.gif` | ✅ FDTD (qualitative) |
+| 9 | Backscattering-immunity metric (energy delivery) | `fdtd_transport.py` | `fig7` | ✅ FDTD |
+| 10 | **Phononic twin** — same lattice, acoustic kernel (two-system comparison) | `acoustic.py`, `phononic_compare.py` | `fig8` | ✅ acoustic PWE |
+
 ## The physics in one paragraph
 
 A triangular lattice with a hexagonal cluster of 6 silicon rods (ε=11.7) has a
@@ -49,11 +58,13 @@ channel the proposal targets.
 
 ```bash
 pip install -r requirements.txt
-cd src && python run_all.py      # ~90 s, writes all four figures to ../figures/
+cd src && python run_all.py          # basic package  (~90 s) -> fig1..fig4
+cd src && python run_all.py --full   # + complete pkg (~4 min) -> fig5..fig8 + GIF
 ```
 
 Individual stages: `python bands.py`, `python topology.py`,
-`python edge_states.py`, `python param_scan.py`.
+`python edge_states.py`, `python param_scan.py`, `python fdfd_edge.py`,
+`python fdtd_transport.py`, `python phononic_compare.py`.
 
 ## Key computed results
 
@@ -64,5 +75,16 @@ Individual stages: `python bands.py`, `python topology.py`,
 * Helical edge states cross the gap only in the topological ribbon; the mid-gap
   crossing survives in **20/20** random disorder realisations (W=0.6).
 * Optimal operating point in the scanned window: `R/a≈0.385`, gap `≈0.099`.
+
+Complete-package results:
+* **FDFD real-rod edge states** appear inside the bulk gap [0.436, 0.487] and are
+  localised at the topological|trivial domain wall (⚠️ removed).
+* **FDTD**: a wave launched on the wall guides straight, turns a sharp
+  double-bend, and passes a point defect; steady-state energy delivered past a
+  defect is `0.61` vs `0.70` straight and only `0.08` for a trivial (no-wall)
+  guide.
+* **Phononic twin**: the same lattice, solved with an acoustic kernel, hosts a
+  double Dirac cone at `R=a/3` and a C6-inverted gap; the topological side is
+  `R<a/3` (opposite to photonic) for the chosen density/modulus contrast.
 
 See `REPORT.md` for the full write-up, method details, and caveats.

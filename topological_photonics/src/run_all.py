@@ -1,12 +1,17 @@
-"""Run the whole basic package and produce all four figures + a text summary."""
+"""Run the basic package (+ optional complete-package stages) and make figures.
+
+    python run_all.py           # basic package only  (~90 s)  -> fig1..fig4
+    python run_all.py --full    # + complete package   (~4 min) -> fig5..fig8 + GIF
+"""
 from __future__ import annotations
+import sys
 import bands
 import topology
 import edge_states
 import param_scan
 
 
-def main():
+def main(full=False):
     print("=" * 70)
     print("Wu-Hu photonic topological insulator — BASIC computation package")
     print("=" * 70)
@@ -30,11 +35,33 @@ def main():
     print("\n[4/4] Geometry parameter scan / phase diagram")
     param_scan.run()
 
+    figs = ["fig1_bands_dirac_gap.png", "fig2_berry_spin_chern.png",
+            "fig3_edge_states_robustness.png", "fig4_param_scan_phase.png"]
+
+    if full:
+        print("\n" + "=" * 70)
+        print("COMPLETE package stages")
+        print("=" * 70)
+        import fdfd_edge
+        import fdtd_transport
+        import phononic_compare
+        print("\n[5] Real-rod FDFD edge states (removes the effective-model caveat)")
+        fdfd_edge.run()
+        print("\n[6] FDTD wave propagation: straight / bend / defect + GIF")
+        fdtd_transport.snapshots_figure()
+        d = fdtd_transport.energy_delivery_figure()
+        print("    delivered/input:",
+              {k.replace(chr(10), ' '): round(v, 3) for k, v in d.items()})
+        print("\n[7] Photonic vs phononic two-system comparison")
+        phononic_compare.run()
+        figs += ["fig5_fdfd_real_edge.png", "fig6_fdtd_snapshots.png",
+                 "fdtd_bend.gif", "fig7_energy_delivery.png",
+                 "fig8_photonic_vs_phononic.png"]
+
     print("\nDone. Figures written to ../figures/:")
-    for f in ("fig1_bands_dirac_gap.png", "fig2_berry_spin_chern.png",
-              "fig3_edge_states_robustness.png", "fig4_param_scan_phase.png"):
+    for f in figs:
         print("   ", f)
 
 
 if __name__ == "__main__":
-    main()
+    main(full="--full" in sys.argv)

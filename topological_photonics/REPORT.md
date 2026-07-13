@@ -102,26 +102,65 @@ R/a≈0.385, gap≈0.099.
 | Band inversion (p↔d) | C6 indicator on PWE modes | ✅ rigorous |
 | Gap-vs-R phase boundary | PWE scan | ✅ rigorous |
 | C_spin = ±1 quantized | BHZ + FHS (mass sign from PWE) | ⚠️ effective model |
-| Helical edge states + disorder immunity | BHZ ribbon | ⚠️ effective model |
+| Helical edge states + disorder immunity (basic) | BHZ ribbon | ⚠️ effective model |
+| Real-rod edge states in the gap (complete) | FDFD supercell | ✅ ab-initio |
+| Guiding / bend / defect bypass (complete) | FDTD | ✅ (qualitative transport) |
+| Phononic double Dirac cone + gap + inversion | acoustic PWE | ✅ ab-initio |
 
-The topological *classification* (band inversion) is rigorous; the invariant
-*number* and the edge spectrum are computed on the standard effective model it
-maps to. This mirrors how the Wu-Hu result is established in the literature.
+The topological *classification* (band inversion) is rigorous; in the basic
+package the invariant *number* and edge spectrum use the standard effective
+model, while the complete package computes the edge states ab-initio (FDFD) and
+demonstrates transport directly (FDTD). This mirrors how the Wu-Hu result is
+established in the literature.
 
 ---
 
-## 4. Extensions to the complete package
+## 4. Complete-package stages (implemented)
 
-1. **Real-rod PWE supercell edge states** (replace the BHZ ribbon), giving the
-   edge dispersion of the actual crystal at a topological/trivial domain wall.
-2. **FDTD wave propagation** (MEEP) through straight guides, sharp bends and
-   defects — direct backscattering-immunity movies/transmission spectra.
-3. **Phononic twin:** same lattice, elastodynamic kernel → the GHz elastic
-   waveguide of ref [4], enabling the two-system comparison.
-4. **Full disorder-robustness study:** transmission vs disorder strength for
-   bulk vs edge, ensemble-averaged (the heavy part of the complete package).
-5. **Spin-Chern from real modes** via Wilson loops / Wannier-centre flow on the
-   PWE bands, removing the effective-model caveat on the invariant.
+### 4.1 Real-rod FDFD edge states — `fig5` (✅ ab-initio, ⚠️ removed)
+A finite-difference frequency-domain supercell of the actual silicon-rod crystal
+(orthorhombic a×√3a cells stacked with a topological|trivial domain wall,
+periodic in y, Bloch phase in x) is diagonalised with sparse shift-invert
+(`scipy.sparse.linalg.eigsh`). The bulk gap [0.436, 0.487] reproduces the PWE
+value, and edge states appear **inside** it, localised at the domain wall
+(localisation fraction 0.7–0.94 in the central quarter). This replaces the BHZ
+ribbon of §1.5 — the edge states are now computed directly from Maxwell's
+equations for the real rods.
+
+### 4.2 FDTD wave propagation — `fig6`, `fig7`, `fdtd_bend.gif` (✅ FDTD)
+A pure-NumPy 2D TM Yee-grid FDTD (leapfrog, graded absorbing sponge) launches a
+CW source at f=0.46 c/a on the domain wall of the real rod crystal:
+- **straight** guide: the wave follows the wall to the far end;
+- **sharp double-bend** (two 90° corners): the wave turns both corners and
+  continues (see the GIF);
+- **point defect** (a rod removed on the wall): the wave passes essentially
+  undisturbed.
+Quantitatively (steady-state energy delivered ÷ input, common output plane):
+straight `0.70`, defect `0.61` (barely reduced — topological immunity), trivial
+reference with no wall `0.08`. The sharp bend is shown qualitatively (fig6 +
+GIF); its longer bent path is not directly comparable on the same plane in this
+coarse solver. **Honesty note:** the absorbing sponge is not a true UPML and the
+source is a soft point source, so the transmission is qualitative; a production
+run would use UPML + an eigenmode source for calibrated dB numbers.
+
+### 4.3 Phononic twin — `acoustic.py`, `fig8` (✅ acoustic PWE)
+The identical Wu-Hu lattice is solved with a genuine scalar-acoustic PWE kernel
+(generalised eigenproblem with both η=1/ρ and β=1/B varying; rods ρ=6, B=2 vs
+air-like background). It hosts a **double Dirac cone at R=a/3** (four-fold at
+f≈1.09, on bands 3–6) and a C6-inverted gap (≈0.067). The band-inversion
+diagnosis (same C6 indicator) shows the **topological side is R<a/3**, opposite
+to the photonic case — a genuine, material-dependent difference, not a bug. This
+provides the second system for the photonic-vs-phononic comparison (the elastic
+GHz waveguide of ref [4] is the full-vector version of this scalar model).
+
+## 5. Remaining extensions (not yet done)
+
+1. **Full-vector elastodynamics** (Lamb/plate waves) for the true ref-[4] system,
+   replacing the scalar-acoustic approximation.
+2. **UPML + eigenmode-source FDTD** for calibrated transmission/​reflection in dB,
+   and a full disorder-strength sweep (ensemble-averaged edge vs bulk).
+3. **Spin-Chern from real modes** via Wilson loops / Wannier-centre flow on the
+   PWE/FDFD bands, removing the effective-model caveat on the invariant *number*.
 
 ---
 
