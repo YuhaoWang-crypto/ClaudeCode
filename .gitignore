@@ -1,2 +1,8 @@
 __pycache__/
 *.pyc
+
+# PPI/omics data cache (large raw downloads from STRING / BioGRID — never commit)
+ppi_data/
+*.string.txt.gz
+*.tab3.txt
+BIOGRID-*.zip

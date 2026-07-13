@@ -1,0 +1,23 @@
+# Example omics hit list — DNA-damage / cell-cycle genes (human).
+# One HGNC gene symbol per line; blank lines and '#' comments are ignored.
+# Try:  python -m ppi_pathway.cli pathways example_genes.txt --n 15
+TP53
+BRCA1
+BRCA2
+EGFR
+MYC
+CDK2
+CDK4
+CDK6
+RB1
+MDM2
+ATM
+ATR
+CHEK1
+CHEK2
+CCNE1
+CCND1
+E2F1
+PCNA
+RAD51
+PARP1
