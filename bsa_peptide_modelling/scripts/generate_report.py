@@ -102,8 +102,8 @@ def build_peptide_section(story, pep):
     fig=os.path.join(RESULTS,pep['label'],f"model_{best['model']}",'figure.png')
     if os.path.exists(fig):
         story.append(Spacer(1,4))
-        story.append(Image(fig,width=135*mm,height=108*mm))
-        story.append(Paragraph(f"Predicted BSA–peptide complex, best model (Model {best['model']}, ΔG {best['metrics']['dG']:.1f} kcal/mol). BSA backbone in grey; peptide (chain B) in blue; highlighted spheres = BSA interface residues.", CAP))
+        story.append(Image(fig,width=150*mm,height=112.5*mm))
+        story.append(Paragraph(f"Ray-traced PyMOL cartoon of the predicted BSA–peptide complex, best model (Model {best['model']}, ΔG {best['metrics']['dG']:.1f} kcal/mol, Kd {best['metrics']['Kd']} M). BSA (chain A) in gray cartoon (15% transparency); peptide (chain B) in orange cartoon + sticks; BSA residues within 5 Å of the peptide shown as marine-blue sticks.", CAP))
 
     # 2) core interface residues (best + one more)
     story.append(PageBreak())

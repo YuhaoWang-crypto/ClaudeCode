@@ -24,6 +24,9 @@ Target: **Bovine serum albumin (BSA)**, 583 aa, 66.5 kDa (mature sequence, chain
    the same behaviour noted in the original report.
 3. **Interface analysis** — per-model ranking of BSA residues by number of peptide
    contacts, per-model ranking of peptide residues, cross-model consensus and hotspot bins.
+4. **Figures** — ray-traced PyMOL cartoons: BSA (chain A) in gray cartoon (15%
+   transparency), peptide (chain B) in orange cartoon + sticks, and BSA residues within
+   5 Å of the peptide shown as marine-blue sticks (matching the CCB_BSA_v2 style).
 
 The pipeline was validated by re-running it on the original CCB100725-YW01 structures;
 it reproduces that report's ΔG, Kd, contact counts and interface-residue tables exactly.
@@ -59,8 +62,9 @@ comparison.json                       Cross-peptide summary + interpretation
   prodigy/model_{1..5}/ic.csv         PRODIGY interface contact list
   analysis.json                       Parsed rankings / consensus / hotspots
   boltz_confidence.json               Boltz pLDDT / pTM / ipTM per sample
-  figure.png                          Best-model complex figure
-scripts/                              cif2pdb.py, analyze.py, render.py, generate_report.py
+  figures/model_{1..5}.png            Ray-traced PyMOL cartoon of each model
+  figure.png                          Best-model complex figure (used in report)
+scripts/                              cif2pdb.py, analyze.py, render_pymol.py, generate_report.py
 ```
 
 ### Reproducing
