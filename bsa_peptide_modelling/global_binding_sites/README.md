@@ -7,6 +7,10 @@ tinted by its three structural domains: I (1–197), II (198–388), III (389–
 - `global_best_pose.png` — the single best-scoring pose of each peptide.
 - `global_all_models_footprint.png` — all 5 models per peptide (best opaque, rest faded),
   showing each peptide's full site distribution.
+- `surface_pockets/*.png` — each peptide's best pose shown in the BSA molecular surface
+  (semi-transparent gray surface; marine patches = surface directly contacting the peptide).
+
+These figures are also included as Section 6 of the main PDF report.
 
 ## Site summary (Boltz-2.1 + PRODIGY)
 

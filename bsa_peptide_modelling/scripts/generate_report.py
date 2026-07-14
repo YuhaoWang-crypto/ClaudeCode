@@ -8,7 +8,7 @@ from reportlab.lib.pagesizes import A4
 from reportlab.lib.units import mm
 from reportlab.lib import colors
 from reportlab.platypus import (SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle,
-                                Image, PageBreak, HRFlowable)
+                                Image, PageBreak, HRFlowable, KeepTogether)
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.lib.enums import TA_CENTER, TA_LEFT
 
@@ -202,8 +202,79 @@ def main():
     if os.path.exists(comp):
         add_comparison(story, comp)
 
+    # global binding-site section (if the global figures were rendered)
+    if os.path.exists(os.path.join(RESULTS,'global_best.png')):
+        story.append(PageBreak())
+        add_global_section(story)
+
     doc.build(story)
     print('wrote',out)
+
+def _subdom(n):
+    if n<=112: return 'IA'
+    if n<=197: return 'IB'
+    if n<=297: return 'IIA'
+    if n<=388: return 'IIB'
+    if n<=491: return 'IIIA'
+    return 'IIIB'
+def _resnum(r):
+    return int(''.join(c for c in r if c.isdigit()))
+
+def add_global_section(story):
+    import collections
+    GLOBALS=[('Original','original_boltz_CFAGTPSILMLAGGGS','CFAGTPSILMLAGGGS','forest'),
+             ('Peptide A','peptideA_CFAGTPSILKKNGGGS','CFAGTPSILKKNGGGS','orange'),
+             ('Peptide B','peptideB_KKAGTPSILMLAGGGS','KKAGTPSILMLAGGGS','purple')]
+    story.append(Paragraph('6) Global binding-site map on BSA', H1))
+    story.append(HRFlowable(width='100%',thickness=1.4,color=NAVY,spaceAfter=8))
+    story.append(Paragraph("All Boltz-2.1 complexes were superimposed on the shared BSA chain and the peptides overlaid, so the three binding sites can be compared in one frame. BSA is coloured by its three structural domains: I (residues 1–197), II (198–388), III (389–583).", BODY))
+
+    # site distribution table computed from analysis.json
+    data=[['Peptide','Sequence','Best-pose site (ΔG)','Across 5 models']]
+    for name,folder,seq,_ in GLOBALS:
+        p=os.path.join(RESULTS,folder,'analysis.json')
+        if not os.path.exists(p): continue
+        d=json.load(open(p))
+        best=min(d['models'],key=lambda m:m['metrics']['dG'])
+        def site(m):
+            nums=[_resnum(e['res']) for e in m['bsa_rank'][:12]]
+            return collections.Counter(_subdom(n) for n in nums).most_common(1)[0][0]
+        bsite=site(best)
+        dist=collections.Counter(site(m) for m in d['models'])
+        # to domain letters
+        def dom(s): return s.rstrip('AB')
+        domdist=collections.Counter(dom(site(m)) for m in d['models'])
+        dstr=', '.join(f"{v}/5 dom {k}" for k,v in sorted(domdist.items()))
+        data.append([name,seq,f"{bsite}  ({best['metrics']['dG']:.1f})",dstr])
+    t=Table(data,colWidths=[24*mm,44*mm,34*mm,58*mm])
+    st=th(t); st.append(('ALIGN',(1,1),(-1,-1),'LEFT')); st.append(('FONTSIZE',(0,0),(-1,-1),8))
+    t.setStyle(TableStyle(st)); story.append(t)
+    story.append(Spacer(1,6))
+    story.append(Paragraph("<b>Original</b> and <b>Peptide A</b> share the classic domain II/III hydrophobic pockets (Sudlow site I in subdomain IIA and site II in IIIA); Peptide A's strongest pose occupies the same IIIA patch as the original peptide. <b>Peptide B</b> is the outlier — its two N-terminal lysines let it uniquely engage <b>domain I</b> (subdomain IB, ~residues 114–189) in the majority of models. All three are somewhat promiscuous, as expected for BSA (a multi-site carrier protein).", BODY))
+
+    # global best-pose figure
+    fb=os.path.join(RESULTS,'global_best.png')
+    story.append(Spacer(1,4))
+    story.append(Image(fb,width=165*mm,height=137.5*mm))
+    story.append(Paragraph("Best predicted pose of each peptide on BSA (Original = green, Peptide A = orange, Peptide B = purple; BSA tinted by domain).", CAP))
+
+    story.append(PageBreak())
+    fa=os.path.join(RESULTS,'global_all.png')
+    story.append(Image(fa,width=165*mm,height=137.5*mm))
+    story.append(Paragraph("Binding-site footprint — all 5 models per peptide overlaid (best pose opaque, others faded). Peptide B's poses reaching into domain I (blue, upper-left) are unique to it.", CAP))
+
+    # surface pockets
+    story.append(Spacer(1,8))
+    story.append(Paragraph('BSA surface pockets (best pose)', H2))
+    story.append(Paragraph("BSA drawn as a semi-transparent molecular surface with each peptide (sticks + cartoon) resting in its binding groove.", SMALL))
+    for name,folder,seq,col in GLOBALS:
+        sp=os.path.join(RESULTS,folder,'surface','pocket.png')
+        if not os.path.exists(sp): continue
+        block=[Paragraph(f"{name} — {seq}", H3),
+               Image(sp,width=130*mm,height=97.5*mm),
+               Paragraph("Peptide (sticks + cartoon) in its BSA surface groove; marine patches = surface directly contacting the peptide.", CAP),
+               Spacer(1,6)]
+        story.append(KeepTogether(block))
 
 def add_comparison(story, comp):
     d=json.load(open(comp))
