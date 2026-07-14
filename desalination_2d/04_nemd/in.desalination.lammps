@@ -42,10 +42,12 @@ velocity        water_ions create 300.0 12345 mom yes rot yes dist gaussian
 fix             nvt_fluid water_ions nvt temp 300.0 300.0 0.1
 
 # ---- the pressure: constant force on the feed piston ------------------------
-# Applied force per atom = P * Area / N_piston. For P = 100 MPa across a
-# 15x15 A^2 pore cell this is a small per-atom force in metal units; compute
-# it for your box and set fz below (negative = pushing toward +z permeate).
-variable        fz equal 0.02        # eV/A per piston atom -- CALIBRATE!
+# Applied force per atom = P * Area / N_piston. Compute the exact value with
+#   python piston_force.py --data ../figures/nemd_cell.lammps-data \
+#          --pressure-mpa 100 --n-piston 60
+# For the example cell (area 125.8 A^2, 60 piston atoms, 100 MPa) this gives
+# fz = 0.001308 eV/A per atom. RECOMPUTE for your box/piston count.
+variable        fz equal 0.001308    # eV/A per piston atom (100 MPa example)
 fix             push piston aveforce NULL NULL ${fz}
 fix             freeze_xy piston setforce 0.0 0.0 NULL
 

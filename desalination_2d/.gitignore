@@ -1,0 +1,9 @@
+# DFT/MD run artifacts (regenerable; keep the *_ready.in inputs as examples)
+out/
+*.out
+neb_initial.xyz
+neb_final.xyz
+traj.lammpstrj
+final.data
+__pycache__/
+*.pyc

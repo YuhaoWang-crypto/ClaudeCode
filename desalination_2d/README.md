@@ -112,9 +112,21 @@ desalination_2d/
 └── requirements.txt
 ```
 
-## Suggested first milestone
-1. `build_graphene_pore.py` → a converged QE SCF on Modal (Stage 1 sanity).
-2. One CI-NEB Na⁺ barrier → your first physical selectivity number.
-3. A small DeePMD model on ~a few thousand DFT frames + DP-GEN loop.
-4. A 1 ns LAMMPS NEMD at ~100 MPa → first flux/rejection point.
-5. Scale up pressure/pore-size scans; then repeat the whole path for MoS₂.
+## The 5 milestones — exact commands
+
+Run everything that doesn't need the heavy engines with one driver:
+```bash
+./run_local_pipeline.sh      # build → DFT/NEB inputs → data plumbing → analysis → toy (all validated)
+```
+Then the compute-heavy steps on Modal / HPC:
+
+| # | Milestone | Prepare (local, done for you) | Run (your compute) |
+|---|---|---|---|
+| 1 | Converged QE SCF | `02_dft/make_qe_input.py --xyz figures/graphene_pore.xyz` → `qe/scf_graphene_ready.in` | `modal run 02_dft/modal_run_dft.py --infile qe/scf_graphene_ready.in` |
+| 2 | Na⁺ CI-NEB barrier | `02_dft/build_neb_endpoints.py --ion Na` → `qe/neb_na_ready.in` | `neb.x -inp qe/neb_na_ready.in > neb.out` → `02_dft/parse_neb_barrier.py --dat neb_na.dat` |
+| 3 | DeePMD + DP-GEN | `03_mlp/prepare_deepmd_data.py --demo` (plumbing check) | `--from-dft <runs>`; `dpgen run dpgen_param.json …`; `modal run 03_mlp/modal_train_deepmd.py` |
+| 4 | 1 ns NEMD @100 MPa | `04_nemd/piston_force.py … --pressure-mpa 100` → `fz` | `lmp -in 04_nemd/in.desalination.lammps` → `analyze_flux_rejection.py` |
+| 5 | Scans + MoS₂ | loop M1–M4 over pore-radius / pressure | rerun the path for `figures/mos2_pore.xyz` |
+
+Each "prepare" script is locally tested and emits real, filled-in inputs (no
+placeholders). The physical *numbers* come out of the "run" column on Modal/HPC.
