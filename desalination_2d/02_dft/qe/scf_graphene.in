@@ -1,0 +1,61 @@
+!==============================================================================
+! Quantum ESPRESSO SCF template -- nanoporous graphene + adsorbed species
+!
+! STAGE 1 of the pipeline. Use this to get:
+!   * total energies for interaction/binding energies (E_complex - E_sheet - E_mol)
+!   * charge density -> Bader/Lowdin charges (charge transfer at the pore)
+!   * forces (for AIMD and for labelling DeePMD training structures)
+!
+! Replace the ATOMIC_POSITIONS block with a frame exported from
+! 01_build/build_graphene_pore.py (ASE: write('POSCAR') or a QE input via
+! ase.io.write('scf.in', atoms, format='espresso-in')).
+!
+! Pseudopotentials: SSSP efficiency (PBE) is a good default. Download from
+! https://www.materialscloud.org/discover/sssp and set pseudo_dir.
+! Water/ions want a vdW-aware functional -- vdW-DF2 or PBE+D3 (see input_dft).
+!==============================================================================
+&CONTROL
+    calculation   = 'scf'
+    prefix        = 'graphene_pore'
+    outdir        = './out'
+    pseudo_dir    = './pseudo'
+    tprnfor       = .true.
+    tstress       = .true.
+    verbosity     = 'high'
+/
+&SYSTEM
+    ibrav         = 0
+    nat           = __NAT__          ! <- set to match your geometry
+    ntyp          = __NTYP__
+    ecutwfc       = 60.0             ! Ry; converge this (50-80 typical)
+    ecutrho       = 480.0            ! 8x ecutwfc for ultrasoft/PAW
+    occupations   = 'smearing'
+    smearing      = 'mv'             ! Marzari-Vanderbilt for metallic graphene
+    degauss       = 0.01
+    input_dft     = 'vdw-df2'        ! van der Waals for water/ion physisorption
+/
+&ELECTRONS
+    conv_thr      = 1.0d-7
+    mixing_beta   = 0.3
+    electron_maxstep = 200
+/
+! ---- lattice vectors (Angstrom) from your ASE cell ----
+CELL_PARAMETERS angstrom
+   __A1X__  __A1Y__  __A1Z__
+   __A2X__  __A2Y__  __A2Z__
+   __A3X__  __A3Y__  __A3Z__
+
+ATOMIC_SPECIES
+   C   12.011  C.pbe-n-kjpaw_psl.1.0.0.UPF
+   H    1.008  H.pbe-kjpaw_psl.1.0.0.UPF
+   O   15.999  O.pbe-n-kjpaw_psl.1.0.0.UPF
+   Na  22.990  Na.pbe-spn-kjpaw_psl.1.0.0.UPF
+   Cl  35.453  Cl.pbe-n-kjpaw_psl.1.0.0.UPF
+
+! ---- paste ATOMIC_POSITIONS (angstrom) from the builder here ----
+ATOMIC_POSITIONS angstrom
+   __POSITIONS__
+
+! Gamma-centred mesh; a porous supercell often needs only 2x2x1 or 3x3x1.
+K_POINTS automatic
+   3 3 1 0 0 0
