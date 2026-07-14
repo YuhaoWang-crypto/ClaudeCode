@@ -1,0 +1,57 @@
+# NequIP (/Allegro) training config -- a second equivariant MLP for the
+# DeePMD vs MACE vs NequIP bake-off. NequIP is E(3)-equivariant and strong in
+# the low-data regime; Allegro is its strictly-local variant that scales to
+# larger systems (swap `model_builders` for allegro if the NEMD cell is big).
+#
+# Data format: same extended-XYZ as MACE (energy + forces per frame).
+#     python prepare_deepmd_data.py --to-extxyz ../data/train/pore_crossing \
+#            --out ../data/train/pore_crossing.xyz
+# Train (GPU):
+#     nequip-train nequip_config.yaml
+
+root: ./nequip_runs
+run_name: desal_nequip
+seed: 1
+dataset_seed: 1
+
+# --- data -------------------------------------------------------------------
+dataset: ase
+dataset_file_name: ../data/train/pore_crossing.xyz
+ase_args:
+  format: extxyz
+chemical_symbols: [C, H, O, Na, Cl]
+key_mapping:
+  REF_energy: total_energy
+  REF_forces: forces
+
+# --- network ----------------------------------------------------------------
+r_max: 6.0
+num_layers: 4
+l_max: 2                 # angular resolution (1-2 typical; 2 for barriers)
+parity: true
+num_features: 32
+nonlinearity_type: gate
+invariant_layers: 2
+invariant_neurons: 64
+
+# --- loss / training --------------------------------------------------------
+loss_coeffs:
+  forces: 100.0          # force-weighted, consistent with the other trainers
+  total_energy:
+    - 1.0
+    - PerAtomMSELoss
+metrics_components:
+  - - forces
+    - rmse
+  - - total_energy
+    - rmse
+    - PerAtom: true
+
+optimizer_name: Adam
+learning_rate: 0.005
+batch_size: 5
+max_epochs: 1000
+n_train: 0.9             # fraction (or an int count) for training
+n_val: 0.1
+default_dtype: float64
+device: cuda

@@ -23,6 +23,7 @@ Two entry points:
 """
 import argparse
 import os
+import pathlib
 import numpy as np
 
 
@@ -87,6 +88,49 @@ def _write_deepmd_npy(out_dir, symbols, type_map, coords, energies, forces,
             np.asarray(forces).reshape(nf, -1))
 
 
+def to_extxyz(system_dir, out_xyz, energy_key="REF_energy",
+              forces_key="REF_forces"):
+    """Convert a DeePMD 'npy' system to extended-XYZ for MACE / NequIP.
+
+    DeePMD trains from the npy layout; MACE and NequIP read extended-XYZ with a
+    per-frame energy in info[energy_key] and per-atom forces in
+    arrays[forces_key]. This lets the SAME DFT data feed all three trainers for
+    an apples-to-apples bake-off.
+    """
+    from ase import Atoms
+    from ase.io import write
+
+    type_map = pathlib.Path(
+        os.path.join(system_dir, "type_map.raw")).read_text().split()
+    type_idx = [int(x) for x in pathlib.Path(
+        os.path.join(system_dir, "type.raw")).read_text().split()]
+    symbols = [type_map[i] for i in type_idx]
+    natoms = len(symbols)
+
+    set_dirs = sorted(d for d in os.listdir(system_dir)
+                      if d.startswith("set."))
+    frames = []
+    for sd in set_dirs:
+        p = os.path.join(system_dir, sd)
+        coord = np.load(os.path.join(p, "coord.npy")).reshape(-1, natoms, 3)
+        box = np.load(os.path.join(p, "box.npy")).reshape(-1, 3, 3)
+        energy = np.load(os.path.join(p, "energy.npy")).reshape(-1)
+        force = np.load(os.path.join(p, "force.npy")).reshape(-1, natoms, 3)
+        for k in range(coord.shape[0]):
+            atoms = Atoms(symbols=symbols, positions=coord[k],
+                          cell=box[k], pbc=True)
+            atoms.info[energy_key] = float(energy[k])
+            atoms.arrays[forces_key] = force[k]
+            frames.append(atoms)
+
+    os.makedirs(os.path.dirname(os.path.abspath(out_xyz)), exist_ok=True)
+    write(out_xyz, frames, format="extxyz")
+    print(f"Wrote {len(frames)} frames -> {out_xyz}")
+    print(f"  keys: info['{energy_key}']  arrays['{forces_key}']  "
+          f"({natoms} atoms, symbols {sorted(set(symbols))})")
+    return out_xyz
+
+
 def plumbing_demo(out_dir, n_frames=8, seed=0):
     """Generate EMT-labelled graphene frames and export as a DeePMD system."""
     from ase.build import graphene
@@ -136,12 +180,17 @@ def main():
                     help="Run the local EMT plumbing validation")
     ap.add_argument("--from-dft", metavar="DIR",
                     help="Directory of DFT outputs to convert via dpdata")
+    ap.add_argument("--to-extxyz", metavar="SYSTEM_DIR",
+                    help="Convert a DeePMD npy system to extended-XYZ "
+                         "(for MACE/NequIP)")
     ap.add_argument("--fmt", default="qe/pw")
     ap.add_argument("--out", default="../data/train/demo_system")
     args = ap.parse_args()
 
     if args.from_dft:
         from_dft(args.from_dft, args.out, fmt=args.fmt)
+    elif args.to_extxyz:
+        to_extxyz(args.to_extxyz, args.out)
     else:
         plumbing_demo(args.out if args.demo else "../data/train/demo_system")
 

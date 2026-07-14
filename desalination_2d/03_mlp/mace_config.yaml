@@ -1,0 +1,53 @@
+# MACE training config -- equivariant MLP, an alternative to DeePMD for the
+# same water + NaCl + 2D-membrane data. MACE is often more data-efficient
+# (fewer DFT frames for a given force accuracy) thanks to higher body-order
+# equivariant messages -- worth a head-to-head against DeePMD.
+#
+# Data format: MACE reads extended-XYZ with per-frame energy + per-atom forces.
+# Convert your DeePMD npy system with:
+#     python prepare_deepmd_data.py --to-extxyz ../data/train/pore_crossing \
+#            --out ../data/train/pore_crossing.xyz
+# Train (GPU):
+#     mace_run_train --config mace_config.yaml
+#     # or on Modal: modal run modal_train_mace.py --config mace_config.yaml
+
+name: desal_mace
+model: MACE
+seed: 1
+
+# --- data -------------------------------------------------------------------
+train_file: ../data/train/pore_crossing.xyz
+valid_fraction: 0.10
+test_file: ../data/valid/held_out.xyz
+energy_key: REF_energy          # matches the keys written by --to-extxyz
+forces_key: REF_forces
+# stress_key: REF_stress        # enable if you train on virials/pressure
+
+# --- model ------------------------------------------------------------------
+r_max: 6.0                      # Angstrom cutoff (match DeePMD's rcut for a fair test)
+num_interactions: 2             # message-passing layers
+max_ell: 3                      # angular resolution of the messages
+num_channels: 128
+max_L: 1                        # equivariance order of features (1 = up to vectors)
+correlation: 3                  # body order - 1
+hidden_irreps: 128x0e + 128x1o
+
+# --- loss / optimisation ----------------------------------------------------
+loss: weighted                  # energy + forces (+ stress) weighted loss
+energy_weight: 1.0
+forces_weight: 100.0            # force-heavy early, like the DeePMD schedule
+swa: true                       # stochastic weight averaging -> anneals energy weight up
+start_swa: 1200
+ema: true
+ema_decay: 0.99
+batch_size: 8
+valid_batch_size: 16
+max_num_epochs: 1500
+lr: 0.01
+weight_decay: 5.0e-7
+
+# --- misc -------------------------------------------------------------------
+device: cuda
+default_dtype: float64          # float64 for tight force accuracy on barriers
+error_table: PerAtomRMSE
+save_cpu: true
