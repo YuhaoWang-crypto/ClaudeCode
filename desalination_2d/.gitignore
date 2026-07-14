@@ -7,3 +7,6 @@ traj.lammpstrj
 final.data
 __pycache__/
 *.pyc
+
+# study run logs (regenerable)
+06_dft_surrogate_study/results/run.log
