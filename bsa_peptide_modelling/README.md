@@ -28,8 +28,12 @@ Target: **Bovine serum albumin (BSA)**, 583 aa, 66.5 kDa (mature sequence, chain
    transparency), peptide (chain B) in orange cartoon + sticks, and BSA residues within
    5 Å of the peptide shown as marine-blue sticks (matching the CCB_BSA_v2 style).
 
-The pipeline was validated by re-running it on the original CCB100725-YW01 structures;
-it reproduces that report's ΔG, Kd, contact counts and interface-residue tables exactly.
+The pipeline was validated two ways: (1) re-running PRODIGY on the original CCB100725-YW01
+AF3 structures reproduces that report's ΔG, Kd, contact counts and interface tables exactly;
+(2) re-running the *original* peptide through the full Boltz-2.1 + PRODIGY pipeline agrees
+with the AF3-based numbers to within ~0.3 kcal/mol on the mean ΔG, with both predictors
+ranking the same pose strongest on the same hydrophobic BSA patch — see
+`validation_original_AF3_vs_Boltz/VALIDATION.md`.
 
 ## Key results
 

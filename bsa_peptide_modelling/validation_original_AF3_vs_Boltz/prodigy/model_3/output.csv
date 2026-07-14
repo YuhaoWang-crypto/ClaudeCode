@@ -1,0 +1,12 @@
+Metric,Value
+No. of intermolecular contacts,64.0
+No. of charged-charged contacts,0.0
+No. of charged-polar contacts,5.0
+No. of charged-apolar contacts,22.0
+No. of polar-polar contacts,0.0
+No. of apolar-polar contacts,15.0
+No. of apolar-apolar contacts,22.0
+Percentage of apolar NIS residues,33.84
+Percentage of charged NIS residues,38.65
+Predicted binding affinity (kcal.mol-1),-9.9
+Predicted dissociation constant (M) at 25.0˚C,5.6e-08
