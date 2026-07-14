@@ -1,0 +1,1822 @@
+{
+  "label": "peptideA_CFAGTPSILKKNGGGS",
+  "models": [
+    {
+      "model": 1,
+      "metrics": {
+        "contacts": 55.0,
+        "cc": 3.0,
+        "cp": 7.0,
+        "ca": 18.0,
+        "pp": 6.0,
+        "ap": 9.0,
+        "aa": 12.0,
+        "nis_apolar": 33.69,
+        "nis_charged": 38.2,
+        "dG": -7.3,
+        "Kd": "4.2e-06"
+      },
+      "bsa_rank": [
+        {
+          "res": "THR231",
+          "count": 4,
+          "peptide": [
+            "THR5",
+            "PRO6",
+            "SER7",
+            "ILE8"
+          ]
+        },
+        {
+          "res": "LYS232",
+          "count": 4,
+          "peptide": [
+            "PRO6",
+            "ILE8",
+            "LEU9",
+            "LYS10"
+          ]
+        },
+        {
+          "res": "THR235",
+          "count": 4,
+          "peptide": [
+            "THR5",
+            "PRO6",
+            "SER7",
+            "ILE8"
+          ]
+        },
+        {
+          "res": "TYR262",
+          "count": 4,
+          "peptide": [
+            "LEU9",
+            "LYS10",
+            "LYS11",
+            "ASN12"
+          ]
+        },
+        {
+          "res": "ASN266",
+          "count": 4,
+          "peptide": [
+            "LYS10",
+            "LYS11",
+            "ASN12",
+            "GLY13"
+          ]
+        },
+        {
+          "res": "ASP323",
+          "count": 4,
+          "peptide": [
+            "PHE2",
+            "ALA3",
+            "GLY4",
+            "THR5"
+          ]
+        },
+        {
+          "res": "ARG208",
+          "count": 3,
+          "peptide": [
+            "PHE2",
+            "ALA3",
+            "GLY4"
+          ]
+        },
+        {
+          "res": "LYS211",
+          "count": 3,
+          "peptide": [
+            "ALA3",
+            "GLY4",
+            "THR5"
+          ]
+        },
+        {
+          "res": "VAL228",
+          "count": 3,
+          "peptide": [
+            "ILE8",
+            "LEU9",
+            "LYS10"
+          ]
+        },
+        {
+          "res": "ALA212",
+          "count": 2,
+          "peptide": [
+            "PHE2",
+            "ALA3"
+          ]
+        },
+        {
+          "res": "VAL215",
+          "count": 2,
+          "peptide": [
+            "ALA3",
+            "THR5"
+          ]
+        },
+        {
+          "res": "GLU229",
+          "count": 2,
+          "peptide": [
+            "LYS10",
+            "ASN12"
+          ]
+        },
+        {
+          "res": "ASP265",
+          "count": 2,
+          "peptide": [
+            "ASN12",
+            "GLY13"
+          ]
+        },
+        {
+          "res": "THR269",
+          "count": 2,
+          "peptide": [
+            "LYS10",
+            "ASN12"
+          ]
+        },
+        {
+          "res": "GLU226",
+          "count": 1,
+          "peptide": [
+            "LYS10"
+          ]
+        },
+        {
+          "res": "VAL230",
+          "count": 1,
+          "peptide": [
+            "THR5"
+          ]
+        },
+        {
+          "res": "VAL234",
+          "count": 1,
+          "peptide": [
+            "THR5"
+          ]
+        },
+        {
+          "res": "ALA324",
+          "count": 1,
+          "peptide": [
+            "PRO6"
+          ]
+        },
+        {
+          "res": "LEU326",
+          "count": 1,
+          "peptide": [
+            "PHE2"
+          ]
+        },
+        {
+          "res": "GLY327",
+          "count": 1,
+          "peptide": [
+            "ALA3"
+          ]
+        },
+        {
+          "res": "LEU330",
+          "count": 1,
+          "peptide": [
+            "ALA3"
+          ]
+        },
+        {
+          "res": "LEU346",
+          "count": 1,
+          "peptide": [
+            "PHE2"
+          ]
+        },
+        {
+          "res": "ALA349",
+          "count": 1,
+          "peptide": [
+            "PHE2"
+          ]
+        },
+        {
+          "res": "LYS350",
+          "count": 1,
+          "peptide": [
+            "PHE2"
+          ]
+        },
+        {
+          "res": "GLU351",
+          "count": 1,
+          "peptide": [
+            "PHE2"
+          ]
+        },
+        {
+          "res": "GLU353",
+          "count": 1,
+          "peptide": [
+            "PHE2"
+          ]
+        }
+      ],
+      "pep_rank": [
+        {
+          "res": "PHE2",
+          "count": 9
+        },
+        {
+          "res": "ALA3",
+          "count": 7
+        },
+        {
+          "res": "THR5",
+          "count": 7
+        },
+        {
+          "res": "LYS10",
+          "count": 7
+        },
+        {
+          "res": "ASN12",
+          "count": 5
+        },
+        {
+          "res": "PRO6",
+          "count": 4
+        },
+        {
+          "res": "ILE8",
+          "count": 4
+        },
+        {
+          "res": "GLY4",
+          "count": 3
+        },
+        {
+          "res": "LEU9",
+          "count": 3
+        },
+        {
+          "res": "SER7",
+          "count": 2
+        },
+        {
+          "res": "LYS11",
+          "count": 2
+        },
+        {
+          "res": "GLY13",
+          "count": 2
+        }
+      ]
+    },
+    {
+      "model": 2,
+      "metrics": {
+        "contacts": 71.0,
+        "cc": 4.0,
+        "cp": 3.0,
+        "ca": 27.0,
+        "pp": 2.0,
+        "ap": 7.0,
+        "aa": 28.0,
+        "nis_apolar": 33.62,
+        "nis_charged": 38.61,
+        "dG": -8.6,
+        "Kd": "4.9e-07"
+      },
+      "bsa_rank": [
+        {
+          "res": "ALA324",
+          "count": 5,
+          "peptide": [
+            "PHE2",
+            "ALA3",
+            "GLY4",
+            "THR5",
+            "ILE8"
+          ]
+        },
+        {
+          "res": "GLU332",
+          "count": 5,
+          "peptide": [
+            "LYS11",
+            "ASN12",
+            "GLY13",
+            "GLY14",
+            "GLY15"
+          ]
+        },
+        {
+          "res": "GLU226",
+          "count": 4,
+          "peptide": [
+            "LYS10",
+            "LYS11",
+            "ASN12",
+            "GLY13"
+          ]
+        },
+        {
+          "res": "VAL228",
+          "count": 4,
+          "peptide": [
+            "PRO6",
+            "ILE8",
+            "LEU9",
+            "LYS10"
+          ]
+        },
+        {
+          "res": "THR231",
+          "count": 4,
+          "peptide": [
+            "GLY4",
+            "THR5",
+            "PRO6",
+            "ILE8"
+          ]
+        },
+        {
+          "res": "LYS211",
+          "count": 3,
+          "peptide": [
+            "PHE2",
+            "ALA3",
+            "GLY4"
+          ]
+        },
+        {
+          "res": "PHE227",
+          "count": 3,
+          "peptide": [
+            "GLY4",
+            "ILE8",
+            "LYS11"
+          ]
+        },
+        {
+          "res": "THR235",
+          "count": 3,
+          "peptide": [
+            "GLY4",
+            "THR5",
+            "PRO6"
+          ]
+        },
+        {
+          "res": "LEU301",
+          "count": 3,
+          "peptide": [
+            "GLY13",
+            "GLY14",
+            "GLY15"
+          ]
+        },
+        {
+          "res": "ASP307",
+          "count": 3,
+          "peptide": [
+            "LYS11",
+            "GLY14",
+            "GLY15"
+          ]
+        },
+        {
+          "res": "ASP323",
+          "count": 3,
+          "peptide": [
+            "PHE2",
+            "ALA3",
+            "GLY4"
+          ]
+        },
+        {
+          "res": "GLY327",
+          "count": 3,
+          "peptide": [
+            "PHE2",
+            "ALA3",
+            "GLY4"
+          ]
+        },
+        {
+          "res": "ARG335",
+          "count": 3,
+          "peptide": [
+            "GLY13",
+            "GLY14",
+            "GLY15"
+          ]
+        },
+        {
+          "res": "ARG208",
+          "count": 2,
+          "peptide": [
+            "PHE2",
+            "ALA3"
+          ]
+        },
+        {
+          "res": "ALA212",
+          "count": 2,
+          "peptide": [
+            "PHE2",
+            "ALA3"
+          ]
+        },
+        {
+          "res": "PRO302",
+          "count": 2,
+          "peptide": [
+            "GLY14",
+            "GLY15"
+          ]
+        },
+        {
+          "res": "SER328",
+          "count": 2,
+          "peptide": [
+            "PHE2",
+            "LYS11"
+          ]
+        },
+        {
+          "res": "TYR331",
+          "count": 2,
+          "peptide": [
+            "LYS11",
+            "GLY13"
+          ]
+        },
+        {
+          "res": "ARG336",
+          "count": 2,
+          "peptide": [
+            "GLY14",
+            "GLY15"
+          ]
+        },
+        {
+          "res": "VAL215",
+          "count": 1,
+          "peptide": [
+            "ALA3"
+          ]
+        },
+        {
+          "res": "LYS232",
+          "count": 1,
+          "peptide": [
+            "PRO6"
+          ]
+        },
+        {
+          "res": "VAL234",
+          "count": 1,
+          "peptide": [
+            "ALA3"
+          ]
+        },
+        {
+          "res": "PRO303",
+          "count": 1,
+          "peptide": [
+            "GLY15"
+          ]
+        },
+        {
+          "res": "ALA306",
+          "count": 1,
+          "peptide": [
+            "GLY15"
+          ]
+        },
+        {
+          "res": "PHE308",
+          "count": 1,
+          "peptide": [
+            "LYS11"
+          ]
+        },
+        {
+          "res": "LYS322",
+          "count": 1,
+          "peptide": [
+            "PHE2"
+          ]
+        },
+        {
+          "res": "LEU326",
+          "count": 1,
+          "peptide": [
+            "PHE2"
+          ]
+        },
+        {
+          "res": "LEU330",
+          "count": 1,
+          "peptide": [
+            "PHE2"
+          ]
+        },
+        {
+          "res": "LEU346",
+          "count": 1,
+          "peptide": [
+            "PHE2"
+          ]
+        },
+        {
+          "res": "ALA349",
+          "count": 1,
+          "peptide": [
+            "PHE2"
+          ]
+        },
+        {
+          "res": "LYS350",
+          "count": 1,
+          "peptide": [
+            "PHE2"
+          ]
+        },
+        {
+          "res": "GLU353",
+          "count": 1,
+          "peptide": [
+            "PHE2"
+          ]
+        }
+      ],
+      "pep_rank": [
+        {
+          "res": "PHE2",
+          "count": 14
+        },
+        {
+          "res": "ALA3",
+          "count": 8
+        },
+        {
+          "res": "GLY15",
+          "count": 8
+        },
+        {
+          "res": "GLY4",
+          "count": 7
+        },
+        {
+          "res": "LYS11",
+          "count": 7
+        },
+        {
+          "res": "GLY14",
+          "count": 6
+        },
+        {
+          "res": "GLY13",
+          "count": 5
+        },
+        {
+          "res": "PRO6",
+          "count": 4
+        },
+        {
+          "res": "ILE8",
+          "count": 4
+        },
+        {
+          "res": "THR5",
+          "count": 3
+        },
+        {
+          "res": "LYS10",
+          "count": 2
+        },
+        {
+          "res": "ASN12",
+          "count": 2
+        },
+        {
+          "res": "LEU9",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "model": 3,
+      "metrics": {
+        "contacts": 56.0,
+        "cc": 4.0,
+        "cp": 4.0,
+        "ca": 13.0,
+        "pp": 3.0,
+        "ap": 12.0,
+        "aa": 20.0,
+        "nis_apolar": 33.33,
+        "nis_charged": 38.53,
+        "dG": -8.2,
+        "Kd": "9.5e-07"
+      },
+      "bsa_rank": [
+        {
+          "res": "ALA324",
+          "count": 5,
+          "peptide": [
+            "THR5",
+            "PRO6",
+            "ILE8",
+            "GLY14",
+            "GLY15"
+          ]
+        },
+        {
+          "res": "PHE227",
+          "count": 4,
+          "peptide": [
+            "THR5",
+            "PRO6",
+            "ILE8",
+            "GLY15"
+          ]
+        },
+        {
+          "res": "THR231",
+          "count": 4,
+          "peptide": [
+            "THR5",
+            "PRO6",
+            "SER7",
+            "ILE8"
+          ]
+        },
+        {
+          "res": "ASP323",
+          "count": 4,
+          "peptide": [
+            "PHE2",
+            "ALA3",
+            "GLY4",
+            "THR5"
+          ]
+        },
+        {
+          "res": "LYS211",
+          "count": 3,
+          "peptide": [
+            "PHE2",
+            "ALA3",
+            "GLY4"
+          ]
+        },
+        {
+          "res": "VAL228",
+          "count": 3,
+          "peptide": [
+            "SER7",
+            "ILE8",
+            "LEU9"
+          ]
+        },
+        {
+          "res": "ASP307",
+          "count": 3,
+          "peptide": [
+            "LYS11",
+            "ASN12",
+            "GLY13"
+          ]
+        },
+        {
+          "res": "PHE325",
+          "count": 3,
+          "peptide": [
+            "GLY13",
+            "GLY14",
+            "GLY15"
+          ]
+        },
+        {
+          "res": "SER328",
+          "count": 3,
+          "peptide": [
+            "LYS11",
+            "GLY14",
+            "GLY15"
+          ]
+        },
+        {
+          "res": "ARG208",
+          "count": 2,
+          "peptide": [
+            "PHE2",
+            "ALA3"
+          ]
+        },
+        {
+          "res": "PRO302",
+          "count": 2,
+          "peptide": [
+            "LYS11",
+            "ASN12"
+          ]
+        },
+        {
+          "res": "ASN317",
+          "count": 2,
+          "peptide": [
+            "GLY13",
+            "GLY14"
+          ]
+        },
+        {
+          "res": "ALA321",
+          "count": 2,
+          "peptide": [
+            "GLY14",
+            "GLY15"
+          ]
+        },
+        {
+          "res": "GLY327",
+          "count": 2,
+          "peptide": [
+            "PHE2",
+            "THR5"
+          ]
+        },
+        {
+          "res": "GLU332",
+          "count": 2,
+          "peptide": [
+            "LYS11",
+            "ASN12"
+          ]
+        },
+        {
+          "res": "ALA209",
+          "count": 1,
+          "peptide": [
+            "PHE2"
+          ]
+        },
+        {
+          "res": "ALA212",
+          "count": 1,
+          "peptide": [
+            "PHE2"
+          ]
+        },
+        {
+          "res": "VAL215",
+          "count": 1,
+          "peptide": [
+            "THR5"
+          ]
+        },
+        {
+          "res": "GLU226",
+          "count": 1,
+          "peptide": [
+            "LYS11"
+          ]
+        },
+        {
+          "res": "THR235",
+          "count": 1,
+          "peptide": [
+            "THR5"
+          ]
+        },
+        {
+          "res": "LEU301",
+          "count": 1,
+          "peptide": [
+            "LYS11"
+          ]
+        },
+        {
+          "res": "LYS322",
+          "count": 1,
+          "peptide": [
+            "PHE2"
+          ]
+        },
+        {
+          "res": "LEU326",
+          "count": 1,
+          "peptide": [
+            "PHE2"
+          ]
+        },
+        {
+          "res": "LEU330",
+          "count": 1,
+          "peptide": [
+            "PHE2"
+          ]
+        },
+        {
+          "res": "ARG335",
+          "count": 1,
+          "peptide": [
+            "LYS11"
+          ]
+        },
+        {
+          "res": "ALA349",
+          "count": 1,
+          "peptide": [
+            "PHE2"
+          ]
+        },
+        {
+          "res": "GLU353",
+          "count": 1,
+          "peptide": [
+            "PHE2"
+          ]
+        }
+      ],
+      "pep_rank": [
+        {
+          "res": "PHE2",
+          "count": 11
+        },
+        {
+          "res": "THR5",
+          "count": 7
+        },
+        {
+          "res": "LYS11",
+          "count": 7
+        },
+        {
+          "res": "GLY14",
+          "count": 5
+        },
+        {
+          "res": "GLY15",
+          "count": 5
+        },
+        {
+          "res": "ILE8",
+          "count": 4
+        },
+        {
+          "res": "ALA3",
+          "count": 3
+        },
+        {
+          "res": "PRO6",
+          "count": 3
+        },
+        {
+          "res": "ASN12",
+          "count": 3
+        },
+        {
+          "res": "GLY13",
+          "count": 3
+        },
+        {
+          "res": "GLY4",
+          "count": 2
+        },
+        {
+          "res": "SER7",
+          "count": 2
+        },
+        {
+          "res": "LEU9",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "model": 4,
+      "metrics": {
+        "contacts": 92.0,
+        "cc": 2.0,
+        "cp": 9.0,
+        "ca": 32.0,
+        "pp": 3.0,
+        "ap": 17.0,
+        "aa": 29.0,
+        "nis_apolar": 32.6,
+        "nis_charged": 38.95,
+        "dG": -11.1,
+        "Kd": "6.8e-09"
+      },
+      "bsa_rank": [
+        {
+          "res": "GLN393",
+          "count": 5,
+          "peptide": [
+            "GLY4",
+            "THR5",
+            "PRO6",
+            "SER7",
+            "ILE8"
+          ]
+        },
+        {
+          "res": "LEU397",
+          "count": 5,
+          "peptide": [
+            "PRO6",
+            "SER7",
+            "ILE8",
+            "LEU9",
+            "LYS10"
+          ]
+        },
+        {
+          "res": "ARG409",
+          "count": 5,
+          "peptide": [
+            "PHE2",
+            "ALA3",
+            "GLY4",
+            "THR5",
+            "PRO6"
+          ]
+        },
+        {
+          "res": "LYS524",
+          "count": 5,
+          "peptide": [
+            "LYS11",
+            "ASN12",
+            "GLY13",
+            "GLY14",
+            "GLY15"
+          ]
+        },
+        {
+          "res": "GLY401",
+          "count": 4,
+          "peptide": [
+            "ILE8",
+            "LEU9",
+            "LYS10",
+            "LYS11"
+          ]
+        },
+        {
+          "res": "ASN404",
+          "count": 4,
+          "peptide": [
+            "ILE8",
+            "LEU9",
+            "LYS10",
+            "LYS11"
+          ]
+        },
+        {
+          "res": "GLU540",
+          "count": 4,
+          "peptide": [
+            "THR5",
+            "PRO6",
+            "SER7",
+            "ILE8"
+          ]
+        },
+        {
+          "res": "MET547",
+          "count": 4,
+          "peptide": [
+            "ILE8",
+            "LEU9",
+            "LYS10",
+            "LYS11"
+          ]
+        },
+        {
+          "res": "VAL551",
+          "count": 4,
+          "peptide": [
+            "LYS10",
+            "LYS11",
+            "ASN12",
+            "GLY13"
+          ]
+        },
+        {
+          "res": "ASP555",
+          "count": 4,
+          "peptide": [
+            "ASN12",
+            "GLY13",
+            "GLY14",
+            "GLY15"
+          ]
+        },
+        {
+          "res": "GLN389",
+          "count": 3,
+          "peptide": [
+            "PHE2",
+            "ALA3",
+            "GLY4"
+          ]
+        },
+        {
+          "res": "ASN390",
+          "count": 3,
+          "peptide": [
+            "PHE2",
+            "ALA3",
+            "THR5"
+          ]
+        },
+        {
+          "res": "TYR400",
+          "count": 3,
+          "peptide": [
+            "LYS10",
+            "LYS11",
+            "ASN12"
+          ]
+        },
+        {
+          "res": "ALA405",
+          "count": 3,
+          "peptide": [
+            "THR5",
+            "PRO6",
+            "ILE8"
+          ]
+        },
+        {
+          "res": "LYS520",
+          "count": 3,
+          "peptide": [
+            "GLY13",
+            "GLY14",
+            "GLY15"
+          ]
+        },
+        {
+          "res": "VAL554",
+          "count": 3,
+          "peptide": [
+            "GLY13",
+            "GLY14",
+            "GLY15"
+          ]
+        },
+        {
+          "res": "LEU386",
+          "count": 2,
+          "peptide": [
+            "PHE2",
+            "ALA3"
+          ]
+        },
+        {
+          "res": "LEU406",
+          "count": 2,
+          "peptide": [
+            "PHE2",
+            "THR5"
+          ]
+        },
+        {
+          "res": "VAL408",
+          "count": 2,
+          "peptide": [
+            "PRO6",
+            "ILE8"
+          ]
+        },
+        {
+          "res": "ILE512",
+          "count": 2,
+          "peptide": [
+            "GLY14",
+            "GLY15"
+          ]
+        },
+        {
+          "res": "CYS513",
+          "count": 2,
+          "peptide": [
+            "GLY14",
+            "GLY15"
+          ]
+        },
+        {
+          "res": "LEU528",
+          "count": 2,
+          "peptide": [
+            "ILE8",
+            "LYS11"
+          ]
+        },
+        {
+          "res": "CYS558",
+          "count": 2,
+          "peptide": [
+            "GLY14",
+            "GLY15"
+          ]
+        },
+        {
+          "res": "LYS396",
+          "count": 1,
+          "peptide": [
+            "SER7"
+          ]
+        },
+        {
+          "res": "GLY398",
+          "count": 1,
+          "peptide": [
+            "LYS10"
+          ]
+        },
+        {
+          "res": "GLU399",
+          "count": 1,
+          "peptide": [
+            "LYS10"
+          ]
+        },
+        {
+          "res": "PHE402",
+          "count": 1,
+          "peptide": [
+            "THR5"
+          ]
+        },
+        {
+          "res": "TYR410",
+          "count": 1,
+          "peptide": [
+            "PHE2"
+          ]
+        },
+        {
+          "res": "ARG412",
+          "count": 1,
+          "peptide": [
+            "PRO6"
+          ]
+        },
+        {
+          "res": "LYS413",
+          "count": 1,
+          "peptide": [
+            "PHE2"
+          ]
+        },
+        {
+          "res": "LEU456",
+          "count": 1,
+          "peptide": [
+            "PHE2"
+          ]
+        },
+        {
+          "res": "ARG484",
+          "count": 1,
+          "peptide": [
+            "PHE2"
+          ]
+        },
+        {
+          "res": "PHE487",
+          "count": 1,
+          "peptide": [
+            "PHE2"
+          ]
+        },
+        {
+          "res": "SER488",
+          "count": 1,
+          "peptide": [
+            "PHE2"
+          ]
+        },
+        {
+          "res": "GLN525",
+          "count": 1,
+          "peptide": [
+            "LYS11"
+          ]
+        },
+        {
+          "res": "LEU543",
+          "count": 1,
+          "peptide": [
+            "ILE8"
+          ]
+        },
+        {
+          "res": "LYS544",
+          "count": 1,
+          "peptide": [
+            "LEU9"
+          ]
+        },
+        {
+          "res": "GLU548",
+          "count": 1,
+          "peptide": [
+            "LEU9"
+          ]
+        },
+        {
+          "res": "PHE550",
+          "count": 1,
+          "peptide": [
+            "LYS11"
+          ]
+        }
+      ],
+      "pep_rank": [
+        {
+          "res": "PHE2",
+          "count": 11
+        },
+        {
+          "res": "ILE8",
+          "count": 10
+        },
+        {
+          "res": "LYS11",
+          "count": 9
+        },
+        {
+          "res": "LYS10",
+          "count": 8
+        },
+        {
+          "res": "THR5",
+          "count": 7
+        },
+        {
+          "res": "PRO6",
+          "count": 7
+        },
+        {
+          "res": "GLY14",
+          "count": 7
+        },
+        {
+          "res": "GLY15",
+          "count": 7
+        },
+        {
+          "res": "LEU9",
+          "count": 6
+        },
+        {
+          "res": "GLY13",
+          "count": 5
+        },
+        {
+          "res": "ALA3",
+          "count": 4
+        },
+        {
+          "res": "SER7",
+          "count": 4
+        },
+        {
+          "res": "ASN12",
+          "count": 4
+        },
+        {
+          "res": "GLY4",
+          "count": 3
+        }
+      ]
+    },
+    {
+      "model": 5,
+      "metrics": {
+        "contacts": 73.0,
+        "cc": 2.0,
+        "cp": 4.0,
+        "ca": 17.0,
+        "pp": 4.0,
+        "ap": 18.0,
+        "aa": 28.0,
+        "nis_apolar": 33.19,
+        "nis_charged": 38.83,
+        "dG": -9.6,
+        "Kd": "9.6e-08"
+      },
+      "bsa_rank": [
+        {
+          "res": "LEU397",
+          "count": 5,
+          "peptide": [
+            "THR5",
+            "PRO6",
+            "SER7",
+            "ILE8",
+            "LYS10"
+          ]
+        },
+        {
+          "res": "ARG409",
+          "count": 5,
+          "peptide": [
+            "PHE2",
+            "ALA3",
+            "GLY4",
+            "THR5",
+            "PRO6"
+          ]
+        },
+        {
+          "res": "GLN393",
+          "count": 4,
+          "peptide": [
+            "THR5",
+            "PRO6",
+            "SER7",
+            "ILE8"
+          ]
+        },
+        {
+          "res": "ALA405",
+          "count": 4,
+          "peptide": [
+            "THR5",
+            "PRO6",
+            "ILE8",
+            "LEU9"
+          ]
+        },
+        {
+          "res": "VAL551",
+          "count": 4,
+          "peptide": [
+            "ASN12",
+            "GLY13",
+            "GLY14",
+            "GLY15"
+          ]
+        },
+        {
+          "res": "GLN389",
+          "count": 3,
+          "peptide": [
+            "ALA3",
+            "GLY4",
+            "THR5"
+          ]
+        },
+        {
+          "res": "ASN390",
+          "count": 3,
+          "peptide": [
+            "PHE2",
+            "ALA3",
+            "THR5"
+          ]
+        },
+        {
+          "res": "GLY401",
+          "count": 3,
+          "peptide": [
+            "ILE8",
+            "LEU9",
+            "LYS10"
+          ]
+        },
+        {
+          "res": "ASN404",
+          "count": 3,
+          "peptide": [
+            "ILE8",
+            "LEU9",
+            "GLY13"
+          ]
+        },
+        {
+          "res": "VAL408",
+          "count": 3,
+          "peptide": [
+            "PRO6",
+            "ILE8",
+            "LEU9"
+          ]
+        },
+        {
+          "res": "GLU540",
+          "count": 3,
+          "peptide": [
+            "PRO6",
+            "SER7",
+            "ILE8"
+          ]
+        },
+        {
+          "res": "LYS544",
+          "count": 3,
+          "peptide": [
+            "ILE8",
+            "LEU9",
+            "LYS11"
+          ]
+        },
+        {
+          "res": "LEU386",
+          "count": 2,
+          "peptide": [
+            "PHE2",
+            "ALA3"
+          ]
+        },
+        {
+          "res": "LYS396",
+          "count": 2,
+          "peptide": [
+            "SER7",
+            "LYS10"
+          ]
+        },
+        {
+          "res": "TYR400",
+          "count": 2,
+          "peptide": [
+            "GLY13",
+            "GLY14"
+          ]
+        },
+        {
+          "res": "LEU406",
+          "count": 2,
+          "peptide": [
+            "PHE2",
+            "THR5"
+          ]
+        },
+        {
+          "res": "LYS524",
+          "count": 2,
+          "peptide": [
+            "GLY14",
+            "GLY15"
+          ]
+        },
+        {
+          "res": "LEU543",
+          "count": 2,
+          "peptide": [
+            "ILE8",
+            "LEU9"
+          ]
+        },
+        {
+          "res": "ASP555",
+          "count": 2,
+          "peptide": [
+            "ASN12",
+            "GLY15"
+          ]
+        },
+        {
+          "res": "PHE402",
+          "count": 1,
+          "peptide": [
+            "THR5"
+          ]
+        },
+        {
+          "res": "TYR410",
+          "count": 1,
+          "peptide": [
+            "PHE2"
+          ]
+        },
+        {
+          "res": "ARG412",
+          "count": 1,
+          "peptide": [
+            "PRO6"
+          ]
+        },
+        {
+          "res": "LYS413",
+          "count": 1,
+          "peptide": [
+            "PHE2"
+          ]
+        },
+        {
+          "res": "LEU429",
+          "count": 1,
+          "peptide": [
+            "PHE2"
+          ]
+        },
+        {
+          "res": "LEU452",
+          "count": 1,
+          "peptide": [
+            "PHE2"
+          ]
+        },
+        {
+          "res": "LEU456",
+          "count": 1,
+          "peptide": [
+            "PHE2"
+          ]
+        },
+        {
+          "res": "ARG484",
+          "count": 1,
+          "peptide": [
+            "PHE2"
+          ]
+        },
+        {
+          "res": "PHE487",
+          "count": 1,
+          "peptide": [
+            "PHE2"
+          ]
+        },
+        {
+          "res": "SER488",
+          "count": 1,
+          "peptide": [
+            "PHE2"
+          ]
+        },
+        {
+          "res": "GLN521",
+          "count": 1,
+          "peptide": [
+            "GLY14"
+          ]
+        },
+        {
+          "res": "LEU528",
+          "count": 1,
+          "peptide": [
+            "LEU9"
+          ]
+        },
+        {
+          "res": "THR539",
+          "count": 1,
+          "peptide": [
+            "ILE8"
+          ]
+        },
+        {
+          "res": "GLU541",
+          "count": 1,
+          "peptide": [
+            "ILE8"
+          ]
+        },
+        {
+          "res": "MET547",
+          "count": 1,
+          "peptide": [
+            "LEU9"
+          ]
+        },
+        {
+          "res": "VAL554",
+          "count": 1,
+          "peptide": [
+            "GLY15"
+          ]
+        }
+      ],
+      "pep_rank": [
+        {
+          "res": "PHE2",
+          "count": 12
+        },
+        {
+          "res": "ILE8",
+          "count": 11
+        },
+        {
+          "res": "THR5",
+          "count": 8
+        },
+        {
+          "res": "LEU9",
+          "count": 8
+        },
+        {
+          "res": "PRO6",
+          "count": 7
+        },
+        {
+          "res": "ALA3",
+          "count": 4
+        },
+        {
+          "res": "SER7",
+          "count": 4
+        },
+        {
+          "res": "GLY14",
+          "count": 4
+        },
+        {
+          "res": "GLY15",
+          "count": 4
+        },
+        {
+          "res": "LYS10",
+          "count": 3
+        },
+        {
+          "res": "GLY13",
+          "count": 3
+        },
+        {
+          "res": "GLY4",
+          "count": 2
+        },
+        {
+          "res": "ASN12",
+          "count": 2
+        },
+        {
+          "res": "LYS11",
+          "count": 1
+        }
+      ]
+    }
+  ],
+  "consensus": {
+    "ge3": [
+      "ALA212",
+      "ALA324",
+      "ALA349",
+      "ARG208",
+      "ASP323",
+      "GLU226",
+      "GLU353",
+      "GLY327",
+      "LEU326",
+      "LEU330",
+      "LYS211",
+      "THR231",
+      "THR235",
+      "VAL215",
+      "VAL228"
+    ],
+    "eq2": [
+      "ALA405",
+      "ARG335",
+      "ARG409",
+      "ARG412",
+      "ARG484",
+      "ASN390",
+      "ASN404",
+      "ASP307",
+      "ASP555",
+      "GLN389",
+      "GLN393",
+      "GLU332",
+      "GLU540",
+      "GLY401",
+      "LEU301",
+      "LEU346",
+      "LEU386",
+      "LEU397",
+      "LEU406",
+      "LEU456",
+      "LEU528",
+      "LEU543",
+      "LYS232",
+      "LYS322",
+      "LYS350",
+      "LYS396",
+      "LYS413",
+      "LYS524",
+      "LYS544",
+      "MET547",
+      "PHE227",
+      "PHE402",
+      "PHE487",
+      "PRO302",
+      "SER328",
+      "SER488",
+      "TYR400",
+      "TYR410",
+      "VAL234",
+      "VAL408",
+      "VAL551",
+      "VAL554"
+    ]
+  },
+  "appear": {
+    "THR231": 3,
+    "LYS232": 2,
+    "THR235": 3,
+    "TYR262": 1,
+    "ASN266": 1,
+    "ASP323": 3,
+    "ARG208": 3,
+    "LYS211": 3,
+    "VAL228": 3,
+    "ALA212": 3,
+    "VAL215": 3,
+    "GLU229": 1,
+    "ASP265": 1,
+    "THR269": 1,
+    "GLU226": 3,
+    "VAL230": 1,
+    "VAL234": 2,
+    "ALA324": 3,
+    "LEU326": 3,
+    "GLY327": 3,
+    "LEU330": 3,
+    "LEU346": 2,
+    "ALA349": 3,
+    "LYS350": 2,
+    "GLU351": 1,
+    "GLU353": 3,
+    "GLU332": 2,
+    "PHE227": 2,
+    "LEU301": 2,
+    "ASP307": 2,
+    "ARG335": 2,
+    "PRO302": 2,
+    "SER328": 2,
+    "TYR331": 1,
+    "ARG336": 1,
+    "PRO303": 1,
+    "ALA306": 1,
+    "PHE308": 1,
+    "LYS322": 2,
+    "PHE325": 1,
+    "ASN317": 1,
+    "ALA321": 1,
+    "ALA209": 1,
+    "GLN393": 2,
+    "LEU397": 2,
+    "ARG409": 2,
+    "LYS524": 2,
+    "GLY401": 2,
+    "ASN404": 2,
+    "GLU540": 2,
+    "MET547": 2,
+    "VAL551": 2,
+    "ASP555": 2,
+    "GLN389": 2,
+    "ASN390": 2,
+    "TYR400": 2,
+    "ALA405": 2,
+    "LYS520": 1,
+    "VAL554": 2,
+    "LEU386": 2,
+    "LEU406": 2,
+    "VAL408": 2,
+    "ILE512": 1,
+    "CYS513": 1,
+    "LEU528": 2,
+    "CYS558": 1,
+    "LYS396": 2,
+    "GLY398": 1,
+    "GLU399": 1,
+    "PHE402": 2,
+    "TYR410": 2,
+    "ARG412": 2,
+    "LYS413": 2,
+    "LEU456": 2,
+    "ARG484": 2,
+    "PHE487": 2,
+    "SER488": 2,
+    "GLN525": 1,
+    "LEU543": 2,
+    "LYS544": 2,
+    "GLU548": 1,
+    "PHE550": 1,
+    "LEU429": 1,
+    "LEU452": 1,
+    "GLN521": 1,
+    "THR539": 1,
+    "GLU541": 1
+  }
+}

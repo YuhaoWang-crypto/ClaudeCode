@@ -1,0 +1,38 @@
+{
+  "rows": [
+    {
+      "name": "Peptide A",
+      "seq": "CFAGTPSILKKNGGGS",
+      "best_dg": -11.1,
+      "best_kd": "6.8e-09",
+      "mean_dg": -8.959999999999999,
+      "max_contacts": 92,
+      "best_model": 4
+    },
+    {
+      "name": "Peptide B",
+      "seq": "KKAGTPSILMLAGGGS",
+      "best_dg": -9.8,
+      "best_kd": "6.2e-08",
+      "mean_dg": -8.94,
+      "max_contacts": 81,
+      "best_model": 4
+    },
+    {
+      "name": "Original",
+      "seq": "CFAGTPSILMLAGGGS",
+      "best_dg": -12.4,
+      "best_kd": "8.6e-10",
+      "mean_dg": -10.02,
+      "max_contacts": 102,
+      "best_model": 5
+    }
+  ],
+  "notes": [
+    "Predicted affinity: all three peptides are predicted to bind BSA with sub-micromolar affinity in their best models. The original peptide remained the strongest single model (\u0394G -12.4 kcal/mol, Kd 8.6e-10 M). Among the new peptides, Peptide A reaches the most favourable single model (Model 4, \u0394G -11.1 kcal/mol, Kd 6.8e-9 M, 92 contacts) and Peptide B is more tightly clustered and reproducible (\u0394G -8.1 to -9.8 kcal/mol across all 5 models).",
+    "Binding-site behaviour \u2014 Peptide A (M10K/L11K/A12N): notably, its best-scoring Model 4 re-docks into the SAME canonical BSA pocket used by the original peptide (GLN393, LEU397, GLY401, ASN404, ARG409, GLU540, MET547, VAL551 \u2014 the 390-410 / 540-548 patch), whereas its other four models occupy an alternative groove around residues 208-353 (ARG208/LYS211/ALA212, ASP323/ALA324, GLU353). The added lysines therefore make the alternative charged groove competitive but do not abolish the original hydrophobic mode.",
+    "Binding-site behaviour \u2014 Peptide B (C1K/F2K): all five models converge on a distinct, more N-terminal/charged region of BSA around residues 114-189 (LYS114/LYS116, GLU125/GLU140, ARG144/HIS145, ARG185), recruiting Arg/Lys/Glu/His to complement the two new N-terminal lysines. This site is consistent and reproducible (higher inter-model agreement, protein-iptm up to 0.76).",
+    "Interpretation: the substitutions do not remove BSA binding; they re-route or diversify it. BSA is a promiscuous carrier with several hydrophobic and charged sub-sites, so the biotinylated peptides retain predicted sub-micromolar affinity even after inserting positive charge. All \u0394G/Kd values are Boltz-2.1 (structure) + PRODIGY (affinity) predictions and should be confirmed experimentally \u2014 e.g. BLI or SPR with the biotinylated peptides captured on streptavidin sensors against BSA.",
+    "Method note: the biotin (BTN) and C-terminal amide (NH2) caps occupy peptide positions 1 and 16 respectively and are excluded from the PRODIGY contact analysis (which requires standard residues), exactly as in project CCB100725-YW01; the interface analysis therefore reflects peptide residues 2-15."
+  ]
+}
