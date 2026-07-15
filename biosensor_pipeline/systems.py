@@ -105,7 +105,22 @@ MFAP1 = Receptor(
     note="de-novo fluorogen-activating beta-barrel (mini-fluorescence-activating protein).",
 )
 
-RECEPTORS = {DIG103.name: DIG103, MFAP1.name: MFAP1}
+CDL2_2 = Receptor(
+    name="CDL2.2",
+    pdb="5IEN",
+    # de-novo designed vitamin-D binder (Lee et al. designed-binder family);
+    # His6 tag removed. Mined by discover.py from the analyte SMILES.
+    seq=("GQSAKEAIEAALADFVKAYNSKDAAGVASKYMDDAAIFPLDMARVDGRQNIQKLWQGLMDMGVSEP"
+         "KLTTLDVQESGDFAFESGSISLKGPGKDSKLVDIAGKYVEVWRKGQDGGWKLYRTIANLDPAKLE"),
+    ligand_name="vitamin_D3",
+    ligand_smiles="CC(CCCC(C)(C)O)C1CCC2C1(CCCC2=CC=C3CC(CCC3=C)O)C",  # VDY (bound vitamin-D analog)
+    ligand_formula="C27H44O2",
+    loop_sites=[27, 39, 62, 76, 93, 103, 112],
+    modeled_offset=0,
+    note="de-novo vitamin-D3 binder CDL2.2; discovered via Tier-A PDB mining.",
+)
+
+RECEPTORS = {DIG103.name: DIG103, MFAP1.name: MFAP1, CDL2_2.name: CDL2_2}
 
 
 # ---------------------------------------------------------------------------
@@ -140,6 +155,16 @@ SYSTEMS = {
         description="Validation on a DIFFERENT analyte: a small-molecule fluorogen "
                     "(DFHBI) bound by a structurally unrelated beta-barrel receptor, "
                     "same reporter and same design recipe.",
+    ),
+    "vitd": System(
+        key="vitd",
+        role="validation",
+        receptor=CDL2_2,
+        reporter=TEM1,
+        primary_insertion="253",
+        description="Validation on vitamin D3: a de-novo designed secosteroid binder "
+                    "(CDL2.2), mined from the PDB by discover.py, grafted into TEM-1 "
+                    "by the same recipe.",
     ),
 }
 

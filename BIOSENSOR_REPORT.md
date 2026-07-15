@@ -52,6 +52,11 @@ luciferase LuxSit Pro, NanoLuc, PQQ-glucose dehydrogenase bioelectrode).
 |---|---|---|---|---|---|
 | `dig` | reproduction | DIG10.3 (4J9A) | mixed α/β | **digoxigenin** (steroid glycoside, C₂₃H₃₄O₅) | TEM-1 β-lactamase (3GMW), loop **253** |
 | `dfhbi` | validation | mFAP1 (6CZI) | β-barrel | **DFHBI** (fluorogen, C₁₂H₁₀F₂N₂O₂) | TEM-1 β-lactamase (3GMW), loop **253** |
+| `vitd` | validation (fully mined) | CDL2.2 (5IEN) | helical bundle | **vitamin D3** (secosteroid, C₂₇H₄₄O₂) | TEM-1 β-lactamase (3GMW), loop **253** |
+
+`vitd` is an **end-to-end demonstration of the mine→graft→validate loop**: the
+CDL2.2 receptor was **discovered automatically** by `discover.py` from the
+vitamin-D3 SMILES (Tier-A PDB mining, contact-verified), not hand-picked.
 
 The two receptors share **no fold and no analyte**, yet go through the **identical**
 recipe into the **same** reporter — the generality the paper claims. (They stand in
@@ -97,16 +102,33 @@ a **chimera-alone (apo)**.
 | native mFAP1 + DFHBI | control | 0.960 | 0.967 | 0.956 | 0.977 | 0.943 |
 | **cpmFAP1-62 → TEM-1 + DFHBI** | holo | 0.937 | 0.768 | 0.924 | **0.987** | 0.678 |
 | cpmFAP1-62 → TEM-1 (apo) | apo | 0.835 | 0.638 | 0.884 | — | — |
+| native CDL2.2 + vitamin D3 | control | 0.761 | 0.856 | 0.741 | 0.843 | 0.385 |
+| **cpCDL2.2-76 → TEM-1 + vitamin D3** | holo | 0.580 | 0.739 | 0.569 | **0.622** | 0.629 |
+| cpCDL2.2-76 → TEM-1 (apo) | apo | 0.664 | 0.700 | 0.655 | — | — |
 
 ### 4b. Derived comparisons
 
-| | `dig` (reproduction) | `dfhbi` (validation) |
-|---|---|---|
-| **binding retention vs native** = chimera/native ligand_iptm | **0.92** | **1.01** |
-| TEM-1 catalytic constellation, max Cα–Cα (native = 10.66 Å) | 10.96 Å (**Δ +0.3**) | 11.13 Å (**Δ +0.5**) |
-| active site intact (✅ geometric) | **true** | **true** |
-| apo→holo complex-pLDDT change | −0.025 | +0.040 |
-| switch proxy (⚠️ illustrative) | 0.64 | 0.88 |
+| | `dig` (reproduction) | `dfhbi` (validation) | `vitd` (mined validation) |
+|---|---|---|---|
+| **binding retention vs native** = chimera/native ligand_iptm | **0.92** | **1.01** | **0.74** |
+| TEM-1 catalytic constellation, max Cα–Cα (native = 10.66 Å) | 10.96 Å (Δ +0.3) | 11.13 Å (Δ +0.5) | not measured¹ |
+| active site intact (✅ geometric) | **true** | **true** | not measured¹ |
+| apo→holo complex-pLDDT change | −0.025 | +0.040 | −0.086 |
+| switch proxy (⚠️ illustrative) | 0.64 | 0.88 | 0.58 |
+
+¹ vitd chimera model was not downloaded (transient signed-URL error); the
+constellation check is omitted rather than assumed. The metrics above are the
+model-returned values and stand on their own.
+
+**Honest read of `vitd`:** the mined designed binder (CDL2.2) itself models
+well (native ptm 0.856, ligand_iptm 0.843), but the chimera is the **weakest of
+the three** — it keeps only **74%** of native ligand-interface confidence, its
+overall fold confidence is lower (holo pLDDT 0.569), and the apo→holo pLDDT
+change is **negative** (−0.086). So the recipe *is* generalizable to a mined
+receptor, but this particular graft is a more marginal in-silico candidate than
+DFHBI or digoxigenin — exactly the kind of triage signal the workflow exists to
+surface **before** any bench work. A different permutation site (the library has
+7) or linker length might do better; the pipeline is set up to screen them.
 
 ![validation figure](figures/biosensor_validation.png)
 

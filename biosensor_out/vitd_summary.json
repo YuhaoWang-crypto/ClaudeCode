@@ -1,0 +1,91 @@
+{
+  "system": "vitd",
+  "role": "validation",
+  "receptor": "CDL2.2",
+  "reporter": "TEM1-BLA",
+  "analyte": "vitamin_D3",
+  "insertion": "TEM1-BLA-253",
+  "n_variants": 7,
+  "all_constructions_valid": true,
+  "variants": [
+    {
+      "name": "cpCDL2.2-27_TEM1-BLA-253",
+      "permutation_site": 27,
+      "removed_residue": "A",
+      "length": 402,
+      "receptor_domain_span": [
+        227,
+        366
+      ],
+      "valid": true
+    },
+    {
+      "name": "cpCDL2.2-39_TEM1-BLA-253",
+      "permutation_site": 39,
+      "removed_residue": "L",
+      "length": 402,
+      "receptor_domain_span": [
+        227,
+        366
+      ],
+      "valid": true
+    },
+    {
+      "name": "cpCDL2.2-62_TEM1-BLA-253",
+      "permutation_site": 62,
+      "removed_residue": "V",
+      "length": 402,
+      "receptor_domain_span": [
+        227,
+        366
+      ],
+      "valid": true
+    },
+    {
+      "name": "cpCDL2.2-76_TEM1-BLA-253",
+      "permutation_site": 76,
+      "removed_residue": "G",
+      "length": 402,
+      "receptor_domain_span": [
+        227,
+        366
+      ],
+      "valid": true
+    },
+    {
+      "name": "cpCDL2.2-93_TEM1-BLA-253",
+      "permutation_site": 93,
+      "removed_residue": "D",
+      "length": 402,
+      "receptor_domain_span": [
+        227,
+        366
+      ],
+      "valid": true
+    },
+    {
+      "name": "cpCDL2.2-103_TEM1-BLA-253",
+      "permutation_site": 103,
+      "removed_residue": "Y",
+      "length": 402,
+      "receptor_domain_span": [
+        227,
+        366
+      ],
+      "valid": true
+    },
+    {
+      "name": "cpCDL2.2-112_TEM1-BLA-253",
+      "permutation_site": 112,
+      "removed_residue": "D",
+      "length": 402,
+      "receptor_domain_span": [
+        227,
+        366
+      ],
+      "valid": true
+    }
+  ],
+  "primary_construct": "cpCDL2.2-76_TEM1-BLA-253",
+  "primary_length": 402
+}

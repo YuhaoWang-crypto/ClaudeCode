@@ -100,7 +100,7 @@ def main():
     except Exception as e:
         ref = None
         print(f"  native reference unavailable ({e})")
-    for key in ("dig", "dfhbi"):
+    for key in sorted({r["system"] for r in res.values()}):
         for kind in ("holo", "apo"):
             c = chimera_constellation(key, kind)
             if c:
@@ -121,7 +121,8 @@ def main():
 
     print("\n[⚠️ hypothesis] switch proxy per system (illustrative, NOT a predicted DR)")
     summary = {}
-    for key in ("dig", "dfhbi"):
+    keys = sorted({r["system"] for r in res.values()})
+    for key in keys:
         holo = res[f"{key}_holo"]; apo = res[f"{key}_apo"]; ctrl = res[f"{key}_ctrl"] if f"{key}_ctrl" in res else res[f"ctrl_{key}"]
         c = chimera_constellation(key, "holo")
         active_ok = None

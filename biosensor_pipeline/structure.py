@@ -35,24 +35,40 @@ def annotate(pdb: str, chain: str, full_seq: str):
     sse = struc.annotate_sse(arr)
     one = "".join(ProteinSequence.convert_letter_3to1(r) for r in ca.res_name)
 
+    # Map the modeled chain onto full_seq. Exact substring is the common case;
+    # if terminal residues differ (missing start, partial His tag modeled, a
+    # point variant), fall back to the longest matching block so interior loop
+    # detection still works.  Returns (mod_off_in_full, mod_start_in_modeled,
+    # block_len) covering the reliably-aligned interior.
     off = full_seq.find(one)
-    if off < 0:
-        raise ValueError(f"{pdb}: modeled sequence is not a substring of the provided full sequence")
+    if off >= 0:
+        f0, m0, blen = off, 0, len(one)
+    else:
+        import difflib
+        m = difflib.SequenceMatcher(None, full_seq, one, autojunk=False)
+        a, b, blen = m.find_longest_match(0, len(full_seq), 0, len(one))
+        if blen < 20:
+            raise ValueError(f"{pdb}: modeled sequence does not align to the provided full sequence")
+        f0, m0 = a, b
+        off = f0 - m0  # nominal offset (may be approximate outside the block)
 
     sse_full = ["c"] * len(full_seq)
     for i, s in enumerate(sse):
-        sse_full[off + i] = s
+        fpos = f0 + (i - m0)              # map modeled residue i -> full_seq index
+        if 0 <= fpos < len(full_seq):
+            sse_full[fpos] = s
     sse_full = "".join(sse_full)
 
-    # interior loop centers (flanked by SSE both sides, length>=3, within modeled span)
+    # interior loop centers within the reliably aligned block only
+    lo, hi = f0 + 2, f0 + blen - 2       # trim block ends
     centers = []
-    i = 0
-    while i < len(sse_full):
+    i = f0
+    while i < f0 + blen:
         if sse_full[i] == "c":
             j = i
-            while j < len(sse_full) and sse_full[j] == "c":
+            while j < f0 + blen and sse_full[j] == "c":
                 j += 1
-            if i > off + 2 and j < off + len(one) - 2 and (j - i) >= 3:
+            if i > lo and j < hi and (j - i) >= 3:
                 centers.append((i + j) // 2)
             i = j
         else:

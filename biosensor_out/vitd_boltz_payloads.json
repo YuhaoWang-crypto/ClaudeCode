@@ -1,0 +1,78 @@
+{
+  "primary_construct": "cpCDL2.2-76_TEM1-BLA-253",
+  "payloads": {
+    "holo": {
+      "input": {
+        "entities": [
+          {
+            "type": "protein",
+            "chain_ids": [
+              "A"
+            ],
+            "value": "ETLVKVKDAEDQLGARVGYIELDLNSGKILESFRPEERFPMMSTFKVLLCGAVLSRVDAGQEQLGRRIHYSQNDLVEYSPVTEKHLTDGMTVRELCSAAITMSDNTAANLLLTTIGGPKELTAFLHNMGDHVTRLDRWEPELNEAIPNDERDTTMPVAMATTLRKLLTGELLTLASRQQLIDWMEADKVAGPLLRSALPAGWFIADKSGAGERGSRGIIAALGPDGGDFAFESGSISLKGPGKDSKLVDIAGKYVEVWRKGQDGGWKLYRTIANLDPAKLEGGSGGSGGSGQSAKEAIEAALADFVKAYNSKDAAGVASKYMDDAAIFPLDMARVDGRQNIQKLWQGLMDMGVSEPKLTTLDVQESGKPSRIVVIYTTGSQATMDERNRQIAEIGASLIKHW",
+            "msa": {
+              "type": "empty"
+            }
+          },
+          {
+            "type": "ligand_smiles",
+            "chain_ids": [
+              "L"
+            ],
+            "value": "CC(CCCC(C)(C)O)C1CCC2C1(CCCC2=CC=C3CC(CCC3=C)O)C"
+          }
+        ],
+        "binding": {
+          "type": "ligand_protein_binding",
+          "binder_chain_id": "L"
+        },
+        "num_samples": 1
+      }
+    },
+    "apo": {
+      "input": {
+        "entities": [
+          {
+            "type": "protein",
+            "chain_ids": [
+              "A"
+            ],
+            "value": "ETLVKVKDAEDQLGARVGYIELDLNSGKILESFRPEERFPMMSTFKVLLCGAVLSRVDAGQEQLGRRIHYSQNDLVEYSPVTEKHLTDGMTVRELCSAAITMSDNTAANLLLTTIGGPKELTAFLHNMGDHVTRLDRWEPELNEAIPNDERDTTMPVAMATTLRKLLTGELLTLASRQQLIDWMEADKVAGPLLRSALPAGWFIADKSGAGERGSRGIIAALGPDGGDFAFESGSISLKGPGKDSKLVDIAGKYVEVWRKGQDGGWKLYRTIANLDPAKLEGGSGGSGGSGQSAKEAIEAALADFVKAYNSKDAAGVASKYMDDAAIFPLDMARVDGRQNIQKLWQGLMDMGVSEPKLTTLDVQESGKPSRIVVIYTTGSQATMDERNRQIAEIGASLIKHW",
+            "msa": {
+              "type": "empty"
+            }
+          }
+        ],
+        "num_samples": 1
+      }
+    },
+    "control": {
+      "input": {
+        "entities": [
+          {
+            "type": "protein",
+            "chain_ids": [
+              "A"
+            ],
+            "value": "GQSAKEAIEAALADFVKAYNSKDAAGVASKYMDDAAIFPLDMARVDGRQNIQKLWQGLMDMGVSEPKLTTLDVQESGDFAFESGSISLKGPGKDSKLVDIAGKYVEVWRKGQDGGWKLYRTIANLDPAKLE",
+            "msa": {
+              "type": "empty"
+            }
+          },
+          {
+            "type": "ligand_smiles",
+            "chain_ids": [
+              "L"
+            ],
+            "value": "CC(CCCC(C)(C)O)C1CCC2C1(CCCC2=CC=C3CC(CCC3=C)O)C"
+          }
+        ],
+        "binding": {
+          "type": "ligand_protein_binding",
+          "binder_chain_id": "L"
+        },
+        "num_samples": 1
+      }
+    }
+  }
+}

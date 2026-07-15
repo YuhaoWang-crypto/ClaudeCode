@@ -1,4 +1,14 @@
 {
+  "dfhbi": {
+    "role": "validation",
+    "analyte": "DFHBI",
+    "chimera_ligand_iptm": 0.9873,
+    "native_ligand_iptm": 0.977,
+    "binding_retention_vs_native": 1.01,
+    "apo_to_holo_plddt_gain": 0.04,
+    "active_site_intact": true,
+    "switch_proxy": 0.882
+  },
   "dig": {
     "role": "reproduction",
     "analyte": "digoxigenin",
@@ -9,14 +19,14 @@
     "active_site_intact": true,
     "switch_proxy": 0.64
   },
-  "dfhbi": {
+  "vitd": {
     "role": "validation",
-    "analyte": "DFHBI",
-    "chimera_ligand_iptm": 0.9873,
-    "native_ligand_iptm": 0.977,
-    "binding_retention_vs_native": 1.01,
-    "apo_to_holo_plddt_gain": 0.04,
-    "active_site_intact": true,
-    "switch_proxy": 0.882
+    "analyte": "vitamin_D3",
+    "chimera_ligand_iptm": 0.6224,
+    "native_ligand_iptm": 0.843,
+    "binding_retention_vs_native": 0.74,
+    "apo_to_holo_plddt_gain": -0.086,
+    "active_site_intact": null,
+    "switch_proxy": 0.575
   }
 }
