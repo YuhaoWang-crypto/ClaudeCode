@@ -1,0 +1,32 @@
+# Conda environment for the β-cyclodextrin / PFAS host-guest binding pipeline.
+#
+#   conda env create -f environment.yml
+#   conda activate cd-pfas-md
+#
+# GPU note: OpenMM will auto-select the CUDA/OpenCL platform when available.
+# The APR and FEP/TI legs are production-scale MD and need a GPU (or an HPC
+# allocation). Everything else (parameterization, setup, analysis) runs on CPU.
+name: cd-pfas-md
+channels:
+  - conda-forge
+  - openeye            # optional: only if you have an OpenEye licence for RESP
+dependencies:
+  - python=3.10
+  # --- MD engine + alchemy ---
+  - openmm=8.*
+  - openmmtools=0.23.*        # alchemy, states, MultiStateSampler
+  - pymbar=4.*                # MBAR/TI estimators
+  # --- host-guest APR ---
+  - paprika=1.2.*             # attach-pull-release restraints + fe_calc
+  # --- parameterization ---
+  - ambertools=23.*           # antechamber, parmchk2, tleap, sander
+  - openff-toolkit=0.14.*     # optional SMILES->parameterized route (Sage FF)
+  - openff-interchange
+  - rdkit=2023.*              # SMILES handling, conformers, charge sanity
+  # --- analysis / io ---
+  - mdanalysis
+  - numpy
+  - pandas
+  - pyyaml
+  - matplotlib
+  - pytest

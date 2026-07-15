@@ -1,0 +1,83 @@
+# ---------------------------------------------------------------------------
+# CD modification library for the FEP/TI  ΔΔG  screen (src/fep_ti_ddg.py).
+#
+# Each entry is an alchemical transformation of the HOST relative to the
+# reference β-CD ("wild-type"). The screen computes, for a chosen guest:
+#
+#     ΔΔG_bind = ΔG_bind(modified_host) - ΔG_bind(reference_host)
+#
+# via the thermodynamic cycle:
+#
+#     ΔΔG_bind = ΔG_complex(WT->MOD)  -  ΔG_apo(WT->MOD)
+#
+# where WT->MOD is the same alchemical host edit run once with the guest bound
+# (complex leg) and once with the guest removed (apo leg). A NEGATIVE ΔΔG means
+# the modification binds the guest MORE tightly than plain β-CD.
+#
+# Design intent for a PFAS assay: you generally want the modification to bind
+# PFAS more tightly than the dye (large negative ΔΔG for PFAS, small/positive
+# for the dye) so displacement is favorable and the dynamic range is wide.
+# ---------------------------------------------------------------------------
+
+reference_host:
+  name: beta_cyclodextrin
+  mol2: data/hosts/bcd.mol2
+
+# Guest to score the modifications against. Must match a key in system.yaml
+# under `guests:` (the screen reuses its parameters). Run the screen once per
+# guest (dye, pfoa, pfos) to build the full selectivity table.
+screen_guest: pfoa
+
+# Number of alchemical lambda windows for each leg. More windows = smoother
+# TI/MBAR overlap but more cost. 11-21 is typical for host-side edits.
+lambda_windows: 12
+soft_core: true                 # soft-core LJ + electrostatics decoupling
+per_window_ps: 2000             # SHORT smoke-test value; production >= 4-8 ns
+
+modifications:
+  # Each modification is described by the atom-level edit applied to β-CD.
+  # `builder` tells parameterize.py how to construct the modified host:
+  #   - substituent: graft a group onto a rim hydroxyl (per_rim = how many of 7)
+  #   - smiles:      supply the whole modified host explicitly
+  #
+  # PFAS is anionic, so cationic rim groups are the obvious sensitivity lever.
+
+  - id: mono_6_amino
+    description: "mono-6-amino-6-deoxy-β-CD (single primary-rim -NH3+)"
+    builder: substituent
+    graft: "[NH3+]"           # replaces one primary -OH's H-bearing carbon site
+    rim: primary
+    per_rim: 1
+    net_charge_delta: +1
+
+  - id: hepta_6_amino
+    description: "heptakis(6-amino-6-deoxy)-β-CD (7 primary-rim -NH3+)"
+    builder: substituent
+    graft: "[NH3+]"
+    rim: primary
+    per_rim: 7
+    net_charge_delta: +7
+
+  - id: mono_6_trimethylammonium
+    description: "mono-6-(trimethylammonium)-β-CD (quaternary, pH-independent +)"
+    builder: substituent
+    graft: "C[N+](C)(C)C"
+    rim: primary
+    per_rim: 1
+    net_charge_delta: +1
+
+  - id: sulfobutylether
+    description: "sulfobutylether-β-CD (anionic control; expected to REPEL PFAS)"
+    builder: substituent
+    graft: "CCCCS(=O)(=O)[O-]"
+    rim: secondary
+    per_rim: 4
+    net_charge_delta: -4
+
+  - id: methylated_dimeb
+    description: "heptakis(2,6-di-O-methyl)-β-CD (neutral; hydrophobic cavity tweak)"
+    builder: substituent
+    graft: "C"                 # O-methyl
+    rim: both
+    per_rim: 14
+    net_charge_delta: 0

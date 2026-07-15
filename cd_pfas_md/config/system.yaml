@@ -1,0 +1,86 @@
+# ---------------------------------------------------------------------------
+# System definition for the β-CD host-guest binding free energy calibration.
+#
+# Fill in the SMILES / structure paths for YOUR dye and PFAS. The values below
+# are sensible defaults (methyl-orange-class sulfonated azo dye + PFOA/PFOS) so
+# the pipeline is runnable end-to-end before you drop in proprietary structures.
+# ---------------------------------------------------------------------------
+
+host:
+  name: beta_cyclodextrin
+  # Provide ONE of: mol2 (pre-charged) OR smiles (will be parameterized).
+  # A clean β-CD structure is included as a placeholder path; replace as needed.
+  mol2: data/hosts/bcd.mol2
+  net_charge: 0
+  # Anchor atoms used to define the APR pulling axis (the cavity primary/secondary
+  # rim). These are :HOST@ atom names in the resulting Amber topology. TUNE these
+  # to your host residue naming after parameterization (see build_apr.py notes).
+  anchors:
+    dummy_axis_atoms: [":BCD@C1", ":BCD@C2", ":BCD@C3"]  # 3 host atoms define the pull axis
+
+guests:
+  # The dye is the reporter that PFAS displaces. Calibrate against its measured Ka.
+  dye:
+    name: sulfonated_dye
+    smiles: "CN(C)c1ccc(/N=N/c2ccc(cc2)S(=O)(=O)[O-])cc1"   # methyl-orange-class placeholder
+    net_charge: -1
+    charge_method: bcc          # bcc | resp  (resp needs Gaussian/psi4, see parameterize.py)
+    experimental:
+      # Anchor for calibration. Replace with YOUR ITC / fluorescence value.
+      Ka_M_inv: 3.9e3           # example only
+      dG_kcal_per_mol: null     # if null, derived from Ka at temperature below
+
+  # PFAS competitor. Anionic head group -> must be modeled deprotonated.
+  pfoa:
+    name: perfluorooctanoate
+    smiles: "C(=O)([O-])C(F)(F)C(F)(F)C(F)(F)C(F)(F)C(F)(F)C(F)(F)C(F)(F)F"
+    net_charge: -1
+    charge_method: bcc
+    fluorine_policy: strict     # see parameterize.py: extra parmchk2 pass + torsion check
+    experimental:
+      Ka_M_inv: null
+  pfos:
+    name: perfluorooctanesulfonate
+    smiles: "C(F)(F)(C(F)(F)C(F)(F)C(F)(F)C(F)(F)C(F)(F)C(F)(F)C(F)(F)S(=O)(=O)[O-])F"
+    net_charge: -1
+    charge_method: bcc
+    fluorine_policy: strict
+    experimental:
+      Ka_M_inv: null
+
+forcefield:
+  small_molecule: gaff2         # gaff2 | openff-2.1.0 (Sage)
+  water: tip3p                  # tip3p | opc  (opc recommended for charged guests)
+  host_override: null           # e.g. q4md-CD parameters if you adopt them
+  ions:
+    positive: Na+
+    negative: Cl-
+    neutralize: true
+    extra_salt_molar: 0.15      # background ionic strength
+
+thermo:
+  temperature_K: 298.15
+  pressure_bar: 1.0
+
+# --- APR protocol (attach-pull-release) -----------------------------------
+apr:
+  # Attach: turn restraints ON in the bound state (lambda schedule, fraction).
+  attach_fractions: [0.00, 0.04, 0.10, 0.20, 0.35, 0.55, 0.75, 1.00]
+  # Pull: translate guest out of the cavity along the axis (Angstrom windows).
+  pull_distances_ang: [4.0, 6.0, 8.0, 10.0, 12.0, 14.0, 16.0, 18.0, 22.0, 26.0]
+  # Release: analytic reference-state correction (pAPRika computes it).
+  restraint_k_dist: 5.0         # kcal/mol/A^2 for the translational restraint
+  restraint_k_angle: 100.0      # kcal/mol/rad^2 for orientational restraints
+  guest_anchor_atoms: 2         # number of guest atoms used as APR anchors
+
+# --- simulation lengths (SHORT defaults for a smoke test; scale up for prod) --
+simulation:
+  minimize_steps: 5000
+  thermalize_ps: 100
+  equilibrate_ps: 500
+  production_ps: 5000           # per window; production runs want >= 5-10 ns
+  timestep_fs: 2.0
+  nonbonded_cutoff_nm: 0.9
+  hmr: true                     # hydrogen mass repartitioning -> 4 fs possible
+  report_interval_ps: 10
+  platform: auto                # auto | CUDA | OpenCL | CPU
