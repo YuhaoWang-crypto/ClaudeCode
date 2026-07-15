@@ -1,0 +1,23 @@
+Total 19-mer windows scanned: 993
+Max score observed: 9 (of ~9)
+
+TOP 12 siRNA CANDIDATES (target TXLNA/IL-14alpha CDS; pos = nt in full CDS)
+--------------------------------------------------------------------------------------------------------
+rankCDS_pos score GC%   guide(antisense 5>3)    sense/target 19mer    liabilities
+1   956     9     47.4  TTTGTCGATATGCTCCTCGUU   CGAGGAGCATATCGACAAAUU clean
+2   929     9     42.1  ATACTGCTCAATCAGCTTCUU   GAAGCTGATTGAGCAGTATUU clean
+3   857     8     47.4  ATTGTGCTGTTCCATCTGCUU   GCAGATGGAACAGCACAATUU clean
+4   1111    8     47.4  TTCATCAGCTCACACATCCUU   GGATGTGTGAGCTGATGAAUU clean
+5   1158    8     47.4  TCTCTGTGTATAGGGCAAGUU   CTTGCCCTATACACAGAGAUU clean
+6   1184    8     47.4  AAGTGTGTTCTGGAACTCCUU   GGAGTTCCAGAACACACTTUU clean
+7   1213    8     47.4  AATGTGGTGAATACCTCGCUU   GCGAGGTATTCACCACATTUU clean
+8   1225    8     47.4  ATCTCCTGCTTGAATGTGGUU   CCACATTCAAGCAGGAGATUU clean
+9   980     8     42.1  TTGTAGGTCCTTGTGTTTGUU   CAAACACAAGGACCTACAAUU clean
+10  1171    8     42.1  AACTCCTCAAACTTCTCTGUU   CAGAGAAGTTTGAGGAGTTUU clean
+11  1190    8     42.1  TTTGGAAAGTGTGTTCTGGUU   CCAGAACACACTTTCCAAAUU clean
+12  1265    8     42.1  TTCTTTCTCCAGCTTCTTGUU   CAAGAAGCTGGAGAAAGAAUU clean
+
+Overhang convention: 21-mer duplex = 19-mer core + 3' dTdT (shown as UU).
+Chemistry (recommended for a lead): 2'-OMe/2'-F alternating, PS at ends,
+guide 5'-(E)-vinylphosphonate; GalNAc is liver-tropic -> for lymphoid/gland
+delivery use lipid nanoparticle or antibody-siRNA conjugate (see report).
