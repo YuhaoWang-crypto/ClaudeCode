@@ -90,6 +90,38 @@ exponentially rising water-transport penalty. The **sub-nm window around r ≈ 2
 
 ---
 
+## 3.5 Step-2 result — HYDRATED-ion PMF (selectivity recovered)
+
+Following the Part-B insight, Na⁺·(H₂O)₆ and Cl⁻·(H₂O)₆ complexes were driven
+through the graphene pore (ion z = reaction coordinate; shell relaxed at each
+step). This is the corrected, physically-meaningful selectivity experiment.
+
+![hydrated summary](results/hydrated_summary.png)
+
+| Species | `E_a` @ r=2.5 Å (eV) | `E_a` @ r=3.0 Å (eV) |
+|---|---:|---:|
+| H₂O | 1.09 | **0.0** |
+| Na⁺ (bare) | 0.0 | 0.0 |
+| **Na⁺·(H₂O)₆ (hydrated)** | 21 † | **1.35** |
+| Cl⁻ (bare) | 0.0 | 0.0 |
+| Cl⁻·(H₂O)₆ (hydrated) | 29 † | 20 † |
+
+† steric **upper bounds** — the intact shell cannot pass a pore this tight within
+the relaxation budget; the ion must dehydrate, which needs longer PMF sampling
+(umbrella / metadynamics) to quantify. Not quantitative.
+
+**The headline (r = 3.0 Å, an open pore):**
+> **Water crosses with 0 eV barrier while the hydrated Na⁺ faces 1.35 eV** — a
+> clean, literature-scale *partial-dehydration* barrier. This is exactly the RO
+> selectivity that the bare-ion scan (Section 3.2) completely missed, and it is
+> produced by the *same* method — the only change is carrying the water shell.
+
+**Robust, method-independent conclusion:** hydrated-ion barrier ≫ water barrier;
+bare-ion DFT/MLIP scans cannot predict rejection. The client's DFT must use
+**explicitly-hydrated ions** (already the plan in Section 6, step 2). Absolute
+ion barriers need QE + vdW-DF2 with charged supercells and PMF sampling; the
+**Na⁺ 1.35 eV vs H₂O 0 eV** contrast is the trustworthy, qualitative takeaway.
+
 ## 4. Direct answer to the client's question
 
 > *"Study the performance of 2D materials as an RO membrane for water
