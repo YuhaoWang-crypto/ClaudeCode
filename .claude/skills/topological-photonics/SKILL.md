@@ -144,7 +144,9 @@ backscattering, **not** absorption/radiation.
   rigid translations). A single-band or occupied-manifold FHS over the whole BZ
   picks up a spurious flux there and gives total Chern ≠ 0. Compute the valley
   Chern on a small **patch around K / K'** (away from Γ) instead — it gives
-  opposite ≈±½ with sum 0, the correct T-symmetric signature.
+  opposite sign with sum ≈0, the correct T-symmetric signature. Note the
+  magnitude is ~½-order but NOT strictly quantized (patch-dependent) — the sign
+  structure and the ≈0 sum are the robust facts, not the exact value.
 - **Elastic PWE with air voids converges slowly** (Gibbs); use finite contrast
   (~1e-3) and enough plane waves, and read the Dirac/gap from the four-fold
   degeneracy location rather than assuming a band index.

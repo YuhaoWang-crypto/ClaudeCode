@@ -157,8 +157,12 @@ upgrade of the scalar phononic twin.</p>
      "gap at K → valley-Hall phase. Frequencies f=ωa/2πc_t (shear-wave normalised).", RIG)}
 {fig("fig13_elastic_valley_chern.png", 13, "Elastic valley Chern number",
      "Mass-metric FHS Berry curvature on a patch around each valley (avoiding the Γ "
-     "acoustic degeneracy): opposite signs at K and K' (C_v≈+0.5/−0.5, total 0) — the "
-     "correct invariant for the broken-inversion, time-reversal-symmetric class.", RIG)}
+     "acoustic degeneracy): the curvature has OPPOSITE sign at K and K' and the two "
+     "sum to ≈0 (time-reversal symmetric). The computed magnitudes here are "
+     "C_v≈+0.86/−0.86 — valley Chern is NOT a strictly quantized integer (it depends "
+     "on the integration patch and mass), so the robust signatures are the opposite "
+     "sign and the ≈0 sum, not the exact value. This is the correct invariant for the "
+     "broken-inversion class — not a global Chern number.", RIG)}
 <p>The pipeline is packaged for delivery two ways: <code>assess.py</code> turns a
 geometry/material spec into a GO / CONDITIONAL / NO-GO pre-fabrication verdict
 across topology, bandwidth, yield-tolerance and loss; and a browser tool

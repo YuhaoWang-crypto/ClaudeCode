@@ -7,7 +7,8 @@ fig12 : elastic band structure (P-SV) — Dirac cone at K for the inversion-
         differ (broken inversion) -> valley-Hall phase.
 fig13 : Berry curvature over the Brillouin zone (mass-metric FHS on the lower
         Dirac band), concentrated with opposite signs at the K and K' valleys;
-        the valley Chern index C_v = ±1/2 (total Chern 0). This is the
+        the valley Chern (C_v ~ ±½ in magnitude but NOT strictly quantized —
+        it depends on the integration patch; total Chern ≈ 0). This is the
         topological invariant appropriate to the broken-inversion / T-symmetric
         class — NOT a global Chern number.
 """
