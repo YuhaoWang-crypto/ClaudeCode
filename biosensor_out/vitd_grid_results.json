@@ -1,0 +1,50 @@
+{
+  "system": "vitd",
+  "construct_base": "cpCDL2.2-*_TEM1-BLA-253",
+  "linker": "GSGSG",
+  "native_ligand_iptm": 0.843,
+  "site_scan": {
+    "27": {
+      "ligand_iptm": 0.767,
+      "complex_plddt": 0.729,
+      "retention": 0.91
+    },
+    "39": {
+      "ligand_iptm": 0.6383,
+      "complex_plddt": 0.736,
+      "retention": 0.76
+    },
+    "62": {
+      "ligand_iptm": 0.771,
+      "complex_plddt": 0.735,
+      "retention": 0.91
+    },
+    "76": {
+      "ligand_iptm": 0.904,
+      "complex_plddt": 0.669,
+      "retention": 1.07
+    },
+    "93": {
+      "ligand_iptm": 0.8339,
+      "complex_plddt": 0.69,
+      "retention": 0.99
+    },
+    "103": {
+      "ligand_iptm": 0.4547,
+      "complex_plddt": 0.678,
+      "retention": 0.54
+    },
+    "112": {
+      "ligand_iptm": 0.8104,
+      "complex_plddt": 0.699,
+      "retention": 0.96
+    }
+  },
+  "best": {
+    "site": 76,
+    "linker": "GSGSG",
+    "retention": 1.07,
+    "apo_holo_plddt_delta": 0.027,
+    "apo_holo_ptm_delta": 0.097
+  }
+}

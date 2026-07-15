@@ -177,6 +177,37 @@ the true optimum is a wet-lab balance. What the scan rigorously shows is that
 the OFF-state scaffold's structural plausibility is linker-length-sensitive and
 that 1 Gly was simply too short here.
 
+### 4d. Site × linker grid + apo→holo at the optimum
+
+Scanning all 7 permutation sites at the best linker (GSGSG) locates the combined
+optimum and shows the permutation site matters as much as the linker
+(native ligand_iptm = 0.843):
+
+| permutation site | binding retention | complex pLDDT |
+|---|---|---|
+| cp27 | 0.91 | 0.729 |
+| cp39 | 0.76 | 0.736 |
+| cp62 | 0.91 | 0.735 |
+| **cp76** | **1.07** | 0.669 |
+| cp93 | 0.99 | 0.690 |
+| cp103 | **0.54** (bad site) | 0.678 |
+| cp112 | 0.96 | 0.699 |
+
+![vitd optimization grid](figures/vitd_optimization_grid.png)
+
+**Combined optimum: cpCDL2.2-76 + GSGSG linker** (retention 1.07). Site 103 is a
+clear *bad* permutation site (retention collapses to 0.54) — the kind of dud the
+paper's <10-variant screen exists to weed out. At the optimum, the **apo→holo**
+comparison finally turns **positive**: adding vitamin D3 raises complex pLDDT
+0.642 → 0.669 (Δ +0.027) and pTM 0.717 → 0.815 (Δ +0.097) — a modest
+ligand-induced ordering of the OFF-state scaffold, the structural echo the
+paper's entropic-switch mechanism would predict.
+
+**⚠️ caveat unchanged:** these are structural/binding confidence signals, not a
+measured dynamic range. The grid rigorously identifies which constructs are
+worth building (cp76/cp93/cp112 at a lengthened linker) and which to drop
+(cp103, or the 1-Gly linker); the actual DR still needs the bench.
+
 ## 5. What is rigorous vs. hypothesis (the honesty ledger)
 
 **✅ rigorous**
