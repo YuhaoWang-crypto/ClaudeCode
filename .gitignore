@@ -4,3 +4,5 @@ __pycache__/
 # generated report artifacts (regenerable via build_report.py)
 topological_photonics/Topological_Photonics_Report.html
 topological_photonics/*.zip
+topological_photonics/figures/assessment_card.html
+topological_photonics/figures/*_card.html
