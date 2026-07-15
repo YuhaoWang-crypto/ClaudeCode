@@ -1,0 +1,18 @@
+# Local / scaffolding dependencies (what the build + analysis + toy scripts need)
+numpy>=1.24
+ase>=3.22          # geometry building (graphene, MoS2, saltwater box)
+matplotlib>=3.6    # toy-validation figures
+
+# --- cloud / HPC extras (install where you run the heavy jobs) ---------------
+# modal              # serverless CPU (DFT/NEB) + GPU (MLP training) -- modal_*.py
+# dpdata             # convert QE/VASP outputs to DeePMD training format
+# deepmd-kit[gpu]    # train + freeze the machine-learning potential
+# dpgen              # active-learning loop (DP-GEN) around DFT + DeePMD
+# mace-torch         # MACE equivariant potential (bake-off vs DeePMD)
+# nequip             # NequIP/Allegro equivariant potential (bake-off)
+# pyyaml             # read mace_config.yaml / nequip_config.yaml
+#
+# Heavy engines are NOT pip-installable as production builds; get them via:
+#   Quantum ESPRESSO : conda install -c conda-forge qe
+#   CP2K             : conda install -c conda-forge cp2k
+#   LAMMPS+DeePMD    : conda install -c conda-forge lammps deepmd-kit

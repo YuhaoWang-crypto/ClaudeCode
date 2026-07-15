@@ -1,0 +1,39 @@
+{
+  "_comment": "DP-GEN concurrent-learning (active learning) parameter file. DP-GEN closes the loop: train an ensemble -> run exploratory MD -> pick frames where the ensemble DISAGREES (high force deviation) -> label those with DFT -> retrain. This is how you build a robust MLP with the FEWEST expensive DFT calls -- essential for the confined, high-pressure states that matter for desalination.",
+  "type_map": ["C", "H", "O", "Na", "Cl"],
+  "mass_map": [12.011, 1.008, 15.999, 22.99, 35.453],
+  "init_data_prefix": "../data",
+  "init_data_sys": ["train/water_bulk", "train/pore_crossing"],
+  "sys_configs_prefix": "../data/explore",
+  "sys_configs": [
+    ["membrane_saltwater/POSCAR"]
+  ],
+  "numb_models": 4,
+  "default_training_param": {
+    "_comment": "Inherits model/descriptor from deepmd_input.json; DP-GEN trains numb_models copies with different seeds to form the query-by-committee ensemble."
+  },
+  "model_devi_dt": 0.0005,
+  "model_devi_skip": 0,
+  "model_devi_f_trust_lo": 0.10,
+  "model_devi_f_trust_hi": 0.30,
+  "_comment_trust": "Frames with max force deviation between model_devi_f_trust_lo and _hi (eV/A) are 'candidates' worth labelling. Below lo = already learned; above hi = unphysical/exploded, discard.",
+  "model_devi_clean_traj": true,
+  "model_devi_jobs": [
+    {
+      "sys_idx": [0],
+      "temps": [300, 350],
+      "press": [1.0, 100.0, 500.0],
+      "trj_freq": 10,
+      "nsteps": 20000,
+      "ensemble": "npt",
+      "_comment": "Explore at desalination-relevant pressures (up to hundreds of bar/MPa) so the training set covers the piston-driven states."
+    }
+  ],
+  "fp_style": "vasp",
+  "_comment_fp": "First-principles labelling engine. Switch to 'qe' + a pw.x template to stay all-open-source (see 02_dft/qe).",
+  "shuffle_poscar": false,
+  "fp_task_max": 100,
+  "fp_task_min": 10,
+  "fp_pp_path": "../pseudo",
+  "fp_pp_files": ["POTCAR"]
+}

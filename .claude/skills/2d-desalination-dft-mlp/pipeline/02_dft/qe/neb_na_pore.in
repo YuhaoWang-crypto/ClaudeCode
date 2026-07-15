@@ -1,0 +1,76 @@
+!==============================================================================
+! Quantum ESPRESSO NEB template -- Na+ crossing a graphene nanopore
+!
+! Computes the minimum-energy path (and thus the ENERGY BARRIER) for an ion or
+! water molecule passing through the pore. Run with neb.x:
+!     neb.x -inp neb_na_pore.in > neb.out
+!
+! The barrier E_a from this NEB is the single most important DFT number for
+! desalination selectivity: it feeds the Kramers/transition-state estimate of
+! flux and rejection, and it is a ground-truth check for the trained MLP
+! (the MLP must reproduce this barrier).
+!
+! Build the two endpoints (ion far above vs. ion in the pore plane) with ASE
+! and export first_image / last_image blocks. Use an odd num_of_images.
+!==============================================================================
+BEGIN
+BEGIN_PATH_INPUT
+&PATH
+    string_method       = 'neb'
+    nstep_path          = 100
+    opt_scheme          = 'broyden'
+    num_of_images       = 7
+    k_max               = 0.3
+    k_min               = 0.2
+    CI_scheme           = 'auto'      ! climbing image -> accurate saddle
+    path_thr            = 0.05        ! eV/A force threshold on the path
+/
+END_PATH_INPUT
+
+BEGIN_ENGINE_INPUT
+&CONTROL
+    prefix        = 'neb_na'
+    outdir        = './out'
+    pseudo_dir    = './pseudo'
+    tprnfor       = .true.
+/
+&SYSTEM
+    ibrav         = 0
+    nat           = __NAT__
+    ntyp          = __NTYP__
+    ecutwfc       = 60.0
+    ecutrho       = 480.0
+    occupations   = 'smearing'
+    smearing      = 'mv'
+    degauss       = 0.01
+    input_dft     = 'vdw-df2'
+    tot_charge    = 1.0               ! Na+  (set 0 for neutral water, -1 for Cl-)
+/
+&ELECTRONS
+    conv_thr      = 1.0d-7
+    mixing_beta   = 0.3
+/
+CELL_PARAMETERS angstrom
+   __A1X__  __A1Y__  __A1Z__
+   __A2X__  __A2Y__  __A2Z__
+   __A3X__  __A3Y__  __A3Z__
+
+ATOMIC_SPECIES
+   C   12.011  C.pbe-n-kjpaw_psl.1.0.0.UPF
+   H    1.008  H.pbe-kjpaw_psl.1.0.0.UPF
+   Na  22.990  Na.pbe-spn-kjpaw_psl.1.0.0.UPF
+
+BEGIN_POSITIONS
+FIRST_IMAGE
+ATOMIC_POSITIONS angstrom
+   __FIRST_IMAGE_POSITIONS__
+
+LAST_IMAGE
+ATOMIC_POSITIONS angstrom
+   __LAST_IMAGE_POSITIONS__
+END_POSITIONS
+
+K_POINTS automatic
+   3 3 1 0 0 0
+END_ENGINE_INPUT
+END

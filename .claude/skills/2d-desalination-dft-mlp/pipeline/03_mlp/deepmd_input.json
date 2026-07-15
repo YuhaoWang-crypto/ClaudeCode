@@ -1,0 +1,54 @@
+{
+  "_comment": "DeePMD-kit v2/v3 training input for a water + NaCl + 2D-membrane system. Train on DFT (QE/CP2K) energies+forces exported to the DeePMD 'raw'/'npy' format via dpdata. The descriptor below (se_e2_a, i.e. DeepPot-SE) is the workhorse for aqueous/interface systems; MACE/NequIP are strong alternatives handled by separate configs.",
+  "model": {
+    "type_map": ["C", "H", "O", "Na", "Cl", "Mo", "S"],
+    "descriptor": {
+      "type": "se_e2_a",
+      "sel": "auto",
+      "rcut_smth": 0.5,
+      "rcut": 6.0,
+      "neuron": [25, 50, 100],
+      "resnet_dt": false,
+      "axis_neuron": 16,
+      "seed": 1,
+      "_comment": "rcut=6.0 A captures the first two solvation shells; raise to 7-8 A if long-range ordering matters."
+    },
+    "fitting_net": {
+      "neuron": [240, 240, 240],
+      "resnet_dt": true,
+      "seed": 1
+    }
+  },
+  "learning_rate": {
+    "type": "exp",
+    "start_lr": 0.001,
+    "stop_lr": 3.5e-08,
+    "decay_steps": 5000
+  },
+  "loss": {
+    "type": "ener",
+    "start_pref_e": 0.02,
+    "limit_pref_e": 1.0,
+    "start_pref_f": 1000,
+    "limit_pref_f": 1.0,
+    "start_pref_v": 0.0,
+    "limit_pref_v": 0.0,
+    "_comment": "Force-weighted early (start_pref_f high) so the model nails the forces that drive MD stability, then anneals toward energy accuracy."
+  },
+  "training": {
+    "training_data": {
+      "systems": ["../data/train/water_bulk", "../data/train/pore_crossing", "../data/train/ions_confined"],
+      "batch_size": "auto",
+      "_comment": "Include high-pressure and pore-confined frames, not just bulk water, or the MLP will extrapolate badly under the NEMD piston."
+    },
+    "validation_data": {
+      "systems": ["../data/valid/held_out"],
+      "batch_size": "auto"
+    },
+    "numb_steps": 1000000,
+    "seed": 10,
+    "disp_file": "lcurve.out",
+    "disp_freq": 1000,
+    "save_freq": 10000
+  }
+}

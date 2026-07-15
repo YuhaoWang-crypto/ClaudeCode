@@ -1,0 +1,67 @@
+# =============================================================================
+# LAMMPS non-equilibrium MD (NEMD) -- pressure-driven RO desalination
+# through a 2D nanoporous membrane, using a trained DeePMD potential.
+#
+# STAGE 3 of the pipeline. Geometry from 01_build/build_saltwater_box.py.
+# Potential = graph-compress.pb trained in 03_mlp (media-DFT accuracy at
+# near-classical cost). A rigid piston on the feed side pushes the water
+# through the fixed membrane; water flux and salt rejection are measured by
+# 04_nemd/analyze_flux_rejection.py from the dumped trajectory.
+#
+# Run:
+#     lmp -in in.desalination.lammps
+# (build LAMMPS with the DEEPMD + RIGID + MISC packages, or use the
+#  deepmd-kit lammps wheel; on Modal GPU swap the command like modal_train.)
+# =============================================================================
+
+units           metal            # DeePMD works in metal units (eV, A, ps)
+atom_style      full
+boundary        p p p
+read_data       ../figures/nemd_cell.lammps-data
+
+# ---- interaction: the trained machine-learning potential --------------------
+pair_style      deepmd ../03_mlp/mlp_run/graph-compress.pb
+pair_coeff      * *
+
+# ---- group definitions ------------------------------------------------------
+# NOTE: adjust these ids/regions to your data file. The membrane and the two
+# piston slabs are tagged here by z-region; the builder centres the membrane.
+region          feed_piston   block INF INF INF INF INF  -18.0 units box
+region          perm_wall     block INF INF INF INF  22.0 INF   units box
+group           membrane      type 1              # e.g. carbon (check your map)
+group           water_ions    subtract all membrane
+group           piston        region feed_piston
+
+# ---- rigid, immobile membrane ----------------------------------------------
+# For RO you usually hold the membrane fixed (or tether with a stiff spring)
+# so all pressure work goes into permeation, not sheet drift.
+fix             hold_membrane membrane setforce 0.0 0.0 0.0
+
+# ---- thermostat on the fluid only ------------------------------------------
+velocity        water_ions create 300.0 12345 mom yes rot yes dist gaussian
+fix             nvt_fluid water_ions nvt temp 300.0 300.0 0.1
+
+# ---- the pressure: constant force on the feed piston ------------------------
+# Applied force per atom = P * Area / N_piston. Compute the exact value with
+#   python piston_force.py --data ../figures/nemd_cell.lammps-data \
+#          --pressure-mpa 100 --n-piston 60
+# For the example cell (area 125.8 A^2, 60 piston atoms, 100 MPa) this gives
+# fz = 0.001308 eV/A per atom. RECOMPUTE for your box/piston count.
+variable        fz equal 0.001308    # eV/A per piston atom (100 MPa example)
+fix             push piston aveforce NULL NULL ${fz}
+fix             freeze_xy piston setforce 0.0 0.0 NULL
+
+# ---- outputs ----------------------------------------------------------------
+thermo          1000
+thermo_style    custom step temp pe etotal press
+# dump z-coordinates of water O and ions for the flux/rejection analysis
+dump            traj water_ions custom 500 traj.lammpstrj id type x y z
+dump_modify     traj sort id
+
+timestep        0.0005               # 0.5 fs
+# equilibrate without the piston push first (comment `push` above for this run),
+# then production with the piston:
+run             2000000              # 1 ns production (scale up as needed)
+
+write_data      final.data
+# --> feed traj.lammpstrj to analyze_flux_rejection.py to get flux + rejection
