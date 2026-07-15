@@ -1,0 +1,5 @@
+>G034_VHH_top | Boltz-2.1 de-novo nanobody vs IL-14alpha(210-546) | design pres_QA51nDHUGbRSFvQXh6IT
+>metrics: iPTM=0.828 pTM=0.984 complex_pLDDT=0.817 min_interface_PAE=3.67A (best of 50; rest iPTM<0.57)
+>epitope (antigen residues <5A): P40222 325-350 = STRUCTURED coiled-coil core (distinct from prior-art C-term-peptide antibodies)
+>CDR3 ~ AREALNPTLRG ; caution: in-silico only, needs wet-lab validation; self-antigen -> humanness/immunogenicity check
+EVQLVESGGGLVQPGGSLRLSCAASGFTFSKHSMHWVRQAPGKGLEWVSSISSDGSLVLSAPSVAGRFTISRDNAKNTLYLQMNSLRPEDTAVYYCAREALNPTLRGQGTLVTVSS

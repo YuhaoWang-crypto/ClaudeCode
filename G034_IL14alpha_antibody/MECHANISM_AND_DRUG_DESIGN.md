@@ -131,6 +131,14 @@ SjD 的分期(高丙球→自身抗体→腺体浸润→淋巴瘤)呈**不可逆
 
 > 结构文件存于 `boltz_structures/antigen_fold.cif`(可用 PyMOL/ChimeraX 打开)。
 
+**④ 🧪 de‑novo 纳米抗体设计 ×50(prot_des_uXUu4U…,已完成,$2.50):**
+- 50 条中 **1 条显著胜出**(`pres_QA51n…`):**iPTM 0.828、pTM 0.984、complex‑pLDDT 0.817、界面 PAE 3.67 Å**;其余 iPTM<0.57、界面 PAE>10 Å(见 `design_ranking.tsv`)。→ 说明**对柔性 coiled‑coil 做无约束 de‑novo 设计命中率低**(符合预期),但**确实拿到 1 个高置信结合物**。
+- **Top VHH 序列**(116 aa,标准 VHH 骨架,存 `nanobody_top_design.faa`):
+  `EVQLVESGGGLVQPGGSLRLSCAASGFTFSKHSMHWVRQAPGKGLEWVSSISSDGSLVLSAPSVAGRFTISRDNAKNTLYLQMNSLRPEDTAVYYCAREALNPTLRGQGTLVTVSS`(CDR3≈`AREALNPTLRG`)。
+- **表位映射(结合物 5 Å 内抗原残基):P40222 325–350** —— ✅ 落在**结构化卷曲螺旋核心**(非无序尾),且**与先前技术(Peng2009/US7622574 的 C 端多肽表位)不同** → 新颖表位、利于专利。该区在 syntaxin 结合结构域内,理论上有阻断潜力。
+- ❗**局限(如实):** 纯 in‑silico 设计,需**湿实验验证(表达/亲和/中和)**;VHH 是骨架、与甲方"人源化全长 IgG"要求不同(可作先导/工具,或 CDR 移植到人源 IgG);靶点为自身抗原,需查 humanness/免疫原性;binding_confidence 指标为 0(与 iPTM 不一致,说明该指标对此类 de‑novo 结果校准不佳,应以 iPTM/iPAE 为准)。
+- **下一步(可选,付费):** ①用 top VHH 对**折叠好的抗原**做 epitope‑directed 复算/亲和成熟;②裁剪 STX4 到 H3 螺旋重跑复合物以定位阻断界面;③把 CDR 移植到人源 IgG 骨架 + Boltz 复算。
+
 ---
 
 ## 决策流(把机制→模态串起来)
