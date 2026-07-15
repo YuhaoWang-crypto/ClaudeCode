@@ -1,0 +1,55 @@
+==============================================================================
+G034 siRNA DUPLEXES (target TXLNA/IL-14alpha; 19-mer core + 3' dTdT)
+==============================================================================
+
+[siG034_1]  TXLNA CDS pos 956  GC=47%
+  passenger(sense) 5'-CGAGGAGCAUAUCGACAAAdTdT-3'
+  guide(antisense) 3'-dTdTCGAGGAGCAUAUCGACAAA-5'  == 5'-UUUGUCGAUAUGCUCCUCGdTdT-3'
+  guide 2'-chem (o=2'OMe f=2'F): ofofofofofofofofofo   5'-(E)-vinylphosphonate; PS x2 both ends
+  LNA option: place LNA at guide positions 2, 12, 14 (1-indexed) to suppress seed off-target
+
+[siG034_2]  TXLNA CDS pos 929  GC=42%
+  passenger(sense) 5'-GAAGCUGAUUGAGCAGUAUdTdT-3'
+  guide(antisense) 3'-dTdTGAAGCUGAUUGAGCAGUAU-5'  == 5'-AUACUGCUCAAUCAGCUUCdTdT-3'
+  guide 2'-chem (o=2'OMe f=2'F): ofofofofofofofofofo   5'-(E)-vinylphosphonate; PS x2 both ends
+  LNA option: place LNA at guide positions 2, 12, 14 (1-indexed) to suppress seed off-target
+
+[siG034_3]  TXLNA CDS pos 857  GC=47%
+  passenger(sense) 5'-GCAGAUGGAACAGCACAAUdTdT-3'
+  guide(antisense) 3'-dTdTGCAGAUGGAACAGCACAAU-5'  == 5'-AUUGUGCUGUUCCAUCUGCdTdT-3'
+  guide 2'-chem (o=2'OMe f=2'F): ofofofofofofofofofo   5'-(E)-vinylphosphonate; PS x2 both ends
+  LNA option: place LNA at guide positions 2, 12, 14 (1-indexed) to suppress seed off-target
+
+[siG034_4]  TXLNA CDS pos 1111  GC=47%
+  passenger(sense) 5'-GGAUGUGUGAGCUGAUGAAdTdT-3'
+  guide(antisense) 3'-dTdTGGAUGUGUGAGCUGAUGAA-5'  == 5'-UUCAUCAGCUCACACAUCCdTdT-3'
+  guide 2'-chem (o=2'OMe f=2'F): ofofofofofofofofofo   5'-(E)-vinylphosphonate; PS x2 both ends
+  LNA option: place LNA at guide positions 2, 12, 14 (1-indexed) to suppress seed off-target
+
+[siG034_5]  TXLNA CDS pos 1158  GC=47%
+  passenger(sense) 5'-CUUGCCCUAUACACAGAGAdTdT-3'
+  guide(antisense) 3'-dTdTCUUGCCCUAUACACAGAGA-5'  == 5'-UCUCUGUGUAUAGGGCAAGdTdT-3'
+  guide 2'-chem (o=2'OMe f=2'F): ofofofofofofofofofo   5'-(E)-vinylphosphonate; PS x2 both ends
+  LNA option: place LNA at guide positions 2, 12, 14 (1-indexed) to suppress seed off-target
+
+==============================================================================
+U6 shRNA CONSTRUCTS  (5'-sense-LOOP-antisense-TTTTTT-3'; loop=TTCAAGAGA)
+clone into pLKO.1 / U6 cassette; annotate: sense=passenger, antisense=guide
+==============================================================================
+
+[siG034_1_shRNA] TXLNA CDS 956
+  hairpin transcript (RNA sense): 5'-CGAGGAGCAUAUCGACAAA-[loop UUCAAGAGA]-UUUGUCGAUAUGCUCCUCG-UUUUUU-3'
+  pLKO.1 sense oligo   5'-CCGG CGAGGAGCATATCGACAAA CTCGAG TTTGTCGATATGCTCCTCG TTTTTG-3'
+  pLKO.1 antisense oligo 5'-AATTCAAAAA CGAGGAGCATATCGACAAA CTCGAG TTTGTCGATATGCTCCTCG -3'  (rev-comp, EcoRI)
+  strand roles: guide(=antisense, loaded to RISC) = 5'-UUUGUCGAUAUGCUCCUCG-3'  -> targets TXLNA mRNA @CDS956
+
+[siG034_2_shRNA] TXLNA CDS 929
+  hairpin transcript (RNA sense): 5'-GAAGCUGAUUGAGCAGUAU-[loop UUCAAGAGA]-AUACUGCUCAAUCAGCUUC-UUUUUU-3'
+  pLKO.1 sense oligo   5'-CCGG GAAGCTGATTGAGCAGTAT CTCGAG ATACTGCTCAATCAGCTTC TTTTTG-3'
+  pLKO.1 antisense oligo 5'-AATTCAAAAA GAAGCTGATTGAGCAGTAT CTCGAG ATACTGCTCAATCAGCTTC -3'  (rev-comp, EcoRI)
+  strand roles: guide(=antisense, loaded to RISC) = 5'-AUACUGCUCAAUCAGCUUC-3'  -> targets TXLNA mRNA @CDS929
+
+[siG034_3_shRNA] TXLNA CDS 857
+  hairpin transcript (RNA sense): 5'-GCAGAUGGAACAGCACAAU-[loop UUCAAGAGA]-AUUGUGCUGUUCCAUCUGC-UUUUUU-3'
+  pLKO.1 sense oligo   5'-CCGG GCAGATGGAACAGCACAAT CTCGAG ATTGTGCTGTTCCATCTGC TTTTTG-3'
+  pLKO.1 antisense oligo 5'-AATTCAAAAA GCAGATGGAACAGCACAAT CTCGAG ATTGTGCTGTTCCATCTGC -3'  (rev-comp, EcoRI)

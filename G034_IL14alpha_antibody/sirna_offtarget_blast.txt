@@ -1,0 +1,46 @@
+G034 siRNA OFF-TARGET SCREEN — BLASTn vs human RefSeq_RNA (RID 5E619RVU014)
+On-target=TXLNA. Reporting best NON-TXLNA hit per siRNA (full 19-mer context). seed=guide pos2-8
+====================================================================================
+
+[siG034_1_CDS956]  on-target TXLNA best=19/19  guide-seed(2-8)=UUGUCGA  -> OFF-TARGET RISK: MED(paralog/partial)
+  top non-TXLNA genes (identity/aln-len): TXLNB:16/18, PRDM6:16/18, XM_054331709.1 PREDI:15/16, XM_054373967.1 PREDI:15/16, XM_054331711.1 PREDI:15/16, XM_047429982.1 PREDI:15/16
+
+[siG034_2_CDS929]  on-target TXLNA best=19/19  guide-seed(2-8)=UACUGCU  -> OFF-TARGET RISK: MED(paralog/partial)
+  top non-TXLNA genes (identity/aln-len): LOC105373014:17/18, XR_007090625.1 PREDI:17/18, SMG9:16/17, XM_054321459.1 PREDI:16/17, XM_047439099.1 PREDI:16/17, XM_054321461.1 PREDI:16/17
+
+[siG034_3_CDS857]  on-target TXLNA best=19/19  guide-seed(2-8)=UUGUGCU  -> OFF-TARGET RISK: MED(paralog/partial)
+  top non-TXLNA genes (identity/aln-len): CCDC157:17/18, SERPINB10:16/17, SLC13A3:16/17, XR_001755503.2 PREDI:16/17, XM_047417896.1 PREDI:16/17, APOA4:16/17
+
+[siG034_4_CDS1111]  on-target TXLNA best=19/19  guide-seed(2-8)=UCAUCAG  -> OFF-TARGET RISK: MED(paralog/partial)
+  top non-TXLNA genes (identity/aln-len): XM_047441854.1 PREDI:17/18, NM_015235.3 Homo sap:17/18, BRD1:17/18, CSTF2:17/18, EPHX2:16/17, RNF14:16/17
+
+[siG034_5_CDS1158]  on-target TXLNA best=19/19  guide-seed(2-8)=CUCUGUG  -> OFF-TARGET RISK: MED(paralog/partial)
+  top non-TXLNA genes (identity/aln-len): NR_028050.2 Homo sap:17/18, NR_138464.2 Homo sap:17/18, NR_028049.2 Homo sap:17/18, XM_047443884.1 PREDI:17/18, NR_028051.2 Homo sap:17/18, NR_138465.2 Homo sap:17/18
+
+====================================================================================
+RANKING for LOW off-target (fewest/weakest non-TXLNA, paralog TXLNB noted):
+  siG034_1_CDS956: worst-off=16/~ risk=MED(paralog/partial)  [TXLNB,PRDM6,XM_054331709.1 PREDI,XM_054373967.1 PREDI]
+  siG034_2_CDS929: worst-off=17/~ risk=MED(paralog/partial)  [LOC105373014,XR_007090625.1 PREDI,SMG9,XM_054321459.1 PREDI]
+  siG034_3_CDS857: worst-off=17/~ risk=MED(paralog/partial)  [CCDC157,SERPINB10,SLC13A3,XR_001755503.2 PREDI]
+  siG034_4_CDS1111: worst-off=17/~ risk=MED(paralog/partial)  [XM_047441854.1 PREDI,NM_015235.3 Homo sap,BRD1,CSTF2]
+  siG034_5_CDS1158: worst-off=17/~ risk=MED(paralog/partial)  [NR_028050.2 Homo sap,NR_138464.2 Homo sap,NR_028049.2 Homo sap,XM_047443884.1 PREDI]
+
+Note: TXLNB = taxilin-beta paralog (family cross-reactivity, biologically related);
+all others (CSTF2,BRD1,MTERF4,SNED1,PRDM6,SMG9,CCDC157) are partial/local hits.
+DEFINITIVE seed off-target (3'UTR seed matches) requires miRNA-style seed screen / Evo2 (not wired).
+
+================================================================================
+TOP-3 LOW-OFF-TARGET SELECTION (executed BLAST evidence + rationale)
+================================================================================
+  #1  siG034_1 (CDS956)  guide 5'-UUUGUCGAUAUGCUCCUCGdTdT-3'  <-- CLEANEST (worst off=16/18)
+      off-targets: TXLNB(paralog,16/18), PRDM6(16/18). No expressed-gene full match.
+  #2  siG034_5 (CDS1158) guide 5'-UCUCUGUGUAUAGGGCAAGdTdT-3'  off-targets mostly MTERF4 *ncRNA* + SNED1 (low functional risk)
+  #3  siG034_2 (CDS929)  guide 5'-AUACUGCUCAAUCAGCUUCdTdT-3'  off-targets: LOC-ncRNA + SMG9 (17/18 partial)
+  ---- lower priority ----
+      siG034_3 (CDS857): CCDC157/SERPINB10/SLC13A3 (17/18)
+      siG034_4 (CDS1111): BRD1 + CSTF2 (17/18, broadly expressed -> highest caution)
+
+MITIGATIONS: (1) LNA at guide pos2 + chemical asymmetry to suppress seed off-target;
+(2) TXLNB paralog cross-reactivity is family-level - if selectivity needed, choose guide
+over an IL-14alpha/exon3-10-specific region divergent from TXLNB; (3) finalize with Evo2
+genome-wide off-target likelihood + 3'UTR seed screen (not wired this session) before lead pick.

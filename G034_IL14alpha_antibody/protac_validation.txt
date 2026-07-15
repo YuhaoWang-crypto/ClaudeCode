@@ -1,0 +1,19 @@
+=== building blocks ===
+pomalidomide(CRBN ligand): valid=True MW=273.2
+VH032-fragment(VHL, hydroxyproline core): valid=True MW=430.6
+acrylamide warhead(Cys Michael acceptor): valid=True MW=85.1
+chloroacetamide warhead(Cys SN2): valid=True MW=107.5
+
+=== candidate covalent PROTACs (Ro5 for degraders is advisory; PROTACs live in 'beyond-Ro5') ===
+G034-PT1_CRBN_acrylamide_PEG2:
+  SMILES C=CC(=O)NCCOCCOCC(=O)Nc1cccc2c1C(=O)N(C1CCC(=O)NC1=O)C2=O
+  MW=472.5 cLogP=-0.64 HBD=3 HBA=8 TPSA=160.2 rotB=11
+G034-PT2_CRBN_chloroacetamide_C4:
+  SMILES ClCC(=O)NCCCCC(=O)Nc1cccc2c1C(=O)N(C1CCC(=O)NC1=O)C2=O
+  MW=448.9 cLogP=0.55 HBD=3 HBA=6 TPSA=141.8 rotB=8
+G034-PT3_CRBN_acrylamide_PEG3:
+  SMILES C=CC(=O)NCCOCCOCCOCC(=O)Nc1cccc2c1C(=O)N(C1CCC(=O)NC1=O)C2=O
+  MW=516.5 cLogP=-0.62 HBD=3 HBA=9 TPSA=169.4 rotB=14
+G034-PT4_VHL_acrylamide_PEG2:
+  SMILES C=CC(=O)NCCOCCOCC(=O)N[C@@H](C(C)(C)C)C(=O)N1C[C@H](O)C[C@H]1C(=O)NCc1ccc(-c2scnc2C)cc1
+  MW=629.8 cLogP=1.56 HBD=4 HBA=9 TPSA=159.2 rotB=15
