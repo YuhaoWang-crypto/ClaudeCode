@@ -3,3 +3,6 @@ __pycache__/
 
 # transient logs
 *.log
+
+# generated skill bundle
+allosteric-biosensor-skill.zip

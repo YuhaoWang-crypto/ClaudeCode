@@ -63,27 +63,42 @@ reporters (de-novo luciferase LuxSit Pro, NanoLuc, glucose dehydrogenase).
 | System | Receptor (PDB) | Analyte | Reporter | Role |
 |---|---|---|---|---|
 | `dig`   | DIG10.3 (4J9A) | digoxigenin (steroid glycoside) | TEM-1 / BLA-253 | reproduction |
-| `dfhbi` | mFAP1 (6CZI)   | DFHBI (fluorogen) — a **different** analyte, unrelated fold | TEM-1 / BLA-253 | validation |
+| `dfhbi` | mFAP1 (6CZI)   | DFHBI (fluorogen) — a different analyte, unrelated fold | TEM-1 / BLA-253 | validation |
+| `vitd`  | CDL2.2 (5IEN)  | vitamin D3 (secosteroid) — receptor **auto-mined** by `discover.py` | TEM-1 / BLA-253 | validation (mined) |
 
-Both use **real public sequences** and the **identical** recipe — demonstrating
-the generality the paper claims across structurally unrelated receptors and
-different small-molecule analytes. (These stand in for the paper's 17-OHP /
-cortisol binders, whose exact sequences are not machine-fetchable.)
+All use **real public sequences** and the **identical** recipe. In-silico binding
+retention after circular permutation + insertion: DFHBI 1.01, digoxigenin 0.92,
+vitamin D3 0.74 → **1.07 after site×linker tuning** (see reference/report).
 
-## Run it
+## The full workflow (mine → graft → optimize → validate)
 
 ```bash
-pip install biotite numpy            # numpy+biotite only needed for structure-derived steps
-# 1) deterministic design (offline, 100% reproducible)  ✅
-python3 -m biosensor_pipeline.run_repro          # both systems -> biosensor_out/
-python3 -m biosensor_pipeline.structure          # recompute & verify frozen loop annotations
-# 2) in-silico validation via Boltz MCP (paid, ~$0.05/prediction) — see reference/boltz-validation.md
-python3 -m biosensor_pipeline.analyze_boltz      # parse downloaded models -> scores
+pip install biotite numpy matplotlib            # structure-derived steps + figures
+
+# 0) MINE a receptor for an analyte you only have as a molecule (Tier-A PDB)
+python3 -m biosensor_pipeline.discover "<SMILES>" --name X --max-len 200
+python3 -m biosensor_pipeline.discover_batch     # a whole analyte panel -> receptor_catalog.json
+
+# 1) DESIGN — deterministic, 100% reproducible  ✅
+python3 -m biosensor_pipeline.run_repro          # build+verify libraries -> biosensor_out/
+python3 -m biosensor_pipeline.structure          # recompute & verify loop annotations
+python3 -m biosensor_pipeline.test_design        # correctness + reproducibility tests
+
+# 2) VALIDATE in silico via Boltz MCP (paid, ~$0.05/prediction)
+#    submit holo/apo/control (see reference/boltz-validation.md), then:
+python3 -m biosensor_pipeline.analyze_boltz      # constellation + retention + proxy
+python3 -m biosensor_pipeline.make_figure        # figures/biosensor_validation.png
+
+# 3) OPTIMIZE — tune the receptor<->reporter linker and/or permutation site
+python3 -m biosensor_pipeline.tune_linker vitd   # flank-linker series -> Boltz each
 ```
 
-`design.build_chimera(...)` returns a `Chimera` with full provenance;
-`screen.build_library(system)` builds the whole focused library;
-`scoring.py` computes the ✅ geometric metrics and the ⚠️ switch proxy.
+Module map: `design.py` (circular permutation + insertion, ✅ exact) ·
+`systems.py` (receptors/reporters/analytes) · `structure.py` (annotate_sse loop
+sites; tag/terminal-mismatch tolerant) · `screen.py` (focused library) ·
+`scoring.py` (✅ geometric metrics + ⚠️ switch proxy) · `boltz_io.py` (payloads) ·
+`discover.py`/`discover_batch.py` (PDB receptor mining, contact-verified) ·
+`tune_linker.py` (linker series) · `analyze_boltz.py` (results → scores).
 
 ## What is rigorous vs. hypothesis (read this before quoting any number)
 
