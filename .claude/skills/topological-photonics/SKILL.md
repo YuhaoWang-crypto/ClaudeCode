@@ -53,6 +53,9 @@ symmetric ⇒ global Chern = 0; the invariant is the **spin-Chern / spin-Bott**.
 | Acoustic PWE | phononic twin; two-system comparison | `acoustic.py`, `phononic_compare.py` | ✅ ab-initio (scalar) |
 | Real-space spin Bott index | disorder-robust invariant (no BZ); TAI | `bott.py`, `bott_disorder.py` | ✅ rigorous |
 | Confinement-factor loss | absorption floor; L_p, dB/cm | `loss_budget.py` | ✅ method; ⚠️ illustrative ε″ |
+| Full-vector elastic PWE | GHz elastic valley-Hall (ref-[4] class); valley Chern | `elastic_pwe.py`, `elastic_case.py` | ✅ ab-initio elastic |
+| Pre-fab assessment | geometry spec → GO/CONDITIONAL/NO-GO card | `assess.py` | ✅ decision layer |
+| Browser screener | live params → bands + verdict (shareable) | `webapp/index.html` | ✅ effective model (live) |
 
 ## Choose the RIGHT invariant for the symmetry class
 
@@ -137,6 +140,16 @@ backscattering, **not** absorption/radiation.
 - **The topological side is not always R>a/3.** For the photonic crystal it is
   R>a/3; for the scalar-acoustic twin (these materials/bands) it is R<a/3.
   Read it from the C6 indicator, don't assume.
+- **Elastic valley Chern: the two acoustic branches are degenerate at Γ** (ω=0
+  rigid translations). A single-band or occupied-manifold FHS over the whole BZ
+  picks up a spurious flux there and gives total Chern ≠ 0. Compute the valley
+  Chern on a small **patch around K / K'** (away from Γ) instead — it gives
+  opposite ≈±½ with sum 0, the correct T-symmetric signature.
+- **Elastic PWE with air voids converges slowly** (Gibbs); use finite contrast
+  (~1e-3) and enough plane waves, and read the Dirac/gap from the four-fold
+  degeneracy location rather than assuming a band index.
+- **Berry curvature of generalised (M u = ω²R u) modes uses the R-metric
+  overlap** `⟨u|R|u'⟩`, not the plain inner product.
 - **`matplotlib.cm.get_cmap` was removed** — use `matplotlib.colormaps["name"]`.
 - **`np.cross` on 2-vectors is deprecated** — fine for a scalar z-component but
   silence/upgrade if it matters.

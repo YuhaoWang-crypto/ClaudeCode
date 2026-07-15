@@ -29,6 +29,9 @@ Everything is computed with open-source NumPy/SciPy — **no Lumerical/COMSOL**.
 | 10 | **Phononic twin** — same lattice, acoustic kernel (two-system comparison) | `acoustic.py`, `phononic_compare.py` | `fig8` | ✅ acoustic PWE |
 | 11 | **Real-space spin Bott index** under disorder (+ topological Anderson insulator) | `bott.py`, `bott_disorder.py` | `fig9` | ✅ rigorous (no BZ) |
 | 12 | **Loss budget** — absorption floor from the real mode (Bi₂Se₃ vs SiO₂/Si) | `loss_budget.py` | `fig10` | ✅ perturbative (illustrative constants) |
+| 13 | **Full-vector elastic case study** (ref-[4] class): valley-Hall GHz waveguide of holes in Si | `elastic_pwe.py`, `elastic_case.py` | `fig12`,`fig13` | ✅ ab-initio elastic |
+| 14 | **Pre-fab assessment engine** — geometry spec → GO/CONDITIONAL/NO-GO card | `assess.py` | `assessment_card.html` | ✅ decision layer |
+| 15 | **Browser screener** ("Topo-Screen") — live params → bands + verdict | `webapp/index.html` | — | ✅ effective model (live) |
 
 **Scientific scope (honest):** SiO₂ coating does not create topology (ref [1] is
 about colloidal stability/optics, not topological bands); the cited chip [2] and

@@ -47,6 +47,7 @@ Wu&ndash;Hu C<sub>6</sub> lattice, computed end-to-end in open-source NumPy/SciP
   <li><a href="#basic">Basic package: bands, invariant, edges, scan</a></li>
   <li><a href="#complete">Complete package: real-rod edges, FDTD, phononic twin</a></li>
   <li><a href="#rigor">Disorder invariant &amp; loss budget</a></li>
+  <li><a href="#elastic">Case study — full-vector elastic (ref-[4] class)</a></li>
   <li><a href="#ledger">Honesty ledger</a></li>
   <li><a href="#run">How to reproduce</a></li>
   <li><a href="#refs">References</a></li>
@@ -146,7 +147,24 @@ quantum spin Hall effect, with the pseudospin supplied by C<sub>6</sub> symmetry
      "&ldquo;Ultralow-loss&rdquo; and &ldquo;Bi<sub>2</sub>Se<sub>3</sub> carries the mode&rdquo; are in "
      "direct tension. Optical constants are representative.", ILL)}
 
-<h2 id="ledger">6. Honesty ledger</h2>
+<h2 id="elastic">6. Case study — full-vector elastic valley-Hall (ref-[4] class)</h2>
+<p>A GHz elastic topological waveguide of air holes in silicon, solved with the
+full-vector in-plane (P-SV) elastic kernel (couples u<sub>x</sub>,u<sub>y</sub> through the elastic
+tensor) — the commercially relevant RF-acoustic platform, and the full-vector
+upgrade of the scalar phononic twin.</p>
+{fig("fig12_elastic_bands.png", 12, "Elastic band structure (P-SV)",
+     "Symmetric holes give a Dirac cone at K; unequal holes (broken inversion) open a "
+     "gap at K → valley-Hall phase. Frequencies f=ωa/2πc_t (shear-wave normalised).", RIG)}
+{fig("fig13_elastic_valley_chern.png", 13, "Elastic valley Chern number",
+     "Mass-metric FHS Berry curvature on a patch around each valley (avoiding the Γ "
+     "acoustic degeneracy): opposite signs at K and K' (C_v≈+0.5/−0.5, total 0) — the "
+     "correct invariant for the broken-inversion, time-reversal-symmetric class.", RIG)}
+<p>The pipeline is packaged for delivery two ways: <code>assess.py</code> turns a
+geometry/material spec into a GO / CONDITIONAL / NO-GO pre-fabrication verdict
+across topology, bandwidth, yield-tolerance and loss; and a browser tool
+(<code>webapp/</code>, "Topo-Screen") screens the design space live.</p>
+
+<h2 id="ledger">7. Honesty ledger</h2>
 <table>
 <tr><th>Claim</th><th>Basis</th><th>Label</th></tr>
 <tr><td>Double Dirac cone at R=a/3</td><td>PWE eigenvalues of the real crystal</td><td class="rigc">✅ rigorous</td></tr>
@@ -161,7 +179,7 @@ quantum spin Hall effect, with the pseudospin supplied by C<sub>6</sub> symmetry
 <tr><td>Absorption-limited L<sub>p</sub> / dB-cm</td><td>&Gamma; (FDFD) + perturbation</td><td class="effc">✅ method; ⚠️ illustrative &epsilon;&Prime;</td></tr>
 </table>
 
-<h2 id="run">7. How to reproduce</h2>
+<h2 id="run">8. How to reproduce</h2>
 <pre>pip install -r requirements.txt
 cd src
 python run_all.py          # basic package  (~90 s)  -> fig1..fig4
@@ -173,7 +191,7 @@ elastodynamics for the true ref-[4] system; UPML + eigenmode-source FDTD for cal
 dB transmission; spin-Chern from real modes via Wilson loops; local Chern marker maps;
 and measured Bi<sub>2</sub>Se<sub>3</sub>/SiO<sub>2</sub> optical constants for the loss budget.</p>
 
-<h2 id="refs">8. References</h2>
+<h2 id="refs">9. References</h2>
 <ol class="refs">
 <li>Belec B. <i>et&nbsp;al.</i> Silica-coated Bi<sub>2</sub>Se<sub>3</sub> topological-insulator
 nanoparticles. <i>Nanomaterials</i> <b>13</b>, 809 (2023).</li>

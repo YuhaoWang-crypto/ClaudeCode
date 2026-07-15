@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Topo-Screen — topological wave device pre-fab screener</title>
+<style>
+:root{
+  --bg:#0d1017; --panel:#161b26; --panel2:#1c2331; --line:#28313f;
+  --ink:#e8ecf4; --mut:#8b98ac; --faint:#5c6a80;
+  --acc:#35c0d0; --acc-dim:#1d6f79;
+  --pos:#3fae6a; --warn:#d9a441; --fail:#e0655c;
+  --curv-p:#e0655c; --curv-n:#4f8fe0;
+  --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  --sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+}
+@media (prefers-color-scheme:light){
+  :root{--bg:#eef1f6;--panel:#ffffff;--panel2:#f4f6fa;--line:#dde3ec;
+    --ink:#141922;--mut:#5a6678;--acc:#0e8b98;--acc-dim:#7fd2db;
+    --pos:#1c8a4e;--warn:#a9761f;--fail:#c0453c;--curv-p:#c0453c;--curv-n:#2f6fc0;}
+}
+:root[data-theme="dark"]{--bg:#0d1017;--panel:#161b26;--panel2:#1c2331;--line:#28313f;
+  --ink:#e8ecf4;--mut:#8b98ac;--acc:#35c0d0;--pos:#3fae6a;--warn:#d9a441;--fail:#e0655c;
+  --curv-p:#e0655c;--curv-n:#4f8fe0;}
+:root[data-theme="light"]{--bg:#eef1f6;--panel:#ffffff;--panel2:#f4f6fa;--line:#dde3ec;
+  --ink:#141922;--mut:#5a6678;--acc:#0e8b98;--pos:#1c8a4e;--warn:#a9761f;--fail:#c0453c;
+  --curv-p:#c0453c;--curv-n:#2f6fc0;}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);
+  font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased}
+.app{max-width:1120px;margin:0 auto;padding:1.4rem 1.2rem 3rem}
+header{display:flex;align-items:center;justify-content:space-between;gap:1rem;
+  flex-wrap:wrap;padding-bottom:1rem;border-bottom:1px solid var(--line)}
+.brand{display:flex;align-items:baseline;gap:.6rem}
+.brand h1{font-size:1.15rem;margin:0;letter-spacing:-.01em}
+.brand .tag{font-family:var(--mono);font-size:.7rem;color:var(--acc);
+  text-transform:uppercase;letter-spacing:.14em;border:1px solid var(--acc-dim);
+  padding:.15em .5em;border-radius:5px}
+.brand p{margin:.15rem 0 0;color:var(--mut);font-size:.82rem;flex-basis:100%}
+.verdict-chip{font-family:var(--mono);font-weight:700;font-size:1rem;
+  padding:.45em .9em;border-radius:8px;letter-spacing:.04em;white-space:nowrap}
+.v-GO{background:color-mix(in srgb,var(--pos) 18%,transparent);color:var(--pos);
+  border:1px solid var(--pos)}
+.v-CONDITIONAL{background:color-mix(in srgb,var(--warn) 18%,transparent);color:var(--warn);
+  border:1px solid var(--warn)}
+.v-NOGO{background:color-mix(in srgb,var(--fail) 18%,transparent);color:var(--fail);
+  border:1px solid var(--fail)}
+.grid{display:grid;grid-template-columns:290px 1fr;gap:1.1rem;margin-top:1.1rem}
+@media (max-width:760px){.grid{grid-template-columns:1fr}}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:1.1rem}
+.card h2{font-size:.72rem;text-transform:uppercase;letter-spacing:.14em;color:var(--mut);
+  margin:0 0 .9rem;font-weight:600}
+.ctrl{margin-bottom:1.25rem}
+.ctrl label{display:flex;justify-content:space-between;font-size:.85rem;margin-bottom:.4rem}
+.ctrl label b{font-family:var(--mono);color:var(--acc);font-weight:600}
+input[type=range]{width:100%;accent-color:var(--acc);cursor:pointer}
+.ctrl .hint{font-size:.72rem;color:var(--mut);margin-top:.3rem}
+.seg{display:flex;gap:.35rem;margin-top:.3rem}
+.seg button{flex:1;font-family:var(--mono);font-size:.78rem;padding:.4em;border-radius:7px;
+  border:1px solid var(--line);background:var(--panel2);color:var(--mut);cursor:pointer}
+.seg button[aria-pressed=true]{border-color:var(--acc);color:var(--acc);
+  background:color-mix(in srgb,var(--acc) 12%,transparent)}
+canvas{width:100%;height:auto;display:block;border-radius:8px;background:var(--panel2)}
+.plotwrap{position:relative}
+.readout{display:grid;grid-template-columns:repeat(3,1fr);gap:.7rem;margin-top:1rem}
+.stat{background:var(--panel2);border:1px solid var(--line);border-radius:9px;padding:.6rem .7rem}
+.stat .k{font-size:.68rem;text-transform:uppercase;letter-spacing:.1em;color:var(--mut)}
+.stat .v{font-family:var(--mono);font-size:1.05rem;margin-top:.2rem;font-variant-numeric:tabular-nums}
+.axes{display:flex;flex-direction:column;gap:.55rem;margin-top:.2rem}
+.axis{display:grid;grid-template-columns:88px 62px 1fr;align-items:center;gap:.7rem;
+  padding:.55rem .7rem;background:var(--panel2);border:1px solid var(--line);border-radius:9px}
+.axis .name{font-weight:600;font-size:.86rem}
+.flag{font-family:var(--mono);font-size:.72rem;font-weight:700;text-align:center;
+  padding:.2em 0;border-radius:5px;letter-spacing:.03em}
+.f-PASS{color:var(--pos);background:color-mix(in srgb,var(--pos) 14%,transparent)}
+.f-WATCH{color:var(--warn);background:color-mix(in srgb,var(--warn) 14%,transparent)}
+.f-FAIL{color:var(--fail);background:color-mix(in srgb,var(--fail) 14%,transparent)}
+.axis .why{font-size:.78rem;color:var(--mut);font-family:var(--mono);
+  font-variant-numeric:tabular-nums}
+.foot{margin-top:1.4rem;font-size:.74rem;color:var(--mut);line-height:1.6}
+.foot code{font-family:var(--mono);color:var(--ink)}
+.themetog{background:none;border:1px solid var(--line);color:var(--mut);border-radius:7px;
+  width:34px;height:30px;cursor:pointer;font-size:.9rem}
+.legend{display:flex;gap:1rem;font-size:.72rem;color:var(--mut);margin-top:.5rem;
+  font-family:var(--mono)}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:4px;
+  vertical-align:middle}
+</style>
+</head>
+<body>
+<div class="app">
+  <header>
+    <div class="brand">
+      <h1>Topo-Screen</h1>
+      <span class="tag">pre-fab screener</span>
+      <p>Live topological-band + go/no-go screening for a valley-Hall wave device.
+         Drag the geometry and material knobs; bands, invariant and a fabrication
+         verdict update in the browser.</p>
+    </div>
+    <div style="display:flex;align-items:center;gap:.7rem">
+      <span id="verdict" class="verdict-chip v-GO">GO</span>
+      <button class="themetog" id="tt" title="Toggle theme">◐</button>
+    </div>
+  </header>
+
+  <div class="grid">
+    <div class="card">
+      <h2>Design inputs</h2>
+      <div class="ctrl">
+        <label>Platform <b id="platL">photonic</b></label>
+        <div class="seg" id="plat">
+          <button data-p="photonic" aria-pressed="true">photonic</button>
+          <button data-p="phononic" aria-pressed="false">phononic</button>
+        </div>
+        <div class="hint">Sets the operating band &amp; wavelength mapping.</div>
+      </div>
+      <div class="ctrl">
+        <label>Inversion breaking &nbsp;r<sub>A</sub>−r<sub>B</sub> <b id="dV">0.18</b></label>
+        <input type="range" id="d" min="0" max="0.30" step="0.005" value="0.18">
+        <div class="hint">0 → Dirac cone (critical); larger → wider valley-Hall gap.</div>
+      </div>
+      <div class="ctrl">
+        <label>Absorption &nbsp;ε″ (rod) <b id="eV">0.001</b></label>
+        <input type="range" id="e" min="-3" max="0.95" step="0.01" value="-3">
+        <div class="hint">Si/SiO₂ ≈ 1e-3 · Bi₂Se₃ ≈ 8 (log scale).</div>
+      </div>
+      <div class="ctrl">
+        <label>Required device length <b id="LV">100 µm</b></label>
+        <input type="range" id="L" min="10" max="1000" step="10" value="100">
+        <div class="hint">Functional path the mode must survive.</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Band structure &nbsp;·&nbsp; Γ → K → M → Γ</h2>
+      <div class="plotwrap"><canvas id="cv" width="820" height="360"></canvas></div>
+      <div class="legend">
+        <span><i style="background:var(--acc)"></i>bands</span>
+        <span><i style="background:var(--warn)"></i>gap</span>
+        <span><i style="background:var(--curv-p)"></i>+C<sub>v</sub> at K</span>
+        <span><i style="background:var(--curv-n)"></i>−C<sub>v</sub> at K′</span>
+      </div>
+      <div class="readout">
+        <div class="stat"><div class="k">Gap (norm.)</div><div class="v" id="s_gap">—</div></div>
+        <div class="stat"><div class="k">Valley Chern</div><div class="v" id="s_cv">—</div></div>
+        <div class="stat"><div class="k">Propagation L<sub>p</sub></div><div class="v" id="s_lp">—</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:1.1rem">
+    <h2>Pre-fabrication verdict</h2>
+    <div class="axes" id="axes"></div>
+    <p class="foot">
+      Live effective-model screen (2-band honeycomb tight-binding, valley-Hall class;
+      the sign-opposite valley Chern ±½ is the invariant for this time-reversal-symmetric
+      class, so the global Chern is 0). Loss uses the confinement factor Γ<sub>rod</sub>=0.93
+      measured from the full FDFD edge mode and representative ε″. For the ab-initio
+      version (PWE/FDFD/FDTD bands, real-space spin-Bott disorder, full loss budget) run
+      the <code>topological_photonics</code> package / <code>assess.py</code>. Numbers here are a
+      fast design-space screen, not a final sign-off.
+    </p>
+  </div>
+</div>
+
+<script>
+const $=s=>document.querySelector(s);
+// ---- honeycomb tight-binding (valley-Hall) ----
+const a1=[1,0], a2=[0.5,Math.sqrt(3)/2], Area=Math.sqrt(3)/2;
+const b1=[2*Math.PI/Area*a2[1], -2*Math.PI/Area*a2[0]];
+const b2=[-2*Math.PI/Area*a1[1], 2*Math.PI/Area*a1[0]];
+const K=[(2*b1[0]+b2[0])/3,(2*b1[1]+b2[1])/3];
+const M=[b1[0]/2,b1[1]/2];
+function fk(k){ // |1+e^{ik.a1}+e^{ik.a2}|
+  let re=1+Math.cos(k[0]*a1[0]+k[1]*a1[1])+Math.cos(k[0]*a2[0]+k[1]*a2[1]);
+  let im=Math.sin(k[0]*a1[0]+k[1]*a1[1])+Math.sin(k[0]*a2[0]+k[1]*a2[1]);
+  return Math.hypot(re,im);
+}
+function bands(m){ // along Γ-K-M-Γ
+  const segs=[[[0,0],K],[K,M],[M,[0,0]]], N=70, out=[];
+  segs.forEach(([p,q])=>{for(let t=0;t<N;t++){const s=t/N;
+    const k=[p[0]+s*(q[0]-p[0]),p[1]+s*(q[1]-p[1])];
+    const f=fk(k), E=Math.sqrt(m*m+f*f); out.push([-E,E]);}});
+  out.push([-Math.abs(m),Math.abs(m)]); // Γ end
+  return out;
+}
+const PLAT={photonic:{fc:0.46,lam:1.55,epr:11.7,unit:"c/a"},
+            phononic:{fc:0.36,lam:5.0,epr:11.7,unit:"c_t/a"}};
+const GAMMA=0.93;                // confinement factor from FDFD edge mode
+let plat="photonic";
+
+function lossLp(epp,fc,epr,lamUM){
+  const kappa=epp/(2*Math.sqrt(epr));
+  const alpha=2*Math.PI*fc*GAMMA*kappa;      // 1/a (power)
+  const aUM=lamUM*fc;
+  const Lp=alpha>1e-9? (1/alpha)*aUM : 1e9;  // µm
+  const dbcm=alpha>0? 8.686*alpha/(aUM*1e-4):0;
+  return {Lp,dbcm,aUM};
+}
+function draw(m){
+  const cv=$("#cv"), x=cv.getContext("2d");
+  const cs=getComputedStyle(document.documentElement);
+  const col=n=>cs.getPropertyValue(n).trim();
+  const W=cv.width,H=cv.height, pad=38, pb=26;
+  x.clearRect(0,0,W,H);
+  const B=bands(m), n=B.length;
+  let mx=0; B.forEach(p=>mx=Math.max(mx,p[1])); mx*=1.08;
+  const X=i=>pad+i/(n-1)*(W-pad-14);
+  const Y=v=>H-pb-(v+mx)/(2*mx)*(H-pb-14);
+  // grid + tick labels Γ K M Γ
+  x.strokeStyle=col("--line"); x.fillStyle=col("--mut");
+  x.font="12px "+col("--mono")||"12px monospace"; x.textAlign="center";
+  const ticks=[0,70,140,210], lab=["Γ","K","M","Γ"];
+  ticks.forEach((ti,q)=>{const px=X(ti);x.beginPath();x.moveTo(px,14);
+    x.lineTo(px,H-pb);x.globalAlpha=.5;x.stroke();x.globalAlpha=1;
+    x.fillText(lab[q],px,H-8);});
+  // gap shading at K (index 70)
+  const gap=2*Math.abs(m);
+  if(gap>1e-3){x.fillStyle=col("--warn");x.globalAlpha=.16;
+    x.fillRect(pad,Y(Math.abs(m)),W-pad-14,Y(-Math.abs(m))-Y(Math.abs(m)));
+    x.globalAlpha=1;}
+  // bands
+  x.lineWidth=2; x.strokeStyle=col("--acc");
+  for(let bnd=0;bnd<2;bnd++){x.beginPath();
+    B.forEach((p,i)=>{const px=X(i),py=Y(p[bnd]);i?x.lineTo(px,py):x.moveTo(px,py);});
+    x.stroke();}
+  // Dirac / valley markers at K
+  if(gap<=1e-3){x.fillStyle=col("--curv-p");x.beginPath();
+    x.arc(X(70),Y(0),5,0,7);x.fill();}
+  else{x.fillStyle=col("--curv-p");x.beginPath();x.arc(X(70),Y(Math.abs(m)),4,0,7);x.fill();
+       x.fillStyle=col("--curv-n");x.beginPath();x.arc(X(70),Y(-Math.abs(m)),4,0,7);x.fill();}
+  // y axis label
+  x.fillStyle=col("--mut");x.textAlign="left";x.font="11px "+ (col("--mono")||"monospace");
+  x.fillText("E  ("+PLAT[plat].unit+")",6,20);
+}
+function flag(name,f,why){return `<div class="axis"><span class="name">${name}</span>
+  <span class="flag f-${f}">${f}</span><span class="why">${why}</span></div>`;}
+
+function update(){
+  const d=+$("#d").value, epp=Math.pow(10,+$("#e").value), Lreq=+$("#L").value;
+  const P=PLAT[plat];
+  const m=1.6*d;                          // inversion breaking -> Dirac mass
+  const gap=2*m;
+  $("#dV").textContent=d.toFixed(3);
+  $("#eV").textContent=epp>=0.1?epp.toFixed(2):epp.toExponential(0);
+  $("#LV").textContent=Lreq+" µm";
+  draw(m);
+  const fracBW=gap/ (P.fc*2*Math.PI) ;    // rough fractional bw of the TB gap
+  const fbwPct=100*gap/(2.5);             // normalize to a readable %
+  const {Lp,dbcm}=lossLp(epp,P.fc,P.epr,P.lam);
+  const cvMag=gap>1e-3?0.5:0;
+  $("#s_gap").textContent=gap<1e-3?"0 (Dirac)":gap.toFixed(3);
+  $("#s_cv").textContent=gap>1e-3?"±0.5 (K/K′)":"—";
+  $("#s_lp").textContent=Lp>=1e5?">1 cm":(Lp>=10?Lp.toFixed(0):Lp.toFixed(1))+" µm";
+  // axes
+  const topoF = gap>0.05 ? "PASS" : (gap>1e-3?"WATCH":"WATCH");
+  const topoWhy = gap<=1e-3?"Dirac / critical — no gap":
+      `valley-Hall · C_v=±0.5 · gap ${gap.toFixed(3)}`;
+  const bwF = fbwPct>=8?"PASS":(fbwPct>=4?"WATCH":"FAIL");
+  const lossF = Lp>=Lreq?"PASS":(Lp>=0.3*Lreq?"WATCH":"FAIL");
+  const axes=[
+    ["Topology",topoF,topoWhy],
+    ["Bandwidth",bwF,`frac. BW ≈ ${fbwPct.toFixed(1)}% · a≈${(P.lam*P.fc).toFixed(2)} µm`],
+    ["Loss",lossF,`ε″=${epp.toExponential(0)} · L_p=${Lp>=1e5?">1cm":Lp.toFixed(0)+"µm"} · ${dbcm.toFixed(0)} dB/cm`],
+  ];
+  $("#axes").innerHTML=axes.map(a=>flag(...a)).join("");
+  const order={FAIL:0,WATCH:1,PASS:2};
+  const worst=axes.reduce((w,a)=>order[a[1]]<order[w]?a[1]:w,"PASS");
+  const V={FAIL:"NO-GO",WATCH:"CONDITIONAL",PASS:"GO"}[worst];
+  const chip=$("#verdict"); chip.textContent=V;
+  chip.className="verdict-chip v-"+V.replace("-","");
+}
+// platform toggle
+$("#plat").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;
+  plat=b.dataset.p;$("#platL").textContent=plat;
+  [...$("#plat").children].forEach(c=>c.setAttribute("aria-pressed",c===b));
+  update();});
+["d","e","L"].forEach(id=>$("#"+id).addEventListener("input",update));
+// theme toggle
+$("#tt").addEventListener("click",()=>{
+  const cur=document.documentElement.getAttribute("data-theme")
+    || (matchMedia("(prefers-color-scheme:dark)").matches?"dark":"light");
+  document.documentElement.setAttribute("data-theme",cur==="dark"?"light":"dark");
+  update();});
+matchMedia("(prefers-color-scheme:dark)").addEventListener("change",update);
+update();
+</script>
+</body>
+</html>
