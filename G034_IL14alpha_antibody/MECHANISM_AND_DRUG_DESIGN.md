@@ -139,6 +139,13 @@ SjD 的分期(高丙球→自身抗体→腺体浸润→淋巴瘤)呈**不可逆
 - ❗**局限(如实):** 纯 in‑silico 设计,需**湿实验验证(表达/亲和/中和)**;VHH 是骨架、与甲方"人源化全长 IgG"要求不同(可作先导/工具,或 CDR 移植到人源 IgG);靶点为自身抗原,需查 humanness/免疫原性;binding_confidence 指标为 0(与 iPTM 不一致,说明该指标对此类 de‑novo 结果校准不佳,应以 iPTM/iPAE 为准)。
 - **下一步(可选,付费):** ①用 top VHH 对**折叠好的抗原**做 epitope‑directed 复算/亲和成熟;②裁剪 STX4 到 H3 螺旋重跑复合物以定位阻断界面;③把 CDR 移植到人源 IgG 骨架 + Boltz 复算。
 
+**⑤ 🧪 STX4‑H3 复合物重跑(sab_pred_SmY0…,已完成,5 samples):** 裁剪到 syntaxin‑4 H3/SNARE 螺旋(去 Habc)后**显著改善:iPTM 0.63、complex‑pLDDT 0.82、iPDE 8.25 Å**(vs 全长 STX4 的 iPTM 0.40 / iPDE 16 / binding_conf 1.5e‑5;新 binding_conf 7.4e‑4,↑50×)。
+- **✅ Axis‑2 阻断表位(syntaxin‑4 结合面)= P40222 355–443**(延伸的 coiled‑coil 界面)+ C 端尾 535–546 接触。结构文件 `boltz_structures/antigen_stx4H3_complex.cif`。
+- **两个关键收敛(强):**
+  1. 我们的 **Axis‑2 抗体设计表位 360–389 正落在验证过的 syntaxin 界面(355–443)之内** → 该批抗体理应能真正阻断 syntaxin 结合(表位选择被结构验证)。
+  2. **共价 PROTAC 靶点 C373 恰位于 syntaxin 界面上** → 在 C373 上的共价配体可**同时**(a)锚定降解剂、(b)直接竞争阻断 syntaxin 结合 → 降解 + 阻断双机制收敛于同一位点。
+- ⚠️ 绝对 binding_confidence 仍低(coiled‑coil×coiled‑coil、无实验模板);结论为"界面定位可信、置信中等",需实验(突变扫描/交联‑MS)确认。
+
 ---
 
 ## 决策流(把机制→模态串起来)
