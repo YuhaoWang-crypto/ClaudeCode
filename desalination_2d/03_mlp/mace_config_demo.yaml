@@ -1,0 +1,39 @@
+# Tiny MACE config for the LOCAL end-to-end demo (steps 3-4). Small model, few
+# epochs, CPU/float32 -- just enough to prove training runs and the loss drops
+# on the CHGNet-labelled graphene+water frames. For production use mace_config.yaml
+# (bigger model, float64, SWA, r_max 6.0) on a GPU.
+#
+# RUN FROM 03_mlp/ so the ../data paths resolve (MACE writes checkpoints/ logs/
+# results/ into the cwd, which .gitignore excludes):
+#     python generate_training_frames.py --n-frames 80
+#     mace_run_train --config mace_config_demo.yaml
+name: desal_mace_demo
+model: MACE
+seed: 1
+
+train_file: ../data/train/demo_frames.xyz
+valid_file: ../data/valid/demo_frames.xyz
+energy_key: REF_energy
+forces_key: REF_forces
+E0s: average
+
+r_max: 4.0
+num_interactions: 2
+max_ell: 2
+num_channels: 16
+max_L: 0
+correlation: 2
+
+loss: weighted
+energy_weight: 1.0
+forces_weight: 50.0
+batch_size: 5
+valid_batch_size: 5
+max_num_epochs: 30
+lr: 0.01
+ema: true
+ema_decay: 0.99
+
+device: cpu
+default_dtype: float32
+error_table: PerAtomRMSE

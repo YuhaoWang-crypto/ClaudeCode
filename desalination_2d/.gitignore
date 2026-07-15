@@ -11,3 +11,8 @@ __pycache__/
 # study run logs (regenerable)
 06_dft_surrogate_study/results/run.log
 06_dft_surrogate_study/results*/*.log
+03_mlp/mace_demo_run/
+03_mlp/*.model
+03_mlp/logs/
+03_mlp/checkpoints/
+03_mlp/results/
