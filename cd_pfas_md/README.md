@@ -9,6 +9,7 @@ This package computes the two numbers that drive design:
 
 | Deliverable | What it answers | Module(s) |
 |---|---|---|
+| **Heuristic prefilter** | Cheap CPU triage: which modifications are even worth FEP, and is displacement favorable? | `prefilter` |
 | **APR absolute ΔG_bind** | Does our force field + protocol reproduce the *measured* dye·CD affinity? (calibration) | `parameterize → build_apr → run_apr → analyze_apr` |
 | **FEP/TI ΔΔG screen** | Which CD modification binds PFAS (or the dye) tighter than plain β-CD? (design triage) | `fep_ti_ddg` |
 
@@ -26,6 +27,24 @@ conda activate cd-pfas-md
 
 A **GPU** (or HPC allocation) is needed for the production MD legs. Parameterization,
 setup, analysis, and the unit tests run on CPU.
+
+## 0) Cheap triage first (no GPU): the heuristic prefilter
+
+Before spending FEP cycles, rank the whole modification library on CPU:
+
+```bash
+cd cd_pfas_md
+python -m src.prefilter          # -> work/prefilter/prefilter_report.json + a table
+```
+
+This computes `ΔG_bind ≈ cavity + electrostatics + fluorophilic` (all constants
+exposed in `config/system.yaml → prefilter:`) and the displacement figure of
+merit `ΔG_bind(PFAS) − ΔG_bind(dye)`. It is **order-of-magnitude, not converged
+MD** — its job is to tell you which designs deserve the real run. A worked demo
+(TNS dye + a cationic vs fluorophilic modification comparison) with the actual
+output and interpretation is in [`RESULTS_demo.md`](RESULTS_demo.md); the headline
+is that a symmetric rim charge tunes *affinity* but not PFAS-vs-dye *selectivity*
+(both are −1 anions) — the fluorous-lined cavity is the selectivity lever.
 
 ## 1) Calibrate on your dye·CD system (APR)
 

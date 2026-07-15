@@ -21,13 +21,20 @@ host:
 guests:
   # The dye is the reporter that PFAS displaces. Calibrate against its measured Ka.
   dye:
-    name: sulfonated_dye
-    smiles: "CN(C)c1ccc(/N=N/c2ccc(cc2)S(=O)(=O)[O-])cc1"   # methyl-orange-class placeholder
+    # PROPOSED reporter: TNS (6-(p-toluidino)naphthalene-2-sulfonate), a classic
+    # β-CD fluorescent probe — nearly dark in water, strongly fluorescent in the
+    # cavity, so displacement gives a clean turn-OFF signal. Anionic sulfonate.
+    name: TNS
+    smiles: "Cc1ccc(Nc2ccc3cc(ccc3c2)S(=O)(=O)[O-])cc1"
     net_charge: -1
+    head_charge: -1             # formal charge on the anchoring head group
+    fluorinated: false
     charge_method: bcc          # bcc | resp  (resp needs Gaussian/psi4, see parameterize.py)
+    # Hydrophobic cavity-burial term for the prefilter (kcal/mol). Anchored to the
+    # measured TNS·β-CD affinity below; replace with YOUR probe's value.
+    cavity_dG_kcal: -4.9
     experimental:
-      # Anchor for calibration. Replace with YOUR ITC / fluorescence value.
-      Ka_M_inv: 3.9e3           # example only
+      Ka_M_inv: 4.0e3           # TNS·β-CD ~3-5e3 /M (literature range) -> ΔG≈-4.9
       dG_kcal_per_mol: null     # if null, derived from Ka at temperature below
 
   # PFAS competitor. Anionic head group -> must be modeled deprotonated.
@@ -35,16 +42,22 @@ guests:
     name: perfluorooctanoate
     smiles: "C(=O)([O-])C(F)(F)C(F)(F)C(F)(F)C(F)(F)C(F)(F)C(F)(F)C(F)(F)F"
     net_charge: -1
+    head_charge: -1
+    fluorinated: true
     charge_method: bcc
     fluorine_policy: strict     # see parameterize.py: extra parmchk2 pass + torsion check
+    cavity_dG_kcal: -3.5        # PFOA·β-CD ~few-hundred /M (literature order) -> ΔG≈-3.5
     experimental:
       Ka_M_inv: null
   pfos:
     name: perfluorooctanesulfonate
     smiles: "C(F)(F)(C(F)(F)C(F)(F)C(F)(F)C(F)(F)C(F)(F)C(F)(F)C(F)(F)S(=O)(=O)[O-])F"
     net_charge: -1
+    head_charge: -1
+    fluorinated: true
     charge_method: bcc
     fluorine_policy: strict
+    cavity_dG_kcal: -4.2        # PFOS binds β-CD a bit tighter than PFOA -> ΔG≈-4.2
     experimental:
       Ka_M_inv: null
 
@@ -61,6 +74,22 @@ forcefield:
 thermo:
   temperature_K: 298.15
   pressure_bar: 1.0
+
+# --- Heuristic prefilter physics (src/prefilter.py) ------------------------
+# CHEAP, TRANSPARENT triage to rank a large modification library BEFORE spending
+# FEP cycles. NOT converged free energy. Every constant is exposed here so the
+# model is auditable. ΔG_bind ≈ cavity(guest) + electrostatics(host,guest) +
+# fluorophilic_complementarity(host,guest).
+prefilter:
+  coulomb_prefactor: 332.06     # kcal·Å/(mol·e²)
+  eps_effective: 40.0           # effective dielectric at a solvent-exposed rim
+  contact_distance_ang: 4.5     # rim charge <-> guest head-group separation
+  debye_length_ang: 7.85        # 0.15 M 1:1 salt, 25 °C
+  max_effective_rim_charges: 2  # only ~2 rim charges can contact one monovalent head
+  fluorophilic_bonus_kcal: -2.0 # extra stabilization a fluorous-lined cavity gives a
+                                # per-fluorinated tail (illustrative; test with FEP)
+  baseline_dye_min_kcal: -3.0   # dye must bind at least this to load the probe
+  dye_too_tight_kcal: -8.0      # dye bound tighter than this is hard to displace
 
 # --- APR protocol (attach-pull-release) -----------------------------------
 apr:

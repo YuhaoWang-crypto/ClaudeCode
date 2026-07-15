@@ -81,3 +81,24 @@ modifications:
     rim: both
     per_rim: 14
     net_charge_delta: 0
+
+  # --- fluorophilic lever: the selectivity handle the prefilter highlights ----
+  # PFAS carries a perfluoro tail the sulfonated dye does NOT. A fluorous-lined
+  # cavity stabilizes that tail SELECTIVELY, so it improves PFAS-vs-dye
+  # displacement where a symmetric rim charge (which helps both anions equally)
+  # cannot. `fluorophilic: true` switches on the complementarity term.
+  - id: fluorous_tagged
+    description: "per-6-(1H,1H-perfluorobutyl)-β-CD (neutral, fluorous-lined cavity)"
+    builder: substituent
+    graft: "CC(F)(F)C(F)(F)C(F)(F)F"
+    rim: primary
+    per_rim: 3
+    net_charge_delta: 0
+    fluorophilic: true
+
+  - id: fluorous_cationic
+    description: "fluorous-lined + one primary-rim trimethylammonium (selectivity + affinity)"
+    builder: smiles          # non-trivial combo -> supply explicit structure before FEP
+    smiles: null             # TODO: build the modified host; prefilter uses the flags below
+    net_charge_delta: +1
+    fluorophilic: true

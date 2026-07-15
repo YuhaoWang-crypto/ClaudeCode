@@ -84,5 +84,46 @@ def test_charge_mismatch_is_caught(monkeypatch):
     assert pfoa.net_charge == -1
 
 
+def test_prefilter_electrostatics_sign_and_clamp():
+    from cd_pfas_md.src import prefilter
+    pf = utils.load_config("config/system.yaml")["prefilter"]
+    # +1 rim charge attracting a -1 head must be negative (favorable).
+    e1 = prefilter.electrostatic_term(+1, -1, pf)
+    assert e1 < 0
+    # +7 rim charge is clamped to max_effective_rim_charges, not 7x.
+    e7 = prefilter.electrostatic_term(+7, -1, pf)
+    e2 = prefilter.electrostatic_term(+2, -1, pf)
+    assert math.isclose(e7, e2), "rim charge must be clamped, not summed linearly"
+    assert e7 > 7 * e1  # (less negative than a naive 7x would be)
+
+
+def test_prefilter_fluorophilic_only_helps_fluorinated():
+    from cd_pfas_md.src import prefilter
+    pf = utils.load_config("config/system.yaml")["prefilter"]
+    assert prefilter.fluorophilic_term(True, True, pf) < 0
+    assert prefilter.fluorophilic_term(True, False, pf) == 0.0   # dye gets nothing
+    assert prefilter.fluorophilic_term(False, True, pf) == 0.0
+
+
+def test_prefilter_run_surfaces_the_selectivity_insight():
+    from cd_pfas_md.src import prefilter
+    res = prefilter.run("config/system.yaml", "config/modifications.yaml")
+    by_host = {h["host"]: h for h in res["ranked_hosts"]}
+
+    ref = next(h for k, h in by_host.items() if k.startswith("beta_cyclodextrin"))
+    tma = by_host["mono_6_trimethylammonium"]
+    fluo = by_host["fluorous_tagged"]
+
+    # 1) a symmetric rim charge does NOT change displacement (both guests are −1):
+    assert ref["dG_displace"]["pfoa"] == pytest.approx(tma["dG_displace"]["pfoa"], abs=1e-9)
+    # 2) but it DOES raise overall affinity (dye bound tighter):
+    assert tma["dG_dye"] < ref["dG_dye"]
+    # 3) the fluorophilic cavity is what actually flips displacement favorable:
+    assert ref["dG_displace"]["pfoa"] > 0        # native: PFAS cannot displace
+    assert fluo["dG_displace"]["pfoa"] < 0       # fluorous: PFAS displaces
+    # 4) best-ranked host is fluorophilic:
+    assert res["ranked_hosts"][0]["fluorophilic"] is True
+
+
 if __name__ == "__main__":
     raise SystemExit(pytest.main([__file__, "-q"]))

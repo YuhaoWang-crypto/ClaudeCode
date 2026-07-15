@@ -1,2 +1,5 @@
 __pycache__/
 *.pyc
+
+# cd_pfas_md generated outputs
+cd_pfas_md/work/
