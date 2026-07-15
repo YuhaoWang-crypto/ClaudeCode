@@ -16,3 +16,5 @@ __pycache__/
 03_mlp/logs/
 03_mlp/checkpoints/
 03_mlp/results/
+06_dft_surrogate_study/results*/log.txt
+06_dft_surrogate_study/results*/driver.log
