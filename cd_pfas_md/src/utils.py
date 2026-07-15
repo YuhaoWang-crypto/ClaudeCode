@@ -87,6 +87,7 @@ class Guest:
     charge_method: str
     fluorine_policy: str
     exp_dg: float | None
+    structure: str | None = None   # path to a 3D structure file (sdf/pdb/mol2)
 
     @classmethod
     def from_config(cls, key: str, gcfg: dict, temperature_k: float) -> "Guest":
@@ -103,6 +104,7 @@ class Guest:
             charge_method=gcfg.get("charge_method", "bcc"),
             fluorine_policy=gcfg.get("fluorine_policy", "standard"),
             exp_dg=exp_dg,
+            structure=gcfg.get("structure"),
         )
 
 

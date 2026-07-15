@@ -8,9 +8,11 @@
 
 host:
   name: beta_cyclodextrin
-  # Provide ONE of: mol2 (pre-charged) OR smiles (will be parameterized).
-  # A clean β-CD structure is included as a placeholder path; replace as needed.
-  mol2: data/hosts/bcd.mol2
+  # Real 3D β-CD geometry from the PDB Chemical Component Dictionary (ligand BCD,
+  # C42H70O35, 147 atoms). antechamber converts sdf -> mol2 + AM1-BCC charges.
+  # Provide ONE of: structure (3D sdf/pdb) | mol2 (pre-charged) | smiles.
+  structure: data/hosts/bcd.sdf
+  mol2: null
   net_charge: 0
   # Anchor atoms used to define the APR pulling axis (the cavity primary/secondary
   # rim). These are :HOST@ atom names in the resulting Amber topology. TUNE these

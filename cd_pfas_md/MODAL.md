@@ -57,15 +57,16 @@ before committing prod GPU-hours.
 | `triage` (prefilter) | ✅ runs now, no inputs |
 | Parameterize **TNS dye** (from SMILES) | ✅ automated (RDKit → antechamber) |
 | Parameterize **PFOA/PFOS** | ✅ automated, with fluorine parameter review |
-| Parameterize **β-CD host** | ⚠️ needs `data/hosts/bcd.mol2` — drop a validated β-CD structure (pAPRika β-CD tutorial, or a GLYCAM build). RDKit can't reliably 3D-embed the macrocycle. |
+| Parameterize **β-CD host** | ✅ `data/hosts/bcd.sdf` shipped — real 3D geometry from the PDB Chemical Component Dictionary (ligand BCD, C₄₂H₇₀O₃₅). antechamber does sdf → mol2 + AM1-BCC. |
 | APR anchors | ✅ auto-resolved by `src/anchors.py` (principal-axis rim + head charge) — **inspect `apr_manifest.json` before prod** |
-| APR windows + analysis | ✅ once the host structure is in |
-| FEP screen: cationic/methylated mods | ⚠️ each modified host needs an explicit structure (`smiles:`/mol2). The prefilter already says the symmetric-charge mods don't buy selectivity, so prioritize the fluorophilic ones. |
+| APR windows + analysis | ✅ turn-key |
+| FEP screen: cationic/methylated mods | ⚠️ each modified host needs an explicit structure (`smiles:`/mol2 or a graft applied to `bcd.sdf`). The prefilter already says the symmetric-charge mods don't buy selectivity, so prioritize the fluorophilic ones. |
 
-**Bottom line:** the only blocker to a real GPU APR number for the **TNS·β-CD**
-calibration is dropping one validated `bcd.mol2` into `data/hosts/`. Everything
-downstream (parameterize → build → 18 parallel GPU windows → calibrated ΔG vs the
-−4.9 kcal/mol anchor) then runs unattended.
+**Bottom line:** the **TNS·β-CD APR calibration is now fully turn-key** — the
+real β-CD structure is in the repo, so parameterize → build → 18 parallel GPU
+windows → calibrated ΔG vs the −4.9 kcal/mol anchor runs unattended on Modal.
+The remaining input needed is explicit **modified-host** structures for the FEP
+ΔΔG screen (next build).
 
 ## Troubleshooting
 

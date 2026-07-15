@@ -59,6 +59,32 @@ def smiles_to_mol2(smiles: str, name: str, net_charge: int, out_dir: Path) -> Pa
     return out
 
 
+def structure_to_mol2(structure: str, name: str, net_charge: int, out_dir: Path) -> Path:
+    """Convert an existing 3D structure (sdf/pdb/mol2) to a mol2 for antechamber.
+
+    Used for the β-CD host, whose real 3D geometry comes from the PDB Chemical
+    Component Dictionary (ligand BCD, C42H70O35) rather than RDKit embedding —
+    macrocycle conformer generation is unreliable, a crystallographic-ideal
+    structure is not.
+    """
+    out_dir.mkdir(parents=True, exist_ok=True)
+    src = utils.resolve(structure)
+    if not src.exists():
+        raise FileNotFoundError(f"structure file not found: {src}")
+    fmt = {".sdf": "sdf", ".mdl": "mdl", ".pdb": "pdb", ".mol2": "mol2",
+           ".mol": "mdl"}.get(src.suffix.lower())
+    if fmt is None:
+        raise ValueError(f"unsupported structure format {src.suffix} for {name}")
+    out = out_dir / f"{name}.mol2"
+    utils.require_tool("antechamber")
+    utils.run([
+        "antechamber", "-i", src, "-fi", fmt,
+        "-o", out, "-fo", "mol2", "-nc", str(net_charge), "-dr", "no",
+    ], cwd=out_dir)
+    log.info("%s: converted %s (%s) -> %s", name, src.name, fmt, out.name)
+    return out
+
+
 def parameterize_guest(guest: utils.Guest, out_dir: Path) -> dict[str, Path]:
     """Run antechamber (charges + GAFF2 atom types) and parmchk2 (missing params).
 
@@ -68,12 +94,14 @@ def parameterize_guest(guest: utils.Guest, out_dir: Path) -> dict[str, Path]:
     utils.require_tool("antechamber")
     utils.require_tool("parmchk2")
 
-    if guest.mol2:
+    if guest.structure:
+        src_mol2 = structure_to_mol2(guest.structure, guest.name, guest.net_charge, out_dir)
+    elif guest.mol2:
         src_mol2 = utils.resolve(guest.mol2)
     elif guest.smiles:
         src_mol2 = smiles_to_mol2(guest.smiles, guest.name, guest.net_charge, out_dir)
     else:
-        raise ValueError(f"guest {guest.key}: provide either mol2 or smiles")
+        raise ValueError(f"guest {guest.key}: provide structure, mol2, or smiles")
 
     charge_flag = {"bcc": "bcc", "resp": "resp"}[guest.charge_method]
     if charge_flag == "resp":
