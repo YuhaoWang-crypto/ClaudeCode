@@ -173,6 +173,40 @@ Artifacts are written to `biosensor_out/` (libraries, payloads, metrics,
 `biosensor_out/boltz_predictions.json` (models retained ~7 days on the Boltz
 platform).
 
+## 6b. Receptor mining catalog (Tier-A, contact-verified)
+
+`biosensor_pipeline/discover_batch.py` mines receptor candidates for a panel of
+analytes straight from the PDB and ranks them **short-first** (the paper's
+minimal-binder principle). Each candidate chain is **contact-verified**: it is
+kept only if it actually touches the analyte's ligand
+(`rcsb_ligand_neighbors`), which removes the co-crystallized-but-irrelevant
+chains (G-protein subunits from GPCR–ligand cryo-EM maps, ribosomal proteins
+near a biotin label, detergents) that a naive "entry contains ligand" search
+returns. Output: `biosensor_out/receptor_catalog.json`.
+
+Result over a 26-analyte panel: **64 verified analyte×receptor pairs across 21
+analytes**, of which **11 are designed/engineered minibinders** — exactly the
+class the paper uses. The miner even surfaced the paper's **own** receptors:
+
+| analyte | receptor (PDB) | len | note |
+|---|---|---|---|
+| cortisol / 17-OHP | designed cortisol binder **hcy129** (8UQF) | 135 | the paper's HCY129.1 family |
+| testosterone / 17-OHP | **OHP9** (5IER/5IF6) | 132–134 | designed steroid binder |
+| digoxigenin | **DIG5.1a** (5BVB) | 132 | designed digoxigenin binder |
+| vitamin D3 | **CDL2.x** (5IEN/5IEO/5IEP) | 137 | designed vitamin-D binders |
+| fentanyl | **JGFN4** (8V9W) | 120 | engineered fentanyl binder |
+| thyroxine / retinoic acid | transthyretin, CRABP | 115–137 | classic small β-sandwich binders |
+| biotin | streptavidin / avidin | 127–128 | classic |
+| riboflavin | dodecin / FMN-binding protein | 65–122 | classic small flavin binders |
+
+**Honest caveat (⚠️):** contact verification proves the chain touches the ligand
+in *that* crystal; it does not prove the chain is a dedicated, rigid *sensing*
+receptor. Some hits are enzymes (DHFR + folate) or lipid/membrane proteins
+(cholic acid near Cyt-c-oxidase subunits) where the "ligand" is a
+substrate/detergent. Read the receptor name before grafting; the small **designed
+binders** are the best switch candidates. Any mined receptor is a *hypothesis*
+until Boltz-validated and, ultimately, assayed.
+
 ## 7. Adding a new detection target
 
 `.claude/skills/allosteric-biosensor/reference/adding-a-system.md` — add a

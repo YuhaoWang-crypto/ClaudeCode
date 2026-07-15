@@ -24,6 +24,7 @@ import urllib.request
 
 SEARCH = "https://search.rcsb.org/rcsbsearch/v2/query"
 DATA = "https://data.rcsb.org/rest/v1/core"
+GRAPHQL = "https://data.rcsb.org/graphql"
 
 
 def _post(url, payload):
@@ -68,56 +69,76 @@ def entries_with_ccd(ccd: str, rows: int = 25) -> list[str]:
     return [r["identifier"] for r in d.get("result_set", [])]
 
 
-def entities_with_ccd(ccd: str, rows: int = 25) -> list[str]:
-    """Polymer-entity ids for the protein chains in entries containing the CCD."""
-    ents = []
-    for pdb in entries_with_ccd(ccd, rows=rows):
-        try:
-            d = _get(f"{DATA}/entry/{pdb}")
-            ids = d.get("rcsb_entry_container_identifiers", {}).get("polymer_entity_ids", [])
-            ents.extend(f"{pdb}_{e}" for e in ids)
-        except Exception:
-            continue
-    return ents
+def _gql(query: str) -> dict:
+    req = urllib.request.Request(GRAPHQL, data=json.dumps({"query": query}).encode(),
+                                 headers={"Content-Type": "application/json"})
+    with urllib.request.urlopen(req, timeout=45) as r:
+        return json.loads(r.read())
 
 
-def entity_info(entity_id: str) -> dict:
-    """Sequence + length + name for a polymer entity id like '1DBB_1'."""
-    pdb, ent = entity_id.split("_")
-    d = _get(f"{DATA}/polymer_entity/{pdb}/{ent}")
-    poly = d.get("entity_poly", {})
-    names = d.get("rcsb_polymer_entity", {})
-    return {
-        "entity_id": entity_id, "pdb": pdb,
-        "seq": poly.get("pdbx_seq_one_letter_code_can", "").replace("\n", ""),
-        "length": d.get("rcsb_polymer_entity_container_identifiers", {}).get("entity_id") and
-                  len(poly.get("pdbx_seq_one_letter_code_can", "").replace("\n", "")),
-        "name": names.get("pdbx_description", ""),
-        "type": poly.get("rcsb_entity_polymer_type", ""),
-    }
+def entities_for_entries(pdb_ids: list[str]) -> list[dict]:
+    """Batch-fetch every protein chain of many entries (seq/length/name) in one call."""
+    if not pdb_ids:
+        return []
+    ids = "[" + ",".join(f'"{p}"' for p in pdb_ids) + "]"
+    q = ("{entries(entry_ids:%s){rcsb_id polymer_entities{rcsb_id "
+         "entity_poly{pdbx_seq_one_letter_code_can rcsb_sample_sequence_length "
+         "rcsb_entity_polymer_type} rcsb_polymer_entity{pdbx_description} "
+         "polymer_entity_instances{rcsb_ligand_neighbors{ligand_comp_id}}}}}" % ids)
+    d = _gql(q)
+    out = []
+    for e in (d.get("data", {}).get("entries") or []):
+        for pe in (e.get("polymer_entities") or []):
+            ep = pe.get("entity_poly") or {}
+            nm = (pe.get("rcsb_polymer_entity") or {}).get("pdbx_description", "")
+            contacted = set()
+            for inst in (pe.get("polymer_entity_instances") or []):
+                for ln in (inst.get("rcsb_ligand_neighbors") or []):
+                    contacted.add(ln["ligand_comp_id"])
+            out.append({
+                "entity_id": pe["rcsb_id"], "pdb": e["rcsb_id"],
+                "seq": (ep.get("pdbx_seq_one_letter_code_can") or "").replace("\n", ""),
+                "length": ep.get("rcsb_sample_sequence_length"),
+                "type": ep.get("rcsb_entity_polymer_type", ""),
+                "name": nm,
+                "contacts": contacted,
+            })
+    return out
 
 
-def discover(smiles: str, name: str = "analyte", max_len: int = 220, top: int = 10) -> dict:
-    """Return ranked receptor candidates for an analyte SMILES."""
-    ccds = ligand_ccds(smiles)
-    cand, seen = [], set()
+def discover(smiles: str, name: str = "analyte", max_len: int = 220,
+             min_len: int = 45, top: int = 10, rows_per_ccd: int = 25) -> dict:
+    """Return ranked receptor candidates for an analyte SMILES.
+
+    min_len excludes co-crystallized peptide fragments (coactivators etc.) that
+    are too short to be a stand-alone receptor; a real minimal binder is a
+    folded domain (~50-150 aa, per the paper). Candidates are deduped by protein
+    name (keep the shortest chain per distinct protein) and ranked short-first.
+    """
+    ccds = set(ligand_ccds(smiles))
+    by_name = {}
     for ccd in ccds:
-        for ent in entities_with_ccd(ccd):
-            if ent in seen:
-                continue
-            seen.add(ent)
-            try:
-                info = entity_info(ent)
-            except Exception:
-                continue
+        entries = entries_with_ccd(ccd, rows=rows_per_ccd)
+        for info in entities_for_entries(entries):
             if info["type"] != "Protein" or not info["seq"]:
                 continue
-            info["ligand_ccd"] = ccd
-            cand.append(info)
-    # rank: prefer SHORT chains (paper's minimal-binder principle), drop huge ones
-    cand = [c for c in cand if c["length"] and c["length"] <= max_len]
-    cand.sort(key=lambda c: c["length"])
-    return {"analyte": name, "smiles": smiles, "ligand_ccds": ccds,
+            L = info["length"]
+            if not L or L < min_len or L > max_len:
+                continue
+            # CONTACT VERIFICATION: this chain must actually touch one of the
+            # analyte's ligand codes -- removes G-proteins / ribosomal chains /
+            # detergents that merely co-occur in the same entry.  ✅
+            hit = info["contacts"] & ccds
+            if not hit:
+                continue
+            info["ligand_ccd"] = sorted(hit)[0]
+            key = info["name"].strip().lower() or info["entity_id"]
+            if key not in by_name or L < by_name[key]["length"]:
+                by_name[key] = info
+    cand = sorted(by_name.values(), key=lambda c: c["length"])
+    for c in cand:
+        c["contacts"] = sorted(c.get("contacts", []))   # JSON-friendly
+    return {"analyte": name, "smiles": smiles, "ligand_ccds": sorted(ccds),
             "n_candidates": len(cand), "candidates": cand[:top]}
 
 

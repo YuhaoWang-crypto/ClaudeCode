@@ -1,0 +1,578 @@
+[
+ {
+  "analyte": "vitamin D3",
+  "ligand_ccd": "VDY",
+  "entity_id": "1MZ9_1",
+  "pdb": "1MZ9",
+  "length": 45,
+  "receptor_name": "cartilage oligomeric matrix protein",
+  "seq": "MDLAPQMLRELQETNAALQDVRELLRQQVKEITFLKNTVMECDAC"
+ },
+ {
+  "analyte": "cholic acid",
+  "ligand_ccd": "CHD",
+  "entity_id": "1V54_10",
+  "pdb": "1V54",
+  "length": 59,
+  "receptor_name": "Cytochrome c oxidase polypeptide VIIa-heart",
+  "seq": "FENRVAEKQKLFQEDNGLPVHLKGGATDNILYRVTMTLCLGGTLYSLYCLGWASFPHKK"
+ },
+ {
+  "analyte": "folic acid",
+  "ligand_ccd": "FOL",
+  "entity_id": "1VIF_1",
+  "pdb": "1VIF",
+  "length": 62,
+  "receptor_name": "DIHYDROFOLATE REDUCTASE",
+  "seq": "VFPSNATFGMGDRVRKKSGAAWQGQIVGWYCTNLTPEGYAVESEAHPGSVQIYPVAALERIN"
+ },
+ {
+  "analyte": "riboflavin",
+  "ligand_ccd": "RBF",
+  "entity_id": "2VX9_1",
+  "pdb": "2VX9",
+  "length": 65,
+  "receptor_name": "DODECIN",
+  "seq": "MVFKKVLLTGTSEESFTAAADDAIDRAEDTLDNVVWAEVVDQGVAIGAVEERTYQTEVQVAFELD"
+ },
+ {
+  "analyte": "fluorescein",
+  "ligand_ccd": "F6Z",
+  "entity_id": "9CMT_1",
+  "pdb": "9CMT",
+  "length": 65,
+  "receptor_name": "Chromobox protein homolog 5",
+  "seq": "EIARGFERGLEPEKIIGATDSSGDLMFLMKWKDSDEADLVLAKEANVKCPQIVIAFYEERLTWHA"
+ },
+ {
+  "analyte": "riboflavin",
+  "ligand_ccd": "RBF",
+  "entity_id": "2CC8_1",
+  "pdb": "2CC8",
+  "length": 68,
+  "receptor_name": "VNG1446H",
+  "seq": "MVFKKVLLTGTSEESFTAAADDAIDRAEDTLDNVVWAEVVDQGVEIGAVEERTYQTEVQVAFELDGSQ"
+ },
+ {
+  "analyte": "biotin",
+  "ligand_ccd": "BTN",
+  "entity_id": "1BDO_1",
+  "pdb": "1BDO",
+  "length": 80,
+  "receptor_name": "ACETYL-COA CARBOXYLASE",
+  "seq": "EISGHIVRSPMVGTFYRTPSPDAKAFIEVGQKVNVGDTLCIVEAMKMMNQIEADKSGTVKAILVESGQPVEFDEPLVVIE"
+ },
+ {
+  "analyte": "cholic acid",
+  "ligand_ccd": "CHD",
+  "entity_id": "1V54_7",
+  "pdb": "1V54",
+  "length": 85,
+  "receptor_name": "Cytochrome c oxidase polypeptide VIa-heart",
+  "seq": "ASAAKGDHGGTGARTWRFLTFGLALPSVALCTLNSWLHSGHRERPAFIPYHHLRIRTKPFSWGDGNHTFFHNPRVNPLPTGYEKP"
+ },
+ {
+  "analyte": "riboflavin",
+  "ligand_ccd": "RBF",
+  "entity_id": "1HZE_1",
+  "pdb": "1HZE",
+  "length": 97,
+  "receptor_name": "RIBOFLAVIN SYNTHASE ALPHA CHAIN",
+  "seq": "MFTGIVQGTAKLVSIDEKPNFRTHVVELPDHMLDGLETGASVAHNGCCLTVTEINGNHVSFDLMKETLRITNLGDLKVGDWVNVERAAKFSDEIGGH"
+ },
+ {
+  "analyte": "testosterone",
+  "ligand_ccd": "TH2",
+  "entity_id": "2CBT_1",
+  "pdb": "2CBT",
+  "length": 112,
+  "receptor_name": "NEOCARZINOSTATIN",
+  "seq": "AAPTATVTPSSGLSDGTVVKVAGAGLQAGTAYWVAQSAWVDTGVYASNPADISSVTADANGSASTSLTVRRSFEGFLWDGTRWGTVDCTTAACHVTLRDALSNGPEGVAISF"
+ },
+ {
+  "analyte": "methotrexate",
+  "ligand_ccd": "6UV",
+  "entity_id": "5XEJ_1",
+  "pdb": "5XEJ",
+  "length": 114,
+  "receptor_name": "Macrophage migration inhibitory factor",
+  "seq": "PMFIVNTNVPRASVPDGFLSELTQQLAQATGKPPQYIAVHVVPDQLMAFGGSSEPCALCSLHSIGKIGGAQNRSYSKLLCGLLAERLRISPDRVYINYYDMNAANVGWNNSTFA"
+ },
+ {
+  "analyte": "thyroxine",
+  "ligand_ccd": "T44",
+  "entity_id": "1F86_1",
+  "pdb": "1F86",
+  "length": 115,
+  "receptor_name": "TRANSTHYRETIN THR119MET VARIANT",
+  "seq": "CPLMVKVLDAVRGSPAINVAVHVFRKAADDTWEPFASGKTSESGELHGLTTEEEFVEGIYKVEIDTKSYWKALGISPFHEHAEVVFTANDSGPRRYTIAALLSPYSYSTMAVVTN"
+ },
+ {
+  "analyte": "thyroxine",
+  "ligand_ccd": "T44",
+  "entity_id": "5CR1_1",
+  "pdb": "5CR1",
+  "length": 116,
+  "receptor_name": "Transthyretin",
+  "seq": "CPLMVKVLDAVRGSPAINVAVHVFRKAADDTWEPFASGKTSESGELHGLTTEEEFVEGIYKVEIDTKSYWKALGSSPFHEHAEVVFTANDSGPRRYTIAALLSPYSYSTTAVVTNP"
+ },
+ {
+  "analyte": "thyroxine",
+  "ligand_ccd": "T44",
+  "entity_id": "3Q1E_1",
+  "pdb": "3Q1E",
+  "length": 119,
+  "receptor_name": "5-hydroxyisourate hydrolase",
+  "seq": "MSATLLSPLSTHVLNAAQGVPGANMTIVLHRLDPVSSAWNILTTGITNDDGRCPGLITKENFIAGVYKMRFETGKYWDALGETCFYPYVEIVFTITNTSQHYHVPLLLSRFSYSTTRGS"
+ },
+ {
+  "analyte": "serotonin",
+  "ligand_ccd": "4PQ",
+  "entity_id": "9T7F_1",
+  "pdb": "9T7F",
+  "length": 119,
+  "receptor_name": "human SIRP alpha V2",
+  "seq": "SEEELQVIQPDKSVSVAAGESAILHCTVTSLIPVGPIQWFRGAGPARELIYNQKEGHFPRVTTVSESTKRENMDFSISISNITPADAGTYYCVKFRKGSPDTEFKSGAGTELSVRAKPS"
+ },
+ {
+  "analyte": "fentanyl",
+  "ligand_ccd": "7V7",
+  "entity_id": "8V9W_1",
+  "pdb": "8V9W",
+  "length": 120,
+  "receptor_name": "JGFN4",
+  "seq": "MQVQLVESGGGLAQAGGSLQLSCAASGSTSRVNAMGWYRQTPGKERELVAAIDRSGATVYSESVRGRFTISKNDAKNIVWLQMNNLTTEDTAVYYCRSGVLGSWGLGTQVTVSSHHHHHH"
+ },
+ {
+  "analyte": "progesterone",
+  "ligand_ccd": "C0R",
+  "entity_id": "4QF7_1",
+  "pdb": "4QF7",
+  "length": 121,
+  "receptor_name": "Phospholipase A2 VRV-PL-VIIIa",
+  "seq": "SLLEFGKMILEETGKLAIPSYSSYGCYCGWGGKGTPKDATDRCCFVHDCCYGNLPDCNPKSDRYKYKRVNGAIVCEKGTSCENRICECDKAAAICFRQNLNTYSKKYMLYPDFLCKGELKC"
+ },
+ {
+  "analyte": "riboflavin",
+  "ligand_ccd": "FMN",
+  "entity_id": "1AXJ_1",
+  "pdb": "1AXJ",
+  "length": 122,
+  "receptor_name": "FMN-BINDING PROTEIN",
+  "seq": "MLPGTFFEVLKNEGVVAIATQGEDGPHLVNTWNSYLKVLDGNRIVVPVGGMHKTEANVARDERVLMTLGSRKVAGRNGPGTGFLIRGSAAFRTDGPEFEAIARFKWARAALVITVVSAEQTL"
+ },
+ {
+  "analyte": "cholic acid",
+  "ligand_ccd": "CHD",
+  "entity_id": "2AZY_1",
+  "pdb": "2AZY",
+  "length": 124,
+  "receptor_name": "Phospholipase A2, major isoenzyme",
+  "seq": "ALWQFRSMIKCAIPGSHPLMDFNNYGCYCGLGGSGTPVDELDRCCETHDNCYRDAKNLDSCKFLVDNPYTESYSYSCSNTEITCNSKNNACEAFICNCDRNAAICFSKAPYNKEHKNLDTKKYC"
+ },
+ {
+  "analyte": "cholic acid",
+  "ligand_ccd": "CHD",
+  "entity_id": "1TW4_1",
+  "pdb": "1TW4",
+  "length": 125,
+  "receptor_name": "Fatty acid-binding protein",
+  "seq": "AFSGTWQVYAQENYEEFLKALALPEDLIKMARDIKPIVEIQQKGDDFVVTSKTPRQTVTNSFTLGKEADITTMDGKKLKCTVHLANGKLVTKSEKFSHEQEVKGNEMVETITFGGVTLIRRSKRV"
+ },
+ {
+  "analyte": "cholic acid",
+  "ligand_ccd": "CHD",
+  "entity_id": "2FT9_1",
+  "pdb": "2FT9",
+  "length": 125,
+  "receptor_name": "Fatty acid-binding protein 2, liver",
+  "seq": "PFNGTWQVYSQENYEAFLRAVGLPEDIINVAKDINPIIEIQQNGDNFVVTSKTPNQSVTNSFTIGKEAEITSMGGKKIKCTVVLEGGKLVSKTDQFSHIQEVKGNEMVETLTVGGATLIRRSKRV"
+ },
+ {
+  "analyte": "cortisol",
+  "ligand_ccd": "HCY",
+  "entity_id": "6ITP_1",
+  "pdb": "6ITP",
+  "length": 127,
+  "receptor_name": "anti-cortisol camelid antibody",
+  "seq": "QVQLQESGGGSVQAGGSLRLSCVVSGNTGSTGYWAWFRQGPGTEREGVAATYTAGSGTSMTYYADSVKGRFTISQDNAKKTLYLQMNSLKPEDTGMYRCASTRFAGRWYRDSEYRAWGQGTQVTVSS"
+ },
+ {
+  "analyte": "17-hydroxyprogesterone",
+  "ligand_ccd": "HCY",
+  "entity_id": "6ITP_1",
+  "pdb": "6ITP",
+  "length": 127,
+  "receptor_name": "anti-cortisol camelid antibody",
+  "seq": "QVQLQESGGGSVQAGGSLRLSCVVSGNTGSTGYWAWFRQGPGTEREGVAATYTAGSGTSMTYYADSVKGRFTISQDNAKKTLYLQMNSLKPEDTGMYRCASTRFAGRWYRDSEYRAWGQGTQVTVSS"
+ },
+ {
+  "analyte": "biotin",
+  "ligand_ccd": "A1CK6",
+  "entity_id": "9PUA_1",
+  "pdb": "9PUA",
+  "length": 127,
+  "receptor_name": "Streptavidin",
+  "seq": "AEAGITGTWYNQLGSTFIVTAGADGALTGTYESAVGNAESRYVLTGRYDSAPATDGSGTALGWTVAWKNNYRNAHSATTWSGQYVGGAEARINTQWLLTSGTTEANAWKSTLVGHDTFTKVKPSAAS"
+ },
+ {
+  "analyte": "biotin",
+  "ligand_ccd": "BTN",
+  "entity_id": "1DF8_1",
+  "pdb": "1DF8",
+  "length": 127,
+  "receptor_name": "PROTEIN (STREPTAVIDIN)",
+  "seq": "AEAGITGTWYNQLGSTFIVTAGADGALTGTYEAAVGNAESRYVLTGRYDSAPATDGSGTALGWTVAWKNNYRNAHSATTWSGQYVGGAEARINTQWLLTSGTTEANAWKSTLVGHDTFTKVKPSAAS"
+ },
+ {
+  "analyte": "biotin",
+  "ligand_ccd": "BTN",
+  "entity_id": "1SWK_1",
+  "pdb": "1SWK",
+  "length": 127,
+  "receptor_name": "CORE-STREPTAVIDIN",
+  "seq": "AEAGITGTWYNQLGSTFIVTAGADGALTGTYESAVGNAESRYVLTGRYDSAPATDGSGTALGWTVAFKNNYRNAHSATTWSGQYVGGAEARINTQWLLTSGTTEANAWKSTLVGHDTFTKVKPSAAS"
+ },
+ {
+  "analyte": "retinoic acid",
+  "ligand_ccd": "9CR",
+  "entity_id": "1TYR_1",
+  "pdb": "1TYR",
+  "length": 127,
+  "receptor_name": "TRANSTHYRETIN",
+  "seq": "GPTGTGESKCPLMVKVLDAVRGSPAINVAVHVFRKAADDTWEPFASGKTSESGELHGLTTEEEFVEGIYKVEIDTKSYWKALGISPFHEHAEVVFTANDSGPRRYTIAALLSPYSYSTTAVVTNPKE"
+ },
+ {
+  "analyte": "colchicine",
+  "ligand_ccd": "LOC",
+  "entity_id": "4LZR_1",
+  "pdb": "4LZR",
+  "length": 127,
+  "receptor_name": "Bromodomain-containing protein 4",
+  "seq": "AMNPPPPETSNPNKPKRQTNQLEYLLRVVLKTLWKHQFAWPFQQPVDAVKLNLPDYYKIIKTPMDMGTIKKRLEDNYYWNAQECIQDFNTMFTNCYIYNKPGDDIVLMAEALESLFLQKINELPTEE"
+ },
+ {
+  "analyte": "biotin",
+  "ligand_ccd": "BTN",
+  "entity_id": "1AVD_1",
+  "pdb": "1AVD",
+  "length": 128,
+  "receptor_name": "AVIDIN",
+  "seq": "ARKCSLTGKWTNDLGSNMTIGAVNSRGEFTGTYTTAVTATSNEIKESPLHGTENTINKRTQPTFGFTVNWKFSESTTVFTGQCFIDRNGKEVLKTMWLLRSSVNDIGDDWKATRVGINIFTRLRTQKE"
+ },
+ {
+  "analyte": "testosterone",
+  "ligand_ccd": "3QZ",
+  "entity_id": "5IER_1",
+  "pdb": "5IER",
+  "length": 132,
+  "receptor_name": "OHP9",
+  "seq": "TQSPALIASQSLWRCTQAHDREGWLALMADDVVIETPIGKSVTNPDGSGIKGKEAVGAFFDTHIAATRLTVTCEETFPSSSPDEIAHILVAHSEFDGGFTSEVRGVFTYRVNKAGLITNLRGYWNLDMMTFG"
+ },
+ {
+  "analyte": "17-hydroxyprogesterone",
+  "ligand_ccd": "3QZ",
+  "entity_id": "5IER_1",
+  "pdb": "5IER",
+  "length": 132,
+  "receptor_name": "OHP9",
+  "seq": "TQSPALIASQSLWRCTQAHDREGWLALMADDVVIETPIGKSVTNPDGSGIKGKEAVGAFFDTHIAATRLTVTCEETFPSSSPDEIAHILVAHSEFDGGFTSEVRGVFTYRVNKAGLITNLRGYWNLDMMTFG"
+ },
+ {
+  "analyte": "thyroxine",
+  "ligand_ccd": "T44",
+  "entity_id": "7KJJ_1",
+  "pdb": "7KJJ",
+  "length": 132,
+  "receptor_name": "TTR ancestor",
+  "seq": "GHAPVDPHGAVDSKCPLMVKVLDAVRGVPASNVAVKVFKQDESGSWQQLSTGVTNETGEIHNLITEEAFTEGVYKVHFDTKTYWKSLGLTPFYEYADVVFTANDAGHRHYTIALLLSPYSYSTTAVVSDPHE"
+ },
+ {
+  "analyte": "digoxigenin",
+  "ligand_ccd": "DOG",
+  "entity_id": "5BVB_1",
+  "pdb": "5BVB",
+  "length": 132,
+  "receptor_name": "DIG5.1a",
+  "seq": "GSSMNAKEILVHSLRLLENGDARGWCDLFHPEGVLEYPYAPPGWKTRFEGRETIWAHMRLHPEHVTWRFTDVQFYETADPDLAIGEYHGDGVVTVSGGKYAADYITVLRTRDGQILLLRVFWNPLRILEAAG"
+ },
+ {
+  "analyte": "fentanyl",
+  "ligand_ccd": "7V7",
+  "entity_id": "9O3M_1",
+  "pdb": "9O3M",
+  "length": 133,
+  "receptor_name": "Retinol-binding protein 2",
+  "seq": "TRDQNGTWEMESNENFEGYMKALDIDFATRKIAVRLTQTFVIDQDGDNFKTKTTSTFRNYDVDFTVGVEFDEYTKSLDNRHVKALVTWEGDVLVCVQKGEKENRGWKQWIEGDKLYLELTCGDQVCRQVFKKK"
+ },
+ {
+  "analyte": "testosterone",
+  "ligand_ccd": "3QZ",
+  "entity_id": "5IF6_1",
+  "pdb": "5IF6",
+  "length": 134,
+  "receptor_name": "OHP9_1c",
+  "seq": "TQSPALIASQSLGRCTQAKDREGWLALMADDVVIETPIGKSVTNPDGSGIKGKEAVGAFWDTHIADDRVTVTCEETFPSSSPDEIAHILVAHAEFDGGFTSEVRGVFTYRVNKAGLITNLRGYYNLDMMTFGNQ"
+ },
+ {
+  "analyte": "17-hydroxyprogesterone",
+  "ligand_ccd": "3QZ",
+  "entity_id": "5IF6_1",
+  "pdb": "5IF6",
+  "length": 134,
+  "receptor_name": "OHP9_1c",
+  "seq": "TQSPALIASQSLGRCTQAKDREGWLALMADDVVIETPIGKSVTNPDGSGIKGKEAVGAFWDTHIADDRVTVTCEETFPSSSPDEIAHILVAHAEFDGGFTSEVRGVFTYRVNKAGLITNLRGYYNLDMMTFGNQ"
+ },
+ {
+  "analyte": "cortisol",
+  "ligand_ccd": "HCY",
+  "entity_id": "8UQF_1",
+  "pdb": "8UQF",
+  "length": 135,
+  "receptor_name": "designed cortisol-binding protein hcy129_mpnn5",
+  "seq": "MSGTSSEEAKEAIIAMLKEWYDAMNEGDMEKLRSLVDPDASFVDARTNQVYDKDQFLQMIKEALEQDLKVEVKSIDIEQQPDGDVVIVKVKVRATMVRNGQEHVFEVVDTYEFRRKGDSWKIVKLVSEITQLGSG"
+ },
+ {
+  "analyte": "17-hydroxyprogesterone",
+  "ligand_ccd": "HCY",
+  "entity_id": "8UQF_1",
+  "pdb": "8UQF",
+  "length": 135,
+  "receptor_name": "designed cortisol-binding protein hcy129_mpnn5",
+  "seq": "MSGTSSEEAKEAIIAMLKEWYDAMNEGDMEKLRSLVDPDASFVDARTNQVYDKDQFLQMIKEALEQDLKVEVKSIDIEQQPDGDVVIVKVKVRATMVRNGQEHVFEVVDTYEFRRKGDSWKIVKLVSEITQLGSG"
+ },
+ {
+  "analyte": "retinoic acid",
+  "ligand_ccd": "REA",
+  "entity_id": "1CBR_1",
+  "pdb": "1CBR",
+  "length": 136,
+  "receptor_name": "CELLULAR RETINOIC ACID BINDING PROTEIN TYPE I",
+  "seq": "PNFAGTWKMRSSENFDELLKALGVNAMLRKVAVAAASKPHVEIRQDGDQFYIKTSTTVRTTEINFKVGEGFEEETVDGRKCRSLPTWENENKIHCTQTLLEGDGPKTYWTRELANDELILTFGADDVVCTRIYVRE"
+ },
+ {
+  "analyte": "retinoic acid",
+  "ligand_ccd": "REA",
+  "entity_id": "1CBS_1",
+  "pdb": "1CBS",
+  "length": 137,
+  "receptor_name": "CELLULAR RETINOIC ACID BINDING PROTEIN TYPE II",
+  "seq": "PNFSGNWKIIRSENFEELLKVLGVNVMLRKIAVAAASKPAVEIKQEGDTFYIKTSTTVRTTEINFKVGEEFEEQTVDGRPCKSLVKWESENKMVCEQKLLKGEGPKTSWTRELTNDGELILTMTADDVVCTRVYVRE"
+ },
+ {
+  "analyte": "retinoic acid",
+  "ligand_ccd": "REA",
+  "entity_id": "2FR3_1",
+  "pdb": "2FR3",
+  "length": 137,
+  "receptor_name": "Cellular retinoic acid binding protein 2",
+  "seq": "PNFSGNWKIIRSENFEELLKVLGVNVMLRKIAVAAASKPAVEIKQEGDTFYIKTSTTVRTTEINFKVGEEFEEQTVDGRPCKSLVKWESENKMVCEQKLLKGEGPKTSWTRELTNDGELILTMTADDVVCTRVYVRE"
+ },
+ {
+  "analyte": "retinoic acid",
+  "ligand_ccd": "REA",
+  "entity_id": "2G78_1",
+  "pdb": "2G78",
+  "length": 137,
+  "receptor_name": "Cellular retinoic acid-binding protein 2",
+  "seq": "PNFSGNWKIIRSENFEELLKVLGVNVMLRKIAVAAASKPAVEIKQEGDTFYIKTSTTVRTTEINFKVGEEFEEQTVDGRPCKSLVKWESENKMVCEQKLLKGEGPKTSWTRELTNDGELILTMTADDVVCTKVFVRE"
+ },
+ {
+  "analyte": "vitamin D3",
+  "ligand_ccd": "VDY",
+  "entity_id": "5IEN_1",
+  "pdb": "5IEN",
+  "length": 137,
+  "receptor_name": "CDL2.2",
+  "seq": "GQSAKEAIEAALADFVKAYNSKDAAGVASKYMDDAAIFPLDMARVDGRQNIQKLWQGLMDMGVSEPKLTTLDVQESGDFAFESGSISLKGPGKDSKLVDIAGKYVEVWRKGQDGGWKLYRTIANLDPAKLEHHHHHH"
+ },
+ {
+  "analyte": "vitamin D3",
+  "ligand_ccd": "VDY",
+  "entity_id": "5IEO_1",
+  "pdb": "5IEO",
+  "length": 137,
+  "receptor_name": "CDL2.3a",
+  "seq": "LPTAHEAIEAALADFVKVYNSKDAAGVASKYMDDAVIFPLDMARVDGRQNIQKLWQGLMDMGVSEPKFTTLNVQESGDFAFESGSFSLKGPGKDSKLVDIAGIYVEVWRKGQDGGWKLYRTIANLDPARLEHHHHHH"
+ },
+ {
+  "analyte": "vitamin D3",
+  "ligand_ccd": "VDY",
+  "entity_id": "5IEP_1",
+  "pdb": "5IEP",
+  "length": 137,
+  "receptor_name": "CDL2.3b",
+  "seq": "DQSAKEAIEAALADFVKVYNSKDAAGVASKYMDDAAIFPLDMAPVDGRQNIQKLWQGLMDMGVSEPKFTTLNVQKSGDFAFESGSFSLKGPGKDSKLVDIAGIYVEVWRKGQDGGWKLYRTIANLDPAKLEHHHHHH"
+ },
+ {
+  "analyte": "digoxigenin",
+  "ligand_ccd": "DOG",
+  "entity_id": "4J8T_1",
+  "pdb": "4J8T",
+  "length": 137,
+  "receptor_name": "Engineered Digoxigenin binder protein DIG10.2",
+  "seq": "MNAKEIVVHALRLLENGDARGWCDLFHPEGVLEYPYPPPGYKTRFEGRETIWAHMRLFPEYMTIRFTDVQFYETADPDLAIGEFHGDGVHTVSGGKLAADYISVLRTRDGQILLYRLFFNPLRVLEPLGLEHHHHHH"
+ },
+ {
+  "analyte": "digoxigenin",
+  "ligand_ccd": "DOG",
+  "entity_id": "4J9A_1",
+  "pdb": "4J9A",
+  "length": 137,
+  "receptor_name": "Engineered Digoxigenin binder protein DIG10.3",
+  "seq": "MNAKEIVVHALRLLENGDARGWSDLFHPEGVLEYPYPPPGYKTRFEGRETIWAHMRLFPEYMTIRFTDVQFYETADPDLAIGEFHGDGVLTASGGKLAYDYIAVWRTRDGQILLYRLFFNPLRVLEPLGLEHHHHHH"
+ },
+ {
+  "analyte": "progesterone",
+  "ligand_ccd": "STR",
+  "entity_id": "5LUR_1",
+  "pdb": "5LUR",
+  "length": 138,
+  "receptor_name": "Avidin",
+  "seq": "QTVNARKCSLTGKWTNRMNHNMTIGAVNSRGEFTGTYIATVNATSNEIKESPLHGTQNTINKRTQPTFGFTVNWKFSESTTVFTGQCFIDRNGKEVLKTMWLLRSSVNDIGDDWKATRVGYNIFTRLRTQKEHHHHHH"
+ },
+ {
+  "analyte": "bilirubin",
+  "ligand_ccd": "BLR",
+  "entity_id": "4I3B_1",
+  "pdb": "4I3B",
+  "length": 139,
+  "receptor_name": "Bilirubin-inducible fluorescent protein UnaG",
+  "seq": "MVEKFVGTWKIADSHNFGEYLKAIGAPKELSDGGDATTPTLYISQKDGDKMTVKIENGPPTFLDTQVKFKLGEEFDEFPSDRRKGVKSVVNLVGEKLVYVQKWDGKETTYVREIKDGKLVVTLTMGDVVAVRSYRRATE"
+ },
+ {
+  "analyte": "serotonin",
+  "ligand_ccd": "SRO",
+  "entity_id": "2QEH_1",
+  "pdb": "2QEH",
+  "length": 145,
+  "receptor_name": "D7R4 Protein",
+  "seq": "METVQDCENKLPPSLKSRLCEIRRYEIIEGPEMDKHIHCVMRALDFVYEDGRGDYHKLYDPLNIIELDKRHDVNLEKCIGECVQVPTSERAHVFYKCLLKSTTGRTFKKVFDLMELKKAGKVPQHQRYTAEFVQIMKDYDKALNC"
+ },
+ {
+  "analyte": "riboflavin",
+  "ligand_ccd": "RBF",
+  "entity_id": "1BU5_1",
+  "pdb": "1BU5",
+  "length": 147,
+  "receptor_name": "PROTEIN (FLAVODOXIN)",
+  "seq": "PKALIVYGSTTGNTEYTAETIARELADAGYEVDSRDAASVEAGGLFEGFDLVLLGCSTWGDDSIELQDDFIPLFDSLEETGAQGRKVACFGCGDSSYEYFCGAVDAIEEKLKNLGAEIVQDGLRIDGDPRAARDDIVGWAHDVRGAI"
+ },
+ {
+  "analyte": "dopamine",
+  "ligand_ccd": "LDP",
+  "entity_id": "4A7V_1",
+  "pdb": "4A7V",
+  "length": 153,
+  "receptor_name": "SUPEROXIDE DISMUTASE [CU-ZN]",
+  "seq": "ATKAVCVLKGDGPVQGIINFEQKESNGPVKVWGSIKGLTEGLHGFHVHEFGDNTAGCTSAGPHFNPLSRKHGGPKDEERHVGDLGNVTADKDGVADVSIEDSVISLSGDHCITGRTLVVHEKADDLGKGGNEESTKTGNAGSRLACGVIGIAQ"
+ },
+ {
+  "analyte": "serotonin",
+  "ligand_ccd": "SRO",
+  "entity_id": "3BRN_1",
+  "pdb": "3BRN",
+  "length": 157,
+  "receptor_name": "Lipocalin",
+  "seq": "AASSAQCDFGGPFQAYKSVNGPGNGGYYLRKTTKPGTPECAYVLVPQNTLSEGQSTSFTYGKLQNGQMIQLTATVTVNGDKIEVTGAGQDLSGTTTVLFSDYRSCDVMRGPDGNYELWVHSSAINLQSYGCCDTKFAQVAGGRPIHHTWQTYCPPLP"
+ },
+ {
+  "analyte": "methotrexate",
+  "ligand_ccd": "MTX",
+  "entity_id": "1DDR_1",
+  "pdb": "1DDR",
+  "length": 159,
+  "receptor_name": "DIHYDROFOLATE REDUCTASE",
+  "seq": "MISLIAALAVDRVIGMENAMPWNLPADLAWFKRNTLNKPVIMGRHTWESIGRPLPGRKNIILSSQPGTDDRVTWVKSVDEAIAACGDVPEIMVIGGGRVYEQFLPKAQKLYLTHIDAEVEGDTHFPDYEPDDWESVFSEFHDADAQNSHSYCFEILERR"
+ },
+ {
+  "analyte": "methotrexate",
+  "ligand_ccd": "MTX",
+  "entity_id": "1TDR_1",
+  "pdb": "1TDR",
+  "length": 159,
+  "receptor_name": "TELLUROMETHIONYL DIHYDROFOLATE REDUCTASE",
+  "seq": "MISLIAALAVDRVIGMENAMPWNLPADLAWFKRNTLDKPVIMGRHTWESIGRPLPGRKNIILSSQPGTDDRVTWVKSVDEAIAACGDVPEIMVIGGGRVYEQFLPKAQKLYLTHIDAEVEGDTHFPDYEPDDWESVFSEFHDADAQNSHSYCFKILERR"
+ },
+ {
+  "analyte": "vitamin D3",
+  "ligand_ccd": "VD3",
+  "entity_id": "2GJ5_1",
+  "pdb": "2GJ5",
+  "length": 162,
+  "receptor_name": "Beta-lactoglobulin",
+  "seq": "LIVTQTMKGLDIQKVAGTWYSLAMAASDISLLDAQSAPLRVYVEELKPTPEGDLEILLQKWENGECAQKKIIAEKTKIPAVFKIDALNENKVLVLDTDYKKYLLFCMENSAEPEQSLACQCLVRTPEVDDEALEKFDKALKALPMHIRLSFNPTQLEEQCHI"
+ },
+ {
+  "analyte": "dopamine",
+  "ligand_ccd": "QBW",
+  "entity_id": "6Z82_1",
+  "pdb": "6Z82",
+  "length": 165,
+  "receptor_name": "S-norcoclaurine synthase",
+  "seq": "SMGIINQVSTVTKVIHHELEVAASADDIWTVYSWPGLAKHLPDLLPGAFEKLEIIGDGGVGTILDVTFVPGEFPHEYKEKFILVDNEHRLKKVQMIEGGYLDLGVTYYMDTIHVVPTGKDSCVIKSSTEYHVKPEFVKIVEPLITTGPLAAMADAISKLVLEHKS"
+ },
+ {
+  "analyte": "dexamethasone",
+  "ligand_ccd": "3T5",
+  "entity_id": "3TC5_1",
+  "pdb": "3TC5",
+  "length": 166,
+  "receptor_name": "Peptidyl-prolyl cis-trans isomerase NIMA-interacting 1",
+  "seq": "GSHMADEEKLPPGWEKAMSRSSGRVYYFNHITNASQWERPSGNSSSGGKNGQGEPARVRCSHLLVKHSQSRRPSSWRQEKITRTKEEALELINGYIQKIKSGEEDFESLASQFSDCSSAKARGDLGAFSRGQMQKPFEDASFALRTGEMSGPVFTDSGIHIILRTE"
+ },
+ {
+  "analyte": "serotonin",
+  "ligand_ccd": "F5U",
+  "entity_id": "7DAK_1",
+  "pdb": "7DAK",
+  "length": 166,
+  "receptor_name": "Serotonin N-acetyltransferase 1, chloroplastic",
+  "seq": "GPPLPEELVLLERTLADGSTEQIIFSSAGDVNVYDLQALCDKVGWPRRPLTKIAASLRNSYLVATLHSVTMPSKAEGEERKQLIGMARATSDHAFNATIWDVLVDPSYQGQGLGKALMEKVIRTLLQRDISNITLFADNKVVDFYKNLGFEADPQGIKGMFWYPRF"
+ },
+ {
+  "analyte": "progesterone",
+  "ligand_ccd": "STR",
+  "entity_id": "2HZQ_1",
+  "pdb": "2HZQ",
+  "length": 174,
+  "receptor_name": "Apolipoprotein D",
+  "seq": "FHLGKCPNPPVQENFDVNKYPGRWYEIEKIPTTFENGRCIQANYSLMENGKIKVLNQELRADGTVNQIEGEATPVNLTEPAKLEVKFSWFMPSAPYHILATDYENYALVYSCTSISQSFHVDFAWILARNVALPPETVDSLKNILTSNNIDVKKMTVTDQVNCPKLSAHHHHHH"
+ },
+ {
+  "analyte": "colchicine",
+  "ligand_ccd": "LOC",
+  "entity_id": "5NKN_1",
+  "pdb": "5NKN",
+  "length": 174,
+  "receptor_name": "Neutrophil gelatinase-associated lipocalin",
+  "seq": "SDLIPAPPLSKVPLQQNFQDNQFHGKWYVVGVAGNGFLREDKDPIKMAATIYELKEDKSYNVTFQKFPMKKCQYMTDTLVPGSQPGEFTLGNIKSEPGYTSWLVRVVSTNYNQHAMVFFKAVQQNREDFFITLYGRTKELTSELKENFIRFSKSLGLPENHIVFPVPIDQCIDG"
+ },
+ {
+  "analyte": "digoxigenin",
+  "ligand_ccd": "DOG",
+  "entity_id": "1LKE_1",
+  "pdb": "1LKE",
+  "length": 184,
+  "receptor_name": "DigA16",
+  "seq": "DVYHDGACPEVKPVDNFDWSQYHGKWWQVAAYPDHITKYGKCGWAEYTPEGKSVKVSRYSVIHGKEYFSEGTAYPVGDSKIGKIYHSYTIGGVTQEGVFNVLSTDNKNYIIGYFCSYDEDKKGHMDLVWVLSRSMVLTGEAKTAVENYLIGSPVVDSQKLVYSDFSEAACKVNNSNWSHPQFEK"
+ },
+ {
+  "analyte": "fentanyl",
+  "ligand_ccd": "7V7",
+  "entity_id": "5TZO_1",
+  "pdb": "5TZO",
+  "length": 188,
+  "receptor_name": "Endo-1,4-beta-xylanase A",
+  "seq": "GPHMSTDYWLNFTDGGGIVNAVNGSGGNYSVNWSNTGSFVVGKGWTTGSPFRTINYNAGVWAPNGWGALALVGWTRSPLIAYYVVDSWGTARWTGTYKGTVKSDGGTYDIYTTTRYNAPSIDGDRTTFTQYWSVRQSKRPTGSNATITFSNHVNAWKSHGMNLGSNWAYQVMATAGYQSSGSSNVTVW"
+ },
+ {
+  "analyte": "estradiol",
+  "ligand_ccd": "EST",
+  "entity_id": "1LHU_1",
+  "pdb": "1LHU",
+  "length": 189,
+  "receptor_name": "SEX HORMONE-BINDING GLOBULIN",
+  "seq": "LRPVLPTQSAHDPPAVHLSNGPGQEPIAVMTFDLTKITKTSSSFEVRTWDPEGVIFYGDTNPKDDWFMLGLRDGRPEIQLHNHWAQLTVGAGPRLDDGRWHQVEVKMEGDSVLLEVDGEEVLRLRQVSGPLTSKRHPIMRIALGGLLFPASNLRLPLVPALDGCLRRDSWLDKQAEISASAPTSLRSCD"
+ }
+]
