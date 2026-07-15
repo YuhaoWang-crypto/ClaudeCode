@@ -18,6 +18,10 @@ modal setup                       # authenticates to your Modal workspace
 # 0) instant CPU triage (no GPU, no structures needed) — sanity check the graph
 modal run cd_pfas_md/modal_app.py::triage
 
+# 0b) PREFLIGHT the GPU image (CUDA visible? AmberTools + paprika import?) — a
+#     ~1-minute check that catches image problems before a real run burns GPU time
+modal run cd_pfas_md/modal_app.py::check
+
 # 1) SMOKE test the full APR path end-to-end (tiny sims, ~minutes on a T4).
 #    Proves the container image + CUDA + restraints + analysis all wire up.
 modal run cd_pfas_md/modal_app.py --guest dye --mode smoke
@@ -60,13 +64,16 @@ before committing prod GPU-hours.
 | Parameterize **β-CD host** | ✅ `data/hosts/bcd.sdf` shipped — real 3D geometry from the PDB Chemical Component Dictionary (ligand BCD, C₄₂H₇₀O₃₅). antechamber does sdf → mol2 + AM1-BCC. |
 | APR anchors | ✅ auto-resolved by `src/anchors.py` (principal-axis rim + head charge) — **inspect `apr_manifest.json` before prod** |
 | APR windows + analysis | ✅ turn-key |
-| FEP screen: cationic/methylated mods | ⚠️ each modified host needs an explicit structure (`smiles:`/mol2 or a graft applied to `bcd.sdf`). The prefilter already says the symmetric-charge mods don't buy selectivity, so prioritize the fluorophilic ones. |
+| FEP screen: 3 flagged mods | ✅ `mono_6_trimethylammonium`, `fluorous_tagged`, `fluorous_cationic` structures shipped in `data/hosts/modified/` (grafted onto `bcd.sdf`, stoichiometry+charge validated). Other library mods still `n/a` until a structure is supplied. |
 
-**Bottom line:** the **TNS·β-CD APR calibration is now fully turn-key** — the
-real β-CD structure is in the repo, so parameterize → build → 18 parallel GPU
-windows → calibrated ΔG vs the −4.9 kcal/mol anchor runs unattended on Modal.
-The remaining input needed is explicit **modified-host** structures for the FEP
-ΔΔG screen (next build).
+**Bottom line:** both the **TNS·β-CD APR calibration** and the **FEP ΔΔG screen of
+the 3 prioritized modifications** are turn-key on Modal — real host + modified-host
+structures are in the repo. ⚠️ Two modeling REVIEW POINTS remain (see the
+`build_modified_host.py` docstring): (1) grafted geometries are unminimized
+starting points (tleap+min relaxes them), and (2) the FEP treats the graft as an
+alchemically decoupled group — a fast RANKING scheme, not a rigorous
+single-topology O6H↔graft morph. Good enough to rank; confirm the winner with a
+dual-topology run before synthesis.
 
 ## Troubleshooting
 

@@ -1,0 +1,10 @@
+{
+  "modification": "fluorous_tagged",
+  "n_atoms": 177,
+  "formal_charge": 0,
+  "formula": "C54H73F21O35",
+  "n_grafted_atoms": 33,
+  "n_removed_atoms": 3,
+  "sdf": "/home/user/ClaudeCode/cd_pfas_md/data/hosts/modified/fluorous_tagged.sdf",
+  "review": "geometry unminimized; FEP topology = alchemical graft decouple (see module docstring)"
+}

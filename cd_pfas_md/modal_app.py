@@ -164,6 +164,44 @@ def prefilter() -> dict:
 
 
 # ==========================================================================
+# Preflight — validate the image/GPU/toolchain BEFORE spending real GPU-hours
+# ==========================================================================
+@app.function(gpu=GPU_TYPE, timeout=600)
+def preflight() -> dict:
+    import shutil
+    out = {}
+    # 1) OpenMM + CUDA platform actually available on the GPU container?
+    try:
+        import openmm
+        from openmm import Platform
+        plats = [Platform.getPlatform(i).getName() for i in range(Platform.getNumPlatforms())]
+        out["openmm_version"] = openmm.version.version
+        out["platforms"] = plats
+        out["cuda_available"] = "CUDA" in plats
+    except Exception as e:  # noqa: BLE001
+        out["openmm_error"] = repr(e)
+    # 2) AmberTools binaries on PATH?
+    out["tleap"] = bool(shutil.which("tleap"))
+    out["antechamber"] = bool(shutil.which("antechamber"))
+    out["parmchk2"] = bool(shutil.which("parmchk2"))
+    # 3) the analysis stack imports?
+    for mod in ("paprika", "openmmtools", "pymbar", "rdkit", "MDAnalysis"):
+        try:
+            __import__(mod)
+            out[f"import_{mod}"] = True
+        except Exception as e:  # noqa: BLE001
+            out[f"import_{mod}"] = f"FAIL: {e!r}"
+    # 4) our package + configs present in the image?
+    try:
+        from cd_pfas_md.src import utils
+        cfg = utils.load_config(CONFIG)
+        out["config_ok"] = cfg["host"]["name"] == "beta_cyclodextrin"
+    except Exception as e:  # noqa: BLE001
+        out["config_error"] = repr(e)
+    return out
+
+
+# ==========================================================================
 # Orchestrators
 # ==========================================================================
 @app.local_entrypoint()
@@ -212,3 +250,15 @@ def triage():
     from cd_pfas_md.src import prefilter as pf
     report = prefilter.remote()          # runs in a Modal CPU container
     pf.print_report(report)
+
+
+@app.local_entrypoint()
+def check():
+    """Preflight the GPU image before a real run (imports, CUDA, AmberTools)."""
+    report = preflight.remote()
+    print("\n=== Modal preflight ===")
+    for k, v in report.items():
+        flag = "" if v not in (False,) and not str(v).startswith("FAIL") else "  <-- FIX"
+        print(f"  {k:<20}: {v}{flag}")
+    if not report.get("cuda_available"):
+        print("\n⚠️  CUDA not visible to OpenMM — pin a cuda-version in the image or use gpu='T4'.")

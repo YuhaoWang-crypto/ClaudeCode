@@ -61,60 +61,49 @@ class DDGResult:
 def build_modified_host(mod: dict, ref_mol2: Path, work: Path, T: float) -> dict[str, Path]:
     """Construct + parameterize a modified β-CD.
 
-    `builder: smiles`      -> take the modification's explicit SMILES.
-    `builder: substituent` -> graft `graft` onto `per_rim` rim hydroxyls.
+    Resolution order:
+      1. an explicit `mol2:`/`smiles:` in the modification entry (user-supplied)
+      2. a prebuilt structure from src/build_modified_host (grafted onto bcd.sdf);
+         built on demand if data/hosts/modified/<id>.sdf is absent.
 
-    The substituent route is implemented with RDKit reaction SMARTS on the rim
-    hydroxyl oxygens; for production you may prefer to build the modified host in
-    a dedicated tool (GaussView / tleap with a custom prep) and pass a mol2.
+    The prebuilt route covers mono_6_trimethylammonium, fluorous_tagged, and
+    fluorous_cationic — the designs the prefilter flagged as worth FEP.
     """
+    from . import build_modified_host as bmh
+
     out = work / "hosts" / mod["id"]
     out.mkdir(parents=True, exist_ok=True)
+    net_charge = mod.get("net_charge_delta", 0)
 
-    if mod.get("builder") == "smiles" and mod.get("smiles"):
-        smiles = mod["smiles"]
-    elif mod.get("builder") == "substituent":
-        smiles = _graft_rim(ref_mol2, mod)
-    else:
-        raise ValueError(f"modification {mod['id']}: need builder smiles|substituent")
+    if mod.get("mol2"):
+        guest_like = utils.Guest(
+            key=mod["id"], name=mod["id"], smiles=None, mol2=mod["mol2"],
+            net_charge=net_charge, charge_method="bcc",
+            fluorine_policy="strict" if mod.get("fluorophilic") else "standard",
+            exp_dg=None,
+        )
+        return parameterize.parameterize_guest(guest_like, out)
+    if mod.get("smiles"):
+        guest_like = utils.Guest(
+            key=mod["id"], name=mod["id"], smiles=mod["smiles"], mol2=None,
+            net_charge=net_charge, charge_method="bcc",
+            fluorine_policy="standard", exp_dg=None,
+        )
+        return parameterize.parameterize_guest(guest_like, out)
 
-    net_charge = mod.get("net_charge_delta", 0)  # relative to neutral β-CD (0)
+    # prebuilt-structure route
+    bcd_sdf = utils.resolve("data/hosts/bcd.sdf")
+    mod_sdf = utils.resolve(f"data/hosts/modified/{mod['id']}.sdf")
+    if not mod_sdf.exists():
+        log.info("%s: prebuilt structure missing, grafting onto bcd.sdf ...", mod["id"])
+        bmh.build_modification(mod["id"], bcd_sdf, mod_sdf.parent)
     guest_like = utils.Guest(
-        key=mod["id"], name=mod["id"], smiles=smiles, mol2=None,
+        key=mod["id"], name=mod["id"], smiles=None, mol2=None,
         net_charge=net_charge, charge_method="bcc",
-        fluorine_policy="standard", exp_dg=None,
+        fluorine_policy="strict" if mod.get("fluorophilic") else "standard",
+        exp_dg=None, structure=str(mod_sdf),
     )
     return parameterize.parameterize_guest(guest_like, out)
-
-
-def _graft_rim(ref_mol2: Path, mod: dict) -> str:
-    """Return a SMILES for β-CD with `per_rim` copies of `graft` on the chosen rim.
-
-    This is a pragmatic RDKit construction. It is deliberately simple: it edits a
-    canonical β-CD SMILES rather than the mol2 geometry, so downstream 3D embedding
-    happens in parameterize.smiles_to_mol2. Verify the resulting connectivity for
-    exotic grafts before trusting the numbers.
-    """
-    from rdkit import Chem
-
-    # canonical β-CD (7 glucose units, α-1,4). Kept as a module constant so the
-    # graft logic has a well-defined starting molecule.
-    bcd = Chem.MolFromMolFile(str(ref_mol2), removeHs=False) if ref_mol2.exists() else None
-    if bcd is None:
-        log.warning("reference host mol2 not found; using built-in β-CD SMILES seed")
-    # For clarity we document the intended transformation rather than emit a
-    # possibly-wrong auto-graft: the caller should supply an explicit modified
-    # SMILES for non-trivial grafts. We raise a helpful error for those.
-    if mod.get("per_rim", 1) > 7 or mod["graft"] not in {"[NH3+]", "C[N+](C)(C)C",
-                                                          "CCCCS(=O)(=O)[O-]", "C"}:
-        raise NotImplementedError(
-            f"auto-graft for {mod['id']} is non-trivial ({mod['per_rim']}x '{mod['graft']}'). "
-            "Provide an explicit `smiles:` for this modification, or a pre-built mol2."
-        )
-    raise NotImplementedError(
-        "substituent auto-builder is a documented integration point: supply an "
-        f"explicit SMILES/mol2 for '{mod['id']}'. See config/modifications.yaml comments."
-    )
 
 
 # --------------------------------------------------------------------------

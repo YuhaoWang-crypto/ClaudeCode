@@ -1,0 +1,10 @@
+{
+  "modification": "mono_6_trimethylammonium",
+  "n_atoms": 149,
+  "formal_charge": 1,
+  "formula": "C45H78NO34+",
+  "n_grafted_atoms": 4,
+  "n_removed_atoms": 2,
+  "sdf": "/home/user/ClaudeCode/cd_pfas_md/data/hosts/modified/mono_6_trimethylammonium.sdf",
+  "review": "geometry unminimized; FEP topology = alchemical graft decouple (see module docstring)"
+}

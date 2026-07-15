@@ -1,0 +1,10 @@
+{
+  "modification": "fluorous_cationic",
+  "n_atoms": 179,
+  "formal_charge": 1,
+  "formula": "C57H81F21NO34+",
+  "n_grafted_atoms": 37,
+  "n_removed_atoms": 5,
+  "sdf": "/home/user/ClaudeCode/cd_pfas_md/data/hosts/modified/fluorous_cationic.sdf",
+  "review": "geometry unminimized; FEP topology = alchemical graft decouple (see module docstring)"
+}
