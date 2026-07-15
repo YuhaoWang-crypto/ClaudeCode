@@ -20,6 +20,21 @@ Cl** crossing the pore was computed along a z reaction coordinate to extract the
 
 ---
 
+## 0. Execution status of the 6-step plan
+
+| Step | Status | Evidence / where |
+|---|---|---|
+| ① Real QE+vdW-DF2 on r≈2.5 Å pore | 🟢 **inputs ready** (run on your compute) | `02_dft/qe/scf_graphene_r25.in`, `scf_mos2_r25.in`, `make_convergence_tests.py` |
+| ② Hydrated-ion PMF (not bare) | ✅ **done locally (surrogate)** + real-DFT input ready | §3.5; `run_hydrated_pmf.py`; `02_dft/build_hydrated_neb.py` |
+| ③ AIMD training frames | ✅ **demonstrated locally** (CHGNet stand-in) | `03_mlp/generate_training_frames.py` → 80 labelled frames |
+| ④ DeePMD/MACE/NequIP bake-off | ✅ **MACE trained locally**; 3 configs ready | §3.6; `mace_config_demo.yaml`, learning curve |
+| ⑤ 100 MPa NEMD flux/rejection | 🟢 **script ready + calibrated + toy-validated** | `04_nemd/in.desalination.lammps` (fz=0.0013 eV/Å), `05_toy_validation/` |
+| ⑥ MoS₂ repeat | 🟡 **partial**: built + Part-B selectivity + QE input done; hydrated PMF pending | §3, `run_hydrated_pmf.py --material MoS2` |
+
+Legend: ✅ real result in this repo · 🟢 ready to run on Modal/HPC · 🟡 partially done.
+
+---
+
 ## 1. What was actually done (both materials, end-to-end)
 
 | Step | Graphene | MoS₂ | Where |
@@ -121,6 +136,22 @@ bare-ion DFT/MLIP scans cannot predict rejection. The client's DFT must use
 **explicitly-hydrated ions** (already the plan in Section 6, step 2). Absolute
 ion barriers need QE + vdW-DF2 with charged supercells and PMF sampling; the
 **Na⁺ 1.35 eV vs H₂O 0 eV** contrast is the trustworthy, qualitative takeaway.
+
+## 3.6 Steps 3–4 result — DFT→data→MLP pipeline trained locally
+
+To prove the training path end-to-end, 80 diverse graphene+water frames were
+built, labelled with CHGNet (standing in for AIMD/QE labels), exported to
+extended-XYZ, and used to train a small **MACE** model on CPU.
+
+![MACE learning curve](results/mace_learning_curve.png)
+
+Training ran to completion with **energy RMSE falling 3202 → 242 meV/atom** over
+29 epochs and a model file written. This is a **plumbing proof, not a converged
+potential** — the tiny CPU model and high-displacement frames leave force RMSE
+high; a production run uses the bigger `mace_config.yaml` (float64, SWA, r_max
+6.0), more/better frames, real QE labels, and a GPU. Swapping the CHGNet labels
+for QE is a one-line change. The same frames feed DeePMD and NequIP for the
+three-way bake-off (`03_mlp/`).
 
 ## 4. Direct answer to the client's question
 
