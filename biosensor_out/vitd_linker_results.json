@@ -1,0 +1,56 @@
+{
+  "system": "vitd",
+  "analyte": "vitamin_D3",
+  "construct": "cpCDL2.2-76_TEM1-BLA-253",
+  "native_ligand_iptm": 0.843,
+  "variants": {
+    "L1G": {
+      "flank": "G",
+      "n": 1,
+      "rigid": false,
+      "len": 402,
+      "ligand_iptm": 0.6224,
+      "binding": 0.6288,
+      "complex_plddt": 0.5689,
+      "ptm": 0.7389,
+      "id": "sab_pred_p8WUA9PINb7U5VO8dBbR",
+      "retention_vs_native": 0.74
+    },
+    "L3G": {
+      "flank": "GGG",
+      "n": 3,
+      "rigid": false,
+      "len": 406,
+      "ligand_iptm": 0.833,
+      "binding": 0.5776,
+      "complex_plddt": 0.6466,
+      "ptm": 0.7978,
+      "id": "sab_pred_6TvjmDNnMmP9l0Y4Pgt8",
+      "retention_vs_native": 0.99
+    },
+    "L5G": {
+      "flank": "GGGGG",
+      "n": 5,
+      "rigid": false,
+      "len": 410,
+      "ligand_iptm": 0.7905,
+      "binding": 0.6376,
+      "complex_plddt": 0.6457,
+      "ptm": 0.8179,
+      "id": "sab_pred_OpsvIJXA8UoRhlsfxi0j",
+      "retention_vs_native": 0.94
+    },
+    "L5S": {
+      "flank": "GSGSG",
+      "n": 5,
+      "rigid": true,
+      "len": 410,
+      "ligand_iptm": 0.904,
+      "binding": 0.6444,
+      "complex_plddt": 0.6689,
+      "ptm": 0.8145,
+      "id": "sab_pred_7pH1MakkCOR2ZOQcOSPg",
+      "retention_vs_native": 1.07
+    }
+  }
+}

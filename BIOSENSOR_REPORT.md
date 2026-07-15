@@ -148,6 +148,35 @@ surface **before** any bench work. A different permutation site (the library has
 
 ---
 
+### 4c. Linker tuning rescues the marginal vitd graft
+
+The paper tunes the receptor↔reporter linker (Gly lengthening lowers dynamic
+range but raises kcat; Ser rigidification reverts it). `tune_linker.py` builds
+that flank-linker series for the vitd primary construct; each was Boltz-validated
+(holo, vitamin D3). Native receptor ligand_iptm = 0.843.
+
+| flank linker | chimera len | ligand_iptm | binding retention | complex pLDDT |
+|---|---|---|---|---|
+| `G` (1 Gly, baseline) | 402 | 0.622 | 0.74 | 0.569 |
+| `GGG` (3 Gly) | 406 | 0.833 | **0.99** | 0.647 |
+| `GGGGG` (5 Gly) | 410 | 0.790 | 0.94 | 0.646 |
+| `GSGSG` (5, Ser-rigidified) | 410 | **0.904** | **1.07** | **0.669** |
+
+**Finding (✅ metric):** the single-glycine graft was structurally **strained**
+for this receptor — lengthening the flank linker to `GGG` lifts binding
+retention 0.74 → 0.99 and fold confidence pLDDT 0.569 → 0.647; the Ser-rigidified
+`GSGSG` is best on every structural metric (retention 1.07). So a one-line linker
+change turns the marginal vitd candidate into a confidently-folded, ligand-
+binding chimera.
+
+**Honest caveat (⚠️):** this is a *structural/binding* rescue, not a measured
+dynamic range. Boltz confidence is orthogonal to the switch DR — indeed the
+paper reports longer Gly linkers *lower* DR even as they raise kcat. So the
+linker that folds/binds best in silico is not automatically the best *switch*;
+the true optimum is a wet-lab balance. What the scan rigorously shows is that
+the OFF-state scaffold's structural plausibility is linker-length-sensitive and
+that 1 Gly was simply too short here.
+
 ## 5. What is rigorous vs. hypothesis (the honesty ledger)
 
 **✅ rigorous**
