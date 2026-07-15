@@ -125,5 +125,21 @@ def test_prefilter_run_surfaces_the_selectivity_insight():
     assert res["ranked_hosts"][0]["fluorophilic"] is True
 
 
+def test_apr_window_k_r0_schedule():
+    from cd_pfas_md.src.run_apr import _window_k_r0
+    manifest = {
+        "restraint_k_dist": 5.0,
+        "attach_percent": [0.0, 40.0, 100.0],
+        "pull_distances_ang": [4.0, 8.0, 12.0],
+    }
+    # attach: force constant ramps with the fraction, guest held at contact (4.0 A)
+    assert _window_k_r0(manifest, "a000") == (0.0, 4.0)
+    assert _window_k_r0(manifest, "a001") == (2.0, 4.0)
+    assert _window_k_r0(manifest, "a002") == (5.0, 4.0)
+    # pull: full force constant, r0 walks out along the axis
+    assert _window_k_r0(manifest, "p000") == (5.0, 4.0)
+    assert _window_k_r0(manifest, "p002") == (5.0, 12.0)
+
+
 if __name__ == "__main__":
     raise SystemExit(pytest.main([__file__, "-q"]))

@@ -20,13 +20,21 @@ modifications parameterized and calibrated.
 
 ## Install
 
+Local (CPU work + tests):
 ```bash
 conda env create -f cd_pfas_md/environment.yml
 conda activate cd-pfas-md
 ```
 
-A **GPU** (or HPC allocation) is needed for the production MD legs. Parameterization,
-setup, analysis, and the unit tests run on CPU.
+**GPU on Modal (recommended for the MD legs):** the whole pipeline runs on
+[modal.com](https://modal.com) with one GPU container per APR window / FEP λ-leg,
+fanned out in parallel. See **[MODAL.md](MODAL.md)**:
+```bash
+pip install modal && modal setup
+modal run cd_pfas_md/modal_app.py::triage             # instant CPU prefilter
+modal run cd_pfas_md/modal_app.py --guest dye --mode smoke   # validate on a T4
+modal run cd_pfas_md/modal_app.py --guest dye --mode prod    # real APR calibration
+```
 
 ## 0) Cheap triage first (no GPU): the heuristic prefilter
 

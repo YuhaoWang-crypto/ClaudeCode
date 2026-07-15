@@ -39,29 +39,53 @@ def _load_system(prmtop_path: Path, cfg: dict):
     return prmtop, system, integ
 
 
-def _apply_window_restraints(system, manifest: dict, window: str):
-    """Attach the pAPRika restraints for this window as OpenMM forces.
+def _window_k_r0(manifest: dict, window: str) -> tuple[float, float]:
+    """Return (k, r0) for the translational restraint in this window.
 
-    In a full run this is delegated to
-        paprika.restraints.openmm.apply_openmm_restraints(system, restraints, window)
-    Here we add the translational distance restraint explicitly so the module is
-    self-contained and testable; orientational restraints follow the same pattern.
+    attach windows (a###): guest held at the bound/contact distance, restraint
+        force constant ramped by the attach fraction.
+    pull windows (p###):   full force constant, r0 = that window's pull distance.
+    """
+    kd = manifest["restraint_k_dist"]
+    bound_r = manifest["pull_distances_ang"][0]     # contact distance == bound state
+    idx = int(window[1:])
+    if window.startswith("a"):
+        frac = manifest["attach_percent"][idx] / 100.0
+        return kd * frac, bound_r
+    return kd, manifest["pull_distances_ang"][idx]
+
+
+def _apply_window_restraints(system, manifest: dict, window: str) -> None:
+    """Add this window's translational APR restraint to the system, in place.
+
+    Uses the anchor atom INDICES resolved by src/anchors.resolve_into_manifest
+    (host-axis centroid <-> guest head atom). Orientational restraints follow the
+    same CustomCentroidBondForce pattern; for a full pAPRika run you may instead
+    delegate to paprika.restraints.openmm.apply_openmm_restraints.
     """
     import openmm
-    from openmm import unit as u
 
-    kd = manifest["restraint_k_dist"]
-    # distance restraint between host-axis centroid and guest anchor.
-    force = openmm.CustomCentroidBondForce(
-        2, "0.5*k*(distance(g1,g2)-r0)^2"
-    )
+    if "host_axis_index" not in manifest or "guest_anchor_index" not in manifest:
+        raise KeyError(
+            "manifest has no resolved anchor indices; run "
+            "anchors.resolve_into_manifest(work) before run_window (Modal does this "
+            "in build_apr_stage)."
+        )
+    k, r0 = _window_k_r0(manifest, window)
+
+    force = openmm.CustomCentroidBondForce(2, "0.5*k*(distance(g1,g2)-r0)^2")
     force.addPerBondParameter("k")
     force.addPerBondParameter("r0")
-    # NOTE: group atom indices must be resolved from the manifest selections
-    # against the prmtop; left as the integration point with run infrastructure.
-    force.addGlobalParameter  # touch to signal intent; groups added at runtime
-    log.info("window %s: translational restraint k=%.1f kcal/mol/A^2 prepared", window, kd)
-    return force
+    force.setUsesPeriodicBoundaryConditions(True)
+    g1 = force.addGroup([int(i) for i in manifest["host_axis_index"]])
+    g2 = force.addGroup([int(manifest["guest_anchor_index"])])
+    # k in kcal/mol/A^2 -> OpenMM kJ/mol/nm^2 ; r0 in A -> nm
+    k_omm = k * 4.184 * 100.0
+    r0_omm = r0 * 0.1
+    force.addBond([g1, g2], [k_omm, r0_omm])
+    system.addForce(force)
+    log.info("window %s: translational restraint k=%.1f kcal/mol/A^2, r0=%.1f A",
+             window, k, r0)
 
 
 def run_window(work: Path, window: str, cfg: dict) -> Path:
