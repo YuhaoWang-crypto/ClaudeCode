@@ -1,0 +1,91 @@
+{
+  "system": "dfhbi",
+  "role": "validation",
+  "receptor": "mFAP1",
+  "reporter": "TEM1-BLA",
+  "analyte": "DFHBI",
+  "insertion": "TEM1-BLA-253",
+  "n_variants": 7,
+  "all_constructions_valid": true,
+  "variants": [
+    {
+      "name": "cpmFAP1-18_TEM1-BLA-253",
+      "permutation_site": 18,
+      "removed_residue": "E",
+      "length": 383,
+      "receptor_domain_span": [
+        227,
+        347
+      ],
+      "valid": true
+    },
+    {
+      "name": "cpmFAP1-34_TEM1-BLA-253",
+      "permutation_site": 34,
+      "removed_residue": "P",
+      "length": 383,
+      "receptor_domain_span": [
+        227,
+        347
+      ],
+      "valid": true
+    },
+    {
+      "name": "cpmFAP1-46_TEM1-BLA-253",
+      "permutation_site": 46,
+      "removed_residue": "S",
+      "length": 383,
+      "receptor_domain_span": [
+        227,
+        347
+      ],
+      "valid": true
+    },
+    {
+      "name": "cpmFAP1-62_TEM1-BLA-253",
+      "permutation_site": 62,
+      "removed_residue": "D",
+      "length": 383,
+      "receptor_domain_span": [
+        227,
+        347
+      ],
+      "valid": true
+    },
+    {
+      "name": "cpmFAP1-74_TEM1-BLA-253",
+      "permutation_site": 74,
+      "removed_residue": "L",
+      "length": 383,
+      "receptor_domain_span": [
+        227,
+        347
+      ],
+      "valid": true
+    },
+    {
+      "name": "cpmFAP1-88_TEM1-BLA-253",
+      "permutation_site": 88,
+      "removed_residue": "P",
+      "length": 383,
+      "receptor_domain_span": [
+        227,
+        347
+      ],
+      "valid": true
+    },
+    {
+      "name": "cpmFAP1-98_TEM1-BLA-253",
+      "permutation_site": 98,
+      "removed_residue": "S",
+      "length": 383,
+      "receptor_domain_span": [
+        227,
+        347
+      ],
+      "valid": true
+    }
+  ],
+  "primary_construct": "cpmFAP1-62_TEM1-BLA-253",
+  "primary_length": 383
+}

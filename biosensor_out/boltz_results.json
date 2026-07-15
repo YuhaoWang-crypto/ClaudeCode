@@ -1,0 +1,12 @@
+{
+  "model": "boltz-2.1",
+  "note": "Metrics as returned by Boltz-2.1 (single-sequence / empty-MSA mode). structure_confidence, ptm, complex_plddt in [0,1]; ligand_iptm = ligand-protein interface confidence; binding_confidence from ligand_protein_binding_metrics.",
+  "results": {
+    "ctrl_dig":   {"system":"dig","kind":"control","desc":"native DIG10.3 + digoxigenin","id":"sab_pred_rxFLPQSPWmsqPPRN9S8n","structure_confidence":0.6700,"ptm":0.6905,"complex_plddt":0.6582,"ligand_iptm":0.7174,"binding_confidence":0.4635},
+    "dig_holo":   {"system":"dig","kind":"holo","desc":"cpDIG10.3-74_TEM1-BLA-253 + digoxigenin","id":"sab_pred_zkOxgH8Kcii76H0ZStJi","structure_confidence":0.6587,"ptm":0.6741,"complex_plddt":0.6587,"ligand_iptm":0.6586,"binding_confidence":0.4513},
+    "dig_apo":    {"system":"dig","kind":"apo","desc":"cpDIG10.3-74_TEM1-BLA-253 apo","id":"sab_pred_dOE6h3xCd53GiMWaW4fs","structure_confidence":0.6095,"ptm":0.3109,"complex_plddt":0.6841,"ligand_iptm":null,"binding_confidence":null},
+    "ctrl_dfhbi": {"system":"dfhbi","kind":"control","desc":"native mFAP1 + DFHBI","id":"sab_pred_3OItpSVLT2YY4ey6ersD","structure_confidence":0.9604,"ptm":0.9669,"complex_plddt":0.9562,"ligand_iptm":0.9770,"binding_confidence":0.9427},
+    "dfhbi_holo": {"system":"dfhbi","kind":"holo","desc":"cpmFAP1-62_TEM1-BLA-253 + DFHBI","id":"sab_pred_nLMai1NFidyrJHlOSYDq","structure_confidence":0.9369,"ptm":0.7681,"complex_plddt":0.9243,"ligand_iptm":0.9873,"binding_confidence":0.6782},
+    "dfhbi_apo":  {"system":"dfhbi","kind":"apo","desc":"cpmFAP1-62_TEM1-BLA-253 apo","id":"sab_pred_ZaSB169RCcRach1yGRRj","structure_confidence":0.8347,"ptm":0.6381,"complex_plddt":0.8838,"ligand_iptm":null,"binding_confidence":null}
+  }
+}

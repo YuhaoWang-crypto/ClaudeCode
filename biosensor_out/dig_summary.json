@@ -1,0 +1,69 @@
+{
+  "system": "dig",
+  "role": "reproduction",
+  "receptor": "DIG10.3",
+  "reporter": "TEM1-BLA",
+  "analyte": "digoxigenin",
+  "insertion": "TEM1-BLA-253",
+  "n_variants": 5,
+  "all_constructions_valid": true,
+  "variants": [
+    {
+      "name": "cpDIG10.3-36_TEM1-BLA-253",
+      "permutation_site": 36,
+      "removed_residue": "P",
+      "length": 402,
+      "receptor_domain_span": [
+        227,
+        366
+      ],
+      "valid": true
+    },
+    {
+      "name": "cpDIG10.3-58_TEM1-BLA-253",
+      "permutation_site": 58,
+      "removed_residue": "P",
+      "length": 402,
+      "receptor_domain_span": [
+        227,
+        366
+      ],
+      "valid": true
+    },
+    {
+      "name": "cpDIG10.3-74_TEM1-BLA-253",
+      "permutation_site": 74,
+      "removed_residue": "A",
+      "length": 402,
+      "receptor_domain_span": [
+        227,
+        366
+      ],
+      "valid": true
+    },
+    {
+      "name": "cpDIG10.3-92_TEM1-BLA-253",
+      "permutation_site": 92,
+      "removed_residue": "S",
+      "length": 402,
+      "receptor_domain_span": [
+        227,
+        366
+      ],
+      "valid": true
+    },
+    {
+      "name": "cpDIG10.3-110_TEM1-BLA-253",
+      "permutation_site": 110,
+      "removed_residue": "Q",
+      "length": 402,
+      "receptor_domain_span": [
+        227,
+        366
+      ],
+      "valid": true
+    }
+  ],
+  "primary_construct": "cpDIG10.3-74_TEM1-BLA-253",
+  "primary_length": 402
+}

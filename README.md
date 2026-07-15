@@ -41,3 +41,34 @@ python3 -m grn_pipeline.m1_symmetry   # or any single module
 Figures are written to `figures/`. A full write-up with numbers, rigour
 labels, and the interpretation (including the Lyapunov-exponent biomarker
 question) is in [`REPORT.md`](REPORT.md).
+
+---
+
+## Second reproduction — ML-receptor allosteric biosensors (`biosensor_pipeline/`)
+
+A separate, self-contained reproduction of Guo, Baker & Alexandrov, *Artificial
+allosteric protein switches with machine-learning-designed receptors*
+(**Nature Biotechnology** 2026, doi:10.1038/s41587-026-03081-9), packaged as the
+[`allosteric-biosensor`](.claude/skills/allosteric-biosensor/) skill.
+
+The paper builds single-component biosensors by **circularly permuting** a small
+ML/de-novo ligand-binding domain and **inserting** it into a loop of a reporter
+enzyme (TEM-1 β-lactamase, loop 253). `biosensor_pipeline/` reproduces the design
+half **deterministically** (exact sequence surgery, round-trip verified) and
+validates constructs **in silico** with **Boltz-2.1** structure+binding prediction.
+
+- **Reproduction** — digoxigenin sensor (DIG10.3 receptor → TEM-1).
+- **Validation on a different analyte** — the fluorogen **DFHBI** (mFAP1 β-barrel
+  receptor → TEM-1); structurally unrelated fold, same recipe.
+- **Rigorous findings (✅):** after circular permutation + insertion the receptor
+  retains **92–101%** of native ligand-interface confidence, and the TEM-1
+  catalytic constellation stays within **0.5 Å** of native — the reporter active
+  site is preserved. Full honesty ledger in
+  [`BIOSENSOR_REPORT.md`](BIOSENSOR_REPORT.md).
+
+```bash
+pip install biotite numpy matplotlib
+python3 -m biosensor_pipeline.run_repro      # deterministic design (offline) ✅
+python3 -m biosensor_pipeline.test_design    # reproducibility + correctness tests
+python3 -m biosensor_pipeline.analyze_boltz  # in-silico validation from Boltz results
+```

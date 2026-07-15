@@ -1,0 +1,11 @@
+{
+  "model": "boltz-2.1",
+  "predictions": {
+    "ctrl_dig":   {"id": "sab_pred_rxFLPQSPWmsqPPRN9S8n", "kind": "control", "system": "dig",   "desc": "native DIG10.3 + digoxigenin", "len": 131},
+    "ctrl_dfhbi": {"id": "sab_pred_3OItpSVLT2YY4ey6ersD", "kind": "control", "system": "dfhbi", "desc": "native mFAP1 + DFHBI", "len": 112},
+    "dig_holo":   {"id": "sab_pred_zkOxgH8Kcii76H0ZStJi", "kind": "holo",    "system": "dig",   "desc": "cpDIG10.3-74_TEM1-BLA-253 + digoxigenin", "len": 402},
+    "dfhbi_holo": {"id": "sab_pred_nLMai1NFidyrJHlOSYDq", "kind": "holo",    "system": "dfhbi", "desc": "cpmFAP1-62_TEM1-BLA-253 + DFHBI", "len": 383},
+    "dig_apo":    {"id": "sab_pred_dOE6h3xCd53GiMWaW4fs", "kind": "apo",     "system": "dig",   "desc": "cpDIG10.3-74_TEM1-BLA-253 apo", "len": 402},
+    "dfhbi_apo":  {"id": "sab_pred_ZaSB169RCcRach1yGRRj", "kind": "apo",     "system": "dfhbi", "desc": "cpmFAP1-62_TEM1-BLA-253 apo", "len": 383}
+  }
+}
