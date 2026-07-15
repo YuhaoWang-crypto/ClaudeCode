@@ -1,0 +1,201 @@
+<p><!--
+QBlastInfoBegin
+	Status=READY
+QBlastInfoEnd
+--><p>
+<PRE>
+
+BLASTP 2.17.0+
+Reference: Stephen F. Altschul, Thomas L. Madden, Alejandro
+A. Schaffer, Jinghui Zhang, Zheng Zhang, Webb Miller, and
+David J. Lipman (1997), "Gapped BLAST and PSI-BLAST: a new
+generation of protein database search programs", Nucleic
+Acids Res. 25:3389-3402.
+
+
+Reference for compositional score matrix adjustment: Stephen
+F. Altschul, John C. Wootton, E. Michael Gertz, Richa
+Agarwala, Aleksandr Morgulis, Alejandro A. Schaffer, and
+Yi-Kuo Yu (2005) "Protein database searches using
+compositionally adjusted substitution matrices", FEBS J.
+272:5101-5109.
+
+
+RID: 5E01KU80014
+
+
+Database: All non-redundant GenBank CDS
+translations+PDB+SwissProt+PIR+PRF excluding environmental samples
+from WGS projects
+           1,121,032,108 sequences; 423,153,523,265 total letters
+Query= 
+Length=337
+
+
+                                                                   Score     E     Max
+Sequences producing significant alignments:                       (Bits)  Value  Ident
+
+XP_005544164.1 alpha-taxilin isoform X2 [Macaca fascicularis]      682     0.0    100%      
+XP_007977781.1 alpha-taxilin isoform X1 [Chlorocebus sabaeus]      681     0.0    100%      
+NP_001363786.1 alpha-taxilin isoform 1 [Homo sapiens]              681     0.0    100%      
+XP_050651125.1 alpha-taxilin [Macaca thibetana thibetana]          681     0.0    100%      
+XP_054320701.1 alpha-taxilin [Pongo pygmaeus]                      681     0.0    100%      
+XP_003828188.1 alpha-taxilin isoform X3 [Pan paniscus]             681     0.0    100%      
+XP_015294564.1 alpha-taxilin isoform X1 [Macaca fascicularis]      680     0.0    100%      
+XP_032015958.1 alpha-taxilin [Hylobates moloch]                    680     0.0    100%      
+XP_004025403.1 alpha-taxilin isoform X2 [Gorilla gorilla gorilla]  680     0.0    100%      
+XP_055246594.1 alpha-taxilin isoform X1 [Gorilla gorilla gorilla]  680     0.0    100%      
+XP_011810833.1 PREDICTED: alpha-taxilin [Colobus angolensis pa...  680     0.0    100%      
+XP_023075116.1 alpha-taxilin isoform X2 [Piliocolobus tephrosc...  680     0.0    100%      
+XP_054521118.1 alpha-taxilin isoform X3 [Pan troglodytes]          680     0.0    100%      
+NP_001363787.1 alpha-taxilin isoform 2 [Homo sapiens]              680     0.0    100%      
+XP_024104865.2 alpha-taxilin isoform X4 [Pongo abelii]             680     0.0    100%      
+
+ALIGNMENTS
+>XP_005544164.1 alpha-taxilin isoform X2 [Macaca fascicularis]
+ XP_011761517.1 alpha-taxilin isoform X2 [Macaca nemestrina]
+ XP_014989415.1 alpha-taxilin isoform X2 [Macaca mulatta]
+ EHH14553.1 hypothetical protein EGK_00498 [Macaca mulatta]
+ EHH61951.1 hypothetical protein EGM_20114 [Macaca fascicularis]
+Length=546
+
+ Score = 682 bits (1759),  Expect = 0.0, Method: Compositional matrix adjust.
+ Identities = 337/337 (100%), Positives = 337/337 (100%), Gaps = 0/337 (0%)
+
+Query  1    MKLLQKKQSQLVQEKDHLRGEHSKAVLARSKLESLCRELQRHNRSLKEEGVQRAREEEEK  60
+            MKLLQKKQSQLVQEKDHLRGEHSKAVLARSKLESLCRELQRHNRSLKEEGVQRAREEEEK
+Sbjct  210  MKLLQKKQSQLVQEKDHLRGEHSKAVLARSKLESLCRELQRHNRSLKEEGVQRAREEEEK  269
+
+Query  61   RKEVTSHFQVTLNDIQLQMEQHNERNSKLRQENMELAERLKKLIEQYELREEHIDKVFKH  120
+            RKEVTSHFQVTLNDIQLQMEQHNERNSKLRQENMELAERLKKLIEQYELREEHIDKVFKH
+Sbjct  270  RKEVTSHFQVTLNDIQLQMEQHNERNSKLRQENMELAERLKKLIEQYELREEHIDKVFKH  329
+
+Query  121  KDLQQQLVDAKLQQAQEMLKEAEERHQREKDFLLKEAVESQRMCELMKQQETHLKQQLAL  180
+            KDLQQQLVDAKLQQAQEMLKEAEERHQREKDFLLKEAVESQRMCELMKQQETHLKQQLAL
+Sbjct  330  KDLQQQLVDAKLQQAQEMLKEAEERHQREKDFLLKEAVESQRMCELMKQQETHLKQQLAL  389
+
+Query  181  YTEKFEEFQNTLSKSSEVFTTFKQEMEKMTKKIKKLEKETTMYRSRWESSNKALLEMAEE  240
+            YTEKFEEFQNTLSKSSEVFTTFKQEMEKMTKKIKKLEKETTMYRSRWESSNKALLEMAEE
+Sbjct  390  YTEKFEEFQNTLSKSSEVFTTFKQEMEKMTKKIKKLEKETTMYRSRWESSNKALLEMAEE  449
+
+Query  241  KTVRDKELEGLQVKIQRLEKLCRALQTERNDLNKRVQDLSAGGQGSLTDSGPERRPEGPG  300
+            KTVRDKELEGLQVKIQRLEKLCRALQTERNDLNKRVQDLSAGGQGSLTDSGPERRPEGPG
+Sbjct  450  KTVRDKELEGLQVKIQRLEKLCRALQTERNDLNKRVQDLSAGGQGSLTDSGPERRPEGPG  509
+
+Query  301  AQAPSSPRVTEAPCYPGAPSTEASGQTGPQEPTSARA  337
+            AQAPSSPRVTEAPCYPGAPSTEASGQTGPQEPTSARA
+Sbjct  510  AQAPSSPRVTEAPCYPGAPSTEASGQTGPQEPTSARA  546
+
+
+>XP_007977781.1 alpha-taxilin isoform X1 [Chlorocebus sabaeus]
+Length=546
+
+ Score = 681 bits (1756),  Expect = 0.0, Method: Compositional matrix adjust.
+ Identities = 337/337 (100%), Positives = 337/337 (100%), Gaps = 0/337 (0%)
+
+Query  1    MKLLQKKQSQLVQEKDHLRGEHSKAVLARSKLESLCRELQRHNRSLKEEGVQRAREEEEK  60
+            MKLLQKKQSQLVQEKDHLRGEHSKAVLARSKLESLCRELQRHNRSLKEEGVQRAREEEEK
+Sbjct  210  MKLLQKKQSQLVQEKDHLRGEHSKAVLARSKLESLCRELQRHNRSLKEEGVQRAREEEEK  269
+
+Query  61   RKEVTSHFQVTLNDIQLQMEQHNERNSKLRQENMELAERLKKLIEQYELREEHIDKVFKH  120
+            RKEVTSHFQVTLNDIQLQMEQHNERNSKLRQENMELAERLKKLIEQYELREEHIDKVFKH
+Sbjct  270  RKEVTSHFQVTLNDIQLQMEQHNERNSKLRQENMELAERLKKLIEQYELREEHIDKVFKH  329
+
+Query  121  KDLQQQLVDAKLQQAQEMLKEAEERHQREKDFLLKEAVESQRMCELMKQQETHLKQQLAL  180
+            KDLQQQLVDAKLQQAQEMLKEAEERHQREKDFLLKEAVESQRMCELMKQQETHLKQQLAL
+Sbjct  330  KDLQQQLVDAKLQQAQEMLKEAEERHQREKDFLLKEAVESQRMCELMKQQETHLKQQLAL  389
+
+Query  181  YTEKFEEFQNTLSKSSEVFTTFKQEMEKMTKKIKKLEKETTMYRSRWESSNKALLEMAEE  240
+            YTEKFEEFQNTLSKSSEVFTTFKQEMEKMTKKIKKLEKETTMYRSRWESSNKALLEMAEE
+Sbjct  390  YTEKFEEFQNTLSKSSEVFTTFKQEMEKMTKKIKKLEKETTMYRSRWESSNKALLEMAEE  449
+
+Query  241  KTVRDKELEGLQVKIQRLEKLCRALQTERNDLNKRVQDLSAGGQGSLTDSGPERRPEGPG  300
+            KTVRDKELEGLQVKIQRLEKLCRALQTERNDLNKRVQDLSAGGQGSLTDSGPERRPEGPG
+Sbjct  450  KTVRDKELEGLQVKIQRLEKLCRALQTERNDLNKRVQDLSAGGQGSLTDSGPERRPEGPG  509
+
+Query  301  AQAPSSPRVTEAPCYPGAPSTEASGQTGPQEPTSARA  337
+            AQAPSSPRVTEAPCYPGAPSTEASGQTGPQEPTSARA
+Sbjct  510  AQAPSSPRVTEAPCYPGAPSTEASGQTGPQEPTSARA  546
+
+
+>NP_001363786.1 alpha-taxilin isoform 1 [Homo sapiens]
+ NP_787048.1 alpha-taxilin isoform 1 [Homo sapiens]
+ P40222.3 RecName: Full=Alpha-taxilin [Homo sapiens]
+ AIC53369.1 TXLNA, partial [synthetic construct]
+ SJX42062.1 unnamed protein product, partial [Human ORFeome Gateway entry 
+vector]
+ AAI03824.1 Taxilin alpha [Homo sapiens]
+ AAI03825.1 Taxilin alpha [Homo sapiens]
+ AAO42465.1 taxilin [Homo sapiens]
+Length=546
+
+ Score = 681 bits (1756),  Expect = 0.0, Method: Compositional matrix adjust.
+ Identities = 337/337 (100%), Positives = 337/337 (100%), Gaps = 0/337 (0%)
+
+Query  1    MKLLQKKQSQLVQEKDHLRGEHSKAVLARSKLESLCRELQRHNRSLKEEGVQRAREEEEK  60
+            MKLLQKKQSQLVQEKDHLRGEHSKAVLARSKLESLCRELQRHNRSLKEEGVQRAREEEEK
+Sbjct  210  MKLLQKKQSQLVQEKDHLRGEHSKAVLARSKLESLCRELQRHNRSLKEEGVQRAREEEEK  269
+
+Query  61   RKEVTSHFQVTLNDIQLQMEQHNERNSKLRQENMELAERLKKLIEQYELREEHIDKVFKH  120
+            RKEVTSHFQVTLNDIQLQMEQHNERNSKLRQENMELAERLKKLIEQYELREEHIDKVFKH
+Sbjct  270  RKEVTSHFQVTLNDIQLQMEQHNERNSKLRQENMELAERLKKLIEQYELREEHIDKVFKH  329
+
+Query  121  KDLQQQLVDAKLQQAQEMLKEAEERHQREKDFLLKEAVESQRMCELMKQQETHLKQQLAL  180
+            KDLQQQLVDAKLQQAQEMLKEAEERHQREKDFLLKEAVESQRMCELMKQQETHLKQQLAL
+Sbjct  330  KDLQQQLVDAKLQQAQEMLKEAEERHQREKDFLLKEAVESQRMCELMKQQETHLKQQLAL  389
+
+Query  181  YTEKFEEFQNTLSKSSEVFTTFKQEMEKMTKKIKKLEKETTMYRSRWESSNKALLEMAEE  240
+            YTEKFEEFQNTLSKSSEVFTTFKQEMEKMTKKIKKLEKETTMYRSRWESSNKALLEMAEE
+Sbjct  390  YTEKFEEFQNTLSKSSEVFTTFKQEMEKMTKKIKKLEKETTMYRSRWESSNKALLEMAEE  449
+
+Query  241  KTVRDKELEGLQVKIQRLEKLCRALQTERNDLNKRVQDLSAGGQGSLTDSGPERRPEGPG  300
+            KTVRDKELEGLQVKIQRLEKLCRALQTERNDLNKRVQDLSAGGQGSLTDSGPERRPEGPG
+Sbjct  450  KTVRDKELEGLQVKIQRLEKLCRALQTERNDLNKRVQDLSAGGQGSLTDSGPERRPEGPG  509
+
+Query  301  AQAPSSPRVTEAPCYPGAPSTEASGQTGPQEPTSARA  337
+            AQAPSSPRVTEAPCYPGAPSTEASGQTGPQEPTSARA
+Sbjct  510  AQAPSSPRVTEAPCYPGAPSTEASGQTGPQEPTSARA  546
+
+
+  Database: All non-redundant GenBank CDS translations+PDB+SwissProt+PIR+PRF
+excluding environmental samples from WGS projects
+    Posted date:  Jul 12, 2026  5:08 AM
+  Number of letters in database: 423,153,523,265
+  Number of sequences in database:  1,121,032,108
+
+Lambda      K        H
+   0.309    0.124    0.329 
+Gapped
+Lambda      K        H
+   0.267   0.0410    0.140 
+Matrix: BLOSUM62
+Gap Penalties: Existence: 11, Extension: 1
+Number of Sequences: 1121032108
+Number of Hits to DB: 39394465
+Number of extensions: 57223
+Number of successful extensions: 14156
+Number of sequences better than 100: 800
+Number of HSP's better than 100 without gapping: 0
+Number of HSP's gapped: 11193
+Number of HSP's successfully gapped: 813
+Length of query: 337
+Length of database: 423153523265
+Length adjustment: 169
+Effective length of query: 168
+Effective length of database: 233699097013
+Effective search space: 39261448298184
+Effective search space used: 39261448298184
+T: 20
+A: 40
+X1: 16 (7.1 bits)
+X2: 38 (14.6 bits)
+X3: 64 (24.7 bits)
+S1: 42 (20.8 bits)
+S2: 89 (38.9 bits)
+ka-blk-alpha gapped: 1.9
+ka-blk-alpha ungapped: 0.7916
+ka-blk-alpha_v gapped: 42.6028
+ka-blk-alpha_v ungapped: 4.96466
+ka-blk-sigma gapped: 43.6362
+
+
