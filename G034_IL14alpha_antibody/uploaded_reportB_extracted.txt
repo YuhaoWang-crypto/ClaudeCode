@@ -1,0 +1,147 @@
+G034 — TXLNA / IL-14α Multi-Modal Drug Discovery Report
+Cross-modality strategy for Sjögren's Disease, Rheumatoid Arthritis, and SLE — antibody, siRNA/ASO, PROTAC, LYTAC
+July 15, 2026 | Prepared for Yuhao Wang
+1. Executive Summary
+TXLNA (α-taxilin, alias IL-14α, UniProt P40222, 546 aa) is a coiled-coil vesicle-tethering protein that binds the cytoplasmic tails of syntaxin-1A/3/4. It has been re-identified as a novel autoimmune target in Sjögren's disease (pSS), rheumatoid arthritis (RA), and SLE via multiple lines of evidence: (i) IL-14α transgenic mice develop a full pSS phenotype; (ii) α-taxilin is elevated in RA plasma (AUC 0.97 vs healthy controls) and its knockdown reduces pro-inflammatory TLR-2/4 in fibroblast-like synoviocytes; (iii) Open Targets independent PPI data validates the historical taxilin-syntaxin mechanism (STX3/4/1A all score ≥0.98). 
+This project delivered a comprehensive four-axis drug discovery portfolio, all designed to be orthogonal to the EXPIRED US7622574 patent (the only dedicated TXLNA therapeutic patent granted, covering only 3 short 21-nt DNP-modified oligonucleotides). No other blocking patents were identified.
+
+Deliverables:
+• Axis 1 (Antibody): 4 differentiated antibody epitopes + 4 immunogen peptides + de novo binder pipeline + developability/humanization protocol; IL-14R hypothesis analysis (5 candidate frameworks) with refocus recommendation.
+• Axis 2 (Mechanism): Open Targets validated PPI network (106 partners), pSS scRNA analysis (GSE252724, n=5 patients), Human Protein Atlas cross-check.
+• Axis 3 (siRNA/ASO): 25 siRNA + 15 gapmer ASO candidates, 100% paralog-specific, 100% miRBase-safe, 100% differentiated from US7622574.
+• Axis 4 (Structure & Modality): 6 Cys ranked by covalent binder potential (C245 primary, C373 secondary); LYTAC AbTAC concept for extracellular pool; covalent PROTAC 8-step pipeline.
+2. Target Biology & Mechanism
+2.1 Identity and structure
+TXLNA (P40222) is a 546-residue cytosolic protein with three regions: N-terminal α1 domain (aa 1-210), central coiled-coil (aa 211-460), and C-terminal Pro/Ser-rich tail (aa 461-546). It forms parallel homodimers via its coiled-coil and interacts with syntaxin C-terminal helices via the same region. It contains 6 cysteines (C87, C193, C245, C373, C471, C523); four fall within the user's original construct (aa 210-546).
+Figure 1. TXLNA protein map
+2.2 IL-14α / hM-BCGF identity
+α-Taxilin (TXLNA) was independently identified in the 1990s as "IL-14α" (Ambrus et al.) — a 60 kDa high-molecular-weight B-cell growth factor secreted by activated T cells, and in transgenic mice it drives a full pSS-like phenotype (Shen 2006, J Immunol; Shen 2009, Clin Immunol). Sarkar et al. (2020) detected α-taxilin in RA plasma by ELISA and Western blot, elevated over osteoarthritis, SLE, and healthy controls, correlating with ACPA and DAS scores. This establishes an extracellular pool as the targetable therapeutic entity in autoimmune disease.
+2.3 Protein-protein interaction network
+Open Targets STRING+IntAct high-quality PPI query identified 106 unique partners. The top 3 (STX3 0.99, STX4 0.985, STX1A 0.981) all validate the historical taxilin-syntaxin binding (Nogami 2003). Novel immune leads include TBK1 (0.77), NMI (0.72), TNIP1 (0.72, SLE GWAS locus). None of the top 30 partners are classical single-pass surface receptors — consistent with TXLNA being an intracellular protein.
+Figure 3. TXLNA protein-protein interaction network
+2.4 Single-cell expression in pSS labial gland
+GSE252724 (Xu et al. 2024, PMID 38777379) profiled 32,742 CD45+ immune cells from labial gland biopsies and PBMC of 5 pSS patients. TXLNA expression was near background (median 0, fraction positive 0.22% in biopsy vs 1.24% in PBMC), with PBMC significantly higher than biopsy (Wilcoxon p=2.5e-6). This is consistent with an INTRACELLULAR / low-abundance transcript in resting immune cells. Critical limitation: GSE252724 lacks fibroblasts, epithelial cells, and stromal cells — precluding tests of the Sarkar 2024 stromal α-taxilin hypothesis in the salivary gland.
+Figure 4. TXLNA expression per cell type in pSS
+3. Patent Landscape & Freedom-to-Operate
+3.1 US7622574 (the only dedicated TXLNA patent)
+US7622574 (Ambrus et al., "Compositions and methods for detecting and treating autoimmune disorders", issued 2009) is the only granted therapeutic patent dedicated to TXLNA / IL-14α. Its status is now EXPIRED (Fee Related / Ceased on the assignee filings). It contains only 7 narrow claims covering three specific 21-nucleotide DNP-modified antisense oligonucleotides (SEQ ID NOs: 1-3), corresponding to a 63-nt zone in TXLNA mRNA (approximately nt 728-901 with buffer). There are NO antibody claims, NO generic siRNA/ASO claims, NO PROTAC/LYTAC claims.
+3.2 Broader landscape
+Adjacent patents (WO2024056809A1 CAR-T mesothelin panel; US20230295180 degrader universe; WO2017147196 CRISPR knock-out panels) mention TXLNA only within gene panels — no blocking claims. Commercial research reagents include Invitrogen PA5-149030 (immunogen aa 1-162) and PA5-119453 (immunogen aa 328-531), which are polyclonal reagents without therapeutic FTO impact. TXLNA is a THERAPEUTIC PATENT ORPHAN with essentially full freedom-to-operate for antibody, siRNA/ASO, PROTAC, and LYTAC modalities.
+4. Antibody Portfolio
+4.1 Line A — Anti-IL-14α (anti-TXLNA) direct binder
+Four antibody epitopes (G034-EPI-A/B/C/D) were designed using a specificity-weighted structural score: combined_score = pLDDT × relative SASA × (1 − max paralog 15-mer identity) × 100. The scoring integrates AlphaFold structural confidence, surface exposure (Tien 2013 max side-chain SASA), and specificity against TXLNB (Q8N3L3) + TXLNG (Q9NUQ3) paralog sequences via a sliding 15-mer identity scan.
+All four epitopes lie OUTSIDE the US7622574 mAb 1C6/1F2 zone (aa 493-523). Immunogen peptides are provided in the consolidated FASTA file; C-terminal or internal cysteines enable SMCC/MBS conjugation to KLH carrier protein.
+4.2 De novo binder design
+A two-target de novo binder pipeline is outlined:
+• Primary: G034-EPI-C (aa 358-384) — highest pLDDT (97.7), contains C373 for covalent tethering.
+• Secondary: G034-EPI-B (aa 58-98) — best specificity (33% paralog identity), contains C87 for ADC.
+The pipeline uses RFdiffusion (200 backbones) → ProteinMPNN (8 sequences/backbone) → AlphaFold-Multimer filter (iPTM≥0.80) → paralog counter-selection (reject iPTM>0.5 vs TXLNB/TXLNG) → developability screen. Expected yield: 10-20 candidates per epitope for wet-lab validation.
+4.3 Line B — IL-14 receptor: hypothesis-driven analysis
+No IL-14 receptor has been biochemically identified in >30 years of literature. Analysis of the top 30 TXLNA PPI partners against UniProt subcellular locations confirmed that none are classical single-pass surface receptors with extracellular domains. Five candidate frameworks were structured:
+• H1 — Syntaxin family (STX3/4/1A) via non-canonical outside-in signaling: STRUCTURALLY IMPLAUSIBLE as classical receptor (type IV membrane topology puts binding surface on cytoplasmic side).
+• H2 — TLR2/TLR4 as DAMP receptors for extracellular α-taxilin: MOST TESTABLE, consistent with Sarkar 2020 knockdown-induced TLR2/4 reduction in RA fibroblasts.
+• H3 — Gαs-coupled GPCR (accounts for cAMP rise from Ambrus historical): SPECULATIVE.
+• H4 — Cross-reactivity with IL-6R/IL-4R/IL-21R/BAFF-R: UNLIKELY.
+• H5 — Novel orphan receptor requiring BioID discovery: REQUIRES DE NOVO SCREEN.
+
+Recommendation: refocus Line B on "anti-extracellular-α-taxilin depletion" (mechanism-agnostic) rather than "anti-IL-14R" (target unknown), leveraging the same G034-EPI-A/B/C/D epitopes.
+4.4 In silico developability liabilities
+Chemical liability scan of the 4 epitope peptides identified: G034-EPI-A has 1 asparagine-glycine (NG) deamidation motif at position N8-G9 in TXLNA (flag for antibody sequence-based avoidance); G034-EPI-B/C/D are chemically clean. A 6-phase developability + humanization pipeline was documented (sequence liability → structural → MHC-II immunogenicity → humanization → polyspecificity → PK).
+5. siRNA / ASO Portfolio
+TXLNA mRNA (RefSeq NM_175852.4, 4,865 nt) was systematically enumerated for siRNA (19-mer duplex) and antisense oligonucleotide (20-mer gapmer) candidates. FTO-safe regions (5' UTR nt 1-134, N-terminal CDS nt 135-727, Central-C-terminal CDS nt 902-1775, 3' UTR nt 1776-4865) total 4,691 nt or 96.4% of the mRNA, excluding a 174-nt buffered patent zone (US7622574 SEQ 1-3 mapped to nt 728-901). Design rules: Reynolds thermodynamic asymmetry, Ui-Tei rules, no immunostim motifs, GC 30-52% (siRNA) / 40-60% (ASO), Wallace Tm 55-75°C (ASO).
+Figure 2. siRNA/ASO landscape
+5.1 Safety filters
+• Paralog specificity: no 15-nt exact match against TXLNB (XM_054354391.1, 4,235 nt) or TXLNG (NM_001168683.2, 3,966 nt) — 100% TXLNA-specific.
+• miRBase safety: no antisense seed (positions 2-8, 7 nt) matching any of 2,094 human mature miRNA seeds — 100% miRNA-safe.
+• Patent differentiation: 0 candidates overlap the US7622574 patent zone (nt 778-851).
+5.2 Candidate distribution
+
+Recommended lead chemistry: 2'-O-methyl + 2'-fluoro base modifications with phosphorothioate linkages for siRNA; 5-10-5 MOE-DNA-MOE gapmer for ASO. Delivery: GalNAc conjugation for hepatocyte targeting (Alnylam); LNP-encapsulation for immune tissue distribution.
+6. Structure, Covalent Anchors & Degrader Concepts
+6.1 ChEMBL druggability check
+ChEMBL target CHEMBL6066423 (Alpha-taxilin, Homo sapiens SINGLE PROTEIN) has only ONE recorded activity: CHEMBL5653589 at Kd 3,538 nM (3.5 μM), pChEMBL 5.45. This was a kinobead pull-down off-target hit from NVP-BHG712 EPH kinase inhibitor regioisomer characterization (ChemMedChem 2018, PMID 29928781), not a genuine chemical starting point. This confirms TXLNA has no established small-molecule chemical matter, motivating alternative modalities (siRNA/ASO, degrader, LYTAC).
+6.2 Cysteine covalent anchor analysis
+Six cysteines were characterized from AlphaFold structure P40222 with per-residue pLDDT and side-chain SASA (FreeSASA + Tien 2013 normalization). Combined score = pLDDT × relative side-chain SASA.
+
+C245 is the primary covalent anchor: highest structural confidence in the user construct (pLDDT 97), moderate exposure (60%), neighbored by L241/L244/L248 hydrophobic groove suitable for fragment SAR. C373 is the secondary anchor with equivalent structural quality and K377 nearby lowering the thiol pKa.
+6.3 Covalent PROTAC 8-step pipeline
+The proposed pipeline: (1) design Cys-focused fragment library targeting C245/C373; (2) LC-MS intact-protein screen at 10-100 μM, 4h; (3) select hits with >50% adduct formation; (4) SAR expansion (100 analogs/hit); (5) selectivity screen against TXLNB/TXLNG + proteome-wide chemoproteomics; (6) attach CRBN ligand via PEG-2-6 linker; (7) ternary complex prediction (Boltz-2); (8) cellular DC50 optimization (target <100 nM). CRBN is preferred over VHL for immune-cell autoimmune indications due to broader expression.
+6.4 LYTAC AbTAC concept
+Prerequisite: Sarkar 2020 documented an extracellular TXLNA pool in RA plasma. If this is confirmed in pSS serum, an AbTAC (antibody-based lysosomal targeting chimera) is the most tractable modality: anti-TXLNA IgG (G034-EPI-B or G034-EPI-C) conjugated to trivalent GalNAc → hepatocyte ASGPR-mediated clearance. Alternative: anti-CI-M6PR bispecific IgG for universal cell-type reach. If the extracellular pool is absent in pSS, fall back to Axis 3 (siRNA/ASO).
+7. Strategic Recommendations & Next Steps
+7.1 Portfolio prioritization
+7.2 Immediate experimental priorities
+1. Validate pSS serum TXLNA elevation via ELISA (n=30 patients + 30 controls) — decides LYTAC feasibility.
+2. Confirm top 5 siRNA and top 3 ASO candidates in vitro (HepG2 or RA-FLS): 80% knockdown, dose-response.
+3. Immunize mice with G034-EPI-B peptide-KLH conjugate; ELISA titer + hybridoma screen against native TXLNA.
+4. Solve TXLNA-Fab crystal structure or cryo-EM once lead antibody available; validate epitope binding mode.
+5. Assess IL-14α transgenic mouse pSS model (Shen 2009) accessibility and endpoint standardization.
+7.3 Known limitations of this analysis
+• scRNA dataset (GSE252724) is CD45+ sorted immune cells only — cannot test stromal/epithelial TXLNA hypothesis (Sarkar 2024). A pSS labial gland scRNA dataset with stromal fraction is needed.
+• The 'IL-14R' identity remains unproven — Line B is currently a hypothesis space, not a target.
+• Small-molecule ligandability is limited to Cys warheads; no traditional pocket-based inhibitor is possible on current data.
+• De novo binder pipeline requires GPU HPC (RFdiffusion, ProteinMPNN, AlphaFold3) — not yet executed.
+• AlphaGenome and Evo2 regulatory analyses (Step 4 in original plan) were deprioritized in favor of the direct design deliverables.
+8. Key References
+Ambrus JL Jr, Kishimoto TK et al. Molecular cloning and characterization of high molecular weight B cell growth factor. Ambrus/Fauci group (early 1990s series).
+Shen L, Zhang C, Wang T et al. Development of Autoimmunity in IL-14α-Transgenic Mice. J Immunol 2006; 177(8):5676. doi:10.4049/jimmunol.177.8.5676. PMID 17015758.
+Shen L, Suresh L, Li H et al. IL-14α, the nexus for primary Sjögren's disease in mice and humans. Clin Immunol 2009; doi:10.1016/j.clim.2008.10.006.
+Sarkar A et al. Alpha-Taxilin as a novel plasma biomarker for rheumatoid arthritis. Reference from Bioinf Biol Insights RA proteomic series.
+Nogami S, Satoh S, Nakano M et al. Taxilin; a novel syntaxin-binding protein that is involved in Ca2+-dependent exocytosis in neuroendocrine cells. J Biol Chem 2003; doi:10.1074/jbc.271.30.17961.
+Xu R, Li Y et al. Multi-tissue immune landscape of primary Sjögren's syndrome. GSE252724, 2024; PMID 38777379.
+US Patent 7,622,574. Ambrus JL et al. Compositions and methods for detecting and treating autoimmune disorders. Issued 2009; status: EXPIRED (Fee Related/Ceased).
+Higashi S, Shirataki H. Physicochemical Properties of α-Taxilin as a Putative Tethering Factor. 2022; parallel homodimer coiled-coil characterization.
+Ahn G, Banik SM et al. LYTACs that engage the asialoglycoprotein receptor for targeted protein degradation. Nat Chem Biol 2021.
+AlphaFold: P40222 model v6 (2024). https://alphafold.ebi.ac.uk/entry/P40222
+9. Delivered Files
+• G034_all_sequences.fasta — consolidated: TXLNA canonical + user construct + 4 epitopes + 4 KLH-ready immunogens + 25 siRNA + 15 ASO
+• G034_workbook.xlsx — executive summary + all axis CSVs
+• Fig1_TXLNA_protein_map.png/.svg — domain and Cys/epitope map
+• Fig2_siRNA_ASO_landscape.png/.svg — 25 siRNA + 15 ASO positions on mRNA
+• Fig3_PPI_network.png/.svg — top 20 TXLNA protein interactors
+• Fig4_scRNA_TXLNA_by_celltype.png/.svg — pSS expression by cell type × tissue
+• axis1_antibody/ — G034_antibody_epitopes.json, G034_denovo_binder_outline.json, G034_developability_humanization.json, G034_IL14R_hypothesis_analysis.json, G034_immunogen_peptides.csv, TXLNA_partners_subcellular_location.csv
+• axis1_patents/ — patent_landscape.json
+• axis2_mechanism/ — TXLNA_partners_annotated.csv, opentargets_TXLNA_all_interactions.csv, opentargets_summary.json
+• axis2_scrna/ — GSE252724_TXLNA_findings.json, GSE252724_TXLNA_by_celltype_tissue.csv, HPA_TXLNA_expression.json
+• axis3_nucleic/ — G034_siRNA_candidates.csv/.fasta, G034_ASO_candidates.csv/.fasta, G034_siRNA_ASO_design_summary.json, US7622574_deep_analysis.json, US7622574_mRNA_mapping.json
+• axis4_structure/ — cys_analysis.json, G034_cys_covalent_strategy.json, chembl_verification.json, chembl_TXLNA_activities.csv, G034_LYTAC_concept.json, G034_covalent_PROTAC_concept.json
+
+===== TABLE 1 =====
+Modality | Blocking IP | G034 Position
+Antibody | None (US7622574 mAb 1C6/1F2 aa 493-523 expired) | 4 novel epitopes designed outside aa 493-523
+siRNA/ASO | None generic; US7622574 covers only 63-nt zone (expired) | 25+15 candidates covering 96.4% of mRNA outside patent zone
+PROTAC/covalent | None | Ranked 6 Cys anchors; C245/C373 primary
+LYTAC | None | AbTAC concept (anti-TXLNA IgG + GalNAc)
+
+===== TABLE 2 =====
+Epitope | aa range | Sequence | pLDDT | Paralog id (max) | Feature
+G034-EPI-A | 1-17 | MKNQDKKNGAAKQSNPK | 57.6 | 33% | N-term disordered; NG@8
+G034-EPI-B | 58-98 | AQARTAQSGALRDVSEELSRQLEDILSTYCVDNNQGGPGED | 64.7 | 33% | α1 divergent; native C87 for ADC
+G034-EPI-C | 358-384 | EKDFLLKEAVESQRMCELMKQQETHLK | 97.7 | 53% | Highest structural quality; C373
+G034-EPI-D | 425-445 | LEKETTMYRSRWESSNKALLE | 88.3 | 47% | Coiled-coil; Trp435 anchor
+
+===== TABLE 3 =====
+Region | mRNA nt range | siRNA count | ASO count
+5' UTR | 1-134 | 0 | 0
+N-terminal CDS | 135-727 | 5 | 4
+Central-C-term CDS | 902-1775 | 8 | 5
+3' UTR | 1776-4865 | 12 | 6
+TOTAL | 4,691 nt (96.4%) | 25 | 15
+
+===== TABLE 4 =====
+Cys | In user construct | pLDDT | Rel SASA (%) | Combined score | Warhead recommendation
+C193 | No | 87.1 | 72.6 | 63.22 | Mild acrylamide (K194 lowers pKa)
+C245 | Yes | 97.0 | 60.0 | 58.24 | Standard acrylamide (primary anchor)
+C373 | Yes | 97.0 | 58.2 | 56.47 | Standard acrylamide (secondary anchor)
+C87 | No | 72.1 | 70.1 | 50.51 | Standard acrylamide
+C471 | Yes | 62.8 | 67.1 | 42.15 | Standard acrylamide
+C523 | Yes | 41.8 | 90.7 | 37.88 | Low priority (disordered)
+
+===== TABLE 5 =====
+Priority | Modality | Rationale | Time to POC | Risk
+P1 | siRNA/ASO (Axis 3) | Immediate; complete design; strong precedent (Alnylam GalNAc) | 12-18 mo | Low-Medium
+P2 | Anti-TXLNA antibody Line A (Axis 1) | 4 epitopes ready; hybridoma or de novo path | 18-24 mo | Medium (unknown efficacy)
+P3 | AbTAC / LYTAC (Axis 4) | Antibody + GalNAc; conditional on pSS extracellular pool | 24-30 mo | Medium-High
+P4 | Covalent PROTAC (Axis 4) | Novel target; requires fragment screening first | 36-48 mo | High
+P5 | IL-14R antibody Line B | No biological target confirmed; requires discovery | 36+ mo | Very high (target ID)
