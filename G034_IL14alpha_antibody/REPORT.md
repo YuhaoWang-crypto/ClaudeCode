@@ -198,6 +198,67 @@ TXLNA / α‑taxilin 在 HGNC / UniProt / ChEMBL / Reactome 中同时携带以�
 
 ---
 
+## 7. 补充问答:成药前提的实验证据 + 若为胞内的替代模态(答甲方追问)
+
+### 7.1 「可溶性 IL‑14α 存在且可被中和」是否有实验证据?
+
+**有,且比预期更强——但存在一条未闭合的分子鸿沟。**
+
+**✅ 支持证据:**
+
+| 证据 | 内容 | 意义 |
+|---|---|---|
+| Ambrus 1985(PMID 3876402,*J Immunol*) | 从 **T 细胞系上清中把 HMW‑BCGF 纯化到均一**,证明**特异结合活化 B 细胞**,并制得**能从上清吸附/中和其活性的单抗** | **最硬证据**:存在一个分泌的、有受体、可被抗体中和的 B 细胞生长因子 |
+| Blood 1995(PMID 7795235) | 侵袭性 B 细胞淋巴瘤患者**积液中检出 IL‑14/HMW‑BCGF** | 体液天然存在 |
+| Liang 2021(DOI [10.3389/fimmu.2021.673658](https://doi.org/10.3389/fimmu.2021.673658));anti‑PD‑1 2023 | pSS **血清** IL‑14α 升高;肿瘤血清 IL‑14α 预测 PD‑1 疗效 | 循环可检测 |
+
+**⚠️ 未闭合的鸿沟(须如实告知):**
+
+- 1993 年最初的 IL‑14 cDNA(PMID 8327514,PNAS)预测的是**带信号肽、53 kDa、3 个 N‑糖位点的分泌蛋白**;而如今等同为 IL‑14α 的 **α‑taxilin(P40222,~62 kDa,无信号肽、无 N‑糖)不是显然同一分子**。"纯化到的分泌活性 = taxilin 基因产物"这一分子桥**从未用现代方法干净证明**。
+- α‑taxilin **无经典信号肽** → 若分泌则为**非经典/无前导分泌**(如 IL‑1/FGF2/HMGB1),或血清中只是**细胞裂解被动释放**;二者未被实验区分。
+- **IL‑14 受体从未被分子克隆鉴定。**
+
+> 结论:做阻断抗体的**必要前提有正向实验证据**(存在可中和的分泌活性),但"该活性 = α‑taxilin 本身"及其分泌途径**尚未证明**——正是 §6.2 Gate‑1(IP‑质谱定性 + 中和 assay)要闭合的缺口。
+
+### 7.2 阻断 α‑taxilin 与「什么」结合?(靶点相互作用)
+
+本抗原 210–546 = C 端 coiled‑coil,**正是相互作用结构域**。
+
+- **胞内(运输轴,已验证):** 结合**游离 Syntaxin‑1A/3A/4A**(不结合已成 SNARE 者)→ **阻止 t‑SNARE 形成、抑制胞吐**(Reactome "TXLNA(IL14)binds syntaxin3");另结合 **SNX4**(转铁蛋白受体循环)、**NAC 复合体**、**聚合微管蛋白**。❗方向性:α‑taxilin 是胞吐**抑制因子**,清除它反而**增强**胞吐。
+- **胞外(IL‑14 轴,治疗真正想打):** 结合**活化 B 细胞上推定的"IL‑14R"**(功能上有、分子身份未鉴定)。抗体的目标 = 阻断 **IL‑14α ↔ IL‑14R** → 抑制 MZB/B 细胞过度活化。
+
+### 7.3 若确为胞内——更适合的"阻断/清除"模态
+
+| 形式 | 适配 | 说明 |
+|---|---|---|
+| **ASO / siRNA(敲低)** | ⭐⭐⭐ 首选 | 对无口袋胞内靶点最现实;❗ **US7622574 已 claim "IL‑14α RNA inhibitors"**,需新序列/化学/递送差异化;难点=淋巴/腺体递送 |
+| **降解剂 PROTAC / 分子胶** | ⭐⭐ | 见 7.4;机制契合但卡在无配体 |
+| **胞内抗体 intrabody / VHH / scFv** | ⭐ | 需基因/mRNA 递送,近研究工具 |
+| **多肽 / 订书肽 PPI 抑制剂** | ⭐ | 模拟 syntaxin 螺旋竞争阻断;入胞是瓶颈 |
+
+> 对胞内靶点,**"降解/敲低"优于"阻断界面"**:一次清除全部功能。现实首选 **ASO/siRNA**。
+
+### 7.4 PROTAC 思路可行性
+
+**方向正确(胞质蛋白→泛素‑蛋白酶体就在旁边,正好解决抗体的区室难题;催化性、清除全部功能),但当前被"无配体"卡死:**
+
+- ❗ ChEMBL 全库 α‑taxilin **仅 1 条小分子结合记录**:激酶抑制剂样化合物,**Kd ≈ 3.5 µM**,且只是 **kinobead 化学蛋白组学脱靶命中**(ChemMedChem 2018)——弱、偶然、未优化,非可成药口袋。
+- 结构 = 长 coiled‑coil + 无序 PRD,典型小分子"难成药"拓扑。
+- → **现成 PROTAC 不可行,须先做苗头发现。**
+
+**具体抓手:** 抗原含 **4 个 Cys(P40222:C245 / C373 / C471 / C523,后者在 C 端)** → **针对 Cys 的共价片段筛选**可获共价锚点 → 搭 **共价 PROTAC / 共价分子胶**;3.5 µM kinobead 命中亦为弱起点。属真实但**数年级**化学工程。
+**其他降解:** 分子胶(更难理性设计);若存在分泌/表面池 → **LYTAC / 抗体基降解剂**可**复用本项目要做的抗体**降解胞外 α‑taxilin(收敛点)。
+
+### 7.5 模态选择取决于 Gate‑1
+
+| Gate‑1 结果 | 推荐模态 |
+|---|---|
+| 可溶 IL‑14α 真实且可中和 | ✅ **阻断抗体**(甲方首选)→ 打 IL‑14α–IL‑14R 轴 |
+| 纯胞内 | **ASO/siRNA(主)** 或 **降解剂(需配体 campaign)**;抗体无效 |
+| 不确定/对冲 | 抗体 + 敲低**双轨** |
+
+---
+
 ## 需求对照表(逐条回应甲方 4 点 + 背景)
 
 | 甲方需求 | 本报告回应 | 位置 |
@@ -225,6 +286,11 @@ TXLNA / α‑taxilin 在 HGNC / UniProt / ChEMBL / Reactome 中同时携带以�
 9. 专利 **WO2021091706A1** — *Treatment for Sjögren's syndrome*(Google Patents,内容待进一步核实)。
 10. UniProt **P40222**(Alpha‑taxilin);ChEMBL Target **CHEMBL6066423**;基因 **TXLNA**(HGNC:30685)。
 11. Frontiers in Dental Medicine 2025 — Salivary gland transcriptomic analysis and immunophenotyping in the IL‑14α transgenic mouse model of Sjögren's disease(2025 年最新,确认 IL‑14αTG 仍为标准模型,尚无直接抗 IL‑14α 疗法)。
+12. Ambrus JL, *et al.* Purification to homogeneity of a high molecular weight human B cell growth factor; specific binding to activated B cells; and a monoclonal antibody to the factor. *J Immunol.* 1985. (PMID 3876402) — 分泌 BCGF 纯化 + 中和抗体的直接实验证据。
+13. Ford R, Ambrus JL, *et al.* Identification of a cDNA for a human high‑molecular‑weight B‑cell growth factor (proposed IL‑14). *PNAS.* 1993;90:6330. (PMID 8327514) — 最初预测"带信号肽 53 kDa 分泌蛋白"的 cDNA(与现 α‑taxilin 分子身份存在鸿沟)。
+14. Ambrus JL, *et al.* Identification of B‑cell growth factors (IL‑14; HMW‑BCGF) in effusion fluids from aggressive B‑cell lymphomas. *Blood.* 1995;86:283. (PMID 7795235) — 体液中检出。
+15. α‑taxilin 的 syntaxin/SNX4 结合:Nogami *et al.* Taxilin, a novel syntaxin‑binding protein (PMID 12558796);α‑Taxilin–SNX4 与转铁蛋白受体循环,*PLoS One* 2014,DOI [10.1371/journal.pone.0093509](https://doi.org/10.1371/journal.pone.0093509)(PMID 24690921);Reactome R‑HSA‑9014052 "TXLNA(IL14)binds syntaxin3"。
+16. 小分子可配体性:ChEMBL Target CHEMBL6066423 仅 1 条结合记录(molecule CHEMBL5653589,Kd≈3.5 µM,kinobead 脱靶,*ChemMedChem* 2018)——提示 α‑taxilin 目前无可成药口袋,PROTAC 需先做共价苗头发现(靶向 C245/C373/C471/C523)。
 
 ---
 
