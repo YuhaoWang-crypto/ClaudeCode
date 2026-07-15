@@ -3,6 +3,26 @@
 The whole point of the recipe is that it is analyte-agnostic. Plugging in a new
 detection target is a data edit in `systems.py`, not new logic.
 
+## Mining a receptor for an analyte you only have as a molecule
+
+If you have an **analyte** but no receptor yet, mine one:
+
+- **Tier A — PDB co-crystal (automated).** `discover.py` takes the analyte SMILES,
+  resolves matching PDB ligand codes (RCSB chemical search), finds every entry
+  containing that ligand, and returns the protein chains ranked **short-first**
+  (the paper's minimal-binder principle):
+  ```bash
+  python3 -m biosensor_pipeline.discover "<analyte SMILES>" --name myanalyte --max-len 200
+  ```
+  Pick a small, single-domain candidate, then follow the steps below with its PDB.
+- **Tier B — known binder (ChEMBL / literature).** Query the analyte's protein
+  targets / antibodies / anticalins; use a deposited or published binder sequence.
+- **Tier C — de-novo design.** No natural binder → design one with Boltz protein
+  design / RFdiffusion, then treat the designed sequence as the receptor.
+
+Discovery returns *real data* (✅); whether a mined receptor yields a working
+switch is ⚠️ until Boltz-validated and, ultimately, assayed at the bench.
+
 ## Add a new receptor (and its analyte)
 
 1. Get a sequence. Prefer a deposited structure (RCSB FASTA:
