@@ -36,6 +36,31 @@ Always run the **prefilter first** to triage, then **calibrate with APR** on a
 system with a known Ka, then **screen with FEP** — never trust the screen before
 the APR calibration is GOOD (<1 kcal/mol) or FAIR (<2).
 
+## Execution status — what has actually run (be honest about this)
+
+✅ **Verified here on CPU — reproducible right now, backed by the test suite:**
+```bash
+python -m cd_pfas_md.src.prefilter            # ranked displacement table (8 hosts)
+python -m pytest cd_pfas_md/tests -q          # 16 passed
+python -m cd_pfas_md.src.build_modified_host  # 3 modified hosts, exact formulas/charges
+```
+- Prefilter produces the displacement ranking (fluorophilic hosts FAVORABLE,
+  symmetric-charge hosts UNFAVORABLE — the selectivity insight).
+- The APR restraint force + unit conversion is validated against the real OpenMM
+  API to machine precision (1e-16); the graft stoichiometry against RDKit.
+- Host = real PDB CCD β-CD (147 atoms); 3 modified hosts built + shipped.
+
+⏳ **Wired + smoke-testable, first GPU run on Modal still to be confirmed:**
+`::check`, `--mode smoke`, `--mode prod`, `::screen`. Everything CPU-side of the
+MD engine (config, parameterization plumbing, window/λ build, anchor resolution,
+restraint construction, analysis aggregation) is validated; the GPU legs are the
+one thing that needs a real Modal run to sign off. Paste the first `check`+`smoke`
+logs to close this out.
+
+**Rule for this skill: never label an APR/FEP number as trustworthy until (a) the
+Modal smoke run is green and (b) the APR calibration vs the measured Ka is
+GOOD/FAIR.** The CPU tier and all structure/parameter prep are the proven core.
+
 ## The key design insight the prefilter encodes
 
 PFAS and a sulfonated dye are *both* −1 anions, so a symmetric cationic rim
