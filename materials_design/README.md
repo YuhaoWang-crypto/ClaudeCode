@@ -154,3 +154,33 @@ BCS 图像下，需要**离域巡游电子**在费米面附近通过**电声耦�
 ### 方法
 两个 demo 都用 `subst_dope_modal.py`（FairChem UMA `uma-s-1p1`，Modal A10G）：变胞弛豫→晶格/能量/键长，
 小胞再加 Γ 最大声子与 Birch-Murnaghan 体模量（EOS）。绘图 `plot_demos.py`。
+
+---
+
+# 进阶：替换/掺杂的性质模拟验证（① 同族替换 ② Er掺杂局域结构 ③ 真实DFT）
+
+## ① 同族金属替换 → 性质变化（`step2_substitution.png`）
+UMA 计算两组同族替换的性质变化：
+- **量子点 CsPbBr₃ → CsSnBr₃（Pb→Sn，第14族）**：晶格 6.00→5.90 Å（Sn 小→收缩，实验 5.87→5.80），
+  最大声子 77→50 cm⁻¹（软化），体模量 ~19 GPa（卤化物钙钛矿都很软）。实验带隙 2.3→1.75 eV（Sn 更窄，UMA 不直接给）。
+- **超导 Nb₃Sn → V₃Si（A15，Nb→V, Sn→Si）**：晶格 5.34→4.69 Å（收缩，实验 5.29→4.72），
+  声子 178→322 cm⁻¹（更轻原子→更硬），体模量 153→186 GPa（更刚）。两者均 A15 超导（Tc 18.3/17.1 K）。
+
+## ② Er³⁺ 掺杂 CaF₂ 局域结构（`er_local_structure.txt`）
+Er³⁺→Ca²⁺ 替换 + 近邻间隙 F⁻ 电荷补偿，2×2×2 超胞（Ca₃₁ErF₆₅，97 原子）UMA 弛豫：
+- Er 变成 **9 配位**（Ca²⁺ 为 8 配位）——多出的 1 个来自补偿间隙 F⁻
+- **Er–F 键收缩到 2.27–2.40 Å**（Ca–F 为 2.40 Å），最近 4 个 Er–F 被间隙 F⁻ 拉到 2.274 Å
+- 这正是经典的 **CaF₂:RE³⁺ 电荷补偿中心**（上转换激活剂掺杂的真实局域结构）。
+  注：NaYF₄:Er 是 Er³⁺→Y³⁺ **等价**替换（无需电荷补偿），所以是更理想的上转换基质。
+
+## ③ 真实 DFT 能带/态密度看 n 型能级（`step3_dft_dos.png`）
+用 **GPAW/PBE**（平面波，Modal 16 核）算 SrTiO₃ 掺杂前后 DOS：
+- **纯 SrTiO₃**：绝缘体，**带隙 1.68 eV**（PBE 值，实验 3.2 eV，PBE 低估是已知系统误差），E_F 落在带隙中，
+  价带顶=O 2p，导带底=Ti 3d。
+- **Nb:SrTiO₃ (x=0.25)**：E_F 上移，**导带底（Ti 3d/Nb 4d）被 Nb 供的电子部分填充**（E_F 处 DOS≠0），
+  即**简并 n 型**——这正是 SrTiO₃ 从绝缘体变导体/稀释超导体的电子结构本质。UMA 只能给出结构/能量/声子，
+  这一步用真正的 DFT 补上了电子结构（能级/DOS）。
+
+### 方法
+- ① ② 用 `subst_dope_modal.py`（FairChem UMA `uma-s-1p1`）；③ 用 `gpaw_dos_modal.py`（GPAW/PBE，nbands=200% 以覆盖导带）。
+- 绘图：`plot_step2_subst.py`、`plot_dos.py`。数据：`step_subdope_results.json`、`er_results.json`、`dft_results.json`。

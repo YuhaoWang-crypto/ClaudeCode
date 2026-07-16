@@ -11,23 +11,36 @@ fig,ax=plt.subplots(1,2,figsize=(14,5.4),sharey=False)
 fig.suptitle("③ 真实 DFT (GPAW/PBE) 态密度: 掺杂前后 n 型能级 (能量相对 E_F, 虚线=E_F)",
              fontsize=13,fontweight="bold")
 
-def draw(a,r,title):
+def draw(a,r,title,doped=False):
     e=np.array(r["energy_rel_Ef"]); tot=np.array(r["dos_total"])
-    a.fill_between(e,tot,color=OI["skyblue"],alpha=0.45,label="总 DOS")
+    a.fill_between(e,tot,color=OI["skyblue"],alpha=0.4,label="总 DOS")
     a.plot(e,tot,color=OI["blue"],lw=1)
     for key,lab,c in [("pdos_Ti_d","Ti 3d",OI["vermillion"]),
                       ("pdos_Nb_d","Nb 4d",OI["green"]),
                       ("pdos_O_p","O 2p",OI["orange"])]:
         if r.get(key):
             a.plot(e,np.array(r[key]),lw=1.8,color=c,label=lab)
-    a.axvline(0,color=OI["black"],ls="--",lw=1.5)
-    a.text(0.1,a.get_ylim()[1]*0.9 if a.get_ylim()[1]>0 else 1,"E_F",fontsize=10)
+    a.axvline(0,color=OI["black"],ls="--",lw=1.6)
+    ymax=max(tot.max(),0.1); a.set_ylim(0,ymax*1.15)
+    a.text(0.15,ymax*1.02,"E_F",fontsize=11,fontweight="bold")
+    if doped:
+        # 高亮 E_F 处被填充的导带电子 (n型载流子)
+        occ=(e<=0)&(e>-1.5)
+        a.fill_between(e[occ],tot[occ],color=OI["green"],alpha=0.5)
+        idx=np.argmin(np.abs(e-0)); dos_ef=tot[idx]
+        a.annotate(f"E_F 处 DOS≠0 → 金属/n型\n(导带被 Nb 供的电子部分填充)",
+                   xy=(0,dos_ef),xytext=(-6.5,ymax*0.6),fontsize=9,color=OI["green"],
+                   arrowprops=dict(arrowstyle="->",color=OI["green"]))
+    else:
+        a.annotate("带隙 (E_F 在其中→绝缘)",xy=(0.7,0.05),xytext=(1.5,ymax*0.5),
+                   fontsize=9,color=OI["vermillion"],
+                   arrowprops=dict(arrowstyle="->",color=OI["vermillion"]))
     a.set_xlim(-8,6); a.set_xlabel("能量 E − E_F (eV)"); a.set_ylabel("态密度 (states/eV)")
-    a.set_title(title); a.legend(fontsize=9,loc="upper left")
+    a.set_title(title,fontsize=11); a.legend(fontsize=9,loc="upper right")
 
 pure=res.get("pure_SrTiO3"); dope=res.get("Nbdoped_SrTiO3_2x2x1")
 draw(ax[0],pure,"(左) 纯 SrTiO₃: 绝缘体, E_F 落在带隙中 (导带底=Ti 3d, 价带顶=O 2p)")
-draw(ax[1],dope,"(右) Nb:SrTiO₃ (x=0.25): E_F 进入导带 → n 型 (每个Nb供1电子)")
+draw(ax[1],dope,"(右) Nb:SrTiO₃ (x=0.25): E_F 进入导带 → n 型 (每个Nb供1电子)",doped=True)
 fig.tight_layout(rect=[0,0,1,0.94])
 fig.savefig("/home/user/ClaudeCode/materials_design/step3_dft_dos.png",bbox_inches="tight")
 print("saved step3_dft_dos.png")

@@ -30,6 +30,8 @@ def dos(cif: str, name: str, kpts: int = 4, ecut: float = 400.0) -> dict:
 
     atoms = ase_read(io.StringIO(cif), format="cif")
     calc = GPAW(mode=PW(ecut), xc="PBE", kpts=(kpts, kpts, kpts),
+                nbands="200%",  # 足够空带以覆盖导带(否则金属体系 E_F 浮在已算带之上)
+                convergence={"bands": -10},
                 occupations=FermiDirac(0.05), txt="/tmp/gpaw.txt")
     atoms.calc = calc
     atoms.get_potential_energy()
@@ -76,5 +78,5 @@ def main(candidates: str, out: str):
         results.append(dos.remote(cif, name, kpts=kp))
     json.dump(results, open(out, "w"))
     for r in results:
-        print(f"{r['name']}: Ef={r['E_fermi']:.3f}  gap={r['homo_lumo_gap']} eV")
+        print(f"{r['name']}: Ef={r['E_fermi']:.3f}  gap_est={r.get('dos_gap_est')} eV")
     print("已保存:", out)
