@@ -90,11 +90,11 @@ def analyze(cifs: dict, model: str = "uma-s-1p1", task: str = "omat",
 
 
 @app.local_entrypoint()
-def main(candidates: str, out: str):
+def main(candidates: str, out: str, eos: bool = True):
     import json
     cifs = json.load(open(candidates))
-    print(f"提交 {len(cifs)} 个结构...")
-    res = analyze.remote(cifs)
+    print(f"提交 {len(cifs)} 个结构... (eos={eos})")
+    res = analyze.remote(cifs, do_eos=eos)
     for r in res:
         print(json.dumps(r, ensure_ascii=False))
     json.dump(res, open(out, "w"), ensure_ascii=False, indent=2)

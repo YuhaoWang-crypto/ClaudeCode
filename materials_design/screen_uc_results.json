@@ -1,0 +1,152 @@
+[
+  {
+    "name": "UC|LiF_rocksalt",
+    "formula": "F4Li4",
+    "n_atoms": 8,
+    "E_per_atom": -4.8207,
+    "lattice_abc": [
+      4.0563,
+      4.0563,
+      4.0563
+    ],
+    "volume_per_atom": 8.3429,
+    "relaxed_cif": "data_image0\n_chemical_formula_structural       Li4F4\n_chemical_formula_sum              \"Li4 F4\"\n_cell_length_a       4.056344395436767\n_cell_length_b       4.056344418935501\n_cell_length_c       4.056344426122196\n_cell_angle_alpha    90.00000002676734\n_cell_angle_beta     89.9999998863987\n_cell_angle_gamma    90.00000003682001\n\n_space_group_name_H-M_alt    \"P 1\"\n_space_group_IT_number       1\n\nloop_\n  _space_group_symop_operation_xyz\n  'x, y, z'\n\nloop_\n  _atom_site_type_symbol\n  _atom_site_label\n  _atom_site_symmetry_multiplicity\n  _atom_site_fract_x\n  _atom_site_fract_y\n  _atom_site_fract_z\n  _atom_site_occupancy\n  Li  Li1       1.0  0.9999999993413553  0.9999999997436702  1.9523402463689124e-09  1.0000\n  Li  Li2       1.0  0.9999999986748876  0.5000000012510889  0.4999999988569928  1.0000\n  Li  Li3       1.0  0.5000000011741583  0.9999999993552986  0.5000000024766033  1.0000\n  Li  Li4       1.0  0.5000000009387384  0.49999999717532095  1.6614482091737408e-09  1.0000\n  F   F1        1.0  0.4999999978833385  0.5000000017776056  0.4999999982731879  1.0000\n  F   F2        1.0  0.49999999971108766  0.9999999999671771  0.9999999980898006  1.0000\n  F   F3        1.0  3.5428476198273285e-10  0.5000000016957613  7.140469848480108e-10  1.0000\n  F   F4        1.0  0.999999999967442  0.9999999980646832  0.49999999877102475  1.0000\n",
+    "min_bond": 2.0282,
+    "phonon_max_cm-1": 451.1
+  },
+  {
+    "name": "UC|NaF_rocksalt",
+    "formula": "F4Na4",
+    "n_atoms": 8,
+    "E_per_atom": -4.2849,
+    "lattice_abc": [
+      4.6984,
+      4.6984,
+      4.6984
+    ],
+    "volume_per_atom": 12.9644,
+    "relaxed_cif": "data_image0\n_chemical_formula_structural       Na4F4\n_chemical_formula_sum              \"Na4 F4\"\n_cell_length_a       4.698377925374615\n_cell_length_b       4.698377913028254\n_cell_length_c       4.6983779509249\n_cell_angle_alpha    89.9999999084279\n_cell_angle_beta     89.99999991823148\n_cell_angle_gamma    90.00000016420019\n\n_space_group_name_H-M_alt    \"P 1\"\n_space_group_IT_number       1\n\nloop_\n  _space_group_symop_operation_xyz\n  'x, y, z'\n\nloop_\n  _atom_site_type_symbol\n  _atom_site_label\n  _atom_site_symmetry_multiplicity\n  _atom_site_fract_x\n  _atom_site_fract_y\n  _atom_site_fract_z\n  _atom_site_occupancy\n  Na  Na1       1.0  0.9999999983377226  0.9999999964644883  1.9762957725281382e-10  1.0000\n  Na  Na2       1.0  0.9999999965820523  0.5000000009112441  0.5000000005800858  1.0000\n  Na  Na3       1.0  0.5000000022416863  0.9999999973627295  0.5000000011384539  1.0000\n  Na  Na4       1.0  0.5000000001306605  0.5000000028620009  0.9999999999710693  1.0000\n  F   F1        1.0  0.5000000032592408  0.4999999991240375  0.4999999986321773  1.0000\n  F   F2        1.0  0.4999999969370456  2.2690701058596876e-10  0.9999999995652796  1.0000\n  F   F3        1.0  1.092904398592719e-09  0.49999999924323  0.9999999994612784  1.0000\n  F   F4        1.0  0.9999999979713633  4.103355613130108e-09  0.4999999991963347  1.0000\n",
+    "min_bond": 2.3492,
+    "phonon_max_cm-1": 277.0
+  },
+  {
+    "name": "UC|KF_rocksalt",
+    "formula": "F4K4",
+    "n_atoms": 8,
+    "E_per_atom": -4.1496,
+    "lattice_abc": [
+      5.4273,
+      5.4273,
+      5.4273
+    ],
+    "volume_per_atom": 19.9835,
+    "relaxed_cif": "data_image0\n_chemical_formula_structural       K4F4\n_chemical_formula_sum              \"K4 F4\"\n_cell_length_a       5.42734215434267\n_cell_length_b       5.427342150726043\n_cell_length_c       5.427342166399026\n_cell_angle_alpha    90.00000003296218\n_cell_angle_beta     89.99999989528294\n_cell_angle_gamma    90.00000001573461\n\n_space_group_name_H-M_alt    \"P 1\"\n_space_group_IT_number       1\n\nloop_\n  _space_group_symop_operation_xyz\n  'x, y, z'\n\nloop_\n  _atom_site_type_symbol\n  _atom_site_label\n  _atom_site_symmetry_multiplicity\n  _atom_site_fract_x\n  _atom_site_fract_y\n  _atom_site_fract_z\n  _atom_site_occupancy\n  K   K1        1.0  4.732466585088614e-09  0.9999999984564033  0.9999999977039878  1.0000\n  K   K2        1.0  3.521723732748386e-09  0.49999999916106436  0.49999999878425805  1.0000\n  K   K3        1.0  0.4999999905834337  0.9999999964119446  0.4999999996598568  1.0000\n  K   K4        1.0  0.49999999889378804  0.5000000019422216  3.4621856409405677e-09  1.0000\n  F   F1        1.0  0.49999999925134697  0.49999999889775576  0.4999999950299474  1.0000\n  F   F2        1.0  0.500000000690541  5.509010601881667e-10  1.3217944618040313e-09  1.0000\n  F   F3        1.0  5.668676066688947e-10  0.49999999608391815  2.7245608071748974e-09  1.0000\n  F   F4        1.0  3.8043969093072796e-09  1.0799057103284428e-08  0.500000000564954  1.0000\n",
+    "min_bond": 2.7137,
+    "phonon_max_cm-1": 192.4
+  },
+  {
+    "name": "UC|RbF_rocksalt",
+    "formula": "F4Rb4",
+    "n_atoms": 8,
+    "E_per_atom": -4.0346,
+    "lattice_abc": [
+      5.7453,
+      5.7453,
+      5.7453
+    ],
+    "volume_per_atom": 23.7055,
+    "relaxed_cif": "data_image0\n_chemical_formula_structural       Rb4F4\n_chemical_formula_sum              \"Rb4 F4\"\n_cell_length_a       5.745303650963231\n_cell_length_b       5.745303652681578\n_cell_length_c       5.745303679841751\n_cell_angle_alpha    89.99999990375005\n_cell_angle_beta     89.99999992026949\n_cell_angle_gamma    89.99999984988786\n\n_space_group_name_H-M_alt    \"P 1\"\n_space_group_IT_number       1\n\nloop_\n  _space_group_symop_operation_xyz\n  'x, y, z'\n\nloop_\n  _atom_site_type_symbol\n  _atom_site_label\n  _atom_site_symmetry_multiplicity\n  _atom_site_fract_x\n  _atom_site_fract_y\n  _atom_site_fract_z\n  _atom_site_occupancy\n  Rb  Rb1       1.0  2.5494994179428676e-10  0.9999999989161147  2.518660228474607e-10  1.0000\n  Rb  Rb2       1.0  1.452567516976725e-09  0.4999999991396671  0.49999999762675174  1.0000\n  Rb  Rb3       1.0  0.49999999935899614  0.9999999994313518  0.5000000009205825  1.0000\n  Rb  Rb4       1.0  0.5000000000743492  0.49999999935334055  0.9999999992465316  1.0000\n  F   F1        1.0  0.5000000012879796  0.50000000154209  0.5000000011479921  1.0000\n  F   F2        1.0  0.4999999993550999  7.952686659925587e-10  0.9999999998538136  1.0000\n  F   F3        1.0  0.999999999776452  0.5000000026581825  1.4979394963731408e-10  1.0000\n  F   F4        1.0  1.2218488025682157e-10  1.530657917066498e-09  0.5000000011620074  1.0000\n",
+    "min_bond": 2.8727,
+    "phonon_max_cm-1": 162.0
+  },
+  {
+    "name": "UC|MgO_rocksalt",
+    "formula": "Mg4O4",
+    "n_atoms": 8,
+    "E_per_atom": -5.9331,
+    "lattice_abc": [
+      4.2594,
+      4.2594,
+      4.2594
+    ],
+    "volume_per_atom": 9.6594,
+    "relaxed_cif": "data_image0\n_chemical_formula_structural       Mg4O4\n_chemical_formula_sum              \"Mg4 O4\"\n_cell_length_a       4.259387047253308\n_cell_length_b       4.259387089741961\n_cell_length_c       4.259387079599458\n_cell_angle_alpha    90.00000015067769\n_cell_angle_beta     89.99999985841026\n_cell_angle_gamma    90.00000003448893\n\n_space_group_name_H-M_alt    \"P 1\"\n_space_group_IT_number       1\n\nloop_\n  _space_group_symop_operation_xyz\n  'x, y, z'\n\nloop_\n  _atom_site_type_symbol\n  _atom_site_label\n  _atom_site_symmetry_multiplicity\n  _atom_site_fract_x\n  _atom_site_fract_y\n  _atom_site_fract_z\n  _atom_site_occupancy\n  Mg  Mg1       1.0  2.5910508445958793e-09  1.6761516344948215e-08  4.8541123115686477e-08  1.0000\n  Mg  Mg2       1.0  1.942105945551965e-10  0.4999999725171689  0.4999999847811144  1.0000\n  Mg  Mg3       1.0  0.4999999994620919  1.5689244871180163e-08  0.4999999861821092  1.0000\n  Mg  Mg4       1.0  0.5000000020353679  0.4999999725840498  6.095842309526872e-09  1.0000\n  O   O1        1.0  0.5000000035787803  0.5000000064188357  0.5000000029853345  1.0000\n  O   O2        1.0  0.49999999826082037  3.879285025746676e-09  0.9999999903050628  1.0000\n  O   O3        1.0  0.9999999990180548  0.5000000095943187  0.999999991048497  1.0000\n  O   O4        1.0  0.9999999983269616  0.9999999987392523  0.4999999891666419  1.0000\n",
+    "min_bond": 2.1297,
+    "phonon_max_cm-1": 525.4
+  },
+  {
+    "name": "UC|CaO_rocksalt",
+    "formula": "Ca4O4",
+    "n_atoms": 8,
+    "E_per_atom": -6.4018,
+    "lattice_abc": [
+      4.8373,
+      4.8373,
+      4.8373
+    ],
+    "volume_per_atom": 14.1486,
+    "relaxed_cif": "data_image0\n_chemical_formula_structural       Ca4O4\n_chemical_formula_sum              \"Ca4 O4\"\n_cell_length_a       4.837278576908311\n_cell_length_b       4.837278431519908\n_cell_length_c       4.837278626115247\n_cell_angle_alpha    89.99999994577891\n_cell_angle_beta     89.99999996077628\n_cell_angle_gamma    90.00000007820994\n\n_space_group_name_H-M_alt    \"P 1\"\n_space_group_IT_number       1\n\nloop_\n  _space_group_symop_operation_xyz\n  'x, y, z'\n\nloop_\n  _atom_site_type_symbol\n  _atom_site_label\n  _atom_site_symmetry_multiplicity\n  _atom_site_fract_x\n  _atom_site_fract_y\n  _atom_site_fract_z\n  _atom_site_occupancy\n  Ca  Ca1       1.0  0.9999999977675457  0.9999999958856425  0.9999999963113262  1.0000\n  Ca  Ca2       1.0  7.040029875176567e-10  0.5000000018749915  0.4999999991405766  1.0000\n  Ca  Ca3       1.0  0.5000000004772143  8.487894618400824e-10  0.5000000062404163  1.0000\n  Ca  Ca4       1.0  0.5000000006408972  0.5000000028570883  5.404621175404234e-10  1.0000\n  O   O1        1.0  0.500000000078213  0.5000000001741234  0.49999999789657856  1.0000\n  O   O2        1.0  0.5000000013483341  0.999999998214976  0.9999999984373341  1.0000\n  O   O3        1.0  0.9999999973753265  0.5000000044626407  2.886836245606267e-09  1.0000\n  O   O4        1.0  0.9999999974646809  0.9999999991641708  0.4999999990703409  1.0000\n",
+    "min_bond": 2.4186,
+    "phonon_max_cm-1": 383.4
+  },
+  {
+    "name": "UC|CaF2_fluorite",
+    "formula": "Ca4F8",
+    "n_atoms": 12,
+    "E_per_atom": -5.7802,
+    "lattice_abc": [
+      5.5148,
+      5.5148,
+      5.5148
+    ],
+    "volume_per_atom": 13.9769,
+    "relaxed_cif": "data_image0\n_chemical_formula_structural       Ca4F8\n_chemical_formula_sum              \"Ca4 F8\"\n_cell_length_a       5.51480919479846\n_cell_length_b       5.514809199184609\n_cell_length_c       5.514809219199765\n_cell_angle_alpha    90.0000008065723\n_cell_angle_beta     90.00000005636443\n_cell_angle_gamma    90.00000059570337\n\n_space_group_name_H-M_alt    \"P 1\"\n_space_group_IT_number       1\n\nloop_\n  _space_group_symop_operation_xyz\n  'x, y, z'\n\nloop_\n  _atom_site_type_symbol\n  _atom_site_label\n  _atom_site_symmetry_multiplicity\n  _atom_site_fract_x\n  _atom_site_fract_y\n  _atom_site_fract_z\n  _atom_site_occupancy\n  Ca  Ca1       1.0  1.1649730442891333e-08  1.0088177498725752e-08  7.922751330612569e-09  1.0000\n  Ca  Ca2       1.0  4.4097307938368415e-09  0.49999999612106066  0.5000000054092576  1.0000\n  Ca  Ca3       1.0  0.49999998313183075  0.9999999864009699  0.5000000057158913  1.0000\n  Ca  Ca4       1.0  0.5000000056759072  0.4999999858762903  2.495059706199011e-08  1.0000\n  F   F1        1.0  0.2500000041206352  0.2500000115618573  0.2500000049526903  1.0000\n  F   F2        1.0  0.7500000059524413  0.2499999985426875  0.24999999771587458  1.0000\n  F   F3        1.0  0.2500000069628911  0.7500000178416807  0.24999999671010154  1.0000\n  F   F4        1.0  0.24999999731019357  0.24999999614023793  0.7500000028558711  1.0000\n  F   F5        1.0  0.7500000027167373  0.7499999955428822  0.24999999217681426  1.0000\n  F   F6        1.0  0.7499999896751286  0.24999998453539513  0.7499999831509472  1.0000\n  F   F7        1.0  0.2500000019177695  0.7500000059653231  0.7500000016510813  1.0000\n  F   F8        1.0  0.7499999878847493  0.7500000174328433  0.7499999774153002  1.0000\n",
+    "min_bond": 2.388,
+    "phonon_max_cm-1": 378.4
+  },
+  {
+    "name": "UC|SrF2_fluorite",
+    "formula": "F8Sr4",
+    "n_atoms": 12,
+    "E_per_atom": -5.6908,
+    "lattice_abc": [
+      5.8634,
+      5.8634,
+      5.8634
+    ],
+    "volume_per_atom": 16.7984,
+    "relaxed_cif": "data_image0\n_chemical_formula_structural       Sr4F8\n_chemical_formula_sum              \"Sr4 F8\"\n_cell_length_a       5.863407426358541\n_cell_length_b       5.863407398934543\n_cell_length_c       5.8634074081154095\n_cell_angle_alpha    90.00000012186261\n_cell_angle_beta     90.00000012972951\n_cell_angle_gamma    90.00000002345082\n\n_space_group_name_H-M_alt    \"P 1\"\n_space_group_IT_number       1\n\nloop_\n  _space_group_symop_operation_xyz\n  'x, y, z'\n\nloop_\n  _atom_site_type_symbol\n  _atom_site_label\n  _atom_site_symmetry_multiplicity\n  _atom_site_fract_x\n  _atom_site_fract_y\n  _atom_site_fract_z\n  _atom_site_occupancy\n  Sr  Sr1       1.0  1.719241236040532e-08  0.9999999885969562  2.0344611056909212e-08  1.0000\n  Sr  Sr2       1.0  1.1525909074969496e-08  0.5000000103040395  0.49999999938162115  1.0000\n  Sr  Sr3       1.0  0.49999999702060255  0.9999999884810393  0.49999999631031833  1.0000\n  Sr  Sr4       1.0  0.5000000026725255  0.5000000036175205  8.625527080372479e-09  1.0000\n  F   F1        1.0  0.2500000041205334  0.24999999252351635  0.24999999030926176  1.0000\n  F   F2        1.0  0.7499999869045679  0.24999998775044177  0.2499999940987709  1.0000\n  F   F3        1.0  0.25000000468174666  0.7500000041219689  0.24999999325739777  1.0000\n  F   F4        1.0  0.25000000447423565  0.24999999826678118  0.7500000078507836  1.0000\n  F   F5        1.0  0.7499999859145742  0.7500000132019307  0.24999999088375002  1.0000\n  F   F6        1.0  0.7499999928650539  0.2499999944021817  0.7500000070838085  1.0000\n  F   F7        1.0  0.25000000356788055  0.7500000117402262  0.7499999958418917  1.0000\n  F   F8        1.0  0.7499999888516592  0.7500000092199046  0.749999995802925  1.0000\n",
+    "min_bond": 2.5389,
+    "phonon_max_cm-1": 340.8
+  },
+  {
+    "name": "UC|BaF2_fluorite",
+    "formula": "Ba4F8",
+    "n_atoms": 12,
+    "E_per_atom": -5.7112,
+    "lattice_abc": [
+      6.2836,
+      6.2836,
+      6.2836
+    ],
+    "volume_per_atom": 20.6754,
+    "relaxed_cif": "data_image0\n_chemical_formula_structural       Ba4F8\n_chemical_formula_sum              \"Ba4 F8\"\n_cell_length_a       6.283644806444256\n_cell_length_b       6.283644826259306\n_cell_length_c       6.283644817403143\n_cell_angle_alpha    90.000000029936\n_cell_angle_beta     90.00000007411546\n_cell_angle_gamma    89.99999994522092\n\n_space_group_name_H-M_alt    \"P 1\"\n_space_group_IT_number       1\n\nloop_\n  _space_group_symop_operation_xyz\n  'x, y, z'\n\nloop_\n  _atom_site_type_symbol\n  _atom_site_label\n  _atom_site_symmetry_multiplicity\n  _atom_site_fract_x\n  _atom_site_fract_y\n  _atom_site_fract_z\n  _atom_site_occupancy\n  Ba  Ba1       1.0  7.788627034170923e-09  8.523449717386214e-09  0.999999994035278  1.0000\n  Ba  Ba2       1.0  1.0121000533750538e-08  0.5000000044288061  0.5000000005278838  1.0000\n  Ba  Ba3       1.0  0.49999998811584256  7.328634052672522e-09  0.5000000069373959  1.0000\n  Ba  Ba4       1.0  0.4999999843447455  0.4999999979724091  1.00532067685207e-08  1.0000\n  F   F1        1.0  0.2500000023602432  0.24999999559497163  0.249999998543183  1.0000\n  F   F2        1.0  0.7500000050883628  0.24999999004432694  0.2499999975418494  1.0000\n  F   F3        1.0  0.250000009053563  0.7499999985142428  0.2499999974086819  1.0000\n  F   F4        1.0  0.2500000050392425  0.24999999312181742  0.7499999999408219  1.0000\n  F   F5        1.0  0.7499999886649544  0.7500000100637674  0.25000000543195083  1.0000\n  F   F6        1.0  0.749999996686307  0.2500000040247977  0.7500000046835975  1.0000\n  F   F7        1.0  0.2500000017864983  0.7499999999395799  0.7499999890472022  1.0000\n  F   F8        1.0  0.7499999987786968  0.7499999903864425  0.7499999991116102  1.0000\n",
+    "min_bond": 2.7209,
+    "phonon_max_cm-1": 306.4
+  },
+  {
+    "name": "UC|TiO2_rutile",
+    "formula": "O4Ti2",
+    "n_atoms": 6,
+    "E_per_atom": -8.9093,
+    "lattice_abc": [
+      4.65,
+      4.65,
+      2.9668
+    ],
+    "volume_per_atom": 10.6915,
+    "relaxed_cif": "data_image0\n_chemical_formula_structural       Ti2O4\n_chemical_formula_sum              \"Ti2 O4\"\n_cell_length_a       4.650012664687385\n_cell_length_b       4.650012828724184\n_cell_length_c       2.9667627946646746\n_cell_angle_alpha    89.99999947397335\n_cell_angle_beta     90.00000036238677\n_cell_angle_gamma    89.99999959818264\n\n_space_group_name_H-M_alt    \"P 1\"\n_space_group_IT_number       1\n\nloop_\n  _space_group_symop_operation_xyz\n  'x, y, z'\n\nloop_\n  _atom_site_type_symbol\n  _atom_site_label\n  _atom_site_symmetry_multiplicity\n  _atom_site_fract_x\n  _atom_site_fract_y\n  _atom_site_fract_z\n  _atom_site_occupancy\n  Ti  Ti1       1.0  1.7910572986101454e-08  4.0825147855996864e-09  0.999999992866233  1.0000\n  Ti  Ti2       1.0  0.49999999531254485  0.49999999951488006  0.5000000225558606  1.0000\n  O   O1        1.0  0.3048935656649937  0.3048935715321102  0.9999999928987399  1.0000\n  O   O2        1.0  0.6951064162145083  0.695106427313129  0.9999999984792312  1.0000\n  O   O3        1.0  0.8048935840813465  0.19510643502978778  0.500000003961379  1.0000\n  O   O4        1.0  0.19510641689168795  0.804893562137983  0.49999999444014026  1.0000\n",
+    "min_bond": 1.9613,
+    "phonon_max_cm-1": 769.3
+  }
+]
