@@ -2,3 +2,6 @@ biotite>=1.6
 numpy>=2.0
 matplotlib>=3.7
 openmm>=8.1        # optional: only for md_entropy.py (MD)
+modal              # optional: run md_entropy on a cloud GPU (modal_app.py)
+openff-toolkit     # optional (conda-forge): ligand FF for production apo/holo MD
+openmmforcefields  # optional (conda-forge): SystemGenerator for MD

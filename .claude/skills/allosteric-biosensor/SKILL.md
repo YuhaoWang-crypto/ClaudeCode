@@ -94,7 +94,9 @@ python3 -m biosensor_pipeline.tune_linker vitd   # flank-linker series -> Boltz 
 
 # 4) MECHANISM / beyond DR — Boltz can't give dynamic range; probe the coupling
 python3 -m biosensor_pipeline.coupling           # apo vs holo active-site ordering (free)
-python3 -m biosensor_pipeline.md_entropy         # OpenMM MD flexibility/entropy (physical)
+python3 -m biosensor_pipeline.md_entropy         # OpenMM MD flexibility/entropy (CPU smoke)
+# 4b) PRODUCTION MD on a cloud GPU (apo/holo ΔS + ligand parameterization):
+modal run biosensor_pipeline/modal_app.py --apo-pdb ... --holo-pdb ... --ligand-sdf ... --smiles ...
 ```
 
 The switch **dynamic range** is kinetic/entropic — no platform computes it
@@ -108,7 +110,7 @@ sites; tag/terminal-mismatch tolerant) · `screen.py` (focused library) ·
 `scoring.py` (✅ geometric metrics + ⚠️ switch proxy) · `boltz_io.py` (payloads) ·
 `discover.py`/`discover_batch.py` (PDB receptor mining, contact-verified) ·
 `tune_linker.py` (linker series) · `analyze_boltz.py` (results → scores) ·
-`coupling.py` (apo/holo active-site ordering) · `md_entropy.py` (OpenMM MD).
+`coupling.py` (apo/holo active-site ordering) · `md_entropy.py` (OpenMM MD, incl. production GPU apo/holo ΔS + ligand FF) · `modal_app.py` (cloud-GPU runner).
 
 ## What is rigorous vs. hypothesis (read this before quoting any number)
 
@@ -156,4 +158,6 @@ the recipe is analyte-agnostic.
 - `reference/adding-a-system.md` — plug in a new receptor/reporter/analyte.
 - `reference/beyond-boltz.md` — computing dynamic range & the readout: what
   QM/MM, MD, FEP/MM-GBSA each give (and why none returns DR directly).
+- `reference/md-gpu-protocol.md` — the production apo/holo MD + ligand
+  parameterization protocol, env, and Modal cloud-GPU quickstart.
 - `assets/system_template.py` — copy-paste skeleton for a new system.
