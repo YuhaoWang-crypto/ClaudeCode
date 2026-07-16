@@ -1,0 +1,47 @@
+[
+  {
+    "name": "CaF2_fluorite",
+    "formula": "Ca4F8",
+    "n_atoms": 12,
+    "E_per_atom": -5.7802,
+    "lattice_abc": [
+      5.5148,
+      5.5148,
+      5.5148
+    ],
+    "volume_per_atom": 13.9769,
+    "min_bond": 2.388,
+    "phonon_max_cm-1": 378.4,
+    "bulk_modulus_GPa": 79.5
+  },
+  {
+    "name": "SrF2_fluorite",
+    "formula": "F8Sr4",
+    "n_atoms": 12,
+    "E_per_atom": -5.6908,
+    "lattice_abc": [
+      5.8634,
+      5.8634,
+      5.8634
+    ],
+    "volume_per_atom": 16.7984,
+    "min_bond": 2.5389,
+    "phonon_max_cm-1": 340.8,
+    "bulk_modulus_GPa": 66.1
+  },
+  {
+    "name": "BaF2_fluorite",
+    "formula": "Ba4F8",
+    "n_atoms": 12,
+    "E_per_atom": -5.7112,
+    "lattice_abc": [
+      6.2836,
+      6.2836,
+      6.2836
+    ],
+    "volume_per_atom": 20.6754,
+    "min_bond": 2.7209,
+    "phonon_max_cm-1": 306.4,
+    "bulk_modulus_GPa": 54.7
+  }
+]

@@ -1,0 +1,54 @@
+[
+  {
+    "name": "SrTiO3_Nb_x0.000_0Nb",
+    "formula": "O24Sr8Ti8",
+    "n_atoms": 40,
+    "E_per_atom": -7.9978,
+    "lattice_abc": [
+      7.8942,
+      7.8942,
+      7.8942
+    ],
+    "volume_per_atom": 12.2991,
+    "min_bond": 1.9736
+  },
+  {
+    "name": "SrTiO3_Nb_x0.125_1Nb",
+    "formula": "NbO24Sr8Ti7",
+    "n_atoms": 40,
+    "E_per_atom": -8.0156,
+    "lattice_abc": [
+      7.9244,
+      7.9244,
+      7.9244
+    ],
+    "volume_per_atom": 12.4407,
+    "min_bond": 1.9639
+  },
+  {
+    "name": "SrTiO3_Nb_x0.250_2Nb",
+    "formula": "Nb2O24Sr8Ti6",
+    "n_atoms": 40,
+    "E_per_atom": -8.0237,
+    "lattice_abc": [
+      7.9737,
+      7.9737,
+      7.9737
+    ],
+    "volume_per_atom": 12.6744,
+    "min_bond": 1.9789
+  },
+  {
+    "name": "SrTiO3_Nb_x0.375_3Nb",
+    "formula": "Nb3O24Sr8Ti5",
+    "n_atoms": 40,
+    "E_per_atom": -8.0395,
+    "lattice_abc": [
+      8.0086,
+      8.0086,
+      8.0086
+    ],
+    "volume_per_atom": 12.8413,
+    "min_bond": 1.9818
+  }
+]
