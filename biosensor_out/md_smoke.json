@@ -1,0 +1,13 @@
+{
+  "model": "dfhbi_apo.cif",
+  "kind": "APO smoke test (UNDER-CONVERGED, infrastructure only)",
+  "ps": 1.0,
+  "n_residues": 383,
+  "rmsf_A": {
+    "min": 0.14,
+    "mean": 0.33,
+    "max": 1.1
+  },
+  "entropy_proxy_nats": -437.61,
+  "note": "\u26a0\ufe0f short CPU run \u2014 proves the OpenMM harness runs and yields a real RMSF/entropy profile. A switch validation needs apo AND holo (ligand parameterized), \u00b5s sampling on GPU, then compare \u0394S and active-site RMSF."
+}

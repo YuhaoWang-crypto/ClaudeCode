@@ -1,0 +1,34 @@
+[
+  {
+    "system": "dfhbi",
+    "analyte": "DFHBI",
+    "apo": {
+      "active_site_mean_plddt": 94.09,
+      "global_mean_plddt": 88.38,
+      "per_residue": {
+        "S70": 92.75,
+        "K73": 97.19,
+        "S130": 92.78,
+        "D131": 95.5,
+        "N132": 94.92,
+        "E166": 91.39
+      }
+    },
+    "holo": {
+      "active_site_mean_plddt": 96.62,
+      "global_mean_plddt": 92.23,
+      "per_residue": {
+        "S70": 95.73,
+        "K73": 98.49,
+        "S130": 95.47,
+        "D131": 97.63,
+        "N132": 96.98,
+        "E166": 95.39
+      }
+    },
+    "delta_active_site_plddt": 2.53,
+    "delta_global_plddt": 3.85,
+    "on_coupling_hint": true,
+    "label": "\u26a0\ufe0f pLDDT ordering is a coupling *hint*, not a dynamic range; confirm with MD (md_entropy.py) and, ultimately, a wet-lab kobs assay."
+  }
+]

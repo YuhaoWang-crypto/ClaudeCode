@@ -295,3 +295,32 @@ until Boltz-validated and, ultimately, assayed.
 `Receptor` (sequence + analyte SMILES + structure-derived loop sites) and/or a
 `Reporter` to `systems.py`; the library build and Boltz validation work unchanged.
 That is the whole point: the recipe is analyte-agnostic.
+
+## 8. Beyond Boltz — dynamic range, readout, and other open-source platforms
+
+Boltz gives a static structure + binding confidence; it does **not** compute the
+**dynamic range** (DR = kobs(+L)/kobs(−L)), which is an emergent kinetic/entropic
+quantity, nor the colorimetric/electrochemical signal (a linear reporter of
+enzyme turnover). No single open-source platform returns DR end-to-end; each
+targets a piece of the chain (full map in `reference/beyond-boltz.md`):
+
+| quantity | open-source tool | feasibility |
+|---|---|---|
+| conformational entropy ΔS(apo→holo) | **OpenMM / GROMACS** MD | tractable; GPU + µs to converge |
+| reporter catalytic barrier ΔG‡ (kcat) | **QM/MM** (CP2K, Psi4/PySCF), EVB | right physics, but needs reliable ON/OFF ensembles this switch doesn't cleanly give (paper's own MD was inconclusive) |
+| binding ΔG (Kd) | **FEP / MM-GBSA** (OpenMM, Amber) | tractable; validates "receptor still binds" vs measured Kd |
+| colorimetric / electrochemical signal | Beer–Lambert / Marcus | trivial / orthogonal once kcat known |
+
+**Two additions in this repo:**
+
+- **`coupling.py` (free, runs now):** reads apo-vs-holo **active-site pLDDT** from
+  the Boltz models. For `dfhbi`, binding the analyte at the receptor domain makes
+  the *distant* TEM-1 active site **more ordered** — active-site pLDDT
+  94.1 → 96.6 (Δ +2.5), global 88.4 → 92.2 (Δ +3.9). A structural echo of the
+  entropic ON-coupling that DR depends on. ⚠️ pLDDT is confidence, not physical order.
+- **`md_entropy.py` (OpenMM introduced):** the physical route to ΔS and
+  active-site RMSF. Smoke run on the 383-aa chimera model (apo, 1 ps CPU) yields a
+  real Cα-RMSF profile (min/mean/max 0.14/0.33/1.1 Å) + a configurational-entropy
+  proxy — proving the harness runs. ⚠️ under-converged infrastructure; a switch
+  validation needs apo AND holo (ligand parameterized), µs sampling on GPU, then
+  compare ΔS and active-site RMSF. Ground-truth DR remains a wet-lab kobs assay.

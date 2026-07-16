@@ -1,3 +1,4 @@
 biotite>=1.6
 numpy>=2.0
 matplotlib>=3.7
+openmm>=8.1        # optional: only for md_entropy.py (MD)

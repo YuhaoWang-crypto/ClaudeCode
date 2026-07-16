@@ -91,14 +91,24 @@ python3 -m biosensor_pipeline.make_figure        # figures/biosensor_validation.
 
 # 3) OPTIMIZE — tune the receptor<->reporter linker and/or permutation site
 python3 -m biosensor_pipeline.tune_linker vitd   # flank-linker series -> Boltz each
+
+# 4) MECHANISM / beyond DR — Boltz can't give dynamic range; probe the coupling
+python3 -m biosensor_pipeline.coupling           # apo vs holo active-site ordering (free)
+python3 -m biosensor_pipeline.md_entropy         # OpenMM MD flexibility/entropy (physical)
 ```
+
+The switch **dynamic range** is kinetic/entropic — no platform computes it
+directly (see `reference/beyond-boltz.md`). `coupling.py` reads apo→holo
+active-site pLDDT (allosteric-coupling hint, free); `md_entropy.py` runs OpenMM
+MD for the physical conformational-entropy route (needs GPU + µs to converge).
 
 Module map: `design.py` (circular permutation + insertion, ✅ exact) ·
 `systems.py` (receptors/reporters/analytes) · `structure.py` (annotate_sse loop
 sites; tag/terminal-mismatch tolerant) · `screen.py` (focused library) ·
 `scoring.py` (✅ geometric metrics + ⚠️ switch proxy) · `boltz_io.py` (payloads) ·
 `discover.py`/`discover_batch.py` (PDB receptor mining, contact-verified) ·
-`tune_linker.py` (linker series) · `analyze_boltz.py` (results → scores).
+`tune_linker.py` (linker series) · `analyze_boltz.py` (results → scores) ·
+`coupling.py` (apo/holo active-site ordering) · `md_entropy.py` (OpenMM MD).
 
 ## What is rigorous vs. hypothesis (read this before quoting any number)
 
@@ -144,4 +154,6 @@ the recipe is analyte-agnostic.
 - `reference/boltz-validation.md` — how the in-silico screen maps design
   questions onto Boltz structure+binding predictions, and how to read them.
 - `reference/adding-a-system.md` — plug in a new receptor/reporter/analyte.
+- `reference/beyond-boltz.md` — computing dynamic range & the readout: what
+  QM/MM, MD, FEP/MM-GBSA each give (and why none returns DR directly).
 - `assets/system_template.py` — copy-paste skeleton for a new system.
