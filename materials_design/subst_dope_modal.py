@@ -40,6 +40,14 @@ def analyze(cifs: dict, model: str = "uma-s-1p1", task: str = "omat",
                    "E_per_atom": round(float(atoms.get_potential_energy()) / n, 4),
                    "lattice_abc": [round(float(x), 4) for x in atoms.cell.cellpar()[:3]],
                    "volume_per_atom": round(float(atoms.get_volume()) / n, 4)}
+            # 返回弛豫后结构(用于局域结构分析)
+            try:
+                from ase.io import write as ase_write
+                fp = os.path.join(tempfile.gettempdir(), "relaxed.cif")
+                ase_write(fp, atoms, format="cif")
+                rec["relaxed_cif"] = open(fp).read()
+            except Exception as ce:
+                rec["cif_error"] = repr(ce)[:80]
             # 最近邻金属-配体键长 (取第一个替换/掺杂原子周围)
             try:
                 from ase.geometry import get_distances

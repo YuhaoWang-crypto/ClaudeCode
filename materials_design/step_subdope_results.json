@@ -1,0 +1,75 @@
+[
+  {
+    "name": "QDsub|CsPbBr3_Pm-3m",
+    "formula": "Br3CsPb",
+    "n_atoms": 5,
+    "E_per_atom": -3.178,
+    "lattice_abc": [
+      6.0037,
+      6.0037,
+      6.0037
+    ],
+    "volume_per_atom": 43.2793,
+    "min_bond": 3.0018,
+    "phonon_max_cm-1": 77.4,
+    "bulk_modulus_GPa": 18.6
+  },
+  {
+    "name": "QDsub|CsSnBr3_Pm-3m",
+    "formula": "Br3CsSn",
+    "n_atoms": 5,
+    "E_per_atom": -3.1636,
+    "lattice_abc": [
+      5.9004,
+      5.9004,
+      5.9004
+    ],
+    "volume_per_atom": 41.0832,
+    "min_bond": 2.9502,
+    "phonon_max_cm-1": 50.3,
+    "bulk_modulus_GPa": 19.5
+  },
+  {
+    "name": "SCsub|Nb3Sn_A15",
+    "formula": "Nb6Sn2",
+    "n_atoms": 8,
+    "E_per_atom": -8.7094,
+    "lattice_abc": [
+      5.3364,
+      5.3364,
+      5.3364
+    ],
+    "volume_per_atom": 18.9953,
+    "min_bond": 2.6682,
+    "phonon_max_cm-1": 178.0,
+    "bulk_modulus_GPa": 152.9
+  },
+  {
+    "name": "SCsub|V3Si_A15",
+    "formula": "Si2V6",
+    "n_atoms": 8,
+    "E_per_atom": -8.5396,
+    "lattice_abc": [
+      4.6936,
+      4.6936,
+      4.6936
+    ],
+    "volume_per_atom": 12.9249,
+    "min_bond": 2.3468,
+    "phonon_max_cm-1": 321.6,
+    "bulk_modulus_GPa": 186.3
+  },
+  {
+    "name": "dope|CaF2_Er_interstitialF",
+    "formula": "Ca31ErF65",
+    "n_atoms": 97,
+    "E_per_atom": -5.8042,
+    "lattice_abc": [
+      11.0422,
+      11.0424,
+      11.0424
+    ],
+    "volume_per_atom": 13.8808,
+    "min_bond": 2.2739
+  }
+]
