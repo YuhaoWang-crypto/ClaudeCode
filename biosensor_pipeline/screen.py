@@ -10,8 +10,27 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import Optional
 
-from .design import build_chimera, verify_chimera, Chimera
+from .design import build_chimera, build_terminal_fusion, verify_chimera, Chimera
 from .systems import System
+
+
+def pocket_safe_sites(loop_sites, pocket_indices, guard: int = 2):
+    """Drop permutation sites within `guard` residues of any pocket residue.
+
+    Circularly permuting *inside* the ligand pocket would destroy binding, so
+    pocket-adjacent loop residues are excluded. (Integrated from the
+    biosensor-chimera-design skill.) If no pocket is known, returns all sites.
+    """
+    if not pocket_indices:
+        return list(loop_sites), []
+    pocket = set(pocket_indices)
+    safe, dropped = [], []
+    for s in loop_sites:
+        if any(abs(s - p) <= guard for p in pocket):
+            dropped.append(s)
+        else:
+            safe.append(s)
+    return safe, dropped
 
 
 def gs_linker_for(n_gap_residues: int = 4) -> str:
@@ -26,29 +45,52 @@ def gs_linker_for(n_gap_residues: int = 4) -> str:
     return (unit * reps)[: max(len(unit), n_gap_residues)]
 
 
-def build_library(system: System, gs_linker: str = "GGSGGSGGS") -> list[Chimera]:
-    """One chimera per candidate permutation site (the whole focused library)."""
-    rc = system.receptor
-    rp = system.reporter
-    q = rp.insertion_sites[system.primary_insertion]
+def build_library(system: System, gs_linker: str = "GGSGGSGGS",
+                  pocket_indices=None, orientations=("N", "C")) -> list[Chimera]:
+    """The focused chimera library, dispatched on the reporter topology.
+
+    - insertion (TEM-1, PQQ-GDH): one chimera per candidate permutation site.
+    - cp_reporter_terminal (NanoLuc): reporter permuted once; binder permuted at
+      each site and fused at a new terminus in each requested orientation.
+
+    pocket_indices (0-based receptor residues) are excluded from permutation
+    (pocket-safe), if provided.
+    """
+    rc, rp = system.receptor, system.reporter
+    sites, dropped = pocket_safe_sites(rc.loop_sites, pocket_indices or getattr(rc, "pocket_indices", None))
 
     lib = []
-    for site in rc.loop_sites:
-        ch = build_chimera(
-            name=f"cp{rc.name}-{site}_{rp.name}-{system.primary_insertion}",
-            reporter_name=rp.name,
-            reporter_seq=rp.seq,
-            receptor_name=rc.name,
-            receptor_seq=rc.seq,
-            insertion_index=q,
-            permutation_site=site,
-            gs_linker=gs_linker,
-        )
-        chk = verify_chimera(ch, rp.seq, rc.seq)
-        ch.meta["verify"] = chk
-        ch.meta["ligand"] = {"name": rc.ligand_name, "smiles": rc.ligand_smiles}
-        lib.append(ch)
+    if rp.mode == "cp_reporter_terminal":
+        for site in sites:
+            for orient in orientations:
+                ch = build_terminal_fusion(
+                    name=f"cp{rc.name}-{site}_{rp.name}-cp{rp.cp_site + 1}-{orient}",
+                    reporter_name=rp.name, reporter_seq=rp.seq, reporter_cp_site=rp.cp_site,
+                    receptor_name=rc.name, receptor_seq=rc.seq, permutation_site=site,
+                    gs_linker=gs_linker, terminal_linker=rp.terminal_linker,
+                    reporter_cp_linker=rp.reporter_cp_linker, orientation=orient,
+                )
+                _annotate(ch, rp, rc, dropped)
+                lib.append(ch)
+    else:
+        q = rp.insertion_sites[system.primary_insertion]
+        for site in sites:
+            ch = build_chimera(
+                name=f"cp{rc.name}-{site}_{rp.name}-{system.primary_insertion}",
+                reporter_name=rp.name, reporter_seq=rp.seq,
+                receptor_name=rc.name, receptor_seq=rc.seq,
+                insertion_index=q, permutation_site=site, gs_linker=gs_linker,
+            )
+            _annotate(ch, rp, rc, dropped)
+            lib.append(ch)
     return lib
+
+
+def _annotate(ch, rp, rc, dropped):
+    ch.meta["verify"] = verify_chimera(ch, rp.seq, rc.seq)
+    ch.meta["ligand"] = {"name": rc.ligand_name, "smiles": rc.ligand_smiles}
+    ch.meta["readout"] = rp.readout
+    ch.meta["pocket_dropped_sites"] = dropped
 
 
 def library_summary(system: System, lib: list[Chimera]) -> dict:

@@ -43,6 +43,12 @@ class Reporter:
     catalytic: dict            # label -> 0-idx
     # named insertion loops: label -> 0-index cut point (insert BEFORE this idx)
     insertion_sites: dict
+    readout: str = "colorimetric"        # colorimetric | electrochemical | luminescent
+    mode: str = "insertion"              # insertion | cp_reporter_terminal
+    # cp_reporter_terminal only:
+    cp_site: int = None                  # 0-idx loop residue kept as the CP point
+    terminal_linker: str = "GGSGG"
+    reporter_cp_linker: str = "GGGGSGGGGS"
 
 
 TEM1 = Reporter(
@@ -58,7 +64,42 @@ TEM1 = Reporter(
     insertion_sites={"253": 226, "197": 170, "196": 169},
 )
 
-REPORTERS = {TEM1.name: TEM1}
+# PQQ-glucose dehydrogenase (soluble, A. calcoaceticus), PDB 1CQ1 — ELECTROCHEMICAL
+# reporter. Insertion topology at loops 330 (β4/5) and S403-N405 (β5/6).
+# Sites + functional residues from Guo et al., JACS 2019 (10.1021/jacs.8b12298);
+# integrated from the biosensor-chimera-design skill (verify vs RCSB before wet-lab).
+GDH = Reporter(
+    name="PQQ-GDH",
+    pdb="1CQ1",
+    seq=("DVPLTPSQFAKAKSENFDKKVILSNLNKPHALLWGPDNQIWLTERATGKILRVNPESGSVKTVFQVPEIVNDADGQNGLLGFAF"
+         "HPDFKNNPYIYISGTFKNPKSTDKELPNQTIIRRYTYNKSTDTLEKPVDLLAGLPSSKDHQSGRLVIGPDQKIYYTIGDQGRNQ"
+         "LAYLFLPNQAQHTPTQQELNGKDYHTYMGKVLRLNLDGSIPKDNPSFNGVVSHIYTLGHRNPQGLAFTPNGKLLQSEQGPNSDD"
+         "EINLIVKGGNYGWPNVAGYKDDSGYAYANYSAAANKSIKDLAQNGVKVAAGVPVTKESEWTGKNFVPPLKTLYTVQDTYNYNDPT"
+         "CGEMTYICWPTVAPSSAYVYKGGKKAITGWENTLLVPSLKRGVIFRIKLDPTYSTTYDDAVPMFKSNNRYRDVIASPDGNVLYVL"
+         "TDTAGNVQKDDGSVTNTLENPGSLIKFTYKAK"),
+    catalytic={"W346": 345, "T348": 347, "R406": 405, "R408": 407},  # glucose/PQQ, must stay intact
+    insertion_sites={"330": 330, "S403-N405": 403},
+    readout="electrochemical",
+)
+
+# NanoLuc luciferase (O. gracilirostris), PDB 5IBO — LUMINESCENT reporter.
+# CP-REPORTER + TERMINAL-FUSION topology: permute NanoLuc at loop 161 and fuse the
+# binder at a new terminus. From Guo et al., Nat. Commun. 2022 (10.1038/s41467-022-28425-2).
+NANOLUC = Reporter(
+    name="NanoLuc",
+    pdb="5IBO",
+    seq=("SDNMVFTLEDFVGDWRQTAGYNLDQVLEQGGVSSLFQNLGVSVTPIQRIVLSGENGLKIDIHVIIPYEGLSGDQMGQIEKIFKVV"
+         "YPVDDHHFKVILHYGTLVIDGVTPNMIDYFGRPYEGIAVFDGKKITVTGTLWNGNKIIDERLINPDGSLLFRVTINGVTGWRLCERILA"),
+    catalytic={},                        # whole β-barrel; no single catalytic residue
+    insertion_sites={},
+    readout="luminescent",
+    mode="cp_reporter_terminal",
+    cp_site=160,                         # 0-idx == position 161 (paper's CP site)
+    terminal_linker="GGSGG",
+    reporter_cp_linker="GGGGSGGGGS",
+)
+
+REPORTERS = {TEM1.name: TEM1, GDH.name: GDH, NANOLUC.name: NANOLUC}
 
 
 # ---------------------------------------------------------------------------
@@ -116,7 +157,7 @@ CDL2_2 = Receptor(
     ligand_smiles="CC(CCCC(C)(C)O)C1CCC2C1(CCCC2=CC=C3CC(CCC3=C)O)C",  # VDY (bound vitamin-D analog)
     ligand_formula="C27H44O2",
     loop_sites=[27, 39, 62, 76, 93, 103, 112],
-    modeled_offset=0,
+    modeled_offset=1,
     note="de-novo vitamin-D3 binder CDL2.2; discovered via Tier-A PDB mining.",
 )
 
@@ -165,6 +206,25 @@ SYSTEMS = {
         description="Validation on vitamin D3: a de-novo designed secosteroid binder "
                     "(CDL2.2), mined from the PDB by discover.py, grafted into TEM-1 "
                     "by the same recipe.",
+    ),
+    # alternative readouts for the same analyte (integrated multi-reporter support)
+    "dig-gdh": System(
+        key="dig-gdh",
+        role="readout-variant",
+        receptor=DIG103,
+        reporter=GDH,
+        primary_insertion="330",
+        description="ELECTROCHEMICAL digoxigenin sensor: cpDIG10.3 inserted into "
+                    "PQQ-GDH loop 330 (amperometric readout).",
+    ),
+    "dig-nluc": System(
+        key="dig-nluc",
+        role="readout-variant",
+        receptor=DIG103,
+        reporter=NANOLUC,
+        primary_insertion="cp161",
+        description="LUMINESCENT digoxigenin sensor: NanoLuc circularly permuted at "
+                    "loop 161 with cpDIG10.3 fused at a new terminus.",
     ),
 }
 

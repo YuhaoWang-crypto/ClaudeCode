@@ -58,6 +58,35 @@ AND gate (two orthogonal receptors at 41 & 197), auxiliary binding domain fused
 by a linker to offset the circular-permutation affinity penalty, and alternative
 reporters (de-novo luciferase LuxSit Pro, NanoLuc, glucose dehydrogenase).
 
+## Reporters & readouts — two construct topologies
+
+Integrated multi-reporter support (concepts merged from the `biosensor-chimera-
+design` skill; reporter sites from the same group's prior work):
+
+| reporter | readout | topology | site(s) | functional residues |
+|---|---|---|---|---|
+| **TEM-1 β-lactamase** (3GMW) | colorimetric | insertion | Ambler 253 (196/197 for gates) | S70,K73,S130,E166 |
+| **PQQ-GDH** (1CQ1) | **electrochemical** | insertion | 330 (β4/5), S403-N405 | W346,T348,R406,R408 (JACS 2019) |
+| **NanoLuc** (5IBO) | **luminescent** | **cp-reporter + terminal fusion** | CP @ 161 | whole β-barrel (Nat.Commun. 2022) |
+
+- **insertion** — the *binder* is circularly permuted and inserted into a
+  permissive loop of the intact reporter (`design.build_chimera`).
+- **cp-reporter + terminal fusion** — the *reporter* is circularly permuted and
+  the binder fused at a new terminus (N or C); for reporters (NanoLuc) whose fold
+  tolerates loop CP + fusion better than domain insertion
+  (`design.build_terminal_fusion`). `build_library` dispatches on `reporter.mode`.
+
+Two more integrated correctness upgrades:
+- **Pocket-safe permutation** — `screen.pocket_safe_sites` excludes loop residues
+  in/near the ligand pocket (`structure.pocket_residues` detects them from a
+  liganded PDB), so circular permutation never disrupts binding.
+- **Auto-scaled CP linker** — `design.choose_cp_linker` sizes the Gly/Ser linker
+  to the native N-to-C Cα distance (~3.5 Å/res + margin), the principled form of
+  "a linker of sufficient length".
+
+Example systems: `dig` (colorimetric), `dig-gdh` (electrochemical),
+`dig-nluc` (luminescent) — same DIG10.3 receptor, three readouts.
+
 ## Reproduction status in this repo
 
 | System | Receptor (PDB) | Analyte | Reporter | Role |

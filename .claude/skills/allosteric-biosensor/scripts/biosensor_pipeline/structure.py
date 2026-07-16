@@ -76,6 +76,43 @@ def annotate(pdb: str, chain: str, full_seq: str):
     return one, off, sse_full, centers
 
 
+def pocket_residues(pdb: str, chain: str, full_seq: str, ligand_ccd: str = None,
+                    cutoff: float = 5.0):
+    """0-based receptor residues within `cutoff` Å of any ligand atom.
+
+    Used for pocket-safe circular permutation: these residues (and their
+    neighbours) should not be permutation sites. Needs a *liganded* deposited
+    structure; returns [] if no ligand is present. (Integrated concept from the
+    biosensor-chimera-design skill.)
+    """
+    import biotite.database.rcsb as rcsb
+    import biotite.structure.io.pdbx as pdbx
+    import biotite.structure as struc
+    import numpy as np
+    import tempfile
+    arr = pdbx.get_structure(pdbx.BinaryCIFFile.read(rcsb.fetch(pdb, "bcif", tempfile.mkdtemp())),
+                             model=1)
+    prot = arr[(arr.chain_id == chain) & struc.filter_amino_acids(arr)]
+    het = arr[~struc.filter_amino_acids(arr) & (arr.res_name != "HOH")]
+    if ligand_ccd:
+        het = het[het.res_name == ligand_ccd]
+    if het.array_length() == 0:
+        return []
+    # map modeled residues to full_seq via the same alignment as annotate()
+    from biotite.sequence import ProteinSequence
+    ca = prot[prot.atom_name == "CA"]
+    one = "".join(ProteinSequence.convert_letter_3to1(r) for r in ca.res_name)
+    off = max(full_seq.find(one), 0)
+    res_ids = list(dict.fromkeys(prot.res_id.tolist()))
+    pocket = []
+    for k, rid in enumerate(res_ids):
+        res = prot[prot.res_id == rid]
+        d = np.linalg.norm(het.coord[None, :, :] - res.coord[:, None, :], axis=2)
+        if (d <= cutoff).any():
+            pocket.append(off + k)
+    return pocket
+
+
 def verify_frozen() -> bool:
     """Recompute loop sites for both receptors and compare to systems.py."""
     from .systems import RECEPTORS

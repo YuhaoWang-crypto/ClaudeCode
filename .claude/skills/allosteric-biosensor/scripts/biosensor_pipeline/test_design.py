@@ -39,11 +39,13 @@ def test_insertion_preserves_reporter():
 def test_all_library_constructions_valid():
     for key, sysm in SYSTEMS.items():
         lib = build_library(sysm)
-        assert 1 <= len(lib) < 10, f"{key}: library not <10 ({len(lib)})"
+        # insertion: <10 per paper; terminal fusion: <10 sites × 2 orientations
+        cap = 10 if sysm.reporter.mode == "insertion" else 20
+        assert 1 <= len(lib) < cap, f"{key}: library size {len(lib)} out of range"
         for c in lib:
             chk = verify_chimera(c, sysm.reporter.seq, sysm.receptor.seq)
             assert chk["all_ok"], (key, c.name, chk)
-        print(f"[OK] {key}: {len(lib)} valid variants (<10, as in the paper)")
+        print(f"[OK] {key}: {len(lib)} valid variants ({sysm.reporter.readout})")
 
 
 def test_determinism():
@@ -63,10 +65,34 @@ def test_catalytic_residues_present():
     print("[OK] TEM-1 catalytic residues verified by position")
 
 
+def test_reporter_functional_residues():
+    """Integrated reporters: functional residues match their labels."""
+    from .systems import REPORTERS
+    gdh = REPORTERS["PQQ-GDH"]
+    for lab, idx in gdh.catalytic.items():
+        assert gdh.seq[idx] == lab[0], (lab, gdh.seq[idx])
+    print("[OK] PQQ-GDH functional residues (W346/T348/R406/R408) verified by position")
+
+
+def test_terminal_fusion_topology():
+    """NanoLuc CP-reporter + terminal-fusion library builds and verifies."""
+    from .systems import get_system
+    lib = build_library(get_system("dig-nluc"))
+    assert len(lib) >= 2
+    assert all(c.mode == "cp_reporter_terminal" for c in lib)
+    assert {c.orientation for c in lib} == {"N", "C"}
+    for c in lib:
+        assert verify_chimera(c, get_system("dig-nluc").reporter.seq,
+                              get_system("dig-nluc").receptor.seq)["all_ok"]
+    print(f"[OK] NanoLuc terminal-fusion: {len(lib)} variants (N+C), all valid")
+
+
 if __name__ == "__main__":
     test_circular_permutation_conserves_residues()
     test_insertion_preserves_reporter()
     test_all_library_constructions_valid()
     test_determinism()
     test_catalytic_residues_present()
+    test_reporter_functional_residues()
+    test_terminal_fusion_topology()
     print("\nALL TESTS PASSED ✅")

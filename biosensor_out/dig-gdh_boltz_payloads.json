@@ -1,0 +1,78 @@
+{
+  "primary_construct": "cpDIG10.3-74_PQQ-GDH-330",
+  "payloads": {
+    "holo": {
+      "input": {
+        "entities": [
+          {
+            "type": "protein",
+            "chain_ids": [
+              "A"
+            ],
+            "value": "DVPLTPSQFAKAKSENFDKKVILSNLNKPHALLWGPDNQIWLTERATGKILRVNPESGSVKTVFQVPEIVNDADGQNGLLGFAFHPDFKNNPYIYISGTFKNPKSTDKELPNQTIIRRYTYNKSTDTLEKPVDLLAGLPSSKDHQSGRLVIGPDQKIYYTIGDQGRNQLAYLFLPNQAQHTPTQQELNGKDYHTYMGKVLRLNLDGSIPKDNPSFNGVVSHIYTLGHRNPQGLAFTPNGKLLQSEQGPNSDDEINLIVKGGNYGWPNVAGYKDDSGYAYANYSAAANKSIKDLAQNGVKVAAGVPVTKESEWTGKNFVPPLKTLYTVQDTGDPDLAIGEFHGDGVLTASGGKLAYDYIAVWRTRDGQILLYRLFFNPLRVLEPLGLEGGSGGSGGSMNAKEIVVHALRLLENGDARGWSDLFHPEGVLEYPYPPPGYKTRFEGRETIWAHMRLFPEYMTIRFTDVQFYETGYNYNDPTCGEMTYICWPTVAPSSAYVYKGGKKAITGWENTLLVPSLKRGVIFRIKLDPTYSTTYDDAVPMFKSNNRYRDVIASPDGNVLYVLTDTAGNVQKDDGSVTNTLENPGSLIKFTYKAK",
+            "msa": {
+              "type": "empty"
+            }
+          },
+          {
+            "type": "ligand_smiles",
+            "chain_ids": [
+              "L"
+            ],
+            "value": "CC12CCC(CC1CCC3C2CC(C4(C3(CCC4C5=CC(=O)OC5)O)C)O)O"
+          }
+        ],
+        "binding": {
+          "type": "ligand_protein_binding",
+          "binder_chain_id": "L"
+        },
+        "num_samples": 1
+      }
+    },
+    "apo": {
+      "input": {
+        "entities": [
+          {
+            "type": "protein",
+            "chain_ids": [
+              "A"
+            ],
+            "value": "DVPLTPSQFAKAKSENFDKKVILSNLNKPHALLWGPDNQIWLTERATGKILRVNPESGSVKTVFQVPEIVNDADGQNGLLGFAFHPDFKNNPYIYISGTFKNPKSTDKELPNQTIIRRYTYNKSTDTLEKPVDLLAGLPSSKDHQSGRLVIGPDQKIYYTIGDQGRNQLAYLFLPNQAQHTPTQQELNGKDYHTYMGKVLRLNLDGSIPKDNPSFNGVVSHIYTLGHRNPQGLAFTPNGKLLQSEQGPNSDDEINLIVKGGNYGWPNVAGYKDDSGYAYANYSAAANKSIKDLAQNGVKVAAGVPVTKESEWTGKNFVPPLKTLYTVQDTGDPDLAIGEFHGDGVLTASGGKLAYDYIAVWRTRDGQILLYRLFFNPLRVLEPLGLEGGSGGSGGSMNAKEIVVHALRLLENGDARGWSDLFHPEGVLEYPYPPPGYKTRFEGRETIWAHMRLFPEYMTIRFTDVQFYETGYNYNDPTCGEMTYICWPTVAPSSAYVYKGGKKAITGWENTLLVPSLKRGVIFRIKLDPTYSTTYDDAVPMFKSNNRYRDVIASPDGNVLYVLTDTAGNVQKDDGSVTNTLENPGSLIKFTYKAK",
+            "msa": {
+              "type": "empty"
+            }
+          }
+        ],
+        "num_samples": 1
+      }
+    },
+    "control": {
+      "input": {
+        "entities": [
+          {
+            "type": "protein",
+            "chain_ids": [
+              "A"
+            ],
+            "value": "MNAKEIVVHALRLLENGDARGWSDLFHPEGVLEYPYPPPGYKTRFEGRETIWAHMRLFPEYMTIRFTDVQFYETADPDLAIGEFHGDGVLTASGGKLAYDYIAVWRTRDGQILLYRLFFNPLRVLEPLGLE",
+            "msa": {
+              "type": "empty"
+            }
+          },
+          {
+            "type": "ligand_smiles",
+            "chain_ids": [
+              "L"
+            ],
+            "value": "CC12CCC(CC1CCC3C2CC(C4(C3(CCC4C5=CC(=O)OC5)O)C)O)O"
+          }
+        ],
+        "binding": {
+          "type": "ligand_protein_binding",
+          "binder_chain_id": "L"
+        },
+        "num_samples": 1
+      }
+    }
+  }
+}
