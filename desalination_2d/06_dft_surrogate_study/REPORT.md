@@ -29,7 +29,7 @@ Cl** crossing the pore was computed along a z reaction coordinate to extract the
 | ③ AIMD training frames | ✅ **demonstrated locally** (CHGNet stand-in) | `03_mlp/generate_training_frames.py` → 80 labelled frames |
 | ④ DeePMD/MACE/NequIP bake-off | ✅ **MACE trained locally**; 3 configs ready | §3.6; `mace_config_demo.yaml`, learning curve |
 | ⑤ 100 MPa NEMD flux/rejection | 🟢 **script ready + calibrated + toy-validated** | `04_nemd/in.desalination.lammps` (fz=0.0013 eV/Å), `05_toy_validation/` |
-| ⑥ MoS₂ repeat | 🟡 **partial**: built + Part-B selectivity + QE input done; hydrated PMF pending | §3, `run_hydrated_pmf.py --material MoS2` |
+| ⑥ MoS₂ repeat | ✅ **done (surrogate)**: built + Part-B + hydrated PMF; QE input ready | §3, §3.5, `run_hydrated_pmf.py --material MoS2` |
 
 Legend: ✅ real result in this repo · 🟢 ready to run on Modal/HPC · 🟡 partially done.
 
@@ -120,6 +120,12 @@ step). This is the corrected, physically-meaningful selectivity experiment.
 | **Na⁺·(H₂O)₆ (hydrated)** | 21 † | **1.35** |
 | Cl⁻ (bare) | 0.0 | 0.0 |
 | Cl⁻·(H₂O)₆ (hydrated) | 29 † | 20 † |
+
+**MoS₂ (r = 2.5 Å, step ⑥):** H₂O **0.54 eV**, Na⁺·(H₂O)₆ **38 †**, Cl⁻·(H₂O)₆
+**33 †** eV. The MoS₂ pore is discrete (r=2.5 and 3.0 remove the same atoms) and
+stays tight: water passes with a modest barrier while hydrated ions hit steric
+walls — strong rejection, same qualitative selectivity as graphene, from the
+same workflow.
 
 † steric **upper bounds** — the intact shell cannot pass a pore this tight within
 the relaxation budget; the ion must dehydrate, which needs longer PMF sampling
