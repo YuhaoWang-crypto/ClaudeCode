@@ -1,0 +1,152 @@
+[
+  {
+    "name": "QD|CsPbBr3_perovskite_Pm-3m",
+    "formula": "Br3CsPb",
+    "n_atoms": 5,
+    "E_relaxed_per_atom": -3.178,
+    "volume_change_pct": 6.77,
+    "lattice_abc": [
+      6.0037,
+      6.0037,
+      6.0037
+    ],
+    "fmax_final": 0.0,
+    "converged": true,
+    "phonon_max_cm-1": 77.4
+  },
+  {
+    "name": "QD|CdSe_wurtzite_P63mc",
+    "formula": "Cd2Se2",
+    "n_atoms": 4,
+    "E_relaxed_per_atom": -2.748,
+    "volume_change_pct": 7.11,
+    "lattice_abc": [
+      4.3969,
+      4.3969,
+      7.1808
+    ],
+    "fmax_final": 0.0063,
+    "converged": true,
+    "phonon_max_cm-1": 170.8
+  },
+  {
+    "name": "QD|PbS_rocksalt_Fm-3m",
+    "formula": "Pb4S4",
+    "n_atoms": 8,
+    "E_relaxed_per_atom": -4.3859,
+    "volume_change_pct": 3.83,
+    "lattice_abc": [
+      6.0109,
+      6.0109,
+      6.0109
+    ],
+    "fmax_final": 0.0,
+    "converged": true,
+    "phonon_max_cm-1": 108.2
+  },
+  {
+    "name": "QD|Si_diamond_Fd-3m",
+    "formula": "Si8",
+    "n_atoms": 8,
+    "E_relaxed_per_atom": -5.413,
+    "volume_change_pct": 1.21,
+    "lattice_abc": [
+      5.4528,
+      5.4528,
+      5.4528
+    ],
+    "fmax_final": 0.0,
+    "converged": true,
+    "phonon_max_cm-1": 510.3
+  },
+  {
+    "name": "UC|LiYF4_scheelite_I41a",
+    "formula": "F8Li2Y2",
+    "n_atoms": 12,
+    "E_relaxed_per_atom": -6.278,
+    "volume_change_pct": -39.11,
+    "lattice_abc": [
+      4.2891,
+      4.322,
+      9.8207
+    ],
+    "fmax_final": 0.0456,
+    "converged": true,
+    "phonon_max_cm-1": 626.6
+  },
+  {
+    "name": "UC|CaF2_fluorite_Fm-3m",
+    "formula": "Ca4F8",
+    "n_atoms": 12,
+    "E_relaxed_per_atom": -5.7802,
+    "volume_change_pct": 2.87,
+    "lattice_abc": [
+      5.5148,
+      5.5148,
+      5.5148
+    ],
+    "fmax_final": 0.0,
+    "converged": true,
+    "phonon_max_cm-1": 378.4
+  },
+  {
+    "name": "UC|MgO_rocksalt_oxide-ref",
+    "formula": "Mg4O4",
+    "n_atoms": 8,
+    "E_relaxed_per_atom": -5.9329,
+    "volume_change_pct": 2.72,
+    "lattice_abc": [
+      4.2499,
+      4.2499,
+      4.2499
+    ],
+    "fmax_final": 0.0,
+    "converged": true,
+    "phonon_max_cm-1": 529.4
+  },
+  {
+    "name": "SC|MgB2_hexagonal_P6mmm",
+    "formula": "B2Mg",
+    "n_atoms": 3,
+    "E_relaxed_per_atom": -5.1032,
+    "volume_change_pct": -1.42,
+    "lattice_abc": [
+      3.0685,
+      3.0685,
+      3.5138
+    ],
+    "fmax_final": 0.0,
+    "converged": true,
+    "phonon_max_cm-1": 686.1
+  },
+  {
+    "name": "SC|Nb3Sn_A15_Pm-3n",
+    "formula": "Nb6Sn2",
+    "n_atoms": 8,
+    "E_relaxed_per_atom": -8.7094,
+    "volume_change_pct": 2.82,
+    "lattice_abc": [
+      5.3382,
+      5.3382,
+      5.3382
+    ],
+    "fmax_final": 0.0,
+    "converged": true,
+    "phonon_max_cm-1": 177.7
+  },
+  {
+    "name": "SC|Nb_bcc_Im-3m",
+    "formula": "Nb2",
+    "n_atoms": 2,
+    "E_relaxed_per_atom": -10.0969,
+    "volume_change_pct": 1.96,
+    "lattice_abc": [
+      3.3225,
+      3.3225,
+      3.3225
+    ],
+    "fmax_final": 0.0,
+    "converged": true,
+    "phonon_max_cm-1": 212.7
+  }
+]
