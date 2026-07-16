@@ -1,0 +1,20 @@
+✓ Initialized. View run at 
+https://modal.com/apps/wyh-58141/main/ap-1gDDfCcCw8gRVHHLwbzcVW
+✓ Created objects.
+├── 🔨 Created mount /home/user/fairchem_relax_modal.py
+└── 🔨 Created function relax.
+提交 4 个候选结构到 FairChem UMA 弛豫...
+WARNING:root:If 'dataset_list' is provided in the config, the code assumes that each dataset maps to itself. Please use 'dataset_mapping' as 'dataset_list' is deprecated and will be removed in the future.
+[OK] UC|SrF2_fluorite_Fm-3m: F8Sr4 E=-5.6908 eV/at abc=[5.8634, 5.8634, 5.8634] phonon_max=340.8
+[OK] UC|BaF2_fluorite_Fm-3m: Ba4F8 E=-5.7112 eV/at abc=[6.2836, 6.2836, 6.2836] phonon_max=306.4
+[OK] UC|ZnO_wurtzite_oxide: O2Zn2 E=-4.4646 eV/at abc=[3.2911, 3.2911, 5.2813] phonon_max=510.8
+
+==== FairChem UMA 弛豫结果 ====
+{"name": "UC|SrF2_fluorite_Fm-3m", "formula": "F8Sr4", "n_atoms": 12, "E_relaxed_per_atom": -5.6908, "volume_change_pct": 3.32, "lattice_abc": [5.8634, 5.8634, 5.8634], "fmax_final": 0.0, "converged": true, "phonon_max_cm-1": 340.8}
+{"name": "UC|BaF2_fluorite_Fm-3m", "formula": "Ba4F8", "n_atoms": 12, "E_relaxed_per_atom": -5.7112, "volume_change_pct": 4.1, "lattice_abc": [6.2836, 6.2836, 6.2836], "fmax_final": 0.0, "converged": true, "phonon_max_cm-1": 306.4}
+{"name": "UC|ZnO_wurtzite_oxide", "formula": "O2Zn2", "n_atoms": 4, "E_relaxed_per_atom": -4.4646, "volume_change_pct": 4.01, "lattice_abc": [3.2911, 3.2911, 5.2813], "fmax_final": 0.0008, "converged": true, "phonon_max_cm-1": 510.8}
+{"name": "UC|TiO2_rutile_oxide", "formula": "O4Ti2", "n_atoms": 6, "E_relaxed_per_atom": -8.9092, "volume_change_pct": 2.9, "lattice_abc": [4.6459, 4.6459, 2.9758], "fmax_final": 0.0343, "converged": true, "phonon_max_cm-1": 768.6}
+Stopping app - local entrypoint completed.
+[OK] UC|TiO2_rutile_oxide: O4Ti2 E=-8.9092 eV/at abc=[4.6459, 4.6459, 2.9758] phonon_max=768.6
+✓ App completed. View run at 
+https://modal.com/apps/wyh-58141/main/ap-1gDDfCcCw8gRVHHLwbzcVW

@@ -95,8 +95,18 @@ BCS 图像下，需要**离域巡游电子**在费米面附近通过**电声耦�
 
 ---
 
-## 完整 FairChem UMA 弛豫结果（10 个结构，全部收敛）
-见 `fairchem_results.json`。所有 `converged=true`，`fmax ≤ 0.05 eV/Å`。
+## 模拟 vs 真实实验数据（同图对比）
+见 `sim_vs_experiment.png`（脚本 `plot_sim_vs_exp.py`）。四个面板，线/柱=模拟，点=实验：
+
+- **(A) 量子点**：Brus 方程模拟曲线 vs 实验尺寸曲线（CdSe: Yu&Peng 2003 / Jasieniak 2009；
+  PbS: Moreels 2009；CsPbBr₃: Dong 2015 / Brennan 2017）。趋势一致；Brus 在 <3 nm 高估限域（已知局限）。
+- **(B) 上转换基质**：UMA Γ 最大声子 vs 实验最高 LO 声子。3 个氟化物（BaF₂/SrF₂/CaF₂）均低于
+  3 个氧化物（ZnO/MgO/TiO₂），模拟与实验**排序完全一致**（UMA 有限位移不含 LO-TO 修正，系统性低估极性 LO，但趋势正确）。
+- **(C) 超导**：MgB₂ 计算 686 cm⁻¹ vs 实验 E₂g 拉曼 ~660 cm⁻¹，高度吻合；Nb、Nb₃Sn 同量级。
+- **(D) 晶格常数 parity**：13 个材料 UMA vs 实验，全部贴合 y=x，**MAE = 0.057 Å (1.2%)**。
+
+## 完整 FairChem UMA 弛豫结果（14 个结构，全部收敛）
+见 `fairchem_results.json`（10）+ `fairchem_uc.log`（4 个补充基质）。所有 `converged=true`，`fmax ≤ 0.05 eV/Å`。
 
 ## 文件
 - `fairchem_relax_modal.py` — Modal GPU 上的 FairChem UMA 弛豫 + Γ 声子脚本
