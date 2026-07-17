@@ -61,7 +61,8 @@ TEM1 = Reporter(
     # located by unambiguous sequence motifs, cross-checked vs Ambler numbering
     catalytic={"S70": 42, "K73": 45, "S130": 102, "D131": 103, "N132": 104, "E166": 138},
     # cut points = 0-idx of the residue AFTER the named Ambler position
-    insertion_sites={"253": 226, "197": 170, "196": 169},
+    # 41 & 197 are the paper's intramolecular YES/AND-gate loops.
+    insertion_sites={"253": 226, "197": 170, "196": 169, "41": 14},
 )
 
 # PQQ-glucose dehydrogenase (soluble, A. calcoaceticus), PDB 1CQ1 — ELECTROCHEMICAL
@@ -233,3 +234,52 @@ def get_system(key: str) -> System:
     if key not in SYSTEMS:
         raise KeyError(f"unknown system {key!r}; choose from {list(SYSTEMS)}")
     return SYSTEMS[key]
+
+
+# ---------------------------------------------------------------------------
+# NanoBiT split-NanoLuc fragments (Dixon et al., ACS Chem. Biol. 2016).
+# LgBiT = large 18 kDa fragment (NanoLuc 1-156; real LgBiT "11S" carries Promega
+#   optimizing mutations — verify before wet-lab). SmBiT = engineered 11-aa
+#   peptide, weak intrinsic KD ~190 uM by design.
+# ---------------------------------------------------------------------------
+NANOBIT = {
+    "LgBiT": NANOLUC.seq[:156],          # native 1-156 split fragment (see note)
+    "SmBiT": "VTGYRLFEEIL",              # optimized 11-aa peptide (KD~190 uM)
+    "split_site": "156/157",
+    "ref": "Dixon 2016, 10.1021/acschembio.5b00753",
+}
+
+# Canonical ligand-induced proximity pair for the NanoBiT demo:
+# FKBP12 + FRB dimerize only in the presence of rapamycin.
+PROXIMITY_PAIRS = {
+    "rapamycin": {
+        "binder_a": ("FKBP12", "GVQVETISPGDGRTFPKRGQTCVVHYTGMLEDGKKFDSSRDRNKPFKFMLGKQEV"
+                               "IRGWEEGVAQMSVGQRAKLTISPDYAYGATGHPGIIPPHATLVFDVELLKLE"),   # 1FKB
+        "binder_b": ("FRB", "RVAILWHEMWHEGLEEASRLYFGERNVKGMFEVLEPLHAMMERGPQTLKETSFNQAYGRD"
+                            "LMEAQEWCRKYMKSGNVKDLTQAWDLYYHVFRRIS"),                       # 1FAP chain B
+        "note": "rapamycin bridges FKBP12·FRB — the textbook NanoBiT positive control.",
+    },
+}
+
+# ---------------------------------------------------------------------------
+# Ligand-gated DNA-binding modules (Tumbleweed, Nilsson et al., Nat.Nanotechnol.
+# 2026). Orthogonal small-molecule inputs for multi-analyte / logic designs.
+# Sequences from RCSB (verify vs UniProt before wet-lab).
+# ---------------------------------------------------------------------------
+LIGAND_GATED_MODULES = {
+    "TrpR": {
+        "ligand": "L-tryptophan", "pdb": "1WRP", "dna_site": "trp operator",
+        "seq": ("AQQSPYSAAMAEQRHQEWLRFVDLLKNAYQNDLHLPLLNLMLTPDEREALGTRVRIVEELLRGEMSQ"
+                "RELKNELGAGIATITRGSNSLKAAPVELRQWLEEVLLKSD"),
+    },
+    "MetJ": {
+        "ligand": "S-adenosylmethionine (SAM)", "pdb": "1CMB", "dna_site": "met box",
+        "seq": ("AEWSGEYISPYAEHGKKSEQVKKITVSIPLKVLKILTDERTRRQVNNLRHATNSELLCEAFLHAFTG"
+                "QPLPDDADLRKERSDEIPEAAKEIMREMGINPETWEY"),
+    },
+    "DtxR": {
+        "ligand": "divalent metal (Co2+/Ni2+/Fe2+)", "pdb": "1F5T", "dna_site": "tox operator",
+        "seq": ("MKDLVDTTEMYLRTIYELEEEGVTPLRARIAERLEQSGPTVSQTVARMERDGLVVVASDRSLQMTPT"
+                "GRTLATAVMRKHRLAERLLTDIIGLDINKVHDEADRWEHVMSDEVERRLVKVLK"),
+    },
+}

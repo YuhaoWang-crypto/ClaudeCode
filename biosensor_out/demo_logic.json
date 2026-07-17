@@ -1,0 +1,59 @@
+{
+  "architecture": "ligand-gated modules -> intramolecular AND gate",
+  "module_registry": {
+    "TrpR": {
+      "ligand": "L-tryptophan",
+      "pdb": "1WRP",
+      "dna_site": "trp operator"
+    },
+    "MetJ": {
+      "ligand": "S-adenosylmethionine (SAM)",
+      "pdb": "1CMB",
+      "dna_site": "met box"
+    },
+    "DtxR": {
+      "ligand": "divalent metal (Co2+/Ni2+/Fe2+)",
+      "pdb": "1F5T",
+      "dna_site": "tox operator"
+    }
+  },
+  "and_gate": {
+    "name": "AND[TrpR@41,MetJ@197]-TEM1",
+    "inputs": [
+      [
+        "TrpR",
+        "L-tryptophan"
+      ],
+      [
+        "MetJ",
+        "S-adenosylmethionine (SAM)"
+      ]
+    ],
+    "length": 492,
+    "reporter_in_order": true,
+    "catalytic_present": true,
+    "truth_table": [
+      {
+        "L-tryptophan": 0,
+        "S-adenosylmethionine (SAM)": 0,
+        "reporter_ON": 0
+      },
+      {
+        "L-tryptophan": 0,
+        "S-adenosylmethionine (SAM)": 1,
+        "reporter_ON": 0
+      },
+      {
+        "L-tryptophan": 1,
+        "S-adenosylmethionine (SAM)": 0,
+        "reporter_ON": 0
+      },
+      {
+        "L-tryptophan": 1,
+        "S-adenosylmethionine (SAM)": 1,
+        "reporter_ON": 1
+      }
+    ],
+    "sequence": "ETLVKVKDAEDQLGGRIVEELLRGEMSQRELKNELGAGIATITRGSNSLKAAPVELRQWLEEVLLKSDGGSGGSGGSAQQSPYSAAMAEQRHQEWLRFVDLLKNAYQNDLHLPLLNLMLTPDEREALGTRGARVGYIELDLNSGKILESFRPEERFPMMSTFKVLLCGAVLSRVDAGQEQLGRRIHYSQNDLVEYSPVTEKHLTDGMTVRELCSAAITMSDNTAANLLLTTIGGPKELTAFLHNMGDHVTRLDRWEPELNEAIPNDERDTTMPVAMATTLRKLLTGEGSELLCEAFLHAFTGQPLPDDADLRKERSDEIPEAAKEIMREMGINPETWEYGGSGGSGGSAEWSGEYISPYAEHGKKSEQVKKITVSIPLKVLKILTDERTRRQVNNLRHATGLLTLASRQQLIDWMEADKVAGPLLRSALPAGWFIADKSGAGERGSRGIIAALGPDGKPSRIVVIYTTGSQATMDERNRQIAEIGASLIKHW"
+  }
+}

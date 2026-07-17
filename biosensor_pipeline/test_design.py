@@ -87,6 +87,39 @@ def test_terminal_fusion_topology():
     print(f"[OK] NanoLuc terminal-fusion: {len(lib)} variants (N+C), all valid")
 
 
+def test_split_complementation():
+    """NanoBiT: both constructs carry their binder + fragment."""
+    from .systems import NANOBIT, PROXIMITY_PAIRS
+    from .architectures import build_split_complementation, verify_split
+    p = PROXIMITY_PAIRS["rapamycin"]
+    (an, aseq), (bn, bseq) = p["binder_a"], p["binder_b"]
+    sp = build_split_complementation(
+        analyte="rapamycin", binder_a_name=an, binder_a_seq=aseq,
+        binder_b_name=bn, binder_b_seq=bseq,
+        lgbit_seq=NANOBIT["LgBiT"], smbit_seq=NANOBIT["SmBiT"])
+    chk = verify_split(sp, aseq, bseq, NANOBIT["LgBiT"], NANOBIT["SmBiT"])
+    assert chk["all_ok"], chk
+    print("[OK] NanoBiT split pair: LgBiT+SmBiT constructs carry both binders")
+
+
+def test_and_gate_logic():
+    """Two orthogonal ligand-gated modules -> AND gate with correct truth table."""
+    from .systems import TEM1, LIGAND_GATED_MODULES
+    from .architectures import build_and_gate, truth_table
+    A, B = LIGAND_GATED_MODULES["TrpR"], LIGAND_GATED_MODULES["MetJ"]
+    gate = build_and_gate(
+        name="t", reporter_name=TEM1.name, reporter_seq=TEM1.seq,
+        modules=[("TrpR", A["ligand"], A["seq"], len(A["seq"]) // 2, TEM1.insertion_sites["41"]),
+                 ("MetJ", B["ligand"], B["seq"], len(B["seq"]) // 2, TEM1.insertion_sites["197"])])
+    # reporter residues remain a subsequence (inserts are interspersed, not deleted)
+    it = iter(gate.sequence)
+    assert all(c in it for c in TEM1.seq), "reporter residues not preserved in order"
+    tt = truth_table(gate)
+    assert tt[0]["reporter_ON"] == 0 and tt[-1]["reporter_ON"] == 1
+    assert sum(r["reporter_ON"] for r in tt) == 1, "AND gate should be ON in exactly 1 of 4 states"
+    print("[OK] AND gate: reporter preserved; truth table ON only when both ligands present")
+
+
 if __name__ == "__main__":
     test_circular_permutation_conserves_residues()
     test_insertion_preserves_reporter()
@@ -95,4 +128,6 @@ if __name__ == "__main__":
     test_catalytic_residues_present()
     test_reporter_functional_residues()
     test_terminal_fusion_topology()
+    test_split_complementation()
+    test_and_gate_logic()
     print("\nALL TESTS PASSED ✅")

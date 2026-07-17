@@ -87,6 +87,21 @@ Two more integrated correctness upgrades:
 Example systems: `dig` (colorimetric), `dig-gdh` (electrochemical),
 `dig-nluc` (luminescent) — same DIG10.3 receptor, three readouts.
 
+### Two more architectures (from the luminescent/complementation literature)
+
+- **Split-fragment complementation (NanoBiT, architecture #4)** —
+  `architectures.build_split_complementation` builds two constructs (binder A +
+  **LgBiT**, binder B + **SmBiT**) whose luminescence reports **ligand-induced
+  proximity** (the two-component / auxiliary-binding-domain design). Demo:
+  `python3 -m biosensor_pipeline.demo_nanobit` (rapamycin → FKBP12·FRB).
+- **Ligand-gated modules → intramolecular logic (architecture #5)** —
+  `systems.LIGAND_GATED_MODULES` (TrpR/Trp, MetJ/SAM, DtxR/metal) are orthogonal
+  small-molecule inputs; `architectures.build_and_gate` inserts two into TEM-1
+  loops **41 & 197** (the paper's YES/AND-gate loops) → an AND gate that is ON
+  only when both ligands are present. Demo:
+  `python3 -m biosensor_pipeline.demo_logic` (Trp AND SAM). See
+  `reference/reporter-architectures.md` for the full 5-way taxonomy.
+
 ## Reproduction status in this repo
 
 | System | Receptor (PDB) | Analyte | Reporter | Role |

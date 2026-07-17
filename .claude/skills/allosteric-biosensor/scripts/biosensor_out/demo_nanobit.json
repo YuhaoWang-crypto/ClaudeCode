@@ -1,0 +1,23 @@
+{
+  "architecture": "split_complementation (NanoBiT)",
+  "analyte": "rapamycin",
+  "split_site": "156/157",
+  "linker": "GGSGGSGG",
+  "verify": {
+    "lgbit_has_binder": true,
+    "lgbit_has_fragment": true,
+    "smbit_has_binder": true,
+    "smbit_has_fragment": true,
+    "all_ok": true
+  },
+  "construct_A": {
+    "name": "FKBP12-LgBiT",
+    "len": 271,
+    "sequence": "GVQVETISPGDGRTFPKRGQTCVVHYTGMLEDGKKFDSSRDRNKPFKFMLGKQEVIRGWEEGVAQMSVGQRAKLTISPDYAYGATGHPGIIPPHATLVFDVELLKLEGGSGGSGGSDNMVFTLEDFVGDWRQTAGYNLDQVLEQGGVSSLFQNLGVSVTPIQRIVLSGENGLKIDIHVIIPYEGLSGDQMGQIEKIFKVVYPVDDHHFKVILHYGTLVIDGVTPNMIDYFGRPYEGIAVFDGKKITVTGTLWNGNKIIDERLINPDGSLLF"
+  },
+  "construct_B": {
+    "name": "FRB-SmBiT",
+    "len": 114,
+    "sequence": "RVAILWHEMWHEGLEEASRLYFGERNVKGMFEVLEPLHAMMERGPQTLKETSFNQAYGRDLMEAQEWCRKYMKSGNVKDLTQAWDLYYHVFRRISGGSGGSGGVTGYRLFEEIL"
+  }
+}
