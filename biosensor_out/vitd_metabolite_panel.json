@@ -1,0 +1,27 @@
+{
+ "cholecalciferol": {
+  "label": "Vitamin D3",
+  "smiles": "CC(C)CCCC(C)C1CCC2C1(CCCC2=CC=C3CC(CCC3=C)O)C",
+  "formula": "C27H44O"
+ },
+ "calcifediol": {
+  "label": "25(OH)D3",
+  "smiles": "CC(CCCC(C)(C)O)C1CCC2C1(CCCC2=CC=C3CC(CCC3=C)O)C",
+  "formula": "C27H44O2"
+ },
+ "calcitriol": {
+  "label": "1,25(OH)2D3",
+  "smiles": "CC(CCCC(C)(C)O)C1CCC2C1(CCCC2=CC=C3CC(CC(C3=C)O)O)C",
+  "formula": "C27H44O3"
+ },
+ "secalciferol": {
+  "label": "24,25(OH)2D3",
+  "smiles": "CC(CCC(C(C)(C)O)O)C1CCC2C1(CCCC2=CC=C3CC(CCC3=C)O)C",
+  "formula": "C27H44O3"
+ },
+ "ergocalciferol": {
+  "label": "Vitamin D2",
+  "smiles": "CC(C)C(C)C=CC(C)C1CCC2C1(CCCC2=CC=C3CC(CCC3=C)O)C",
+  "formula": "C28H44O"
+ }
+}

@@ -135,6 +135,21 @@ def test_campaign_orchestrator():
     print("[OK] campaign: readout→reporter + range→target-Kd logic; scorecard well-formed")
 
 
+
+def test_specificity_scoring():
+    """on-target minus best off-target margin; ranking flags selective receptors."""
+    from .specificity import specificity_score, specificity_matrix, METABOLITE_PANEL
+    assert "1,25OH2D3" in METABOLITE_PANEL and "25OHD3" in METABOLITE_PANEL
+    sel = specificity_score("VDR", "1,25OH2D3",
+                            {"D3": 0.4, "25OHD3": 0.5, "1,25OH2D3": 0.9})
+    non = specificity_score("promiscuous", "D3",
+                            {"D3": 0.7, "25OHD3": 0.72, "1,25OH2D3": 0.71})
+    assert sel.specificity > 0.15 and non.specificity < 0.05
+    mat = specificity_matrix([sel, non])
+    assert mat["ranking"][0]["receptor"] == "VDR"          # most selective ranks first
+    print("[OK] specificity: discrimination margin + ranking (VDR selective, promiscuous not)")
+
+
 if __name__ == "__main__":
     test_circular_permutation_conserves_residues()
     test_insertion_preserves_reporter()
@@ -146,4 +161,5 @@ if __name__ == "__main__":
     test_split_complementation()
     test_and_gate_logic()
     test_campaign_orchestrator()
+    test_specificity_scoring()
     print("\nALL TESTS PASSED ✅")

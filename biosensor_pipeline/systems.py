@@ -162,7 +162,22 @@ CDL2_2 = Receptor(
     note="de-novo vitamin-D3 binder CDL2.2; discovered via Tier-A PDB mining.",
 )
 
-RECEPTORS = {DIG103.name: DIG103, MFAP1.name: MFAP1, CDL2_2.name: CDL2_2}
+HCY129 = Receptor(
+    name="hcy129",
+    pdb="8UQF",
+    # designed cortisol binder (Lee/hcy family); mined by discover.py for cortisol.
+    seq=("MSGTSSEEAKEAIIAMLKEWYDAMNEGDMEKLRSLVDPDASFVDARTNQVYDKDQFLQMIKEALEQDLKV"
+         "EVKSIDIEQQPDGDVVIVKVKVRATMVRNGQEHVFEVVDTYEFRRKGDSWKIVKLVSEITQLGSG"),
+    ligand_name="cortisol",
+    ligand_smiles="CC12CCC(=O)C=C1CCC3C2C(CC4(C3CCC4(C(=O)CO)O)C)O",
+    ligand_formula="C21H30O5",
+    loop_sites=[37, 47],                 # structure-derived (few — flagged by the campaign)
+    modeled_offset=5,
+    note="designed cortisol binder hcy129 (8UQF); few CP loops -> a hard receptor.",
+)
+HCY129.pocket_indices = [14, 15, 18, 50, 53, 54, 57, 62, 64, 80, 82, 84, 93, 95, 97, 99, 110, 112, 114]
+
+RECEPTORS = {DIG103.name: DIG103, MFAP1.name: MFAP1, CDL2_2.name: CDL2_2, HCY129.name: HCY129}
 
 
 # ---------------------------------------------------------------------------
@@ -226,6 +241,15 @@ SYSTEMS = {
         primary_insertion="cp161",
         description="LUMINESCENT digoxigenin sensor: NanoLuc circularly permuted at "
                     "loop 161 with cpDIG10.3 fused at a new terminus.",
+    ),
+    "cortisol": System(
+        key="cortisol",
+        role="new-analyte-campaign",
+        receptor=HCY129,
+        reporter=TEM1,
+        primary_insertion="253",
+        description="New-analyte campaign end-to-end: cortisol sensor from the mined "
+                    "hcy129 binder grafted into TEM-1.",
     ),
 }
 

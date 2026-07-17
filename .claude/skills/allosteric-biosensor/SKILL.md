@@ -207,6 +207,9 @@ the recipe is analyte-agnostic.
 - `reference/adding-a-system.md` — plug in a new receptor/reporter/analyte.
 - `reference/beyond-boltz.md` — computing dynamic range & the readout: what
   QM/MM, MD, FEP/MM-GBSA each give (and why none returns DR directly).
+- `reference/specificity-design.md` — discriminate closely-related metabolites
+  (vitamin-D series): negative design + cross-panel co-folding specificity matrix,
+  PDB-template route (VDR/DBP) and de-novo (RFdiffusion/Boltz) route.
 - `reference/optimization-playbook.md` — the 9 optimization principles from
   the literature + the campaign decision workflow and success scorecard.
 - `reference/reporter-architectures.md` — the 5-way biosensor architecture

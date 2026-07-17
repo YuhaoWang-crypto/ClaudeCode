@@ -1,0 +1,215 @@
+{
+  "panel": {
+    "D3": {
+      "name": "cholecalciferol",
+      "smiles": "CC(C)CCCC(C)C1CCC2C1(CCCC2=CC=C3CC(CCC3=C)O)C",
+      "feature": "3-OH only (A-ring)"
+    },
+    "25OHD3": {
+      "name": "calcifediol (25(OH)D3)",
+      "smiles": "CC(CCCC(C)(C)O)C1CCC2C1(CCCC2=CC=C3CC(CCC3=C)O)C",
+      "feature": "+25-OH (side-chain terminus)"
+    },
+    "1,25OH2D3": {
+      "name": "calcitriol (1,25(OH)2D3)",
+      "smiles": "CC(CCCC(C)(C)O)C1CCC2C1(CCCC2=CC=C3CC(CC(C3=C)O)O)C",
+      "feature": "+1a-OH (A-ring) AND +25-OH \u2014 the active hormone"
+    },
+    "24,25OH2D3": {
+      "name": "24,25(OH)2D3",
+      "smiles": "CC(CCC(C(C)(C)O)O)C1CCC2C1(CCCC2=CC=C3CC(CCC3=C)O)C",
+      "feature": "+24-OH and +25-OH"
+    },
+    "D2": {
+      "name": "ergocalciferol (D2)",
+      "smiles": "CC(C)C(C)C=CC(C)C1CCC2C1(CCCC2=CC=C3CC(CCC3=C)O)C",
+      "feature": "different side chain (24-methyl, 22,23-ene)"
+    }
+  },
+  "templates": {
+    "1,25OH2D3": [
+      [
+        "VDR nuclear receptor LBD",
+        "1DB1",
+        259
+      ],
+      [
+        "VDR",
+        "7QPI",
+        287
+      ]
+    ],
+    "25OHD3": [
+      [
+        "vitamin-D binding protein DBP/GC",
+        "1J78",
+        458
+      ],
+      [
+        "designed CDL binder",
+        "5IEN",
+        137
+      ]
+    ],
+    "D3": [
+      [
+        "CDL2.2 designed binder",
+        "5IEN",
+        137
+      ],
+      [
+        "beta-lactoglobulin",
+        "2GJ5",
+        162
+      ]
+    ]
+  },
+  "illustrative_ranking": {
+    "n_receptors": 3,
+    "ranking": [
+      {
+        "receptor": "VDR-LBD(1DB1)",
+        "target": "1,25OH2D3",
+        "on_target": 0.9,
+        "best_off": "25OHD3=0.55",
+        "specificity_margin": 0.35,
+        "verdict": "selective"
+      },
+      {
+        "receptor": "anti-25OH(design)",
+        "target": "25OHD3",
+        "on_target": 0.82,
+        "best_off": "24,25OH2D3=0.58",
+        "specificity_margin": 0.24,
+        "verdict": "selective"
+      },
+      {
+        "receptor": "CDL2.2(5IEN)",
+        "target": "D3",
+        "on_target": 0.85,
+        "best_off": "25OHD3=0.8",
+        "specificity_margin": 0.05,
+        "verdict": "weakly selective"
+      }
+    ],
+    "label": "\u26a0\ufe0f margins from co-folding interface confidence; resolving a single -OH is at the edge of the method \u2014 confirm with a competition assay."
+  },
+  "boltz_plan": {
+    "n_jobs": 15,
+    "cost_usd_estimate": 0.75,
+    "jobs": [
+      {
+        "receptor": "VDR-LBD(1DB1)",
+        "metabolite": "D3",
+        "smiles": "CC(C)CCCC(C)C1CCC2C1(CCCC2=CC=C3CC(CCC3=C)O)C",
+        "idempotency_key": "spec-VDR-LBD(1DB1)-D3"
+      },
+      {
+        "receptor": "VDR-LBD(1DB1)",
+        "metabolite": "25OHD3",
+        "smiles": "CC(CCCC(C)(C)O)C1CCC2C1(CCCC2=CC=C3CC(CCC3=C)O)C",
+        "idempotency_key": "spec-VDR-LBD(1DB1)-25OHD3"
+      },
+      {
+        "receptor": "VDR-LBD(1DB1)",
+        "metabolite": "1,25OH2D3",
+        "smiles": "CC(CCCC(C)(C)O)C1CCC2C1(CCCC2=CC=C3CC(CC(C3=C)O)O)C",
+        "idempotency_key": "spec-VDR-LBD(1DB1)-1,25OH2D3"
+      },
+      {
+        "receptor": "VDR-LBD(1DB1)",
+        "metabolite": "24,25OH2D3",
+        "smiles": "CC(CCC(C(C)(C)O)O)C1CCC2C1(CCCC2=CC=C3CC(CCC3=C)O)C",
+        "idempotency_key": "spec-VDR-LBD(1DB1)-24,25OH2D3"
+      },
+      {
+        "receptor": "VDR-LBD(1DB1)",
+        "metabolite": "D2",
+        "smiles": "CC(C)C(C)C=CC(C)C1CCC2C1(CCCC2=CC=C3CC(CCC3=C)O)C",
+        "idempotency_key": "spec-VDR-LBD(1DB1)-D2"
+      },
+      {
+        "receptor": "CDL2.2(5IEN)",
+        "metabolite": "D3",
+        "smiles": "CC(C)CCCC(C)C1CCC2C1(CCCC2=CC=C3CC(CCC3=C)O)C",
+        "idempotency_key": "spec-CDL2.2(5IEN)-D3"
+      },
+      {
+        "receptor": "CDL2.2(5IEN)",
+        "metabolite": "25OHD3",
+        "smiles": "CC(CCCC(C)(C)O)C1CCC2C1(CCCC2=CC=C3CC(CCC3=C)O)C",
+        "idempotency_key": "spec-CDL2.2(5IEN)-25OHD3"
+      },
+      {
+        "receptor": "CDL2.2(5IEN)",
+        "metabolite": "1,25OH2D3",
+        "smiles": "CC(CCCC(C)(C)O)C1CCC2C1(CCCC2=CC=C3CC(CC(C3=C)O)O)C",
+        "idempotency_key": "spec-CDL2.2(5IEN)-1,25OH2D3"
+      },
+      {
+        "receptor": "CDL2.2(5IEN)",
+        "metabolite": "24,25OH2D3",
+        "smiles": "CC(CCC(C(C)(C)O)O)C1CCC2C1(CCCC2=CC=C3CC(CCC3=C)O)C",
+        "idempotency_key": "spec-CDL2.2(5IEN)-24,25OH2D3"
+      },
+      {
+        "receptor": "CDL2.2(5IEN)",
+        "metabolite": "D2",
+        "smiles": "CC(C)C(C)C=CC(C)C1CCC2C1(CCCC2=CC=C3CC(CCC3=C)O)C",
+        "idempotency_key": "spec-CDL2.2(5IEN)-D2"
+      },
+      {
+        "receptor": "anti-25OH(design)",
+        "metabolite": "D3",
+        "smiles": "CC(C)CCCC(C)C1CCC2C1(CCCC2=CC=C3CC(CCC3=C)O)C",
+        "idempotency_key": "spec-anti-25OH(design)-D3"
+      },
+      {
+        "receptor": "anti-25OH(design)",
+        "metabolite": "25OHD3",
+        "smiles": "CC(CCCC(C)(C)O)C1CCC2C1(CCCC2=CC=C3CC(CCC3=C)O)C",
+        "idempotency_key": "spec-anti-25OH(design)-25OHD3"
+      },
+      {
+        "receptor": "anti-25OH(design)",
+        "metabolite": "1,25OH2D3",
+        "smiles": "CC(CCCC(C)(C)O)C1CCC2C1(CCCC2=CC=C3CC(CC(C3=C)O)O)C",
+        "idempotency_key": "spec-anti-25OH(design)-1,25OH2D3"
+      },
+      {
+        "receptor": "anti-25OH(design)",
+        "metabolite": "24,25OH2D3",
+        "smiles": "CC(CCC(C(C)(C)O)O)C1CCC2C1(CCCC2=CC=C3CC(CCC3=C)O)C",
+        "idempotency_key": "spec-anti-25OH(design)-24,25OH2D3"
+      },
+      {
+        "receptor": "anti-25OH(design)",
+        "metabolite": "D2",
+        "smiles": "CC(C)C(C)C=CC(C)C1CCC2C1(CCCC2=CC=C3CC(CCC3=C)O)C",
+        "idempotency_key": "spec-anti-25OH(design)-D2"
+      }
+    ],
+    "note": "submit each as a Boltz holo (protein + metabolite SMILES, ligand_protein_binding); fill specificity_score() with ligand_iptm."
+  },
+  "generative_plan": {
+    "target": "25OHD3",
+    "target_feature": "+25-OH (side-chain terminus)",
+    "off_targets": {
+      "D3": "3-OH only (A-ring)",
+      "1,25OH2D3": "+1a-OH (A-ring) AND +25-OH \u2014 the active hormone"
+    },
+    "steps": [
+      "1. SCAFFOLD: RFdiffusion-AllAtom (RFdiffusionAA) or Boltz protein-design against the target metabolite as the ligand; generate ~10^2-10^3 backbones with a pocket complementary to the DISCRIMINATING group (+25-OH (side-chain terminus)).",
+      "2. SEQUENCE: LigandMPNN (ligand-aware) to design pocket sequences that H-bond the distinguishing -OH; avoid making room for the off-target groups.",
+      "3. FILTER (positive): co-fold designs vs the TARGET (Boltz/AF3) \u2014 keep high interface confidence + correct pocket contact to the discriminating -OH.",
+      "4. COUNTER-SELECT (negative): co-fold survivors vs EVERY off-target; KEEP only those with a large specificity margin (specificity_score) \u2014 this is the step that buys discrimination, and the one single-target design skips.",
+      "5. Feed the selective binder into the biosensor pipeline (chimera -> reporter)."
+    ],
+    "tools": [
+      "RFdiffusionAA / Boltz protein-design (MCP: boltz_start_protein_design)",
+      "LigandMPNN",
+      "Boltz-2 co-fold (this package's boltz_io + specificity core)"
+    ],
+    "label": "\u26a0\ufe0f de-novo selective small-molecule binders are hard; expect to design and screen many. The counter-selection filter is what maximizes the odds."
+  }
+}
