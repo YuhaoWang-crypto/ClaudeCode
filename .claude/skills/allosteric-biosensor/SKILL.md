@@ -187,6 +187,9 @@ the recipe is analyte-agnostic.
 - `reference/adding-a-system.md` — plug in a new receptor/reporter/analyte.
 - `reference/beyond-boltz.md` — computing dynamic range & the readout: what
   QM/MM, MD, FEP/MM-GBSA each give (and why none returns DR directly).
+- `reference/reporter-architectures.md` — the 5-way biosensor architecture
+  taxonomy + luminescent/complementation reporter tech (cpFluc, NanoBiT,
+  dynamic-range engineering, ligand-gated modules).
 - `reference/md-gpu-protocol.md` — the production apo/holo MD + ligand
   parameterization protocol, env, and Modal cloud-GPU quickstart.
 - `assets/system_template.py` — copy-paste skeleton for a new system.
