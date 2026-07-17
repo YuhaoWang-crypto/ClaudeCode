@@ -1,0 +1,62 @@
+{
+  "analyte": "cortisol",
+  "triage": {
+    "target_Kd_nM": 77.5,
+    "operating_window_nM": [
+      10.0,
+      600.0
+    ],
+    "candidate_architectures": [
+      "insertion"
+    ]
+  },
+  "receptor": "hcy129",
+  "affinity_match": {
+    "status": "unknown",
+    "note": "measure/predict Kd; aim near the operating center ~77.5 nM"
+  },
+  "design_plan": {
+    "reporter": "PQQ-GDH",
+    "readout": "electrochemical",
+    "topology": "insertion",
+    "candidate_sites": [
+      37,
+      47
+    ],
+    "pocket_safe_sites": [
+      37,
+      47
+    ],
+    "pocket_dropped_sites": [],
+    "cp_gs_linker": "GGGGSGGG",
+    "flank_linker_grid": [
+      "G",
+      "GGG",
+      "GGGGG",
+      "GSGSG"
+    ],
+    "core_library_size": 2,
+    "grid_size_if_optimizing": 8
+  },
+  "scorecard": {
+    "readiness": 0.806,
+    "axes": {
+      "receptor_size": 1.0,
+      "affinity_match": 0.6,
+      "pocket_safe_sites": 0.5,
+      "architecture_fit": 1.0,
+      "DR_tunability": 1.0
+    },
+    "recommendations": [
+      "few pocket-safe CP sites \u2014 widen the loop search or redesign the binder",
+      "run Boltz holo/apo/control to score binding retention + active-site integrity"
+    ],
+    "label": "\u26a0\ufe0f readiness is a transparent prioritization, NOT a success probability or a dynamic range; ground truth is a wet-lab titration."
+  },
+  "next_steps": [
+    "build library: register a System(receptor=hcy129, reporter=PQQ-GDH) and run `run_repro`",
+    "submit Boltz holo/apo/control (reference/boltz-validation.md) \u2192 analyze_boltz",
+    "optimize the marginal variants over the site\u00d7linker grid (tune_linker)",
+    "shortlist top 2-3 for synthesis + wet-lab titration"
+  ]
+}

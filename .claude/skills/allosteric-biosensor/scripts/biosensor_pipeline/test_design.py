@@ -120,6 +120,21 @@ def test_and_gate_logic():
     print("[OK] AND gate: reporter preserved; truth table ON only when both ligands present")
 
 
+def test_campaign_orchestrator():
+    """The design campaign returns a well-formed plan + scorecard, and encodes
+    the optimization logic (readout→reporter, physiological range→target Kd)."""
+    from .campaign import AnalyteSpec, ReceptorSpec, plan_campaign
+    a = AnalyteSpec(name="X", analyte_class="small_molecule",
+                    physiological_range_nM=(10.0, 1000.0), desired_readout="electrochemical")
+    r = ReceptorSpec(name="rX", seq="M" + "AEKLQ" * 20, loop_sites=[20, 40, 60, 80], pocket_indices=[])
+    res = plan_campaign(a, r)
+    assert res["design_plan"]["reporter"] == "PQQ-GDH"          # electrochemical → GDH
+    assert res["triage"]["target_Kd_nM"] == round((10.0 * 1000.0) ** 0.5, 1)  # geometric center
+    assert 0.0 <= res["scorecard"]["readiness"] <= 1.0
+    assert isinstance(res["scorecard"]["recommendations"], list)
+    print("[OK] campaign: readout→reporter + range→target-Kd logic; scorecard well-formed")
+
+
 if __name__ == "__main__":
     test_circular_permutation_conserves_residues()
     test_insertion_preserves_reporter()
@@ -130,4 +145,5 @@ if __name__ == "__main__":
     test_terminal_fusion_topology()
     test_split_complementation()
     test_and_gate_logic()
+    test_campaign_orchestrator()
     print("\nALL TESTS PASSED ✅")

@@ -123,6 +123,11 @@ pip install biotite numpy matplotlib            # structure-derived steps + figu
 python3 -m biosensor_pipeline.discover "<SMILES>" --name X --max-len 200
 python3 -m biosensor_pipeline.discover_batch     # a whole analyte panel -> receptor_catalog.json
 
+# 0.5) PLAN a success-oriented campaign for a NEW analyte (encodes the
+#      optimization playbook: range→target-Kd, readout→reporter, pocket-safe
+#      library, success scorecard with specific fixes)
+python3 -m biosensor_pipeline.campaign           # cortisol demo -> campaign_*.json
+
 # 1) DESIGN — deterministic, 100% reproducible  ✅
 python3 -m biosensor_pipeline.run_repro          # build+verify libraries -> biosensor_out/
 python3 -m biosensor_pipeline.structure          # recompute & verify loop annotations
@@ -154,7 +159,7 @@ sites; tag/terminal-mismatch tolerant) · `screen.py` (focused library) ·
 `scoring.py` (✅ geometric metrics + ⚠️ switch proxy) · `boltz_io.py` (payloads) ·
 `discover.py`/`discover_batch.py` (PDB receptor mining, contact-verified) ·
 `tune_linker.py` (linker series) · `analyze_boltz.py` (results → scores) ·
-`coupling.py` (apo/holo active-site ordering) · `md_entropy.py` (OpenMM MD, incl. production GPU apo/holo ΔS + ligand FF) · `modal_app.py` (cloud-GPU runner).
+`campaign.py` (new-analyte design orchestrator + success scorecard) · `architectures.py` (NanoBiT split / logic gates) · `coupling.py` (apo/holo active-site ordering) · `md_entropy.py` (OpenMM MD, incl. production GPU apo/holo ΔS + ligand FF) · `modal_app.py` (cloud-GPU runner).
 
 ## What is rigorous vs. hypothesis (read this before quoting any number)
 
@@ -202,6 +207,8 @@ the recipe is analyte-agnostic.
 - `reference/adding-a-system.md` — plug in a new receptor/reporter/analyte.
 - `reference/beyond-boltz.md` — computing dynamic range & the readout: what
   QM/MM, MD, FEP/MM-GBSA each give (and why none returns DR directly).
+- `reference/optimization-playbook.md` — the 9 optimization principles from
+  the literature + the campaign decision workflow and success scorecard.
 - `reference/reporter-architectures.md` — the 5-way biosensor architecture
   taxonomy + luminescent/complementation reporter tech (cpFluc, NanoBiT,
   dynamic-range engineering, ligand-gated modules).
