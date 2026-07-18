@@ -62,10 +62,26 @@ python3 -m biosensor_pipeline.specificity     # panel, templates, matrix framewo
 holo predictions, ~$0.75) → fill `specificity_score()` → `specificity_matrix()`
 ranks and labels each receptor selective / weakly-selective / non-selective.
 
+## What the real matrix showed (3×3 run, ✅ Boltz-2.1)
+
+A 9-job run (VDR-LBD 1DB1 · CDL2.2 · DBP 1J78 × D3 / 25(OH)D3 / 1,25(OH)₂D3)
+delivered the honest verdict this section predicts: **co-folding does not resolve a
+single hydroxyl here.** Every specificity margin was within method noise (±0.05–0.08),
+and in two of three receptors a *wrong* metabolite scored highest. Two useful signals
+survived: (1) VDR ranked its on-target hormone 1,25(OH)₂D3 highest (ligand_iptm 0.981,
+correct affinity order D3<25(OH)<1,25) — a tiny-margin positive; (2) the *designed D3
+binder CDL2.2 was not D3-selective* — it scored the hydroxylated metabolites far higher
+(0.92/0.84 vs 0.46), a concrete counter-selection red flag. Full numbers:
+`biosensor_out/specificity_vitd_matrix.json` + `specificity_vitd_RESULTS.md`.
+
+Takeaway: no PDB template cleanly separated 25(OH) from 1,25(OH)₂ by co-folding alone,
+which is exactly what pushes a real design to the **generative + counter-selection**
+route (`generative_design_plan`).
+
 ## Honesty
 
 - ✅ the matrix numbers are real Boltz metrics; the SMILES and PDB templates are real.
 - ⚠️ resolving a **single –OH** by co-folding interface confidence is at the edge
-  of the method's resolution. Treat the ranking as a **prioritization**, and
-  confirm selectivity with a **competition / cross-reactivity assay** (the wet-lab
-  ground truth) — the same discipline as the rest of the skill.
+  of the method's resolution (confirmed empirically above). Treat the ranking as a
+  **prioritization**, and confirm selectivity with a **competition / cross-reactivity
+  assay** (the wet-lab ground truth) — the same discipline as the rest of the skill.

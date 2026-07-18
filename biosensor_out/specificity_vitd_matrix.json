@@ -1,0 +1,104 @@
+{
+  "metric_primary": "ligand_iptm",
+  "receptors": {
+    "VDR-LBD(1DB1,259aa)": {
+      "target": "1,25OH2D3",
+      "ligand_iptm": {
+        "D3": 0.9725,
+        "25OHD3": 0.9731,
+        "1,25OH2D3": 0.9812
+      },
+      "binding_confidence": {
+        "D3": 0.6667,
+        "25OHD3": 0.7569,
+        "1,25OH2D3": 0.7434
+      }
+    },
+    "CDL2.2(designed,131aa)": {
+      "target": "D3",
+      "ligand_iptm": {
+        "D3": 0.4628,
+        "25OHD3": 0.8399,
+        "1,25OH2D3": 0.9235
+      },
+      "binding_confidence": {
+        "D3": 0.3679,
+        "25OHD3": 0.3774,
+        "1,25OH2D3": 0.3158
+      }
+    },
+    "DBP(1J78,458aa)": {
+      "target": "25OHD3",
+      "ligand_iptm": {
+        "D3": 0.8608,
+        "25OHD3": 0.7773,
+        "1,25OH2D3": 0.6961
+      },
+      "binding_confidence": {
+        "D3": 0.6589,
+        "25OHD3": 0.667,
+        "1,25OH2D3": 0.7246
+      }
+    }
+  },
+  "matrix_ligand_iptm": {
+    "n_receptors": 3,
+    "ranking": [
+      {
+        "receptor": "VDR-LBD(1DB1,259aa)",
+        "target": "1,25OH2D3",
+        "on_target": 0.981,
+        "best_off": "25OHD3=0.973",
+        "specificity_margin": 0.008,
+        "verdict": "non-selective"
+      },
+      {
+        "receptor": "DBP(1J78,458aa)",
+        "target": "25OHD3",
+        "on_target": 0.777,
+        "best_off": "D3=0.861",
+        "specificity_margin": -0.084,
+        "verdict": "non-selective"
+      },
+      {
+        "receptor": "CDL2.2(designed,131aa)",
+        "target": "D3",
+        "on_target": 0.463,
+        "best_off": "1,25OH2D3=0.923",
+        "specificity_margin": -0.461,
+        "verdict": "non-selective"
+      }
+    ],
+    "label": "\u26a0\ufe0f margins from co-folding interface confidence; resolving a single -OH is at the edge of the method \u2014 confirm with a competition assay."
+  },
+  "matrix_binding_confidence": {
+    "n_receptors": 3,
+    "ranking": [
+      {
+        "receptor": "CDL2.2(designed,131aa)",
+        "target": "D3",
+        "on_target": 0.368,
+        "best_off": "25OHD3=0.377",
+        "specificity_margin": -0.01,
+        "verdict": "non-selective"
+      },
+      {
+        "receptor": "VDR-LBD(1DB1,259aa)",
+        "target": "1,25OH2D3",
+        "on_target": 0.743,
+        "best_off": "25OHD3=0.757",
+        "specificity_margin": -0.014,
+        "verdict": "non-selective"
+      },
+      {
+        "receptor": "DBP(1J78,458aa)",
+        "target": "25OHD3",
+        "on_target": 0.667,
+        "best_off": "1,25OH2D3=0.725",
+        "specificity_margin": -0.058,
+        "verdict": "non-selective"
+      }
+    ],
+    "label": "\u26a0\ufe0f margins from co-folding interface confidence; resolving a single -OH is at the edge of the method \u2014 confirm with a competition assay."
+  }
+}
