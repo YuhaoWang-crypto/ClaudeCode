@@ -1,0 +1,8 @@
+[
+  {"id":"tni1","on_target":"cTnI","boltz":{"cTnI":0.899,"TNNI2-fast":0.798,"TNNI1-slow":0.701,"Lysozyme":0.768},"boltz_decoy_on_target":0.749},
+  {"id":"tni2","on_target":"cTnI","boltz":{"cTnI":0.777,"TNNI2-fast":0.754,"TNNI1-slow":0.775,"Lysozyme":0.474},"boltz_decoy_on_target":0.749},
+  {"id":"tni3","on_target":"cTnI","boltz":{"cTnI":0.615,"TNNI2-fast":0.680,"TNNI1-slow":0.659,"Lysozyme":0.698},"boltz_decoy_on_target":0.749},
+  {"id":"tni4","on_target":"cTnI","boltz":{"cTnI":0.812,"TNNI2-fast":0.873,"TNNI1-slow":0.786,"Lysozyme":0.603},"boltz_decoy_on_target":0.749},
+  {"id":"tni5","on_target":"cTnI","boltz":{"cTnI":0.629,"TNNI2-fast":0.779,"TNNI1-slow":0.661,"Lysozyme":0.573},"boltz_decoy_on_target":0.749},
+  {"id":"tni6","on_target":"cTnI","boltz":{"cTnI":0.767,"TNNI2-fast":0.256,"TNNI1-slow":0.822,"Lysozyme":0.740},"boltz_decoy_on_target":0.749}
+]
