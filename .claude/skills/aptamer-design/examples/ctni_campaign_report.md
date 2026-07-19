@@ -43,7 +43,35 @@ so absolute cTnI ipTM is nearly meaningless and the decoy gate is what does the 
 scramble decoy by +0.15 AND beats fast-skeletal (+0.10), slow-skeletal (+0.20), and the unrelated
 protein (+0.13). This is a **cleaner** outcome than the CTLA-4 demo (where the real WT aptamer
 failed outright), because here Stage 1 pointed the pool at a genuinely cardiac-unique epitope
-instead of a conserved motif — the MSA step earns its keep.
+instead of a conserved motif — the MSA step earns its keep. **However, this Boltz-only pass does
+NOT survive orthogonal validation — see Stage 4b, where HDOCK reverses the verdict.**
+
+## Stage 4b — ★ Orthogonal HDOCK consensus (the decisive check) ★
+Boltz is one AI scorer. To test whether tni1's clean pass is real or a Boltz artifact, we
+folded tni1 and the 4 targets as monomers (Boltz), converted to PDB, and re-scored the same
+4 pairings with **HDOCK** — an independent, physics-based rigid-body docker (ITScore; more
+negative = stronger). `examples/ctni_consensus.json`:
+
+| scorer | cTnI (target) | TNNI2 fast | TNNI1 slow | Lysozyme | verdict |
+|---|---|---|---|---|---|
+| Boltz ipTM | **0.899** (best) | 0.798 | 0.701 | 0.768 | ✅ cTnI wins |
+| HDOCK ITScore | **−209.5** (weakest!) | −216.2 | −218.3 | −262.0 | ❌ cTnI loses to ALL |
+
+**The two scorers DISAGREE, and HDOCK sinks tni1.** By physics, tni1 docks *more strongly* on
+both skeletal paralogs and (most of all) on the unrelated lysozyme than on cTnI — the classic
+polyanion-RNA-sticks-to-cationic-protein promiscuity signature. `specificity_gap.py` on the
+combined evidence → **FAIL (HDOCK-PROMISCUOUS)**. tni1 is a Boltz false-positive.
+
+Key honesty note on HDOCK: raw ITScore is somewhat size-biased (lysozyme is the largest receptor,
+129 aa), so the lysozyme win is partly a size artifact. **But the clean, size-controlled comparison
+is cTnI (90 aa) vs the skeletal isoforms (70 aa): the *smaller* skeletal paralogs score MORE
+negative than the larger cTnI — the opposite of what size bias would predict, so this is a genuine
+anti-specificity signal, not an artifact.** tni1 physically prefers skeletal TnI over cardiac.
+
+**Why this is the most valuable result of the whole campaign:** single-scorer Boltz gave a clean
+"specific" verdict; the orthogonal physics scorer exposed it as promiscuous. This is exactly why
+the skill's central thesis is **HDOCK ⊕ Boltz consensus**, not either alone — and why the honest
+conclusion is that tni1 must go back to the bench for counter-SELEX, NOT forward as a hit.
 
 ## Honest scope (unchanged)
 `tni1` is a **provisional, well-prioritised starting candidate**, not a validated specific binder:

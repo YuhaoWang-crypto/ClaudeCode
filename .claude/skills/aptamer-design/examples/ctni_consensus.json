@@ -1,0 +1,6 @@
+[
+  {"id":"tni1","on_target":"cTnI",
+   "boltz":{"cTnI":0.899,"TNNI2-fast":0.798,"TNNI1-slow":0.701,"Lysozyme":0.768},
+   "boltz_decoy_on_target":0.749,
+   "hdock":{"cTnI":-209.52,"TNNI2-fast":-216.16,"TNNI1-slow":-218.25,"Lysozyme":-262.03}}
+]
