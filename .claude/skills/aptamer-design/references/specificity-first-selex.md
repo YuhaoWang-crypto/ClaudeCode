@@ -66,6 +66,31 @@ exactly what the gate is for — it kills the promiscuous majority. But note m6'
 survivor, NOT a proven specific binder: it earns a seat in the next counter-SELEX round, nothing
 more. The loop **prioritises**; the bench (Stage 4) **confers** specificity.
 
+### Round 2 — re-dope the survivor (m6 → 8 grandchildren), verified
+Took m6 as the new seed, folded it (ViennaRNA: one stem-loop, everything else loop), kept the
+stem fixed and doped the loops ~25 %/position → 8 grandchildren, same 3-target Boltz gate:
+
+| mut | CTLA-4 | CD28 | Lyso | gate | worst-off margin |
+|---|---|---|---|---|---|
+| m6 (parent) | 0.800 | 0.551 | 0.735 | ✅ | **+0.065** (vs Lyso) |
+| r2_1 | 0.467 | 0.465 | 0.259 | ❌ | +0.002 (vs CD28) |
+| r2_2 | 0.633 | 0.849 | 0.701 | ❌ | −0.22 |
+| r2_3 | 0.464 | 0.787 | 0.674 | ❌ | −0.32 |
+| **r2_4** | 0.644 | 0.533 | 0.433 | ✅ | **+0.111** (vs CD28) |
+| r2_5 | 0.731 | 0.828 | 0.741 | ❌ | −0.10 |
+| r2_6 | 0.363 | 0.777 | 0.569 | ❌ | −0.41 |
+| r2_7 | 0.248 | 0.375 | 0.743 | ❌ | −0.49 |
+| r2_8 | 0.635 | 0.738 | 0.712 | ❌ | −0.10 |
+
+**Again 7/8 screened out, 1 survivor — but the survivor's worst-off margin nearly doubled
+(+0.065 → +0.111): `r2_4 = UGCUCACCCAGCUGGCAACUAUCCGGAAAUGAC`.** Two honest caveats: (1) the
+gain came at the cost of *on-target* confidence (0.800 → 0.644) — the loop traded absolute binding
+for selectivity, exactly the affinity/specificity frontier real SELEX walks; (2) +0.11 is still
+one Boltz sample, so r2_4 is a *better-prioritised* provisional survivor, not a validated specific
+binder. Takeaway: **iterated in-silico maturation demonstrably improves the selectivity margin but
+plateaus fast (7/8 still die each round) — which is exactly why the decisive selectivity gain must
+come from wet-lab counter-SELEX, with the gate used only to rank.**
+
 ## Stage 4 — ★ Positive + counter (toggle) SELEX — where specificity is EVOLVED ★
 Each round:
 1. **Negative / pre-clear:** flow the pool over immobilized **paralog(s) (e.g. CD28) + serum

@@ -1,0 +1,11 @@
+[
+  {"id":"m6-parent","on_target":"CTLA-4","boltz":{"CTLA-4":0.800,"CD28":0.551,"Lysozyme":0.735},"boltz_decoy_on_target":0.267},
+  {"id":"r2_1","on_target":"CTLA-4","boltz":{"CTLA-4":0.467,"CD28":0.465,"Lysozyme":0.259},"boltz_decoy_on_target":0.267},
+  {"id":"r2_2","on_target":"CTLA-4","boltz":{"CTLA-4":0.633,"CD28":0.849,"Lysozyme":0.701},"boltz_decoy_on_target":0.267},
+  {"id":"r2_3","on_target":"CTLA-4","boltz":{"CTLA-4":0.464,"CD28":0.787,"Lysozyme":0.674},"boltz_decoy_on_target":0.267},
+  {"id":"r2_4","on_target":"CTLA-4","boltz":{"CTLA-4":0.644,"CD28":0.533,"Lysozyme":0.433},"boltz_decoy_on_target":0.267},
+  {"id":"r2_5","on_target":"CTLA-4","boltz":{"CTLA-4":0.731,"CD28":0.828,"Lysozyme":0.741},"boltz_decoy_on_target":0.267},
+  {"id":"r2_6","on_target":"CTLA-4","boltz":{"CTLA-4":0.363,"CD28":0.777,"Lysozyme":0.569},"boltz_decoy_on_target":0.267},
+  {"id":"r2_7","on_target":"CTLA-4","boltz":{"CTLA-4":0.248,"CD28":0.375,"Lysozyme":0.743},"boltz_decoy_on_target":0.267},
+  {"id":"r2_8","on_target":"CTLA-4","boltz":{"CTLA-4":0.635,"CD28":0.738,"Lysozyme":0.712},"boltz_decoy_on_target":0.267}
+]
