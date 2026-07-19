@@ -1,0 +1,7 @@
+[
+  {"id": "EGFR-RNA-HP", "seq": "GGGCACGAGGUCAUAGACCUCGUGCCC", "chem": "RNA", "scaffold": "hairpin", "iptm": 0.789, "ptm": 0.926, "complex_iplddt": 0.797},
+  {"id": "EGFR-DNA-G4", "seq": "GGGTAGGGTAGGGTAGGGACTGCAAGT", "chem": "DNA", "scaffold": "G4", "iptm": 0.757, "ptm": 0.928, "complex_iplddt": 0.738},
+  {"id": "EGFR-DNA-HP", "seq": "GCACGCACCTTCATCTTCCTTTGCGTGC", "chem": "DNA", "scaffold": "hairpin", "iptm": 0.623, "ptm": 0.895, "complex_iplddt": 0.745},
+  {"id": "EGFR-DNA-2HP", "seq": "GGCAGCTGGGAAGGGAGCTCCCTTCCCAGCTGCC", "chem": "DNA", "scaffold": "dual-hairpin", "iptm": 0.087, "ptm": 0.787, "complex_iplddt": 0.845},
+  {"id": "EGFR-scramble", "seq": "GTGATGGATGGTAGGCTGAGTAGTGCA", "chem": "DNA", "scaffold": "random", "iptm": 0.274, "ptm": 0.832, "complex_iplddt": 0.673}
+]

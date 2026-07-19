@@ -1,0 +1,4 @@
+[
+  {"id": "CTLA4-aptamerd6", "chem": "RNA", "hdock_score": -313.8, "hdock_confidence": 0.964, "boltz_iptm": 0.514, "note": "REAL: HDOCK run locally on uploaded aptamerd6.pdb; Boltz run this session"},
+  {"id": "CTLA4-scramble", "chem": "RNA", "boltz_iptm": 0.267, "note": "REAL: Boltz decoy baseline (composition-matched shuffle)"}
+]

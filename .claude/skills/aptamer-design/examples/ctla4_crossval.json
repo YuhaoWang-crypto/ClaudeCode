@@ -1,0 +1,7 @@
+[
+  {"id": "aptamerd6", "on_target": "CTLA-4",
+   "boltz": {"CTLA-4": 0.514, "CD28": 0.851, "PD-L1": 0.848, "Lysozyme": 0.814},
+   "boltz_decoy_on_target": 0.267,
+   "hdock": {"CTLA-4": -313.8, "Lysozyme": -382.06},
+   "note": "REAL cross-validation this session: HDOCK local + Boltz. Promiscuous binder."}
+]

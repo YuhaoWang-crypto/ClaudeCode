@@ -1,0 +1,4 @@
+apt_id,name,chem,sequence,mods,length,target_name,target_type,target_seq,target_uniprot,kd_value,kd_unit,kd_nM,buffer,specificity,source,doi,label
+LIT_tba,Thrombin binding aptamer (TBA/G15D),DNA,GGTTGGTGTGGTTGG,,15,Thrombin,protein,,P00734,~100,nM,100,,binds thrombin exosite I,literature,10.1038/355564a0,1
+LIT_as1411,AS1411 (anti-nucleolin),DNA,GGTGGTGGTGGTTGTGGTGGTGGTGG,,26,Nucleolin,protein,,P19338,,nM,,,G-quadruplex; nucleolin,literature,10.1158/0008-5472.CAN-08-2591,1
+LIT_sgc8c,Sgc8c (anti-PTK7),DNA,ATCTAACTGCTGCGCCGCCGGGAAAATACTGTACGGTTAGA,,41,PTK7,protein,,Q13308,~0.8,nM,0.8,,CCRF-CEM / PTK7,literature,10.1073/pnas.0602615103,1

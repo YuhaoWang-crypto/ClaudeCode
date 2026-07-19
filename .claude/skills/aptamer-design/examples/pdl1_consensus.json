@@ -1,0 +1,7 @@
+[
+  {"id": "PDL1-RNA-HP", "chem": "RNA", "boltz_iptm": 0.771, "boltz_offtarget_iptm": 0.166, "hdock_score": -298.5, "hdock_confidence": 0.84, "hdock_offtarget_score": -176.0, "note": "boltz_iptm REAL (this session); hdock values ILLUSTRATIVE placeholders"},
+  {"id": "PDL1-DNA-SL", "chem": "DNA", "boltz_iptm": 0.785, "boltz_offtarget_iptm": 0.881, "note": "DNA: RNAComposer cannot model -> Boltz-only (single scorer)"},
+  {"id": "PDL1-DNA-HP", "chem": "DNA", "boltz_iptm": 0.782, "boltz_offtarget_iptm": 0.802, "note": "DNA: Boltz-only"},
+  {"id": "PDL1-DNA-G4", "chem": "DNA", "boltz_iptm": 0.742, "note": "DNA: Boltz-only"},
+  {"id": "PDL1-scramble", "chem": "DNA", "boltz_iptm": 0.626, "note": "decoy baseline"}
+]

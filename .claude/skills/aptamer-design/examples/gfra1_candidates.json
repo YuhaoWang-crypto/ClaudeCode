@@ -1,0 +1,18 @@
+[
+  {"id": "DNA-G4", "seq": "GGGAGGGTGGGAGGGTTCAGTCGACT", "chem": "DNA", "scaffold": "G4", "iptm": 0.918, "ptm": 0.956, "complex_iplddt": 0.755},
+  {"id": "DNA_APT_07", "seq": "TACAGCTCGGTACCCGAGCTGCTCCAGAAATTCTGG", "chem": "DNA", "scaffold": "dual-hairpin", "iptm": 0.92, "ptm": 0.90, "complex_iplddt": 0.88, "iface_res": 21, "on_target_frac": 0.67},
+  {"id": "DNA_APT_17", "seq": "AGACCTGCCTCTCTCATGAGGAGAGAGGCCA", "chem": "DNA", "scaffold": "hairpin", "iptm": 0.89, "complex_iplddt": 0.87, "iface_res": 16, "on_target_frac": 0.56},
+  {"id": "RNA_APT_01", "seq": "CGCAGCACGGGAAUUUAACCGUGCUGCAAGUC", "chem": "RNA", "scaffold": "hairpin", "iptm": 0.89, "complex_iplddt": 0.82, "iface_res": 23, "on_target_frac": 0.61},
+  {"id": "RNA-SL", "seq": "GCACGCAGAUCGGGAAGGGUCAUUGCGUGC", "chem": "RNA", "scaffold": "hairpin", "iptm": 0.877, "ptm": 0.929, "complex_iplddt": 0.749},
+  {"id": "RNA_APT_05", "seq": "UAGCUCCAGAGUCAAGUGCGGACUCUGGAGCUA", "chem": "RNA", "scaffold": "hairpin", "iptm": 0.88, "complex_iplddt": 0.79, "iface_res": 22, "on_target_frac": 0.59},
+  {"id": "RNA-PK", "seq": "GGCGAUACCAGCCGAAAGGCCCUUGGCAGCGUC", "chem": "RNA", "scaffold": "pseudoknot", "iptm": 0.850, "ptm": 0.925, "complex_iplddt": 0.927},
+  {"id": "DNA-HP", "seq": "GCACGCAGATCGGGAAGGGTCATTGCGTGC", "chem": "DNA", "scaffold": "hairpin", "iptm": 0.802, "ptm": 0.932, "complex_iplddt": 0.815},
+  {"id": "RNA_APT_07", "seq": "AGGCUCAGUUACUGUACGCAGUAACUGGGA", "chem": "RNA", "scaffold": "hairpin", "iptm": 0.79, "complex_iplddt": 0.85, "iface_res": 14, "on_target_frac": 0.86},
+  {"id": "RNA_APT_02", "seq": "UCCUAGUACAGCGCCUCUUUGCGGCGCUGUAUUAGA", "chem": "RNA", "scaffold": "hairpin", "iptm": 0.78, "complex_iplddt": 0.84, "iface_res": 16, "on_target_frac": 0.88},
+  {"id": "DNA_APT_10", "seq": "CAAAATCGCGAAACGATTTCCCTACGCTGTCGCGTAGG", "chem": "DNA", "scaffold": "hairpin", "iptm": 0.80, "complex_iplddt": 0.92, "iface_res": 8, "on_target_frac": 1.0},
+  {"id": "DNA_APT_09", "seq": "CGCCCAGAAATCGGCTGCCGCCGATTTCACT", "chem": "DNA", "scaffold": "hairpin", "iptm": 0.77, "complex_iplddt": 0.89, "iface_res": 9, "on_target_frac": 1.0},
+  {"id": "DNA_APT_02", "seq": "CCGCGGTAGTGCAACATGCACTACCTTCGGT", "chem": "DNA", "scaffold": "hairpin", "iptm": 0.79, "complex_iplddt": 0.87, "iface_res": 7, "on_target_frac": 1.0},
+  {"id": "RNA_APT_06", "seq": "CCUGAUUCGAUGCUUCACGAGCAUCGAAUGAGG", "chem": "RNA", "scaffold": "hairpin", "iptm": 0.76, "complex_iplddt": 0.83, "iface_res": 19, "on_target_frac": 0.68},
+  {"id": "RNA-G4", "seq": "GGGAGGGUGGGAGGGUUCAGUCGACU", "chem": "RNA", "scaffold": "G4", "iptm": 0.682, "ptm": 0.902, "complex_iplddt": 0.758},
+  {"id": "DNA-SL", "seq": "GCGGATCCGGGTAGGGTAAGCTACCCTACCCGGATCCGC", "chem": "DNA", "scaffold": "dual-hairpin", "iptm": 0.522, "ptm": 0.878, "complex_iplddt": 0.818}
+]
