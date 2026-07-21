@@ -150,6 +150,25 @@ def test_specificity_scoring():
     print("[OK] specificity: discrimination margin + ranking (VDR selective, promiscuous not)")
 
 
+def test_pocket_redesign_plan():
+    """LigandMPNN-style pocket redesign: value string keeps length + designs only the
+    requested windows; campaign emits a valid design job + counter-select plan."""
+    from .specificity import build_design_value, pocket_redesign_plan
+    seq = "ACDEFGHIKLMNPQRST"
+    val = build_design_value(seq, [(2, 2), (10, 3)])   # design idx 2-3 and 10-12
+    assert val == "AC" + "2" + "FGHIKL" + "3" + "QRST", val
+    assert len(val.replace("2", "").replace("3", "")) == len(seq) - 5
+    plan = pocket_redesign_plan("VDR", "M" + "AEKLQ" * 30, [(10, 3), (40, 3)],
+                                "1,25OH2D3", ["25OHD3", "D3"], num_proteins=12)
+    assert plan["n_designed_residues"] == 6
+    dj = plan["design_job"]
+    assert dj["binder_specification"]["type"] == "no_template"
+    assert dj["target"]["entities"][0]["type"] == "ligand_smiles"
+    assert "25OHD3" in plan["counter_select"]["metabolites"] and \
+           "1,25OH2D3" in plan["counter_select"]["metabolites"]
+    print("[OK] pocket redesign: value keeps length, designs windows; campaign well-formed")
+
+
 if __name__ == "__main__":
     test_circular_permutation_conserves_residues()
     test_insertion_preserves_reporter()
@@ -162,4 +181,5 @@ if __name__ == "__main__":
     test_and_gate_logic()
     test_campaign_orchestrator()
     test_specificity_scoring()
+    test_pocket_redesign_plan()
     print("\nALL TESTS PASSED ✅")

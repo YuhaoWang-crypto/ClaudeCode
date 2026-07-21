@@ -95,6 +95,25 @@ the unconstrained co-folds:
   the contact into the pocket** (RifDock/LigandMPNN + counter-selection) manufactures the
   margin. Full write-up: `biosensor_out/specificity_vitd_pocket1a_RESULTS.md`.
 
+## Pocket-redesign route — DESIGN the contact, then counter-select (ready to run)
+
+Scoring a constraint only *focuses* the metric (above); to actually open the margin you
+must **redesign the pocket** so a directional H-bond is built onto the discriminating
+group — LigandMPNN-style — then counter-select. Implemented in
+`specificity.pocket_redesign_plan()`:
+
+1. **Redesign** (positive design): Boltz `boltz_start_protein_design`, `no_template`
+   binder = the **full receptor sequence with only the discriminating-subsite residues
+   left as designed positions** (`build_design_value(seq, windows)` keeps the length/fold
+   and floats just those residues), docked against the **target** metabolite. For VDR the
+   subsite is Ser68+Arg105 (1α-OH anchors) → windows `[(67,3),(104,3)]`, 6 designed residues.
+2. **Counter-select** (negative design): co-fold each design vs target **and** every
+   off-target; keep the largest `specificity = conf(target) − max conf(off-targets)`.
+
+The exact, ready-to-fire payloads are saved at
+`biosensor_out/vdr_pocket_redesign_plan.json` (design job + counter-select, ~$0.75). This
+is the step the flat matrix and the constraint-only test both point to.
+
 ## Honesty
 
 - ✅ the matrix numbers are real Boltz metrics; the SMILES and PDB templates are real.

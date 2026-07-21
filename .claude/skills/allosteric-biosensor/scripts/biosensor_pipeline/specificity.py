@@ -149,6 +149,74 @@ def generative_design_plan(target: str, off_targets: list) -> dict:
     }
 
 
+# ---------------------------------------------------------------------------
+# pocket-redesign route: LigandMPNN-style redesign of a KNOWN receptor's pocket
+# to build a directional contact to the discriminating group, then counter-select.
+# (Borrowed from the Baker de-novo luciferase / modular-binder papers: specificity
+# comes from a specific directional polar contact, DESIGNED into the pocket.)
+# ---------------------------------------------------------------------------
+def build_design_value(seq: str, windows: list) -> str:
+    """Build a Boltz no_template designed_protein `value`: the full receptor sequence
+    with the given windows left as designed positions (rest fixed).
+
+    windows: list of (start_idx, length) 0-indexed, non-overlapping, sorted.
+    A window (s, n) makes residues [s, s+n) designable (written as the digit run `n`),
+    keeping the chain length fixed so the backbone/fold is preserved (LigandMPNN-style).
+    """
+    windows = sorted(windows)
+    out, cursor = [], 0
+    for s, n in windows:
+        if s < cursor:
+            raise ValueError(f"overlapping/unsorted design windows at {s}")
+        out.append(seq[cursor:s])       # fixed stretch
+        out.append(str(n))              # n designed residues (replaces seq[s:s+n])
+        cursor = s + n
+    out.append(seq[cursor:])
+    value = "".join(out)
+    return value
+
+
+def pocket_redesign_plan(receptor_name: str, receptor_seq: str, design_windows: list,
+                         target_key: str, offtarget_keys: list,
+                         num_proteins: int = 12) -> dict:
+    """Emit a ready-to-run Boltz campaign: (1) redesign the receptor's pocket residues
+    against the TARGET metabolite, then (2) counter-select the designs against the
+    off-targets. This is the step that DESIGNS the discriminating contact rather than
+    just scoring it.
+
+    Returns the exact Boltz payloads so the run is one go-ahead away.
+    """
+    value = build_design_value(receptor_seq, design_windows)
+    tgt = METABOLITE_PANEL[target_key]
+    design_job = {
+        "tool": "boltz_start_protein_design",
+        "idempotency_key": f"{receptor_name.lower()}-pocket-redesign-{target_key}",
+        "num_proteins": num_proteins,
+        "target": {"type": "no_template",
+                   "entities": [{"type": "ligand_smiles", "chain_ids": ["L"], "value": tgt["smiles"]}],
+                   "epitope_ligand_chains": ["L"]},
+        "binder_specification": {"type": "no_template", "modality": "custom_protein",
+                                 "entities": [{"type": "designed_protein", "chain_ids": ["A"], "value": value}]},
+    }
+    # counter-selection: each designed sequence is co-folded vs target + off-targets
+    counter_select = {
+        "tool": "boltz_start_structure_and_binding (per design, per metabolite)",
+        "metabolites": {k: METABOLITE_PANEL[k]["smiles"] for k in [target_key] + offtarget_keys},
+        "score": "specificity = binding_confidence(target) - max binding_confidence(off-targets)",
+        "keep": "designs with the LARGEST positive specificity margin (this is the filter "
+                "single-target design skips)",
+    }
+    n_design_res = sum(n for _, n in design_windows)
+    return {
+        "receptor": receptor_name, "target": target_key, "off_targets": offtarget_keys,
+        "n_designed_residues": n_design_res, "design_windows": design_windows,
+        "design_job": design_job, "counter_select": counter_select,
+        "cost_estimate_usd": round(0.025 * num_proteins + 0.05 * 3 * (1 + len(offtarget_keys)), 2),
+        "label": "⚠️ redesign may need several rounds; the counter-selection margin is the "
+                 "deciding number, and a wet-lab competition assay is the ground truth.",
+    }
+
+
 def main():
     import json, os
     OUT = os.path.join(os.getcwd(), "biosensor_out")

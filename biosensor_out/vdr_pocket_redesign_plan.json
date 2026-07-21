@@ -1,0 +1,64 @@
+{
+  "receptor": "VDR",
+  "target": "1,25OH2D3",
+  "off_targets": [
+    "25OHD3",
+    "D3"
+  ],
+  "n_designed_residues": 6,
+  "design_windows": [
+    [
+      67,
+      3
+    ],
+    [
+      104,
+      3
+    ]
+  ],
+  "design_job": {
+    "tool": "boltz_start_protein_design",
+    "idempotency_key": "vdr-pocket-redesign-1,25OH2D3",
+    "num_proteins": 12,
+    "target": {
+      "type": "no_template",
+      "entities": [
+        {
+          "type": "ligand_smiles",
+          "chain_ids": [
+            "L"
+          ],
+          "value": "CC(CCCC(C)(C)O)C1CCC2C1(CCCC2=CC=C3CC(CC(C3=C)O)O)C"
+        }
+      ],
+      "epitope_ligand_chains": [
+        "L"
+      ]
+    },
+    "binder_specification": {
+      "type": "no_template",
+      "modality": "custom_protein",
+      "entities": [
+        {
+          "type": "designed_protein",
+          "chain_ids": [
+            "A"
+          ],
+          "value": "DSLRPKLSEEQQRIIAILLDAHHKTYDPTYSDFCQFRPPVRVNDGGGSVTLELSQLSMLPHLADLVS3QKVIGFAKMIPGFRDLTSEDQIVLLKSSAIEVIM3NESFTMDDMSWTCGNQDYKYRVSDVTKAGHSLELIEPLIKFQVGLKKLNLHEEEHVLLMAICIVSPDRPGVQDAALIEAIQDRLSNTLQTYIRCRHPPPGSHLLYAKMIQKLADLRSLNEEHSKQYRCLSFQPECSMKLTPLVLEVFGNEIS"
+        }
+      ]
+    }
+  },
+  "counter_select": {
+    "tool": "boltz_start_structure_and_binding (per design, per metabolite)",
+    "metabolites": {
+      "1,25OH2D3": "CC(CCCC(C)(C)O)C1CCC2C1(CCCC2=CC=C3CC(CC(C3=C)O)O)C",
+      "25OHD3": "CC(CCCC(C)(C)O)C1CCC2C1(CCCC2=CC=C3CC(CCC3=C)O)C",
+      "D3": "CC(C)CCCC(C)C1CCC2C1(CCCC2=CC=C3CC(CCC3=C)O)C"
+    },
+    "score": "specificity = binding_confidence(target) - max binding_confidence(off-targets)",
+    "keep": "designs with the LARGEST positive specificity margin (this is the filter single-target design skips)"
+  },
+  "cost_estimate_usd": 0.75,
+  "label": "\u26a0\ufe0f redesign may need several rounds; the counter-selection margin is the deciding number, and a wet-lab competition assay is the ground truth."
+}
