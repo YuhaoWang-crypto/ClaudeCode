@@ -1,0 +1,4 @@
+numpy>=1.24
+scipy>=1.10
+# real back-ends (optional, heavy): fairchem-core + UMA weights (uma-crystal-mof skill);
+# Quantum ESPRESSO on Modal (qe-modal-bader-density / mlp-modal skills)

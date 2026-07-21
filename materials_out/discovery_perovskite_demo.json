@@ -1,0 +1,192 @@
+{
+  "prototype": "perovskite",
+  "scorer": "surrogate",
+  "tol": 0.05,
+  "n_candidates": 6,
+  "n_stable": 4,
+  "hit_rate": 0.667,
+  "top": [
+    {
+      "formula": "BaZrO3",
+      "prototype": "perovskite",
+      "source": "structural",
+      "formation_energy_per_atom": -3.5831,
+      "e_above_hull": -0.2111,
+      "stable": true,
+      "decomposes_to": [
+        [
+          "ZrO2",
+          0.6
+        ],
+        [
+          "BaO",
+          0.4
+        ]
+      ]
+    },
+    {
+      "formula": "BaTiO3",
+      "prototype": "perovskite",
+      "source": "structural",
+      "formation_energy_per_atom": -3.2674,
+      "e_above_hull": -0.1594,
+      "stable": true,
+      "decomposes_to": [
+        [
+          "TiO2",
+          0.6
+        ],
+        [
+          "BaO",
+          0.4
+        ]
+      ]
+    },
+    {
+      "formula": "SrZrO3",
+      "prototype": "perovskite",
+      "source": "structural",
+      "formation_energy_per_atom": -3.4914,
+      "e_above_hull": -0.0394,
+      "stable": true,
+      "decomposes_to": [
+        [
+          "ZrO2",
+          0.6
+        ],
+        [
+          "SrO",
+          0.4
+        ]
+      ]
+    },
+    {
+      "formula": "SrTiO3",
+      "prototype": "perovskite",
+      "source": "structural",
+      "formation_energy_per_atom": -3.1799,
+      "e_above_hull": 0.0081,
+      "stable": true,
+      "decomposes_to": [
+        [
+          "TiO2",
+          0.6
+        ],
+        [
+          "SrO",
+          0.4
+        ]
+      ]
+    },
+    {
+      "formula": "CaZrO3",
+      "prototype": "perovskite",
+      "source": "structural",
+      "formation_energy_per_atom": -3.4159,
+      "e_above_hull": 0.1401,
+      "stable": false,
+      "decomposes_to": [
+        [
+          "ZrO2",
+          0.6
+        ],
+        [
+          "CaO",
+          0.4
+        ]
+      ]
+    },
+    {
+      "formula": "CaTiO3",
+      "prototype": "perovskite",
+      "source": "structural",
+      "formation_energy_per_atom": -3.1079,
+      "e_above_hull": 0.1841,
+      "stable": false,
+      "decomposes_to": [
+        [
+          "TiO2",
+          0.6
+        ],
+        [
+          "CaO",
+          0.4
+        ]
+      ]
+    }
+  ],
+  "stable": [
+    {
+      "formula": "BaZrO3",
+      "prototype": "perovskite",
+      "source": "structural",
+      "formation_energy_per_atom": -3.5831,
+      "e_above_hull": -0.2111,
+      "stable": true,
+      "decomposes_to": [
+        [
+          "ZrO2",
+          0.6
+        ],
+        [
+          "BaO",
+          0.4
+        ]
+      ]
+    },
+    {
+      "formula": "BaTiO3",
+      "prototype": "perovskite",
+      "source": "structural",
+      "formation_energy_per_atom": -3.2674,
+      "e_above_hull": -0.1594,
+      "stable": true,
+      "decomposes_to": [
+        [
+          "TiO2",
+          0.6
+        ],
+        [
+          "BaO",
+          0.4
+        ]
+      ]
+    },
+    {
+      "formula": "SrZrO3",
+      "prototype": "perovskite",
+      "source": "structural",
+      "formation_energy_per_atom": -3.4914,
+      "e_above_hull": -0.0394,
+      "stable": true,
+      "decomposes_to": [
+        [
+          "ZrO2",
+          0.6
+        ],
+        [
+          "SrO",
+          0.4
+        ]
+      ]
+    },
+    {
+      "formula": "SrTiO3",
+      "prototype": "perovskite",
+      "source": "structural",
+      "formation_energy_per_atom": -3.1799,
+      "e_above_hull": 0.0081,
+      "stable": true,
+      "decomposes_to": [
+        [
+          "TiO2",
+          0.6
+        ],
+        [
+          "SrO",
+          0.4
+        ]
+      ]
+    }
+  ]
+}
