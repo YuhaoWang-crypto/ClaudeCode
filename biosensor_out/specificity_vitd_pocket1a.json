@@ -1,0 +1,44 @@
+{
+  "receptor": "VDR-LBD(1DB1,259aa)",
+  "subsite_residues_0idx": [
+    68,
+    105
+  ],
+  "subsite": "1a-OH anchor Ser237/Arg274 (canonical)",
+  "metric_tuple": "(ligand_iptm,binding_confidence)",
+  "data": {
+    "unconstrained": {
+      "D3": [
+        0.9725,
+        0.6667
+      ],
+      "25OHD3": [
+        0.9731,
+        0.7569
+      ],
+      "1,25OH2D3": [
+        0.9812,
+        0.7434
+      ]
+    },
+    "pocket_1a_subsite": {
+      "D3": [
+        0.9768,
+        0.6774
+      ],
+      "25OHD3": [
+        0.971,
+        0.7526
+      ],
+      "1,25OH2D3": [
+        0.9804,
+        0.7522
+      ]
+    }
+  },
+  "job_ids": {
+    "1,25": "sab_pred_N3pMRWMKniPUMT0Cei8a",
+    "25OH": "sab_pred_31Olu8KtBRu3zclKY9Fv",
+    "D3": "sab_pred_HKiGAXAH3OQjYNAFP5a6"
+  }
+}

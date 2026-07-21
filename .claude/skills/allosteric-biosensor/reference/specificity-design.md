@@ -78,6 +78,23 @@ Takeaway: no PDB template cleanly separated 25(OH) from 1,25(OH)₂ by co-foldin
 which is exactly what pushes a real design to the **generative + counter-selection**
 route (`generative_design_plan`).
 
+## Directional-contact test (borrowed from Baker de-novo design, ✅ Boltz)
+
+Two Baker papers (de-novo luciferases, Nature 2023 `s41586-023-06735-9`; modular
+peptide binders, `s41586-023-05909-9`) teach that specificity comes from a **specific
+directional polar contact** to the discriminating group — not global affinity. Retested
+on VDR by pinning the ligand to VDR's native **1α-OH anchors Ser237+Arg274** (our
+construct residues 68+105) with a forced Boltz `pocket` constraint, then comparing to
+the unconstrained co-folds:
+
+- Focusing the score on the 1α-subsite moved every number the right way: **1,25 binding-
+  confidence +0.009** (satisfied by its 1α-OH), **25(OH)D3 −0.004** (penalized — no 1α-OH);
+  the hard 1,25-vs-25(OH) margin corrected from **−0.014 (wrong) → −0.000 (tied)**.
+- ⚠️ but still **not a usable margin** — a single –OH stays at/below co-folding resolution
+  even with a mechanism-focused constraint. Scoring *focuses* the metric; only **designing
+  the contact into the pocket** (RifDock/LigandMPNN + counter-selection) manufactures the
+  margin. Full write-up: `biosensor_out/specificity_vitd_pocket1a_RESULTS.md`.
+
 ## Honesty
 
 - ✅ the matrix numbers are real Boltz metrics; the SMILES and PDB templates are real.
