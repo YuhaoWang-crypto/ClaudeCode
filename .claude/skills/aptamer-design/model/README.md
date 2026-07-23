@@ -29,6 +29,26 @@ that narrows candidates *before* the expensive Boltz-2.1 structural step (Stage 
 | `generate_lm.py` | order-k Markov nucleotide **language model** → generate novel candidates |
 | `seed_dataset.csv` | 3 illustrative real aptamers (TBA, AS1411, Sgc8c) — **replace with UTexas export** |
 | `queries.csv` | our EGFR + GFRα1 designed candidates, ready to score |
+| `seed_from_db.py` | **SEED lookup**: known aptamer for this target/family? → DIRECT_SEED / FAMILY_ONLY / NO_SEED |
+| `seed_index.csv` | curated, offline seed corpus (target-organized; PDB-anchor + negative-anchor flags) |
+| `calibration_anchors.csv` | PDB aptamer×protein co-crystals w/ measured Kd — absolute ipTM yardsticks |
+
+## Seed lookup + calibration (`seed_from_db.py`)
+Warm-start the design pool from the literature instead of a random ViennaRNA pool:
+```bash
+python3 seed_from_db.py --target "Thrombin" --uniprot P00734          # DIRECT_SEED (+PDB anchor)
+python3 seed_from_db.py --target "CTLA-4"   --uniprot P16410          # negative anchor (promiscuous)
+python3 seed_from_db.py --target "alpha-1-acid glycoprotein" \
+        --uniprot P02763 --family "lipocalin,ORM1,ORM2,orosomucoid"   # NO_SEED → de novo
+python3 seed_from_db.py --calibrate                                   # TBA×thrombin yardstick
+```
+Two honesty rules baked in: (1) a seed is a *starting point, not a hit* — it still passes the
+Step-5 specificity gate, and a seed that fails becomes a **negative anchor** (the CTLA-4
+`aptamerd6` lineage is tagged exactly this way). (2) Absolute ipTM is not comparable across
+targets — `--calibrate` gives you a validated binder to run through the same pipeline so the
+decoy gap has a real yardstick. `seed_index.csv` is the reliable default; `--live` only
+augments it from the UTexas public download (Apta-Index / Aptamer Base have **no bulk API** —
+spot-check those by hand, per `schema.md`).
 
 ## Quickstart (no dependencies required)
 ```bash

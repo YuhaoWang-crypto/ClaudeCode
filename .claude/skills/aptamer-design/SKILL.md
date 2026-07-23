@@ -24,6 +24,11 @@ starting sequence space and ranks candidates by structural-confidence proxies.
 ## Two modes
 - **Quick** (default): rational design + Boltz-2.1 co-folding + scramble decoy + paralog
   counter-screen. Fast, runs from the Boltz_API MCP alone. Steps 0–6 below.
+
+> **Warm start (applies to either mode):** before cold-starting from a random pool, run
+> `model/seed_from_db.py` (Step 1.5) to pull **known aptamers** against the target or a
+> homolog family as design seeds, and to pull a **PDB co-crystal anchor** for score
+> calibration. A literature seed is a much warmer start than random — *when one exists*.
 - **Full in-silico SELEX** (`references/t-selex-integration.md`): an iterative loop that
   adds the **T-SELEX** toolchain (ViennaRNA → RNAComposer → HDOCK + IntaRNA) as a **second,
   orthogonal 3D scorer** and evolves winners with the LM over several rounds. Rank by
@@ -67,6 +72,34 @@ footprint is desired). Pick the matching weight profile in `scripts/rank_candida
 - Note electrostatics: a basic (Arg/Lys-rich) or heparin/GAG groove is a natural docking
   site for polyanionic aptamers — but electrostatic grooves also risk cross-reactivity
   with other polyanion-binding proteins (specificity caveat for diagnostics).
+
+### 1.5 Seed lookup — warm start from known aptamers (`seed_from_db`)
+Before designing anything, ask: *does a validated aptamer already exist for this target?*
+```bash
+python3 model/seed_from_db.py --target "<name>" --uniprot <ACC> \
+        --family "<homolog/family keywords>"        # e.g. "lipocalin,ORM1,ORM2"
+python3 model/seed_from_db.py --calibrate            # PDB-anchor calibration recipe
+```
+It matches the curated `model/seed_index.csv` (offline; `--live` also probes the UTexas
+public download) in three tiers and returns one verdict:
+
+| verdict | meaning | what to do |
+|---|---|---|
+| **DIRECT_SEED** | usable literature seq for this exact target | seed the pool with it; **counter-screen it FIRST** (a known binder can still be promiscuous), then dope-mutate survivors |
+| **DIRECT_METADATA_ONLY** | target has a known aptamer but no usable seq, or it's a flagged **negative anchor** | retrieve seq from the DOI, or use the negative as a score-scale calibrator + go de novo |
+| **FAMILY_ONLY** | only a homolog/fold-family aptamer exists | weak prior — go de novo, use the family aptamer as a sanity anchor only |
+| **NO_SEED** | nothing in the corpus | genuine cold-start → de novo; **report the absence honestly** |
+
+**Golden rule for seeds:** a database hit is a *starting point, not a hit for your target*.
+Every seed still passes the same specificity gate (Step 5) as a de novo candidate — and a
+seed that **fails** it is not wasted: it becomes a **negative anchor** that calibrates the
+ipTM/HDOCK scale (this is exactly what the CTLA-4 `aptamerd6` lineage is — real aptamer,
+but promiscuous under cross-validation, so `seed_index.csv` tags it `NEGATIVE-ANCHOR`).
+
+**Calibration:** `--calibrate` returns PDB aptamer×protein co-crystals with measured Kd
+(TBA×thrombin is the solid one). Run the anchor through the *same* co-fold pipeline to learn
+what on-target ipTM and decoy gap a validated ~100 nM binder actually produces here, then
+judge each design's gap against that reference instead of against 0. (See `model/README.md`.)
 
 ### 2. Candidate design
 See `references/design-principles.md`. Produce a diverse set across scaffolds:

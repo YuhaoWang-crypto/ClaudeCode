@@ -1,0 +1,3 @@
+anchor_id,name,chem,sequence,target_name,target_uniprot,pdb,kd_nM,kd_method,note
+CAL_tba_thrombin,TBA x Thrombin (exosite I),DNA,GGTTGGTGTGGTTGG,Thrombin,P00734,1HAO,100,SPR/ITC (lit range 25-450),Gold-standard DNA-aptamer x protein co-crystal. Run this pair through the SAME Boltz co-fold pipeline to get the reference on-target ipTM and reference decoy gap for a validated ~100 nM binder.
+CAL_hd22_thrombin,HD22 x Thrombin (exosite II),DNA,AGTCCGTGGTAGGGCAGGTTGGGGTGACT,Thrombin,P00734,,0.5,filter-binding,Sub-nM binder at a DIFFERENT epitope on the SAME protein - use to check that the pipeline separates two real binders from a decoy.
