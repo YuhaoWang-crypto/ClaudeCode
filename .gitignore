@@ -1,2 +1,5 @@
 __pycache__/
 *.pyc
+# raygun demo: cloned upstream repo and scratch outputs (not tracked here)
+/raygun/
+/scratchpad/
