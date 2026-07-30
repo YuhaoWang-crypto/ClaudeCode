@@ -68,10 +68,17 @@ confirm in the validated workflow. See report §5.7.
 
 ## Report formats
 
-- `..._Report.docx` — editable regulatory report (10 sections incl. §5.6 QSAR and §5.7 ICH M7; 7 tables, 8 figures).
-- `..._Report.pdf` — 14-page rendered PDF (identical content; produced from `report.html` via headless Chromium,
+**English**
+- `Vancomycin_..._Report.docx` — editable regulatory report (10 sections incl. §5.6 QSAR and §5.7 ICH M7; 7 tables, 8 figures).
+- `Vancomycin_..._Report.pdf` — 14-page rendered PDF (identical content; produced from `report.html` via headless Chromium,
   since LibreOffice PDF export is unavailable in the build sandbox).
 - `report.html` — self-contained HTML twin (embedded figures) used to generate the PDF.
+
+**中文 (Chinese)**
+- `万古霉素_RRT075_RRT087_3DQSAR毒理学界定报告.pdf` — 完整中文 PDF（文泉驿正黑渲染）。
+- `万古霉素_RRT075_RRT087_3DQSAR毒理学界定报告.docx` — 可编辑中文 DOCX。
+- `report_zh.html` — 中文自包含 HTML（生成中文 PDF 用）。
+- Generators: `scripts/generate_html_zh.py`, `scripts/build_report_zh.js`.
 
 ## Deliverables
 
