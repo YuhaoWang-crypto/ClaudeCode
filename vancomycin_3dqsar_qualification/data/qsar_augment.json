@@ -1,0 +1,48 @@
+{
+  "measured_vancomycin": {
+    "NR-AR": "active",
+    "NR-AR-LBD": "inactive",
+    "NR-AhR": "inactive",
+    "NR-Aromatase": "inactive",
+    "NR-ER": "inactive",
+    "NR-ER-LBD": "inactive",
+    "NR-PPAR-gamma": "inactive",
+    "SR-ARE": "not tested",
+    "SR-ATAD5": "inactive",
+    "SR-HSE": "not tested",
+    "SR-MMP": "inactive",
+    "SR-p53": "inactive"
+  },
+  "heldout_parent_pred": {
+    "NR-AR": 0.219,
+    "NR-AR-LBD": 0.22,
+    "NR-AhR": 0.2,
+    "NR-Aromatase": 0.223,
+    "NR-ER": 0.306,
+    "NR-ER-LBD": 0.16,
+    "NR-PPAR-gamma": 0.163,
+    "SR-ARE": 0.357,
+    "SR-ATAD5": 0.15,
+    "SR-HSE": 0.24,
+    "SR-MMP": 0.26,
+    "SR-p53": 0.303
+  },
+  "heldout_pred_rrt075": {
+    "NR-AR": 0.206,
+    "NR-AR-LBD": 0.23,
+    "NR-AhR": 0.18,
+    "NR-Aromatase": 0.227,
+    "NR-ER": 0.3,
+    "NR-ER-LBD": 0.153,
+    "NR-PPAR-gamma": 0.173,
+    "SR-ARE": 0.34,
+    "SR-ATAD5": 0.133,
+    "SR-HSE": 0.227,
+    "SR-MMP": 0.26,
+    "SR-p53": 0.293
+  },
+  "n_identical_train_rows": 1,
+  "identical_mol_ids": [
+    "TOX25354"
+  ]
+}

@@ -1,0 +1,192 @@
+{
+  "cv_metrics": [
+    {
+      "endpoint": "NR-AR",
+      "description": "Androgen receptor (full)",
+      "n": 7258,
+      "n_active": 308,
+      "CV_AUC": 0.793
+    },
+    {
+      "endpoint": "NR-AR-LBD",
+      "description": "Androgen receptor (LBD)",
+      "n": 6751,
+      "n_active": 237,
+      "CV_AUC": 0.873
+    },
+    {
+      "endpoint": "NR-AhR",
+      "description": "Aryl hydrocarbon receptor",
+      "n": 6542,
+      "n_active": 768,
+      "CV_AUC": 0.892
+    },
+    {
+      "endpoint": "NR-Aromatase",
+      "description": "Aromatase (CYP19A1)",
+      "n": 5815,
+      "n_active": 300,
+      "CV_AUC": 0.822
+    },
+    {
+      "endpoint": "NR-ER",
+      "description": "Estrogen receptor (full)",
+      "n": 6186,
+      "n_active": 791,
+      "CV_AUC": 0.723
+    },
+    {
+      "endpoint": "NR-ER-LBD",
+      "description": "Estrogen receptor (LBD)",
+      "n": 6948,
+      "n_active": 349,
+      "CV_AUC": 0.817
+    },
+    {
+      "endpoint": "NR-PPAR-gamma",
+      "description": "PPAR-gamma",
+      "n": 6443,
+      "n_active": 186,
+      "CV_AUC": 0.828
+    },
+    {
+      "endpoint": "SR-ARE",
+      "description": "Oxidative-stress response (ARE)",
+      "n": 5825,
+      "n_active": 942,
+      "CV_AUC": 0.807
+    },
+    {
+      "endpoint": "SR-ATAD5",
+      "description": "Genotoxicity / DNA damage (ATAD5)",
+      "n": 7065,
+      "n_active": 264,
+      "CV_AUC": 0.856
+    },
+    {
+      "endpoint": "SR-HSE",
+      "description": "Heat-shock response",
+      "n": 6460,
+      "n_active": 372,
+      "CV_AUC": 0.781
+    },
+    {
+      "endpoint": "SR-MMP",
+      "description": "Mitochondrial membrane potential",
+      "n": 5804,
+      "n_active": 918,
+      "CV_AUC": 0.879
+    },
+    {
+      "endpoint": "SR-p53",
+      "description": "p53 DNA-damage response",
+      "n": 6767,
+      "n_active": 423,
+      "CV_AUC": 0.853
+    }
+  ],
+  "predictions": {
+    "Parent (Vancomycin B)": {
+      "NR-AR": 1.0,
+      "NR-AR-LBD": 0.1,
+      "NR-AhR": 0.153,
+      "NR-Aromatase": 0.147,
+      "NR-ER": 0.183,
+      "NR-ER-LBD": 0.097,
+      "NR-PPAR-gamma": 0.083,
+      "SR-ARE": 0.357,
+      "SR-ATAD5": 0.057,
+      "SR-HSE": 0.24,
+      "SR-MMP": 0.167,
+      "SR-p53": 0.163
+    },
+    "RRT 0.87 (7S,26R)-Vanco B": {
+      "NR-AR": 1.0,
+      "NR-AR-LBD": 0.1,
+      "NR-AhR": 0.153,
+      "NR-Aromatase": 0.147,
+      "NR-ER": 0.183,
+      "NR-ER-LBD": 0.097,
+      "NR-PPAR-gamma": 0.083,
+      "SR-ARE": 0.357,
+      "SR-ATAD5": 0.057,
+      "SR-HSE": 0.24,
+      "SR-MMP": 0.167,
+      "SR-p53": 0.163
+    },
+    "RRT 0.75 (26R)-DMe-DeLI": {
+      "NR-AR": 0.833,
+      "NR-AR-LBD": 0.102,
+      "NR-AhR": 0.15,
+      "NR-Aromatase": 0.17,
+      "NR-ER": 0.19,
+      "NR-ER-LBD": 0.106,
+      "NR-PPAR-gamma": 0.077,
+      "SR-ARE": 0.34,
+      "SR-ATAD5": 0.063,
+      "SR-HSE": 0.227,
+      "SR-MMP": 0.177,
+      "SR-p53": 0.17
+    }
+  },
+  "delta_vs_parent": {
+    "Parent (Vancomycin B)": {
+      "NR-AR": 0.0,
+      "NR-AR-LBD": 0.0,
+      "NR-AhR": 0.0,
+      "NR-Aromatase": 0.0,
+      "NR-ER": 0.0,
+      "NR-ER-LBD": 0.0,
+      "NR-PPAR-gamma": 0.0,
+      "SR-ARE": 0.0,
+      "SR-ATAD5": 0.0,
+      "SR-HSE": 0.0,
+      "SR-MMP": 0.0,
+      "SR-p53": 0.0
+    },
+    "RRT 0.87 (7S,26R)-Vanco B": {
+      "NR-AR": 0.0,
+      "NR-AR-LBD": 0.0,
+      "NR-AhR": 0.0,
+      "NR-Aromatase": 0.0,
+      "NR-ER": 0.0,
+      "NR-ER-LBD": 0.0,
+      "NR-PPAR-gamma": 0.0,
+      "SR-ARE": 0.0,
+      "SR-ATAD5": 0.0,
+      "SR-HSE": 0.0,
+      "SR-MMP": 0.0,
+      "SR-p53": 0.0
+    },
+    "RRT 0.75 (26R)-DMe-DeLI": {
+      "NR-AR": -0.167,
+      "NR-AR-LBD": 0.002,
+      "NR-AhR": -0.003,
+      "NR-Aromatase": 0.023,
+      "NR-ER": 0.007,
+      "NR-ER-LBD": 0.009,
+      "NR-PPAR-gamma": -0.006,
+      "SR-ARE": -0.017,
+      "SR-ATAD5": 0.006,
+      "SR-HSE": -0.013,
+      "SR-MMP": 0.01,
+      "SR-p53": 0.007
+    }
+  },
+  "applicability_domain": {
+    "Parent (Vancomycin B)": {
+      "max_Tanimoto_to_train": 1.0,
+      "mean_top5_Tanimoto": 0.409
+    },
+    "RRT 0.87 (7S,26R)-Vanco B": {
+      "max_Tanimoto_to_train": 1.0,
+      "mean_top5_Tanimoto": 0.409
+    },
+    "RRT 0.75 (26R)-DMe-DeLI": {
+      "max_Tanimoto_to_train": 0.863,
+      "mean_top5_Tanimoto": 0.385
+    }
+  },
+  "mean_cv_auc": 0.827,
+  "model": "RandomForest(300,balanced) on Morgan r2 2048-bit; 5-fold stratified OOF AUC; trained on public MoleculeNet Tox21 (n=7823)"
+}

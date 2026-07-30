@@ -27,6 +27,24 @@ Both impurities are qualified by **read-across to the parent**, whose safety is 
 91-day i.v. dog study (NOAEL 75/100 mg/kg/day, ≈2–3× clinical dose), provided each stays within
 the Ph. Eur. related-substances limits. Confirm under the company ICH M7 two-(Q)SAR + expert-review workflow.
 
+## Statistical QSAR (12-endpoint Tox21)
+
+An in-house 12-endpoint Tox21 QSAR was trained (class-balanced RandomForest on 2048-bit radius-2
+Morgan fingerprints; public MoleculeNet Tox21; **mean 5-fold CV-AUC 0.827**, range 0.72–0.89) and
+applied with an explicit applicability-domain (AD) check:
+
+- **Vancomycin is itself a Tox21 training compound** (mol_id TOX25354, nearest-neighbour Tanimoto = 1.00),
+  so the QSAR is genuinely *in-domain* for the parent. Its **measured** profile is essentially clean:
+  weak **NR-AR** active, **inactive** at every other tested endpoint (incl. genotoxicity SR-ATAD5, SR-p53).
+- **RRT 0.87** has a fingerprint identical to the parent → **Δ ≡ 0** at all 12 endpoints (a concrete demonstration
+  that a 2D-QSAR is blind to this stereoisomer — hence the 3D read-across carries the weight).
+- **RRT 0.75** (genuine external prediction, Tanimoto 0.86): every endpoint probability is within **±0.02**
+  of the held-out parent and **none crosses into activity** → no new nuclear-receptor or stress-response liability.
+
+The Tox21 panel covers 12 specific mechanisms only; it does **not** model vancomycin's clinical effects
+(nephro-/ototoxicity, Red-Man syndrome) — those are handled mechanistically (toxicophore analysis) and by
+read-across to the parent's in vivo package. See report §5.6.
+
 ## Deliverables
 
 - `Vancomycin_RRT075_RRT087_3DQSAR_Qualification_Report.docx` — **the regulatory-style report** (main deliverable).
@@ -37,11 +55,15 @@ the Ph. Eur. related-substances limits. Confirm under the company ICH M7 two-(Q)
 ## Reproduce
 
 ```bash
-pip install rdkit matplotlib
+pip install rdkit matplotlib pandas scikit-learn
 python scripts/analyze.py      # physchem, structural alerts, FG inventory, 3D descriptors, O3A/shape
 python scripts/render.py       # 2D structures, residue-1 highlight, MCS core 3D alignment
 python scripts/figures.py      # summary figures
-npm install docx && node scripts/build_report.js   # assemble the DOCX report
+# QSAR: needs data/tox21.csv.gz (public MoleculeNet Tox21; not committed)
+python scripts/qsar.py         # train 12-endpoint Tox21 RF, 5-fold CV, predict, AD
+python scripts/qsar_augment.py # measured vancomycin labels + held-out parent predictions
+python scripts/qsar_fig.py     # QSAR figure
+npm install docx && node scripts/build_report.js   # assemble the DOCX report (reads qsar_*.json)
 ```
 
 ## Methods (summary)

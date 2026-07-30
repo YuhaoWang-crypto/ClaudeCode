@@ -1,0 +1,13 @@
+endpoint,description,n,n_active,CV_AUC
+NR-AR,Androgen receptor (full),7258,308,0.793
+NR-AR-LBD,Androgen receptor (LBD),6751,237,0.873
+NR-AhR,Aryl hydrocarbon receptor,6542,768,0.892
+NR-Aromatase,Aromatase (CYP19A1),5815,300,0.822
+NR-ER,Estrogen receptor (full),6186,791,0.723
+NR-ER-LBD,Estrogen receptor (LBD),6948,349,0.817
+NR-PPAR-gamma,PPAR-gamma,6443,186,0.828
+SR-ARE,Oxidative-stress response (ARE),5825,942,0.807
+SR-ATAD5,Genotoxicity / DNA damage (ATAD5),7065,264,0.856
+SR-HSE,Heat-shock response,6460,372,0.781
+SR-MMP,Mitochondrial membrane potential,5804,918,0.879
+SR-p53,p53 DNA-damage response,6767,423,0.853
