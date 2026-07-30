@@ -1,0 +1,39 @@
+{
+  "methodology_1": "Benigni-Bossa expert structural-alert rulebase (Toxtree/VEGA basis; 29 alerts)",
+  "methodology_2": {
+    "model": "RandomForest(400,balanced) Morgan r2 2048 on Hansen Ames N6512",
+    "n_train": 6506,
+    "pos_frac": 0.538,
+    "cv_auc": 0.881,
+    "threshold_youden": 0.522
+  },
+  "per_compound": {
+    "Parent (Vancomycin B)": {
+      "expert_rulebase_alerts": [],
+      "expert_call": "negative (no structural alert)",
+      "stat_Ames_prob": 0.41,
+      "stat_Ames_call": "negative",
+      "stat_AD_maxTanimoto": 0.219,
+      "stat_AD_meanTop5": 0.211,
+      "ICH_M7_class": "Class 5 (no structural alert; treat as non-mutagenic)"
+    },
+    "RRT 0.87 (7S,26R)-Vanco B": {
+      "expert_rulebase_alerts": [],
+      "expert_call": "negative (no structural alert)",
+      "stat_Ames_prob": 0.41,
+      "stat_Ames_call": "negative",
+      "stat_AD_maxTanimoto": 0.219,
+      "stat_AD_meanTop5": 0.211,
+      "ICH_M7_class": "Class 5 (no structural alert; treat as non-mutagenic)"
+    },
+    "RRT 0.75 (26R)-DMe-DeLI": {
+      "expert_rulebase_alerts": [],
+      "expert_call": "negative (no structural alert)",
+      "stat_Ames_prob": 0.415,
+      "stat_Ames_call": "negative",
+      "stat_AD_maxTanimoto": 0.228,
+      "stat_AD_meanTop5": 0.218,
+      "ICH_M7_class": "Class 5 (no structural alert; treat as non-mutagenic)"
+    }
+  }
+}

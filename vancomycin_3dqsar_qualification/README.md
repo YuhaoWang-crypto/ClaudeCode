@@ -45,6 +45,34 @@ The Tox21 panel covers 12 specific mechanisms only; it does **not** model vancom
 (nephro-/ototoxicity, Red-Man syndrome) — those are handled mechanistically (toxicophore analysis) and by
 read-across to the parent's in vivo package. See report §5.6.
 
+## ICH M7 mutagenicity — two complementary (Q)SAR methodologies
+
+Per ICH M7(R2), bacterial (Ames) mutagenicity was screened by two independent methodologies:
+
+- **Methodology 1 — expert rule-based:** a **Benigni–Bossa** structural-alert rulebase (30 alert classes;
+  the public scientific basis of Derek-type systems, as in Toxtree/VEGA).
+- **Methodology 2 — statistical:** an **Ames QSAR** (class-balanced RandomForest, Morgan r2) trained on the
+  public **Hansen benchmark (N≈6500)**, 5-fold OOF **AUC 0.881**.
+
+| Molecule | Expert rulebase | Statistical Ames | M7 class |
+|---|---|---|---|
+| Parent | no alert | negative (p=0.41) | **5** |
+| RRT 0.87 | no alert | negative (p=0.41) | **5** |
+| RRT 0.75 | no alert | negative (p=0.42) | **5** |
+
+Both methodologies **concordant and negative → ICH M7 Class 5** (no structural alert → treated as non-mutagenic;
+no dedicated Ames study needed). Caveat: the Ames statistical model is *out-of-domain* for these glycopeptides
+(Tanimoto ≈ 0.22), so the domain-independent **expert rulebase is the primary call**, corroborated by the parent's
+experimentally inactive Tox21 DNA-damage endpoints (SR-ATAD5, SR-p53). A licensed Derek/Sarah Nexus run should
+confirm in the validated workflow. See report §5.7.
+
+## Report formats
+
+- `..._Report.docx` — editable regulatory report (10 sections incl. §5.6 QSAR and §5.7 ICH M7; 7 tables, 8 figures).
+- `..._Report.pdf` — 14-page rendered PDF (identical content; produced from `report.html` via headless Chromium,
+  since LibreOffice PDF export is unavailable in the build sandbox).
+- `report.html` — self-contained HTML twin (embedded figures) used to generate the PDF.
+
 ## Deliverables
 
 - `Vancomycin_RRT075_RRT087_3DQSAR_Qualification_Report.docx` — **the regulatory-style report** (main deliverable).
