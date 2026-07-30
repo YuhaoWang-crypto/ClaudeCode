@@ -1,0 +1,170 @@
+{
+  "Parent": {
+    "name": "Vancomycin B (parent API)",
+    "smiles": "OC1=CC([C@@H](C(O)=O)NC2=O)=C(C3=C(O)C=CC([C@@H](NC([C@H](NC([C@H](CC(N)=O)NC([C@@H]([C@H](O)C(C=C4Cl)=CC=C4O5)NC([C@H](NC)CC(C)C)=O)=O)=O)C6=CC5=C(O[C@H]7[C@H](O[C@]8([H])O[C@@H](C)[C@@H](O)[C@](N)(C)C8)[C@@H](O)[C@H](O)[C@@H](CO)O7)C9=C6)=O)C(N[C@H]2[C@H](O)C%10=CC(Cl)=C(O9)C=C%10)=O)=C3)C(O)=C1",
+    "physchem": {
+      "MolFormula": "C66H75Cl2N9O24",
+      "MW": 1449.27,
+      "ExactMW": 1447.4302,
+      "cLogP_Crippen": 0.11,
+      "TPSA": 530.5,
+      "HBD": 19,
+      "HBA": 25,
+      "RotBonds": 13,
+      "AromaticRings": 5,
+      "Rings": 12,
+      "HeavyAtoms": 101,
+      "FractionCsp3": 0.424,
+      "QED": 0.074,
+      "StereoCenters": 18,
+      "Lipinski_violations": 3,
+      "Veber_pass": false
+    },
+    "alerts": {
+      "PAINS": [],
+      "BRENK": [],
+      "NIH": [
+        "gte_7_aliphatic_OH"
+      ]
+    },
+    "functional_groups": {
+      "phenol": 6,
+      "aromatic_chloride(ArCl)": 2,
+      "primary_aliphatic_amine": 1,
+      "secondary_aliphatic_amine(NHMe/NHR)": 1,
+      "primary_amide": 1,
+      "secondary_amide": 6,
+      "carboxylic_acid": 1,
+      "aromatic_ring": 5,
+      "catechol/ortho-diphenol": 0,
+      "amino_sugar": 0,
+      "benzylic_alcohol": 2,
+      "aryl_ether": 3
+    },
+    "ECFP4_Tanimoto_vs_parent": 1.0,
+    "MACCS_Tanimoto_vs_parent": 1.0,
+    "descr3d": {
+      "RadiusOfGyration": 7.449,
+      "Asphericity": 0.164,
+      "SpherocityIndex": 0.207,
+      "Eccentricity": 0.849,
+      "NPR1": 0.529,
+      "NPR2": 0.615,
+      "InertialShapeFactor": 0.0
+    },
+    "CrippenO3A_score_vs_parent": 663.97,
+    "ShapeTanimoto_vs_parent_(aligned)": 1.0
+  },
+  "RRT087": {
+    "name": "RRT 0.87  (7S,26R)-Vancomycin B",
+    "smiles": "OC1=CC([C@H](C(O)=O)NC2=O)=C(C3=C(O)C=CC([C@@H](NC([C@H](NC([C@H](CC(N)=O)NC([C@@H]([C@@H](O)C(C=C4Cl)=CC=C4O5)NC([C@H](NC)CC(C)C)=O)=O)=O)C6=CC5=C(O[C@H]7[C@H](O[C@]8([H])O[C@@H](C)[C@@H](O)[C@](N)(C)C8)[C@@H](O)[C@H](O)[C@@H](CO)O7)C9=C6)=O)C(N[C@H]2[C@H](O)C%10=CC(Cl)=C(O9)C=C%10)=O)=C3)C(O)=C1",
+    "physchem": {
+      "MolFormula": "C66H75Cl2N9O24",
+      "MW": 1449.27,
+      "ExactMW": 1447.4302,
+      "cLogP_Crippen": 0.11,
+      "TPSA": 530.5,
+      "HBD": 19,
+      "HBA": 25,
+      "RotBonds": 13,
+      "AromaticRings": 5,
+      "Rings": 12,
+      "HeavyAtoms": 101,
+      "FractionCsp3": 0.424,
+      "QED": 0.074,
+      "StereoCenters": 18,
+      "Lipinski_violations": 3,
+      "Veber_pass": false
+    },
+    "alerts": {
+      "PAINS": [],
+      "BRENK": [],
+      "NIH": [
+        "gte_7_aliphatic_OH"
+      ]
+    },
+    "functional_groups": {
+      "phenol": 6,
+      "aromatic_chloride(ArCl)": 2,
+      "primary_aliphatic_amine": 1,
+      "secondary_aliphatic_amine(NHMe/NHR)": 1,
+      "primary_amide": 1,
+      "secondary_amide": 6,
+      "carboxylic_acid": 1,
+      "aromatic_ring": 5,
+      "catechol/ortho-diphenol": 0,
+      "amino_sugar": 0,
+      "benzylic_alcohol": 2,
+      "aryl_ether": 3
+    },
+    "ECFP4_Tanimoto_vs_parent": 1.0,
+    "MACCS_Tanimoto_vs_parent": 1.0,
+    "descr3d": {
+      "RadiusOfGyration": 7.499,
+      "Asphericity": 0.17,
+      "SpherocityIndex": 0.178,
+      "Eccentricity": 0.85,
+      "NPR1": 0.528,
+      "NPR2": 0.603,
+      "InertialShapeFactor": 0.0
+    },
+    "CrippenO3A_score_vs_parent": 281.98,
+    "ShapeTanimoto_vs_parent_(aligned)": 0.474
+  },
+  "RRT075": {
+    "name": "RRT 0.75  (26R)-DMe-DeLI",
+    "smiles": "OC1=CC([C@H](C(O)=O)NC2=O)=C(C3=C(O)C=CC([C@@H](NC([C@H](NC([C@H](CC(N)=O)NC([C@@H]([C@H](O)C(C=C4Cl)=CC=C4O5)NC([C@H](N)[C@H](CC)C)=O)=O)=O)C6=CC5=C(O[C@H]7[C@H](O[C@]8([H])O[C@@H](C)[C@@H](O)[C@](N)(C)C8)[C@@H](O)[C@H](O)[C@@H](CO)O7)C9=C6)=O)C(N[C@H]2[C@H](O)C%10=CC(Cl)=C(O9)C=C%10)=O)=C3)C(O)=C1",
+    "physchem": {
+      "MolFormula": "C65H73Cl2N9O24",
+      "MW": 1435.24,
+      "ExactMW": 1433.4145,
+      "cLogP_Crippen": -0.15,
+      "TPSA": 544.5,
+      "HBD": 19,
+      "HBA": 25,
+      "RotBonds": 12,
+      "AromaticRings": 5,
+      "Rings": 12,
+      "HeavyAtoms": 100,
+      "FractionCsp3": 0.415,
+      "QED": 0.077,
+      "StereoCenters": 19,
+      "Lipinski_violations": 3,
+      "Veber_pass": false
+    },
+    "alerts": {
+      "PAINS": [],
+      "BRENK": [],
+      "NIH": [
+        "gte_7_aliphatic_OH"
+      ]
+    },
+    "functional_groups": {
+      "phenol": 6,
+      "aromatic_chloride(ArCl)": 2,
+      "primary_aliphatic_amine": 2,
+      "secondary_aliphatic_amine(NHMe/NHR)": 0,
+      "primary_amide": 1,
+      "secondary_amide": 6,
+      "carboxylic_acid": 1,
+      "aromatic_ring": 5,
+      "catechol/ortho-diphenol": 0,
+      "amino_sugar": 0,
+      "benzylic_alcohol": 2,
+      "aryl_ether": 3
+    },
+    "ECFP4_Tanimoto_vs_parent": 0.8633,
+    "MACCS_Tanimoto_vs_parent": 0.9437,
+    "descr3d": {
+      "RadiusOfGyration": 7.459,
+      "Asphericity": 0.219,
+      "SpherocityIndex": 0.21,
+      "Eccentricity": 0.907,
+      "NPR1": 0.42,
+      "NPR2": 0.725,
+      "InertialShapeFactor": 0.0
+    },
+    "CrippenO3A_score_vs_parent": 237.09,
+    "ShapeTanimoto_vs_parent_(aligned)": 0.383
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "RRT 0.87 (7S,26R)-Vanco B": {
+    "MCS_numAtoms": 101,
+    "MCS_numBonds": 110,
+    "core_align_RMSD_Angstrom": 2.113,
+    "core_atoms_matched": 101
+  },
+  "RRT 0.75 (26R)-DMe-DeLI": {
+    "MCS_numAtoms": 99,
+    "MCS_numBonds": 108,
+    "core_align_RMSD_Angstrom": 2.718,
+    "core_atoms_matched": 99
+  }
+}

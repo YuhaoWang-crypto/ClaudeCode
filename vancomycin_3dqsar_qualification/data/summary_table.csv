@@ -1,0 +1,4 @@
+Molecule,Formula,MW,cLogP,TPSA,HBD,HBA,RotB,ArRings,Stereoctrs,PAINS,BRENK,NIH_alerts,ECFP4_vs_parent,MACCS_vs_parent,SharedHeavyAtoms_/101,RoG,Asphericity,NPR1,NPR2
+Vancomycin B (parent API),C66H75Cl2N9O24,1449.27,0.11,530.5,19,25,13,5,18,0,0,gte_7_aliphatic_OH,1.0,1.0,101,7.449,0.164,0.529,0.615
+"RRT 0.87  (7S,26R)-Vancomycin B",C66H75Cl2N9O24,1449.27,0.11,530.5,19,25,13,5,18,0,0,gte_7_aliphatic_OH,1.0,1.0,101,7.499,0.17,0.528,0.603
+RRT 0.75  (26R)-DMe-DeLI,C65H73Cl2N9O24,1435.24,-0.15,544.5,19,25,12,5,19,0,0,gte_7_aliphatic_OH,0.8633,0.9437,99,7.459,0.219,0.42,0.725
