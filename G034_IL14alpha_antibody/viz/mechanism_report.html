@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>G034 — IL-14α 机制专题报告</title>
+<style>
+  @page { size: A4; margin: 16mm 14mm; }
+  * { box-sizing: border-box; }
+  body { font-family: "Helvetica Neue", "PingFang SC", "Noto Sans CJK SC", "Microsoft YaHei", sans-serif;
+         color: #1a1f2b; line-height: 1.62; font-size: 10.3pt; margin: 0; }
+  h1 { font-size: 20pt; margin: 0 0 2px; color: #0b2a4a; letter-spacing: .3px; }
+  h2 { font-size: 13.5pt; margin: 20px 0 6px; color: #0b3d66; border-bottom: 2px solid #d5e3f0; padding-bottom: 3px; }
+  h3 { font-size: 11.3pt; margin: 13px 0 4px; color: #12507f; }
+  p  { margin: 5px 0; }
+  .sub { color: #5a6b7d; font-size: 9.4pt; margin: 2px 0 0; }
+  .lede { background: #f4f8fc; border-left: 4px solid #2b7cc4; padding: 9px 13px; border-radius: 0 5px 5px 0;
+          font-size: 9.9pt; margin: 12px 0 4px; }
+  table { border-collapse: collapse; width: 100%; margin: 8px 0; font-size: 9.1pt; }
+  th, td { border: 1px solid #cdd8e3; padding: 5px 7px; vertical-align: top; text-align: left; }
+  th { background: #eaf2f9; color: #0b3d66; font-weight: 600; }
+  tr:nth-child(even) td { background: #fafcfe; }
+  code { background: #eef2f6; padding: 1px 4px; border-radius: 3px; font-size: 8.6pt;
+         font-family: "SF Mono", Consolas, monospace; word-break: break-all; }
+  .ok  { color: #1a7f37; font-weight: 600; }
+  .warn{ color: #b3730a; font-weight: 600; }
+  .no  { color: #b42318; font-weight: 600; }
+  .pill{ display:inline-block; font-size:8pt; padding:1px 7px; border-radius:10px; font-weight:600; }
+  .p-ok{ background:#e5f5ea; color:#1a7f37; } .p-w{ background:#fdf3e3; color:#b3730a; } .p-n{ background:#fde8e6; color:#b42318; }
+  .callout { border:1px solid #f0c98a; background:#fffaf0; border-radius:7px; padding:11px 14px; margin:12px 0; }
+  .callout .t { font-weight:700; color:#9a5b00; font-size:10pt; }
+  .keybox { border:1px solid #a9d0ee; background:#f0f8ff; border-radius:7px; padding:11px 14px; margin:12px 0; }
+  .keybox .t { font-weight:700; color:#0b3d66; }
+  ul, ol { margin: 4px 0 6px; padding-left: 20px; }
+  li { margin: 2px 0; }
+  .fig { text-align:center; margin: 12px 0 4px; }
+  .fig img { max-width: 82%; border:1px solid #d5e0ea; border-radius:6px; }
+  .cap { font-size: 8.6pt; color:#5a6b7d; margin-top: 3px; }
+  .foot { margin-top: 22px; border-top:1px solid #d5e3f0; padding-top:7px; color:#7a8794; font-size:8.3pt; }
+  .grade-legend { font-size:8.6pt; color:#5a6b7d; margin: 3px 0 0; }
+  .pagebreak { page-break-before: always; }
+  .hd { display:flex; justify-content:space-between; align-items:flex-end; border-bottom:3px solid #0b3d66; padding-bottom:6px; }
+  .tag { font-size:8.2pt; color:#0b3d66; text-align:right; }
+  strong { color:#10243a; }
+</style>
+</head>
+<body>
+
+<div class="hd">
+  <div>
+    <h1>G034 — IL-14α / α-taxilin 机制专题报告</h1>
+    <p class="sub">分泌性之谜 · B 细胞活化回路 · 致病微环境 · 胞内 STX4 运输轴假说</p>
+  </div>
+  <div class="tag">项目 G034 · 干燥综合征(pSS)<br>抗原:TXLNA / α-taxilin (P40222) 210–546<br>2026-07-31</div>
+</div>
+
+<div class="lede">
+本报告回答一组直击核心的机制问题:IL-14α 是否为分泌蛋白?在何种细胞上过表达以刺激 B 细胞?如何活化 B 细胞?发生于什么微环境?其胞内与 α-taxilin(syntaxin)的结合对干燥症是否另有一条信号/病理通路?在什么细胞与组织中发生?全程标注诚信分级,并把结论落到 G034 的双轴药物设计上。
+</div>
+<p class="grade-legend">诚信分级:<span class="pill p-ok">✅ 确证</span> <span class="pill p-w">⚠️ 争议/假说</span> <span class="pill p-n">❌ 未建立</span>　引用格式:(作者 年份 期刊)。</p>
+
+<div class="callout">
+<span class="t">一句话主线</span><br>
+你们的抗原(数据库版 α-taxilin)按注释 <span class="no">不是经典分泌蛋白</span>;而最初被命名为 IL-14 的分子 <span class="ok">曾被报道为分泌型细胞因子</span>——同一"基因"戴着两顶帽子,二者在最基本的生化性质上冲突。<b>疾病通路很硬,分子身份很软。</b>这条裂缝决定了下游每一步的策略与验证闸门。
+</div>
+
+<h2>Q1 · IL-14α 是分泌性蛋白吗?——取决于"哪一个它"</h2>
+<table>
+<tr><th style="width:16%"></th><th>原始 HMW-BCGF / "IL-14"(Ambrus/Fauci 生化–克隆)</th><th>α-taxilin / TXLNA(P40222,你们的抗原)</th></tr>
+<tr><td><b>分泌?</b></td>
+    <td><span class="p-ok pill">✅ 被描述为分泌型</span> 53.1 kDa、成熟 483 aa、<b>有 15 aa 信号肽</b>、3 个 N-糖位点;从 T 细胞/淋巴瘤上清纯化,积液中检出(PNAS 1993;Ford 1995 <i>Blood</i>)</td>
+    <td><span class="p-n pill">❌ 无信号肽</span> 546 aa / ~62 kDa,胞质 coiled-coil 蛋白,经典分泌途径不分泌</td></tr>
+<tr><td><b>定位</b></td><td>细胞外(细胞因子)</td><td>细胞质(结合 syntaxin,调节囊泡运输)</td></tr>
+</table>
+<p><strong>诚实结论:</strong>你们手上的抗原(TXLNA 210–546)按数据库注释<span class="no">没有信号肽、不是经典分泌蛋白</span>;但被命名为 IL-14 的原始分子被报道为分泌型。数据库把二者等同,却在"分不分泌"上直接冲突。</p>
+
+<h3>那血清里为何有人测到它?——三种可能,均 <span class="warn">⚠️ 未证实</span></h3>
+<ul>
+<li><b>非经典/无信号肽分泌</b>(类似 IL-1β、FGF2、HMGB1 的 leaderless / 外泌体途径)——理论可能,但 TXLNA 从未被证明走此路。</li>
+<li><b>细胞死亡/损伤释放</b>——自身免疫腺体中上皮/淋巴细胞死亡把胞质蛋白漏入胞外,完全合理。</li>
+<li><b>测到的其实是原始分泌型 IL-14</b>(与 taxilin 是不同分子)——若如此,"抗 taxilin 抗体"打不到真正致病的分泌因子。</li>
+</ul>
+<div class="keybox">
+<span class="t">🔑 头号验证闸门</span> — Liang 2021(pSS 血清 WB)、Sarkar 2020(RA 血浆 ELISA,AUC 0.97)报道<b>胞外阳性</b>,但 <b>HPA 血浆 not-detected</b>,二者<span class="no">互相矛盾</span>。<b>一条 pSS 血清 α-taxilin ELISA(n≥30 vs 对照)即可裁决"胞外池是否足量可及"</b>,并决定分流:<b>抗体 / LYTAC 需胞外池;siRNA / PROTAC 不需</b>。
+</div>
+
+<h2>Q2 · 在什么细胞上过表达刺激 B 细胞?——产生细胞 ≠ 响应细胞</h2>
+<table>
+<tr><th style="width:26%">角色</th><th>细胞</th><th>依据 / 诚信</th></tr>
+<tr><td><b>产生 IL-14α</b></td>
+    <td>活化 T 细胞(经典 BCGF 来源)、某些 B 淋巴瘤系;IL14αTG 鼠中由转基因人为驱动过表达(il14 plus 链 exons 3–10)</td>
+    <td><span class="ok">✅</span> Ambrus/Fauci;Shen 2006 <i>J Immunol</i></td></tr>
+<tr><td><b>被刺激(响应)</b></td>
+    <td><b>只作用于"活化 B 细胞"</b>,不作用于静息 B、不作用于 T;CLL/白血病 B 细胞<b>组成型表达 ~90 kDa 受体</b>,仅需占据小部分受体即被刺激</td>
+    <td><span class="ok">✅</span> Ambrus 1988 <i>J Immunol</i>;Uckun/Fauci <i>JCI</i></td></tr>
+</table>
+<p>机制上是一个<b>自分泌/旁分泌的 B 细胞生长因子回路</b>:活化 T/B(或转基因)分泌 IL-14α → 作用于<b>已上调受体的活化 B 细胞</b> → 选择性扩增这群(含自身反应性)B 细胞 → 高丙球血症、自身抗体、<b>边缘区 B 细胞(MZB)扩增</b>。MZB 是<b>不可约效应核心</b>(B 细胞特异敲 RBP-J 除 MZB → 全部 SS 表型消失;敲 Btk 除 B1 无效,Shen 2016 <i>Clin Immunol</i>)。</p>
+
+<h2>Q3 · 怎么活化 B 细胞?——~90 kDa 受体 → cAMP / Ca²⁺ / DAG</h2>
+<ol>
+<li>IL-14α 结合活化 B 细胞表面 <b>~90 kDa 受体</b>(¹²⁵I-交联成 150 kDa 复合物 = 60 kDa 配体 + 90 kDa 受体,Ambrus 1988)。</li>
+<li>→ ↑<b>cAMP</b>(PGE 依赖)——主要<b>调控受体表达</b>。</li>
+<li>→ ↑<b>胞内 Ca²⁺</b> + ↑<b>DAG/肌醇</b>——<b>增殖信号主要走 Ca²⁺/DAG(PKC)分支</b>(JBC 第二信使研究)。</li>
+<li>→ 驱动活化 B 细胞<b>增殖/克隆扩增</b>(而非分化为浆细胞),表现为 B 细胞生长因子。</li>
+</ol>
+<div class="callout">
+<span class="t">❗ 受体身份未确证</span> — 受体只被<b>生化表征</b>(90 kDa 蛋白 + 150 kDa 交联 + 阻断性单抗 <b>BA5</b> + Scatchard 高亲和),<span class="no">基因从未克隆/测序,30+ 年数据库无 IL-14R</span>。→ "IL-14α 结合哪个受体、结合表位在哪"<b>无法从文献理性锁定</b>,直接决定中和抗体只能"功能优先"而非"表位理性设计"。
+</div>
+
+<h2 class="pagebreak">Q4 · 什么微环境会发生?——腺体异位淋巴结构 + 型I IFN 场</h2>
+<table>
+<tr><th style="width:30%">微环境要素</th><th>作用</th><th>证据(转基因鼠)</th></tr>
+<tr><td>唾液腺/泪腺内<b>异位淋巴组织(TLO)/生发中心样结构</b></td><td>T–B 高密度互作、局部细胞因子浓集,IL-14α 自/旁分泌回路运转场所</td><td><span class="ok">✅</span> Shen 系列组织学</td></tr>
+<tr><td><b>边缘区(脾)+ 被募集到腺体的 MZB</b></td><td>不可约效应核心</td><td><span class="ok">✅</span> RBP-J KO 全表型消失(Shen 2016)</td></tr>
+<tr><td><b>型I IFN(IFN-α)放大场</b></td><td>把局部反应放大为系统性 + 成瘤</td><td><span class="ok">✅</span> IFNR⁻/⁻ 缺后期腮腺/肺损伤 + 淋巴瘤(Shen 2013)</td></tr>
+<tr><td><b>LTα 效应模块</b></td><td>驱动淋巴浸润 + TLO 形成 + 成瘤(腺体"落地破坏"效应器)</td><td><span class="ok">✅</span> ×LTα⁻/⁻ → 无浸润/无瘤(Shen 2010)</td></tr>
+</table>
+<p>→ 这是一个<b>"炎症腺体内、受 IFN 加持、以 MZB 为核心、由 LTα 落地破坏"的异位淋巴微环境</b>。IL-14α 是其中的<b>上游 B 细胞点火者</b>,而非直接"弄干"腺体的效应分子。</p>
+
+<h2>Q5 · 胞内 α-taxilin↔syntaxin 结合,对干燥症是否另有通路?</h2>
+<p><strong><span class="ok">✅ 已确证的分子生化:</span></strong>α-taxilin <b>结合游离 syntaxin-1A/3A/4A</b>(不结合已进入 SNARE 复合物者),<b>负向调控 syntaxin</b> → 抑制 SNARE 组装 → 影响<b>囊泡运输 / Ca²⁺ 依赖的调节性胞吐 / 受体循环</b>。它是 syntaxin 的"隔离型负调节子"(Nogami;Higashi &amp; Shirataki 2022)。</p>
+
+<div class="keybox">
+<span class="t">🔑 一条很诱人、但未被证实的"直接致干"假说 <span class="warn">⚠️</span></span><br>
+<b>Syntaxin-4 / syntaxin-3 是唾液腺/泪腺腺泡细胞顶端调节性胞吐的核心 SNARE</b>——唾液/泪液的水与蛋白分泌依赖 STX4 介导的囊泡融合。若腺泡细胞内 <b>α-taxilin 过量 → 隔离游离 syntaxin-4 → 削弱 SNARE 胞吐 → 直接减少唾液/泪液分泌(sicca)</b>。<b>这条通路根本不需要免疫破坏就能"弄干"腺体</b>,在同一分子上叠加了第二个、胞内的致病机制,且与"腺泡功能障碍先于/独立于淋巴浸润"的部分 pSS 临床观察吻合。这是本项目最有价值的<b>原创机制钩子</b>。
+</div>
+
+<h3>其他假说性钩子(证据更弱)</h3>
+<ul>
+<li><b>免疫细胞内的分泌/运输失调 <span class="warn">⚠️</span></b>:SNARE 运输也支配 B/浆细胞的抗体与细胞因子分泌、BCR 内吞与抗原呈递、受体循环。</li>
+<li><b>与创新免疫信号节点的连接 <span class="warn">⚠️</span></b>:Open Targets PPI 给出 TBK1(0.77)、NMI(0.72)、TNIP1(0.72,恰为 SLE GWAS 位点)等伙伴,提示 taxilin 可能挂靠 innate/IFN 信号(相关性,非因果)。</li>
+</ul>
+
+<div class="callout">
+<span class="t">❗ 关键诚信区分</span><br>
+Shen 系列转基因模型证明的是 <b>"IL-14α 细胞因子功能(B 细胞生长)→ SS"</b>(<span class="ok">✅</span>),<b>并未测试</b> taxilin–syntaxin <b>运输功能</b>是否致病。转基因过表达同一蛋白,但疾病被归因于分泌型细胞因子作用,<b>不是</b>胞内运输功能。因此:<b>胞外/细胞因子轴 = ✅ 有因果证据</b>(分子身份 ⚠️);<b>胞内/taxilin–syntaxin 轴 = ⚠️ 生化确证、但其干燥症相关性完全是假说、待验证</b>。
+</div>
+
+<h2>Q6 · 胞内轴会在什么细胞类型/组织发生?</h2>
+<table>
+<tr><th style="width:30%">细胞 / 组织</th><th>相关 syntaxin</th><th>为何相关</th><th style="width:16%">诚信</th></tr>
+<tr><td><b>唾液腺/泪腺腺泡上皮细胞</b></td><td>STX4 / STX3(顶端调节性胞吐)</td><td>直接控制唾液/泪液分泌 → α-taxilin 过量最可能"直接致干"的位置</td><td><span class="warn">⚠️ 假说,最高价值</span></td></tr>
+<tr><td>B 细胞 / 浆细胞</td><td>STX3/4 等</td><td>抗体/细胞因子分泌、BCR 运输、抗原呈递</td><td><span class="warn">⚠️ 更间接</span></td></tr>
+<tr><td>神经/内分泌样分泌细胞</td><td>STX1A</td><td>经典调节性胞吐(taxilin 最初报道处)</td><td><span class="ok">✅ 生化</span> / SS 相关性弱</td></tr>
+<tr><td>广谱表达(HPA)</td><td>—</td><td>taxilin 组成型广泛表达,上述可叠加</td><td><span class="ok">✅ 表达</span> / <span class="warn">⚠️ 功能</span></td></tr>
+</table>
+<p><strong>验证胞内轴的最干净实验:</strong>在<b>腺泡细胞模型</b>中过表达/敲低 α-taxilin,测 <b>syntaxin-4 SNARE 组装 + Ca²⁺ 诱导的胞吐/分泌通量</b>。一旦成立,即为 Axis-2(抗 syntaxin 界面 <b>358–384 / C373</b>)阻断抗体、siRNA、PROTAC 提供真正的"腺体本位"药理学理由——而不只是免疫轴。</p>
+
+<h2 class="pagebreak">双轴机制图</h2>
+<div class="fig">
+<svg viewBox="0 0 760 470" width="760" xmlns="http://www.w3.org/2000/svg" font-family="Helvetica Neue, PingFang SC, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" fill="#324a63"/></marker>
+    <marker id="arrR" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" fill="#b42318"/></marker>
+    <marker id="arrB" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" fill="#0b3d66"/></marker>
+  </defs>
+  <!-- title bar -->
+  <text x="380" y="22" text-anchor="middle" font-size="15" font-weight="700" fill="#0b2a4a">同一分子 α-taxilin / IL-14α 的两条可能致病轴</text>
+
+  <!-- Axis 1 box -->
+  <rect x="18" y="42" width="360" height="392" rx="10" fill="#f0f7fd" stroke="#8fc0e6"/>
+  <text x="198" y="66" text-anchor="middle" font-size="13" font-weight="700" fill="#0b3d66">轴 1 · 胞外 · 细胞因子(免疫)</text>
+  <text x="198" y="82" text-anchor="middle" font-size="9.5" fill="#1a7f37">✅ 转基因鼠因果证据强 / ⚠️ 分子身份软</text>
+
+  <rect x="60" y="96" width="276" height="34" rx="6" fill="#dcecfa" stroke="#8fc0e6"/>
+  <text x="198" y="117" text-anchor="middle" font-size="10.5" fill="#10243a">活化 T/B 或转基因 分泌 IL-14α ↑</text>
+  <line x1="198" y1="130" x2="198" y2="150" stroke="#324a63" stroke-width="1.6" marker-end="url(#arr)"/>
+
+  <rect x="60" y="152" width="276" height="40" rx="6" fill="#dcecfa" stroke="#8fc0e6"/>
+  <text x="198" y="169" text-anchor="middle" font-size="10" fill="#10243a">结合 <tspan font-weight="700">~90 kDa 受体</tspan>(活化 B 细胞)</text>
+  <text x="198" y="184" text-anchor="middle" font-size="8.5" fill="#b42318">❌ 受体基因从未克隆(仅生化 + BA5)</text>
+  <line x1="198" y1="192" x2="198" y2="212" stroke="#324a63" stroke-width="1.6" marker-end="url(#arr)"/>
+
+  <rect x="60" y="214" width="276" height="34" rx="6" fill="#dcecfa" stroke="#8fc0e6"/>
+  <text x="198" y="235" text-anchor="middle" font-size="9.6" fill="#10243a">↑cAMP(PGE)· ↑Ca²⁺ · ↑DAG/PKC</text>
+  <line x1="198" y1="248" x2="198" y2="268" stroke="#324a63" stroke-width="1.6" marker-end="url(#arr)"/>
+
+  <rect x="60" y="270" width="276" height="34" rx="6" fill="#cfe6f7" stroke="#5aa6dd"/>
+  <text x="198" y="291" text-anchor="middle" font-size="10" font-weight="700" fill="#0b3d66">活化 B 细胞增殖 → MZB 扩增(不可约核心)</text>
+  <line x1="198" y1="304" x2="198" y2="324" stroke="#324a63" stroke-width="1.6" marker-end="url(#arr)"/>
+
+  <rect x="60" y="326" width="276" height="46" rx="6" fill="#cfe6f7" stroke="#5aa6dd"/>
+  <text x="198" y="344" text-anchor="middle" font-size="9.4" fill="#10243a">LTα → 腺体淋巴浸润/TLO/成瘤</text>
+  <text x="198" y="360" text-anchor="middle" font-size="9.4" fill="#10243a">型I IFN → 后期/系统放大</text>
+  <line x1="198" y1="372" x2="198" y2="392" stroke="#b42318" stroke-width="1.8" marker-end="url(#arrR)"/>
+
+  <rect x="70" y="394" width="256" height="30" rx="6" fill="#fde8e6" stroke="#e79a90"/>
+  <text x="198" y="414" text-anchor="middle" font-size="10.5" font-weight="700" fill="#b42318">干燥症:腺体破坏 + 自身抗体</text>
+
+  <!-- Axis 2 box -->
+  <rect x="392" y="42" width="350" height="392" rx="10" fill="#fff7ef" stroke="#f0c98a"/>
+  <text x="567" y="66" text-anchor="middle" font-size="13" font-weight="700" fill="#9a5b00">轴 2 · 胞内 · 运输(假说)</text>
+  <text x="567" y="82" text-anchor="middle" font-size="9.5" fill="#b3730a">⚠️ 生化确证,SS 相关性待验证</text>
+
+  <rect x="430" y="96" width="274" height="34" rx="6" fill="#fdefd8" stroke="#f0c98a"/>
+  <text x="567" y="117" text-anchor="middle" font-size="10.5" fill="#10243a">腺泡上皮内 α-taxilin 过量 ↑</text>
+  <line x1="567" y1="130" x2="567" y2="150" stroke="#b3730a" stroke-width="1.6" marker-end="url(#arr)"/>
+
+  <rect x="430" y="152" width="274" height="40" rx="6" fill="#fdefd8" stroke="#f0c98a"/>
+  <text x="567" y="169" text-anchor="middle" font-size="10" fill="#10243a">隔离<tspan font-weight="700"> 游离 syntaxin-4/3</tspan></text>
+  <text x="567" y="184" text-anchor="middle" font-size="8.5" fill="#b3730a">✅ 界面 = P40222 355–443(结构定位)</text>
+  <line x1="567" y1="192" x2="567" y2="212" stroke="#b3730a" stroke-width="1.6" marker-end="url(#arr)"/>
+
+  <rect x="430" y="214" width="274" height="34" rx="6" fill="#fdefd8" stroke="#f0c98a"/>
+  <text x="567" y="235" text-anchor="middle" font-size="9.6" fill="#10243a">抑制 SNARE 复合物组装</text>
+  <line x1="567" y1="248" x2="567" y2="268" stroke="#b3730a" stroke-width="1.6" marker-end="url(#arr)"/>
+
+  <rect x="430" y="270" width="274" height="34" rx="6" fill="#fce6cf" stroke="#e0a45a"/>
+  <text x="567" y="291" text-anchor="middle" font-size="9.8" font-weight="700" fill="#9a5b00">削弱 Ca²⁺ 依赖的顶端调节性胞吐</text>
+  <line x1="567" y1="304" x2="567" y2="324" stroke="#b3730a" stroke-width="1.6" marker-end="url(#arr)"/>
+
+  <rect x="430" y="326" width="274" height="46" rx="6" fill="#fce6cf" stroke="#e0a45a"/>
+  <text x="567" y="344" text-anchor="middle" font-size="9.4" fill="#10243a">唾液/泪液 水+蛋白 分泌 ↓</text>
+  <text x="567" y="360" text-anchor="middle" font-size="8.6" fill="#9a5b00">(不需免疫破坏即可"直接致干")</text>
+  <line x1="567" y1="372" x2="567" y2="392" stroke="#b42318" stroke-width="1.8" marker-end="url(#arrR)"/>
+
+  <rect x="440" y="394" width="254" height="30" rx="6" fill="#fde8e6" stroke="#e79a90"/>
+  <text x="567" y="414" text-anchor="middle" font-size="10.5" font-weight="700" fill="#b42318">干燥症:腺体分泌功能障碍(sicca)</text>
+
+  <!-- convergence note -->
+  <line x1="378" y1="409" x2="440" y2="409" stroke="#7a8794" stroke-width="1.2" stroke-dasharray="4 3"/>
+</svg>
+<div class="cap">图 1. 同一分子的两条可能致病轴。<b>轴 1(左,胞外/免疫)</b>= 转基因鼠因果证据强的 B 细胞生长因子回路;<b>轴 2(右,胞内/运输)</b>= 生化确证但 SS 相关性待验证的 SNARE 胞吐抑制假说,可"直接致干"。两轴在临床终点(干燥症)汇合。</div>
+</div>
+
+<h2>结构落点:Axis-2 靶面(syntaxin 结合界面)</h2>
+<div class="fig">
+<img src="../figures/s1_target_syntaxin.png" alt="target-syntaxin interface">
+<div class="cap">图 2. α-taxilin 核心与 syntaxin(STX4-H3)界面(Boltz-2.1 复合物,iPTM 0.63)。结构定位 <b>syntaxin 结合界面 = P40222 355–443</b>,其中三重独立收敛的<b>黄金锚点 358–384(含 C373)</b>同时是 Axis-2 阻断抗体表位 + 共价 PROTAC 位点 + syntaxin 竞争界面——正是轴 2 假说若成立时的可成药靶面。</div>
+</div>
+
+<h2>把六问落到 G034 设计</h2>
+<table>
+<tr><th style="width:24%">机制结论</th><th>对设计的含义</th></tr>
+<tr><td>胞外池是否足量可及未决(Q1)</td><td><b>决定性 ELISA</b> 定分流:抗体/LYTAC(需胞外)vs siRNA/PROTAC(不需)。这是全项目头号未决闸门。</td></tr>
+<tr><td>受体身份未知、结合表位未定(Q3)</td><td>中和抗体<b>只能功能优先</b>:现有 slides 仅 ELISA 结合筛选,<b>必须增补功能中和 assay</b>(B 细胞/MZB 增殖抑制),否则只筛到结合抗体。</td></tr>
+<tr><td>结构引导优先区(Q3/结构)</td><td><span class="ok">✅</span> 优先折叠 coiled-coil 核心 <b>210–484</b>;<span class="no">❌</span> 避开 C 端无序尾 485–546(= Peng2009 先前技术检测抗体表位 ≈ 503–523,仅检测未中和)。</td></tr>
+<tr><td>胞内 STX4 轴假说(Q5/Q6)</td><td>若腺泡细胞验证成立,为 <b>Axis-2 抗体 / siRNA / 共价 PROTAC(C373)</b> 提供"腺体本位"药理学理由;siRNA/PROTAC 对胞内轴天然合适(不依赖胞外池)。</td></tr>
+<tr><td>身份矛盾贯穿(Q1/Q5)</td><td>抗 taxilin 抗体<b>未必</b>中和真正致病的分泌型 IL-14 → <b>功能中和 + 转基因鼠体内 PoC 是不可省的验证闸门</b>,binding 阳性远不够。</td></tr>
+</table>
+
+<h2>诚信小结</h2>
+<ul>
+<li><span class="ok">✅ 疾病因果通路</span>(IL-14α→MZB→LTα/IFN→腺体损伤+淋巴瘤)在转基因鼠中证据强、可分阶段拆解。</li>
+<li><span class="no">❌ IL-14 受体</span>从未分子鉴定(仅 90 kDa 生化 + BA5 阻断抗体)。</li>
+<li><span class="warn">⚠️ IL-14α = taxilin</span> 与最初分泌型 53 kDa cDNA 矛盾,分泌性/身份未确证。</li>
+<li><span class="warn">⚠️ 胞内 STX4 运输轴</span>生化确证,但"直接致干"的干燥症相关性是假说,需腺泡细胞实验验证。</li>
+<li>抗体策略据此应<b>功能优先</b>、避开 C 端无序尾/先前技术、优先保守 coiled-coil 核心表位,并以<b>功能中和 + 体内 PoC</b> 为验证闸门。</li>
+</ul>
+
+<div class="foot">
+G034 IL-14α / α-taxilin 机制专题报告 · 基于甲方上传的 15 篇文献(Ambrus/Shen IL-14α–Sjögren 系列 + HMW-BCGF 受体/克隆/信号老文献 + Peng 2009)与本会话已执行的 Boltz-2.1 结构/表位计算。所有 in-silico 结果须湿实验确认。诚信分级:✅ 确证 / ⚠️ 争议或假说 / ❌ 未建立。
+</div>
+
+</body>
+</html>
