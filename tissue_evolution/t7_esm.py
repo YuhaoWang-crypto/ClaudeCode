@@ -263,7 +263,13 @@ def report(n_per_group=50, force=False):
         print(f"   {int(k)} species: median ESM logp {r['median']:+.3f}  "
               f"(n={int(r['count'])})")
 
-    print("\nper-organ ESM constraint, split by orthologue availability:")
+    # An organ with high orthologue coverage (T4) simply does not HAVE 50
+    # orthologue-less tissue-enriched genes to sample, so several rows below
+    # rest on n=1-5 and must not be read as effects. MIN_N marks the ones that
+    # can be.
+    min_n = 10
+    print("\nper-organ ESM constraint, split by orthologue availability")
+    print(f"   ('.' = fewer than {min_n} genes on one side, not interpretable)")
     print(f"   {'organ':<20}{'n_orth':>7}{'logp_orth':>11}{'n_none':>8}"
           f"{'logp_none':>11}{'delta':>8}")
     rows = []
@@ -275,10 +281,12 @@ def report(n_per_group=50, force=False):
             continue
         ma = a.median() if len(a) else np.nan
         mb = b.median() if len(b) else np.nan
+        flag = " " if (len(a) >= min_n and len(b) >= min_n) else "."
         print(f"   {organ:<20}{len(a):>7}{ma:>11.3f}{len(b):>8}"
-              f"{mb:>11.3f}{(mb - ma):>8.3f}")
+              f"{mb:>11.3f}{(mb - ma):>8.3f}{flag}")
         rows.append(dict(organ=organ, n_with=len(a), logp_with=ma,
-                         n_without=len(b), logp_without=mb, delta=mb - ma))
+                         n_without=len(b), logp_without=mb, delta=mb - ma,
+                         interpretable=(len(a) >= min_n and len(b) >= min_n)))
     pd.DataFrame(rows).to_csv(os.path.join(DERIVED, "t7_organ_esm.tsv"),
                               sep="\t", index=False)
     p = make_figure(df, grouped)
