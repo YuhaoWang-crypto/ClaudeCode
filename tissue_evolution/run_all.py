@@ -25,6 +25,7 @@ STEPS = [
     ("t10", "organ-profile conservation vs sequence rate", "t10_expression_divergence"),
     ("t11", "concentrated or diffuse; which proteins", "t11_drivers"),
     ("t12", "RERconverge over Zoonomia/TOGA mammals", "t12_rer"),
+    ("t13", "H1: interface-vs-core composition", "t13_compartment"),
 ]
 
 
