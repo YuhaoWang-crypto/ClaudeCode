@@ -26,6 +26,8 @@ STEPS = [
     ("t11", "concentrated or diffuse; which proteins", "t11_drivers"),
     ("t12", "RERconverge over Zoonomia/TOGA mammals", "t12_rer"),
     ("t13", "H1: interface-vs-core composition", "t13_compartment"),
+    ("t14", "degree / pleiotropy / gene age as mediators", "t14_mediators"),
+    ("t15", "pathway allocation across organs + ERC", "t15_pathway"),
 ]
 
 
