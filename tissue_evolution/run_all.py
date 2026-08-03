@@ -23,6 +23,8 @@ STEPS = [
     ("t8", "structural vs sequence divergence", "t8_structure"),
     ("t9", "lineage-specific rate asymmetry", "t9_lineage"),
     ("t10", "organ-profile conservation vs sequence rate", "t10_expression_divergence"),
+    ("t11", "concentrated or diffuse; which proteins", "t11_drivers"),
+    ("t12", "RERconverge over Zoonomia/TOGA mammals", "t12_rer"),
 ]
 
 

@@ -16,7 +16,7 @@ Everything is computed from primary data (GTEx v10, Ensembl 116, Cardoso-Moreira
 
 ```bash
 pip install numpy scipy pandas matplotlib statsmodels biopython
-python3 -m tissue_evolution.run_all            # full pipeline
+python3 -m tissue_evolution.run_all            # full pipeline (t12 downloads 1.2 GB of TOGA alignments)
 python3 -m tissue_evolution.t5_confounders     # or any single module
 ```
 
@@ -32,6 +32,8 @@ python3 -m tissue_evolution.t5_confounders     # or any single module
 | `t8_structure` | Foldseek TM-align vs sequence | **negative result**: TM-score tracks AlphaFold pLDDT (ρ=+0.84), not divergence (ρ=−0.16) |
 | `t9_lineage` | which *lineage* sped up? | **negative result**: no organ survives BH + matching; generation-time effect dominates |
 | `t10_expression_divergence` | is the tissue profile itself conserved? | median human–mouse profile r=+0.80; coupling to ω is real but stage-pooling-dependent |
+| `t11_drivers` | few dominant proteins, or the bulk? | **the bulk**: ranking survives deleting the fastest 25% (ρ=+0.97); 78% of testis genes sit above the genomic median |
+| `t12_rer` | real RERconverge over Zoonomia/TOGA | 4195 genes x 240 branches x 121 mammals. **230 hits at q<0.05 — but a Brownian-motion null on the same tree gives a median of 194.** Empirical p=0.395 |
 
 Full write-up with every number, rigour label and caveat:
 **[`REPORT_tissue_evolution.md`](REPORT_tissue_evolution.md)**.
