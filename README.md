@@ -1,3 +1,43 @@
+# Repository contents
+
+Two independent, fully-runnable pipelines:
+
+1. **[`grn_pipeline/`](#grn-pipeline)** — irreducibility / symmetry / dynamical-systems
+   analysis of gene-regulatory and metabolic networks.
+2. **[`tissue_evolution/`](#tissue-evolution)** — do different tissues evolve at
+   different speeds, and can that be used to reconstruct evolutionary conditions?
+
+---
+
+# tissue-evolution
+
+Everything is computed from primary data (GTEx v10, Ensembl 116, Cardoso-Moreira
+2019 via Expression Atlas, AlphaFold DB, ESM-2). Nothing is quoted from a paper.
+
+```bash
+pip install numpy scipy pandas matplotlib statsmodels biopython
+python3 -m tissue_evolution.run_all            # full pipeline
+python3 -m tissue_evolution.t5_confounders     # or any single module
+```
+
+| Module | Question | Key result |
+|---|---|---|
+| `t1_expression` | tissue-specificity τ over GTEx | 32 organs, 46325 genes; brain sub-regions collapsed first, or τ is an artefact of column count |
+| `t2_orthologs` | 1:1 orthologues + CDS | 16.4k (macaque) → 12.7k (chicken) pairs |
+| `t3_dnds` | dN/dS **from scratch** | Ensembl no longer ships dN/dS; vectorised NG86 matches Biopython to <1e-13 |
+| `t4_tissue_rates` | 3 definitions of "tissue rate" | identity genes span **4.10×**, whole transcriptome only **1.13×** |
+| `t5_confounders` | composition vs intrinsic | only immune/barrier + testis (fast) and CNS + muscle (slow) survive τ/expression matching |
+| `t6_depth` | 29 → 319 Mya | organ dN ranking stable (ρ=0.87); ω degrades as dS saturates (74% dS>1 at chicken) |
+| `t7_esm` | constraint without an orthologue | ESM reaches the 11–59% of expression dN/dS structurally cannot |
+| `t8_structure` | Foldseek TM-align vs sequence | **negative result**: TM-score tracks AlphaFold pLDDT (ρ=+0.84), not divergence (ρ=−0.16) |
+| `t9_lineage` | which *lineage* sped up? | **negative result**: no organ survives BH + matching; generation-time effect dominates |
+| `t10_expression_divergence` | is the tissue profile itself conserved? | median human–mouse profile r=+0.80; coupling to ω is real but stage-pooling-dependent |
+
+Full write-up with every number, rigour label and caveat:
+**[`REPORT_tissue_evolution.md`](REPORT_tissue_evolution.md)**.
+
+---
+
 # grn-pipeline
 
 A small, fully-runnable pipeline that applies four "irreducibility / symmetry"

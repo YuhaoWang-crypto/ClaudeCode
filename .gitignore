@@ -1,2 +1,7 @@
 __pycache__/
 *.pyc
+
+# tissue_evolution: downloaded primary data (re-fetched by t1/t2/t7/t8/t10)
+data/raw/
+# regenerable intermediates: these embed full CDS sequences (~60 MB each)
+data/derived/pairs_*.tsv
