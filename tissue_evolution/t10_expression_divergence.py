@@ -48,7 +48,7 @@ import pandas as pd
 from scipy import stats
 
 from .common import (RAW, DERIVED, FIGDIR, apply_figure_style, PALETTE,
-                     download, log)
+                     download, log, to_tsv_gz)
 from . import t1_expression
 
 ATLAS_FTP = "https://ftp.ebi.ac.uk/pub/databases/microarray/data/atlas/experiments"
@@ -219,7 +219,7 @@ def report(force=False):
         log(f"loaded cached table for {len(d)} orthologues")
     else:
         d, organs = profile_conservation()
-        d.to_csv(out, sep="\t")
+        to_tsv_gz(d, out)
     print(f"organs compared (all stages pooled): {len(ORGANS)}")
 
     print(f"1:1 orthologues with adult profiles in both species: {len(d)}")
@@ -272,8 +272,8 @@ def report(force=False):
         print(f"   median profile Pearson {da['profile_pearson'].median():+.3f}, "
               f"peak organ conserved {da['top_organ_conserved'].mean():.1%}, "
               f"Spearman(prof, omega) {rho_a:+.3f} (p={p_a:.2g})")
-        da.to_csv(os.path.join(DERIVED, "t10_profile_conservation_adult.tsv.gz"),
-                  sep="\t")
+        to_tsv_gz(da, os.path.join(DERIVED,
+                                   "t10_profile_conservation_adult.tsv.gz"))
     except Exception as exc:                              # noqa: BLE001
         print(f"\nadult-only sensitivity check failed: {exc}")
 

@@ -34,7 +34,7 @@ from multiprocessing import Pool
 
 import numpy as np
 
-from .common import DERIVED, SPECIES, log
+from .common import DERIVED, SPECIES, log, to_tsv_gz
 
 BASES = "TCAG"
 CODONS = ["".join(c) for c in product(BASES, repeat=3)]
@@ -302,7 +302,7 @@ def run_species(sp_key, processes=4, force=False, validate=True):
         rows = [r for r in pool.imap_unordered(pair_stats, pairs, chunksize=64)
                 if r is not None]
     df = pd.DataFrame(rows)
-    df.to_csv(out, sep="\t", index=False)
+    to_tsv_gz(df, out, index=False)
     ok = df["omega"].notna()
     log(f"  {sp_key}: {len(df)} aligned, {ok.sum()} with usable omega, "
         f"median dS={df['dS'].median():.3f} median omega={df.loc[ok,'omega'].median():.4f}")

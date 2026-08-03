@@ -37,7 +37,8 @@ import os
 import numpy as np
 import pandas as pd
 
-from .common import DERIVED, FIGDIR, SPECIES, apply_figure_style, PALETTE, log
+from .common import (DERIVED, FIGDIR, SPECIES, apply_figure_style, PALETTE,
+                     log, to_tsv_gz)
 from . import t1_expression
 
 MIN_TPM = 1.0
@@ -179,7 +180,7 @@ def build(sp_key=PRIMARY):
     cov = orthologue_coverage(mat, set(df.index))
     res = res.join(cov)
     res.to_csv(os.path.join(DERIVED, f"t4_organ_rates_{sp_key}.tsv"), sep="\t")
-    df.to_csv(os.path.join(DERIVED, f"t4_gene_table_{sp_key}.tsv.gz"), sep="\t")
+    to_tsv_gz(df, os.path.join(DERIVED, f"t4_gene_table_{sp_key}.tsv.gz"))
     return df, mat, res
 
 

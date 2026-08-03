@@ -126,6 +126,18 @@ def biomart_query(dataset, attributes, filters=(), timeout=900, retries=12):
     raise RuntimeError("BioMart unavailable on all mirrors after retries")
 
 
+def to_tsv_gz(df, path, **kwargs):
+    """Write a gzipped TSV deterministically.
+
+    pandas stamps the current time into the gzip header, so re-running a module
+    rewrites every .gz output with identical contents but a different checksum,
+    and git reports a diff on files that did not change. Pinning mtime=0 makes
+    a re-run a no-op in version control.
+    """
+    kwargs.setdefault("sep", "\t")
+    return df.to_csv(path, compression={"method": "gzip", "mtime": 0}, **kwargs)
+
+
 def read_fasta(path):
     """Yield (header, sequence) from a plain or gzipped FASTA."""
     opener = gzip.open if path.endswith(".gz") else open

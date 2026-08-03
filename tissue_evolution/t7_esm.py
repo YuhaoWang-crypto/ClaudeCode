@@ -42,7 +42,7 @@ from scipy import stats
 
 from .common import (RAW, DERIVED, FIGDIR, SPECIES, ENSEMBL_FTP,
                      apply_figure_style, PALETTE, download, http_get,
-                     read_fasta, log)
+                     read_fasta, log, to_tsv_gz)
 from . import t1_expression, t4_tissue_rates
 
 MODEL = "facebook/esm2_t33_650M_UR50D"
@@ -242,7 +242,7 @@ def report(n_per_group=50, force=False):
             f"(ladder species available: {n_species})")
         scores = esm_scores(sample["seq"])
         df = sample.drop(columns=["seq"]).join(scores)
-        df.to_csv(out, sep="\t")
+        to_tsv_gz(df, out)
 
     print(f"proteins scored     : {len(df)}")
     print(f"truncated at {MAX_LEN} aa : {int(df['truncated'].sum())}")

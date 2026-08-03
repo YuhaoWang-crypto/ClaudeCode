@@ -29,7 +29,7 @@ import gzip
 import numpy as np
 import pandas as pd
 
-from .common import RAW, DERIVED, FIGDIR, apply_figure_style, log
+from .common import RAW, DERIVED, FIGDIR, apply_figure_style, log, to_tsv_gz
 
 GTEX_GCT = os.path.join(RAW, "gtex_v10_median_tpm.gct.gz")
 GTEX_URL = ("https://storage.googleapis.com/adult-gtex/bulk-gex/v10/rna-seq/"
@@ -235,8 +235,8 @@ def build(force=False):
     feat["group_enriched_in"] = pd.Series(
         {g: ",".join(o) for g, o in grp.items()}).reindex(feat.index)
 
-    mat.to_csv(organ_path, sep="\t")
-    feat.to_csv(out, sep="\t")
+    to_tsv_gz(mat, organ_path)
+    to_tsv_gz(feat, out)
     log(f"T1: {mat.shape[0]} genes x {mat.shape[1]} organs -> {os.path.basename(out)}")
     return feat, mat
 

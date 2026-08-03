@@ -83,7 +83,8 @@ import numpy as np
 import pandas as pd
 from scipy import stats
 
-from .common import RAW, DERIVED, FIGDIR, apply_figure_style, PALETTE, log
+from .common import (RAW, DERIVED, FIGDIR, apply_figure_style, PALETTE, log,
+                     to_tsv_gz)
 
 ALN_DIR = os.path.join(RAW, "toga_aln")
 TREE = os.path.join(RAW, "tree_470way.nh")
@@ -717,7 +718,7 @@ def report(processes=4, limit=None, force=False, top=25):
               f"{r['median_het_rest']:>9.4f}{r['rank_biserial']:>+7.2f}"
               f"{r['q']:>10.2e}{star}")
 
-    res.to_csv(os.path.join(DERIVED, "t12_rer_brain_scan.tsv.gz"), sep="\t")
+    to_tsv_gz(res, os.path.join(DERIVED, "t12_rer_brain_scan.tsv.gz"))
     orgres.to_csv(os.path.join(DERIVED, "t12_organ_rho.tsv"), sep="\t")
     hetres.to_csv(os.path.join(DERIVED, "t12_organ_heterogeneity.tsv"), sep="\t")
     p = make_figure(res, orgres, hetres, bt, RER)
