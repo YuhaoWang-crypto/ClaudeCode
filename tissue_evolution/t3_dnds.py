@@ -136,7 +136,8 @@ def ng86(c1, c2):
     n_cod = int(mask.sum())
     if n_cod < MIN_CODONS:
         return dict(n_codons=n_cod, dN=np.nan, dS=np.nan, omega=np.nan,
-                    pN=np.nan, pS=np.nan, identity=np.nan)
+                    pN=np.nan, pS=np.nan, identity=np.nan,
+                    Nd=np.nan, Sd=np.nan, N_sites=np.nan, S_sites=np.nan)
     a, b = c1[mask], c2[mask]
     s_sites = 0.5 * (S_SITES[a].sum() + S_SITES[b].sum())
     n_sites = 0.5 * (N_SITES[a].sum() + N_SITES[b].sum())
@@ -153,8 +154,14 @@ def ng86(c1, c2):
     dn, ds = jc(pn), jc(ps)
     omega = dn / ds if (np.isfinite(dn) and np.isfinite(ds) and ds > 0) else np.nan
     ident = float((a == b).mean())
+    # raw counts as well as corrected rates: a McDonald-Kreitman test needs
+    # COUNTS of fixed differences (Dn, Ds) to sit in a 2x2 table against
+    # polymorphism counts, and Jukes-Cantor-corrected distances cannot be
+    # used there.
     return dict(n_codons=n_cod, dN=dn, dS=ds, omega=omega,
-                pN=pn, pS=ps, identity=ident)
+                pN=pn, pS=ps, identity=ident,
+                Nd=float(nd), Sd=float(sd),
+                N_sites=float(n_sites), S_sites=float(s_sites))
 
 
 # --------------------------------------------------------------------------

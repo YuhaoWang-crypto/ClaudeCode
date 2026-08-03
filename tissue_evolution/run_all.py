@@ -28,6 +28,8 @@ STEPS = [
     ("t13", "H1: interface-vs-core composition", "t13_compartment"),
     ("t14", "degree / pleiotropy / gene age as mediators", "t14_mediators"),
     ("t15", "pathway allocation across organs + ERC", "t15_pathway"),
+    ("t16", "mutation spectrum at 4-fold sites", "t16_spectrum"),
+    ("t17", "McDonald-Kreitman: selection vs relaxation", "t17_mk"),
 ]
 
 

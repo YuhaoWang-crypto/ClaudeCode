@@ -36,6 +36,8 @@ python3 -m tissue_evolution.t5_confounders     # or any single module
 | `t12_rer` | real RERconverge over Zoonomia/TOGA | 4195 genes x 240 branches x 121 mammals. **230 hits at q<0.05 — but a Brownian-motion null on the same tree gives a median of 194.** Empirical p=0.395 |
 | `t13_compartment` | is organ rate just secreted-vs-intracellular mix? | **hypothesis falsified**: interface proteins are 1.26× faster (p=4.6e-60) and organs differ 0.22–0.80 in composition, yet compartment absorbs −0.2% of the organ term |
 | `t14_mediators` | PPI degree / pathway pleiotropy / gene age | only gene age absorbs anything (16.6%); degree 1.2%, pleiotropy 2.0%. ~75–80% of the organ effect is still unexplained after six controls |
+| `t16_spectrum` | is the mutation INPUT different? | **no**: CpG hypermutability recovered (2× opportunity), but after GC3 matching 27 organ×metric tests give 0 survivors at BH q<0.05 |
+| `t17_mk` | positive selection or relaxed constraint? | **testis has a real adaptive component**: Dn/Ds 1.39× genome while Pn/Ps only 1.12×. Brain/cerebellum are down on BOTH axes = stronger purifying selection |
 | `t15_pathway` | pathway allocation + coevolution | within a pathway, tissue-restricted members are **1.49× faster** (774 pathways, p=8.6e-37; τ slope 88% within-pathway). Pathway ERC **survives** a membership-permutation null (p=0.000); organ fragmentation does **not** (p=0.080) |
 
 Full write-up with every number, rigour label and caveat:
