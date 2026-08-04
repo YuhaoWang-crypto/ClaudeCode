@@ -26,6 +26,12 @@ particle-life/
     └── results/                  实验产出的数值
 ```
 
+![复现的模拟器与 Physics X-ray 面板](docs/screenshot.png)
+
+*左：复刻的控制面板（Forces / Min. Radius / Max. Radius 三个矩阵页签）。
+右：原站没有的物理面板——实时计算连续介质线性稳定性，并与模拟测量并排显示。
+此帧：ν = 0.000（矩阵互易）⇒ 判定 "static"，理论预言结构尺度 84 px。*
+
 ## 快速开始
 
 **跑模拟器**（无需构建，任意静态服务器）：
