@@ -1,0 +1,157 @@
+:root {
+  --bg: #05070c;
+  --panel: rgba(13, 17, 23, 0.92);
+  --edge: #212a36;
+  --fg: #e6edf3;
+  --dim: #8b949e;
+  --accent: #39d353;
+  --accent2: #ff5ec4;
+  --blue: #58a6ff;
+  --warn: #f0883e;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0; padding: 0; height: 100%; overflow: hidden;
+  background: var(--bg); color: var(--fg);
+  font: 12px/1.5 ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+#sim { position: fixed; inset: 0; width: 100vw; height: 100vh; display: block; }
+
+/* ------------------------------------------------------------------ HUD */
+#hud {
+  position: fixed; top: 8px; left: 50%; transform: translateX(-50%);
+  display: flex; gap: 10px; align-items: center; z-index: 20;
+  padding: 5px 12px; border-radius: 999px;
+  background: rgba(13,17,23,.72); border: 1px solid var(--edge);
+  backdrop-filter: blur(8px); font-variant-numeric: tabular-nums;
+  color: var(--dim); pointer-events: none;
+}
+#hud .pill {
+  padding: 1px 9px; border-radius: 999px; color: #05070c;
+  background: var(--accent); font-weight: 700; letter-spacing: .02em;
+}
+
+/* --------------------------------------------------------------- panels */
+.panel {
+  position: fixed; top: 0; bottom: 0; width: 330px; z-index: 15;
+  overflow-y: auto; overscroll-behavior: contain;
+  background: var(--panel); backdrop-filter: blur(14px);
+  padding: 14px 14px 60px;
+  transition: transform .22s ease;
+}
+#left  { left: 0;  border-right: 1px solid var(--edge); }
+#right { right: 0; border-left:  1px solid var(--edge); width: 340px; }
+#left.hidden  { transform: translateX(-100%); }
+#right.hidden { transform: translateX(100%); }
+
+.panel::-webkit-scrollbar { width: 8px; }
+.panel::-webkit-scrollbar-thumb { background: #263041; border-radius: 8px; }
+
+.panel h1 {
+  margin: 2px 0 14px; font-size: 15px; font-weight: 700; letter-spacing: .01em;
+}
+.panel h1 small { color: var(--dim); font-weight: 400; font-size: 11px; }
+.panel h2 {
+  margin: 0 0 8px; font-size: 11px; text-transform: uppercase;
+  letter-spacing: .09em; color: var(--accent);
+}
+section {
+  border: 1px solid var(--edge); border-radius: 10px;
+  padding: 10px 11px; margin-bottom: 11px; background: rgba(255,255,255,.014);
+}
+
+.row { margin-bottom: 9px; }
+.row:last-child { margin-bottom: 0; }
+.row > label {
+  display: flex; justify-content: space-between; align-items: baseline;
+  color: var(--dim); margin-bottom: 3px;
+}
+.row > label b { color: var(--fg); font-variant-numeric: tabular-nums; }
+.inline { display: flex; gap: 6px; align-items: center; }
+.inline > * { min-width: 0; }
+
+input[type=range] { width: 100%; accent-color: var(--accent); height: 18px; }
+select, input[type=number], button {
+  background: #10151d; color: var(--fg); border: 1px solid var(--edge);
+  border-radius: 7px; padding: 5px 7px; font: inherit; width: 100%;
+}
+button { cursor: pointer; transition: background .12s, border-color .12s; }
+button:hover { background: #182130; border-color: #3a4657; }
+button.primary { background: #16351f; border-color: #2b6b3a; color: #adf6c1; }
+button.primary:hover { background: #1c4527; }
+button.wide { width: 100%; }
+.inline > button:not(.wide) { width: 34px; flex: 0 0 34px; text-align: center; }
+label.chk { display: flex; gap: 5px; align-items: center; color: var(--dim); cursor: pointer; }
+label.chk input { width: auto; accent-color: var(--accent); }
+
+.note { color: var(--dim); font-size: 10.5px; line-height: 1.45; margin: 8px 0 0; }
+.note code, .eq code { color: var(--blue); }
+
+.edge-btn {
+  position: fixed; top: 10px; z-index: 22; width: 34px; height: 34px;
+  border-radius: 9px; font-size: 15px; line-height: 1; padding: 0;
+  background: rgba(13,17,23,.8); border: 1px solid var(--edge);
+}
+.edge-btn.left { left: 344px; }
+.edge-btn.right { right: 354px; }
+#left.hidden  ~ .edge-btn.left  { left: 10px; }
+#right.hidden ~ .edge-btn.right { right: 10px; }
+
+/* ---------------------------------------------------------- matrix grid */
+.tabs { display: flex; gap: 4px; margin-bottom: 9px; }
+.tab {
+  flex: 1; padding: 4px 2px; font-size: 11px; border-radius: 6px;
+  background: #10151d; color: var(--dim);
+}
+.tab.active { background: #1b2836; color: var(--fg); border-color: #33506e; }
+
+#matrix-grid { display: grid; gap: 2px; user-select: none; }
+#matrix-grid .hdr {
+  width: 100%; aspect-ratio: 1; border-radius: 50%; align-self: center;
+  justify-self: center; max-width: 20px;
+}
+#matrix-grid .cell {
+  aspect-ratio: 1; border-radius: 4px; cursor: pointer; position: relative;
+  border: 1px solid transparent; font-size: 8px; color: #cbd5e1;
+  display: flex; align-items: center; justify-content: center;
+}
+#matrix-grid .cell:hover { border-color: var(--fg); }
+#matrix-grid .cell.sel { border-color: var(--accent); }
+#matrix-grid .corner { }
+
+/* ------------------------------------------------------------ x-ray bits */
+.eqbox {
+  background: #0a0f16; border: 1px solid var(--edge); border-radius: 8px;
+  padding: 8px 9px; margin-bottom: 9px;
+}
+.eq { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 11.5px; }
+.eq.small { color: var(--dim); font-size: 10px; margin-top: 5px; }
+
+canvas#c-force, canvas#c-disp, canvas#c-sk {
+  width: 100%; height: auto; display: block; border-radius: 7px;
+  background: #0a0f16; border: 1px solid var(--edge); margin-bottom: 8px;
+}
+
+.stat {
+  display: flex; justify-content: space-between; align-items: baseline;
+  padding: 2.5px 0; border-bottom: 1px dashed #1b232e; color: var(--dim);
+}
+.stat:last-of-type { border-bottom: 0; }
+.stat b { color: var(--fg); font-variant-numeric: tabular-nums; }
+
+.bar { height: 6px; border-radius: 4px; background: #10151d; overflow: hidden; margin: 5px 0 2px; }
+.bar i { display: block; height: 100%; width: 0; background: linear-gradient(90deg, var(--blue), var(--accent2)); }
+
+ul.legend { margin: 0; padding-left: 15px; color: var(--dim); font-size: 10.5px; }
+ul.legend li { margin-bottom: 3px; }
+ul.legend b { color: var(--fg); }
+
+@media (max-width: 900px) {
+  .panel { width: 88vw; }
+  #right { width: 88vw; }
+  .edge-btn.left { left: 10px; }
+  .edge-btn.right { right: 10px; }
+}

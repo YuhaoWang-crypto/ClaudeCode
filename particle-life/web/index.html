@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Particle Life — simulator + physics X-ray</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<canvas id="sim"></canvas>
+
+<div id="hud">
+  <span id="fps">—</span>
+  <span id="hud-n">—</span>
+  <span id="hud-regime" class="pill">—</span>
+</div>
+
+<button id="toggle-left" class="edge-btn left" title="settings">☰</button>
+<button id="toggle-right" class="edge-btn right" title="physics">∂</button>
+
+<!-- ===================== LEFT: simulator controls ===================== -->
+<aside id="left" class="panel">
+  <h1>Particle&nbsp;Life <small>reproduction</small></h1>
+
+  <section>
+    <h2>Presets</h2>
+    <div class="row">
+      <label>Interaction matrix</label>
+      <div class="inline">
+        <select id="sel-matrix"></select>
+        <button id="btn-matrix" title="re-roll">⟳</button>
+      </div>
+    </div>
+    <div class="row">
+      <label>Colour scheme</label>
+      <div class="inline">
+        <select id="sel-palette"></select>
+        <button id="btn-palette" title="re-roll">⟳</button>
+      </div>
+    </div>
+    <div class="row">
+      <label>Particle distribution</label>
+      <div class="inline">
+        <select id="sel-dist"></select>
+        <button id="btn-dist" title="respawn">⟳</button>
+      </div>
+    </div>
+    <div class="row inline">
+      <button id="btn-randomise" class="wide primary">Randomise everything</button>
+    </div>
+  </section>
+
+  <section>
+    <h2>Matrix settings</h2>
+    <div class="tabs">
+      <button class="tab active" data-tab="force">Forces</button>
+      <button class="tab" data-tab="min">Min. radius</button>
+      <button class="tab" data-tab="max">Max. radius</button>
+    </div>
+    <div id="matrix-grid"></div>
+    <div class="row" id="cell-editor" hidden>
+      <label><span id="cell-label">—</span></label>
+      <div class="inline">
+        <input type="range" id="cell-slider" min="-1" max="1" step="0.01">
+        <input type="number" id="cell-number" step="0.01">
+      </div>
+    </div>
+    <div class="row inline">
+      <button id="btn-symmetrise" class="wide">Symmetrise (make reciprocal)</button>
+    </div>
+    <p class="note">A row is the force <em>felt by</em> that colour; a column is the
+      colour <em>exerting</em> it. Asymmetry between <code>(a,b)</code> and
+      <code>(b,a)</code> is what makes structures move.</p>
+  </section>
+
+  <section>
+    <h2>World</h2>
+    <div class="row"><label>Species <b id="v-species"></b></label>
+      <input type="range" id="s-species" min="2" max="10" step="1"></div>
+    <div class="row"><label>Particles <b id="v-count"></b></label>
+      <input type="range" id="s-count" min="500" max="30000" step="500"></div>
+    <div class="row"><label>Walls</label>
+      <select id="sel-wall">
+        <option value="wrap">Wrap (torus)</option>
+        <option value="repel">Bounce</option>
+        <option value="none">Open</option>
+      </select></div>
+  </section>
+
+  <section>
+    <h2>Physics</h2>
+    <div class="row"><label>Force factor κ <b id="v-force"></b></label>
+      <input type="range" id="s-force" min="0.05" max="4" step="0.05"></div>
+    <div class="row"><label>Friction λ <b id="v-friction"></b></label>
+      <input type="range" id="s-friction" min="0.005" max="0.6" step="0.005"></div>
+    <div class="row"><label>Core repulsion R <b id="v-repel"></b></label>
+      <input type="range" id="s-repel" min="0" max="6" step="0.1"></div>
+    <div class="row"><label>Time step Δt <b id="v-dt"></b></label>
+      <input type="range" id="s-dt" min="0.002" max="0.033" step="0.001"></div>
+    <div class="row"><label>Steps / frame <b id="v-sub"></b></label>
+      <input type="range" id="s-sub" min="1" max="6" step="1"></div>
+    <p class="note">Continuum drag rate γ = −60·ln(1−λ) = <b id="v-gamma">—</b> s⁻¹.
+      Friction is the knob that decides whether structures can travel.</p>
+  </section>
+
+  <section>
+    <h2>Randomiser ranges</h2>
+    <div class="row"><label>Min radius <b id="v-minr"></b></label>
+      <div class="inline"><input type="number" id="n-min-lo" step="1">
+        <input type="number" id="n-min-hi" step="1"></div></div>
+    <div class="row"><label>Max radius <b id="v-maxr"></b></label>
+      <div class="inline"><input type="number" id="n-max-lo" step="1">
+        <input type="number" id="n-max-hi" step="1"></div></div>
+    <div class="row inline">
+      <label class="chk"><input type="checkbox" id="c-symradii"> symmetric radii</label>
+    </div>
+  </section>
+
+  <section>
+    <h2>Graphics</h2>
+    <div class="row"><label>Particle size <b id="v-size"></b></label>
+      <input type="range" id="s-size" min="0.5" max="6" step="0.25"></div>
+    <div class="row"><label>Trail persistence <b id="v-trail"></b></label>
+      <input type="range" id="s-trail" min="0" max="0.95" step="0.05"></div>
+    <div class="row inline">
+      <label class="chk"><input type="checkbox" id="c-glow" checked> glow</label>
+      <label class="chk"><input type="checkbox" id="c-vel"> colour by speed</label>
+    </div>
+  </section>
+
+  <section>
+    <h2>Session</h2>
+    <div class="row inline">
+      <button id="btn-pause" class="wide">⏸ Pause</button>
+      <button id="btn-reset" class="wide">↺ Respawn</button>
+    </div>
+    <div class="row inline">
+      <button id="btn-export" class="wide">Export preset</button>
+      <button id="btn-import" class="wide">Import</button>
+      <input type="file" id="file-import" accept="application/json" hidden>
+    </div>
+  </section>
+</aside>
+
+<!-- ===================== RIGHT: physics X-ray ===================== -->
+<aside id="right" class="panel">
+  <h1>Physics <small>X-ray</small></h1>
+
+  <section>
+    <h2>Model</h2>
+    <div class="eqbox">
+      <div class="eq">ẍ<sub>i</sub> = 60κ Σ<sub>j</sub> f<sub>s<sub>i</sub>s<sub>j</sub></sub>(r<sub>ij</sub>) r̂<sub>ij</sub> − γ ẋ<sub>i</sub></div>
+      <div class="eq small">f(r) = R(r/α − 1) for r&lt;α;&nbsp; A·(1 − |r−m|/(m−α)) for α≤r&lt;β;&nbsp; 0 beyond</div>
+    </div>
+    <canvas id="c-force" width="300" height="120"></canvas>
+    <p class="note">Hover a matrix cell to plot that ordered pair. Zero crossing at
+      r = α is the <b>bond length</b>; the well depth is −A(β−α)/2.</p>
+  </section>
+
+  <section>
+    <h2>Reciprocity</h2>
+    <div class="stat"><span>non-reciprocity ν</span><b id="st-nu">—</b></div>
+    <div class="bar"><i id="bar-nu"></i></div>
+    <p class="note" id="note-nu">—</p>
+  </section>
+
+  <section>
+    <h2>Linear stability of the uniform state</h2>
+    <canvas id="c-disp" width="300" height="130"></canvas>
+    <div class="stat"><span>fastest mode k*</span><b id="st-kstar">—</b></div>
+    <div class="stat"><span>predicted size 2π/k*</span><b id="st-length">—</b></div>
+    <div class="stat"><span>growth rate Re λ</span><b id="st-growth">—</b></div>
+    <div class="stat"><span>oscillatory branch</span><b id="st-osc">—</b></div>
+    <div class="stat"><span>predicted drift c</span><b id="st-speed">—</b></div>
+    <p class="note">Growing mode with Im λ ≠ 0 ⇒ the pattern <b>travels</b>. That can
+      only happen when Û(k) ≠ Û(k)<sup>T</sup>, i.e. when the matrix is non-reciprocal.</p>
+  </section>
+
+  <section>
+    <h2>Measured</h2>
+    <canvas id="c-sk" width="300" height="110"></canvas>
+    <div class="stat"><span>S(k) peak → size</span><b id="st-skpeak">—</b></div>
+    <div class="stat"><span>mean speed ⟨|v|⟩</span><b id="st-speedm">—</b></div>
+    <div class="stat"><span>cluster count</span><b id="st-nclust">—</b></div>
+    <div class="stat"><span>mean cluster size</span><b id="st-clsize">—</b></div>
+    <div class="stat"><span>cluster motility</span><b id="st-motility">—</b></div>
+    <p class="note">Compare “predicted size” above with “S(k) peak → size” here: the
+      continuum theory is being checked live against the running simulation.</p>
+  </section>
+
+  <section>
+    <h2>Reading the map</h2>
+    <ul class="legend">
+      <li><b>Blobs / cells</b> — reciprocal self-attraction; frozen once formed.</li>
+      <li><b>Chains, snakes</b> — cyclic bonding graph <code>i↔i±1</code>; thickness = α.</li>
+      <li><b>Chasers</b> — A<sub>ab</sub>&gt;0&gt;A<sub>ba</sub>; net internal force ≠ 0.</li>
+      <li><b>Rotors</b> — cyclic pursuit (rock–paper–scissors); net internal torque ≠ 0.</li>
+      <li><b>Gas</b> — no unstable k; Re λ(k) &lt; 0 everywhere.</li>
+    </ul>
+  </section>
+</aside>
+
+<script type="module" src="js/main.js"></script>
+</body>
+</html>
