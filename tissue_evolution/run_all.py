@@ -30,6 +30,7 @@ STEPS = [
     ("t15", "pathway allocation across organs + ERC", "t15_pathway"),
     ("t16", "mutation spectrum at 4-fold sites", "t16_spectrum"),
     ("t17", "McDonald-Kreitman: selection vs relaxation", "t17_mk"),
+    ("t18", "TCA cycle: strata, paralogues, structure", "t18_tca"),
 ]
 
 
