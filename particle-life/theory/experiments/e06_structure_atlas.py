@@ -49,6 +49,7 @@ def job(name):
     rho = np.full(S, N / S / L**2)
     lin = ST.scan(p, rho, nk=400)
     return dict(name=name, display=M.DISPLAY_NAMES[name],
+                pos=sim.pos.tolist(), types=sim.types.tolist(),
                 nu=M.nonreciprocity(p.A),
                 motility=o["motility"], speed=o["speed"], spin=o["spin"],
                 abs_spin=o["abs_spin"], dim2=o["dim2"], psi6=o["psi6"],
@@ -74,11 +75,16 @@ if __name__ == "__main__":
     ncol = 7
     nrow = int(np.ceil(len(NAMES) / ncol))
     fig, axes = plt.subplots(nrow, ncol, figsize=(2.05 * ncol, 2.35 * nrow))
+    from common import species_colors
+    cols = species_colors(S)
     for ax, name in zip(axes.ravel(), NAMES):
-        p, sim = build(name)
-        sim.run(T_EQ)
-        scatter_snapshot(ax, sim, size=0.9, alpha=0.85)
         r = next(x for x in rows if x["name"] == name)
+        pos = np.array(r["pos"]); ty = np.array(r["types"])
+        for sp in range(S):
+            m = ty == sp
+            ax.scatter(pos[m, 0], pos[m, 1], s=0.9, c=cols[sp], linewidths=0, alpha=0.85)
+        ax.set_xlim(0, L); ax.set_ylim(0, L); ax.set_aspect("equal")
+        ax.set_xticks([]); ax.set_yticks([]); ax.grid(False)
         ax.set_title(f"{r['display']}\n" + r"$\nu$=" + f"{r['nu']:.2f}  "
                      + f"mot={r['motility']:.3f}\n{r['label']}", fontsize=6.4)
     for ax in axes.ravel()[len(NAMES):]:
@@ -126,4 +132,5 @@ if __name__ == "__main__":
     fig.suptitle("E06b  Order parameters separate the morphologies", fontsize=12)
     fig.tight_layout()
     save(fig, "e06_order_parameters.png")
-    dump(dict(rows=rows), "e06_atlas.json")
+    dump(dict(rows=[{k: v for k, v in r.items() if k not in ("pos", "types")}
+                    for r in rows]), "e06_atlas.json")

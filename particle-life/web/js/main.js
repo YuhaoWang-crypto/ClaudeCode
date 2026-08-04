@@ -156,9 +156,12 @@ function showCellEditor() {
 function ctxOf(id) {
   const c = $(id);
   const dpr = Math.min(2, window.devicePixelRatio || 1);
-  if (c.width !== c.clientWidth * dpr) {
-    c.width = Math.max(60, c.clientWidth * dpr);
-    c.height = Math.max(40, (c.dataset.h || 120) * dpr);
+  const hCss = parseFloat(c.dataset.h) || 120;
+  const wWant = Math.max(60, Math.round(c.clientWidth * dpr));
+  if (c.width !== wWant) {
+    c.width = wWant;
+    c.height = Math.max(40, Math.round(hCss * dpr));
+    c.style.height = hCss + "px";
   }
   const g = c.getContext("2d");
   g.setTransform(dpr, 0, 0, dpr, 0, 0);

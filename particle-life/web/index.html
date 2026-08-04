@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Particle Life — simulator + physics X-ray</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='11' cy='12' r='6' fill='%2339d353'/%3E%3Ccircle cx='22' cy='21' r='5' fill='%23ff5ec4'/%3E%3C/svg%3E">
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -153,7 +154,7 @@
       <div class="eq">ẍ<sub>i</sub> = 60κ Σ<sub>j</sub> f<sub>s<sub>i</sub>s<sub>j</sub></sub>(r<sub>ij</sub>) r̂<sub>ij</sub> − γ ẋ<sub>i</sub></div>
       <div class="eq small">f(r) = R(r/α − 1) for r&lt;α;&nbsp; A·(1 − |r−m|/(m−α)) for α≤r&lt;β;&nbsp; 0 beyond</div>
     </div>
-    <canvas id="c-force" width="300" height="120"></canvas>
+    <canvas id="c-force" data-h="120"></canvas>
     <p class="note">Hover a matrix cell to plot that ordered pair. Zero crossing at
       r = α is the <b>bond length</b>; the well depth is −A(β−α)/2.</p>
   </section>
@@ -167,7 +168,7 @@
 
   <section>
     <h2>Linear stability of the uniform state</h2>
-    <canvas id="c-disp" width="300" height="130"></canvas>
+    <canvas id="c-disp" data-h="130"></canvas>
     <div class="stat"><span>fastest mode k*</span><b id="st-kstar">—</b></div>
     <div class="stat"><span>predicted size 2π/k*</span><b id="st-length">—</b></div>
     <div class="stat"><span>growth rate Re λ</span><b id="st-growth">—</b></div>
@@ -179,7 +180,7 @@
 
   <section>
     <h2>Measured</h2>
-    <canvas id="c-sk" width="300" height="110"></canvas>
+    <canvas id="c-sk" data-h="110"></canvas>
     <div class="stat"><span>S(k) peak → size</span><b id="st-skpeak">—</b></div>
     <div class="stat"><span>mean speed ⟨|v|⟩</span><b id="st-speedm">—</b></div>
     <div class="stat"><span>cluster count</span><b id="st-nclust">—</b></div>
