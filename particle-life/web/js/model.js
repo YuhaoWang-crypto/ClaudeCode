@@ -213,12 +213,40 @@ export function randomRadii(S, minRange, maxRange, symmetric = false) {
 //  reciprocity diagnostics - the single most informative number about a matrix
 // --------------------------------------------------------------------------- //
 export function nonreciprocity(A) {
+  // NOTE: this only sees the force matrix.  alpha and beta are ordered-pair
+  // matrices too, so use nonreciprocityForces() for the quantity the
+  // reciprocity theorem actually depends on.
   let s = 0, n = 0;
   for (let i = 0; i < A.length; i++) for (let j = 0; j < A.length; j++) {
     s += (A[i][j] + A[j][i]) ** 2;
     n += (A[i][j] - A[j][i]) ** 2;
   }
   s = Math.sqrt(s); n = Math.sqrt(n);
+  return s + n > 0 ? n / (s + n) : 0;
+}
+
+/**
+ * Non-reciprocity of the actual pair forces, over all three matrices:
+ *   nu_f = ||f_ab - f_ba|| / (||f_ab + f_ba|| + ||f_ab - f_ba||)
+ * Zero iff f_ab === f_ba for every pair - exactly the hypothesis of the
+ * reciprocity theorem.  The platform's randomiser samples min/max radius per
+ * ordered pair, so a symmetric force matrix alone does NOT make nu_f zero.
+ */
+export function nonreciprocityForces(A, alpha, beta, repel, nR = 200) {
+  const S = A.length;
+  let rmax = 0;
+  for (let a = 0; a < S; a++) for (let b = 0; b < S; b++) rmax = Math.max(rmax, beta[a][b]);
+  let sym2 = 0, asym2 = 0;
+  for (let a = 0; a < S; a++) for (let b = a; b < S; b++) {
+    for (let i = 0; i < nR; i++) {
+      const r = ((i + 0.5) / nR) * rmax;
+      const fab = pairForce(r, A[a][b], alpha[a][b], beta[a][b], repel);
+      const fba = pairForce(r, A[b][a], alpha[b][a], beta[b][a], repel);
+      sym2 += (fab + fba) ** 2;
+      asym2 += (fab - fba) ** 2;
+    }
+  }
+  const s = Math.sqrt(sym2), n = Math.sqrt(asym2);
   return s + n > 0 ? n / (s + n) : 0;
 }
 

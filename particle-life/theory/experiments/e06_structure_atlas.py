@@ -22,8 +22,13 @@ import matplotlib.pyplot as plt
 
 from plife import matrices as M, model, observables as OB, stability as ST
 
-L, N, S = 900.0, 4000, 6
+# Density matters: at rho above the close-packing limit 2/(sqrt(3) alpha^2) the
+# whole system collapses into one blob and every matrix looks the same.  Here
+# rho = 0.0020 against rho_max = 0.0036 for alpha = 18.
+L, N, S = 1400.0, 4000, 6
 T_EQ, T_MEAS = 35.0, 8.0
+# Symmetric radii isolate the role of the force matrix: with them, nu(A) == nu_f,
+# so the reciprocity theorem's hypothesis is exactly "nu = 0".
 
 NAMES = ["condensate", "symmetric", "random", "gas", "chains1", "chains2", "chains3",
          "snake", "rps", "shells", "bipartite", "hub", "dimers", "triads",
@@ -33,7 +38,7 @@ NAMES = ["condensate", "symmetric", "random", "gas", "chains1", "chains2", "chai
 
 def build(name, seed=0):
     A = M.generate(name, S, np.random.default_rng(21))
-    alpha, beta = M.random_radii(S, rng=np.random.default_rng(22))
+    alpha, beta = M.random_radii(S, rng=np.random.default_rng(22), symmetric=True)
     p = model.Params(A=A, alpha=alpha, beta=beta, L=(L, L))
     return p, model.ParticleLife(p, N=N, seed=seed)
 
@@ -51,6 +56,7 @@ def job(name):
     return dict(name=name, display=M.DISPLAY_NAMES[name],
                 pos=sim.pos.tolist(), types=sim.types.tolist(),
                 nu=M.nonreciprocity(p.A),
+                nu_f=M.nonreciprocity_forces(p.A, p.alpha, p.beta, p.repel),
                 motility=o["motility"], speed=o["speed"], spin=o["spin"],
                 abs_spin=o["abs_spin"], dim2=o["dim2"], psi6=o["psi6"],
                 n_clusters=o["n_clusters"], mean_cluster=o["mean_cluster"],
@@ -63,11 +69,12 @@ if __name__ == "__main__":
     with mp.Pool(min(4, mp.cpu_count())) as pool:
         rows = pool.map(job, NAMES)
 
-    hdr = (f"{'matrix':22s} {'nu':>5s} {'motil':>7s} {'spin':>7s} {'dim2':>5s} "
+    hdr = (f"{'matrix':24s} {'nu_A':>5s} {'nu_f':>5s} {'motil':>7s} {'spin':>7s} {'dim2':>5s} "
            f"{'psi6':>5s} {'l_meas':>7s} {'l_pred':>7s} {'linear':>14s}  morphology")
     print(hdr); print("-" * len(hdr))
     for r in sorted(rows, key=lambda x: -x["motility"]):
-        print(f"{r['display']:22s} {r['nu']:5.2f} {r['motility']:7.4f} {r['spin']:+7.3f} "
+        print(f"{r['display']:24s} {r['nu']:5.2f} {r['nu_f']:5.2f} "
+              f"{r['motility']:7.4f} {r['spin']:+7.3f} "
               f"{r['dim2']:5.2f} {r['psi6']:5.2f} {r['length_meas']:7.1f} "
               f"{r['length_pred']:7.1f} {r['regime']:>14s}  {r['label']}")
 
@@ -85,7 +92,7 @@ if __name__ == "__main__":
             ax.scatter(pos[m, 0], pos[m, 1], s=0.9, c=cols[sp], linewidths=0, alpha=0.85)
         ax.set_xlim(0, L); ax.set_ylim(0, L); ax.set_aspect("equal")
         ax.set_xticks([]); ax.set_yticks([]); ax.grid(False)
-        ax.set_title(f"{r['display']}\n" + r"$\nu$=" + f"{r['nu']:.2f}  "
+        ax.set_title(f"{r['display']}\n" + r"$\nu_f$=" + f"{r['nu_f']:.2f}  "
                      + f"mot={r['motility']:.3f}\n{r['label']}", fontsize=6.4)
     for ax in axes.ravel()[len(NAMES):]:
         ax.axis("off")
@@ -96,13 +103,13 @@ if __name__ == "__main__":
     # ------------------------------------------------------- order-param map
     fig, axes = plt.subplots(1, 3, figsize=(13.2, 4.1))
     ax = axes[0]
-    sc = ax.scatter([r["nu"] for r in rows], [r["motility"] for r in rows],
+    sc = ax.scatter([r["nu_f"] for r in rows], [r["motility"] for r in rows],
                     c=[r["dim2"] for r in rows], cmap="viridis", s=52,
                     edgecolors="#0d1117", linewidths=0.6)
     for r in rows:
-        ax.annotate(r["display"][:13], (r["nu"], r["motility"]), fontsize=5.4,
+        ax.annotate(r["display"][:13], (r["nu_f"], r["motility"]), fontsize=5.4,
                     xytext=(3, 3), textcoords="offset points", color="#8b949e")
-    ax.set_xlabel(r"non-reciprocity index $\nu$")
+    ax.set_xlabel(r"force non-reciprocity $\nu_f$  (all three matrices)")
     ax.set_ylabel("motility")
     ax.set_title("motility requires non-reciprocity", fontsize=10)
     fig.colorbar(sc, ax=ax, label=r"$D_2$", fraction=0.046)

@@ -4,7 +4,7 @@
 
 import {
   MATRIX_NAMES, PALETTES, PALETTE_NAMES, DISTRIBUTIONS, DISTRIBUTION_NAMES,
-  generateMatrix, randomRadii, nonreciprocity, pairForce,
+  generateMatrix, randomRadii, nonreciprocity, nonreciprocityForces, pairForce,
 } from "./model.js";
 import { CpuEngine } from "./engine.js";
 import { analyseStability, structureFactor, clusterStats } from "./theory.js";
@@ -205,12 +205,16 @@ let lastTheory = null;
 
 function refreshTheory() {
   const S = state.S;
-  const nu = nonreciprocity(A);
+  const nuA = nonreciprocity(A);
+  const nu = nonreciprocityForces(A, alpha, beta, state.repel);
   $("st-nu").textContent = nu.toFixed(3);
+  $("st-nu-a").textContent = nuA.toFixed(3);
   $("bar-nu").style.width = `${Math.round(nu * 100)}%`;
   $("note-nu").innerHTML = nu < 1e-6
-    ? "ν = 0 — Newton's third law holds. E = K + V is a Lyapunov function, so the system <b>must</b> come to rest. Only static structures are reachable."
-    : `ν = ${nu.toFixed(2)} — the third law is broken. Bound clusters feel a non-zero net internal force (translation) and torque (rotation): the structures can stay alive indefinitely.`;
+    ? "ν<sub>f</sub> = 0 — Newton's third law holds. E = K + V is a Lyapunov function, so the system <b>must</b> come to rest. Only static structures are reachable."
+    : (nuA < 1e-6
+        ? `ν<sub>f</sub> = ${nu.toFixed(2)} while the force matrix itself is symmetric — the asymmetry is hiding in the <b>radius</b> matrices. Symmetrising Forces alone will not freeze this universe.`
+        : `ν<sub>f</sub> = ${nu.toFixed(2)} — the third law is broken. Bound clusters feel a non-zero net internal force (translation) and torque (rotation): the structures can stay alive indefinitely.`);
 
   const area = engine.W * engine.H;
   const rho = new Array(S).fill(engine.n / S / area);

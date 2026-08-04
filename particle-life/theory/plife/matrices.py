@@ -384,14 +384,50 @@ def antisymmetrise(A):
 
 
 def nonreciprocity(A):
-    r"""Scalar non-reciprocity index
+    r"""Non-reciprocity of the **force matrix alone**,
 
-    .. math::  \nu = \frac{\|A - A^{T}\|_F}{\|A + A^{T}\|_F + \|A-A^{T}\|_F} \in [0,1].
+    .. math::  \nu_A = \frac{\|A - A^{T}\|_F}{\|A + A^{T}\|_F + \|A-A^{T}\|_F} \in [0,1].
 
-    ``nu = 0``: Newton's third law holds exactly -> gradient dynamics -> only static
-    structures.  ``nu -> 1``: purely antisymmetric -> no energy function at all.
+    .. warning::
+        This is only the whole story when the radius matrices are symmetric.
+        ``alpha`` and ``beta`` are ordered-pair matrices too, so
+        :math:`f_{ab}\neq f_{ba}` is perfectly possible with :math:`A=A^{T}`.
+        Use :func:`nonreciprocity_forces` whenever the radii may be asymmetric --
+        that is the quantity the reciprocity theorem actually depends on.
     """
     A = np.asarray(A, dtype=float)
     s = np.linalg.norm(A + A.T)
     n = np.linalg.norm(A - A.T)
+    return float(n / (s + n)) if (s + n) > 0 else 0.0
+
+
+def nonreciprocity_forces(A, alpha, beta, repel=1.0, n_r=400):
+    r"""Non-reciprocity of the **actual pair forces**, over all three matrices.
+
+    .. math::
+        \nu_f = \frac{\|f_{ab}-f_{ba}\|_2}{\|f_{ab}+f_{ba}\|_2+\|f_{ab}-f_{ba}\|_2},
+        \qquad
+        \|g\|_2^2 = \sum_{a<b}\int_0^{r_{\max}} g_{ab}(r)^2\,\mathrm{d}r .
+
+    This is zero **iff** :math:`f_{ab}\equiv f_{ba}` for every pair, i.e. exactly
+    the hypothesis of the reciprocity theorem (``model.injected_power`` is then
+    identically zero and the system must come to rest).  Unlike
+    :func:`nonreciprocity` it sees asymmetry hidden in ``minRadius`` /
+    ``maxRadius`` as well as in the force coefficients.
+    """
+    from .kernels import pair_force
+
+    A = np.asarray(A, float)
+    alpha = np.asarray(alpha, float)
+    beta = np.asarray(beta, float)
+    S = A.shape[0]
+    r = np.linspace(1e-6, float(beta.max()), n_r)
+    sym2 = asym2 = 0.0
+    for a in range(S):
+        for b in range(a, S):
+            fab = pair_force(r, A[a, b], alpha[a, b], beta[a, b], repel)
+            fba = pair_force(r, A[b, a], alpha[b, a], beta[b, a], repel)
+            sym2 += float(((fab + fba) ** 2).sum())
+            asym2 += float(((fab - fba) ** 2).sum())
+    s, n = np.sqrt(sym2), np.sqrt(asym2)
     return float(n / (s + n)) if (s + n) > 0 else 0.0
