@@ -9,7 +9,8 @@ particle-life/
 ├── THEORY.md                     ← 主报告：物理数学模型（先读这个）
 ├── docs/
 │   ├── REVERSE_ENGINEERING.md    ← 从站点 WebGPU 内核逐字取出的真实模型
-│   └── VALIDATION.md             ← 所有预言 vs 测量的汇总
+│   ├── VALIDATION.md             ← 所有预言 vs 测量的汇总（含 ⚠️ 保留项）
+│   └── summary.html              ← 可视化总结页（含可交互的互易性演示）
 ├── web/                          ← 可运行的复现（含独有的 "Physics X-ray" 面板）
 │   ├── index.html
 │   └── js/{model,engine,theory,main}.js
@@ -22,6 +23,7 @@ particle-life/
     │   ├── stability.py          连续介质线性稳定性、色散、例外点
     │   └── observables.py        序参量与形态分类
     ├── experiments/e01…e07       七个验证实验
+    ├── test_plife.py             快速自检（几秒钟）
     ├── figures/                  实验产出的图
     └── results/                  实验产出的数值
 ```

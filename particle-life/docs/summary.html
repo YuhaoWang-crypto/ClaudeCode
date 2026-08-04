@@ -1,0 +1,771 @@
+<title>Particle Life 的物理数学模型</title>
+<style>
+:root{
+  --void:#06090c; --panel:#0d1219; --panel2:#111823; --rule:#1d2630;
+  --ink:#e3ebef; --dim:#7f8f97; --dimmer:#5b6a72;
+  --sp-a:#3ce86b; --sp-b:#ff4fbe; --pred:#6aa8ff; --warn:#f0a94a;
+  --mono: ui-monospace, "SFMono-Regular", "JetBrains Mono", Menlo, Consolas,
+          "PingFang SC", "Noto Sans CJK SC", "Microsoft YaHei", monospace;
+  --serif: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia,
+            "Songti SC", "Noto Serif CJK SC", "Source Han Serif SC", serif;
+  --measure: 68ch; --wide: 1120px;
+}
+@media (prefers-color-scheme: light){
+  :root{
+    --void:#f6f7f4; --panel:#ffffff; --panel2:#f0f2ee; --rule:#dbdfd8;
+    --ink:#0d1519; --dim:#55646c; --dimmer:#78868e;
+    --sp-a:#0f9a46; --sp-b:#c11a8b; --pred:#2360c4; --warn:#a86a10;
+  }
+}
+:root[data-theme="dark"]{
+  --void:#06090c; --panel:#0d1219; --panel2:#111823; --rule:#1d2630;
+  --ink:#e3ebef; --dim:#7f8f97; --dimmer:#5b6a72;
+  --sp-a:#3ce86b; --sp-b:#ff4fbe; --pred:#6aa8ff; --warn:#f0a94a;
+}
+:root[data-theme="light"]{
+  --void:#f6f7f4; --panel:#ffffff; --panel2:#f0f2ee; --rule:#dbdfd8;
+  --ink:#0d1519; --dim:#55646c; --dimmer:#78868e;
+  --sp-a:#0f9a46; --sp-b:#c11a8b; --pred:#2360c4; --warn:#a86a10;
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0; background:var(--void); color:var(--ink);
+  font-family:var(--serif); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:var(--wide); margin:0 auto; padding:0 22px}
+.col{max-width:var(--measure); margin-left:auto; margin-right:auto}
+
+/* ---------- header ---------- */
+header.top{
+  position:sticky; top:0; z-index:30; background:color-mix(in srgb, var(--void) 88%, transparent);
+  backdrop-filter:blur(10px); border-bottom:1px solid var(--rule);
+}
+header.top .wrap{display:flex; align-items:center; gap:14px; padding-top:9px; padding-bottom:9px}
+.mark{font-family:var(--mono); font-size:12px; letter-spacing:.02em; color:var(--dim); white-space:nowrap;
+  overflow-x:auto; scrollbar-width:none}
+.mark b{color:var(--ink); font-weight:600}
+.mark em{color:var(--sp-b); font-style:normal}
+.src{margin-left:auto; font-family:var(--mono); font-size:11px; color:var(--dimmer); white-space:nowrap}
+.src a{color:var(--pred); text-decoration:none}
+.src a:hover{text-decoration:underline}
+
+/* ---------- hero ---------- */
+.hero{padding:44px 0 30px}
+h1{
+  font-family:var(--mono); font-weight:600; font-size:clamp(27px,4.4vw,46px);
+  line-height:1.12; letter-spacing:-.02em; margin:0 0 14px; text-wrap:balance;
+}
+h1 .g{color:var(--sp-a)} h1 .m{color:var(--sp-b)}
+.lede{font-size:19px; color:var(--dim); margin:0 0 26px; text-wrap:pretty}
+.lede strong{color:var(--ink); font-weight:600}
+
+/* ---------- live panel ---------- */
+.rig{
+  border:1px solid var(--rule); border-radius:12px; overflow:hidden;
+  background:var(--panel); display:grid; grid-template-columns:1fr 268px;
+}
+@media(max-width:760px){.rig{grid-template-columns:1fr}}
+.stage{position:relative; background:#04060a; min-height:340px}
+:root[data-theme="light"] .stage{background:#0a0f14}
+@media (prefers-color-scheme: light){:root:not([data-theme="dark"]) .stage{background:#0a0f14}}
+.stage canvas{display:block; width:100%; height:100%; position:absolute; inset:0}
+.stage .tag{
+  position:absolute; left:12px; top:11px; font-family:var(--mono); font-size:10.5px;
+  letter-spacing:.09em; text-transform:uppercase; color:#7f8f97; pointer-events:none;
+}
+.ctl{border-left:1px solid var(--rule); padding:16px 15px; display:flex; flex-direction:column; gap:15px}
+@media(max-width:760px){.ctl{border-left:0; border-top:1px solid var(--rule)}}
+.ctl h3{font-family:var(--mono); font-size:10.5px; letter-spacing:.1em; text-transform:uppercase;
+  color:var(--dimmer); margin:0 0 6px; font-weight:600}
+.knob label{display:flex; justify-content:space-between; align-items:baseline;
+  font-family:var(--mono); font-size:12px; color:var(--dim); margin-bottom:5px}
+.knob label b{color:var(--ink); font-variant-numeric:tabular-nums}
+input[type=range]{width:100%; accent-color:var(--sp-b); height:20px; margin:0}
+.readout{display:flex; flex-direction:column; gap:5px; font-family:var(--mono); font-size:12px}
+.readout div{display:flex; justify-content:space-between; color:var(--dim);
+  border-bottom:1px dotted var(--rule); padding-bottom:3px}
+.readout b{color:var(--ink); font-variant-numeric:tabular-nums}
+.verdict{
+  font-family:var(--mono); font-size:12px; letter-spacing:.04em; text-align:center;
+  padding:7px; border-radius:7px; font-weight:600;
+}
+.verdict.frozen{background:color-mix(in srgb,var(--pred) 18%,transparent); color:var(--pred);
+  border:1px solid color-mix(in srgb,var(--pred) 45%,transparent)}
+.verdict.alive{background:color-mix(in srgb,var(--sp-b) 18%,transparent); color:var(--sp-b);
+  border:1px solid color-mix(in srgb,var(--sp-b) 45%,transparent)}
+.cap{font-family:var(--mono); font-size:11.5px; color:var(--dimmer); margin:11px 0 0; line-height:1.55}
+
+/* ---------- sections ---------- */
+section{padding:40px 0 6px; border-top:1px solid var(--rule); margin-top:40px}
+section:first-of-type{border-top:0}
+.eyebrow{font-family:var(--mono); font-size:11px; letter-spacing:.13em; text-transform:uppercase;
+  color:var(--sp-a); margin:0 0 8px; display:flex; gap:9px; align-items:baseline}
+.eyebrow span{color:var(--dimmer)}
+h2{font-family:var(--mono); font-weight:600; font-size:clamp(20px,2.6vw,27px); line-height:1.22;
+  letter-spacing:-.015em; margin:0 0 16px; text-wrap:balance}
+h3{font-family:var(--mono); font-weight:600; font-size:15px; margin:30px 0 9px; color:var(--ink)}
+p{margin:0 0 15px}
+strong{font-weight:600}
+em.hl{font-style:normal; color:var(--sp-b); font-weight:600}
+code{font-family:var(--mono); font-size:.87em; background:var(--panel2); padding:1px 5px;
+  border-radius:4px; color:var(--pred)}
+a{color:var(--pred)}
+
+.eqn{
+  background:var(--panel); border:1px solid var(--rule); border-left:3px solid var(--sp-a);
+  border-radius:0 9px 9px 0; padding:15px 18px; margin:20px auto; font-family:var(--mono);
+  font-size:14.5px; line-height:1.85; overflow-x:auto; max-width:var(--wide);
+}
+.eqn .note{color:var(--dim); font-size:12px; display:block; margin-top:7px}
+.eqn.key{border-left-color:var(--sp-b)}
+
+figure{margin:26px auto; max-width:var(--wide)}
+figure svg{display:block; width:100%; height:auto}
+figcaption{font-family:var(--mono); font-size:11.5px; color:var(--dimmer); margin:9px auto 0;
+  line-height:1.55; max-width:var(--measure)}
+
+.tblwrap{overflow-x:auto; margin:22px auto; max-width:var(--wide)}
+table{border-collapse:collapse; width:100%; font-family:var(--mono); font-size:12.5px}
+th,td{text-align:left; padding:7px 12px 7px 0; border-bottom:1px solid var(--rule);
+  vertical-align:top; white-space:nowrap}
+td.n{font-variant-numeric:tabular-nums; text-align:right; padding-right:20px}
+th{color:var(--dimmer); font-weight:600; text-transform:uppercase; letter-spacing:.07em; font-size:10.5px}
+tbody tr:hover{background:var(--panel2)}
+td.w{white-space:normal; min-width:210px}
+.ok{color:var(--sp-a)} .no{color:var(--sp-b)} .amb{color:var(--warn)}
+
+.cards{display:grid; grid-template-columns:repeat(auto-fit,minmax(215px,1fr)); gap:13px;
+  margin:24px auto; max-width:var(--wide)}
+.card{background:var(--panel); border:1px solid var(--rule); border-radius:10px; padding:14px 15px}
+.card h4{font-family:var(--mono); font-size:12.5px; margin:0 0 6px; color:var(--ink)}
+.card p{font-size:14px; color:var(--dim); margin:0; line-height:1.5}
+.card .why{font-family:var(--mono); font-size:11px; color:var(--sp-a); margin-top:8px; display:block}
+
+footer{border-top:1px solid var(--rule); margin-top:52px; padding:26px 0 46px;
+  font-family:var(--mono); font-size:12px; color:var(--dimmer)}
+footer a{color:var(--pred)}
+
+@media (prefers-reduced-motion: reduce){*{animation:none!important; transition:none!important}}
+</style>
+
+<header class="top">
+  <div class="wrap">
+    <div class="mark"><b>ẍ<sub>i</sub></b> = 60κ Σ<sub>j</sub> <em>f</em><sub>s<sub>i</sub>s<sub>j</sub></sub>(r<sub>ij</sub>) r̂<sub>ij</sub> − γ ẋ<sub>i</sub></div>
+    <div class="src">逆向自 <a href="https://sandbox-science.com/particle-life">sandbox-science.com/particle-life</a></div>
+  </div>
+</header>
+
+<div class="wrap">
+
+<div class="hero col">
+  <h1>一条分段线性的力，<br>一个<span class="m">不对称</span>的矩阵，<br>然后是<span class="g">整个动物园</span></h1>
+  <p class="lede">Particle Life 里没有生命逻辑、没有代理、没有神经网络。粒子只服从一条力律。
+  下面这句话是这份工作的结论：<strong>结构会不会动，完全取决于力矩阵对不对称</strong>——
+  对称时系统存在 Lyapunov 函数，<strong>必然停下</strong>；不对称时团簇的内力不再相互抵消，它自己推自己。
+  拖动滑块，亲手跨过这条边界。</p>
+</div>
+
+<div class="rig">
+  <div class="stage">
+    <canvas id="cv"></canvas>
+    <div class="tag" id="tag">two species · chase &amp; flee</div>
+  </div>
+  <div class="ctl">
+    <div>
+      <h3>非互易度</h3>
+      <div class="knob">
+        <label>θ &nbsp;<span style="color:var(--dimmer)">A = A<sub>S</sub> + θ·A<sub>N</sub></span> <b id="v-th">1.00</b></label>
+        <input type="range" id="s-th" min="0" max="1" step="0.02" value="1">
+      </div>
+    </div>
+    <div>
+      <h3>摩擦</h3>
+      <div class="knob">
+        <label>λ <b id="v-fr">0.10</b></label>
+        <input type="range" id="s-fr" min="0.01" max="0.4" step="0.005" value="0.1">
+      </div>
+    </div>
+    <div class="readout">
+      <div><span>ν 非互易指标</span><b id="r-nu">—</b></div>
+      <div><span>γ = −60 ln(1−λ)</span><b id="r-g">—</b></div>
+      <div><span>⟨|v|⟩</span><b id="r-v">—</b></div>
+      <div><span>P<sub>inj</sub> 注入功率</span><b id="r-p">—</b></div>
+    </div>
+    <div class="verdict alive" id="verdict">ALIVE</div>
+    <p class="cap" style="margin:0">把 θ 拖到 0：注入功率变成精确的 0，速度只能一路衰减。
+    这不是"变慢了"，是一条恒等式。</p>
+  </div>
+</div>
+<p class="cap col">上图跑的就是从站点 WebGPU 内核里逐字取出的力律与积分器，两个物种，A<sub>01</sub> 追、A<sub>10</sub> 逃。</p>
+
+<!-- ============================================================ -->
+<section>
+  <div class="col">
+    <p class="eyebrow">01 <span>模型</span></p>
+    <h2>真正在跑的方程</h2>
+    <p>站点是 Nuxt SPA，模拟内核没有被编译掉——16 个 WGSL compute kernel 以明文模板字符串躺在 bundle 里。
+    所以下面不是"猜的模型"，是执行代码本身。</p>
+  </div>
+
+  <div class="eqn">
+    <b>f<sub>ab</sub>(r)</b> =
+    &nbsp;R·(r/α − 1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0 ≤ r &lt; α&nbsp;&nbsp; <span style="color:var(--dim)">核心排斥，与 A 无关</span><br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    A<sub>ab</sub>·(1 − |r − m|/w)&nbsp;&nbsp; α ≤ r &lt; β&nbsp;&nbsp; <span style="color:var(--dim)">帐篷形，m=(α+β)/2, w=(β−α)/2</span><br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r ≥ β
+    <span class="note">A、α、β 全都是 <b>有序对</b>矩阵——UI 上就是 Forces / Min. Radius / Max. Radius 三个页签。
+    A<sub>ab</sub> ≠ A<sub>ba</sub> 完全合法：牛顿第三定律在这里是可选项。</span>
+  </div>
+
+  <figure>
+    <svg viewBox="0 0 1120 260" role="img" aria-label="力律与势函数的形状">
+      <defs>
+        <marker id="ar" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
+          <path d="M0,0 L7,3.5 L0,7 z" fill="currentColor"/>
+        </marker>
+      </defs>
+      <g font-family="ui-monospace,monospace" font-size="11">
+        <!-- left: force -->
+        <g transform="translate(40,20)">
+          <text x="0" y="0" fill="var(--dim)" font-size="11.5">f(r) — 力（正 = 吸引）</text>
+          <line x1="0" y1="110" x2="440" y2="110" stroke="var(--rule)" stroke-width="1"/>
+          <line x1="0" y1="20" x2="0" y2="200" stroke="var(--rule)" stroke-width="1"/>
+          <!-- core + tent for A>0 -->
+          <polyline points="0,190 110,110 220,42 330,110 440,110" fill="none" stroke="var(--sp-a)" stroke-width="2.2"/>
+          <!-- A<0 -->
+          <polyline points="0,190 110,110 220,178 330,110 440,110" fill="none" stroke="var(--sp-b)" stroke-width="2.2" stroke-dasharray="5 4"/>
+          <line x1="110" y1="24" x2="110" y2="200" stroke="var(--dimmer)" stroke-width="1" stroke-dasharray="3 4"/>
+          <line x1="330" y1="24" x2="330" y2="200" stroke="var(--dimmer)" stroke-width="1" stroke-dasharray="3 4"/>
+          <circle cx="110" cy="110" r="4" fill="var(--ink)"/>
+          <text x="114" y="212" fill="var(--dim)">α — 最小半径</text>
+          <text x="300" y="212" fill="var(--dim)">β — 最大半径</text>
+          <text x="228" y="36" fill="var(--sp-a)">A &gt; 0</text>
+          <text x="228" y="196" fill="var(--sp-b)">A &lt; 0</text>
+          <text x="8" y="196" fill="var(--dim)">−R</text>
+        </g>
+        <!-- right: potential -->
+        <g transform="translate(620,20)">
+          <text x="0" y="0" fill="var(--dim)" font-size="11.5">U(r) — 势（U′ = f，分段二次）</text>
+          <line x1="0" y1="70" x2="440" y2="70" stroke="var(--rule)" stroke-width="1"/>
+          <line x1="0" y1="20" x2="0" y2="200" stroke="var(--rule)" stroke-width="1"/>
+          <path d="M0,26 Q55,120 110,170 Q170,168 220,140 Q280,100 330,74 L440,70"
+                fill="none" stroke="var(--sp-a)" stroke-width="2.2"/>
+          <line x1="110" y1="24" x2="110" y2="200" stroke="var(--dimmer)" stroke-width="1" stroke-dasharray="3 4"/>
+          <circle cx="110" cy="170" r="4.5" fill="var(--ink)"/>
+          <line x1="118" y1="170" x2="200" y2="192" stroke="var(--dim)" stroke-width="1" marker-end="url(#ar)" color="var(--dim)"/>
+          <text x="205" y="196" fill="var(--ink)">键长 r* = α，键能 = −A(β−α)/2</text>
+          <text x="360" y="60" fill="var(--dim)">0</text>
+        </g>
+      </g>
+    </svg>
+    <figcaption>力在 r = α 处过零，且内侧排斥、外侧吸引 ⇒ <b>α 就是键长</b>。
+    这正是平台教程里"最小半径决定蛇有多粗"那句经验规则的来源：蛇的粗细就是相邻键长。
+    数值核对：max|dU/dr − f| = 2.3×10⁻¹¹。</figcaption>
+  </figure>
+
+  <div class="col">
+    <p>把离散更新取 Δt → 0，得到运动方程 <code>ẍ = 60κ Σ f r̂ − γẋ</code>，其中
+    <strong>γ = −60 ln(1−λ)</strong>（默认 λ=0.3 ⇒ γ=21.4 s⁻¹）。这是一个有阻尼、有限程、<em class="hl">非互易</em>的牛顿多体系统。</p>
+    <p>一个容易踩的坑：模拟器用有限 Δt。离散映射的末速度是
+    <code>μ_disc = 60κΔt·d/(1−d)</code>，默认参数下比连续值 <code>60κ/γ</code> 小 16.8%。
+    最初用连续值预言二聚体速度，误差恒为 17%；换成 μ_disc 后降到 <strong>0.05% 以下</strong>。</p>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<section>
+  <div class="col">
+    <p class="eyebrow">02 <span>为什么会动</span></p>
+    <h2>互易 ⇒ 必然静止</h2>
+    <p>把力拆成互易与非互易两半：<code>f_S = ½(f_ab + f_ba)</code>，<code>f_A = ½(f_ab − f_ba)</code>。</p>
+  </div>
+
+  <div class="eqn key">
+    <b>定理.</b> 若 A、α、β 全部对称，则 E = ½Σ|v<sub>i</sub>|² + Σ<sub>i&lt;j</sub> U(r<sub>ij</sub>) 满足<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;<b>Ė = −γ Σ<sub>i</sub> |v<sub>i</sub>|² ≤ 0</b>
+    <span class="note">E 有下界 ⇒ 由 LaSalle 不变原理，轨道收敛到 {v = 0}。
+    <b>不可能有持续的爬行、追逐、旋转或振荡。</b></span>
+  </div>
+
+  <div class="col">
+    <p>更锐利的形式是功率。Ė 里唯一的非变分项是</p>
+  </div>
+  <div class="eqn">
+    <b>P<sub>inj</sub></b> = 60κ Σ<sub>i&lt;j</sub> f<sub>A</sub>(r<sub>ij</sub>) r̂<sub>ij</sub> · (v<sub>i</sub> + v<sub>j</sub>)
+    <span class="note">互易时逐项恒等于 0。稳态下必有 ⟨P<sub>inj</sub>⟩ = γΣ|v<sub>i</sub>|²
+    ——<b>打破的第三定律，就是为这套"生命"付电费的那台发电机。</b></span>
+  </div>
+
+  <div class="eqn key" style="border-left-color:var(--warn)">
+    <b>一个实测中发现的陷阱。</b> 定理的前提是 f<sub>ab</sub> ≡ f<sub>ba</sub>，
+    而<b>不是</b> A = A<sup>T</sup>。α 和 β 同样是有序对矩阵。
+    <span class="note">站点的随机化器对 min/max 半径按 ordered pair 独立采样，产生的半径矩阵<b>不对称</b>。
+    实测：<code>Chains 1</code>（A 严格对称）配默认随机半径给出 ν<sub>f</sub> = <b>0.196</b>，
+    配对称半径给出 0.000。
+    <b>所以只把 Forces 页签对称化，系统不会停——Min. Radius 和 Max. Radius 也要对称。</b>
+    这条是第一版实验自相矛盾（A 对称却测到 motility 0.92）之后才挖出来的。</span>
+  </div>
+
+  <figure>
+    <svg viewBox="0 0 1120 200" role="img" aria-label="注入功率随非互易度上升并追平耗散">
+      <g font-family="ui-monospace,monospace" font-size="11.5">
+        <g transform="translate(70,22)">
+          <line x1="0" y1="140" x2="470" y2="140" stroke="var(--rule)"/>
+          <line x1="0" y1="6" x2="0" y2="140" stroke="var(--rule)"/>
+          <!-- dissipation -->
+          <polyline points="0,120 91,124 165,116 219,110 273,102 310,84 346,58 383,36 400,10"
+                    fill="none" stroke="var(--pred)" stroke-width="2.2" stroke-dasharray="6 4"/>
+          <!-- injected -->
+          <polyline points="0,140 91,139 165,135 219,130 273,120 310,104 346,80 383,54 400,17"
+                    fill="none" stroke="var(--sp-b)" stroke-width="2.4"/>
+          <circle cx="0" cy="140" r="5" fill="var(--sp-b)"/>
+          <text x="10" y="152" fill="var(--sp-b)">P_inj = 0.000000（恒等式）</text>
+          <text x="300" y="8" fill="var(--pred)">γΣ|v|²/N</text>
+          <text x="404" y="30" fill="var(--sp-b)">P_inj/N</text>
+          <text x="-6" y="158" fill="var(--dim)" text-anchor="middle">0</text>
+          <text x="235" y="176" fill="var(--dim)" text-anchor="middle">非互易指标 ν →</text>
+        </g>
+        <g transform="translate(640,22)" fill="var(--dim)">
+          <text x="0" y="14" fill="var(--ink)" font-size="12.5">实测（E03，9 个 θ × 3 个种子）</text>
+          <text x="0" y="42">θ = 0.00  ν = 0.000  P_inj/N = <tspan fill="var(--sp-b)">0.000000</tspan></text>
+          <text x="0" y="64">θ = 0.25  ν = 0.211  P_inj/N = 1.839</text>
+          <text x="0" y="86">θ = 0.50  ν = 0.349  P_inj/N = 8.143</text>
+          <text x="0" y="108">θ = 0.75  ν = 0.446  P_inj/N = 23.45</text>
+          <text x="0" y="130">θ = 1.00  ν = 0.518  P_inj/N = 52.14  <tspan fill="var(--dim)">(耗散 55.52)</tspan></text>
+          <text x="0" y="160" fill="var(--dimmer)" font-size="11">θ=1 时注入已达耗散的 94%，即接近稳态。</text>
+        </g>
+      </g>
+    </svg>
+    <figcaption>沿 A(θ) = A<sub>S</sub> + θ·A<sub>N</sub> 插值（半径矩阵取对称，θ=0 严格互易）。
+    左端的 0 不是"很小"，是恒等式：f<sub>A</sub> ≡ 0 时每一项都为零。</figcaption>
+  </figure>
+</section>
+
+<!-- ============================================================ -->
+<section>
+  <div class="col">
+    <p class="eyebrow">03 <span>运动的显微起源</span></p>
+    <h2>束缚团簇是一台自己推自己的马达</h2>
+    <p>两体问题可以精确求解。分解成质心 X 和相对坐标后，两半干净地分开：</p>
+  </div>
+
+  <div class="eqn">
+    r̈⃗ = −120κ f<sub>S</sub>(r) r̂ − γ ṙ⃗ &nbsp;&nbsp;&nbsp;<span style="color:var(--dim)">只含互易部分 → 定"形状"</span><br>
+    Ẍ &nbsp;= &nbsp;&nbsp;60κ f<sub>A</sub>(r) r̂ − γ Ẋ &nbsp;&nbsp;&nbsp;<span style="color:var(--dim)">只含非互易部分 → 定"运动"</span>
+    <span class="note">⇒ 键长 r* 解 f<sub>S</sub>(r*) = 0；末速度 <b>V = μ<sub>disc</sub> · f<sub>A</sub>(r*)</b>。
+    一个非互易的束缚对，就是一个自驱动粒子。</span>
+  </div>
+
+  <div class="tblwrap">
+    <table>
+      <thead><tr><th>α₁₀</th><th>r* 理论</th><th>r* 测量</th><th>V 理论</th><th>V 测量</th><th>误差</th></tr></thead>
+      <tbody>
+        <tr><td class="n">15 <span style="color:var(--dim)">对称</span></td><td class="n">15.0000</td><td class="n">15.0004</td><td class="n">0</td><td class="n">0.00030</td><td class="amb">退化：V→0</td></tr>
+        <tr><td class="n">8</td><td class="n">18.9437</td><td class="n">18.9437</td><td class="n">0.55211</td><td class="n">0.55213</td><td class="ok">0.00 %</td></tr>
+        <tr><td class="n">10</td><td class="n">18.0769</td><td class="n">18.0770</td><td class="n">0.43077</td><td class="n">0.43082</td><td class="ok">0.01 %</td></tr>
+        <tr><td class="n">12</td><td class="n">17.0339</td><td class="n">17.0340</td><td class="n">0.28475</td><td class="n">0.28485</td><td class="ok">0.04 %</td></tr>
+        <tr><td class="n">25</td><td class="n">19.0000</td><td class="n">19.0000</td><td class="n">0.56000</td><td class="n">0.56000</td><td class="ok">0.00 %</td></tr>
+        <tr><td class="n">30</td><td class="n">20.3571</td><td class="n">20.3571</td><td class="n">0.75000</td><td class="n">0.75000</td><td class="ok">0.00 %</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="col">
+    <p>第一行值得停一下。若两个方向的半径相同，f<sub>ab</sub> 与 f<sub>ba</sub> 有<strong>共同零点</strong> r = α，
+    于是 f<sub>A</sub>(r*) = 0 —— <em class="hl">二体追逐总会停下来</em>。
+    持续自驱动需要半径矩阵不对称，或 ≥3 个粒子的<strong>几何阻挫</strong>（不可能让所有键同时落在各自的零点上）。
+    这个"退化"不是理论的缺陷，它解释了为什么真正的追逐者总是成群出现，而不是成对。</p>
+    <p>推广到任意一团粒子：</p>
+  </div>
+
+  <div class="eqn key">
+    <b>F<sub>int</sub></b> = Σ<sub>i&lt;j∈C</sub> 2 f<sub>A</sub>(r<sub>ij</sub>) r̂<sub>ij</sub>
+    &nbsp;&nbsp;&nbsp;→ 平移（爬行、追逐）<br>
+    <b>τ<sub>int</sub></b> = Σ<sub>i&lt;j∈C</sub> [(x<sub>i</sub>−X) f<sub>ij</sub> − (x<sub>j</sub>−X) f<sub>ji</sub>] × r̂<sub>ij</sub>
+    &nbsp;&nbsp;&nbsp;→ 旋转（自旋细胞、旋涡）
+    <span class="note">互易时两者恒等于零（这正是第三定律的内容）。
+    <b>结构不是被外力推动的，而是它自己内部的力不再抵消。</b></span>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<section>
+  <div class="col">
+    <p class="eyebrow">04 <span>尺度</span></p>
+    <h2>结构多大，由色散关系说了算</h2>
+    <p>把密度场粗粒化并线性化。设 Û<sub>ab</sub>(k) 是 U 的二维 Hankel 变换，
+    σ<sub>n</sub>(k) 是 diag(ρ̄)Û(k) 的本征值（<strong>一般是复数</strong>），则每支满足</p>
+  </div>
+
+  <div class="eqn">
+    λ² + γλ + 60κ k² σ<sub>n</sub>(k) = 0
+    &nbsp;&nbsp;⇒&nbsp;&nbsp; λ<sub>±</sub> = ½( −γ ± √(γ² − 240κk²σ<sub>n</sub>) )
+    <span class="note">即使 U<sub>ab</sub> ≠ U<sub>ba</sub>（没有自由能），这个线性算子依然良定义——这正是关键。</span>
+  </div>
+
+  <div class="col">
+    <p>Re λ(k) 在<strong>有限 k*</strong> 取极大：长波端被粒子数守恒的 k² 前因子压住，
+    短波端被核心排斥（σ &gt; 0）压住。于是 ℓ* = 2π/k* 就是第一批结构的尺寸。</p>
+    <p>一个必须诚实说明的结果：<strong>单一物种做不到有限尺度</strong>。
+    在 282 组随机单物种参数中，Û(k) 的极小值<em class="hl">每一次</em>都落在 k = 0——单物种只能无限粗化。
+    有限的、重复出现的细胞总是来自<strong>多物种竞争</strong>：短程自吸引 + 长程互斥，
+    就是在物种空间里实现的 SALR 核。</p>
+  </div>
+
+  <figure>
+    <svg viewBox="0 0 1120 250" role="img" aria-label="预言尺度与实测尺度成正比">
+      <g font-family="ui-monospace,monospace" font-size="11.5">
+        <g transform="translate(70,24)">
+          <line x1="0" y1="180" x2="420" y2="180" stroke="var(--rule)"/>
+          <line x1="0" y1="8" x2="0" y2="180" stroke="var(--rule)"/>
+          <!-- theory line -->
+          <polyline points="0,150 60,131 110,112 170,92 250,68 310,50 400,22"
+                    fill="none" stroke="var(--pred)" stroke-width="2.2"/>
+          <!-- measured -->
+          <polyline points="0,166 60,157 110,148 170,142 250,128 310,122 400,108"
+                    fill="none" stroke="var(--sp-a)" stroke-width="2.2" stroke-dasharray="6 4"/>
+          <g fill="var(--sp-a)">
+            <circle cx="0" cy="166" r="3.4"/><circle cx="60" cy="157" r="3.4"/><circle cx="110" cy="148" r="3.4"/>
+            <circle cx="170" cy="142" r="3.4"/><circle cx="250" cy="128" r="3.4"/><circle cx="310" cy="122" r="3.4"/>
+            <circle cx="400" cy="108" r="3.4"/>
+          </g>
+          <text x="300" y="18" fill="var(--pred)">理论 2π/k*</text>
+          <text x="288" y="126" fill="var(--sp-a)">模拟 2π/k_peak</text>
+          <text x="210" y="204" fill="var(--dim)" text-anchor="middle">最小半径 α  (β = 3α) →</text>
+        </g>
+        <g transform="translate(600,24)" fill="var(--dim)">
+          <text x="0" y="16" fill="var(--ink)" font-size="12.5">过原点最小二乘（α 跨 11 → 38）</text>
+          <text x="0" y="52" font-size="19" fill="var(--ink)">ℓ<tspan font-size="12">测量</tspan> = <tspan fill="var(--sp-a)">0.607</tspan> · ℓ*</text>
+          <text x="0" y="80" font-size="15" fill="var(--ink)">R² = <tspan fill="var(--sp-a)">0.9906</tspan></text>
+          <text x="0" y="118" font-size="11.5">标度被抓得很准；前因子作为平均场闭合只准到一个常数。</text>
+          <text x="0" y="140" font-size="11.5" fill="var(--warn)">因此："尺寸正比于 minRadius" 已验证；</text>
+          <text x="0" y="160" font-size="11.5" fill="var(--warn)">"尺寸等于 2π/k*" <tspan text-decoration="underline">没有</tspan>。</text>
+        </g>
+      </g>
+    </svg>
+    <figcaption>平台教程里"最小半径控制结构大小"的经验规则，在这里被化成了一条可计算、可证伪的标度律。</figcaption>
+  </figure>
+</section>
+
+<!-- ============================================================ -->
+<section>
+  <div class="col">
+    <p class="eyebrow">05 <span>动 / 不动的边界</span></p>
+    <h2>摩擦是那个开关</h2>
+    <p>由色散关系，增长模要<strong>振荡</strong>（即图样要行进）当且仅当 σ 为复数且</p>
+  </div>
+
+  <div class="eqn key">
+    σ<sub>i</sub>² &gt; ( γ² / (60κk²) ) · σ<sub>r</sub>
+    <span class="note">σ 为复数要求 Û ≠ Ûᵀ。两物种时判据化为 D(k) = [½(ρ₁û₁₁−ρ₂û₂₂)]² + ρ₁ρ₂û₁₂û₂₁ &lt; 0，
+    即 <b>û₁₂û₂₁ &lt; 0：一个追、一个逃</b>。D = 0 是<b>例外点</b>——两个静态分相模并合成一个行波模。
+    这是 Fruchart 等人（Nature 592, 363, 2021）非互易相变在 Particle Life 中的实例。</span>
+  </div>
+
+  <div class="tblwrap">
+    <table>
+      <thead><tr><th>λ 摩擦</th><th>γ [1/s]</th><th>Re λ<sub>osc</sub></th><th>k<sub>osc</sub></th><th>相速 c [px/s]</th><th>判定</th></tr></thead>
+      <tbody>
+        <tr><td class="n">0.30 <span style="color:var(--dim)">默认</span></td><td class="n">21.40</td><td class="n">−0.0000</td><td class="n">—</td><td class="n">—</td><td class="ok">静态</td></tr>
+        <tr><td class="n">0.15</td><td class="n">9.75</td><td class="n">+0.0105</td><td class="n">0.167</td><td class="n">6.4</td><td class="no">行波</td></tr>
+        <tr><td class="n">0.08</td><td class="n">5.00</td><td class="n">+0.4128</td><td class="n">0.074</td><td class="n">27.4</td><td class="no">行波</td></tr>
+        <tr><td class="n">0.04</td><td class="n">2.45</td><td class="n">+1.1683</td><td class="n">0.074</td><td class="n">33.4</td><td class="no">行波</td></tr>
+        <tr><td class="n">0.02</td><td class="n">1.21</td><td class="n">+1.6755</td><td class="n">0.074</td><td class="n">35.1</td><td class="no">行波</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="col">
+    <p>判据里显含 γ²，所以这条预言是可证伪的：矩阵不变、只调摩擦，必须在某个可计算阈值处切换。
+    阈值落在 λ ∈ (0.15, 0.30)。</p>
+    <p><strong>一个有价值的副产品：平台默认的 λ = 0.3 恰好落在阈值的静态一侧。</strong>
+    这解释了一个常见观察——默认参数下总是"先成团、后运动"：运动来自已形成团簇的净内力（第 3 节），
+    而不是均匀态的线性行波不稳定性。想直接看到行波相，把 frictionFactor 调到 0.1 以下。</p>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<section>
+  <div class="col">
+    <p class="eyebrow">06 <span>形态学字典</span></p>
+    <h2>把矩阵当成有向图来读</h2>
+    <p>形态由三件事决定：图的<strong>拓扑</strong>（谁和谁成键）定形状；边的<strong>对称性</strong>定动不动；
+    <strong>α、β</strong> 定尺寸与粗细。</p>
+  </div>
+
+  <div class="cards">
+    <div class="card"><h4>静态团块 / 液滴</h4>
+      <p>对角为正、非对角为负。单一凝聚模。</p>
+      <span class="why">ν = 0 ⇒ 定理 ⇒ 冻结</span></div>
+    <div class="card"><h4>链、网、细胞膜</h4>
+      <p>环图 i↔i±1 成键，其余排斥。类型空间的一维流形映成实空间的细丝。</p>
+      <span class="why">粗细 = α</span></div>
+    <div class="card"><h4>爬行的蛇</h4>
+      <p>环图但<strong>单向</strong>：i 被 i+1 吸引，i+1 不理 i。每条键都是一次追逐。</p>
+      <span class="why">F_int ≠ 0 沿链方向</span></div>
+    <div class="card"><h4>自旋细胞 / 旋涡</h4>
+      <p>循环追逐（石头剪刀布）：+0.9 向前、−0.7 向后。</p>
+      <span class="why">净内力矩 τ_int ≠ 0</span></div>
+    <div class="card"><h4>核-壳细胞</h4>
+      <p>二部结构（同奇偶吸引、异奇偶排斥），分相模主导，两相互相包裹。</p>
+      <span class="why">不稳定本征向量分量反号</span></div>
+    <div class="card"><h4>传送带 / 条纹流</h4>
+      <p>纯反对称 A<sub>ij</sub> = 0.9·sin(2π(j−i)/S)。A<sub>S</sub> ≈ 0。</p>
+      <span class="why">全部动力学都是非变分的</span></div>
+    <div class="card"><h4>均匀气体</h4>
+      <p>全排斥。所有 k 上 Re λ &lt; 0。</p>
+      <span class="why">无不稳定波段</span></div>
+    <div class="card"><h4>放射状聚集体</h4>
+      <p>星形：0 号物种是枢纽，吸引所有人也被所有人吸引。</p>
+      <span class="why">秩-1 核 ⇒ 单一不稳定方向</span></div>
+  </div>
+
+  <div class="col">
+    <h3>一个双参数族就能重现整个动物园</h3>
+    <p>在物种环上取 <code>A_ij = a·δ_ij + w·δ_{j,i+1} + b·δ_{j,i−1} + c·(其余)</code>。
+    两个坐标有直接的物理含义：<strong>w + b</strong> 是互易成键强度（链有多结实），
+    <strong>w − b</strong> 是非互易度（每条键追得多凶）。</p>
+    <p>对角线 <strong>w = b</strong> 正是互易线——第 2 节的定理在这条线上禁止一切运动。
+    <em class="hl">它就是"活相"的边界。</em></p>
+    <p>9×9 扫描的结果毫不含糊：形态相图上"静态链/网络"的带子<strong>逐格贴着这条虚线</strong>，
+    两侧全是"爬行细丝"。</p>
+  </div>
+
+  <div class="tblwrap">
+    <table>
+      <thead><tr><th>w 正向</th><th>b 反向</th><th>ν</th><th>motility</th><th class="w">形态</th></tr></thead>
+      <tbody>
+        <tr><td class="n">0.0</td><td class="n">0.0</td><td class="n">0.00</td><td class="n">0.009</td><td class="w ok">静态网络</td></tr>
+        <tr><td class="n">+0.8</td><td class="n">+0.8</td><td class="n">0.00</td><td class="n">0.004</td><td class="w ok">静态链</td></tr>
+        <tr><td class="n">+1.0</td><td class="n">+1.0</td><td class="n">0.00</td><td class="n">0.007</td><td class="w ok">静态链 / 网络</td></tr>
+        <tr><td class="n">+0.9</td><td class="n">0.0</td><td class="n">0.35</td><td class="n no">18.1</td><td class="w no">爬行细丝</td></tr>
+        <tr><td class="n">0.0</td><td class="n">+1.0</td><td class="n">0.35</td><td class="n no">20.2</td><td class="w no">爬行细丝</td></tr>
+        <tr><td class="n">+0.9</td><td class="n">−0.9</td><td class="n">0.56</td><td class="n">0.99</td><td class="w no">爬行细丝</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="col">
+    <p>把一条链的正向与反向耦合调成<strong>相等</strong>，链就冻住；差一点点，它就开始爬。
+    运动性在互易线上是 0.004–0.009，离开它可以到 20 —— <strong>三个数量级</strong>。</p>
+    <h3>21 个官方预设，一次跑完</h3>
+    <p>在完全相同的条件下跑站点的全部命名矩阵预设，出现一条干净的分界：
+    <strong>10 个 ν<sub>f</sub> = 0 的宇宙，运动性全部落在 0.002–0.011 的窄带</strong>（残余弛豫的地板），
+    而运动性排前四的（Concentric Shells 0.099、Patchwork 0.067、Random 0.038、
+    Rotating Conveyor 0.028）ν<sub>f</sub> 分别是 0.19 / 0.29 / 0.32 / 0.27。</p>
+    <p>更强的是：<em class="hl">连续介质线性理论的判定与 ν<sub>f</sub> 在 21/21 上完全一致</em>——
+    它只看相互作用核，却准确复现了互易性判据。</p>
+    <p style="color:var(--dim)">保留一点：Wavefield、石头剪刀布、Hub 这几个 ν<sub>f</sub> &gt; 0 的预设运动性也低，
+    因为它们根本没凝聚成团簇（D₂ ≈ 2，气体状），"团簇质心速度"对它们没有意义——
+    这是观测量的局限，不是定理的反例。</p>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<section>
+  <div class="col">
+    <p class="eyebrow">07 <span>诚实清单</span></p>
+    <h2>哪些是证明的，哪些只是拟合的</h2>
+  </div>
+  <div class="tblwrap">
+    <table>
+      <thead><tr><th>断言</th><th>状态</th><th class="w">依据 / 保留</th></tr></thead>
+      <tbody>
+        <tr><td>U′(r) = f(r)，键长 = α，键能 = −A(β−α)/2</td><td class="ok">✅ 解析</td><td class="w">闭式积分；数值核对 2.3e-11</td></tr>
+        <tr><td>互易 ⇒ 系统必然静止</td><td class="ok">✅ 证明</td><td class="w">Lyapunov + LaSalle；P_inj 恒等于 0，已实测</td></tr>
+        <tr><td>V = μ_disc · f_A(r*)</td><td class="ok">✅ 精确</td><td class="w">7 个参数点，误差 &lt; 0.05 %</td></tr>
+        <tr><td>行波判据 σᵢ² &gt; γ²σᵣ/(60κk²)</td><td class="ok">✅ 推导</td><td class="w">摩擦扫描与之一致；阈值 λ ∈ (0.15,0.30)</td></tr>
+        <tr><td>结构尺度 ∝ minRadius</td><td class="amb">⚠️ 标度</td><td class="w">R² = 0.9906，但前因子 0.607 ≠ 1（平均场代价）</td></tr>
+        <tr><td>ν<sub>f</sub> = 0 ⟺ 线性理论判 static</td><td class="ok">✅ 21/21</td><td class="w">21 个官方预设，同条件对照</td></tr>
+        <tr><td>互易线 w = b 上冻结</td><td class="ok">✅ 实测</td><td class="w">线上 0.004–0.009 vs 线外最高 20.2</td></tr>
+        <tr><td>形态分类阈值（D₂ 1.55 / ψ₆ 0.42 …）</td><td class="amb">⚠️ 经验</td><td class="w">分界的存在被验证，分界的数值是拟合的</td></tr>
+        <tr><td>粗化终态、动力学冻结</td><td class="no">未做</td><td class="w">只观察，没有理论</td></tr>
+        <tr><td>弱非线性（振幅方程）</td><td class="no">未做</td><td class="w">团簇运动的完整非线性理论缺失</td></tr>
+        <tr><td>3D</td><td class="no">未做</td><td class="w">原站有 3D 引擎；本文结论全部写在 2D</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<footer class="col">
+  <p>模型逐字取自 <a href="https://sandbox-science.com/particle-life">sandbox-science.com/particle-life</a>
+  的 WebGPU compute kernel。完整复现（可运行的模拟器 + 浏览器内实时线性稳定性面板）、
+  Python 理论包与七个验证实验见仓库的 <code>particle-life/</code>：
+  <code>THEORY.md</code> 是推导，<code>docs/VALIDATION.md</code> 是每条断言的误差，
+  <code>docs/REVERSE_ENGINEERING.md</code> 是逆向记录。</p>
+  <p style="color:var(--dimmer)">参考：Fruchart, Hanai, Littlewood, Vitelli, <i>Non-reciprocal phase transitions</i>, Nature 592, 363 (2021)　·
+  Saha, Agudo-Canalejo, Golestanian, PRX 10, 041009 (2020)　·　Cahn &amp; Hilliard (1958)　·　LaSalle (1960)</p>
+</footer>
+
+</div>
+
+<script>
+// ---------------------------------------------------------------------------
+//  Live two-species Particle Life, using the extracted force law verbatim.
+// ---------------------------------------------------------------------------
+(function () {
+  const cv = document.getElementById("cv");
+  const g = cv.getContext("2d");
+  const S = 2, N = 2600;
+  const ALPHA = 12, BETA = 38, REPEL = 1, KAPPA = 1, DT = 1 / 60;
+  // Reciprocal part: self-attraction + cross-repulsion -> two demixed populations.
+  // Antisymmetric part: green chases magenta, magenta flees green.
+  // theta = 0 gives exactly the same blobs, frozen.  theta = 1 sets them running.
+  const AS = [[0.75, -0.25], [-0.25, 0.75]];
+  const AN = [[0.0, 0.85], [-0.85, 0.0]];
+  let theta = 1.0, lambda = 0.10;
+  let A = [[0, 0], [0, 0]];
+
+  const px = new Float32Array(N), py = new Float32Array(N);
+  const vx = new Float32Array(N), vy = new Float32Array(N);
+  const ty = new Int32Array(N);
+  let W = 600, H = 340;
+
+  function setMatrix() {
+    for (let a = 0; a < S; a++) for (let b = 0; b < S; b++) A[a][b] = AS[a][b] + theta * AN[a][b];
+  }
+  function nu() {
+    let s = 0, n = 0;
+    for (let a = 0; a < S; a++) for (let b = 0; b < S; b++) {
+      s += (A[a][b] + A[b][a]) ** 2; n += (A[a][b] - A[b][a]) ** 2;
+    }
+    s = Math.sqrt(s); n = Math.sqrt(n);
+    return s + n > 0 ? n / (s + n) : 0;
+  }
+  function spawn() {
+    for (let i = 0; i < N; i++) {
+      px[i] = Math.random() * W; py[i] = Math.random() * H;
+      vx[i] = 0; vy[i] = 0; ty[i] = i % S;
+    }
+  }
+  function resize() {
+    const r = cv.parentElement.getBoundingClientRect();
+    const dpr = Math.min(2, window.devicePixelRatio || 1);
+    const nw = Math.max(200, r.width), nh = Math.max(240, r.height);
+    cv.width = Math.round(nw * dpr); cv.height = Math.round(nh * dpr);
+    g.setTransform(dpr, 0, 0, dpr, 0, 0);
+    const sx = nw / W, sy = nh / H;
+    for (let i = 0; i < N; i++) { px[i] *= sx; py[i] *= sy; }
+    W = nw; H = nh;
+  }
+
+  // uniform grid
+  const cell = BETA;
+  let nx = 1, ny = 1, head = null, next = new Int32Array(N);
+  function bin() {
+    nx = Math.max(1, Math.ceil(W / cell)); ny = Math.max(1, Math.ceil(H / cell));
+    if (!head || head.length !== nx * ny) head = new Int32Array(nx * ny);
+    head.fill(-1);
+    for (let i = 0; i < N; i++) {
+      let cx = Math.floor(px[i] / cell), cy = Math.floor(py[i] / cell);
+      cx = cx < 0 ? 0 : cx >= nx ? nx - 1 : cx;
+      cy = cy < 0 ? 0 : cy >= ny ? ny - 1 : cy;
+      const c = cy * nx + cx;
+      next[i] = head[c]; head[c] = i;
+    }
+  }
+
+  let pinj = 0, speed = 0;
+  function step() {
+    bin();
+    const ff = KAPPA * DT * 60, hw = W / 2, hh = H / 2;
+    let inj = 0;
+    for (let i = 0; i < N; i++) {
+      const xi = px[i], yi = py[i], ta = ty[i];
+      let sx = 0, sy = 0;
+      let cx = Math.floor(xi / cell), cy = Math.floor(yi / cell);
+      cx = cx < 0 ? 0 : cx >= nx ? nx - 1 : cx;
+      cy = cy < 0 ? 0 : cy >= ny ? ny - 1 : cy;
+      for (let oy = -1; oy <= 1; oy++) {
+        const gy = (cy + oy + ny) % ny;
+        for (let ox = -1; ox <= 1; ox++) {
+          const gx = (cx + ox + nx) % nx;
+          for (let j = head[gy * nx + gx]; j !== -1; j = next[j]) {
+            if (j === i) continue;
+            let dx = px[j] - xi, dy = py[j] - yi;
+            if (dx > hw) dx -= W; else if (dx < -hw) dx += W;
+            if (dy > hh) dy -= H; else if (dy < -hh) dy += H;
+            const d2 = dx * dx + dy * dy;
+            if (d2 <= 1e-9 || d2 >= BETA * BETA) continue;
+            const d = Math.sqrt(d2);
+            let f;
+            if (d < ALPHA) f = (d / ALPHA - 1) * REPEL;
+            else {
+              const m = 0.5 * (ALPHA + BETA);
+              f = A[ta][ty[j]] * (1 - Math.abs(d - m) / (m - ALPHA));
+            }
+            if (f !== 0) { const q = f / d; sx += dx * q; sy += dy * q; }
+            // injected power bookkeeping (each ordered pair counted once here)
+            if (j > i) {
+              let fb;
+              if (d < ALPHA) fb = (d / ALPHA - 1) * REPEL;
+              else {
+                const m = 0.5 * (ALPHA + BETA);
+                fb = A[ty[j]][ta] * (1 - Math.abs(d - m) / (m - ALPHA));
+              }
+              const fA = 0.5 * (f - fb);
+              inj += 60 * KAPPA * fA * ((dx / d) * (vx[i] + vx[j]) + (dy / d) * (vy[i] + vy[j]));
+            }
+          }
+        }
+      }
+      vx[i] += sx * ff; vy[i] += sy * ff;
+    }
+    const drag = Math.pow(1 - lambda, DT * 60);
+    let sp = 0;
+    for (let i = 0; i < N; i++) {
+      vx[i] *= drag; vy[i] *= drag;
+      px[i] += vx[i] * DT; py[i] += vy[i] * DT;
+      if (px[i] < 0) px[i] += W; else if (px[i] >= W) px[i] -= W;
+      if (py[i] < 0) py[i] += H; else if (py[i] >= H) py[i] -= H;
+      sp += Math.hypot(vx[i], vy[i]);
+    }
+    speed = 0.85 * speed + 0.15 * (sp / N);
+    pinj = 0.85 * pinj + 0.15 * (inj / N);
+  }
+
+  const css = getComputedStyle(document.documentElement);
+  function draw() {
+    g.fillStyle = "rgba(4,6,10,0.34)";
+    g.fillRect(0, 0, W, H);
+    g.globalCompositeOperation = "lighter";
+    const cols = ["#3ce86b", "#ff4fbe"];
+    for (let s = 0; s < S; s++) {
+      g.fillStyle = cols[s];
+      g.beginPath();
+      for (let i = s; i < N; i += S) { g.moveTo(px[i] + 1.5, py[i]); g.arc(px[i], py[i], 1.5, 0, 6.2832); }
+      g.fill();
+    }
+    g.globalCompositeOperation = "source-over";
+  }
+
+  const $ = (id) => document.getElementById(id);
+  function readout() {
+    const v = nu();
+    $("r-nu").textContent = v.toFixed(3);
+    $("r-g").textContent = (-60 * Math.log(1 - lambda)).toFixed(1) + " s⁻¹";
+    $("r-v").textContent = speed.toFixed(2);
+    $("r-p").textContent = (Math.abs(pinj) < 5e-4 ? "0.000000" : pinj.toFixed(3));
+    const el = $("verdict");
+    if (v < 1e-6) { el.className = "verdict frozen"; el.textContent = "FROZEN — 定理禁止运动"; }
+    else { el.className = "verdict alive"; el.textContent = "ALIVE — ν = " + v.toFixed(2); }
+    $("tag").textContent = "two species · θ=" + theta.toFixed(2) + " · λ=" + lambda.toFixed(3);
+  }
+
+  let frames = 0;
+  function loop() { step(); draw(); if (++frames % 10 === 0) readout(); requestAnimationFrame(loop); }
+
+  $("s-th").addEventListener("input", (e) => {
+    theta = parseFloat(e.target.value); $("v-th").textContent = theta.toFixed(2); setMatrix();
+  });
+  $("s-fr").addEventListener("input", (e) => {
+    lambda = parseFloat(e.target.value); $("v-fr").textContent = lambda.toFixed(3);
+  });
+  window.addEventListener("resize", resize);
+
+  setMatrix(); resize(); spawn(); readout(); requestAnimationFrame(loop);
+})();
+</script>
