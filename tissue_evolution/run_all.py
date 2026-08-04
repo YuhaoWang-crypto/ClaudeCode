@@ -31,6 +31,7 @@ STEPS = [
     ("t16", "mutation spectrum at 4-fold sites", "t16_spectrum"),
     ("t17", "McDonald-Kreitman: selection vs relaxation", "t17_mk"),
     ("t18", "TCA cycle: strata, paralogues, structure", "t18_tca"),
+    ("t19", "the T18 design across 1400+ pathways", "t19_scaleout"),
 ]
 
 

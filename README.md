@@ -39,6 +39,7 @@ python3 -m tissue_evolution.t5_confounders     # or any single module
 | `t16_spectrum` | is the mutation INPUT different? | **no**: CpG hypermutability recovered (2× opportunity), but after GC3 matching 27 organ×metric tests give 0 survivors at BH q<0.05 |
 | `t17_mk` | positive selection or relaxed constraint? | **testis has a real adaptive component**: Dn/Ds 1.39× genome while Pn/Ps only 1.12×. Brain/cerebellum are down on BOTH axes = stronger purifying selection |
 | `t18_tca` | one pathway end to end (TCA cycle) | catalytic enzymes are **3.1× slower** than the Fe-S/assembly machinery that serves them (rb=−0.92); the shared SUCLG1 α-subunit is slower than either tissue-specific β; catalytic residues 86% invariant across ~500 mammals vs 57% elsewhere, and it survives RSA matching; **rate and retention are uncorrelated** (ρ=−0.07, p=0.67) |
+| `t19_scaleout` | does T18 generalise? 1400+ pathways | catalytic-vs-accessory holds but shrinks from 3.1× to **1.20×** (1425 pathways, p=2.9e-27, τ-neutral). **T18's "rate and retention are uncorrelated" does NOT survive**: genome-wide ρ=−0.176 over 15147 genes — weak, but not zero, and τ predicts retention better (−0.251) than ω does |
 | `t15_pathway` | pathway allocation + coevolution | within a pathway, tissue-restricted members are **1.49× faster** (774 pathways, p=8.6e-37; τ slope 88% within-pathway). Pathway ERC **survives** a membership-permutation null (p=0.000); organ fragmentation does **not** (p=0.080) |
 
 Full write-up with every number, rigour label and caveat:
