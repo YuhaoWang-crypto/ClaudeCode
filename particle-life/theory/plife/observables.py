@@ -19,7 +19,8 @@ observable              what it measures / which theory object it tests
                         ``twobody.cluster_internal_torque``.
 ``k_peak``              peak of the static structure factor :math:`S(k)`;
                         compared against :math:`k^\*` from ``stability.scan``.
-``psi6``                hexatic bond-orientational order; 1 = crystal, 0 = fluid.
+``psi6``                local hexatic bond-orientational order
+                        <|psi_6^(i)|>; ~1 = crystal, ~0.4 = random gas.
 ``dim2``                correlation (box-counting) dimension of the point set on
                         scales :math:`[\alpha, 3\alpha]`.  ~1 = filaments/snakes,
                         ~2 = blobs/sheets.
@@ -191,9 +192,17 @@ def pair_correlation(pos, box, rmax, nbins=120, types=None, which=None):
 
 
 # --------------------------------------------------------------------------- #
-def psi6(pos, box, cutoff, kneigh=6):
-    r"""Hexatic bond-orientational order :math:`|\langle\psi_6\rangle|`,
-    :math:`\psi_6^{(i)} = \frac1{n_i}\sum_{j} e^{6 i \theta_{ij}}`."""
+def psi6(pos, box, cutoff, kneigh=6, glob=False):
+    r"""Hexatic bond-orientational order.
+
+    :math:`\psi_6^{(i)} = \frac1{n_i}\sum_{j} e^{6 i \theta_{ij}}` per particle.
+
+    By default returns the **local** order :math:`\langle|\psi_6^{(i)}|\rangle`,
+    which is what distinguishes a crystal from a fluid.  ``glob=True`` returns
+    :math:`|\langle\psi_6^{(i)}\rangle|` instead, which additionally requires all
+    grains to share one orientation and therefore reads ~0 for a polycrystal --
+    a real effect, but not the question being asked here.
+    """
     box = np.asarray(box, float)
     p = np.mod(pos, box)
     tree = cKDTree(p, boxsize=box)
@@ -209,7 +218,9 @@ def psi6(pos, box, cutoff, kneigh=6):
             d -= box * np.round(d / box)
             z += np.exp(6j * np.arctan2(d[1], d[0]))
         psis.append(z / len(nb))
-    return float(abs(np.mean(psis))) if psis else 0.0
+    if not psis:
+        return 0.0
+    return float(abs(np.mean(psis))) if glob else float(np.mean(np.abs(psis)))
 
 
 def correlation_dimension(pos, box, r_lo, r_hi, nr=14):
@@ -248,13 +259,14 @@ def observables(sim, cutoff_scale=1.35):
     out["k_peak"] = peak_wavenumber(sim.pos, box, kmax=4 * np.pi / alpha_typ)
     out["length"] = 2 * np.pi / out["k_peak"] if out["k_peak"] > 0 else np.nan
     out["psi6"] = psi6(sim.pos, box, cutoff)
+    out["psi6_global"] = psi6(sim.pos, box, cutoff, glob=True)
     out["dim2"] = correlation_dimension(sim.pos, box, alpha_typ, 3.5 * alpha_typ)
     # normalised motility: speed measured in "bond lengths per second"
     out["motility"] = out["cluster_speed"] / alpha_typ
     return out
 
 
-def classify(obs, motility_thresh=0.02, dim_filament=1.55, psi6_cryst=0.42,
+def classify(obs, motility_thresh=0.02, dim_filament=1.55, psi6_cryst=0.62,
              gas_cluster=6.0):
     """Coarse morphology label from the observable vector.
 

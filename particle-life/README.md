@@ -7,6 +7,7 @@
 ```
 particle-life/
 ├── THEORY.md                     ← 主报告：物理数学模型（先读这个）
+├── docs/PATTERN_CARDS.md         ← 形态参数卡：每种结构的核心参数 + 模型 + 分析
 ├── docs/
 │   ├── REVERSE_ENGINEERING.md    ← 从站点 WebGPU 内核逐字取出的真实模型
 │   ├── VALIDATION.md             ← 所有预言 vs 测量的汇总（含 ⚠️ 保留项）
@@ -22,7 +23,7 @@ particle-life/
     │   ├── twobody.py            自驱动二聚体、团簇内力/内力矩
     │   ├── stability.py          连续介质线性稳定性、色散、例外点
     │   └── observables.py        序参量与形态分类
-    ├── experiments/e01…e07       七个验证实验
+    ├── experiments/e01…e08       八个验证实验（e08 = 形态参数卡）
     ├── test_plife.py             快速自检（几秒钟）
     ├── figures/                  实验产出的图
     └── results/                  实验产出的数值
@@ -60,6 +61,7 @@ python3 e04_linear_stability.py      # 结构尺度选择
 python3 e05_nonreciprocal_transition.py  # 行波相变与摩擦阈值
 python3 e06_structure_atlas.py       # 21 种形态图谱
 python3 e07_morphogenesis_map.py     # 形态发生相图
+python3 e08_pattern_cards.py         # 十张形态参数卡 + 敏感性扫描
 ```
 
 ## 三句话版本的答案

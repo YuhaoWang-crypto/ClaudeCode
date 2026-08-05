@@ -172,6 +172,71 @@ def cluster_internal_force(pos, types, params, box=None):
     return F
 
 
+def largest_cluster(sim, cutoff_scale=1.35, max_size=400, min_size=4):
+    """Indices of the biggest connected cluster that still fits in ``max_size``.
+
+    Truncating a bigger cluster would corrupt the internal-force sum (the
+    prediction divides by the cluster size), so an oversized cluster is skipped
+    in favour of the largest one that can be summed exactly.  Returns an empty
+    array if nothing qualifies.
+    """
+    from .observables import clusters
+
+    box = np.asarray(sim.p.L, float)
+    cutoff = cutoff_scale * float(np.median(sim.p.alpha))
+    labels, _ = clusters(sim.pos, box, cutoff)
+    counts = np.bincount(labels)
+    ok = np.where((counts >= min_size) & (counts <= max_size))[0]
+    if ok.size == 0:
+        return np.array([], dtype=int)
+    best = ok[int(np.argmax(counts[ok]))]
+    return np.where(labels == best)[0]
+
+
+def cluster_prediction(sim, cutoff_scale=1.35, max_size=400):
+    r"""Predict a real cluster's drift and spin from its **internal** force/torque.
+
+    For the biggest cluster in the snapshot, unwrapped across the periodic seam:
+
+    .. math::
+        V_{\rm pred} = \mu_{\rm disc}\,\frac{|F^{\rm int}|}{N_C},\qquad
+        \omega_{\rm pred} = \mu_{\rm disc}\,\frac{\tau^{\rm int}}{I},\quad
+        I=\sum_{i\in C}|x_i-X|^2 ,
+
+    and compares against the measured centre-of-mass speed and angular velocity.
+    Both predictions are identically zero for a reciprocal interaction.
+    """
+    p = sim.p
+    box = np.asarray(p.L, float)
+    idx = largest_cluster(sim, cutoff_scale, max_size=max_size)
+    if len(idx) < 4:
+        return dict(size=len(idx), V_pred=0.0, V_meas=0.0, omega_pred=0.0,
+                    omega_meas=0.0, F_int=0.0, tau_int=0.0)
+
+    pos = sim.pos[idx].copy()
+    d = pos - pos[0]
+    d -= box * np.round(d / box)                  # unwrap around the first member
+    pos = pos[0] + d
+    vel = sim.vel[idx]
+    types = sim.types[idx]
+
+    X, V = pos.mean(axis=0), vel.mean(axis=0)
+    rel, vrel = pos - X, vel - V
+    I = float((rel ** 2).sum())
+    Lz = float((rel[:, 0] * vrel[:, 1] - rel[:, 1] * vrel[:, 0]).sum())
+
+    F = cluster_internal_force(pos, types, p)
+    tau = cluster_internal_torque(pos, types, p)
+    mob = p.mobility_discrete
+    return dict(
+        size=int(len(idx)),
+        F_int=float(np.hypot(*F)), tau_int=float(tau),
+        V_pred=float(mob * np.hypot(*F) / len(idx)), V_meas=float(np.hypot(*V)),
+        omega_pred=float(mob * tau / I) if I > 0 else 0.0,
+        omega_meas=float(Lz / I) if I > 0 else 0.0,
+    )
+
+
 def cluster_internal_torque(pos, types, params, box=None):
     r"""Net **internal** torque about the centre of mass (scalar, 2-D).
 

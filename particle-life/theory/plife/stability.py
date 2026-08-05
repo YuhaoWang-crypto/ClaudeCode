@@ -232,6 +232,41 @@ def classify_linear(params, rho_bar, **kw):
     return scan(params, rho_bar, **kw).regime()
 
 
+def mode_character(params, rho_bar, k=None, **kw):
+    r"""Is the fastest-growing mode a *condensation* or a *demixing* mode?
+
+    Take the eigenvector :math:`v` of :math:`\mathrm{diag}(\bar\rho)\hat U(k^\*)`
+    belonging to the unstable eigenvalue and form
+
+    .. math::  c \;=\; \frac{\bigl|\sum_a v_a\bigr|}{\sum_a |v_a|} \in [0,1].
+
+    ``c = 1``  every species moves in phase -- all of them pile into the same
+    place: droplets, blobs, a single condensate.
+
+    ``c = 0``  the components cancel -- species move in antiphase and *separate*:
+    core-shell cells, alternating membranes, striped domains.
+
+    Intermediate values mean a partial split (e.g. two species condense together
+    while a third is expelled).  This is the cheapest single number that says
+    *which kind* of structure a given matrix will build, as opposed to how big
+    it will be (``k*``) or whether it will move (the oscillatory branch).
+    """
+    r = scan(params, rho_bar, **kw) if k is None else None
+    kk = r.k_star if k is None else float(k)
+    U = hankel_matrix(np.array([kk]), params.A, params.alpha, params.beta,
+                      params.repel)[0]
+    M = np.asarray(rho_bar, float)[:, None] * U
+    vals, vecs = np.linalg.eig(M)
+    idx = int(np.argmin(vals.real))          # most unstable = most negative sigma
+    v = vecs[:, idx]
+    v = v / (np.abs(v).max() + 1e-30)
+    num = abs(np.sum(v))
+    den = np.sum(np.abs(v))
+    return dict(k=kk, coherence=float(num / den) if den > 0 else 0.0,
+                vector=np.real_if_close(v).tolist(),
+                sigma=complex(vals[idx]))
+
+
 # --------------------------------------------------------------------------- #
 #  the exactly solvable two-species case
 # --------------------------------------------------------------------------- #
