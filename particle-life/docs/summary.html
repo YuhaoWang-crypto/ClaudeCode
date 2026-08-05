@@ -143,6 +143,11 @@ td.w{white-space:normal; min-width:210px}
 .card p{font-size:14px; color:var(--dim); margin:0; line-height:1.5}
 .card .why{font-family:var(--mono); font-size:11px; color:var(--sp-a); margin-top:8px; display:block}
 
+pre.mini{font-family:var(--mono); font-size:10.5px; line-height:1.5; background:var(--panel2);
+  border:1px solid var(--rule); border-radius:6px; padding:9px 10px; margin:0 0 10px;
+  overflow-x:auto; color:var(--ink); white-space:pre}
+.card h4 span{font-weight:400; font-size:11px}
+.card h4{display:flex; flex-wrap:wrap; gap:6px; align-items:baseline}
 footer{border-top:1px solid var(--rule); margin-top:52px; padding:26px 0 46px;
   font-family:var(--mono); font-size:12px; color:var(--dimmer)}
 footer a{color:var(--pred)}
@@ -164,7 +169,7 @@ footer a{color:var(--pred)}
   <p class="lede">Particle Life 里没有生命逻辑、没有代理、没有神经网络。粒子只服从一条力律。
   下面这句话是这份工作的结论：<strong>结构会不会动，完全取决于力矩阵对不对称</strong>——
   对称时系统存在 Lyapunov 函数，<strong>必然停下</strong>；不对称时团簇的内力不再相互抵消，它自己推自己。
-  拖动滑块，亲手跨过这条边界。</p>
+  拖动滑块，亲手跨过这条边界。往下第 08 节是<strong>十张可照抄的形态参数卡</strong>。</p>
 </div>
 
 <div class="rig">
@@ -561,13 +566,140 @@ footer a{color:var(--pred)}
     <p style="color:var(--dim)">保留一点：Wavefield、石头剪刀布、Hub 这几个 ν<sub>f</sub> &gt; 0 的预设运动性也低，
     因为它们根本没凝聚成团簇（D₂ ≈ 2，气体状），"团簇质心速度"对它们没有意义——
     这是观测量的局限，不是定理的反例。</p>
+    <p>下一节把这本字典变成十张<strong>可照抄的参数卡</strong>。</p>
+  </div>
+</section>
+
+
+<!-- ============================================================ -->
+<section id="cards">
+  <div class="col">
+    <p class="eyebrow">08 <span>形态参数卡</span></p>
+    <h2>十种结构，十组参数，十个模型</h2>
+    <p>下面每一张卡都是一组<strong>可直接照抄的参数</strong>，加上它背后的模型项、
+    理论预言与实测的逐项对照，以及<strong>哪个旋钮一动它就没了</strong>。
+    统一条件：N = 3000，L = 1200（ρ = 2.08×10⁻³），κ = 1，Δt = 1/60，环面，t = 43 s。</p>
+    <p>读卡先看三个数：<code>ν_f</code>（0 ⇒ 定理保证冻结）、
+    <code>coh</code>（1 ⇒ 各物种聚成一团，0 ⇒ 反相分离成核壳/条纹）、
+    <code>D₂</code>（~1 细丝，~2 团块）。</p>
+  </div>
+
+  <div class="tblwrap">
+    <table>
+      <thead><tr><th>形态</th><th>S</th><th>ν<sub>f</sub></th><th>coh</th>
+        <th>ℓ* 理论</th><th>ℓ 实测</th><th>线性判定</th><th>motility</th>
+        <th>|spin|</th><th>D₂</th><th>ψ₆</th></tr></thead>
+      <tbody>
+        <tr><td class="w">均匀气体 / 排斥液体</td><td class="n">3</td><td class="n ok">0.00</td><td class="n">1.00</td><td class="n">37</td><td class="n ok">38</td><td class="ok">static</td><td class="n">0.007</td><td class="n">0.005</td><td class="n">1.63</td><td class="n">0.44</td></tr>
+        <tr><td class="w">静态团块 / 液滴</td><td class="n">3</td><td class="n ok">0.00</td><td class="n">0.00</td><td class="n">82</td><td class="n">51</td><td class="ok">static</td><td class="n">0.010</td><td class="n">0.001</td><td class="n">0.68</td><td class="n">0.31</td></tr>
+        <tr><td class="w">晶体团簇</td><td class="n">3</td><td class="n ok">0.00</td><td class="n">1.00</td><td class="n">102</td><td class="n">15†</td><td class="ok">static</td><td class="n ok">0.000</td><td class="n">0.000</td><td class="n">1.69</td><td class="n ok">0.62</td></tr>
+        <tr><td class="w">核-壳细胞</td><td class="n">2</td><td class="n ok">0.00</td><td class="n no">0.10</td><td class="n">51</td><td class="n">92</td><td class="ok">static</td><td class="n">0.006</td><td class="n">0.001</td><td class="n">0.98</td><td class="n">0.33</td></tr>
+        <tr><td class="w">链 / 网络</td><td class="n">5</td><td class="n ok">0.00</td><td class="n">0.00</td><td class="n">82</td><td class="n">59</td><td class="ok">static</td><td class="n">0.008</td><td class="n">0.007</td><td class="n">1.09</td><td class="n">0.36</td></tr>
+        <tr><td class="w">爬行的蛇</td><td class="n">5</td><td class="n no">0.20</td><td class="n">0.00</td><td class="n">82</td><td class="n">53</td><td class="no">travelling</td><td class="n no">0.727</td><td class="n">0.072</td><td class="n">1.15</td><td class="n">0.38</td></tr>
+        <tr><td class="w">追逐者 / 迁移细胞</td><td class="n">2</td><td class="n no">0.35</td><td class="n">0.71</td><td class="n">80</td><td class="n ok">77</td><td class="no">travelling</td><td class="n">0.108</td><td class="n">0.003</td><td class="n">0.35</td><td class="n">0.39</td></tr>
+        <tr><td class="w">自旋细胞 / 旋涡</td><td class="n">3</td><td class="n no">0.23</td><td class="n">1.00</td><td class="n">80</td><td class="n ok">90</td><td class="amb">condense+move</td><td class="n">0.099</td><td class="n no">0.132</td><td class="n">0.51</td><td class="n">0.34</td></tr>
+        <tr><td class="w">行波 / 传送带</td><td class="n">5</td><td class="n no">0.39</td><td class="n">0.00</td><td class="n">82</td><td class="n ok">89</td><td class="no">travelling</td><td class="n no">1.392</td><td class="n">0.154</td><td class="n">0.71</td><td class="n">0.36</td></tr>
+        <tr><td class="w">自驱动二聚体气体</td><td class="n">2</td><td class="n no">0.26</td><td class="n">0.33</td><td class="n">35</td><td class="n">—‡</td><td class="ok">static</td><td class="n">—</td><td class="n">—</td><td class="n">2.61</td><td class="n">—</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="col">
+    <p style="color:var(--dim);font-size:15px">† 晶体的 S(k) 峰是<b>布拉格峰</b>（≈ 键长 α=16），不是畴尺寸，两者不可比。
+    ‡ 稀薄气体没有集体不稳定性，物理在两体层面。</p>
+    <p><strong>两条一眼可见的规律。</strong>前五张卡 ν<sub>f</sub> 全是 0.00，motility 全在 0.000–0.010；
+    后五张 ν<sub>f</sub> &gt; 0，motility 高出 10–140 倍。而且
+    <em class="hl">线性判定与 ν<sub>f</sub> 10/10 一致</em>——连续介质理论只看相互作用核，却复现了互易性判据。</p>
+  </div>
+
+  <h3 class="col">四张关键卡</h3>
+
+  <div class="cards" style="grid-template-columns:repeat(auto-fit,minmax(300px,1fr))">
+    <div class="card">
+      <h4>核-壳细胞 <span style="color:var(--dimmer)">coh = 0.10</span></h4>
+      <pre class="mini">S=2   A = [[0.90, 0.45],
+           [0.45, −0.50]]   ← 对称 ⇒ 静止
+α = [[12, 22],  β = [[42, 60],
+     [22, 16]]       [60, 48]]
+λ = 0.30   R = 1</pre>
+      <p>0 号是核（自吸引），1 号是膜（<b>自斥 −0.5</b>，被核吸住）。自斥使膜摊成一层而非实心团；
+      交叉键长 α₀₁ = 22 &gt; α₀₀ = 12 把膜推到外圈。最不稳定模分量反号（coh = 0.10）= <b>分相模</b>。</p>
+      <span class="why">敏感性：A₁₁ 从 −0.9 调到 +0.3，D₂ 由 1.13 → 0.47，膜自聚、细胞塌成实心团。膜的存在完全依赖膜的自斥。</span>
+    </div>
+
+    <div class="card">
+      <h4>爬行的蛇 <span style="color:var(--sp-b)">V 预言到 0.13 %</span></h4>
+      <pre class="mini">S=5   A[i][i]   = 1.0
+      A[i][i+1] = 0.8    ← 正向
+      A[i][i−1] = −0.1   ← 反向，不等
+      其余      = −0.9
+α = 15  β = 45  λ = 0.25</pre>
+      <p>和"链/网络"卡<b>同一个环图</b>，唯一区别是正向 ≠ 反向。于是每条键都是一次追逐，
+      280 粒子团簇的净内力不再抵消：<br>
+      <b>V = μ<sub>disc</sub>|F<sub>int</sub>|/N<sub>C</sub> = 14.2988</b> vs 实测 <b>14.3179</b>。</p>
+      <span class="why">敏感性：θ 从 0 到 1，D₂ 恒为 1.09–1.11（形状不变），motility 从 0.0098 涨到 0.690 —— 70 倍。θ=0 正是互易点。</span>
+    </div>
+
+    <div class="card">
+      <h4>自旋细胞 <span style="color:var(--sp-b)">ω 预言到 0.57 %</span></h4>
+      <pre class="mini">S=3   A[i][i]   = 0.9
+      A[i][i+1] = 0.6
+      A[i][i−1] = −0.2
+α = 14  β = 42  λ = 0.20</pre>
+      <p>三个物种互相吸引所以待在同一团（coh = 1.00），但正向 0.6 ≠ 反向 −0.2 ⇒ <b>净内力矩</b>：<br>
+      <b>ω = μ<sub>disc</sub>·τ<sub>int</sub>/I = +0.4396</b> vs 实测 <b>+0.4421</b>；
+      漂移 3.4538 vs 3.4550（<b>0.03 %</b>）。</p>
+      <span class="why">敏感性：反向耦合 b → +0.6（= 正向）时矩阵变回互易，ν_f 精确归零，τ_int 归零，转动消失（motility 0.846 → 0.0015）。</span>
+    </div>
+
+    <div class="card">
+      <h4>自驱动二聚体 <span style="color:var(--dimmer)">两体公式的边界</span></h4>
+      <pre class="mini">S=2   A = [[−0.90,  0.90],
+           [−0.40, −0.90]]  ← 强自斥
+α = [[15, 15],   β = 45
+     [26, 15]]   ← 半径不对称
+λ = 0.10   稀薄 ρβ² = 0.16</pre>
+      <p>强自斥使同类无法聚团，剩下孤立的异类束缚对，每对严格服从两体解
+      r* = 19.297、V = 2.3203。<b>密度决定这个公式还准不准。</b></p>
+      <span class="why">ρβ² = 2.25 → 0.84 → 0.36 → 0.16 → 0.06 时 V/V_理论 = 0.28 → 0.59 → 0.80 → 0.96 → <b>1.000</b>。稀薄极限下键长和速度都对到小数点后四位。</span>
+    </div>
+  </div>
+
+  <h3 class="col">哪个旋钮管什么</h3>
+  <div class="tblwrap">
+    <table>
+      <thead><tr><th>旋钮</th><th class="w">改变什么</th><th class="w">不改变什么</th><th class="w">证据</th></tr></thead>
+      <tbody>
+        <tr><td>α (min radius)</td><td class="w">尺寸，ℓ ∝ α</td><td class="w ok">形状（D₂ 恒为 0.67）</td><td class="w">团块卡扫 α = 10→30</td></tr>
+        <tr><td>β/α (带宽)</td><td class="w">键能、配位数、硬度</td><td class="w ok">拓扑</td><td class="w">晶体卡 β/α = 1.63</td></tr>
+        <tr><td>R (repel)</td><td class="w">密度/硬度（D₂ 0.58→1.76）</td><td class="w ok">动不动（motility 恒 ≈ 0）</td><td class="w">晶体卡扫 R = 0.5→6</td></tr>
+        <tr><td><b>A 的图结构</b></td><td class="w no">形态：环图→链，二部→核壳，星形→辐射</td><td class="w">—</td><td class="w">卡 5–7</td></tr>
+        <tr><td><b>A 的对称性</b></td><td class="w no">动不动（motility ×70）</td><td class="w ok">形状（D₂ 恒 1.09–1.11）</td><td class="w">蛇卡扫 θ = 0→1</td></tr>
+        <tr><td>正向 vs 反向之差</td><td class="w">平移 / 自旋的比例</td><td class="w">—</td><td class="w">蛇 vs 旋涡</td></tr>
+        <tr><td>λ (friction)</td><td class="w">非互易性<b>能否兑现</b>成运动</td><td class="w ok">非互易性本身（ν_f 恒定）</td><td class="w">行波卡扫 λ = 0.03→0.30</td></tr>
+        <tr><td>ρ (密度)</td><td class="w">两体公式还准不准</td><td class="w ok">相互作用</td><td class="w">二聚体卡的密度交叉</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="col">
+    <p style="font-size:18px;text-wrap:balance"><strong>一句话：<em class="hl">A 的图结构决定"长什么样"，A 的不对称性决定"动不动"，
+    α 决定"多大"，λ 决定"能不能动起来"，ρ 决定"两体公式还准不准"。</em></strong></p>
+
+    <h3>预言精度：两类预言，两种表现</h3>
+    <p>逐粒子求和的<strong>非线性</strong>预言（团簇内力/内力矩、两体解）精确到 <b>0.03–0.6 %</b>：
+    因为它们不做任何近似，只是把力加起来。</p>
+    <p>围绕均匀态展开的<strong>平均场</strong>预言（ℓ*）表现分层：
+    状态越贴近均匀，越准——排斥液体 3 %、追逐者 4 %、行波 9 %、旋涡 12 %；
+    强凝聚的（团块、链、蛇）则统一落在 E04 测到的 0.607 折扣上。
+    <em class="hl">平均场的误差不是常数，它随密度反差增大而增大</em>——这本身就是一条结论。</p>
   </div>
 </section>
 
 <!-- ============================================================ -->
 <section>
   <div class="col">
-    <p class="eyebrow">07 <span>诚实清单</span></p>
+    <p class="eyebrow">09 <span>诚实清单</span></p>
     <h2>哪些是证明的，哪些只是拟合的</h2>
   </div>
   <div class="tblwrap">
@@ -581,7 +713,10 @@ footer a{color:var(--pred)}
         <tr><td>结构尺度 ∝ minRadius</td><td class="amb">⚠️ 标度</td><td class="w">R² = 0.9906，但前因子 0.607 ≠ 1（平均场代价）</td></tr>
         <tr><td>ν<sub>f</sub> = 0 ⟺ 线性理论判 static</td><td class="ok">✅ 21/21</td><td class="w">21 个官方预设，同条件对照</td></tr>
         <tr><td>互易线 w = b 上冻结</td><td class="ok">✅ 实测</td><td class="w">线上 0.004–0.009 vs 线外最高 20.2</td></tr>
-        <tr><td>形态分类阈值（D₂ 1.55 / ψ₆ 0.42 …）</td><td class="amb">⚠️ 经验</td><td class="w">分界的存在被验证，分界的数值是拟合的</td></tr>
+        <tr><td>团簇 V = μ|F<sub>int</sub>|/N，ω = μτ<sub>int</sub>/I</td><td class="ok">✅ 0.03–0.6 %</td><td class="w">蛇 280 粒子、旋涡 79 粒子；互易卡上恒等于 0</td></tr>
+        <tr><td>两体公式在稀薄极限精确</td><td class="ok">✅ 交叉曲线</td><td class="w">V/V_th: 0.28→1.000 随 ρβ² 2.25→0.06</td></tr>
+        <tr><td>形态分类阈值（D₂ 1.55 / ψ₆ 0.62 …）</td><td class="amb">⚠️ 经验</td><td class="w">分界的存在被验证，分界的数值是拟合的</td></tr>
+        <tr><td>追逐者的摩擦敏感性（单种子）</td><td class="amb">⚠️ 涨落大</td><td class="w">追逐态间歇性，以 E05 的多种子扫描为准</td></tr>
         <tr><td>粗化终态、动力学冻结</td><td class="no">未做</td><td class="w">只观察，没有理论</td></tr>
         <tr><td>弱非线性（振幅方程）</td><td class="no">未做</td><td class="w">团簇运动的完整非线性理论缺失</td></tr>
         <tr><td>3D</td><td class="no">未做</td><td class="w">原站有 3D 引擎；本文结论全部写在 2D</td></tr>
