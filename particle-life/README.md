@@ -8,6 +8,7 @@
 particle-life/
 ├── THEORY.md                     ← 主报告：物理数学模型（先读这个）
 ├── docs/PATTERN_CARDS.md         ← 形态参数卡：每种结构的核心参数 + 模型 + 分析
+├── docs/PROTEIN_MAPPING.md       ← 用到蛋白上：Kd + 浓度 ⇄ 细胞内结构（正/反问题）
 ├── docs/
 │   ├── REVERSE_ENGINEERING.md    ← 从站点 WebGPU 内核逐字取出的真实模型
 │   ├── VALIDATION.md             ← 所有预言 vs 测量的汇总（含 ⚠️ 保留项）
@@ -17,6 +18,7 @@ particle-life/
 │   └── js/{model,engine,theory,main}.js
 └── theory/
     ├── plife/                    ← Python 物理包
+    │   └── bio/                  蛋白版：Kd→Wertheim，相图，反演
     │   ├── kernels.py            力律、势、Hankel 变换
     │   ├── matrices.py           站点的矩阵生成器 + 互易性代数
     │   ├── model.py              N 体积分器（与站点更新顺序一致）
@@ -25,6 +27,7 @@ particle-life/
     │   └── observables.py        序参量与形态分类
     ├── experiments/e01…e08       八个验证实验（e08 = 形态参数卡）
     ├── test_plife.py             快速自检（几秒钟）
+    ├── test_bio.py               蛋白模块自检（质量作用定律、价数门等极限）
     ├── figures/                  实验产出的图
     └── results/                  实验产出的数值
 ```
@@ -62,6 +65,7 @@ python3 e05_nonreciprocal_transition.py  # 行波相变与摩擦阈值
 python3 e06_structure_atlas.py       # 21 种形态图谱
 python3 e07_morphogenesis_map.py     # 形态发生相图
 python3 e08_pattern_cards.py         # 十张形态参数卡 + 敏感性扫描
+python3 e09_protein_phases.py        # 蛋白：相图 / 滴定 / 反演 / 可辨识性
 ```
 
 ## 三句话版本的答案
