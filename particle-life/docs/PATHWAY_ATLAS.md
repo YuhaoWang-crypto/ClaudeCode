@@ -6,6 +6,8 @@
 > 代码：`theory/plife/bio/pathways.py`、`theory/plife/bio/sites.py`
 > 验证：`theory/test_pathways.py`（29 项全过）
 > 图：`theory/figures/e10_signaling_pool.png`　数据：`theory/results/e10_signaling_pool.json`
+>
+> 续篇：[`MECHANISM_CHAINS.md`](MECHANISM_CHAINS.md) —— 这些形态各自让细胞获得了什么能力（超敏 / 缓冲 / 双稳态 / 长度传感）。
 
 ---
 

@@ -8,5 +8,5 @@ plife.bio - mapping the pattern-formation machinery onto protein mixtures.
 ``inverse``   fitting interactions and concentrations from observations
 ``pathways``  real signalling modules: the four conditions, and the shared pool
 """
-from . import units, thermo, sites, phases, inverse, pathways  # noqa: F401
-__all__ = ["units", "thermo", "sites", "phases", "inverse", "pathways"]
+from . import units, thermo, sites, phases, inverse, pathways, function  # noqa: F401
+__all__ = ["units", "thermo", "sites", "phases", "inverse", "pathways", "function"]
