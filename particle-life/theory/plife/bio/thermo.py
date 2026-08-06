@@ -54,7 +54,8 @@ from scipy.spatial import ConvexHull
 from .units import M_TO_NM3, conc_to_density, density_to_conc
 
 __all__ = ["Mixture", "free_energy", "f_excess", "chemical_potentials", "osmotic_pressure",
-           "spinodal_eig", "coexistence", "csat_scan", "partition_coefficients"]
+           "spinodal_eig", "spinodal_modes", "mode_coherence", "hessian", "coexistence",
+           "csat_scan", "partition_coefficients"]
 
 
 # --------------------------------------------------------------------------- #
@@ -96,6 +97,18 @@ class Mixture:
                  valence=self.valence.copy(), kd=self.kd.copy(), kT=self.kT)
         d.update(kw)
         return Mixture(**d)
+
+    def assoc_f(self, rho):
+        r"""Wertheim association free-energy density (kT/nm^3).
+
+        Factored out as a method so that everything built on top of ``f`` --
+        :func:`coexistence`, :func:`hessian`, :func:`csat_scan`,
+        ``phases.phase_diagram`` -- works unchanged for the multi-site-class
+        generalisation in :mod:`plife.bio.sites`, which supplies its own.
+        """
+        X = unbonded_fractions(rho, self)
+        return (rho * self.valence[None, :]
+                * (np.log(np.maximum(X, 1e-300)) - 0.5 * X + 0.5)).sum(axis=1)
 
 
 # --------------------------------------------------------------------------- #
@@ -182,14 +195,10 @@ def unbonded_fractions(rho, mix, tol=1e-12, itmax=500):
 def free_energy(rho, mix):
     """Total free-energy density ``f`` in kT/nm^3.  ``rho`` is (K, S) or (S,)."""
     rho = np.atleast_2d(np.asarray(rho, float))
-    d, n = mix.diameters, mix.valence
     with np.errstate(divide="ignore", invalid="ignore"):
         f_id = np.where(rho > 0, rho * (np.log(np.maximum(rho, 1e-300)) - 1.0), 0.0
                         ).sum(axis=1)
-    f_hs = f_hs_excess(rho, d)
-    X = unbonded_fractions(rho, mix)
-    f_as = (rho * n[None, :] * (np.log(np.maximum(X, 1e-300)) - 0.5 * X + 0.5)).sum(axis=1)
-    return f_id + f_hs + f_as
+    return f_id + f_hs_excess(rho, mix.diameters) + mix.assoc_f(rho)
 
 
 def f_excess(rho, mix):
@@ -200,10 +209,7 @@ def f_excess(rho, mix):
     together with the rest destroys the low-density behaviour.
     """
     rho = np.atleast_2d(np.asarray(rho, float))
-    n = mix.valence
-    X = unbonded_fractions(rho, mix)
-    f_as = (rho * n[None, :] * (np.log(np.maximum(X, 1e-300)) - 0.5 * X + 0.5)).sum(axis=1)
-    return f_hs_excess(rho, mix.diameters) + f_as
+    return f_hs_excess(rho, mix.diameters) + mix.assoc_f(rho)
 
 
 def _rel_step(rho, a, h):
@@ -235,16 +241,14 @@ def chemical_potentials(rho, mix, h=1e-5):
     return mu
 
 
-def spinodal_eig(rho, mix, h=1e-4):
-    r"""Smallest eigenvalue of the Hessian :math:`\partial^2 f/\partial\rho_a\partial\rho_b`.
+def hessian(rho, mix, h=1e-4):
+    r"""Stability matrix :math:`\partial^2 f/\partial\rho_a\partial\rho_b` -> (K,S,S).
 
     Written as :math:`\delta_{ab}/\rho_a + \partial^2 f_{\rm ex}/\partial\rho_a\partial\rho_b`
     so the ideal (stabilising, :math:`1/\rho`) contribution is exact.  That term
     diverges as :math:`\rho\to0`, which is precisely why a dilute mixture is
     always stable and why there is a **threshold concentration** at all -- the
     feature that athermal Particle Life does not have.
-
-    Positive => locally stable.  Negative => inside the spinodal.
     """
     rho = np.atleast_2d(np.asarray(rho, float))
     K, S = rho.shape
@@ -265,7 +269,63 @@ def spinodal_eig(rho, mix, h=1e-4):
     H = 0.5 * (H + np.transpose(H, (0, 2, 1)))
     for a in range(S):
         H[:, a, a] += 1.0 / np.maximum(rho[:, a], 1e-300)
-    return np.linalg.eigvalsh(H)[:, 0]
+    return H
+
+
+def spinodal_eig(rho, mix, h=1e-4):
+    r"""Smallest eigenvalue of :func:`hessian`.
+
+    Positive => locally stable.  Negative => inside the spinodal.
+    """
+    return np.linalg.eigvalsh(hessian(rho, mix, h))[:, 0]
+
+
+def spinodal_modes(rho, mix, h=1e-4, scale=True):
+    r"""Eigenvalues **and eigenvectors** of the stability matrix.
+
+    The eigenvector of every *negative* eigenvalue is the composition
+    fluctuation that grows, and its sign pattern says what kind of structure
+    that growth produces -- the protein analogue of the mode-coherence test used
+    on the Particle Life dispersion relation:
+
+    * all components the **same sign**  -> those species move into the dense
+      phase *together*: co-condensation, one shared body;
+    * **mixed signs**                   -> the species with one sign concentrate
+      while the others are expelled: demixing, and the body excludes them.
+
+    The number of negative eigenvalues bounds how many independent demixing
+    directions the mixture has, hence roughly ``n_bodies - 1``.
+
+    With ``scale=True`` the Hessian is symmetrically rescaled by
+    :math:`\sqrt{\rho_a\rho_b}` first.  Without that, the exact :math:`1/\rho_a`
+    diagonal makes the eigenvectors of a mixture spanning several decades of
+    concentration point almost entirely along the most dilute species, which
+    says nothing about the physics.  Rescaling asks the scale-free question
+    "which *relative* composition fluctuation grows?", and leaves the *sign* of
+    every eigenvalue unchanged (it is a congruence transform).
+
+    Returns ``(vals, vecs)`` with shapes ``(K,S)`` and ``(K,S,S)``; ``vecs[k,:,i]``
+    is the eigenvector for ``vals[k,i]``, ascending.
+    """
+    rho = np.atleast_2d(np.asarray(rho, float))
+    H = hessian(rho, mix, h)
+    if scale:
+        s = np.sqrt(np.maximum(rho, 1e-300))
+        H = H * s[:, :, None] * s[:, None, :]
+    return np.linalg.eigh(H)
+
+
+def mode_coherence(vec, tol=1e-12):
+    r"""``|sum_a v_a| / sum_a |v_a|`` for a composition eigenvector.
+
+    1 => every species moves the same way (condensation);
+    0 => the species split evenly into enriched and expelled groups (demixing).
+    The same order parameter that separated condensation from demixing in the
+    Particle Life dispersion analysis, reused verbatim.
+    """
+    v = np.asarray(vec, float)
+    den = np.abs(v).sum(axis=-1)
+    return np.where(den > tol, np.abs(v.sum(axis=-1)) / np.maximum(den, tol), 1.0)
 
 
 # --------------------------------------------------------------------------- #

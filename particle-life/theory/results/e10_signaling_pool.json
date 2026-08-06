@@ -1,0 +1,488 @@
+{
+  "miscibility": {
+    "cross_uM": [
+      1.0,
+      1.7782794100389228,
+      3.1622776601683795,
+      5.62341325190349,
+      10.0,
+      17.78279410038923,
+      31.622776601683793,
+      56.23413251903491,
+      100.0,
+      177.82794100389228,
+      316.2277660168379,
+      562.341325190349,
+      1000.0
+    ],
+    "n_dense": [
+      1,
+      1,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3
+    ],
+    "asym": [
+      0.0,
+      0.0,
+      0.2779652091230885,
+      0.2779652091230885,
+      0.2779652091230885,
+      0.2779652091230885,
+      0.728210610999529,
+      0.998929169799721,
+      0.9998904461911433,
+      0.9999785010077608,
+      0.9999785010077608,
+      0.9999785010077608,
+      0.9999785010077608
+    ]
+  },
+  "orthogonality": {
+    "cross_kd_uM": [
+      0.02,
+      0.03796960503745239,
+      0.0720845453350065,
+      0.13685108578372632,
+      0.2598090838077302,
+      0.4932424148660941,
+      0.9364109840092409,
+      1.7777577607781512,
+      3.3750380014506085,
+      6.40744299507361,
+      12.164403991146804,
+      23.09388075299267,
+      43.84327654865774,
+      83.2355947050167,
+      158.0211328003473,
+      300.0
+    ],
+    "n_bodies": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      2,
+      3,
+      4,
+      4,
+      5,
+      5,
+      5,
+      5,
+      5,
+      5
+    ],
+    "harm_uM": 1.8181818181818181
+  },
+  "boost": 133.33333333333334,
+  "systems": [
+    {
+      "key": "nephrin",
+      "name": "Nephrin - NCK - N-WASP",
+      "family": "actin nucleation / slit diaphragm",
+      "valence": [
+        3.0,
+        4.0,
+        6.0
+      ],
+      "load_bearing": [
+        "NCK1.SH3",
+        "N-WASP.PRM"
+      ],
+      "kd_uM": 350.0,
+      "p_star": 0.31622776601683794,
+      "S_gel_uM": 236.72554310676873,
+      "site_conc_uM": 7.348469228349534,
+      "margin": 0.031042147509342508,
+      "G": 10.0,
+      "site_ratio": 1.2909944487358058,
+      "branching": 0.2200950525732765,
+      "percolates": false,
+      "boost_needed": 19.51390733235938,
+      "membrane": true,
+      "source": "Li et al. Nature 483:336 (2012); Banjade & Rosen eLife 3:e04123 (2014)"
+    },
+    {
+      "key": "lat",
+      "name": "pLAT - Grb2 - SOS1",
+      "family": "T-cell receptor",
+      "valence": [
+        4.0,
+        3.0,
+        4.0
+      ],
+      "load_bearing": [
+        "Grb2.SH3",
+        "SOS1.PRM"
+      ],
+      "kd_uM": 10.0,
+      "p_star": 0.5773502691896258,
+      "S_gel_uM": 32.320508075688785,
+      "site_conc_uM": 0.6324555320336759,
+      "margin": 0.019568242261309116,
+      "G": 3.0,
+      "site_ratio": 7.0710678118654755,
+      "branching": 0.5026946945315206,
+      "percolates": false,
+      "boost_needed": 17.951029287007177,
+      "membrane": true,
+      "source": "Su et al. Science 352:595 (2016); Houtman et al. NSMB 13:798 (2006)"
+    },
+    {
+      "key": "psd",
+      "name": "SynGAP - PSD-95",
+      "family": "postsynaptic density",
+      "valence": [
+        3.0,
+        3.0
+      ],
+      "load_bearing": [
+        "SynGAP.PBM",
+        "PSD-95.PDZ"
+      ],
+      "kd_uM": 1.0,
+      "p_star": 0.5,
+      "S_gel_uM": 2.0,
+      "site_conc_uM": 201.24611797498108,
+      "margin": 100.62305898749054,
+      "G": 4.0,
+      "site_ratio": 0.8660254037844387,
+      "branching": 1.8129044690567535,
+      "percolates": true,
+      "boost_needed": 1.0,
+      "membrane": false,
+      "source": "Zeng et al. Cell 166:1163 (2016)"
+    },
+    {
+      "key": "spop",
+      "name": "SPOP - DAXX",
+      "family": "ubiquitin ligase / nuclear body",
+      "valence": [
+        6.0,
+        5.0
+      ],
+      "load_bearing": [
+        "SPOP.MATH",
+        "DAXX.SBC"
+      ],
+      "kd_uM": 10.0,
+      "p_star": 0.22360679774997896,
+      "S_gel_uM": 3.7095527716064036,
+      "site_conc_uM": 7.905694150420949,
+      "margin": 2.131171771145185,
+      "G": 20.0,
+      "site_ratio": 1.2,
+      "branching": 1.596038549058244,
+      "percolates": true,
+      "boost_needed": 1.0,
+      "membrane": false,
+      "source": "Bouchard et al. Mol Cell 72:19 (2018)"
+    },
+    {
+      "key": "wnt",
+      "name": "Dishevelled DIX - Axin DAX",
+      "family": "Wnt signalosome",
+      "valence": [
+        2.0,
+        2.0
+      ],
+      "load_bearing": [
+        "Dvl2.head",
+        "Dvl2.tail"
+      ],
+      "kd_uM": 20.0,
+      "p_star": Infinity,
+      "S_gel_uM": Infinity,
+      "site_conc_uM": 0.31622776601683794,
+      "margin": 0.0,
+      "G": 0.0,
+      "site_ratio": 1.0,
+      "branching": 0.016813436858156536,
+      "percolates": false,
+      "boost_needed": Infinity,
+      "membrane": false,
+      "source": "Schwarz-Romond et al. NSMB 14:484 (2007); Bienz TiBS 39:487 (2014)"
+    },
+    {
+      "key": "p62",
+      "name": "p62/SQSTM1 - K63 polyubiquitin",
+      "family": "selective autophagy",
+      "valence": [
+        6.0,
+        4.0
+      ],
+      "load_bearing": [
+        "p62.UBA",
+        "K63-Ub4.Ile44"
+      ],
+      "kd_uM": 100.0,
+      "p_star": 0.2581988897471611,
+      "S_gel_uM": 46.92231303026462,
+      "site_conc_uM": 8.94427190999916,
+      "margin": 0.19061873408137736,
+      "G": 15.0,
+      "site_ratio": 2.1213203435596424,
+      "branching": 0.3987547469147178,
+      "percolates": false,
+      "boost_needed": 3.8526042068777175,
+      "membrane": false,
+      "source": "Sun et al. Cell Res 28:405 (2018); Zaffagnini et al. EMBO J 37:e98308 (2018)"
+    },
+    {
+      "key": "sg",
+      "name": "G3BP1 - mRNA",
+      "family": "stress granule",
+      "valence": [
+        4.0,
+        15.0
+      ],
+      "load_bearing": [
+        "G3BP1.RRM",
+        "mRNA-2kb.site"
+      ],
+      "kd_uM": 1.0,
+      "p_star": 0.1543033499620919,
+      "S_gel_uM": 0.21574767997117075,
+      "site_conc_uM": 3.3541019662496843,
+      "margin": 15.54641035629155,
+      "G": 42.0,
+      "site_ratio": 2.666666666666667,
+      "branching": 3.408118975447526,
+      "percolates": true,
+      "boost_needed": 1.0,
+      "membrane": false,
+      "source": "Yang et al. Cell 181:325 (2020); Guillen-Boixet et al. Cell 181:346 (2020)"
+    },
+    {
+      "key": "nucleolus",
+      "name": "NPM1 - R-motif partner",
+      "family": "nucleolar granular component",
+      "valence": [
+        5.0,
+        4.0
+      ],
+      "load_bearing": [
+        "NPM1.acidic",
+        "SURF6-like.Rmotif"
+      ],
+      "kd_uM": 5.0,
+      "p_star": 0.2886751345948129,
+      "S_gel_uM": 2.8526165701153228,
+      "site_conc_uM": 17.88854381999832,
+      "margin": 6.270924738853052,
+      "G": 12.0,
+      "site_ratio": 3.423265984407288,
+      "branching": 1.686879543225519,
+      "percolates": true,
+      "boost_needed": 1.0,
+      "membrane": false,
+      "source": "Mitrea et al. eLife 5:e13571 (2016); Feric et al. Cell 165:1686 (2016)"
+    },
+    {
+      "key": "cgas",
+      "name": "cGAS - dsDNA",
+      "family": "innate immunity / STING",
+      "valence": [
+        2.0,
+        50.0
+      ],
+      "load_bearing": [
+        "cGAS.DNA",
+        "dsDNA-1kb.turn"
+      ],
+      "kd_uM": 0.5,
+      "p_star": 0.14285714285714285,
+      "S_gel_uM": 0.0972222222222222,
+      "site_conc_uM": 0.31622776601683794,
+      "margin": 3.2526284504589054,
+      "G": 49.0,
+      "site_ratio": 0.6324555320336759,
+      "branching": 2.3538640264937456,
+      "percolates": true,
+      "boost_needed": 1.0,
+      "membrane": false,
+      "source": "Du & Chen Science 361:704 (2018); Andreeva et al. Nature 549:394 (2017)"
+    },
+    {
+      "key": "pka",
+      "name": "PKA-RII - AKAP  [negative control]",
+      "family": "cAMP / scaffolding",
+      "valence": [
+        1.0,
+        1.0
+      ],
+      "load_bearing": [
+        "PKA-RII2.DD",
+        "AKAP79.helix"
+      ],
+      "kd_uM": 0.001,
+      "p_star": Infinity,
+      "S_gel_uM": Infinity,
+      "site_conc_uM": 0.15811388300841897,
+      "margin": 0.0,
+      "G": 0.0,
+      "site_ratio": 4.0,
+      "branching": 0.0,
+      "percolates": false,
+      "boost_needed": Infinity,
+      "membrane": false,
+      "source": "Gold et al. Mol Cell 24:383 (2006)"
+    },
+    {
+      "key": "mapk",
+      "name": "Raf - MEK - ERK core  [negative control]",
+      "family": "MAPK cascade",
+      "valence": [
+        1.0,
+        2.0,
+        1.0
+      ],
+      "load_bearing": [
+        "BRAF.cat",
+        "MEK1.nterm"
+      ],
+      "kd_uM": 0.3,
+      "p_star": Infinity,
+      "S_gel_uM": Infinity,
+      "site_conc_uM": 0.15811388300841897,
+      "margin": 0.0,
+      "G": 0.0,
+      "site_ratio": 0.12909944487358058,
+      "branching": 0.0,
+      "percolates": false,
+      "boost_needed": Infinity,
+      "membrane": false,
+      "source": "standard MAPK biochemistry; Kd's are typical kinase-substrate values"
+    },
+    {
+      "key": "mavs",
+      "name": "MAVS CARD filament",
+      "family": "innate immunity / RIG-I",
+      "valence": [
+        2.0
+      ],
+      "load_bearing": [
+        "MAVS-CARD.head",
+        "MAVS-CARD.tail"
+      ],
+      "kd_uM": 0.01,
+      "p_star": Infinity,
+      "S_gel_uM": Infinity,
+      "site_conc_uM": 0.31622776601683794,
+      "margin": 0.0,
+      "G": 0.0,
+      "site_ratio": 1.0,
+      "branching": 0.8372823323394054,
+      "percolates": false,
+      "boost_needed": Infinity,
+      "membrane": false,
+      "source": "Hou et al. Cell 146:448 (2011); Cai et al. Cell 156:1207 (2014)"
+    }
+  ],
+  "pool_bulk": {
+    "live": [
+      "psd",
+      "spop",
+      "sg",
+      "nucleolus",
+      "cgas"
+    ],
+    "n_bodies": 5,
+    "groups": [
+      [
+        "cgas"
+      ],
+      [
+        "nucleolus"
+      ],
+      [
+        "psd"
+      ],
+      [
+        "sg"
+      ],
+      [
+        "spop"
+      ]
+    ],
+    "n_unstable": 5,
+    "modes": [
+      {
+        "eig": -1.4056866689917633,
+        "coherence": 0.9962650622495638,
+        "kind": "condensation"
+      },
+      {
+        "eig": -0.5714861046097729,
+        "coherence": 0.9946368516364197,
+        "kind": "condensation"
+      },
+      {
+        "eig": -0.49944614002784876,
+        "coherence": 0.9294223039826811,
+        "kind": "condensation"
+      },
+      {
+        "eig": -0.4628601531945508,
+        "coherence": 0.15657548129900897,
+        "kind": "demixing"
+      },
+      {
+        "eig": -0.4418536142185821,
+        "coherence": 0.041388972541031105,
+        "kind": "demixing"
+      }
+    ]
+  },
+  "pool_local": {
+    "live": [
+      "nephrin",
+      "lat",
+      "psd",
+      "spop",
+      "p62",
+      "sg",
+      "nucleolus",
+      "cgas"
+    ],
+    "n_bodies": 8,
+    "groups": [
+      [
+        "cgas"
+      ],
+      [
+        "lat"
+      ],
+      [
+        "nephrin"
+      ],
+      [
+        "nucleolus"
+      ],
+      [
+        "p62"
+      ],
+      [
+        "psd"
+      ],
+      [
+        "sg"
+      ],
+      [
+        "spop"
+      ]
+    ],
+    "n_unstable": 6
+  }
+}

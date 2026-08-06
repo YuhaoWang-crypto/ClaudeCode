@@ -74,13 +74,19 @@ def radius_from_mw(mw_kda, specific_volume_A3_per_Da=1.212):
     return (3.0 * v_nm3 / (4.0 * np.pi)) ** (1.0 / 3.0)
 
 
-def radius_idp(n_residues, nu=0.58, b_nm=0.55):
-    r"""Hydrodynamic-ish radius (nm) of a disordered chain, ``R = b N^nu``.
+def radius_idp(n_residues, nu=0.522, b_nm=0.254):
+    r"""Radius of gyration (nm) of a disordered chain, ``R_g = b N^nu``.
 
-    ``nu = 0.58`` is the good-solvent exponent that IDPs typically follow in
-    water; ``nu = 0.5`` for theta conditions.  A 300-residue IDP comes out near
-    5 nm, roughly twice the compact-globule value -- which is exactly why
-    disordered proteins reach the overlap concentration so much sooner.
+    Defaults are the Marsh & Forman-Kay scaling fitted to SAXS/NMR on unfolded
+    and intrinsically disordered proteins, :math:`R_g = 2.54\,N^{0.522}` A.  A
+    300-residue IDP comes out at 5.0 nm against 4.1 nm for a compact globule of
+    the same mass -- which is why disordered proteins reach the overlap
+    concentration so much sooner, and why they dominate condensate scaffolds.
+
+    ``nu`` is the solvent-quality exponent: 0.5 at theta, ~0.6 in good solvent.
+    Note this returns :math:`R_g`, not :math:`R_h`; for a Gaussian coil
+    :math:`R_h\approx0.64R_g`, so treating :math:`R_g` as the excluded-volume
+    radius deliberately errs towards *over*-estimating the steric size.
     """
     return b_nm * np.asarray(n_residues, float) ** nu
 
