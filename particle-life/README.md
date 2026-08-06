@@ -35,7 +35,7 @@ particle-life/
     │       ├── inverse.py        从观测反推 Kd 与浓度
     │       ├── pathways.py       四个闭式条件 + 12 个真实通路 + 共享 pool
     │       └── function.py       凝胶分数、超敏、缓冲、双稳态、长度传感、别构
-    ├── experiments/e01…e11       十一个验证实验（e10 = 通路 pool，e11 = 机制信息链）
+    ├── experiments/e01…e12       十二个实验（e10 = 通路 pool，e11 = 机制信息链，e12 = 形态示意图）
     ├── test_plife.py             快速自检（几秒钟）
     ├── test_bio.py               蛋白模块自检（质量作用定律、价数门等极限）
     ├── test_pathways.py          通路模块自检（四个条件 vs 完整数值解，29 项）
@@ -80,6 +80,7 @@ python3 e08_pattern_cards.py         # 十张形态参数卡 + 敏感性扫描
 python3 e09_protein_phases.py        # 蛋白：相图 / 滴定 / 反演 / 可辨识性
 python3 e10_signaling_pool.py        # 真实信号通路：四个条件 + 共享 pool 的分选
 python3 e11_mechanism_chains.py      # 形态→功能：超敏 / 缓冲 / 双稳态 / 长度传感
+python3 e12_pattern_schematic.py     # 十二种形态的示意图（架构 → 形态 → 条件）
 ```
 
 ## 三句话版本的答案
