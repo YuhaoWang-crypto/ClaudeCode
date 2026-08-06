@@ -10,7 +10,7 @@ import sys
 
 import numpy as np
 
-from plife.bio import function as F, pathways as PW, sites as SI
+from plife.bio import function as F, pathways as PW, sites as SI, units as U
 
 fails = []
 run = []
@@ -136,6 +136,65 @@ check("the threshold is in the range where DNA length actually matters",
 lo = F.min_polymer_length(build_dna, np.arange(20, 4000, 20.0), [0.02, 0.002])["L_min"]
 check("scarcer cGAS needs longer DNA", lo > res["L_min"],
       f"{res['L_min']:.0f} bp at 0.2 uM  ->  {lo:.0f} bp at 0.02 uM")
+
+print("\nallostery: a ligand that changes a PARTNER's valence")
+th, freefrac = F.competitive_occupancy(1.0, [1e6], [1.0])
+check("saturating single ligand fills the site", th[0] > 0.999 and freefrac < 1e-3,
+      f"theta = {th[0]:.6f}")
+th, _ = F.competitive_occupancy(1e-6, [1.0], [1.0])   # site-limited, ligand excess
+check("Langmuir limit at trace site", abs(th[0] - 1.0 / (1.0 + 1.0)) < 1e-4,
+      f"theta = {th[0]:.5f} vs L/(Kd+L) = 0.5")
+th, _ = F.competitive_occupancy(1.0, [3.0, 3.0], [1.0, 0.5])
+check("the tighter competitor wins the site", th[1] > th[0],
+      f"theta(Kd=1) = {th[0]:.3f}  <  theta(Kd=0.5) = {th[1]:.3f}")
+check("occupancies cannot exceed the site", th.sum() <= 1.0 + 1e-9,
+      f"sum theta = {th.sum():.6f}")
+check("conditional valence interpolates", F.conditional_valence(1.0, 5.0, 0.5) == 3.0)
+
+# G3BP1: CAPRIN1 relieves autoinhibition, USP10 competes for the same NTF2 site
+G3, RNA_C, N_NTF2 = 3.0, 0.3, 2.0
+KD_CAP, KD_USP, N_CLOSED, N_OPEN = 1.0, 0.5, 0.8, 4.0
+
+
+def sg_branching(cap_uM, usp_uM):
+    theta, _ = F.competitive_occupancy(N_NTF2 * G3, [cap_uM, usp_uM], [KD_CAP, KD_USP])
+    n_rgg = float(F.conditional_valence(N_CLOSED, N_OPEN, theta[0]))
+    sm = SI.SiteMixture(
+        ["G3BP1", "RNA"], [2 * U.radius_from_mw(104), 2 * U.radius_idp(2000)],
+        [SI.Site("G3BP1", "RGG", n_rgg), SI.Site("RNA", "site", 18.0)],
+        np.array([[np.inf, 1.0], [1.0, np.inf]]) * 1e-6)
+    return SI.percolates([G3, RNA_C], sm)[1]
+
+
+check("without CAPRIN1 the granule does not form", sg_branching(0.0, 0.0) < 1.0,
+      f"branching = {sg_branching(0.0, 0.0):.3f}")
+check("CAPRIN1 switches it ON (relieves autoinhibition)", sg_branching(10.0, 0.0) > 2.0,
+      f"branching {sg_branching(0.0, 0.0):.2f} -> {sg_branching(10.0, 0.0):.2f} at 10 uM")
+check("USP10 switches it OFF again (same site, no valence)",
+      sg_branching(3.0, 30.0) < 1.0 < sg_branching(3.0, 0.0),
+      f"branching {sg_branching(3.0, 0.0):.2f} -> {sg_branching(3.0, 30.0):.2f} "
+      f"on 30 uM USP10")
+grid = np.geomspace(0.01, 300, 300)
+off = grid[np.array([sg_branching(3.0, u) for u in grid]) < 1.0]
+check("...at a USP10:CAPRIN1 ratio the model can name", 1.0 < off[0] / 3.0 < 20.0,
+      f"dissolves above [USP10] = {off[0] / 3.0:.1f} x [CAPRIN1]")
+
+# and the control: WITHOUT allostery the model gets the sign backwards
+def flat_branching(cap_uM):
+    sm = SI.SiteMixture(
+        ["G3BP1", "RNA", "CAPRIN1"],
+        [2 * U.radius_from_mw(104), 2 * U.radius_idp(2000), 2 * U.radius_from_mw(78)],
+        [SI.Site("G3BP1", "RGG", 4.0), SI.Site("RNA", "site", 18.0),
+         SI.Site("CAPRIN1", "RGG", 3.0)],
+        np.array([[np.inf, 1.0, np.inf], [1.0, np.inf, 5.0],
+                  [np.inf, 5.0, np.inf]]) * 1e-6)
+    return SI.percolates([G3, RNA_C, cap_uM], sm)[1]
+
+
+check("a flat (no-allostery) model gets CAPRIN1's sign BACKWARDS",
+      flat_branching(10.0) < flat_branching(0.0),
+      f"flat model: branching {flat_branching(0.0):.2f} -> {flat_branching(10.0):.2f} "
+      "as CAPRIN1 rises -- the opposite of experiment")
 
 print("\nreal module: LAT/Grb2/SOS1 under local enrichment")
 sysL = PW.get("lat")

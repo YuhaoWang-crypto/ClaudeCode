@@ -11,6 +11,7 @@ particle-life/
 ├── docs/PROTEIN_MAPPING.md       ← 用到蛋白上：Kd + 浓度 ⇄ 细胞内结构（正/反问题）
 ├── docs/PATHWAY_ATLAS.md         ← 真实信号通路：一个 pool 里会长成什么？需要什么条件？
 ├── docs/MECHANISM_CHAINS.md      ← 形态→功能：超敏/缓冲/双稳/长度传感的机制信息链
+├── docs/CHAIN_CROSSCHECK.md      ← 九条真实信息链 × 模型：逐条交叉检验（含一处符号错与补法）
 ├── docs/
 │   ├── REVERSE_ENGINEERING.md    ← 从站点 WebGPU 内核逐字取出的真实模型
 │   ├── VALIDATION.md             ← 所有预言 vs 测量的汇总（含 ⚠️ 保留项）
@@ -33,12 +34,12 @@ particle-life/
     │       ├── phases.py         双蛋白相图与形态判定
     │       ├── inverse.py        从观测反推 Kd 与浓度
     │       ├── pathways.py       四个闭式条件 + 12 个真实通路 + 共享 pool
-    │       └── function.py       凝胶分数、超敏、缓冲、双稳态、长度传感
+    │       └── function.py       凝胶分数、超敏、缓冲、双稳态、长度传感、别构
     ├── experiments/e01…e11       十一个验证实验（e10 = 通路 pool，e11 = 机制信息链）
     ├── test_plife.py             快速自检（几秒钟）
     ├── test_bio.py               蛋白模块自检（质量作用定律、价数门等极限）
     ├── test_pathways.py          通路模块自检（四个条件 vs 完整数值解，29 项）
-    ├── test_function.py          功能层自检（超敏/缓冲/双稳/长度传感，25 项）
+    ├── test_function.py          功能层自检（超敏/缓冲/双稳/长度传感/别构，35 项）
     ├── figures/                  实验产出的图
     └── results/                  实验产出的数值
 ```

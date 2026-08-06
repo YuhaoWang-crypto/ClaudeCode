@@ -70,7 +70,7 @@ from .units import conc_to_density, density_to_conc
 
 __all__ = ["gel_fraction", "free_monomer", "dose_response", "hill_coefficient",
            "rate_enhancement", "phospho_bistability", "min_polymer_length",
-           "buffering_quality"]
+           "buffering_quality", "competitive_occupancy", "conditional_valence"]
 
 
 # --------------------------------------------------------------------------- #
@@ -317,6 +317,70 @@ def min_polymer_length(build, lengths, conc_uM):
     on = lam >= 1.0
     return dict(lengths=lengths, branching=lam, gel=gel,
                 L_min=float(lengths[on][0]) if on.any() else np.inf)
+
+
+# --------------------------------------------------------------------------- #
+#  allostery: a ligand that changes a *partner's* valence
+# --------------------------------------------------------------------------- #
+def competitive_occupancy(site_total_uM, ligand_totals_uM, kd_uM):
+    r"""Exact fractional occupancy of one site class by several competing ligands.
+
+    Solves site and ligand conservation simultaneously rather than assuming
+    ligand excess:
+
+    .. math::  S_T = s\Bigl(1+\sum_i \frac{L_{T,i}}{K_{d,i}+s}\Bigr),
+               \qquad \theta_i = \frac{s\,L_{T,i}}{(K_{d,i}+s)\,S_T}
+
+    (monotone in the free-site concentration :math:`s`, so a bisection is
+    unconditionally safe).  Returns ``(theta, free_site_fraction)``.
+
+    This exists because :class:`~plife.bio.sites.SiteMixture` cannot express
+    **allostery** -- see :func:`conditional_valence`.
+    """
+    S_T = float(site_total_uM)
+    L = np.atleast_1d(np.asarray(ligand_totals_uM, float))
+    kd = np.atleast_1d(np.asarray(kd_uM, float))
+    if S_T <= 0:
+        return np.zeros_like(L), 1.0
+    lo, hi = 0.0, S_T
+    for _ in range(200):
+        s = 0.5 * (lo + hi)
+        f = s * (1.0 + np.sum(L / (kd + s))) - S_T
+        lo, hi = (lo, s) if f > 0 else (s, hi)
+    s = 0.5 * (lo + hi)
+    theta = s * L / ((kd + s) * S_T)
+    return theta, float(s / S_T)
+
+
+def conditional_valence(n_closed, n_open, theta):
+    r"""Mean-field allostery: valence interpolated by regulatory-site occupancy.
+
+    .. math::  n_{\rm eff} = n_{\rm closed} + (n_{\rm open}-n_{\rm closed})\,\theta
+
+    **Why this is needed at all.**  Wertheim TPT1 -- and therefore everything in
+    :mod:`plife.bio.thermo` and :mod:`plife.bio.sites` -- treats every site as
+    having a fixed multiplicity and a fixed Kd.  A protein whose binding valence
+    *changes* when a partner docks somewhere else is doing allostery, and a flat
+    model cannot represent it.  Get this wrong and the model does not merely
+    lose accuracy, it predicts the opposite sign: with G3BP1's RGG valence held
+    fixed, adding CAPRIN1 only competes for scarce RNA and *dissolves* the
+    granule, whereas CAPRIN1 in fact promotes it by relieving G3BP1's IDR1
+    autoinhibition.
+
+    Usage is deliberately two-stage and explicit -- occupancy first, then
+    network -- so the allosteric assumption stays visible instead of being
+    buried in an effective Kd::
+
+        theta, _ = competitive_occupancy(site_total, [c_activator, c_capper],
+                                         [kd_act, kd_cap])
+        n_eff = conditional_valence(n_closed, n_open, theta[0])
+        sm = build_mixture(n_eff);  percolates(conc, sm)
+
+    ⚠️ This is mean-field: it assumes the regulatory equilibrium is fast
+    compared with network assembly and that valence responds linearly to
+    occupancy.  Both are assumptions, not results.
+    """
+    return float(n_closed) + (float(n_open) - float(n_closed)) * np.asarray(theta, float)
 
 
 # --------------------------------------------------------------------------- #

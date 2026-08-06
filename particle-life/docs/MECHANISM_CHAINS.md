@@ -3,8 +3,11 @@
 > 前一份 `PATHWAY_ATLAS.md` 回答「会长成什么形态」。这一份回答下一个问题：
 > **这个形态让细胞获得了什么能力？** 每一条链的每一个箭头都配一个算出来的数，而不是叙述。
 >
-> 代码：`theory/plife/bio/function.py`　验证：`theory/test_function.py`（25 项全过）
+> 代码：`theory/plife/bio/function.py`　验证：`theory/test_function.py`（35 项全过）
 > 图：`theory/figures/e11_mechanism_chains.png`　数据：`theory/results/e11_mechanism_chains.json`
+>
+> 交叉检验：[`CHAIN_CROSSCHECK.md`](CHAIN_CROSSCHECK.md) —— 拿九条独立整理的真实信息链逐条检验这套框架，
+> 含一处**符号错误**及由此补上的别构层。
 
 信息链的统一格式：
 
