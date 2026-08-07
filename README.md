@@ -62,12 +62,13 @@ form.
 | `r2_pairing` | Fisher separation in log space | a fixed ratio A/B beats the single marker **iff ρ > κ/2** (κ = denominator noise ratio) — so a denominator >2× noisier can never help; the fitted residual gains `1/√(1−ρ²)` and can never hurt. Derives the framework's own L1>L3>L0 denominator hierarchy |
 | `r3_individuality` | biological-variation screen | 11/15 routine analytes have index of individuality < 0.6. The four that already drifted to personal-baseline rules in practice (creatinine/KDIGO, hs-troponin delta, CA125 ROCA, PSA velocity) are exactly the lowest-II ones |
 | `r4_catalog` | taxonomy as data | 29-entry machine-readable recorder catalog (`recorder_catalog.tsv`) across 10 classes, scored by an explicit six-gate design rubric |
+| `r5_datacases` | published clinical values → feasibility | effect sizes span **two orders of magnitude** (GFAP 51.8× vs PRO-C3 1.7×). Extends r2 with measurement error: a ratio helps iff **ρ > (κ²+a²)/(2κ)**, so PRO-C3's 11% inter-assay CV raises its required correlation from 0.50 to 0.62. Carbamylated albumin cannot reach AUC 0.70 for its own intended use at any sample size |
 
 ```bash
-python3 -m recorder_pipeline.run_all      # all four modules + figures
+python3 -m recorder_pipeline.run_all      # all five modules + figures
 ```
 
-Two write-ups:
+Three write-ups:
 
 - [`RECORDER_FRAMEWORK.md`](RECORDER_FRAMEWORK.md) — the formalisation, the
   three derived laws, and 10 recorder classes (5 added beyond the source
@@ -77,3 +78,10 @@ Two write-ups:
   transforms, then 12 worked case studies re-mining clinically failed
   biomarkers (NGAL, NT-proBNP, CA-125, creatinine, CRP, serum HER2, MMP-9,
   anti-dsDNA, procalcitonin, plasma Aβ42, AFP, total oxidative markers).
+- [`CASE_STUDIES.md`](CASE_STUDIES.md) — the same candidates tested against
+  **real published normal-vs-disease values**: data-space table, achievable
+  AUC, analytical error budget, Gate-2 sample sizes, and a speed-to-implement
+  ranking. Headline: the fastest new readout available (carrier-age-corrected
+  cell-bound C4d in SLE) needs **no new assay at all** — EC4d/BC4d are
+  commercial and reticulocyte/immature-platelet fractions already print on
+  every routine CBC.

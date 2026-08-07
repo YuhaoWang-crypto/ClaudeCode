@@ -13,6 +13,7 @@ from . import r1_kernel as R1
 from . import r2_pairing as R2
 from . import r3_individuality as R3
 from . import r4_catalog as R4
+from . import r5_datacases as R5
 
 FIGDIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
                       "figures")
@@ -165,12 +166,92 @@ def fig_individuality():
     return p
 
 
+def fig_dataspace():
+    """The actual clinical data space: where normal and disease sit, and
+    whether the assay is good enough to tell them apart."""
+    from scipy.stats import norm as _norm
+    fig, ax = plt.subplots(1, 2, figsize=(14.5, 5.6))
+
+    # (a) normal vs disease distributions on a log axis
+    rows = []
+    for c in R5.CASES:
+        r = R5.analyse(c)
+        rows.append((c, r))
+    rows = sorted(rows, key=lambda t: t[1]["delta"])
+
+    for i, (c, r) in enumerate(rows):
+        mu_n = np.log(c["normal_median"])
+        mu_d = np.log(c["disease_median"])
+        for mu, s, col, lab in [(mu_n, r["sigma_norm"], "#4c72b0", "normal"),
+                                (mu_d, r["sigma_dis"], "#c44e52", "disease")]:
+            lo, hi = mu - 1.96 * s, mu + 1.96 * s
+            ax[0].plot([lo, hi], [i, i], color=col, lw=7, alpha=0.55,
+                       solid_capstyle="butt",
+                       label=lab if i == 0 else None)
+            ax[0].plot([mu], [i], "o", color=col, ms=7, zorder=3)
+        # annotate fold change
+        ax[0].text(max(mu_n, mu_d) + 0.35, i, f"{r['fold']:.1f}x",
+                   va="center", fontsize=8.5)
+    def _wrap(name):
+        if " (" in name:
+            head, tail = name.split(" (", 1)
+            return f"{head}\n({tail}"
+        return name
+    ax[0].set_yticks(range(len(rows)))
+    ax[0].set_yticklabels([_wrap(c["name"]) for c, _ in rows], fontsize=7.5)
+    ax[0].set_xlabel("ln(concentration)  — units differ per analyte")
+    ax[0].set_title("(a) The data space: published normal vs disease\n"
+                    "bars = central 95%, dot = median")
+    ax[0].legend(fontsize=8, loc="lower right")
+    ax[0].grid(alpha=0.3, axis="x")
+
+    # (b) feasibility plane: biological effect vs assay noise
+    eff = np.linspace(0.15, 4.0, 300)
+    cvs = np.linspace(0.01, 0.35, 300)
+    E, C = np.meshgrid(eff, cvs)
+    sig_bio = 0.45                      # typical pooled biological ln-sd
+    sig_tot = np.sqrt(sig_bio**2 + np.log(1 + C**2))
+    AUC = _norm.cdf((E / sig_tot) / np.sqrt(2))
+    m = ax[1].contourf(E, C * 100, AUC, levels=np.linspace(0.5, 1.0, 21),
+                       cmap="viridis")
+    ax[1].contour(E, C * 100, AUC, levels=[0.70, 0.80, 0.90],
+                  colors="w", linewidths=1.6)
+    SHORT = {"GFAP (TBI, CT-/MRI+ vs healthy)": "GFAP",
+             "Serum uromodulin (CKD G3 vs non-CKD)": "uromodulin",
+             "Carbamylated albumin (ESRD vs non-uremic)": "C-Alb (vs normal)",
+             "C-Alb for 1-yr mortality WITHIN ESRD": "C-Alb (mortality)",
+             "PRO-C3 (F4 vs F0/F1, NAFLD)": "PRO-C3",
+             "TAT (DIC vs reference)": "TAT"}
+    offsets = {"C-Alb (mortality)": (6, -16), "C-Alb (vs normal)": (6, 8),
+               "uromodulin": (6, -16), "TAT": (8, 4), "GFAP": (-46, 8),
+               "PRO-C3": (8, 6)}
+    for c, r in rows:
+        lab = SHORT.get(c["name"], c["name"])
+        ax[1].plot(r["delta"], c["cv_analytical"] * 100, "o",
+                   ms=9, mec="w", mew=1.6, color="#d62728")
+        ax[1].annotate(lab, (r["delta"], c["cv_analytical"] * 100),
+                       textcoords="offset points",
+                       xytext=offsets.get(lab, (7, 6)), fontsize=8,
+                       color="w", fontweight="bold")
+    ax[1].set_xlabel("biological effect  |Δ ln(median)|")
+    ax[1].set_ylabel("assay analytical CV (%)")
+    ax[1].set_title("(b) Feasibility plane (pooled biological sd fixed at 0.45)\n"
+                    "white contours = AUC 0.70 / 0.80 / 0.90")
+    fig.colorbar(m, ax=ax[1], label="achievable AUC")
+
+    fig.tight_layout()
+    p = os.path.join(FIGDIR, "recorder_r5_dataspace.png")
+    fig.savefig(p, dpi=150)
+    plt.close(fig)
+    return p
+
+
 def main():
     os.makedirs(FIGDIR, exist_ok=True)
-    for mod in (R1, R2, R3, R4):
+    for mod in (R1, R2, R3, R4, R5):
         mod.main()
         print()
-    paths = [fig_kernels(), fig_pairing(), fig_individuality()]
+    paths = [fig_kernels(), fig_pairing(), fig_individuality(), fig_dataspace()]
     tsv = R4.export_tsv(os.path.join(
         os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
         "recorder_catalog.tsv"))
