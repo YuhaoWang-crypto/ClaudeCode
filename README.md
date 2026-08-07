@@ -41,3 +41,39 @@ python3 -m grn_pipeline.m1_symmetry   # or any single module
 Figures are written to `figures/`. A full write-up with numbers, rigour
 labels, and the interpretation (including the Lyapunov-exponent biomarker
 question) is in [`REPORT.md`](REPORT.md).
+
+---
+
+# recorder-pipeline
+
+A second, IVD-facing package. Where `grn_pipeline` asks *which network node is
+irreducible or near a tipping point*, `recorder_pipeline` asks the assay
+question: **given that a disease process happened, where was it written, how
+long does the writing survive, and what should it be divided by?**
+
+It formalises the "Disease Recorder" framework (biomarkers as integrals of past
+pathology — HbA1c, not glucose) into a five-tuple `⟨Writer, Carrier, Kernel,
+Detector, Normalizer⟩`, and turns three of its qualitative claims into closed
+form.
+
+| Module | Tool | Key result |
+|---|---|---|
+| `r1_kernel` | renewal theory on carrier age | the persistence kernel is the carrier **age** survivor, not its decay curve. One input (RBC lifespan 120 d) reproduces HbA1c's clinical properties: 43.8% of signal from the last 30 d, 90% horizon 11.7 weeks, mean lag exactly L/3 |
+| `r2_pairing` | Fisher separation in log space | a fixed ratio A/B beats the single marker **iff ρ > κ/2** (κ = denominator noise ratio) — so a denominator >2× noisier can never help; the fitted residual gains `1/√(1−ρ²)` and can never hurt. Derives the framework's own L1>L3>L0 denominator hierarchy |
+| `r3_individuality` | biological-variation screen | 11/15 routine analytes have index of individuality < 0.6. The four that already drifted to personal-baseline rules in practice (creatinine/KDIGO, hs-troponin delta, CA125 ROCA, PSA velocity) are exactly the lowest-II ones |
+| `r4_catalog` | taxonomy as data | 29-entry machine-readable recorder catalog (`recorder_catalog.tsv`) across 10 classes, scored by an explicit six-gate design rubric |
+
+```bash
+python3 -m recorder_pipeline.run_all      # all four modules + figures
+```
+
+Two write-ups:
+
+- [`RECORDER_FRAMEWORK.md`](RECORDER_FRAMEWORK.md) — the formalisation, the
+  three derived laws, and 10 recorder classes (5 added beyond the source
+  framework: glycoform, failed-writing, epigenetic, autoantibody-amplified,
+  clonal).
+- [`RESCUE_MINING.md`](RESCUE_MINING.md) — six failure modes mapped to six
+  transforms, then 12 worked case studies re-mining clinically failed
+  biomarkers (NGAL, NT-proBNP, CA-125, creatinine, CRP, serum HER2, MMP-9,
+  anti-dsDNA, procalcitonin, plasma Aβ42, AFP, total oxidative markers).

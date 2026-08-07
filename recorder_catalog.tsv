@@ -1,0 +1,30 @@
+id	class	class_name	disease	writer	carrier	reader	normalizer	window	evidence	rubric_score
+HbA1c	R1	Imprint / 印记	diabetes	non-enzymatic glycation	haemoglobin in RBC	immunoassay / HPLC	total Hb (intrinsic %)	8-12 wk	cleared	0.977
+Glycated albumin	R1	Imprint / 印记	diabetes	non-enzymatic glycation	albumin	enzymatic / immunoassay	total albumin	2-3 wk	cleared	0.877
+PRO-C3 / C3M	R2	Fragment / 片段	fibrosis	collagen III synthesis vs MMP cleavage	collagen III	neoepitope ELISA	opposing axis	tissue turnover	validated	0.937
+TAT / PIC	R3	Complex / 配对捕获	coagulation	thrombin + antithrombin	the complex itself	immunoassay	prothrombin / plasminogen	~1 h	cleared	0.669
+EC4d / BC4d	R4	Deposition / 沉积	SLE	complement activation	RBC / B-cell surface	flow cytometry	per cell (intrinsic)	RBC lifespan	cleared	0.920
+AFP-L3%	R6	Glycoform / 糖型	HCC	fucosyltransferase shift	AFP	lectin affinity	total AFP (intrinsic %)	AFP half-life	cleared	0.887
+DCP / PIVKA-II	R7	Failed writing / 失写	HCC	loss of vitamin-K carboxylation	prothrombin	immunoassay	total prothrombin	prothrombin t1/2	cleared	0.864
+%CDT	R6	Glycoform / 糖型	alcohol use	sialylation loss	transferrin	capillary electrophoresis	total transferrin (intrinsic %)	2-3 wk	cleared	0.874
+PEth	R1	Imprint / 印记	alcohol use	PLD-mediated ethanol condensation	RBC membrane	LC-MS/MS	none in routine use	2-4 wk	cleared	0.775
+Anti-CCP	R9	Immune readout / 免疫放大	rheumatoid arthritis	PAD citrullination	IgG against the imprint	immunoassay	total IgG	months-years	cleared	0.945
+Gd-IgA1 + anti-Gd-IgA1	R6	Glycoform / 糖型	IgA nephropathy	galactosyltransferase deficit then immune response	IgA1 hinge / IgG	lectin + immunoassay	total IgA1	IgA1 t1/2 / months	validated	0.925
+cfDNA methylation TOO	R8	Epigenetic / 表观印记	pan-disease	lineage methylation program	cell-free DNA	bisulfite / enzymatic seq	total cfDNA fraction	hours (packet)	validated	0.752
+Abeta42/40	R2	Fragment / 片段	Alzheimer	APP processing ratio	Abeta peptides	immunoassay / MS	Abeta40 (same parent)	n/a (state)	cleared	0.742
+%p-tau217	R1	Imprint / 印记	Alzheimer	tau kinase phosphorylation	tau	immunoassay / MS	non-phospho tau217 (same peptide)	n/a (state)	cleared	0.762
+Monomeric NGAL / total NGAL	R5	Load / 负载	AKI	tubular vs neutrophil synthesis	NGAL oligomeric state	form-specific immunoassay	total NGAL (intrinsic %)	hours-days	emerging	0.816
+NT-proBNP deviation score	R1	Imprint / 印记	heart failure	wall stress	proBNP	immunoassay + residual model	expected from BMI/eGFR/age/sex	days	proposed	0.771
+Glyco-proBNP / total proBNP	R6	Glycoform / 糖型	heart failure	O-glycosylation at T71 gating processing	proBNP	glycoform-specific immunoassay	total proBNP (intrinsic %)	days	proposed	0.803
+Shed CA125 / EV-MUC16	R5	Load / 负载	ovarian cancer	sheddase activity vs tumour EV output	MUC16 on EV vs soluble	immunoassay + EV capture	tumour EV count	days	proposed	0.723
+Tumour-EV HER2 / total tumour EV	R5	Load / 负载	HER2+ cancer	EV packaging of HER2	tumour-derived EV	EV flow / capture ELISA	EpCAM+ EV count	days	proposed	0.740
+AGP branching fraction	R6	Glycoform / 糖型	chronic inflammation	hepatic glycosyltransferase reprogramming	alpha-1-acid glycoprotein	lectin / MS glycomics	total AGP (intrinsic %)	wks	emerging	0.814
+H3Cit (NETosis imprint)	R1	Imprint / 印记	sepsis	PAD4 citrullination during NETosis	histone H3 / microvesicle	immunoassay	total nucleosome / cfDNA	hours	emerging	0.816
+Anti-CarP for CKD burden	R9	Immune readout / 免疫放大	CKD / cardiovascular	urea-driven carbamylation then immune response	IgG against the imprint	immunoassay	total IgG	months-years	emerging	0.865
+Carbamylated albumin / total albumin	R1	Imprint / 印记	CKD	cyanate from urea	albumin	MS or site-specific antibody	total albumin (intrinsic %)	2-3 wk	emerging	0.798
+uEGF / creatinine	R5	Load / 负载	CKD	distal tubular mass	urinary EGF	immunoassay	urine creatinine	weeks	validated	0.811
+Platelet-bound C4d	R4	Deposition / 沉积	APS / thrombotic SLE	complement activation on platelets	platelet surface	flow cytometry	per platelet (intrinsic)	platelet lifespan	proposed	0.873
+MMP-9/TIMP-1 complex / total MMP-9	R3	Complex / 配对捕获	fibrosis / cancer	MMP-9 captured by TIMP-1	the complex	sandwich immunoassay	total MMP-9	hours	proposed	0.746
+Elastin / versican neoepitopes	R2	Fragment / 片段	COPD / vascular	MMP and ADAMTS cleavage	elastin, versican	neoepitope ELISA	matched formation marker	tissue turnover	emerging	0.923
+Anti-MDA / anti-AGE panel	R9	Immune readout / 免疫放大	atherosclerosis / MASH	lipid peroxidation adducts then immune response	IgG	immunoassay	total IgG	months	emerging	0.831
+Tubular secretion ratio	R5	Load / 负载	CKD	proximal tubular transporter mass	secretory solutes	LC-MS panel	filtered solute (creatinine)	days	emerging	0.697
