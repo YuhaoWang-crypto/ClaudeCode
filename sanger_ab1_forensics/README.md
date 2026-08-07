@@ -135,6 +135,8 @@ C/D = 原始道（染料团、指数衰减、真实噪音与变化的峰高）�
 04_report_figures.py       生成报告用的图 1、图 2
 05_build_pdf_report.py     排版中文 PDF 报告
 06_strain_background.py    两臂分开做限定物种 BLAST，判定菌株背景
+report_style.py            两份 PDF 报告共用的排版件（字体 / 配色 / 表格 / 提示框）
+case2_37HVPX/              案例 2：37HVPX_1_D12.ab1（双价 VHH CAR 慢病毒载体），含独立 PDF 报告
 results/
   DAPA21_测序数据分析报告.pdf       ← 成品报告（6 页）
   qc_forensics_report.txt          01 的输出

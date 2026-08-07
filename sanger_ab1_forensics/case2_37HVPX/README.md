@@ -106,7 +106,18 @@ blastp 查不到确切来源，最佳命中是各种羊驼纳米抗体、仅 70�
 ## 六、文件
 
 ```
+37HVPX_D12_测序数据核查报告.pdf          ← 成品报告（A4，6 页）
+figures.py                             生成报告用的图 1–3
+build_pdf.py                           排版 PDF（排版件来自上层 report_style.py）
+fig1_render_evidence.png               色谱图由质量值渲染的证据
+fig2_quality_vs_accuracy.png           质量值隐含错误率 vs 实测一致性
+fig3_vector_map.png                    载体图谱 + CAR 结构域
 37HVPX_D12_vector_sense_4580bp.fasta   载体正义方向全长（= 文件内序列的反向互补）
 CAR_orf_1488nt.fasta                   CAR 阅读框
 CAR_protein_495aa.fasta                CAR 蛋白
+```
+
+```bash
+python3 figures.py  /path/to/37HVPX_1_D12.ab1
+python3 build_pdf.py 报告.pdf
 ```
