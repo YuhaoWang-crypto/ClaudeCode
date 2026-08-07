@@ -68,11 +68,13 @@ form.
 
 | `r8_audit` | the report's own lists vs independent databases | every site claim checked against UniProt: albumin K549 is **precursor** numbering while ApoA-I Y192 is **mature** numbering **in the same table**; GFAP S53-K411 computes to 41.7 kDa exactly as claimed but G56-L404 to 40.6 vs a claimed 37-38. All 8 fold changes reproduce. Reported operating points imply AUCs 0.03-0.08 **higher** than the reported AUCs. Independently, ADAMTS2 — the protease that creates the PRO-C3 neoepitope — is co-expressed with its own substrate (OR 3.54), so **PRO-C3 is a synthesis x processing product, not a synthesis readout** |
 
+| `r9_discovery` | **reverse pipeline**: cells → data-nominated pairs | SLE, 99 healthy + 162 SLE donors, 459k cells, HPA measurability gate applied before any effect size. Validates the r2 criterion on **6,216 pairs with ρ and κ measured**: predicted vs measured \|d'\| r = **0.999**, binary call 90-93% correct. But 5-fold donor CV says pairing buys only **1.04-1.13×** — and **0% of winning pairs have ρ>0.5**, because library-size normalisation already removes the shared variance L1 exploits. Pseudobulk can nominate L4 pairs; L1 must be measured on plasma |
+
 ```bash
-python3 -m recorder_pipeline.run_all      # all eight modules + figures
+python3 -m recorder_pipeline.run_all      # all nine modules + figures
 ```
 
-Five write-ups:
+Six write-ups:
 
 - [`RECORDER_FRAMEWORK.md`](RECORDER_FRAMEWORK.md) — the formalisation, the
   three derived laws, and 10 recorder classes (5 added beyond the source
@@ -103,3 +105,6 @@ Five write-ups:
 - [`AUDIT.md`](AUDIT.md) — the report's two hand-transcribed tables audited
   against UniProt, internal arithmetic, and statistical coherence, plus an
   independent single-cell test of its liver claim.
+- [`DISCOVERY.md`](DISCOVERY.md) — the reverse pipeline, plus a seven-step
+  rescue checklist for biomarkers stuck in translation, five steps of which run
+  on public data alone.
