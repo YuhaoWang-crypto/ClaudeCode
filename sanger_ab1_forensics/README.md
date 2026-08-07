@@ -126,18 +126,26 @@ C/D = 原始道（染料团、指数衰减、真实噪音与变化的峰高）�
 01_ab1_qc_forensics.py     常规 QC + 7 项合成痕迹检验
 02_raw_trace_basecall.py   原始道自估串扰矩阵解混 + 独立寻峰反演序列
 03_dapA_junction.py        双臂定位、断点解析、缺失区间与基因重叠计算
+04_report_figures.py       生成报告用的图 1、图 2
+05_build_pdf_report.py     排版中文 PDF 报告
 results/
+  DAPA21_测序数据分析报告.pdf       ← 成品报告（6 页）
   qc_forensics_report.txt          01 的输出
   dapA_junction_report.txt         03 的输出
-  chromatogram_evidence.png        合成分析道 vs 真实原始道 四联对比图
+  fig1_trace_comparison.png        合成分析道 vs 真实原始道（3 联）
+  fig2_dapA_junction.png           dapA 位点示意（野生型 vs 样品）
+  chromatogram_evidence.png        最初的 4 联取证图
   DAPA21_reported_read.fasta       报告的 735 bp 序列
   raw_trace_reconstructed.fasta    从原始道反演的 898 nt（≈90% 准确，仅供比对）
 ```
 
-依赖：`biopython numpy matplotlib`；`03` 需联网访问 NCBI E-utilities。
+依赖：`biopython numpy matplotlib reportlab`；`03` 需联网访问 NCBI E-utilities。
+PDF 中文排版使用系统自带的 WenQuanYi Zen Hei（`fonts-wqy-zenhei`）。
 
 ```bash
-python3 01_ab1_qc_forensics.py  your.ab1
+python3 01_ab1_qc_forensics.py   your.ab1
 python3 02_raw_trace_basecall.py your.ab1 raw.fasta
-python3 03_dapA_junction.py     results/DAPA21_reported_read.fasta
+python3 03_dapA_junction.py      results/DAPA21_reported_read.fasta
+python3 04_report_figures.py     your.ab1
+python3 05_build_pdf_report.py   results/报告.pdf
 ```
