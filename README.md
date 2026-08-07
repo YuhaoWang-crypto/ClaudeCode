@@ -63,11 +63,11 @@ form.
 | `r3_individuality` | biological-variation screen | 11/15 routine analytes have index of individuality < 0.6. The four that already drifted to personal-baseline rules in practice (creatinine/KDIGO, hs-troponin delta, CA125 ROCA, PSA velocity) are exactly the lowest-II ones |
 | `r4_catalog` | taxonomy as data | 29-entry machine-readable recorder catalog (`recorder_catalog.tsv`) across 10 classes, scored by an explicit six-gate design rubric |
 | `r5_datacases` | published clinical values → feasibility | effect sizes span **two orders of magnitude** (GFAP 51.8× vs PRO-C3 1.7×). Extends r2 with measurement error: a ratio helps iff **ρ > (κ²+a²)/(2κ)**, so PRO-C3's 11% inter-assay CV raises its required correlation from 0.50 to 0.62. Carbamylated albumin cannot reach AUC 0.70 for its own intended use at any sample size |
-
 | `r6_validation` | primary data instead of summary stats | **source specificity measured, not asserted** (HPA, 35 genes) + within-person biological variation + **healthy vs CKD vs AKI single cell** (CELLxGENE, 1.05M kidney cells). Fits the r2 pairing model to real human data: measured ρ(Aβ42,Aβ40) = **0.869** within-person, and the fixed ratio captures 97% of the theoretical ceiling |
+| `r7_crossdisease` | the gaps r6 left open | SLE (1.26M cells, one dataset carrying both arms), brain (940k, 6 paired AD/control datasets), plaque (224k — **no internal control exists, so the comparison is refused**), and **raw per-patient trajectories** (MIMIC-IV demo). CR1 falls ~30% in SLE B cells, disqualifying it as a BC4d denominator; **19.2% of KDIGO AKI events sit inside the population reference interval** |
 
 ```bash
-python3 -m recorder_pipeline.run_all      # all six modules + figures
+python3 -m recorder_pipeline.run_all      # all seven modules + figures
 ```
 
 Four write-ups:
@@ -93,4 +93,8 @@ Four write-ups:
   day-to-day in urine), confirms uromodulin measures tubular cell **mass**
   rather than per-cell output (per-cell expression flat at 0.79–1.27× while
   serum falls 4.4–17.5×), and records that scRNA-seq is structurally blind to
-  the deposition recorders because mature RBCs are enucleate.
+  the deposition recorders because mature RBCs are enucleate. A second round
+  (`r7_crossdisease`) adds SLE (1.26M cells), brain (940k) and individual-level
+  patient trajectories: CR1 falls ~30% in SLE B cells so it is an invalid
+  denominator for BC4d, and **19.2% of KDIGO AKI events in 100 real patients
+  had a creatinine still inside the population reference interval**.

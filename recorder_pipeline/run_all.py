@@ -15,6 +15,7 @@ from . import r3_individuality as R3
 from . import r4_catalog as R4
 from . import r5_datacases as R5
 from . import r6_validation as R6
+from . import r7_crossdisease as R7
 
 FIGDIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
                       "figures")
@@ -346,13 +347,95 @@ def fig_validation():
     return p
 
 
+def fig_crossdisease():
+    """SLE, brain, and the individual-level creatinine result."""
+    import pandas as pd
+    fig, axes = plt.subplots(1, 3, figsize=(16, 4.8))
+
+    # (a) SLE: IFN control up, CR1 down -> CR1 is not a valid denominator
+    s = R7._load("census_sle.tsv")
+
+    def piv(gene):
+        t = s.pivot(index="cell_type", columns="disease", values=f"{gene}_pct").dropna()
+        t.columns = ["SLE" if "lupus" in c else "normal" for c in t.columns]
+        return t
+    cts = ["B cell", "plasmablast", "classical monocyte",
+           "CD4-positive, alpha-beta T cell"]
+    ifn, cr1 = piv("IFI44L"), piv("CR1")
+    lab = [c.split(",")[0][:16] for c in cts if c in ifn.index and c in cr1.index]
+    fi = [ifn.loc[c, "SLE"] / ifn.loc[c, "normal"] for c in cts
+          if c in ifn.index and c in cr1.index]
+    fc = [cr1.loc[c, "SLE"] / cr1.loc[c, "normal"] for c in cts
+          if c in ifn.index and c in cr1.index]
+    x = np.arange(len(lab))
+    ax = axes[0]
+    ax.bar(x - 0.19, fi, 0.38, color="#dd8452", label="IFI44L (disease control)")
+    ax.bar(x + 0.19, fc, 0.38, color="#4c72b0", label="CR1 (proposed denominator)")
+    ax.axhline(1.0, color="k", lw=1.2)
+    ax.set_yscale("log")
+    ax.set_xticks(x)
+    ax.set_xticklabels(lab, rotation=25, ha="right", fontsize=8)
+    ax.set_ylabel("SLE / normal (% positive)")
+    ax.set_title("(a) SLE, 1.26M cells, one dataset\n"
+                 "CR1 falls in SLE — a denominator must not")
+    ax.legend(fontsize=7.5)
+    ax.grid(alpha=0.3, axis="y")
+
+    # (b) brain: GFAP flat per cell, VIM up
+    b = R7._load("census_brain_astro.tsv")
+    ax = axes[1]
+    for gene, col in [("GFAP", "#c44e52"), ("VIM", "#55a868"),
+                      ("CAPN1", "#8c8c8c")]:
+        t = b.pivot(index="ds", columns="disease", values=f"{gene}_mean").dropna()
+        ad = [c for c in t.columns if "Alzheimer" in c][0]
+        f = (t[ad] / t["normal"]).values
+        ax.scatter(np.full(len(f), gene), f, s=55, color=col, alpha=0.8,
+                   edgecolor="w", zorder=3)
+        ax.scatter([gene], [np.median(f)], marker="_", s=900, color=col, zorder=4)
+    ax.axhline(1.0, color="k", lw=1.2)
+    ax.set_yscale("log")
+    ax.set_ylabel("Alzheimer / control, per astrocyte")
+    ax.set_title("(b) Astrocytes, 6 paired datasets\n"
+                 "reactivity (VIM) rises, GFAP synthesis does not")
+    ax.grid(alpha=0.3, axis="y")
+
+    # (c) individual-level creatinine trajectories
+    cr = pd.read_csv(os.path.join(R7._D, "mimic_creatinine.tsv.gz"), sep="\t",
+                     parse_dates=["charttime"])
+    ax = axes[2]
+    shown = 0
+    for sid, g in cr.groupby("subject_id"):
+        g = g.sort_values("charttime")
+        if len(g) < 12 or shown >= 25:
+            continue
+        h = (g.charttime - g.charttime.iloc[0]).dt.total_seconds() / 86400
+        if h.max() > 30:
+            continue
+        ax.plot(h, g.valuenum, lw=1.0, alpha=0.65)
+        shown += 1
+    ax.axhspan(0.5, 1.2, color="#55a868", alpha=0.18)
+    ax.text(0.4, 1.25, "population reference interval 0.5–1.2 mg/dL",
+            fontsize=8, color="#2d6a4f")
+    ax.set_xlabel("days from first result")
+    ax.set_ylabel("serum creatinine (mg/dL)")
+    ax.set_title(f"(c) {shown} real patient trajectories (MIMIC-IV demo)\n"
+                 "19.2% of KDIGO AKI events stay inside the green band")
+    ax.grid(alpha=0.3)
+
+    fig.tight_layout()
+    p = os.path.join(FIGDIR, "recorder_r7_crossdisease.png")
+    fig.savefig(p, dpi=150)
+    plt.close(fig)
+    return p
+
+
 def main():
     os.makedirs(FIGDIR, exist_ok=True)
-    for mod in (R1, R2, R3, R4, R5, R6):
+    for mod in (R1, R2, R3, R4, R5, R6, R7):
         mod.main()
         print()
     paths = [fig_kernels(), fig_pairing(), fig_individuality(), fig_dataspace(),
-             fig_validation()]
+             fig_validation(), fig_crossdisease()]
     tsv = R4.export_tsv(os.path.join(
         os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
         "recorder_catalog.tsv"))
