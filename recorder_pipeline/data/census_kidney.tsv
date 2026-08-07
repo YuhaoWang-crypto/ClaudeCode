@@ -1,0 +1,31 @@
+cell_type	gene	dataset	disease	n_cells	pct_pos	mean_expr
+kidney loop of Henle thick ascending limb epithelial cell	UMOD	a12ccb9b	normal	21699	85.179	0.002302006585523486
+kidney loop of Henle thick ascending limb epithelial cell	UMOD	a12ccb9b	chronic kidney disease	28094	84.488	0.0029136273078620434
+kidney loop of Henle thick ascending limb epithelial cell	UMOD	a12ccb9b	acute kidney failure	7382	66.933	0.0023334140423685312
+kidney loop of Henle thick ascending limb epithelial cell	UMOD	dea717d4	normal	6741	95.55	0.0177852064371109
+kidney loop of Henle thick ascending limb epithelial cell	UMOD	dea717d4	chronic kidney disease	23818	83.462	0.014131265692412853
+kidney loop of Henle thick ascending limb epithelial cell	UMOD	dea717d4	acute kidney failure	9647	88.826	0.016614029183983803
+kidney loop of Henle thick ascending limb epithelial cell	LCN2	a12ccb9b	normal	21699	0.806	3.218992105757934e-06
+kidney loop of Henle thick ascending limb epithelial cell	LCN2	a12ccb9b	chronic kidney disease	28094	0.249	6.207365004229359e-07
+kidney loop of Henle thick ascending limb epithelial cell	LCN2	a12ccb9b	acute kidney failure	7382	1.598	4.104753770661773e-06
+kidney loop of Henle thick ascending limb epithelial cell	LCN2	dea717d4	normal	6741	0.252	7.742563639112632e-07
+kidney loop of Henle thick ascending limb epithelial cell	LCN2	dea717d4	chronic kidney disease	23818	2.091	8.038925443543121e-06
+kidney loop of Henle thick ascending limb epithelial cell	LCN2	dea717d4	acute kidney failure	9647	7.194	5.429934390122071e-05
+epithelial cell of proximal tubule	HAVCR1	a12ccb9b	normal	33899	13.823	5.090221020509489e-05
+epithelial cell of proximal tubule	HAVCR1	a12ccb9b	chronic kidney disease	34225	17.242	7.141642709029838e-05
+epithelial cell of proximal tubule	HAVCR1	a12ccb9b	acute kidney failure	19475	31.148	0.00011976710084127262
+epithelial cell of proximal tubule	HAVCR1	dea717d4	normal	9965	2.8	6.111105903983116e-06
+epithelial cell of proximal tubule	HAVCR1	dea717d4	chronic kidney disease	28961	6.878	1.9517055989126675e-05
+epithelial cell of proximal tubule	HAVCR1	dea717d4	acute kidney failure	15099	11.358	3.548118911567144e-05
+epithelial cell of proximal tubule	LCN2	a12ccb9b	normal	33899	0.516	2.666446789589827e-06
+epithelial cell of proximal tubule	LCN2	a12ccb9b	chronic kidney disease	34225	0.237	7.146463758544996e-07
+epithelial cell of proximal tubule	LCN2	a12ccb9b	acute kidney failure	19475	0.837	3.191916903233505e-06
+epithelial cell of proximal tubule	LCN2	dea717d4	normal	9965	0.09	9.084472480935801e-07
+epithelial cell of proximal tubule	LCN2	dea717d4	chronic kidney disease	28961	4.074	1.5082234313013032e-05
+epithelial cell of proximal tubule	LCN2	dea717d4	acute kidney failure	15099	12.683	0.0001312329259235412
+epithelial cell of proximal tubule	SLC34A1	a12ccb9b	normal	33899	32.449	0.00021779413509648293
+epithelial cell of proximal tubule	SLC34A1	a12ccb9b	chronic kidney disease	34225	32.029	0.00031991294235922396
+epithelial cell of proximal tubule	SLC34A1	a12ccb9b	acute kidney failure	19475	36.503	0.0003141166234854609
+epithelial cell of proximal tubule	SLC34A1	dea717d4	normal	9965	34.541	0.00016515477909706533
+epithelial cell of proximal tubule	SLC34A1	dea717d4	chronic kidney disease	28961	11.246	5.4773579904576764e-05
+epithelial cell of proximal tubule	SLC34A1	dea717d4	acute kidney failure	15099	15.716	7.692896906519309e-05

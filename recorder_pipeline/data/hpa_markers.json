@@ -1,0 +1,1670 @@
+{
+ "GFAP (TBI parent)": {
+  "Gene": "GFAP",
+  "Ensembl": "ENSG00000131095",
+  "RNA tissue specificity": "Tissue enriched",
+  "RNA tissue specificity score": "8",
+  "RNA tissue distribution": "Detected in many",
+  "RNA tissue specific nTPM": {
+   "brain": "15929.3"
+  },
+  "RNA single cell type specificity": "Cell type enriched",
+  "RNA single cell type specificity score": "4",
+  "RNA single cell type distribution": "Detected in some",
+  "RNA single cell type specific nCPM": {
+   "Astrocytes": "781.6"
+  },
+  "RNA single cell type group specific nCPM": {
+   "Glial cells": "781.6"
+  },
+  "RNA blood cell specificity": "Immune cell enhanced",
+  "RNA blood cell distribution": "Detected in some",
+  "RNA blood cell specific nTPM": {
+   "neutrophil": "6.1"
+  },
+  "RNA tissue cell type enrichment": null,
+  "Blood concentration - Conc. blood MS [pg/L]": "67000000",
+  "Blood concentration - Conc. blood IM [pg/L]": null,
+  "Secretome location": null,
+  "Protein class": [
+   "Candidate cardiovascular disease genes",
+   "Disease related genes",
+   "Human disease related genes",
+   "Plasma proteins",
+   "Predicted intracellular proteins"
+  ],
+  "Single cell expression cluster": "Cluster 28: Astrocytes - Homeostasis & neuron support",
+  "_label": "GFAP (TBI parent)",
+  "_verified": true
+ },
+ "Uromodulin (CKD reserve)": {
+  "Gene": "UMOD",
+  "Ensembl": "ENSG00000169344",
+  "RNA tissue specificity": "Tissue enriched",
+  "RNA tissue specificity score": "515",
+  "RNA tissue distribution": "Detected in some",
+  "RNA tissue specific nTPM": {
+   "kidney": "2126.7"
+  },
+  "RNA single cell type specificity": "Cell type enriched",
+  "RNA single cell type specificity score": "12",
+  "RNA single cell type distribution": "Detected in some",
+  "RNA single cell type specific nCPM": {
+   "Loop of henle epithelial cells": "1187.8"
+  },
+  "RNA single cell type group specific nCPM": {
+   "Renal nephron cells": "1187.8"
+  },
+  "RNA blood cell specificity": "Not detected in immune cells",
+  "RNA blood cell distribution": "Not detected",
+  "RNA blood cell specific nTPM": null,
+  "RNA tissue cell type enrichment": [
+   "Kidney - Ascending Loop of Henle cells",
+   "Prostate - Prostate glandular cells"
+  ],
+  "Blood concentration - Conc. blood MS [pg/L]": "35000000",
+  "Blood concentration - Conc. blood IM [pg/L]": null,
+  "Secretome location": "Secreted in other tissues",
+  "Protein class": [
+   "Disease related genes",
+   "Human disease related genes",
+   "Plasma proteins",
+   "Predicted membrane proteins",
+   "Predicted secreted proteins"
+  ],
+  "Single cell expression cluster": "Cluster 50: Renal epithelial cells - Ion transport and pH regulation",
+  "_label": "Uromodulin (CKD reserve)",
+  "_verified": true
+ },
+ "NGAL (AKI)": {
+  "Gene": "LCN2",
+  "Ensembl": "ENSG00000148346",
+  "RNA tissue specificity": "Tissue enhanced",
+  "RNA tissue specificity score": null,
+  "RNA tissue distribution": "Detected in many",
+  "RNA tissue specific nTPM": {
+   "bone marrow": "2617.2",
+   "gallbladder": "2090.7",
+   "salivary gland": "1266.0"
+  },
+  "RNA single cell type specificity": "Cell type enhanced",
+  "RNA single cell type specificity score": null,
+  "RNA single cell type distribution": "Detected in many",
+  "RNA single cell type specific nCPM": {
+   "Conjunctival goblet cells": "8399.9",
+   "Endometrial secretory cells": "17173.2",
+   "Esophageal apical cells": "9320.0",
+   "Lacrimal acinar cells": "3931.3",
+   "Neutrophil progenitors": "3018.0",
+   "Prostatic club cells": "6844.9",
+   "Respiratory deuterosomal cells": "3496.5",
+   "Respiratory secretory cells": "3151.1",
+   "Salivary basal cells": "2566.4",
+   "Salivary duct cells": "4478.4",
+   "Salivary ionocytes": "2296.9",
+   "Submucosal glandular cells": "3734.1"
+  },
+  "RNA single cell type group specific nCPM": {
+   "Apical squamous epithelial cells": "9320.0",
+   "Glandular cells": "6844.9",
+   "Goblet cells": "8399.9",
+   "Secretory cells": "17173.2"
+  },
+  "RNA blood cell specificity": "Group enriched",
+  "RNA blood cell distribution": "Detected in some",
+  "RNA blood cell specific nTPM": {
+   "basophil": "9.7",
+   "neutrophil": "11.9",
+   "non-classical monocyte": "4.7"
+  },
+  "RNA tissue cell type enrichment": [
+   "Prostate - Urothelial cells"
+  ],
+  "Blood concentration - Conc. blood MS [pg/L]": "120000000",
+  "Blood concentration - Conc. blood IM [pg/L]": null,
+  "Secretome location": "Secreted in other tissues",
+  "Protein class": [
+   "Candidate cardiovascular disease genes",
+   "Plasma proteins",
+   "Predicted secreted proteins"
+  ],
+  "Single cell expression cluster": "Cluster 38: Secretory epithelial cells - Exocrine secretion",
+  "_label": "NGAL (AKI)",
+  "_verified": true
+ },
+ "KIM-1 (AKI)": {
+  "Gene": "HAVCR1",
+  "Ensembl": "ENSG00000113249",
+  "RNA tissue specificity": "Group enriched",
+  "RNA tissue specificity score": "5",
+  "RNA tissue distribution": "Detected in some",
+  "RNA tissue specific nTPM": {
+   "intestine": "4.3",
+   "kidney": "6.5"
+  },
+  "RNA single cell type specificity": "Cell type enriched",
+  "RNA single cell type specificity score": "5",
+  "RNA single cell type distribution": "Detected in some",
+  "RNA single cell type specific nCPM": {
+   "Proximal tubule cells": "70.5"
+  },
+  "RNA single cell type group specific nCPM": {
+   "Renal nephron cells": "70.5"
+  },
+  "RNA blood cell specificity": "Immune cell enhanced",
+  "RNA blood cell distribution": "Detected in some",
+  "RNA blood cell specific nTPM": {
+   "naive CD4 T-cell": "2.5"
+  },
+  "RNA tissue cell type enrichment": [
+   "Testis - Early spermatids",
+   "Testis - Late spermatids"
+  ],
+  "Blood concentration - Conc. blood MS [pg/L]": null,
+  "Blood concentration - Conc. blood IM [pg/L]": null,
+  "Secretome location": null,
+  "Protein class": [
+   "CD markers",
+   "Predicted membrane proteins"
+  ],
+  "Single cell expression cluster": "Cluster 88: Proximal tubular cells - Transmembrane transport",
+  "_label": "KIM-1 (AKI)",
+  "_verified": true
+ },
+ "Collagen III (PRO-C3/C3M)": {
+  "Gene": "COL3A1",
+  "Ensembl": "ENSG00000168542",
+  "RNA tissue specificity": "Tissue enhanced",
+  "RNA tissue specificity score": null,
+  "RNA tissue distribution": "Detected in many",
+  "RNA tissue specific nTPM": {
+   "cervix": "2222.3",
+   "gallbladder": "1957.3",
+   "placenta": "1861.3",
+   "smooth muscle": "1998.4"
+  },
+  "RNA single cell type specificity": "Cell type enhanced",
+  "RNA single cell type specificity score": null,
+  "RNA single cell type distribution": "Detected in many",
+  "RNA single cell type specific nCPM": {
+   "Decidual stromal cells": "783.1",
+   "Endometrial stromal cells": "2716.9",
+   "Fibro-adipogenic progenitors": "479.9",
+   "Fibroblasts": "1545.0",
+   "Hepatic stellate cells": "3789.0",
+   "Leydig cells": "422.3",
+   "Pericytes": "574.7"
+  },
+  "RNA single cell type group specific nCPM": {
+   "Fibroblasts": "1545.0",
+   "Stellate cells": "3789.0",
+   "Stromal cells": "2716.9"
+  },
+  "RNA blood cell specificity": "Not detected in immune cells",
+  "RNA blood cell distribution": "Not detected",
+  "RNA blood cell specific nTPM": null,
+  "RNA tissue cell type enrichment": [
+   "Adipose subcutaneous - Adipose progenitor cells",
+   "Adipose visceral - Adipose progenitor cells",
+   "Kidney - Fibroblasts",
+   "Liver - Hepatic stellate cells",
+   "Minor Salivary Gland - Fibroblasts",
+   "Pituitary gland - Fibroblasts",
+   "Skeletal muscle - Fibroblasts",
+   "Skin - Fibroblasts_1",
+   "Spleen - Fibroblasts_1",
+   "Stomach - Fibroblasts"
+  ],
+  "Blood concentration - Conc. blood MS [pg/L]": "30000000",
+  "Blood concentration - Conc. blood IM [pg/L]": null,
+  "Secretome location": "Secreted to extracellular matrix",
+  "Protein class": [
+   "Disease related genes",
+   "FDA approved drug targets",
+   "Human disease related genes",
+   "Plasma proteins",
+   "Predicted intracellular proteins",
+   "Predicted secreted proteins"
+  ],
+  "Single cell expression cluster": "Cluster 108: Fibroblasts - ECM organization",
+  "_label": "Collagen III (PRO-C3/C3M)",
+  "_verified": true
+ },
+ "Collagen VI a3 (PRO-C6/C6M)": {
+  "Gene": "COL6A3",
+  "Ensembl": "ENSG00000163359",
+  "RNA tissue specificity": "Tissue enhanced",
+  "RNA tissue specificity score": null,
+  "RNA tissue distribution": "Detected in many",
+  "RNA tissue specific nTPM": {
+   "smooth muscle": "391.7"
+  },
+  "RNA single cell type specificity": "Cell type enhanced",
+  "RNA single cell type specificity score": null,
+  "RNA single cell type distribution": "Detected in many",
+  "RNA single cell type specific nCPM": {
+   "Decidual stromal cells": "399.8",
+   "Endometrial stromal cells": "433.5",
+   "Fibro-adipogenic progenitors": "864.6",
+   "Fibroblasts": "914.5",
+   "Hepatic stellate cells": "413.1",
+   "Leydig cells": "521.1",
+   "Ovarian stromal cells": "233.3",
+   "Pericytes": "312.0",
+   "Peritubular myoid cells": "158.0",
+   "Smooth muscle cells": "144.2"
+  },
+  "RNA single cell type group specific nCPM": {
+   "Fibro-adipogenic progenitors": "864.6",
+   "Fibroblasts": "914.5",
+   "Leydig cells": "521.1",
+   "Mural cells": "312.0",
+   "Stellate cells": "413.1",
+   "Stromal cells": "433.5"
+  },
+  "RNA blood cell specificity": "Not detected in immune cells",
+  "RNA blood cell distribution": "Not detected",
+  "RNA blood cell specific nTPM": null,
+  "RNA tissue cell type enrichment": [
+   "Adipose subcutaneous - Adipose progenitor cells",
+   "Adrenal gland - Fibroblasts",
+   "Kidney - Fibroblasts",
+   "Liver - Hepatic stellate cells",
+   "Minor Salivary Gland - Macrophages",
+   "Skin - Fibroblasts_2"
+  ],
+  "Blood concentration - Conc. blood MS [pg/L]": "370000000",
+  "Blood concentration - Conc. blood IM [pg/L]": null,
+  "Secretome location": "Secreted to extracellular matrix",
+  "Protein class": [
+   "Disease related genes",
+   "Human disease related genes",
+   "Plasma proteins",
+   "Predicted intracellular proteins",
+   "Predicted secreted proteins"
+  ],
+  "Single cell expression cluster": "Cluster 108: Fibroblasts - ECM organization",
+  "_label": "Collagen VI a3 (PRO-C6/C6M)",
+  "_verified": true
+ },
+ "Albumin (C-Alb carrier)": {
+  "Gene": "ALB",
+  "Ensembl": "ENSG00000163631",
+  "RNA tissue specificity": "Tissue enriched",
+  "RNA tissue specificity score": "134",
+  "RNA tissue distribution": "Detected in many",
+  "RNA tissue specific nTPM": {
+   "liver": "198523.8"
+  },
+  "RNA single cell type specificity": "Cell type enriched",
+  "RNA single cell type specificity score": "4",
+  "RNA single cell type distribution": "Detected in some",
+  "RNA single cell type specific nCPM": {
+   "Hepatocytes": "81391.2"
+  },
+  "RNA single cell type group specific nCPM": {
+   "Hepatocytes": "81391.2"
+  },
+  "RNA blood cell specificity": "Not detected in immune cells",
+  "RNA blood cell distribution": "Not detected",
+  "RNA blood cell specific nTPM": null,
+  "RNA tissue cell type enrichment": [
+   "Kidney - Proximal tubular cells",
+   "Liver - Hepatocytes"
+  ],
+  "Blood concentration - Conc. blood MS [pg/L]": null,
+  "Blood concentration - Conc. blood IM [pg/L]": 40000000000000,
+  "Secretome location": "Secreted to blood",
+  "Protein class": [
+   "Cancer-related genes",
+   "Candidate cardiovascular disease genes",
+   "Disease related genes",
+   "FDA approved drug targets",
+   "Metabolic proteins",
+   "Plasma proteins",
+   "Predicted intracellular proteins",
+   "Predicted secreted proteins"
+  ],
+  "Single cell expression cluster": "Cluster 93: Hepatocytes - Bile production & excretion",
+  "_label": "Albumin (C-Alb carrier)",
+  "_verified": true
+ },
+ "ApoA-I (Tyr192 parent)": {
+  "Gene": "APOA1",
+  "Ensembl": "ENSG00000118137",
+  "RNA tissue specificity": "Tissue enriched",
+  "RNA tissue specificity score": "5",
+  "RNA tissue distribution": "Detected in many",
+  "RNA tissue specific nTPM": {
+   "liver": "20151.0"
+  },
+  "RNA single cell type specificity": "Group enriched",
+  "RNA single cell type specificity score": "46",
+  "RNA single cell type distribution": "Detected in many",
+  "RNA single cell type specific nCPM": {
+   "Enterocytes": "17976.9",
+   "Hepatocytes": "33105.7"
+  },
+  "RNA single cell type group specific nCPM": {
+   "Enterocytes": "17976.9",
+   "Hepatocytes": "33105.7"
+  },
+  "RNA blood cell specificity": "Immune cell enhanced",
+  "RNA blood cell distribution": "Detected in single",
+  "RNA blood cell specific nTPM": {
+   "plasmacytoid DC": "1.2"
+  },
+  "RNA tissue cell type enrichment": [
+   "Liver - Hepatocytes",
+   "Testis - Sertoli cells"
+  ],
+  "Blood concentration - Conc. blood MS [pg/L]": "160000000000",
+  "Blood concentration - Conc. blood IM [pg/L]": 1450000000000,
+  "Secretome location": "Secreted to blood",
+  "Protein class": [
+   "Cancer-related genes",
+   "Candidate cardiovascular disease genes",
+   "Disease related genes",
+   "Human disease related genes",
+   "Plasma proteins",
+   "Predicted intracellular proteins",
+   "Predicted secreted proteins"
+  ],
+  "Single cell expression cluster": "Cluster 93: Hepatocytes - Bile production & excretion",
+  "_label": "ApoA-I (Tyr192 parent)",
+  "_verified": true
+ },
+ "MPO (ApoA-I writer)": {
+  "Gene": "MPO",
+  "Ensembl": "ENSG00000005381",
+  "RNA tissue specificity": "Tissue enriched",
+  "RNA tissue specificity score": "158",
+  "RNA tissue distribution": "Detected in some",
+  "RNA tissue specific nTPM": {
+   "bone marrow": "3249.5"
+  },
+  "RNA single cell type specificity": "Group enriched",
+  "RNA single cell type specificity score": "61",
+  "RNA single cell type distribution": "Detected in some",
+  "RNA single cell type specific nCPM": {
+   "Monocyte progenitors": "2629.0",
+   "Neutrophil progenitors": "2271.8"
+  },
+  "RNA single cell type group specific nCPM": {
+   "Mononuclear phagocytes": "2629.0",
+   "Neutrophils": "2271.8"
+  },
+  "RNA blood cell specificity": "Immune cell enhanced",
+  "RNA blood cell distribution": "Detected in single",
+  "RNA blood cell specific nTPM": {
+   "classical monocyte": "1.2"
+  },
+  "RNA tissue cell type enrichment": [
+   "Lung - Neutrophils_1",
+   "Minor Salivary Gland - Minor salivary glandular cells",
+   "Pituitary gland - Somatotropes",
+   "Spleen - Neutrophils_1"
+  ],
+  "Blood concentration - Conc. blood MS [pg/L]": "81000000",
+  "Blood concentration - Conc. blood IM [pg/L]": null,
+  "Secretome location": "Intracellular and membrane",
+  "Protein class": [
+   "Cancer-related genes",
+   "Candidate cardiovascular disease genes",
+   "Disease related genes",
+   "Enzymes",
+   "Human disease related genes",
+   "Metabolic proteins",
+   "Plasma proteins",
+   "Potential drug targets",
+   "Predicted intracellular proteins"
+  ],
+  "Single cell expression cluster": "Cluster 37: Neutrophil progenitors - Granulopoiesis",
+  "_label": "MPO (ApoA-I writer)",
+  "_verified": true
+ },
+ "PADI4 (citrullination writer)": {
+  "Gene": "PADI4",
+  "Ensembl": "ENSG00000159339",
+  "RNA tissue specificity": "Group enriched",
+  "RNA tissue specificity score": "8",
+  "RNA tissue distribution": "Detected in some",
+  "RNA tissue specific nTPM": {
+   "bone marrow": "99.4",
+   "lymphoid tissue": "28.9"
+  },
+  "RNA single cell type specificity": "Group enriched",
+  "RNA single cell type specificity score": "7",
+  "RNA single cell type distribution": "Detected in some",
+  "RNA single cell type specific nCPM": {
+   "Neutrophil progenitors": "215.0",
+   "Neutrophils": "161.5"
+  },
+  "RNA single cell type group specific nCPM": {
+   "Neutrophils": "215.0"
+  },
+  "RNA blood cell specificity": "Group enriched",
+  "RNA blood cell distribution": "Detected in many",
+  "RNA blood cell specific nTPM": {
+   "basophil": "80.1",
+   "classical monocyte": "71.3",
+   "eosinophil": "97.7",
+   "neutrophil": "183.5"
+  },
+  "RNA tissue cell type enrichment": [
+   "Adipose visceral - Neutrophils",
+   "Colon - Neutrophils",
+   "Heart muscle - Neutrophils",
+   "Liver - Neutrophils",
+   "Lung - Neutrophils_2",
+   "Pituitary gland - Neutrophils",
+   "Skeletal muscle - Neutrophils",
+   "Spleen - Neutrophils_2",
+   "Stomach - Neutrophils",
+   "Thyroid gland - Neutrophils"
+  ],
+  "Blood concentration - Conc. blood MS [pg/L]": "49000",
+  "Blood concentration - Conc. blood IM [pg/L]": null,
+  "Secretome location": null,
+  "Protein class": [
+   "Disease related genes",
+   "Enzymes",
+   "Metabolic proteins",
+   "Plasma proteins",
+   "Potential drug targets",
+   "Predicted intracellular proteins"
+  ],
+  "Single cell expression cluster": "Cluster 48: Neutrophils - Phagocytosis & degranulation",
+  "_label": "PADI4 (citrullination writer)",
+  "_verified": true
+ },
+ "Elastase (NET writer)": {
+  "Gene": "ELANE",
+  "Ensembl": "ENSG00000197561",
+  "RNA tissue specificity": "Tissue enriched",
+  "RNA tissue specificity score": "87",
+  "RNA tissue distribution": "Detected in many",
+  "RNA tissue specific nTPM": {
+   "bone marrow": "3672.0"
+  },
+  "RNA single cell type specificity": "Group enriched",
+  "RNA single cell type specificity score": "29",
+  "RNA single cell type distribution": "Detected in some",
+  "RNA single cell type specific nCPM": {
+   "Monocyte progenitors": "552.5",
+   "Neutrophil progenitors": "524.5"
+  },
+  "RNA single cell type group specific nCPM": {
+   "Mononuclear phagocytes": "552.5",
+   "Neutrophils": "524.5"
+  },
+  "RNA blood cell specificity": "Group enriched",
+  "RNA blood cell distribution": "Detected in some",
+  "RNA blood cell specific nTPM": {
+   "classical monocyte": "4.0",
+   "neutrophil": "12.2"
+  },
+  "RNA tissue cell type enrichment": [
+   "Lung - Neutrophils_1",
+   "Pituitary gland - Neutrophils",
+   "Skin - Fibroblasts_2",
+   "Spleen - Neutrophils_1"
+  ],
+  "Blood concentration - Conc. blood MS [pg/L]": "3000000",
+  "Blood concentration - Conc. blood IM [pg/L]": 157000000,
+  "Secretome location": "Secreted to blood",
+  "Protein class": [
+   "Cancer-related genes",
+   "Disease related genes",
+   "Enzymes",
+   "FDA approved drug targets",
+   "Human disease related genes",
+   "Plasma proteins",
+   "Predicted secreted proteins"
+  ],
+  "Single cell expression cluster": "Cluster 37: Neutrophil progenitors - Granulopoiesis",
+  "_label": "Elastase (NET writer)",
+  "_verified": true
+ },
+ "CA125 (ovarian)": {
+  "Gene": "MUC16",
+  "Ensembl": "ENSG00000181143",
+  "RNA tissue specificity": "Group enriched",
+  "RNA tissue specificity score": "4",
+  "RNA tissue distribution": "Detected in some",
+  "RNA tissue specific nTPM": {
+   "adipose tissue": "6.5",
+   "cervix": "15.0",
+   "fallopian tube": "5.5",
+   "salivary gland": "5.7"
+  },
+  "RNA single cell type specificity": "Cell type enhanced",
+  "RNA single cell type specificity score": null,
+  "RNA single cell type distribution": "Detected in many",
+  "RNA single cell type specific nCPM": {
+   "Conjunctival goblet cells": "953.4",
+   "Endometrial ciliated cells": "234.4",
+   "Endometrial glandular cells": "474.1",
+   "Endometrial secretory cells": "428.8",
+   "Epicardial cells": "1309.9",
+   "Mesothelial cells": "376.1",
+   "Ocular epithelial cells": "330.9",
+   "Respiratory ciliated cells": "237.8",
+   "Respiratory deuterosomal cells": "634.4",
+   "Respiratory secretory cells": "435.6",
+   "Salivary duct cells": "460.6",
+   "Salivary ionocytes": "746.2"
+  },
+  "RNA single cell type group specific nCPM": {
+   "Barrier epithelial cells": "1309.9",
+   "Ciliated cells": "634.4",
+   "Ductal cells": "460.6",
+   "Glandular cells": "474.1",
+   "Goblet cells": "953.4",
+   "Ionocytes": "746.2",
+   "Secretory cells": "435.6"
+  },
+  "RNA blood cell specificity": "Not detected in immune cells",
+  "RNA blood cell distribution": "Not detected",
+  "RNA blood cell specific nTPM": null,
+  "RNA tissue cell type enrichment": [
+   "Adipose visceral - Mesothelial cells",
+   "Lung - Respiratory ciliated cells",
+   "Prostate - Urothelial cells",
+   "Testis - Early spermatids",
+   "Testis - Late spermatids",
+   "Thyroid gland - T-cells"
+  ],
+  "Blood concentration - Conc. blood MS [pg/L]": "140000",
+  "Blood concentration - Conc. blood IM [pg/L]": null,
+  "Secretome location": "Secreted in other tissues",
+  "Protein class": [
+   "Plasma proteins",
+   "Predicted membrane proteins",
+   "Predicted secreted proteins"
+  ],
+  "Single cell expression cluster": "Cluster 51: Secretory epithelial cells - Mixed function",
+  "_label": "CA125 (ovarian)",
+  "_verified": true
+ },
+ "uEGF (tubular mass)": {
+  "Gene": "EGF",
+  "Ensembl": "ENSG00000138798",
+  "RNA tissue specificity": "Group enriched",
+  "RNA tissue specificity score": "4",
+  "RNA tissue distribution": "Detected in some",
+  "RNA tissue specific nTPM": {
+   "kidney": "102.9",
+   "pancreas": "84.4",
+   "skeletal muscle": "26.0"
+  },
+  "RNA single cell type specificity": "Cell type enriched",
+  "RNA single cell type specificity score": "4",
+  "RNA single cell type distribution": "Detected in many",
+  "RNA single cell type specific nCPM": {
+   "Distal convoluted tubule cells": "4773.2"
+  },
+  "RNA single cell type group specific nCPM": {
+   "Renal nephron cells": "4773.2"
+  },
+  "RNA blood cell specificity": "Not detected in immune cells",
+  "RNA blood cell distribution": "Not detected",
+  "RNA blood cell specific nTPM": null,
+  "RNA tissue cell type enrichment": [
+   "Heart muscle - Cardiomyocytes",
+   "Minor Salivary Gland - Minor salivary glandular cells",
+   "Pancreas - Exocrine glandular cells",
+   "Prostate - Prostate glandular cells",
+   "Skin - Eccrine sweat gland cells",
+   "Testis - Early spermatids",
+   "Thyroid gland - Thyroid glandular cells"
+  ],
+  "Blood concentration - Conc. blood MS [pg/L]": "980000",
+  "Blood concentration - Conc. blood IM [pg/L]": null,
+  "Secretome location": null,
+  "Protein class": [
+   "Cancer-related genes",
+   "Disease related genes",
+   "FDA approved drug targets",
+   "Human disease related genes",
+   "Plasma proteins",
+   "Predicted membrane proteins",
+   "RAS pathway related proteins"
+  ],
+  "Single cell expression cluster": "Cluster 50: Renal epithelial cells - Ion transport and pH regulation",
+  "_label": "uEGF (tubular mass)",
+  "_verified": true
+ },
+ "CR1 (C4d normalizer)": {
+  "Gene": "CR1",
+  "Ensembl": "ENSG00000203710",
+  "RNA tissue specificity": "Tissue enhanced",
+  "RNA tissue specificity score": null,
+  "RNA tissue distribution": "Detected in many",
+  "RNA tissue specific nTPM": {
+   "adipose tissue": "12.4",
+   "lymphoid tissue": "25.7"
+  },
+  "RNA single cell type specificity": "Cell type enhanced",
+  "RNA single cell type specificity score": null,
+  "RNA single cell type distribution": "Detected in many",
+  "RNA single cell type specific nCPM": {
+   "B-cells": "176.8",
+   "Kupffer cells": "411.0",
+   "Neutrophil progenitors": "136.8",
+   "Neutrophils": "1929.7",
+   "Podocytes": "706.7"
+  },
+  "RNA single cell type group specific nCPM": {
+   "Mononuclear phagocytes": "411.0",
+   "Neutrophils": "1929.7",
+   "Renal nephron cells": "706.7"
+  },
+  "RNA blood cell specificity": "Group enriched",
+  "RNA blood cell distribution": "Detected in many",
+  "RNA blood cell specific nTPM": {
+   "basophil": "53.8",
+   "eosinophil": "17.2",
+   "neutrophil": "15.6"
+  },
+  "RNA tissue cell type enrichment": [
+   "Adipose subcutaneous - Macrophages",
+   "Adipose visceral - Macrophages",
+   "Adrenal gland - Macrophages",
+   "Breast - Macrophages",
+   "Colon - Macrophages",
+   "Kidney - Podocytes",
+   "Lung - Neutrophils_2",
+   "Minor Salivary Gland - Macrophages",
+   "Pituitary gland - Macrophages",
+   "Thyroid gland - Macrophages"
+  ],
+  "Blood concentration - Conc. blood MS [pg/L]": "19000000",
+  "Blood concentration - Conc. blood IM [pg/L]": null,
+  "Secretome location": null,
+  "Protein class": [
+   "Blood group antigen proteins",
+   "CD markers",
+   "Plasma proteins",
+   "Predicted membrane proteins"
+  ],
+  "Single cell expression cluster": "Cluster 24: Neutrophils - Innate immunity signal integration",
+  "_label": "CR1 (C4d normalizer)",
+  "_verified": true
+ },
+ "C3 (complement)": {
+  "Gene": "C3",
+  "Ensembl": "ENSG00000125730",
+  "RNA tissue specificity": "Tissue enriched",
+  "RNA tissue specificity score": "9",
+  "RNA tissue distribution": "Detected in all",
+  "RNA tissue specific nTPM": {
+   "liver": "5062.4"
+  },
+  "RNA single cell type specificity": "Cell type enhanced",
+  "RNA single cell type specificity score": null,
+  "RNA single cell type distribution": "Detected in many",
+  "RNA single cell type specific nCPM": {
+   "Alveolar cells type 2": "600.4",
+   "Cholangiocytes": "820.3",
+   "Conjunctival goblet cells": "549.5",
+   "Decidual stromal cells": "714.5",
+   "Endometrial secretory cells": "578.5",
+   "Epicardial cells": "755.0",
+   "Fibroblasts": "641.5",
+   "Hepatocytes": "4896.9",
+   "Lacrimal acinar cells": "537.2",
+   "Mesothelial cells": "1368.4",
+   "Microglia": "649.7",
+   "Pancreatic duct cells": "642.3"
+  },
+  "RNA single cell type group specific nCPM": {
+   "Barrier epithelial cells": "1368.4",
+   "Hepatocytes": "4896.9"
+  },
+  "RNA blood cell specificity": "Immune cell enriched",
+  "RNA blood cell distribution": "Detected in many",
+  "RNA blood cell specific nTPM": {
+   "non-classical monocyte": "14.5"
+  },
+  "RNA tissue cell type enrichment": [
+   "Adrenal gland - Adrenal cortex cells",
+   "Liver - Hepatocytes",
+   "Lung - Fibroblasts_2",
+   "Stomach - Fibroblasts",
+   "Thyroid gland - Macrophages"
+  ],
+  "Blood concentration - Conc. blood MS [pg/L]": "370000000000",
+  "Blood concentration - Conc. blood IM [pg/L]": 1260000000000,
+  "Secretome location": "Secreted to blood",
+  "Protein class": [
+   "Candidate cardiovascular disease genes",
+   "Disease related genes",
+   "FDA approved drug targets",
+   "Human disease related genes",
+   "Plasma proteins",
+   "Predicted intracellular proteins",
+   "Predicted secreted proteins"
+  ],
+  "Single cell expression cluster": "Cluster 25: Hepatocytes - Plasma protein synthesis & secretion",
+  "_label": "C3 (complement)",
+  "_verified": true
+ },
+ "C4A (C4d parent)": {
+  "Gene": "C4A",
+  "Ensembl": "ENSG00000244731",
+  "RNA tissue specificity": "Tissue enhanced",
+  "RNA tissue specificity score": null,
+  "RNA tissue distribution": "Detected in many",
+  "RNA tissue specific nTPM": {
+   "adrenal gland": "117.5",
+   "liver": "341.8"
+  },
+  "RNA single cell type specificity": "Not detected",
+  "RNA single cell type specificity score": null,
+  "RNA single cell type distribution": "Not detected",
+  "RNA single cell type specific nCPM": null,
+  "RNA single cell type group specific nCPM": null,
+  "RNA blood cell specificity": "Not detected in immune cells",
+  "RNA blood cell distribution": "Not detected",
+  "RNA blood cell specific nTPM": null,
+  "RNA tissue cell type enrichment": [
+   "Kidney - Proximal tubular cells",
+   "Liver - Hepatocytes"
+  ],
+  "Blood concentration - Conc. blood MS [pg/L]": "230000000000",
+  "Blood concentration - Conc. blood IM [pg/L]": 342000000,
+  "Secretome location": "Secreted to blood",
+  "Protein class": [
+   "Blood group antigen proteins",
+   "Disease related genes",
+   "FDA approved drug targets",
+   "Human disease related genes",
+   "Plasma proteins",
+   "Predicted secreted proteins"
+  ],
+  "Single cell expression cluster": "Cluster 71: Non-specific - Cardiac endocrine signaling & maintenanc",
+  "_label": "C4A (C4d parent)",
+  "_verified": true
+ },
+ "Antithrombin (TAT)": {
+  "Gene": "SERPINC1",
+  "Ensembl": "ENSG00000117601",
+  "RNA tissue specificity": "Tissue enriched",
+  "RNA tissue specificity score": "1345",
+  "RNA tissue distribution": "Detected in some",
+  "RNA tissue specific nTPM": {
+   "liver": "4726.5"
+  },
+  "RNA single cell type specificity": "Cell type enriched",
+  "RNA single cell type specificity score": "82",
+  "RNA single cell type distribution": "Detected in some",
+  "RNA single cell type specific nCPM": {
+   "Hepatocytes": "3199.3"
+  },
+  "RNA single cell type group specific nCPM": {
+   "Hepatocytes": "3199.3"
+  },
+  "RNA blood cell specificity": "Not detected in immune cells",
+  "RNA blood cell distribution": "Not detected",
+  "RNA blood cell specific nTPM": null,
+  "RNA tissue cell type enrichment": [
+   "Kidney - Proximal tubular cells",
+   "Liver - Hepatocytes"
+  ],
+  "Blood concentration - Conc. blood MS [pg/L]": "76000000000",
+  "Blood concentration - Conc. blood IM [pg/L]": null,
+  "Secretome location": "Secreted to blood",
+  "Protein class": [
+   "Candidate cardiovascular disease genes",
+   "Disease related genes",
+   "FDA approved drug targets",
+   "Human disease related genes",
+   "Plasma proteins",
+   "Predicted secreted proteins"
+  ],
+  "Single cell expression cluster": "Cluster 93: Hepatocytes - Bile production & excretion",
+  "_label": "Antithrombin (TAT)",
+  "_verified": true
+ },
+ "Prothrombin (TAT)": {
+  "Gene": "F2",
+  "Ensembl": "ENSG00000180210",
+  "RNA tissue specificity": "Tissue enriched",
+  "RNA tissue specificity score": "1206",
+  "RNA tissue distribution": "Detected in single",
+  "RNA tissue specific nTPM": {
+   "liver": "1138.4"
+  },
+  "RNA single cell type specificity": "Cell type enriched",
+  "RNA single cell type specificity score": "7",
+  "RNA single cell type distribution": "Detected in some",
+  "RNA single cell type specific nCPM": {
+   "Hepatocytes": "1119.0"
+  },
+  "RNA single cell type group specific nCPM": {
+   "Hepatocytes": "1119.0"
+  },
+  "RNA blood cell specificity": "Not detected in immune cells",
+  "RNA blood cell distribution": "Not detected",
+  "RNA blood cell specific nTPM": null,
+  "RNA tissue cell type enrichment": [
+   "Liver - Hepatocytes"
+  ],
+  "Blood concentration - Conc. blood MS [pg/L]": "69000000000",
+  "Blood concentration - Conc. blood IM [pg/L]": 108000000000,
+  "Secretome location": "Secreted to blood",
+  "Protein class": [
+   "Cancer-related genes",
+   "Candidate cardiovascular disease genes",
+   "Disease related genes",
+   "Enzymes",
+   "FDA approved drug targets",
+   "Human disease related genes",
+   "Metabolic proteins",
+   "Plasma proteins",
+   "Predicted intracellular proteins",
+   "Predicted secreted proteins"
+  ],
+  "Single cell expression cluster": "Cluster 25: Hepatocytes - Plasma protein synthesis & secretion",
+  "_label": "Prothrombin (TAT)",
+  "_verified": true
+ },
+ "Plasminogen (PIC)": {
+  "Gene": "PLG",
+  "Ensembl": "ENSG00000122194",
+  "RNA tissue specificity": "Tissue enriched",
+  "RNA tissue specificity score": "11",
+  "RNA tissue distribution": "Detected in some",
+  "RNA tissue specific nTPM": {
+   "liver": "2479.5"
+  },
+  "RNA single cell type specificity": "Group enriched",
+  "RNA single cell type specificity score": "40",
+  "RNA single cell type distribution": "Detected in some",
+  "RNA single cell type specific nCPM": {
+   "Hepatocytes": "858.6",
+   "Proximal tubule cells": "318.4"
+  },
+  "RNA single cell type group specific nCPM": {
+   "Hepatocytes": "858.6",
+   "Renal nephron cells": "318.4"
+  },
+  "RNA blood cell specificity": "Not detected in immune cells",
+  "RNA blood cell distribution": "Not detected",
+  "RNA blood cell specific nTPM": null,
+  "RNA tissue cell type enrichment": [
+   "Kidney - Proximal tubular cells",
+   "Kidney - Proximal tubular cells",
+   "Liver - Hepatocytes",
+   "Lung - Respiratory ciliated cells"
+  ],
+  "Blood concentration - Conc. blood MS [pg/L]": "72000000000",
+  "Blood concentration - Conc. blood IM [pg/L]": 140000000000,
+  "Secretome location": "Secreted to blood",
+  "Protein class": [
+   "Cancer-related genes",
+   "Candidate cardiovascular disease genes",
+   "Disease related genes",
+   "Enzymes",
+   "FDA approved drug targets",
+   "Human disease related genes",
+   "Metabolic proteins",
+   "Plasma proteins",
+   "Predicted intracellular proteins",
+   "Predicted secreted proteins"
+  ],
+  "Single cell expression cluster": "Cluster 88: Proximal tubular cells - Transmembrane transport",
+  "_label": "Plasminogen (PIC)",
+  "_verified": true
+ },
+ "a2-antiplasmin (PIC)": {
+  "Gene": "SERPINF2",
+  "Ensembl": "ENSG00000167711",
+  "RNA tissue specificity": "Tissue enriched",
+  "RNA tissue specificity score": "16",
+  "RNA tissue distribution": "Detected in many",
+  "RNA tissue specific nTPM": {
+   "liver": "1497.5"
+  },
+  "RNA single cell type specificity": "Cell type enriched",
+  "RNA single cell type specificity score": "4",
+  "RNA single cell type distribution": "Detected in some",
+  "RNA single cell type specific nCPM": {
+   "Proximal tubule cells": "107.8"
+  },
+  "RNA single cell type group specific nCPM": {
+   "Renal nephron cells": "107.8"
+  },
+  "RNA blood cell specificity": "Immune cell enriched",
+  "RNA blood cell distribution": "Detected in some",
+  "RNA blood cell specific nTPM": {
+   "plasmacytoid DC": "44.8"
+  },
+  "RNA tissue cell type enrichment": [
+   "Heart muscle - Macrophages",
+   "Kidney - Proximal tubular cells",
+   "Liver - Hepatocytes",
+   "Skin - Macrophages"
+  ],
+  "Blood concentration - Conc. blood MS [pg/L]": "31000000000",
+  "Blood concentration - Conc. blood IM [pg/L]": 11900,
+  "Secretome location": "Secreted to blood",
+  "Protein class": [
+   "Candidate cardiovascular disease genes",
+   "Disease related genes",
+   "Human disease related genes",
+   "Plasma proteins",
+   "Predicted secreted proteins"
+  ],
+  "Single cell expression cluster": "Cluster 88: Proximal tubular cells - Transmembrane transport",
+  "_label": "a2-antiplasmin (PIC)",
+  "_verified": true
+ },
+ "PAI-1 (tPAIC)": {
+  "Gene": "SERPINE1",
+  "Ensembl": "ENSG00000106366",
+  "RNA tissue specificity": "Tissue enhanced",
+  "RNA tissue specificity score": null,
+  "RNA tissue distribution": "Detected in all",
+  "RNA tissue specific nTPM": {
+   "blood vessel": "620.0",
+   "placenta": "392.6"
+  },
+  "RNA single cell type specificity": "Cell type enhanced",
+  "RNA single cell type specificity score": null,
+  "RNA single cell type distribution": "Detected in many",
+  "RNA single cell type specific nCPM": {
+   "Decidual stromal cells": "801.5",
+   "Fibroblasts": "432.0",
+   "Hepatic stellate cells": "1065.0",
+   "Hepatocytes": "349.1",
+   "Leydig cells": "323.6",
+   "Migrating cytotrophoblasts": "468.3",
+   "Ovarian stromal cells": "1151.2",
+   "Syncytiotrophoblasts": "1606.5",
+   "Vascular endothelial cells": "374.4"
+  },
+  "RNA single cell type group specific nCPM": {
+   "Stellate cells": "1065.0",
+   "Stromal cells": "1151.2",
+   "Trophoblast cells": "1606.5"
+  },
+  "RNA blood cell specificity": "Immune cell enriched",
+  "RNA blood cell distribution": "Detected in single",
+  "RNA blood cell specific nTPM": {
+   "NK-cell": "9.5"
+  },
+  "RNA tissue cell type enrichment": [
+   "Colon - Neutrophils",
+   "Testis - Endothelial cells"
+  ],
+  "Blood concentration - Conc. blood MS [pg/L]": "16000000",
+  "Blood concentration - Conc. blood IM [pg/L]": 142000000,
+  "Secretome location": "Secreted to blood",
+  "Protein class": [
+   "Cancer-related genes",
+   "Candidate cardiovascular disease genes",
+   "Disease related genes",
+   "FDA approved drug targets",
+   "Human disease related genes",
+   "Plasma proteins",
+   "Predicted secreted proteins"
+  ],
+  "Single cell expression cluster": "Cluster 94: Gonadal somatic cells - Mixed function",
+  "_label": "PAI-1 (tPAIC)",
+  "_verified": true
+ },
+ "Thrombomodulin": {
+  "Gene": "THBD",
+  "Ensembl": "ENSG00000178726",
+  "RNA tissue specificity": "Low tissue specificity",
+  "RNA tissue specificity score": null,
+  "RNA tissue distribution": "Detected in many",
+  "RNA tissue specific nTPM": null,
+  "RNA single cell type specificity": "Cell type enhanced",
+  "RNA single cell type specificity score": null,
+  "RNA single cell type distribution": "Detected in many",
+  "RNA single cell type specific nCPM": {
+   "Esophageal basal cells": "90.5",
+   "Esophageal suprabasal cells": "69.7",
+   "Hepatic stellate cells": "64.5",
+   "Leydig cells": "129.0",
+   "Lymphatic endothelial cells": "246.0",
+   "Macrophages": "103.8",
+   "monocytes": "278.0",
+   "Ocular epithelial cells": "67.8",
+   "Peritubular myoid cells": "269.2",
+   "Suprabasal keratinocytes": "88.7",
+   "Vascular endothelial cells": "246.3"
+  },
+  "RNA single cell type group specific nCPM": {
+   "Endothelial cells": "246.3",
+   "Leydig cells": "129.0",
+   "Mononuclear phagocytes": "278.0",
+   "Stromal cells": "269.2"
+  },
+  "RNA blood cell specificity": "Immune cell enhanced",
+  "RNA blood cell distribution": "Detected in many",
+  "RNA blood cell specific nTPM": {
+   "neutrophil": "24.6"
+  },
+  "RNA tissue cell type enrichment": [
+   "Breast - Endothelial cells",
+   "Heart muscle - Endothelial cells",
+   "Prostate - Endothelial cells"
+  ],
+  "Blood concentration - Conc. blood MS [pg/L]": "390000",
+  "Blood concentration - Conc. blood IM [pg/L]": null,
+  "Secretome location": null,
+  "Protein class": [
+   "Candidate cardiovascular disease genes",
+   "CD markers",
+   "Disease related genes",
+   "Human disease related genes",
+   "Predicted membrane proteins"
+  ],
+  "Single cell expression cluster": "Cluster 32: Endothelial cells - Angiogenesis & vascular immunity",
+  "_label": "Thrombomodulin",
+  "_verified": true
+ },
+ "NT-proBNP": {
+  "Gene": "NPPB",
+  "Ensembl": "ENSG00000120937",
+  "RNA tissue specificity": "Tissue enriched",
+  "RNA tissue specificity score": "535",
+  "RNA tissue distribution": "Detected in some",
+  "RNA tissue specific nTPM": {
+   "heart muscle": "4819.9"
+  },
+  "RNA single cell type specificity": "Group enriched",
+  "RNA single cell type specificity score": "7",
+  "RNA single cell type distribution": "Detected in some",
+  "RNA single cell type specific nCPM": {
+   "Migrating cytotrophoblasts": "72.2",
+   "Sertoli cells": "35.4"
+  },
+  "RNA single cell type group specific nCPM": {
+   "Reproductive supporting cells": "35.4",
+   "Trophoblast cells": "72.2"
+  },
+  "RNA blood cell specificity": "Not detected in immune cells",
+  "RNA blood cell distribution": "Not detected",
+  "RNA blood cell specific nTPM": null,
+  "RNA tissue cell type enrichment": null,
+  "Blood concentration - Conc. blood MS [pg/L]": "400000",
+  "Blood concentration - Conc. blood IM [pg/L]": 9680,
+  "Secretome location": "Secreted to blood",
+  "Protein class": [
+   "Candidate cardiovascular disease genes",
+   "Plasma proteins",
+   "Predicted secreted proteins"
+  ],
+  "Single cell expression cluster": "Cluster 43: Sertoli cells - Spermatogenesis microenvironment",
+  "_label": "NT-proBNP",
+  "_verified": true
+ },
+ "PSA": {
+  "Gene": "KLK3",
+  "Ensembl": "ENSG00000142515",
+  "RNA tissue specificity": "Tissue enriched",
+  "RNA tissue specificity score": "318",
+  "RNA tissue distribution": "Detected in many",
+  "RNA tissue specific nTPM": {
+   "prostate": "7518.2"
+  },
+  "RNA single cell type specificity": "Cell type enriched",
+  "RNA single cell type specificity score": "147",
+  "RNA single cell type distribution": "Detected in some",
+  "RNA single cell type specific nCPM": {
+   "Prostatic glandular cells": "23233.5"
+  },
+  "RNA single cell type group specific nCPM": {
+   "Glandular cells": "23233.5"
+  },
+  "RNA blood cell specificity": "Not detected in immune cells",
+  "RNA blood cell distribution": "Not detected",
+  "RNA blood cell specific nTPM": null,
+  "RNA tissue cell type enrichment": [
+   "Kidney - Intercalated cells",
+   "Minor Salivary Gland - Minor salivary gland ductal cells",
+   "Prostate - Prostate glandular cells",
+   "Testis - Late spermatids"
+  ],
+  "Blood concentration - Conc. blood MS [pg/L]": "9700000",
+  "Blood concentration - Conc. blood IM [pg/L]": null,
+  "Secretome location": "Secreted in male reproductive system",
+  "Protein class": [
+   "Cancer-related genes",
+   "Enzymes",
+   "FDA approved drug targets",
+   "Plasma proteins",
+   "Predicted secreted proteins"
+  ],
+  "Single cell expression cluster": "Cluster 16: Prostatic glandular cells - Androgen response & seminal fluid",
+  "_label": "PSA",
+  "_verified": true
+ },
+ "CEA": {
+  "Gene": "CEACAM5",
+  "Ensembl": "ENSG00000105388",
+  "RNA tissue specificity": "Tissue enriched",
+  "RNA tissue specificity score": "5",
+  "RNA tissue distribution": "Detected in many",
+  "RNA tissue specific nTPM": {
+   "intestine": "920.3"
+  },
+  "RNA single cell type specificity": "Group enriched",
+  "RNA single cell type specificity score": "4",
+  "RNA single cell type distribution": "Detected in some",
+  "RNA single cell type specific nCPM": {
+   "Colonocytes": "184.2",
+   "Esophageal apical cells": "143.5",
+   "Foveolar cells": "51.2",
+   "Goblet cells": "86.0"
+  },
+  "RNA single cell type group specific nCPM": {
+   "Apical squamous epithelial cells": "143.5",
+   "Enterocytes": "184.2",
+   "Gastric glandular cells": "51.2",
+   "Goblet cells": "86.0"
+  },
+  "RNA blood cell specificity": "Not detected in immune cells",
+  "RNA blood cell distribution": "Not detected",
+  "RNA blood cell specific nTPM": null,
+  "RNA tissue cell type enrichment": [
+   "Colon - Colon enterocytes",
+   "Minor Salivary Gland - Minor salivary gland basal cells",
+   "Prostate - Urothelial cells",
+   "Skin - Eccrine sweat gland cells",
+   "Stomach - Gastric mucous cells",
+   "Thyroid gland - Parafollicular cells"
+  ],
+  "Blood concentration - Conc. blood MS [pg/L]": "400000",
+  "Blood concentration - Conc. blood IM [pg/L]": null,
+  "Secretome location": null,
+  "Protein class": [
+   "Cancer-related genes",
+   "CD markers",
+   "Plasma proteins",
+   "Predicted intracellular proteins",
+   "Predicted membrane proteins"
+  ],
+  "Single cell expression cluster": "Cluster 45: Colonocytes & Enterocytes - Gastrointestinal absorption & barrier",
+  "_label": "CEA",
+  "_verified": true
+ },
+ "Tau (p-tau217)": {
+  "Gene": "MAPT",
+  "Ensembl": "ENSG00000186868",
+  "RNA tissue specificity": "Tissue enhanced",
+  "RNA tissue specificity score": null,
+  "RNA tissue distribution": "Detected in many",
+  "RNA tissue specific nTPM": {
+   "brain": "147.9",
+   "skeletal muscle": "83.6"
+  },
+  "RNA single cell type specificity": "Group enriched",
+  "RNA single cell type specificity score": "4",
+  "RNA single cell type distribution": "Detected in many",
+  "RNA single cell type specific nCPM": {
+   "Astrocytes": "295.6",
+   "Bergmann glia": "241.1",
+   "Brain excitatory neurons": "320.3",
+   "Brain inhibitory neurons": "251.0",
+   "Late spermatids": "124.4",
+   "Oligodendrocyte progenitor cells": "237.0",
+   "Oligodendrocytes": "379.1",
+   "Other brain neurons": "295.2",
+   "Podocytes": "104.3",
+   "Proximal tubule cells": "158.5"
+  },
+  "RNA single cell type group specific nCPM": {
+   "Glial cells": "379.1",
+   "Neuronal cells": "320.3",
+   "Renal nephron cells": "158.5",
+   "Spermatogenic cell types": "124.4"
+  },
+  "RNA blood cell specificity": "Immune cell enhanced",
+  "RNA blood cell distribution": "Detected in single",
+  "RNA blood cell specific nTPM": {
+   "non-classical monocyte": "1.7"
+  },
+  "RNA tissue cell type enrichment": [
+   "Adipose subcutaneous - Adipocytes (Subcutaneous)",
+   "Adipose visceral - Adipocytes (Visceral)",
+   "Adrenal gland - Adrenal medulla cells",
+   "Heart muscle - Cardiomyocytes",
+   "Kidney - Proximal tubular cells",
+   "Prostate - Smooth muscle cells",
+   "Thyroid gland - Fibroblasts"
+  ],
+  "Blood concentration - Conc. blood MS [pg/L]": "82000",
+  "Blood concentration - Conc. blood IM [pg/L]": null,
+  "Secretome location": "Secreted to blood",
+  "Protein class": [
+   "Candidate cardiovascular disease genes",
+   "Disease related genes",
+   "FDA approved drug targets",
+   "Human disease related genes",
+   "Plasma proteins",
+   "Predicted intracellular proteins",
+   "Predicted secreted proteins"
+  ],
+  "Single cell expression cluster": "Cluster 109: Neurons - Neuronal signaling",
+  "_label": "Tau (p-tau217)",
+  "_verified": true
+ },
+ "APP (Abeta42/40)": {
+  "Gene": "APP",
+  "Ensembl": "ENSG00000142192",
+  "RNA tissue specificity": "Low tissue specificity",
+  "RNA tissue specificity score": null,
+  "RNA tissue distribution": "Detected in all",
+  "RNA tissue specific nTPM": null,
+  "RNA single cell type specificity": "Cell type enhanced",
+  "RNA single cell type specificity score": null,
+  "RNA single cell type distribution": "Detected in all",
+  "RNA single cell type specific nCPM": {
+   "Lymphatic endothelial cells": "1230.6"
+  },
+  "RNA single cell type group specific nCPM": null,
+  "RNA blood cell specificity": "Immune cell enriched",
+  "RNA blood cell distribution": "Detected in many",
+  "RNA blood cell specific nTPM": {
+   "plasmacytoid DC": "36.4"
+  },
+  "RNA tissue cell type enrichment": [
+   "Adrenal gland - Adrenal cortex cells",
+   "Thyroid gland - Thyroid glandular cells"
+  ],
+  "Blood concentration - Conc. blood MS [pg/L]": "86000000",
+  "Blood concentration - Conc. blood IM [pg/L]": null,
+  "Secretome location": "Secreted to blood",
+  "Protein class": [
+   "Disease related genes",
+   "FDA approved drug targets",
+   "Human disease related genes",
+   "Plasma proteins",
+   "Predicted intracellular proteins",
+   "Predicted membrane proteins",
+   "Predicted secreted proteins",
+   "Transporters"
+  ],
+  "Single cell expression cluster": "Cluster 12: Endothelial cells - Angiogenesis & vascular homeostasis",
+  "_label": "APP (Abeta42/40)",
+  "_verified": true
+ },
+ "a-synuclein (SAA)": {
+  "Gene": "SNCA",
+  "Ensembl": "ENSG00000145335",
+  "RNA tissue specificity": "Group enriched",
+  "RNA tissue specificity score": "6",
+  "RNA tissue distribution": "Detected in all",
+  "RNA tissue specific nTPM": {
+   "bone marrow": "257.8",
+   "brain": "263.1"
+  },
+  "RNA single cell type specificity": "Cell type enhanced",
+  "RNA single cell type specificity score": null,
+  "RNA single cell type distribution": "Detected in many",
+  "RNA single cell type specific nCPM": {
+   "Erythrocyte progenitors": "321.9",
+   "Erythrocytes": "920.7",
+   "Megakaryocytes": "1366.1",
+   "Melanocytes": "876.2",
+   "Platelets": "1210.8"
+  },
+  "RNA single cell type group specific nCPM": {
+   "Erythrocytes": "920.7",
+   "Megakaryocytes": "1366.1",
+   "Pigment cells": "876.2",
+   "Platelets": "1210.8"
+  },
+  "RNA blood cell specificity": "Immune cell enhanced",
+  "RNA blood cell distribution": "Detected in many",
+  "RNA blood cell specific nTPM": {
+   "plasmacytoid DC": "103.2"
+  },
+  "RNA tissue cell type enrichment": [
+   "Adipose visceral - Mesothelial cells",
+   "Colon - Enteric glia cells",
+   "Liver - Erythroid cells",
+   "Lung - Fibroblasts_1",
+   "Skin - Eccrine sweat gland cells",
+   "Spleen - Erythrocytes"
+  ],
+  "Blood concentration - Conc. blood MS [pg/L]": "42000000",
+  "Blood concentration - Conc. blood IM [pg/L]": null,
+  "Secretome location": "Intracellular and membrane",
+  "Protein class": [
+   "Disease related genes",
+   "Human disease related genes",
+   "Plasma proteins",
+   "Potential drug targets",
+   "Predicted intracellular proteins",
+   "Transporters"
+  ],
+  "Single cell expression cluster": "Cluster 66: Erythroid cells - Erythroid differentiation and maturation",
+  "_label": "a-synuclein (SAA)",
+  "_verified": true
+ },
+ "Transferrin (%CDT)": {
+  "Gene": "TF",
+  "Ensembl": "ENSG00000091513",
+  "RNA tissue specificity": "Group enriched",
+  "RNA tissue specificity score": "5",
+  "RNA tissue distribution": "Detected in all",
+  "RNA tissue specific nTPM": {
+   "liver": "7020.0",
+   "retina": "2256.7"
+  },
+  "RNA single cell type specificity": "Group enriched",
+  "RNA single cell type specificity score": "7",
+  "RNA single cell type distribution": "Detected in many",
+  "RNA single cell type specific nCPM": {
+   "Hepatocytes": "8185.4",
+   "M\u00fcller glia": "11977.3"
+  },
+  "RNA single cell type group specific nCPM": {
+   "Glial cells": "11977.3",
+   "Hepatocytes": "8185.4"
+  },
+  "RNA blood cell specificity": "Not detected in immune cells",
+  "RNA blood cell distribution": "Not detected",
+  "RNA blood cell specific nTPM": null,
+  "RNA tissue cell type enrichment": [
+   "Adipose subcutaneous - Adipocytes (Subcutaneous)",
+   "Adipose visceral - Adipocytes (Visceral)",
+   "Colon - Enteric glia cells",
+   "Liver - Hepatocytes",
+   "Minor Salivary Gland - Minor salivary gland ductal cells",
+   "Prostate - Prostate basal glandular cells",
+   "Skin - Sebaceous gland cells"
+  ],
+  "Blood concentration - Conc. blood MS [pg/L]": "250000000000",
+  "Blood concentration - Conc. blood IM [pg/L]": 19800000000000,
+  "Secretome location": "Secreted to blood",
+  "Protein class": [
+   "Cancer-related genes",
+   "Disease related genes",
+   "Human disease related genes",
+   "Plasma proteins",
+   "Predicted intracellular proteins",
+   "Predicted secreted proteins"
+  ],
+  "Single cell expression cluster": "Cluster 11: Muller glia cells - Retinal homeostasis",
+  "_label": "Transferrin (%CDT)",
+  "_verified": true
+ },
+ "AFP (AFP-L3)": {
+  "Gene": "AFP",
+  "Ensembl": "ENSG00000081051",
+  "RNA tissue specificity": "Tissue enriched",
+  "RNA tissue specificity score": "10",
+  "RNA tissue distribution": "Detected in single",
+  "RNA tissue specific nTPM": {
+   "liver": "3.4"
+  },
+  "RNA single cell type specificity": "Cell type enriched",
+  "RNA single cell type specificity score": "5",
+  "RNA single cell type distribution": "Detected in some",
+  "RNA single cell type specific nCPM": {
+   "Hepatocytes": "141.2"
+  },
+  "RNA single cell type group specific nCPM": {
+   "Hepatocytes": "141.2"
+  },
+  "RNA blood cell specificity": "Not detected in immune cells",
+  "RNA blood cell distribution": "Not detected",
+  "RNA blood cell specific nTPM": null,
+  "RNA tissue cell type enrichment": [
+   "Kidney - Proximal tubular cells",
+   "Liver - Hepatocytes"
+  ],
+  "Blood concentration - Conc. blood MS [pg/L]": "3000000000",
+  "Blood concentration - Conc. blood IM [pg/L]": 3010000,
+  "Secretome location": "Secreted to blood",
+  "Protein class": [
+   "Cancer-related genes",
+   "Disease related genes",
+   "Plasma proteins",
+   "Predicted secreted proteins"
+  ],
+  "Single cell expression cluster": "Cluster 93: Hepatocytes - Bile production & excretion",
+  "_label": "AFP (AFP-L3)",
+  "_verified": true
+ },
+ "Haemoglobin B (HbA1c)": {
+  "Gene": "HBB",
+  "Ensembl": "ENSG00000244734",
+  "RNA tissue specificity": "Tissue enriched",
+  "RNA tissue specificity score": "10",
+  "RNA tissue distribution": "Detected in all",
+  "RNA tissue specific nTPM": {
+   "bone marrow": "125480.9"
+  },
+  "RNA single cell type specificity": "Cell type enriched",
+  "RNA single cell type specificity score": "9",
+  "RNA single cell type distribution": "Detected in some",
+  "RNA single cell type specific nCPM": {
+   "Erythrocytes": "521402.5"
+  },
+  "RNA single cell type group specific nCPM": {
+   "Erythrocytes": "521402.5"
+  },
+  "RNA blood cell specificity": "Group enriched",
+  "RNA blood cell distribution": "Detected in all",
+  "RNA blood cell specific nTPM": {
+   "neutrophil": "662.1",
+   "plasmacytoid DC": "380.8"
+  },
+  "RNA tissue cell type enrichment": [
+   "Liver - Erythroid cells",
+   "Spleen - Erythrocytes"
+  ],
+  "Blood concentration - Conc. blood MS [pg/L]": "17000000000",
+  "Blood concentration - Conc. blood IM [pg/L]": null,
+  "Secretome location": null,
+  "Protein class": [
+   "Disease related genes",
+   "FDA approved drug targets",
+   "Human disease related genes",
+   "Plasma proteins",
+   "Predicted intracellular proteins",
+   "Transporters"
+  ],
+  "Single cell expression cluster": "Cluster 66: Erythroid cells - Erythroid differentiation and maturation",
+  "_label": "Haemoglobin B (HbA1c)",
+  "_verified": true
+ },
+ "HER2 (sHER2)": {
+  "Gene": "ERBB2",
+  "Ensembl": "ENSG00000141736",
+  "RNA tissue specificity": "Low tissue specificity",
+  "RNA tissue specificity score": null,
+  "RNA tissue distribution": "Detected in all",
+  "RNA tissue specific nTPM": null,
+  "RNA single cell type specificity": "Cell type enhanced",
+  "RNA single cell type specificity score": null,
+  "RNA single cell type distribution": "Detected in many",
+  "RNA single cell type specific nCPM": {
+   "Esophageal apical cells": "241.3",
+   "Prostatic club cells": "178.9"
+  },
+  "RNA single cell type group specific nCPM": {
+   "Apical squamous epithelial cells": "241.3"
+  },
+  "RNA blood cell specificity": "Immune cell enhanced",
+  "RNA blood cell distribution": "Detected in some",
+  "RNA blood cell specific nTPM": {
+   "gdT-cell": "5.0"
+  },
+  "RNA tissue cell type enrichment": [
+   "Adrenal gland - Fibroblasts",
+   "Breast - Breast glandular cells",
+   "Lung - Alveolar cells type 1",
+   "Pituitary gland - Undifferentiated cells (Pituitary gland)",
+   "Spleen - Fibroblasts_1"
+  ],
+  "Blood concentration - Conc. blood MS [pg/L]": "360000",
+  "Blood concentration - Conc. blood IM [pg/L]": null,
+  "Secretome location": null,
+  "Protein class": [
+   "Cancer-related genes",
+   "CD markers",
+   "Disease related genes",
+   "Enzymes",
+   "FDA approved drug targets",
+   "Human disease related genes",
+   "Plasma proteins",
+   "Predicted intracellular proteins",
+   "Predicted membrane proteins",
+   "Transporters"
+  ],
+  "Single cell expression cluster": "Cluster 64: Renal epithelial cells - Ion transport & homeostasis",
+  "_label": "HER2 (sHER2)",
+  "_verified": true
+ },
+ "ADAM10 (HER2 sheddase)": {
+  "Gene": "ADAM10",
+  "Ensembl": "ENSG00000137845",
+  "RNA tissue specificity": "Low tissue specificity",
+  "RNA tissue specificity score": null,
+  "RNA tissue distribution": "Detected in all",
+  "RNA tissue specific nTPM": null,
+  "RNA single cell type specificity": "Cell type enhanced",
+  "RNA single cell type specificity score": null,
+  "RNA single cell type distribution": "Detected in all",
+  "RNA single cell type specific nCPM": {
+   "Neutrophils": "589.0"
+  },
+  "RNA single cell type group specific nCPM": null,
+  "RNA blood cell specificity": "Low immune cell specificity",
+  "RNA blood cell distribution": "Detected in all",
+  "RNA blood cell specific nTPM": null,
+  "RNA tissue cell type enrichment": [
+   "Thyroid gland - Thyroid glandular cells"
+  ],
+  "Blood concentration - Conc. blood MS [pg/L]": "950000",
+  "Blood concentration - Conc. blood IM [pg/L]": null,
+  "Secretome location": "Intracellular and membrane",
+  "Protein class": [
+   "Cancer-related genes",
+   "CD markers",
+   "Disease related genes",
+   "Enzymes",
+   "Human disease related genes",
+   "Plasma proteins",
+   "Potential drug targets",
+   "Predicted intracellular proteins",
+   "Predicted membrane proteins",
+   "Transporters"
+  ],
+  "Single cell expression cluster": "Cluster 24: Neutrophils - Innate immunity signal integration",
+  "_label": "ADAM10 (HER2 sheddase)",
+  "_verified": true
+ },
+ "MMP9": {
+  "Gene": "MMP9",
+  "Ensembl": "ENSG00000100985",
+  "RNA tissue specificity": "Group enriched",
+  "RNA tissue specificity score": "11",
+  "RNA tissue distribution": "Detected in many",
+  "RNA tissue specific nTPM": {
+   "bone marrow": "355.6",
+   "lymphoid tissue": "102.5"
+  },
+  "RNA single cell type specificity": "Group enriched",
+  "RNA single cell type specificity score": "6",
+  "RNA single cell type distribution": "Detected in some",
+  "RNA single cell type specific nCPM": {
+   "Neutrophil progenitors": "1633.8",
+   "Neutrophils": "1533.7"
+  },
+  "RNA single cell type group specific nCPM": {
+   "Neutrophils": "1633.8"
+  },
+  "RNA blood cell specificity": "Immune cell enriched",
+  "RNA blood cell distribution": "Detected in some",
+  "RNA blood cell specific nTPM": {
+   "neutrophil": "272.9"
+  },
+  "RNA tissue cell type enrichment": [
+   "Heart muscle - Neutrophils",
+   "Liver - Neutrophils",
+   "Lung - Neutrophils_2",
+   "Pituitary gland - Neutrophils",
+   "Skeletal muscle - Neutrophils",
+   "Spleen - Neutrophils_2"
+  ],
+  "Blood concentration - Conc. blood MS [pg/L]": "65000000",
+  "Blood concentration - Conc. blood IM [pg/L]": 43300000,
+  "Secretome location": "Secreted to blood",
+  "Protein class": [
+   "Cancer-related genes",
+   "Candidate cardiovascular disease genes",
+   "Disease related genes",
+   "Enzymes",
+   "Human disease related genes",
+   "Plasma proteins",
+   "Potential drug targets",
+   "Predicted secreted proteins"
+  ],
+  "Single cell expression cluster": "Cluster 48: Neutrophils - Phagocytosis & degranulation",
+  "_label": "MMP9",
+  "_verified": true
+ },
+ "TIMP1": {
+  "Gene": "TIMP1",
+  "Ensembl": "ENSG00000102265",
+  "RNA tissue specificity": "Tissue enhanced",
+  "RNA tissue specificity score": null,
+  "RNA tissue distribution": "Detected in all",
+  "RNA tissue specific nTPM": {
+   "blood vessel": "2942.8"
+  },
+  "RNA single cell type specificity": "Cell type enhanced",
+  "RNA single cell type specificity score": null,
+  "RNA single cell type distribution": "Detected in many",
+  "RNA single cell type specific nCPM": {
+   "Decidual stromal cells": "4736.3",
+   "Endometrial secretory cells": "1734.3",
+   "Fibroblasts": "2389.5",
+   "Hepatic stellate cells": "3233.9",
+   "Leydig cells": "1234.6",
+   "Mesothelial cells": "2073.5",
+   "monocytes": "1947.4",
+   "Ovarian stromal cells": "1253.0",
+   "Peritubular myoid cells": "1506.2",
+   "Platelets": "3245.3"
+  },
+  "RNA single cell type group specific nCPM": {
+   "Fibroblasts": "2389.5",
+   "Platelets": "3245.3",
+   "Stellate cells": "3233.9",
+   "Stromal cells": "4736.3"
+  },
+  "RNA blood cell specificity": "Low immune cell specificity",
+  "RNA blood cell distribution": "Detected in all",
+  "RNA blood cell specific nTPM": null,
+  "RNA tissue cell type enrichment": [
+   "Adipose subcutaneous - Adipose progenitor cells",
+   "Liver - Vascular endothelial cells",
+   "Stomach - Fibroblasts"
+  ],
+  "Blood concentration - Conc. blood MS [pg/L]": "110000000",
+  "Blood concentration - Conc. blood IM [pg/L]": 127000000,
+  "Secretome location": "Secreted to blood",
+  "Protein class": [
+   "Cancer-related genes",
+   "Candidate cardiovascular disease genes",
+   "Plasma proteins",
+   "Predicted intracellular proteins",
+   "Predicted secreted proteins"
+  ],
+  "Single cell expression cluster": "Cluster 108: Fibroblasts - ECM organization",
+  "_label": "TIMP1",
+  "_verified": true
+ }
+}

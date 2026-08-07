@@ -64,11 +64,13 @@ form.
 | `r4_catalog` | taxonomy as data | 29-entry machine-readable recorder catalog (`recorder_catalog.tsv`) across 10 classes, scored by an explicit six-gate design rubric |
 | `r5_datacases` | published clinical values → feasibility | effect sizes span **two orders of magnitude** (GFAP 51.8× vs PRO-C3 1.7×). Extends r2 with measurement error: a ratio helps iff **ρ > (κ²+a²)/(2κ)**, so PRO-C3's 11% inter-assay CV raises its required correlation from 0.50 to 0.62. Carbamylated albumin cannot reach AUC 0.70 for its own intended use at any sample size |
 
+| `r6_validation` | primary data instead of summary stats | **source specificity measured, not asserted** (HPA, 35 genes) + within-person biological variation + **healthy vs CKD vs AKI single cell** (CELLxGENE, 1.05M kidney cells). Fits the r2 pairing model to real human data: measured ρ(Aβ42,Aβ40) = **0.869** within-person, and the fixed ratio captures 97% of the theoretical ceiling |
+
 ```bash
-python3 -m recorder_pipeline.run_all      # all five modules + figures
+python3 -m recorder_pipeline.run_all      # all six modules + figures
 ```
 
-Three write-ups:
+Four write-ups:
 
 - [`RECORDER_FRAMEWORK.md`](RECORDER_FRAMEWORK.md) — the formalisation, the
   three derived laws, and 10 recorder classes (5 added beyond the source
@@ -85,3 +87,10 @@ Three write-ups:
   cell-bound C4d in SLE) needs **no new assay at all** — EC4d/BC4d are
   commercial and reticulocyte/immature-platelet fractions already print on
   every routine CBC.
+- [`VALIDATION.md`](VALIDATION.md) — the candidates tested against **primary
+  expression and within-person data**. Kills the NGAL line (three independent
+  data types agree it is unstable at source, in transcript induction, and
+  day-to-day in urine), confirms uromodulin measures tubular cell **mass**
+  rather than per-cell output (per-cell expression flat at 0.79–1.27× while
+  serum falls 4.4–17.5×), and records that scRNA-seq is structurally blind to
+  the deposition recorders because mature RBCs are enucleate.

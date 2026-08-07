@@ -14,6 +14,7 @@ from . import r2_pairing as R2
 from . import r3_individuality as R3
 from . import r4_catalog as R4
 from . import r5_datacases as R5
+from . import r6_validation as R6
 
 FIGDIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
                       "figures")
@@ -246,12 +247,112 @@ def fig_dataspace():
     return p
 
 
+def fig_validation():
+    """Primary-data validation: source specificity and within-person behaviour."""
+    hpa = R6.load_hpa()
+    fig, axes = plt.subplots(2, 2, figsize=(13.5, 10))
+    ax = axes.ravel()
+
+    # (a) how many cell types express each parent
+    labels, counts, clean = [], [], []
+    for lab in R6.CLAIMS:
+        rec = hpa[lab]
+        _, blood_clean, n_ct = R6.source_verdict(rec)
+        labels.append(lab.split(" (")[0])
+        counts.append(n_ct)
+        clean.append(blood_clean)
+    order = np.argsort(counts)
+    labels = [labels[i] for i in order]
+    counts = [counts[i] for i in order]
+    clean = [clean[i] for i in order]
+    cols = ["#55a868" if c else "#c44e52" for c in clean]
+    ax[0].barh(labels, counts, color=cols)
+    ax[0].set_xlabel("# cell types with enriched/enhanced expression (HPA)")
+    ax[0].set_title("(a) Source specificity of each parent\n"
+                    "green = no leukocyte expression, red = leukocyte source")
+    ax[0].grid(alpha=0.3, axis="x")
+    ax[0].tick_params(labelsize=8)
+
+    # (b) AD panel within-person CV, ratio highlighted
+    names = [r[0] for r in R6.AD_BV]
+    cvi = [r[1] for r in R6.AD_BV]
+    cols = ["#dd8452"] * len(names)
+    cols[names.index("Abeta42/Abeta40")] = "#4c72b0"
+    bars = ax[1].bar(range(len(names)), cvi, color=cols)
+    ax[1].set_xticks(range(len(names)))
+    ax[1].set_xticklabels(names, rotation=40, ha="right", fontsize=8)
+    ax[1].set_ylabel("within-person CV_I (%)")
+    ax[1].set_title("(b) 20 healthy adults, weekly x 10 wk\n"
+                    "the RATIO halves its own components' noise")
+    for i in (0, 1, 2):
+        ax[1].text(i, cvi[i] + 0.4, f"{cvi[i]}", ha="center", fontsize=8.5)
+    ax[1].annotate("", xy=(2, 3.8), xytext=(0.5, 6.9),
+                   arrowprops=dict(arrowstyle="->", lw=1.8, color="#4c72b0"))
+    ax[1].text(0.9, 8.4, r"measured $\rho$=0.87" "\n1.97x gain", fontsize=8.5,
+               color="#4c72b0")
+    ax[1].grid(alpha=0.3, axis="y")
+
+    # (c) creatinine normalisation: works for one, not the other
+    names = [r[0] for r in R6.URINE_BV]
+    raw = [r[1] for r in R6.URINE_BV]
+    nrm = [r[2] for r in R6.URINE_BV]
+    x = np.arange(len(names))
+    ax[2].bar(x - 0.19, raw, 0.38, label="raw concentration", color="#8c8c8c")
+    ax[2].bar(x + 0.19, nrm, 0.38, label="/ urine creatinine", color="#4c72b0")
+    for i, (r_, n_) in enumerate(zip(raw, nrm)):
+        ax[2].text(i + 0.19, n_ + 0.8, f"−{100*(r_-n_)/r_:.0f}%", ha="center",
+                   fontsize=8.5)
+    ax[2].set_xticks(x)
+    ax[2].set_xticklabels(names, fontsize=9)
+    ax[2].set_ylabel("within-person CV_I (%)")
+    ax[2].set_title("(c) Same denominator, opposite verdicts\n"
+                    "23 stable CKD patients, daily x 10 d")
+    ax[2].legend(fontsize=8)
+    ax[2].grid(alpha=0.3, axis="y")
+
+    # (d) CELLxGENE: healthy vs CKD vs AKI, within dataset & cell type
+    rows = R6._read_tsv(R6.CENSUS_PATH)
+    order = ["normal", "chronic kidney disease", "acute kidney failure"]
+    short = ["normal", "CKD", "AKI"]
+    panels = [("HAVCR1", "proximal tubule", "KIM-1 (reproducible)", "-"),
+              ("LCN2", "proximal tubule", "NGAL (NOT reproducible)", "--"),
+              ("UMOD", "thick ascending limb", "UMOD (flat)", ":")]
+    cols = {"a12ccb9b": "#4c72b0", "dea717d4": "#c44e52"}
+    xs = np.arange(3)
+    for gene, ctk, lab, ls in panels:
+        for ds in ["a12ccb9b", "dea717d4"]:
+            sel = {r["disease"]: r for r in rows if r["gene"] == gene
+                   and r["dataset"] == ds and ctk in r["cell_type"]}
+            if len(sel) < 3:
+                continue
+            base = float(sel["normal"]["mean_expr"])
+            y = [float(sel[d]["mean_expr"]) / base for d in order]
+            ax[3].plot(xs, y, ls, marker="o", color=cols[ds], lw=2,
+                       label=f"{gene} · {ds}")
+    ax[3].set_yscale("log")
+    ax[3].axhline(1.0, color="k", lw=1)
+    ax[3].set_xticks(xs)
+    ax[3].set_xticklabels(short)
+    ax[3].set_ylabel("fold change vs normal (log scale)")
+    ax[3].set_title("(d) Healthy vs indication, single cell\n"
+                    "within dataset & cell type (CELLxGENE, 1.05M cells)")
+    ax[3].legend(fontsize=7.5, ncol=2)
+    ax[3].grid(alpha=0.3)
+
+    fig.tight_layout()
+    p = os.path.join(FIGDIR, "recorder_r6_validation.png")
+    fig.savefig(p, dpi=150)
+    plt.close(fig)
+    return p
+
+
 def main():
     os.makedirs(FIGDIR, exist_ok=True)
-    for mod in (R1, R2, R3, R4, R5):
+    for mod in (R1, R2, R3, R4, R5, R6):
         mod.main()
         print()
-    paths = [fig_kernels(), fig_pairing(), fig_individuality(), fig_dataspace()]
+    paths = [fig_kernels(), fig_pairing(), fig_individuality(), fig_dataspace(),
+             fig_validation()]
     tsv = R4.export_tsv(os.path.join(
         os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
         "recorder_catalog.tsv"))
