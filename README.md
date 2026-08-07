@@ -66,11 +66,13 @@ form.
 | `r6_validation` | primary data instead of summary stats | **source specificity measured, not asserted** (HPA, 35 genes) + within-person biological variation + **healthy vs CKD vs AKI single cell** (CELLxGENE, 1.05M kidney cells). Fits the r2 pairing model to real human data: measured ρ(Aβ42,Aβ40) = **0.869** within-person, and the fixed ratio captures 97% of the theoretical ceiling |
 | `r7_crossdisease` | the gaps r6 left open | SLE (1.26M cells, one dataset carrying both arms), brain (940k, 6 paired AD/control datasets), plaque (224k — **no internal control exists, so the comparison is refused**), and **raw per-patient trajectories** (MIMIC-IV demo). CR1 falls ~30% in SLE B cells, disqualifying it as a BC4d denominator; **19.2% of KDIGO AKI events sit inside the population reference interval** |
 
+| `r8_audit` | the report's own lists vs independent databases | every site claim checked against UniProt: albumin K549 is **precursor** numbering while ApoA-I Y192 is **mature** numbering **in the same table**; GFAP S53-K411 computes to 41.7 kDa exactly as claimed but G56-L404 to 40.6 vs a claimed 37-38. All 8 fold changes reproduce. Reported operating points imply AUCs 0.03-0.08 **higher** than the reported AUCs. Independently, ADAMTS2 — the protease that creates the PRO-C3 neoepitope — is co-expressed with its own substrate (OR 3.54), so **PRO-C3 is a synthesis x processing product, not a synthesis readout** |
+
 ```bash
-python3 -m recorder_pipeline.run_all      # all seven modules + figures
+python3 -m recorder_pipeline.run_all      # all eight modules + figures
 ```
 
-Four write-ups:
+Five write-ups:
 
 - [`RECORDER_FRAMEWORK.md`](RECORDER_FRAMEWORK.md) — the formalisation, the
   three derived laws, and 10 recorder classes (5 added beyond the source
@@ -98,3 +100,6 @@ Four write-ups:
   patient trajectories: CR1 falls ~30% in SLE B cells so it is an invalid
   denominator for BC4d, and **19.2% of KDIGO AKI events in 100 real patients
   had a creatinine still inside the population reference interval**.
+- [`AUDIT.md`](AUDIT.md) — the report's two hand-transcribed tables audited
+  against UniProt, internal arithmetic, and statistical coherence, plus an
+  independent single-cell test of its liver claim.

@@ -16,6 +16,7 @@ from . import r4_catalog as R4
 from . import r5_datacases as R5
 from . import r6_validation as R6
 from . import r7_crossdisease as R7
+from . import r8_audit as R8
 
 FIGDIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
                       "figures")
@@ -431,7 +432,7 @@ def fig_crossdisease():
 
 def main():
     os.makedirs(FIGDIR, exist_ok=True)
-    for mod in (R1, R2, R3, R4, R5, R6, R7):
+    for mod in (R1, R2, R3, R4, R5, R6, R7, R8):
         mod.main()
         print()
     paths = [fig_kernels(), fig_pairing(), fig_individuality(), fig_dataspace(),
