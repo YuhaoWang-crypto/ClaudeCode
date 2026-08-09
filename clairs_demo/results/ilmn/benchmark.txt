@@ -1,0 +1,5 @@
+
+
+[INFO] Total input records: 29, truth records: 29, records out of BED:0
+Type         Precision    Recall       F1-score     TP           FP           FN                        
+SNV          1.0          1.0          1.0          29           0            0                         

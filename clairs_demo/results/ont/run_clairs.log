@@ -1,0 +1,768 @@
+
+[COMMAND] /home/user/clairs/ClairS/run_clairs --tumor_bam_fn /home/user/demo/ont/input/HCC1395_tumor_chr17_demo.bam --normal_bam_fn /home/user/demo/ont/input/HCC1395BL_normal_chr17_demo.bam --ref_fn /home/user/demo/ont/input/GRCh38_no_alt_chr17.fa --threads 4 --platform ont_r10_guppy --output_dir /home/user/demo/ont/output --region chr17:80000000-80100000 
+
+[INFO] --include_all_ctgs not enabled, use chr{1..22,X,Y} and {1..22,X,Y} by default
+[INFO] Call variants in contigs: chr17
+[INFO] Number of chunks for each contig: 17
+
+[INFO] CALLER VERSION: 0.4.5
+[INFO] NORMAL BAM FILE PATH: /home/user/demo/ont/input/HCC1395BL_normal_chr17_demo.bam
+[INFO] TUMOR BAM FILE PATH: /home/user/demo/ont/input/HCC1395_tumor_chr17_demo.bam
+[INFO] REFERENCE FILE PATH: /home/user/demo/ont/input/GRCh38_no_alt_chr17.fa
+[INFO] PLATFORM: ont_r10_guppy
+[INFO] THREADS: 4
+[INFO] OUTPUT FOLDER: /home/user/demo/ont/output
+[INFO] OUTPUT VCF PATH: /home/user/demo/ont/output/output.vcf.gz
+[INFO] PILEUP MODEL PATH: /home/user/clairs/mamba/envs/clairs/bin/clairs_models/ont_r10_guppy/pileup.pkl
+[INFO] FULL-ALIGNMENT MODEL PATH: /home/user/clairs/mamba/envs/clairs/bin/clairs_models/ont_r10_guppy/full_alignment.pkl
+[INFO] BED FILE PATH: /home/user/demo/ont/output/tmp/region.bed
+[INFO] GENOTYPING MODE VCF FILE PATH: None
+[INFO] HYBRID MODE VCF FILE PATH: None
+[INFO] REGION FOR CALLING: chr17:80000000-80100000
+[INFO] CONTIGS FOR CALLING: None
+[INFO] CONDA BINARY PREFIX: /home/user/clairs/mamba/envs/clairs
+[INFO] SAMTOOLS BINARY PATH: samtools
+[INFO] PYTHON BINARY PATH: python3
+[INFO] PYPY BINARY PATH: pypy3
+[INFO] PARALLEL BINARY PATH: parallel
+[INFO] LONGPHASE BINARY PATH: /home/user/clairs/mamba/envs/clairs/bin/longphase
+[INFO] CHUNK SIZE: 5000000
+[INFO] SNV MINIMUM AF: 0.05
+[INFO] SNV MINIMUM QUAL: 8
+[INFO] NORMAL VCF FILE PATH: None
+[INFO] DISABLE PHASING: False
+[INFO] ENABLE DRY RUN: False
+[INFO] ENABLE INDEL CALLING: False
+[INFO] ENABLE PRINTING REFERENCE CALLS: False
+[INFO] ENABLE PRINTING GERMLINE CALLS: False
+[INFO] ENABLE INCLUDING ALL CTGS FOR CALLING: False
+[INFO] ENABLE REMOVING INTERMEDIATE FILES: False
+
+[INFO] Call Germline Variants in Normal BAM using Clair3
+[INFO] RUN THE FOLLOWING COMMAND:
+( /home/user/clairs/mamba/envs/clairs/bin/run_clair3.sh --bam_fn /home/user/demo/ont/input/HCC1395BL_normal_chr17_demo.bam --ref_fn /home/user/demo/ont/input/GRCh38_no_alt_chr17.fa --model_path /home/user/clairs/mamba/envs/clairs/bin/clairs_models/clair3_models/ont_r104_e81_sup_g5015 --platform ont --threads 4 --output /home/user/demo/ont/output/tmp/clair3_output/clair3_normal_output --ctg_name=chr17 --samtools=samtools --pypy=pypy3 --python=python3 --min_coverage=8 --snp_min_af=0.15 --indel_min_af=0.2 --longphase_for_phasing  ) 2>&1 | tee /home/user/demo/ont/output/logs/clair3_log/1_CLAIR3_NORMAL.log
+
+[INFO] CLAIR3 VERSION: v1.2.0
+[INFO] BAM FILE PATH: /home/user/demo/ont/input/HCC1395BL_normal_chr17_demo.bam
+[INFO] REFERENCE FILE PATH: /home/user/demo/ont/input/GRCh38_no_alt_chr17.fa
+[INFO] MODEL PATH: /home/user/clairs/mamba/envs/clairs/bin/clairs_models/clair3_models/ont_r104_e81_sup_g5015
+[INFO] OUTPUT FOLDER: /home/user/demo/ont/output/tmp/clair3_output/clair3_normal_output
+[INFO] PLATFORM: ont
+[INFO] THREADS: 4
+[INFO] BED FILE PATH: EMPTY
+[INFO] VCF FILE PATH: EMPTY
+[INFO] CONTIGS: chr17
+[INFO] CONDA PREFIX: /home/user/clairs/mamba/envs/clairs
+[INFO] SAMTOOLS PATH: samtools
+[INFO] PYTHON PATH: python3
+[INFO] PYPY PATH: pypy3
+[INFO] PARALLEL PATH: parallel
+[INFO] WHATSHAP PATH: whatshap
+[INFO] LONGPHASE PATH: /home/user/clairs/mamba/envs/clairs/bin/longphase
+[INFO] CHUNK SIZE: 5000000
+[INFO] FULL ALIGN PROPORTION: 0.7
+[INFO] FULL ALIGN REFERENCE PROPORTION: 0.1
+[INFO] PHASING PROPORTION: 0.7
+[INFO] MINIMUM MQ: 5
+[INFO] MINIMUM COVERAGE: 8
+[INFO] SNP AF THRESHOLD: 0.15
+[INFO] INDEL AF THRESHOLD: 0.2
+[INFO] BASE ERROR IN GVCF: 0.001
+[INFO] GQ BIN SIZE IN GVCF: 5
+[INFO] ENABLE FILEUP ONLY CALLING: False
+[INFO] ENABLE FAST MODE CALLING: False
+[INFO] ENABLE CALLING SNP CANDIDATES ONLY: False
+[INFO] ENABLE PRINTING REFERENCE CALLS: False
+[INFO] ENABLE OUTPUT GVCF: False
+[INFO] ENABLE HAPLOID PRECISE MODE: False
+[INFO] ENABLE HAPLOID SENSITIVE MODE: False
+[INFO] ENABLE INCLUDE ALL CTGS CALLING: False
+[INFO] ENABLE NO PHASING FOR FULL ALIGNMENT: False
+[INFO] ENABLE REMOVING INTERMEDIATE FILES: False
+[INFO] ENABLE LONGPHASE FOR INTERMEDIATE VCF PHASING: True
+[INFO] ENABLE PHASING FINAL VCF OUTPUT USING WHATSHAP: False
+[INFO] ENABLE PHASING FINAL VCF OUTPUT USING LONGPHASE: False
+[INFO] ENABLE HAPLOTAGGING FINAL BAM: False
+[INFO] ENABLE LONG INDEL CALLING: False
+[INFO] ENABLE C_IMPLEMENT: True
+
++ /home/user/clairs/mamba/envs/clairs/bin/scripts/clair3_c_impl.sh --bam_fn /home/user/demo/ont/input/HCC1395BL_normal_chr17_demo.bam --ref_fn /home/user/demo/ont/input/GRCh38_no_alt_chr17.fa --threads 4 --model_path /home/user/clairs/mamba/envs/clairs/bin/clairs_models/clair3_models/ont_r104_e81_sup_g5015 --platform ont --output /home/user/demo/ont/output/tmp/clair3_output/clair3_normal_output --bed_fn=EMPTY --vcf_fn=EMPTY --ctg_name=chr17 --sample_name=SAMPLE --chunk_num=0 --chunk_size=5000000 --samtools=samtools --python=python3 --pypy=pypy3 --parallel=parallel --whatshap=whatshap --qual=2 --var_pct_full=0.7 --ref_pct_full=0.1 --var_pct_phasing=0.7 --snp_min_af=0.15 --indel_min_af=0.2 --min_mq=5 --min_coverage=8 --min_contig_size=0 --pileup_only=False --gvcf=False --base_err=0.001 --gq_bin_size=5 --fast_mode=False --call_snp_only=False --enable_variant_calling_at_sequence_head_and_tail=False --output_all_contigs_in_gvcf_header=False --print_ref_calls=False --haploid_precise=False --haploid_sensitive=False --include_all_ctgs=False --no_phasing_for_fa=False --pileup_model_prefix=pileup --fa_model_prefix=full_alignment --remove_intermediate_dir=False --enable_phasing=False --enable_long_indel=False --keep_iupac_bases=False --use_gpu=False --device=EMPTY --longphase_for_phasing=True --longphase=/home/user/clairs/mamba/envs/clairs/bin/longphase --use_whatshap_for_intermediate_phasing=True --use_longphase_for_intermediate_phasing=True --use_whatshap_for_final_output_phasing=False --use_longphase_for_final_output_phasing=False --use_whatshap_for_final_output_haplotagging=False
+
+[INFO] Check environment variables
+[INFO] Create folder /home/user/demo/ont/output/tmp/clair3_output/clair3_normal_output/log
+[INFO] Create folder /home/user/demo/ont/output/tmp/clair3_output/clair3_normal_output/tmp/pileup_output
+[INFO] Create folder /home/user/demo/ont/output/tmp/clair3_output/clair3_normal_output/tmp/merge_output
+[INFO] Create folder /home/user/demo/ont/output/tmp/clair3_output/clair3_normal_output/tmp/phase_output
+[INFO] Create folder /home/user/demo/ont/output/tmp/clair3_output/clair3_normal_output/tmp/gvcf_tmp_output
+[INFO] Create folder /home/user/demo/ont/output/tmp/clair3_output/clair3_normal_output/tmp/full_alignment_output
+[INFO] Create folder /home/user/demo/ont/output/tmp/clair3_output/clair3_normal_output/tmp/phase_output/phase_vcf
+[INFO] Create folder /home/user/demo/ont/output/tmp/clair3_output/clair3_normal_output/tmp/phase_output/phase_bam
+[INFO] Create folder /home/user/demo/ont/output/tmp/clair3_output/clair3_normal_output/tmp/full_alignment_output/candidate_bed
+[INFO] Call variant in contigs: chr17
+[INFO] Chunk number for each contig: 17
+[INFO] 1/7 Call variants using pileup model
+2026-08-09 22:29:13.071334: I tensorflow/core/util/port.cc:113] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2026-08-09 22:29:13.234753: I tensorflow/core/platform/cpu_feature_guard.cc:182] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: SSE4.1 SSE4.2 AVX AVX2 AVX512F AVX512_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+Calling variants ...
+Total processed positions in chr17 (chunk 2/17) : 0
+Total time elapsed: 0.10 s
+[INFO] No vcf output for file /home/user/demo/ont/output/tmp/clair3_output/clair3_normal_output/tmp/pileup_output/pileup_chr17_2.vcf, remove empty file
+2026-08-09 22:29:13.094018: I tensorflow/core/util/port.cc:113] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2026-08-09 22:29:13.234773: I tensorflow/core/platform/cpu_feature_guard.cc:182] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: SSE4.1 SSE4.2 AVX AVX2 AVX512F AVX512_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+Calling variants ...
+Total processed positions in chr17 (chunk 3/17) : 0
+Total time elapsed: 0.07 s
+[INFO] No vcf output for file /home/user/demo/ont/output/tmp/clair3_output/clair3_normal_output/tmp/pileup_output/pileup_chr17_3.vcf, remove empty file
+2026-08-09 22:29:13.044607: I tensorflow/core/util/port.cc:113] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2026-08-09 22:29:13.234751: I tensorflow/core/platform/cpu_feature_guard.cc:182] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: SSE4.1 SSE4.2 AVX AVX2 AVX512F AVX512_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+Calling variants ...
+Total processed positions in chr17 (chunk 1/17) : 0
+Total time elapsed: 0.09 s
+[INFO] No vcf output for file /home/user/demo/ont/output/tmp/clair3_output/clair3_normal_output/tmp/pileup_output/pileup_chr17_1.vcf, remove empty file
+2026-08-09 22:29:17.313088: I tensorflow/core/util/port.cc:113] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2026-08-09 22:29:17.344074: I tensorflow/core/platform/cpu_feature_guard.cc:182] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: SSE4.1 SSE4.2 AVX AVX2 AVX512F AVX512_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+Calling variants ...
+Total processed positions in chr17 (chunk 5/17) : 0
+Total time elapsed: 0.04 s
+[INFO] No vcf output for file /home/user/demo/ont/output/tmp/clair3_output/clair3_normal_output/tmp/pileup_output/pileup_chr17_5.vcf, remove empty file
+2026-08-09 22:29:17.341212: I tensorflow/core/util/port.cc:113] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2026-08-09 22:29:17.376015: I tensorflow/core/platform/cpu_feature_guard.cc:182] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: SSE4.1 SSE4.2 AVX AVX2 AVX512F AVX512_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+Calling variants ...
+Total processed positions in chr17 (chunk 6/17) : 0
+Total time elapsed: 0.04 s
+[INFO] No vcf output for file /home/user/demo/ont/output/tmp/clair3_output/clair3_normal_output/tmp/pileup_output/pileup_chr17_6.vcf, remove empty file
+2026-08-09 22:29:17.303698: I tensorflow/core/util/port.cc:113] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2026-08-09 22:29:17.334031: I tensorflow/core/platform/cpu_feature_guard.cc:182] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: SSE4.1 SSE4.2 AVX AVX2 AVX512F AVX512_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+Calling variants ...
+Total processed positions in chr17 (chunk 4/17) : 0
+Total time elapsed: 0.03 s
+[INFO] No vcf output for file /home/user/demo/ont/output/tmp/clair3_output/clair3_normal_output/tmp/pileup_output/pileup_chr17_4.vcf, remove empty file
+2026-08-09 22:29:20.447698: I tensorflow/core/util/port.cc:113] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2026-08-09 22:29:20.480361: I tensorflow/core/platform/cpu_feature_guard.cc:182] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: SSE4.1 SSE4.2 AVX AVX2 AVX512F AVX512_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+Calling variants ...
+Total processed positions in chr17 (chunk 7/17) : 0
+Total time elapsed: 0.05 s
+[INFO] No vcf output for file /home/user/demo/ont/output/tmp/clair3_output/clair3_normal_output/tmp/pileup_output/pileup_chr17_7.vcf, remove empty file
+2026-08-09 22:29:20.517974: I tensorflow/core/util/port.cc:113] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2026-08-09 22:29:20.548952: I tensorflow/core/platform/cpu_feature_guard.cc:182] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: SSE4.1 SSE4.2 AVX AVX2 AVX512F AVX512_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+Calling variants ...
+Total processed positions in chr17 (chunk 8/17) : 0
+Total time elapsed: 0.05 s
+[INFO] No vcf output for file /home/user/demo/ont/output/tmp/clair3_output/clair3_normal_output/tmp/pileup_output/pileup_chr17_8.vcf, remove empty file
+2026-08-09 22:29:20.542017: I tensorflow/core/util/port.cc:113] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2026-08-09 22:29:20.575099: I tensorflow/core/platform/cpu_feature_guard.cc:182] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: SSE4.1 SSE4.2 AVX AVX2 AVX512F AVX512_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+Calling variants ...
+Total processed positions in chr17 (chunk 9/17) : 0
+Total time elapsed: 0.05 s
+[INFO] No vcf output for file /home/user/demo/ont/output/tmp/clair3_output/clair3_normal_output/tmp/pileup_output/pileup_chr17_9.vcf, remove empty file
+2026-08-09 22:29:23.366268: I tensorflow/core/util/port.cc:113] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2026-08-09 22:29:23.400743: I tensorflow/core/platform/cpu_feature_guard.cc:182] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: SSE4.1 SSE4.2 AVX AVX2 AVX512F AVX512_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+Calling variants ...
+Total processed positions in chr17 (chunk 10/17) : 0
+Total time elapsed: 0.04 s
+[INFO] No vcf output for file /home/user/demo/ont/output/tmp/clair3_output/clair3_normal_output/tmp/pileup_output/pileup_chr17_10.vcf, remove empty file
+2026-08-09 22:29:23.427342: I tensorflow/core/util/port.cc:113] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2026-08-09 22:29:23.457610: I tensorflow/core/platform/cpu_feature_guard.cc:182] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: SSE4.1 SSE4.2 AVX AVX2 AVX512F AVX512_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+Calling variants ...
+Total processed positions in chr17 (chunk 12/17) : 0
+Total time elapsed: 0.05 s
+[INFO] No vcf output for file /home/user/demo/ont/output/tmp/clair3_output/clair3_normal_output/tmp/pileup_output/pileup_chr17_12.vcf, remove empty file
+2026-08-09 22:29:23.422182: I tensorflow/core/util/port.cc:113] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2026-08-09 22:29:23.455262: I tensorflow/core/platform/cpu_feature_guard.cc:182] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: SSE4.1 SSE4.2 AVX AVX2 AVX512F AVX512_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+Calling variants ...
+Total processed positions in chr17 (chunk 11/17) : 0
+Total time elapsed: 0.05 s
+[INFO] No vcf output for file /home/user/demo/ont/output/tmp/clair3_output/clair3_normal_output/tmp/pileup_output/pileup_chr17_11.vcf, remove empty file
+2026-08-09 22:29:26.288489: I tensorflow/core/util/port.cc:113] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2026-08-09 22:29:26.320995: I tensorflow/core/platform/cpu_feature_guard.cc:182] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: SSE4.1 SSE4.2 AVX AVX2 AVX512F AVX512_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+Calling variants ...
+Total processed positions in chr17 (chunk 13/17) : 0
+Total time elapsed: 0.06 s
+[INFO] No vcf output for file /home/user/demo/ont/output/tmp/clair3_output/clair3_normal_output/tmp/pileup_output/pileup_chr17_13.vcf, remove empty file
+2026-08-09 22:29:26.311934: I tensorflow/core/util/port.cc:113] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2026-08-09 22:29:26.344994: I tensorflow/core/platform/cpu_feature_guard.cc:182] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: SSE4.1 SSE4.2 AVX AVX2 AVX512F AVX512_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+Calling variants ...
+Total processed positions in chr17 (chunk 14/17) : 0
+Total time elapsed: 0.04 s
+[INFO] No vcf output for file /home/user/demo/ont/output/tmp/clair3_output/clair3_normal_output/tmp/pileup_output/pileup_chr17_14.vcf, remove empty file
+2026-08-09 22:29:26.395465: I tensorflow/core/util/port.cc:113] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2026-08-09 22:29:26.426775: I tensorflow/core/platform/cpu_feature_guard.cc:182] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: SSE4.1 SSE4.2 AVX AVX2 AVX512F AVX512_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+Calling variants ...
+Total processed positions in chr17 (chunk 15/17) : 0
+Total time elapsed: 0.05 s
+[INFO] No vcf output for file /home/user/demo/ont/output/tmp/clair3_output/clair3_normal_output/tmp/pileup_output/pileup_chr17_15.vcf, remove empty file
+2026-08-09 22:29:29.276214: I tensorflow/core/util/port.cc:113] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2026-08-09 22:29:29.310329: I tensorflow/core/platform/cpu_feature_guard.cc:182] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: SSE4.1 SSE4.2 AVX AVX2 AVX512F AVX512_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+Calling variants ...
+Total processed positions in chr17 (chunk 16/17) : 0
+Total time elapsed: 0.07 s
+[INFO] No vcf output for file /home/user/demo/ont/output/tmp/clair3_output/clair3_normal_output/tmp/pileup_output/pileup_chr17_16.vcf, remove empty file
+2026-08-09 22:29:29.286619: I tensorflow/core/util/port.cc:113] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2026-08-09 22:29:29.319199: I tensorflow/core/platform/cpu_feature_guard.cc:182] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: SSE4.1 SSE4.2 AVX AVX2 AVX512F AVX512_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+Calling variants ...
+Total processed positions in chr17 (chunk 17/17) : 764
+Total time elapsed: 5.19 s
+
+real	0m24.911s
+user	0m51.830s
+sys	0m8.662s
+
+[INFO] 2/7 Select heterozygous SNP variants for Whatshap phasing and haplotagging
+[INFO] Select heterozygous pileup variants exceeding phasing quality cutoff 20
+[INFO] Total heterozygous SNP positions selected: chr17: 158
+
+real	0m0.276s
+user	0m0.204s
+sys	0m0.092s
+
+[INFO] 3/7 Phase VCF file using LongPhase
+LongPhase Ver 1.7.3
+
+--- File Parameter --- 
+SNP File      : /home/user/demo/ont/output/tmp/clair3_output/clair3_normal_output/tmp/phase_output/phase_vcf/chr17.vcf
+SV  File      : 
+MOD File      : 
+REF File      : /home/user/demo/ont/input/GRCh38_no_alt_chr17.fa
+Output Prefix : /home/user/demo/ont/output/tmp/clair3_output/clair3_normal_output/tmp/phase_output/phase_vcf/phased_chr17
+Generate Dot  : False
+BAM File      : /home/user/demo/ont/input/HCC1395BL_normal_chr17_demo.bam 
+
+--- Phasing Parameter --- 
+Seq Platform       : ONT
+Phase Indel        : False
+Distance Threshold : 300000
+Connect Adjacent   : 20
+Edge Threshold     : 0.7
+Overlap Threshold  : 0.2
+Mapping Quality    : 1
+Variant Confidence : 0.75
+ReadTag Confidence : 0.65
+
+parsing VCF ... 0s
+parsing SV VCF ... 0s
+parsing Meth VCF ... 0s
+reading reference ... 0s
+(chr17,1s)
+parsing total:  1s
+merge results ... 0s
+writeResult SNP ... 0s
+
+total process: 1s
+
+real	0m0.794s
+user	0m0.543s
+sys	0m0.322s
+
+[INFO] 5/7 Select candidates for full-alignment calling
+[INFO] Set variants quality cutoff 25.0
+[INFO] Set reference calls quality cutoff 8.0
+[INFO] Low quality reference calls to be processed in chr17: 38
+[INFO] Low quality variants to be processed in chr17: 256
+
+real	0m0.260s
+user	0m0.205s
+sys	0m0.072s
+
+[INFO] 6/7 Call low-quality variants using full-alignment model
+2026-08-09 22:29:40.161957: I tensorflow/core/util/port.cc:113] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2026-08-09 22:29:40.195067: I tensorflow/core/platform/cpu_feature_guard.cc:182] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: SSE4.1 SSE4.2 AVX AVX2 AVX512F AVX512_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+Calling variants ...
+Total processed positions in chr17 (chunk 1/1) : 294
+Total time elapsed: 3.18 s
+
+real	0m6.620s
+user	0m6.176s
+sys	0m0.485s
+
+[INFO] 7/7 Merge pileup VCF and full-alignment VCF
+[INFO] Pileup variants processed in chr17: 112
+[INFO] Full-alignment variants processed in chr17: 270
+
+real	0m0.298s
+user	0m0.219s
+sys	0m0.105s
+
+[INFO] Finish calling, output file: /home/user/demo/ont/output/tmp/clair3_output/clair3_normal_output/merge_output.vcf.gz
+
+real	0m35.553s
+user	1m0.884s
+sys	0m10.445s
+
+[INFO] Call Germline Variant in Tumor BAM using Clair3
+[INFO] RUN THE FOLLOWING COMMAND:
+( /home/user/clairs/mamba/envs/clairs/bin/run_clair3.sh --bam_fn /home/user/demo/ont/input/HCC1395_tumor_chr17_demo.bam --ref_fn /home/user/demo/ont/input/GRCh38_no_alt_chr17.fa --model_path /home/user/clairs/mamba/envs/clairs/bin/clairs_models/clair3_models/ont_r104_e81_sup_g5015 --platform ont --threads 4 --output /home/user/demo/ont/output/tmp/clair3_output/clair3_tumor_output --ctg_name=chr17 --samtools=samtools --pypy=pypy3 --python=python3 --min_coverage=8 --snp_min_af=0.15 --indel_min_af=0.2 --longphase_for_phasing  ) 2>&1 | tee /home/user/demo/ont/output/logs/clair3_log/2_CLAIR3_TUMOR.log
+
+[INFO] CLAIR3 VERSION: v1.2.0
+[INFO] BAM FILE PATH: /home/user/demo/ont/input/HCC1395_tumor_chr17_demo.bam
+[INFO] REFERENCE FILE PATH: /home/user/demo/ont/input/GRCh38_no_alt_chr17.fa
+[INFO] MODEL PATH: /home/user/clairs/mamba/envs/clairs/bin/clairs_models/clair3_models/ont_r104_e81_sup_g5015
+[INFO] OUTPUT FOLDER: /home/user/demo/ont/output/tmp/clair3_output/clair3_tumor_output
+[INFO] PLATFORM: ont
+[INFO] THREADS: 4
+[INFO] BED FILE PATH: EMPTY
+[INFO] VCF FILE PATH: EMPTY
+[INFO] CONTIGS: chr17
+[INFO] CONDA PREFIX: /home/user/clairs/mamba/envs/clairs
+[INFO] SAMTOOLS PATH: samtools
+[INFO] PYTHON PATH: python3
+[INFO] PYPY PATH: pypy3
+[INFO] PARALLEL PATH: parallel
+[INFO] WHATSHAP PATH: whatshap
+[INFO] LONGPHASE PATH: /home/user/clairs/mamba/envs/clairs/bin/longphase
+[INFO] CHUNK SIZE: 5000000
+[INFO] FULL ALIGN PROPORTION: 0.7
+[INFO] FULL ALIGN REFERENCE PROPORTION: 0.1
+[INFO] PHASING PROPORTION: 0.7
+[INFO] MINIMUM MQ: 5
+[INFO] MINIMUM COVERAGE: 8
+[INFO] SNP AF THRESHOLD: 0.15
+[INFO] INDEL AF THRESHOLD: 0.2
+[INFO] BASE ERROR IN GVCF: 0.001
+[INFO] GQ BIN SIZE IN GVCF: 5
+[INFO] ENABLE FILEUP ONLY CALLING: False
+[INFO] ENABLE FAST MODE CALLING: False
+[INFO] ENABLE CALLING SNP CANDIDATES ONLY: False
+[INFO] ENABLE PRINTING REFERENCE CALLS: False
+[INFO] ENABLE OUTPUT GVCF: False
+[INFO] ENABLE HAPLOID PRECISE MODE: False
+[INFO] ENABLE HAPLOID SENSITIVE MODE: False
+[INFO] ENABLE INCLUDE ALL CTGS CALLING: False
+[INFO] ENABLE NO PHASING FOR FULL ALIGNMENT: False
+[INFO] ENABLE REMOVING INTERMEDIATE FILES: False
+[INFO] ENABLE LONGPHASE FOR INTERMEDIATE VCF PHASING: True
+[INFO] ENABLE PHASING FINAL VCF OUTPUT USING WHATSHAP: False
+[INFO] ENABLE PHASING FINAL VCF OUTPUT USING LONGPHASE: False
+[INFO] ENABLE HAPLOTAGGING FINAL BAM: False
+[INFO] ENABLE LONG INDEL CALLING: False
+[INFO] ENABLE C_IMPLEMENT: True
+
++ /home/user/clairs/mamba/envs/clairs/bin/scripts/clair3_c_impl.sh --bam_fn /home/user/demo/ont/input/HCC1395_tumor_chr17_demo.bam --ref_fn /home/user/demo/ont/input/GRCh38_no_alt_chr17.fa --threads 4 --model_path /home/user/clairs/mamba/envs/clairs/bin/clairs_models/clair3_models/ont_r104_e81_sup_g5015 --platform ont --output /home/user/demo/ont/output/tmp/clair3_output/clair3_tumor_output --bed_fn=EMPTY --vcf_fn=EMPTY --ctg_name=chr17 --sample_name=SAMPLE --chunk_num=0 --chunk_size=5000000 --samtools=samtools --python=python3 --pypy=pypy3 --parallel=parallel --whatshap=whatshap --qual=2 --var_pct_full=0.7 --ref_pct_full=0.1 --var_pct_phasing=0.7 --snp_min_af=0.15 --indel_min_af=0.2 --min_mq=5 --min_coverage=8 --min_contig_size=0 --pileup_only=False --gvcf=False --base_err=0.001 --gq_bin_size=5 --fast_mode=False --call_snp_only=False --enable_variant_calling_at_sequence_head_and_tail=False --output_all_contigs_in_gvcf_header=False --print_ref_calls=False --haploid_precise=False --haploid_sensitive=False --include_all_ctgs=False --no_phasing_for_fa=False --pileup_model_prefix=pileup --fa_model_prefix=full_alignment --remove_intermediate_dir=False --enable_phasing=False --enable_long_indel=False --keep_iupac_bases=False --use_gpu=False --device=EMPTY --longphase_for_phasing=True --longphase=/home/user/clairs/mamba/envs/clairs/bin/longphase --use_whatshap_for_intermediate_phasing=True --use_longphase_for_intermediate_phasing=True --use_whatshap_for_final_output_phasing=False --use_longphase_for_final_output_phasing=False --use_whatshap_for_final_output_haplotagging=False
+
+[INFO] Check environment variables
+[INFO] Create folder /home/user/demo/ont/output/tmp/clair3_output/clair3_tumor_output/log
+[INFO] Create folder /home/user/demo/ont/output/tmp/clair3_output/clair3_tumor_output/tmp/pileup_output
+[INFO] Create folder /home/user/demo/ont/output/tmp/clair3_output/clair3_tumor_output/tmp/merge_output
+[INFO] Create folder /home/user/demo/ont/output/tmp/clair3_output/clair3_tumor_output/tmp/phase_output
+[INFO] Create folder /home/user/demo/ont/output/tmp/clair3_output/clair3_tumor_output/tmp/gvcf_tmp_output
+[INFO] Create folder /home/user/demo/ont/output/tmp/clair3_output/clair3_tumor_output/tmp/full_alignment_output
+[INFO] Create folder /home/user/demo/ont/output/tmp/clair3_output/clair3_tumor_output/tmp/phase_output/phase_vcf
+[INFO] Create folder /home/user/demo/ont/output/tmp/clair3_output/clair3_tumor_output/tmp/phase_output/phase_bam
+[INFO] Create folder /home/user/demo/ont/output/tmp/clair3_output/clair3_tumor_output/tmp/full_alignment_output/candidate_bed
+[INFO] Call variant in contigs: chr17
+[INFO] Chunk number for each contig: 17
+[INFO] 1/7 Call variants using pileup model
+2026-08-09 22:29:48.116576: I tensorflow/core/util/port.cc:113] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2026-08-09 22:29:48.148065: I tensorflow/core/platform/cpu_feature_guard.cc:182] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: SSE4.1 SSE4.2 AVX AVX2 AVX512F AVX512_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+Calling variants ...
+Total processed positions in chr17 (chunk 2/17) : 0
+Total time elapsed: 0.03 s
+[INFO] No vcf output for file /home/user/demo/ont/output/tmp/clair3_output/clair3_tumor_output/tmp/pileup_output/pileup_chr17_2.vcf, remove empty file
+2026-08-09 22:29:48.105287: I tensorflow/core/util/port.cc:113] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2026-08-09 22:29:48.137319: I tensorflow/core/platform/cpu_feature_guard.cc:182] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: SSE4.1 SSE4.2 AVX AVX2 AVX512F AVX512_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+Calling variants ...
+Total processed positions in chr17 (chunk 1/17) : 0
+Total time elapsed: 0.03 s
+[INFO] No vcf output for file /home/user/demo/ont/output/tmp/clair3_output/clair3_tumor_output/tmp/pileup_output/pileup_chr17_1.vcf, remove empty file
+2026-08-09 22:29:48.113833: I tensorflow/core/util/port.cc:113] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2026-08-09 22:29:48.145173: I tensorflow/core/platform/cpu_feature_guard.cc:182] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: SSE4.1 SSE4.2 AVX AVX2 AVX512F AVX512_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+Calling variants ...
+Total processed positions in chr17 (chunk 3/17) : 0
+Total time elapsed: 0.04 s
+[INFO] No vcf output for file /home/user/demo/ont/output/tmp/clair3_output/clair3_tumor_output/tmp/pileup_output/pileup_chr17_3.vcf, remove empty file
+2026-08-09 22:29:51.118767: I tensorflow/core/util/port.cc:113] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2026-08-09 22:29:51.152679: I tensorflow/core/platform/cpu_feature_guard.cc:182] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: SSE4.1 SSE4.2 AVX AVX2 AVX512F AVX512_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+Calling variants ...
+Total processed positions in chr17 (chunk 4/17) : 0
+Total time elapsed: 0.03 s
+[INFO] No vcf output for file /home/user/demo/ont/output/tmp/clair3_output/clair3_tumor_output/tmp/pileup_output/pileup_chr17_4.vcf, remove empty file
+2026-08-09 22:29:51.332561: I tensorflow/core/util/port.cc:113] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2026-08-09 22:29:51.364795: I tensorflow/core/platform/cpu_feature_guard.cc:182] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: SSE4.1 SSE4.2 AVX AVX2 AVX512F AVX512_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+Calling variants ...
+Total processed positions in chr17 (chunk 6/17) : 0
+Total time elapsed: 0.07 s
+[INFO] No vcf output for file /home/user/demo/ont/output/tmp/clair3_output/clair3_tumor_output/tmp/pileup_output/pileup_chr17_6.vcf, remove empty file
+2026-08-09 22:29:51.314563: I tensorflow/core/util/port.cc:113] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2026-08-09 22:29:51.346435: I tensorflow/core/platform/cpu_feature_guard.cc:182] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: SSE4.1 SSE4.2 AVX AVX2 AVX512F AVX512_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+Calling variants ...
+Total processed positions in chr17 (chunk 5/17) : 0
+Total time elapsed: 0.04 s
+[INFO] No vcf output for file /home/user/demo/ont/output/tmp/clair3_output/clair3_tumor_output/tmp/pileup_output/pileup_chr17_5.vcf, remove empty file
+2026-08-09 22:29:54.058625: I tensorflow/core/util/port.cc:113] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2026-08-09 22:29:54.094836: I tensorflow/core/platform/cpu_feature_guard.cc:182] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: SSE4.1 SSE4.2 AVX AVX2 AVX512F AVX512_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+Calling variants ...
+Total processed positions in chr17 (chunk 7/17) : 0
+Total time elapsed: 0.04 s
+[INFO] No vcf output for file /home/user/demo/ont/output/tmp/clair3_output/clair3_tumor_output/tmp/pileup_output/pileup_chr17_7.vcf, remove empty file
+2026-08-09 22:29:54.330690: I tensorflow/core/util/port.cc:113] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2026-08-09 22:29:54.363376: I tensorflow/core/platform/cpu_feature_guard.cc:182] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: SSE4.1 SSE4.2 AVX AVX2 AVX512F AVX512_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+Calling variants ...
+Total processed positions in chr17 (chunk 8/17) : 0
+Total time elapsed: 0.03 s
+[INFO] No vcf output for file /home/user/demo/ont/output/tmp/clair3_output/clair3_tumor_output/tmp/pileup_output/pileup_chr17_8.vcf, remove empty file
+2026-08-09 22:29:54.493681: I tensorflow/core/util/port.cc:113] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2026-08-09 22:29:54.526276: I tensorflow/core/platform/cpu_feature_guard.cc:182] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: SSE4.1 SSE4.2 AVX AVX2 AVX512F AVX512_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+Calling variants ...
+Total processed positions in chr17 (chunk 9/17) : 0
+Total time elapsed: 0.06 s
+[INFO] No vcf output for file /home/user/demo/ont/output/tmp/clair3_output/clair3_tumor_output/tmp/pileup_output/pileup_chr17_9.vcf, remove empty file
+2026-08-09 22:29:57.130822: I tensorflow/core/util/port.cc:113] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2026-08-09 22:29:57.164893: I tensorflow/core/platform/cpu_feature_guard.cc:182] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: SSE4.1 SSE4.2 AVX AVX2 AVX512F AVX512_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+Calling variants ...
+Total processed positions in chr17 (chunk 10/17) : 0
+Total time elapsed: 0.03 s
+[INFO] No vcf output for file /home/user/demo/ont/output/tmp/clair3_output/clair3_tumor_output/tmp/pileup_output/pileup_chr17_10.vcf, remove empty file
+2026-08-09 22:29:57.536560: I tensorflow/core/util/port.cc:113] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2026-08-09 22:29:57.568536: I tensorflow/core/platform/cpu_feature_guard.cc:182] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: SSE4.1 SSE4.2 AVX AVX2 AVX512F AVX512_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+Calling variants ...
+Total processed positions in chr17 (chunk 11/17) : 0
+Total time elapsed: 0.03 s
+[INFO] No vcf output for file /home/user/demo/ont/output/tmp/clair3_output/clair3_tumor_output/tmp/pileup_output/pileup_chr17_11.vcf, remove empty file
+2026-08-09 22:29:57.907000: I tensorflow/core/util/port.cc:113] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2026-08-09 22:29:57.944757: I tensorflow/core/platform/cpu_feature_guard.cc:182] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: SSE4.1 SSE4.2 AVX AVX2 AVX512F AVX512_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+Calling variants ...
+Total processed positions in chr17 (chunk 12/17) : 0
+Total time elapsed: 0.03 s
+[INFO] No vcf output for file /home/user/demo/ont/output/tmp/clair3_output/clair3_tumor_output/tmp/pileup_output/pileup_chr17_12.vcf, remove empty file
+2026-08-09 22:30:00.552877: I tensorflow/core/util/port.cc:113] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2026-08-09 22:30:00.585319: I tensorflow/core/platform/cpu_feature_guard.cc:182] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: SSE4.1 SSE4.2 AVX AVX2 AVX512F AVX512_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+Calling variants ...
+Total processed positions in chr17 (chunk 14/17) : 0
+Total time elapsed: 0.03 s
+[INFO] No vcf output for file /home/user/demo/ont/output/tmp/clair3_output/clair3_tumor_output/tmp/pileup_output/pileup_chr17_14.vcf, remove empty file
+2026-08-09 22:30:00.131807: I tensorflow/core/util/port.cc:113] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2026-08-09 22:30:00.167014: I tensorflow/core/platform/cpu_feature_guard.cc:182] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: SSE4.1 SSE4.2 AVX AVX2 AVX512F AVX512_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+Calling variants ...
+Total processed positions in chr17 (chunk 13/17) : 0
+Total time elapsed: 0.04 s
+[INFO] No vcf output for file /home/user/demo/ont/output/tmp/clair3_output/clair3_tumor_output/tmp/pileup_output/pileup_chr17_13.vcf, remove empty file
+2026-08-09 22:30:01.093967: I tensorflow/core/util/port.cc:113] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2026-08-09 22:30:01.126756: I tensorflow/core/platform/cpu_feature_guard.cc:182] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: SSE4.1 SSE4.2 AVX AVX2 AVX512F AVX512_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+Calling variants ...
+Total processed positions in chr17 (chunk 15/17) : 0
+Total time elapsed: 0.03 s
+[INFO] No vcf output for file /home/user/demo/ont/output/tmp/clair3_output/clair3_tumor_output/tmp/pileup_output/pileup_chr17_15.vcf, remove empty file
+2026-08-09 22:30:03.629569: I tensorflow/core/util/port.cc:113] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2026-08-09 22:30:03.663431: I tensorflow/core/platform/cpu_feature_guard.cc:182] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: SSE4.1 SSE4.2 AVX AVX2 AVX512F AVX512_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+Calling variants ...
+Total processed positions in chr17 (chunk 16/17) : 0
+Total time elapsed: 0.03 s
+[INFO] No vcf output for file /home/user/demo/ont/output/tmp/clair3_output/clair3_tumor_output/tmp/pileup_output/pileup_chr17_16.vcf, remove empty file
+2026-08-09 22:30:03.758600: I tensorflow/core/util/port.cc:113] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2026-08-09 22:30:03.794828: I tensorflow/core/platform/cpu_feature_guard.cc:182] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: SSE4.1 SSE4.2 AVX AVX2 AVX512F AVX512_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+Calling variants ...
+Total processed positions in chr17 (chunk 17/17) : 659
+Total time elapsed: 5.25 s
+
+real	0m24.453s
+user	0m54.495s
+sys	0m4.522s
+
+[INFO] 2/7 Select heterozygous SNP variants for Whatshap phasing and haplotagging
+[INFO] Select heterozygous pileup variants exceeding phasing quality cutoff 5
+[INFO] Total heterozygous SNP positions selected: chr17: 11
+
+real	0m0.241s
+user	0m0.189s
+sys	0m0.066s
+
+[INFO] 3/7 Phase VCF file using LongPhase
+LongPhase Ver 1.7.3
+
+--- File Parameter --- 
+SNP File      : /home/user/demo/ont/output/tmp/clair3_output/clair3_tumor_output/tmp/phase_output/phase_vcf/chr17.vcf
+SV  File      : 
+MOD File      : 
+REF File      : /home/user/demo/ont/input/GRCh38_no_alt_chr17.fa
+Output Prefix : /home/user/demo/ont/output/tmp/clair3_output/clair3_tumor_output/tmp/phase_output/phase_vcf/phased_chr17
+Generate Dot  : False
+BAM File      : /home/user/demo/ont/input/HCC1395_tumor_chr17_demo.bam 
+
+--- Phasing Parameter --- 
+Seq Platform       : ONT
+Phase Indel        : False
+Distance Threshold : 300000
+Connect Adjacent   : 20
+Edge Threshold     : 0.7
+Overlap Threshold  : 0.2
+Mapping Quality    : 1
+Variant Confidence : 0.75
+ReadTag Confidence : 0.65
+
+parsing VCF ... 0s
+parsing SV VCF ... 0s
+parsing Meth VCF ... 0s
+reading reference ... 1s
+(chr17,0s)
+parsing total:  0s
+merge results ... 0s
+writeResult SNP ... 0s
+
+total process: 1s
+
+real	0m0.735s
+user	0m0.611s
+sys	0m0.228s
+
+[INFO] 5/7 Select candidates for full-alignment calling
+[INFO] Set variants quality cutoff 24.0
+[INFO] Set reference calls quality cutoff 8.0
+[INFO] Low quality reference calls to be processed in chr17: 29
+[INFO] Low quality variants to be processed in chr17: 249
+
+real	0m0.253s
+user	0m0.203s
+sys	0m0.065s
+
+[INFO] 6/7 Call low-quality variants using full-alignment model
+2026-08-09 22:30:14.578031: I tensorflow/core/util/port.cc:113] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2026-08-09 22:30:14.611818: I tensorflow/core/platform/cpu_feature_guard.cc:182] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: SSE4.1 SSE4.2 AVX AVX2 AVX512F AVX512_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+Calling variants ...
+Total processed positions in chr17 (chunk 1/1) : 278
+Total time elapsed: 3.33 s
+
+real	0m6.565s
+user	0m6.092s
+sys	0m0.510s
+
+[INFO] 7/7 Merge pileup VCF and full-alignment VCF
+[INFO] Pileup variants processed in chr17: 109
+[INFO] Full-alignment variants processed in chr17: 253
+
+real	0m0.296s
+user	0m0.228s
+sys	0m0.091s
+
+[INFO] Finish calling, output file: /home/user/demo/ont/output/tmp/clair3_output/clair3_tumor_output/merge_output.vcf.gz
+
+real	0m34.281s
+user	1m3.159s
+sys	0m5.911s
+
+[INFO] Select Heterozygous SNP for Phasing
+[INFO] RUN THE FOLLOWING COMMAND:
+( parallel --joblog /home/user/demo/ont/output/logs/clair3_log/parallel_1_select_hetero_snp_for_phasing.log -j 4 pypy3 /home/user/clairs/ClairS/clairs.py select_hetero_snp_for_phasing --tumor_vcf_fn /home/user/demo/ont/output/tmp/clair3_output/clair3_tumor_output/merge_output.vcf.gz --normal_vcf_fn /home/user/demo/ont/output/tmp/clair3_output/clair3_normal_output/merge_output.vcf.gz --output_folder /home/user/demo/ont/output/tmp/clair3_output/vcf --ctg_name {1} --use_heterozygous_snp_in_normal_sample_for_intermediate_phasing True :::: /home/user/demo/ont/output/tmp/CONTIGS ) 2>&1 | tee /home/user/demo/ont/output/logs/clair3_log/1_select_hetero_snp_for_phasing.log
+
+[INFO] Total HET SNP calls selected: chr17: 10, not found:2, not match:0, low_qual_count:0. Total normal:225 Total tumor:12, pro: 0.8333
+
+[INFO] Phase the Tumor BAM
+[INFO] RUN THE FOLLOWING COMMAND:
+( parallel --joblog /home/user/demo/ont/output/logs/clair3_log/parallel_4_phase_tumor.log -j 4 /home/user/clairs/mamba/envs/clairs/bin/longphase phase  -s /home/user/demo/ont/output/tmp/clair3_output/vcf/{1}.vcf -b /home/user/demo/ont/input/HCC1395_tumor_chr17_demo.bam -r /home/user/demo/ont/input/GRCh38_no_alt_chr17.fa -t 4 -o /home/user/demo/ont/output/tmp/clair3_output/phased_output/tumor_phased_{1} --ont :::: /home/user/demo/ont/output/tmp/CONTIGS && parallel -j 4 bgzip -f /home/user/demo/ont/output/tmp/clair3_output/phased_output/tumor_phased_{1}.vcf :::: /home/user/demo/ont/output/tmp/CONTIGS ) 2>&1 | tee /home/user/demo/ont/output/logs/clair3_log/4_phase_tumor.log && parallel -j 4 tabix -f -p vcf /home/user/demo/ont/output/tmp/clair3_output/phased_output/tumor_phased_{1}.vcf.gz :::: /home/user/demo/ont/output/tmp/CONTIGS
+
+LongPhase Ver 1.7.3
+
+--- File Parameter --- 
+SNP File      : /home/user/demo/ont/output/tmp/clair3_output/vcf/chr17.vcf
+SV  File      : 
+MOD File      : 
+REF File      : /home/user/demo/ont/input/GRCh38_no_alt_chr17.fa
+Output Prefix : /home/user/demo/ont/output/tmp/clair3_output/phased_output/tumor_phased_chr17
+Generate Dot  : False
+BAM File      : /home/user/demo/ont/input/HCC1395_tumor_chr17_demo.bam 
+
+--- Phasing Parameter --- 
+Seq Platform       : ONT
+Phase Indel        : False
+Distance Threshold : 300000
+Connect Adjacent   : 20
+Edge Threshold     : 0.7
+Overlap Threshold  : 0.2
+Mapping Quality    : 1
+Variant Confidence : 0.75
+ReadTag Confidence : 0.65
+
+parsing VCF ... 0s
+parsing SV VCF ... 0s
+parsing Meth VCF ... 0s
+reading reference ... 1s
+(chr17,0s)
+parsing total:  0s
+merge results ... 0s
+writeResult SNP ... 0s
+
+total process: 1s
+
+[INFO] Haplotag the Tumor BAM
+[INFO] RUN THE FOLLOWING COMMAND:
+( parallel --joblog /home/user/demo/ont/output/logs/clair3_log/parallel_5_haplotag_tumor.log -j 4 /home/user/clairs/mamba/envs/clairs/bin/whatshap haplotag --output /home/user/demo/ont/output/tmp/clair3_output/phased_output/tumor_{1}.bam --reference /home/user/demo/ont/input/GRCh38_no_alt_chr17.fa --regions {1}  --ignore-read-groups /home/user/demo/ont/output/tmp/clair3_output/phased_output/tumor_phased_{1}.vcf.gz /home/user/demo/ont/input/HCC1395_tumor_chr17_demo.bam :::: /home/user/demo/ont/output/tmp/CONTIGS ) 2>&1 | tee /home/user/demo/ont/output/logs/clair3_log/5_tumor_haplotag.log && parallel -j 4 samtools index  -@4 /home/user/demo/ont/output/tmp/clair3_output/phased_output/tumor_{1}.bam :::: /home/user/demo/ont/output/tmp/CONTIGS
+
+Found 1 sample(s) in input VCF
+Found 0 sample(s) in BAM file
+Number of supplementary alignments: 0
+Number of non-singleton groups: 0
+Skipped 0 groups
+Found 943 reads covering 219 variants
+
+== SUMMARY ==
+Total alignments processed:                      1087
+Alignments that could be tagged:                  938
+Alignments spanning multiple phase sets:            0
+Finished in 1.5 s
+
+[INFO] STEP 1: Extract Variant Candidates from Tumor and Normal BAMs
+[INFO] RUN THE FOLLOWING COMMAND:
+( parallel --joblog /home/user/demo/ont/output/logs/parallel_1_extract_tumor_candidates.log -C " " -j 4 pypy3 /home/user/clairs/ClairS/clairs.py extract_pair_candidates --tumor_bam_fn /home/user/demo/ont/input/HCC1395_tumor_chr17_demo.bam --normal_bam_fn /home/user/demo/ont/input/HCC1395BL_normal_chr17_demo.bam --ref_fn /home/user/demo/ont/input/GRCh38_no_alt_chr17.fa --samtools samtools --snv_min_af 0.05 --indel_min_af 1.0 --chunk_id {2}  --chunk_num {3}  --ctg_name {1}  --platform ont --min_coverage 4 --bed_fn /home/user/demo/ont/output/tmp/split_beds/{1} --candidates_folder /home/user/demo/ont/output/tmp/candidates --output_depth True  --select_indel_candidates False --hybrid_mode_vcf_fn None --genotyping_mode_vcf_fn None :::: /home/user/demo/ont/output/tmp/CHUNK_LIST ) 2>&1 | tee /home/user/demo/ont/output/logs/1_EC.log && pypy3 /home/user/clairs/ClairS/clairs.py concat_files --input_dir /home/user/demo/ont/output/tmp/candidates --input_prefix CANDIDATES_FILE_ --output_fn CANDIDATES_FILES 
+
+[INFO] chr17 chunk 2/17: Total candidates found: 5
+[INFO] chr17 chunk 0/17: Total candidates found: 3
+[INFO] chr17 chunk 1/17: Total candidates found: 3
+[INFO] chr17 chunk 3/17: Total candidates found: 3
+[INFO] chr17 chunk 4/17: Total candidates found: 11
+[INFO] chr17 chunk 6/17: Total candidates found: 3
+[INFO] chr17 chunk 5/17: Total candidates found: 2
+[INFO] chr17 chunk 7/17: Total candidates found: 4
+[INFO] chr17 chunk 9/17: Total candidates found: 0
+[INFO] chr17 chunk 10/17: Total candidates found: 1
+[INFO] chr17 chunk 11/17: Total candidates found: 0
+[INFO] chr17 chunk 8/17: Total candidates found: 3
+[INFO] chr17 chunk 12/17: Total candidates found: 2
+[INFO] chr17 chunk 13/17: Total candidates found: 0
+[INFO] chr17 chunk 14/17: Total candidates found: 0
+[INFO] chr17 chunk 15/17: Total candidates found: 1
+[INFO] chr17 chunk 16/17: Total candidates found: 1
+
+[INFO] STEP 2: Pileup Model Calling
+[INFO] Create Paired Tensors
+[INFO] RUN THE FOLLOWING COMMAND:
+( parallel --joblog /home/user/demo/ont/output/logs/parallel_2-1_create_pair_tensor.log -j 4 pypy3 /home/user/clairs/ClairS/clairs.py create_pair_tensor_pileup --normal_bam_fn /home/user/demo/ont/input/HCC1395BL_normal_chr17_demo.bam --tumor_bam_fn /home/user/demo/ont/input/HCC1395_tumor_chr17_demo.bam --ref_fn /home/user/demo/ont/input/GRCh38_no_alt_chr17.fa --ctg_name {1/.} --samtools samtools --candidates_bed_regions {1} --tensor_can_fn /home/user/demo/ont/output/tmp/pileup_tensor_can/{1/}  --platform ont :::: /home/user/demo/ont/output/tmp/candidates/CANDIDATES_FILES ) 2>&1 | tee /home/user/demo/ont/output/logs/2-1_CPT.log
+
+[INFO] chr17 chunk 1-1/1 Tensors generated: 3
+[INFO] chr17 chunk 1-1/15 Tensors generated: 1
+[INFO] chr17 chunk 1-1/3 Tensors generated: 3
+[INFO] chr17 chunk 1-1/5 Tensors generated: 2
+[INFO] chr17 chunk 1-1/6 Tensors generated: 3
+[INFO] chr17 chunk 1-1/0 Tensors generated: 3
+[INFO] chr17 chunk 1-1/8 Tensors generated: 3
+[INFO] chr17 chunk 1-1/10 Tensors generated: 1
+[INFO] chr17 chunk 1-1/16 Tensors generated: 1
+[INFO] chr17 chunk 1-1/2 Tensors generated: 5
+[INFO] chr17 chunk 1-1/12 Tensors generated: 2
+[INFO] chr17 chunk 1-1/7 Tensors generated: 4
+[INFO] chr17 chunk 1-1/4 Tensors generated: 11
+
+[INFO] Pileup Model Prediction
+[INFO] RUN THE FOLLOWING COMMAND:
+( parallel --joblog /home/user/demo/ont/output/logs/parallel_2-2_predict.log -j 4 python3 /home/user/clairs/ClairS/clairs.py predict --tensor_fn /home/user/demo/ont/output/tmp/pileup_tensor_can/{1/}  --call_fn /home/user/demo/ont/output/tmp/vcf_output/p_{1/}.vcf --chkpnt_fn /home/user/clairs/mamba/envs/clairs/bin/clairs_models/ont_r10_guppy/pileup.pkl --use_gpu False --platform ont --ctg_name {1/.} --pileup  :::: /home/user/demo/ont/output/tmp/candidates/CANDIDATES_FILES ) 2>&1 | tee /home/user/demo/ont/output/logs/2-2_PREDICT.log
+
+[INFO] chr17 total processed positions: 2, time elapsed: 0.1s
+[INFO] chr17 total processed positions: 1, time elapsed: 0.0s
+[INFO] No variant output for p_chr17.15_0_1.vcf, remove empty VCF
+[INFO] chr17 total processed positions: 3, time elapsed: 0.1s
+[INFO] chr17 total processed positions: 3, time elapsed: 0.1s
+[INFO] chr17 total processed positions: 3, time elapsed: 0.0s
+[INFO] No variant output for p_chr17.6_0_1.vcf, remove empty VCF
+[INFO] chr17 total processed positions: 3, time elapsed: 0.0s
+[INFO] chr17 total processed positions: 1, time elapsed: 0.0s
+[INFO] chr17 total processed positions: 3, time elapsed: 0.0s
+[INFO] chr17 total processed positions: 1, time elapsed: 0.0s
+[INFO] No variant output for p_chr17.16_0_1.vcf, remove empty VCF
+[INFO] chr17 total processed positions: 4, time elapsed: 0.0s
+[INFO] chr17 total processed positions: 2, time elapsed: 0.0s
+[INFO] chr17 total processed positions: 5, time elapsed: 0.0s
+[INFO] chr17 total processed positions: 11, time elapsed: 0.0s
+
+[INFO] Merge Pileup VCFs
+[INFO] RUN THE FOLLOWING COMMAND:
+pypy3 /home/user/clairs/ClairS/clairs.py sort_vcf --ref_fn /home/user/demo/ont/input/GRCh38_no_alt_chr17.fa --contigs_fn /home/user/demo/ont/output/tmp/CONTIGS --input_dir /home/user/demo/ont/output/tmp/vcf_output --vcf_fn_prefix p_ --output_fn /home/user/demo/ont/output/tmp/vcf_output/pileup.vcf
+
+[INFO] Sorting VCFs...
+[INFO] Finished VCF sorting!
+
+[INFO] STEP 3: Full-alignment Model Calling
+[INFO] Create Full-alignment Paired Tensors
+[INFO] RUN THE FOLLOWING COMMAND:
+( parallel --joblog /home/user/demo/ont/output/logs/parallel_3-1_create_pair_tensor_fa.log -j 4 pypy3 /home/user/clairs/ClairS/clairs.py create_pair_tensor --normal_bam_fn /home/user/demo/ont/input/HCC1395BL_normal_chr17_demo.bam --tumor_bam_fn /home/user/demo/ont/output/tmp/clair3_output/phased_output/tumor_{1/.}.bam --ref_fn /home/user/demo/ont/input/GRCh38_no_alt_chr17.fa --ctg_name {1/.} --samtools samtools --candidates_bed_regions {1} --tensor_can_fn /home/user/demo/ont/output/tmp/fa_tensor_can/{1/}  --platform ont :::: /home/user/demo/ont/output/tmp/candidates/CANDIDATES_FILES ) 2>&1 | tee /home/user/demo/ont/output/logs/3-1_CPT.log
+
+[INFO] chr17 chunk 1-1/15 Tensors generated: 1
+[INFO] chr17 chunk 1-1/3 Tensors generated: 3
+[INFO] chr17 chunk 1-1/1 Tensors generated: 3
+[INFO] chr17 chunk 1-1/5 Tensors generated: 2
+[INFO] chr17 chunk 1-1/10 Tensors generated: 1
+[INFO] chr17 chunk 1-1/6 Tensors generated: 3
+[INFO] chr17 chunk 1-1/0 Tensors generated: 3
+[INFO] chr17 chunk 1-1/8 Tensors generated: 3
+[INFO] chr17 chunk 1-1/16 Tensors generated: 1
+[INFO] chr17 chunk 1-1/12 Tensors generated: 2
+[INFO] chr17 chunk 1-1/2 Tensors generated: 5
+[INFO] chr17 chunk 1-1/7 Tensors generated: 4
+[INFO] chr17 chunk 1-1/4 Tensors generated: 11
+
+[INFO] Full-alignment Model Prediction
+[INFO] RUN THE FOLLOWING COMMAND:
+( parallel --joblog /home/user/demo/ont/output/logs/parallel_3-2_predict.log -j 4 python3 /home/user/clairs/ClairS/clairs.py predict --tensor_fn /home/user/demo/ont/output/tmp/fa_tensor_can/{1/}  --call_fn /home/user/demo/ont/output/tmp/vcf_output/fa_{1/}.vcf --chkpnt_fn /home/user/clairs/mamba/envs/clairs/bin/clairs_models/ont_r10_guppy/full_alignment.pkl --use_gpu False --platform ont --ctg_name {1/.} :::: /home/user/demo/ont/output/tmp/candidates/CANDIDATES_FILES ) 2>&1 | tee /home/user/demo/ont/output/logs/3-2_PREDICT.log
+
+[INFO] chr17 total processed positions: 2, time elapsed: 0.2s
+[INFO] chr17 total processed positions: 1, time elapsed: 0.1s
+[INFO] No variant output for fa_chr17.15_0_1.vcf, remove empty VCF
+[INFO] chr17 total processed positions: 3, time elapsed: 0.3s
+[INFO] chr17 total processed positions: 3, time elapsed: 0.3s
+[INFO] chr17 total processed positions: 1, time elapsed: 0.1s
+[INFO] chr17 total processed positions: 3, time elapsed: 0.3s
+[INFO] chr17 total processed positions: 3, time elapsed: 0.3s
+[INFO] No variant output for fa_chr17.6_0_1.vcf, remove empty VCF
+[INFO] chr17 total processed positions: 3, time elapsed: 0.3s
+[INFO] chr17 total processed positions: 1, time elapsed: 0.1s
+[INFO] No variant output for fa_chr17.16_0_1.vcf, remove empty VCF
+[INFO] chr17 total processed positions: 2, time elapsed: 0.2s
+[INFO] chr17 total processed positions: 4, time elapsed: 0.3s
+[INFO] chr17 total processed positions: 5, time elapsed: 0.4s
+[INFO] chr17 total processed positions: 11, time elapsed: 0.9s
+
+[INFO] Merge Full-alignment VCFs
+[INFO] RUN THE FOLLOWING COMMAND:
+pypy3 /home/user/clairs/ClairS/clairs.py sort_vcf --ref_fn /home/user/demo/ont/input/GRCh38_no_alt_chr17.fa --contigs_fn /home/user/demo/ont/output/tmp/CONTIGS --input_dir /home/user/demo/ont/output/tmp/vcf_output --vcf_fn_prefix fa_ --output_fn /home/user/demo/ont/output/tmp/vcf_output/full_alignment.vcf
+
+[INFO] Sorting VCFs...
+[INFO] Finished VCF sorting!
+
+[INFO] STEP 4: Haplotype filtering
+[INFO] RUN THE FOLLOWING COMMAND:
+( pypy3 /home/user/clairs/ClairS/clairs.py haplotype_filtering --tumor_bam_fn /home/user/demo/ont/output/tmp/clair3_output/phased_output/tumor_ --ref_fn /home/user/demo/ont/input/GRCh38_no_alt_chr17.fa --germline_vcf_fn /home/user/demo/ont/output/tmp/clair3_output/clair3_tumor_output/merge_output.vcf.gz --pileup_vcf_fn /home/user/demo/ont/output/tmp/vcf_output/pileup.vcf --full_alignment_vcf_fn /home/user/demo/ont/output/tmp/vcf_output/full_alignment.vcf --output_dir /home/user/demo/ont/output/tmp/vcf_output --samtools samtools --pypy3 pypy3 --parallel parallel --threads 4 ) 2>&1 | tee /home/user/demo/ont/output/logs/4_HAP_FILTER.log
+
+Total input calls: 28, filtered by haplotype match 0
+
+[INFO] STEP 5: Merge and sort VCF
+[INFO] RUN THE FOLLOWING COMMAND:
+( pypy3 /home/user/clairs/ClairS/clairs.py merge_vcf --ref_fn /home/user/demo/ont/input/GRCh38_no_alt_chr17.fa --pileup_vcf_fn /home/user/demo/ont/output/tmp/vcf_output/pileup_filter.vcf --full_alignment_vcf_fn /home/user/demo/ont/output/tmp/vcf_output/full_alignment_filter.vcf --output_fn /home/user/demo/ont/output/output.vcf --platform ont --qual 8 --sample_name SAMPLE --enable_indel_calling False --prefer_recall False --cmdline /home/user/demo/ont/output/tmp/CMD ) 2>&1 | tee /home/user/demo/ont/output/logs/5_MV.log
+
+[INFO] Full-alignment variants filtered by pileup:  4
+
+[INFO] Total time elapsed: 1m40.00s
+
+[INFO] Finish calling, output file: /home/user/demo/ont/output/output.vcf.gz
+

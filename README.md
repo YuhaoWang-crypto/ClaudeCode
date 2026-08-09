@@ -41,3 +41,27 @@ python3 -m grn_pipeline.m1_symmetry   # or any single module
 Figures are written to `figures/`. A full write-up with numbers, rigour
 labels, and the interpretation (including the Lyapunov-exponent biomarker
 question) is in [`REPORT.md`](REPORT.md).
+
+## Skills
+
+Agent skills packaged in this repo (`.claude/skills/`):
+
+| Skill | What it does |
+|---|---|
+| [`network-biomarker`](.claude/skills/network-biomarker/) | the `grn_pipeline` methodology above — irreducibility/symmetry + critical-transition biomarkers |
+| [`clairs-install-demo`](.claude/skills/clairs-install-demo/) | install [ClairS](https://github.com/HKU-BAL/ClairS) (tumour-normal somatic variant calling) natively on Linux without Docker, and run/benchmark the HCC1395 demo |
+
+## ClairS demo
+
+[`clairs_demo/`](clairs_demo/) holds a reproducible somatic-variant-calling run:
+HCC1395/HCC1395BL tumour-normal pair, `chr17:80.0–80.1 Mb`, benchmarked against
+the SEQC2 v1.2 truth set on three platforms.
+
+| Dataset | Precision | Recall | F1 | TP | FP | FN |
+|---|---|---|---|---|---|---|
+| ONT R10.4.1 | 1.0 | 0.9655 | 0.9825 | 28 | 0 | 1 |
+| Illumina NovaSeq | 1.0 | 1.0 | 1.0 | 29 | 0 | 0 |
+| PacBio Revio HiFi | 1.0 | 0.9655 | 0.9825 | 28 | 0 | 1 |
+
+All three match ClairS's published expected output, from a from-source install
+with no container.

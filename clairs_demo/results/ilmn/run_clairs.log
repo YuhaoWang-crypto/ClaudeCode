@@ -1,0 +1,181 @@
+
+[COMMAND] /home/user/clairs/ClairS/run_clairs --tumor_bam_fn /home/user/demo/ilmn/input/HCC1395_tumor_chr17_demo.bam --normal_bam_fn /home/user/demo/ilmn/input/HCC1395BL_normal_chr17_demo.bam --ref_fn /home/user/demo/ilmn/input/GRCh38_chr17.fa --threads 4 --platform ilmn --output_dir /home/user/demo/ilmn/output --region chr17:80000000-80100000 
+
+[INFO] --include_all_ctgs not enabled, use chr{1..22,X,Y} and {1..22,X,Y} by default
+[INFO] Call variants in contigs: chr17
+[INFO] Number of chunks for each contig: 17
+
+[INFO] CALLER VERSION: 0.4.5
+[INFO] NORMAL BAM FILE PATH: /home/user/demo/ilmn/input/HCC1395BL_normal_chr17_demo.bam
+[INFO] TUMOR BAM FILE PATH: /home/user/demo/ilmn/input/HCC1395_tumor_chr17_demo.bam
+[INFO] REFERENCE FILE PATH: /home/user/demo/ilmn/input/GRCh38_chr17.fa
+[INFO] PLATFORM: ilmn
+[INFO] THREADS: 4
+[INFO] OUTPUT FOLDER: /home/user/demo/ilmn/output
+[INFO] OUTPUT VCF PATH: /home/user/demo/ilmn/output/output.vcf.gz
+[INFO] PILEUP MODEL PATH: /home/user/clairs/mamba/envs/clairs/bin/clairs_models/ilmn/pileup.pkl
+[INFO] FULL-ALIGNMENT MODEL PATH: /home/user/clairs/mamba/envs/clairs/bin/clairs_models/ilmn/full_alignment.pkl
+[INFO] BED FILE PATH: /home/user/demo/ilmn/output/tmp/region.bed
+[INFO] GENOTYPING MODE VCF FILE PATH: None
+[INFO] HYBRID MODE VCF FILE PATH: None
+[INFO] REGION FOR CALLING: chr17:80000000-80100000
+[INFO] CONTIGS FOR CALLING: None
+[INFO] CONDA BINARY PREFIX: /home/user/clairs/mamba/envs/clairs
+[INFO] SAMTOOLS BINARY PATH: samtools
+[INFO] PYTHON BINARY PATH: python3
+[INFO] PYPY BINARY PATH: pypy3
+[INFO] PARALLEL BINARY PATH: parallel
+[INFO] LONGPHASE BINARY PATH: None
+[INFO] CHUNK SIZE: 5000000
+[INFO] SNV MINIMUM AF: 0.05
+[INFO] SNV MINIMUM QUAL: 2
+[INFO] NORMAL VCF FILE PATH: None
+[INFO] DISABLE PHASING: False
+[INFO] ENABLE DRY RUN: False
+[INFO] ENABLE INDEL CALLING: False
+[INFO] ENABLE PRINTING REFERENCE CALLS: False
+[INFO] ENABLE PRINTING GERMLINE CALLS: False
+[INFO] ENABLE INCLUDING ALL CTGS FOR CALLING: False
+[INFO] ENABLE REMOVING INTERMEDIATE FILES: False
+
+[INFO] STEP 1: Extract Variant Candidates from Tumor and Normal BAMs
+[INFO] RUN THE FOLLOWING COMMAND:
+( parallel --joblog /home/user/demo/ilmn/output/logs/parallel_1_extract_tumor_candidates.log -C " " -j 4 pypy3 /home/user/clairs/ClairS/clairs.py extract_pair_candidates --tumor_bam_fn /home/user/demo/ilmn/input/HCC1395_tumor_chr17_demo.bam --normal_bam_fn /home/user/demo/ilmn/input/HCC1395BL_normal_chr17_demo.bam --ref_fn /home/user/demo/ilmn/input/GRCh38_chr17.fa --samtools samtools --snv_min_af 0.05 --indel_min_af 1.0 --chunk_id {2}  --chunk_num {3}  --ctg_name {1}  --platform ilmn --min_coverage 4 --bed_fn /home/user/demo/ilmn/output/tmp/split_beds/{1} --candidates_folder /home/user/demo/ilmn/output/tmp/candidates --output_depth True  --select_indel_candidates False --hybrid_mode_vcf_fn None --genotyping_mode_vcf_fn None :::: /home/user/demo/ilmn/output/tmp/CHUNK_LIST ) 2>&1 | tee /home/user/demo/ilmn/output/logs/1_EC.log && pypy3 /home/user/clairs/ClairS/clairs.py concat_files --input_dir /home/user/demo/ilmn/output/tmp/candidates --input_prefix CANDIDATES_FILE_ --output_fn CANDIDATES_FILES 
+
+[INFO] chr17 chunk 0/17: Total candidates found: 3
+[INFO] chr17 chunk 1/17: Total candidates found: 2
+[INFO] chr17 chunk 2/17: Total candidates found: 5
+[INFO] chr17 chunk 3/17: Total candidates found: 5
+[INFO] chr17 chunk 5/17: Total candidates found: 3
+[INFO] chr17 chunk 4/17: Total candidates found: 6
+[INFO] chr17 chunk 7/17: Total candidates found: 3
+[INFO] chr17 chunk 6/17: Total candidates found: 1
+[INFO] chr17 chunk 9/17: Total candidates found: 0
+[INFO] chr17 chunk 8/17: Total candidates found: 3
+[INFO] chr17 chunk 11/17: Total candidates found: 5
+[INFO] chr17 chunk 10/17: Total candidates found: 2
+[INFO] chr17 chunk 12/17: Total candidates found: 2
+[INFO] chr17 chunk 13/17: Total candidates found: 1
+[INFO] chr17 chunk 15/17: Total candidates found: 2
+[INFO] chr17 chunk 14/17: Total candidates found: 0
+[INFO] chr17 chunk 16/17: Total candidates found: 2
+
+[INFO] STEP 2: Pileup Model Calling
+[INFO] Create Paired Tensors
+[INFO] RUN THE FOLLOWING COMMAND:
+( parallel --joblog /home/user/demo/ilmn/output/logs/parallel_2-1_create_pair_tensor.log -j 4 pypy3 /home/user/clairs/ClairS/clairs.py create_pair_tensor_pileup --normal_bam_fn /home/user/demo/ilmn/input/HCC1395BL_normal_chr17_demo.bam --tumor_bam_fn /home/user/demo/ilmn/input/HCC1395_tumor_chr17_demo.bam --ref_fn /home/user/demo/ilmn/input/GRCh38_chr17.fa --ctg_name {1/.} --samtools samtools --candidates_bed_regions {1} --tensor_can_fn /home/user/demo/ilmn/output/tmp/pileup_tensor_can/{1/}  --platform ilmn :::: /home/user/demo/ilmn/output/tmp/candidates/CANDIDATES_FILES ) 2>&1 | tee /home/user/demo/ilmn/output/logs/2-1_CPT.log
+
+[INFO] chr17 chunk 1-1/13 Tensors generated: 1
+[INFO] chr17 chunk 1-1/5 Tensors generated: 3
+[INFO] chr17 chunk 1-1/15 Tensors generated: 2
+[INFO] chr17 chunk 1-1/3 Tensors generated: 5
+[INFO] chr17 chunk 1-1/1 Tensors generated: 2
+[INFO] chr17 chunk 1-1/6 Tensors generated: 1
+[INFO] chr17 chunk 1-1/0 Tensors generated: 3
+[INFO] chr17 chunk 1-1/8 Tensors generated: 3
+[INFO] chr17 chunk 1-1/10 Tensors generated: 2
+[INFO] chr17 chunk 1-1/16 Tensors generated: 2
+[INFO] chr17 chunk 1-1/11 Tensors generated: 5
+[INFO] chr17 chunk 1-1/2 Tensors generated: 5
+[INFO] chr17 chunk 1-1/12 Tensors generated: 2
+[INFO] chr17 chunk 1-1/7 Tensors generated: 3
+[INFO] chr17 chunk 1-1/4 Tensors generated: 6
+
+[INFO] Pileup Model Prediction
+[INFO] RUN THE FOLLOWING COMMAND:
+( parallel --joblog /home/user/demo/ilmn/output/logs/parallel_2-2_predict.log -j 4 python3 /home/user/clairs/ClairS/clairs.py predict --tensor_fn /home/user/demo/ilmn/output/tmp/pileup_tensor_can/{1/}  --call_fn /home/user/demo/ilmn/output/tmp/vcf_output/p_{1/}.vcf --chkpnt_fn /home/user/clairs/mamba/envs/clairs/bin/clairs_models/ilmn/pileup.pkl --use_gpu False --platform ilmn --ctg_name {1/.} --pileup  :::: /home/user/demo/ilmn/output/tmp/candidates/CANDIDATES_FILES ) 2>&1 | tee /home/user/demo/ilmn/output/logs/2-2_PREDICT.log
+
+[INFO] chr17 total processed positions: 1, time elapsed: 0.0s
+[INFO] No variant output for p_chr17.13_0_1.vcf, remove empty VCF
+[INFO] chr17 total processed positions: 5, time elapsed: 0.0s
+[INFO] chr17 total processed positions: 3, time elapsed: 0.1s
+[INFO] chr17 total processed positions: 2, time elapsed: 0.0s
+[INFO] No variant output for p_chr17.15_0_1.vcf, remove empty VCF
+[INFO] chr17 total processed positions: 2, time elapsed: 0.0s
+[INFO] chr17 total processed positions: 1, time elapsed: 0.0s
+[INFO] chr17 total processed positions: 3, time elapsed: 0.1s
+[INFO] chr17 total processed positions: 3, time elapsed: 0.0s
+[INFO] chr17 total processed positions: 2, time elapsed: 0.0s
+[INFO] chr17 total processed positions: 2, time elapsed: 0.0s
+[INFO] chr17 total processed positions: 5, time elapsed: 0.0s
+[INFO] chr17 total processed positions: 5, time elapsed: 0.0s
+[INFO] No variant output for p_chr17.11_0_1.vcf, remove empty VCF
+[INFO] chr17 total processed positions: 6, time elapsed: 0.0s
+[INFO] chr17 total processed positions: 3, time elapsed: 0.0s
+[INFO] chr17 total processed positions: 2, time elapsed: 0.0s
+
+[INFO] Merge Pileup VCFs
+[INFO] RUN THE FOLLOWING COMMAND:
+pypy3 /home/user/clairs/ClairS/clairs.py sort_vcf --ref_fn /home/user/demo/ilmn/input/GRCh38_chr17.fa --contigs_fn /home/user/demo/ilmn/output/tmp/CONTIGS --input_dir /home/user/demo/ilmn/output/tmp/vcf_output --vcf_fn_prefix p_ --output_fn /home/user/demo/ilmn/output/tmp/vcf_output/pileup.vcf
+
+[INFO] Sorting VCFs...
+[INFO] Finished VCF sorting!
+
+[INFO] STEP 3: Full-alignment Model Calling
+[INFO] Create Full-alignment Paired Tensors
+[INFO] RUN THE FOLLOWING COMMAND:
+( parallel --joblog /home/user/demo/ilmn/output/logs/parallel_3-1_create_pair_tensor_fa.log -j 4 pypy3 /home/user/clairs/ClairS/clairs.py create_pair_tensor --normal_bam_fn /home/user/demo/ilmn/input/HCC1395BL_normal_chr17_demo.bam --tumor_bam_fn /home/user/demo/ilmn/input/HCC1395_tumor_chr17_demo.bam --ref_fn /home/user/demo/ilmn/input/GRCh38_chr17.fa --ctg_name {1/.} --samtools samtools --candidates_bed_regions {1} --tensor_can_fn /home/user/demo/ilmn/output/tmp/fa_tensor_can/{1/}  --platform ilmn :::: /home/user/demo/ilmn/output/tmp/candidates/CANDIDATES_FILES ) 2>&1 | tee /home/user/demo/ilmn/output/logs/3-1_CPT.log
+
+[INFO] chr17 chunk 1-1/13 Tensors generated: 1
+[INFO] chr17 chunk 1-1/15 Tensors generated: 2
+[INFO] chr17 chunk 1-1/5 Tensors generated: 3
+[INFO] chr17 chunk 1-1/3 Tensors generated: 5
+[INFO] chr17 chunk 1-1/1 Tensors generated: 2
+[INFO] chr17 chunk 1-1/6 Tensors generated: 1
+[INFO] chr17 chunk 1-1/0 Tensors generated: 3
+[INFO] chr17 chunk 1-1/8 Tensors generated: 3
+[INFO] chr17 chunk 1-1/10 Tensors generated: 2
+[INFO] chr17 chunk 1-1/16 Tensors generated: 2
+[INFO] chr17 chunk 1-1/2 Tensors generated: 5
+[INFO] chr17 chunk 1-1/11 Tensors generated: 5
+[INFO] chr17 chunk 1-1/12 Tensors generated: 2
+[INFO] chr17 chunk 1-1/7 Tensors generated: 3
+[INFO] chr17 chunk 1-1/4 Tensors generated: 6
+
+[INFO] Full-alignment Model Prediction
+[INFO] RUN THE FOLLOWING COMMAND:
+( parallel --joblog /home/user/demo/ilmn/output/logs/parallel_3-2_predict.log -j 4 python3 /home/user/clairs/ClairS/clairs.py predict --tensor_fn /home/user/demo/ilmn/output/tmp/fa_tensor_can/{1/}  --call_fn /home/user/demo/ilmn/output/tmp/vcf_output/fa_{1/}.vcf --chkpnt_fn /home/user/clairs/mamba/envs/clairs/bin/clairs_models/ilmn/full_alignment.pkl --use_gpu False --platform ilmn --ctg_name {1/.} :::: /home/user/demo/ilmn/output/tmp/candidates/CANDIDATES_FILES ) 2>&1 | tee /home/user/demo/ilmn/output/logs/3-2_PREDICT.log
+
+[INFO] chr17 total processed positions: 2, time elapsed: 0.2s
+[INFO] No variant output for fa_chr17.15_0_1.vcf, remove empty VCF
+[INFO] chr17 total processed positions: 1, time elapsed: 0.1s
+[INFO] No variant output for fa_chr17.13_0_1.vcf, remove empty VCF
+[INFO] chr17 total processed positions: 5, time elapsed: 0.4s
+[INFO] chr17 total processed positions: 3, time elapsed: 0.2s
+[INFO] chr17 total processed positions: 2, time elapsed: 0.2s
+[INFO] chr17 total processed positions: 1, time elapsed: 0.1s
+[INFO] No variant output for fa_chr17.6_0_1.vcf, remove empty VCF
+[INFO] chr17 total processed positions: 3, time elapsed: 0.2s
+[INFO] chr17 total processed positions: 3, time elapsed: 0.2s
+[INFO] chr17 total processed positions: 2, time elapsed: 0.2s
+[INFO] chr17 total processed positions: 2, time elapsed: 0.2s
+[INFO] chr17 total processed positions: 5, time elapsed: 0.4s
+[INFO] chr17 total processed positions: 5, time elapsed: 0.4s
+[INFO] No variant output for fa_chr17.11_0_1.vcf, remove empty VCF
+[INFO] chr17 total processed positions: 2, time elapsed: 0.2s
+[INFO] chr17 total processed positions: 3, time elapsed: 0.2s
+[INFO] chr17 total processed positions: 6, time elapsed: 0.4s
+
+[INFO] Merge Full-alignment VCFs
+[INFO] RUN THE FOLLOWING COMMAND:
+pypy3 /home/user/clairs/ClairS/clairs.py sort_vcf --ref_fn /home/user/demo/ilmn/input/GRCh38_chr17.fa --contigs_fn /home/user/demo/ilmn/output/tmp/CONTIGS --input_dir /home/user/demo/ilmn/output/tmp/vcf_output --vcf_fn_prefix fa_ --output_fn /home/user/demo/ilmn/output/tmp/vcf_output/full_alignment.vcf
+
+[INFO] Sorting VCFs...
+[INFO] Finished VCF sorting!
+
+[INFO] STEP 4: Short-read realignment
+[INFO] RUN THE FOLLOWING COMMAND:
+( python3 /home/user/clairs/ClairS/clairs.py realign_variants --bam_fn /home/user/demo/ilmn/input/HCC1395_tumor_chr17_demo.bam --ref_fn /home/user/demo/ilmn/input/GRCh38_chr17.fa --pileup_vcf_fn /home/user/demo/ilmn/output/tmp/vcf_output/pileup.vcf --full_alignment_vcf_fn /home/user/demo/ilmn/output/tmp/vcf_output/full_alignment.vcf --output_dir /home/user/demo/ilmn/output/tmp/vcf_output --samtools samtools --python python3 --threads 4 --enable_realignment True ) 2>&1 | tee /home/user/demo/ilmn/output/logs/4_REALIGN.log
+
+[INFO] 0 called variant filtered by realignment
+
+[INFO] STEP 5: Merge and sort VCF
+[INFO] RUN THE FOLLOWING COMMAND:
+( pypy3 /home/user/clairs/ClairS/clairs.py merge_vcf --ref_fn /home/user/demo/ilmn/input/GRCh38_chr17.fa --pileup_vcf_fn /home/user/demo/ilmn/output/tmp/vcf_output/pileup_filter.vcf --full_alignment_vcf_fn /home/user/demo/ilmn/output/tmp/vcf_output/full_alignment_filter.vcf --output_fn /home/user/demo/ilmn/output/output.vcf --platform ilmn --qual 2 --sample_name SAMPLE --enable_indel_calling False --prefer_recall False --cmdline /home/user/demo/ilmn/output/tmp/CMD ) 2>&1 | tee /home/user/demo/ilmn/output/logs/5_MV.log
+
+[INFO] Full-alignment variants filtered by pileup:  3
+
+[INFO] Total time elapsed: 0m25.00s
+
+[INFO] Finish calling, output file: /home/user/demo/ilmn/output/output.vcf.gz
+
