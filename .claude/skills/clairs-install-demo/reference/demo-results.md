@@ -65,6 +65,27 @@ those substitutions changed the result. If your own install lands on different
 TP/FP/FN here, treat it as a broken install, not as run-to-run noise — ClairS is
 deterministic on fixed inputs.
 
+## Beyond the metrics
+
+`clairs_demo/ANALYSIS.md` in this repo analyses what the calls themselves say, and
+three of its findings generalise beyond the demo:
+
+- **Per-site AF agreement is often unmeasurable.** In this window the truth VAFs
+  have an IQR of 0.011 while the binomial sampling error on a single AF at ~100×
+  is ~0.039. Pearson *r* against a truth VAF then reports 0.46–0.80 while the
+  rank correlation reports ≈0 — the *r* is carried by one leverage point. Check
+  the rank correlation, and the VAF spread, before believing an AF-concordance
+  number. Aggregate bias (median AF ÷ truth VAF) is the statistic that survives.
+- **The `H` flag is unreliable in LOH regions.** ClairS sets it only when both
+  haplotypes carry reads at the site. Where the tumour has lost heterozygosity
+  there is nothing to phase against, every read lands in one haplotype, and the
+  flag silently never fires — here ONT tagged 24/28 calls and PacBio 0/28 with
+  identical underlying phasing evidence. Absence of `H` is not evidence against
+  a call.
+- **`ilmn` is a different pipeline, not just a different model.** It skips the
+  Clair3 germline and phasing stages entirely, which is why it runs ~4× faster
+  and never emits `H`.
+
 ## Scaling expectations
 
 This is a 100 kb toy region. Whole-genome ONT tumour-normal at 50×/25× is hours

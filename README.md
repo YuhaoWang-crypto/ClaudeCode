@@ -64,4 +64,8 @@ the SEQC2 v1.2 truth set on three platforms.
 | PacBio Revio HiFi | 1.0 | 0.9655 | 0.9825 | 28 | 0 | 1 |
 
 All three match ClairS's published expected output, from a from-source install
-with no container.
+with no container. [`clairs_demo/ANALYSIS.md`](clairs_demo/ANALYSIS.md) analyses
+the calls: 85 PASS calls with zero false positives, an APOBEC mutational
+signature (5.1× TCW enrichment, p=3.7×10⁻¹¹), tumour-wide loss of heterozygosity
+(142 → 3 het SNPs) — and why the obvious AF-agreement statistic is misleading in
+this window.

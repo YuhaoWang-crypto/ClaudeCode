@@ -1,0 +1,57 @@
+{
+  "ont": {
+    "germline_normal": {
+      "het": 142,
+      "hom": 81
+    },
+    "germline_tumour": {
+      "het": 3,
+      "hom": 196
+    },
+    "h_flagged_calls": 24,
+    "n_pass_calls": 28,
+    "read_length_median": 15869,
+    "read_length_p90": 30935,
+    "reads_in_region": 1081,
+    "haplotagged_fraction": 0.863,
+    "alt_reads_confined_to_one_haplotype": 28,
+    "alt_reads_split_across_haplotypes": 0,
+    "reads_by_hp_untagged_hp1_hp2": [
+      145,
+      37,
+      3637
+    ]
+  },
+  "ilmn": {
+    "germline_normal": null,
+    "germline_tumour": null,
+    "h_flagged_calls": 0,
+    "n_pass_calls": 29,
+    "read_length_median": 98,
+    "read_length_p90": 150,
+    "reads_in_region": 113624
+  },
+  "pacbio_hifi": {
+    "germline_normal": {
+      "het": 157,
+      "hom": 84
+    },
+    "germline_tumour": {
+      "het": 18,
+      "hom": 205
+    },
+    "h_flagged_calls": 0,
+    "n_pass_calls": 28,
+    "read_length_median": 14773,
+    "read_length_p90": 21861,
+    "reads_in_region": 664,
+    "haplotagged_fraction": 0.974,
+    "alt_reads_confined_to_one_haplotype": 28,
+    "alt_reads_split_across_haplotypes": 0,
+    "reads_by_hp_untagged_hp1_hp2": [
+      1,
+      2190,
+      0
+    ]
+  }
+}

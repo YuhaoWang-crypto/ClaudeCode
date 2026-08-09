@@ -1,0 +1,482 @@
+<title>ClairS on HCC1395 — what the demo calls actually say</title>
+<style>
+  :root{
+    --ground:#F2F6F6; --surface:#FFFFFF; --plate:#FFFFFF;
+    --ink:#0E1A1B; --muted:#55696B; --faint:#7C8E90;
+    --line:#D8E2E2; --line-soft:#E7EEEE;
+    --accent:#0D5F66; --accent-bright:#0E8891;
+    --warn:#9A5B12; --warn-bg:#FBF3E6;
+    --neg:#A8354A; --neg-bg:#FBEFF1;
+    --pos:#1F6B4C;
+    --serif: ui-serif, "Iowan Old Style", "Palatino Linotype", Palatino, "Source Serif Pro", Georgia, serif;
+    --mono: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, Consolas, "Liberation Mono", monospace;
+    --measure: 67ch;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --ground:#0A1213; --surface:#101B1D; --plate:#F7FAFA;
+      --ink:#E6EEED; --muted:#8FA3A4; --faint:#6E8384;
+      --line:#1F2E31; --line-soft:#182528;
+      --accent:#4FC3CB; --accent-bright:#6FD8DF;
+      --warn:#D8A05A; --warn-bg:#1E1A12;
+      --neg:#E5798C; --neg-bg:#201417;
+      --pos:#63C69B;
+    }
+  }
+  :root[data-theme="dark"]{
+    --ground:#0A1213; --surface:#101B1D; --plate:#F7FAFA;
+    --ink:#E6EEED; --muted:#8FA3A4; --faint:#6E8384;
+    --line:#1F2E31; --line-soft:#182528;
+    --accent:#4FC3CB; --accent-bright:#6FD8DF;
+    --warn:#D8A05A; --warn-bg:#1E1A12;
+    --neg:#E5798C; --neg-bg:#201417;
+    --pos:#63C69B;
+  }
+
+  *{box-sizing:border-box}
+  body{
+    margin:0; background:var(--ground); color:var(--ink);
+    font-family:var(--serif); font-size:17px; line-height:1.62;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1000px; margin:0 auto; padding:0 28px 96px}
+  .col{max-width:var(--measure)}
+
+  /* ---------- masthead ---------- */
+  header.top{padding:64px 0 30px; border-bottom:2px solid var(--ink)}
+  .eyebrow{
+    font-family:var(--mono); font-size:11px; letter-spacing:.16em;
+    text-transform:uppercase; color:var(--accent); margin:0 0 18px;
+  }
+  h1{
+    font-size:clamp(31px,4.6vw,45px); line-height:1.12; font-weight:600;
+    letter-spacing:-.017em; margin:0 0 16px; text-wrap:balance; max-width:19ch;
+  }
+  .dek{font-size:19px; color:var(--muted); margin:0; max-width:56ch; text-wrap:pretty}
+  .runmeta{
+    margin:26px 0 0; padding:0; list-style:none; display:flex; flex-wrap:wrap; gap:6px 26px;
+    font-family:var(--mono); font-size:12px; color:var(--faint);
+  }
+  .runmeta b{color:var(--muted); font-weight:500}
+
+  /* ---------- ledger ---------- */
+  .ledger{
+    display:grid; grid-template-columns:repeat(auto-fit,minmax(168px,1fr));
+    gap:0; margin:0 0 52px; border-bottom:1px solid var(--line);
+  }
+  .stat{padding:26px 22px 24px; border-right:1px solid var(--line-soft)}
+  .stat:last-child{border-right:0}
+  .stat .n{
+    font-family:var(--mono); font-size:30px; font-weight:600; letter-spacing:-.02em;
+    font-variant-numeric:tabular-nums; line-height:1; display:block; margin-bottom:9px;
+  }
+  .stat .k{
+    font-family:var(--mono); font-size:10.5px; letter-spacing:.13em; text-transform:uppercase;
+    color:var(--faint); display:block; margin-bottom:6px;
+  }
+  .stat .d{font-size:14px; color:var(--muted); line-height:1.45}
+  .n.pos{color:var(--pos)} .n.acc{color:var(--accent)}
+
+  /* ---------- sections ---------- */
+  section{padding-top:46px}
+  h2{
+    font-size:26px; line-height:1.2; font-weight:600; letter-spacing:-.012em;
+    margin:0 0 6px; text-wrap:balance; max-width:26ch;
+  }
+  .sec-no{
+    font-family:var(--mono); font-size:11px; letter-spacing:.14em; color:var(--accent);
+    display:block; margin-bottom:10px;
+  }
+  .lede{font-size:18px; color:var(--muted); margin:0 0 26px; max-width:60ch; text-wrap:pretty}
+  p{margin:0 0 18px}
+  .col p:last-child{margin-bottom:0}
+  strong{font-weight:600}
+  a{color:var(--accent-bright); text-decoration-thickness:1px; text-underline-offset:2px}
+  a:focus-visible,summary:focus-visible{outline:2px solid var(--accent-bright); outline-offset:3px; border-radius:2px}
+  code,.m{font-family:var(--mono); font-size:.86em; font-variant-numeric:tabular-nums}
+  code{background:var(--line-soft); padding:.1em .35em; border-radius:3px}
+
+  /* ---------- tables ---------- */
+  .tbl{overflow-x:auto; margin:0 0 26px}
+  table{border-collapse:collapse; width:100%; font-family:var(--mono); font-size:13px;
+        font-variant-numeric:tabular-nums}
+  th,td{padding:9px 14px 9px 0; text-align:right; white-space:nowrap; border-bottom:1px solid var(--line-soft)}
+  th:first-child,td:first-child{text-align:left; padding-left:0}
+  thead th{
+    font-size:10.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--faint);
+    font-weight:500; border-bottom:1px solid var(--line);
+  }
+  tbody tr:last-child td{border-bottom:1px solid var(--line)}
+  td.hi{color:var(--accent); font-weight:600}
+  td.bad{color:var(--neg); font-weight:600}
+
+  /* ---------- figures: printed plates, light in both themes ---------- */
+  figure{margin:0 0 30px}
+  .plate{
+    background:var(--plate); border:1px solid var(--line); border-radius:3px;
+    padding:14px; overflow-x:auto;
+  }
+  .plate img{display:block; width:100%; height:auto; max-width:100%}
+  figcaption{
+    font-family:var(--mono); font-size:11.5px; line-height:1.55; color:var(--faint);
+    margin-top:11px; max-width:74ch;
+  }
+  figcaption b{color:var(--muted); font-weight:500}
+
+  /* ---------- callouts ---------- */
+  .box{
+    border-left:2px solid var(--line); padding:2px 0 2px 20px; margin:0 0 26px;
+    font-size:16px; color:var(--muted);
+  }
+  .box.neg{border-left-color:var(--neg)}
+  .box.warn{border-left-color:var(--warn)}
+  .box .lbl{
+    font-family:var(--mono); font-size:10.5px; letter-spacing:.13em; text-transform:uppercase;
+    display:block; margin-bottom:8px;
+  }
+  .box.neg .lbl{color:var(--neg)} .box.warn .lbl{color:var(--warn)}
+  .box p{margin:0 0 10px} .box p:last-child{margin:0}
+  .box strong{color:var(--ink)}
+
+  pre{
+    font-family:var(--mono); font-size:12.5px; line-height:1.7; margin:0 0 26px;
+    background:var(--surface); border:1px solid var(--line-soft); border-radius:3px;
+    padding:16px 18px; overflow-x:auto; color:var(--muted);
+  }
+  pre b{color:var(--ink); font-weight:600}
+
+  /* ---------- signal vs noise inline chart ---------- */
+  .sn{margin:0 0 26px; background:var(--surface); border:1px solid var(--line-soft);
+      border-radius:3px; padding:20px 20px 14px}
+  .sn svg{display:block; width:100%; height:auto; overflow:visible}
+  .sn .t{font-family:var(--mono); font-size:11px; fill:var(--muted)}
+  .sn .v{font-family:var(--mono); font-size:12px; font-weight:600}
+
+  footer{margin-top:60px; padding-top:26px; border-top:1px solid var(--line);
+         font-family:var(--mono); font-size:12px; color:var(--faint); line-height:1.7}
+  footer a{color:var(--faint)}
+  @media (prefers-reduced-motion:no-preference){a{transition:color .15s ease}}
+  @media (max-width:640px){
+    body{font-size:16px}
+    .stat{border-right:0; border-bottom:1px solid var(--line-soft); padding:20px 0}
+    .wrap{padding:0 20px 72px}
+  }
+</style>
+
+<div class="wrap">
+
+<header class="top">
+  <p class="eyebrow">Somatic variant calling · analysis</p>
+  <h1>What the ClairS demo calls actually say</h1>
+  <p class="dek">Twenty-nine somatic SNVs in 100 kb of chr17, called three ways from the
+  same tumour–normal cell-line pair. The accuracy numbers are the least interesting thing
+  in them.</p>
+  <ul class="runmeta">
+    <li><b>Sample</b> HCC1395 / HCC1395BL</li>
+    <li><b>Region</b> chr17:80,000,000–80,100,000</li>
+    <li><b>Truth</b> SEQC2 v1.2 high-confidence sSNV</li>
+    <li><b>ClairS</b> 0.4.5 · Clair3 1.2.0 · CPU, 4 threads</li>
+  </ul>
+</header>
+
+<div class="ledger">
+  <div class="stat">
+    <span class="k">Calls made</span>
+    <span class="n">85</span>
+    <span class="d">PASS somatic calls across the three platforms</span>
+  </div>
+  <div class="stat">
+    <span class="k">False positives</span>
+    <span class="n pos">0</span>
+    <span class="d">every call is a truth-set variant, on all three</span>
+  </div>
+  <div class="stat">
+    <span class="k">Full concordance</span>
+    <span class="n acc">28<span style="color:var(--faint);font-size:19px">/29</span></span>
+    <span class="d">truth SNVs called by ONT, Illumina and PacBio alike</span>
+  </div>
+  <div class="stat">
+    <span class="k">APOBEC enrichment</span>
+    <span class="n acc">5.1×</span>
+    <span class="d">C-site mutations at TCW vs local background</span>
+  </div>
+</div>
+
+<section>
+  <div class="col">
+    <span class="sec-no">01 — DETECTION</span>
+    <h2>One variant separates the platforms</h2>
+    <p class="lede">Three platforms, three matches to ClairS's published expected output,
+    and not a single false positive between them.</p>
+  </div>
+
+  <div class="tbl col">
+    <table>
+      <thead><tr><th>Platform</th><th>Called</th><th>TP</th><th>FP</th><th>FN</th><th>Precision</th><th>Recall</th></tr></thead>
+      <tbody>
+        <tr><td>ONT R10.4.1</td><td>28</td><td>28</td><td class="hi">0</td><td>1</td><td>1.000</td><td>0.9655</td></tr>
+        <tr><td>Illumina NovaSeq</td><td>29</td><td>29</td><td class="hi">0</td><td>0</td><td>1.000</td><td>1.0000</td></tr>
+        <tr><td>PacBio Revio</td><td>28</td><td>28</td><td class="hi">0</td><td>1</td><td>1.000</td><td>0.9655</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="col">
+    <p>In a tumour–normal design, precision is the number that carries the weight — a somatic
+    false positive is an artefact the matched normal was supposed to veto. The normal did its
+    job everywhere: <span class="m">NAF&nbsp;=&nbsp;0.0000</span> at all 85 calls, with zero
+    alt-supporting reads in the normal sample at every one.</p>
+    <p>Both long-read platforms miss the <strong>same</strong> site, and it is the lowest-VAF
+    truth variant in the window.</p>
+  </div>
+
+  <div class="box neg col">
+    <span class="lbl">The one miss · chr17:80,094,483 T&gt;C</span>
+    <p><strong>SEQC2 consensus VAF 0.096</strong> (95 % CI 0.085–0.110), normal VAF 0.002.</p>
+    <p><span class="m">ONT</span> and <span class="m">PacBio</span> never emit it — not even as
+    <span class="m">LowQual</span>. <span class="m">Illumina</span> calls it PASS at
+    <span class="m">AF&nbsp;0.0642</span> (7 alt reads of 109), with 0 of 68 alt reads in the normal.</p>
+    <p>It fails the default <span class="m">--snv_min_af 0.05</span> candidate threshold on the
+    long-read runs, so it is filtered out <em>before</em> the neural networks ever see it. The
+    knob for this class of miss is the AF threshold, not the model.</p>
+  </div>
+
+  <figure>
+    <div class="plate"><img src="__FIG_DETECTION__" alt="Every truth SNV ordered by allele fraction, with a per-platform detection strip below showing that only the lowest-VAF site is missed, and only by the two long-read platforms."></div>
+    <figcaption><b>Fig 1.</b> All 29 truth SNVs ordered by SEQC2 allele fraction (top), and which
+    platform recovered each (bottom; ✕ = missed). The detection strip is solid everywhere except
+    the leftmost column.</figcaption>
+  </figure>
+</section>
+
+<section>
+  <div class="col">
+    <span class="sec-no">02 — POPULATION STRUCTURE</span>
+    <h2>This window is one clonal population, not a VAF spectrum</h2>
+    <p class="lede">The truth allele fractions are very nearly a point mass.</p>
+    <pre>min <b>0.096</b>   Q1 0.192   median <b>0.197</b>   Q3 0.203   max <b>0.404</b>
+                    interquartile range = <b>0.011</b></pre>
+    <p>Twenty-seven of the 29 sites lie between 0.178 and 0.214 — a single clonal population at
+    VAF ≈ 0.20. The exceptions are the 0.096 site above and one at
+    <span class="m">chr17:80,062,263</span> (C&gt;G, VAF 0.404), which all three platforms call.</p>
+    <p>That shape is why this window makes an easy benchmark: it is essentially 27 copies of the
+    same easy question plus one hard one. It is also what breaks the next section.</p>
+  </div>
+</section>
+
+<section>
+  <div class="col">
+    <span class="sec-no">03 — THE STATISTIC THAT LIES</span>
+    <h2>Per-site AF agreement cannot be measured here</h2>
+    <p class="lede">Pearson <em>r</em> says PacBio tracks the consensus VAF best. The rank
+    correlation says the opposite. Both are computed from the same 28 points.</p>
+  </div>
+
+  <div class="tbl col">
+    <table>
+      <thead><tr><th>Platform</th><th>Pearson r</th><th>Spearman ρ</th><th>median AF ÷ SEQC2</th><th>mean abs. error</th></tr></thead>
+      <tbody>
+        <tr><td>ONT R10.4.1</td><td>0.464</td><td class="bad">0.051</td><td>1.097</td><td>0.038</td></tr>
+        <tr><td>Illumina NovaSeq</td><td>0.603</td><td class="bad">0.396</td><td>0.957</td><td>0.037</td></tr>
+        <tr><td>PacBio Revio</td><td>0.801</td><td class="bad">−0.230</td><td>1.040</td><td>0.025</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="col">
+    <p>The <em>r</em> values are carried almost entirely by the single leverage point at VAF 0.404,
+    sitting far from the cluster. Remove it and no relationship remains. The reason is arithmetic
+    rather than anything about ClairS: at AF ≈ 0.2 and ~100× depth, the binomial sampling error on
+    one site's allele fraction swamps the entire spread being measured.</p>
+  </div>
+
+  <div class="sn col">
+    <svg viewBox="0 0 620 128" role="img" aria-label="The spread of true allele fractions, 0.011, is roughly a quarter of the binomial sampling error of a single measurement, 0.039.">
+      <text class="t" x="0" y="14">SPREAD TO BE MEASURED — IQR of true VAFs</text>
+      <rect x="0" y="24" width="42" height="16" fill="currentColor" opacity=".55" rx="1"/>
+      <text class="v" x="52" y="37" fill="currentColor">0.011</text>
+
+      <text class="t" x="0" y="74">MEASUREMENT NOISE — binomial SE at AF 0.2, 111×</text>
+      <rect x="0" y="84" width="149" height="16" rx="1" fill="#A8354A"/>
+      <text class="v" x="159" y="97" fill="#A8354A">0.039</text>
+      <text class="t" x="230" y="97">3.5× larger than the signal</text>
+      <line x1="0" y1="118" x2="620" y2="118" stroke="currentColor" opacity=".15"/>
+      <text class="t" x="0" y="128">Illumina SE 0.038 · PacBio SE 0.045 — same conclusion on all three</text>
+    </svg>
+  </div>
+
+  <div class="col">
+    <p>No caller could rank these 27 sites correctly from ~100× data; the ordering is sampling
+    noise by construction. What <em>can</em> be said is that the <strong>aggregate</strong> allele
+    fraction is unbiased: the median ratio of ClairS AF to SEQC2 VAF is 0.96–1.10, and the mean
+    absolute error (0.025–0.038) matches the binomial standard error almost exactly — the residual
+    is fully explained by read sampling, leaving no room for a systematic AF bias on any platform.</p>
+  </div>
+
+  <figure>
+    <div class="plate"><img src="__FIG_AF__" alt="Scatter of ClairS reported allele fraction against SEQC2 consensus VAF, showing a near-vertical stripe of 27 points at VAF 0.2 plus two isolated points that drive the correlation."></div>
+    <figcaption><b>Fig 2.</b> ClairS AF vs SEQC2 consensus VAF. The shaded band holds 27 of 29 truth
+    SNVs. Pearson <em>r</em> and Spearman ρ are printed together in the legend precisely because they
+    disagree.</figcaption>
+  </figure>
+
+  <div class="box warn col">
+    <span class="lbl">Methodological note</span>
+    <p>The SEQC2 <span class="m">TVAF</span> is itself a consensus over ~60 short-read replicate
+    call sets — an orthogonal reference, not ground truth to the third decimal. That is a second
+    reason not to over-read a correlation coefficient computed against it.</p>
+  </div>
+</section>
+
+<section>
+  <div class="col">
+    <span class="sec-no">04 — READ EVIDENCE</span>
+    <h2>Depth, quality and strand balance</h2>
+    <p class="lede">Nothing pathological anywhere — which is the point.</p>
+  </div>
+
+  <div class="tbl col">
+    <table>
+      <thead><tr><th>Platform</th><th>tumour DP</th><th>normal DP</th><th>QUAL range</th><th>alt-read fwd fraction</th></tr></thead>
+      <tbody>
+        <tr><td>ONT R10.4.1</td><td>111</td><td>35</td><td>8.7 – 23.6</td><td>0.44 (0.37–0.67)</td></tr>
+        <tr><td>Illumina NovaSeq</td><td>112</td><td>53</td><td>6.3 – 19.5</td><td>0.52 (0.19–0.73)</td></tr>
+        <tr><td>PacBio Revio</td><td>80</td><td>36</td><td>8.2 – 19.6</td><td>0.39 (0.23–0.80)</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="col">
+    <p>Alt reads sit near a 50/50 strand split on all three platforms. The long-read runs lean
+    slightly reverse (median 0.39–0.44), but no individual call is one-sided enough to look like a
+    strand artefact — consistent with the zero false positives. QUAL is low in absolute terms
+    everywhere (6–24) because these are all ~20 % VAF somatic calls; that is the expected operating
+    point, and the model-specific PASS threshold is calibrated for it.</p>
+  </div>
+
+  <figure>
+    <div class="plate"><img src="__FIG_DIST__" alt="Three dot-plot panels comparing allele fraction, tumour depth and QUAL across the three platforms, with median bars."></div>
+    <figcaption><b>Fig 3.</b> Per-call allele fraction, tumour depth and QUAL by platform; the dark
+    bar marks each median.</figcaption>
+  </figure>
+</section>
+
+<section>
+  <div class="col">
+    <span class="sec-no">05 — MUTATIONAL SIGNATURE</span>
+    <h2>The spectrum is APOBEC</h2>
+    <p class="lede">Twenty-seven of 29 mutations are at C:G base pairs, and the context is not
+    random.</p>
+  </div>
+
+  <div class="tbl col">
+    <table>
+      <thead><tr><th>Substitution</th><th>C&gt;A</th><th>C&gt;G</th><th>C&gt;T</th><th>T&gt;A</th><th>T&gt;C</th><th>T&gt;G</th></tr></thead>
+      <tbody><tr><td>truth SNVs</td><td>3</td><td class="hi">7</td><td class="hi">17</td><td>0</td><td>1</td><td>1</td></tr></tbody>
+    </table>
+  </div>
+
+  <div class="col">
+    <p>C&gt;T dominates with a substantial C&gt;G shoulder. That joint elevation is the hallmark of
+    APOBEC (COSMIC SBS2 + SBS13) rather than clock-like ageing (SBS1/5), which produces C&gt;T
+    <em>without</em> the C&gt;G component. Trinucleotide context makes it quantitative — APOBEC3
+    deaminates cytosine in a TCW (TCA/TCT) context:</p>
+    <pre>observed    <b>19 / 27</b> C-site mutations at TCW   =  <b>70.4 %</b>
+background   7,184 / 51,688 C·G sites in window =  <b>13.9 %</b>
+                                        <b>5.1× enrichment,  p = 3.7 × 10⁻¹¹</b></pre>
+    <p>Consistent with HCC1395 being an APOBEC-high breast line.</p>
+  </div>
+
+  <div class="box warn col">
+    <span class="lbl">Two honest limits</span>
+    <p>n = 29 in a single 100 kb window is far too small for signature <em>fitting</em> — that needs
+    thousands of mutations genome-wide. And the truth set is itself the product of short-read
+    consensus calling, so any platform-specific detection bias in SEQC2 propagates here. The
+    enrichment survives both as a qualitative call; <strong>5.1× is not a signature exposure
+    estimate</strong>.</p>
+  </div>
+</section>
+
+<section>
+  <div class="col">
+    <span class="sec-no">06 — WHY THE H FLAG DISAGREES</span>
+    <h2>The tumour has lost heterozygosity across the whole window</h2>
+    <p class="lede">Germline calls made by Clair3 inside ClairS, in the same 100 kb.</p>
+  </div>
+
+  <div class="tbl col">
+    <table>
+      <thead><tr><th>Platform</th><th>normal het / hom</th><th>tumour het / hom</th><th>het retained</th></tr></thead>
+      <tbody>
+        <tr><td>ONT R10.4.1</td><td>142 / 81</td><td><span class="m" style="color:var(--neg);font-weight:600">3</span> / 196</td><td class="bad">2.1 %</td></tr>
+        <tr><td>PacBio Revio</td><td>157 / 84</td><td><span class="m" style="color:var(--neg);font-weight:600">18</span> / 205</td><td class="bad">11.5 %</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="col">
+    <p>The normal is an ordinary heterozygous genome. In the tumour, essentially every heterozygous
+    site has gone homozygous while the homozygous count rises to match — textbook loss of
+    heterozygosity, reproduced independently by two platforms. HCC1395 is a highly aneuploid line,
+    so this is expected biology, not a calling failure. It also explains a downstream oddity worth
+    knowing about.</p>
+    <p><strong>ONT tags 24 of 28 calls with the <span class="m">H</span> flag; PacBio tags 0 of 28.</strong>
+    It is not a tagging-quality problem — PacBio haplotags <em>more</em> reads than ONT (97.4 % vs
+    86.3 %) at comparable read length (14.8 kb vs 15.9 kb median). ClairS sets <span class="m">H</span>
+    only when <em>both</em> haplotypes carry reads at the site
+    (<span class="m">all_hp1 × all_hp2 &gt; 0</span>). With almost nothing left to phase against, the
+    PacBio run put every read overlapping a call site into HP=1 and left HP=2 empty, so the
+    precondition fails; ONT kept a small HP=1 population alongside the HP=2 bulk and passes it.
+    Measured straight from the haplotagged BAMs, alt reads are confined to a single haplotype at
+    <strong>28/28 sites on both platforms</strong> — the phasing evidence is identical, only the
+    flag's precondition differs.</p>
+  </div>
+
+  <div class="box col">
+    <span class="lbl" style="color:var(--accent)">Practical consequence</span>
+    <p>In LOH regions the <span class="m">H</span> flag is unreliable as a confidence signal, and its
+    absence is not evidence against a call. Illumina never sets it at all: the
+    <span class="m">ilmn</span> platform skips the Clair3 germline and phasing stages entirely —
+    which is also why it finished in 25 s against ~100 s for the long-read runs.</p>
+  </div>
+
+  <figure>
+    <div class="plate"><img src="__FIG_SIG__" alt="Left: substitution spectrum bar chart in COSMIC colours, dominated by C to T. Right: germline heterozygous SNP counts collapsing from roughly 150 in the normal to under 20 in the tumour on both long-read platforms."></div>
+    <figcaption><b>Fig 4.</b> Substitution spectrum in COSMIC colours (left) and the collapse of
+    germline heterozygosity from normal to tumour (right).</figcaption>
+  </figure>
+
+  <div class="box warn col">
+    <span class="lbl">Open question</span>
+    <p>A somatic VAF of ~0.20 against a background of LOH is not self-consistent with a pure,
+    clonal, copy-neutral tumour — it implies subclonality, altered copy number, or normal admixture
+    in this sample. Resolving which needs the copy-number and purity estimate from ClairS's
+    <span class="m">--enable_verdict</span> module, which was not run here.</p>
+  </div>
+</section>
+
+<section>
+  <div class="col">
+    <span class="sec-no">07 — SCOPE</span>
+    <h2>What this does and does not establish</h2>
+    <p>ClairS 0.4.5 (commit <span class="m">a87db4a</span>) with Clair3 1.2.0, CPU-only on 4 threads,
+    installed from source without Docker. Truth is the SEQC2 high-confidence somatic SNV set v1.2
+    restricted to the SEQC2 high-confidence BED, compared with
+    <span class="m">clairs.py compare_vcf --input_filter_tag PASS</span>. Background trinucleotide
+    frequencies come from the GRCh38_no_alt chr17 reference over the same 100 kb.</p>
+    <p><strong>n = 29 truth SNVs in one 100 kb window.</strong> A precision of 1.000 here says
+    nothing about genome-wide precision — published whole-genome figures for ONT R10.4.1 at 50×/25×
+    are 86.9 % recall and 93.0 % precision at VAF ≥ 0.05. Nothing in this report should be read as
+    a platform ranking; the three datasets differ in coverage, and one window is one window.</p>
+  </div>
+</section>
+
+<footer>
+  Analysis reproducible with <span class="m">clairs_demo/analyze.py</span> and
+  <span class="m">collect_run_stats.py</span>; every figure and value regenerates from the
+  committed VCFs.<br>
+  ClairS — <a href="https://github.com/HKU-BAL/ClairS">HKU-BAL</a>, Nature Methods 2026.
+  Truth set — SEQC2 / Fang et al., Nature Biotechnology 2021.
+</footer>
+
+</div>

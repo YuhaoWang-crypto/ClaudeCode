@@ -52,9 +52,38 @@ Per-run allele-fraction floors: ONT 0.139, PacBio 0.167, Illumina 0.064. With
 n=29 in one 100 kb window and differing coverage, that is a statement about
 this region, not a platform ranking.
 
+## Analysis
+
+[**ANALYSIS.md**](ANALYSIS.md) digs into what the calls say — cross-platform
+concordance, why per-site AF agreement is unmeasurable in this window (and why
+Pearson *r* misleads there), an APOBEC mutational signature at 5.1× enrichment,
+and loss of heterozygosity across the whole window that explains the `H`-flag
+difference between ONT and PacBio.
+
+```bash
+python3 clairs_demo/analyze.py            # -> analysis.json + figures/
+python3 clairs_demo/collect_run_stats.py ~/demo   # numbers from a live run dir
+python3 clairs_demo/make_report.py               # -> self-contained report.html
+```
+
+The same write-up is published as a standalone HTML report:
+[claude.ai/code/artifact/cde4334b](https://claude.ai/code/artifact/cde4334b-43ea-4d1c-bc66-dbbfa08c16ff).
+`report_template.html` is its source; `make_report.py` inlines the figures as
+data URIs so the page needs no external requests.
+
 ## What is in this directory
 
 ```
+ANALYSIS.md                        the write-up
+analyze.py                         analysis from the committed VCFs (stdlib + matplotlib)
+collect_run_stats.py               numbers that need a completed run directory
+analysis.json                      every computed value
+figures/                           four figures used by ANALYSIS.md
+report_template.html               source of the published HTML report
+make_report.py                     inlines figures -> self-contained report.html
+data/truth_chr17_*.vcf             SEQC2 truth, subset to the demo window
+data/truth_context.tsv             trinucleotide context per truth SNV
+data/run_derived.json              germline/LOH + haplotagging measurements
 results/<platform>/output.vcf.gz   ClairS somatic calls (PASS = somatic)
 results/<platform>/benchmark.txt   compare_vcf metrics
 results/<platform>/fn.vcf          the missed truth variants
