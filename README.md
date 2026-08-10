@@ -41,3 +41,18 @@ python3 -m grn_pipeline.m1_symmetry   # or any single module
 Figures are written to `figures/`. A full write-up with numbers, rigour
 labels, and the interpretation (including the Lyapunov-exponent biomarker
 question) is in [`REPORT.md`](REPORT.md).
+
+## Skills
+
+Reusable methodology packaged for Claude Code, under `.claude/skills/`.
+
+| Skill | What it packages |
+|---|---|
+| [`network-biomarker`](.claude/skills/network-biomarker/) | the `grn_pipeline` methodology above: irreducibility/symmetry → CRNT → EFM → critical-slowing biomarkers, with ✅/⚠️ honesty labelling |
+| [`single-cell-analysis`](.claude/skills/single-cell-analysis/) | end-to-end scRNA-seq: QC → normalization → clustering → annotation → integration → pseudobulk DE / compositional analysis → trajectories, plus a deep-learning task→method map. Distilled from [sc-best-practices](https://www.sc-best-practices.org/preamble.html), [OSCA](http://bioconductor.org/books/3.15/OSCA.basic/), and [awesome-deep-learning-single-cell-papers](https://github.com/OmicsML/awesome-deep-learning-single-cell-papers) |
+
+```bash
+# the single-cell reference implementation, end-to-end on synthetic data
+pip install scanpy leidenalg igraph pydeseq2
+python3 .claude/skills/single-cell-analysis/assets/sc_workflow.py --demo
+```
