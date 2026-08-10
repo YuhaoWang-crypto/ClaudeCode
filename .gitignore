@@ -4,3 +4,4 @@ __pycache__/
 results/*.log
 results/til_maps/
 results/dicom_cache/
+report/*.html
