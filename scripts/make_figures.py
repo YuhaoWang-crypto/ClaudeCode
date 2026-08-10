@@ -698,5 +698,198 @@ FIGURES.update({
     "sweep2": fig_optimization_sweep,
 })
 
+
+# -------------------------------------------------------------------- fig 12
+
+
+def fig_phenotype_gallery() -> None:
+    """Real TIL maps by derived phenotype, with the penetration field beneath."""
+    from scipy.ndimage import distance_transform_edt
+
+    from mri_cd8_til.clients.idc import load_map
+
+    data = json.loads((RESULTS / "til_geometry.json").read_text())
+    records = data["records"]
+
+    picks = []
+    for phenotype in ("immune-desert", "immune-excluded", "inflamed"):
+        group = [r for r in records if r["phenotype"] == phenotype]
+        # The most typical case of each group: closest to the group median on
+        # the two descriptors that define the assignment.
+        amount = np.median([r["til_fraction"] for r in group])
+        unreached = np.median([r["unreached_fraction"] for r in group])
+        best = min(
+            group,
+            key=lambda r: abs(r["til_fraction"] - amount) / (amount + 1e-6)
+            + abs(r["unreached_fraction"] - unreached) / (unreached + 1e-6),
+        )
+        picks.append((phenotype, best))
+
+    fig, axes = plt.subplots(2, 3, figsize=(12.4, 7.6))
+    for col, (phenotype, record) in enumerate(picks):
+        grid = load_map(RESULTS / "til_maps", record["case_id"]).grid
+        tissue = grid > 0
+        til = tissue & (grid >= 128)
+
+        axes[0, col].imshow(np.where(tissue, grid, np.nan), cmap="magma", vmin=0, vmax=255)
+        axes[0, col].set_title(
+            f"{phenotype}\n{record['case_id']}\n"
+            f"TIL {record['til_fraction'] * 100:.1f}% of tissue",
+            fontsize=9.5,
+        )
+        axes[0, col].axis("off")
+
+        distance = distance_transform_edt(~til) if til.any() else np.full(grid.shape, np.nan)
+        equivalent = np.sqrt(tissue.sum() / np.pi)
+        field = np.where(tissue, distance / equivalent, np.nan)
+        image = axes[1, col].imshow(field, cmap="viridis", vmin=0, vmax=0.5)
+        axes[1, col].set_title(
+            f"distance to nearest TIL\n"
+            f"unreached {record['unreached_fraction'] * 100:.0f}% · "
+            f"p90 {record['penetration_p90']:.3f}",
+            fontsize=9,
+        )
+        axes[1, col].axis("off")
+
+    bar = fig.colorbar(image, ax=axes[1, :], fraction=0.025, pad=0.015)
+    bar.set_label("distance / equivalent tissue radius", fontsize=8.5)
+
+    fig.suptitle(
+        "The phenotype read from geometry alone, with no tumour boundary.  Top: the TIL map.  "
+        "Bottom: how far each tissue patch is from the nearest lymphocyte —\n"
+        "short everywhere in inflamed tissue, long across the interior when the infiltrate is banded.",
+        fontsize=9.5,
+        y=0.99,
+    )
+    _save(fig, "fig12_phenotype_gallery")
+
+
+# -------------------------------------------------------------------- fig 13
+
+
+def fig_phenotype_biology() -> None:
+    """Do the geometric groups behave the way their names claim?"""
+    data = json.loads((RESULTS / "til_geometry.json").read_text())
+    validation = data.get("validation")
+    if not validation:
+        raise FileNotFoundError("run phenotype_til.py with --rna-dir first")
+
+    signatures = [s for s in ("cd8_core", "tis", "cytolytic", "epcam_control") if s in validation]
+    order = ["immune-desert", "immune-excluded", "inflamed"]
+    pretty = {
+        "cd8_core": "CD8 core signature",
+        "tis": "TIS (inflamed)",
+        "cytolytic": "cytolytic",
+        "epcam_control": "EPCAM (negative control)",
+    }
+
+    fig, (ax, ax2) = plt.subplots(1, 2, figsize=(12.2, 4.4),
+                                  gridspec_kw={"width_ratios": [1.25, 1]})
+    x = np.arange(len(order))
+    for i, signature in enumerate(signatures):
+        medians = [validation[signature]["medians"][k] for k in order]
+        control = signature == "epcam_control"
+        ax.plot(
+            x, medians, "o-" if not control else "s--",
+            color=SUSPECT if control else [HONEST, ACCENT3, NEUTRAL][i % 3],
+            lw=2.2 if not control else 1.6, ms=8 if not control else 7,
+            label=f"{pretty[signature]}  (p={validation[signature]['kruskal_p']:.3f})",
+            alpha=0.95 if not control else 0.8,
+        )
+    ax.axhline(0, color=LIGHT, lw=1)
+    ax.set_xticks(x)
+    ax.set_xticklabels(["desert", "excluded", "inflamed"], fontsize=10)
+    ax.set_ylabel("median signature z-score")
+    ax.legend(fontsize=8, loc="upper left")
+    ax.set_title(
+        f"Transcriptome by geometric phenotype (n={data['n_patients']}).\n"
+        "The immune signatures rise across the groups; the control does not.",
+        fontsize=10,
+    )
+
+    partials = data["validation"].get("descriptor_vs_cd8", {})
+    rows = sorted(partials.items(), key=lambda kv: -abs(kv[1]["partial_given_amount"]))[:8]
+    names = [r[0] for r in rows]
+    values = [r[1]["partial_given_amount"] for r in rows]
+    y = np.arange(len(names))
+    ax2.barh(y, values, color=[ACCENT3 if v > 0 else SUSPECT for v in values], alpha=0.85)
+    ax2.axvline(0, color=NEUTRAL, lw=1)
+    # |rho| for p<0.05 at this n, as a reference line in both directions.
+    threshold = 1.96 / np.sqrt(data["n_patients"] - 3)
+    for sign in (-1, 1):
+        ax2.axvline(sign * threshold, color=LIGHT, ls="--", lw=1.2)
+    ax2.text(threshold + 0.005, len(names) - 0.6, "p<0.05", fontsize=8, color=NEUTRAL)
+    ax2.set_yticks(y)
+    ax2.set_yticklabels(names, fontsize=8.5)
+    ax2.invert_yaxis()
+    ax2.set_xlabel("partial Spearman ρ with CD8 signature, given TIL amount")
+    ax2.set_title("What arrangement adds beyond amount —\nreal, but small", fontsize=10)
+    _save(fig, "fig13_phenotype_biology")
+
+
+# -------------------------------------------------------------------- fig 14
+
+
+def fig_geometry_experiment() -> None:
+    """Both of the paper's tasks against the geometry label, plus the project bar."""
+    data = json.loads((RESULTS / "geometry_experiment.json").read_text())
+    tasks = data["tasks"]
+    project = None
+    project_path = RESULTS / "project_multiplicity.json"
+    if project_path.exists():
+        project = json.loads(project_path.read_text())
+
+    fig, ax = plt.subplots(figsize=(10.4, 4.6))
+    labels, positions = [], []
+    for i, task in enumerate(tasks):
+        base = i * 3
+        name = task["task"].split("·")[0].strip()
+        labels.append(f"{name}\nn={task['n']} ({task['n_positive']}+)")
+        positions.append(base + 0.5)
+
+        ax.bar(base, task["cv_observed"], 0.8, color=NEUTRAL, alpha=0.85, label="training CV" if i == 0 else None)
+        ax.plot([base - 0.4, base + 0.4], [task["null_p95"]] * 2, color=SUSPECT, lw=2,
+                label="its own null (95th pct)" if i == 0 else None)
+
+        test = task.get("locked_test")
+        if test:
+            ax.bar(base + 1, test["auc"], 0.8, color=HONEST, alpha=0.9,
+                   label="locked test set" if i == 0 else None)
+            ax.errorbar(base + 1, test["auc"],
+                        yerr=[[test["auc"] - test["ci_lower"]], [test["ci_upper"] - test["auc"]]],
+                        fmt="none", ecolor=HONEST, capsize=5, lw=1.6)
+            ax.text(base + 1, test["auc"] + (test["ci_upper"] - test["auc"]) + 0.02,
+                    f"{test['auc']:.3f}", ha="center", fontsize=9, color=HONEST)
+        ax.text(base, task["cv_observed"] + 0.015, f"{task['cv_observed']:.3f}",
+                ha="center", fontsize=9, color=NEUTRAL)
+
+    if project:
+        ax.axhline(project["project_bar"], color=SUSPECT, ls="-", lw=2)
+        ax.text(len(tasks) * 3 - 1.2, project["project_bar"] + 0.012,
+                f"project-wide multiplicity bar {project['project_bar']:.3f}\n"
+                f"({project['n_targets']} targets tried in total)",
+                fontsize=8.5, color=SUSPECT, ha="right")
+
+    ax.axhline(0.5, color=NEUTRAL, ls="--", lw=1.2)
+    ax.text(-0.45, 0.508, "chance", fontsize=8, color=NEUTRAL)
+    ax.set_xticks(positions)
+    ax.set_xticklabels(labels, fontsize=9)
+    ax.set_ylabel("AUC")
+    ax.set_ylim(0.15, 1.0)
+    ax.legend(fontsize=8.5, loc="lower right", ncol=3)
+    ax.set_title(
+        "Both of the reference study's tasks, now testable — the paper reported 0.985 and 0.984 for these",
+        fontsize=10,
+    )
+    _save(fig, "fig14_geometry_experiment")
+
+
+FIGURES.update({
+    "gallery": fig_phenotype_gallery,
+    "biology": fig_phenotype_biology,
+    "geoexp": fig_geometry_experiment,
+})
+
+
 if __name__ == "__main__":
     raise SystemExit(main())

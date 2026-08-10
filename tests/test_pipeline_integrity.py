@@ -311,3 +311,67 @@ def test_center_effects_are_detectable_before_harmonisation():
         )
     )
     assert measure_batch_effect(cohort.X, cohort.center).median_eta_squared > 0.05
+
+
+# ------------------------------------------------------------ TIL geometry
+
+
+def _phantom(kind: str, n: int = 240, radius: int = 100):
+    """Idealised desert / excluded / inflamed maps on one tissue disc."""
+    yy, xx = np.mgrid[:n, :n]
+    distance = np.hypot(yy - n / 2, xx - n / 2)
+    tissue = distance < radius
+    rng = np.random.default_rng(0)
+    if kind == "desert":
+        til = tissue & (rng.random((n, n)) < 0.01)
+    elif kind == "excluded":
+        til = tissue & (distance > radius * 0.80) & (distance < radius * 0.98)
+    else:
+        til = tissue & (rng.random((n, n)) < 0.16)
+    grid = np.where(tissue, 40, 0).astype(np.uint8)
+    grid[til] = 200
+    return grid
+
+
+def test_penetration_separates_excluded_from_inflamed():
+    """The descriptor that stands in for a tumour boundary must actually work."""
+    from mri_cd8_til.labels.geometry import describe
+
+    excluded = describe("excluded", _phantom("excluded"))
+    inflamed = describe("inflamed", _phantom("inflamed"))
+
+    # Excluded has MORE infiltrate here, so amount alone cannot separate them.
+    assert excluded.til_fraction > inflamed.til_fraction
+    # Penetration must, and by a wide margin.
+    assert excluded.unreached_fraction > 0.3
+    assert inflamed.unreached_fraction < 0.05
+    assert excluded.penetration_p90 > 3 * inflamed.penetration_p90
+
+
+def test_band_index_flags_banded_infiltrate():
+    from mri_cd8_til.labels.geometry import describe
+
+    assert describe("excluded", _phantom("excluded")).band_index > 5.0
+
+
+def test_geometry_descriptors_are_scale_free():
+    """Doubling the specimen must not change the normalised descriptors."""
+    from mri_cd8_til.labels.geometry import describe
+
+    small = describe("small", _phantom("excluded", n=240, radius=100))
+    large = describe("large", _phantom("excluded", n=480, radius=200))
+    assert small.til_fraction == pytest.approx(large.til_fraction, abs=0.03)
+    assert small.unreached_fraction == pytest.approx(large.unreached_fraction, abs=0.08)
+    assert small.penetration_p90 == pytest.approx(large.penetration_p90, abs=0.06)
+
+
+def test_geometry_handles_a_map_with_no_infiltrate():
+    from mri_cd8_til.labels.geometry import describe
+
+    grid = np.zeros((120, 120), dtype=np.uint8)
+    grid[20:100, 20:100] = 40  # tissue, no TIL anywhere
+    geometry = describe("empty", grid)
+    assert geometry.til_fraction == 0.0
+    assert geometry.unreached_fraction == 1.0
+    assert np.isfinite(geometry.penetration_p90)
+
