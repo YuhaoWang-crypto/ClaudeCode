@@ -1,0 +1,256 @@
+{
+  "reference_study": {
+    "citation": "Frontiers in Immunology 2022;13:1080048 -- Radiomic models based on MRI predict the spatial distribution of CD8+ tumor-infiltrating lymphocytes in breast cancer",
+    "n_total": 182,
+    "n_train": 137,
+    "n_validation": 45,
+    "n_nact": 64,
+    "centers": 1,
+    "external_validation": false,
+    "field_strength": "3T Philips Achieva",
+    "voxel_mm": [
+      0.6,
+      0.6,
+      2.0
+    ],
+    "n_post_contrast_phases": 4,
+    "phase_interval_s": 74,
+    "features_per_region_per_phase": 833,
+    "wavelet_filters": 12,
+    "reported_auc": {
+      "whole_tumour_train": 0.973,
+      "whole_tumour_validation": 0.985,
+      "peritumoural_train": 0.993,
+      "peritumoural_validation": 0.984
+    }
+  },
+  "published_intervals": [
+    {
+      "split": "RM-whole  training",
+      "reported_auc": 0.973,
+      "n_positive": 46,
+      "n_negative": 91,
+      "ci_lower": 0.9394936555377661,
+      "ci_upper": 1.0,
+      "ci_width": 0.06050634446223391
+    },
+    {
+      "split": "RM-whole  validation",
+      "reported_auc": 0.985,
+      "n_positive": 15,
+      "n_negative": 30,
+      "ci_lower": 0.9406462201613197,
+      "ci_upper": 1.0,
+      "ci_width": 0.05935377983868029
+    },
+    {
+      "split": "RM-peri   training",
+      "reported_auc": 0.993,
+      "n_positive": 46,
+      "n_negative": 45,
+      "ci_lower": 0.9756873740288123,
+      "ci_upper": 1.0,
+      "ci_width": 0.024312625971187662
+    },
+    {
+      "split": "RM-peri   validation",
+      "reported_auc": 0.984,
+      "n_positive": 15,
+      "n_negative": 15,
+      "ci_lower": 0.9371546568565808,
+      "ci_upper": 1.0,
+      "ci_width": 0.06284534314341916
+    }
+  ],
+  "optimism": {
+    "table": [
+      {
+        "protocol": "published",
+        "true_feature_auc": 0.5,
+        "median_reported_auc": 0.7292816369877302,
+        "p05": 0.5977380268199235,
+        "p95": 0.870063025210084,
+        "frac_ge_0.95": 0.0
+      },
+      {
+        "protocol": "split_first",
+        "true_feature_auc": 0.5,
+        "median_reported_auc": 0.4977777777777778,
+        "p05": 0.3425387931034483,
+        "p95": 0.6449579831932772,
+        "frac_ge_0.95": 0.0
+      },
+      {
+        "protocol": "repeated_cv",
+        "true_feature_auc": 0.5,
+        "median_reported_auc": 0.493011693218215,
+        "p05": 0.4119581890331891,
+        "p95": 0.594242894786373,
+        "frac_ge_0.95": 0.0
+      },
+      {
+        "protocol": "published",
+        "true_feature_auc": 0.55,
+        "median_reported_auc": 0.7521280063749638,
+        "p05": 0.5977380268199235,
+        "p95": 0.8705492973051289,
+        "frac_ge_0.95": 0.0
+      },
+      {
+        "protocol": "split_first",
+        "true_feature_auc": 0.55,
+        "median_reported_auc": 0.5066666666666666,
+        "p05": 0.3744722222222222,
+        "p95": 0.6515387488328664,
+        "frac_ge_0.95": 0.0
+      },
+      {
+        "protocol": "repeated_cv",
+        "true_feature_auc": 0.55,
+        "median_reported_auc": 0.5076406926406927,
+        "p05": 0.42578010873989136,
+        "p95": 0.5985518848301457,
+        "frac_ge_0.95": 0.0
+      },
+      {
+        "protocol": "published",
+        "true_feature_auc": 0.6,
+        "median_reported_auc": 0.7983539094650206,
+        "p05": 0.6915516248212299,
+        "p95": 0.8986361308941954,
+        "frac_ge_0.95": 0.008333333333333333
+      },
+      {
+        "protocol": "split_first",
+        "true_feature_auc": 0.6,
+        "median_reported_auc": 0.5891119100587954,
+        "p05": 0.4103333333333333,
+        "p95": 0.7448427758200055,
+        "frac_ge_0.95": 0.0
+      },
+      {
+        "protocol": "repeated_cv",
+        "true_feature_auc": 0.6,
+        "median_reported_auc": 0.5896858465608465,
+        "p05": 0.4858586951293474,
+        "p95": 0.69460351946765,
+        "frac_ge_0.95": 0.0
+      },
+      {
+        "protocol": "published",
+        "true_feature_auc": 0.65,
+        "median_reported_auc": 0.896549630924631,
+        "p05": 0.8220766129032258,
+        "p95": 0.9516666666666668,
+        "frac_ge_0.95": 0.058333333333333334
+      },
+      {
+        "protocol": "split_first",
+        "true_feature_auc": 0.65,
+        "median_reported_auc": 0.7617243365644366,
+        "p05": 0.634764379889887,
+        "p95": 0.8846232985121875,
+        "frac_ge_0.95": 0.0
+      },
+      {
+        "protocol": "repeated_cv",
+        "true_feature_auc": 0.65,
+        "median_reported_auc": 0.7799917473830518,
+        "p05": 0.6941458868627347,
+        "p95": 0.8593740840479971,
+        "frac_ge_0.95": 0.0
+      },
+      {
+        "protocol": "published",
+        "true_feature_auc": 0.7,
+        "median_reported_auc": 0.9586865411238171,
+        "p05": 0.8962455950121984,
+        "p95": 0.9957983193277311,
+        "frac_ge_0.95": 0.6083333333333333
+      },
+      {
+        "protocol": "split_first",
+        "true_feature_auc": 0.7,
+        "median_reported_auc": 0.9094827586206897,
+        "p05": 0.8210899014778325,
+        "p95": 0.9822707749766574,
+        "frac_ge_0.95": 0.15833333333333333
+      },
+      {
+        "protocol": "repeated_cv",
+        "true_feature_auc": 0.7,
+        "median_reported_auc": 0.9165209114556941,
+        "p05": 0.8640051767676769,
+        "p95": 0.9564432698943568,
+        "frac_ge_0.95": 0.10833333333333334
+      },
+      {
+        "protocol": "published",
+        "true_feature_auc": 0.75,
+        "median_reported_auc": 0.988479262672811,
+        "p05": 0.9561879160266257,
+        "p95": 1.0,
+        "frac_ge_0.95": 0.9833333333333333
+      },
+      {
+        "protocol": "split_first",
+        "true_feature_auc": 0.75,
+        "median_reported_auc": 0.9762931034482758,
+        "p05": 0.9308755760368663,
+        "p95": 1.0,
+        "frac_ge_0.95": 0.8666666666666667
+      },
+      {
+        "protocol": "repeated_cv",
+        "true_feature_auc": 0.75,
+        "median_reported_auc": 0.9783279452029453,
+        "p05": 0.9503611440491876,
+        "p95": 0.9916498466810968,
+        "frac_ge_0.95": 0.9583333333333334
+      }
+    ],
+    "grid": [
+      0.5,
+      0.55,
+      0.6,
+      0.65,
+      0.7,
+      0.75
+    ]
+  },
+  "dimension_sweep": {
+    "n_features": [
+      50,
+      200,
+      800,
+      1666,
+      3332,
+      6664
+    ],
+    "median_auc": [
+      0.4894192564211721,
+      0.48793711032800213,
+      0.5947388959841067,
+      0.6889822595704949,
+      0.7292816369877302,
+      0.7927572016460904
+    ],
+    "p95_auc": [
+      0.6157651727357609,
+      0.6975128761181891,
+      0.726804368471035,
+      0.7814240716180371,
+      0.870063025210084,
+      0.8971412271805274
+    ],
+    "frac_above_0.95": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ]
+  },
+  "quick_mode": false
+}
