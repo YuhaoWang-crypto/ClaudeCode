@@ -244,16 +244,38 @@ def supervised_cohorts() -> list[Cohort]:
     return [c for c in REGISTRY.values() if c.usable_for_supervision]
 
 
-def total_public_mri(exclude_derived: bool = True) -> int:
-    """Total distinct public breast-MRI patients.
+#: Collections whose patients are re-annotations or sub-studies of patients
+#: already counted elsewhere in the registry.
+DERIVED_OR_OVERLAPPING = {
+    # MAMA-MIA re-annotates ispy1/ispy2/nact_pilot/duke; not new patients.
+    "mama_mia": "re-annotation of four collections already counted",
+    # ACRIN-6698 is the I-SPY2 DWI sub-study, so its patients are very likely
+    # the same individuals as ispy2 entries under different de-identified IDs.
+    # The IDs cannot be matched (measured overlap 0), so this cannot be proven
+    # either way -- which is precisely why it is excluded from the lower bound.
+    "acrin_6698": "I-SPY2 DWI sub-study; probably the same individuals as ispy2",
+}
 
-    ``mama_mia`` is excluded by default because it re-annotates patients already
-    counted in ispy1/ispy2/nact_pilot/duke.
+
+def total_public_mri(count_overlapping: bool = False) -> int:
+    """Public breast-MRI patient records.
+
+    Returns a **lower bound** by default, excluding collections that are
+    re-annotations or sub-studies of patients already counted.  Pass
+    ``count_overlapping=True`` for the upper bound -- the raw sum of records,
+    which double-counts anyone appearing in two collections under different
+    de-identified IDs.
+
+    The two numbers differ by ACRIN-6698's 385 patients. Reporting the upper
+    bound as if it were a distinct-patient count would be the same kind of
+    unstated-assumption error this project exists to avoid.
     """
     return sum(
-        c.n_with_mri
-        for c in REGISTRY.values()
-        if not (exclude_derived and c.key == "mama_mia")
+        cohort.n_with_mri
+        for cohort in REGISTRY.values()
+        # MAMA-MIA is always excluded: it adds no patients under any reading.
+        if cohort.key != "mama_mia"
+        and (count_overlapping or cohort.key not in DERIVED_OR_OVERLAPPING)
     )
 
 

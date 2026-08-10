@@ -15,7 +15,12 @@ from .modeling.metrics import auc_interval_from_reported
 
 
 def cmd_inventory(_: argparse.Namespace) -> int:
-    print(f"Public breast-MRI patients across all listed cohorts: {total_public_mri()}\n")
+    print(
+        f"Public breast-MRI patients: {total_public_mri()} - "
+        f"{total_public_mri(count_overlapping=True)}\n"
+        "  (a range, because ACRIN-6698 is the I-SPY2 DWI sub-study and its 385\n"
+        "   patients cannot be matched to the ISPY2 IDs to confirm or rule out overlap)\n"
+    )
     for tier, heading in (
         (LabelTier.SPATIAL_TIL, "TIER A -- spatially resolved TIL label + imaging"),
         (LabelTier.TRANSCRIPTOMIC, "TIER B -- transcriptomic immune label + imaging"),
