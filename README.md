@@ -1,3 +1,10 @@
+> **This repository hosts two independent projects.**
+> The one documented below is `grn_pipeline`.  For the MRI / CD8+ TIL work, see
+> [`mri_cd8_til/`](mri_cd8_til/) and its documentation in [`docs/`](docs/) —
+> a multi-centre reappraisal of MRI-based prediction of CD8+ TIL spatial
+> distribution in breast cancer, with the public-data inventory verified
+> against live TCIA/GDC/GEO APIs.  Start at [`docs/DATA_SOURCES.md`](docs/DATA_SOURCES.md).
+
 # grn-pipeline
 
 A small, fully-runnable pipeline that applies four "irreducibility / symmetry"

@@ -1,0 +1,165 @@
+{
+  "reference_study": {
+    "citation": "Frontiers in Immunology 2022;13:1080048 -- Radiomic models based on MRI predict the spatial distribution of CD8+ tumor-infiltrating lymphocytes in breast cancer",
+    "n_total": 182,
+    "n_train": 137,
+    "n_validation": 45,
+    "n_nact": 64,
+    "centers": 1,
+    "external_validation": false,
+    "field_strength": "3T Philips Achieva",
+    "voxel_mm": [
+      0.6,
+      0.6,
+      2.0
+    ],
+    "n_post_contrast_phases": 4,
+    "phase_interval_s": 74,
+    "features_per_region_per_phase": 833,
+    "wavelet_filters": 12,
+    "reported_auc": {
+      "whole_tumour_train": 0.973,
+      "whole_tumour_validation": 0.985,
+      "peritumoural_train": 0.993,
+      "peritumoural_validation": 0.984
+    }
+  },
+  "published_intervals": [
+    {
+      "split": "RM-whole  training",
+      "reported_auc": 0.973,
+      "n_positive": 46,
+      "n_negative": 91,
+      "ci_lower": 0.9394936555377661,
+      "ci_upper": 1.0,
+      "ci_width": 0.06050634446223391
+    },
+    {
+      "split": "RM-whole  validation",
+      "reported_auc": 0.985,
+      "n_positive": 15,
+      "n_negative": 30,
+      "ci_lower": 0.9406462201613197,
+      "ci_upper": 1.0,
+      "ci_width": 0.05935377983868029
+    },
+    {
+      "split": "RM-peri   training",
+      "reported_auc": 0.993,
+      "n_positive": 46,
+      "n_negative": 45,
+      "ci_lower": 0.9756873740288123,
+      "ci_upper": 1.0,
+      "ci_width": 0.024312625971187662
+    },
+    {
+      "split": "RM-peri   validation",
+      "reported_auc": 0.984,
+      "n_positive": 15,
+      "n_negative": 15,
+      "ci_lower": 0.9371546568565808,
+      "ci_upper": 1.0,
+      "ci_width": 0.06284534314341916
+    }
+  ],
+  "optimism": {
+    "table": [
+      {
+        "protocol": "published",
+        "true_feature_auc": 0.5,
+        "median_reported_auc": 0.7281105990783411,
+        "p05": 0.6574439946018893,
+        "p95": 0.8586565656565656,
+        "frac_ge_0.95": 0.0
+      },
+      {
+        "protocol": "split_first",
+        "true_feature_auc": 0.5,
+        "median_reported_auc": 0.48387096774193555,
+        "p05": 0.3792549019607843,
+        "p95": 0.6096060606060606,
+        "frac_ge_0.95": 0.0
+      },
+      {
+        "protocol": "repeated_cv",
+        "true_feature_auc": 0.5,
+        "median_reported_auc": 0.5115504061156234,
+        "p05": 0.3807239219114219,
+        "p95": 0.5877116301907968,
+        "frac_ge_0.95": 0.0
+      },
+      {
+        "protocol": "published",
+        "true_feature_auc": 0.6,
+        "median_reported_auc": 0.7955555555555556,
+        "p05": 0.7376436251920123,
+        "p95": 0.8948686868686868,
+        "frac_ge_0.95": 0.0
+      },
+      {
+        "protocol": "split_first",
+        "true_feature_auc": 0.6,
+        "median_reported_auc": 0.5644444444444444,
+        "p05": 0.4738235294117647,
+        "p95": 0.6997058029689608,
+        "frac_ge_0.95": 0.0
+      },
+      {
+        "protocol": "repeated_cv",
+        "true_feature_auc": 0.6,
+        "median_reported_auc": 0.6157446581196581,
+        "p05": 0.4991691919191919,
+        "p95": 0.7158733380816714,
+        "frac_ge_0.95": 0.0
+      },
+      {
+        "protocol": "published",
+        "true_feature_auc": 0.7,
+        "median_reported_auc": 0.9494949494949495,
+        "p05": 0.9209218106995885,
+        "p95": 0.9857058823529411,
+        "frac_ge_0.95": 0.4666666666666667
+      },
+      {
+        "protocol": "split_first",
+        "true_feature_auc": 0.7,
+        "median_reported_auc": 0.8894009216589861,
+        "p05": 0.8159411764705883,
+        "p95": 0.9414783857907796,
+        "frac_ge_0.95": 0.06666666666666667
+      },
+      {
+        "protocol": "repeated_cv",
+        "true_feature_auc": 0.7,
+        "median_reported_auc": 0.9089393939393939,
+        "p05": 0.8585181995540692,
+        "p95": 0.95925620122631,
+        "frac_ge_0.95": 0.13333333333333333
+      }
+    ],
+    "grid": [
+      0.5,
+      0.6,
+      0.7
+    ]
+  },
+  "dimension_sweep": {
+    "n_features": [
+      200,
+      3332
+    ],
+    "median_auc": [
+      0.48076923076923084,
+      0.7281105990783411
+    ],
+    "p95_auc": [
+      0.6809419703103913,
+      0.8586565656565656
+    ],
+    "frac_above_0.95": [
+      0.0,
+      0.0
+    ]
+  },
+  "quick_mode": true
+}
