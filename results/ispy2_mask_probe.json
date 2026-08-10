@@ -1,0 +1,643 @@
+{
+  "n_patients": 18,
+  "published_ftv_median_cm3": 27.5,
+  "derived_ftv_median_cm3": 49.02475591544727,
+  "derived_ftv_iqr": [
+    16.0353344967924,
+    162.754676676318
+  ],
+  "derived_ftv_max_cm3": 492.9898314906059,
+  "n_implausible_over_100cm3": 6,
+  "records": [
+    {
+      "patient_id": "ISPY2-100899",
+      "study_date": "2002-10-26",
+      "spacing": [
+        0.6641,
+        0.6641,
+        2.4761904761904763
+      ],
+      "bits": {
+        "bit0": {
+          "volume_cm3": 4603.566329809641,
+          "n_components": 29,
+          "largest_share": 0.9999886954165854
+        },
+        "bit1": {
+          "volume_cm3": 2.6576396090600003,
+          "n_components": 2164,
+          "largest_share": 0.002987056090275473
+        },
+        "bit4": {
+          "volume_cm3": 4331.3130709933,
+          "n_components": 305,
+          "largest_share": 0.9997635661795777
+        },
+        "bit5": {
+          "volume_cm3": 4372.606598473601,
+          "n_components": 1,
+          "largest_share": 1.0
+        }
+      },
+      "voi_volume_cm3": 4323.624006708785,
+      "enhancing_volume_cm3": 12.436508409074285,
+      "derived_ftv_cm3": 3.7567254063238096,
+      "derived_ftv_share_of_enhancing": 0.3020723568668774
+    },
+    {
+      "patient_id": "ISPY2-102011",
+      "study_date": "2003-08-27",
+      "spacing": [
+        0.7031,
+        0.7031,
+        2.479365079365079
+      ],
+      "bits": {
+        "bit0": {
+          "volume_cm3": 5084.132335239913,
+          "n_components": 74,
+          "largest_share": 0.9999685545825064
+        },
+        "bit1": {
+          "volume_cm3": 3.946788416318,
+          "n_components": 2451,
+          "largest_share": 0.002204464039680353
+        },
+        "bit4": {
+          "volume_cm3": 4359.195722533542,
+          "n_components": 1328,
+          "largest_share": 0.9981033885276711
+        },
+        "bit5": {
+          "volume_cm3": 5062.625655456864,
+          "n_components": 1,
+          "largest_share": 1.0
+        }
+      },
+      "voi_volume_cm3": 5070.688306133574,
+      "enhancing_volume_cm3": 45.20527748829084,
+      "derived_ftv_cm3": 30.29006080386453,
+      "derived_ftv_share_of_enhancing": 0.6700558538040237
+    },
+    {
+      "patient_id": "ISPY2-103693",
+      "study_date": "2004-04-01",
+      "spacing": [
+        0.5664,
+        0.5664,
+        2.4761904761904763
+      ],
+      "bits": {
+        "bit0": {
+          "volume_cm3": 3069.84531972096,
+          "n_components": 2019,
+          "largest_share": 0.9982913710790885
+        },
+        "bit1": {
+          "volume_cm3": 8.85946023936,
+          "n_components": 10347,
+          "largest_share": 0.0005069524913093858
+        },
+        "bit4": {
+          "volume_cm3": 2707.0026865459204,
+          "n_components": 2738,
+          "largest_share": 0.9974451449220745
+        },
+        "bit5": {
+          "volume_cm3": 3337.31658203136,
+          "n_components": 1,
+          "largest_share": 1.0
+        }
+      },
+      "voi_volume_cm3": 3305.1208058704465,
+      "enhancing_volume_cm3": 308.93756192475433,
+      "derived_ftv_cm3": 277.9113024658286,
+      "derived_ftv_share_of_enhancing": 0.899571100174337
+    },
+    {
+      "patient_id": "ISPY2-104384",
+      "study_date": "2004-08-28",
+      "spacing": [
+        0.625,
+        0.625,
+        2.507936507936508
+      ],
+      "bits": {
+        "bit0": {
+          "volume_cm3": 4064.3343750000004,
+          "n_components": 12,
+          "largest_share": 0.99999250338501
+        },
+        "bit1": {
+          "volume_cm3": 1.89453125,
+          "n_components": 1678,
+          "largest_share": 0.0032989690721649486
+        },
+        "bit4": {
+          "volume_cm3": 3765.7734375,
+          "n_components": 339,
+          "largest_share": 0.9996375661540313
+        },
+        "bit5": {
+          "volume_cm3": 3898.2109375,
+          "n_components": 1,
+          "largest_share": 1.0
+        }
+      },
+      "voi_volume_cm3": 3912.2967013888883,
+      "enhancing_volume_cm3": 12.001847718253968,
+      "derived_ftv_cm3": 1.7496775793650792,
+      "derived_ftv_share_of_enhancing": 0.1457840176312138
+    },
+    {
+      "patient_id": "ISPY2-109623",
+      "study_date": "2003-05-15",
+      "spacing": [
+        0.5664,
+        0.5664,
+        2.4761904761904763
+      ],
+      "bits": {
+        "bit0": {
+          "volume_cm3": 3234.0488194252803,
+          "n_components": 1049,
+          "largest_share": 0.9992131668961101
+        },
+        "bit1": {
+          "volume_cm3": 4.8313829376,
+          "n_components": 5473,
+          "largest_share": 0.0010624169986719787
+        },
+        "bit4": {
+          "volume_cm3": 2941.9554694348803,
+          "n_components": 1534,
+          "largest_share": 0.9985067218236706
+        },
+        "bit5": {
+          "volume_cm3": 3185.3506609152,
+          "n_components": 1,
+          "largest_share": 1.0
+        }
+      },
+      "voi_volume_cm3": 3158.172459101623,
+      "enhancing_volume_cm3": 99.73730583113145,
+      "derived_ftv_cm3": 95.04329023488002,
+      "derived_ftv_share_of_enhancing": 0.9529362102060485
+    },
+    {
+      "patient_id": "ISPY2-109874",
+      "study_date": "2001-10-20",
+      "spacing": [
+        0.5469,
+        0.5469,
+        2.4761904761904763
+      ],
+      "bits": {
+        "bit0": {
+          "volume_cm3": 2939.5910464277404,
+          "n_components": 1513,
+          "largest_share": 0.9988974509301562
+        },
+        "bit1": {
+          "volume_cm3": 6.370223493780001,
+          "n_components": 7806,
+          "largest_share": 0.000845149779322002
+        },
+        "bit4": {
+          "volume_cm3": 2630.99203281414,
+          "n_components": 2234,
+          "largest_share": 0.9979245993860653
+        },
+        "bit5": {
+          "volume_cm3": 3086.0272244876405,
+          "n_components": 1,
+          "largest_share": 1.0
+        }
+      },
+      "voi_volume_cm3": 3055.5051062858406,
+      "enhancing_volume_cm3": 191.62480230927432,
+      "derived_ftv_cm3": 173.65051094619432,
+      "derived_ftv_share_of_enhancing": 0.9062006006191711
+    },
+    {
+      "patient_id": "ISPY2-109980",
+      "study_date": "1999-07-28",
+      "spacing": [
+        0.7813,
+        0.7813,
+        2.507936507936508
+      ],
+      "bits": {
+        "bit0": {
+          "volume_cm3": 6330.474529598181,
+          "n_components": 23,
+          "largest_share": 0.9999863073430634
+        },
+        "bit1": {
+          "volume_cm3": 5.77344400802,
+          "n_components": 3490,
+          "largest_share": 0.002114611968703743
+        },
+        "bit4": {
+          "volume_cm3": 5944.001725984141,
+          "n_components": 254,
+          "largest_share": 0.9997923471610406
+        },
+        "bit5": {
+          "volume_cm3": 5238.866311299401,
+          "n_components": 1,
+          "largest_share": 1.0
+        }
+      },
+      "voi_volume_cm3": 5255.497632922573,
+      "enhancing_volume_cm3": 40.48515044482381,
+      "derived_ftv_cm3": 6.318102321262541,
+      "derived_ftv_share_of_enhancing": 0.15605974664397806
+    },
+    {
+      "patient_id": "ISPY2-111004",
+      "study_date": "2004-06-03",
+      "spacing": [
+        0.7031,
+        0.7031,
+        2.479365079365079
+      ],
+      "bits": {
+        "bit0": {
+          "volume_cm3": 5054.187206484085,
+          "n_components": 16,
+          "largest_share": 0.9999601913654856
+        },
+        "bit1": {
+          "volume_cm3": 2.8222419234899996,
+          "n_components": 1806,
+          "largest_share": 0.0030828516377649326
+        },
+        "bit4": {
+          "volume_cm3": 4708.296716562406,
+          "n_components": 93,
+          "largest_share": 0.9998999813591124
+        },
+        "bit5": {
+          "volume_cm3": 4216.087936983472,
+          "n_components": 1,
+          "largest_share": 1.0
+        }
+      },
+      "voi_volume_cm3": 4234.710573294962,
+      "enhancing_volume_cm3": 25.101786317450152,
+      "derived_ftv_cm3": 15.665328658365741,
+      "derived_ftv_share_of_enhancing": 0.624072265625
+    },
+    {
+      "patient_id": "ISPY2-111038",
+      "study_date": "2001-02-09",
+      "spacing": [
+        0.879629612,
+        0.879629612,
+        2.5
+      ],
+      "bits": {
+        "bit0": {
+          "volume_cm3": 7552.396157530499,
+          "n_components": 3252,
+          "largest_share": 0.9972794217272829
+        },
+        "bit1": {
+          "volume_cm3": 19.357246952132144,
+          "n_components": 7306,
+          "largest_share": 0.000899370440691516
+        },
+        "bit4": {
+          "volume_cm3": 6626.269790761226,
+          "n_components": 3845,
+          "largest_share": 0.9936304988727335
+        },
+        "bit5": {
+          "volume_cm3": 7928.791798950178,
+          "n_components": 1,
+          "largest_share": 1.0
+        }
+      },
+      "voi_volume_cm3": 7928.791798950178,
+      "enhancing_volume_cm3": 539.7764540579309,
+      "derived_ftv_cm3": 492.9898314906059,
+      "derived_ftv_share_of_enhancing": 0.913322224014048
+    },
+    {
+      "patient_id": "ISPY2-111344",
+      "study_date": "2002-01-09",
+      "spacing": [
+        0.703125,
+        0.703125,
+        2.8095238095238093
+      ],
+      "bits": {
+        "bit0": {
+          "volume_cm3": 8737.668841552733,
+          "n_components": 4814,
+          "largest_share": 0.9992358755658015
+        },
+        "bit1": {
+          "volume_cm3": 28.892340087890624,
+          "n_components": 45487,
+          "largest_share": 0.0001197789223319245
+        },
+        "bit4": {
+          "volume_cm3": 7723.830047607422,
+          "n_components": 11312,
+          "largest_share": 0.9970353543451482
+        },
+        "bit5": {
+          "volume_cm3": 8885.073120117188,
+          "n_components": 1,
+          "largest_share": 1.0
+        }
+      },
+      "voi_volume_cm3": 8882.125080217633,
+      "enhancing_volume_cm3": 406.2602809361049,
+      "derived_ftv_cm3": 280.9723754882813,
+      "derived_ftv_share_of_enhancing": 0.6916068064563553
+    },
+    {
+      "patient_id": "ISPY2-111646",
+      "study_date": "2003-09-04",
+      "spacing": [
+        0.6445,
+        0.6445,
+        2.4761904761904763
+      ],
+      "bits": {
+        "bit0": {
+          "volume_cm3": 4318.891226559999,
+          "n_components": 15,
+          "largest_share": 0.999995191123969
+        },
+        "bit1": {
+          "volume_cm3": 5.555295463499999,
+          "n_components": 4910,
+          "largest_share": 0.001196351129056378
+        },
+        "bit4": {
+          "volume_cm3": 4088.6060774809994,
+          "n_components": 177,
+          "largest_share": 0.9999085648707859
+        },
+        "bit5": {
+          "volume_cm3": 4056.9025952799993,
+          "n_components": 1,
+          "largest_share": 1.0
+        }
+      },
+      "voi_volume_cm3": 4009.020724861904,
+      "enhancing_volume_cm3": 19.13945599923809,
+      "derived_ftv_cm3": 4.214012856238094,
+      "derived_ftv_share_of_enhancing": 0.22017411865864145
+    },
+    {
+      "patient_id": "ISPY2-111881",
+      "study_date": "2000-07-27",
+      "spacing": [
+        0.6641,
+        0.6641,
+        2.4952380952380953
+      ],
+      "bits": {
+        "bit0": {
+          "volume_cm3": 4596.363623696245,
+          "n_components": 163,
+          "largest_share": 0.9999446166905029
+        },
+        "bit1": {
+          "volume_cm3": 4.353483589272001,
+          "n_components": 6137,
+          "largest_share": 0.0010940919037199124
+        },
+        "bit4": {
+          "volume_cm3": 4240.173408937657,
+          "n_components": 953,
+          "largest_share": 0.999524831694063
+        },
+        "bit5": {
+          "volume_cm3": 4557.1457542073285,
+          "n_components": 1,
+          "largest_share": 1.0
+        }
+      },
+      "voi_volume_cm3": 4526.575418014466,
+      "enhancing_volume_cm3": 36.3507873981242,
+      "derived_ftv_cm3": 17.14535201207238,
+      "derived_ftv_share_of_enhancing": 0.47166384112375875
+    },
+    {
+      "patient_id": "ISPY2-114087",
+      "study_date": "2004-05-22",
+      "spacing": [
+        0.6445,
+        0.6445,
+        2.5
+      ],
+      "bits": {
+        "bit0": {
+          "volume_cm3": 4239.598252186875,
+          "n_components": 111,
+          "largest_share": 0.9999488073709548
+        },
+        "bit1": {
+          "volume_cm3": 5.720824493125,
+          "n_components": 3932,
+          "largest_share": 0.0030858595026320565
+        },
+        "bit4": {
+          "volume_cm3": 4017.6958919331246,
+          "n_components": 335,
+          "largest_share": 0.9997578143638052
+        },
+        "bit5": {
+          "volume_cm3": 4279.910905449375,
+          "n_components": 1,
+          "largest_share": 1.0
+        }
+      },
+      "voi_volume_cm3": 4279.910905449375,
+      "enhancing_volume_cm3": 99.05468976687499,
+      "derived_ftv_cm3": 60.45651848624999,
+      "derived_ftv_share_of_enhancing": 0.6103347416314592
+    },
+    {
+      "patient_id": "ISPY2-116165",
+      "study_date": "2004-04-02",
+      "spacing": [
+        0.7031,
+        0.7031,
+        2.479365079365079
+      ],
+      "bits": {
+        "bit0": {
+          "volume_cm3": 5044.812360480046,
+          "n_components": 180,
+          "largest_share": 0.9998997545171369
+        },
+        "bit1": {
+          "volume_cm3": 5.131151211955999,
+          "n_components": 3350,
+          "largest_share": 0.00211954217888936
+        },
+        "bit4": {
+          "volume_cm3": 3608.832830856352,
+          "n_components": 5716,
+          "largest_share": 0.9934929673900988
+        },
+        "bit5": {
+          "volume_cm3": 4932.121708693431,
+          "n_components": 1,
+          "largest_share": 1.0
+        }
+      },
+      "voi_volume_cm3": 4939.927365055587,
+      "enhancing_volume_cm3": 63.08784889315401,
+      "derived_ftv_cm3": 22.288866415177292,
+      "derived_ftv_share_of_enhancing": 0.3532988809449798
+    },
+    {
+      "patient_id": "ISPY2-117424",
+      "study_date": "2000-09-28",
+      "spacing": [
+        0.6641,
+        0.6641,
+        2.514285714285714
+      ],
+      "bits": {
+        "bit0": {
+          "volume_cm3": 4571.18158429134,
+          "n_components": 247,
+          "largest_share": 0.9999162937222028
+        },
+        "bit1": {
+          "volume_cm3": 5.040430063728,
+          "n_components": 7055,
+          "largest_share": 0.0010499790004199917
+        },
+        "bit4": {
+          "volume_cm3": 4190.738666036281,
+          "n_components": 1035,
+          "largest_share": 0.9996056066244954
+        },
+        "bit5": {
+          "volume_cm3": 4507.120385523601,
+          "n_components": 1,
+          "largest_share": 1.0
+        }
+      },
+      "voi_volume_cm3": 4510.742265321197,
+      "enhancing_volume_cm3": 64.15159707296685,
+      "derived_ftv_cm3": 37.59299334464456,
+      "derived_ftv_share_of_enhancing": 0.5860024544967417
+    },
+    {
+      "patient_id": "ISPY2-117707",
+      "study_date": "2003-04-19",
+      "spacing": [
+        0.7421875,
+        0.7421875,
+        2.507936507936508
+      ],
+      "bits": {
+        "bit0": {
+          "volume_cm3": 8384.466268920898,
+          "n_components": 349,
+          "largest_share": 0.9998931751256506
+        },
+        "bit1": {
+          "volume_cm3": 15.51612548828125,
+          "n_components": 10625,
+          "largest_share": 0.0007810281170122124
+        },
+        "bit4": {
+          "volume_cm3": 6649.233749389648,
+          "n_components": 6335,
+          "largest_share": 0.9958119563947733
+        },
+        "bit5": {
+          "volume_cm3": 8232.055920410157,
+          "n_components": 1,
+          "largest_share": 1.0
+        }
+      },
+      "voi_volume_cm3": 8254.83907209124,
+      "enhancing_volume_cm3": 143.70128716362848,
+      "derived_ftv_cm3": 83.91923082139756,
+      "derived_ftv_share_of_enhancing": 0.5839838492597578
+    },
+    {
+      "patient_id": "ISPY2-120001",
+      "study_date": "2000-03-17",
+      "spacing": [
+        0.8999999762,
+        0.8999999762,
+        2.5
+      ],
+      "bits": {
+        "bit0": {
+          "volume_cm3": 7994.503152179595,
+          "n_components": 1869,
+          "largest_share": 0.998898909117068
+        },
+        "bit1": {
+          "volume_cm3": 26.39587360395152,
+          "n_components": 9510,
+          "largest_share": 0.0006137322593018795
+        },
+        "bit4": {
+          "volume_cm3": 3864.7122955996533,
+          "n_components": 3577,
+          "largest_share": 0.9218276133088813
+        },
+        "bit5": {
+          "volume_cm3": 7754.380689879406,
+          "n_components": 1,
+          "largest_share": 1.0
+        }
+      },
+      "voi_volume_cm3": 7754.380689879406,
+      "enhancing_volume_cm3": 284.87495993327934,
+      "derived_ftv_cm3": 238.4234873900462,
+      "derived_ftv_share_of_enhancing": 0.836940836940837
+    },
+    {
+      "patient_id": "ISPY2-122287",
+      "study_date": "2003-05-24",
+      "spacing": [
+        0.600961566,
+        0.600961566,
+        2.4444444444444446
+      ],
+      "bits": {
+        "bit0": {
+          "volume_cm3": 5562.643888249123,
+          "n_components": 4477,
+          "largest_share": 0.9990422909289155
+        },
+        "bit1": {
+          "volume_cm3": 21.766800025578814,
+          "n_components": 47326,
+          "largest_share": 0.0001327360212377634
+        },
+        "bit4": {
+          "volume_cm3": 4721.861419944022,
+          "n_components": 11680,
+          "largest_share": 0.9956696099887856
+        },
+        "bit5": {
+          "volume_cm3": 5025.13322103709,
+          "n_components": 1,
+          "largest_share": 1.0
+        }
+      },
+      "voi_volume_cm3": 4908.450925739308,
+      "enhancing_volume_cm3": 242.32074819029455,
+      "derived_ftv_cm3": 130.06717386668907,
+      "derived_ftv_share_of_enhancing": 0.536756240800921
+    }
+  ]
+}

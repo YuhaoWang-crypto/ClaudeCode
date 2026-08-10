@@ -94,6 +94,15 @@ def main() -> int:
     cd8_p = geo["validation"]["cd8_core"]["kruskal_p"]
     epcam_p = geo["validation"]["epcam_control"]["kruskal_p"]
 
+    probe = load("ispy2_mask_probe.json")
+    ispy2_labels = load("ispy2_immune_scores.json")
+    n_ispy2_linked = ispy2_labels["n_linked_to_mri"]
+    ftv_med = probe["derived_ftv_median_cm3"]
+    ftv_iqr = probe["derived_ftv_iqr"]
+    ftv_max = probe["derived_ftv_max_cm3"]
+    n_bad = probe["n_implausible_over_100cm3"]
+    n_probe = probe["n_patients"]
+
     html = f"""<title>乳腺癌 MRI 预测 CD8+ TIL：多中心可行性实测报告</title>
 <style>
 :root {{
@@ -754,6 +763,115 @@ footer li {{ margin-bottom:5px; }}
   </div>
 </section>
 
+
+<section>
+  <div class="col">
+    <p class="eyebrow">扩到 ISPY2 · 一半成了一半没成 <span class="chip measured">实测</span></p>
+    <h2>标签侧到了 717 例，影像侧卡在肿瘤分割</h2>
+    <hr class="rule">
+    <div class="callout">
+      <p><strong>先纠正上一版的一句话。</strong>这份报告此前说「ISPY2 全部 719 例都有分割」，
+      依据是 TCIA 上存在 <code>SEG</code> modality。<strong>在关键意义上是错的</strong>：
+      那些 SEG 的 DICOM 段标签是 <code>VOLSER Analysis Mask</code>，
+      分割属性类型是 <strong>Breast</strong> 而非 Neoplasm，体积中位 4,235 cm³ —— 是乳腺分析掩膜，不是肿瘤分割。</p>
+    </div>
+  </div>
+  {figure("fig15", "fig15_ispy2", "图 15 · ISPY2：为什么影像侧卡住，以及标签侧为什么成了",
+          f"左：掩膜的四个位平面，横轴体积、纵轴最大连通块占比。绿框是「肿瘤分割应该落在的位置」—— "
+          f"<b>它是空的</b>。三个位平面是乳腺量级的单连通块，第四个把几 cm³ 散成上千个碎块。"
+          f"中：按试验自己的 FTV 规则推导的肿瘤 ROI，中位 {ftv_med:.0f} cm³ 与已发表值接近，"
+          f"但 <b>{n_bad}/{n_probe} 例超过 100 cm³</b>（橙色），最大 {ftv_max:.0f} cm³ —— "
+          f"背景实质强化把病灶连成一片。右：标签侧的三项一致性检查，全部通过。")}
+  <div class="col">
+    <h3 style="margin-top:32px">两条推导路线，都试了，都不够好</h3>
+    <p><strong>按试验自己的 FTV 定义推</strong>（VOI ∧ PE≥70%，取最大连通块）：
+    中位 {ftv_med:.0f} cm³ 与已发表的 I-SPY2 治疗前 FTV 接近，
+    但 IQR 是 [{ftv_iqr[0]:.0f}, {ftv_iqr[1]:.0f}]，最大 {ftv_max:.0f} cm³。
+    背景实质强化明显时，肿瘤与实质连成一整块，提出来的就是「整个乳腺」的特征。
+    <strong>这种失败不报错</strong>，只污染其中一部分病例 —— 对下游模型是最坏的情况。</p>
+    <p><strong>把 bit 1 当作试验算好的 FTV</strong>：它与推导体积跨患者相关 r=+0.855，方向对，
+    但中位只有 5.6 cm³ 且散成上千个不连通体素（最大块占比 0.00）。
+    在这样的 ROI 上算纹理矩阵没有意义。</p>
+    <p>所以本轮<strong>停在这里，没有产出 ROI</strong>。
+    代码保留了第一条路线以便复算，但文档里标明不可用于特征提取。</p>
+
+    <h3 style="margin-top:30px">顺带修掉一个会静默出错的真 bug</h3>
+    <p>多帧 DICOM 的方向余弦在 <code>SharedFunctionalGroupsSequence</code> 里而不是 PerFrame 里。
+    读不到就留了 SimpleITK 的默认单位阵，而 SER/PE 体积是 (−1, −1, 1)。
+    两者原点相同、方向相反，重采样后掩膜几乎完全落在目标网格之外 ——
+    bit5 占比从 <b>0.945</b> 塌到 <b>1.5e-5</b>，<strong>全程不报错</strong>。
+    修正后同时处理了三件事：从 Shared 读方向、按切片法向排序帧、层间距从帧位置反推。有测试钉住。</p>
+
+    <h3 style="margin-top:30px">成了的那一半</h3>
+  </div>
+  <div class="scroll">
+    <table>
+      <thead><tr><th>项</th><th>值</th><th>说明</th></tr></thead>
+      <tbody>
+        <tr><td class="key">TCIA ↔ GSE194040 可连接患者</td>
+            <td class="num ok"><b>{n_ispy2_linked}</b></td>
+            <td>719 例有 MRI 中的 717 例；约 20 家美国中心</td></tr>
+        <tr><td class="key">ID 对齐核验</td>
+            <td class="num">986 / 988</td>
+            <td>表达矩阵列头看似另一套编号，实为同一批 patient id 的不同顺序。<br>
+                脚本每次运行都重验 —— 连错键会让每个标签挂到错的病人身上，而表面完全正常</td></tr>
+        <tr><td class="key">corr(CD8 核心, TIS)</td><td class="num ok">+0.941</td><td>应该很高 ✅</td></tr>
+        <tr><td class="key">corr(CD8 核心, PTPRC)</td><td class="num ok">+0.806</td><td>应该为正 ✅</td></tr>
+        <tr><td class="key">corr(CD8 核心, EPCAM 上皮对照)</td><td class="num ok">−0.155</td><td>应接近 0 或为负 ✅</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="col">
+    <div class="callout">
+      <p><strong>但标签类型变了，这是损失。</strong>ISPY2 没有公开的 H&amp;E 全切片，
+      所以 TIL 图谱、几何描述子、沙漠/排斥/炎症三分类<strong>在它上面都不存在</strong>。
+      剩下的只支持 <code>inflamed_vs_rest</code> —— 这正是 <code>labels/schema.py</code>
+      从一开始就写死的那条约束，现在在实践中兑现了。</p>
+    </div>
+
+    <h3 style="margin-top:30px">解锁需要 Synapse 凭据</h3>
+    <p><strong>MAMA-MIA</strong>（Synapse <code>syn60868042</code>）提供 1,506 例专家复核的肿瘤分割，
+    覆盖 ISPY1 / ISPY2 / NACT / Duke，正是缺的东西。但它需要 Personal Access Token，
+    非交互会话无法完成 OAuth 流程。</p>
+    <p>拿到之后<strong>其余都已就绪</strong>：把 <code>ispy2.load_case</code> 的 VOI 换成
+    MAMA-MIA 的分割即可，ROI 构建与特征提取器直接可用，717 例标签已经算好。
+    届时监督队列从 91 例变成约 700 例、约 20 个中心 ——
+    而多中心模拟预测这一步（182 → 900）单独就值 <b>+0.185 AUC</b>，
+    是本报告量化过的最大单项杠杆。</p>
+  </div>
+</section>
+
+<section>
+  <div class="col">
+    <p class="eyebrow">当前账目</p>
+    <h2>四个队列，各自到了哪一步</h2>
+    <hr class="rule">
+  </div>
+  <div class="scroll">
+    <table>
+      <thead><tr><th>队列</th><th>规模</th><th>状态</th><th>能验哪个任务</th></tr></thead>
+      <tbody>
+        <tr><td class="key">TCGA-BRCA：影像特征 + 空间 TIL 表型</td>
+            <td class="num"><b>91</b></td>
+            <td><span class="chip measured">已跑完</span></td>
+            <td>RM-whole 0.713 / RM-peri 0.440</td></tr>
+        <tr><td class="key">TCGA-BRCA：空间 TIL 表型（标签侧）</td>
+            <td class="num"><b>136</b></td>
+            <td><span class="chip measured">已建好</span></td>
+            <td>两个任务都能验</td></tr>
+        <tr><td class="key">I-SPY2：转录组免疫标签</td>
+            <td class="num"><b>{n_ispy2_linked}</b></td>
+            <td><span class="chip measured">已建好</span></td>
+            <td>只能验 RM-whole</td></tr>
+        <tr><td class="key">I-SPY2：影像特征</td>
+            <td class="num hi"><b>0</b></td>
+            <td><span class="chip absent">卡住</span></td>
+            <td>需 MAMA-MIA 分割</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
 <section>
   <div class="col">
     <p class="eyebrow">复算</p>
@@ -767,8 +885,13 @@ python scripts/build_til_labels.py         # 下载 {n_til} 例真实 TIL 图谱
 python scripts/run_optimism_study.py       # 证据三，约 2 小时
 python scripts/run_multicenter_demo.py     # 多中心对比，约 1 小时
 python scripts/run_real_dicom_demo.py      # 真实 DICOM 端到端
+python scripts/phenotype_til.py            # 24 个几何描述子 + 三分类 + 生物学验证
+python scripts/run_geometry_experiment.py  # MRI -> 几何表型，两个任务
+python scripts/project_multiplicity.py     # 全项目多重性核算
+python scripts/build_ispy2_labels.py       # I-SPY2 717 例免疫标签 + ID 对齐核验
+python scripts/probe_ispy2_masks.py        # 实测 I-SPY2 掩膜到底是什么
 python scripts/make_figures.py             # 重绘本文全部图表
-pytest tests/                              # 23 项测试</pre>
+pytest tests/                              # 29 项测试</pre>
   </div>
 </section>
 

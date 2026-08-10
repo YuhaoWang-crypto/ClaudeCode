@@ -894,5 +894,101 @@ FIGURES.update({
 })
 
 
+# -------------------------------------------------------------------- fig 15
+
+
+def fig_ispy2() -> None:
+    """Why the I-SPY2 imaging cohort is blocked, and what did work."""
+    probe = json.loads((RESULTS / "ispy2_mask_probe.json").read_text())
+    labels = json.loads((RESULTS / "ispy2_immune_scores.json").read_text())
+    records = probe["records"]
+
+    fig, (ax, ax2, ax3) = plt.subplots(1, 3, figsize=(14.6, 4.3))
+
+    # --- panel 1: no bit plane is tumour-shaped -------------------------
+    styles = {
+        "bit0": ("bit 0", NEUTRAL, "o"),
+        "bit1": ("bit 1", SUSPECT, "s"),
+        "bit4": ("bit 4", LIGHT, "^"),
+        "bit5": ("bit 5", HONEST, "D"),
+    }
+    ax.add_patch(
+        matplotlib.patches.Rectangle(
+            (1, 0.5), 199, 0.5, facecolor=ACCENT3, alpha=0.12, edgecolor=ACCENT3,
+            linestyle="--", linewidth=1.2, zorder=0,
+        )
+    )
+    ax.text(2.2, 0.93, "what a tumour segmentation\nwould look like", fontsize=8.5,
+            color=ACCENT3, va="top")
+    for key, (label, colour, marker) in styles.items():
+        volumes = [r["bits"][key]["volume_cm3"] for r in records]
+        shares = [r["bits"][key]["largest_share"] for r in records]
+        ax.scatter(volumes, shares, s=34, c=colour, marker=marker, label=label,
+                   alpha=0.85, edgecolor="white", linewidth=0.4)
+    ax.set_xscale("log")
+    ax.set_xlabel("volume of the bit plane (cm³, log)")
+    ax.set_ylabel("share held by its largest component")
+    ax.set_ylim(-0.05, 1.08)
+    ax.legend(fontsize=8, loc="center left")
+    ax.set_title(f"No bit plane is a tumour (n={probe['n_patients']})", fontsize=10)
+
+    # --- panel 2: the derived-FTV route fails on a third of patients ----
+    ftv = np.sort(np.array([r["derived_ftv_cm3"] for r in records]))
+    colours = [SUSPECT if v > 100 else HONEST for v in ftv]
+    ax2.bar(np.arange(len(ftv)), ftv, color=colours, width=0.75)
+    ax2.axhline(probe["published_ftv_median_cm3"], color=ACCENT3, ls="--", lw=1.6)
+    ax2.text(0.2, probe["published_ftv_median_cm3"] * 1.15,
+             f"published I-SPY2 median\n{probe['published_ftv_median_cm3']:.0f} cm³",
+             fontsize=8.5, color=ACCENT3)
+    ax2.axhline(100, color=SUSPECT, ls=":", lw=1.4)
+    ax2.set_yscale("log")
+    ax2.set_xlabel("patients, sorted")
+    ax2.set_ylabel("derived FTV (cm³, log)")
+    ax2.set_xticks([])
+    ax2.set_title(
+        f"Derived tumour ROI: {probe['n_implausible_over_100cm3']}/{probe['n_patients']} "
+        f"exceed 100 cm³\nmedian {probe['derived_ftv_median_cm3']:.0f}, max "
+        f"{probe['derived_ftv_max_cm3']:.0f} — lesion merged with parenchyma",
+        fontsize=9.5,
+    )
+
+    # --- panel 3: the label side, which did work ------------------------
+    checks = labels["sanity_checks"]
+    names = list(checks)
+    values = [checks[n] for n in names]
+    pretty = [
+        n.replace("corr(CD8 core, ", "vs ").replace(")", "").replace(" epithelial control", "\n(negative control)")
+        for n in names
+    ]
+    bar_colours = [SUSPECT if "control" in n and "PTPRC" not in n else ACCENT3 for n in names]
+    y = np.arange(len(names))
+    ax3.barh(y, values, color=bar_colours, alpha=0.9, height=0.55)
+    for yi, v in zip(y, values):
+        ax3.text(v + (0.02 if v >= 0 else -0.02), yi, f"{v:+.3f}", va="center",
+                 ha="left" if v >= 0 else "right", fontsize=9)
+    ax3.axvline(0, color=NEUTRAL, lw=1)
+    ax3.set_yticks(y)
+    ax3.set_yticklabels(pretty, fontsize=9)
+    ax3.invert_yaxis()
+    ax3.set_xlim(-0.35, 1.15)
+    ax3.set_xlabel("Spearman/Pearson correlation")
+    ax3.set_title(
+        f"Label side, which did work: {labels['n_linked_to_mri']} patients\n"
+        "all sanity checks pass",
+        fontsize=10,
+    )
+
+    fig.suptitle(
+        "I-SPY2: the label half lands at 717 patients across ~20 sites; the imaging half is blocked "
+        "on tumour segmentation",
+        fontsize=10,
+        y=1.03,
+    )
+    _save(fig, "fig15_ispy2")
+
+
+FIGURES.update({"ispy2": fig_ispy2})
+
+
 if __name__ == "__main__":
     raise SystemExit(main())
