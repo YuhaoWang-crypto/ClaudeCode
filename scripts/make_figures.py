@@ -858,7 +858,10 @@ def fig_geometry_experiment() -> None:
             ax.errorbar(base + 1, test["auc"],
                         yerr=[[test["auc"] - test["ci_lower"]], [test["ci_upper"] - test["auc"]]],
                         fmt="none", ecolor=HONEST, capsize=5, lw=1.6)
-            ax.text(base + 1, test["auc"] + (test["ci_upper"] - test["auc"]) + 0.02,
+            # Put the value under the bar when the upper whisker would collide
+            # with the multiplicity annotation at the top of the axes.
+            top = test["ci_upper"]
+            ax.text(base + 1, top + 0.02 if top < 0.86 else test["auc"] - 0.06,
                     f"{test['auc']:.3f}", ha="center", fontsize=9, color=HONEST)
         ax.text(base, task["cv_observed"] + 0.015, f"{task['cv_observed']:.3f}",
                 ha="center", fontsize=9, color=NEUTRAL)
@@ -875,8 +878,8 @@ def fig_geometry_experiment() -> None:
     ax.set_xticks(positions)
     ax.set_xticklabels(labels, fontsize=9)
     ax.set_ylabel("AUC")
-    ax.set_ylim(0.15, 1.0)
-    ax.legend(fontsize=8.5, loc="lower right", ncol=3)
+    ax.set_ylim(0.15, 1.02)
+    ax.legend(fontsize=8.5, loc="upper left", ncol=1, framealpha=0.95)
     ax.set_title(
         "Both of the reference study's tasks, now testable — the paper reported 0.985 and 0.984 for these",
         fontsize=10,

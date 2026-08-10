@@ -1,0 +1,89 @@
+{
+  "n_targets": 10,
+  "project_bar": 0.7423151251268385,
+  "best_cv": 0.6421626984126985,
+  "best_name": "texture features only",
+  "clears_project_bar": false,
+  "targets": [
+    {
+      "source": "model_optimization",
+      "name": "tertile split (primary)",
+      "observed": 0.5899305555555555,
+      "null_mean": 0.5008673115079365,
+      "null_p95": 0.6188988095238095
+    },
+    {
+      "source": "model_optimization",
+      "name": "median split",
+      "observed": 0.45854938271604945,
+      "null_mean": 0.5093723765432099,
+      "null_p95": 0.6271388888888889
+    },
+    {
+      "source": "model_optimization",
+      "name": "extreme tertiles only",
+      "observed": 0.5121031746031746,
+      "null_mean": 0.5048045634920635,
+      "null_p95": 0.6649007936507936
+    },
+    {
+      "source": "model_optimization",
+      "name": "Moran's I high vs low",
+      "observed": 0.6216049382716049,
+      "null_mean": 0.4970688271604938,
+      "null_p95": 0.62091512345679
+    },
+    {
+      "source": "model_optimization",
+      "name": "ComBat by scanner",
+      "observed": 0.5196924603174603,
+      "null_mean": 0.5007643849206349,
+      "null_p95": 0.6131076388888888
+    },
+    {
+      "source": "model_optimization",
+      "name": "kinetic features only",
+      "observed": 0.4859126984126984,
+      "null_mean": 0.49639223710317454,
+      "null_p95": 0.6353670634920634
+    },
+    {
+      "source": "model_optimization",
+      "name": "texture features only",
+      "observed": 0.6421626984126985,
+      "null_mean": 0.5017554563492064,
+      "null_p95": 0.6436706349206349
+    },
+    {
+      "source": "model_optimization",
+      "name": "morphology features only",
+      "observed": 0.5357142857142857,
+      "null_mean": 0.4943702876984127,
+      "null_p95": 0.6240724206349205
+    },
+    {
+      "source": "geometry_experiment",
+      "name": "RM-whole",
+      "observed": 0.6411111111111112,
+      "null_mean": 0.5018271604938271,
+      "null_p95": 0.6814814814814815,
+      "locked_test_auc": 0.7125,
+      "locked_ci": [
+        0.5125,
+        0.88125
+      ]
+    },
+    {
+      "source": "geometry_experiment",
+      "name": "RM-peri",
+      "observed": 0.5845000000000001,
+      "null_mean": 0.5115,
+      "null_p95": 0.7005000000000001,
+      "locked_test_auc": 0.44000000000000006,
+      "locked_ci": [
+        0.18,
+        0.71
+      ]
+    }
+  ]
+}

@@ -80,6 +80,20 @@ def main() -> int:
     eta_before = opt["batch_eta2_before"]
     eta_after = opt["batch_eta2_after"]
 
+    geo = load("til_geometry.json")
+    geoexp = load("geometry_experiment.json")
+    proj = load("project_multiplicity.json")
+    n_geo = geo["n_patients"]
+    n_desc = geo["n_descriptors"]
+    gw, gp = geoexp["tasks"][0], geoexp["tasks"][1]
+    gw_test, gp_test = gw["locked_test"], gp["locked_test"]
+    proj_bar = proj["project_bar"]
+    proj_best = proj["best_cv"]
+    n_targets = proj["n_targets"]
+    cd8_med = geo["validation"]["cd8_core"]["medians"]
+    cd8_p = geo["validation"]["cd8_core"]["kruskal_p"]
+    epcam_p = geo["validation"]["epcam_control"]["kruskal_p"]
+
     html = f"""<title>乳腺癌 MRI 预测 CD8+ TIL：多中心可行性实测报告</title>
 <style>
 :root {{
@@ -533,10 +547,114 @@ footer li {{ margin-bottom:5px; }}
   </div>
 </section>
 
+
 <section>
   <div class="col">
-    <p class="eyebrow">缺口 1 · 还剩这一个</p>
-    <h2>TIL 图谱没有肿瘤区域，三条补法</h2>
+    <p class="eyebrow">缺口 1 已走通 · 几何路线 <span class="chip measured">实测</span></p>
+    <h2>不用肿瘤掩膜，把三分类做出来</h2>
+    <hr class="rule">
+    <p>沙漠 / 排斥 / 炎症是相对肿瘤边界定义的。但把定义拆开看：沙漠是「哪里都几乎没有浸润」，
+    排斥是「有浸润，但聚成带状，不进入它所包围的组织内部」，炎症是「浸润分布在内部」——
+    <strong>只有中间那一条提到了肿瘤</strong>。「聚成带状、不进入内部」是关于点模式排布的陈述，可以直接测量。</p>
+    <p><strong>核心描述子是渗透</strong>：对每个组织 patch，算它到最近 TIL 的距离。
+    炎症型短尾（哪里都不远），排斥型长尾（带状浸润把内部留在外面）。
+    在人工构造的理想表型上，<strong>排斥型的浸润量比炎症型还多</strong>（占组织 31.7% vs 16.1%），
+    所以「量」完全分不开它们，而渗透分得干干净净：unreached <b>0.506 vs 0.000</b>。</p>
+    <p>共 {n_desc} 个<strong>尺度无关</strong>描述子（距离除以组织等效半径），
+    在全部 <strong>{n_geo} 例</strong>上计算。注意分工：<strong>几何扩的是标签侧到 {n_geo} 例，
+    影像侧仍是 91 例</strong> —— 后者卡在专家分割的可得性上。</p>
+  </div>
+  {figure("fig12", "fig12_phenotype_gallery", "图 12 · 只凭几何读出的表型",
+          "上排是真实 TIL 图谱，下排是每个组织 patch 到最近淋巴细胞的距离。"
+          "中间那例（排斥型）能直接看出来：淋巴细胞在组织巢周围形成亮环，"
+          "而距离图显示大片内部区域从未被触及 —— 这是在没有任何肿瘤标注的情况下恢复出来的。")}
+</section>
+
+<section>
+  <div class="col">
+    <p class="eyebrow">生物学验证 <span class="chip measured">实测</span></p>
+    <h2>这三组是不是名副其实？是</h2>
+    <hr class="rule">
+    <p>这一步决定前面所有东西有没有意义。{n_geo} 例全部有 RNA-seq（其中 45 例是这一轮补下的）。
+    预设的可证伪排序：炎症型 CD8 信号最高，沙漠型最低。
+    实测 <b>{cd8_med['immune-desert']:+.3f} → {cd8_med['immune-excluded']:+.3f} → {cd8_med['inflamed']:+.3f}</b>
+    （Kruskal p={cd8_p:.3f}），而上皮阴性对照 EPCAM 平坦（p={epcam_p:.2f}）。</p>
+  </div>
+  {figure("fig13", "fig13_phenotype_biology", "图 13 · 三组的转录组画像，以及排布在「量」之外带来了什么",
+          "左：免疫签名随三组上升，阴性对照不动。右：给定 TIL 量后的偏相关 —— "
+          "排布确实携带独立信息，<b>但幅度很小</b>，24 个描述子里只有 interface_density 一个越过 p&lt;0.05 的线。"
+          "这限制了任何基于排布的模型的天花板。")}
+</section>
+
+<section>
+  <div class="col">
+    <p class="eyebrow">两个任务都可测了 <span class="chip measured">实测</span></p>
+    <h2>RM-peri 从「无法评估」变成「可以评估」——结果是零</h2>
+    <hr class="rule">
+    <p>这是本项目第一次能同时测原文的<strong>两个</strong>任务。</p>
+  </div>
+  <div class="scroll">
+    <table>
+      <thead><tr><th></th><th>RM-whole<br>炎症 vs 其余</th><th>RM-peri<br>沙漠 vs 排斥</th><th>原文</th></tr></thead>
+      <tbody>
+        <tr><td class="key">样本</td>
+            <td class="num">n={gw['n']}（{gw['n_positive']} 阳性）</td>
+            <td class="num">n={gp['n']}（{gp['n_positive']} 阳性）</td>
+            <td class="num">137 / 45</td></tr>
+        <tr><td class="key">训练集 CV</td>
+            <td class="num">{gw['cv_observed']:.3f}</td>
+            <td class="num">{gp['cv_observed']:.3f}</td><td>—</td></tr>
+        <tr><td class="key">置换检验 p</td>
+            <td class="num hi">{gw['p_value']:.3f}</td>
+            <td class="num hi">{gp['p_value']:.3f}</td><td>未报告</td></tr>
+        <tr><td class="key"><b>锁定测试集 AUC</b></td>
+            <td class="num ok">{gw_test['auc']:.3f}<br><small>CI [{gw_test['ci_lower']:.3f}, {gw_test['ci_upper']:.3f}]</small></td>
+            <td class="num">{gp_test['auc']:.3f}<br><small>CI [{gp_test['ci_lower']:.3f}, {gp_test['ci_upper']:.3f}]</small></td>
+            <td class="num hi">0.985 / 0.984</td></tr>
+      </tbody>
+    </table>
+  </div>
+  {figure("fig14", "fig14_geometry_experiment", "图 14 · 两个任务，以及全项目多重性门槛",
+          f"RM-whole 的锁定测试集 {gw_test['auc']:.3f} 是本项目至今最好的结果，CI 下界 {gw_test['ci_lower']:.3f} 高于 0.5。"
+          f"换用几何表型标签，把测试集 AUC 从上一轮的 0.567 提到了 {gw_test['auc']:.3f}。"
+          f"但红线是项目试过 {n_targets} 个目标之后的多重性门槛 {proj_bar:.3f} —— 没有任何 CV 观测越过它。")}
+  <div class="col">
+    <div class="callout">
+      <p><strong>三条必须同时说：</strong></p>
+      <p>1 · <strong>置换检验没过。</strong>快速版里 p=0.049，完整的 300 次置换下变成
+      <b>p={gw['p_value']:.3f}</b>。这一轮有两个结果都出现了同一现象 ——
+      <strong>置换次数本身就是一个会影响结论的参数</strong>，报告时必须写出来。</p>
+      <p>2 · <strong>RM-peri 是零结果</strong>：{gp_test['auc']:.3f}（CI [{gp_test['ci_lower']:.3f}, {gp_test['ci_upper']:.3f}]），
+      p={gp['p_value']:.3f}。原文这个任务报的是 <b>0.984</b>。</p>
+      <p>3 · 测试集只有 {gw_test['n_positive'] + gw_test['n_negative']} 例（{gw_test['n_positive']} 阳性），
+      CI 宽 {gw_test['ci_upper'] - gw_test['ci_lower']:.3f} —— <strong>这个划分分不出 0.71 和 0.88</strong>。</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="col">
+    <p class="eyebrow">对自己的核算 <span class="chip measured">实测</span></p>
+    <h2>项目一共试了 {n_targets} 个目标，门槛应该是 {proj_bar:.3f}</h2>
+    <hr class="rule">
+    <p>每个实验都对<strong>它自己</strong>试过的变体做了校正。但没有人对<strong>整个项目</strong>试过的目标做校正——
+    而「局部校正、全局搜索」正是这份报告一直在批评的那种失败模式，它同样适用于我们自己。</p>
+    <p>把项目里评估过的每一个二分类目标收集起来重算：<strong>门槛 {proj_bar:.3f}，
+    最佳 CV 观测 {proj_best:.3f} —— 没过。</strong></p>
+    <div class="callout good">
+      <p>锁定测试集不受这条 CV 门槛保护——它是一次独立的单次评估。
+      但它同样<strong>不能免疫于此前的搜索</strong>：被评估的那个目标，是在看过其他目标之后才选定的。</p>
+      <p><strong>诚实的总结</strong>：几何标签把测试集 AUC 从 0.567 提到 {gw_test['auc']:.3f}，这是真实的改进；
+      但在项目已经试过 {n_targets} 个目标之后，它既没过全项目门槛，置换检验也只到 p={gw['p_value']:.3f}。
+      正确的表述是<strong>「值得预注册一次重复验证的线索」，不是「已经建立的结果」</strong>。</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="col">
+    <p class="eyebrow">缺口 1 · 三条补法的完整代价</p>
+    <h2>路径 C 已走通，A 和 B 仍是可选的加深</h2>
     <hr class="rule">
     <p>没有肿瘤边界就分不出中心与前沿，推不出沙漠 / 排斥 / 炎症三分类。
     <strong>RM-peri 在这份数据上仍然做不了。</strong>三条路，按代价排序：</p>
