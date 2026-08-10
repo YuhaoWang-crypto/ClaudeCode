@@ -1,0 +1,18 @@
+REAL TCGA-AR-A1AQ DCE subtraction series (TCIA, open access)
+  native : size=(256, 256, 112) spacing=(0.938, 0.938, 3.0)
+  after  : size=(400, 400, 168) spacing=(0.6, 0.6, 2.0)
+
+  surrogate enhancing-lesion ROI: 72857 voxels
+  (a threshold surrogate, NOT a clinical segmentation -- it exists only to
+   exercise the ROI + feature path on real DICOM geometry)
+
+    whole_tumour       voxels= 72857  viable=True
+    inner_rim_2mm      voxels= 50883  viable=True
+    outer_ring_3mm     voxels=136658  viable=True
+    outer_ring_5mm     voxels=187996  viable=True
+
+  extracted 794 features in 966.9s (794 finite)
+    shape_VoxelVolume                          = 52457
+    original_glcm_Contrast                     = 2.6297
+    original_ngtdm_Busyness                    = 29.634
+    wavelet-sym4-HHH_glrlm_RunEntropy          = 2.7028

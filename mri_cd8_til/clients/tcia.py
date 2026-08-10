@@ -12,6 +12,7 @@ from __future__ import annotations
 
 from collections import Counter
 from dataclasses import dataclass, field
+from pathlib import Path
 from typing import Any, Iterable
 
 from .http import PublicDataSession
@@ -111,6 +112,26 @@ class TCIAClient:
 
     def patients_with_modality(self, collection: str, modality: str = "MR") -> set[str]:
         return {s.patient_id for s in self.series(collection, modality=modality)}
+
+    def download_series(self, series_uid: str, destination: Path | str) -> Path:
+        """Download one series as DICOM files into ``destination``.
+
+        The open-access ``getImage`` endpoint returns a zip of the whole series.
+        Series sizes here run from a few MB (a single subtraction volume) to
+        hundreds of MB (a full VIBRANT dynamic acquisition), so check
+        ``SeriesRecord.image_count`` before pulling one.
+        """
+        import io
+        import zipfile
+
+        destination = Path(destination)
+        destination.mkdir(parents=True, exist_ok=True)
+        response = self.session.get(
+            f"{self.base_url}/getImage", params={"SeriesInstanceUID": series_uid}
+        )
+        with zipfile.ZipFile(io.BytesIO(response.content)) as archive:
+            archive.extractall(destination)
+        return destination
 
     def dce_series(
         self,
