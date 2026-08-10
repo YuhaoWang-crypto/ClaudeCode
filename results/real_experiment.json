@@ -1,0 +1,113 @@
+{
+  "n_patients": 91,
+  "n_features": 36,
+  "feature_names": [
+    "Maximum enhancement (K1)",
+    "Time to peak (K2)",
+    "Uptake rate (K3)",
+    "Washout rate (K4)",
+    "Curve shape index (K5)",
+    "E1 (K6)",
+    "Signal Enhancement Ratio (SER) (K7)",
+    "Maximum enhancement-variance (E1)",
+    "Enhancement-Variance Time to Peak (E2)",
+    "Enhancement-variance Increasing Rate (E3)",
+    "Enhancement-variance Decreasing Rate (E4)",
+    "Contrast (T1)",
+    "Correlation (T2)",
+    "Difference Entropy (T3)",
+    "Difference Variance (T4)",
+    "Energy (T5)",
+    "Entropy (T6)",
+    "Homogeneity (T7)",
+    "IMC1 (T8)",
+    "IMC2 (T9)",
+    "Maximum Correlation Coefficient (T10)",
+    "Sum Average (T11)",
+    "Sum Entropy (T12)",
+    "Sum Variance (T13)",
+    "Variance (T14)",
+    "Sphericity (G1)",
+    "Irregularity (G2)",
+    "Margin Sharpness (M1)",
+    "Variance of Margin Sharpness (M2)",
+    "Variance of Radial Gradient Histogram (vRGH) (M3)",
+    "Size/Lesion volume (S1)",
+    "Effective Diameter (S2)",
+    "Surface Area (S3)",
+    "Surface Area to Volume ratio (G3)",
+    "Volume of most enhancing voxels (S4)",
+    "Maximum Diameter (S5)"
+  ],
+  "label": {
+    "definition": "TIL-positive share of tissue patches, upper tertile",
+    "cut_fitted_on_train": 0.07113725645782375,
+    "n_high": 31,
+    "n_low": 60
+  },
+  "split": {
+    "n_train": 63,
+    "n_test": 28
+  },
+  "cv_by_model": {
+    "lasso": {
+      "mean": 0.5278124999999999,
+      "std": 0.1938686486936775
+    },
+    "lasso_strong": {
+      "mean": 0.5,
+      "std": 0.0
+    },
+    "ridge": {
+      "mean": 0.5758333333333333,
+      "std": 0.17329907631188432
+    },
+    "lasso_top10": {
+      "mean": 0.6086111111111111,
+      "std": 0.14861425366956624
+    },
+    "random_forest": {
+      "mean": 0.6068402777777778,
+      "std": 0.15416193735831238
+    }
+  },
+  "selected_model": "lasso_top10",
+  "permutation_null": {
+    "mean": 0.4929745370370371,
+    "p95": 0.680701388888889,
+    "observed": 0.6086111111111111,
+    "p_value": 0.2459016393442623
+  },
+  "locked_test": {
+    "auc": 0.5388888888888889,
+    "ci_lower": 0.31666666666666665,
+    "ci_upper": 0.75,
+    "n_positive": 10,
+    "n_negative": 18,
+    "brier": 0.24400520016681984,
+    "calibration_slope": 0.28915505049117946,
+    "calibration_intercept": -0.3925287060379321
+  },
+  "leaky_protocol_test_auc": 0.6944444444444444,
+  "leave_one_scanner_out": {
+    "mean": 0.5582386363636364,
+    "folds": {
+      "Confirma Inc.|CADstream 4.1.0.204 (n=13)": 0.5454545454545454,
+      "GE MEDICAL SYSTEMS|SIGNA EXCITE (n=68)": 0.5710227272727273
+    }
+  },
+  "family_cv_auc": {
+    "enhancement_variance": 0.4618055555555555,
+    "kinetic": 0.5609722222222222,
+    "morphology": 0.5315624999999999,
+    "texture": 0.5470486111111111
+  },
+  "top_univariate": {
+    "E1 (K6)": 0.6938775510204082,
+    "Maximum enhancement (K1)": 0.691609977324263,
+    "Surface Area to Volume ratio (G3)": 0.35487528344671204,
+    "Uptake rate (K3)": 0.6417233560090703,
+    "Sphericity (G1)": 0.6383219954648526,
+    "Variance of Radial Gradient Histogram (vRGH) (M3)": 0.6337868480725624
+  }
+}

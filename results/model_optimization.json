@@ -1,0 +1,125 @@
+{
+  "n_patients": 91,
+  "n_features": 36,
+  "batch_eta2_before": 0.04671468088097548,
+  "batch_eta2_after": 0.008206492500212744,
+  "variants": [
+    {
+      "name": "tertile split (primary)",
+      "rationale": "the pre-specified analysis: TIL-high vs the rest",
+      "metric": "auc",
+      "observed": 0.6130952380952381,
+      "null_mean": 0.485734126984127,
+      "null_p95": 0.6154662698412698,
+      "p_value": 0.12195121951219512,
+      "clears_null": false,
+      "detail": ""
+    },
+    {
+      "name": "median split",
+      "rationale": "balanced classes carry more power than a 1:2 tertile at this n",
+      "metric": "auc",
+      "observed": 0.45493827160493827,
+      "null_mean": 0.5217191358024692,
+      "null_p95": 0.6141851851851851,
+      "p_value": 0.8292682926829268,
+      "clears_null": false,
+      "detail": ""
+    },
+    {
+      "name": "continuous log TIL (regression)",
+      "rationale": "the report's recommendation: do not dichotomise away information",
+      "metric": "spearman",
+      "observed": -0.031629240324892505,
+      "null_mean": -0.008589942666029624,
+      "null_p95": 0.16209786590221362,
+      "p_value": 0.5609756097560976,
+      "clears_null": false,
+      "detail": ""
+    },
+    {
+      "name": "extreme tertiles only",
+      "rationale": "drops the ambiguous middle third, the easiest version of the task",
+      "metric": "auc",
+      "observed": 0.5313492063492063,
+      "null_mean": 0.5153273809523811,
+      "null_p95": 0.6810912698412699,
+      "p_value": 0.4146341463414634,
+      "clears_null": false,
+      "detail": "n=62"
+    },
+    {
+      "name": "Moran's I (regression)",
+      "rationale": "MRI texture may track how clustered the infiltrate is, not how much",
+      "metric": "spearman",
+      "observed": 0.11057493231406276,
+      "null_mean": -0.03997650899824813,
+      "null_p95": 0.18210184742793428,
+      "p_value": 0.1951219512195122,
+      "clears_null": false,
+      "detail": ""
+    },
+    {
+      "name": "Moran's I high vs low",
+      "rationale": "the same, dichotomised at the median",
+      "metric": "auc",
+      "observed": 0.6227160493827161,
+      "null_mean": 0.5017932098765433,
+      "null_p95": 0.604179012345679,
+      "p_value": 0.07317073170731707,
+      "clears_null": true,
+      "detail": ""
+    },
+    {
+      "name": "ComBat by scanner",
+      "rationale": "removes the scanner effect measured above",
+      "metric": "auc",
+      "observed": 0.5311507936507937,
+      "null_mean": 0.48919146825396825,
+      "null_p95": 0.6020734126984126,
+      "p_value": 0.43902439024390244,
+      "clears_null": false,
+      "detail": ""
+    },
+    {
+      "name": "kinetic features only",
+      "rationale": "restricting to one family reduces the search space",
+      "metric": "auc",
+      "observed": 0.5083333333333333,
+      "null_mean": 0.4930233134920635,
+      "null_p95": 0.6442559523809523,
+      "p_value": 0.4634146341463415,
+      "clears_null": false,
+      "detail": "7 features"
+    },
+    {
+      "name": "texture features only",
+      "rationale": "restricting to one family reduces the search space",
+      "metric": "auc",
+      "observed": 0.651984126984127,
+      "null_mean": 0.5022222222222222,
+      "null_p95": 0.6324503968253967,
+      "p_value": 0.07317073170731707,
+      "clears_null": true,
+      "detail": "14 features"
+    },
+    {
+      "name": "morphology features only",
+      "rationale": "restricting to one family reduces the search space",
+      "metric": "auc",
+      "observed": 0.5432539682539683,
+      "null_mean": 0.48143353174603176,
+      "null_p95": 0.5971527777777778,
+      "p_value": 0.2926829268292683,
+      "clears_null": false,
+      "detail": "11 features"
+    }
+  ],
+  "multiplicity": {
+    "n_auc_variants": 8,
+    "null_max_p95": 0.6928571428571428,
+    "best_observed": 0.651984126984127,
+    "best_name": "texture features only",
+    "clears_adjusted_bar": false
+  }
+}

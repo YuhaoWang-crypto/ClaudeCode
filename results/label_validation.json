@@ -1,0 +1,54 @@
+{
+  "n_patients": 91,
+  "correlations": {
+    "CD8A": {
+      "n": 91,
+      "rho_til_fraction": 0.3668100015926103,
+      "p_til_fraction": 0.00034851754644654167,
+      "rho_moran": 0.232839624143972,
+      "p_moran": 0.026346516616575718
+    },
+    "CD8B": {
+      "n": 91,
+      "rho_til_fraction": 0.2774964166268514,
+      "p_til_fraction": 0.007743120268175674,
+      "rho_moran": 0.2028348463131072,
+      "p_moran": 0.05382178765853988
+    },
+    "PTPRC (CD45, pan-leukocyte)": {
+      "n": 91,
+      "rho_til_fraction": 0.321468386685778,
+      "p_til_fraction": 0.0018890994555115467,
+      "rho_moran": 0.2259276954929129,
+      "p_moran": 0.03129162100852091
+    },
+    "CD8 core signature": {
+      "n": 91,
+      "rho_til_fraction": 0.38995062908106387,
+      "p_til_fraction": 0.0001329716912271112,
+      "rho_moran": 0.2600732600732601,
+      "p_moran": 0.012787068370022896
+    },
+    "cytolytic (GZMA, PRF1)": {
+      "n": 91,
+      "rho_til_fraction": 0.34198120719859854,
+      "p_til_fraction": 0.0009072018318278567,
+      "rho_moran": 0.211498646281255,
+      "p_moran": 0.04416667626663978
+    },
+    "TIS (18-gene inflamed)": {
+      "n": 91,
+      "rho_til_fraction": 0.36610925306577485,
+      "p_til_fraction": 0.0003584402749722931,
+      "rho_moran": 0.2863194776238255,
+      "p_moran": 0.005933925278469926
+    },
+    "EPCAM (epithelial, negative control)": {
+      "n": 91,
+      "rho_til_fraction": 0.0470297818123905,
+      "p_til_fraction": 0.6579981291157889,
+      "rho_moran": -0.05502468545946807,
+      "p_moran": 0.6044313348475667
+    }
+  }
+}

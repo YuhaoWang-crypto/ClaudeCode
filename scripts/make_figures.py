@@ -523,5 +523,161 @@ def main() -> int:
     return 0
 
 
+
+
+# --------------------------------------------------------------------- fig 9
+
+
+def fig_label_validation() -> None:
+    """Does the H&E TIL label measure lymphocyte burden? Check vs transcriptome."""
+    data = json.loads((RESULTS / "label_validation.json").read_text())
+    rows = data["correlations"]
+    order = [
+        "CD8 core signature",
+        "CD8A",
+        "TIS (18-gene inflamed)",
+        "cytolytic (GZMA, PRF1)",
+        "PTPRC (CD45, pan-leukocyte)",
+        "CD8B",
+        "EPCAM (epithelial, negative control)",
+    ]
+    order = [k for k in order if k in rows]
+    amount = [rows[k]["rho_til_fraction"] for k in order]
+    arrange = [rows[k]["rho_moran"] for k in order]
+    y = np.arange(len(order))
+
+    fig, ax = plt.subplots(figsize=(8.8, 4.3))
+    ax.barh(y + 0.19, amount, 0.36, label="TIL amount (share of tissue)", color=HONEST, alpha=0.9)
+    ax.barh(y - 0.19, arrange, 0.36, label="TIL arrangement (Moran's I)", color=ACCENT3, alpha=0.85)
+    for yi, value in zip(y + 0.19, amount):
+        ax.text(value + 0.012, yi, f"{value:+.3f}", va="center", fontsize=8.5, color=HONEST)
+
+    control = len(order) - 1
+    ax.barh(control + 0.19, amount[control], 0.36, color=SUSPECT, alpha=0.9)
+    ax.barh(control - 0.19, arrange[control], 0.36, color=SUSPECT, alpha=0.6)
+
+    ax.axvline(0, color=NEUTRAL, lw=1)
+    ax.set_yticks(y)
+    ax.set_yticklabels(order, fontsize=9)
+    ax.invert_yaxis()
+    ax.set_xlabel("Spearman ρ with the pathology-derived label")
+    ax.set_title(
+        f"The label is measuring what it claims (n={data['n_patients']}).\n"
+        "Immune signatures track it; the epithelial negative control does not.",
+        fontsize=10,
+    )
+    ax.legend(fontsize=8.5, loc="lower right")
+    _save(fig, "fig9_label_validation")
+
+
+# -------------------------------------------------------------------- fig 10
+
+
+def fig_real_experiment() -> None:
+    """The real train/test result, with its permutation null and interval."""
+    data = json.loads((RESULTS / "real_experiment.json").read_text())
+    cv = data["cv_by_model"]
+    null = data["permutation_null"]
+    test = data["locked_test"]
+
+    fig, (ax, ax2) = plt.subplots(1, 2, figsize=(11.6, 4.3))
+
+    names = list(cv)
+    means = [cv[n]["mean"] for n in names]
+    stds = [cv[n]["std"] for n in names]
+    colours = [HONEST if n == data["selected_model"] else LIGHT for n in names]
+    ax.barh(np.arange(len(names)), means, xerr=stds, color=colours, capsize=3, height=0.6)
+    ax.axvline(0.5, color=NEUTRAL, ls="--", lw=1.2)
+    ax.axvline(null["p95"], color=SUSPECT, ls=":", lw=1.6)
+    ax.text(null["p95"] + 0.006, len(names) - 0.35,
+            f"95th pct of the\npermutation null\n{null['p95']:.3f}", fontsize=8, color=SUSPECT)
+    ax.set_yticks(np.arange(len(names)))
+    ax.set_yticklabels(names, fontsize=9)
+    ax.invert_yaxis()
+    ax.set_xlabel("cross-validated AUC on the training set")
+    ax.set_xlim(0.3, max(0.85, null["p95"] + 0.12))
+    ax.set_title("Model selection, inside the training set only", fontsize=10)
+
+    labels = ["training CV\n(selected model)", "locked test set\n(touched once)",
+              "leave-one-\nscanner-out", "the leaky protocol\non this same data"]
+    values = [
+        null["observed"],
+        test["auc"],
+        data["leave_one_scanner_out"]["mean"] or np.nan,
+        data["leaky_protocol_test_auc"],
+    ]
+    bar_colours = [NEUTRAL, HONEST, ACCENT3, SUSPECT]
+    bars = ax2.bar(labels, values, color=bar_colours, width=0.6)
+    ax2.errorbar(1, test["auc"],
+                 yerr=[[test["auc"] - test["ci_lower"]], [test["ci_upper"] - test["auc"]]],
+                 fmt="none", ecolor=HONEST, capsize=5, lw=1.6)
+    for rect, value in zip(bars, values):
+        if np.isfinite(value):
+            ax2.text(rect.get_x() + rect.get_width() / 2, value + 0.018, f"{value:.3f}",
+                     ha="center", fontsize=9)
+    ax2.axhline(0.5, color=NEUTRAL, ls="--", lw=1.2)
+    ax2.text(-0.45, 0.512, "chance", fontsize=8, color=NEUTRAL)
+    ax2.set_ylabel("AUC")
+    ax2.set_ylim(0.3, 1.0)
+    ax2.tick_params(axis="x", labelsize=8.5)
+    ax2.set_title(
+        f"Real result: test AUC {test['auc']:.3f} "
+        f"(95% CI {test['ci_lower']:.2f}–{test['ci_upper']:.2f}), permutation p={null['p_value']:.2f}",
+        fontsize=10,
+    )
+    _save(fig, "fig10_real_experiment")
+
+
+# -------------------------------------------------------------------- fig 11
+
+
+def fig_optimization_sweep() -> None:
+    """Every optimisation variant against its own null, and the multiplicity bar."""
+    data = json.loads((RESULTS / "model_optimization.json").read_text())
+    variants = [v for v in data["variants"] if v["metric"] == "auc"]
+    mult = data["multiplicity"]
+
+    names = [v["name"] for v in variants]
+    observed = [v["observed"] for v in variants]
+    p95 = [v["null_p95"] for v in variants]
+    y = np.arange(len(names))
+
+    fig, ax = plt.subplots(figsize=(9.6, 4.6))
+    for yi, (obs, bar) in enumerate(zip(observed, p95)):
+        ax.plot([0.5, bar], [yi, yi], color=LIGHT, lw=7, solid_capstyle="butt")
+        ax.plot([bar], [yi], "|", color=NEUTRAL, ms=13, mew=1.6)
+        clears = obs > bar
+        ax.plot([obs], [yi], "o", ms=9,
+                color=ACCENT3 if clears else NEUTRAL, zorder=3)
+        ax.text(obs + 0.008, yi, f"{obs:.3f}", va="center", fontsize=8.5,
+                color=ACCENT3 if clears else NEUTRAL)
+
+    ax.axvline(mult["null_max_p95"], color=SUSPECT, lw=2)
+    ax.text(mult["null_max_p95"] + 0.006, len(names) - 0.6,
+            f"multiplicity-adjusted bar\n{mult['null_max_p95']:.3f}\n"
+            f"({mult['n_auc_variants']} variants tried)",
+            fontsize=8.5, color=SUSPECT, va="top")
+
+    ax.set_yticks(y)
+    ax.set_yticklabels(names, fontsize=9)
+    ax.invert_yaxis()
+    ax.set_xlabel("cross-validated AUC")
+    ax.set_xlim(0.44, max(mult["null_max_p95"], max(observed)) + 0.09)
+    ax.set_title(
+        "Grey bar = each variant's own permutation null (to its 95th percentile).\n"
+        f"Best observed {mult['best_observed']:.3f} does not reach the "
+        f"multiplicity-adjusted {mult['null_max_p95']:.3f}.",
+        fontsize=10,
+    )
+    ax.grid(axis="y", visible=False)
+    _save(fig, "fig11_optimization_sweep")
+
+
+FIGURES.update({
+    "labelval": fig_label_validation,
+    "realexp": fig_real_experiment,
+    "sweep2": fig_optimization_sweep,
+})
+
 if __name__ == "__main__":
     raise SystemExit(main())
