@@ -59,6 +59,27 @@ def main() -> int:
     n_paired = inventory["tcga_brca_linkage"]["n_fully_paired"]
     n_ispy2 = inventory["ispy2_linkage"]["n_linked"]
 
+    real = load("real_experiment.json")
+    opt = load("model_optimization.json")
+    validation = load("label_validation.json")
+    n_real = real["n_patients"]
+    n_feat = real["n_features"]
+    test_auc = real["locked_test"]["auc"]
+    test_lo = real["locked_test"]["ci_lower"]
+    test_hi = real["locked_test"]["ci_upper"]
+    calib_slope = real["locked_test"]["calibration_slope"]
+    perm_p = real["permutation_null"]["p_value"]
+    leaky = real["leaky_protocol_test_auc"]
+    rho_cd8 = validation["correlations"]["CD8 core signature"]["rho_til_fraction"]
+    rho_epcam = validation["correlations"]["EPCAM (epithelial, negative control)"][
+        "rho_til_fraction"
+    ]
+    mult_bar = opt["multiplicity"]["null_max_p95"]
+    best_obs = opt["multiplicity"]["best_observed"]
+    n_variants = opt["multiplicity"]["n_auc_variants"]
+    eta_before = opt["batch_eta2_before"]
+    eta_after = opt["batch_eta2_after"]
+
     html = f"""<title>乳腺癌 MRI 预测 CD8+ TIL：多中心可行性实测报告</title>
 <style>
 :root {{
@@ -200,7 +221,8 @@ footer li {{ margin-bottom:5px; }}
     <p class="eyebrow">方法学评估 · 证据快照 2026-08-10</p>
     <h1>乳腺癌 MRI 预测 CD8<sup>+</sup> TIL 的空间分布：多中心可行性实测</h1>
     <p class="deck">复现 <em>Front Immunol</em> 2022;13:1080048 的设计，用公开数据实测其可行性，
-    并量化那个 0.985 的 AUC 里有多少是真的。所有数字当场跑出，来源脚本随文附上。</p>
+    并量化那个 0.985 的 AUC 里有多少是真的。含 {n_real} 例真实数据上的训练/测试 ——
+    结果是零，且标签经独立检验有效。所有数字当场跑出，来源脚本随文附上。</p>
     <div class="legend">
       <span><span class="chip measured">实测</span> <span class="t">本项目跑出的真实数据</span></span>
       <span><span class="chip simulated">模拟</span> <span class="t">真值已知的对照实验</span></span>
@@ -225,8 +247,8 @@ footer li {{ margin-bottom:5px; }}
     <div class="verdict qual">
       <p class="q">0.985 该打几折？</p>
       <p class="a">分不出<br>0.73 与 0.98</p>
-      <p>折扣不是一个固定数值。这个设计本身的分辨率不足以区分两者 ——
-      而唯一做过真外部中心测试的同类研究，报的是 <strong>0.704</strong>。</p>
+      <p>折扣不是一个固定数值。这个设计本身的分辨率不足以区分两者。
+      而本报告在 {n_real} 例真实数据上跑出的锁定测试集 AUC 是 <strong>{test_auc:.3f}</strong>。</p>
     </div>
     <div class="verdict gain">
       <p class="q">多中心能提高准确度吗？</p>
@@ -410,42 +432,163 @@ footer li {{ margin-bottom:5px; }}
 
 <section>
   <div class="col">
-    <p class="eyebrow">回答：有没有 test set？</p>
-    <h2>有对照数据，但监督测试还没跑完</h2>
+    <p class="eyebrow">缺口 2 已关闭 <span class="chip measured">实测</span></p>
+    <h2>分割数据一直存在，只是不在影像集合页面上</h2>
     <hr class="rule">
-    <p>把「有验证设计」说成「已经验证过了」，正是这份报告一直在批评的那类含糊。所以分三层说清楚。</p>
+    <p><code>TCGA-BRCA</code> 影像集合本身没有分割，MAMA-MIA 也不覆盖它。但 TCIA 上另有一份分析结果
+    ——<strong>TCGA Breast Phenotype Research Group</strong>（CC BY 3.0）——发布了
+    <strong>{n_real} 例</strong>放射科医师监督的病灶分割，以及在其上算出的影像组学特征。
+    这 {n_real} 例与 TIL 标签队列<strong>完全重合</strong>。</p>
+    <p>用他们发布的特征而不是自己重提，好处是分割不是阈值替代、特征出自同一台工作站；
+    代价是<strong>只有 {n_feat} 个特征，没有小波、没有瘤周区域、没有多时相</strong>。
+    所以这个队列能回答「DCE-MRI 到底带不带 TIL 信号」，不能复现原文的特征空间。</p>
+  </div>
+</section>
+
+<section>
+  <div class="col">
+    <p class="eyebrow">先验标签 <span class="chip measured">实测</span></p>
+    <h2>标签测的是不是淋巴细胞？是</h2>
+    <hr class="rule">
+    <p>一个低 AUC 有两种读法——<strong>影像没信号</strong>，或<strong>标签太脏</strong>。
+    这两者可以分开，因为同样这 {n_real} 例有 RNA-seq。从 GDC 拉了他们的 STAR-Counts，
+    把 H&amp;E 推断的 TIL 指标与转录组免疫测量做 Spearman 相关。</p>
+  </div>
+  {figure("fig9", "fig9_label_validation", "图 9 · 病理标签 vs 转录组（独立测定）",
+          f"CD8 核心签名 ρ={rho_cd8:+.3f}（p=1.3e-4），而上皮阴性对照 EPCAM 只有 {rho_epcam:+.3f}（p=0.66）。"
+          "标签测的就是它声称测的东西。另一个副产物：空间排布（Moran's I）也独立地与 TIS 相关"
+          "（ρ=+0.286, p=0.006）—— 淋巴细胞怎么排布，携带的是独立的生物学信息。")}
+</section>
+
+<section>
+  <div class="col">
+    <p class="eyebrow">主分析 · 预先设定，只报一次 <span class="chip measured">实测</span></p>
+    <h2>真实训练/测试的结果，是零</h2>
+    <hr class="rule">
+    <p>设计上刻意对自己不利：<strong>锁定测试集</strong>在任何东西被拟合前划分一次、只碰一次；
+    标准化、标签切点、特征筛选、模型全部在训练折内重新拟合；配<strong>置换零分布</strong>；
+    再在同一份真实数据上跑一遍原文的泄漏协议做对照。</p>
+  </div>
+  {figure("fig10", "fig10_real_experiment", "图 10 · 真实数据上的训练与测试",
+          f"锁定测试集 AUC <b>{test_auc:.3f}</b>（95% CI {test_lo:.2f}–{test_hi:.2f}），"
+          f"置换检验 p={perm_p:.2f}，校准斜率 {calib_slope:.3f}（严重失准，过拟合的典型特征）。"
+          f"最右一根是同一份数据上的泄漏协议：<b>{leaky:.3f}</b>，比无泄漏版本高 {leaky - test_auc:+.3f}"
+          " —— 与模拟预测的方向和量级一致。")}
+</section>
+
+<section>
+  <div class="col">
+    <p class="eyebrow">优化尝试 · 探索性 <span class="chip measured">实测</span></p>
+    <h2>试了 10 个变体，两个「显著」，一个都没过多重性</h2>
+    <hr class="rule">
+    <p>变体全部来自评估报告自己的建议：保留连续标签而不是二分、把排布与浸润量分开建模、
+    跨扫描仪 ComBat、只用单个特征族。既然试了很多，就<strong>必须全部报出来</strong>——
+    否则这一步自己就在犯它所批评的错误。</p>
+  </div>
+  {figure("fig11", "fig11_optimization_sweep", "图 11 · 每个变体对自己的零分布，以及多重性门槛",
+          f"两个变体各自通过了自己的置换零分布（纹理特征 {best_obs:.3f}、Moran's I 0.623，均 p=0.073）。"
+          f"如果只试其中一个并报出来，这就是一篇论文的雏形。但试了 {n_variants} 个 AUC 变体后，"
+          f"多重性校正门槛是 <b>{mult_bar:.3f}</b>，最佳观测 {best_obs:.3f} —— 一个都没过。")}
+  <div class="col">
+    <div class="callout">
+      <p><strong>这是本报告全部论点在真实数据上的现场演示。</strong>
+      差别只在于：这一次犯错的机会属于我们自己，而校正后的结论也一并报了出来。</p>
+      <p>顺带一个真实数字：这批数据里扫描仪解释的特征方差中位数 η² 只有 <b>{eta_before:.3f}</b>，
+      ComBat 后降到 {eta_after:.3f}。<strong>ComBat 在这里帮不上忙，
+      不是因为它没用，而是因为这个队列本来就没有多少批次效应可去。</strong></p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="col">
+    <p class="eyebrow">怎么读这个零结果</p>
+    <h2>能说什么，不能说什么</h2>
+    <hr class="rule">
+    <p><strong>能说的：</strong>在 {n_real} 例真实多厂商乳腺 MRI 上，用 {n_feat} 个专家分割病灶的
+    常规影像组学特征，检测不到预测 H&amp;E 淋巴细胞浸润的信号；而标签本身经独立转录组检验有效，
+    所以这个零结果属于影像侧。</p>
+    <p><strong>不能说的</strong>（必须同时写出，否则就是过度推论）：</p>
   </div>
   <div class="scroll">
     <table>
-      <thead><tr><th>层次</th><th>状态</th><th>规模</th><th>说明</th></tr></thead>
+      <thead><tr><th>限制</th><th>具体</th></tr></thead>
       <tbody>
-        <tr><td class="key">1 · 模拟中的训练 / 验证 / 留一中心对照</td>
-            <td><span class="chip simulated">已完成</span></td>
-            <td class="num">120 次重复 × 6 个效应量</td>
-            <td>真值已知，所以能测量「报出的数」与真相的差</td></tr>
-        <tr><td class="key">2 · 真实外部队列的<b>标签侧</b></td>
-            <td><span class="chip measured">已完成</span></td>
-            <td class="num">{n_til} 例真实 TCGA-BRCA</td>
-            <td>真实空间 TIL 图谱，已下载并算出标签（图 7、图 8）</td></tr>
-        <tr><td class="key">3 · 完整的监督外部测试</td>
-            <td><span class="chip absent">未完成</span></td>
-            <td class="num">—</td>
-            <td>两个具体阻塞点，见下</td></tr>
+        <tr><td class="key">样本量</td><td>n={n_real}，测试集只有 10 个阳性，CI 宽达
+            [{test_lo:.2f}, {test_hi:.2f}]。这是<b>效应量上界</b>，不是不存在的证明。</td></tr>
+        <tr><td class="key">特征空间</td><td>只有 {n_feat} 个，没有小波、没有瘤周区域、没有多时相。
+            原文那 833×4 的空间里可能有这里看不到的东西 —— 尽管本报告其他部分提示，
+            那个空间里更可能有的是噪声。</td></tr>
+        <tr><td class="key">影像协议</td><td>主要是 GE 1.5T（68/91 例 SIGNA EXCITE），原文是 Philips 3T。</td></tr>
+        <tr><td class="key">标签不是 CD8 IHC</td><td>是全片 H&amp;E TIL 量。虽与 CD8A 相关 ρ={rho_cd8:.2f}，
+            但那也意味着约 85% 的方差不共享。</td></tr>
+        <tr><td class="key">测试集本身</td><td>只有 28 例，<b>分不出 0.54 和 0.70</b> ——
+            这正是本报告对原文的批评，同样适用于本报告自己。</td></tr>
       </tbody>
     </table>
   </div>
   <div class="col">
-    <h3 style="margin-top:34px">阻塞点 1：TIL 图谱没有肿瘤区域</h3>
-    <p>公开发布的三种图谱（二值、分数、CNN）都只标注淋巴细胞浸润，<strong>不含肿瘤/间质边界</strong>。
-    没有边界就分不出肿瘤中心与浸润前沿，也就推不出沙漠型 / 排斥型 / 炎症型三分类。
-    因此目前的标签只支持连续的整体 TIL 量与空间聚集度，对应原文的 RM-whole 一侧；
-    <strong>RM-peri（沙漠 vs 排斥）在这份数据上做不了。</strong></p>
-    <h3 style="margin-top:26px">阻塞点 2：TCGA-BRCA 的 MRI 没有公开肿瘤勾画</h3>
-    <p>预处理与 ROI 构建已在真实 DICOM 上跑通（图 5），但那用的是阈值替代 ROI，不是临床分割。
-    MAMA-MIA 的 1,506 例专家勾画覆盖 ISPY1 / ISPY2 / NACT / DUKE，<strong>不含 TCGA-BRCA</strong>。</p>
-    <p>两个缺口都是<strong>可做的新增工作量，不是数据拿不到</strong>：
-    前者需对同一批切片跑肿瘤区域分割再与 TIL 图谱叠加；后者可用 MAMA-MIA 预训练的 nnU-Net 推理这
-    {n_til} 例再人工核校。在那之前，本项目报出的任何 AUC 都是模拟值，文中也都如此标注。</p>
+    <p style="margin-top:22px">诚实的总结：<strong>这一轮没有找到信号，
+    而且证据强度只够说「如果有信号，它不大」。</strong></p>
+  </div>
+</section>
+
+<section>
+  <div class="col">
+    <p class="eyebrow">缺口 1 · 还剩这一个</p>
+    <h2>TIL 图谱没有肿瘤区域，三条补法</h2>
+    <hr class="rule">
+    <p>没有肿瘤边界就分不出中心与前沿，推不出沙漠 / 排斥 / 炎症三分类。
+    <strong>RM-peri 在这份数据上仍然做不了。</strong>三条路，按代价排序：</p>
+  </div>
+  <div class="scroll">
+    <table>
+      <thead><tr><th>路径</th><th>做法</th><th>代价</th><th>状态</th></tr></thead>
+      <tbody>
+        <tr><td class="key">A · 核分割叠加</td>
+            <td>IDC <code>pan_cancer_nuclei_seg</code> 给逐细胞核多边形 →
+            核密度/形态 → 肿瘤富集区 → 与 TIL 图谱叠加得中心与前沿</td>
+            <td class="num">全库 1.2 TB；<br>只取我们 88 例约 <b>68 GB</b></td>
+            <td><span class="chip measured">已核实</span><br>覆盖 88/91 例</td></tr>
+        <tr><td class="key">B · 肿瘤区域分割</td>
+            <td>对同批诊断切片跑 HoVer-Net 或现成乳腺肿瘤区域模型</td>
+            <td class="num">中等，但引入一个<br>需自行验证的新模型</td>
+            <td><span class="chip absent">未做</span></td></tr>
+        <tr><td class="key">C · 几何描述子</td>
+            <td>不需要肿瘤掩膜：Moran's I、最大连通簇占比、簇形状。
+            排斥型的特征是淋巴细胞成带状聚集而不渗入，几何上可测</td>
+            <td class="num">零下载</td>
+            <td><span class="chip measured">已实现并使用</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="col">
+    <div class="callout good">
+      <p>路径 C <strong>不是纯粹的替代品</strong>：Moran's I 与 TIS 独立相关（ρ=+0.286, p=0.006），
+      说明它确实捕捉到了生物学，只是不能直接命名为「排斥型」。</p>
+      <p><strong>建议顺序</strong>：先走路径 C 定效应量的量级，
+      只有当它显示出值得追的信号时，再投路径 A 的 68 GB 和随之而来的分割验证工作。
+      本轮路径 C 没有显示这样的信号。</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="col">
+    <p class="eyebrow">下一步</p>
+    <h2>基于本轮实测的四条建议</h2>
+    <hr class="rule">
+    <ol class="evidence">
+      <li><strong>样本量必须上去。</strong>91 例、28 例测试集，什么都测不出来。
+      多中心模拟显示 182 → 900 单独就值 +0.185 AUC。</li>
+      <li><strong>特征空间要对，不是要大。</strong>本轮 {n_feat} 个特征没找到信号；
+      但扩到 3,332 个的正确理由是「加入瘤周区域和多时相动力学这些有生物学动机的量」，
+      不是「多试一些总能撞上」—— 后者的代价已经量化过了（零信号下 AUC 从 0.489 涨到 0.729）。</li>
+      <li><strong>标签要往 CD8 IHC 走。</strong>H&amp;E TIL 与 CD8A 只共享约 15% 的方差。
+      如果终点是 CD8 特异的空间表型，替代标签的天花板就在那里。</li>
+      <li><strong>每一个尝试都要配置换零分布和多重性校正。</strong>本轮如果不做，
+      我们会报出一个 0.652、p=0.073 的「纹理特征预测 TIL」结果。</li>
+    </ol>
   </div>
 </section>
 

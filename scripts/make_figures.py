@@ -546,16 +546,26 @@ def fig_label_validation() -> None:
     arrange = [rows[k]["rho_moran"] for k in order]
     y = np.arange(len(order))
 
-    fig, ax = plt.subplots(figsize=(8.8, 4.3))
-    ax.barh(y + 0.19, amount, 0.36, label="TIL amount (share of tissue)", color=HONEST, alpha=0.9)
-    ax.barh(y - 0.19, arrange, 0.36, label="TIL arrangement (Moran's I)", color=ACCENT3, alpha=0.85)
-    for yi, value in zip(y + 0.19, amount):
-        ax.text(value + 0.012, yi, f"{value:+.3f}", va="center", fontsize=8.5, color=HONEST)
-
+    # Colour per bar rather than over-painting the control row, which would
+    # blend two alphas into a muddy third colour.
     control = len(order) - 1
-    ax.barh(control + 0.19, amount[control], 0.36, color=SUSPECT, alpha=0.9)
-    ax.barh(control - 0.19, arrange[control], 0.36, color=SUSPECT, alpha=0.6)
+    amount_colours = [SUSPECT if i == control else HONEST for i in range(len(order))]
+    arrange_colours = [SUSPECT if i == control else ACCENT3 for i in range(len(order))]
 
+    fig, ax = plt.subplots(figsize=(8.8, 4.3))
+    ax.barh(y + 0.19, amount, 0.36, color=amount_colours, alpha=0.9)
+    ax.barh(y - 0.19, arrange, 0.36, color=arrange_colours, alpha=0.85)
+    for yi, value, colour in zip(y + 0.19, amount, amount_colours):
+        offset = 0.012 if value >= 0 else -0.012
+        ax.text(value + offset, yi, f"{value:+.3f}", va="center",
+                ha="left" if value >= 0 else "right", fontsize=8.5, color=colour)
+
+    handles = [
+        matplotlib.patches.Patch(color=HONEST, label="TIL amount (share of tissue)"),
+        matplotlib.patches.Patch(color=ACCENT3, label="TIL arrangement (Moran's I)"),
+        matplotlib.patches.Patch(color=SUSPECT, label="negative control"),
+    ]
+    ax.legend(handles=handles, fontsize=8.5, loc="lower right")
     ax.axvline(0, color=NEUTRAL, lw=1)
     ax.set_yticks(y)
     ax.set_yticklabels(order, fontsize=9)
@@ -566,7 +576,6 @@ def fig_label_validation() -> None:
         "Immune signatures track it; the epithelial negative control does not.",
         fontsize=10,
     )
-    ax.legend(fontsize=8.5, loc="lower right")
     _save(fig, "fig9_label_validation")
 
 
@@ -653,10 +662,20 @@ def fig_optimization_sweep() -> None:
                 color=ACCENT3 if clears else NEUTRAL)
 
     ax.axvline(mult["null_max_p95"], color=SUSPECT, lw=2)
-    ax.text(mult["null_max_p95"] + 0.006, len(names) - 0.6,
-            f"multiplicity-adjusted bar\n{mult['null_max_p95']:.3f}\n"
-            f"({mult['n_auc_variants']} variants tried)",
-            fontsize=8.5, color=SUSPECT, va="top")
+    # Anchor the annotation to the top of the axes rather than to the last row,
+    # so it cannot collide with the x-axis label on a short variant list.
+    ax.annotate(
+        f"multiplicity-adjusted bar\n{mult['null_max_p95']:.3f}\n"
+        f"({mult['n_auc_variants']} variants tried)",
+        xy=(mult["null_max_p95"], 0.02),
+        xycoords=("data", "axes fraction"),
+        xytext=(6, 4),
+        textcoords="offset points",
+        fontsize=8.5,
+        color=SUSPECT,
+        va="bottom",
+        ha="left",
+    )
 
     ax.set_yticks(y)
     ax.set_yticklabels(names, fontsize=9)
