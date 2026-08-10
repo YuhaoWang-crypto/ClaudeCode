@@ -375,3 +375,99 @@ def test_geometry_handles_a_map_with_no_infiltrate():
     assert geometry.unreached_fraction == 1.0
     assert np.isfinite(geometry.penetration_p90)
 
+
+
+# ------------------------------------------------------------------ I-SPY2
+
+
+def test_multiframe_geometry_reads_orientation_from_shared_groups():
+    """The bug that silently misregistered every I-SPY2 mask.
+
+    PlaneOrientationSequence lives in SharedFunctionalGroupsSequence for these
+    masks. Reading only the per-frame groups leaves SimpleITK's identity
+    default, which flips x and y against the (-1, -1, 1) of the intensity
+    volumes and moves the mask off the target grid entirely -- without raising.
+    """
+    pydicom = pytest.importorskip("pydicom")
+    from mri_cd8_til.experiments.ispy2 import _image_from_multiframe
+
+    n_frames, size = 4, 8
+
+    measures = pydicom.Dataset()
+    measures.PixelSpacing = [0.5, 0.5]
+    measures.SliceThickness = 2.0
+    orientation = pydicom.Dataset()
+    orientation.ImageOrientationPatient = [-1, 0, 0, 0, -1, 0]
+    shared_item = pydicom.Dataset()
+    shared_item.PixelMeasuresSequence = pydicom.Sequence([measures])
+    shared_item.PlaneOrientationSequence = pydicom.Sequence([orientation])
+
+    # Frames stored back-to-front, to exercise the sort.
+    per_frame = []
+    for z in reversed(range(n_frames)):
+        position = pydicom.Dataset()
+        position.ImagePositionPatient = [0.0, 0.0, float(z) * 2.0]
+        item = pydicom.Dataset()
+        item.PlanePositionSequence = pydicom.Sequence([position])
+        per_frame.append(item)
+
+    class _MultiFrame:
+        """Minimal stand-in: pydicom's pixel_array is read-only."""
+
+        def __init__(self):
+            self.pixel_array = np.arange(
+                n_frames * size * size, dtype=np.uint8
+            ).reshape(n_frames, size, size)
+            self._groups = {
+                "SharedFunctionalGroupsSequence": pydicom.Sequence([shared_item]),
+                "PerFrameFunctionalGroupsSequence": pydicom.Sequence(per_frame),
+            }
+
+        def get(self, key, default=None):
+            return self._groups.get(key, default)
+
+    dataset = _MultiFrame()
+
+    image = _image_from_multiframe(dataset)
+    direction = np.array(image.GetDirection()).reshape(3, 3)
+    # Columns are the axis cosines: x and y must be flipped, not identity.
+    assert direction[0, 0] == pytest.approx(-1.0)
+    assert direction[1, 1] == pytest.approx(-1.0)
+    assert direction[2, 2] == pytest.approx(1.0)
+    # Origin comes from the lowest frame after sorting, not the stored first.
+    assert image.GetOrigin()[2] == pytest.approx(0.0)
+    assert image.GetSpacing()[2] == pytest.approx(2.0)
+
+
+def test_ispy2_analysis_mask_is_not_a_tumour_segmentation():
+    """Pins the negative finding that blocked the I-SPY2 imaging cohort.
+
+    The published mask is a breast analysis mask: every bit plane is either
+    breast-scale and connected, or tiny and shattered into thousands of
+    components. Neither is a tumour. This test encodes what a tumour-shaped
+    plane would have to look like, so the claim in docs/ISPY2.md stays checkable.
+    """
+    from scipy.ndimage import label
+
+    rng = np.random.default_rng(0)
+    shape = (16, 64, 64)
+
+    # bit 5: breast-scale, one component.
+    breast = np.zeros(shape, dtype=bool)
+    breast[2:14, 8:56, 8:56] = True
+    # bit 1: scattered threshold flags.
+    scattered = rng.random(shape) < 0.002
+
+    def profile(mask):
+        labelled, n = label(mask)
+        sizes = np.bincount(labelled.ravel())[1:]
+        return n, (sizes.max() / mask.sum() if mask.any() and len(sizes) else 0.0)
+
+    breast_components, breast_share = profile(breast)
+    scattered_components, scattered_share = profile(scattered)
+
+    assert breast_components == 1 and breast_share == pytest.approx(1.0)
+    assert scattered_components > 50 and scattered_share < 0.05
+    # A tumour-shaped plane would be neither: few components, a dominant one,
+    # and a small fraction of the breast. Nothing in the real mask matches.
+    assert not (scattered_components < 10 and 0.5 < scattered_share < 1.0)

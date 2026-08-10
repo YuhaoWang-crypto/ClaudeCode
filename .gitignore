@@ -5,3 +5,4 @@ results/*.log
 results/til_maps/
 results/dicom_cache/
 report/*.html
+results/ispy2_expr.txt.gz
