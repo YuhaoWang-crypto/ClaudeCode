@@ -21,11 +21,26 @@ planes is tumour-shaped -- the sparsest one scatters 2.7 cm3 across 2,164
 disconnected components. It marks the breast region and threshold flags that
 feed the trial's functional tumour volume computation.
 
-So the ROI here is **derived FTV**, not a contour: voxels inside the analysis
-VOI whose percent enhancement clears the trial's own threshold, keeping the
-largest connected component. That is I-SPY's published tumour definition, and it
-is reproducible, but it is an automated definition and every result on this
-cohort inherits that.
+Two ways of deriving a ROI from what is published were tried and **both were
+rejected**, so this module deliberately stops short of producing one:
+
+* *FTV by the trial's own rule* (VOI and PE above threshold, largest component)
+  gives a median of 30.3 cm3, which matches published I-SPY2 functional tumour
+  volume closely -- but an IQR of [5.3, 225.8] and a maximum of 493 cm3. Where
+  background parenchymal enhancement is strong the lesion merges with the
+  parenchyma into a single component, and the extracted features become features
+  of the whole breast. Nothing errors; the corruption is silent and affects only
+  some patients, which is the worst case for a downstream model;
+* *bit 1 as the trial's own FTV flag* tracks that derived volume across patients
+  (r = +0.855) but is a scattered voxel flag -- thousands of components, largest
+  holding under 1% -- and a texture matrix over disconnected single voxels is
+  not a measurement of anything.
+
+:func:`functional_tumour_volume` implements the first route because it is worth
+having reproducible, and because someone should be able to re-derive the numbers
+above rather than take them on trust. **It should not be used as a ROI for
+feature extraction.** Doing that properly needs the MAMA-MIA expert
+segmentations (Synapse ``syn60868042``); see ``docs/ISPY2.md``.
 """
 
 from __future__ import annotations
