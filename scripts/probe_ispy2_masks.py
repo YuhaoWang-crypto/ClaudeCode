@@ -81,25 +81,19 @@ def main() -> int:
         if case is None:
             continue
 
-        voxel_cm3 = float(np.prod(case.spacing) / 1000.0)
-        # Re-read the raw mask bits: load_case keeps only the VOI plane.
-        mask_row = rows[rows.SeriesDescription == ispy2.ANALYSIS_MASK].iloc[0]
-        raw = ispy2._read_series(client, mask_row.crdc_series_uuid)
+        # Bit planes are profiled on the mask's *own* grid, not the resampled
+        # one: resampling to the SER grid crops the mask, and the question here
+        # is what the published object contains, not what survives alignment.
         import SimpleITK as sitk
 
-        resampled = sitk.Resample(
-            raw,
-            sitk.GetImageFromArray(case.ser),
-            sitk.Transform(),
-            sitk.sitkNearestNeighbor,
-            0,
-        )
-        del resampled  # geometry already validated in load_case; use its VOI below
-        bits = {}
+        mask_row = rows[rows.SeriesDescription == ispy2.ANALYSIS_MASK].iloc[0]
+        raw = ispy2._read_series(client, mask_row.crdc_series_uuid)
         raw_array = sitk.GetArrayFromImage(raw).astype(int)
         raw_voxel_cm3 = float(np.prod(raw.GetSpacing()) / 1000.0)
-        for bit in BIT_PLANES:
-            bits[f"bit{bit}"] = profile(((raw_array >> bit) & 1).astype(bool), raw_voxel_cm3)
+        bits = {
+            f"bit{bit}": profile(((raw_array >> bit) & 1).astype(bool), raw_voxel_cm3)
+            for bit in BIT_PLANES
+        }
 
         enhancing = case.voi & (case.pe2 >= ispy2.PE_THRESHOLD)
         ftv = case.functional_tumour_volume()
