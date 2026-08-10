@@ -1,0 +1,131 @@
+{
+  "n_patients": 8,
+  "map_variant": "Stony Brook Inception-V4 Fractional TIL Map",
+  "records": [
+    {
+      "patient_id": "TCGA-AO-A03M",
+      "grid_shape": [
+        428,
+        417
+      ],
+      "n_patches": 178476,
+      "n_tissue_patches": 102667,
+      "tissue_fraction": 0.5752426096505973,
+      "til_fraction_tissue": 0.0761004022714212,
+      "til_mean_prob": 0.10736424270585829,
+      "til_moran_i": 0.6536940646535914,
+      "til_cluster_share": 0.09381799564827852
+    },
+    {
+      "patient_id": "TCGA-AO-A03V",
+      "grid_shape": [
+        349,
+        358
+      ],
+      "n_patches": 124942,
+      "n_tissue_patches": 64738,
+      "tissue_fraction": 0.5181444190104209,
+      "til_fraction_tissue": 0.07578238438011678,
+      "til_mean_prob": 0.13486790496111323,
+      "til_moran_i": 0.5469937847029684,
+      "til_cluster_share": 0.045046881369751324
+    },
+    {
+      "patient_id": "TCGA-AO-A0J8",
+      "grid_shape": [
+        407,
+        517
+      ],
+      "n_patches": 210419,
+      "n_tissue_patches": 70287,
+      "tissue_fraction": 0.3340335235886493,
+      "til_fraction_tissue": 0.02008906341144166,
+      "til_mean_prob": 0.04603919448468562,
+      "til_moran_i": 0.6206066869194007,
+      "til_cluster_share": 0.10410764872521247
+    },
+    {
+      "patient_id": "TCGA-AO-A0J9",
+      "grid_shape": [
+        441,
+        557
+      ],
+      "n_patches": 245637,
+      "n_tissue_patches": 103754,
+      "tissue_fraction": 0.4223875067681172,
+      "til_fraction_tissue": 0.05464849547969235,
+      "til_mean_prob": 0.09685636499910988,
+      "til_moran_i": 0.559050462710021,
+      "til_cluster_share": 0.0564373897707231
+    },
+    {
+      "patient_id": "TCGA-AO-A0JB",
+      "grid_shape": [
+        386,
+        596
+      ],
+      "n_patches": 230056,
+      "n_tissue_patches": 115652,
+      "tissue_fraction": 0.5027123830719477,
+      "til_fraction_tissue": 0.05117940026977484,
+      "til_mean_prob": 0.09187864472389447,
+      "til_moran_i": 0.4570189471673439,
+      "til_cluster_share": 0.019091062679506672
+    },
+    {
+      "patient_id": "TCGA-AO-A0JF",
+      "grid_shape": [
+        452,
+        577
+      ],
+      "n_patches": 260804,
+      "n_tissue_patches": 77911,
+      "tissue_fraction": 0.29873391512400116,
+      "til_fraction_tissue": 0.05881069425369973,
+      "til_mean_prob": 0.10253917176990035,
+      "til_moran_i": 0.5975225250655318,
+      "til_cluster_share": 0.026189436927106065
+    },
+    {
+      "patient_id": "TCGA-AO-A0JI",
+      "grid_shape": [
+        240,
+        358
+      ],
+      "n_patches": 85920,
+      "n_tissue_patches": 39078,
+      "tissue_fraction": 0.45481843575418995,
+      "til_fraction_tissue": 0.19860279441117765,
+      "til_mean_prob": 0.23331376462760753,
+      "til_moran_i": 0.6163554393486357,
+      "til_cluster_share": 0.4876948846798093
+    },
+    {
+      "patient_id": "TCGA-AO-A0JM",
+      "grid_shape": [
+        457,
+        596
+      ],
+      "n_patches": 272372,
+      "n_tissue_patches": 164346,
+      "tissue_fraction": 0.6033880134521904,
+      "til_fraction_tissue": 0.04823360471201003,
+      "til_mean_prob": 0.08075974575876863,
+      "til_moran_i": 0.7891165423131393,
+      "til_cluster_share": 0.15869812034817712
+    }
+  ],
+  "summary": {
+    "til_fraction_tissue_median": 0.05672959486669604,
+    "til_fraction_tissue_iqr": [
+      0.05044295138033364,
+      0.07586188885294289
+    ],
+    "moran_i_median": 0.6069389822070838,
+    "cluster_share_median": 0.07512769270950082
+  },
+  "missing_for_supervised_test": [
+    "tumour region maps: the published TIL maps carry no tumour boundary, so core vs invasive margin -- and therefore desert vs excluded -- cannot be derived",
+    "expert tumour VOIs on the TCGA-BRCA MRI: no public segmentations exist for this collection (MAMA-MIA covers ISPY1/ISPY2/NACT/DUKE, not TCGA-BRCA)"
+  ]
+}

@@ -2,3 +2,5 @@ __pycache__/
 *.pyc
 .venv/
 results/*.log
+results/til_maps/
+results/dicom_cache/

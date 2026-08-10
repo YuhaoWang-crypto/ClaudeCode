@@ -1,0 +1,1923 @@
+{
+  "n_patients": 136,
+  "map_variant": "Stony Brook Inception-V4 Fractional TIL Map",
+  "records": [
+    {
+      "patient_id": "TCGA-AO-A03M",
+      "grid_shape": [
+        428,
+        417
+      ],
+      "n_patches": 178476,
+      "n_tissue_patches": 102667,
+      "tissue_fraction": 0.5752426096505973,
+      "til_fraction_tissue": 0.0761004022714212,
+      "til_mean_prob": 0.10736424270585829,
+      "til_moran_i": 0.6536940646535914,
+      "til_cluster_share": 0.09381799564827852
+    },
+    {
+      "patient_id": "TCGA-AO-A03V",
+      "grid_shape": [
+        349,
+        358
+      ],
+      "n_patches": 124942,
+      "n_tissue_patches": 64738,
+      "tissue_fraction": 0.5181444190104209,
+      "til_fraction_tissue": 0.07578238438011678,
+      "til_mean_prob": 0.13486790496111323,
+      "til_moran_i": 0.5469937847029684,
+      "til_cluster_share": 0.045046881369751324
+    },
+    {
+      "patient_id": "TCGA-AO-A0J8",
+      "grid_shape": [
+        407,
+        517
+      ],
+      "n_patches": 210419,
+      "n_tissue_patches": 70287,
+      "tissue_fraction": 0.3340335235886493,
+      "til_fraction_tissue": 0.02008906341144166,
+      "til_mean_prob": 0.04603919448468562,
+      "til_moran_i": 0.6206066869194007,
+      "til_cluster_share": 0.10410764872521247
+    },
+    {
+      "patient_id": "TCGA-AO-A0J9",
+      "grid_shape": [
+        441,
+        557
+      ],
+      "n_patches": 245637,
+      "n_tissue_patches": 103754,
+      "tissue_fraction": 0.4223875067681172,
+      "til_fraction_tissue": 0.05464849547969235,
+      "til_mean_prob": 0.09685636499910988,
+      "til_moran_i": 0.559050462710021,
+      "til_cluster_share": 0.0564373897707231
+    },
+    {
+      "patient_id": "TCGA-AO-A0JB",
+      "grid_shape": [
+        386,
+        596
+      ],
+      "n_patches": 230056,
+      "n_tissue_patches": 115652,
+      "tissue_fraction": 0.5027123830719477,
+      "til_fraction_tissue": 0.05117940026977484,
+      "til_mean_prob": 0.09187864472389447,
+      "til_moran_i": 0.4570189471673439,
+      "til_cluster_share": 0.019091062679506672
+    },
+    {
+      "patient_id": "TCGA-AO-A0JF",
+      "grid_shape": [
+        452,
+        577
+      ],
+      "n_patches": 260804,
+      "n_tissue_patches": 77911,
+      "tissue_fraction": 0.29873391512400116,
+      "til_fraction_tissue": 0.05881069425369973,
+      "til_mean_prob": 0.10253917176990035,
+      "til_moran_i": 0.5975225250655318,
+      "til_cluster_share": 0.026189436927106065
+    },
+    {
+      "patient_id": "TCGA-AO-A0JI",
+      "grid_shape": [
+        240,
+        358
+      ],
+      "n_patches": 85920,
+      "n_tissue_patches": 39078,
+      "tissue_fraction": 0.45481843575418995,
+      "til_fraction_tissue": 0.19860279441117765,
+      "til_mean_prob": 0.23331376462760753,
+      "til_moran_i": 0.6163554393486357,
+      "til_cluster_share": 0.4876948846798093
+    },
+    {
+      "patient_id": "TCGA-AO-A0JM",
+      "grid_shape": [
+        457,
+        596
+      ],
+      "n_patches": 272372,
+      "n_tissue_patches": 164346,
+      "tissue_fraction": 0.6033880134521904,
+      "til_fraction_tissue": 0.04823360471201003,
+      "til_mean_prob": 0.08075974575876863,
+      "til_moran_i": 0.7891165423131393,
+      "til_cluster_share": 0.15869812034817712
+    },
+    {
+      "patient_id": "TCGA-AO-A129",
+      "grid_shape": [
+        427,
+        497
+      ],
+      "n_patches": 212219,
+      "n_tissue_patches": 104003,
+      "tissue_fraction": 0.49007393305971664,
+      "til_fraction_tissue": 0.19575396863552014,
+      "til_mean_prob": 0.21905431460970298,
+      "til_moran_i": 0.8516117950870798,
+      "til_cluster_share": 0.561962768308856
+    },
+    {
+      "patient_id": "TCGA-AO-A12D",
+      "grid_shape": [
+        422,
+        557
+      ],
+      "n_patches": 235054,
+      "n_tissue_patches": 135085,
+      "tissue_fraction": 0.5746977290324776,
+      "til_fraction_tissue": 0.30900544101861793,
+      "til_mean_prob": 0.3262922473649489,
+      "til_moran_i": 0.6815146813220786,
+      "til_cluster_share": 0.39387187964160797
+    },
+    {
+      "patient_id": "TCGA-AO-A12E",
+      "grid_shape": [
+        444,
+        577
+      ],
+      "n_patches": 256188,
+      "n_tissue_patches": 52526,
+      "tissue_fraction": 0.20502911924055772,
+      "til_fraction_tissue": 0.012108289228191753,
+      "til_mean_prob": 0.08957647865146896,
+      "til_moran_i": 0.44263783754212327,
+      "til_cluster_share": 0.025157232704402517
+    },
+    {
+      "patient_id": "TCGA-AO-A12F",
+      "grid_shape": [
+        445,
+        716
+      ],
+      "n_patches": 318620,
+      "n_tissue_patches": 156694,
+      "tissue_fraction": 0.49178959261816585,
+      "til_fraction_tissue": 0.013153024365961684,
+      "til_mean_prob": 0.05700735065746977,
+      "til_moran_i": 0.3779970047044151,
+      "til_cluster_share": 0.03153808830664726
+    },
+    {
+      "patient_id": "TCGA-AO-A12G",
+      "grid_shape": [
+        371,
+        338
+      ],
+      "n_patches": 125398,
+      "n_tissue_patches": 57279,
+      "tissue_fraction": 0.45677762005773614,
+      "til_fraction_tissue": 0.032874177272647916,
+      "til_mean_prob": 0.07393716822611306,
+      "til_moran_i": 0.6264640556805441,
+      "til_cluster_share": 0.055762081784386616
+    },
+    {
+      "patient_id": "TCGA-AQ-A04H",
+      "grid_shape": [
+        195,
+        673
+      ],
+      "n_patches": 131235,
+      "n_tissue_patches": 33539,
+      "tissue_fraction": 0.25556444546043355,
+      "til_fraction_tissue": 0.10077819851516145,
+      "til_mean_prob": 0.19310325877570683,
+      "til_moran_i": 0.5657108149138684,
+      "til_cluster_share": 0.11183431952662722
+    },
+    {
+      "patient_id": "TCGA-AR-A1AN",
+      "grid_shape": [
+        239,
+        597
+      ],
+      "n_patches": 142683,
+      "n_tissue_patches": 19015,
+      "tissue_fraction": 0.13326745302523776,
+      "til_fraction_tissue": 0.02818827241651328,
+      "til_mean_prob": 0.0944018396209391,
+      "til_moran_i": 0.4312816498801475,
+      "til_cluster_share": 0.10634328358208955
+    },
+    {
+      "patient_id": "TCGA-AR-A1AQ",
+      "grid_shape": [
+        279,
+        493
+      ],
+      "n_patches": 137547,
+      "n_tissue_patches": 50054,
+      "tissue_fraction": 0.3639047016656125,
+      "til_fraction_tissue": 0.37543453070683663,
+      "til_mean_prob": 0.37728265238248576,
+      "til_moran_i": 0.6862828775900367,
+      "til_cluster_share": 0.6841209025117071
+    },
+    {
+      "patient_id": "TCGA-AR-A1AX",
+      "grid_shape": [
+        326,
+        620
+      ],
+      "n_patches": 202120,
+      "n_tissue_patches": 52592,
+      "tissue_fraction": 0.26020186028102116,
+      "til_fraction_tissue": 0.1792477943413447,
+      "til_mean_prob": 0.2317387420438209,
+      "til_moran_i": 0.5897278017733427,
+      "til_cluster_share": 0.21618754640925003
+    },
+    {
+      "patient_id": "TCGA-AR-A24M",
+      "grid_shape": [
+        364,
+        615
+      ],
+      "n_patches": 223860,
+      "n_tissue_patches": 100870,
+      "tissue_fraction": 0.45059412132582866,
+      "til_fraction_tissue": 0.11230296421136116,
+      "til_mean_prob": 0.16896918378732478,
+      "til_moran_i": 0.5668603390483617,
+      "til_cluster_share": 0.08395127118644068
+    },
+    {
+      "patient_id": "TCGA-AR-A24R",
+      "grid_shape": [
+        324,
+        528
+      ],
+      "n_patches": 171072,
+      "n_tissue_patches": 83733,
+      "tissue_fraction": 0.4894605780022447,
+      "til_fraction_tissue": 0.1036867184980832,
+      "til_mean_prob": 0.15819873767762752,
+      "til_moran_i": 0.6381039124929567,
+      "til_cluster_share": 0.0856945404284727
+    },
+    {
+      "patient_id": "TCGA-AR-A24S",
+      "grid_shape": [
+        365,
+        495
+      ],
+      "n_patches": 180675,
+      "n_tissue_patches": 66053,
+      "tissue_fraction": 0.36559014805590145,
+      "til_fraction_tissue": 0.0756362315110593,
+      "til_mean_prob": 0.1303590135431945,
+      "til_moran_i": 0.6184982286733595,
+      "til_cluster_share": 0.09067253803042434
+    },
+    {
+      "patient_id": "TCGA-AR-A24U",
+      "grid_shape": [
+        326,
+        552
+      ],
+      "n_patches": 179952,
+      "n_tissue_patches": 66367,
+      "tissue_fraction": 0.36880390326309237,
+      "til_fraction_tissue": 0.21298235568882126,
+      "til_mean_prob": 0.23432623761454796,
+      "til_moran_i": 0.733302669625581,
+      "til_cluster_share": 0.14856738592147153
+    },
+    {
+      "patient_id": "TCGA-AR-A24W",
+      "grid_shape": [
+        291,
+        509
+      ],
+      "n_patches": 148119,
+      "n_tissue_patches": 67788,
+      "tissue_fraction": 0.45765904441698907,
+      "til_fraction_tissue": 0.035773293208237446,
+      "til_mean_prob": 0.09252965126571075,
+      "til_moran_i": 0.522314987917234,
+      "til_cluster_share": 0.055257731958762886
+    },
+    {
+      "patient_id": "TCGA-AR-A24X",
+      "grid_shape": [
+        229,
+        288
+      ],
+      "n_patches": 65952,
+      "n_tissue_patches": 27660,
+      "tissue_fraction": 0.4193959243085881,
+      "til_fraction_tissue": 0.08633405639913232,
+      "til_mean_prob": 0.15099258503112017,
+      "til_moran_i": 0.5511839473665462,
+      "til_cluster_share": 0.09673366834170855
+    },
+    {
+      "patient_id": "TCGA-AR-A254",
+      "grid_shape": [
+        332,
+        509
+      ],
+      "n_patches": 168988,
+      "n_tissue_patches": 70419,
+      "tissue_fraction": 0.41671006225294105,
+      "til_fraction_tissue": 0.06756699186299152,
+      "til_mean_prob": 0.1470028281694251,
+      "til_moran_i": 0.45286809033751974,
+      "til_cluster_share": 0.10655737704918032
+    },
+    {
+      "patient_id": "TCGA-BH-A0AW",
+      "grid_shape": [
+        448,
+        552
+      ],
+      "n_patches": 247296,
+      "n_tissue_patches": 83459,
+      "tissue_fraction": 0.33748625129399584,
+      "til_fraction_tissue": 0.1823649935896668,
+      "til_mean_prob": 0.2095443835402096,
+      "til_moran_i": 0.7750755994722401,
+      "til_cluster_share": 0.29717477003942183
+    },
+    {
+      "patient_id": "TCGA-BH-A0AZ",
+      "grid_shape": [
+        361,
+        428
+      ],
+      "n_patches": 154508,
+      "n_tissue_patches": 87857,
+      "tissue_fraction": 0.5686242783545189,
+      "til_fraction_tissue": 0.05680822245239423,
+      "til_mean_prob": 0.11945659468472275,
+      "til_moran_i": 0.4498882212084055,
+      "til_cluster_share": 0.03205770386696053
+    },
+    {
+      "patient_id": "TCGA-BH-A0B1",
+      "grid_shape": [
+        466,
+        613
+      ],
+      "n_patches": 285658,
+      "n_tissue_patches": 66259,
+      "tissue_fraction": 0.2319521945823327,
+      "til_fraction_tissue": 0.0101872953108257,
+      "til_mean_prob": 0.04156599961707015,
+      "til_moran_i": 0.6601676654856694,
+      "til_cluster_share": 0.24296296296296296
+    },
+    {
+      "patient_id": "TCGA-BH-A0B3",
+      "grid_shape": [
+        466,
+        523
+      ],
+      "n_patches": 243718,
+      "n_tissue_patches": 107435,
+      "tissue_fraction": 0.4408168456987174,
+      "til_fraction_tissue": 0.15300414203937265,
+      "til_mean_prob": 0.17383318869503403,
+      "til_moran_i": 0.7639564490906132,
+      "til_cluster_share": 0.1720403942085412
+    },
+    {
+      "patient_id": "TCGA-BH-A0B5",
+      "grid_shape": [
+        381,
+        533
+      ],
+      "n_patches": 203073,
+      "n_tissue_patches": 100828,
+      "tissue_fraction": 0.4965111068433519,
+      "til_fraction_tissue": 0.03260007140873567,
+      "til_mean_prob": 0.08666612993433974,
+      "til_moran_i": 0.45768465755014054,
+      "til_cluster_share": 0.026467903863705507
+    },
+    {
+      "patient_id": "TCGA-BH-A0B6",
+      "grid_shape": [
+        438,
+        538
+      ],
+      "n_patches": 235644,
+      "n_tissue_patches": 108284,
+      "tissue_fraction": 0.4595236882755343,
+      "til_fraction_tissue": 0.031029514979128956,
+      "til_mean_prob": 0.04970285110830561,
+      "til_moran_i": 0.7223175890135954,
+      "til_cluster_share": 0.17351190476190476
+    },
+    {
+      "patient_id": "TCGA-BH-A0BG",
+      "grid_shape": [
+        365,
+        447
+      ],
+      "n_patches": 163155,
+      "n_tissue_patches": 53466,
+      "tissue_fraction": 0.3277006527535166,
+      "til_fraction_tissue": 0.12611753263756406,
+      "til_mean_prob": 0.15176784513229225,
+      "til_moran_i": 0.801926015430559,
+      "til_cluster_share": 0.16491176034406052
+    },
+    {
+      "patient_id": "TCGA-BH-A0BJ",
+      "grid_shape": [
+        434,
+        675
+      ],
+      "n_patches": 292950,
+      "n_tissue_patches": 108876,
+      "tissue_fraction": 0.3716538658474142,
+      "til_fraction_tissue": 0.019398214482530585,
+      "til_mean_prob": 0.05405429742344052,
+      "til_moran_i": 0.5622999219428421,
+      "til_cluster_share": 0.03977272727272727
+    },
+    {
+      "patient_id": "TCGA-BH-A0BM",
+      "grid_shape": [
+        374,
+        442
+      ],
+      "n_patches": 165308,
+      "n_tissue_patches": 38649,
+      "tissue_fraction": 0.2337999370871343,
+      "til_fraction_tissue": 0.037750006468472666,
+      "til_mean_prob": 0.06995478157109307,
+      "til_moran_i": 0.6661956035495865,
+      "til_cluster_share": 0.07950651130911583
+    },
+    {
+      "patient_id": "TCGA-BH-A0BQ",
+      "grid_shape": [
+        445,
+        529
+      ],
+      "n_patches": 235405,
+      "n_tissue_patches": 124145,
+      "tissue_fraction": 0.5273677279581998,
+      "til_fraction_tissue": 0.06881469249667728,
+      "til_mean_prob": 0.10341335519265502,
+      "til_moran_i": 0.6758143780810086,
+      "til_cluster_share": 0.08966405244059464
+    },
+    {
+      "patient_id": "TCGA-BH-A0BT",
+      "grid_shape": [
+        387,
+        423
+      ],
+      "n_patches": 163701,
+      "n_tissue_patches": 73858,
+      "tissue_fraction": 0.4511762298336601,
+      "til_fraction_tissue": 0.03360502586043489,
+      "til_mean_prob": 0.06367804886854955,
+      "til_moran_i": 0.5245041801634026,
+      "til_cluster_share": 0.057211925866236905
+    },
+    {
+      "patient_id": "TCGA-BH-A0C0",
+      "grid_shape": [
+        400,
+        523
+      ],
+      "n_patches": 209200,
+      "n_tissue_patches": 110791,
+      "tissue_fraction": 0.529593690248566,
+      "til_fraction_tissue": 0.091586861748698,
+      "til_mean_prob": 0.12400033909457854,
+      "til_moran_i": 0.705733411206775,
+      "til_cluster_share": 0.12614565881541343
+    },
+    {
+      "patient_id": "TCGA-BH-A0DE",
+      "grid_shape": [
+        371,
+        509
+      ],
+      "n_patches": 188839,
+      "n_tissue_patches": 72568,
+      "tissue_fraction": 0.3842850258685971,
+      "til_fraction_tissue": 0.012705324661007607,
+      "til_mean_prob": 0.04606697491034778,
+      "til_moran_i": 0.42113903276762293,
+      "til_cluster_share": 0.0227765726681128
+    },
+    {
+      "patient_id": "TCGA-BH-A0DG",
+      "grid_shape": [
+        445,
+        572
+      ],
+      "n_patches": 254540,
+      "n_tissue_patches": 108049,
+      "tissue_fraction": 0.42448731044236665,
+      "til_fraction_tissue": 0.03273514794213736,
+      "til_mean_prob": 0.0658566492798565,
+      "til_moran_i": 0.5729052088076586,
+      "til_cluster_share": 0.05315238903025163
+    },
+    {
+      "patient_id": "TCGA-BH-A0DH",
+      "grid_shape": [
+        466,
+        609
+      ],
+      "n_patches": 283794,
+      "n_tissue_patches": 96883,
+      "tissue_fraction": 0.3413849482371016,
+      "til_fraction_tissue": 0.025783677218913535,
+      "til_mean_prob": 0.06504680296610041,
+      "til_moran_i": 0.5265038423486852,
+      "til_cluster_share": 0.0300240192153723
+    },
+    {
+      "patient_id": "TCGA-BH-A0DI",
+      "grid_shape": [
+        415,
+        563
+      ],
+      "n_patches": 233645,
+      "n_tissue_patches": 88482,
+      "tissue_fraction": 0.3787027327783603,
+      "til_fraction_tissue": 0.07772202255826044,
+      "til_mean_prob": 0.13053440358535312,
+      "til_moran_i": 0.5795930906038752,
+      "til_cluster_share": 0.04464155881925258
+    },
+    {
+      "patient_id": "TCGA-BH-A0DK",
+      "grid_shape": [
+        385,
+        599
+      ],
+      "n_patches": 230615,
+      "n_tissue_patches": 79019,
+      "tissue_fraction": 0.3426446675194588,
+      "til_fraction_tissue": 0.05021577089054531,
+      "til_mean_prob": 0.08579932004439736,
+      "til_moran_i": 0.6685596757334133,
+      "til_cluster_share": 0.11970766129032258
+    },
+    {
+      "patient_id": "TCGA-BH-A0DT",
+      "grid_shape": [
+        350,
+        505
+      ],
+      "n_patches": 176750,
+      "n_tissue_patches": 41781,
+      "tissue_fraction": 0.2363847241867044,
+      "til_fraction_tissue": 0.06397644862497308,
+      "til_mean_prob": 0.11465498671645005,
+      "til_moran_i": 0.572908385399869,
+      "til_cluster_share": 0.05312383090160868
+    },
+    {
+      "patient_id": "TCGA-BH-A0DV",
+      "grid_shape": [
+        444,
+        668
+      ],
+      "n_patches": 296592,
+      "n_tissue_patches": 145515,
+      "tissue_fraction": 0.4906234827642013,
+      "til_fraction_tissue": 0.00952479125863313,
+      "til_mean_prob": 0.04262305685081991,
+      "til_moran_i": 0.5345965905773217,
+      "til_cluster_share": 0.047619047619047616
+    },
+    {
+      "patient_id": "TCGA-BH-A0DX",
+      "grid_shape": [
+        427,
+        711
+      ],
+      "n_patches": 303597,
+      "n_tissue_patches": 57519,
+      "tissue_fraction": 0.18945839385764682,
+      "til_fraction_tissue": 0.013873676524278934,
+      "til_mean_prob": 0.035670463877409304,
+      "til_moran_i": 0.7551469107558576,
+      "til_cluster_share": 0.11403508771929824
+    },
+    {
+      "patient_id": "TCGA-BH-A0DZ",
+      "grid_shape": [
+        456,
+        575
+      ],
+      "n_patches": 262200,
+      "n_tissue_patches": 114888,
+      "tissue_fraction": 0.43816933638443933,
+      "til_fraction_tissue": 0.02882807603927303,
+      "til_mean_prob": 0.05985570260413893,
+      "til_moran_i": 0.7168675419256674,
+      "til_cluster_share": 0.1947463768115942
+    },
+    {
+      "patient_id": "TCGA-BH-A0E0",
+      "grid_shape": [
+        418,
+        509
+      ],
+      "n_patches": 212762,
+      "n_tissue_patches": 105405,
+      "tissue_fraction": 0.495412714676493,
+      "til_fraction_tissue": 0.13258384327119208,
+      "til_mean_prob": 0.15974071996807832,
+      "til_moran_i": 0.6888400175838754,
+      "til_cluster_share": 0.2649016100178891
+    },
+    {
+      "patient_id": "TCGA-BH-A0E1",
+      "grid_shape": [
+        409,
+        509
+      ],
+      "n_patches": 208181,
+      "n_tissue_patches": 97227,
+      "tissue_fraction": 0.46703109313530056,
+      "til_fraction_tissue": 0.01893506947658572,
+      "til_mean_prob": 0.08768237339059169,
+      "til_moran_i": 0.5173219834424527,
+      "til_cluster_share": 0.08147745790331341
+    },
+    {
+      "patient_id": "TCGA-BH-A0E2",
+      "grid_shape": [
+        384,
+        661
+      ],
+      "n_patches": 253824,
+      "n_tissue_patches": 98447,
+      "tissue_fraction": 0.38785536434694906,
+      "til_fraction_tissue": 0.03005678182169086,
+      "til_mean_prob": 0.06650195178175895,
+      "til_moran_i": 0.6353973976385451,
+      "til_cluster_share": 0.1155795876985468
+    },
+    {
+      "patient_id": "TCGA-BH-A0E9",
+      "grid_shape": [
+        419,
+        490
+      ],
+      "n_patches": 205310,
+      "n_tissue_patches": 117002,
+      "tissue_fraction": 0.5698796941210852,
+      "til_fraction_tissue": 0.015939898463274132,
+      "til_mean_prob": 0.035029030842777614,
+      "til_moran_i": 0.5131153763619806,
+      "til_cluster_share": 0.03324396782841823
+    },
+    {
+      "patient_id": "TCGA-BH-A0EI",
+      "grid_shape": [
+        445,
+        500
+      ],
+      "n_patches": 222500,
+      "n_tissue_patches": 78274,
+      "tissue_fraction": 0.3517932584269663,
+      "til_fraction_tissue": 0.007307662825459284,
+      "til_mean_prob": 0.048311436898136106,
+      "til_moran_i": 0.5017034437358953,
+      "til_cluster_share": 0.07167832167832168
+    },
+    {
+      "patient_id": "TCGA-BH-A0GY",
+      "grid_shape": [
+        416,
+        609
+      ],
+      "n_patches": 253344,
+      "n_tissue_patches": 80306,
+      "tissue_fraction": 0.316984021725401,
+      "til_fraction_tissue": 0.037780489627176055,
+      "til_mean_prob": 0.08262191236168714,
+      "til_moran_i": 0.587201148975795,
+      "til_cluster_share": 0.04976928147659855
+    },
+    {
+      "patient_id": "TCGA-BH-A0GZ",
+      "grid_shape": [
+        465,
+        661
+      ],
+      "n_patches": 307365,
+      "n_tissue_patches": 93865,
+      "tissue_fraction": 0.3053861044686285,
+      "til_fraction_tissue": 0.005017844777073456,
+      "til_mean_prob": 0.02825639242006929,
+      "til_moran_i": 0.5816172447662126,
+      "til_cluster_share": 0.12738853503184713
+    },
+    {
+      "patient_id": "TCGA-BH-A0H3",
+      "grid_shape": [
+        426,
+        567
+      ],
+      "n_patches": 241542,
+      "n_tissue_patches": 79215,
+      "tissue_fraction": 0.3279553866408326,
+      "til_fraction_tissue": 0.02591680868522376,
+      "til_mean_prob": 0.05461067113205188,
+      "til_moran_i": 0.6323634457236373,
+      "til_cluster_share": 0.050170482221139796
+    },
+    {
+      "patient_id": "TCGA-BH-A0H5",
+      "grid_shape": [
+        444,
+        692
+      ],
+      "n_patches": 307248,
+      "n_tissue_patches": 133237,
+      "tissue_fraction": 0.43364643545279385,
+      "til_fraction_tissue": 0.27890150633832944,
+      "til_mean_prob": 0.2899417770515668,
+      "til_moran_i": 0.8561661936216524,
+      "til_cluster_share": 0.7928686759956943
+    },
+    {
+      "patient_id": "TCGA-BH-A0H6",
+      "grid_shape": [
+        419,
+        585
+      ],
+      "n_patches": 245115,
+      "n_tissue_patches": 40807,
+      "tissue_fraction": 0.16648103951206578,
+      "til_fraction_tissue": 0.009728723013208517,
+      "til_mean_prob": 0.027266083241197083,
+      "til_moran_i": 0.800491411718799,
+      "til_cluster_share": 0.12342569269521411
+    },
+    {
+      "patient_id": "TCGA-BH-A0H7",
+      "grid_shape": [
+        440,
+        656
+      ],
+      "n_patches": 288640,
+      "n_tissue_patches": 109495,
+      "tissue_fraction": 0.37934797671840353,
+      "til_fraction_tissue": 0.043682359925110735,
+      "til_mean_prob": 0.07223160874925796,
+      "til_moran_i": 0.7578304048350165,
+      "til_cluster_share": 0.1340163077566381
+    },
+    {
+      "patient_id": "TCGA-BH-A0H9",
+      "grid_shape": [
+        413,
+        575
+      ],
+      "n_patches": 237475,
+      "n_tissue_patches": 72174,
+      "tissue_fraction": 0.3039225181598063,
+      "til_fraction_tissue": 0.034790921938648266,
+      "til_mean_prob": 0.059456911592192505,
+      "til_moran_i": 0.6254119735467049,
+      "til_cluster_share": 0.03663878932696137
+    },
+    {
+      "patient_id": "TCGA-BH-A0HA",
+      "grid_shape": [
+        443,
+        538
+      ],
+      "n_patches": 238334,
+      "n_tissue_patches": 136768,
+      "tissue_fraction": 0.5738501430765228,
+      "til_fraction_tissue": 0.01979995320542817,
+      "til_mean_prob": 0.04413100874416215,
+      "til_moran_i": 0.6356578034022736,
+      "til_cluster_share": 0.04172821270310192
+    },
+    {
+      "patient_id": "TCGA-BH-A0HI",
+      "grid_shape": [
+        368,
+        571
+      ],
+      "n_patches": 210128,
+      "n_tissue_patches": 59922,
+      "tissue_fraction": 0.2851690398233458,
+      "til_fraction_tissue": 0.034945429057775104,
+      "til_mean_prob": 0.06814924761667292,
+      "til_moran_i": 0.6102993192175636,
+      "til_cluster_share": 0.05730659025787966
+    },
+    {
+      "patient_id": "TCGA-BH-A0HX",
+      "grid_shape": [
+        423,
+        585
+      ],
+      "n_patches": 247455,
+      "n_tissue_patches": 95660,
+      "tissue_fraction": 0.38657533692994683,
+      "til_fraction_tissue": 0.01715450554045578,
+      "til_mean_prob": 0.05397576383679125,
+      "til_moran_i": 0.4101364583477187,
+      "til_cluster_share": 0.03595368677635588
+    },
+    {
+      "patient_id": "TCGA-BH-A0HY",
+      "grid_shape": [
+        466,
+        604
+      ],
+      "n_patches": 281464,
+      "n_tissue_patches": 101530,
+      "tissue_fraction": 0.36072108688855414,
+      "til_fraction_tissue": 0.025765783512262386,
+      "til_mean_prob": 0.04470939720318345,
+      "til_moran_i": 0.8530830333093942,
+      "til_cluster_share": 0.1353211009174312
+    },
+    {
+      "patient_id": "TCGA-BH-A0RX",
+      "grid_shape": [
+        465,
+        566
+      ],
+      "n_patches": 263190,
+      "n_tissue_patches": 102535,
+      "tissue_fraction": 0.38958547057259013,
+      "til_fraction_tissue": 0.1005997951918857,
+      "til_mean_prob": 0.12492813071003016,
+      "til_moran_i": 0.8460184088785594,
+      "til_cluster_share": 0.3209888511875909
+    },
+    {
+      "patient_id": "TCGA-BH-A0W3",
+      "grid_shape": [
+        452,
+        647
+      ],
+      "n_patches": 292444,
+      "n_tissue_patches": 118782,
+      "tissue_fraction": 0.4061700701672799,
+      "til_fraction_tissue": 0.019135896011180147,
+      "til_mean_prob": 0.04524541745778475,
+      "til_moran_i": 0.6478179149786379,
+      "til_cluster_share": 0.0475142982842059
+    },
+    {
+      "patient_id": "TCGA-BH-A0W5",
+      "grid_shape": [
+        396,
+        623
+      ],
+      "n_patches": 246708,
+      "n_tissue_patches": 101219,
+      "tissue_fraction": 0.41027854791899737,
+      "til_fraction_tissue": 0.0536658137306237,
+      "til_mean_prob": 0.08308925957286559,
+      "til_moran_i": 0.8547151902043271,
+      "til_cluster_share": 0.20231958762886598
+    },
+    {
+      "patient_id": "TCGA-BH-A18F",
+      "grid_shape": [
+        407,
+        452
+      ],
+      "n_patches": 183964,
+      "n_tissue_patches": 66071,
+      "tissue_fraction": 0.3591517905677198,
+      "til_fraction_tissue": 0.100119568343146,
+      "til_mean_prob": 0.12885217655041917,
+      "til_moran_i": 0.813333914394296,
+      "til_cluster_share": 0.05396825396825397
+    },
+    {
+      "patient_id": "TCGA-BH-A18H",
+      "grid_shape": [
+        452,
+        652
+      ],
+      "n_patches": 294704,
+      "n_tissue_patches": 114156,
+      "tissue_fraction": 0.3873581627667083,
+      "til_fraction_tissue": 0.022758330705350573,
+      "til_mean_prob": 0.05642907641349402,
+      "til_moran_i": 0.7905546261006612,
+      "til_cluster_share": 0.07236335642802155
+    },
+    {
+      "patient_id": "TCGA-BH-A18I",
+      "grid_shape": [
+        421,
+        499
+      ],
+      "n_patches": 210079,
+      "n_tissue_patches": 79702,
+      "tissue_fraction": 0.3793906101990204,
+      "til_fraction_tissue": 0.044101779127249004,
+      "til_mean_prob": 0.0867414944196544,
+      "til_moran_i": 0.6241722949569832,
+      "til_cluster_share": 0.08790896159317212
+    },
+    {
+      "patient_id": "TCGA-BH-A201",
+      "grid_shape": [
+        467,
+        601
+      ],
+      "n_patches": 280667,
+      "n_tissue_patches": 119784,
+      "tissue_fraction": 0.4267833411124215,
+      "til_fraction_tissue": 0.020152941962198623,
+      "til_mean_prob": 0.042623388766446266,
+      "til_moran_i": 0.6477347028510742,
+      "til_cluster_share": 0.021955260977630488
+    },
+    {
+      "patient_id": "TCGA-BH-A202",
+      "grid_shape": [
+        452,
+        620
+      ],
+      "n_patches": 280240,
+      "n_tissue_patches": 106402,
+      "tissue_fraction": 0.37968170139880103,
+      "til_fraction_tissue": 0.12099396627882934,
+      "til_mean_prob": 0.15301245627477886,
+      "til_moran_i": 0.7322160776292731,
+      "til_cluster_share": 0.1889078763399099
+    },
+    {
+      "patient_id": "TCGA-BH-A28Q",
+      "grid_shape": [
+        447,
+        653
+      ],
+      "n_patches": 291891,
+      "n_tissue_patches": 146217,
+      "tissue_fraction": 0.5009301417309886,
+      "til_fraction_tissue": 0.0404740898801097,
+      "til_mean_prob": 0.0815781057083167,
+      "til_moran_i": 0.5467952545979599,
+      "til_cluster_share": 0.06218316998986144
+    },
+    {
+      "patient_id": "TCGA-E2-A105",
+      "grid_shape": [
+        392,
+        481
+      ],
+      "n_patches": 188552,
+      "n_tissue_patches": 58927,
+      "tissue_fraction": 0.31252386609529464,
+      "til_fraction_tissue": 0.05673120980195836,
+      "til_mean_prob": 0.10541890148562012,
+      "til_moran_i": 0.5857029851281234,
+      "til_cluster_share": 0.021836673646425366
+    },
+    {
+      "patient_id": "TCGA-E2-A107",
+      "grid_shape": [
+        461,
+        580
+      ],
+      "n_patches": 267380,
+      "n_tissue_patches": 115947,
+      "tissue_fraction": 0.43364125963048844,
+      "til_fraction_tissue": 0.01794785548569605,
+      "til_mean_prob": 0.04867555274155856,
+      "til_moran_i": 0.5568551685515384,
+      "til_cluster_share": 0.03411821239788563
+    },
+    {
+      "patient_id": "TCGA-E2-A108",
+      "grid_shape": [
+        404,
+        628
+      ],
+      "n_patches": 253712,
+      "n_tissue_patches": 98647,
+      "tissue_fraction": 0.388814876710601,
+      "til_fraction_tissue": 0.08013421594169108,
+      "til_mean_prob": 0.11066899861001706,
+      "til_moran_i": 0.7950648432701259,
+      "til_cluster_share": 0.08564199873497787
+    },
+    {
+      "patient_id": "TCGA-E2-A109",
+      "grid_shape": [
+        415,
+        481
+      ],
+      "n_patches": 199615,
+      "n_tissue_patches": 84769,
+      "tissue_fraction": 0.42466247526488493,
+      "til_fraction_tissue": 0.08317899232030578,
+      "til_mean_prob": 0.11883432229549325,
+      "til_moran_i": 0.7611971107064507,
+      "til_cluster_share": 0.10452418096723869
+    },
+    {
+      "patient_id": "TCGA-E2-A10F",
+      "grid_shape": [
+        366,
+        557
+      ],
+      "n_patches": 203862,
+      "n_tissue_patches": 41190,
+      "tissue_fraction": 0.20204844453600965,
+      "til_fraction_tissue": 0.022796795338674434,
+      "til_mean_prob": 0.04699703430777507,
+      "til_moran_i": 0.7024146847714791,
+      "til_cluster_share": 0.08839190628328009
+    },
+    {
+      "patient_id": "TCGA-E2-A14N",
+      "grid_shape": [
+        418,
+        479
+      ],
+      "n_patches": 200222,
+      "n_tissue_patches": 69605,
+      "tissue_fraction": 0.3476391205761605,
+      "til_fraction_tissue": 0.13417139573306516,
+      "til_mean_prob": 0.15591594586257748,
+      "til_moran_i": 0.8236294199055175,
+      "til_cluster_share": 0.15397794196380768
+    },
+    {
+      "patient_id": "TCGA-E2-A14P",
+      "grid_shape": [
+        388,
+        615
+      ],
+      "n_patches": 238620,
+      "n_tissue_patches": 90859,
+      "tissue_fraction": 0.3807685860363758,
+      "til_fraction_tissue": 0.3966255406729108,
+      "til_mean_prob": 0.38788793409482347,
+      "til_moran_i": 0.7047393338779009,
+      "til_cluster_share": 0.9210533618225712
+    },
+    {
+      "patient_id": "TCGA-E2-A14Q",
+      "grid_shape": [
+        426,
+        644
+      ],
+      "n_patches": 274344,
+      "n_tissue_patches": 98159,
+      "tissue_fraction": 0.35779532266060127,
+      "til_fraction_tissue": 0.0462820525881478,
+      "til_mean_prob": 0.07615918870324238,
+      "til_moran_i": 0.778956409522135,
+      "til_cluster_share": 0.11027955095751706
+    },
+    {
+      "patient_id": "TCGA-E2-A14S",
+      "grid_shape": [
+        394,
+        493
+      ],
+      "n_patches": 194242,
+      "n_tissue_patches": 43047,
+      "tissue_fraction": 0.22161530462001008,
+      "til_fraction_tissue": 0.061723232745603644,
+      "til_mean_prob": 0.09773029661605623,
+      "til_moran_i": 0.6994677379278996,
+      "til_cluster_share": 0.03914188934888972
+    },
+    {
+      "patient_id": "TCGA-E2-A14T",
+      "grid_shape": [
+        438,
+        465
+      ],
+      "n_patches": 203670,
+      "n_tissue_patches": 64782,
+      "tissue_fraction": 0.3180733539549271,
+      "til_fraction_tissue": 0.0208236855916767,
+      "til_mean_prob": 0.044781018208277415,
+      "til_moran_i": 0.6958421254131756,
+      "til_cluster_share": 0.04744255003706449
+    },
+    {
+      "patient_id": "TCGA-E2-A14V",
+      "grid_shape": [
+        382,
+        437
+      ],
+      "n_patches": 166934,
+      "n_tissue_patches": 63861,
+      "tissue_fraction": 0.3825523859728995,
+      "til_fraction_tissue": 0.1144830178042937,
+      "til_mean_prob": 0.1451377087061943,
+      "til_moran_i": 0.746862090660031,
+      "til_cluster_share": 0.15962248666393106
+    },
+    {
+      "patient_id": "TCGA-E2-A14X",
+      "grid_shape": [
+        432,
+        540
+      ],
+      "n_patches": 233280,
+      "n_tissue_patches": 100336,
+      "tissue_fraction": 0.43010973936899866,
+      "til_fraction_tissue": 0.25155477595279857,
+      "til_mean_prob": 0.2664760131448529,
+      "til_moran_i": 0.7115390254090603,
+      "til_cluster_share": 0.19310618066561014
+    },
+    {
+      "patient_id": "TCGA-E2-A14Y",
+      "grid_shape": [
+        414,
+        559
+      ],
+      "n_patches": 231426,
+      "n_tissue_patches": 91481,
+      "tissue_fraction": 0.39529266374564653,
+      "til_fraction_tissue": 0.07614695947792438,
+      "til_mean_prob": 0.12519020878866735,
+      "til_moran_i": 0.6746495478987892,
+      "til_cluster_share": 0.3242894056847545
+    },
+    {
+      "patient_id": "TCGA-E2-A150",
+      "grid_shape": [
+        447,
+        578
+      ],
+      "n_patches": 258366,
+      "n_tissue_patches": 109049,
+      "tissue_fraction": 0.4220717896317627,
+      "til_fraction_tissue": 0.06741006336600977,
+      "til_mean_prob": 0.09505955139073116,
+      "til_moran_i": 0.8591299208686254,
+      "til_cluster_share": 0.3815807373146511
+    },
+    {
+      "patient_id": "TCGA-E2-A152",
+      "grid_shape": [
+        434,
+        639
+      ],
+      "n_patches": 277326,
+      "n_tissue_patches": 106830,
+      "tissue_fraction": 0.38521451288375413,
+      "til_fraction_tissue": 0.03221941402227839,
+      "til_mean_prob": 0.06752773785728838,
+      "til_moran_i": 0.6190529577499958,
+      "til_cluster_share": 0.08047646717024985
+    },
+    {
+      "patient_id": "TCGA-E2-A159",
+      "grid_shape": [
+        381,
+        493
+      ],
+      "n_patches": 187833,
+      "n_tissue_patches": 86848,
+      "tissue_fraction": 0.4623681674679103,
+      "til_fraction_tissue": 0.2638633014001474,
+      "til_mean_prob": 0.27972260753969974,
+      "til_moran_i": 0.7023568117902383,
+      "til_cluster_share": 0.35769767847791933
+    },
+    {
+      "patient_id": "TCGA-E2-A15A",
+      "grid_shape": [
+        416,
+        568
+      ],
+      "n_patches": 236288,
+      "n_tissue_patches": 99572,
+      "tissue_fraction": 0.4214010021668472,
+      "til_fraction_tissue": 0.021321254971277067,
+      "til_mean_prob": 0.05489227225860014,
+      "til_moran_i": 0.4293891878853529,
+      "til_cluster_share": 0.0263777673104098
+    },
+    {
+      "patient_id": "TCGA-E2-A15E",
+      "grid_shape": [
+        440,
+        592
+      ],
+      "n_patches": 260480,
+      "n_tissue_patches": 97602,
+      "tissue_fraction": 0.3747005528255528,
+      "til_fraction_tissue": 0.49334030040368027,
+      "til_mean_prob": 0.49891737191177776,
+      "til_moran_i": 0.8909380680006512,
+      "til_cluster_share": 0.38765550040497604
+    },
+    {
+      "patient_id": "TCGA-E2-A15F",
+      "grid_shape": [
+        429,
+        658
+      ],
+      "n_patches": 282282,
+      "n_tissue_patches": 59440,
+      "tissue_fraction": 0.21056957227169992,
+      "til_fraction_tissue": 0.03771870794078062,
+      "til_mean_prob": 0.06639821339033594,
+      "til_moran_i": 0.8025359116164661,
+      "til_cluster_share": 0.05352363960749331
+    },
+    {
+      "patient_id": "TCGA-E2-A15H",
+      "grid_shape": [
+        413,
+        606
+      ],
+      "n_patches": 250278,
+      "n_tissue_patches": 69171,
+      "tissue_fraction": 0.27637666914391196,
+      "til_fraction_tissue": 0.0768530164375244,
+      "til_mean_prob": 0.09506828913057466,
+      "til_moran_i": 0.8245464600107905,
+      "til_cluster_share": 0.07468021068472536
+    },
+    {
+      "patient_id": "TCGA-E2-A15I",
+      "grid_shape": [
+        215,
+        437
+      ],
+      "n_patches": 93955,
+      "n_tissue_patches": 32057,
+      "tissue_fraction": 0.34119525304667125,
+      "til_fraction_tissue": 0.005864553763608572,
+      "til_mean_prob": 0.028677839167610145,
+      "til_moran_i": 0.5907555747824261,
+      "til_cluster_share": 0.0851063829787234
+    },
+    {
+      "patient_id": "TCGA-E2-A15J",
+      "grid_shape": [
+        430,
+        498
+      ],
+      "n_patches": 214140,
+      "n_tissue_patches": 72539,
+      "tissue_fraction": 0.3387456803960026,
+      "til_fraction_tissue": 0.04887026289306442,
+      "til_mean_prob": 0.07443044160963852,
+      "til_moran_i": 0.8082840540224783,
+      "til_cluster_share": 0.06741889985895627
+    },
+    {
+      "patient_id": "TCGA-E2-A15K",
+      "grid_shape": [
+        444,
+        366
+      ],
+      "n_patches": 162504,
+      "n_tissue_patches": 43015,
+      "tissue_fraction": 0.2647011765864225,
+      "til_fraction_tissue": 0.16382657212600255,
+      "til_mean_prob": 0.1846756603373652,
+      "til_moran_i": 0.8319172658569752,
+      "til_cluster_share": 0.2616716333191429
+    },
+    {
+      "patient_id": "TCGA-E2-A15L",
+      "grid_shape": [
+        432,
+        550
+      ],
+      "n_patches": 237600,
+      "n_tissue_patches": 96356,
+      "tissue_fraction": 0.40553872053872053,
+      "til_fraction_tissue": 0.041792934534434806,
+      "til_mean_prob": 0.07099619955084861,
+      "til_moran_i": 0.6875797496089098,
+      "til_cluster_share": 0.05562453439284827
+    },
+    {
+      "patient_id": "TCGA-E2-A15M",
+      "grid_shape": [
+        390,
+        498
+      ],
+      "n_patches": 194220,
+      "n_tissue_patches": 55167,
+      "tissue_fraction": 0.2840438677788075,
+      "til_fraction_tissue": 0.009172150017220439,
+      "til_mean_prob": 0.027409182173059553,
+      "til_moran_i": 0.6935888252544743,
+      "til_cluster_share": 0.07905138339920949
+    },
+    {
+      "patient_id": "TCGA-E2-A1B1",
+      "grid_shape": [
+        447,
+        601
+      ],
+      "n_patches": 268647,
+      "n_tissue_patches": 43830,
+      "tissue_fraction": 0.16315090062423923,
+      "til_fraction_tissue": 0.017043121149897332,
+      "til_mean_prob": 0.04261053177830567,
+      "til_moran_i": 0.698147438560586,
+      "til_cluster_share": 0.08032128514056225
+    },
+    {
+      "patient_id": "TCGA-E2-A1B5",
+      "grid_shape": [
+        400,
+        629
+      ],
+      "n_patches": 251600,
+      "n_tissue_patches": 90745,
+      "tissue_fraction": 0.3606717011128776,
+      "til_fraction_tissue": 0.08390544933605157,
+      "til_mean_prob": 0.11460548250376243,
+      "til_moran_i": 0.8863073527774511,
+      "til_cluster_share": 0.07407407407407407
+    },
+    {
+      "patient_id": "TCGA-E2-A1B6",
+      "grid_shape": [
+        430,
+        512
+      ],
+      "n_patches": 220160,
+      "n_tissue_patches": 76222,
+      "tissue_fraction": 0.3462118459302326,
+      "til_fraction_tissue": 0.31227204744037157,
+      "til_mean_prob": 0.3235754588891787,
+      "til_moran_i": 0.8383771161573768,
+      "til_cluster_share": 0.5742794723132509
+    },
+    {
+      "patient_id": "TCGA-E2-A1IE",
+      "grid_shape": [
+        388,
+        543
+      ],
+      "n_patches": 210684,
+      "n_tissue_patches": 56618,
+      "tissue_fraction": 0.26873421807066505,
+      "til_fraction_tissue": 0.013193683987424494,
+      "til_mean_prob": 0.04394971736972722,
+      "til_moran_i": 0.6149785688804937,
+      "til_cluster_share": 0.07228915662650602
+    },
+    {
+      "patient_id": "TCGA-E2-A1IG",
+      "grid_shape": [
+        433,
+        585
+      ],
+      "n_patches": 253305,
+      "n_tissue_patches": 121924,
+      "tissue_fraction": 0.48133278063994,
+      "til_fraction_tissue": 0.02415439126012926,
+      "til_mean_prob": 0.0745856145679951,
+      "til_moran_i": 0.3764960838190168,
+      "til_cluster_share": 0.021392190152801357
+    },
+    {
+      "patient_id": "TCGA-E2-A1II",
+      "grid_shape": [
+        375,
+        453
+      ],
+      "n_patches": 169875,
+      "n_tissue_patches": 44829,
+      "tissue_fraction": 0.26389403973509934,
+      "til_fraction_tissue": 0.2930246046086239,
+      "til_mean_prob": 0.3214612914696763,
+      "til_moran_i": 0.5993086207594026,
+      "til_cluster_share": 0.20774969549330086
+    },
+    {
+      "patient_id": "TCGA-E2-A1IJ",
+      "grid_shape": [
+        427,
+        585
+      ],
+      "n_patches": 249795,
+      "n_tissue_patches": 49649,
+      "tissue_fraction": 0.19875898236553974,
+      "til_fraction_tissue": 0.024411367801969827,
+      "til_mean_prob": 0.04662471728001156,
+      "til_moran_i": 0.8551701204812125,
+      "til_cluster_share": 0.1782178217821782
+    },
+    {
+      "patient_id": "TCGA-E2-A1IK",
+      "grid_shape": [
+        380,
+        481
+      ],
+      "n_patches": 182780,
+      "n_tissue_patches": 70699,
+      "tissue_fraction": 0.3867983367983368,
+      "til_fraction_tissue": 0.023833434702046706,
+      "til_mean_prob": 0.05284834990871269,
+      "til_moran_i": 0.6886719154990323,
+      "til_cluster_share": 0.07359050445103858
+    },
+    {
+      "patient_id": "TCGA-E2-A1IN",
+      "grid_shape": [
+        397,
+        462
+      ],
+      "n_patches": 183414,
+      "n_tissue_patches": 23944,
+      "tissue_fraction": 0.1305461960373799,
+      "til_fraction_tissue": 0.036835950551286335,
+      "til_mean_prob": 0.06616811776498104,
+      "til_moran_i": 0.8362495102276487,
+      "til_cluster_share": 0.5068027210884354
+    },
+    {
+      "patient_id": "TCGA-E2-A1L7",
+      "grid_shape": [
+        232,
+        406
+      ],
+      "n_patches": 94192,
+      "n_tissue_patches": 22602,
+      "tissue_fraction": 0.23995668421946661,
+      "til_fraction_tissue": 0.1766215379169985,
+      "til_mean_prob": 0.1998565110496902,
+      "til_moran_i": 0.7635791938608014,
+      "til_cluster_share": 0.2745490981963928
+    },
+    {
+      "patient_id": "TCGA-E2-A1L9",
+      "grid_shape": [
+        413,
+        500
+      ],
+      "n_patches": 206500,
+      "n_tissue_patches": 57694,
+      "tissue_fraction": 0.2793898305084746,
+      "til_fraction_tissue": 0.024716608312822824,
+      "til_mean_prob": 0.051594314017769205,
+      "til_moran_i": 0.5863765651368718,
+      "til_cluster_share": 0.061711079943899017
+    },
+    {
+      "patient_id": "TCGA-E2-A1LG",
+      "grid_shape": [
+        380,
+        514
+      ],
+      "n_patches": 195320,
+      "n_tissue_patches": 31396,
+      "tissue_fraction": 0.16074134753225477,
+      "til_fraction_tissue": 0.004936934641355586,
+      "til_mean_prob": 0.036416029018308815,
+      "til_moran_i": 0.44934450939074166,
+      "til_cluster_share": 0.05806451612903226
+    },
+    {
+      "patient_id": "TCGA-EW-A1IY",
+      "grid_shape": [
+        386,
+        580
+      ],
+      "n_patches": 223880,
+      "n_tissue_patches": 85846,
+      "tissue_fraction": 0.38344648919063784,
+      "til_fraction_tissue": 0.04228502201616849,
+      "til_mean_prob": 0.06398361315497474,
+      "til_moran_i": 0.70039499135341,
+      "til_cluster_share": 0.09146005509641873
+    },
+    {
+      "patient_id": "TCGA-EW-A1IZ",
+      "grid_shape": [
+        342,
+        456
+      ],
+      "n_patches": 155952,
+      "n_tissue_patches": 41527,
+      "tissue_fraction": 0.26628065045655075,
+      "til_fraction_tissue": 0.3007681749223397,
+      "til_mean_prob": 0.30327115314062153,
+      "til_moran_i": 0.7476094984419742,
+      "til_cluster_share": 0.3757405924739792
+    },
+    {
+      "patient_id": "TCGA-EW-A1J6",
+      "grid_shape": [
+        431,
+        628
+      ],
+      "n_patches": 270668,
+      "n_tissue_patches": 88544,
+      "tissue_fraction": 0.3271313934414116,
+      "til_fraction_tissue": 0.09210110227683412,
+      "til_mean_prob": 0.12547522623071636,
+      "til_moran_i": 0.8429503356031464,
+      "til_cluster_share": 0.2550582464745555
+    },
+    {
+      "patient_id": "TCGA-EW-A1OY",
+      "grid_shape": [
+        400,
+        571
+      ],
+      "n_patches": 228400,
+      "n_tissue_patches": 125752,
+      "tissue_fraction": 0.5505779334500875,
+      "til_fraction_tissue": 0.01307335072205611,
+      "til_mean_prob": 0.030423092323639808,
+      "til_moran_i": 0.6640451851141971,
+      "til_cluster_share": 0.0851581508515815
+    },
+    {
+      "patient_id": "TCGA-EW-A1OZ",
+      "grid_shape": [
+        451,
+        704
+      ],
+      "n_patches": 317504,
+      "n_tissue_patches": 169693,
+      "tissue_fraction": 0.5344594083854062,
+      "til_fraction_tissue": 0.026353473625900892,
+      "til_mean_prob": 0.05192583654241576,
+      "til_moran_i": 0.7408499197093542,
+      "til_cluster_share": 0.13059033989266547
+    },
+    {
+      "patient_id": "TCGA-EW-A1P0",
+      "grid_shape": [
+        384,
+        851
+      ],
+      "n_patches": 326784,
+      "n_tissue_patches": 85433,
+      "tissue_fraction": 0.2614356884057971,
+      "til_fraction_tissue": 0.0073741996652347454,
+      "til_mean_prob": 0.025992848885366657,
+      "til_moran_i": 0.5259534356742352,
+      "til_cluster_share": 0.04126984126984127
+    },
+    {
+      "patient_id": "TCGA-EW-A1P3",
+      "grid_shape": [
+        414,
+        1051
+      ],
+      "n_patches": 435114,
+      "n_tissue_patches": 173067,
+      "tissue_fraction": 0.39775093423792385,
+      "til_fraction_tissue": 0.05627878220573535,
+      "til_mean_prob": 0.09878642715384964,
+      "til_moran_i": 0.6366286504806238,
+      "til_cluster_share": 0.03223819301848049
+    },
+    {
+      "patient_id": "TCGA-EW-A1P4",
+      "grid_shape": [
+        403,
+        490
+      ],
+      "n_patches": 197470,
+      "n_tissue_patches": 82270,
+      "tissue_fraction": 0.41662024611333365,
+      "til_fraction_tissue": 0.09895466148049106,
+      "til_mean_prob": 0.1478542913458078,
+      "til_moran_i": 0.6355529052087903,
+      "til_cluster_share": 0.31986242476354254
+    },
+    {
+      "patient_id": "TCGA-EW-A1PA",
+      "grid_shape": [
+        393,
+        486
+      ],
+      "n_patches": 190998,
+      "n_tissue_patches": 96084,
+      "tissue_fraction": 0.503062859296956,
+      "til_fraction_tissue": 0.12038424711710587,
+      "til_mean_prob": 0.17359140817144478,
+      "til_moran_i": 0.6215094985359471,
+      "til_cluster_share": 0.11429065444799862
+    },
+    {
+      "patient_id": "TCGA-EW-A1PC",
+      "grid_shape": [
+        408,
+        628
+      ],
+      "n_patches": 256224,
+      "n_tissue_patches": 138722,
+      "tissue_fraction": 0.5414090795553891,
+      "til_fraction_tissue": 0.026304407375902884,
+      "til_mean_prob": 0.07076217606605509,
+      "til_moran_i": 0.5299842387515451,
+      "til_cluster_share": 0.06029049054535489
+    },
+    {
+      "patient_id": "TCGA-EW-A2FR",
+      "grid_shape": [
+        476,
+        604
+      ],
+      "n_patches": 287504,
+      "n_tissue_patches": 100403,
+      "tissue_fraction": 0.3492229673326284,
+      "til_fraction_tissue": 0.043016642928996145,
+      "til_mean_prob": 0.06506879237457361,
+      "til_moran_i": 0.887551831644808,
+      "til_cluster_share": 0.15744385274369066
+    },
+    {
+      "patient_id": "TCGA-EW-A2FS",
+      "grid_shape": [
+        450,
+        538
+      ],
+      "n_patches": 242100,
+      "n_tissue_patches": 87918,
+      "tissue_fraction": 0.3631474597273854,
+      "til_fraction_tissue": 0.021861279828931504,
+      "til_mean_prob": 0.07084680957166414,
+      "til_moran_i": 0.439710005460511,
+      "til_cluster_share": 0.03590010405827263
+    },
+    {
+      "patient_id": "TCGA-EW-A3E8",
+      "grid_shape": [
+        393,
+        540
+      ],
+      "n_patches": 212220,
+      "n_tissue_patches": 71074,
+      "tissue_fraction": 0.3349071718028461,
+      "til_fraction_tissue": 0.0372710133100712,
+      "til_mean_prob": 0.07355200627680512,
+      "til_moran_i": 0.6617844353147446,
+      "til_cluster_share": 0.07852019630049076
+    },
+    {
+      "patient_id": "TCGA-OL-A5D6",
+      "grid_shape": [
+        348,
+        767
+      ],
+      "n_patches": 266916,
+      "n_tissue_patches": 75490,
+      "tissue_fraction": 0.28282306043849004,
+      "til_fraction_tissue": 0.045290766989005166,
+      "til_mean_prob": 0.07177805656638069,
+      "til_moran_i": 0.7509476723952726,
+      "til_cluster_share": 0.10295408014039192
+    },
+    {
+      "patient_id": "TCGA-OL-A5D7",
+      "grid_shape": [
+        266,
+        762
+      ],
+      "n_patches": 202692,
+      "n_tissue_patches": 57809,
+      "tissue_fraction": 0.2852061255500957,
+      "til_fraction_tissue": 0.17601065578024183,
+      "til_mean_prob": 0.20743896652227636,
+      "til_moran_i": 0.653285504704903,
+      "til_cluster_share": 0.20737100737100736
+    },
+    {
+      "patient_id": "TCGA-OL-A5D8",
+      "grid_shape": [
+        355,
+        832
+      ],
+      "n_patches": 295360,
+      "n_tissue_patches": 118347,
+      "tissue_fraction": 0.40068729685807153,
+      "til_fraction_tissue": 0.051467295326455255,
+      "til_mean_prob": 0.0985775793582746,
+      "til_moran_i": 0.5529076449882978,
+      "til_cluster_share": 0.025939911344606797
+    },
+    {
+      "patient_id": "TCGA-OL-A5DA",
+      "grid_shape": [
+        344,
+        762
+      ],
+      "n_patches": 262128,
+      "n_tissue_patches": 70653,
+      "tissue_fraction": 0.26953625709577,
+      "til_fraction_tissue": 0.09644318004897173,
+      "til_mean_prob": 0.14246290139907747,
+      "til_moran_i": 0.6450133736026364,
+      "til_cluster_share": 0.048136190196653945
+    },
+    {
+      "patient_id": "TCGA-OL-A5RU",
+      "grid_shape": [
+        102,
+        105
+      ],
+      "n_patches": 10710,
+      "n_tissue_patches": 4392,
+      "tissue_fraction": 0.41008403361344536,
+      "til_fraction_tissue": 0.0006830601092896175,
+      "til_mean_prob": 0.060749491053251906,
+      "til_moran_i": 0.43903450188824733,
+      "til_cluster_share": 0.6666666666666666
+    },
+    {
+      "patient_id": "TCGA-OL-A5RV",
+      "grid_shape": [
+        112,
+        123
+      ],
+      "n_patches": 13776,
+      "n_tissue_patches": 5792,
+      "tissue_fraction": 0.42044134727061555,
+      "til_fraction_tissue": 0.0005179558011049724,
+      "til_mean_prob": 0.0354058336041599,
+      "til_moran_i": 0.43495684448199545,
+      "til_cluster_share": 0.6666666666666666
+    },
+    {
+      "patient_id": "TCGA-OL-A5RW",
+      "grid_shape": [
+        69,
+        65
+      ],
+      "n_patches": 4485,
+      "n_tissue_patches": 2273,
+      "tissue_fraction": 0.5068004459308807,
+      "til_fraction_tissue": 0.0004399472063352398,
+      "til_mean_prob": 0.04822856551331487,
+      "til_moran_i": 0.43201791298723147,
+      "til_cluster_share": 1.0
+    },
+    {
+      "patient_id": "TCGA-OL-A5RX",
+      "grid_shape": [
+        121,
+        98
+      ],
+      "n_patches": 11858,
+      "n_tissue_patches": 4465,
+      "tissue_fraction": 0.3765390453702142,
+      "til_fraction_tissue": 0.0,
+      "til_mean_prob": 0.042547043453439605,
+      "til_moran_i": 0.4134670468561698,
+      "til_cluster_share": 0.0
+    },
+    {
+      "patient_id": "TCGA-OL-A5RZ",
+      "grid_shape": [
+        106,
+        100
+      ],
+      "n_patches": 10600,
+      "n_tissue_patches": 2415,
+      "tissue_fraction": 0.2278301886792453,
+      "til_fraction_tissue": 0.011180124223602485,
+      "til_mean_prob": 0.06569074006414159,
+      "til_moran_i": 0.5634215439845528,
+      "til_cluster_share": 0.1111111111111111
+    },
+    {
+      "patient_id": "TCGA-OL-A66I",
+      "grid_shape": [
+        248,
+        219
+      ],
+      "n_patches": 54312,
+      "n_tissue_patches": 18447,
+      "tissue_fraction": 0.3396486964206805,
+      "til_fraction_tissue": 0.14354637610451565,
+      "til_mean_prob": 0.19962457363278158,
+      "til_moran_i": 0.6226603599878469,
+      "til_cluster_share": 0.06910876132930513
+    },
+    {
+      "patient_id": "TCGA-OL-A66J",
+      "grid_shape": [
+        814,
+        428
+      ],
+      "n_patches": 348392,
+      "n_tissue_patches": 45639,
+      "tissue_fraction": 0.13099898964384946,
+      "til_fraction_tissue": 0.0009202655623479918,
+      "til_mean_prob": 0.01219115574098348,
+      "til_moran_i": 0.4127962176703064,
+      "til_cluster_share": 0.16666666666666666
+    },
+    {
+      "patient_id": "TCGA-OL-A66K",
+      "grid_shape": [
+        842,
+        457
+      ],
+      "n_patches": 384794,
+      "n_tissue_patches": 81134,
+      "tissue_fraction": 0.2108504810366066,
+      "til_fraction_tissue": 0.0014297335272512141,
+      "til_mean_prob": 0.013310442129867945,
+      "til_moran_i": 0.5187059122219897,
+      "til_cluster_share": 0.16379310344827586
+    },
+    {
+      "patient_id": "TCGA-OL-A66L",
+      "grid_shape": [
+        564,
+        441
+      ],
+      "n_patches": 248724,
+      "n_tissue_patches": 64696,
+      "tissue_fraction": 0.2601116096556826,
+      "til_fraction_tissue": 0.00551811549400272,
+      "til_mean_prob": 0.018010811348157418,
+      "til_moran_i": 0.7288494393170922,
+      "til_cluster_share": 0.09243697478991597
+    },
+    {
+      "patient_id": "TCGA-OL-A66N",
+      "grid_shape": [
+        354,
+        440
+      ],
+      "n_patches": 155760,
+      "n_tissue_patches": 21461,
+      "tissue_fraction": 0.1377824858757062,
+      "til_fraction_tissue": 0.009878384045477844,
+      "til_mean_prob": 0.021293527429144157,
+      "til_moran_i": 0.8683536747856649,
+      "til_cluster_share": 0.15566037735849056
+    },
+    {
+      "patient_id": "TCGA-OL-A66O",
+      "grid_shape": [
+        376,
+        440
+      ],
+      "n_patches": 165440,
+      "n_tissue_patches": 18936,
+      "tissue_fraction": 0.11445841392649904,
+      "til_fraction_tissue": 0.0017955217574989438,
+      "til_mean_prob": 0.02083095173007944,
+      "til_moran_i": 0.3566235322227863,
+      "til_cluster_share": 0.17647058823529413
+    },
+    {
+      "patient_id": "TCGA-OL-A6VO",
+      "grid_shape": [
+        657,
+        415
+      ],
+      "n_patches": 272655,
+      "n_tissue_patches": 11636,
+      "tissue_fraction": 0.0426766426436339,
+      "til_fraction_tissue": 0.06737710553454795,
+      "til_mean_prob": 0.11619517521687259,
+      "til_moran_i": 0.5878385758220522,
+      "til_cluster_share": 0.22321428571428573
+    }
+  ],
+  "summary": {
+    "til_fraction_tissue_median": 0.04203897827530165,
+    "til_fraction_tissue_iqr": [
+      0.02013697232450938,
+      0.09171542188073203
+    ],
+    "moran_i_median": 0.6415586430477966,
+    "cluster_share_median": 0.09016829523550948
+  },
+  "missing_for_supervised_test": [
+    "tumour region maps: the published TIL maps carry no tumour boundary, so core vs invasive margin -- and therefore desert vs excluded -- cannot be derived",
+    "expert tumour VOIs on the TCGA-BRCA MRI: no public segmentations exist for this collection (MAMA-MIA covers ISPY1/ISPY2/NACT/DUKE, not TCGA-BRCA)"
+  ]
+}
