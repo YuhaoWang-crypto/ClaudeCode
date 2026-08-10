@@ -193,7 +193,7 @@ def theoretical_feature_auc(effect_size: float) -> float:
     For two unit-variance Gaussians separated by ``d``, ``AUC = Phi(d/sqrt(2))``.
     Lets a simulation be specified by the effect size a reader can interpret.
     """
-    from math import erf, sqrt
+    from math import erf
 
     return 0.5 * (1.0 + erf(effect_size / 2.0))
 

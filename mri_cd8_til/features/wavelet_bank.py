@@ -91,22 +91,3 @@ def expected_feature_count(n_texture: int, full_3d: bool = False, include_volume
     matching the published number exactly.
     """
     return int(include_volume) + n_texture + n_texture * n_derived_images(full_3d)
-
-
-def pyradiomics_image_types(full_3d: bool = False) -> list[dict]:
-    """Per-filter ``imageType`` settings blocks for PyRadiomics.
-
-    PyRadiomics computes all eight 3-D sub-bands per invocation, so the caller
-    filters the returned feature names down to :data:`PAPER_SUBBANDS` unless
-    ``full_3d`` is set.  Each dict is one extractor configuration; they are run
-    sequentially because ``wavelet`` is a scalar setting, not a list.
-    """
-    return [
-        {
-            "filter": f.name,
-            "settings": {"wavelet": f.wavelet, "level": f.level, "start_level": 0},
-            "keep_subbands": list(FULL_3D_SUBBANDS if full_3d else PAPER_SUBBANDS),
-            "note": f.note,
-        }
-        for f in PAPER_FILTER_BANK
-    ]
