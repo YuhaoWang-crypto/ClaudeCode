@@ -531,7 +531,7 @@ def report():
     cols = ["CS", "IDH3", "OGDH", "SUCL", "SDH", "MDH2", "CI", "OX"]
     print("  tca_scale  " + "".join(f"{c:>8}" for c in cols) + f"{'J':>9}")
     for k, r in alloc.iterrows():
-        print(f"  {k:>9.0f}  " + "".join(f"{r[c]:>8.3f}" for c in cols)
+        print(f"  {k:>9.2f}  " + "".join(f"{r[c]:>8.3f}" for c in cols)
               + f"{r['J']:>9.4f}")
 
     print("\nhypoxia: does complex II reverse?")
