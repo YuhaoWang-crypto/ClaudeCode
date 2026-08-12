@@ -1,0 +1,10 @@
+########## CONTEXT REGIME ##########
+
+==============================================================================
+regime=context  4 cell lines, 6642 genes, 2053 evaluated perturbations
+==============================================================================
+
+--- held-out cell line: K562 (sources: RPE1, HepG2, Jurkat) ---
+    measured DE genes/perturbation: median 38
+    tuning on source lines only...
+      start avg_score=0.1463
