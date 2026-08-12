@@ -3,3 +3,4 @@ __pycache__/
 results_run.log
 __pycache__/
 *.pyc
+results_after.log
