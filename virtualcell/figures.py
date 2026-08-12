@@ -79,8 +79,8 @@ def zero_shot_metrics(payload: dict, out: Path) -> None:
         if floor:
             ax.axhline(floor, color=INK_2, linewidth=1, linestyle=(0, (4, 3)),
                        zorder=2)
-            ax.text(x[-1] + 0.45, floor, " chance", va="center", ha="left",
-                    fontsize=6.5, color=INK_2)
+            ax.text(0.99, floor, "chance ", transform=ax.get_yaxis_transform(),
+                    va="bottom", ha="right", fontsize=7, color=INK_2)
         ax.set_title(title, fontsize=10, color=INK, pad=8)
         ax.set_xticks(x)
         ax.set_xticklabels(lines + ["mean"], fontsize=8)
@@ -109,27 +109,29 @@ def context_ablation(ablation: dict, out: Path) -> None:
     sizes = sorted(int(k) for k in ablation[names[0]])
     per_line = {}
     for i, name in enumerate(names):
-        ys = [float(np.mean([r["vcc_score"] for r in ablation[name][str(k)]
-                             if True])) for k in sizes]
+        ys = [float(np.mean([r["vcc_score"] for r in ablation[name][str(k)]]))
+              for k in sizes]
         per_line[name] = ys
         ax.plot(sizes, ys, marker="o", markersize=7, linewidth=2,
                 color=SERIES[i], label=name, zorder=3,
                 markeredgecolor=SURFACE, markeredgewidth=2)
-        ax.text(sizes[-1] + 0.06, ys[-1], name, fontsize=8.5,
-                color=INK_2, va="center")
 
     mean = [float(np.mean([per_line[n][j] for n in names]))
             for j in range(len(sizes))]
-    ax.plot(sizes, mean, linewidth=3, color=INK, zorder=4, linestyle=(0, (5, 2)))
-    ax.text(sizes[-1] + 0.06, mean[-1], "mean", fontsize=9, color=INK,
-            va="center", fontweight="bold")
+    ax.plot(sizes, mean, linewidth=3, color=INK, zorder=4, linestyle=(0, (5, 2)),
+            label="mean")
 
+    # No direct labels here: the four lines converge to within a couple of
+    # percent at the right edge, so end-of-line labels overprint each other.
+    # The legend carries identity instead, which is what it is for.
     ax.set_xticks(sizes)
     ax.set_xlabel("source cell lines used for training", fontsize=9, color=INK_2)
     ax.set_ylabel("VCC score vs challenge baseline", fontsize=9, color=INK_2)
     ax.set_title("More contexts, not more cells:\nthe perturbation panel is the "
                  "same in every source line", fontsize=11.5, color=INK, pad=10)
-    ax.set_xlim(sizes[0] - 0.15, sizes[-1] + 0.75)
+    ax.set_xlim(sizes[0] - 0.15, sizes[-1] + 0.15)
+    ax.legend(frameon=False, fontsize=8.5, loc="upper left",
+              labelcolor=INK_2, handlelength=1.6)
     fig.tight_layout()
     out.parent.mkdir(parents=True, exist_ok=True)
     fig.savefig(out, dpi=200, facecolor=SURFACE, bbox_inches="tight")
