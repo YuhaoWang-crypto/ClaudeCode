@@ -1,3 +1,38 @@
+This repository holds two self-contained computational-biology projects.
+
+| Project | Question | Entry point |
+|---|---|---|
+| [`virtualcell/`](virtualcell/) | Can a model predict how a cell line responds to gene knockdowns it has never seen, given only that line's non-targeting controls? | [`virtualcell/README.md`](virtualcell/README.md) |
+| [`grn_pipeline/`](grn_pipeline/) | Which network modules are irreducible, and which early-warning biomarkers detect a critical transition? | below, and [`REPORT.md`](REPORT.md) |
+
+---
+
+# virtualcell — zero-shot cross-context perturbation prediction
+
+A virtual cell model built for the task shape of the Arc Institute's
+**Virtual Cell Challenge 2**: predict knockdown responses in a cell line with no
+perturbation training data from it, given only its non-targeting control
+profiles.
+
+Benchmarked by leave-one-cell-line-out over four matched CRISPRi Perturb-seq
+contexts — K562 and RPE1 (Replogle 2022), Jurkat and HepG2 (Nadig 2025) —
+sharing 6,642 genes and 2,053 knockdowns, scored with a port of Arc's
+`cell-eval` metrics.
+
+- [`virtualcell/README.md`](virtualcell/README.md) — design and how to run it
+- [`virtualcell/RESULTS.md`](virtualcell/RESULTS.md) — what the benchmark found
+- [`virtualcell/SURVEY.md`](virtualcell/SURVEY.md) — every technology cited by the challenge paper, and its status here
+- [`virtualcell/datapackage/`](virtualcell/datapackage/) — derived tables, model artifacts, provenance manifest, and a one-command rebuild of the 16 GB of primary data
+- [`.claude/skills/virtual-cell-perturbation/`](.claude/skills/virtual-cell-perturbation/) — the methodology packaged as a reusable skill
+
+```bash
+pip install numpy scipy pandas scikit-learn anndata h5py matplotlib
+cd virtualcell/datapackage && ./fetch_data.sh && cd ../..
+python -m virtualcell.run --regime context
+```
+
+---
+
 # grn-pipeline
 
 A small, fully-runnable pipeline that applies four "irreducibility / symmetry"
