@@ -24,8 +24,10 @@ only, so the held-out line never influences model selection.
 
 from __future__ import annotations
 
+import json
 import time
-from dataclasses import dataclass, replace
+from dataclasses import asdict, dataclass, replace
+from pathlib import Path
 
 import numpy as np
 
@@ -192,6 +194,62 @@ def tune(sources: list[CellLine], symbols: np.ndarray, n_eval: int = 400,
 
 
 # --------------------------------------------------------------------------
+# checkpointing
+# --------------------------------------------------------------------------
+
+CHECKPOINT_DIR = Path("results")
+
+
+def _checkpoint_path(regime: str) -> Path:
+    return CHECKPOINT_DIR / f"{regime}.partial.json"
+
+
+def _load_checkpoint(regime: str, eval_perts: np.ndarray, verbose: bool
+                     ) -> tuple[dict, dict[str, Hyper]]:
+    """Restore completed folds, but only if they scored this exact set."""
+    path = _checkpoint_path(regime)
+    if not path.exists():
+        return {}, {}
+    try:
+        blob = json.loads(path.read_text())
+    except json.JSONDecodeError:            # interrupted mid-write
+        return {}, {}
+    if blob.get("eval_perts") != eval_perts.tolist():
+        if verbose:
+            print("    checkpoint covers a different evaluation set, ignoring it")
+        return {}, {}
+
+    hyper = {}
+    for name, raw in blob.get("hyper", {}).items():
+        clean = {}
+        for key, value in raw.items():
+            default = getattr(Hyper(), key)
+            if isinstance(default, bool):
+                clean[key] = bool(value)
+            elif isinstance(default, int):
+                clean[key] = int(float(value))
+            else:
+                clean[key] = float(value)
+        hyper[name] = Hyper(**clean)
+    if verbose and blob.get("results"):
+        print(f"    resuming: {', '.join(blob['results'])} already scored")
+    return blob.get("results", {}), hyper
+
+
+def _save_checkpoint(regime: str, eval_perts: np.ndarray, results: dict,
+                     chosen: dict[str, Hyper]) -> None:
+    path = _checkpoint_path(regime)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    tmp = path.with_suffix(".tmp")
+    tmp.write_text(json.dumps({
+        "eval_perts": eval_perts.tolist(),
+        "results": results,
+        "hyper": {k: asdict(v) for k, v in chosen.items()},
+    }, default=str))
+    tmp.replace(path)                        # atomic, so a kill cannot corrupt it
+
+
+# --------------------------------------------------------------------------
 # the benchmark itself
 # --------------------------------------------------------------------------
 
@@ -211,12 +269,20 @@ def run(regime: str = "context", n_eval: int | None = None, tune_eval: int = 400
               f"{len(lines)} cell lines, {genes.size} genes, "
               f"{eval_perts.size} evaluated perturbations\n{'=' * 78}")
 
-    results: dict[str, dict[str, dict[str, float]]] = {}
-    chosen: dict[str, Hyper] = {}
+    # Each fold costs ~10 minutes and the whole run costs over an hour, which is
+    # long enough that losing it to an interrupted container is a real cost.
+    # Completed folds are checkpointed and skipped on a rerun; the evaluation
+    # set is seed-derived, so a resumed run scores exactly the same perturbations.
+    results, chosen = _load_checkpoint(regime, eval_perts, verbose)
 
     for i, target in enumerate(lines):
         t0 = time.time()
         sources = [s for j, s in enumerate(lines) if j != i]
+        if target.name in results:
+            if verbose:
+                print(f"\n--- held-out cell line: {target.name} "
+                      f"-- restored from checkpoint ---")
+            continue
         if verbose:
             print(f"\n--- held-out cell line: {target.name} "
                   f"(sources: {', '.join(s.name for s in sources)}) ---")
@@ -248,6 +314,7 @@ def run(regime: str = "context", n_eval: int | None = None, tune_eval: int = 400
             fold[name] = evaluate(model.predict(eval_perts), target,
                                   eval_perts, truth, symbols)
         results[target.name] = fold
+        _save_checkpoint(regime, eval_perts, results, chosen)
         if verbose:
             base = fold["global mean [challenge baseline]"]
             for name, m in fold.items():
