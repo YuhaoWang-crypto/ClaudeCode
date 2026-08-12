@@ -41,3 +41,25 @@ python3 -m grn_pipeline.m1_symmetry   # or any single module
 Figures are written to `figures/`. A full write-up with numbers, rigour
 labels, and the interpretation (including the Lyapunov-exponent biomarker
 question) is in [`REPORT.md`](REPORT.md).
+
+---
+
+# aptamer_eab — ssDNA aptamer library design for NPY / PP EAB sensors
+
+A second, independent package in this repo: in-silico prioritisation of ssDNA
+candidates for electrochemical aptamer-based (EAB) sensors against
+**neuropeptide Y** and **pancreatic polypeptide (PPY)**, with the same
+honesty-labelling discipline.
+
+```bash
+pip install numpy pandas viennarna matplotlib
+python3 -m aptamer_eab.run_all
+```
+
+Deliverable: `aptamer_eab/output/ORDER_PANEL.csv` (58 curated candidates) plus
+four orderable degenerate oligos. Write-up, literature anchors and the
+recommended SELEX route: [`APTAMER_EAB_REPORT.md`](APTAMER_EAB_REPORT.md);
+package notes: [`aptamer_eab/README.md`](aptamer_eab/README.md).
+
+Nothing in it is experimentally tested — a library is a starting pool for
+SELEX, not a binder.

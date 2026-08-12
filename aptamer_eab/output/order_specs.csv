@@ -1,0 +1,5 @@
+name,spec,use,scale
+E1_naive_N40_SELEX_library,5'-AGCAGCACAGAGGTCAGATG-(N)40-CCTATGCGTGCTACCGTGAA-3',naive CE-SELEX / bead-SELEX round 1 for either target; same arms as the published NPY selection so the workflow and the resulting sensor stay directly comparable,"1 umol, desalted; ~10^14-10^15 unique molecules in a typical 1 nmol input aliquot"
+E2_doped_4.31_NPY_maturation,5'-AGCAGCACAGAGGTCAGATG-[CAAACCACAGCCTGAGTGGTTAGCGTATGTCATTTACGGA @ 15% doping]-CCTATGCGTGCTACCGTGAA-3',affinity/switch maturation of the existing NPY binder; run with increasing stringency + PP and PYY counter-selection,"0.2 umol, desalted"
+E3_doped_4.31_PP_retargeting,5'-AGCAGCACAGAGGTCAGATG-[CAAACCACAGCCTGAGTGGTTAGCGTATGTCATTTACGGA @ 30% doping]-CCTATGCGTGCTACCGTGAA-3',re-target the 4.31 backbone to PP; counter-select against NPY and PYY in EVERY round from round 1 - this is the step that inverts the 42-fold NPY preference,"0.2 umol, desalted"
+E4_primers,FWD 5'-AGCAGCACAGAGGTCAGATG-3'  /  REV 5'-CCTATGCGTGCTACCGTGAA-3' (order the reverse primer 5'-phosphorylated or poly-A-tailed for ssDNA regeneration),amplification of every round,100 nmol each

@@ -1,0 +1,115 @@
+{
+  "reference_4.31_eab_score": 80.89,
+  "library_sizes": {
+    "A": 401,
+    "B": 631,
+    "C": 400,
+    "D": 642,
+    "S": 891,
+    "G": 701
+  },
+  "g4_track_ranked_by": "g4_quality, anchored on TBA (ViennaRNA cannot model G4)",
+  "panel_size": 58,
+  "top_epitopes": {
+    "NPY": [
+      {
+        "start": 3,
+        "end": 14,
+        "seq": "SKPDNPGEDAPA",
+        "n_unique": 5,
+        "n_radical": 5,
+        "unique_positions": [
+          3,
+          6,
+          7,
+          13,
+          14
+        ],
+        "score": 0.625
+      },
+      {
+        "start": 5,
+        "end": 16,
+        "seq": "PDNPGEDAPAED",
+        "n_unique": 5,
+        "n_radical": 5,
+        "unique_positions": [
+          6,
+          7,
+          13,
+          14,
+          16
+        ],
+        "score": 0.625
+      },
+      {
+        "start": 6,
+        "end": 17,
+        "seq": "DNPGEDAPAEDM",
+        "n_unique": 5,
+        "n_radical": 5,
+        "unique_positions": [
+          6,
+          7,
+          13,
+          14,
+          16
+        ],
+        "score": 0.625
+      }
+    ],
+    "PP": [
+      {
+        "start": 1,
+        "end": 12,
+        "seq": "APLEPVYPGDNA",
+        "n_unique": 7,
+        "n_radical": 6,
+        "unique_positions": [
+          1,
+          3,
+          4,
+          6,
+          7,
+          10,
+          11
+        ],
+        "score": 0.833
+      },
+      {
+        "start": 2,
+        "end": 13,
+        "seq": "PLEPVYPGDNAT",
+        "n_unique": 7,
+        "n_radical": 6,
+        "unique_positions": [
+          3,
+          4,
+          6,
+          7,
+          10,
+          11,
+          13
+        ],
+        "score": 0.833
+      },
+      {
+        "start": 3,
+        "end": 14,
+        "seq": "LEPVYPGDNATP",
+        "n_unique": 7,
+        "n_radical": 6,
+        "unique_positions": [
+          3,
+          4,
+          6,
+          7,
+          10,
+          11,
+          13
+        ],
+        "score": 0.833
+      }
+    ]
+  }
+}
