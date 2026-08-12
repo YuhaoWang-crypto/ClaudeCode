@@ -13,24 +13,31 @@ this is a structured statistical model whose every component is switchable, with
 the switches chosen by nested leave-one-cell-line-out cross-validation over the
 *source* lines only.  The target line contributes nothing but its controls.
 
-The prediction is assembled in six stages:
+The prediction is assembled in seven stages:
 
 1. **Context-weighted consensus.**  Average the effect of knockdown ``p`` over
    source lines, weighting each by how much its control transcriptome resembles
    the target's on the genes that actually vary between cell lines.
 2. **Perturbation-similarity smoothing.**  Borrow strength from knockdowns with
-   correlated effects, which denoises weak perturbations and is the only route
-   to a gene never perturbed in any source line.
+   correlated effects, which denoises the weak ones.
 3. **Reliability shrinkage.**  A James-Stein style factor per perturbation:
    effects that replicate across source lines survive, effects that do not are
    pulled towards the generic response.
-4. **Context modulation.**  Rescale each gene by how its baseline expression in
+4. **Program-basis denoising.**  Project onto the leading directions of the
+   source response matrix, blended rather than applied outright.
+5. **Context modulation.**  Rescale each gene by how its baseline expression in
    the target compares to the sources.  A gene that is silent in the target
    cannot be repressed there, however reliably it moves elsewhere.
-5. **On-target knockdown.**  CRISPRi represses the targeted transcript itself.
-   That is applied in count space, where a knockdown is multiplicative.
-6. **Global calibration.**  One scalar trading effect magnitude against error,
+6. **On-target knockdown.**  CRISPRi represses the targeted transcript itself,
+   applied in count space where a knockdown is multiplicative, at the per-gene
+   efficiency measured in the source lines.
+7. **Global calibration.**  One scalar trading effect magnitude against error,
    fitted on source lines.
+
+A knockdown absent from *every* source line takes a separate route
+(:meth:`ContextTransferModel._from_neighbours`): the gene is still measured, so
+its behaviour across the rest of the knockdown panel identifies functionally
+related genes whose own knockdowns stand in for it.
 """
 
 from __future__ import annotations
@@ -61,6 +68,7 @@ class Hyper:
     on_target: bool = True    # apply explicit on-target knockdown
     rank: int = 80            # program-basis rank used for denoising
     rank_mix: float = 0.0     # how much of the denoised effect to blend in (0 -> off)
+    unseen_k: int = 25        # neighbours used for a knockdown absent from every source
 
 
 # --------------------------------------------------------------------------
@@ -85,6 +93,8 @@ class SourceBank:
     kd_fallback: float           # global median residual, used where kd is NaN
     basis: np.ndarray            # (max_rank, G) response-program basis
     center: np.ndarray           # (G,) mean effect the basis is taken around
+    gene_sig: np.ndarray         # (G, n_pert) each gene's response across knockdowns
+    pert_col: np.ndarray         # (n_pert,) gene column of each knocked-down gene, -1 if absent
 
     MAX_RANK = 400
 
@@ -124,10 +134,23 @@ class SourceBank:
         basis = randomized_svd(consensus - center, n_components=k,
                                random_state=0)[2]
 
+        # How each *gene* behaves across the whole knockdown panel.  Genes in one
+        # complex move together when their partners are silenced, so this is a
+        # functional similarity that never touches a gene's own knockdown -- the
+        # only handle available for a perturbation absent from every source line.
+        gene_sig = (consensus - center).T.copy()
+        gene_sig -= gene_sig.mean(axis=1, keepdims=True)
+        gene_sig /= np.linalg.norm(gene_sig, axis=1, keepdims=True) + EPS
+
+        symbols = sources[0].symbols
+        col = {sym: i for i, sym in enumerate(symbols)}
+        pert_col = np.array([col.get(n, -1) for n in names])
+
         kd, kd_fallback = cls._knockdown(sources, names)
         return cls(names=names, consensus=consensus, global_effect=global_effect,
                    reliability=reliability, sim=sim, kd=kd,
-                   kd_fallback=kd_fallback, basis=basis, center=center)
+                   kd_fallback=kd_fallback, basis=basis, center=center,
+                   gene_sig=gene_sig, pert_col=pert_col)
 
     @staticmethod
     def _reliability(consensus: np.ndarray, sources: list[CellLine],
@@ -218,6 +241,8 @@ class ContextTransferModel:
     _target_mu: np.ndarray | None = None     # (G,)
     _kd: np.ndarray | None = None            # (n_pert,) residual on-target expression
     _kd_fallback: float = 0.15               # used for perturbations never seen
+    _gene_sig: np.ndarray | None = None      # (G, n_pert) per-gene response profile
+    _pert_col: np.ndarray | None = None      # (n_pert,) gene column of each knockdown
 
     # ---------------------------------------------------------------- fitting
 
@@ -239,6 +264,8 @@ class ContextTransferModel:
         self._modulation = self._context_modulation(sources, target_mu)
         self._kd = bank.kd
         self._kd_fallback = bank.kd_fallback
+        self._gene_sig = bank.gene_sig
+        self._pert_col = bank.pert_col
         return self
 
     def context_weights(self, sources: list[CellLine],
@@ -329,6 +356,32 @@ class ContextTransferModel:
 
     # ------------------------------------------------------------- prediction
 
+    def _from_neighbours(self, gene: int | None) -> np.ndarray:
+        """Predict a knockdown that appears in no source line at all.
+
+        Nothing in the training data names this gene as a perturbation, but the
+        gene is still *measured*, so we know how it responds to every other
+        knockdown.  Genes acting together move together under perturbation --
+        the observation the whole Perturb-seq literature is built on -- so the
+        knockdowns whose targets behave most like this one are the best available
+        stand-ins for its own.  This uses no measurement of the gene being
+        silenced, only of the gene being watched.
+        """
+        if gene is None or self._gene_sig is None:
+            return self._global
+
+        seen = np.flatnonzero(self._pert_col >= 0)
+        if seen.size == 0:
+            return self._global
+
+        sim = self._gene_sig[self._pert_col[seen]] @ self._gene_sig[gene]
+        k = min(self.hp.unseen_k, seen.size)
+        top = seen[np.argpartition(-sim, k - 1)[:k]]
+        w = np.clip(self._gene_sig[self._pert_col[top]] @ self._gene_sig[gene], 0, None)
+        if w.sum() <= EPS:
+            return self._global
+        return (w / w.sum()) @ self._consensus[top]
+
     def predict(self, pert_names: np.ndarray) -> np.ndarray:
         """Predicted effect (delta from the target's control mean) per perturbation."""
         assert self._consensus is not None, "call fit() first"
@@ -339,10 +392,8 @@ class ContextTransferModel:
         out = np.zeros((pert_names.size, mu.size))
         for i, p in enumerate(pert_names):
             j = index.get(p)
-            # A gene never perturbed in any source line falls back on the generic
-            # response; smoothing has already spread neighbour information into
-            # every row of the consensus, so seen genes carry more than that.
-            base = self._consensus[j] if j is not None else self._global
+            base = (self._consensus[j] if j is not None
+                    else self._from_neighbours(col.get(p)))
             d = (1 - self.hp.use_global) * base + self.hp.use_global * self._global
             d = d * self._modulation
             out[i] = self.hp.beta * d
