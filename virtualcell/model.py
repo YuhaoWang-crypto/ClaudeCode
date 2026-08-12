@@ -69,6 +69,7 @@ class Hyper:
     rank: int = 80            # program-basis rank used for denoising
     rank_mix: float = 0.0     # how much of the denoised effect to blend in (0 -> off)
     unseen_k: int = 25        # neighbours used for a knockdown absent from every source
+    renorm: float = 0.0       # restore each effect's pre-denoising magnitude (0 -> off)
 
 
 # --------------------------------------------------------------------------
@@ -315,6 +316,19 @@ class ContextTransferModel:
             projected = (centred @ v.T) @ v + bank.center
             consensus = ((1 - self.hp.rank_mix) * consensus
                          + self.hp.rank_mix * projected)
+
+        if self.hp.renorm > 0:
+            # Smoothing, shrinkage and projection all pull effects toward each
+            # other, which shrinks how much predicted magnitudes differ between
+            # perturbations.  Discrimination is a retrieval task scored by L1
+            # distance, so that spread is most of the signal: if every prediction
+            # comes out the same size, the nearest measured effect is whichever
+            # one happens to be that size, not the right one.  Restoring each
+            # row's original norm keeps the denoised *shape* without paying for
+            # it in magnitude.
+            before = np.linalg.norm(bank.consensus, axis=1, keepdims=True)
+            after = np.linalg.norm(consensus, axis=1, keepdims=True)
+            consensus = consensus * (before / (after + EPS)) ** self.hp.renorm
 
         self._pert_names = bank.names
         self._consensus = consensus
