@@ -152,7 +152,10 @@ def _inner_score(hp: Hyper, sources: list[CellLine], symbols: np.ndarray,
         model = ContextTransferModel(hp).fit(rest, held.mu, symbols,
                                              bank=cache[bkey])
         user_m = evaluate(model.predict(sel), held, sel, truth, symbols)
-        scores.append(M.vcc_score(user_m, base_m)["avg_score"])
+        # unclipped: see vcc_score. With the leaderboard's floor, a metric that
+        # is already worse than baseline is free to get worse still, and the
+        # search buys discrimination by throwing MAE away entirely.
+        scores.append(M.vcc_score(user_m, base_m, clip=False)["avg_score"])
     return float(np.mean(scores))
 
 
@@ -248,9 +251,10 @@ def run(regime: str = "context", n_eval: int | None = None, tune_eval: int = 400
             base = fold["global mean [challenge baseline]"]
             for name, m in fold.items():
                 s = M.vcc_score(m, base)["avg_score"]
+                bal = M.vcc_score(m, base, clip=False)["avg_score"]
                 print(f"    {name:<34} PDS={m['discrimination_score_l1']:.3f}  "
                       f"ovl@100={m['overlap_at_100']:.3f}  "
-                      f"MAE={m['mae']:.4f}  score={s:.3f}")
+                      f"MAE={m['mae']:.4f}  score={s:.3f}  balanced={bal:+.3f}")
             print(f"    ({time.time() - t0:.0f}s)")
 
     return {"results": results, "hyper": chosen, "eval_perts": eval_perts,

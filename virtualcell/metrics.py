@@ -250,11 +250,36 @@ BEST_ZERO = {"mae", "mae_delta", "mse"}
 BEST_ONE = {"discrimination_score_l1", "pearson_delta", "overlap_at_100",
             "overlap_at_50", "de_direction_match", "de_spearman_lfc"}
 
+#: The three metrics the challenge commentary names, one per row of its Figure
+#: 1C: differential expression score, perturbation discrimination score, and
+#: mean absolute error.  Scoring on these keeps MAE at a third of the total.
+#: Averaging the whole suite instead would put four DE-derived metrics against
+#: one error metric and quietly make error almost free to give up.
+HEADLINE = ("discrimination_score_l1", "overlap_at_100", "mae")
 
-def vcc_score(user: dict[str, float], base: dict[str, float]) -> dict[str, float]:
-    """Renormalise a model's metrics against a baseline, as ``cell_eval._score``."""
+
+def vcc_score(user: dict[str, float], base: dict[str, float],
+              clip: bool = True,
+              metrics: tuple[str, ...] | None = HEADLINE) -> dict[str, float]:
+    """Renormalise a model's metrics against a baseline, as ``cell_eval._score``.
+
+    ``clip=True`` reproduces the leaderboard exactly: a metric worse than the
+    reference model contributes zero rather than a negative number.  That floor
+    is right for *reporting* but wrong for *tuning* -- once a metric is already
+    worse than baseline, making it arbitrarily worse costs nothing, so a search
+    will happily trade all of MAE away for a little discrimination.  The
+    challenge guards against that by enforcing minimum thresholds on every
+    metric ("discouraging models that perform well on one metric at the expense
+    of the others"); since the thresholds are not published, model selection
+    here uses ``clip=False``, where overshooting is genuinely expensive.
+
+    ``metrics`` defaults to :data:`HEADLINE`, the three the commentary names.
+    Pass ``None`` to average every metric present.
+    """
     out: dict[str, float] = {}
     for name, value in user.items():
+        if metrics is not None and name not in metrics:
+            continue
         b = base[name]
         if name in BEST_ZERO:
             s = 1.0 - value / b if b != 0 else 0.0
@@ -262,6 +287,7 @@ def vcc_score(user: dict[str, float], base: dict[str, float]) -> dict[str, float
             s = (value - b) / (1.0 - b) if b != 1 else 0.0
         else:
             continue
-        out[name] = float(np.clip(np.nan_to_num(s), 0.0, None))
+        s = float(np.nan_to_num(s))
+        out[name] = float(np.clip(s, 0.0, None)) if clip else s
     out["avg_score"] = float(np.mean(list(out.values()))) if out else 0.0
     return out

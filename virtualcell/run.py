@@ -26,25 +26,33 @@ def summarise(payload: dict) -> str:
         fold = results[name]
         out.append(f"\n### held-out cell line: {name}\n")
         head = f"{'model':<34}" + "".join(f"{m[:13]:>15}" for m in METRIC_ORDER)
-        out.append(head + f"{'VCC score':>12}")
-        out.append("-" * len(head + f"{'VCC score':>12}"))
+        out.append(head + f"{'VCC score':>12}{'balanced':>11}")
+        out.append("-" * len(head + f"{'VCC score':>12}{'balanced':>11}"))
         for model in models:
             m = fold[model]
             score = M.vcc_score(m, fold[baseline])["avg_score"]
+            bal = M.vcc_score(m, fold[baseline], clip=False)["avg_score"]
             row = f"{model:<34}" + "".join(f"{m[k]:>15.4f}" for k in METRIC_ORDER)
-            out.append(row + f"{score:>12.4f}")
+            out.append(row + f"{score:>12.4f}{bal:>+11.4f}")
 
     out.append("\n### mean across all four held-out cell lines\n")
     head = f"{'model':<34}" + "".join(f"{m[:13]:>15}" for m in METRIC_ORDER)
-    out.append(head + f"{'VCC score':>12}")
-    out.append("-" * len(head + f"{'VCC score':>12}"))
+    out.append(head + f"{'VCC score':>12}{'balanced':>11}")
+    out.append("-" * len(head + f"{'VCC score':>12}{'balanced':>11}"))
     for model in models:
         avg = {k: float(np.mean([results[c][model][k] for c in lines]))
                for k in METRIC_ORDER}
         scores = [M.vcc_score(results[c][model], results[c][baseline])["avg_score"]
                   for c in lines]
+        bals = [M.vcc_score(results[c][model], results[c][baseline],
+                            clip=False)["avg_score"] for c in lines]
         row = f"{model:<34}" + "".join(f"{avg[k]:>15.4f}" for k in METRIC_ORDER)
-        out.append(row + f"{np.mean(scores):>12.4f}")
+        out.append(row + f"{np.mean(scores):>12.4f}{np.mean(bals):>+11.4f}")
+    out.append("\nVCC score = mean over the three headline metrics "
+               "(discrimination, DE overlap@100, MAE), each renormalised against "
+               "the challenge baseline.\n'balanced' is the same without the "
+               "leaderboard's clip-at-zero, so a metric worse than baseline "
+               "counts against the model.")
     return "\n".join(out)
 
 
