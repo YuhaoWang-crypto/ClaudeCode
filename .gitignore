@@ -5,3 +5,4 @@ __pycache__/
 *.pyc
 results_after.log
 singlecell_fetch.log
+stack_bench.log
