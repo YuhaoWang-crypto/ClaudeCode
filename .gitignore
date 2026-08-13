@@ -6,3 +6,4 @@ __pycache__/
 results_after.log
 singlecell_fetch.log
 stack_bench.log
+demos/out/
