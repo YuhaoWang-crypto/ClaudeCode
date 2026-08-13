@@ -478,6 +478,74 @@ control-replicate empirical null. That avoids the specific defect, but it means
 to leaderboard DES**. The deviation was already documented in `metrics.py`;
 their finding sharpens why it matters.
 
+## Head-to-head against Stack (Arc's foundation model)
+
+[Stack](https://doi.org/10.64898/2026.01.09.698608) is Arc's in-context
+single-cell foundation model — 149M cells pre-trained, tabular attention,
+released weights. It was run here on CPU from the published
+`Stack-Large-Aligned` checkpoint, given exactly the information this project's
+model gets: perturbed cells from the three source lines as context, and the
+held-out line's non-targeting controls as the query.
+
+K562 held out, 100 knockdowns, restricted to the 4,606 of 6,642 genes Stack's
+gene universe covers — every model scored on that same subset, with the DE null
+recomputed on it:
+
+| model | discrimination | DE overlap@100 | MAE | VCC score |
+|---|---|---|---|---|
+| control (Δ=0) | 0.506 | 0.004 | **0.0427** | 0.032 |
+| global mean *(challenge baseline)* | 0.506 | 0.053 | 0.0472 | 0.000 |
+| naive cross-line transfer | **0.713** | 0.222 | 0.0535 | 0.199 |
+| **ContextTransfer** | 0.667 | **0.267** | 0.0425 | **0.217** |
+| **Stack (Arc, in-context)** | 0.505 | 0.040 | 0.0605 | 0.000 |
+
+**Stack scores at chance on discrimination (0.505) and below the trivial
+baseline on DE overlap and error.**
+
+The gene restriction was applied because an unrestricted comparison would have
+scored the ~31% of genes outside Stack's universe as zero effect, penalising it
+for a gene-space mismatch. It changed almost nothing — Stack's discrimination
+0.505 either way, DE overlap 0.032 → 0.040 — so the mismatch is not the
+explanation.
+
+The mechanism is visible directly: **Stack produces no on-target knockdown.**
+The silenced gene sits at ≈0 where CRISPRi drives it to ≈ −2 (measured here:
+82–91% knockdown). Its predictions are perturbation-*specific* — pairwise effect
+correlations of 0.26–0.44, not identical outputs — but they do not encode "this
+gene has been silenced".
+
+### What this does and does not show
+
+**It shows** that `Stack-Large-Aligned` does not transfer to CRISPRi knockdown
+prediction out of the box, in the in-context configuration its own tutorial
+prescribes.
+
+**It does not show** that Stack is a weak model. Four things about this test cut
+against it, and all four are consequences of running it here rather than
+statements about the model:
+
+1. **Modality.** Stack was post-trained on chemical and cytokine perturbations,
+   and *Perturb Sapiens* is drug and cytokine. Genetic knockdown is within its
+   stated in-context scope but is not what it was aligned on. Its own paper
+   makes no claim about CRISPRi.
+2. **Context size.** 20 cells per perturbation per source line, forced by disk.
+   In-context learning may need more.
+3. **Configuration.** Tutorial defaults (`prompt-ratio` 0.25, `context-ratio`
+   0.4, 5 steps). No tuning was done — where this project's own model had its
+   switches cross-validated.
+4. **Query size.** 500 control cells, forced by CPU throughput.
+
+A fair reading: **on this task, in this configuration, a 650M-parameter
+foundation model is beaten by averaging the effect measured in three other cell
+lines.** That is consistent with what Arc reported for its own 2025 challenge —
+that purely learned approaches did not consistently outperform statistical
+baselines — and with the independent efforts that found the same for STATE
+(PDS 0.597 against a consensus baseline's 0.698).
+
+Reproduced with `python -m virtualcell.score_stack`; see `USAGE.md` for the
+generation command, and note that `virtualcell/patch_stack.py` is required
+because released `arc-stack` 0.1.3 crashes partway through generation.
+
 ## Limitations
 
 - **Depth.** 44–110 cells and ~11–14k UMI per perturbation, against the
