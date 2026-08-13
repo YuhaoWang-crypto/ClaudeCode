@@ -76,6 +76,36 @@ control on the same trade-off.
 | Reliability shrinkage toward the generic response, at full strength | destroys discrimination — shrunk perturbations become mutually indistinguishable |
 | Heavy smoothing / low-rank projection alone | same failure: both blur perturbations together |
 
+## Cross-checked against two independent efforts
+
+Two independent implementations of this task tested this methodology directly.
+Their corrections are folded in above and in `reference/model-design.md`; the
+full reconciliation with verification numbers is in `virtualcell/RESULTS.md`.
+The load-bearing points:
+
+- **Discrimination pays for across-perturbation magnitude spread, and this is
+  the single biggest lever on it.** Measured truth has a magnitude-spread CV of
+  ~0.45. A model that compresses toward ~0.15 scores at chance for unseen
+  perturbations *by construction*, whatever its biology. Check the CV of your
+  predicted effect norms before concluding anything about mechanism.
+- **Which operating point cross-validation picks is decided by how the objective
+  prices MAE.** Price it at a third and the search compresses spread; clip it to
+  zero and the search expands spread. Same code, opposite conclusion. Report
+  which you used.
+- **The seen-target advantage of any transfer model is largely a scale
+  artifact.** Independently found twice: at matched output scale, a plain
+  cross-context consensus reproduces almost all of it. Always give every
+  baseline its own best scale before claiming an architectural win.
+- **`cell-eval` computes DES by Wilcoxon on the cells you submit.** Replicated
+  pseudobulk means have zero within-group variance and manufacture significance
+  — a predictor of nothing scores 0.083 that way. Submit cells with realistic
+  dispersion, and never compare a pseudobulk DE-overlap number to a leaderboard
+  DES.
+- **External knowledge is what carries the unseen-perturbation regime.** Purely
+  data-derived gene similarity reaches ~0.57 discrimination there; STRING +
+  Reactome + ESM-2 embeddings reach ~0.67. Those same blocks contribute nothing
+  measurable where transfer is possible.
+
 ## Honesty requirements
 
 Every claim in an output must be labelled, in the style this repository already

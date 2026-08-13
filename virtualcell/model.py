@@ -381,6 +381,12 @@ class ContextTransferModel:
         stand-ins for its own.  This uses no measurement of the gene being
         silenced, only of the gene being watched.
         """
+        # Known gap: ``renorm`` acts on the consensus matrix and so never reaches
+        # this branch, meaning the magnitude spread that neighbour-averaging
+        # flattens is not restored for unseen knockdowns.  Since discrimination
+        # is L1 retrieval and pays for that spread, this is why unseen
+        # discrimination sits at chance here; restoring it belongs in this
+        # function, not in _build_consensus.
         if gene is None or self._gene_sig is None:
             return self._global
 

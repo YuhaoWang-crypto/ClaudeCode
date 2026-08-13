@@ -356,6 +356,128 @@ across the rest of the knockdown panel recovers real signal — DE overlap 0.060
 (chance) → 0.132 on RPE1 held out. This uses no measurement of the gene *as
 perturbed*, only of the gene *as observed*, so it is leakage-free.
 
+## Reconciliation with two independent efforts
+
+Two independent implementations of this task were later compared against this
+one. Both name this repository at commit `a177409` and test its mechanisms
+directly. They are further along: they score with Arc's actual `cell-eval 0.8.2`
++ `pdex 0.3.0` on real perturbed cells, with STATE as a reference arm, where
+this work is pseudobulk with a ported metric. Where they correct this work, the
+corrections are recorded below with the verification run against this data.
+
+### Independently confirmed
+
+Separate implementations reaching the same numbers is the strongest evidence
+available here.
+
+| finding | theirs | here |
+|---|---|---|
+| shared gene space | 6,642 | 6,642 |
+| magnitude-spread CV of the measured truth | 0.444 | **0.451** |
+| the seen-target advantage is largely a scale artifact | consensus 0.831 vs model 0.838 at matched scale | naive 0.6495 vs 0.6235; naive wins the clipped composite |
+| more contexts buy DE recovery, not discrimination | cites this repo | +34.3% Pearson vs +1.1% discrimination |
+| PDS is scale-sensitive and exploitable | measured | measured |
+| simple baselines are very hard to beat on MAE | all arms fail | naive fails on all four folds |
+
+### Confirmed against this data: the chance-level unseen discrimination
+
+They diagnosed this repo's chance-level unseen-perturbation discrimination
+(0.5019) as **compressed across-perturbation magnitude spread**, since PDS is L1
+retrieval and a constant predictor scores exactly chance by construction. That
+was checked here rather than taken on trust, on K562 held out double-blind:
+
+| | magnitude-spread CV | discrimination |
+|---|---|---|
+| measured truth | 0.451 | — |
+| ContextTransfer as cross-validated | 0.171 | 0.5053 |
+| with shrinkage and global blending off | **0.350** | 0.5192 |
+| …and scale ×2 | 0.338 | **0.5806** |
+
+Their predicted scaling curve replicates almost exactly — they forecast
+0.508 → 0.516 → 0.525 at β = 1/2/3; measured here: **0.5053 → 0.5108 → 0.5190**.
+
+The mechanism is confirmed by this repo's own tuning log. In the **double-blind**
+regime cross-validation selected `shrink` 1.0–2.0 (three of four folds),
+`use_global` 0.15–0.35 (all folds) and `beta` 0.6 (all folds) — every one of
+which compresses spread. In the **context** regime it selected the opposite
+(`use_global` 0 on all folds, `shrink` 0 on three of four).
+
+**One refinement to their account.** They describe the compression as this
+repo's deliberate design choice. It was not hand-picked: cross-validation
+selected it, *because this objective prices MAE at one third while theirs is
+clipped to zero*. Same code, different objective, opposite operating point. The
+disagreement is not about mechanism — it is about what to optimise.
+
+**And an implementation gap this surfaced.** The `renorm` switch operates on the
+consensus matrix, so it does not touch the unseen-perturbation path at all —
+`renorm=1` changes nothing when the prediction comes from `_from_neighbours`
+(CV 0.350 either way, above). Restoring spread for unseen targets has to be done
+in that branch, and currently is not.
+
+### What their tests refute here, and the scope of it
+
+Six mechanisms from this repo were implemented and ablated in their harness.
+Four cost them performance:
+
+| mechanism | their result |
+|---|---|
+| gene-signature neighbour routing | unseen PDS 0.566 vs 0.669 for their embedding kNN |
+| reliability shrinkage | **−0.076 PDS**, their largest single loss |
+| on-target knockdown in count space | −0.018 DES on all four folds |
+| perturbation-neighbour smoothing (seen targets) | −0.015 PDS |
+| context modulation | −0.0002 PDS |
+| effect-strength-aware source weighting | −0.015 PDS |
+
+These are fair tests and the results are accepted. Two scope notes that are
+factual rather than defensive:
+
+- Each was measured *inside their architecture at their operating point* (scale
+  3.5×, MAE clipped to zero). At an operating point that prices MAE at zero,
+  anything compressing magnitude spread costs PDS by construction. This repo's
+  cross-validation selected shrinkage in the double-blind regime under an
+  objective that prices MAE at a third. "Refuted" is objective-specific.
+- Their embedding kNN beats this repo's gene-signature routing by 0.103 unseen
+  PDS, but requires STRING v12.0, Reactome and ESM-2. This repo's route uses no
+  external data at all. That is a difference in what must be assembled, not only
+  in score. Their own ablation is the relevant comparison: the network blocks
+  contribute *nothing measurable* where transfer is possible, and 0.107 PDS
+  where it is not.
+
+Pushing this model's operating point as far as it goes reaches ~0.58 unseen
+discrimination, not their 0.66. The remaining gap is the external knowledge —
+which their ablations independently confirm is where it comes from.
+
+### The one genuine open disagreement: whether to accept the MAE clip
+
+They argue the clip should be accepted: the full frontier gives a maximum
+attainable `s_MAE` of 0.071, at 0.4× scale, where discrimination collapses to
+0.554 — the error channel is worth less than a ninth of the discrimination
+channel, and buying it costs 0.30 PDS. Even an oracle per-gene scale caps
+`s_MAE` at 0.05–0.11.
+
+This work took the opposite view, on the grounds that the challenge
+"enforce[s] minimum thresholds on all metrics … discouraging models that perform
+well on one metric at the expense of the others", and a model failing one
+threshold on every fold is exposed. They flag the same risk against their own
+approach.
+
+**Neither position is resolvable from public information.** The thresholds are
+undisclosed. This is a bet on an unpublished rule, not a technical dispute, and
+it should be described that way rather than settled by either report.
+
+### A measurement difference that matters for comparing numbers
+
+They establish that `cell-eval` computes DES by running a Wilcoxon test **on the
+cells you submit**, so a pseudobulk mean replicated across identical rows has
+zero within-group variance and *manufactures* significance — a predictor that
+predicts nothing scores DES 0.083 that way and 0.000 honestly.
+
+This work never submits cells; it ranks genes by predicted |log2FC| against a
+control-replicate empirical null. That avoids the specific defect, but it means
+**the DE overlap numbers here are not `cell-eval` DES and must not be compared
+to leaderboard DES**. The deviation was already documented in `metrics.py`;
+their finding sharpens why it matters.
+
 ## Limitations
 
 - **Depth.** 44–110 cells and ~11–14k UMI per perturbation, against the
