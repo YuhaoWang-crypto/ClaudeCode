@@ -226,6 +226,50 @@ def helical_bundle_binder_plan(analyte: str, smiles: str, n_helices: int = 5,
     }
 
 
+def enumerate_split_sensor_library(binder_seq: str, helix_boundaries: list,
+                                   splits: list, copied_repeat_aa: list,
+                                   truncation_aa: list, interfaces: list,
+                                   linker: str = "GG", id_prefix: str = "D3S",
+                                   cpgfp: str = CPGFP) -> list:
+    """Enumerate a first-round split+cpGFP construct matrix (the blueprint's 24-construct
+    plate): outer product of split point x copied-helix repeat x terminal truncation x
+    interface state. Single-chain topology: frag_N - linker - cpGFP - linker - frag_C.
+
+    - splits: list of split_after_helix (e.g. [1,3,5] = 1+5, 3+3, 5+1)
+    - copied_repeat_aa: e.g. [0, 7] -> duplicate that many residues at the split junction
+    - truncation_aa: e.g. [0, 3] -> trim that many residues from the C-fragment terminus
+    - interfaces: e.g. ["WT", "weak1"] -> weak1 applies one interface-weakening substitution
+      (position is structure-dependent; here a labeled placeholder off-pocket residue)
+    """
+    lib, n = [], 0
+    for sp in splits:
+        fn0, fc0 = split_helical_bundle(binder_seq, helix_boundaries, sp)
+        for rep in copied_repeat_aa:
+            for trunc in truncation_aa:
+                for iface in interfaces:
+                    fn, fc = fn0, fc0
+                    knobs = {"split_after_helix": sp, "copied_repeat_aa": rep,
+                             "truncation_aa": trunc, "interface": iface}
+                    if rep > 0:                     # competing local helix at the junction
+                        seg = (max(0, len(fn) - rep), len(fn))
+                        fn = fragment_duplication(fn, seg)
+                    if trunc > 0:
+                        fc = truncate_terminus(fc, trunc, "C")
+                    if iface == "weak1" and len(fc) > 2:
+                        fc = interface_weakening(fc, [1])   # ⚠️ placeholder off-pocket position
+                    n += 1
+                    single_chain = fn + linker + cpgfp + linker + fc
+                    lib.append({
+                        "id": f"{id_prefix}-{n:03d}",
+                        "split": f"{sp}+{len(helix_boundaries) - sp}",
+                        **knobs,
+                        "frag_n_len": len(fn), "frag_c_len": len(fc),
+                        "construct_len": len(single_chain),
+                        "sequence": single_chain,
+                    })
+    return lib
+
+
 def recommend_transducer(analyte_class: str, binder_topology: str,
                          desired_readout: str = "fluorescent") -> dict:
     """Pick a coupling mechanism from the paper's menu given the binder's properties."""

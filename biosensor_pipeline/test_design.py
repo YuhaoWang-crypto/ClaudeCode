@@ -219,6 +219,26 @@ def test_end_to_end_sensor_demo():
     print("[OK] end-to-end demo: binder spec -> split+cpGFP sensor + knobs -> checklist")
 
 
+def test_25ohd3_blueprint_demo():
+    """The 25(OH)D3 blueprint: 24-construct split library + gates assemble correctly."""
+    from .transducer import enumerate_split_sensor_library
+    from .demo_sensor_25ohd3 import run, _placeholder_6helix
+    bundle, boundaries = _placeholder_6helix()
+    assert len(boundaries) == 6
+    lib = enumerate_split_sensor_library(bundle, boundaries, splits=[1, 3, 5],
+                                         copied_repeat_aa=[0, 7], truncation_aa=[0, 3],
+                                         interfaces=["WT", "weak1"])
+    assert len(lib) == 24 and lib[0]["id"] == "D3S-001" and lib[-1]["id"] == "D3S-024"
+    # repeat=7 lengthens the N-fragment vs repeat=0 at the same split
+    s15_r0 = next(c for c in lib if c["split"] == "1+5" and c["copied_repeat_aa"] == 0
+                  and c["truncation_aa"] == 0 and c["interface"] == "WT")
+    s15_r7 = next(c for c in lib if c["split"] == "1+5" and c["copied_repeat_aa"] == 7
+                  and c["truncation_aa"] == 0 and c["interface"] == "WT")
+    assert s15_r7["frag_n_len"] == s15_r0["frag_n_len"] + 7
+    run()  # writes biosensor_out/demo_sensor_25ohd3.json
+    print("[OK] 25(OH)D3 blueprint: 24-construct library + A-E gates + neighbour panel")
+
+
 if __name__ == "__main__":
     test_circular_permutation_conserves_residues()
     test_insertion_preserves_reporter()
@@ -235,4 +255,5 @@ if __name__ == "__main__":
     test_transducer_split_bundle()
     test_transducer_induced_folding_and_metal()
     test_end_to_end_sensor_demo()
+    test_25ohd3_blueprint_demo()
     print("\nALL TESTS PASSED ✅")

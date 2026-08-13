@@ -1,0 +1,429 @@
+{
+  "analyte": "25(OH)D3",
+  "smiles": "C[C@H](CCCC(C)(C)O)[C@H]1CC[C@@H]\\2[C@@]1(CCC/C2=C\\C=C/3\\C[C@H](CCC3=C)O)C",
+  "polar_anchors": [
+    "3b-OH (A-ring)",
+    "25-OH (side-chain terminus)"
+  ],
+  "measurement": {
+    "measurand": "sensor-accessible 25(OH)D3 in buffer (define free vs total)",
+    "conc_window": "10 nM - 10 uM; target mid-point 0.1-1 uM",
+    "readout": "cpGFP fluorescence-ON, ex ~488 nm",
+    "dynamic_range_gate": "round-1 dF/F0 >= 2; optimize toward >= 5",
+    "background_gate": "apo baseline low, but absolute brightness >= 10x blank",
+    "response_time_goal": "<=5 min to 90% (design goal, must be measured)",
+    "reversibility": "signal returns on dilution / competitor displacement",
+    "logP_risk": "XLogP ~6.2 -> aqueous delivery + nonspecific adsorption are first-order risks"
+  },
+  "neighbour_panel": {
+    "VitaminD3": "no 25-OH -> tests the side-chain polar anchor",
+    "25OHD2": "D2 side chain (24-Me, 22,23-ene) -> D2/D3 discrimination",
+    "1,25OH2D3": "extra 1a-OH (A-ring) -> the active hormone",
+    "24R,25OH2D3": "extra 24-OH on the side chain",
+    "3-epi-25OHD3": "3-OH stereochemistry flipped -> hardest stereoselectivity test"
+  },
+  "cdl2_role": {
+    "template": "CDL2.2 / PDB 5IEN (designed 25(OH)D3 binder, ~300 nM; 2.09 A)",
+    "use_for": [
+      "pocket geometry / hydrophobic burial reference",
+      "binding-assay positive control",
+      "local negative-design parent (6-10 pocket sites) as a fast selectivity baseline"
+    ],
+    "do_not_claim": [
+      "that it is a 6-helix bundle",
+      "that it splits directly",
+      "that it has strong apo/holo switching",
+      "that it already is selective"
+    ],
+    "read": "5IEN holo pocket is reproducible but under-discriminates D3 / 25OHD2 / 3-epi; prove binding+selectivity FIRST, then add fluorescent transduction."
+  },
+  "binder_spec": {
+    "analyte": "25(OH)D3",
+    "smiles": "C[C@H](CCCC(C)(C)O)[C@H]1CC[C@@H]\\2[C@@]1(CCC/C2=C\\C=C/3\\C[C@H](CCC3=C)O)C",
+    "topology": "6-helix bundle",
+    "length_aa": 130,
+    "steps": [
+      "1. CONFORMERS: generate a representative conformer ensemble of the ligand.",
+      "2. RIF: enumerate energetically-favorable side-chain contacts (rotamer interaction field); mark the privileged H-bonds to ['3b-OH (A-ring)', '25-OH (side-chain terminus)'] to enforce/upweight.",
+      "3. GROW: pick a RIF anchor as the folding root; Monte-Carlo fragment assembly folds the bundle OUTWARD from it, scoring folding (RPX) + binding (RIF) jointly; reassign the root on stalls to explore topologies.",
+      "4. SEQUENCE: Rosetta + ProteinMPNN on the fold+bind backbones.",
+      "5. FILTER: apo folding, interaction energy, H-bond count/geometry, shape complementarity; check design vs AlphaFold2/Boltz prediction."
+    ],
+    "tools": [
+      "ProBuilder (RIF + RPX fragment assembly) or RFdiffusion-AllAtom",
+      "LigandMPNN / ProteinMPNN",
+      "Boltz-2 co-fold as the validator (not generator)"
+    ],
+    "why_bundle": "helical bundles dominate natural small-molecule binders (GPCR/NR), fold robustly, and SPLIT CLEANLY -> directly sensor-ready.",
+    "label": "\u26a0\ufe0f backbone generation needs ProBuilder/RFdiffusionAA (not run here); this is the recipe + the reason our bare-ligand Boltz de-novo runs failed.",
+    "affinity_targets": {
+      "Kd_25OHD3": "50-500 nM (do not chase max affinity)",
+      "compute_gate": "ddG(decoy-target) >= +0.5 kcal/mol to advance",
+      "assay_selectivity": "each neighbour < 10% of target response",
+      "split_ready": ">=3 inter-helix split sites that don't cut the pocket"
+    },
+    "negative_design": {
+      "VitaminD3": "focus on the 25-OH anchor: no water/side-chain rescue when it's absent",
+      "3-epi-25OHD3": "focus on 3-OH direction + local steric crowding, not bulk hydrophobicity"
+    }
+  },
+  "transducer": {
+    "analyte_class": "small_molecule",
+    "binder_topology": "helical_bundle",
+    "recommended": "split-bundle reassembly (cpGFP)",
+    "background_knobs": [
+      "fragment_duplication",
+      "interface_weakening",
+      "terminal_truncation"
+    ],
+    "note": "helical bundles split cleanly -> best for split sensors; marginal-stability binders -> best for induced folding. Tune background/response with the knobs."
+  },
+  "first_round_library": [
+    {
+      "id": "D3S-001",
+      "split": "1+5",
+      "split_after_helix": 1,
+      "copied_repeat_aa": 0,
+      "truncation_aa": 0,
+      "interface": "WT",
+      "frag_n_len": 24,
+      "frag_c_len": 116,
+      "construct_len": 234,
+      "sequence": "EIAALKQEIAALKKENAALKGSGGGGNVYIKADKQKNGIKANFKIRHNIEDGGVQLAYHYQQNTPIGDGPVLLPDNHYLSVQSKLSKDPNEKRDHMVLLEFVTAAGITLGMDELYKGGEIAALKQEIAALKKENAALKGSGGEIAALKQEIAALKKENAALKGSGGEIAALKQEIAALKKENAALKGSGGEIAALKQEIAALKKENAALKGSGGEIAALKQEIAALKKENAALK"
+    },
+    {
+      "id": "D3S-002",
+      "split": "1+5",
+      "split_after_helix": 1,
+      "copied_repeat_aa": 0,
+      "truncation_aa": 0,
+      "interface": "weak1",
+      "frag_n_len": 24,
+      "frag_c_len": 116,
+      "construct_len": 234,
+      "sequence": "EIAALKQEIAALKKENAALKGSGGGGNVYIKADKQKNGIKANFKIRHNIEDGGVQLAYHYQQNTPIGDGPVLLPDNHYLSVQSKLSKDPNEKRDHMVLLEFVTAAGITLGMDELYKGGESAALKQEIAALKKENAALKGSGGEIAALKQEIAALKKENAALKGSGGEIAALKQEIAALKKENAALKGSGGEIAALKQEIAALKKENAALKGSGGEIAALKQEIAALKKENAALK"
+    },
+    {
+      "id": "D3S-003",
+      "split": "1+5",
+      "split_after_helix": 1,
+      "copied_repeat_aa": 0,
+      "truncation_aa": 3,
+      "interface": "WT",
+      "frag_n_len": 24,
+      "frag_c_len": 113,
+      "construct_len": 231,
+      "sequence": "EIAALKQEIAALKKENAALKGSGGGGNVYIKADKQKNGIKANFKIRHNIEDGGVQLAYHYQQNTPIGDGPVLLPDNHYLSVQSKLSKDPNEKRDHMVLLEFVTAAGITLGMDELYKGGEIAALKQEIAALKKENAALKGSGGEIAALKQEIAALKKENAALKGSGGEIAALKQEIAALKKENAALKGSGGEIAALKQEIAALKKENAALKGSGGEIAALKQEIAALKKENA"
+    },
+    {
+      "id": "D3S-004",
+      "split": "1+5",
+      "split_after_helix": 1,
+      "copied_repeat_aa": 0,
+      "truncation_aa": 3,
+      "interface": "weak1",
+      "frag_n_len": 24,
+      "frag_c_len": 113,
+      "construct_len": 231,
+      "sequence": "EIAALKQEIAALKKENAALKGSGGGGNVYIKADKQKNGIKANFKIRHNIEDGGVQLAYHYQQNTPIGDGPVLLPDNHYLSVQSKLSKDPNEKRDHMVLLEFVTAAGITLGMDELYKGGESAALKQEIAALKKENAALKGSGGEIAALKQEIAALKKENAALKGSGGEIAALKQEIAALKKENAALKGSGGEIAALKQEIAALKKENAALKGSGGEIAALKQEIAALKKENA"
+    },
+    {
+      "id": "D3S-005",
+      "split": "1+5",
+      "split_after_helix": 1,
+      "copied_repeat_aa": 7,
+      "truncation_aa": 0,
+      "interface": "WT",
+      "frag_n_len": 31,
+      "frag_c_len": 116,
+      "construct_len": 241,
+      "sequence": "EIAALKQEIAALKKENAALKGSGGALKGSGGGGNVYIKADKQKNGIKANFKIRHNIEDGGVQLAYHYQQNTPIGDGPVLLPDNHYLSVQSKLSKDPNEKRDHMVLLEFVTAAGITLGMDELYKGGEIAALKQEIAALKKENAALKGSGGEIAALKQEIAALKKENAALKGSGGEIAALKQEIAALKKENAALKGSGGEIAALKQEIAALKKENAALKGSGGEIAALKQEIAALKKENAALK"
+    },
+    {
+      "id": "D3S-006",
+      "split": "1+5",
+      "split_after_helix": 1,
+      "copied_repeat_aa": 7,
+      "truncation_aa": 0,
+      "interface": "weak1",
+      "frag_n_len": 31,
+      "frag_c_len": 116,
+      "construct_len": 241,
+      "sequence": "EIAALKQEIAALKKENAALKGSGGALKGSGGGGNVYIKADKQKNGIKANFKIRHNIEDGGVQLAYHYQQNTPIGDGPVLLPDNHYLSVQSKLSKDPNEKRDHMVLLEFVTAAGITLGMDELYKGGESAALKQEIAALKKENAALKGSGGEIAALKQEIAALKKENAALKGSGGEIAALKQEIAALKKENAALKGSGGEIAALKQEIAALKKENAALKGSGGEIAALKQEIAALKKENAALK"
+    },
+    {
+      "id": "D3S-007",
+      "split": "1+5",
+      "split_after_helix": 1,
+      "copied_repeat_aa": 7,
+      "truncation_aa": 3,
+      "interface": "WT",
+      "frag_n_len": 31,
+      "frag_c_len": 113,
+      "construct_len": 238,
+      "sequence": "EIAALKQEIAALKKENAALKGSGGALKGSGGGGNVYIKADKQKNGIKANFKIRHNIEDGGVQLAYHYQQNTPIGDGPVLLPDNHYLSVQSKLSKDPNEKRDHMVLLEFVTAAGITLGMDELYKGGEIAALKQEIAALKKENAALKGSGGEIAALKQEIAALKKENAALKGSGGEIAALKQEIAALKKENAALKGSGGEIAALKQEIAALKKENAALKGSGGEIAALKQEIAALKKENA"
+    },
+    {
+      "id": "D3S-008",
+      "split": "1+5",
+      "split_after_helix": 1,
+      "copied_repeat_aa": 7,
+      "truncation_aa": 3,
+      "interface": "weak1",
+      "frag_n_len": 31,
+      "frag_c_len": 113,
+      "construct_len": 238,
+      "sequence": "EIAALKQEIAALKKENAALKGSGGALKGSGGGGNVYIKADKQKNGIKANFKIRHNIEDGGVQLAYHYQQNTPIGDGPVLLPDNHYLSVQSKLSKDPNEKRDHMVLLEFVTAAGITLGMDELYKGGESAALKQEIAALKKENAALKGSGGEIAALKQEIAALKKENAALKGSGGEIAALKQEIAALKKENAALKGSGGEIAALKQEIAALKKENAALKGSGGEIAALKQEIAALKKENA"
+    },
+    {
+      "id": "D3S-009",
+      "split": "3+3",
+      "split_after_helix": 3,
+      "copied_repeat_aa": 0,
+      "truncation_aa": 0,
+      "interface": "WT",
+      "frag_n_len": 72,
+      "frag_c_len": 68,
+      "construct_len": 234,
+      "sequence": "EIAALKQEIAALKKENAALKGSGGEIAALKQEIAALKKENAALKGSGGEIAALKQEIAALKKENAALKGSGGGGNVYIKADKQKNGIKANFKIRHNIEDGGVQLAYHYQQNTPIGDGPVLLPDNHYLSVQSKLSKDPNEKRDHMVLLEFVTAAGITLGMDELYKGGEIAALKQEIAALKKENAALKGSGGEIAALKQEIAALKKENAALKGSGGEIAALKQEIAALKKENAALK"
+    },
+    {
+      "id": "D3S-010",
+      "split": "3+3",
+      "split_after_helix": 3,
+      "copied_repeat_aa": 0,
+      "truncation_aa": 0,
+      "interface": "weak1",
+      "frag_n_len": 72,
+      "frag_c_len": 68,
+      "construct_len": 234,
+      "sequence": "EIAALKQEIAALKKENAALKGSGGEIAALKQEIAALKKENAALKGSGGEIAALKQEIAALKKENAALKGSGGGGNVYIKADKQKNGIKANFKIRHNIEDGGVQLAYHYQQNTPIGDGPVLLPDNHYLSVQSKLSKDPNEKRDHMVLLEFVTAAGITLGMDELYKGGESAALKQEIAALKKENAALKGSGGEIAALKQEIAALKKENAALKGSGGEIAALKQEIAALKKENAALK"
+    },
+    {
+      "id": "D3S-011",
+      "split": "3+3",
+      "split_after_helix": 3,
+      "copied_repeat_aa": 0,
+      "truncation_aa": 3,
+      "interface": "WT",
+      "frag_n_len": 72,
+      "frag_c_len": 65,
+      "construct_len": 231,
+      "sequence": "EIAALKQEIAALKKENAALKGSGGEIAALKQEIAALKKENAALKGSGGEIAALKQEIAALKKENAALKGSGGGGNVYIKADKQKNGIKANFKIRHNIEDGGVQLAYHYQQNTPIGDGPVLLPDNHYLSVQSKLSKDPNEKRDHMVLLEFVTAAGITLGMDELYKGGEIAALKQEIAALKKENAALKGSGGEIAALKQEIAALKKENAALKGSGGEIAALKQEIAALKKENA"
+    },
+    {
+      "id": "D3S-012",
+      "split": "3+3",
+      "split_after_helix": 3,
+      "copied_repeat_aa": 0,
+      "truncation_aa": 3,
+      "interface": "weak1",
+      "frag_n_len": 72,
+      "frag_c_len": 65,
+      "construct_len": 231,
+      "sequence": "EIAALKQEIAALKKENAALKGSGGEIAALKQEIAALKKENAALKGSGGEIAALKQEIAALKKENAALKGSGGGGNVYIKADKQKNGIKANFKIRHNIEDGGVQLAYHYQQNTPIGDGPVLLPDNHYLSVQSKLSKDPNEKRDHMVLLEFVTAAGITLGMDELYKGGESAALKQEIAALKKENAALKGSGGEIAALKQEIAALKKENAALKGSGGEIAALKQEIAALKKENA"
+    },
+    {
+      "id": "D3S-013",
+      "split": "3+3",
+      "split_after_helix": 3,
+      "copied_repeat_aa": 7,
+      "truncation_aa": 0,
+      "interface": "WT",
+      "frag_n_len": 79,
+      "frag_c_len": 68,
+      "construct_len": 241,
+      "sequence": "EIAALKQEIAALKKENAALKGSGGEIAALKQEIAALKKENAALKGSGGEIAALKQEIAALKKENAALKGSGGALKGSGGGGNVYIKADKQKNGIKANFKIRHNIEDGGVQLAYHYQQNTPIGDGPVLLPDNHYLSVQSKLSKDPNEKRDHMVLLEFVTAAGITLGMDELYKGGEIAALKQEIAALKKENAALKGSGGEIAALKQEIAALKKENAALKGSGGEIAALKQEIAALKKENAALK"
+    },
+    {
+      "id": "D3S-014",
+      "split": "3+3",
+      "split_after_helix": 3,
+      "copied_repeat_aa": 7,
+      "truncation_aa": 0,
+      "interface": "weak1",
+      "frag_n_len": 79,
+      "frag_c_len": 68,
+      "construct_len": 241,
+      "sequence": "EIAALKQEIAALKKENAALKGSGGEIAALKQEIAALKKENAALKGSGGEIAALKQEIAALKKENAALKGSGGALKGSGGGGNVYIKADKQKNGIKANFKIRHNIEDGGVQLAYHYQQNTPIGDGPVLLPDNHYLSVQSKLSKDPNEKRDHMVLLEFVTAAGITLGMDELYKGGESAALKQEIAALKKENAALKGSGGEIAALKQEIAALKKENAALKGSGGEIAALKQEIAALKKENAALK"
+    },
+    {
+      "id": "D3S-015",
+      "split": "3+3",
+      "split_after_helix": 3,
+      "copied_repeat_aa": 7,
+      "truncation_aa": 3,
+      "interface": "WT",
+      "frag_n_len": 79,
+      "frag_c_len": 65,
+      "construct_len": 238,
+      "sequence": "EIAALKQEIAALKKENAALKGSGGEIAALKQEIAALKKENAALKGSGGEIAALKQEIAALKKENAALKGSGGALKGSGGGGNVYIKADKQKNGIKANFKIRHNIEDGGVQLAYHYQQNTPIGDGPVLLPDNHYLSVQSKLSKDPNEKRDHMVLLEFVTAAGITLGMDELYKGGEIAALKQEIAALKKENAALKGSGGEIAALKQEIAALKKENAALKGSGGEIAALKQEIAALKKENA"
+    },
+    {
+      "id": "D3S-016",
+      "split": "3+3",
+      "split_after_helix": 3,
+      "copied_repeat_aa": 7,
+      "truncation_aa": 3,
+      "interface": "weak1",
+      "frag_n_len": 79,
+      "frag_c_len": 65,
+      "construct_len": 238,
+      "sequence": "EIAALKQEIAALKKENAALKGSGGEIAALKQEIAALKKENAALKGSGGEIAALKQEIAALKKENAALKGSGGALKGSGGGGNVYIKADKQKNGIKANFKIRHNIEDGGVQLAYHYQQNTPIGDGPVLLPDNHYLSVQSKLSKDPNEKRDHMVLLEFVTAAGITLGMDELYKGGESAALKQEIAALKKENAALKGSGGEIAALKQEIAALKKENAALKGSGGEIAALKQEIAALKKENA"
+    },
+    {
+      "id": "D3S-017",
+      "split": "5+1",
+      "split_after_helix": 5,
+      "copied_repeat_aa": 0,
+      "truncation_aa": 0,
+      "interface": "WT",
+      "frag_n_len": 120,
+      "frag_c_len": 20,
+      "construct_len": 234,
+      "sequence": "EIAALKQEIAALKKENAALKGSGGEIAALKQEIAALKKENAALKGSGGEIAALKQEIAALKKENAALKGSGGEIAALKQEIAALKKENAALKGSGGEIAALKQEIAALKKENAALKGSGGGGNVYIKADKQKNGIKANFKIRHNIEDGGVQLAYHYQQNTPIGDGPVLLPDNHYLSVQSKLSKDPNEKRDHMVLLEFVTAAGITLGMDELYKGGEIAALKQEIAALKKENAALK"
+    },
+    {
+      "id": "D3S-018",
+      "split": "5+1",
+      "split_after_helix": 5,
+      "copied_repeat_aa": 0,
+      "truncation_aa": 0,
+      "interface": "weak1",
+      "frag_n_len": 120,
+      "frag_c_len": 20,
+      "construct_len": 234,
+      "sequence": "EIAALKQEIAALKKENAALKGSGGEIAALKQEIAALKKENAALKGSGGEIAALKQEIAALKKENAALKGSGGEIAALKQEIAALKKENAALKGSGGEIAALKQEIAALKKENAALKGSGGGGNVYIKADKQKNGIKANFKIRHNIEDGGVQLAYHYQQNTPIGDGPVLLPDNHYLSVQSKLSKDPNEKRDHMVLLEFVTAAGITLGMDELYKGGESAALKQEIAALKKENAALK"
+    },
+    {
+      "id": "D3S-019",
+      "split": "5+1",
+      "split_after_helix": 5,
+      "copied_repeat_aa": 0,
+      "truncation_aa": 3,
+      "interface": "WT",
+      "frag_n_len": 120,
+      "frag_c_len": 17,
+      "construct_len": 231,
+      "sequence": "EIAALKQEIAALKKENAALKGSGGEIAALKQEIAALKKENAALKGSGGEIAALKQEIAALKKENAALKGSGGEIAALKQEIAALKKENAALKGSGGEIAALKQEIAALKKENAALKGSGGGGNVYIKADKQKNGIKANFKIRHNIEDGGVQLAYHYQQNTPIGDGPVLLPDNHYLSVQSKLSKDPNEKRDHMVLLEFVTAAGITLGMDELYKGGEIAALKQEIAALKKENA"
+    },
+    {
+      "id": "D3S-020",
+      "split": "5+1",
+      "split_after_helix": 5,
+      "copied_repeat_aa": 0,
+      "truncation_aa": 3,
+      "interface": "weak1",
+      "frag_n_len": 120,
+      "frag_c_len": 17,
+      "construct_len": 231,
+      "sequence": "EIAALKQEIAALKKENAALKGSGGEIAALKQEIAALKKENAALKGSGGEIAALKQEIAALKKENAALKGSGGEIAALKQEIAALKKENAALKGSGGEIAALKQEIAALKKENAALKGSGGGGNVYIKADKQKNGIKANFKIRHNIEDGGVQLAYHYQQNTPIGDGPVLLPDNHYLSVQSKLSKDPNEKRDHMVLLEFVTAAGITLGMDELYKGGESAALKQEIAALKKENA"
+    },
+    {
+      "id": "D3S-021",
+      "split": "5+1",
+      "split_after_helix": 5,
+      "copied_repeat_aa": 7,
+      "truncation_aa": 0,
+      "interface": "WT",
+      "frag_n_len": 127,
+      "frag_c_len": 20,
+      "construct_len": 241,
+      "sequence": "EIAALKQEIAALKKENAALKGSGGEIAALKQEIAALKKENAALKGSGGEIAALKQEIAALKKENAALKGSGGEIAALKQEIAALKKENAALKGSGGEIAALKQEIAALKKENAALKGSGGALKGSGGGGNVYIKADKQKNGIKANFKIRHNIEDGGVQLAYHYQQNTPIGDGPVLLPDNHYLSVQSKLSKDPNEKRDHMVLLEFVTAAGITLGMDELYKGGEIAALKQEIAALKKENAALK"
+    },
+    {
+      "id": "D3S-022",
+      "split": "5+1",
+      "split_after_helix": 5,
+      "copied_repeat_aa": 7,
+      "truncation_aa": 0,
+      "interface": "weak1",
+      "frag_n_len": 127,
+      "frag_c_len": 20,
+      "construct_len": 241,
+      "sequence": "EIAALKQEIAALKKENAALKGSGGEIAALKQEIAALKKENAALKGSGGEIAALKQEIAALKKENAALKGSGGEIAALKQEIAALKKENAALKGSGGEIAALKQEIAALKKENAALKGSGGALKGSGGGGNVYIKADKQKNGIKANFKIRHNIEDGGVQLAYHYQQNTPIGDGPVLLPDNHYLSVQSKLSKDPNEKRDHMVLLEFVTAAGITLGMDELYKGGESAALKQEIAALKKENAALK"
+    },
+    {
+      "id": "D3S-023",
+      "split": "5+1",
+      "split_after_helix": 5,
+      "copied_repeat_aa": 7,
+      "truncation_aa": 3,
+      "interface": "WT",
+      "frag_n_len": 127,
+      "frag_c_len": 17,
+      "construct_len": 238,
+      "sequence": "EIAALKQEIAALKKENAALKGSGGEIAALKQEIAALKKENAALKGSGGEIAALKQEIAALKKENAALKGSGGEIAALKQEIAALKKENAALKGSGGEIAALKQEIAALKKENAALKGSGGALKGSGGGGNVYIKADKQKNGIKANFKIRHNIEDGGVQLAYHYQQNTPIGDGPVLLPDNHYLSVQSKLSKDPNEKRDHMVLLEFVTAAGITLGMDELYKGGEIAALKQEIAALKKENA"
+    },
+    {
+      "id": "D3S-024",
+      "split": "5+1",
+      "split_after_helix": 5,
+      "copied_repeat_aa": 7,
+      "truncation_aa": 3,
+      "interface": "weak1",
+      "frag_n_len": 127,
+      "frag_c_len": 17,
+      "construct_len": 238,
+      "sequence": "EIAALKQEIAALKKENAALKGSGGEIAALKQEIAALKKENAALKGSGGEIAALKQEIAALKKENAALKGSGGEIAALKQEIAALKKENAALKGSGGEIAALKQEIAALKKENAALKGSGGALKGSGGGGNVYIKADKQKNGIKANFKIRHNIEDGGVQLAYHYQQNTPIGDGPVLLPDNHYLSVQSKLSKDPNEKRDHMVLLEFVTAAGITLGMDELYKGGESAALKQEIAALKKENA"
+    }
+  ],
+  "plate_controls": [
+    "cpGFP-only",
+    "full binder-cpGFP",
+    "pocket-dead",
+    "no-ligand",
+    "saturating target",
+    "DMSO vehicle",
+    "neighbour:VitaminD3",
+    "neighbour:25OHD2",
+    "neighbour:1,25OH2D3",
+    "neighbour:24R,25OH2D3",
+    "neighbour:3-epi-25OHD3"
+  ],
+  "validation_gates": {
+    "A_chemistry_sample": [
+      "identity/stereochem/purity/lot logged",
+      "stock conc confirmed orthogonally",
+      "no precipitate; plastic-adsorption + stability checked",
+      "define added vs accessible/free conc"
+    ],
+    "B_binder_itself": [
+      "soluble, single SEC peak (SEC-MALS monomer)",
+      "measured 25(OH)D3 Kd (not predicted)",
+      "pocket-dead loses binding",
+      "all 5 neighbours full dose curves; orthogonal method",
+      "2-4 binders pass before cpGFP fusion"
+    ],
+    "C_sensor_basic": [
+      "cpGFP-only + pocket-dead give no target response",
+      "absolute F >= 10x blank",
+      "8-12 pt dose-response ~1 decade around EC50",
+      "independent protein preps; triplicate",
+      "round-1 dF/F0 >= 2 with CI/Hill"
+    ],
+    "D_background_mechanism": [
+      "test >=3 sensor concs (rule out conc-driven self-assembly)",
+      "compare repeat/weak1/truncation main+interaction effects",
+      "reversibility by dilution/competition",
+      "response+decay time constants",
+      "pH/temp/salt/DMSO effect on cpGFP itself"
+    ],
+    "E_selectivity_matrix": [
+      "each neighbour dose + competition vs target",
+      "any neighbour < 10% target response at use conc",
+      "buffer -> delipidated -> real matrix (no skipping)",
+      "spike-recovery 80-120%, intra-CV <=15%",
+      "storage/freeze-thaw/photobleach/lot logged"
+    ]
+  },
+  "stop_go": {
+    "no measured binder selectivity": "pause sensor library; return to pocket negative design",
+    "selective binder but all 24 high background": "increase repeat/interface weakening; add 2+4,4+2 splits",
+    "all low background but no signal": "reduce background suppression; scan junction/cpGFP geometry",
+    "responds but neighbours also respond": "is it binder selectivity or cpGFP nonspecific env response?",
+    "buffer works but matrix fails": "fix free-conc/adsorption/matrix-binding/optics before more sequence work"
+  },
+  "milestone": "purified-protein prototype: soluble, reversible, fluorescence-ON to 25(OH)D3, discriminates key neighbours in defined buffer (NOT serum yet)",
+  "label": "\u26a0\ufe0f CANDIDATE DESIGNS only; backbone needs ProBuilder/RFdiffusionAA; dynamic range/selectivity are hypotheses until the wet-lab titration."
+}
