@@ -114,3 +114,46 @@ RPE1     temp=inf  smooth=0.3  n_neighbors=30  shrink=1.0  gamma=0.75  mod_clip=
 HepG2    temp=0.25  smooth=0.3  n_neighbors=30  shrink=0.0  gamma=0.5  mod_clip=5.0  beta=0.6  use_global=0.15  rank=80  rank_mix=0.0  unseen_k=25  renorm=0.0
 Jurkat   temp=inf  smooth=0.3  n_neighbors=30  shrink=1.0  gamma=0.5  mod_clip=2.0  beta=0.6  use_global=0.35  rank=80  rank_mix=0.0  unseen_k=50  renorm=0.0
 ```
+
+## Context ablation
+
+*VCC score against the number of source cell lines, hyperparameters held fixed*
+
+| held-out line | 1 source line | 2 source lines | 3 source lines |
+|---|---|---|---|
+| K562 | 0.179 | 0.215 | 0.235 |
+| RPE1 | 0.084 | 0.099 | 0.108 |
+| HepG2 | 0.119 | 0.146 | 0.165 |
+| Jurkat | 0.124 | 0.142 | 0.153 |
+| **mean** | **0.126** | **0.150** | **0.165** |
+
+## By measured perturbation strength
+
+```
+### performance by measured perturbation strength
+
+stratum                 model                                  n      PDS  ovl@100      dir  pearson    score
+-------------------------------------------------------------------------------------------------------------
+silent (<10 DE genes)   global mean [challenge baseline]    1263    0.503    0.001    0.633    0.087    0.000
+silent (<10 DE genes)   naive transfer                      1263    0.557    0.286    0.861    0.113    0.131
+silent (<10 DE genes)   ContextTransfer (ours)              1263    0.543    0.279    0.866    0.142    0.138
+
+weak (10-100)           global mean [challenge baseline]     803    0.504    0.047    0.677    0.226    0.000
+weak (10-100)           naive transfer                       803    0.632    0.182    0.801    0.287    0.133
+weak (10-100)           ContextTransfer (ours)               803    0.602    0.173    0.821    0.334    0.114
+
+moderate (100-500)      global mean [challenge baseline]     623    0.505    0.127    0.725    0.326    0.000
+moderate (100-500)      naive transfer                       623    0.699    0.219    0.805    0.394    0.166
+moderate (100-500)      ContextTransfer (ours)               623    0.661    0.241    0.836    0.450    0.160
+
+strong (>500)           global mean [challenge baseline]     511    0.505    0.217    0.730    0.399    0.000
+strong (>500)           naive transfer                       511    0.761    0.297    0.822    0.524    0.218
+strong (>500)           ContextTransfer (ours)               511    0.716    0.338    0.857    0.582    0.226
+
+### source-line weights chosen from control profiles alone
+
+  target K562     RPE1=0.24  HepG2=0.31  Jurkat=0.45
+  target RPE1     K562=0.29  HepG2=0.41  Jurkat=0.30
+  target HepG2    K562=0.35  RPE1=0.39  Jurkat=0.26
+  target Jurkat   K562=0.48  RPE1=0.27  HepG2=0.25
+```

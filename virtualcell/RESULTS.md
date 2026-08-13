@@ -56,6 +56,8 @@ contributes zero rather than a penalty.
 So: **comparable in aggregate, better on every measure of response accuracy,
 and the only model meeting every threshold** — not a sweep, and not nothing.
 
+![zero-shot context regime](../figures/virtualcell/zero_shot_context.png)
+
 ### Per-fold
 
 | held out | | discrimination | DE overlap@100 | MAE |
@@ -114,6 +116,8 @@ the rest of the knockdown panel: genes acting together move together under
 perturbation, so knockdowns whose targets behave like this one stand in for it.
 That uses no measurement of the gene *as perturbed*, only of the gene *as
 observed*, so it is leakage-free.
+
+![double-blind regime](../figures/virtualcell/zero_shot_double.png)
 
 ## Contexts buy differential expression, not discrimination
 
