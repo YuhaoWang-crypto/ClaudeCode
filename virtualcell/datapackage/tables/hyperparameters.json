@@ -1,0 +1,62 @@
+{
+  "K562": {
+    "temp": 0.1,
+    "smooth": 0.15,
+    "n_neighbors": 5,
+    "shrink": 0.0,
+    "gamma": 0.25,
+    "mod_clip": 5.0,
+    "beta": 0.8,
+    "use_global": 0.0,
+    "on_target": true,
+    "rank": 80,
+    "rank_mix": 0.5,
+    "unseen_k": 25,
+    "renorm": 0.0
+  },
+  "RPE1": {
+    "temp": 0.1,
+    "smooth": 0.15,
+    "n_neighbors": 5,
+    "shrink": 0.5,
+    "gamma": 0.5,
+    "mod_clip": 3.0,
+    "beta": 1.25,
+    "use_global": 0.0,
+    "on_target": true,
+    "rank": 80,
+    "rank_mix": 0.5,
+    "unseen_k": 25,
+    "renorm": 0.0
+  },
+  "HepG2": {
+    "temp": 0.1,
+    "smooth": 0.15,
+    "n_neighbors": 5,
+    "shrink": 0.0,
+    "gamma": 0.5,
+    "mod_clip": 5.0,
+    "beta": 0.8,
+    "use_global": 0.0,
+    "on_target": true,
+    "rank": 80,
+    "rank_mix": 0.5,
+    "unseen_k": 25,
+    "renorm": 0.0
+  },
+  "Jurkat": {
+    "temp": 0.1,
+    "smooth": 0.0,
+    "n_neighbors": 5,
+    "shrink": 0.0,
+    "gamma": 0.5,
+    "mod_clip": 3.0,
+    "beta": 1.0,
+    "use_global": 0.0,
+    "on_target": true,
+    "rank": 80,
+    "rank_mix": 0.75,
+    "unseen_k": 25,
+    "renorm": 0.0
+  }
+}

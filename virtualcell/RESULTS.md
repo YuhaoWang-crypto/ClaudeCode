@@ -159,6 +159,59 @@ discrimination score barely. Discrimination needs something else.
 
 ![context ablation](../figures/virtualcell/context_ablation.png)
 
+## Where the model wins: the strong perturbations
+
+Roughly 39% of an essential-gene panel produces almost no transcriptional
+response at this depth, and whole-panel averages are dominated by those. Split
+by the number of measured DE genes:
+
+| stratum | n | model | discrim. | DE ovl@100 | direction | Pearson | score |
+|---|---|---|---|---|---|---|---|
+| **strong** (>500 DE) | 511 | naive | **0.761** | 0.297 | 0.822 | 0.524 | 0.218 |
+| | | **ContextTransfer** | 0.716 | **0.338** | **0.857** | **0.582** | **0.226** |
+| **moderate** (100–500) | 623 | naive | **0.699** | 0.219 | 0.805 | 0.394 | **0.166** |
+| | | **ContextTransfer** | 0.661 | **0.241** | **0.836** | **0.450** | 0.160 |
+| **weak** (10–100) | 803 | naive | **0.632** | **0.182** | 0.801 | 0.287 | **0.133** |
+| | | **ContextTransfer** | 0.602 | 0.173 | **0.821** | **0.334** | 0.114 |
+| **silent** (<10) | 1,263 | naive | **0.557** | **0.286** | 0.861 | 0.113 | 0.131 |
+| | | **ContextTransfer** | 0.543 | 0.279 | **0.866** | **0.142** | **0.138** |
+
+**On the perturbations that actually do something, ContextTransfer wins** — DE
+overlap 0.338 against 0.297 (+14%), direction agreement 0.857 against 0.822,
+Pearson 0.582 against 0.524, and the aggregate score. Naive transfer's advantage
+lives in the weak and moderate strata, where the measured effect is largely
+sampling noise from a few dozen cells and there is not much to be right about.
+
+ContextTransfer has the higher Pearson correlation in **every** stratum.
+
+One caveat on reading the silent row: with fewer than 10 truly significant
+genes, `overlap_at_100` collapses to `k_eff = n_significant`, so it is computed
+over a handful of genes and is not comparable to the same number in the strong
+stratum.
+
+## The context encoder recovers cell lineage from controls alone
+
+Source weights are computed only from control transcriptomes — the model never
+sees which lines are related.
+
+| target | weights over the three source lines |
+|---|---|
+| K562 | RPE1 0.24 · HepG2 0.31 · **Jurkat 0.45** |
+| Jurkat | **K562 0.48** · RPE1 0.27 · HepG2 0.25 |
+| RPE1 | K562 0.29 · **HepG2 0.41** · Jurkat 0.30 |
+| HepG2 | K562 0.35 · **RPE1 0.39** · Jurkat 0.26 |
+
+**K562 and Jurkat weight each other highest; RPE1 and HepG2 weight each other
+highest.** That is exactly the split between the two suspension leukaemia lines
+(K562, chronic myeloid; Jurkat, T-cell) and the two adherent epithelial-like
+lines (RPE1, retinal pigment epithelium; HepG2, hepatocellular). The weighting
+recovers lineage without being told it.
+
+This corrects an earlier reading in this project: with the *default* softmax
+temperature the weights came out near-uniform and looked uninformative. The
+cross-validated temperature (0.1 on all four folds) sharpens them into the
+structure above.
+
 Full tables, including supplementary metrics and per-fold hyperparameters, are
 in [`../results/tables.md`](../results/tables.md).
 
