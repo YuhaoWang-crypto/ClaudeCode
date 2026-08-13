@@ -72,6 +72,49 @@ and the only model meeting every threshold** — not a sweep, and not nothing.
 RPE1 is the hardest context for every model (discrimination 0.57 against K562's
 0.68–0.73), and DE overlap is the one metric whose winner flips between folds.
 
+## Double-blind: the knockdown is unseen everywhere too
+
+Same four folds, but the evaluated knockdowns are also deleted from every
+*source* line. Neither the context nor the perturbation has been seen. This is
+harder than the challenge asks for, and it is the regime that separates a model
+from a lookup table.
+
+| model | discrimination | DE overlap@100 | MAE | VCC score | balanced |
+|---|---|---|---|---|---|
+| control (Δ=0) | 0.5010 | 0.0047 | 0.0570 | 0.005 | −0.020 |
+| global mean *(challenge baseline)* | 0.5011 | 0.0640 | 0.0572 | 0.000 | +0.000 |
+| naive cross-line transfer | 0.5011 | 0.0703 | 0.0572 | 0.003 | +0.002 |
+| **ContextTransfer** | 0.5019 | **0.1729** | **0.0565** | **0.045** | **+0.044** |
+
+**Naive transfer collapses onto the baseline.** With nothing to copy it scores
+0.003 — cross-line transfer has literally nothing to say about a gene nobody
+perturbed. ContextTransfer reaches **2.7× the baseline DE overlap**, consistently
+across contexts:
+
+| held out | baseline | naive | ContextTransfer | ratio to baseline |
+|---|---|---|---|---|
+| K562 | 0.052 | 0.053 | **0.179** | 3.4× |
+| RPE1 | 0.050 | 0.050 | **0.153** | 3.1× |
+| HepG2 | 0.110 | 0.133 | **0.237** | 2.2× |
+| Jurkat | 0.044 | 0.046 | **0.122** | 2.8× |
+
+Every accuracy measure moves the same way — DE direction 0.708 against 0.675,
+DE log2FC Spearman 0.299 against 0.257, Pearson on the effect 0.216 against
+0.200.
+
+**And here is the honest limit: discrimination stays at chance (0.5019).** For a
+knockdown observed nowhere in training, the model can say *which genes will
+move* — reproducibly, 2–3× better than the baseline — but cannot make the
+prediction specific enough to tell that knockdown apart from another. Predicting
+the identity of an unseen perturbation, rather than the shape of its response,
+is not solved here.
+
+The signal comes from routing through the silenced gene's own behaviour across
+the rest of the knockdown panel: genes acting together move together under
+perturbation, so knockdowns whose targets behave like this one stand in for it.
+That uses no measurement of the gene *as perturbed*, only of the gene *as
+observed*, so it is leakage-free.
+
 Full tables, including supplementary metrics and per-fold hyperparameters, are
 in [`../results/tables.md`](../results/tables.md).
 
