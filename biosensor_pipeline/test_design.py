@@ -169,6 +169,42 @@ def test_pocket_redesign_plan():
     print("[OK] pocket redesign: value keeps length, designs windows; campaign well-formed")
 
 
+def test_transducer_split_bundle():
+    """Split-bundle + cpGFP sensor with the paper's background-suppression knobs."""
+    from .transducer import (build_split_bundle_sensor, verify_split_bundle,
+                             fragment_duplication, interface_weakening, truncate_terminus)
+    binder = "".join("HELIX%d____" % i for i in range(5))  # 5 pseudo-helices, 50 aa
+    boundaries = [0, 10, 20, 30, 40]                        # each helix starts every 10
+    s = build_split_bundle_sensor("serotonin", "SRO_b", binder, boundaries,
+                                  split_after_helix=2,
+                                  duplicate_segment=(0, 5), weaken_positions=[1, 3])
+    chk = verify_split_bundle(s)
+    assert chk["all_ok"], chk
+    # duplication lengthens the N-fragment; both fragments still present in constructs
+    assert len(s.frag_n) > (boundaries[2])            # grew by the duplicated 5 residues
+    assert "fragment_duplication" in s.knobs and "interface_weakening" in s.knobs
+    # pure ops
+    assert fragment_duplication("ABCDEF", (1, 3)) == "ABC" + "BC" + "DEF"
+    assert interface_weakening("LLLL", [0, 2]) == "SLSL"
+    assert truncate_terminus("ABCDEF", 2, "C") == "ABCD"
+    print("[OK] transducer: split-bundle+cpGFP sensor + duplication/weakening/truncation knobs")
+
+
+def test_transducer_induced_folding_and_metal():
+    from .transducer import (build_induced_folding_sensor, metal_coordination_plan,
+                             recommend_transducer)
+    fr = build_induced_folding_sensor("DTG", "DTG_b", "MKACDEFGH", reporter="FRET")
+    assert "mTurquoise2" in fr.sensor_seq and fr.reporter == "FRET"
+    zn = metal_coordination_plan("Zn")
+    assert zn["geometry"] == "tetrahedral" and zn["n_coordinating"] == 4
+    assert zn["residue_types"].count("H") == 2
+    rec = recommend_transducer("metal_ion", "helical_bundle")
+    assert "coordination" in rec["recommended"]
+    rec2 = recommend_transducer("small_molecule", "helical_bundle", "fluorescent")
+    assert "split-bundle" in rec2["recommended"]
+    print("[OK] transducer: induced-folding + metal-coordination plans + recommender")
+
+
 if __name__ == "__main__":
     test_circular_permutation_conserves_residues()
     test_insertion_preserves_reporter()
@@ -182,4 +218,6 @@ if __name__ == "__main__":
     test_campaign_orchestrator()
     test_specificity_scoring()
     test_pocket_redesign_plan()
+    test_transducer_split_bundle()
+    test_transducer_induced_folding_and_metal()
     print("\nALL TESTS PASSED ✅")

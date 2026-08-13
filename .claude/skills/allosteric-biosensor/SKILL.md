@@ -159,7 +159,7 @@ sites; tag/terminal-mismatch tolerant) · `screen.py` (focused library) ·
 `scoring.py` (✅ geometric metrics + ⚠️ switch proxy) · `boltz_io.py` (payloads) ·
 `discover.py`/`discover_batch.py` (PDB receptor mining, contact-verified) ·
 `tune_linker.py` (linker series) · `analyze_boltz.py` (results → scores) ·
-`campaign.py` (new-analyte design orchestrator + success scorecard) · `architectures.py` (NanoBiT split / logic gates) · `coupling.py` (apo/holo active-site ordering) · `md_entropy.py` (OpenMM MD, incl. production GPU apo/holo ΔS + ligand FF) · `modal_app.py` (cloud-GPU runner).
+`campaign.py` (new-analyte design orchestrator + success scorecard) · `architectures.py` (NanoBiT split / logic gates) · `transducer.py` (binder→signal coupling: split-bundle+cpGFP, ligand-induced folding, metal coordination, + background/response knobs — see reference/sensor-transduction.md) · `coupling.py` (apo/holo active-site ordering) · `md_entropy.py` (OpenMM MD, incl. production GPU apo/holo ΔS + ligand FF) · `modal_app.py` (cloud-GPU runner).
 
 ## What is rigorous vs. hypothesis (read this before quoting any number)
 
