@@ -4,9 +4,76 @@
 `python -m virtualcell.report`; the tables live in `results/tables.md`. Nothing
 here is hand-transcribed.*
 
-**Status: benchmark running.** This document holds the design, the reading
-protocol, and the findings already established. The four-fold tables land when
-the run completes.
+---
+
+## The answer, in one table
+
+Context zero-shot — the challenge's own setting. 2,053 knockdowns, mean over
+four held-out cell lines, each scored with no perturbation data from it in
+training.
+
+| model | discrimination | DE overlap@100 | MAE | VCC score | balanced |
+|---|---|---|---|---|---|
+| control (Δ=0) | 0.5010 | 0.0047 | 0.0570 | 0.009 | −0.020 |
+| global mean *(challenge baseline)* | 0.5011 | 0.0716 | 0.0576 | 0.000 | +0.000 |
+| naive cross-line transfer | **0.6495** | **0.2489** | 0.0613 ✗ | **0.163** | +0.139 |
+| **ContextTransfer** | 0.6235 | 0.2432 | **0.0551** | 0.158 | **+0.158** |
+
+*✗ = worse than the challenge baseline.*
+
+Both transfer models are far above the baseline on discrimination (0.50 is
+chance) and DE overlap. Between them the result is **close, and which one wins
+depends on which scoring is quoted** — so here is the honest reading:
+
+**ContextTransfer is the only model that clears the baseline on all three
+headline metrics, on every fold.** Naive transfer is worse than baseline on MAE
+in all four (0.053/0.069/0.061/0.062 against 0.046/0.068/0.059/0.058). Since the
+challenge "enforce[s] minimum thresholds on all metrics … discouraging models
+that perform well on one metric at the expense of the others", a model that
+fails one threshold on every fold is in a materially different position from one
+that fails none.
+
+**ContextTransfer predicts a more accurate response; naive transfer predicts a
+more distinguishable one.** On every accuracy measure the ordering is
+consistent:
+
+| | naive transfer | ContextTransfer |
+|---|---|---|
+| DE direction agreement | 0.8191 | **0.8410** |
+| DE log2FC Spearman | 0.4664 | **0.4921** |
+| Pearson (effect) | 0.2781 | **0.3278** |
+| MAE (effect) | 0.0613 | **0.0551** |
+
+Naive transfer buys its discrimination lead by over-predicting effect
+magnitude — which is also why its error is worse than doing nothing at all.
+
+**On the leaderboard's own aggregation naive transfer edges ahead (0.163 vs
+0.158); on the unclipped aggregation ContextTransfer leads (+0.158 vs +0.139).**
+The gap between those two readings *is* the finding: the clipped score forgives
+naive transfer's MAE failure entirely, because a metric below baseline
+contributes zero rather than a penalty.
+
+So: **comparable in aggregate, better on every measure of response accuracy,
+and the only model meeting every threshold** — not a sweep, and not nothing.
+
+### Per-fold
+
+| held out | | discrimination | DE overlap@100 | MAE |
+|---|---|---|---|---|
+| **K562** | naive | **0.726** | 0.261 | 0.053 ✗ |
+| | ContextTransfer | 0.676 | **0.281** | **0.043** |
+| **RPE1** | naive | 0.568 | **0.255** | 0.069 ✗ |
+| | ContextTransfer | 0.567 | 0.207 | **0.065** |
+| **HepG2** | naive | **0.665** | 0.270 | 0.061 ✗ |
+| | ContextTransfer | 0.616 | **0.279** | **0.056** |
+| **Jurkat** | naive | **0.639** | **0.209** | 0.062 ✗ |
+| | ContextTransfer | 0.636 | 0.206 | **0.057** |
+
+RPE1 is the hardest context for every model (discrimination 0.57 against K562's
+0.68–0.73), and DE overlap is the one metric whose winner flips between folds.
+
+Full tables, including supplementary metrics and per-fold hyperparameters, are
+in [`../results/tables.md`](../results/tables.md).
 
 ---
 
@@ -118,12 +185,24 @@ Zeroing small predicted components to cut MAE costs far more than it recovers:
 discrimination 0.714 → 0.653 for an MAE gain of 0.0035. Every threshold tested
 scored worse overall. L1 retrieval uses precisely the components being zeroed.
 
-### ✅ Magnitude renormalisation is what makes denoising affordable
+### ⚠️ Magnitude renormalisation works, and was still rejected
 
 Smoothing, shrinkage and low-rank projection all improve the *shape* of a
 predicted response and all pull effects toward each other, flattening the
-across-perturbation magnitude spread that discrimination depends on. Restoring
-each row's pre-denoising norm keeps the improved shape at the original spread.
+across-perturbation magnitude spread that discrimination depends on. That
+mechanism is real: restoring each row's pre-denoising norm lifted discrimination
+from 0.714 to 0.761 on K562 held out.
+
+**It costs more MAE than it buys.** That configuration's error rose from 0.0464
+to 0.0550, and cross-validation set `renorm=0.0` on all four folds. What
+survived selection was restraint rather than compensation — blended denoising
+(`rank_mix` 0.5–0.75), light smoothing (`smooth` ≤ 0.15), shrinkage off on three
+of four folds, and a single global scale `beta` between 0.8 and 1.25 doing the
+magnitude work.
+
+Recorded here because an earlier draft of this report called renormalisation
+"the fix that matters" on the strength of a single-fold sweep, before the full
+cross-validation contradicted it.
 
 ### ✅ Gene-response similarity reaches knockdowns seen nowhere
 

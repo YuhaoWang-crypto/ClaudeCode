@@ -57,16 +57,28 @@ panel identifies functionally related genes whose own knockdowns stand in for
 it. This uses no measurement of the gene being silenced, only of the gene being
 watched, so it is leakage-free.
 
-## Stage 5 is the one that matters
+## Stage 5, and the honest version of what it does
 
 Stages 2–4 all improve the *shape* of the predicted response and all pull
 effects toward each other, which flattens the across-perturbation magnitude
 spread — the thing discrimination is built on. The result is a model that
-predicts a better response and retrieves worse.
+predicts a better response and retrieves worse. That mechanism is real and is
+worth understanding.
 
-Restoring each row's original norm keeps the improved shape at the original
-spread. On K562 held out this closed a 0.05 discrimination gap without giving
-back the DE or MAE gains.
+Restoring each row's pre-denoising norm is the direct remedy, and it works in
+the narrow sense: on K562 held out, `renorm=1.0, beta=1.2` reached
+discrimination 0.761 against 0.714 without it.
+
+**It was still rejected.** That configuration costs MAE (0.0550 against 0.0464)
+and the balanced objective prefers the smaller prediction: cross-validation
+chose `renorm=0.0` on all four folds. What survived selection instead was
+*restraint* — keep denoising blended (`rank_mix` 0.5–0.75), keep smoothing light
+(`smooth` ≤ 0.15), leave shrinkage off, and let the single global scale `beta`
+(0.8–1.25 across folds) do the magnitude work.
+
+The general lesson generalises past this switch: on this task, the operations
+that flatten magnitude spread must be applied *sparingly*, not applied hard and
+then compensated for.
 
 ## Rejected ideas, with the numbers
 

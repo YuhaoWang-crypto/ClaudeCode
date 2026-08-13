@@ -54,9 +54,17 @@ correlation has a median of only 0.11–0.26. So:
 |---|---|
 | Cross-line consensus (average the effect over source lines) | discrimination 0.50 → 0.72 vs the challenge baseline |
 | Per-gene on-target knockdown transferred from sources | knockdown efficiency is a guide-pair property, conserved across lines at Spearman 0.38–0.54, and ranges from <5% to >30% residual — one global constant wastes that |
-| Program-basis denoising, *blended* not applied outright | improves agreement with the measured effect |
-| **Magnitude renormalisation after denoising** | the fix that matters: restores the across-perturbation magnitude spread that denoising flattens, recovering discrimination without giving back the DE and error gains |
+| Program-basis denoising, *blended* not applied outright | selected on all four folds (`rank_mix` 0.5–0.75); improves agreement with the measured effect |
+| Keeping smoothing and shrinkage light | cross-validation drove `smooth` to ≤0.15 and `shrink` to 0 on three of four folds — both flatten the magnitude spread discrimination needs |
 | Gene-response-similarity routing for unseen knockdowns | the only thing that works at all when the gene appears in no source line; DE overlap 0.060 (chance) → 0.132 |
+
+⚠️ **Magnitude renormalisation** — restoring each row's pre-denoising norm — is
+implemented and available as a switch, and it does move discrimination up
+(0.714 → 0.761 on one fold). But it costs more MAE than it buys, and
+cross-validation **rejected it on all four folds** (`renorm=0.0` everywhere).
+Reach for it only if you are optimising discrimination specifically and are
+willing to fail an MAE threshold. The global scale `beta` is the better-behaved
+control on the same trade-off.
 
 ## What measurably did not work — do not re-derive these
 
