@@ -194,6 +194,38 @@ def metal_coordination_plan(metal: str, scaffold_len: int = 120) -> dict:
 # ---------------------------------------------------------------------------
 # sensor-readiness heuristic (which coupling suits a binder)
 # ---------------------------------------------------------------------------
+def helical_bundle_binder_plan(analyte: str, smiles: str, n_helices: int = 5,
+                               length: int = 120, privileged_contacts: list | None = None) -> dict:
+    """The paper's tractable de-novo binder recipe (ProBuilder/RIF-anchored), as a plan.
+
+    GROW a helical bundle AROUND the ligand from RIF anchor contacts, scoring fold+bind
+    jointly -- NOT dock a generic pre-made scaffold. This is the route that works for
+    arbitrary small molecules and splits cleanly for a split sensor.
+    """
+    return {
+        "analyte": analyte, "smiles": smiles,
+        "topology": f"{n_helices}-helix bundle", "length_aa": length,
+        "steps": [
+            "1. CONFORMERS: generate a representative conformer ensemble of the ligand.",
+            "2. RIF: enumerate energetically-favorable side-chain contacts (rotamer "
+            "interaction field); mark the privileged H-bonds to "
+            f"{privileged_contacts or 'the key polar groups'} to enforce/upweight.",
+            "3. GROW: pick a RIF anchor as the folding root; Monte-Carlo fragment assembly "
+            "folds the bundle OUTWARD from it, scoring folding (RPX) + binding (RIF) jointly; "
+            "reassign the root on stalls to explore topologies.",
+            "4. SEQUENCE: Rosetta + ProteinMPNN on the fold+bind backbones.",
+            "5. FILTER: apo folding, interaction energy, H-bond count/geometry, shape "
+            "complementarity; check design vs AlphaFold2/Boltz prediction.",
+        ],
+        "tools": ["ProBuilder (RIF + RPX fragment assembly) or RFdiffusion-AllAtom",
+                  "LigandMPNN / ProteinMPNN", "Boltz-2 co-fold as the validator (not generator)"],
+        "why_bundle": "helical bundles dominate natural small-molecule binders (GPCR/NR), "
+                      "fold robustly, and SPLIT CLEANLY -> directly sensor-ready.",
+        "label": "⚠️ backbone generation needs ProBuilder/RFdiffusionAA (not run here); this "
+                 "is the recipe + the reason our bare-ligand Boltz de-novo runs failed.",
+    }
+
+
 def recommend_transducer(analyte_class: str, binder_topology: str,
                          desired_readout: str = "fluorescent") -> dict:
     """Pick a coupling mechanism from the paper's menu given the binder's properties."""

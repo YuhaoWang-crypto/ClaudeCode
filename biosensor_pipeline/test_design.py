@@ -205,6 +205,20 @@ def test_transducer_induced_folding_and_metal():
     print("[OK] transducer: induced-folding + metal-coordination plans + recommender")
 
 
+def test_end_to_end_sensor_demo():
+    """The full small-molecule -> binder-spec -> split+cpGFP sensor -> checklist demo
+    assembles and self-verifies."""
+    from .transducer import helical_bundle_binder_plan
+    from .demo_sensor import run, _placeholder_bundle
+    plan = helical_bundle_binder_plan("serotonin", "C1=CC2=C(C=C1O)C(=CN2)CCN",
+                                      privileged_contacts=["5-OH", "amine"])
+    assert plan["topology"].endswith("bundle") and len(plan["steps"]) == 5
+    bundle, boundaries = _placeholder_bundle()
+    assert len(boundaries) == 5 and bundle[:5] == "EIAAL"
+    run()  # writes biosensor_out/demo_sensor_serotonin.json; raises if anything breaks
+    print("[OK] end-to-end demo: binder spec -> split+cpGFP sensor + knobs -> checklist")
+
+
 if __name__ == "__main__":
     test_circular_permutation_conserves_residues()
     test_insertion_preserves_reporter()
@@ -220,4 +234,5 @@ if __name__ == "__main__":
     test_pocket_redesign_plan()
     test_transducer_split_bundle()
     test_transducer_induced_folding_and_metal()
+    test_end_to_end_sensor_demo()
     print("\nALL TESTS PASSED ✅")

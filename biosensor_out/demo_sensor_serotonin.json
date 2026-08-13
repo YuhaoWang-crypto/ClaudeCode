@@ -1,0 +1,68 @@
+{
+  "analyte": "serotonin",
+  "smiles": "C1=CC2=C(C=C1O)C(=CN2)CCN",
+  "binder_spec": {
+    "analyte": "serotonin",
+    "smiles": "C1=CC2=C(C=C1O)C(=CN2)CCN",
+    "topology": "5-helix bundle",
+    "length_aa": 120,
+    "steps": [
+      "1. CONFORMERS: generate a representative conformer ensemble of the ligand.",
+      "2. RIF: enumerate energetically-favorable side-chain contacts (rotamer interaction field); mark the privileged H-bonds to ['5-OH (indole)', 'primary amine (ethylamine)'] to enforce/upweight.",
+      "3. GROW: pick a RIF anchor as the folding root; Monte-Carlo fragment assembly folds the bundle OUTWARD from it, scoring folding (RPX) + binding (RIF) jointly; reassign the root on stalls to explore topologies.",
+      "4. SEQUENCE: Rosetta + ProteinMPNN on the fold+bind backbones.",
+      "5. FILTER: apo folding, interaction energy, H-bond count/geometry, shape complementarity; check design vs AlphaFold2/Boltz prediction."
+    ],
+    "tools": [
+      "ProBuilder (RIF + RPX fragment assembly) or RFdiffusion-AllAtom",
+      "LigandMPNN / ProteinMPNN",
+      "Boltz-2 co-fold as the validator (not generator)"
+    ],
+    "why_bundle": "helical bundles dominate natural small-molecule binders (GPCR/NR), fold robustly, and SPLIT CLEANLY -> directly sensor-ready.",
+    "label": "\u26a0\ufe0f backbone generation needs ProBuilder/RFdiffusionAA (not run here); this is the recipe + the reason our bare-ligand Boltz de-novo runs failed."
+  },
+  "transducer": {
+    "analyte_class": "small_molecule",
+    "binder_topology": "helical_bundle",
+    "recommended": "split-bundle reassembly (cpGFP)",
+    "background_knobs": [
+      "fragment_duplication",
+      "interface_weakening",
+      "terminal_truncation"
+    ],
+    "note": "helical bundles split cleanly -> best for split sensors; marginal-stability binders -> best for induced folding. Tune background/response with the knobs."
+  },
+  "sensor": {
+    "split_after_helix": 2,
+    "knobs": {
+      "fragment_duplication": [
+        0,
+        8
+      ],
+      "interface_weakening": [
+        3,
+        7
+      ]
+    },
+    "construct_n_len": 150,
+    "construct_c_len": 162,
+    "verify": {
+      "n_has_cpgfp": true,
+      "c_has_cpgfp": true,
+      "n_has_frag": true,
+      "c_has_frag": true,
+      "two_fragments_nonempty": true,
+      "all_ok": true
+    },
+    "placeholder_bundle": true
+  },
+  "validation_checklist": [
+    "in-silico: apo bundle folds (Boltz/AF2 pLDDT); holo retains ligand contact (Boltz ligand_iptm) + the privileged H-bonds present.",
+    "in-silico: split fragments do NOT co-fold without ligand (low interface conf), DO co-fold with ligand (proximity restored) -> the switch.",
+    "wet-lab: express both cpGFP fusions; measure fluorescence +/- analyte titration.",
+    "wet-lab: BACKGROUND = signal without ligand (fragment-duplication should lower it); RESPONSE = fold-change with saturating ligand.",
+    "wet-lab: SPECIFICITY = titrate structurally-similar off-targets; DYNAMIC RANGE + apparent Kd from the titration (the ground-truth number).",
+    "iterate: tune knobs (more/less duplication, interface weakening, terminal truncation) to trade background vs response."
+  ],
+  "label": "\u26a0\ufe0f binder backbone needs ProBuilder/RFdiffusionAA; split shown on a placeholder bundle. Pipeline + knobs + checklist are real; dynamic range is a hypothesis until the wet-lab titration."
+}
