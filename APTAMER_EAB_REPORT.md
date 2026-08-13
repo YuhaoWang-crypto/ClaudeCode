@@ -16,8 +16,9 @@ Reproduce with `python3 -m aptamer_eab.run_all`.
    直接用作 E-AB 识别元件：signal-ON，100 Hz SWV，信号变化 230 %，缓冲液中
    Kd = 385 nM、血清中 56 nM，LOD 162 pM。**先做这条，不要从零开始。**
 2. **关键实验事实：把 4.31 截短成 40 nt 的核心区（去掉引物臂）后，E-AB 完全没有
-   信号。** 引物臂不是"多余的扩增把手"，它参与形成 5′锚定端–3′MB 端之间的闭合茎，
-   而这正是开关本身。所以本 library 默认保留 80 nt 架构。
+   信号。** 引物臂不是"多余的扩增把手"：折叠分解显示它同时承担 **5′臂↔3′臂 9 bp
+   的长程闭合茎**（开关的力学耦合，占全部配对 37.5 %）和 **5′臂↔核心 5 bp 的双链**
+   （正交接触概率指认的界面，占 20.8 %）。所以本 library 默认保留 80 nt 架构。
 3. **NPY / PP / PYY 的 C 端几乎完全一样**（36 位中 14 位三者全同，其中 8 位集中在
    24–36 段）。**针对 C 端片段选出来的 aptamer 必然全家族交叉反应。**
    要做"短片段"，应选 **N 端**：NPY 用 **5–16 (PDNPGEDAPAED)**，PP 用
@@ -53,9 +54,9 @@ E-AB 构型：`5'-HS-(CH2)6-[80 nt]-MB-3'`，signal-ON，SWV @ 100 Hz，
 
 **(a) 截短会杀死信号。** 同一篇论文报告 40 nt 的裸核心（STLA）"no appreciable
 signal"。这直接决定了 library 的架构：核心区两侧保留引物臂。本流程算出的二级结构
-给出了机制解释 —— 80 nt 构型的 5′ 端与 3′ 区形成 2 个碱基对的长程闭合茎
-（`terminal_bp = 2`），裸核心则是两个互不相干的局部发夹（`terminal_bp = 0`）。
-`[PREDICTED]`
+给出了机制解释 —— 80 nt 构型的配对分解是 core↔core 10 bp / **5′臂↔3′臂 9 bp** /
+**5′臂↔核心 5 bp**；裸核心只有 10 bp 且完全没有臂，是两个互不相干的局部发夹。
+删掉臂等于同时失去长程闭合茎和臂–核心双链。详见 §4b。`[PREDICTED]`
 
 **(b) 已发表传感器的动态范围可能不匹配你的样本。** 20–600 nM 的窗口远高于文献报道
 的血浆 NPY 水平（通常为低 pM，即数十 pg/mL 量级）。若目标是**血浆**定量，亲和力
@@ -154,6 +155,9 @@ scramble 对照之下**。一个与唯一已知真值反相关的打分函数比
 
 打分项（权重）：终端茎 `terminal_bp` (0.30) · MFE/nt (0.25) · 归一化系综多样性 (0.20)
 · 配对比例 (0.15) · 3′ 端自由碱基数 (0.10)；GC 与均聚物越界扣分。
+**`terminal_bp` 的作用范围已按 §4b 更正**：它区分的是**架构**（framed vs 无臂），
+在 A–D 库内部近乎常数（固定臂人人相同），库内区分力实际来自 `mfe_per_nt` 与
+`norm_ens_div`。把这 0.30 的权重读作"强制架构"，不要读作"给核心排序"。
 `self_dimer_dg` **只报告不计分** —— 有效的 4.31 自二聚（−25.8 kcal/mol）比它的
 scramble（−12.2）更强，把它计入惩罚会直接把唯一已知有效的序列打下去。
 
@@ -165,7 +169,7 @@ scramble（−12.2）更强，把它计入惩罚会直接把唯一已知有效�
 |---|---|---|---|---|
 | **A** | NPY | 4.31 核心 doped 15 % + 保留引物臂 | 401 | 先验最强、风险最低 |
 | **B** | NPY | de novo 结构池（茎环/双发夹/三向连接/随机） | 631 | 逃离 4.31 表位用 |
-| **C** | PP | 4.31 核心 doped **30 %** | 400 | 利用 4.31 对 hPP 的残余亲和力 |
+| **C** | PP | 4.31 核心 doped **30 %**，配对进 5′ 臂的 5 个位点只 doped 5 % | 400 | 利用 4.31 对 hPP 的残余亲和力；两级 doping 的理由见 §4b |
 | **D** | PP | de novo 结构池（独立随机流） | 642 | |
 | **S** | 通用 | 28–40 nt 无引物臂短开关 | 891 | 风险较高（见截短实验），但电子转移快 |
 | **G** | 通用 | G-四链体，15–32 nt | 701 | **单独排序**，见下 |
@@ -186,6 +190,88 @@ G4 DNA 紧凑（电子转移快、相对信号变化大）、天然抗核酸酶 
 
 ---
 
+## 4b. 正交验证的结果（HDOCK + 接触概率）与它改变了什么
+
+一轮独立的正交验证（HDOCK 刚体对接 9 组交叉 + Boltz-2 distogram 接触概率 5 个复合物）
+的报告并入本项目。结论要分成两半读。
+
+### 不能用的那一半：三个打分判据全部没通过 decoy 对照
+
+| 方法 | NPY−PP 分离度（信号） | 4.31−打乱序列（噪声） | 信号/噪声 |
+|---|---|---|---|
+| Boltz-2 ipTM | 0.054（符号还反了） | 0.185 | 0.29 |
+| 接触概率 | 1.10 | 1.26 | 0.87 |
+| HDOCK | 3.92 | 18.03 | 0.22 |
+
+**三者全部 < 1**：把靶标从 NPY 换成 PP（真实可测的 42 倍差异），对分数的影响比把
+aptamer 换成随机序列还小。更糟的是，HDOCK 和接触概率**都把实验已确认无 EAB 信号的
+40-nt 截短版排在全长 4.31 前面**（HDOCK −278.3 vs −235.6；接触概率 13.78 vs 13.23）。
+刚体对接在跟踪形状互补与静电，接触概率的判别项贡献近乎为零
+（`Spearman(cp_on, 特异性得分) = 0.9933`）。
+
+**这与本项目的立场一致，且明确排除了一条路：不要用共折叠分数、接触概率或对接分数给
+SELEX 候选排序。** 本报告第 7 节最后一条已经说明为什么没有做共折叠打分，这轮验证把它
+从"预判"变成了"实测结论"。
+
+**关于本项目 `eab_score` 的诚实说明：它同样没有通过独立验证。** 它确实把 40-nt 截短版
+排在全长之下（48.7 vs 80.9），而 HDOCK 和接触概率都排反了 —— 但这**不构成本方法更好的
+证据**：`eab_score` 的窗口正是在看过这一对序列之后设的，排对是构造使然，不是发现。
+三种方法现在都属于"未验证"，只是失效模式不同。
+
+### 能用的那一半：固定臂在界面上 —— 两条独立证据吻合
+
+接触概率给出的**区段分解**（比排序弱得多的一个主张）与本项目从二级结构独立算出的结果
+高度一致：
+
+| 证据来源 | 结论 |
+|---|---|
+| 接触概率（Boltz-2 distogram） | 5′ 固定臂承担 **32.1 %**（NPY×4.31）的接触；最强接触核苷酸 **T14、C15、A16** |
+| 本项目二级结构（ViennaRNA，**完全没有蛋白**） | 5′ 臂位点 **14、15、18、19、20** 配对进入核心区（5 bp），核心区对应位点 44、45、46、59、60 |
+
+**T14 和 C15 精确落在两法共同指认的位点上**（A16 位于 14-15 与 18-20 两段配对之间的
+环内）。一个是蛋白–DNA 距离分布图，一个是无蛋白的核酸二级结构，两者独立指向同一段
+5′ 臂 —— 这比任何一个排序分数都更值得相信，因为它是**位置**主张而不是**优劣**主张。
+
+同时，本项目的 4.31 折叠给出完整的配对分解：
+
+| 配对类型 | bp | 占比 |
+|---|---|---|
+| core ↔ core | 10 | 41.7 % |
+| **5′arm ↔ 3′arm** | **9** | **37.5 %** |
+| **5′arm ↔ core** | **5** | **20.8 %** |
+
+而 40-nt 裸核心只有 5+4+1 = 10 bp，且完全没有臂。**这就是截短失效的结构解释**：
+删掉固定臂，同时失去了 37.5 % 的长程闭合茎（开关的力学耦合）和 20.8 % 的臂–核心双链
+（接触概率指认的界面）。
+
+### 由此做出的两处实际修改
+
+**1. 修正一个我说过头的说法。** 原先把 `terminal_bp` 描述成"区分能工作与不能工作的
+单一特征"。这是错的：**固定臂在每一条 framed 候选里都完全相同**，所以
+`terminal_bp`、`arm_arm_bp`、`arm_core_bp` 在 A–D 库内部近乎常数 ——
+组成匹配的 scramble 对照同样有 `arm_arm_bp = 9`、`arm_core_bp = 4`。
+`terminal_bp` 实际区分的是**架构**（framed vs 无臂），这正是 anchor check 需要的；
+库内部的区分力来自 `mfe_per_nt` 和 `norm_ens_div`（4.31 = −0.150 / 0.169，
+scramble = −0.076 / 0.344）。代码注释与权重解读已按此更正。
+
+**2. C 库（PP 重定向）改用两级 doping。** 检查发现平铺 30 % doping 会把臂–核心双链
+打掉：面板中 12 条只有 9 条保住（`arm_core_bp ≥ 4`）。把配对进入 5′ 臂的 5 个核心位点
+（核心内 1-based **24、25、26、39、40**，即构建体 44、45、46、59、60）降到 5 % doping 后，
+**保住比例升到 11/12，中位数从 4 bp 回到 6 bp**。A 库（15 % doping）本来就是 12/12，
+不需要改。合成上这只是同一条简并寡核苷酸用两个 doping 水平，任何合成仪都支持。
+
+`ORDER_PANEL.csv` 现在带 `arm_arm_bp` / `arm_core_bp` / `keeps_arm_core_duplex` 三列，
+可据此对 framed 候选再筛一道。
+
+### 关于 3′ 端（MB 位）
+
+接触概率给出 3′ 臂只占 **7.2 %** 的接触。这与已发表的 3′-MB 端标记产生 230 % 信号变化
+自洽：3′ 端**不直接参与结合**，所以它的位移是构象重排的**读出**，而不是结合本身的一部分
+—— 这恰是一个好的 E-AB 报告基团位置应有的性质。本项目 `tail3_free` 项（奖励 3′ 端游离）
+与之方向一致，4.31 的最后 5 nt 全部未配对。这是弱的支持性证据，不改变任何设计决定。
+
+---
+
 ## 5. 交付物
 
 ### 5.1 定义好的候选面板 — `aptamer_eab/output/ORDER_PANEL.csv`（58 条）
@@ -195,25 +281,28 @@ G4 DNA 紧凑（电子转移快、相对信号变化大）、天然抗核酸酶 
 
 **NPY 前 5** `[PREDICTED / DESIGN]`
 
-| id | 来源 | 架构 | nt | MFE | score | 序列 (5′→3′) |
-|---|---|---|---|---|---|---|
-| A01 | A 种子 | doped 4.31 (6 mut) | 80 | −12.8 | 88.4 | `AGCAGCACAGAGGTCAGATGCCAACCTCCGGCTGAGTGGTTGGCGTATGTCATTTCCGGACCTATGCGTGCTACCGTGAA` |
-| B13 | B de novo | dual hairpin | 77 | −12.6 | 86.9 | `AGCAGCACAGAGGTCAGATGTGTCCCGACATCGAAGTCGGGTTCTGTATCAACACAGCCTATGCGTGCTACCGTGAA` |
-| B14 | B de novo | dual hairpin | 80 | −13.3 | 86.7 | `AGCAGCACAGAGGTCAGATGTCACGATGGATTTTGCTCCATCACGACGGCGTAACCGTCGCCTATGCGTGCTACCGTGAA` |
-| A02 | A 种子 | doped 4.31 (**2 mut**) | 80 | −12.7 | 86.1 | `AGCAGCACAGAGGTCAGATGCAAACCACAGCCTAAGTGGTTAGCGTATCTCATTTACGGACCTATGCGTGCTACCGTGAA` |
-| A03 | A 种子 | doped 4.31 (5 mut) | 80 | −13.6 | 85.8 | `AGCAGCACAGAGGTCAGATGCAAACCACATCAGGAGTGGTTAGCATATGTCATTTGCGGACCTATGCGTGCTACCGTGAA` |
+| id | 来源 | 架构 | nt | MFE | score | 5′臂↔核心 | 序列 (5′→3′) |
+|---|---|---|---|---|---|---|---|
+| A01 | A 种子 | doped 4.31 (6 mut) | 80 | -12.8 | 88.4 | **6 bp 保** | `AGCAGCACAGAGGTCAGATGCCAACCTCCGGCTGAGTGGTTGGCGTATGTCATTTCCGGACCTATGCGTGCTACCGTGAA` |
+| B13 | B de novo | dual hairpin | 77 | -12.6 | 86.9 | 3 bp 破 | `AGCAGCACAGAGGTCAGATGTGTCCCGACATCGAAGTCGGGTTCTGTATCAACACAGCCTATGCGTGCTACCGTGAA` |
+| B14 | B de novo | dual hairpin | 80 | -13.3 | 86.7 | 0 bp 破 | `AGCAGCACAGAGGTCAGATGTCACGATGGATTTTGCTCCATCACGACGGCGTAACCGTCGCCTATGCGTGCTACCGTGAA` |
+| A02 | A 种子 | doped 4.31 (2 mut) | 80 | -12.7 | 86.1 | **7 bp 保** | `AGCAGCACAGAGGTCAGATGCAAACCACAGCCTAAGTGGTTAGCGTATCTCATTTACGGACCTATGCGTGCTACCGTGAA` |
+| A03 | A 种子 | doped 4.31 (5 mut) | 80 | -13.6 | 85.8 | **6 bp 保** | `AGCAGCACAGAGGTCAGATGCAAACCACATCAGGAGTGGTTAGCATATGTCATTTGCGGACCTATGCGTGCTACCGTGAA` |
 
 > A02 只有 2 个突变，是最保守的一步试探 —— 如果它比野生型 4.31 好，说明这条路走得通。
 
 **PP 前 5** `[PREDICTED / DESIGN]`
 
-| id | 来源 | 架构 | nt | MFE | score | 序列 (5′→3′) |
-|---|---|---|---|---|---|---|
-| D35 | D de novo | stem-loop | 76 | −12.2 | 88.7 | `AGCAGCACAGAGGTCAGATGTTAGAACCTTCGGTACACCGGCGACCGAAGGCTGTTCCTATGCGTGCTACCGTGAA` |
-| C23 | C 交叉种子 | doped 4.31 (9 mut) | 80 | −12.8 | 87.9 | `AGCAGCACAGAGGTCAGATGCAAACCATGCCCTGAGTGGTCAGTGCATGTCATTAATTGACCTATGCGTGCTACCGTGAA` |
-| D36 | D de novo | dual hairpin | 77 | −12.2 | 87.4 | `AGCAGCACAGAGGTCAGATGTTAGTGGTATATACCACCGTCCAGCCATCAGGGCTGGCCTATGCGTGCTACCGTGAA` |
-| D37 | D de novo | stem-loop | 76 | −12.2 | 87.2 | `AGCAGCACAGAGGTCAGATGGACCGCAACCACCTTAGCGGTGAGGTGGTTACAATACCTATGCGTGCTACCGTGAA` |
-| D38 | D de novo | random | 76 | −11.9 | 86.5 | `AGCAGCACAGAGGTCAGATGATTTCTGCTCGCTATGGCGATTTGAAGGTGGGCTGACCTATGCGTGCTACCGTGAA` |
+| id | 来源 | 架构 | nt | MFE | score | 5′臂↔核心 | 序列 (5′→3′) |
+|---|---|---|---|---|---|---|---|
+| C23 | C 交叉种子 | doped 4.31 (13 mut) | 80 | -12.9 | 89.5 | **6 bp 保** | `AGCAGCACAGAGGTCAGATGCGAACGAAACCTTGAGGCGTTCGCGTATAACATTAGGGGACCTATGCGTGCTACCGTGAA` |
+| D35 | D de novo | stem-loop | 76 | -12.2 | 88.7 | 3 bp 破 | `AGCAGCACAGAGGTCAGATGTTAGAACCTTCGGTACACCGGCGACCGAAGGCTGTTCCTATGCGTGCTACCGTGAA` |
+| D36 | D de novo | dual hairpin | 77 | -12.2 | 87.4 | 0 bp 破 | `AGCAGCACAGAGGTCAGATGTTAGTGGTATATACCACCGTCCAGCCATCAGGGCTGGCCTATGCGTGCTACCGTGAA` |
+| D37 | D de novo | stem-loop | 76 | -12.2 | 87.2 | **5 bp 保** | `AGCAGCACAGAGGTCAGATGGACCGCAACCACCTTAGCGGTGAGGTGGTTACAATACCTATGCGTGCTACCGTGAA` |
+| C24 | C 交叉种子 | doped 4.31 (9 mut) | 80 | -12.7 | 86.5 | **8 bp 保** | `AGCAGCACAGAGGTCAGATGCAAACAACCGCCTGACTAGTTTGCATGTGTCCTTTACGGCCCTATGCGTGCTACCGTGAA` |
+
+> `5′臂↔核心` 列 = 该候选保留了几个碱基对进入 5′ 固定臂（4.31 为 5 bp）。
+> D 库是 de novo 核心，本来就没有保留这段双链的义务；C 库经两级 doping 后 11/12 保住。
 
 **短开关轨道（S，无引物臂，30–38 nt）** — 电子转移更快、相对信号更大，但对本家族
 风险更高（见 4.31 截短实验）：
@@ -241,7 +330,7 @@ doped library 在湿实验里是**一条简并寡核苷酸**（合成仪每个�
 |---|---|---|
 | **E1** naive N40 | `5'-AGCAGCACAGAGGTCAGATG-(N)40-CCTATGCGTGCTACCGTGAA-3'` | 两个靶点的 naive 第一轮；沿用已发表选择的引物臂，工作流与传感器可直接对比 |
 | **E2** NPY 成熟 | 同上，核心区按 **15 % doping**（85 % 野生型 / 各 5 % 其它三种） | 4.31 亲和力+开关幅度成熟；升压力 + PP/PYY 反向筛选 |
-| **E3** PP 重定向 | 同上，核心区按 **30 % doping** | 把 4.31 骨架重定向到 PP；**从第 1 轮起就对 NPY 和 PYY 反向筛选** |
+| **E3** PP 重定向 | 同上，核心区按 **30 % doping**，但核心位点 **24,25,26,39,40**（构建体 44,45,46,59,60）只按 **5 % doping** | 把 4.31 骨架重定向到 PP；**从第 1 轮起就对 NPY 和 PYY 反向筛选**。两级 doping 的理由见 §4b |
 | **E4** 引物 | FWD `AGCAGCACAGAGGTCAGATG` / REV `CCTATGCGTGCTACCGTGAA` | 反向引物建议 5′-磷酸化或加 poly-A 尾以再生 ssDNA |
 
 ### 5.3 E-AB 构型（沿用已发表的成功配置）
@@ -297,6 +386,9 @@ doped library 在湿实验里是**一条简并寡核苷酸**（合成仪每个�
 - 只对 MFE 单一构象打分，离子依赖的构象系综未建模。
 - NPY/PP/PYY 相互一致性 44–64 %，C 端近乎相同：**家族特异性不能假设**。
 - Library 是 SELEX / 筛选的起始池，不是 binder。
+- **三个正交打分判据（ipTM / 接触概率 / HDOCK）均未通过 decoy 对照**，其中两个把
+  实验无信号的 40-nt 截短版排在全长前面。详见 §4b。本项目的 `eab_score` 同样未经
+  独立验证，只是失效模式不同。
 - **本项目未做共折叠（Boltz-2）打分。** 该 skill 自己的交叉验证结论是：对柔性
   ssDNA，ipTM 偏乐观且不具区分度，唯一可信的信号是结构 footprint 重叠 —— 而 NPY 是
   一条 36 aa 的柔性肽，没有可用的 aptamer 复合物结构来定义 footprint。在这种情况下

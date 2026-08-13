@@ -169,7 +169,8 @@ def run_panel(libs, ref_score):
         for r in panel.itertuples()]
     cols = ["id", "target", "sublib", "arch", "len", "gc", "mfe", "p_mfe",
             "paired_frac", "terminal_bp", "tail3_free", "self_dimer_dg",
-            "eab_score", "g4_quality", "g4hunter", "g4_tracts",
+            "eab_score", "arm_arm_bp", "arm_core_bp", "keeps_arm_core_duplex",
+            "g4_quality", "g4hunter", "g4_tracts",
             "longest_g_run", "beats_4.31_in_silico", "n_mut", "core",
             "seq", "struct"]
     panel = panel[[c for c in cols if c in panel.columns]]
@@ -181,6 +182,22 @@ def run_panel(libs, ref_score):
     print(f"  {nb} of them out-score the 4.31 reference on the heuristic. That "
           f"is NOT evidence\n  of better binding - the heuristic was anchored "
           f"on 4.31's own structure.")
+
+    framed = panel[panel.arm_core_bp.notna()]
+    if len(framed):
+        keep = framed.keeps_arm_core_duplex.fillna(False).astype(bool)
+        print(f"\n  5'arm<->core duplex (4.31 has 5 bp at arm positions "
+              f"14,15,18,19,20):\n    {int(keep.sum())}/{len(framed)} framed "
+              f"panel members keep >=4 bp. The orthogonal contact-probability\n"
+              f"    run puts ~1/3 of the predicted interface on the 5' arm "
+              f"(strongest contacts\n    T14/C15/A16), so candidates that "
+              f"break this duplex are deprioritised.")
+        for sl in ["A_NPY_seeded", "C_PP_crossseeded"]:
+            sub = framed[framed.sublib == sl]
+            if len(sub):
+                k = sub.keeps_arm_core_duplex.fillna(False).astype(bool)
+                print(f"      {sl:<18} {int(k.sum())}/{len(sub)} keep it "
+                      f"(median {sub.arm_core_bp.median():.0f} bp)")
 
     print("\n  Top 5 per target (id | eab_score | len | MFE | termBP):")
     for t in ["NPY", "PP"]:

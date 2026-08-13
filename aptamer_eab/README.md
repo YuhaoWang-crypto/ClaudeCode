@@ -47,6 +47,16 @@ An earlier version of the score ranked the working aptamer *below* its own
 scramble control — that is why the check exists. Two anchor points, set after
 seeing the sequences, is an anchor, not a validation.
 
+**It does not use the arm-pairing metrics as discriminators.** `arm_arm_bp` and
+`arm_core_bp` are reported, never scored: the two fixed arms are identical in
+every framed candidate, so 4.31 (9 / 5) and its scramble (9 / 4) look nearly the
+same. They exist as a *design constraint* — an orthogonal contact-probability
+run puts ~1/3 of the predicted interface on the 5' arm, with strongest contacts
+at T14/C15/A16, and this fold independently pairs arm positions 14,15,18,19,20
+into the core. Library C dopes those five core partners at 5 % instead of 30 %
+so retargeting mutagenesis does not wipe the duplex out (panel retention
+9/12 → 11/12).
+
 **It does not score G-quadruplexes with ViennaRNA.** The DNA parameter set has
 no G4 term, so a real G4 is scored as coil. The G track is ranked by
 `g4_quality` instead, anchored on the thrombin-binding aptamer (G4Hunter 1.13 —

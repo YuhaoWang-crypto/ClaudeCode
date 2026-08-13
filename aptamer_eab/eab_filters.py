@@ -35,11 +35,18 @@ from kernel import (fold_one, gc_frac, max_homopolymer_run)  # noqa: E402
 # --------------------------------------------------------------- windows ----
 # [DESIGN] (lo, hi, ideal) windows on length-normalised descriptors.
 SWITCH_SPEC = {
-    # Base pairs joining the 5' anchor end to the 3' MB end in the MFE fold.
-    # This is the switch element: opening it moves MB away from the electrode,
-    # closing it moves MB in.  It is also the single feature that separates the
-    # working 80-nt 4.31 construct (2 such pairs) from the inactive bare core
-    # (0) - the primer arms are not passive handles, they close the fold.
+    # Base pairs joining the 5' anchor end to the 3' MB end in the MFE fold -
+    # the element that couples a binding event at the core to MB motion.
+    #
+    # SCOPE, corrected after the orthogonal-validation round: this term
+    # separates FRAMED from UNFRAMED architecture (4.31 full = 2, its inactive
+    # bare core = 0), which is what the anchor check needs. It does NOT
+    # discriminate within the framed libraries: the arms are identical in every
+    # framed candidate, so the composition-matched scramble also scores 2, and
+    # the term is near-constant across libraries A-D. The within-set
+    # discrimination actually comes from mfe_per_nt and norm_ens_div, which do
+    # separate 4.31 (-0.150 / 0.169) from its scramble (-0.076 / 0.344).
+    # Read the 0.30 weight as "enforce the architecture", not "rank the cores".
     "terminal_bp": (0.001, 10.0, 3.0),
     # MFE per nucleotide (kcal/mol/nt, DNA Mathews2004, 37 C).  Length-robust
     # stand-in for "folded but not welded shut".  4.31 sits at -0.150; its
@@ -104,6 +111,36 @@ def three_prime_free(struct, tail=5):
     return sum(1 for ch in struct[-tail:] if ch == ".")
 
 
+def arm_pairing(struct, arm=20):
+    """[PREDICTED] For a FRAMED construct (20-nt arm + core + 20-nt arm), split
+    the base pairs by segment: (arm_arm_bp, arm_core_bp).
+
+    Returns (None, None) for anything too short to be framed.
+
+    Why these are reported but NOT scored: the two fixed arms are IDENTICAL in
+    every framed candidate, so both numbers are near-constant across the framed
+    libraries and neither can discriminate a good candidate from a bad one -
+    the composition-matched scramble of 4.31 has arm_arm_bp = 9 and
+    arm_core_bp = 4, essentially the same as real 4.31 (9 and 5).
+
+    They earn their place as a DESIGN CONSTRAINT instead: doped mutagenesis of
+    the core can destroy the 5'arm<->core duplex, and that duplex is where the
+    orthogonal contact-probability run puts roughly a third of the predicted
+    protein-DNA interface (strongest 5'-arm contacts T14/C15/A16 - two of which
+    are exactly the arm positions this fold pairs into the core). Candidates
+    that break it are throwing away the part of 4.31 two independent methods
+    agree is load-bearing.
+    """
+    n = len(struct)
+    if n < 3 * arm:
+        return None, None
+    pt = pair_table(struct)
+    aa = sum(1 for i, j in enumerate(pt) if j > i and i < arm and j >= n - arm)
+    ac = sum(1 for i, j in enumerate(pt)
+             if j > i and i < arm and arm <= j < n - arm)
+    return aa, ac
+
+
 def self_dimer_dg(seq):
     """[PREDICTED, informational only] Best intermolecular duplex energy with a
     copy of itself (ViennaRNA duplexfold, DNA parameters).
@@ -139,6 +176,12 @@ def eab_metrics(seq, temperature=37.0):
     }
     m["mfe_per_nt"] = round(m["mfe"] / m["len"], 4)
     m["norm_ens_div"] = round(m["ens_div"] / m["len"], 4)
+    aa, ac = arm_pairing(struct)
+    m["arm_arm_bp"] = aa
+    m["arm_core_bp"] = ac
+    # [DESIGN] 4.31 pairs 5 arm positions (14,15,18,19,20) into its core.
+    # Keep >=4 to retain that duplex through core mutagenesis.
+    m["keeps_arm_core_duplex"] = None if ac is None else bool(ac >= 4)
     return m
 
 

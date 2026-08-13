@@ -44,6 +44,52 @@ def frame(core, fwd=known.LIB_FWD, rev=known.LIB_REV):
     return fwd + core + rev
 
 
+# [PREDICTED] Core positions (1-based within the 40-nt selected core) that base
+# pair into the 5' fixed arm in the 4.31 MFE fold. Construct positions
+# 44,45,46,59,60 minus the 20-nt arm offset. Computed, not typed from memory -
+# see the assertion in `arm_engaging_core_positions`.
+def arm_engaging_core_positions(arm=20):
+    """[PREDICTED] Which core positions pair into the 5' arm, recomputed from
+    the fold so this can never drift out of sync with the sequence."""
+    from .eab_filters import eab_metrics, pair_table
+    st = eab_metrics(known.APT431)["struct"]
+    pt = pair_table(st)
+    n = len(st)
+    return sorted({j - arm + 1 for i, j in enumerate(pt)
+                   if j > i and i < arm and arm <= j < n - arm})
+
+
+def doped_core_protected(core, protect, n_per_seed, doping, protect_doping,
+                         seed=0):
+    """[DESIGN] Doped mutagenesis of a core with a per-position mutation mask.
+
+    `protect` is a list of 1-based core positions mutated at `protect_doping`
+    instead of `doping`. Used to keep the 5'arm<->core duplex intact through
+    retargeting mutagenesis - the orthogonal contact-probability run puts ~1/3
+    of the predicted interface on the 5' arm, so wiping that duplex out throws
+    away the part of 4.31 two independent methods agree is load-bearing.
+
+    In the wet lab this is one degenerate oligo with two doping levels, which
+    every synthesiser supports - it is not a per-sequence order.
+    """
+    rng = random.Random(seed)
+    prot = set(protect or [])
+    out = {}
+    for _ in range(n_per_seed):
+        chars = []
+        for idx, c in enumerate(core, start=1):
+            p = protect_doping if idx in prot else doping
+            if rng.random() < p:
+                chars.append(rng.choice([a for a in "ACGT" if a != c]))
+            else:
+                chars.append(c)
+        m = "".join(chars)
+        if m not in out:
+            out[m] = {"seq": m, "parent": core,
+                      "n_mut": sum(1 for a, b in zip(m, core) if a != b)}
+    return list(out.values())
+
+
 def scramble(seq, seed=1234):
     """[DESIGN] Composition-matched scramble - the standard SELEX / E-AB
     negative control (same length, same base counts, no selected structure)."""
@@ -85,16 +131,23 @@ def library_B_npy_denovo(n_per_arch=200, seed=42):
 
 
 # ----------------------------------------------------------------- C: PP ----
-def library_C_pp_crossseeded(n=400, doping=0.30, seed=23):
+def library_C_pp_crossseeded(n=400, doping=0.30, seed=23, protect_doping=0.05):
     """Doped pool around 4.31 at HIGH doping, for re-targeting to PP.
 
     doping=0.30 (~12 mutations per 40-nt core) is deliberately at the top of
     the SELEX doping range: we want to keep 4.31's folding backbone - which is
     known to present a binding surface to this peptide family - while moving
     far enough in sequence space to flip the 42-fold preference from NPY to PP.
+
+    The core positions that base pair into the 5' fixed arm are doped at only
+    `protect_doping`. At a flat 30 % that duplex was being destroyed in a
+    quarter of the selected candidates, and the orthogonal contact-probability
+    run puts ~1/3 of the predicted protein-DNA interface on that arm.
     """
-    muts = doped_mutant_library([known.APT431_CORE], n_per_seed=n,
-                                doping=doping, seed=seed, include_parent=False)
+    protect = arm_engaging_core_positions()
+    muts = doped_core_protected(known.APT431_CORE, protect, n_per_seed=n,
+                                doping=doping, protect_doping=protect_doping,
+                                seed=seed)
     extra = {frame(m["seq"]): {"core": m["seq"], "n_mut": m["n_mut"],
                                "parent": "APT431_core", "sublib": "C_PP_crossseeded",
                                "arch": "doped_4.31_high"}
@@ -238,10 +291,16 @@ def order_specs():
                 "run with increasing stringency + PP and PYY counter-selection",
          "scale": "0.2 umol, desalted"},
         {"name": "E3_doped_4.31_PP_retargeting",
-         "spec": known.doped_oligo_spec(doping=0.30)["construct"],
+         "spec": known.doped_oligo_spec(doping=0.30)["construct"]
+                 + f"  BUT core positions {arm_engaging_core_positions()} "
+                   "(1-based in the core; construct positions 44,45,46,59,60) "
+                   "doped at only 5% - they base pair into the 5' fixed arm",
          "use": "re-target the 4.31 backbone to PP; counter-select against NPY "
                 "and PYY in EVERY round from round 1 - this is the step that "
-                "inverts the 42-fold NPY preference",
+                "inverts the 42-fold NPY preference. Two doping levels in one "
+                "oligo: a flat 30% destroyed the 5'arm<->core duplex in a "
+                "quarter of candidates, and the orthogonal contact-probability "
+                "run puts ~1/3 of the predicted interface on that arm",
          "scale": "0.2 umol, desalted"},
         {"name": "E4_primers",
          "spec": f"FWD 5'-{known.LIB_FWD}-3'  /  REV 5'-{known.LIB_REV}-3' "
