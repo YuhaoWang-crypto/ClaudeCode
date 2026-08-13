@@ -115,6 +115,50 @@ perturbation, so knockdowns whose targets behave like this one stand in for it.
 That uses no measurement of the gene *as perturbed*, only of the gene *as
 observed*, so it is leakage-free.
 
+## Contexts buy differential expression, not discrimination
+
+Fit on every possible subset of source lines — one, two, then three — with
+hyperparameters held fixed, so the model is constant and only the data varies.
+
+The four lines share nearly the same 2,053-knockdown panel, so a second source
+line adds almost no new *perturbations*, only a new *context*. Under a pure
+scaling account this should be close to flat: a second measurement of the same
+perturbation set is largely redundant.
+
+| metric | 1 source | 2 sources | 3 sources | change |
+|---|---|---|---|---|
+| Pearson (effect) | 0.2472 | 0.3029 | **0.3320** | **+34.3%** |
+| aggregate score | 0.1262 | 0.1504 | **0.1652** | **+30.9%** |
+| DE overlap@100 | 0.2098 | 0.2461 | **0.2622** | **+25.0%** |
+| discrimination | 0.6154 | 0.6203 | 0.6219 | +1.1% |
+
+The aggregate score rises monotonically in **all four** cell lines:
+
+| held out | 1 | 2 | 3 |
+|---|---|---|---|
+| K562 | 0.1790 | 0.2147 | 0.2353 |
+| RPE1 | 0.0836 | 0.0990 | 0.1077 |
+| HepG2 | 0.1186 | 0.1461 | 0.1650 |
+| Jurkat | 0.1237 | 0.1420 | 0.1528 |
+
+**But the gain is confined to differential expression and effect correlation.
+Discrimination barely moves (+1.1%), and on RPE1 it slightly *decreases***
+(0.5510 → 0.5471).
+
+This is a sharper version of the claim in *Virtual Cells Need Context, Not Just
+Scale* (2026), which reported DEG recovery improving with contextual coverage
+while aggregate metrics tracked cell count. Here contextual coverage is isolated
+from scale by construction, and it buys a 25–34% improvement in *what the
+response looks like* while buying almost nothing in *telling perturbations
+apart*. Those are different capabilities and more contexts only purchases one of
+them.
+
+The practical reading for a Challenge 2 entry: adding the H1 hESC data and other
+cell lines should move the differential expression score materially and the
+discrimination score barely. Discrimination needs something else.
+
+![context ablation](../figures/virtualcell/context_ablation.png)
+
 Full tables, including supplementary metrics and per-fold hyperparameters, are
 in [`../results/tables.md`](../results/tables.md).
 
