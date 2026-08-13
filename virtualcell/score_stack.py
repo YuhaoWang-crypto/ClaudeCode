@@ -22,6 +22,7 @@ from __future__ import annotations
 
 import argparse
 import json
+from dataclasses import replace
 from pathlib import Path
 
 import anndata as ad
@@ -50,8 +51,15 @@ def _profile(path: Path) -> tuple[np.ndarray, np.ndarray]:
 
 
 def stack_delta(target: str, perts: np.ndarray, symbols: np.ndarray
-                ) -> np.ndarray | None:
-    """Predicted effects for one fold, projected onto this project's gene axis."""
+                ) -> tuple[np.ndarray, np.ndarray] | None:
+    """Predicted effects for one fold, projected onto this project's gene axis.
+
+    Also returns the mask of genes Stack actually covers.  Its 15,012-gene
+    universe misses roughly a third of this project's 6,642, and scoring the
+    remainder as zero effect would penalise Stack for a gene-space mismatch
+    rather than for prediction quality -- so every model gets restricted to the
+    same genes.
+    """
     out = BENCH / f"pred_{target}"
     ctrl_path = out / f"{CONTROL}.h5ad"
     if not ctrl_path.exists():
@@ -78,7 +86,7 @@ def stack_delta(target: str, perts: np.ndarray, symbols: np.ndarray
         delta[i, have] = d[take[have]]
     if missing:
         print(f"  WARNING: {len(missing)} conditions absent from Stack output")
-    return delta
+    return delta, have
 
 
 def main() -> None:
@@ -102,6 +110,7 @@ def main() -> None:
             hyper[name] = Hyper(**clean)
 
     results: dict[str, dict[str, dict[str, float]]] = {}
+    restricted: dict[str, dict[str, dict[str, float]]] = {}
     for tag, pretty in NAME.items():
         pert_file = BENCH / f"perts_{tag}.txt"
         if not pert_file.exists():
@@ -127,20 +136,45 @@ def main() -> None:
             fold[name] = evaluate(model.predict(perts), target, perts, truth,
                                   symbols)
 
-        d = stack_delta(tag, perts, symbols)
-        if d is not None:
-            fold["Stack (Arc, in-context)"] = evaluate(d, target, perts, truth,
-                                                       symbols)
+        got = stack_delta(tag, perts, symbols)
+        if got is not None:
+            d, have = got
+            # Restrict every model to the genes Stack covers, so the comparison
+            # measures prediction quality rather than gene-space overlap.
+            sub = replace(target, ctrl=target.ctrl[:, have],
+                          pert=target.pert[:, have], genes=target.genes[have],
+                          symbols=target.symbols[have], _mu=None, _delta=None)
+            sub_sources = [replace(s_, ctrl=s_.ctrl[:, have],
+                                   pert=s_.pert[:, have], genes=s_.genes[have],
+                                   symbols=s_.symbols[have], _mu=None,
+                                   _delta=None) for s_ in sources]
+            sub_sym = symbols[have]
+            sub_truth = de_truth(sub, perts)
+            fold_r: dict[str, dict[str, float]] = {}
+            for name, model in models.items():
+                model.fit(sub_sources, sub.mu, sub_sym)
+                fold_r[name] = evaluate(model.predict(perts), sub, perts,
+                                        sub_truth, sub_sym)
+            fold_r["Stack (Arc, in-context)"] = evaluate(
+                d[:, have], sub, perts, sub_truth, sub_sym)
+            restricted[pretty] = fold_r
         results[pretty] = fold
 
-        base = fold["global mean [challenge baseline]"]
-        for name, m in fold.items():
-            print(f"  {name:<34} PDS={m['discrimination_score_l1']:.3f}  "
-                  f"ovl@100={m['overlap_at_100']:.3f}  MAE={m['mae']:.4f}  "
-                  f"score={M.vcc_score(m, base)['avg_score']:.3f}")
+        for label, table in (("all 6,642 genes", fold),
+                             (f"restricted to genes Stack covers", 
+                              restricted.get(pretty))):
+            if not table:
+                continue
+            print(f"  -- {label} --")
+            base = table["global mean [challenge baseline]"]
+            for name, m in table.items():
+                print(f"    {name:<34} PDS={m['discrimination_score_l1']:.3f}  "
+                      f"ovl@100={m['overlap_at_100']:.3f}  MAE={m['mae']:.4f}  "
+                      f"score={M.vcc_score(m, base)['avg_score']:.3f}")
 
     args.out.parent.mkdir(parents=True, exist_ok=True)
     args.out.write_text(json.dumps({"results": results,
+                                    "restricted": restricted,
                                     "lines": [NAME[t] for t in NAME
                                               if NAME[t] in results]},
                                    indent=2, default=str))

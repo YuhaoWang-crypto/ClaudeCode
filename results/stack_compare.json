@@ -1,0 +1,59 @@
+{
+  "results": {
+    "K562": {
+      "control (delta=0)": {
+        "discrimination_score_l1": 0.5064,
+        "overlap_at_100": 0.0033308328697048205,
+        "overlap_at_50": 0.0018,
+        "de_direction_match": 0.0,
+        "de_spearman_lfc": 0.0,
+        "pearson_delta": 0.0,
+        "mae": 0.04243143229920853,
+        "mae_delta": 0.04243143229920853
+      },
+      "global mean [challenge baseline]": {
+        "discrimination_score_l1": 0.5058,
+        "overlap_at_100": 0.04483596175344551,
+        "overlap_at_50": 0.035909783400059146,
+        "de_direction_match": 0.6650898744394514,
+        "de_spearman_lfc": 0.2008274215337661,
+        "pearson_delta": 0.12349934033030673,
+        "mae": 0.04642530533996061,
+        "mae_delta": 0.04642530533996061
+      },
+      "naive transfer": {
+        "discrimination_score_l1": 0.7132000000000001,
+        "overlap_at_100": 0.22917268014177364,
+        "overlap_at_50": 0.22731711708911334,
+        "de_direction_match": 0.8231468275624227,
+        "de_spearman_lfc": 0.41071222612370845,
+        "pearson_delta": 0.25883829997964525,
+        "mae": 0.05209070513109231,
+        "mae_delta": 0.05209070513109231
+      },
+      "ContextTransfer (ours)": {
+        "discrimination_score_l1": 0.6621000000000001,
+        "overlap_at_100": 0.27395143210919704,
+        "overlap_at_50": 0.2748540479678599,
+        "de_direction_match": 0.8499707396309034,
+        "de_spearman_lfc": 0.44895720179139104,
+        "pearson_delta": 0.3023148342523183,
+        "mae": 0.0423234675283698,
+        "mae_delta": 0.0423234675283698
+      },
+      "Stack (Arc, in-context)": {
+        "discrimination_score_l1": 0.5048999999999999,
+        "overlap_at_100": 0.03195051903328781,
+        "overlap_at_50": 0.03032115028241064,
+        "de_direction_match": 0.3035424768705656,
+        "de_spearman_lfc": -0.0038646600743450195,
+        "pearson_delta": -0.0069622442605307274,
+        "mae": 0.054787330932643485,
+        "mae_delta": 0.054787330932643485
+      }
+    }
+  },
+  "lines": [
+    "K562"
+  ]
+}
