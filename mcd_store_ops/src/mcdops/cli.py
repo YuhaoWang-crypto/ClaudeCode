@@ -3,6 +3,7 @@
     python -m mcdops.cli brief                 班前会简报（终端）
     python -m mcdops.cli report                生成 output/daily_report.md
     python -m mcdops.cli dashboard             生成 output/dashboard.html
+    python -m mcdops.cli excel                 生成 output/store_ops_package.xlsx（11 个 sheet）
     python -m mcdops.cli matrix <指标> <维度>   打印一张归因矩阵
     python -m mcdops.cli cross <指标> <维A> <维B>  打印一张交叉矩阵
     python -m mcdops.cli reports                打印每日报表清单
@@ -192,6 +193,17 @@ def cmd_validate(args):
     return 1 if errs else 0
 
 
+def cmd_excel(args):
+    from . import excel
+    eng, d = _engine(args)
+    OUT.mkdir(exist_ok=True)
+    path = OUT / "store_ops_package.xlsx"
+    excel.build_workbook(eng, d, args.days, path)
+    print(f"→ {path}")
+    print("  记得跑一次重算以填充公式缓存值：")
+    print(f"  python /root/.claude/skills/synced/xlsx/scripts/recalc.py {path}")
+
+
 def cmd_docs(_args):
     """把数据字典和报表清单从代码里导出成文档，保证文档不会和实现走散。"""
     docs = ROOT / "docs"
@@ -291,6 +303,7 @@ def main(argv=None) -> int:
         ("dump", cmd_dump, "导出模拟数据为 CSV"),
         ("validate", cmd_validate, "校验指标/数据/报表三者自洽"),
         ("docs", cmd_docs, "从代码生成 docs/01 与 docs/02"),
+        ("excel", cmd_excel, "生成 Excel 工作簿 output/store_ops_package.xlsx"),
         ("all", cmd_all, "跑全套"),
     ):
         sp = sub.add_parser(name, help=helptext, parents=[common])
