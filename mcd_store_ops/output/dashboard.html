@@ -1,0 +1,717 @@
+<title>门店日运营看板</title>
+<style>
+:root{
+  --bg:#f6f7f9; --panel:#fff; --ink:#16191d; --muted:#8b93a1; --line:#e3e6ea;
+  --ok:#1f9d55; --warn:#d98315; --bad:#d4372c;
+  --ok-bg:#e8f5ee; --warn-bg:#fdf1e0; --bad-bg:#fbe9e7;
+  --accent:#b8232f;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0f1114; --panel:#171a1f; --ink:#e8eaed; --muted:#8b93a1; --line:#272c33;
+    --ok:#4ade80; --warn:#fbbf24; --bad:#f87171;
+    --ok-bg:#132a1d; --warn-bg:#2e2410; --bad-bg:#33191a;
+    --accent:#ef4b58;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0f1114; --panel:#171a1f; --ink:#e8eaed; --muted:#8b93a1; --line:#272c33;
+  --ok:#4ade80; --warn:#fbbf24; --bad:#f87171;
+  --ok-bg:#132a1d; --warn-bg:#2e2410; --bad-bg:#33191a; --accent:#ef4b58;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font:15px/1.55 -apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;}
+.wrap{max-width:1180px;margin:0 auto;padding:24px 18px 64px}
+header{display:flex;flex-wrap:wrap;align-items:baseline;gap:12px;margin-bottom:6px}
+h1{font-size:21px;margin:0;letter-spacing:-.2px}
+h2{font-size:15px;margin:32px 0 12px;color:var(--muted);font-weight:600;
+   text-transform:uppercase;letter-spacing:.08em}
+.sub{color:var(--muted);font-size:13px}
+.grid{display:grid;gap:12px}
+.kpis{grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}
+.fams{grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 16px}
+.card .lab{font-size:12px;color:var(--muted);margin-bottom:6px}
+.card .val{font-size:26px;font-weight:650;letter-spacing:-.5px;line-height:1.1}
+.card .foot{font-size:12px;color:var(--muted);margin-top:6px}
+.fam{border-left:4px solid var(--line)}
+.fam.green{border-left-color:var(--ok)} .fam.amber{border-left-color:var(--warn)}
+.fam.red{border-left-color:var(--bad)}
+.pill{display:inline-block;padding:1px 8px;border-radius:99px;font-size:11px;font-weight:600}
+.pill.green{background:var(--ok-bg);color:var(--ok)}
+.pill.amber{background:var(--warn-bg);color:var(--warn)}
+.pill.red{background:var(--bad-bg);color:var(--bad)}
+.pill.na{background:var(--line);color:var(--muted)}
+.todo{background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--bad);
+      border-radius:10px;padding:14px 16px;margin-bottom:10px}
+.todo.amber{border-left-color:var(--warn)}
+.todo h3{margin:0 0 4px;font-size:16px}
+.todo .meta{font-size:12px;color:var(--muted);margin-bottom:8px}
+.todo ul{margin:6px 0 0;padding-left:18px;font-size:13.5px}
+.tblwrap{overflow-x:auto;background:var(--panel);border:1px solid var(--line);border-radius:10px}
+table{border-collapse:collapse;width:100%;font-size:13px}
+th,td{padding:7px 11px;text-align:right;white-space:nowrap;border-bottom:1px solid var(--line)}
+th:first-child,td:first-child{text-align:left}
+th{font-weight:600;color:var(--muted);font-size:11.5px;text-transform:uppercase;
+   letter-spacing:.05em;position:sticky;top:0;background:var(--panel)}
+tr:last-child td{border-bottom:none}
+td.g{color:var(--ok)} td.a{color:var(--warn)} td.r{color:var(--bad)}
+.heat td{padding:3px 5px;text-align:center;font-size:11px;border:1px solid var(--bg)}
+.heat td.h-green{background:var(--ok-bg)} .heat td.h-amber{background:var(--warn-bg)}
+.heat td.h-red{background:var(--bad-bg);color:var(--bad);font-weight:700}
+.heat td.h-na{background:transparent;color:var(--muted)}
+.note{color:var(--muted);font-size:12.5px;margin:8px 2px 0}
+footer{margin-top:44px;color:var(--muted);font-size:12px;border-top:1px solid var(--line);padding-top:14px}
+</style>
+<div class="wrap">
+<header><h1>示例店 · 南京西路店 · 日运营看板</h1><span class="sub">营业日 2026-08-18（周二） · CN-SH-0731 · FreeStanding_DT</span></header>
+<h2>第 0 屏 · 3 秒钟：今天是红是绿</h2>
+<div class="grid kpis">
+<div class="card"><div class="lab">净销售</div><div class="val" style="color:var(--warn)">55,988</div><div class="foot">目标 62,000 · -9.7%<span style="float:right;color:var(--muted)"><svg width="64" height="16" viewBox="0 0 64 16" aria-hidden="true"><polyline points="1.0,11.2 5.8,13.2 10.5,4.8 15.3,2.0 20.1,6.0 24.8,12.9 29.6,14.0 34.4,12.6 39.2,12.6 43.9,7.7 48.7,3.9 53.5,7.5 58.2,12.9 63.0,13.1" fill="none" stroke="currentColor" stroke-width="1.4" stroke-opacity=".65" stroke-linejoin="round"/></svg></span></div></div>
+<div class="card"><div class="lab">销售达成</div><div class="val" style="color:var(--warn)">97.9%</div><div class="foot">目标 100.0% · -2.1%<span style="float:right;color:var(--muted)"><svg width="64" height="16" viewBox="0 0 64 16" aria-hidden="true"><polyline points="1.0,11.0 5.8,13.1 10.5,8.7 15.3,8.1 20.1,7.2 24.8,5.9 29.6,11.3 34.4,7.4 39.2,13.7 43.9,14.0 48.7,2.0 53.5,13.1 58.2,12.1 63.0,9.9" fill="none" stroke="currentColor" stroke-width="1.4" stroke-opacity=".65" stroke-linejoin="round"/></svg></span></div></div>
+<div class="card"><div class="lab">交易笔数</div><div class="val" style="color:var(--warn)">1,564</div><div class="foot">目标 1,750 · -10.6%<span style="float:right;color:var(--muted)"><svg width="64" height="16" viewBox="0 0 64 16" aria-hidden="true"><polyline points="1.0,11.3 5.8,12.8 10.5,4.9 15.3,2.0 20.1,6.0 24.8,12.8 29.6,14.0 34.4,12.4 39.2,12.3 43.9,7.1 48.7,3.9 53.5,7.2 58.2,12.8 63.0,12.8" fill="none" stroke="currentColor" stroke-width="1.4" stroke-opacity=".65" stroke-linejoin="round"/></svg></span></div></div>
+<div class="card"><div class="lab">客单价</div><div class="val" style="color:var(--ok)">35.8</div><div class="foot">目标 35.5 · +0.8%<span style="float:right;color:var(--muted)"><svg width="64" height="16" viewBox="0 0 64 16" aria-hidden="true"><polyline points="1.0,2.7 5.8,10.4 10.5,5.5 15.3,6.6 20.1,6.2 24.8,4.6 29.6,2.0 34.4,6.0 39.2,8.7 43.9,14.0 48.7,6.0 53.5,9.9 58.2,4.1 63.0,8.8" fill="none" stroke="currentColor" stroke-width="1.4" stroke-opacity=".65" stroke-linejoin="round"/></svg></span></div></div>
+<div class="card"><div class="lab">食品成本率</div><div class="val" style="color:var(--warn)">31.2%</div><div class="foot">目标 30.5% · -2.4%<span style="float:right;color:var(--muted)"><svg width="64" height="16" viewBox="0 0 64 16" aria-hidden="true"><polyline points="1.0,10.2 5.8,14.0 10.5,12.4 15.3,7.9 20.1,12.2 24.8,5.2 29.6,11.0 34.4,6.5 39.2,7.3 43.9,7.1 48.7,2.0 53.5,13.7 58.2,4.6 63.0,4.0" fill="none" stroke="currentColor" stroke-width="1.4" stroke-opacity=".65" stroke-linejoin="round"/></svg></span></div></div>
+<div class="card"><div class="lab">人工成本率</div><div class="val" style="color:var(--ok)">13.2%</div><div class="foot">目标 13.5% · +1.9%<span style="float:right;color:var(--muted)"><svg width="64" height="16" viewBox="0 0 64 16" aria-hidden="true"><polyline points="1.0,5.5 5.8,2.4 10.5,11.7 15.3,14.0 20.1,10.8 24.8,2.9 29.6,2.0 34.4,3.2 39.2,3.1 43.9,7.7 48.7,12.4 53.5,8.8 58.2,3.3 63.0,2.7" fill="none" stroke="currentColor" stroke-width="1.4" stroke-opacity=".65" stroke-linejoin="round"/></svg></span></div></div>
+<div class="card"><div class="lab">人时销售 SPLH</div><div class="val" style="color:var(--ok)">215</div><div class="foot">目标 210 · +2.5%<span style="float:right;color:var(--muted)"><svg width="64" height="16" viewBox="0 0 64 16" aria-hidden="true"><polyline points="1.0,10.8 5.8,13.7 10.5,4.5 15.3,2.0 20.1,5.6 24.8,13.2 29.6,14.0 34.4,12.9 39.2,13.1 43.9,8.7 48.7,3.8 53.5,7.6 58.2,12.8 63.0,13.4" fill="none" stroke="currentColor" stroke-width="1.4" stroke-opacity=".65" stroke-linejoin="round"/></svg></span></div></div>
+<div class="card"><div class="lab">速度达标率</div><div class="val" style="color:var(--bad)">76.6%</div><div class="foot">目标 90.0% · -14.9%<span style="float:right;color:var(--muted)"><svg width="64" height="16" viewBox="0 0 64 16" aria-hidden="true"><polyline points="1.0,8.2 5.8,4.5 10.5,13.7 15.3,14.0 20.1,10.6 24.8,3.4 29.6,2.0 34.4,4.3 39.2,5.7 43.9,7.0 48.7,11.8 53.5,10.7 58.2,3.7 63.0,7.0" fill="none" stroke="currentColor" stroke-width="1.4" stroke-opacity=".65" stroke-linejoin="round"/></svg></span></div></div>
+</div>
+<div class="grid fams" style="margin-top:12px">
+<div class="card fam amber"><div class="lab">生意<span style="float:right"><span class="pill green">3</span> <span class="pill amber">4</span> <span class="pill red">0</span></span></div><div style="font-size:13.5px;margin-top:4px">最该看：附加销售率 <b style="color:var(--warn)">24.5%</b></div><div class="foot">目标 30.0% · 组长</div></div>
+<div class="card fam red"><div class="lab">速度<span style="float:right"><span class="pill green">5</span> <span class="pill amber">1</span> <span class="pill red">1</span></span></div><div style="font-size:13.5px;margin-top:4px">最该看：服务速度达标率 <b style="color:var(--bad)">76.6%</b></div><div class="foot">目标 90.0% · 值班经理</div></div>
+<div class="card fam amber"><div class="lab">成本<span style="float:right"><span class="pill green">3</span> <span class="pill amber">3</span> <span class="pill red">0</span></span></div><div style="font-size:13.5px;margin-top:4px">最该看：工时排班偏差 <b style="color:var(--warn)">5.1%</b></div><div class="foot">目标 2.0% · 值班经理</div></div>
+<div class="card fam red"><div class="lab">品质与食安<span style="float:right"><span class="pill green">2</span> <span class="pill amber">2</span> <span class="pill red">1</span></span></div><div style="font-size:13.5px;margin-top:4px">最该看：设备停机时长 <b style="color:var(--bad)">76</b></div><div class="foot">目标 0 · 店长</div></div>
+<div class="card fam red"><div class="lab">人员<span style="float:right"><span class="pill green">2</span> <span class="pill amber">1</span> <span class="pill red">1</span></span></div><div style="font-size:13.5px;margin-top:4px">最该看：迟到率 <b style="color:var(--bad)">10.5%</b></div><div class="foot">目标 2.0% · 组长</div></div>
+<div class="card fam red"><div class="lab">顾客<span style="float:right"><span class="pill green">2</span> <span class="pill amber">0</span> <span class="pill red">1</span></span></div><div style="font-size:13.5px;margin-top:4px">最该看：外卖平台评分 <b style="color:var(--bad)">4.1</b></div><div class="foot">目标 4.8 · 店长</div></div>
+</div>
+<h2>第 1 屏 · 30 秒：今天做什么（优先级矩阵 M4）</h2>
+<div class="todo red">
+<h3>1. 外卖平台评分 <span style="color:var(--bad)">4.1</span> <span class="sub">/ 目标 4.8</span></h3>
+<div class="meta">Q2 上报求援 · 店长 · 行动卡 PB-03 · 行动分 2.17（超线 2.81 个带宽 × 影响 0.7 × 可控 0.55 × 红灯 2×）</div>
+<div style="font-size:13px;color:var(--muted)">影响大但不在你手上 —— 找营运经理/供应商/总部，别自己耗</div>
+<ul>
+<li>外卖平台 <b>Meituan</b> → <span style="color:var(--bad)">4.1</span>　拖累度 0.32，量占比 44%</li>
+<li>时段 <b>晚市</b> → <span style="color:var(--bad)">3.7</span>　拖累度 0.31，量占比 29%</li>
+<li>外卖平台 <b>Eleme</b> → <span style="color:var(--bad)">4.2</span>　拖累度 0.24，量占比 38%</li>
+</ul>
+</div>
+<div class="todo red">
+<h3>2. 服务速度达标率 <span style="color:var(--bad)">76.6%</span> <span class="sub">/ 目标 90.0%</span></h3>
+<div class="meta">Q1 今天就做 · 值班经理 · 行动卡 PB-04 · 行动分 2.06（超线 1.43 个带宽 × 影响 0.85 × 可控 0.85 × 红灯 2×）</div>
+<div style="font-size:13px;color:var(--muted)">影响大、你控得住 —— 这就是今天的班前会内容</div>
+<ul>
+<li>时段 <b>晚市</b> → <span style="color:var(--bad)">55.1%</span>　拖累度 10.15，量占比 29%</li>
+<li>渠道 <b>外送</b> → <span style="color:var(--bad)">53.6%</span>　拖累度 9.67，量占比 27%</li>
+<li>时段 <b>午市</b> → <span style="color:var(--bad)">77.2%</span>　拖累度 4.30，量占比 34%</li>
+</ul>
+<div class="note">连续告警窗口：<b>17:00 → 19:45</b>（12 个 15 分钟，均值 55.6%）</div>
+</div>
+<div class="todo red">
+<h3>3. 迟到率 <span style="color:var(--bad)">10.5%</span> <span class="sub">/ 目标 2.0%</span></h3>
+<div class="meta">Q3 顺手做掉 · 组长 · 行动卡 PB-07 · 行动分 1.02（超线 1.51 个带宽 × 影响 0.4 × 可控 0.85 × 红灯 2×）</div>
+<div style="font-size:13px;color:var(--muted)">影响有限但一动就好 —— 交给值班经理清单化处理</div>
+<ul>
+<li>时段 <b>早餐</b> → <span style="color:var(--bad)">28.6%</span>　拖累度 3.56，量占比 13%</li>
+<li>时段 <b>午市</b> → <span style="color:var(--bad)">10.0%</span>　拖累度 2.69，量占比 34%</li>
+<li>时段 <b>晚市</b> → <span style="color:var(--warn)">6.2%</span>　拖累度 1.24，量占比 29%</li>
+</ul>
+</div>
+<h2>第 2 屏 · 3 分钟：为什么（时段矩阵 M2）</h2>
+<div class="tblwrap"><table class="heat"><thead><tr><th>指标</th>
+<th style="text-align:center;font-size:9.5px;padding:3px 2px">06</th>
+<th style="text-align:center;font-size:9.5px;padding:3px 2px"></th>
+<th style="text-align:center;font-size:9.5px;padding:3px 2px"></th>
+<th style="text-align:center;font-size:9.5px;padding:3px 2px"></th>
+<th style="text-align:center;font-size:9.5px;padding:3px 2px">07</th>
+<th style="text-align:center;font-size:9.5px;padding:3px 2px"></th>
+<th style="text-align:center;font-size:9.5px;padding:3px 2px"></th>
+<th style="text-align:center;font-size:9.5px;padding:3px 2px"></th>
+<th style="text-align:center;font-size:9.5px;padding:3px 2px">08</th>
+<th style="text-align:center;font-size:9.5px;padding:3px 2px"></th>
+<th style="text-align:center;font-size:9.5px;padding:3px 2px"></th>
+<th style="text-align:center;font-size:9.5px;padding:3px 2px"></th>
+<th style="text-align:center;font-size:9.5px;padding:3px 2px">09</th>
+<th style="text-align:center;font-size:9.5px;padding:3px 2px"></th>
+<th style="text-align:center;font-size:9.5px;padding:3px 2px"></th>
+<th style="text-align:center;font-size:9.5px;padding:3px 2px"></th>
+<th style="text-align:center;font-size:9.5px;padding:3px 2px">10</th>
+<th style="text-align:center;font-size:9.5px;padding:3px 2px"></th>
+<th style="text-align:center;font-size:9.5px;padding:3px 2px"></th>
+<th style="text-align:center;font-size:9.5px;padding:3px 2px"></th>
+<th style="text-align:center;font-size:9.5px;padding:3px 2px">11</th>
+<th style="text-align:center;font-size:9.5px;padding:3px 2px"></th>
+<th style="text-align:center;font-size:9.5px;padding:3px 2px"></th>
+<th style="text-align:center;font-size:9.5px;padding:3px 2px"></th>
+<th style="text-align:center;font-size:9.5px;padding:3px 2px">12</th>
+<th style="text-align:center;font-size:9.5px;padding:3px 2px"></th>
+<th style="text-align:center;font-size:9.5px;padding:3px 2px"></th>
+<th style="text-align:center;font-size:9.5px;padding:3px 2px"></th>
+<th style="text-align:center;font-size:9.5px;padding:3px 2px">13</th>
+<th style="text-align:center;font-size:9.5px;padding:3px 2px"></th>
+<th style="text-align:center;font-size:9.5px;padding:3px 2px"></th>
+<th style="text-align:center;font-size:9.5px;padding:3px 2px"></th>
+<th style="text-align:center;font-size:9.5px;padding:3px 2px">14</th>
+<th style="text-align:center;font-size:9.5px;padding:3px 2px"></th>
+<th style="text-align:center;font-size:9.5px;padding:3px 2px"></th>
+<th style="text-align:center;font-size:9.5px;padding:3px 2px"></th>
+<th style="text-align:center;font-size:9.5px;padding:3px 2px">15</th>
+<th style="text-align:center;font-size:9.5px;padding:3px 2px"></th>
+<th style="text-align:center;font-size:9.5px;padding:3px 2px"></th>
+<th style="text-align:center;font-size:9.5px;padding:3px 2px"></th>
+<th style="text-align:center;font-size:9.5px;padding:3px 2px">16</th>
+<th style="text-align:center;font-size:9.5px;padding:3px 2px"></th>
+<th style="text-align:center;font-size:9.5px;padding:3px 2px"></th>
+<th style="text-align:center;font-size:9.5px;padding:3px 2px"></th>
+<th style="text-align:center;font-size:9.5px;padding:3px 2px">17</th>
+<th style="text-align:center;font-size:9.5px;padding:3px 2px"></th>
+<th style="text-align:center;font-size:9.5px;padding:3px 2px"></th>
+<th style="text-align:center;font-size:9.5px;padding:3px 2px"></th>
+<th style="text-align:center;font-size:9.5px;padding:3px 2px">18</th>
+<th style="text-align:center;font-size:9.5px;padding:3px 2px"></th>
+<th style="text-align:center;font-size:9.5px;padding:3px 2px"></th>
+<th style="text-align:center;font-size:9.5px;padding:3px 2px"></th>
+<th style="text-align:center;font-size:9.5px;padding:3px 2px">19</th>
+<th style="text-align:center;font-size:9.5px;padding:3px 2px"></th>
+<th style="text-align:center;font-size:9.5px;padding:3px 2px"></th>
+<th style="text-align:center;font-size:9.5px;padding:3px 2px"></th>
+<th style="text-align:center;font-size:9.5px;padding:3px 2px">20</th>
+<th style="text-align:center;font-size:9.5px;padding:3px 2px"></th>
+<th style="text-align:center;font-size:9.5px;padding:3px 2px"></th>
+<th style="text-align:center;font-size:9.5px;padding:3px 2px"></th>
+<th style="text-align:center;font-size:9.5px;padding:3px 2px">21</th>
+<th style="text-align:center;font-size:9.5px;padding:3px 2px"></th>
+<th style="text-align:center;font-size:9.5px;padding:3px 2px"></th>
+<th style="text-align:center;font-size:9.5px;padding:3px 2px"></th>
+<th style="text-align:center;font-size:9.5px;padding:3px 2px">22</th>
+<th style="text-align:center;font-size:9.5px;padding:3px 2px"></th>
+<th style="text-align:center;font-size:9.5px;padding:3px 2px"></th>
+<th style="text-align:center;font-size:9.5px;padding:3px 2px"></th>
+<th style="text-align:center;font-size:9.5px;padding:3px 2px">23</th>
+<th style="text-align:center;font-size:9.5px;padding:3px 2px"></th>
+<th style="text-align:center;font-size:9.5px;padding:3px 2px"></th>
+<th style="text-align:center;font-size:9.5px;padding:3px 2px"></th>
+</tr></thead><tbody>
+<tr><td style="text-align:left;white-space:nowrap">销售达成率</td>
+<td class="h-green" title="06:00 99.0%"></td>
+<td class="h-red" title="06:15 91.5%">!</td>
+<td class="h-green" title="06:30 110.6%"></td>
+<td class="h-amber" title="06:45 94.8%">·</td>
+<td class="h-red" title="07:00 87.5%">!</td>
+<td class="h-amber" title="07:15 95.2%">·</td>
+<td class="h-green" title="07:30 111.7%"></td>
+<td class="h-red" title="07:45 79.1%">!</td>
+<td class="h-green" title="08:00 99.2%"></td>
+<td class="h-red" title="08:15 84.6%">!</td>
+<td class="h-green" title="08:30 112.8%"></td>
+<td class="h-green" title="08:45 125.9%"></td>
+<td class="h-green" title="09:00 99.6%"></td>
+<td class="h-amber" title="09:15 93.4%">·</td>
+<td class="h-green" title="09:30 144.8%"></td>
+<td class="h-red" title="09:45 86.9%">!</td>
+<td class="h-green" title="10:00 130.2%"></td>
+<td class="h-green" title="10:15 133.1%"></td>
+<td class="h-red" title="10:30 91.4%">!</td>
+<td class="h-red" title="10:45 91.7%">!</td>
+<td class="h-red" title="11:00 87.0%">!</td>
+<td class="h-amber" title="11:15 93.7%">·</td>
+<td class="h-green" title="11:30 106.9%"></td>
+<td class="h-red" title="11:45 89.1%">!</td>
+<td class="h-red" title="12:00 91.7%">!</td>
+<td class="h-green" title="12:15 110.6%"></td>
+<td class="h-green" title="12:30 103.2%"></td>
+<td class="h-red" title="12:45 75.7%">!</td>
+<td class="h-amber" title="13:00 94.0%">·</td>
+<td class="h-red" title="13:15 88.6%">!</td>
+<td class="h-red" title="13:30 79.8%">!</td>
+<td class="h-red" title="13:45 89.7%">!</td>
+<td class="h-red" title="14:00 85.2%">!</td>
+<td class="h-amber" title="14:15 97.9%">·</td>
+<td class="h-red" title="14:30 89.2%">!</td>
+<td class="h-red" title="14:45 87.7%">!</td>
+<td class="h-green" title="15:00 102.9%"></td>
+<td class="h-green" title="15:15 126.3%"></td>
+<td class="h-green" title="15:30 103.0%"></td>
+<td class="h-red" title="15:45 82.0%">!</td>
+<td class="h-amber" title="16:00 96.5%">·</td>
+<td class="h-green" title="16:15 98.4%"></td>
+<td class="h-green" title="16:30 105.1%"></td>
+<td class="h-red" title="16:45 67.7%">!</td>
+<td class="h-green" title="17:00 104.5%"></td>
+<td class="h-green" title="17:15 125.7%"></td>
+<td class="h-green" title="17:30 110.4%"></td>
+<td class="h-amber" title="17:45 96.1%">·</td>
+<td class="h-red" title="18:00 88.6%">!</td>
+<td class="h-green" title="18:15 114.3%"></td>
+<td class="h-red" title="18:30 87.4%">!</td>
+<td class="h-green" title="18:45 141.2%"></td>
+<td class="h-green" title="19:00 104.4%"></td>
+<td class="h-green" title="19:15 121.2%"></td>
+<td class="h-red" title="19:30 90.1%">!</td>
+<td class="h-red" title="19:45 90.7%">!</td>
+<td class="h-green" title="20:00 100.9%"></td>
+<td class="h-red" title="20:15 86.1%">!</td>
+<td class="h-green" title="20:30 101.4%"></td>
+<td class="h-green" title="20:45 102.9%"></td>
+<td class="h-amber" title="21:00 96.2%">·</td>
+<td class="h-green" title="21:15 117.4%"></td>
+<td class="h-red" title="21:30 81.8%">!</td>
+<td class="h-red" title="21:45 86.8%">!</td>
+<td class="h-green" title="22:00 107.5%"></td>
+<td class="h-red" title="22:15 83.0%">!</td>
+<td class="h-red" title="22:30 76.3%">!</td>
+<td class="h-green" title="22:45 118.4%"></td>
+<td class="h-green" title="23:00 110.0%"></td>
+<td class="h-green" title="23:15 107.2%"></td>
+<td class="h-red" title="23:30 75.8%">!</td>
+<td class="h-red" title="23:45 43.8%">!</td>
+</tr>
+<tr><td style="text-align:left;white-space:nowrap">服务速度达标率</td>
+<td class="h-red" title="06:00 57.1%">!</td>
+<td class="h-green" title="06:15 100.0%"></td>
+<td class="h-green" title="06:30 92.3%"></td>
+<td class="h-green" title="06:45 93.8%"></td>
+<td class="h-green" title="07:00 94.4%"></td>
+<td class="h-green" title="07:15 95.0%"></td>
+<td class="h-green" title="07:30 95.2%"></td>
+<td class="h-green" title="07:45 95.2%"></td>
+<td class="h-green" title="08:00 100.0%"></td>
+<td class="h-green" title="08:15 94.4%"></td>
+<td class="h-green" title="08:30 100.0%"></td>
+<td class="h-green" title="08:45 92.3%"></td>
+<td class="h-green" title="09:00 100.0%"></td>
+<td class="h-green" title="09:15 100.0%"></td>
+<td class="h-green" title="09:30 100.0%"></td>
+<td class="h-green" title="09:45 100.0%"></td>
+<td class="h-green" title="10:00 100.0%"></td>
+<td class="h-amber" title="10:15 87.5%">·</td>
+<td class="h-green" title="10:30 92.9%"></td>
+<td class="h-green" title="10:45 90.9%"></td>
+<td class="h-amber" title="11:00 84.4%">·</td>
+<td class="h-amber" title="11:15 86.0%">·</td>
+<td class="h-red" title="11:30 56.6%">!</td>
+<td class="h-red" title="11:45 63.3%">!</td>
+<td class="h-red" title="12:00 71.0%">!</td>
+<td class="h-red" title="12:15 74.6%">!</td>
+<td class="h-red" title="12:30 74.5%">!</td>
+<td class="h-amber" title="12:45 87.8%">·</td>
+<td class="h-green" title="13:00 90.0%"></td>
+<td class="h-amber" title="13:15 85.0%">·</td>
+<td class="h-green" title="13:30 100.0%"></td>
+<td class="h-amber" title="13:45 85.7%">·</td>
+<td class="h-red" title="14:00 78.6%">!</td>
+<td class="h-green" title="14:15 100.0%"></td>
+<td class="h-green" title="14:30 100.0%"></td>
+<td class="h-green" title="14:45 100.0%"></td>
+<td class="h-green" title="15:00 91.3%"></td>
+<td class="h-green" title="15:15 91.3%"></td>
+<td class="h-green" title="15:30 90.9%"></td>
+<td class="h-green" title="15:45 90.5%"></td>
+<td class="h-amber" title="16:00 83.3%">·</td>
+<td class="h-green" title="16:15 93.8%"></td>
+<td class="h-red" title="16:30 76.9%">!</td>
+<td class="h-green" title="16:45 100.0%"></td>
+<td class="h-red" title="17:00 77.3%">!</td>
+<td class="h-red" title="17:15 58.6%">!</td>
+<td class="h-red" title="17:30 48.6%">!</td>
+<td class="h-red" title="17:45 46.5%">!</td>
+<td class="h-red" title="18:00 50.0%">!</td>
+<td class="h-red" title="18:15 54.0%">!</td>
+<td class="h-red" title="18:30 47.9%">!</td>
+<td class="h-red" title="18:45 45.5%">!</td>
+<td class="h-red" title="19:00 39.5%">!</td>
+<td class="h-red" title="19:15 51.6%">!</td>
+<td class="h-red" title="19:30 65.2%">!</td>
+<td class="h-amber" title="19:45 82.4%">·</td>
+<td class="h-green" title="20:00 100.0%"></td>
+<td class="h-green" title="20:15 100.0%"></td>
+<td class="h-green" title="20:30 100.0%"></td>
+<td class="h-green" title="20:45 100.0%"></td>
+<td class="h-green" title="21:00 100.0%"></td>
+<td class="h-green" title="21:15 94.4%"></td>
+<td class="h-amber" title="21:30 80.0%">·</td>
+<td class="h-green" title="21:45 95.0%"></td>
+<td class="h-amber" title="22:00 84.2%">·</td>
+<td class="h-amber" title="22:15 82.4%">·</td>
+<td class="h-green" title="22:30 100.0%"></td>
+<td class="h-amber" title="22:45 81.8%">·</td>
+<td class="h-amber" title="23:00 87.5%">·</td>
+<td class="h-green" title="23:15 100.0%"></td>
+<td class="h-green" title="23:30 100.0%"></td>
+<td class="h-green" title="23:45 100.0%"></td>
+</tr>
+<tr><td style="text-align:left;white-space:nowrap">得来速总时长</td>
+<td class="h-green" title="06:00 172s"></td>
+<td class="h-green" title="06:15 128s"></td>
+<td class="h-green" title="06:30 143s"></td>
+<td class="h-green" title="06:45 134s"></td>
+<td class="h-green" title="07:00 129s"></td>
+<td class="h-green" title="07:15 146s"></td>
+<td class="h-green" title="07:30 132s"></td>
+<td class="h-green" title="07:45 143s"></td>
+<td class="h-green" title="08:00 141s"></td>
+<td class="h-green" title="08:15 147s"></td>
+<td class="h-green" title="08:30 136s"></td>
+<td class="h-green" title="08:45 143s"></td>
+<td class="h-green" title="09:00 115s"></td>
+<td class="h-green" title="09:15 129s"></td>
+<td class="h-green" title="09:30 159s"></td>
+<td class="h-green" title="09:45 152s"></td>
+<td class="h-na" title="10:00 —">·</td>
+<td class="h-green" title="10:15 162s"></td>
+<td class="h-green" title="10:30 163s"></td>
+<td class="h-green" title="10:45 139s"></td>
+<td class="h-green" title="11:00 127s"></td>
+<td class="h-green" title="11:15 173s"></td>
+<td class="h-green" title="11:30 175s"></td>
+<td class="h-green" title="11:45 180s"></td>
+<td class="h-green" title="12:00 170s"></td>
+<td class="h-green" title="12:15 153s"></td>
+<td class="h-green" title="12:30 151s"></td>
+<td class="h-green" title="12:45 146s"></td>
+<td class="h-green" title="13:00 149s"></td>
+<td class="h-green" title="13:15 145s"></td>
+<td class="h-green" title="13:30 156s"></td>
+<td class="h-green" title="13:45 147s"></td>
+<td class="h-green" title="14:00 142s"></td>
+<td class="h-green" title="14:15 142s"></td>
+<td class="h-green" title="14:30 127s"></td>
+<td class="h-green" title="14:45 128s"></td>
+<td class="h-green" title="15:00 138s"></td>
+<td class="h-green" title="15:15 157s"></td>
+<td class="h-green" title="15:30 137s"></td>
+<td class="h-green" title="15:45 164s"></td>
+<td class="h-green" title="16:00 122s"></td>
+<td class="h-green" title="16:15 147s"></td>
+<td class="h-green" title="16:30 158s"></td>
+<td class="h-green" title="16:45 146s"></td>
+<td class="h-green" title="17:00 173s"></td>
+<td class="h-green" title="17:15 180s"></td>
+<td class="h-green" title="17:30 189s"></td>
+<td class="h-green" title="17:45 190s"></td>
+<td class="h-amber" title="18:00 198s">·</td>
+<td class="h-green" title="18:15 183s"></td>
+<td class="h-green" title="18:30 186s"></td>
+<td class="h-amber" title="18:45 192s">·</td>
+<td class="h-green" title="19:00 190s"></td>
+<td class="h-green" title="19:15 186s"></td>
+<td class="h-green" title="19:30 153s"></td>
+<td class="h-green" title="19:45 152s"></td>
+<td class="h-green" title="20:00 123s"></td>
+<td class="h-green" title="20:15 149s"></td>
+<td class="h-green" title="20:30 140s"></td>
+<td class="h-na" title="20:45 —">·</td>
+<td class="h-green" title="21:00 133s"></td>
+<td class="h-green" title="21:15 138s"></td>
+<td class="h-green" title="21:30 157s"></td>
+<td class="h-green" title="21:45 134s"></td>
+<td class="h-green" title="22:00 147s"></td>
+<td class="h-green" title="22:15 150s"></td>
+<td class="h-green" title="22:30 117s"></td>
+<td class="h-green" title="22:45 157s"></td>
+<td class="h-green" title="23:00 144s"></td>
+<td class="h-green" title="23:15 97s"></td>
+<td class="h-green" title="23:30 154s"></td>
+<td class="h-green" title="23:45 128s"></td>
+</tr>
+<tr><td style="text-align:left;white-space:nowrap">后厨制作时长</td>
+<td class="h-green" title="06:00 85s"></td>
+<td class="h-green" title="06:15 80s"></td>
+<td class="h-green" title="06:30 78s"></td>
+<td class="h-green" title="06:45 80s"></td>
+<td class="h-green" title="07:00 78s"></td>
+<td class="h-green" title="07:15 80s"></td>
+<td class="h-green" title="07:30 82s"></td>
+<td class="h-green" title="07:45 75s"></td>
+<td class="h-green" title="08:00 78s"></td>
+<td class="h-green" title="08:15 79s"></td>
+<td class="h-green" title="08:30 79s"></td>
+<td class="h-green" title="08:45 77s"></td>
+<td class="h-green" title="09:00 72s"></td>
+<td class="h-green" title="09:15 87s"></td>
+<td class="h-green" title="09:30 81s"></td>
+<td class="h-green" title="09:45 61s"></td>
+<td class="h-green" title="10:00 84s"></td>
+<td class="h-green" title="10:15 84s"></td>
+<td class="h-green" title="10:30 83s"></td>
+<td class="h-green" title="10:45 82s"></td>
+<td class="h-green" title="11:00 82s"></td>
+<td class="h-green" title="11:15 91s"></td>
+<td class="h-green" title="11:30 99s"></td>
+<td class="h-green" title="11:45 89s"></td>
+<td class="h-green" title="12:00 88s"></td>
+<td class="h-green" title="12:15 91s"></td>
+<td class="h-green" title="12:30 92s"></td>
+<td class="h-green" title="12:45 87s"></td>
+<td class="h-green" title="13:00 84s"></td>
+<td class="h-green" title="13:15 82s"></td>
+<td class="h-green" title="13:30 72s"></td>
+<td class="h-green" title="13:45 79s"></td>
+<td class="h-green" title="14:00 76s"></td>
+<td class="h-green" title="14:15 75s"></td>
+<td class="h-green" title="14:30 81s"></td>
+<td class="h-green" title="14:45 76s"></td>
+<td class="h-green" title="15:00 77s"></td>
+<td class="h-green" title="15:15 80s"></td>
+<td class="h-green" title="15:30 81s"></td>
+<td class="h-green" title="15:45 75s"></td>
+<td class="h-green" title="16:00 86s"></td>
+<td class="h-green" title="16:15 83s"></td>
+<td class="h-green" title="16:30 84s"></td>
+<td class="h-green" title="16:45 72s"></td>
+<td class="h-green" title="17:00 91s"></td>
+<td class="h-green" title="17:15 89s"></td>
+<td class="h-amber" title="17:30 100s">·</td>
+<td class="h-green" title="17:45 92s"></td>
+<td class="h-green" title="18:00 98s"></td>
+<td class="h-green" title="18:15 95s"></td>
+<td class="h-green" title="18:30 99s"></td>
+<td class="h-green" title="18:45 94s"></td>
+<td class="h-green" title="19:00 99s"></td>
+<td class="h-green" title="19:15 97s"></td>
+<td class="h-green" title="19:30 89s"></td>
+<td class="h-green" title="19:45 83s"></td>
+<td class="h-green" title="20:00 82s"></td>
+<td class="h-green" title="20:15 81s"></td>
+<td class="h-green" title="20:30 77s"></td>
+<td class="h-green" title="20:45 69s"></td>
+<td class="h-green" title="21:00 73s"></td>
+<td class="h-green" title="21:15 80s"></td>
+<td class="h-green" title="21:30 74s"></td>
+<td class="h-green" title="21:45 74s"></td>
+<td class="h-green" title="22:00 84s"></td>
+<td class="h-green" title="22:15 77s"></td>
+<td class="h-green" title="22:30 77s"></td>
+<td class="h-green" title="22:45 83s"></td>
+<td class="h-green" title="23:00 81s"></td>
+<td class="h-green" title="23:15 78s"></td>
+<td class="h-green" title="23:30 72s"></td>
+<td class="h-green" title="23:45 72s"></td>
+</tr>
+<tr><td style="text-align:left;white-space:nowrap">人时销售 (SPLH)</td>
+<td class="h-red" title="06:00 164">!</td>
+<td class="h-red" title="06:15 165">!</td>
+<td class="h-amber" title="06:30 194">·</td>
+<td class="h-green" title="06:45 210"></td>
+<td class="h-green" title="07:00 231"></td>
+<td class="h-green" title="07:15 225"></td>
+<td class="h-green" title="07:30 221"></td>
+<td class="h-red" title="07:45 181">!</td>
+<td class="h-green" title="08:00 222"></td>
+<td class="h-green" title="08:15 214"></td>
+<td class="h-green" title="08:30 230"></td>
+<td class="h-green" title="08:45 209"></td>
+<td class="h-green" title="09:00 220"></td>
+<td class="h-red" title="09:15 122">!</td>
+<td class="h-red" title="09:30 160">!</td>
+<td class="h-red" title="09:45 75">!</td>
+<td class="h-red" title="10:00 167">!</td>
+<td class="h-red" title="10:15 184">!</td>
+<td class="h-green" title="10:30 222"></td>
+<td class="h-green" title="10:45 268"></td>
+<td class="h-green" title="11:00 276"></td>
+<td class="h-green" title="11:15 278"></td>
+<td class="h-green" title="11:30 325"></td>
+<td class="h-green" title="11:45 290"></td>
+<td class="h-green" title="12:00 273"></td>
+<td class="h-green" title="12:15 304"></td>
+<td class="h-green" title="12:30 316"></td>
+<td class="h-green" title="12:45 276"></td>
+<td class="h-green" title="13:00 253"></td>
+<td class="h-green" title="13:15 234"></td>
+<td class="h-red" title="13:30 171">!</td>
+<td class="h-red" title="13:45 154">!</td>
+<td class="h-amber" title="14:00 194">·</td>
+<td class="h-amber" title="14:15 201">·</td>
+<td class="h-green" title="14:30 237"></td>
+<td class="h-green" title="14:45 234"></td>
+<td class="h-green" title="15:00 281"></td>
+<td class="h-green" title="15:15 280"></td>
+<td class="h-green" title="15:30 252"></td>
+<td class="h-green" title="15:45 216"></td>
+<td class="h-green" title="16:00 229"></td>
+<td class="h-green" title="16:15 227"></td>
+<td class="h-amber" title="16:30 191">·</td>
+<td class="h-red" title="16:45 135">!</td>
+<td class="h-green" title="17:00 296"></td>
+<td class="h-green" title="17:15 299"></td>
+<td class="h-green" title="17:30 330"></td>
+<td class="h-green" title="17:45 310"></td>
+<td class="h-green" title="18:00 306"></td>
+<td class="h-green" title="18:15 331"></td>
+<td class="h-green" title="18:30 292"></td>
+<td class="h-green" title="18:45 314"></td>
+<td class="h-green" title="19:00 344"></td>
+<td class="h-green" title="19:15 317"></td>
+<td class="h-green" title="19:30 309"></td>
+<td class="h-green" title="19:45 239"></td>
+<td class="h-red" title="20:00 174">!</td>
+<td class="h-red" title="20:15 132">!</td>
+<td class="h-red" title="20:30 121">!</td>
+<td class="h-red" title="20:45 56">!</td>
+<td class="h-red" title="21:00 163">!</td>
+<td class="h-green" title="21:15 230"></td>
+<td class="h-green" title="21:30 221"></td>
+<td class="h-green" title="21:45 239"></td>
+<td class="h-green" title="22:00 245"></td>
+<td class="h-amber" title="22:15 203">·</td>
+<td class="h-amber" title="22:30 187">·</td>
+<td class="h-green" title="22:45 225"></td>
+<td class="h-amber" title="23:00 193">·</td>
+<td class="h-red" title="23:15 102">!</td>
+<td class="h-red" title="23:30 95">!</td>
+<td class="h-red" title="23:45 24">!</td>
+</tr>
+</tbody></table></div>
+<p class="note">空白=达标　·=黄灯　<b>!</b>=红灯　（鼠标悬停看具体数值）单点飘红是噪声，连成一片才是问题。</p>
+<h2>第 2 屏 · 交叉矩阵 M3：时段 × 渠道</h2>
+<p class="note" style="margin-top:14px"><b>服务速度达标率</b></p>
+<div class="tblwrap"><table><thead><tr><th>时段</th>
+<th>前台点餐</th>
+<th>自助点餐机</th>
+<th>得来速</th>
+<th>小程序自取</th>
+<th>外送</th>
+</tr></thead><tbody>
+<tr><td>早餐</td>
+<td class="g">92.3%</td>
+<td class="g">100.0%</td>
+<td class="g">97.2%</td>
+<td class="g">100.0%</td>
+<td class="r">73.9%</td>
+</tr>
+<tr><td>午市</td>
+<td class="r">74.4%</td>
+<td class="g">94.4%</td>
+<td class="r">78.1%</td>
+<td class="a">81.8%</td>
+<td class="r">51.8%</td>
+</tr>
+<tr><td>下午茶</td>
+<td class="g">96.0%</td>
+<td class="g">100.0%</td>
+<td class="g">93.2%</td>
+<td class="g">95.7%</td>
+<td class="r">77.2%</td>
+</tr>
+<tr><td>晚市</td>
+<td class="r">50.0%</td>
+<td class="g">88.3%</td>
+<td class="r">47.2%</td>
+<td class="r">68.1%</td>
+<td class="r">24.8%</td>
+</tr>
+<tr><td>夜宵</td>
+<td class="g">93.8%</td>
+<td class="g">100.0%</td>
+<td class="g">97.2%</td>
+<td class="g">100.0%</td>
+<td class="r">79.7%</td>
+</tr>
+</tbody></table></div>
+<p class="note">最拖后腿的格子：<b>晚市 × 外送</b> = 24.8%（拖累度 5.5）</p>
+<p class="note" style="margin-top:14px"><b>净销售额</b></p>
+<div class="tblwrap"><table><thead><tr><th>时段</th>
+<th>前台点餐</th>
+<th>自助点餐机</th>
+<th>得来速</th>
+<th>小程序自取</th>
+<th>外送</th>
+</tr></thead><tbody>
+<tr><td>早餐</td>
+<td class="r">1,204</td>
+<td class="g">2,265</td>
+<td class="a">2,350</td>
+<td class="r">804</td>
+<td class="r">886</td>
+</tr>
+<tr><td>午市</td>
+<td class="a">2,737</td>
+<td class="g">5,994</td>
+<td class="r">3,242</td>
+<td class="r">2,192</td>
+<td class="a">4,656</td>
+</tr>
+<tr><td>下午茶</td>
+<td class="r">881</td>
+<td class="g">2,490</td>
+<td class="g">1,673</td>
+<td class="r">728</td>
+<td class="r">2,164</td>
+</tr>
+<tr><td>晚市</td>
+<td class="g">2,444</td>
+<td class="a">4,168</td>
+<td class="g">3,616</td>
+<td class="r">1,283</td>
+<td class="g">4,761</td>
+</tr>
+<tr><td>夜宵</td>
+<td class="r">426</td>
+<td class="r">1,041</td>
+<td class="g">1,248</td>
+<td class="r">308</td>
+<td class="g">2,427</td>
+</tr>
+</tbody></table></div>
+<p class="note">最拖后腿的格子：<b>午市 × 得来速</b> = 3,242（拖累度 389.8）</p>
+<h2>第 3 屏 · 复盘：完整记分卡</h2>
+<div class="tblwrap"><table><thead><tr><th>家族</th><th>指标</th><th>实际</th><th>目标</th><th>达标</th><th>超线带宽</th><th>状态</th><th>责任人</th><th>行动卡</th><th>近 14 天</th></tr></thead><tbody>
+<tr><td>生意</td><td>客单价 (TC)</td><td class="g"><b>35.8</b></td><td>35.5</td><td>+0.8%</td><td>0.00</td><td><span class="pill green">达标</span></td><td>值班经理</td><td>PB-02</td><td style="color:var(--ok)"><svg width="110" height="22" viewBox="0 0 110 22" aria-hidden="true"><polyline points="1.0,3.0 9.3,14.6 17.6,7.3 25.9,8.9 34.2,8.3 42.5,5.9 50.8,2.0 59.2,8.0 67.5,12.0 75.8,20.0 84.1,8.0 92.4,13.8 100.7,5.1 109.0,12.2" fill="none" stroke="currentColor" stroke-width="1.4" stroke-opacity=".65" stroke-linejoin="round"/></svg></td></tr>
+<tr><td>生意</td><td>外送销售占比</td><td class="g"><b>26.6%</b></td><td>22.0%</td><td>-20.9%</td><td>0.00</td><td><span class="pill green">达标</span></td><td>店长</td><td>PB-03</td><td style="color:var(--ok)"><svg width="110" height="22" viewBox="0 0 110 22" aria-hidden="true"><polyline points="1.0,8.2 9.3,20.0 17.6,4.0 25.9,12.7 34.2,12.9 42.5,9.0 50.8,3.6 59.2,10.4 67.5,15.2 75.8,16.9 84.1,8.5 92.4,4.3 100.7,2.0 109.0,11.2" fill="none" stroke="currentColor" stroke-width="1.4" stroke-opacity=".65" stroke-linejoin="round"/></svg></td></tr>
+<tr><td>生意</td><td>交易笔数 (GC)</td><td class="a"><b>1,564</b></td><td>1,750</td><td>-10.6%</td><td>0.40</td><td><span class="pill amber">关注</span></td><td>店长</td><td>PB-01</td><td style="color:var(--warn)"><svg width="110" height="22" viewBox="0 0 110 22" aria-hidden="true"><polyline points="1.0,15.9 9.3,18.2 17.6,6.3 25.9,2.0 34.2,8.0 42.5,18.2 50.8,20.0 59.2,17.6 67.5,17.5 75.8,9.7 84.1,4.9 92.4,9.7 100.7,18.2 109.0,18.2" fill="none" stroke="currentColor" stroke-width="1.4" stroke-opacity=".65" stroke-linejoin="round"/></svg></td></tr>
+<tr><td>生意</td><td>单均件数</td><td class="g"><b>3.34</b></td><td>3.20</td><td>+4.3%</td><td>0.00</td><td><span class="pill green">达标</span></td><td>值班经理</td><td>PB-02</td><td style="color:var(--ok)"><svg width="110" height="22" viewBox="0 0 110 22" aria-hidden="true"><polyline points="1.0,2.0 9.3,14.2 17.6,8.8 25.9,11.9 34.2,7.6 42.5,10.5 50.8,6.9 59.2,11.6 67.5,16.6 75.8,20.0 84.1,11.8 92.4,17.1 100.7,4.1 109.0,15.6" fill="none" stroke="currentColor" stroke-width="1.4" stroke-opacity=".65" stroke-linejoin="round"/></svg></td></tr>
+<tr><td>生意</td><td>净销售额</td><td class="a"><b>55,988</b></td><td>62,000</td><td>-9.7%</td><td>0.34</td><td><span class="pill amber">关注</span></td><td>店长</td><td>PB-01</td><td style="color:var(--warn)"><svg width="110" height="22" viewBox="0 0 110 22" aria-hidden="true"><polyline points="1.0,15.8 9.3,18.8 17.6,6.3 25.9,2.0 34.2,8.0 42.5,18.3 50.8,20.0 59.2,17.9 67.5,17.9 75.8,10.6 84.1,4.9 92.4,10.2 100.7,18.3 109.0,18.7" fill="none" stroke="currentColor" stroke-width="1.4" stroke-opacity=".65" stroke-linejoin="round"/></svg></td></tr>
+<tr><td>生意</td><td>销售达成率</td><td class="a"><b>97.9%</b></td><td>100.0%</td><td>-2.1%</td><td>0.03</td><td><span class="pill amber">关注</span></td><td>店长</td><td>PB-01</td><td style="color:var(--warn)"><svg width="110" height="22" viewBox="0 0 110 22" aria-hidden="true"><polyline points="1.0,15.4 9.3,18.6 17.6,12.0 25.9,11.2 34.2,9.8 42.5,7.9 50.8,15.9 59.2,10.0 67.5,19.6 75.8,20.0 84.1,2.0 92.4,18.7 100.7,17.1 109.0,13.8" fill="none" stroke="currentColor" stroke-width="1.4" stroke-opacity=".65" stroke-linejoin="round"/></svg></td></tr>
+<tr><td>生意</td><td>附加销售率</td><td class="a"><b>24.5%</b></td><td>30.0%</td><td>-18.2%</td><td>0.58</td><td><span class="pill amber">关注</span></td><td>组长</td><td>PB-02</td><td style="color:var(--warn)"><svg width="110" height="22" viewBox="0 0 110 22" aria-hidden="true"><polyline points="1.0,10.6 9.3,18.9 17.6,19.4 25.9,11.7 34.2,18.6 42.5,2.0 50.8,18.9 59.2,5.4 67.5,12.9 75.8,20.0 84.1,14.0 92.4,11.8 100.7,4.6 109.0,8.2" fill="none" stroke="currentColor" stroke-width="1.4" stroke-opacity=".65" stroke-linejoin="round"/></svg></td></tr>
+<tr><td>速度</td><td>外送出餐时长</td><td class="a"><b>416s</b></td><td>360s</td><td>-15.6%</td><td>0.20</td><td><span class="pill amber">关注</span></td><td>组长</td><td>PB-03</td><td style="color:var(--warn)"><svg width="110" height="22" viewBox="0 0 110 22" aria-hidden="true"><polyline points="1.0,15.4 9.3,17.5 17.6,9.7 25.9,2.0 34.2,5.6 42.5,14.1 50.8,19.1 59.2,20.0 67.5,18.1 75.8,12.4 84.1,2.2 92.4,10.1 100.7,16.7 109.0,17.0" fill="none" stroke="currentColor" stroke-width="1.4" stroke-opacity=".65" stroke-linejoin="round"/></svg></td></tr>
+<tr><td>速度</td><td>得来速总时长</td><td class="g"><b>158s</b></td><td>180s</td><td>+12.0%</td><td>0.00</td><td><span class="pill green">达标</span></td><td>值班经理</td><td>PB-04</td><td style="color:var(--ok)"><svg width="110" height="22" viewBox="0 0 110 22" aria-hidden="true"><polyline points="1.0,7.9 9.3,10.5 17.6,6.2 25.9,2.0 34.2,4.4 42.5,16.6 50.8,15.1 59.2,13.6 67.5,9.9 75.8,10.3 84.1,5.6 92.4,3.5 100.7,20.0 109.0,4.9" fill="none" stroke="currentColor" stroke-width="1.4" stroke-opacity=".65" stroke-linejoin="round"/></svg></td></tr>
+<tr><td>速度</td><td>得来速取餐窗时长</td><td class="g"><b>58s</b></td><td>55s</td><td>-6.1%</td><td>0.00</td><td><span class="pill green">达标</span></td><td>值班经理</td><td>PB-04</td><td style="color:var(--ok)"><svg width="110" height="22" viewBox="0 0 110 22" aria-hidden="true"><polyline points="1.0,7.9 9.3,6.4 17.6,4.4 25.9,5.0 34.2,2.0 42.5,20.0 50.8,16.1 59.2,13.8 67.5,6.2 75.8,10.8 84.1,6.4 92.4,7.2 100.7,15.6 109.0,6.2" fill="none" stroke="currentColor" stroke-width="1.4" stroke-opacity=".65" stroke-linejoin="round"/></svg></td></tr>
+<tr><td>速度</td><td>前台交付时长 (OTD)</td><td class="g"><b>129s</b></td><td>150s</td><td>+13.9%</td><td>0.00</td><td><span class="pill green">达标</span></td><td>值班经理</td><td>PB-04</td><td style="color:var(--ok)"><svg width="110" height="22" viewBox="0 0 110 22" aria-hidden="true"><polyline points="1.0,13.7 9.3,14.3 17.6,4.4 25.9,2.0 34.2,6.0 42.5,20.0 50.8,18.7 59.2,10.9 67.5,13.8 75.8,9.8 84.1,5.7 92.4,10.6 100.7,11.2 109.0,13.3" fill="none" stroke="currentColor" stroke-width="1.4" stroke-opacity=".65" stroke-linejoin="round"/></svg></td></tr>
+<tr><td>速度</td><td>后厨制作时长</td><td class="g"><b>86s</b></td><td>90s</td><td>+4.2%</td><td>0.00</td><td><span class="pill green">达标</span></td><td>组长</td><td>PB-04</td><td style="color:var(--ok)"><svg width="110" height="22" viewBox="0 0 110 22" aria-hidden="true"><polyline points="1.0,13.2 9.3,12.6 17.6,2.7 25.9,2.8 34.2,3.7 42.5,19.5 50.8,20.0 59.2,13.7 67.5,13.9 75.8,9.8 84.1,2.0 92.4,10.7 100.7,12.4 109.0,14.2" fill="none" stroke="currentColor" stroke-width="1.4" stroke-opacity=".65" stroke-linejoin="round"/></svg></td></tr>
+<tr><td>速度</td><td>订单准确率</td><td class="g"><b>99.9%</b></td><td>99.6%</td><td>+0.3%</td><td>0.00</td><td><span class="pill green">达标</span></td><td>值班经理</td><td>PB-05</td><td style="color:var(--ok)"><svg width="110" height="22" viewBox="0 0 110 22" aria-hidden="true"><polyline points="1.0,18.7 9.3,15.3 17.6,8.7 25.9,17.4 34.2,5.5 42.5,2.0 50.8,11.3 59.2,10.7 67.5,6.3 75.8,20.0 84.1,11.8 92.4,9.2 100.7,6.4 109.0,6.4" fill="none" stroke="currentColor" stroke-width="1.4" stroke-opacity=".65" stroke-linejoin="round"/></svg></td></tr>
+<tr><td>速度</td><td>服务速度达标率</td><td class="r"><b>76.6%</b></td><td>90.0%</td><td>-14.9%</td><td>1.43</td><td><span class="pill red">告警</span></td><td>值班经理</td><td>PB-04</td><td style="color:var(--bad)"><svg width="110" height="22" viewBox="0 0 110 22" aria-hidden="true"><polyline points="1.0,11.3 9.3,5.7 17.6,19.5 25.9,20.0 34.2,14.8 42.5,4.1 50.8,2.0 59.2,5.4 67.5,7.5 75.8,9.5 84.1,16.6 92.4,15.0 100.7,4.5 109.0,9.5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-opacity=".65" stroke-linejoin="round"/></svg></td></tr>
+<tr><td>成本</td><td>现金短溢</td><td class="g"><b>8.5</b></td><td>0.0</td><td>—</td><td>0.00</td><td><span class="pill green">达标</span></td><td>值班经理</td><td>PB-08</td><td style="color:var(--ok)"><svg width="110" height="22" viewBox="0 0 110 22" aria-hidden="true"><polyline points="1.0,10.9 9.3,11.7 17.6,9.8 25.9,2.0 34.2,19.2 42.5,5.9 50.8,13.7 59.2,9.9 67.5,17.0 75.8,10.6 84.1,2.5 92.4,14.1 100.7,19.7 109.0,20.0" fill="none" stroke="currentColor" stroke-width="1.4" stroke-opacity=".65" stroke-linejoin="round"/></svg></td></tr>
+<tr><td>成本</td><td>食品成本率</td><td class="a"><b>31.2%</b></td><td>30.5%</td><td>-2.4%</td><td>0.15</td><td><span class="pill amber">关注</span></td><td>店长</td><td>PB-06</td><td style="color:var(--warn)"><svg width="110" height="22" viewBox="0 0 110 22" aria-hidden="true"><polyline points="1.0,14.3 9.3,20.0 17.6,17.7 25.9,10.8 34.2,17.3 42.5,6.8 50.8,15.6 59.2,8.7 67.5,10.0 75.8,9.7 84.1,2.0 92.4,19.6 100.7,6.0 109.0,5.1" fill="none" stroke="currentColor" stroke-width="1.4" stroke-opacity=".65" stroke-linejoin="round"/></svg></td></tr>
+<tr><td>成本</td><td>人工成本率</td><td class="g"><b>13.2%</b></td><td>13.5%</td><td>+1.9%</td><td>0.00</td><td><span class="pill green">达标</span></td><td>店长</td><td>PB-07</td><td style="color:var(--ok)"><svg width="110" height="22" viewBox="0 0 110 22" aria-hidden="true"><polyline points="1.0,7.3 9.3,2.6 17.6,16.6 25.9,20.0 34.2,15.1 42.5,3.4 50.8,2.0 59.2,3.8 67.5,3.6 75.8,10.5 84.1,17.7 92.4,12.2 100.7,4.0 109.0,3.1" fill="none" stroke="currentColor" stroke-width="1.4" stroke-opacity=".65" stroke-linejoin="round"/></svg></td></tr>
+<tr><td>成本</td><td>工时排班偏差</td><td class="a"><b>5.1%</b></td><td>2.0%</td><td>-156.2%</td><td>0.71</td><td><span class="pill amber">关注</span></td><td>值班经理</td><td>PB-07</td><td style="color:var(--warn)"><svg width="110" height="22" viewBox="0 0 110 22" aria-hidden="true"><polyline points="1.0,10.7 9.3,2.5 17.6,16.9 25.9,15.5 34.2,13.5 42.5,9.8 50.8,2.7 59.2,10.3 67.5,7.0 75.8,20.0 84.1,16.6 92.4,14.8 100.7,6.3 109.0,2.0" fill="none" stroke="currentColor" stroke-width="1.4" stroke-opacity=".65" stroke-linejoin="round"/></svg></td></tr>
+<tr><td>成本</td><td>人时销售 (SPLH)</td><td class="g"><b>215</b></td><td>210</td><td>+2.5%</td><td>0.00</td><td><span class="pill green">达标</span></td><td>值班经理</td><td>PB-07</td><td style="color:var(--ok)"><svg width="110" height="22" viewBox="0 0 110 22" aria-hidden="true"><polyline points="1.0,15.2 9.3,19.5 17.6,5.8 25.9,2.0 34.2,7.3 42.5,18.8 50.8,20.0 59.2,18.4 67.5,18.6 75.8,12.1 84.1,4.6 92.4,10.4 100.7,18.3 109.0,19.0" fill="none" stroke="currentColor" stroke-width="1.4" stroke-opacity=".65" stroke-linejoin="round"/></svg></td></tr>
+<tr><td>成本</td><td>废弃率</td><td class="a"><b>1.1%</b></td><td>0.8%</td><td>-37.6%</td><td>0.20</td><td><span class="pill amber">关注</span></td><td>值班经理</td><td>PB-06</td><td style="color:var(--warn)"><svg width="110" height="22" viewBox="0 0 110 22" aria-hidden="true"><polyline points="1.0,19.7 9.3,15.2 17.6,20.0 25.9,12.6 34.2,4.2 42.5,15.3 50.8,5.9 59.2,7.6 67.5,8.7 75.8,12.4 84.1,9.0 92.4,8.2 100.7,2.0 109.0,17.4" fill="none" stroke="currentColor" stroke-width="1.4" stroke-opacity=".65" stroke-linejoin="round"/></svg></td></tr>
+<tr><td>品质与食安</td><td>清洁巡检得分</td><td class="a"><b>91.9</b></td><td>95.0</td><td>-3.3%</td><td>0.02</td><td><span class="pill amber">关注</span></td><td>值班经理</td><td>PB-10</td><td style="color:var(--warn)"><svg width="110" height="22" viewBox="0 0 110 22" aria-hidden="true"><polyline points="1.0,10.8 9.3,9.9 17.6,10.3 25.9,3.1 34.2,7.9 42.5,20.0 50.8,2.0 59.2,14.4 67.5,4.5 75.8,9.9 84.1,10.3 92.4,16.6 100.7,18.7 109.0,9.2" fill="none" stroke="currentColor" stroke-width="1.4" stroke-opacity=".65" stroke-linejoin="round"/></svg></td></tr>
+<tr><td>品质与食安</td><td>关键温度点异常数</td><td class="g"><b>0</b></td><td>0</td><td>—</td><td>0.00</td><td><span class="pill green">达标</span></td><td>值班经理</td><td>PB-09</td><td style="color:var(--ok)"><svg width="110" height="22" viewBox="0 0 110 22" aria-hidden="true"><polyline points="1.0,20.0 9.3,20.0 17.6,20.0 25.9,5.6 34.2,20.0 42.5,20.0 50.8,16.4 59.2,20.0 67.5,20.0 75.8,2.0 84.1,20.0 92.4,16.4 100.7,20.0 109.0,20.0" fill="none" stroke="currentColor" stroke-width="1.4" stroke-opacity=".65" stroke-linejoin="round"/></svg></td></tr>
+<tr><td>品质与食安</td><td>设备停机时长</td><td class="r"><b>76</b></td><td>0</td><td>—</td><td>1.36</td><td><span class="pill red">告警</span></td><td>店长</td><td>PB-11</td><td style="color:var(--bad)"><svg width="110" height="22" viewBox="0 0 110 22" aria-hidden="true"><polyline points="1.0,20.0 9.3,11.0 17.6,20.0 25.9,20.0 34.2,20.0 42.5,20.0 50.8,20.0 59.2,20.0 67.5,20.0 75.8,20.0 84.1,20.0 92.4,20.0 100.7,20.0 109.0,2.0" fill="none" stroke="currentColor" stroke-width="1.4" stroke-opacity=".65" stroke-linejoin="round"/></svg></td></tr>
+<tr><td>品质与食安</td><td>食安日检得分</td><td class="g"><b>100.0</b></td><td>100.0</td><td>+0.0%</td><td>0.00</td><td><span class="pill green">达标</span></td><td>店长</td><td>PB-09</td><td style="color:var(--ok)"><svg width="110" height="22" viewBox="0 0 110 22" aria-hidden="true"><polyline points="1.0,4.6 9.3,9.7 17.6,4.6 25.9,7.1 34.2,4.6 42.5,4.6 50.8,14.9 59.2,9.7 67.5,7.1 75.8,7.1 84.1,7.1 92.4,2.0 100.7,20.0 109.0,2.0" fill="none" stroke="currentColor" stroke-width="1.4" stroke-opacity=".65" stroke-linejoin="round"/></svg></td></tr>
+<tr><td>品质与食安</td><td>保温超时率</td><td class="a"><b>2.6%</b></td><td>1.0%</td><td>-157.6%</td><td>0.29</td><td><span class="pill amber">关注</span></td><td>组长</td><td>PB-06</td><td style="color:var(--warn)"><svg width="110" height="22" viewBox="0 0 110 22" aria-hidden="true"><polyline points="1.0,2.4 9.3,14.4 17.6,8.3 25.9,14.4 34.2,13.9 42.5,20.0 50.8,13.1 59.2,14.4 67.5,5.5 75.8,2.0 84.1,4.8 92.4,8.2 100.7,12.5 109.0,9.5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-opacity=".65" stroke-linejoin="round"/></svg></td></tr>
+<tr><td>人员</td><td>出勤达成率</td><td class="g"><b>100.0%</b></td><td>100.0%</td><td>+0.0%</td><td>0.00</td><td><span class="pill green">达标</span></td><td>值班经理</td><td>PB-07</td><td style="color:var(--ok)"><svg width="110" height="22" viewBox="0 0 110 22" aria-hidden="true"><polyline points="1.0,2.0 9.3,20.0 17.6,5.6 25.9,12.3 34.2,13.4 42.5,15.5 50.8,2.0 59.2,20.0 67.5,6.5 75.8,2.0 84.1,12.7 92.4,2.0 100.7,6.5 109.0,2.0" fill="none" stroke="currentColor" stroke-width="1.4" stroke-opacity=".65" stroke-linejoin="round"/></svg></td></tr>
+<tr><td>人员</td><td>30日员工流失率</td><td class="g"><b>4.8%</b></td><td>5.0%</td><td>+4.8%</td><td>0.00</td><td><span class="pill green">达标</span></td><td>店长</td><td>PB-12</td><td style="color:var(--ok)"><svg width="110" height="22" viewBox="0 0 110 22" aria-hidden="true"><polyline points="1.0,2.0 9.3,2.0 17.6,6.6 25.9,10.9 34.2,6.2 42.5,15.2 50.8,15.2 59.2,19.8 67.5,19.8 75.8,19.8 84.1,19.8 92.4,19.8 100.7,19.8 109.0,20.0" fill="none" stroke="currentColor" stroke-width="1.4" stroke-opacity=".65" stroke-linejoin="round"/></svg></td></tr>
+<tr><td>人员</td><td>迟到率</td><td class="r"><b>10.5%</b></td><td>2.0%</td><td>-426.3%</td><td>1.51</td><td><span class="pill red">告警</span></td><td>组长</td><td>PB-07</td><td style="color:var(--bad)"><svg width="110" height="22" viewBox="0 0 110 22" aria-hidden="true"><polyline points="1.0,10.8 9.3,2.0 17.6,6.7 25.9,14.8 34.2,5.4 42.5,13.0 50.8,13.2 59.2,12.8 67.5,10.1 75.8,20.0 84.1,9.1 92.4,17.2 100.7,6.8 109.0,7.1" fill="none" stroke="currentColor" stroke-width="1.4" stroke-opacity=".65" stroke-linejoin="round"/></svg></td></tr>
+<tr><td>人员</td><td>岗位认证覆盖率</td><td class="a"><b>89.5%</b></td><td>95.0%</td><td>-5.8%</td><td>0.05</td><td><span class="pill amber">关注</span></td><td>训练员</td><td>PB-12</td><td style="color:var(--warn)"><svg width="110" height="22" viewBox="0 0 110 22" aria-hidden="true"><polyline points="1.0,14.1 9.3,2.0 17.6,7.7 25.9,13.1 34.2,10.3 42.5,20.0 50.8,7.6 59.2,7.1 67.5,9.7 75.8,12.8 84.1,9.6 92.4,12.8 100.7,12.3 109.0,9.7" fill="none" stroke="currentColor" stroke-width="1.4" stroke-opacity=".65" stroke-linejoin="round"/></svg></td></tr>
+<tr><td>顾客</td><td>千单投诉数</td><td class="g"><b>0.64</b></td><td>0.80</td><td>+20.1%</td><td>0.00</td><td><span class="pill green">达标</span></td><td>值班经理</td><td>PB-05</td><td style="color:var(--ok)"><svg width="110" height="22" viewBox="0 0 110 22" aria-hidden="true"><polyline points="1.0,3.3 9.3,6.7 17.6,13.3 25.9,4.6 34.2,16.5 42.5,20.0 50.8,10.7 59.2,11.3 67.5,15.7 75.8,2.0 84.1,10.2 92.4,12.8 100.7,15.6 109.0,15.6" fill="none" stroke="currentColor" stroke-width="1.4" stroke-opacity=".65" stroke-linejoin="round"/></svg></td></tr>
+<tr><td>顾客</td><td>顾客满意度</td><td class="g"><b>92.6</b></td><td>88.0</td><td>+5.2%</td><td>0.00</td><td><span class="pill green">达标</span></td><td>店长</td><td>PB-05</td><td style="color:var(--ok)"><svg width="110" height="22" viewBox="0 0 110 22" aria-hidden="true"><polyline points="1.0,15.0 9.3,16.8 17.6,10.7 25.9,6.5 34.2,13.9 42.5,6.6 50.8,12.7 59.2,11.9 67.5,9.0 75.8,15.2 84.1,13.7 92.4,2.0 100.7,20.0 109.0,4.1" fill="none" stroke="currentColor" stroke-width="1.4" stroke-opacity=".65" stroke-linejoin="round"/></svg></td></tr>
+<tr><td>顾客</td><td>外卖平台评分</td><td class="r"><b>4.1</b></td><td>4.8</td><td>-13.8%</td><td>2.81</td><td><span class="pill red">告警</span></td><td>店长</td><td>PB-03</td><td style="color:var(--bad)"><svg width="110" height="22" viewBox="0 0 110 22" aria-hidden="true"><polyline points="1.0,10.4 9.3,13.3 17.6,17.8 25.9,17.6 34.2,15.9 42.5,12.5 50.8,8.3 59.2,7.7 67.5,2.0 75.8,13.5 84.1,20.0 92.4,19.0 100.7,10.9 109.0,10.1" fill="none" stroke="currentColor" stroke-width="1.4" stroke-opacity=".65" stroke-linejoin="round"/></svg></td></tr>
+</tbody></table></div>
+<h2>责任矩阵 M5：谁 × 什么节奏 × 盯什么</h2>
+<div class="tblwrap"><table><thead><tr><th>责任人</th><th style="text-align:left">每日</th><th style="text-align:left">每周</th><th style="text-align:left">每月</th></tr></thead><tbody>
+<tr><td>店长</td>
+<td style="text-align:left;white-space:normal;font-size:12.5px">净销售额、销售达成率、交易笔数 (GC)、外送销售占比、食品成本率、人工成本率、食安日检得分、设备停机时长、顾客满意度、外卖平台评分</td>
+<td style="text-align:left;white-space:normal;font-size:12.5px">30日员工流失率</td>
+<td style="text-align:left;white-space:normal;font-size:12.5px">—</td>
+</tr>
+<tr><td>值班经理</td>
+<td style="text-align:left;white-space:normal;font-size:12.5px">客单价 (TC)、单均件数、得来速总时长、得来速取餐窗时长、前台交付时长 (OTD)、服务速度达标率、订单准确率、废弃率、人时销售 (SPLH)、工时排班偏差、现金短溢、关键温度点异常数、清洁巡检得分、出勤达成率、千单投诉数</td>
+<td style="text-align:left;white-space:normal;font-size:12.5px">—</td>
+<td style="text-align:left;white-space:normal;font-size:12.5px">—</td>
+</tr>
+<tr><td>组长</td>
+<td style="text-align:left;white-space:normal;font-size:12.5px">附加销售率、后厨制作时长、外送出餐时长、保温超时率、迟到率</td>
+<td style="text-align:left;white-space:normal;font-size:12.5px">—</td>
+<td style="text-align:left;white-space:normal;font-size:12.5px">—</td>
+</tr>
+<tr><td>训练员</td>
+<td style="text-align:left;white-space:normal;font-size:12.5px">—</td>
+<td style="text-align:left;white-space:normal;font-size:12.5px">岗位认证覆盖率</td>
+<td style="text-align:left;white-space:normal;font-size:12.5px">—</td>
+</tr>
+</tbody></table></div>
+<footer>由 <code>mcd_store_ops</code> 生成 · 指标口径见 <code>config/metrics.json</code> · 数据为模拟数据，用于演示报表与矩阵的结构</footer>
+</div>

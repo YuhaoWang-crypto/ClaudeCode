@@ -1,0 +1,70 @@
+{
+  "_comment": "门店画像。模拟器与指标口径都读这里。换一家店只改本文件。",
+
+  "store_id": "CN-SH-0731",
+  "store_name": "示例店 · 南京西路店",
+  "format": "FreeStanding_DT",
+  "_format_options": ["InMall", "StreetLevel", "FreeStanding_DT", "Transport_Hub"],
+  "city_tier": 1,
+  "open_hour": 6,
+  "close_hour": 24,
+  "seats": 120,
+  "has_drive_thru": true,
+  "has_mccafe": true,
+  "has_breakfast": true,
+  "has_24h": false,
+
+  "channels": [
+    {"id": "FrontCounter", "name_cn": "前台点餐",   "share": 0.16, "speed_target_sec": 150},
+    {"id": "Kiosk",        "name_cn": "自助点餐机", "share": 0.27, "speed_target_sec": 165},
+    {"id": "DriveThru",    "name_cn": "得来速",     "share": 0.21, "speed_target_sec": 180},
+    {"id": "MobileApp",    "name_cn": "小程序自取", "share": 0.13, "speed_target_sec": 150},
+    {"id": "Delivery",     "name_cn": "外送",       "share": 0.23, "speed_target_sec": 420}
+  ],
+
+  "dayparts": [
+    {"id": "Breakfast",  "name_cn": "早餐",   "start": 6,  "end": 10, "sales_share": 0.14},
+    {"id": "Lunch",      "name_cn": "午市",   "start": 10, "end": 14, "sales_share": 0.33},
+    {"id": "Afternoon",  "name_cn": "下午茶", "start": 14, "end": 17, "sales_share": 0.14},
+    {"id": "Dinner",     "name_cn": "晚市",   "start": 17, "end": 21, "sales_share": 0.29},
+    {"id": "LateNight",  "name_cn": "夜宵",   "start": 21, "end": 24, "sales_share": 0.10}
+  ],
+
+  "categories": [
+    {"id": "Burger",    "name_cn": "汉堡",     "share": 0.34, "cost_ratio": 0.33},
+    {"id": "Chicken",   "name_cn": "鸡类",     "share": 0.20, "cost_ratio": 0.35},
+    {"id": "Fries",     "name_cn": "薯条小食", "share": 0.14, "cost_ratio": 0.22},
+    {"id": "Beverage",  "name_cn": "饮料",     "share": 0.16, "cost_ratio": 0.18},
+    {"id": "McCafe",    "name_cn": "麦咖啡",   "share": 0.09, "cost_ratio": 0.24},
+    {"id": "Dessert",   "name_cn": "甜品派",   "share": 0.07, "cost_ratio": 0.26}
+  ],
+
+  "stations": ["Kitchen_Grill", "Kitchen_Fry", "Assembly", "Beverage", "FrontCounter", "DriveThru_Order", "DriveThru_Window", "Lobby", "Delivery_Pack"],
+
+  "labor": {
+    "avg_wage_per_hour": 28.5,
+    "_wage_note": "含社保/公积金的综合人工单价，用于 labor_cost_pct",
+    "manager_hours_per_day": 34.0,
+    "crew_hours_per_day": 108.0
+  },
+
+  "baseline": {
+    "net_sales": 60350,
+    "guest_count": 1700,
+    "_note": "预算/预测的日基准；模拟器围绕它波动，指标阈值以 config/metrics.json 为准"
+  },
+
+  "equipment": [
+    {"id": "GRILL-1", "name_cn": "煎炉1",     "critical": true},
+    {"id": "GRILL-2", "name_cn": "煎炉2",     "critical": true},
+    {"id": "FRYER-1", "name_cn": "炸炉1",     "critical": true},
+    {"id": "FRYER-2", "name_cn": "炸炉2",     "critical": true},
+    {"id": "SHAKE-1", "name_cn": "奶昔机",     "critical": false},
+    {"id": "COFFEE-1","name_cn": "咖啡机",     "critical": false},
+    {"id": "WALKIN-C","name_cn": "冷藏库",     "critical": true, "temp_range_c": [0, 4]},
+    {"id": "WALKIN-F","name_cn": "冷冻库",     "critical": true, "temp_range_c": [-23, -18]},
+    {"id": "UHC-1",   "name_cn": "万能保温柜", "critical": true, "temp_range_c": [80, 95]}
+  ],
+
+  "delivery_platforms": ["Meituan", "Eleme", "McDeliveryApp"]
+}

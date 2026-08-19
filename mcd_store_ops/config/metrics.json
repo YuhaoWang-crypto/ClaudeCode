@@ -1,0 +1,348 @@
+{
+  "_comment": "门店指标字典 (Metric Dictionary)。这是整个 package 的单一事实来源：报表、矩阵、看板、行动卡全部由本文件驱动。修改阈值/责任人/权重只需改这里，不需要动代码。",
+  "_schema": {
+    "id": "指标唯一键，代码里的 calculator 名字与之对应",
+    "family": "SALES 生意 / SPEED 速度 / COST 成本 / QSC 品质与食安 / PEOPLE 人员 / GUEST 顾客",
+    "direction": "higher_better 越高越好 / lower_better 越低越好",
+    "target": "目标值",
+    "green": "达到即绿灯（含）",
+    "amber": "达到即黄灯（含），越过则红灯",
+    "grain": "最细可看粒度",
+    "dims": "可下钻维度，矩阵的列就来自这里",
+    "aggregation": "sum 可加总量 / ratio 比率型 —— 决定归因矩阵怎么算贡献度",
+    "denominator": "ratio 型的分母口径：slice 用切片自己的量（这一块好不好）/ store_day 用全店当日量（这一块拖了全店多少，可加）",
+    "owner": "RGM 店长 / SM 值班经理 / TL 组长 / TRN 训练员 / AREA 营运经理",
+    "impact": "0-1，指标动 1 个单位对生意/顾客的影响力（用于优先级矩阵 Y 轴）",
+    "controllability": "0-1，店长今天能改变它的程度（用于优先级矩阵 X 轴）",
+    "source_tables": "上游数据表，见 docs/01_source_tables.md",
+    "playbook": "触发红/黄灯时对应的行动卡编号，见 docs/05_action_playbook.md"
+  },
+
+  "metrics": [
+    {
+      "id": "net_sales", "name_cn": "净销售额", "name_en": "Net Sales",
+      "aggregation": "sum",
+      "family": "SALES", "unit": "CNY", "direction": "higher_better",
+      "formula": "SUM(gross_amount - discount_amount - refund_amount)",
+      "target": 62000, "green": 58000, "amber": 52000,
+      "grain": "15min", "dims": ["daypart", "channel", "category"],
+      "owner": "RGM", "cadence": "daily", "impact": 1.0, "controllability": 0.45,
+      "source_tables": ["fct_pos_transaction", "fct_pos_line_item"], "playbook": "PB-01"
+    },
+    {
+      "id": "sales_vs_forecast", "name_cn": "销售达成率", "name_en": "Sales vs Forecast",
+      "aggregation": "ratio",
+      "family": "SALES", "unit": "%", "direction": "higher_better",
+      "formula": "net_sales / forecast_sales * 100",
+      "target": 100, "green": 98, "amber": 93,
+      "grain": "15min", "dims": ["daypart", "channel"],
+      "owner": "RGM", "cadence": "daily", "impact": 0.95, "controllability": 0.5,
+      "source_tables": ["fct_pos_transaction", "dim_sales_forecast"], "playbook": "PB-01"
+    },
+    {
+      "id": "guest_count", "name_cn": "交易笔数 (GC)", "name_en": "Guest Count",
+      "aggregation": "sum",
+      "family": "SALES", "unit": "笔", "direction": "higher_better",
+      "formula": "COUNT(DISTINCT order_id WHERE status='completed')",
+      "target": 1750, "green": 1620, "amber": 1480,
+      "grain": "15min", "dims": ["daypart", "channel"],
+      "owner": "RGM", "cadence": "daily", "impact": 0.9, "controllability": 0.35,
+      "source_tables": ["fct_pos_transaction"], "playbook": "PB-01"
+    },
+    {
+      "id": "avg_check", "name_cn": "客单价 (TC)", "name_en": "Average Check",
+      "aggregation": "ratio",
+      "family": "SALES", "unit": "CNY", "direction": "higher_better",
+      "formula": "net_sales / guest_count",
+      "target": 35.5, "green": 35.0, "amber": 33.0,
+      "grain": "daypart", "dims": ["daypart", "channel"],
+      "owner": "SM", "cadence": "daily", "impact": 0.8, "controllability": 0.75,
+      "source_tables": ["fct_pos_transaction", "fct_pos_line_item"], "playbook": "PB-02"
+    },
+    {
+      "id": "items_per_check", "name_cn": "单均件数", "name_en": "Items per Check",
+      "aggregation": "ratio",
+      "family": "SALES", "unit": "件", "direction": "higher_better",
+      "formula": "SUM(qty) / guest_count",
+      "target": 3.2, "green": 3.1, "amber": 2.9,
+      "grain": "daypart", "dims": ["daypart", "channel"],
+      "owner": "SM", "cadence": "daily", "impact": 0.6, "controllability": 0.8,
+      "source_tables": ["fct_pos_line_item"], "playbook": "PB-02"
+    },
+    {
+      "id": "upsell_rate", "name_cn": "附加销售率", "name_en": "Upsell / Suggestive Sell Rate",
+      "aggregation": "ratio",
+      "family": "SALES", "unit": "%", "direction": "higher_better",
+      "formula": "含加价购/升级/甜品站附加品的订单数 / 人工点单订单数 * 100",
+      "target": 30, "green": 28, "amber": 22,
+      "grain": "daypart", "dims": ["daypart", "channel", "cashier_id"],
+      "owner": "TL", "cadence": "daily", "impact": 0.55, "controllability": 0.9,
+      "source_tables": ["fct_pos_line_item", "dim_product"], "playbook": "PB-02"
+    },
+    {
+      "id": "delivery_share", "name_cn": "外送销售占比", "name_en": "Delivery Sales Share",
+      "aggregation": "ratio",
+      "family": "SALES", "unit": "%", "direction": "neutral",
+      "formula": "外送渠道净销售 / 总净销售 * 100",
+      "target": 22, "green": 30, "amber": 38,
+      "grain": "day", "dims": ["daypart"],
+      "owner": "RGM", "cadence": "daily", "impact": 0.4, "controllability": 0.2,
+      "source_tables": ["fct_pos_transaction", "fct_delivery_order"], "playbook": "PB-03"
+    },
+
+    {
+      "id": "dt_total_time", "name_cn": "得来速总时长", "name_en": "Drive-Thru Total Time",
+      "aggregation": "ratio",
+      "family": "SPEED", "unit": "秒", "direction": "lower_better",
+      "formula": "AVG(depart_ts - arrive_ts)",
+      "target": 180, "green": 190, "amber": 215,
+      "grain": "15min", "dims": ["daypart"],
+      "owner": "SM", "cadence": "daily", "impact": 0.9, "controllability": 0.85,
+      "source_tables": ["fct_dt_timer"], "playbook": "PB-04"
+    },
+    {
+      "id": "dt_window_time", "name_cn": "得来速取餐窗时长", "name_en": "DT Present/Window Time",
+      "aggregation": "ratio",
+      "family": "SPEED", "unit": "秒", "direction": "lower_better",
+      "formula": "AVG(depart_ts - window_arrive_ts)",
+      "target": 55, "green": 60, "amber": 75,
+      "grain": "15min", "dims": ["daypart"],
+      "owner": "SM", "cadence": "daily", "impact": 0.7, "controllability": 0.9,
+      "source_tables": ["fct_dt_timer"], "playbook": "PB-04"
+    },
+    {
+      "id": "kds_prep_time", "name_cn": "后厨制作时长", "name_en": "Kitchen Prep Time",
+      "aggregation": "ratio",
+      "family": "SPEED", "unit": "秒", "direction": "lower_better",
+      "formula": "AVG(bump_ts - fire_ts)",
+      "target": 90, "green": 100, "amber": 125,
+      "grain": "15min", "dims": ["daypart", "channel", "category"],
+      "owner": "TL", "cadence": "daily", "impact": 0.75, "controllability": 0.85,
+      "source_tables": ["fct_kds_order"], "playbook": "PB-04"
+    },
+    {
+      "id": "front_otd", "name_cn": "前台交付时长 (OTD)", "name_en": "Front Counter Order-to-Delivery",
+      "aggregation": "ratio",
+      "family": "SPEED", "unit": "秒", "direction": "lower_better",
+      "formula": "AVG(handover_ts - order_ts) WHERE channel IN ('FrontCounter','Kiosk')",
+      "target": 150, "green": 165, "amber": 195,
+      "grain": "15min", "dims": ["daypart", "channel"],
+      "owner": "SM", "cadence": "daily", "impact": 0.7, "controllability": 0.85,
+      "source_tables": ["fct_kds_order", "fct_pos_transaction"], "playbook": "PB-04"
+    },
+    {
+      "id": "delivery_handover_time", "name_cn": "外送出餐时长", "name_en": "Delivery Handover Time",
+      "aggregation": "ratio",
+      "family": "SPEED", "unit": "秒", "direction": "lower_better",
+      "formula": "AVG(rider_pickup_ts - order_accept_ts)",
+      "target": 360, "green": 400, "amber": 480,
+      "grain": "15min", "dims": ["daypart", "platform"],
+      "owner": "TL", "cadence": "daily", "impact": 0.6, "controllability": 0.7,
+      "source_tables": ["fct_delivery_order"], "playbook": "PB-03"
+    },
+    {
+      "id": "speed_hit_rate", "name_cn": "服务速度达标率", "name_en": "Speed Target Hit Rate",
+      "aggregation": "ratio",
+      "family": "SPEED", "unit": "%", "direction": "higher_better",
+      "formula": "达标订单数 / 总订单数 * 100（各渠道各自的目标时长）",
+      "target": 90, "green": 88, "amber": 80,
+      "grain": "15min", "dims": ["daypart", "channel"],
+      "owner": "SM", "cadence": "daily", "impact": 0.85, "controllability": 0.85,
+      "source_tables": ["fct_kds_order", "fct_dt_timer", "fct_delivery_order"], "playbook": "PB-04"
+    },
+    {
+      "id": "order_accuracy", "name_cn": "订单准确率", "name_en": "Order Accuracy",
+      "aggregation": "ratio",
+      "family": "SPEED", "unit": "%", "direction": "higher_better",
+      "formula": "(1 - 差错订单数 / 总订单数) * 100，差错来源=退换/顾客投诉/外卖漏餐",
+      "target": 99.6, "green": 99.4, "amber": 99.0,
+      "grain": "day", "dims": ["daypart", "channel"],
+      "owner": "SM", "cadence": "daily", "impact": 0.8, "controllability": 0.85,
+      "source_tables": ["fct_order_issue", "fct_pos_transaction"], "playbook": "PB-05"
+    },
+
+    {
+      "id": "food_cost_pct", "name_cn": "食品成本率", "name_en": "Food Cost %",
+      "aggregation": "ratio",
+      "family": "COST", "unit": "%", "direction": "lower_better",
+      "formula": "(期初库存 + 进货 - 期末库存) 成本 / 净销售 * 100",
+      "target": 30.5, "green": 31.0, "amber": 32.5,
+      "grain": "day", "dims": ["category"], "denominator": "store_day",
+      "owner": "RGM", "cadence": "daily", "impact": 0.95, "controllability": 0.6,
+      "source_tables": ["fct_inventory_count", "fct_goods_receipt", "fct_pos_line_item"], "playbook": "PB-06"
+    },
+    {
+      "id": "waste_pct", "name_cn": "废弃率", "name_en": "Waste %",
+      "aggregation": "ratio",
+      "family": "COST", "unit": "%", "direction": "lower_better",
+      "formula": "(原料废弃 + 成品废弃) 成本 / 净销售 * 100",
+      "target": 0.8, "green": 1.0, "amber": 1.5,
+      "grain": "daypart", "dims": ["daypart", "category", "waste_type"], "denominator": "store_day",
+      "owner": "SM", "cadence": "daily", "impact": 0.8, "controllability": 0.9,
+      "source_tables": ["fct_waste_log", "fct_pos_transaction"], "playbook": "PB-06"
+    },
+    {
+      "id": "labor_cost_pct", "name_cn": "人工成本率", "name_en": "Labor Cost %",
+      "aggregation": "ratio",
+      "family": "COST", "unit": "%", "direction": "lower_better",
+      "formula": "实际工时 * 平均时薪(含社保) / 净销售 * 100",
+      "target": 13.5, "green": 14.0, "amber": 15.5,
+      "grain": "daypart", "dims": ["daypart", "station"],
+      "owner": "RGM", "cadence": "daily", "impact": 0.9, "controllability": 0.8,
+      "source_tables": ["fct_timecard", "dim_employee", "fct_pos_transaction"], "playbook": "PB-07"
+    },
+    {
+      "id": "splh", "name_cn": "人时销售 (SPLH)", "name_en": "Sales per Labor Hour",
+      "aggregation": "ratio",
+      "family": "COST", "unit": "CNY/工时", "direction": "higher_better",
+      "formula": "净销售 / 实际总工时",
+      "target": 210, "green": 205, "amber": 185,
+      "grain": "15min", "dims": ["daypart", "station"],
+      "owner": "SM", "cadence": "daily", "impact": 0.85, "controllability": 0.85,
+      "source_tables": ["fct_timecard", "fct_pos_transaction"], "playbook": "PB-07"
+    },
+    {
+      "id": "labor_schedule_variance", "name_cn": "工时排班偏差", "name_en": "Scheduled vs Actual Hours",
+      "aggregation": "ratio",
+      "family": "COST", "unit": "%", "direction": "lower_better",
+      "formula": "ABS(实际工时 - 排班工时) / 排班工时 * 100",
+      "target": 2.0, "green": 3.0, "amber": 6.0,
+      "grain": "daypart", "dims": ["daypart", "station"],
+      "owner": "SM", "cadence": "daily", "impact": 0.6, "controllability": 0.95,
+      "source_tables": ["fct_timecard", "fct_schedule"], "playbook": "PB-07"
+    },
+    {
+      "id": "cash_over_short", "name_cn": "现金短溢", "name_en": "Cash Over/Short",
+      "aggregation": "sum",
+      "family": "COST", "unit": "CNY", "direction": "lower_better",
+      "formula": "ABS(SUM(实盘金额 - 系统应收))，仅现金渠道",
+      "target": 0, "green": 20, "amber": 60,
+      "grain": "day", "dims": ["shift", "cashier_id"],
+      "owner": "SM", "cadence": "daily", "impact": 0.35, "controllability": 0.9,
+      "source_tables": ["fct_cash_declaration", "fct_pos_transaction"], "playbook": "PB-08"
+    },
+
+    {
+      "id": "food_safety_score", "name_cn": "食安日检得分", "name_en": "Daily Food Safety Score",
+      "aggregation": "ratio",
+      "family": "QSC", "unit": "分", "direction": "higher_better",
+      "formula": "开店/交接班/闭店三次 checklist 得分均值（满分100）",
+      "target": 100, "green": 98, "amber": 95,
+      "grain": "day", "dims": ["shift"],
+      "owner": "RGM", "cadence": "daily", "impact": 1.0, "controllability": 0.95,
+      "source_tables": ["fct_food_safety_check"], "playbook": "PB-09"
+    },
+    {
+      "id": "critical_temp_fail", "name_cn": "关键温度点异常数", "name_en": "Critical Temp Failures",
+      "aggregation": "sum",
+      "family": "QSC", "unit": "次", "direction": "lower_better",
+      "formula": "COUNT(温度记录 WHERE 超出 SOP 区间)，冷藏/冷冻/油温/熟食中心温度",
+      "target": 0, "green": 0, "amber": 1,
+      "grain": "day", "dims": ["equipment_id", "shift"],
+      "owner": "SM", "cadence": "daily", "impact": 1.0, "controllability": 0.9,
+      "source_tables": ["fct_temperature_log", "dim_equipment"], "playbook": "PB-09"
+    },
+    {
+      "id": "holding_time_violation", "name_cn": "保温超时率", "name_en": "Holding Time Violation %",
+      "aggregation": "ratio",
+      "family": "QSC", "unit": "%", "direction": "lower_better",
+      "formula": "超过保温柜时限被丢弃的批次 / 总批次 * 100",
+      "target": 1.0, "green": 2.0, "amber": 4.0,
+      "grain": "daypart", "dims": ["daypart", "category"],
+      "owner": "TL", "cadence": "daily", "impact": 0.7, "controllability": 0.9,
+      "source_tables": ["fct_holding_batch"], "playbook": "PB-06"
+    },
+    {
+      "id": "cleanliness_score", "name_cn": "清洁巡检得分", "name_en": "Cleanliness Walk Score",
+      "aggregation": "ratio",
+      "family": "QSC", "unit": "分", "direction": "higher_better",
+      "formula": "大堂/洗手间/厨房/外围 四区巡检得分均值",
+      "target": 95, "green": 92, "amber": 85,
+      "grain": "day", "dims": ["zone", "shift"],
+      "owner": "SM", "cadence": "daily", "impact": 0.65, "controllability": 0.95,
+      "source_tables": ["fct_travel_path_check"], "playbook": "PB-10"
+    },
+    {
+      "id": "equipment_downtime", "name_cn": "设备停机时长", "name_en": "Equipment Downtime",
+      "aggregation": "sum",
+      "family": "QSC", "unit": "分钟", "direction": "lower_better",
+      "formula": "SUM(修复时间 - 报障时间)，仅影响出品的关键设备",
+      "target": 0, "green": 15, "amber": 60,
+      "grain": "day", "dims": ["equipment_id"],
+      "owner": "RGM", "cadence": "daily", "impact": 0.7, "controllability": 0.5,
+      "source_tables": ["fct_equipment_ticket", "dim_equipment"], "playbook": "PB-11"
+    },
+
+    {
+      "id": "attendance_rate", "name_cn": "出勤达成率", "name_en": "Attendance Rate",
+      "aggregation": "ratio",
+      "family": "PEOPLE", "unit": "%", "direction": "higher_better",
+      "formula": "实际到岗人次 / 排班人次 * 100",
+      "target": 100, "green": 97, "amber": 92,
+      "grain": "daypart", "dims": ["daypart", "station"],
+      "owner": "SM", "cadence": "daily", "impact": 0.75, "controllability": 0.7,
+      "source_tables": ["fct_timecard", "fct_schedule"], "playbook": "PB-07"
+    },
+    {
+      "id": "late_rate", "name_cn": "迟到率", "name_en": "Late Clock-in Rate",
+      "aggregation": "ratio",
+      "family": "PEOPLE", "unit": "%", "direction": "lower_better",
+      "formula": "打卡晚于班次开始 5 分钟以上的人次 / 到岗人次 * 100",
+      "target": 2.0, "green": 3.0, "amber": 8.0,
+      "grain": "day", "dims": ["daypart", "station"],
+      "owner": "TL", "cadence": "daily", "impact": 0.4, "controllability": 0.85,
+      "source_tables": ["fct_timecard", "fct_schedule"], "playbook": "PB-07"
+    },
+    {
+      "id": "station_certification", "name_cn": "岗位认证覆盖率", "name_en": "Station Certification Coverage",
+      "aggregation": "ratio",
+      "family": "PEOPLE", "unit": "%", "direction": "higher_better",
+      "formula": "当班已认证人次 / 当班总人次 * 100（按所站岗位）",
+      "target": 95, "green": 90, "amber": 80,
+      "grain": "daypart", "dims": ["station"],
+      "owner": "TRN", "cadence": "weekly", "impact": 0.7, "controllability": 0.6,
+      "source_tables": ["dim_employee", "fct_training_record", "fct_schedule"], "playbook": "PB-12"
+    },
+    {
+      "id": "crew_turnover_30d", "name_cn": "30日员工流失率", "name_en": "30-day Crew Turnover",
+      "aggregation": "ratio",
+      "family": "PEOPLE", "unit": "%", "direction": "lower_better",
+      "formula": "近30日离职人数 / 期初在册人数 * 100",
+      "target": 5.0, "green": 6.0, "amber": 10.0,
+      "grain": "day", "dims": ["tenure_band"],
+      "owner": "RGM", "cadence": "weekly", "impact": 0.8, "controllability": 0.5,
+      "source_tables": ["dim_employee"], "playbook": "PB-12"
+    },
+
+    {
+      "id": "csat", "name_cn": "顾客满意度", "name_en": "Guest Satisfaction (CSAT)",
+      "aggregation": "ratio",
+      "family": "GUEST", "unit": "分", "direction": "higher_better",
+      "formula": "小票调研 5 分制均值 * 20 归一到百分制",
+      "target": 88, "green": 85, "amber": 78,
+      "grain": "day", "dims": ["daypart", "channel"],
+      "owner": "RGM", "cadence": "daily", "impact": 0.9, "controllability": 0.6,
+      "source_tables": ["fct_guest_survey"], "playbook": "PB-05"
+    },
+    {
+      "id": "delivery_rating", "name_cn": "外卖平台评分", "name_en": "Delivery Platform Rating",
+      "aggregation": "ratio",
+      "family": "GUEST", "unit": "分", "direction": "higher_better",
+      "formula": "美团/饿了么门店评分加权均值（5 分制）",
+      "target": 4.8, "green": 4.7, "amber": 4.5,
+      "grain": "day", "dims": ["platform", "daypart"],
+      "owner": "RGM", "cadence": "daily", "impact": 0.7, "controllability": 0.55,
+      "source_tables": ["fct_delivery_order", "fct_guest_survey"], "playbook": "PB-03"
+    },
+    {
+      "id": "complaints_per_1k", "name_cn": "千单投诉数", "name_en": "Complaints per 1k Orders",
+      "aggregation": "ratio",
+      "family": "GUEST", "unit": "件/千单", "direction": "lower_better",
+      "formula": "投诉件数 / 交易笔数 * 1000",
+      "target": 0.8, "green": 1.2, "amber": 2.5,
+      "grain": "day", "dims": ["issue_type", "channel"], "denominator": "store_day",
+      "owner": "SM", "cadence": "daily", "impact": 0.75, "controllability": 0.7,
+      "source_tables": ["fct_order_issue", "fct_guest_survey"], "playbook": "PB-05"
+    }
+  ]
+}
