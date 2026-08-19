@@ -104,6 +104,32 @@ prints each result next to its known-correct reference value. If a number
 drifts, the framework or a dependency changed; fix that before interpreting
 science.
 
+## Scope — what to say when asked about docking or binding
+
+TyxonQ has **no docking** (no pose search, no scoring function) and cannot do
+protein-ligand affinity. It computes electronic structure for tens of atoms in
+a ≤ ~20-orbital active space. Measured consequences, reproduced in `demos/`:
+
+- Binding energy of a water dimer: quantum active-space UCCSD gives −3.57
+  kcal/mol — **identical to Hartree-Fock**; classical CCSD gives −4.16, the
+  CCSD(T)/CBS benchmark −5.02. Non-covalent binding is dynamic correlation
+  outside any tractable active space.
+- Ionization energy of H₂O: quantum 11.13 eV vs ΔHF 11.15, ΔCCSD 12.48,
+  experiment 12.62. Same story.
+- Proton-transfer barrier in a Zundel-cation enzyme model: the mechanism (a
+  barrier that collapses as the donor-acceptor distance compresses) comes out
+  right, but the quantum number tracks HF, not CCSD.
+- **The exception, and the real motivation:** stretched H₆, where CCSD's error
+  reaches −50 mHa *below* the exact energy while the variational quantum ansatz
+  stays within 15 mHa. Multireference chemistry — bond cleavage, transition
+  states, Fe-S and P450 cofactors — is where this technology is worth using,
+  and where a real cofactor still needs 60-120 logical qubits.
+
+Route docking to `sbdd-repro-pipeline` / `boltz-denovo-design`, binding free
+energy to `protein-ligand-md` / `cd-pfas-md` / `mlip-surface-binding`, and
+bring only a truncated, multireference active-site cluster here. Details and
+report phrasing: `reference/scope-and-docking.md`.
+
 ## Honesty labels — apply to every number you report
 
 - ✅ **exact** — numeric runtime, converged optimizer, checked against an
@@ -122,5 +148,8 @@ energy without saying which ansatz and which path produced it.
 - `reference/api-map.md` — circuits, gates, devices, noise, postprocessing, cloud submission.
 - `reference/chemistry.md` — UCCSD/HEA/kUpCCGSD/pUCCD/SQD, mappings, active spaces, what to trust.
 - `reference/variational.md` — the three gradient strategies, ansatz choice, barren plateaus.
+- `reference/scope-and-docking.md` — the docking answer, the division of labour, report phrasing.
 - `assets/verify_install.py` — the smoke test described above.
 - `assets/vqe_template.py` — working TFIM VQE (torch autograd) validated against exact diagonalization.
+- `demos/` — five runnable studies (energy levels, binding energy, proton-transfer
+  barrier, static correlation, scaling wall) with measured numbers; see `demos/README.md`.
