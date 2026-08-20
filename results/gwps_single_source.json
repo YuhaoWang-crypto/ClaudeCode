@@ -83,6 +83,48 @@
         "mae": 0.059749501329766426,
         "mae_delta": 0.059749501329766426
       }
+    },
+    "Jurkat": {
+      "control (delta=0)": {
+        "discrimination_score_l1": 0.5020125,
+        "overlap_at_100": 0.00785048288487759,
+        "overlap_at_50": 0.0048536534345343715,
+        "de_direction_match": 0.0,
+        "de_spearman_lfc": 0.0,
+        "pearson_delta": 0.0,
+        "mae": 0.05623248580139681,
+        "mae_delta": 0.05623248580139681
+      },
+      "global mean [challenge baseline]": {
+        "discrimination_score_l1": 0.50200625,
+        "overlap_at_100": 0.05984747400500752,
+        "overlap_at_50": 0.0545255791826672,
+        "de_direction_match": 0.6310501302959406,
+        "de_spearman_lfc": 0.2457312504951412,
+        "pearson_delta": 0.12756398542726394,
+        "mae": 0.0559393678366982,
+        "mae_delta": 0.0559393678366982
+      },
+      "naive transfer": {
+        "discrimination_score_l1": 0.61371875,
+        "overlap_at_100": 0.17670838386887255,
+        "overlap_at_50": 0.1814183619989967,
+        "de_direction_match": 0.7420282994817033,
+        "de_spearman_lfc": 0.41535975341512604,
+        "pearson_delta": 0.1916589636277365,
+        "mae": 0.06341359861675842,
+        "mae_delta": 0.06341359861675842
+      },
+      "ContextTransfer (single source)": {
+        "discrimination_score_l1": 0.56411875,
+        "overlap_at_100": 0.18477701905565855,
+        "overlap_at_50": 0.18651704133622762,
+        "de_direction_match": 0.7728854401560861,
+        "de_spearman_lfc": 0.45326561471990473,
+        "pearson_delta": 0.23240910211468893,
+        "mae": 0.055690627074936785,
+        "mae_delta": 0.055690627074936785
+      }
     }
   },
   "hyper": {
@@ -113,6 +155,21 @@
       "on_target": true,
       "rank": 40,
       "rank_mix": 0.5,
+      "unseen_k": 25,
+      "renorm": 0.0
+    },
+    "Jurkat": {
+      "temp": Infinity,
+      "smooth": 0.5,
+      "n_neighbors": 5,
+      "shrink": 0.5,
+      "gamma": 0.5,
+      "mod_clip": 2.0,
+      "beta": 0.8,
+      "use_global": 0.2,
+      "on_target": true,
+      "rank": 80,
+      "rank_mix": 0.25,
       "unseen_k": 25,
       "renorm": 0.0
     }

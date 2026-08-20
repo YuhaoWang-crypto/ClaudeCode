@@ -8,3 +8,4 @@ singlecell_fetch.log
 stack_bench.log
 demos/out/
 results/gwps_bench.log
+results/gwps_frontier.log
