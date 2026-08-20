@@ -1,0 +1,14 @@
+{
+  "n_knockdowns": 2053,
+  "n_genes": 8202,
+  "median_r": 0.31908329807735536,
+  "mean_r": 0.33975752853841434,
+  "q25_r": 0.11874709684149055,
+  "q75_r": 0.5339026385088916,
+  "l2_essential": 4.535579213999314,
+  "l2_genomewide": 4.258138372737322,
+  "cells_essential": 117.0,
+  "cells_genomewide": 167.0,
+  "norm_cv_essential": 0.45507022358550714,
+  "norm_cv_genomewide": 0.5248995623550006
+}

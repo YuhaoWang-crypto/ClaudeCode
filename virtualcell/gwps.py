@@ -259,6 +259,67 @@ def run(n_eval: int = 400, tune_eval: int = 300, seed: int = 0,
 
 
 # --------------------------------------------------------------------------
+# how good could any model be?
+# --------------------------------------------------------------------------
+
+def replicate_ceiling(verbose: bool = True) -> dict:
+    """Agreement between the two K562 arms, which bounds what any model can score.
+
+    Replogle ran K562 twice: an essential-gene arm and a genome-wide arm, same
+    cell line, same lab, same CRISPRi library, same processing.  2,053 genes are
+    targeted in both.  Their disagreement is therefore *measurement*, not
+    biology, and it is the ceiling a cross-context model is being asked to beat
+    -- without it, a correlation of 0.33 reads as a failure rather than as
+    saturation.
+
+    Nothing here involves the model.  It is a property of the data.
+    """
+    ess = load_replogle(DATA / "replogle" / "K562_essential_raw_bulk.h5ad", "ess")
+    gw = load_gwps()
+
+    genes = np.array(sorted(set(ess.genes) & set(gw.genes)))
+    ie = {x: i for i, x in enumerate(ess.genes)}
+    ig = {x: i for i, x in enumerate(gw.genes)}
+    shared = np.array(sorted(set(ess.names) & set(gw.names)))
+    re_ = {n: i for i, n in enumerate(ess.names)}
+    rg = {n: i for i, n in enumerate(gw.names)}
+
+    A = ess.delta[[re_[n] for n in shared]][:, [ie[x] for x in genes]]
+    B = gw.delta[[rg[n] for n in shared]][:, [ig[x] for x in genes]]
+    r = M.pearson_delta(A, B)
+
+    out = {
+        "n_knockdowns": int(shared.size), "n_genes": int(genes.size),
+        "median_r": float(np.median(r)), "mean_r": float(np.mean(r)),
+        "q25_r": float(np.percentile(r, 25)), "q75_r": float(np.percentile(r, 75)),
+        "l2_essential": float(np.median(np.linalg.norm(A, axis=1))),
+        "l2_genomewide": float(np.median(np.linalg.norm(B, axis=1))),
+        "cells_essential": float(np.median(ess.ncells[[re_[n] for n in shared]])),
+        "cells_genomewide": float(np.median(gw.ncells[[rg[n] for n in shared]])),
+        "norm_cv_essential": M.norm_cv(A), "norm_cv_genomewide": M.norm_cv(B),
+    }
+    if verbose:
+        print(f"{out['n_knockdowns']:,} knockdowns targeted in both K562 arms, "
+              f"{out['n_genes']:,} shared genes\n")
+        print(f"  effect agreement between arms   median r={out['median_r']:.3f} "
+              f"(IQR {out['q25_r']:.3f}-{out['q75_r']:.3f})")
+        print(f"  median L2 effect                essential {out['l2_essential']:.2f}"
+              f", genome-wide {out['l2_genomewide']:.2f}")
+        print(f"  median cells per pseudobulk     essential "
+              f"{out['cells_essential']:.0f}, genome-wide "
+              f"{out['cells_genomewide']:.0f}")
+        print(f"  magnitude spread (norm CV)      essential "
+              f"{out['norm_cv_essential']:.3f}, genome-wide "
+              f"{out['norm_cv_genomewide']:.3f}")
+        print("\nA cross-context model scoring Pearson ~0.33 is therefore at the "
+              "level\nwhere the same screen repeated in the same cell line agrees "
+              "with itself.")
+    Path("results").mkdir(exist_ok=True)
+    Path("results/replicate_ceiling.json").write_text(json.dumps(out, indent=2))
+    return out
+
+
+# --------------------------------------------------------------------------
 # the magnitude frontier
 # --------------------------------------------------------------------------
 
@@ -355,11 +416,16 @@ def main() -> None:
                     help="run the leave-one-line-out single-source benchmark")
     ap.add_argument("--frontier", action="store_true",
                     help="trace error against discrimination over effect scale")
+    ap.add_argument("--ceiling", action="store_true",
+                    help="agreement between the two K562 arms, the noise ceiling")
     ap.add_argument("--n-eval", type=int, default=400)
     ap.add_argument("--tune-eval", type=int, default=300)
     ap.add_argument("--seed", type=int, default=0)
     args = ap.parse_args()
 
+    if args.ceiling:
+        replicate_ceiling()
+        return
     if args.frontier:
         frontier(n_eval=args.n_eval, seed=args.seed)
         return
