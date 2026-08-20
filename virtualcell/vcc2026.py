@@ -37,6 +37,8 @@ import h5py
 import numpy as np
 from scipy import sparse
 
+from dataclasses import replace
+
 from . import metrics as M
 from .data import CellLine
 from .gwps import load_gwps, project
@@ -168,6 +170,47 @@ def predict_panel(hp: Hyper, targets: np.ndarray | None = None,
 
 
 HYPER_FILE = Path("results/gwps_single_source.json")
+FRONTIER_FILE = Path("results/gwps_frontier.json")
+
+
+def threshold_safe(hp: Hyper, path: Path = FRONTIER_FILE,
+                   verbose: bool = True) -> Hyper:
+    """Replace the tuned effect scale with one that meets every metric threshold.
+
+    Two selection rules are in play and they disagree, for a reason worth being
+    explicit about.  The tuner maximises the *unclipped* aggregate score, where a
+    metric below baseline is a penalty that a large enough gain elsewhere can
+    outweigh; in the single-source setting it duly buys discrimination and
+    differential expression with mean absolute error.  The challenge does not
+    score that way -- it "enforce[s] minimum thresholds on all metrics" -- so a
+    submission tuned that way can be strong on two metrics and inadmissible on
+    the third.
+
+    :func:`virtualcell.gwps.frontier` measures where the crossing is.  This takes
+    ``beta`` and ``gene_w`` from there and everything else from the tuner, which
+    is the honest combination: the constraint comes from the metric the challenge
+    enforces, the rest from cross-validation.
+    """
+    if not path.exists():
+        if verbose:
+            print(f"  {path} absent; keeping the tuned effect scale, which may "
+                  f"fail the MAE threshold")
+        return hp
+    best = json.loads(path.read_text())["best"]
+    usable = {k: v for k, v in best.items() if v.get("safe_beta") is not None}
+    if not usable:
+        if verbose:
+            print("  no effect scale kept MAE at or below baseline on every "
+                  "fold; keeping the tuned value and reporting the failure")
+        return hp
+    key = max(usable, key=lambda k: usable[k].get("score", 0.0))
+    e = usable[key]
+    if verbose:
+        print(f"  effect scale from the frontier: beta {hp.beta:g} -> "
+              f"{e['safe_beta']:g}, gene_w {hp.gene_w:g} -> {key} "
+              f"(mean PDS {e['pds']:.3f}, ovl@100 {e['ovl']:.3f}, "
+              f"score {e['score']:.3f})")
+    return replace(hp, beta=float(e["safe_beta"]), gene_w=float(key))
 
 
 def single_source_hyper(exclude: str | None = None,
@@ -317,6 +360,9 @@ def main() -> None:
     ap.add_argument("--n-cells", type=int, default=400)
     ap.add_argument("--hyper", type=Path, default=HYPER_FILE,
                     help="tuned hyperparameters from the single-source benchmark")
+    ap.add_argument("--keep-tuned-scale", action="store_true",
+                    help="do not override the tuned effect scale with the "
+                         "threshold-safe one from the frontier")
     ap.add_argument("--seed", type=int, default=0)
     args = ap.parse_args()
 
@@ -336,6 +382,8 @@ def main() -> None:
     else:
         hp = Hyper(temp=np.inf)
         print(f"WARNING: {args.hyper} absent, using untuned defaults")
+    if not args.keep_tuned_scale:
+        hp = threshold_safe(hp)
 
     predictions = predict_panel(hp)
     build(predictions, {c: (lambda c=c: control_cells(c)) for c in CONTEXTS},
