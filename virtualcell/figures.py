@@ -139,9 +139,60 @@ def context_ablation(ablation: dict, out: Path) -> None:
     print(f"wrote {out}")
 
 
+def magnitude_frontier(payload: dict, out: Path) -> None:
+    """Error against discrimination as predicted effects are scaled.
+
+    The single-source configuration cannot clear the challenge baseline on
+    discrimination and on mean absolute error at the same time, and the shape of
+    that constraint is more useful than any one tuned point.  Left panel: both
+    metrics against effect scale, with the baseline crossing marked.  Right
+    panel: the trade-off itself, one curve per held-out line.
+    """
+    betas = payload["betas"]
+    folds = payload["folds"]
+    fig, axes = plt.subplots(1, 2, figsize=(11.5, 4.3), facecolor=SURFACE)
+    for ax in axes:
+        _style(ax)
+
+    ax = axes[0]
+    for i, name in enumerate(folds):
+        ax.plot(betas, folds[name]["pds"], marker="o", markersize=5,
+                linewidth=2, color=SERIES[i], label=name, zorder=3,
+                markeredgecolor=SURFACE, markeredgewidth=1.5)
+    ax.axhline(0.5, color=INK_2, linewidth=1, linestyle=(0, (4, 3)), zorder=2)
+    ax.text(betas[-1], 0.503, "chance", fontsize=8, color=INK_2, ha="right")
+    ax.set_xlabel("effect scale β", fontsize=9, color=INK_2)
+    ax.set_ylabel("perturbation discrimination", fontsize=9, color=INK_2)
+    ax.set_title("Discrimination is bought with magnitude", fontsize=11.5,
+                 color=INK, pad=10)
+    ax.legend(frameon=False, fontsize=8.5, loc="lower right", labelcolor=INK_2,
+              handlelength=1.6)
+
+    ax = axes[1]
+    for i, name in enumerate(folds):
+        d = folds[name]
+        ax.plot(d["mae_vs_base"], d["pds"], marker="o", markersize=5,
+                linewidth=2, color=SERIES[i], label=name, zorder=3,
+                markeredgecolor=SURFACE, markeredgewidth=1.5)
+    ax.axvline(0.0, color=INK, linewidth=1.2, zorder=2)
+    ax.set_xlabel("MAE minus the challenge baseline  (left of the line is better)",
+                  fontsize=9, color=INK_2)
+    ax.set_ylabel("perturbation discrimination", fontsize=9, color=INK_2)
+    ax.set_title("…and paid for in error", fontsize=11.5, color=INK, pad=10)
+
+    fig.tight_layout()
+    out.parent.mkdir(parents=True, exist_ok=True)
+    fig.savefig(out, dpi=200, facecolor=SURFACE, bbox_inches="tight")
+    plt.close(fig)
+    print(f"wrote {out}")
+
+
 def main() -> None:
     root = Path("results")
     figs = Path("figures/virtualcell")
+    if (root / "gwps_frontier.json").exists():
+        magnitude_frontier(json.loads((root / "gwps_frontier.json").read_text()),
+                           figs / "magnitude_frontier.png")
     if (root / "context.json").exists():
         zero_shot_metrics(json.loads((root / "context.json").read_text()),
                           figs / "zero_shot_context.png")
