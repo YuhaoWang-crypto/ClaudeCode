@@ -109,6 +109,23 @@ def sample_cells(control_counts: sparse.csr_matrix, effect: np.ndarray,
     return out
 
 
+def dedupe_genes(genes: np.ndarray) -> np.ndarray:
+    """Column mask keeping the first occurrence of each gene symbol.
+
+    The submission axis is keyed by symbol and ``vcc prep`` rejects a gene list
+    with any repeat: *"Each gene must appear exactly once, in order."*  An
+    ENSG-indexed matrix can carry two ids that share a symbol -- HSPA14 does
+    here -- so the axis has to be collapsed before writing.
+    """
+    seen: set[str] = set()
+    keep = np.zeros(genes.size, dtype=bool)
+    for i, g in enumerate(genes):
+        if g not in seen:
+            seen.add(g)
+            keep[i] = True
+    return keep
+
+
 def build(predictions: dict[str, tuple[np.ndarray, np.ndarray]],
           controls: dict[str, sparse.csr_matrix], genes: np.ndarray,
           out_path: Path, n_cells: int = CELLS_PER_PERT,
@@ -118,6 +135,16 @@ def build(predictions: dict[str, tuple[np.ndarray, np.ndarray]],
     ``predictions`` maps context -> (knockdown names, effects) and ``controls``
     maps context -> that context's real control cells on the same gene axis.
     """
+    keep = dedupe_genes(genes)
+    if not keep.all():
+        dropped = genes.size - int(keep.sum())
+        print(f"  dropping {dropped} duplicate gene symbol(s) so the axis is "
+              f"unique, as prep requires")
+        genes = genes[keep]
+        cols = np.flatnonzero(keep)
+        controls = {c: m[:, cols].tocsr() for c, m in controls.items()}
+        predictions = {c: (n, e[:, cols]) for c, (n, e) in predictions.items()}
+
     rng = np.random.default_rng(seed)
     targets: list[str] = []
     contexts: list[str] = []
