@@ -120,6 +120,39 @@ discrimination ~0.68–0.73 against a 0.50 chance level. Claims of predicting th
 context-specific 57% need evidence, since the obvious mechanism for it does not
 exist.
 
+**Measure the replicate ceiling before calling any of this a shortfall.** Where
+one cell line was screened twice — Replogle's K562 essential and genome-wide
+arms share 2,053 targets, same lab, same library, same pipeline — the two runs
+agree at **median r = 0.319**. A cross-*context* model scoring 0.33 is therefore
+at the level where the measurement stops reproducing itself, and further work on
+effect *shape* is being spent against the noise floor. Set-overlap metrics
+(DE@k) still have visible headroom at that point; rank/correlation metrics do
+not. Do this before spending compute, not after.
+
+## How many source contexts you need, and what each metric buys
+
+Score against the number of source lines, everything else fixed:
+
+| sources | discrimination | DE overlap@100 | MAE | Pearson (effect) |
+|---|---|---|---|---|
+| 1 | 0.6154 | 0.2098 | 0.0610 | 0.2472 |
+| 2 | 0.6203 | 0.2461 | 0.0559 | 0.3029 |
+| 3 | 0.6219 | 0.2622 | 0.0540 | 0.3320 |
+
+**Extra contexts buy accuracy, not retrieval:** +1% discrimination against −11%
+error and +34% correlation. The mechanism is averaging — each source's
+context-specific component is wrong in the target and cancels; the shared one
+does not.
+
+This decides architecture when the target panel forces a single source (see
+`data-access.md` — the 2026 panel does). With one source there is no
+cancellation, the transferred effect carries that line's context-specific part
+intact, and **MAE goes worse than predicting no change at all**. Since the
+challenge enforces minimum thresholds on every metric, that is a failure rather
+than a trade. Do not tune to a single point: sweep the effect scale, plot error
+against discrimination, and take the largest scale that keeps every metric at or
+better than baseline on every fold.
+
 ## Baselines you must include
 
 - **`Δ=0`** — return the control profile. Wins MAE outright; sits at chance on
