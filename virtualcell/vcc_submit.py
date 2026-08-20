@@ -34,6 +34,7 @@ import argparse
 from pathlib import Path
 
 import anndata as ad
+import h5py
 import numpy as np
 from scipy import sparse
 
@@ -118,39 +119,98 @@ def build(predictions: dict[str, tuple[np.ndarray, np.ndarray]],
     maps context -> that context's real control cells on the same gene axis.
     """
     rng = np.random.default_rng(seed)
-    blocks, targets, contexts = [], [], []
+    targets: list[str] = []
+    contexts: list[str] = []
 
-    for context in CONTEXTS:
-        if context not in predictions:
-            raise ValueError(f"context {context!r} missing; a submission must "
-                             f"cover all of {', '.join(CONTEXTS)}")
-        names, effects = predictions[context]
-        pool = controls[context]
-        print(f"  context {context}: {len(names)} knockdowns x {n_cells} cells "
-              f"from a pool of {pool.shape[0]:,} controls")
-        for name, effect in zip(names, effects):
-            blocks.append(sample_cells(pool, effect, n_cells, rng))
-            targets.extend([name] * n_cells)
-            contexts.extend([context] * n_cells)
-
-    X = sparse.vstack(blocks).tocsr()
-    adata = ad.AnnData(
-        X=X,
-        obs={PERT_COL: np.array(targets), CONTEXT_COL: np.array(contexts)},
-        var={"gene_name": genes},
-    )
-    adata.var_names = genes
-    adata.obs_names = [f"cell_{i}" for i in range(adata.n_obs)]
-
+    # A full submission is ~1.26 billion stored entries -- 10 GB as CSR, and
+    # roughly double that at the moment vstack concatenates.  That does not fit
+    # in a normal machine's memory, so blocks stream straight to the HDF5 file
+    # and only the row pointer is kept, which is 360k int64s.
     out_path.parent.mkdir(parents=True, exist_ok=True)
-    adata.write_h5ad(out_path, compression="gzip")
-    nnz = X.nnz
-    print(f"  wrote {out_path} — {adata.n_obs:,} cells x {adata.n_vars:,} genes, "
-          f"{nnz:,} stored entries ({nnz / X.shape[0]:.0f} genes/cell), "
+    indptr = [0]
+    nnz = 0
+    per_cell_totals: list[np.ndarray] = []
+
+    with h5py.File(out_path, "w") as h5:
+        grp = h5.create_group("X")
+        data = grp.create_dataset("data", shape=(0,), maxshape=(None,),
+                                  dtype=np.int32, chunks=(1 << 20,),
+                                  compression="gzip", compression_opts=1)
+        indices = grp.create_dataset("indices", shape=(0,), maxshape=(None,),
+                                     dtype=np.int32, chunks=(1 << 20,),
+                                     compression="gzip", compression_opts=1)
+
+        for context in CONTEXTS:
+            if context not in predictions:
+                raise ValueError(f"context {context!r} missing; a submission "
+                                 f"must cover all of {', '.join(CONTEXTS)}")
+            names, effects = predictions[context]
+            pool = controls[context]
+            # one control mean per context, reused for every knockdown in it
+            mu = np.log1p(np.asarray(pool.sum(axis=0)).ravel()
+                          / max(pool.sum(), 1.0) * 1e4)
+            print(f"  context {context}: {len(names)} knockdowns x {n_cells} "
+                  f"cells from a pool of {pool.shape[0]:,} controls", flush=True)
+
+            for k, (name, effect) in enumerate(zip(names, effects)):
+                block = sample_cells(pool, effect, n_cells, rng, control_mean=mu)
+                b = block.nnz
+                data.resize((nnz + b,))
+                indices.resize((nnz + b,))
+                data[nnz:nnz + b] = block.data
+                indices[nnz:nnz + b] = block.indices
+                indptr.extend((block.indptr[1:] + nnz).tolist())
+                nnz += b
+                targets.extend([name] * n_cells)
+                contexts.extend([context] * n_cells)
+                per_cell_totals.append(np.asarray(block.sum(1)).ravel())
+                if (k + 1) % 100 == 0:
+                    print(f"    {k + 1}/{len(names)} ({nnz / 1e6:.0f}M entries)",
+                          flush=True)
+
+        n_obs = len(targets)
+        grp.create_dataset("indptr", data=np.array(indptr, dtype=np.int64),
+                           compression="gzip", compression_opts=1)
+        grp.attrs["encoding-type"] = "csr_matrix"
+        grp.attrs["encoding-version"] = "0.1.0"
+        grp.attrs["shape"] = np.array([n_obs, genes.size], dtype=np.int64)
+
+        _write_frame(h5, "obs", np.array([f"cell_{i}" for i in range(n_obs)]),
+                     {PERT_COL: np.array(targets), CONTEXT_COL: np.array(contexts)})
+        _write_frame(h5, "var", genes, {"gene_name": genes})
+        h5.attrs["encoding-type"] = "anndata"
+        h5.attrs["encoding-version"] = "0.1.0"
+
+    totals = np.concatenate(per_cell_totals)
+    print(f"  wrote {out_path} — {n_obs:,} cells x {genes.size:,} genes, "
+          f"{nnz:,} stored entries ({nnz / n_obs:.0f} genes/cell), "
           f"{out_path.stat().st_size / 1e6:.0f} MB")
-    print(f"  per-cell counts: median {np.median(np.asarray(X.sum(1)).ravel()):.0f} "
-          f"(cap is 1,000,000)")
+    print(f"  per-cell counts: median {np.median(totals):.0f}, "
+          f"max {totals.max():.0f} (cap is 1,000,000)")
     return out_path
+
+
+def _write_frame(h5, name: str, index: np.ndarray,
+                 columns: dict[str, np.ndarray]) -> None:
+    """Write an AnnData-format dataframe group, categoricals and all."""
+    grp = h5.create_group(name)
+    grp.attrs["encoding-type"] = "dataframe"
+    grp.attrs["encoding-version"] = "0.2.0"
+    grp.attrs["_index"] = "_index"
+    grp.attrs["column-order"] = np.array(list(columns), dtype=object)
+
+    dt = h5py.special_dtype(vlen=str)
+    grp.create_dataset("_index", data=index.astype(object), dtype=dt,
+                       compression="gzip", compression_opts=1)
+    for key, values in columns.items():
+        cats, codes = np.unique(values, return_inverse=True)
+        sub = grp.create_group(key)
+        sub.attrs["encoding-type"] = "categorical"
+        sub.attrs["encoding-version"] = "0.2.0"
+        sub.attrs["ordered"] = False
+        sub.create_dataset("categories", data=cats.astype(object), dtype=dt)
+        sub.create_dataset("codes", data=codes.astype(np.int32),
+                           compression="gzip", compression_opts=1)
 
 
 def main() -> None:
