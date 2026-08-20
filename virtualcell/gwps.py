@@ -36,7 +36,8 @@ import numpy as np
 
 from . import metrics as M
 from .benchmark import de_truth, evaluate
-from .data import DATA, CellLine, load_all, load_replogle
+from .data import (DATA, CellLine, load_all, load_replogle,
+                   shared_perturbations)
 from .model import (ContextTransferModel, ControlBaseline, GlobalMeanBaseline,
                     Hyper, NaiveTransferBaseline, SourceBank)
 
@@ -258,6 +259,47 @@ def run(n_eval: int = 400, tune_eval: int = 300, seed: int = 0,
     return {"results": results, "hyper": chosen}
 
 
+def gene_transferability(symbols: np.ndarray,
+                         exclude: str | None = None) -> np.ndarray:
+    """Per-gene fraction of response variance that survives a change of context.
+
+    The four-line atlas covers *none* of the official 2026 knockdowns, which is
+    what forced the switch to the genome-wide screen.  It can still answer a
+    different question, and one the single-source screen cannot: for each
+    measured gene, how much of its response is shared across contexts rather
+    than specific to one.  Estimating that needs several contexts but not the
+    *same* knockdowns as the target panel, so an atlas disjoint from the panel is
+    still admissible evidence about it.
+
+    ``var(mean over lines) / var(pooled)`` per gene, the same definition the data
+    package exports.  Genes absent from the atlas get the median, which is
+    neutral.  Pass ``exclude`` to drop a line -- necessary when the value is used
+    while predicting that line, or the prior has seen the answer.
+
+    Read the scale carefully: with ``k`` lines a gene whose response is pure
+    noise still averages to ``1/k``, so with three lines the floor is 0.33 and
+    the observed median of 0.405 sits only a little above it.  The quantity is
+    therefore as much a per-gene *noise level* as a transferability, and the
+    dynamic range is narrow.  Whether it earns its place is settled by
+    :func:`frontier`, not by the argument for it.
+    """
+    lines, _, atlas_sym = load_all()
+    if exclude is not None:
+        lines = [cl for cl in lines if cl.name != exclude]
+    common = shared_perturbations(lines)
+    stack = np.stack([cl.delta[np.array([{n: i for i, n in enumerate(cl.names)}[p]
+                                         for p in common])] for cl in lines])
+    shared = stack.mean(axis=0).var(axis=0)
+    total = stack.reshape(-1, stack.shape[-1]).var(axis=0)
+    frac = shared / np.maximum(total, 1e-12)
+
+    lut: dict[str, float] = {}
+    for s, f in zip(atlas_sym.astype(str), frac):
+        lut.setdefault(s, float(f))
+    med = float(np.median(frac))
+    return np.array([lut.get(str(s), med) for s in symbols])
+
+
 # --------------------------------------------------------------------------
 # how good could any model be?
 # --------------------------------------------------------------------------
@@ -324,9 +366,11 @@ def replicate_ceiling(verbose: bool = True) -> dict:
 # --------------------------------------------------------------------------
 
 BETAS = (0.0, 0.25, 0.4, 0.5, 0.6, 0.75, 0.9, 1.0, 1.25, 1.5, 2.0)
+GENE_WS = (0.0, 0.5, 1.0)
 
 
-def frontier(n_eval: int = 400, seed: int = 0, verbose: bool = True) -> dict:
+def frontier(n_eval: int = 400, seed: int = 0, verbose: bool = True,
+             gene_ws: tuple[float, ...] = GENE_WS) -> dict:
     """Trace error against discrimination as predicted effects are scaled.
 
     With four source contexts the model cleared the challenge baseline on all
@@ -340,16 +384,20 @@ def frontier(n_eval: int = 400, seed: int = 0, verbose: bool = True) -> dict:
     is not one tuned point but the whole curve, and the largest scale that still
     keeps every metric at or better than baseline.
 
-    ``beta`` enters only in :meth:`ContextTransferModel.predict`, so the entire
-    sweep reuses one fit per fold.
+    Neither ``beta`` nor ``gene_w`` enters the consensus -- both act only in
+    :meth:`ContextTransferModel.predict` -- so the entire sweep reuses one fit
+    per fold.  ``gene_w`` weights each gene by how much of its response survives
+    a change of context, measured on the four-line atlas; it is swept alongside
+    the scale so the two are compared at each one's own best point rather than
+    at a scale chosen for the other.
     """
     source, targets, genes, symbols = frame()
     rng = np.random.default_rng(seed)
     hp0 = Hyper(temp=np.inf)
     bank = SourceBank.build([source], np.ones(1))
 
-    out: dict[str, dict[str, list[float]]] = {}
-    fitted = None
+    out: dict[str, dict[str, dict]] = {}
+    fitted: dict[float, ContextTransferModel] = {}
     for target in targets:
         avail = np.array(sorted(set(target.names) & set(source.names)))
         sel = np.sort(rng.choice(avail, n_eval, replace=False)) \
@@ -357,56 +405,76 @@ def frontier(n_eval: int = 400, seed: int = 0, verbose: bool = True) -> dict:
         truth = de_truth(target, sel)
         base_m = evaluate(GlobalMeanBaseline().fit([source], target.mu, symbols)
                           .predict(sel), target, sel, truth, symbols)
+        # the prior must not have seen the line it is used to predict
+        prior = gene_transferability(symbols, exclude=target.name)
 
-        fitted = (fitted.retarget([source], target.mu) if fitted is not None else
-                  ContextTransferModel(hp0).fit([source], target.mu, symbols,
-                                                bank=bank))
-        rows = {"beta": [], "pds": [], "ovl": [], "mae": [], "score": [],
-                "balanced": [], "mae_vs_base": [], "norm_cv": []}
-        for b in BETAS:
-            fitted.hp = replace(hp0, beta=b)
-            pred = fitted.predict(sel)
-            m = evaluate(pred, target, sel, truth, symbols)
-            rows["beta"].append(b)
-            rows["pds"].append(m["discrimination_score_l1"])
-            rows["ovl"].append(m["overlap_at_100"])
-            rows["mae"].append(m["mae"])
-            rows["mae_vs_base"].append(m["mae"] - base_m["mae"])
-            rows["score"].append(M.vcc_score(m, base_m)["avg_score"])
-            rows["balanced"].append(M.vcc_score(m, base_m, clip=False)["avg_score"])
-            rows["norm_cv"].append(M.norm_cv(pred))
+        per_w: dict[str, dict] = {}
+        for w in gene_ws:
+            key = f"{w:g}"
+            model = ContextTransferModel(hp0).fit(
+                [source], target.mu, symbols, bank=bank, gene_prior=prior)
+            rows = {"beta": [], "pds": [], "ovl": [], "mae": [], "score": [],
+                    "balanced": [], "mae_vs_base": [], "norm_cv": []}
+            for b in BETAS:
+                model.hp = replace(hp0, beta=b, gene_w=w)
+                pred = model.predict(sel)
+                m = evaluate(pred, target, sel, truth, symbols)
+                rows["beta"].append(b)
+                rows["pds"].append(m["discrimination_score_l1"])
+                rows["ovl"].append(m["overlap_at_100"])
+                rows["mae"].append(m["mae"])
+                rows["mae_vs_base"].append(m["mae"] - base_m["mae"])
+                rows["score"].append(M.vcc_score(m, base_m)["avg_score"])
+                rows["balanced"].append(
+                    M.vcc_score(m, base_m, clip=False)["avg_score"])
+                rows["norm_cv"].append(M.norm_cv(pred))
+            per_w[key] = rows
+
         index = {n: i for i, n in enumerate(target.names)}
-        rows["truth_norm_cv"] = M.norm_cv(target.delta[[index[p] for p in sel]])
-        out[target.name] = rows
+        truth_cv = M.norm_cv(target.delta[[index[p] for p in sel]])
+        out[target.name] = {"gene_w": per_w, "truth_norm_cv": truth_cv}
         if verbose:
             print(f"\n--- {target.name} ({sel.size} knockdowns; measured "
-                  f"magnitude spread {rows['truth_norm_cv']:.3f}) ---")
-            print(f"{'beta':>6}{'PDS':>8}{'ovl@100':>10}{'MAE':>9}"
-                  f"{'ΔMAE vs base':>14}{'norm CV':>10}{'score':>8}"
-                  f"{'balanced':>10}")
-            for i, b in enumerate(BETAS):
-                flag = "" if rows["mae_vs_base"][i] <= 0 else "  ✗ MAE"
-                print(f"{b:>6.2f}{rows['pds'][i]:>8.3f}{rows['ovl'][i]:>10.3f}"
-                      f"{rows['mae'][i]:>9.4f}{rows['mae_vs_base'][i]:>+14.4f}"
-                      f"{rows['norm_cv'][i]:>10.3f}{rows['score'][i]:>8.3f}"
-                      f"{rows['balanced'][i]:>+10.3f}{flag}")
+                  f"magnitude spread {truth_cv:.3f}) ---")
+            for key, rows in per_w.items():
+                print(f"  gene_w={key}")
+                print(f"    {'beta':>5}{'PDS':>8}{'ovl@100':>10}{'MAE':>9}"
+                      f"{'ΔMAE vs base':>14}{'norm CV':>10}{'score':>8}"
+                      f"{'balanced':>10}")
+                for i, b in enumerate(BETAS):
+                    flag = "" if rows["mae_vs_base"][i] <= 0 else "  ✗ MAE"
+                    print(f"    {b:>5.2f}{rows['pds'][i]:>8.3f}"
+                          f"{rows['ovl'][i]:>10.3f}{rows['mae'][i]:>9.4f}"
+                          f"{rows['mae_vs_base'][i]:>+14.4f}"
+                          f"{rows['norm_cv'][i]:>10.3f}{rows['score'][i]:>8.3f}"
+                          f"{rows['balanced'][i]:>+10.3f}{flag}", flush=True)
 
-    worst = [max(out[t]["mae_vs_base"][i] for t in out) for i in range(len(BETAS))]
-    safe = [b for b, w in zip(BETAS, worst) if w <= 0]
-    if verbose:
-        print(f"\nlargest scale keeping MAE at or below baseline on every fold: "
-              f"beta={max(safe) if safe else float('nan')}")
+    best: dict[str, dict] = {}
+    for w in gene_ws:
+        key = f"{w:g}"
+        worst = [max(out[t]["gene_w"][key]["mae_vs_base"][i] for t in out)
+                 for i in range(len(BETAS))]
+        safe = [b for b, x in zip(BETAS, worst) if x <= 0]
+        entry = {"safe_beta": max(safe) if safe else None}
         if safe:
             i = BETAS.index(max(safe))
-            print(f"  there: mean PDS "
-                  f"{np.mean([out[t]['pds'][i] for t in out]):.3f}, mean ovl@100 "
-                  f"{np.mean([out[t]['ovl'][i] for t in out]):.3f}, mean score "
-                  f"{np.mean([out[t]['score'][i] for t in out]):.3f}")
+            for m in ("pds", "ovl", "score"):
+                entry[m] = float(np.mean([out[t]["gene_w"][key][m][i] for t in out]))
+        best[key] = entry
+    if verbose:
+        print("\nlargest scale keeping MAE at or below baseline on every fold")
+        print(f"  {'gene_w':>8}{'beta':>7}{'PDS':>8}{'ovl@100':>10}{'score':>8}")
+        for key, e in best.items():
+            if e["safe_beta"] is None:
+                print(f"  {key:>8}{'none':>7}")
+                continue
+            print(f"  {key:>8}{e['safe_beta']:>7.2f}{e['pds']:>8.3f}"
+                  f"{e['ovl']:>10.3f}{e['score']:>8.3f}")
 
     Path("results").mkdir(exist_ok=True)
     Path("results/gwps_frontier.json").write_text(json.dumps(
-        {"betas": list(BETAS), "folds": out,
-         "safe_beta": max(safe) if safe else None}, indent=2))
+        {"betas": list(BETAS), "gene_ws": list(gene_ws), "folds": out,
+         "best": best}, indent=2))
     return out
 
 

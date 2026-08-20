@@ -70,6 +70,7 @@ class Hyper:
     rank_mix: float = 0.0     # how much of the denoised effect to blend in (0 -> off)
     unseen_k: int = 25        # neighbours used for a knockdown absent from every source
     renorm: float = 0.0       # restore each effect's pre-denoising magnitude (0 -> off)
+    gene_w: float = 0.0       # exponent on the per-gene transferability prior (0 -> off)
 
 
 # --------------------------------------------------------------------------
@@ -244,19 +245,28 @@ class ContextTransferModel:
     _kd_fallback: float = 0.15               # used for perturbations never seen
     _gene_sig: np.ndarray | None = None      # (G, n_pert) per-gene response profile
     _pert_col: np.ndarray | None = None      # (n_pert,) gene column of each knockdown
+    _gene_prior: np.ndarray | None = None    # (G,) per-gene transferability, mean 1
 
     # ---------------------------------------------------------------- fitting
 
     def fit(self, sources: list[CellLine], target_mu: np.ndarray,
-            symbols: np.ndarray, bank: SourceBank | None = None
-            ) -> "ContextTransferModel":
+            symbols: np.ndarray, bank: SourceBank | None = None,
+            gene_prior: np.ndarray | None = None) -> "ContextTransferModel":
         """Fit using source-line perturbations plus the target's controls only.
 
         ``bank`` lets a caller reuse the hyperparameter-independent precomputation
         across a search; it must have been built for these same source lines.
+
+        ``gene_prior`` is an optional per-gene transferability weight, one value
+        per column of ``symbols``.  It answers a question a single source line
+        cannot: *does this gene's response mean the same thing in another
+        context?*  Estimating it needs several contexts, but not the same
+        knockdowns -- so an atlas that shares no perturbations at all with the
+        target panel can still supply it.  Off unless :attr:`Hyper.gene_w` > 0.
         """
         self._symbols = symbols
         self._target_mu = target_mu
+        self._gene_prior = gene_prior
 
         weights = self._context_weights(sources, target_mu)
         if bank is None:
@@ -430,13 +440,22 @@ class ContextTransferModel:
         col = {sym: i for i, sym in enumerate(self._symbols)}
         mu = self._target_mu
 
+        # Down-weight genes whose response does not survive a change of context.
+        # Normalised to mean 1 so this reweights the *shape* of a prediction and
+        # leaves overall magnitude to ``beta``, which keeps the two switches from
+        # measuring each other.
+        prior = 1.0
+        if self.hp.gene_w > 0 and self._gene_prior is not None:
+            prior = np.maximum(self._gene_prior, EPS) ** self.hp.gene_w
+            prior = prior / prior.mean()
+
         out = np.zeros((pert_names.size, mu.size))
         for i, p in enumerate(pert_names):
             j = index.get(p)
             base = (self._consensus[j] if j is not None
                     else self._from_neighbours(col.get(p)))
             d = (1 - self.hp.use_global) * base + self.hp.use_global * self._global
-            d = d * self._modulation
+            d = d * self._modulation * prior
             out[i] = self.hp.beta * d
 
         if self.hp.on_target:
