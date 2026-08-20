@@ -43,8 +43,29 @@ PERT_COL = "target_gene"
 CONTEXT_COL = "context"
 
 
+def effect_to_factor(control_mean: np.ndarray, effect: np.ndarray) -> np.ndarray:
+    """Convert a log1p-space effect into the multiplicative factor on counts.
+
+    The naive conversion ``exp(effect)`` is wrong, and quietly so.  ``log1p`` is
+    only logarithmic where expression is high; near zero it is linear, so the
+    same multiplicative change produces a much smaller log1p delta on a lowly
+    expressed gene.  Deriving the factor from the effect alone therefore
+    under-delivers: asking for -2.00 realised -0.73 on a test panel.
+
+    Anchoring on the control mean fixes it — go to linear space, apply the
+    effect there, and take the ratio.
+    """
+    before = np.expm1(control_mean)
+    # Expression cannot go below zero, so an effect larger than the gene's own
+    # baseline is unsatisfiable and gets clamped at the floor rather than
+    # producing a negative target.
+    after = np.expm1(np.maximum(control_mean + effect, 0.0))
+    return np.where(before > 1e-9, after / np.maximum(before, 1e-9), 1.0)
+
+
 def sample_cells(control_counts: sparse.csr_matrix, effect: np.ndarray,
                  n_cells: int, rng: np.random.Generator,
+                 control_mean: np.ndarray | None = None,
                  efficiency_sd: float = 0.25) -> sparse.csr_matrix:
     """Realise one knockdown as cells, starting from real control cells.
 
@@ -56,27 +77,34 @@ def sample_cells(control_counts: sparse.csr_matrix, effect: np.ndarray,
     """
     n_pool = control_counts.shape[0]
     take = rng.integers(0, n_pool, size=n_cells)
-    block = control_counts[take].astype(np.float64).tolil().tocsr()
+    block = control_counts[take].tocsr()
 
-    # log1p-space effect -> multiplicative factor on counts
-    factor = np.expm1(np.abs(effect)) + 1.0
-    factor = np.where(effect >= 0, factor, 1.0 / factor)
+    if control_mean is None:
+        # derive the control mean from the pool itself, in log1p CP10K
+        totals = control_counts.sum()
+        per_gene = np.asarray(control_counts.sum(axis=0)).ravel()
+        control_mean = np.log1p(per_gene / max(totals, 1.0) * 1e4)
+    factor = effect_to_factor(control_mean, effect)
+    log_factor = np.log(np.clip(factor, 1e-6, 1e6))
 
     strength = rng.normal(1.0, efficiency_sd, size=n_cells).clip(0.0, 2.5)
-    out = block.tolil(copy=True)
-    data = block.tocsr()
-    rows, cols = data.nonzero()
-    vals = np.asarray(data[rows, cols]).ravel()
-    scaled = vals * np.power(factor[cols], strength[rows])
+
+    # Work on the CSR buffers directly: fancy-indexing a sparse matrix to get its
+    # nonzeros costs a sort per call, and this runs once per knockdown per
+    # context.
+    values = block.data.astype(np.float64)
+    cols = block.indices
+    rows = np.repeat(np.arange(n_cells), np.diff(block.indptr))
+    scaled = values * np.exp(log_factor[cols] * strength[rows])
 
     # Counts are integers; round stochastically so the mean is preserved rather
     # than biased downward by truncation.
     floor = np.floor(scaled)
     scaled = floor + (rng.random(scaled.size) < (scaled - floor))
-    keep = scaled > 0
-    out = sparse.csr_matrix(
-        (scaled[keep].astype(np.int32), (rows[keep], cols[keep])),
-        shape=block.shape, dtype=np.int32)
+
+    out = sparse.csr_matrix((scaled.astype(np.int32), cols.copy(),
+                             block.indptr.copy()), shape=block.shape)
+    out.eliminate_zeros()
     return out
 
 
