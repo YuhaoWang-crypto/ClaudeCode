@@ -1,0 +1,63 @@
+{
+  "results": {
+    "RPE1": {
+      "control (delta=0)": {
+        "discrimination_score_l1": 0.5016750000000001,
+        "overlap_at_100": 0.0040589430988928095,
+        "overlap_at_50": 0.0024819399111651944,
+        "de_direction_match": 0.0,
+        "de_spearman_lfc": 0.0,
+        "pearson_delta": 0.0,
+        "mae": 0.06731503486067714,
+        "mae_delta": 0.06731503486067714
+      },
+      "global mean [challenge baseline]": {
+        "discrimination_score_l1": 0.50175625,
+        "overlap_at_100": 0.040948370321649656,
+        "overlap_at_50": 0.03537606244039379,
+        "de_direction_match": 0.6280044562526869,
+        "de_spearman_lfc": 0.20006829859196867,
+        "pearson_delta": 0.23601637569185357,
+        "mae": 0.0668785030069141,
+        "mae_delta": 0.0668785030069141
+      },
+      "naive transfer": {
+        "discrimination_score_l1": 0.54356875,
+        "overlap_at_100": 0.18874478109691967,
+        "overlap_at_50": 0.18955323721721437,
+        "de_direction_match": 0.7469542118750249,
+        "de_spearman_lfc": 0.35340598582547367,
+        "pearson_delta": 0.18160527745802874,
+        "mae": 0.07525572385227387,
+        "mae_delta": 0.07525572385227387
+      },
+      "ContextTransfer (single source)": {
+        "discrimination_score_l1": 0.54235,
+        "overlap_at_100": 0.15762153015174113,
+        "overlap_at_50": 0.15485559130232984,
+        "de_direction_match": 0.7917987117202976,
+        "de_spearman_lfc": 0.3982427179673879,
+        "pearson_delta": 0.2520563579473472,
+        "mae": 0.07028585266837645,
+        "mae_delta": 0.07028585266837645
+      }
+    }
+  },
+  "hyper": {
+    "RPE1": {
+      "temp": Infinity,
+      "smooth": 0.3,
+      "n_neighbors": 5,
+      "shrink": 1.0,
+      "gamma": 0.5,
+      "mod_clip": 2.0,
+      "beta": 1.5,
+      "use_global": 0.1,
+      "on_target": true,
+      "rank": 80,
+      "rank_mix": 0.75,
+      "unseen_k": 25,
+      "renorm": 0.0
+    }
+  }
+}

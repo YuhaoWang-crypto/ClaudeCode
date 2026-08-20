@@ -258,15 +258,111 @@ def run(n_eval: int = 400, tune_eval: int = 300, seed: int = 0,
     return {"results": results, "hyper": chosen}
 
 
+# --------------------------------------------------------------------------
+# the magnitude frontier
+# --------------------------------------------------------------------------
+
+BETAS = (0.0, 0.25, 0.4, 0.5, 0.6, 0.75, 0.9, 1.0, 1.25, 1.5, 2.0)
+
+
+def frontier(n_eval: int = 400, seed: int = 0, verbose: bool = True) -> dict:
+    """Trace error against discrimination as predicted effects are scaled.
+
+    With four source contexts the model cleared the challenge baseline on all
+    three headline metrics at once.  With one it does not: transferring a K562
+    effect into an unrelated line is, on average, *less* accurate than predicting
+    no change at all, so any magnitude large enough to win discrimination and
+    differential expression costs mean absolute error.
+
+    That trade-off is a property of the data, not a tuning accident, and the
+    challenge enforces minimum thresholds on every metric -- so the useful output
+    is not one tuned point but the whole curve, and the largest scale that still
+    keeps every metric at or better than baseline.
+
+    ``beta`` enters only in :meth:`ContextTransferModel.predict`, so the entire
+    sweep reuses one fit per fold.
+    """
+    source, targets, genes, symbols = frame()
+    rng = np.random.default_rng(seed)
+    hp0 = Hyper(temp=np.inf)
+    bank = SourceBank.build([source], np.ones(1))
+
+    out: dict[str, dict[str, list[float]]] = {}
+    fitted = None
+    for target in targets:
+        avail = np.array(sorted(set(target.names) & set(source.names)))
+        sel = np.sort(rng.choice(avail, n_eval, replace=False)) \
+            if avail.size > n_eval else avail
+        truth = de_truth(target, sel)
+        base_m = evaluate(GlobalMeanBaseline().fit([source], target.mu, symbols)
+                          .predict(sel), target, sel, truth, symbols)
+
+        fitted = (fitted.retarget([source], target.mu) if fitted is not None else
+                  ContextTransferModel(hp0).fit([source], target.mu, symbols,
+                                                bank=bank))
+        rows = {"beta": [], "pds": [], "ovl": [], "mae": [], "score": [],
+                "balanced": [], "mae_vs_base": [], "norm_cv": []}
+        for b in BETAS:
+            fitted.hp = replace(hp0, beta=b)
+            pred = fitted.predict(sel)
+            m = evaluate(pred, target, sel, truth, symbols)
+            rows["beta"].append(b)
+            rows["pds"].append(m["discrimination_score_l1"])
+            rows["ovl"].append(m["overlap_at_100"])
+            rows["mae"].append(m["mae"])
+            rows["mae_vs_base"].append(m["mae"] - base_m["mae"])
+            rows["score"].append(M.vcc_score(m, base_m)["avg_score"])
+            rows["balanced"].append(M.vcc_score(m, base_m, clip=False)["avg_score"])
+            rows["norm_cv"].append(M.norm_cv(pred))
+        index = {n: i for i, n in enumerate(target.names)}
+        rows["truth_norm_cv"] = M.norm_cv(target.delta[[index[p] for p in sel]])
+        out[target.name] = rows
+        if verbose:
+            print(f"\n--- {target.name} ({sel.size} knockdowns; measured "
+                  f"magnitude spread {rows['truth_norm_cv']:.3f}) ---")
+            print(f"{'beta':>6}{'PDS':>8}{'ovl@100':>10}{'MAE':>9}"
+                  f"{'ΔMAE vs base':>14}{'norm CV':>10}{'score':>8}"
+                  f"{'balanced':>10}")
+            for i, b in enumerate(BETAS):
+                flag = "" if rows["mae_vs_base"][i] <= 0 else "  ✗ MAE"
+                print(f"{b:>6.2f}{rows['pds'][i]:>8.3f}{rows['ovl'][i]:>10.3f}"
+                      f"{rows['mae'][i]:>9.4f}{rows['mae_vs_base'][i]:>+14.4f}"
+                      f"{rows['norm_cv'][i]:>10.3f}{rows['score'][i]:>8.3f}"
+                      f"{rows['balanced'][i]:>+10.3f}{flag}")
+
+    worst = [max(out[t]["mae_vs_base"][i] for t in out) for i in range(len(BETAS))]
+    safe = [b for b, w in zip(BETAS, worst) if w <= 0]
+    if verbose:
+        print(f"\nlargest scale keeping MAE at or below baseline on every fold: "
+              f"beta={max(safe) if safe else float('nan')}")
+        if safe:
+            i = BETAS.index(max(safe))
+            print(f"  there: mean PDS "
+                  f"{np.mean([out[t]['pds'][i] for t in out]):.3f}, mean ovl@100 "
+                  f"{np.mean([out[t]['ovl'][i] for t in out]):.3f}, mean score "
+                  f"{np.mean([out[t]['score'][i] for t in out]):.3f}")
+
+    Path("results").mkdir(exist_ok=True)
+    Path("results/gwps_frontier.json").write_text(json.dumps(
+        {"betas": list(BETAS), "folds": out,
+         "safe_beta": max(safe) if safe else None}, indent=2))
+    return out
+
+
 def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--benchmark", action="store_true",
                     help="run the leave-one-line-out single-source benchmark")
+    ap.add_argument("--frontier", action="store_true",
+                    help="trace error against discrimination over effect scale")
     ap.add_argument("--n-eval", type=int, default=400)
     ap.add_argument("--tune-eval", type=int, default=300)
     ap.add_argument("--seed", type=int, default=0)
     args = ap.parse_args()
 
+    if args.frontier:
+        frontier(n_eval=args.n_eval, seed=args.seed)
+        return
     if args.benchmark:
         run(n_eval=args.n_eval, tune_eval=args.tune_eval, seed=args.seed)
         return
