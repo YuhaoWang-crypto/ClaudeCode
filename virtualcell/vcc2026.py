@@ -41,7 +41,7 @@ from dataclasses import replace
 
 from . import metrics as M
 from .data import CellLine
-from .gwps import load_gwps, project
+from .gwps import gene_transferability, load_gwps, project
 from .model import ContextTransferModel, Hyper, SourceBank
 from .vcc_submit import CONTEXTS, build
 
@@ -141,13 +141,20 @@ def predict_panel(hp: Hyper, targets: np.ndarray | None = None,
     # behind it -- is the same for all three contexts and is built once.  Only
     # the modulation and the on-target term differ per context.
     bank = SourceBank.build([src], np.ones(1))
+    # No official context is one of the four atlas lines, so nothing is excluded
+    # from the prior here.  It is still only consulted when hp.gene_w > 0.
+    prior = gene_transferability(src.symbols) if hp.gene_w > 0 else None
+    if verbose and prior is not None:
+        print(f"  per-gene transferability prior in use (gene_w={hp.gene_w:g}), "
+              f"median {np.median(prior):.3f}")
 
     out, model = {}, None
     for c in CONTEXTS:
         mu_full = control_mean(c)
         model = (model.retarget([src], mu_full[cols]) if model is not None else
                  ContextTransferModel(hp).fit([src], mu_full[cols],
-                                              src.symbols, bank=bank))
+                                              src.symbols, bank=bank,
+                                              gene_prior=prior))
         eff = np.zeros((perts.size, axis.size))
         eff[:, cols] = model.predict(perts)
         out[c] = (perts, eff)

@@ -445,7 +445,14 @@ class ContextTransferModel:
         # leaves overall magnitude to ``beta``, which keeps the two switches from
         # measuring each other.
         prior = 1.0
-        if self.hp.gene_w > 0 and self._gene_prior is not None:
+        if self.hp.gene_w > 0:
+            # Loud rather than silent: asking for the prior without supplying it
+            # would quietly ship a different model than the one selected.
+            if self._gene_prior is None:
+                raise ValueError(
+                    "hp.gene_w > 0 but no gene_prior was passed to fit(); "
+                    "the per-gene transferability weight would silently do "
+                    "nothing")
             prior = np.maximum(self._gene_prior, EPS) ** self.hp.gene_w
             prior = prior / prior.mean()
 
