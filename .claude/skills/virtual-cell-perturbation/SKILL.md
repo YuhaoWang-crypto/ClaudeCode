@@ -36,6 +36,27 @@ with no perturbation data from that line in training.
 4. **Benchmark with `reference/benchmark-protocol.md`.** Leave-one-cell-line-out
    with nested tuning on source lines only. The leakage rules are specific.
 
+## Before anything else: does your source cover the target panel?
+
+Two lines, run against every candidate source, before harmonising a single file:
+
+```python
+panel = np.loadtxt("pert_counts.csv", dtype=str, skiprows=1)   # the target list
+print(sum(p in set(line.names) for p in panel), "/", panel.size)
+```
+
+The four matched CRISPRi lines this skill recommends share an *essential-gene*
+panel, and the Virtual Cell Challenge 2026 validation panel contains **0 of
+300** of it — essential-gene screens target what a cell needs to survive, which
+is exactly what a challenge testing regulatory prediction leaves out. Replogle's
+genome-wide K562 arm covers **272 of 300** and becomes the source instead, at the
+cost of dropping from four source contexts to one. That is an architecture
+decision, and finding it late means rebuilding.
+
+Keep the four-line atlas as the **benchmark** — four contexts is what makes
+context generalisation measurable — and check panel coverage separately for the
+**training corpus**. They are not the same choice. See `reference/data-access.md`.
+
 ## The one thing that decides everything
 
 Perturbation responses split into a part that transfers between cell lines and
