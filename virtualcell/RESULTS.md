@@ -310,6 +310,36 @@ transfers weakly. A model that transfers the shared component and gets its
 magnitude right captures roughly the 43%. The remaining 57% is context-specific
 or noise, and nothing here predicts it.
 
+### How much of that 57% is *noise* — the replicate ceiling
+
+Replogle ran K562 twice: an essential-gene arm and a genome-wide arm. Same cell
+line, same lab, same CRISPRi library, same processing pipeline. **2,053 genes are
+targeted in both**, so their disagreement is measurement rather than biology.
+
+```
+python -m virtualcell.gwps --ceiling
+```
+
+| Quantity | Value |
+|---|---|
+| Effect agreement between the two arms | median r = **0.319** (IQR 0.119–0.534) |
+| Median L2 effect | essential 4.54, genome-wide 4.26 |
+| Median cells per pseudobulk | essential 117, genome-wide 167 |
+| Magnitude spread (norm CV) | essential 0.455, genome-wide 0.525 |
+
+This reframes the headline. ContextTransfer's cross-**context** effect Pearson is
+**0.328** (0.332 with three sources). The same screen repeated in the same cell
+line agrees with itself at **0.319**. So the model is not falling short of a
+recoverable 57% — on this metric it is already at the level where the
+measurement stops being reproducible, and further effort on effect *shape* is
+being spent against the noise floor rather than against biology.
+
+The honest caveat: r is computed over all 8,202 genes per knockdown and is
+dominated by weakly-responding ones, so this is a ceiling on *that* metric, not
+a claim that nothing is left anywhere. DE overlap@100 sits at 0.24 with plenty
+of headroom, and the stratified table above shows the strong-perturbation
+stratum still separating models cleanly.
+
 ### ❌ Target-gene expression does not predict effect magnitude
 
 The intuitive mechanism for context-specificity — *a gene expressed less in the
