@@ -102,7 +102,11 @@ python -m virtualcell.figures
 - **Pseudobulk.** `n_de_genes` comes from a control-replicate empirical null,
   not from a single-cell test, because there are no single cells at this level.
 - **Essential genes.** All four screens target essential genes, so the
-  perturbation panel is not representative of the transcriptome at large.
+  perturbation panel is not representative of the transcriptome at large. This
+  is not an abstract caveat: the panel shares **0 of the 300** Virtual Cell
+  Challenge 2026 targets, and the genome-wide K562 arm — the same
+  `K562_gwps_raw_bulk.h5ad` listed above, 9,866 knockdowns — had to be
+  substituted to reach 272 of them. See `../VCC2026.md`.
 - **One lab, one design.** The shared library and pipeline are what make these
   four lines comparable; they also mean shared systematic error is invisible
   here in a way it would not be across independent studies.

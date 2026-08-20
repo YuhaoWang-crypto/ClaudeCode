@@ -75,7 +75,67 @@ def _ablation_table(ablation: dict) -> str:
     return "\n".join(out)
 
 
+SINGLE_SHORT = {"control (delta=0)": "control (Δ=0)",
+                "global mean [challenge baseline]": "global mean *(baseline)*",
+                "naive transfer": "naive transfer",
+                "ContextTransfer (single source)": "**ContextTransfer**"}
+
+
+def single_source_tables(payload: dict) -> str:
+    """Render the genome-wide single-source benchmark from ``gwps --benchmark``."""
+    results = payload["results"]
+    lines = list(results)
+    base = "global mean [challenge baseline]"
+
+    out = ["| model | " + " | ".join(f"{lab}" for _, lab in HEADLINE)
+           + " | VCC score | balanced |",
+           "|" + "|".join(["---"] * (len(HEADLINE) + 3)) + "|"]
+    for model, label in SINGLE_SHORT.items():
+        avg = {k: float(np.mean([results[c][model][k] for c in lines]))
+               for k, _ in HEADLINE}
+        sc = float(np.mean([M.vcc_score(results[c][model], results[c][base])
+                            ["avg_score"] for c in lines]))
+        bal = float(np.mean([M.vcc_score(results[c][model], results[c][base],
+                                         clip=False)["avg_score"]
+                             for c in lines]))
+        out.append("| " + " | ".join(
+            [label] + [f"{avg[k]:.4f}" for k, _ in HEADLINE]
+            + [f"{sc:.3f}", f"{bal:+.3f}"]) + " |")
+
+    out += ["", "Per held-out line, VCC score against the challenge baseline:",
+            "", "| model | " + " | ".join(lines) + " |",
+            "|" + "|".join(["---"] * (len(lines) + 1)) + "|"]
+    for model, label in SINGLE_SHORT.items():
+        vals = [M.vcc_score(results[c][model], results[c][base])["avg_score"]
+                for c in lines]
+        out.append("| " + " | ".join([label] + [f"{v:.3f}" for v in vals]) + " |")
+
+    out += ["", "Hyperparameters, each fold tuned on the other two lines:", "```"]
+    for name, hp in payload["hyper"].items():
+        keep = {k: v for k, v in hp.items() if k not in ("on_target", "temp")}
+        out.append(f"{name:8s} " + "  ".join(f"{k}={v}" for k, v in keep.items()))
+    out.append("```")
+    return "\n".join(out)
+
+
+def splice(doc: Path, marker: str, body: str) -> None:
+    """Replace everything between ``marker`` and the next heading."""
+    text = doc.read_text()
+    start = text.index(marker) + len(marker)
+    end = text.index("\n## ", start)
+    doc.write_text(text[:start] + "\n\n" + body + "\n" + text[end:])
+    print(f"spliced {marker} into {doc}")
+
+
 def main() -> None:
+    import sys
+    if "--vcc2026" in sys.argv:
+        payload = json.loads((RESULTS / "gwps_single_source.json").read_text())
+        body = single_source_tables(payload)
+        print(body)
+        splice(Path("virtualcell/VCC2026.md"), "<!-- BENCHMARK -->", body)
+        return
+
     parts: list[str] = []
     for regime, title in [("context", "Context zero-shot (the challenge's setting)"),
                           ("double", "Double-blind (knockdown unseen everywhere too)")]:

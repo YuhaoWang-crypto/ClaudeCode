@@ -83,6 +83,10 @@ def _panel_matched(source, candidates: np.ndarray, n: int,
     idx = {p: i for i, p in enumerate(source.names)}
     mag = np.linalg.norm(source.delta, axis=1)
     ref = np.array([mag[idx[p]] for p in official_panel() if p in idx])
+    if ref.size < 20:
+        raise SystemExit(
+            f"--match-panel needs a source that measures the official panel; "
+            f"this one covers {ref.size} of 300. Use --source gwps.")
     edges = np.quantile(ref, np.linspace(0, 1, 6))
     edges[0], edges[-1] = -np.inf, np.inf
 

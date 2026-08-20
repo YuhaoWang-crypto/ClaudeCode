@@ -1,7 +1,9 @@
 # How to use this
 
-Two capabilities came out of this work. This is what each takes in, what it
-gives back, and a runnable demo for both.
+Three capabilities came out of this work: a zero-shot cross-context perturbation
+model, a pipeline that applies it to the official Virtual Cell Challenge 2026
+panel, and a reproduction of Arc's Stack foundation model. This is what each
+takes in, what it gives back, and a runnable demo.
 
 ---
 
@@ -106,11 +108,59 @@ How to read it, honestly:
   respond (2.7× baseline DE overlap) but **cannot tell that knockdown from
   another** (discrimination stays at chance).
 - CRISPRi knockdown only. Cross-modality transfer to CRISPRa fails outright.
-- Trained on essential genes in four cancer/immortalised lines.
+- Trained on essential genes in four cancer/immortalised lines. **That panel
+  contains none of the Virtual Cell Challenge 2026 targets** — see section 2.
 
 ---
 
-# 2. Reproducing Stack (Arc's foundation model)
+# 2. Predicting the official VCC 2026 panel
+
+The four-line atlas covers **0 of the 300** official knockdowns, because
+essential-gene screens deliberately exclude the regulators the challenge tests.
+Replogle's genome-wide K562 arm covers 272, so a real entry is built on that
+instead — one source context rather than four. `virtualcell/VCC2026.md` is the
+full write-up; this is the API.
+
+```bash
+# what the bundle contains, which contexts they are, what the atlas can reach
+python -m virtualcell.vcc2026 --identify --describe
+
+# benchmark the single-source configuration where ground truth exists:
+# hold out RPE1/HepG2/Jurkat, tune each fold on the other two, never score K562
+python -m virtualcell.gwps --benchmark
+
+# the same pipeline scored on real cells, at the official panel's effect sizes
+python -m virtualcell.vcc_eval --target Jurkat --source gwps --match-panel
+
+# build and validate a submission
+python -m virtualcell.vcc2026 --build --out ~/vcc_submission/prediction.h5ad
+vcc prep ~/vcc_submission/prediction.h5ad -g gene_names.csv \
+    --perts pert_counts.csv -o prediction.vcc
+```
+
+`./run_vcc2026.sh` runs all five steps in order.
+
+**Input** — the official `controls` bundle: `context_{A,B,C}.h5ad` (18,400
+non-targeting cells each), `gene_names.csv` (18,533 symbols, fixed order),
+`pert_counts.csv` (300 targets), `manifest.json`. Download it in your own
+terminal with `vcc login --token-stdin` then `vcc datasets download controls`;
+the token must never be pasted into a chat.
+
+**Output** — `prediction.h5ad`: 360,000 cells × 18,533 genes in raw counts,
+`obs` carrying `target_gene` and `context`, no control cells. Cells are made by
+resampling that context's real controls and applying the predicted shift
+multiplicatively, per-cell efficiency drawn around 1 — never by replicating a
+predicted mean, which manufactures DE significance the prediction has not
+earned.
+
+**What you cannot do:** score it locally. `vcc datasets list` offers only
+`controls`; the 138,400 ground-truth cells per context are withheld and scored
+server-side. Every number in `VCC2026.md` comes from a held-out proxy
+benchmark, not from the official answer.
+
+---
+
+# 3. Reproducing Stack (Arc's foundation model)
 
 ## What is and is not reproducible
 
