@@ -37,9 +37,10 @@ import h5py
 import numpy as np
 from scipy import sparse
 
+from . import metrics as M
 from .data import CellLine
-from .gwps import frame, load_gwps, project
-from .model import ContextTransferModel, Hyper
+from .gwps import load_gwps, project
+from .model import ContextTransferModel, Hyper, SourceBank
 from .vcc_submit import CONTEXTS, build
 
 OFFICIAL = Path("/home/user/vcc_official")
@@ -133,10 +134,18 @@ def predict_panel(hp: Hyper, targets: np.ndarray | None = None,
               f"{axis.size:,} official genes; {covered}/{perts.size} of the panel "
               f"measured directly")
 
-    out = {}
+    # With one source line the context weights are fixed at 1, so the bank -- the
+    # consensus, the similarity graph, the response basis and the ~9,866-row SVD
+    # behind it -- is the same for all three contexts and is built once.  Only
+    # the modulation and the on-target term differ per context.
+    bank = SourceBank.build([src], np.ones(1))
+
+    out, model = {}, None
     for c in CONTEXTS:
         mu_full = control_mean(c)
-        model = ContextTransferModel(hp).fit([src], mu_full[cols], src.symbols)
+        model = (model.retarget([src], mu_full[cols]) if model is not None else
+                 ContextTransferModel(hp).fit([src], mu_full[cols],
+                                              src.symbols, bank=bank))
         eff = np.zeros((perts.size, axis.size))
         eff[:, cols] = model.predict(perts)
         out[c] = (perts, eff)
@@ -144,7 +153,17 @@ def predict_panel(hp: Hyper, targets: np.ndarray | None = None,
             nz = np.abs(eff).sum(1) > 0
             print(f"  context {c}: {nz.sum()}/{perts.size} knockdowns given a "
                   f"nonzero effect, median |effect| over predicted genes "
-                  f"{np.median(np.abs(eff[:, cols])):.4f}", flush=True)
+                  f"{np.median(np.abs(eff[:, cols])):.4f}, magnitude spread "
+                  f"(norm CV) {M.norm_cv(eff[:, cols]):.3f}", flush=True)
+
+    if verbose:
+        # Predicts the discrimination score without needing the withheld truth:
+        # a prediction whose magnitudes vary much less than the measured ones has
+        # given away most of what L1 retrieval pays for.  See metrics.norm_cv.
+        idx = {p: i for i, p in enumerate(src.names)}
+        rows = [idx[p] for p in perts if p in idx]
+        print(f"  reference: the same knockdowns measured in K562 have norm CV "
+              f"{M.norm_cv(src.delta[rows]):.3f}")
     return out
 
 

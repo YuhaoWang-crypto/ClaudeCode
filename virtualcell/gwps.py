@@ -114,19 +114,27 @@ SEARCH: dict[str, list] = {
     "mod_clip":    [2.0, 3.0, 5.0],
     "rank_mix":    [0.0, 0.25, 0.5, 0.75],
     "rank":        [40, 80, 160, 320],
-    "unseen_k":    [5, 15, 25, 50],
 }
+# ``unseen_k`` is absent on purpose: every knockdown scored here is present in
+# the genome-wide screen, so the functional-neighbour path is never taken and
+# searching it would spend a fifth of the budget measuring nothing.  It still
+# matters for the 26 official panel targets the screen misses, which is why the
+# submission keeps the four-line benchmark's value for it.
 
 
 def _score_on(hp: Hyper, source: CellLine, targets: list[CellLine],
               symbols: np.ndarray, cache: dict) -> float:
     """Mean unclipped leaderboard score of ``hp`` over the given target lines."""
+    fitted = None
     out = []
     for t in targets:
         sel, truth, base_m = cache[t.name]
-        model = ContextTransferModel(hp).fit([source], t.mu, symbols,
-                                             bank=cache["bank"])
-        m = evaluate(model.predict(sel), t, sel, truth, symbols)
+        # The consensus is target-independent, so it is built for the first
+        # target and re-pointed at the rest.  That is the whole cost of a fit.
+        fitted = (fitted.retarget([source], t.mu) if fitted is not None else
+                  ContextTransferModel(hp).fit([source], t.mu, symbols,
+                                               bank=cache["bank"]))
+        m = evaluate(fitted.predict(sel), t, sel, truth, symbols)
         out.append(M.vcc_score(m, base_m, clip=False)["avg_score"])
     return float(np.mean(out))
 

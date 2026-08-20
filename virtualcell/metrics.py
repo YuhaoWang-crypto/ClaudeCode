@@ -77,6 +77,26 @@ def discrimination_score(pred_delta: np.ndarray, real_delta: np.ndarray,
     return 1.0 - rank / n_pert
 
 
+def norm_cv(delta: np.ndarray) -> float:
+    """Coefficient of variation of effect magnitude across perturbations.
+
+    A diagnostic that predicts the discrimination score *before* it is computed,
+    which is worth having because computing it needs the ground truth and this
+    does not.  Discrimination is L1 retrieval: a prediction is matched to the
+    measured effect nearest it, so most of the signal is in how much predicted
+    magnitudes differ *between* perturbations.  A model whose inference pulls
+    every condition toward a common profile -- heavy smoothing, aggressive
+    shrinkage, rank projection -- scores at chance however good its biology is,
+    and a constant predictor scores exactly chance by construction.
+
+    Compare a prediction's value against the measured data's on the same panel:
+    well below it means magnitude spread has been flattened away, and the fix is
+    calibration rather than more modelling.
+    """
+    mag = np.linalg.norm(delta, axis=1)
+    return float(mag.std() / (mag.mean() + 1e-12))
+
+
 def mae(pred_expr: np.ndarray, real_expr: np.ndarray) -> np.ndarray:
     """Mean absolute error per perturbation, on absolute expression."""
     return np.abs(pred_expr - real_expr).mean(axis=1)

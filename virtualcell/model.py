@@ -269,6 +269,27 @@ class ContextTransferModel:
         self._pert_col = bank.pert_col
         return self
 
+    def retarget(self, sources: list[CellLine],
+                 target_mu: np.ndarray) -> "ContextTransferModel":
+        """A copy of this fitted model pointed at a different target context.
+
+        Only two fitted quantities depend on the target: its control mean and
+        the per-gene modulation derived from it.  The consensus -- smoothing,
+        shrinkage and the rank projection over every knockdown in the source --
+        does not, and it is by far the most expensive part of a fit.  Reusing it
+        across contexts is exact, not an approximation, and it is what makes a
+        hyperparameter search over several targets, or a three-context
+        submission, affordable.
+
+        Valid only when the source set is unchanged, since the consensus was
+        built from it.
+        """
+        clone = ContextTransferModel(self.hp)
+        clone.__dict__.update(self.__dict__)
+        clone._target_mu = target_mu
+        clone._modulation = self._context_modulation(sources, target_mu)
+        return clone
+
     def context_weights(self, sources: list[CellLine],
                         target_mu: np.ndarray) -> np.ndarray:
         """Public accessor so a caller can build a matching :class:`SourceBank`."""

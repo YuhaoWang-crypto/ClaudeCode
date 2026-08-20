@@ -1,5 +1,24 @@
 # Getting four matched CRISPRi contexts
 
+> **Check target coverage before you build anything.** These four screens share
+> an *essential-gene* panel, and the Virtual Cell Challenge 2026 validation
+> panel contains **none of it — 0 of 300**. Essential-gene arms target what a
+> cell needs to survive; a challenge testing regulatory prediction excludes
+> exactly that set. Replogle's genome-wide K562 arm covers **272 of the 300**,
+> so it is the source a real entry needs, at the cost of dropping from four
+> source contexts to one. The check is two lines and it decides the whole
+> architecture:
+>
+> ```python
+> panel = np.loadtxt("pert_counts.csv", dtype=str, skiprows=1)
+> print(sum(p in set(line.names) for p in panel), "/", panel.size)
+> ```
+>
+> Run it against every candidate source *before* harmonising anything. The
+> four-line atlas below is still the right benchmark — four contexts is what
+> makes context generalisation measurable at all — but it is a benchmark, not
+> the training corpus for a submission.
+
 Context generalisation cannot be tested on one cell line. These four share a
 CRISPRi library design, an essential-gene target set, and the Weissman-lab
 processing conventions, so a knockdown means the same thing in all of them —
@@ -27,6 +46,13 @@ curl -s "https://api.figshare.com/v2/articles/20029387/files?page_size=100"
 Take the **pseudobulk** files, not the single-cell ones. The single-cell K562
 genome-wide matrix alone is 66 GB; the pseudobulk equivalent is 375 MB and is
 all this task needs.
+
+`K562_gwps_raw_bulk.h5ad` is the genome-wide arm and is **not optional** if the
+target panel is anything other than essential genes: 9,866 knockdowns over 8,246
+measured genes, against 2,057 knockdowns in the essential arm. It loads with the
+same `load_replogle` reader — same `gene_transcript` naming, same `core_control`
+flag, same `num_cells_filtered` NaN trap. `virtualcell.gwps.load_gwps` caches
+the pseudobulk to `.npz` because the read costs about a minute.
 
 | File | Size | ndownloader id |
 |---|---|---|
@@ -107,3 +133,26 @@ before, or the pooling is weighted wrongly.
   the batch confound the four lines above avoid.
 - **VCC 2025 H1 hESC** — behind challenge registration. Challenge 2 explicitly
   permits its reuse, so a real entry should add it as a fifth context.
+
+## The official 2026 bundle
+
+`vcc datasets list` offers exactly one dataset, `controls` (~406 MiB), and it
+contains **no ground truth**: 18,400 non-targeting control cells per context,
+`gene_names.csv` (18,533 symbols, fixed order), `pert_counts.csv` (300 targets)
+and `manifest.json`. The 138,400 ground-truth cells per context are withheld and
+scored server-side, so a submission cannot be scored locally at all — plan for a
+held-out proxy benchmark from the start rather than discovering this at the end.
+
+Download it in the user's own terminal; the token must never be pasted into a
+chat:
+
+```bash
+vcc login --token-stdin
+vcc datasets download controls -o vcc_2026_controls.zip
+```
+
+The three contexts are anonymised but placeable from lineage markers, which is
+worth doing because it tells you how far the source is reaching. For
+`vcc2026-val-1` they are T-lymphoid, RPE-like epithelium and squamous
+epithelium — and the genome-wide source screen is K562, erythroid, scoring 0.00
+on all three marker panels. Every prediction is out-of-lineage.
