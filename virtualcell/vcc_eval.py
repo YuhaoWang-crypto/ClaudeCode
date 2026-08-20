@@ -14,6 +14,13 @@ honestly. This module measures that gap directly on held-out data, which is the
 only way to know which side of it a given model sits on.
 
     python -m virtualcell.vcc_eval --target K562 --n-knockdowns 40
+
+``--source gwps`` swaps the four-line atlas for Replogle's genome-wide K562
+screen, which is the only source that covers the official 2026 panel and so the
+only one a real submission can be built from.  Paired with ``--match-panel`` --
+which picks knockdowns whose measured effect size matches the official panel's
+rather than the much stronger essential-gene default -- it is an end-to-end dry
+run of the submission pipeline, on data whose ground truth is not withheld.
 """
 
 from __future__ import annotations
@@ -61,10 +68,41 @@ def de_from_cells(pert: sparse.csr_matrix, ctrl: sparse.csr_matrix,
     return sig, lfc
 
 
+def _panel_matched(source, candidates: np.ndarray, n: int,
+                   rng: np.random.Generator) -> np.ndarray:
+    """Pick knockdowns whose source-measured effect matches the official panel's.
+
+    The essential-gene panel this project benchmarks on is unusually strong:
+    median L2 effect 4.26 in K562 against 3.16 for the 272 official targets the
+    genome-wide screen covers.  Scoring on it would overstate what a submission
+    can expect.  Sampling candidates in proportion to how the official panel's
+    magnitudes are distributed removes that bias.
+    """
+    from .vcc2026 import panel as official_panel
+
+    idx = {p: i for i, p in enumerate(source.names)}
+    mag = np.linalg.norm(source.delta, axis=1)
+    ref = np.array([mag[idx[p]] for p in official_panel() if p in idx])
+    edges = np.quantile(ref, np.linspace(0, 1, 6))
+    edges[0], edges[-1] = -np.inf, np.inf
+
+    cand_mag = np.array([mag[idx[c]] for c in candidates])
+    out: list[str] = []
+    for lo, hi in zip(edges[:-1], edges[1:]):
+        pool = candidates[(cand_mag >= lo) & (cand_mag < hi)]
+        if pool.size:
+            out.extend(rng.choice(pool, min(n // 5, pool.size), replace=False))
+    return np.sort(np.array(out))
+
+
 def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--target", default="K562",
                     choices=["K562", "RPE1", "HepG2", "Jurkat"])
+    ap.add_argument("--source", default="atlas", choices=["atlas", "gwps"],
+                    help="four-line essential atlas, or the genome-wide K562 screen")
+    ap.add_argument("--match-panel", action="store_true",
+                    help="match the knockdowns' effect sizes to the official panel")
     ap.add_argument("--n-knockdowns", type=int, default=40)
     ap.add_argument("--n-cells", type=int, default=400)
     ap.add_argument("--seed", type=int, default=0)
@@ -72,12 +110,25 @@ def main() -> None:
 
     import anndata as ad
 
-    lines, genes, symbols = load_all()
-    target = next(cl for cl in lines if cl.name == args.target)
-    sources = [cl for cl in lines if cl.name != args.target]
-    common = shared_perturbations(lines)
     rng = np.random.default_rng(args.seed)
-    perts = np.sort(rng.choice(common, args.n_knockdowns, replace=False))
+    if args.source == "gwps":
+        from .gwps import frame
+        if args.target == "K562":
+            raise SystemExit("K562 is the source screen's own line; scoring it "
+                             "would read back the training data")
+        src, targets, genes, symbols = frame([args.target])
+        target, sources = targets[0], [src]
+        common = np.array(sorted(set(target.names) & set(src.names)))
+    else:
+        lines, genes, symbols = load_all()
+        target = next(cl for cl in lines if cl.name == args.target)
+        sources = [cl for cl in lines if cl.name != args.target]
+        common = shared_perturbations(lines)
+
+    if args.match_panel:
+        perts = _panel_matched(sources[0], common, args.n_knockdowns, rng)
+    else:
+        perts = np.sort(rng.choice(common, args.n_knockdowns, replace=False))
 
     # real cells of the held-out line, on this project's gene axis
     cells = ad.read_h5ad(f"{SC}/{TAG[args.target]}.h5ad")
@@ -111,11 +162,18 @@ def main() -> None:
     print(f"measured DE (rank-sum on real cells): median "
           f"{np.median(truth_sig.sum(1)):.0f} genes/knockdown\n")
 
+    hp = DEFAULT_HYPER
+    if args.source == "gwps":
+        # the four-line defaults were tuned with three source contexts to average
+        # over; the single-source run has its own tuned settings
+        from .vcc2026 import single_source_hyper
+        hp = single_source_hyper(exclude=args.target)
+
     models = {
         "control (delta=0)": ControlBaseline(),
         "global mean [challenge baseline]": GlobalMeanBaseline(),
         "naive transfer": NaiveTransferBaseline(),
-        "ContextTransfer (ours)": ContextTransferModel(DEFAULT_HYPER),
+        "ContextTransfer (ours)": ContextTransferModel(hp),
     }
     sub_sym = symbols[have]
     sub_sources = []

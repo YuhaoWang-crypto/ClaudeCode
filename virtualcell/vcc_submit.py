@@ -32,6 +32,7 @@ from __future__ import annotations
 
 import argparse
 from pathlib import Path
+from typing import Callable
 
 import anndata as ad
 import h5py
@@ -127,23 +128,25 @@ def dedupe_genes(genes: np.ndarray) -> np.ndarray:
 
 
 def build(predictions: dict[str, tuple[np.ndarray, np.ndarray]],
-          controls: dict[str, sparse.csr_matrix], genes: np.ndarray,
-          out_path: Path, n_cells: int = CELLS_PER_PERT,
+          controls: dict[str, sparse.csr_matrix | Callable[[], sparse.csr_matrix]],
+          genes: np.ndarray, out_path: Path, n_cells: int = CELLS_PER_PERT,
           seed: int = 0) -> Path:
     """Assemble the submission AnnData.
 
     ``predictions`` maps context -> (knockdown names, effects) and ``controls``
-    maps context -> that context's real control cells on the same gene axis.
+    maps context -> that context's real control cells on the same gene axis.  A
+    control entry may instead be a zero-argument callable returning them, which
+    is how the official bundle is handled: each context's pool is ~900 MB, and
+    loading one at a time keeps all three from having to be resident at once.
     """
     keep = dedupe_genes(genes)
-    if not keep.all():
-        dropped = genes.size - int(keep.sum())
-        print(f"  dropping {dropped} duplicate gene symbol(s) so the axis is "
-              f"unique, as prep requires")
+    dedupe_cols = np.flatnonzero(keep) if not keep.all() else None
+    if dedupe_cols is not None:
+        print(f"  dropping {genes.size - dedupe_cols.size} duplicate gene "
+              f"symbol(s) so the axis is unique, as prep requires")
         genes = genes[keep]
-        cols = np.flatnonzero(keep)
-        controls = {c: m[:, cols].tocsr() for c, m in controls.items()}
-        predictions = {c: (n, e[:, cols]) for c, (n, e) in predictions.items()}
+        predictions = {c: (n, e[:, dedupe_cols])
+                       for c, (n, e) in predictions.items()}
 
     rng = np.random.default_rng(seed)
     targets: list[str] = []
@@ -173,6 +176,10 @@ def build(predictions: dict[str, tuple[np.ndarray, np.ndarray]],
                                  f"must cover all of {', '.join(CONTEXTS)}")
             names, effects = predictions[context]
             pool = controls[context]
+            if callable(pool):
+                pool = pool()
+            if dedupe_cols is not None:
+                pool = pool[:, dedupe_cols].tocsr()
             # one control mean per context, reused for every knockdown in it
             mu = np.log1p(np.asarray(pool.sum(axis=0)).ravel()
                           / max(pool.sum(), 1.0) * 1e4)
@@ -191,9 +198,10 @@ def build(predictions: dict[str, tuple[np.ndarray, np.ndarray]],
                 targets.extend([name] * n_cells)
                 contexts.extend([context] * n_cells)
                 per_cell_totals.append(np.asarray(block.sum(1)).ravel())
-                if (k + 1) % 100 == 0:
+                if (k + 1) % 50 == 0:
                     print(f"    {k + 1}/{len(names)} ({nnz / 1e6:.0f}M entries)",
                           flush=True)
+            del pool
 
         n_obs = len(targets)
         grp.create_dataset("indptr", data=np.array(indptr, dtype=np.int64),
