@@ -546,6 +546,93 @@ Reproduced with `python -m virtualcell.score_stack`; see `USAGE.md` for the
 generation command, and note that `virtualcell/patch_stack.py` is required
 because released `arc-stack` 0.1.3 crashes partway through generation.
 
+## Scored the challenge's way: DE from submitted cells
+
+Every other number in this report is pseudobulk. `cell-eval` is not: it runs a
+Wilcoxon rank-sum test on **the cells you submit** against real control cells.
+Scoring each model both ways on held-out K562, with ground truth computed
+identically from real perturbed cells:
+
+| model | submitted as | DE overlap@100 | genes called significant | direction |
+|---|---|---|---|---|
+| control (Δ=0) | cells | 0.0071 | **0** | 0.420 |
+| | replicated mean | 0.0119 | **6,447** | 0.451 |
+| global mean *(baseline)* | cells | 0.0156 | 262 | 0.513 |
+| | replicated mean | 0.0179 | 6,024 | 0.483 |
+| naive transfer | cells | 0.1899 | 1,501 | 0.880 |
+| | replicated mean | 0.1304 | 5,908 | 0.863 |
+| **ContextTransfer** | **cells** | **0.1987** | 800 | **0.901** |
+| | replicated mean | 0.1685 | 5,958 | 0.883 |
+
+**The degenerate-variance trap, measured.** Submitting one predicted mean
+replicated across 400 rows calls roughly **6,000 of 6,642 genes significant** —
+nearly the entire transcriptome — for every model including the one predicting
+*literally no change*. A Δ=0 prediction calls 0 genes significant when submitted
+as cells and **6,447** when submitted as means. The rank-sum test has no
+within-group variance to work against, so any rounding difference separates
+perfectly.
+
+**And the sign of the effect depends on model quality**, which is what makes it
+dangerous rather than merely wrong:
+
+| | cells | replicated mean | change |
+|---|---|---|---|
+| control (Δ=0) | 0.0071 | 0.0119 | **+0.005 — gains** |
+| global mean | 0.0156 | 0.0179 | **+0.002 — gains** |
+| naive transfer | 0.1899 | 0.1304 | −0.060 — loses |
+| ContextTransfer | 0.1987 | 0.1685 | −0.030 — loses |
+
+Weak models are *rewarded* by the degeneracy and good models are *punished* by
+it. A team that submits means will see their worst baseline flatter itself and
+their best model suppressed. This reproduces independently what a separate
+effort reported, and it is the single most consequential formatting decision in
+a submission.
+
+**On the cell-level scoring ContextTransfer leads**, 0.1987 against naive
+transfer's 0.1899, with better direction agreement (0.901 vs 0.880) while
+calling roughly half as many genes significant (800 vs 1,501) — a more precise
+prediction, not a broader one.
+
+⚠️ **Absolute values here are compressed and should not be compared to
+leaderboard numbers.** The ground truth is computed from the ~20 real perturbed
+cells per knockdown this project subsampled to fit the Stack comparison, against
+2,000 controls, which yields a median of only 4 measured DE genes per knockdown.
+The challenge has ~1,000 cells per perturbation. The *relative* comparisons above
+are unaffected — every arm is scored against the same truth — but the magnitudes
+are not portable.
+
+Reproduce with `python -m virtualcell.vcc_eval --target K562`.
+
+## Submitting to the challenge
+
+`virtualcell/vcc_submit.py` builds a conformant submission and it passes the
+official validator:
+
+```
+vcc prep test10.h5ad -g gene_names.csv --perts pert_counts.csv -o test10.vcc
+✓ prep complete
+  cells: 12000   genes: 6641
+  contexts: column 'context' → A=4000, B=4000, C=4000
+  targets: verified against the official list
+  normalization: counts-preserved
+```
+
+Three things that a first attempt gets wrong, all found here before any server
+contact:
+
+- **The submission is 1.26 billion stored entries.** 360,000 cells × 18,533
+  genes at ~3,500 expressed genes per cell is 10 GB as CSR and ~20 GB at the
+  moment `scipy.sparse.vstack` concatenates. The obvious build-then-write
+  pattern needs ~24 GB of RAM and is OOM-killed on a normal machine. The builder
+  streams to HDF5 instead, peaking at ~11 MB.
+- **The gene axis must carry each symbol exactly once.** An ENSG-indexed matrix
+  can hold two ids sharing a symbol (`HSPA14` here); `vcc prep` rejects the
+  whole file for it.
+- **Converting a log1p-space effect to counts needs the target mean**, not the
+  effect alone — `log1p` is linear near zero, so `exp(effect)` silently
+  under-delivers (asking −2.00 realised −0.73). And an effect below a gene's own
+  baseline is unsatisfiable; clamp it rather than emitting negative counts.
+
 ## Limitations
 
 - **Depth.** 44–110 cells and ~11–14k UMI per perturbation, against the
