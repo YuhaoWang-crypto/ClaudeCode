@@ -367,6 +367,28 @@ def replicate_ceiling(verbose: bool = True) -> dict:
 
 BETAS = (0.0, 0.25, 0.4, 0.5, 0.6, 0.75, 0.9, 1.0, 1.25, 1.5, 2.0)
 GENE_WS = (0.0, 0.5, 1.0)
+BENCH_FILE = Path("results/gwps_single_source.json")
+
+
+def _tuned_per_fold(names: list[str]) -> dict[str, Hyper]:
+    """Each fold's cross-validated settings, or defaults if the run is missing."""
+    if not BENCH_FILE.exists():
+        print("  no benchmark output; sweeping on default settings instead")
+        return {n: Hyper(temp=np.inf) for n in names}
+    blob = json.loads(BENCH_FILE.read_text())["hyper"]
+    out = {}
+    for n in names:
+        raw = blob.get(n)
+        if raw is None:
+            out[n] = Hyper(temp=np.inf)
+            continue
+        clean = {}
+        for k, v in raw.items():
+            d = getattr(Hyper(), k)
+            clean[k] = (bool(v) if isinstance(d, bool) else
+                        int(float(v)) if isinstance(d, int) else float(v))
+        out[n] = Hyper(**clean)
+    return out
 
 
 def frontier(n_eval: int = 400, seed: int = 0, verbose: bool = True,
@@ -393,12 +415,18 @@ def frontier(n_eval: int = 400, seed: int = 0, verbose: bool = True,
     """
     source, targets, genes, symbols = frame()
     rng = np.random.default_rng(seed)
-    hp0 = Hyper(temp=np.inf)
     bank = SourceBank.build([source], np.ones(1))
 
+    # Sweep on top of each fold's *tuned* settings, not the defaults.  The
+    # MAE-against-scale curve depends on the smoothing and projection in force,
+    # so a scale measured at default settings is not a scale that is safe at
+    # tuned ones -- and it is the tuned ones a submission ships.  Each fold's
+    # values were selected on the other two lines, so this stays leak-free.
+    tuned = _tuned_per_fold([t.name for t in targets])
+
     out: dict[str, dict[str, dict]] = {}
-    fitted: dict[float, ContextTransferModel] = {}
     for target in targets:
+        hp0 = tuned[target.name]
         avail = np.array(sorted(set(target.names) & set(source.names)))
         sel = np.sort(rng.choice(avail, n_eval, replace=False)) \
             if avail.size > n_eval else avail
@@ -408,11 +436,13 @@ def frontier(n_eval: int = 400, seed: int = 0, verbose: bool = True,
         # the prior must not have seen the line it is used to predict
         prior = gene_transferability(symbols, exclude=target.name)
 
+        # one fit per fold: beta and gene_w act only in predict()
+        model = ContextTransferModel(hp0).fit(
+            [source], target.mu, symbols, bank=bank, gene_prior=prior)
+
         per_w: dict[str, dict] = {}
         for w in gene_ws:
             key = f"{w:g}"
-            model = ContextTransferModel(hp0).fit(
-                [source], target.mu, symbols, bank=bank, gene_prior=prior)
             rows = {"beta": [], "pds": [], "ovl": [], "mae": [], "score": [],
                     "balanced": [], "mae_vs_base": [], "norm_cv": []}
             for b in BETAS:
