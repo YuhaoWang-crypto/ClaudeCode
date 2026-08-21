@@ -29,6 +29,16 @@ Deliberately the *easy* version: the cell lines are named, not anonymised as the
 challenge anonymises them.  A negative result under the most favourable
 conditions is worth more than a negative result under hard ones.
 
+**What it measured.**  The premise turned out to be wrong in an informative way.
+The model is *not* context-blind -- its two answers share only a quarter of their
+genes, and its stated reasoning is specifically lineage-aware -- and it still
+scores **below the context-free baseline in both contexts** (0.105 and 0.089
+against 0.123 and 0.138), and below this project's model by a factor of 2.5.
+Blending it into that model's ranking at any weight makes it monotonically
+worse.  So the failure is not "it ignores the context"; it is that its
+context-specific variation is confidently wrong, which is the harder failure to
+use.
+
     python -m virtualcell.llm_prior --prepare        # writes the task file
     python -m virtualcell.llm_prior --score preds/   # scores whatever came back
 """
@@ -162,6 +172,22 @@ def score(pred_dir: Path, task: Path = TASK) -> dict:
         for arm, delta in arms.items():
             row[arm] = float(np.mean(
                 M.overlap_at_k(delta, true_delta, truth.sig, k=100)))
+
+        # A weak standalone arm can still carry signal the strong arm lacks, and
+        # the DE metrics only read the *ranking*, so blend on rank rather than
+        # on value -- the two arms are not on a common scale.
+        def rank_signed(a: np.ndarray) -> np.ndarray:
+            order = np.argsort(np.argsort(-np.abs(a), axis=1), axis=1)
+            return np.sign(a) * (a.shape[1] - order)
+
+        ours = rank_signed(arms["ContextTransfer (ours)"])
+        llm_r = rank_signed(llm)
+        row["blend"] = {}
+        for w in (0.0, 0.1, 0.2, 0.3, 0.5, 0.7, 1.0):
+            mix = (1 - w) * ours / max(np.abs(ours).max(), 1) + \
+                  w * llm_r / max(np.abs(llm_r).max(), 1)
+            row["blend"][f"{w:g}"] = float(np.mean(
+                M.overlap_at_k(mix, true_delta, truth.sig, k=100)))
         results[name] = row
 
     # The decisive number: does the language model's answer depend on context?
@@ -194,14 +220,24 @@ def score(pred_dir: Path, task: Path = TASK) -> dict:
     print(f"\n{'symbols found in the measured universe':<36}"
           + "".join(f"{results[n]['symbol coverage']:>12.1%}"
                     for n in payload["contexts"]))
+
+    print("\nBlending the language model into this model's ranking "
+          "(weight 0 = ours alone):")
+    ws = list(results[list(payload["contexts"])[0]]["blend"])
+    print(f"  {'weight':<10}" + "".join(f"{w:>12}" for w in ws))
+    for n in payload["contexts"]:
+        print(f"  {n:<10}" + "".join(f"{results[n]['blend'][w]:>12.4f}"
+                                     for w in ws))
     c = results["_context"]
     print(f"\nOverlap between the two contexts' predicted gene lists: "
           f"{c['jaccard_between_contexts']:.3f} Jaccard")
     print(f"Measured cross-context effect correlation, same knockdowns: "
           f"{c['measured_cross_context_r']:.3f}")
-    print("\nA language model that returns near-identical lists for two "
-          "different\ncontexts cannot improve transferability, whatever its "
-          "biology is worth.")
+    print("\nRead these two numbers together. The Jaccard is what the language\n"
+          "model's context-sensitivity looks like; the overlap@100 above is what\n"
+          "that sensitivity was worth. A model that differentiates strongly and\n"
+          "still scores below a context-free baseline is not ignoring context --\n"
+          "it is confidently varying its answer in the wrong direction.")
     return results
 
 

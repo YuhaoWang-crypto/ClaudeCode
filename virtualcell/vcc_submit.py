@@ -248,6 +248,64 @@ def _write_frame(h5, name: str, index: np.ndarray,
                            compression="gzip", compression_opts=1)
 
 
+def split_context(path: Path, context: str, out: Path,
+                  chunk: int = 20_000) -> None:
+    """Copy one context's cells out of a submission, without loading the rest.
+
+    A full 2026 submission is 360,000 cells over 18,533 genes at the density of
+    the real control cells, which is about 2.1e9 stored values.  That is inside
+    the scorer's cap but it is roughly 17 GB as an in-memory CSR, so ``vcc prep``
+    cannot open it on a modest machine -- it dies without printing anything,
+    which reads like a hang.
+
+    Contexts are written as contiguous row blocks, so one can be lifted out by
+    slicing ``indptr`` and copying the matching ``data``/``indices`` span in
+    pieces.  Each context is ~120,000 cells and validates comfortably.
+    """
+    with h5py.File(path) as f, h5py.File(out, "w") as g:
+        ctx = f["obs/context/categories"].asstr()[:]
+        codes = f["obs/context/codes"][:]
+        rows = np.flatnonzero(codes == int(np.flatnonzero(ctx == context)[0]))
+        if rows.size == 0:
+            raise SystemExit(f"context {context!r} not in {path}")
+        lo, hi = int(rows[0]), int(rows[-1]) + 1
+        if rows.size != hi - lo:
+            raise SystemExit("context rows are not contiguous; "
+                             "this splitter assumes the layout build() writes")
+
+        src, dst = f["X"], g.create_group("X")
+        n_genes = int(src.attrs["shape"][1])
+        ip = src["indptr"][lo:hi + 1]
+        start, stop = int(ip[0]), int(ip[-1])
+        dst.create_dataset("indptr", data=(ip - start).astype(np.int64))
+        data = dst.create_dataset("data", shape=(stop - start,),
+                                  dtype=src["data"].dtype, chunks=(1 << 20,),
+                                  compression="gzip", compression_opts=1)
+        indices = dst.create_dataset("indices", shape=(stop - start,),
+                                     dtype=src["indices"].dtype,
+                                     chunks=(1 << 20,), compression="gzip",
+                                     compression_opts=1)
+        for s in range(start, stop, chunk * 64):
+            e = min(s + chunk * 64, stop)
+            data[s - start:e - start] = src["data"][s:e]
+            indices[s - start:e - start] = src["indices"][s:e]
+        for k, v in src.attrs.items():
+            dst.attrs[k] = v
+        dst.attrs["shape"] = np.array([hi - lo, n_genes], dtype=np.int64)
+
+        target = f["obs/target_gene/categories"].asstr()[:][
+            f["obs/target_gene/codes"][lo:hi]]
+        _write_frame(g, "obs", np.arange(hi - lo).astype(str),
+                     {"target_gene": target,
+                      "context": np.repeat(context, hi - lo)})
+        genes = f["var/_index"].asstr()[:]
+        _write_frame(g, "var", genes, {"gene": genes})
+        g.attrs.update({"encoding-type": "anndata", "encoding-version": "0.1.0"})
+    size = out.stat().st_size / 1e6
+    print(f"  wrote {out} — context {context}: {hi - lo:,} cells, "
+          f"{stop - start:,} stored entries, {size:,.0f} MB")
+
+
 def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--out", type=Path,
@@ -255,7 +313,16 @@ def main() -> None:
     ap.add_argument("--n-perts", type=int, default=300)
     ap.add_argument("--n-cells", type=int, default=CELLS_PER_PERT)
     ap.add_argument("--seed", type=int, default=0)
+    ap.add_argument("--split", metavar="CONTEXT",
+                    help="lift one context out of --out into a separate file, "
+                         "so it can be validated on a machine that cannot hold "
+                         "the whole submission")
     args = ap.parse_args()
+
+    if args.split:
+        split_context(args.out, args.split,
+                      args.out.with_name(f"{args.out.stem}_{args.split}.h5ad"))
+        return
 
     # Stand-in for the official bundle: this project's own four cell lines, three
     # of them cast as contexts A/B/C.  The real run swaps in the downloaded
