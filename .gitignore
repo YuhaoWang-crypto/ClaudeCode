@@ -11,3 +11,5 @@ results/gwps_bench.log
 results/gwps_frontier.log
 results/vcc2026_build.log
 results/vcc2026_prep.log
+results/llm_preds/
+results/jiang_prep.log

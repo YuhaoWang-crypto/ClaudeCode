@@ -1,0 +1,35 @@
+{
+  "contexts": {
+    "Jurkat": "Jurkat \u2014 human T-lymphoblast leukaemia line, T-lymphoid lineage, suspension, CD3/TCR-positive, immature T cell",
+    "RPE1": "RPE1 (hTERT RPE-1) \u2014 human retinal pigment epithelial line, non-cancerous, near-diploid, adherent epithelium"
+  },
+  "knockdowns": [
+    "CSTF3",
+    "EIF2B5",
+    "EIF3CL",
+    "EIF3G",
+    "FAU",
+    "KIF23",
+    "LARS",
+    "LSM2",
+    "LUC7L3",
+    "MRPS14",
+    "NEDD8",
+    "PDRG1",
+    "PHB",
+    "RPL18",
+    "RPL27",
+    "RPS3A",
+    "RUVBL2",
+    "SF3A3",
+    "SNRPC",
+    "SNRPE",
+    "TNPO3",
+    "TOP1",
+    "URI1",
+    "ZNF830"
+  ],
+  "n_genes_per_direction": 50,
+  "gene_universe_size": 6642,
+  "instructions": "For each knockdown in each context, list the gene symbols you expect to change most. CRISPRi knockdown, steady state, pseudobulk mRNA. Use HGNC symbols."
+}
