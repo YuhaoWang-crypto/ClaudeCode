@@ -259,6 +259,34 @@ def run(n_eval: int = 400, tune_eval: int = 300, seed: int = 0,
     return {"results": results, "hyper": chosen}
 
 
+JIANG_PRIOR = DATA / "pseudobulk" / "jiang_transferability.npz"
+
+
+def jiang_transferability(symbols: np.ndarray, min_perturbations: int = 50
+                          ) -> np.ndarray | None:
+    """The same prior estimated on Jiang's six cell lines instead of four.
+
+    Built by :mod:`virtualcell.prep_jiang`.  Two reasons to prefer it where it
+    is available: six lines put the pure-noise floor near 0.17 rather than the
+    0.33 that three lines impose, which widens the usable range; and four of the
+    six are epithelial, which is what the official contexts B and C are and what
+    the four-line atlas contains none of.
+
+    Genes it cannot speak for -- unmeasured, or with too few usable
+    perturbations -- take the median, which is neutral.  Returns ``None`` if the
+    prior has not been built.
+    """
+    if not JIANG_PRIOR.exists():
+        return None
+    z = np.load(JIANG_PRIOR, allow_pickle=True)
+    frac, n = z["fraction"], z["n_perturbations"]
+    ok = n >= min_perturbations
+    lut = {g: float(f) for g, f, k in
+           zip(z["genes"].astype(str), frac, ok) if k}
+    med = float(np.median(frac[ok]))
+    return np.array([lut.get(str(s), med) for s in symbols])
+
+
 def gene_transferability(symbols: np.ndarray,
                          exclude: str | None = None) -> np.ndarray:
     """Per-gene fraction of response variance that survives a change of context.
@@ -366,8 +394,25 @@ def replicate_ceiling(verbose: bool = True) -> dict:
 # --------------------------------------------------------------------------
 
 BETAS = (0.0, 0.25, 0.4, 0.5, 0.6, 0.75, 0.9, 1.0, 1.25, 1.5, 2.0)
-GENE_WS = (0.0, 0.5, 1.0)
+# ``none`` is the no-prior arm; the two priors are otherwise identical in role
+# but nearly uncorrelated with each other (Spearman 0.08 on the genes both
+# cover), so which one is better is an empirical question, not a choice.
+ARMS = (("none", 0.0), ("atlas", 0.5), ("atlas", 1.0),
+        ("jiang", 0.5), ("jiang", 1.0))
 BENCH_FILE = Path("results/gwps_single_source.json")
+
+
+def build_prior(name: str, symbols: np.ndarray, exclude: str | None
+                ) -> np.ndarray | None:
+    """The named per-gene transferability prior on this gene axis."""
+    if name == "atlas":
+        return gene_transferability(symbols, exclude=exclude)
+    if name == "jiang":
+        p = jiang_transferability(symbols)
+        if p is None:
+            raise SystemExit("run `python -m virtualcell.prep_jiang` first")
+        return p
+    return None
 
 
 def _tuned_per_fold(names: list[str]) -> dict[str, Hyper]:
@@ -392,7 +437,7 @@ def _tuned_per_fold(names: list[str]) -> dict[str, Hyper]:
 
 
 def frontier(n_eval: int = 400, seed: int = 0, verbose: bool = True,
-             gene_ws: tuple[float, ...] = GENE_WS) -> dict:
+             arms: tuple[tuple[str, float], ...] = ARMS) -> dict:
     """Trace error against discrimination as predicted effects are scaled.
 
     With four source contexts the model cleared the challenge baseline on all
@@ -433,16 +478,20 @@ def frontier(n_eval: int = 400, seed: int = 0, verbose: bool = True,
         truth = de_truth(target, sel)
         base_m = evaluate(GlobalMeanBaseline().fit([source], target.mu, symbols)
                           .predict(sel), target, sel, truth, symbols)
-        # the prior must not have seen the line it is used to predict
-        prior = gene_transferability(symbols, exclude=target.name)
+        # a prior must not have seen the line it is used to predict; the Jiang
+        # screen contains none of these four lines, so only the atlas one needs
+        # the exclusion
+        priors = {name: build_prior(name, symbols, exclude=target.name)
+                  for name, _ in arms}
 
         # one fit per fold: beta and gene_w act only in predict()
         model = ContextTransferModel(hp0).fit(
-            [source], target.mu, symbols, bank=bank, gene_prior=prior)
+            [source], target.mu, symbols, bank=bank)
 
         per_w: dict[str, dict] = {}
-        for w in gene_ws:
-            key = f"{w:g}"
+        for name, w in arms:
+            key = f"{name}:{w:g}"
+            model._gene_prior = priors[name]
             rows = {"beta": [], "pds": [], "ovl": [], "mae": [], "score": [],
                     "balanced": [], "mae_vs_base": [], "norm_cv": []}
             for b in BETAS:
@@ -462,12 +511,12 @@ def frontier(n_eval: int = 400, seed: int = 0, verbose: bool = True,
 
         index = {n: i for i, n in enumerate(target.names)}
         truth_cv = M.norm_cv(target.delta[[index[p] for p in sel]])
-        out[target.name] = {"gene_w": per_w, "truth_norm_cv": truth_cv}
+        out[target.name] = {"arm": per_w, "truth_norm_cv": truth_cv}
         if verbose:
             print(f"\n--- {target.name} ({sel.size} knockdowns; measured "
                   f"magnitude spread {truth_cv:.3f}) ---")
             for key, rows in per_w.items():
-                print(f"  gene_w={key}")
+                print(f"  prior:gene_w = {key}")
                 print(f"    {'beta':>5}{'PDS':>8}{'ovl@100':>10}{'MAE':>9}"
                       f"{'ΔMAE vs base':>14}{'norm CV':>10}{'score':>8}"
                       f"{'balanced':>10}")
@@ -480,30 +529,32 @@ def frontier(n_eval: int = 400, seed: int = 0, verbose: bool = True,
                           f"{rows['balanced'][i]:>+10.3f}{flag}", flush=True)
 
     best: dict[str, dict] = {}
-    for w in gene_ws:
-        key = f"{w:g}"
-        worst = [max(out[t]["gene_w"][key]["mae_vs_base"][i] for t in out)
+    for name, w in arms:
+        key = f"{name}:{w:g}"
+        worst = [max(out[t]["arm"][key]["mae_vs_base"][i] for t in out)
                  for i in range(len(BETAS))]
         safe = [b for b, x in zip(BETAS, worst) if x <= 0]
-        entry = {"safe_beta": max(safe) if safe else None}
+        entry = {"safe_beta": max(safe) if safe else None,
+                 "prior": name, "gene_w": w}
         if safe:
             i = BETAS.index(max(safe))
             for m in ("pds", "ovl", "score"):
-                entry[m] = float(np.mean([out[t]["gene_w"][key][m][i] for t in out]))
+                entry[m] = float(np.mean([out[t]["arm"][key][m][i] for t in out]))
         best[key] = entry
     if verbose:
         print("\nlargest scale keeping MAE at or below baseline on every fold")
-        print(f"  {'gene_w':>8}{'beta':>7}{'PDS':>8}{'ovl@100':>10}{'score':>8}")
+        print(f"  {'prior:gene_w':>14}{'beta':>7}{'PDS':>8}{'ovl@100':>10}"
+              f"{'score':>8}")
         for key, e in best.items():
             if e["safe_beta"] is None:
-                print(f"  {key:>8}{'none':>7}")
+                print(f"  {key:>14}{'none':>7}")
                 continue
-            print(f"  {key:>8}{e['safe_beta']:>7.2f}{e['pds']:>8.3f}"
+            print(f"  {key:>14}{e['safe_beta']:>7.2f}{e['pds']:>8.3f}"
                   f"{e['ovl']:>10.3f}{e['score']:>8.3f}")
 
     Path("results").mkdir(exist_ok=True)
     Path("results/gwps_frontier.json").write_text(json.dumps(
-        {"betas": list(BETAS), "gene_ws": list(gene_ws), "folds": out,
+        {"betas": list(BETAS), "arms": [list(a) for a in arms], "folds": out,
          "best": best}, indent=2))
     return out
 

@@ -1,0 +1,14 @@
+reading /home/user/vcc_data/jiang/DE_results_all_pathway.zip
+  read 50/271 files (9,695 genes seen so far)
+  read 100/271 files (10,263 genes seen so far)
+  read 150/271 files (10,553 genes seen so far)
+  read 200/271 files (10,768 genes seen so far)
+  read 250/271 files (10,839 genes seen so far)
+  271 perturbations x 6 cell lines x 10,847 genes
+  measured fraction: 59.8%
+
+transferability over 6 lines (A549, BXPC3, HAP1, HT29, K562, MCF7), 7,492 genes with >=50 usable perturbations:
+  median 0.222, IQR 0.197-0.253, range 0.080-0.830
+  pure-noise floor at 6 lines is ~0.17
+
+wrote /home/user/vcc_data/pseudobulk/jiang_transferability.npz

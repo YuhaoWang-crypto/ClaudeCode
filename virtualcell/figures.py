@@ -149,8 +149,8 @@ def magnitude_frontier(payload: dict, out: Path) -> None:
     panel: the trade-off itself, one curve per held-out line.
     """
     betas = payload["betas"]
-    # plot the plain sweep; the gene-transferability variants are a table
-    folds = {k: v["gene_w"]["0"] for k, v in payload["folds"].items()}
+    # plot the no-prior sweep; the transferability-prior arms are a table
+    folds = {k: v["arm"]["none:0"] for k, v in payload["folds"].items()}
     fig, axes = plt.subplots(1, 2, figsize=(11.5, 4.3), facecolor=SURFACE)
     for ax in axes:
         _style(ax)

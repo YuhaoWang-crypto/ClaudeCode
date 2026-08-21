@@ -41,7 +41,7 @@ from dataclasses import replace
 
 from . import metrics as M
 from .data import CellLine
-from .gwps import gene_transferability, load_gwps, project
+from .gwps import build_prior, load_gwps, project
 from .model import ContextTransferModel, Hyper, SourceBank
 from .vcc_submit import CONTEXTS, build
 
@@ -124,7 +124,8 @@ def source_on_official(axis: np.ndarray) -> tuple[CellLine, np.ndarray]:
 
 
 def predict_panel(hp: Hyper, targets: np.ndarray | None = None,
-                  verbose: bool = True) -> dict[str, tuple[np.ndarray, np.ndarray]]:
+                  prior_name: str = "atlas", verbose: bool = True
+                  ) -> dict[str, tuple[np.ndarray, np.ndarray]]:
     """Predicted effects for every context, on the full official gene axis."""
     axis, perts = gene_axis(), panel()
     if targets is not None:
@@ -143,10 +144,11 @@ def predict_panel(hp: Hyper, targets: np.ndarray | None = None,
     bank = SourceBank.build([src], np.ones(1))
     # No official context is one of the four atlas lines, so nothing is excluded
     # from the prior here.  It is still only consulted when hp.gene_w > 0.
-    prior = gene_transferability(src.symbols) if hp.gene_w > 0 else None
+    prior = (build_prior(prior_name, src.symbols, exclude=None)
+             if hp.gene_w > 0 else None)
     if verbose and prior is not None:
-        print(f"  per-gene transferability prior in use (gene_w={hp.gene_w:g}), "
-              f"median {np.median(prior):.3f}")
+        print(f"  per-gene transferability prior {prior_name!r} in use "
+              f"(gene_w={hp.gene_w:g}), median {np.median(prior):.3f}")
 
     out, model = {}, None
     for c in CONTEXTS:
@@ -181,7 +183,7 @@ FRONTIER_FILE = Path("results/gwps_frontier.json")
 
 
 def threshold_safe(hp: Hyper, path: Path = FRONTIER_FILE,
-                   verbose: bool = True) -> Hyper:
+                   verbose: bool = True) -> tuple[Hyper, str]:
     """Replace the tuned effect scale with one that meets every metric threshold.
 
     Two selection rules are in play and they disagree, for a reason worth being
@@ -197,27 +199,31 @@ def threshold_safe(hp: Hyper, path: Path = FRONTIER_FILE,
     ``beta`` and ``gene_w`` from there and everything else from the tuner, which
     is the honest combination: the constraint comes from the metric the challenge
     enforces, the rest from cross-validation.
+
+    Returns the adjusted hyperparameters and the name of the per-gene prior the
+    winning arm used (``"none"`` if none did).
     """
     if not path.exists():
         if verbose:
             print(f"  {path} absent; keeping the tuned effect scale, which may "
                   f"fail the MAE threshold")
-        return hp
+        return hp, "none"
     best = json.loads(path.read_text())["best"]
     usable = {k: v for k, v in best.items() if v.get("safe_beta") is not None}
     if not usable:
         if verbose:
             print("  no effect scale kept MAE at or below baseline on every "
                   "fold; keeping the tuned value and reporting the failure")
-        return hp
+        return hp, "none"
     key = max(usable, key=lambda k: usable[k].get("score", 0.0))
     e = usable[key]
     if verbose:
-        print(f"  effect scale from the frontier: beta {hp.beta:g} -> "
-              f"{e['safe_beta']:g}, gene_w {hp.gene_w:g} -> {key} "
+        print(f"  frontier picks arm {key!r}: beta {hp.beta:g} -> "
+              f"{e['safe_beta']:g}, gene_w {hp.gene_w:g} -> {e['gene_w']:g} "
               f"(mean PDS {e['pds']:.3f}, ovl@100 {e['ovl']:.3f}, "
               f"score {e['score']:.3f})")
-    return replace(hp, beta=float(e["safe_beta"]), gene_w=float(key))
+    return (replace(hp, beta=float(e["safe_beta"]), gene_w=float(e["gene_w"])),
+            str(e["prior"]))
 
 
 def single_source_hyper(exclude: str | None = None,
@@ -390,9 +396,9 @@ def main() -> None:
         hp = Hyper(temp=np.inf)
         print(f"WARNING: {args.hyper} absent, using untuned defaults")
     if not args.keep_tuned_scale:
-        hp = threshold_safe(hp)
+        hp, prior_name = threshold_safe(hp)
 
-    predictions = predict_panel(hp)
+    predictions = predict_panel(hp, prior_name=prior_name)
     build(predictions, {c: (lambda c=c: control_cells(c)) for c in CONTEXTS},
           gene_axis(), args.out, args.n_cells, args.seed)
     print("\nvalidate with:")
