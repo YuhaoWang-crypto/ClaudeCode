@@ -16,6 +16,7 @@ import pandas as pd
 
 from . import features as F
 from . import fetch, peptides, presentation, score, select, construct, selfindex
+from . import provenance
 from . import variants as V
 from .config import PipelineConfig
 
@@ -110,9 +111,12 @@ def run_pipeline(variant_table: pd.DataFrame, cfg: PipelineConfig,
     return out
 
 
-def write_outputs(res: Dict[str, object], outdir: str) -> List[str]:
+def write_outputs(res: Dict[str, object], outdir: str, cfg=None,
+                  **manifest_kw) -> List[str]:
     os.makedirs(outdir, exist_ok=True)
     written = []
+    if cfg is not None:
+        written.append(provenance.write_manifest(res, cfg, outdir, **manifest_kw))
     for key in ("gate_waterfall", "ranked", "selected", "coverage",
                 "peptides_skipped", "candidates"):
         obj = res.get(key)

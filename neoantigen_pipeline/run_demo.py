@@ -89,7 +89,10 @@ def main(argv=None) -> int:
     res = pipeline.run_pipeline(variants, cfg, proteome=proteome,
                                 build_construct=not a.no_construct,
                                 max_variants_to_predict=a.max_variants)
-    written = pipeline.write_outputs(res, a.out)
+    written = pipeline.write_outputs(
+        res, a.out, cfg=cfg,
+        proteome_path=os.path.join(os.path.dirname(fetch.__file__), 'data',
+                                   'cache', 'uniprot_human_reviewed.fasta.gz'))
 
     assumptions = [
         "HLA class-I type is a declared common haplotype, not this patient's real "

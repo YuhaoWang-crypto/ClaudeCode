@@ -238,9 +238,10 @@ Random baseline AP = **0.067**.
 | score | AP | ×baseline | AUC | positives in top-34 / patient |
 |---|---|---|---|---|
 | **NetMHCpan-4.1 EL %rank alone** | **0.207** | 3.08 | 0.791 | **31 / 35** |
-| this package's composite | 0.149 | 2.22 | 0.729 | 24 / 35 |
+| this package's composite, new defaults | 0.163 | 2.42 | 0.763 | 26 / 35 |
+| this package's composite, old defaults | 0.149 | 2.22 | 0.729 | 24 / 35 |
+| composite without the TCR prior | 0.142 | 2.11 | 0.770 | 26 / 35 |
 | `cnn_regress` (best published column) | 0.132 | 1.96 | 0.654 | 19 / 35 |
-| composite without the TCR prior | 0.127 | 1.90 | 0.738 | 24 / 35 |
 | `rf_regress` | 0.108 | 1.62 | 0.619 | 19 / 35 |
 | `cnn_classify` | 0.108 | 1.61 | 0.550 | 14 / 35 |
 | DeepImmuno `immunogenic score` | 0.083 | 1.23 | 0.477 | 13 / 35 |
@@ -262,7 +263,10 @@ what a designer would actually use, not a re-training of those models.
 the presentation-controlled IEDB benchmark, now on real labels with real
 negatives. Two independent datasets agreeing is enough to act on, so the
 defaults changed: presentation 0.30 → 0.45, and agretopicity, dissimilarity,
-TCR prior and hydrophobicity all cut. Weight settings compared per patient:
+TCR prior and hydrophobicity all cut. That moved the composite from AP 0.149 to
+0.163 and from 24 to 26 positives in a 34-slot budget — a real improvement, and
+**still below presentation alone at 0.207 and 31/35**. Weight settings compared
+per patient:
 
 | weights | pooled AP | mean AP per patient | positives in top-20 |
 |---|---|---|---|

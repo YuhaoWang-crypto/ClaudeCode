@@ -90,7 +90,7 @@ real metrics, not lower bounds; random baseline AP 0.067):
 | score | AP | AUC | positives in a 34-slot budget |
 |---|---|---|---|
 | **NetMHCpan-4.1 EL %rank alone** | **0.207** | 0.791 | **31 / 35** |
-| this package's composite | 0.149 | 0.729 | 24 / 35 |
+| this package's composite | 0.163 | 0.763 | 26 / 35 |
 | best published column in the mirror | 0.132 | 0.654 | 19 / 35 |
 | DeepImmuno `immunogenic score` | 0.083 | 0.477 | 13 / 35 |
 

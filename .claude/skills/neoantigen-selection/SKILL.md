@@ -35,6 +35,7 @@ literature-grounded stand-in, labelled as such in the output.
 | 6b constrained selection | `select.py` | <=34 slots under gene caps, allele spread, clonal preference |
 | 7 construct | `construct.py` | junction-minimizing minigene order + codon-optimized CDS + QC |
 | 8 report | `report.py` | markdown with `[computed]` / `[assumed]` / `[unverified]` labels |
+| - provenance | `provenance.py` | `audit_manifest.json`: input hashes, git revision, weights, predictor, evidence level |
 | - benchmark | `benchmark.py` | AUC vs validated IEDB neoepitopes and matched decoys |
 | - TESLA | `tesla.py` | AP / top-N recovery on 522 real T-cell-assayed pMHC pairs |
 
@@ -106,7 +107,8 @@ Random baseline AP = 0.067.
 | score | AP | AUC | positives in a 34-slot budget |
 |---|---|---|---|
 | **NetMHCpan-4.1 EL %rank alone** | **0.207** | 0.791 | **31 / 35** |
-| this package's composite | 0.149 | 0.729 | 24 / 35 |
+| this package's composite (presentation-dominant defaults) | 0.163 | 0.763 | 26 / 35 |
+| the same composite with the old literature-balanced weights | 0.149 | 0.729 | 24 / 35 |
 | best published column in the mirror (`cnn_regress`) | 0.132 | 0.654 | 19 / 35 |
 | DeepImmuno `immunogenic score` | 0.083 | 0.477 | 13 / 35 |
 
@@ -157,5 +159,8 @@ All prediction results are cached on disk per batch, so re-runs are free.
   would break it.
 - `reference/workflow.md` -- the public workflow this mirrors, what is open vs
   proprietary, and where real patient data has to come from.
-- `reference/benchmark.md` -- how the ground truth is mined and why the numbers
-  are lower bounds.
+- `reference/benchmark.md` -- how the ground truth is mined, the TESLA mirror
+  results, and why the IEDB-derived numbers are lower bounds.
+- `reference/comparison.md` -- head-to-head with the `design-neoantigen-vaccines`
+  package: what was adopted from it, and which of its documented steps its code
+  does not perform.
