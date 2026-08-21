@@ -67,32 +67,44 @@ the ranking can be checked rather than trusted.
 | `select.py` | constrained ≤34 selection | gene caps, HLA-allele spread, clonal preference, `why_selected` per slot |
 | `construct.py` | mRNA concatemer | junction-minimizing minigene order, junction rescan, codon-optimized CDS + QC |
 | `benchmark.py` | ground truth | validated IEDB neoepitopes vs matched TCGA decoys |
+| `tesla.py` | ground truth | 522 real T-cell-assayed pMHC pairs (public TESLA mirror) |
 | `report.py` | write-up | `[computed]` / `[assumed]` / `[unverified]` on every claim |
 
 ## Run
 
 ```bash
 pip install numpy pandas requests
-python -m neoantigen_pipeline.run_demo --out demo_out --benchmark
+python -m neoantigen_pipeline.run_demo --out demo_out --benchmark --tesla
 ```
 
 Real TCGA-SKCM melanoma tumor (cBioPortal open API), real UniProt reference
 proteome, real NetMHCpan calls, real IEDB T-cell-assay ground truth. The first
 run downloads and caches the proteome (~5 min); everything afterwards is cached.
 
-## What the benchmark found
+## What the benchmarks found
 
-Against validated IEDB neoepitopes, with decoys matched only on allele and
-length, NetMHCpan %rank alone reaches AUC 0.966 — which measures the binding
-predictor, not the pipeline, because IEDB epitopes were largely discovered
-*because* they bind. With binding controlled for, everything collapses toward
-chance: NetMHCpan alone 0.599, the composite score 0.576, every individual
-feature 0.46–0.55.
+On the **public TESLA mirror** (522 peptide-HLA pairs, 35 experimentally
+immunogenic, 6 patients — a label of 0 means assayed and negative, so these are
+real metrics, not lower bounds; random baseline AP 0.067):
 
-So the composite score is **not validated** and on this evidence does not beat
-the binding predictor. What is doing real work is the part no peptide-intrinsic
-benchmark can measure: the expression / tumor-specificity / clonality gates and
-the payload constraints. Numbers, caveats and the per-stratum breakdown are in
+| score | AP | AUC | positives in a 34-slot budget |
+|---|---|---|---|
+| **NetMHCpan-4.1 EL %rank alone** | **0.207** | 0.791 | **31 / 35** |
+| this package's composite | 0.149 | 0.729 | 24 / 35 |
+| best published column in the mirror | 0.132 | 0.654 | 19 / 35 |
+| DeepImmuno `immunogenic score` | 0.083 | 0.477 | 13 / 35 |
+
+The **IEDB-mined benchmark** agrees: with decoys matched only on allele and
+length NetMHCpan alone scores AUC 0.966 (a trap — IEDB epitopes were largely
+discovered *because* they bind), and with binding controlled for it falls to
+0.599 with the composite at 0.576.
+
+So the composite score is **not validated** and does not beat the binding
+predictor. The defaults moved to presentation-dominant because of this, and
+`config.PRESENTATION_ONLY` ships as a preset. What is doing real work is the
+part no peptide-intrinsic benchmark can measure: the expression /
+tumor-specificity / clonality gates and the payload constraints. Numbers,
+per-patient breakdown and caveats are in
 [`reference/benchmark.md`](.claude/skills/neoantigen-selection/reference/benchmark.md).
 
 The packaged skill — including the reasoning behind every weight and threshold

@@ -114,7 +114,9 @@ def f_dissimilarity(mut: str, wt: Optional[str]) -> float:
     tolerized repertoire; a radical one (G->W) is more foreign. Normalized from
     the BLOSUM62 score of the substituted position(s).
     """
-    if not wt or len(wt) != len(mut):
+    # `wt` arrives as None from the peptide builder and as NaN from a DataFrame
+    # column; NaN is truthy, so test the type rather than the truthiness.
+    if not isinstance(wt, str) or not isinstance(mut, str) or len(wt) != len(mut):
         return 0.75            # neo-ORF peptide: foreign by construction, but unverified
     diffs = [(a, b) for a, b in zip(mut, wt) if a != b]
     if not diffs:

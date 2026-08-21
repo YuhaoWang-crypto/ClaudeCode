@@ -46,14 +46,45 @@ class Gates:
 
 @dataclass
 class Weights:
-    presentation: float = 0.30    # MHC-I EL %rank (NetMHCpan)
-    agretopicity: float = 0.15    # WT rank / MUT rank (differential agretopicity, Duan 2014)
-    expression: float = 0.15      # tumor RNA TPM
-    clonality: float = 0.10       # CCF from DNA VAF + purity + CN
-    dissimilarity: float = 0.10   # BLOSUM-weighted distance to nearest self peptide
-    tcr_prior: float = 0.10       # Luksza-2017-style alignment to known immunogenic epitopes
-    hydrophobicity: float = 0.05  # Chowell 2015 / Wells 2020 TCR-contact hydrophobicity
+    """Defaults are presentation-dominant *because two benchmarks said so*.
+
+    The original literature-balanced defaults gave presentation 0.30 and spread
+    0.40 across agretopicity / dissimilarity / TCR prior / hydrophobicity. Both
+    the presentation-controlled IEDB benchmark and the TESLA mirror (real T-cell
+    assay labels, real negatives) found those four features at or below the
+    random baseline, and the diluted composite scoring *below* the binding
+    predictor alone. So the weight moved to where the evidence is.
+
+    Expression, clonality and class-II support keep their weight: neither
+    benchmark can evaluate them (an IEDB or TESLA peptide has no tumor RNA
+    value and no CCF), and they encode facts about the tumor rather than
+    guesses about the T-cell repertoire.
+
+    See reference/benchmark.md for the numbers behind this.
+    """
+
+    presentation: float = 0.45    # MHC-I EL %rank (NetMHCpan-4.1)
+    expression: float = 0.18      # tumor RNA TPM
+    clonality: float = 0.12       # CCF from DNA VAF + purity + CN
+    agretopicity: float = 0.08    # WT rank / MUT rank (Duan 2014)
+    tcr_prior: float = 0.07       # Luksza-2017-style alignment to known immunogenic epitopes
     mhc2_support: float = 0.05    # a CD4 helper epitope in the same 25mer
+    dissimilarity: float = 0.03   # BLOSUM-weighted distance from the self peptide
+    hydrophobicity: float = 0.02  # Chowell 2015 / Wells 2020 TCR-contact hydrophobicity
+
+
+# Named presets. `PRESENTATION_ONLY` is the single best-scoring setting on the
+# TESLA mirror (AP 0.207 pooled, 0.266 mean per patient, 31/35 positives inside
+# a 34-slot budget); use it when hit rate is the only objective and you have no
+# expression or clonality data. `LITERATURE_BALANCED` is what this package
+# shipped before the benchmarks were run -- kept so the change is reproducible,
+# not because it is recommended.
+PRESENTATION_ONLY = Weights(presentation=1.0, expression=0.0, clonality=0.0,
+                            agretopicity=0.0, tcr_prior=0.0, mhc2_support=0.0,
+                            dissimilarity=0.0, hydrophobicity=0.0)
+LITERATURE_BALANCED = Weights(presentation=0.30, agretopicity=0.15, expression=0.15,
+                              clonality=0.10, dissimilarity=0.10, tcr_prior=0.10,
+                              hydrophobicity=0.05, mhc2_support=0.05)
 
 
 @dataclass

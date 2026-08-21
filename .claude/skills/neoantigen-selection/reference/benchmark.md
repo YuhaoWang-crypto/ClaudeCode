@@ -200,6 +200,110 @@ If you want the composite to beat the binding predictor, the honest routes are
 labelled outcome data to fit the weights on, or better features — not a
 benchmark whose decoys make the problem look easier than it is.
 
+---
+
+# The TESLA mirror: real labels, real negatives (`tesla.py`)
+
+Everything above works around one weakness — the decoys are *unlabelled*, so
+every AUC is a lower bound and the true negative rate is unknown. The public
+TESLA mirror removes that weakness where it can be removed.
+
+`data/tesla_deepimmuno_public.csv` holds **522 peptide-HLA pairs, 35
+experimentally immunogenic, across 6 patients**, with the per-model scores
+published alongside the DeepImmuno evaluation. A label of 0 here means
+**assayed against patient T cells and found negative** — not "never tested". It
+is a processed public mirror, not the full 608-pMHC supplemental table, and
+every number inherits that scope.
+
+Two properties make it the right dataset to argue over:
+
+* **6.7% base rate.** Accuracy is meaningless; average precision (PR-AUC) and
+  top-N recovery are what move. `tesla.evaluate()` reports AP, AP relative to
+  baseline, AUC, and top-20 / top-34 recovery.
+* **It is already presentation-filtered.** 100% of positives and 91% of
+  negatives sit at %rank ≤ 2; at ≤ 0.5 it is 97% vs 68%. The negatives are
+  mostly predicted binders that were tested and came back negative — which is
+  exactly the presentation-controlled comparison benchmark B tries to construct
+  synthetically, here for free.
+
+Wild-type counterparts are recovered the same way `build_positive_set` mines
+its positives — the self k-mer one substitution away — so agretopicity is
+computed identically to the main pipeline. On this mirror 487 of 522 peptides
+have one; the rest keep the neutral value and are counted, not dropped.
+
+## Results (2026-08-21, NetMHCpan-4.1 EL via the IEDB cloud API)
+
+Random baseline AP = **0.067**.
+
+| score | AP | ×baseline | AUC | positives in top-34 / patient |
+|---|---|---|---|---|
+| **NetMHCpan-4.1 EL %rank alone** | **0.207** | 3.08 | 0.791 | **31 / 35** |
+| this package's composite | 0.149 | 2.22 | 0.729 | 24 / 35 |
+| `cnn_regress` (best published column) | 0.132 | 1.96 | 0.654 | 19 / 35 |
+| composite without the TCR prior | 0.127 | 1.90 | 0.738 | 24 / 35 |
+| `rf_regress` | 0.108 | 1.62 | 0.619 | 19 / 35 |
+| `cnn_classify` | 0.108 | 1.61 | 0.550 | 14 / 35 |
+| DeepImmuno `immunogenic score` | 0.083 | 1.23 | 0.477 | 13 / 35 |
+| `IEDB` immunogenicity score | 0.070 | 1.04 | 0.523 | 17 / 35 |
+| agretopicity alone | 0.066 | 0.99 | 0.449 | 10 / 35 |
+| dissimilarity alone | 0.065 | 0.97 | 0.494 | 13 / 35 |
+| hydrophobicity alone | 0.057 | 0.84 | 0.405 | 15 / 35 |
+
+Three things follow.
+
+**1. A current presentation predictor beats every published model column on
+this mirror.** NetMHCpan-4.1 EL %rank alone: AP 0.207 against a best published
+column of 0.132, and 31 of 35 experimentally confirmed positives inside a
+34-slot budget against 19. Note what is being compared: NetMHCpan re-run today
+versus model scores *as published* in the mirror. It is a fair comparison of
+what a designer would actually use, not a re-training of those models.
+
+**2. The composite scored below plain presentation, again.** Same direction as
+the presentation-controlled IEDB benchmark, now on real labels with real
+negatives. Two independent datasets agreeing is enough to act on, so the
+defaults changed: presentation 0.30 → 0.45, and agretopicity, dissimilarity,
+TCR prior and hydrophobicity all cut. Weight settings compared per patient:
+
+| weights | pooled AP | mean AP per patient | positives in top-20 |
+|---|---|---|---|
+| presentation only | **0.207** | **0.266** | 17 / 35 |
+| presentation .85 + TCR prior .15 | 0.178 | 0.250 | **18 / 35** |
+| presentation-dominant .85 | 0.176 | 0.226 | 15 / 35 |
+| presentation-dominant .70 | 0.165 | 0.211 | 16 / 35 |
+| old literature-balanced (.30) | 0.149 | 0.195 | 15 / 35 |
+
+Monotone in the weight on presentation. `config.PRESENTATION_ONLY` ships as a
+preset for anyone whose only objective is hit rate; the shipped default keeps a
+little weight on the others plus the full weight on expression and clonality,
+which this dataset cannot evaluate at all.
+
+**3. Per-patient variance dwarfs the model differences.** Ranked by
+presentation, in a 20-slot budget:
+
+| patient | pMHC | positives | recovered in top-20 |
+|---|---|---|---|
+| 1 | 82 | 9 | 4 |
+| 2 | 97 | 4 | 3 |
+| 3 | 84 | 12 | 5 |
+| 10 | 59 | 3 | 3 |
+| 12 | 79 | 4 | 2 |
+| 16 | 121 | 3 | **0** |
+
+Patient 16 gets nothing. Any claim about a pipeline's hit rate that is not
+reported per patient is hiding this.
+
+**Caveats**: 35 positives across 6 patients is small; the mirror is a subset of
+the published supplement; and TESLA's tested peptides were nominated by
+prediction pipelines in the first place, so the *candidate* set is not an
+unbiased sample of all mutant peptides — though the labels, which are assay
+outcomes, are unbiased with respect to that.
+
+```bash
+python -m neoantigen_pipeline.run_demo --out demo_out --tesla
+```
+
+---
+
 ## The number that matters more than the AUC
 
 Published prospective work — the TESLA consortium's blinded comparison of

@@ -3,7 +3,18 @@
 Nothing here is a vendor formula. Each feature encodes one published
 observation about what separates an immunogenic neoantigen from a peptide that
 merely exists. Weights are defaults to argue with, not a fitted model — refit
-them with `benchmark.py` if you have labelled data.
+them with `benchmark.py` or `tesla.py` if you have labelled data.
+
+> **The weights changed once already, and the reason is on the record.**
+> They started literature-balanced (presentation 0.30, with 0.40 spread across
+> agretopicity / dissimilarity / TCR prior / hydrophobicity). Two independent
+> benchmarks — the presentation-controlled IEDB one and the TESLA mirror, which
+> has real T-cell assay labels and real negatives — put those four features at
+> or below the random baseline and scored the diluted composite *below the
+> binding predictor alone*. So presentation went to 0.45 and the four dropped.
+> `config.LITERATURE_BALANCED` still holds the old set so the change is
+> reproducible; `config.PRESENTATION_ONLY` holds the setting that actually
+> scored highest on TESLA. See `reference/benchmark.md`.
 
 Two layers, deliberately separate:
 
@@ -32,7 +43,7 @@ most common way a ranking ends up recommending an unexpressed gene.
 
 ## Features (`features.py`), all mapped to [0, 1], higher = better
 
-### `presentation` — weight 0.30
+### `presentation` — weight 0.45
 `1 / (1 + (rank/0.5)^1.5)` on the NetMHCpan-4.1 **eluted-ligand** %rank.
 0.5% → 0.5, 0.05% → 0.97, 2% → 0.11.
 
@@ -44,7 +55,7 @@ the benchmark shows.
 
 **Breaks when:** the HLA type is wrong. Every downstream number inherits that error.
 
-### `agretopicity` — weight 0.15
+### `agretopicity` — weight 0.08
 `clip((log10(WT rank / MUT rank) + 2) / 4, 0, 1)`.
 
 Ratio of self-peptide binding to mutant binding — "differential agretopicity"
@@ -59,7 +70,7 @@ never masquerades as evidence.
 **Breaks when:** the peptide has no wild-type counterpart (neo-ORF, frameshift) —
 handled as neutral rather than as a maximum.
 
-### `expression` — weight 0.15
+### `expression` — weight 0.18
 `log10(TPM+1) / log10(101)`, clipped. Saturates at 100 TPM: the difference
 between 100 and 1000 TPM does not predict immunogenicity, the difference between
 0.5 and 50 does.
@@ -69,7 +80,7 @@ ideally with the mutant-allele fraction *in RNA* (allele-specific expression),
 which catches mutations silenced by nonsense-mediated decay or allelic
 imbalance. Gene-level RSEM is a coarser stand-in.
 
-### `clonality` — weight 0.10
+### `clonality` — weight 0.12
 CCF, clipped to [0,1], from
 `VAF x (purity x CN_tumor + 2 x (1-purity)) / (purity x multiplicity)`.
 
@@ -81,7 +92,7 @@ Clonal neoantigen burden, not total burden, tracks checkpoint-inhibitor benefit
 multiplicity=1 it degenerates to `2·VAF/purity` — usable for ranking, not for
 claiming a CCF value. The demo says so explicitly.
 
-### `dissimilarity` — weight 0.10
+### `dissimilarity` — weight 0.03
 From the BLOSUM62 score of the substituted position(s):
 `clip((3 - mean_blosum) / 7, 0, 1)`.
 
@@ -92,7 +103,7 @@ predicts neoantigen immunogenicity (Richman 2019, *Cell Systems* 9:375).
 Neo-ORF peptides with no self counterpart get 0.75 — foreign by construction,
 but unverified, so not the maximum.
 
-### `tcr_prior` — weight 0.10
+### `tcr_prior` — weight 0.07
 Łuksza-style `R = Z/(1+Z)`, `Z = Σ_j exp(-k(a - s_j))`, published constants
 `a = 26`, `k = 4.87` (Łuksza 2017, *Nature* 551:517), over IEDB epitopes with a
 positive human T-cell assay.
@@ -117,7 +128,7 @@ published score.
 benchmark drops exact self-matches and reports the composite score with and
 without this feature.
 
-### `hydrophobicity` — weight 0.05
+### `hydrophobicity` — weight 0.02
 Mean Kyte-Doolittle over the TCR-facing residues (positions 3..L-1),
 rescaled to [0,1].
 

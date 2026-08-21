@@ -65,6 +65,8 @@ def main(argv=None) -> int:
                     help="decoy pool size per positive for the presentation-controlled benchmark")
     ap.add_argument("--bench-min-allele-n", type=int, default=10,
                     help="alleles with fewer validated positives are dropped from benchmark B")
+    ap.add_argument("--tesla", action="store_true",
+                    help="also benchmark on the public TESLA mirror (real assay labels)")
     ap.add_argument("--no-figures", action="store_true")
     a = ap.parse_args(argv)
 
@@ -98,8 +100,10 @@ def main(argv=None) -> int:
         "segment-level CN at each locus.",
         "Gene-level RSEM values stand in for transcript-level TPM from the "
         "patient's own tumor RNA-seq.",
-        "Composite weights are literature-grounded defaults, not a model fitted "
-        "on outcome data.",
+        "Composite weights are presentation-dominant defaults, chosen by hand "
+        "after two benchmarks found the other peptide-intrinsic features at or "
+        "below baseline. They are not a model fitted on outcome data, and the "
+        "evidence behind them is 35 positives across 6 patients.",
     ]
     md = report.build_report(res, cfg, assumptions=assumptions,
                              title=f"Neoantigen selection demo - {a.sample}")
@@ -207,6 +211,33 @@ def main(argv=None) -> int:
                 "**Within each binding stratum** (NaN = too few of one class in that "
                 "stratum to report a number worth trusting):\n\n"
                 + report._md_table(strat))
+
+    if a.tesla:
+        from . import tesla as T
+        print("== TESLA mirror: real T-cell assay labels, real negatives")
+        td = T.score(T.load(proteome=proteome), cfg.weight_dict())
+        tt = T.evaluate(td)
+        td.to_csv(os.path.join(a.out, "tesla_scored.csv"), index=False)
+        tt.to_csv(os.path.join(a.out, "tesla_metrics.csv"), index=False)
+        pp = T.per_patient_table(td, "score_netmhcpan_only", 20)
+        pp.to_csv(os.path.join(a.out, "tesla_per_patient.csv"), index=False)
+        written += [os.path.join(a.out, f) for f in
+                    ("tesla_scored.csv", "tesla_metrics.csv", "tesla_per_patient.csv")]
+        print(tt.to_string(index=False))
+        md += (
+            "\n\n## 11. TESLA mirror `[computed]`\n\n"
+            f"522 peptide-HLA pairs, **{int(td['label'].sum())} experimentally immunogenic**, "
+            f"{td['patient'].nunique()} patients. Unlike section 10, a label of 0 here means "
+            "*assayed and negative*, not *never tested* - so these are real metrics, not "
+            "lower bounds. Base rate "
+            f"**{tt.attrs['baseline_AP']:.3f}**; average precision (PR-AUC) is the metric "
+            "that moves at this class imbalance, and top-N recovery per patient is what a "
+            "fixed vaccine budget actually cares about.\n\n"
+            "The published per-model columns shipped with the mirror are scored on the "
+            "identical rows, so the comparison is like for like.\n\n"
+            + report._md_table(tt, max_rows=20) +
+            "\nPer-patient recovery in a 20-slot budget, ranked by presentation:\n\n"
+            + report._md_table(pp))
 
     if not a.no_figures:
         try:
