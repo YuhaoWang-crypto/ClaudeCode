@@ -103,6 +103,16 @@ original. For equal-length peptides the two agree closely; the approximation
 buys a ~100x speedup, which is what makes the feature affordable over
 10^4 candidates.
 
+**Behaves as a near-binary flag, by design.** With the published constants the
+exponential is extremely sharp: a candidate that is essentially a known
+immunogenic epitope scores ~1, everything else scores ~0. On the demo run only
+2 of 103 ranked candidates scored above 0.01. That is the intended semantics —
+"this peptide looks like something a human T-cell repertoire has demonstrably
+responded to" is a rare and strong statement, not a graded one — but it means
+the feature contributes nothing to most rankings. If you want a graded version,
+lower `LUKSZA_A` and say in the report that you did, because it is no longer the
+published score.
+
 **Breaks when:** benchmarked against IEDB itself — that is circular. The
 benchmark drops exact self-matches and reports the composite score with and
 without this feature.

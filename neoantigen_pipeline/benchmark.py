@@ -91,12 +91,137 @@ def build_positive_set(proteome: Dict[str, str], lengths=(9, 10),
     return pd.DataFrame(out).drop_duplicates(subset=["peptide", "allele"])
 
 
+def add_ranks(d: pd.DataFrame, batch_size: int = 500,
+              verbose: bool = True) -> pd.DataFrame:
+    """Attach mutant and wild-type %rank for each row's own allele. Cached,
+    so calling it twice on overlapping data costs one network round."""
+    d = d.copy()
+    frames = []
+    for (allele, L), grp in d.groupby(["allele", "length"]):
+        peps = list(dict.fromkeys(list(grp["peptide"]) + list(grp["wt_peptide"].dropna())))
+        pr = presentation.predict_iedb(peps, [allele], int(L), "I",
+                                       batch_size=batch_size, progress=False)
+        frames.append(pr)
+        if verbose:
+            print(f"  ranked {allele} L={L}: {len(grp)} rows", flush=True)
+    if not frames:
+        d["mut_rank"] = np.nan
+        d["wt_rank"] = np.nan
+        return d
+    P = pd.concat(frames, ignore_index=True)
+    rank = dict(zip(zip(P["peptide"], P["allele"]), P["percentile_rank"]))
+    d["mut_rank"] = [rank.get((p, a), np.nan) for p, a in zip(d["peptide"], d["allele"])]
+    d["wt_rank"] = [rank.get((w, a), np.nan) if isinstance(w, str) else np.nan
+                    for w, a in zip(d["wt_peptide"], d["allele"])]
+    return d
+
+
+RANK_STRATA = (0.0, 0.1, 0.5, 2.0, 100.0)
+
+
+def add_rank_stratum(d: pd.DataFrame, edges: Sequence[float] = RANK_STRATA) -> pd.DataFrame:
+    """Bin rows by predicted %rank so a comparison can be made *within* a
+    presentation stratum, where the binding predictor has little room left."""
+    d = d.copy()
+    labels = [f"{edges[i]}-{edges[i+1]}%" for i in range(len(edges) - 1)]
+    d["rank_bin"] = pd.cut(d["mut_rank"], bins=list(edges), labels=labels,
+                           include_lowest=True)
+    return d
+
+
+def stratified_evaluate(d: pd.DataFrame, score_cols: Sequence[str],
+                        min_per_class: int = 8) -> pd.DataFrame:
+    """AUC of each score *within* each predicted-binding stratum.
+
+    Strata with fewer than `min_per_class` of either class are reported with
+    their counts and a NaN AUC rather than a number nobody should trust.
+    """
+    d = add_rank_stratum(d)
+    rows = []
+    for stratum, grp in d.groupby("rank_bin", observed=True):
+        n1 = int((grp["label"] == 1).sum())
+        n0 = int((grp["label"] == 0).sum())
+        row = {"rank_bin": str(stratum), "n_pos": n1, "n_dec": n0}
+        enough = n1 >= min_per_class and n0 >= min_per_class
+        for c in score_cols:
+            row[c] = round(auc(grp["label"], grp[c]), 3) if enough and c in grp else float("nan")
+        rows.append(row)
+    return pd.DataFrame(rows)
+
+
+def balance_by_stratum(d: pd.DataFrame, ratio: int = 3, seed: int = 0,
+                       edges: Sequence[float] = RANK_STRATA) -> pd.DataFrame:
+    """Subsample decoys so each binding stratum holds `ratio` x its positives.
+
+    After this, the two classes have (approximately) the same distribution of
+    predicted %rank, so an overall AUC above 0.5 cannot be explained by
+    binding strength alone.
+    """
+    d = add_rank_stratum(d, edges)
+    rng = np.random.default_rng(seed)
+    keep = []
+    for stratum, grp in d.groupby("rank_bin", observed=True):
+        pos = grp[grp["label"] == 1]
+        dec = grp[grp["label"] == 0]
+        if pos.empty:
+            continue
+        n = min(len(dec), ratio * len(pos))
+        keep.append(pos)
+        if n:
+            keep.append(dec.sample(n=n, random_state=int(rng.integers(0, 2 ** 31))))
+    return pd.concat(keep, ignore_index=True) if keep else d.iloc[0:0]
+
+
+def match_decoys_by_binding(positives: pd.DataFrame, pool: pd.DataFrame,
+                            ratio: int = 5, tol_log10: float = 0.3,
+                            seed: int = 0) -> pd.DataFrame:
+    """Pick decoys whose predicted binding matches each positive's.
+
+    Why this matters more than anything else in this file: IEDB epitopes were
+    largely *discovered* because they bind well, so an unmatched decoy set makes
+    the benchmark a binder-vs-non-binder test, which NetMHCpan wins by
+    construction and which says nothing about immunogenicity. Matching decoys to
+    positives on predicted %rank removes that axis and leaves the question the
+    selection layer actually exists to answer: among peptides that are all
+    presented, which ones does a T cell see?
+    """
+    rng = np.random.default_rng(seed)
+    take = []
+    used = set()
+    for _, p in positives.iterrows():
+        if pd.isna(p.get("mut_rank")):
+            continue
+        cand = pool[(pool["allele"] == p["allele"]) & (pool["length"] == p["length"])
+                    & pool["mut_rank"].notna()]
+        if cand.empty:
+            continue
+        dist = np.abs(np.log10(cand["mut_rank"].clip(lower=1e-3))
+                      - np.log10(max(p["mut_rank"], 1e-3)))
+        near = cand[dist <= tol_log10]
+        if len(near) < ratio:                     # widen to the nearest available
+            near = cand.iloc[np.argsort(dist.to_numpy())[:ratio * 3]]
+        near = near[~near["peptide"].isin(used)]
+        if near.empty:
+            continue
+        pick = near.sample(n=min(ratio, len(near)),
+                           random_state=int(rng.integers(0, 2 ** 31)))
+        used.update(pick["peptide"])
+        take.append(pick)
+    if not take:
+        return pd.DataFrame(columns=pool.columns)
+    return pd.concat(take, ignore_index=True).drop_duplicates(subset=["peptide", "allele"])
+
+
 def build_decoy_set(positives: pd.DataFrame, proteome: Dict[str, str],
                     study: str = "skcm_tcga_pan_can_atlas_2018",
                     n_samples: int = 12, ratio: int = 5, seed: int = 0,
                     exclude_samples: Sequence[str] = ()) -> pd.DataFrame:
     """Real TCGA melanoma missense mutations -> mutant/WT peptide pairs,
-    matched to the positives on (allele, length)."""
+    matched to the positives on (allele, length) only.
+
+    Use `build_decoy_pool` + `match_decoys_by_binding` for the harder, more
+    informative binding-matched version.
+    """
     from . import peptides as P
     from . import variants as V
 
@@ -138,6 +263,16 @@ def build_decoy_set(positives: pd.DataFrame, proteome: Dict[str, str],
     return pd.DataFrame(rows).drop_duplicates(subset=["peptide", "allele"])
 
 
+def build_decoy_pool(positives: pd.DataFrame, proteome: Dict[str, str],
+                     study: str = "skcm_tcga_pan_can_atlas_2018",
+                     n_samples: int = 12, pool_ratio: int = 40, seed: int = 0,
+                     exclude_samples: Sequence[str] = ()) -> pd.DataFrame:
+    """A large unfiltered decoy pool to draw binding-matched decoys from."""
+    return build_decoy_set(positives, proteome, study=study, n_samples=n_samples,
+                           ratio=pool_ratio, seed=seed,
+                           exclude_samples=exclude_samples)
+
+
 def score_benchmark(bench: pd.DataFrame, iedb_reference: Sequence[str],
                     weights: Dict[str, float], batch_size: int = 500,
                     verbose: bool = True) -> pd.DataFrame:
@@ -146,21 +281,8 @@ def score_benchmark(bench: pd.DataFrame, iedb_reference: Sequence[str],
     clonality do not exist for an IEDB epitope, and faking them would be the
     easiest way to manufacture a good-looking AUC."""
     d = bench.copy()
-    preds = []
-    for (allele, L), grp in d.groupby(["allele", "length"]):
-        peps = list(dict.fromkeys(list(grp["peptide"]) + list(grp["wt_peptide"].dropna())))
-        pr = presentation.predict_iedb(peps, [allele], int(L), "I",
-                                       batch_size=batch_size, progress=False)
-        pr["allele_q"] = allele
-        preds.append(pr)
-        if verbose:
-            print(f"  scored {allele} L={L}: {len(grp)} rows", flush=True)
-    P = pd.concat(preds, ignore_index=True)
-    rank = {(r["peptide"], r["allele"]): r["percentile_rank"] for _, r in P.iterrows()}
-
-    d["mut_rank"] = [rank.get((p, a), np.nan) for p, a in zip(d["peptide"], d["allele"])]
-    d["wt_rank"] = [rank.get((w, a), np.nan) if isinstance(w, str) else np.nan
-                    for w, a in zip(d["wt_peptide"], d["allele"])]
+    if "mut_rank" not in d.columns or d["mut_rank"].isna().all():
+        d = add_ranks(d, batch_size=batch_size, verbose=verbose)
 
     d["feat_presentation"] = d["mut_rank"].map(F.f_presentation)
     d["feat_agretopicity"] = [F.f_agretopicity(m, w) for m, w in zip(d["mut_rank"], d["wt_rank"])]

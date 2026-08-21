@@ -40,6 +40,7 @@ literature-grounded stand-in, labelled as such in the output.
 ## Run the demo
 
 ```bash
+python -m neoantigen_pipeline.selftest                       # offline, ~2 s, no network
 python -m neoantigen_pipeline.run_demo --out demo_out --benchmark
 ```
 

@@ -78,6 +78,12 @@ class ConstructRules:
     signal_peptide: str = ""        # optional secretion / MITD trafficking tag
     max_cds_nt: int = 4000          # payload budget for one LNP-formulated mRNA
     junction_scan_rank: float = 0.5  # flag junction peptides stronger than this %rank
+    # Ordering is optimized over these lengths (each extra length multiplies the
+    # number of predictions by ~1x, so the default is the dominant class-I length)...
+    junction_cost_lengths: Tuple[int, ...] = (9,)
+    # ...but the FINAL order is rescanned over all of these, so a binder created
+    # at a length the optimizer did not see is still reported rather than missed.
+    junction_scan_lengths: Tuple[int, ...] = (8, 9, 10, 11)
     host: str = "human"             # codon table for optimization
     avoid_sites: Tuple[str, ...] = ("BsaI", "BsmBI", "EcoRI", "BamHI", "NotI")
     max_homopolymer: int = 6

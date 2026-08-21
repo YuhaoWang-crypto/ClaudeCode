@@ -34,18 +34,55 @@ antigens, or curation artifacts rather than tumor neoantigens. The rule is
 mechanical and stated, which is better than a hand-assembled list that is
 selected on the same intuitions the score encodes.
 
-## Negatives — real, matched, and unlabelled
+## Negatives — real, unlabelled, and run two ways
 
 `benchmark.build_decoy_set()` takes real missense mutations from *other*
-TCGA-SKCM patients (the demo patient is excluded), tiles them through the same
-`peptides.py` code path, and samples them matched to each positive on
-**(allele, length)** at a configurable ratio (default 5:1).
+TCGA-SKCM patients (the demo patient is excluded) and tiles them through the
+same `peptides.py` code path the pipeline uses.
 
 These decoys are **unlabelled, not verified non-immunogenic.** Some fraction
 are presumably immunogenic and were simply never tested. That biases every AUC
 *downward*. Reported numbers are therefore lower bounds on separability and are
 labelled `AUC_lower_bound` in the output table — not decoration, the column is
 literally named that so the number cannot be quoted without the caveat.
+
+### Benchmark A — matched on allele and length only
+
+Decoys sampled to match each positive's (allele, length) at a 5:1 ratio.
+
+**This benchmark is a trap, and the demo report says so.** IEDB epitopes were
+largely *discovered* because they bind well — many were found by running a
+binding predictor in the first place. Random mutant peptides mostly do not
+bind. So the two classes differ chiefly in predicted binding, and a binding
+predictor separates them almost perfectly without saying anything about
+immunogenicity. On the demo run, NetMHCpan %rank alone reaches AUC ≈ 0.97
+here. Anyone reporting that number as evidence that their pipeline works has
+measured NetMHCpan, not their pipeline.
+
+### Benchmark B — presentation-controlled
+
+The question the selection layer actually exists to answer is: *among peptides
+that are all presented, which does a T cell see?* So benchmark B removes
+binding as an explanatory variable:
+
+1. Restrict to alleles with at least `--bench-min-allele-n` validated positives
+   (default 10) — the rest have too few positives for any number to mean
+   anything, and dropping them is reported, not silent.
+2. Draw decoys from a much larger pool (`--bench-pool-ratio`, default 250 per
+   positive), because strong binders are rare among random peptides: by the
+   definition of a percentile rank, only ~0.5% of random peptides fall below a
+   0.5% rank, so a small pool simply contains no decoy that binds as well as
+   the positives do.
+3. `balance_by_stratum()` bins everything by predicted %rank and subsamples
+   decoys so each stratum carries the same class mixture. After this the two
+   classes have approximately the same binding distribution, so an overall AUC
+   above 0.5 cannot be explained by presentation alone.
+4. `stratified_evaluate()` additionally reports the AUC of each score *within*
+   each stratum, with the per-class counts next to it, and NaN wherever a
+   stratum has fewer than 8 of either class — a number computed from four
+   positives is not a result.
+
+Benchmark B is harder and the numbers are lower. That is the point.
 
 ## Leakage control
 
@@ -76,6 +113,27 @@ gene makes no protein) but is not evaluated here, and the report says so.
 | `AUC_lower_bound` | Mann-Whitney AUC with tie-corrected ranks, biased down by unlabelled decoys |
 | `precision@34` | fraction of true positives in a 34-slot payload drawn from the pooled candidates — the operationally relevant number, since 34 is the real budget |
 | `fold_enrichment` | `precision@34` / base positive rate |
+| per-stratum AUC | the same AUC computed inside one predicted-%rank band, with `n_pos` / `n_dec` shown so a small-sample number can be discounted on sight |
+
+## What the mined positives actually are
+
+Worth looking at before quoting any number. The mining rule is mechanical
+("experimentally T-cell-positive, human source, exactly one substitution from
+self"), and what it returns is a mixture:
+
+* genuine tumor neoantigens (e.g. a melanoma-associated CHSA/`Q9Y5P2` variant),
+* **post-translationally modified** self peptides — the classic tyrosinase
+  369-377 `YMDGTMSQV` is a deamidated `YMNGTMSQV`, one residue from self and
+  genuinely T-cell-reactive, but not a somatic mutation,
+* **minor histocompatibility antigens** — allelic variation between donor and
+  recipient, e.g. HA-1-like peptides, T-cell-reactive in transplant settings,
+* HLA and other polymorphic-locus peptides, which are population variation
+  rather than tumor-specific change.
+
+All of them are "one substitution from self and demonstrably immunogenic",
+which is the property the score is meant to detect, so they are not noise. But
+they are not all neoantigens, and the demo report says which is which where the
+antigen name makes it obvious.
 
 ## Running it
 

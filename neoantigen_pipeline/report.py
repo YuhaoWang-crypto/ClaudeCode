@@ -118,8 +118,23 @@ def build_report(res: Dict[str, object], cfg, assumptions: Optional[List[str]] =
         L.append(f"- junction cost, input order -> optimized order: "
                  f"**{con.get('junction_cost_naive'):.3f} -> "
                  f"{con.get('junction_cost_optimized'):.3f}**")
-        L.append(f"- junction peptides predicted to bind at <= "
-                 f"{cfg.construct.junction_scan_rank}% rank: **{n_flag}**")
+        nb, ob = con.get("junction_binders_naive"), con.get("junction_binders_optimized")
+        if nb is not None:
+            L.append(f"- junction binders (<= {cfg.construct.junction_scan_rank}% rank) "
+                     f"at the optimized lengths {con.get('junction_cost_lengths')}: "
+                     f"**{nb} -> {ob}** by reordering alone")
+        L.append(f"- final rescan over lengths {con.get('junction_scan_lengths')}: "
+                 f"**{n_flag}** junction peptides bind at <= "
+                 f"{cfg.construct.junction_scan_rank}% rank")
+        if isinstance(jn, pd.DataFrame) and not jn.empty:
+            by_len = (jn[jn["flagged"]].groupby("length").size()
+                      .reset_index(name="flagged_peptides"))
+            if not by_len.empty:
+                L.append("")
+                L.append("  Flagged by peptide length (lengths outside the "
+                         "optimization objective are reported, not silently dropped):")
+                L.append("")
+                L.append(_md_table(by_len))
         q = con["qc"]
         L.append(f"- CDS: **{q['length_nt']} nt** ({q['length_aa']} aa), "
                  f"GC **{q['gc_percent']}%**, uridine **{q['uridine_percent']}%**")

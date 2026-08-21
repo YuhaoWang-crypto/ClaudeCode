@@ -95,33 +95,49 @@ def junction_peptides(a: str, b: str, linker: str = "", k: int = 9) -> List[str]
 
 
 def junction_cost_matrix(minigenes: Sequence[str], alleles: Sequence[str],
-                         linker: str = "", k: int = 9,
-                         backend: str = "iedb", batch_size: int = 500,
-                         verbose: bool = True) -> Tuple[np.ndarray, pd.DataFrame]:
-    """cost[i][j] = worst (strongest) predicted presentation of any k-mer created
-    by placing minigene j directly after minigene i."""
+                         linker: str = "", ks: Sequence[int] = (9,),
+                         flag_rank: float = 0.5,
+                         batch_size: int = 500,
+                         verbose: bool = True) -> Tuple[np.ndarray, np.ndarray, pd.DataFrame]:
+    """Cost of every possible adjacency.
+
+    cost[i][j]  strongest predicted presentation of any peptide created by
+                placing minigene j directly after minigene i (continuous, so
+                2-opt has a gradient to follow)
+    nbind[i][j] how many of those peptides bind at <= flag_rank (discrete, so
+                the result can be stated as "N junction binders became M")
+    """
     n = len(minigenes)
     pairs = [(i, j) for i in range(n) for j in range(n) if i != j]
     pep_of_pair: Dict[Tuple[int, int], List[str]] = {}
-    all_peps: List[str] = []
+    by_len: Dict[int, List[str]] = {}
     for i, j in pairs:
-        ps = junction_peptides(minigenes[i], minigenes[j], linker, k)
+        ps: List[str] = []
+        for k in ks:
+            got = junction_peptides(minigenes[i], minigenes[j], linker, int(k))
+            ps.extend(got)
+            by_len.setdefault(int(k), []).extend(got)
         pep_of_pair[(i, j)] = ps
-        all_peps.extend(ps)
-    all_peps = list(dict.fromkeys(all_peps))
+    total = sum(len(set(v)) for v in by_len.values())
     if verbose:
         print(f"  junction scan: {n} minigenes -> {len(pairs)} orderings, "
-              f"{len(all_peps)} unique {k}-mers x {len(alleles)} alleles")
-    preds = predict_iedb(all_peps, alleles, k, "I", batch_size=batch_size)
+              f"{total} unique peptides (lengths {tuple(ks)}) x {len(alleles)} alleles")
+    frames = []
+    for k, peps in by_len.items():
+        frames.append(predict_iedb(list(dict.fromkeys(peps)), alleles, int(k), "I",
+                                   batch_size=batch_size))
+    preds = pd.concat(frames, ignore_index=True) if frames else pd.DataFrame()
     best = (preds.groupby("peptide")["percentile_rank"].min()
             if not preds.empty else pd.Series(dtype=float))
     cost = np.zeros((n, n))
+    nbind = np.zeros((n, n))
     for (i, j), ps in pep_of_pair.items():
         if not ps:
             continue
-        vals = [f_presentation(best.get(p, 100.0)) for p in ps]
-        cost[i, j] = max(vals) if vals else 0.0
-    return cost, preds
+        ranks = [best.get(p, 100.0) for p in ps]
+        cost[i, j] = max(f_presentation(r) for r in ranks)
+        nbind[i, j] = sum(1 for r in ranks if r <= flag_rank)
+    return cost, nbind, preds
 
 
 def order_minimizing_junctions(cost: np.ndarray, seed: int = 0,
@@ -332,13 +348,17 @@ def assemble(selected: pd.DataFrame, proteome: Dict[str, str], alleles: Sequence
     mg = build_minigenes(selected, proteome, rules.epitope_length)
     seqs = list(mg["minigene"])
     order = list(range(len(seqs)))
-    cost, junction_preds = None, None
+    cost = None
+    naive_binders = opt_binders = None
     if optimize_order and len(seqs) > 2:
-        cost, junction_preds = junction_cost_matrix(seqs, alleles, rules.linker,
-                                                    verbose=verbose)
+        cost, nbind, _ = junction_cost_matrix(
+            seqs, alleles, rules.linker, ks=rules.junction_cost_lengths,
+            flag_rank=rules.junction_scan_rank, verbose=verbose)
         naive_cost = sum(cost[i, i + 1] for i in range(len(seqs) - 1))
+        naive_binders = int(sum(nbind[i, i + 1] for i in range(len(seqs) - 1)))
         order = order_minimizing_junctions(cost, seed=seed)
         opt_cost = sum(cost[order[i], order[i + 1]] for i in range(len(order) - 1))
+        opt_binders = int(sum(nbind[order[i], order[i + 1]] for i in range(len(order) - 1)))
     else:
         naive_cost = opt_cost = float("nan")
 
@@ -353,6 +373,7 @@ def assemble(selected: pd.DataFrame, proteome: Dict[str, str], alleles: Sequence
     qc = mrna_qc(opt["dna"], protein, rules)
 
     junctions = scan_final_junctions(ordered_seqs, alleles, rules.linker,
+                                     ks=rules.junction_scan_lengths,
                                      flag_rank=rules.junction_scan_rank) \
         if len(ordered_seqs) > 1 else pd.DataFrame()
 
@@ -361,6 +382,10 @@ def assemble(selected: pd.DataFrame, proteome: Dict[str, str], alleles: Sequence
         "order": order,
         "junction_cost_naive": naive_cost,
         "junction_cost_optimized": opt_cost,
+        "junction_binders_naive": naive_binders,
+        "junction_binders_optimized": opt_binders,
+        "junction_cost_lengths": tuple(rules.junction_cost_lengths),
+        "junction_scan_lengths": tuple(rules.junction_scan_lengths),
         "junction_scan": junctions,
         "protein": protein,
         "cds": opt["dna"],
