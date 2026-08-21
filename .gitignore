@@ -1,2 +1,5 @@
 __pycache__/
 *.pyc
+demo_out/
+.venv/
+neoantigen_pipeline/data/cache/

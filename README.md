@@ -41,3 +41,44 @@ python3 -m grn_pipeline.m1_symmetry   # or any single module
 Figures are written to `figures/`. A full write-up with numbers, rigour
 labels, and the interpretation (including the Lyapunov-exponent biomarker
 question) is in [`REPORT.md`](REPORT.md).
+
+---
+
+# neoantigen-pipeline
+
+Personalized neoantigen selection: from a patient's somatic variants to the
+20–34 neoantigens that go into one individualized mRNA construct — the
+selection layer of the intismeran autogene / mRNA-4157 class of product.
+
+The public description of that product fixes the *workflow* (tumor + normal
+DNA, tumor RNA, somatic variants, HLA typing, presentation prediction, ≤34
+neoantigens, one LNP-formulated mRNA) and nothing else. The scoring function,
+thresholds and construct rules are proprietary. This package supplies an
+explicit, editable, literature-grounded stand-in for them, plus a benchmark so
+the ranking can be checked rather than trusted.
+
+| module | step | what it produces |
+|---|---|---|
+| `variants.py` | somatic variants, expression, clonality | gated variant table + gate waterfall |
+| `peptides.py` | mutant/WT peptide pairs | every window covering the mutation, with its self counterpart |
+| `presentation.py` | HLA-I/II binding | NetMHCpan-4.1 EL %rank via the IEDB cloud API (cached) |
+| `features.py` | 8 features in [0,1] | presentation, agretopicity, expression, clonality, dissimilarity, TCR prior, hydrophobicity, class-II support |
+| `score.py` | gates + composite score | binary biology gates kept separate from the weighted preference |
+| `select.py` | constrained ≤34 selection | gene caps, HLA-allele spread, clonal preference, `why_selected` per slot |
+| `construct.py` | mRNA concatemer | junction-minimizing minigene order, junction rescan, codon-optimized CDS + QC |
+| `benchmark.py` | ground truth | validated IEDB neoepitopes vs matched TCGA decoys |
+| `report.py` | write-up | `[computed]` / `[assumed]` / `[unverified]` on every claim |
+
+## Run
+
+```bash
+pip install numpy pandas requests
+python -m neoantigen_pipeline.run_demo --out demo_out --benchmark
+```
+
+Real TCGA-SKCM melanoma tumor (cBioPortal open API), real UniProt reference
+proteome, real NetMHCpan calls, real IEDB T-cell-assay ground truth. The first
+run downloads and caches the proteome (~5 min); everything afterwards is cached.
+
+The packaged skill — including the reasoning behind every weight and threshold
+— is in [`.claude/skills/neoantigen-selection/`](.claude/skills/neoantigen-selection/).
