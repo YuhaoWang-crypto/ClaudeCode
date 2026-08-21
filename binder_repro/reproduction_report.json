@@ -1,0 +1,681 @@
+[
+  {
+    "claim": "designs delivered (all campaigns)",
+    "paper": 1440,
+    "recomputed": 1440,
+    "match": true,
+    "note": ""
+  },
+  {
+    "claim": "designs with interpretable measurements",
+    "paper": 1320,
+    "recomputed": 1320,
+    "match": true,
+    "note": ""
+  },
+  {
+    "claim": "targets analysed",
+    "paper": 15,
+    "recomputed": 15,
+    "match": true,
+    "note": ""
+  },
+  {
+    "claim": "mature GDF-8 excluded (uninterpretable)",
+    "paper": 120,
+    "recomputed": 120,
+    "match": true,
+    "note": "all excluded designs are mature GDF-8: ['Mature GDF-8']"
+  },
+  {
+    "claim": "binders (integrated call)",
+    "paper": 354,
+    "recomputed": 354,
+    "match": true,
+    "note": ""
+  },
+  {
+    "claim": "overall hit rate %",
+    "paper": 26.8,
+    "recomputed": 26.8,
+    "match": true,
+    "note": ""
+  },
+  {
+    "claim": "targets with >=1 binder",
+    "paper": 14,
+    "recomputed": 14,
+    "match": true,
+    "note": ""
+  },
+  {
+    "claim": "designs tested at >=1 CRO",
+    "paper": 1315,
+    "recomputed": 1315,
+    "match": true,
+    "note": ""
+  },
+  {
+    "claim": "TREM2: binders/tested",
+    "paper": "72/90",
+    "recomputed": "72/90",
+    "match": true,
+    "note": ""
+  },
+  {
+    "claim": "VEGF-A: binders/tested",
+    "paper": "54/90",
+    "recomputed": "54/90",
+    "match": true,
+    "note": ""
+  },
+  {
+    "claim": "IL-7Ra: binders/tested",
+    "paper": "49/90",
+    "recomputed": "49/90",
+    "match": true,
+    "note": ""
+  },
+  {
+    "claim": "BBF-14: binders/tested",
+    "paper": "3/90",
+    "recomputed": "3/90",
+    "match": true,
+    "note": ""
+  },
+  {
+    "claim": "15-PGDH: binders/tested",
+    "paper": "1/30",
+    "recomputed": "1/30",
+    "match": true,
+    "note": ""
+  },
+  {
+    "claim": "MBP: binders/tested",
+    "paper": "0/90",
+    "recomputed": "0/90",
+    "match": true,
+    "note": ""
+  },
+  {
+    "claim": "RBX1: binders/tested",
+    "paper": "28/90",
+    "recomputed": "28/90",
+    "match": true,
+    "note": ""
+  },
+  {
+    "claim": "Nipah-G: binders/tested",
+    "paper": "19/90",
+    "recomputed": "19/90",
+    "match": true,
+    "note": ""
+  },
+  {
+    "claim": "EGFR: binders/tested",
+    "paper": "10/90",
+    "recomputed": "10/90",
+    "match": true,
+    "note": ""
+  },
+  {
+    "claim": "Latent GDF-8: binders/tested",
+    "paper": "14/60",
+    "recomputed": "14/60",
+    "match": true,
+    "note": ""
+  },
+  {
+    "claim": "TNFa: binders/tested",
+    "paper": "12/150",
+    "recomputed": "12/150",
+    "match": true,
+    "note": ""
+  },
+  {
+    "claim": "Opus 4.8 multi-target",
+    "paper": "88/390 (22.6%)",
+    "recomputed": "88/390 (22.6%)",
+    "match": true,
+    "note": ""
+  },
+  {
+    "claim": "Mythos multi-target",
+    "paper": "104/390 (26.7%)",
+    "recomputed": "104/390 (26.7%)",
+    "match": true,
+    "note": ""
+  },
+  {
+    "claim": "Mythos single-target",
+    "paper": "158/450 (35.1%)",
+    "recomputed": "158/450 (35.1%)",
+    "match": true,
+    "note": ""
+  },
+  {
+    "claim": "targets shared by multi- and single-target campaigns",
+    "paper": 13,
+    "recomputed": 13,
+    "match": true,
+    "note": ""
+  },
+  {
+    "claim": "Mythos single-target on the shared 13",
+    "paper": "143/390 (36.7%)",
+    "recomputed": "143/390 (36.7%)",
+    "match": true,
+    "note": ""
+  },
+  {
+    "claim": "Fisher p, Mythos single vs multi (13 targets)",
+    "paper": 0.003,
+    "recomputed": 0.003,
+    "match": true,
+    "note": ""
+  },
+  {
+    "claim": "rankings of 30 designs from the three main campaigns",
+    "paper": 41,
+    "recomputed": 41,
+    "match": true,
+    "note": ""
+  },
+  {
+    "claim": "hit rate, top-1 design %",
+    "paper": 49,
+    "recomputed": 49,
+    "match": true,
+    "note": ""
+  },
+  {
+    "claim": "hit rate, top-5 %",
+    "paper": 44,
+    "recomputed": 44,
+    "match": true,
+    "note": ""
+  },
+  {
+    "claim": "hit rate, top-10 %",
+    "paper": 39,
+    "recomputed": 39,
+    "match": true,
+    "note": ""
+  },
+  {
+    "claim": "hit rate, all 30 %",
+    "paper": 28,
+    "recomputed": 28,
+    "match": true,
+    "note": ""
+  },
+  {
+    "claim": "rankings whose top-1 design bound",
+    "paper": 20,
+    "recomputed": 20,
+    "match": true,
+    "note": ""
+  },
+  {
+    "claim": "targets covered by top-1 designs",
+    "paper": 12,
+    "recomputed": 12,
+    "match": true,
+    "note": ""
+  },
+  {
+    "claim": "rankings with a binder in the top 5",
+    "paper": 27,
+    "recomputed": 27,
+    "match": true,
+    "note": ""
+  },
+  {
+    "claim": "targets covered by top-5 designs",
+    "paper": 13,
+    "recomputed": 13,
+    "match": true,
+    "note": ""
+  },
+  {
+    "claim": "targets evaluable for average precision",
+    "paper": 13,
+    "recomputed": 13,
+    "match": true,
+    "note": ""
+  },
+  {
+    "claim": "average precision of Claude's rank",
+    "paper": 0.48,
+    "recomputed": 0.5,
+    "match": true,
+    "note": "paper does not state how rankings are pooled within a target; three main campaigns -> 0.496, all delivered rankings -> 0.466"
+  },
+  {
+    "claim": "chance level (mean of the permutation null)",
+    "paper": 0.35,
+    "recomputed": 0.355,
+    "match": true,
+    "note": "permutation null mean, 2000 shuffles"
+  },
+  {
+    "claim": "permutation p for rank calibration",
+    "paper": "<0.001",
+    "recomputed": "<0.001",
+    "match": true,
+    "note": ""
+  },
+  {
+    "claim": "average precision of the re-scored co-folding score",
+    "paper": 0.52,
+    "recomputed": 0.51,
+    "match": true,
+    "note": ""
+  },
+  {
+    "claim": "chance level across the 13 targets",
+    "paper": 0.31,
+    "recomputed": 0.304,
+    "match": true,
+    "note": "mean per-target hit rate = 0.305"
+  },
+  {
+    "claim": "targets where the score beats chance",
+    "paper": 12,
+    "recomputed": 12,
+    "match": true,
+    "note": ""
+  },
+  {
+    "claim": "sign-test p",
+    "paper": 0.003,
+    "recomputed": 0.002,
+    "match": true,
+    "note": ""
+  },
+  {
+    "claim": "average precision, 7-predictor ensemble",
+    "paper": 0.57,
+    "recomputed": 0.57,
+    "match": true,
+    "note": ""
+  },
+  {
+    "claim": "median Spearman rho (rank vs score)",
+    "paper": 0.86,
+    "recomputed": 0.86,
+    "match": true,
+    "note": ""
+  },
+  {
+    "claim": "Spearman rho, median score vs hit rate (15 targets)",
+    "paper": 0.61,
+    "recomputed": 0.61,
+    "match": true,
+    "note": ""
+  },
+  {
+    "claim": "its p-value",
+    "paper": 0.02,
+    "recomputed": 0.02,
+    "match": true,
+    "note": ""
+  },
+  {
+    "claim": "binders with a KD of record",
+    "paper": 354,
+    "recomputed": 354,
+    "match": true,
+    "note": ""
+  },
+  {
+    "claim": "binders below 100 nM",
+    "paper": 194,
+    "recomputed": 194,
+    "match": true,
+    "note": ""
+  },
+  {
+    "claim": "binders below 10 nM",
+    "paper": 90,
+    "recomputed": 90,
+    "match": true,
+    "note": ""
+  },
+  {
+    "claim": "binders below 1 nM",
+    "paper": 42,
+    "recomputed": 42,
+    "match": true,
+    "note": ""
+  },
+  {
+    "claim": "binders on oligomeric targets",
+    "paper": 100,
+    "recomputed": 100,
+    "match": true,
+    "note": ""
+  },
+  {
+    "claim": "binders on monomeric targets",
+    "paper": 254,
+    "recomputed": 254,
+    "match": true,
+    "note": ""
+  },
+  {
+    "claim": "monomeric binders below 100 nM",
+    "paper": 142,
+    "recomputed": 142,
+    "match": true,
+    "note": ""
+  },
+  {
+    "claim": "monomeric binders below 10 nM",
+    "paper": 78,
+    "recomputed": 78,
+    "match": true,
+    "note": ""
+  },
+  {
+    "claim": "monomeric binders below 1 nM",
+    "paper": 38,
+    "recomputed": 38,
+    "match": true,
+    "note": ""
+  },
+  {
+    "claim": "TNFa binders",
+    "paper": 12,
+    "recomputed": 12,
+    "match": true,
+    "note": ""
+  },
+  {
+    "claim": "TNFa hit rate %",
+    "paper": 8.0,
+    "recomputed": 8.0,
+    "match": true,
+    "note": ""
+  },
+  {
+    "claim": "all TNFa binders from Opus 4.8",
+    "paper": "Opus 4.8",
+    "recomputed": "Opus 4.8",
+    "match": true,
+    "note": ""
+  },
+  {
+    "claim": "TNFa binders per Opus campaign (multi / single / supplementary)",
+    "paper": "8 / 2 / 2",
+    "recomputed": "8 / 2 / 2",
+    "match": true,
+    "note": ""
+  },
+  {
+    "claim": "tightest TNFa binder, apparent KD (nM)",
+    "paper": 0.7,
+    "recomputed": 0.7,
+    "match": true,
+    "note": ""
+  },
+  {
+    "claim": "RBX1 top-ranked Mythos single-target, Adaptyv KD (nM)",
+    "paper": 3.9,
+    "recomputed": 3.9,
+    "match": true,
+    "note": ""
+  },
+  {
+    "claim": "RBX1 top-ranked Mythos single-target, KD of record (nM)",
+    "paper": 7.0,
+    "recomputed": 7.0,
+    "match": true,
+    "note": ""
+  },
+  {
+    "claim": "RBX1 top-ranked Opus multi-target, Adaptyv KD (nM)",
+    "paper": 30,
+    "recomputed": 30,
+    "match": true,
+    "note": ""
+  },
+  {
+    "claim": "RBX1 top-ranked Mythos single-target, Twist KD on CUL1-RBX1 (nM)",
+    "paper": 8.4,
+    "recomputed": 8.4,
+    "match": true,
+    "note": ""
+  },
+  {
+    "claim": "binders with an evaluable cyno titration",
+    "paper": 179,
+    "recomputed": 179,
+    "match": true,
+    "note": ""
+  },
+  {
+    "claim": "of those, binding cyno",
+    "paper": 154,
+    "recomputed": 154,
+    "match": true,
+    "note": ""
+  },
+  {
+    "claim": "binders tested against the mouse ortholog",
+    "paper": 233,
+    "recomputed": 233,
+    "match": true,
+    "note": ""
+  },
+  {
+    "claim": "of those, binding mouse",
+    "paper": 130,
+    "recomputed": 130,
+    "match": true,
+    "note": ""
+  },
+  {
+    "claim": "TREM2: binders binding mouse ortholog",
+    "paper": "68/69",
+    "recomputed": "68/69",
+    "match": true,
+    "note": ""
+  },
+  {
+    "claim": "VEGF-A: binders binding mouse ortholog",
+    "paper": "32/53",
+    "recomputed": "32/53",
+    "match": true,
+    "note": ""
+  },
+  {
+    "claim": "IL-7Ra: binders binding mouse ortholog",
+    "paper": "18/40",
+    "recomputed": "18/40",
+    "match": true,
+    "note": ""
+  },
+  {
+    "claim": "EGFR: binders binding mouse ortholog",
+    "paper": "4/8",
+    "recomputed": "4/8",
+    "match": true,
+    "note": ""
+  },
+  {
+    "claim": "TNFa: binders binding mouse ortholog",
+    "paper": "3/12",
+    "recomputed": "3/12",
+    "match": true,
+    "note": ""
+  },
+  {
+    "claim": "TrkA: binders binding mouse ortholog",
+    "paper": "2/14",
+    "recomputed": "2/14",
+    "match": true,
+    "note": ""
+  },
+  {
+    "claim": "PD-L1: binders binding mouse ortholog",
+    "paper": "2/36",
+    "recomputed": "2/36",
+    "match": true,
+    "note": ""
+  },
+  {
+    "claim": "tested designs from PXDesign",
+    "paper": 358,
+    "recomputed": 358,
+    "match": true,
+    "note": ""
+  },
+  {
+    "claim": "tested designs from RFdiffusion3",
+    "paper": 267,
+    "recomputed": 267,
+    "match": true,
+    "note": ""
+  },
+  {
+    "claim": "tested designs from Genie3",
+    "paper": 185,
+    "recomputed": 185,
+    "match": true,
+    "note": ""
+  },
+  {
+    "claim": "tested designs from FreeBindCraft (BindCraft)",
+    "paper": 135,
+    "recomputed": 135,
+    "match": true,
+    "note": ""
+  },
+  {
+    "claim": "tested designs from BoltzGen",
+    "paper": 134,
+    "recomputed": 134,
+    "match": true,
+    "note": ""
+  },
+  {
+    "claim": "tested designs from RFdiffusion",
+    "paper": 118,
+    "recomputed": 118,
+    "match": true,
+    "note": ""
+  },
+  {
+    "claim": "tested designs from Proteina-Complexa",
+    "paper": 100,
+    "recomputed": 100,
+    "match": true,
+    "note": ""
+  },
+  {
+    "claim": "tested designs from FoldCraft",
+    "paper": 14,
+    "recomputed": 14,
+    "match": true,
+    "note": ""
+  },
+  {
+    "claim": "tested designs from BoltzDesign1",
+    "paper": 2,
+    "recomputed": 2,
+    "match": true,
+    "note": ""
+  },
+  {
+    "claim": "tested designs from Protein Hunter",
+    "paper": 2,
+    "recomputed": 2,
+    "match": true,
+    "note": ""
+  },
+  {
+    "claim": "structure-generation methods with >=100 tested designs",
+    "paper": 7,
+    "recomputed": 7,
+    "match": true,
+    "note": ""
+  },
+  {
+    "claim": "their hit-rate range %",
+    "paper": "22-43",
+    "recomputed": "22-43",
+    "match": true,
+    "note": ""
+  },
+  {
+    "claim": "sequences designed by SolubleMPNN",
+    "paper": 1133,
+    "recomputed": 1133,
+    "match": true,
+    "note": ""
+  },
+  {
+    "claim": "sequences designed by ProteinMPNN",
+    "paper": 21,
+    "recomputed": 21,
+    "match": true,
+    "note": ""
+  },
+  {
+    "claim": "sequences designed by Caliby (SolubleCaliby)",
+    "paper": 111,
+    "recomputed": 111,
+    "match": true,
+    "note": ""
+  },
+  {
+    "claim": "sequences designed by designed jointly by the structure model (native co-design)",
+    "paper": 50,
+    "recomputed": 50,
+    "match": true,
+    "note": ""
+  },
+  {
+    "claim": "distinct generated backbones among tested designs",
+    "paper": 809,
+    "recomputed": 809,
+    "match": true,
+    "note": ""
+  },
+  {
+    "claim": "backbones whose best-ranked sequence bound",
+    "paper": 200,
+    "recomputed": 200,
+    "match": true,
+    "note": ""
+  },
+  {
+    "claim": "backbone-level hit rate %",
+    "paper": 24.7,
+    "recomputed": 24.7,
+    "match": true,
+    "note": ""
+  },
+  {
+    "claim": "delivered designs that are not all-\u03b1",
+    "paper": 126,
+    "recomputed": 126,
+    "match": true,
+    "note": "fold classes present: ['all-\u03b1', 'all-\u03b2', 'mixed \u03b1/\u03b2']"
+  },
+  {
+    "claim": "not-all-\u03b1 designs that bound",
+    "paper": "16/125",
+    "recomputed": "16/125",
+    "match": true,
+    "note": ""
+  },
+  {
+    "claim": "all-\u03b1 designs that bound",
+    "paper": "338/1190",
+    "recomputed": "338/1190",
+    "match": true,
+    "note": ""
+  }
+]

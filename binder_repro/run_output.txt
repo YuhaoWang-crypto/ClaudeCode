@@ -1,0 +1,149 @@
+                                                                           claim           paper      recomputed  match                                                                                                                         note
+                                               designs delivered (all campaigns)            1440            1440   True                                                                                                                             
+                                         designs with interpretable measurements            1320            1320   True                                                                                                                             
+                                                                targets analysed              15              15   True                                                                                                                             
+                                         mature GDF-8 excluded (uninterpretable)             120             120   True                                                                      all excluded designs are mature GDF-8: ['Mature GDF-8']
+                                                       binders (integrated call)             354             354   True                                                                                                                             
+                                                              overall hit rate %            26.8            26.8   True                                                                                                                             
+                                                         targets with >=1 binder              14              14   True                                                                                                                             
+                                                       designs tested at >=1 CRO            1315            1315   True                                                                                                                             
+                                                           TREM2: binders/tested           72/90           72/90   True                                                                                                                             
+                                                          VEGF-A: binders/tested           54/90           54/90   True                                                                                                                             
+                                                          IL-7Ra: binders/tested           49/90           49/90   True                                                                                                                             
+                                                          BBF-14: binders/tested            3/90            3/90   True                                                                                                                             
+                                                         15-PGDH: binders/tested            1/30            1/30   True                                                                                                                             
+                                                             MBP: binders/tested            0/90            0/90   True                                                                                                                             
+                                                            RBX1: binders/tested           28/90           28/90   True                                                                                                                             
+                                                         Nipah-G: binders/tested           19/90           19/90   True                                                                                                                             
+                                                            EGFR: binders/tested           10/90           10/90   True                                                                                                                             
+                                                    Latent GDF-8: binders/tested           14/60           14/60   True                                                                                                                             
+                                                            TNFa: binders/tested          12/150          12/150   True                                                                                                                             
+                                                           Opus 4.8 multi-target  88/390 (22.6%)  88/390 (22.6%)   True                                                                                                                             
+                                                             Mythos multi-target 104/390 (26.7%) 104/390 (26.7%)   True                                                                                                                             
+                                                            Mythos single-target 158/450 (35.1%) 158/450 (35.1%)   True                                                                                                                             
+                            targets shared by multi- and single-target campaigns              13              13   True                                                                                                                             
+                                           Mythos single-target on the shared 13 143/390 (36.7%) 143/390 (36.7%)   True                                                                                                                             
+                                   Fisher p, Mythos single vs multi (13 targets)           0.003           0.003   True                                                                                                                             
+                            rankings of 30 designs from the three main campaigns              41              41   True                                                                                                                             
+                                                        hit rate, top-1 design %              49              49   True                                                                                                                             
+                                                               hit rate, top-5 %              44              44   True                                                                                                                             
+                                                              hit rate, top-10 %              39              39   True                                                                                                                             
+                                                              hit rate, all 30 %              28              28   True                                                                                                                             
+                                               rankings whose top-1 design bound              20              20   True                                                                                                                             
+                                                targets covered by top-1 designs              12              12   True                                                                                                                             
+                                             rankings with a binder in the top 5              27              27   True                                                                                                                             
+                                                targets covered by top-5 designs              13              13   True                                                                                                                             
+                                         targets evaluable for average precision              13              13   True                                                                                                                             
+                                              average precision of Claude's rank            0.48             0.5   True paper does not state how rankings are pooled within a target; three main campaigns -> 0.496, all delivered rankings -> 0.466
+                                     chance level (mean of the permutation null)            0.35           0.355   True                                                                                         permutation null mean, 2000 shuffles
+                                              permutation p for rank calibration          <0.001          <0.001   True                                                                                                                             
+                             average precision of the re-scored co-folding score            0.52            0.51   True                                                                                                                             
+                                              chance level across the 13 targets            0.31           0.304   True                                                                                             mean per-target hit rate = 0.305
+                                            targets where the score beats chance              12              12   True                                                                                                                             
+                                                                     sign-test p           0.003           0.002   True                                                                                                                             
+                                         average precision, 7-predictor ensemble            0.57            0.57   True                                                                                                                             
+                                             median Spearman rho (rank vs score)            0.86            0.86   True                                                                                                                             
+                             Spearman rho, median score vs hit rate (15 targets)            0.61            0.61   True                                                                                                                             
+                                                                     its p-value            0.02            0.02   True                                                                                                                             
+                                                     binders with a KD of record             354             354   True                                                                                                                             
+                                                            binders below 100 nM             194             194   True                                                                                                                             
+                                                             binders below 10 nM              90              90   True                                                                                                                             
+                                                              binders below 1 nM              42              42   True                                                                                                                             
+                                                   binders on oligomeric targets             100             100   True                                                                                                                             
+                                                    binders on monomeric targets             254             254   True                                                                                                                             
+                                                  monomeric binders below 100 nM             142             142   True                                                                                                                             
+                                                   monomeric binders below 10 nM              78              78   True                                                                                                                             
+                                                    monomeric binders below 1 nM              38              38   True                                                                                                                             
+                                                                    TNFa binders              12              12   True                                                                                                                             
+                                                                 TNFa hit rate %             8.0             8.0   True                                                                                                                             
+                                                  all TNFa binders from Opus 4.8        Opus 4.8        Opus 4.8   True                                                                                                                             
+                 TNFa binders per Opus campaign (multi / single / supplementary)       8 / 2 / 2       8 / 2 / 2   True                                                                                                                             
+                                          tightest TNFa binder, apparent KD (nM)             0.7             0.7   True                                                                                                                             
+                           RBX1 top-ranked Mythos single-target, Adaptyv KD (nM)             3.9             3.9   True                                                                                                                             
+                         RBX1 top-ranked Mythos single-target, KD of record (nM)             7.0             7.0   True                                                                                                                             
+                              RBX1 top-ranked Opus multi-target, Adaptyv KD (nM)              30              30   True                                                                                                                             
+                RBX1 top-ranked Mythos single-target, Twist KD on CUL1-RBX1 (nM)             8.4             8.4   True                                                                                                                             
+                                        binders with an evaluable cyno titration             179             179   True                                                                                                                             
+                                                          of those, binding cyno             154             154   True                                                                                                                             
+                                       binders tested against the mouse ortholog             233             233   True                                                                                                                             
+                                                         of those, binding mouse             130             130   True                                                                                                                             
+                                           TREM2: binders binding mouse ortholog           68/69           68/69   True                                                                                                                             
+                                          VEGF-A: binders binding mouse ortholog           32/53           32/53   True                                                                                                                             
+                                          IL-7Ra: binders binding mouse ortholog           18/40           18/40   True                                                                                                                             
+                                            EGFR: binders binding mouse ortholog             4/8             4/8   True                                                                                                                             
+                                            TNFa: binders binding mouse ortholog            3/12            3/12   True                                                                                                                             
+                                            TrkA: binders binding mouse ortholog            2/14            2/14   True                                                                                                                             
+                                           PD-L1: binders binding mouse ortholog            2/36            2/36   True                                                                                                                             
+                                                    tested designs from PXDesign             358             358   True                                                                                                                             
+                                                tested designs from RFdiffusion3             267             267   True                                                                                                                             
+                                                      tested designs from Genie3             185             185   True                                                                                                                             
+                                   tested designs from FreeBindCraft (BindCraft)             135             135   True                                                                                                                             
+                                                    tested designs from BoltzGen             134             134   True                                                                                                                             
+                                                 tested designs from RFdiffusion             118             118   True                                                                                                                             
+                                           tested designs from Proteina-Complexa             100             100   True                                                                                                                             
+                                                   tested designs from FoldCraft              14              14   True                                                                                                                             
+                                                tested designs from BoltzDesign1               2               2   True                                                                                                                             
+                                              tested designs from Protein Hunter               2               2   True                                                                                                                             
+                          structure-generation methods with >=100 tested designs               7               7   True                                                                                                                             
+                                                          their hit-rate range %           22-43           22-43   True                                                                                                                             
+                                               sequences designed by SolubleMPNN            1133            1133   True                                                                                                                             
+                                               sequences designed by ProteinMPNN              21              21   True                                                                                                                             
+                                    sequences designed by Caliby (SolubleCaliby)             111             111   True                                                                                                                             
+sequences designed by designed jointly by the structure model (native co-design)              50              50   True                                                                                                                             
+                               distinct generated backbones among tested designs             809             809   True                                                                                                                             
+                                      backbones whose best-ranked sequence bound             200             200   True                                                                                                                             
+                                                       backbone-level hit rate %            24.7            24.7   True                                                                                                                             
+                                            delivered designs that are not all-α             126             126   True                                                                        fold classes present: ['all-α', 'all-β', 'mixed α/β']
+                                                    not-all-α designs that bound          16/125          16/125   True                                                                                                                             
+                                                        all-α designs that bound        338/1190        338/1190   True                                                                                                                             
+
+97/97 claims reproduced exactly.
+
+Per-target hit rates:
+               sum  count  hit_rate_%
+target                              
+MBP             0     90         0.0
+15-PGDH         1     30         3.3
+BBF-14          3     90         3.3
+Cas9           10     90        11.1
+EGFR           10     90        11.1
+TNFa           12    150         8.0
+Latent GDF-8   14     60        23.3
+Nipah-G        19     90        21.1
+TrkA           20     90        22.2
+BHRF1          23     90        25.6
+RBX1           28     90        31.1
+PD-L1          39     90        43.3
+IL-7Ra         49     90        54.4
+VEGF-A         54     90        60.0
+TREM2          72     90        80.0
+
+Per-campaign hit rates:
+                                         sum  count  hit_rate_%
+campaign_id                                                   
+Mythos Preview / multi_target           104    390        26.7
+Mythos Preview / single_target          158    450        35.1
+Opus 4.8 / multi_target                  88    390        22.6
+Opus 4.8 / single_target                  2     60         3.3
+Opus 4.8 / single_target_supplementary    2     30         6.7
+
+Structure-generation methods (tested designs):
+                            sum  count  hit_rate_%
+generator                                        
+PXDesign                    86    358        24.0
+RFdiffusion3                72    267        27.0
+Genie3                      41    185        22.2
+FreeBindCraft (BindCraft)   58    135        43.0
+BoltzGen                    37    134        27.6
+RFdiffusion                 26    118        22.0
+Proteina-Complexa           34    100        34.0
+FoldCraft                    0     14         0.0
+BoltzDesign1                 0      2         0.0
+Protein Hunter               0      2         0.0
+
+Sequence-design methods:
+ sequence_design_method
+SolubleMPNN                                                   1133
+Caliby (SolubleCaliby)                                         111
+designed jointly by the structure model (native co-design)      50
+ProteinMPNN                                                     21
