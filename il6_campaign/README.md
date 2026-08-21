@@ -92,6 +92,58 @@ all** (0.89 vs 0.79). That is the single most important caveat in this report: i
 confidence on a designed complex is not a specificity assay. A prediction model asked to dock two
 proteins will dock them.
 
+## Re-scoring pass: orthogonal judge + ipSAE_min + a DockQ gate
+
+The ranking above used design-time ipTM from the model that produced the designs. Three
+upgrades were then applied to the 32-design shortlist (union of the top 12 by ipTM and
+the top 12 by ipSAE_min in each run):
+
+1. **ipSAE_min instead of ipTM**, computed with the reference implementation
+   (`ipsae.py` v4, Dunbrack lab — it reads Boltz PAE natively), pae cutoff 10 Å, dist 15 Å.
+2. **Chai-1 as an orthogonal judge**, run on a Modal A10G from sequence alone (no design
+   template, no MSA), returning its own PAE so the same ipSAE_min applies. Ensemble score
+   = mean of the per-run z-scores of the two predictors.
+3. **DockQ as a gate, not a ranking term** — real DockQ (fnat + LRMSD + iRMSD) between the
+   design model and the Chai-1 prediction, threshold 0.23 ("acceptable" pose).
+
+### What it changed
+
+| | site I run | site II run |
+|---|---|---|
+| ipSAE_min (Boltz), median over 120 designs | 0.03 | 0.25 |
+| Shortlisted designs passing the DockQ gate | **5 / 18** | **11 / 14** |
+| ipTM top-5 still in the gated top-5 | 2 / 5 | 3 / 5 |
+| Designs Chai-1 scores at ipSAE_min = 0 that Boltz scored 0.46–0.83 | 8 | 2 |
+
+Three findings worth keeping:
+
+- **The designer over-scores its own work.** Ten shortlisted designs carry Boltz ipSAE_min
+  of 0.46–0.83 and get exactly **0.00** from Chai-1, with DockQ 0.01–0.11. The single
+  highest Boltz ipSAE_min in the whole site I run (0.830) is one of them. This is the
+  athlete-and-referee problem made visible, and it is why the orthogonal judge is the
+  upgrade that earns its cost.
+- **The site II design ranked #1 by ipTM fails the gate.** Chai-1 gives it ipTM 0.383 and
+  DockQ 0.108; it drops from rank 1 to rank 10 and is cut. Both of the leads delivered
+  earlier survive: IL6-S1-01 is #1 in the gated site I list (DockQ 0.44) and IL6-S2-01
+  is #2 in site II (DockQ 0.38).
+- **ipSAE_min alone did not obviously pick better designs.** On site I it reshuffled half
+  the top 12 (Spearman ρ with ipTM = 0.66, top-12 overlap 6/12), and its top-5 mean
+  epitope recall was higher than ipTM's (0.46 vs 0.28) — but at top-12 the two are
+  identical (0.24) and neither metric correlates with epitope recall (ρ = +0.09 and
+  +0.02). On site II the two metrics agree (ρ = 0.87) and both pick perfectly
+  on-epitope designs. The metric swap is free and directionally right; the evidence that
+  it helps comes from the paper's labelled data, not from this run.
+- **The gate is not a substitute for the epitope check.** Two site I designs pass DockQ
+  comfortably while contacting almost none of the IL-6Rα footprint (recall 0.00 and 0.12):
+  a reproducible pose on the wrong surface. Rank on the ensemble, gate on DockQ, and
+  *separately* require epitope recall.
+
+DockQ on the earlier Boltz confirmations of the two leads: IL6-S1-01 **0.936** ("high",
+fnat 0.95, iRMSD 0.47 Å), IL6-S2-01 **0.641** ("medium", fnat 0.71, iRMSD 2.53 Å) — both
+far more informative than the interface-residue Jaccard proxy used in the first pass.
+
+Added cost: ~USD 2 of Modal A10G time for 32 Chai-1 folds; ipSAE and DockQ are CPU-only.
+
 ## Honest limits
 
 - No wet-lab data. Hit rate here is unknown and unknowable from these numbers; the paper's
@@ -120,11 +172,20 @@ Design and co-fold jobs were run through the Boltz-2 API (`boltz_start_protein_d
 
 ```
 analyze_interface.py     interface metrics + epitope-overlap for any two-chain complex
+batch_interface.py       the same over every design in a run
+run_ipsae.py             drives the reference ipsae.py over a directory of Boltz outputs
+chai_score_modal.py      Chai-1 scoring on a Modal GPU (orthogonal judge)
+dockq.py                 DockQ between a design model and an independent prediction
+rescore_ensemble.py      two-predictor z-score ensemble + DockQ gate
+rescoring_figure.py      the re-scoring figure
 render_complex.py        structure figure (backbone tube + contact map), no PyMOL needed
 campaign_summary.py      three-panel campaign summary
 data/candidates.csv      top 12 designs per corrected run, full metrics
 data/candidates.fasta    the same sequences
 data/run_log.md          Boltz job IDs and settings
+data/ipsae_scores.csv    ipSAE_min, pDockQ, LIS for all 240 corrected-run designs
+data/interface_all.csv   interface metrics + epitope recall for all 240
+data/rescored_shortlist.csv  the 32-design shortlist with both predictors, DockQ and ranks
 structures/              design models and independent co-folds of the two leads (mmCIF)
 figures/                 lead complexes and campaign summary
 ```
