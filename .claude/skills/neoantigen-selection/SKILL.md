@@ -93,6 +93,24 @@ open("PT-014_out/REPORT.md","w").write(report.build_report(res, cfg))
    clonal preference change which 34 you get. `select.py` records
    `why_selected` for every slot.
 
+## What the benchmark says about the score (read before quoting it)
+
+On the demo run, against validated IEDB neoepitopes:
+
+- with decoys matched only on allele and length, NetMHCpan %rank alone scores
+  **AUC 0.966**. That is not a result — IEDB epitopes were largely discovered
+  *because* they bind, so that benchmark measures the binding predictor.
+- with binding controlled for, everything collapses toward chance:
+  NetMHCpan alone **0.599**, the composite **0.576**, every individual feature
+  0.46–0.55.
+
+So: **the composite score is not validated, and on this evidence it does not
+beat the binding predictor.** The weights are literature-grounded defaults to
+argue with and refit, not a tuned model. What *is* doing real work is the part
+no peptide-intrinsic benchmark can measure — the expression, tumor-specificity
+and clonality gates, and the payload constraints. Full numbers, caveats and the
+per-stratum breakdown in `reference/benchmark.md`.
+
 ## Backends
 
 | layer | default | swap-in |

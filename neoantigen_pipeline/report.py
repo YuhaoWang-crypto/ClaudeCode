@@ -158,4 +158,8 @@ def build_report(res: Dict[str, object], cfg, assumptions: Optional[List[str]] =
              "annotation; variants that needed it are listed above rather than dropped.")
     L.append("- The composite weights are an editable literature-grounded default, "
              "not a fitted model, unless you refit them with `benchmark.py`.")
+    L.append("- When the benchmark is run with binding controlled for, the composite "
+             "score does **not** beat the binding predictor. Treat the ranking as a "
+             "way to spend a 34-slot budget far better than at random, not as a "
+             "calibrated probability that a given peptide is immunogenic.")
     return "\n".join(L)

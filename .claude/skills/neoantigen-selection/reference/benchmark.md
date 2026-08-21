@@ -153,6 +153,53 @@ and write the coefficients back into `config.Weights`. If you do, say in the
 report that the weights are fitted and on what, because the literature defaults
 and a fitted set are different claims.
 
+## What the demo run actually found
+
+Run on 2026-08-21: 119 mined positives, TCGA-SKCM decoys, NetMHCpan-4.1 EL
+through the IEDB cloud API.
+
+| benchmark | NetMHCpan %rank alone | composite (no TCR prior) | composite |
+|---|---|---|---|
+| A — allele/length-matched decoys | **0.966** | 0.935 | 0.939 |
+| B — presentation-controlled (86 positives, 348 decoys, 3 alleles) | **0.599** | 0.578 | 0.576 |
+
+Within each binding stratum of benchmark B:
+
+| %rank stratum | n pos | n dec | NetMHCpan alone | composite (no TCR) |
+|---|---|---|---|---|
+| 0.0–0.1% | 33 | 83 | 0.570 | 0.476 |
+| 0.1–0.5% | 18 | 90 | 0.563 | 0.523 |
+| 0.5–2.0% | 22 | 110 | 0.584 | 0.554 |
+| 2.0–100% | 13 | 65 | 0.860 | 0.697 |
+
+**Read this honestly.** Three things follow, and none of them is "the composite
+score is validated":
+
+1. Benchmark A's 0.966 is an artifact of how positives were discovered. The
+   drop to 0.599 when binding is controlled is the size of that artifact.
+2. Once presentation is equalized, **nothing here separates validated
+   immunogenic neoepitopes from unlabelled decoys much better than chance** on
+   this data — not agretopicity, not hydrophobicity, not dissimilarity, and not
+   the weighted composite. The 0.860 in the weakest-binding stratum is residual
+   binding signal inside a very wide bin, not a fourth feature working.
+3. The composite scores *slightly below* NetMHCpan alone in benchmark B. On
+   this evidence the extra peptide-intrinsic features are not earning their
+   weight, and the literature defaults should not be presented as tuned.
+
+Caveats that cut in both directions: decoys are unlabelled (biases AUC down),
+n = 86 positives is small, and the mined positives are a mixture that includes
+PTM variants and minor histocompatibility antigens as well as true neoantigens.
+
+What this does **not** measure, and what is still doing real work in the
+pipeline: the gates (expression, tumor-specificity vs the self proteome,
+clonality) and the payload constraints (allele spread, gene caps, junction
+control). None of those can be evaluated with a peptide-intrinsic benchmark,
+and all of them change which 34 mutations get made.
+
+If you want the composite to beat the binding predictor, the honest routes are
+labelled outcome data to fit the weights on, or better features — not a
+benchmark whose decoys make the problem look easier than it is.
+
 ## The number that matters more than the AUC
 
 Published prospective work — the TESLA consortium's blinded comparison of

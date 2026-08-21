@@ -80,5 +80,20 @@ Real TCGA-SKCM melanoma tumor (cBioPortal open API), real UniProt reference
 proteome, real NetMHCpan calls, real IEDB T-cell-assay ground truth. The first
 run downloads and caches the proteome (~5 min); everything afterwards is cached.
 
+## What the benchmark found
+
+Against validated IEDB neoepitopes, with decoys matched only on allele and
+length, NetMHCpan %rank alone reaches AUC 0.966 — which measures the binding
+predictor, not the pipeline, because IEDB epitopes were largely discovered
+*because* they bind. With binding controlled for, everything collapses toward
+chance: NetMHCpan alone 0.599, the composite score 0.576, every individual
+feature 0.46–0.55.
+
+So the composite score is **not validated** and on this evidence does not beat
+the binding predictor. What is doing real work is the part no peptide-intrinsic
+benchmark can measure: the expression / tumor-specificity / clonality gates and
+the payload constraints. Numbers, caveats and the per-stratum breakdown are in
+[`reference/benchmark.md`](.claude/skills/neoantigen-selection/reference/benchmark.md).
+
 The packaged skill — including the reasoning behind every weight and threshold
 — is in [`.claude/skills/neoantigen-selection/`](.claude/skills/neoantigen-selection/).
