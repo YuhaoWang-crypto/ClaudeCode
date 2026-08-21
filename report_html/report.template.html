@@ -1,0 +1,667 @@
+<title>34 个新抗原怎么选</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=Spectral:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+
+<style>
+:root{
+  --bg:#F3F5F1; --surface:#FFFFFF; --surface-2:#EDF0EA; --line:#D8DED4;
+  --text:#191F1B; --muted:#5B655D; --faint:#8A948B;
+  --accent:#1F6F5C; --accent-soft:#E1EFE9;
+  --signal:#A8501B; --signal-soft:#F6E8DE;
+  --assumed:#8A6A12; --assumed-soft:#F3ECD8;
+  --unver:#6E4A5E; --unver-soft:#F0E6ED;
+  --shadow:0 1px 2px rgba(25,31,27,.05), 0 8px 24px -16px rgba(25,31,27,.25);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#111511; --surface:#181D19; --surface-2:#1F2620; --line:#2C342E;
+    --text:#E5EAE3; --muted:#98A399; --faint:#6E7A70;
+    --accent:#54B396; --accent-soft:#17302A;
+    --signal:#D98A56; --signal-soft:#33231A;
+    --assumed:#C7A64A; --assumed-soft:#2E2818;
+    --unver:#C08FAE; --unver-soft:#2C2028;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -16px rgba(0,0,0,.8);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#111511; --surface:#181D19; --surface-2:#1F2620; --line:#2C342E;
+  --text:#E5EAE3; --muted:#98A399; --faint:#6E7A70;
+  --accent:#54B396; --accent-soft:#17302A;
+  --signal:#D98A56; --signal-soft:#33231A;
+  --assumed:#C7A64A; --assumed-soft:#2E2818;
+  --unver:#C08FAE; --unver-soft:#2C2028;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -16px rgba(0,0,0,.8);
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0; background:var(--bg); color:var(--text);
+  font-family:"Spectral",Georgia,"Songti SC","Noto Serif CJK SC",serif;
+  font-size:17px; line-height:1.72; -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:1120px; margin:0 auto; padding:0 24px 96px}
+.col{max-width:660px}
+h1,h2,h3,.ui{font-family:"Archivo","Helvetica Neue","PingFang SC","Noto Sans CJK SC",sans-serif}
+h1{font-size:clamp(30px,5.2vw,48px); line-height:1.12; font-weight:700; letter-spacing:-.02em; margin:0 0 14px; text-wrap:balance}
+h2{font-size:clamp(21px,2.8vw,27px); font-weight:600; letter-spacing:-.01em; margin:0 0 6px; text-wrap:balance}
+h3{font-size:16px; font-weight:600; letter-spacing:.02em; margin:0 0 8px}
+p{margin:0 0 16px}
+a{color:var(--accent)}
+code,.mono{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace; font-size:.86em}
+code{background:var(--surface-2); padding:.12em .38em; border-radius:3px}
+
+/* ---- masthead ---- */
+header{border-bottom:1px solid var(--line); padding:60px 0 34px; margin-bottom:14px}
+.eyebrow{font-family:"Archivo",sans-serif; font-size:11.5px; font-weight:600; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--accent); margin:0 0 18px}
+.standfirst{font-size:19px; color:var(--muted); max-width:640px; margin:0 0 26px}
+.meta{display:flex; flex-wrap:wrap; gap:10px 28px; font-family:"IBM Plex Mono",monospace;
+  font-size:12.5px; color:var(--faint)}
+.meta b{color:var(--muted); font-weight:500}
+
+/* ---- sections ---- */
+section{padding:48px 0 8px; border-top:1px solid var(--line)}
+section:first-of-type{border-top:none}
+.sec-head{display:flex; gap:16px; align-items:baseline; margin-bottom:22px}
+.sec-num{font-family:"IBM Plex Mono",monospace; font-size:12.5px; color:var(--faint);
+  padding-top:6px; flex:none; width:30px; font-variant-numeric:tabular-nums}
+.lede{font-size:15.5px; color:var(--muted); margin:0}
+
+/* ---- honesty chips ---- */
+.chip{display:inline-flex; align-items:center; gap:5px; font-family:"IBM Plex Mono",monospace;
+  font-size:11.5px; font-weight:500; padding:1.5px 7px; border-radius:3px; white-space:nowrap;
+  vertical-align:.08em; letter-spacing:.01em}
+.chip.c{background:var(--accent-soft); color:var(--accent)}
+.chip.a{background:var(--assumed-soft); color:var(--assumed)}
+.chip.u{background:var(--unver-soft); color:var(--unver)}
+.chip.w{background:var(--signal-soft); color:var(--signal)}
+
+/* ---- pipeline strip ---- */
+.stages{display:grid; grid-template-columns:repeat(auto-fit,minmax(196px,1fr)); gap:1px;
+  background:var(--line); border:1px solid var(--line); border-radius:6px; overflow:hidden; margin:8px 0 26px}
+.stage{background:var(--surface); padding:16px 16px 18px}
+.stage .n{font-family:"IBM Plex Mono",monospace; font-size:11.5px; color:var(--accent); font-weight:600}
+.stage .t{font-family:"Archivo",sans-serif; font-weight:600; font-size:14.5px; margin:5px 0 4px}
+.stage .d{font-size:13.5px; color:var(--muted); line-height:1.55}
+.stage .f{font-family:"IBM Plex Mono",monospace; font-size:11.5px; color:var(--faint); margin-top:7px}
+
+/* ---- stat row ---- */
+.stats{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:14px; margin:6px 0 26px}
+.stat{background:var(--surface); border:1px solid var(--line); border-radius:6px; padding:14px 16px; box-shadow:var(--shadow)}
+.stat .v{font-family:"Archivo",sans-serif; font-size:27px; font-weight:700; letter-spacing:-.02em;
+  font-variant-numeric:tabular-nums; line-height:1.1}
+.stat .k{font-size:12.5px; color:var(--muted); margin-top:4px; line-height:1.4}
+.stat.hi .v{color:var(--accent)}
+.stat.warn .v{color:var(--signal)}
+
+/* ---- tables ---- */
+.tw{overflow-x:auto; border:1px solid var(--line); border-radius:6px; background:var(--surface);
+  margin:6px 0 12px; box-shadow:var(--shadow)}
+table{border-collapse:collapse; width:100%; font-size:13.5px;
+  font-family:"IBM Plex Mono",monospace; font-variant-numeric:tabular-nums}
+th{text-align:left; font-weight:600; color:var(--muted); background:var(--surface-2);
+  padding:9px 13px; border-bottom:1px solid var(--line); white-space:nowrap; font-size:12px;
+  letter-spacing:.03em; text-transform:uppercase}
+td{padding:8px 13px; border-bottom:1px solid var(--line); white-space:nowrap}
+tr:last-child td{border-bottom:none}
+td.num,th.num{text-align:right}
+.pep{color:var(--accent); font-weight:500}
+.cap{font-size:13px; color:var(--faint); margin:0 0 26px; max-width:660px}
+
+/* ---- callout ---- */
+.call{border-left:3px solid var(--signal); background:var(--signal-soft);
+  padding:16px 20px; border-radius:0 6px 6px 0; margin:18px 0 24px; max-width:720px}
+.call.acc{border-left-color:var(--accent); background:var(--accent-soft)}
+.call h3{margin-bottom:6px}
+.call p:last-child{margin-bottom:0}
+.call p{font-size:15.5px}
+
+/* ---- figure ---- */
+figure{margin:10px 0 26px}
+figure img{width:100%; height:auto; display:block; border:1px solid var(--line);
+  border-radius:6px; background:#fff}
+figcaption{font-size:13px; color:var(--faint); margin-top:9px; max-width:720px}
+
+/* ---- construct strip ---- */
+.mg{display:flex; flex-wrap:wrap; gap:5px; margin:8px 0 12px; font-family:"IBM Plex Mono",monospace; font-size:11.5px}
+.mg span{background:var(--surface); border:1px solid var(--line); border-radius:3px; padding:3px 7px; color:var(--muted)}
+.mg span b{color:var(--accent); font-weight:600}
+
+ul{margin:0 0 16px; padding-left:20px}
+li{margin-bottom:7px}
+.two{display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:30px}
+footer{border-top:1px solid var(--line); margin-top:56px; padding-top:22px;
+  font-family:"IBM Plex Mono",monospace; font-size:12.5px; color:var(--faint)}
+:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*{animation:none!important; transition:none!important}}
+</style>
+
+<div class="wrap">
+
+<header>
+  <p class="eyebrow">个体化新抗原治疗 · 选择层</p>
+  <h1>34 个新抗原怎么选</h1>
+  <p class="standfirst">
+    从一个黑色素瘤外显子组的 388 个体细胞突变，到装进一条 mRNA 的 34 个位点。
+    难的从来不是生成候选肽，而是花掉那 34 个名额。
+  </p>
+  <div class="meta">
+    <span><b>样本</b> TCGA-BF-AAP0-06（皮肤黑色素瘤）</span>
+    <span><b>数据</b> cBioPortal · UniProt · IEDB</span>
+    <span><b>预测</b> NetMHCpan-4.1 EL</span>
+    <span><b>运行</b> 2026-08-21</span>
+  </div>
+</header>
+
+<section>
+  <div class="sec-head"><div class="sec-num">00</div><div>
+    <h2>这个 skill 复现什么，不复现什么</h2>
+    <p class="lede">公开信息定住了流程，没有定住打分。</p>
+  </div></div>
+  <div class="col">
+    <p>
+      intismeran autogene（原 mRNA-4157/V940）这一类产品，公开披露的是<strong>工作流</strong>：
+      肿瘤与正常组织 DNA 测序、肿瘤 RNA 表达、找体细胞突变、HLA 分型、算法预测呈递与识别、
+      最多选 34 个新抗原、编码进一条 LNP 递送的个体化 mRNA。
+      具体的评分公式、训练集、阈值和构建体设计规则是专有技术，<em>没有</em>被复现。
+    </p>
+    <p>
+      这里做的是：把那一层用<strong>写死在代码里、可读可改、有文献出处</strong>的替代方案补上，
+      再配一个基准测试，让排序结果可以被检验，而不是只能被相信。
+    </p>
+  </div>
+  <div class="call acc">
+    <h3>三种标签，贯穿全文</h3>
+    <p>
+      <span class="chip c">computed</span> 这次运行里，真实预测器跑在真实数据上算出来的 ·
+      <span class="chip a">assumed</span> 拿不到数据时的配置替代值 ·
+      <span class="chip u">unverified</span> 没有实验确认的预测。
+      <strong>这条流水线做出的每一个免疫原性判断都是 unverified。</strong>
+    </p>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head"><div class="sec-num">01</div><div>
+    <h2>八个步骤</h2>
+    <p class="lede">编号在这里是真的顺序，不是装饰——每一步的输出是下一步的输入。</p>
+  </div></div>
+  <div class="stages">
+    <div class="stage"><div class="n">01–03</div><div class="t">突变 → 门控</div>
+      <div class="d">体细胞突变 + 肿瘤 RNA 表达 + VAF/CCF，逐条门控并留下漏斗记录。</div>
+      <div class="f">variants.py</div></div>
+    <div class="stage"><div class="n">04</div><div class="t">突变肽 / 野生型配对</div>
+      <div class="d">覆盖突变位点的每一个窗口，都带上位置对齐的自身对照肽。</div>
+      <div class="f">peptides.py</div></div>
+    <div class="stage"><div class="n">05</div><div class="t">HLA 呈递预测</div>
+      <div class="d">NetMHCpan-4.1 EL 走 IEDB 云端 REST，按批缓存到磁盘。</div>
+      <div class="f">presentation.py</div></div>
+    <div class="stage"><div class="n">06a</div><div class="t">八个特征 → 一个分</div>
+      <div class="d">呈递、agretopicity、表达、克隆性、非自身性、TCR 先验、疏水性、II 类支持。</div>
+      <div class="f">features.py · score.py</div></div>
+    <div class="stage"><div class="n">06b</div><div class="t">带约束选 ≤34</div>
+      <div class="d">基因上限、等位基因铺开、克隆优先，每个名额记录入选理由。</div>
+      <div class="f">select.py</div></div>
+    <div class="stage"><div class="n">07</div><div class="t">串联 mRNA 构建体</div>
+      <div class="d">最小化接头表位的排序、终扫描、密码子优化与 mRNA 级 QC。</div>
+      <div class="f">construct.py</div></div>
+    <div class="stage"><div class="n">08</div><div class="t">带标签的报告</div>
+      <div class="d">computed / assumed / unverified 落到每一个数字上。</div>
+      <div class="f">report.py</div></div>
+    <div class="stage"><div class="n">—</div><div class="t">基准测试</div>
+      <div class="d">IEDB 实验证实的新表位 vs 匹配的 TCGA 诱饵。</div>
+      <div class="f">benchmark.py</div></div>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head"><div class="sec-num">02</div><div>
+    <h2>Demo：一个真实的黑色素瘤样本</h2>
+    <p class="lede">全部来自公开接口，没有一处是编出来的。<span class="chip c">computed</span></p>
+  </div></div>
+  <div class="stats">
+    <div class="stat"><div class="v">388</div><div class="k">体细胞突变（353 个错义）</div></div>
+    <div class="stat"><div class="v">265</div><div class="k">通过表达 / VAF / 编码门控</div></div>
+    <div class="stat"><div class="v">26,118</div><div class="k">肽 × 等位基因预测</div></div>
+    <div class="stat hi"><div class="v">397</div><div class="k">强结合肽（%rank ≤ 0.5）</div></div>
+    <div class="stat hi"><div class="v">34</div><div class="k">最终入选，覆盖 6/6 个 I 类等位基因</div></div>
+  </div>
+  <div class="col">
+    <p>
+      漏斗里最狠的一刀是<strong>表达</strong>：353 → 265，砍掉的 87 个突变落在肿瘤 RNA 里读不到的基因上。
+      这一步是硬门控而不是打分项——一个在 0 TPM 基因上的完美结合肽，不管 NetMHCpan 给多少分，
+      它都不会变成一个真实的肽。
+    </p>
+    <p>
+      4 个突变没能变成肽，原因被逐条写出来而不是悄悄丢掉：参考蛋白组在该位点的氨基酸与变异记录不符（同工型不一致）。
+      移码突变需要转录本级别的核苷酸注释才能翻译出新读框，这类变异同样会被列出来，而不是假装不存在。
+    </p>
+  </div>
+  <figure>
+    <img alt="四联图：变异门控漏斗、候选肽的 %rank 与综合评分散点、入选集合各特征的加权贡献、基准 ROC 曲线" src="__IMG_SUMMARY__">
+    <figcaption>
+      (b) 值得多看一眼：入选的 34 个（红点）并不是简单地取 %rank 最低的那一批。
+      表达量、克隆性、等位基因铺开和每基因上限都在把选择往旁边推。
+      (c) 入选集合相对全体候选，主要赢在呈递和 agretopicity 上。
+    </figcaption>
+  </figure>
+</section>
+
+<section>
+  <div class="sec-head"><div class="sec-num">03</div><div>
+    <h2>选出来的 34 个</h2>
+    <p class="lede">前 12 个名额。完整表在 <code>selected.csv</code>，每行都带 <code>why_selected</code>。</p>
+  </div></div>
+  <div class="tw"><table>
+    <thead><tr>
+      <th>#</th><th>基因</th><th>突变</th><th>等位基因</th><th>表位</th>
+      <th class="num">突变 %rank</th><th class="num">野生型 %rank</th><th class="num">TPM</th><th class="num">评分</th>
+    </tr></thead>
+    <tbody>__ROWS__</tbody>
+  </table></div>
+  <p class="cap">
+    看 <code>VAMP7 E105K</code>：野生型肽 %rank 2.5（几乎不结合），突变后 0.08——
+    这个突变<em>创造</em>了呈递，是 agretopicity 的教科书例子。
+    但下面第 6 节会说明，这个特征在真实标签上并没有兑现它的权重。
+  </p>
+
+  <div class="two">
+    <div>
+      <h3>等位基因覆盖</h3>
+      <div class="tw"><table>
+        <thead><tr><th>I 类等位基因</th><th class="num">名额</th></tr></thead>
+        <tbody>
+          <tr><td class="pep">HLA-C*07:02</td><td class="num">11</td></tr>
+          <tr><td class="pep">HLA-A*02:01</td><td class="num">7</td></tr>
+          <tr><td class="pep">HLA-B*07:02</td><td class="num">5</td></tr>
+          <tr><td class="pep">HLA-B*08:01</td><td class="num">4</td></tr>
+          <tr><td class="pep">HLA-C*07:01</td><td class="num">4</td></tr>
+          <tr><td class="pep">HLA-A*01:01</td><td class="num">3</td></tr>
+        </tbody>
+      </table></div>
+      <p class="cap">铺开是一次对冲：肿瘤丢掉一个 HLA 等位基因是有文献记载的免疫逃逸路线，不该让整条疫苗因此哑掉。</p>
+    </div>
+    <div>
+      <h3>这一批的两个软肋 <span class="chip a">assumed</span></h3>
+      <ul>
+        <li><strong>HLA 分型是假设的。</strong>TCGA 的 HLA 调用是受控访问数据，公开接口拿不到。
+          demo 用了一组常见单倍型。真实运行时换成患者正常样本的四位分型即可，其余代码一行不用改——
+          但整条排序都继承这个假设，它是全流程最大的误差来源。</li>
+        <li><strong>克隆性不可信。</strong>纯度被固定为 0.7、拷贝数一律当 2，
+          于是 34 个里只有 1 个 CCF ≥ 0.8。这更可能说明该样本真实纯度远低于 0.7，
+          而不是说明这些突变都是亚克隆的。真实运行需要 ABSOLUTE / FACETS 的纯度与片段级拷贝数。</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head"><div class="sec-num">04</div><div>
+    <h2>接头表位：把 34 段接起来会凭空造出 33 段新序列</h2>
+    <p class="lede">这是从"排序"走到"产品"时最容易安静出错的地方。</p>
+  </div></div>
+  <div class="col">
+    <p>
+      每个突变取一段 25-mer 小基因（突变居中），34 段首尾相接，就产生了 33 个接头。
+      每个接头处的那些跨界肽，<strong>在患者肿瘤里从来不存在</strong>。
+      如果其中某条恰好被患者的 HLA 强呈递，它就是一个诱饵表位：
+      和真表位抢同一批 HLA 分子、抢同一批 T 细胞，而且不具肿瘤特异性。
+    </p>
+    <p>
+      所以排序不是随便排的。流水线先算出一个 34×34 的接头代价矩阵
+      （把任意两段相邻时产生的跨界肽全部拿去做 HLA 预测），
+      再用贪心 + 2-opt 求一条开放路径把总代价压到最低。
+    </p>
+  </div>
+  <div class="stats">
+    <div class="stat"><div class="v">1,122</div><div class="k">被评估的相邻组合</div></div>
+    <div class="stat"><div class="v">7,616</div><div class="k">跨界 9-mer × 6 个等位基因</div></div>
+    <div class="stat hi"><div class="v">9.5×</div><div class="k">接头代价下降（重排序，未改动任何一段）</div></div>
+    <div class="stat"><div class="v">2,550 nt</div><div class="k">密码子优化后的 CDS，GC 52.0%，QC 通过</div></div>
+  </div>
+  <div class="mg">
+    <span><b>01</b> MMRN2</span><span><b>02</b> EDNRB</span><span><b>03</b> SLAMF6</span>
+    <span><b>04</b> CR2</span><span><b>05</b> ECE1</span><span>…</span><span><b>34</b></span>
+    <span style="border-style:dashed">= 850 aa · 2,550 nt · GC 52.9% · U 21.3%</span>
+  </div>
+  <figure>
+    <img alt="左：重排序前后接头代价对比柱状图。右：最终 33 个接头处所有跨界肽的 %rank 分布直方图" src="__IMG_JUNCTIONS__">
+    <figcaption>
+      诚实的地方在右图：优化目标只跑了 9-mer，最终扫描却覆盖 8–11-mer。
+      38 条跨界肽仍然落在 0.5% rank 以内（8-mer 5 条、9-mer 14 条、10-mer 10 条、11-mer 9 条）——
+      长度不在优化目标里的那些，是被<strong>报出来</strong>而不是被漏掉。
+      把 <code>junction_cost_lengths</code> 改成全部四个长度就能一起优化，代价是四倍的预测量。
+    </figcaption>
+  </figure>
+</section>
+
+<section>
+  <div class="sec-head"><div class="sec-num">05</div><div>
+    <h2>基准测试：一个不好看但重要的结果</h2>
+    <p class="lede">先看它怎么骗人，再看它真正说了什么。</p>
+  </div></div>
+  <div class="col">
+    <p>
+      <strong>阳性样本</strong>怎么来：从 IEDB 拉出所有"人源抗原、I 类、人 T 细胞实验阳性"的表位，
+      只保留那些与人参考蛋白组的某个 k-mer <em>恰好差一个氨基酸</em>、且自身不出现在蛋白组里的。
+      这个差异是"体细胞突变形状"的，而且顺手把野生型对照肽也一并交出来，
+      于是 agretopicity 可以按主流程一模一样的方式精确计算。最终得到 119 条。
+    </p>
+    <p>
+      <strong>诱饵</strong>是<em>其他</em> TCGA 黑色素瘤患者的真实错义突变肽。
+      它们是<strong>未标注</strong>的，不是"已验证阴性"——所以所有 AUC 都是分离度的下界。
+    </p>
+  </div>
+
+  <div class="call">
+    <h3>第一版基准是个陷阱 <span class="chip w">读作警告，不是成绩</span></h3>
+    <p>
+      只按等位基因和长度匹配诱饵时，<strong>NetMHCpan %rank 单独就拿到 AUC 0.966</strong>。
+      这不是流水线有效的证据。IEDB 里的表位当年大多正是<em>因为结合力强才被发现</em>的
+      （很多本来就是跑结合预测挑出来的），而随机突变肽大多不结合。
+      两组的主要差别就是结合力，任何结合预测器都能轻松分开，这跟免疫原性无关。
+      把这个数字拿去当成绩，量的是 NetMHCpan，不是自己的选择层。
+    </p>
+  </div>
+
+  <div class="col">
+    <p>
+      所以做了第二版：只保留阳性数够多的 3 个等位基因，诱饵从 21,500 条的大池子里抽
+      （强结合肽在随机肽里本来就稀有——按 %rank 的定义，只有约 0.5% 的随机肽落在 0.5% 以下，
+      小池子里根本不存在结合力对得上的诱饵），再按预测 %rank 分层抽样，
+      让两类在每个结合力档位里的构成一致。
+    </p>
+  </div>
+
+  <div class="tw"><table>
+    <thead><tr>
+      <th>基准</th><th class="num">NetMHCpan 单独</th><th class="num">综合分（去 TCR 先验）</th><th class="num">综合分</th>
+    </tr></thead>
+    <tbody>
+      <tr><td>A — 仅按等位基因 / 长度匹配</td><td class="num">0.963</td><td class="num">0.956</td><td class="num">0.955</td></tr>
+      <tr><td>B — 控制呈递后（86 阳性 / 348 诱饵）</td><td class="num">0.599</td><td class="num">0.591</td><td class="num">0.588</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="tw"><table>
+    <thead><tr>
+      <th>基准 B：各结合力档位内</th><th class="num">阳性</th><th class="num">诱饵</th>
+      <th class="num">NetMHCpan 单独</th><th class="num">综合分（去 TCR）</th>
+    </tr></thead>
+    <tbody>
+      <tr><td>%rank 0.0–0.1</td><td class="num">33</td><td class="num">83</td><td class="num">0.570</td><td class="num">0.522</td></tr>
+      <tr><td>%rank 0.1–0.5</td><td class="num">18</td><td class="num">90</td><td class="num">0.563</td><td class="num">0.552</td></tr>
+      <tr><td>%rank 0.5–2.0</td><td class="num">22</td><td class="num">110</td><td class="num">0.584</td><td class="num">0.569</td></tr>
+      <tr><td>%rank 2.0–100</td><td class="num">13</td><td class="num">65</td><td class="num">0.860</td><td class="num">0.783</td></tr>
+    </tbody>
+  </table></div>
+  <p class="cap">最后一行的 0.860 是那个很宽的档位里残余的结合力信号，不是第四个特征在起作用。</p>
+
+  <figure>
+    <img alt="三联图：基准 A 的 ROC、基准 B 的 ROC、两个基准下阳性与诱饵的 %rank 分布对比" src="__IMG_BENCH__">
+    <figcaption>右图解释了左中两图的差距：诱饵的结合力分布一被拉过来对齐，曲线就塌回对角线附近。</figcaption>
+  </figure>
+
+  <div class="call">
+    <h3>结论 <span class="chip u">unverified</span></h3>
+    <p>
+      控制住呈递之后，<strong>这里没有任何一个特征——包括加权综合分——能把已验证的免疫原性新表位
+      与未标注诱饵分开得比随机好多少</strong>。综合分甚至略低于结合预测器单独的表现。
+      按这份证据，这些肽内在特征没有挣到它们的权重，文献默认权重不能被说成是调好的模型。
+    </p>
+    <p style="margin-top:12px">
+      这不否定流水线，但它把有效的部分指清楚了：真正在起作用的是
+      <strong>门控</strong>（表达、相对自身蛋白组的肿瘤特异性、克隆性）和
+      <strong>载荷约束</strong>（等位基因铺开、每基因上限、接头控制）——
+      而这些恰恰是任何"肽内在特征"基准测不到的东西，且它们实实在在改变了最终是哪 34 个突变被做出来。
+    </p>
+  </div>
+
+  <div class="col">
+    <p>
+      两个方向都要说清的注意事项：诱饵未标注（把 AUC 压低）；n = 86 偏小；
+      挖出来的阳性是个混合体——里面有真正的肿瘤新抗原，也有<strong>翻译后修饰</strong>的自身肽
+      （经典的酪氨酸酶 <code>YMDGTMSQV</code> 其实是 <code>YMNGTMSQV</code> 脱酰胺后的产物，
+      离自身只差一个残基、确实有 T 细胞反应，但不是体细胞突变），
+      还有<strong>次要组织相容性抗原</strong>那类等位变异。
+      它们都满足"离自身一个替换且已证实有免疫原性"，所以不是噪声，但也不全是新抗原。
+    </p>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head"><div class="sec-num">06</div><div>
+    <h2>真实标签基准：TESLA</h2>
+    <p class="lede">第 5 节的诱饵是"未标注"的，这里的阴性是<strong>做过实验、结果为阴</strong>的。</p>
+  </div></div>
+  <div class="col">
+    <p>
+      读者提供的另一个新抗原包里带了一份 <strong>TESLA 公开镜像</strong>：
+      522 个肽-HLA 组合、35 个经患者 T 细胞实验确认有免疫原性、6 位患者，
+      并附带若干已发表模型的预计算分数。
+      这正是我之前拿不到的东西——所以我直接把它接了进来（<code>tesla.py</code>），
+      用<strong>完全相同的行</strong>去考所有模型。
+    </p>
+    <p>
+      阳性率只有 6.7%，此时准确率毫无意义，能动的是平均精确率（PR-AUC）和
+      <strong>每位患者的 top-N 命中数</strong>——后者才是"34 个名额"真正关心的。
+      野生型对照肽用与第 5 节相同的"离自身一个替换"检索还原，522 条里还原了 487 条。
+    </p>
+  </div>
+  <div class="tw"><table>
+    <thead><tr><th>评分</th><th class="num">AP</th><th class="num">/ 随机基线</th>
+      <th class="num">AUC</th><th class="num">34 名额内命中</th></tr></thead>
+    <tbody>
+      <tr><td><strong>NetMHCpan-4.1 EL %rank 单独</strong></td><td class="num"><strong>0.207</strong></td><td class="num">3.08</td><td class="num">0.791</td><td class="num"><strong>31 / 35</strong></td></tr>
+      <tr><td>本包综合分（新的呈递主导权重）</td><td class="num">0.163</td><td class="num">2.42</td><td class="num">0.763</td><td class="num">26 / 35</td></tr>
+      <tr><td>本包综合分（旧的文献均衡权重）</td><td class="num">0.149</td><td class="num">2.22</td><td class="num">0.729</td><td class="num">24 / 35</td></tr>
+      <tr><td>镜像里最好的已发表模型列 <code>cnn_regress</code></td><td class="num">0.132</td><td class="num">1.96</td><td class="num">0.654</td><td class="num">19 / 35</td></tr>
+      <tr><td>DeepImmuno <code>immunogenic score</code></td><td class="num">0.083</td><td class="num">1.23</td><td class="num">0.477</td><td class="num">13 / 35</td></tr>
+      <tr><td>IEDB 免疫原性分</td><td class="num">0.070</td><td class="num">1.04</td><td class="num">0.523</td><td class="num">17 / 35</td></tr>
+      <tr><td>agretopicity 单独</td><td class="num">0.066</td><td class="num">0.99</td><td class="num">0.449</td><td class="num">10 / 35</td></tr>
+      <tr><td>疏水性单独</td><td class="num">0.057</td><td class="num">0.84</td><td class="num">0.405</td><td class="num">15 / 35</td></tr>
+    </tbody>
+  </table></div>
+  <p class="cap">
+    交叉校验：我的 <code>average_precision</code> 在相同数据上复现了对方发表的
+    <code>cnn_regress</code> = 0.131464，小数点后四位一致——两边量的是同一个东西。
+  </p>
+
+  <div class="call">
+    <h3>两个结论，一个是好消息，一个不是</h3>
+    <p>
+      <strong>一个当代呈递预测器打败了这份镜像里每一个已发表的免疫原性模型。</strong>
+      NetMHCpan-4.1 EL 的 %rank 单独就有 AP 0.207、34 名额内命中 31/35；
+      最好的已发表列是 0.132、19/35。
+    </p>
+    <p style="margin-top:12px">
+      <strong>它也打败了我自己的综合分。</strong>方向和第 5 节完全一致，
+      而这次是真实标签、真实阴性。两个独立数据集给出同一个结论，够我动手了：
+      默认权重已经改成呈递主导（0.30 → 0.45），agretopicity、非自身性、TCR 先验、
+      疏水性全部下调。这一改把综合分从 AP 0.149 提到 0.163、命中从 24 提到 26——
+      有真实提升，<strong>但仍低于单独用呈递</strong>。
+    </p>
+  </div>
+
+  <div class="col">
+    <p>
+      为什么不干脆只用呈递？因为综合分里还有<strong>表达量和克隆性</strong>——
+      TESLA 的一个肽既没有肿瘤 RNA 值也没有 CCF，这份数据根本评不了它们，
+      而它们描述的是肿瘤的事实，不是对 T 细胞的猜测。所以它们保留权重，
+      被证伪的是那几个肽内在特征。<code>config.PRESENTATION_ONLY</code>
+      作为预设一起发出去了，它在 TESLA 上分最高。
+    </p>
+  </div>
+
+  <h3>比模型差异更大的，是患者间差异</h3>
+  <div class="tw"><table>
+    <thead><tr><th>患者</th><th class="num">pMHC</th><th class="num">阳性</th><th class="num">按呈递排序，20 名额内命中</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td class="num">82</td><td class="num">9</td><td class="num">4</td></tr>
+      <tr><td>2</td><td class="num">97</td><td class="num">4</td><td class="num">3</td></tr>
+      <tr><td>3</td><td class="num">84</td><td class="num">12</td><td class="num">5</td></tr>
+      <tr><td>10</td><td class="num">59</td><td class="num">3</td><td class="num">3</td></tr>
+      <tr><td>12</td><td class="num">79</td><td class="num">4</td><td class="num">2</td></tr>
+      <tr><td>16</td><td class="num">121</td><td class="num">3</td><td class="num" style="color:var(--signal)"><strong>0</strong></td></tr>
+    </tbody>
+  </table></div>
+  <p class="cap">
+    16 号患者一个都没命中。任何不按患者分开报告的命中率，都在掩盖这一行。
+    另外要说清楚：35 个阳性、6 位患者，样本很小；镜像是发表补充表的子集；
+    而且 TESLA 拿去做实验的肽本身就是各家预测流水线提名的，
+    所以<em>候选集</em>不是全部突变肽的无偏样本——但标签是实验结果，对此是无偏的。
+  </p>
+</section>
+
+<section>
+  <div class="sec-head"><div class="sec-num">07</div><div>
+    <h2>与另一个新抗原包的对比</h2>
+    <p class="lede">两个包都跑了、都读了代码。对方更好的地方我改了。</p>
+  </div></div>
+  <div class="col">
+    <p>
+      一句话：对方的<strong>审计与治理层</strong>更好，而且带来了更好的<strong>真值数据</strong>；
+      这一包的<strong>计算</strong>更完整——它算出了对方要求用户自己填的那些特征，
+      也真的做了对方只输出了一个状态字符串的接头筛查。
+    </p>
+  </div>
+
+  <h3>我从它那里吸收的</h3>
+  <div class="col">
+    <ul>
+      <li><strong>TESLA 镜像</strong>（见上一节）。这是整个包里最有价值的东西。</li>
+      <li><strong>审计清单</strong>。它的 <code>audit_manifest.json</code> 记录输入 SHA-256、
+        工具版本、能力快照、生效权重、实际使用的预测器。我现在也写了
+        （<code>provenance.py</code>），并加上 git revision 和变异/预测/入选表的内容哈希。</li>
+      <li><strong>证据级别</strong>（E0/E2）。对"这个亲和力是谁算出来的"这个具体问题，
+        比笼统的 unverified 更锋利。我采纳为 E0–E3，但<strong>不实现 E0</strong>：
+        本包没有基于哈希的替身预测器，因为一个长得像亲和力的哈希值，早晚会被当成亲和力引用。</li>
+      <li><strong>它的护栏清单写得好</strong>——按患者而不是按肽切分评估、
+        类别不平衡时报 PR-AUC 和 top-N 而不是准确率、不把确定性哈希叫作 AI 预测。
+        <code>tesla.evaluate</code> 就是照这几条写的。</li>
+    </ul>
+  </div>
+
+  <h3>这一包算、而它要用户填的</h3>
+  <div class="tw"><table>
+    <thead><tr><th></th><th>design-neoantigen-vaccines</th><th>本包</th></tr></thead>
+    <tbody>
+      <tr><td>recognition_score</td><td style="color:var(--signal)">必填输入列</td><td>计算：对 IEDB 阳性实验表位的 Łuksza 式比对</td></tr>
+      <tr><td>normal_similarity</td><td style="color:var(--signal)">必填输入列</td><td>计算：BLOSUM 距离 + 自身蛋白组 k-mer 精确新颖性门控</td></tr>
+      <tr><td>agretopicity</td><td>不计算（校验 wt_context，但从不预测野生型肽）</td><td>精确计算：每个突变窗口都带位置对齐的野生型窗口，两者都预测</td></tr>
+      <tr><td>接头表位</td><td style="color:var(--signal)">只计数，从不筛查</td><td>34×34 代价矩阵 + 2-opt 排序 + 8–11-mer 复扫</td></tr>
+      <tr><td>蛋白上下文</td><td>逐行由输入提供</td><td>由 UniProt 参考蛋白组重建，参考残基不符会报出来而不是照做</td></tr>
+    </tbody>
+  </table></div>
+  <p class="cap">
+    前两行最要紧。<code>recognition_score</code> 和 <code>normal_similarity</code>
+    是新抗原选择里最难的两个量；把它们当输入，等于把难题移交给了用户。
+    它自己的 demo 夹具里，这两列填的是夹具值。
+  </p>
+
+  <h3>没站住的几处（都对着代码核过，不是看文档）</h3>
+  <div class="col">
+    <ul>
+      <li><strong>接头筛查写了但没实现。</strong>它的 SKILL.md 第 7 步说"用同一个真实 HLA
+        预测器筛查接头，否则标记为未解决"。<code>build_construct()</code> 里没有任何预测调用，
+        状态字符串是 <code>"unresolved" if evidence=="E0" else
+        "predictor_available_not_clinically_validated"</code>。
+        装了真实预测器时报告显示后者，读起来像"筛过了"，实际只表示"存在一个预测器"。
+        参考量级：本包 demo 里优化<em>之后</em>仍有 38/1122 条跨界肽落在 0.5% rank 以内。</li>
+      <li><strong>I 类和 II 类被 max() 合并了</strong>，与它自己两条护栏冲突
+        （"保持 I/II 类证据分离"、"不要在没有显式归一化时混用 %rank、IC50、概率和模型分"）：
+        <code>class1</code> 来自 IC50、<code>class2</code> 来自 %rank，
+        然后 <code>presentation = max(class1, class2)</code>。</li>
+      <li><strong>I 类打分用的是原始 nM 而不是 %rank。</strong>不同等位基因的亲和力分布差别很大，
+        %rank 存在的理由正是纠正这一点；跨六个等位基因按 nM 排序会系统性偏向那些绝对结合更紧的。</li>
+      <li><strong>它的基准无法评估它自己的模型。</strong><code>benchmark()</code> 只对 CSV 里
+        已有的预计算列打分，从不把自己的综合分跑到那些肽上——
+        所以这个基准在结构上回答不了"这个包的排序有效吗"。本节上面那张表就是补上的这一评估。</li>
+      <li><strong>密码子"优化"是每个氨基酸一个固定密码子。</strong>所有 Ala 都是 GCC、
+        所有 Leu 都是 CTG；它随包发布的构建体 GC = 0.6816，
+        而 QC 只报这个数字、不标红、没有修复循环，也不查限制酶位点、隐蔽 polyA 或剪接基序。
+        本包按人类密码子使用频率抽样再修复（demo 构建体 GC 52.0%，QC 通过）。</li>
+      <li><strong>Track B 跑在编造的序列上。</strong>这一点它自己标注了
+        （<code>synthetic_functional_fixture</code>）。但值得说具体：
+        48 条 <code>wt_context</code> 里<strong>有 0 条</strong>能在人类参考蛋白组中找到，
+        包括那条标着 <code>BRAF p.K101I</code> 的。所以功能演示验证的是管道通不通，
+        不是"突变到蛋白上下文"这一步。</li>
+    </ul>
+  </div>
+
+  <div class="call acc">
+    <h3>两边独立收敛到的设计</h3>
+    <p>
+      25-mer 小基因、突变居中；≤34 个抗原；每基因上限；HLA 覆盖加成；贪心组合选择；
+      表达 / 克隆性 / 自身相似性作为分开的轴；明确拒绝声称复现 V940；
+      RUO 框架并列出缺失的 CMC 要素。这些两边都各自做了——
+      说明它们更像是被问题本身逼出来的，而不是口味问题。
+    </p>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head"><div class="sec-num">08</div><div>
+    <h2>真实患者还需要补什么</h2>
+    <p class="lede">按影响从大到小。</p>
+  </div></div>
+  <div class="col">
+    <ul>
+      <li><strong>正常样本的四位 HLA 分型</strong>（OptiType / xHLA / HLA-HD）。绝不能用肿瘤样本做分型——HLA 位点的 LOH 会把结果带偏。这是单一最大误差来源。</li>
+      <li><strong>转录本级 TPM 与 RNA 层面的突变等位基因比例</strong>。后者能抓到被无义介导降解或等位失衡沉默掉的突变，这是基因级 RSEM 看不见的。</li>
+      <li><strong>片段级拷贝数 + ABSOLUTE/FACETS 纯度</strong>，让 CCF 从估计变成测量。</li>
+      <li><strong>II 类预测真的跑起来</strong>（需要 II 类分型）。CD4 帮助不是可选项——最早的 mRNA 新抗原疫苗反应主要就是 CD4 的。</li>
+      <li><strong>移码 / 新读框与融合新抗原</strong>的转录本级注释。黑色素瘤里这只是一小部分；在 MSI-H 肿瘤里，好候选大多出在这里，不能跳过。</li>
+      <li><strong>患者自身肿瘤的质谱免疫肽组</strong>。这一步能把呈递从 <span class="chip u">unverified</span> 变成 <span class="chip c">computed</span>。</li>
+    </ul>
+  </div>
+  <div class="call acc">
+    <h3>该有的心态</h3>
+    <p>
+      已发表的前瞻性比较（TESLA 联盟对多条新抗原预测流水线的盲法评估）显示，
+      排名靠前的预测新抗原真正被患者 T 细胞识别的比例在<strong>百分之十几到二十几</strong>，
+      各条流水线都是如此。任何对一份 34 肽载荷表现出接近确定性的说法都是过度声称——
+      包括这一条。排序让 34 个名额花得比随机好得多，最终读数仍然是患者的 T 细胞。
+    </p>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head"><div class="sec-num">09</div><div>
+    <h2>怎么跑</h2>
+    <p class="lede">离线自检 2 秒；完整 demo 首次约 40 分钟（下载并缓存参考蛋白组 + 云端预测），之后走缓存。</p>
+  </div></div>
+  <div class="col">
+    <p>
+      仓库里 <code>neoantigen_pipeline/</code> 是可运行的包，
+      <code>.claude/skills/neoantigen-selection/</code> 是打包好的 skill，
+      <code>reference/</code> 三份文档分别写清了每个权重的出处、公开与专有的边界、以及基准的构造方式与下界含义。
+    </p>
+  </div>
+  <div class="tw"><table>
+    <thead><tr><th>命令</th><th>产出</th></tr></thead>
+    <tbody>
+      <tr><td>python -m neoantigen_pipeline.selftest</td><td>43 项离线检查，不联网</td></tr>
+      <tr><td>产出 audit_manifest.json</td><td>输入哈希 / git revision / 权重 / 预测器 / 证据级别</td></tr>
+      <tr><td>python -m neoantigen_pipeline.run_demo --out demo_out</td><td>排序 + 34 个载荷 + mRNA 构建体 + 报告</td></tr>
+      <tr><td>… --benchmark --tesla</td><td>再加三个基准：IEDB 两版 + TESLA 真实标签</td></tr>
+      <tr><td>… --hla HLA-A*02:01 HLA-A*24:02 …</td><td>换成真实分型，其余不变</td></tr>
+    </tbody>
+  </table></div>
+  <div class="col">
+    <p>
+      上下游可以接现有的 skill：<code>clairs-somatic</code> 做肿瘤/正常体细胞变异调用（第 3 步之前），
+      <code>immunogenicity-multimodel</code> 用 DTU/ImmunoGeNN 对最终构建体做一次独立交叉验证，
+      <code>codon-optimize-qc</code> 换掉内置的密码子优化做完整合成 QC，
+      <code>lnp-delivery-kinetics</code> 对递送后的表达动力学建模。
+    </p>
+  </div>
+</section>
+
+<footer>
+  neoantigen-selection · 全部依赖公开数据与免许可证后端：cBioPortal REST · UniProt · IEDB tools-cluster (NetMHCpan-4.1 / NetMHCIIpan) · IEDB query-api ·
+  本页所有免疫原性判断均为未经实验确认的预测。
+</footer>
+
+</div>
