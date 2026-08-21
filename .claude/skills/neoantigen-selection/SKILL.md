@@ -39,18 +39,29 @@ literature-grounded stand-in, labelled as such in the output.
 | - benchmark | `benchmark.py` | AUC vs validated IEDB neoepitopes and matched decoys |
 | - TESLA | `tesla.py` | AP / top-N recovery on 522 real T-cell-assayed pMHC pairs |
 
-## Run the demo
+## Commands
 
 ```bash
-python -m neoantigen_pipeline.selftest                       # offline, ~2 s, no network
-python -m neoantigen_pipeline.run_demo --out demo_out --benchmark --tesla
+python scripts/neoantigen.py selftest                             # offline, ~2 s
+python scripts/neoantigen.py demo --out demo_out --benchmark --tesla
+python scripts/neoantigen.py tesla --out tesla_out                # benchmark only
+python scripts/neoantigen.py run --maf patient.maf --patient PT-014 \
+    --hla HLA-A*02:01 HLA-A*24:02 HLA-B*07:02 HLA-B*44:02 \
+    --expression tumor_tpm.csv --purity 0.62 --out PT-014_out
 ```
 
-Real TCGA-SKCM melanoma tumor (cBioPortal open API), real UniProt proteome,
-real NetMHCpan calls, real IEDB T-cell-assay ground truth. First run downloads
-and caches the proteome (~5 min); everything after that is cached.
+The demo uses a real TCGA-SKCM melanoma tumor (cBioPortal open API), the bundled
+UniProt proteome, real NetMHCpan calls and real IEDB / TESLA ground truth. First
+run is ~40 min, almost all of it waiting on cloud predictions; everything is
+cached on disk afterwards. A finished run ships in `demo/` — read
+`demo/REPORT.md` rather than waiting, if you only want to see the output.
 
-## Run it on a patient
+`run` needs three things from you and warns if they are missing: a somatic MAF
+(this skill does not call variants), **four-digit class-I typing from the normal
+sample**, and tumor RNA TPM. Without expression the gate cannot run, which is
+the exact failure mode the pipeline exists to prevent.
+
+## Or drive it from Python
 
 ```python
 from neoantigen_pipeline import fetch, pipeline, variants as V, report

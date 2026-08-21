@@ -73,9 +73,22 @@ the ranking can be checked rather than trusted.
 ## Run
 
 ```bash
-pip install numpy pandas requests
+pip install numpy pandas requests matplotlib
 python -m neoantigen_pipeline.run_demo --out demo_out --benchmark --tesla
+python -m neoantigen_pipeline.selftest        # 43 offline checks, no network
 ```
+
+## Build the distributable skill
+
+```bash
+python package_skill.py     # -> dist/neoantigen-selection-skill-v1.0.0.zip
+```
+
+Self-contained: the package is vendored under `scripts/`, the UniProt reference
+proteome and the TESLA mirror ship in the cache directory the code already looks
+in (so a fresh install never pages 20,338 entries over the network), and a
+finished demo run is included. Unzip into `~/.claude/skills/` or a project's
+`.claude/skills/`, then `python scripts/neoantigen.py selftest`.
 
 Real TCGA-SKCM melanoma tumor (cBioPortal open API), real UniProt reference
 proteome, real NetMHCpan calls, real IEDB T-cell-assay ground truth. The first

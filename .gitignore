@@ -3,3 +3,4 @@ __pycache__/
 demo_out/
 .venv/
 neoantigen_pipeline/data/cache/
+dist/
