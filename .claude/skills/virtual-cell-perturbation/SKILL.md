@@ -96,6 +96,29 @@ control on the same trade-off.
 | Per-gene expression-ratio context modulation | real but marginal: Pearson 0.3003 → 0.3029 |
 | Reliability shrinkage toward the generic response, at full strength | destroys discrimination — shrunk perturbations become mutually indistinguishable |
 | Heavy smoothing / low-rank projection alone | same failure: both blur perturbations together |
+| **A frontier language model as the context-specific term** | loses to the *context-free* baseline in both contexts (DE overlap@100 0.105/0.089 against 0.123/0.138) and to a transfer model by 2.5×. Blending its ranking in is monotonically worse at every weight. See below — the failure is not what you would expect |
+| **A DNA sequence model (Evo2 and kin) for cross-context transfer** | structural, not empirical: it has no cell-context input, so its score for a gene is identical in every context and it cannot express a cross-context term at all. The context-free quantity it *could* supply — how strongly a knockdown acts — is already measured in the source and conserved across lines at ρ 0.62–0.69 |
+
+### Why the language model fails, since the obvious diagnosis is wrong
+
+Test it under the most favourable conditions: name the cell lines instead of
+anonymising them, and ask explicitly for lineage-specific answers.
+`virtualcell/llm_prior.py` does this on 24 knockdowns with strong measured
+effects in both Jurkat and RPE1.
+
+The intuitive explanation — *it gives a generic answer that ignores the
+context* — is **false**. Its two answers share only a quarter of their genes
+(Jaccard 0.248), and its reasoning is specifically lineage-aware: T-cell
+identity genes, Jurkat's inactive p53 demoting CDKN1A, epithelial programmes in
+RPE1. It differentiates strongly and is still wrong.
+
+The likely reason, and the thing to check before trying this again: a language
+model's knowledge is **pathway-level causal narrative** (*knock down NEDD8 →
+cullins lose neddylation → IκBα persists → NF-κB output falls*), while measured
+pseudobulk DE is dominated by **global state** — growth rate, ribosome content,
+stress response. The biology is right and is not what the assay measures. Any
+plan to inject literature knowledge has to bridge that gap explicitly rather
+than assume the two vocabularies align.
 
 ## Cross-checked against two independent efforts
 

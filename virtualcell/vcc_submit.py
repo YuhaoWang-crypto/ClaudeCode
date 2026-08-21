@@ -249,7 +249,7 @@ def _write_frame(h5, name: str, index: np.ndarray,
 
 
 def split_context(path: Path, context: str, out: Path,
-                  chunk: int = 20_000) -> None:
+                  chunk: int = 20_000, max_cells: int | None = None) -> None:
     """Copy one context's cells out of a submission, without loading the rest.
 
     A full 2026 submission is 360,000 cells over 18,533 genes at the density of
@@ -272,6 +272,8 @@ def split_context(path: Path, context: str, out: Path,
         if rows.size != hi - lo:
             raise SystemExit("context rows are not contiguous; "
                              "this splitter assumes the layout build() writes")
+        if max_cells is not None:
+            hi = min(hi, lo + max_cells)
 
         src, dst = f["X"], g.create_group("X")
         n_genes = int(src.attrs["shape"][1])
@@ -313,6 +315,8 @@ def main() -> None:
     ap.add_argument("--n-perts", type=int, default=300)
     ap.add_argument("--n-cells", type=int, default=CELLS_PER_PERT)
     ap.add_argument("--seed", type=int, default=0)
+    ap.add_argument("--max-cells", type=int, default=None,
+                    help="with --split, keep only this many cells")
     ap.add_argument("--split", metavar="CONTEXT",
                     help="lift one context out of --out into a separate file, "
                          "so it can be validated on a machine that cannot hold "
@@ -320,8 +324,11 @@ def main() -> None:
     args = ap.parse_args()
 
     if args.split:
+        tag = args.split + ("" if args.max_cells is None
+                            else f"_{args.max_cells}")
         split_context(args.out, args.split,
-                      args.out.with_name(f"{args.out.stem}_{args.split}.h5ad"))
+                      args.out.with_name(f"{args.out.stem}_{tag}.h5ad"),
+                      max_cells=args.max_cells)
         return
 
     # Stand-in for the official bundle: this project's own four cell lines, three
