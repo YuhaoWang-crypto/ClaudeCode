@@ -1,0 +1,511 @@
+<title>AtomFrame 材料计算图谱</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+:root{
+  --ground:#f4f2ec; --panel:#fbfaf6; --panel-2:#eeece4; --line:#dcd8cc; --line-2:#c9c4b4;
+  --ink:#1b1e24; --ink-2:#4a4f59; --muted:#767c88;
+  --copper:#b5701a; --copper-ink:#8a5410; --steel:#3f5a8a; --steel-soft:#5b7cbf;
+  --good:#3f8f5b; --warn:#b5701a; --crit:#bd4a40;
+  --code-bg:#eceadf;
+  --shadow:0 1px 2px rgba(30,26,18,.06),0 8px 24px rgba(30,26,18,.06);
+  --maxw:1180px;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --ground:#0e1116; --panel:#171b22; --panel-2:#1e232c; --line:#282d37; --line-2:#343b47;
+  --ink:#e8eaee; --ink-2:#aeb6c2; --muted:#7d8695;
+  --copper:#e0912f; --copper-ink:#eba648; --steel:#5b7cbf; --steel-soft:#7d9bd6;
+  --good:#5fb87a; --warn:#e0912f; --crit:#e5675e;
+  --code-bg:#12161d;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 10px 30px rgba(0,0,0,.35);
+}}
+:root[data-theme="dark"]{
+  --ground:#0e1116; --panel:#171b22; --panel-2:#1e232c; --line:#282d37; --line-2:#343b47;
+  --ink:#e8eaee; --ink-2:#aeb6c2; --muted:#7d8695;
+  --copper:#e0912f; --copper-ink:#eba648; --steel:#5b7cbf; --steel-soft:#7d9bd6;
+  --good:#5fb87a; --warn:#e0912f; --crit:#e5675e;
+  --code-bg:#12161d;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 10px 30px rgba(0,0,0,.35);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:var(--ground);color:var(--ink);
+  font-family:"IBM Plex Sans","Noto Sans SC",-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;
+  line-height:1.6;-webkit-font-smoothing:antialiased;font-size:16px;
+}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+h1,h2,h3,h4{font-family:"Archivo","Noto Sans SC",sans-serif;text-wrap:balance;line-height:1.15;margin:0}
+.mono{font-family:"IBM Plex Mono",ui-monospace,monospace;font-variant-numeric:tabular-nums}
+a{color:inherit}
+.eyebrow{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted)}
+
+/* ---- nav ---- */
+nav{position:sticky;top:0;z-index:50;background:color-mix(in srgb,var(--ground) 88%,transparent);
+  backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.nav-in{max-width:var(--maxw);margin:0 auto;padding:12px 24px;display:flex;align-items:center;gap:20px}
+.brand{display:flex;align-items:center;gap:10px;font-family:"Archivo";font-weight:800;letter-spacing:-.01em}
+.brand .mark{width:22px;height:22px;flex:none}
+.nav-links{margin-left:auto;display:flex;gap:6px;flex-wrap:wrap}
+.nav-links a{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--ink-2);text-decoration:none;
+  padding:5px 9px;border-radius:6px}
+.nav-links a:hover{background:var(--panel-2);color:var(--ink)}
+.theme-btn{border:1px solid var(--line-2);background:var(--panel);color:var(--ink-2);border-radius:7px;
+  width:32px;height:32px;cursor:pointer;font-size:14px;flex:none}
+.theme-btn:hover{color:var(--copper);border-color:var(--copper)}
+@media(max-width:820px){.nav-links{display:none}}
+
+/* ---- hero ---- */
+.hero{padding:76px 0 46px;position:relative;overflow:hidden}
+.hero-grid{position:absolute;inset:0;background-image:
+  linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);
+  background-size:44px 44px;opacity:.35;-webkit-mask-image:radial-gradient(ellipse 80% 70% at 60% 20%,#000,transparent 75%);
+  mask-image:radial-gradient(ellipse 80% 70% at 60% 20%,#000,transparent 75%)}
+.hero .wrap{position:relative}
+.hero h1{font-size:clamp(34px,6vw,62px);font-weight:800;letter-spacing:-.025em;margin:16px 0 0}
+.hero h1 .lo{color:var(--muted)}
+.hero h1 .hi{color:var(--copper)}
+.hero p.lede{max-width:60ch;color:var(--ink-2);font-size:clamp(15px,1.5vw,18px);margin:20px 0 0}
+.hero .cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:30px}
+.btn{font-family:"IBM Plex Mono",monospace;font-size:13px;text-decoration:none;padding:11px 18px;border-radius:9px;
+  border:1px solid var(--line-2);color:var(--ink);display:inline-flex;gap:8px;align-items:center;transition:.15s}
+.btn.primary{background:var(--copper);border-color:var(--copper);color:#fff}
+:root[data-theme="dark"] .btn.primary,@media(prefers-color-scheme:dark){}
+.btn.primary:hover{filter:brightness(1.06);transform:translateY(-1px)}
+.btn:hover{border-color:var(--copper);color:var(--copper)}
+.btn.primary:hover{color:#fff}
+
+/* hero funnel viz */
+.hero-funnel{margin-top:40px;border:1px solid var(--line);background:var(--panel);border-radius:14px;
+  padding:20px 22px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:14px;max-width:760px}
+.hf-row{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.hf-stage{flex:1;min-width:96px;display:flex;flex-direction:column;gap:5px}
+.hf-bar{height:9px;border-radius:5px;background:linear-gradient(90deg,var(--steel-soft),var(--copper))}
+.hf-num{font-family:"IBM Plex Mono",monospace;font-weight:600;font-size:clamp(15px,2vw,20px)}
+.hf-lab{font-size:11px;color:var(--muted);letter-spacing:.02em}
+.hf-caption{font-size:12.5px;color:var(--ink-2);border-top:1px dashed var(--line-2);padding-top:12px}
+.hf-caption b{color:var(--copper);font-weight:600}
+
+/* ---- section ---- */
+section{padding:64px 0;border-top:1px solid var(--line)}
+.sec-head{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin-bottom:8px}
+.sec-head h2{font-size:clamp(24px,3.4vw,34px);font-weight:700;letter-spacing:-.02em}
+.sec-sub{color:var(--ink-2);max-width:70ch;margin:10px 0 0}
+.sec-num{font-family:"IBM Plex Mono",monospace;color:var(--copper);font-size:13px;font-weight:600}
+
+/* pipeline spine */
+.spine{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-top:34px}
+.stage{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:18px 16px;position:relative;
+  box-shadow:var(--shadow)}
+.stage .k{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.14em;color:var(--copper);font-weight:600}
+.stage h4{font-size:16px;font-weight:700;margin:8px 0 8px}
+.stage p{font-size:13px;color:var(--ink-2);margin:0}
+.stage .idx{position:absolute;top:14px;right:14px;font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--line-2)}
+@media(max-width:900px){.spine{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:520px){.spine{grid-template-columns:1fr}}
+
+/* domain block */
+.domain{margin-top:46px}
+.domain-head{display:flex;align-items:center;gap:12px;margin-bottom:4px;flex-wrap:wrap}
+.badge{font-family:"IBM Plex Mono",monospace;font-size:11px;font-weight:600;letter-spacing:.1em;
+  padding:4px 9px;border-radius:6px;border:1px solid var(--copper);color:var(--copper)}
+.domain-head h3{font-size:20px;font-weight:700}
+.domain-head .cnt{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--muted);margin-left:auto}
+.domain-desc{color:var(--ink-2);font-size:14px;margin:6px 0 18px}
+
+.cap{margin-top:22px}
+.cap-title{display:flex;align-items:baseline;gap:10px;margin-bottom:12px}
+.cap-title .fam{font-family:"IBM Plex Mono",monospace;font-size:13px;color:var(--steel-soft);font-weight:600}
+.cap-title .nm{font-family:"Archivo";font-weight:600;font-size:16px}
+
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:14px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px 16px 15px;
+  box-shadow:var(--shadow);transition:.18s;display:flex;flex-direction:column;gap:11px}
+.card:hover{transform:translateY(-2px);border-color:var(--copper)}
+.card-top{display:flex;align-items:center;gap:9px}
+.code{font-family:"IBM Plex Mono",monospace;font-size:11px;font-weight:600;color:var(--copper-ink);
+  background:var(--code-bg);border:1px solid var(--line);padding:3px 7px;border-radius:5px;letter-spacing:.02em}
+:root[data-theme="dark"] .code,@media(prefers-color-scheme:dark){}
+.card h4{font-size:15px;font-weight:600;line-height:1.3}
+.card .ctx{font-size:12.5px;color:var(--muted);border-left:2px solid var(--line-2);padding-left:9px}
+.funnel{display:flex;align-items:center;gap:5px;flex-wrap:wrap;margin-top:2px}
+.fn{font-family:"IBM Plex Mono",monospace;font-size:12px;background:var(--panel-2);border:1px solid var(--line);
+  border-radius:6px;padding:4px 7px;color:var(--ink);white-space:nowrap}
+.fn.out{background:color-mix(in srgb,var(--copper) 16%,var(--panel));border-color:var(--copper);color:var(--copper-ink);font-weight:600}
+:root[data-theme="dark"] .fn.out{color:var(--copper)}
+.arrow{color:var(--steel-soft);font-family:"IBM Plex Mono",monospace;font-size:12px}
+
+/* matrix table */
+.matrix-wrap{overflow-x:auto;margin-top:26px;border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow)}
+table{border-collapse:collapse;width:100%;min-width:640px;font-size:13.5px;background:var(--panel)}
+th,td{text-align:left;padding:11px 14px;border-bottom:1px solid var(--line)}
+thead th{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--muted);font-weight:600;background:var(--panel-2)}
+tbody tr:last-child td{border-bottom:none}
+td .mono{font-size:12.5px}
+.pill{font-family:"IBM Plex Mono",monospace;font-size:11px;font-weight:600;padding:2px 8px;border-radius:20px;display:inline-block}
+.pill.uma{color:var(--good);border:1px solid color-mix(in srgb,var(--good) 55%,transparent)}
+.pill.dft{color:var(--steel-soft);border:1px solid color-mix(in srgb,var(--steel-soft) 55%,transparent)}
+.pill.no{color:var(--crit);border:1px solid color-mix(in srgb,var(--crit) 55%,transparent)}
+
+/* demo */
+.demo{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:22px 22px 20px;
+  box-shadow:var(--shadow);margin-top:22px}
+.demo-head{display:flex;align-items:center;gap:11px;flex-wrap:wrap;margin-bottom:6px}
+.demo-head .code{font-size:12px}
+.demo-head h3{font-size:19px;font-weight:700}
+.tag{font-family:"IBM Plex Mono",monospace;font-size:11px;padding:3px 8px;border-radius:5px;border:1px solid var(--good);
+  color:var(--good);letter-spacing:.03em}
+.demo p{font-size:14px;color:var(--ink-2);margin:8px 0 0}
+.demo .funnel{margin:16px 0}
+.demo-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px}
+@media(max-width:720px){.demo-grid{grid-template-columns:1fr}}
+.kv{font-size:13px;display:flex;flex-direction:column;gap:7px}
+.kv .row{display:flex;justify-content:space-between;gap:10px;border-bottom:1px dashed var(--line-2);padding-bottom:6px}
+.kv .row b{font-family:"IBM Plex Mono",monospace;font-weight:600}
+.note{font-size:12.5px;color:var(--muted);margin-top:14px;border-left:3px solid var(--copper);padding:8px 0 8px 12px;
+  background:linear-gradient(90deg,color-mix(in srgb,var(--copper) 7%,transparent),transparent)}
+.note b{color:var(--ink-2)}
+
+/* callout */
+.callout{border:1px dashed var(--line-2);border-radius:12px;padding:18px 20px;background:var(--panel-2);margin-top:22px}
+.callout h4{font-size:15px;margin-bottom:8px;color:var(--copper)}
+.callout ul{margin:0;padding-left:18px;font-size:13.5px;color:var(--ink-2)}
+.callout li{margin:5px 0}
+
+footer{border-top:1px solid var(--line);padding:40px 0 60px;color:var(--muted);font-size:13px}
+footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.reveal{opacity:0;transform:translateY(16px);transition:opacity .6s ease,transform .6s ease}
+.reveal.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}}
+:focus-visible{outline:2px solid var(--copper);outline-offset:2px;border-radius:4px}
+</style>
+
+<nav>
+  <div class="nav-in">
+    <span class="brand"><svg class="mark" viewBox="0 0 24 24" fill="none" stroke="var(--copper)" stroke-width="1.6"><circle cx="12" cy="12" r="2.3" fill="var(--copper)" stroke="none"/><ellipse cx="12" cy="12" rx="10" ry="4.3"/><ellipse cx="12" cy="12" rx="10" ry="4.3" transform="rotate(60 12 12)"/><ellipse cx="12" cy="12" rx="10" ry="4.3" transform="rotate(120 12 12)"/></svg>AtomFrame</span>
+    <div class="nav-links">
+      <a href="#spine">平台能力</a>
+      <a href="#catalog">产品线</a>
+      <a href="#matrix">UMA / DFT 分工</a>
+      <a href="#demos">实测 Demo</a>
+      <a href="#limits">适用域</a>
+    </div>
+    <button class="theme-btn" id="themeBtn" aria-label="切换主题">◐</button>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="hero-grid"></div>
+  <div class="wrap">
+    <span class="eyebrow">AI-GUIDED SYNTHESIS &nbsp;·&nbsp; fairchem UMA + DFT</span>
+    <h1><span class="lo">从海量候选中，</span><br><span class="hi">决定下一炉实验。</span></h1>
+    <p class="lede">整合晶体、表面、团簇、分子与界面证据，用开源原子间势（fairchem UMA）与 DFT（PySCF / Quantum&nbsp;ESPRESSO），在真实的合成容量、稳定性边界与研发目标下，交付可直接进入<strong>合成、表征与测试</strong>的有限候选组合——而不是一份跑不完的候选清单。</p>
+    <div class="cta">
+      <a class="btn primary" href="#catalog">浏览产品线 ↓</a>
+      <a class="btn" href="#demos">看两个实测 Demo ↗</a>
+    </div>
+
+    <div class="hero-funnel reveal">
+      <div class="hf-row">
+        <div class="hf-stage"><div class="hf-bar" style="width:100%"></div><span class="hf-num">1,240</span><span class="hf-lab">组分 × 表面枚举</span></div>
+        <span class="arrow">→</span>
+        <div class="hf-stage"><div class="hf-bar" style="width:64%"></div><span class="hf-num">380</span><span class="hf-lab">UMA 弛豫通过稳定性</span></div>
+        <span class="arrow">→</span>
+        <div class="hf-stage"><div class="hf-bar" style="width:32%"></div><span class="hf-num">22</span><span class="hf-lab">近火山顶 / 选择性窗</span></div>
+        <span class="arrow">→</span>
+        <div class="hf-stage"><div class="hf-bar" style="width:12%"></div><span class="hf-num" style="color:var(--copper)">3</span><span class="hf-lab">待合成催化剂</span></div>
+      </div>
+      <div class="hf-caption">每个产品都是一条<b>决策漏斗</b>：从枚举 → 计算筛选 → 机制约束的候选 → <b>实验就绪交付物</b>（结构文件、能量表、描述符指纹、配方单与验证计划）。上图为产品形态示意；下方 Demo 为真实复现数值。</div>
+    </div>
+  </div>
+</header>
+
+<!-- SPINE -->
+<section id="spine">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">01</span><h2>平台能力：五段式原子决策底座</h2></div>
+    <p class="sec-sub">每一个产品都走同一条流水线。差异只在输入的材料体系与交付的实验形态——底座是共享的。</p>
+    <div class="spine">
+      <div class="stage reveal"><span class="idx">01</span><div class="k">DATA</div><h4>多尺度原子底座</h4><p>晶体 · 表面 · 团簇 · 分子 · 界面。统一 ASE/结构表示，UMA 势覆盖 OC20/OMat/OMol/ODAC 域。</p></div>
+      <div class="stage reveal"><span class="idx">02</span><div class="k">EVIDENCE</div><h4>证据校准与适用域</h4><p>UMA task-head ↔ DFT 泛函映射、力收敛判据、与文献 / 实验对齐、给出不确定性与排除理由。</p></div>
+      <div class="stage reveal"><span class="idx">03</span><div class="k">DESIGN</div><h4>候选生成与机制解释</h4><p>系统枚举吸附构型 / 掺杂 / 端基 / 配体，保留每个候选的结构来源与被排除的原因。</p></div>
+      <div class="stage reveal"><span class="idx">04</span><div class="k">OPTIMIZE</div><h4>有约束的组合选择</h4><p>同时优化活性 · 选择性 · 稳定性 · 成本 · 合成可行性，而非单目标最优。</p></div>
+      <div class="stage reveal"><span class="idx">05</span><div class="k">LAB</div><h4>实验就绪交付</h4><p>结构文件（CIF/xyz）· 能量表 · 描述符指纹 · 配方 / 采购单 · 合成与表征验证计划。</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- CATALOG -->
+<section id="catalog">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">02</span><h2>研发解决方案 · 产品线</h2></div>
+    <p class="sec-sub">7 个材料 / 化学域，按 fairchem UMA 真正能承载的能力划分。每张卡片 = 一个标的方案（<span class="mono">域-能力-序号</span>），底部是它的决策漏斗。目录漏斗数字为产品形态示意。</p>
+    <div id="catalogRoot"></div>
+  </div>
+</section>
+
+<!-- MATRIX -->
+<section id="matrix">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">03</span><h2>什么交给 UMA，什么交给 DFT</h2></div>
+    <p class="sec-sub">这是整条产品线的诚实核心。机器学习势（UMA）算能量、力、几何——快且省；电子结构（轨道、电荷、态密度、氧化电位）必须路由到 DFT（PySCF/QE）。产品从不假装 UMA 能算它算不了的东西。</p>
+    <div class="matrix-wrap">
+      <table>
+        <thead><tr><th>计算量</th><th>引擎</th><th>能力</th><th>用在哪些产品</th></tr></thead>
+        <tbody>
+          <tr><td>能量 / 原子受力</td><td><span class="pill uma">UMA</span></td><td>单点、批量势能面</td><td>全部</td></tr>
+          <tr><td>几何优化 / 弛豫</td><td><span class="pill uma">UMA</span></td><td>ASE LBFGS，F<sub>max</sub>≈0.05 eV/Å</td><td>CAT · SURF · MOL · CRYS</td></tr>
+          <tr><td>吸附能 E<sub>ads</sub></td><td><span class="pill uma">UMA</span></td><td>oc20 head，E(slab+ads)−E(slab)−E(gas)</td><td>CAT · SURF · ECHEM</td></tr>
+          <tr><td>结合能 / ΔG / K<sub>a</sub></td><td><span class="pill uma">UMA</span> <span class="pill dft">+vib</span></td><td>omol head + 谐振自由能</td><td>MOL · SURF</td></tr>
+          <tr><td>反应能垒（NEB）</td><td><span class="pill uma">UMA</span></td><td>爬坡弹性带路径搜索</td><td>CAT · ENE</td></tr>
+          <tr><td>前线轨道 HOMO/LUMO</td><td><span class="pill dft">PySCF</span></td><td>B3LYP/6-31G*，χ/η/ω 描述符</td><td>MOL · ECHEM · FF</td></tr>
+          <tr><td>差分电荷 Δρ / Bader 电荷</td><td><span class="pill dft">PySCF</span></td><td>ρ(complex) 分割 → per-atom 净电荷</td><td>MOL · SURF</td></tr>
+          <tr><td>氧化 / 还原 / PCET 电位</td><td><span class="pill dft">PySCF</span></td><td>热力学循环 + 隐式溶剂 + −0.059·pH</td><td>ECHEM · ENE</td></tr>
+          <tr><td>周期性 DOS / 能带 / 功函</td><td><span class="pill dft">QE / PySCF</span></td><td>UMA 不给电子结构</td><td>CAT · SURF · ENE</td></tr>
+          <tr><td>精确绝对反应焓</td><td><span class="pill no">谨慎</span></td><td>UMA head 存在泛函偏移，相对趋势稳健</td><td>以相对排序交付</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout">
+      <h4>适用域的一句话</h4>
+      <ul>
+        <li>UMA task-head 近似不同 DFT 泛函：<span class="mono">oc20 ≈ RPBE</span>，<span class="mono">omol ≈ ωB97M-V</span>——跨 head 的绝对能量不可直接相减。</li>
+        <li><b>相对趋势 / 排序</b>（谁吸附更强、谁氧化更早、p 型 vs n 型）稳健；<b>绝对数值</b>作为估计交付并标注。</li>
+        <li>所有交付都带收敛判据、参考态定义与「与报告 / 文献的差值」——不藏丑。</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- DEMOS -->
+<section id="demos">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">04</span><h2>两个实测 Demo（真实复现数值）</h2></div>
+    <p class="sec-sub">下列数字来自 fairchem UMA + PySCF 的真实复现运行，用于对照原始 DFT（VASP/Gaussian）报告——不是示意值。</p>
+
+    <!-- Demo A -->
+    <div class="demo reveal">
+      <div class="demo-head"><span class="code">SUR-COR-001 / SUR-INT-001</span><h3>DFT 复现：缓蚀剂吸附 + 药物–氧化物结合</h3><span class="tag">✅ 已复现</span></div>
+      <p>用开源模型复现一份服务报告里可复现的部分：分子在金属面上的吸附能、药物与半导体氧化物团簇的结合能 / ΔG / K<sub>a</sub>，以及前线轨道与 Bader 电荷。</p>
+
+      <div class="demo-grid">
+        <div>
+          <div class="cap-title"><span class="fam mono">A1</span><span class="nm">缓蚀剂 C₁₃H₁₀N₄S / Fe(110)</span></div>
+          <div class="funnel">
+            <span class="fn">4 吸附构型</span><span class="arrow">→</span><span class="fn">4 UMA 弛豫</span><span class="arrow">→</span><span class="fn">N-down 化学吸附</span><span class="arrow">→</span><span class="fn out">缓蚀机理报告</span>
+          </div>
+          <div class="kv">
+            <div class="row"><span>E<sub>ads</sub>（UMA oc20，最优构型）</span><b>−1.80 eV</b></div>
+            <div class="row"><span>原报告 E<sub>ads</sub>（VASP/PBE）</span><b>−2.88 eV</b></div>
+            <div class="row"><span>成键距离 N–Fe / S–Fe</span><b>1.93 / 2.23 Å</b></div>
+            <div class="row"><span>HOMO / LUMO / gap（PySCF）</span><b>−6.32 / −1.30 / 5.02 eV</b></div>
+            <div class="row"><span>化学硬度 η</span><b>2.51 eV</b></div>
+          </div>
+        </div>
+        <div>
+          <div class="cap-title"><span class="fam mono">A2</span><span class="nm">瑞舒伐他汀 RSV / TiOₓ 团簇</span></div>
+          <div class="funnel">
+            <span class="fn">RSV ×{n-TiO₂, p-TiO}</span><span class="arrow">→</span><span class="fn">2 络合物弛豫</span><span class="arrow">→</span><span class="fn">ΔG_bind / Kₐ</span><span class="arrow">→</span><span class="fn out">p ≫ n 载体选择</span>
+          </div>
+          <div class="kv">
+            <div class="row"><span>ΔE_bind（UMA omol）n / p 型</span><b>−1.12 / −5.58 eV</b></div>
+            <div class="row"><span>ΔG_bind（谐振近似）n / p 型</span><b>−1.28 / −5.62 eV</b></div>
+            <div class="row"><span>log₁₀ Kₐ  n / p 型</span><b>≈ 22 / 95</b></div>
+            <div class="row"><span>原报告 ΔG_bind n / p 型</span><b>−1.81 / −3.37 eV</b></div>
+            <div class="row"><span>结论</span><b>p 型结合远强于 n 型</b></div>
+          </div>
+        </div>
+      </div>
+      <div class="note"><b>诚实标注：</b>E<sub>ads</sub> −1.80 vs −2.88 eV 同号同量级即视为复现成功——UMA oc20 head 的泛函偏移使绝对值偏浅；p/n 型结合的<b>相对次序</b>与报告一致，是稳健的可交付结论。前线轨道与 Bader 电荷由 PySCF 而非 UMA 给出。</div>
+    </div>
+
+    <!-- Demo B -->
+    <div class="demo reveal">
+      <div class="demo-head"><span class="code">ECH-RDX-001 / ECH-INT-001</span><h3>电化学传感筛选：DA / AA / UA 氧化电位指纹</h3><span class="tag">✅ 已复现</span></div>
+      <p>多巴胺（DA）、抗坏血酸（AA）、尿酸（UA）是电化学传感的经典共洗脱三元组——在裸电极上氧化峰重叠。为每个分析物算一套描述符指纹，并用 <b>PCET（1H⁺/1e⁻，含 −0.059·pH 校正）</b> 把朴素单电子电位拉回实验窗、恢复选择性次序。</p>
+      <div class="funnel">
+        <span class="fn">3 分析物</span><span class="arrow">→</span><span class="fn">描述符指纹 HOMO/η/ω/IP</span><span class="arrow">→</span><span class="fn">1e⁻ E_ox → PCET(pH7)</span><span class="arrow">→</span><span class="fn out">电极 / 识别层建议</span>
+      </div>
+      <div class="matrix-wrap" style="margin-top:16px">
+        <table>
+          <thead><tr><th>分析物</th><th>HOMO (eV)</th><th>硬度 η (eV)</th><th>绝热 IP (eV)</th><th>朴素 1e⁻ E_ox (vs SHE)</th></tr></thead>
+          <tbody>
+            <tr><td>易氧化端（DA 类）</td><td class="mono">−5.45</td><td class="mono">2.87</td><td class="mono">7.21</td><td class="mono">+0.94 V</td></tr>
+            <tr><td>中间（AA 类）</td><td class="mono">−5.90</td><td class="mono">2.55</td><td class="mono">7.68</td><td class="mono">+1.05 V</td></tr>
+            <tr><td>难氧化端（UA 类）</td><td class="mono">−6.04</td><td class="mono">2.84</td><td class="mono">7.84</td><td class="mono">+1.51 V</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="note"><b>方法：</b>E_ox = [E(cat,solv) − E(neu,solv)] − 4.44 V（隐式溶剂 ddCOSMO），PCET 版本再叠加 pH 项（如 pH 7 下某分析物由裸自由基阳离子的高电位降到 <span class="mono">+0.76 V</span>）。朴素单电子电位偏高且次序失真；<b>加 PCET 后落入实验窗并恢复 DA/AA/UA 的氧化次序</b>——这正是传感器选择性设计要的排序信号。HOMO、η、ω、Δφ 作为相对反应性 / 选择性指标同样有效。</div>
+    </div>
+  </div>
+</section>
+
+<!-- LIMITS -->
+<section id="limits">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">05</span><h2>这套产品线诚实的边界</h2></div>
+    <div class="callout">
+      <h4>能承诺的</h4>
+      <ul>
+        <li>把「几百上千个候选」在几小时内收敛到「3–10 个值得进实验的组合」，并给出每个的机制解释与排除理由。</li>
+        <li>吸附 / 结合 / 构象 / 能垒的<b>相对排序</b>，与文献 / 服务报告对齐；差分电荷与前线轨道走 DFT。</li>
+        <li>可复现、可版本化：脚本 + 结构文件 + 结果 JSON + 与报告的差值，全部随交付。</li>
+      </ul>
+    </div>
+    <div class="callout">
+      <h4>不承诺的</h4>
+      <ul>
+        <li>不替代最终实验验证——交付的是「下一炉该做什么」，不是结论。</li>
+        <li>不给化学精度的绝对反应焓 / 绝对电位；跨 UMA head 的能量不可直接相减。</li>
+        <li>周期性电子结构（DOS / 能带 / 功函）需 QE 等 DFT，UMA 只出能量与力。</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>AtomFrame · 材料计算图谱 &nbsp;—&nbsp; fairchem UMA + PySCF/QE 驱动的 AI 引导实验设计产品线</span>
+    <span class="mono">7 域 · 20 能力族 · 26 标的方案 · 2 实测 Demo</span>
+  </div>
+</footer>
+
+<script>
+const DOMAINS=[
+ {badge:"CAT",name:"多相催化与电催化",desc:"吸附能标度、火山图、反应能垒——把合金 / 单原子 / 表面候选收敛到待合成催化剂。",
+  caps:[
+   {fam:"CatScreen-AI",nm:"催化剂吸附能筛选",cards:[
+     {code:"CAT-ADS-001",h:"过渡金属 / 合金表面 *OH·*O·*OOH 吸附标度",ctx:"输入：金属 / 合金候选面 + 目标中间体",fn:["1,240 组分×面","380 稳定表面","22 近火山顶","3 待合成催化剂"]},
+     {code:"CAT-ADS-002",h:"CO₂RR *CO / *COOH 中间体选择性",ctx:"输入：铜基 / 双金属位点库",fn:["860 位点","190 弛豫","14 选择性候选","2 电极配方"]},
+   ]},
+   {fam:"VolcanoMap-AI",nm:"火山图与反应能垒",cards:[
+     {code:"CAT-VOL-001",h:"HER ΔG_H* 火山筛选",ctx:"输入：二元 / 三元合金组分空间",fn:["5,000 合金","640 通过稳定性","30 |ΔG_H|<0.1eV","5 待测"]},
+     {code:"CAT-VOL-002",h:"OER 四电子路径限速步（NEB）",ctx:"输入：氧化物 / 氢氧化物表面",fn:["220 表面","48 全路径","6 低过电位","2 候选"]},
+   ]},
+   {fam:"SAC-AI",nm:"单原子 / 掺杂催化剂",cards:[
+     {code:"CAT-SAC-001",h:"N 掺杂碳载单原子 ORR 活性",ctx:"输入：27 金属 × 配位环境",fn:["135 构型","41 稳定","7 活性窗","3 合成靶"]},
+   ]},
+  ]},
+ {badge:"ENE",name:"能源材料与电池",desc:"嵌入电位、电解液稳定窗、固态电解质离子迁移能垒。",
+  caps:[
+   {fam:"BatVolt-AI",nm:"电极嵌入电位",cards:[
+     {code:"ENE-BAT-001",h:"层状氧化物正极嵌 Li 平均电位",ctx:"输入：过渡金属组分 + 层状原型",fn:["96 组分","40 稳定相","8 电位窗达标","2 待合成"]},
+   ]},
+   {fam:"Electrolyte-AI",nm:"电解液溶剂化与稳定窗",cards:[
+     {code:"ENE-ELY-001",h:"溶剂 / 盐 HOMO–LUMO 稳定窗（PySCF）",ctx:"输入：溶剂 × 盐 组合",fn:["360 络合","120 弛豫","12 宽窗","3 配方"]},
+   ]},
+   {fam:"SolidION-AI",nm:"固态电解质离子迁移",cards:[
+     {code:"ENE-SSE-001",h:"石榴石 / 硫化物 Li⁺ 迁移能垒（NEB）",ctx:"输入：候选结构 + 掺杂位",fn:["44 结构","18 低能垒路径","4 候选","1 掺杂方案"]},
+   ]},
+  ]},
+ {badge:"ECHEM",name:"电化学传感与分子识别",desc:"氧化 / 还原 / PCET 电位、描述符指纹、识别材料与阵列去卷积——药物与代谢物检测选材。",
+  caps:[
+   {fam:"RedoxFinger-AI",nm:"氧化 / 还原电位与 PCET",cards:[
+     {code:"ECH-RDX-001",h:"药物 / 代谢物 1e⁻ 与 PCET 氧化电位",ctx:"输入：分析物 SMILES + pH",fn:["N 分析物","描述符指纹","E_ox(pH)","传感窗排序"],demo:true},
+   ]},
+   {fam:"SensorArray-AI",nm:"识别材料与阵列去卷积",cards:[
+     {code:"ECH-ARR-001",h:"电极 / 识别层选择与交叉响应",ctx:"输入：材料 × 分析物 矩阵",fn:["材料×分析物","ΔE_ads / Δφ","选择性对","阵列配方"]},
+   ]},
+   {fam:"Interferent-AI",nm:"干扰物分离设计",cards:[
+     {code:"ECH-INT-001",h:"共洗脱三元（DA/AA/UA）电位分离",ctx:"输入：目标 + 干扰物 + 电极",fn:["3 分析物","PCET 电位","分离度","电极修饰建议"],demo:true},
+   ]},
+  ]},
+ {badge:"FF",name:"力场参数就绪包",desc:"用 fairchem 生成参考 QM 数据（能量 / 力 / 扭转扫描），拟合出可直接进 MD 的力场参数——覆盖生物学图谱里那一类「参数就绪包」。",
+  caps:[
+   {fam:"ParamReady-AI",nm:"力场参数就绪包",cards:[
+     {code:"FF-PAR-001",h:"有机金属 / 金属中心参数包",ctx:"输入：金属中心 × 配位环境",fn:["N 金属中心","UMA 参考 QM","电荷 & 二面角","多引擎格式"]},
+     {code:"FF-PAR-002",h:"共价弹头加合物参数包（丙烯酰胺–Cys 等）",ctx:"输入：亲电弹头 × 反应残基",fn:["12 加合物","UMA 扭转扫描","拟合参数","5 引擎格式"]},
+     {code:"FF-PAR-003",h:"配体 / 表面吸附力场",ctx:"输入：配体 + 目标表面",fn:["界面构型","结合能参考","参数化","MD 就绪"]},
+   ]},
+   {fam:"TorsionQM-AI",nm:"扭转 / 构象参考数据",cards:[
+     {code:"FF-TOR-001",h:"药物分子扭转能面（UMA → DFT 校核）",ctx:"输入：可旋转键清单",fn:["可旋转键","扭转扫描","参数","构象集"]},
+   ]},
+  ]},
+ {badge:"SURF",name:"表面 · 界面 · 腐蚀",desc:"缓蚀剂吸附、界面结合与电荷转移、涂层 / 钝化 / 防污——两个实测 Demo 就落在这里。",
+  caps:[
+   {fam:"CorrosionGuard-AI",nm:"缓蚀剂吸附筛选",cards:[
+     {code:"SUR-COR-001",h:"缓蚀剂在 Fe(110) 吸附能 + FMO 筛选",ctx:"输入：候选缓蚀分子库",fn:["分子库","吸附构型","E_ads + HOMO 排序","缓蚀候选"],demo:true},
+   ]},
+   {fam:"InterfaceBind-AI",nm:"界面结合能与电荷转移",cards:[
+     {code:"SUR-INT-001",h:"药物–氧化物 / 载体结合能 + Δρ / Bader",ctx:"输入：药物 × 载体 / 氧化物",fn:["药物×载体","络合物弛豫","ΔE_bind / Kₐ","载体选择"],demo:true},
+   ]},
+   {fam:"Coating-AI",nm:"涂层 / 钝化 / 防污",cards:[
+     {code:"SUR-COA-001",h:"自组装单层在金属上的吸附取向",ctx:"输入：端基库 + 金属面",fn:["端基库","取向弛豫","覆盖度 / 功函","涂层配方"]},
+   ]},
+  ]},
+ {badge:"MOL",name:"分子性质与相互作用",desc:"前线轨道与反应活性描述符、结合能 / ΔG / Kₐ、差分电荷与电荷转移。",
+  caps:[
+   {fam:"FMO-AI",nm:"前线轨道与反应活性描述符",cards:[
+     {code:"MOL-FMO-001",h:"分子库 HOMO/LUMO/χ/η/ω 指纹（PySCF）",ctx:"输入：分子库",fn:["分子库","FMO 计算","反应活性排序","候选"]},
+   ]},
+   {fam:"Binding-AI",nm:"结合能 / 相互作用能与 ΔG / Kₐ",cards:[
+     {code:"MOL-BND-001",h:"主客体 / 团簇络合 ΔG_bind、Kₐ",ctx:"输入：主体 × 客体 组合",fn:["组合","弛豫 + 谐振","ΔG / Kₐ","选择性"]},
+   ]},
+   {fam:"ChargeXfer-AI",nm:"差分电荷与电荷转移（Bader）",cards:[
+     {code:"MOL-CHG-001",h:"吸附 / 络合 Δρ + Bader 净电荷",ctx:"输入：吸附 / 络合体系",fn:["体系","ρ 差分","per-atom 电荷","机理"]},
+   ]},
+  ]},
+ {badge:"CRYS",name:"晶体 · MOF · 吸附分离",desc:"多孔材料气体吸附、分子晶体多晶型与晶格能、形成能 / 相稳定性。",
+  caps:[
+   {fam:"MOFCapture-AI",nm:"多孔材料气体吸附筛选",cards:[
+     {code:"CRY-MOF-001",h:"MOF / 沸石 CO₂ · H₂ 吸附能筛选（ODAC）",ctx:"输入：多孔材料结构库",fn:["N 孔材料","吸附位点","吸附能窗","捕集候选"]},
+   ]},
+   {fam:"Polymorph-AI",nm:"分子晶体多晶型与晶格能",cards:[
+     {code:"CRY-POL-001",h:"API 多晶型晶格能排序（OMC）",ctx:"输入：候选晶型",fn:["候选晶型","晶格能","稳定序","结晶建议"]},
+   ]},
+   {fam:"Stability-AI",nm:"形成能 / 相稳定性",cards:[
+     {code:"CRY-STB-001",h:"新组分形成能与凸包距离（OMat）",ctx:"输入：目标组分空间",fn:["组分","形成能","凸包距离","可合成候选"]},
+   ]},
+  ]},
+];
+
+function esc(s){return s.replace(/&/g,"&amp;").replace(/</g,"&lt;")}
+function fnHTML(arr){
+  return arr.map((x,i)=>{
+    const out=i===arr.length-1?" out":"";
+    const arrow=i<arr.length-1?'<span class="arrow">→</span>':'';
+    return `<span class="fn${out}">${esc(x)}</span>${arrow}`;
+  }).join("");
+}
+function render(){
+  const root=document.getElementById("catalogRoot");
+  root.innerHTML=DOMAINS.map(d=>{
+    const nCards=d.caps.reduce((a,c)=>a+c.cards.length,0);
+    const caps=d.caps.map(c=>{
+      const cards=c.cards.map(cd=>`
+        <div class="card">
+          <div class="card-top"><span class="code">${esc(cd.code)}</span></div>
+          <h4>${esc(cd.h)}</h4>
+          <div class="ctx">${esc(cd.ctx)}</div>
+          <div class="funnel">${fnHTML(cd.fn)}</div>
+        </div>`).join("");
+      return `<div class="cap">
+        <div class="cap-title"><span class="fam mono">${esc(c.fam)}</span><span class="nm">${esc(c.nm)}</span></div>
+        <div class="cards">${cards}</div>
+      </div>`;
+    }).join("");
+    return `<div class="domain">
+      <div class="domain-head"><span class="badge">${d.badge}</span><h3>${esc(d.name)}</h3><span class="cnt">${d.caps.length} 能力族 · ${nCards} 方案</span></div>
+      <p class="domain-desc">${esc(d.desc)}</p>
+      ${caps}
+    </div>`;
+  }).join("");
+}
+render();
+
+// theme toggle
+const btn=document.getElementById("themeBtn");
+btn.addEventListener("click",()=>{
+  const cur=document.documentElement.getAttribute("data-theme");
+  const dark=cur?cur==="dark":matchMedia("(prefers-color-scheme:dark)").matches;
+  document.documentElement.setAttribute("data-theme",dark?"light":"dark");
+});
+
+// reveal
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target)}}),{threshold:.12});
+document.querySelectorAll(".reveal").forEach(el=>io.observe(el));
+</script>
