@@ -6,3 +6,7 @@ __pycache__/
 
 # generated skill bundles (build artifacts, delivered as files not committed)
 *-skill.zip
+
+# fetched dataset parquet (re-fetched by binder_audit/run_audit.py)
+binder_audit/*.parquet
+binder_release/

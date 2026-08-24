@@ -1,0 +1,39 @@
+{
+  "analysis_set": {
+    "n": 1320,
+    "targets": 15,
+    "overall_hit_rate_pct": 26.8
+  },
+  "campaign_score3_within_target_mAP": 0.508,
+  "campaign_score3_beats_chance_targets": "12/13",
+  "boltz2_within_target_mAP": 0.462,
+  "boltz2_beats_chance_targets": "13/13",
+  "boltz2_triage_enrichment": [
+    {
+      "keep_pct": 100.0,
+      "n": 1320,
+      "hit_rate_pct": 26.8
+    },
+    {
+      "keep_pct": 50.0,
+      "n": 660,
+      "hit_rate_pct": 35.3
+    },
+    {
+      "keep_pct": 30.0,
+      "n": 396,
+      "hit_rate_pct": 38.9
+    },
+    {
+      "keep_pct": 10.0,
+      "n": 132,
+      "hit_rate_pct": 40.2
+    },
+    {
+      "keep_pct": 5.0,
+      "n": 61,
+      "hit_rate_pct": 42.6
+    }
+  ],
+  "boltz2_vs_logKD_spearman_amongBinders": -0.05
+}
