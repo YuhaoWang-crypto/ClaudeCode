@@ -10,3 +10,7 @@ __pycache__/
 # fetched dataset parquet (re-fetched by binder_audit/run_audit.py)
 binder_audit/*.parquet
 binder_release/
+
+# large predicted structure files (regenerable)
+era_struct/*.cif
+era_struct/*.pdb

@@ -1,0 +1,11 @@
+{
+  "receptor": "ERalpha-LBD (ESR1 P03372 res305-554)",
+  "method": "Boltz-2.1 predicted (NOT crystal)",
+  "apo_job": "sab_pred_mSpEUHFKeh4Xy5FuWiML",
+  "holo_job": "sab_pred_kSwG8DrPF2C6YEf2hcZw",
+  "core_CA_RMSD_A": 1.2,
+  "helix12_AF2_CA_RMSD_A": 3.77,
+  "apo_mean_pLDDT": 89.9,
+  "holo_mean_pLDDT": 93.1,
+  "interpretation": "core unchanged (1.2A); AF-2/helix-12 repositions 3.8A on estradiol binding -> the conformational switch the sensor reads; holo better ordered (pLDDT 93 vs 90)"
+}
