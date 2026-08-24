@@ -1,0 +1,58 @@
+{
+  "analyte": "estradiol (17b-estradiol)",
+  "smiles": "C[C@]12CC[C@H]3[C@H]([C@@H]1CC[C@@H]2O)CCC4=C3C=CC(=C4)O",
+  "receptor": "ESR1 LBD (P03372, 305-554, 250aa)",
+  "binder_validation": {
+    "estradiol": {
+      "binding_confidence": 0.715,
+      "role": "target (native agonist)"
+    },
+    "testosterone": {
+      "binding_confidence": 0.334,
+      "role": "off-target (androgen)"
+    },
+    "cortisol": {
+      "binding_confidence": 0.201,
+      "role": "off-target (glucocorticoid)"
+    }
+  },
+  "specificity_margin_binding_confidence": 0.381,
+  "primary_sensor": {
+    "mechanism": "ligand-induced folding (helix-12/AF-2) -> FRET",
+    "topology": "[mTurquoise2]-SLALSLTADQMVSALLDAEPPILYSEYDPTRPFSEASMMGLLTNLADRELVHMINWAKRVPGFVDLTLHDQVHLLECAWLEILMIGLVWRSMEHPGKLLFAPNLLLDRNQGKCVEGMVEIFDMLLATSSRFRMMNLQGEEFVCLKSIILLNSGVYTFLSSTLKSLEEKDHIHRVLDKITDTLIHLMAKAGLTLQQQHQRLAQLLLILSHIRHMSNKGMEHLYSMKCKNVVPLYDLLLEMLDAHRLHAPTS-[mVenus]",
+    "reporter": "mTurquoise2/mVenus FRET"
+  },
+  "alt_sensor": {
+    "mechanism": "split at H11/H12 + cpGFP",
+    "split_index": 235,
+    "knobs": {
+      "fragment_duplication": [
+        227,
+        235
+      ],
+      "interface_weakening": [
+        1,
+        5
+      ]
+    },
+    "construct_n_len": 339,
+    "construct_c_len": 111,
+    "verify": {
+      "n_has_cpgfp": true,
+      "c_has_cpgfp": true,
+      "n_has_frag": true,
+      "c_has_frag": true,
+      "two_fragments_nonempty": true,
+      "all_ok": true
+    }
+  },
+  "validation_gates": {
+    "A_binder(real)": "\u2705 estradiol co-fold >> testosterone/cortisol (margin +0.381). TODO: measured Kd + broader steroid panel (estrone, DES, tamoxifen).",
+    "B_folding": "apo LBD folds (Boltz/AF2 pLDDT); holo orders AF-2 helix-12 (compare apo vs holo helix-12 position).",
+    "C_transduction(FRET)": "express FRET fusion; measure ratiometric FRET +/- estradiol titration; \u0394R/R0 and apparent EC50.",
+    "C_transduction(split)": "express both cpGFP fusions; fluorescence +/- estradiol; fragment-duplication should suppress apo background.",
+    "D_selectivity": "titrate testosterone/cortisol/estrone/tamoxifen; each < 10% of estradiol response at use conc; competition assay.",
+    "E_reversibility_matrix": "reversibility by dilution/competition; then buffer -> serum-mimic (estradiol is ~pM-nM in serum, largely SHBG-bound -> define free vs total first)."
+  },
+  "label": "\u2705 binder + its estradiol specificity are real Boltz-2.1 co-folds; \u26a0\ufe0f sensor constructs are CANDIDATE DESIGNS - switch behaviour & dynamic range need a wet-lab FRET/fluorescence titration."
+}

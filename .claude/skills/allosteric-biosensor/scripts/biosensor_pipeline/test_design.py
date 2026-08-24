@@ -258,6 +258,17 @@ def test_calibrated_triage():
     print("[OK] calibrated triage: enrichment curve + within-panel ranking + affinity caveat")
 
 
+def test_eralpha_sensor_demo():
+    """ERalpha estradiol sensor: real validated binder -> induced-folding + split transducer."""
+    from .demo_sensor_eralpha import run, ERA_LBD, AF2_MOTIF, SPECIFICITY
+    assert len(ERA_LBD) == 250 and AF2_MOTIF in ERA_LBD
+    m = (SPECIFICITY["estradiol"]["binding_confidence"]
+         - max(v["binding_confidence"] for k, v in SPECIFICITY.items() if k != "estradiol"))
+    assert m > 0.3            # real, large specificity margin for the native agonist
+    run()                     # writes biosensor_out/demo_sensor_eralpha.json
+    print("[OK] ERalpha sensor demo: validated binder -> FRET + split+cpGFP candidate sensors")
+
+
 if __name__ == "__main__":
     test_circular_permutation_conserves_residues()
     test_insertion_preserves_reporter()
@@ -276,4 +287,5 @@ if __name__ == "__main__":
     test_end_to_end_sensor_demo()
     test_25ohd3_blueprint_demo()
     test_calibrated_triage()
+    test_eralpha_sensor_demo()
     print("\nALL TESTS PASSED ✅")
