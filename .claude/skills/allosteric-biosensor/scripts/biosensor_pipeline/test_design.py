@@ -239,6 +239,25 @@ def test_25ohd3_blueprint_demo():
     print("[OK] 25(OH)D3 blueprint: 24-construct library + A-E gates + neighbour panel")
 
 
+def test_calibrated_triage():
+    """Boltz-score calibration: expected hit-rate curve + within-panel ranking."""
+    from .calibration import expected_hit_rate, calibrated_rank, BASELINE_HIT_RATE
+    assert expected_hit_rate(1.0) == BASELINE_HIT_RATE          # no filter = baseline
+    assert expected_hit_rate(0.05) >= expected_hit_rate(0.5)    # tighter keep = higher hit rate
+    assert expected_hit_rate(0.3) == 38.9                        # reproduced point
+    cands = [{"construct": "a", "ligand_iptm": 0.6},
+             {"construct": "b", "ligand_iptm": 0.9},
+             {"construct": "c", "ligand_iptm": 0.75},
+             {"construct": "d", "ligand_iptm": None}]
+    r = calibrated_rank(cands, "ligand_iptm")
+    assert [x["construct"] for x in r[:3]] == ["b", "c", "a"]   # sorted desc by score
+    assert r[0]["rank"] == 1 and r[0]["within_panel_percentile"] == 1.0
+    assert r[0]["expected_hit_rate_pct"] >= r[2]["expected_hit_rate_pct"]  # top ranked >= lower
+    assert r[-1]["construct"] == "d" and r[-1]["rank"] is None  # None score sorts last
+    assert "affinity" in r[0]["triage_note"].lower()           # feasibility-not-affinity flag
+    print("[OK] calibrated triage: enrichment curve + within-panel ranking + affinity caveat")
+
+
 if __name__ == "__main__":
     test_circular_permutation_conserves_residues()
     test_insertion_preserves_reporter()
@@ -256,4 +275,5 @@ if __name__ == "__main__":
     test_transducer_induced_folding_and_metal()
     test_end_to_end_sensor_demo()
     test_25ohd3_blueprint_demo()
+    test_calibrated_triage()
     print("\nALL TESTS PASSED ✅")

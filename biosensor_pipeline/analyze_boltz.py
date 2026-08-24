@@ -119,8 +119,30 @@ def main():
               f"{(r['ligand_iptm'] if r['ligand_iptm'] is not None else 0):8.3f} "
               f"{(r['binding_confidence'] if r['binding_confidence'] is not None else 0):6.3f}")
 
+    # --- calibrated triage ranking of holo candidates (grounded on wet-lab labels) ---
+    # reference/boltz-score-calibration.md: Boltz score triages WITHIN a panel by
+    # percentile; it predicts WHETHER it binds, not affinity. Annotate accordingly.
+    from .calibration import calibrated_rank, BASELINE_HIT_RATE
+    holo_cands = [{"construct": k, "ligand_iptm": r["ligand_iptm"]}
+                  for k, r in res.items() if r["kind"] == "holo" and r["ligand_iptm"] is not None]
+    ranked = calibrated_rank(holo_cands, score_key="ligand_iptm")
+    if ranked and ranked[0].get("rank"):
+        print("\n[calibrated triage] holo candidates by Boltz ligand_iptm "
+              f"(baseline hit-rate {BASELINE_HIT_RATE}%; within-panel percentile, NOT affinity)")
+        print(f"  {'rank':>4s} {'construct':13s} {'lig_iptm':>8s} {'pctile':>7s} "
+              f"{'exp_hit%':>8s} {'enrich':>6s}")
+        for it in ranked:
+            if it.get("rank"):
+                print(f"  {it['rank']:>4d} {it['construct']:13s} {it['ligand_iptm']:8.3f} "
+                      f"{it['within_panel_percentile']:7.2f} {it['expected_hit_rate_pct']:8.1f} "
+                      f"{it['enrichment_vs_baseline']:5.2f}x")
+        print("  note: " + ranked[0]["triage_note"])
+
     print("\n[⚠️ hypothesis] switch proxy per system (illustrative, NOT a predicted DR)")
-    summary = {}
+    summary = {"_calibrated_triage": [
+        {kk: it[kk] for kk in ("rank", "construct", "ligand_iptm", "within_panel_percentile",
+                               "expected_hit_rate_pct", "enrichment_vs_baseline")}
+        for it in ranked if it.get("rank")]}
     keys = sorted({r["system"] for r in res.values()})
     for key in keys:
         holo = res[f"{key}_holo"]; apo = res[f"{key}_apo"]; ctrl = res[f"{key}_ctrl"] if f"{key}_ctrl" in res else res[f"ctrl_{key}"]
