@@ -1,3 +1,9 @@
 data/human_sprot.fasta
 data/_iedb_popcov/
 results/*.log
+
+# Resume caches: raw per-request predictor output, appended while a long job
+# runs and read back to skip work on restart. Regenerable from the scripts, and
+# large; the analysis outputs derived from them are what is tracked.
+results/m11_scores_partial.tsv
+results/m13_panel_scores.tsv
