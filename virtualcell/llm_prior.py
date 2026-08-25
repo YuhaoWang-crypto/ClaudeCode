@@ -29,15 +29,38 @@ Deliberately the *easy* version: the cell lines are named, not anonymised as the
 challenge anonymises them.  A negative result under the most favourable
 conditions is worth more than a negative result under hard ones.
 
-**What it measured.**  The premise turned out to be wrong in an informative way.
-The model is *not* context-blind -- its two answers share only a quarter of their
-genes, and its stated reasoning is specifically lineage-aware -- and it still
-scores **below the context-free baseline in both contexts** (0.105 and 0.089
-against 0.123 and 0.138), and below this project's model by a factor of 2.5.
-Blending it into that model's ranking at any weight makes it monotonically
-worse.  So the failure is not "it ignores the context"; it is that its
-context-specific variation is confidently wrong, which is the harder failure to
-use.
+**What it measured, and what the prompt was worth.**  Two arms, DE overlap@100:
+
+===========================================  ========  ========
+arm                                            Jurkat      RPE1
+===========================================  ========  ========
+global mean [challenge baseline]               0.1231    0.1379
+  *the informed prompt's own handout, reused*  0.1162    0.0719
+naive transfer (the full K562 measurement)     0.2361    0.2175
+ContextTransfer (this project)                 0.2582    0.2265
+language model, **given only gene symbols**    0.1047    0.0887
+language model, **given the measurement**      0.1979    0.1308
+===========================================  ========  ========
+
+The first arm gave the model a knockdown symbol and a cell-line description.  It
+lost to a context-free baseline, and the obvious reading -- *it gave a generic,
+context-blind answer* -- was **false**: its two answers shared a quarter of their
+genes and its reasoning was explicitly lineage-aware.
+
+The second arm gives it the same evidence this project's own model gets: the
+measured K562 response, top 15 up and down with log2FC, to transfer.  That is
+worth **+89% on Jurkat and +47% on RPE1**, from prompt content alone.
+
+The arm that makes the result readable is the third row: score the handout
+*itself* as a prediction.  The informed model beats what it was handed by 70-82%,
+so it is contributing knowledge rather than copying.  It still loses to naive
+transfer -- because naive transfer uses all 6,642 measured genes while the model
+was shown 30.  **The binding constraint is how much measurement reached the
+prompt, not the model's biology.**  Which points where the headroom analysis
+above already pointed: to the genes where no measurement exists at all.
+
+Blending into this project's ranking is still monotonically worse at every
+weight, though much flatter than the symbol-only arm (0.2582 -> 0.2559 at 0.1).
 
     python -m virtualcell.llm_prior --prepare        # writes the task file
     python -m virtualcell.llm_prior --score preds/   # scores whatever came back
@@ -132,6 +155,35 @@ def _pseudo_lfc(pred: dict[str, dict[str, list[str]]], perts: np.ndarray,
     return out, (hit / named if named else 0.0)
 
 
+HANDOUT = Path("results/llm_measured_context.json")
+N_HANDOUT = 15
+
+
+def _handout_lfc(perts: np.ndarray, symbols: np.ndarray) -> np.ndarray:
+    """The measured K562 genes the informed prompt shows, as a prediction.
+
+    This is the arm that decides whether an informed language model contributed
+    anything.  It is handed the source line's top 15 up and down; if its score
+    does not clear the score of that handout used verbatim, it has repeated its
+    input.  Zero when the handout file is absent, which scores as chance.
+    """
+    out = np.zeros((perts.size, symbols.size))
+    if not HANDOUT.exists():
+        return out
+    blob = json.loads(HANDOUT.read_text())
+    index = {str(s): i for i, s in enumerate(symbols)}
+    for i, p in enumerate(perts):
+        entry = blob.get(str(p))
+        if not entry:
+            continue
+        for key in ("top_down_in_K562", "top_up_in_K562"):
+            for r, (g, v) in enumerate(entry[key][:N_HANDOUT]):
+                j = index.get(str(g))
+                if j is not None:
+                    out[i, j] = float(v)
+    return out
+
+
 def score(pred_dir: Path, task: Path = TASK) -> dict:
     """Score the returned predictions against measured DE, with the baselines."""
     payload = json.loads(task.read_text())
@@ -161,6 +213,11 @@ def score(pred_dir: Path, task: Path = TASK) -> dict:
         row = {"symbol coverage": coverage}
         arms = {
             "language model": llm,
+            # The informed prompt hands the model K562's measured top 15 up and
+            # down. Scoring that handout by itself is the honest denominator:
+            # anything at or below it is the model repeating its input, not
+            # contributing knowledge.
+            "  (its own prompt, repeated)": _handout_lfc(perts, symbols),
             "global mean [challenge baseline]":
                 GlobalMeanBaseline().fit(sources, target.mu, symbols).predict(perts),
             "naive transfer":
@@ -213,7 +270,8 @@ def score(pred_dir: Path, task: Path = TASK) -> dict:
           f"{perts.size} knockdowns\n")
     head = f"{'arm':<36}" + "".join(f"{n:>12}" for n in payload["contexts"])
     print(head); print("-" * len(head))
-    for arm in ("global mean [challenge baseline]", "naive transfer",
+    for arm in ("global mean [challenge baseline]",
+                "  (its own prompt, repeated)", "naive transfer",
                 "ContextTransfer (ours)", "language model"):
         print(f"{arm:<36}" + "".join(f"{results[n][arm]:>12.4f}"
                                      for n in payload["contexts"]))
