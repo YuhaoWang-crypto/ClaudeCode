@@ -260,6 +260,8 @@ def run(n_eval: int = 400, tune_eval: int = 300, seed: int = 0,
 
 
 JIANG_PRIOR = DATA / "pseudobulk" / "jiang_transferability.npz"
+ATLAS_PRIOR = (Path(__file__).resolve().parent / "datapackage"
+               / "atlas_transferability.npz")
 
 
 def jiang_transferability(symbols: np.ndarray, min_perturbations: int = 50
@@ -310,7 +312,17 @@ def gene_transferability(symbols: np.ndarray,
     therefore as much a per-gene *noise level* as a transferability, and the
     dynamic range is narrow.  Whether it earns its place is settled by
     :func:`frontier`, not by the argument for it.
+
+    When ``exclude`` is None the answer is a fixed property of the four lines,
+    so it comes from a 77 KB cached vector rather than from the atlas.  That
+    matters off this machine: the atlas costs 15 GB of downloads to rebuild,
+    while a submission needs only this one number per gene.
     """
+    if exclude is None and ATLAS_PRIOR.exists():
+        z = np.load(ATLAS_PRIOR, allow_pickle=True)
+        lut = {str(g): float(f) for g, f in zip(z["symbols"], z["fraction"])}
+        med = float(np.median(z["fraction"]))
+        return np.array([lut.get(str(s), med) for s in symbols])
     lines, _, atlas_sym = load_all()
     if exclude is not None:
         lines = [cl for cl in lines if cl.name != exclude]
