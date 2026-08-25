@@ -47,6 +47,28 @@ EMBED = Path("/home/user/vcc_data/state/protein_embeddings.pt")
 MIXES = (0.0, 0.25, 0.5, 0.75, 1.0)
 
 
+class BlindToGene(ContextTransferModel):
+    """Same model, but the silenced gene's own measured column is hidden.
+
+    This is the third axis, and it is the one that matters for the official
+    panel.  Withholding a knockdown from the source still leaves the *gene*
+    measured, so the response-profile route can find its functional neighbours
+    and a protein embedding has nothing to add -- which is exactly what the
+    first run of this benchmark measured, and why that run could not have
+    detected the effect it was built to look for.
+
+    26 of the official 300 are neither perturbed nor measured in the source.
+    For those the response-profile route has no input at all and the model falls
+    back to the generic response.  Forcing ``gene=None`` reproduces that
+    situation on data where the truth is known, so the real question becomes
+    answerable: **is embedding-routed prediction better than giving up?**
+    """
+
+    def _from_neighbours(self, gene: int | None,
+                         name: str | None = None) -> np.ndarray:
+        return super()._from_neighbours(None, name)
+
+
 def load_embeddings(symbols: np.ndarray) -> np.ndarray | None:
     """Unit-norm protein embeddings on this gene axis; zero rows where absent."""
     if not EMBED.exists():
@@ -114,7 +136,9 @@ def main() -> None:
 
         fold: dict[str, dict] = {}
         for axis, perts in (("cross-context", eval_kept),
-                            ("unseen target", eval_unseen)):
+                            ("unseen target", eval_unseen),
+                            ("unseen target, gene unmeasured", eval_unseen)):
+            blind = axis.endswith("unmeasured")
             truth = de_truth(target, perts)
             base = evaluate(GlobalMeanBaseline().fit(stripped, target.mu, symbols)
                             .predict(perts), target, perts, truth, symbols)
@@ -123,8 +147,9 @@ def main() -> None:
                 if mix > 0 and embed is None:
                     continue
                 hp = Hyper(temp=0.1, esm_mix=mix)
-                m = ContextTransferModel(hp).fit(stripped, target.mu, symbols,
-                                                 bank=bank, gene_embed=embed)
+                cls = BlindToGene if blind else ContextTransferModel
+                m = cls(hp).fit(stripped, target.mu, symbols,
+                                bank=bank, gene_embed=embed)
                 row[f"ContextTransfer esm_mix={mix:g}"] = evaluate(
                     m.predict(perts), target, perts, truth, symbols)
             fold[axis] = row
@@ -142,7 +167,8 @@ def main() -> None:
 
     print("\n" + "=" * 74)
     print("mean over folds")
-    for axis in ("cross-context", "unseen target"):
+    for axis in ("cross-context", "unseen target",
+                 "unseen target, gene unmeasured"):
         print(f"\n  {axis}")
         names = list(results[lines[0].name][axis])
         for name in names:

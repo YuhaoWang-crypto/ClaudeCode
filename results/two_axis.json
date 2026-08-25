@@ -1,0 +1,506 @@
+{
+  "K562": {
+    "cross-context": {
+      "global mean [baseline]": {
+        "discrimination_score_l1": 0.503216,
+        "overlap_at_100": 0.04351314898672794,
+        "overlap_at_50": 0.03440491249723378,
+        "de_direction_match": 0.6477692005795601,
+        "de_spearman_lfc": 0.19010317427065757,
+        "pearson_delta": 0.13405249616906173,
+        "mae": 0.045156678059983725,
+        "mae_delta": 0.045156678059983725
+      },
+      "ContextTransfer esm_mix=0": {
+        "discrimination_score_l1": 0.6133119999999999,
+        "overlap_at_100": 0.19112377828445212,
+        "overlap_at_50": 0.18774041313621698,
+        "de_direction_match": 0.8300450564842861,
+        "de_spearman_lfc": 0.44870588316747456,
+        "pearson_delta": 0.25181376000451394,
+        "mae": 0.04426886995902762,
+        "mae_delta": 0.04426886995902762
+      },
+      "ContextTransfer esm_mix=0.25": {
+        "discrimination_score_l1": 0.6133119999999999,
+        "overlap_at_100": 0.19112377828445212,
+        "overlap_at_50": 0.18774041313621698,
+        "de_direction_match": 0.8300450564842861,
+        "de_spearman_lfc": 0.44870588316747456,
+        "pearson_delta": 0.25181376000451394,
+        "mae": 0.04426886995902762,
+        "mae_delta": 0.04426886995902762
+      },
+      "ContextTransfer esm_mix=0.5": {
+        "discrimination_score_l1": 0.6133119999999999,
+        "overlap_at_100": 0.19112377828445212,
+        "overlap_at_50": 0.18774041313621698,
+        "de_direction_match": 0.8300450564842861,
+        "de_spearman_lfc": 0.44870588316747456,
+        "pearson_delta": 0.25181376000451394,
+        "mae": 0.04426886995902762,
+        "mae_delta": 0.04426886995902762
+      },
+      "ContextTransfer esm_mix=0.75": {
+        "discrimination_score_l1": 0.6133119999999999,
+        "overlap_at_100": 0.19112377828445212,
+        "overlap_at_50": 0.18774041313621698,
+        "de_direction_match": 0.8300450564842861,
+        "de_spearman_lfc": 0.44870588316747456,
+        "pearson_delta": 0.25181376000451394,
+        "mae": 0.04426886995902762,
+        "mae_delta": 0.04426886995902762
+      },
+      "ContextTransfer esm_mix=1": {
+        "discrimination_score_l1": 0.6133119999999999,
+        "overlap_at_100": 0.19112377828445212,
+        "overlap_at_50": 0.18774041313621698,
+        "de_direction_match": 0.8300450564842861,
+        "de_spearman_lfc": 0.44870588316747456,
+        "pearson_delta": 0.25181376000451394,
+        "mae": 0.04426886995902762,
+        "mae_delta": 0.04426886995902762
+      }
+    },
+    "unseen target": {
+      "global mean [baseline]": {
+        "discrimination_score_l1": 0.503264,
+        "overlap_at_100": 0.04705256873517759,
+        "overlap_at_50": 0.03749305088533053,
+        "de_direction_match": 0.6261337796636804,
+        "de_spearman_lfc": 0.16088686415486853,
+        "pearson_delta": 0.13479092879892762,
+        "mae": 0.045455767372661555,
+        "mae_delta": 0.045455767372661555
+      },
+      "ContextTransfer esm_mix=0": {
+        "discrimination_score_l1": 0.5238400000000001,
+        "overlap_at_100": 0.1380202272913923,
+        "overlap_at_50": 0.12916094861772962,
+        "de_direction_match": 0.6931987015784448,
+        "de_spearman_lfc": 0.265995174669394,
+        "pearson_delta": 0.17691289320387,
+        "mae": 0.046512075010647386,
+        "mae_delta": 0.04651207501064738
+      },
+      "ContextTransfer esm_mix=0.25": {
+        "discrimination_score_l1": 0.524048,
+        "overlap_at_100": 0.13822345829076313,
+        "overlap_at_50": 0.1294549364609008,
+        "de_direction_match": 0.6875812563198944,
+        "de_spearman_lfc": 0.2658232770297526,
+        "pearson_delta": 0.1773961921605675,
+        "mae": 0.04647625880430054,
+        "mae_delta": 0.04647625880430054
+      },
+      "ContextTransfer esm_mix=0.5": {
+        "discrimination_score_l1": 0.523072,
+        "overlap_at_100": 0.13591711907841625,
+        "overlap_at_50": 0.12605456640202778,
+        "de_direction_match": 0.6891484353605279,
+        "de_spearman_lfc": 0.26887509386743713,
+        "pearson_delta": 0.17822987290553718,
+        "mae": 0.04638947756865193,
+        "mae_delta": 0.04638947756865193
+      },
+      "ContextTransfer esm_mix=0.75": {
+        "discrimination_score_l1": 0.520512,
+        "overlap_at_100": 0.14035600130814516,
+        "overlap_at_50": 0.13041247784730767,
+        "de_direction_match": 0.6958162060551705,
+        "de_spearman_lfc": 0.2685061473250414,
+        "pearson_delta": 0.17739342464301877,
+        "mae": 0.04632375364424751,
+        "mae_delta": 0.04632375364424751
+      },
+      "ContextTransfer esm_mix=1": {
+        "discrimination_score_l1": 0.513168,
+        "overlap_at_100": 0.13650951992807936,
+        "overlap_at_50": 0.1268559699107997,
+        "de_direction_match": 0.690828472797721,
+        "de_spearman_lfc": 0.2534566878773203,
+        "pearson_delta": 0.17199709244733644,
+        "mae": 0.046184466047402686,
+        "mae_delta": 0.04618446604740268
+      }
+    }
+  },
+  "RPE1": {
+    "cross-context": {
+      "global mean [baseline]": {
+        "discrimination_score_l1": 0.5024,
+        "overlap_at_100": 0.055800952450545074,
+        "overlap_at_50": 0.05208884406072344,
+        "de_direction_match": 0.6905855670162412,
+        "de_spearman_lfc": 0.2010128943240708,
+        "pearson_delta": 0.32097099944865964,
+        "mae": 0.06493108784922794,
+        "mae_delta": 0.06493108784922794
+      },
+      "ContextTransfer esm_mix=0": {
+        "discrimination_score_l1": 0.529376,
+        "overlap_at_100": 0.19916585797798,
+        "overlap_at_50": 0.1995184763036245,
+        "de_direction_match": 0.8560559965457495,
+        "de_spearman_lfc": 0.48128455329855313,
+        "pearson_delta": 0.37104587704740216,
+        "mae": 0.06282748966856716,
+        "mae_delta": 0.06282748966856716
+      },
+      "ContextTransfer esm_mix=0.25": {
+        "discrimination_score_l1": 0.529376,
+        "overlap_at_100": 0.19916585797798,
+        "overlap_at_50": 0.1995184763036245,
+        "de_direction_match": 0.8560559965457495,
+        "de_spearman_lfc": 0.48128455329855313,
+        "pearson_delta": 0.37104587704740216,
+        "mae": 0.06282748966856716,
+        "mae_delta": 0.06282748966856716
+      },
+      "ContextTransfer esm_mix=0.5": {
+        "discrimination_score_l1": 0.529376,
+        "overlap_at_100": 0.19916585797798,
+        "overlap_at_50": 0.1995184763036245,
+        "de_direction_match": 0.8560559965457495,
+        "de_spearman_lfc": 0.48128455329855313,
+        "pearson_delta": 0.37104587704740216,
+        "mae": 0.06282748966856716,
+        "mae_delta": 0.06282748966856716
+      },
+      "ContextTransfer esm_mix=0.75": {
+        "discrimination_score_l1": 0.529376,
+        "overlap_at_100": 0.19916585797798,
+        "overlap_at_50": 0.1995184763036245,
+        "de_direction_match": 0.8560559965457495,
+        "de_spearman_lfc": 0.48128455329855313,
+        "pearson_delta": 0.37104587704740216,
+        "mae": 0.06282748966856716,
+        "mae_delta": 0.06282748966856716
+      },
+      "ContextTransfer esm_mix=1": {
+        "discrimination_score_l1": 0.529376,
+        "overlap_at_100": 0.19916585797798,
+        "overlap_at_50": 0.1995184763036245,
+        "de_direction_match": 0.8560559965457495,
+        "de_spearman_lfc": 0.48128455329855313,
+        "pearson_delta": 0.37104587704740216,
+        "mae": 0.06282748966856716,
+        "mae_delta": 0.06282748966856716
+      }
+    },
+    "unseen target": {
+      "global mean [baseline]": {
+        "discrimination_score_l1": 0.502752,
+        "overlap_at_100": 0.056674688581159434,
+        "overlap_at_50": 0.05496189973002004,
+        "de_direction_match": 0.6925160006292366,
+        "de_spearman_lfc": 0.2593349434069021,
+        "pearson_delta": 0.33291067156066,
+        "mae": 0.06704579391762554,
+        "mae_delta": 0.06704579391762554
+      },
+      "ContextTransfer esm_mix=0": {
+        "discrimination_score_l1": 0.506208,
+        "overlap_at_100": 0.18281610373392204,
+        "overlap_at_50": 0.18140644808831893,
+        "de_direction_match": 0.7767597681478084,
+        "de_spearman_lfc": 0.33077209146978187,
+        "pearson_delta": 0.3551332884581436,
+        "mae": 0.06662644789144824,
+        "mae_delta": 0.06662644789144824
+      },
+      "ContextTransfer esm_mix=0.25": {
+        "discrimination_score_l1": 0.50592,
+        "overlap_at_100": 0.1787850248673944,
+        "overlap_at_50": 0.17652644808831894,
+        "de_direction_match": 0.7729356253337355,
+        "de_spearman_lfc": 0.32831449316843464,
+        "pearson_delta": 0.3553104659374731,
+        "mae": 0.0665741646505154,
+        "mae_delta": 0.0665741646505154
+      },
+      "ContextTransfer esm_mix=0.5": {
+        "discrimination_score_l1": 0.505952,
+        "overlap_at_100": 0.18298345470951644,
+        "overlap_at_50": 0.18156644808831895,
+        "de_direction_match": 0.7804231973125458,
+        "de_spearman_lfc": 0.3412065861204602,
+        "pearson_delta": 0.35666524083826195,
+        "mae": 0.06655779690170156,
+        "mae_delta": 0.06655779690170156
+      },
+      "ContextTransfer esm_mix=0.75": {
+        "discrimination_score_l1": 0.5060159999999999,
+        "overlap_at_100": 0.18257969895052809,
+        "overlap_at_50": 0.18138448730400522,
+        "de_direction_match": 0.7905735562050987,
+        "de_spearman_lfc": 0.34276272775564676,
+        "pearson_delta": 0.3544635887735666,
+        "mae": 0.06660272828959303,
+        "mae_delta": 0.06660272828959303
+      },
+      "ContextTransfer esm_mix=1": {
+        "discrimination_score_l1": 0.5046240000000001,
+        "overlap_at_100": 0.18095009737814288,
+        "overlap_at_50": 0.17974729909538845,
+        "de_direction_match": 0.7782221085506503,
+        "de_spearman_lfc": 0.3322240167265636,
+        "pearson_delta": 0.3520084847874411,
+        "mae": 0.06664870465331645,
+        "mae_delta": 0.06664870465331645
+      }
+    }
+  },
+  "HepG2": {
+    "cross-context": {
+      "global mean [baseline]": {
+        "discrimination_score_l1": 0.502736,
+        "overlap_at_100": 0.12877488642458573,
+        "overlap_at_50": 0.12526722352283964,
+        "de_direction_match": 0.7331149796861132,
+        "de_spearman_lfc": 0.3784230336026127,
+        "pearson_delta": 0.26855711192401505,
+        "mae": 0.057129847811415446,
+        "mae_delta": 0.057129847811415446
+      },
+      "ContextTransfer esm_mix=0": {
+        "discrimination_score_l1": 0.5652640000000001,
+        "overlap_at_100": 0.2707463822298012,
+        "overlap_at_50": 0.2700528702536945,
+        "de_direction_match": 0.8677398287539994,
+        "de_spearman_lfc": 0.5228355768495173,
+        "pearson_delta": 0.34746780149819645,
+        "mae": 0.05458525290829775,
+        "mae_delta": 0.05458525290829775
+      },
+      "ContextTransfer esm_mix=0.25": {
+        "discrimination_score_l1": 0.5652640000000001,
+        "overlap_at_100": 0.2707463822298012,
+        "overlap_at_50": 0.2700528702536945,
+        "de_direction_match": 0.8677398287539994,
+        "de_spearman_lfc": 0.5228355768495173,
+        "pearson_delta": 0.34746780149819645,
+        "mae": 0.05458525290829775,
+        "mae_delta": 0.05458525290829775
+      },
+      "ContextTransfer esm_mix=0.5": {
+        "discrimination_score_l1": 0.5652640000000001,
+        "overlap_at_100": 0.2707463822298012,
+        "overlap_at_50": 0.2700528702536945,
+        "de_direction_match": 0.8677398287539994,
+        "de_spearman_lfc": 0.5228355768495173,
+        "pearson_delta": 0.34746780149819645,
+        "mae": 0.05458525290829775,
+        "mae_delta": 0.05458525290829775
+      },
+      "ContextTransfer esm_mix=0.75": {
+        "discrimination_score_l1": 0.5652640000000001,
+        "overlap_at_100": 0.2707463822298012,
+        "overlap_at_50": 0.2700528702536945,
+        "de_direction_match": 0.8677398287539994,
+        "de_spearman_lfc": 0.5228355768495173,
+        "pearson_delta": 0.34746780149819645,
+        "mae": 0.05458525290829775,
+        "mae_delta": 0.05458525290829775
+      },
+      "ContextTransfer esm_mix=1": {
+        "discrimination_score_l1": 0.5652640000000001,
+        "overlap_at_100": 0.2707463822298012,
+        "overlap_at_50": 0.2700528702536945,
+        "de_direction_match": 0.8677398287539994,
+        "de_spearman_lfc": 0.5228355768495173,
+        "pearson_delta": 0.34746780149819645,
+        "mae": 0.05458525290829775,
+        "mae_delta": 0.05458525290829775
+      }
+    },
+    "unseen target": {
+      "global mean [baseline]": {
+        "discrimination_score_l1": 0.503008,
+        "overlap_at_100": 0.12775114529281556,
+        "overlap_at_50": 0.12767001319004803,
+        "de_direction_match": 0.7546395179883764,
+        "de_spearman_lfc": 0.36883680346890485,
+        "pearson_delta": 0.267535824272794,
+        "mae": 0.058263696309004485,
+        "mae_delta": 0.058263696309004485
+      },
+      "ContextTransfer esm_mix=0": {
+        "discrimination_score_l1": 0.5123199999999999,
+        "overlap_at_100": 0.24888080363374077,
+        "overlap_at_50": 0.2541846231394969,
+        "de_direction_match": 0.8033048831043623,
+        "de_spearman_lfc": 0.4327964944400038,
+        "pearson_delta": 0.2912535844228593,
+        "mae": 0.05800145158442135,
+        "mae_delta": 0.05800145158442133
+      },
+      "ContextTransfer esm_mix=0.25": {
+        "discrimination_score_l1": 0.511728,
+        "overlap_at_100": 0.2498592159554032,
+        "overlap_at_50": 0.2546800354827496,
+        "de_direction_match": 0.8007584526222963,
+        "de_spearman_lfc": 0.4320653551656826,
+        "pearson_delta": 0.2911709852483026,
+        "mae": 0.05797720162384198,
+        "mae_delta": 0.05797720162384198
+      },
+      "ContextTransfer esm_mix=0.5": {
+        "discrimination_score_l1": 0.5116959999999999,
+        "overlap_at_100": 0.25439792033033554,
+        "overlap_at_50": 0.2580062990659097,
+        "de_direction_match": 0.7954646394871018,
+        "de_spearman_lfc": 0.4337278687409548,
+        "pearson_delta": 0.29244052927693326,
+        "mae": 0.05793703114315187,
+        "mae_delta": 0.05793703114315188
+      },
+      "ContextTransfer esm_mix=0.75": {
+        "discrimination_score_l1": 0.511008,
+        "overlap_at_100": 0.24969476492064593,
+        "overlap_at_50": 0.2546852559511129,
+        "de_direction_match": 0.8021267639854951,
+        "de_spearman_lfc": 0.43246697394626127,
+        "pearson_delta": 0.2931509511177604,
+        "mae": 0.05791372558429825,
+        "mae_delta": 0.05791372558429825
+      },
+      "ContextTransfer esm_mix=1": {
+        "discrimination_score_l1": 0.508608,
+        "overlap_at_100": 0.24699944360095502,
+        "overlap_at_50": 0.2525379457414625,
+        "de_direction_match": 0.8020780272693734,
+        "de_spearman_lfc": 0.4319737597237123,
+        "pearson_delta": 0.2895529728788125,
+        "mae": 0.057998579273971604,
+        "mae_delta": 0.057998579273971604
+      }
+    }
+  },
+  "Jurkat": {
+    "cross-context": {
+      "global mean [baseline]": {
+        "discrimination_score_l1": 0.502752,
+        "overlap_at_100": 0.04933815681781547,
+        "overlap_at_50": 0.0460928560098786,
+        "de_direction_match": 0.6421991468025967,
+        "de_spearman_lfc": 0.22707696456773965,
+        "pearson_delta": 0.12612993927581798,
+        "mae": 0.05617394610012116,
+        "mae_delta": 0.05617394610012116
+      },
+      "ContextTransfer esm_mix=0": {
+        "discrimination_score_l1": 0.5716960000000001,
+        "overlap_at_100": 0.16972359998866574,
+        "overlap_at_50": 0.16880245703079713,
+        "de_direction_match": 0.784233140091192,
+        "de_spearman_lfc": 0.46198376674018005,
+        "pearson_delta": 0.21369517285535217,
+        "mae": 0.05629744071735904,
+        "mae_delta": 0.05629744071735904
+      },
+      "ContextTransfer esm_mix=0.25": {
+        "discrimination_score_l1": 0.5716960000000001,
+        "overlap_at_100": 0.16972359998866574,
+        "overlap_at_50": 0.16880245703079713,
+        "de_direction_match": 0.784233140091192,
+        "de_spearman_lfc": 0.46198376674018005,
+        "pearson_delta": 0.21369517285535217,
+        "mae": 0.05629744071735904,
+        "mae_delta": 0.05629744071735904
+      },
+      "ContextTransfer esm_mix=0.5": {
+        "discrimination_score_l1": 0.5716960000000001,
+        "overlap_at_100": 0.16972359998866574,
+        "overlap_at_50": 0.16880245703079713,
+        "de_direction_match": 0.784233140091192,
+        "de_spearman_lfc": 0.46198376674018005,
+        "pearson_delta": 0.21369517285535217,
+        "mae": 0.05629744071735904,
+        "mae_delta": 0.05629744071735904
+      },
+      "ContextTransfer esm_mix=0.75": {
+        "discrimination_score_l1": 0.5716960000000001,
+        "overlap_at_100": 0.16972359998866574,
+        "overlap_at_50": 0.16880245703079713,
+        "de_direction_match": 0.784233140091192,
+        "de_spearman_lfc": 0.46198376674018005,
+        "pearson_delta": 0.21369517285535217,
+        "mae": 0.05629744071735904,
+        "mae_delta": 0.05629744071735904
+      },
+      "ContextTransfer esm_mix=1": {
+        "discrimination_score_l1": 0.5716960000000001,
+        "overlap_at_100": 0.16972359998866574,
+        "overlap_at_50": 0.16880245703079713,
+        "de_direction_match": 0.784233140091192,
+        "de_spearman_lfc": 0.46198376674018005,
+        "pearson_delta": 0.21369517285535217,
+        "mae": 0.05629744071735904,
+        "mae_delta": 0.05629744071735904
+      }
+    },
+    "unseen target": {
+      "global mean [baseline]": {
+        "discrimination_score_l1": 0.50288,
+        "overlap_at_100": 0.04681744436398131,
+        "overlap_at_50": 0.04246181645113332,
+        "de_direction_match": 0.653871449691688,
+        "de_spearman_lfc": 0.2954936218137712,
+        "pearson_delta": 0.13295278438752148,
+        "mae": 0.057751990025870475,
+        "mae_delta": 0.05775199002587047
+      },
+      "ContextTransfer esm_mix=0": {
+        "discrimination_score_l1": 0.5130560000000001,
+        "overlap_at_100": 0.11436379289471008,
+        "overlap_at_50": 0.11046817627774899,
+        "de_direction_match": 0.7063974981319017,
+        "de_spearman_lfc": 0.34327202082716424,
+        "pearson_delta": 0.15667880907836473,
+        "mae": 0.059743716407084924,
+        "mae_delta": 0.059743716407084924
+      },
+      "ContextTransfer esm_mix=0.25": {
+        "discrimination_score_l1": 0.513488,
+        "overlap_at_100": 0.11122317536642366,
+        "overlap_at_50": 0.1075399197999273,
+        "de_direction_match": 0.7055889669037437,
+        "de_spearman_lfc": 0.34079976767697806,
+        "pearson_delta": 0.15592974573191565,
+        "mae": 0.05978650896451442,
+        "mae_delta": 0.05978650896451442
+      },
+      "ContextTransfer esm_mix=0.5": {
+        "discrimination_score_l1": 0.513456,
+        "overlap_at_100": 0.11164285692897116,
+        "overlap_at_50": 0.10798436424437174,
+        "de_direction_match": 0.7068735137634872,
+        "de_spearman_lfc": 0.3434403376055299,
+        "pearson_delta": 0.15597535370920565,
+        "mae": 0.059738394059663406,
+        "mae_delta": 0.059738394059663406
+      },
+      "ContextTransfer esm_mix=0.75": {
+        "discrimination_score_l1": 0.5134559999999999,
+        "overlap_at_100": 0.11335825342178098,
+        "overlap_at_50": 0.11043872321873072,
+        "de_direction_match": 0.7093218282359554,
+        "de_spearman_lfc": 0.3485051035827786,
+        "pearson_delta": 0.15700311274941264,
+        "mae": 0.05962754734727894,
+        "mae_delta": 0.05962754734727894
+      },
+      "ContextTransfer esm_mix=1": {
+        "discrimination_score_l1": 0.508144,
+        "overlap_at_100": 0.11224409368813289,
+        "overlap_at_50": 0.10788404708740862,
+        "de_direction_match": 0.7136172319224222,
+        "de_spearman_lfc": 0.34620904089609444,
+        "pearson_delta": 0.1544711233310209,
+        "mae": 0.05939495569924407,
+        "mae_delta": 0.059394955699244065
+      }
+    }
+  }
+}
