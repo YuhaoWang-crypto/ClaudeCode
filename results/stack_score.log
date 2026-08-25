@@ -15,3 +15,17 @@
 
 === RPE1: 100 knockdowns ===
   4606/6642 genes recovered from Stack output
+  -- all 6,642 genes --
+    control (delta=0)                  PDS=0.505  ovl@100=0.005  MAE=0.0700  score=0.000
+    global mean [challenge baseline]   PDS=0.506  ovl@100=0.059  MAE=0.0679  score=0.000
+    naive transfer                     PDS=0.564  ovl@100=0.227  MAE=0.0705  score=0.099
+    ContextTransfer (ours)             PDS=0.568  ovl@100=0.188  MAE=0.0658  score=0.098
+  -- restricted to genes Stack covers --
+    control (delta=0)                  PDS=0.506  ovl@100=0.005  MAE=0.0728  score=0.000
+    global mean [challenge baseline]   PDS=0.506  ovl@100=0.062  MAE=0.0705  score=0.000
+    naive transfer                     PDS=0.560  ovl@100=0.225  MAE=0.0730  score=0.094
+    ContextTransfer (ours)             PDS=0.565  ovl@100=0.186  MAE=0.0680  score=0.096
+    Stack (Arc, in-context)            PDS=0.506  ovl@100=0.028  MAE=0.0877  score=0.000
+
+=== HepG2: 100 knockdowns ===
+  4606/6642 genes recovered from Stack output
