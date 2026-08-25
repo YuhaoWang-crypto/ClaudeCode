@@ -1,0 +1,14 @@
+{
+  "measured effects": {
+    "robustness_index": 0.26125,
+    "chance": 0.0008333333333333334,
+    "n_profiles": 1600,
+    "lift_over_chance": 313.49999999999994
+  },
+  "control profiles (no perturbation signal)": {
+    "robustness_index": 0.0025,
+    "chance": 0.0008333333333333334,
+    "n_profiles": 1600,
+    "lift_over_chance": 3.0
+  }
+}
