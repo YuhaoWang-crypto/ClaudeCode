@@ -273,6 +273,122 @@ function figure(s, path, o) {
           "calling more peptides tolerised.", 6.0);
 }
 
+// --------------------------------------------- 6b boundary of the filter
+if (data.promiscuity_calibration && data.promiscuity_calibration.boundary_controls) {
+  const bc = data.promiscuity_calibration.boundary_controls;
+  const nP = data.promiscuity_calibration.panel_size;
+  const s = light("Where the filter is wrong, measured", "Module 4 · boundary controls");
+  s.addText("The filter's rule is \u201cself implies tolerated\u201d. That is right often enough to " +
+            "be worth applying and wrong often enough to be worth measuring, so the batch carries " +
+            "two controls that sit on the boundary.",
+    { x: M, y: 1.28, w: W - 2 * M, h: 0.5, fontSize: 12, color: INK, fontFace: BODY,
+      margin: 0, lineSpacing: 16 });
+  const rows = [
+    head(["Control", "Role", "DR at %Rank<1", "at <5", "Cores tolerised", "pIRS unfiltered", "pIRS filtered"]),
+    ...Object.entries(bc).map(([k, v]) => ([
+      { text: k.replace("_region", ""), options: { fontFace: "Courier New", bold: true, fontSize: 9 } },
+      { text: v.role.replace(/_/g, " "), options: { color: WARN, fontSize: 9 } },
+      { text: `${v.dr_breadth_sb}/${nP}`, options: { align: "right" } },
+      { text: `${v.dr_breadth_wb}/${nP}`, options: { align: "right" } },
+      { text: `${v.cores_called_tolerised}/${v.predicted_cores_in_window}`, options: { align: "right" } },
+      { text: v.ligand_pIRS_unfiltered.toFixed(2), options: { align: "right" } },
+      { text: v.ligand_pIRS.toFixed(2), options: { align: "right", bold: true } },
+    ])),
+  ];
+  tbl(s, rows, { y: 1.95, colW: [2.5, 2.2, 1.5, 1.0, 1.6, 1.6, 1.66], rowH: 0.38 });
+
+  const mbp = bc["MBP_85_99_region"];
+  if (mbp) {
+    s.addShape(pres.ShapeType.roundRect, { x: M, y: 3.35, w: W - 2 * M, h: 1.75,
+      fill: { color: "FBF1F1" }, line: { color: "E8CDCD", width: 0.75 }, rectRadius: 0.06 });
+    s.addText([
+      { text: "The filter suppresses a real epitope, and this is the clearest example.\n",
+        options: { bold: true, color: BAD } },
+      { text: `Myelin basic protein 85\u201399 is a human self peptide with positive ` +
+              `DR-restricted T-cell assays on 10 distinct DR molecules in IEDB. On this panel it is ` +
+              `the broadest binder in the entire batch \u2014 ${mbp.dr_breadth_sb}/${nP} DR molecules ` +
+              `at the strong-binder tier, unfiltered pIRS ${mbp.ligand_pIRS_unfiltered.toFixed(2)}, ` +
+              `higher than any ligand here. The tolerance filter takes it to ` +
+              `${mbp.ligand_pIRS.toFixed(2)}.\n\nThat is the filter working as designed and being ` +
+              `wrong. Self-derived epitopes exist \u2014 autoimmunity is what they are \u2014 and a ` +
+              `sequence-identity filter cannot see the difference. It is safe for an affinity ligand ` +
+              `because a foreign scaffold's framework similarity to human germline is the case it was ` +
+              `built for; it is not safe for anything where self-reactivity is the question.`,
+        options: { color: INK } },
+    ], { x: M + 0.22, y: 3.48, w: W - 2 * M - 0.44, h: 1.5, fontSize: 11.5, fontFace: BODY,
+         margin: 0, lineSpacing: 15 });
+  }
+  const clp = bc["CLIP_87_101_region"];
+  if (clp) {
+    s.addText(`The opposite control behaves too. CLIP occupies the groove of essentially every DR ` +
+              `molecule as the invariant chain's placeholder, yet carries no positive human DR ` +
+              `T-cell record in IEDB. Here it reaches ${clp.dr_breadth_wb}/${nP} at the weak tier and ` +
+              `${clp.dr_breadth_sb}/${nP} at the strong tier, and ends at pIRS ` +
+              `${clp.ligand_pIRS.toFixed(2)} \u2014 binding strength alone is not being read as risk.`,
+      { x: M, y: 5.3, w: W - 2 * M, h: 0.7, fontSize: 11.5, color: INK, fontFace: BODY,
+        margin: 0, lineSpacing: 15 });
+  }
+  note(s, "Both controls' roles were checked against IEDB before assignment. They do not pass or " +
+          "fail the batch \u2014 they put a number on two things the filter cannot do.", 6.35);
+}
+
+// ------------------------------------------------ 6c measured accuracy
+if (data.accuracy && data.benchmark && data.figures.calibration) {
+  const a = data.accuracy, bm = data.benchmark;
+  const s = light("Does the rule actually work?", "Modules 10\u201311 · measured accuracy");
+  s.addText("Every choice above this point was made by argument. The EL+BA consensus entered the " +
+            "pipeline because eluted-ligand scoring over-calls \u2014 a reasonable argument and no " +
+            "evidence. So the rule was scored against ground truth: every HLA-DR-restricted CD4 " +
+            "T-cell assay result IEDB holds for these " + a.n_pairs.toLocaleString() +
+            " peptide-allele pairs, in human hosts.",
+    { x: M, y: 1.26, w: W - 2 * M, h: 0.55, fontSize: 12, color: INK, fontFace: BODY,
+      margin: 0, lineSpacing: 16 });
+  s.addImage({ path: data.figures.calibration, x: M, y: 1.92, w: 7.5, h: 3.05 });
+
+  const w2 = W - M - (M + 7.8);
+  const best = (a.sweep || {}).max_mcc;
+  const cur = Object.entries(a.operating_points).find(([k]) => k.startsWith("AND"));
+  const geo = (a.comparisons || {}).GEO_vs_EL;
+  let yy = 1.95;
+  const facts = [
+    [`${bm.labelled_pairs.toLocaleString()} labelled outcomes`,
+     `${bm.positives.toLocaleString()} positive / ${bm.negatives.toLocaleString()} negative pairs in ` +
+     `${bm.clusters.toLocaleString()} 9-mer clusters, so overlapping peptides from one study count once`],
+    [`Best rule: ${a.best_continuous_rule}, AUC ${a.rules[a.best_continuous_rule].auc.toFixed(3)}`,
+     `against ${a.rules.EL.auc.toFixed(3)} for eluted-ligand scoring alone` +
+     (geo ? `; paired cluster bootstrap puts the difference at ${geo.delta >= 0 ? "+" : ""}` +
+            `${geo.delta.toFixed(4)}, 95% CI [${geo.ci95[0].toFixed(4)}, ${geo.ci95[1].toFixed(4)}]` : "")],
+    cur ? [`Current rule: ${(cur[1].sensitivity * 100).toFixed(0)}% sensitivity, ` +
+           `${(cur[1].specificity * 100).toFixed(0)}% specificity`,
+           `a flagged peptide is real ${(cur[1].ppv_at_scan_prevalence * 100).toFixed(0)}% of the time ` +
+           `at ${(a.scan_prevalence * 100).toFixed(0)}% assumed scan prevalence`] : null,
+    best ? [`Calibrated cut: %Rank < ${best.threshold_rank.toFixed(2)}`,
+            `${(best.sensitivity * 100).toFixed(0)}% / ${(best.specificity * 100).toFixed(0)}%, ` +
+            `MCC ${best.mcc.toFixed(3)}` + (cur ? ` against ${cur[1].mcc.toFixed(3)} for the current rule` : "")] : null,
+  ].filter(Boolean);
+  facts.forEach(([h, t]) => {
+    s.addText([{ text: h + "\n", options: { bold: true, color: ACCENT } },
+               { text: t, options: { color: INK } }],
+      { x: M + 7.8, y: yy, w: w2, h: 0.95, fontSize: 10.5, fontFace: BODY,
+        margin: 0, lineSpacing: 13 });
+    yy += 0.82;
+  });
+
+  s.addShape(pres.ShapeType.roundRect, { x: M, y: 5.15, w: W - 2 * M, h: 1.15,
+    fill: { color: SOFT }, line: { color: LINE, width: 0.75 }, rectRadius: 0.06 });
+  s.addText([
+    { text: "Read the absolute numbers as an upper bound.  ", options: { bold: true } },
+    { text: "NetMHCIIpan is trained on IEDB binding and mass-spec data; the labels here are T-cell " +
+            "assay outcomes, a different endpoint, but partial training-set overlap is certain and " +
+            "cannot be excluded from outside. The comparison between rules is far more robust \u2014 " +
+            "every rule uses the same possibly-leaky predictors on the same peptides, so leakage " +
+            "inflates them together and largely cancels in the difference.", options: {} },
+  ], { x: M + 0.22, y: 5.28, w: W - 2 * M - 0.44, h: 0.95, fontSize: 10.5, color: INK,
+       fontFace: BODY, margin: 0, lineSpacing: 13 });
+  note(s, "IEDB's negatives carry their own bias: a peptide tested and found negative in one donor " +
+          "set is not a clean non-binder, which inflates apparent specificity.", 6.5);
+}
+
 // ----------------------------------------------------------- 7 calibration
 {
   const s = light("Calibrated against benchmarks and controls in the same batch",

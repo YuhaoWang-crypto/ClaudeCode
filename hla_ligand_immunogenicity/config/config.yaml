@@ -75,9 +75,25 @@ benchmarks:
   # a promiscuity number means on this panel rather than to pass/fail a run.
   # These peptides drive CD4 responses in most donors in vitro; whatever DR
   # breadth the predictor assigns them is the practical ceiling of the method.
+  # IEDB human DR-restricted T-cell evidence, checked before use (M0 notes
+  # carry the counts): HA306-318 is positive on 25 distinct DR molecules,
+  # TT p2 on 6, TT p30 on 1. PADRE was a candidate and was dropped - IEDB
+  # holds no positive human DR T-cell record for it.
   positive_control_epitopes:
+    HA_306_318_region: "PKYVKQNTLKLAT"     # influenza A HA 306-318
     TT_p2_region: "QYIKANSKFIGITEL"        # tetanus toxin 830-844
     TT_p30_region: "FNNFTVSFWLRVPKVSASHLE" # tetanus toxin 947-967
+
+  # Controls that probe the *boundary* of the tolerance filter rather than
+  # pass or fail the batch. Both are reported as measured limitations.
+  #   self_immunogenic  a human peptide that IS a validated DR epitope; the
+  #                     filter's core assumption (self => tolerated) is wrong
+  #                     for it, and the run says by how much.
+  #   tolerised_binder  a universal DR ligand with no T-cell positives; tests
+  #                     that binding strength alone is not read as risk.
+  boundary_control_epitopes:
+    MBP_85_99_region: "ENPVVHFFKNIVTPR"    # myelin basic protein 85-99
+    CLIP_87_101_region: "PVSKMRMATPLLMQA"  # invariant chain CLIP
   # Minimum DR breadth a universal epitope must reach at the weak-binder tier
   # for the batch to be considered sensitive enough to report.
   positive_control_min_breadth_wb: 4

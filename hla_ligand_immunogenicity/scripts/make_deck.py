@@ -64,6 +64,10 @@ def main():
         "qc": qc,
         "rank": rank,
         "suitability": suit,
+        "promiscuity_calibration": jsn("m6_promiscuity_calibration.json"),
+        "accuracy": jsn("m11_calibration.json"),
+        "benchmark": jsn("m10_benchmark_summary.json"),
+        "tolerance_weight": jsn("m12_tolerance_weight.json"),
         "filter_validation": val,
         "summary": summary[test_id],
         "test_rank": next(r for r in rank if r["id"] == test_id),
@@ -85,7 +89,8 @@ def main():
             "landscape": "fig2_binding_landscape.png",
             "ranking": "fig3_calibrated_ranking.png",
             "tb": "fig4_tb_coincidence.png",
-            "deimm": "fig5_deimmunization.png"}.items()
+            "deimm": "fig5_deimmunization.png",
+            "calibration": "fig6_calibration.png"}.items()
             if os.path.exists(figures_path(v))},
         "out": os.path.join(ROOT, "report.pptx"),
     }

@@ -358,10 +358,106 @@ def fig_deimmunization():
     plt.close(fig)
 
 
+# --------------------------------------------------------------------------
+def fig_calibration():
+    """ROC of each decision rule against measured T-cell outcomes, plus what a
+    flag is actually worth once scan prevalence is taken into account."""
+    path = results_path("m11_benchmark_scored.tsv")
+    if not os.path.exists(path):
+        return
+    import math
+    rows = tsv("m11_benchmark_scored.tsv")
+    if not rows:
+        return
+    with open(results_path("m11_calibration.json")) as f:
+        cal = json.load(f)
+
+    def series(r):
+        el, ba = max(float(r["el_rank"]), 1e-3), max(float(r["ba_rank"]), 1e-3)
+        return {"EL": -math.log10(el), "BA": -math.log10(ba),
+                "GEO": -math.log10(math.sqrt(el * ba)), "MIN": -math.log10(min(el, ba))}
+
+    labels = [int(r["label"]) for r in rows]
+    scored = [series(r) for r in rows]
+
+    def roc_curve(scores):
+        pairs = sorted(zip(scores, labels), key=lambda t: -t[0])
+        P, N = sum(labels), len(labels) - sum(labels)
+        tp = fp = 0
+        xs, ys = [0.0], [0.0]
+        for _, l in pairs:
+            tp += l
+            fp += 1 - l
+            xs.append(fp / N)
+            ys.append(tp / P)
+        return xs, ys
+
+    colors = {"EL": MUTED, "BA": "#7a5ea8", "GEO": ACCENT, "MIN": WARN}
+    fig, (ax, ax2) = plt.subplots(1, 2, figsize=(10.6, 4.3),
+                                  gridspec_kw={"width_ratios": [1, 1]})
+    ax.plot([0, 1], [0, 1], color=GRID, lw=1, ls="--")
+    for name in ("EL", "BA", "GEO", "MIN"):
+        xs, ys = roc_curve([s[name] for s in scored])
+        auc = cal["rules"][name]["auc"]
+        ax.plot(xs, ys, lw=1.9 if name == cal["best_continuous_rule"] else 1.2,
+                color=colors[name], label=f"{name}   AUC {auc:.3f}",
+                zorder=3 if name == cal["best_continuous_rule"] else 2)
+    for name, c in cal["operating_points"].items():
+        if any(math.isnan(c[k]) for k in ("sensitivity", "specificity")):
+            continue
+        ax.scatter([1 - c["specificity"]], [c["sensitivity"]], s=34, zorder=5,
+                   facecolor="white", edgecolor=BAD if name.startswith("AND") else INK,
+                   lw=1.5)
+        if name.startswith("AND"):
+            ax.annotate("current rule", (1 - c["specificity"], c["sensitivity"]),
+                        textcoords="offset points", xytext=(9, -3), fontsize=7.5,
+                        color=BAD)
+    ax.set_xlabel("false-positive rate (1 - specificity)")
+    ax.set_ylabel("sensitivity")
+    ax.set_title(f"Decision rules vs measured T-cell response\n"
+                 f"{cal['n_pairs']} peptide-allele pairs, {cal['n_clusters']} clusters",
+                 fontsize=9.5)
+    ax.legend(frameon=False, fontsize=7.5, loc="lower right")
+    ax.set_xlim(0, 1); ax.set_ylim(0, 1.02)
+    ax.grid(color=GRID, lw=0.6); ax.set_axisbelow(True)
+
+    # what a flag is worth as the true prevalence of epitopes falls
+    prevs = np.logspace(-2.3, -0.3, 60)
+    for name, c in cal["operating_points"].items():
+        if any(math.isnan(c[k]) for k in ("sensitivity", "specificity")):
+            continue
+        se, sp = c["sensitivity"], c["specificity"]
+        ppv = se * prevs / (se * prevs + (1 - sp) * (1 - prevs))
+        ax2.plot(prevs * 100, ppv * 100, lw=1.6,
+                 color=BAD if name.startswith("AND") else MUTED,
+                 label=name.replace(" (current)", ""))
+    sweep = cal.get("sweep", {}).get("max_mcc")
+    if sweep:
+        se, sp = sweep["sensitivity"], sweep["specificity"]
+        ppv = se * prevs / (se * prevs + (1 - sp) * (1 - prevs))
+        ax2.plot(prevs * 100, ppv * 100, lw=2.1, color=GOOD,
+                 label=f"calibrated {cal['best_continuous_rule']} "
+                       f"%Rank<{sweep['threshold_rank']:.2f}")
+    ax2.axvline(cal["scan_prevalence"] * 100, color=INK, ls=":", lw=1.1)
+    ax2.annotate("assumed prevalence\nin a real scan",
+                 (cal["scan_prevalence"] * 100, 92), textcoords="offset points",
+                 xytext=(6, 0), fontsize=7.5, color=INK, va="top")
+    ax2.set_xscale("log")
+    ax2.set_xlabel("true prevalence of DR epitopes among 15-mers (%)")
+    ax2.set_ylabel("PPV — chance a flagged peptide is real (%)")
+    ax2.set_title("What a flag is worth", fontsize=9.5)
+    ax2.set_ylim(0, 100)
+    ax2.legend(frameon=False, fontsize=7, loc="upper left")
+    ax2.grid(color=GRID, lw=0.6); ax2.set_axisbelow(True)
+    fig.savefig(figures_path("fig6_calibration.png"))
+    plt.close(fig)
+
+
 if __name__ == "__main__":
-    todo = sys.argv[1:] or ["panel", "heatmap", "ranking", "tb", "deimm"]
+    todo = sys.argv[1:] or ["panel", "heatmap", "ranking", "tb", "deimm", "calib"]
     fns = {"panel": fig_panel_coverage, "heatmap": fig_binding_heatmap,
-           "ranking": fig_ranking, "tb": fig_tb, "deimm": fig_deimmunization}
+           "ranking": fig_ranking, "tb": fig_tb, "deimm": fig_deimmunization,
+           "calib": fig_calibration}
     for t in todo:
         fns[t]()
         print(f"  {t} ok")

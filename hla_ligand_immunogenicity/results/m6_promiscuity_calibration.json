@@ -1,13 +1,22 @@
 {
   "universal_epitopes": {
+    "HA_306_318_region": {
+      "n_alleles": 25,
+      "n_scored": 25,
+      "n_sb": 2,
+      "n_wb": 8,
+      "best_rank": 0.46
+    },
     "TT_p2_region": {
       "n_alleles": 25,
-      "n_sb": 0,
-      "n_wb": 5,
-      "best_rank": 1.4
+      "n_scored": 25,
+      "n_sb": 6,
+      "n_wb": 15,
+      "best_rank": 0.06
     },
     "TT_p30_region": {
       "n_alleles": 25,
+      "n_scored": 25,
       "n_sb": 2,
       "n_wb": 5,
       "best_rank": 0.64
@@ -16,10 +25,44 @@
   "panel_size": 25,
   "sb_threshold": 1.0,
   "wb_threshold": 5.0,
-  "universal_epitope_ceiling_sb": 2,
-  "universal_epitope_ceiling_wb": 5,
+  "universal_epitope_ceiling_sb": 6,
+  "universal_epitope_ceiling_wb": 15,
   "test_article": "AAVX_VHH",
   "test_peak_promiscuity_sb": 6,
-  "test_peak_vs_universal_sb": 3.0,
-  "interpretation": "Experimentally universal T-helper epitopes reach 2/25 DR molecules at EL %Rank < 1 and 5/25 at < 5 on this panel. The strong-binder tier is therefore a high-specificity, low-sensitivity criterion: it does not reproduce the textbook universal epitopes, so a peptide that does clear it across many molecules is more promiscuous than they are, not merely 'a strong binder'."
+  "test_peak_vs_universal_sb": 1.0,
+  "universal_epitope_range_sb": [
+    2,
+    6
+  ],
+  "universal_epitope_range_wb": [
+    5,
+    15
+  ],
+  "interpretation": "Experimentally universal T-helper epitopes reach 2-6 of 25 DR molecules at EL %Rank < 1, and 5-15 at < 5. The test article's dominant core reaches 6/25 at the strong-binder tier - at the top of that range. Read the scale in both directions: the strong-binder tier recovers only 24% of the DR molecules a universal epitope is known to be presented by, so peptides below it are unflagged rather than cleared.",
+  "boundary_controls": {
+    "MBP_85_99_region": {
+      "role": "self_immunogenic_control",
+      "epitope_window": "ENPVVHFFKNIVTPR",
+      "dr_breadth_sb": 10,
+      "dr_breadth_wb": 20,
+      "best_rank": 0.02,
+      "predicted_cores_in_window": 3,
+      "cores_called_tolerised": 3,
+      "cores_called_foreign": 0,
+      "ligand_pIRS": 0.0,
+      "ligand_pIRS_unfiltered": 1.19
+    },
+    "CLIP_87_101_region": {
+      "role": "tolerised_binder_control",
+      "epitope_window": "PVSKMRMATPLLMQA",
+      "dr_breadth_sb": 1,
+      "dr_breadth_wb": 7,
+      "best_rank": 0.43,
+      "predicted_cores_in_window": 1,
+      "cores_called_tolerised": 1,
+      "cores_called_foreign": 0,
+      "ligand_pIRS": 0.0,
+      "ligand_pIRS_unfiltered": 0.0
+    }
+  }
 }

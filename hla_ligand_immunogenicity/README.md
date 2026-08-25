@@ -25,6 +25,7 @@ output is a decision instead of a count.
 | 3 | **Self / pre-existing-tolerance filter** (M4) | Most DR hits in an antibody-derived ligand sit in *framework* whose 9-mer cores are near-identical to human immunoglobulin V germline. Counting them inflates every VHH-, scFv- and Fab-derived ligand identically and destroys the ranking. Cores 9/9 or 8/9 identical to a human proteome 9-mer are down-weighted, and the cut is validated against a shuffled-sequence null in the same run. |
 | 4 | **Population weighting + benchmark calibration with controls** (M5, M6) | "13 strong binders" is uninterpretable. Weighting each hit by the fraction of the US/EU population that carries the presenting molecule, then expressing the result as a fold-change over the Protein A Z-domain — an affinity ligand with decades of controlled clinical leachate exposure — makes it a comparison. Positive and negative controls run in the same batch make the batch *reportable* or not. |
 | 5 | **B-cell/ADA layer and exposure context** (M7, M8) | The measured endpoint is an anti-drug **antibody** assay, and impurity risk scales with µg delivered per dose. A T-cell-only, dose-free score cannot reach a risk call. |
+| 6 | **The decision rule is measured, not argued** (M10, M11) | Every choice above — which threshold, whether the second head helps, what a flag is worth — was made by reasoning. M10 pulls ~9,600 labelled HLA-DR-restricted human CD4 T-cell outcomes from IEDB; M11 scores each rule against them with a cluster-level bootstrap, and reports sensitivity, specificity and the PPV a flag actually carries at realistic scan prevalence. |
 
 `M9` is optional: an anchor-position deimmunisation scan of the dominant
 epitope, for the case where the ligand can be re-engineered.
@@ -74,6 +75,8 @@ Two findings from the controls are worth reading on their own:
 | M7 | `m7_bcell_layer.py` | `m7_bcell_regions.tsv`, `m7_tb_coincidence.tsv` |
 | M8 | `m8_exposure_context.py` | `m8_exposure_grid.tsv` — µg ligand/dose bands |
 | M9 | `m9_deimmunization_scan.py` | `m9_deimmunization_scan.tsv` |
+| M10 | `m10_benchmark_fetch.py` | `m10_benchmark.tsv` — every HLA-DR-restricted human CD4 T-cell assay outcome IEDB holds for the panel, labelled per (peptide, allele) |
+| M11 | `m11_threshold_calibration.py` | `m11_calibration.json` — ROC/PR for each decision rule, cluster-bootstrap comparison, calibrated operating point |
 
 Figures: `make_figures.py`. Report: `make_report.py` → `report.html`;
 `make_deck.py` (+ `make_deck.js`) → `report.pptx`. `check_deck.py` lints the
@@ -97,7 +100,15 @@ only reportable if they behave:
 | `VHH_7D12` (PDB 4KRL) | class comparator | non-humanised camelid VHH background |
 | `HumanVH3_23_germline` (P01764) | negative control | human germline VH — tolerised floor |
 | `HSA_D1` (P02768) | negative control | human self protein |
-| `TT_p2_region`, `TT_p30_region` (P04958) | positive controls | tetanus toxin universal T-helper epitopes — the panel must find them |
+| `ProteinG_B1` (P06654) | benchmark | protein G IgG-binding domain — third clinically used affinity ligand |
+| `HA_306_318_region` (P03437) | positive control | influenza HA306-318 — **positive human DR-restricted T-cell assays on 25 distinct DR molecules** in IEDB, the best-evidenced promiscuous epitope available |
+| `TT_p2_region`, `TT_p30_region` (P04958) | positive controls | tetanus toxin universal T-helper epitopes (6 and 1 DR molecules respectively — weaker than their reputation) |
+| `MBP_85_99_region` (P02686) | boundary control | a **self** peptide that IS a validated epitope on 10 DR molecules — measures whether the tolerance filter suppresses real risk |
+| `CLIP_87_101_region` (P04233) | boundary control | a universal DR **ligand** with no positive human T-cell record — measures whether binding strength alone is read as risk |
+
+Every control's role was checked against IEDB before being assigned. PADRE
+(`AKFVAAWTLKAAA`) was a candidate and was dropped: IEDB holds no positive human
+DR-restricted T-cell record for it.
 
 ## Running it
 

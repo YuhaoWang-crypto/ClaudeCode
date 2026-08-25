@@ -122,6 +122,54 @@ def main():
                     "UniProt P02768 residues 25-154 (mature albumin D1)",
                     "Human serum albumin domain I - self-protein floor"))
 
+    # --- third clinically used affinity ligand -------------------------------
+    pg, _ = uniprot("P06654")
+    key = ("TYKLILNGKTLKGETTTEAVDAATAEKVFKQYANDNGVDGEWTYDDATKTFTVTE")
+    i = pg.find(key)
+    if i < 0:
+        sys.exit("protein G B1 motif not found in P06654 - check sequence version")
+    records.append(("ProteinG_B1", "benchmark_ligand", key, f"UniProt P06654 {i+1}-{i+len(key)}",
+                    "IgG Fc-binding domain B1 of streptococcal protein G - the "
+                    "ligand of protein G affinity resins"))
+
+    # --- controls whose status is evidenced in IEDB, not assumed -------------
+    # Each of the four below was checked against IEDB human HLA-DR-restricted
+    # T-cell assay records before being given a role; the counts are in the
+    # note. PADRE (AKFVAAWTLKAAA) was a candidate and was dropped: IEDB holds
+    # no positive human DR-restricted T-cell record for it.
+    ha, _ = uniprot("P03437")
+    i = ha.find("PKYVKQNTLKLAT")
+    if i < 0:
+        sys.exit("HA306-318 motif not found in P03437 - check sequence version")
+    records.append(("HA_306_318_region", "positive_control", ha[i - 18:i + 32],
+                    f"UniProt P03437 residues {i-17}-{i+32}",
+                    "Influenza A haemagglutinin region containing HA306-318 "
+                    "(PKYVKQNTLKLAT) - positive human DR-restricted T-cell "
+                    "assays on 25 distinct DR molecules in IEDB, the best-"
+                    "evidenced promiscuous DR epitope available"))
+
+    mbp, _ = uniprot("P02686")
+    i = mbp.find("ENPVVHFFKNIVTPR")
+    if i < 0:
+        sys.exit("MBP85-99 motif not found in P02686 - check sequence version")
+    records.append(("MBP_85_99_region", "self_immunogenic_control", mbp[i - 17:i + 33],
+                    f"UniProt P02686 residues {i-16}-{i+33}",
+                    "Human myelin basic protein region containing the MBP85-99 "
+                    "epitope - a *self* peptide with positive DR-restricted "
+                    "T-cell assays on 10 DR molecules. Tests whether the "
+                    "tolerance filter suppresses real epitopes"))
+
+    clip, _ = uniprot("P04233")
+    i = clip.find("PVSKMRMATPLLMQA")
+    if i < 0:
+        sys.exit("CLIP motif not found in P04233 - check sequence version")
+    records.append(("CLIP_87_101_region", "tolerised_binder_control", clip[i - 17:i + 33],
+                    f"UniProt P04233 residues {i-16}-{i+33}",
+                    "Invariant chain CD74 region containing CLIP - a universal "
+                    "HLA-DR ligand that occupies the groove of every DR "
+                    "molecule, yet has no positive human DR T-cell record in "
+                    "IEDB. Tests binding-versus-response discrimination"))
+
     tt, _ = uniprot("P04958")
     p2 = tt[809:859]     # 810-859, brackets the p2 epitope at 830-844
     p30 = tt[926:976]    # 927-976, brackets the p30 epitope at 947-967

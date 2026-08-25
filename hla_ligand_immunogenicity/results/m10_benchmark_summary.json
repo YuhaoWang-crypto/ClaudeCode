@@ -1,0 +1,114 @@
+{
+  "raw_records": 19493,
+  "labelled_pairs": 9647,
+  "positives": 5858,
+  "negatives": 3789,
+  "ambiguous_excluded": 789,
+  "distinct_peptides": 5784,
+  "clusters": 2767,
+  "alleles_with_data": 25,
+  "self_fraction_positives": 0.13,
+  "self_fraction_negatives": 0.083,
+  "per_allele": {
+    "HLA-DRB1*07:01": {
+      "pos": 530,
+      "neg": 226
+    },
+    "HLA-DRB1*03:01": {
+      "pos": 434,
+      "neg": 342
+    },
+    "HLA-DRB1*15:01": {
+      "pos": 714,
+      "neg": 355
+    },
+    "HLA-DRB1*01:01": {
+      "pos": 813,
+      "neg": 814
+    },
+    "HLA-DRB1*11:01": {
+      "pos": 508,
+      "neg": 209
+    },
+    "HLA-DRB1*04:01": {
+      "pos": 689,
+      "neg": 279
+    },
+    "HLA-DRB1*13:01": {
+      "pos": 209,
+      "neg": 37
+    },
+    "HLA-DRB1*13:02": {
+      "pos": 88,
+      "neg": 6
+    },
+    "HLA-DRB1*04:04": {
+      "pos": 246,
+      "neg": 188
+    },
+    "HLA-DRB1*11:04": {
+      "pos": 120,
+      "neg": 200
+    },
+    "HLA-DRB1*16:01": {
+      "pos": 26,
+      "neg": 0
+    },
+    "HLA-DRB1*14:01": {
+      "pos": 66,
+      "neg": 10
+    },
+    "HLA-DRB1*04:07": {
+      "pos": 92,
+      "neg": 68
+    },
+    "HLA-DRB1*12:01": {
+      "pos": 66,
+      "neg": 0
+    },
+    "HLA-DRB1*09:01": {
+      "pos": 186,
+      "neg": 151
+    },
+    "HLA-DRB1*08:02": {
+      "pos": 86,
+      "neg": 45
+    },
+    "HLA-DRB1*01:02": {
+      "pos": 88,
+      "neg": 130
+    },
+    "HLA-DRB1*08:01": {
+      "pos": 59,
+      "neg": 6
+    },
+    "HLA-DRB1*15:03": {
+      "pos": 5,
+      "neg": 1
+    },
+    "HLA-DRB1*13:03": {
+      "pos": 12,
+      "neg": 0
+    },
+    "HLA-DRB1*04:05": {
+      "pos": 95,
+      "neg": 8
+    },
+    "HLA-DRB3*01:01": {
+      "pos": 90,
+      "neg": 90
+    },
+    "HLA-DRB3*02:02": {
+      "pos": 212,
+      "neg": 75
+    },
+    "HLA-DRB4*01:01": {
+      "pos": 101,
+      "neg": 256
+    },
+    "HLA-DRB5*01:01": {
+      "pos": 323,
+      "neg": 293
+    }
+  }
+}

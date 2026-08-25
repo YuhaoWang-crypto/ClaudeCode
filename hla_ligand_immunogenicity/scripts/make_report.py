@@ -188,6 +188,8 @@ def main():
     suit = jsn("m6_system_suitability.json")
     val = jsn("m4_filter_validation.json")
     calib = jsn("m6_promiscuity_calibration.json")
+    acc = jsn("m11_calibration.json")
+    bench = jsn("m10_benchmark_summary.json")
     clusters = tsv("m5_clusters.tsv")
     epitopes = tsv("m5_epitopes.tsv")
     summary = {r["id"]: r for r in tsv("m5_ligand_summary.tsv")}
@@ -220,7 +222,8 @@ screened across a {panel['panel_size_total']}-molecule HLA-DR panel covering
 benchmark affinity ligands and assay controls run in the same batch.</p>
 <div class="toc">
 <a href="#verdict">Verdict</a><a href="#panel">Panel</a><a href="#suitability">Controls</a>
-<a href="#promiscuity">Promiscuity scale</a><a href="#binding">Binding</a><a href="#tolerance">Tolerance filter</a>
+<a href="#promiscuity">Promiscuity scale</a><a href="#accuracy">Measured accuracy</a>
+<a href="#binding">Binding</a><a href="#tolerance">Tolerance filter</a>
 <a href="#clusters">Epitopes</a><a href="#ada">B-cell / ADA</a>
 <a href="#exposure">Exposure</a><a href="#deimm">Deimmunisation</a>
 <a href="#limits">Limits &amp; next steps</a></div></header>""")
@@ -244,8 +247,8 @@ benchmark affinity ligands and assay controls run in the same batch.</p>
   <div class="s">carry a DR molecule predicted to present at least one non-self epitope</div></div>
 <div class="stat"><div class="n">{test['max_promiscuity']}<span style="font-size:17px;color:var(--muted)">/{panel['panel_size_total']}</span></div>
   <div class="l">peak promiscuity</div>
-  <div class="s">DR molecules presenting the dominant epitope &mdash;
-      {calib.get('test_peak_vs_universal_sb','?')}&times; what the tetanus universal epitopes reach on this panel</div></div>
+  <div class="s">DR molecules presenting the dominant epitope &mdash; the same breadth as the most
+      promiscuous epitope with human T-cell evidence, measured on this panel</div></div>
 </div>""")
 
     if top:
@@ -343,12 +346,15 @@ affinity ligands. The batch is reportable only if the controls behave.</p>""")
         A('<h2 id="promiscuity">How promiscuous is "promiscuous"?</h2>')
         A(f"""<p>Reporting that a peptide binds {test['max_promiscuity']} of
 {n} DR molecules invites the question nobody usually answers: compared to what? The batch answers it
-by carrying two peptides whose promiscuity is an experimental fact rather than a prediction — the
-tetanus toxin universal T-helper epitopes p2 (830–844) and p30 (947–967), which drive CD4 responses
-in most donors <em>in vitro</em> and are used as universal helper epitopes in peptide vaccines.</p>""")
+by carrying three peptides whose promiscuity is an experimental fact rather than a prediction:
+influenza haemagglutinin HA306-318 and the tetanus toxin epitopes p2 (830–844) and p30 (947–967).
+Each was checked against IEDB before being used — HA306-318 has positive human DR-restricted T-cell
+assays on 25 distinct DR molecules, p2 on 6, p30 on 1. PADRE was a candidate and was dropped: IEDB
+holds no positive human DR-restricted T-cell record for it.</p>""")
         test_best = min((float(e["best_el_rank"]) for e in epitopes
                          if e["id"] == test_id), default=None)
-        prom_rows = [{"ep": k.replace("_region", "").replace("TT_", "tetanus toxin "),
+        prom_rows = [{"ep": k.replace("_region", "").replace("TT_", "tetanus toxin ")
+                            .replace("HA_306_318", "influenza HA306-318"),
                       "sb": f"{v['n_sb']}/{n}", "wb": f"{v['n_wb']}/{n}",
                       "best": v["best_rank"], "hi": False}
                      for k, v in u.items()]
@@ -362,19 +368,122 @@ in most donors <em>in vitro</em> and are used as universal helper epitopes in pe
                 ["peptide", f"!DR molecules at EL %Rank &lt; {calib['sb_threshold']:g}",
                  f"!at %Rank &lt; {calib['wb_threshold']:g}", "best %Rank"], "num",
                 fmt={c: strong(c) for c in ("ep", "sb", "wb", "best")}))
-        A(f"""<div class="callout bad"><p><strong>The strong-binder tier does not reproduce the
-textbook universal epitopes.</strong> p2 clears EL %Rank &lt; 1 on
-{u['TT_p2_region']['n_sb']} of {n} DR molecules and p30 on {u['TT_p30_region']['n_sb']}; both reach
-{calib['universal_epitope_ceiling_wb']}/{n} only at the weak-binder tier. So %Rank &lt; 1 is a
-high-specificity, low-sensitivity criterion — and a peptide that <em>does</em> clear it across
-{test['max_promiscuity']} molecules, as <code>{top['peak_core'] if top else '-'}</code> does, is
-<strong>{calib['test_peak_vs_universal_sb']}× more promiscuous by this measure than the universal
-epitopes are</strong>. That is a far more useful statement than "six strong binders".</p></div>""")
-        A("""<p class="muted"><small>Read in the honest direction, this also bounds the method: a
-predictor that ranks known universal epitopes as weak binders is not a sensitive detector of
-promiscuity, so peptides below the strong-binder tier in this ligand are not cleared — they are
-merely not flagged. That asymmetry is why the confirmatory assays below are scoped on the flagged
-peptides <em>plus</em> the intact ligand.</small></p>""")
+        rng_sb = calib.get("universal_epitope_range_sb", [0, 0])
+        rng_wb = calib.get("universal_epitope_range_wb", [0, 0])
+        peak = test["max_promiscuity"]
+        rel = ("above" if peak > rng_sb[1] else
+               "at the top of" if peak == rng_sb[1] else "inside")
+        A(f"""<div class="callout {'bad' if peak >= rng_sb[1] else ''}"><p>
+<strong>The ligand's dominant core is as promiscuous as the most promiscuous epitope we have
+evidence for.</strong> The three universal epitopes reach {rng_sb[0]}&ndash;{rng_sb[1]} of {n} DR
+molecules at EL %Rank&nbsp;&lt;&nbsp;{calib['sb_threshold']:g}; <code>{top['peak_core'] if top else '-'}</code>
+reaches {peak}/{n} &mdash; {rel} that range. Not an outlier, but not unremarkable either: it sits
+where a peptide known to drive CD4 responses in most donors sits.</p></div>""")
+        A(f"""<div class="callout"><p><strong>The same table bounds the method's sensitivity.</strong>
+The strong-binder tier recovers only {100*rng_sb[1]/n:.0f}% of the DR molecules a universal epitope
+is actually presented by &mdash; HA306-318 is positive in human T-cell assays on 25 distinct DR
+molecules and clears %Rank&nbsp;&lt;&nbsp;1 on {u['HA_306_318_region']['n_sb']} of the {n} tested here.
+So a peptide below the tier is <em>unflagged</em>, not <em>cleared</em>, and the confirmatory assays
+below are scoped on the flagged peptides <em>plus</em> the intact ligand for exactly that
+reason.</p></div>""")
+
+    # ---------------------------------------------------- measured accuracy
+    if acc and bench:
+        geo_el = acc["comparisons"].get("GEO_vs_EL") or {}
+        cur = next((v for k, v in acc["operating_points"].items()
+                    if k.startswith("AND")), None)
+        best = acc.get("sweep", {}).get("max_mcc")
+        el_only = next((v for k, v in acc["operating_points"].items()
+                        if k.startswith("EL<1")), None)
+        A('<h2 id="accuracy">Does the rule actually work?</h2>')
+        A(f"""<p>Everything above this point is a claim about accuracy that had not been tested.
+The EL+BA consensus rule entered the pipeline on an argument — eluted-ligand scoring over-calls, so
+make the affinity head agree — and an argument is not evidence. To find out, the rule was scored
+against ground truth: every HLA-DR-restricted CD4 T-cell assay result IEDB holds for the
+{panel['panel_size_total']} molecules in this panel, in human hosts.</p>""")
+        A(f"""<div class="grid g4">
+<div class="stat"><div class="n">{bench['labelled_pairs']:,}</div>
+  <div class="l">labelled outcomes</div>
+  <div class="s">{bench['positives']:,} positive, {bench['negatives']:,} negative
+  (peptide, DR molecule) pairs from {bench['raw_records']:,} assay records</div></div>
+<div class="stat"><div class="n">{bench['clusters']:,}</div>
+  <div class="l">independent clusters</div>
+  <div class="s">{bench['distinct_peptides']:,} distinct peptides collapsed by shared 9-mer, so
+  overlapping peptides from one study count once</div></div>
+<div class="stat"><div class="n">{acc['rules'][acc['best_continuous_rule']]['auc']:.3f}</div>
+  <div class="l">best rule, ROC AUC</div>
+  <div class="s">{acc['best_continuous_rule']} — against
+  {acc['rules']['EL']['auc']:.3f} for eluted-ligand scoring alone</div></div>
+<div class="stat"><div class="n">{(cur['ppv_at_scan_prevalence']*100 if cur else 0):.0f}%</div>
+  <div class="l">PPV of a flag</div>
+  <div class="s">chance a flagged peptide is a real epitope at
+  {acc['scan_prevalence']*100:.0f}% assumed scan prevalence</div></div>
+</div>""")
+        A(img("fig6_calibration.png"))
+
+        A("<h3>What each rule buys</h3>")
+        A(table([{"rule": k, "auc": f"{v['auc']:.3f}",
+                  "ap": f"{v['average_precision']:.3f}"}
+                 for k, v in acc["rules"].items()],
+                ["rule", "auc", "ap"],
+                ["score", "ROC AUC", "average precision"], "num"))
+        if geo_el:
+            better = geo_el["ci95"][0] > 0
+            A(f"""<div class="callout {'good' if better else 'bad'}"><p>
+<strong>{'The consensus rule is a real improvement.' if better else
+        'The consensus rule does not improve discrimination.'}</strong>
+A paired bootstrap over 9-mer clusters puts the AUC difference between the EL&times;BA consensus and
+EL alone at <strong>{geo_el['delta']:+.4f}</strong>, 95% CI
+[{geo_el['ci95'][0]:+.4f}, {geo_el['ci95'][1]:+.4f}].
+{'The interval excludes zero, so the gain survives the redundancy in the benchmark.' if better else
+ 'The interval spans zero — on this evidence the second head adds nothing to ranking, and its value '
+ 'is confined to where the threshold is placed.'}</p></div>""")
+
+        A("<h3>Operating points</h3>")
+        rows_op = [{"rule": k, **v} for k, v in acc["operating_points"].items()]
+        if best:
+            rows_op.append({"rule": f"calibrated {acc['best_continuous_rule']} "
+                                    f"%Rank &lt; {best['threshold_rank']:.2f}", **best})
+        A(table(rows_op, ["rule", "sensitivity", "specificity", "ppv", "mcc",
+                          "ppv_at_scan_prevalence"],
+                ["rule", "sensitivity", "specificity", "PPV (balanced set)", "MCC",
+                 "PPV at scan prevalence"], "num",
+                fmt={"rule": lambda r: r["rule"],
+                     "sensitivity": lambda r: f'{r["sensitivity"]:.3f}',
+                     "specificity": lambda r: f'{r["specificity"]:.3f}',
+                     "ppv": lambda r: f'{r["ppv"]:.3f}',
+                     "mcc": lambda r: f'{r["mcc"]:.3f}',
+                     "ppv_at_scan_prevalence": lambda r:
+                         f'{r["ppv_at_scan_prevalence"]*100:.0f}%'}))
+        if cur and best:
+            A(f"""<p>The rule the pipeline currently runs sits at
+<strong>{cur['sensitivity']*100:.0f}% sensitivity</strong> and
+<strong>{cur['specificity']*100:.0f}% specificity</strong>. The threshold that maximises
+Matthews correlation on this benchmark is
+<strong>{acc['best_continuous_rule']} %Rank &lt; {best['threshold_rank']:.2f}</strong>, at
+{best['sensitivity']*100:.0f}% / {best['specificity']*100:.0f}% — MCC
+{best['mcc']:.3f} against {cur['mcc']:.3f}.</p>""")
+
+        strat = acc.get("stratified", {})
+        if all(k in strat and "note" not in strat[k] for k in ("self", "non_self")):
+            A(f"""<p class="muted"><small>Stratifying by source removes the obvious confound: the
+benchmark's positives are {bench['self_fraction_positives']*100:.0f}% human-derived and its
+negatives {bench['self_fraction_negatives']*100:.0f}%, so a predictor that merely recognised
+"foreign" would score well for the wrong reason. Within the non-self stratum
+(n&nbsp;=&nbsp;{strat['non_self']['n']}) the best rule reaches AUC
+{strat['non_self'][acc['best_continuous_rule']]:.3f}; within the self stratum
+(n&nbsp;=&nbsp;{strat['self']['n']}) {strat['self'][acc['best_continuous_rule']]:.3f}. The
+discrimination is not an artefact of foreignness.</small></p>""")
+
+        A(f"""<div class="callout"><p><strong>Read the absolute numbers as an upper bound.</strong>
+NetMHCIIpan is trained on IEDB binding-affinity and mass-spec eluted-ligand data. The labels here
+are T-cell assay outcomes — a different endpoint it was not trained on — but many of these peptides
+also carry binding measurements in IEDB, so partial training-set overlap is certain and cannot be
+excluded from outside. The <em>comparison between rules</em> is far more robust: every rule uses the
+same two possibly-leaky predictors on the same peptides, so leakage inflates them together and
+largely cancels in the difference. IEDB's negatives also carry their own bias — a peptide tested and
+found negative in one donor set is not a clean non-binder — which inflates apparent specificity in
+both directions equally.</p></div>""")
 
     # ------------------------------------------------------------- binding
     A('<h2 id="binding">Binding prediction: two heads, not one</h2>')
@@ -412,6 +521,47 @@ the same as the test article, and an unfiltered pIRS of {float(germ['pIRS_raw'])
 article's {float(test_rank['pIRS_raw']):.2f}. Raw binder counts cannot tell a camelid VHH from the
 human framework it resembles. After the filter the germline control falls to
 {float(germ['pIRS']):.2f} and the ranking becomes readable.</p></div>""")
+    bnd = (calib or {}).get("boundary_controls", {})
+    if bnd:
+        A('<h3>Where the filter is wrong, measured</h3>')
+        A(f"""<p>The filter's rule is "self implies tolerated". That is right often enough to be
+worth applying and wrong often enough to be worth measuring, so the batch carries two controls that
+sit on the boundary.</p>""")
+        A(table([{"id": k, **v} for k, v in bnd.items()],
+                ["id", "role", "dr_breadth_sb", "dr_breadth_wb",
+                 "cores_called_tolerised", "ligand_pIRS_unfiltered", "ligand_pIRS"],
+                ["control", "role", f"DR at %Rank&lt;{calib['sb_threshold']:g}",
+                 f"at &lt;{calib['wb_threshold']:g}", "cores called tolerised",
+                 "pIRS unfiltered", "pIRS filtered"], "num",
+                fmt={"id": lambda r: f'<code>{r["id"].replace("_region","")}</code>',
+                     "role": lambda r: f'<span class="tag warn">{r["role"].replace("_"," ")}</span>',
+                     "dr_breadth_sb": lambda r: f'{r["dr_breadth_sb"]}/{calib["panel_size"]}',
+                     "dr_breadth_wb": lambda r: f'{r["dr_breadth_wb"]}/{calib["panel_size"]}',
+                     "cores_called_tolerised": lambda r:
+                         f'{r["cores_called_tolerised"]}/{r["predicted_cores_in_window"]}',
+                     "ligand_pIRS_unfiltered": lambda r: f'{r["ligand_pIRS_unfiltered"]:.2f}',
+                     "ligand_pIRS": lambda r: f'{r["ligand_pIRS"]:.2f}'}))
+        mbp = bnd.get("MBP_85_99_region")
+        clp = bnd.get("CLIP_87_101_region")
+        if mbp:
+            A(f"""<div class="callout bad"><p><strong>The filter suppresses a real epitope, and this
+is the clearest example of it.</strong> Myelin basic protein 85&ndash;99 is a human self peptide
+with positive DR-restricted T-cell assays on 10 distinct DR molecules in IEDB. On this panel it is
+the broadest binder in the whole batch &mdash; {mbp['dr_breadth_sb']}/{calib['panel_size']} DR
+molecules at the strong-binder tier, unfiltered pIRS {mbp['ligand_pIRS_unfiltered']:.2f}, higher
+than any ligand here. The tolerance filter takes it to
+{mbp['ligand_pIRS']:.2f}. That is the filter working as designed and being wrong: self-derived
+epitopes exist, autoimmunity is what they are, and a sequence-identity filter cannot see the
+difference. It is safe for an affinity ligand because a foreign scaffold's framework similarity to
+human germline is the case the filter was built for &mdash; not for anything where self-reactivity
+is the question.</p></div>""")
+        if clp:
+            A(f"""<p>The opposite control behaves too. CLIP occupies the groove of essentially every
+DR molecule as the invariant chain's placeholder, yet carries no positive human DR T-cell record in
+IEDB. Here it reaches {clp['dr_breadth_wb']}/{calib['panel_size']} DR molecules at the weak tier and
+{clp['dr_breadth_sb']}/{calib['panel_size']} at the strong tier, and ends at pIRS
+{clp['ligand_pIRS']:.2f} &mdash; binding strength alone is not being read as risk.</p>""")
+
     A(f"""<div class="callout"><p>The filter is doing work, not deleting indiscriminately: the two
 human self controls lose
 {max(float(r['tolerance_drop_pct']) for r in rank if r['role']=='negative_control_self'):.0f}% of

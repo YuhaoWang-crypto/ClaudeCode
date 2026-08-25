@@ -2,7 +2,7 @@
   "checks": [
     {
       "check": "universal epitopes detected with multi-allele breadth",
-      "detail": "TT_p2_region 5/25 DR at %Rank<5 (0 at <1, best 1.4); TT_p30_region 5/25 DR at %Rank<5 (2 at <1, best 0.64)",
+      "detail": "HA_306_318_region 8/25 DR at %Rank<5 (2 at <1, best 0.46); TT_p2_region 15/25 DR at %Rank<5 (6 at <1, best 0.06); TT_p30_region 5/25 DR at %Rank<5 (2 at <1, best 0.64)",
       "pass": true
     },
     {
@@ -12,7 +12,7 @@
     },
     {
       "check": "tolerance filter discriminates self from foreign",
-      "detail": "mean score drop: self 100.0% vs ligands 10.6%",
+      "detail": "mean score drop: self 100.0% vs ligands 9.1%",
       "pass": true
     },
     {
