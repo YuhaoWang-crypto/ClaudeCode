@@ -266,8 +266,15 @@ def fig_tb(target="AAVX_VHH"):
     a1.fill_between(range(1, L + 1), dens, color=BAD, alpha=0.8, lw=0)
     a1.set_ylabel("foreign DR\nepitope weight", fontsize=7.5)
     a1.set_title(f"{target} — T-helper epitope load vs B-cell epitope propensity")
-    a2.fill_between(range(1, L + 1), bc, color=ACCENT, alpha=0.7, lw=0)
+    x = np.arange(1, L + 1)
+    b = np.array(bc)
+    a2.plot(x, b, color=ACCENT, lw=1.3)
+    a2.fill_between(x, 0.5, b, where=b >= 0.5, color=ACCENT, alpha=0.65, lw=0,
+                    interpolate=True)
     a2.axhline(0.5, color=MUTED, ls="--", lw=1)
+    a2.text(L, 0.505, "epitope threshold ", fontsize=6.5, color=MUTED,
+            ha="right", va="bottom")
+    a2.set_ylim(min(b.min(), 0.3) - 0.03, max(b.max(), 0.6) + 0.05)
     a2.set_ylabel("BepiPred-2.0", fontsize=7.5)
     a2.set_xlabel("residue")
     for ax in (a1, a2):
@@ -291,24 +298,62 @@ def fig_deimmunization():
         return
     rows = tsv("m9_deimmunization_scan.tsv")
     wt = next(r for r in rows if r["variant"] == "WT")
-    muts = [r for r in rows if r["variant"] != "WT"][:14][::-1]
-    y = np.arange(len(muts))
-    fig, ax = plt.subplots(figsize=(7.6, 4.2))
-    cols = [GOOD if int(r["blosum62"]) >= 0 else WARN for r in muts]
-    ax.barh(y, [float(r["pop_presenting"]) * 100 for r in muts], 0.62, color=cols)
-    ax.axvline(float(wt["pop_presenting"]) * 100, color=BAD, ls="--", lw=1.2)
-    ax.text(float(wt["pop_presenting"]) * 100, len(muts) - 0.3,
-            f" wild type {float(wt['pop_presenting'])*100:.0f}%", color=BAD, fontsize=7.5,
-            va="top")
-    ax.set_yticks(y, [f"{r['variant']}  ({r['core']})" for r in muts], fontsize=7.5)
+    muts = [r for r in rows if r["variant"] != "WT"]
+
+    def key(r):
+        return (float(r["pop_presenting"]), int(r["n_sb_alleles"]), -int(r["blosum62"]))
+
+    # Best variant at each anchor pocket, in two classes: the best substitution
+    # of any kind, and the best chemically conservative one. Keeping them apart
+    # is the point - the knockouts and the designable changes are not the same
+    # substitutions.
+    pos = sorted({m["variant"].split("_")[0] for m in muts})
+    picked, seen = [], set()
+    for p in pos:
+        at_p = [m for m in muts if m["variant"].startswith(p + "_")]
+        for cls, subset in (("conservative", [m for m in at_p if int(m["blosum62"]) >= 0]),
+                            ("any", at_p)):
+            if not subset:
+                continue
+            b = min(subset, key=key)
+            if b["variant"] in seen:
+                continue
+            seen.add(b["variant"])
+            picked.append({**b, "cls": cls})
+    picked.sort(key=lambda r: -float(r["pop_presenting"]))
+
+    y = np.arange(len(picked))
+    fig, ax = plt.subplots(figsize=(8.4, 0.34 * len(picked) + 1.9))
+    cols = [GOOD if r["cls"] == "conservative" else WARN for r in picked]
+    vals = [float(r["pop_presenting"]) * 100 for r in picked]
+    ax.barh(y, vals, 0.62, color=cols)
+    # a zero-length bar is invisible, so mark the complete knockouts explicitly
+    zero = [i for i, v in enumerate(vals) if v == 0]
+    ax.scatter([0] * len(zero), zero, marker="|", s=140,
+               color=[cols[i] for i in zero], linewidths=2.2, zorder=3)
+    wtp = float(wt["pop_presenting"]) * 100
+    ax.axvline(wtp, color=BAD, ls="--", lw=1.2)
+    ax.set_ylim(-0.7, len(picked) + 0.2)
+    ax.annotate(f"wild type {wtp:.0f}%", (wtp, len(picked) - 0.25),
+                textcoords="offset points", xytext=(6, 0), color=BAD, fontsize=7.5,
+                va="center", ha="left")
+    for i, r in enumerate(picked):
+        bl = int(r["blosum62"])
+        ax.text(vals[i] + 0.7, i,
+                f"{vals[i]:.1f}%   {r['n_sb_alleles']} DR   "
+                f"BLOSUM {bl:+d}" if bl else f"{vals[i]:.1f}%   {r['n_sb_alleles']} DR   BLOSUM 0",
+                va="center", fontsize=7, color=INK)
+    ax.set_yticks(y, [f"{r['variant']}   {r['core']}" for r in picked], fontsize=7.5)
+    ax.set_xlim(0, max(wtp, 1) * 1.55)
     ax.set_xlabel("% of weighted US/EU population predicted to present the epitope")
-    ax.set_title("Anchor-position deimmunisation scan of the dominant epitope")
+    ax.set_title("Best substitution at each anchor pocket, by chemical conservatism", pad=20)
     ax.grid(axis="x", color=GRID, lw=0.6)
     ax.set_axisbelow(True)
     from matplotlib.patches import Patch
-    ax.legend(handles=[Patch(color=GOOD, label="BLOSUM62 ≥ 0 (conservative)"),
-                       Patch(color=WARN, label="BLOSUM62 < 0")],
-              frameon=False, fontsize=7.5, loc="lower right")
+    ax.legend(handles=[Patch(color=GOOD, label="BLOSUM62 ≥ 0 — conservative, designable"),
+                       Patch(color=WARN, label="BLOSUM62 < 0 — chemically disruptive")],
+              frameon=False, fontsize=7.5, loc="lower center",
+              bbox_to_anchor=(0.5, 1.0), ncol=2, handlelength=1.2)
     fig.savefig(figures_path("fig5_deimmunization.png"))
     plt.close(fig)
 

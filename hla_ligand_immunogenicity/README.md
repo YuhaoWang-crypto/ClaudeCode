@@ -20,7 +20,7 @@ output is a decision instead of a count.
 
 | # | Addition | The failure mode it fixes |
 |---|---|---|
-| 1 | **Panel designed against measured coverage** (M2) | The DR subset of the IEDB class-II reference set is widely used as a "representative" 15-molecule panel. Measured against the IEDB allele-frequency tables it reaches only **85.3 %** weighted US/EU DRB1 phenotypic coverage — it does not meet a 95–98 % requirement. A greedy build to a stated target does. |
+| 1 | **Panel designed against measured coverage** (M2) | The DR subset of the IEDB class-II reference set is widely used as a "representative" 15-molecule panel. Measured against the IEDB allele-frequency tables it reaches only **84.2 %** weighted US/EU DRB1 phenotypic coverage — it does not meet a 95–98 % requirement. A greedy build to a stated target does. |
 | 2 | **Two orthogonal prediction heads** (M3) | Eluted-ligand (EL) scoring alone over-calls: it rewards motif-like peptides that have poor measured affinity. Requiring EL **and** binding-affinity agreement removes that class of hit and the drop is reported, not hidden. |
 | 3 | **Self / pre-existing-tolerance filter** (M4) | Most DR hits in an antibody-derived ligand sit in *framework* whose 9-mer cores are near-identical to human immunoglobulin V germline. Counting them inflates every VHH-, scFv- and Fab-derived ligand identically and destroys the ranking. Cores 9/9 or 8/9 identical to a human proteome 9-mer are down-weighted, and the cut is validated against a shuffled-sequence null in the same run. |
 | 4 | **Population weighting + benchmark calibration with controls** (M5, M6) | "13 strong binders" is uninterpretable. Weighting each hit by the fraction of the US/EU population that carries the presenting molecule, then expressing the result as a fold-change over the Protein A Z-domain — an affinity ligand with decades of controlled clinical leachate exposure — makes it a comparison. Positive and negative controls run in the same batch make the batch *reportable* or not. |
@@ -30,6 +30,35 @@ output is a decision instead of a count.
 epitope, for the case where the ligand can be re-engineered.
 
 ---
+
+## What the demo run found
+
+The full pipeline was run end to end on the public AAVX VHH. Headline results
+(`report.html`, `report.pptx`, and the tables in `results/`):
+
+| | |
+|---|---|
+| Panel | 21 DRB1 + 4 DRB3/4/5 = **25 DR molecules**, **97.3 %** weighted US/EU DRB1 coverage. The legacy 15-molecule DR reference set reaches **84.2 %** on the same measure. |
+| Prediction | 203 EL strong-binder calls across the batch → **170** once the binding-affinity head has to agree (16 % dropped). |
+| Tolerance filter | 17.6 % of predicted cores are exact human 9-mers, 4.7 % are one substitution away; the shuffled-sequence null hits 1.1 % at the same cut (**20× enrichment**). |
+| Test article | pIRS **0.38** = **2.9× the Protein A Z-domain**; 4 non-self epitopes; **28.5 %** of the weighted US/EU population carry a DR molecule predicted to present at least one of them. |
+| Dominant epitope | residues 47–56, core `FVAVQDITA`, peak 15-mer `KEREFVAVQDITASN`, presented by 6 of 25 DR molecules. |
+| Batch controls | all four system-suitability checks pass. |
+
+Two findings from the controls are worth reading on their own:
+
+- **The tetanus universal T-helper epitopes are not strong binders on this
+  panel.** p2 (830–844) clears EL %Rank < 1 on 0 of 25 DR molecules and p30
+  (947–967) on 2; both reach 5/25 only at %Rank < 5. So %Rank < 1 is a
+  high-specificity, low-sensitivity criterion — and the ligand's `FVAVQDITA`
+  core, clearing it on 6 molecules, is ~3× more promiscuous by this measure
+  than the textbook universal epitopes. Read the other way, it also means
+  peptides below the strong-binder tier are *not flagged*, not *cleared*.
+- **Human germline VH3-23 scores a peak promiscuity of 6/25 — identical to the
+  test article — and an unfiltered pIRS of 0.37 against the ligand's 0.38.**
+  Raw binder counts cannot distinguish a camelid VHH from the human framework
+  it resembles. That is the entire case for the tolerance filter, and it is why
+  the ranking is unreadable without it.
 
 ## Modules
 
@@ -46,8 +75,12 @@ epitope, for the case where the ligand can be re-engineered.
 | M8 | `m8_exposure_context.py` | `m8_exposure_grid.tsv` — µg ligand/dose bands |
 | M9 | `m9_deimmunization_scan.py` | `m9_deimmunization_scan.tsv` |
 
-Figures: `make_figures.py`. Report: `make_report.py` (HTML) and
-`make_deck.py` (PPTX).
+Figures: `make_figures.py`. Report: `make_report.py` → `report.html`;
+`make_deck.py` (+ `make_deck.js`) → `report.pptx`. `check_deck.py` lints the
+deck's geometry for off-slide shapes, text overflow and overlapping boxes —
+LibreOffice cannot load `.pptx` in this environment, so that lint stands in for
+a visual render. It does not inspect table cells, so wide tables still deserve
+a look on a real machine.
 
 ## The batch
 
@@ -83,7 +116,13 @@ python scripts/m9_deimmunization_scan.py    # optional
 python scripts/make_figures.py
 python scripts/make_report.py
 python scripts/make_deck.py
+python scripts/check_deck.py
 ```
+
+`m3_binding_prediction.py` is resumable: it reads any existing
+`results/m3_binding_long.tsv` and only fetches the (sequence, allele, head)
+combinations missing from it, so widening the panel costs only the new allele's
+calls rather than a full re-run.
 
 `data/human_sprot.fasta` (UniProt Swiss-Prot *Homo sapiens*, ~20 400 entries)
 is fetched once:

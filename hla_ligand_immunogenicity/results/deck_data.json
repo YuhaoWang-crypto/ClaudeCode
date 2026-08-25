@@ -1,0 +1,933 @@
+{
+ "test_id": "AAVX_VHH",
+ "test_length": 126,
+ "test_source": "PDB 9DC3 entity 2",
+ "test_seq": "QVQIQESGGGIVQAGGSLRLSCAASGRTHGMYAMGWFRQAPGKEREFVAVQDITASNTHYSSAVKGRFTLSRDNAKNTAYLQMNNLKPEDTAVYYCAAGPTLMSGSYNSARDYDYWGQGTQVTVSS",
+ "panel": {
+  "weights": {
+   "United States Caucasoid": 0.2885,
+   "United States Hispanic": 0.0945,
+   "United States Black": 0.0615,
+   "United States Asian": 0.03,
+   "United States Amerindian": 0.0065,
+   "United States Mestizo": 0.019,
+   "Europe": 0.5
+  },
+  "target": 0.97,
+  "drb1_panel": [
+   "HLA-DRB1*07:01",
+   "HLA-DRB1*03:01",
+   "HLA-DRB1*15:01",
+   "HLA-DRB1*01:01",
+   "HLA-DRB1*11:01",
+   "HLA-DRB1*04:01",
+   "HLA-DRB1*13:01",
+   "HLA-DRB1*13:02",
+   "HLA-DRB1*04:04",
+   "HLA-DRB1*11:04",
+   "HLA-DRB1*16:01",
+   "HLA-DRB1*14:01",
+   "HLA-DRB1*04:07",
+   "HLA-DRB1*12:01",
+   "HLA-DRB1*09:01",
+   "HLA-DRB1*08:02",
+   "HLA-DRB1*01:02",
+   "HLA-DRB1*08:01",
+   "HLA-DRB1*15:03",
+   "HLA-DRB1*13:03",
+   "HLA-DRB1*04:05"
+  ],
+  "drb345_panel": [
+   "HLA-DRB3*01:01",
+   "HLA-DRB3*02:02",
+   "HLA-DRB4*01:01",
+   "HLA-DRB5*01:01"
+  ],
+  "panel_size_drb1": 21,
+  "panel_size_total": 25,
+  "weighted_coverage": 0.9726699346685309,
+  "legacy_drb1_panel": [
+   "HLA-DRB1*01:01",
+   "HLA-DRB1*03:01",
+   "HLA-DRB1*04:01",
+   "HLA-DRB1*04:05",
+   "HLA-DRB1*07:01",
+   "HLA-DRB1*08:02",
+   "HLA-DRB1*09:01",
+   "HLA-DRB1*11:01",
+   "HLA-DRB1*12:01",
+   "HLA-DRB1*13:02",
+   "HLA-DRB1*15:01"
+  ],
+  "legacy_weighted_coverage": 0.8422626485898239,
+  "per_population": {
+   "United States Caucasoid": 0.99125775,
+   "United States Hispanic": 0.9451334800125774,
+   "United States Black": 0.9395782243002451,
+   "United States Asian": 0.8486789999999999,
+   "United States Amerindian": 0.6723617926567637,
+   "United States Mestizo": 0.936773798618537,
+   "Europe": 0.9839269506237123,
+   "World": 0.9537142542785196
+  },
+  "legacy_per_population": {
+   "United States Caucasoid": 0.90146679,
+   "United States Hispanic": 0.7294586404686103,
+   "United States Black": 0.7149765552359693,
+   "United States Asian": 0.7884,
+   "United States Amerindian": 0.42787361813498415,
+   "United States Mestizo": 0.7223222229693238,
+   "Europe": 0.8582545584984671,
+   "World": 0.8180735041080973
+  },
+  "curve": [
+   {
+    "n": 1,
+    "added": "HLA-DRB1*07:01",
+    "weighted_coverage": 0.22469523202259772
+   },
+   {
+    "n": 2,
+    "added": "HLA-DRB1*03:01",
+    "weighted_coverage": 0.3987870017704485
+   },
+   {
+    "n": 3,
+    "added": "HLA-DRB1*15:01",
+    "weighted_coverage": 0.5442600842639873
+   },
+   {
+    "n": 4,
+    "added": "HLA-DRB1*01:01",
+    "weighted_coverage": 0.6285650998189307
+   },
+   {
+    "n": 5,
+    "added": "HLA-DRB1*11:01",
+    "weighted_coverage": 0.6971164808321483
+   },
+   {
+    "n": 6,
+    "added": "HLA-DRB1*04:01",
+    "weighted_coverage": 0.7538445079940556
+   },
+   {
+    "n": 7,
+    "added": "HLA-DRB1*13:01",
+    "weighted_coverage": 0.8012057420355696
+   },
+   {
+    "n": 8,
+    "added": "HLA-DRB1*13:02",
+    "weighted_coverage": 0.8307682124043212
+   },
+   {
+    "n": 9,
+    "added": "HLA-DRB1*04:04",
+    "weighted_coverage": 0.8528902674396985
+   },
+   {
+    "n": 10,
+    "added": "HLA-DRB1*11:04",
+    "weighted_coverage": 0.872748262782186
+   },
+   {
+    "n": 11,
+    "added": "HLA-DRB1*16:01",
+    "weighted_coverage": 0.8878787442737919
+   },
+   {
+    "n": 12,
+    "added": "HLA-DRB1*14:01",
+    "weighted_coverage": 0.9013164453521411
+   },
+   {
+    "n": 13,
+    "added": "HLA-DRB1*04:07",
+    "weighted_coverage": 0.9134581921900913
+   },
+   {
+    "n": 14,
+    "added": "HLA-DRB1*12:01",
+    "weighted_coverage": 0.9239991572812705
+   },
+   {
+    "n": 15,
+    "added": "HLA-DRB1*09:01",
+    "weighted_coverage": 0.9336854390375926
+   },
+   {
+    "n": 16,
+    "added": "HLA-DRB1*08:02",
+    "weighted_coverage": 0.9425525807585595
+   },
+   {
+    "n": 17,
+    "added": "HLA-DRB1*01:02",
+    "weighted_coverage": 0.9506461471156897
+   },
+   {
+    "n": 18,
+    "added": "HLA-DRB1*08:01",
+    "weighted_coverage": 0.9577578785849918
+   },
+   {
+    "n": 19,
+    "added": "HLA-DRB1*15:03",
+    "weighted_coverage": 0.963388721227624
+   },
+   {
+    "n": 20,
+    "added": "HLA-DRB1*13:03",
+    "weighted_coverage": 0.9683766362614201
+   },
+   {
+    "n": 21,
+    "added": "HLA-DRB1*04:05",
+    "weighted_coverage": 0.9726699346685309
+   }
+  ]
+ },
+ "qc": [
+  {
+   "id": "AAVX_VHH",
+   "role": "test_article",
+   "length": "126",
+   "source": "PDB 9DC3 entity 2",
+   "qc_canonical_only": "True",
+   "non_canonical": "-",
+   "ambiguous_codes": "-",
+   "mw_kda": "13.62",
+   "pI": "8.65",
+   "pct_id_human_IGHV3_23": "65.3",
+   "vhh_hallmarks": "FERF (4/4 camelid)"
+  },
+  {
+   "id": "ProteinA_Z",
+   "role": "benchmark_ligand",
+   "length": "58",
+   "source": "PDB 1Q2N",
+   "qc_canonical_only": "True",
+   "non_canonical": "-",
+   "ambiguous_codes": "-",
+   "mw_kda": "6.64",
+   "pI": "4.93",
+   "pct_id_human_IGHV3_23": "20.7",
+   "vhh_hallmarks": "n/a"
+  },
+  {
+   "id": "ProteinA_B_native",
+   "role": "benchmark_ligand",
+   "length": "58",
+   "source": "UniProt P38507 212-269",
+   "qc_canonical_only": "True",
+   "non_canonical": "-",
+   "ambiguous_codes": "-",
+   "mw_kda": "6.6",
+   "pI": "4.93",
+   "pct_id_human_IGHV3_23": "19.3",
+   "vhh_hallmarks": "n/a"
+  },
+  {
+   "id": "ProteinL_B1",
+   "role": "benchmark_ligand",
+   "length": "63",
+   "source": "UniProt Q51918 255-317",
+   "qc_canonical_only": "True",
+   "non_canonical": "-",
+   "ambiguous_codes": "-",
+   "mw_kda": "6.72",
+   "pI": "4.38",
+   "pct_id_human_IGHV3_23": "30.2",
+   "vhh_hallmarks": "n/a"
+  },
+  {
+   "id": "Caplacizumab_VHH",
+   "role": "clinical_anchor",
+   "length": "128",
+   "source": "PDB 7EOW entity 2",
+   "qc_canonical_only": "True",
+   "non_canonical": "-",
+   "ambiguous_codes": "-",
+   "mw_kda": "13.84",
+   "pI": "9.09",
+   "pct_id_human_IGHV3_23": "81.6",
+   "vhh_hallmarks": "FGRL (3/4 camelid)"
+  },
+  {
+   "id": "VHH_7D12",
+   "role": "class_comparator",
+   "length": "124",
+   "source": "PDB 4KRL entity 1",
+   "qc_canonical_only": "True",
+   "non_canonical": "-",
+   "ambiguous_codes": "-",
+   "mw_kda": "13.42",
+   "pI": "8.16",
+   "pct_id_human_IGHV3_23": "72.4",
+   "vhh_hallmarks": "FERF (4/4 camelid)"
+  },
+  {
+   "id": "HumanVH3_23_germline",
+   "role": "negative_control_self",
+   "length": "98",
+   "source": "UniProt P01764 (IGHV3-23), mature V region",
+   "qc_canonical_only": "True",
+   "non_canonical": "-",
+   "ambiguous_codes": "-",
+   "mw_kda": "10.45",
+   "pI": "8.68",
+   "pct_id_human_IGHV3_23": "100.0",
+   "vhh_hallmarks": "VGLW (0/4 camelid)"
+  },
+  {
+   "id": "HSA_D1",
+   "role": "negative_control_self",
+   "length": "130",
+   "source": "UniProt P02768 residues 25-154 (mature albumin D1)",
+   "qc_canonical_only": "True",
+   "non_canonical": "-",
+   "ambiguous_codes": "-",
+   "mw_kda": "14.82",
+   "pI": "4.62",
+   "pct_id_human_IGHV3_23": "16.3",
+   "vhh_hallmarks": "n/a"
+  },
+  {
+   "id": "TT_p2_region",
+   "role": "positive_control",
+   "length": "50",
+   "source": "UniProt P04958 residues 810-859",
+   "qc_canonical_only": "True",
+   "non_canonical": "-",
+   "ambiguous_codes": "-",
+   "mw_kda": "5.78",
+   "pI": "10.35",
+   "pct_id_human_IGHV3_23": "18.0",
+   "vhh_hallmarks": "n/a"
+  },
+  {
+   "id": "TT_p30_region",
+   "role": "positive_control",
+   "length": "50",
+   "source": "UniProt P04958 residues 927-976",
+   "qc_canonical_only": "True",
+   "non_canonical": "-",
+   "ambiguous_codes": "-",
+   "mw_kda": "5.86",
+   "pI": "4.48",
+   "pct_id_human_IGHV3_23": "26.0",
+   "vhh_hallmarks": "n/a"
+  }
+ ],
+ "rank": [
+  {
+   "id": "TT_p2_region",
+   "role": "positive_control",
+   "length": "50",
+   "pIRS": "1.46",
+   "pIRS_raw": "1.46",
+   "tolerance_drop_pct": "0.0",
+   "fold_vs_ProteinA_Z": "11.23",
+   "risk_band": "n/a (control)",
+   "n_foreign_epitopes": "5",
+   "max_promiscuity": "4",
+   "pop_at_risk_pct": "51.3"
+  },
+  {
+   "id": "ProteinL_B1",
+   "role": "benchmark_ligand",
+   "length": "63",
+   "pIRS": "0.71",
+   "pIRS_raw": "0.71",
+   "tolerance_drop_pct": "0.0",
+   "fold_vs_ProteinA_Z": "5.46",
+   "risk_band": "high",
+   "n_foreign_epitopes": "4",
+   "max_promiscuity": "3",
+   "pop_at_risk_pct": "39.3"
+  },
+  {
+   "id": "AAVX_VHH",
+   "role": "test_article",
+   "length": "126",
+   "pIRS": "0.38",
+   "pIRS_raw": "0.38",
+   "tolerance_drop_pct": "0.0",
+   "fold_vs_ProteinA_Z": "2.92",
+   "risk_band": "elevated",
+   "n_foreign_epitopes": "4",
+   "max_promiscuity": "6",
+   "pop_at_risk_pct": "28.5"
+  },
+  {
+   "id": "TT_p30_region",
+   "role": "positive_control",
+   "length": "50",
+   "pIRS": "0.28",
+   "pIRS_raw": "0.28",
+   "tolerance_drop_pct": "0.0",
+   "fold_vs_ProteinA_Z": "2.15",
+   "risk_band": "n/a (control)",
+   "n_foreign_epitopes": "1",
+   "max_promiscuity": "2",
+   "pop_at_risk_pct": "14.0"
+  },
+  {
+   "id": "VHH_7D12",
+   "role": "class_comparator",
+   "length": "124",
+   "pIRS": "0.26",
+   "pIRS_raw": "0.26",
+   "tolerance_drop_pct": "0.0",
+   "fold_vs_ProteinA_Z": "2.0",
+   "risk_band": "modestly-elevated",
+   "n_foreign_epitopes": "3",
+   "max_promiscuity": "3",
+   "pop_at_risk_pct": "31.0"
+  },
+  {
+   "id": "Caplacizumab_VHH",
+   "role": "clinical_anchor",
+   "length": "128",
+   "pIRS": "0.15",
+   "pIRS_raw": "0.41",
+   "tolerance_drop_pct": "63.4",
+   "fold_vs_ProteinA_Z": "1.15",
+   "risk_band": "modestly-elevated",
+   "n_foreign_epitopes": "5",
+   "max_promiscuity": "5",
+   "pop_at_risk_pct": "19.4"
+  },
+  {
+   "id": "ProteinA_Z",
+   "role": "benchmark_ligand",
+   "length": "58",
+   "pIRS": "0.13",
+   "pIRS_raw": "0.13",
+   "tolerance_drop_pct": "0.0",
+   "fold_vs_ProteinA_Z": "1.0",
+   "risk_band": "comparable-to-benchmark",
+   "n_foreign_epitopes": "2",
+   "max_promiscuity": "2",
+   "pop_at_risk_pct": "7.5"
+  },
+  {
+   "id": "ProteinA_B_native",
+   "role": "benchmark_ligand",
+   "length": "58",
+   "pIRS": "0.13",
+   "pIRS_raw": "0.13",
+   "tolerance_drop_pct": "0.0",
+   "fold_vs_ProteinA_Z": "1.0",
+   "risk_band": "comparable-to-benchmark",
+   "n_foreign_epitopes": "1",
+   "max_promiscuity": "2",
+   "pop_at_risk_pct": "7.5"
+  },
+  {
+   "id": "HumanVH3_23_germline",
+   "role": "negative_control_self",
+   "length": "98",
+   "pIRS": "0.0",
+   "pIRS_raw": "0.37",
+   "tolerance_drop_pct": "100.0",
+   "fold_vs_ProteinA_Z": "0.0",
+   "risk_band": "n/a (control)",
+   "n_foreign_epitopes": "0",
+   "max_promiscuity": "6",
+   "pop_at_risk_pct": "0.0"
+  },
+  {
+   "id": "HSA_D1",
+   "role": "negative_control_self",
+   "length": "130",
+   "pIRS": "0.0",
+   "pIRS_raw": "0.13",
+   "tolerance_drop_pct": "100.0",
+   "fold_vs_ProteinA_Z": "0.0",
+   "risk_band": "n/a (control)",
+   "n_foreign_epitopes": "0",
+   "max_promiscuity": "2",
+   "pop_at_risk_pct": "0.0"
+  }
+ ],
+ "suitability": {
+  "checks": [
+   {
+    "check": "universal epitopes detected with multi-allele breadth",
+    "detail": "TT_p2_region 5/25 DR at %Rank<5 (0 at <1, best 1.4); TT_p30_region 5/25 DR at %Rank<5 (2 at <1, best 0.64)",
+    "pass": true
+   },
+   {
+    "check": "self controls suppressed by tolerance filter",
+    "detail": "HumanVH3_23_germline pIRS 0.00 (raw 0.37); HSA_D1 pIRS 0.00 (raw 0.13)",
+    "pass": true
+   },
+   {
+    "check": "tolerance filter discriminates self from foreign",
+    "detail": "mean score drop: self 100.0% vs ligands 10.6%",
+    "pass": true
+   },
+   {
+    "check": "benchmark anchor scored",
+    "detail": "ProteinA_Z pIRS 0.13",
+    "pass": true
+   }
+  ],
+  "batch_valid": true
+ },
+ "filter_validation": {
+  "n_real_cores": 85,
+  "n_null_cores": 271,
+  "real_hit_rate_9of9": 0.1765,
+  "null_hit_rate_9of9": 0.0,
+  "real_hit_rate_8of9": 0.2235,
+  "null_hit_rate_8of9": 0.0111,
+  "enrichment_8of9_real_over_null": 20.14,
+  "filter_informative": true
+ },
+ "summary": {
+  "id": "AAVX_VHH",
+  "role": "test_article",
+  "length": "126",
+  "n_epitopes": "5",
+  "n_foreign_epitopes": "4",
+  "n_tolerised_epitopes": "1",
+  "max_promiscuity": "6",
+  "pIRS": "0.38",
+  "pIRS_no_tolerance_filter": "0.38",
+  "pop_at_risk": "0.2855",
+  "n_clusters": "4",
+  "n_foreign_clusters": "3"
+ },
+ "test_rank": {
+  "id": "AAVX_VHH",
+  "role": "test_article",
+  "length": "126",
+  "pIRS": "0.38",
+  "pIRS_raw": "0.38",
+  "tolerance_drop_pct": "0.0",
+  "fold_vs_ProteinA_Z": "2.92",
+  "risk_band": "elevated",
+  "n_foreign_epitopes": "4",
+  "max_promiscuity": "6",
+  "pop_at_risk_pct": "28.5"
+ },
+ "anchor_rank": {
+  "id": "ProteinA_Z",
+  "role": "benchmark_ligand",
+  "length": "58",
+  "pIRS": "0.13",
+  "pIRS_raw": "0.13",
+  "tolerance_drop_pct": "0.0",
+  "fold_vs_ProteinA_Z": "1.0",
+  "risk_band": "comparable-to-benchmark",
+  "n_foreign_epitopes": "2",
+  "max_promiscuity": "2",
+  "pop_at_risk_pct": "7.5"
+ },
+ "clusters": [
+  {
+   "id": "AAVX_VHH",
+   "start": "37",
+   "end": "45",
+   "n_epitopes": "1",
+   "n_foreign_epitopes": "1",
+   "peak_core": "FRQAPGKER",
+   "peak_peptide": "MGWFRQAPGKEREFV",
+   "peak_el_rank": "0.13",
+   "max_allele_breadth": "1",
+   "union_sb_alleles": "1",
+   "pop_presenting": "0.0",
+   "tolerance_class": "foreign"
+  },
+  {
+   "id": "AAVX_VHH",
+   "start": "47",
+   "end": "56",
+   "n_epitopes": "2",
+   "n_foreign_epitopes": "2",
+   "peak_core": "FVAVQDITA",
+   "peak_peptide": "KEREFVAVQDITASN",
+   "peak_el_rank": "0.01",
+   "max_allele_breadth": "6",
+   "union_sb_alleles": "7",
+   "pop_presenting": "0.2855",
+   "tolerance_class": "foreign"
+  },
+  {
+   "id": "AAVX_VHH",
+   "start": "68",
+   "end": "76",
+   "n_epitopes": "1",
+   "n_foreign_epitopes": "0",
+   "peak_core": "FTLSRDNAK",
+   "peak_peptide": "KGRFTLSRDNAKNTA",
+   "peak_el_rank": "0.46",
+   "max_allele_breadth": "1",
+   "union_sb_alleles": "1",
+   "pop_presenting": "0.0",
+   "tolerance_class": "all_tolerised"
+  },
+  {
+   "id": "AAVX_VHH",
+   "start": "80",
+   "end": "88",
+   "n_epitopes": "1",
+   "n_foreign_epitopes": "1",
+   "peak_core": "YLQMNNLKP",
+   "peak_peptide": "NTAYLQMNNLKPEDT",
+   "peak_el_rank": "0.23",
+   "max_allele_breadth": "3",
+   "union_sb_alleles": "3",
+   "pop_presenting": "0.1974",
+   "tolerance_class": "foreign"
+  }
+ ],
+ "top_cluster": {
+  "id": "AAVX_VHH",
+  "start": "47",
+  "end": "56",
+  "n_epitopes": "2",
+  "n_foreign_epitopes": "2",
+  "peak_core": "FVAVQDITA",
+  "peak_peptide": "KEREFVAVQDITASN",
+  "peak_el_rank": "0.01",
+  "max_allele_breadth": "6",
+  "union_sb_alleles": "7",
+  "pop_presenting": "0.2855",
+  "tolerance_class": "foreign"
+ },
+ "epitopes": [
+  {
+   "id": "AAVX_VHH",
+   "core": "FVAVQDITA",
+   "pos": "47",
+   "peptide": "KEREFVAVQDITASN",
+   "best_el_rank": "0.01",
+   "n_sb_alleles": "6",
+   "n_sb_drb1": "6",
+   "sb_alleles": "DRB1*04:01;DRB1*04:04;DRB1*04:05;DRB1*04:07;DRB1*08:02;DRB1*16:01",
+   "drb345_sb": "-",
+   "n_wb_alleles": "5",
+   "tolerance_class": "foreign",
+   "tolerance_weight": "1.0",
+   "pop_presenting": "0.2855"
+  },
+  {
+   "id": "AAVX_VHH",
+   "core": "YLQMNNLKP",
+   "pos": "80",
+   "peptide": "NTAYLQMNNLKPEDT",
+   "best_el_rank": "0.23",
+   "n_sb_alleles": "3",
+   "n_sb_drb1": "3",
+   "sb_alleles": "DRB1*04:01;DRB1*04:07;DRB1*16:01",
+   "drb345_sb": "-",
+   "n_wb_alleles": "4",
+   "tolerance_class": "foreign",
+   "tolerance_weight": "1.0",
+   "pop_presenting": "0.1974"
+  },
+  {
+   "id": "AAVX_VHH",
+   "core": "FRQAPGKER",
+   "pos": "37",
+   "peptide": "MGWFRQAPGKEREFV",
+   "best_el_rank": "0.13",
+   "n_sb_alleles": "1",
+   "n_sb_drb1": "0",
+   "sb_alleles": "DRB5*01:01",
+   "drb345_sb": "DRB5*01:01",
+   "n_wb_alleles": "1",
+   "tolerance_class": "foreign",
+   "tolerance_weight": "1.0",
+   "pop_presenting": "0.0"
+  },
+  {
+   "id": "AAVX_VHH",
+   "core": "VAVQDITAS",
+   "pos": "48",
+   "peptide": "REFVAVQDITASNTH",
+   "best_el_rank": "0.11",
+   "n_sb_alleles": "1",
+   "n_sb_drb1": "0",
+   "sb_alleles": "DRB4*01:01",
+   "drb345_sb": "DRB4*01:01",
+   "n_wb_alleles": "1",
+   "tolerance_class": "foreign",
+   "tolerance_weight": "1.0",
+   "pop_presenting": "0.0"
+  },
+  {
+   "id": "AAVX_VHH",
+   "core": "FTLSRDNAK",
+   "pos": "68",
+   "peptide": "KGRFTLSRDNAKNTA",
+   "best_el_rank": "0.46",
+   "n_sb_alleles": "1",
+   "n_sb_drb1": "0",
+   "sb_alleles": "DRB5*01:01",
+   "drb345_sb": "DRB5*01:01",
+   "n_wb_alleles": "4",
+   "tolerance_class": "near_human_9mer",
+   "tolerance_weight": "0.35",
+   "pop_presenting": "0.0"
+  }
+ ],
+ "coincidence": [
+  {
+   "id": "AAVX_VHH",
+   "t_cluster": "47-56",
+   "t_peak_core": "FVAVQDITA",
+   "t_pop_presenting": "0.2855",
+   "b_region": "53-63",
+   "overlap_aa": "4",
+   "region_peptide": "ITASNTHYSSA"
+  }
+ ],
+ "exposure": [
+  {
+   "leachate_ng_per_mg": "1",
+   "dose_mg": "1",
+   "ug_ligand_per_dose": "0.001",
+   "nmol_per_dose": "7e-05",
+   "exposure_band": "negligible",
+   "basis": "Below the exposure at which protein impurities have shown measurable ADA induction in the clinic"
+  },
+  {
+   "leachate_ng_per_mg": "1",
+   "dose_mg": "10",
+   "ug_ligand_per_dose": "0.01",
+   "nmol_per_dose": "0.00074",
+   "exposure_band": "negligible",
+   "basis": "Below the exposure at which protein impurities have shown measurable ADA induction in the clinic"
+  },
+  {
+   "leachate_ng_per_mg": "1",
+   "dose_mg": "100",
+   "ug_ligand_per_dose": "0.1",
+   "nmol_per_dose": "0.00741",
+   "exposure_band": "low",
+   "basis": "Comparable to well-controlled rProtein A leachate exposure in approved mAb products"
+  },
+  {
+   "leachate_ng_per_mg": "1",
+   "dose_mg": "1000",
+   "ug_ligand_per_dose": "1.0",
+   "nmol_per_dose": "0.07407",
+   "exposure_band": "moderate",
+   "basis": "Above typical qualified leachate exposure; justify with ligand-specific data"
+  },
+  {
+   "leachate_ng_per_mg": "10",
+   "dose_mg": "1",
+   "ug_ligand_per_dose": "0.01",
+   "nmol_per_dose": "0.00074",
+   "exposure_band": "negligible",
+   "basis": "Below the exposure at which protein impurities have shown measurable ADA induction in the clinic"
+  },
+  {
+   "leachate_ng_per_mg": "10",
+   "dose_mg": "10",
+   "ug_ligand_per_dose": "0.1",
+   "nmol_per_dose": "0.00741",
+   "exposure_band": "low",
+   "basis": "Comparable to well-controlled rProtein A leachate exposure in approved mAb products"
+  },
+  {
+   "leachate_ng_per_mg": "10",
+   "dose_mg": "100",
+   "ug_ligand_per_dose": "1.0",
+   "nmol_per_dose": "0.07407",
+   "exposure_band": "moderate",
+   "basis": "Above typical qualified leachate exposure; justify with ligand-specific data"
+  },
+  {
+   "leachate_ng_per_mg": "10",
+   "dose_mg": "1000",
+   "ug_ligand_per_dose": "10.0",
+   "nmol_per_dose": "0.74074",
+   "exposure_band": "elevated",
+   "basis": "Immunologically meaningful protein dose; treat the ligand as a co-administered antigen"
+  },
+  {
+   "leachate_ng_per_mg": "100",
+   "dose_mg": "1",
+   "ug_ligand_per_dose": "0.1",
+   "nmol_per_dose": "0.00741",
+   "exposure_band": "low",
+   "basis": "Comparable to well-controlled rProtein A leachate exposure in approved mAb products"
+  },
+  {
+   "leachate_ng_per_mg": "100",
+   "dose_mg": "10",
+   "ug_ligand_per_dose": "1.0",
+   "nmol_per_dose": "0.07407",
+   "exposure_band": "moderate",
+   "basis": "Above typical qualified leachate exposure; justify with ligand-specific data"
+  },
+  {
+   "leachate_ng_per_mg": "100",
+   "dose_mg": "100",
+   "ug_ligand_per_dose": "10.0",
+   "nmol_per_dose": "0.74074",
+   "exposure_band": "elevated",
+   "basis": "Immunologically meaningful protein dose; treat the ligand as a co-administered antigen"
+  },
+  {
+   "leachate_ng_per_mg": "100",
+   "dose_mg": "1000",
+   "ug_ligand_per_dose": "100.0",
+   "nmol_per_dose": "7.40741",
+   "exposure_band": "elevated",
+   "basis": "Immunologically meaningful protein dose; treat the ligand as a co-administered antigen"
+  }
+ ],
+ "deimm": [
+  {
+   "variant": "P1_F47H",
+   "substitution": "F->H",
+   "core": "HVAVQDITA",
+   "n_sb_alleles": "1",
+   "pop_presenting": "0.0",
+   "blosum62": "-1",
+   "germline_residue": "W",
+   "germline_match": "False",
+   "delta_pop_presenting": "-0.3959",
+   "delta_sb": "-7"
+  },
+  {
+   "variant": "P9_A55K",
+   "substitution": "A->K",
+   "core": "FVAVQDITK",
+   "n_sb_alleles": "2",
+   "pop_presenting": "0.0",
+   "blosum62": "-1",
+   "germline_residue": "G",
+   "germline_match": "False",
+   "delta_pop_presenting": "-0.3959",
+   "delta_sb": "-6"
+  },
+  {
+   "variant": "P9_A55R",
+   "substitution": "A->R",
+   "core": "FVAVQDITR",
+   "n_sb_alleles": "2",
+   "pop_presenting": "0.0",
+   "blosum62": "-1",
+   "germline_residue": "G",
+   "germline_match": "False",
+   "delta_pop_presenting": "-0.3959",
+   "delta_sb": "-6"
+  },
+  {
+   "variant": "P1_F47A",
+   "substitution": "F->A",
+   "core": "AVAVQDITA",
+   "n_sb_alleles": "1",
+   "pop_presenting": "0.0",
+   "blosum62": "-2",
+   "germline_residue": "W",
+   "germline_match": "False",
+   "delta_pop_presenting": "-0.3959",
+   "delta_sb": "-7"
+  },
+  {
+   "variant": "P1_F47C",
+   "substitution": "F->C",
+   "core": "CVAVQDITA",
+   "n_sb_alleles": "1",
+   "pop_presenting": "0.0",
+   "blosum62": "-2",
+   "germline_residue": "W",
+   "germline_match": "False",
+   "delta_pop_presenting": "-0.3959",
+   "delta_sb": "-7"
+  },
+  {
+   "variant": "P1_F47S",
+   "substitution": "F->S",
+   "core": "SVAVQDITA",
+   "n_sb_alleles": "1",
+   "pop_presenting": "0.0",
+   "blosum62": "-2",
+   "germline_residue": "W",
+   "germline_match": "False",
+   "delta_pop_presenting": "-0.3959",
+   "delta_sb": "-7"
+  },
+  {
+   "variant": "P1_F47T",
+   "substitution": "F->T",
+   "core": "TVAVQDITA",
+   "n_sb_alleles": "1",
+   "pop_presenting": "0.0",
+   "blosum62": "-2",
+   "germline_residue": "W",
+   "germline_match": "False",
+   "delta_pop_presenting": "-0.3959",
+   "delta_sb": "-7"
+  },
+  {
+   "variant": "P4_V50P",
+   "substitution": "V->P",
+   "core": "FVAPQDITA",
+   "n_sb_alleles": "1",
+   "pop_presenting": "0.0",
+   "blosum62": "-2",
+   "germline_residue": "A",
+   "germline_match": "False",
+   "delta_pop_presenting": "-0.3959",
+   "delta_sb": "-7"
+  },
+  {
+   "variant": "P9_A55F",
+   "substitution": "A->F",
+   "core": "FVAVQDITF",
+   "n_sb_alleles": "0",
+   "pop_presenting": "0.0",
+   "blosum62": "-2",
+   "germline_residue": "G",
+   "germline_match": "False",
+   "delta_pop_presenting": "-0.3959",
+   "delta_sb": "-8"
+  },
+  {
+   "variant": "P9_A55Y",
+   "substitution": "A->Y",
+   "core": "FVAVQDITY",
+   "n_sb_alleles": "1",
+   "pop_presenting": "0.0",
+   "blosum62": "-2",
+   "germline_residue": "G",
+   "germline_match": "False",
+   "delta_pop_presenting": "-0.3959",
+   "delta_sb": "-7"
+  }
+ ],
+ "deimm_wt": {
+  "variant": "WT",
+  "substitution": "-",
+  "core": "FVAVQDITA",
+  "n_sb_alleles": "8",
+  "pop_presenting": "0.3959",
+  "blosum62": "-",
+  "germline_residue": "-",
+  "germline_match": "-",
+  "delta_pop_presenting": "0.0",
+  "delta_sb": "0"
+ },
+ "n_el_sb": 203,
+ "n_cons_sb": 170,
+ "ba_confirm_rank": 10.0,
+ "figures": {
+  "panel": "/home/user/ClaudeCode/hla_ligand_immunogenicity/figures/fig1_panel_coverage.png",
+  "landscape": "/home/user/ClaudeCode/hla_ligand_immunogenicity/figures/fig2_binding_landscape.png",
+  "ranking": "/home/user/ClaudeCode/hla_ligand_immunogenicity/figures/fig3_calibrated_ranking.png",
+  "tb": "/home/user/ClaudeCode/hla_ligand_immunogenicity/figures/fig4_tb_coincidence.png",
+  "deimm": "/home/user/ClaudeCode/hla_ligand_immunogenicity/figures/fig5_deimmunization.png"
+ },
+ "out": "/home/user/ClaudeCode/hla_ligand_immunogenicity/report.pptx"
+}

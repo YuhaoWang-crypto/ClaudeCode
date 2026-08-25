@@ -42,6 +42,12 @@ def img(name):
     return f'<img src="data:image/png;base64,{b}" alt="{name}">'
 
 
+BAND_TAG = {"comparable-to-benchmark": "good", "modestly-elevated": "warn",
+            "elevated": "bad", "high": "bad"}
+BAND_SHORT = {"comparable-to-benchmark": "comparable", "modestly-elevated": "modest",
+              "elevated": "elevated", "high": "high", "n/a (control)": "control"}
+
+
 def esc(s):
     return (str(s).replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;"))
 
@@ -51,7 +57,8 @@ def table(rows, cols, labels=None, cls="", fmt=None):
         return "<p class='muted'>no rows</p>"
     labels = labels or cols
     fmt = fmt or {}
-    h = "".join(f"<th>{esc(l)}</th>" for l in labels)
+    # a label prefixed with "!" is raw HTML and is not escaped
+    h = "".join(f"<th>{l[1:] if l.startswith('!') else esc(l)}</th>" for l in labels)
     body = []
     for r in rows:
         tds = []
@@ -118,9 +125,13 @@ table{border-collapse:collapse;width:100%;font-size:13.5px}
 th{background:var(--soft);text-align:left;padding:9px 12px;font-weight:640;
   border-bottom:1px solid var(--line);white-space:nowrap;font-size:12px;
   letter-spacing:.03em;text-transform:uppercase;color:var(--muted)}
+th .unit{text-transform:none;letter-spacing:0}
 td{padding:8px 12px;border-bottom:1px solid var(--line);vertical-align:top}
 tbody tr:last-child td{border-bottom:0}
 .num td:nth-child(n+3){text-align:right;font-variant-numeric:tabular-nums}
+.num td:last-child{text-align:left}
+td .wrapmono{display:block;max-width:34ch;white-space:normal;word-break:break-word;
+  font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11px;line-height:1.45}
 img{max-width:100%;height:auto;display:block;border-radius:10px;border:1px solid var(--line);
   margin:20px 0}
 .tag{display:inline-block;font-size:11px;font-weight:660;padding:2px 8px;border-radius:999px;
@@ -158,6 +169,7 @@ def main():
     rank = tsv("m6_calibrated_ranking.tsv")
     suit = jsn("m6_system_suitability.json")
     val = jsn("m4_filter_validation.json")
+    calib = jsn("m6_promiscuity_calibration.json")
     clusters = tsv("m5_clusters.tsv")
     epitopes = tsv("m5_epitopes.tsv")
     summary = {r["id"]: r for r in tsv("m5_ligand_summary.tsv")}
@@ -190,7 +202,7 @@ screened across a {panel['panel_size_total']}-molecule HLA-DR panel covering
 benchmark affinity ligands and assay controls run in the same batch.</p>
 <div class="toc">
 <a href="#verdict">Verdict</a><a href="#panel">Panel</a><a href="#suitability">Controls</a>
-<a href="#binding">Binding</a><a href="#tolerance">Tolerance filter</a>
+<a href="#promiscuity">Promiscuity scale</a><a href="#binding">Binding</a><a href="#tolerance">Tolerance filter</a>
 <a href="#clusters">Epitopes</a><a href="#ada">B-cell / ADA</a>
 <a href="#exposure">Exposure</a><a href="#deimm">Deimmunisation</a>
 <a href="#limits">Limits &amp; next steps</a></div></header>""")
@@ -207,13 +219,15 @@ benchmark affinity ligands and assay controls run in the same batch.</p>
   <div class="s">the affinity ligand with the longest controlled clinical leachate history</div></div>
 <div class="stat"><div class="n">{test['n_foreign_epitopes']}</div>
   <div class="l">non-self epitopes</div>
-  <div class="s">of {test['n_epitopes']} total; {test['n_tolerised_epitopes']} matched human self and were down-weighted</div></div>
+  <div class="s">of {test['n_epitopes']} total; {test['n_tolerised_epitopes']} matched human self and
+      {'was' if int(test['n_tolerised_epitopes']) == 1 else 'were'} down-weighted</div></div>
 <div class="stat"><div class="n">{float(test_rank['pop_at_risk_pct']):.0f}%</div>
   <div class="l">US/EU population at risk</div>
   <div class="s">carry a DR molecule predicted to present at least one non-self epitope</div></div>
 <div class="stat"><div class="n">{test['max_promiscuity']}<span style="font-size:17px;color:var(--muted)">/{panel['panel_size_total']}</span></div>
   <div class="l">peak promiscuity</div>
-  <div class="s">DR molecules presenting the dominant epitope</div></div>
+  <div class="s">DR molecules presenting the dominant epitope &mdash;
+      {calib.get('test_peak_vs_universal_sb','?')}&times; what the tetanus universal epitopes reach on this panel</div></div>
 </div>""")
 
     if top:
@@ -228,7 +242,7 @@ non-human protein of this size.</p></div>""")
     A(f"""<p>On the intrinsic scale the ligand sits at
 <strong>{float(test_rank['pIRS']):.2f}</strong> population-weighted non-self epitope units per
 100 residues, against <strong>{float(anchor['pIRS']):.2f}</strong> for the Protein A Z-domain —
-a <strong class="tag {band_cls}">{test_rank['risk_band']}</strong> result. Both numbers come from
+a <strong class="tag {band_cls}">{test_rank['risk_band']}</strong> result on the calibrated scale. Both numbers come from
 the same batch, the same panel and the same thresholds, which is the only reason the comparison
 means anything. Read on for what the batch controls say about whether the batch is reportable at
 all, and for the exposure arithmetic that turns this into a dose-level call.</p>""")
@@ -294,7 +308,55 @@ affinity ligands. The batch is reportable only if the controls behave.</p>""")
             ["sequence", "role", "pIRS", "pIRS unfiltered", "× Protein A Z",
              "peak promiscuity", "% pop at risk", "band"], "num",
             fmt={"role": lambda r: f'<span class="tag {role_tag.get(r["role"],"")}">'
-                                   f'{r["role"].replace("_"," ")}</span>'}))
+                                   f'{r["role"].replace("_"," ")}</span>',
+                 "max_promiscuity": lambda r: f'{r["max_promiscuity"]}/{panel["panel_size_total"]}',
+                 "pop_at_risk_pct": lambda r: f'{float(r["pop_at_risk_pct"]):.1f}%',
+                 "pIRS": lambda r: f'{float(r["pIRS"]):.2f}',
+                 "pIRS_raw": lambda r: f'{float(r["pIRS_raw"]):.2f}',
+                 "fold_vs_ProteinA_Z": lambda r: f'{float(r["fold_vs_ProteinA_Z"]):.2f}×',
+                 "risk_band": lambda r: (f'<span class="tag {BAND_TAG.get(r["risk_band"], "")}">'
+                                         f'{BAND_SHORT.get(r["risk_band"], r["risk_band"])}'
+                                         f'</span>')}))
+
+    # --------------------------------------------------- promiscuity anchor
+    if calib:
+        u = calib["universal_epitopes"]
+        n = calib["panel_size"]
+        A('<h2 id="promiscuity">How promiscuous is "promiscuous"?</h2>')
+        A(f"""<p>Reporting that a peptide binds {test['max_promiscuity']} of
+{n} DR molecules invites the question nobody usually answers: compared to what? The batch answers it
+by carrying two peptides whose promiscuity is an experimental fact rather than a prediction — the
+tetanus toxin universal T-helper epitopes p2 (830–844) and p30 (947–967), which drive CD4 responses
+in most donors <em>in vitro</em> and are used as universal helper epitopes in peptide vaccines.</p>""")
+        test_best = min((float(e["best_el_rank"]) for e in epitopes
+                         if e["id"] == test_id), default=None)
+        prom_rows = [{"ep": k.replace("_region", "").replace("TT_", "tetanus toxin "),
+                      "sb": f"{v['n_sb']}/{n}", "wb": f"{v['n_wb']}/{n}",
+                      "best": v["best_rank"], "hi": False}
+                     for k, v in u.items()]
+        prom_rows.append({
+            "ep": f"{test_id} peak epitope ({top['peak_core'] if top else '-'})",
+            "sb": f"{test['max_promiscuity']}/{n}", "wb": "—",
+            "best": test_best if test_best is not None else "—", "hi": True})
+        strong = lambda k: (lambda r: (f"<strong>{esc(r[k])}</strong>" if r["hi"]
+                                       else esc(r[k])))
+        A(table(prom_rows, ["ep", "sb", "wb", "best"],
+                ["peptide", f"!DR molecules at EL %Rank &lt; {calib['sb_threshold']:g}",
+                 f"!at %Rank &lt; {calib['wb_threshold']:g}", "best %Rank"], "num",
+                fmt={c: strong(c) for c in ("ep", "sb", "wb", "best")}))
+        A(f"""<div class="callout bad"><p><strong>The strong-binder tier does not reproduce the
+textbook universal epitopes.</strong> p2 clears EL %Rank &lt; 1 on
+{u['TT_p2_region']['n_sb']} of {n} DR molecules and p30 on {u['TT_p30_region']['n_sb']}; both reach
+{calib['universal_epitope_ceiling_wb']}/{n} only at the weak-binder tier. So %Rank &lt; 1 is a
+high-specificity, low-sensitivity criterion — and a peptide that <em>does</em> clear it across
+{test['max_promiscuity']} molecules, as <code>{top['peak_core'] if top else '-'}</code> does, is
+<strong>{calib['test_peak_vs_universal_sb']}× more promiscuous by this measure than the universal
+epitopes are</strong>. That is a far more useful statement than "six strong binders".</p></div>""")
+        A("""<p class="muted"><small>Read in the honest direction, this also bounds the method: a
+predictor that ranks known universal epitopes as weak binders is not a sensitive detector of
+promiscuity, so peptides below the strong-binder tier in this ligand are not cleared — they are
+merely not flagged. That asymmetry is why the confirmatory assays below are scoped on the flagged
+peptides <em>plus</em> the intact ligand.</small></p>""")
 
     # ------------------------------------------------------------- binding
     A('<h2 id="binding">Binding prediction: two heads, not one</h2>')
@@ -323,6 +385,15 @@ self-similarity — gives a hit rate of
 <strong>{val.get('enrichment_8of9_real_over_null','n/a')}×</strong>. A 5-of-9 "TCR-face" screen,
 the obvious shortcut, was tried first and discarded: with only five positions specified it matches
 the human proteome by chance several times per query and flags nearly everything.</p>""")
+    germ = next((r for r in rank if r["id"] == "HumanVH3_23_germline"), None)
+    if germ:
+        A(f"""<div class="callout bad"><p><strong>Why this filter is not optional.</strong> Human
+germline VH3-23 — a sequence every human is tolerised to by construction — scores a peak promiscuity
+of <strong>{germ['max_promiscuity']}/{panel['panel_size_total']}</strong> DR molecules on this panel,
+the same as the test article, and an unfiltered pIRS of {float(germ['pIRS_raw']):.2f} against the test
+article's {float(test_rank['pIRS_raw']):.2f}. Raw binder counts cannot tell a camelid VHH from the
+human framework it resembles. After the filter the germline control falls to
+{float(germ['pIRS']):.2f} and the ranking becomes readable.</p></div>""")
     A(f"""<div class="callout"><p>The filter is doing work, not deleting indiscriminately: the two
 human self controls lose
 {max(float(r['tolerance_drop_pct']) for r in rank if r['role']=='negative_control_self'):.0f}% of
@@ -353,7 +424,9 @@ their unfiltered score, while the test article loses
             fmt={"core": lambda r: f'<code>{r["core"]}</code>',
                  "peptide": lambda r: f'<code>{r["peptide"]}</code>',
                  "pop_presenting": lambda r: f'{float(r["pop_presenting"])*100:.1f}%',
-                 "sb_alleles": lambda r: f'<small class="mono">{esc(r["sb_alleles"])}</small>'}))
+                 "sb_alleles": lambda r: ('<span class="wrapmono muted">'
+                                          + esc(r["sb_alleles"].replace(";", "  "))
+                                          + "</span>")}))
 
     # ------------------------------------------------------------------ ADA
     A('<h2 id="ada">The measured endpoint is an antibody, not a T cell</h2>')
@@ -383,8 +456,12 @@ grid across plausible leachate levels and doses is:</p>""")
     band_tag = {"negligible": "good", "low": "good", "moderate": "warn", "elevated": "bad"}
     A(table(grid, ["leachate_ng_per_mg", "dose_mg", "ug_ligand_per_dose",
                    "nmol_per_dose", "exposure_band"],
-            ["leachate (ng/mg)", "dose (mg)", "µg ligand/dose", "nmol/dose", "band"], "num",
-            fmt={"exposure_band": lambda r: f'<span class="tag {band_tag.get(r["exposure_band"],"")}">'
+            ["leachate (ng/mg)", "dose (mg)",
+             '!ligand per dose (<span class="unit">µg</span>)',
+             '!<span class="unit">nmol</span>/dose', "band"], "num",
+            fmt={"ug_ligand_per_dose": lambda r: f'{float(r["ug_ligand_per_dose"]):,.3f}',
+                 "nmol_per_dose": lambda r: f'{float(r["nmol_per_dose"]):.4f}',
+                 "exposure_band": lambda r: f'<span class="tag {band_tag.get(r["exposure_band"],"")}">'
                                             f'{r["exposure_band"]}</span>'}))
     A("""<p class="muted"><small>Bands are an internal triage convention, not a regulatory
 threshold. No agency publishes a numeric leachate immunogenicity limit; the ICH Q6B / EMA
@@ -395,23 +472,51 @@ expectation is control to a justified, consistently achieved level. Replace the 
     if deimm:
         wt = next(r for r in deimm if r["variant"] == "WT")
         A('<h2 id="deimm">If the ligand can be re-engineered</h2>')
-        A(f"""<p>Every substitution at each MHC-II anchor pocket of the dominant core was re-scored
-across the panel. Wild type is presented by {wt['n_sb_alleles']} DR molecules reaching
-{float(wt['pop_presenting'])*100:.0f}% of the weighted population; the best variants drop that to
-single digits. BLOSUM62 and the human germline residue at the aligned position are shown because a
-substitution that abolishes DR binding and breaks the fold is not a design.</p>""")
+        muts = [r for r in deimm if r["variant"] != "WT"]
+        knock = [r for r in muts if float(r["pop_presenting"]) == 0]
+        cons = [r for r in muts if int(r["blosum62"]) >= 0]
+        # A free cysteine is a disulfide-scrambling liability in an engineered
+        # binder, so it is not offered as a design candidate even when it scores.
+        cons_designable = [r for r in cons if not r["variant"].endswith("C")]
+        best_cons = sorted(cons_designable, key=lambda r: float(r["pop_presenting"]))[:1]
+        best_knock_bl = max((int(r["blosum62"]) for r in knock), default=None)
+        A(f"""<p>Every one of the 19 substitutions was placed at each MHC-II anchor pocket (P1, P4,
+P6, P9) of the dominant core and the mutated 15-mer re-scored across the panel — {len(muts)}
+variants in all. Wild type is presented by {wt['n_sb_alleles']} DR molecules reaching
+{float(wt['pop_presenting'])*100:.0f}% of the weighted population.</p>""")
         A(img("fig5_deimmunization.png"))
-        A(table([r for r in deimm if r["variant"] != "WT"][:12],
+        if knock and best_cons:
+            bc = best_cons[0]
+            bcbl = f"{int(bc['blosum62']):+d}" if int(bc["blosum62"]) else "0"
+            A(f"""<div class="callout"><p><strong>The knockouts and the designable changes are not
+the same substitutions.</strong> {len(knock)} variants abolish predicted presentation entirely, but
+every one of them is chemically disruptive — the best BLOSUM62 score among them is
+{best_knock_bl:+d}, and they sit at buried framework positions where that is a real stability risk.
+The most conservative useful change is <code>{bc['variant']}</code>
+({bc['substitution']}, BLOSUM62 {bcbl} — cysteine substitutions are excluded as
+disulfide-scrambling liabilities), which cuts presentation from
+{float(wt['pop_presenting'])*100:.0f}% to {float(bc['pop_presenting'])*100:.1f}% without a
+chemically radical substitution. That is the trade-off to take to a stability screen — not a
+knockout that would probably cost the fold.</p></div>""")
+        A('<h3>Conservative substitutions (BLOSUM62 ≥ 0)</h3>')
+        A(table(sorted(cons, key=lambda r: float(r["pop_presenting"]))[:8],
                 ["variant", "substitution", "core", "n_sb_alleles", "pop_presenting",
                  "delta_pop_presenting", "blosum62", "germline_residue"],
                 ["variant", "substitution", "core", "DR", "% pop", "Δ % pop",
                  "BLOSUM62", "germline aa"], "num",
                 fmt={"core": lambda r: f'<code>{r["core"]}</code>',
                      "pop_presenting": lambda r: f'{float(r["pop_presenting"])*100:.1f}%',
-                     "delta_pop_presenting": lambda r: f'{float(r["delta_pop_presenting"])*100:+.1f}'}))
-        A("""<p class="muted"><small>This models DR presentation only. Effect on ligand–target
-affinity, resin capacity and alkaline stability is not modelled, and any candidate has to go back
-through binding and stability screens before it means anything.</small></p>""")
+                     "delta_pop_presenting": lambda r: f'{float(r["delta_pop_presenting"])*100:+.1f}',
+                     "blosum62": lambda r: (f'{int(r["blosum62"]):+d}'
+                                            if int(r["blosum62"]) else "0")}))
+        A(f"""<p class="muted"><small>This scan uses the eluted-ligand head alone, so wild-type
+breadth reads {wt['n_sb_alleles']}/{panel['panel_size_total']} here against
+{test['max_promiscuity']}/{panel['panel_size_total']} on the EL+BA consensus call used everywhere
+else — the comparison between variants is what carries the meaning, not the absolute breadth. The
+"% pop" column counts DRB1 molecules only, so a variant can read 0.0% while one or two DRB3/4/5
+molecules still bind it. And this models DR presentation only: effect on ligand–target affinity,
+resin capacity and alkaline stability is not modelled, and any candidate has to go back through
+binding and stability screens before it means anything.</small></p>""")
 
     # ---------------------------------------------------------------- limits
     A('<h2 id="limits">What this is, and what it is not</h2>')
@@ -470,6 +575,7 @@ in the pipeline requires a database identifier for the test article.</p>""")
              "VHH hallmark tetrad", "source"], "num",
             fmt={"role": lambda r: f'<span class="tag {role_tag.get(r["role"],"")}">'
                                    f'{r["role"].replace("_"," ")}</span>',
+                 "pct_id_human_IGHV3_23": lambda r: f'{float(r["pct_id_human_IGHV3_23"]):.1f}%',
                  "source": lambda r: f'<small>{esc(r["source"])}</small>'}))
     A("""<p class="muted"><small>The hallmark tetrad is FR2 Kabat 37/44/45/47: camelid VHHs carry
 F/Y–E–R–G/L where a human VH carries V–G–L–W. It separates a humanised VHH from a native camelid

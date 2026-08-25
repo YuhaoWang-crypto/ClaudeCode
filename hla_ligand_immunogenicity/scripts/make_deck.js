@@ -34,13 +34,14 @@ function light(title, kicker) {
   return s;
 }
 
-function dark(title, sub) {
+function dark(title, sub, top) {
   const s = pres.addSlide();
   s.background = { color: INK };
-  s.addText(title, { x: M, y: 2.3, w: W - 2 * M, h: 1.3, fontSize: 40, bold: true,
-    color: PAPER, fontFace: HEAD, margin: 0 });
-  if (sub) s.addText(sub, { x: M, y: 3.7, w: W - 2 * M - 1.5, h: 1.2, fontSize: 15,
-    color: "AEC2D4", fontFace: BODY, margin: 0, lineSpacing: 22 });
+  const ty = top ? 0.5 : 2.25;
+  s.addText(title, { x: M, y: ty, w: W - 2 * M, h: top ? 0.72 : 1.55,
+    fontSize: top ? 28 : 40, bold: true, color: PAPER, fontFace: HEAD, margin: 0 });
+  if (sub) s.addText(sub, { x: M, y: ty + (top ? 0.78 : 1.6), w: W - 2 * M - 1.5,
+    h: 1.35, fontSize: 15, color: "AEC2D4", fontFace: BODY, margin: 0, lineSpacing: 22 });
   return s;
 }
 
@@ -200,18 +201,19 @@ function figure(s, path, o) {
             `The missing coverage in the legacy set sits in alleles it does not contain — ` +
             `DRB1*13:01, *04:04, *11:04, *16:01, *14:01 — so no amount of re-weighting fixes it.`,
       options: { fontSize: 12, color: INK } },
-  ], { x: M, y: 5.05, w: W - 2 * M, h: 0.8, fontSize: 12, fontFace: BODY, margin: 0,
+  ], { x: M, y: 5.02, w: W - 2 * M, h: 1.05, fontSize: 12, fontFace: BODY, margin: 0,
        lineSpacing: 16 });
-  s.addText("Panel:  " + p.drb1_panel.concat(p.drb345_panel)
-              .map((a) => a.replace("HLA-DR", "DR")).join("  ·  "),
-    { x: M, y: 5.9, w: W - 2 * M, h: 0.5, fontSize: 9.5, color: MUTED, fontFace: BODY,
-      margin: 0, lineSpacing: 13 });
+  const drb1 = p.drb1_panel.map((a) => a.replace("HLA-DRB1*", "")).join(" · ");
+  const other = p.drb345_panel.map((a) => a.replace("HLA-DR", "DR")).join(" · ");
+  s.addText(`Panel — DRB1*  ${drb1}    +    ${other}`,
+    { x: M, y: 6.13, w: W - 2 * M, h: 0.38, fontSize: 9.5, color: MUTED, fontFace: BODY,
+      margin: 0 });
   note(s, `Coverage is single-locus Hardy–Weinberg over the IEDB tables, reproducing the IEDB CLI ` +
           `to two decimals. DRB3/4/5 carry no frequencies there, so they add presentation breadth ` +
           `without entering this arithmetic. US Asian lands at ` +
           `${pct(p.per_population["United States Asian"], 0)} and US Amerindian at ` +
           `${pct(p.per_population["United States Amerindian"], 0)}: a US/EU-weighted objective does ` +
-          `not buy those populations.`, 6.5);
+          `not buy those populations.`, 6.62);
 }
 
 // --------------------------------------------------------- 5 binding scan
@@ -226,7 +228,7 @@ function figure(s, path, o) {
             `${Math.round(100 * (data.n_el_sb - data.n_cons_sb) / data.n_el_sb)}% of EL-only calls are ` +
             `peptides that look presented but do not measurably bind; every downstream number uses ` +
             `the consensus call.`, options: { fontSize: 12, color: INK } },
-  ], { x: M, y: 5.75, w: W - 2 * M, h: 0.85, fontSize: 12, fontFace: BODY, margin: 0,
+  ], { x: M, y: 5.68, w: W - 2 * M, h: 1.0, fontSize: 12, fontFace: BODY, margin: 0,
        lineSpacing: 16 });
   note(s, "15-mer scan, EL %Rank < 1 = strong, < 5 = weak. Boxes mark consolidated epitope " +
           "clusters; the track below counts DR molecules with a strong call at each frame.", 6.68);
@@ -426,14 +428,14 @@ if (data.deimm.length && data.figures.deimm) {
                  rowH: 0.28, fontSize: 9.5 });
   note(s, "DR presentation only. Effect on ligand–target affinity, resin capacity and alkaline " +
           "stability is not modelled; any candidate goes back through binding and stability " +
-          "screens before it means anything.", 7.0);
+          "screens before it means anything.", 6.88);
 }
 
 // ------------------------------------------------------------- 12 limits
 {
-  const s = dark("What this is, and what it is not", null);
+  const s = dark("What this is, and what it is not", null, true);
   s.addText("In-silico DR screening ranks and localises risk. It does not measure it.",
-    { x: M, y: 1.55, w: W - 2 * M, h: 0.4, fontSize: 15, color: "AEC2D4", fontFace: BODY,
+    { x: M, y: 1.3, w: W - 2 * M, h: 0.4, fontSize: 15, color: "AEC2D4", fontFace: BODY,
       margin: 0, italic: true });
 
   const limits = [
@@ -457,9 +459,9 @@ if (data.deimm.length && data.figures.deimm) {
     y += 0.72;
   });
 
-  s.addShape(pres.ShapeType.roundRect, { x: 7.55, y: 2.2, w: W - M - 7.55, h: 3.9,
+  s.addShape(pres.ShapeType.roundRect, { x: 7.55, y: 2.05, w: W - M - 7.55, h: 4.45,
     fill: { color: "1B2E40" }, line: { color: "1B2E40", width: 0 }, rectRadius: 0.05 });
-  s.addText("Recommended confirmatory work — all RUO", { x: 7.85, y: 2.42, w: 4.6, h: 0.35,
+  s.addText("Recommended confirmatory work — all RUO", { x: 7.85, y: 2.25, w: 4.6, h: 0.35,
     fontSize: 14, bold: true, color: PAPER, fontFace: HEAD, margin: 0 });
   const steps = [
     ["1", "HLA-DR competitive binding", "on the flagged peptides against the panel's dominant " +
@@ -469,7 +471,7 @@ if (data.deimm.length && data.figures.deimm) {
     ["3", "Ex-vivo PBMC / CD4 proliferation", "across ~50 HLA-typed donors matched to this panel — " +
       "the closest available surrogate for clinical ADA risk."],
   ];
-  let sy = 2.95;
+  let sy = 2.85;
   steps.forEach(([n, h, t]) => {
     s.addShape(pres.ShapeType.ellipse, { x: 7.85, y: sy + 0.03, w: 0.3, h: 0.3,
       fill: { color: ACCENT }, line: { color: ACCENT } });
@@ -483,7 +485,7 @@ if (data.deimm.length && data.figures.deimm) {
     sy += 1.03;
   });
   s.addText("All three are scoped by the peptide list this pipeline produces — which is the " +
-            "practical point of running it.", { x: 7.85, y: 5.72, w: W - M - 8.05, h: 0.4,
+            "practical point of running it.", { x: 7.85, y: 6.05, w: W - M - 8.05, h: 0.45,
     fontSize: 10, color: "7FA8C9", italic: true, fontFace: BODY, margin: 0 });
 
   s.addText("Research use only — not for regulatory submission without confirmatory wet-lab data.",
