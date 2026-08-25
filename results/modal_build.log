@@ -1,0 +1,355 @@
+✓ Initialized. View run at 
+https://modal.com/apps/wyh-58141/main/ap-j2nh6ua2lu6bixSfU5Imdn
+Building image im-V0jU8hW4AJlzMnFZwrtgQ0
+
+=> Step 0: FROM base
+
+=> Step 1: RUN apt-get update
+Get:1 http://deb.debian.org/debian bookworm InRelease [151 kB]
+Get:2 http://deb.debian.org/debian bookworm-updates InRelease [55.4 kB]
+Get:3 http://deb.debian.org/debian-security bookworm-security InRelease [34.8 kB]
+Get:4 http://deb.debian.org/debian bookworm/main amd64 Packages [8790 kB]
+Get:5 http://deb.debian.org/debian-security bookworm-security/main amd64 Packages [335 kB]
+Fetched 9367 kB in 1s (7967 kB/s)
+Reading package lists...
+
+=> Step 2: RUN apt-get install -y git curl unzip
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following additional packages will be installed:
+  git-man less libcbor0.8 libcurl3-gnutls libcurl4 libedit2 liberror-perl
+  libfido2-1 libnghttp2-14 libpsl5 librtmp1 libssh2-1 libssl3 libxext6
+  libxmuu1 openssh-client openssl publicsuffix xauth
+Suggested packages:
+  gettext-base git-daemon-run | git-daemon-sysvinit git-doc git-email git-gui
+  gitk gitweb git-cvs git-mediawiki git-svn keychain libpam-ssh monkeysphere
+  ssh-askpass zip
+The following NEW packages will be installed:
+  curl git git-man less libcbor0.8 libcurl3-gnutls libcurl4 libedit2
+  liberror-perl libfido2-1 libnghttp2-14 libpsl5 librtmp1 libssh2-1 libxext6
+  libxmuu1 openssh-client publicsuffix unzip xauth
+The following packages will be upgraded:
+  libssl3 openssl
+2 upgraded, 20 newly installed, 0 to remove and 52 not upgraded.
+Need to get 16.0 MB of archives.
+After this operation, 59.2 MB of additional disk space will be used.
+Get:1 http://deb.debian.org/debian bookworm/main amd64 less amd64 590-2.1~deb12u2 [132 kB]
+Get:2 http://deb.debian.org/debian bookworm/main amd64 libedit2 amd64 3.1-20221030-2 [93.0 kB]
+Get:3 http://deb.debian.org/debian bookworm/main amd64 libcbor0.8 amd64 0.8.0-2+b1 [27.4 kB]
+Get:4 http://deb.debian.org/debian bookworm/main amd64 libssl3 amd64 3.0.20-1~deb12u2 [2036 kB]
+Get:5 http://deb.debian.org/debian bookworm/main amd64 libfido2-1 amd64 1.12.0-2+b1 [77.2 kB]
+Get:6 http://deb.debian.org/debian bookworm/main amd64 openssh-client amd64 1:9.2p1-2+deb12u10 [994 kB]
+Get:7 http://deb.debian.org/debian bookworm/main amd64 libnghttp2-14 amd64 1.52.0-1+deb12u3 [72.4 kB]
+Get:8 http://deb.debian.org/debian bookworm/main amd64 libpsl5 amd64 0.21.2-1 [58.7 kB]
+Get:9 http://deb.debian.org/debian bookworm/main amd64 librtmp1 amd64 2.4+20151223.gitfa8646d.1-2+b2 [60.8 kB]
+Get:10 http://deb.debian.org/debian bookworm/main amd64 libssh2-1 amd64 1.10.0-3+b1 [179 kB]
+Get:11 http://deb.debian.org/debian bookworm/main amd64 libcurl4 amd64 7.88.1-10+deb12u15 [392 kB]
+Get:12 http://deb.debian.org/debian bookworm/main amd64 curl amd64 7.88.1-10+deb12u15 [316 kB]
+Get:13 http://deb.debian.org/debian bookworm/main amd64 libcurl3-gnutls amd64 7.88.1-10+deb12u15 [386 kB]
+Get:14 http://deb.debian.org/debian bookworm/main amd64 liberror-perl all 0.17029-2 [29.0 kB]
+Get:15 http://deb.debian.org/debian bookworm/main amd64 git-man all 1:2.39.5-0+deb12u3 [2053 kB]
+Get:16 http://deb.debian.org/debian bookworm/main amd64 git amd64 1:2.39.5-0+deb12u3 [7264 kB]
+Get:17 http://deb.debian.org/debian bookworm/main amd64 libxext6 amd64 2:1.3.4-1+b1 [52.9 kB]
+Get:18 http://deb.debian.org/debian bookworm/main amd64 libxmuu1 amd64 2:1.1.3-3 [23.9 kB]
+Get:19 http://deb.debian.org/debian bookworm/main amd64 openssl amd64 3.0.20-1~deb12u2 [1439 kB]
+Get:20 http://deb.debian.org/debian bookworm/main amd64 publicsuffix all 20230209.2326-1 [126 kB]
+Get:21 http://deb.debian.org/debian-security bookworm-security/main amd64 unzip amd64 6.0-28+deb12u1 [167 kB]
+Get:22 http://deb.debian.org/debian bookworm/main amd64 xauth amd64 1:1.1.2-1 [36.0 kB]
+debconf: delaying package configuration, since apt-utils is not installed
+Fetched 16.0 MB in 0s (127 MB/s)
+Selecting previously unselected package less.
+(Reading database ... 
+[1A(Reading database ... 5%
+[1A(Reading database ... 10%
+[1A(Reading database ... 15%
+[1A(Reading database ... 20%
+[1A(Reading database ... 25%
+[1A(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%
+[1A(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%
+[1A(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%
+[1A(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%
+[1A(Reading database ... 95%(Reading database ... 100%
+[1A(Reading database ... 16439 files and directories currently installed.)
+Preparing to unpack .../00-less_590-2.1~deb12u2_amd64.deb ...
+Unpacking less (590-2.1~deb12u2) ...
+Selecting previously unselected package libedit2:amd64.
+Preparing to unpack .../01-libedit2_3.1-20221030-2_amd64.deb ...
+Unpacking libedit2:amd64 (3.1-20221030-2) ...
+Selecting previously unselected package libcbor0.8:amd64.
+Preparing to unpack .../02-libcbor0.8_0.8.0-2+b1_amd64.deb ...
+Unpacking libcbor0.8:amd64 (0.8.0-2+b1) ...
+Preparing to unpack .../03-libssl3_3.0.20-1~deb12u2_amd64.deb ...
+Unpacking libssl3:amd64 (3.0.20-1~deb12u2) over (3.0.16-1~deb12u1) ...
+Selecting previously unselected package libfido2-1:amd64.
+Preparing to unpack .../04-libfido2-1_1.12.0-2+b1_amd64.deb ...
+Unpacking libfido2-1:amd64 (1.12.0-2+b1) ...
+Selecting previously unselected package openssh-client.
+Preparing to unpack .../05-openssh-client_1%3a9.2p1-2+deb12u10_amd64.deb ...
+Unpacking openssh-client (1:9.2p1-2+deb12u10) ...
+Selecting previously unselected package libnghttp2-14:amd64.
+Preparing to unpack .../06-libnghttp2-14_1.52.0-1+deb12u3_amd64.deb ...
+Unpacking libnghttp2-14:amd64 (1.52.0-1+deb12u3) ...
+Selecting previously unselected package libpsl5:amd64.
+Preparing to unpack .../07-libpsl5_0.21.2-1_amd64.deb ...
+Unpacking libpsl5:amd64 (0.21.2-1) ...
+Selecting previously unselected package librtmp1:amd64.
+Preparing to unpack .../08-librtmp1_2.4+20151223.gitfa8646d.1-2+b2_amd64.deb ...
+Unpacking librtmp1:amd64 (2.4+20151223.gitfa8646d.1-2+b2) ...
+Selecting previously unselected package libssh2-1:amd64.
+Preparing to unpack .../09-libssh2-1_1.10.0-3+b1_amd64.deb ...
+Unpacking libssh2-1:amd64 (1.10.0-3+b1) ...
+Selecting previously unselected package libcurl4:amd64.
+Preparing to unpack .../10-libcurl4_7.88.1-10+deb12u15_amd64.deb ...
+Unpacking libcurl4:amd64 (7.88.1-10+deb12u15) ...
+Selecting previously unselected package curl.
+Preparing to unpack .../11-curl_7.88.1-10+deb12u15_amd64.deb ...
+Unpacking curl (7.88.1-10+deb12u15) ...
+Selecting previously unselected package libcurl3-gnutls:amd64.
+Preparing to unpack .../12-libcurl3-gnutls_7.88.1-10+deb12u15_amd64.deb ...
+Unpacking libcurl3-gnutls:amd64 (7.88.1-10+deb12u15) ...
+Selecting previously unselected package liberror-perl.
+Preparing to unpack .../13-liberror-perl_0.17029-2_all.deb ...
+Unpacking liberror-perl (0.17029-2) ...
+Selecting previously unselected package git-man.
+Preparing to unpack .../14-git-man_1%3a2.39.5-0+deb12u3_all.deb ...
+Unpacking git-man (1:2.39.5-0+deb12u3) ...
+Selecting previously unselected package git.
+Preparing to unpack .../15-git_1%3a2.39.5-0+deb12u3_amd64.deb ...
+Unpacking git (1:2.39.5-0+deb12u3) ...
+Selecting previously unselected package libxext6:amd64.
+Preparing to unpack .../16-libxext6_2%3a1.3.4-1+b1_amd64.deb ...
+Unpacking libxext6:amd64 (2:1.3.4-1+b1) ...
+Selecting previously unselected package libxmuu1:amd64.
+Preparing to unpack .../17-libxmuu1_2%3a1.1.3-3_amd64.deb ...
+Unpacking libxmuu1:amd64 (2:1.1.3-3) ...
+Preparing to unpack .../18-openssl_3.0.20-1~deb12u2_amd64.deb ...
+Unpacking openssl (3.0.20-1~deb12u2) over (3.0.16-1~deb12u1) ...
+Selecting previously unselected package publicsuffix.
+Preparing to unpack .../19-publicsuffix_20230209.2326-1_all.deb ...
+Unpacking publicsuffix (20230209.2326-1) ...
+Selecting previously unselected package unzip.
+Preparing to unpack .../20-unzip_6.0-28+deb12u1_amd64.deb ...
+Unpacking unzip (6.0-28+deb12u1) ...
+Selecting previously unselected package xauth.
+Preparing to unpack .../21-xauth_1%3a1.1.2-1_amd64.deb ...
+Unpacking xauth (1:1.1.2-1) ...
+Setting up libpsl5:amd64 (0.21.2-1) ...
+Setting up unzip (6.0-28+deb12u1) ...
+Setting up libcbor0.8:amd64 (0.8.0-2+b1) ...
+Setting up libedit2:amd64 (3.1-20221030-2) ...
+Setting up libssl3:amd64 (3.0.20-1~deb12u2) ...
+Setting up libnghttp2-14:amd64 (1.52.0-1+deb12u3) ...
+Setting up less (590-2.1~deb12u2) ...
+Setting up libxext6:amd64 (2:1.3.4-1+b1) ...
+Setting up liberror-perl (0.17029-2) ...
+Setting up librtmp1:amd64 (2.4+20151223.gitfa8646d.1-2+b2) ...
+Setting up git-man (1:2.39.5-0+deb12u3) ...
+Setting up libssh2-1:amd64 (1.10.0-3+b1) ...
+Setting up libfido2-1:amd64 (1.12.0-2+b1) ...
+Setting up openssl (3.0.20-1~deb12u2) ...
+Setting up publicsuffix (20230209.2326-1) ...
+Setting up libxmuu1:amd64 (2:1.1.3-3) ...
+Setting up openssh-client (1:9.2p1-2+deb12u10) ...
+Setting up libcurl3-gnutls:amd64 (7.88.1-10+deb12u15) ...
+Setting up git (1:2.39.5-0+deb12u3) ...
+Setting up xauth (1:1.1.2-1) ...
+Setting up libcurl4:amd64 (7.88.1-10+deb12u15) ...
+Setting up curl (7.88.1-10+deb12u15) ...
+Processing triggers for libc-bin (2.36-9+deb12u13) ...
+Saving image...
+Image saved, took 484.97ms
+
+Built image im-V0jU8hW4AJlzMnFZwrtgQ0 in 6.95s
+
+
+Building image im-yrrVR7La38sFKUcG0dFp0W
+
+=> Step 0: FROM base
+
+=> Step 1: RUN python -m pip install anndata h5py numpy pandas psutil scikit-learn scipy vcc-cli
+Looking in indexes: http://pypi-mirror.modal.local:5555/simple
+Collecting anndata
+  Downloading http://pypi-mirror.modal.local:5555/simple/anndata/anndata-0.12.19-py3-none-any.whl.metadata (10 kB)
+Collecting h5py
+  Downloading http://pypi-mirror.modal.local:5555/simple/h5py/h5py-3.16.0-cp311-cp311-manylinux_2_28_x86_64.whl.metadata (3.0 kB)
+Collecting numpy
+  Downloading http://pypi-mirror.modal.local:5555/simple/numpy/numpy-2.4.6-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (6.6 kB)
+Collecting pandas
+  Downloading http://pypi-mirror.modal.local:5555/simple/pandas/pandas-3.0.5-cp311-cp311-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl.metadata (79 kB)
+Collecting psutil
+  Downloading http://pypi-mirror.modal.local:5555/simple/psutil/psutil-7.2.2-cp36-abi3-manylinux2010_x86_64.manylinux_2_12_x86_64.manylinux_2_28_x86_64.whl.metadata (22 kB)
+Collecting scikit-learn
+  Downloading http://pypi-mirror.modal.local:5555/simple/scikit-learn/scikit_learn-1.9.0-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (11 kB)
+Collecting scipy
+  Downloading http://pypi-mirror.modal.local:5555/simple/scipy/scipy-1.17.1-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (62 kB)
+Collecting vcc-cli
+  Downloading http://pypi-mirror.modal.local:5555/simple/vcc-cli/vcc_cli-0.1.0-py3-none-any.whl.metadata (7.6 kB)
+Collecting array-api-compat>=1.7.1 (from anndata)
+  Downloading http://pypi-mirror.modal.local:5555/simple/array-api-compat/array_api_compat-1.15.0-py3-none-any.whl.metadata (1.4 kB)
+Collecting legacy-api-wrap (from anndata)
+  Downloading http://pypi-mirror.modal.local:5555/simple/legacy-api-wrap/legacy_api_wrap-1.5-py3-none-any.whl.metadata (2.2 kB)
+Collecting natsort (from anndata)
+  Downloading http://pypi-mirror.modal.local:5555/simple/natsort/natsort-8.4.0-py3-none-any.whl.metadata (21 kB)
+Collecting packaging>=24.2 (from anndata)
+  Downloading http://pypi-mirror.modal.local:5555/simple/packaging/packaging-26.3-py3-none-any.whl.metadata (3.5 kB)
+Collecting pandas
+  Downloading http://pypi-mirror.modal.local:5555/simple/pandas/pandas-2.3.3-cp311-cp311-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl.metadata (91 kB)
+Collecting scverse-misc>=0.0.3 (from anndata)
+  Downloading http://pypi-mirror.modal.local:5555/simple/scverse-misc/scverse_misc-0.0.3-py3-none-any.whl.metadata (4.4 kB)
+Collecting zarr!=3.0.*,>=2.18.7 (from anndata)
+  Downloading http://pypi-mirror.modal.local:5555/simple/zarr/zarr-3.1.6-py3-none-any.whl.metadata (8.6 kB)
+Collecting python-dateutil>=2.8.2 (from pandas)
+  Downloading http://pypi-mirror.modal.local:5555/simple/python-dateutil/python_dateutil-2.9.0.post0-py2.py3-none-any.whl.metadata (8.4 kB)
+Collecting pytz>=2020.1 (from pandas)
+  Downloading http://pypi-mirror.modal.local:5555/simple/pytz/pytz-2026.3.post1-py2.py3-none-any.whl.metadata (22 kB)
+Collecting tzdata>=2022.7 (from pandas)
+  Downloading http://pypi-mirror.modal.local:5555/simple/tzdata/tzdata-2026.3-py2.py3-none-any.whl.metadata (1.4 kB)
+Collecting joblib>=1.4.0 (from scikit-learn)
+  Downloading http://pypi-mirror.modal.local:5555/simple/joblib/joblib-1.5.3-py3-none-any.whl.metadata (5.5 kB)
+Collecting narwhals>=2.0.1 (from scikit-learn)
+  Downloading http://pypi-mirror.modal.local:5555/simple/narwhals/narwhals-2.25.0-py3-none-any.whl.metadata (15 kB)
+Collecting threadpoolctl>=3.5.0 (from scikit-learn)
+  Downloading http://pypi-mirror.modal.local:5555/simple/threadpoolctl/threadpoolctl-3.6.0-py3-none-any.whl.metadata (13 kB)
+Collecting click>=8.1 (from vcc-cli)
+  Downloading http://pypi-mirror.modal.local:5555/simple/click/click-8.4.2-py3-none-any.whl.metadata (2.6 kB)
+Collecting google-crc32c>=1.5 (from vcc-cli)
+  Downloading http://pypi-mirror.modal.local:5555/simple/google-crc32c/google_crc32c-1.8.0-cp311-cp311-manylinux1_x86_64.manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_5_x86_64.whl.metadata (1.7 kB)
+Collecting httpx>=0.27 (from vcc-cli)
+  Downloading http://pypi-mirror.modal.local:5555/simple/httpx/httpx-0.28.1-py3-none-any.whl.metadata (7.1 kB)
+Collecting keyring>=24 (from vcc-cli)
+  Downloading http://pypi-mirror.modal.local:5555/simple/keyring/keyring-25.7.0-py3-none-any.whl.metadata (21 kB)
+Collecting zstandard>=0.22 (from vcc-cli)
+  Downloading http://pypi-mirror.modal.local:5555/simple/zstandard/zstandard-0.25.0-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (3.3 kB)
+Collecting anyio (from httpx>=0.27->vcc-cli)
+  Downloading http://pypi-mirror.modal.local:5555/simple/anyio/anyio-4.14.2-py3-none-any.whl.metadata (4.6 kB)
+Collecting certifi (from httpx>=0.27->vcc-cli)
+  Downloading http://pypi-mirror.modal.local:5555/simple/certifi/certifi-2026.7.22-py3-none-any.whl.metadata (2.5 kB)
+Collecting httpcore==1.* (from httpx>=0.27->vcc-cli)
+  Downloading http://pypi-mirror.modal.local:5555/simple/httpcore/httpcore-1.0.9-py3-none-any.whl.metadata (21 kB)
+Collecting idna (from httpx>=0.27->vcc-cli)
+  Downloading http://pypi-mirror.modal.local:5555/simple/idna/idna-3.19-py3-none-any.whl.metadata (9.2 kB)
+Collecting h11>=0.16 (from httpcore==1.*->httpx>=0.27->vcc-cli)
+  Downloading http://pypi-mirror.modal.local:5555/simple/h11/h11-0.16.0-py3-none-any.whl.metadata (8.3 kB)
+Collecting SecretStorage>=3.2 (from keyring>=24->vcc-cli)
+  Downloading http://pypi-mirror.modal.local:5555/simple/secretstorage/secretstorage-3.5.0-py3-none-any.whl.metadata (4.0 kB)
+Collecting jeepney>=0.4.2 (from keyring>=24->vcc-cli)
+  Downloading http://pypi-mirror.modal.local:5555/simple/jeepney/jeepney-0.9.0-py3-none-any.whl.metadata (1.2 kB)
+Collecting importlib_metadata>=4.11.4 (from keyring>=24->vcc-cli)
+  Downloading http://pypi-mirror.modal.local:5555/simple/importlib-metadata/importlib_metadata-9.0.0-py3-none-any.whl.metadata (4.5 kB)
+Collecting jaraco.classes (from keyring>=24->vcc-cli)
+  Downloading http://pypi-mirror.modal.local:5555/simple/jaraco-classes/jaraco.classes-3.4.0-py3-none-any.whl.metadata (2.6 kB)
+Collecting jaraco.functools (from keyring>=24->vcc-cli)
+  Downloading http://pypi-mirror.modal.local:5555/simple/jaraco-functools/jaraco_functools-4.6.0-py3-none-any.whl.metadata (2.9 kB)
+Collecting jaraco.context (from keyring>=24->vcc-cli)
+  Downloading http://pypi-mirror.modal.local:5555/simple/jaraco-context/jaraco_context-6.1.2-py3-none-any.whl.metadata (4.2 kB)
+Collecting zipp>=3.20 (from importlib_metadata>=4.11.4->keyring>=24->vcc-cli)
+  Downloading http://pypi-mirror.modal.local:5555/simple/zipp/zipp-4.1.0-py3-none-any.whl.metadata (3.6 kB)
+Collecting six>=1.5 (from python-dateutil>=2.8.2->pandas)
+  Downloading http://pypi-mirror.modal.local:5555/simple/six/six-1.17.0-py2.py3-none-any.whl.metadata (1.7 kB)
+Collecting session-info2 (from scverse-misc>=0.0.3->anndata)
+  Downloading http://pypi-mirror.modal.local:5555/simple/session-info2/session_info2-0.4.1-py3-none-any.whl.metadata (2.5 kB)
+Collecting typing-extensions (from scverse-misc>=0.0.3->anndata)
+  Downloading http://pypi-mirror.modal.local:5555/simple/typing-extensions/typing_extensions-4.16.0-py3-none-any.whl.metadata (3.3 kB)
+Collecting cryptography>=2.0 (from SecretStorage>=3.2->keyring>=24->vcc-cli)
+  Downloading http://pypi-mirror.modal.local:5555/simple/cryptography/cryptography-50.0.1-cp311-abi3-manylinux_2_34_x86_64.whl.metadata (4.3 kB)
+Collecting cffi>=2.0.0 (from cryptography>=2.0->SecretStorage>=3.2->keyring>=24->vcc-cli)
+  Downloading http://pypi-mirror.modal.local:5555/simple/cffi/cffi-2.1.1-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (2.5 kB)
+Collecting pycparser (from cffi>=2.0.0->cryptography>=2.0->SecretStorage>=3.2->keyring>=24->vcc-cli)
+  Downloading http://pypi-mirror.modal.local:5555/simple/pycparser/pycparser-3.0-py3-none-any.whl.metadata (8.2 kB)
+Collecting donfig>=0.8 (from zarr!=3.0.*,>=2.18.7->anndata)
+  Downloading http://pypi-mirror.modal.local:5555/simple/donfig/donfig-0.8.1.post1-py3-none-any.whl.metadata (5.0 kB)
+Collecting numcodecs>=0.14 (from zarr!=3.0.*,>=2.18.7->anndata)
+  Downloading http://pypi-mirror.modal.local:5555/simple/numcodecs/numcodecs-0.16.5-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (3.4 kB)
+Collecting pyyaml (from donfig>=0.8->zarr!=3.0.*,>=2.18.7->anndata)
+  Downloading http://pypi-mirror.modal.local:5555/simple/pyyaml/pyyaml-6.0.3-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (2.4 kB)
+Collecting more-itertools (from jaraco.classes->keyring>=24->vcc-cli)
+  Downloading http://pypi-mirror.modal.local:5555/simple/more-itertools/more_itertools-11.1.0-py3-none-any.whl.metadata (41 kB)
+Collecting backports.tarfile (from jaraco.context->keyring>=24->vcc-cli)
+  Downloading http://pypi-mirror.modal.local:5555/simple/backports-tarfile/backports.tarfile-1.2.0-py3-none-any.whl.metadata (2.0 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/anndata/anndata-0.12.19-py3-none-any.whl (176 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/pandas/pandas-2.3.3-cp311-cp311-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl (12.8 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 12.8/12.8 MB 529.9 MB/s  0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/h5py/h5py-3.16.0-cp311-cp311-manylinux_2_28_x86_64.whl (5.0 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 5.0/5.0 MB 200.0 MB/s  0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/numpy/numpy-2.4.6-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (16.9 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 16.9/16.9 MB 525.8 MB/s  0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/psutil/psutil-7.2.2-cp36-abi3-manylinux2010_x86_64.manylinux_2_12_x86_64.manylinux_2_28_x86_64.whl (155 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/scikit-learn/scikit_learn-1.9.0-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (9.3 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 9.3/9.3 MB 543.9 MB/s  0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/scipy/scipy-1.17.1-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (35.3 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 35.3/35.3 MB 538.3 MB/s  0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/vcc-cli/vcc_cli-0.1.0-py3-none-any.whl (110 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/array-api-compat/array_api_compat-1.15.0-py3-none-any.whl (79 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/click/click-8.4.2-py3-none-any.whl (119 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/google-crc32c/google_crc32c-1.8.0-cp311-cp311-manylinux1_x86_64.manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_5_x86_64.whl (33 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/httpx/httpx-0.28.1-py3-none-any.whl (73 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/httpcore/httpcore-1.0.9-py3-none-any.whl (78 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/h11/h11-0.16.0-py3-none-any.whl (37 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/joblib/joblib-1.5.3-py3-none-any.whl (309 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/keyring/keyring-25.7.0-py3-none-any.whl (39 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/importlib-metadata/importlib_metadata-9.0.0-py3-none-any.whl (27 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/jeepney/jeepney-0.9.0-py3-none-any.whl (49 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/narwhals/narwhals-2.25.0-py3-none-any.whl (467 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/packaging/packaging-26.3-py3-none-any.whl (129 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/python-dateutil/python_dateutil-2.9.0.post0-py2.py3-none-any.whl (229 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/pytz/pytz-2026.3.post1-py2.py3-none-any.whl (508 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/scverse-misc/scverse_misc-0.0.3-py3-none-any.whl (8.8 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/secretstorage/secretstorage-3.5.0-py3-none-any.whl (15 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/cryptography/cryptography-50.0.1-cp311-abi3-manylinux_2_34_x86_64.whl (4.7 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.7/4.7 MB 304.1 MB/s  0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/cffi/cffi-2.1.1-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (217 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/six/six-1.17.0-py2.py3-none-any.whl (11 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/threadpoolctl/threadpoolctl-3.6.0-py3-none-any.whl (18 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/tzdata/tzdata-2026.3-py2.py3-none-any.whl (348 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/zarr/zarr-3.1.6-py3-none-any.whl (295 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/donfig/donfig-0.8.1.post1-py3-none-any.whl (21 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/numcodecs/numcodecs-0.16.5-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (9.1 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 9.1/9.1 MB 233.3 MB/s  0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/typing-extensions/typing_extensions-4.16.0-py3-none-any.whl (45 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/zipp/zipp-4.1.0-py3-none-any.whl (10 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/zstandard/zstandard-0.25.0-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (5.6 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 5.6/5.6 MB 526.6 MB/s  0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/anyio/anyio-4.14.2-py3-none-any.whl (125 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/idna/idna-3.19-py3-none-any.whl (68 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/certifi/certifi-2026.7.22-py3-none-any.whl (136 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/jaraco-classes/jaraco.classes-3.4.0-py3-none-any.whl (6.8 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/jaraco-context/jaraco_context-6.1.2-py3-none-any.whl (7.9 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/backports-tarfile/backports.tarfile-1.2.0-py3-none-any.whl (30 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/jaraco-functools/jaraco_functools-4.6.0-py3-none-any.whl (11 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/legacy-api-wrap/legacy_api_wrap-1.5-py3-none-any.whl (10 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/more-itertools/more_itertools-11.1.0-py3-none-any.whl (72 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/natsort/natsort-8.4.0-py3-none-any.whl (38 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/pycparser/pycparser-3.0-py3-none-any.whl (48 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/pyyaml/pyyaml-6.0.3-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (806 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 806.6/806.6 kB 666.3 MB/s  0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/session-info2/session_info2-0.4.1-py3-none-any.whl (17 kB)
+Installing collected packages: pytz, zstandard, zipp, tzdata, typing-extensions, threadpoolctl, six, session-info2, pyyaml, pycparser, psutil, packaging, numpy, natsort, narwhals, more-itertools, legacy-api-wrap, joblib, jeepney, idna, h11, google-crc32c, click, certifi, backports.tarfile, array-api-compat, scverse-misc, scipy, python-dateutil, numcodecs, jaraco.functools, jaraco.context, jaraco.classes, importlib_metadata, httpcore, h5py, donfig, cffi, anyio, zarr, scikit-learn, pandas, httpx, cryptography, SecretStorage, anndata, keyring, vcc-cli
+
+Successfully installed SecretStorage-3.5.0 anndata-0.12.19 anyio-4.14.2 array-api-compat-1.15.0 backports.tarfile-1.2.0 certifi-2026.7.22 cffi-2.1.1 click-8.4.2 cryptography-50.0.1 donfig-0.8.1.post1 google-crc32c-1.8.0 h11-0.16.0 h5py-3.16.0 httpcore-1.0.9 httpx-0.28.1 idna-3.19 importlib_metadata-9.0.0 jaraco.classes-3.4.0 jaraco.context-6.1.2 jaraco.functools-4.6.0 jeepney-0.9.0 joblib-1.5.3 keyring-25.7.0 legacy-api-wrap-1.5 more-itertools-11.1.0 narwhals-2.25.0 natsort-8.4.0 numcodecs-0.16.5 numpy-2.4.6 packaging-26.3 pandas-2.3.3 psutil-7.2.2 pycparser-3.0 python-dateutil-2.9.0.post0 pytz-2026.3.post1 pyyaml-6.0.3 scikit-learn-1.9.0 scipy-1.17.1 scverse-misc-0.0.3 session-info2-0.4.1 six-1.17.0 threadpoolctl-3.6.0 typing-extensions-4.16.0 tzdata-2026.3 vcc-cli-0.1.0 zarr-3.1.6 zipp-4.1.0 zstandard-0.25.0
+
+[notice] A new release of pip is available: 25.2 -> 26.2.1
+[notice] To update, run: pip install --upgrade pip
+Saving image...
+Image saved, took 1.07s
+
+Built image im-yrrVR7La38sFKUcG0dFp0W in 18.97s
+
+
+Building image im-IUvoL1x5K8cSNM5rjALzmt
+
+=> Step 0: FROM base
+
+=> Step 1: RUN git clone --depth 1 -b claude/virtual-cell-model-prediction-qu31ry https://github.com/yuhaowang-crypto/claudecode.git /repo
+Cloning into '/repo'...
+Saving image...
+Image saved, took 1.49s
+
+Built image im-IUvoL1x5K8cSNM5rjALzmt in 3.84s
+
+
+✓ Created objects.
+├── 🔨 Created mount /home/user/ClaudeCode/modal/vcc_prep_modal.py
+├── 🔨 Created function build.
+├── 🔨 Created function prep.
+└── 🔨 Created function manifest.
