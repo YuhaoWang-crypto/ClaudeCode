@@ -71,8 +71,21 @@ def table(rows, cols, labels=None, cls="", fmt=None):
             f"<tbody>{''.join(body)}</tbody></table></div>")
 
 
+FONTS = ('<link rel="preconnect" href="https://fonts.googleapis.com">'
+         '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>'
+         '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?'
+         'family=IBM+Plex+Mono:wght@400;500&'
+         'family=IBM+Plex+Sans:wght@400;450;500;600&'
+         'family=IBM+Plex+Serif:wght@500;600&display=swap">')
+
+# IBM Plex: a family drawn for technical documentation, and its monospace is
+# what the peptide sequences on this page actually need. Serif for headings,
+# sans for running text, mono for every sequence and figure of merit.
 CSS = """
 :root{
+  --serif:"IBM Plex Serif",Cambria,Georgia,serif;
+  --sans:"IBM Plex Sans",-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
   --bg:#ffffff; --fg:#16202b; --muted:#63748a; --line:#e2e8ef; --soft:#f5f8fa;
   --accent:#2f6f9f; --bad:#b23b3b; --warn:#c9752b; --good:#3d8a6b; --violet:#7a5ea8;
   --chip:#eef3f8;
@@ -92,29 +105,32 @@ CSS = """
 }
 *{box-sizing:border-box}
 body{background:var(--bg);color:var(--fg);margin:0;
-  font:16px/1.62 ui-sans-serif,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-  -webkit-font-smoothing:antialiased}
+  font:400 16px/1.66 var(--sans);
+  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
 .wrap{max-width:1080px;margin:0 auto;padding:0 24px 96px}
 header.hero{border-bottom:1px solid var(--line);padding:56px 0 34px;margin-bottom:8px}
 .kicker{font-size:12px;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);
   font-weight:650}
-h1{font-size:38px;line-height:1.15;margin:12px 0 10px;letter-spacing:-.02em}
-h2{font-size:25px;margin:56px 0 6px;letter-spacing:-.015em;scroll-margin-top:20px}
-h3{font-size:17px;margin:30px 0 6px}
+h1,h2,h3{font-family:var(--serif);font-weight:600;text-wrap:balance}
+h1{font-size:40px;line-height:1.12;margin:14px 0 12px;letter-spacing:-.018em}
+h2{font-size:26px;margin:58px 0 8px;letter-spacing:-.012em;scroll-margin-top:20px;
+  line-height:1.22}
+h3{font-size:17.5px;margin:30px 0 6px;letter-spacing:-.005em}
 .lede{color:var(--muted);font-size:17px;max-width:74ch;margin:0}
 p{max-width:78ch}
 .muted{color:var(--muted)}
 small{color:var(--muted)}
 code{background:var(--soft);border:1px solid var(--line);border-radius:4px;
-  padding:1px 5px;font-size:.87em;font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
-.mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.9em}
+  padding:1px 5px;font-size:.86em;font-family:var(--mono);letter-spacing:.01em}
+.mono{font-family:var(--mono);font-size:.9em}
 .rule{height:1px;background:var(--line);border:0;margin:44px 0}
 .grid{display:grid;gap:14px;margin:22px 0}
 .g4{grid-template-columns:repeat(auto-fit,minmax(168px,1fr))}
 .g3{grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
 .g2{grid-template-columns:repeat(auto-fit,minmax(320px,1fr))}
 .stat{border:1px solid var(--line);border-radius:10px;padding:16px 16px 14px;background:var(--soft)}
-.stat .n{font-size:29px;font-weight:680;letter-spacing:-.02em;line-height:1.1}
+.stat .n{font-family:var(--serif);font-size:30px;font-weight:600;letter-spacing:-.02em;
+  line-height:1.08;font-variant-numeric:tabular-nums}
 .stat .l{font-size:12px;color:var(--muted);margin-top:5px;text-transform:uppercase;
   letter-spacing:.07em;font-weight:620}
 .stat .s{font-size:13px;color:var(--muted);margin-top:7px}
@@ -131,7 +147,7 @@ tbody tr:last-child td{border-bottom:0}
 .num td:nth-child(n+3){text-align:right;font-variant-numeric:tabular-nums}
 .num td:last-child{text-align:left}
 td .wrapmono{display:block;max-width:34ch;white-space:normal;word-break:break-word;
-  font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11px;line-height:1.45}
+  font-family:var(--mono);font-size:11px;line-height:1.5}
 img{max-width:100%;height:auto;display:block;border-radius:10px;border:1px solid var(--line);
   margin:20px 0}
 .tag{display:inline-block;font-size:11px;font-weight:660;padding:2px 8px;border-radius:999px;
@@ -154,6 +170,8 @@ li{margin:5px 0}
 .toc a{font-size:13px;color:var(--muted);text-decoration:none;border:1px solid var(--line);
   border-radius:999px;padding:4px 12px}
 .toc a:hover{color:var(--fg);border-color:var(--muted)}
+.toc a:focus-visible,a:focus-visible{outline:2px solid var(--accent);outline-offset:2px;
+  border-radius:4px}
 footer{border-top:1px solid var(--line);margin-top:60px;padding-top:22px;font-size:13px;
   color:var(--muted)}
 @media (max-width:640px){h1{font-size:29px}h2{font-size:21px}.wrap{padding:0 16px 64px}}
@@ -590,8 +608,8 @@ Sequences: RCSB PDB and UniProt, accessions in the table above.
 Research use only — not for regulatory submission without confirmatory wet-lab data.</p></footer>""")
     A("</div>")
 
-    html = (f"<title>AAV Ligand Immunogenicity</title>\n<style>{CSS}</style>\n"
-            + "\n".join(H))
+    html = (f"<title>AAV Ligand Immunogenicity</title>\n{FONTS}\n"
+            f"<style>{CSS}</style>\n" + "\n".join(H))
     out = os.path.join(ROOT, "report.html")
     with open(out, "w") as f:
         f.write(html)
