@@ -71,6 +71,7 @@ class Hyper:
     unseen_k: int = 25        # neighbours used for a knockdown absent from every source
     renorm: float = 0.0       # restore each effect's pre-denoising magnitude (0 -> off)
     gene_w: float = 0.0       # exponent on the per-gene transferability prior (0 -> off)
+    esm_mix: float = 0.0      # blend protein-embedding similarity into unseen routing
 
 
 # --------------------------------------------------------------------------
@@ -246,12 +247,15 @@ class ContextTransferModel:
     _gene_sig: np.ndarray | None = None      # (G, n_pert) per-gene response profile
     _pert_col: np.ndarray | None = None      # (n_pert,) gene column of each knockdown
     _gene_prior: np.ndarray | None = None    # (G,) per-gene transferability, mean 1
+    _gene_embed: np.ndarray | None = None    # (G, D) embeddings on the gene axis
+    _embed_by_name: dict | None = None       # symbol -> embedding, for any gene
 
     # ---------------------------------------------------------------- fitting
 
     def fit(self, sources: list[CellLine], target_mu: np.ndarray,
             symbols: np.ndarray, bank: SourceBank | None = None,
-            gene_prior: np.ndarray | None = None) -> "ContextTransferModel":
+            gene_prior: np.ndarray | None = None,
+            gene_embed: np.ndarray | None = None) -> "ContextTransferModel":
         """Fit using source-line perturbations plus the target's controls only.
 
         ``bank`` lets a caller reuse the hyperparameter-independent precomputation
@@ -267,6 +271,11 @@ class ContextTransferModel:
         self._symbols = symbols
         self._target_mu = target_mu
         self._gene_prior = gene_prior
+        self._gene_embed = gene_embed
+        if gene_embed is not None:
+            self._embed_by_name = {str(sym): gene_embed[i]
+                                   for i, sym in enumerate(symbols)
+                                   if np.any(gene_embed[i])}
 
         weights = self._context_weights(sources, target_mu)
         if bank is None:
@@ -401,7 +410,8 @@ class ContextTransferModel:
 
     # ------------------------------------------------------------- prediction
 
-    def _from_neighbours(self, gene: int | None) -> np.ndarray:
+    def _from_neighbours(self, gene: int | None,
+                         name: str | None = None) -> np.ndarray:
         """Predict a knockdown that appears in no source line at all.
 
         Nothing in the training data names this gene as a perturbation, but the
@@ -418,17 +428,50 @@ class ContextTransferModel:
         # is L1 retrieval and pays for that spread, this is why unseen
         # discrimination sits at chance here; restoring it belongs in this
         # function, not in _build_consensus.
-        if gene is None or self._gene_sig is None:
+        if self._gene_sig is None:
             return self._global
 
         seen = np.flatnonzero(self._pert_col >= 0)
         if seen.size == 0:
             return self._global
 
-        sim = self._gene_sig[self._pert_col[seen]] @ self._gene_sig[gene]
+        def similarity(rows: np.ndarray) -> np.ndarray:
+            """How like the silenced gene is each candidate stand-in?
+
+            Two sources, and they cover different genes.  The response profile
+            (``gene_sig``) needs the silenced gene to be *measured*, which the
+            gene often is not -- 10,852 of the official 18,533 are not measured
+            in any perturbation data available here, and for those this function
+            used to give up and return the generic response.  A protein
+            embedding needs only a sequence, so it covers every gene with one
+            and extends this route to genes it previously could not reach.
+            """
+            s = np.zeros(rows.size)
+            w_sig = 1.0 - self.hp.esm_mix
+            if w_sig > 0 and gene is not None:
+                s += w_sig * (self._gene_sig[self._pert_col[rows]]
+                              @ self._gene_sig[gene])
+            if self.hp.esm_mix > 0 and self._gene_embed is not None and embed_row \
+                    is not None:
+                cand = self._gene_embed[self._pert_col[rows]]
+                s += self.hp.esm_mix * (cand @ embed_row)
+            return s
+
+        # The silenced gene's own embedding comes from the symbol, not from a
+        # column in the measured matrix -- that is the whole point, since a gene
+        # with no column is exactly the case this is meant to reach.
+        embed_row = None
+        if self.hp.esm_mix > 0 and self._embed_by_name is not None and name:
+            embed_row = self._embed_by_name.get(str(name))
+        if gene is None and embed_row is None:
+            return self._global
+
+        sim = similarity(seen)
+        if not np.any(sim):
+            return self._global
         k = min(self.hp.unseen_k, seen.size)
         top = seen[np.argpartition(-sim, k - 1)[:k]]
-        w = np.clip(self._gene_sig[self._pert_col[top]] @ self._gene_sig[gene], 0, None)
+        w = np.clip(similarity(top), 0, None)
         if w.sum() <= EPS:
             return self._global
         return (w / w.sum()) @ self._consensus[top]
@@ -460,7 +503,7 @@ class ContextTransferModel:
         for i, p in enumerate(pert_names):
             j = index.get(p)
             base = (self._consensus[j] if j is not None
-                    else self._from_neighbours(col.get(p)))
+                    else self._from_neighbours(col.get(p), p))
             d = (1 - self.hp.use_global) * base + self.hp.use_global * self._global
             d = d * self._modulation * prior
             out[i] = self.hp.beta * d
