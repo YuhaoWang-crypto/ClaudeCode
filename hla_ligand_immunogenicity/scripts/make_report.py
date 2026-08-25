@@ -42,6 +42,12 @@ def img(name):
     return f'<img src="data:image/png;base64,{b}" alt="{name}">'
 
 
+# Fold-change the previous revision of this report published for the test
+# article. Kept as a constant, not read from results, because it is a
+# historical value: it is what the pipeline said before the affinity gate was
+# measured and removed, and the report states what changed.
+PREVIOUS_PUBLISHED_FOLD = 2.92
+
 BAND_TAG = {"comparable-to-benchmark": "good", "modestly-elevated": "warn",
             "elevated": "bad", "high": "bad"}
 BAND_SHORT = {"comparable-to-benchmark": "comparable", "modestly-elevated": "modest",
@@ -190,6 +196,7 @@ def main():
     calib = jsn("m6_promiscuity_calibration.json")
     acc = jsn("m11_calibration.json")
     bench = jsn("m10_benchmark_summary.json")
+    tolw = jsn("m12_tolerance_weight.json")
     clusters = tsv("m5_clusters.tsv")
     epitopes = tsv("m5_epitopes.tsv")
     summary = {r["id"]: r for r in tsv("m5_ligand_summary.tsv")}
@@ -235,7 +242,7 @@ benchmark affinity ligands and assay controls run in the same batch.</p>
     band_cls = {"comparable-to-benchmark": "good", "modestly-elevated": "warn",
                 "elevated": "bad", "high": "bad"}.get(test_rank["risk_band"], "acc")
     A(f"""<div class="grid g4">
-<div class="stat"><div class="n">{float(test_rank['fold_vs_ProteinA_Z']):.1f}&times;</div>
+<div class="stat"><div class="n">{float(test_rank['fold_vs_ProteinA_Z']):.2f}&times;</div>
   <div class="l">vs Protein A Z-domain</div>
   <div class="s">the affinity ligand with the longest controlled clinical leachate history</div></div>
 <div class="stat"><div class="n">{test['n_foreign_epitopes']}</div>
@@ -260,7 +267,14 @@ One region — residues {top['start']}–{top['end']}, binding core
 confirmatory assay should be built around; the rest of the sequence is unremarkable for a
 non-human protein of this size.</p></div>""")
 
-    A(f"""<p>On the intrinsic scale the ligand sits at
+    A(f"""<div class="callout"><p><strong>What changed in this revision.</strong> The decision rule was
+measured against ground truth for the first time (see <a href="#accuracy">Measured accuracy</a>),
+and the previously-used affinity gate did not survive it. Removing it moves the ligand from
+{PREVIOUS_PUBLISHED_FOLD:.1f}&times; the Protein A benchmark to {float(test_rank['fold_vs_ProteinA_Z']):.2f}&times; &mdash;
+the gate had been suppressing the benchmark's epitopes harder than the test article's. A correction
+in the control-matching code also revised the promiscuity comparison downward. Numbers below are the
+corrected ones.</p></div>
+<p>On the intrinsic scale the ligand sits at
 <strong>{float(test_rank['pIRS']):.2f}</strong> population-weighted non-self epitope units per
 100 residues, against <strong>{float(anchor['pIRS']):.2f}</strong> for the Protein A Z-domain —
 a <strong class="tag {band_cls}">{test_rank['risk_band']}</strong> result on the calibrated scale. Both numbers come from
@@ -391,7 +405,8 @@ reason.</p></div>""")
     if acc and bench:
         geo_el = acc["comparisons"].get("GEO_vs_EL") or {}
         cur = next((v for k, v in acc["operating_points"].items()
-                    if k.startswith("AND")), None)
+                    if "(in use)" in k),
+                   next(iter(acc["operating_points"].values()), None))
         best = acc.get("sweep", {}).get("max_mcc")
         el_only = next((v for k, v in acc["operating_points"].items()
                         if k.startswith("EL<1")), None)
@@ -443,26 +458,33 @@ EL alone at <strong>{geo_el['delta']:+.4f}</strong>, 95% CI
         rows_op = [{"rule": k, **v} for k, v in acc["operating_points"].items()]
         if best:
             rows_op.append({"rule": f"calibrated {acc['best_continuous_rule']} "
-                                    f"%Rank &lt; {best['threshold_rank']:.2f}", **best})
+                                    f"%Rank < {best['threshold_rank']:.2f}", **best})
         A(table(rows_op, ["rule", "sensitivity", "specificity", "ppv", "mcc",
                           "ppv_at_scan_prevalence"],
                 ["rule", "sensitivity", "specificity", "PPV (balanced set)", "MCC",
                  "PPV at scan prevalence"], "num",
-                fmt={"rule": lambda r: r["rule"],
+                fmt={"rule": lambda r: esc(r["rule"]),
                      "sensitivity": lambda r: f'{r["sensitivity"]:.3f}',
                      "specificity": lambda r: f'{r["specificity"]:.3f}',
                      "ppv": lambda r: f'{r["ppv"]:.3f}',
                      "mcc": lambda r: f'{r["mcc"]:.3f}',
                      "ppv_at_scan_prevalence": lambda r:
                          f'{r["ppv_at_scan_prevalence"]*100:.0f}%'}))
-        if cur and best:
-            A(f"""<p>The rule the pipeline currently runs sits at
-<strong>{cur['sensitivity']*100:.0f}% sensitivity</strong> and
-<strong>{cur['specificity']*100:.0f}% specificity</strong>. The threshold that maximises
+        in_use = next((v for k, v in acc["operating_points"].items()
+                       if "(in use)" in k), cur)
+        if in_use and best:
+            A(f"""<p>The rule now in use sits at
+<strong>{in_use['sensitivity']*100:.0f}% sensitivity</strong> and
+<strong>{in_use['specificity']*100:.0f}% specificity</strong>. The threshold that maximises
 Matthews correlation on this benchmark is
 <strong>{acc['best_continuous_rule']} %Rank &lt; {best['threshold_rank']:.2f}</strong>, at
 {best['sensitivity']*100:.0f}% / {best['specificity']*100:.0f}% — MCC
-{best['mcc']:.3f} against {cur['mcc']:.3f}.</p>""")
+{best['mcc']:.3f} against {in_use['mcc']:.3f}. That trade runs the wrong way for this application:
+it flags roughly three times as many peptides to gain sensitivity, and the chance any one of them is
+real falls from {in_use['ppv_at_scan_prevalence']*100:.0f}% to
+{best['ppv_at_scan_prevalence']*100:.0f}%. When the deliverable is a shortlist of peptides to send
+into a wet-lab assay, precision is what is being bought. The stricter cut stays, and MCC is the
+wrong objective to have optimised for here.</p>""")
 
         strat = acc.get("stratified", {})
         if all(k in strat and "note" not in strat[k] for k in ("self", "non_self")):
@@ -486,14 +508,33 @@ found negative in one donor set is not a clean non-binder — which inflates app
 both directions equally.</p></div>""")
 
     # ------------------------------------------------------------- binding
-    A('<h2 id="binding">Binding prediction: two heads, not one</h2>')
+    gate_on = cfg["prediction"].get("require_ba_agreement", True)
+    A('<h2 id="binding">Two heads, and what the second one is worth</h2>')
     A(f"""<p>Every 15-mer of every sequence was scored on both NetMHCIIpan heads across all
-{panel['panel_size_total']} DR molecules. Eluted-ligand scoring alone called
-<strong>{n_el}</strong> strong binders across the batch; requiring the binding-affinity head to
-agree (BA %Rank &lt; {cfg['prediction']['ba_confirm_rank']:.0f}) leaves
-<strong>{n_cons}</strong> — <strong>{100*(n_el-n_cons)/max(n_el,1):.0f}%</strong> of EL-only calls
-are peptides that look presented but do not measurably bind. Every downstream number uses the
-consensus call.</p>""")
+{panel['panel_size_total']} DR molecules: eluted-ligand likelihood, which models what gets
+presented, and binding affinity, which models peptide&ndash;MHC stability. Until this run the
+pipeline required <em>both</em> to agree before calling a strong binder, on the argument that
+eluted-ligand scoring over-calls.</p>""")
+    if acc:
+        cur = next((v for k, v in acc["operating_points"].items()
+                    if k.startswith("EL<1 and BA")), None)
+        el1 = next((v for k, v in acc["operating_points"].items()
+                    if k.startswith("EL<1 alone")), None)
+        if cur and el1:
+            A(f"""<div class="callout bad"><p><strong>The argument did not survive measurement.</strong>
+Against the labelled benchmark, the affinity gate removed <strong>{el1['tp'] - cur['tp']} true
+positives and {el1['fp'] - cur['fp']} false positives</strong> &mdash; roughly four real epitopes for
+every false one &mdash; and Matthews correlation went from {el1['mcc']:.3f} without the gate to
+{cur['mcc']:.3f} with it. Eluted-ligand scoring does over-call; the affinity head simply does not
+remove the over-calls selectively. The gate is now <strong>off</strong>. Affinity is still
+predicted and reported for every peptide; it no longer vetoes a call.</p></div>""")
+    A(f"""<p>Eluted-ligand scoring calls <strong>{n_el}</strong> strong binders across the batch, and
+with the gate off all {n_el} are used. {'The gate is currently on, so ' + str(n_cons) + ' are used.'
+if gate_on else ''} This is not a cosmetic change: it moved the test article from
+{PREVIOUS_PUBLISHED_FOLD:.1f}&times; the Protein A benchmark to
+{float(test_rank['fold_vs_ProteinA_Z']):.2f}&times;, because the gate had been suppressing the
+benchmark's epitopes harder than the test article's. An unvalidated rule was setting the
+headline.</p>""")
     A(img("fig2_binding_landscape.png"))
 
     # ------------------------------------------------------------ tolerance
@@ -521,6 +562,35 @@ the same as the test article, and an unfiltered pIRS of {float(germ['pIRS_raw'])
 article's {float(test_rank['pIRS_raw']):.2f}. Raw binder counts cannot tell a camelid VHH from the
 human framework it resembles. After the filter the germline control falls to
 {float(germ['pIRS']):.2f} and the ranking becomes readable.</p></div>""")
+    if tolw:
+        sw = tolw.get("sensitivity_sweep", {})
+        A('<h3>The one number in the filter that is still a guess</h3>')
+        A(f"""<p>The near-self weight &mdash; how much credit a core one substitution away from human
+keeps &mdash; is set to {tolw['configured_discount_near']} by judgement, not by evidence. The
+benchmark was asked to bound it, and could not: among predicted binders, self-like peptides are
+positive at {tolw['strata']['self_like_9_or_8']['positive_rate']:.2f} against
+{tolw['strata']['foreign']['positive_rate']:.2f} for foreign ones &mdash; a ratio of
+{tolw['discount_estimate']:.2f}, 95% CI [{tolw['discount_ci95'][0]}, {tolw['discount_ci95'][1]}].
+That interval is consistent with almost any weight, so it neither supports nor refutes
+{tolw['configured_discount_near']}.</p>
+<p>The reason is ascertainment, and it is not fixable from this data: self peptides reach IEDB
+overwhelmingly because somebody assayed them <em>for</em> autoimmunity or tumour immunology, so the
+self peptides nobody responds to are missing from the denominator.</p>""")
+        if sw.get("sweep"):
+            A(table(sw["sweep"], ["near_self_weight", "test_pIRS", "fold_vs_anchor"],
+                    ["near-self weight", f"{test_id} pIRS", "× Protein A Z"], "num",
+                    fmt={"near_self_weight": lambda r: f'{r["near_self_weight"]:.2f}',
+                         "test_pIRS": lambda r: f'{r["test_pIRS"]:.3f}',
+                         "fold_vs_anchor": lambda r: f'{r["fold_vs_anchor"]:.2f}'}))
+            A(f"""<div class="callout {'good' if sw.get('headline_insensitive_to_weight') else 'bad'}">
+<p><strong>{'It does not matter here, for a specific and checkable reason.'
+ if sw.get('headline_insensitive_to_weight') else 'The headline moves with this guess.'}</strong>
+Sweeping the weight across its whole range leaves the verdict unchanged &mdash;
+{sw.get('why', '')}. The ligand ranking is
+{'identical' if sw.get('ligand_order_stable') else 'NOT stable'} across the sweep. On a ligand whose
+near-self epitopes did carry population weight this parameter would be load-bearing and the same
+sweep would say so.</p></div>""")
+
     bnd = (calib or {}).get("boundary_controls", {})
     if bnd:
         A('<h3>Where the filter is wrong, measured</h3>')

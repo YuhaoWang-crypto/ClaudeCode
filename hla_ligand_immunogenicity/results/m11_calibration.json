@@ -1,0 +1,312 @@
+{
+  "n_pairs": 5795,
+  "n_positive": 3180,
+  "n_clusters": 1768,
+  "rules": {
+    "EL": {
+      "auc": 0.6518,
+      "average_precision": 0.6993
+    },
+    "BA": {
+      "auc": 0.651,
+      "average_precision": 0.6789
+    },
+    "GEO": {
+      "auc": 0.6643,
+      "average_precision": 0.7019
+    },
+    "MIN": {
+      "auc": 0.6613,
+      "average_precision": 0.6942
+    }
+  },
+  "comparisons": {
+    "GEO_vs_EL": {
+      "delta": 0.0125,
+      "ci95": [
+        -0.0007,
+        0.0246
+      ],
+      "p_gt_0": 0.9688
+    },
+    "BA_vs_EL": {
+      "delta": -0.0008,
+      "ci95": [
+        -0.0246,
+        0.0203
+      ],
+      "p_gt_0": 0.4788
+    },
+    "MIN_vs_EL": {
+      "delta": 0.0095,
+      "ci95": [
+        -0.0066,
+        0.0233
+      ],
+      "p_gt_0": 0.9062
+    }
+  },
+  "operating_points": {
+    "EL<1 and BA<10 (gate, removed)": {
+      "tp": 493,
+      "fp": 110,
+      "fn": 2687,
+      "tn": 2505,
+      "sensitivity": 0.155,
+      "specificity": 0.9579,
+      "ppv": 0.8176,
+      "npv": 0.4825,
+      "mcc": 0.1841,
+      "ppv_at_scan_prevalence": 0.1623
+    },
+    "EL<1 alone (in use)": {
+      "tp": 516,
+      "fp": 116,
+      "fn": 2664,
+      "tn": 2499,
+      "sensitivity": 0.1623,
+      "specificity": 0.9556,
+      "ppv": 0.8165,
+      "npv": 0.484,
+      "mcc": 0.1882,
+      "ppv_at_scan_prevalence": 0.1613
+    },
+    "EL<5 alone": {
+      "tp": 1218,
+      "fp": 430,
+      "fn": 1962,
+      "tn": 2185,
+      "sensitivity": 0.383,
+      "specificity": 0.8356,
+      "ppv": 0.7391,
+      "npv": 0.5269,
+      "mcc": 0.2411,
+      "ppv_at_scan_prevalence": 0.1092
+    },
+    "BA<10 alone": {
+      "tp": 1849,
+      "fp": 938,
+      "fn": 1331,
+      "tn": 1677,
+      "sensitivity": 0.5814,
+      "specificity": 0.6413,
+      "ppv": 0.6634,
+      "npv": 0.5575,
+      "mcc": 0.2218,
+      "ppv_at_scan_prevalence": 0.0786
+    }
+  },
+  "stratified": {
+    "self": {
+      "n": 570,
+      "n_positive": 404,
+      "EL": 0.5961,
+      "BA": 0.5596,
+      "GEO": 0.5845,
+      "MIN": 0.5887
+    },
+    "non_self": {
+      "n": 5225,
+      "n_positive": 2776,
+      "EL": 0.6577,
+      "BA": 0.6645,
+      "GEO": 0.6752,
+      "MIN": 0.6719
+    }
+  },
+  "scan_prevalence": 0.05,
+  "best_continuous_rule": "GEO",
+  "sweep": {
+    "max_mcc": {
+      "tp": 1440,
+      "fp": 539,
+      "fn": 1740,
+      "tn": 2076,
+      "sensitivity": 0.4528,
+      "specificity": 0.7939,
+      "ppv": 0.7276,
+      "npv": 0.544,
+      "mcc": 0.2589,
+      "threshold_score": -0.77,
+      "threshold_rank": 5.889,
+      "ppv_at_scan_prevalence": 0.1036
+    },
+    "highest_sensitivity_at_spec95": {
+      "tp": 536,
+      "fp": 130,
+      "fn": 2644,
+      "tn": 2485,
+      "sensitivity": 0.1686,
+      "specificity": 0.9503,
+      "ppv": 0.8048,
+      "npv": 0.4845,
+      "mcc": 0.1854,
+      "threshold_score": -0.0191,
+      "threshold_rank": 1.045,
+      "ppv_at_scan_prevalence": 0.1515
+    },
+    "highest_specificity_at_sens80": {
+      "tp": 2556,
+      "fp": 1602,
+      "fn": 624,
+      "tn": 1013,
+      "sensitivity": 0.8038,
+      "specificity": 0.3874,
+      "ppv": 0.6147,
+      "npv": 0.6188,
+      "mcc": 0.2113,
+      "threshold_score": -1.4293,
+      "threshold_rank": 26.8701,
+      "ppv_at_scan_prevalence": 0.0646
+    }
+  },
+  "per_allele": {
+    "HLA-DRB1*01:01": {
+      "n": 400,
+      "n_positive": 200,
+      "auc": 0.663,
+      "best_local_threshold_rank": 5.406,
+      "best_local_mcc": 0.283
+    },
+    "HLA-DRB1*01:02": {
+      "n": 218,
+      "n_positive": 88,
+      "auc": 0.767,
+      "best_local_threshold_rank": 7.978,
+      "best_local_mcc": 0.4652
+    },
+    "HLA-DRB1*03:01": {
+      "n": 400,
+      "n_positive": 200,
+      "auc": 0.732,
+      "best_local_threshold_rank": 9.149,
+      "best_local_mcc": 0.4201
+    },
+    "HLA-DRB1*04:01": {
+      "n": 400,
+      "n_positive": 200,
+      "auc": 0.683,
+      "best_local_threshold_rank": 2.939,
+      "best_local_mcc": 0.3395
+    },
+    "HLA-DRB1*04:04": {
+      "n": 388,
+      "n_positive": 200,
+      "auc": 0.735,
+      "best_local_threshold_rank": 2.592,
+      "best_local_mcc": 0.3922
+    },
+    "HLA-DRB1*04:05": {
+      "n": 103,
+      "n_positive": 95,
+      "auc": 0.845,
+      "best_local_threshold_rank": 59.749,
+      "best_local_mcc": 0.52
+    },
+    "HLA-DRB1*04:07": {
+      "n": 160,
+      "n_positive": 92,
+      "auc": 0.557,
+      "best_local_threshold_rank": 0.81,
+      "best_local_mcc": 0.2017
+    },
+    "HLA-DRB1*07:01": {
+      "n": 400,
+      "n_positive": 200,
+      "auc": 0.741,
+      "best_local_threshold_rank": 5.048,
+      "best_local_mcc": 0.4187
+    },
+    "HLA-DRB1*08:01": {
+      "n": 65,
+      "n_positive": 59,
+      "auc": 0.497,
+      "best_local_threshold_rank": 31.749,
+      "best_local_mcc": 0.1074
+    },
+    "HLA-DRB1*08:02": {
+      "n": 131,
+      "n_positive": 86,
+      "auc": 0.625,
+      "best_local_threshold_rank": 44.665,
+      "best_local_mcc": 0.4051
+    },
+    "HLA-DRB1*09:01": {
+      "n": 337,
+      "n_positive": 186,
+      "auc": 0.517,
+      "best_local_threshold_rank": 4.382,
+      "best_local_mcc": 0.1226
+    },
+    "HLA-DRB1*11:01": {
+      "n": 400,
+      "n_positive": 200,
+      "auc": 0.688,
+      "best_local_threshold_rank": 4.799,
+      "best_local_mcc": 0.3333
+    },
+    "HLA-DRB1*11:04": {
+      "n": 320,
+      "n_positive": 120,
+      "auc": 0.797,
+      "best_local_threshold_rank": 9.859,
+      "best_local_mcc": 0.5497
+    },
+    "HLA-DRB1*13:01": {
+      "n": 237,
+      "n_positive": 200,
+      "auc": 0.687,
+      "best_local_threshold_rank": 43.818,
+      "best_local_mcc": 0.3566
+    },
+    "HLA-DRB1*13:02": {
+      "n": 94,
+      "n_positive": 88,
+      "auc": 0.552,
+      "best_local_threshold_rank": 7.139,
+      "best_local_mcc": 0.1471
+    },
+    "HLA-DRB1*14:01": {
+      "n": 76,
+      "n_positive": 66,
+      "auc": 0.535,
+      "best_local_threshold_rank": 6.197,
+      "best_local_mcc": 0.1442
+    },
+    "HLA-DRB1*15:01": {
+      "n": 400,
+      "n_positive": 200,
+      "auc": 0.703,
+      "best_local_threshold_rank": 2.13,
+      "best_local_mcc": 0.3502
+    },
+    "HLA-DRB3*01:01": {
+      "n": 180,
+      "n_positive": 90,
+      "auc": 0.685,
+      "best_local_threshold_rank": 3.942,
+      "best_local_mcc": 0.4654
+    },
+    "HLA-DRB3*02:02": {
+      "n": 275,
+      "n_positive": 200,
+      "auc": 0.507,
+      "best_local_threshold_rank": 2.28,
+      "best_local_mcc": 0.1183
+    },
+    "HLA-DRB4*01:01": {
+      "n": 301,
+      "n_positive": 101,
+      "auc": 0.533,
+      "best_local_threshold_rank": 2.428,
+      "best_local_mcc": 0.2215
+    },
+    "HLA-DRB5*01:01": {
+      "n": 400,
+      "n_positive": 200,
+      "auc": 0.61,
+      "best_local_threshold_rank": 15.199,
+      "best_local_mcc": 0.2224
+    }
+  }
+}

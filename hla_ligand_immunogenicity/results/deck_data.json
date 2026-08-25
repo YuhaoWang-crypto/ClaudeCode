@@ -328,21 +328,47 @@
    "pIRS": "1.46",
    "pIRS_raw": "1.46",
    "tolerance_drop_pct": "0.0",
-   "fold_vs_ProteinA_Z": "11.23",
+   "fold_vs_ProteinA_Z": "3.25",
    "risk_band": "n/a (control)",
    "n_foreign_epitopes": "5",
    "max_promiscuity": "4",
    "pop_at_risk_pct": "51.3"
   },
   {
+   "id": "ProteinG_B1",
+   "role": "benchmark_ligand",
+   "length": "55",
+   "pIRS": "1.43",
+   "pIRS_raw": "1.43",
+   "tolerance_drop_pct": "0.0",
+   "fold_vs_ProteinA_Z": "3.18",
+   "risk_band": "elevated",
+   "n_foreign_epitopes": "4",
+   "max_promiscuity": "4",
+   "pop_at_risk_pct": "66.9"
+  },
+  {
+   "id": "HA_306_318_region",
+   "role": "positive_control",
+   "length": "50",
+   "pIRS": "0.85",
+   "pIRS_raw": "0.85",
+   "tolerance_drop_pct": "0.0",
+   "fold_vs_ProteinA_Z": "1.9",
+   "risk_band": "n/a (control)",
+   "n_foreign_epitopes": "2",
+   "max_promiscuity": "4",
+   "pop_at_risk_pct": "40.2"
+  },
+  {
    "id": "ProteinL_B1",
    "role": "benchmark_ligand",
    "length": "63",
-   "pIRS": "0.71",
-   "pIRS_raw": "0.71",
+   "pIRS": "0.75",
+   "pIRS_raw": "0.75",
    "tolerance_drop_pct": "0.0",
-   "fold_vs_ProteinA_Z": "5.46",
-   "risk_band": "high",
+   "fold_vs_ProteinA_Z": "1.68",
+   "risk_band": "modestly-elevated",
    "n_foreign_epitopes": "4",
    "max_promiscuity": "3",
    "pop_at_risk_pct": "39.3"
@@ -351,40 +377,40 @@
    "id": "AAVX_VHH",
    "role": "test_article",
    "length": "126",
-   "pIRS": "0.38",
-   "pIRS_raw": "0.38",
+   "pIRS": "0.47",
+   "pIRS_raw": "0.47",
    "tolerance_drop_pct": "0.0",
-   "fold_vs_ProteinA_Z": "2.92",
-   "risk_band": "elevated",
+   "fold_vs_ProteinA_Z": "1.05",
+   "risk_band": "modestly-elevated",
    "n_foreign_epitopes": "4",
-   "max_promiscuity": "6",
-   "pop_at_risk_pct": "28.5"
+   "max_promiscuity": "7",
+   "pop_at_risk_pct": "39.6"
   },
   {
-   "id": "HA_306_318_region",
-   "role": "positive_control",
-   "length": "50",
-   "pIRS": "0.36",
-   "pIRS_raw": "0.36",
-   "tolerance_drop_pct": "0.0",
-   "fold_vs_ProteinA_Z": "2.77",
-   "risk_band": "n/a (control)",
-   "n_foreign_epitopes": "1",
-   "max_promiscuity": "2",
-   "pop_at_risk_pct": "18.1"
-  },
-  {
-   "id": "ProteinG_B1",
+   "id": "ProteinA_Z",
    "role": "benchmark_ligand",
-   "length": "55",
-   "pIRS": "0.33",
-   "pIRS_raw": "0.33",
+   "length": "58",
+   "pIRS": "0.45",
+   "pIRS_raw": "0.45",
    "tolerance_drop_pct": "0.0",
-   "fold_vs_ProteinA_Z": "2.54",
-   "risk_band": "elevated",
-   "n_foreign_epitopes": "3",
+   "fold_vs_ProteinA_Z": "1.0",
+   "risk_band": "comparable-to-benchmark",
+   "n_foreign_epitopes": "4",
    "max_promiscuity": "2",
-   "pop_at_risk_pct": "18.0"
+   "pop_at_risk_pct": "19.9"
+  },
+  {
+   "id": "ProteinA_B_native",
+   "role": "benchmark_ligand",
+   "length": "58",
+   "pIRS": "0.45",
+   "pIRS_raw": "0.45",
+   "tolerance_drop_pct": "0.0",
+   "fold_vs_ProteinA_Z": "1.0",
+   "risk_band": "comparable-to-benchmark",
+   "n_foreign_epitopes": "4",
+   "max_promiscuity": "2",
+   "pop_at_risk_pct": "19.9"
   },
   {
    "id": "TT_p30_region",
@@ -393,7 +419,7 @@
    "pIRS": "0.28",
    "pIRS_raw": "0.28",
    "tolerance_drop_pct": "0.0",
-   "fold_vs_ProteinA_Z": "2.15",
+   "fold_vs_ProteinA_Z": "0.62",
    "risk_band": "n/a (control)",
    "n_foreign_epitopes": "1",
    "max_promiscuity": "2",
@@ -406,8 +432,8 @@
    "pIRS": "0.26",
    "pIRS_raw": "0.26",
    "tolerance_drop_pct": "0.0",
-   "fold_vs_ProteinA_Z": "2.0",
-   "risk_band": "modestly-elevated",
+   "fold_vs_ProteinA_Z": "0.58",
+   "risk_band": "comparable-to-benchmark",
    "n_foreign_epitopes": "3",
    "max_promiscuity": "3",
    "pop_at_risk_pct": "31.0"
@@ -418,38 +444,12 @@
    "length": "128",
    "pIRS": "0.15",
    "pIRS_raw": "0.41",
-   "tolerance_drop_pct": "63.4",
-   "fold_vs_ProteinA_Z": "1.15",
-   "risk_band": "modestly-elevated",
+   "tolerance_drop_pct": "63.1",
+   "fold_vs_ProteinA_Z": "0.34",
+   "risk_band": "comparable-to-benchmark",
    "n_foreign_epitopes": "5",
    "max_promiscuity": "5",
    "pop_at_risk_pct": "19.4"
-  },
-  {
-   "id": "ProteinA_Z",
-   "role": "benchmark_ligand",
-   "length": "58",
-   "pIRS": "0.13",
-   "pIRS_raw": "0.13",
-   "tolerance_drop_pct": "0.0",
-   "fold_vs_ProteinA_Z": "1.0",
-   "risk_band": "comparable-to-benchmark",
-   "n_foreign_epitopes": "2",
-   "max_promiscuity": "2",
-   "pop_at_risk_pct": "7.5"
-  },
-  {
-   "id": "ProteinA_B_native",
-   "role": "benchmark_ligand",
-   "length": "58",
-   "pIRS": "0.13",
-   "pIRS_raw": "0.13",
-   "tolerance_drop_pct": "0.0",
-   "fold_vs_ProteinA_Z": "1.0",
-   "risk_band": "comparable-to-benchmark",
-   "n_foreign_epitopes": "1",
-   "max_promiscuity": "2",
-   "pop_at_risk_pct": "7.5"
   },
   {
    "id": "HumanVH3_23_germline",
@@ -518,12 +518,12 @@
    },
    {
     "check": "tolerance filter discriminates self from foreign",
-    "detail": "mean score drop: self 100.0% vs ligands 9.1%",
+    "detail": "mean score drop: self 100.0% vs ligands 9.0%",
     "pass": true
    },
    {
     "check": "benchmark anchor scored",
-    "detail": "ProteinA_Z pIRS 0.13",
+    "detail": "ProteinA_Z pIRS 0.45",
     "pass": true
    }
   ],
@@ -559,8 +559,8 @@
   "universal_epitope_ceiling_sb": 6,
   "universal_epitope_ceiling_wb": 15,
   "test_article": "AAVX_VHH",
-  "test_peak_promiscuity_sb": 6,
-  "test_peak_vs_universal_sb": 1.0,
+  "test_peak_promiscuity_sb": 7,
+  "test_peak_vs_universal_sb": 1.17,
   "universal_epitope_range_sb": [
    2,
    6
@@ -569,7 +569,7 @@
    5,
    15
   ],
-  "interpretation": "Experimentally universal T-helper epitopes reach 2-6 of 25 DR molecules at EL %Rank < 1, and 5-15 at < 5. The test article's dominant core reaches 6/25 at the strong-binder tier - at the top of that range. Read the scale in both directions: the strong-binder tier recovers only 24% of the DR molecules a universal epitope is known to be presented by, so peptides below it are unflagged rather than cleared.",
+  "interpretation": "Experimentally universal T-helper epitopes reach 2-6 of 25 DR molecules at EL %Rank < 1, and 5-15 at < 5. The test article's dominant core reaches 7/25 at the strong-binder tier - above that range. Read the scale in both directions: the strong-binder tier recovers only 24% of the DR molecules a universal epitope is known to be presented by, so peptides below it are unflagged rather than cleared.",
   "boundary_controls": {
    "MBP_85_99_region": {
     "role": "self_immunogenic_control",
@@ -581,7 +581,7 @@
     "cores_called_tolerised": 3,
     "cores_called_foreign": 0,
     "ligand_pIRS": 0.0,
-    "ligand_pIRS_unfiltered": 1.19
+    "ligand_pIRS_unfiltered": 1.1902
    },
    "CLIP_87_101_region": {
     "role": "tolerised_binder_control",
@@ -597,7 +597,318 @@
    }
   }
  },
- "accuracy": {},
+ "accuracy": {
+  "n_pairs": 5795,
+  "n_positive": 3180,
+  "n_clusters": 1768,
+  "rules": {
+   "EL": {
+    "auc": 0.6518,
+    "average_precision": 0.6993
+   },
+   "BA": {
+    "auc": 0.651,
+    "average_precision": 0.6789
+   },
+   "GEO": {
+    "auc": 0.6643,
+    "average_precision": 0.7019
+   },
+   "MIN": {
+    "auc": 0.6613,
+    "average_precision": 0.6942
+   }
+  },
+  "comparisons": {
+   "GEO_vs_EL": {
+    "delta": 0.0125,
+    "ci95": [
+     -0.0007,
+     0.0246
+    ],
+    "p_gt_0": 0.9688
+   },
+   "BA_vs_EL": {
+    "delta": -0.0008,
+    "ci95": [
+     -0.0246,
+     0.0203
+    ],
+    "p_gt_0": 0.4788
+   },
+   "MIN_vs_EL": {
+    "delta": 0.0095,
+    "ci95": [
+     -0.0066,
+     0.0233
+    ],
+    "p_gt_0": 0.9062
+   }
+  },
+  "operating_points": {
+   "EL<1 and BA<10 (gate, removed)": {
+    "tp": 493,
+    "fp": 110,
+    "fn": 2687,
+    "tn": 2505,
+    "sensitivity": 0.155,
+    "specificity": 0.9579,
+    "ppv": 0.8176,
+    "npv": 0.4825,
+    "mcc": 0.1841,
+    "ppv_at_scan_prevalence": 0.1623
+   },
+   "EL<1 alone (in use)": {
+    "tp": 516,
+    "fp": 116,
+    "fn": 2664,
+    "tn": 2499,
+    "sensitivity": 0.1623,
+    "specificity": 0.9556,
+    "ppv": 0.8165,
+    "npv": 0.484,
+    "mcc": 0.1882,
+    "ppv_at_scan_prevalence": 0.1613
+   },
+   "EL<5 alone": {
+    "tp": 1218,
+    "fp": 430,
+    "fn": 1962,
+    "tn": 2185,
+    "sensitivity": 0.383,
+    "specificity": 0.8356,
+    "ppv": 0.7391,
+    "npv": 0.5269,
+    "mcc": 0.2411,
+    "ppv_at_scan_prevalence": 0.1092
+   },
+   "BA<10 alone": {
+    "tp": 1849,
+    "fp": 938,
+    "fn": 1331,
+    "tn": 1677,
+    "sensitivity": 0.5814,
+    "specificity": 0.6413,
+    "ppv": 0.6634,
+    "npv": 0.5575,
+    "mcc": 0.2218,
+    "ppv_at_scan_prevalence": 0.0786
+   }
+  },
+  "stratified": {
+   "self": {
+    "n": 570,
+    "n_positive": 404,
+    "EL": 0.5961,
+    "BA": 0.5596,
+    "GEO": 0.5845,
+    "MIN": 0.5887
+   },
+   "non_self": {
+    "n": 5225,
+    "n_positive": 2776,
+    "EL": 0.6577,
+    "BA": 0.6645,
+    "GEO": 0.6752,
+    "MIN": 0.6719
+   }
+  },
+  "scan_prevalence": 0.05,
+  "best_continuous_rule": "GEO",
+  "sweep": {
+   "max_mcc": {
+    "tp": 1440,
+    "fp": 539,
+    "fn": 1740,
+    "tn": 2076,
+    "sensitivity": 0.4528,
+    "specificity": 0.7939,
+    "ppv": 0.7276,
+    "npv": 0.544,
+    "mcc": 0.2589,
+    "threshold_score": -0.77,
+    "threshold_rank": 5.889,
+    "ppv_at_scan_prevalence": 0.1036
+   },
+   "highest_sensitivity_at_spec95": {
+    "tp": 536,
+    "fp": 130,
+    "fn": 2644,
+    "tn": 2485,
+    "sensitivity": 0.1686,
+    "specificity": 0.9503,
+    "ppv": 0.8048,
+    "npv": 0.4845,
+    "mcc": 0.1854,
+    "threshold_score": -0.0191,
+    "threshold_rank": 1.045,
+    "ppv_at_scan_prevalence": 0.1515
+   },
+   "highest_specificity_at_sens80": {
+    "tp": 2556,
+    "fp": 1602,
+    "fn": 624,
+    "tn": 1013,
+    "sensitivity": 0.8038,
+    "specificity": 0.3874,
+    "ppv": 0.6147,
+    "npv": 0.6188,
+    "mcc": 0.2113,
+    "threshold_score": -1.4293,
+    "threshold_rank": 26.8701,
+    "ppv_at_scan_prevalence": 0.0646
+   }
+  },
+  "per_allele": {
+   "HLA-DRB1*01:01": {
+    "n": 400,
+    "n_positive": 200,
+    "auc": 0.663,
+    "best_local_threshold_rank": 5.406,
+    "best_local_mcc": 0.283
+   },
+   "HLA-DRB1*01:02": {
+    "n": 218,
+    "n_positive": 88,
+    "auc": 0.767,
+    "best_local_threshold_rank": 7.978,
+    "best_local_mcc": 0.4652
+   },
+   "HLA-DRB1*03:01": {
+    "n": 400,
+    "n_positive": 200,
+    "auc": 0.732,
+    "best_local_threshold_rank": 9.149,
+    "best_local_mcc": 0.4201
+   },
+   "HLA-DRB1*04:01": {
+    "n": 400,
+    "n_positive": 200,
+    "auc": 0.683,
+    "best_local_threshold_rank": 2.939,
+    "best_local_mcc": 0.3395
+   },
+   "HLA-DRB1*04:04": {
+    "n": 388,
+    "n_positive": 200,
+    "auc": 0.735,
+    "best_local_threshold_rank": 2.592,
+    "best_local_mcc": 0.3922
+   },
+   "HLA-DRB1*04:05": {
+    "n": 103,
+    "n_positive": 95,
+    "auc": 0.845,
+    "best_local_threshold_rank": 59.749,
+    "best_local_mcc": 0.52
+   },
+   "HLA-DRB1*04:07": {
+    "n": 160,
+    "n_positive": 92,
+    "auc": 0.557,
+    "best_local_threshold_rank": 0.81,
+    "best_local_mcc": 0.2017
+   },
+   "HLA-DRB1*07:01": {
+    "n": 400,
+    "n_positive": 200,
+    "auc": 0.741,
+    "best_local_threshold_rank": 5.048,
+    "best_local_mcc": 0.4187
+   },
+   "HLA-DRB1*08:01": {
+    "n": 65,
+    "n_positive": 59,
+    "auc": 0.497,
+    "best_local_threshold_rank": 31.749,
+    "best_local_mcc": 0.1074
+   },
+   "HLA-DRB1*08:02": {
+    "n": 131,
+    "n_positive": 86,
+    "auc": 0.625,
+    "best_local_threshold_rank": 44.665,
+    "best_local_mcc": 0.4051
+   },
+   "HLA-DRB1*09:01": {
+    "n": 337,
+    "n_positive": 186,
+    "auc": 0.517,
+    "best_local_threshold_rank": 4.382,
+    "best_local_mcc": 0.1226
+   },
+   "HLA-DRB1*11:01": {
+    "n": 400,
+    "n_positive": 200,
+    "auc": 0.688,
+    "best_local_threshold_rank": 4.799,
+    "best_local_mcc": 0.3333
+   },
+   "HLA-DRB1*11:04": {
+    "n": 320,
+    "n_positive": 120,
+    "auc": 0.797,
+    "best_local_threshold_rank": 9.859,
+    "best_local_mcc": 0.5497
+   },
+   "HLA-DRB1*13:01": {
+    "n": 237,
+    "n_positive": 200,
+    "auc": 0.687,
+    "best_local_threshold_rank": 43.818,
+    "best_local_mcc": 0.3566
+   },
+   "HLA-DRB1*13:02": {
+    "n": 94,
+    "n_positive": 88,
+    "auc": 0.552,
+    "best_local_threshold_rank": 7.139,
+    "best_local_mcc": 0.1471
+   },
+   "HLA-DRB1*14:01": {
+    "n": 76,
+    "n_positive": 66,
+    "auc": 0.535,
+    "best_local_threshold_rank": 6.197,
+    "best_local_mcc": 0.1442
+   },
+   "HLA-DRB1*15:01": {
+    "n": 400,
+    "n_positive": 200,
+    "auc": 0.703,
+    "best_local_threshold_rank": 2.13,
+    "best_local_mcc": 0.3502
+   },
+   "HLA-DRB3*01:01": {
+    "n": 180,
+    "n_positive": 90,
+    "auc": 0.685,
+    "best_local_threshold_rank": 3.942,
+    "best_local_mcc": 0.4654
+   },
+   "HLA-DRB3*02:02": {
+    "n": 275,
+    "n_positive": 200,
+    "auc": 0.507,
+    "best_local_threshold_rank": 2.28,
+    "best_local_mcc": 0.1183
+   },
+   "HLA-DRB4*01:01": {
+    "n": 301,
+    "n_positive": 101,
+    "auc": 0.533,
+    "best_local_threshold_rank": 2.428,
+    "best_local_mcc": 0.2215
+   },
+   "HLA-DRB5*01:01": {
+    "n": 400,
+    "n_positive": 200,
+    "auc": 0.61,
+    "best_local_threshold_rank": 15.199,
+    "best_local_mcc": 0.2224
+   }
+  }
+ },
  "benchmark": {
   "raw_records": 19493,
   "labelled_pairs": 9647,
@@ -712,7 +1023,143 @@
    }
   }
  },
- "tolerance_weight": {},
+ "tolerance_weight": {
+  "gate": "EL %Rank < 1",
+  "n_binders": 632,
+  "strata": {
+   "exact_self_9mer": {
+    "n": 82,
+    "n_positive": 67,
+    "positive_rate": 0.8171
+   },
+   "near_self_9mer": {
+    "n": 49,
+    "n_positive": 42,
+    "positive_rate": 0.8571
+   },
+   "self_like_9_or_8": {
+    "n": 131,
+    "n_positive": 109,
+    "positive_rate": 0.8321
+   },
+   "foreign": {
+    "n": 501,
+    "n_positive": 407,
+    "positive_rate": 0.8124
+   }
+  },
+  "discount_estimate": 1.024,
+  "discount_ci95": [
+   0.914,
+   1.123
+  ],
+  "configured_discount_exact": 0.0,
+  "configured_discount_near": 0.35,
+  "bias_direction": "Upper bound. Self-derived peptides reach IEDB through autoimmunity, allergy and tumour-antigen studies, which select for the self peptides that do respond; self peptides nobody responds to are rarely assayed and are missing from the denominator. The true positive rate for an arbitrary self peptide is lower than measured here, so the real discount is at least this strong.",
+  "test_has_power": false,
+  "recommendation": "This test has no useful power on IEDB data. Self-like predicted binders are positive at 0.832 against 0.812 for foreign ones - a ratio of 1.024, 95% CI [0.914, 1.123] - because the self peptides IEDB holds are overwhelmingly the ones somebody assayed *for* autoimmunity or tumour immunology. The bound is consistent with any weight up to ~1.12, so it neither supports nor refutes the configured 0.35. That number remains a judgement call; the sensitivity sweep below is what the reader should use instead.",
+  "sensitivity_sweep": {
+   "sweep": [
+    {
+     "near_self_weight": 0.0,
+     "test_pIRS": 0.471,
+     "anchor_pIRS": 0.449,
+     "fold_vs_anchor": 1.05,
+     "ligand_rank_order": [
+      "ProteinG_B1",
+      "ProteinL_B1",
+      "AAVX_VHH",
+      "ProteinA_Z",
+      "ProteinA_B_native",
+      "VHH_7D12",
+      "Caplacizumab_VHH"
+     ]
+    },
+    {
+     "near_self_weight": 0.15,
+     "test_pIRS": 0.471,
+     "anchor_pIRS": 0.449,
+     "fold_vs_anchor": 1.05,
+     "ligand_rank_order": [
+      "ProteinG_B1",
+      "ProteinL_B1",
+      "AAVX_VHH",
+      "ProteinA_Z",
+      "ProteinA_B_native",
+      "VHH_7D12",
+      "Caplacizumab_VHH"
+     ]
+    },
+    {
+     "near_self_weight": 0.35,
+     "test_pIRS": 0.471,
+     "anchor_pIRS": 0.449,
+     "fold_vs_anchor": 1.05,
+     "ligand_rank_order": [
+      "ProteinG_B1",
+      "ProteinL_B1",
+      "AAVX_VHH",
+      "ProteinA_Z",
+      "ProteinA_B_native",
+      "VHH_7D12",
+      "Caplacizumab_VHH"
+     ]
+    },
+    {
+     "near_self_weight": 0.5,
+     "test_pIRS": 0.471,
+     "anchor_pIRS": 0.449,
+     "fold_vs_anchor": 1.05,
+     "ligand_rank_order": [
+      "ProteinG_B1",
+      "ProteinL_B1",
+      "AAVX_VHH",
+      "ProteinA_Z",
+      "ProteinA_B_native",
+      "VHH_7D12",
+      "Caplacizumab_VHH"
+     ]
+    },
+    {
+     "near_self_weight": 0.75,
+     "test_pIRS": 0.471,
+     "anchor_pIRS": 0.449,
+     "fold_vs_anchor": 1.05,
+     "ligand_rank_order": [
+      "ProteinG_B1",
+      "ProteinL_B1",
+      "AAVX_VHH",
+      "ProteinA_Z",
+      "ProteinA_B_native",
+      "VHH_7D12",
+      "Caplacizumab_VHH"
+     ]
+    },
+    {
+     "near_self_weight": 1.0,
+     "test_pIRS": 0.471,
+     "anchor_pIRS": 0.449,
+     "fold_vs_anchor": 1.05,
+     "ligand_rank_order": [
+      "ProteinG_B1",
+      "ProteinL_B1",
+      "AAVX_VHH",
+      "ProteinA_Z",
+      "ProteinA_B_native",
+      "VHH_7D12",
+      "Caplacizumab_VHH"
+     ]
+    }
+   ],
+   "ligand_order_stable": true,
+   "fold_vs_anchor_range": [
+    1.05,
+    1.05
+   ],
+   "headline_insensitive_to_weight": true,
+   "why": "flat because the test article's 1 near-self epitope(s) are presented only by DRB3/4/5 molecules, which carry no DRB1 allele frequency and therefore contribute zero population weight whatever the discount is"
+  }
+ },
  "filter_validation": {
   "n_real_cores": 105,
   "n_null_cores": 329,
@@ -730,10 +1177,10 @@
   "n_epitopes": "5",
   "n_foreign_epitopes": "4",
   "n_tolerised_epitopes": "1",
-  "max_promiscuity": "6",
-  "pIRS": "0.38",
-  "pIRS_no_tolerance_filter": "0.38",
-  "pop_at_risk": "0.2855",
+  "max_promiscuity": "7",
+  "pIRS": "0.4709",
+  "pIRS_no_tolerance_filter": "0.4709",
+  "pop_at_risk": "0.3959",
   "n_clusters": "4",
   "n_foreign_clusters": "3"
  },
@@ -741,27 +1188,27 @@
   "id": "AAVX_VHH",
   "role": "test_article",
   "length": "126",
-  "pIRS": "0.38",
-  "pIRS_raw": "0.38",
+  "pIRS": "0.47",
+  "pIRS_raw": "0.47",
   "tolerance_drop_pct": "0.0",
-  "fold_vs_ProteinA_Z": "2.92",
-  "risk_band": "elevated",
+  "fold_vs_ProteinA_Z": "1.05",
+  "risk_band": "modestly-elevated",
   "n_foreign_epitopes": "4",
-  "max_promiscuity": "6",
-  "pop_at_risk_pct": "28.5"
+  "max_promiscuity": "7",
+  "pop_at_risk_pct": "39.6"
  },
  "anchor_rank": {
   "id": "ProteinA_Z",
   "role": "benchmark_ligand",
   "length": "58",
-  "pIRS": "0.13",
-  "pIRS_raw": "0.13",
+  "pIRS": "0.45",
+  "pIRS_raw": "0.45",
   "tolerance_drop_pct": "0.0",
   "fold_vs_ProteinA_Z": "1.0",
   "risk_band": "comparable-to-benchmark",
-  "n_foreign_epitopes": "2",
+  "n_foreign_epitopes": "4",
   "max_promiscuity": "2",
-  "pop_at_risk_pct": "7.5"
+  "pop_at_risk_pct": "19.9"
  },
  "clusters": [
   {
@@ -787,9 +1234,9 @@
    "peak_core": "FVAVQDITA",
    "peak_peptide": "KEREFVAVQDITASN",
    "peak_el_rank": "0.01",
-   "max_allele_breadth": "6",
-   "union_sb_alleles": "7",
-   "pop_presenting": "0.2855",
+   "max_allele_breadth": "7",
+   "union_sb_alleles": "8",
+   "pop_presenting": "0.3959",
    "tolerance_class": "foreign"
   },
   {
@@ -830,9 +1277,9 @@
   "peak_core": "FVAVQDITA",
   "peak_peptide": "KEREFVAVQDITASN",
   "peak_el_rank": "0.01",
-  "max_allele_breadth": "6",
-  "union_sb_alleles": "7",
-  "pop_presenting": "0.2855",
+  "max_allele_breadth": "7",
+  "union_sb_alleles": "8",
+  "pop_presenting": "0.3959",
   "tolerance_class": "foreign"
  },
  "epitopes": [
@@ -842,14 +1289,14 @@
    "pos": "47",
    "peptide": "KEREFVAVQDITASN",
    "best_el_rank": "0.01",
-   "n_sb_alleles": "6",
-   "n_sb_drb1": "6",
-   "sb_alleles": "DRB1*04:01;DRB1*04:04;DRB1*04:05;DRB1*04:07;DRB1*08:02;DRB1*16:01",
+   "n_sb_alleles": "7",
+   "n_sb_drb1": "7",
+   "sb_alleles": "DRB1*01:01;DRB1*04:01;DRB1*04:04;DRB1*04:05;DRB1*04:07;DRB1*08:02;DRB1*16:01",
    "drb345_sb": "-",
-   "n_wb_alleles": "5",
+   "n_wb_alleles": "17",
    "tolerance_class": "foreign",
    "tolerance_weight": "1.0",
-   "pop_presenting": "0.2855"
+   "pop_presenting": "0.3959"
   },
   {
    "id": "AAVX_VHH",
@@ -861,7 +1308,7 @@
    "n_sb_drb1": "3",
    "sb_alleles": "DRB1*04:01;DRB1*04:07;DRB1*16:01",
    "drb345_sb": "-",
-   "n_wb_alleles": "4",
+   "n_wb_alleles": "10",
    "tolerance_class": "foreign",
    "tolerance_weight": "1.0",
    "pop_presenting": "0.1974"
@@ -1156,14 +1603,15 @@
   "delta_sb": "0"
  },
  "n_el_sb": 266,
- "n_cons_sb": 218,
+ "n_cons_sb": 266,
  "ba_confirm_rank": 10.0,
  "figures": {
   "panel": "/home/user/ClaudeCode/hla_ligand_immunogenicity/figures/fig1_panel_coverage.png",
   "landscape": "/home/user/ClaudeCode/hla_ligand_immunogenicity/figures/fig2_binding_landscape.png",
   "ranking": "/home/user/ClaudeCode/hla_ligand_immunogenicity/figures/fig3_calibrated_ranking.png",
   "tb": "/home/user/ClaudeCode/hla_ligand_immunogenicity/figures/fig4_tb_coincidence.png",
-  "deimm": "/home/user/ClaudeCode/hla_ligand_immunogenicity/figures/fig5_deimmunization.png"
+  "deimm": "/home/user/ClaudeCode/hla_ligand_immunogenicity/figures/fig5_deimmunization.png",
+  "calibration": "/home/user/ClaudeCode/hla_ligand_immunogenicity/figures/fig6_calibration.png"
  },
  "out": "/home/user/ClaudeCode/hla_ligand_immunogenicity/report.pptx"
 }

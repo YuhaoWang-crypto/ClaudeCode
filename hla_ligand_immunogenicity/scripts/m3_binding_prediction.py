@@ -7,12 +7,16 @@ Two orthogonal NetMHCIIpan heads are run over every 15-mer:
   netmhciipan_el  eluted-ligand likelihood - what actually gets presented
   netmhciipan_ba  binding affinity          - peptide-MHC stability
 
-A single-head EL call is the industry default and is what the previous report
-used. It over-calls: EL is trained on mass-spec ligandomes and rewards
-motif-like peptides even when the measured affinity is poor. Requiring a
-*consensus* call (EL %Rank < 1 AND BA %Rank < 10) removes that class of hit
-while keeping every peptide that both heads agree on. Both the single-head and
-the consensus call are written out so the effect is auditable.
+Both heads are always predicted and written out. Whether the BA head *gates* a
+strong-binder call is a config switch, and it is off, because M11 measured it:
+against 5,795 labelled T-cell outcomes the gate removed 23 true positives and 6
+false positives, and the consensus score is not distinguishable from EL alone
+in AUC (+0.013, 95% CI [-0.001, +0.025]). The plausible argument that eluted-
+ligand scoring over-calls is not wrong about EL; it was wrong that the BA head
+selectively removes the over-calls.
+
+`call_el` and `call_consensus` are both written either way, so switching the
+gate back on and re-deriving the downstream numbers costs nothing.
 
 Output: results/m3_binding_long.tsv, one row per (sequence, peptide, allele).
 """
@@ -110,6 +114,7 @@ def main():
 
     sb, wb = pcfg["sb_rank"], pcfg["wb_rank"]
     bac = pcfg["ba_confirm_rank"]
+    gate = pcfg.get("require_ba_agreement", True)
     out = out_path
     cols = ["id", "allele", "start", "end", "peptide", "core", "el_rank",
             "el_score", "ba_rank", "ba_ic50", "call_el", "call_consensus"]
@@ -122,7 +127,9 @@ def main():
             ba = rec["ba_rank"]
             rec["call_el"] = "SB" if el is not None and el < sb else \
                              "WB" if el is not None and el < wb else "-"
-            if rec["call_el"] == "SB" and ba is not None and ba < bac:
+            if not gate:
+                rec["call_consensus"] = rec["call_el"]
+            elif rec["call_el"] == "SB" and ba is not None and ba < bac:
                 rec["call_consensus"] = "SB"
             elif rec["call_el"] in ("SB", "WB") and ba is not None and ba < bac:
                 rec["call_consensus"] = "WB"
@@ -133,9 +140,10 @@ def main():
             w.writerow(rec)
 
     print(f"\nwrote {len(merged)} peptide-allele rows to {out}")
-    print(f"EL-only strong binders : {n_sb}")
-    print(f"EL+BA consensus strong : {n_cons}  "
-          f"({100*(n_sb-n_cons)/max(n_sb,1):.1f}% of EL calls dropped by BA)")
+    print(f"EL strong binders      : {n_sb}")
+    print(f"calling rule           : {'EL and BA' if gate else 'EL only (BA gate off, see M11)'}")
+    print(f"strong calls used      : {n_cons}  "
+          f"({100*(n_sb-n_cons)/max(n_sb,1):.1f}% of EL calls dropped by the BA gate)")
 
 
 if __name__ == "__main__":

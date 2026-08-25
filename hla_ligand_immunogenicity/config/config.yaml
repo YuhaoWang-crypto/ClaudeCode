@@ -41,7 +41,18 @@ prediction:
   peptide_length: 15
   sb_rank: 1.0                   # strong binder: EL %Rank < 1
   wb_rank: 5.0                   # weak binder:   EL %Rank < 5
-  ba_confirm_rank: 10.0          # BA %Rank ceiling for a consensus call
+  ba_confirm_rank: 10.0          # BA %Rank ceiling, used only if the gate is on
+
+  # Whether a strong-binder call also requires the binding-affinity head to
+  # agree. This was ON, on the argument that eluted-ligand scoring over-calls.
+  # M11 measured it against 5,795 labelled T-cell outcomes and the argument does
+  # not survive: at these thresholds the BA gate removes 23 true positives and
+  # 6 false positives - about four real epitopes for every false one - and MCC
+  # goes from 0.188 to 0.184. The AUC difference between the EL x BA consensus
+  # score and EL alone is +0.013 with a 95% CI of [-0.001, +0.025], i.e. not
+  # distinguishable from zero. The gate is therefore off; BA is still predicted
+  # and reported, it just no longer vetoes a call.
+  require_ba_agreement: false
   alleles_per_request: 5
   bcell_method: "Bepipred-2.0"
   bcell_endpoint: "https://tools-cluster-interface.iedb.org/tools_api/bcell/"

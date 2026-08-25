@@ -406,12 +406,11 @@ def fig_calibration():
         if any(math.isnan(c[k]) for k in ("sensitivity", "specificity")):
             continue
         ax.scatter([1 - c["specificity"]], [c["sensitivity"]], s=34, zorder=5,
-                   facecolor="white", edgecolor=BAD if name.startswith("AND") else INK,
-                   lw=1.5)
-        if name.startswith("AND"):
-            ax.annotate("current rule", (1 - c["specificity"], c["sensitivity"]),
-                        textcoords="offset points", xytext=(9, -3), fontsize=7.5,
-                        color=BAD)
+                   facecolor="white", edgecolor=INK, lw=1.5)
+        if name.startswith("EL<1 alone"):
+            ax.annotate("operating point in use", (1 - c["specificity"], c["sensitivity"]),
+                        textcoords="offset points", xytext=(10, -2), fontsize=7.5,
+                        color=INK)
     ax.set_xlabel("false-positive rate (1 - specificity)")
     ax.set_ylabel("sensitivity")
     ax.set_title(f"Decision rules vs measured T-cell response\n"
@@ -422,30 +421,42 @@ def fig_calibration():
     ax.grid(color=GRID, lw=0.6); ax.set_axisbelow(True)
 
     # what a flag is worth as the true prevalence of epitopes falls
+    # Only the rules a reader would actually choose between: the gate that was
+    # removed, the rule that replaced it, and the MCC-optimal cut. The first two
+    # coincide almost exactly, which is the point, so they are drawn as one
+    # solid line with the other dashed on top of it.
     prevs = np.logspace(-2.3, -0.3, 60)
-    for name, c in cal["operating_points"].items():
-        if any(math.isnan(c[k]) for k in ("sensitivity", "specificity")):
-            continue
+
+    def ppv_curve(c):
         se, sp = c["sensitivity"], c["specificity"]
-        ppv = se * prevs / (se * prevs + (1 - sp) * (1 - prevs))
-        ax2.plot(prevs * 100, ppv * 100, lw=1.6,
-                 color=BAD if name.startswith("AND") else MUTED,
-                 label=name.replace(" (current)", ""))
+        return se * prevs / (se * prevs + (1 - sp) * (1 - prevs)) * 100
+
+    ops = cal["operating_points"]
+    el1 = next((v for k, v in ops.items() if k.startswith("EL<1 alone")), None)
+    andr = next((v for k, v in ops.items() if k.startswith("EL<1 and BA")), None)
+    if el1:
+        ax2.plot(prevs * 100, ppv_curve(el1), lw=2.2, color=ACCENT,
+                 label="EL %Rank < 1 (rule now used)")
+    if andr:
+        ax2.plot(prevs * 100, ppv_curve(andr), lw=1.6, color=BAD, ls=(0, (4, 3)),
+                 label="EL < 1 and BA < 10 (gate removed)")
     sweep = cal.get("sweep", {}).get("max_mcc")
     if sweep:
-        se, sp = sweep["sensitivity"], sweep["specificity"]
-        ppv = se * prevs / (se * prevs + (1 - sp) * (1 - prevs))
-        ax2.plot(prevs * 100, ppv * 100, lw=2.1, color=GOOD,
-                 label=f"calibrated {cal['best_continuous_rule']} "
+        ax2.plot(prevs * 100, ppv_curve(sweep), lw=2.0, color=GOOD,
+                 label=f"max-MCC cut: {cal['best_continuous_rule']} "
                        f"%Rank<{sweep['threshold_rank']:.2f}")
     ax2.axvline(cal["scan_prevalence"] * 100, color=INK, ls=":", lw=1.1)
     ax2.annotate("assumed prevalence\nin a real scan",
-                 (cal["scan_prevalence"] * 100, 92), textcoords="offset points",
-                 xytext=(6, 0), fontsize=7.5, color=INK, va="top")
+                 (cal["scan_prevalence"] * 100, 48), textcoords="offset points",
+                 xytext=(7, 0), fontsize=7.5, color=INK, va="center")
     ax2.set_xscale("log")
     ax2.set_xlabel("true prevalence of DR epitopes among 15-mers (%)")
     ax2.set_ylabel("PPV — chance a flagged peptide is real (%)")
     ax2.set_title("What a flag is worth", fontsize=9.5)
+    if el1 and andr:
+        ax2.annotate("the two rules coincide", (prevs[-18] * 100, ppv_curve(el1)[-18]),
+                     textcoords="offset points", xytext=(-8, 14), fontsize=7,
+                     color=MUTED, ha="right")
     ax2.set_ylim(0, 100)
     ax2.legend(frameon=False, fontsize=7, loc="upper left")
     ax2.grid(color=GRID, lw=0.6); ax2.set_axisbelow(True)

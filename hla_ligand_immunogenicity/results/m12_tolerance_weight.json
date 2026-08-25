@@ -1,0 +1,137 @@
+{
+  "gate": "EL %Rank < 1",
+  "n_binders": 632,
+  "strata": {
+    "exact_self_9mer": {
+      "n": 82,
+      "n_positive": 67,
+      "positive_rate": 0.8171
+    },
+    "near_self_9mer": {
+      "n": 49,
+      "n_positive": 42,
+      "positive_rate": 0.8571
+    },
+    "self_like_9_or_8": {
+      "n": 131,
+      "n_positive": 109,
+      "positive_rate": 0.8321
+    },
+    "foreign": {
+      "n": 501,
+      "n_positive": 407,
+      "positive_rate": 0.8124
+    }
+  },
+  "discount_estimate": 1.024,
+  "discount_ci95": [
+    0.914,
+    1.123
+  ],
+  "configured_discount_exact": 0.0,
+  "configured_discount_near": 0.35,
+  "bias_direction": "Upper bound. Self-derived peptides reach IEDB through autoimmunity, allergy and tumour-antigen studies, which select for the self peptides that do respond; self peptides nobody responds to are rarely assayed and are missing from the denominator. The true positive rate for an arbitrary self peptide is lower than measured here, so the real discount is at least this strong.",
+  "test_has_power": false,
+  "recommendation": "This test has no useful power on IEDB data. Self-like predicted binders are positive at 0.832 against 0.812 for foreign ones - a ratio of 1.024, 95% CI [0.914, 1.123] - because the self peptides IEDB holds are overwhelmingly the ones somebody assayed *for* autoimmunity or tumour immunology. The bound is consistent with any weight up to ~1.12, so it neither supports nor refutes the configured 0.35. That number remains a judgement call; the sensitivity sweep below is what the reader should use instead.",
+  "sensitivity_sweep": {
+    "sweep": [
+      {
+        "near_self_weight": 0.0,
+        "test_pIRS": 0.471,
+        "anchor_pIRS": 0.449,
+        "fold_vs_anchor": 1.05,
+        "ligand_rank_order": [
+          "ProteinG_B1",
+          "ProteinL_B1",
+          "AAVX_VHH",
+          "ProteinA_Z",
+          "ProteinA_B_native",
+          "VHH_7D12",
+          "Caplacizumab_VHH"
+        ]
+      },
+      {
+        "near_self_weight": 0.15,
+        "test_pIRS": 0.471,
+        "anchor_pIRS": 0.449,
+        "fold_vs_anchor": 1.05,
+        "ligand_rank_order": [
+          "ProteinG_B1",
+          "ProteinL_B1",
+          "AAVX_VHH",
+          "ProteinA_Z",
+          "ProteinA_B_native",
+          "VHH_7D12",
+          "Caplacizumab_VHH"
+        ]
+      },
+      {
+        "near_self_weight": 0.35,
+        "test_pIRS": 0.471,
+        "anchor_pIRS": 0.449,
+        "fold_vs_anchor": 1.05,
+        "ligand_rank_order": [
+          "ProteinG_B1",
+          "ProteinL_B1",
+          "AAVX_VHH",
+          "ProteinA_Z",
+          "ProteinA_B_native",
+          "VHH_7D12",
+          "Caplacizumab_VHH"
+        ]
+      },
+      {
+        "near_self_weight": 0.5,
+        "test_pIRS": 0.471,
+        "anchor_pIRS": 0.449,
+        "fold_vs_anchor": 1.05,
+        "ligand_rank_order": [
+          "ProteinG_B1",
+          "ProteinL_B1",
+          "AAVX_VHH",
+          "ProteinA_Z",
+          "ProteinA_B_native",
+          "VHH_7D12",
+          "Caplacizumab_VHH"
+        ]
+      },
+      {
+        "near_self_weight": 0.75,
+        "test_pIRS": 0.471,
+        "anchor_pIRS": 0.449,
+        "fold_vs_anchor": 1.05,
+        "ligand_rank_order": [
+          "ProteinG_B1",
+          "ProteinL_B1",
+          "AAVX_VHH",
+          "ProteinA_Z",
+          "ProteinA_B_native",
+          "VHH_7D12",
+          "Caplacizumab_VHH"
+        ]
+      },
+      {
+        "near_self_weight": 1.0,
+        "test_pIRS": 0.471,
+        "anchor_pIRS": 0.449,
+        "fold_vs_anchor": 1.05,
+        "ligand_rank_order": [
+          "ProteinG_B1",
+          "ProteinL_B1",
+          "AAVX_VHH",
+          "ProteinA_Z",
+          "ProteinA_B_native",
+          "VHH_7D12",
+          "Caplacizumab_VHH"
+        ]
+      }
+    ],
+    "ligand_order_stable": true,
+    "fold_vs_anchor_range": [
+      1.05,
+      1.05
+    ],
+    "headline_insensitive_to_weight": true,
+    "why": "flat because the test article's 1 near-self epitope(s) are presented only by DRB3/4/5 molecules, which carry no DRB1 allele frequency and therefore contribute zero population weight whatever the discount is"
+  }
+}

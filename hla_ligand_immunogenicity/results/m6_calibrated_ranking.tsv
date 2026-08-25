@@ -1,14 +1,14 @@
 id	role	length	pIRS	pIRS_raw	tolerance_drop_pct	fold_vs_ProteinA_Z	risk_band	n_foreign_epitopes	max_promiscuity	pop_at_risk_pct
-TT_p2_region	positive_control	50	1.46	1.46	0.0	11.23	n/a (control)	5	4	51.3
-ProteinL_B1	benchmark_ligand	63	0.71	0.71	0.0	5.46	high	4	3	39.3
-AAVX_VHH	test_article	126	0.38	0.38	0.0	2.92	elevated	4	6	28.5
-HA_306_318_region	positive_control	50	0.36	0.36	0.0	2.77	n/a (control)	1	2	18.1
-ProteinG_B1	benchmark_ligand	55	0.33	0.33	0.0	2.54	elevated	3	2	18.0
-TT_p30_region	positive_control	50	0.28	0.28	0.0	2.15	n/a (control)	1	2	14.0
-VHH_7D12	class_comparator	124	0.26	0.26	0.0	2.0	modestly-elevated	3	3	31.0
-Caplacizumab_VHH	clinical_anchor	128	0.15	0.41	63.4	1.15	modestly-elevated	5	5	19.4
-ProteinA_Z	benchmark_ligand	58	0.13	0.13	0.0	1.0	comparable-to-benchmark	2	2	7.5
-ProteinA_B_native	benchmark_ligand	58	0.13	0.13	0.0	1.0	comparable-to-benchmark	1	2	7.5
+TT_p2_region	positive_control	50	1.46	1.46	0.0	3.25	n/a (control)	5	4	51.3
+ProteinG_B1	benchmark_ligand	55	1.43	1.43	0.0	3.18	elevated	4	4	66.9
+HA_306_318_region	positive_control	50	0.85	0.85	0.0	1.9	n/a (control)	2	4	40.2
+ProteinL_B1	benchmark_ligand	63	0.75	0.75	0.0	1.68	modestly-elevated	4	3	39.3
+AAVX_VHH	test_article	126	0.47	0.47	0.0	1.05	modestly-elevated	4	7	39.6
+ProteinA_Z	benchmark_ligand	58	0.45	0.45	0.0	1.0	comparable-to-benchmark	4	2	19.9
+ProteinA_B_native	benchmark_ligand	58	0.45	0.45	0.0	1.0	comparable-to-benchmark	4	2	19.9
+TT_p30_region	positive_control	50	0.28	0.28	0.0	0.62	n/a (control)	1	2	14.0
+VHH_7D12	class_comparator	124	0.26	0.26	0.0	0.58	comparable-to-benchmark	3	3	31.0
+Caplacizumab_VHH	clinical_anchor	128	0.15	0.41	63.1	0.34	comparable-to-benchmark	5	5	19.4
 HumanVH3_23_germline	negative_control_self	98	0.0	0.37	100.0	0.0	n/a (control)	0	6	0.0
 HSA_D1	negative_control_self	130	0.0	0.13	100.0	0.0	n/a (control)	0	2	0.0
 MBP_85_99_region	self_immunogenic_control	50	0.0	1.19	100.0	0.0	n/a (control)	0	5	0.0

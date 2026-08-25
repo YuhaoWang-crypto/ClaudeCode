@@ -372,10 +372,12 @@ def main():
     # ---- operating points -------------------------------------------------
     sb, wb = cfg["prediction"]["sb_rank"], cfg["prediction"]["wb_rank"]
     bac = cfg["prediction"]["ba_confirm_rank"]
+    gate_on = cfg["prediction"].get("require_ba_agreement", True)
     points = {
-        f"AND (current): EL<{sb:g} and BA<{bac:g}":
+        f"EL<{sb:g} and BA<{bac:g}" + (" (in use)" if gate_on else " (gate, removed)"):
             [r["el_rank"] < sb and r["ba_rank"] < bac for r in rows],
-        f"EL<{sb:g} alone": [r["el_rank"] < sb for r in rows],
+        f"EL<{sb:g} alone" + ("" if gate_on else " (in use)"):
+            [r["el_rank"] < sb for r in rows],
         f"EL<{wb:g} alone": [r["el_rank"] < wb for r in rows],
         f"BA<{bac:g} alone": [r["ba_rank"] < bac for r in rows],
     }

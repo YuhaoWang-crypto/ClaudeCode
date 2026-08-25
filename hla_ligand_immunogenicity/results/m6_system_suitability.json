@@ -12,12 +12,12 @@
     },
     {
       "check": "tolerance filter discriminates self from foreign",
-      "detail": "mean score drop: self 100.0% vs ligands 9.1%",
+      "detail": "mean score drop: self 100.0% vs ligands 9.0%",
       "pass": true
     },
     {
       "check": "benchmark anchor scored",
-      "detail": "ProteinA_Z pIRS 0.13",
+      "detail": "ProteinA_Z pIRS 0.45",
       "pass": true
     }
   ],

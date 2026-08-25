@@ -134,9 +134,10 @@ function figure(s, path, o) {
     [`Batch controls ${data.suitability.batch_valid ? "all pass" : "DO NOT all pass"}: the panel `
       + `finds the tetanus universal epitopes, and the tolerance filter suppresses the human `
       + `self controls without flattening the foreign ligands.`, data.suitability.batch_valid ? GOOD : BAD],
-    [`Requiring the binding-affinity head to agree with eluted-ligand scoring removed `
-      + `${Math.round(100 * (data.n_el_sb - data.n_cons_sb) / data.n_el_sb)}% of strong-binder calls `
-      + `across the batch — peptides that look presented but do not measurably bind.`, ACCENT],
+    [`The decision rule was measured against ground truth for the first time, and the affinity `
+      + `gate did not survive it. Removing it moved this ligand from 2.9\u00d7 the Protein A `
+      + `benchmark to ${num(tr.fold_vs_ProteinA_Z, 2)}\u00d7 \u2014 an unvalidated rule had been `
+      + `setting the headline.`, BAD],
     [`Risk is intrinsic potential × dose. At ≤1 ng ligand / mg product and a 10 mg dose the `
       + `exposure is ~0.01 µg — the regime in which qualified Protein A leachate has decades of `
       + `clinical use.`, GOOD],
@@ -163,9 +164,10 @@ function figure(s, path, o) {
        `it cannot meet a 95–98% requirement at any size. A greedy build to a stated target reaches ` +
        `${pct(data.panel.weighted_coverage)} at ${data.panel.panel_size_drb1} DRB1 molecules.`],
       ["M3", "Two orthogonal prediction heads",
-       `Eluted-ligand scoring alone over-calls: it rewards motif-like peptides with poor measured ` +
-       `affinity. Requiring EL and BA agreement dropped ` +
-       `${Math.round(100 * (data.n_el_sb - data.n_cons_sb) / data.n_el_sb)}% of strong-binder calls.`],
+       `Both eluted-ligand and binding-affinity scores are computed for every 15-mer. Whether ` +
+       `affinity should gate a call was an open question until M11 settled it against ground ` +
+       `truth \u2014 the gate removed four real epitopes for every false one, so it is off, and ` +
+       `both scores are still reported.`],
       ["M4", "Self / pre-existing-tolerance filter",
        `Most DR hits in an antibody-derived ligand are framework cores near-identical to human ` +
        `germline V. Counting them inflates every VHH, scFv and Fab ligand identically and destroys ` +
@@ -220,14 +222,16 @@ function figure(s, path, o) {
 {
   const s = light("Binding landscape across the full panel", "Module 3 · prediction");
   figure(s, data.figures.landscape, { y: 1.2, w: W - 2 * M, h: 4.35 });
+  const gateNote = data.accuracy
+    ? `Against the labelled benchmark the affinity gate removed roughly four real epitopes for ` +
+      `every false one, so it is off and all ${data.n_el_sb} calls are used. Affinity is still ` +
+      `predicted and reported \u2014 it no longer vetoes a call.`
+    : `Affinity is predicted and reported alongside eluted-ligand scoring.`;
   s.addText([
-    { text: `${data.n_el_sb} → ${data.n_cons_sb}   `,
+    { text: `${data.n_el_sb} strong-binder calls   `,
       options: { bold: true, fontSize: 17, color: ACCENT, fontFace: HEAD } },
-    { text: `strong-binder calls across the batch once the binding-affinity head has to agree with ` +
-            `eluted-ligand scoring (BA %Rank < ${data.ba_confirm_rank}). ` +
-            `${Math.round(100 * (data.n_el_sb - data.n_cons_sb) / data.n_el_sb)}% of EL-only calls are ` +
-            `peptides that look presented but do not measurably bind; every downstream number uses ` +
-            `the consensus call.`, options: { fontSize: 12, color: INK } },
+    { text: `across the batch on eluted-ligand scoring at %Rank < 1. ` + gateNote,
+      options: { fontSize: 12, color: INK } },
   ], { x: M, y: 5.68, w: W - 2 * M, h: 1.0, fontSize: 12, fontFace: BODY, margin: 0,
        lineSpacing: 16 });
   note(s, "15-mer scan, EL %Rank < 1 = strong, < 5 = weak. Boxes mark consolidated epitope " +
@@ -341,15 +345,15 @@ if (data.accuracy && data.benchmark && data.figures.calibration) {
             "evidence. So the rule was scored against ground truth: every HLA-DR-restricted CD4 " +
             "T-cell assay result IEDB holds for these " + a.n_pairs.toLocaleString() +
             " peptide-allele pairs, in human hosts.",
-    { x: M, y: 1.26, w: W - 2 * M, h: 0.55, fontSize: 12, color: INK, fontFace: BODY,
-      margin: 0, lineSpacing: 16 });
-  s.addImage({ path: data.figures.calibration, x: M, y: 1.92, w: 7.5, h: 3.05 });
+    { x: M, y: 1.24, w: W - 2 * M, h: 0.75, fontSize: 11.5, color: INK, fontFace: BODY,
+      margin: 0, lineSpacing: 15 });
+  s.addImage({ path: data.figures.calibration, x: M, y: 2.06, w: 7.5, h: 3.05 });
 
   const w2 = W - M - (M + 7.8);
   const best = (a.sweep || {}).max_mcc;
   const cur = Object.entries(a.operating_points).find(([k]) => k.startsWith("AND"));
   const geo = (a.comparisons || {}).GEO_vs_EL;
-  let yy = 1.95;
+  let yy = 2.06;
   const facts = [
     [`${bm.labelled_pairs.toLocaleString()} labelled outcomes`,
      `${bm.positives.toLocaleString()} positive / ${bm.negatives.toLocaleString()} negative pairs in ` +

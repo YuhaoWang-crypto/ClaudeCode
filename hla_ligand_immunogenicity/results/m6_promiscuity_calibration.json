@@ -28,8 +28,8 @@
   "universal_epitope_ceiling_sb": 6,
   "universal_epitope_ceiling_wb": 15,
   "test_article": "AAVX_VHH",
-  "test_peak_promiscuity_sb": 6,
-  "test_peak_vs_universal_sb": 1.0,
+  "test_peak_promiscuity_sb": 7,
+  "test_peak_vs_universal_sb": 1.17,
   "universal_epitope_range_sb": [
     2,
     6
@@ -38,7 +38,7 @@
     5,
     15
   ],
-  "interpretation": "Experimentally universal T-helper epitopes reach 2-6 of 25 DR molecules at EL %Rank < 1, and 5-15 at < 5. The test article's dominant core reaches 6/25 at the strong-binder tier - at the top of that range. Read the scale in both directions: the strong-binder tier recovers only 24% of the DR molecules a universal epitope is known to be presented by, so peptides below it are unflagged rather than cleared.",
+  "interpretation": "Experimentally universal T-helper epitopes reach 2-6 of 25 DR molecules at EL %Rank < 1, and 5-15 at < 5. The test article's dominant core reaches 7/25 at the strong-binder tier - above that range. Read the scale in both directions: the strong-binder tier recovers only 24% of the DR molecules a universal epitope is known to be presented by, so peptides below it are unflagged rather than cleared.",
   "boundary_controls": {
     "MBP_85_99_region": {
       "role": "self_immunogenic_control",
@@ -50,7 +50,7 @@
       "cores_called_tolerised": 3,
       "cores_called_foreign": 0,
       "ligand_pIRS": 0.0,
-      "ligand_pIRS_unfiltered": 1.19
+      "ligand_pIRS_unfiltered": 1.1902
     },
     "CLIP_87_101_region": {
       "role": "tolerised_binder_control",

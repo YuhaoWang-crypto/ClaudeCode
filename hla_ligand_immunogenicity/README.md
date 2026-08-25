@@ -21,7 +21,7 @@ output is a decision instead of a count.
 | # | Addition | The failure mode it fixes |
 |---|---|---|
 | 1 | **Panel designed against measured coverage** (M2) | The DR subset of the IEDB class-II reference set is widely used as a "representative" 15-molecule panel. Measured against the IEDB allele-frequency tables it reaches only **84.2 %** weighted US/EU DRB1 phenotypic coverage — it does not meet a 95–98 % requirement. A greedy build to a stated target does. |
-| 2 | **Two orthogonal prediction heads** (M3) | Eluted-ligand (EL) scoring alone over-calls: it rewards motif-like peptides that have poor measured affinity. Requiring EL **and** binding-affinity agreement removes that class of hit and the drop is reported, not hidden. |
+| 2 | **Two orthogonal prediction heads** (M3) | Both eluted-ligand and binding-affinity scores are computed for every 15-mer. Whether affinity should *gate* a call was an open question that M11 settled — see below; the gate is off, and both scores are still reported. |
 | 3 | **Self / pre-existing-tolerance filter** (M4) | Most DR hits in an antibody-derived ligand sit in *framework* whose 9-mer cores are near-identical to human immunoglobulin V germline. Counting them inflates every VHH-, scFv- and Fab-derived ligand identically and destroys the ranking. Cores 9/9 or 8/9 identical to a human proteome 9-mer are down-weighted, and the cut is validated against a shuffled-sequence null in the same run. |
 | 4 | **Population weighting + benchmark calibration with controls** (M5, M6) | "13 strong binders" is uninterpretable. Weighting each hit by the fraction of the US/EU population that carries the presenting molecule, then expressing the result as a fold-change over the Protein A Z-domain — an affinity ligand with decades of controlled clinical leachate exposure — makes it a comparison. Positive and negative controls run in the same batch make the batch *reportable* or not. |
 | 5 | **B-cell/ADA layer and exposure context** (M7, M8) | The measured endpoint is an anti-drug **antibody** assay, and impurity risk scales with µg delivered per dose. A T-cell-only, dose-free score cannot reach a risk call. |
@@ -40,23 +40,41 @@ The full pipeline was run end to end on the public AAVX VHH. Headline results
 | | |
 |---|---|
 | Panel | 21 DRB1 + 4 DRB3/4/5 = **25 DR molecules**, **97.3 %** weighted US/EU DRB1 coverage. The legacy 15-molecule DR reference set reaches **84.2 %** on the same measure. |
-| Prediction | 203 EL strong-binder calls across the batch → **170** once the binding-affinity head has to agree (16 % dropped). |
+| Prediction | **266** eluted-ligand strong-binder calls across the batch. The affinity gate that used to filter them is off: measured against the benchmark it removed 23 true positives and 6 false positives. |
 | Tolerance filter | 17.6 % of predicted cores are exact human 9-mers, 4.7 % are one substitution away; the shuffled-sequence null hits 1.1 % at the same cut (**20× enrichment**). |
-| Test article | pIRS **0.38** = **2.9× the Protein A Z-domain**; 4 non-self epitopes; **28.5 %** of the weighted US/EU population carry a DR molecule predicted to present at least one of them. |
-| Dominant epitope | residues 47–56, core `FVAVQDITA`, peak 15-mer `KEREFVAVQDITASN`, presented by 6 of 25 DR molecules. |
+| Test article | pIRS **0.47** = **1.05× the Protein A Z-domain**; 4 non-self epitopes; **39.6 %** of the weighted US/EU population carry a DR molecule predicted to present at least one of them. |
+| Dominant epitope | residues 47–56, core `FVAVQDITA`, peak 15-mer `KEREFVAVQDITASN`, presented by 7 of 25 DR molecules. |
+| Accuracy | Best decision rule reaches **ROC AUC 0.66** against measured T-cell outcomes. At the operating point used, sensitivity **0.16**, specificity **0.96**, and a flagged peptide is real about **16 %** of the time at a 5 % assumed scan prevalence. |
 | Batch controls | all four system-suitability checks pass. |
+
+### Two claims from the previous revision did not survive measurement
+
+- **The affinity gate was not buying specificity.** Requiring the binding-affinity
+  head to agree before calling a strong binder was introduced on a plausible
+  argument. Measured against 5,795 labelled outcomes it removed **23 true
+  positives and 6 false positives** and left Matthews correlation slightly
+  *worse* (0.188 → 0.184). Removing it moved the test article from 2.9× the
+  Protein A benchmark to **1.05×** — the gate had been suppressing the
+  benchmark's epitopes harder than the test article's, so an unvalidated rule
+  was setting the headline.
+- **The ligand's core is not ~3× more promiscuous than the universal epitopes.**
+  That number came from a bug: control epitopes were matched to scanned 15-mers
+  by string equality, so a 13-residue epitope such as HA306-318 matched nothing
+  and scored zero breadth. With overlap matching the universal epitopes reach
+  2–6 of 25 DR molecules at %Rank < 1 and the ligand's core reaches 6/25 —
+  **comparable to**, not above, the most promiscuous epitope with human T-cell
+  evidence.
 
 Two findings from the controls are worth reading on their own:
 
-- **The tetanus universal T-helper epitopes are not strong binders on this
-  panel.** p2 (830–844) clears EL %Rank < 1 on 0 of 25 DR molecules and p30
-  (947–967) on 2; both reach 5/25 only at %Rank < 5. So %Rank < 1 is a
-  high-specificity, low-sensitivity criterion — and the ligand's `FVAVQDITA`
-  core, clearing it on 6 molecules, is ~3× more promiscuous by this measure
-  than the textbook universal epitopes. Read the other way, it also means
-  peptides below the strong-binder tier are *not flagged*, not *cleared*.
-- **Human germline VH3-23 scores a peak promiscuity of 6/25 — identical to the
-  test article — and an unfiltered pIRS of 0.37 against the ligand's 0.38.**
+- **The strong-binder tier is a high-specificity, low-sensitivity criterion.**
+  HA306-318 has positive human T-cell assays on 25 distinct DR molecules and
+  clears EL %Rank < 1 on 2 of the 25 tested here; the tier recovers about a
+  quarter of the molecules a universal epitope is actually presented by. That
+  matches the benchmark's measured sensitivity of 0.16. Peptides below the tier
+  are *unflagged*, not *cleared*.
+- **Human germline VH3-23 scores a peak promiscuity of 6/25 and an unfiltered
+  pIRS of 0.37, in the same range as the test article.**
   Raw binder counts cannot distinguish a camelid VHH from the human framework
   it resembles. That is the entire case for the tolerance filter, and it is why
   the ranking is unreadable without it.

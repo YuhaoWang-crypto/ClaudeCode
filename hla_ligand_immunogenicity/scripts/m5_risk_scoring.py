@@ -161,8 +161,10 @@ def main():
             "n_foreign_epitopes": len(foreign),
             "n_tolerised_epitopes": len(rs) - len(foreign),
             "max_promiscuity": max((r["n_sb_alleles"] for r in rs), default=0),
-            "pIRS": round(pirs, 2),
-            "pIRS_no_tolerance_filter": round(pirs_raw, 2),
+            # kept at 4 dp: downstream fold-changes divide these, and rounding
+            # to 2 dp first moves the ratio in the second decimal
+            "pIRS": round(pirs, 4),
+            "pIRS_no_tolerance_filter": round(pirs_raw, 4),
             "pop_at_risk": round(presenting_fraction(union_foreign), 4),
             "n_clusters": sum(1 for c in crows if c["id"] == sid),
             "n_foreign_clusters": sum(1 for c in crows
