@@ -393,6 +393,57 @@ if (data.accuracy && data.benchmark && data.figures.calibration) {
           "set is not a clean non-binder, which inflates apparent specificity.", 6.5);
 }
 
+// -------------------------------------- 6d breadth vs best single-allele rank
+if (data.promiscuity && data.promiscuity.comparisons && data.figures.promiscuity) {
+  const p = data.promiscuity;
+  const sgn = (x) => (x >= 0 ? "+" : "−") + Math.abs(x).toFixed(4);
+  const ci = (c) => `[${sgn(c.ci95[0])}, ${sgn(c.ci95[1])}]`;
+  const br = p.comparisons.breadth_sb_vs_best_rank;
+  const pp = p.comparisons.pop_presenting_vs_best_rank;
+  const one = p.strata.single_allele, many = p.strata.multi_allele;
+  const cf = p.confound;
+  const rate = cf.positive_rate_by_test_count;
+
+  const s = light("Does breadth beat the best single rank?",
+                  "Module 13 · the last specificity lever");
+  s.addText("Each of the " + p.n_peptides.toLocaleString() + " benchmark peptides was scored " +
+            "against all " + data.panel.panel_size_total + " panel molecules, so “broadly " +
+            "presented” could be tested as a decision rule against “best single-allele " +
+            "%Rank” — one peptide per 9-mer cluster, paired cluster bootstrap on the AUC " +
+            "difference.",
+    { x: M, y: 1.16, w: W - 2 * M, h: 0.5, fontSize: 11.5, color: INK, fontFace: BODY,
+      margin: 0, lineSpacing: 15 });
+  s.addImage({ path: data.figures.promiscuity, x: 0.86, y: 1.74, w: 11.58, h: 4.35 });
+
+  s.addShape(pres.ShapeType.roundRect, { x: M, y: 6.14, w: W - 2 * M, h: 0.98,
+    fill: { color: SOFT }, line: { color: LINE, width: 0.75 }, rectRadius: 0.06 });
+  s.addText([
+    { text: "The lever does not exist.  ", options: { bold: true, color: BAD } },
+    { text: `Breadth at %Rank < 1 is worth ${sgn(br.delta)} AUC against the best single rank, ` +
+            `95% CI ${ci(br)}; population-weighted presentation ${sgn(pp.delta)}, ${ci(pp)}. ` +
+            `In the ${one.n.toLocaleString()} peptides tested on exactly one molecule — the ` +
+            `only stratum where breadth cannot be inflated by how many molecules IEDB happened to ` +
+            `test — it is still flat (${sgn(one.breadth_sb_vs_best_rank.delta)}, ` +
+            `${ci(one.breadth_sb_vs_best_rank)}), and in the ${many.n} multi-allele peptides it is ` +
+            `significantly worse (${sgn(many.breadth_sb_vs_best_rank.delta)}, ` +
+            `${ci(many.breadth_sb_vs_best_rank)}). Test count alone reaches AUC ` +
+            `${cf.auc_of_test_count_alone.toFixed(3)} — higher than any sequence-derived ` +
+            `predictor here — with the positive rate climbing ` +
+            `${(rate["1"].positive_rate * 100).toFixed(0)}% → ` +
+            `${(rate["2"].positive_rate * 100).toFixed(0)}% → ` +
+            `${(rate["3"].positive_rate * 100).toFixed(0)}% across 1, 2 and 3 molecules tested. ` +
+            `That is ascertainment, not biology. The pipeline keeps flagging per molecule on ` +
+            `%Rank and keeps population weighting as an aggregation, not a criterion.`,
+      options: {} },
+  ], { x: M + 0.22, y: 6.22, w: W - 2 * M - 0.44, h: 0.82, fontSize: 9, color: INK,
+       fontFace: BODY, margin: 0, lineSpacing: 11 });
+  s.addNotes("Fourth measured negative result in this pipeline. Requiring N molecules or ranking on " +
+             "population coverage would trade sensitivity for nothing: breadth >= 2 at %Rank < 1 " +
+             "raises specificity to 0.79 but drops sensitivity to 0.28, and MCC barely moves. The " +
+             "multi-allele stratum is 84% positive, so its result is a small-sample signal that " +
+             "breadth is not adding information even where it is measurable.");
+}
+
 // ----------------------------------------------------------- 7 calibration
 {
   const s = light("Calibrated against benchmarks and controls in the same batch",

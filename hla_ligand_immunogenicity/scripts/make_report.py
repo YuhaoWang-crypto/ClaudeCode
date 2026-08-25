@@ -197,6 +197,7 @@ def main():
     acc = jsn("m11_calibration.json")
     bench = jsn("m10_benchmark_summary.json")
     tolw = jsn("m12_tolerance_weight.json")
+    prom = jsn("m13_promiscuity.json")
     clusters = tsv("m5_clusters.tsv")
     epitopes = tsv("m5_epitopes.tsv")
     summary = {r["id"]: r for r in tsv("m5_ligand_summary.tsv")}
@@ -230,6 +231,7 @@ benchmark affinity ligands and assay controls run in the same batch.</p>
 <div class="toc">
 <a href="#verdict">Verdict</a><a href="#panel">Panel</a><a href="#suitability">Controls</a>
 <a href="#promiscuity">Promiscuity scale</a><a href="#accuracy">Measured accuracy</a>
+<a href="#breadth">Does breadth help?</a>
 <a href="#binding">Binding</a><a href="#tolerance">Tolerance filter</a>
 <a href="#clusters">Epitopes</a><a href="#ada">B-cell / ADA</a>
 <a href="#exposure">Exposure</a><a href="#deimm">Deimmunisation</a>
@@ -506,6 +508,106 @@ same two possibly-leaky predictors on the same peptides, so leakage inflates the
 largely cancels in the difference. IEDB's negatives also carry their own bias — a peptide tested and
 found negative in one donor set is not a clean non-binder — which inflates apparent specificity in
 both directions equally.</p></div>""")
+
+    # ------------------------------------------------------- breadth vs rank
+    if prom and prom.get("comparisons"):
+        cmps, strata = prom["comparisons"], prom["strata"]
+        one, many = strata["single_allele"], strata["multi_allele"]
+        conf = prom["confound"]
+        rate = conf["positive_rate_by_test_count"]
+        br = cmps["breadth_sb_vs_best_rank"]
+        pp = cmps["pop_presenting_vs_best_rank"]
+
+        A('<h2 id="breadth">Does breadth beat the best single rank?</h2>')
+        A(f"""<p>One obvious lever was left. The pipeline flags a peptide when <em>any one</em> DR
+molecule ranks it strongly; the standard intuition is that a peptide presented by <em>many</em>
+molecules is the more credible epitope, so requiring breadth should raise specificity. That is
+testable. Every one of the {prom['n_peptides']:,} benchmark peptides
+({prom['n_positive']:,} positive, one peptide per 9-mer cluster) was scored against all
+{panel['panel_size_total']} panel molecules, and four breadth metrics were compared against the best
+single-allele %Rank with a paired cluster bootstrap on the AUC difference.</p>""")
+        A(img("fig7_promiscuity.png"))
+
+        A("<h3>What each predictor is worth</h3>")
+        labels = {
+            "best_rank": "best single-allele %Rank (rule in use)",
+            "breadth_sb": "how many molecules rank it %Rank &lt; 1",
+            "breadth_wb": "how many molecules rank it %Rank &lt; 5",
+            "pop_presenting": "population weighted by presenting molecules, %Rank &lt; 1",
+            "pop_presenting_wb": "population weighted by presenting molecules, %Rank &lt; 5",
+            "n_tested": "how many molecules IEDB tested it on (not a sequence predictor)",
+        }
+        A(table([{"p": labels.get(k, k), "auc": f"{v['auc']:.3f}",
+                  "ap": f"{v['average_precision']:.3f}"}
+                 for k, v in prom["predictors"].items()],
+                ["p", "auc", "ap"],
+                ["predictor", "ROC AUC", "average precision"], "num",
+                fmt={"p": lambda r: r["p"]}))   # labels carry entities, already safe
+
+        A(f"""<div class="callout bad"><p><strong>The lever does not exist.</strong>
+Against the best single-allele rank, breadth at %Rank&nbsp;&lt;&nbsp;1 is worth
+<strong>{br['delta']:+.4f} AUC</strong>, 95% CI [{br['ci95'][0]:+.4f}, {br['ci95'][1]:+.4f}], and
+population-weighted presentation <strong>{pp['delta']:+.4f}</strong>
+[{pp['ci95'][0]:+.4f}, {pp['ci95'][1]:+.4f}]. Both intervals straddle zero and both are an order of
+magnitude smaller than the gap that would justify changing the rule. Counting molecules adds nothing
+that the single best rank does not already carry.</p></div>""")
+
+        A("<h3>The confound, and the stratum that removes it</h3>")
+        A(f"""<p>The intuition feels right for a reason that has nothing to do with biology. A
+peptide's measured breadth in a benchmark is bounded by how many molecules anyone bothered to test
+it on, and peptides get tested repeatedly <em>because</em> they already looked interesting. That
+alone is a strong classifier here: test count by itself reaches <strong>AUC
+{conf['auc_of_test_count_alone']:.3f}</strong>, higher than every sequence-derived predictor in the
+table above.</p>""")
+        A(table([{"n": k, "peptides": f"{v['n']:,}",
+                  "rate": f"{v['positive_rate']*100:.1f}%"}
+                 for k, v in rate.items()],
+                ["n", "peptides", "rate"],
+                ["DR molecules the peptide was tested on", "peptides", "positive rate"], "num"))
+        A(f"""<p>So the comparison that counts is the one inside a single test-count stratum. Among
+the <strong>{one['n']:,}</strong> peptides tested on exactly one molecule
+({one['n_positive']:,} positive), where measured breadth cannot be inflated by ascertainment,
+breadth is still flat: {one['breadth_sb_vs_best_rank']['delta']:+.4f}
+[{one['breadth_sb_vs_best_rank']['ci95'][0]:+.4f},
+{one['breadth_sb_vs_best_rank']['ci95'][1]:+.4f}] for breadth and
+{one['pop_presenting_vs_best_rank']['delta']:+.4f}
+[{one['pop_presenting_vs_best_rank']['ci95'][0]:+.4f},
+{one['pop_presenting_vs_best_rank']['ci95'][1]:+.4f}] for population-weighted presentation. In the
+{many['n']} multi-allele peptides — {many['n_positive']/many['n']*100:.0f}% of them positive, so the
+stratum is small and unbalanced — breadth is significantly <em>worse</em> than the best rank
+({many['breadth_sb_vs_best_rank']['delta']:+.4f}
+[{many['breadth_sb_vs_best_rank']['ci95'][0]:+.4f},
+{many['breadth_sb_vs_best_rank']['ci95'][1]:+.4f}]). Neither stratum supports the change.</p>""")
+
+        A("<h3>What a breadth gate would actually cost</h3>")
+        ops = prom["operating_points"]
+        A(table([{"rule": k, **v} for k, v in ops.items()],
+                ["rule", "sensitivity", "specificity", "ppv", "mcc", "n_flagged"],
+                ["rule", "sensitivity", "specificity", "PPV (balanced set)", "MCC",
+                 "peptides flagged"], "num",
+                fmt={"rule": lambda r: esc(r["rule"]),
+                     "sensitivity": lambda r: f'{r["sensitivity"]:.3f}',
+                     "specificity": lambda r: f'{r["specificity"]:.3f}',
+                     "ppv": lambda r: f'{r["ppv"]:.3f}',
+                     "mcc": lambda r: f'{r["mcc"]:.3f}',
+                     "n_flagged": lambda r: f'{r["n_flagged"]:,}'}))
+
+        base = ops.get("best %Rank < 1 (any one molecule)")
+        gate2 = ops.get("breadth >= 2 molecules at %Rank < 1")
+        cost = ""
+        if base and gate2:
+            cost = (f"Requiring two molecules lifts specificity "
+                    f"{base['specificity']:.2f}&nbsp;&rarr;&nbsp;{gate2['specificity']:.2f}, but "
+                    f"sensitivity falls {base['sensitivity']:.2f}&nbsp;&rarr;&nbsp;"
+                    f"{gate2['sensitivity']:.2f} and Matthews correlation barely moves "
+                    f"({base['mcc']:.3f}&nbsp;&rarr;&nbsp;{gate2['mcc']:.3f}) — the gate is buying "
+                    f"specificity with sensitivity at roughly par, not adding information. ")
+        A(f"""<div class="callout"><p><strong>What this changes: nothing, deliberately.</strong>
+{cost}The pipeline already flags per molecule on %Rank and already uses population weighting only to
+<em>aggregate and report</em> hits, never to decide them. This result says that arrangement is
+correct and closes off the tempting addition of a &ldquo;presented by at least N molecules&rdquo; or
+&ldquo;at least 20% of the population&rdquo; criterion. It is the fourth proposed improvement in
+this pipeline to be rejected by measurement rather than adopted by argument.</p></div>""")
 
     # ------------------------------------------------------------- binding
     gate_on = cfg["prediction"].get("require_ba_agreement", True)

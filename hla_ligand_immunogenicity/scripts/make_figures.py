@@ -464,11 +464,96 @@ def fig_calibration():
     plt.close(fig)
 
 
+# --------------------------------------------------------------------------
+def fig_promiscuity():
+    """Does panel-wide breadth beat the best single-allele rank? A forest plot,
+    because the answer is an interval around zero and a bar chart would hide
+    that."""
+    path = results_path("m13_promiscuity.json")
+    if not os.path.exists(path):
+        return
+    with open(path) as f:
+        d = json.load(f)
+
+    fig, (ax, ax2) = plt.subplots(1, 2, figsize=(11, 4.0),
+                                  gridspec_kw={"width_ratios": [1, 1.25]})
+
+    # --- A: AUC of each predictor, with the confound called out -------------
+    order = ["best_rank", "breadth_sb", "breadth_wb", "pop_presenting",
+             "pop_presenting_wb", "n_tested"]
+    labels = {"best_rank": "best %Rank (any molecule)",
+              "breadth_sb": "breadth: molecules at %Rank<1",
+              "breadth_wb": "breadth: molecules at %Rank<5",
+              "pop_presenting": "population presenting (SB)",
+              "pop_presenting_wb": "population presenting (WB)",
+              "n_tested": "how many molecules IEDB tested"}
+    order = [k for k in order if k in d["predictors"]][::-1]
+    y = np.arange(len(order))
+    vals = [d["predictors"][k]["auc"] for k in order]
+    cols = [WARN if k == "n_tested" else (INK if k == "best_rank" else ACCENT)
+            for k in order]
+    ax.barh(y, [v - 0.5 for v in vals], 0.6, left=0.5, color=cols)
+    for i, v in enumerate(vals):
+        ax.text(v + 0.002, i, f"{v:.3f}", va="center", fontsize=7.5, color=INK)
+    ax.axvline(0.5, color=MUTED, lw=1)
+    ax.set_yticks(y, [labels[k] for k in order], fontsize=8)
+    ax.set_xlim(0.5, max(vals) * 1.03)
+    ax.set_xlabel("ROC AUC against measured T-cell response")
+    ax.set_title(f"Peptide-level discrimination\n{d['n_peptides']} peptides, "
+                 f"one per 9-mer cluster", fontsize=9.5)
+    ax.grid(axis="x", color=GRID, lw=0.6)
+    ax.set_axisbelow(True)
+    ax.annotate("ascertainment, not biology", (0.502, -0.62),
+                fontsize=7, color=WARN, va="center")
+    ax.set_ylim(-1.1, len(order) - 0.4)
+
+    # --- B: forest plot of the difference vs best rank ----------------------
+    entries = []
+    for k, v in d["comparisons"].items():
+        if v:
+            entries.append((k.replace("_vs_best_rank", "").replace("_", " "),
+                            "all peptides", v))
+    for stratum, nice in (("single_allele", "tested on 1 molecule"),
+                          ("multi_allele", "tested on 2+ molecules")):
+        st = d["strata"].get(stratum, {})
+        for k, nm in (("breadth_sb_vs_best_rank", "breadth sb"),
+                      ("pop_presenting_vs_best_rank", "pop presenting")):
+            if st.get(k):
+                entries.append((nm, f"{nice} (n={st['n']})", st[k]))
+    entries = entries[::-1]
+    lo = min(v["ci95"][0] for _, _, v in entries)
+    hi = max(v["ci95"][1] for _, _, v in entries)
+    span = hi - lo
+    # room on the left for in-panel row labels, so they cannot collide with the
+    # neighbouring axes the way outside tick labels do
+    ax2.set_xlim(lo - span * 1.35, hi + span * 0.12)
+    from matplotlib.transforms import blended_transform_factory
+    tf = blended_transform_factory(ax2.transAxes, ax2.transData)
+    for i, (nm, grp, v) in enumerate(entries):
+        excl = v["ci95"][0] > 0 or v["ci95"][1] < 0
+        c = BAD if (excl and v["delta"] < 0) else (GOOD if excl else MUTED)
+        ax2.plot(v["ci95"], [i, i], color=c, lw=2, solid_capstyle="round")
+        ax2.scatter([v["delta"]], [i], s=28, color=c, zorder=3)
+        ax2.text(0.015, i, f"{nm}  ·  {grp}", transform=tf, va="center",
+                 fontsize=7.2, color=INK if excl else MUTED)
+    ax2.axvline(0, color=INK, lw=1.1, ls="--")
+    ax2.set_yticks([])
+    ax2.set_xlabel("Δ ROC AUC vs best single-allele %Rank  (95% CI)")
+    ax2.set_title("Breadth adds nothing, and in the\nheavily-tested stratum it costs",
+                  fontsize=9.5)
+    ax2.grid(axis="x", color=GRID, lw=0.6)
+    ax2.set_axisbelow(True)
+    ax2.set_ylim(-0.7, len(entries) - 0.3)
+    fig.savefig(figures_path("fig7_promiscuity.png"))
+    plt.close(fig)
+
+
 if __name__ == "__main__":
-    todo = sys.argv[1:] or ["panel", "heatmap", "ranking", "tb", "deimm", "calib"]
+    todo = sys.argv[1:] or ["panel", "heatmap", "ranking", "tb", "deimm", "calib",
+                            "promisc"]
     fns = {"panel": fig_panel_coverage, "heatmap": fig_binding_heatmap,
            "ranking": fig_ranking, "tb": fig_tb, "deimm": fig_deimmunization,
-           "calib": fig_calibration}
+           "calib": fig_calibration, "promisc": fig_promiscuity}
     for t in todo:
         fns[t]()
         print(f"  {t} ok")

@@ -25,7 +25,7 @@ output is a decision instead of a count.
 | 3 | **Self / pre-existing-tolerance filter** (M4) | Most DR hits in an antibody-derived ligand sit in *framework* whose 9-mer cores are near-identical to human immunoglobulin V germline. Counting them inflates every VHH-, scFv- and Fab-derived ligand identically and destroys the ranking. Cores 9/9 or 8/9 identical to a human proteome 9-mer are down-weighted, and the cut is validated against a shuffled-sequence null in the same run. |
 | 4 | **Population weighting + benchmark calibration with controls** (M5, M6) | "13 strong binders" is uninterpretable. Weighting each hit by the fraction of the US/EU population that carries the presenting molecule, then expressing the result as a fold-change over the Protein A Z-domain — an affinity ligand with decades of controlled clinical leachate exposure — makes it a comparison. Positive and negative controls run in the same batch make the batch *reportable* or not. |
 | 5 | **B-cell/ADA layer and exposure context** (M7, M8) | The measured endpoint is an anti-drug **antibody** assay, and impurity risk scales with µg delivered per dose. A T-cell-only, dose-free score cannot reach a risk call. |
-| 6 | **The decision rule is measured, not argued** (M10, M11) | Every choice above — which threshold, whether the second head helps, what a flag is worth — was made by reasoning. M10 pulls ~9,600 labelled HLA-DR-restricted human CD4 T-cell outcomes from IEDB; M11 scores each rule against them with a cluster-level bootstrap, and reports sensitivity, specificity and the PPV a flag actually carries at realistic scan prevalence. |
+| 6 | **The decision rule is measured, not argued** (M10, M11) | Every choice above — which threshold, whether the second head helps, what a flag is worth — was made by reasoning. M10 pulls ~9,600 labelled HLA-DR-restricted human CD4 T-cell outcomes from IEDB; M11 scores each rule against them with a cluster-level bootstrap, and reports sensitivity, specificity and the PPV a flag actually carries at realistic scan prevalence. M12 sweeps the tolerance weight against the same labels, and M13 tests whether panel-wide breadth beats the best single-allele rank. Four proposed improvements have been rejected this way, including two of the previous revision's headline claims. |
 
 `M9` is optional: an anchor-position deimmunisation scan of the dominant
 epitope, for the case where the ligand can be re-engineered.
@@ -65,6 +65,34 @@ The full pipeline was run end to end on the public AAVX VHH. Headline results
   **comparable to**, not above, the most promiscuous epitope with human T-cell
   evidence.
 
+### The last obvious specificity lever was measured, and it is not there
+
+"Flag a peptide only if many DR molecules present it" is the standard next move
+for cutting non-specific calls. M13 scored all 1,200 benchmark peptides against
+all 25 panel molecules and tested it. **Breadth does not beat the best single
+rank.** Against best single-allele %Rank, breadth at %Rank < 1 is worth
+**+0.0005 AUC** (95 % CI −0.0156 to +0.0169) and population-weighted
+presentation **+0.0013** (−0.0197 to +0.0221). Restricting to the 1,069 peptides
+tested on exactly one molecule — the only stratum where breadth cannot be
+inflated by how many molecules IEDB happened to test — leaves it flat (+0.0054,
+−0.0113 to +0.0221); in the 131 multi-allele peptides it is significantly
+*worse* (−0.0877, −0.1599 to −0.0145).
+
+The reason the intuition feels right is measurable and is not biology: **how
+many molecules IEDB tested a peptide on reaches AUC 0.575 by itself**, higher
+than every sequence-derived predictor here, with the positive rate climbing
+45.8 % → 80.0 % → 95.5 % across 1, 2 and 3 molecules tested. Broadly *tested*
+peptides are broadly positive because interesting peptides get tested more. Any
+breadth metric scored on this benchmark inherits that, which is why the
+single-allele stratum is the number that counts.
+
+What it changes: nothing in the pipeline, deliberately. Flagging stays per
+molecule on %Rank, and population weighting stays what it already was — a way to
+aggregate and report hits, not a criterion for calling them. What it rules out
+is the tempting addition of a "presented by ≥ N molecules" or "≥ 20 % of the
+population" gate: breadth ≥ 2 at %Rank < 1 does lift specificity 0.61 → 0.79,
+but sensitivity falls 0.47 → 0.28 and MCC barely moves (0.074 → 0.086).
+
 Two findings from the controls are worth reading on their own:
 
 - **The strong-binder tier is a high-specificity, low-sensitivity criterion.**
@@ -95,6 +123,8 @@ Two findings from the controls are worth reading on their own:
 | M9 | `m9_deimmunization_scan.py` | `m9_deimmunization_scan.tsv` |
 | M10 | `m10_benchmark_fetch.py` | `m10_benchmark.tsv` — every HLA-DR-restricted human CD4 T-cell assay outcome IEDB holds for the panel, labelled per (peptide, allele) |
 | M11 | `m11_threshold_calibration.py` | `m11_calibration.json` — ROC/PR for each decision rule, cluster-bootstrap comparison, calibrated operating point |
+| M12 | `m12_tolerance_weight.py` | `m12_tolerance_weight.json` — sensitivity sweep of the tolerance down-weight against labelled outcomes, and the ascertainment bias that stops it being a bound |
+| M13 | `m13_promiscuity_vs_bestrank.py` | `m13_promiscuity.json` — every benchmark peptide scored against the whole panel; breadth and population-weighted presentation tested against best single-allele %Rank |
 
 Figures: `make_figures.py`. Report: `make_report.py` → `report.html`;
 `make_deck.py` (+ `make_deck.js`) → `report.pptx`. `check_deck.py` lints the
@@ -145,6 +175,7 @@ python scripts/m9_deimmunization_scan.py    # optional
 python scripts/m10_benchmark_fetch.py       # ~10 min against the IEDB query API
 python scripts/m11_threshold_calibration.py # ~1-2 h; resumable, caches as it goes
 python scripts/m12_tolerance_weight.py
+python scripts/m13_promiscuity_vs_bestrank.py  # ~2 h; resumable, caches as it goes
 python scripts/make_figures.py
 python scripts/make_report.py
 python scripts/make_deck.py

@@ -68,6 +68,7 @@ def main():
         "accuracy": jsn("m11_calibration.json"),
         "benchmark": jsn("m10_benchmark_summary.json"),
         "tolerance_weight": jsn("m12_tolerance_weight.json"),
+        "promiscuity": jsn("m13_promiscuity.json"),
         "filter_validation": val,
         "summary": summary[test_id],
         "test_rank": next(r for r in rank if r["id"] == test_id),
@@ -90,7 +91,8 @@ def main():
             "ranking": "fig3_calibrated_ranking.png",
             "tb": "fig4_tb_coincidence.png",
             "deimm": "fig5_deimmunization.png",
-            "calibration": "fig6_calibration.png"}.items()
+            "calibration": "fig6_calibration.png",
+            "promiscuity": "fig7_promiscuity.png"}.items()
             if os.path.exists(figures_path(v))},
         "out": os.path.join(ROOT, "report.pptx"),
     }
