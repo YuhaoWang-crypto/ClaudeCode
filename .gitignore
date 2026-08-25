@@ -14,3 +14,4 @@ results/vcc2026_prep.log
 results/llm_preds/
 results/jiang_prep.log
 results/alphagenome.log
+results/llm_measured_block.txt
