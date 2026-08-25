@@ -299,7 +299,7 @@ if (data.promiscuity_calibration && data.promiscuity_calibration.boundary_contro
 
   const mbp = bc["MBP_85_99_region"];
   if (mbp) {
-    s.addShape(pres.ShapeType.roundRect, { x: M, y: 3.35, w: W - 2 * M, h: 1.75,
+    s.addShape(pres.ShapeType.roundRect, { x: M, y: 3.3, w: W - 2 * M, h: 1.95,
       fill: { color: "FBF1F1" }, line: { color: "E8CDCD", width: 0.75 }, rectRadius: 0.06 });
     s.addText([
       { text: "The filter suppresses a real epitope, and this is the clearest example.\n",
@@ -315,8 +315,8 @@ if (data.promiscuity_calibration && data.promiscuity_calibration.boundary_contro
               `because a foreign scaffold's framework similarity to human germline is the case it was ` +
               `built for; it is not safe for anything where self-reactivity is the question.`,
         options: { color: INK } },
-    ], { x: M + 0.22, y: 3.48, w: W - 2 * M - 0.44, h: 1.5, fontSize: 11.5, fontFace: BODY,
-         margin: 0, lineSpacing: 15 });
+    ], { x: M + 0.22, y: 3.42, w: W - 2 * M - 0.44, h: 1.72, fontSize: 11, fontFace: BODY,
+         margin: 0, lineSpacing: 14 });
   }
   const clp = bc["CLIP_87_101_region"];
   if (clp) {
@@ -325,11 +325,11 @@ if (data.promiscuity_calibration && data.promiscuity_calibration.boundary_contro
               `T-cell record in IEDB. Here it reaches ${clp.dr_breadth_wb}/${nP} at the weak tier and ` +
               `${clp.dr_breadth_sb}/${nP} at the strong tier, and ends at pIRS ` +
               `${clp.ligand_pIRS.toFixed(2)} \u2014 binding strength alone is not being read as risk.`,
-      { x: M, y: 5.3, w: W - 2 * M, h: 0.7, fontSize: 11.5, color: INK, fontFace: BODY,
+      { x: M, y: 5.42, w: W - 2 * M, h: 0.72, fontSize: 11.5, color: INK, fontFace: BODY,
         margin: 0, lineSpacing: 15 });
   }
   note(s, "Both controls' roles were checked against IEDB before assignment. They do not pass or " +
-          "fail the batch \u2014 they put a number on two things the filter cannot do.", 6.35);
+          "fail the batch \u2014 they put a number on two things the filter cannot do.", 6.45);
 }
 
 // ------------------------------------------------ 6c measured accuracy

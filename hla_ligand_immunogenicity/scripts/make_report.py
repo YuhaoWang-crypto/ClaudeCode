@@ -370,15 +370,15 @@ holds no positive human DR-restricted T-cell record for it.</p>""")
                 fmt={c: strong(c) for c in ("ep", "sb", "wb", "best")}))
         rng_sb = calib.get("universal_epitope_range_sb", [0, 0])
         rng_wb = calib.get("universal_epitope_range_wb", [0, 0])
-        peak = test["max_promiscuity"]
+        peak = int(test["max_promiscuity"])
         rel = ("above" if peak > rng_sb[1] else
                "at the top of" if peak == rng_sb[1] else "inside")
         A(f"""<div class="callout {'bad' if peak >= rng_sb[1] else ''}"><p>
 <strong>The ligand's dominant core is as promiscuous as the most promiscuous epitope we have
 evidence for.</strong> The three universal epitopes reach {rng_sb[0]}&ndash;{rng_sb[1]} of {n} DR
 molecules at EL %Rank&nbsp;&lt;&nbsp;{calib['sb_threshold']:g}; <code>{top['peak_core'] if top else '-'}</code>
-reaches {peak}/{n} &mdash; {rel} that range. Not an outlier, but not unremarkable either: it sits
-where a peptide known to drive CD4 responses in most donors sits.</p></div>""")
+reaches {peak}/{n} &mdash; {rel} that range. It is not an outlier. It is also not innocuous: it sits
+exactly where a peptide known to drive CD4 responses in most donors sits.</p></div>""")
         A(f"""<div class="callout"><p><strong>The same table bounds the method's sensitivity.</strong>
 The strong-binder tier recovers only {100*rng_sb[1]/n:.0f}% of the DR molecules a universal epitope
 is actually presented by &mdash; HA306-318 is positive in human T-cell assays on 25 distinct DR
@@ -530,8 +530,8 @@ sit on the boundary.</p>""")
         A(table([{"id": k, **v} for k, v in bnd.items()],
                 ["id", "role", "dr_breadth_sb", "dr_breadth_wb",
                  "cores_called_tolerised", "ligand_pIRS_unfiltered", "ligand_pIRS"],
-                ["control", "role", f"DR at %Rank&lt;{calib['sb_threshold']:g}",
-                 f"at &lt;{calib['wb_threshold']:g}", "cores called tolerised",
+                ["control", "role", f"!DR at %Rank&lt;{calib['sb_threshold']:g}",
+                 f"!at &lt;{calib['wb_threshold']:g}", "cores called tolerised",
                  "pIRS unfiltered", "pIRS filtered"], "num",
                 fmt={"id": lambda r: f'<code>{r["id"].replace("_region","")}</code>',
                      "role": lambda r: f'<span class="tag warn">{r["role"].replace("_"," ")}</span>',

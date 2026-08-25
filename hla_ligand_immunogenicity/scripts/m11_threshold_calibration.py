@@ -175,10 +175,13 @@ def score_benchmark(cfg, bench):
     Best EL and BA %Rank per (peptide, allele) from the IEDB predictors.
 
     Peptides are concatenated into a few long pseudo-proteins rather than
-    submitted one FASTA record each. The endpoint's cost is dominated by the
-    number of records, not residues - 20 separate peptides took 89 s against
-    ~15 s for a 126-residue protein across five alleles - and one record per
-    allele turns a five-hour job into minutes.
+    submitted one FASTA record each, because the wall-clock cost of this
+    endpoint tracks the number of *requests* far more than the amount of
+    sequence in them: under load a single 60-residue request took 45 s, and
+    20 peptides submitted as 20 records took 89 s. Whether that is per-record
+    processing or queue latency was not isolated and does not matter here -
+    either way, fewer and larger requests is the fix, and it turns a
+    five-hour job into minutes.
 
     The concatenation is exact, not an approximation: NetMHCIIpan scores each
     k-mer independently of its surroundings when no context flag is set, so a
