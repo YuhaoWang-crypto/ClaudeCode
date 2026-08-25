@@ -42,6 +42,7 @@ from dataclasses import replace
 from . import metrics as M
 from .data import CellLine
 from .gwps import build_prior, load_gwps, project
+from .two_axis import load_embeddings
 from .model import ContextTransferModel, Hyper, SourceBank
 from .vcc_submit import CONTEXTS, build
 
@@ -146,6 +147,11 @@ def predict_panel(hp: Hyper, targets: np.ndarray | None = None,
     # from the prior here.  It is still only consulted when hp.gene_w > 0.
     prior = (build_prior(prior_name, src.symbols, exclude=None)
              if hp.gene_w > 0 else None)
+    # Protein embeddings route the 26 panel targets that are neither perturbed
+    # nor measured in the source. Without them those rows carry no information
+    # the discrimination metric can see: they differ only in their own on-target
+    # column, and that column is the one exclude_target_gene removes.
+    embed = load_embeddings(src.symbols) if hp.esm_mix > 0 else None
     if verbose and prior is not None:
         print(f"  per-gene transferability prior {prior_name!r} in use "
               f"(gene_w={hp.gene_w:g}), median {np.median(prior):.3f}")
@@ -156,7 +162,8 @@ def predict_panel(hp: Hyper, targets: np.ndarray | None = None,
         model = (model.retarget([src], mu_full[cols]) if model is not None else
                  ContextTransferModel(hp).fit([src], mu_full[cols],
                                               src.symbols, bank=bank,
-                                              gene_prior=prior))
+                                              gene_prior=prior,
+                                              gene_embed=embed))
         eff = np.zeros((perts.size, axis.size))
         eff[:, cols] = model.predict(perts)
         out[c] = (perts, eff)
@@ -209,7 +216,14 @@ def threshold_safe(hp: Hyper, path: Path = FRONTIER_FILE,
                   f"fail the MAE threshold")
         return hp, "none"
     best = json.loads(path.read_text())["best"]
-    usable = {k: v for k, v in best.items() if v.get("safe_beta") is not None}
+    # The oracle arm is a bound, not a candidate: it is built from the held-out
+    # truth, which does not exist for the official panel.  It belongs in the
+    # frontier table to say how much the whole per-gene-prior route could ever
+    # be worth, and nowhere near a shipped configuration.
+    usable = {k: v for k, v in best.items()
+              if v.get("safe_beta") is not None and v.get("prior") != "oracle"}
+    oracle = {k: v for k, v in best.items() if v.get("prior") == "oracle"
+              and v.get("safe_beta") is not None}
     if not usable:
         if verbose:
             print("  no effect scale kept MAE at or below baseline on every "
@@ -222,6 +236,12 @@ def threshold_safe(hp: Hyper, path: Path = FRONTIER_FILE,
               f"{e['safe_beta']:g}, gene_w {hp.gene_w:g} -> {e['gene_w']:g} "
               f"(mean PDS {e['pds']:.3f}, ovl@100 {e['ovl']:.3f}, "
               f"score {e['score']:.3f})")
+        if oracle:
+            top = max(oracle.values(), key=lambda v: v.get("score", 0.0))
+            print(f"    for reference, a perfect per-gene prior would score "
+                  f"{top['score']:.4f} against this arm's {e['score']:.4f} -- "
+                  f"the whole route is worth {top['score'] - e['score']:+.4f} "
+                  f"more than what is shipped")
     return (replace(hp, beta=float(e["safe_beta"]), gene_w=float(e["gene_w"])),
             str(e["prior"]))
 
@@ -373,6 +393,9 @@ def main() -> None:
     ap.add_argument("--n-cells", type=int, default=400)
     ap.add_argument("--hyper", type=Path, default=HYPER_FILE,
                     help="tuned hyperparameters from the single-source benchmark")
+    ap.add_argument("--esm-mix", type=float, default=0.25,
+                    help="weight on protein-embedding routing for knockdowns "
+                         "with no measured effect and no measured gene")
     ap.add_argument("--keep-tuned-scale", action="store_true",
                     help="do not override the tuned effect scale with the "
                          "threshold-safe one from the frontier")
@@ -397,6 +420,7 @@ def main() -> None:
         print(f"WARNING: {args.hyper} absent, using untuned defaults")
     if not args.keep_tuned_scale:
         hp, prior_name = threshold_safe(hp)
+    hp = replace(hp, esm_mix=args.esm_mix)
 
     predictions = predict_panel(hp, prior_name=prior_name)
     build(predictions, {c: (lambda c=c: control_cells(c)) for c in CONTEXTS},
