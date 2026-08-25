@@ -173,13 +173,20 @@ def main():
         "peptides nobody responds to are rarely assayed and are missing from the denominator. "
         "The true positive rate for an arbitrary self peptide is lower than measured here, so "
         "the real discount is at least this strong.")
-    out["recommendation"] = (
-        f"Use a near-self weight no greater than {out.get('discount_estimate', 'n/a')}; "
-        f"the configured {cfg['tolerance_filter']['discount_tcrface']} is "
-        + ("consistent with the bound." if est is not None and
-           cfg["tolerance_filter"]["discount_tcrface"] <= est
-           else "ABOVE the bound and should be lowered.")
-        if est is not None else "insufficient data to bound the weight.")
+    configured = cfg["tolerance_filter"]["discount_tcrface"]
+    if est is None:
+        out["recommendation"] = "Insufficient data to bound the weight."
+    elif configured <= est:
+        out["recommendation"] = (
+            f"The configured near-self weight {configured} sits at or below the bound "
+            f"{est:.3f}, and the bound is itself an overestimate, so the current setting "
+            f"is defensible.")
+    else:
+        out["recommendation"] = (
+            f"The configured near-self weight {configured} is ABOVE the bound {est:.3f}. "
+            f"Lower it: the benchmark says self-like predicted binders elicit responses "
+            f"less often than that weight assumes, and the bias in the benchmark runs the "
+            f"same way.")
 
     with open(results_path("m12_tolerance_weight.json"), "w") as f:
         json.dump(out, f, indent=2)
