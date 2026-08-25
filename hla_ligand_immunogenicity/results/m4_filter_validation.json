@@ -1,0 +1,10 @@
+{
+  "n_real_cores": 85,
+  "n_null_cores": 271,
+  "real_hit_rate_9of9": 0.1765,
+  "null_hit_rate_9of9": 0.0,
+  "real_hit_rate_8of9": 0.2235,
+  "null_hit_rate_8of9": 0.0111,
+  "enrichment_8of9_real_over_null": 20.14,
+  "filter_informative": true
+}

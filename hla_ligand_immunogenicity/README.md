@@ -22,7 +22,7 @@ output is a decision instead of a count.
 |---|---|---|
 | 1 | **Panel designed against measured coverage** (M2) | The DR subset of the IEDB class-II reference set is widely used as a "representative" 15-molecule panel. Measured against the IEDB allele-frequency tables it reaches only **85.3 %** weighted US/EU DRB1 phenotypic coverage — it does not meet a 95–98 % requirement. A greedy build to a stated target does. |
 | 2 | **Two orthogonal prediction heads** (M3) | Eluted-ligand (EL) scoring alone over-calls: it rewards motif-like peptides that have poor measured affinity. Requiring EL **and** binding-affinity agreement removes that class of hit and the drop is reported, not hidden. |
-| 3 | **Self / pre-existing-tolerance filter** (M4) | Most DR hits in an antibody-derived ligand sit in *framework* whose 9-mer cores also occur in the human proteome. Counting them inflates every VHH-, scFv- and Fab-derived ligand identically and destroys the ranking. Exact-core and TCR-face matches against Swiss-Prot are down-weighted. |
+| 3 | **Self / pre-existing-tolerance filter** (M4) | Most DR hits in an antibody-derived ligand sit in *framework* whose 9-mer cores are near-identical to human immunoglobulin V germline. Counting them inflates every VHH-, scFv- and Fab-derived ligand identically and destroys the ranking. Cores 9/9 or 8/9 identical to a human proteome 9-mer are down-weighted, and the cut is validated against a shuffled-sequence null in the same run. |
 | 4 | **Population weighting + benchmark calibration with controls** (M5, M6) | "13 strong binders" is uninterpretable. Weighting each hit by the fraction of the US/EU population that carries the presenting molecule, then expressing the result as a fold-change over the Protein A Z-domain — an affinity ligand with decades of controlled clinical leachate exposure — makes it a comparison. Positive and negative controls run in the same batch make the batch *reportable* or not. |
 | 5 | **B-cell/ADA layer and exposure context** (M7, M8) | The measured endpoint is an anti-drug **antibody** assay, and impurity risk scales with µg delivered per dose. A T-cell-only, dose-free score cannot reach a risk call. |
 
@@ -112,7 +112,11 @@ thresholds, tolerance weights, population weights, exposure grid.
 - **The tolerance filter is a screen, not JanusMatrix.** It does not require the
   human counterpart peptide to bind the same allele, so it errs toward calling
   more peptides tolerised. Every flagged core is written out with the human
-  protein it matched, so each call is checkable.
+  protein it matched, so each call is checkable. A 5-of-9 TCR-face variant was
+  tested and rejected — it matches the human proteome by chance several times
+  per query. The 8/9 whole-core cut used instead is validated against a
+  shuffled-sequence null in `m4_filter_validation.json`; if the null hit rate
+  is not far below the real one, the run reports the filter as uninformative.
 - **Linear B-cell prediction is the weakest model here.** Most real ADA epitopes
   are conformational. M7 output prioritises regions for wet-lab work; it is
   never a standalone claim.

@@ -1,0 +1,107 @@
+{
+  "exposure_grid": [
+    {
+      "leachate_ng_per_mg": 1,
+      "dose_mg": 1,
+      "ug_ligand_per_dose": 0.001,
+      "nmol_per_dose": 7e-05,
+      "exposure_band": "negligible",
+      "basis": "Below the exposure at which protein impurities have shown measurable ADA induction in the clinic"
+    },
+    {
+      "leachate_ng_per_mg": 1,
+      "dose_mg": 10,
+      "ug_ligand_per_dose": 0.01,
+      "nmol_per_dose": 0.00074,
+      "exposure_band": "negligible",
+      "basis": "Below the exposure at which protein impurities have shown measurable ADA induction in the clinic"
+    },
+    {
+      "leachate_ng_per_mg": 1,
+      "dose_mg": 100,
+      "ug_ligand_per_dose": 0.1,
+      "nmol_per_dose": 0.00741,
+      "exposure_band": "low",
+      "basis": "Comparable to well-controlled rProtein A leachate exposure in approved mAb products"
+    },
+    {
+      "leachate_ng_per_mg": 1,
+      "dose_mg": 1000,
+      "ug_ligand_per_dose": 1.0,
+      "nmol_per_dose": 0.07407,
+      "exposure_band": "moderate",
+      "basis": "Above typical qualified leachate exposure; justify with ligand-specific data"
+    },
+    {
+      "leachate_ng_per_mg": 10,
+      "dose_mg": 1,
+      "ug_ligand_per_dose": 0.01,
+      "nmol_per_dose": 0.00074,
+      "exposure_band": "negligible",
+      "basis": "Below the exposure at which protein impurities have shown measurable ADA induction in the clinic"
+    },
+    {
+      "leachate_ng_per_mg": 10,
+      "dose_mg": 10,
+      "ug_ligand_per_dose": 0.1,
+      "nmol_per_dose": 0.00741,
+      "exposure_band": "low",
+      "basis": "Comparable to well-controlled rProtein A leachate exposure in approved mAb products"
+    },
+    {
+      "leachate_ng_per_mg": 10,
+      "dose_mg": 100,
+      "ug_ligand_per_dose": 1.0,
+      "nmol_per_dose": 0.07407,
+      "exposure_band": "moderate",
+      "basis": "Above typical qualified leachate exposure; justify with ligand-specific data"
+    },
+    {
+      "leachate_ng_per_mg": 10,
+      "dose_mg": 1000,
+      "ug_ligand_per_dose": 10.0,
+      "nmol_per_dose": 0.74074,
+      "exposure_band": "elevated",
+      "basis": "Immunologically meaningful protein dose; treat the ligand as a co-administered antigen"
+    },
+    {
+      "leachate_ng_per_mg": 100,
+      "dose_mg": 1,
+      "ug_ligand_per_dose": 0.1,
+      "nmol_per_dose": 0.00741,
+      "exposure_band": "low",
+      "basis": "Comparable to well-controlled rProtein A leachate exposure in approved mAb products"
+    },
+    {
+      "leachate_ng_per_mg": 100,
+      "dose_mg": 10,
+      "ug_ligand_per_dose": 1.0,
+      "nmol_per_dose": 0.07407,
+      "exposure_band": "moderate",
+      "basis": "Above typical qualified leachate exposure; justify with ligand-specific data"
+    },
+    {
+      "leachate_ng_per_mg": 100,
+      "dose_mg": 100,
+      "ug_ligand_per_dose": 10.0,
+      "nmol_per_dose": 0.74074,
+      "exposure_band": "elevated",
+      "basis": "Immunologically meaningful protein dose; treat the ligand as a co-administered antigen"
+    },
+    {
+      "leachate_ng_per_mg": 100,
+      "dose_mg": 1000,
+      "ug_ligand_per_dose": 100.0,
+      "nmol_per_dose": 7.40741,
+      "exposure_band": "elevated",
+      "basis": "Immunologically meaningful protein dose; treat the ligand as a co-administered antigen"
+    }
+  ],
+  "intrinsic": {
+    "test_article": "AAVX_VHH",
+    "pIRS": 0.38,
+    "benchmark": "ProteinA_Z",
+    "benchmark_pIRS": 0.13,
+    "fold_vs_benchmark": 2.92
+  }
+}

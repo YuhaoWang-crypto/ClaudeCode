@@ -50,9 +50,13 @@ tolerance_filter:
   # Predicted cores that also occur in the human proteome are pre-existing-
   # tolerance candidates and are down-weighted, not deleted.
   proteome: "data/human_sprot.fasta"     # UniProt Swiss-Prot Homo sapiens
-  tcr_face_positions: [2, 3, 5, 7, 8]    # 1-based P2,P3,P5,P7,P8 of the 9-mer core
-  discount_exact: 0.0                    # weight kept for an exact human 9-mer core
-  discount_tcrface: 0.35                 # weight kept for a human TCR-face match
+  # A 5-of-9 "TCR-face" screen was tested and rejected: 5 specified positions
+  # match the human proteome by chance several times per query, so it flags
+  # nearly every core and carries no information. Best-identity over the whole
+  # 9-mer is used instead, with a shuffled-sequence null reported in
+  # results/m4_filter_validation.json.
+  discount_exact: 0.0                    # weight kept for a 9/9 human core
+  discount_tcrface: 0.35                 # weight kept for an 8/9 near-human core
 
 exposure:
   # Used only for the risk-in-context matrix; edit to your own product.
@@ -66,3 +70,14 @@ benchmarks:
   anchor_low: "ProteinA_Z"      # clinically qualified affinity-ligand leachate
   anchor_self: "HSA_D1"         # human self protein -> tolerised floor
   anchor_high: "TT_p30_region"  # tetanus universal epitope -> assay ceiling
+
+  # Experimentally defined "universal" T-helper epitopes, used to calibrate what
+  # a promiscuity number means on this panel rather than to pass/fail a run.
+  # These peptides drive CD4 responses in most donors in vitro; whatever DR
+  # breadth the predictor assigns them is the practical ceiling of the method.
+  positive_control_epitopes:
+    TT_p2_region: "QYIKANSKFIGITEL"        # tetanus toxin 830-844
+    TT_p30_region: "FNNFTVSFWLRVPKVSASHLE" # tetanus toxin 947-967
+  # Minimum DR breadth a universal epitope must reach at the weak-binder tier
+  # for the batch to be considered sensitive enough to report.
+  positive_control_min_breadth_wb: 4

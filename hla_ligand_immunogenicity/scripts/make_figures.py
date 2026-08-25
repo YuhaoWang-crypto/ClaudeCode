@@ -42,7 +42,13 @@ plt.rcParams.update({
 
 
 def tsv(name):
-    with open(results_path(name)) as f:
+    p = results_path(name)
+    if not os.path.exists(p):
+        return []
+    with open(p) as f:
+        if f.readline().startswith("(none)"):
+            return []
+        f.seek(0)
         return list(csv.DictReader(f, delimiter="\t"))
 
 
@@ -81,8 +87,8 @@ def fig_panel_coverage():
     new = [d["per_population"][p] * 100 for p in pops]
     old = [d["legacy_per_population"][p] * 100 for p in pops]
     y = np.arange(len(pops))
-    ax2.barh(y + 0.19, new, 0.36, color=ACCENT, label="designed panel (24 DR)")
-    ax2.barh(y - 0.19, old, 0.36, color="#c2ccd6", label="legacy panel (15 DR)")
+    ax2.barh(y + 0.19, new, 0.36, color=ACCENT, label=f"designed panel ({d['panel_size_total']} DR)")
+    ax2.barh(y - 0.19, old, 0.36, color="#c2ccd6", label=f"legacy panel ({len(d['legacy_drb1_panel'])+4} DR)")
     for i, (a, b) in enumerate(zip(new, old)):
         ax2.text(a + 1, i + 0.19, f"{a:.0f}", va="center", fontsize=7, color=ACCENT)
         ax2.text(b + 1, i - 0.19, f"{b:.0f}", va="center", fontsize=7, color=MUTED)
@@ -107,6 +113,7 @@ def fig_binding_heatmap(target="AAVX_VHH"):
         panel = [l.strip() for l in f if l.strip()]
 
     M = np.full((len(panel), L - 14), np.nan)
+    C = np.zeros((len(panel), L - 14))          # consensus strong-binder calls
     aidx = {a: i for i, a in enumerate(panel)}
     for r in tsv("m3_binding_long.tsv"):
         if r["id"] != target or r["el_rank"] in ("", "None"):
@@ -114,6 +121,15 @@ def fig_binding_heatmap(target="AAVX_VHH"):
         j = int(r["start"]) - 1
         if 0 <= j < M.shape[1]:
             M[aidx[r["allele"]], j] = float(r["el_rank"])
+            C[aidx[r["allele"]], j] = r["call_consensus"] == "SB"
+
+    # 15-mer frame that each epitope core was called from, so cluster boxes land
+    # on the same x-axis as the heatmap (15-mer start, not core position)
+    frame = {}
+    for e in tsv("m5_epitopes.tsv"):
+        if e["id"] != target:
+            continue
+        frame[e["core"]] = int(e["pos"]) - e["peptide"].find(e["core"])
 
     # log-rank, capped at 20% so the colour range spends itself on binders
     V = np.clip(M, 0.01, 20.0)
@@ -121,36 +137,47 @@ def fig_binding_heatmap(target="AAVX_VHH"):
     cmap = LinearSegmentedColormap.from_list(
         "rank", ["#f6f8fa", "#cfe0ee", "#7fb0d4", "#2f6f9f", "#1b3f5e"])
 
-    fig, (ax, axd) = plt.subplots(2, 1, figsize=(11, 5.4), sharex=True,
+    fig, (ax, axd) = plt.subplots(2, 1, figsize=(11, 5.6), sharex=True,
                                   gridspec_kw={"height_ratios": [3.1, 1]})
-    im = ax.imshow(V, aspect="auto", cmap=cmap, vmin=-1.3, vmax=2.0,
+    im = ax.imshow(V, aspect="auto", cmap=cmap, vmin=-0.7, vmax=2.0,
                    interpolation="nearest")
     ax.set_yticks(range(len(panel)),
                   [a.replace("HLA-DR", "DR") for a in panel], fontsize=6.2)
     ax.set_ylabel("HLA-DR molecule")
-    ax.set_title(f"{target} — NetMHCIIpan EL %Rank landscape (15-mer scan)")
+    ax.set_title(f"{target} — NetMHCIIpan EL %Rank landscape (15-mer scan)", pad=22)
     cb = fig.colorbar(im, ax=ax, pad=0.012, fraction=0.022)
-    cb.set_ticks([-1.3, 0, 0.7, 2.0])
-    cb.set_ticklabels(["20%", "1%", "0.2%", "0.01%"], fontsize=6.5)
+    cb.set_ticks([-0.7, 0, 0.7, 2.0])
+    cb.set_ticklabels(["5%", "1%", "0.2%", "0.01%"], fontsize=6.5)
     cb.set_label("EL %Rank", fontsize=7)
     cb.outline.set_visible(False)
 
-    # cluster bands
+    # cluster bands; only clusters that survive the tolerance filter are named,
+    # and labels alternate rows so adjacent clusters do not collide
+    ax.set_ylim(len(panel) - 0.5, -3.0)
+    labelled = 0
+    eps = [e for e in tsv("m5_epitopes.tsv") if e["id"] == target]
     for c in tsv("m5_clusters.tsv"):
         if c["id"] != target:
             continue
-        s, e = int(c["start"]) - 1, int(c["end"]) - 1
+        members = [e for e in eps
+                   if int(c["start"]) <= int(e["pos"]) <= int(c["end"]) - 8]
+        starts = [frame[e["core"]] for e in members] or [int(c["start"])]
+        s, e = min(starts) - 1, max(starts) - 1
         col = BAD if c["tolerance_class"] == "foreign" else \
               WARN if c["tolerance_class"] == "mixed" else GOOD
         ax.add_patch(plt.Rectangle((s - 0.5, -0.5), e - s + 1, len(panel),
-                                   fill=False, ec=col, lw=1.5, zorder=5))
-        ax.text((s + e) / 2, -1.4, f"{c['peak_core']}", color=col, fontsize=7,
-                ha="center", fontweight="bold")
+                                   fill=False, ec=col, lw=1.4, zorder=5))
+        if c["tolerance_class"] != "all_tolerised" and int(c["union_sb_alleles"]) >= 2:
+            ax.text((s + e) / 2, -2.4 + 1.1 * (labelled % 2), c["peak_core"],
+                    color=col, fontsize=7.5, ha="center", va="center",
+                    fontweight="bold", zorder=6)
+            labelled += 1
 
-    # per-position promiscuity
-    prom = np.nansum(M < 1.0, axis=0).astype(float)
-    axd.fill_between(range(M.shape[1]), prom, color=ACCENT, alpha=0.75, lw=0)
-    axd.set_ylabel("# DR with\nSB (rank<1%)", fontsize=7.5)
+    # per-position promiscuity, on the same consensus call the tables use
+    prom = C.sum(axis=0)
+    axd.fill_between(range(M.shape[1]), prom, color=ACCENT, alpha=0.75, lw=0,
+                     step="mid")
+    axd.set_ylabel("DR molecules per\n15-mer (consensus SB)", fontsize=7.5)
     axd.set_xlabel("15-mer start position in ligand (aa)")
     axd.grid(axis="y", color=GRID, lw=0.6)
     axd.set_axisbelow(True)
@@ -170,8 +197,10 @@ def fig_ranking():
     ax.barh(y, [float(r["pIRS"]) for r in rows], 0.62, color=colors)
     anchor = next(float(r["pIRS"]) for r in rows if r["id"] == "ProteinA_Z")
     ax.axvline(anchor, color=INK, ls="--", lw=1.1)
-    ax.text(anchor, len(rows) - 0.2, " Protein A Z-domain\n benchmark",
-            fontsize=7, color=INK, va="top")
+    ax.set_ylim(-0.65, len(rows) + 0.15)
+    ax.annotate("Protein A Z-domain benchmark", (anchor, len(rows) - 0.28),
+                textcoords="offset points", xytext=(5, 0), fontsize=7.5,
+                color=INK, va="center", ha="left")
     for i, r in enumerate(rows):
         ax.text(float(r["pIRS"]) + 0.06, i, f"{float(r['pIRS']):.2f}"
                 + (f"   {float(r['fold_vs_ProteinA_Z']):.1f}×"
@@ -183,6 +212,15 @@ def fig_ranking():
     ax.set_xlim(0, max(float(r["pIRS"]) for r in rows) * 1.32)
     ax.grid(axis="x", color=GRID, lw=0.6)
     ax.set_axisbelow(True)
+    from matplotlib.patches import Patch
+    seen, handles = set(), []
+    for r in rows[::-1]:
+        if r["role"] not in seen:
+            seen.add(r["role"])
+            handles.append(Patch(color=ROLE_COLOR.get(r["role"], MUTED),
+                                 label=r["role"].replace("_", " ")))
+    ax.legend(handles=handles, frameon=False, fontsize=7, loc="lower right",
+              handlelength=1.1, labelspacing=0.35)
 
     # tolerance-filter effect
     raw = [float(r["pIRS_raw"]) for r in rows]
@@ -190,13 +228,20 @@ def fig_ranking():
     for i, r in enumerate(rows):
         ax2.plot([raw[i], filt[i]], [i, i], color=GRID, lw=2.2, zorder=1,
                  solid_capstyle="round")
-    ax2.scatter(raw, y, s=22, color="#c2ccd6", zorder=3, label="no tolerance filter")
+    ax2.scatter(raw, y, s=22, color="#c2ccd6", zorder=3,
+                label="before self/tolerance filter")
     ax2.scatter(filt, y, s=26, color=[ROLE_COLOR.get(r["role"], MUTED) for r in rows],
-                zorder=4, label="human-self filtered")
+                zorder=4)
     ax2.set_yticks(y, ["" for _ in rows])
     ax2.set_xlabel("pIRS")
     ax2.set_title("What the self/tolerance filter removes")
-    ax2.legend(frameon=False, fontsize=7.5, loc="lower right")
+    from matplotlib.lines import Line2D
+    ax2.legend(handles=[
+        Line2D([], [], marker="o", ls="", ms=4.5, color="#c2ccd6",
+               label="before self/tolerance filter"),
+        Line2D([], [], marker="o", ls="", ms=5, color=INK,
+               label="after filter (dot colour = role)")],
+        frameon=False, fontsize=7, loc="lower right", labelspacing=0.35)
     ax2.grid(axis="x", color=GRID, lw=0.6)
     ax2.set_axisbelow(True)
     fig.savefig(figures_path("fig3_calibrated_ranking.png"))
@@ -229,7 +274,7 @@ def fig_tb(target="AAVX_VHH"):
         ax.grid(axis="y", color=GRID, lw=0.6)
         ax.set_axisbelow(True)
 
-    for c in tsv("m7_tb_coincidence.tsv") if os.path.exists(results_path("m7_tb_coincidence.tsv")) else []:
+    for c in tsv("m7_tb_coincidence.tsv"):
         if c.get("id") != target:
             continue
         s, e = c["t_cluster"].split("-")

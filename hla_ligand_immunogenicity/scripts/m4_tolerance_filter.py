@@ -1,118 +1,187 @@
 #!/usr/bin/env python3
 """
-M4 - Self / pre-existing-tolerance filter.
+M4 - Self / pre-existing-tolerance filter, with an empirical null.
 
 The single largest source of false positives in a naive HLA-DR screen of an
 antibody-derived ligand: most predicted binders sit in *framework* regions
-whose 9-mer cores also occur in the human proteome - in human germline V
-domains above all. Those cores are seen by a repertoire that has been
-negatively selected against them, so counting them as immunogenic risk
-inflates the score of every VHH, scFv and Fab-derived ligand equally and
-destroys the ability to rank them.
+whose 9-mer cores are near-identical to human immunoglobulin V germline. Those
+cores are seen by a repertoire that has been negatively selected against them,
+so counting them as immunogenic risk inflates the score of every VHH, scFv and
+Fab-derived ligand equally and destroys the ability to rank them.
 
-Two screens, both against UniProt Swiss-Prot Homo sapiens:
+Each predicted 9-mer core is compared against every 9-mer of UniProt
+Swiss-Prot *Homo sapiens* and classified by best identity:
 
-  exact       the predicted 9-mer core occurs verbatim in a human protein
-              -> treat as tolerised (weight 0 by default)
-  tcr_face    the residues that face the TCR (P2, P3, P5, P7, P8 of the core)
-              match a human 9-mer at the same positions -> a cross-reactive
-              human-like TCR face, the JanusMatrix concept in simplified form
-              -> heavily down-weighted (weight 0.35 by default)
+  9/9   exact_human_9mer          weight 0     - the peptide itself is self
+  8/9   near_human_9mer           weight 0.35  - one substitution from self
+  <=7/9 foreign                   weight 1.0
 
-This is a *screen*, not the published JanusMatrix algorithm: it does not
-require the human counterpart to bind the same allele. It is therefore
-conservative in the direction of calling more peptides tolerised, and every
-flagged core is written out with its human hit so the call can be checked.
+The proteome pass uses a one-mismatch index, so it resolves 9/9 and 8/9 and
+reports everything else as "foreign" - it deliberately does not claim a 7/9 or
+6/9 number it cannot compute.
 
-Output: results/m4_core_tolerance.tsv (one row per distinct predicted core).
+The 8/9 cut is not a guess. A 5-of-9 "TCR-face" pattern - the obvious
+JanusMatrix-style shortcut - matches the human proteome by chance several
+times per query (~20^-5 x 1.1e7 9-mers), so it flags essentially everything
+and carries no information. At 8/9 the chance expectation is <0.1 hits per
+query. The module measures this directly rather than asserting it: the same
+proteome pass scores a **shuffled-sequence null** (each ligand's residues
+permuted, cores re-extracted) and reports the null hit rate next to the real
+one. If the null rate is not far below the real rate, the filter is noise and
+the run says so.
+
+Whether the human protein hit is an immunoglobulin V germline gene is recorded
+separately - for an antibody-derived ligand that is the mechanistically
+meaningful category.
+
+Output: results/m4_core_tolerance.tsv, results/m4_filter_validation.json
 """
 import csv
+import json
 import os
+import random
 import sys
 from collections import defaultdict
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from common import load_config, data_path, results_path  # noqa: E402
+from common import load_config, read_fasta, data_path, results_path  # noqa: E402
+
+NULL_SEED = 20260825
 
 
 def iter_proteome(path):
-    name, buf = None, []
+    """Yield (accession, entry_name, description, sequence)."""
+    hdr, buf = None, []
     with open(path) as f:
         for line in f:
             if line.startswith(">"):
-                if name:
-                    yield name, "".join(buf)
-                name, buf = line[1:].strip().split()[0], []
+                if hdr:
+                    yield hdr + ("".join(buf),)
+                h = line[1:].strip()
+                parts = h.split("|")
+                acc = parts[1] if len(parts) > 2 else h.split()[0]
+                rest = parts[2] if len(parts) > 2 else h
+                name = rest.split()[0]
+                desc = rest[len(name):].strip()
+                hdr, buf = (acc, name, desc), []
             else:
                 buf.append(line.strip())
-    if name:
-        yield name, "".join(buf)
+    if hdr:
+        yield hdr + ("".join(buf),)
+
+
+def build_index(cores):
+    """{masked_9mer: {core}} for all 9 mask positions - enables <=1 mismatch lookup."""
+    idx = defaultdict(set)
+    for c in cores:
+        for i in range(9):
+            idx[c[:i] + "." + c[i + 1:]].add(c)
+    return idx
+
+
+def is_germline_v(name, desc):
+    d = (name + " " + desc).lower()
+    return ("immunoglobulin heavy variable" in d
+            or "immunoglobulin kappa variable" in d
+            or "immunoglobulin lambda variable" in d)
 
 
 def main():
     cfg = load_config()
-    faces = cfg["tolerance_filter"]["tcr_face_positions"]
     proteome = os.path.join(os.path.dirname(os.path.dirname(
         os.path.abspath(__file__))), cfg["tolerance_filter"]["proteome"])
+    seqs = read_fasta(data_path("sequences.fasta"))
 
-    # ---- collect every distinct predicted core (any EL/WB-or-better call) ---
-    cores = defaultdict(set)          # core -> {sequence ids it came from}
+    # ---- real cores -------------------------------------------------------
+    cores = defaultdict(set)
     with open(results_path("m3_binding_long.tsv")) as f:
         for row in csv.DictReader(f, delimiter="\t"):
             if row["call_el"] in ("SB", "WB"):
                 cores[row["core"]].add(row["id"])
-    cores = {c: v for c, v in cores.items() if len(c) == 9}
-    print(f"{len(cores)} distinct 9-mer binding cores to screen")
+    cores = {c: v for c, v in cores.items() if len(c) == 9 and set(c) <= set("ACDEFGHIKLMNPQRSTVWY")}
 
-    def face(k):
-        return "".join(k[p - 1] for p in faces)
+    # ---- shuffled-sequence null ------------------------------------------
+    rng = random.Random(NULL_SEED)
+    null_cores = set()
+    for sid, seq in seqs.items():
+        chars = list(seq)
+        rng.shuffle(chars)
+        sh = "".join(chars)
+        for i in range(0, len(sh) - 8, 3):     # sample every 3rd frame
+            null_cores.add(sh[i:i + 9])
+    null_cores -= set(cores)
+    print(f"{len(cores)} predicted cores, {len(null_cores)} shuffled-null cores")
 
-    face_index = defaultdict(set)
-    for c in cores:
-        face_index[face(c)].add(c)
+    all_cores = set(cores) | null_cores
+    idx = build_index(all_cores)
 
-    exact_hit = {}      # core -> human protein accession
-    face_hit = {}       # core -> (human protein, human 9mer)
+    best = {}       # core -> (identity, acc, name, desc, human_9mer)
     n_prot = n_res = 0
-    for acc, seq in iter_proteome(proteome):
+    for acc, name, desc, seq in iter_proteome(proteome):
         n_prot += 1
         n_res += len(seq)
         for i in range(len(seq) - 8):
             k = seq[i:i + 9]
-            if k in cores and k not in exact_hit:
-                exact_hit[k] = acc
-            fk = face(k)
-            if fk in face_index:
-                for c in face_index[fk]:
-                    if c not in face_hit:
-                        face_hit[c] = (acc, k)
+            hits = set()
+            for j in range(9):
+                hits |= idx.get(k[:j] + "." + k[j + 1:], set())
+            for c in hits:
+                ident = sum(a == b for a, b in zip(c, k))
+                if ident > best.get(c, (0,))[0]:
+                    best[c] = (ident, acc, name, desc, k)
     print(f"screened {n_prot} human proteins / {n_res:,} residues")
 
-    w_exact = cfg["tolerance_filter"]["discount_exact"]
-    w_face = cfg["tolerance_filter"]["discount_tcrface"]
+    def classify(c):
+        ident = best.get(c, (0,))[0]
+        if ident == 9:
+            return "exact_human_9mer", 0.0
+        if ident == 8:
+            return "near_human_9mer", cfg["tolerance_filter"]["discount_tcrface"]
+        return "foreign", 1.0
 
-    out = results_path("m4_core_tolerance.tsv")
-    n_e = n_f = 0
-    with open(out, "w", newline="") as f:
+    # ---- validation: real vs shuffled null --------------------------------
+    def rate(cs, min_ident):
+        return sum(1 for c in cs if best.get(c, (0,))[0] >= min_ident) / max(len(cs), 1)
+
+    validation = {
+        "n_real_cores": len(cores),
+        "n_null_cores": len(null_cores),
+        "real_hit_rate_9of9": round(rate(cores, 9), 4),
+        "null_hit_rate_9of9": round(rate(null_cores, 9), 4),
+        "real_hit_rate_8of9": round(rate(cores, 8), 4),
+        "null_hit_rate_8of9": round(rate(null_cores, 8), 4),
+    }
+    enr = validation["real_hit_rate_8of9"] / max(validation["null_hit_rate_8of9"], 1e-9)
+    validation["enrichment_8of9_real_over_null"] = round(min(enr, 9999.0), 2)
+    validation["filter_informative"] = (validation["null_hit_rate_8of9"] < 0.05
+                                        and enr > 3.0)
+    with open(results_path("m4_filter_validation.json"), "w") as f:
+        json.dump(validation, f, indent=2)
+
+    # ---- output -----------------------------------------------------------
+    counts = defaultdict(int)
+    with open(results_path("m4_core_tolerance.tsv"), "w", newline="") as f:
         w = csv.writer(f, delimiter="\t")
-        w.writerow(["core", "from_sequences", "tolerance_class",
-                    "human_hit_protein", "human_hit_9mer", "weight"])
+        w.writerow(["core", "from_sequences", "tolerance_class", "identity_to_human",
+                    "human_hit_protein", "human_hit_entry", "human_hit_9mer",
+                    "hit_is_germline_V", "weight"])
         for c in sorted(cores):
-            if c in exact_hit:
-                cls, prot, hk, wt = "exact_human_9mer", exact_hit[c], c, w_exact
-                n_e += 1
-            elif c in face_hit:
-                cls, (prot, hk), wt = "human_tcr_face", face_hit[c], w_face
-                n_f += 1
-            else:
-                cls, prot, hk, wt = "foreign", "-", "-", 1.0
-            w.writerow([c, ",".join(sorted(cores[c])), cls, prot, hk, wt])
+            cls, wt = classify(c)
+            ident, acc, name, desc, k = best.get(c, (0, "-", "-", "", "-"))
+            counts[cls] += 1
+            w.writerow([c, ",".join(sorted(cores[c])), cls, ident, acc, name, k,
+                        is_germline_v(name, desc) if ident >= 8 else False, wt])
 
-    print(f"\n  exact human 9-mer core : {n_e:4d}  ({100*n_e/len(cores):.1f}%)  weight {w_exact}")
-    print(f"  human TCR-face match   : {n_f:4d}  ({100*n_f/len(cores):.1f}%)  weight {w_face}")
-    print(f"  foreign                : {len(cores)-n_e-n_f:4d}  "
-          f"({100*(len(cores)-n_e-n_f)/len(cores):.1f}%)  weight 1.0")
-    print(f"wrote {out}")
+    print("\ntolerance classification of predicted cores")
+    for cls in ("exact_human_9mer", "near_human_9mer", "foreign"):
+        n = counts[cls]
+        print(f"  {cls:20s} {n:4d}  ({100*n/len(cores):5.1f}%)")
+    print("\nfilter validation (real cores vs shuffled-sequence null)")
+    for k in ("9of9", "8of9"):
+        print(f"  >={k}: real {validation['real_hit_rate_'+k]*100:5.1f}%   "
+              f"null {validation['null_hit_rate_'+k]*100:5.1f}%")
+    print(f"  enrichment at 8/9: {validation['enrichment_8of9_real_over_null']}x")
+    print(f"  filter informative: {validation['filter_informative']}")
 
 
 if __name__ == "__main__":

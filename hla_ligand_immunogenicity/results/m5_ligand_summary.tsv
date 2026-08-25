@@ -1,0 +1,11 @@
+id	role	length	n_epitopes	n_foreign_epitopes	n_tolerised_epitopes	max_promiscuity	pIRS	pIRS_no_tolerance_filter	pop_at_risk	n_clusters	n_foreign_clusters
+TT_p2_region	positive_control	50	5	5	0	4	1.46	1.46	0.5127	1	1
+ProteinL_B1	benchmark_ligand	63	4	4	0	3	0.71	0.71	0.3932	2	2
+AAVX_VHH	test_article	126	5	4	1	6	0.38	0.38	0.2855	4	3
+TT_p30_region	positive_control	50	1	1	0	2	0.28	0.28	0.1401	1	1
+VHH_7D12	class_comparator	124	4	3	1	3	0.26	0.26	0.3104	3	2
+Caplacizumab_VHH	clinical_anchor	128	7	5	2	5	0.15	0.41	0.1941	6	5
+ProteinA_Z	benchmark_ligand	58	2	2	0	2	0.13	0.13	0.0754	2	2
+ProteinA_B_native	benchmark_ligand	58	1	1	0	2	0.13	0.13	0.0754	1	1
+HumanVH3_23_germline	negative_control_self	98	4	0	4	6	0.0	0.37	0.0	4	0
+HSA_D1	negative_control_self	130	1	0	1	2	0.0	0.13	0.0	1	0

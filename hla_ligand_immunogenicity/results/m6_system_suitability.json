@@ -1,0 +1,25 @@
+{
+  "checks": [
+    {
+      "check": "universal epitopes detected with multi-allele breadth",
+      "detail": "TT_p2_region 5/25 DR at %Rank<5 (0 at <1, best 1.4); TT_p30_region 5/25 DR at %Rank<5 (2 at <1, best 0.64)",
+      "pass": true
+    },
+    {
+      "check": "self controls suppressed by tolerance filter",
+      "detail": "HumanVH3_23_germline pIRS 0.00 (raw 0.37); HSA_D1 pIRS 0.00 (raw 0.13)",
+      "pass": true
+    },
+    {
+      "check": "tolerance filter discriminates self from foreign",
+      "detail": "mean score drop: self 100.0% vs ligands 10.6%",
+      "pass": true
+    },
+    {
+      "check": "benchmark anchor scored",
+      "detail": "ProteinA_Z pIRS 0.13",
+      "pass": true
+    }
+  ],
+  "batch_valid": true
+}

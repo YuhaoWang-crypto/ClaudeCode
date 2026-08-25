@@ -1,0 +1,25 @@
+{
+  "universal_epitopes": {
+    "TT_p2_region": {
+      "n_alleles": 25,
+      "n_sb": 0,
+      "n_wb": 5,
+      "best_rank": 1.4
+    },
+    "TT_p30_region": {
+      "n_alleles": 25,
+      "n_sb": 2,
+      "n_wb": 5,
+      "best_rank": 0.64
+    }
+  },
+  "panel_size": 25,
+  "sb_threshold": 1.0,
+  "wb_threshold": 5.0,
+  "universal_epitope_ceiling_sb": 2,
+  "universal_epitope_ceiling_wb": 5,
+  "test_article": "AAVX_VHH",
+  "test_peak_promiscuity_sb": 6,
+  "test_peak_vs_universal_sb": 3.0,
+  "interpretation": "Experimentally universal T-helper epitopes reach 2/25 DR molecules at EL %Rank < 1 and 5/25 at < 5 on this panel. The strong-binder tier is therefore a high-specificity, low-sensitivity criterion: it does not reproduce the textbook universal epitopes, so a peptide that does clear it across many molecules is more promiscuous than they are, not merely 'a strong binder'."
+}
