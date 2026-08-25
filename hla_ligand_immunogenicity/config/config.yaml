@@ -1,0 +1,68 @@
+# =============================================================================
+# HLA-DR immunogenicity assessment of process-related affinity ligands
+# Configuration — everything the pipeline needs is here.
+# =============================================================================
+
+project:
+  name: "Affinity-ligand HLA-DR immunogenicity risk assessment"
+  intended_use: "RUO / internal risk ranking and impurity qualification support"
+  # This demo runs on a PUBLIC stand-in ligand (PDB 9DC3) so the whole
+  # pipeline is reproducible. For proprietary ligands, replace data/
+  # sequences.fasta with de-identified FASTA and re-run unchanged.
+
+panel:
+  # Requirement from the sponsor: >=12 HLA-DR molecules,
+  # 95-98% US/EU weighted population coverage.
+  min_alleles: 12
+  coverage_target: 0.97          # weighted US/EU DRB1 phenotypic coverage
+  # Populations pulled from the IEDB population-coverage frequency tables.
+  # US composite is weighted by US Census 2020 race/ethnicity shares.
+  us_weights:
+    "United States Caucasoid": 0.577   # White, not Hispanic or Latino
+    "United States Hispanic": 0.189
+    "United States Black": 0.123
+    "United States Asian": 0.060
+    "United States Amerindian": 0.013
+    "United States Mestizo": 0.038     # residual "two or more / other"
+  eu_population: "Europe"
+  us_eu_split: [0.5, 0.5]        # US : EU weighting in the headline number
+  # DRB3/4/5 do not appear in the IEDB DRB1-locus frequency tables, so they
+  # add immunological breadth (the second DR molecule) without changing the
+  # DRB1 coverage arithmetic. Reported separately, never double-counted.
+  include_drb345:
+    - "HLA-DRB3*01:01"
+    - "HLA-DRB3*02:02"
+    - "HLA-DRB4*01:01"
+    - "HLA-DRB5*01:01"
+
+prediction:
+  tool: "IEDB MHC-II binding, method=netmhciipan_el and netmhciipan_ba"
+  endpoint: "https://tools-cluster-interface.iedb.org/tools_api/mhcii/"
+  peptide_length: 15
+  sb_rank: 1.0                   # strong binder: EL %Rank < 1
+  wb_rank: 5.0                   # weak binder:   EL %Rank < 5
+  ba_confirm_rank: 10.0          # BA %Rank ceiling for a consensus call
+  alleles_per_request: 5
+  bcell_method: "Bepipred-2.0"
+  bcell_endpoint: "https://tools-cluster-interface.iedb.org/tools_api/bcell/"
+
+tolerance_filter:
+  # Predicted cores that also occur in the human proteome are pre-existing-
+  # tolerance candidates and are down-weighted, not deleted.
+  proteome: "data/human_sprot.fasta"     # UniProt Swiss-Prot Homo sapiens
+  tcr_face_positions: [2, 3, 5, 7, 8]    # 1-based P2,P3,P5,P7,P8 of the 9-mer core
+  discount_exact: 0.0                    # weight kept for an exact human 9-mer core
+  discount_tcrface: 0.35                 # weight kept for a human TCR-face match
+
+exposure:
+  # Used only for the risk-in-context matrix; edit to your own product.
+  ligand_mw_kda: 13.5
+  leachate_ppm: [1, 10, 100]             # ng ligand / mg product
+  dose_mg: [1, 10, 100, 1000]            # mg drug product per administration
+  # Literature anchor: sub-microgram/dose protein impurity exposure is the
+  # regime in which rProtein A leachate has decades of clinical use.
+
+benchmarks:
+  anchor_low: "ProteinA_Z"      # clinically qualified affinity-ligand leachate
+  anchor_self: "HSA_D1"         # human self protein -> tolerised floor
+  anchor_high: "TT_p30_region"  # tetanus universal epitope -> assay ceiling

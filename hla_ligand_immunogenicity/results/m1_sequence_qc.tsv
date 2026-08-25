@@ -1,0 +1,11 @@
+id	role	length	source	qc_canonical_only	non_canonical	ambiguous_codes	mw_kda	pI	pct_id_human_IGHV3_23	vhh_hallmarks
+AAVX_VHH	test_article	126	PDB 9DC3 entity 2	True	-	-	13.62	8.65	65.3	FERF (4/4 camelid)
+ProteinA_Z	benchmark_ligand	58	PDB 1Q2N	True	-	-	6.64	4.93	20.7	n/a
+ProteinA_B_native	benchmark_ligand	58	UniProt P38507 212-269	True	-	-	6.6	4.93	19.3	n/a
+ProteinL_B1	benchmark_ligand	63	UniProt Q51918 255-317	True	-	-	6.72	4.38	30.2	n/a
+Caplacizumab_VHH	clinical_anchor	128	PDB 7EOW entity 2	True	-	-	13.84	9.09	81.6	FGRL (3/4 camelid)
+VHH_7D12	class_comparator	124	PDB 4KRL entity 1	True	-	-	13.42	8.16	72.4	FERF (4/4 camelid)
+HumanVH3_23_germline	negative_control_self	98	UniProt P01764 (IGHV3-23), mature V region	True	-	-	10.45	8.68	100.0	VGLW (0/4 camelid)
+HSA_D1	negative_control_self	130	UniProt P02768 residues 25-154 (mature albumin D1)	True	-	-	14.82	4.62	16.3	n/a
+TT_p2_region	positive_control	50	UniProt P04958 residues 810-859	True	-	-	5.78	10.35	18.0	n/a
+TT_p30_region	positive_control	50	UniProt P04958 residues 927-976	True	-	-	5.86	4.48	26.0	n/a

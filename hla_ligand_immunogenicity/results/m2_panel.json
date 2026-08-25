@@ -1,0 +1,185 @@
+{
+  "weights": {
+    "United States Caucasoid": 0.2885,
+    "United States Hispanic": 0.0945,
+    "United States Black": 0.0615,
+    "United States Asian": 0.03,
+    "United States Amerindian": 0.0065,
+    "United States Mestizo": 0.019,
+    "Europe": 0.5
+  },
+  "target": 0.97,
+  "drb1_panel": [
+    "HLA-DRB1*07:01",
+    "HLA-DRB1*03:01",
+    "HLA-DRB1*15:01",
+    "HLA-DRB1*01:01",
+    "HLA-DRB1*11:01",
+    "HLA-DRB1*04:01",
+    "HLA-DRB1*13:01",
+    "HLA-DRB1*13:02",
+    "HLA-DRB1*04:04",
+    "HLA-DRB1*11:04",
+    "HLA-DRB1*16:01",
+    "HLA-DRB1*14:01",
+    "HLA-DRB1*04:07",
+    "HLA-DRB1*12:01",
+    "HLA-DRB1*09:01",
+    "HLA-DRB1*08:02",
+    "HLA-DRB1*01:02",
+    "HLA-DRB1*08:01",
+    "HLA-DRB1*15:03",
+    "HLA-DRB1*13:03",
+    "HLA-DRB1*04:05"
+  ],
+  "drb345_panel": [
+    "HLA-DRB3*01:01",
+    "HLA-DRB3*02:02",
+    "HLA-DRB4*01:01",
+    "HLA-DRB5*01:01"
+  ],
+  "panel_size_drb1": 21,
+  "panel_size_total": 25,
+  "weighted_coverage": 0.9726699346685309,
+  "legacy_drb1_panel": [
+    "HLA-DRB1*01:01",
+    "HLA-DRB1*03:01",
+    "HLA-DRB1*04:01",
+    "HLA-DRB1*04:05",
+    "HLA-DRB1*07:01",
+    "HLA-DRB1*08:02",
+    "HLA-DRB1*09:01",
+    "HLA-DRB1*11:01",
+    "HLA-DRB1*12:01",
+    "HLA-DRB1*13:02",
+    "HLA-DRB1*15:01"
+  ],
+  "legacy_weighted_coverage": 0.8422626485898239,
+  "per_population": {
+    "United States Caucasoid": 0.99125775,
+    "United States Hispanic": 0.9451334800125774,
+    "United States Black": 0.9395782243002451,
+    "United States Asian": 0.8486789999999999,
+    "United States Amerindian": 0.6723617926567637,
+    "United States Mestizo": 0.936773798618537,
+    "Europe": 0.9839269506237123,
+    "World": 0.9537142542785196
+  },
+  "legacy_per_population": {
+    "United States Caucasoid": 0.90146679,
+    "United States Hispanic": 0.7294586404686103,
+    "United States Black": 0.7149765552359693,
+    "United States Asian": 0.7884,
+    "United States Amerindian": 0.42787361813498415,
+    "United States Mestizo": 0.7223222229693238,
+    "Europe": 0.8582545584984671,
+    "World": 0.8180735041080973
+  },
+  "curve": [
+    {
+      "n": 1,
+      "added": "HLA-DRB1*07:01",
+      "weighted_coverage": 0.22469523202259772
+    },
+    {
+      "n": 2,
+      "added": "HLA-DRB1*03:01",
+      "weighted_coverage": 0.3987870017704485
+    },
+    {
+      "n": 3,
+      "added": "HLA-DRB1*15:01",
+      "weighted_coverage": 0.5442600842639873
+    },
+    {
+      "n": 4,
+      "added": "HLA-DRB1*01:01",
+      "weighted_coverage": 0.6285650998189307
+    },
+    {
+      "n": 5,
+      "added": "HLA-DRB1*11:01",
+      "weighted_coverage": 0.6971164808321483
+    },
+    {
+      "n": 6,
+      "added": "HLA-DRB1*04:01",
+      "weighted_coverage": 0.7538445079940556
+    },
+    {
+      "n": 7,
+      "added": "HLA-DRB1*13:01",
+      "weighted_coverage": 0.8012057420355696
+    },
+    {
+      "n": 8,
+      "added": "HLA-DRB1*13:02",
+      "weighted_coverage": 0.8307682124043212
+    },
+    {
+      "n": 9,
+      "added": "HLA-DRB1*04:04",
+      "weighted_coverage": 0.8528902674396985
+    },
+    {
+      "n": 10,
+      "added": "HLA-DRB1*11:04",
+      "weighted_coverage": 0.872748262782186
+    },
+    {
+      "n": 11,
+      "added": "HLA-DRB1*16:01",
+      "weighted_coverage": 0.8878787442737919
+    },
+    {
+      "n": 12,
+      "added": "HLA-DRB1*14:01",
+      "weighted_coverage": 0.9013164453521411
+    },
+    {
+      "n": 13,
+      "added": "HLA-DRB1*04:07",
+      "weighted_coverage": 0.9134581921900913
+    },
+    {
+      "n": 14,
+      "added": "HLA-DRB1*12:01",
+      "weighted_coverage": 0.9239991572812705
+    },
+    {
+      "n": 15,
+      "added": "HLA-DRB1*09:01",
+      "weighted_coverage": 0.9336854390375926
+    },
+    {
+      "n": 16,
+      "added": "HLA-DRB1*08:02",
+      "weighted_coverage": 0.9425525807585595
+    },
+    {
+      "n": 17,
+      "added": "HLA-DRB1*01:02",
+      "weighted_coverage": 0.9506461471156897
+    },
+    {
+      "n": 18,
+      "added": "HLA-DRB1*08:01",
+      "weighted_coverage": 0.9577578785849918
+    },
+    {
+      "n": 19,
+      "added": "HLA-DRB1*15:03",
+      "weighted_coverage": 0.963388721227624
+    },
+    {
+      "n": 20,
+      "added": "HLA-DRB1*13:03",
+      "weighted_coverage": 0.9683766362614201
+    },
+    {
+      "n": 21,
+      "added": "HLA-DRB1*04:05",
+      "weighted_coverage": 0.9726699346685309
+    }
+  ]
+}
