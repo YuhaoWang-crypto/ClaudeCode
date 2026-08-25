@@ -19,3 +19,5 @@ results/two_axis.log
 results/llm_preds/
 results/llm_preds_informed/
 results/panel_mix.log
+.modal.toml
+modal.toml
