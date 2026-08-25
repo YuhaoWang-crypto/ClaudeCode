@@ -69,9 +69,22 @@ class BlindToGene(ContextTransferModel):
         return super()._from_neighbours(None, name)
 
 
-def load_embeddings(symbols: np.ndarray) -> np.ndarray | None:
-    """Unit-norm protein embeddings on this gene axis; zero rows where absent."""
+def load_embeddings(symbols: np.ndarray, required: bool = False
+                    ) -> np.ndarray | None:
+    """Unit-norm protein embeddings on this gene axis; zero rows where absent.
+
+    ``required`` turns a missing file into an error.  Returning None quietly is
+    right for a benchmark arm that can be skipped, and wrong for a build that
+    asked for embedding routing: on a fresh machine the file is simply absent
+    and the submission silently loses the only route it has to the 26 panel
+    targets with no measurement at all.
+    """
     if not EMBED.exists():
+        if required:
+            raise SystemExit(
+                f"esm_mix > 0 but {EMBED} is missing. Fetch it with:\n"
+                f"  curl -sSL -o {EMBED} https://huggingface.co/arcinstitute/"
+                f"SE-600M/resolve/main/protein_embeddings.pt")
         return None
     import torch
 

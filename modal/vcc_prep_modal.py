@@ -30,6 +30,8 @@ import modal
 REPO = "https://github.com/yuhaowang-crypto/claudecode.git"
 BRANCH = "claude/virtual-cell-model-prediction-qu31ry"
 GWPS = "https://ndownloader.figshare.com/files/35774443"
+EMBED = ("https://huggingface.co/arcinstitute/SE-600M/resolve/main/"
+         "protein_embeddings.pt")   # 392 MB, routes the 26 unmeasured targets
 
 image = (
     modal.Image.debian_slim(python_version="3.11")
@@ -69,6 +71,10 @@ def build() -> str:
     gwps = Path(f"{DATA}/vcc_data/replogle/K562_gwps_raw_bulk.h5ad")
     if not gwps.exists():
         subprocess.check_call(["curl", "-sSL", "--retry", "4", "-o", str(gwps), GWPS])
+    emb = Path(f"{DATA}/vcc_data/state/protein_embeddings.pt")
+    emb.parent.mkdir(parents=True, exist_ok=True)
+    if not emb.exists():
+        subprocess.check_call(["curl", "-sSL", "--retry", "4", "-o", str(emb), EMBED])
     for need in ("vcc_official/gene_names.csv", "vcc_official/context_A.h5ad"):
         if not Path(f"{DATA}/{need}").exists():
             raise SystemExit(

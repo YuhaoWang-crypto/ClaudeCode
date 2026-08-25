@@ -1,0 +1,17 @@
+
+=== K562: 100 knockdowns ===
+  4606/6642 genes recovered from Stack output
+  -- all 6,642 genes --
+    control (delta=0)                  PDS=0.506  ovl@100=0.003  MAE=0.0424  score=0.029
+    global mean [challenge baseline]   PDS=0.506  ovl@100=0.045  MAE=0.0464  score=0.000
+    naive transfer                     PDS=0.713  ovl@100=0.229  MAE=0.0521  score=0.204
+    ContextTransfer (ours)             PDS=0.662  ovl@100=0.274  MAE=0.0423  score=0.215
+  -- restricted to genes Stack covers --
+    control (delta=0)                  PDS=0.506  ovl@100=0.004  MAE=0.0427  score=0.032
+    global mean [challenge baseline]   PDS=0.506  ovl@100=0.053  MAE=0.0472  score=0.000
+    naive transfer                     PDS=0.713  ovl@100=0.222  MAE=0.0535  score=0.199
+    ContextTransfer (ours)             PDS=0.667  ovl@100=0.267  MAE=0.0425  score=0.217
+    Stack (Arc, in-context)            PDS=0.505  ovl@100=0.040  MAE=0.0605  score=0.000
+
+=== RPE1: 100 knockdowns ===
+  4606/6642 genes recovered from Stack output

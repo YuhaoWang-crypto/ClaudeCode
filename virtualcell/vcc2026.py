@@ -151,7 +151,8 @@ def predict_panel(hp: Hyper, targets: np.ndarray | None = None,
     # nor measured in the source. Without them those rows carry no information
     # the discrimination metric can see: they differ only in their own on-target
     # column, and that column is the one exclude_target_gene removes.
-    embed = load_embeddings(src.symbols) if hp.esm_mix > 0 else None
+    embed = (load_embeddings(src.symbols, required=True)
+             if hp.esm_mix > 0 else None)
     if verbose and prior is not None:
         print(f"  per-gene transferability prior {prior_name!r} in use "
               f"(gene_w={hp.gene_w:g}), median {np.median(prior):.3f}")

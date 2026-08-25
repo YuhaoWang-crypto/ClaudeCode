@@ -353,3 +353,42 @@ Built image im-IUvoL1x5K8cSNM5rjALzmt in 3.84s
 ├── 🔨 Created function build.
 ├── 🔨 Created function prep.
 └── 🔨 Created function manifest.
+hyperparameters (mean over 3 held-out lines): Hyper(temp=inf, smooth=0.3666666666666667, n_neighbors=5, shrink=0.6666666666666666, gamma=0.4166666666666667, mod_clip=2.0, beta=1.1833333333333333, use_global=0.16666666666666666, on_target=True, rank=80, rank_mix=0.5, unseen_k=25, renorm=0.0, gene_w=0.0, esm_mix=0.0)
+  frontier picks arm 'atlas:1': beta 1.18333 -> 0.75, gene_w 0 -> 1 (mean PDS 0.545, ovl@100 0.185, score 0.076)
+    for reference, a perfect per-gene prior would score 0.0777 against this arm's 0.0761 -- the whole route is worth +0.0016 more than what is shipped
+  source: 9,866 knockdowns over 7,681 of 18,533 official genes; 272/300 of the panel measured directly
+  per-gene transferability prior 'atlas' in use (gene_w=1), median 0.327
+  context A: 300/300 knockdowns given a nonzero effect, median |effect| over predicted genes 0.0054, magnitude spread (norm CV) 0.529
+  context B: 300/300 knockdowns given a nonzero effect, median |effect| over predicted genes 0.0052, magnitude spread (norm CV) 0.537
+  context C: 300/300 knockdowns given a nonzero effect, median |effect| over predicted genes 0.0052, magnitude spread (norm CV) 0.539
+  reference: the same knockdowns measured in K562 have norm CV 0.360
+  context A: 300 knockdowns x 400 cells from a pool of 18,400 controls
+    50/300 (119M entries)
+    100/300 (238M entries)
+    150/300 (357M entries)
+    200/300 (476M entries)
+    250/300 (596M entries)
+    300/300 (715M entries)
+  context B: 300 knockdowns x 400 cells from a pool of 18,400 controls
+    50/300 (825M entries)
+    100/300 (935M entries)
+    150/300 (1045M entries)
+    200/300 (1155M entries)
+    250/300 (1265M entries)
+    300/300 (1375M entries)
+  context C: 300 knockdowns x 400 cells from a pool of 18,400 controls
+    50/300 (1492M entries)
+    100/300 (1609M entries)
+    150/300 (1727M entries)
+    200/300 (1844M entries)
+    250/300 (1961M entries)
+    300/300 (2078M entries)
+  wrote /vol/vcc_submission/prediction.h5ad — 360,000 cells x 18,533 genes, 2,078,070,709 stored entries (5772 genes/cell), 4609 MB
+  per-cell counts: median 20040, max 107503 (cap is 1,000,000)
+
+validate with:
+  vcc prep /vol/vcc_submission/prediction.h5ad -g /home/user/vcc_official/gene_names.csv --perts /home/user/vcc_official/pert_counts.csv -o prediction.vcc
+
+Stopping app - local entrypoint completed.
+✓ App completed. View run at 
+https://modal.com/apps/wyh-58141/main/ap-j2nh6ua2lu6bixSfU5Imdn
