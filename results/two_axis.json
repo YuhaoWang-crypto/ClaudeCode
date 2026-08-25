@@ -123,6 +123,68 @@
         "mae": 0.046184466047402686,
         "mae_delta": 0.04618446604740268
       }
+    },
+    "unseen target, gene unmeasured": {
+      "global mean [baseline]": {
+        "discrimination_score_l1": 0.503264,
+        "overlap_at_100": 0.04705256873517759,
+        "overlap_at_50": 0.03749305088533053,
+        "de_direction_match": 0.6261337796636804,
+        "de_spearman_lfc": 0.16088686415486853,
+        "pearson_delta": 0.13479092879892762,
+        "mae": 0.045455767372661555,
+        "mae_delta": 0.045455767372661555
+      },
+      "ContextTransfer esm_mix=0": {
+        "discrimination_score_l1": 0.5032000000000001,
+        "overlap_at_100": 0.14128286808652668,
+        "overlap_at_50": 0.13252317083995185,
+        "de_direction_match": 0.6791008735199239,
+        "de_spearman_lfc": 0.2321199045860338,
+        "pearson_delta": 0.16240992540044327,
+        "mae": 0.045246228743237166,
+        "mae_delta": 0.045246228743237166
+      },
+      "ContextTransfer esm_mix=0.25": {
+        "discrimination_score_l1": 0.513168,
+        "overlap_at_100": 0.13650951992807936,
+        "overlap_at_50": 0.1268559699107997,
+        "de_direction_match": 0.690828472797721,
+        "de_spearman_lfc": 0.2534566878773203,
+        "pearson_delta": 0.17199709244733644,
+        "mae": 0.046184466047402686,
+        "mae_delta": 0.04618446604740268
+      },
+      "ContextTransfer esm_mix=0.5": {
+        "discrimination_score_l1": 0.513168,
+        "overlap_at_100": 0.13650951992807936,
+        "overlap_at_50": 0.1268559699107997,
+        "de_direction_match": 0.690828472797721,
+        "de_spearman_lfc": 0.2534566878773203,
+        "pearson_delta": 0.17199709244733644,
+        "mae": 0.046184466047402686,
+        "mae_delta": 0.04618446604740268
+      },
+      "ContextTransfer esm_mix=0.75": {
+        "discrimination_score_l1": 0.513168,
+        "overlap_at_100": 0.13650951992807936,
+        "overlap_at_50": 0.1268559699107997,
+        "de_direction_match": 0.690828472797721,
+        "de_spearman_lfc": 0.2534566878773203,
+        "pearson_delta": 0.1719970924284674,
+        "mae": 0.046184466049566025,
+        "mae_delta": 0.046184466049566025
+      },
+      "ContextTransfer esm_mix=1": {
+        "discrimination_score_l1": 0.513168,
+        "overlap_at_100": 0.13650951992807936,
+        "overlap_at_50": 0.1268559699107997,
+        "de_direction_match": 0.690828472797721,
+        "de_spearman_lfc": 0.2534566878773203,
+        "pearson_delta": 0.17199709244733644,
+        "mae": 0.046184466047402686,
+        "mae_delta": 0.04618446604740268
+      }
     }
   },
   "RPE1": {
@@ -238,6 +300,68 @@
         "pearson_delta": 0.3544635887735666,
         "mae": 0.06660272828959303,
         "mae_delta": 0.06660272828959303
+      },
+      "ContextTransfer esm_mix=1": {
+        "discrimination_score_l1": 0.5046240000000001,
+        "overlap_at_100": 0.18095009737814288,
+        "overlap_at_50": 0.17974729909538845,
+        "de_direction_match": 0.7782221085506503,
+        "de_spearman_lfc": 0.3322240167265636,
+        "pearson_delta": 0.3520084847874411,
+        "mae": 0.06664870465331645,
+        "mae_delta": 0.06664870465331645
+      }
+    },
+    "unseen target, gene unmeasured": {
+      "global mean [baseline]": {
+        "discrimination_score_l1": 0.502752,
+        "overlap_at_100": 0.056674688581159434,
+        "overlap_at_50": 0.05496189973002004,
+        "de_direction_match": 0.6925160006292366,
+        "de_spearman_lfc": 0.2593349434069021,
+        "pearson_delta": 0.33291067156066,
+        "mae": 0.06704579391762554,
+        "mae_delta": 0.06704579391762554
+      },
+      "ContextTransfer esm_mix=0": {
+        "discrimination_score_l1": 0.502592,
+        "overlap_at_100": 0.18061006788368839,
+        "overlap_at_50": 0.180742854650944,
+        "de_direction_match": 0.7560410273391047,
+        "de_spearman_lfc": 0.2927236849172609,
+        "pearson_delta": 0.3420304046348787,
+        "mae": 0.06705315309405059,
+        "mae_delta": 0.06705315309405059
+      },
+      "ContextTransfer esm_mix=0.25": {
+        "discrimination_score_l1": 0.5046240000000001,
+        "overlap_at_100": 0.18095009737814288,
+        "overlap_at_50": 0.17974729909538845,
+        "de_direction_match": 0.7782221085506503,
+        "de_spearman_lfc": 0.3322240167265636,
+        "pearson_delta": 0.3520084847874411,
+        "mae": 0.06664870465331645,
+        "mae_delta": 0.06664870465331645
+      },
+      "ContextTransfer esm_mix=0.5": {
+        "discrimination_score_l1": 0.5046240000000001,
+        "overlap_at_100": 0.18095009737814288,
+        "overlap_at_50": 0.17974729909538845,
+        "de_direction_match": 0.7782221085506503,
+        "de_spearman_lfc": 0.3322240167265636,
+        "pearson_delta": 0.3520084847874411,
+        "mae": 0.06664870465331645,
+        "mae_delta": 0.06664870465331645
+      },
+      "ContextTransfer esm_mix=0.75": {
+        "discrimination_score_l1": 0.5046240000000001,
+        "overlap_at_100": 0.18095009737814288,
+        "overlap_at_50": 0.17974729909538845,
+        "de_direction_match": 0.7782221085506503,
+        "de_spearman_lfc": 0.3322240167265636,
+        "pearson_delta": 0.35200848482228075,
+        "mae": 0.06664870465214492,
+        "mae_delta": 0.06664870465214492
       },
       "ContextTransfer esm_mix=1": {
         "discrimination_score_l1": 0.5046240000000001,
@@ -375,6 +499,68 @@
         "mae": 0.057998579273971604,
         "mae_delta": 0.057998579273971604
       }
+    },
+    "unseen target, gene unmeasured": {
+      "global mean [baseline]": {
+        "discrimination_score_l1": 0.503008,
+        "overlap_at_100": 0.12775114529281556,
+        "overlap_at_50": 0.12767001319004803,
+        "de_direction_match": 0.7546395179883764,
+        "de_spearman_lfc": 0.36883680346890485,
+        "pearson_delta": 0.267535824272794,
+        "mae": 0.058263696309004485,
+        "mae_delta": 0.058263696309004485
+      },
+      "ContextTransfer esm_mix=0": {
+        "discrimination_score_l1": 0.5029440000000001,
+        "overlap_at_100": 0.25580161121938155,
+        "overlap_at_50": 0.2579236238785398,
+        "de_direction_match": 0.7966729853487687,
+        "de_spearman_lfc": 0.42233151370144695,
+        "pearson_delta": 0.28268718712748053,
+        "mae": 0.058138144609279886,
+        "mae_delta": 0.058138144609279886
+      },
+      "ContextTransfer esm_mix=0.25": {
+        "discrimination_score_l1": 0.508608,
+        "overlap_at_100": 0.24699944360095502,
+        "overlap_at_50": 0.2525379457414625,
+        "de_direction_match": 0.8020780272693734,
+        "de_spearman_lfc": 0.4319737597237123,
+        "pearson_delta": 0.2895529728788125,
+        "mae": 0.057998579273971604,
+        "mae_delta": 0.057998579273971604
+      },
+      "ContextTransfer esm_mix=0.5": {
+        "discrimination_score_l1": 0.508608,
+        "overlap_at_100": 0.24699944360095502,
+        "overlap_at_50": 0.2525379457414625,
+        "de_direction_match": 0.8020780272693734,
+        "de_spearman_lfc": 0.4319737597237123,
+        "pearson_delta": 0.2895529728788125,
+        "mae": 0.057998579273971604,
+        "mae_delta": 0.057998579273971604
+      },
+      "ContextTransfer esm_mix=0.75": {
+        "discrimination_score_l1": 0.508608,
+        "overlap_at_100": 0.24699944360095502,
+        "overlap_at_50": 0.2525379457414625,
+        "de_direction_match": 0.8020780272693734,
+        "de_spearman_lfc": 0.4319737597237123,
+        "pearson_delta": 0.2895529728944329,
+        "mae": 0.05799857927351107,
+        "mae_delta": 0.05799857927351107
+      },
+      "ContextTransfer esm_mix=1": {
+        "discrimination_score_l1": 0.508608,
+        "overlap_at_100": 0.24699944360095502,
+        "overlap_at_50": 0.2525379457414625,
+        "de_direction_match": 0.8020780272693734,
+        "de_spearman_lfc": 0.4319737597237123,
+        "pearson_delta": 0.2895529728788125,
+        "mae": 0.057998579273971604,
+        "mae_delta": 0.057998579273971604
+      }
     }
   },
   "Jurkat": {
@@ -490,6 +676,68 @@
         "pearson_delta": 0.15700311274941264,
         "mae": 0.05962754734727894,
         "mae_delta": 0.05962754734727894
+      },
+      "ContextTransfer esm_mix=1": {
+        "discrimination_score_l1": 0.508144,
+        "overlap_at_100": 0.11224409368813289,
+        "overlap_at_50": 0.10788404708740862,
+        "de_direction_match": 0.7136172319224222,
+        "de_spearman_lfc": 0.34620904089609444,
+        "pearson_delta": 0.1544711233310209,
+        "mae": 0.05939495569924407,
+        "mae_delta": 0.059394955699244065
+      }
+    },
+    "unseen target, gene unmeasured": {
+      "global mean [baseline]": {
+        "discrimination_score_l1": 0.50288,
+        "overlap_at_100": 0.04681744436398131,
+        "overlap_at_50": 0.04246181645113332,
+        "de_direction_match": 0.653871449691688,
+        "de_spearman_lfc": 0.2954936218137712,
+        "pearson_delta": 0.13295278438752148,
+        "mae": 0.057751990025870475,
+        "mae_delta": 0.05775199002587047
+      },
+      "ContextTransfer esm_mix=0": {
+        "discrimination_score_l1": 0.502912,
+        "overlap_at_100": 0.11538183949114397,
+        "overlap_at_50": 0.10750042389900284,
+        "de_direction_match": 0.6917352516512469,
+        "de_spearman_lfc": 0.3205601687190391,
+        "pearson_delta": 0.1481463942430446,
+        "mae": 0.05833562952576557,
+        "mae_delta": 0.05833562952576557
+      },
+      "ContextTransfer esm_mix=0.25": {
+        "discrimination_score_l1": 0.508144,
+        "overlap_at_100": 0.11224409368813289,
+        "overlap_at_50": 0.10788404708740862,
+        "de_direction_match": 0.7136172319224222,
+        "de_spearman_lfc": 0.34620904089609444,
+        "pearson_delta": 0.1544711233310209,
+        "mae": 0.05939495569924407,
+        "mae_delta": 0.059394955699244065
+      },
+      "ContextTransfer esm_mix=0.5": {
+        "discrimination_score_l1": 0.508144,
+        "overlap_at_100": 0.11224409368813289,
+        "overlap_at_50": 0.10788404708740862,
+        "de_direction_match": 0.7136172319224222,
+        "de_spearman_lfc": 0.34620904089609444,
+        "pearson_delta": 0.1544711233310209,
+        "mae": 0.05939495569924407,
+        "mae_delta": 0.059394955699244065
+      },
+      "ContextTransfer esm_mix=0.75": {
+        "discrimination_score_l1": 0.508144,
+        "overlap_at_100": 0.11224409368813289,
+        "overlap_at_50": 0.10788404708740862,
+        "de_direction_match": 0.7136172319224222,
+        "de_spearman_lfc": 0.34620904089609444,
+        "pearson_delta": 0.15447112330779772,
+        "mae": 0.059394955700790446,
+        "mae_delta": 0.059394955700790446
       },
       "ContextTransfer esm_mix=1": {
         "discrimination_score_l1": 0.508144,
