@@ -170,7 +170,7 @@ SPACER_AA = "G"
 CHUNK_AA = 3000           # max residues per submitted record
 
 
-def score_benchmark(cfg, bench):
+def score_benchmark(cfg, bench, on_result=None):
     """
     Best EL and BA %Rank per (peptide, allele) from the IEDB predictors.
 
@@ -191,6 +191,10 @@ def score_benchmark(cfg, bench):
     spacer, and spacer-touching frames are discarded by position.
     `verify_concatenation` checks this equivalence against standalone scoring
     before the run trusts it.
+
+    `on_result` is called with each completed job's results so the caller can
+    persist them as they arrive; at ~45 s per request a crash near the end of a
+    two-hour run should not cost the whole run.
     """
     pcfg = cfg["prediction"]
     groups = defaultdict(set)          # (allele, scan_length) -> {peptide}
@@ -239,6 +243,8 @@ def score_benchmark(cfg, bench):
         for res in ex.map(run, jobs):
             for k, v in res.items():
                 out[k].update(v)
+            if on_result:
+                on_result(res)
     return out
 
 
@@ -292,14 +298,17 @@ def main():
           f"({sum(r['label'] for r in sampled)} pos)")
 
     cache = results_path("m11_benchmark_scored.tsv")
+    partial = results_path("m11_scores_partial.tsv")
     scores = {}
-    if os.path.exists(cache):
-        with open(cache) as f:
+    for src in (cache, partial):
+        if not os.path.exists(src):
+            continue
+        with open(src) as f:
             for r in csv.DictReader(f, delimiter="\t"):
-                if r["el_rank"] and r["ba_rank"]:
+                if r.get("el_rank") and r.get("ba_rank"):
                     scores[(r["peptide"], r["allele"])] = {
                         "el": float(r["el_rank"]), "ba": float(r["ba_rank"])}
-        print(f"resuming: {len(scores)} pairs already scored")
+        print(f"resuming: {len(scores)} pairs from {os.path.basename(src)}")
     todo = [r for r in sampled if (r["peptide"], r["allele"]) not in scores]
     if todo:
         ok, msg = verify_concatenation(
@@ -307,7 +316,19 @@ def main():
         print(f"concatenation check: {msg}", flush=True)
         if not ok:
             sys.exit("concatenated scoring does not reproduce standalone scoring")
-        scores.update(score_benchmark(cfg, todo))
+        # append each job's results as they land, so an interrupted run resumes
+        with open(partial, "a", newline="") as pf:
+            pw = csv.writer(pf, delimiter="\t")
+            if pf.tell() == 0:
+                pw.writerow(["peptide", "allele", "el_rank", "ba_rank"])
+
+            def persist(res):
+                for (pep, allele), v in res.items():
+                    if "el" in v and "ba" in v:
+                        pw.writerow([pep, allele, v["el"], v["ba"]])
+                pf.flush()
+
+            scores.update(score_benchmark(cfg, todo, on_result=persist))
 
     rows = []
     for r in sampled:

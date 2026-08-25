@@ -124,11 +124,21 @@ python scripts/m6_benchmark_calibration.py
 python scripts/m7_bcell_layer.py
 python scripts/m8_exposure_context.py
 python scripts/m9_deimmunization_scan.py    # optional
+python scripts/m10_benchmark_fetch.py       # ~10 min against the IEDB query API
+python scripts/m11_threshold_calibration.py # ~1-2 h; resumable, caches as it goes
+python scripts/m12_tolerance_weight.py
 python scripts/make_figures.py
 python scripts/make_report.py
 python scripts/make_deck.py
 python scripts/check_deck.py
 ```
+
+`m11_threshold_calibration.py` is the long pole: it scores ~5,800 benchmark
+peptides on both prediction heads, and the endpoint's wall-clock cost tracks the
+number of requests rather than their size. Peptides are therefore submitted as
+concatenated pseudo-proteins — verified against standalone scoring before the
+run trusts it — and results are appended to `m11_scores_partial.tsv` as they
+land, so an interrupted run resumes instead of restarting.
 
 `m3_binding_prediction.py` is resumable: it reads any existing
 `results/m3_binding_long.tsv` and only fetches the (sequence, allele, head)
