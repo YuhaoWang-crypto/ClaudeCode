@@ -1,0 +1,20 @@
+{
+  "lines_tested": [
+    "K562",
+    "HepG2",
+    "Jurkat"
+  ],
+  "lines_without_prediction": [],
+  "diagonal_mean": 0.5921700597122347,
+  "off_diagonal_mean": 0.5829799631778136,
+  "margin": 0.009190096534421044,
+  "best_match": {
+    "K562": "HepG2",
+    "HepG2": "HepG2",
+    "Jurkat": "HepG2"
+  },
+  "n_diagonal_correct": 1,
+  "n_lines": 3,
+  "usable": false,
+  "verdict": "head does NOT resolve the lines \u2014 do not build a context representation on it (see the sequence-model boundary section)"
+}

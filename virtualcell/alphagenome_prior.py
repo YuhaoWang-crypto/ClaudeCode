@@ -37,7 +37,26 @@ gene rather than of the context, and target expression does not predict effect
 magnitude across contexts at all (Spearman -0.014).  A weak or absent
 correlation is the expected outcome.
 
-    python -m virtualcell.alphagenome_prior --n-genes 80
+**Result, and the cheaper way to have got it.**  All six correlations came out
+indistinguishable from zero, with a positive control confirming the pipeline
+works (predicted-vs-measured *control expression* ratios at Spearman +0.16 to
++0.29) and the target genuinely varying (median |log2 ratio| of the residual
+between contexts, 0.83).
+
+But the ``--gate-only`` track-resolution check answers it in seconds, without
+spending a single prediction, and answers it more decisively::
+
+    diagonal_mean 0.592, off_diagonal_mean 0.583, margin 0.009
+    best_match: K562->HepG2, HepG2->HepG2, Jurkat->HepG2      usable: False
+
+Every line's predicted track matches *HepG2's* measured profile best.  The head
+does not resolve these three lines from each other at all, so no cross-context
+quantity built on it could have worked -- the on-target null is a symptom, not
+the finding.  Run this gate before building anything on a sequence model's
+cell-type head.
+
+    python -m virtualcell.alphagenome_prior --gate-only     # the gate alone
+    python -m virtualcell.alphagenome_prior --n-genes 150   # the full test
 """
 
 from __future__ import annotations
@@ -123,13 +142,60 @@ def predict_promoter(client, chrom: str, tss: int, strand: str,
     return res
 
 
+def track_resolution(rows: list[dict]) -> None:
+    """Does each cell line's track match *its own* measured profile best?
+
+    The gate ``transferability-prior-eval`` says to run before building anything
+    on a sequence model's cell-type head.  Every line shares one genome, so all
+    cell-line specificity has to come from that head; if line X's predicted
+    profile correlates better with line Y's measured expression than with X's
+    own, the head does not resolve these lines and no downstream context feature
+    built on it can either.
+    """
+    import sys
+    sys.path.insert(0, "/root/.claude/skills/synced/transferability-prior-eval")
+    from kernel import track_resolution_check                    # noqa: E402
+
+    pred, obs = {}, {}
+    for ln, bs in BIOSAMPLE.items():
+        key = f"rna_seq:{bs}"
+        keep = [r for r in rows
+                if key in r["pred"] and np.isfinite(r["baseline"][ln])]
+        pred[ln] = np.array([r["pred"][key] for r in keep])
+        obs[ln] = np.array([r["baseline"][ln] for r in keep])
+    n = min(len(v) for v in pred.values())
+    pred = {k: v[:n] for k, v in pred.items()}
+    obs = {k: v[:n] for k, v in obs.items()}
+
+    res = track_resolution_check(pred, obs)
+    print(f"\ntrack resolution gate ({n} genes) -- does each line's track match "
+          f"its own profile?")
+    for k, v in res.items():
+        if isinstance(v, dict):
+            print(f"  {k}: " + ", ".join(f"{a}->{b}" for a, b in v.items()))
+        elif isinstance(v, float):
+            print(f"  {k}: {v:.3f}")
+        else:
+            print(f"  {k}: {v}")
+    Path("results/alphagenome_track_gate.json").write_text(
+        json.dumps(res, indent=2, default=str))
+
+
 def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__)
+    ap.add_argument("--gate-only", action="store_true",
+                    help="just run the track-resolution gate on saved output")
     ap.add_argument("--n-genes", type=int, default=80)
     ap.add_argument("--tss", type=Path, default=Path("/home/user/vcc_data/tss.tsv"),
                     help="TSV: symbol, chrom, tss, strand (hg38)")
     ap.add_argument("--seed", type=int, default=0)
     args = ap.parse_args()
+
+    if args.gate_only:
+        rows = json.loads(OUT.read_text())
+        track_resolution(rows)
+        report(rows)
+        return
 
     lines, _, symbols = load_all()
     residual, shared = measured_residual(lines, symbols)
@@ -182,6 +248,7 @@ def main() -> None:
     OUT.write_text(json.dumps(rows, indent=2))
     print(f"\nwrote {OUT} ({len(rows)} genes)")
     if rows:
+        track_resolution(rows)
         report(rows)
 
 

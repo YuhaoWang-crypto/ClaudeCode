@@ -398,13 +398,21 @@ BETAS = (0.0, 0.25, 0.4, 0.5, 0.6, 0.75, 0.9, 1.0, 1.25, 1.5, 2.0)
 # but nearly uncorrelated with each other (Spearman 0.08 on the genes both
 # cover), so which one is better is an empirical question, not a choice.
 ARMS = (("none", 0.0), ("atlas", 0.5), ("atlas", 1.0),
-        ("jiang", 0.5), ("jiang", 1.0))
+        ("jiang", 0.5), ("jiang", 1.0), ("oracle", 0.5), ("oracle", 1.0))
 BENCH_FILE = Path("results/gwps_single_source.json")
 
 
-def build_prior(name: str, symbols: np.ndarray, exclude: str | None
+def build_prior(name: str, symbols: np.ndarray, exclude: str | None,
+                target: CellLine | None = None, perts: np.ndarray | None = None
                 ) -> np.ndarray | None:
-    """The named per-gene transferability prior on this gene axis."""
+    """The named per-gene transferability prior on this gene axis.
+
+    ``oracle`` is not a usable prior -- it is built from the held-out truth and
+    exists only to bound the route.  Without it, "this prior has saturated" and
+    "this prior is weak" are indistinguishable, which is how a bounded gain gets
+    mistaken for a ceiling.  It answers: if the per-gene weighting were perfect,
+    how much would the whole mechanism be worth?
+    """
     if name == "atlas":
         return gene_transferability(symbols, exclude=exclude)
     if name == "jiang":
@@ -412,6 +420,17 @@ def build_prior(name: str, symbols: np.ndarray, exclude: str | None
         if p is None:
             raise SystemExit("run `python -m virtualcell.prep_jiang` first")
         return p
+    if name == "oracle":
+        if target is None or perts is None:
+            raise ValueError("the oracle prior needs the held-out truth")
+        index = {n: i for i, n in enumerate(target.names)}
+        d = target.delta[[index[p] for p in perts]]
+        # Per gene: how much of its measured response in the held-out line is
+        # shared across these knockdowns rather than knockdown-specific --  the
+        # same shape of quantity the real priors estimate, but read off the
+        # answer.
+        v = d.var(axis=0)
+        return v / max(float(np.median(v)), 1e-12)
     return None
 
 
@@ -481,7 +500,8 @@ def frontier(n_eval: int = 400, seed: int = 0, verbose: bool = True,
         # a prior must not have seen the line it is used to predict; the Jiang
         # screen contains none of these four lines, so only the atlas one needs
         # the exclusion
-        priors = {name: build_prior(name, symbols, exclude=target.name)
+        priors = {name: build_prior(name, symbols, exclude=target.name,
+                                    target=target, perts=sel)
                   for name, _ in arms}
 
         # one fit per fold: beta and gene_w act only in predict()
