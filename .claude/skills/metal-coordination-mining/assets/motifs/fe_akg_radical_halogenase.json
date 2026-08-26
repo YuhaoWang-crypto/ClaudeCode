@@ -1,0 +1,28 @@
+{
+  "name": "fe_akg_radical_halogenase",
+  "description": "Fe(II)/alpha-ketoglutarate-dependent radical halogenase. Anchor: the 2-His pair on adjacent beta-strands of the cupin double-stranded beta-helix that chelates Fe(II) in every member of the superfamily. Discriminator: the ABSENCE of the canonical Asp/Glu third ligand (the 2His-1Asp/Glu facial triad), which leaves the open coordination site that halide must occupy for halide transfer. Reproduces Kipouros & Chang, Nature 656, 763 (2026).",
+  "anchor": {
+    "residues": ["HIS", "HIS"],
+    "anchor_atoms": { "HIS": ["NE2"] },
+    "anchor_distance_max": 4.0,
+    "backbone_hbond_max": 4.0,
+    "same_chain_only": false,
+    "min_sequence_separation": 0
+  },
+  "atom_set": "proximity",
+  "ligand_shell_cutoff": 4.5,
+  "rules": {
+    "require_absent": [
+      { "residues": ["ASP", "GLU"], "min_distance": 5.5 },
+      { "residues": ["ASN", "GLN", "CYS", "MET", "HIS", "TRP", "TYR"], "min_distance": 4.0 }
+    ],
+    "require_present": [{ "residues": ["ALA", "GLY"], "max_distance": 7.0 }],
+    "sequence_context": { "from": "anchorA", "offset": 2, "allowed": ["ALA", "GLY"] },
+    "min_protein_length": 200
+  },
+  "contrast_rules": {
+    "name": "facial_triad_2His_1AspGlu",
+    "require_present": [{ "residues": ["ASP", "GLU"], "max_distance": 5.0 }],
+    "min_protein_length": 0
+  }
+}

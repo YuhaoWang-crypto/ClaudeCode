@@ -1,0 +1,14 @@
+{
+  "name": "two_his_xn_typing",
+  "description": "Discovery mode, not classification mode: find every 2-His site with the same beta-strand geometry and report what else is in its first coordination shell (2His-Xn, n = 0..4). Use to survey a superfold's metal-site diversity, to find which coordination environments are unexpectedly common or rare, and to generate hypotheses for new motif specs. Corresponds to Extended Data Fig. 10 of Kipouros & Chang 2026.",
+  "anchor": {
+    "residues": ["HIS", "HIS"],
+    "anchor_atoms": { "HIS": ["NE2"] },
+    "anchor_distance_max": 4.0,
+    "backbone_hbond_max": 4.0,
+    "same_chain_only": false
+  },
+  "atom_set": "coordinating",
+  "ligand_shell_cutoff": 4.5,
+  "rules": {}
+}
