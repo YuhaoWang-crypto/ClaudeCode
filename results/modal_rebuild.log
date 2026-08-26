@@ -1,0 +1,36 @@
+✓ Initialized. View run at 
+https://modal.com/apps/wyh-58141/main/ap-LN7kPVaCJpZ4G3xMrKvdCl
+✓ Created objects.
+├── 🔨 Created mount /home/user/ClaudeCode/modal/vcc_prep_modal.py
+├── 🔨 Created function build.
+├── 🔨 Created function prep.
+└── 🔨 Created function manifest.
+hyperparameters (mean over 3 held-out lines): Hyper(temp=inf, smooth=0.3666666666666667, n_neighbors=5, shrink=0.6666666666666666, gamma=0.4166666666666667, mod_clip=2.0, beta=1.1833333333333333, use_global=0.16666666666666666, on_target=True, rank=80, rank_mix=0.5, unseen_k=25, renorm=0.0, gene_w=0.0, esm_mix=0.0)
+  frontier picks arm 'atlas:1': beta 1.18333 -> 0.75, gene_w 0 -> 1 (mean PDS 0.545, ovl@100 0.185, score 0.076)
+    for reference, a perfect per-gene prior would score 0.0777 against this arm's 0.0761 -- the whole route is worth +0.0016 more than what is shipped
+  source: 9,866 knockdowns over 7,681 of 18,533 official genes; 272/300 of the panel measured directly
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/repo/virtualcell/vcc2026.py", line 434, in <module>
+    main()
+  File "/repo/virtualcell/vcc2026.py", line 425, in main
+    predictions = predict_panel(hp, prior_name=prior_name)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/repo/virtualcell/vcc2026.py", line 154, in predict_panel
+    embed = load_embeddings(src.symbols) if hp.esm_mix > 0 else None
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/repo/virtualcell/two_axis.py", line 76, in load_embeddings
+    import torch
+ModuleNotFoundError: No module named 'torch'
+
+Stopping app - local entrypoint completed.
+✓ App completed. View run at 
+https://modal.com/apps/wyh-58141/main/ap-LN7kPVaCJpZ4G3xMrKvdCl
+✓ Initialized. View run at 
+https://modal.com/apps/wyh-58141/main/ap-UqwksohJhV1Jgi2GVVPpw2
+✓ Created objects.
+├── 🔨 Created mount /home/user/ClaudeCode/modal/vcc_prep_modal.py
+├── 🔨 Created function build.
+├── 🔨 Created function prep.
+└── 🔨 Created function manifest.
