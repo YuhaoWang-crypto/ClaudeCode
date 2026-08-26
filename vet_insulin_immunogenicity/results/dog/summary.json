@@ -1,0 +1,176 @@
+{
+  "species": "dog",
+  "backend": "illustrative-pocket-surrogate",
+  "burdens": [
+    {
+      "product": "Porcine insulin (identity control)",
+      "n_differences": 0,
+      "differences": [],
+      "n_cores_total": 35,
+      "n_neo_cores": 0,
+      "frac_neo_cores": 0.0,
+      "neo_core_labels": []
+    },
+    {
+      "product": "Human recombinant insulin",
+      "n_differences": 1,
+      "differences": [
+        "B30A>T"
+      ],
+      "n_cores_total": 35,
+      "n_neo_cores": 1,
+      "frac_neo_cores": 0.02857142857142857,
+      "neo_core_labels": [
+        "B22-B30"
+      ]
+    },
+    {
+      "product": "Bovine insulin",
+      "n_differences": 2,
+      "differences": [
+        "A8T>A",
+        "A10I>V"
+      ],
+      "n_cores_total": 35,
+      "n_neo_cores": 10,
+      "frac_neo_cores": 0.2857142857142857,
+      "neo_core_labels": [
+        "A1-A9",
+        "A2-A10",
+        "A3-A11",
+        "A4-A12",
+        "A5-A13",
+        "A6-A14",
+        "A7-A15",
+        "A8-A16",
+        "A9-A17",
+        "A10-A18"
+      ]
+    },
+    {
+      "product": "Insulin lispro",
+      "n_differences": 3,
+      "differences": [
+        "B28P>K",
+        "B29K>P",
+        "B30A>T"
+      ],
+      "n_cores_total": 35,
+      "n_neo_cores": 3,
+      "frac_neo_cores": 0.08571428571428572,
+      "neo_core_labels": [
+        "B20-B28",
+        "B21-B29",
+        "B22-B30"
+      ]
+    },
+    {
+      "product": "Insulin aspart",
+      "n_differences": 2,
+      "differences": [
+        "B28P>D",
+        "B30A>T"
+      ],
+      "n_cores_total": 35,
+      "n_neo_cores": 3,
+      "frac_neo_cores": 0.08571428571428572,
+      "neo_core_labels": [
+        "B20-B28",
+        "B21-B29",
+        "B22-B30"
+      ]
+    },
+    {
+      "product": "Insulin glargine",
+      "n_differences": 4,
+      "differences": [
+        "A21N>G",
+        "B30A>T",
+        "B31->R",
+        "B32->R"
+      ],
+      "n_cores_total": 37,
+      "n_neo_cores": 4,
+      "frac_neo_cores": 0.10810810810810811,
+      "neo_core_labels": [
+        "A13-A21",
+        "B22-B30",
+        "B23-B31",
+        "B24-B32"
+      ]
+    },
+    {
+      "product": "Insulin detemir (peptide backbone only)",
+      "n_differences": 0,
+      "differences": [],
+      "n_cores_total": 34,
+      "n_neo_cores": 0,
+      "frac_neo_cores": 0.0,
+      "neo_core_labels": []
+    },
+    {
+      "product": "Insulin degludec (peptide backbone only)",
+      "n_differences": 0,
+      "differences": [],
+      "n_cores_total": 34,
+      "n_neo_cores": 0,
+      "frac_neo_cores": 0.0,
+      "neo_core_labels": []
+    }
+  ],
+  "domain_summary": {
+    "rows": [
+      {
+        "locus": "DQA",
+        "training_molecules": 90,
+        "train_median": 0.95,
+        "train_p5": 0.9,
+        "panel_median": 0.75,
+        "panel_min": 0.7,
+        "panel_max": 0.75,
+        "n_out": 0,
+        "n_marginal": 6,
+        "n_total": 6
+      },
+      {
+        "locus": "DQB",
+        "training_molecules": 449,
+        "train_median": 0.96,
+        "train_p5": 0.8695652173913043,
+        "panel_median": 0.7295652173913043,
+        "panel_min": 0.5652173913043478,
+        "panel_max": 0.8,
+        "n_out": 1,
+        "n_marginal": 5,
+        "n_total": 6
+      },
+      {
+        "locus": "DRB",
+        "training_molecules": 1718,
+        "train_median": 0.96,
+        "train_p5": 0.88,
+        "panel_median": 0.68,
+        "panel_min": 0.6,
+        "panel_max": 0.88,
+        "n_out": 18,
+        "n_marginal": 5,
+        "n_total": 24
+      }
+    ],
+    "n_training": 2257,
+    "train_p5": 0.8831884057971015,
+    "panel_median": 0.72,
+    "panel_min": 0.5652173913043478,
+    "panel_max": 0.88,
+    "n_out": 19,
+    "n_marginal": 16,
+    "n_near": 1,
+    "n_total": 36,
+    "verdict_text": "**The dog panel sits below the training set's own 5th percentile (0.72 vs 0.88).** 19/36 molecules are frank extrapolation and 1/36 are close enough to training molecules that predictions are defensible as directional. Stratify the output by this column rather than treating the panel as uniform."
+  },
+  "validation": {
+    "passed": 16,
+    "total": 16,
+    "failed": []
+  }
+}

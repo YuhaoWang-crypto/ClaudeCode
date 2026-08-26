@@ -1,0 +1,10 @@
+# Downloaded source databases: large, re-fetched on demand.
+data/cache/
+
+# Bulky, fully regenerable demo artefacts. The reports, figures and summary
+# tables under results/ ARE committed so the demo is readable without running it.
+results/*/hits_*.csv
+results/*/netmhciipan/molecules/
+
+__pycache__/
+*.pyc

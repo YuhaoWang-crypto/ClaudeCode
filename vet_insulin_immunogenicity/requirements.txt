@@ -1,0 +1,4 @@
+numpy>=1.24
+matplotlib>=3.7
+biopython>=1.81
+PyYAML>=6.0

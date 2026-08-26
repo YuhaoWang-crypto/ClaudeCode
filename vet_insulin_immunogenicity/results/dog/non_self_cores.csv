@@ -1,0 +1,22 @@
+product,chain,core,position,foreign_residues,best_rank_any_molecule,best_molecule,class,score_provenance
+Human recombinant insulin,B,RGFFYTPKT,B22-B30,B30A>T,83.765,DLA-DRB1*023:02,none,illustrative-pocket-surrogate
+Bovine insulin,A,GIVEQCCAS,A1-A9,A8T>A,30.235,DLA-DRB1*006:01 (+1 identical-groove),none,illustrative-pocket-surrogate
+Bovine insulin,A,IVEQCCASV,A2-A10,"A8T>A, A10I>V",1.51,DLA-DRB1*085:01,strong,illustrative-pocket-surrogate
+Bovine insulin,A,VEQCCASVC,A3-A11,"A8T>A, A10I>V",0.43,DLA-DRB1*064:02,strong,illustrative-pocket-surrogate
+Bovine insulin,A,EQCCASVCS,A4-A12,"A8T>A, A10I>V",51.37,DLA-DRB1*023:02,none,illustrative-pocket-surrogate
+Bovine insulin,A,QCCASVCSL,A5-A13,"A8T>A, A10I>V",66.68,DLA-DRB1*064:02,none,illustrative-pocket-surrogate
+Bovine insulin,A,CCASVCSLY,A6-A14,"A8T>A, A10I>V",16.05,DLA-DRB1*048:03,none,illustrative-pocket-surrogate
+Bovine insulin,A,CASVCSLYQ,A7-A15,"A8T>A, A10I>V",2.565,DLA-DRB1*023:02,weak,illustrative-pocket-surrogate
+Bovine insulin,A,ASVCSLYQL,A8-A16,"A8T>A, A10I>V",23.01,DLA-DRB1*123:01,none,illustrative-pocket-surrogate
+Bovine insulin,A,SVCSLYQLE,A9-A17,A10I>V,42.86,DLA-DRB1*053:01,none,illustrative-pocket-surrogate
+Bovine insulin,A,VCSLYQLEN,A10-A18,A10I>V,0.555,DLA-DRB1*040:01,strong,illustrative-pocket-surrogate
+Insulin lispro,B,GERGFFYTK,B20-B28,B28P>K,28.9,DLA-DRB1*006:01 (+1 identical-groove),none,illustrative-pocket-surrogate
+Insulin lispro,B,ERGFFYTKP,B21-B29,"B28P>K, B29K>P",76.125,DLA-DRB1*006:01 (+1 identical-groove),none,illustrative-pocket-surrogate
+Insulin lispro,B,RGFFYTKPT,B22-B30,"B28P>K, B29K>P, B30A>T",83.765,DLA-DRB1*023:02,none,illustrative-pocket-surrogate
+Insulin aspart,B,GERGFFYTD,B20-B28,B28P>D,31.62,DLA-DRB1*006:01 (+1 identical-groove),none,illustrative-pocket-surrogate
+Insulin aspart,B,ERGFFYTDK,B21-B29,B28P>D,73.195,DLA-DRB1*006:01 (+1 identical-groove),none,illustrative-pocket-surrogate
+Insulin aspart,B,RGFFYTDKT,B22-B30,"B28P>D, B30A>T",83.765,DLA-DRB1*023:02,none,illustrative-pocket-surrogate
+Insulin glargine,A,LYQLENYCG,A13-A21,A21N>G,3.98,DLA-DRB1*023:02,weak,illustrative-pocket-surrogate
+Insulin glargine,B,RGFFYTPKT,B22-B30,B30A>T,83.765,DLA-DRB1*023:02,none,illustrative-pocket-surrogate
+Insulin glargine,B,GFFYTPKTR,B23-B31,"B30A>T, B31->R",27.635,DLA-DRB1*044:01,none,illustrative-pocket-surrogate
+Insulin glargine,B,FFYTPKTRR,B24-B32,"B30A>T, B31->R, B32->R",12.45,DLA-DRB1*042:02,none,illustrative-pocket-surrogate

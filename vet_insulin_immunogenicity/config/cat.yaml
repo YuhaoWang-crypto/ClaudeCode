@@ -1,0 +1,88 @@
+# Feline (cat) insulin immunogenicity workflow.
+#
+# FLA = Feline Leukocyte Antigen. Class II here means FLA-DRB. Feline DRB has
+# four described lineages (DRB1/3/4/5), and unlike the dog there is no IPD-MHC
+# feline section at all -- the panel has to be assembled from GenBank/RefSeq.
+
+species: cat
+common_name: Cat (Felis catus)
+self_insulin: cat
+
+# Deliberately null: no natural insulin is sequence-identical to feline
+# insulin. The dog has porcine insulin; the cat has nothing equivalent, and the
+# harness records that as a SKIP with the reason rather than papering over it.
+identity_control_donor: null
+
+scoring_locus: DRB
+
+panel:
+  - locus: DRB
+    source: ncbi_feline
+    include:
+      - DRB
+      - DR-1 beta
+      - class II antigen beta
+      - DR beta
+    deduplicate: true
+    max_molecules: 24
+
+products:
+  - name: Bovine insulin (closest natural match)
+    parent: bovine
+    note: Differs from feline insulin at A18 only; the basis of beef-source PZI.
+  - name: Porcine insulin
+    parent: pig
+  - name: Human recombinant insulin
+    parent: human
+    note: The sequence behind human-recombinant PZI and NPH products.
+  - name: Insulin glargine
+    parent: human
+    edits: [A21N>G, B31*>RR]
+    note: Widely used off-label in cats.
+  - name: Insulin detemir (peptide backbone only)
+    parent: human
+    edits: [B30T>-]
+    note: >
+      des-B30; the B29 myristoyl chain is not represented by a sequence-level
+      workflow.
+  - name: Insulin lispro
+    parent: human
+    edits: [B28P>K, B29K>P]
+
+interpretation: |
+  **The cat is the harder case on both axes, and the two problems are
+  independent.**
+
+  *Axis 1 — the molecule is genuinely more foreign.* Feline insulin differs
+  from human insulin at four residues: A8 Ala->Thr, A10 Val->Ile, A18 His->Asn
+  and B30 Ala->Thr. Three of those sit inside the A chain rather than at a
+  terminus, so they fall into interior 9-mer registers where they can occupy
+  real anchor positions — unlike the dog's single B30 difference. Bovine
+  insulin, by contrast, differs from feline insulin at A18 alone, which is the
+  sequence-level reason beef-source PZI has a history in cats.
+
+  *Axis 2 — the prediction infrastructure is much thinner.* IPD-MHC has a
+  curated canine DLA section and no feline section whatsoever, so this panel is
+  scraped from GenBank rather than drawn from an allele registry: no official
+  allele names, no curation, no way to state what fraction of feline diversity
+  it covers. Section 2 shows the resulting size gap against the dog directly,
+  and section 3 shows every feline molecule landing outside NetMHCIIpan's
+  training space.
+
+  What follows for a real programme:
+
+  * **The A-chain cluster (A8/A10/A18) is where a feline screen should
+    concentrate.** It is a small, defined region — three residues inside a
+    21-mer — so the analysis is narrow enough to do carefully rather than
+    broadly. Section 1 gives the exact non-self registers, model-free.
+  * **A species-matched (recombinant feline) insulin would remove axis 1
+    entirely** and reduce the question to formulation and impurities, the same
+    as the dog with porcine insulin. If a programme has that option, the
+    sequence analysis argues for it far more strongly than any binding score
+    could.
+  * **Do not translate binding output into a population-risk number.** There is
+    no feline allele-frequency database and no feline benchmark. The defensible
+    output is a ranked, register-level hypothesis list tied to named A-chain
+    positions, reported RUO, and ideally read out experimentally (feline PBMC
+    proliferation or IFN-gamma ELISpot against the specific A-chain peptides)
+    rather than argued from in silico scores.

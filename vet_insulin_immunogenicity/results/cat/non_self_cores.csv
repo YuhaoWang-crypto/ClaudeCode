@@ -1,0 +1,77 @@
+product,chain,core,position,foreign_residues,best_rank_any_molecule,best_molecule,class,score_provenance
+Bovine insulin (closest natural match),A,VCSLYQLEN,A10-A18,A18H>N,0.25,FLA-DRB:XP_003986036.3,strong,illustrative-pocket-surrogate
+Bovine insulin (closest natural match),A,CSLYQLENY,A11-A19,A18H>N,14.54,FLA-DRB:BCB67706.1,none,illustrative-pocket-surrogate
+Bovine insulin (closest natural match),A,SLYQLENYC,A12-A20,A18H>N,9.5,FLA-DRB:XP_023105351.1,weak,illustrative-pocket-surrogate
+Bovine insulin (closest natural match),A,LYQLENYCN,A13-A21,A18H>N,1.885,FLA-DRB:XP_003986036.3,strong,illustrative-pocket-surrogate
+Porcine insulin,A,GIVEQCCTS,A1-A9,A8A>T,32.575,FLA-DRB:BCB67706.1,none,illustrative-pocket-surrogate
+Porcine insulin,A,IVEQCCTSI,A2-A10,"A8A>T, A10V>I",3.365,FLA-DRB:AAB65563.1,weak,illustrative-pocket-surrogate
+Porcine insulin,A,VEQCCTSIC,A3-A11,"A8A>T, A10V>I",0.185,FLA-DRB:AAB65590.1 (+1 identical-groove),strong,illustrative-pocket-surrogate
+Porcine insulin,A,EQCCTSICS,A4-A12,"A8A>T, A10V>I",54.49,FLA-DRB:XP_023105351.1,none,illustrative-pocket-surrogate
+Porcine insulin,A,QCCTSICSL,A5-A13,"A8A>T, A10V>I",66.015,FLA-DRB:AAB65518.1,none,illustrative-pocket-surrogate
+Porcine insulin,A,CCTSICSLY,A6-A14,"A8A>T, A10V>I",13.025,FLA-DRB:BCB67706.1,none,illustrative-pocket-surrogate
+Porcine insulin,A,CTSICSLYQ,A7-A15,"A8A>T, A10V>I",3.235,FLA-DRB:XP_003986036.3,weak,illustrative-pocket-surrogate
+Porcine insulin,A,TSICSLYQL,A8-A16,"A8A>T, A10V>I",31.0,FLA-DRB:BCB67706.1,none,illustrative-pocket-surrogate
+Porcine insulin,A,SICSLYQLE,A9-A17,A10V>I,47.425,FLA-DRB:XP_003986036.3,none,illustrative-pocket-surrogate
+Porcine insulin,A,ICSLYQLEN,A10-A18,"A10V>I, A18H>N",1.44,FLA-DRB:XP_003986036.3,strong,illustrative-pocket-surrogate
+Porcine insulin,A,CSLYQLENY,A11-A19,A18H>N,14.54,FLA-DRB:BCB67706.1,none,illustrative-pocket-surrogate
+Porcine insulin,A,SLYQLENYC,A12-A20,A18H>N,9.5,FLA-DRB:XP_023105351.1,weak,illustrative-pocket-surrogate
+Porcine insulin,A,LYQLENYCN,A13-A21,A18H>N,1.885,FLA-DRB:XP_003986036.3,strong,illustrative-pocket-surrogate
+Human recombinant insulin,A,GIVEQCCTS,A1-A9,A8A>T,32.575,FLA-DRB:BCB67706.1,none,illustrative-pocket-surrogate
+Human recombinant insulin,A,IVEQCCTSI,A2-A10,"A8A>T, A10V>I",3.365,FLA-DRB:AAB65563.1,weak,illustrative-pocket-surrogate
+Human recombinant insulin,A,VEQCCTSIC,A3-A11,"A8A>T, A10V>I",0.185,FLA-DRB:AAB65590.1 (+1 identical-groove),strong,illustrative-pocket-surrogate
+Human recombinant insulin,A,EQCCTSICS,A4-A12,"A8A>T, A10V>I",54.49,FLA-DRB:XP_023105351.1,none,illustrative-pocket-surrogate
+Human recombinant insulin,A,QCCTSICSL,A5-A13,"A8A>T, A10V>I",66.015,FLA-DRB:AAB65518.1,none,illustrative-pocket-surrogate
+Human recombinant insulin,A,CCTSICSLY,A6-A14,"A8A>T, A10V>I",13.025,FLA-DRB:BCB67706.1,none,illustrative-pocket-surrogate
+Human recombinant insulin,A,CTSICSLYQ,A7-A15,"A8A>T, A10V>I",3.235,FLA-DRB:XP_003986036.3,weak,illustrative-pocket-surrogate
+Human recombinant insulin,A,TSICSLYQL,A8-A16,"A8A>T, A10V>I",31.0,FLA-DRB:BCB67706.1,none,illustrative-pocket-surrogate
+Human recombinant insulin,A,SICSLYQLE,A9-A17,A10V>I,47.425,FLA-DRB:XP_003986036.3,none,illustrative-pocket-surrogate
+Human recombinant insulin,A,ICSLYQLEN,A10-A18,"A10V>I, A18H>N",1.44,FLA-DRB:XP_003986036.3,strong,illustrative-pocket-surrogate
+Human recombinant insulin,A,CSLYQLENY,A11-A19,A18H>N,14.54,FLA-DRB:BCB67706.1,none,illustrative-pocket-surrogate
+Human recombinant insulin,A,SLYQLENYC,A12-A20,A18H>N,9.5,FLA-DRB:XP_023105351.1,weak,illustrative-pocket-surrogate
+Human recombinant insulin,A,LYQLENYCN,A13-A21,A18H>N,1.885,FLA-DRB:XP_003986036.3,strong,illustrative-pocket-surrogate
+Human recombinant insulin,B,RGFFYTPKT,B22-B30,B30A>T,74.36,FLA-DRB:AAB65518.1,none,illustrative-pocket-surrogate
+Insulin glargine,A,GIVEQCCTS,A1-A9,A8A>T,32.575,FLA-DRB:BCB67706.1,none,illustrative-pocket-surrogate
+Insulin glargine,A,IVEQCCTSI,A2-A10,"A8A>T, A10V>I",3.365,FLA-DRB:AAB65563.1,weak,illustrative-pocket-surrogate
+Insulin glargine,A,VEQCCTSIC,A3-A11,"A8A>T, A10V>I",0.185,FLA-DRB:AAB65590.1 (+1 identical-groove),strong,illustrative-pocket-surrogate
+Insulin glargine,A,EQCCTSICS,A4-A12,"A8A>T, A10V>I",54.49,FLA-DRB:XP_023105351.1,none,illustrative-pocket-surrogate
+Insulin glargine,A,QCCTSICSL,A5-A13,"A8A>T, A10V>I",66.015,FLA-DRB:AAB65518.1,none,illustrative-pocket-surrogate
+Insulin glargine,A,CCTSICSLY,A6-A14,"A8A>T, A10V>I",13.025,FLA-DRB:BCB67706.1,none,illustrative-pocket-surrogate
+Insulin glargine,A,CTSICSLYQ,A7-A15,"A8A>T, A10V>I",3.235,FLA-DRB:XP_003986036.3,weak,illustrative-pocket-surrogate
+Insulin glargine,A,TSICSLYQL,A8-A16,"A8A>T, A10V>I",31.0,FLA-DRB:BCB67706.1,none,illustrative-pocket-surrogate
+Insulin glargine,A,SICSLYQLE,A9-A17,A10V>I,47.425,FLA-DRB:XP_003986036.3,none,illustrative-pocket-surrogate
+Insulin glargine,A,ICSLYQLEN,A10-A18,"A10V>I, A18H>N",1.44,FLA-DRB:XP_003986036.3,strong,illustrative-pocket-surrogate
+Insulin glargine,A,CSLYQLENY,A11-A19,A18H>N,14.54,FLA-DRB:BCB67706.1,none,illustrative-pocket-surrogate
+Insulin glargine,A,SLYQLENYC,A12-A20,A18H>N,9.5,FLA-DRB:XP_023105351.1,weak,illustrative-pocket-surrogate
+Insulin glargine,A,LYQLENYCG,A13-A21,"A18H>N, A21N>G",2.355,FLA-DRB:AAB65540.1,weak,illustrative-pocket-surrogate
+Insulin glargine,B,RGFFYTPKT,B22-B30,B30A>T,74.36,FLA-DRB:AAB65518.1,none,illustrative-pocket-surrogate
+Insulin glargine,B,GFFYTPKTR,B23-B31,"B30A>T, B31->R",36.4,FLA-DRB:XP_003986036.3,none,illustrative-pocket-surrogate
+Insulin glargine,B,FFYTPKTRR,B24-B32,"B30A>T, B31->R, B32->R",22.355,FLA-DRB:AAB65522.1 (+3 identical-groove),none,illustrative-pocket-surrogate
+Insulin detemir (peptide backbone only),A,GIVEQCCTS,A1-A9,A8A>T,32.575,FLA-DRB:BCB67706.1,none,illustrative-pocket-surrogate
+Insulin detemir (peptide backbone only),A,IVEQCCTSI,A2-A10,"A8A>T, A10V>I",3.365,FLA-DRB:AAB65563.1,weak,illustrative-pocket-surrogate
+Insulin detemir (peptide backbone only),A,VEQCCTSIC,A3-A11,"A8A>T, A10V>I",0.185,FLA-DRB:AAB65590.1 (+1 identical-groove),strong,illustrative-pocket-surrogate
+Insulin detemir (peptide backbone only),A,EQCCTSICS,A4-A12,"A8A>T, A10V>I",54.49,FLA-DRB:XP_023105351.1,none,illustrative-pocket-surrogate
+Insulin detemir (peptide backbone only),A,QCCTSICSL,A5-A13,"A8A>T, A10V>I",66.015,FLA-DRB:AAB65518.1,none,illustrative-pocket-surrogate
+Insulin detemir (peptide backbone only),A,CCTSICSLY,A6-A14,"A8A>T, A10V>I",13.025,FLA-DRB:BCB67706.1,none,illustrative-pocket-surrogate
+Insulin detemir (peptide backbone only),A,CTSICSLYQ,A7-A15,"A8A>T, A10V>I",3.235,FLA-DRB:XP_003986036.3,weak,illustrative-pocket-surrogate
+Insulin detemir (peptide backbone only),A,TSICSLYQL,A8-A16,"A8A>T, A10V>I",31.0,FLA-DRB:BCB67706.1,none,illustrative-pocket-surrogate
+Insulin detemir (peptide backbone only),A,SICSLYQLE,A9-A17,A10V>I,47.425,FLA-DRB:XP_003986036.3,none,illustrative-pocket-surrogate
+Insulin detemir (peptide backbone only),A,ICSLYQLEN,A10-A18,"A10V>I, A18H>N",1.44,FLA-DRB:XP_003986036.3,strong,illustrative-pocket-surrogate
+Insulin detemir (peptide backbone only),A,CSLYQLENY,A11-A19,A18H>N,14.54,FLA-DRB:BCB67706.1,none,illustrative-pocket-surrogate
+Insulin detemir (peptide backbone only),A,SLYQLENYC,A12-A20,A18H>N,9.5,FLA-DRB:XP_023105351.1,weak,illustrative-pocket-surrogate
+Insulin detemir (peptide backbone only),A,LYQLENYCN,A13-A21,A18H>N,1.885,FLA-DRB:XP_003986036.3,strong,illustrative-pocket-surrogate
+Insulin lispro,A,GIVEQCCTS,A1-A9,A8A>T,32.575,FLA-DRB:BCB67706.1,none,illustrative-pocket-surrogate
+Insulin lispro,A,IVEQCCTSI,A2-A10,"A8A>T, A10V>I",3.365,FLA-DRB:AAB65563.1,weak,illustrative-pocket-surrogate
+Insulin lispro,A,VEQCCTSIC,A3-A11,"A8A>T, A10V>I",0.185,FLA-DRB:AAB65590.1 (+1 identical-groove),strong,illustrative-pocket-surrogate
+Insulin lispro,A,EQCCTSICS,A4-A12,"A8A>T, A10V>I",54.49,FLA-DRB:XP_023105351.1,none,illustrative-pocket-surrogate
+Insulin lispro,A,QCCTSICSL,A5-A13,"A8A>T, A10V>I",66.015,FLA-DRB:AAB65518.1,none,illustrative-pocket-surrogate
+Insulin lispro,A,CCTSICSLY,A6-A14,"A8A>T, A10V>I",13.025,FLA-DRB:BCB67706.1,none,illustrative-pocket-surrogate
+Insulin lispro,A,CTSICSLYQ,A7-A15,"A8A>T, A10V>I",3.235,FLA-DRB:XP_003986036.3,weak,illustrative-pocket-surrogate
+Insulin lispro,A,TSICSLYQL,A8-A16,"A8A>T, A10V>I",31.0,FLA-DRB:BCB67706.1,none,illustrative-pocket-surrogate
+Insulin lispro,A,SICSLYQLE,A9-A17,A10V>I,47.425,FLA-DRB:XP_003986036.3,none,illustrative-pocket-surrogate
+Insulin lispro,A,ICSLYQLEN,A10-A18,"A10V>I, A18H>N",1.44,FLA-DRB:XP_003986036.3,strong,illustrative-pocket-surrogate
+Insulin lispro,A,CSLYQLENY,A11-A19,A18H>N,14.54,FLA-DRB:BCB67706.1,none,illustrative-pocket-surrogate
+Insulin lispro,A,SLYQLENYC,A12-A20,A18H>N,9.5,FLA-DRB:XP_023105351.1,weak,illustrative-pocket-surrogate
+Insulin lispro,A,LYQLENYCN,A13-A21,A18H>N,1.885,FLA-DRB:XP_003986036.3,strong,illustrative-pocket-surrogate
+Insulin lispro,B,GERGFFYTK,B20-B28,B28P>K,24.335,FLA-DRB:BCB67706.1,none,illustrative-pocket-surrogate
+Insulin lispro,B,ERGFFYTKP,B21-B29,"B28P>K, B29K>P",72.56,FLA-DRB:AAB65518.1,none,illustrative-pocket-surrogate
+Insulin lispro,B,RGFFYTKPT,B22-B30,"B28P>K, B29K>P, B30A>T",74.36,FLA-DRB:AAB65518.1,none,illustrative-pocket-surrogate

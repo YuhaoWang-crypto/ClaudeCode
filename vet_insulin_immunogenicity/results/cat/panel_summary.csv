@@ -1,0 +1,2 @@
+locus,species,records_considered,records_rejected,molecules,unique_grooves,curated_nomenclature,source
+DRB,cat,74,41,22,22,False,NCBI Protein (Felis catus); IPD-MHC has no feline entries

@@ -1,0 +1,4 @@
+locus,species,records_considered,records_rejected,molecules,unique_grooves,curated_nomenclature,source
+DRB,dog,192,3,24,24,True,IPD-MHC DLA-DRB1
+DQA,dog,38,0,6,6,True,IPD-MHC DLA-DQA1
+DQB,dog,101,0,6,6,True,IPD-MHC DLA-DQB1

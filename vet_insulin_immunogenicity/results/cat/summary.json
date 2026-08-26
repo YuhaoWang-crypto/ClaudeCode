@@ -1,0 +1,203 @@
+{
+  "species": "cat",
+  "backend": "illustrative-pocket-surrogate",
+  "burdens": [
+    {
+      "product": "Bovine insulin (closest natural match)",
+      "n_differences": 1,
+      "differences": [
+        "A18H>N"
+      ],
+      "n_cores_total": 35,
+      "n_neo_cores": 4,
+      "frac_neo_cores": 0.11428571428571428,
+      "neo_core_labels": [
+        "A10-A18",
+        "A11-A19",
+        "A12-A20",
+        "A13-A21"
+      ]
+    },
+    {
+      "product": "Porcine insulin",
+      "n_differences": 3,
+      "differences": [
+        "A8A>T",
+        "A10V>I",
+        "A18H>N"
+      ],
+      "n_cores_total": 35,
+      "n_neo_cores": 13,
+      "frac_neo_cores": 0.37142857142857144,
+      "neo_core_labels": [
+        "A1-A9",
+        "A2-A10",
+        "A3-A11",
+        "A4-A12",
+        "A5-A13",
+        "A6-A14",
+        "A7-A15",
+        "A8-A16",
+        "A9-A17",
+        "A10-A18",
+        "A11-A19",
+        "A12-A20",
+        "A13-A21"
+      ]
+    },
+    {
+      "product": "Human recombinant insulin",
+      "n_differences": 4,
+      "differences": [
+        "A8A>T",
+        "A10V>I",
+        "A18H>N",
+        "B30A>T"
+      ],
+      "n_cores_total": 35,
+      "n_neo_cores": 14,
+      "frac_neo_cores": 0.4,
+      "neo_core_labels": [
+        "A1-A9",
+        "A2-A10",
+        "A3-A11",
+        "A4-A12",
+        "A5-A13",
+        "A6-A14",
+        "A7-A15",
+        "A8-A16",
+        "A9-A17",
+        "A10-A18",
+        "A11-A19",
+        "A12-A20",
+        "A13-A21",
+        "B22-B30"
+      ]
+    },
+    {
+      "product": "Insulin glargine",
+      "n_differences": 7,
+      "differences": [
+        "A8A>T",
+        "A10V>I",
+        "A18H>N",
+        "A21N>G",
+        "B30A>T",
+        "B31->R",
+        "B32->R"
+      ],
+      "n_cores_total": 37,
+      "n_neo_cores": 16,
+      "frac_neo_cores": 0.43243243243243246,
+      "neo_core_labels": [
+        "A1-A9",
+        "A2-A10",
+        "A3-A11",
+        "A4-A12",
+        "A5-A13",
+        "A6-A14",
+        "A7-A15",
+        "A8-A16",
+        "A9-A17",
+        "A10-A18",
+        "A11-A19",
+        "A12-A20",
+        "A13-A21",
+        "B22-B30",
+        "B23-B31",
+        "B24-B32"
+      ]
+    },
+    {
+      "product": "Insulin detemir (peptide backbone only)",
+      "n_differences": 3,
+      "differences": [
+        "A8A>T",
+        "A10V>I",
+        "A18H>N"
+      ],
+      "n_cores_total": 34,
+      "n_neo_cores": 13,
+      "frac_neo_cores": 0.38235294117647056,
+      "neo_core_labels": [
+        "A1-A9",
+        "A2-A10",
+        "A3-A11",
+        "A4-A12",
+        "A5-A13",
+        "A6-A14",
+        "A7-A15",
+        "A8-A16",
+        "A9-A17",
+        "A10-A18",
+        "A11-A19",
+        "A12-A20",
+        "A13-A21"
+      ]
+    },
+    {
+      "product": "Insulin lispro",
+      "n_differences": 6,
+      "differences": [
+        "A8A>T",
+        "A10V>I",
+        "A18H>N",
+        "B28P>K",
+        "B29K>P",
+        "B30A>T"
+      ],
+      "n_cores_total": 35,
+      "n_neo_cores": 16,
+      "frac_neo_cores": 0.45714285714285713,
+      "neo_core_labels": [
+        "A1-A9",
+        "A2-A10",
+        "A3-A11",
+        "A4-A12",
+        "A5-A13",
+        "A6-A14",
+        "A7-A15",
+        "A8-A16",
+        "A9-A17",
+        "A10-A18",
+        "A11-A19",
+        "A12-A20",
+        "A13-A21",
+        "B20-B28",
+        "B21-B29",
+        "B22-B30"
+      ]
+    }
+  ],
+  "domain_summary": {
+    "rows": [
+      {
+        "locus": "DRB",
+        "training_molecules": 1718,
+        "train_median": 0.96,
+        "train_p5": 0.88,
+        "panel_median": 0.6086956521739131,
+        "panel_min": 0.52,
+        "panel_max": 0.7391304347826086,
+        "n_out": 22,
+        "n_marginal": 0,
+        "n_total": 22
+      }
+    ],
+    "n_training": 1718,
+    "train_p5": 0.88,
+    "panel_median": 0.6086956521739131,
+    "panel_min": 0.52,
+    "panel_max": 0.7391304347826086,
+    "n_out": 22,
+    "n_marginal": 0,
+    "n_near": 0,
+    "n_total": 22,
+    "verdict_text": "**Every cat molecule in this panel is outside the model's training space.** Its nearest training neighbour is further away than the nearest neighbour of essentially any molecule the model was actually trained on. Binding scores for this species are extrapolation, and there is no public cat benchmark that would tell you how far off they are. Report them as research-use hypotheses, never as a risk quantification."
+  },
+  "validation": {
+    "passed": 15,
+    "total": 16,
+    "failed": []
+  }
+}

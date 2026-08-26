@@ -1,0 +1,102 @@
+# Canine (dog) insulin immunogenicity workflow.
+#
+# DLA = Dog Leukocyte Antigen. There is no "HLA" in a dog; HLA is the human
+# locus name only. Class II here means DLA-DRB1 / DQA1 / DQB1.
+
+species: dog
+common_name: Dog (Canis lupus familiaris)
+self_insulin: dog
+
+# Porcine insulin is sequence-identical to canine insulin, which makes it a
+# true identity control: a real, marketed veterinary product that the workflow
+# must score at exactly zero foreign residues.
+identity_control_donor: pig
+
+# DR-type molecules need only the beta chain, so DRB is the locus we score.
+scoring_locus: DRB
+
+panel:
+  - locus: DRB
+    source: ipd
+    prefixes: [DLA-DRB1]
+    deduplicate: true
+    # Capped by farthest-first diversity picking, not truncation: the subset
+    # spans the groove space rather than the front of the alphabet.
+    max_molecules: 24
+  - locus: DQA
+    source: ipd
+    prefixes: [DLA-DQA1]
+    deduplicate: true
+    max_molecules: 6
+  - locus: DQB
+    source: ipd
+    prefixes: [DLA-DQB1]
+    deduplicate: true
+    max_molecules: 6
+
+products:
+  - name: Porcine insulin (identity control)
+    parent: pig
+    note: Sequence-identical to canine insulin; the licensed canine product.
+  - name: Human recombinant insulin
+    parent: human
+  - name: Bovine insulin
+    parent: bovine
+  - name: Insulin lispro
+    parent: human
+    edits: [B28P>K, B29K>P]
+    note: B28/B29 inversion.
+  - name: Insulin aspart
+    parent: human
+    edits: [B28P>D]
+  - name: Insulin glargine
+    parent: human
+    edits: [A21N>G, B31*>RR]
+    note: A21 Asn->Gly plus a B31-B32 Arg-Arg extension.
+  - name: Insulin detemir (peptide backbone only)
+    parent: human
+    edits: [B30T>-]
+    note: >
+      des-B30; B29 Lys carries a myristoyl chain that this sequence-level
+      workflow does not represent. Acylation changes processing and can create
+      hapten-like determinants -- out of scope here, and flagged as such.
+  - name: Insulin degludec (peptide backbone only)
+    parent: human
+    edits: [B30T>-]
+    note: >
+      des-B30; B29 Lys carries a hexadecanedioyl-gamma-Glu chain, not modelled.
+
+interpretation: |
+  **The dog is the easy case, and the reason is the sequence, not the model.**
+
+  Canine insulin differs from human insulin at a single residue, B30 Thr->Ala,
+  at the very C-terminus of the B chain. Porcine insulin is identical to canine
+  insulin outright — which is why porcine insulin is the licensed canine
+  product, and why this workflow's identity control is a real drug rather than a
+  thought experiment.
+
+  Practical consequences:
+
+  * **A species-matched (porcine or recombinant canine) product has no T-cell
+    epitope story to tell.** Zero foreign residues means zero non-self cores;
+    there is nothing for an MHC-II screen to find. Immunogenicity risk for such
+    a product lives entirely in aggregation, process impurities (HCP, leached
+    ligands, protamine in PZI-type formulations) and PTMs — the same failure
+    modes as any well-matched biologic, and the place analytical effort should
+    go.
+  * **A human-sequence product in a dog is a one-residue problem, at a chain
+    terminus.** Only the single 9-mer register spanning B30 can carry the novel
+    residue, and a C-terminal residue is the weakest possible position: it can
+    only occupy P9 or fall into the flanking region. This is a focused,
+    cheap question, not a screening campaign.
+  * **Analogues move more mass than the species gap does.** Glargine's B31-B32
+    Arg-Arg extension adds genuinely novel C-terminal registers; the acylated
+    analogues (detemir, degludec) add a chemical modification this workflow
+    deliberately does not model. If you want a real risk ranking for a canine
+    programme, rank by *analogue* chemistry first and by species gap second.
+
+  On the prediction layer: the DLA-DRB1 panel is real and curated, but most of
+  it still sits outside NetMHCIIpan's training space (section 3). Treat binding
+  output as directional hypothesis generation for RUO reporting, and put the
+  weight of any regulatory argument on the sequence-level analysis in section 1,
+  which does not depend on a model at all.
