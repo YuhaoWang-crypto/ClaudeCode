@@ -1,0 +1,23 @@
+displacement set: 9,866 perturbations x 8,248 gene coordinates
+
+                          measured        null     ratio
+--------------------------------------------------------
+participation_ratio           25.4       332.0     0.076
+entropy_rank                 113.5       369.4     0.307
+n_for_50pct                   18.0       141.0     0.128
+n_for_80pct                  165.0       281.0     0.587
+n_for_90pct                  267.0       337.0     0.792
+n_for_95pct                  329.0       368.0     0.894
+
+one-sidedness of the leading 20 directions (0.5 = symmetric, 1.0 = a ray)
+  measured: median 0.518, max 0.750, 2/20 above 0.65
+  null:     median 0.503, max 0.509
+  per-direction, strongest first:
+   0.75  0.68  0.52  0.54  0.52  0.51  0.51  0.51  0.52  0.52
+
+267 directions carry 90% of the variance across 9,866 perturbations,
+against 337 for magnitude-matched random directions.
+Cross-validation independently chose a program basis of rank [40, 80] for
+this screen, without seeing any of the above.
+
+wrote results/state_space.json

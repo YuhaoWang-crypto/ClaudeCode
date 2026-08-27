@@ -34,3 +34,19 @@ https://modal.com/apps/wyh-58141/main/ap-UqwksohJhV1Jgi2GVVPpw2
 ├── 🔨 Created function build.
 ├── 🔨 Created function prep.
 └── 🔨 Created function manifest.
+✓ prep complete
+  input:         prediction.h5ad
+  output:        prediction.vcc
+  cells:         360000
+  genes:         18533  (encoding: float32)
+  perturbations: column 'target_gene' → 'target_gene'
+  contexts:      column 'context' → A=120000, B=120000, C=120000
+  targets:       verified against the official list
+  normalization: counts-preserved
+
+
+exit=0  peak child RSS=59.1 GB
+prediction.vcc: 3298 MB
+Stopping app - local entrypoint completed.
+✓ App completed. View run at 
+https://modal.com/apps/wyh-58141/main/ap-UqwksohJhV1Jgi2GVVPpw2
