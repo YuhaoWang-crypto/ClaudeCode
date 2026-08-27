@@ -50,12 +50,14 @@ def liquidity(L, k=K):
     return lam_gain(L, k) / lam_loss_per_site(k)
 
 
-def build_generator(L, alpha, n_star=1, n_max=4, k=K, ne=NE):
-    """状态 = (n 个位点, 祖先位点是否仍在)。稳定化选择 w(n)=exp(-alpha (n-n*)^2)。"""
+def build_generator_rates(lg, ll, alpha, n_star=1, n_max=4, ne=NE):
+    """通用版：直接给定 λ_gain / λ_loss(单位点)（单位：每单位中性分歧度 d）。
+
+    状态 = (n 个位点, 祖先位点是否仍在)。稳定化选择 w(n)=exp(-alpha (n-n*)^2)。
+    """
     states = [(0, 0)] + [(n, o) for n in range(1, n_max + 1) for o in (0, 1)]
     idx = {s: i for i, s in enumerate(states)}
     Q = np.zeros((len(states), len(states)))
-    lg, ll = lam_gain(L, k), lam_loss_per_site(k)
 
     def w(n):
         return np.exp(-alpha * (n - n_star) ** 2)
@@ -77,15 +79,24 @@ def build_generator(L, alpha, n_star=1, n_max=4, k=K, ne=NE):
     return Q, states, idx
 
 
-def branch_stats(L, alpha, d, **kw):
+def build_generator(L, alpha, k=K, **kw):
+    """便捷版：由 UTR 长度与 k-mer 长度推出中性速率（均匀 25% 组成假设）。"""
+    return build_generator_rates(lam_gain(L, k), lam_loss_per_site(k), alpha, **kw)
+
+
+def branch_stats_rates(lg, ll, alpha, d, **kw):
     """从 (n=1, 祖先位点在) 出发，走过分歧度 d 之后的边保留率 / 坐标保留率。"""
-    Q, states, idx = build_generator(L, alpha, **kw)
+    Q, states, idx = build_generator_rates(lg, ll, alpha, **kw)
     p = np.zeros(len(states))
     p[idx[(1, 1)]] = 1.0
     pt = p @ expm(Q * d)
     edge = sum(pt[idx[(n, o)]] for (n, o) in states if n > 0)
     pos = sum(pt[idx[(n, o)]] for (n, o) in states if o == 1)
     return edge, pos
+
+
+def branch_stats(L, alpha, d, k=K, **kw):
+    return branch_stats_rates(lam_gain(L, k), lam_loss_per_site(k), alpha, d, **kw)
 
 
 def run():
