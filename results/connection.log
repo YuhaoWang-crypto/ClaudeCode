@@ -1,0 +1,28 @@
+4 base states, 2,053 shared knockdowns (the coupling is exact), local fiber rank 30
+
+principal angles between local fiber subspaces (degrees, median over 30)
+     K562 vs RPE1    median  59.1  min  19.8  max  89.7
+     K562 vs HepG2   median  56.7  min  20.0  max  89.6
+     K562 vs Jurkat  median  58.1  min  18.9  max  89.2
+     RPE1 vs HepG2   median  52.3  min  18.7  max  89.9
+     RPE1 vs Jurkat  median  63.9  min  19.4  max  89.9
+    HepG2 vs Jurkat  median  61.5  min  22.2  max  89.3
+     null (random subspace)  median  86.8
+
+path inconsistency  ‖R_AC − R_BC·R_AB‖_F   (0 = flat, 7.7 = unrelated)
+  HepG2->K562->Jurkat         4.69
+  HepG2->Jurkat->K562         4.69
+  Jurkat->HepG2->K562         4.69
+  K562->Jurkat->HepG2         4.69
+  mean over all 24 paths      4.51
+
+holonomy  ‖H − I‖_F  around closed loops (0 = fiber returns unchanged)
+  HepG2->K562->Jurkat->HepG2  4.69
+  Jurkat->HepG2->K562->Jurkat  4.69
+  K562->HepG2->Jurkat->K562   4.69
+  K562->Jurkat->HepG2->K562   4.69
+  mean over all 24 loops      4.51
+  null (random rotations)     7.74
+
+Does transporting help? Effect correlation in the target line,
+predicting from one source line, 5-fold over knockdowns.

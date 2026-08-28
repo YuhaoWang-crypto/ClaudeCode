@@ -15,3 +15,37 @@
 
 === RPE1: 100 knockdowns ===
   4606/6642 genes recovered from Stack output
+  -- all 6,642 genes --
+    control (delta=0)                  PDS=0.505  ovl@100=0.005  MAE=0.0700  score=0.000
+    global mean [challenge baseline]   PDS=0.506  ovl@100=0.059  MAE=0.0679  score=0.000
+    naive transfer                     PDS=0.564  ovl@100=0.227  MAE=0.0705  score=0.099
+    ContextTransfer (ours)             PDS=0.568  ovl@100=0.188  MAE=0.0658  score=0.098
+  -- restricted to genes Stack covers --
+    control (delta=0)                  PDS=0.506  ovl@100=0.005  MAE=0.0728  score=0.000
+    global mean [challenge baseline]   PDS=0.506  ovl@100=0.062  MAE=0.0705  score=0.000
+    naive transfer                     PDS=0.560  ovl@100=0.225  MAE=0.0730  score=0.094
+    ContextTransfer (ours)             PDS=0.565  ovl@100=0.186  MAE=0.0680  score=0.096
+    Stack (Arc, in-context)            PDS=0.506  ovl@100=0.028  MAE=0.0877  score=0.000
+
+=== HepG2: 100 knockdowns ===
+  4606/6642 genes recovered from Stack output
+  -- all 6,642 genes --
+    control (delta=0)                  PDS=0.506  ovl@100=0.001  MAE=0.0592  score=0.000
+    global mean [challenge baseline]   PDS=0.505  ovl@100=0.134  MAE=0.0580  score=0.000
+    naive transfer                     PDS=0.644  ovl@100=0.249  MAE=0.0591  score=0.138
+    ContextTransfer (ours)             PDS=0.606  ovl@100=0.256  MAE=0.0544  score=0.135
+  -- restricted to genes Stack covers --
+    control (delta=0)                  PDS=0.506  ovl@100=0.003  MAE=0.0612  score=0.000
+    global mean [challenge baseline]   PDS=0.506  ovl@100=0.148  MAE=0.0598  score=0.000
+    naive transfer                     PDS=0.635  ovl@100=0.246  MAE=0.0608  score=0.126
+    ContextTransfer (ours)             PDS=0.604  ovl@100=0.249  MAE=0.0563  score=0.125
+    Stack (Arc, in-context)            PDS=0.512  ovl@100=0.049  MAE=0.0799  score=0.004
+
+=== Jurkat: 100 knockdowns ===
+  -- all 6,642 genes --
+    control (delta=0)                  PDS=0.506  ovl@100=0.004  MAE=0.0530  score=0.015
+    global mean [challenge baseline]   PDS=0.505  ovl@100=0.043  MAE=0.0555  score=0.000
+    naive transfer                     PDS=0.644  ovl@100=0.196  MAE=0.0602  score=0.147
+    ContextTransfer (ours)             PDS=0.652  ovl@100=0.191  MAE=0.0544  score=0.157
+
+wrote results/stack_compare.json
