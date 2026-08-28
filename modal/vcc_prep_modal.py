@@ -30,8 +30,7 @@ import modal
 REPO = "https://github.com/yuhaowang-crypto/claudecode.git"
 BRANCH = "claude/virtual-cell-model-prediction-qu31ry"
 GWPS = "https://ndownloader.figshare.com/files/35774443"
-EMBED = ("https://huggingface.co/arcinstitute/SE-600M/resolve/main/"
-         "protein_embeddings.pt")   # 392 MB, routes the 26 unmeasured targets
+EMBED_NPZ = "protein_embeddings.npz"   # uploaded; needs no torch to read
 
 image = (
     modal.Image.debian_slim(python_version="3.11")
@@ -71,10 +70,11 @@ def build() -> str:
     gwps = Path(f"{DATA}/vcc_data/replogle/K562_gwps_raw_bulk.h5ad")
     if not gwps.exists():
         subprocess.check_call(["curl", "-sSL", "--retry", "4", "-o", str(gwps), GWPS])
-    emb = Path(f"{DATA}/vcc_data/state/protein_embeddings.pt")
-    emb.parent.mkdir(parents=True, exist_ok=True)
+    emb = Path(f"{DATA}/vcc_data/state/{EMBED_NPZ}")
     if not emb.exists():
-        subprocess.check_call(["curl", "-sSL", "--retry", "4", "-o", str(emb), EMBED])
+        raise SystemExit(
+            f"missing {emb} -- upload it:\n  modal volume put vcc-submission "
+            f"<local>/{EMBED_NPZ} /vcc_data/state/{EMBED_NPZ}")
     for need in ("vcc_official/gene_names.csv", "vcc_official/context_A.h5ad"):
         if not Path(f"{DATA}/{need}").exists():
             raise SystemExit(
@@ -86,7 +86,13 @@ def build() -> str:
         "--out /vol/vcc_submission/prediction.h5ad",
         shell=True, capture_output=True, text=True)
     vol.commit()
-    return _redact(out.stdout[-3000:] + out.stderr[-2000:])
+    text = _redact(out.stdout[-3000:] + out.stderr[-2000:])
+    if out.returncode != 0:
+        # Not checking this let a crashed build leave the previous artifact in
+        # place, and the next stage validated that stale file and reported a
+        # pass. A failed build must stop the chain.
+        raise RuntimeError(f"build failed, exit {out.returncode}\n{text}")
+    return text
 
 
 @app.function(image=image, volumes={DATA: vol}, timeout=60 * 60, cpu=8,

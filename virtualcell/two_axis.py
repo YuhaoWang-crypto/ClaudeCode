@@ -44,6 +44,9 @@ from .data import load_all, shared_perturbations
 from .model import (ContextTransferModel, GlobalMeanBaseline, Hyper, SourceBank)
 
 EMBED = Path("/home/user/vcc_data/state/protein_embeddings.pt")
+# An .npz beside it wins: reading it needs no torch, which is the
+# difference between working and not working on a lean remote image.
+EMBED_NPZ = EMBED.with_suffix(".npz")
 MIXES = (0.0, 0.25, 0.5, 0.75, 1.0)
 
 
@@ -79,16 +82,19 @@ def load_embeddings(symbols: np.ndarray, required: bool = False
     and the submission silently loses the only route it has to the 26 panel
     targets with no measurement at all.
     """
-    if not EMBED.exists():
-        if required:
-            raise SystemExit(
-                f"esm_mix > 0 but {EMBED} is missing. Fetch it with:\n"
-                f"  curl -sSL -o {EMBED} https://huggingface.co/arcinstitute/"
-                f"SE-600M/resolve/main/protein_embeddings.pt")
+    if EMBED_NPZ.exists():
+        z = np.load(EMBED_NPZ, allow_pickle=True)
+        blob = dict(zip(z["symbols"].astype(str), z["embeddings"]))
+    elif EMBED.exists():
+        import torch
+        blob = torch.load(EMBED, map_location="cpu", weights_only=False)
+    elif required:
+        raise SystemExit(
+            f"esm_mix > 0 but neither {EMBED_NPZ} nor {EMBED} exists. Fetch "
+            f"with:\n  curl -sSL -o {EMBED} https://huggingface.co/arcinstitute/"
+            f"SE-600M/resolve/main/protein_embeddings.pt")
+    else:
         return None
-    import torch
-
-    blob = torch.load(EMBED, map_location="cpu", weights_only=False)
     dim = len(next(iter(blob.values())))
     out = np.zeros((symbols.size, dim), dtype=np.float32)
     hit = 0
