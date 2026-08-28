@@ -1,1 +1,3 @@
   protein embeddings: 6,370/6,546 genes covered (97.3%), 5120-d
+  frontier picks arm 'atlas:1': beta 1.5 -> 0.75, gene_w 0 -> 1 (mean PDS 0.545, ovl@100 0.185, score 0.076)
+    for reference, a perfect per-gene prior would score 0.0777 against this arm's 0.0761 -- the whole route is worth +0.0016 more than what is shipped
