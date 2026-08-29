@@ -183,13 +183,52 @@ def main() -> None:
     print(f"  {'mean':<20}" + "".join(f"{mean[a_]:>13.4f}" for a_ in ARMS)
           + f"{mean['transported'] - mean['projected']:>+14.4f}")
 
+    # ---- the price of admission ---------------------------------------------
+    # Fitting R needs knockdowns measured in *both* lines. The official 2026
+    # contexts supply 18,400 control cells and no perturbations at all, so this
+    # transport cannot be fitted for the submission however large its gain is.
+    # What it can do is price the access: how many measured knockdowns in a new
+    # context would be needed before transporting beats transferring as-is?
+    print(f"\nHow many measured knockdowns in the target context does R need?\n"
+          f"Fit on n, evaluate on 400 held out, mean over all 12 ordered pairs.")
+    held = rng.permutation(common.size)[:400]
+    pool = np.setdiff1d(np.arange(common.size), held)
+    curve = {}
+    for n in (5, 10, 25, 50, 100, 250, 500, min(1000, pool.size)):
+        vals, base = [], []
+        for a, b in itertools.permutations(names, 2):
+            for rep in range(3):
+                sub = np.random.default_rng(args.seed + rep).choice(
+                    pool, n, replace=False)
+                Rf, _ = procrustes(coef[a][sub], coef[b][sub])
+                P = (Rf @ coef[a][held].T).T @ basis[b]
+                true = delta[b][held]
+                num = (P * true).sum(1)
+                den = np.linalg.norm(P, axis=1) * np.linalg.norm(true, axis=1)
+                vals.append(np.median(num / np.maximum(den, 1e-12)))
+                raw = delta[a][held]
+                num = (raw * true).sum(1)
+                den = np.linalg.norm(raw, axis=1) * np.linalg.norm(true, axis=1)
+                base.append(np.median(num / np.maximum(den, 1e-12)))
+        curve[n] = (float(np.mean(vals)), float(np.mean(base)))
+    print(f"  {'n knockdowns':>14}{'transported':>13}{'as-is':>9}{'Δ':>9}")
+    for n, (v, b_) in curve.items():
+        flag = "" if v > b_ else "   worse"
+        print(f"  {n:>14}{v:>13.4f}{b_:>9.4f}{v - b_:>+9.4f}{flag}")
+    winners = [n for n, (v, b_) in curve.items() if v > b_]
+    if winners:
+        print(f"\n  transport overtakes as-is transfer from about "
+              f"{min(winners)} measured knockdowns")
+
     args.out.parent.mkdir(parents=True, exist_ok=True)
     args.out.write_text(json.dumps(
         {"principal_angles": angles, "coupling_spectrum": spec,
          "path_inconsistency": incon, "holonomy": hol,
          "holonomy_null_mean": float(np.mean(null_h)),
          "transport_gain": rows, "k": args.k,
-         "arms": list(ARMS)}, indent=2))
+         "arms": list(ARMS),
+         "sample_curve": {str(k_): v for k_, v in curve.items()}},
+        indent=2))
     print(f"\nwrote {args.out}")
 
 
