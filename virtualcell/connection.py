@@ -144,37 +144,52 @@ def main() -> None:
     # ---- the only question that changes the model ---------------------------
     # Predict line B's effect for knockdown g from line A's, with and without
     # transport, on knockdowns held out of the Procrustes fit.
-    print(f"\nDoes transporting help? Effect correlation in the target line,\n"
-          f"predicting from one source line, 5-fold over knockdowns.")
+    # Transporting also *projects onto the target line's own subspace*, which
+    # denoises regardless of any rotation. Two controls separate the two: the
+    # same projection with no rotation at all, and the same projection with a
+    # random rotation. Only the gap above those is the connection's doing.
+    from scipy.stats import special_ortho_group
+    print(f"\nDoes transporting help? Median cosine to the target line's true "
+          f"effect,\n5-fold over knockdowns, Procrustes fit on training folds "
+          f"only.")
     folds = np.array_split(rng.permutation(common.size), 5)
-    rows = {}
+    ARMS = ("as-is", "projected", "random rot.", "transported")
+    rows: dict[str, dict[str, float]] = {}
     for a, b in itertools.permutations(names, 2):
-        plain, moved = [], []
-        for f in folds:
+        acc = {k_: [] for k_ in ARMS}
+        for fi, f in enumerate(folds):
             tr = np.setdiff1d(np.arange(common.size), f)
             Rf, _ = procrustes(coef[a][tr], coef[b][tr])
-            # transported prediction, expressed back in gene space
-            pred = (Rf @ coef[a][f].T).T @ basis[b]
-            raw = delta[a][f]
+            Q = special_ortho_group.rvs(args.k, random_state=args.seed + fi)
             true = delta[b][f]
-            for P, acc in ((raw, plain), (pred, moved)):
+            cand = {
+                "as-is": delta[a][f],
+                "projected": coef[a][f] @ basis[b],
+                "random rot.": (Q @ coef[a][f].T).T @ basis[b],
+                "transported": (Rf @ coef[a][f].T).T @ basis[b],
+            }
+            for k_, P in cand.items():
                 num = (P * true).sum(1)
                 den = np.linalg.norm(P, axis=1) * np.linalg.norm(true, axis=1)
-                acc.append(np.median(num / np.maximum(den, 1e-12)))
-        rows[f"{a}->{b}"] = (float(np.mean(plain)), float(np.mean(moved)))
-    print(f"  {'source -> target':<20}{'as-is':>9}{'transported':>13}{'Δ':>9}")
-    for k_, (p, m) in rows.items():
-        print(f"  {k_:<20}{p:>9.4f}{m:>13.4f}{m - p:>+9.4f}")
-    d = np.mean([m - p for p, m in rows.values()])
-    print(f"  {'mean':<20}{np.mean([p for p, _ in rows.values()]):>9.4f}"
-          f"{np.mean([m for _, m in rows.values()]):>13.4f}{d:>+9.4f}")
+                acc[k_].append(np.median(num / np.maximum(den, 1e-12)))
+        rows[f"{a}->{b}"] = {k_: float(np.mean(v)) for k_, v in acc.items()}
+
+    print("  " + f"{'source -> target':<20}" + "".join(f"{k_:>13}" for k_ in ARMS)
+          + f"{'gain vs proj':>14}")
+    for k_, r in rows.items():
+        print(f"  {k_:<20}" + "".join(f"{r[a_]:>13.4f}" for a_ in ARMS)
+              + f"{r['transported'] - r['projected']:>+14.4f}")
+    mean = {a_: np.mean([r[a_] for r in rows.values()]) for a_ in ARMS}
+    print(f"  {'mean':<20}" + "".join(f"{mean[a_]:>13.4f}" for a_ in ARMS)
+          + f"{mean['transported'] - mean['projected']:>+14.4f}")
 
     args.out.parent.mkdir(parents=True, exist_ok=True)
     args.out.write_text(json.dumps(
         {"principal_angles": angles, "coupling_spectrum": spec,
          "path_inconsistency": incon, "holonomy": hol,
          "holonomy_null_mean": float(np.mean(null_h)),
-         "transport_gain": rows, "k": args.k}, indent=2))
+         "transport_gain": rows, "k": args.k,
+         "arms": list(ARMS)}, indent=2))
     print(f"\nwrote {args.out}")
 
 
