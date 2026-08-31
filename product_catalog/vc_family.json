@@ -1,0 +1,720 @@
+{
+  "schema": "quregen-biodecision/family@1",
+  "family": {
+    "code": "VC",
+    "name": "虚拟细胞与体外替身",
+    "tagline": "先证明有可建模余量，再决定要不要建模。",
+    "lede": "虚拟细胞不是一个端到端模型，是一张细胞系状态卡加上若干个各自可单独证伪的预测模块。这个家族按<b>细胞系</b>和<b>适应症</b>组织产品：每条产品线只承诺它在有底座的细胞系内部能做的排序与预筛，并把不能承诺的部分写进交付物。",
+    "promise": "结算口径是富集倍数，不是相关系数。",
+    "promiseP": "一个虚拟筛的价值，等于它把湿实验从「全测」压缩到「排序后测」省下的孔数，减去漏掉真阳性的代价。所以每个项目的验收表里都有富集倍数、召回率和每个真阳性的实验成本——这三个数才和实验预算对得上账。"
+  },
+  "bounds": {
+    "ok": {
+      "t": "直接替代",
+      "c": "var(--lime)",
+      "d": "干湿同精度，可以省掉实验。这一档大部分不是建模，是查库——最容易被忽略的效率来源。",
+      "items": [
+        "靶点在该系的表达、拷贝数、突变与融合状态（CCLE 直接查）",
+        "该靶点在该系是否为必需基因（DepMap CRISPR 直接查，比任何模型都准）",
+        "化合物结构警报：PAINS / Brenk / NIH 干扰子与类药性",
+        "sgRNA 全基因组脱靶枚举与 CFD 特异性打分（穷举，不是预测）",
+        "细胞系身份与交叉污染核对（STR / SNP 指纹）"
+      ]
+    },
+    "mid": {
+      "t": "排序后测",
+      "c": "var(--blue)",
+      "d": "只能排序，仍需实验确认，但能把实验量压下一个量级。所有 VC 产品的主战场都在这一档。",
+      "items": [
+        "化合物的转录响应方向与 MoA 归类（须先打赢 L1000 检索基线）",
+        "单基因敲低的下游通路——仅限该系有扰动底座覆盖的靶点及邻域",
+        "化合物–靶点结合排序（指标要选对：opt_score ρ≈+0.6，binding_confidence ρ≈−0.2）",
+        "n² 组合空间的优先级排序",
+        "启动子 / 剪接变异的顺式效应（须带 ±40bp 位置置换对照）",
+        "网络失稳早期预警：方差与 lag-1 自相关在分岔点附近上升"
+      ]
+    },
+    "no": {
+      "t": "不承诺",
+      "c": "var(--coral)",
+      "d": "已经实测会失败的外推。写进合同的排除条款，而不是藏在脚注里。",
+      "items": [
+        "外推到没有扰动底座的新细胞系——oracle 上下文特征比不给还差",
+        "CRISPRa / 过表达 / 敲入后果——敲低训练的模型迁过去 r=0.009，等于掷骰子",
+        "绝对 IC50 与完整剂量–响应曲线，只排序不给数",
+        "时间动力学、代谢物浓度与滴度（FBA 的定义就给不了）",
+        "从细胞系外推到患者响应",
+        "监管级毒理放行结论"
+      ]
+    }
+  },
+  "cell_line_matrix": {
+    "head": [
+      "细胞系",
+      "来源 / 适应症背景",
+      "扰动底座",
+      "化合物底座",
+      "形态底座",
+      "可支撑的产品线"
+    ],
+    "rows": [
+      [
+        "K562",
+        "CML · BCR-ABL 阳性",
+        "full",
+        "part",
+        "none",
+        "CellTwin · PerturbSim · ToxTwin · ResistSim"
+      ],
+      [
+        "RPE1",
+        "视网膜色素上皮 · 近二倍体非癌",
+        "full",
+        "none",
+        "none",
+        "CellTwin（对照）· PerturbSim"
+      ],
+      [
+        "MCF7",
+        "乳腺癌 ER+",
+        "none",
+        "full",
+        "part",
+        "CellTwin · PhenoScreen · ResistSim · CombiRank"
+      ],
+      [
+        "A549",
+        "肺腺癌 · KRAS 突变",
+        "none",
+        "full",
+        "full",
+        "CellTwin · PhenoScreen · CombiRank"
+      ],
+      [
+        "U2OS",
+        "骨肉瘤 · 形态筛主力",
+        "none",
+        "none",
+        "full",
+        "CellTwin · PhenoScreen"
+      ],
+      [
+        "HepG2",
+        "肝癌 · 肝毒性代理",
+        "part",
+        "full",
+        "none",
+        "CellTwin · ToxTwin"
+      ],
+      [
+        "Jurkat",
+        "T 细胞白血病 · 免疫代理",
+        "part",
+        "none",
+        "none",
+        "PerturbSim"
+      ],
+      [
+        "PC9 / HCC827",
+        "肺腺癌 · EGFR 敏感突变",
+        "none",
+        "part",
+        "none",
+        "ResistSim"
+      ],
+      [
+        "客户自有系",
+        "按项目",
+        "按项目",
+        "按项目",
+        "按项目",
+        "先做 CellTwin 可行性判定"
+      ]
+    ]
+  },
+  "lines": [
+    {
+      "slug": "celltwin-ai",
+      "code": "VC-TWN",
+      "name": "CellTwin-AI",
+      "title": "细胞系虚拟替身构建",
+      "accent": "var(--lime)",
+      "axis": "按细胞系",
+      "question": "这条细胞系的基线状态、可建模余量和噪声天花板是多少，够不够支撑后续任何虚拟筛？",
+      "promise": "所有 VC 产品的地基。没有这一步，后面每个模型分数都没有参照系。",
+      "promise_detail": "我们先算重复孔之间的一致性上限（噪声天花板），再跑完整基线阶梯——训练集平均位移、最近邻检索、线性加性、oracle 上界。如果基线已经贴顶，这条系的这个 readout 就没有可建模余量，我们会直接说不要建，换 readout 或换系。",
+      "steps": [
+        {
+          "stage": "标准输入",
+          "text": "细胞系身份、可用组学与扰动数据、目标 readout、实验容量"
+        },
+        {
+          "stage": "候选生成",
+          "text": "CCLE / DepMap / ENCODE 基线拉取，与系内扰动语料对齐"
+        },
+        {
+          "stage": "证据校准",
+          "text": "重复孔一致性算噪声天花板；四层基线阶梯；预训练语料污染审计"
+        },
+        {
+          "stage": "组合选择",
+          "text": "可建模 readout 清单、不可建模清单、建库缺口与优先级"
+        },
+        {
+          "stage": "实验输出",
+          "text": "状态卡 + 基线表 + 可建模余量报告 + go/no-go"
+        }
+      ],
+      "phase_text": {
+        "qc": "确认细胞系编号、批次、传代、组学版本与扰动数据的样本对应关系，核对 STR 身份。",
+        "generate": "拉取表达、突变、拷贝数、融合、甲基化、染色质可及性与倍性，对齐系内扰动语料的基因空间。",
+        "calibrate": "计算重复孔噪声天花板，跑四层基线阶梯，并按 accession 集合求交做预训练语料污染审计。",
+        "select": "按「占噪声天花板百分比」给出每个 readout 的可建模余量，划分可建模 / 不可建模 / 需补数据三档。",
+        "output": "输出细胞系状态卡、基线得分表、污染审计判定原文与建库缺口清单。",
+        "loop": "回收首轮实测数据，更新噪声天花板与基线，重判可建模余量。",
+        "exit": "每个 readout 都有噪声天花板和基线得分，go/no-go 有据可依。"
+      },
+      "engagement": {
+        "domain": "虚拟细胞·基线资产",
+        "value": "先证明有没有可建模余量，再决定要不要建模——这一步产出的表比后面任何模型都重要。",
+        "deliverables": "细胞系状态卡、噪声天花板表、四层基线阶梯得分、污染审计判定、可 / 不可建模 readout 清单。",
+        "formats": "h5ad / Parquet / CSV / DuckDB / HTML",
+        "teams": "药理、体外模型、AI 平台与技术尽调",
+        "scenario": "虚拟筛立项前的可行性判定与预算论证",
+        "tools": "DepMap、CCLE、ENCODE、Scanpy、scPerturb、DuckDB",
+        "price_rmb": "6万–14万",
+        "bounds": {
+          "ok": "基线组学、必需性、身份核对",
+          "mid": "可建模余量估计",
+          "no": "没有底座的细胞系不出替身，只出建库方案"
+        }
+      },
+      "solutions": [
+        {
+          "id": "VC-TWN-001",
+          "seq": "001",
+          "title": "K562 全基因组扰动替身",
+          "subject": "K562 / CRISPRi genome-wide",
+          "use_case": "虚拟筛地基",
+          "demo_endpoint": "~9.8k 靶点 → 1 张状态卡 + 4 层基线"
+        },
+        {
+          "id": "VC-TWN-002",
+          "seq": "002",
+          "title": "RPE1 非癌对照替身",
+          "subject": "RPE1 / essential-gene set",
+          "use_case": "癌系伪影对照",
+          "demo_endpoint": "~2k 靶点 → 1 张对照卡 + 伪影清单"
+        },
+        {
+          "id": "VC-TWN-003",
+          "seq": "003",
+          "title": "MCF7 化合物响应替身",
+          "subject": "MCF7 / L1000 + GDSC",
+          "use_case": "化合物检索底座",
+          "demo_endpoint": "~2 万扰动签名 → 1 个检索底座"
+        },
+        {
+          "id": "VC-TWN-004",
+          "seq": "004",
+          "title": "A549 双读出替身",
+          "subject": "A549 / L1000 + JUMP",
+          "use_case": "转录 + 形态双通道",
+          "demo_endpoint": "2 类底座 → 1 个对齐替身"
+        },
+        {
+          "id": "VC-TWN-005",
+          "seq": "005",
+          "title": "U2OS 形态读出替身",
+          "subject": "U2OS / JUMP Cell Painting",
+          "use_case": "高内涵形态底座",
+          "demo_endpoint": "5 通道 → 1 个同批对照分布"
+        },
+        {
+          "id": "VC-TWN-006",
+          "seq": "006",
+          "title": "客户自有细胞系替身",
+          "subject": "client line / 自建底座",
+          "use_case": "自有模型体系",
+          "demo_endpoint": "可行性判定 → 建库方案 + 报价"
+        }
+      ]
+    },
+    {
+      "slug": "perturbsim-ai",
+      "code": "VC-PRT",
+      "name": "PerturbSim-AI",
+      "title": "基因扰动虚拟预筛",
+      "accent": "var(--blue)",
+      "axis": "按通路 / 适应症",
+      "question": "在这条细胞系里敲低哪些基因值得进湿实验，下游会往哪个方向动、动多大？",
+      "promise": "系内插值与排序，不做跨系外推。",
+      "promise_detail": "模型只在有自有扰动底座的细胞系内部工作。我们分层报未见靶点和已见靶点两种难度，只在 DE 基因上评方向和幅度，并且必须先打赢「训练集平均位移」这个基线——打不赢就不交付模型，交付基线本身。",
+      "steps": [
+        {
+          "stage": "标准输入",
+          "text": "细胞系（须有扰动底座）、候选靶点集、目标通路、实验容量"
+        },
+        {
+          "stage": "候选生成",
+          "text": "系内扰动响应预测：共识项 + 靶点表征残差"
+        },
+        {
+          "stage": "证据校准",
+          "text": "DE 基因上的方向 / 幅度；分层报未见靶点；对齐噪声天花板"
+        },
+        {
+          "stage": "组合选择",
+          "text": "主靶点 + 阳性对照 + 阴性对照 + 通路覆盖，去冗余"
+        },
+        {
+          "stage": "实验输出",
+          "text": "排序靶点表 + sgRNA/siRNA 设计 + readout + 预期效应量"
+        }
+      ],
+      "phase_text": {
+        "qc": "冻结靶点集、通路定义、评价指标、数据拆分与简单基线，避免测试集泄漏。",
+        "generate": "在系内扰动底座上预测每个候选靶点的全转录组位移与 DE 集，记录 seen / unseen 状态。",
+        "calibrate": "分层评测未见靶点与已见靶点，在 DE 基因上评方向与幅度，全部换算为噪声天花板百分比。",
+        "select": "选主靶点、阳性对照、阴性对照与通路覆盖，去除同一纤维内的冗余旁系同源。",
+        "output": "输出排序靶点表、guide 序列与脱靶评分、培养 / 刺激条件、readout 与预期效应量。",
+        "loop": "回收实测 DE 数据，比对预测方向与幅度，更新共识项并替换失配靶点。",
+        "exit": "头部靶点的实测命中率显著高于随机抽样，且基线被打赢。"
+      },
+      "engagement": {
+        "domain": "虚拟细胞·扰动预筛",
+        "value": "卖的是排序和减量，不是又一张预测表——每个靶点带 seen/unseen 标记和预期效应量。",
+        "deliverables": "排序靶点表、seen/unseen 分层得分、guide 设计与脱靶评分、对照方案、富集倍数对账表。",
+        "formats": "CSV / Parquet / h5ad / HTML / FASTA",
+        "teams": "靶点发现、功能基因组学、CRISPR 筛选团队",
+        "scenario": "文库瘦身、靶点优先级排序、对照设计",
+        "tools": "scPerturb、GEARS、Scanpy、Cas-OFFinder、DepMap",
+        "price_rmb": "8万–18万",
+        "bounds": {
+          "ok": "底座内已测靶点的响应查询",
+          "mid": "未见靶点的响应排序",
+          "no": "CRISPRa / 过表达；跨系外推"
+        }
+      },
+      "solutions": [
+        {
+          "id": "VC-PRT-001",
+          "seq": "001",
+          "title": "BCR-ABL 通路虚拟敲低",
+          "subject": "K562 / CML 背景",
+          "use_case": "CML 靶点发现",
+          "demo_endpoint": "1,200 候选 → 48 靶点 + 6 对照"
+        },
+        {
+          "id": "VC-PRT-002",
+          "seq": "002",
+          "title": "KRAS 通路合成致死预筛",
+          "subject": "A549 / K562 KRAS 背景",
+          "use_case": "合成致死",
+          "demo_endpoint": "2,400 候选 → 64 靶点 + 8 对照"
+        },
+        {
+          "id": "VC-PRT-003",
+          "seq": "003",
+          "title": "DDR / PARP 合成致死预筛",
+          "subject": "DNA 损伤修复通路",
+          "use_case": "DDR 药理",
+          "demo_endpoint": "890 候选 → 36 靶点 + 6 对照"
+        },
+        {
+          "id": "VC-PRT-004",
+          "seq": "004",
+          "title": "细胞周期必需性与窗口",
+          "subject": "必需基因 + 治疗窗",
+          "use_case": "毒性窗口",
+          "demo_endpoint": "1,050 候选 → 40 靶点 + 癌/非癌配对"
+        },
+        {
+          "id": "VC-PRT-005",
+          "seq": "005",
+          "title": "T 细胞激活通路敲低",
+          "subject": "Jurkat / T 细胞背景",
+          "use_case": "免疫靶点",
+          "demo_endpoint": "760 候选 → 32 靶点 + 4 对照"
+        }
+      ]
+    },
+    {
+      "slug": "phenoscreen-ai",
+      "code": "VC-PHE",
+      "name": "PhenoScreen-AI",
+      "title": "化合物表型虚拟预筛",
+      "accent": "var(--violet)",
+      "axis": "按筛选场景",
+      "question": "这批化合物在这条细胞系里表型上像什么、属于哪类 MoA、先测哪 384 个孔？",
+      "promise": "必须先打赢结构指纹最近邻，否则不上模型。",
+      "promise_detail": "化合物侧最强的对手不是别的模型，是「结构指纹最近邻」和「L1000 检索」这两条便宜基线。我们把它们建在项目第一周，作为验收对象。模型只有在留出化合物上的 MoA top-k 富集倍数超过它们时才进入交付。",
+      "steps": [
+        {
+          "stage": "标准输入",
+          "text": "化合物库（结构 / 已有签名）、目标细胞系、MoA 分类体系、板容量"
+        },
+        {
+          "stage": "候选生成",
+          "text": "L1000 签名检索 + Cell Painting 形态生成与嵌入"
+        },
+        {
+          "stage": "证据校准",
+          "text": "留出化合物的 MoA top-k 富集倍数与召回，对比两条基线"
+        },
+        {
+          "stage": "组合选择",
+          "text": "头部化合物 + MoA 覆盖 + 阳性对照 + 溶剂对照"
+        },
+        {
+          "stage": "实验输出",
+          "text": "优先板 + 板图 + 浓度梯度建议 + 判读规则"
+        }
+      ],
+      "phase_text": {
+        "qc": "标准化结构（去盐、互变异构）、核对 MoA 标签体系，划出留出化合物集合并冻结。",
+        "generate": "计算结构指纹与形态 / 转录嵌入，做同批对照内的分布到分布映射，生成候选表型签名。",
+        "calibrate": "在留出化合物上算 MoA top-k 富集倍数与召回，与结构指纹最近邻、L1000 检索并排报告。",
+        "select": "按富集排序取头部，同时约束 MoA 覆盖不塌缩，加入阳性对照与溶剂对照。",
+        "output": "输出优先板名单、板图、浓度梯度、读板通道与异常判读规则。",
+        "loop": "回收实测表型，更新富集曲线，把假阳性类型反馈到检索权重。",
+        "exit": "留出化合物上的 MoA 富集倍数高于两条基线，且头部召回可接受。"
+      },
+      "engagement": {
+        "domain": "虚拟细胞·表型预筛",
+        "value": "把十万级化合物库压到一块板，并且明确告诉你为此丢掉了多少召回。",
+        "deliverables": "优先板名单、富集倍数 / 召回曲线、两条基线对照、MoA 覆盖矩阵、板图与判读规则。",
+        "formats": "CSV / Parquet / SDF / HTML / XLSX",
+        "teams": "表型筛选、高内涵成像、化学生物学",
+        "scenario": "库瘦身、MoA 分诊、苗头化合物去重",
+        "tools": "CellProfiler、RDKit、LINCS / CMap、JUMP、DuckDB",
+        "price_rmb": "8万–20万",
+        "bounds": {
+          "ok": "结构警报与理化筛除",
+          "mid": "MoA 归类与优先级排序",
+          "no": "绝对 IC50 与剂量曲线"
+        }
+      },
+      "solutions": [
+        {
+          "id": "VC-PHE-001",
+          "seq": "001",
+          "title": "MoA 归类与去重",
+          "subject": "U2OS / A549 形态底座",
+          "use_case": "库分诊",
+          "demo_endpoint": "12,000 化合物 → 384 孔 + 12 MoA 覆盖"
+        },
+        {
+          "id": "VC-PHE-002",
+          "seq": "002",
+          "title": "抗增殖谱系敏感性排序",
+          "subject": "跨细胞系谱系背景",
+          "use_case": "适应症选择",
+          "demo_endpoint": "800 化合物 × 40 系 → 6 个谱系假设"
+        },
+        {
+          "id": "VC-PHE-003",
+          "seq": "003",
+          "title": "表观遗传化合物表型指纹",
+          "subject": "HDAC / BET / DNMT 类",
+          "use_case": "表观药理",
+          "demo_endpoint": "2,400 化合物 → 96 孔 + 5 类指纹"
+        },
+        {
+          "id": "VC-PHE-004",
+          "seq": "004",
+          "title": "天然产物 / 提取物 MoA 分诊",
+          "subject": "混合物 / 未知结构",
+          "use_case": "天然产物",
+          "demo_endpoint": "1,500 提取物 → 192 孔 + 分诊表"
+        },
+        {
+          "id": "VC-PHE-005",
+          "seq": "005",
+          "title": "苗头化合物脱靶表型预警",
+          "subject": "先导优化阶段",
+          "use_case": "安全性前置",
+          "demo_endpoint": "240 类似物 → 24 个预警标记"
+        }
+      ]
+    },
+    {
+      "slug": "toxtwin-ai",
+      "code": "VC-TOX",
+      "name": "ToxTwin-AI",
+      "title": "器官毒性虚拟前哨",
+      "accent": "var(--coral)",
+      "axis": "按器官",
+      "question": "这个化合物在肝 / 心 / 髓 / 肾模型上，有没有需要提前设计对照的毒性表型？",
+      "promise": "这是实验前的对照设计，不是毒理放行。",
+      "promise_detail": "我们不出 NOAEL、不出安全窗、不替代 GLP 毒理。产出的是「哪些毒性表型有信号、该在首轮体外实验里加哪些对照和 readout」——把毒性发现从化合物进入动物之后，提前到进入板子之前。",
+      "steps": [
+        {
+          "stage": "标准输入",
+          "text": "化合物结构、目标器官、参比毒物集、可用体外模型"
+        },
+        {
+          "stage": "候选生成",
+          "text": "器官相关细胞系表型检索 + 结构警报 + Tox21 端点打分"
+        },
+        {
+          "stage": "证据校准",
+          "text": "参比毒物阳性对照回收率；跨证据一致性；适用域标记"
+        },
+        {
+          "stage": "组合选择",
+          "text": "毒性表型假设 + 对照毒物 + readout 组合"
+        },
+        {
+          "stage": "实验输出",
+          "text": "风险排序表 + 对照设计 + readout + 触发规则"
+        }
+      ],
+      "phase_text": {
+        "qc": "确认化合物结构与批次、目标器官、参比毒物清单与可获得的体外模型和培养条件。",
+        "generate": "跑器官相关细胞系的表型检索、结构警报（PAINS / Brenk / NIH）与 12 个 Tox21 端点打分。",
+        "calibrate": "用参比毒物做阳性对照回收率检验，标记适用域外化合物，交叉核对三层证据的一致性。",
+        "select": "给出毒性表型假设排序，配对照毒物、阴性对照与最能分辨该表型的 readout。",
+        "output": "输出风险排序表、对照设计、readout 清单、浓度范围与停试触发规则。",
+        "loop": "回收首轮体外毒性数据，校准阈值，把漏报表型加入下一轮 readout。",
+        "exit": "参比毒物被稳定召回，且每条风险都配了可执行的对照与 readout。"
+      },
+      "engagement": {
+        "domain": "虚拟细胞·安全前哨",
+        "value": "把毒性发现从动物实验之后提前到板子之前，代价是明确写清不承诺什么。",
+        "deliverables": "风险排序表、结构警报清单、Tox21 端点打分、参比毒物召回率、对照与 readout 设计。",
+        "formats": "CSV / SDF / HTML / XLSX",
+        "teams": "安全药理、DMPK、早期毒理与化学团队",
+        "scenario": "先导优化期的毒性前置筛查与对照设计",
+        "tools": "RDKit、Tox21、LINCS、DepMap、CellProfiler",
+        "price_rmb": "8万–16万",
+        "bounds": {
+          "ok": "结构警报与已知毒性基团",
+          "mid": "毒性表型假设排序",
+          "no": "NOAEL / 安全窗 / 监管级结论"
+        }
+      },
+      "solutions": [
+        {
+          "id": "VC-TOX-001",
+          "seq": "001",
+          "title": "肝毒性虚拟前哨",
+          "subject": "HepG2 + 原代肝细胞参考",
+          "use_case": "DILI 前置",
+          "demo_endpoint": "600 化合物 → 40 高风险 + 8 参比"
+        },
+        {
+          "id": "VC-TOX-002",
+          "seq": "002",
+          "title": "心脏毒性虚拟前哨",
+          "subject": "hiPSC-CM 参考 + hERG",
+          "use_case": "心律风险",
+          "demo_endpoint": "600 化合物 → 26 高风险 + 6 参比"
+        },
+        {
+          "id": "VC-TOX-003",
+          "seq": "003",
+          "title": "骨髓抑制 / 血液毒性",
+          "subject": "K562 / HL-60",
+          "use_case": "血液毒性",
+          "demo_endpoint": "480 化合物 → 22 高风险 + 5 参比"
+        },
+        {
+          "id": "VC-TOX-004",
+          "seq": "004",
+          "title": "肾小管毒性前哨",
+          "subject": "HK-2 / RPTEC",
+          "use_case": "肾毒性",
+          "demo_endpoint": "420 化合物 → 18 高风险 + 5 参比"
+        }
+      ]
+    },
+    {
+      "slug": "resistsim-ai",
+      "code": "VC-RES",
+      "name": "ResistSim-AI",
+      "title": "耐药与状态转换推演",
+      "accent": "var(--amber)",
+      "axis": "按适应症",
+      "question": "这条通路离「开关翻转」还有多远，耐药会从哪条支路出来，早期预警指标是什么？",
+      "promise": "唯一有机理动力学支撑的产品线。",
+      "promise_detail": "先用化学反应网络理论的亏格判据判断这条通路拓扑上能不能成为开关——δ=0 就不可能双稳，直接省掉建模。能成为开关的，再算双稳窗口与分岔点，然后给临界慢化早期预警指标（方差、lag-1 自相关）。这套引擎已有阳性对照：滴定穿过真实分岔点时两个指标峰值约 5 倍。",
+      "steps": [
+        {
+          "stage": "标准输入",
+          "text": "通路定义、药物与靶点、细胞系、可测 readout 与采样能力"
+        },
+        {
+          "stage": "候选生成",
+          "text": "拓扑开关能力判据 + 双稳窗口与分岔点定位"
+        },
+        {
+          "stage": "证据校准",
+          "text": "滴定阳性对照校准灵敏度；随机置换标签作阴性对照"
+        },
+        {
+          "stage": "组合选择",
+          "text": "早期预警指标组合 + 采样时点 + 阈值"
+        },
+        {
+          "stage": "实验输出",
+          "text": "预警 panel + 时序采样方案 + 触发阈值"
+        }
+      ],
+      "phase_text": {
+        "qc": "冻结通路拓扑、药物占位率数据、细胞系背景与可实现的采样频率和单细胞读出能力。",
+        "generate": "算网络亏格判断开关能力，定位双稳窗口与鞍结点，把药物占位率映射到网络参数。",
+        "calibrate": "用滴定穿过分岔点的阳性对照校准指标灵敏度，用随机置换扰动标签做阴性对照。",
+        "select": "选方差 / lag-1 自相关 / DNB 组合，定采样时点与预警阈值，标出不可预警的支路。",
+        "output": "输出早期预警 panel、时序采样方案、触发阈值与耐药支路假设排序。",
+        "loop": "回收时序数据，检验预警是否早于表型翻转，更新阈值与支路优先级。",
+        "exit": "预警指标在实测时序中先于表型变化上升，且阴性对照不报警。"
+      },
+      "engagement": {
+        "domain": "虚拟细胞·动力学推演",
+        "value": "输出的是可采样的早期预警指标和时点，不是一句「可能会耐药」。",
+        "deliverables": "开关能力判据、双稳窗口、预警指标组合、采样时点表、阴阳性对照方案、支路假设排序。",
+        "formats": "CSV / HTML / IPYNB / SBML",
+        "teams": "转化研究、耐药机制、临床前药理",
+        "scenario": "耐药机制假设生成与早期预警指标设计",
+        "tools": "grn_pipeline、BioModels、libRoadRunner、Scanpy",
+        "price_rmb": "10万–22万",
+        "bounds": {
+          "ok": "通路拓扑的开关能力判据",
+          "mid": "分岔距离与早期预警指标",
+          "no": "耐药发生时间；患者层面预测"
+        }
+      },
+      "solutions": [
+        {
+          "id": "VC-RES-001",
+          "seq": "001",
+          "title": "EGFR-TKI 耐药推演",
+          "subject": "PC9 / HCC827",
+          "use_case": "NSCLC 耐药",
+          "demo_endpoint": "4 条支路 → 3 个预警指标 + 6 时点"
+        },
+        {
+          "id": "VC-RES-002",
+          "seq": "002",
+          "title": "KRAS G12C 适应性耐药",
+          "subject": "A549 / 占位率标定",
+          "use_case": "KRAS 药理",
+          "demo_endpoint": "占位率 98% → 临界距离 + 4 指标"
+        },
+        {
+          "id": "VC-RES-003",
+          "seq": "003",
+          "title": "BCR-ABL TKI 耐药",
+          "subject": "K562",
+          "use_case": "CML 耐药",
+          "demo_endpoint": "5 条支路 → 3 个预警指标 + 8 时点"
+        },
+        {
+          "id": "VC-RES-004",
+          "seq": "004",
+          "title": "ER+ 内分泌治疗耐药",
+          "subject": "MCF7",
+          "use_case": "乳腺癌耐药",
+          "demo_endpoint": "4 条支路 → 3 个预警指标 + 6 时点"
+        }
+      ]
+    },
+    {
+      "slug": "combirank-ai",
+      "code": "VC-CMB",
+      "name": "CombiRank-AI",
+      "title": "组合用药虚拟排序",
+      "accent": "var(--lime)",
+      "axis": "按组合场景",
+      "question": "n² 的组合空间里，先测哪 96 个孔，以及每个组合要配什么单药对照？",
+      "promise": "排序 + 对照设计，不出协同系数预测值。",
+      "promise_detail": "协同性的绝对数值（Bliss / Loewe 分数）对实验条件极度敏感，预测出来也不可信。我们只做两件事：把组合空间排序，以及为每个入选组合设计能真正分辨协同与相加的单药对照与浓度矩阵——后者往往才是组合实验失败的真实原因。",
+      "steps": [
+        {
+          "stage": "标准输入",
+          "text": "单药清单、目标细胞系、组合假设来源、板容量"
+        },
+        {
+          "stage": "候选生成",
+          "text": "通路互补性 + 单药响应 + 已知组合先验的联合排序"
+        },
+        {
+          "stage": "证据校准",
+          "text": "留出组合的 top-k 富集；与「两个单药都强」这条基线对比"
+        },
+        {
+          "stage": "组合选择",
+          "text": "头部组合 + 单药对照 + 浓度矩阵 + 阴性组合"
+        },
+        {
+          "stage": "实验输出",
+          "text": "组合板图 + 浓度矩阵 + 协同判读规则"
+        }
+      ],
+      "phase_text": {
+        "qc": "冻结单药清单与浓度范围、细胞系背景、板容量，划出留出组合集合。",
+        "generate": "用通路互补性、单药响应谱与已知组合先验，对 n² 空间做联合排序。",
+        "calibrate": "在留出组合上算 top-k 富集，并与「两个单药都强」这条强基线并排报告。",
+        "select": "取头部组合，为每个组合配单药对照与浓度矩阵，加入预期无协同的阴性组合。",
+        "output": "输出组合板图、浓度矩阵、单药对照位、协同判读规则与重复设计。",
+        "loop": "回收协同实测，更新先验权重，剔除被证伪的通路互补假设。",
+        "exit": "头部组合的协同命中率高于「两个单药都强」基线，且对照能分辨协同与相加。"
+      },
+      "engagement": {
+        "domain": "虚拟细胞·组合排序",
+        "value": "组合实验最常见的失败不是选错组合，是对照和浓度矩阵设计不出协同——我们两件事都交付。",
+        "deliverables": "组合排序表、富集曲线与基线对比、组合板图、浓度矩阵、单药与阴性对照、判读规则。",
+        "formats": "CSV / XLSX / HTML / plate map",
+        "teams": "体外药理、转化研究、组合疗法团队",
+        "scenario": "组合空间瘦身与协同实验设计",
+        "tools": "DepMap、GDSC、SynergyFinder、DuckDB",
+        "price_rmb": "8万–18万",
+        "bounds": {
+          "ok": "单药在该系的已测响应",
+          "mid": "组合优先级与对照设计",
+          "no": "协同系数绝对值预测"
+        }
+      },
+      "solutions": [
+        {
+          "id": "VC-CMB-001",
+          "seq": "001",
+          "title": "KRAS G12C 上下游组合",
+          "subject": "A549 / KRAS 背景",
+          "use_case": "KRAS 组合",
+          "demo_endpoint": "62 单药 → 1,891 组合 → 96 孔"
+        },
+        {
+          "id": "VC-CMB-002",
+          "seq": "002",
+          "title": "CDK4/6 + 内分泌组合",
+          "subject": "MCF7 / ER+ 背景",
+          "use_case": "乳腺癌组合",
+          "demo_endpoint": "44 单药 → 946 组合 → 96 孔"
+        },
+        {
+          "id": "VC-CMB-003",
+          "seq": "003",
+          "title": "DDR 合成致死组合",
+          "subject": "DDR 通路",
+          "use_case": "DDR 组合",
+          "demo_endpoint": "38 单药 → 703 组合 → 72 孔"
+        },
+        {
+          "id": "VC-CMB-004",
+          "seq": "004",
+          "title": "靶向 + 表观组合",
+          "subject": "跨适应症",
+          "use_case": "表观联用",
+          "demo_endpoint": "56 单药 → 1,540 组合 → 96 孔"
+        }
+      ]
+    }
+  ],
+  "counts": {
+    "lines": 6,
+    "solutions": 28,
+    "cell_lines": 9
+  }
+}
