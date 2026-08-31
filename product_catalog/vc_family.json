@@ -1,242 +1,948 @@
 {
-  "schema": "quregen-biodecision/family@1",
+  "schema": "quregen-biodecision/family@2",
+  "generated": "2026-08-31",
   "family": {
     "code": "VC",
-    "name": "虚拟细胞与体外替身",
-    "tagline": "先证明有可建模余量，再决定要不要建模。",
-    "lede": "虚拟细胞不是一个端到端模型，是一张细胞系状态卡加上若干个各自可单独证伪的预测模块。这个家族按<b>细胞系</b>和<b>适应症</b>组织产品：每条产品线只承诺它在有底座的细胞系内部能做的排序与预筛，并把不能承诺的部分写进交付物。",
-    "promise": "结算口径是富集倍数，不是相关系数。",
-    "promiseP": "一个虚拟筛的价值，等于它把湿实验从「全测」压缩到「排序后测」省下的孔数，减去漏掉真阳性的代价。所以每个项目的验收表里都有富集倍数、召回率和每个真阳性的实验成本——这三个数才和实验预算对得上账。"
+    "name": {
+      "zh": "虚拟细胞与体外替身",
+      "en": "Virtual Cell & In-Vitro Twins"
+    },
+    "tagline": {
+      "zh": "先证明有可建模余量，再决定要不要建模。",
+      "en": "Prove there is headroom to model, before deciding to model."
+    },
+    "lede": {
+      "zh": "虚拟细胞不是一个端到端模型。它是五个可分离、可串联的模块：<b>Cell Passport</b>（细胞背景）、<b>Perturbation Encoder</b>（扰动编码）、<b>State Transition</b>（状态转移）、<b>Assay Emulator</b>（检测 readout 映射）和 <b>Uncertainty &amp; Domain Check</b>（不确定性与适用域）。这个家族按<b>细胞系</b>和<b>适应症</b>把这五个模块productize：每条产品线只承诺它在有底座的细胞系内部能做的排序与预筛，并把不能承诺的部分写进合同。",
+      "en": "A virtual cell is not one end-to-end model. It is five separable, chainable modules: <b>Cell Passport</b> (cell background), <b>Perturbation Encoder</b>, <b>State Transition</b>, <b>Assay Emulator</b> (biology-to-instrument readout), and <b>Uncertainty &amp; Domain Check</b>. This family productizes those five modules along two axes — <b>cell line</b> and <b>indication</b>. Each product line promises only the ranking and pre-screening it can do inside a cell line that has a data substrate, and writes what it cannot promise into the contract."
+    },
+    "promise": {
+      "zh": "结算口径是富集倍数，不是相关系数。",
+      "en": "Settlement is in enrichment fold, not correlation."
+    },
+    "promise_detail": {
+      "zh": "一个虚拟筛的价值，等于它把湿实验从「全测」压缩到「排序后测」省下的孔数，减去漏掉真阳性的代价。行业可达区间是把大规模组合压缩到优先验证的 5%–20%。所以每个项目的验收表都有富集倍数、召回率和每个真阳性的实验成本——这三个数才和实验预算对得上账。",
+      "en": "A virtual screen is worth the wells it saves by turning \"test everything\" into \"rank, then test\", minus the true positives it drops. The achievable band is compressing a large combinatorial space to the 5%–20% worth validating first. So every acceptance table carries enrichment fold, recall, and cost per true positive — the only three numbers that reconcile with a wet-lab budget."
+    }
   },
-  "bounds": {
+  "architecture": {
+    "title": {
+      "zh": "五模块架构，映射到七条产品线",
+      "en": "Five modules, mapped onto seven product lines"
+    },
+    "lede": {
+      "zh": "模块划分决定了产品边界。最关键的一条：<b>生物状态 ≠ 仪器读数</b>。预测「细胞发生了什么」和预测「CellTiter-Glo 最终读到多少」是两个模型，中间那层必须用配对实验标签单独校准——这就是 AssayEmul-AI 独立成线的原因。",
+      "en": "The module split is what makes the product boundaries honest. The critical one: <b>biological state is not an instrument reading</b>. Predicting \"what happened to the cell\" and predicting \"what CellTiter-Glo will report\" are two different models, and the layer between them must be calibrated against paired experimental labels — which is why AssayEmul-AI is its own product line."
+    },
+    "modules": [
+      {
+        "module": "Cell Passport",
+        "responsibility": {
+          "zh": "细胞系身份、基因组、基础转录状态、表观调控、基因依赖、药物历史、形态表型、实验上下文",
+          "en": "Identity, genome, basal transcriptome, epigenetic regulation, gene dependency, drug history, morphology, experimental context"
+        },
+        "product_lines": {
+          "zh": "VC-TWN",
+          "en": "VC-TWN"
+        }
+      },
+      {
+        "module": "Perturbation Encoder",
+        "responsibility": {
+          "zh": "药物结构与靶点、CRISPRi / KO / CRISPRa、细胞因子、剂量、时间",
+          "en": "Compound structure and target, CRISPRi / KO / CRISPRa, cytokines, dose, time"
+        },
+        "product_lines": {
+          "zh": "VC-PRT · VC-PHE",
+          "en": "VC-PRT · VC-PHE"
+        }
+      },
+      {
+        "module": "State Transition",
+        "responsibility": {
+          "zh": "扰动后单细胞或群体状态如何迁移；DEG、通路分数、亚群组成",
+          "en": "How single-cell or population state moves after perturbation: DEGs, pathway scores, subpopulation composition"
+        },
+        "product_lines": {
+          "zh": "VC-PRT · VC-PHE · VC-RES",
+          "en": "VC-PRT · VC-PHE · VC-RES"
+        }
+      },
+      {
+        "module": "Assay Emulator",
+        "responsibility": {
+          "zh": "把生物状态映射到活力、荧光、图像、蛋白、分泌因子 readout——必须用配对实验标签校准",
+          "en": "Maps biological state onto viability, fluorescence, image, protein and secretion readouts — must be calibrated on paired labels"
+        },
+        "product_lines": {
+          "zh": "VC-ASY",
+          "en": "VC-ASY"
+        }
+      },
+      {
+        "module": "Uncertainty & Domain Check",
+        "responsibility": {
+          "zh": "训练覆盖不足、跨细胞系外推、异常组合的识别；置信区间与适用域告警",
+          "en": "Detects thin training coverage, cross-cell-line extrapolation and anomalous combinations; confidence intervals and domain warnings"
+        },
+        "product_lines": {
+          "zh": "内建于每条线",
+          "en": "Built into every line"
+        }
+      }
+    ]
+  },
+  "capability_bounds": {
     "ok": {
-      "t": "直接替代",
-      "c": "var(--lime)",
-      "d": "干湿同精度，可以省掉实验。这一档大部分不是建模，是查库——最容易被忽略的效率来源。",
+      "tier": {
+        "zh": "直接替代",
+        "en": "Direct substitute"
+      },
+      "summary": {
+        "zh": "干湿同精度，可以省掉实验。这一档大部分不是建模，是查库——最容易被忽略的效率来源。",
+        "en": "Same accuracy as the bench, so the experiment can be skipped. Most of this tier is lookup, not modelling — the most overlooked source of efficiency."
+      },
       "items": [
-        "靶点在该系的表达、拷贝数、突变与融合状态（CCLE 直接查）",
-        "该靶点在该系是否为必需基因（DepMap CRISPR 直接查，比任何模型都准）",
-        "化合物结构警报：PAINS / Brenk / NIH 干扰子与类药性",
-        "sgRNA 全基因组脱靶枚举与 CFD 特异性打分（穷举，不是预测）",
-        "细胞系身份与交叉污染核对（STR / SNP 指纹）"
+        {
+          "zh": "靶点在该系的表达、拷贝数、突变与融合状态（CCLE 直接查）",
+          "en": "Target expression, copy number, mutation and fusion status in that line (direct CCLE lookup)"
+        },
+        {
+          "zh": "该靶点在该系是否为必需基因（DepMap CRISPR 直接查，比任何模型都准）",
+          "en": "Whether the target is essential in that line (direct DepMap CRISPR lookup — more accurate than any model)"
+        },
+        {
+          "zh": "化合物结构警报：PAINS / Brenk / NIH 干扰子与类药性",
+          "en": "Compound structural alerts: PAINS / Brenk / NIH interference filters and drug-likeness"
+        },
+        {
+          "zh": "sgRNA 全基因组脱靶枚举与 CFD 特异性打分（穷举，不是预测）",
+          "en": "Genome-wide sgRNA off-target enumeration and CFD specificity scoring (exhaustive, not predicted)"
+        },
+        {
+          "zh": "细胞系身份与交叉污染核对（STR / SNP 指纹）",
+          "en": "Cell-line identity and cross-contamination checks (STR / SNP fingerprint)"
+        }
       ]
     },
     "mid": {
-      "t": "排序后测",
-      "c": "var(--blue)",
-      "d": "只能排序，仍需实验确认，但能把实验量压下一个量级。所有 VC 产品的主战场都在这一档。",
+      "tier": {
+        "zh": "排序后测",
+        "en": "Rank-then-test"
+      },
+      "summary": {
+        "zh": "只能排序，仍需实验确认，但能把实验量压下一个量级。所有 VC 产品的主战场都在这一档。",
+        "en": "Ranking only — the experiment still confirms — but it cuts the well count by an order of magnitude. This is where every VC product actually operates."
+      },
       "items": [
-        "化合物的转录响应方向与 MoA 归类（须先打赢 L1000 检索基线）",
-        "单基因敲低的下游通路——仅限该系有扰动底座覆盖的靶点及邻域",
-        "化合物–靶点结合排序（指标要选对：opt_score ρ≈+0.6，binding_confidence ρ≈−0.2）",
-        "n² 组合空间的优先级排序",
-        "启动子 / 剪接变异的顺式效应（须带 ±40bp 位置置换对照）",
-        "网络失稳早期预警：方差与 lag-1 自相关在分岔点附近上升"
+        {
+          "zh": "化合物的转录响应方向与 MoA 归类（须先打赢 L1000 检索基线）",
+          "en": "Direction of a compound's transcriptional response and MoA class (must first beat the L1000 retrieval baseline)"
+        },
+        {
+          "zh": "单基因敲低的下游通路——仅限该系有扰动底座覆盖的靶点及邻域",
+          "en": "Downstream pathways of a single knockdown — only for targets and neighbourhoods the line's perturbation substrate covers"
+        },
+        {
+          "zh": "同一模态内的 CRISPRa 预测（该系自有 CRISPRa 数据，如 K562 双基因集）",
+          "en": "Within-modality CRISPRa prediction where the line has its own CRISPRa data (e.g. the K562 dual-gene set)"
+        },
+        {
+          "zh": "化合物–靶点结合排序（指标要选对：opt_score ρ≈+0.6，binding_confidence ρ≈−0.2）",
+          "en": "Compound–target binding rank (pick the right metric: opt_score ρ≈+0.6, binding_confidence ρ≈−0.2)"
+        },
+        {
+          "zh": "n² 组合空间的优先级排序与非加和效应候选",
+          "en": "Prioritising an n² combination space and nominating non-additive effects"
+        },
+        {
+          "zh": "剂量与时间的插值（在已测剂量-时间网格内部）",
+          "en": "Dose and time interpolation, inside the measured dose–time grid"
+        },
+        {
+          "zh": "网络失稳早期预警：方差与 lag-1 自相关在分岔点附近上升",
+          "en": "Early-warning of network destabilization: variance and lag-1 autocorrelation rise near a bifurcation"
+        }
       ]
     },
     "no": {
-      "t": "不承诺",
-      "c": "var(--coral)",
-      "d": "已经实测会失败的外推。写进合同的排除条款，而不是藏在脚注里。",
+      "tier": {
+        "zh": "不承诺",
+        "en": "Not promised"
+      },
+      "summary": {
+        "zh": "已经实测会失败的外推。写进合同的排除条款，而不是藏在脚注里。",
+        "en": "Extrapolations measured to fail. Contract exclusion clauses, not footnotes."
+      },
       "items": [
-        "外推到没有扰动底座的新细胞系——oracle 上下文特征比不给还差",
-        "CRISPRa / 过表达 / 敲入后果——敲低训练的模型迁过去 r=0.009，等于掷骰子",
-        "绝对 IC50 与完整剂量–响应曲线，只排序不给数",
-        "时间动力学、代谢物浓度与滴度（FBA 的定义就给不了）",
-        "从细胞系外推到患者响应",
-        "监管级毒理放行结论"
+        {
+          "zh": "外推到没有扰动底座的新细胞系——oracle 上下文特征比不给还差",
+          "en": "Extrapolation to a new cell line with no perturbation substrate — an oracle context feature scores worse than none"
+        },
+        {
+          "zh": "用敲低数据训练的模型跨模态预测 CRISPRa / 过表达（r = 0.009，等于掷骰子）",
+          "en": "Cross-modality CRISPRa / overexpression from a knockdown-trained model (r = 0.009 — chance)"
+        },
+        {
+          "zh": "绝对 IC50 与完整剂量–响应曲线，只排序不给数",
+          "en": "Absolute IC50 and full dose–response curves — we rank, we do not quote values"
+        },
+        {
+          "zh": "未经配对标签校准的蛋白、分泌与活力 readout（RNA ≠ 功能）",
+          "en": "Protein, secretion or viability readouts without paired-label calibration (RNA is not function)"
+        },
+        {
+          "zh": "时间外推：6 小时转录响应不代表 72 小时活力或长期耐药",
+          "en": "Time extrapolation: a 6 h transcriptional response is not 72 h viability or long-term resistance"
+        },
+        {
+          "zh": "从细胞系外推到患者响应；细胞系不等于患者",
+          "en": "Cell-line-to-patient response; an immortalized line is not a patient"
+        },
+        {
+          "zh": "监管级毒理放行结论",
+          "en": "Regulatory-grade toxicology clearance"
+        }
       ]
     }
   },
   "cell_line_matrix": {
-    "head": [
+    "columns": [
       "细胞系",
-      "来源 / 适应症背景",
+      "背景 / 适应症",
       "扰动底座",
       "化合物底座",
       "形态底座",
+      "阶段",
       "可支撑的产品线"
     ],
+    "columns_en": [
+      "Cell line",
+      "Background / indication",
+      "Perturbation",
+      "Compound",
+      "Morphology",
+      "Phase",
+      "Product lines supported"
+    ],
     "rows": [
-      [
-        "K562",
-        "CML · BCR-ABL 阳性",
-        "full",
-        "part",
-        "none",
-        "CellTwin · PerturbSim · ToxTwin · ResistSim"
-      ],
-      [
-        "RPE1",
-        "视网膜色素上皮 · 近二倍体非癌",
-        "full",
-        "none",
-        "none",
-        "CellTwin（对照）· PerturbSim"
-      ],
-      [
-        "MCF7",
-        "乳腺癌 ER+",
-        "none",
-        "full",
-        "part",
-        "CellTwin · PhenoScreen · ResistSim · CombiRank"
-      ],
-      [
-        "A549",
-        "肺腺癌 · KRAS 突变",
-        "none",
-        "full",
-        "full",
-        "CellTwin · PhenoScreen · CombiRank"
-      ],
-      [
-        "U2OS",
-        "骨肉瘤 · 形态筛主力",
-        "none",
-        "none",
-        "full",
-        "CellTwin · PhenoScreen"
-      ],
-      [
-        "HepG2",
-        "肝癌 · 肝毒性代理",
-        "part",
-        "full",
-        "none",
-        "CellTwin · ToxTwin"
-      ],
-      [
-        "Jurkat",
-        "T 细胞白血病 · 免疫代理",
-        "part",
-        "none",
-        "none",
-        "PerturbSim"
-      ],
-      [
-        "PC9 / HCC827",
-        "肺腺癌 · EGFR 敏感突变",
-        "none",
-        "part",
-        "none",
-        "ResistSim"
-      ],
-      [
-        "客户自有系",
-        "按项目",
-        "按项目",
-        "按项目",
-        "按项目",
-        "先做 CellTwin 可行性判定"
-      ]
-    ]
+      {
+        "cell_line": "A549",
+        "background": {
+          "zh": "肺腺癌 · KRAS 相关背景 · 上皮",
+          "en": "Lung adenocarcinoma · KRAS context · epithelial"
+        },
+        "perturbation": "full",
+        "compound": "full",
+        "morphology": "full",
+        "phase": {
+          "zh": "1",
+          "en": "1"
+        },
+        "lines": {
+          "zh": "TWN · PRT · PHE · ASY · CMB",
+          "en": "TWN · PRT · PHE · ASY · CMB"
+        }
+      },
+      {
+        "cell_line": "MCF7",
+        "background": {
+          "zh": "乳腺癌 ER+",
+          "en": "Breast cancer, ER+"
+        },
+        "perturbation": "part",
+        "compound": "full",
+        "morphology": "part",
+        "phase": {
+          "zh": "1",
+          "en": "1"
+        },
+        "lines": {
+          "zh": "TWN · PHE · ASY · RES · CMB",
+          "en": "TWN · PHE · ASY · RES · CMB"
+        }
+      },
+      {
+        "cell_line": "HT29",
+        "background": {
+          "zh": "结直肠癌 · 上皮 / EMT 背景",
+          "en": "Colorectal cancer · epithelial / EMT context"
+        },
+        "perturbation": "full",
+        "compound": "full",
+        "morphology": "part",
+        "phase": {
+          "zh": "1",
+          "en": "1"
+        },
+        "lines": {
+          "zh": "TWN · PRT · PHE · RES",
+          "en": "TWN · PRT · PHE · RES"
+        }
+      },
+      {
+        "cell_line": "BxPC-3",
+        "background": {
+          "zh": "胰腺癌 · 上皮与应激背景",
+          "en": "Pancreatic cancer · epithelial and stress context"
+        },
+        "perturbation": "full",
+        "compound": "part",
+        "morphology": "none",
+        "phase": {
+          "zh": "1",
+          "en": "1"
+        },
+        "lines": {
+          "zh": "TWN · PRT · PHE",
+          "en": "TWN · PRT · PHE"
+        }
+      },
+      {
+        "cell_line": "K562",
+        "background": {
+          "zh": "髓系白血病 · 悬浮细胞",
+          "en": "Myeloid leukemia · suspension"
+        },
+        "perturbation": "full",
+        "compound": "part",
+        "morphology": "none",
+        "phase": {
+          "zh": "1",
+          "en": "1"
+        },
+        "lines": {
+          "zh": "TWN · PRT · TOX · RES · CMB",
+          "en": "TWN · PRT · TOX · RES · CMB"
+        }
+      },
+      {
+        "cell_line": "HAP1",
+        "background": {
+          "zh": "近单倍体遗传筛选模型",
+          "en": "Near-haploid genetic screening model"
+        },
+        "perturbation": "full",
+        "compound": "none",
+        "morphology": "none",
+        "phase": {
+          "zh": "1",
+          "en": "1"
+        },
+        "lines": {
+          "zh": "TWN · PRT",
+          "en": "TWN · PRT"
+        }
+      },
+      {
+        "cell_line": "HepG2",
+        "background": {
+          "zh": "肝细胞背景 · 肝毒性代理",
+          "en": "Hepatocyte context · hepatotoxicity proxy"
+        },
+        "perturbation": "part",
+        "compound": "full",
+        "morphology": "none",
+        "phase": {
+          "zh": "2",
+          "en": "2"
+        },
+        "lines": {
+          "zh": "TWN · TOX · ASY",
+          "en": "TWN · TOX · ASY"
+        }
+      },
+      {
+        "cell_line": "RPE1",
+        "background": {
+          "zh": "相对正常 · p53 完整上皮",
+          "en": "Near-normal · p53-intact epithelium"
+        },
+        "perturbation": "full",
+        "compound": "none",
+        "morphology": "none",
+        "phase": {
+          "zh": "2",
+          "en": "2"
+        },
+        "lines": {
+          "zh": "TWN · PRT · TOX（选择性窗口）",
+          "en": "TWN · PRT · TOX (selectivity window)"
+        }
+      },
+      {
+        "cell_line": "Jurkat",
+        "background": {
+          "zh": "T 细胞背景",
+          "en": "T-cell context"
+        },
+        "perturbation": "part",
+        "compound": "none",
+        "morphology": "none",
+        "phase": {
+          "zh": "2",
+          "en": "2"
+        },
+        "lines": {
+          "zh": "PRT · TOX",
+          "en": "PRT · TOX"
+        }
+      },
+      {
+        "cell_line": "U2OS",
+        "background": {
+          "zh": "成骨肉瘤 · Cell Painting 主力",
+          "en": "Osteosarcoma · Cell Painting workhorse"
+        },
+        "perturbation": "none",
+        "compound": "none",
+        "morphology": "full",
+        "phase": {
+          "zh": "2",
+          "en": "2"
+        },
+        "lines": {
+          "zh": "PHE · ASY",
+          "en": "PHE · ASY"
+        }
+      },
+      {
+        "cell_line": "H1 hESC",
+        "background": {
+          "zh": "人胚胎干细胞",
+          "en": "Human embryonic stem cell"
+        },
+        "perturbation": "part",
+        "compound": "none",
+        "morphology": "none",
+        "phase": {
+          "zh": "2",
+          "en": "2"
+        },
+        "lines": {
+          "zh": "TWN · RES（分化与命运）",
+          "en": "TWN · RES (differentiation & fate)"
+        }
+      },
+      {
+        "cell_line": "PC9 / HCC827",
+        "background": {
+          "zh": "肺腺癌 · EGFR 敏感突变",
+          "en": "Lung adenocarcinoma · EGFR-sensitizing"
+        },
+        "perturbation": "none",
+        "compound": "part",
+        "morphology": "none",
+        "phase": {
+          "zh": "扩展",
+          "en": "Ext"
+        },
+        "lines": {
+          "zh": "RES",
+          "en": "RES"
+        }
+      },
+      {
+        "cell_line": "客户自有系",
+        "background": {
+          "zh": "按项目",
+          "en": "Per engagement"
+        },
+        "perturbation": "?",
+        "compound": "?",
+        "morphology": "?",
+        "phase": {
+          "zh": "—",
+          "en": "—"
+        },
+        "lines": {
+          "zh": "先做 CellTwin 可行性判定",
+          "en": "CellTwin feasibility check first"
+        }
+      }
+    ],
+    "note": {
+      "zh": "<b>两条不能混的线。</b>跨背景 Perturb-seq 覆盖 A549 / MCF7 / HT29 / BxPC-3 / K562 / HAP1 六条系，这是训练「相同基因扰动在不同背景下为何结果不同」的语料；而化合物与形态底座最厚的是 MCF7 / A549 / U2OS / HepG2。两条线的重叠只有 A549 和 MCF7——所以基因扰动产品和化合物表型产品各自的主力细胞系不同，A549 是唯一四种底座都齐的系。",
+      "en": "<b>Two lines that must not be conflated.</b> Multi-context Perturb-seq covers six lines — A549 / MCF7 / HT29 / BxPC-3 / K562 / HAP1 — and that is the corpus for learning why the same genetic perturbation lands differently across backgrounds. The deepest compound and morphology substrates, meanwhile, sit on MCF7 / A549 / U2OS / HepG2. The two sets overlap only at A549 and MCF7, so the genetic and chemical product lines run on different primary lines; A549 is the only line carrying all four substrates."
+    }
   },
+  "validation": {
+    "title": {
+      "zh": "七种数据拆分，决定一个数字可不可信",
+      "en": "Seven data splits decide whether a number is believable"
+    },
+    "lede": {
+      "zh": "随机 cell split 不能作为主要证据——同一扰动和批次会泄漏，分数虚高。下面每一种拆分回答一个不同的泛化问题，验收报告必须逐项填。",
+      "en": "A random cell split is not primary evidence: the same perturbation and batch leak across it and the score inflates. Each split below answers a different generalization question, and the acceptance report fills them in one by one."
+    },
+    "splits": [
+      {
+        "split": "随机 cell split",
+        "priority": {
+          "zh": "不推荐",
+          "en": "Not recommended"
+        },
+        "question": {
+          "zh": "同一扰动和批次泄漏，容易虚高",
+          "en": "Same perturbation and batch leak; scores inflate"
+        }
+      },
+      {
+        "split": "Leave-perturbation-out",
+        "priority": {
+          "zh": "必做",
+          "en": "Required"
+        },
+        "question": {
+          "zh": "测试未见基因或药物",
+          "en": "Tests unseen genes or drugs"
+        }
+      },
+      {
+        "split": "Leave-drug-out",
+        "priority": {
+          "zh": "必做",
+          "en": "Required"
+        },
+        "question": {
+          "zh": "确保测试集不含同一化合物",
+          "en": "Ensures the test set holds no instance of the same compound"
+        }
+      },
+      {
+        "split": "Leave-cell-line-out",
+        "priority": {
+          "zh": "必做",
+          "en": "Required"
+        },
+        "question": {
+          "zh": "测试跨细胞背景泛化——本家族已知最弱的一轴",
+          "en": "Tests cross-background generalization — the weakest axis in this family"
+        }
+      },
+      {
+        "split": "Leave-study-out",
+        "priority": {
+          "zh": "必做",
+          "en": "Required"
+        },
+        "question": {
+          "zh": "检验跨实验室、平台和批次迁移",
+          "en": "Tests transfer across labs, platforms and batches"
+        }
+      },
+      {
+        "split": "Unseen dose / time",
+        "priority": {
+          "zh": "推荐",
+          "en": "Recommended"
+        },
+        "question": {
+          "zh": "检验剂量和时间的插值与外推",
+          "en": "Tests dose and time interpolation and extrapolation"
+        }
+      },
+      {
+        "split": "Unseen combination",
+        "priority": {
+          "zh": "推荐",
+          "en": "Recommended"
+        },
+        "question": {
+          "zh": "检验药物或基因组合的非加和效应",
+          "en": "Tests non-additive effects of drug or gene combinations"
+        }
+      },
+      {
+        "split": "External wet-lab set",
+        "priority": {
+          "zh": "上线前必做",
+          "en": "Required before release"
+        },
+        "question": {
+          "zh": "用与训练数据独立的真实实验评估",
+          "en": "Evaluates against real experiments independent of the training data"
+        }
+      }
+    ],
+    "metrics": {
+      "zh": "评价指标不能只看整体表达 MSE 或 Pearson。至少同时报告：DEG 方向一致率、DE overlap、Pearson delta、扰动辨别分数、通路 AUROC、细胞亚群距离、IC50/AUC 误差、top-k 富集、置信区间覆盖率，以及实验重复给出的性能上限。",
+      "en": "Metrics cannot stop at overall expression MSE or Pearson. Report at minimum: DEG direction agreement, DE overlap, Pearson delta, perturbation discrimination score, pathway AUROC, subpopulation distance, IC50/AUC error, top-k enrichment, confidence-interval coverage, and the performance ceiling implied by experimental replicates."
+    },
+    "release_floor": {
+      "zh": "<b>最低上线原则。</b>若深度模型未稳定超过 no-change、平均扰动和线性 / 岭回归基线，该任务只可作为探索性分析，不能作为减少湿实验的主要依据。",
+      "en": "<b>Release floor.</b> If a deep model does not stably beat the no-change, mean-perturbation and linear/ridge baselines, that task stays exploratory and cannot be the primary basis for cutting wet-lab work."
+    }
+  },
+  "references": [
+    {
+      "title": "Arc Institute — STATE virtual cell model",
+      "url": "https://arcinstitute.org/news/virtual-cell-model-state"
+    },
+    {
+      "title": "Arc Institute — Stack: in-context learning of single-cell biology",
+      "url": "https://arcinstitute.org/tools/stack"
+    },
+    {
+      "title": "Arc Institute — 2026 Virtual Cell Challenge",
+      "url": "https://arcinstitute.org/news/virtual-cell-challenge-2026"
+    },
+    {
+      "title": "Tahoe Therapeutics — Tahoe-100M dataset",
+      "url": "https://huggingface.co/datasets/tahoebio/Tahoe-100M"
+    },
+    {
+      "title": "Roohani Y, et al. GEARS. Nature Biotechnology",
+      "url": "https://www.nature.com/articles/s41587-023-01905-6"
+    },
+    {
+      "title": "Ahlmann-Eltze C, et al. Deep-learning perturbation models versus linear baselines. Nature Methods",
+      "url": "https://www.nature.com/articles/s41592-025-02772-6"
+    },
+    {
+      "title": "Viñas Torné R, et al. Systema evaluation framework. Nature Biotechnology",
+      "url": "https://www.nature.com/articles/s41587-025-02777-8"
+    },
+    {
+      "title": "Broad Institute — Cancer Dependency Map (DepMap)",
+      "url": "https://depmap.org/"
+    },
+    {
+      "title": "Broad Institute — Connectivity Map (CMap / LINCS)",
+      "url": "https://www.broadinstitute.org/connectivity-map-cmap"
+    },
+    {
+      "title": "JUMP Cell Painting Consortium",
+      "url": "https://jump-cellpainting.broadinstitute.org/"
+    },
+    {
+      "title": "CZ CELLxGENE Census",
+      "url": "https://chanzuckerberg.github.io/cellxgene-census/"
+    },
+    {
+      "title": "Google DeepMind — AlphaGenome",
+      "url": "https://deepmind.google.com/science/alphagenome/"
+    },
+    {
+      "title": "NCBI GEO GSE281048 — Multi-context Perturb-seq",
+      "url": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE281048"
+    }
+  ],
   "lines": [
     {
       "slug": "celltwin-ai",
       "code": "VC-TWN",
       "name": "CellTwin-AI",
-      "title": "细胞系虚拟替身构建",
+      "title": {
+        "zh": "Cell Passport 与可建模余量判定",
+        "en": "Cell Passport & Modelling-Headroom Check"
+      },
       "accent": "var(--lime)",
-      "axis": "按细胞系",
-      "question": "这条细胞系的基线状态、可建模余量和噪声天花板是多少，够不够支撑后续任何虚拟筛？",
-      "promise": "所有 VC 产品的地基。没有这一步，后面每个模型分数都没有参照系。",
-      "promise_detail": "我们先算重复孔之间的一致性上限（噪声天花板），再跑完整基线阶梯——训练集平均位移、最近邻检索、线性加性、oracle 上界。如果基线已经贴顶，这条系的这个 readout 就没有可建模余量，我们会直接说不要建，换 readout 或换系。",
+      "axis": {
+        "zh": "按细胞系",
+        "en": "by cell line"
+      },
+      "question": {
+        "zh": "这条细胞系的基线状态、可建模余量和噪声天花板是多少，够不够支撑后续任何虚拟筛？",
+        "en": "What is this line's baseline state, modelling headroom and noise ceiling — enough to support any virtual screen at all?"
+      },
+      "promise": {
+        "zh": "所有 VC 产品的地基。没有这一步，后面每个模型分数都没有参照系。",
+        "en": "The foundation of every VC product. Without it, no downstream model score has a frame of reference."
+      },
+      "promise_detail": {
+        "zh": "交付物是一份八层 Cell Passport（身份、基因组、基础转录、表观调控、基因依赖、药物历史、形态、实验上下文），加上重复孔一致性给出的噪声天花板，加上完整基线阶梯——no-change、平均扰动、线性 / 岭回归、最近邻检索、oracle 上界。如果基线已经贴顶，这条系的这个 readout 就没有可建模余量，我们会直接说不要建。",
+        "en": "The deliverable is an eight-layer Cell Passport — identity, genome, basal transcriptome, epigenetic regulation, gene dependency, drug history, morphology, experimental context — plus a noise ceiling from replicate-well agreement, plus the full baseline ladder: no-change, mean perturbation, linear/ridge, nearest-neighbour retrieval, oracle bound. If the baselines already sit at the ceiling, that readout in that line has no modelling headroom and we say so."
+      },
       "steps": [
         {
-          "stage": "标准输入",
-          "text": "细胞系身份、可用组学与扰动数据、目标 readout、实验容量"
+          "stage": {
+            "zh": "标准输入",
+            "en": "Standard input"
+          },
+          "text": {
+            "zh": "细胞系身份、可用组学与扰动数据、目标 readout、实验容量",
+            "en": "Cell-line identity, available omics and perturbation data, target readout, experimental capacity"
+          }
         },
         {
-          "stage": "候选生成",
-          "text": "CCLE / DepMap / ENCODE 基线拉取，与系内扰动语料对齐"
+          "stage": {
+            "zh": "候选生成",
+            "en": "Candidate generation"
+          },
+          "text": {
+            "zh": "八层 Cell Passport 拉取；与系内及跨背景扰动语料对齐基因版本与标识",
+            "en": "Assemble the eight-layer Cell Passport; align gene builds and identifiers to the within-line and multi-context perturbation corpora"
+          }
         },
         {
-          "stage": "证据校准",
-          "text": "重复孔一致性算噪声天花板；四层基线阶梯；预训练语料污染审计"
+          "stage": {
+            "zh": "证据校准",
+            "en": "Evidence calibration"
+          },
+          "text": {
+            "zh": "重复孔一致性算噪声天花板；五级基线阶梯；预训练语料按 accession 求交做污染审计",
+            "en": "Noise ceiling from replicate agreement; five-rung baseline ladder; contamination audit by accession set-intersection against pre-training corpora"
+          }
         },
         {
-          "stage": "组合选择",
-          "text": "可建模 readout 清单、不可建模清单、建库缺口与优先级"
+          "stage": {
+            "zh": "组合选择",
+            "en": "Constrained selection"
+          },
+          "text": {
+            "zh": "按占噪声天花板百分比划分可建模 / 需补数据 / 不可建模三档 readout",
+            "en": "Sort readouts into modellable / needs-more-data / not-modellable by percentage of noise ceiling"
+          }
         },
         {
-          "stage": "实验输出",
-          "text": "状态卡 + 基线表 + 可建模余量报告 + go/no-go"
+          "stage": {
+            "zh": "实验输出",
+            "en": "Experiment-ready output"
+          },
+          "text": {
+            "zh": "Cell Passport + 基线表 + 适用域声明 + go/no-go 与建库缺口清单",
+            "en": "Cell Passport + baseline table + domain-of-applicability statement + go/no-go and data-gap list"
+          }
         }
       ],
       "phase_text": {
-        "qc": "确认细胞系编号、批次、传代、组学版本与扰动数据的样本对应关系，核对 STR 身份。",
-        "generate": "拉取表达、突变、拷贝数、融合、甲基化、染色质可及性与倍性，对齐系内扰动语料的基因空间。",
-        "calibrate": "计算重复孔噪声天花板，跑四层基线阶梯，并按 accession 集合求交做预训练语料污染审计。",
-        "select": "按「占噪声天花板百分比」给出每个 readout 的可建模余量，划分可建模 / 不可建模 / 需补数据三档。",
-        "output": "输出细胞系状态卡、基线得分表、污染审计判定原文与建库缺口清单。",
-        "loop": "回收首轮实测数据，更新噪声天花板与基线，重判可建模余量。",
-        "exit": "每个 readout 都有噪声天花板和基线得分，go/no-go 有据可依。"
+        "qc": {
+          "zh": "确认细胞系编号（Cellosaurus / DepMap ID）、批次、传代、培养方式、组学版本与扰动样本对应关系，核对 STR 身份。",
+          "en": "Confirm cell-line identifiers (Cellosaurus / DepMap ID), batch, passage, culture format, omics versions and the mapping to perturbation samples; verify STR identity."
+        },
+        "generate": {
+          "zh": "拉取基因组（SNV / indel / CNV / 融合 / 倍性）、基础转录与亚群、ATAC 与 GRN、CRISPR 依赖、药物历史与形态表型，统一基因版本与药物结构标识。",
+          "en": "Pull genome (SNV / indel / CNV / fusion / ploidy), basal transcriptome and subpopulations, ATAC and GRN, CRISPR dependency, drug history and morphology; unify gene builds and compound structure identifiers."
+        },
+        "calibrate": {
+          "zh": "计算重复孔噪声天花板，跑五级基线阶梯，并按 accession 集合求交完成预训练语料污染审计，判定写成原文而非脚注。",
+          "en": "Compute the replicate-well noise ceiling, run the five-rung baseline ladder, and complete the contamination audit by accession set-intersection — recording the verdict verbatim rather than as a footnote."
+        },
+        "select": {
+          "zh": "按占噪声天花板百分比给出每个 readout 的可建模余量，划分可建模 / 需补数据 / 不可建模三档并注明缺口类型。",
+          "en": "Express each readout's headroom as a percentage of the noise ceiling and sort into modellable / needs-more-data / not-modellable, naming the type of gap."
+        },
+        "output": {
+          "zh": "输出版本化 Cell Passport、基线得分表、适用域声明、污染审计判定原文与建库缺口清单及报价。",
+          "en": "Deliver a versioned Cell Passport, baseline score table, domain-of-applicability statement, verbatim contamination verdict, and a data-gap list with costing."
+        },
+        "loop": {
+          "zh": "回收首轮实测数据，更新噪声天花板与基线，重判可建模余量并升版 Passport。",
+          "en": "Fold first-round measurements back in, update the noise ceiling and baselines, re-judge headroom and version the Passport."
+        },
+        "exit": {
+          "zh": "每个 readout 都有噪声天花板和基线得分，go/no-go 有据可依。",
+          "en": "Every readout carries a noise ceiling and baseline score, so go/no-go is evidence-based."
+        }
       },
       "engagement": {
-        "domain": "虚拟细胞·基线资产",
-        "value": "先证明有没有可建模余量，再决定要不要建模——这一步产出的表比后面任何模型都重要。",
-        "deliverables": "细胞系状态卡、噪声天花板表、四层基线阶梯得分、污染审计判定、可 / 不可建模 readout 清单。",
-        "formats": "h5ad / Parquet / CSV / DuckDB / HTML",
-        "teams": "药理、体外模型、AI 平台与技术尽调",
-        "scenario": "虚拟筛立项前的可行性判定与预算论证",
-        "tools": "DepMap、CCLE、ENCODE、Scanpy、scPerturb、DuckDB",
-        "price_rmb": "6万–14万",
+        "domain": {
+          "zh": "虚拟细胞·基线资产",
+          "en": "Virtual cell · baseline asset"
+        },
+        "value": {
+          "zh": "先证明有没有可建模余量，再决定要不要建模——这一步产出的表比后面任何模型都重要。",
+          "en": "Prove headroom exists before building anything. The table this step produces matters more than any model that follows."
+        },
+        "deliverables": {
+          "zh": "版本化 Cell Passport（8 层）、噪声天花板表、五级基线阶梯得分、污染审计判定、适用域声明、可 / 不可建模 readout 清单与建库缺口报价。",
+          "en": "Versioned eight-layer Cell Passport, noise-ceiling table, five-rung baseline scores, contamination verdict, domain-of-applicability statement, modellable / non-modellable readout list, and costed data gaps."
+        },
+        "formats": {
+          "zh": "h5ad / Parquet / CSV / DuckDB / HTML",
+          "en": "h5ad / Parquet / CSV / DuckDB / HTML"
+        },
+        "teams": {
+          "zh": "药理、体外模型、AI 平台与技术尽调",
+          "en": "Pharmacology, in-vitro models, AI platform and technical due diligence"
+        },
+        "scenario": {
+          "zh": "虚拟筛立项前的可行性判定与预算论证",
+          "en": "Feasibility and budget justification before a virtual screen is commissioned"
+        },
+        "tools": {
+          "zh": "DepMap / CCLE · ENCODE · scPerturb · CELLxGENE · Scanpy · DuckDB",
+          "en": "DepMap / CCLE · ENCODE · scPerturb · CELLxGENE · Scanpy · DuckDB"
+        },
+        "price": {
+          "zh": "6万–14万",
+          "en": "RMB 60k–140k"
+        },
         "bounds": {
-          "ok": "基线组学、必需性、身份核对",
-          "mid": "可建模余量估计",
-          "no": "没有底座的细胞系不出替身，只出建库方案"
+          "direct_substitute": {
+            "zh": "基线组学、必需性、身份核对",
+            "en": "Baseline omics, essentiality, identity checks"
+          },
+          "rank_then_test": {
+            "zh": "可建模余量估计",
+            "en": "Modelling-headroom estimation"
+          },
+          "not_promised": {
+            "zh": "没有底座的细胞系不出替身，只出建库方案",
+            "en": "No substrate, no twin — only a costed data-generation plan"
+          }
         }
       },
       "solutions": [
         {
           "id": "VC-TWN-001",
           "seq": "001",
-          "title": "K562 全基因组扰动替身",
-          "subject": "K562 / CRISPRi genome-wide",
-          "use_case": "虚拟筛地基",
-          "demo_endpoint": "~9.8k 靶点 → 1 张状态卡 + 4 层基线"
+          "title": {
+            "zh": "A549 Cell Passport",
+            "en": "A549 Cell Passport"
+          },
+          "subject": {
+            "zh": "A549 / 四底座齐全",
+            "en": "A549 / all four substrates"
+          },
+          "use_case": {
+            "zh": "肺癌与通用底座",
+            "en": "Lung cancer & general substrate"
+          },
+          "demo_endpoint": {
+            "zh": "8 层 Passport → 5 级基线 + 4 类 readout",
+            "en": "8 Passport layers → 5 baselines + 4 readout classes"
+          }
         },
         {
           "id": "VC-TWN-002",
           "seq": "002",
-          "title": "RPE1 非癌对照替身",
-          "subject": "RPE1 / essential-gene set",
-          "use_case": "癌系伪影对照",
-          "demo_endpoint": "~2k 靶点 → 1 张对照卡 + 伪影清单"
+          "title": {
+            "zh": "MCF7 Cell Passport",
+            "en": "MCF7 Cell Passport"
+          },
+          "subject": {
+            "zh": "MCF7 / ER+ 背景",
+            "en": "MCF7 / ER+ context"
+          },
+          "use_case": {
+            "zh": "激素治疗背景",
+            "en": "Endocrine-therapy context"
+          },
+          "demo_endpoint": {
+            "zh": "8 层 Passport → 5 级基线 + 3 类 readout",
+            "en": "8 Passport layers → 5 baselines + 3 readout classes"
+          }
         },
         {
           "id": "VC-TWN-003",
           "seq": "003",
-          "title": "MCF7 化合物响应替身",
-          "subject": "MCF7 / L1000 + GDSC",
-          "use_case": "化合物检索底座",
-          "demo_endpoint": "~2 万扰动签名 → 1 个检索底座"
+          "title": {
+            "zh": "HT29 Cell Passport",
+            "en": "HT29 Cell Passport"
+          },
+          "subject": {
+            "zh": "HT29 / 结直肠癌 EMT",
+            "en": "HT29 / colorectal, EMT-capable"
+          },
+          "use_case": {
+            "zh": "CRC 与 EMT",
+            "en": "CRC and EMT"
+          },
+          "demo_endpoint": {
+            "zh": "8 层 Passport → 5 级基线 + EMT 轨迹",
+            "en": "8 Passport layers → 5 baselines + EMT trajectory"
+          }
         },
         {
           "id": "VC-TWN-004",
           "seq": "004",
-          "title": "A549 双读出替身",
-          "subject": "A549 / L1000 + JUMP",
-          "use_case": "转录 + 形态双通道",
-          "demo_endpoint": "2 类底座 → 1 个对齐替身"
+          "title": {
+            "zh": "BxPC-3 Cell Passport",
+            "en": "BxPC-3 Cell Passport"
+          },
+          "subject": {
+            "zh": "BxPC-3 / 胰腺癌应激背景",
+            "en": "BxPC-3 / pancreatic, stress context"
+          },
+          "use_case": {
+            "zh": "胰腺癌",
+            "en": "Pancreatic cancer"
+          },
+          "demo_endpoint": {
+            "zh": "8 层 Passport → 5 级基线 + 应激通路",
+            "en": "8 Passport layers → 5 baselines + stress pathways"
+          }
         },
         {
           "id": "VC-TWN-005",
           "seq": "005",
-          "title": "U2OS 形态读出替身",
-          "subject": "U2OS / JUMP Cell Painting",
-          "use_case": "高内涵形态底座",
-          "demo_endpoint": "5 通道 → 1 个同批对照分布"
+          "title": {
+            "zh": "K562 Cell Passport",
+            "en": "K562 Cell Passport"
+          },
+          "subject": {
+            "zh": "K562 / 全基因组 Perturb-seq",
+            "en": "K562 / genome-wide Perturb-seq"
+          },
+          "use_case": {
+            "zh": "遗传扰动地基",
+            "en": "Genetic-perturbation foundation"
+          },
+          "demo_endpoint": {
+            "zh": "~9.8k 靶点 → 5 级基线 + 双基因集",
+            "en": "~9.8k targets → 5 baselines + dual-gene set"
+          }
         },
         {
           "id": "VC-TWN-006",
           "seq": "006",
-          "title": "客户自有细胞系替身",
-          "subject": "client line / 自建底座",
-          "use_case": "自有模型体系",
-          "demo_endpoint": "可行性判定 → 建库方案 + 报价"
+          "title": {
+            "zh": "HAP1 Cell Passport",
+            "en": "HAP1 Cell Passport"
+          },
+          "subject": {
+            "zh": "HAP1 / 近单倍体 KO",
+            "en": "HAP1 / near-haploid KO"
+          },
+          "use_case": {
+            "zh": "基因功能解释",
+            "en": "Gene-function interpretation"
+          },
+          "demo_endpoint": {
+            "zh": "KO 语料 → 5 级基线 + 逃逸通路",
+            "en": "KO corpus → 5 baselines + escape pathways"
+          }
+        },
+        {
+          "id": "VC-TWN-007",
+          "seq": "007",
+          "title": {
+            "zh": "二期扩展包",
+            "en": "Phase-2 expansion pack"
+          },
+          "subject": {
+            "zh": "HepG2 / RPE1 / Jurkat / U2OS / H1",
+            "en": "HepG2 / RPE1 / Jurkat / U2OS / H1"
+          },
+          "use_case": {
+            "zh": "选择性、毒性、免疫与分化",
+            "en": "Selectivity, toxicity, immunity, differentiation"
+          },
+          "demo_endpoint": {
+            "zh": "5 条系 → 5 张 Passport + 覆盖矩阵",
+            "en": "5 lines → 5 Passports + coverage matrix"
+          }
+        },
+        {
+          "id": "VC-TWN-008",
+          "seq": "008",
+          "title": {
+            "zh": "客户自有细胞系",
+            "en": "Client-owned cell line"
+          },
+          "subject": {
+            "zh": "client line / 自建底座",
+            "en": "Client line / substrate to be built"
+          },
+          "use_case": {
+            "zh": "自有模型体系",
+            "en": "In-house model system"
+          },
+          "demo_endpoint": {
+            "zh": "可行性判定 → 建库方案 + 报价",
+            "en": "Feasibility check → data plan + quote"
+          }
         }
       ]
     },
@@ -244,98 +950,277 @@
       "slug": "perturbsim-ai",
       "code": "VC-PRT",
       "name": "PerturbSim-AI",
-      "title": "基因扰动虚拟预筛",
+      "title": {
+        "zh": "基因扰动虚拟预筛",
+        "en": "Genetic Perturbation Pre-Screen"
+      },
       "accent": "var(--blue)",
-      "axis": "按通路 / 适应症",
-      "question": "在这条细胞系里敲低哪些基因值得进湿实验，下游会往哪个方向动、动多大？",
-      "promise": "系内插值与排序，不做跨系外推。",
-      "promise_detail": "模型只在有自有扰动底座的细胞系内部工作。我们分层报未见靶点和已见靶点两种难度，只在 DE 基因上评方向和幅度，并且必须先打赢「训练集平均位移」这个基线——打不赢就不交付模型，交付基线本身。",
+      "axis": {
+        "zh": "按通路 / 适应症",
+        "en": "by pathway / indication"
+      },
+      "question": {
+        "zh": "在这条细胞系里敲低或敲除哪些基因值得进湿实验，下游会往哪个方向动、动多大？",
+        "en": "Which knockdowns or knockouts in this line are worth a wet-lab slot, and in what direction and magnitude will the network move?"
+      },
+      "promise": {
+        "zh": "系内插值与排序为主；跨背景只在六系语料覆盖范围内声明。",
+        "en": "Primarily within-line interpolation and ranking; cross-background claims stay inside the six-line corpus."
+      },
+      "promise_detail": {
+        "zh": "主力是共识项加靶点表征残差——共识吃掉大部分方差，表征只解释未见靶点那部分。跨细胞背景的预测只在多背景 Perturb-seq 覆盖的六条系之间做，并且必须通过 leave-cell-line-out 验证；超出这六条系的外推按不承诺处理。每个结果同时报 seen / unseen 状态与占噪声天花板百分比。",
+        "en": "The workhorse is a consensus term plus a target-representation residual: consensus absorbs most of the variance, the representation explains only the unseen-target part. Cross-background prediction is confined to the six lines the multi-context Perturb-seq corpus covers and must pass leave-cell-line-out; anything beyond those six is treated as not promised. Every result reports seen/unseen status alongside percentage of noise ceiling."
+      },
       "steps": [
         {
-          "stage": "标准输入",
-          "text": "细胞系（须有扰动底座）、候选靶点集、目标通路、实验容量"
+          "stage": {
+            "zh": "标准输入",
+            "en": "Standard input"
+          },
+          "text": {
+            "zh": "细胞系（须有扰动底座）、候选靶点集、目标通路、实验容量",
+            "en": "Cell line (perturbation substrate required), candidate target set, target pathway, experimental capacity"
+          }
         },
         {
-          "stage": "候选生成",
-          "text": "系内扰动响应预测：共识项 + 靶点表征残差"
+          "stage": {
+            "zh": "候选生成",
+            "en": "Candidate generation"
+          },
+          "text": {
+            "zh": "共识项 + 靶点表征残差预测全转录组位移；因果调控网络给机制解释",
+            "en": "Consensus plus target-representation residual predicts the transcriptome shift; a causal regulatory network supplies the mechanism"
+          }
         },
         {
-          "stage": "证据校准",
-          "text": "DE 基因上的方向 / 幅度；分层报未见靶点；对齐噪声天花板"
+          "stage": {
+            "zh": "证据校准",
+            "en": "Evidence calibration"
+          },
+          "text": {
+            "zh": "DE 基因上的方向 / 幅度；leave-perturbation-out 与 leave-cell-line-out；对齐噪声天花板",
+            "en": "Direction and magnitude on DE genes; leave-perturbation-out and leave-cell-line-out; normalized to the noise ceiling"
+          }
         },
         {
-          "stage": "组合选择",
-          "text": "主靶点 + 阳性对照 + 阴性对照 + 通路覆盖，去冗余"
+          "stage": {
+            "zh": "组合选择",
+            "en": "Constrained selection"
+          },
+          "text": {
+            "zh": "主靶点 + 阳性对照 + 阴性对照 + 通路覆盖，按纤维去冗余",
+            "en": "Primary targets, positive and negative controls, pathway coverage; de-duplicated by network fibre"
+          }
         },
         {
-          "stage": "实验输出",
-          "text": "排序靶点表 + sgRNA/siRNA 设计 + readout + 预期效应量"
+          "stage": {
+            "zh": "实验输出",
+            "en": "Experiment-ready output"
+          },
+          "text": {
+            "zh": "排序靶点表 + sgRNA/siRNA 设计 + readout + 预期效应量",
+            "en": "Ranked target table, sgRNA/siRNA design, readout, expected effect size"
+          }
         }
       ],
       "phase_text": {
-        "qc": "冻结靶点集、通路定义、评价指标、数据拆分与简单基线，避免测试集泄漏。",
-        "generate": "在系内扰动底座上预测每个候选靶点的全转录组位移与 DE 集，记录 seen / unseen 状态。",
-        "calibrate": "分层评测未见靶点与已见靶点，在 DE 基因上评方向与幅度，全部换算为噪声天花板百分比。",
-        "select": "选主靶点、阳性对照、阴性对照与通路覆盖，去除同一纤维内的冗余旁系同源。",
-        "output": "输出排序靶点表、guide 序列与脱靶评分、培养 / 刺激条件、readout 与预期效应量。",
-        "loop": "回收实测 DE 数据，比对预测方向与幅度，更新共识项并替换失配靶点。",
-        "exit": "头部靶点的实测命中率显著高于随机抽样，且基线被打赢。"
+        "qc": {
+          "zh": "冻结靶点集、通路定义、评价指标、七种数据拆分与简单基线，明确排除同批次和同扰动泄漏。",
+          "en": "Freeze the target set, pathway definitions, metrics, the seven data splits and the simple baselines; explicitly exclude same-batch and same-perturbation leakage."
+        },
+        "generate": {
+          "zh": "在系内与多背景扰动语料上预测每个候选靶点的全转录组位移与 DE 集，同时跑因果调控网络的虚拟敲低作为正交证据。",
+          "en": "Predict each candidate's transcriptome shift and DE set on the within-line and multi-context corpora, and run a causal regulatory-network virtual knockout as orthogonal evidence."
+        },
+        "calibrate": {
+          "zh": "分层评测未见靶点与未见细胞系，在 DE 基因上评方向与幅度，全部换算为噪声天花板百分比并与四条基线并排。",
+          "en": "Score unseen-target and unseen-cell-line strata separately, evaluate direction and magnitude on DE genes, and normalize everything to the noise ceiling alongside the four baselines."
+        },
+        "select": {
+          "zh": "选主靶点、阳性对照、阴性对照与通路覆盖，去除同一纤维内的冗余旁系同源，标出补偿通路。",
+          "en": "Choose primary targets, positive and negative controls and pathway coverage; drop redundant paralogues within a fibre and flag compensating pathways."
+        },
+        "output": {
+          "zh": "输出排序靶点表、guide 序列与 CFD 脱靶评分、培养 / 刺激条件、readout 与预期效应量。",
+          "en": "Deliver the ranked target table, guide sequences with CFD off-target scores, culture and stimulation conditions, readout and expected effect size."
+        },
+        "loop": {
+          "zh": "回收实测 DE 数据，比对预测方向与幅度，更新共识项并替换失配靶点；主动学习同时补进模型最不确定的候选。",
+          "en": "Fold measured DE data back in, compare predicted direction and magnitude, update the consensus term and swap out mismatched targets; active learning also pulls in the model's most uncertain candidates."
+        },
+        "exit": {
+          "zh": "头部靶点的实测命中率显著高于随机抽样，且四条基线全部被打赢。",
+          "en": "Measured hit rate among top-ranked targets significantly exceeds random sampling, and all four baselines are beaten."
+        }
       },
       "engagement": {
-        "domain": "虚拟细胞·扰动预筛",
-        "value": "卖的是排序和减量，不是又一张预测表——每个靶点带 seen/unseen 标记和预期效应量。",
-        "deliverables": "排序靶点表、seen/unseen 分层得分、guide 设计与脱靶评分、对照方案、富集倍数对账表。",
-        "formats": "CSV / Parquet / h5ad / HTML / FASTA",
-        "teams": "靶点发现、功能基因组学、CRISPR 筛选团队",
-        "scenario": "文库瘦身、靶点优先级排序、对照设计",
-        "tools": "scPerturb、GEARS、Scanpy、Cas-OFFinder、DepMap",
-        "price_rmb": "8万–18万",
+        "domain": {
+          "zh": "虚拟细胞·扰动预筛",
+          "en": "Virtual cell · perturbation pre-screen"
+        },
+        "value": {
+          "zh": "卖的是排序和减量，不是又一张预测表——每个靶点带 seen/unseen 标记、预期效应量和机制解释。",
+          "en": "What is sold is ranking and reduction, not another prediction table — every target carries seen/unseen status, expected effect size and a mechanistic account."
+        },
+        "deliverables": {
+          "zh": "排序靶点表、seen/unseen 与跨系分层得分、因果网络机制解释、guide 设计与脱靶评分、对照方案、富集倍数对账表。",
+          "en": "Ranked targets, seen/unseen and cross-line stratified scores, causal-network mechanism, guide design with off-target scores, control plan, enrichment-fold reconciliation."
+        },
+        "formats": {
+          "zh": "CSV / Parquet / h5ad / HTML / FASTA",
+          "en": "CSV / Parquet / h5ad / HTML / FASTA"
+        },
+        "teams": {
+          "zh": "靶点发现、功能基因组学、CRISPR 筛选团队",
+          "en": "Target discovery, functional genomics, CRISPR screening"
+        },
+        "scenario": {
+          "zh": "文库瘦身、靶点优先级排序、合成致死与对照设计",
+          "en": "Library reduction, target prioritisation, synthetic lethality and control design"
+        },
+        "tools": {
+          "zh": "GEARS · Scouter · TxPert · CellOracle · SCENIC+ · Cas-OFFinder · DepMap",
+          "en": "GEARS · Scouter · TxPert · CellOracle · SCENIC+ · Cas-OFFinder · DepMap"
+        },
+        "price": {
+          "zh": "8万–18万",
+          "en": "RMB 80k–180k"
+        },
         "bounds": {
-          "ok": "底座内已测靶点的响应查询",
-          "mid": "未见靶点的响应排序",
-          "no": "CRISPRa / 过表达；跨系外推"
+          "direct_substitute": {
+            "zh": "底座内已测靶点的响应查询",
+            "en": "Response lookup for targets already measured in the substrate"
+          },
+          "rank_then_test": {
+            "zh": "未见靶点排序；六系语料内的跨背景预测",
+            "en": "Unseen-target ranking; cross-background prediction inside the six-line corpus"
+          },
+          "not_promised": {
+            "zh": "六系之外的细胞系；跨模态 CRISPRa 外推",
+            "en": "Lines outside the six; cross-modality CRISPRa extrapolation"
+          }
         }
       },
       "solutions": [
         {
           "id": "VC-PRT-001",
           "seq": "001",
-          "title": "BCR-ABL 通路虚拟敲低",
-          "subject": "K562 / CML 背景",
-          "use_case": "CML 靶点发现",
-          "demo_endpoint": "1,200 候选 → 48 靶点 + 6 对照"
+          "title": {
+            "zh": "KRAS-MAPK 合成致死预筛",
+            "en": "KRAS-MAPK synthetic-lethal pre-screen"
+          },
+          "subject": {
+            "zh": "A549 / HT29 KRAS 背景",
+            "en": "A549 / HT29 KRAS context"
+          },
+          "use_case": {
+            "zh": "合成致死",
+            "en": "Synthetic lethality"
+          },
+          "demo_endpoint": {
+            "zh": "2,400 候选 → 64 靶点 + 8 对照",
+            "en": "2,400 candidates → 64 targets + 8 controls"
+          }
         },
         {
           "id": "VC-PRT-002",
           "seq": "002",
-          "title": "KRAS 通路合成致死预筛",
-          "subject": "A549 / K562 KRAS 背景",
-          "use_case": "合成致死",
-          "demo_endpoint": "2,400 候选 → 64 靶点 + 8 对照"
+          "title": {
+            "zh": "双基因遗传相互作用",
+            "en": "Dual-gene genetic interaction"
+          },
+          "subject": {
+            "zh": "K562 / 双基因 CRISPRa 集",
+            "en": "K562 / dual-gene CRISPRa set"
+          },
+          "use_case": {
+            "zh": "组合靶点",
+            "en": "Combination targets"
+          },
+          "demo_endpoint": {
+            "zh": "1,891 基因对 → 96 组合 + 非加和候选",
+            "en": "1,891 gene pairs → 96 combinations + non-additive hits"
+          }
         },
         {
           "id": "VC-PRT-003",
           "seq": "003",
-          "title": "DDR / PARP 合成致死预筛",
-          "subject": "DNA 损伤修复通路",
-          "use_case": "DDR 药理",
-          "demo_endpoint": "890 候选 → 36 靶点 + 6 对照"
+          "title": {
+            "zh": "HAP1 KO 功能与逃逸机制",
+            "en": "HAP1 KO function and escape routes"
+          },
+          "subject": {
+            "zh": "HAP1 / 近单倍体 KO",
+            "en": "HAP1 / near-haploid KO"
+          },
+          "use_case": {
+            "zh": "基因功能解释",
+            "en": "Gene-function interpretation"
+          },
+          "demo_endpoint": {
+            "zh": "1,400 候选 → 44 靶点 + 逃逸通路",
+            "en": "1,400 candidates → 44 targets + escape pathways"
+          }
         },
         {
           "id": "VC-PRT-004",
           "seq": "004",
-          "title": "细胞周期必需性与窗口",
-          "subject": "必需基因 + 治疗窗",
-          "use_case": "毒性窗口",
-          "demo_endpoint": "1,050 候选 → 40 靶点 + 癌/非癌配对"
+          "title": {
+            "zh": "DDR / PARP 合成致死预筛",
+            "en": "DDR / PARP synthetic-lethal pre-screen"
+          },
+          "subject": {
+            "zh": "DNA 损伤修复通路",
+            "en": "DNA damage response pathway"
+          },
+          "use_case": {
+            "zh": "DDR 药理",
+            "en": "DDR pharmacology"
+          },
+          "demo_endpoint": {
+            "zh": "890 候选 → 36 靶点 + 6 对照",
+            "en": "890 candidates → 36 targets + 6 controls"
+          }
         },
         {
           "id": "VC-PRT-005",
           "seq": "005",
-          "title": "T 细胞激活通路敲低",
-          "subject": "Jurkat / T 细胞背景",
-          "use_case": "免疫靶点",
-          "demo_endpoint": "760 候选 → 32 靶点 + 4 对照"
+          "title": {
+            "zh": "T 细胞激活通路敲低",
+            "en": "T-cell activation pathway knockdown"
+          },
+          "subject": {
+            "zh": "Jurkat / TCR 信号",
+            "en": "Jurkat / TCR signalling"
+          },
+          "use_case": {
+            "zh": "免疫靶点",
+            "en": "Immune targets"
+          },
+          "demo_endpoint": {
+            "zh": "760 候选 → 32 靶点 + 4 对照",
+            "en": "760 candidates → 32 targets + 4 controls"
+          }
+        },
+        {
+          "id": "VC-PRT-006",
+          "seq": "006",
+          "title": {
+            "zh": "因果调控网络虚拟敲低",
+            "en": "Causal-network virtual knockout"
+          },
+          "subject": {
+            "zh": "TF-增强子-靶基因网络",
+            "en": "TF–enhancer–target network"
+          },
+          "use_case": {
+            "zh": "机制解释",
+            "en": "Mechanistic explanation"
+          },
+          "demo_endpoint": {
+            "zh": "跨 6 系 → 驱动 TF 排序 + 网络图",
+            "en": "Across 6 lines → ranked driver TFs + network map"
+          }
         }
       ]
     },
@@ -343,98 +1228,515 @@
       "slug": "phenoscreen-ai",
       "code": "VC-PHE",
       "name": "PhenoScreen-AI",
-      "title": "化合物表型虚拟预筛",
+      "title": {
+        "zh": "化合物表型虚拟预筛",
+        "en": "Compound Phenotype Pre-Screen"
+      },
       "accent": "var(--violet)",
-      "axis": "按筛选场景",
-      "question": "这批化合物在这条细胞系里表型上像什么、属于哪类 MoA、先测哪 384 个孔？",
-      "promise": "必须先打赢结构指纹最近邻，否则不上模型。",
-      "promise_detail": "化合物侧最强的对手不是别的模型，是「结构指纹最近邻」和「L1000 检索」这两条便宜基线。我们把它们建在项目第一周，作为验收对象。模型只有在留出化合物上的 MoA top-k 富集倍数超过它们时才进入交付。",
+      "axis": {
+        "zh": "按筛选场景",
+        "en": "by screening scenario"
+      },
+      "question": {
+        "zh": "这批化合物在这条细胞系里表型上像什么、属于哪类 MoA、先测哪 384 个孔？",
+        "en": "What do these compounds look like phenotypically in this line, which MoA class do they belong to, and which 384 wells go first?"
+      },
+      "promise": {
+        "zh": "必须先打赢结构指纹最近邻和 L1000 检索，否则不上模型。",
+        "en": "Beat structural-fingerprint nearest-neighbour and L1000 retrieval first, or no model ships."
+      },
+      "promise_detail": {
+        "zh": "化合物侧最强的对手不是别的深度模型，是这两条便宜基线。我们把它们建在项目第一周，作为验收对象而不是陪衬。模型只有在留出化合物的 MoA top-k 富集倍数稳定超过它们，并通过 leave-drug-out 与 leave-study-out 之后，才进入交付。",
+        "en": "On the chemical side the real competition is not another deep model but these two cheap baselines. We build them in week one as the acceptance target, not as a foil. A model ships only once its MoA top-k enrichment on held-out compounds stably exceeds them and it passes leave-drug-out and leave-study-out."
+      },
       "steps": [
         {
-          "stage": "标准输入",
-          "text": "化合物库（结构 / 已有签名）、目标细胞系、MoA 分类体系、板容量"
+          "stage": {
+            "zh": "标准输入",
+            "en": "Standard input"
+          },
+          "text": {
+            "zh": "化合物库（SMILES/SDF 或已有签名）、目标细胞系、MoA 分类体系、剂量范围与板容量",
+            "en": "Compound library (SMILES/SDF or existing signatures), target line, MoA taxonomy, dose range, plate capacity"
+          }
         },
         {
-          "stage": "候选生成",
-          "text": "L1000 签名检索 + Cell Painting 形态生成与嵌入"
+          "stage": {
+            "zh": "候选生成",
+            "en": "Candidate generation"
+          },
+          "text": {
+            "zh": "L1000 签名检索、疾病签名逆转、Cell Painting 形态嵌入与生成",
+            "en": "L1000 signature retrieval, disease-signature reversal, Cell Painting morphology embedding and generation"
+          }
         },
         {
-          "stage": "证据校准",
-          "text": "留出化合物的 MoA top-k 富集倍数与召回，对比两条基线"
+          "stage": {
+            "zh": "证据校准",
+            "en": "Evidence calibration"
+          },
+          "text": {
+            "zh": "留出化合物的 MoA top-k 富集与召回；leave-drug-out / leave-study-out；对比两条基线",
+            "en": "MoA top-k enrichment and recall on held-out compounds; leave-drug-out / leave-study-out; both baselines side by side"
+          }
         },
         {
-          "stage": "组合选择",
-          "text": "头部化合物 + MoA 覆盖 + 阳性对照 + 溶剂对照"
+          "stage": {
+            "zh": "组合选择",
+            "en": "Constrained selection"
+          },
+          "text": {
+            "zh": "头部化合物 + MoA 覆盖 + 阳性对照 + 溶剂对照，剂量-时间网格约束",
+            "en": "Top compounds, MoA coverage, positive and vehicle controls, constrained to the dose–time grid"
+          }
         },
         {
-          "stage": "实验输出",
-          "text": "优先板 + 板图 + 浓度梯度建议 + 判读规则"
+          "stage": {
+            "zh": "实验输出",
+            "en": "Experiment-ready output"
+          },
+          "text": {
+            "zh": "优先板 + 板图 + 浓度梯度 + 判读规则",
+            "en": "Priority plate, plate map, concentration series, read rules"
+          }
         }
       ],
       "phase_text": {
-        "qc": "标准化结构（去盐、互变异构）、核对 MoA 标签体系，划出留出化合物集合并冻结。",
-        "generate": "计算结构指纹与形态 / 转录嵌入，做同批对照内的分布到分布映射，生成候选表型签名。",
-        "calibrate": "在留出化合物上算 MoA top-k 富集倍数与召回，与结构指纹最近邻、L1000 检索并排报告。",
-        "select": "按富集排序取头部，同时约束 MoA 覆盖不塌缩，加入阳性对照与溶剂对照。",
-        "output": "输出优先板名单、板图、浓度梯度、读板通道与异常判读规则。",
-        "loop": "回收实测表型，更新富集曲线，把假阳性类型反馈到检索权重。",
-        "exit": "留出化合物上的 MoA 富集倍数高于两条基线，且头部召回可接受。"
+        "qc": {
+          "zh": "标准化结构（去盐、互变异构、立体化学）、统一药物与靶点标识、核对 MoA 标签体系，划出留出化合物集合并冻结。",
+          "en": "Standardize structures (desalt, tautomers, stereochemistry), unify compound and target identifiers, check the MoA taxonomy, and freeze the held-out compound set."
+        },
+        "generate": {
+          "zh": "计算结构指纹与形态 / 转录嵌入，在同批对照内做分布到分布映射，并跑疾病签名逆转检索。",
+          "en": "Compute structural fingerprints and morphology/transcriptome embeddings, map distribution-to-distribution within the same batch controls, and run disease-signature reversal retrieval."
+        },
+        "calibrate": {
+          "zh": "在留出化合物上算 MoA top-k 富集倍数与召回，与结构指纹最近邻、L1000 检索并排报告，并跑 leave-study-out。",
+          "en": "Compute MoA top-k enrichment and recall on held-out compounds, report alongside structural nearest-neighbour and L1000 retrieval, and run leave-study-out."
+        },
+        "select": {
+          "zh": "按富集排序取头部，同时约束 MoA 覆盖不塌缩，加入阳性与溶剂对照，剂量点限制在已测网格内部。",
+          "en": "Take the top of the enrichment ranking while constraining MoA coverage against collapse, add positive and vehicle controls, and keep dose points inside the measured grid."
+        },
+        "output": {
+          "zh": "输出优先板名单、板图、浓度梯度、读板通道、异常判读规则与超出适用域标记。",
+          "en": "Deliver the priority plate list, plate map, concentration series, readout channels, anomaly rules and out-of-domain flags."
+        },
+        "loop": {
+          "zh": "回收实测表型，更新富集曲线，把假阳性类型反馈到检索权重；主动学习补入最不确定候选。",
+          "en": "Fold measured phenotypes back in, update the enrichment curve, feed false-positive types into retrieval weights, and let active learning add the most uncertain candidates."
+        },
+        "exit": {
+          "zh": "留出化合物上的 MoA 富集倍数高于两条基线，且头部召回可接受。",
+          "en": "MoA enrichment on held-out compounds beats both baselines and head recall is acceptable."
+        }
       },
       "engagement": {
-        "domain": "虚拟细胞·表型预筛",
-        "value": "把十万级化合物库压到一块板，并且明确告诉你为此丢掉了多少召回。",
-        "deliverables": "优先板名单、富集倍数 / 召回曲线、两条基线对照、MoA 覆盖矩阵、板图与判读规则。",
-        "formats": "CSV / Parquet / SDF / HTML / XLSX",
-        "teams": "表型筛选、高内涵成像、化学生物学",
-        "scenario": "库瘦身、MoA 分诊、苗头化合物去重",
-        "tools": "CellProfiler、RDKit、LINCS / CMap、JUMP、DuckDB",
-        "price_rmb": "8万–20万",
+        "domain": {
+          "zh": "虚拟细胞·表型预筛",
+          "en": "Virtual cell · phenotype pre-screen"
+        },
+        "value": {
+          "zh": "把十万级化合物库压到一块板，并且明确告诉你为此丢掉了多少召回。",
+          "en": "Compress a 10⁵ library onto one plate, and state plainly how much recall that cost."
+        },
+        "deliverables": {
+          "zh": "优先板名单、富集 / 召回曲线、两条基线对照、MoA 覆盖矩阵、剂量-时间建议、板图与判读规则。",
+          "en": "Priority plate list, enrichment/recall curves, both baseline comparisons, MoA coverage matrix, dose–time recommendation, plate map and read rules."
+        },
+        "formats": {
+          "zh": "CSV / Parquet / SDF / HTML / XLSX",
+          "en": "CSV / Parquet / SDF / HTML / XLSX"
+        },
+        "teams": {
+          "zh": "表型筛选、高内涵成像、化学生物学",
+          "en": "Phenotypic screening, high-content imaging, chemical biology"
+        },
+        "scenario": {
+          "zh": "库瘦身、MoA 分诊、疾病签名逆转与苗头去重",
+          "en": "Library reduction, MoA triage, signature reversal, hit de-duplication"
+        },
+        "tools": {
+          "zh": "chemCPA · CellOT · Tahoe-x1 · LINCS/CMap · JUMP · CellProfiler · RDKit",
+          "en": "chemCPA · CellOT · Tahoe-x1 · LINCS/CMap · JUMP · CellProfiler · RDKit"
+        },
+        "price": {
+          "zh": "8万–20万",
+          "en": "RMB 80k–200k"
+        },
         "bounds": {
-          "ok": "结构警报与理化筛除",
-          "mid": "MoA 归类与优先级排序",
-          "no": "绝对 IC50 与剂量曲线"
+          "direct_substitute": {
+            "zh": "结构警报与理化筛除",
+            "en": "Structural alerts and physicochemical filtering"
+          },
+          "rank_then_test": {
+            "zh": "MoA 归类、优先级排序与签名逆转",
+            "en": "MoA classification, prioritisation, signature reversal"
+          },
+          "not_promised": {
+            "zh": "绝对 IC50 与网格外剂量外推",
+            "en": "Absolute IC50 and dose extrapolation beyond the grid"
+          }
         }
       },
       "solutions": [
         {
           "id": "VC-PHE-001",
           "seq": "001",
-          "title": "MoA 归类与去重",
-          "subject": "U2OS / A549 形态底座",
-          "use_case": "库分诊",
-          "demo_endpoint": "12,000 化合物 → 384 孔 + 12 MoA 覆盖"
+          "title": {
+            "zh": "MoA 归类与去重",
+            "en": "MoA classification and de-duplication"
+          },
+          "subject": {
+            "zh": "U2OS / A549 形态底座",
+            "en": "U2OS / A549 morphology substrate"
+          },
+          "use_case": {
+            "zh": "库分诊",
+            "en": "Library triage"
+          },
+          "demo_endpoint": {
+            "zh": "12,000 化合物 → 384 孔 + 12 MoA 覆盖",
+            "en": "12,000 compounds → 384 wells + 12 MoA classes"
+          }
         },
         {
           "id": "VC-PHE-002",
           "seq": "002",
-          "title": "抗增殖谱系敏感性排序",
-          "subject": "跨细胞系谱系背景",
-          "use_case": "适应症选择",
-          "demo_endpoint": "800 化合物 × 40 系 → 6 个谱系假设"
+          "title": {
+            "zh": "疾病签名逆转检索",
+            "en": "Disease-signature reversal"
+          },
+          "subject": {
+            "zh": "LINCS / CMap 签名空间",
+            "en": "LINCS / CMap signature space"
+          },
+          "use_case": {
+            "zh": "表型药物发现",
+            "en": "Phenotypic discovery"
+          },
+          "demo_endpoint": {
+            "zh": "~2 万扰动签名 → 120 逆转候选",
+            "en": "~20k perturbation signatures → 120 reversal hits"
+          }
         },
         {
           "id": "VC-PHE-003",
           "seq": "003",
-          "title": "表观遗传化合物表型指纹",
-          "subject": "HDAC / BET / DNMT 类",
-          "use_case": "表观药理",
-          "demo_endpoint": "2,400 化合物 → 96 孔 + 5 类指纹"
+          "title": {
+            "zh": "跨细胞选择性排序",
+            "en": "Cross-line selectivity ranking"
+          },
+          "subject": {
+            "zh": "6 系 × 化合物矩阵",
+            "en": "6 lines × compound matrix"
+          },
+          "use_case": {
+            "zh": "适应症选择",
+            "en": "Indication selection"
+          },
+          "demo_endpoint": {
+            "zh": "800 化合物 × 6 系 → 6 个选择性假设",
+            "en": "800 compounds × 6 lines → 6 selectivity hypotheses"
+          }
         },
         {
           "id": "VC-PHE-004",
           "seq": "004",
-          "title": "天然产物 / 提取物 MoA 分诊",
-          "subject": "混合物 / 未知结构",
-          "use_case": "天然产物",
-          "demo_endpoint": "1,500 提取物 → 192 孔 + 分诊表"
+          "title": {
+            "zh": "剂量-时间响应插值",
+            "en": "Dose–time response interpolation"
+          },
+          "subject": {
+            "zh": "已测剂量-时间网格内部",
+            "en": "Inside the measured dose–time grid"
+          },
+          "use_case": {
+            "zh": "实验设计",
+            "en": "Experimental design"
+          },
+          "demo_endpoint": {
+            "zh": "3 剂量 × 2 时间 → 12 点插值网格",
+            "en": "3 doses × 2 times → 12-point interpolated grid"
+          }
         },
         {
           "id": "VC-PHE-005",
           "seq": "005",
-          "title": "苗头化合物脱靶表型预警",
-          "subject": "先导优化阶段",
-          "use_case": "安全性前置",
-          "demo_endpoint": "240 类似物 → 24 个预警标记"
+          "title": {
+            "zh": "天然产物 / 提取物 MoA 分诊",
+            "en": "Natural product / extract MoA triage"
+          },
+          "subject": {
+            "zh": "混合物 / 未知结构",
+            "en": "Mixtures / unknown structures"
+          },
+          "use_case": {
+            "zh": "天然产物",
+            "en": "Natural products"
+          },
+          "demo_endpoint": {
+            "zh": "1,500 提取物 → 192 孔 + 分诊表",
+            "en": "1,500 extracts → 192 wells + triage table"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "assayemul-ai",
+      "code": "VC-ASY",
+      "name": "AssayEmul-AI",
+      "title": {
+        "zh": "检测 readout 虚拟化",
+        "en": "Assay Readout Emulation"
+      },
+      "accent": "var(--teal)",
+      "axis": {
+        "zh": "按检测类型",
+        "en": "by assay type"
+      },
+      "question": {
+        "zh": "预测出的生物状态，怎么变成 CellTiter-Glo、qPCR、流式或 ELISA 上真正读到的那个数？",
+        "en": "How does a predicted biological state become the number a CellTiter-Glo, qPCR, flow cytometer or ELISA actually reports?"
+      },
+      "promise": {
+        "zh": "生物状态不等于仪器读数。这一层必须单独校准。",
+        "en": "A biological state is not an instrument reading. This layer is calibrated separately."
+      },
+      "promise_detail": {
+        "zh": "这是整个家族里最容易被跳过、也最容易造成过度承诺的一层。虚拟细胞预测「细胞发生了什么」；检测模拟器预测「仪器最终读到什么」。要模拟 MTT、CellTiter-Glo、ELISA、LFA 或流式，必须另外学习试剂、批次、孵育时间和仪器对 readout 的映射，而这需要配对实验标签——没有配对标签的 readout head，我们不交付，只出采集方案。",
+        "en": "This is the layer most often skipped and the one that most often produces over-promising. A virtual cell predicts what happened to the cell; an assay emulator predicts what the instrument reports. Emulating MTT, CellTiter-Glo, ELISA, LFA or flow means separately learning how reagent, batch, incubation time and instrument map onto the readout — and that requires paired experimental labels. Where paired labels do not exist we do not ship a readout head; we ship the acquisition plan to create one."
+      },
+      "steps": [
+        {
+          "stage": {
+            "zh": "标准输入",
+            "en": "Standard input"
+          },
+          "text": {
+            "zh": "目标检测类型、仪器与试剂批次、已有配对标签、可采集的校准样本量",
+            "en": "Target assay, instrument and reagent lot, existing paired labels, calibration sample budget"
+          }
+        },
+        {
+          "stage": {
+            "zh": "候选生成",
+            "en": "Candidate generation"
+          },
+          "text": {
+            "zh": "从状态转移层取分子状态分布，构建多任务 readout head",
+            "en": "Take the molecular-state distribution from the transition layer and build multi-task readout heads"
+          }
+        },
+        {
+          "stage": {
+            "zh": "证据校准",
+            "en": "Evidence calibration"
+          },
+          "text": {
+            "zh": "配对标签上的校准曲线；批次与时间协变量；leave-study-out 检验平台迁移",
+            "en": "Calibration curves on paired labels; batch and time covariates; leave-study-out for platform transfer"
+          }
+        },
+        {
+          "stage": {
+            "zh": "组合选择",
+            "en": "Constrained selection"
+          },
+          "text": {
+            "zh": "确定可交付 readout、需补标签 readout 与不可交付 readout 三档",
+            "en": "Sort readouts into deliverable / needs-labels / not-deliverable"
+          }
+        },
+        {
+          "stage": {
+            "zh": "实验输出",
+            "en": "Experiment-ready output"
+          },
+          "text": {
+            "zh": "readout head + 校准曲线 + 置信区间 + 采集方案",
+            "en": "Readout heads, calibration curves, confidence intervals, acquisition plan"
+          }
+        }
+      ],
+      "phase_text": {
+        "qc": {
+          "zh": "核对仪器型号、试剂批次、孵育时间、读板参数、对照孔定义与历史批间变异，确认配对标签的样本对应关系。",
+          "en": "Verify instrument model, reagent lot, incubation time, plate-reader settings, control-well definitions and historical inter-batch variation; confirm the sample mapping of paired labels."
+        },
+        "generate": {
+          "zh": "从状态转移层取分子状态分布，为每类 readout 建立多任务回归 / 分类头，显式引入批次与时间协变量。",
+          "en": "Take the molecular-state distribution from the transition layer and fit multi-task regression/classification heads per readout, with batch and time as explicit covariates."
+        },
+        "calibrate": {
+          "zh": "在配对标签上拟合校准曲线，跑 leave-study-out 检验跨平台迁移，报告置信区间覆盖率与实验重复给出的上限。",
+          "en": "Fit calibration curves on paired labels, run leave-study-out for cross-platform transfer, and report interval coverage against the replicate-implied ceiling."
+        },
+        "select": {
+          "zh": "按校准质量把 readout 分成可交付 / 需补标签 / 不可交付三档，为第二档给出所需样本量。",
+          "en": "Grade readouts as deliverable / needs-labels / not-deliverable by calibration quality, with a required sample size for the middle tier."
+        },
+        "output": {
+          "zh": "输出 readout head、校准曲线、置信区间、适用批次范围与新增标签采集方案。",
+          "en": "Deliver readout heads, calibration curves, confidence intervals, the batch range they apply to, and an acquisition plan for new labels."
+        },
+        "loop": {
+          "zh": "回收新批次实测 readout，检测漂移，触发重校准或回退到上一版 head。",
+          "en": "Fold new measured readouts back in, detect drift, and trigger recalibration or rollback to the previous head."
+        },
+        "exit": {
+          "zh": "每个交付的 readout 都有配对标签校准曲线和置信区间覆盖率，且标明适用批次范围。",
+          "en": "Every shipped readout carries a paired-label calibration curve, interval coverage, and the batch range it is valid for."
+        }
+      },
+      "engagement": {
+        "domain": {
+          "zh": "虚拟细胞·检测模拟",
+          "en": "Virtual cell · assay emulation"
+        },
+        "value": {
+          "zh": "把「细胞发生了什么」翻译成「仪器读到多少」，并且只在有配对标签的地方翻译。",
+          "en": "Translate \"what happened to the cell\" into \"what the instrument reads\" — and only where paired labels exist."
+        },
+        "deliverables": {
+          "zh": "readout head、校准曲线、批次与时间协变量模型、置信区间覆盖率、适用批次范围、缺标签 readout 的采集方案与报价。",
+          "en": "Readout heads, calibration curves, batch/time covariate model, interval coverage, valid batch range, and a costed acquisition plan for unlabelled readouts."
+        },
+        "formats": {
+          "zh": "CSV / Parquet / HTML / model cards",
+          "en": "CSV / Parquet / HTML / model cards"
+        },
+        "teams": {
+          "zh": "检测开发、高内涵成像、QC 与转化研究",
+          "en": "Assay development, high-content imaging, QC and translational research"
+        },
+        "scenario": {
+          "zh": "把预测结果接到真实读板数据上，减少验证批次",
+          "en": "Connecting predictions to real plate-reader data and cutting validation rounds"
+        },
+        "tools": {
+          "zh": "CellProfiler · scikit-learn · conformal prediction · CITE-seq 配对数据",
+          "en": "CellProfiler · scikit-learn · conformal prediction · paired CITE-seq"
+        },
+        "price": {
+          "zh": "10万–20万",
+          "en": "RMB 100k–200k"
+        },
+        "bounds": {
+          "direct_substitute": {
+            "zh": "有配对标签且批次稳定的 readout",
+            "en": "Readouts with paired labels and stable batches"
+          },
+          "rank_then_test": {
+            "zh": "跨批次与跨时间点的 readout 插值",
+            "en": "Readout interpolation across batches and timepoints"
+          },
+          "not_promised": {
+            "zh": "无配对标签的蛋白 / 分泌 readout；跨仪器平台外推",
+            "en": "Protein/secretion readouts with no paired labels; cross-instrument extrapolation"
+          }
+        }
+      },
+      "solutions": [
+        {
+          "id": "VC-ASY-001",
+          "seq": "001",
+          "title": {
+            "zh": "活力 readout 校准",
+            "en": "Viability readout calibration"
+          },
+          "subject": {
+            "zh": "CellTiter-Glo / MTT",
+            "en": "CellTiter-Glo / MTT"
+          },
+          "use_case": {
+            "zh": "活力检测",
+            "en": "Viability assay"
+          },
+          "demo_endpoint": {
+            "zh": "6 系 × 3 剂量 → 1 条校准曲线 + CI",
+            "en": "6 lines × 3 doses → 1 calibration curve + CI"
+          }
+        },
+        {
+          "id": "VC-ASY-002",
+          "seq": "002",
+          "title": {
+            "zh": "转录 readout 与通路分数",
+            "en": "Transcript readout and pathway score"
+          },
+          "subject": {
+            "zh": "qPCR / RNA-seq",
+            "en": "qPCR / RNA-seq"
+          },
+          "use_case": {
+            "zh": "机制确认",
+            "en": "Mechanism confirmation"
+          },
+          "demo_endpoint": {
+            "zh": "1,000 landmark → DEG 方向 + 通路 AUROC",
+            "en": "1,000 landmarks → DEG direction + pathway AUROC"
+          }
+        },
+        {
+          "id": "VC-ASY-003",
+          "seq": "003",
+          "title": {
+            "zh": "Cell Painting 形态 readout",
+            "en": "Cell Painting morphology readout"
+          },
+          "subject": {
+            "zh": "U2OS / A549 五通道",
+            "en": "U2OS / A549, five channels"
+          },
+          "use_case": {
+            "zh": "高内涵成像",
+            "en": "High-content imaging"
+          },
+          "demo_endpoint": {
+            "zh": "5 通道 → MOA 分类 + 应激表型",
+            "en": "5 channels → MoA classification + stress phenotypes"
+          }
+        },
+        {
+          "id": "VC-ASY-004",
+          "seq": "004",
+          "title": {
+            "zh": "流式表面标志物",
+            "en": "Flow-cytometry surface markers"
+          },
+          "subject": {
+            "zh": "需 CITE-seq 配对数据",
+            "en": "Requires paired CITE-seq"
+          },
+          "use_case": {
+            "zh": "免疫表型",
+            "en": "Immunophenotyping"
+          },
+          "demo_endpoint": {
+            "zh": "需配对标签 → 校准方案 + 样本量",
+            "en": "Paired labels needed → calibration plan + sample size"
+          }
+        },
+        {
+          "id": "VC-ASY-005",
+          "seq": "005",
+          "title": {
+            "zh": "ELISA / 细胞因子分泌",
+            "en": "ELISA / cytokine secretion"
+          },
+          "subject": {
+            "zh": "需分泌组配对数据",
+            "en": "Requires paired secretome data"
+          },
+          "use_case": {
+            "zh": "分泌表型",
+            "en": "Secretion phenotype"
+          },
+          "demo_endpoint": {
+            "zh": "需配对标签 → 校准方案 + 样本量",
+            "en": "Paired labels needed → calibration plan + sample size"
+          }
         }
       ]
     },
@@ -442,90 +1744,257 @@
       "slug": "toxtwin-ai",
       "code": "VC-TOX",
       "name": "ToxTwin-AI",
-      "title": "器官毒性虚拟前哨",
+      "title": {
+        "zh": "器官毒性虚拟前哨",
+        "en": "Organ Toxicity Sentinel"
+      },
       "accent": "var(--coral)",
-      "axis": "按器官",
-      "question": "这个化合物在肝 / 心 / 髓 / 肾模型上，有没有需要提前设计对照的毒性表型？",
-      "promise": "这是实验前的对照设计，不是毒理放行。",
-      "promise_detail": "我们不出 NOAEL、不出安全窗、不替代 GLP 毒理。产出的是「哪些毒性表型有信号、该在首轮体外实验里加哪些对照和 readout」——把毒性发现从化合物进入动物之后，提前到进入板子之前。",
+      "axis": {
+        "zh": "按器官",
+        "en": "by organ"
+      },
+      "question": {
+        "zh": "这个化合物在肝 / 心 / 髓 / 肾模型上，有没有需要提前设计对照的毒性表型，以及癌 / 正常选择性窗口有多宽？",
+        "en": "Does this compound show a toxicity phenotype in liver, heart, marrow or kidney models that warrants a control now — and how wide is the tumour/normal selectivity window?"
+      },
+      "promise": {
+        "zh": "这是实验前的对照设计，不是毒理放行。",
+        "en": "This is control design before the experiment, not toxicology clearance."
+      },
+      "promise_detail": {
+        "zh": "我们不出 NOAEL、不出安全窗数值、不替代 GLP 毒理。产出的是「哪些毒性表型有信号、该在首轮体外实验里加哪些对照和 readout」——把毒性发现从化合物进入动物之后，提前到进入板子之前。RPE1 作为 p53 完整的正常对照，用来给出癌 / 正常选择性的相对排序（不是绝对治疗窗）。",
+        "en": "We do not issue a NOAEL, a numeric safety margin, or anything replacing GLP toxicology. What we produce is: which toxicity phenotypes carry signal, and which controls and readouts belong in the first in-vitro round — moving toxicity discovery from after the animal study to before the plate. RPE1, p53-intact, serves as the normal control for a relative tumour/normal selectivity ranking, not an absolute therapeutic window."
+      },
       "steps": [
         {
-          "stage": "标准输入",
-          "text": "化合物结构、目标器官、参比毒物集、可用体外模型"
+          "stage": {
+            "zh": "标准输入",
+            "en": "Standard input"
+          },
+          "text": {
+            "zh": "化合物结构、目标器官、参比毒物集、可用体外模型与剂量范围",
+            "en": "Compound structure, target organ, reference toxicant set, available in-vitro models and dose range"
+          }
         },
         {
-          "stage": "候选生成",
-          "text": "器官相关细胞系表型检索 + 结构警报 + Tox21 端点打分"
+          "stage": {
+            "zh": "候选生成",
+            "en": "Candidate generation"
+          },
+          "text": {
+            "zh": "器官相关细胞系表型检索 + 结构警报 + Tox21 端点打分",
+            "en": "Organ-relevant phenotype retrieval, structural alerts, Tox21 endpoint scoring"
+          }
         },
         {
-          "stage": "证据校准",
-          "text": "参比毒物阳性对照回收率；跨证据一致性；适用域标记"
+          "stage": {
+            "zh": "证据校准",
+            "en": "Evidence calibration"
+          },
+          "text": {
+            "zh": "参比毒物阳性对照回收率；三层证据一致性；适用域标记",
+            "en": "Recall of reference toxicants as positive controls, agreement across the three evidence layers, domain flags"
+          }
         },
         {
-          "stage": "组合选择",
-          "text": "毒性表型假设 + 对照毒物 + readout 组合"
+          "stage": {
+            "zh": "组合选择",
+            "en": "Constrained selection"
+          },
+          "text": {
+            "zh": "毒性表型假设 + 对照毒物 + readout 组合 + 癌/正常配对",
+            "en": "Toxicity hypotheses, reference toxicants, readout set, and tumour/normal pairing"
+          }
         },
         {
-          "stage": "实验输出",
-          "text": "风险排序表 + 对照设计 + readout + 触发规则"
+          "stage": {
+            "zh": "实验输出",
+            "en": "Experiment-ready output"
+          },
+          "text": {
+            "zh": "风险排序表 + 对照设计 + readout + 停试触发规则",
+            "en": "Risk ranking, control design, readouts, stop-test triggers"
+          }
         }
       ],
       "phase_text": {
-        "qc": "确认化合物结构与批次、目标器官、参比毒物清单与可获得的体外模型和培养条件。",
-        "generate": "跑器官相关细胞系的表型检索、结构警报（PAINS / Brenk / NIH）与 12 个 Tox21 端点打分。",
-        "calibrate": "用参比毒物做阳性对照回收率检验，标记适用域外化合物，交叉核对三层证据的一致性。",
-        "select": "给出毒性表型假设排序，配对照毒物、阴性对照与最能分辨该表型的 readout。",
-        "output": "输出风险排序表、对照设计、readout 清单、浓度范围与停试触发规则。",
-        "loop": "回收首轮体外毒性数据，校准阈值，把漏报表型加入下一轮 readout。",
-        "exit": "参比毒物被稳定召回，且每条风险都配了可执行的对照与 readout。"
+        "qc": {
+          "zh": "确认化合物结构与批次、目标器官、参比毒物清单、可获得的体外模型、培养条件与暴露时间。",
+          "en": "Confirm compound structure and lot, target organ, reference toxicant list, available in-vitro models, culture conditions and exposure time."
+        },
+        "generate": {
+          "zh": "跑器官相关细胞系的表型检索、结构警报（PAINS / Brenk / NIH）与 12 个 Tox21 端点打分，并与正常对照系配对。",
+          "en": "Run organ-relevant phenotype retrieval, structural alerts (PAINS / Brenk / NIH) and 12 Tox21 endpoint scores, paired against the normal control line."
+        },
+        "calibrate": {
+          "zh": "用参比毒物做阳性对照回收率检验，标记适用域外化合物，交叉核对三层证据的一致性与冲突。",
+          "en": "Test positive-control recall on reference toxicants, flag out-of-domain compounds, and cross-check agreement and conflict across the three evidence layers."
+        },
+        "select": {
+          "zh": "给出毒性表型假设排序，配对照毒物、阴性对照、癌/正常配对与最能分辨该表型的 readout。",
+          "en": "Rank toxicity hypotheses and pair each with reference toxicants, negative controls, a tumour/normal pair and the readout that best separates it."
+        },
+        "output": {
+          "zh": "输出风险排序表、对照设计、readout 清单、浓度与暴露时间范围、停试触发规则。",
+          "en": "Deliver the risk ranking, control design, readout list, concentration and exposure ranges, and stop-test triggers."
+        },
+        "loop": {
+          "zh": "回收首轮体外毒性数据，校准阈值，把漏报表型加入下一轮 readout。",
+          "en": "Fold first-round in-vitro toxicity data back in, recalibrate thresholds, and add missed phenotypes to the next readout set."
+        },
+        "exit": {
+          "zh": "参比毒物被稳定召回，且每条风险都配了可执行的对照与 readout。",
+          "en": "Reference toxicants are recalled stably and every risk carries an executable control and readout."
+        }
       },
       "engagement": {
-        "domain": "虚拟细胞·安全前哨",
-        "value": "把毒性发现从动物实验之后提前到板子之前，代价是明确写清不承诺什么。",
-        "deliverables": "风险排序表、结构警报清单、Tox21 端点打分、参比毒物召回率、对照与 readout 设计。",
-        "formats": "CSV / SDF / HTML / XLSX",
-        "teams": "安全药理、DMPK、早期毒理与化学团队",
-        "scenario": "先导优化期的毒性前置筛查与对照设计",
-        "tools": "RDKit、Tox21、LINCS、DepMap、CellProfiler",
-        "price_rmb": "8万–16万",
+        "domain": {
+          "zh": "虚拟细胞·安全前哨",
+          "en": "Virtual cell · safety sentinel"
+        },
+        "value": {
+          "zh": "把毒性发现从动物实验之后提前到板子之前，代价是明确写清不承诺什么。",
+          "en": "Move toxicity discovery from after the animal study to before the plate — at the price of stating plainly what is not promised."
+        },
+        "deliverables": {
+          "zh": "风险排序表、结构警报清单、Tox21 端点打分、参比毒物召回率、癌/正常选择性排序、对照与 readout 设计。",
+          "en": "Risk ranking, structural alert list, Tox21 endpoint scores, reference-toxicant recall, tumour/normal selectivity ranking, control and readout design."
+        },
+        "formats": {
+          "zh": "CSV / SDF / HTML / XLSX",
+          "en": "CSV / SDF / HTML / XLSX"
+        },
+        "teams": {
+          "zh": "安全药理、DMPK、早期毒理与化学团队",
+          "en": "Safety pharmacology, DMPK, early toxicology, chemistry"
+        },
+        "scenario": {
+          "zh": "先导优化期的毒性前置筛查与对照设计",
+          "en": "Front-loading toxicity screening and control design during lead optimisation"
+        },
+        "tools": {
+          "zh": "RDKit · Tox21 · LINCS · DepMap · CellProfiler",
+          "en": "RDKit · Tox21 · LINCS · DepMap · CellProfiler"
+        },
+        "price": {
+          "zh": "8万–16万",
+          "en": "RMB 80k–160k"
+        },
         "bounds": {
-          "ok": "结构警报与已知毒性基团",
-          "mid": "毒性表型假设排序",
-          "no": "NOAEL / 安全窗 / 监管级结论"
+          "direct_substitute": {
+            "zh": "结构警报与已知毒性基团",
+            "en": "Structural alerts and known toxicophores"
+          },
+          "rank_then_test": {
+            "zh": "毒性表型假设排序与癌/正常相对选择性",
+            "en": "Toxicity hypothesis ranking and relative tumour/normal selectivity"
+          },
+          "not_promised": {
+            "zh": "NOAEL / 安全窗数值 / 监管级结论",
+            "en": "NOAEL, numeric safety margins, regulatory-grade conclusions"
+          }
         }
       },
       "solutions": [
         {
           "id": "VC-TOX-001",
           "seq": "001",
-          "title": "肝毒性虚拟前哨",
-          "subject": "HepG2 + 原代肝细胞参考",
-          "use_case": "DILI 前置",
-          "demo_endpoint": "600 化合物 → 40 高风险 + 8 参比"
+          "title": {
+            "zh": "肝毒性虚拟前哨",
+            "en": "Hepatotoxicity sentinel"
+          },
+          "subject": {
+            "zh": "HepG2 + 原代肝细胞参考",
+            "en": "HepG2 + primary hepatocyte reference"
+          },
+          "use_case": {
+            "zh": "DILI 前置",
+            "en": "DILI front-loading"
+          },
+          "demo_endpoint": {
+            "zh": "600 化合物 → 40 高风险 + 8 参比",
+            "en": "600 compounds → 40 high-risk + 8 references"
+          }
         },
         {
           "id": "VC-TOX-002",
           "seq": "002",
-          "title": "心脏毒性虚拟前哨",
-          "subject": "hiPSC-CM 参考 + hERG",
-          "use_case": "心律风险",
-          "demo_endpoint": "600 化合物 → 26 高风险 + 6 参比"
+          "title": {
+            "zh": "心脏毒性虚拟前哨",
+            "en": "Cardiotoxicity sentinel"
+          },
+          "subject": {
+            "zh": "hiPSC-CM 参考 + hERG",
+            "en": "hiPSC-CM reference + hERG"
+          },
+          "use_case": {
+            "zh": "心律风险",
+            "en": "Arrhythmia risk"
+          },
+          "demo_endpoint": {
+            "zh": "600 化合物 → 26 高风险 + 6 参比",
+            "en": "600 compounds → 26 high-risk + 6 references"
+          }
         },
         {
           "id": "VC-TOX-003",
           "seq": "003",
-          "title": "骨髓抑制 / 血液毒性",
-          "subject": "K562 / HL-60",
-          "use_case": "血液毒性",
-          "demo_endpoint": "480 化合物 → 22 高风险 + 5 参比"
+          "title": {
+            "zh": "骨髓抑制 / 血液毒性",
+            "en": "Myelosuppression / haematotoxicity"
+          },
+          "subject": {
+            "zh": "K562 / HL-60",
+            "en": "K562 / HL-60"
+          },
+          "use_case": {
+            "zh": "血液毒性",
+            "en": "Haematotoxicity"
+          },
+          "demo_endpoint": {
+            "zh": "480 化合物 → 22 高风险 + 5 参比",
+            "en": "480 compounds → 22 high-risk + 5 references"
+          }
         },
         {
           "id": "VC-TOX-004",
           "seq": "004",
-          "title": "肾小管毒性前哨",
-          "subject": "HK-2 / RPTEC",
-          "use_case": "肾毒性",
-          "demo_endpoint": "420 化合物 → 18 高风险 + 5 参比"
+          "title": {
+            "zh": "肾小管毒性前哨",
+            "en": "Renal tubular toxicity sentinel"
+          },
+          "subject": {
+            "zh": "HK-2 / RPTEC",
+            "en": "HK-2 / RPTEC"
+          },
+          "use_case": {
+            "zh": "肾毒性",
+            "en": "Nephrotoxicity"
+          },
+          "demo_endpoint": {
+            "zh": "420 化合物 → 18 高风险 + 5 参比",
+            "en": "420 compounds → 18 high-risk + 5 references"
+          }
+        },
+        {
+          "id": "VC-TOX-005",
+          "seq": "005",
+          "title": {
+            "zh": "癌 / 正常选择性窗口",
+            "en": "Tumour / normal selectivity window"
+          },
+          "subject": {
+            "zh": "RPE1 p53 完整对照",
+            "en": "RPE1, p53-intact control"
+          },
+          "use_case": {
+            "zh": "选择性",
+            "en": "Selectivity"
+          },
+          "demo_endpoint": {
+            "zh": "360 化合物 → 24 选择性候选 + 配对",
+            "en": "360 compounds → 24 selective hits + pairings"
+          }
         }
       ]
     },
@@ -533,90 +2002,257 @@
       "slug": "resistsim-ai",
       "code": "VC-RES",
       "name": "ResistSim-AI",
-      "title": "耐药与状态转换推演",
+      "title": {
+        "zh": "耐药、隐性状态与状态转换推演",
+        "en": "Resistance, Latent States & State Transition"
+      },
       "accent": "var(--amber)",
-      "axis": "按适应症",
-      "question": "这条通路离「开关翻转」还有多远，耐药会从哪条支路出来，早期预警指标是什么？",
-      "promise": "唯一有机理动力学支撑的产品线。",
-      "promise_detail": "先用化学反应网络理论的亏格判据判断这条通路拓扑上能不能成为开关——δ=0 就不可能双稳，直接省掉建模。能成为开关的，再算双稳窗口与分岔点，然后给临界慢化早期预警指标（方差、lag-1 自相关）。这套引擎已有阳性对照：滴定穿过真实分岔点时两个指标峰值约 5 倍。",
+      "axis": {
+        "zh": "按适应症",
+        "en": "by indication"
+      },
+      "question": {
+        "zh": "这条通路离「开关翻转」还有多远，耐药会从哪条支路出来，处理前是否已经存在隐性耐药克隆？",
+        "en": "How far is this pathway from flipping, which branch will resistance come from, and did a latent resistant clone already exist before treatment?"
+      },
+      "promise": {
+        "zh": "唯一有机理动力学支撑的产品线。",
+        "en": "The only line backed by mechanistic dynamics."
+      },
+      "promise_detail": {
+        "zh": "先用化学反应网络理论的亏格判据判断通路拓扑上能不能成为开关——δ=0 就不可能双稳，直接省掉建模。能成为开关的，再算双稳窗口与分岔点，给临界慢化早期预警指标（方差、lag-1 自相关）。这套引擎已有阳性对照：滴定穿过真实分岔点时两个指标峰值约 5 倍。谱系条码数据则回答一个不同的问题——耐药是处理后演化出来的，还是处理前就已经存在并被选择出来的。",
+        "en": "First a chemical-reaction-network deficiency test says whether the topology can be a switch at all — δ=0 rules out bistability and saves the modelling. Where it can, we locate the bistable window and saddle-nodes and supply critical-slowing early-warning indicators (variance, lag-1 autocorrelation). The engine has a positive control: titrating through a real bifurcation peaks both indicators about 5-fold. Lineage-barcode data answers a different question — whether resistance evolved after treatment or was already present and merely selected."
+      },
       "steps": [
         {
-          "stage": "标准输入",
-          "text": "通路定义、药物与靶点、细胞系、可测 readout 与采样能力"
+          "stage": {
+            "zh": "标准输入",
+            "en": "Standard input"
+          },
+          "text": {
+            "zh": "通路定义、药物与靶点、细胞系、可测 readout、采样频率与谱系条码可得性",
+            "en": "Pathway definition, drug and target, cell line, measurable readouts, sampling frequency, lineage-barcode availability"
+          }
         },
         {
-          "stage": "候选生成",
-          "text": "拓扑开关能力判据 + 双稳窗口与分岔点定位"
+          "stage": {
+            "zh": "候选生成",
+            "en": "Candidate generation"
+          },
+          "text": {
+            "zh": "拓扑开关能力判据 + 双稳窗口与分岔点定位 + 处理前隐性状态检索",
+            "en": "Topological switch-capacity test, bistable window and saddle-node location, retrieval of pre-treatment latent states"
+          }
         },
         {
-          "stage": "证据校准",
-          "text": "滴定阳性对照校准灵敏度；随机置换标签作阴性对照"
+          "stage": {
+            "zh": "证据校准",
+            "en": "Evidence calibration"
+          },
+          "text": {
+            "zh": "滴定阳性对照校准灵敏度；随机置换标签作阴性对照；可逆性 vs hysteresis 判别",
+            "en": "Titration positive control for sensitivity, permuted labels as negative control, reversibility versus hysteresis discrimination"
+          }
         },
         {
-          "stage": "组合选择",
-          "text": "早期预警指标组合 + 采样时点 + 阈值"
+          "stage": {
+            "zh": "组合选择",
+            "en": "Constrained selection"
+          },
+          "text": {
+            "zh": "早期预警指标组合 + 采样时点 + 阈值 + 需条码追踪的克隆",
+            "en": "Early-warning indicator set, sampling timepoints, thresholds, and the clones needing barcode tracking"
+          }
         },
         {
-          "stage": "实验输出",
-          "text": "预警 panel + 时序采样方案 + 触发阈值"
+          "stage": {
+            "zh": "实验输出",
+            "en": "Experiment-ready output"
+          },
+          "text": {
+            "zh": "预警 panel + 时序采样方案 + 触发阈值 + 支路假设排序",
+            "en": "Warning panel, time-series sampling plan, trigger thresholds, ranked branch hypotheses"
+          }
         }
       ],
       "phase_text": {
-        "qc": "冻结通路拓扑、药物占位率数据、细胞系背景与可实现的采样频率和单细胞读出能力。",
-        "generate": "算网络亏格判断开关能力，定位双稳窗口与鞍结点，把药物占位率映射到网络参数。",
-        "calibrate": "用滴定穿过分岔点的阳性对照校准指标灵敏度，用随机置换扰动标签做阴性对照。",
-        "select": "选方差 / lag-1 自相关 / DNB 组合，定采样时点与预警阈值，标出不可预警的支路。",
-        "output": "输出早期预警 panel、时序采样方案、触发阈值与耐药支路假设排序。",
-        "loop": "回收时序数据，检验预警是否早于表型翻转，更新阈值与支路优先级。",
-        "exit": "预警指标在实测时序中先于表型变化上升，且阴性对照不报警。"
+        "qc": {
+          "zh": "冻结通路拓扑、药物占位率数据、细胞系背景、可实现的采样频率、单细胞读出能力与谱系条码覆盖度。",
+          "en": "Freeze pathway topology, target-occupancy data, cell-line background, achievable sampling frequency, single-cell readout capacity and lineage-barcode coverage."
+        },
+        "generate": {
+          "zh": "算网络亏格判断开关能力，定位双稳窗口与鞍结点，把药物占位率映射到网络参数，并在处理前样本中检索隐性耐药状态。",
+          "en": "Compute network deficiency for switch capacity, locate the bistable window and saddle-nodes, map target occupancy onto network parameters, and search pre-treatment samples for latent resistant states."
+        },
+        "calibrate": {
+          "zh": "用滴定穿过分岔点的阳性对照校准指标灵敏度，用随机置换扰动标签做阴性对照，并用撤药实验区分可逆恢复与真正 hysteresis。",
+          "en": "Calibrate indicator sensitivity with a titration that crosses the bifurcation, use permuted perturbation labels as a negative control, and separate reversible recovery from true hysteresis with a washout arm."
+        },
+        "select": {
+          "zh": "选方差 / lag-1 自相关 / DNB 指标组合，定采样时点与预警阈值，标出不可预警的支路与需条码追踪的克隆。",
+          "en": "Select the variance / lag-1 autocorrelation / DNB indicator set, fix timepoints and thresholds, and name the branches that cannot be warned and the clones needing barcode tracking."
+        },
+        "output": {
+          "zh": "输出早期预警 panel、时序采样方案、触发阈值、耐药支路假设排序与谱系追踪设计。",
+          "en": "Deliver the early-warning panel, time-series sampling plan, trigger thresholds, ranked resistance-branch hypotheses and lineage-tracking design."
+        },
+        "loop": {
+          "zh": "回收时序数据，检验预警是否早于表型翻转，更新阈值与支路优先级。",
+          "en": "Fold time-series data back in, test whether the warning preceded the phenotypic flip, and update thresholds and branch priorities."
+        },
+        "exit": {
+          "zh": "预警指标在实测时序中先于表型变化上升，且阴性对照不报警。",
+          "en": "Warning indicators rise before the phenotypic change in the measured series, and the negative control stays silent."
+        }
       },
       "engagement": {
-        "domain": "虚拟细胞·动力学推演",
-        "value": "输出的是可采样的早期预警指标和时点，不是一句「可能会耐药」。",
-        "deliverables": "开关能力判据、双稳窗口、预警指标组合、采样时点表、阴阳性对照方案、支路假设排序。",
-        "formats": "CSV / HTML / IPYNB / SBML",
-        "teams": "转化研究、耐药机制、临床前药理",
-        "scenario": "耐药机制假设生成与早期预警指标设计",
-        "tools": "grn_pipeline、BioModels、libRoadRunner、Scanpy",
-        "price_rmb": "10万–22万",
+        "domain": {
+          "zh": "虚拟细胞·动力学推演",
+          "en": "Virtual cell · dynamics"
+        },
+        "value": {
+          "zh": "输出的是可采样的早期预警指标和时点，不是一句「可能会耐药」。",
+          "en": "The output is samplable early-warning indicators and timepoints, not the sentence \"resistance may develop\"."
+        },
+        "deliverables": {
+          "zh": "开关能力判据、双稳窗口、预警指标组合、采样时点表、阴阳性对照方案、隐性状态与克隆选择证据、支路假设排序。",
+          "en": "Switch-capacity verdict, bistable window, indicator set, timepoint table, positive and negative controls, latent-state and clonal-selection evidence, ranked branch hypotheses."
+        },
+        "formats": {
+          "zh": "CSV / HTML / IPYNB / SBML",
+          "en": "CSV / HTML / IPYNB / SBML"
+        },
+        "teams": {
+          "zh": "转化研究、耐药机制、临床前药理",
+          "en": "Translational research, resistance mechanism, preclinical pharmacology"
+        },
+        "scenario": {
+          "zh": "耐药机制假设生成、早期预警指标设计与克隆演化追踪",
+          "en": "Resistance-mechanism hypothesis generation, early-warning design, clonal-evolution tracking"
+        },
+        "tools": {
+          "zh": "grn_pipeline · BioModels · CellRank · dynamo · Waddington-OT · LARRY 条码",
+          "en": "grn_pipeline · BioModels · CellRank · dynamo · Waddington-OT · LARRY barcodes"
+        },
+        "price": {
+          "zh": "10万–22万",
+          "en": "RMB 100k–220k"
+        },
         "bounds": {
-          "ok": "通路拓扑的开关能力判据",
-          "mid": "分岔距离与早期预警指标",
-          "no": "耐药发生时间；患者层面预测"
+          "direct_substitute": {
+            "zh": "通路拓扑的开关能力判据",
+            "en": "Topological switch-capacity verdict"
+          },
+          "rank_then_test": {
+            "zh": "分岔距离、早期预警指标与隐性状态检索",
+            "en": "Distance to bifurcation, early-warning indicators, latent-state retrieval"
+          },
+          "not_promised": {
+            "zh": "耐药发生时间；患者层面预测",
+            "en": "Time-to-resistance; patient-level prediction"
+          }
         }
       },
       "solutions": [
         {
           "id": "VC-RES-001",
           "seq": "001",
-          "title": "EGFR-TKI 耐药推演",
-          "subject": "PC9 / HCC827",
-          "use_case": "NSCLC 耐药",
-          "demo_endpoint": "4 条支路 → 3 个预警指标 + 6 时点"
+          "title": {
+            "zh": "EGFR-TKI 耐药推演",
+            "en": "EGFR-TKI resistance"
+          },
+          "subject": {
+            "zh": "PC9 / HCC827",
+            "en": "PC9 / HCC827"
+          },
+          "use_case": {
+            "zh": "NSCLC 耐药",
+            "en": "NSCLC resistance"
+          },
+          "demo_endpoint": {
+            "zh": "4 条支路 → 3 个预警指标 + 6 时点",
+            "en": "4 branches → 3 indicators + 6 timepoints"
+          }
         },
         {
           "id": "VC-RES-002",
           "seq": "002",
-          "title": "KRAS G12C 适应性耐药",
-          "subject": "A549 / 占位率标定",
-          "use_case": "KRAS 药理",
-          "demo_endpoint": "占位率 98% → 临界距离 + 4 指标"
+          "title": {
+            "zh": "KRAS G12C 适应性耐药",
+            "en": "KRAS G12C adaptive resistance"
+          },
+          "subject": {
+            "zh": "A549 / 占位率标定",
+            "en": "A549 / occupancy-calibrated"
+          },
+          "use_case": {
+            "zh": "KRAS 药理",
+            "en": "KRAS pharmacology"
+          },
+          "demo_endpoint": {
+            "zh": "占位率 98% → 临界距离 + 4 指标",
+            "en": "98% occupancy → distance to threshold + 4 indicators"
+          }
         },
         {
           "id": "VC-RES-003",
           "seq": "003",
-          "title": "BCR-ABL TKI 耐药",
-          "subject": "K562",
-          "use_case": "CML 耐药",
-          "demo_endpoint": "5 条支路 → 3 个预警指标 + 8 时点"
+          "title": {
+            "zh": "隐性耐药状态与克隆选择",
+            "en": "Latent resistant states and clonal selection"
+          },
+          "subject": {
+            "zh": "谱系条码 + 处理前后配对",
+            "en": "Lineage barcodes, pre/post pairs"
+          },
+          "use_case": {
+            "zh": "克隆演化",
+            "en": "Clonal evolution"
+          },
+          "demo_endpoint": {
+            "zh": "处理前 12 状态 → 3 个隐性耐药克隆",
+            "en": "12 pre-treatment states → 3 latent resistant clones"
+          }
         },
         {
           "id": "VC-RES-004",
           "seq": "004",
-          "title": "ER+ 内分泌治疗耐药",
-          "subject": "MCF7",
-          "use_case": "乳腺癌耐药",
-          "demo_endpoint": "4 条支路 → 3 个预警指标 + 6 时点"
+          "title": {
+            "zh": "EMT 可逆性与 hysteresis 判定",
+            "en": "EMT reversibility and hysteresis"
+          },
+          "subject": {
+            "zh": "HT29 / EMT 时间序列",
+            "en": "HT29 / EMT time series"
+          },
+          "use_case": {
+            "zh": "状态记忆",
+            "en": "State memory"
+          },
+          "demo_endpoint": {
+            "zh": "撤药 8 时点 → 可逆 vs hysteresis 判定",
+            "en": "8 washout timepoints → reversible vs hysteretic verdict"
+          }
+        },
+        {
+          "id": "VC-RES-005",
+          "seq": "005",
+          "title": {
+            "zh": "ER+ 内分泌治疗耐药",
+            "en": "ER+ endocrine resistance"
+          },
+          "subject": {
+            "zh": "MCF7",
+            "en": "MCF7"
+          },
+          "use_case": {
+            "zh": "乳腺癌耐药",
+            "en": "Breast cancer resistance"
+          },
+          "demo_endpoint": {
+            "zh": "4 条支路 → 3 个预警指标 + 6 时点",
+            "en": "4 branches → 3 indicators + 6 timepoints"
+          }
         }
       ]
     },
@@ -624,97 +2260,247 @@
       "slug": "combirank-ai",
       "code": "VC-CMB",
       "name": "CombiRank-AI",
-      "title": "组合用药虚拟排序",
+      "title": {
+        "zh": "组合用药虚拟排序",
+        "en": "Combination Ranking"
+      },
       "accent": "var(--lime)",
-      "axis": "按组合场景",
-      "question": "n² 的组合空间里，先测哪 96 个孔，以及每个组合要配什么单药对照？",
-      "promise": "排序 + 对照设计，不出协同系数预测值。",
-      "promise_detail": "协同性的绝对数值（Bliss / Loewe 分数）对实验条件极度敏感，预测出来也不可信。我们只做两件事：把组合空间排序，以及为每个入选组合设计能真正分辨协同与相加的单药对照与浓度矩阵——后者往往才是组合实验失败的真实原因。",
+      "axis": {
+        "zh": "按组合场景",
+        "en": "by combination scenario"
+      },
+      "question": {
+        "zh": "n² 的组合空间里，先测哪 96 个孔，以及每个组合要配什么单药对照和浓度矩阵？",
+        "en": "Out of an n² combination space, which 96 wells go first — and what single-agent controls and concentration matrix does each need?"
+      },
+      "promise": {
+        "zh": "排序 + 对照设计，不出协同系数预测值。",
+        "en": "Ranking and control design; no predicted synergy coefficients."
+      },
+      "promise_detail": {
+        "zh": "协同性的绝对数值（Bliss / Loewe 分数）对实验条件极度敏感，预测出来也不可信。我们只做两件事：把组合空间排序，以及为每个入选组合设计能真正分辨协同与相加的单药对照与浓度矩阵——后者往往才是组合实验失败的真实原因。基线是「两个单药都强」，这条基线很强，必须先打赢。",
+        "en": "Absolute synergy values (Bliss / Loewe) are extremely sensitive to assay conditions, so a predicted one is not trustworthy. We do two things: rank the combination space, and design for each selected pair the single-agent controls and concentration matrix that can actually separate synergy from additivity — which is usually the real reason combination experiments fail. The baseline is \"both single agents are strong\", and it is a strong one that must be beaten first."
+      },
       "steps": [
         {
-          "stage": "标准输入",
-          "text": "单药清单、目标细胞系、组合假设来源、板容量"
+          "stage": {
+            "zh": "标准输入",
+            "en": "Standard input"
+          },
+          "text": {
+            "zh": "单药清单与浓度范围、目标细胞系、组合假设来源、板容量",
+            "en": "Single-agent list and concentration ranges, target line, source of combination hypotheses, plate capacity"
+          }
         },
         {
-          "stage": "候选生成",
-          "text": "通路互补性 + 单药响应 + 已知组合先验的联合排序"
+          "stage": {
+            "zh": "候选生成",
+            "en": "Candidate generation"
+          },
+          "text": {
+            "zh": "通路互补性 + 单药响应 + 双基因非加和先验的联合排序",
+            "en": "Joint ranking from pathway complementarity, single-agent response and dual-gene non-additivity priors"
+          }
         },
         {
-          "stage": "证据校准",
-          "text": "留出组合的 top-k 富集；与「两个单药都强」这条基线对比"
+          "stage": {
+            "zh": "证据校准",
+            "en": "Evidence calibration"
+          },
+          "text": {
+            "zh": "留出组合的 top-k 富集；unseen-combination 拆分；与「两个单药都强」基线对比",
+            "en": "Top-k enrichment on held-out combinations, an unseen-combination split, and comparison to the both-strong baseline"
+          }
         },
         {
-          "stage": "组合选择",
-          "text": "头部组合 + 单药对照 + 浓度矩阵 + 阴性组合"
+          "stage": {
+            "zh": "组合选择",
+            "en": "Constrained selection"
+          },
+          "text": {
+            "zh": "头部组合 + 单药对照 + 浓度矩阵 + 预期无协同的阴性组合",
+            "en": "Top pairs, single-agent controls, concentration matrix, and negative pairs expected to show no synergy"
+          }
         },
         {
-          "stage": "实验输出",
-          "text": "组合板图 + 浓度矩阵 + 协同判读规则"
+          "stage": {
+            "zh": "实验输出",
+            "en": "Experiment-ready output"
+          },
+          "text": {
+            "zh": "组合板图 + 浓度矩阵 + 协同判读规则 + 重复设计",
+            "en": "Combination plate map, concentration matrix, synergy read rules, replicate design"
+          }
         }
       ],
       "phase_text": {
-        "qc": "冻结单药清单与浓度范围、细胞系背景、板容量，划出留出组合集合。",
-        "generate": "用通路互补性、单药响应谱与已知组合先验，对 n² 空间做联合排序。",
-        "calibrate": "在留出组合上算 top-k 富集，并与「两个单药都强」这条强基线并排报告。",
-        "select": "取头部组合，为每个组合配单药对照与浓度矩阵，加入预期无协同的阴性组合。",
-        "output": "输出组合板图、浓度矩阵、单药对照位、协同判读规则与重复设计。",
-        "loop": "回收协同实测，更新先验权重，剔除被证伪的通路互补假设。",
-        "exit": "头部组合的协同命中率高于「两个单药都强」基线，且对照能分辨协同与相加。"
+        "qc": {
+          "zh": "冻结单药清单与浓度范围、细胞系背景、板容量与重复数，划出留出组合集合并确认无同对泄漏。",
+          "en": "Freeze the single-agent list and ranges, cell-line background, plate capacity and replicate count; hold out a combination set and confirm no same-pair leakage."
+        },
+        "generate": {
+          "zh": "用通路互补性、单药响应谱与双基因非加和先验，对 n² 空间做联合排序并标注机制假设。",
+          "en": "Rank the n² space jointly from pathway complementarity, single-agent response profiles and dual-gene non-additivity priors, annotating the mechanistic hypothesis."
+        },
+        "calibrate": {
+          "zh": "在留出组合上算 top-k 富集，跑 unseen-combination 拆分，并与「两个单药都强」这条强基线并排报告。",
+          "en": "Compute top-k enrichment on held-out combinations, run the unseen-combination split, and report beside the strong both-strong baseline."
+        },
+        "select": {
+          "zh": "取头部组合，为每个组合配单药对照与浓度矩阵，加入预期无协同的阴性组合与重复安排。",
+          "en": "Take the top pairs, give each single-agent controls and a concentration matrix, and add negative pairs and a replicate layout."
+        },
+        "output": {
+          "zh": "输出组合板图、浓度矩阵、单药对照位、协同判读规则与重复设计。",
+          "en": "Deliver the combination plate map, concentration matrix, single-agent control wells, synergy read rules and replicate design."
+        },
+        "loop": {
+          "zh": "回收协同实测，更新先验权重，剔除被证伪的通路互补假设。",
+          "en": "Fold measured synergy back in, update prior weights, and retire falsified complementarity hypotheses."
+        },
+        "exit": {
+          "zh": "头部组合的协同命中率高于「两个单药都强」基线，且对照能分辨协同与相加。",
+          "en": "Synergy hit rate among top pairs beats the both-strong baseline, and the controls separate synergy from additivity."
+        }
       },
       "engagement": {
-        "domain": "虚拟细胞·组合排序",
-        "value": "组合实验最常见的失败不是选错组合，是对照和浓度矩阵设计不出协同——我们两件事都交付。",
-        "deliverables": "组合排序表、富集曲线与基线对比、组合板图、浓度矩阵、单药与阴性对照、判读规则。",
-        "formats": "CSV / XLSX / HTML / plate map",
-        "teams": "体外药理、转化研究、组合疗法团队",
-        "scenario": "组合空间瘦身与协同实验设计",
-        "tools": "DepMap、GDSC、SynergyFinder、DuckDB",
-        "price_rmb": "8万–18万",
+        "domain": {
+          "zh": "虚拟细胞·组合排序",
+          "en": "Virtual cell · combination ranking"
+        },
+        "value": {
+          "zh": "组合实验最常见的失败不是选错组合，是对照和浓度矩阵设计不出协同——我们两件事都交付。",
+          "en": "The usual failure in combination work is not picking the wrong pair but a control and concentration design that cannot reveal synergy. We deliver both."
+        },
+        "deliverables": {
+          "zh": "组合排序表、富集曲线与基线对比、组合板图、浓度矩阵、单药与阴性对照、判读规则与重复设计。",
+          "en": "Combination ranking, enrichment curves against baseline, plate map, concentration matrix, single-agent and negative controls, read rules and replicate design."
+        },
+        "formats": {
+          "zh": "CSV / XLSX / HTML / plate map",
+          "en": "CSV / XLSX / HTML / plate map"
+        },
+        "teams": {
+          "zh": "体外药理、转化研究、组合疗法团队",
+          "en": "In-vitro pharmacology, translational research, combination therapy"
+        },
+        "scenario": {
+          "zh": "组合空间瘦身与协同实验设计",
+          "en": "Reducing the combination space and designing the synergy experiment"
+        },
+        "tools": {
+          "zh": "DepMap · GDSC · SynergyFinder · DuckDB",
+          "en": "DepMap · GDSC · SynergyFinder · DuckDB"
+        },
+        "price": {
+          "zh": "8万–18万",
+          "en": "RMB 80k–180k"
+        },
         "bounds": {
-          "ok": "单药在该系的已测响应",
-          "mid": "组合优先级与对照设计",
-          "no": "协同系数绝对值预测"
+          "direct_substitute": {
+            "zh": "单药在该系的已测响应",
+            "en": "Measured single-agent response in that line"
+          },
+          "rank_then_test": {
+            "zh": "组合优先级排序与对照 / 浓度矩阵设计",
+            "en": "Combination prioritisation and control / concentration design"
+          },
+          "not_promised": {
+            "zh": "协同系数绝对值预测",
+            "en": "Predicted absolute synergy coefficients"
+          }
         }
       },
       "solutions": [
         {
           "id": "VC-CMB-001",
           "seq": "001",
-          "title": "KRAS G12C 上下游组合",
-          "subject": "A549 / KRAS 背景",
-          "use_case": "KRAS 组合",
-          "demo_endpoint": "62 单药 → 1,891 组合 → 96 孔"
+          "title": {
+            "zh": "KRAS G12C 上下游组合",
+            "en": "KRAS G12C up/downstream combinations"
+          },
+          "subject": {
+            "zh": "A549 / KRAS 背景",
+            "en": "A549 / KRAS context"
+          },
+          "use_case": {
+            "zh": "KRAS 组合",
+            "en": "KRAS combinations"
+          },
+          "demo_endpoint": {
+            "zh": "62 单药 → 1,891 组合 → 96 孔",
+            "en": "62 agents → 1,891 pairs → 96 wells"
+          }
         },
         {
           "id": "VC-CMB-002",
           "seq": "002",
-          "title": "CDK4/6 + 内分泌组合",
-          "subject": "MCF7 / ER+ 背景",
-          "use_case": "乳腺癌组合",
-          "demo_endpoint": "44 单药 → 946 组合 → 96 孔"
+          "title": {
+            "zh": "CDK4/6 + 内分泌组合",
+            "en": "CDK4/6 + endocrine combinations"
+          },
+          "subject": {
+            "zh": "MCF7 / ER+ 背景",
+            "en": "MCF7 / ER+ context"
+          },
+          "use_case": {
+            "zh": "乳腺癌组合",
+            "en": "Breast cancer combinations"
+          },
+          "demo_endpoint": {
+            "zh": "44 单药 → 946 组合 → 96 孔",
+            "en": "44 agents → 946 pairs → 96 wells"
+          }
         },
         {
           "id": "VC-CMB-003",
           "seq": "003",
-          "title": "DDR 合成致死组合",
-          "subject": "DDR 通路",
-          "use_case": "DDR 组合",
-          "demo_endpoint": "38 单药 → 703 组合 → 72 孔"
+          "title": {
+            "zh": "DDR 合成致死组合",
+            "en": "DDR synthetic-lethal combinations"
+          },
+          "subject": {
+            "zh": "DDR 通路",
+            "en": "DDR pathway"
+          },
+          "use_case": {
+            "zh": "DDR 组合",
+            "en": "DDR combinations"
+          },
+          "demo_endpoint": {
+            "zh": "38 单药 → 703 组合 → 72 孔",
+            "en": "38 agents → 703 pairs → 72 wells"
+          }
         },
         {
           "id": "VC-CMB-004",
           "seq": "004",
-          "title": "靶向 + 表观组合",
-          "subject": "跨适应症",
-          "use_case": "表观联用",
-          "demo_endpoint": "56 单药 → 1,540 组合 → 96 孔"
+          "title": {
+            "zh": "双基因组合靶点",
+            "en": "Dual-gene combination targets"
+          },
+          "subject": {
+            "zh": "K562 / 非加和效应",
+            "en": "K562 / non-additive effects"
+          },
+          "use_case": {
+            "zh": "遗传组合",
+            "en": "Genetic combinations"
+          },
+          "demo_endpoint": {
+            "zh": "1,891 基因对 → 96 组合 + 协同/拮抗",
+            "en": "1,891 gene pairs → 96 combinations + synergy/antagonism"
+          }
         }
       ]
     }
   ],
   "counts": {
-    "lines": 6,
-    "solutions": 28,
-    "cell_lines": 9
+    "lines": 7,
+    "solutions": 38,
+    "cell_lines": 13,
+    "modules": 5,
+    "validation_splits": 8,
+    "references": 13
   }
 }

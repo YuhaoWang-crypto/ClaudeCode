@@ -1,0 +1,1098 @@
+<title>虚拟细胞产品图谱</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;800&family=Noto+Serif+SC:wght@500;600&display=swap">
+<style>
+:root{
+  --ink:#0d1720; --navy:#102836; --paper:#f3f0e9; --white:#fffdf8;
+  --muted:#667078; --line:#0d172024; --line2:#0d172040;
+  --lime:#c9ee45; --coral:#ff8a6b; --blue:#77b8ff; --violet:#b6a3ff; --amber:#ffc857; --teal:#7fd4c1;
+  --band:#e2ded5;
+  --serif:Georgia,"Noto Serif SC",serif;
+  --sans:Inter,"Noto Sans SC","PingFang SC","Microsoft YaHei",Arial,sans-serif;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  color-scheme:light;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+ul,ol{list-style:none}
+.shell{width:min(1240px,100% - 48px);margin:0 auto}
+.pad{padding-top:84px;padding-bottom:84px}
+.pad-s{padding-top:54px;padding-bottom:54px}
+
+.nav{border-bottom:1px solid var(--line);position:sticky;top:0;z-index:20;background:var(--paper)}
+.nav-in{width:min(1380px,100% - 48px);margin:0 auto;min-height:70px;display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;padding:8px 0}
+.brand{display:flex;align-items:center;gap:10px;font-size:13.5px;font-weight:750;letter-spacing:-.01em}
+.brand-mark{background:var(--ink);color:var(--lime);width:27px;height:27px;border-radius:50%;display:grid;place-items:center;font-family:Georgia,serif;font-size:14px}
+.nav-links{display:flex;align-items:center;gap:22px;font-size:12.5px;color:#34414a;flex-wrap:wrap}
+.nav-links a:hover{color:#000}
+.nav-cta{border:1px solid var(--ink);border-radius:100px;padding:8px 15px}
+.lang{border:1px solid var(--line2);border-radius:100px;padding:6px 12px;font:10px var(--mono);letter-spacing:.1em}
+.lang:hover{background:var(--ink);color:var(--white)}
+
+.kicker{font:800 10px/1.4 var(--mono);letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.eyebrow{display:flex;align-items:center;gap:9px;font:800 11px var(--mono);letter-spacing:.2em;text-transform:uppercase;color:#50616d;flex-wrap:wrap}
+.eyebrow i{background:var(--lime);width:8px;height:8px;border-radius:50%;box-shadow:0 0 0 4px #c9ee4538;font-style:normal;flex:none}
+h1.big{font-family:var(--serif);font-weight:500;letter-spacing:-.05em;line-height:1.05;font-size:clamp(38px,5.4vw,72px)}
+h2.mid{font-family:var(--serif);font-weight:500;letter-spacing:-.03em;line-height:1.18;font-size:clamp(26px,3.4vw,40px)}
+p.lede{color:#4f5d66;line-height:1.85;max-width:72ch}
+.mut{color:var(--muted)}
+.crumb{font:10px var(--mono);letter-spacing:.1em;color:var(--muted);padding:16px 0;display:flex;gap:7px;flex-wrap:wrap}
+.crumb a:hover{color:var(--ink);text-decoration:underline}
+.tagrow{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.tagrow b{border:1px solid var(--line);background:#ffffff70;padding:6px 11px;font-size:11px;font-weight:650}
+
+.hero{display:grid;grid-template-columns:1.15fr .85fr;gap:66px;align-items:center;padding:60px 0 72px}
+.hero-r{border-left:1px solid var(--line);padding-left:32px}
+.hero-r strong{display:block;font:500 21px/1.5 var(--serif);margin-bottom:15px}
+.hero-r p{color:var(--muted);line-height:1.8;font-size:13.5px}
+.btnrow{display:flex;gap:12px;margin-top:28px;flex-wrap:wrap}
+.button{border:1px solid var(--ink);border-radius:3px;padding:12px 20px;font-size:12.5px;font-weight:700;display:inline-block}
+.button.primary{background:var(--lime);border-color:var(--lime)}
+.button:hover{background:var(--ink);color:var(--white);border-color:var(--ink)}
+.button.primary:hover{background:var(--ink);color:var(--lime)}
+
+.band{background:var(--navy);color:#fff}
+.band-in{display:grid;grid-template-columns:repeat(5,1fr)}
+.band-in span{display:flex;flex-direction:column;justify-content:center;gap:6px;padding:20px;min-height:108px;border-right:1px solid #ffffff1f;font:9px var(--mono);letter-spacing:.09em;color:#9eb0ba}
+.band-in span:last-child{border-right:0}
+.band-in b{color:var(--lime);font:500 23px var(--serif);letter-spacing:-.02em}
+
+.sechead{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:end;margin-bottom:32px}
+.sechead p.lede{font-size:14.5px}
+
+.linegrid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.linecard{border:1px solid var(--line);background:#ffffff7a;padding:28px;min-height:400px;display:flex;flex-direction:column;position:relative;overflow:hidden;transition:transform .18s,box-shadow .18s}
+.linecard:after{content:"";position:absolute;top:-75px;right:-75px;width:150px;height:150px;border-radius:50%;background:var(--acc)}
+.linecard:hover{transform:translateY(-4px);box-shadow:0 20px 45px #0d172014}
+.linecard>span{font:10px var(--mono);letter-spacing:.08em}
+.linecard>p.lbl{margin:50px 0 9px;font:800 10px var(--mono);letter-spacing:.14em;color:var(--muted);text-transform:uppercase}
+.linecard>h2{font:500 29px/1.2 var(--serif);letter-spacing:-.03em;max-width:24ch}
+.linecard>small{color:var(--muted);margin-top:10px;font-size:12.5px;line-height:1.7;display:block;max-width:44ch}
+.linecard ul{border-top:1px solid var(--line);margin:auto 0 0;padding-top:2px}
+.linecard li{border-bottom:1px solid var(--line);padding:10px 0;font-size:12px;display:flex;justify-content:space-between;gap:14px;align-items:center}
+.linecard li:last-child{border-bottom:0}
+.linecard li em{font-style:normal;font:10px var(--mono);color:var(--muted);white-space:nowrap}
+
+.tw{overflow-x:auto;border:1px solid var(--line);background:#ffffff70}
+table{border-collapse:collapse;width:100%;min-width:780px;font-size:12.5px}
+th,td{text-align:left;padding:12px 15px;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.6}
+thead th{background:#ffffffa8;font:800 10px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
+tbody tr:last-child td{border-bottom:0}
+td.k{font-weight:700;white-space:nowrap}
+td.m,.m{font:12px var(--mono)}
+td.c{white-space:nowrap}
+.dt{display:inline-block;width:9px;height:9px;border-radius:50%;vertical-align:middle;margin-right:5px}
+.d3{background:var(--ink)} .d2{background:#0d172070} .d1{background:#0d172012;border:1px solid var(--line2)}
+.ph{display:inline-block;border:1px solid var(--line2);padding:2px 7px;font:10px var(--mono);border-radius:2px}
+
+.bounds{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.bound{border:1px solid var(--line);background:#ffffff73;padding:24px;border-top:5px solid var(--bc)}
+.bound h4{font:800 10px var(--mono);letter-spacing:.14em;text-transform:uppercase;margin-bottom:6px}
+.bound>p{font:500 18px/1.4 var(--serif);margin-bottom:15px;letter-spacing:-.01em}
+.bound li{font-size:12.5px;line-height:1.65;padding:8px 0;border-top:1px solid var(--line);display:flex;gap:9px}
+.bound li:before{content:"";flex:none;width:5px;height:5px;border-radius:50%;background:var(--bc);margin-top:8px}
+
+.steps{border-top:1px solid var(--line)}
+.steps article{border-bottom:1px solid var(--line);display:grid;grid-template-columns:64px 220px 1fr;gap:24px;align-items:baseline;padding:20px 0}
+.steps span{font:11px var(--mono);color:#7d8a92}
+.steps h4{font:500 19px var(--serif);letter-spacing:-.015em}
+.steps p{color:var(--muted);font-size:13.5px;line-height:1.75}
+
+.solgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:2px}
+.solcard{border:1px solid var(--line);background:#ffffff73;padding:22px 24px;display:flex;flex-direction:column;gap:6px;min-height:152px;transition:background .15s}
+.solcard:hover{background:var(--white)}
+.solcard span{font:10px var(--mono);letter-spacing:.08em;color:var(--muted)}
+.solcard h4{font:500 20px/1.3 var(--serif);letter-spacing:-.02em}
+.solcard small{color:var(--muted);font:11.5px var(--mono)}
+.solcard b{margin-top:auto;padding-top:12px;font-size:11.5px;font-weight:700;display:flex;justify-content:space-between;gap:12px;align-items:center}
+.solcard b i{font-style:normal;color:var(--muted)}
+
+.dhero{display:grid;grid-template-columns:150px 1.1fr .9fr;gap:42px;align-items:center;padding:52px 0 62px}
+.didx{font:10px var(--mono);letter-spacing:.14em;color:var(--muted);align-self:start;padding-top:12px;line-height:1.9}
+.dtitle p.code{display:inline-block;background:var(--acc);padding:8px 12px;font:800 11px var(--mono);letter-spacing:.12em;margin-bottom:16px}
+.dtitle h1{font:500 clamp(34px,4.6vw,60px)/1.05 var(--serif);letter-spacing:-.045em}
+.dpromise{border-left:1px solid var(--line);padding-left:30px}
+.dpromise strong{display:block;font:500 20px/1.5 var(--serif)}
+.dpromise p{color:var(--muted);margin:15px 0 0;line-height:1.8;font-size:13.5px}
+
+.endpoint{background:var(--band);border-block:1px solid var(--line)}
+.epgrid{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--line);margin-top:24px}
+.epgrid div{background:#ffffff73;border-right:1px solid var(--line);padding:22px;min-height:112px}
+.epgrid div:last-child{border-right:0}
+.epgrid strong{display:block;font:500 30px var(--serif);color:#173042;letter-spacing:-.03em}
+.epgrid span{display:block;color:var(--muted);margin-top:7px;font-size:11px;line-height:1.55}
+
+.wf{background:var(--navy);color:#fff}
+.wf .kicker{color:#8fa3ae}
+.wf h2{color:#fff}
+.wf p.lede{color:#c8d5da}
+.wftable{overflow-x:auto;margin-top:28px;border-top:1px solid #ffffff2b}
+.wftable table{min-width:860px}
+.wftable th,.wftable td{border-bottom:1px solid #ffffff1c;color:#d5dfe3;padding:16px 18px}
+.wftable th{color:var(--lime);font:800 10px var(--mono);letter-spacing:.1em;background:none;text-transform:uppercase}
+.wftable td.n{font:11px var(--mono);color:var(--lime);white-space:nowrap}
+.wftable td.f{font:11px var(--mono);color:#9fb4bf;white-space:nowrap}
+.wftable td.g{font-size:12px;color:#a9bcc5}
+
+.case4{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;margin-top:26px}
+.case4 article{border:1px solid var(--line);background:#ffffff73;padding:24px;min-height:225px}
+.case4 span{font:10px var(--mono);letter-spacing:.1em;color:var(--muted)}
+.case4 h4{font:500 21px var(--serif);margin:30px 0 10px;letter-spacing:-.02em}
+.case4 p{font-size:12.5px;line-height:1.7;color:#3f4c54}
+.exit{background:var(--acc);padding:18px 22px;font-size:12.5px;line-height:1.65;margin-top:2px}
+
+.spec{background:var(--band);border-block:1px solid var(--line)}
+.spectable{border:1px solid var(--line);background:#ffffff73}
+.spectable>div{display:grid;grid-template-columns:160px 1fr;gap:22px;padding:15px 22px;border-bottom:1px solid var(--line);align-items:baseline}
+.spectable>div:last-child{border-bottom:0}
+.spectable span{font:800 10px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.spectable p{font-size:13.5px;line-height:1.7}
+
+.rel{display:flex;flex-wrap:wrap;gap:2px;margin-top:20px}
+.rel a{border:1px solid var(--line);background:#ffffff73;padding:14px 18px;font-size:12.5px;display:flex;gap:12px;align-items:center;flex:1 1 250px}
+.rel a:hover{background:var(--white)}
+.rel a em{font-style:normal;font:10px var(--mono);color:var(--muted)}
+.rel a i{font-style:normal;margin-left:auto;color:var(--muted)}
+
+.note{border:1px solid var(--line);background:#ffffff8f;padding:18px 22px;font-size:13px;line-height:1.75;color:#3f4c54}
+.note b{color:var(--ink)}
+.pilot{background:var(--coral);padding:44px 50px;display:flex;justify-content:space-between;align-items:flex-end;gap:42px;flex-wrap:wrap}
+.pilot .kicker{color:#733b30}
+.pilot h2{font:500 32px/1.2 var(--serif);letter-spacing:-.03em;margin:10px 0 12px}
+.pilot p{max-width:64ch;line-height:1.7;font-size:13.5px}
+
+.reflist{border-top:1px solid var(--line)}
+.reflist a{display:grid;grid-template-columns:1fr auto;gap:18px;padding:13px 0;border-bottom:1px solid var(--line);font-size:12.5px;align-items:baseline}
+.reflist a:hover{background:#ffffff5c}
+.reflist em{font-style:normal;font:10px var(--mono);color:var(--muted);word-break:break-all}
+
+.foot{border-top:1px solid var(--line);min-height:110px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;padding:22px 0}
+.foot p{color:var(--muted);font-size:10px;line-height:1.8;max-width:70ch}
+:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+
+@media (max-width:980px){
+  .hero,.dhero,.sechead{grid-template-columns:1fr;gap:26px}
+  .hero-r,.dpromise{border-left:0;border-top:1px solid var(--line);padding:24px 0 0}
+  .didx{padding:0}
+  .linegrid,.solgrid,.bounds,.case4{grid-template-columns:1fr}
+  .epgrid,.band-in{grid-template-columns:1fr 1fr}
+  .band-in span{border-bottom:1px solid #ffffff1f}
+  .steps article{grid-template-columns:48px 1fr;gap:14px}
+  .steps p{grid-column:2}
+  .spectable>div{grid-template-columns:1fr;gap:6px}
+  .nav-links a:not(.nav-cta):not(.lang){display:none}
+  .pilot{padding:32px 24px}
+}
+</style>
+
+<nav class="nav"><div class="nav-in">
+  <a class="brand" href="#/"><span class="brand-mark">Q</span>QureGen BioDecision</a>
+  <div class="nav-links" id="navlinks"></div>
+</div></nav>
+<div id="app"></div>
+
+<script>
+const LANG_DEFAULT = "zh";
+let LANG = LANG_DEFAULT, L = 0;
+
+/* ============ DATA (bilingual: [zh, en]) ============ */
+const D = {
+  ui:{
+    overview:["家族总览","Family overview"], matrix:["细胞系底座","Cell-line substrate"],
+    bounds:["能力边界","Capability boundary"], validate:["验证协议","Validation protocol"],
+    pilot:["启动 Pilot","Start a pilot"], refs:["参考资料","References"],
+    lines:["产品线","Product lines"], sols:["已定义方案","defined solutions"],
+    spine:["五步骨架","Method spine"], impl:["项目实施","Project implementation"],
+    case:["案例工作包","Case workpackage"], deliver:["合作范围与标准交付","Engagement & deliverables"],
+    related:["相关方案","Related solutions"], relLines:["其他产品线","Other product lines"],
+    demo:["演示 / 产品终点","Demo / product endpoint"],
+    demoNote:["合成演示数据，用于展示产品数量级和实验终点。正式项目中的数量、阈值与候选名称由客户数据和预先约定的实验容量确定。",
+      "Synthetic demo figures, shown to convey project scale and experimental endpoints. In a real engagement the counts, thresholds and candidate names are set by client data and a pre-agreed experimental capacity."],
+    implLede:["每一步都定义实际工作、阶段文件和退出条件。客户数据不会直接进入黑箱排名；版本、排除原因、模型分歧与实验回流均保留在项目记录中。",
+      "Every step defines the actual work, its stage files and its exit condition. Client data never feeds a black-box ranking: versions, exclusion reasons, model disagreements and wet-lab returns all stay in the project record."],
+    caseLede:["示例实施场景 · 数量为产品范围演示。该案例用于展示项目规模、决策逻辑和交付形态。",
+      "Illustrative engagement · figures show product scale. The case conveys project size, decision logic and deliverable shape."],
+    cols:["阶段|实际实施内容|阶段输出|决策门","Stage|Work performed|Stage output|Decision gate"],
+    caseHead:["项目输入|计算实施|组合决策|实验与回流","Project input|Computation|Selection|Lab & return"],
+    boundNote:["这一条会作为排除条款进入合同附件。","This line enters the contract annex as an exclusion clause."],
+    boundLine:["本方案的能力边界","Capability boundary for this solution"],
+    okL:["直接替代","Direct substitute"], midL:["排序后测","Rank-then-test"], noL:["不承诺","Not promised"],
+    footer:["Research use only · 案例均标注数据来源、适用域与验证边界。<br>演示数量为产品范围示意；正式项目的数量、阈值与候选名称由客户数据与预先约定的实验容量确定。",
+      "Research use only · every case states its data source, domain of applicability and validation limits.<br>Demo counts illustrate product scale; real engagement figures are set by client data and pre-agreed experimental capacity."]
+  },
+  family:{
+    code:"VC",
+    name:["虚拟细胞与体外替身","Virtual Cell & In-Vitro Twins"],
+    tagline:["先证明有可建模余量，再决定要不要建模。","Prove there is headroom to model, before deciding to model."],
+    lede:["虚拟细胞不是一个端到端模型。它是五个可分离、可串联的模块：<b>Cell Passport</b>（细胞背景）、<b>Perturbation Encoder</b>（扰动编码）、<b>State Transition</b>（状态转移）、<b>Assay Emulator</b>（检测 readout 映射）和 <b>Uncertainty &amp; Domain Check</b>（不确定性与适用域）。这个家族按<b>细胞系</b>和<b>适应症</b>把这五个模块productize：每条产品线只承诺它在有底座的细胞系内部能做的排序与预筛，并把不能承诺的部分写进合同。",
+      "A virtual cell is not one end-to-end model. It is five separable, chainable modules: <b>Cell Passport</b> (cell background), <b>Perturbation Encoder</b>, <b>State Transition</b>, <b>Assay Emulator</b> (biology-to-instrument readout), and <b>Uncertainty &amp; Domain Check</b>. This family productizes those five modules along two axes — <b>cell line</b> and <b>indication</b>. Each product line promises only the ranking and pre-screening it can do inside a cell line that has a data substrate, and writes what it cannot promise into the contract."],
+    promise:["结算口径是富集倍数，不是相关系数。","Settlement is in enrichment fold, not correlation."],
+    promiseP:["一个虚拟筛的价值，等于它把湿实验从「全测」压缩到「排序后测」省下的孔数，减去漏掉真阳性的代价。行业可达区间是把大规模组合压缩到优先验证的 5%–20%。所以每个项目的验收表都有富集倍数、召回率和每个真阳性的实验成本——这三个数才和实验预算对得上账。",
+      "A virtual screen is worth the wells it saves by turning \"test everything\" into \"rank, then test\", minus the true positives it drops. The achievable band is compressing a large combinatorial space to the 5%–20% worth validating first. So every acceptance table carries enrichment fold, recall, and cost per true positive — the only three numbers that reconcile with a wet-lab budget."]
+  },
+  arch:{
+    title:["五模块架构，映射到七条产品线","Five modules, mapped onto seven product lines"],
+    lede:["模块划分决定了产品边界。最关键的一条：<b>生物状态 ≠ 仪器读数</b>。预测「细胞发生了什么」和预测「CellTiter-Glo 最终读到多少」是两个模型，中间那层必须用配对实验标签单独校准——这就是 AssayEmul-AI 独立成线的原因。",
+      "The module split is what makes the product boundaries honest. The critical one: <b>biological state is not an instrument reading</b>. Predicting \"what happened to the cell\" and predicting \"what CellTiter-Glo will report\" are two different models, and the layer between them must be calibrated against paired experimental labels — which is why AssayEmul-AI is its own product line."],
+    rows:[
+      [["Cell Passport","Cell Passport"],["细胞系身份、基因组、基础转录状态、表观调控、基因依赖、药物历史、形态表型、实验上下文","Identity, genome, basal transcriptome, epigenetic regulation, gene dependency, drug history, morphology, experimental context"],"VC-TWN"],
+      [["Perturbation Encoder","Perturbation Encoder"],["药物结构与靶点、CRISPRi / KO / CRISPRa、细胞因子、剂量、时间","Compound structure and target, CRISPRi / KO / CRISPRa, cytokines, dose, time"],"VC-PRT · VC-PHE"],
+      [["State Transition","State Transition"],["扰动后单细胞或群体状态如何迁移；DEG、通路分数、亚群组成","How single-cell or population state moves after perturbation: DEGs, pathway scores, subpopulation composition"],"VC-PRT · VC-PHE · VC-RES"],
+      [["Assay Emulator","Assay Emulator"],["把生物状态映射到活力、荧光、图像、蛋白、分泌因子 readout——必须用配对实验标签校准","Maps biological state onto viability, fluorescence, image, protein and secretion readouts — must be calibrated on paired labels"],"VC-ASY"],
+      [["Uncertainty & Domain Check","Uncertainty & Domain Check"],["训练覆盖不足、跨细胞系外推、异常组合的识别；置信区间与适用域告警","Detects thin training coverage, cross-cell-line extrapolation and anomalous combinations; confidence intervals and domain warnings"],["内建于每条线","Built into every line"]]
+    ]
+  },
+  bounds:{
+    ok:{t:["直接替代","Direct substitute"],c:"var(--lime)",
+      d:["干湿同精度，可以省掉实验。这一档大部分不是建模，是查库——最容易被忽略的效率来源。",
+        "Same accuracy as the bench, so the experiment can be skipped. Most of this tier is lookup, not modelling — the most overlooked source of efficiency."],
+      items:[
+        ["靶点在该系的表达、拷贝数、突变与融合状态（CCLE 直接查）","Target expression, copy number, mutation and fusion status in that line (direct CCLE lookup)"],
+        ["该靶点在该系是否为必需基因（DepMap CRISPR 直接查，比任何模型都准）","Whether the target is essential in that line (direct DepMap CRISPR lookup — more accurate than any model)"],
+        ["化合物结构警报：PAINS / Brenk / NIH 干扰子与类药性","Compound structural alerts: PAINS / Brenk / NIH interference filters and drug-likeness"],
+        ["sgRNA 全基因组脱靶枚举与 CFD 特异性打分（穷举，不是预测）","Genome-wide sgRNA off-target enumeration and CFD specificity scoring (exhaustive, not predicted)"],
+        ["细胞系身份与交叉污染核对（STR / SNP 指纹）","Cell-line identity and cross-contamination checks (STR / SNP fingerprint)"]
+      ]},
+    mid:{t:["排序后测","Rank-then-test"],c:"var(--blue)",
+      d:["只能排序，仍需实验确认，但能把实验量压下一个量级。所有 VC 产品的主战场都在这一档。",
+        "Ranking only — the experiment still confirms — but it cuts the well count by an order of magnitude. This is where every VC product actually operates."],
+      items:[
+        ["化合物的转录响应方向与 MoA 归类（须先打赢 L1000 检索基线）","Direction of a compound's transcriptional response and MoA class (must first beat the L1000 retrieval baseline)"],
+        ["单基因敲低的下游通路——仅限该系有扰动底座覆盖的靶点及邻域","Downstream pathways of a single knockdown — only for targets and neighbourhoods the line's perturbation substrate covers"],
+        ["同一模态内的 CRISPRa 预测（该系自有 CRISPRa 数据，如 K562 双基因集）","Within-modality CRISPRa prediction where the line has its own CRISPRa data (e.g. the K562 dual-gene set)"],
+        ["化合物–靶点结合排序（指标要选对：opt_score ρ≈+0.6，binding_confidence ρ≈−0.2）","Compound–target binding rank (pick the right metric: opt_score ρ≈+0.6, binding_confidence ρ≈−0.2)"],
+        ["n² 组合空间的优先级排序与非加和效应候选","Prioritising an n² combination space and nominating non-additive effects"],
+        ["剂量与时间的插值（在已测剂量-时间网格内部）","Dose and time interpolation, inside the measured dose–time grid"],
+        ["网络失稳早期预警：方差与 lag-1 自相关在分岔点附近上升","Early-warning of network destabilization: variance and lag-1 autocorrelation rise near a bifurcation"]
+      ]},
+    no:{t:["不承诺","Not promised"],c:"var(--coral)",
+      d:["已经实测会失败的外推。写进合同的排除条款，而不是藏在脚注里。",
+        "Extrapolations measured to fail. Contract exclusion clauses, not footnotes."],
+      items:[
+        ["外推到没有扰动底座的新细胞系——oracle 上下文特征比不给还差","Extrapolation to a new cell line with no perturbation substrate — an oracle context feature scores worse than none"],
+        ["用敲低数据训练的模型跨模态预测 CRISPRa / 过表达（r = 0.009，等于掷骰子）","Cross-modality CRISPRa / overexpression from a knockdown-trained model (r = 0.009 — chance)"],
+        ["绝对 IC50 与完整剂量–响应曲线，只排序不给数","Absolute IC50 and full dose–response curves — we rank, we do not quote values"],
+        ["未经配对标签校准的蛋白、分泌与活力 readout（RNA ≠ 功能）","Protein, secretion or viability readouts without paired-label calibration (RNA is not function)"],
+        ["时间外推：6 小时转录响应不代表 72 小时活力或长期耐药","Time extrapolation: a 6 h transcriptional response is not 72 h viability or long-term resistance"],
+        ["从细胞系外推到患者响应；细胞系不等于患者","Cell-line-to-patient response; an immortalized line is not a patient"],
+        ["监管级毒理放行结论","Regulatory-grade toxicology clearance"]
+      ]}
+  },
+  matrix:{
+    head:[["细胞系|背景 / 适应症|扰动底座|化合物底座|形态底座|阶段|可支撑的产品线"],
+          ["Cell line|Background / indication|Perturbation|Compound|Morphology|Phase|Product lines supported"]],
+    rows:[
+      ["A549",["肺腺癌 · KRAS 相关背景 · 上皮","Lung adenocarcinoma · KRAS context · epithelial"],"full","full","full","1","TWN · PRT · PHE · ASY · CMB"],
+      ["MCF7",["乳腺癌 ER+","Breast cancer, ER+"],"part","full","part","1","TWN · PHE · ASY · RES · CMB"],
+      ["HT29",["结直肠癌 · 上皮 / EMT 背景","Colorectal cancer · epithelial / EMT context"],"full","full","part","1","TWN · PRT · PHE · RES"],
+      ["BxPC-3",["胰腺癌 · 上皮与应激背景","Pancreatic cancer · epithelial and stress context"],"full","part","none","1","TWN · PRT · PHE"],
+      ["K562",["髓系白血病 · 悬浮细胞","Myeloid leukemia · suspension"],"full","part","none","1","TWN · PRT · TOX · RES · CMB"],
+      ["HAP1",["近单倍体遗传筛选模型","Near-haploid genetic screening model"],"full","none","none","1","TWN · PRT"],
+      ["HepG2",["肝细胞背景 · 肝毒性代理","Hepatocyte context · hepatotoxicity proxy"],"part","full","none","2","TWN · TOX · ASY"],
+      ["RPE1",["相对正常 · p53 完整上皮","Near-normal · p53-intact epithelium"],"full","none","none","2",["TWN · PRT · TOX（选择性窗口）","TWN · PRT · TOX (selectivity window)"]],
+      ["Jurkat",["T 细胞背景","T-cell context"],"part","none","none","2","PRT · TOX"],
+      ["U2OS",["成骨肉瘤 · Cell Painting 主力","Osteosarcoma · Cell Painting workhorse"],"none","none","full","2","PHE · ASY"],
+      ["H1 hESC",["人胚胎干细胞","Human embryonic stem cell"],"part","none","none","2",["TWN · RES（分化与命运）","TWN · RES (differentiation & fate)"]],
+      ["PC9 / HCC827",["肺腺癌 · EGFR 敏感突变","Lung adenocarcinoma · EGFR-sensitizing"],"none","part","none",["扩展","Ext"],"RES"],
+      [["客户自有系","Client line"],["按项目","Per engagement"],"?","?","?","—",["先做 CellTwin 可行性判定","CellTwin feasibility check first"]]
+    ],
+    note:["<b>两条不能混的线。</b>跨背景 Perturb-seq 覆盖 A549 / MCF7 / HT29 / BxPC-3 / K562 / HAP1 六条系，这是训练「相同基因扰动在不同背景下为何结果不同」的语料；而化合物与形态底座最厚的是 MCF7 / A549 / U2OS / HepG2。两条线的重叠只有 A549 和 MCF7——所以基因扰动产品和化合物表型产品各自的主力细胞系不同，A549 是唯一四种底座都齐的系。",
+      "<b>Two lines that must not be conflated.</b> Multi-context Perturb-seq covers six lines — A549 / MCF7 / HT29 / BxPC-3 / K562 / HAP1 — and that is the corpus for learning why the same genetic perturbation lands differently across backgrounds. The deepest compound and morphology substrates, meanwhile, sit on MCF7 / A549 / U2OS / HepG2. The two sets overlap only at A549 and MCF7, so the genetic and chemical product lines run on different primary lines; A549 is the only line carrying all four substrates."]
+  },
+  splits:{
+    title:["七种数据拆分，决定一个数字可不可信","Seven data splits decide whether a number is believable"],
+    lede:["随机 cell split 不能作为主要证据——同一扰动和批次会泄漏，分数虚高。下面每一种拆分回答一个不同的泛化问题，验收报告必须逐项填。",
+      "A random cell split is not primary evidence: the same perturbation and batch leak across it and the score inflates. Each split below answers a different generalization question, and the acceptance report fills them in one by one."],
+    rows:[
+      [["随机 cell split","Random cell split"],["不推荐","Not recommended"],["同一扰动和批次泄漏，容易虚高","Same perturbation and batch leak; scores inflate"]],
+      [["Leave-perturbation-out","Leave-perturbation-out"],["必做","Required"],["测试未见基因或药物","Tests unseen genes or drugs"]],
+      [["Leave-drug-out","Leave-drug-out"],["必做","Required"],["确保测试集不含同一化合物","Ensures the test set holds no instance of the same compound"]],
+      [["Leave-cell-line-out","Leave-cell-line-out"],["必做","Required"],["测试跨细胞背景泛化——本家族已知最弱的一轴","Tests cross-background generalization — the weakest axis in this family"]],
+      [["Leave-study-out","Leave-study-out"],["必做","Required"],["检验跨实验室、平台和批次迁移","Tests transfer across labs, platforms and batches"]],
+      [["Unseen dose / time","Unseen dose / time"],["推荐","Recommended"],["检验剂量和时间的插值与外推","Tests dose and time interpolation and extrapolation"]],
+      [["Unseen combination","Unseen combination"],["推荐","Recommended"],["检验药物或基因组合的非加和效应","Tests non-additive effects of drug or gene combinations"]],
+      [["External wet-lab set","External wet-lab set"],["上线前必做","Required before release"],["用与训练数据独立的真实实验评估","Evaluates against real experiments independent of the training data"]]
+    ],
+    metrics:["评价指标不能只看整体表达 MSE 或 Pearson。至少同时报告：DEG 方向一致率、DE overlap、Pearson delta、扰动辨别分数、通路 AUROC、细胞亚群距离、IC50/AUC 误差、top-k 富集、置信区间覆盖率，以及实验重复给出的性能上限。",
+      "Metrics cannot stop at overall expression MSE or Pearson. Report at minimum: DEG direction agreement, DE overlap, Pearson delta, perturbation discrimination score, pathway AUROC, subpopulation distance, IC50/AUC error, top-k enrichment, confidence-interval coverage, and the performance ceiling implied by experimental replicates."],
+    floor:["<b>最低上线原则。</b>若深度模型未稳定超过 no-change、平均扰动和线性 / 岭回归基线，该任务只可作为探索性分析，不能作为减少湿实验的主要依据。",
+      "<b>Release floor.</b> If a deep model does not stably beat the no-change, mean-perturbation and linear/ridge baselines, that task stays exploratory and cannot be the primary basis for cutting wet-lab work."]
+  },
+  refs:[
+    ["Arc Institute — STATE virtual cell model","https://arcinstitute.org/news/virtual-cell-model-state"],
+    ["Arc Institute — Stack: in-context learning of single-cell biology","https://arcinstitute.org/tools/stack"],
+    ["Arc Institute — 2026 Virtual Cell Challenge","https://arcinstitute.org/news/virtual-cell-challenge-2026"],
+    ["Tahoe Therapeutics — Tahoe-100M dataset","https://huggingface.co/datasets/tahoebio/Tahoe-100M"],
+    ["Roohani Y, et al. GEARS. Nature Biotechnology","https://www.nature.com/articles/s41587-023-01905-6"],
+    ["Ahlmann-Eltze C, et al. Deep-learning perturbation models versus linear baselines. Nature Methods","https://www.nature.com/articles/s41592-025-02772-6"],
+    ["Viñas Torné R, et al. Systema evaluation framework. Nature Biotechnology","https://www.nature.com/articles/s41587-025-02777-8"],
+    ["Broad Institute — Cancer Dependency Map (DepMap)","https://depmap.org/"],
+    ["Broad Institute — Connectivity Map (CMap / LINCS)","https://www.broadinstitute.org/connectivity-map-cmap"],
+    ["JUMP Cell Painting Consortium","https://jump-cellpainting.broadinstitute.org/"],
+    ["CZ CELLxGENE Census","https://chanzuckerberg.github.io/cellxgene-census/"],
+    ["Google DeepMind — AlphaGenome","https://deepmind.google.com/science/alphagenome/"],
+    ["NCBI GEO GSE281048 — Multi-context Perturb-seq","https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE281048"]
+  ],
+  lines:[
+  {
+    slug:"celltwin-ai", code:"VC-TWN", name:"CellTwin-AI", acc:"var(--lime)",
+    title:["Cell Passport 与可建模余量判定","Cell Passport & Modelling-Headroom Check"],
+    axis:["按细胞系","by cell line"],
+    q:["这条细胞系的基线状态、可建模余量和噪声天花板是多少，够不够支撑后续任何虚拟筛？",
+      "What is this line's baseline state, modelling headroom and noise ceiling — enough to support any virtual screen at all?"],
+    promise:["所有 VC 产品的地基。没有这一步，后面每个模型分数都没有参照系。",
+      "The foundation of every VC product. Without it, no downstream model score has a frame of reference."],
+    promiseP:["交付物是一份八层 Cell Passport（身份、基因组、基础转录、表观调控、基因依赖、药物历史、形态、实验上下文），加上重复孔一致性给出的噪声天花板，加上完整基线阶梯——no-change、平均扰动、线性 / 岭回归、最近邻检索、oracle 上界。如果基线已经贴顶，这条系的这个 readout 就没有可建模余量，我们会直接说不要建。",
+      "The deliverable is an eight-layer Cell Passport — identity, genome, basal transcriptome, epigenetic regulation, gene dependency, drug history, morphology, experimental context — plus a noise ceiling from replicate-well agreement, plus the full baseline ladder: no-change, mean perturbation, linear/ridge, nearest-neighbour retrieval, oracle bound. If the baselines already sit at the ceiling, that readout in that line has no modelling headroom and we say so."],
+    steps:[
+      [["标准输入","Standard input"],["细胞系身份、可用组学与扰动数据、目标 readout、实验容量","Cell-line identity, available omics and perturbation data, target readout, experimental capacity"]],
+      [["候选生成","Candidate generation"],["八层 Cell Passport 拉取；与系内及跨背景扰动语料对齐基因版本与标识","Assemble the eight-layer Cell Passport; align gene builds and identifiers to the within-line and multi-context perturbation corpora"]],
+      [["证据校准","Evidence calibration"],["重复孔一致性算噪声天花板；五级基线阶梯；预训练语料按 accession 求交做污染审计","Noise ceiling from replicate agreement; five-rung baseline ladder; contamination audit by accession set-intersection against pre-training corpora"]],
+      [["组合选择","Constrained selection"],["按占噪声天花板百分比划分可建模 / 需补数据 / 不可建模三档 readout","Sort readouts into modellable / needs-more-data / not-modellable by percentage of noise ceiling"]],
+      [["实验输出","Experiment-ready output"],["Cell Passport + 基线表 + 适用域声明 + go/no-go 与建库缺口清单","Cell Passport + baseline table + domain-of-applicability statement + go/no-go and data-gap list"]]
+    ],
+    qc:["确认细胞系编号（Cellosaurus / DepMap ID）、批次、传代、培养方式、组学版本与扰动样本对应关系，核对 STR 身份。",
+      "Confirm cell-line identifiers (Cellosaurus / DepMap ID), batch, passage, culture format, omics versions and the mapping to perturbation samples; verify STR identity."],
+    gen:["拉取基因组（SNV / indel / CNV / 融合 / 倍性）、基础转录与亚群、ATAC 与 GRN、CRISPR 依赖、药物历史与形态表型，统一基因版本与药物结构标识。",
+      "Pull genome (SNV / indel / CNV / fusion / ploidy), basal transcriptome and subpopulations, ATAC and GRN, CRISPR dependency, drug history and morphology; unify gene builds and compound structure identifiers."],
+    cal:["计算重复孔噪声天花板，跑五级基线阶梯，并按 accession 集合求交完成预训练语料污染审计，判定写成原文而非脚注。",
+      "Compute the replicate-well noise ceiling, run the five-rung baseline ladder, and complete the contamination audit by accession set-intersection — recording the verdict verbatim rather than as a footnote."],
+    sel:["按占噪声天花板百分比给出每个 readout 的可建模余量，划分可建模 / 需补数据 / 不可建模三档并注明缺口类型。",
+      "Express each readout's headroom as a percentage of the noise ceiling and sort into modellable / needs-more-data / not-modellable, naming the type of gap."],
+    out:["输出版本化 Cell Passport、基线得分表、适用域声明、污染审计判定原文与建库缺口清单及报价。",
+      "Deliver a versioned Cell Passport, baseline score table, domain-of-applicability statement, verbatim contamination verdict, and a data-gap list with costing."],
+    loop:["回收首轮实测数据，更新噪声天花板与基线，重判可建模余量并升版 Passport。",
+      "Fold first-round measurements back in, update the noise ceiling and baselines, re-judge headroom and version the Passport."],
+    exit:["每个 readout 都有噪声天花板和基线得分，go/no-go 有据可依。",
+      "Every readout carries a noise ceiling and baseline score, so go/no-go is evidence-based."],
+    domain:["虚拟细胞·基线资产","Virtual cell · baseline asset"],
+    value:["先证明有没有可建模余量，再决定要不要建模——这一步产出的表比后面任何模型都重要。",
+      "Prove headroom exists before building anything. The table this step produces matters more than any model that follows."],
+    deliver:["版本化 Cell Passport（8 层）、噪声天花板表、五级基线阶梯得分、污染审计判定、适用域声明、可 / 不可建模 readout 清单与建库缺口报价。",
+      "Versioned eight-layer Cell Passport, noise-ceiling table, five-rung baseline scores, contamination verdict, domain-of-applicability statement, modellable / non-modellable readout list, and costed data gaps."],
+    formats:"h5ad / Parquet / CSV / DuckDB / HTML",
+    teams:["药理、体外模型、AI 平台与技术尽调","Pharmacology, in-vitro models, AI platform and technical due diligence"],
+    scene:["虚拟筛立项前的可行性判定与预算论证","Feasibility and budget justification before a virtual screen is commissioned"],
+    tools:"DepMap / CCLE · ENCODE · scPerturb · CELLxGENE · Scanpy · DuckDB",
+    price:["6万–14万","RMB 60k–140k"],
+    bounds:[["基线组学、必需性、身份核对","Baseline omics, essentiality, identity checks"],
+            ["可建模余量估计","Modelling-headroom estimation"],
+            ["没有底座的细胞系不出替身，只出建库方案","No substrate, no twin — only a costed data-generation plan"]],
+    sols:[
+      ["001",["A549 Cell Passport","A549 Cell Passport"],["A549 / 四底座齐全","A549 / all four substrates"],["肺癌与通用底座","Lung cancer & general substrate"],["8 层 Passport → 5 级基线 + 4 类 readout","8 Passport layers → 5 baselines + 4 readout classes"]],
+      ["002",["MCF7 Cell Passport","MCF7 Cell Passport"],["MCF7 / ER+ 背景","MCF7 / ER+ context"],["激素治疗背景","Endocrine-therapy context"],["8 层 Passport → 5 级基线 + 3 类 readout","8 Passport layers → 5 baselines + 3 readout classes"]],
+      ["003",["HT29 Cell Passport","HT29 Cell Passport"],["HT29 / 结直肠癌 EMT","HT29 / colorectal, EMT-capable"],["CRC 与 EMT","CRC and EMT"],["8 层 Passport → 5 级基线 + EMT 轨迹","8 Passport layers → 5 baselines + EMT trajectory"]],
+      ["004",["BxPC-3 Cell Passport","BxPC-3 Cell Passport"],["BxPC-3 / 胰腺癌应激背景","BxPC-3 / pancreatic, stress context"],["胰腺癌","Pancreatic cancer"],["8 层 Passport → 5 级基线 + 应激通路","8 Passport layers → 5 baselines + stress pathways"]],
+      ["005",["K562 Cell Passport","K562 Cell Passport"],["K562 / 全基因组 Perturb-seq","K562 / genome-wide Perturb-seq"],["遗传扰动地基","Genetic-perturbation foundation"],["~9.8k 靶点 → 5 级基线 + 双基因集","~9.8k targets → 5 baselines + dual-gene set"]],
+      ["006",["HAP1 Cell Passport","HAP1 Cell Passport"],["HAP1 / 近单倍体 KO","HAP1 / near-haploid KO"],["基因功能解释","Gene-function interpretation"],["KO 语料 → 5 级基线 + 逃逸通路","KO corpus → 5 baselines + escape pathways"]],
+      ["007",["二期扩展包","Phase-2 expansion pack"],["HepG2 / RPE1 / Jurkat / U2OS / H1","HepG2 / RPE1 / Jurkat / U2OS / H1"],["选择性、毒性、免疫与分化","Selectivity, toxicity, immunity, differentiation"],["5 条系 → 5 张 Passport + 覆盖矩阵","5 lines → 5 Passports + coverage matrix"]],
+      ["008",["客户自有细胞系","Client-owned cell line"],["client line / 自建底座","Client line / substrate to be built"],["自有模型体系","In-house model system"],["可行性判定 → 建库方案 + 报价","Feasibility check → data plan + quote"]]
+    ]
+  },
+  {
+    slug:"perturbsim-ai", code:"VC-PRT", name:"PerturbSim-AI", acc:"var(--blue)",
+    title:["基因扰动虚拟预筛","Genetic Perturbation Pre-Screen"],
+    axis:["按通路 / 适应症","by pathway / indication"],
+    q:["在这条细胞系里敲低或敲除哪些基因值得进湿实验，下游会往哪个方向动、动多大？",
+      "Which knockdowns or knockouts in this line are worth a wet-lab slot, and in what direction and magnitude will the network move?"],
+    promise:["系内插值与排序为主；跨背景只在六系语料覆盖范围内声明。",
+      "Primarily within-line interpolation and ranking; cross-background claims stay inside the six-line corpus."],
+    promiseP:["主力是共识项加靶点表征残差——共识吃掉大部分方差，表征只解释未见靶点那部分。跨细胞背景的预测只在多背景 Perturb-seq 覆盖的六条系之间做，并且必须通过 leave-cell-line-out 验证；超出这六条系的外推按不承诺处理。每个结果同时报 seen / unseen 状态与占噪声天花板百分比。",
+      "The workhorse is a consensus term plus a target-representation residual: consensus absorbs most of the variance, the representation explains only the unseen-target part. Cross-background prediction is confined to the six lines the multi-context Perturb-seq corpus covers and must pass leave-cell-line-out; anything beyond those six is treated as not promised. Every result reports seen/unseen status alongside percentage of noise ceiling."],
+    steps:[
+      [["标准输入","Standard input"],["细胞系（须有扰动底座）、候选靶点集、目标通路、实验容量","Cell line (perturbation substrate required), candidate target set, target pathway, experimental capacity"]],
+      [["候选生成","Candidate generation"],["共识项 + 靶点表征残差预测全转录组位移；因果调控网络给机制解释","Consensus plus target-representation residual predicts the transcriptome shift; a causal regulatory network supplies the mechanism"]],
+      [["证据校准","Evidence calibration"],["DE 基因上的方向 / 幅度；leave-perturbation-out 与 leave-cell-line-out；对齐噪声天花板","Direction and magnitude on DE genes; leave-perturbation-out and leave-cell-line-out; normalized to the noise ceiling"]],
+      [["组合选择","Constrained selection"],["主靶点 + 阳性对照 + 阴性对照 + 通路覆盖，按纤维去冗余","Primary targets, positive and negative controls, pathway coverage; de-duplicated by network fibre"]],
+      [["实验输出","Experiment-ready output"],["排序靶点表 + sgRNA/siRNA 设计 + readout + 预期效应量","Ranked target table, sgRNA/siRNA design, readout, expected effect size"]]
+    ],
+    qc:["冻结靶点集、通路定义、评价指标、七种数据拆分与简单基线，明确排除同批次和同扰动泄漏。",
+      "Freeze the target set, pathway definitions, metrics, the seven data splits and the simple baselines; explicitly exclude same-batch and same-perturbation leakage."],
+    gen:["在系内与多背景扰动语料上预测每个候选靶点的全转录组位移与 DE 集，同时跑因果调控网络的虚拟敲低作为正交证据。",
+      "Predict each candidate's transcriptome shift and DE set on the within-line and multi-context corpora, and run a causal regulatory-network virtual knockout as orthogonal evidence."],
+    cal:["分层评测未见靶点与未见细胞系，在 DE 基因上评方向与幅度，全部换算为噪声天花板百分比并与四条基线并排。",
+      "Score unseen-target and unseen-cell-line strata separately, evaluate direction and magnitude on DE genes, and normalize everything to the noise ceiling alongside the four baselines."],
+    sel:["选主靶点、阳性对照、阴性对照与通路覆盖，去除同一纤维内的冗余旁系同源，标出补偿通路。",
+      "Choose primary targets, positive and negative controls and pathway coverage; drop redundant paralogues within a fibre and flag compensating pathways."],
+    out:["输出排序靶点表、guide 序列与 CFD 脱靶评分、培养 / 刺激条件、readout 与预期效应量。",
+      "Deliver the ranked target table, guide sequences with CFD off-target scores, culture and stimulation conditions, readout and expected effect size."],
+    loop:["回收实测 DE 数据，比对预测方向与幅度，更新共识项并替换失配靶点；主动学习同时补进模型最不确定的候选。",
+      "Fold measured DE data back in, compare predicted direction and magnitude, update the consensus term and swap out mismatched targets; active learning also pulls in the model's most uncertain candidates."],
+    exit:["头部靶点的实测命中率显著高于随机抽样，且四条基线全部被打赢。",
+      "Measured hit rate among top-ranked targets significantly exceeds random sampling, and all four baselines are beaten."],
+    domain:["虚拟细胞·扰动预筛","Virtual cell · perturbation pre-screen"],
+    value:["卖的是排序和减量，不是又一张预测表——每个靶点带 seen/unseen 标记、预期效应量和机制解释。",
+      "What is sold is ranking and reduction, not another prediction table — every target carries seen/unseen status, expected effect size and a mechanistic account."],
+    deliver:["排序靶点表、seen/unseen 与跨系分层得分、因果网络机制解释、guide 设计与脱靶评分、对照方案、富集倍数对账表。",
+      "Ranked targets, seen/unseen and cross-line stratified scores, causal-network mechanism, guide design with off-target scores, control plan, enrichment-fold reconciliation."],
+    formats:"CSV / Parquet / h5ad / HTML / FASTA",
+    teams:["靶点发现、功能基因组学、CRISPR 筛选团队","Target discovery, functional genomics, CRISPR screening"],
+    scene:["文库瘦身、靶点优先级排序、合成致死与对照设计","Library reduction, target prioritisation, synthetic lethality and control design"],
+    tools:"GEARS · Scouter · TxPert · CellOracle · SCENIC+ · Cas-OFFinder · DepMap",
+    price:["8万–18万","RMB 80k–180k"],
+    bounds:[["底座内已测靶点的响应查询","Response lookup for targets already measured in the substrate"],
+            ["未见靶点排序；六系语料内的跨背景预测","Unseen-target ranking; cross-background prediction inside the six-line corpus"],
+            ["六系之外的细胞系；跨模态 CRISPRa 外推","Lines outside the six; cross-modality CRISPRa extrapolation"]],
+    sols:[
+      ["001",["KRAS-MAPK 合成致死预筛","KRAS-MAPK synthetic-lethal pre-screen"],["A549 / HT29 KRAS 背景","A549 / HT29 KRAS context"],["合成致死","Synthetic lethality"],["2,400 候选 → 64 靶点 + 8 对照","2,400 candidates → 64 targets + 8 controls"]],
+      ["002",["双基因遗传相互作用","Dual-gene genetic interaction"],["K562 / 双基因 CRISPRa 集","K562 / dual-gene CRISPRa set"],["组合靶点","Combination targets"],["1,891 基因对 → 96 组合 + 非加和候选","1,891 gene pairs → 96 combinations + non-additive hits"]],
+      ["003",["HAP1 KO 功能与逃逸机制","HAP1 KO function and escape routes"],["HAP1 / 近单倍体 KO","HAP1 / near-haploid KO"],["基因功能解释","Gene-function interpretation"],["1,400 候选 → 44 靶点 + 逃逸通路","1,400 candidates → 44 targets + escape pathways"]],
+      ["004",["DDR / PARP 合成致死预筛","DDR / PARP synthetic-lethal pre-screen"],["DNA 损伤修复通路","DNA damage response pathway"],["DDR 药理","DDR pharmacology"],["890 候选 → 36 靶点 + 6 对照","890 candidates → 36 targets + 6 controls"]],
+      ["005",["T 细胞激活通路敲低","T-cell activation pathway knockdown"],["Jurkat / TCR 信号","Jurkat / TCR signalling"],["免疫靶点","Immune targets"],["760 候选 → 32 靶点 + 4 对照","760 candidates → 32 targets + 4 controls"]],
+      ["006",["因果调控网络虚拟敲低","Causal-network virtual knockout"],["TF-增强子-靶基因网络","TF–enhancer–target network"],["机制解释","Mechanistic explanation"],["跨 6 系 → 驱动 TF 排序 + 网络图","Across 6 lines → ranked driver TFs + network map"]]
+    ]
+  },
+  {
+    slug:"phenoscreen-ai", code:"VC-PHE", name:"PhenoScreen-AI", acc:"var(--violet)",
+    title:["化合物表型虚拟预筛","Compound Phenotype Pre-Screen"],
+    axis:["按筛选场景","by screening scenario"],
+    q:["这批化合物在这条细胞系里表型上像什么、属于哪类 MoA、先测哪 384 个孔？",
+      "What do these compounds look like phenotypically in this line, which MoA class do they belong to, and which 384 wells go first?"],
+    promise:["必须先打赢结构指纹最近邻和 L1000 检索，否则不上模型。",
+      "Beat structural-fingerprint nearest-neighbour and L1000 retrieval first, or no model ships."],
+    promiseP:["化合物侧最强的对手不是别的深度模型，是这两条便宜基线。我们把它们建在项目第一周，作为验收对象而不是陪衬。模型只有在留出化合物的 MoA top-k 富集倍数稳定超过它们，并通过 leave-drug-out 与 leave-study-out 之后，才进入交付。",
+      "On the chemical side the real competition is not another deep model but these two cheap baselines. We build them in week one as the acceptance target, not as a foil. A model ships only once its MoA top-k enrichment on held-out compounds stably exceeds them and it passes leave-drug-out and leave-study-out."],
+    steps:[
+      [["标准输入","Standard input"],["化合物库（SMILES/SDF 或已有签名）、目标细胞系、MoA 分类体系、剂量范围与板容量","Compound library (SMILES/SDF or existing signatures), target line, MoA taxonomy, dose range, plate capacity"]],
+      [["候选生成","Candidate generation"],["L1000 签名检索、疾病签名逆转、Cell Painting 形态嵌入与生成","L1000 signature retrieval, disease-signature reversal, Cell Painting morphology embedding and generation"]],
+      [["证据校准","Evidence calibration"],["留出化合物的 MoA top-k 富集与召回；leave-drug-out / leave-study-out；对比两条基线","MoA top-k enrichment and recall on held-out compounds; leave-drug-out / leave-study-out; both baselines side by side"]],
+      [["组合选择","Constrained selection"],["头部化合物 + MoA 覆盖 + 阳性对照 + 溶剂对照，剂量-时间网格约束","Top compounds, MoA coverage, positive and vehicle controls, constrained to the dose–time grid"]],
+      [["实验输出","Experiment-ready output"],["优先板 + 板图 + 浓度梯度 + 判读规则","Priority plate, plate map, concentration series, read rules"]]
+    ],
+    qc:["标准化结构（去盐、互变异构、立体化学）、统一药物与靶点标识、核对 MoA 标签体系，划出留出化合物集合并冻结。",
+      "Standardize structures (desalt, tautomers, stereochemistry), unify compound and target identifiers, check the MoA taxonomy, and freeze the held-out compound set."],
+    gen:["计算结构指纹与形态 / 转录嵌入，在同批对照内做分布到分布映射，并跑疾病签名逆转检索。",
+      "Compute structural fingerprints and morphology/transcriptome embeddings, map distribution-to-distribution within the same batch controls, and run disease-signature reversal retrieval."],
+    cal:["在留出化合物上算 MoA top-k 富集倍数与召回，与结构指纹最近邻、L1000 检索并排报告，并跑 leave-study-out。",
+      "Compute MoA top-k enrichment and recall on held-out compounds, report alongside structural nearest-neighbour and L1000 retrieval, and run leave-study-out."],
+    sel:["按富集排序取头部，同时约束 MoA 覆盖不塌缩，加入阳性与溶剂对照，剂量点限制在已测网格内部。",
+      "Take the top of the enrichment ranking while constraining MoA coverage against collapse, add positive and vehicle controls, and keep dose points inside the measured grid."],
+    out:["输出优先板名单、板图、浓度梯度、读板通道、异常判读规则与超出适用域标记。",
+      "Deliver the priority plate list, plate map, concentration series, readout channels, anomaly rules and out-of-domain flags."],
+    loop:["回收实测表型，更新富集曲线，把假阳性类型反馈到检索权重；主动学习补入最不确定候选。",
+      "Fold measured phenotypes back in, update the enrichment curve, feed false-positive types into retrieval weights, and let active learning add the most uncertain candidates."],
+    exit:["留出化合物上的 MoA 富集倍数高于两条基线，且头部召回可接受。",
+      "MoA enrichment on held-out compounds beats both baselines and head recall is acceptable."],
+    domain:["虚拟细胞·表型预筛","Virtual cell · phenotype pre-screen"],
+    value:["把十万级化合物库压到一块板，并且明确告诉你为此丢掉了多少召回。",
+      "Compress a 10⁵ library onto one plate, and state plainly how much recall that cost."],
+    deliver:["优先板名单、富集 / 召回曲线、两条基线对照、MoA 覆盖矩阵、剂量-时间建议、板图与判读规则。",
+      "Priority plate list, enrichment/recall curves, both baseline comparisons, MoA coverage matrix, dose–time recommendation, plate map and read rules."],
+    formats:"CSV / Parquet / SDF / HTML / XLSX",
+    teams:["表型筛选、高内涵成像、化学生物学","Phenotypic screening, high-content imaging, chemical biology"],
+    scene:["库瘦身、MoA 分诊、疾病签名逆转与苗头去重","Library reduction, MoA triage, signature reversal, hit de-duplication"],
+    tools:"chemCPA · CellOT · Tahoe-x1 · LINCS/CMap · JUMP · CellProfiler · RDKit",
+    price:["8万–20万","RMB 80k–200k"],
+    bounds:[["结构警报与理化筛除","Structural alerts and physicochemical filtering"],
+            ["MoA 归类、优先级排序与签名逆转","MoA classification, prioritisation, signature reversal"],
+            ["绝对 IC50 与网格外剂量外推","Absolute IC50 and dose extrapolation beyond the grid"]],
+    sols:[
+      ["001",["MoA 归类与去重","MoA classification and de-duplication"],["U2OS / A549 形态底座","U2OS / A549 morphology substrate"],["库分诊","Library triage"],["12,000 化合物 → 384 孔 + 12 MoA 覆盖","12,000 compounds → 384 wells + 12 MoA classes"]],
+      ["002",["疾病签名逆转检索","Disease-signature reversal"],["LINCS / CMap 签名空间","LINCS / CMap signature space"],["表型药物发现","Phenotypic discovery"],["~2 万扰动签名 → 120 逆转候选","~20k perturbation signatures → 120 reversal hits"]],
+      ["003",["跨细胞选择性排序","Cross-line selectivity ranking"],["6 系 × 化合物矩阵","6 lines × compound matrix"],["适应症选择","Indication selection"],["800 化合物 × 6 系 → 6 个选择性假设","800 compounds × 6 lines → 6 selectivity hypotheses"]],
+      ["004",["剂量-时间响应插值","Dose–time response interpolation"],["已测剂量-时间网格内部","Inside the measured dose–time grid"],["实验设计","Experimental design"],["3 剂量 × 2 时间 → 12 点插值网格","3 doses × 2 times → 12-point interpolated grid"]],
+      ["005",["天然产物 / 提取物 MoA 分诊","Natural product / extract MoA triage"],["混合物 / 未知结构","Mixtures / unknown structures"],["天然产物","Natural products"],["1,500 提取物 → 192 孔 + 分诊表","1,500 extracts → 192 wells + triage table"]]
+    ]
+  },
+  {
+    slug:"assayemul-ai", code:"VC-ASY", name:"AssayEmul-AI", acc:"var(--teal)",
+    title:["检测 readout 虚拟化","Assay Readout Emulation"],
+    axis:["按检测类型","by assay type"],
+    q:["预测出的生物状态，怎么变成 CellTiter-Glo、qPCR、流式或 ELISA 上真正读到的那个数？",
+      "How does a predicted biological state become the number a CellTiter-Glo, qPCR, flow cytometer or ELISA actually reports?"],
+    promise:["生物状态不等于仪器读数。这一层必须单独校准。","A biological state is not an instrument reading. This layer is calibrated separately."],
+    promiseP:["这是整个家族里最容易被跳过、也最容易造成过度承诺的一层。虚拟细胞预测「细胞发生了什么」；检测模拟器预测「仪器最终读到什么」。要模拟 MTT、CellTiter-Glo、ELISA、LFA 或流式，必须另外学习试剂、批次、孵育时间和仪器对 readout 的映射，而这需要配对实验标签——没有配对标签的 readout head，我们不交付，只出采集方案。",
+      "This is the layer most often skipped and the one that most often produces over-promising. A virtual cell predicts what happened to the cell; an assay emulator predicts what the instrument reports. Emulating MTT, CellTiter-Glo, ELISA, LFA or flow means separately learning how reagent, batch, incubation time and instrument map onto the readout — and that requires paired experimental labels. Where paired labels do not exist we do not ship a readout head; we ship the acquisition plan to create one."],
+    steps:[
+      [["标准输入","Standard input"],["目标检测类型、仪器与试剂批次、已有配对标签、可采集的校准样本量","Target assay, instrument and reagent lot, existing paired labels, calibration sample budget"]],
+      [["候选生成","Candidate generation"],["从状态转移层取分子状态分布，构建多任务 readout head","Take the molecular-state distribution from the transition layer and build multi-task readout heads"]],
+      [["证据校准","Evidence calibration"],["配对标签上的校准曲线；批次与时间协变量；leave-study-out 检验平台迁移","Calibration curves on paired labels; batch and time covariates; leave-study-out for platform transfer"]],
+      [["组合选择","Constrained selection"],["确定可交付 readout、需补标签 readout 与不可交付 readout 三档","Sort readouts into deliverable / needs-labels / not-deliverable"]],
+      [["实验输出","Experiment-ready output"],["readout head + 校准曲线 + 置信区间 + 采集方案","Readout heads, calibration curves, confidence intervals, acquisition plan"]]
+    ],
+    qc:["核对仪器型号、试剂批次、孵育时间、读板参数、对照孔定义与历史批间变异，确认配对标签的样本对应关系。",
+      "Verify instrument model, reagent lot, incubation time, plate-reader settings, control-well definitions and historical inter-batch variation; confirm the sample mapping of paired labels."],
+    gen:["从状态转移层取分子状态分布，为每类 readout 建立多任务回归 / 分类头，显式引入批次与时间协变量。",
+      "Take the molecular-state distribution from the transition layer and fit multi-task regression/classification heads per readout, with batch and time as explicit covariates."],
+    cal:["在配对标签上拟合校准曲线，跑 leave-study-out 检验跨平台迁移，报告置信区间覆盖率与实验重复给出的上限。",
+      "Fit calibration curves on paired labels, run leave-study-out for cross-platform transfer, and report interval coverage against the replicate-implied ceiling."],
+    sel:["按校准质量把 readout 分成可交付 / 需补标签 / 不可交付三档，为第二档给出所需样本量。",
+      "Grade readouts as deliverable / needs-labels / not-deliverable by calibration quality, with a required sample size for the middle tier."],
+    out:["输出 readout head、校准曲线、置信区间、适用批次范围与新增标签采集方案。",
+      "Deliver readout heads, calibration curves, confidence intervals, the batch range they apply to, and an acquisition plan for new labels."],
+    loop:["回收新批次实测 readout，检测漂移，触发重校准或回退到上一版 head。",
+      "Fold new measured readouts back in, detect drift, and trigger recalibration or rollback to the previous head."],
+    exit:["每个交付的 readout 都有配对标签校准曲线和置信区间覆盖率，且标明适用批次范围。",
+      "Every shipped readout carries a paired-label calibration curve, interval coverage, and the batch range it is valid for."],
+    domain:["虚拟细胞·检测模拟","Virtual cell · assay emulation"],
+    value:["把「细胞发生了什么」翻译成「仪器读到多少」，并且只在有配对标签的地方翻译。",
+      "Translate \"what happened to the cell\" into \"what the instrument reads\" — and only where paired labels exist."],
+    deliver:["readout head、校准曲线、批次与时间协变量模型、置信区间覆盖率、适用批次范围、缺标签 readout 的采集方案与报价。",
+      "Readout heads, calibration curves, batch/time covariate model, interval coverage, valid batch range, and a costed acquisition plan for unlabelled readouts."],
+    formats:["CSV / Parquet / HTML / model cards","CSV / Parquet / HTML / model cards"],
+    teams:["检测开发、高内涵成像、QC 与转化研究","Assay development, high-content imaging, QC and translational research"],
+    scene:["把预测结果接到真实读板数据上，减少验证批次","Connecting predictions to real plate-reader data and cutting validation rounds"],
+    tools:["CellProfiler · scikit-learn · conformal prediction · CITE-seq 配对数据","CellProfiler · scikit-learn · conformal prediction · paired CITE-seq"],
+    price:["10万–20万","RMB 100k–200k"],
+    bounds:[["有配对标签且批次稳定的 readout","Readouts with paired labels and stable batches"],
+            ["跨批次与跨时间点的 readout 插值","Readout interpolation across batches and timepoints"],
+            ["无配对标签的蛋白 / 分泌 readout；跨仪器平台外推","Protein/secretion readouts with no paired labels; cross-instrument extrapolation"]],
+    sols:[
+      ["001",["活力 readout 校准","Viability readout calibration"],["CellTiter-Glo / MTT","CellTiter-Glo / MTT"],["活力检测","Viability assay"],["6 系 × 3 剂量 → 1 条校准曲线 + CI","6 lines × 3 doses → 1 calibration curve + CI"]],
+      ["002",["转录 readout 与通路分数","Transcript readout and pathway score"],["qPCR / RNA-seq","qPCR / RNA-seq"],["机制确认","Mechanism confirmation"],["1,000 landmark → DEG 方向 + 通路 AUROC","1,000 landmarks → DEG direction + pathway AUROC"]],
+      ["003",["Cell Painting 形态 readout","Cell Painting morphology readout"],["U2OS / A549 五通道","U2OS / A549, five channels"],["高内涵成像","High-content imaging"],["5 通道 → MOA 分类 + 应激表型","5 channels → MoA classification + stress phenotypes"]],
+      ["004",["流式表面标志物","Flow-cytometry surface markers"],["需 CITE-seq 配对数据","Requires paired CITE-seq"],["免疫表型","Immunophenotyping"],["需配对标签 → 校准方案 + 样本量","Paired labels needed → calibration plan + sample size"]],
+      ["005",["ELISA / 细胞因子分泌","ELISA / cytokine secretion"],["需分泌组配对数据","Requires paired secretome data"],["分泌表型","Secretion phenotype"],["需配对标签 → 校准方案 + 样本量","Paired labels needed → calibration plan + sample size"]]
+    ]
+  },
+  {
+    slug:"toxtwin-ai", code:"VC-TOX", name:"ToxTwin-AI", acc:"var(--coral)",
+    title:["器官毒性虚拟前哨","Organ Toxicity Sentinel"],
+    axis:["按器官","by organ"],
+    q:["这个化合物在肝 / 心 / 髓 / 肾模型上，有没有需要提前设计对照的毒性表型，以及癌 / 正常选择性窗口有多宽？",
+      "Does this compound show a toxicity phenotype in liver, heart, marrow or kidney models that warrants a control now — and how wide is the tumour/normal selectivity window?"],
+    promise:["这是实验前的对照设计，不是毒理放行。","This is control design before the experiment, not toxicology clearance."],
+    promiseP:["我们不出 NOAEL、不出安全窗数值、不替代 GLP 毒理。产出的是「哪些毒性表型有信号、该在首轮体外实验里加哪些对照和 readout」——把毒性发现从化合物进入动物之后，提前到进入板子之前。RPE1 作为 p53 完整的正常对照，用来给出癌 / 正常选择性的相对排序（不是绝对治疗窗）。",
+      "We do not issue a NOAEL, a numeric safety margin, or anything replacing GLP toxicology. What we produce is: which toxicity phenotypes carry signal, and which controls and readouts belong in the first in-vitro round — moving toxicity discovery from after the animal study to before the plate. RPE1, p53-intact, serves as the normal control for a relative tumour/normal selectivity ranking, not an absolute therapeutic window."],
+    steps:[
+      [["标准输入","Standard input"],["化合物结构、目标器官、参比毒物集、可用体外模型与剂量范围","Compound structure, target organ, reference toxicant set, available in-vitro models and dose range"]],
+      [["候选生成","Candidate generation"],["器官相关细胞系表型检索 + 结构警报 + Tox21 端点打分","Organ-relevant phenotype retrieval, structural alerts, Tox21 endpoint scoring"]],
+      [["证据校准","Evidence calibration"],["参比毒物阳性对照回收率；三层证据一致性；适用域标记","Recall of reference toxicants as positive controls, agreement across the three evidence layers, domain flags"]],
+      [["组合选择","Constrained selection"],["毒性表型假设 + 对照毒物 + readout 组合 + 癌/正常配对","Toxicity hypotheses, reference toxicants, readout set, and tumour/normal pairing"]],
+      [["实验输出","Experiment-ready output"],["风险排序表 + 对照设计 + readout + 停试触发规则","Risk ranking, control design, readouts, stop-test triggers"]]
+    ],
+    qc:["确认化合物结构与批次、目标器官、参比毒物清单、可获得的体外模型、培养条件与暴露时间。",
+      "Confirm compound structure and lot, target organ, reference toxicant list, available in-vitro models, culture conditions and exposure time."],
+    gen:["跑器官相关细胞系的表型检索、结构警报（PAINS / Brenk / NIH）与 12 个 Tox21 端点打分，并与正常对照系配对。",
+      "Run organ-relevant phenotype retrieval, structural alerts (PAINS / Brenk / NIH) and 12 Tox21 endpoint scores, paired against the normal control line."],
+    cal:["用参比毒物做阳性对照回收率检验，标记适用域外化合物，交叉核对三层证据的一致性与冲突。",
+      "Test positive-control recall on reference toxicants, flag out-of-domain compounds, and cross-check agreement and conflict across the three evidence layers."],
+    sel:["给出毒性表型假设排序，配对照毒物、阴性对照、癌/正常配对与最能分辨该表型的 readout。",
+      "Rank toxicity hypotheses and pair each with reference toxicants, negative controls, a tumour/normal pair and the readout that best separates it."],
+    out:["输出风险排序表、对照设计、readout 清单、浓度与暴露时间范围、停试触发规则。",
+      "Deliver the risk ranking, control design, readout list, concentration and exposure ranges, and stop-test triggers."],
+    loop:["回收首轮体外毒性数据，校准阈值，把漏报表型加入下一轮 readout。",
+      "Fold first-round in-vitro toxicity data back in, recalibrate thresholds, and add missed phenotypes to the next readout set."],
+    exit:["参比毒物被稳定召回，且每条风险都配了可执行的对照与 readout。",
+      "Reference toxicants are recalled stably and every risk carries an executable control and readout."],
+    domain:["虚拟细胞·安全前哨","Virtual cell · safety sentinel"],
+    value:["把毒性发现从动物实验之后提前到板子之前，代价是明确写清不承诺什么。",
+      "Move toxicity discovery from after the animal study to before the plate — at the price of stating plainly what is not promised."],
+    deliver:["风险排序表、结构警报清单、Tox21 端点打分、参比毒物召回率、癌/正常选择性排序、对照与 readout 设计。",
+      "Risk ranking, structural alert list, Tox21 endpoint scores, reference-toxicant recall, tumour/normal selectivity ranking, control and readout design."],
+    formats:"CSV / SDF / HTML / XLSX",
+    teams:["安全药理、DMPK、早期毒理与化学团队","Safety pharmacology, DMPK, early toxicology, chemistry"],
+    scene:["先导优化期的毒性前置筛查与对照设计","Front-loading toxicity screening and control design during lead optimisation"],
+    tools:"RDKit · Tox21 · LINCS · DepMap · CellProfiler",
+    price:["8万–16万","RMB 80k–160k"],
+    bounds:[["结构警报与已知毒性基团","Structural alerts and known toxicophores"],
+            ["毒性表型假设排序与癌/正常相对选择性","Toxicity hypothesis ranking and relative tumour/normal selectivity"],
+            ["NOAEL / 安全窗数值 / 监管级结论","NOAEL, numeric safety margins, regulatory-grade conclusions"]],
+    sols:[
+      ["001",["肝毒性虚拟前哨","Hepatotoxicity sentinel"],["HepG2 + 原代肝细胞参考","HepG2 + primary hepatocyte reference"],["DILI 前置","DILI front-loading"],["600 化合物 → 40 高风险 + 8 参比","600 compounds → 40 high-risk + 8 references"]],
+      ["002",["心脏毒性虚拟前哨","Cardiotoxicity sentinel"],["hiPSC-CM 参考 + hERG","hiPSC-CM reference + hERG"],["心律风险","Arrhythmia risk"],["600 化合物 → 26 高风险 + 6 参比","600 compounds → 26 high-risk + 6 references"]],
+      ["003",["骨髓抑制 / 血液毒性","Myelosuppression / haematotoxicity"],["K562 / HL-60","K562 / HL-60"],["血液毒性","Haematotoxicity"],["480 化合物 → 22 高风险 + 5 参比","480 compounds → 22 high-risk + 5 references"]],
+      ["004",["肾小管毒性前哨","Renal tubular toxicity sentinel"],["HK-2 / RPTEC","HK-2 / RPTEC"],["肾毒性","Nephrotoxicity"],["420 化合物 → 18 高风险 + 5 参比","420 compounds → 18 high-risk + 5 references"]],
+      ["005",["癌 / 正常选择性窗口","Tumour / normal selectivity window"],["RPE1 p53 完整对照","RPE1, p53-intact control"],["选择性","Selectivity"],["360 化合物 → 24 选择性候选 + 配对","360 compounds → 24 selective hits + pairings"]]
+    ]
+  },
+  {
+    slug:"resistsim-ai", code:"VC-RES", name:"ResistSim-AI", acc:"var(--amber)",
+    title:["耐药、隐性状态与状态转换推演","Resistance, Latent States & State Transition"],
+    axis:["按适应症","by indication"],
+    q:["这条通路离「开关翻转」还有多远，耐药会从哪条支路出来，处理前是否已经存在隐性耐药克隆？",
+      "How far is this pathway from flipping, which branch will resistance come from, and did a latent resistant clone already exist before treatment?"],
+    promise:["唯一有机理动力学支撑的产品线。","The only line backed by mechanistic dynamics."],
+    promiseP:["先用化学反应网络理论的亏格判据判断通路拓扑上能不能成为开关——δ=0 就不可能双稳，直接省掉建模。能成为开关的，再算双稳窗口与分岔点，给临界慢化早期预警指标（方差、lag-1 自相关）。这套引擎已有阳性对照：滴定穿过真实分岔点时两个指标峰值约 5 倍。谱系条码数据则回答一个不同的问题——耐药是处理后演化出来的，还是处理前就已经存在并被选择出来的。",
+      "First a chemical-reaction-network deficiency test says whether the topology can be a switch at all — δ=0 rules out bistability and saves the modelling. Where it can, we locate the bistable window and saddle-nodes and supply critical-slowing early-warning indicators (variance, lag-1 autocorrelation). The engine has a positive control: titrating through a real bifurcation peaks both indicators about 5-fold. Lineage-barcode data answers a different question — whether resistance evolved after treatment or was already present and merely selected."],
+    steps:[
+      [["标准输入","Standard input"],["通路定义、药物与靶点、细胞系、可测 readout、采样频率与谱系条码可得性","Pathway definition, drug and target, cell line, measurable readouts, sampling frequency, lineage-barcode availability"]],
+      [["候选生成","Candidate generation"],["拓扑开关能力判据 + 双稳窗口与分岔点定位 + 处理前隐性状态检索","Topological switch-capacity test, bistable window and saddle-node location, retrieval of pre-treatment latent states"]],
+      [["证据校准","Evidence calibration"],["滴定阳性对照校准灵敏度；随机置换标签作阴性对照；可逆性 vs hysteresis 判别","Titration positive control for sensitivity, permuted labels as negative control, reversibility versus hysteresis discrimination"]],
+      [["组合选择","Constrained selection"],["早期预警指标组合 + 采样时点 + 阈值 + 需条码追踪的克隆","Early-warning indicator set, sampling timepoints, thresholds, and the clones needing barcode tracking"]],
+      [["实验输出","Experiment-ready output"],["预警 panel + 时序采样方案 + 触发阈值 + 支路假设排序","Warning panel, time-series sampling plan, trigger thresholds, ranked branch hypotheses"]]
+    ],
+    qc:["冻结通路拓扑、药物占位率数据、细胞系背景、可实现的采样频率、单细胞读出能力与谱系条码覆盖度。",
+      "Freeze pathway topology, target-occupancy data, cell-line background, achievable sampling frequency, single-cell readout capacity and lineage-barcode coverage."],
+    gen:["算网络亏格判断开关能力，定位双稳窗口与鞍结点，把药物占位率映射到网络参数，并在处理前样本中检索隐性耐药状态。",
+      "Compute network deficiency for switch capacity, locate the bistable window and saddle-nodes, map target occupancy onto network parameters, and search pre-treatment samples for latent resistant states."],
+    cal:["用滴定穿过分岔点的阳性对照校准指标灵敏度，用随机置换扰动标签做阴性对照，并用撤药实验区分可逆恢复与真正 hysteresis。",
+      "Calibrate indicator sensitivity with a titration that crosses the bifurcation, use permuted perturbation labels as a negative control, and separate reversible recovery from true hysteresis with a washout arm."],
+    sel:["选方差 / lag-1 自相关 / DNB 指标组合，定采样时点与预警阈值，标出不可预警的支路与需条码追踪的克隆。",
+      "Select the variance / lag-1 autocorrelation / DNB indicator set, fix timepoints and thresholds, and name the branches that cannot be warned and the clones needing barcode tracking."],
+    out:["输出早期预警 panel、时序采样方案、触发阈值、耐药支路假设排序与谱系追踪设计。",
+      "Deliver the early-warning panel, time-series sampling plan, trigger thresholds, ranked resistance-branch hypotheses and lineage-tracking design."],
+    loop:["回收时序数据，检验预警是否早于表型翻转，更新阈值与支路优先级。",
+      "Fold time-series data back in, test whether the warning preceded the phenotypic flip, and update thresholds and branch priorities."],
+    exit:["预警指标在实测时序中先于表型变化上升，且阴性对照不报警。",
+      "Warning indicators rise before the phenotypic change in the measured series, and the negative control stays silent."],
+    domain:["虚拟细胞·动力学推演","Virtual cell · dynamics"],
+    value:["输出的是可采样的早期预警指标和时点，不是一句「可能会耐药」。",
+      "The output is samplable early-warning indicators and timepoints, not the sentence \"resistance may develop\"."],
+    deliver:["开关能力判据、双稳窗口、预警指标组合、采样时点表、阴阳性对照方案、隐性状态与克隆选择证据、支路假设排序。",
+      "Switch-capacity verdict, bistable window, indicator set, timepoint table, positive and negative controls, latent-state and clonal-selection evidence, ranked branch hypotheses."],
+    formats:"CSV / HTML / IPYNB / SBML",
+    teams:["转化研究、耐药机制、临床前药理","Translational research, resistance mechanism, preclinical pharmacology"],
+    scene:["耐药机制假设生成、早期预警指标设计与克隆演化追踪","Resistance-mechanism hypothesis generation, early-warning design, clonal-evolution tracking"],
+    tools:["grn_pipeline · BioModels · CellRank · dynamo · Waddington-OT · LARRY 条码","grn_pipeline · BioModels · CellRank · dynamo · Waddington-OT · LARRY barcodes"],
+    price:["10万–22万","RMB 100k–220k"],
+    bounds:[["通路拓扑的开关能力判据","Topological switch-capacity verdict"],
+            ["分岔距离、早期预警指标与隐性状态检索","Distance to bifurcation, early-warning indicators, latent-state retrieval"],
+            ["耐药发生时间；患者层面预测","Time-to-resistance; patient-level prediction"]],
+    sols:[
+      ["001",["EGFR-TKI 耐药推演","EGFR-TKI resistance"],["PC9 / HCC827","PC9 / HCC827"],["NSCLC 耐药","NSCLC resistance"],["4 条支路 → 3 个预警指标 + 6 时点","4 branches → 3 indicators + 6 timepoints"]],
+      ["002",["KRAS G12C 适应性耐药","KRAS G12C adaptive resistance"],["A549 / 占位率标定","A549 / occupancy-calibrated"],["KRAS 药理","KRAS pharmacology"],["占位率 98% → 临界距离 + 4 指标","98% occupancy → distance to threshold + 4 indicators"]],
+      ["003",["隐性耐药状态与克隆选择","Latent resistant states and clonal selection"],["谱系条码 + 处理前后配对","Lineage barcodes, pre/post pairs"],["克隆演化","Clonal evolution"],["处理前 12 状态 → 3 个隐性耐药克隆","12 pre-treatment states → 3 latent resistant clones"]],
+      ["004",["EMT 可逆性与 hysteresis 判定","EMT reversibility and hysteresis"],["HT29 / EMT 时间序列","HT29 / EMT time series"],["状态记忆","State memory"],["撤药 8 时点 → 可逆 vs hysteresis 判定","8 washout timepoints → reversible vs hysteretic verdict"]],
+      ["005",["ER+ 内分泌治疗耐药","ER+ endocrine resistance"],["MCF7","MCF7"],["乳腺癌耐药","Breast cancer resistance"],["4 条支路 → 3 个预警指标 + 6 时点","4 branches → 3 indicators + 6 timepoints"]]
+    ]
+  },
+  {
+    slug:"combirank-ai", code:"VC-CMB", name:"CombiRank-AI", acc:"var(--lime)",
+    title:["组合用药虚拟排序","Combination Ranking"],
+    axis:["按组合场景","by combination scenario"],
+    q:["n² 的组合空间里，先测哪 96 个孔，以及每个组合要配什么单药对照和浓度矩阵？",
+      "Out of an n² combination space, which 96 wells go first — and what single-agent controls and concentration matrix does each need?"],
+    promise:["排序 + 对照设计，不出协同系数预测值。","Ranking and control design; no predicted synergy coefficients."],
+    promiseP:["协同性的绝对数值（Bliss / Loewe 分数）对实验条件极度敏感，预测出来也不可信。我们只做两件事：把组合空间排序，以及为每个入选组合设计能真正分辨协同与相加的单药对照与浓度矩阵——后者往往才是组合实验失败的真实原因。基线是「两个单药都强」，这条基线很强，必须先打赢。",
+      "Absolute synergy values (Bliss / Loewe) are extremely sensitive to assay conditions, so a predicted one is not trustworthy. We do two things: rank the combination space, and design for each selected pair the single-agent controls and concentration matrix that can actually separate synergy from additivity — which is usually the real reason combination experiments fail. The baseline is \"both single agents are strong\", and it is a strong one that must be beaten first."],
+    steps:[
+      [["标准输入","Standard input"],["单药清单与浓度范围、目标细胞系、组合假设来源、板容量","Single-agent list and concentration ranges, target line, source of combination hypotheses, plate capacity"]],
+      [["候选生成","Candidate generation"],["通路互补性 + 单药响应 + 双基因非加和先验的联合排序","Joint ranking from pathway complementarity, single-agent response and dual-gene non-additivity priors"]],
+      [["证据校准","Evidence calibration"],["留出组合的 top-k 富集；unseen-combination 拆分；与「两个单药都强」基线对比","Top-k enrichment on held-out combinations, an unseen-combination split, and comparison to the both-strong baseline"]],
+      [["组合选择","Constrained selection"],["头部组合 + 单药对照 + 浓度矩阵 + 预期无协同的阴性组合","Top pairs, single-agent controls, concentration matrix, and negative pairs expected to show no synergy"]],
+      [["实验输出","Experiment-ready output"],["组合板图 + 浓度矩阵 + 协同判读规则 + 重复设计","Combination plate map, concentration matrix, synergy read rules, replicate design"]]
+    ],
+    qc:["冻结单药清单与浓度范围、细胞系背景、板容量与重复数，划出留出组合集合并确认无同对泄漏。",
+      "Freeze the single-agent list and ranges, cell-line background, plate capacity and replicate count; hold out a combination set and confirm no same-pair leakage."],
+    gen:["用通路互补性、单药响应谱与双基因非加和先验，对 n² 空间做联合排序并标注机制假设。",
+      "Rank the n² space jointly from pathway complementarity, single-agent response profiles and dual-gene non-additivity priors, annotating the mechanistic hypothesis."],
+    cal:["在留出组合上算 top-k 富集，跑 unseen-combination 拆分，并与「两个单药都强」这条强基线并排报告。",
+      "Compute top-k enrichment on held-out combinations, run the unseen-combination split, and report beside the strong both-strong baseline."],
+    sel:["取头部组合，为每个组合配单药对照与浓度矩阵，加入预期无协同的阴性组合与重复安排。",
+      "Take the top pairs, give each single-agent controls and a concentration matrix, and add negative pairs and a replicate layout."],
+    out:["输出组合板图、浓度矩阵、单药对照位、协同判读规则与重复设计。",
+      "Deliver the combination plate map, concentration matrix, single-agent control wells, synergy read rules and replicate design."],
+    loop:["回收协同实测，更新先验权重，剔除被证伪的通路互补假设。",
+      "Fold measured synergy back in, update prior weights, and retire falsified complementarity hypotheses."],
+    exit:["头部组合的协同命中率高于「两个单药都强」基线，且对照能分辨协同与相加。",
+      "Synergy hit rate among top pairs beats the both-strong baseline, and the controls separate synergy from additivity."],
+    domain:["虚拟细胞·组合排序","Virtual cell · combination ranking"],
+    value:["组合实验最常见的失败不是选错组合，是对照和浓度矩阵设计不出协同——我们两件事都交付。",
+      "The usual failure in combination work is not picking the wrong pair but a control and concentration design that cannot reveal synergy. We deliver both."],
+    deliver:["组合排序表、富集曲线与基线对比、组合板图、浓度矩阵、单药与阴性对照、判读规则与重复设计。",
+      "Combination ranking, enrichment curves against baseline, plate map, concentration matrix, single-agent and negative controls, read rules and replicate design."],
+    formats:["CSV / XLSX / HTML / plate map","CSV / XLSX / HTML / plate map"],
+    teams:["体外药理、转化研究、组合疗法团队","In-vitro pharmacology, translational research, combination therapy"],
+    scene:["组合空间瘦身与协同实验设计","Reducing the combination space and designing the synergy experiment"],
+    tools:"DepMap · GDSC · SynergyFinder · DuckDB",
+    price:["8万–18万","RMB 80k–180k"],
+    bounds:[["单药在该系的已测响应","Measured single-agent response in that line"],
+            ["组合优先级排序与对照 / 浓度矩阵设计","Combination prioritisation and control / concentration design"],
+            ["协同系数绝对值预测","Predicted absolute synergy coefficients"]],
+    sols:[
+      ["001",["KRAS G12C 上下游组合","KRAS G12C up/downstream combinations"],["A549 / KRAS 背景","A549 / KRAS context"],["KRAS 组合","KRAS combinations"],["62 单药 → 1,891 组合 → 96 孔","62 agents → 1,891 pairs → 96 wells"]],
+      ["002",["CDK4/6 + 内分泌组合","CDK4/6 + endocrine combinations"],["MCF7 / ER+ 背景","MCF7 / ER+ context"],["乳腺癌组合","Breast cancer combinations"],["44 单药 → 946 组合 → 96 孔","44 agents → 946 pairs → 96 wells"]],
+      ["003",["DDR 合成致死组合","DDR synthetic-lethal combinations"],["DDR 通路","DDR pathway"],["DDR 组合","DDR combinations"],["38 单药 → 703 组合 → 72 孔","38 agents → 703 pairs → 72 wells"]],
+      ["004",["双基因组合靶点","Dual-gene combination targets"],["K562 / 非加和效应","K562 / non-additive effects"],["遗传组合","Genetic combinations"],["1,891 基因对 → 96 组合 + 协同/拮抗","1,891 gene pairs → 96 combinations + synergy/antagonism"]]
+    ]
+  }
+  ]
+};
+
+/* ============ helpers ============ */
+const E = s => String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const t = v => Array.isArray(v) ? (v[L] !== undefined ? v[L] : v[0]) : v;
+const T = v => E(t(v));
+const nn = i => String(i+1).padStart(2,'0');
+const lineBy = s => D.lines.find(l=>l.slug===s);
+const solId = (l,s) => `${l.code}-${s[0]}`;
+const findSol = id => { for(const l of D.lines) for(const s of l.sols) if(solId(l,s)===id) return [l,s]; return []; };
+const dotv = v => v==="full" ? `<span class="dt d3"></span>${t(["全","full"])}`
+  : v==="part" ? `<span class="dt d2"></span>${t(["部分","partial"])}`
+  : v==="none" ? `<span class="dt d1"></span>${t(["无","none"])}`
+  : v==="?" ? `<span class="dt d1"></span>${t(["待评估","TBD"])}` : T(v);
+
+const foot = () => `<footer class="shell"><div class="foot">
+  <a class="brand" href="#/"><span class="brand-mark">Q</span>QureGen BioDecision</a>
+  <p>${t(D.ui.footer)}</p></div></footer>`;
+
+const stepsHTML = steps => `<div class="steps">${steps.map((s,i)=>
+  `<article><span>${nn(i)}</span><h4>${T(s[0])}</h4><p>${T(s[1])}</p></article>`).join('')}</div>`;
+
+const boundsHTML = () => `<div class="bounds">${['ok','mid','no'].map(k=>{
+  const b=D.bounds[k];
+  return `<div class="bound" style="--bc:${b.c}"><h4>${T(b.t)}</h4><p>${T(b.d)}</p>
+    <ul>${b.items.map(x=>`<li>${T(x)}</li>`).join('')}</ul></div>`;
+}).join('')}</div>`;
+
+const matrixTable = () => {
+  const head=t(D.matrix.head)[0].split('|');
+  return `<div class="tw"><table><thead><tr>${head.map(h=>`<th>${E(h)}</th>`).join('')}</tr></thead><tbody>
+  ${D.matrix.rows.map(r=>`<tr><td class="k">${T(r[0])}</td><td>${T(r[1])}</td>
+    <td class="c">${dotv(r[2])}</td><td class="c">${dotv(r[3])}</td><td class="c">${dotv(r[4])}</td>
+    <td class="m"><span class="ph">${T(r[5])}</span></td><td class="m">${T(r[6])}</td></tr>`).join('')}
+  </tbody></table></div>`;
+};
+
+const specHTML = (l,sol) => {
+  const R=(k,v,cls)=>`<div><span>${E(k)}</span><p class="${cls||''}">${v}</p></div>`;
+  const lb=t(D.ui);
+  return `<div class="spectable">
+  ${sol?R(t(["产品编号","Product ID"]),E(solId(l,sol)),'m'):''}
+  ${R(t(["技术领域","Domain"]),T(l.domain))}
+  ${R(t(["解决方案","Solution"]),sol?T(sol[1]):T(l.title))}
+  ${sol?R(t(["具体标的","Subject"]),T(sol[2]),'m'):''}
+  ${R(t(["研发价值","R&D value"]),T(l.value))}
+  ${R(t(["标准交付","Deliverables"]),T(l.deliver))}
+  ${R(t(["交付格式 / 接口","Formats / interfaces"]),T(l.formats),'m')}
+  ${R(t(["适用团队","Teams served"]),T(l.teams))}
+  ${R(t(["应用场景","Use case"]),(sol?T(sol[3])+'；':'')+T(l.scene))}
+  ${R(t(["兼容工具","Compatible tools"]),T(l.tools),'m')}
+  ${R(t(["能力边界","Capability boundary"]),
+     `${t(D.ui.okL)}: ${T(l.bounds[0])}　·　${t(D.ui.midL)}: ${T(l.bounds[1])}　·　<b>${t(D.ui.noL)}: ${T(l.bounds[2])}</b>`)}
+  ${R(t(["许可与合规","Licensing & compliance"]),t(["交付前完成模型与数据集许可证审查；部分模型或 API 仅允许非商业研究使用。",
+      "Model and dataset licences are reviewed before delivery; some models and APIs permit non-commercial research use only."]))}
+  ${R(t(["项目范围","Engagement size"]),T(l.price))}
+</div>`;
+};
+
+/* ============ pages ============ */
+function pageFamily(){
+  const f=D.family, nSol=D.lines.reduce((a,l)=>a+l.sols.length,0);
+  return `
+  <header class="shell"><div class="hero">
+    <div>
+      <p class="eyebrow"><i></i>${f.code} · ${T(f.name)}</p>
+      <h1 class="big" style="margin:22px 0">${T(f.tagline)}</h1>
+      <p class="lede">${t(f.lede)}</p>
+      <div class="btnrow"><a class="button primary" href="#/matrix">${t(D.ui.matrix)} ↗</a><a class="button" href="#/bounds">${t(D.ui.bounds)} ↗</a></div>
+    </div>
+    <div class="hero-r"><strong>${T(f.promise)}</strong><p>${T(f.promiseP)}</p></div>
+  </div></header>
+
+  <section class="band"><div class="shell"><div class="band-in">
+    <span>${t(["产品家族","Family"])}<b>VC</b></span>
+    <span>${t(D.ui.lines)}<b>${D.lines.length}</b></span>
+    <span>${t(D.ui.sols)}<b>${nSol}</b></span>
+    <span>${t(["覆盖细胞系 / 模型","Cell lines / models"])}<b>${D.matrix.rows.length}</b></span>
+    <span>${t(["组织轴","Organising axes"])}<b>${t(["细胞系 × 适应症","Cell line × indication"])}</b></span>
+  </div></div></section>
+
+  <section class="shell pad">
+    <div class="sechead">
+      <div><p class="kicker">Architecture</p><h2 class="mid" style="margin-top:12px">${T(D.arch.title)}</h2></div>
+      <p class="lede">${t(D.arch.lede)}</p>
+    </div>
+    <div class="tw"><table><thead><tr>
+      <th>${t(["模块","Module"])}</th><th>${t(["职责","Responsibility"])}</th><th>${t(["产品线","Product line"])}</th>
+    </tr></thead><tbody>${D.arch.rows.map(r=>
+      `<tr><td class="k">${T(r[0])}</td><td>${T(r[1])}</td><td class="m">${T(r[2])}</td></tr>`).join('')}
+    </tbody></table></div>
+  </section>
+
+  <section class="endpoint"><div class="shell pad">
+    <div class="sechead">
+      <div><p class="kicker">Product lines</p><h2 class="mid" style="margin-top:12px">${t(["七条产品线，从底座到组合决策。","Seven lines, from substrate to combination decisions."])}</h2></div>
+      <p class="lede">${t(["每条线都遵循同一套五步骨架：标准输入 → 候选生成 → 证据校准 → 组合选择 → 实验输出。差别在于底座要求不同——没有对应底座的细胞系，这条线不接。",
+        "Every line follows the same spine: standard input → candidate generation → evidence calibration → constrained selection → experiment-ready output. What differs is the substrate each requires — without it, the line does not take the engagement."])}</p>
+    </div>
+    <div class="linegrid">${D.lines.map((l,i)=>`
+      <a class="linecard" style="--acc:${l.acc}" href="#/lines/${l.slug}">
+        <span>${nn(i)} / ${E(l.code)}</span>
+        <p class="lbl">${E(l.name)} · ${T(l.axis)}</p>
+        <h2>${T(l.title)}</h2>
+        <small>${T(l.q)}</small>
+        <ul>${l.sols.slice(0,4).map(s=>`<li>${T(s[1])}<em>${E(solId(l,s))}</em></li>`).join('')}
+        ${l.sols.length>4?`<li><b>+ ${l.sols.length-4} ${t(D.ui.sols)}</b><em>↗</em></li>`:''}</ul>
+      </a>`).join('')}</div>
+  </div></section>
+
+  <section class="shell pad">
+    <p class="kicker">Cell-line substrate</p>
+    <h2 class="mid" style="margin:12px 0 10px">${t(["产品能不能接，取决于这条细胞系有没有底座。","Whether a line can take an engagement depends on the substrate that cell line has."])}</h2>
+    <p class="lede" style="margin-bottom:24px">${t(["扰动底座 = 该系自有或多背景 Perturb-seq；化合物底座 = L1000 签名与药敏；形态底座 = Cell Painting。三种底座各自决定不同产品线能否成立。",
+      "Perturbation substrate = within-line or multi-context Perturb-seq; compound substrate = L1000 signatures and sensitivity data; morphology substrate = Cell Painting. Each decides which lines can operate."])}</p>
+    ${matrixTable()}
+    <div class="note" style="margin-top:20px">${t(D.matrix.note)}</div>
+  </section>
+
+  <section class="endpoint"><div class="shell pad">
+    <p class="kicker">Capability boundary</p>
+    <h2 class="mid" style="margin:12px 0 10px">${t(["把不能承诺的部分写进产品。","Write what cannot be promised into the product."])}</h2>
+    <p class="lede" style="margin-bottom:26px">${t(["下面三档不是保守表述，是已经在真实数据上测出来的边界。第三档会作为排除条款进入合同附件。",
+      "The three tiers below are not conservative phrasing; they are boundaries measured on real data. The third enters the contract annex as an exclusion clause."])}</p>
+    ${boundsHTML()}
+    <div class="btnrow"><a class="button" href="#/validate">${t(D.ui.validate)} ↗</a></div>
+  </div></section>
+
+  <section class="shell" style="padding:80px 0"><div class="pilot">
+    <div><p class="kicker">Pilot</p><h2>${t(["先做一条细胞系的可行性判定。","Start with one cell line's feasibility check."])}</h2>
+    <p>${t(["2–4 周、零 GPU 的 CellTwin 起步项目：一份八层 Cell Passport、一张噪声天花板表、五级基线阶梯得分，外加污染审计判定与适用域声明。结论只有两种——这条系这个 readout 有可建模余量，或者没有。没有的话，我们不会卖你后面六条线。",
+      "A 2–4 week, zero-GPU CellTwin engagement: an eight-layer Cell Passport, a noise-ceiling table, five-rung baseline scores, a contamination verdict and a domain-of-applicability statement. There are only two outcomes — that readout in that line has modelling headroom, or it does not. If it does not, we will not sell you the other six lines."])}</p></div>
+    <a class="button" href="#/lines/celltwin-ai" style="border-color:#0d1720">CellTwin-AI ↗</a>
+  </div></section>
+  ${foot()}`;
+}
+
+function pageMatrix(){
+  return `<div class="shell"><div class="crumb"><a href="#/">${t(D.ui.overview)}</a> / ${t(D.ui.matrix)}</div></div>
+  <section class="shell pad-s">
+    <p class="eyebrow"><i></i>Cell-line substrate matrix</p>
+    <h1 class="big" style="margin:20px 0">${t(["按细胞系立项，不按模型立项。","Scope by cell line, not by model."])}</h1>
+    <p class="lede">${t(["选细胞系的第一个问题不是「它像不像病人」，是「它有没有能训练和验收的底座数据」。没有底座就没有噪声天花板，没有噪声天花板就没有验收标准，所有分数都无法解释。",
+      "The first question about a cell line is not whether it resembles a patient, but whether it carries data you can train and accept against. No substrate means no noise ceiling; no noise ceiling means no acceptance criterion, and every score becomes uninterpretable."])}</p>
+    <div style="margin-top:32px">${matrixTable()}</div>
+    <div class="note" style="margin-top:20px">${t(D.matrix.note)}</div>
+    <div class="note" style="margin-top:14px">${t(["<b>客户自有细胞系怎么办。</b>先走 VC-TWN-008 的可行性判定：盘点已有数据、估算需要补多少扰动 / 签名 / 成像，给出建库方案与报价。补库通常比硬训一个没有验收标准的模型便宜。",
+      "<b>For a client-owned line.</b> Start with the VC-TWN-008 feasibility check: inventory what exists, estimate how much perturbation / signature / imaging data must be generated, and cost the plan. Generating the substrate is usually cheaper than force-training a model with no acceptance criterion."])}
+    <div class="btnrow"><a class="button" href="#/catalog/VC-TWN-008">VC-TWN-008 ↗</a></div></div>
+  </section>${foot()}`;
+}
+
+function pageBounds(){
+  return `<div class="shell"><div class="crumb"><a href="#/">${t(D.ui.overview)}</a> / ${t(D.ui.bounds)}</div></div>
+  <section class="shell pad-s">
+    <p class="eyebrow"><i></i>Capability boundary</p>
+    <h1 class="big" style="margin:20px 0">${t(["把不能承诺的部分写进产品。","Write what cannot be promised into the product."])}</h1>
+    <p class="lede">${t(["虚拟细胞这个赛道最大的商业风险不是做不出来，是承诺了做不到的事。下面三档来自真实数据上的实测，第三档会作为排除条款进入合同附件。",
+      "The main commercial risk in this field is not failing to build the thing; it is promising what cannot be done. The three tiers come from measurements on real data, and the third becomes a contract exclusion clause."])}</p>
+    <div style="margin-top:34px">${boundsHTML()}</div>
+    <div style="margin-top:44px">
+      <p class="kicker">Settlement</p>
+      <h2 class="mid" style="margin:12px 0 14px">${t(["结算口径：富集倍数，不是相关系数。","Settlement: enrichment fold, not correlation."])}</h2>
+      <p class="lede">${T(D.family.promiseP)}</p>
+      <div class="epgrid" style="margin-top:24px">
+        <div><strong>10,000</strong><span>${t(["初筛库容量","Library size"])}</span></div>
+        <div><strong>0.5%</strong><span>${t(["历史真实命中率 → 50 个真阳性","Historical hit rate → 50 true positives"])}</span></div>
+        <div><strong>8×</strong><span>${t(["虚拟预筛富集 → 头部 500 孔命中 4%","Enrichment → top 500 wells hit at 4%"])}</span></div>
+        <div><strong>20×</strong><span>${t(["实验量下降，代价是召回 40%","Fewer wells, at the cost of 40% recall"])}</span></div>
+      </div>
+      <div class="note" style="margin-top:18px">${t(["<b>划不划算取决于一个 hit 的边际价值对一个孔的边际成本。</b>靶点富集的小库不值得做预筛；十万级表型库、或者动物实验前的排序，杠杆才起来。每个项目的验收表都会填上这四个数的真实值。",
+        "<b>Whether it pays depends on the marginal value of a hit against the marginal cost of a well.</b> A small, target-enriched library is not worth pre-screening; a 10⁵ phenotypic library, or ranking ahead of an animal study, is where the leverage sits. Every engagement fills these four numbers with real values."])}</div>
+    </div>
+    <div class="btnrow" style="margin-top:30px"><a class="button" href="#/validate">${t(D.ui.validate)} ↗</a></div>
+  </section>${foot()}`;
+}
+
+function pageValidate(){
+  const s=D.splits;
+  return `<div class="shell"><div class="crumb"><a href="#/">${t(D.ui.overview)}</a> / <a href="#/bounds">${t(D.ui.bounds)}</a> / ${t(D.ui.validate)}</div></div>
+  <section class="shell pad-s">
+    <p class="eyebrow"><i></i>Validation protocol</p>
+    <h1 class="big" style="margin:20px 0">${T(s.title)}</h1>
+    <p class="lede">${T(s.lede)}</p>
+    <div class="tw" style="margin-top:32px"><table><thead><tr>
+      <th>${t(["数据拆分","Data split"])}</th><th>${t(["优先级","Priority"])}</th><th>${t(["回答的问题","Question answered"])}</th>
+    </tr></thead><tbody>${s.rows.map(r=>
+      `<tr><td class="k m">${T(r[0])}</td><td class="c"><span class="ph">${T(r[1])}</span></td><td>${T(r[2])}</td></tr>`).join('')}
+    </tbody></table></div>
+    <div class="note" style="margin-top:20px">${T(s.metrics)}</div>
+    <div class="note" style="margin-top:12px">${t(s.floor)}</div>
+    <div style="margin-top:44px">
+      <p class="kicker">Engagement phases</p>
+      <h2 class="mid" style="margin:12px 0 14px">${t(["三阶段，每阶段带停止条件。","Three phases, each with a stop condition."])}</h2>
+      <div class="tw"><table><thead><tr>
+        <th>${t(["阶段","Phase"])}</th><th>${t(["周期 / 算力","Duration / compute"])}</th><th>${t(["交付","Deliverable"])}</th><th>${t(["停止条件","Stop condition"])}</th>
+      </tr></thead><tbody>
+        <tr><td class="k">Phase 0<br>${t(["盘点与地基","Inventory & foundation"])}</td><td class="m">${t(["2–4 周<br>零 GPU","2–4 weeks<br>no GPU"])}</td>
+          <td>${t(["八层 Cell Passport、噪声天花板表、五级基线阶梯、污染审计判定、化合物侧两条检索基线。","Eight-layer Cell Passport, noise-ceiling table, five-rung baseline ladder, contamination verdict, and the two chemical-side retrieval baselines."])}</td>
+          <td>${t(["噪声天花板低到基线已贴顶 → 这条系这个 readout 没有可建模余量，换 readout 或换系，不硬训。","Baselines already at the ceiling → no headroom for that readout in that line; change readout or line rather than force-training."])}</td></tr>
+        <tr><td class="k">Phase 1<br>${t(["主力模块","Core modules"])}</td><td class="m">${t(["1–2 月<br>少量 GPU","1–2 months<br>light GPU"])}</td>
+          <td>${t(["系内扰动模型（分层报未见靶点与未见细胞系）、化合物表型检索、Assay Emulator 首个 readout head、实验减量对账表。","Within-line perturbation model (stratified by unseen target and unseen line), compound phenotype retrieval, the first Assay Emulator readout head, and the well-reduction reconciliation."])}</td>
+          <td>${t(["打不赢 no-change / 平均扰动 / 线性 / 最近邻检索 → 改架构，不调参硬凑，不换指标重报。","Fails to beat no-change / mean-perturbation / linear / nearest-neighbour → change the architecture; do not tune your way there or re-report on a different metric."])}</td></tr>
+        <tr><td class="k">Phase 2<br>${t(["整合与闭环","Integration & loop"])}</td><td class="m">${t(["2–3 月","2–3 months"])}</td>
+          <td>${t(["顺式与反式并列输出、动力学预警引擎、不确定性分层与适用域告警、主动学习闭环、外部湿实验验证集。","Cis and trans reported side by side, the dynamics warning engine, uncertainty stratification with domain alerts, an active-learning loop, and an external wet-lab validation set."])}</td>
+          <td>${t(["外部湿实验集上未能复现富集倍数 → 这层不上线，回到 Phase 1。","Enrichment does not reproduce on the external wet-lab set → the layer does not ship; return to Phase 1."])}</td></tr>
+      </tbody></table></div>
+    </div>
+  </section>${foot()}`;
+}
+
+function pageRefs(){
+  return `<div class="shell"><div class="crumb"><a href="#/">${t(D.ui.overview)}</a> / ${t(D.ui.refs)}</div></div>
+  <section class="shell pad-s">
+    <p class="eyebrow"><i></i>References</p>
+    <h1 class="big" style="margin:20px 0">${t(["公开资源与方法出处","Public resources and method sources"])}</h1>
+    <p class="lede">${t(["本家族的模型选型、数据底座与验证协议依据的公开资源。产品页中的所有演示数量为示意；真实项目的数字来自客户数据。",
+      "The public resources behind this family's model selection, data substrate and validation protocol. All figures on product pages are illustrative; real engagement numbers come from client data."])}</p>
+    <div class="reflist" style="margin-top:30px">${D.refs.map(r=>
+      `<a href="${E(r[1])}" target="_blank" rel="noopener"><span>${E(r[0])}</span><em>${E(r[1])}</em></a>`).join('')}</div>
+  </section>${foot()}`;
+}
+
+function pageLine(slug){
+  const l=lineBy(slug); if(!l) return pageFamily();
+  const i=D.lines.indexOf(l);
+  return `
+  <div class="shell"><div class="crumb"><a href="#/">${t(D.ui.overview)}</a> / <a href="#/matrix">${t(D.ui.matrix)}</a> / ${E(l.name)}</div></div>
+  <header class="shell" style="--acc:${l.acc}"><div class="dhero">
+    <div class="didx">${nn(i)} / ${nn(D.lines.length-1)}<br>${E(l.code)}<br>${T(l.axis)}</div>
+    <div class="dtitle"><p class="code">${E(l.name)}</p><h1>${T(l.title)}</h1>
+      <div class="tagrow"><b>VC · ${T(D.family.name)}</b><b>${T(l.domain)}</b><b>${l.sols.length} ${t(D.ui.sols)}</b></div></div>
+    <div class="dpromise"><strong>${T(l.q)}</strong><p>${T(l.promiseP)}</p></div>
+  </div></header>
+
+  <section class="endpoint"><div class="shell pad-s">
+    <p class="kicker">${t(D.ui.spine)}</p>
+    <h2 class="mid" style="margin:12px 0 20px">${T(l.promise)}</h2>
+    ${stepsHTML(l.steps)}
+  </div></section>
+
+  <section class="shell pad">
+    <p class="kicker">Target-specific solutions</p>
+    <h2 class="mid" style="margin:12px 0 10px">${l.sols.length} ${t(D.ui.sols)} · ${T(l.axis)}</h2>
+    <p class="lede" style="margin-bottom:24px">${t(["选择具体标的或应用场景，查看候选规模、证据框架、组合约束和实验交付。",
+      "Pick a subject or scenario to see candidate scale, evidence framework, selection constraints and experimental deliverables."])}</p>
+    <div class="solgrid">${l.sols.map((s,j)=>`
+      <a class="solcard" href="#/catalog/${solId(l,s)}">
+        <span>${nn(j)} · ${E(solId(l,s))}</span>
+        <h4>${T(s[1])}</h4><small>${T(s[2])}</small>
+        <b>${T(s[4])}<i>↗</i></b>
+      </a>`).join('')}</div>
+    <div class="note" style="margin-top:22px"><b>${t(D.ui.bounds)}.</b>
+      ${t(D.ui.okL)}: ${T(l.bounds[0])}. ${t(D.ui.midL)}: ${T(l.bounds[1])}.
+      <b>${t(D.ui.noL)}: ${T(l.bounds[2])}</b> — ${t(D.ui.boundNote)}</div>
+  </section>
+
+  <section class="spec"><div class="shell pad-s">
+    <p class="kicker">Engagement &amp; deliverables</p>
+    <h2 class="mid" style="margin:12px 0 22px">${t(D.ui.deliver)}</h2>
+    ${specHTML(l,null)}
+  </div></section>
+
+  <section class="shell pad-s">
+    <p class="kicker">${t(D.ui.relLines)}</p>
+    <div class="rel">${D.lines.filter(x=>x!==l).map(x=>
+      `<a href="#/lines/${x.slug}"><em>${E(x.code)}</em>${T(x.title)}<i>↗</i></a>`).join('')}</div>
+  </section>
+  ${foot()}`;
+}
+
+function pageSolution(id){
+  const [l,s]=findSol(id); if(!l) return pageFamily();
+  const j=l.sols.indexOf(s), subj=t(s[2]), use=t(s[3]), ep=t(s[4]);
+  const chain=ep.split('→').map(x=>x.trim());
+  const cols=t(D.ui.cols).split('|'), ch=t(D.ui.caseHead).split('|');
+  const around=(a,b)=>L===0?`${a}；${b}`:`${a}. ${b}`;
+  const phases=[
+    [t(["1. 项目定义","1. Scope definition"]),
+      L===0?`围绕「${subj}」冻结主目标、应用场景、实验容量、硬约束、对照和成功标准。`
+           :`Around "${subj}", freeze the objective, use case, experimental capacity, hard constraints, controls and success criteria.`,
+      "project_spec.yaml", t(["目标可量化；实验 readout 已确定","Objective quantifiable; experimental readout fixed"])],
+    [t(["2. 数据接入与 QC","2. Data intake & QC"]), t(l.qc), "input_manifest.csv · input_qc.html",
+      t(["关键字段、版本、编号和样本关系通过","Key fields, versions, identifiers and sample relations pass"])],
+    [t(["3. 候选空间生成","3. Candidate space"]), around(t(l.steps[1][1]), t(l.gen)), "candidate_space.parquet",
+      t(["候选可追溯、可制造 / 可测定","Candidates traceable and makeable / measurable"])],
+    [t(["4. 多证据校准","4. Multi-evidence calibration"]), around(t(l.steps[2][1]), t(l.cal)), "evidence_matrix.csv · calibration.html",
+      t(["适用域、冲突证据和不确定性已标记","Domain, conflicting evidence and uncertainty flagged"])],
+    [t(["5. 约束组合选择","5. Constrained selection"]), around(t(l.steps[3][1]), t(l.sel)), "selected_panel.csv · decision_log.json",
+      t(["硬约束零违例；组合覆盖达标","Zero hard-constraint violations; coverage met"])],
+    [t(["6. 实验就绪交付","6. Experiment-ready delivery"]), around(t(l.steps[4][1]), t(l.out)), "experiment_package · plate_map",
+      t(["对照、板位、判读与异常处理可执行","Controls, plate positions, read rules and exceptions executable"])],
+    [t(["7. 数据回流与下一轮","7. Return & next round"]), t(l.loop), "round2_plan.html",
+      t(l.exit)]
+  ];
+  return `
+  <div class="shell"><div class="crumb"><a href="#/">${t(D.ui.overview)}</a> / <a href="#/lines/${l.slug}">${E(l.name)}</a> / ${E(id)}</div></div>
+  <header class="shell" style="--acc:${l.acc}"><div class="dhero">
+    <div class="didx">${nn(j)} / ${nn(l.sols.length-1)}<br>${E(l.code)}<br>${T(l.axis)}</div>
+    <div class="dtitle"><p class="code">${E(id)}</p><h1>${T(s[1])}</h1>
+      <div class="tagrow"><b>${E(l.name)} · ${T(l.title)}</b><b class="m">${E(subj)}</b><b>${E(use)}</b></div></div>
+    <div class="dpromise"><strong>${T(l.q)}</strong><p>${T(l.promiseP)}</p></div>
+  </div></header>
+
+  <section class="endpoint"><div class="shell pad-s">
+    <p class="kicker">${t(D.ui.spine)}</p>
+    <h2 class="mid" style="margin:12px 0 18px">${L===0?`五步骨架，落到「${E(subj)}」。`:`The method spine, applied to "${E(subj)}".`}</h2>
+    ${stepsHTML([
+      [l.steps[0][0], [`${subj}；${t(l.steps[0][1])}`, `${subj}. ${t(l.steps[0][1])}`][L]],
+      l.steps[1], l.steps[2], l.steps[3],
+      [l.steps[4][0], [`${t(s[1])}：${t(l.steps[4][1])}`, `${t(s[1])}: ${t(l.steps[4][1])}`][L]]
+    ])}
+    <p class="kicker" style="margin-top:36px">${t(D.ui.demo)}</p>
+    <h2 class="mid" style="margin:10px 0 0">${E(ep)}</h2>
+    <div class="epgrid">
+      ${chain.map(c=>{const m=c.match(/[~≈]?\d[\d,.]*\s*[万千kK%×]?/);
+        const head=m?m[0].trim():c;
+        return `<div><strong${m?'':' style="font-size:20px"'}>${E(head)}</strong><span>${E(c)}</span></div>`;}).join('')}
+      ${chain.length<4?`<div><strong style="font-size:20px">${E(use)}</strong><span>${t(["应用案例","Use case"])}</span></div>`:''}
+      ${chain.length<3?`<div><strong style="font-size:20px">${T(l.price)}</strong><span>${t(["项目范围","Engagement size"])}</span></div>`:''}
+    </div>
+    <div class="note" style="margin-top:16px">${t(D.ui.demoNote)}</div>
+  </div></section>
+
+  <section class="wf"><div class="shell pad">
+    <p class="kicker">${t(D.ui.impl)}</p>
+    <h2 class="mid" style="margin:12px 0 12px">${t(["把五步方法，落实为可验收的项目流程。","Turning the five-step method into an acceptable project process."])}</h2>
+    <p class="lede">${t(D.ui.implLede)}</p>
+    <div class="wftable"><table><thead><tr>${cols.map(c=>`<th>${E(c)}</th>`).join('')}</tr></thead><tbody>
+      ${phases.map(p=>`<tr><td class="n">${E(p[0])}</td><td>${E(p[1])}</td><td class="f">${E(p[2])}</td><td class="g">${E(p[3])}</td></tr>`).join('')}
+    </tbody></table></div>
+  </div></section>
+
+  <section class="shell pad" style="--acc:${l.acc}">
+    <p class="kicker">${t(D.ui.case)}</p>
+    <h2 class="mid" style="margin:12px 0 10px">${T(s[1])}${L===0?"：从项目输入到下一轮实验。":": from project input to the next round."}</h2>
+    <p class="lede">${t(D.ui.caseLede)}</p>
+    <div class="case4">
+      <article><span>01 / INPUT</span><h4>${E(ch[0])}</h4><p>${L===0?`${E(subj)}。启动时冻结原始数据、项目目标、实验容量、硬约束及对照设计。`:`${E(subj)}. At kickoff, freeze the raw data, objective, experimental capacity, hard constraints and control design.`}</p></article>
+      <article><span>02 / COMPUTE</span><h4>${E(ch[1])}</h4><p>${T(l.gen)} ${T(l.cal)}</p></article>
+      <article><span>03 / DECIDE</span><h4>${E(ch[2])}</h4><p>${T(l.sel)}</p></article>
+      <article><span>04 / LAB</span><h4>${E(ch[3])}</h4><p>${T(l.out)} ${T(l.loop)}</p></article>
+    </div>
+    <div class="exit"><b>CASE EXIT</b>　${T(l.exit)}　·　${T(l.formats)}</div>
+    <div class="note" style="margin-top:22px"><b>${t(D.ui.boundLine)}.</b>
+      ${t(D.ui.okL)}: ${T(l.bounds[0])}. ${t(D.ui.midL)}: ${T(l.bounds[1])}.
+      <b>${t(D.ui.noL)}: ${T(l.bounds[2])}</b>.</div>
+  </section>
+
+  <section class="spec"><div class="shell pad-s">
+    <p class="kicker">Standard deliverables</p>
+    <h2 class="mid" style="margin:12px 0 22px">${t(["从输入数据到实验可用资产","From input data to lab-ready assets"])}</h2>
+    ${specHTML(l,s)}
+  </div></section>
+
+  <section class="shell pad-s">
+    <p class="kicker">${t(D.ui.related)}</p>
+    <h2 class="mid" style="margin:12px 0 4px">${E(l.name)}</h2>
+    <div class="rel">${l.sols.filter(x=>x!==s).map(x=>
+      `<a href="#/catalog/${solId(l,x)}"><em>${E(solId(l,x))}</em>${T(x[1])}<i>↗</i></a>`).join('')}</div>
+  </section>
+  ${foot()}`;
+}
+
+/* ============ router ============ */
+function navHTML(){
+  const other = LANG==='zh' ? 'EN' : '中文';
+  return `<a href="#/">${t(D.ui.overview)}</a><a href="#/matrix">${t(D.ui.matrix)}</a>
+    <a href="#/bounds">${t(D.ui.bounds)}</a><a href="#/validate">${t(D.ui.validate)}</a>
+    <a href="#/refs">${t(D.ui.refs)}</a>
+    <a class="nav-cta" href="#/lines/celltwin-ai">${t(D.ui.pilot)}</a>
+    <a class="lang" href="#" id="langbtn">${other}</a>`;
+}
+function render(){
+  const r=(location.hash.slice(1)||'/').split('?')[0];
+  let html;
+  if(r.startsWith('/lines/')) html=pageLine(r.slice(7));
+  else if(r.startsWith('/catalog/')) html=pageSolution(r.slice(9));
+  else if(r==='/matrix') html=pageMatrix();
+  else if(r==='/bounds') html=pageBounds();
+  else if(r==='/validate') html=pageValidate();
+  else if(r==='/refs') html=pageRefs();
+  else html=pageFamily();
+  document.getElementById('app').innerHTML=html;
+  document.getElementById('navlinks').innerHTML=navHTML();
+  const b=document.getElementById('langbtn');
+  if(b) b.onclick=e=>{e.preventDefault();LANG=LANG==='zh'?'en':'zh';L=LANG==='zh'?0:1;
+    try{document.documentElement.lang=LANG==='zh'?'zh-CN':'en';}catch(_){}
+    render();};
+  window.scrollTo({top:0,behavior:'instant'});
+}
+L = LANG==='zh'?0:1;
+window.addEventListener('hashchange',render);
+render();
+</script>
