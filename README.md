@@ -41,3 +41,26 @@ python3 -m grn_pipeline.m1_symmetry   # or any single module
 Figures are written to `figures/`. A full write-up with numbers, rigour
 labels, and the interpretation (including the Lyapunov-exponent biomarker
 question) is in [`REPORT.md`](REPORT.md).
+
+---
+
+## `binder_campaign` — Anthropic protein-binder-design campaign prompt
+
+A separate, self-contained package implementing the mechanically-specified core
+of Anthropic's *de novo* miniprotein binder design campaign prompt (HuggingFace
+`Anthropic/claude-protein-binder-design`, CC BY 4.0): the LCP sequence
+restraint from Figure 1, the three-arm scoring instrument, the fail-closed
+`submit_gate`, the concurrency governor, the ledger tree, the four pre-scoring
+gates, the design-sheet writer with its selection caps and relaxation ladder,
+and the companion/scoreboard deliverables.
+
+```bash
+pip install numpy pandas pyarrow pytest
+python3 -m pytest tests/ -q          # 153 tests
+python3 -m binder_campaign.demo      # end-to-end dry run -> demo_out/
+```
+
+See [`binder_campaign/README.md`](binder_campaign/README.md) for what was
+downloaded, what is and is not implementable without GPUs/Modal/a CRO, and the
+three places the prompt needed interpretation. The prompts themselves are in
+[`prompts/`](prompts/).
