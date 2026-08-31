@@ -1,0 +1,56 @@
+==============================================================================
+0. SCORER REPRODUCTION CHECK (my OpenKnot implementation on the *experimental* data)
+   n = 17710   Pearson r = 0.93493   MAE = 0.653
+
+1. PER-DESIGN SHAPE PROFILE ACCURACY (predicted vs measured 2A3, SN_filter=1)
+   n = 17517   mean Pearson r = 0.500   median = 0.510   frac r>0.7 = 0.10
+
+2. IN-SILICO vs EXPERIMENTAL OpenKnot SCORE   (SN_filter=1, n=17517)
+   Round 1: n= 8571  pooled Spearman=0.598   within-target Spearman (median of 17 targets) = 0.459  [range 0.14..0.63]
+   Round 3: n= 8946  pooled Spearman=0.397   within-target Spearman (median of 20 targets) = 0.295  [range -0.20..0.63]
+
+3. SCREENING ENRICHMENT  (pick top-k designs per target by in-silico score;
+   how many are experimental successes, OpenKnot score > 90?)
+
+   --- Round 1 ---
+   base rate (all designs)              :  19.9%   n=8571
+   top-1   by in-silico score           :  47.1%   (enrichment x2.37)   targets with >=1 success in top-1: 47%
+   top-5   by in-silico score           :  49.4%   (enrichment x2.48)   targets with >=1 success in top-5: 88%
+   top-10  by in-silico score           :  43.5%   (enrichment x2.19)   targets with >=1 success in top-10: 88%
+   top-25  by in-silico score           :  36.9%   (enrichment x1.86)   targets with >=1 success in top-25: 94%
+   random-10 baseline                   : targets with >=1 success: 65% +/- 10%
+
+   --- Round 3 ---
+   base rate (all designs)              :  39.0%   n=8946
+   top-1   by in-silico score           :  65.0%   (enrichment x1.67)   targets with >=1 success in top-1: 65%
+   top-5   by in-silico score           :  62.0%   (enrichment x1.59)   targets with >=1 success in top-5: 80%
+   top-10  by in-silico score           :  55.0%   (enrichment x1.41)   targets with >=1 success in top-10: 90%
+   top-25  by in-silico score           :  49.2%   (enrichment x1.26)   targets with >=1 success in top-25: 95%
+   random-10 baseline                   : targets with >=1 success: 81% +/- 6%
+
+4. PREDICTOR COMPARISON — AUROC for 'design will be an experimental success'
+   (pooled within round; RNet_F1 is the filter reported in the paper;
+    GC content is the trivial baseline any sequence model could be exploiting)
+    round      n  in-silico OKS   RNet_F1  RNet_F1_cp   GC only
+        1   8571          0.749     0.720       0.675     0.593
+        3   8946          0.671     0.570       0.583     0.449
+
+4b. IS THE MODEL BEATING GC CONTENT?  AUROC of the in-silico score computed
+    inside narrow GC strata (GC held ~constant, so it cannot be the explanation)
+   Round 1: GC 0.45-0.50 (n=1033) AUROC=0.727   GC 0.50-0.55 (n=2100) AUROC=0.819   GC 0.55-0.60 (n=951) AUROC=0.765   GC 0.60-0.65 (n=1350) AUROC=0.687   GC 0.65-0.70 (n=845) AUROC=0.720   GC 0.70-0.75 (n=342) AUROC=0.526
+   Round 3: GC 0.45-0.50 (n=1872) AUROC=0.641   GC 0.50-0.55 (n=1606) AUROC=0.580   GC 0.55-0.60 (n=1793) AUROC=0.725   GC 0.60-0.65 (n=1497) AUROC=0.776   GC 0.65-0.70 (n=779) AUROC=0.840   GC 0.70-0.75 (n=371) AUROC=0.757
+
+5. BY DESIGN METHOD (Round 3, SN_filter=1)
+           method    n  exp_success_pct  mean_exp  mean_insilico  spearman  auroc
+Starting sequence  196           57.143    88.333         83.405     0.132  0.550
+      gRNAde-no3d  377           51.194    88.347         97.868     0.367  0.716
+           Eterna 3927           48.052    87.121         84.956     0.514  0.729
+           gRNAde  364           41.758    86.564         93.895     0.486  0.765
+       MPNN-fixbb  390           40.256    82.814         85.198     0.777  0.896
+ Struct2SeQ-SHAPE  391           36.061    86.115         95.455     0.139  0.566
+      MPNN-RFdiff  381           32.546    84.296         88.949     0.538  0.775
+               M2 1742           31.917    84.505         80.536     0.332  0.627
+       Struct2SeQ  387           21.447    82.050         94.062     0.251  0.729
+          Rosetta  791           10.493    73.339         85.015     0.637  0.856
+
+saved per-design table -> /home/user/work/analysis_table.csv
