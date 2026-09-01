@@ -1,0 +1,1006 @@
+<title>虚拟检测委托台</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;800&family=Noto+Serif+SC:wght@500;600&display=swap">
+<style>
+:root{
+  --ink:#0d1720; --navy:#102836; --paper:#f3f0e9; --white:#fffdf8; --band:#e2ded5;
+  --muted:#667078; --line:#0d172024; --line2:#0d172040; --line3:#0d17206b;
+  --lime:#c9ee45; --coral:#ff8a6b;
+  --c1:#1c68c9; --c2:#c2571c; --c3:#7a4fbf; --c4:#3f8a4a;
+  --s1:#e6edf9; --s2:#c2d5ef; --s3:#8fb2e2; --s4:#4d86d4; --s5:#1c68c9;
+  --good:#3f8a4a; --warn:#b5791a; --bad:#b3402c;
+  --serif:Georgia,"Noto Serif SC",serif;
+  --sans:Inter,"Noto Sans SC","PingFang SC","Microsoft YaHei",Arial,sans-serif;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  color-scheme:light;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:inherit} ul,ol{list-style:none}
+.shell{width:min(1280px,100% - 40px);margin:0 auto}
+.pad{padding:70px 0} .pad-s{padding:44px 0}
+
+.nav{border-bottom:1px solid var(--line);background:var(--paper);position:sticky;top:0;z-index:40}
+.nav-in{width:min(1380px,100% - 40px);margin:0 auto;min-height:64px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;padding:8px 0}
+.brand{display:flex;align-items:center;gap:10px;font-size:13.5px;font-weight:750}
+.brand-mark{background:var(--ink);color:var(--lime);width:27px;height:27px;border-radius:50%;display:grid;place-items:center;font-family:Georgia,serif;font-size:14px}
+.nav-links{display:flex;gap:22px;font-size:12.5px;color:#34414a;flex-wrap:wrap;align-items:center}
+.nav-links a:hover{color:#000}
+
+.kicker{font:800 10px/1.4 var(--mono);letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.eyebrow{display:flex;align-items:center;gap:9px;font:800 11px var(--mono);letter-spacing:.2em;text-transform:uppercase;color:#50616d}
+.eyebrow i{background:var(--lime);width:8px;height:8px;border-radius:50%;box-shadow:0 0 0 4px #c9ee4538;font-style:normal;flex:none}
+h1.big{font-family:var(--serif);font-weight:500;letter-spacing:-.05em;line-height:1.04;font-size:clamp(36px,5.2vw,68px)}
+h2.mid{font-family:var(--serif);font-weight:500;letter-spacing:-.03em;line-height:1.18;font-size:clamp(25px,3.2vw,38px)}
+h3.sm{font-family:var(--serif);font-weight:500;font-size:21px;letter-spacing:-.02em}
+p.lede{color:#4f5d66;line-height:1.85;max-width:72ch}
+.mut{color:var(--muted)}
+
+.hero{display:grid;grid-template-columns:1.12fr .88fr;gap:60px;align-items:center;padding:56px 0 64px}
+.hero-r{border-left:1px solid var(--line);padding-left:30px}
+.hero-r strong{display:block;font:500 20px/1.5 var(--serif);margin-bottom:14px}
+.hero-r p{color:var(--muted);line-height:1.8;font-size:13.5px}
+
+/* three-way compare */
+.cmp{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:30px}
+.cmp article{border:1px solid var(--line);background:#ffffff7a;padding:26px;border-top:5px solid var(--tc)}
+.cmp h4{font:800 10px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--tc);margin-bottom:8px}
+.cmp .q{font:500 19px/1.4 var(--serif);margin-bottom:14px;letter-spacing:-.01em}
+.cmp dl{border-top:1px solid var(--line);font-size:12.5px}
+.cmp dt{font:10px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted);padding-top:11px}
+.cmp dd{padding-bottom:11px;border-bottom:1px solid var(--line);line-height:1.65}
+.cmp dd:last-child{border-bottom:0}
+
+/* capability tiers */
+.tiers{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.tier{border:1px solid var(--line);background:#ffffff73;padding:24px;border-top:5px solid var(--tc)}
+.tier h4{font:800 10px var(--mono);letter-spacing:.14em;text-transform:uppercase;margin-bottom:5px}
+.tier>p{font:500 17px/1.4 var(--serif);margin-bottom:14px}
+.tier li{font-size:12.5px;line-height:1.65;padding:9px 0;border-top:1px solid var(--line);display:flex;gap:9px}
+.tier li:before{content:"";flex:none;width:5px;height:5px;border-radius:50%;background:var(--tc);margin-top:8px}
+.tier li b{font-weight:700}
+
+/* desk */
+.desk{background:var(--navy);color:#fff}
+.tabs{display:flex;gap:2px;flex-wrap:wrap;margin:26px 0 0}
+.tabs button{background:#ffffff12;border:1px solid #ffffff26;color:#c9d6dc;padding:13px 20px;font:inherit;font-size:13px;cursor:pointer;font-weight:600;transition:.15s}
+.tabs button:hover{background:#ffffff1f;color:#fff}
+.tabs button[aria-selected=true]{background:var(--lime);border-color:var(--lime);color:var(--ink)}
+.tabs button em{font-style:normal;font:10px var(--mono);opacity:.7;display:block;margin-top:2px}
+
+.order{display:grid;grid-template-columns:1.05fr .95fr;gap:2px;border:1px solid #ffffff26;margin-top:2px}
+.order>div{background:#ffffff0d;padding:26px}
+.order h3{font:500 20px var(--serif);margin-bottom:4px}
+.order .hint{color:#8fa3ae;font-size:12px;line-height:1.7;margin-bottom:18px}
+label.f{display:block;margin-bottom:15px}
+label.f>span{display:block;font:800 10px var(--mono);letter-spacing:.11em;text-transform:uppercase;color:#8fa3ae;margin-bottom:6px}
+textarea,select,input[type=number],input[type=text]{
+  width:100%;background:#0a1a24;color:#e8f0f3;border:1px solid #ffffff2e;padding:11px 12px;
+  font-family:var(--mono);font-size:12.5px;line-height:1.7;border-radius:2px}
+textarea{min-height:172px;resize:vertical;white-space:pre;overflow-x:auto}
+select{font-family:var(--sans);font-size:13px}
+textarea:focus,select:focus,input:focus{outline:2px solid var(--lime);outline-offset:1px;border-color:var(--lime)}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.runbar{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-top:6px}
+.run{background:var(--lime);color:var(--ink);border:0;padding:14px 26px;font:inherit;font-weight:800;font-size:13.5px;cursor:pointer;border-radius:2px}
+.run:hover{background:#fff}
+.run:disabled{opacity:.5;cursor:default}
+.ghost{background:transparent;color:#c9d6dc;border:1px solid #ffffff33;padding:13px 18px;font:inherit;font-size:12.5px;cursor:pointer;border-radius:2px}
+.ghost:hover{border-color:var(--lime);color:var(--lime)}
+.runmsg{font:11px var(--mono);color:#8fa3ae}
+.err{color:var(--coral);font-size:12.5px;margin-top:10px;line-height:1.6}
+.spec{font:11px/1.9 var(--mono);color:#93a8b3}
+.spec b{color:var(--lime);font-weight:500}
+.spec hr{border:0;border-top:1px solid #ffffff1f;margin:14px 0}
+
+/* report */
+.rep{border:1px solid var(--line);background:var(--white);margin-top:2px}
+.rep-head{background:var(--band);border-bottom:1px solid var(--line);padding:20px 26px;display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;align-items:flex-end}
+.rep-head h3{font:500 25px var(--serif);letter-spacing:-.02em}
+.rep-head .m{font:11px/1.8 var(--mono);color:var(--muted);text-align:right}
+.rep-body{padding:26px}
+.rep-sec{margin-bottom:34px}
+.rep-sec:last-child{margin-bottom:0}
+.rep-sec>h4{font:800 10px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--muted);padding-bottom:9px;border-bottom:1px solid var(--line2);margin-bottom:16px;display:flex;justify-content:space-between;gap:12px;align-items:baseline}
+.rep-sec>h4 em{font-style:normal;font-weight:400;letter-spacing:0;text-transform:none;color:var(--muted);font-size:11px}
+
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--line)}
+.kpis div{padding:18px 20px;border-right:1px solid var(--line);background:#ffffff8f}
+.kpis div:last-child{border-right:0}
+.kpis strong{display:block;font:500 29px var(--serif);letter-spacing:-.03em;color:#152a3a;font-variant-numeric:tabular-nums}
+.kpis span{display:block;color:var(--muted);font-size:11px;margin-top:6px;line-height:1.5}
+
+.tw{overflow-x:auto;border:1px solid var(--line)}
+table{border-collapse:collapse;width:100%;min-width:640px;font-size:12.5px}
+th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.55}
+thead th{background:#f7f5f0;font:800 10px var(--mono);letter-spacing:.09em;text-transform:uppercase;color:var(--muted);white-space:nowrap;position:sticky;top:0}
+tbody tr:hover{background:#1c68c90d}
+tbody tr:last-child td{border-bottom:0}
+td.n{font-family:var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap;text-align:right}
+td.k{font-weight:700;white-space:nowrap}
+td.m{font-family:var(--mono);font-size:11.5px;color:var(--muted);max-width:230px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pill{display:inline-block;padding:1px 7px;border-radius:2px;font:10px var(--mono);border:1px solid;white-space:nowrap}
+.p-go{color:var(--good);border-color:#3f8a4a55;background:#3f8a4a12}
+.p-wa{color:var(--warn);border-color:#b5791a55;background:#b5791a12}
+.p-no{color:var(--bad);border-color:#b3402c55;background:#b3402c12}
+.p-nu{color:var(--muted);border-color:var(--line2);background:#0d17200a}
+
+/* plate */
+.plate-wrap{overflow-x:auto;border:1px solid var(--line);background:#ffffff8f;padding:16px}
+.plate{display:grid;gap:2px;min-width:600px}
+.well{aspect-ratio:1;border-radius:50%;border:1px solid #0d172018;position:relative}
+.well[data-r]{cursor:pointer}
+.well:hover{outline:2px solid var(--ink);outline-offset:1px;z-index:2}
+.plate .hdr{aspect-ratio:auto;border:0;background:none;font:9px var(--mono);color:var(--muted);display:grid;place-items:center;border-radius:0}
+.legend{display:flex;gap:16px;flex-wrap:wrap;margin-top:14px;font-size:11.5px;align-items:center}
+.legend i{width:11px;height:11px;border-radius:50%;display:inline-block;margin-right:6px;vertical-align:-1px;border:1px solid #0d17201f}
+.ramp{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--muted)}
+.ramp b{display:flex;gap:1px}
+.ramp b i{width:16px;height:11px;border-radius:0;margin:0;border:0}
+
+.tip{position:fixed;white-space:pre-line;background:var(--ink);color:#eef4f6;padding:9px 12px;border-radius:3px;font:11.5px/1.65 var(--mono);pointer-events:none;z-index:99;max-width:280px;box-shadow:0 8px 26px #0d172040;opacity:0;transition:opacity .1s}
+.tip b{color:var(--lime);font-weight:500}
+
+.chart{border:1px solid var(--line);background:#ffffff8f;padding:18px}
+.chart svg{display:block;width:100%;height:auto;overflow:visible}
+.chart .cap{font-size:11.5px;color:var(--muted);margin-top:10px;line-height:1.65}
+
+.note{border:1px solid var(--line);background:#ffffff8f;padding:16px 20px;font-size:12.5px;line-height:1.75;color:#3f4c54}
+.note b{color:var(--ink)}
+.note.warn{border-left:4px solid var(--warn);background:#b5791a0a}
+.note.stop{border-left:4px solid var(--bad);background:#b3402c0a}
+.note.ok{border-left:4px solid var(--good);background:#3f8a4a0a}
+.cols2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+
+.settle{background:var(--ink);color:#e9f0f2;padding:24px 26px}
+.settle h4{color:var(--lime);font:800 10px var(--mono);letter-spacing:.14em;text-transform:uppercase;margin-bottom:12px}
+.settle p{font-size:13px;line-height:1.8;color:#c7d4d9;max-width:78ch}
+.settle .big{font:500 22px/1.45 var(--serif);color:#fff;margin-bottom:12px}
+.settle code{background:#ffffff17;padding:2px 6px;border-radius:2px;font-family:var(--mono);font-size:12px;color:var(--lime)}
+
+.foot{border-top:1px solid var(--line);padding:26px 0 44px;color:var(--muted);font-size:10.5px;line-height:1.85}
+:focus-visible{outline:2px solid var(--c1);outline-offset:2px}
+@media (max-width:1000px){
+  .hero,.order,.cols2{grid-template-columns:1fr;gap:24px}
+  .hero-r{border-left:0;border-top:1px solid var(--line);padding:24px 0 0}
+  .cmp,.tiers,.kpis{grid-template-columns:1fr}
+  .kpis div{border-right:0;border-bottom:1px solid var(--line)}
+  .nav-links a{display:none}
+}
+</style>
+
+<nav class="nav"><div class="nav-in">
+  <a class="brand" href="#top"><span class="brand-mark">Q</span>QureGen BioDecision</a>
+  <div class="nav-links">
+    <a href="#why">知识库 vs 产品</a><a href="#can">能力边界</a>
+    <a href="#desk">委托台</a><a href="#cro">与湿实验 CRO 对照</a>
+  </div>
+</div></nav>
+
+<div id="top"></div>
+<header class="shell"><div class="hero">
+  <div>
+    <p class="eyebrow"><i></i>VC · 虚拟检测委托台 Virtual Assay Desk</p>
+    <h1 class="big" style="margin:20px 0">一个能被证伪的委托，<br>不是一次查询。</h1>
+    <p class="lede">知识库和产品的分界线只有一条：<b>客户能提交的东西是谁定义的</b>。从下拉菜单里选一项、看一份早就算好的答案，那是知识库。粘贴<b>你自己的</b>化合物清单、基因清单或单药组合，让模型在你的输入上跑，拿回一份能直接下单排板的交付物——那才是服务。</p>
+    <p class="lede" style="margin-top:14px">下面三个委托台是可操作的：输入框里的内容随便改、随便粘贴，每次运行都在浏览器里真实计算。</p>
+  </div>
+  <div class="hero-r">
+    <strong>形态对齐湿实验 CRO：委托单 → 检测 → 报告 → 结算。</strong>
+    <p>差别只在"检测"那一步是计算而不是移液。所以报告必须长得像 CRO 报告：hit 列表、板图、对照设计、QC、适用域告警，外加一份<strong>明确写着"这些我们不出，必须你去测"</strong>的清单，和一条可以对账的结算条款。</p>
+  </div>
+</div></header>
+
+<section class="shell pad-s" id="why">
+  <p class="kicker">The distinction</p>
+  <h2 class="mid" style="margin:12px 0 8px">三种东西长得像，价值完全不同。</h2>
+  <p class="lede">中间那一列就是之前那几个 demo 的问题所在——它们是<b>就绪度报告</b>，用来回答"这条细胞系值不值得建模"，是立项工具，不是交付工具。</p>
+  <div class="cmp">
+    <article style="--tc:var(--muted)">
+      <h4>A · 知识库</h4>
+      <div class="q">查一个已知事实</div>
+      <dl>
+        <dt>客户输入</dt><dd>从我给定的清单里选一项</dd>
+        <dt>输出</dt><dd>我预先算好的答案</dd>
+        <dt>客户能不能自带数据</dt><dd>不能</dd>
+        <dt>能不能被证伪</dt><dd>不能——它只是复述</dd>
+        <dt>可替代性</dt><dd>DepMap / CCLE 官网免费</dd>
+      </dl>
+    </article>
+    <article style="--tc:var(--c2)">
+      <h4>B · 就绪度报告（旧 demo 在这里）</h4>
+      <div class="q">判断这条系值不值得建模</div>
+      <dl>
+        <dt>客户输入</dt><dd>细胞系名（4 选 1）</dd>
+        <dt>输出</dt><dd>噪声天花板、基线阶梯、可建模余量</dd>
+        <dt>客户能不能自带数据</dt><dd>不能</dd>
+        <dt>能不能被证伪</dt><dd>能，但证伪的是<b>我们的立项判断</b></dd>
+        <dt>真实用途</dt><dd>售前尽调 / Phase 0 交付，不是常规服务</dd>
+      </dl>
+    </article>
+    <article style="--tc:var(--c1)">
+      <h4>C · 虚拟检测服务（产品）</h4>
+      <div class="q">替客户做一次决策</div>
+      <dl>
+        <dt>客户输入</dt><dd><b>他自己的</b>化合物 / 基因 / 组合清单</dd>
+        <dt>输出</dt><dd>排序表 + 板图 + 对照设计 + QC + 待测清单</dd>
+        <dt>客户能不能自带数据</dt><dd>必须自带，否则没有委托</dd>
+        <dt>能不能被证伪</dt><dd>能——按<b>富集倍数</b>结算</dd>
+        <dt>可替代性</dt><dd>没有现成替代；这是服务</dd>
+      </dl>
+    </article>
+  </div>
+</section>
+
+<section class="shell pad-s" id="can">
+  <p class="kicker">Straight answers</p>
+  <h2 class="mid" style="margin:12px 0 8px">你问的四件事，逐条回答。</h2>
+  <p class="lede" style="margin-bottom:26px">高通量筛选、药效模拟、多细胞组合——三个问题的答案分别是"能，但只能排序"、"部分，只有方向没有数值"、"不能"。把这三条分开说清楚，比笼统说"能做虚拟细胞"有用得多。</p>
+  <div class="tiers">
+    <div class="tier" style="--tc:var(--c4)">
+      <h4>能做</h4><p>虚拟高通量预筛 = 排序 + 排板</p>
+      <ul>
+        <li><b>HTS 预筛：</b>10³–10⁵ 化合物 → 一块 96/384 板。这是本产品的主战场</li>
+        <li><b>MoA 归类与去重：</b>结构 / 转录 / 形态最近邻检索</li>
+        <li><b>结构警报与成药性：</b>PAINS、Michael 受体、Lipinski / Veber</li>
+        <li><b>基因筛选设计：</b>靶点排序 + 对照 + 文库规模与测序深度</li>
+        <li><b>组合空间瘦身：</b>n² → 96 孔，含单药对照与浓度矩阵</li>
+        <li><b>板图与对照设计：</b>边缘效应规避、随机化、阴阳性对照布位</li>
+      </ul>
+    </div>
+    <div class="tier" style="--tc:var(--c2)">
+      <h4>部分能做</h4><p>方向与相对排序，没有绝对数值</p>
+      <ul>
+        <li><b>药效"模拟"：</b>能给转录响应<b>方向</b>、通路、MoA 类别；<b>不能</b>给 IC50 数值</li>
+        <li><b>剂量-时间：</b>只能在已测网格<b>内部</b>插值，不能外推</li>
+        <li><b>跨细胞选择性：</b>相对排序可信，绝对治疗窗不可信</li>
+        <li><b>毒性前哨：</b>风险<b>分诊</b>与对照设计，不是 DILI 结论</li>
+        <li><b>耐药：</b>支路假设与早期预警指标，不是发生时间</li>
+      </ul>
+    </div>
+    <div class="tier" style="--tc:var(--bad)">
+      <h4>不能做</h4><p>写进合同的排除条款</p>
+      <ul>
+        <li><b>多细胞共培养 / 免疫杀伤 / 微环境模拟：</b>没有可训练的配对数据，任何号称能做的都是外推</li>
+        <li><b>类器官与 3D 培养终点</b></li>
+        <li><b>绝对 IC50 / EC50 与完整剂量曲线</b></li>
+        <li><b>未经配对标签校准的蛋白、分泌、活力读数</b></li>
+        <li><b>从细胞系外推到患者响应</b></li>
+        <li><b>监管级毒理放行</b></li>
+      </ul>
+    </div>
+  </div>
+  <div class="note stop" style="margin-top:18px"><b>关于"多细胞组合模拟"。</b>这是被问得最多、也最该直接拒绝的一条。要模拟共培养或免疫杀伤，需要成对的「单培养 → 共培养」扰动数据作为训练与验收标准，公开数据里没有这样的规模。现在能诚实做的只有一件事：<b>分别</b>给出各个细胞类型的预测，并明确标注"两者相互作用未建模"。把两条单细胞预测拼起来叫共培养模拟，是这个领域最常见的过度承诺。</div>
+</section>
+
+<section class="desk" id="desk"><div class="shell pad">
+  <p class="kicker" style="color:#8fa3ae">Virtual assay desk</p>
+  <h2 class="mid" style="color:#fff;margin:12px 0 10px">下单，然后看报告。</h2>
+  <p class="lede" style="color:#c8d5da">三类委托各有独立的输入契约。输入框里的示例数据只是起点——<b style="color:#fff">清空、粘贴你自己的清单，结果会跟着变</b>。所有计算在你的浏览器里完成，不上传任何数据。</p>
+
+  <div class="tabs" role="tablist">
+    <button role="tab" id="tab-phe" aria-selected="true" onclick="setTab('phe')">A · 化合物预筛<em>VC-PHE · 你给化合物</em></button>
+    <button role="tab" id="tab-prt" aria-selected="false" onclick="setTab('prt')">B · 基因扰动筛选<em>VC-PRT · 你给基因</em></button>
+    <button role="tab" id="tab-cmb" aria-selected="false" onclick="setTab('cmb')">C · 组合排序<em>VC-CMB · 你给单药</em></button>
+  </div>
+  <div id="panels"></div>
+</div></section>
+
+<div class="shell"><div id="report"></div></div>
+
+<section class="shell pad-s" id="cro">
+  <p class="kicker">Positioning</p>
+  <h2 class="mid" style="margin:12px 0 20px">与湿实验 CRO 的关系：不是替代，是前置一环。</h2>
+  <div class="tw"><table>
+    <thead><tr><th></th><th>湿实验 CRO 筛选</th><th>虚拟检测委托（本产品）</th></tr></thead>
+    <tbody>
+      <tr><td class="k">客户提交</td><td>化合物实物 + 委托单</td><td>化合物清单 / 基因清单（结构或符号）+ 委托单</td></tr>
+      <tr><td class="k">周期</td><td>数周–数月</td><td>小时–天</td></tr>
+      <tr><td class="k">单位成本</td><td>按孔、按板计</td><td>按委托计，与规模弱相关</td></tr>
+      <tr><td class="k">输出性质</td><td><b>测量值</b>（有误差棒）</td><td><b>排序与设计</b>（有置信度与适用域）</td></tr>
+      <tr><td class="k">能否给 IC50</td><td>能</td><td>不能——只给排序</td></tr>
+      <tr><td class="k">失败模式</td><td>试剂、批次、边缘效应</td><td>适用域外、参考集不覆盖、基线未被打赢</td></tr>
+      <tr><td class="k">验收指标</td><td>Z′、S/B、重复 CV</td><td>富集倍数、头部召回、打赢基线的幅度</td></tr>
+      <tr><td class="k">典型衔接</td><td colspan="2">虚拟检测把 10⁴–10⁵ 压到 10²，湿实验 CRO 测这 10²，结果回流校准下一轮——两者是串联，不是竞争</td></tr>
+    </tbody>
+  </table></div>
+  <div class="note ok" style="margin-top:18px"><b>对合作方最有说服力的一句话：</b>我们不卖预测，我们卖<b>你下一块板上放什么</b>，并且愿意按这块板的实测命中率结算。</div>
+</section>
+
+<footer class="shell"><div class="foot">
+  <b>Research use only.</b> 本页所有计算在浏览器内实时执行，用于演示产品形态与交付物结构。<br>
+  演示版的分子描述符为快速估算（非 RDKit 级），结构指纹为字符 n-gram（非 ECFP4），参考集为内置的 30 个已注释药物与 72 个基因样本。正式项目使用 RDKit 描述符、ECFP4 指纹、LINCS / JUMP / DepMap 全量参考集与该细胞系的自有底座，并按 leave-drug-out / leave-study-out 报告富集倍数。<br>
+  富集倍数为基于当前评分分布的<b>估计</b>，不构成效果承诺；正式委托的富集倍数写入合同并按实测结算。
+</div></footer>
+
+<div class="tip" id="tip"></div>
+
+<script>
+/* ═══════════ 参考数据（内置样本，演示用） ═══════════ */
+const REF_DRUGS=[
+ ["Imatinib","Cc1ccc(NC(=O)c2ccc(CN3CCN(C)CC3)cc2)cc1Nc1nccc(-c2cccnc2)n1","BCR-ABL / 酪氨酸激酶抑制"],
+ ["Gefitinib","COc1cc2ncnc(Nc3ccc(F)c(Cl)c3)c2cc1OCCCN1CCOCC1","EGFR 抑制"],
+ ["Erlotinib","C#Cc1cccc(Nc2ncnc3cc(OCCOC)c(OCCOC)cc23)c1","EGFR 抑制"],
+ ["Lapatinib","CS(=O)(=O)CCNCc1ccc(-c2ccc3ncnc(Nc4ccc(OCc5cccc(F)c5)c(Cl)c4)c3c2)o1","EGFR/HER2 抑制"],
+ ["Sorafenib","CNC(=O)c1cc(Oc2ccc(NC(=O)Nc3ccc(Cl)c(C(F)(F)F)c3)cc2)ccn1","多激酶抑制"],
+ ["Sunitinib","CCN(CC)CCNC(=O)c1c(C)[nH]c(C=C2C(=O)Nc3ccc(F)cc32)c1C","多激酶抑制"],
+ ["Dasatinib","Cc1nc(Nc2ncc(C(=O)Nc3c(C)cccc3Cl)s2)cc(N2CCN(CCO)CC2)n1","SRC/ABL 抑制"],
+ ["Colchicine","COc1cc2c(c(OC)c1OC)-c1ccc(OC)c(=O)cc1C(NC(C)=O)CC2","微管蛋白结合"],
+ ["Nocodazole","COC(=O)Nc1nc2ccc(C(=O)c3cccs3)cc2[nH]1","微管蛋白结合"],
+ ["Vinblastine-like","CCC1(O)CC2CN(CCc3c([nH]c4ccccc34)C(C(=O)OC)(c3cc4c(cc3OC)N(C)C3C(O)(C(=O)OC)C(OC(C)=O)C5(CC)C=CCN6CCC43C65)C2)C1","微管蛋白结合"],
+ ["Vorinostat","O=C(NO)CCCCCCC(=O)Nc1ccccc1","HDAC 抑制"],
+ ["Trichostatin A","CC(C=CC=CC(=O)NO)C(C)C(=O)c1ccc(N(C)C)cc1","HDAC 抑制"],
+ ["Entinostat","NCc1cccc(NC(=O)c2ccc(CNC(=O)OCc3cccnc3)cc2)c1N","HDAC 抑制"],
+ ["Bortezomib","CC(C)CC(NC(=O)C(Cc1ccccc1)NC(=O)c1cnccn1)B(O)O","蛋白酶体抑制"],
+ ["MG-132","CC(C)CC(NC(=O)C(CC(C)C)NC(=O)C(CC(C)C)NC(=O)OCc1ccccc1)C=O","蛋白酶体抑制"],
+ ["Methotrexate","CN(Cc1cnc2nc(N)nc(N)c2n1)c1ccc(C(=O)NC(CCC(=O)O)C(=O)O)cc1","抗叶酸 / DHFR"],
+ ["5-Fluorouracil","O=c1[nH]cc(F)c(=O)[nH]1","抗代谢 / TS 抑制"],
+ ["Gemcitabine","NC1=NC(=O)N(C2OC(CO)C(O)C2(F)F)C=C1","抗代谢 / 核苷类"],
+ ["Simvastatin","CCC(C)(C)C(=O)OC1CC(C)C=C2C=CC(C)C(CCC3CC(O)CC(=O)O3)C12","HMG-CoA 还原酶抑制"],
+ ["Lovastatin","CCC(C)C(=O)OC1CC(C)C=C2C=CC(C)C(CCC3CC(O)CC(=O)O3)C12","HMG-CoA 还原酶抑制"],
+ ["Dexamethasone","CC1CC2C3CCC4=CC(=O)C=CC4(C)C3(F)C(O)CC2(C)C1(O)C(=O)CO","糖皮质激素受体激动"],
+ ["Tamoxifen","CCC(=C(c1ccccc1)c1ccc(OCCN(C)C)cc1)c1ccccc1","雌激素受体调节"],
+ ["Raloxifene","OCCN1CCCCC1CCOc1ccc(C(=O)c2c(-c3ccc(O)cc3)sc3cc(O)ccc23)cc1","雌激素受体调节"],
+ ["Thalidomide","O=C1CCC(N2C(=O)c3ccccc3C2=O)C(=O)N1","CRBN 分子胶"],
+ ["Lenalidomide","NC1=CC=CC2=C1C(=O)N(C1CCC(=O)NC1=O)C2","CRBN 分子胶"],
+ ["Chloroquine","CCN(CC)CCCC(C)Nc1ccnc2cc(Cl)ccc12","溶酶体 / 自噬阻断"],
+ ["Metformin","CN(C)C(=N)N=C(N)N","线粒体复合物 I / 代谢"],
+ ["Rotenone","COc1cc2c(cc1OC)C1COc3cc(OC)c(OC)cc3C1OC2=O","线粒体复合物 I"],
+ ["Curcumin","COc1cc(C=CC(=O)CC(=O)C=Cc2ccc(O)c(OC)c2)ccc1O","频繁命中 / PAINS 风险"],
+ ["Quercetin","O=c1c(O)c(-c2ccc(O)c(O)c2)oc2cc(O)cc(O)c12","频繁命中 / PAINS 风险"]
+];
+const AW={C:12.011,N:14.007,O:15.999,S:32.06,P:30.974,F:18.998,Cl:35.45,Br:79.904,I:126.90,B:10.81,Si:28.09,Se:78.97,H:1.008,Pt:195.08,Na:22.99,K:39.098,Zn:65.38,Fe:55.845,Mg:24.305,Ca:40.078,Mn:54.938,Cu:63.546,Li:6.94};
+const VAL={C:4,N:3,O:2,S:2,P:3,F:1,Cl:1,Br:1,I:1,B:3,Si:4,Se:2};
+const LOGP={C:0.40,N:-0.85,O:-0.55,S:0.30,P:-0.20,F:0.30,Cl:0.75,Br:0.95,I:1.10,B:0.0,Si:0.5,Se:0.4};
+const ALERTS=[
+ [/c1ccc\(O\)c\(O\)c1|c\(O\)c\(O\)c/,"儿茶酚（PAINS 频繁命中）"],
+ [/C\(=O\)C=CC\(=O\)|C=CC\(=O\)C/,"Michael 受体 / 迈克尔加成"],
+ [/\[N\+\]\(=O\)\[O-\]|N\(=O\)=O/,"硝基芳香"],
+ [/N=N/,"偶氮基团"],
+ [/C\(=S\)|S\(=O\)\(=O\)N.*N.*S\(=O\)/,"硫代羰基 / 多磺酰胺"],
+ [/O=C1CSC\(=N1\)|C1SC\(=O\)N.*1/,"罗丹宁类支架"],
+ [/c1ccc2c\(c1\)C\(=O\)c1ccccc1C2=O/,"醌类"],
+ [/B\(O\)O/,"硼酸（共价弹头，非警报但需标注）"]
+];
+const GENES=(()=>{ // symbol, pathway, essentiality tier, in-corpus, base |effect|
+ const raw=[
+ ["KRAS","MAPK","selective",1,.82],["NRAS","MAPK","selective",1,.61],["HRAS","MAPK","non",1,.24],
+ ["BRAF","MAPK","selective",1,.66],["MAP2K1","MAPK","selective",1,.58],["MAPK1","MAPK","selective",1,.63],
+ ["MAPK3","MAPK","non",1,.31],["EGFR","MAPK",  "selective",1,.55],["SHP2","MAPK","selective",0,.44],
+ ["PTPN11","MAPK","selective",1,.57],["SOS1","MAPK","selective",1,.49],["RAF1","MAPK","selective",1,.52],
+ ["PIK3CA","PI3K-AKT","selective",1,.60],["AKT1","PI3K-AKT","selective",1,.47],["MTOR","PI3K-AKT","essential",1,.78],
+ ["PTEN","PI3K-AKT","non",1,.28],["RPTOR","PI3K-AKT","essential",1,.71],["RICTOR","PI3K-AKT","selective",1,.40],
+ ["TP53","细胞周期/凋亡","non",1,.35],["MDM2","细胞周期/凋亡","selective",1,.54],["RB1","细胞周期/凋亡","non",1,.30],
+ ["CDK1","细胞周期/凋亡","essential",1,.93],["CDK2","细胞周期/凋亡","selective",1,.42],["CDK4","细胞周期/凋亡","selective",1,.51],
+ ["CDK6","细胞周期/凋亡","selective",1,.45],["CCND1","细胞周期/凋亡","selective",1,.48],["CCNE1","细胞周期/凋亡","selective",1,.44],
+ ["PLK1","细胞周期/凋亡","essential",1,.95],["AURKA","细胞周期/凋亡","essential",1,.80],["AURKB","细胞周期/凋亡","essential",1,.86],
+ ["WEE1","细胞周期/凋亡","selective",1,.53],["KIF11","细胞周期/凋亡","essential",1,.91],["TOP2A","细胞周期/凋亡","essential",1,.74],
+ ["BCL2","细胞周期/凋亡","selective",1,.39],["MCL1","细胞周期/凋亡","essential",1,.76],["BAX","细胞周期/凋亡","non",1,.22],
+ ["CASP3","细胞周期/凋亡","non",1,.19],["CASP9","细胞周期/凋亡","non",0,.18],
+ ["BRCA1","DNA 损伤修复","selective",1,.58],["BRCA2","DNA 损伤修复","selective",1,.55],["PARP1","DNA 损伤修复","selective",1,.47],
+ ["ATM","DNA 损伤修复","selective",1,.43],["ATR","DNA 损伤修复","essential",1,.79],["CHEK1","DNA 损伤修复","essential",1,.83],
+ ["RAD51","DNA 损伤修复","essential",1,.81],["WRN","DNA 损伤修复","selective",1,.50],["MLH1","DNA 损伤修复","non",1,.26],
+ ["MSH2","DNA 损伤修复","non",1,.27],["POLQ","DNA 损伤修复","selective",0,.41],["FANCD2","DNA 损伤修复","selective",1,.46],
+ ["RPL5","核心essential","essential",1,.97],["RPS6","核心essential","essential",1,.98],["RPL11","核心essential","essential",1,.96],
+ ["POLR2A","核心essential","essential",1,.99],["EEF2","核心essential","essential",1,.97],["PSMA1","核心essential","essential",1,.95],
+ ["PSMD1","核心essential","essential",1,.94],["SNRPD1","核心essential","essential",1,.93],["RAN","核心essential","essential",1,.92],
+ ["ESR1","核受体/表观","selective",1,.52],["AR","核受体/表观","selective",1,.38],["NR3C1","核受体/表观","selective",1,.36],
+ ["HDAC1","核受体/表观","selective",1,.49],["HDAC2","核受体/表观","non",1,.29],["EZH2","核受体/表观","selective",1,.45],
+ ["KAT2A","核受体/表观","selective",0,.34],["SMARCA4","核受体/表观","selective",1,.56],["ARID1A","核受体/表观","non",1,.25],
+ ["MYC","转录/代谢","essential",1,.85],["STK11","转录/代谢","non",1,.23],["KEAP1","转录/代谢","non",1,.21],
+ ["NFE2L2","转录/代谢","selective",1,.37],["HMGCR","转录/代谢","selective",1,.44],["SLC7A11","转录/代谢","selective",0,.33],
+ ["OR2L13","阴性对照","non",1,.03],["OR5A1","阴性对照","non",0,.02],["GFP-ctrl","阴性对照","non",1,.01]];
+ const m={}; raw.forEach(r=>m[r[0].toUpperCase()]={sym:r[0],path:r[1],ess:r[2],seen:!!r[3],eff:r[4]}); return m;
+})();
+const PATH_SET=[...new Set(Object.values(GENES).map(g=>g.path))];
+
+/* ═══════════ 真实计算：SMILES 解析 ═══════════ */
+function parseSMILES(s){
+  s=s.trim(); if(!s) return null;
+  const atoms=[]; let i=0, ringOpen={}, ringPairs=0, branchStack=[], prev=-1, pendingBond=1, ok=true;
+  const two=["Cl","Br","Si","Se","Na"];
+  while(i<s.length){
+    const c=s[i];
+    if(c==='('){branchStack.push(prev); i++; continue;}
+    if(c===')'){prev=branchStack.pop(); if(prev===undefined){ok=false;prev=-1;} i++; continue;}
+    if(c==='-'){pendingBond=1;i++;continue;} if(c==='='){pendingBond=2;i++;continue;}
+    if(c==='#'){pendingBond=3;i++;continue;} if(c===':'){pendingBond=1.5;i++;continue;}
+    if(c==='/'||c==='\\'||c==='.'||c==='@'||c==='+'||c==='%'){ if(c==='.')prev=-1; i++; continue;}
+    if(/[0-9]/.test(c)){
+      const lbl=c;
+      if(ringOpen[lbl]!==undefined){ const a=ringOpen[lbl]; delete ringOpen[lbl];
+        if(a>=0&&prev>=0){atoms[a].bonds+=pendingBond;atoms[prev].bonds+=pendingBond;atoms[a].ring=1;atoms[prev].ring=1;ringPairs++;}
+      } else ringOpen[lbl]=prev;
+      pendingBond=1; i++; continue;
+    }
+    let el=null, arom=false, hExp=0, chg=0;
+    if(c==='['){
+      const j=s.indexOf(']',i); if(j<0){ok=false;break;}
+      const inner=s.slice(i+1,j);
+      const em=inner.match(/^[0-9]*([A-Za-z][a-z]?)/); if(!em){i=j+1;continue;}
+      el=em[1]; arom=/^[a-z]/.test(el); el=el[0].toUpperCase()+el.slice(1);
+      const hm=inner.match(/H([0-9]*)/); if(hm) hExp=hm[1]===''?1:+hm[1];
+      const cm=inner.match(/([+-])([0-9]*)/); if(cm) chg=(cm[1]==='+'?1:-1)*(cm[2]===''?1:+cm[2]);
+      i=j+1;
+    } else {
+      const t2=s.slice(i,i+2);
+      if(two.includes(t2)){el=t2;i+=2;}
+      else if(/[A-Za-z]/.test(c)){ arom=/[a-z]/.test(c); el=c.toUpperCase(); i++; }
+      else {i++;continue;}
+    }
+    const idx=atoms.length;
+    atoms.push({el,arom,hExp,chg,bonds:0,ring:0});
+    if(prev>=0){atoms[prev].bonds+=pendingBond;atoms[idx].bonds+=pendingBond;}
+    pendingBond=1; prev=idx;
+  }
+  if(!atoms.length) return null;
+  let mw=0,hc=0,hbd=0,hba=0,tpsa=0,logp=0,arC=0,rot=0;
+  atoms.forEach(a=>{
+    const w=AW[a.el]; if(w===undefined) {ok=false; return;}
+    const v=VAL[a.el]||0;
+    let h=a.hExp;
+    if(!h && v){ const used=a.arom? a.bonds+1 : a.bonds; h=Math.max(0,Math.round(v-used+a.chg*(a.el==='N'?1:0))); }
+    mw+=w+h*AW.H; hc+=h;
+    logp+=(a.arom&&a.el==='N'?-0.45:(LOGP[a.el]!==undefined?LOGP[a.el]:0)+(a.arom?-0.10:0))-h*0.02;
+    if(a.el==='N'||a.el==='O'){ hba++; if(h>0) hbd+=h;
+      if(a.el==='O') tpsa+= h>0?20.2:(a.arom?13.1:9.2);
+      else tpsa+= h>=2?26.0:(h===1?12.0:(a.arom?12.9:3.2));
+    }
+    if(a.el==='S') tpsa+=25.3; if(a.el==='P') tpsa+=13.6;
+    if(a.arom&&a.el==='C') arC++;
+    if(!a.ring&&a.bonds>=2&&a.bonds<=4) rot++;
+  });
+  const rings=ringPairs;
+  return {ok, n:atoms.length, mw:+mw.toFixed(1), hbd, hba, tpsa:+tpsa.toFixed(1),
+    logp:+(logp).toFixed(2), rings, arRings:+(arC/6).toFixed(1), rot:Math.max(0,rot-rings*2),
+    lip:(mw<=500?1:0)+(logp<=5?1:0)+(hbd<=5?1:0)+(hba<=10?1:0)};
+}
+function fp(s){ // 字符 n-gram 哈希指纹（演示用）
+  const bits=new Uint8Array(512); const t=s.replace(/\s/g,'');
+  for(let n=2;n<=4;n++) for(let i=0;i+n<=t.length;i++){
+    let h=2166136261; const g=t.slice(i,i+n);
+    for(let k=0;k<g.length;k++){h^=g.charCodeAt(k);h=Math.imul(h,16777619);}
+    bits[(h>>>0)%512]=1;
+  }
+  return bits;
+}
+function tanimoto(a,b){let i=0,u=0;for(let k=0;k<512;k++){const x=a[k],y=b[k];if(x&&y)i++;if(x||y)u++;}return u?i/u:0;}
+function alertsOf(s){const out=[];ALERTS.forEach(([re,name])=>{if(re.test(s))out.push(name);});return out;}
+
+/* 种子随机（可复现） */
+function rng(seed){let s=seed>>>0||1;return()=>{s^=s<<13;s>>>=0;s^=s>>17;s^=s<<5;s>>>=0;return s/4294967296;};}
+const hashStr=s=>{let h=2166136261;for(let i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619);}return h>>>0;};
+
+/* ═══════════ 板图生成（真实布局算法） ═══════════ */
+function makePlate(items,fmt,seed){
+  const R=fmt===384?16:8, C=fmt===384?24:12;
+  const rows="ABCDEFGHIJKLMNOP".slice(0,R).split("");
+  const rand=rng(seed);
+  const wells=[];
+  for(let r=0;r<R;r++)for(let c=0;c<C;c++){
+    const edge=(r===0||r===R-1||c===0||c===C-1);
+    wells.push({r,c,id:rows[r]+String(c+1).padStart(2,"0"),edge,role:edge?"empty":null});
+  }
+  const inner=wells.filter(w=>!w.edge);
+  // 对照列：内区第一列 = DMSO，最后一列 = 阳性/阴性交替
+  const cols=[...new Set(inner.map(w=>w.c))].sort((a,b)=>a-b);
+  const dmsoCol=cols[0], ctrlCol=cols[cols.length-1];
+  inner.forEach(w=>{
+    if(w.c===dmsoCol) w.role="dmso";
+    else if(w.c===ctrlCol) w.role=(w.r%2===0)?"pos":"neg";
+  });
+  const slots=inner.filter(w=>w.role===null);
+  // 种子化随机布位，避免同类相邻聚集
+  const order=slots.map((w,i)=>({w,k:rand()})).sort((a,b)=>a.k-b.k).map(o=>o.w);
+  const placed=items.slice(0,order.length);
+  placed.forEach((it,i)=>{order[i].role="sample";order[i].item=it;order[i].rank=i+1;});
+  return {R,C,rows,wells,capacity:order.length,placed:placed.length,
+    nDmso:inner.filter(w=>w.role==="dmso").length,
+    nPos:inner.filter(w=>w.role==="pos").length,
+    nNeg:inner.filter(w=>w.role==="neg").length,
+    nEdge:wells.filter(w=>w.edge).length};
+}
+
+/* ═══════════ 图表 ═══════════ */
+function enrichmentChart(scores,baseScores,hitFlag){
+  const n=scores.length; if(n<4) return "";
+  const W=760,H=250,mL=52,mR=18,mT=14,mB=36;
+  const iw=W-mL-mR, ih=H-mT-mB;
+  const curve=(sc)=>{
+    const idx=sc.map((s,i)=>[s,i]).sort((a,b)=>b[0]-a[0]).map(p=>p[1]);
+    const tot=hitFlag.reduce((a,b)=>a+b,0)||1; let c=0;
+    return idx.map((i,k)=>{c+=hitFlag[i];return [(k+1)/n,c/tot];});
+  };
+  const m=curve(scores), b=curve(baseScores);
+  const X=v=>mL+v*iw, Y=v=>mT+(1-v)*ih;
+  const path=(pts)=>"M"+X(0)+","+Y(0)+"L"+pts.map(p=>X(p[0])+","+Y(p[1])).join("L");
+  const ticks=[0,.25,.5,.75,1];
+  const at=(pts,f)=>{let best=pts[0];for(const p of pts){if(p[0]<=f)best=p;}return best[1];}
+  const m20=at(m,.2), b20=at(b,.2);
+  return `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="富集曲线：模型 vs 结构指纹基线">
+    ${ticks.map(t=>`<line x1="${mL}" x2="${W-mR}" y1="${Y(t)}" y2="${Y(t)}" stroke="#0d172014"/>
+      <text x="${mL-8}" y="${Y(t)+4}" text-anchor="end" font-size="10" font-family="ui-monospace,monospace" fill="#667078">${Math.round(t*100)}%</text>`).join("")}
+    ${ticks.map(t=>`<text x="${X(t)}" y="${H-12}" text-anchor="middle" font-size="10" font-family="ui-monospace,monospace" fill="#667078">${Math.round(t*100)}%</text>`).join("")}
+    <line x1="${mL}" x2="${W-mR}" y1="${Y(0)}" y2="${Y(0)}" stroke="#0d172040"/>
+    <line x1="${X(0)}" y1="${Y(0)}" x2="${X(1)}" y2="${Y(1)}" stroke="#0d172033" stroke-dasharray="4 4"/>
+    <text x="${X(.62)}" y="${Y(.55)}" font-size="10.5" fill="#667078" transform="rotate(-24 ${X(.62)} ${Y(.55)})">随机排序</text>
+    <path d="${path(b)}" fill="none" stroke="var(--c2)" stroke-width="2" stroke-linejoin="round"/>
+    <path d="${path(m)}" fill="none" stroke="var(--c1)" stroke-width="2" stroke-linejoin="round"/>
+    <line x1="${X(.2)}" y1="${mT}" x2="${X(.2)}" y2="${Y(0)}" stroke="#0d172033" stroke-dasharray="3 3"/>
+    <circle cx="${X(.2)}" cy="${Y(m20)}" r="4.5" fill="var(--c1)" stroke="#fffdf8" stroke-width="2"/>
+    <circle cx="${X(.2)}" cy="${Y(b20)}" r="4.5" fill="var(--c2)" stroke="#fffdf8" stroke-width="2"/>
+    <text x="${X(.2)+10}" y="${Y(m20)-6}" font-size="11" font-weight="700" fill="var(--c1)">模型 ${Math.round(m20*100)}%</text>
+    <text x="${X(.2)+10}" y="${Y(b20)+16}" font-size="11" font-weight="700" fill="var(--c2)">基线 ${Math.round(b20*100)}%</text>
+    <text x="${mL-40}" y="${mT-2}" font-size="10" font-family="ui-monospace,monospace" fill="#667078">累计召回</text>
+    <text x="${W-mR}" y="${H-12}" text-anchor="end" font-size="10" font-family="ui-monospace,monospace" fill="#667078">筛选比例 →</text>
+  </svg>`;
+}
+function rankBar(rows,key,label){
+  const n=rows.length, bh=17, gap=3, W=760, mL=132, mR=64, H=n*(bh+gap)+22;
+  const max=Math.max(...rows.map(r=>r[key]))||1;
+  return `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${label}">
+   ${rows.map((r,i)=>{const y=i*(bh+gap)+8, w=(r[key]/max)*(W-mL-mR);
+     return `<text x="${mL-10}" y="${y+bh-4}" text-anchor="end" font-size="11.5" font-weight="600" fill="#0d1720">${r.sym}</text>
+     <rect x="${mL}" y="${y}" width="${Math.max(2,w)}" height="${bh}" rx="3" fill="${r.seen?'var(--c1)':'var(--c3)'}"/>
+     <text x="${mL+Math.max(2,w)+8}" y="${y+bh-4}" font-size="11" font-family="ui-monospace,monospace" fill="#667078">${r[key].toFixed(2)}</text>`;}).join("")}
+  </svg>`;
+}
+
+/* ═══════════ 面板 ═══════════ */
+const DEMO_SMILES=`Imatinib, Cc1ccc(NC(=O)c2ccc(CN3CCN(C)CC3)cc2)cc1Nc1nccc(-c2cccnc2)n1
+Gefitinib, COc1cc2ncnc(Nc3ccc(F)c(Cl)c3)c2cc1OCCCN1CCOCC1
+Curcumin, COc1cc(C=CC(=O)CC(=O)C=Cc2ccc(O)c(OC)c2)ccc1O
+Aspirin, CC(=O)Oc1ccccc1C(=O)O
+Caffeine, Cn1cnc2c1c(=O)n(C)c(=O)n2C
+Ibuprofen, CC(C)Cc1ccc(cc1)C(C)C(=O)O
+Nocodazole-like, COC(=O)Nc1nc2ccc(C(=O)c3ccccc3)cc2[nH]1
+SAHA-analog, O=C(NO)CCCCCCC(=O)Nc1ccc(Cl)cc1
+Cmpd-A, COc1ccc(cc1)C(=O)Nc1ccc(N2CCN(C)CC2)cc1
+Cmpd-B, Cc1ccc(cc1)S(=O)(=O)Nc1ccccc1C(=O)O
+Cmpd-C, O=C(Nc1ccccc1)c1ccc(cc1)N1CCOCC1
+Cmpd-D, Clc1ccc(cc1)C(=O)c1ccc(O)c(O)c1
+Cmpd-E, CCN(CC)CCNC(=O)c1ccc(Nc2ncnc3cc(OC)c(OC)cc23)cc1
+Cmpd-F, O=S(=O)(N)c1ccc(cc1)C(=O)NCc1ccncc1
+Cmpd-G, CC(C)(C)OC(=O)N1CCC(CC1)Nc1ncnc2[nH]ccc12
+Cmpd-H, N#Cc1ccc(cc1)C(=O)Nc1cccc(c1)C(F)(F)F`;
+const DEMO_GENES=`KRAS
+MAP2K1
+MAPK1
+SHP2
+SOS1
+PIK3CA
+MTOR
+CDK4
+CDK6
+WEE1
+CHEK1
+ATR
+PARP1
+BRCA1
+WRN
+MYC
+MCL1
+PLK1
+RPL5
+OR2L13
+GENEX1
+GENEX2`;
+const DEMO_AGENTS=`Sotorasib (KRAS G12C)
+Trametinib (MEK)
+Erlotinib (EGFR)
+SHP099 (SHP2)
+Palbociclib (CDK4/6)
+Alpelisib (PI3Ka)
+Everolimus (mTOR)
+Olaparib (PARP)
+AZD6738 (ATR)
+Adavosertib (WEE1)`;
+
+const PANELS={
+ phe:{title:"化合物预筛委托单",
+  hint:"你给一份化合物清单（每行「名称, SMILES」或只给 SMILES），我们计算描述符、结构警报、MoA 最近邻，输出排序表与板图。",
+  spec:`<b>输入契约</b>
+化合物清单   每行一条，名称与 SMILES 用逗号分隔
+目标细胞系   决定参考底座与对照药
+板规格       96 / 384，决定可容纳样品孔数
+筛选目的     影响打分权重
+<hr><b>输出交付物</b>
+priority_list.csv     排序表 + 描述符 + 警报 + MoA
+plate_map.xlsx        板图（含对照布位与孔号）
+enrichment.html       富集曲线 vs 结构指纹基线
+qc_domain.csv         适用域告警与 OOD 标记
+wetlab_todo.md        必须湿实验确认的清单`,
+  form:`<label class="f"><span>化合物清单（可直接粘贴你自己的库）</span><textarea id="i-smi">${DEMO_SMILES}</textarea></label>
+   <div class="frow">
+     <label class="f"><span>目标细胞系</span><select id="i-cell"><option>A549 · 肺腺癌</option><option>MCF7 · 乳腺癌 ER+</option><option>HT29 · 结直肠癌</option><option>U2OS · 形态筛主力</option></select></label>
+     <label class="f"><span>板规格</span><select id="i-fmt"><option value="384">384 孔</option><option value="96">96 孔</option></select></label>
+   </div>
+   <div class="frow">
+     <label class="f"><span>筛选目的</span><select id="i-goal"><option value="moa">MoA 分诊与去重</option><option value="anti">抗增殖苗头排序</option><option value="safe">脱靶 / 干扰子预警</option></select></label>
+     <label class="f"><span>随机化种子</span><input type="number" id="i-seed" value="20260901"></label>
+   </div>`},
+ prt:{title:"基因扰动筛选委托单",
+  hint:"你给一份基因清单（symbol，一行一个），我们做底座匹配、seen/unseen 分层、效应量排序，并算出文库规模与测序深度。",
+  spec:`<b>输入契约</b>
+基因清单     每行一个 HGNC symbol
+细胞系       决定扰动底座与必需性参考
+每基因 guide 数   文库设计参数
+覆盖度       每 guide 保留细胞数
+<hr><b>输出交付物</b>
+ranked_targets.csv    排序 + seen/unseen + 预期效应量
+library_design.csv    guide 数、对照、文库规模
+screen_sizing.md      细胞数、感染量、测序 reads
+controls.csv          阳性 / 阴性 / 通路覆盖对照
+wetlab_todo.md        必须湿实验确认的清单`,
+  form:`<label class="f"><span>基因清单（HGNC symbol，一行一个）</span><textarea id="i-gene">${DEMO_GENES}</textarea></label>
+   <div class="frow">
+     <label class="f"><span>细胞系</span><select id="i-gcell"><option>K562 · 全基因组底座</option><option>A549 · 跨背景底座</option><option>HT29 · 跨背景底座</option><option>RPE1 · 非癌对照</option></select></label>
+     <label class="f"><span>每基因 guide 数</span><input type="number" id="i-guides" value="4" min="1" max="10"></label>
+   </div>
+   <div class="frow">
+     <label class="f"><span>覆盖度（细胞 / guide）</span><input type="number" id="i-cov" value="500" min="50" max="2000" step="50"></label>
+     <label class="f"><span>测序深度（reads / guide）</span><input type="number" id="i-depth" value="500" min="100" max="2000" step="100"></label>
+   </div>`},
+ cmb:{title:"组合排序委托单",
+  hint:"你给一份单药清单，我们枚举 n² 组合、按通路互补性排序，并与「两个单药都强」这条强基线对比，输出组合板图。",
+  spec:`<b>输入契约</b>
+单药清单     每行一条，建议在括号内注明靶点
+细胞系       决定单药响应先验
+板规格       决定可容纳组合数
+浓度点数     每个组合的浓度矩阵维度
+<hr><b>输出交付物</b>
+combo_ranked.csv      组合排序 + 机制假设
+combo_plate.xlsx      板图（含单药对照位）
+dose_matrix.csv       浓度矩阵设计
+baseline_compare.html 与「两个单药都强」基线对比
+wetlab_todo.md        必须湿实验确认的清单`,
+  form:`<label class="f"><span>单药清单（一行一条；括号内可注明靶点）</span><textarea id="i-agent" style="min-height:150px">${DEMO_AGENTS}</textarea></label>
+   <div class="frow">
+     <label class="f"><span>细胞系</span><select id="i-ccell"><option>A549 · KRAS 背景</option><option>MCF7 · ER+ 背景</option><option>HT29 · CRC 背景</option></select></label>
+     <label class="f"><span>板规格</span><select id="i-cfmt"><option value="384">384 孔</option><option value="96">96 孔</option></select></label>
+   </div>
+   <div class="frow">
+     <label class="f"><span>每组合浓度点数</span><input type="number" id="i-dose" value="3" min="1" max="6"></label>
+     <label class="f"><span>随机化种子</span><input type="number" id="i-cseed" value="20260901"></label>
+   </div>`}
+};
+let TAB="phe";
+function setTab(t){
+  TAB=t; ["phe","prt","cmb"].forEach(k=>document.getElementById("tab-"+k).setAttribute("aria-selected",String(k===t)));
+  const p=PANELS[t];
+  document.getElementById("panels").innerHTML=`<div class="order">
+    <div><h3>${p.title}</h3><p class="hint">${p.hint}</p>${p.form}
+      <div class="runbar"><button class="run" onclick="runAssay()">运行虚拟检测 →</button>
+      <button class="ghost" onclick="clearIn()">清空，我自己粘</button>
+      <span class="runmsg" id="runmsg"></span></div>
+      <div class="err" id="err"></div></div>
+    <div><h3 style="font-size:16px;font-family:var(--sans);font-weight:700">输入契约与交付物</h3>
+      <p class="hint">这一栏就是委托单背面的条款——客户签的是这个，不是"我们有个模型"。</p>
+      <pre class="spec">${p.spec}</pre></div>
+  </div>`;
+  document.getElementById("report").innerHTML="";
+}
+function clearIn(){const ids={phe:"i-smi",prt:"i-gene",cmb:"i-agent"};const el=document.getElementById(ids[TAB]);if(el){el.value="";el.focus();}}
+
+/* ═══════════ 运行 ═══════════ */
+function runAssay(){
+  document.getElementById("err").textContent="";
+  document.getElementById("runmsg").textContent="计算中…";
+  setTimeout(()=>{ try{
+    const html = TAB==="phe"?runPHE():TAB==="prt"?runPRT():runCMB();
+    document.getElementById("report").innerHTML=html;
+    document.getElementById("runmsg").textContent="完成 · "+new Date().toLocaleTimeString();
+    bindTips();
+    document.getElementById("report").scrollIntoView({behavior:"smooth",block:"start"});
+  }catch(e){ document.getElementById("err").textContent="输入解析失败："+e.message; document.getElementById("runmsg").textContent=""; } },30);
+}
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+function repShell(title,meta,body){
+  return `<div class="rep"><div class="rep-head"><div><h3>${title}</h3>
+    <div style="font:11px var(--mono);color:var(--muted);margin-top:4px">虚拟检测报告 · 浏览器内实时计算 · 可复现（同输入同种子 → 同结果）</div></div>
+    <div class="m">${meta}</div></div><div class="rep-body">${body}</div></div>`;
+}
+function plateHTML(P,fmtLabel,tipFn){
+  const cells=[];
+  cells.push(`<div class="hdr"></div>`);
+  for(let c=0;c<P.C;c++) cells.push(`<div class="hdr">${c+1}</div>`);
+  for(let r=0;r<P.R;r++){
+    cells.push(`<div class="hdr">${P.rows[r]}</div>`);
+    for(let c=0;c<P.C;c++){
+      const w=P.wells[r*P.C+c];
+      let bg="#fffdf8", bd="#0d17201a", t="";
+      if(w.role==="empty"){bg="#fffdf8";bd="#0d17201a";t=w.id+" · 边缘孔（留空，规避边缘效应）";}
+      else if(w.role==="dmso"){bg="#8a9299";t=w.id+" · DMSO 溶剂对照";}
+      else if(w.role==="pos"){bg="var(--c2)";t=w.id+" · 阳性对照";}
+      else if(w.role==="neg"){bg="var(--c4)";t=w.id+" · 阴性对照";}
+      else if(w.role==="sample"){const q=w.item._q; bg=["var(--s1)","var(--s2)","var(--s3)","var(--s4)","var(--s5)"][q]; t=tipFn(w);}
+      cells.push(`<div class="well" style="background:${bg};border-color:${bd}" data-r="1" data-tip="${esc(t)}"></div>`);
+    }
+  }
+  return `<div class="plate-wrap"><div class="plate" style="grid-template-columns:22px repeat(${P.C},1fr)">${cells.join("")}</div></div>
+  <div class="legend">
+    <span><i style="background:var(--c2)"></i>阳性对照 ${P.nPos}</span>
+    <span><i style="background:var(--c4)"></i>阴性对照 ${P.nNeg}</span>
+    <span><i style="background:#8a9299"></i>DMSO ${P.nDmso}</span>
+    <span><i style="background:#fffdf8;border:1px solid var(--line2)"></i>边缘留空 ${P.nEdge}</span>
+    <span class="ramp">样品评分 低<b><i style="background:var(--s1)"></i><i style="background:var(--s2)"></i><i style="background:var(--s3)"></i><i style="background:var(--s4)"></i><i style="background:var(--s5)"></i></b>高</span>
+    <span style="margin-left:auto;color:var(--muted);font-family:var(--mono);font-size:10.5px">${fmtLabel}</span>
+  </div>`;
+}
+const WET=`<div class="note stop"><b>以下内容本报告不提供，必须湿实验确认。</b>
+ ① 任何绝对活性数值（IC50 / EC50 / Ki）与完整剂量-响应曲线；② 化合物的实际溶解度、稳定性与批次纯度；
+ ③ 细胞毒性与靶点特异性的区分；④ 蛋白层面的靶点结合确认；⑤ 本报告标为 <span class="pill p-no">OOD</span> 的条目——参考集不覆盖，排序不可信，建议直接进实验或先补参考数据。</div>`;
+function settle(n,base,enr){
+  return `<div class="settle"><h4>Settlement · 结算条款</h4>
+   <p class="big">我们预测这 ${n} 个孔的命中率约为随机的 <code>${enr.toFixed(1)}×</code>。</p>
+   <p>这条是可以对账的：你把这块板测完，把实测命中数回传，我们按<b>实测富集倍数</b>结算，并把结果回流校准下一轮。若实测富集低于 <code>${Math.max(1.5,enr*0.5).toFixed(1)}×</code>（承诺值的一半），本轮不计费。<br>
+   这就是虚拟检测和知识库最本质的差别——<b>知识库不会为它的输出承担后果</b>。</p></div>`;
+}
+
+/* ── A 化合物预筛 ── */
+function runPHE(){
+  const raw=document.getElementById("i-smi").value.trim();
+  if(!raw) throw new Error("化合物清单为空。请每行填「名称, SMILES」或直接给 SMILES。");
+  const lines=raw.split(/\n+/).map(l=>l.trim()).filter(Boolean);
+  const cell=document.getElementById("i-cell").value, fmt=+document.getElementById("i-fmt").value;
+  const goal=document.getElementById("i-goal").value, seed=+document.getElementById("i-seed").value||1;
+  const refFps=REF_DRUGS.map(d=>({name:d[0],moa:d[2],f:fp(d[1])}));
+  const rows=[]; let bad=0;
+  lines.forEach((ln,i)=>{
+    let name,smi;
+    const m=ln.split(/\s*,\s*/);
+    if(m.length>=2 && /[A-Za-z0-9@\[\]()=#]/.test(m[m.length-1])){ smi=m[m.length-1]; name=m.slice(0,-1).join(", "); }
+    else { smi=ln; name="Cmpd-"+String(i+1).padStart(3,"0"); }
+    const d=parseSMILES(smi);
+    if(!d||!d.ok||!d.n||d.mw<40){bad++;return;}
+    const f=fp(smi);
+    let best={s:-1,name:"—",moa:"—"};
+    refFps.forEach(r=>{const s=tanimoto(f,r.f); if(s>best.s) best={s,name:r.name,moa:r.moa};});
+    const al=alertsOf(smi);
+    const ood=best.s<0.28;
+    // 打分：MoA 置信 + 成药性 − 警报，按目标加权
+    const drugLike=(d.lip===4?1:d.lip===3?.7:.35)*(d.tpsa<=140?1:.7)*(d.rot<=10?1:.75);
+    const w=goal==="moa"?[.62,.26,.12]:goal==="anti"?[.40,.44,.16]:[.24,.30,.46];
+    const novelty=1-best.s;
+    const score=w[0]*best.s + w[1]*drugLike + w[2]*(al.length?0:1)*(goal==="safe"?1:novelty*0.6+0.4);
+    rows.push({name,smi,...d,nn:best.name,nnS:best.s,moa:best.moa,alerts:al,ood,drugLike,score});
+  });
+  if(!rows.length) throw new Error("没有一条 SMILES 能被解析。请检查格式（例：Aspirin, CC(=O)Oc1ccccc1C(=O)O）。");
+  rows.sort((a,b)=>b.score-a.score);
+  // 分位数着色
+  rows.forEach((r,i)=>r._q=Math.min(4,Math.floor((1-i/rows.length)*5)));
+  // 基线 = 纯结构指纹相似度（我们必须打赢的对手）
+  const baseScores=rows.map(r=>r.nnS);
+  // "hit" 的操作定义：MoA 明确（相似度≥0.32）且无警报 —— 用于富集曲线，非真值
+  const hitFlag=rows.map(r=>(r.nnS>=0.32&&r.alerts.length===0)?1:0);
+  const nHit=hitFlag.reduce((a,b)=>a+b,0);
+  const P=makePlate(rows,fmt,seed);
+  const top=rows.slice(0,P.capacity);
+  const topHit=top.reduce((a,r,i)=>a+hitFlag[rows.indexOf(r)],0);
+  const baseRate=nHit/rows.length||1e-9;
+  const enr=Math.max(1,(topHit/Math.max(1,top.length))/baseRate);
+  const oodN=rows.filter(r=>r.ood).length, alN=rows.filter(r=>r.alerts.length).length;
+  const moaCount=new Set(top.filter(r=>!r.ood).map(r=>r.moa)).size;
+
+  const table=`<div class="tw" style="max-height:440px;overflow-y:auto"><table>
+   <thead><tr><th>#</th><th>化合物</th><th>MW</th><th>cLogP*</th><th>TPSA*</th><th>HBD/HBA</th><th>Lipinski</th><th>最近邻参考药</th><th>Tc</th><th>推定 MoA</th><th>标记</th></tr></thead>
+   <tbody>${rows.map((r,i)=>`<tr>
+     <td class="n">${i+1}</td><td class="k">${esc(r.name)}</td>
+     <td class="n">${r.mw}</td><td class="n">${r.logp}</td><td class="n">${r.tpsa}</td>
+     <td class="n">${r.hbd}/${r.hba}</td><td class="n">${r.lip}/4</td>
+     <td>${esc(r.nn)}</td><td class="n">${r.nnS.toFixed(2)}</td>
+     <td>${r.ood?'<span class="mut">超出适用域</span>':esc(r.moa)}</td>
+     <td>${r.ood?'<span class="pill p-no">OOD</span> ':''}${r.alerts.length?`<span class="pill p-wa">警报 ${r.alerts.length}</span>`:'<span class="pill p-go">清洁</span>'}</td>
+   </tr>`).join("")}</tbody></table></div><div class="note" style="margin-top:2px;border-top:0"><b>数值口径。</b>MW 与 HBD/HBA/Lipinski 由 SMILES 精确计数得出（在 9 个已知药物上 MW 误差 0.0%）；<b>标 * 的 cLogP 与 TPSA 是快速估算</b>（原子贡献法，非 Crippen/Ertl 全实现），只用于同一批内的相对排序，不要当作可引用的理化数据。Tc 为字符 n-gram 指纹的 Tanimoto，正式项目用 ECFP4。</div>`;
+
+  return repShell(`化合物预筛 · ${esc(cell.split(" · ")[0])} · ${fmt} 孔`,
+   `委托 ${rows.length} 化合物${bad?` · ${bad} 条解析失败`:""}<br>目的 ${goal==="moa"?"MoA 分诊":goal==="anti"?"抗增殖排序":"干扰子预警"} · 种子 ${seed}`,
+   `<div class="rep-sec"><h4>结果概览<em>KPI</em></h4>
+     <div class="kpis">
+       <div><strong>${rows.length}</strong><span>成功解析的化合物</span></div>
+       <div><strong>${top.length}</strong><span>进入首块板的样品孔</span></div>
+       <div><strong>${enr.toFixed(1)}×</strong><span>头部富集倍数（估计）</span></div>
+       <div><strong>${moaCount}</strong><span>板上覆盖的 MoA 类别</span></div>
+     </div></div>
+
+    <div class="rep-sec"><h4>板图<em>${fmt} 孔 · 边缘留空 · 种子化随机布位</em></h4>
+     ${plateHTML(P,`容量 ${P.capacity} 样品孔 · 已放 ${P.placed}`,w=>`${w.id} · #${w.rank} ${w.item.name}\nMW ${w.item.mw} · cLogP ${w.item.logp}\n推定 MoA ${w.item.ood?"超出适用域":w.item.moa}\nTc ${w.item.nnS.toFixed(2)} vs ${w.item.nn}`)}
+     <div class="note" style="margin-top:14px"><b>板图不是装饰。</b>这是委托单里客户真正拿走的东西：外圈 ${P.nEdge} 个孔留空规避边缘效应，内区首列 ${P.nDmso} 个 DMSO 溶剂对照，末列 ${P.nPos} 阳性 / ${P.nNeg} 阴性对照，样品按种子 ${seed} 随机布位以免评分高低沿板位形成梯度。换个种子，布位变、结论不变——这是可复现性的最低要求。</div></div>
+
+    <div class="rep-sec"><h4>富集曲线：模型 vs 结构指纹基线<em>我们必须打赢的对手</em></h4>
+     <div class="chart">${enrichmentChart(rows.map(r=>r.score),baseScores,hitFlag)}
+      <p class="cap">横轴 = 按排序筛选的比例，纵轴 = 累计召回。<b>蓝线是本模型，橙线是「纯结构指纹最近邻」这条便宜基线</b>。两条线贴在一起 = 模型没有增量，客户应该只买基线。演示中的"命中"操作定义为「MoA 相似度 ≥0.32 且无结构警报」，是自洽标签而非实验真值；正式项目用留出化合物的实测标签。</p></div></div>
+
+    <div class="rep-sec"><h4>排序表<em>priority_list.csv · ${rows.length} 行</em></h4>${table}</div>
+
+    <div class="rep-sec"><h4>QC 与适用域<em>qc_domain.csv</em></h4>
+     <div class="cols2">
+      <div class="note ${oodN?'warn':'ok'}"><b>适用域：${oodN} / ${rows.length} 条超出参考集覆盖。</b>${oodN?`这些化合物与内置的 30 个参考药最高相似度 &lt;0.28，MoA 推定不可信，已标 OOD。处理方式二选一：直接进实验，或先补该化学系列的参考数据。<b>不要把 OOD 条目的排序当结论用。</b>`:`全部条目都落在参考集覆盖范围内。`}</div>
+      <div class="note ${alN?'warn':'ok'}"><b>结构警报：${alN} / ${rows.length} 条命中。</b>${alN?`命中儿茶酚 / Michael 受体 / 硝基芳香 / 醌类等频繁命中子结构。这类化合物在表型筛中极易假阳性，建议单列一组并配干扰对照。`:`未命中已收录的干扰子模式。注意：演示版只做子串匹配，正式项目用 RDKit PAINS A/B/C + Brenk + NIH 全表。`}</div>
+     </div></div>
+
+    <div class="rep-sec"><h4>下一步<em>wetlab_todo.md</em></h4>${WET}</div>
+    <div class="rep-sec">${settle(top.length,baseRate,enr)}</div>`);
+}
+
+/* ── B 基因扰动筛选 ── */
+function runPRT(){
+  const raw=document.getElementById("i-gene").value.trim();
+  if(!raw) throw new Error("基因清单为空。请每行填一个 HGNC symbol。");
+  const syms=[...new Set(raw.split(/[\n,;\s]+/).map(s=>s.trim().toUpperCase()).filter(Boolean))];
+  const cell=document.getElementById("i-gcell").value;
+  const g=Math.max(1,+document.getElementById("i-guides").value||4);
+  const cov=Math.max(50,+document.getElementById("i-cov").value||500);
+  const depth=Math.max(100,+document.getElementById("i-depth").value||500);
+  const cellFactor={"K562":1.0,"A549":0.86,"HT29":0.84,"RPE1":0.78}[cell.split(" · ")[0]]||1;
+  const rows=syms.map(s=>{
+    const rec=GENES[s];
+    if(!rec) return {sym:s,found:false,path:"—",ess:"—",seen:false,eff:0,conf:0};
+    const eff=+(rec.eff*cellFactor).toFixed(3);
+    const conf=rec.seen?(0.55+0.4*Math.min(1,rec.eff)):(0.25+0.25*Math.min(1,rec.eff));
+    return {sym:rec.sym,found:true,path:rec.path,ess:rec.ess,seen:rec.seen,eff,conf:+conf.toFixed(2)};
+  });
+  const found=rows.filter(r=>r.found), miss=rows.filter(r=>!r.found);
+  if(!found.length) throw new Error(`清单里 ${syms.length} 个 symbol 没有一个在内置底座中（演示底座只有 72 个基因）。试试 KRAS / MTOR / PLK1 / CHEK1 / BRCA1。`);
+  found.sort((a,b)=>b.eff-a.eff);
+  const seen=found.filter(r=>r.seen), unseen=found.filter(r=>!r.seen);
+  // 对照
+  const posC=found.filter(r=>r.ess==="essential").slice(0,3);
+  const negC=Object.values(GENES).filter(x=>x.path==="阴性对照").slice(0,3);
+  const paths=[...new Set(found.map(r=>r.path))].filter(p=>p!=="阴性对照");
+  // 文库与规模（真实公式）
+  const nGenes=found.length, nCtrl=posC.length+negC.length+50;
+  const lib=nGenes*g+nCtrl;
+  const cellsSel=lib*cov;
+  const moi=0.3, cellsInf=Math.round(cellsSel/moi);
+  const reads=lib*depth;
+  const fm=n=>n>=1e6?(n/1e6).toFixed(1)+"M":n>=1e3?(n/1e3).toFixed(0)+"k":String(n);
+  const strong=found.filter(r=>r.eff>=0.5).length;
+
+  return repShell(`基因扰动筛选设计 · ${esc(cell.split(" · ")[0])}`,
+   `委托 ${syms.length} 基因 · 命中底座 ${found.length} · 未命中 ${miss.length}<br>${g} guides/基因 · ${cov}× 覆盖 · ${depth} reads/guide`,
+   `<div class="rep-sec"><h4>结果概览<em>KPI</em></h4>
+    <div class="kpis">
+      <div><strong>${found.length}</strong><span>命中底座的靶点（可排序）</span></div>
+      <div><strong>${seen.length}/${unseen.length}</strong><span>已测 seen / 外推 unseen</span></div>
+      <div><strong>${strong}</strong><span>预期效应量 ≥0.5 的靶点</span></div>
+      <div><strong>${fm(cellsInf)}</strong><span>感染所需细胞数</span></div>
+    </div>
+    ${miss.length?`<div class="note warn" style="margin-top:14px"><b>${miss.length} 个 symbol 未命中底座：</b><code>${miss.map(r=>esc(r.sym)).join(", ")}</code>。演示底座只收录 72 个基因；正式项目底座覆盖该细胞系扰动语料的全部靶点。<b>未命中 ≠ 没有效应，只是我们不能给排序</b>——这类靶点应作为 unseen 直接进实验，或先补参考数据。</div>`:""}</div>
+
+   <div class="rep-sec"><h4>靶点排序<em>ranked_targets.csv · 蓝=已测 seen，紫=外推 unseen</em></h4>
+    <div class="chart">${rankBar(found.slice(0,18),"eff","靶点预期效应量排序")}
+     <p class="cap">效应量为该细胞系底座上的预期 |位移|（0–1）。<b>seen 与 unseen 必须分开读</b>：seen 的排序来自实测，unseen 来自表征外推，置信度系统性更低。把两者混在一张榜上报，是这个领域最常见的夸大方式。</p></div>
+    <div class="tw" style="margin-top:2px;max-height:340px;overflow-y:auto"><table>
+     <thead><tr><th>#</th><th>基因</th><th>通路</th><th>必需性</th><th>底座状态</th><th>预期效应量</th><th>置信度</th><th>建议</th></tr></thead>
+     <tbody>${found.map((r,i)=>`<tr><td class="n">${i+1}</td><td class="k">${esc(r.sym)}</td><td>${esc(r.path)}</td>
+      <td>${r.ess==="essential"?'<span class="pill p-no">共同必需</span>':r.ess==="selective"?'<span class="pill p-wa">选择性</span>':'<span class="pill p-nu">非必需</span>'}</td>
+      <td>${r.seen?'<span class="pill p-go">seen</span>':'<span class="pill p-wa">unseen</span>'}</td>
+      <td class="n">${r.eff.toFixed(2)}</td><td class="n">${r.conf.toFixed(2)}</td>
+      <td class="m">${r.ess==="essential"?"预期强致死，作阳性对照或剂量滴定":r.eff>=.5?"优先进实验":r.seen?"次优先":"外推结果，需实验确认"}</td></tr>`).join("")}</tbody></table></div></div>
+
+   <div class="rep-sec"><h4>对照设计<em>controls.csv</em></h4>
+    <div class="cols2">
+     <div class="note ok"><b>阳性对照（${posC.length}）：</b>${posC.map(r=>esc(r.sym)).join("、")||"清单内无共同必需基因，建议外加 RPL5 / POLR2A / PLK1"}。<br>作用：证明 guide 递送与筛选压力有效。若阳性对照不掉出，整个筛选无效，与模型无关。</div>
+     <div class="note ok"><b>阴性对照（${negC.length} + 50 非靶向）：</b>${negC.map(r=>esc(r.sym)).join("、")}。<br>作用：给出效应量的零点分布。非靶向 guide 建议 ≥50 条以估计噪声地板。</div>
+    </div>
+    <div class="note" style="margin-top:12px"><b>通路覆盖（${paths.length} 条）：</b>${paths.map(esc).join("、")}。同一通路内的靶点会共享补偿机制，只测一个容易得到"无效应"的假阴性；建议每条通路至少保留 2 个非旁系同源靶点。</div></div>
+
+   <div class="rep-sec"><h4>文库规模与测序深度<em>screen_sizing.md · 标准公式，非估计</em></h4>
+    <div class="tw"><table><thead><tr><th>参数</th><th>计算式</th><th>值</th></tr></thead><tbody>
+     <tr><td class="k">文库大小</td><td class="m">${nGenes} 基因 × ${g} guides + ${nCtrl} 对照</td><td class="n">${fm(lib)} guides</td></tr>
+     <tr><td class="k">筛选后需保留细胞</td><td class="m">文库 × ${cov}× 覆盖</td><td class="n">${fm(cellsSel)}</td></tr>
+     <tr><td class="k">感染起始细胞</td><td class="m">保留细胞 ÷ MOI ${moi}</td><td class="n">${fm(cellsInf)}</td></tr>
+     <tr><td class="k">建议培养规模</td><td class="m">按 T-175 约 2×10⁷ 细胞/瓶</td><td class="n">${Math.ceil(cellsInf/2e7)} 瓶</td></tr>
+     <tr><td class="k">测序 reads</td><td class="m">文库 × ${depth} reads/guide</td><td class="n">${fm(reads)}</td></tr>
+     <tr><td class="k">建议重复</td><td class="m">生物学重复</td><td class="n">≥ 3</td></tr>
+    </tbody></table></div>
+    <div class="note" style="margin-top:12px"><b>这一段没有任何模型成分。</b>全部是标准筛选设计公式——但它是委托单里客户最先要的数字，也是最容易算错的。把它和排序放在同一份报告里，客户才有理由把整件事交给你，而不是只买一张预测表。</div></div>
+
+   <div class="rep-sec"><h4>下一步<em>wetlab_todo.md</em></h4>
+    <div class="note stop"><b>以下内容本报告不提供，必须湿实验确认。</b>
+     ① guide 的实际敲低效率（我们只给设计，不保证 KD%）；② 靶点蛋白层面的耗竭确认；③ unseen 靶点的任何结论；
+     ④ 共同必需基因的"治疗窗"——它们在所有细胞里都致死，排名高不等于是好靶点；⑤ 补偿通路与旁系同源救援效应。</div></div>
+   <div class="rep-sec">${settle(found.length,0,1+strong/Math.max(1,found.length)*3)}</div>`);
+}
+
+/* ── C 组合排序 ── */
+function runCMB(){
+  const raw=document.getElementById("i-agent").value.trim();
+  if(!raw) throw new Error("单药清单为空。");
+  const agents=raw.split(/\n+/).map(s=>s.trim()).filter(Boolean).slice(0,24);
+  if(agents.length<3) throw new Error("至少需要 3 个单药才能构成组合空间。");
+  const cell=document.getElementById("i-ccell").value, fmt=+document.getElementById("i-cfmt").value;
+  const nd=Math.max(1,+document.getElementById("i-dose").value||3);
+  const seed=+document.getElementById("i-cseed").value||1;
+  const PW={"KRAS":"MAPK","MEK":"MAPK","EGFR":"MAPK","SHP2":"MAPK","ERK":"MAPK","RAF":"MAPK",
+    "PI3K":"PI3K","AKT":"PI3K","MTOR":"PI3K","PI3Ka":"PI3K",
+    "CDK":"细胞周期","WEE1":"细胞周期","AURK":"细胞周期","PLK":"细胞周期",
+    "PARP":"DDR","ATR":"DDR","ATM":"DDR","CHK":"DDR"};
+  const info=agents.map((a,i)=>{
+    const up=a.toUpperCase(); let path="其他";
+    for(const k in PW){ if(up.includes(k.toUpperCase())){path=PW[k];break;} }
+    const r=rng(hashStr(a)+seed);
+    return {name:a,path,solo:+(0.25+0.6*r()).toFixed(2),idx:i};
+  });
+  const combos=[];
+  for(let i=0;i<info.length;i++)for(let j=i+1;j<info.length;j++){
+    const A=info[i],B=info[j];
+    const cross=A.path!==B.path?1:0.45;                    // 通路互补性
+    const vert=(A.path===B.path)?0.75:0;                   // 同通路垂直阻断另有价值
+    const both=Math.min(A.solo,B.solo);                     // 基线：两个单药都强
+    const r=rng(hashStr(A.name+"|"+B.name)+seed);
+    const prior=0.55*cross+0.25*vert+0.35*(A.solo+B.solo)/2+0.22*r();
+    combos.push({a:A,b:B,label:`${A.name.split(" (")[0]} + ${B.name.split(" (")[0]}`,
+      path:A.path===B.path?`${A.path}（垂直阻断）`:`${A.path} × ${B.path}`,
+      score:+prior.toFixed(3), both:+both.toFixed(3),
+      hyp:A.path===B.path?"同通路垂直阻断，抑制反馈重激活":"平行通路，阻断代偿逃逸"});
+  }
+  combos.sort((x,y)=>y.score-x.score);
+  combos.forEach((c,i)=>c._q=Math.min(4,Math.floor((1-i/combos.length)*5)));
+  // hit 的操作定义（演示）：跨通路 且 双方单药不弱
+  const hitFlag=combos.map(c=>(c.a.path!==c.b.path&&c.both>=0.42)?1:0);
+  const nHit=hitFlag.reduce((a,b)=>a+b,0)||1;
+  const P=makePlate(combos.map(c=>({...c,name:c.label,_q:c._q})),fmt,seed);
+  const cap=Math.floor(P.capacity/nd);           // 每组合占 nd 个浓度孔
+  const chosen=combos.slice(0,cap);
+  const topHit=chosen.reduce((a,c)=>a+((c.a.path!==c.b.path&&c.both>=0.42)?1:0),0);
+  const baseRate=nHit/combos.length;
+  const enr=Math.max(1,(topHit/Math.max(1,chosen.length))/baseRate);
+  const P2=makePlate(chosen.flatMap(c=>Array.from({length:nd},(_,k)=>({...c,name:c.label+" · D"+(k+1),_q:c._q}))),fmt,seed);
+
+  return repShell(`组合排序 · ${esc(cell.split(" · ")[0])} · ${fmt} 孔`,
+   `${agents.length} 单药 → ${combos.length} 组合 → ${chosen.length} 入板<br>每组合 ${nd} 浓度点 · 种子 ${seed}`,
+   `<div class="rep-sec"><h4>结果概览<em>KPI</em></h4>
+    <div class="kpis">
+      <div><strong>${combos.length}</strong><span>n² 组合空间（n=${agents.length}）</span></div>
+      <div><strong>${chosen.length}</strong><span>入板组合（× ${nd} 浓度点）</span></div>
+      <div><strong>${(combos.length/Math.max(1,chosen.length)).toFixed(0)}×</strong><span>组合空间压缩比</span></div>
+      <div><strong>${enr.toFixed(1)}×</strong><span>头部富集倍数（估计）</span></div>
+    </div></div>
+
+   <div class="rep-sec"><h4>组合排序<em>combo_ranked.csv</em></h4>
+    <div class="tw" style="max-height:400px;overflow-y:auto"><table>
+     <thead><tr><th>#</th><th>组合</th><th>通路关系</th><th>组合评分</th><th>基线：两药都强</th><th>机制假设</th><th>入板</th></tr></thead>
+     <tbody>${combos.map((c,i)=>`<tr><td class="n">${i+1}</td><td class="k">${esc(c.label)}</td>
+      <td>${esc(c.path)}</td><td class="n">${c.score.toFixed(2)}</td><td class="n">${c.both.toFixed(2)}</td>
+      <td class="m">${esc(c.hyp)}</td>
+      <td>${i<chosen.length?'<span class="pill p-go">是</span>':'<span class="pill p-nu">否</span>'}</td></tr>`).join("")}</tbody></table></div>
+    <div class="note warn" style="margin-top:12px"><b>注意「基线：两药都强」这一列。</b>这是组合筛选里最难打赢的基线——单纯挑两个各自都有效的药，往往就能拿到不错的协同命中率。<b>如果我们的排序和这一列高度一致，客户不需要模型，按单药活性排就行。</b>模型的价值只体现在它把某些"单药都不强、但机制互补"的组合提上来、并且这些组合真的命中。</div></div>
+
+   <div class="rep-sec"><h4>富集曲线<em>组合排序 vs 两药都强基线</em></h4>
+    <div class="chart">${enrichmentChart(combos.map(c=>c.score),combos.map(c=>c.both),hitFlag)}
+     <p class="cap">橙线是「两个单药都强」基线。演示中"命中"的操作定义为「跨通路 且 双方单药活性 ≥0.42」，是自洽标签而非实验真值。正式项目用留出组合的实测协同标签，并跑 unseen-combination 拆分。</p></div></div>
+
+   <div class="rep-sec"><h4>组合板图<em>${fmt} 孔 · 每组合 ${nd} 个浓度点</em></h4>
+    ${plateHTML(P2,`${chosen.length} 组合 × ${nd} 浓度 = ${chosen.length*nd} 孔`,w=>`${w.id} · ${w.item.name}\n${w.item.path}\n组合评分 ${w.item.score.toFixed(2)} · 两药都强基线 ${w.item.both.toFixed(2)}\n${w.item.hyp}`)}
+    <div class="note" style="margin-top:14px"><b>单药对照才是组合实验成败的关键。</b>末列的阳性 / 阴性对照孔在正式设计中要换成<b>每个入板组合的两个单药单独孔</b>——没有它们，你无法把协同和相加区分开，整块板的数据都无法判读。这是组合筛选最常见的失败原因，也是虚拟排序之外我们真正能帮上忙的地方。</div></div>
+
+   <div class="rep-sec"><h4>下一步<em>wetlab_todo.md</em></h4>
+    <div class="note stop"><b>以下内容本报告不提供，必须湿实验确认。</b>
+     ① 任何 Bliss / Loewe 协同系数的数值——它对实验条件极度敏感，预测出来也不可信；② 组合的实际浓度窗口与溶解度兼容性；
+     ③ 组合毒性（协同杀伤正常细胞的风险）；④ 时序效应（先后给药 vs 同时给药）；⑤ 演示版的单药活性先验为种子化生成，正式项目用该细胞系的实测 GDSC / PRISM 数据。</div></div>
+   <div class="rep-sec">${settle(chosen.length*nd,baseRate,enr)}</div>`);
+}
+
+/* tooltip */
+function bindTips(){
+  const tip=document.getElementById("tip");
+  document.querySelectorAll("[data-tip]").forEach(el=>{
+    el.addEventListener("mouseenter",e=>{
+      tip.textContent=el.getAttribute("data-tip"); tip.style.opacity="1";
+      const r=el.getBoundingClientRect();
+      let x=r.left+r.width/2, y=r.top-8;
+      tip.style.left="0px"; tip.style.top="0px";
+      const t=tip.getBoundingClientRect();
+      x=Math.max(8,Math.min(innerWidth-t.width-8,x-t.width/2));
+      y=y-t.height<8? r.bottom+8 : y-t.height;
+      tip.style.left=x+"px"; tip.style.top=y+"px";
+    });
+    el.addEventListener("mouseleave",()=>{tip.style.opacity="0";});
+  });
+}
+setTab("phe");
+</script>
