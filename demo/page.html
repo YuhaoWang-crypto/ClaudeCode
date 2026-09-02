@@ -1,0 +1,100 @@
+<div class="wrap">
+
+<div class="masthead">
+  <div>
+    <div class="eyebrow">VC-FF · 虚拟细胞力场引擎 v0.1</div>
+    <h1>五个模型不是五张表，是一个力场的五个项</h1>
+    <p class="sub">力场只规定<em>泛函形式</em>：哪些通路会动、哪个细胞系脆弱、两个靶点怎么耦合。
+      <em>标量参数</em>——浓度、效价、Hill 系数、暴露时长、细胞系、组合——由你给。
+      引擎把两者按组合律装配。换一组参数，输出的不只是数值，还有能装配上的层数，以及引擎该在哪里拒绝回答。</p>
+  </div>
+  <div class="mastright">
+    <button class="themebtn" id="themebtn" type="button">切换明暗</button>
+    <div class="eyebrow" style="text-align:right;line-height:1.7">17,787 靶点 · 278 化合物<br>126 组实测上位性 · 4 细胞系</div>
+  </div>
+</div>
+
+<div class="thesis">
+  <div>
+    <div class="k">数据库会怎么回答</div>
+    <div class="v">你查 TYMS，它返回 HepG2 <b>−0.818</b>、RPE1 <b>−0.171</b>。
+      换个浓度、加个联用药、改暴露时长——返回值一个字都不会变。</div>
+  </div>
+  <div>
+    <div class="k">力场会怎么回答</div>
+    <div class="v">同样的 TYMS，在 <b>0.5 µM / 72 h</b> 与 <b>10 µM / 144 h</b> 下给出不同的等效剂量比、
+      不同的饱和下限、不同的置信度，以及不同的<b>可回答范围</b>。</div>
+  </div>
+  <div>
+    <div class="k">代价：只有相对量成立</div>
+    <div class="v">和分子力场一样，绝对能量依赖任意参考态。这里的绝对存活率是<b>约定锚定</b>的，
+      只有比值、剂量位移、相对加和预期的偏离可解释。</div>
+  </div>
+</div>
+
+<div class="chain-head">
+  <h2>装配链</h2>
+  <span>每次求值实际接上了哪些项 —— 这一行是「组合」与「查表」的分界</span>
+</div>
+<div class="chain" id="chain"></div>
+<div class="laws" id="laws"></div>
+
+<div class="grid">
+  <section class="panel" aria-label="实验规格">
+    <header><h2>实验规格</h2><span class="hint">你的参数</span></header>
+    <div class="presets" id="presets"></div>
+    <div class="pad">
+      <div class="field">
+        <label for="ctx">细胞上下文</label>
+        <select class="ctl" id="ctx"></select>
+      </div>
+      <div class="field">
+        <label for="exp">暴露时长</label>
+        <input class="ctl" id="exp" type="number" min="1" max="720" step="1" value="72">
+      </div>
+      <div class="eyebrow" style="margin:16px 0 8px">化合物</div>
+      <div class="cmpds" id="cmpds"></div>
+      <button class="addbtn" id="addbtn" type="button">+ 增加一个化合物</button>
+      <datalist id="names"></datalist>
+      <p style="font-size:11px;color:var(--ink-3);line-height:1.5;margin-top:12px">
+        名称可以是化合物（自动映射靶点）或直接写基因符号，17,787 个基因全覆盖。
+        IC50 留空会用 1.0 µM 占位，并在结果里标注 —— 引擎不预测效价。
+      </p>
+    </div>
+  </section>
+
+  <div class="res" id="res"></div>
+</div>
+
+<div class="ledger">
+  <h2>诚实账本</h2>
+  <p class="intro">每一个输出量都带证据等级。<b>✅ 实测</b>直接来自已发表数据；<b>◐ 模型预测</b>有报告过的验证指标；
+    <b>⚠️ 建模假设</b>是引擎自己引入、未在本数据上拟合的；<b>⛔ 拒答</b>是数据覆盖不到、引擎不外推的地方。</p>
+  <div class="claims" id="claims"></div>
+  <div class="notes" id="notes"></div>
+  <div class="refuse">
+    <div class="k">引擎明确拒绝输出</div>
+    <ul>
+      <li>NOAEL / LOAEL 数值</li>
+      <li>绝对 IC50 或 EC50 —— 效价是你的输入参数，不是本引擎的预测</li>
+      <li>绝对细胞存活率百分比 —— λ 为约定锚定，非拟合</li>
+      <li>临床安全窗、给药剂量、毒理放行结论</li>
+    </ul>
+  </div>
+  <details class="json">
+    <summary>结果卡 JSON（可直接接进你的流水线）</summary>
+    <pre id="jsonout"></pre>
+  </details>
+</div>
+
+<footer class="foot">
+  <b>数据来源</b>　Replogle 2022 <i>Cell</i>（Perturb-seq）· Adduri 2025 <i>bioRxiv</i>（STATE）·
+  Zhang 2025 <i>bioRxiv</i>（Tahoe-100M）· Norman 2019 <i>Science</i>（双扰动）·
+  Corsello 2020 <i>Nat Cancer</i>（PRISM）· Liberzon 2015 <i>Cell Syst</i>（Hallmark）·
+  Tsherniak 2017 / Meyers 2017（DepMap Chronos）。<br>
+  <b>边界</b>　毒性主轴固定在 HepG2 ↔ RPE1，因为依赖性数据只覆盖这两个系；换上下文只影响通路层与置信度加权。
+  组合律 L1–L4 全部是未拟合的建模假设。研究级可行性演示，输出供实验设计与优先级排序参考，不构成临床或毒理放行结论。
+</footer>
+
+</div>
+
