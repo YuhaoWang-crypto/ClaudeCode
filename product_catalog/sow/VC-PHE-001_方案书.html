@@ -1,0 +1,481 @@
+<title>VC-PHE-001 化合物库 MoA 分诊方案书</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;800&family=Noto+Serif+SC:wght@500;600&display=swap">
+<style>
+:root{
+  --ink:#0d1720; --navy:#102836; --paper:#f3f0e9; --white:#fffdf8; --band:#e2ded5;
+  --muted:#667078; --line:#0d172024; --line2:#0d172040;
+  --lime:#c9ee45; --coral:#ff8a6b;
+  --c1:#1c68c9; --c2:#c2571c; --c3:#7a4fbf; --c4:#3f8a4a;
+  --good:#3f8a4a; --warn:#b5791a; --bad:#b3402c;
+  --serif:Georgia,"Noto Serif SC",serif;
+  --sans:Inter,"Noto Sans SC","PingFang SC","Microsoft YaHei",Arial,sans-serif;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  color-scheme:light;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.7;-webkit-font-smoothing:antialiased}
+a{color:inherit} ul,ol{list-style:none}
+.shell{width:min(1240px,100% - 44px);margin:0 auto}
+
+/* masthead */
+.mast{background:var(--navy);color:#fff}
+.mast-in{width:min(1240px,100% - 44px);margin:0 auto;padding:52px 0 46px}
+.mast .brand{display:flex;align-items:center;gap:10px;font-size:13px;font-weight:750;color:#fff;margin-bottom:34px}
+.mast .brand-mark{background:var(--lime);color:var(--ink);width:26px;height:26px;border-radius:50%;display:grid;place-items:center;font-family:Georgia,serif;font-size:13px}
+.mast .code{display:inline-block;background:var(--lime);color:var(--ink);padding:7px 12px;font:800 11px var(--mono);letter-spacing:.14em;margin-bottom:16px}
+.mast h1{font-family:var(--serif);font-weight:500;font-size:clamp(32px,4.6vw,58px);line-height:1.08;letter-spacing:-.045em;max-width:22ch}
+.mast .sub{color:#a9bcc5;font-size:16px;margin-top:16px;max-width:62ch;line-height:1.8}
+.mast-meta{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid #ffffff26;margin-top:38px}
+.mast-meta div{padding:18px 20px 0 0;border-right:1px solid #ffffff1a}
+.mast-meta div:last-child{border-right:0}
+.mast-meta span{display:block;font:800 9.5px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:#7d939e}
+.mast-meta b{display:block;font:500 19px var(--serif);color:#fff;margin-top:6px;letter-spacing:-.01em}
+
+/* layout */
+.grid{display:block;padding:48px 0 90px}
+@media(min-width:1080px){.grid{display:grid;grid-template-columns:206px minmax(0,1fr);gap:52px;align-items:start}}
+nav.rail{display:none}
+@media(min-width:1080px){
+ nav.rail{display:block;position:sticky;top:24px;border-left:2px solid var(--line)}
+ nav.rail a{display:block;padding:6px 0 6px 15px;margin-left:-2px;border-left:2px solid transparent;font-size:12.5px;color:var(--muted);line-height:1.45}
+ nav.rail a:hover{color:var(--c1);border-left-color:var(--c1)}
+ nav.rail a .n{font:10.5px var(--mono);margin-right:6px;opacity:.7}
+}
+main{min-width:0}
+section{margin-bottom:56px;scroll-margin-top:20px}
+.sh{display:flex;gap:13px;align-items:baseline;border-bottom:1px solid var(--line2);padding-bottom:10px;margin-bottom:18px}
+.sh .num{font:12px var(--mono);color:var(--c1);letter-spacing:.1em;flex:none;padding-top:5px}
+h2{font-family:var(--serif);font-weight:500;font-size:clamp(21px,2.7vw,28px);line-height:1.35;letter-spacing:-.02em}
+h3{font-size:15.5px;font-weight:700;margin:26px 0 9px;line-height:1.5}
+h3 .hn{font:11.5px var(--mono);color:var(--c1);margin-right:7px}
+p{margin:0 0 13px;max-width:70ch}
+p.lede{color:#4f5d66;font-size:15.5px}
+strong{font-weight:700}
+code{font-family:var(--mono);font-size:.88em;background:#0d17200f;padding:1.5px 5px;border-radius:2px}
+ul.b,ol.b{margin:0 0 14px;max-width:70ch}
+ul.b li,ol.b li{padding:5px 0 5px 18px;position:relative;line-height:1.7}
+ul.b li:before{content:"";position:absolute;left:2px;top:14px;width:5px;height:5px;border-radius:50%;background:var(--c1)}
+ol.b{counter-reset:o}
+ol.b li{counter-increment:o;padding-left:26px}
+ol.b li:before{content:counter(o);position:absolute;left:0;top:5px;font:11px var(--mono);color:var(--c1);background:none;width:auto;height:auto;border-radius:0}
+hr.s{border:0;border-top:1px solid var(--line);margin:26px 0}
+
+.tw{overflow-x:auto;border:1px solid var(--line);background:#ffffff8f;margin:16px 0}
+table{border-collapse:collapse;width:100%;min-width:660px;font-size:12.8px}
+th,td{text-align:left;padding:10px 13px;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.6}
+thead th{background:#f7f5f0;font:800 9.5px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
+tbody tr:last-child td{border-bottom:0}
+td.k{font-weight:700;white-space:nowrap}
+td.n{font-family:var(--mono);font-variant-numeric:tabular-nums;text-align:right;white-space:nowrap}
+td.m{font-family:var(--mono);font-size:11.5px;color:var(--muted)}
+tfoot td{background:#f7f5f0;font-weight:700;border-top:1px solid var(--line2)}
+
+.note{border:1px solid var(--line);background:#ffffff8f;padding:15px 19px;font-size:13px;line-height:1.78;color:#3f4c54;margin:16px 0}
+.note b{color:var(--ink)}
+.note.ok{border-left:4px solid var(--good);background:#3f8a4a0a}
+.note.warn{border-left:4px solid var(--warn);background:#b5791a0a}
+.note.stop{border-left:4px solid var(--bad);background:#b3402c0a}
+.note.key{border-left:4px solid var(--c1);background:#1c68c90a}
+
+.pill{display:inline-block;padding:1px 7px;border-radius:2px;font:10px var(--mono);border:1px solid;white-space:nowrap}
+.p-go{color:var(--good);border-color:#3f8a4a55;background:#3f8a4a12}
+.p-wa{color:var(--warn);border-color:#b5791a55;background:#b5791a12}
+.p-no{color:var(--bad);border-color:#b3402c55;background:#b3402c12}
+
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--line);margin:18px 0}
+.kpis div{padding:17px 19px;border-right:1px solid var(--line);background:#ffffff8f}
+.kpis div:last-child{border-right:0}
+.kpis strong{display:block;font:500 27px var(--serif);letter-spacing:-.03em;color:#152a3a;font-variant-numeric:tabular-nums}
+.kpis span{display:block;color:var(--muted);font-size:11px;margin-top:5px;line-height:1.5}
+
+.chan{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin:18px 0}
+.chan article{border:1px solid var(--line);background:#ffffff8f;padding:20px;border-top:5px solid var(--cc)}
+.chan h4{font:800 9.5px var(--mono);letter-spacing:.13em;text-transform:uppercase;color:var(--cc);margin-bottom:6px}
+.chan .t{font:500 17px/1.4 var(--serif);margin-bottom:10px}
+.chan p{font-size:12.5px;line-height:1.7;color:#3f4c54;margin:0 0 9px}
+.chan .lim{border-top:1px solid var(--line);padding-top:9px;margin-top:auto;font-size:11.5px;color:var(--muted);line-height:1.65}
+
+.deliv{border:1px solid var(--line);background:#ffffff8f}
+.deliv>div{display:grid;grid-template-columns:210px 1fr;gap:20px;padding:13px 18px;border-bottom:1px solid var(--line)}
+.deliv>div:last-child{border-bottom:0}
+.deliv code{background:none;padding:0;font-size:12px;color:var(--c1);font-weight:600}
+.deliv p{margin:0;font-size:12.5px;line-height:1.65}
+
+.chart{border:1px solid var(--line);background:#ffffff8f;padding:18px;margin:16px 0}
+.chart svg{display:block;width:100%;height:auto;overflow:visible}
+.chart .cap{font-size:11.5px;color:var(--muted);margin-top:11px;line-height:1.65;max-width:none}
+
+.price{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin:18px 0}
+.price article{border:1px solid var(--line);background:#ffffff8f;padding:22px;display:flex;flex-direction:column}
+.price article.mid{border-top:5px solid var(--c1);background:var(--white)}
+.price h4{font:800 9.5px var(--mono);letter-spacing:.13em;text-transform:uppercase;color:var(--muted)}
+.price .amt{font:500 30px var(--serif);letter-spacing:-.03em;margin:8px 0 3px}
+.price .per{font-size:11.5px;color:var(--muted);margin-bottom:14px}
+.price li{font-size:12.5px;line-height:1.6;padding:7px 0;border-top:1px solid var(--line);display:flex;gap:8px}
+.price li:before{content:"";flex:none;width:4px;height:4px;border-radius:50%;background:var(--c1);margin-top:8px}
+
+.foot{border-top:1px solid var(--line);padding:24px 0 40px;color:var(--muted);font-size:10.5px;line-height:1.9}
+:focus-visible{outline:2px solid var(--c1);outline-offset:2px}
+@media(max-width:900px){
+ .kpis,.chan,.price{grid-template-columns:1fr}
+ .kpis div{border-right:0;border-bottom:1px solid var(--line)}
+ .mast-meta{grid-template-columns:1fr 1fr}
+ .deliv>div{grid-template-columns:1fr;gap:5px}
+}
+</style>
+
+<header class="mast"><div class="mast-in">
+  <div class="brand"><span class="brand-mark">Q</span>QureGen BioDecision</div>
+  <p class="code">VC-PHE-001</p>
+  <h1>化合物库 MoA 分诊与冗余去重</h1>
+  <p class="sub">把一个 10³–10⁵ 的化合物库，压缩成一块能测、且机制覆盖不塌缩的板。交付排序表、板图、冗余簇报告与干扰子清单——并按实测富集倍数结算。</p>
+  <div class="mast-meta">
+    <div><span>产品线</span><b>PhenoScreen-AI</b></div>
+    <div><span>技术领域</span><b>虚拟细胞 · 表型预筛</b></div>
+    <div><span>交付周期</span><b>4 周 + 回流</b></div>
+    <div><span>项目范围</span><b>8 万 – 20 万</b></div>
+  </div>
+</div></header>
+
+<div class="shell"><div class="grid">
+<nav class="rail" aria-label="目录">
+  <a href="#s0"><span class="n">00</span>方案摘要</a>
+  <a href="#s1"><span class="n">01</span>客户问题</a>
+  <a href="#s2"><span class="n">02</span>服务范围与排除项</a>
+  <a href="#s3"><span class="n">03</span>输入契约</a>
+  <a href="#s4"><span class="n">04</span>技术方案</a>
+  <a href="#s5"><span class="n">05</span>交付物清单</a>
+  <a href="#s6"><span class="n">06</span>验收标准与结算</a>
+  <a href="#s7"><span class="n">07</span>项目计划</a>
+  <a href="#s8"><span class="n">08</span>报价</a>
+  <a href="#s9"><span class="n">09</span>风险与前提</a>
+  <a href="#s10"><span class="n">10</span>数据、IP 与合规</a>
+  <a href="#s11"><span class="n">11</span>方法验证算例</a>
+</nav>
+
+<main>
+
+<section id="s0">
+  <div class="sh"><span class="num">00</span><h2>方案摘要</h2></div>
+  <p class="lede">贵方提供一份化合物清单（SMILES / SDF）。我们在四周内交付一份<strong>实验就绪</strong>的分诊结果：每个化合物的推定作用机制与置信度、冗余簇归并、干扰子剔除清单，以及一块按「命中概率 × 机制覆盖」双目标选出的 96 / 384 孔板图。</p>
+  <p>这不是一份预测报告，是一次可结算的委托。<strong>主验收指标是留出集上的 MoA 富集倍数，且必须显著高于「结构指纹最近邻」这条便宜基线</strong>——打不赢基线，我们交付基线本身并按基线档计费。</p>
+  <div class="kpis">
+    <div><strong>≤ 20k</strong><span>标准档单次可处理化合物数</span></div>
+    <div><strong>4 周</strong><span>从数据接入到报告交付</span></div>
+    <div><strong>≥ 3×</strong><span>MoA 富集倍数承诺下限</span></div>
+    <div><strong>50%</strong><span>未达承诺值一半时的退款比例</span></div>
+  </div>
+  <div class="note key"><b>一句话定位。</b>我们不卖预测，我们卖<b>你下一块板上放什么</b>，并且愿意为这块板的实测结果承担商务后果。</div>
+</section>
+
+<section id="s1">
+  <div class="sh"><span class="num">01</span><h2>客户问题</h2></div>
+  <p class="lede">这个方案针对四类具体场景，它们的共同点是：手上有一堆化合物，但不知道该先测哪些。</p>
+  <div class="tw"><table>
+    <thead><tr><th>场景</th><th>典型规模</th><th>不做分诊会发生什么</th></tr></thead>
+    <tbody>
+      <tr><td class="k">新采购的商业库</td><td class="n">5k – 100k</td><td>库内大量结构近似物；按板顺序测等于反复测同一个机制，钱花在冗余上</td></tr>
+      <tr><td class="k">内部历史化合物库</td><td class="n">1k – 20k</td><td>历年项目留下的系列化合物高度聚集；机制覆盖有大片空白但没人知道空在哪</td></tr>
+      <tr><td class="k">一次表型筛的 hit list</td><td class="n">100 – 2k</td><td>常有 5–20% 是频繁命中子（PAINS）；不剔除会把资源投进注定失败的化学系列</td></tr>
+      <tr><td class="k">天然产物 / 提取物库</td><td class="n">500 – 10k</td><td>结构未知或为混合物，无法按结构排序；需要表型通道单独处理</td></tr>
+    </tbody>
+  </table></div>
+  <p>三个反复出现的具体痛点：</p>
+  <ol class="b">
+    <li><strong>冗余不可见。</strong>「这批 2,000 个化合物实际上覆盖多少种机制」这个问题，多数团队答不上来，因为没人做过聚类。</li>
+    <li><strong>干扰子进板。</strong>儿茶酚、Michael 受体、醌类在表型读数上极易假阳性；等到二次确认才发现，一轮实验已经浪费。</li>
+    <li><strong>选板凭直觉。</strong>板位如何分配、对照放哪里、边缘孔要不要留——这些决定了数据能不能判读，但往往在实验前一天才拍脑袋定。</li>
+  </ol>
+</section>
+
+<section id="s2">
+  <div class="sh"><span class="num">02</span><h2>服务范围与排除项</h2></div>
+  <p class="lede">排除项和范围一样重要，且以合同附件形式固定。虚拟筛选领域最大的商业风险不是做不出来，是承诺了做不到的事。</p>
+  <h3><span class="hn">2.1</span>本方案交付</h3>
+  <ul class="b">
+    <li><strong>MoA 推定与置信度</strong>——每个化合物给出推定机制类别、支持证据通道、置信度，以及适用域判定</li>
+    <li><strong>冗余簇归并</strong>——Butina 聚类给出化学系列簇与每簇代表化合物，量化库的实际多样性</li>
+    <li><strong>干扰子与成药性筛除</strong>——PAINS A/B/C、Brenk、NIH 过滤器，Lipinski / Veber 判定</li>
+    <li><strong>优先板选择与板图</strong>——双目标（命中概率 × 机制覆盖）约束优化，含对照布位与边缘策略</li>
+    <li><strong>富集验收报告</strong>——留出集上的富集曲线，与两条基线并排</li>
+    <li><strong>可复现包</strong>——方法、版本、参数、脚本，贵方可独立重跑</li>
+  </ul>
+  <h3><span class="hn">2.2</span>本方案不交付（合同排除条款）</h3>
+  <div class="note stop">
+    <b>① 任何绝对活性数值。</b>不出 IC50 / EC50 / Ki，不出剂量-响应曲线。我们只做排序。<br>
+    <b>② 化合物的实际溶解度、稳定性与批次纯度。</b>这些必须实测。<br>
+    <b>③ 细胞毒性与靶点特异性的区分。</b>表型相似不等于机制相同。<br>
+    <b>④ 蛋白层面的靶点结合确认。</b><br>
+    <b>⑤ 标为 <span class="pill p-no">OOD</span> 条目的任何结论。</b>参考集不覆盖的化学空间，我们给出的排序不可信，会明确标注并建议直接进实验。<br>
+    <b>⑥ 多细胞共培养 / 免疫杀伤 / 类器官终点。</b>缺乏可训练的配对数据，不在本方案范围内，亦不在其他方案范围内。<br>
+    <b>⑦ 监管级结论。</b>本服务为 Research Use Only。
+  </div>
+</section>
+
+<section id="s3">
+  <div class="sh"><span class="num">03</span><h2>输入契约</h2></div>
+  <p class="lede">下表是启动项目的最小充分条件。带 <span class="pill p-go">必需</span> 的字段缺失则项目无法启动；带 <span class="pill p-wa">强烈建议</span> 的字段缺失会显著削弱验收环节的说服力。</p>
+  <div class="tw"><table>
+    <thead><tr><th>输入</th><th>格式</th><th>要求</th><th>用途</th></tr></thead>
+    <tbody>
+      <tr><td class="k">化合物结构</td><td class="m">SDF / CSV(SMILES) / MOL</td><td><span class="pill p-go">必需</span> ≥100 条，建议 ≥1,000；含唯一 ID</td><td>全流程主输入</td></tr>
+      <tr><td class="k">目标细胞系</td><td class="m">文本</td><td><span class="pill p-go">必需</span> A549 / MCF7 / HT29 / U2OS 之一，或说明自有系</td><td>决定表型参考底座</td></tr>
+      <tr><td class="k">板规格与容量</td><td class="m">96 / 384 · 板数</td><td><span class="pill p-go">必需</span></td><td>组合选择的硬约束</td></tr>
+      <tr><td class="k">已知 MoA 标注子集</td><td class="m">CSV(ID, MoA)</td><td><span class="pill p-wa">强烈建议</span> ≥50 条，覆盖 ≥5 类</td><td><b>留出验收集</b>——没有它，富集倍数只能在公共参考集上估计</td></tr>
+      <tr><td class="k">已有活性数据</td><td class="m">CSV(ID, 读数, 条件)</td><td><span class="pill p-wa">强烈建议</span></td><td>私有校准，提升排序质量</td></tr>
+      <tr><td class="k">MoA 分类体系</td><td class="m">文本 / CSV</td><td>可选</td><td>对齐贵方内部术语，避免交付后再翻译</td></tr>
+      <tr><td class="k">排除清单</td><td class="m">CSV(ID)</td><td>可选</td><td>已测过 / 已知不可用的化合物</td></tr>
+    </tbody>
+  </table></div>
+  <div class="note warn"><b>关于留出验收集。</b>这是整份方案里唯一一处我们需要贵方"多给一点"的地方，也是最值得给的：<b>没有贵方自己的标注子集，富集倍数只能在公共参考集上估计，它衡量的是我们对公共数据的拟合，而不是对贵方化学空间的泛化。</b>50 条带 MoA 标注的化合物，就能把验收从"我们说好"变成"数据说好"。</div>
+</section>
+
+<section id="s4">
+  <div class="sh"><span class="num">04</span><h2>技术方案</h2></div>
+  <p class="lede">沿用 QureGen 统一的五步骨架。核心设计是<strong>三条正交证据通道</strong>——任何单一通道都有已知的失效模式，三条通道的一致性本身就是置信度信号。</p>
+
+  <h3><span class="hn">4.1</span>三条证据通道</h3>
+  <div class="chan">
+    <article style="--cc:var(--c1)">
+      <h4>通道 1 · 结构</h4><div class="t">ECFP4 + 理化描述符</div>
+      <p>RDKit 生成 ECFP4 指纹与全套描述符，对 ChEMBL / DrugBank 已注释参考集做 kNN 检索；Butina 聚类给出冗余簇。</p>
+      <div class="lim"><b>失效模式：</b>活性悬崖（结构近似而机制不同）；骨架跃迁（机制相同而结构远）。天然产物混合物完全失效。</div>
+    </article>
+    <article style="--cc:var(--c2)">
+      <h4>通道 2 · 转录</h4><div class="t">LINCS L1000 签名检索</div>
+      <p>若化合物在 CMap 中有实测签名，直接做签名空间检索与疾病签名逆转；无签名者用结构→签名代理模型，并标注为代理结果。</p>
+      <div class="lim"><b>失效模式：</b>覆盖率——多数自有化合物没有 L1000 签名；代理模型的误差不可忽略，必须与实测签名分开报告。</div>
+    </article>
+    <article style="--cc:var(--c3)">
+      <h4>通道 3 · 形态</h4><div class="t">JUMP Cell Painting</div>
+      <p>在 U2OS / A549 形态底座上做签名检索，给出形态邻域与应激表型。对结构未知的天然产物，这是唯一可用通道。</p>
+      <div class="lim"><b>失效模式：</b>批次效应主导——必须做同批次对照内的相对比较；细胞系差异使跨系形态签名不可直接比较。</div>
+    </article>
+  </div>
+  <div class="note key"><b>三通道一致性即置信度。</b>三条通道给出同一 MoA → 高置信；两条一致一条冲突 → 中置信并标注冲突通道；三条互不一致或全部落在适用域外 → 标 <span class="pill p-no">OOD</span>，不给结论。<b>我们报告分歧，而不是用投票把分歧抹平。</b></div>
+
+  <h3><span class="hn">4.2</span>五步实施</h3>
+  <div class="tw"><table>
+    <thead><tr><th>阶段</th><th>实际工作</th><th>阶段输出</th><th>决策门</th></tr></thead>
+    <tbody>
+      <tr><td class="k">01 标准输入</td><td>结构标准化（去盐、互变异构、立体化学）、ID 唯一性核对、MoA 术语对齐、留出集冻结</td><td class="m">input_manifest.csv<br>input_qc.html</td><td>结构可解析率 ≥95%；留出集与训练集无泄漏</td></tr>
+      <tr><td class="k">02 候选生成</td><td>三通道并行检索；Butina 聚类；PAINS/Brenk/NIH 与 Lipinski/Veber 计算</td><td class="m">candidate_space.parquet<br>redundancy_clusters.csv</td><td>候选可追溯到证据来源；冗余簇有代表化合物</td></tr>
+      <tr><td class="k">03 证据校准</td><td>留出集上算 MoA top-k 富集与召回；leave-drug-out + leave-study-out；与两条基线并排；适用域阈值标定</td><td class="m">evidence_matrix.csv<br>enrichment_report.html</td><td><b>富集倍数显著高于基线</b>；OOD 比例已量化</td></tr>
+      <tr><td class="k">04 组合选择</td><td>双目标约束优化：最大化「预期命中 × MoA 覆盖」，受板容量、每簇取样上限、对照孔数约束</td><td class="m">selected_panel.csv<br>decision_log.json</td><td>硬约束零违例；MoA 覆盖不低于协商下限</td></tr>
+      <tr><td class="k">05 实验就绪</td><td>板图生成（边缘留空、DMSO 列、阴阳性对照列、种子化随机布位）、浓度建议、判读规则</td><td class="m">plate_map.xlsx<br>experiment_package/</td><td>板位、对照、判读与异常处理可直接执行</td></tr>
+      <tr><td class="k">06 回流校准</td><td>接收实测结果，计算实测富集，更新检索权重，产出第二轮建议</td><td class="m">round2_plan.html</td><td>实测富集达成结算条款约定值</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3><span class="hn">4.3</span>组合选择的目标函数</h3>
+  <p>板容量 <code>N</code> 下，从 <code>M</code> 个化合物中选子集 <code>S</code>，最大化：</p>
+  <div class="note" style="font-family:var(--mono);font-size:12.5px"><b>maximize</b>　Σ<sub>i∈S</sub> score(i)　+　λ · |{MoA classes covered by S}|<br><br>
+  <b>subject to</b>　|S| ≤ N − n<sub>ctrl</sub>　·　每个冗余簇取样 ≤ k　·　OOD 条目单独配额 ≤ q　·　每类 MoA 至少 1 个阳性对照</div>
+  <p>λ 与 k 是与贵方协商的参数：<strong>λ 大 = 宁可牺牲头部命中率也要覆盖更多机制</strong>（适合库表征）；<strong>λ 小 = 集中火力打头部</strong>（适合 hit 跟进）。这个权衡由贵方定，不由模型定。</p>
+</section>
+
+<section id="s5">
+  <div class="sh"><span class="num">05</span><h2>交付物清单</h2></div>
+  <p class="lede">全部交付物在一个版本化目录中，附 <code>README.md</code> 与 <code>methods.md</code>，贵方可独立重跑并复现每一个数字。</p>
+  <div class="deliv">
+    <div><code>priority_list.csv</code><p>主交付。排序 + 全套描述符 + 三通道证据 + 推定 MoA + 置信度 + OOD 标记 + 结构警报。每行可追溯到支持它的参考化合物。</p></div>
+    <div><code>plate_map.xlsx</code><p>板图。孔号 → 化合物 ID，含 DMSO 列、阴阳性对照、边缘留空策略、随机化种子。可直接导入移液工作站。</p></div>
+    <div><code>redundancy_clusters.csv</code><p>Butina 聚类结果。簇 ID、成员、簇内最大相似度、推荐代表化合物。量化"这个库实际上有多少种化学"。</p></div>
+    <div><code>moa_coverage.csv</code><p>MoA × 化合物覆盖矩阵，含入板前后对比——直接回答"这块板覆盖了哪些机制、漏了哪些"。</p></div>
+    <div><code>interference_flags.csv</code><p>PAINS A/B/C、Brenk、NIH 命中明细，含命中的具体子结构与文献依据。</p></div>
+    <div><code>enrichment_report.html</code><p>验收报告。富集曲线、两条基线对比、leave-drug-out 与 leave-study-out 结果、置信区间。</p></div>
+    <div><code>qc_domain.csv</code><p>适用域报告。每条化合物与参考集的最大相似度、OOD 判定、建议处理方式。</p></div>
+    <div><code>methods.md</code> + <code>run/</code><p>方法学说明、软件版本、全部参数、可执行脚本与环境定义。</p></div>
+    <div><code>wetlab_todo.md</code><p>必须湿实验确认的清单——排除项的可执行版本，逐条对应到具体化合物。</p></div>
+  </div>
+</section>
+
+<section id="s6">
+  <div class="sh"><span class="num">06</span><h2>验收标准与结算</h2></div>
+  <p class="lede">本节是这份方案书与一般"AI 药物发现服务"介绍的主要区别：验收指标是预先约定的、可计算的、且与费用挂钩。</p>
+
+  <h3><span class="hn">6.1</span>验收指标</h3>
+  <div class="tw"><table>
+    <thead><tr><th>指标</th><th>定义</th><th>承诺值</th><th>性质</th></tr></thead>
+    <tbody>
+      <tr><td class="k">MoA 富集倍数</td><td>留出集上，头部 20% 的 MoA top-1 命中率 ÷ 随机期望</td><td class="n">≥ 3×</td><td><b>主指标</b>，与费用挂钩</td></tr>
+      <tr><td class="k">打赢基线</td><td>富集倍数高于「结构指纹最近邻」与「L1000 检索」两条基线</td><td class="n">bootstrap CI 下界 &gt; 0</td><td><b>门槛</b>，未达成则按基线档计费</td></tr>
+      <tr><td class="k">头部召回</td><td>头部 20% 覆盖的真实 MoA 类别 ÷ 全库类别</td><td class="n">≥ 50%</td><td>次指标</td></tr>
+      <tr><td class="k">冗余压缩比</td><td>化合物数 ÷ 冗余簇数</td><td class="m">据实报告</td><td>取决于库本身，不作承诺</td></tr>
+      <tr><td class="k">干扰子召回</td><td>已知 PAINS 阳性对照的检出率</td><td class="n">≥ 90%</td><td>可直接核验</td></tr>
+      <tr><td class="k">OOD 比例</td><td>超出适用域的化合物占比</td><td class="m">据实报告</td><td>过高时触发范围重议</td></tr>
+      <tr><td class="k">可复现性</td><td>贵方用交付脚本重跑，结果逐位一致</td><td class="n">100%</td><td>硬性要求</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3><span class="hn">6.2</span>结算条款</h3>
+  <div class="note ok"><b>正向。</b>实测富集 ≥ 承诺值 → 全额结算，并按约定进入第二轮回流校准。<br>
+  <b>部分达成。</b>实测富集在承诺值的 50%–100% 之间 → 按实测/承诺的比例结算尾款。<br>
+  <b>未达成。</b>实测富集 &lt; 承诺值的 50% → <b>退回已付款项的 50%</b>，交付物仍归贵方所有，我们同时交付完整的失败分析（哪条通道失效、OOD 比例、留出集是否有代表性）。<br>
+  <b>基线未被打赢。</b>若三通道模型未能显著超过两条基线 → 我们交付基线结果本身，按基础档计费，并说明为何在贵方的化学空间上模型无增量。</div>
+  <div class="note warn"><b>结算的前提是贵方回传实测结果。</b>这是双向义务：我们承诺富集倍数，贵方承诺在约定窗口内回传该板的实测命中数据（可脱敏，只需 hit/non-hit 二元标签与 MoA 归属）。没有回流数据，条款按"部分达成"上限执行。</div>
+</section>
+
+<section id="s7">
+  <div class="sh"><span class="num">07</span><h2>项目计划</h2></div>
+  <div class="chart">
+    <svg viewBox="0 0 760 232" role="img" aria-label="项目甘特图：4 周交付 + 实验回流窗口">
+      <g font-family="ui-monospace,monospace" font-size="10" fill="#667078">
+        <text x="0" y="14">W0</text><text x="115" y="14">W1</text><text x="230" y="14">W2</text>
+        <text x="345" y="14">W3</text><text x="460" y="14">W4</text><text x="575" y="14">W5–8</text><text x="700" y="14">W9</text>
+      </g>
+      <g stroke="#0d172014">
+        <line x1="0" y1="22" x2="760" y2="22"/><line x1="115" y1="22" x2="115" y2="216"/>
+        <line x1="230" y1="22" x2="230" y2="216"/><line x1="345" y1="22" x2="345" y2="216"/>
+        <line x1="460" y1="22" x2="460" y2="216"/><line x1="575" y1="22" x2="575" y2="216"/><line x1="690" y1="22" x2="690" y2="216"/>
+      </g>
+      <g font-size="11.5" font-weight="600" fill="#0d1720">
+        <rect x="0" y="32" width="115" height="21" rx="4" fill="var(--c1)"/><text x="8" y="47" fill="#fff">数据接入与 QC</text>
+        <rect x="60" y="60" width="170" height="21" rx="4" fill="var(--c1)"/><text x="68" y="75" fill="#fff">参考集对齐 · 基线建立</text>
+        <rect x="170" y="88" width="230" height="21" rx="4" fill="var(--c3)"/><text x="178" y="103" fill="#fff">三通道计算 · 聚类 · 干扰子</text>
+        <rect x="290" y="116" width="170" height="21" rx="4" fill="var(--c3)"/><text x="298" y="131" fill="#fff">校准与富集验收</text>
+        <rect x="400" y="144" width="115" height="21" rx="4" fill="var(--c4)"/><text x="408" y="159" fill="#fff">组合选择 · 板图</text>
+        <rect x="460" y="172" width="115" height="21" rx="4" fill="var(--c4)"/><text x="468" y="187" fill="#fff">报告交付 · 评审会</text>
+        <rect x="575" y="172" width="115" height="21" rx="4" fill="#0d172026" stroke="var(--line2)"/><text x="583" y="187">贵方实验窗口</text>
+        <rect x="690" y="200" width="70" height="21" rx="4" fill="var(--c2)"/><text x="698" y="215" fill="#fff">回流结算</text>
+      </g>
+      <line x1="460" y1="26" x2="460" y2="216" stroke="var(--c2)" stroke-width="1.5" stroke-dasharray="4 3"/>
+      <text x="464" y="30" font-size="10" font-weight="700" fill="var(--c2)">报告交付</text>
+    </svg>
+    <p class="cap">四周交付报告；W5–W8 为贵方实验窗口（可按实际排期调整）；W9 依据回流数据完成结算与第二轮建议。W2 的三通道计算与 W3 的校准存在一周重叠——校准需要通道结果，但基线可以先行建立。</p>
+  </div>
+  <div class="tw"><table>
+    <thead><tr><th>里程碑</th><th>时点</th><th>贵方需配合</th><th>交付</th></tr></thead>
+    <tbody>
+      <tr><td class="k">M1 项目启动</td><td class="m">W0 Day 1</td><td>提供化合物清单、细胞系、板规格；确认排除项</td><td>project_spec.yaml</td></tr>
+      <tr><td class="k">M2 输入 QC 通过</td><td class="m">W0 末</td><td>确认结构解析异常条目的处理方式</td><td>input_qc.html</td></tr>
+      <tr><td class="k">M3 基线确立</td><td class="m">W1 末</td><td>确认留出集划分</td><td>baseline_report.html</td></tr>
+      <tr><td class="k">M4 校准通过</td><td class="m">W3 中</td><td><b>决策门</b>：富集未达标时决定继续 / 转基线档 / 终止</td><td>enrichment_report.html</td></tr>
+      <tr><td class="k">M5 报告交付</td><td class="m">W4 末</td><td>评审会（2 小时）</td><td>全套交付物</td></tr>
+      <tr><td class="k">M6 回流结算</td><td class="m">W9</td><td>回传实测 hit/non-hit 标签</td><td>round2_plan.html + 结算</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section id="s8">
+  <div class="sh"><span class="num">08</span><h2>报价</h2></div>
+  <div class="price">
+    <article>
+      <h4>基础档</h4><div class="amt">8 万</div><div class="per">人民币 · 单次委托</div>
+      <ul><li>≤ 2,000 化合物</li><li>单细胞系</li><li>结构 + 转录 双通道</li><li>冗余聚类与干扰子筛除</li><li>板图与富集报告</li><li>不含私有数据校准</li></ul>
+    </article>
+    <article class="mid">
+      <h4>标准档 · 推荐</h4><div class="amt">14 万</div><div class="per">人民币 · 单次委托</div>
+      <ul><li>≤ 20,000 化合物</li><li>双细胞系（含形态通道）</li><li><b>三通道完整</b></li><li>贵方留出集验收</li><li>双目标组合优化</li><li>一轮回流校准</li></ul>
+    </article>
+    <article>
+      <h4>完整档</h4><div class="amt">20 万</div><div class="per">人民币 · 单次委托</div>
+      <ul><li>≤ 100,000 化合物</li><li>多细胞系</li><li>三通道 + <b>贵方私有数据校准</b></li><li>两轮回流</li><li>可本地部署（结构数据不出内网）</li><li>年度更新可另议</li></ul>
+    </article>
+  </div>
+  <div class="tw"><table>
+    <thead><tr><th>付款节点</th><th>比例</th><th>触发条件</th></tr></thead>
+    <tbody>
+      <tr><td class="k">启动款</td><td class="n">40%</td><td>合同签署 + 输入 QC 通过（M2）</td></tr>
+      <tr><td class="k">交付款</td><td class="n">40%</td><td>报告交付并通过评审（M5）</td></tr>
+      <tr><td class="k">结算尾款</td><td class="n">20%</td><td>回流数据确认富集达标（M6）</td></tr>
+    </tbody>
+    <tfoot><tr><td>退款条款</td><td class="n">−50%</td><td>实测富集 &lt; 承诺值的 50%，退回已付款项的一半</td></tr></tfoot>
+  </table></div>
+  <div class="note"><b>为什么把 20% 押在回流上。</b>这部分费用只有在贵方实测验证之后才收——它把我们的商业利益和贵方的实验结果绑在同一侧。<b>愿意接受这条的服务商，和不愿意接受的，卖的不是同一种东西。</b></div>
+</section>
+
+<section id="s9">
+  <div class="sh"><span class="num">09</span><h2>风险、假设与前提</h2></div>
+  <div class="tw"><table>
+    <thead><tr><th>风险</th><th>发生信号</th><th>影响</th><th>缓解</th></tr></thead>
+    <tbody>
+      <tr><td class="k">化学空间不重叠</td><td>OOD 比例 &gt; 40%</td><td>排序不可信，富集无法达标</td><td><b>启动前用 100 条样本做免费可行性预检</b>；OOD 过高时改为"补参考数据"方案</td></tr>
+      <tr><td class="k">缺留出验收集</td><td>贵方无 MoA 标注数据</td><td>富集只能在公共集估计，说服力下降</td><td>用公共参考集分层留出，并在报告中明确标注该限制</td></tr>
+      <tr><td class="k">天然产物 / 混合物</td><td>SMILES 缺失或为混合物</td><td>结构通道失效</td><td>仅走形态通道，价格与承诺值相应调整；结构通道部分不计费</td></tr>
+      <tr><td class="k">库本身多样性高</td><td>冗余压缩比接近 1</td><td>去重环节价值低</td><td>压缩比不作承诺；预检阶段即可判断并调整方案重心</td></tr>
+      <tr><td class="k">基线打不赢</td><td>M4 决策门未通过</td><td>模型无增量</td><td>转基线档计费并交付基线结果；<b>不通过调参硬凑，不换指标重报</b></td></tr>
+      <tr><td class="k">回流数据缺失</td><td>贵方未在窗口内回传</td><td>无法结算主指标</td><td>按"部分达成"上限执行；条款在合同中明确</td></tr>
+      <tr><td class="k">批次效应主导形态通道</td><td>同批对照分布漂移大</td><td>形态检索不可靠</td><td>强制同批次对照内比较；漂移超阈值时降级为双通道并说明</td></tr>
+    </tbody>
+  </table></div>
+  <div class="note key"><b>免费可行性预检。</b>正式签约前，贵方可提供 100 条代表性化合物，我们在 3 个工作日内返回：可解析率、OOD 比例、冗余簇初步分布、干扰子命中率。<b>这四个数字足以判断整个项目值不值得做</b>，也是我们自己决定要不要接的依据。</div>
+</section>
+
+<section id="s10">
+  <div class="sh"><span class="num">10</span><h2>数据、知识产权与合规</h2></div>
+  <div class="tw"><table>
+    <thead><tr><th>条目</th><th>约定</th></tr></thead>
+    <tbody>
+      <tr><td class="k">结构数据处理</td><td>标准档：加密传输，项目专属隔离环境，项目结束 30 日内销毁并出具销毁证明。完整档：<b>可本地部署，结构数据不出贵方内网</b>。</td></tr>
+      <tr><td class="k">不用于模型训练</td><td>贵方化合物结构与活性数据<b>不用于训练任何通用模型</b>，不进入我们的参考集，不用于其他客户项目。写入合同。</td></tr>
+      <tr><td class="k">交付物 IP</td><td>全部交付物（排序表、板图、聚类结果、报告、脚本）归贵方所有，可自由使用、修改、再分发。</td></tr>
+      <tr><td class="k">方法学 IP</td><td>我们保留流程与工具链的所有权；贵方获得永久非独占使用许可。</td></tr>
+      <tr><td class="k">第三方许可</td><td>项目启动时提供完整清单。RDKit（BSD）、公共数据库（各自条款）可商用；<b>部分模型与数据集为非商业研究许可，若涉及会在方案确认阶段书面告知并给出可商用替代路径。</b></td></tr>
+      <tr><td class="k">用途限制</td><td>Research Use Only。不得用于临床决策、监管申报或诊断用途。</td></tr>
+      <tr><td class="k">保密期</td><td>项目结束后 5 年。</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section id="s11">
+  <div class="sh"><span class="num">11</span><h2>方法验证算例</h2></div>
+  <p class="lede">以下不是示意，是在一个 50 化合物的测试库上<strong>实际运行流程得到的结果</strong>。该库由 30 个已注释参考药加 20 个补充化合物构成，其中<strong>刻意植入了若干近似物</strong>（3 个 SAHA 类似物、Gefitinib / Erlotinib 各一个类似物、一个姜黄素类似物），用于检验冗余聚类是否真的能抓出来。</p>
+
+  <div class="kpis">
+    <div><strong>50 / 50</strong><span>结构解析成功率</span></div>
+    <div><strong>6.0×</strong><span>leave-drug-out MoA 富集倍数</span></div>
+    <div><strong>6</strong><span>检出的冗余簇（含全部植入项）</span></div>
+    <div><strong>4</strong><span>结构警报命中（8%）</span></div>
+  </div>
+
+  <h3><span class="hn">11.1</span>冗余聚类：植入项全部被抓出</h3>
+  <div class="tw"><table>
+    <thead><tr><th>簇</th><th>成员</th><th>是否为植入的近似物</th></tr></thead>
+    <tbody>
+      <tr><td class="n">1</td><td class="m">Vorinostat · SAHA-analog-1 · SAHA-analog-2 · SAHA-analog-3</td><td><span class="pill p-go">是（植入 3 个）</span></td></tr>
+      <tr><td class="n">2</td><td class="m">Gefitinib · Gefitinib-analog</td><td><span class="pill p-go">是（植入 1 个）</span></td></tr>
+      <tr><td class="n">3</td><td class="m">Erlotinib · Erlotinib-analog</td><td><span class="pill p-go">是（植入 1 个）</span></td></tr>
+      <tr><td class="n">4</td><td class="m">Curcumin · Curcumin-analog</td><td><span class="pill p-go">是（植入 1 个）</span></td></tr>
+      <tr><td class="n">5</td><td class="m">Simvastatin · Lovastatin</td><td>否——真实的天然同系物，正确归并</td></tr>
+      <tr><td class="n">6</td><td class="m">Quercetin · Genistein</td><td>否——真实的黄酮类，正确归并</td></tr>
+    </tbody>
+  </table></div>
+  <p>Butina 聚类（Tc ≥ 0.65）把 50 个化合物归为 42 簇，<strong>6 个植入的近似物全部被正确归入其母体化合物所在簇，无一漏检</strong>；同时正确识别出两组我们没有刻意构造、但化学上确实同系的真实配对。</p>
+
+  <h3><span class="hn">11.2</span>干扰子检出</h3>
+  <div class="tw"><table>
+    <thead><tr><th>化合物</th><th>命中的子结构</th><th>核验</th></tr></thead>
+    <tbody>
+      <tr><td class="k">Curcumin</td><td class="m">Michael 受体</td><td>正确——姜黄素是文献公认的频繁命中子</td></tr>
+      <tr><td class="k">Curcumin-analog</td><td class="m">Michael 受体</td><td>正确——类似物同样命中</td></tr>
+      <tr><td class="k">Quercetin</td><td class="m">儿茶酚（PAINS）</td><td>正确——槲皮素含儿茶酚基团</td></tr>
+      <tr><td class="k">Bortezomib</td><td class="m">硼酸（共价弹头）</td><td>正确标注为"需关注"而非"警报"——硼替佐米是已上市药物</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3><span class="hn">11.3</span>MoA 归类：留一法结果</h3>
+  <div class="note key">
+    <b>48 条可评分（2 条判定为 OOD 并正确排除）</b><br>
+    top-1 准确率 <b>19%</b>　·　top-3 准确率 <b>31%</b>　·　MoA 类别数 <b>32</b><br>
+    随机 top-1 期望 = 1/32 ≈ 3%　⇒　<b>富集倍数 6.0×</b>
+  </div>
+  <div class="note warn"><b>怎么读这个 19%。</b>单看绝对值它不高，这是诚实的数字。但在 32 个类别里随机猜的期望只有 3%，所以真正的信息量是<b>6 倍富集</b>——而且这是在一个只有 50 条化合物的参考集、用演示级指纹算出来的结果。<b>正式项目使用 ECFP4 与 ChEMBL / LINCS 全量参考集，富集会显著更高，但我们不在方案书里预先承诺一个具体数值</b>——承诺值由可行性预检在贵方自己的化学空间上标定后写入合同。</div>
+  <div class="note"><b>关于压缩比。</b>本算例的冗余压缩比只有 1.19×，因为这是一个刻意构造的高多样性参考库。<b>真实的商业采购库与内部历史库冗余度远高于此</b>，压缩比通常在 2–5× 之间——但这取决于库本身，所以我们把它列为"据实报告"而非承诺指标（见 §6.1）。</div>
+
+  <h3><span class="hn">11.4</span>可运行的交付物预览</h3>
+  <p>本方案全部交付物的形态可在<strong>虚拟检测委托台</strong>中实际操作——粘贴贵方自己的化合物清单，即时看到排序表、384 孔板图、富集曲线与 QC 报告的真实样式。该页面的计算在浏览器内完成，不上传任何数据。</p>
+  <div class="note ok"><b>建议的下一步：</b>① 用委托台跑一遍贵方的一小批化合物，确认交付物形态符合预期；② 提供 100 条代表性化合物做免费可行性预检；③ 依据预检的四个数字（可解析率、OOD 比例、冗余分布、干扰子命中率）确定档位与承诺值，签署合同。</div>
+</section>
+
+</main>
+</div></div>
+
+<footer class="shell"><div class="foot">
+  <b>QureGen BioDecision · VC-PHE-001 化合物库 MoA 分诊与冗余去重 · 方案书 v1.0 · 2026-09-01</b><br>
+  Research use only。本方案书中 §11 的全部数字为在 50 化合物测试库上实际运行流程所得，可复现；其余数量（化合物数上限、周期、报价）为标准档位设定，正式合同以可行性预检结果与双方协商为准。<br>
+  §11 使用演示级实现（字符 n-gram 指纹、50 条内置参考集）；正式项目使用 RDKit ECFP4 与 ChEMBL / LINCS / JUMP 全量参考集，方法与版本在 <code>methods.md</code> 中逐项列明。承诺的富集倍数由可行性预检在贵方化学空间上标定，不沿用本算例数值。
+</div></footer>
