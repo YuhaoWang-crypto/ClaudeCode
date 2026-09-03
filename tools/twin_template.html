@@ -167,7 +167,7 @@ footer{margin-top:64px;padding-top:20px;border-top:2px solid var(--ink);
 <header class="mast">
   <p class="eyebrow">assaysim · 已验证模型 · 非 mock</p>
   <h1>湿实验数字孪生工作台</h1>
-  <p class="standfirst">三个可运行模型：抗体亲和力到中和滴度、单孔病毒动力学 ODE、以及用 ChEMBL 真实配对数据标定的"非细胞→细胞"桥接。页面里的每条曲线都是当场算出来的，散点是 2,157 个真实化合物。</p>
+  <p class="standfirst">五个可运行模型：抗体亲和力到中和滴度、单孔病毒动力学 ODE、以及用 ChEMBL 真实配对数据标定的"非细胞→细胞"桥接。页面里的每条曲线都是当场算出来的，散点是 2,157 个真实化合物。</p>
 </header>
 
 <div class="vstrip">
@@ -315,6 +315,101 @@ footer{margin-top:64px;padding-top:20px;border-top:2px solid var(--ink);
     <p id="transfer_txt">—</p></div>
 </section>
 
+<!-- ============ M5 ============ -->
+<section>
+  <div class="sec-head"><span class="idx">模型 4</span><h2 class="sec">琼脂免疫扩散：沉淀线从哪来</h2></div>
+  <div class="intro">
+    <p>反应-扩散 PDE。抗原与抗体从两孔相向扩散，在<strong>化学计量等价带</strong>成晶格沉淀。扩散系数由 Stokes–Einstein 从流体力学半径算出，不是拟合的。</p>
+  </div>
+  <div class="panel">
+    <div class="controls">
+      <div class="ctl-group-title">孔浓度</div>
+      <div class="ctl"><label>抗原孔 A<span class="v" id="ag_A_v">1.00</span></label>
+        <input type="range" id="ag_A_s" min="-1" max="1" value="0" step="0.05"></div>
+      <div class="ctl"><label>抗体孔 B<span class="v" id="ag_B_v">1.00</span></label>
+        <input type="range" id="ag_B_s" min="-1" max="1" value="0" step="0.05"></div>
+      <div class="ctl-group-title">晶格化学计量</div>
+      <div class="ctl"><label>每抗原耗抗体数 ν<span class="v" id="ag_nu_v">2.0</span></label>
+        <input type="range" id="ag_nu_s" min="1" max="6" value="2" step="0.5"></div>
+      <div class="ctl"><label>等价带宽度<span class="v" id="ag_w_v">0.90</span></label>
+        <input type="range" id="ag_w_s" min="0.3" max="2" value="0.9" step="0.05"></div>
+      <div class="ctl-group-title">扩散与时间</div>
+      <div class="ctl"><label>抗原 D<span class="v" id="ag_D_v">6.0e-7</span></label>
+        <input type="range" id="ag_D_s" min="2" max="12" value="6" step="0.5"></div>
+      <div class="ctl"><label>扩散时间<span class="v" id="ag_t_v">12 h</span></label>
+        <input type="range" id="ag_t_s" min="2" max="24" value="12" step="1"></div>
+    </div>
+    <div class="stage">
+      <div class="readouts">
+        <div class="ro hi"><div class="k">沉淀带位置（距抗原孔）</div><div class="n" id="ro_band">—</div></div>
+        <div class="ro"><div class="k">带宽 SD</div><div class="n" id="ro_bandsd">—</div></div>
+        <div class="ro"><div class="k">最佳 A/B（化学计量 1/ν）</div><div class="n" id="ro_optab">—</div></div>
+      </div>
+      <div class="chartbox">
+        <div class="charttitle"><span>凝胶内的沉淀分布 P(x)——这就是肉眼看到的那条线</span>
+          <span class="legend"><span><i style="background:var(--s1)"></i>沉淀</span>
+          <span><i style="background:var(--s2)"></i>抗原</span>
+          <span><i style="background:var(--s3)"></i>抗体</span></span></div>
+        <svg id="agid_svg" viewBox="0 0 720 250" role="img" aria-label="凝胶内沉淀分布"></svg>
+      </div>
+      <div class="chartbox">
+        <div class="charttitle"><span>试管沉淀的 Heidelberger–Kendall 钟形曲线（封闭体系）</span>
+          <span class="legend"><span><i style="background:var(--s1)"></i>沉淀</span>
+          <span><i style="background:var(--s3)"></i>可溶复合物</span></span></div>
+        <svg id="hk_svg" viewBox="0 0 720 240" role="img" aria-label="定量沉淀曲线"></svg>
+      </div>
+    </div>
+  </div>
+  <div class="note"><span class="tag">两种构型不能混为一谈</span>
+    <p><strong>双向免疫扩散不会出现前带/后带。</strong>两孔是恒浓度储库，凝胶内浓度比从 ∞ 连续扫到 0，等价带总能找到位置——线只会移动，不会消失（抗原越浓，线越靠近抗体孔）。真正的钟形前带/后带是<strong>试管沉淀</strong>这种封闭体系的现象：抗原大幅过量时抗体被迅速消耗进<strong>不沉淀的可溶复合物</strong>，沉淀量因此塌陷。这条钟形曲线就是模型唯一真正省钱的用途——预测出清晰沉淀线的浓度窗口，省掉棋盘滴定。</p></div>
+</section>
+
+<!-- ============ M7 ============ -->
+<section>
+  <div class="sec-head"><span class="idx">模型 5</span><h2 class="sec">平板凝集：前带效应是推论，不是假设</h2></div>
+  <div class="intro">
+    <p>Smoluchowski 聚集方程。交联需要<strong>一端已结合抗体、另一端仍是空表位</strong>，所以桥联效率正比于 θ(1−θ)，在半饱和处最大。抗体过量时表位全被占满、无处搭桥——前带效应就这么出来的。</p>
+  </div>
+  <div class="panel">
+    <div class="controls">
+      <div class="ctl-group-title">抗体</div>
+      <div class="ctl"><label>Kd<span class="v" id="gg_kd_v">7.5 nM</span></label>
+        <input type="range" id="gg_kd_s" min="-1" max="3" value="0.875" step="0.05"></div>
+      <div class="ctl"><label>[Ab] / Kd<span class="v" id="gg_ab_v">1.0</span></label>
+        <input type="range" id="gg_ab_s" min="-3" max="3" value="0" step="0.1"></div>
+      <div class="ctl-group-title">颗粒</div>
+      <div class="ctl"><label>碰撞核 K₀<span class="v" id="gg_k0_v">2.0e-3</span></label>
+        <input type="range" id="gg_k0_s" min="0.5" max="8" value="2" step="0.25"></div>
+      <div class="ctl"><label>读数时间<span class="v" id="gg_t_v">6.0</span></label>
+        <input type="range" id="gg_t_s" min="1" max="30" value="6" step="1"></div>
+      <div class="ctl"><label>可见簇阈值<span class="v" id="gg_m_v">4</span></label>
+        <input type="range" id="gg_m_s" min="2" max="12" value="4" step="1"></div>
+    </div>
+    <div class="stage">
+      <div class="readouts">
+        <div class="ro"><div class="k">表位占据率 θ</div><div class="n" id="ro_theta2">—</div></div>
+        <div class="ro"><div class="k">桥联效率 4θ(1−θ)</div><div class="n" id="ro_bridge">—</div></div>
+        <div class="ro hi"><div class="k">可见凝集分数</div><div class="n" id="ro_vis">—</div></div>
+        <div class="ro"><div class="k">平均簇大小</div><div class="n" id="ro_msize">—</div></div>
+      </div>
+      <div class="chartbox">
+        <div class="charttitle"><span>簇尺寸分布：数值解 vs 闭式解（这本身就是一次现场验证）</span>
+          <span class="legend"><span><i style="background:var(--s1);width:8px;height:8px;border-radius:2px"></i>数值 RK4</span>
+          <span><i style="background:var(--s2)"></i>闭式解 n₀τ^(k−1)/(1+τ)^(k+1)</span></span></div>
+        <svg id="agg_svg" viewBox="0 0 720 240" role="img" aria-label="簇尺寸分布"></svg>
+      </div>
+      <div class="chartbox">
+        <div class="charttitle"><span>抗体滴定的钩状曲线，竖线 = [Ab]=Kd</span>
+          <span class="legend"><span><i style="background:var(--s1)"></i>可见凝集</span>
+          <span><i style="background:var(--s3)"></i>桥联效率</span></span></div>
+        <svg id="pro_svg" viewBox="0 0 720 240" role="img" aria-label="前带曲线"></svg>
+      </div>
+    </div>
+  </div>
+  <div class="note"><span class="tag">一个可直接用的结论</span>
+    <p>最优抗体浓度<strong>就是 Kd</strong>（θ=0.5 时桥联效率取到 1）。滴定曲线两端都塌陷，所以定量凝集试验必须做<strong>系列稀释</strong>——单一浓度出阴性，可能是抗体太少，也可能是抗体太多，两者无法区分。</p></div>
+</section>
+
 <!-- ============ 接口 ============ -->
 <section>
   <div class="sec-head"><span class="idx">接口</span><h2 class="sec">怎么接自己的药物和数据</h2></div>
@@ -343,7 +438,7 @@ nt50_from_kd(10.0, Virion("flu", 340, 1))</code></pre>
 </section>
 
 <footer>
-  <span>assaysim · 25/25 验证项通过</span>
+  <span>assaysim · 43/43 验证项通过</span>
   <span>ChEMBL_37 (2026-05-01) · 实时抓取</span>
 </footer>
 </div>
@@ -802,6 +897,232 @@ SYS.addEventListener("change",drawBridge);
 SHOW.addEventListener("change",drawBridge);
 window.addEventListener("resize",()=>{drawBridge();});
 
+/* ================= M5 AGID ================= */
+const eqWindow=(A,B,nu,w)=>{
+  const r=(nu*A+1e-300)/(B+1e-300);
+  const z=Math.log(r)/w; return Math.exp(-z*z);
+};
+/* 算子分裂：显式扩散 + 保正的反应步（配额限流，严格守恒化学计量） */
+function simulateAgid(s,tEnd,nStore){
+  const n=s.n, dx=s.L/(n-1);
+  const A=new Float64Array(n),B=new Float64Array(n),P=new Float64Array(n);
+  A[0]=s.A; B[n-1]=s.B;
+  const dtMax=0.2*dx*dx/Math.max(s.Dag,s.Dab);
+  const dt=Math.min(dtMax,2.0);
+  const steps=Math.max(1,Math.ceil(tEnd/dt)), h=tEnd/steps;
+  const lapBuf=new Float64Array(n);
+  function diffuse(C,D,left,right){
+    for(let i=0;i<n;i++){
+      const cm=(i===0)?(2*left-C[0]):C[i-1];
+      const cp=(i===n-1)?(2*right-C[n-1]):C[i+1];
+      lapBuf[i]=(cp-2*C[i]+cm)/(dx*dx);
+    }
+    for(let i=0;i<n;i++){C[i]+=D*h*lapBuf[i]; if(C[i]<0)C[i]=0;}
+  }
+  for(let st=0;st<steps;st++){
+    diffuse(A,s.Dag,s.A,0); diffuse(B,s.Dab,0,s.B);
+    for(let i=0;i<n;i++){
+      const W=eqWindow(A[i],B[i],s.nu,s.w);
+      let dA=s.kp*A[i]*B[i]*W*h;
+      const cap=Math.min(0.4*A[i],0.4*B[i]/s.nu);
+      if(dA>cap) dA=cap;
+      if(dA>0){A[i]-=dA; B[i]-=s.nu*dA; P[i]+=dA;}
+    }
+  }
+  const x=new Float64Array(n); for(let i=0;i<n;i++)x[i]=i*dx;
+  return {x:x,A:A,B:B,P:P,dx:dx};
+}
+function bandStats(r){
+  let s0=0,s1=0;
+  for(let i=0;i<r.P.length;i++){s0+=r.P[i]; s1+=r.P[i]*r.x[i];}
+  if(s0<=1e-14) return {x:NaN,sd:NaN};
+  const m=s1/s0; let s2=0;
+  for(let i=0;i<r.P.length;i++) s2+=r.P[i]*(r.x[i]-m)*(r.x[i]-m);
+  return {x:m,sd:Math.sqrt(Math.max(s2/s0,0))};
+}
+/* 试管沉淀：封闭体系，可溶复合物是关键的第二个汇 */
+function tubePrecipitin(A0,B0,nu,kp,w,tEnd){
+  let A=A0,B=B0,P=0,S=0;
+  const steps=4000, h=tEnd/steps;
+  for(let i=0;i<steps;i++){
+    if(A<=0||B<=0) break;
+    const W=eqWindow(A,B,nu,w);
+    let f=kp*A*B*h;
+    const cap=Math.min(0.4*A,0.4*B/nu);
+    if(f>cap) f=cap;
+    A-=f; B-=nu*f; P+=W*f; S+=(1-W)*f;
+  }
+  return {precipitate:P,soluble:S,A:A,B:B};
+}
+const AG=id=>document.getElementById(id);
+function drawAgid(){
+  const A=Math.pow(10,+AG("ag_A_s").value), B=Math.pow(10,+AG("ag_B_s").value);
+  const nu=+AG("ag_nu_s").value, w=+AG("ag_w_s").value;
+  const Dag=(+AG("ag_D_s").value)*1e-7, th=+AG("ag_t_s").value;
+  AG("ag_A_v").textContent=A.toFixed(2); AG("ag_B_v").textContent=B.toFixed(2);
+  AG("ag_nu_v").textContent=nu.toFixed(1); AG("ag_w_v").textContent=w.toFixed(2);
+  AG("ag_D_v").textContent=Dag.toExponential(1); AG("ag_t_v").textContent=th+" h";
+  AG("ro_optab").textContent=(1/nu).toFixed(3);
+
+  const s={n:101,L:1.0,Dag:Dag,Dab:4.0e-7,A:A,B:B,nu:nu,kp:5.0,w:w};
+  const r=simulateAgid(s,th*3600,1), bs=bandStats(r);
+  AG("ro_band").innerHTML=(bs.x===bs.x?bs.x.toFixed(3):"—")+'<span class="u">cm</span>';
+  AG("ro_bandsd").innerHTML=(bs.sd===bs.sd?bs.sd.toFixed(4):"—")+'<span class="u">cm</span>';
+
+  const svg=AG("agid_svg"); svg.textContent="";
+  const W2=720,H2=250,M={l:52,r:16,t:14,b:46};
+  let pmax=0,cmax=0;
+  for(let i=0;i<s.n;i++){pmax=Math.max(pmax,r.P[i]);cmax=Math.max(cmax,r.A[i],r.B[i]);}
+  pmax=pmax||1; cmax=cmax||1;
+  const X=v=>M.l+v/s.L*(W2-M.l-M.r), Y=v=>M.t+(1-v)*(H2-M.t-M.b);
+  const xt=[0,0.2,0.4,0.6,0.8,1.0].map(v=>({v:v,px:X(v)}));
+  const yt=[0,0.5,1].map(v=>({v:v,py:Y(v)}));
+  axes(svg,W2,H2,M,xt,yt,"距抗原孔距离 (cm)","归一化",v=>v.toFixed(1),v=>v.toFixed(1));
+  const pa=[],pb=[],pp=[];
+  for(let i=0;i<s.n;i++){
+    pa.push([X(r.x[i]),Y(r.A[i]/cmax)]);
+    pb.push([X(r.x[i]),Y(r.B[i]/cmax)]);
+    pp.push([X(r.x[i]),Y(r.P[i]/pmax)]);
+  }
+  svg.appendChild(path(pa,"var(--s2)",2));
+  svg.appendChild(path(pb,"var(--s3)",2));
+  svg.appendChild(el("path",{d:pp.map((p,i)=>(i?"L":"M")+p[0].toFixed(2)+" "+p[1].toFixed(2)).join(" ")
+    +` L ${X(s.L).toFixed(2)} ${Y(0).toFixed(2)} L ${X(0).toFixed(2)} ${Y(0).toFixed(2)} Z`,
+    fill:"var(--s1)","fill-opacity":"0.18",stroke:"var(--s1)","stroke-width":2.5}));
+  if(bs.x===bs.x){
+    const lb=el("text",{x:X(bs.x)+5,y:M.t+12,class:"axis-lbl"});
+    lb.setAttribute("fill","var(--s1)"); lb.textContent="沉淀线 "+bs.x.toFixed(3)+" cm";
+    svg.appendChild(lb);
+  }
+
+  /* Heidelberger-Kendall */
+  const hk=AG("hk_svg"); hk.textContent="";
+  const ratios=[]; for(let i=0;i<=48;i++) ratios.push(Math.pow(10,-2.6+5.2*i/48));
+  const pts=ratios.map(rr=>tubePrecipitin(rr*B,B,nu,5.0,w,2000));
+  let hmax=0; pts.forEach(p=>hmax=Math.max(hmax,p.precipitate,p.soluble));
+  hmax=hmax||1;
+  const H3=240,M3={l:52,r:16,t:14,b:46};
+  const lo=-2.6,hi=2.6;
+  const X3=v=>M3.l+(v-lo)/(hi-lo)*(W2-M3.l-M3.r), Y3=v=>M3.t+(1-v/hmax)*(H3-M3.t-M3.b);
+  const xt3=logTicks(lo,hi).map(v=>({v:v,px:X3(v)}));
+  const yt3=[0,0.5*hmax,hmax].map(v=>({v:v,py:Y3(v)}));
+  axes(hk,W2,H3,M3,xt3,yt3,"抗原 / 抗体 摩尔比（对数轴）","生成量",supTicks,v=>v.toFixed(2));
+  hk.appendChild(path(ratios.map((rr,i)=>[X3(Math.log10(rr)),Y3(pts[i].precipitate)]),"var(--s1)",2.5));
+  hk.appendChild(path(ratios.map((rr,i)=>[X3(Math.log10(rr)),Y3(pts[i].soluble)]),"var(--s3)",2));
+  const eqx=Math.log10(1/nu);
+  hk.appendChild(el("line",{x1:X3(eqx),y1:M3.t,x2:X3(eqx),y2:H3-M3.b,
+    stroke:"var(--phenol)","stroke-width":1.5,"stroke-dasharray":"4 3"}));
+  const et=el("text",{x:X3(eqx)+5,y:M3.t+12,class:"axis-lbl"});
+  et.setAttribute("fill","var(--phenol)"); et.textContent="等价点 1/ν = "+(1/nu).toFixed(2);
+  hk.appendChild(et);
+}
+["ag_A_s","ag_B_s","ag_nu_s","ag_w_s","ag_D_s","ag_t_s"].forEach(i=>AG(i).addEventListener("input",drawAgid));
+
+/* ================= M7 凝集 ================= */
+function smoluchowskiNumeric(K,n0,tEnd,kMax,nSub){
+  let n=new Float64Array(kMax); n[0]=n0;
+  const steps=nSub||3000, h=tEnd/steps;
+  const deriv=v=>{
+    let tot=0; for(let i=0;i<kMax;i++) tot+=v[i];
+    const d=new Float64Array(kMax);
+    for(let i=0;i<kMax;i++) d[i]=-K*v[i]*tot;
+    for(let k=1;k<kMax;k++){          // k 是 0-based -> 簇大小 k+1
+      let g=0;
+      for(let i=0;i<k;i++) g+=v[i]*v[k-1-i];
+      d[k]+=0.5*K*g;
+    }
+    return d;
+  };
+  for(let s=0;s<steps;s++){
+    const k1=deriv(n);
+    const y2=new Float64Array(kMax); for(let i=0;i<kMax;i++)y2[i]=n[i]+0.5*h*k1[i];
+    const k2=deriv(y2);
+    const y3=new Float64Array(kMax); for(let i=0;i<kMax;i++)y3[i]=n[i]+0.5*h*k2[i];
+    const k3=deriv(y3);
+    const y4=new Float64Array(kMax); for(let i=0;i<kMax;i++)y4[i]=n[i]+h*k3[i];
+    const k4=deriv(y4);
+    for(let i=0;i<kMax;i++){n[i]+=h/6*(k1[i]+2*k2[i]+2*k3[i]+k4[i]); if(n[i]<0)n[i]=0;}
+  }
+  return n;
+}
+const smolAnalytic=(k,t,K,n0)=>{const tau=K*n0*t/2; return n0*Math.pow(tau,k-1)/Math.pow(1+tau,k+1);};
+const bridging=th=>4*th*(1-th);
+function aggMetrics(n,minSize){
+  let N=0,mass=0,vis=0;
+  for(let i=0;i<n.length;i++){N+=n[i]; mass+=n[i]*(i+1); if(i+1>=minSize) vis+=n[i]*(i+1);}
+  return {N:N,mass:mass,visible:vis,mean:mass/Math.max(N,1e-300)};
+}
+function drawAgg(){
+  const kd=Math.pow(10,+AG("gg_kd_s").value);
+  const ab=kd*Math.pow(10,+AG("gg_ab_s").value);
+  const K0=(+AG("gg_k0_s").value)*1e-3;
+  const tRead=+AG("gg_t_s").value, minS=+AG("gg_m_s").value, n0=1e3;
+  AG("gg_kd_v").textContent=fmt(kd)+" nM";
+  AG("gg_ab_v").textContent=fmt(ab/kd,3);
+  AG("gg_k0_v").textContent=K0.toExponential(1);
+  AG("gg_t_v").textContent=tRead.toFixed(1);
+  AG("gg_m_v").textContent=minS;
+
+  const th=ab/(ab+kd), br=bridging(th), Keff=K0*br;
+  AG("ro_theta2").textContent=fmt(th,4);
+  AG("ro_bridge").textContent=fmt(br,4);
+
+  const kMax=50;
+  const n=Keff>0?smoluchowskiNumeric(Keff,n0,tRead,kMax,2000):(()=>{const z=new Float64Array(kMax);z[0]=n0;return z;})();
+  const m=aggMetrics(n,minS);
+  AG("ro_vis").textContent=fmt(m.visible/n0,3);
+  AG("ro_msize").textContent=fmt(m.mean,2);
+
+  /* 分布：数值 vs 闭式 */
+  const svg=AG("agg_svg"); svg.textContent="";
+  const W2=720,H2=240,M={l:56,r:16,t:14,b:46}, nShow=20;
+  let vmax=0; for(let i=0;i<nShow;i++) vmax=Math.max(vmax,n[i]);
+  vmax=vmax||1;
+  const X=k=>M.l+(k-0.5)/nShow*(W2-M.l-M.r), Y=v=>M.t+(1-v/vmax)*(H2-M.t-M.b);
+  const xt=[1,5,10,15,20].map(v=>({v:v,px:X(v)}));
+  const yt=[0,0.5*vmax,vmax].map(v=>({v:v,py:Y(v)}));
+  axes(svg,W2,H2,M,xt,yt,"簇尺寸 k（颗粒数）","数浓度 n_k",v=>v,v=>fmt(v,0));
+  const bw=(W2-M.l-M.r)/nShow-3;
+  for(let i=0;i<nShow;i++){
+    const hgt=Math.max(0,(H2-M.b)-Y(n[i]));
+    svg.appendChild(el("rect",{x:X(i+1)-bw/2,y:Y(n[i]),width:bw,height:hgt,
+      fill:"var(--s1)",rx:2}));
+  }
+  if(Keff>0){
+    const AP=[];
+    for(let i=1;i<=nShow;i++) AP.push([X(i),Y(smolAnalytic(i,tRead,Keff,n0))]);
+    svg.appendChild(path(AP,"var(--s2)",2.5));
+    AP.forEach(p=>svg.appendChild(el("circle",{cx:p[0],cy:p[1],r:3,fill:"var(--s2)",
+      stroke:"var(--surface)","stroke-width":1.2})));
+  }
+
+  /* 前带曲线 */
+  const pr=AG("pro_svg"); pr.textContent="";
+  const H3=240,M3={l:52,r:16,t:14,b:46}, lo=-3,hi=3;
+  const ratios=[]; for(let i=0;i<=32;i++) ratios.push(lo+(hi-lo)*i/32);
+  const vals=ratios.map(lr=>{
+    const c=kd*Math.pow(10,lr), t2=c/(c+kd), Ke=K0*bridging(t2);
+    if(Ke<=1e-12) return {vis:0,br:bridging(t2)};
+    const nn=smoluchowskiNumeric(Ke,n0,tRead,36,600);
+    return {vis:aggMetrics(nn,minS).visible/n0, br:bridging(t2)};
+  });
+  const X3=v=>M3.l+(v-lo)/(hi-lo)*(W2-M3.l-M3.r), Y3=v=>M3.t+(1-v)*(H3-M3.t-M3.b);
+  const xt3=logTicks(lo,hi).map(v=>({v:v,px:X3(v)}));
+  const yt3=[0,0.25,0.5,0.75,1].map(v=>({v:v,py:Y3(v)}));
+  axes(pr,W2,H3,M3,xt3,yt3,"[Ab] / Kd（对数轴）","分数",supTicks,v=>fmt(v,2));
+  pr.appendChild(path(ratios.map((lr,i)=>[X3(lr),Y3(vals[i].br)]),"var(--s3)",2));
+  pr.appendChild(path(ratios.map((lr,i)=>[X3(lr),Y3(vals[i].vis)]),"var(--s1)",2.5));
+  pr.appendChild(el("line",{x1:X3(0),y1:M3.t,x2:X3(0),y2:H3-M3.b,
+    stroke:"var(--phenol)","stroke-width":1.5,"stroke-dasharray":"4 3"}));
+  const t3=el("text",{x:X3(0)+5,y:M3.t+12,class:"axis-lbl"});
+  t3.setAttribute("fill","var(--phenol)"); t3.textContent="[Ab] = Kd，θ=0.5";
+  pr.appendChild(t3);
+  // 当前工作点
+  pr.appendChild(el("circle",{cx:X3(Math.log10(ab/kd)),cy:Y3(m.visible/n0),r:5,
+    fill:"var(--s1)",stroke:"var(--surface)","stroke-width":2}));
+}
+["gg_kd_s","gg_ab_s","gg_k0_s","gg_t_s","gg_m_s"].forEach(i=>AG(i).addEventListener("input",drawAgg));
+
 /* ================= 验证条 ================= */
 function runChecks(){
   const rows=[];
@@ -843,7 +1164,29 @@ function runChecks(){
   rows.push({ok:mx<0.05,lbl:"表观 EC50 全链路（积分＋Hill 拟合）",
     val:`最大相对偏差 ${(mx*100).toFixed(2)}%（${REF.ode.length} 个设计点）`});
 
-  // 5. 真实数据完整性
+  // 5. 凝集：数值 vs 闭式解（页面内自证）
+  const A=REF.agg;
+  const nn=smoluchowskiNumeric(A.K,A.n0,A.t_end,60,3000);
+  let wd=0;
+  for(let k=1;k<=20;k++){
+    const a=smolAnalytic(k,A.t_end,A.K,A.n0);
+    wd=Math.max(wd,Math.abs(nn[k-1]-a)/Math.max(a,1e-12));
+  }
+  const Nend=aggMetrics(nn,4).N, Nana=A.n0/(1+A.K*A.n0*A.t_end/2);
+  rows.push({ok:wd<5e-3&&Math.abs(Nend-Nana)/Nana<1e-3,
+    lbl:"Smoluchowski 数值解 == 闭式解",
+    val:`簇分布最大相对偏差 ${wd.toExponential(1)}（k=1..20）· N末 ${Nend.toFixed(2)} vs 闭式 ${Nana.toFixed(2)}`});
+
+  // 6. AGID：页面分裂步 vs SciPy LSODA 的沉淀带位置
+  const G=REF.agid.setup, gb=REF.agid.band[REF.agid.band.length-1];
+  const gr=simulateAgid({n:101,L:G.L,Dag:G.D_ag,Dab:G.D_ab,A:G.A,B:G.B,
+                         nu:G.nu,kp:G.kp,w:G.w},12*3600,1);
+  const gbs=bandStats(gr);
+  const gd=Math.abs(gbs.x-gb.x);
+  rows.push({ok:gd<0.02,lbl:"AGID 沉淀带位置：页面分裂步 vs SciPy LSODA",
+    val:`${gbs.x.toFixed(4)} vs ${gb.x.toFixed(4)} cm，偏差 ${(gd*1e4).toFixed(1)} µm（孔间距 ${G.L} cm）`});
+
+  // 7. 真实数据完整性
   const nh=BRIDGE.HIV1_RT.n,nf=BRIDGE.FLU_NA.n;
   rows.push({ok:nh>500&&nf>50,lbl:"ChEMBL 真实配对数据已载入",
     val:`HIV-1 RT ${nh} 对 · 流感 NA ${nf} 对（ChEMBL_37，非 mock）`});
@@ -859,5 +1202,5 @@ function runChecks(){
   });
 }
 
-drawNeu(); drawODE(); drawBridge(); runChecks();
+drawNeu(); drawODE(); drawAgid(); drawAgg(); drawBridge(); runChecks();
 </script>

@@ -280,6 +280,160 @@ def validate_bridge() -> None:
           f"vs 自标定 {native['rmse']:.3f} (bias {native['bias']:+.2f})")
 
 
+def validate_agid() -> None:
+    print("\nM5 琼脂免疫扩散 (AGID) 反应-扩散 PDE")
+    from . import agid
+
+    # [文献] Stokes-Einstein 对三个实测蛋白的复现
+    worst = 0.0
+    detail = []
+    for name, p in agid.REFERENCE_PROTEINS.items():
+        D = agid.stokes_einstein_D(p["r_h_nm"], T_K=293.15)
+        rel = abs(D - p["D_measured_cm2_s"]) / p["D_measured_cm2_s"]
+        worst = max(worst, rel)
+        detail.append(f"{name} {D:.2e} vs 实测 {p['D_measured_cm2_s']:.2e}")
+    check("[文献] Stokes-Einstein 复现 IgG/BSA/溶菌酶的实测扩散系数",
+          worst < 0.08, f"最大相对偏差 {worst:.1%} · " + " · ".join(detail))
+
+    # [解析] PDE 求解器 vs erfc 解析解 (无反应)
+    D = 6.0e-7
+    t = 3600.0
+    x, num = agid.diffuse_numeric(L_cm=0.5, n=401, t_s=t, D=D, C0=1.0)
+    ana = agid.diffuse_semi_infinite_analytic(x, t, D, 1.0)
+    err = float(np.max(np.abs(num - ana)))
+    check("[解析] 扩散求解器 == erfc 解析解", err < 2e-3,
+          f"最大绝对偏差 {err:.2e}（浓度归一到 1）")
+
+    # [解析] 扩散前沿 ∝ √t
+    def front(tt):
+        xx, c = agid.diffuse_numeric(L_cm=1.0, n=401, t_s=tt, D=D, C0=1.0)
+        return float(np.interp(-0.5, -c, xx))  # c 单调下降，找 c=0.5 的位置
+
+    f1, f4 = front(1800.0), front(7200.0)  # 时间 ×4 -> 前沿应 ×2
+    check("[解析] 扩散前沿位置 ∝ √t", abs(f4 / f1 - 2.0) < 0.03,
+          f"t×4 后前沿比 {f4 / f1:.4f}（理论 2）")
+
+    # [解析] 等价带窗函数在 r=1 取最大，两侧衰减
+    # 等价点在 ν·A = B，即 ν=2、B=1 时 A=0.5
+    w_eq = float(agid.equivalence_window(np.array([0.5]), np.array([1.0]), 2.0, 0.9)[0])
+    w_ag = float(agid.equivalence_window(np.array([5.0]), np.array([1.0]), 2.0, 0.9)[0])
+    w_ab = float(agid.equivalence_window(np.array([0.05]), np.array([1.0]), 2.0, 0.9)[0])
+    check("[解析] 等价带窗函数在化学计量等价点最大、抗原/抗体过量两侧衰减",
+          w_eq > 0.99 and w_ag < 0.1 and w_ab < 0.1,
+          f"νA/B=1 时 {w_eq:.3f} · 抗原过量(νA/B=10) {w_ag:.4f} · 抗体过量(νA/B=0.1) {w_ab:.4f}")
+
+    # [解析] 沉淀线：确实形成一条局域的带，而不是铺满整个凝胶
+    s = agid.AgidSetup()
+    r = agid.simulate_agid(s, t_end_s=12 * 3600.0, n_out=12)
+    sd, pos = r.band_sharpness(), r.band_position()
+    check("[解析] 形成局域沉淀带（宽度远小于孔间距）",
+          sd == sd and sd < 0.25 * s.L_cm and 0 < pos < s.L_cm,
+          f"带心 {pos:.3f} cm · 带宽 SD {sd:.3f} cm · 孔间距 {s.L_cm} cm")
+
+    # [解析] 沉淀带随时间向抗体侧推进（抗原扩散更快）
+    p_early, p_late = r.band_position(3), r.band_position(-1)
+    check("[解析] 快扩散组分把沉淀带推向慢扩散一侧",
+          p_late > p_early,
+          f"{r.t[3] / 3600:.1f}h {p_early:.3f} cm -> {r.t[-1] / 3600:.1f}h {p_late:.3f} cm "
+          f"(D_ag={s.D_ag:.1e} > D_ab={s.D_ab:.1e})")
+
+    # [解析] 双向扩散：沉淀线偏向**较稀**的一侧（Ouchterlony 教科书行为）
+    #        注意这里不该出现前带/后带 —— 两孔是恒浓度储库，凝胶内浓度比
+    #        从 ∞ 连续扫到 0，等价带总能找到位置，线只会移动不会消失。
+    tc = agid.titration_curve(agid.AgidSetup(B_well=1.0),
+                              [0.1, 0.3, 1.0, 3.0, 10.0], t_end_s=6 * 3600.0)
+    pos = [d["band_x"] for d in tc]
+    check("[解析] 抗原越浓，沉淀线越靠近抗体孔（偏向较稀一侧）",
+          all(pos[i] < pos[i + 1] for i in range(len(pos) - 1)),
+          "A/B=0.1→10 时带心 " + " → ".join(f"{p:.3f}" for p in pos) + " cm")
+
+    # [解析] 试管沉淀（封闭体系）才有 Heidelberger-Kendall 钟形曲线
+    amounts = [0.005, 0.02, 0.1, 0.5, 2.0, 10.0, 50.0]
+    hk = agid.heidelberger_kendall_curve(amounts, B_total=1.0, nu=2.0)
+    ppt = [d["precipitate"] for d in hk]
+    imax = int(np.argmax(ppt))
+    check("[解析] 试管沉淀呈 Heidelberger-Kendall 钟形（前带/后带）",
+          0 < imax < len(ppt) - 1 and ppt[imax] > 5 * ppt[0] and ppt[imax] > 5 * ppt[-1],
+          f"峰在 A/B={hk[imax]['ratio']:g}；沉淀量 " +
+          " ".join(f"{v:.3g}" for v in ppt))
+
+    # [解析] 钟形曲线的峰必须落在化学计量等价点 A/B = 1/ν 附近
+    check("[解析] 沉淀峰位于化学计量等价点 A/B = 1/ν",
+          abs(math.log10(hk[imax]["ratio"] * 2.0)) < 0.4,
+          f"峰 A/B={hk[imax]['ratio']:g}，理论 1/ν={1 / 2.0:g}"
+          f"（等价比 r={hk[imax]['equivalence_r']:.2f}，理论 1）")
+
+    # [解析] 抗原过量端：抗体被消耗进可溶复合物而非沉淀
+    tail = hk[-1]
+    check("[解析] 抗原过量时抗体主要进入可溶复合物（后带的机制）",
+          tail["soluble"] > 5 * tail["precipitate"],
+          f"A/B={tail['ratio']:g}: 可溶 {tail['soluble']:.3g} vs 沉淀 {tail['precipitate']:.3g}")
+
+
+def validate_agglutination() -> None:
+    print("\nM7 平板凝集 Smoluchowski 聚集")
+    from . import agglutination as ag
+
+    K, n0, t_end = 1e-3, 1.0e3, 6.0
+    r = ag.simulate_aggregation(K, n0, t_end, k_max=90, n_out=30)
+
+    # [解析] 截断误差先确认足够小，后面的比对才有意义
+    loss = float(r.mass_loss[-1])
+    check("[解析] 截断质量流失可忽略（k_max=90）", loss < 1e-6,
+          f"末时刻流失 {loss:.2e}")
+
+    # [解析] 总粒子数 vs 闭式解 N(t)=n0/(1+Kn0t/2)
+    ana_N = np.array([ag.total_particles_analytic(t, K, n0) for t in r.t])
+    relN = float(np.max(np.abs(r.N_total - ana_N) / ana_N))
+    check("[解析] 总粒子数 == 闭式解 n₀/(1+Kn₀t/2)", relN < 1e-6,
+          f"最大相对偏差 {relN:.2e}（{len(r.t)} 个时间点）")
+
+    # [解析] 逐个簇尺寸的分布 vs 闭式解
+    worst, wk = 0.0, 0
+    for ti in (5, 15, 29):
+        ana = ag.smoluchowski_analytic(r.k[:30], r.t[ti], K, n0)
+        rel = np.abs(r.n[ti, :30] - ana) / np.maximum(ana, 1e-12)
+        if rel.max() > worst:
+            worst, wk = float(rel.max()), int(np.argmax(rel)) + 1
+    check("[解析] 簇尺寸分布 n_k(t) == 闭式解", worst < 1e-5,
+          f"最大相对偏差 {worst:.2e}（出现在 k={wk}）")
+
+    # [解析] 质量守恒 Σk·n_k = n₀
+    relM = float(np.max(np.abs(r.mass - n0) / n0))
+    check("[解析] 质量守恒 Σ k·n_k = n₀", relM < 1e-6,
+          f"最大相对偏差 {relM:.2e}")
+
+    # [解析] 桥联效率在 θ=0.5 取极大
+    ths = np.linspace(0.01, 0.99, 99)
+    effs = [ag.bridging_efficiency(t) for t in ths]
+    imax = int(np.argmax(effs))
+    check("[解析] 桥联效率 4θ(1−θ) 在 θ=0.5 取最大",
+          abs(ths[imax] - 0.5) < 0.02 and abs(effs[imax] - 1.0) < 1e-3,
+          f"峰在 θ={ths[imax]:.2f}，值 {effs[imax]:.4f}")
+
+    # [解析] 最优抗体浓度 = Kd
+    kd = 7.5
+    check("[解析] 使桥联最大的抗体浓度 == Kd",
+          abs(ag.epitope_occupancy(ag.optimal_ab_concentration(kd), kd) - 0.5) < 1e-12,
+          f"[Ab]=Kd={kd} 时 θ={ag.epitope_occupancy(kd, kd):.6f}")
+
+    # [解析] 抗体滴定呈钩状：两端弱、中间强，峰在 Kd 附近
+    concs = np.logspace(-3, 3, 25) * kd
+    pc = ag.prozone_curve(concs, kd=kd, K0=2e-3, n0=1e3, t_read_s=6.0,
+                          k_max=40, min_size=4)
+    vis = [d["visible"] for d in pc]
+    ip = int(np.argmax(vis))
+    check("[解析] 抗体滴定出现前带（钩状）：高抗体端凝集塌陷",
+          0 < ip < len(vis) - 1 and vis[-1] < 0.3 * vis[ip] and vis[0] < 0.3 * vis[ip],
+          f"峰在 [Ab]/Kd={pc[ip]['ab'] / kd:.3g}（θ={pc[ip]['theta']:.2f}），"
+          f"可见分数 低端 {vis[0]:.3f} / 峰 {vis[ip]:.3f} / 高端 {vis[-1]:.3f}")
+
+    # [解析] 单调性：聚集过程中总粒子数只减不增
+    check("[解析] 总粒子数随时间单调下降",
+          bool(np.all(np.diff(r.N_total) <= 1e-9)),
+          f"N: {r.N_total[0]:.1f} -> {r.N_total[-1]:.1f}")
+
+
 def main() -> int:
     print("=" * 72)
     print("assaysim 验证套件")
@@ -287,6 +441,8 @@ def main() -> int:
     validate_nn_thermo()
     validate_neutralization()
     validate_viral_dynamics()
+    validate_agid()
+    validate_agglutination()
     validate_bridge()
     print("\n" + "=" * 72)
     if _FAILURES:
