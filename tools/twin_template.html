@@ -1,0 +1,863 @@
+<title>湿实验数字孪生工作台</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+
+<style>
+:root{
+  --paper:#EFF2EF; --surface:#F7F9F7; --sunk:#E4E9E4;
+  --ink:#161F1D; --body:#33413E; --muted:#63736F; --faint:#9AA8A4;
+  --rule:#D2DAD6; --rule-strong:#B4C0BB;
+  --phenol:#B8394F; --phenol-soft:#E8CDD2;
+  --ok:#1F6F63; --ok-bg:#DCEAE6; --warn:#B37B14; --warn-bg:#F2E6CC;
+  --bad:#B8394F; --bad-bg:#F2DADE;
+  /* 数据系列色：dataviz 参考色板前三槽（散点全配对已验证） */
+  --s1:#2a78d6; --s2:#eb6834; --s3:#1baf7a;
+  --grid:#DCE3DF; --axis:#8D9A96;
+  --shadow:0 1px 2px rgba(20,32,30,.06), 0 8px 24px -16px rgba(20,32,30,.28);
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --paper:#101917; --surface:#17211F; --sunk:#0B1312;
+  --ink:#E8EEEB; --body:#BDC9C5; --muted:#8B9995; --faint:#66746F;
+  --rule:#27332F; --rule-strong:#3A4844;
+  --phenol:#E5788B; --phenol-soft:#4A2730;
+  --ok:#5EBBA9; --ok-bg:#16302C; --warn:#E0AA45; --warn-bg:#33280F;
+  --bad:#E5788B; --bad-bg:#3A1F26;
+  --s1:#3987e5; --s2:#d95926; --s3:#199e70;
+  --grid:#243230; --axis:#5C6B67;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 10px 30px -18px rgba(0,0,0,.8);
+}}
+:root[data-theme="dark"]{
+  --paper:#101917; --surface:#17211F; --sunk:#0B1312;
+  --ink:#E8EEEB; --body:#BDC9C5; --muted:#8B9995; --faint:#66746F;
+  --rule:#27332F; --rule-strong:#3A4844;
+  --phenol:#E5788B; --phenol-soft:#4A2730;
+  --ok:#5EBBA9; --ok-bg:#16302C; --warn:#E0AA45; --warn-bg:#33280F;
+  --bad:#E5788B; --bad-bg:#3A1F26;
+  --s1:#3987e5; --s2:#d95926; --s3:#199e70;
+  --grid:#243230; --axis:#5C6B67;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 10px 30px -18px rgba(0,0,0,.8);
+}
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--body);
+  font-family:"IBM Plex Sans",ui-sans-serif,system-ui,sans-serif;
+  font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px 88px}
+
+header.mast{padding:48px 0 26px;border-bottom:2px solid var(--ink)}
+.eyebrow{font-family:"IBM Plex Mono",monospace;font-size:11.5px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--phenol);margin:0 0 16px}
+h1{font-family:"Newsreader",Georgia,serif;font-weight:500;
+  font-size:clamp(32px,4.6vw,48px);line-height:1.1;letter-spacing:-.015em;
+  color:var(--ink);margin:0 0 16px;max-width:22ch;text-wrap:balance}
+.standfirst{font-family:"Newsreader",Georgia,serif;font-size:clamp(16px,1.9vw,19px);
+  line-height:1.55;color:var(--muted);margin:0;max-width:64ch}
+
+/* 验证条 */
+.vstrip{margin:22px 0 40px;border:1px solid var(--rule);border-radius:5px;
+  background:var(--surface);box-shadow:var(--shadow);overflow:hidden}
+.vstrip h2{margin:0;padding:13px 18px;font-family:"IBM Plex Mono",monospace;
+  font-size:11.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);
+  background:var(--sunk);border-bottom:1px solid var(--rule);font-weight:500}
+.vrows{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr))}
+.vrow{padding:13px 18px;border-right:1px solid var(--rule);border-bottom:1px solid var(--rule);
+  display:flex;gap:11px;align-items:flex-start}
+.vrow .dot{width:8px;height:8px;border-radius:50%;flex:none;margin-top:7px}
+.vrow.pass .dot{background:var(--ok)} .vrow.fail .dot{background:var(--bad)}
+.vrow .lbl{font-size:13px;color:var(--ink);font-weight:500;line-height:1.4}
+.vrow .val{font-family:"IBM Plex Mono",monospace;font-size:11.5px;color:var(--muted);
+  margin-top:3px;font-variant-numeric:tabular-nums}
+
+section{margin:0 0 56px;scroll-margin-top:20px}
+.sec-head{display:flex;align-items:baseline;gap:14px;padding-bottom:11px;
+  margin-bottom:22px;border-bottom:1px solid var(--rule-strong)}
+.sec-head .idx{font-family:"IBM Plex Mono",monospace;font-size:11.5px;
+  color:var(--phenol);letter-spacing:.1em;flex:none}
+h2.sec{font-family:"Newsreader",Georgia,serif;font-weight:500;
+  font-size:clamp(22px,3vw,29px);line-height:1.2;color:var(--ink);margin:0;text-wrap:balance}
+.intro{max-width:70ch;margin-bottom:20px}
+p{margin:0 0 14px}
+strong{color:var(--ink);font-weight:600}
+
+/* 面板布局 */
+.panel{display:grid;grid-template-columns:290px 1fr;gap:0;
+  border:1px solid var(--rule);border-radius:5px;background:var(--surface);
+  box-shadow:var(--shadow);overflow:hidden}
+.controls{padding:20px;border-right:1px solid var(--rule);background:var(--sunk)}
+.stage{padding:20px;min-width:0}
+@media(max-width:860px){.panel{grid-template-columns:1fr}
+  .controls{border-right:none;border-bottom:1px solid var(--rule)}}
+
+.ctl{margin-bottom:17px}
+.ctl:last-child{margin-bottom:0}
+.ctl label{display:flex;justify-content:space-between;align-items:baseline;
+  font-size:12.5px;color:var(--muted);margin-bottom:6px;gap:8px}
+.ctl label .v{font-family:"IBM Plex Mono",monospace;color:var(--ink);
+  font-weight:500;font-variant-numeric:tabular-nums}
+input[type=range]{width:100%;accent-color:var(--phenol);height:20px;cursor:pointer}
+select{width:100%;padding:6px 8px;font-family:inherit;font-size:13px;
+  background:var(--surface);color:var(--ink);border:1px solid var(--rule-strong);
+  border-radius:3px;cursor:pointer}
+.ctl-group-title{font-family:"IBM Plex Mono",monospace;font-size:10.5px;
+  letter-spacing:.13em;text-transform:uppercase;color:var(--faint);
+  margin:22px 0 12px;padding-top:14px;border-top:1px solid var(--rule)}
+.ctl-group-title:first-child{margin-top:0;padding-top:0;border-top:none}
+
+/* 读数 */
+.readouts{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
+  gap:1px;background:var(--rule);border:1px solid var(--rule);
+  border-radius:4px;overflow:hidden;margin-bottom:18px}
+.ro{background:var(--surface);padding:12px 14px}
+.ro .k{font-size:11px;color:var(--muted);margin-bottom:4px;line-height:1.3}
+.ro .n{font-family:"IBM Plex Mono",monospace;font-size:19px;font-weight:500;
+  color:var(--ink);font-variant-numeric:tabular-nums;line-height:1.15}
+.ro .u{font-size:11px;color:var(--faint);margin-left:3px}
+.ro.hi .n{color:var(--phenol)}
+
+.chartbox{margin-bottom:18px}
+.chartbox:last-child{margin-bottom:0}
+.charttitle{font-size:12.5px;color:var(--muted);margin-bottom:7px;
+  display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
+.legend{display:flex;gap:14px;flex-wrap:wrap}
+.legend span{display:inline-flex;align-items:center;gap:5px;font-size:11.5px;color:var(--muted)}
+.legend i{width:11px;height:2.5px;border-radius:1.5px;display:inline-block}
+svg{display:block;width:100%;height:auto;overflow:visible}
+canvas{display:block;width:100%;border-radius:3px}
+.axis-lbl{font-family:"IBM Plex Mono",monospace;font-size:10px;fill:var(--axis)}
+.axis-title{font-size:11px;fill:var(--muted)}
+
+.note{background:var(--sunk);border-left:3px solid var(--phenol);border-radius:0 3px 3px 0;
+  padding:14px 16px;margin:18px 0;font-size:13.5px}
+.note .tag{display:block;font-family:"IBM Plex Mono",monospace;font-size:10.5px;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--phenol);margin-bottom:6px}
+.note p:last-child{margin-bottom:0}
+
+pre{font-family:"IBM Plex Mono",monospace;font-size:12.5px;line-height:1.65;
+  background:var(--sunk);border:1px solid var(--rule);border-left:3px solid var(--phenol);
+  border-radius:3px;padding:16px 18px;overflow-x:auto;margin:16px 0;color:var(--ink)}
+code{font-family:"IBM Plex Mono",monospace;font-size:.92em;color:var(--ink);
+  background:var(--sunk);padding:1px 5px;border-radius:2px}
+pre code{background:none;padding:0}
+
+.tscroll{overflow-x:auto;margin:16px 0;border:1px solid var(--rule);
+  border-radius:4px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:13px;min-width:560px}
+thead th{text-align:left;font-family:"IBM Plex Mono",monospace;font-size:10.5px;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:500;
+  padding:11px 13px;border-bottom:1px solid var(--rule-strong);background:var(--sunk);white-space:nowrap}
+tbody td{padding:10px 13px;border-bottom:1px solid var(--rule);vertical-align:top}
+tbody tr:last-child td{border-bottom:none}
+td.mono,th.mono{font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums}
+td.k{color:var(--ink);font-weight:500}
+.best{background:var(--ok-bg)}
+
+.tip{position:fixed;pointer-events:none;background:var(--ink);color:var(--paper);
+  font-family:"IBM Plex Mono",monospace;font-size:11.5px;padding:6px 9px;border-radius:3px;
+  opacity:0;transition:opacity .12s;z-index:50;white-space:pre;line-height:1.5}
+.tip.on{opacity:1}
+
+footer{margin-top:64px;padding-top:20px;border-top:2px solid var(--ink);
+  font-family:"IBM Plex Mono",monospace;font-size:11.5px;color:var(--faint);
+  display:flex;flex-wrap:wrap;gap:8px 26px;justify-content:space-between}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+:focus-visible{outline:2px solid var(--phenol);outline-offset:2px}
+</style>
+
+<div class="wrap">
+<header class="mast">
+  <p class="eyebrow">assaysim · 已验证模型 · 非 mock</p>
+  <h1>湿实验数字孪生工作台</h1>
+  <p class="standfirst">三个可运行模型：抗体亲和力到中和滴度、单孔病毒动力学 ODE、以及用 ChEMBL 真实配对数据标定的"非细胞→细胞"桥接。页面里的每条曲线都是当场算出来的，散点是 2,157 个真实化合物。</p>
+</header>
+
+<div class="vstrip">
+  <h2>页面引擎 vs Python 参考实现 — 实时比对</h2>
+  <div class="vrows" id="vrows"></div>
+</div>
+
+<!-- ============ M3 ============ -->
+<section>
+  <div class="sec-head"><span class="idx">模型 1</span><h2 class="sec">多击中占据模型：Kd → NT50</h2></div>
+  <div class="intro">
+    <p>病毒粒子表面 <code>n</code> 个位点，中和需要至少 <code>k</code> 个被占据。这个模型唯一的输入是<strong>分子亲和力 Kd</strong>——一个非细胞的 SPR/BLI 测量值——输出是中和滴度。</p>
+  </div>
+  <div class="panel">
+    <div class="controls">
+      <div class="ctl-group-title">病毒几何</div>
+      <div class="ctl"><label>预设<span class="v"></span></label>
+        <select id="n_preset">
+          <option value="custom">自定义</option>
+          <option value="340">流感 A · HA 三聚体 ≈340</option>
+          <option value="25">SARS-CoV-2 · S 三聚体 ≈25</option>
+          <option value="14">HIV-1 · Env 三聚体 ≈14</option>
+        </select></div>
+      <div class="ctl"><label>位点数 n<span class="v" id="n_v">100</span></label>
+        <input type="range" id="n_s" min="1" max="400" value="100" step="1"></div>
+      <div class="ctl"><label>击中阈值 k<span class="v" id="k_v">1</span></label>
+        <input type="range" id="k_s" min="1" max="400" value="1" step="1"></div>
+      <div class="ctl-group-title">分子输入</div>
+      <div class="ctl"><label>Kd<span class="v" id="kd_v">10 nM</span></label>
+        <input type="range" id="kd_s" min="-2" max="4" value="1" step="0.05"></div>
+    </div>
+    <div class="stage">
+      <div class="readouts">
+        <div class="ro hi"><div class="k">中和滴度 NT50</div><div class="n" id="ro_nt50">—</div></div>
+        <div class="ro"><div class="k">放大倍数 Kd / NT50</div><div class="n" id="ro_amp">—</div></div>
+        <div class="ro"><div class="k">半中和时单位点占据率 θ*</div><div class="n" id="ro_theta">—</div></div>
+      </div>
+      <div class="chartbox">
+        <div class="charttitle"><span>残留感染性 vs 抗体浓度</span>
+          <span class="legend"><span><i style="background:var(--s1)"></i>当前 n, k</span>
+          <span><i style="background:var(--s2)"></i>单位点 (n=1)</span></span></div>
+        <svg id="neu_svg" viewBox="0 0 720 300" role="img" aria-label="中和曲线"></svg>
+      </div>
+    </div>
+  </div>
+  <div class="note"><span class="tag">模型自己在警告的事</span>
+    <p>多价效应把 NT50 推到远低于 Kd 的浓度。<strong>NT50 和 Kd 不是一个量</strong>，二者差几十到几百倍是模型的必然推论，不是实验误差。把预测的 Kd 直接当 NT50 用，从第一步就错。</p></div>
+</section>
+
+<!-- ============ M4 ============ -->
+<section>
+  <div class="sec-head"><span class="idx">模型 2</span><h2 class="sec">单孔 ODE：药物进去，CPE 和表观 EC50 出来</h2></div>
+  <div class="intro">
+    <p>四状态靶细胞受限模型。<strong>药物不是一个自由的抑制因子</strong>，而是按作用机制修改某一个速率常数——这就是"应对不同药物输入"的接口。</p>
+  </div>
+  <div class="panel">
+    <div class="controls">
+      <div class="ctl-group-title">药物输入</div>
+      <div class="ctl"><label>作用机制<span class="v"></span></label>
+        <select id="moa">
+          <option value="replication">复制抑制 → p</option>
+          <option value="entry">进入抑制 → β</option>
+          <option value="maturation">成熟抑制 → 感染性</option>
+          <option value="antibody">中和抗体 → 经占据模型</option>
+        </select></div>
+      <div class="ctl"><label><span id="pot_lbl">分子层 EC50</span><span class="v" id="ec_v">100 nM</span></label>
+        <input type="range" id="ec_s" min="-1" max="4" value="2" step="0.05"></div>
+      <div class="ctl"><label>Hill 系数 h<span class="v" id="h_v">1.0</span></label>
+        <input type="range" id="h_s" min="0.5" max="4" value="1" step="0.1"></div>
+      <div class="ctl-group-title">实验设计</div>
+      <div class="ctl"><label>接种量 MOI<span class="v" id="moi_v">0.01</span></label>
+        <input type="range" id="moi_s" min="-4" max="0" value="-2" step="0.25"></div>
+      <div class="ctl"><label>读板时间<span class="v" id="ro_t_v">72 h</span></label>
+        <input type="range" id="ro_t_s" min="12" max="120" value="72" step="4"></div>
+      <div class="ctl-group-title">病毒 × 细胞系参数</div>
+      <div class="ctl"><label>产毒速率 p<span class="v" id="p_v">5.0</span></label>
+        <input type="range" id="p_s" min="0.5" max="20" value="5" step="0.5"></div>
+      <div class="ctl"><label>产毒细胞寿命 1/δ<span class="v" id="d_v">12 h</span></label>
+        <input type="range" id="d_s" min="4" max="48" value="12" step="1"></div>
+    </div>
+    <div class="stage">
+      <div class="readouts">
+        <div class="ro hi"><div class="k">孔水平表观 EC50</div><div class="n" id="ro_ec50">—</div></div>
+        <div class="ro"><div class="k">相对分子层位移</div><div class="n" id="ro_shift">—</div></div>
+        <div class="ro"><div class="k">表观 Hill 系数</div><div class="n" id="ro_hill">—</div></div>
+        <div class="ro"><div class="k">R₀</div><div class="n" id="ro_r0">—</div></div>
+      </div>
+      <div class="chartbox">
+        <div class="charttitle"><span>无药对照的孔内动力学</span>
+          <span class="legend"><span><i style="background:var(--s1)"></i>未感染 T</span>
+          <span><i style="background:var(--s2)"></i>已感染 E+I</span>
+          <span><i style="background:var(--s3)"></i>裂解 D</span></span></div>
+        <svg id="ode_svg" viewBox="0 0 720 240" role="img" aria-label="孔内细胞动力学"></svg>
+      </div>
+      <div class="chartbox">
+        <div class="charttitle"><span>剂量-反应（保护率），竖线 = 拟合出的表观 EC50</span>
+          <span class="legend"><span><i style="background:var(--s1)"></i>模拟孔</span>
+          <span><i style="background:var(--s2);height:2.5px"></i>分子层 EC50</span></span></div>
+        <svg id="dr_svg" viewBox="0 0 720 260" role="img" aria-label="剂量反应曲线"></svg>
+      </div>
+    </div>
+  </div>
+  <div class="note"><span class="tag">拖动 MOI 和读板时间试试</span>
+    <p>分子层效力一个字没改，<strong>测出来的 EC50 却能移动近一个数量级</strong>，表观 Hill 系数也从 1 被推到 2 以上。这说明"细胞法 EC50"里有很大一部分是<strong>实验设计的产物</strong>，不是分子性质。这也是标定后的孪生模型真正能省钱的地方：先在模型里选 MOI 和读板点，再上手做。</p></div>
+</section>
+
+<!-- ============ M6 ============ -->
+<section>
+  <div class="sec-head"><span class="idx">模型 3</span><h2 class="sec">非细胞 → 细胞：用 ChEMBL 真实数据标定的桥接</h2></div>
+  <div class="intro">
+    <p>核心问题：<strong>只测非细胞数据，能把细胞 EC50 预测到什么精度？</strong>下面每个点都是 ChEMBL_37 里同时有酶法 IC50 和细胞法 EC50 的真实化合物。划分用 Murcko 骨架，同一化学系列整组进训练或测试，避免类似物泄漏。</p>
+  </div>
+  <div class="panel">
+    <div class="controls">
+      <div class="ctl-group-title">数据集</div>
+      <div class="ctl"><label>体系<span class="v"></span></label>
+        <select id="sys"><option value="HIV1_RT">HIV-1 逆转录酶</option>
+        <option value="FLU_NA">流感 A 神经氨酸酶</option></select></div>
+      <div class="ctl"><label>显示<span class="v"></span></label>
+        <select id="showfit"><option value="both">两条参考线</option>
+        <option value="fit">只看拟合线</option><option value="none">只看散点</option></select></div>
+    </div>
+    <div class="stage">
+      <div class="readouts">
+        <div class="ro"><div class="k">配对化合物数</div><div class="n" id="ro_n">—</div></div>
+        <div class="ro hi"><div class="k">线性桥接 RMSE</div><div class="n" id="ro_rmse">—<span class="u">log</span></div></div>
+        <div class="ro"><div class="k">细胞法自身噪声下限</div><div class="n" id="ro_floor">—<span class="u">log</span></div></div>
+        <div class="ro"><div class="k">相关系数 r</div><div class="n" id="ro_r">—</div></div>
+      </div>
+      <div class="chartbox">
+        <div class="charttitle"><span id="sc_title">生化 pIC50（非细胞） vs 细胞 pEC50</span>
+          <span class="legend"><span><i style="background:var(--s1);width:8px;height:8px;border-radius:50%"></i>化合物</span>
+          <span><i style="background:var(--axis)"></i>identity（生化当细胞用）</span>
+          <span><i style="background:var(--s2)"></i>拟合桥接</span></span></div>
+        <canvas id="sc_cv" height="420"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <div class="tscroll"><table>
+    <thead><tr><th>预测器</th><th class="mono">RMSE</th><th class="mono">MAE</th><th class="mono">bias</th><th class="mono">R²</th><th class="mono">±1 log 内</th><th>说明</th></tr></thead>
+    <tbody id="bridge_tbl"></tbody></table></div>
+
+  <div class="note"><span class="tag">跨体系迁移检验 — 直接检验"参数不可迁移"</span>
+    <p id="transfer_txt">—</p></div>
+</section>
+
+<!-- ============ 接口 ============ -->
+<section>
+  <div class="sec-head"><span class="idx">接口</span><h2 class="sec">怎么接自己的药物和数据</h2></div>
+  <div class="intro"><p>两层接口。序列层进 FASTA，剂量层进浓度；药物通过<strong>作用机制</strong>而不是一个笼统的抑制率进入模型。</p></div>
+<pre><code>from assaysim.viral_dynamics import CellVirusParams, Drug, Antibody, apparent_ec50
+from assaysim.neutralization import Virion, nt50_from_kd
+
+# 1) 标定：用自家生长曲线拟合 病毒×细胞系 参数（不可跨组合迁移）
+par = CellVirusParams(name="ASFV/PAM", beta=3e-7, k_eclipse=1/6,
+                      delta=1/12, p=5.0, c=1/6, T0=1e5)
+
+# 2) 小分子：按作用机制进入，potency 来自非细胞测定
+drug = Drug("候选物-A", moa="replication", ec50_mol=100.0, hill=1.0)
+res  = apparent_ec50(par, drug, moi=0.01, readout_h=72)
+res["ec50_apparent"]      # 孔水平会测到的 EC50
+res["shift_log10"]        # 相对分子层的系统性位移
+
+# 3) 抗体：Kd 经占据模型进入同一个 ODE
+ab = Antibody("mAb-7", kd_nM=10.0, virion=Virion("ASFV", n_spikes=100, k_hits=1))
+apparent_ec50(par, ab, moi=0.01, readout_h=72)["ec50_apparent"]
+
+# 4) 纯分子层的快速估计，不跑 ODE
+nt50_from_kd(10.0, Virion("flu", 340, 1))</code></pre>
+  <div class="note"><span class="tag">诚实的边界</span>
+    <p>ODE 的<strong>结构</strong>可迁移，<strong>参数不可迁移</strong>——上面的迁移检验把这句话量化成了 +0.84 log 的系统性偏差。所以每个新的 病毒×细胞系 组合都必须先用自家的生长曲线重新标定，标定之后才谈得上预测新药。</p></div>
+</section>
+
+<footer>
+  <span>assaysim · 25/25 验证项通过</span>
+  <span>ChEMBL_37 (2026-05-01) · 实时抓取</span>
+</footer>
+</div>
+<div class="tip" id="tip"></div>
+
+<script>
+"use strict";
+const BRIDGE = /*__BRIDGE__*/null;
+const REF    = /*__REF__*/null;
+
+/* ================= 数值内核 ================= */
+const LG_C=[676.5203681218851,-1259.1392167224028,771.32342877765313,
+ -176.61502916214059,12.507343278686905,-0.13857109526572012,
+ 9.9843695780195716e-6,1.5056327351493116e-7];
+function lgamma(z){
+  if(z<0.5) return Math.log(Math.PI/Math.sin(Math.PI*z))-lgamma(1-z);
+  z-=1; let x=0.99999999999980993;
+  for(let i=0;i<8;i++) x+=LG_C[i]/(z+i+1);
+  const t=z+7.5;
+  return 0.5*Math.log(2*Math.PI)+(z+0.5)*Math.log(t)-t+Math.log(x);
+}
+const logChoose=(n,k)=>lgamma(n+1)-lgamma(k+1)-lgamma(n-k+1);
+
+// P(X <= m), X~Bin(n,p)
+function binomCdf(m,n,p){
+  if(m<0) return 0; if(m>=n) return 1;
+  if(p<=0) return 1; if(p>=1) return 0;
+  const lp=Math.log(p), lq=Math.log1p(-p);
+  let s=0;
+  for(let i=0;i<=m;i++) s+=Math.exp(logChoose(n,i)+i*lp+(n-i)*lq);
+  return Math.min(1,Math.max(0,s));
+}
+const occupancy=(c,kd)=>c/(c+kd);
+const residualInf=(th,n,k)=>binomCdf(k-1,n,th);
+
+function thetaStar(n,k,frac){
+  frac=frac===undefined?0.5:frac;
+  if(k===1) return 1-Math.pow(frac,1/n);
+  let lo=1e-15,hi=1-1e-15;
+  for(let i=0;i<200;i++){
+    const mid=0.5*(lo+hi);
+    if(residualInf(mid,n,k)-frac>0) lo=mid; else hi=mid;
+  }
+  return 0.5*(lo+hi);
+}
+function nt50FromKd(kd,n,k){const t=thetaStar(n,k,0.5);return kd*t/(1-t);}
+
+/* ---- ODE：与 Python 同一个右端 ---- */
+function rhs(y,par,infFrac){
+  const [T,E,I,V]=y, inf=par.beta*T*V;
+  return [-inf, inf-par.k*E, par.k*E-par.delta*I,
+          par.p*I*infFrac-par.c*V-inf, par.delta*I];
+}
+function simulate(par,moi,tEnd,agent,dose,nOut){
+  nOut=nOut||300;
+  let beta=par.beta,p=par.p,infFrac=1.0;
+  if(agent&&dose>0){
+    const eps=agent.efficacy(dose);
+    if(agent.kind==="antibody"||agent.moa==="entry") beta*=(1-eps);
+    else if(agent.moa==="replication"||agent.moa==="release") p*=(1-eps);
+    else if(agent.moa==="maturation") infFrac=(1-eps);
+  }
+  const P={beta:beta,k:par.k,delta:par.delta,p:p,c:par.c};
+  const dt=0.01, steps=Math.round(tEnd/dt), every=Math.max(1,Math.floor(steps/nOut));
+  let y=[par.T0,0,0,moi*par.T0,0];
+  const out={t:[0],T:[y[0]],E:[0],I:[0],V:[y[3]],D:[0]};
+  for(let s=1;s<=steps;s++){
+    const k1=rhs(y,P,infFrac);
+    const y2=y.map((v,i)=>v+0.5*dt*k1[i]), k2=rhs(y2,P,infFrac);
+    const y3=y.map((v,i)=>v+0.5*dt*k2[i]), k3=rhs(y3,P,infFrac);
+    const y4=y.map((v,i)=>v+dt*k3[i]),     k4=rhs(y4,P,infFrac);
+    y=y.map((v,i)=>v+dt/6*(k1[i]+2*k2[i]+2*k3[i]+k4[i]));
+    for(let i=0;i<5;i++) if(y[i]<0) y[i]=0;
+    if(s%every===0||s===steps){
+      out.t.push(s*dt); out.T.push(y[0]); out.E.push(y[1]);
+      out.I.push(y[2]); out.V.push(y[3]); out.D.push(y[4]);
+    }
+  }
+  out.cpe=out.T.map(t=>1-t/par.T0);
+  return out;
+}
+const interp=(xs,ys,x)=>{
+  if(x<=xs[0])return ys[0];
+  if(x>=xs[xs.length-1])return ys[ys.length-1];
+  let i=1; while(xs[i]<x)i++;
+  const f=(x-xs[i-1])/(xs[i]-xs[i-1]);
+  return ys[i-1]+f*(ys[i]-ys[i-1]);
+};
+
+/* ---- Hill 拟合：变量投影 + Nelder-Mead ---- */
+function hillSSE(doses,y,lec,h){
+  // 给定 (ec50,h)，(bottom,top) 用线性最小二乘解
+  const f=doses.map(d=>1/(1+Math.pow(Math.pow(10,lec)/d,h)));
+  let n=f.length,sf=0,sff=0,sy=0,sfy=0;
+  for(let i=0;i<n;i++){sf+=f[i];sff+=f[i]*f[i];sy+=y[i];sfy+=f[i]*y[i];}
+  const det=n*sff-sf*sf;
+  if(Math.abs(det)<1e-14) return {sse:Infinity,bottom:0,top:1};
+  const amp=(n*sfy-sf*sy)/det, bot=(sy-amp*sf)/n;
+  let sse=0; for(let i=0;i<n;i++){const r=bot+amp*f[i]-y[i];sse+=r*r;}
+  return {sse:sse,bottom:bot,top:bot+amp};
+}
+function fitHill(doses,y){
+  let best={sse:Infinity};
+  const l0=Math.log10(doses[0]), l1=Math.log10(doses[doses.length-1]);
+  for(let i=0;i<=80;i++){
+    const lec=l0+(l1-l0)*i/80;
+    for(let j=0;j<=40;j++){
+      const h=0.3+(6-0.3)*j/40;
+      const r=hillSSE(doses,y,lec,h);
+      if(r.sse<best.sse) best={sse:r.sse,lec:lec,h:h,bottom:r.bottom,top:r.top};
+    }
+  }
+  // Nelder-Mead 精修 (lec,h)
+  let S=[[best.lec,best.h],[best.lec+0.08,best.h],[best.lec,best.h+0.12]];
+  const F=v=>hillSSE(doses,y,v[0],v[1]).sse;
+  for(let it=0;it<220;it++){
+    S.sort((a,b)=>F(a)-F(b));
+    const c=[(S[0][0]+S[1][0])/2,(S[0][1]+S[1][1])/2];
+    const r=[2*c[0]-S[2][0],2*c[1]-S[2][1]];
+    if(F(r)<F(S[0])){
+      const e=[3*c[0]-2*S[2][0],3*c[1]-2*S[2][1]];
+      S[2]=F(e)<F(r)?e:r;
+    } else if(F(r)<F(S[1])) S[2]=r;
+    else{
+      const ct=[(c[0]+S[2][0])/2,(c[1]+S[2][1])/2];
+      S[2]=F(ct)<F(S[2])?ct:[(S[0][0]+S[2][0])/2,(S[0][1]+S[2][1])/2];
+    }
+  }
+  S.sort((a,b)=>F(a)-F(b));
+  const fin=hillSSE(doses,y,S[0][0],S[0][1]);
+  return {ec50:Math.pow(10,S[0][0]),hill:S[0][1],bottom:fin.bottom,top:fin.top};
+}
+
+function apparentEC50(par,agent,moi,readoutH,nDoses,span){
+  nDoses=nDoses||24; span=span===undefined?4:span;
+  const centre=agent.centre, lo=Math.log10(centre)-span, hi=Math.log10(centre)+span;
+  const doses=[]; for(let i=0;i<nDoses;i++) doses.push(Math.pow(10,lo+(hi-lo)*i/(nDoses-1)));
+  const tEnd=readoutH*1.2;
+  const base=simulate(par,moi,tEnd,null,0);
+  const cpe0=interp(base.t,base.cpe,readoutH);
+  if(cpe0<=1e-9) return null;
+  const prot=doses.map(d=>{
+    const s=simulate(par,moi,tEnd,agent,d);
+    return 1-interp(s.t,s.cpe,readoutH)/cpe0;
+  });
+  const f=fitHill(doses,prot);
+  return {doses:doses,protection:prot,ec50:f.ec50,hill:f.hill,
+          bottom:f.bottom,top:f.top,cpe0:cpe0,centre:centre,
+          shift:Math.log10(f.ec50/centre)};
+}
+function growthRate(par){
+  const k=par.k,d=par.delta,c=par.c+par.beta*par.T0,rhsv=k*par.p*par.beta*par.T0;
+  const f=l=>(l+k)*(l+d)*(l+c)-rhsv;
+  if(f(0)>=0) return 0;
+  let hi=1; while(f(hi)<0){hi*=2; if(hi>1e6)break;}
+  let lo=0; for(let i=0;i<200;i++){const m=0.5*(lo+hi); if(f(m)<0)lo=m;else hi=m;}
+  return 0.5*(lo+hi);
+}
+const R0=par=>par.beta*par.p*par.T0/(par.delta*(par.c+par.beta*par.T0));
+
+/* ================= 绘图工具 ================= */
+const NS="http://www.w3.org/2000/svg";
+const el=(t,a)=>{const e=document.createElementNS(NS,t);
+  for(const k in a) e.setAttribute(k,a[k]); return e;};
+const fmt=(x,d)=>{
+  if(!isFinite(x))return"—";
+  const a=Math.abs(x);
+  if(a!==0&&(a<0.01||a>=1e5))return x.toExponential(d===undefined?2:d);
+  return x.toFixed(d===undefined?(a<1?3:a<100?2:1):d);
+};
+function axes(svg,W,H,M,xt,yt,xlab,ylab,xfmt,yfmt){
+  const g=el("g",{});
+  yt.forEach(t=>{
+    const y=t.py;
+    g.appendChild(el("line",{x1:M.l,y1:y,x2:W-M.r,y2:y,stroke:"var(--grid)","stroke-width":1}));
+    const tx=el("text",{x:M.l-8,y:y+3.5,"text-anchor":"end",class:"axis-lbl"});
+    tx.textContent=yfmt?yfmt(t.v):fmt(t.v); g.appendChild(tx);
+  });
+  xt.forEach(t=>{
+    const x=t.px;
+    g.appendChild(el("line",{x1:x,y1:H-M.b,x2:x,y2:H-M.b+4,stroke:"var(--axis)","stroke-width":1}));
+    const tx=el("text",{x:x,y:H-M.b+16,"text-anchor":"middle",class:"axis-lbl"});
+    tx.textContent=xfmt?xfmt(t.v):fmt(t.v); g.appendChild(tx);
+  });
+  g.appendChild(el("line",{x1:M.l,y1:H-M.b,x2:W-M.r,y2:H-M.b,stroke:"var(--axis)","stroke-width":1}));
+  if(xlab){const t=el("text",{x:(M.l+W-M.r)/2,y:H-M.b+34,"text-anchor":"middle",class:"axis-title"});
+    t.textContent=xlab; g.appendChild(t);}
+  if(ylab){const t=el("text",{x:14,y:(M.t+H-M.b)/2,"text-anchor":"middle",class:"axis-title",
+    transform:`rotate(-90 14 ${(M.t+H-M.b)/2})`}); t.textContent=ylab; g.appendChild(t);}
+  svg.appendChild(g);
+}
+const path=(pts,color,w)=>el("path",{d:pts.map((p,i)=>(i?"L":"M")+p[0].toFixed(2)+" "+p[1].toFixed(2)).join(" "),
+  fill:"none",stroke:color,"stroke-width":w||2,"stroke-linejoin":"round","stroke-linecap":"round"});
+function logTicks(lo,hi){
+  const out=[];
+  for(let e=Math.floor(lo);e<=Math.ceil(hi);e++) if(e>=lo-1e-9&&e<=hi+1e-9) out.push(e);
+  return out;
+}
+const supTicks=v=>{const s=["⁻","⁰","¹","²","³","⁴","⁵","⁶","⁷","⁸","⁹"];
+  const neg=v<0,a=Math.abs(v);return "10"+(neg?"⁻":"")+String(a).split("").map(c=>s[+c+1]).join("");};
+
+/* tooltip */
+const tipEl=document.getElementById("tip");
+function showTip(x,y,txt){tipEl.textContent=txt;tipEl.classList.add("on");
+  tipEl.style.left=(x+13)+"px";tipEl.style.top=(y+13)+"px";}
+const hideTip=()=>tipEl.classList.remove("on");
+
+/* ================= M3 面板 ================= */
+const N_S=document.getElementById("n_s"),K_S=document.getElementById("k_s"),
+      KD_S=document.getElementById("kd_s"),NP=document.getElementById("n_preset");
+function drawNeu(){
+  const n=+N_S.value; K_S.max=n;
+  const k=Math.min(+K_S.value,n); K_S.value=k;
+  const kd=Math.pow(10,+KD_S.value);
+  document.getElementById("n_v").textContent=n;
+  document.getElementById("k_v").textContent=k;
+  document.getElementById("kd_v").textContent=fmt(kd)+" nM";
+
+  const nt50=nt50FromKd(kd,n,k), th=thetaStar(n,k,0.5);
+  document.getElementById("ro_nt50").innerHTML=fmt(nt50)+'<span class="u">nM</span>';
+  document.getElementById("ro_amp").textContent=(kd/nt50>=1?fmt(kd/nt50,1)+"×":fmt(kd/nt50,3)+"×");
+  document.getElementById("ro_theta").textContent=fmt(th,4);
+
+  const svg=document.getElementById("neu_svg"); svg.textContent="";
+  const W=720,H=300,M={l:52,r:16,t:14,b:46};
+  const lo=Math.log10(nt50)-3.2, hi=Math.log10(nt50)+3.2;
+  const X=v=>M.l+(v-lo)/(hi-lo)*(W-M.l-M.r);
+  const Y=v=>M.t+(1-v)*(H-M.t-M.b);
+  const xt=logTicks(lo,hi).map(v=>({v:v,px:X(v)}));
+  const yt=[0,0.25,0.5,0.75,1].map(v=>({v:v,py:Y(v)}));
+  axes(svg,W,H,M,xt,yt,"抗体浓度 (nM，对数轴)","残留感染性",supTicks,v=>fmt(v,2));
+
+  svg.appendChild(el("line",{x1:M.l,y1:Y(0.5),x2:W-M.r,y2:Y(0.5),
+    stroke:"var(--axis)","stroke-width":1,"stroke-dasharray":"3 4"}));
+
+  const P1=[],P2=[];
+  for(let i=0;i<=260;i++){
+    const lv=lo+(hi-lo)*i/260, c=Math.pow(10,lv), t=occupancy(c,kd);
+    P1.push([X(lv),Y(residualInf(t,n,k))]);
+    P2.push([X(lv),Y(residualInf(t,1,1))]);
+  }
+  svg.appendChild(path(P2,"var(--s2)",2));
+  svg.appendChild(path(P1,"var(--s1)",2.5));
+  svg.appendChild(el("line",{x1:X(Math.log10(nt50)),y1:M.t,x2:X(Math.log10(nt50)),y2:H-M.b,
+    stroke:"var(--s1)","stroke-width":1.5,"stroke-dasharray":"4 3"}));
+  const lb=el("text",{x:X(Math.log10(nt50))+5,y:M.t+12,class:"axis-lbl",fill:"var(--s1)"});
+  lb.textContent="NT50 "+fmt(nt50)+" nM"; lb.setAttribute("fill","var(--s1)"); svg.appendChild(lb);
+
+  svg.onmousemove=ev=>{
+    const r=svg.getBoundingClientRect(), sx=(ev.clientX-r.left)/r.width*W;
+    if(sx<M.l||sx>W-M.r){hideTip();return;}
+    const lv=lo+(sx-M.l)/(W-M.l-M.r)*(hi-lo), c=Math.pow(10,lv);
+    showTip(ev.clientX,ev.clientY,
+      `[Ab] ${fmt(c)} nM\nθ    ${fmt(occupancy(c,kd),4)}\n残留 ${fmt(residualInf(occupancy(c,kd),n,k),4)}`);
+  };
+  svg.onmouseleave=hideTip;
+}
+[N_S,K_S,KD_S].forEach(e=>e.addEventListener("input",drawNeu));
+NP.addEventListener("change",()=>{if(NP.value!=="custom"){N_S.value=NP.value;drawNeu();}});
+
+/* ================= M4 面板 ================= */
+const ids=["moa","ec_s","h_s","moi_s","ro_t_s","p_s","d_s"].map(i=>document.getElementById(i));
+function curPar(){
+  const P=REF.params;
+  return {beta:P.beta,k:P.k,delta:1/(+document.getElementById("d_s").value),
+          p:+document.getElementById("p_s").value,c:P.c,T0:P.T0};
+}
+function curAgent(){
+  const moa=document.getElementById("moa").value;
+  const pot=Math.pow(10,+document.getElementById("ec_s").value);
+  const h=+document.getElementById("h_s").value;
+  if(moa==="antibody"){
+    const n=+N_S.value,k=Math.min(+K_S.value,n);
+    return {kind:"antibody",centre:pot,
+      efficacy:c=>1-residualInf(occupancy(c,pot),n,k)};
+  }
+  return {kind:"drug",moa:moa,centre:pot,
+    efficacy:d=>{const x=Math.pow(d/pot,h);return x/(1+x);}};
+}
+function drawODE(){
+  const par=curPar(), agent=curAgent();
+  const moi=Math.pow(10,+document.getElementById("moi_s").value);
+  const rt=+document.getElementById("ro_t_s").value;
+  const isAb=agent.kind==="antibody";
+  document.getElementById("pot_lbl").textContent=isAb?"抗体 Kd":"分子层 EC50";
+  document.getElementById("ec_v").textContent=fmt(agent.centre)+" nM";
+  document.getElementById("h_v").textContent=fmt(+document.getElementById("h_s").value,1);
+  document.getElementById("moi_v").textContent=fmt(moi,4);
+  document.getElementById("ro_t_v").textContent=rt+" h";
+  document.getElementById("p_v").textContent=fmt(par.p,1);
+  document.getElementById("d_v").textContent=Math.round(1/par.delta)+" h";
+  document.getElementById("ro_r0").textContent=fmt(R0(par),1);
+
+  /* 时程 */
+  const tEnd=Math.max(rt*1.2,96);
+  const tr=simulate(par,moi,tEnd,null,0);
+  const svg=document.getElementById("ode_svg"); svg.textContent="";
+  const W=720,H=240,M={l:52,r:16,t:12,b:44};
+  const X=v=>M.l+v/tEnd*(W-M.l-M.r), Y=v=>M.t+(1-v)*(H-M.t-M.b);
+  const nx=6, xt=[]; for(let i=0;i<=nx;i++){const v=tEnd*i/nx;xt.push({v:v,px:X(v)});}
+  const yt=[0,0.25,0.5,0.75,1].map(v=>({v:v,py:Y(v)}));
+  axes(svg,W,H,M,xt,yt,"时间 (h)","占初始细胞比例",v=>Math.round(v),v=>fmt(v,2));
+  const mk=arr=>tr.t.map((t,i)=>[X(t),Y(arr[i]/par.T0)]);
+  svg.appendChild(path(mk(tr.T),"var(--s1)",2.5));
+  svg.appendChild(path(tr.t.map((t,i)=>[X(t),Y((tr.E[i]+tr.I[i])/par.T0)]),"var(--s2)",2.5));
+  svg.appendChild(path(mk(tr.D),"var(--s3)",2.5));
+  svg.appendChild(el("line",{x1:X(rt),y1:M.t,x2:X(rt),y2:H-M.b,
+    stroke:"var(--phenol)","stroke-width":1.5,"stroke-dasharray":"4 3"}));
+  const rl=el("text",{x:X(rt)+5,y:M.t+11,class:"axis-lbl"}); rl.setAttribute("fill","var(--phenol)");
+  rl.textContent="读板 "+rt+"h"; svg.appendChild(rl);
+  svg.onmousemove=ev=>{
+    const r=svg.getBoundingClientRect(),sx=(ev.clientX-r.left)/r.width*W;
+    if(sx<M.l||sx>W-M.r){hideTip();return;}
+    const t=(sx-M.l)/(W-M.l-M.r)*tEnd;
+    showTip(ev.clientX,ev.clientY,
+      `t    ${fmt(t,1)} h\n未感染 ${fmt(interp(tr.t,tr.T,t)/par.T0,3)}\n已感染 ${fmt((interp(tr.t,tr.E,t)+interp(tr.t,tr.I,t))/par.T0,3)}\nCPE  ${fmt(interp(tr.t,tr.cpe,t),3)}`);
+  };
+  svg.onmouseleave=hideTip;
+
+  /* 剂量-反应 */
+  const res=apparentEC50(par,agent,moi,rt,22,4);
+  const d2=document.getElementById("dr_svg"); d2.textContent="";
+  if(!res){document.getElementById("ro_ec50").textContent="无 CPE";
+    document.getElementById("ro_shift").textContent="—";
+    document.getElementById("ro_hill").textContent="—";return;}
+  document.getElementById("ro_ec50").innerHTML=fmt(res.ec50)+'<span class="u">nM</span>';
+  document.getElementById("ro_shift").textContent=(res.shift>=0?"+":"")+fmt(res.shift,2)+" log";
+  document.getElementById("ro_hill").textContent=fmt(res.hill,2);
+
+  const W2=720,H2=260,M2={l:52,r:16,t:14,b:46};
+  const lo=Math.log10(res.doses[0]),hi=Math.log10(res.doses[res.doses.length-1]);
+  const X2=v=>M2.l+(v-lo)/(hi-lo)*(W2-M2.l-M2.r);
+  const Y2=v=>M2.t+(1-Math.max(-0.05,Math.min(1.05,v))/1.05)*(H2-M2.t-M2.b);
+  const xt2=logTicks(lo,hi).map(v=>({v:v,px:X2(v)}));
+  const yt2=[0,0.25,0.5,0.75,1].map(v=>({v:v,py:Y2(v)}));
+  axes(d2,W2,H2,M2,xt2,yt2,"药物浓度 (nM，对数轴)","保护率",supTicks,v=>fmt(v,2));
+  d2.appendChild(el("line",{x1:M2.l,y1:Y2(0.5),x2:W2-M2.r,y2:Y2(0.5),
+    stroke:"var(--axis)","stroke-width":1,"stroke-dasharray":"3 4"}));
+  // 分子层 EC50 参考线
+  d2.appendChild(el("line",{x1:X2(Math.log10(res.centre)),y1:M2.t,
+    x2:X2(Math.log10(res.centre)),y2:H2-M2.b,stroke:"var(--s2)","stroke-width":2,"stroke-dasharray":"5 4"}));
+  // 拟合曲线
+  const FP=[];
+  for(let i=0;i<=200;i++){const lv=lo+(hi-lo)*i/200,d=Math.pow(10,lv);
+    FP.push([X2(lv),Y2(res.bottom+(res.top-res.bottom)/(1+Math.pow(res.ec50/d,res.hill)))]);}
+  d2.appendChild(path(FP,"var(--s1)",2.5));
+  // 模拟点
+  res.doses.forEach((d,i)=>d2.appendChild(el("circle",{cx:X2(Math.log10(d)),cy:Y2(res.protection[i]),
+    r:3.4,fill:"var(--s1)",stroke:"var(--surface)","stroke-width":1.5})));
+  // 表观 EC50
+  d2.appendChild(el("line",{x1:X2(Math.log10(res.ec50)),y1:M2.t,x2:X2(Math.log10(res.ec50)),
+    y2:H2-M2.b,stroke:"var(--phenol)","stroke-width":1.8}));
+  const t2=el("text",{x:X2(Math.log10(res.ec50))+5,y:M2.t+12,class:"axis-lbl"});
+  t2.setAttribute("fill","var(--phenol)"); t2.textContent="表观 "+fmt(res.ec50)+" nM"; d2.appendChild(t2);
+}
+ids.forEach(e=>e.addEventListener("input",drawODE));
+document.getElementById("moa").addEventListener("change",drawODE);
+
+/* ================= M6 面板 ================= */
+const SYS=document.getElementById("sys"),SHOW=document.getElementById("showfit");
+let scData=null;
+function drawBridge(){
+  const key=SYS.value, D=BRIDGE[key];
+  const lin=D.results.find(r=>r.kind==="linear");
+  document.getElementById("ro_n").textContent=D.n;
+  document.getElementById("ro_rmse").innerHTML=fmt(lin.rmse,3)+'<span class="u">log</span>';
+  document.getElementById("ro_floor").innerHTML=fmt(D.analysis.noise_cell.approx_sd_log10,2)+'<span class="u">log</span>';
+  document.getElementById("ro_r").textContent=fmt(lin.pearson,3);
+  document.getElementById("sc_title").textContent=D.label+"：生化 pIC50（非细胞） vs 细胞 pEC50";
+
+  const tb=document.getElementById("bridge_tbl"); tb.textContent="";
+  const desc={identity:"直接把生化值当细胞值用",offset:"生化值减去中位数偏移",linear:"拟合斜率与截距"};
+  const bestR=Math.min(...D.results.map(r=>r.rmse));
+  D.results.forEach(r=>{
+    const tr=document.createElement("tr");
+    if(r.rmse===bestR) tr.className="best";
+    tr.innerHTML=`<td class="k">${r.kind}</td><td class="mono">${r.rmse.toFixed(3)}</td>
+      <td class="mono">${r.mae.toFixed(3)}</td><td class="mono">${r.bias>=0?"+":"−"}${Math.abs(r.bias).toFixed(3)}</td>
+      <td class="mono">${r.r2.toFixed(3)}</td><td class="mono">${(r["within_1.0log"]*100).toFixed(1)}%</td>
+      <td>${desc[r.kind]}</td>`;
+    tb.appendChild(tr);
+  });
+
+  const cv=document.getElementById("sc_cv"), ctx=cv.getContext("2d");
+  const dpr=window.devicePixelRatio||1;
+  const cssW=cv.clientWidth||700, cssH=420;
+  cv.width=cssW*dpr; cv.height=cssH*dpr; cv.style.height=cssH+"px";
+  ctx.setTransform(dpr,0,0,dpr,0,0); ctx.clearRect(0,0,cssW,cssH);
+  const cs=getComputedStyle(document.body);
+  const C=n=>cs.getPropertyValue(n).trim();
+  const M={l:56,r:18,t:16,b:48};
+  const xs=D.points.map(p=>p[0]),ys=D.points.map(p=>p[1]);
+  const lo=Math.floor(Math.min(Math.min(...xs),Math.min(...ys))),
+        hi=Math.ceil(Math.max(Math.max(...xs),Math.max(...ys)));
+  const X=v=>M.l+(v-lo)/(hi-lo)*(cssW-M.l-M.r),
+        Y=v=>cssH-M.b-(v-lo)/(hi-lo)*(cssH-M.t-M.b);
+  ctx.font='10px "IBM Plex Mono",monospace';
+  ctx.strokeStyle=C("--grid"); ctx.lineWidth=1;
+  for(let v=lo;v<=hi;v++){
+    ctx.beginPath();ctx.moveTo(M.l,Y(v));ctx.lineTo(cssW-M.r,Y(v));ctx.stroke();
+    ctx.fillStyle=C("--axis");ctx.textAlign="right";ctx.textBaseline="middle";
+    ctx.fillText(v,M.l-8,Y(v));
+    ctx.beginPath();ctx.moveTo(X(v),cssH-M.b);ctx.lineTo(X(v),cssH-M.b+4);ctx.stroke();
+    ctx.textAlign="center";ctx.textBaseline="top";ctx.fillText(v,X(v),cssH-M.b+8);
+  }
+  ctx.strokeStyle=C("--axis");ctx.beginPath();
+  ctx.moveTo(M.l,cssH-M.b);ctx.lineTo(cssW-M.r,cssH-M.b);ctx.stroke();
+  ctx.fillStyle=C("--muted");ctx.font='11px "IBM Plex Sans",sans-serif';
+  ctx.textAlign="center";ctx.textBaseline="top";
+  ctx.fillText("生化 pIC50（纯酶，非细胞）",(M.l+cssW-M.r)/2,cssH-M.b+24);
+  ctx.save();ctx.translate(15,(M.t+cssH-M.b)/2);ctx.rotate(-Math.PI/2);
+  ctx.textBaseline="middle";ctx.fillText("细胞 pEC50",0,0);ctx.restore();
+
+  ctx.fillStyle=C("--s1"); ctx.globalAlpha=D.n>500?0.34:0.62;
+  D.points.forEach(p=>{ctx.beginPath();ctx.arc(X(p[0]),Y(p[1]),D.n>500?2.5:4,0,6.2832);ctx.fill();});
+  ctx.globalAlpha=1;
+
+  const sh=SHOW.value;
+  if(sh!=="none"){
+    ctx.strokeStyle=C("--axis");ctx.lineWidth=1.6;ctx.setLineDash([5,4]);
+    ctx.beginPath();ctx.moveTo(X(lo),Y(lo));ctx.lineTo(X(hi),Y(hi));ctx.stroke();
+    ctx.setLineDash([]);
+  }
+  if(sh!=="none"){
+    const a=D.fit.slope,b=D.fit.intercept;
+    ctx.strokeStyle=C("--s2");ctx.lineWidth=2.5;
+    ctx.beginPath();ctx.moveTo(X(lo),Y(a*lo+b));ctx.lineTo(X(hi),Y(a*hi+b));ctx.stroke();
+  }
+  scData={X:X,Y:Y,lo:lo,hi:hi,pts:D.points,cssW:cssW,cssH:cssH};
+
+  const T=BRIDGE.transfer;
+  document.getElementById("transfer_txt").innerHTML=
+    `把在 HIV-1 RT 上标定好的桥接直接拿去预测流感 NA：RMSE <strong>${T.hiv_to_flu.rmse.toFixed(3)}</strong> log，`+
+    `系统性偏差 <strong>${T.hiv_to_flu.bias>=0?"+":"−"}${Math.abs(T.hiv_to_flu.bias).toFixed(2)}</strong> log（约 `+
+    `${Math.pow(10,Math.abs(T.hiv_to_flu.bias)).toFixed(1)} 倍）。同一个数据集上就地重新拟合则是 RMSE `+
+    `<strong>${T.flu_native.rmse.toFixed(3)}</strong> log、偏差 ${T.flu_native.bias.toFixed(2)}。`+
+    `迁移的代价是 <strong>+${(T.hiv_to_flu.rmse-T.flu_native.rmse).toFixed(2)} log 的 RMSE</strong> 外加一个近 `+
+    `${Math.pow(10,Math.abs(T.hiv_to_flu.bias)).toFixed(0)} 倍的系统性偏移 —— `+
+    `这就是"结构可迁移、参数不可迁移"的量化形式。`;
+}
+document.getElementById("sc_cv").addEventListener("mousemove",ev=>{
+  if(!scData)return;
+  const r=ev.target.getBoundingClientRect();
+  const mx=ev.clientX-r.left,my=ev.clientY-r.top;
+  let best=null,bd=1e9;
+  scData.pts.forEach(p=>{
+    const d=(scData.X(p[0])-mx)**2+(scData.Y(p[1])-my)**2;
+    if(d<bd){bd=d;best=p;}
+  });
+  if(best&&bd<225) showTip(ev.clientX,ev.clientY,
+    `生化 pIC50 ${best[0].toFixed(2)}\n细胞 pEC50 ${best[1].toFixed(2)}\nΔ         ${(best[0]-best[1]>=0?"+":"")+(best[0]-best[1]).toFixed(2)}`);
+  else hideTip();
+});
+document.getElementById("sc_cv").addEventListener("mouseleave",hideTip);
+SYS.addEventListener("change",drawBridge);
+SHOW.addEventListener("change",drawBridge);
+window.addEventListener("resize",()=>{drawBridge();});
+
+/* ================= 验证条 ================= */
+function runChecks(){
+  const rows=[];
+  // 1. 中和：与 Python 逐点比
+  let worst=0,worstLbl="";
+  REF.neutralization.forEach(r=>{
+    const js=nt50FromKd(1.0,r.n,r.k);
+    const rel=Math.abs(js-r.nt50_over_kd)/r.nt50_over_kd;
+    if(rel>worst){worst=rel;worstLbl=`n=${r.n},k=${r.k}`;}
+  });
+  rows.push({ok:worst<1e-9,lbl:"占据模型 NT50/Kd 与 Python 一致",
+    val:`最差 ${worstLbl} 相对偏差 ${worst.toExponential(1)}（${REF.neutralization.length} 组）`});
+
+  // 2. 增长率与 R0
+  const P=REF.params, par={beta:P.beta,k:P.k,delta:P.delta,p:P.p,c:P.c,T0:P.T0};
+  const dl=Math.abs(growthRate(par)-REF.growth.lambda)/REF.growth.lambda;
+  const dr=Math.abs(R0(par)-REF.growth.R0)/REF.growth.R0;
+  rows.push({ok:dl<1e-9&&dr<1e-12,
+    lbl:"增长率 λ 与 R₀ 与 Python 一致",
+    val:`λ ${growthRate(par).toFixed(9)} /h（偏差 ${dl.toExponential(1)}）· R₀ ${R0(par).toFixed(6)}`});
+
+  // 3. ODE 积分器：RK4(dt=0.01) vs SciPy LSODA
+  const tr=simulate(par,0.01,96,null,0,1000);
+  let me=0;
+  REF.cpe_traj.forEach(pt=>{me=Math.max(me,Math.abs(interp(tr.t,tr.cpe,pt.t)-pt.cpe));});
+  rows.push({ok:me<2e-3,lbl:"CPE 轨迹：页面 RK4 vs SciPy LSODA",
+    val:`最大绝对偏差 ${me.toExponential(2)}（CPE 取值范围 0–1，${REF.cpe_traj.length} 个时间点）`});
+
+  // 4. 表观 EC50：含 Hill 拟合的完整链路
+  const drug=(pot,h)=>({kind:"drug",moa:"replication",centre:pot,
+    efficacy:d=>{const x=Math.pow(d/pot,h);return x/(1+x);}});
+  let mx=0,det=[];
+  REF.ode.forEach(r=>{
+    const res=apparentEC50(par,drug(100,1),r.moi,r.readout_h,24,4);
+    const rel=Math.abs(res.ec50-r.ec50_app)/r.ec50_app;
+    mx=Math.max(mx,rel);
+    det.push(`MOI ${r.moi}/${r.readout_h}h ${res.ec50.toFixed(1)}vs${r.ec50_app.toFixed(1)}`);
+  });
+  rows.push({ok:mx<0.05,lbl:"表观 EC50 全链路（积分＋Hill 拟合）",
+    val:`最大相对偏差 ${(mx*100).toFixed(2)}%（${REF.ode.length} 个设计点）`});
+
+  // 5. 真实数据完整性
+  const nh=BRIDGE.HIV1_RT.n,nf=BRIDGE.FLU_NA.n;
+  rows.push({ok:nh>500&&nf>50,lbl:"ChEMBL 真实配对数据已载入",
+    val:`HIV-1 RT ${nh} 对 · 流感 NA ${nf} 对（ChEMBL_37，非 mock）`});
+
+  const box=document.getElementById("vrows");
+  box.textContent="";
+  rows.forEach(r=>{
+    const d=document.createElement("div");
+    d.className="vrow "+(r.ok?"pass":"fail");
+    d.innerHTML=`<span class="dot"></span><span><span class="lbl">${r.lbl}</span>
+      <span class="val">${r.val}</span></span>`;
+    box.appendChild(d);
+  });
+}
+
+drawNeu(); drawODE(); drawBridge(); runChecks();
+</script>

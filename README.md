@@ -41,3 +41,32 @@ python3 -m grn_pipeline.m1_symmetry   # or any single module
 Figures are written to `figures/`. A full write-up with numbers, rigour
 labels, and the interpretation (including the Lyapunov-exponent biomarker
 question) is in [`REPORT.md`](REPORT.md).
+
+---
+
+## `assaysim` — 湿实验数字孪生（已验证，非 mock）
+
+把诊断/抗病毒湿实验抽象成可运行、可证伪的模型。全部验证：
+
+```bash
+pip install numpy scipy biopython rdkit
+python3 -m assaysim.validate      # 25/25 通过
+```
+
+| 模块 | 模型 | 验证方式 | 结果 |
+|---|---|---|---|
+| `nn_thermo` | Allawi/SantaLucia 最近邻双链热力学 | 与 Biopython 独立实现交叉比对 | 200 条寡核苷酸 max\|ΔTm\| = 0.003 °C |
+| `neutralization` | 多击中占据模型 Kd → NT50 | 数值解 vs 闭式解 `Kd·(2^(1/n)−1)` | 相对偏差 7e-14；n=100 时 NT50 = Kd/143.77 |
+| `viral_dynamics` | 四状态靶细胞受限 ODE + 药物机制接口 | 守恒律、雅可比特征值、R₀ 阈值、KM 最终规模 | 全部通过 |
+| `bridge` | 非细胞 → 细胞效力桥接 | ChEMBL_37 真实配对 + Murcko 骨架留出 | 见下 |
+
+**真实数据结论**（ChEMBL_37 实时抓取，缓存于 `data/`）：
+
+- HIV-1 RT 有 **2067** 个化合物同时具备酶法 IC50 与细胞法 EC50；流感 NA 有 **90** 个
+- 线性桥接留出 RMSE **1.03 log** vs 直接当细胞值用的 **1.20 log**
+- 细胞法终点自身的跨论文重现性约 **0.76 log** —— 预测误差已在噪声下限的 1.4 倍以内
+- 在 HIV-1 RT 上标定的桥接迁移到流感 NA：RMSE **1.49**、系统性偏差 **+0.84 log**；
+  就地重拟合则为 **1.01**。这把"结构可迁移、参数不可迁移"变成了可测量的量
+
+交互式工作台：`tools/twin_template.html`（用 `data/` 里的真实数据注入后发布）。
+服务线的 in-silico 可行性分级见 [`BIOVENIC_INSILICO.md`](BIOVENIC_INSILICO.md)。
