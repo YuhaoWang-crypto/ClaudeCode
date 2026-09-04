@@ -239,14 +239,26 @@ footer{margin-top:64px;padding-top:20px;border-top:2px solid var(--ink);
         <input type="range" id="h_s" min="0.5" max="4" value="1" step="0.1"></div>
       <div class="ctl-group-title">实验设计</div>
       <div class="ctl"><label>接种量 MOI<span class="v" id="moi_v">0.01</span></label>
-        <input type="range" id="moi_s" min="-4" max="0" value="-2" step="0.25"></div>
+        <!-- 量程需覆盖文献接种量：Baccam 2006 的 V0=7.5e-2 对 T0=4e8 相当于 MOI 1.9e-10 -->
+        <input type="range" id="moi_s" min="-12" max="0" value="-2" step="0.25"></div>
       <div class="ctl"><label>读板时间<span class="v" id="ro_t_v">72 h</span></label>
-        <input type="range" id="ro_t_s" min="12" max="120" value="72" step="4"></div>
+        <input type="range" id="ro_t_s" min="12" max="192" value="72" step="4"></div>
+      <div class="ctl"><label>给药起始<span class="v" id="ds_v">0 h</span></label>
+        <input type="range" id="ds_s" min="0" max="96" value="0" step="2"></div>
       <div class="ctl-group-title">病毒 × 细胞系参数</div>
+      <div class="ctl"><label>参数集<span class="v"></span></label>
+        <select id="parset">
+          <option value="mdck">示例：流感 / MDCK（本页自选）</option>
+          <option value="baccam">文献：Baccam 2006 H1N1（人）</option>
+        </select></div>
+      <div class="ctl" id="absRow"><label>V 方程含吸附损耗 −βTV<span class="v" id="abs_v">是</span></label>
+        <select id="absorb"><option value="1">是（更完整的物理）</option>
+        <option value="0">否（Baccam 原式）</option></select></div>
+      <div id="tunable">
       <div class="ctl"><label>产毒速率 p<span class="v" id="p_v">5.0</span></label>
         <input type="range" id="p_s" min="0.5" max="20" value="5" step="0.5"></div>
       <div class="ctl"><label>产毒细胞寿命 1/δ<span class="v" id="d_v">12 h</span></label>
-        <input type="range" id="d_s" min="4" max="48" value="12" step="1"></div>
+        <input type="range" id="d_s" min="4" max="48" value="12" step="1"></div></div>
     </div>
     <div class="stage">
       <div class="readouts">
@@ -489,23 +501,29 @@ function nt50FromKd(kd,n,k){const t=thetaStar(n,k,0.5);return kd*t/(1-t);}
 /* ---- ODE：与 Python 同一个右端 ---- */
 function rhs(y,par,infFrac){
   const [T,E,I,V]=y, inf=par.beta*T*V;
+  const ab=(par.absorb===undefined)?1:par.absorb;
   return [-inf, inf-par.k*E, par.k*E-par.delta*I,
-          par.p*I*infFrac-par.c*V-inf, par.delta*I];
+          par.p*I*infFrac-par.c*V-ab*inf, par.delta*I];
 }
-function simulate(par,moi,tEnd,agent,dose,nOut){
-  nOut=nOut||300;
-  let beta=par.beta,p=par.p,infFrac=1.0;
+function simulate(par,moi,tEnd,agent,dose,nOut,dStart){
+  nOut=nOut||300; dStart=dStart||0;
+  const absorb=(par.absorption===false)?0:1;
+  const dt=0.01, steps=Math.round(tEnd/dt), every=Math.max(1,Math.floor(steps/nOut));
+  // 药物在 dStart 之前不起作用；ε(t) 在该时刻是阶跃
+  let beta0=par.beta,p0=par.p,infFrac0=1.0;
   if(agent&&dose>0){
     const eps=agent.efficacy(dose);
-    if(agent.kind==="antibody"||agent.moa==="entry") beta*=(1-eps);
-    else if(agent.moa==="replication"||agent.moa==="release") p*=(1-eps);
-    else if(agent.moa==="maturation") infFrac=(1-eps);
+    if(agent.kind==="antibody"||agent.moa==="entry") beta0*=(1-eps);
+    else if(agent.moa==="replication"||agent.moa==="release") p0*=(1-eps);
+    else if(agent.moa==="maturation") infFrac0=(1-eps);
   }
-  const P={beta:beta,k:par.k,delta:par.delta,p:p,c:par.c};
-  const dt=0.01, steps=Math.round(tEnd/dt), every=Math.max(1,Math.floor(steps/nOut));
   let y=[par.T0,0,0,moi*par.T0,0];
   const out={t:[0],T:[y[0]],E:[0],I:[0],V:[y[3]],D:[0]};
   for(let s=1;s<=steps;s++){
+    const on=((s-1)*dt)>=dStart;
+    const P={beta:on?beta0:par.beta, k:par.k, delta:par.delta,
+             p:on?p0:par.p, c:par.c, absorb:absorb};
+    const infFrac=on?infFrac0:1.0;
     const k1=rhs(y,P,infFrac);
     const y2=y.map((v,i)=>v+0.5*dt*k1[i]), k2=rhs(y2,P,infFrac);
     const y3=y.map((v,i)=>v+0.5*dt*k2[i]), k3=rhs(y3,P,infFrac);
@@ -572,32 +590,47 @@ function fitHill(doses,y){
   return {ec50:Math.pow(10,S[0][0]),hill:S[0][1],bottom:fin.bottom,top:fin.top};
 }
 
-function apparentEC50(par,agent,moi,readoutH,nDoses,span){
-  nDoses=nDoses||24; span=span===undefined?4:span;
+function apparentEC50(par,agent,moi,readoutH,nDoses,span,dStart){
+  nDoses=nDoses||24; span=span===undefined?4:span; dStart=dStart||0;
   const centre=agent.centre, lo=Math.log10(centre)-span, hi=Math.log10(centre)+span;
   const doses=[]; for(let i=0;i<nDoses;i++) doses.push(Math.pow(10,lo+(hi-lo)*i/(nDoses-1)));
   const tEnd=readoutH*1.2;
-  const base=simulate(par,moi,tEnd,null,0);
+  const base=simulate(par,moi,tEnd,null,0,300,0);
   const cpe0=interp(base.t,base.cpe,readoutH);
-  if(cpe0<=1e-9) return null;
+  // 无药对照必须有**可测量**的 CPE，否则"保护率"没有定义 —— 在空信号上
+  // 拟合 Hill 会返回一个看似正常却毫无意义的 EC50（实测过：R₀<1 时会报最低剂量）
+  if(cpe0<=1e-3) return null;
   const prot=doses.map(d=>{
-    const s=simulate(par,moi,tEnd,agent,d);
+    const s=simulate(par,moi,tEnd,agent,d,300,dStart);
     return 1-interp(s.t,s.cpe,readoutH)/cpe0;
   });
+  // 可辨识性判据：保护率必须真的从低走到高，EC50 才被数据约束。
+  // 曲线太平时 Hill 拟合会退化到剂量边界，返回一个看似正常却无意义的数
+  // （实测：R₀<1 时报最低剂量）。这种情况必须说"测不出"，而不是给个数。
+  let pmin=Infinity,pmax=-Infinity;
+  for(const v of prot){ if(v<pmin)pmin=v; if(v>pmax)pmax=v; }
+  if(pmax-pmin<0.25) return {unidentifiable:true, range:pmax-pmin,
+                             doses:doses, protection:prot, cpe0:cpe0, centre:centre};
   const f=fitHill(doses,prot);
   return {doses:doses,protection:prot,ec50:f.ec50,hill:f.hill,
           bottom:f.bottom,top:f.top,cpe0:cpe0,centre:centre,
           shift:Math.log10(f.ec50/centre)};
 }
 function growthRate(par){
-  const k=par.k,d=par.delta,c=par.c+par.beta*par.T0,rhsv=k*par.p*par.beta*par.T0;
+  const ab=(par.absorption===false)?0:1;
+  const k=par.k,d=par.delta,c=par.c+ab*par.beta*par.T0,rhsv=k*par.p*par.beta*par.T0;
   const f=l=>(l+k)*(l+d)*(l+c)-rhsv;
   if(f(0)>=0) return 0;
   let hi=1; while(f(hi)<0){hi*=2; if(hi>1e6)break;}
   let lo=0; for(let i=0;i<200;i++){const m=0.5*(lo+hi); if(f(m)<0)lo=m;else hi=m;}
   return 0.5*(lo+hi);
 }
-const R0=par=>par.beta*par.p*par.T0/(par.delta*(par.c+par.beta*par.T0));
+const R0=par=>{const ab=(par.absorption===false)?0:1;
+  return par.beta*par.p*par.T0/(par.delta*(par.c+ab*par.beta*par.T0));};
+/* Baccam 2006 J Virol 80:7590 Table 3 几何均值，原文单位 /day，此处换算为 /h。
+   R0 对时间单位是不变量，换算不改变 R0。⚠️ 必须配 absorption:false。*/
+const BACCAM={beta:3.2e-5/24, k:4.0/24, delta:5.2/24, p:4.6e-2/24, c:5.2/24,
+              T0:4.0e8, absorption:false};
 
 /* ================= 绘图工具 ================= */
 const NS="http://www.w3.org/2000/svg";
@@ -700,11 +733,14 @@ function drawNeu(){
 NP.addEventListener("change",()=>{if(NP.value!=="custom"){N_S.value=NP.value;drawNeu();}});
 
 /* ================= M4 面板 ================= */
-const ids=["moa","ec_s","h_s","moi_s","ro_t_s","p_s","d_s"].map(i=>document.getElementById(i));
+const ids=["moa","ec_s","h_s","moi_s","ro_t_s","p_s","d_s","ds_s"].map(i=>document.getElementById(i));
 function curPar(){
+  const abs=document.getElementById("absorb").value==="1";
+  if(document.getElementById("parset").value==="baccam")
+    return Object.assign({},BACCAM,{absorption:abs});
   const P=REF.params;
   return {beta:P.beta,k:P.k,delta:1/(+document.getElementById("d_s").value),
-          p:+document.getElementById("p_s").value,c:P.c,T0:P.T0};
+          p:+document.getElementById("p_s").value,c:P.c,T0:P.T0,absorption:abs};
 }
 function curAgent(){
   const moa=document.getElementById("moa").value;
@@ -728,13 +764,23 @@ function drawODE(){
   document.getElementById("h_v").textContent=fmt(+document.getElementById("h_s").value,1);
   document.getElementById("moi_v").textContent=fmt(moi,4);
   document.getElementById("ro_t_v").textContent=rt+" h";
-  document.getElementById("p_v").textContent=fmt(par.p,1);
-  document.getElementById("d_v").textContent=Math.round(1/par.delta)+" h";
-  document.getElementById("ro_r0").textContent=fmt(R0(par),1);
+  const isBac=document.getElementById("parset").value==="baccam";
+  document.getElementById("tunable").style.display=isBac?"none":"block";
+  document.getElementById("abs_v").textContent=par.absorption?"是":"否";
+  if(!isBac){
+    document.getElementById("p_v").textContent=fmt(par.p,1);
+    document.getElementById("d_v").textContent=Math.round(1/par.delta)+" h";
+  }
+  const ds=+document.getElementById("ds_s").value;
+  document.getElementById("ds_v").textContent=ds+" h";
+  const r0=R0(par);
+  const ro=document.getElementById("ro_r0");
+  ro.textContent=r0<0.01?r0.toExponential(2):fmt(r0,2);
+  ro.style.color=r0<1?"var(--bad)":"";
 
   /* 时程 */
   const tEnd=Math.max(rt*1.2,96);
-  const tr=simulate(par,moi,tEnd,null,0);
+  const tr=simulate(par,moi,tEnd,null,0,300,0);
   const svg=document.getElementById("ode_svg"); svg.textContent="";
   const W=720,H=240,M={l:52,r:16,t:12,b:44};
   const X=v=>M.l+v/tEnd*(W-M.l-M.r), Y=v=>M.t+(1-v)*(H-M.t-M.b);
@@ -759,9 +805,12 @@ function drawODE(){
   svg.onmouseleave=hideTip;
 
   /* 剂量-反应 */
-  const res=apparentEC50(par,agent,moi,rt,22,4);
+  const res=apparentEC50(par,agent,moi,rt,22,4,ds);
   const d2=document.getElementById("dr_svg"); d2.textContent="";
-  if(!res){document.getElementById("ro_ec50").textContent="无 CPE";
+  if(!res||res.unidentifiable){
+    const why = !res ? (r0<1?"R₀<1 无 CPE":"无 CPE")
+                     : "不可辨识（保护率跨度仅 "+fmt(res.range,3)+"）";
+    document.getElementById("ro_ec50").innerHTML='<span style="font-size:14px">'+why+'</span>';
     document.getElementById("ro_shift").textContent="—";
     document.getElementById("ro_hill").textContent="—";return;}
   document.getElementById("ro_ec50").innerHTML=fmt(res.ec50)+'<span class="u">nM</span>';
@@ -796,6 +845,7 @@ function drawODE(){
 }
 ids.forEach(e=>e.addEventListener("input",drawODE));
 document.getElementById("moa").addEventListener("change",drawODE);
+["parset","absorb"].forEach(i=>document.getElementById(i).addEventListener("change",drawODE));
 
 /* ================= M6 面板 ================= */
 const SYS=document.getElementById("sys"),SHOW=document.getElementById("showfit");
@@ -1186,7 +1236,16 @@ function runChecks(){
   rows.push({ok:gd<0.02,lbl:"AGID 沉淀带位置：页面分裂步 vs SciPy LSODA",
     val:`${gbs.x.toFixed(4)} vs ${gb.x.toFixed(4)} cm，偏差 ${(gd*1e4).toFixed(1)} µm（孔间距 ${G.L} cm）`});
 
-  // 7. 真实数据完整性
+  // 7. Baccam 2006 文献复现（吸附项开关的直接后果）
+  const bacR0=R0(BACCAM), bacWrong=R0(Object.assign({},BACCAM,{absorption:true}));
+  const bt=simulate(BACCAM,7.5e-2/BACCAM.T0,8*24,null,0,2000,0);
+  let pk=0,pkt=0; for(let i=0;i<bt.V.length;i++) if(bt.V[i]>pk){pk=bt.V[i];pkt=bt.t[i];}
+  rows.push({ok:Math.abs(bacR0-21.5)/21.5<0.03 && pkt/24>2 && pkt/24<3 && bacWrong<1,
+    lbl:"复现 Baccam 2006（含吸附项开关的后果）",
+    val:`R₀ ${bacR0.toFixed(2)}（文献 21.5）· 峰值第 ${(pkt/24).toFixed(2)} 天 ${pk.toExponential(2)} TCID50/ml`+
+        ` · 误开吸附项则 R₀ 掉到 ${bacWrong.toFixed(4)}`});
+
+  // 8. 真实数据完整性
   const nh=BRIDGE.HIV1_RT.n,nf=BRIDGE.FLU_NA.n;
   rows.push({ok:nh>500&&nf>50,lbl:"ChEMBL 真实配对数据已载入",
     val:`HIV-1 RT ${nh} 对 · 流感 NA ${nf} 对（ChEMBL_37，非 mock）`});
