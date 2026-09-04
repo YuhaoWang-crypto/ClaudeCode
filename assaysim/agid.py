@@ -64,12 +64,53 @@ def stokes_einstein_D(r_h_nm: float, T_K: float = 293.15,
     return D_m2 * 1e4 * gel_factor  # m²/s -> cm²/s
 
 
+N_A = 6.02214076e23  # /mol
+V_BAR_PROTEIN = 0.73  # cm³/g, 球状蛋白的典型偏比容
+
+
+def hydrodynamic_radius_from_MW(mw_Da: float, shape_factor: float = 1.25,
+                                v_bar: float = V_BAR_PROTEIN) -> float:
+    """由分子量估流体力学半径 (nm)。
+
+    无水球等效半径由**偏比容推导**，不是拍一个经验常数：
+
+        单分子体积  V = M · v̄ / N_A          (cm³)
+        R_min = (3V / 4π)^(1/3)              (cm -> nm)
+              = 0.06614 · M^(1/3) nm          当 v̄ = 0.73 cm³/g
+        R_h   = shape_factor · R_min
+
+    shape_factor 是**形状与水化**修正，必须显式给出：
+        1.20–1.30  球状蛋白（溶菌酶、BSA、多数衣壳蛋白）
+        ~1.50      IgG（Y 形，远非球状）
+    validate.py 用三个实测蛋白检验这条关系。
+
+    ⚠️ 经验式，非第一性原理。对高度伸展或重糖基化的蛋白会低估。
+    """
+    if mw_Da <= 0 or v_bar <= 0:
+        raise ValueError("分子量与偏比容必须为正")
+    vol_cm3 = mw_Da * v_bar / N_A
+    r_cm = (3.0 * vol_cm3 / (4.0 * math.pi)) ** (1.0 / 3.0)
+    return r_cm * 1e7 * shape_factor  # cm -> nm
+
+
+def D_from_MW(mw_Da: float, shape_factor: float = 1.25, T_K: float = 293.15,
+              eta_Pa_s: float = ETA_WATER_20C, gel_factor: float = 1.0,
+              v_bar: float = V_BAR_PROTEIN) -> float:
+    """分子量 -> 流体力学半径 -> Stokes-Einstein 扩散系数 (cm²/s)。"""
+    return stokes_einstein_D(
+        hydrodynamic_radius_from_MW(mw_Da, shape_factor, v_bar),
+        T_K, eta_Pa_s, gel_factor)
+
+
 # 实测流体力学半径与扩散系数 (20 °C, 水)，用于验证 Stokes–Einstein 实现
 # 数值为文献常用值，量级与彼此关系是被反复测量确认的
 REFERENCE_PROTEINS = {
-    "IgG": {"MW_kDa": 150.0, "r_h_nm": 5.3, "D_measured_cm2_s": 4.0e-7},
-    "BSA": {"MW_kDa": 66.5, "r_h_nm": 3.5, "D_measured_cm2_s": 6.0e-7},
-    "lysozyme": {"MW_kDa": 14.3, "r_h_nm": 1.9, "D_measured_cm2_s": 1.06e-6},
+    "IgG": {"MW_kDa": 150.0, "r_h_nm": 5.3, "D_measured_cm2_s": 4.0e-7,
+            "shape_factor": 1.50},
+    "BSA": {"MW_kDa": 66.5, "r_h_nm": 3.5, "D_measured_cm2_s": 6.0e-7,
+            "shape_factor": 1.30},
+    "lysozyme": {"MW_kDa": 14.3, "r_h_nm": 1.9, "D_measured_cm2_s": 1.06e-6,
+                 "shape_factor": 1.20},
 }
 
 

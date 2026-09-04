@@ -295,6 +295,17 @@ def validate_agid() -> None:
     check("[文献] Stokes-Einstein 复现 IgG/BSA/溶菌酶的实测扩散系数",
           worst < 0.08, f"最大相对偏差 {worst:.1%} · " + " · ".join(detail))
 
+    # [文献] MW -> R_h 的经验式对三个实测半径的复现
+    worst_r = 0.0
+    dr = []
+    for name, p in agid.REFERENCE_PROTEINS.items():
+        rh = agid.hydrodynamic_radius_from_MW(p["MW_kDa"] * 1000.0, p["shape_factor"])
+        rel = abs(rh - p["r_h_nm"]) / p["r_h_nm"]
+        worst_r = max(worst_r, rel)
+        dr.append(f"{name} {rh:.2f} vs 实测 {p['r_h_nm']}nm")
+    check("[文献] MW -> R_h 经验式复现实测流体力学半径",
+          worst_r < 0.10, f"最大相对偏差 {worst_r:.1%} · " + " · ".join(dr))
+
     # [解析] PDE 求解器 vs erfc 解析解 (无反应)
     D = 6.0e-7
     t = 3600.0

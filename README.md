@@ -50,7 +50,7 @@ question) is in [`REPORT.md`](REPORT.md).
 
 ```bash
 pip install numpy scipy biopython rdkit
-python3 -m assaysim.validate      # 43/43 通过
+python3 -m assaysim.validate      # 44/44 通过
 ```
 
 | 模块 | 模型 | 验证方式 | 结果 |
@@ -59,7 +59,7 @@ python3 -m assaysim.validate      # 43/43 通过
 | `neutralization` | 多击中占据模型 Kd → NT50 | 数值解 vs 闭式解 `Kd·(2^(1/n)−1)` | 相对偏差 7e-14；n=100 时 NT50 = Kd/143.77 |
 | `viral_dynamics` | 四状态靶细胞受限 ODE + 药物机制接口 | 守恒律、雅可比特征值、R₀ 阈值、KM 最终规模 | 全部通过 |
 | `bridge` | 非细胞 → 细胞效力桥接 | ChEMBL_37 真实配对 + Murcko 骨架留出 | 见下 |
-| `agid` | 琼脂免疫扩散反应-扩散 PDE | 求解器 vs erfc 解析解；Stokes-Einstein vs 实测 D | 扩散最大偏差 9.8e-6；IgG/BSA/溶菌酶 D 复现在 6.4% 内 |
+| `agid` | 琼脂免疫扩散反应-扩散 PDE | 求解器 vs erfc 解析解；Stokes-Einstein vs 实测 D | 扩散最大偏差 9.8e-6；R_h 复现实测值在 1.4% 内 |
 | `agglutination` | Smoluchowski 聚集 + 抗体桥联 | 数值解 vs 常核闭式解 | 簇分布相对偏差 6.5e-9；质量守恒 1.3e-10 |
 
 **真实数据结论**（ChEMBL_37 实时抓取，缓存于 `data/`）：
@@ -82,3 +82,24 @@ AGID 与凝集的两个要点（都是模型的推论，不是外加假设）：
 
 交互式工作台：`tools/twin_template.html`（用 `data/` 里的真实数据注入后发布）。
 服务线的 in-silico 可行性分级见 [`BIOVENIC_INSILICO.md`](BIOVENIC_INSILICO.md)。
+
+### ASFV p72 案例与跨实现交叉验证
+
+```bash
+python3 -m assaysim.case_asfv_p72                 # 全链路逐段跑，先判适用性
+python3 -m assaysim.crossvalidate_av <bundle_dir> # 与 VC-NEU / VC-AGD 对拍
+```
+
+`case_asfv_p72` 用真实输入（UniProt P22776 · 646 aa · 73,179 Da；衣壳 T=277、
+p72 8,280 拷贝，Liu 2019 Cell Res PMID 31649031）走完六段链路，并**先判定适用性
+再计算**：2 段直接适用（AGID 浓度窗口、凝集稀释窗口），2 段结构适用但参数缺，
+1 段明确不出预测（ChEMBL_37 里 ASFV 的 pchembl 活性为 **0 条**）。
+
+`crossvalidate_av` 把 assaysim 与一套**独立编写**的浏览器端实现对拍
+（不同语言、不同 lgamma、不同求根、不同单位约定）：
+
+- 占据模型 NT50：11 组参数最大相对偏差 **1.05e-11**
+- Stokes-Einstein 扩散层：R_h 与 D 均吻合到 **机器精度 (2e-16)**
+
+对拍过程中采纳了对方由偏比容 v̄=0.73 cm³/g **推导**无水球半径的做法，
+替换掉原先四舍五入的经验常数 0.066，R_h 对实测值的复现从 10% 容差收紧到 1.4%。
