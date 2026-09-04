@@ -228,6 +228,25 @@ def validate_viral_dynamics() -> None:
           "24/48/72 h -> EC50 " +
           " / ".join(f"{v:.1f}" for v in times.values()) + f" nM (跨度 {spread_t:.2f}×)")
 
+    # [文献] 复现 Baccam 2006 的 R0 与峰值时间（必须用 absorption=False）
+    bac = vd.REFERENCE_PARAMS["baccam2006_H1N1"]
+    check("[文献] 复现 Baccam 2006 的 R0（文献 21.5）",
+          abs(bac.R0 - 21.5) / 21.5 < 0.03,
+          f"本实现 R0 = {bac.R0:.2f}（absorption={bac.absorption}）")
+
+    tb = vd.simulate(bac, moi=7.5e-2 / bac.T0, t_end_h=8.0, n_points=2000)
+    t_peak = float(tb.t[int(np.argmax(tb.V))])
+    check("[文献] 复现 Baccam 2006 的病毒载量峰值时间（文献第 2–3 天）",
+          2.0 <= t_peak <= 3.0,
+          f"峰值在第 {t_peak:.2f} 天，峰值滴度 {tb.peak_titer():.2e} TCID50/ml")
+
+    # [解析] 吸附项与参数集是一个整体：错配会灾难性地改变结论
+    bac_wrong = dataclasses.replace(bac, absorption=True)
+    check("[解析] 把 Baccam 参数误用于含吸附项的方程会使感染熄灭",
+          bac.R0 > 20 and bac_wrong.R0 < 1,
+          f"absorption=False R0={bac.R0:.2f} vs absorption=True R0={bac_wrong.R0:.4f} "
+          f"（β·T0={bac.beta * bac.T0:,.0f} 是 c={bac.c} 的 {bac.beta * bac.T0 / bac.c:,.0f} 倍）")
+
     # [解析] 中和抗体经占据模型进入 ODE，孔水平 NT50 应远低于 Kd
     ab = vd.Antibody("示例中和抗体", kd_nM=10.0,
                      virion=neu.KNOWN_VIRIONS["influenza_A"])

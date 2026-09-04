@@ -99,9 +99,51 @@ def main(bundle: str) -> int:
             print(f"  {mw:9,d} | {tr:10.4f} {mr:10.4f} {er:9.2e} | "
                   f"{td:10.4f} {md:10.4f} {ed:9.2e}{tag}")
         print(f"  最大偏差: R_h {worst_rh:.2e}   D {worst_d:.2e}")
+
+        # --- VC-VK vs M4 靶细胞受限 ODE (Baccam 2006 参数) ---
+        vk = next(iter(sorted(Path(bundle).rglob("*vc_vk.html"))), None)
+        worst_vk = None
+        if vk is not None:
+            import numpy as np
+
+            from . import viral_dynamics as vd
+
+            pg.goto(vk.as_uri())
+            pg.wait_for_timeout(2000)
+            bac = vd.REFERENCE_PARAMS["baccam2006_H1N1"]
+            V0 = 7.5e-2
+            worst_vk = 0.0
+            print("\nVC-VK (他们) vs assaysim M4 (我) — Baccam 2006 靶细胞受限 ODE")
+            print("  ⚠️ 只有 absorption=False 才能吃这套文献参数；含吸附项时 R0 会掉到 0.009")
+            print(f"  {'场景':<24} {'他们 峰值':>12} {'我 峰值':>12} {'偏差':>9}")
+            for label, C, ec, ts in [("无药", None, None, None),
+                                     ("100nM / EC50 20nM", 100.0, 20.0, 1.0),
+                                     ("10nM / EC50 100nM", 10.0, 100.0, 1.0),
+                                     ("1µM / EC50 50nM, t=2d", 1000.0, 50.0, 2.0)]:
+                if C is None:
+                    js = ("()=>{const s=VCVK.simulate(null,null,8.0,0.0005);"
+                          "return VCVK.metrics(s.t,s.V,1.0).peak_titer;}")
+                    tr = vd.simulate(bac, moi=V0 / bac.T0, t_end_h=8.0, n_points=16001)
+                else:
+                    js = (f"()=>{{const e=VCVK.constantEpsFn({C},{ec},{ts});"
+                          f"const s=VCVK.simulate(null,e,8.0,0.0005);"
+                          f"return VCVK.metrics(s.t,s.V,1.0).peak_titer;}}")
+                    d = vd.Drug("d", moa="replication", ec50_mol=ec, hill=1.0)
+                    tr = vd.simulate(bac, moi=V0 / bac.T0, t_end_h=8.0, n_points=16001,
+                                     agent=d, dose=C, dose_start_h=ts)
+                t = pg.evaluate(js)
+                m = tr.peak_titer()
+                rel = abs(t - m) / m
+                worst_vk = max(worst_vk, rel)
+                print(f"  {label:<24} {t:12.4e} {m:12.4e} {rel:9.2e}")
+            print(f"  最大峰值相对偏差 = {worst_vk:.2e}")
+            print("  （延迟给药一档偏差较大是因为峰值恰落在给药阶跃处，"
+                  "定步长 RK4 与变步长 LSODA 对间断的处理不同）")
+
         b.close()
 
-    ok = worst_neut < 1e-9 and worst_rh < 1e-6 and worst_d < 1e-6
+    ok = (worst_neut < 1e-9 and worst_rh < 1e-6 and worst_d < 1e-6
+          and (worst_vk is None or worst_vk < 2e-3))
     print("\n" + ("跨实现一致 ✅" if ok else "存在超出容差的差异 ⚠️  —— 需逐项排查约定差异"))
     return 0 if ok else 1
 

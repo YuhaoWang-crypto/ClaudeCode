@@ -50,7 +50,7 @@ question) is in [`REPORT.md`](REPORT.md).
 
 ```bash
 pip install numpy scipy biopython rdkit
-python3 -m assaysim.validate      # 44/44 通过
+python3 -m assaysim.validate      # 47/47 通过
 ```
 
 | 模块 | 模型 | 验证方式 | 结果 |
@@ -100,6 +100,14 @@ p72 8,280 拷贝，Liu 2019 Cell Res PMID 31649031）走完六段链路，并**�
 
 - 占据模型 NT50：11 组参数最大相对偏差 **1.05e-11**
 - Stokes-Einstein 扩散层：R_h 与 D 均吻合到 **机器精度 (2e-16)**
+- 靶细胞受限 ODE（Baccam 2006 参数）：峰值滴度最大相对偏差 **8.2e-4**
+
+**吸附项与参数集是一个整体。** Baccam 2006 的方程 `dV/dt = p·I − c·V` 不含吸附损耗
+`−βTV`，其 β 是在这个形式上拟合的。该参数集下 β·T0 = 12,800/day 而 c = 5.2/day，
+相差 2462 倍——把它塞进含吸附项的方程，R0 会从 **21.8 掉到 0.009**，感染直接熄灭。
+`CellVirusParams.absorption` 因此是显式开关，默认 True（我的形式），引用文献参数时
+必须设为 False。本仓库用 `absorption=False` 复现了 Baccam 的 R0=21.78（文献 21.5）、
+峰值第 2.33 天、以及"延迟给药"结论（第 1.5/2.0/2.5 天给药，峰值降低 98.9%/52.9%/0%）。
 
 对拍过程中采纳了对方由偏比容 v̄=0.73 cm³/g **推导**无水球半径的做法，
 替换掉原先四舍五入的经验常数 0.066，R_h 对实测值的复现从 10% 容差收紧到 1.4%。

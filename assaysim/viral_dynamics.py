@@ -65,7 +65,22 @@ class CellVirusParams:
     p: float  # virion/(cell*h) 产毒速率
     c: float  # 1/h            游离病毒清除
     T0: float = 1e5  # cells/well     初始靶细胞
+    absorption: bool = True  # V 方程是否含吸附损耗 −βTV
     source: str = ""
+
+    # ⚠️ absorption 是**建模选择**，不是对错问题，而且它与参数值是一个整体：
+    #
+    #   absorption=True   dV/dt = p·I − c·V − β·T·V
+    #       一个病毒粒子被细胞吸附后就不再能感染别的细胞，物理上更完整。
+    #
+    #   absorption=False  dV/dt = p·I − c·V            (Baccam 2006 原式)
+    #       文献里绝大多数拟合出的参数集用的是这个形式，β 已经把吸附损耗
+    #       隐式吸收进去了。
+    #
+    # 把为 absorption=False 拟合的参数塞进 absorption=True 的模型会灾难性地错：
+    # Baccam 2006 的 β·T0 = 12,800/day 而 c = 5.2/day，二者相差 2462 倍，
+    # R0 会从 21.8 掉到 0.009 —— 感染直接熄灭。
+    # 所以**引用文献参数时必须同时引用它拟合时用的方程形式**。
 
     @property
     def R0(self) -> float:
@@ -75,8 +90,8 @@ class CellVirusParams:
         一个病毒粒子被细胞吸附后就不再能感染别的细胞。
         当 c >> β·T0 时退化为常见的 β p T0/(δc)。
         """
-        return (self.beta * self.p * self.T0
-                / (self.delta * (self.c + self.beta * self.T0)))
+        loss = self.c + (self.beta * self.T0 if self.absorption else 0.0)
+        return self.beta * self.p * self.T0 / (self.delta * loss)
 
     def growth_rate(self) -> float:
         """指数期增长率 = 线性化系统的最大实特征值。
@@ -93,7 +108,7 @@ class CellVirusParams:
            要在瞬态之后取窗口才能测到 λ —— 见 validate.py。
         """
         k, d = self.k_eclipse, self.delta
-        c = self.c + self.beta * self.T0  # 吸附损耗并入清除
+        c = self.c + (self.beta * self.T0 if self.absorption else 0.0)
         rhs = k * self.p * self.beta * self.T0
         f = lambda lam: (lam + k) * (lam + d) * (lam + c) - rhs
         if f(0.0) >= 0:  # R0 <= 1，无正根
@@ -186,10 +201,31 @@ class Trajectory:
 
 
 def simulate(params: CellVirusParams, *, moi: float = 0.01, t_end_h: float = 96.0,
-             agent=None, dose: float = 0.0, n_points: int = 400) -> Trajectory:
-    """跑一个孔。moi = 初始 V / T0。"""
+             agent=None, dose: float = 0.0, n_points: int = 400,
+             dose_start_h: float = 0.0) -> Trajectory:
+    """跑一个孔。moi = 初始 V / T0。
+
+    dose_start_h > 0 时先跑无药段，再从该时刻起施加药物 —— 延迟给药是
+    体外与体内最常见的失效模式之一，必须能被显式建模。
+    ⚠️ 药效 ε(t) 在给药时刻是**阶跃**，峰值恰好落在该时刻时，不同积分器
+       对间断的处理会带来 ~1e-3 量级的差异（已与独立实现实测过）。
+    """
+    if dose_start_h > 0.0 and agent is not None and dose > 0.0:
+        pre = simulate(params, moi=moi, t_end_h=dose_start_h,
+                       n_points=max(2, int(n_points * dose_start_h / t_end_h) + 1))
+        post = _simulate_from(params, [pre.T[-1], pre.E[-1], pre.I[-1],
+                                       pre.V[-1], pre.D[-1]],
+                              dose_start_h, t_end_h, agent, dose, n_points)
+        return Trajectory(
+            np.concatenate([pre.t, post.t]), np.concatenate([pre.T, post.T]),
+            np.concatenate([pre.E, post.E]), np.concatenate([pre.I, post.I]),
+            np.concatenate([pre.V, post.V]), np.concatenate([pre.D, post.D]),
+            T0=params.T0)
+
     par, infect_frac = _apply(params, agent, dose)
     V0 = moi * params.T0
+
+    absorb = 1.0 if par.absorption else 0.0
 
     def rhs(t, y):
         T, E, I, V, D = y
@@ -198,12 +234,32 @@ def simulate(params: CellVirusParams, *, moi: float = 0.01, t_end_h: float = 96.
             -inf,
             inf - par.k_eclipse * E,
             par.k_eclipse * E - par.delta * I,
-            par.p * I * infect_frac - par.c * V - inf,
+            par.p * I * infect_frac - par.c * V - absorb * inf,
             par.delta * I,
         ]
 
     sol = solve_ivp(rhs, (0.0, t_end_h), [params.T0, 0.0, 0.0, V0, 0.0],
                     t_eval=np.linspace(0.0, t_end_h, n_points),
+                    method="LSODA", rtol=1e-9, atol=1e-9)
+    if not sol.success:
+        raise RuntimeError(f"积分失败: {sol.message}")
+    return Trajectory(sol.t, *sol.y, T0=params.T0)
+
+
+def _simulate_from(params: CellVirusParams, y0, t0: float, t_end: float,
+                   agent, dose: float, n_points: int) -> Trajectory:
+    """从给定初值继续积分（给延迟给药用）。"""
+    par, infect_frac = _apply(params, agent, dose)
+    absorb = 1.0 if par.absorption else 0.0
+
+    def rhs(t, y):
+        T, E, I, V, D = y
+        inf = par.beta * T * V
+        return [-inf, inf - par.k_eclipse * E, par.k_eclipse * E - par.delta * I,
+                par.p * I * infect_frac - par.c * V - absorb * inf, par.delta * I]
+
+    sol = solve_ivp(rhs, (t0, t_end), list(y0),
+                    t_eval=np.linspace(t0, t_end, max(2, n_points)),
                     method="LSODA", rtol=1e-9, atol=1e-9)
     if not sol.success:
         raise RuntimeError(f"积分失败: {sol.message}")
@@ -270,6 +326,14 @@ def apparent_ec50(params: CellVirusParams, agent, *, moi: float = 0.01,
 # ⚠️ 这些是文献量级的**起始猜测**，不是对任一具体 病毒x细胞 组合的拟合结果。
 #    真实使用时必须用自家的生长曲线重新拟合 (见 calibrate.py)。
 REFERENCE_PARAMS = {
+    # 文献参数集：Baccam P et al. (2006) J Virol 80:7590，Table 3 几何均值。
+    # 人志愿者 H1N1 实验感染拟合值，原文时间单位为**天**，此处保持天为单位。
+    # ⚠️ 必须配 absorption=False —— 这套 β 是在无吸附项的方程上拟合的。
+    "baccam2006_H1N1": CellVirusParams(
+        name="流感 A H1N1 / 人（Baccam 2006 几何均值）",
+        beta=3.2e-5, k_eclipse=4.0, delta=5.2, p=4.6e-2, c=5.2, T0=4.0e8,
+        absorption=False,
+        source="Baccam 2006 J Virol 80:7590 Table 3；单位 /day；R0 文献值 21.5"),
     "influenza_MDCK": CellVirusParams(
         name="流感 A / MDCK",
         beta=3e-7, k_eclipse=1 / 6.0, delta=1 / 12.0, p=5.0, c=1 / 6.0, T0=1e5,
