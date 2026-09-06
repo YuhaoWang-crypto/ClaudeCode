@@ -133,6 +133,38 @@ def validate_neutralization() -> None:
           all(nts[i] < nts[i + 1] for i in range(len(nts) - 1)),
           f"k=1: {nts[0]:.4f} -> k={n}: {nts[-1]:.2f} (×Kd)")
 
+    # [文献] 本模型重现外部实测 θ*（给对 k 时）—— 结构正确性的独立检验
+    worst_t, det = 0.0, []
+    for name, e in neu.EMPIRICAL_THETA_STAR.items():
+        if e["n_spike"] is None:
+            continue
+        n, th = e["n_spike"], e["median"]
+        k = neu.k_from_theta_star(n, th)
+        mine = neu.theta_star(n, k)
+        rel = abs(mine - th) / th
+        worst_t = max(worst_t, rel)
+        det.append(f"{name} n={n} k={k} θ*={mine:.4f} vs 实测 {th:.4f}")
+    check("[文献] 给定实测 k 时本模型重现 VC-CON 的 θ*",
+          worst_t < 0.05, f"最大相对偏差 {worst_t:.1%} · " + " · ".join(det))
+
+    # [文献] k=1 默认被实测证伪 —— 把这个更正锁进测试，防止回退
+    worst_f = 0.0
+    for name, e in neu.EMPIRICAL_THETA_STAR.items():
+        if e["n_spike"] is None:
+            continue
+        fold = e["median"] / neu.theta_star(e["n_spike"], 1)
+        worst_f = max(worst_f, fold)
+    check("[文献] k=1（单击中）默认与实测 θ* 相差一个数量级以上",
+          worst_f > 10,
+          f"最大低估 {worst_f:.0f} 倍（流感 n=375）—— 故 KNOWN_VIRIONS 已改用实测 k")
+
+    # [解析] 实测 θ* 下 NT50 略高于 Kd，而非远低于
+    r = neu.nt50_from_kd_empirical(10.0, "influenza")
+    check("[解析] 实测 θ* 给出 NT50 ≈ 1.6×Kd（不是 Kd 的几百分之一）",
+          1.0 < r["nt50"] / 10.0 < 2.5,
+          f"Kd=10 nM -> NT50 {r['nt50']:.2f} nM "
+          f"[{r['ci'][0]:.2f}, {r['ci'][1]:.2f}]，θ*={r['theta_star']:.3f}")
+
     # [解析] 从模拟曲线反解 k —— 参数可辨识性的直接检验
     true_k, kd, nsp = 7, 3.0, 50
     concs = np.logspace(-3, 3, 40)
@@ -247,14 +279,24 @@ def validate_viral_dynamics() -> None:
           f"absorption=False R0={bac.R0:.2f} vs absorption=True R0={bac_wrong.R0:.4f} "
           f"（β·T0={bac.beta * bac.T0:,.0f} 是 c={bac.c} 的 {bac.beta * bac.T0 / bac.c:,.0f} 倍）")
 
-    # [解析] 中和抗体经占据模型进入 ODE，孔水平 NT50 应远低于 Kd
+    # [解析] 抗体经占据模型进入 ODE：用**实测 θ*** 时孔水平 NT50 与 Kd 同量级
+    #        早先此处断言 "NT50 << Kd"，那是 k=1 默认的产物，已被实测证伪。
     ab = vd.Antibody("示例中和抗体", kd_nM=10.0,
                      virion=neu.KNOWN_VIRIONS["influenza_A"])
     r = vd.apparent_ec50(par, ab, moi=0.01, readout_h=72)
-    check("[解析] 抗体孔水平 NT50 << Kd (多价放大穿透到细胞层)",
-          r["ec50_apparent"] < ab.kd_nM,
-          f"孔水平 NT50 = {r['ec50_apparent']:.4f} nM  vs Kd = {ab.kd_nM} nM  "
-          f"({ab.kd_nM / r['ec50_apparent']:.0f}× 更低)")
+    ratio = r["ec50_apparent"] / ab.kd_nM
+    check("[解析] 实测 θ* 下孔水平 NT50 与 Kd 同量级（0.1–10×）",
+          0.1 < ratio < 10.0,
+          f"孔水平 NT50 = {r['ec50_apparent']:.3f} nM vs Kd = {ab.kd_nM} nM（{ratio:.2f}×）")
+
+    # [解析] 同一条链路换回被证伪的 k=1，NT50 会被压低两个数量级 —— 量化错误代价
+    ab1 = vd.Antibody("同一抗体但假设 k=1", kd_nM=10.0,
+                      virion=neu.KNOWN_VIRIONS["influenza_A_singlehit"])
+    r1 = vd.apparent_ec50(par, ab1, moi=0.01, readout_h=72)
+    check("[解析] 误用 k=1 会把孔水平 NT50 压低两个数量级以上",
+          r1["ec50_apparent"] < r["ec50_apparent"] / 100.0,
+          f"k=1 给 {r1['ec50_apparent']:.4f} nM vs 实测 k 给 {r['ec50_apparent']:.3f} nM "
+          f"（差 {r['ec50_apparent'] / r1['ec50_apparent']:.0f} 倍）")
 
 
 # --- M6 ------------------------------------------------------------------

@@ -164,17 +164,29 @@ def step_occupancy() -> None:
     print(f"  真实化学计量（Liu 2019 Cell Res, PMID 31649031）:")
     print(f"    T = {CAPSID_T}，衣壳共 {CAPSID_TOTAL_PROTEINS:,} 个蛋白")
     print(f"    p72 拷贝数 n = {P72_COPIES:,}，以 {P72_TRIMERS:,} 个三聚体壳粒排列\n")
+    e = neu.EMPIRICAL_THETA_STAR["global"]
+    r = neu.nt50_from_kd_empirical(1.0, "global")
+    print("  用**实测 θ* 先验**（不假设 k）:")
+    print(f"    θ* = {e['median']:.3f}  95% CI [{e['ci'][0]:.3f}, {e['ci'][1]:.3f}]")
+    print(f"    NT50/Kd = {r['nt50']:.2f}   95% CI [{r['ci'][0]:.2f}, {r['ci'][1]:.2f}]")
+    print(f"    注意：**与 n 无关** —— 守恒的是占据分数，不是绝对击中数。\n")
+    print("  对照：早期版本默认 k=1（单击中），同样的 n 会给出：")
     for label, n in (("按 p72 单体计", P72_COPIES), ("按三聚体壳粒计", P72_TRIMERS)):
-        v = neu.Virion("ASFV p72", n_spikes=n, k_hits=1)
-        amp = neu.amplification_factor(v)
-        print(f"    {label:16s} n={n:6,d}   NT50/Kd = {amp:.3e}   即 Kd/{1 / amp:,.0f}")
+        amp = neu.amplification_factor(neu.Virion("x", n, 1))
+        print(f"    {label:16s} n={n:6,d}   NT50/Kd = {amp:.3e}  即 Kd/{1 / amp:,.0f}"
+              f"   ← 比实测低 {r['nt50'] / amp:,.0f} 倍")
     print(f"""
-  这个数**不要用**。理由在第 0 步：p72 在囊膜之内，胞外抗体够不到。
-  占据模型假设"抗体能结合到位点上"，这个前提对 p72 在胞外病毒粒子上不成立。
-  模型算出 Kd/{1 / neu.amplification_factor(neu.Virion('x', P72_COPIES, 1)):,.0f} 这样一个漂亮的放大倍数，
-  但它描述的是一个不存在的中和过程。
+  两件事都要说清楚：
 
-  这一步的价值恰恰在于：它演示了**模型不会拒绝无效输入**。""")
+  (1) **k=1 那个默认是错的**，已被 38 个单价抗体实测点证伪（VC-CON 分层贝叶斯）。
+      它会把 NT50 低估几千倍。本模块的默认已改为实测 θ*。
+
+  (2) 但即使用对了 θ*，这个数**对 p72 仍然不该用**。理由在第 0 步：
+      p72 在囊膜之内，胞外抗体够不到。占据模型假设"抗体能结合到位点上"，
+      这个前提对 p72 在胞外病毒粒子上不成立。
+
+  换句话说：修好了一个数值错误，那个**适用性**错误依然在。
+  模型不会拒绝无效输入 —— 这一步的价值就在这里。""")
 
 
 def step_ode() -> None:

@@ -103,8 +103,68 @@ def kd_from_nt50(nt50: float, virion: Virion) -> float:
 
 
 def amplification_factor(virion: Virion) -> float:
-    """NT50 / Kd。<1 表示多价效应把中和滴度推到远低于 Kd 的浓度。"""
+    """NT50 / Kd。<1 表示位点冗余把中和滴度推到低于 Kd 的浓度。"""
     return nt50_from_kd(1.0, virion)
+
+
+# --- 实测 θ* 先验（本模块最重要的一段） ---------------------------------
+#
+# θ* 是"半中和时的单位点占据率"，等价于击中阈值 k 的连续化形式。
+# 它**无法从结构预测**，只能由中和曲线拟合 —— 早期版本用 k=1（单击中）作默认，
+# 这个默认没有任何数据依据，而且被实测**证伪**了。
+#
+# 外部工作（VC-CON）用分层贝叶斯模型
+#     logit(θ*) ~ StudentT(ν, μ_virus + β_occupancy·assay, σ)
+# 在 38 个**单价**抗体配对点上拟合（冠状病毒 25 纳米抗体 / HIV-1 5 Fab /
+# 流感 8 混合），θ* = IC50/(IC50+Kd)，与本模块 NT50 = Kd·θ*/(1−θ*) 同一式。
+#
+#   病毒        n_spike   θ* 中位数   95% CI            隐含 k
+#   冠状病毒        24     0.576    [0.345, 0.777]     ≈14 (58%)
+#   HIV-1          14     0.586    [0.260, 0.850]     ≈9  (64%)
+#   流感 A        375     0.620    [0.318, 0.876]     ≈233 (62%)
+#   全局（新病毒）   —     0.596    [0.289, 0.839]     ≈0.6·n
+#
+# 结论：**守恒的是占据分数 θ*，不是绝对击中数 k**。k 随 n 等比例放大。
+# 若改为假设 k 恒定，θ* 在三个病毒间会相差 16.3× [9.6, 29.6] —— 数据不支持。
+#
+# 对本模块的直接后果：k=1 会把 NT50/Kd 低估 12×(HIV) 到 336×(流感)。
+# 真实的单价抗体 NT50 ≈ 1.4–1.6 × Kd，**略高于** Kd，而不是低几个数量级。
+#
+# ⚠️ 边界：这 38 个点全是**单价**结合物（纳米抗体 / Fab / 设计小蛋白）。
+#    双价 IgG 的亲合力效应可能把 θ* 压低，本先验不覆盖那一档。
+#    ⚠️ 95% CI 很宽（θ* 从 0.29 到 0.84），跨病毒离散 τ 中位数 0.522 ——
+#    "守恒"是指三个病毒的可信区间高度重叠，不是指 θ* 被钉死在 0.6。
+
+EMPIRICAL_THETA_STAR = {
+    "coronavirus": {"median": 0.5764, "ci": (0.3451, 0.7773), "n_spike": 24},
+    "HIV-1": {"median": 0.5863, "ci": (0.2604, 0.8495), "n_spike": 14},
+    "influenza": {"median": 0.6200, "ci": (0.3183, 0.8763), "n_spike": 375},
+    "global": {"median": 0.5961, "ci": (0.2886, 0.8387), "n_spike": None},
+}
+THETA_STAR_SOURCE = (
+    "VC-CON 分层贝叶斯拟合，38 个单价抗体配对点；NUTS 4 链 × 6000 抽样，"
+    "最大 R̂ 1.001。仅覆盖单价结合物。")
+
+
+def k_from_theta_star(n: int, theta: float) -> int:
+    """由 θ* 反解最接近的整数击中阈值 k（给定位点数 n）。"""
+    if not 0.0 < theta < 1.0:
+        raise ValueError("θ* 必须在 (0,1)")
+    return min(range(1, n + 1), key=lambda k: abs(theta_star(n, k) - theta))
+
+
+def nt50_from_kd_empirical(kd: float, virus: str = "global") -> dict:
+    """用**实测 θ* 先验**直接由 Kd 得 NT50，并带 95% 区间。
+
+    这条路径绕开 k —— 既然守恒的是 θ*，就不必先猜 k 再算回来。
+    """
+    if virus not in EMPIRICAL_THETA_STAR:
+        raise ValueError(f"virus 须为 {sorted(EMPIRICAL_THETA_STAR)} 之一")
+    e = EMPIRICAL_THETA_STAR[virus]
+    f = lambda t: kd * t / (1.0 - t)
+    return {"nt50": f(e["median"]),
+            "ci": (f(e["ci"][0]), f(e["ci"][1])),
+            "theta_star": e["median"], "source": THETA_STAR_SOURCE}
 
 
 def fit_k_from_curve(ab_concs, residual, kd: float, n: int) -> int:
@@ -123,14 +183,20 @@ def fit_k_from_curve(ab_concs, residual, kd: float, n: int) -> int:
     return best_k
 
 
-# --- 已知病毒的刺突计数 (结构文献) --------------------------------------
+# --- 已知病毒的刺突计数与**实测**击中阈值 --------------------------------
 # ⚠️ n 是"表面刺突数"，不等于"可被单克隆抗体同时结合的位点数"；
 #    位阻与表位可及性会让有效 n 更小。这些值是上界。
+#
+# k_hits 现在取自 EMPIRICAL_THETA_STAR 反解的整数值，**不再是 k=1**。
+# 早期版本默认 k=1（单击中），该默认无数据依据且与实测相差 12–336 倍。
 KNOWN_VIRIONS = {
-    "influenza_A": Virion("流感 A", n_spikes=340, k_hits=1,
-                          source="HA 三聚体 ~300-400/粒子 (Harris 2006 PNAS)"),
-    "SARS_CoV_2": Virion("SARS-CoV-2", n_spikes=25, k_hits=1,
-                         source="S 三聚体 ~24-40/粒子 (Ke 2020 Nature)"),
-    "HIV_1": Virion("HIV-1", n_spikes=14, k_hits=1,
-                    source="Env 三聚体 ~7-14/粒子 (Zhu 2006 Nature)"),
+    "influenza_A": Virion("流感 A", n_spikes=375, k_hits=233,
+                          source="HA 三聚体 375/粒子；k 由实测 θ*=0.620 反解 (VC-CON)"),
+    "SARS_CoV_2": Virion("SARS-CoV-2", n_spikes=24, k_hits=14,
+                         source="S 三聚体 24/粒子；k 由实测 θ*=0.576 反解 (VC-CON)"),
+    "HIV_1": Virion("HIV-1", n_spikes=14, k_hits=9,
+                    source="Env 三聚体 14/粒子；k 由实测 θ*=0.586 反解 (VC-CON)"),
+    # 单击中假设保留一个显式条目，专门用来演示它错得有多离谱
+    "influenza_A_singlehit": Virion("流感 A（k=1，已被证伪）", n_spikes=375, k_hits=1,
+                                    source="⚠️ 仅作反例：实测 θ* 高 336 倍"),
 }

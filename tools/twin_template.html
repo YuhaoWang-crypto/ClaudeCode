@@ -187,14 +187,14 @@ footer{margin-top:64px;padding-top:20px;border-top:2px solid var(--ink);
       <div class="ctl"><label>预设<span class="v"></span></label>
         <select id="n_preset">
           <option value="custom">自定义</option>
-          <option value="340">流感 A · HA 三聚体 ≈340</option>
-          <option value="25">SARS-CoV-2 · S 三聚体 ≈25</option>
-          <option value="14">HIV-1 · Env 三聚体 ≈14</option>
+          <option value="375">流感 A · HA 三聚体 ≈375（实测 k≈233）</option>
+          <option value="24">SARS-CoV-2 · S 三聚体 ≈24（实测 k≈14）</option>
+          <option value="14">HIV-1 · Env 三聚体 ≈14（实测 k≈9）</option>
         </select></div>
-      <div class="ctl"><label>位点数 n<span class="v" id="n_v">100</span></label>
-        <input type="range" id="n_s" min="1" max="400" value="100" step="1"></div>
-      <div class="ctl"><label>击中阈值 k<span class="v" id="k_v">1</span></label>
-        <input type="range" id="k_s" min="1" max="400" value="1" step="1"></div>
+      <div class="ctl"><label>位点数 n<span class="v" id="n_v">375</span></label>
+        <input type="range" id="n_s" min="1" max="400" value="375" step="1"></div>
+      <div class="ctl"><label>击中阈值 k<span class="v" id="k_v">233</span></label>
+        <input type="range" id="k_s" min="1" max="400" value="233" step="1"></div>
       <div class="ctl-group-title">分子输入</div>
       <div class="ctl"><label>Kd<span class="v" id="kd_v">10 nM</span></label>
         <input type="range" id="kd_s" min="-2" max="4" value="1" step="0.05"></div>
@@ -213,8 +213,10 @@ footer{margin-top:64px;padding-top:20px;border-top:2px solid var(--ink);
       </div>
     </div>
   </div>
-  <div class="note"><span class="tag">模型自己在警告的事</span>
-    <p>多价效应把 NT50 推到远低于 Kd 的浓度。<strong>NT50 和 Kd 不是一个量</strong>，二者差几十到几百倍是模型的必然推论，不是实验误差。把预测的 Kd 直接当 NT50 用，从第一步就错。</p></div>
+  <div class="note"><span class="tag">一个被实测推翻的默认值</span>
+    <p>本页早先默认 <code>k=1</code>（单击中），据此宣称"多价效应把 NT50 推到远低于 Kd"。<strong>这个默认被实测证伪了。</strong>一项对 38 个<strong>单价</strong>抗体配对点的分层贝叶斯拟合（冠状病毒 25 纳米抗体 / HIV-1 5 Fab / 流感 8 混合）给出半中和占据率 <code>θ* ≈ 0.58–0.62</code>，三个病毒高度一致；而 k=1 隐含的 θ* 只有 0.0018–0.048，<strong>低 12 到 336 倍</strong>。</p>
+    <p>真实后果：单价抗体的 <strong>NT50 ≈ 1.4–1.6 × Kd</strong>，比 Kd 略高，<strong>不是</strong>低几个数量级。把滑块的 k 拖到 <code>≈0.6n</code> 才是有数据支撑的设定。</p>
+    <p>守恒的是<strong>占据分数 θ*，不是绝对击中数 k</strong>——k 随位点数 n 等比例放大。若反过来假设 k 恒定，θ* 在三个病毒间要相差 16 倍，数据不支持。⚠️ 这 38 个点全是单价结合物，双价 IgG 的亲合力效应不在此先验覆盖内；且 95% CI 很宽（θ* 0.29–0.84），"守恒"指区间高度重叠，不是 θ* 被钉死在 0.6。</p></div>
 </section>
 
 <!-- ============ M4 ============ -->
