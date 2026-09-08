@@ -41,3 +41,28 @@ python3 -m grn_pipeline.m1_symmetry   # or any single module
 Figures are written to `figures/`. A full write-up with numbers, rigour
 labels, and the interpretation (including the Lyapunov-exponent biomarker
 question) is in [`REPORT.md`](REPORT.md).
+
+---
+
+# af2bind-pipeline
+
+A second, independent package in this repository: `af2bind_pipeline/` implements
+**AF2BIND**, which predicts small-molecule binding-site residues by reading the
+binding signal out of AlphaFold2's pair representation, given only a structure —
+no ligand, no holo homolog, no MSA of known binders.
+
+Method: Gazizov, Lian, Goverde, Mou, Ovchinnikov & Polizzi, *Nature Methods*
+(2026), [doi:10.1038/s41592-026-03011-2](https://doi.org/10.1038/s41592-026-03011-2).
+Reference code (MIT): [sokrypton/af2bind](https://github.com/sokrypton/af2bind).
+
+```bash
+pip install numpy 'modal[api-proxy-support]'
+python3 -m af2bind_pipeline.run --target 6w70 --chain A --out results/6w70
+python3 -m af2bind_pipeline.selftest        # 28 offline checks, no GPU
+```
+
+The AlphaFold2 forward pass runs on a Modal GPU; scoring, pocket clustering and
+validation are pure numpy and run locally. The cached `features.npz` lets you
+re-score with a different seed or ensemble at zero GPU cost. Guidance for the
+agent, including the failure modes that silently produce wrong numbers, lives in
+[`.claude/skills/af2bind-binding-site/`](.claude/skills/af2bind-binding-site/).
