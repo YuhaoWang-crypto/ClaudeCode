@@ -139,19 +139,36 @@ released scores, not assumed:
    onto the previous one, so an unsorted list shatters every helix into singlets
    and singlet filtering then deletes the entire structure.
 
+Point 3 is corroborated independently: gRNAde ships its own adaptation of the
+same pipeline (`src/openknot_score.py`), and it too filters singlet helices
+before enumerating crossed pairs while scoring the Eterna half on the
+unfiltered structure. On 200 released designs that implementation reproduces
+the published score exactly 129 times against this one's 189.
+
 ## Layout
 
 ```
-openknot/score.py         OpenKnot score, no dependencies beyond the stdlib
-openknot/data.py          loaders for the released CSVs
-scripts/download_data.sh  fetch the release (Git LFS media endpoint, ~200 MB)
-scripts/validate_score.py recompute every score and account for every difference
-scripts/success_rates.py  per-method and AI-vs-human success rates
-scripts/figures.py        the three figures
-tests/test_score.py       unit tests plus a regression against released scores
+openknot/score.py             OpenKnot score, no dependencies beyond the stdlib
+openknot/data.py              loaders for the released CSVs
+openknot/rnet.py              RibonanzaNet: reactivity and secondary structure
+openknot/grnade.py            gRNAde: sample designs for a target
+scripts/download_data.sh      fetch the release (Git LFS media endpoint, ~200 MB)
+scripts/setup_rnet.sh         fetch RNet code and checkpoints, verify the conversion
+scripts/setup_grnade.sh       fetch gRNAde and its checkpoint
+scripts/validate_score.py     recompute every score, account for every difference
+scripts/success_rates.py      per-method and AI-vs-human success rates
+scripts/rnet_predict.py       run RNet over released designs
+scripts/validate_rnet.py      check RNet against the release, test the Fig. S4 claim
+scripts/rnet_padded_check.py  does the flanking pad explain the simulated-score gap?
+scripts/grnade_design.py      design for the Round 3/4 targets, score with RNet
+scripts/compare_designs.py    our designs vs the paper's, scored the same way
+scripts/figures.py            the figures
+tests/                        unit tests, plus regressions against the release
 ```
 
 ## Running it
+
+Analysis of the release only:
 
 ```bash
 pip install pandas numpy matplotlib pytest
@@ -159,11 +176,27 @@ bash openknot_repro/scripts/download_data.sh
 python openknot_repro/scripts/validate_score.py     # ~30 s
 python openknot_repro/scripts/success_rates.py
 python openknot_repro/scripts/figures.py
+```
+
+Running the models as well (CPU is enough; no GPU is used anywhere here):
+
+```bash
+pip install torch arnie==0.1.9 scipy einops     # RNet
+pip install torch_geometric torch_scatter torch_cluster \
+            biotite biopython python-dotenv wandb cpdb-protein h5py   # gRNAde
+bash openknot_repro/scripts/setup_rnet.sh
+bash openknot_repro/scripts/setup_grnade.sh
+python openknot_repro/scripts/rnet_predict.py --per-round 100   # ~20 min
+python openknot_repro/scripts/validate_rnet.py
+python openknot_repro/scripts/grnade_design.py --rounds 3 4 --samples 4  # ~30 min
+python openknot_repro/scripts/compare_designs.py
 python -m pytest openknot_repro/tests -q
 ```
 
-`data/` is not committed (200 MB); the download script recreates it. Set
-`OPENKNOT_DATA` to put it elsewhere.
+`data/`, `weights/` and `third_party/` are not committed; the setup scripts
+recreate them. Set `OPENKNOT_DATA` to move the data elsewhere. Long runs append
+to their output CSV and skip what is already there, so they can be interrupted
+and restarted.
 
 ## Data sources
 
@@ -184,18 +217,29 @@ It shows that the paper's experimental scoring and its benchmark conclusions
 follow from the released data, and it gives a scorer that can be pointed at new
 designs.
 
-It does not show that any new design would work. Nothing here generates
-sequences, and scoring a design needs its measured SHAPE profile — which needs
-the wet lab. A predicted profile from RNet can stand in, but designing with RNet
-and then scoring with RNet is a closed loop that will flatter itself; the paper's
-value is precisely that its judge was an experiment.
+It now also generates designs, with the same model and on the same targets as
+one of the paper's three AI methods.
+
+What it cannot do is tell you whether a new design works. Scoring a design needs
+its measured SHAPE profile, which needs the wet lab. RNet's predicted profile
+stands in, but designing under RNet's guidance and then scoring with RNet is a
+closed loop that flatters itself — and the numbers above put a size on how much:
+the simulated score is systematically too generous on designs that fail. The
+paper's value is precisely that its judge was an experiment.
 
 ## Not done yet
 
-* RNet (RibonanzaNet) inference, so predicted SHAPE profiles and predicted
-  secondary structures can be computed for new sequences rather than read from
-  the release. Weights live on Kaggle and need an account.
-* The design methods themselves — gRNAde, NA-MPNN, Struct2SeQ — all open source,
-  all needing a GPU.
-* M2R-seq stem-recovery analysis (Fig. 3G) from `OK7a_M2R_data.v4.5.1.csv`, which
-  is downloaded but not yet analysed.
+* **Struct2SeQ**, the third AI method and the strongest one in Round 4. Its code
+  is open, but `Struct2SeQ.pt` and `Struct2SeQ_SHAPE.pt` are published only as a
+  Kaggle dataset, and Kaggle's API needs an account — anonymous requests get a
+  browser challenge. Two ways to unblock it: put `KAGGLE_USERNAME` and
+  `KAGGLE_KEY` in the environment, or drop the two `.pt` files into `weights/`.
+  Everything else it needs (RibonanzaNet.pt, RibonanzaNet-SS.pt) is already here.
+* **NA-MPNN**, the Baker-lab method behind MPNN-fixbb and MPNN-RFdiff. Open
+  source, not yet wired up.
+* **A real sampling budget.** The paper searched up to a million designs per
+  target; this samples a few dozen on four CPU cores. Modal is not reachable
+  from this environment — its client speaks gRPC, which the network policy does
+  not carry — so there is no GPU here.
+* **M2R-seq stem-recovery analysis** (Fig. 3G) from `OK7a_M2R_data.v4.5.1.csv`,
+  which is downloaded but not yet analysed.

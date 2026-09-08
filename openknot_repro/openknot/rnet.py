@@ -118,7 +118,6 @@ class RNet:
         load_ss: bool = True,
     ):
         module = _import_network_module()
-        config = _Config(**MODEL_CONFIG)
         self.device = device
         self.reactivity_model = None
         self.ss_model = None
@@ -134,7 +133,6 @@ class RNet:
             model = module.finetuned_RibonanzaNet(_Config(**MODEL_CONFIG))
             model.load_state_dict(torch.load(path, map_location="cpu", weights_only=True))
             self.ss_model = model.to(device).eval()
-        del config
 
     @torch.no_grad()
     def reactivity(self, sequences: list[str]) -> list[np.ndarray]:
