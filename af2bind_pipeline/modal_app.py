@@ -103,6 +103,7 @@ def pair_features(
     mask_sidechains: bool = True,
     mask_sequence: bool = False,
     af2_params: str = DEFAULT_AF2_PARAMS,
+    seed: int = 0,
 ) -> dict:
     """Run AF2 on target + 20 bait residues; return AF2BIND pair features.
 
@@ -139,7 +140,10 @@ def pair_features(
     af_model._inputs["residue_index"][-n_bait:] = r_idx.flatten()
 
     af_model.set_seq(bait_seq)
-    af_model.predict(verbose=False)
+    # ColabDesign seeds its PRNG randomly at model construction and predict()
+    # does not reset it, so two identical runs return slightly different pair
+    # representations and hence slightly different p(bind). Pin the seed.
+    af_model.predict(verbose=False, seed=seed)
 
     outputs = af_model.aux["debug"]["outputs"]
     pair = np.asarray(outputs["representations"]["pair"])
@@ -167,6 +171,7 @@ def pair_features(
         "plddt": plddt.astype(np.float32),
         "meta": {
             "af2_params": af2_params,
+            "af2_seed": int(seed),
             "mask_sidechains": bool(mask_sidechains),
             "mask_sequence": bool(mask_sequence),
             "chain_requested": chain,

@@ -44,6 +44,7 @@ def run_from_features(
     top_n: int = 15,
     pocket_top_n: int = 25,
     ligand_cutoff: float = 5.0,
+    ligand_codes=None,
     cache_dir=None,
 ) -> dict:
     """Score a GPU result, write every output, and self-validate if possible.
@@ -134,11 +135,11 @@ def run_from_features(
         "pockets": [p.as_dict() for p in found],
     }
 
-    lig = structure.ligands(residues)
+    lig = structure.ligands(residues, only=set(ligand_codes) if ligand_codes else None)
     target_chains = {c for c, _ in keys}
     if lig and len(target_chains) == 1:
-        lig = structure.assign_ligands_to_chain(
-            residues, lig, next(iter(target_chains))
+        lig = structure.ligands_near_chain(
+            residues, lig, next(iter(target_chains)), cutoff=ligand_cutoff
         )
     if lig:
         positives = structure.contact_residues(
@@ -147,6 +148,7 @@ def run_from_features(
         positives &= set(keys)
         report["ligand_validation"] = {
             "ligands": sorted({r.resn for r in lig}),
+            "ligand_codes_requested": sorted(ligand_codes) if ligand_codes else None,
             "contact_cutoff_A": ligand_cutoff,
             **validate.evaluate(keys, p_bind, positives),
         }
@@ -172,8 +174,19 @@ def main(argv=None) -> int:
     ap.add_argument("--no-mask-sidechains", action="store_true",
                     help="use the head trained on unmasked target side chains")
     ap.add_argument("--af2-params", default="2021-07-14")
+    ap.add_argument("--af2-seed", type=int, default=0,
+                    help="PRNG seed for the AlphaFold pass; without it "
+                         "ColabDesign seeds randomly and identical runs differ "
+                         "slightly. Not the same as --seeds, which picks the "
+                         "trained head's fold.")
     ap.add_argument("--min-plddt", type=float, default=None,
                     help="trim residues below this B-factor/pLDDT before running")
+    ap.add_argument("--ligand", default=None,
+                    help="comma-separated HET codes to score against (e.g. CEL). "
+                         "Use when the structure holds a cofactor, glycans or "
+                         "lipids as well as the drug; without it the automatic "
+                         "filters decide, and on a glycoprotein or a membrane "
+                         "protein they will include things you did not mean.")
     args = ap.parse_args(argv)
 
     seeds = tuple(int(s) for s in args.seeds.split(",") if s.strip())
@@ -211,12 +224,17 @@ def main(argv=None) -> int:
                 chain=args.chain,
                 mask_sidechains=not args.no_mask_sidechains,
                 af2_params=args.af2_params,
+                seed=args.af2_seed,
             )
         result["meta"]["pdb_path"] = str(pdb_path)
 
     report = run_from_features(
         result, pdb_path, out_dir,
         seeds=seeds, top_n=args.top_n, pocket_top_n=args.pocket_top_n,
+        ligand_codes=(
+            [c.strip().upper() for c in args.ligand.split(",") if c.strip()]
+            if args.ligand else None
+        ),
     )
 
     print(f"[af2bind] {report['n_residues']} residues scored, "

@@ -167,6 +167,94 @@ def test_structure() -> None:
               line[60:66])
 
 
+def _atom(serial, name, resn, chain, resi, xyz, hetero=False, bfac=90.0):
+    rec = "HETATM" if hetero else "ATOM  "
+    return (
+        f"{rec}{serial:5d} {name:<4s} {resn:>3s} {chain}{resi:4d}    "
+        f"{xyz[0]:8.3f}{xyz[1]:8.3f}{xyz[2]:8.3f}{1.00:6.2f}{bfac:6.2f}"
+    )
+
+
+def _two_chain_pdb() -> str:
+    """Chains A and B, plus three HETATM groups probing the selection rules.
+
+    INT sits midway between the chains and contacts three residues of each, the
+    way a ligand bound at a homodimer interface does. BRS leans on chain B and
+    only brushes one residue of A, the way a neighbouring copy's ligand does
+    through crystal packing. NAG is a glycan hanging off chain A.
+    """
+    lines, serial = [], 1
+    for chain, x0 in (("A", 0.0), ("B", 8.0)):
+        for i, y in enumerate((0.0, 4.0, 8.0), start=1):
+            for name in ("N", "CA", "C"):
+                dx = {"N": -0.5, "CA": 0.0, "C": 0.5}[name]
+                lines.append(
+                    _atom(serial, name, "ALA", chain, i, (x0 + dx, y, 0.0))
+                )
+                serial += 1
+    for name, xyz in zip(
+        ("C1", "C2", "C3", "C4", "C5", "C6"),
+        ((4.0, 0.0, 0.0), (4.0, 2.0, 0.0), (4.0, 4.0, 0.0),
+         (4.0, 6.0, 0.0), (4.0, 8.0, 0.0), (4.0, 1.0, 0.0)),
+    ):
+        lines.append(_atom(serial, name, "INT", "A", 301, xyz, hetero=True))
+        serial += 1
+    for name, xyz in zip(
+        ("C1", "C2", "C3", "C4", "C5", "C6"),
+        ((4.5, 0.0, 0.0), (8.0, 2.0, 0.0), (8.0, 6.0, 0.0),
+         (9.0, 0.0, 0.0), (9.0, 4.0, 0.0), (9.0, 8.0, 0.0)),
+    ):
+        lines.append(_atom(serial, name, "BRS", "B", 302, xyz, hetero=True))
+        serial += 1
+    for name, xyz in zip(
+        ("C1", "C2", "C3", "C4", "C5", "C6", "C7"),
+        ((0.0, -3.0, 0.0), (0.5, -3.5, 0.0), (1.0, -4.0, 0.0),
+         (1.5, -4.5, 0.0), (2.0, -5.0, 0.0), (2.5, -5.5, 0.0),
+         (3.0, -6.0, 0.0)),
+    ):
+        lines.append(_atom(serial, name, "NAG", "A", 401, xyz, hetero=True))
+        serial += 1
+    return "\n".join(lines) + "\nEND\n"
+
+
+def test_ligand_selection() -> None:
+    print("ligand selection + ground truth")
+    with tempfile.TemporaryDirectory() as d:
+        p = Path(d) / "two.pdb"
+        p.write_text(_two_chain_pdb())
+        res = structure.parse_pdb(p)
+        prot_a = structure.protein_residues(res, "A")
+        prot_b = structure.protein_residues(res, "B")
+        check("both chains parsed", len(prot_a) == 3 and len(prot_b) == 3,
+              f"A={len(prot_a)} B={len(prot_b)}")
+
+        auto = {r.resn for r in structure.ligands(res)}
+        check("glycan excluded by default", "NAG" not in auto, str(sorted(auto)))
+        check("real ligands kept", {"INT", "BRS"} <= auto, str(sorted(auto)))
+
+        forced = {r.resn for r in structure.ligands(res, only={"NAG"})}
+        check("explicit `only` overrides the exclusion list", forced == {"NAG"},
+              str(sorted(forced)))
+
+        lig = structure.ligands(res)
+        keep_a = {r.resn for r in structure.ligands_near_chain(res, lig, "A")}
+        keep_b = {r.resn for r in structure.ligands_near_chain(res, lig, "B")}
+        check("interface ligand counts for both chains",
+              "INT" in keep_a and "INT" in keep_b, f"A={keep_a} B={keep_b}")
+        check("packing-neighbour ligand dropped for the far chain",
+              "BRS" not in keep_a and "BRS" in keep_b, f"A={keep_a} B={keep_b}")
+
+        pos = structure.contact_residues(prot_a, [r for r in lig if r.resn == "INT"], 5.0)
+        check("interface ligand yields chain-A ground truth", len(pos) == 3,
+              str(sorted(pos)))
+
+        check("a few known additive classes are covered",
+              {"CLR", "OLC", "BOG", "NAG", "BU1", "HOH"}
+              <= structure.CRYSTALLIZATION_ADDITIVES)
+        check("genuine cofactors are NOT excluded",
+              not ({"HEM", "FAD", "NAP", "ATP"} & structure.CRYSTALLIZATION_ADDITIVES))
+
+
 def test_pockets() -> None:
     print("pocket clustering")
     with tempfile.TemporaryDirectory() as d:
@@ -225,7 +313,7 @@ def test_metrics() -> None:
 
 def main() -> int:
     for fn in (test_head_and_math, test_features, test_structure,
-               test_pockets, test_metrics):
+               test_ligand_selection, test_pockets, test_metrics):
         fn()
     failed = [n for n, ok, _ in _checks if not ok]
     print(f"\n{len(_checks) - len(failed)}/{len(_checks)} checks passed")

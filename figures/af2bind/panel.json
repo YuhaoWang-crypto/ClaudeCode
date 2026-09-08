@@ -1,0 +1,222 @@
+[
+  {
+    "pdb": "6w70",
+    "chain": "A",
+    "ligand": [
+      "GG2"
+    ],
+    "class": "designed binder",
+    "description": "ABLE, a de novo apixaban binder (the paper's own example)",
+    "n_residues": 126,
+    "n_contacts": 25,
+    "positive_rate": 0.1984,
+    "roc_auc": 0.9774,
+    "average_precision": 0.9155,
+    "precision_at_10": 1.0,
+    "precision_at_15": 0.9333,
+    "enrichment_at_10": 5.04,
+    "best_rank_of_a_true_site": 1,
+    "max_p_bind": 0.98,
+    "mean_p_bind": 0.1968,
+    "n_above_0_5": 22,
+    "n_pockets": 1
+  },
+  {
+    "pdb": "1stp",
+    "chain": "A",
+    "ligand": [
+      "BTN"
+    ],
+    "class": "small soluble",
+    "description": "streptavidin + biotin",
+    "n_residues": 121,
+    "n_contacts": 17,
+    "positive_rate": 0.1405,
+    "roc_auc": 0.8575,
+    "average_precision": 0.6432,
+    "precision_at_10": 0.8,
+    "precision_at_15": 0.6,
+    "enrichment_at_10": 5.694,
+    "best_rank_of_a_true_site": 1,
+    "max_p_bind": 0.7185,
+    "mean_p_bind": 0.1387,
+    "n_above_0_5": 4,
+    "n_pockets": 1
+  },
+  {
+    "pdb": "3hs4",
+    "chain": "A",
+    "ligand": [
+      "AZM"
+    ],
+    "class": "metalloenzyme",
+    "description": "carbonic anhydrase II + acetazolamide",
+    "n_residues": 257,
+    "n_contacts": 32,
+    "positive_rate": 0.1245,
+    "roc_auc": 0.7789,
+    "average_precision": 0.4242,
+    "precision_at_10": 0.7,
+    "precision_at_15": 0.6,
+    "enrichment_at_10": 5.622,
+    "best_rank_of_a_true_site": 1,
+    "max_p_bind": 0.9677,
+    "mean_p_bind": 0.0897,
+    "n_above_0_5": 16,
+    "n_pockets": 1
+  },
+  {
+    "pdb": "1hxw",
+    "chain": "A",
+    "ligand": [
+      "RIT"
+    ],
+    "class": "interface site",
+    "description": "HIV-1 protease + ritonavir, bound at the homodimer interface",
+    "n_residues": 99,
+    "n_contacts": 15,
+    "positive_rate": 0.1515,
+    "roc_auc": 0.8659,
+    "average_precision": 0.5044,
+    "precision_at_10": 0.4,
+    "precision_at_15": 0.4667,
+    "enrichment_at_10": 2.64,
+    "best_rank_of_a_true_site": 2,
+    "max_p_bind": 0.9695,
+    "mean_p_bind": 0.2597,
+    "n_above_0_5": 20,
+    "n_pockets": 1
+  },
+  {
+    "pdb": "1m17",
+    "chain": "A",
+    "ligand": [
+      "AQ4"
+    ],
+    "class": "kinase",
+    "description": "EGFR kinase domain + erlotinib",
+    "n_residues": 312,
+    "n_contacts": 20,
+    "positive_rate": 0.0641,
+    "roc_auc": 0.9344,
+    "average_precision": 0.5417,
+    "precision_at_10": 0.7,
+    "precision_at_15": 0.6667,
+    "enrichment_at_10": 10.92,
+    "best_rank_of_a_true_site": 2,
+    "max_p_bind": 0.9165,
+    "mean_p_bind": 0.0878,
+    "n_above_0_5": 16,
+    "n_pockets": 1
+  },
+  {
+    "pdb": "1iep",
+    "chain": "A",
+    "ligand": [
+      "STI"
+    ],
+    "class": "kinase",
+    "description": "ABL1 kinase + imatinib, DFG-out",
+    "n_residues": 274,
+    "n_contacts": 28,
+    "positive_rate": 0.1022,
+    "roc_auc": 0.9354,
+    "average_precision": 0.6106,
+    "precision_at_10": 0.7,
+    "precision_at_15": 0.6667,
+    "enrichment_at_10": 6.85,
+    "best_rank_of_a_true_site": 1,
+    "max_p_bind": 0.987,
+    "mean_p_bind": 0.1454,
+    "n_above_0_5": 26,
+    "n_pockets": 1
+  },
+  {
+    "pdb": "3ert",
+    "chain": "A",
+    "ligand": [
+      "OHT"
+    ],
+    "class": "nuclear receptor",
+    "description": "estrogen receptor alpha LBD + 4-hydroxytamoxifen",
+    "n_residues": 247,
+    "n_contacts": 22,
+    "positive_rate": 0.0891,
+    "roc_auc": 0.9535,
+    "average_precision": 0.7277,
+    "precision_at_10": 0.9,
+    "precision_at_15": 0.7333,
+    "enrichment_at_10": 10.105,
+    "best_rank_of_a_true_site": 1,
+    "max_p_bind": 0.9558,
+    "mean_p_bind": 0.1081,
+    "n_above_0_5": 16,
+    "n_pockets": 1
+  },
+  {
+    "pdb": "2rh1",
+    "chain": "A",
+    "ligand": [
+      "CAU"
+    ],
+    "class": "GPCR",
+    "description": "beta2-adrenergic receptor (T4L fusion) + carazolol",
+    "n_residues": 442,
+    "n_contacts": 20,
+    "positive_rate": 0.0452,
+    "roc_auc": 0.9377,
+    "average_precision": 0.6275,
+    "precision_at_10": 0.8,
+    "precision_at_15": 0.6667,
+    "enrichment_at_10": 17.68,
+    "best_rank_of_a_true_site": 1,
+    "max_p_bind": 0.9609,
+    "mean_p_bind": 0.2166,
+    "n_above_0_5": 67,
+    "n_pockets": 1
+  },
+  {
+    "pdb": "4eiy",
+    "chain": "A",
+    "ligand": [
+      "ZMA"
+    ],
+    "class": "GPCR",
+    "description": "A2A adenosine receptor (BRIL fusion) + ZM241385",
+    "n_residues": 390,
+    "n_contacts": 16,
+    "positive_rate": 0.041,
+    "roc_auc": 0.9179,
+    "average_precision": 0.5192,
+    "precision_at_10": 0.5,
+    "precision_at_15": 0.4,
+    "enrichment_at_10": 12.188,
+    "best_rank_of_a_true_site": 1,
+    "max_p_bind": 0.9294,
+    "mean_p_bind": 0.1596,
+    "n_above_0_5": 34,
+    "n_pockets": 1
+  },
+  {
+    "pdb": "3ln1",
+    "chain": "A",
+    "ligand": [
+      "CEL"
+    ],
+    "class": "large glycoprotein",
+    "description": "COX-2 + celecoxib",
+    "n_residues": 552,
+    "n_contacts": 24,
+    "positive_rate": 0.0435,
+    "roc_auc": 0.9586,
+    "average_precision": 0.5436,
+    "precision_at_10": 0.7,
+    "precision_at_15": 0.6667,
+    "enrichment_at_10": 16.1,
+    "best_rank_of_a_true_site": 1,
+    "max_p_bind": 0.963,
+    "mean_p_bind": 0.1194,
+    "n_above_0_5": 48,
+    "n_pockets": 1
+  }
+]

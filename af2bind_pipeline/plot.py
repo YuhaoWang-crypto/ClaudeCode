@@ -45,10 +45,13 @@ def make_figure(run_dir: str | Path, out_path: str | Path, top_n: int = 15):
     pdb_path = Path(report["target"])
     if pdb_path.exists():
         residues = structure.parse_pdb(pdb_path)
-        lig = structure.ligands(residues)
+        requested = (report.get("ligand_validation") or {}).get(
+            "ligand_codes_requested"
+        )
+        lig = structure.ligands(residues, only=set(requested) if requested else None)
         target_chains = {c for c, _ in keys}
         if lig and len(target_chains) == 1:
-            lig = structure.assign_ligands_to_chain(
+            lig = structure.ligands_near_chain(
                 residues, lig, next(iter(target_chains))
             )
         if lig:

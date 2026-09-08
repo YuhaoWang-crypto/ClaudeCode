@@ -20,13 +20,36 @@ AFDB_URL = "https://alphafold.ebi.ac.uk/files/AF-{acc}-F1-model_v{ver}.pdb"
 #: Common crystallisation additives / cryoprotectants / buffer components. These
 #: are HETATMs but are not the "small-molecule ligand" a binding-site predictor
 #: is being judged on, so they are excluded from ground truth by default.
-CRYSTALLIZATION_ADDITIVES = {
+_BUFFER_AND_CRYO = {
     "HOH", "DOD", "SO4", "PO4", "GOL", "EDO", "PEG", "PGE", "PG4", "1PE", "MPD",
     "ACT", "ACY", "FMT", "CIT", "TRS", "MES", "EPE", "IMD", "DMS", "IPA", "MOH",
     "NO3", "CL", "BR", "IOD", "NA", "K", "MG", "CA", "ZN", "MN", "CD", "NI",
     "CO", "CU", "FE", "HG", "AZI", "SCN", "BME", "DTT", "TLA", "MLI", "OXL",
     "PGO", "P6G", "12P", "15P", "2PE", "XPE", "SIN", "BEN", "URE", "GLC",
+    "BU1", "BU2", "BU3", "PDO", "ETX", "ACN", "TFA", "NH4", "CAC", "BCT",
 }
+
+#: N-/O-linked glycans. These are covalent post-translational decoration, not a
+#: pocket. Glycoproteins (COX-2, most receptor ectodomains) carry many of them
+#: and they otherwise swamp the ground truth.
+_GLYCANS = {
+    "NAG", "NDG", "NGA", "A2G", "BMA", "MAN", "BGC", "GLA", "GAL", "FUC", "FUL",
+    "XYS", "XYP", "SIA", "NAN", "NGC", "RAM", "RIB", "ARA", "ARB", "LXZ",
+    "GCU", "IDS", "SGN", "BDP", "MUB", "M6P", "G6P", "GLP",
+}
+
+#: Lipids, sterols, fatty acids and detergents. Membrane-protein structures are
+#: full of these; on a GPCR they can outnumber the drug's own contacts several
+#: times over.
+_LIPIDS_AND_DETERGENTS = {
+    "CLR", "CHD", "CHS", "Y01", "PLM", "MYR", "STE", "OLA", "OLB", "OLC",
+    "PEE", "PEF", "PGT", "PCW", "PC1", "POV", "PIO", "LHG", "DGA", "D10",
+    "D12", "DAO", "UND", "TRD", "HEX", "HP6", "R16", "12M", "LDA", "LMT",
+    "LMN", "DDQ", "BOG", "HTG", "SOG", "F09", "C8E", "P6L", "SQL", "MC3",
+    "3PH", "PX4", "9PE", "L2P", "L3P", "LI1", "PSC", "CPS", "BNG", "2CV",
+}
+
+CRYSTALLIZATION_ADDITIVES = _BUFFER_AND_CRYO | _GLYCANS | _LIPIDS_AND_DETERGENTS
 
 AA3_TO_1 = {
     "ALA": "A", "ARG": "R", "ASN": "N", "ASP": "D", "CYS": "C", "GLN": "Q",
@@ -153,8 +176,18 @@ def ligands(
     residues: list[Residue],
     min_heavy_atoms: int = 6,
     exclude: set[str] | None = None,
+    only: set[str] | None = None,
 ) -> list[Residue]:
-    """HETATM groups that plausibly are the small-molecule ligand of interest."""
+    """HETATM groups that plausibly are the small-molecule ligand of interest.
+
+    `only` names the ligand codes to keep and overrides every filter. Use it
+    whenever the structure holds more than one kind of ligand — a cofactor plus
+    a drug, say — because the automatic filters cannot know which one the
+    prediction is meant to be judged against.
+    """
+    if only:
+        only = {c.upper() for c in only}
+        return [r for r in residues if r.hetero and r.resn.upper() in only]
     exclude = CRYSTALLIZATION_ADDITIVES if exclude is None else exclude
     out = []
     for r in residues:
@@ -165,34 +198,44 @@ def ligands(
     return out
 
 
-def assign_ligands_to_chain(
+def ligands_near_chain(
     residues: list[Residue],
     ligand: list[Residue],
     chain: str,
+    cutoff: float = 5.0,
+    min_contacts: int = 3,
+    min_share: float = 0.25,
 ) -> list[Residue]:
-    """Keep only ligands whose nearest protein chain is `chain`.
+    """Keep ligands that genuinely engage `chain`.
 
-    Crystal forms with several copies in the asymmetric unit contain one ligand
-    per copy. Scoring the target chain against all of them turns a neighbouring
-    copy's pocket into spurious ground truth.
+    A ligand is kept when it contacts at least `min_contacts` residues of the
+    target chain AND those make up at least `min_share` of every protein residue
+    it touches. Both halves matter, and a nearest-chain rule gets one of them
+    wrong:
+
+    - A neighbouring copy's ligand brushing the target through crystal packing
+      fails both tests and is dropped.
+    - A ligand bound at a homodimer interface (ritonavir in HIV-1 protease, say)
+      is genuinely half this chain's, and is kept for either chain. A
+      nearest-chain rule would assign it to one chain and leave the other with
+      no ground truth at all.
     """
     prot = protein_residues(residues)
     if not prot:
         return []
     keep = []
     for lig in ligand:
-        lig_xyz = lig.coords()
-        best_d, best_chain = np.inf, None
-        for r in prot:
-            xyz = r.coords()
-            if len(xyz) == 0:
-                continue
-            d = ((xyz[:, None, :] - lig_xyz[None, :, :]) ** 2).sum(-1).min()
-            if d < best_d:
-                best_d, best_chain = d, r.chain
-        if best_chain == chain:
+        contacts = contact_residues(prot, [lig], cutoff=cutoff)
+        if not contacts:
+            continue
+        on_chain = sum(1 for c, _ in contacts if c == chain)
+        if on_chain >= min_contacts and on_chain / len(contacts) >= min_share:
             keep.append(lig)
     return keep
+
+
+#: Deprecated alias kept so older call sites do not break.
+assign_ligands_to_chain = ligands_near_chain
 
 
 def contact_residues(

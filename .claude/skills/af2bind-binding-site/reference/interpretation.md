@@ -89,6 +89,65 @@ Read these as a smoke test of the implementation, not as a benchmark. Two target
 is not an evaluation, and both are holo structures, which is the easy case. The
 paper's own benchmark numbers are the ones to cite.
 
+## The calibration panel
+
+`python -m af2bind_pipeline.benchmark` runs ten drug targets spanning target
+classes, each with its ligand named explicitly. Reproduce with
+`AF2BIND_GPU=L40S`; raw output is in `figures/af2bind/panel.json`.
+
+| target | class | L | positives | ROC-AUC | AP | P@10 | enrich@10 | max p | mean p |
+|---|---|---|---|---|---|---|---|---|---|
+| 6W70 (GG2, apixaban) | designed binder | 126 | 25 (19.8%) | 0.977 | 0.916 | 1.00 | 5.0× | 0.980 | 0.197 |
+| 3LN1 (CEL, celecoxib) | large glycoprotein | 552 | 24 (4.3%) | 0.959 | 0.544 | 0.70 | 16.1× | 0.963 | 0.119 |
+| 3ERT (OHT, tamoxifen) | nuclear receptor | 247 | 22 (8.9%) | 0.954 | 0.728 | 0.90 | 10.1× | 0.956 | 0.108 |
+| 2RH1 (CAU, carazolol) | GPCR | 442 | 20 (4.5%) | 0.938 | 0.628 | 0.80 | 17.7× | 0.961 | 0.217 |
+| 1IEP (STI, imatinib) | kinase | 274 | 28 (10.2%) | 0.935 | 0.611 | 0.70 | 6.9× | 0.987 | 0.145 |
+| 1M17 (AQ4, erlotinib) | kinase | 312 | 20 (6.4%) | 0.934 | 0.542 | 0.70 | 10.9× | 0.917 | 0.088 |
+| 4EIY (ZMA) | GPCR | 390 | 16 (4.1%) | 0.918 | 0.519 | 0.50 | 12.2× | 0.929 | 0.160 |
+| 1HXW (RIT, ritonavir) | obligate-dimer site | 99 | 15 (15.2%) | 0.866 | 0.504 | 0.40 | 2.6× | 0.970 | 0.260 |
+| 1STP (BTN, biotin) | small soluble | 121 | 17 (14.1%) | 0.858 | 0.643 | 0.80 | 5.7× | 0.719 | 0.139 |
+| 3HS4 (AZM, acetazolamide) | metalloenzyme | 257 | 32 (12.4%) | 0.779 | 0.424 | 0.70 | 5.6× | 0.968 | 0.090 |
+
+Every target clears random by a wide margin, and enrichment at the top of the
+list runs 2.6× to 17.7×. Four things in the spread are worth knowing before you
+read a number on a new target.
+
+**Deep, enclosed pockets are the best case.** The nuclear-receptor LBD and the
+GPCR orthosteric sites — buried cavities lined on all sides — score at or near
+the top, and the paper's own designed binder is a purpose-built version of the
+same thing. That is where to trust a high score most.
+
+**Shallow and solvent-exposed sites are the worst case.** Carbonic anhydrase is
+the weakest target here (AUC 0.78) despite a textbook druggable active site: the
+site is a wide cone whose specificity comes from zinc coordination, and AF2BIND
+scores amino-acid company, not metal chemistry. Biotin in streptavidin is small
+and largely backbone- and water-coordinated, and it is the only target whose max
+p(bind) does not reach 0.9. Expect the method to underrate sites whose binding
+is driven by a metal, a cofactor or ordered water rather than by side-chain
+packing.
+
+**Scoring one chain of an obligate oligomer surfaces the wrong pocket.** HIV-1
+protease has the lowest precision@10 (0.40) and the lowest enrichment (2.6×), and
+the reason is instructive rather than a metric artefact. The active site is
+found: D25, I47, G49, I50 and I84 are all high, which is the textbook
+pharmacophore. But I3, L5 and L97 score just as high, and those form the
+interdigitated β-sheet that dimerises the enzyme — a hydrophobic surface that is
+buried in the biological unit and exposed in the single chain AF2BIND was given.
+On any obligate oligomer, score the assembly's chains knowing that the
+oligomerisation interface will compete with the real site, and cross-check a top
+pocket against the biological assembly before acting on it.
+
+**A high AUC on a big protein still means a messy top-15.** 3LN1 has the second
+best AUC in the panel (0.959) and an average precision of 0.54, because 24
+positives among 552 residues is a 4.3% base rate. AUC is nearly base-rate
+independent and AP is not, which is exactly why both are reported. On a large
+target, read AP and precision@N; the AUC will flatter you.
+
+Two caveats on the panel itself. Every target is a holo structure with the
+ligand stripped, which is the easy setting — apo and predicted inputs are harder.
+And ten targets chosen by hand is a calibration aid, not an evaluation; the
+paper's benchmark is what to cite.
+
 ## Ensembling across the 10 folds
 
 The released archive contains ten independently trained folds. `--seeds

@@ -58,7 +58,13 @@ Reference code (MIT): [sokrypton/af2bind](https://github.com/sokrypton/af2bind).
 ```bash
 pip install numpy 'modal[api-proxy-support]'
 python3 -m af2bind_pipeline.run --target 6w70 --chain A --out results/6w70
-python3 -m af2bind_pipeline.selftest        # 28 offline checks, no GPU
+python3 -m af2bind_pipeline.selftest        # 37 offline checks, no GPU
+
+# name the ligand when the structure also carries cofactors, glycans or lipids
+python3 -m af2bind_pipeline.run --target 3ln1 --chain A --ligand CEL --out results/cox2
+
+# calibration panel across ten drug targets (kinases, GPCRs, nuclear receptor, ...)
+AF2BIND_GPU=L40S python3 -m af2bind_pipeline.benchmark --out results/panel
 ```
 
 The AlphaFold2 forward pass runs on a Modal GPU; scoring, pocket clustering and

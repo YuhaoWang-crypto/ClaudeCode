@@ -43,6 +43,49 @@ Only PDB format is handled. Convert mmCIF upstream if you have one. Pick the
 chain with `--chain`; AF2BIND scores one chain at a time, because the 20 baits
 must be appended to a single target.
 
+### Naming the ligand you are being judged against
+
+The self-check picks the crystallographic ligand automatically, which is fine on
+a clean soluble structure and wrong on anything decorated. Glycans, cholesterol,
+monoolein, octyl glucoside and heme are all HETATM records, and on a glycoprotein
+or a membrane protein they can outnumber the drug's own contacts several times
+over. Filters for the common glycan, lipid and detergent codes are built in, but
+a genuine cofactor (HEM, FAD, NAP) is deliberately *not* filtered — it is a real
+small-molecule site, just not the one you probably mean.
+
+So name the ligand whenever the structure holds more than one:
+
+```bash
+# COX-2 also carries heme, five glycans and a detergent
+python -m af2bind_pipeline.run --target 3ln1 --chain A --ligand CEL --out results/cox2
+```
+
+Without `--ligand` on 3LN1 the ground truth picks up heme as well and the
+positive set nearly doubles, which quietly changes every metric.
+
+### Reproducibility: the GPU model matters, the seed does not
+
+Measured on 6W70, not assumed:
+
+- **Same GPU, any seed** — the pair features come back byte-identical.
+  `--af2-seed 0` and `--af2-seed 1` produce the same checksum. The AlphaFold
+  pass here is deterministic; `predict()` runs with dropout off and picks its
+  models deterministically, so nothing consumes the PRNG.
+- **Different GPU** — the features do move. A10G versus L40S on the same input
+  gave a mean absolute feature difference of 0.14 and shifted p(bind) by up to
+  0.017. Floating-point accumulation order differs between the kernels each card
+  selects; nothing is wrong.
+
+The effect on what you actually read is small: top-15 overlap was 15/15 and the
+rank correlation 0.999. But it does mean two p(bind) values are only strictly
+comparable when they came off the same card, which is another reason to compare
+ranks. Record the GPU alongside a result you intend to reproduce.
+
+`--af2-seed` exists to pin ColabDesign's PRNG explicitly and is kept for that
+guarantee, but on this code path it currently changes nothing. Note it is a
+different knob from `--seeds`, which picks which trained fold of the head scores
+the features.
+
 ### Apo, holo, and predicted structures
 
 The method's selling point is that it needs neither a ligand nor a homologous
