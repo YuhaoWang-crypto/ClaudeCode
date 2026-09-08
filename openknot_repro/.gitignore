@@ -2,3 +2,6 @@ data/
 __pycache__/
 *.pyc
 results/recomputed_scores.csv
+weights/
+third_party/
+results/rnet_predictions.csv

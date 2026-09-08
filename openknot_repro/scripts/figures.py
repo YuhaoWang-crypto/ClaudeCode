@@ -5,6 +5,7 @@
   fig_ai_vs_human.png       -- targets solved by any AI method vs by Eterna
                                participants vs the starting sequences
   fig_score_validation.png  -- recomputed minus released OpenKnot score
+  fig_rnet_validation.png   -- RNet reproduction, and simulated vs measured score
 
 Usage:  python scripts/figures.py   (after validate_score.py and success_rates.py)
 """
@@ -212,6 +213,106 @@ def figure_score_validation(scores: pd.DataFrame) -> Path:
     return path
 
 
+
+
+def figure_rnet_validation() -> Path | None:
+    """RNet reproduction (left) and the price of scoring without an experiment (right)."""
+    path = RESULTS / "rnet_predictions.csv"
+    if not path.exists():
+        return None
+    data = pd.read_csv(path)
+    fig, axes = plt.subplots(1, 2, figsize=(11.0, 4.8), facecolor=SURFACE)
+
+    ax = axes[0]
+    style(ax)
+    ax.yaxis.grid(True, color=GRID, linewidth=0.6)
+    ax.scatter(data["released_RNet_F1"], data["rnet_F1"], s=16, color=BLUE,
+               alpha=0.55, linewidths=0)
+    ax.plot([0, 1], [0, 1], color=INK_SOFT, linewidth=1, linestyle=(0, (4, 3)))
+    ax.axvline(0.8, color=GRID, linewidth=1)
+    ax.axhline(0.8, color=GRID, linewidth=1)
+    ax.set_xlabel("released RNet F1", fontsize=9, color=INK_SOFT)
+    ax.set_ylabel("RNet F1 recomputed here", fontsize=9, color=INK_SOFT)
+    agree = float((( data["rnet_F1"] >= 0.8) == (data["released_RNet_F1"] >= 0.8)).mean())
+    ax.set_title(
+        f"Secondary structure: same filter call on {100 * agree:.0f}% of designs",
+        fontsize=10.5, color=INK, loc="left", pad=10,
+    )
+
+    ax = axes[1]
+    style(ax)
+    ax.yaxis.grid(True, color=GRID, linewidth=0.6)
+    ax.scatter(data["target_openknot_score"], data["simulated_openknot_score"],
+               s=16, color=ORANGE, alpha=0.55, linewidths=0)
+    limits = (30, 102)
+    ax.plot(limits, limits, color=INK_SOFT, linewidth=1, linestyle=(0, (4, 3)))
+    ax.axvline(90, color=GRID, linewidth=1)
+    ax.axhline(90, color=GRID, linewidth=1)
+    ax.set_xlim(*limits)
+    ax.set_ylim(*limits)
+    ax.set_xlabel("experimental OpenKnot score", fontsize=9, color=INK_SOFT)
+    ax.set_ylabel("simulated from RNet reactivity", fontsize=9, color=INK_SOFT)
+    rho = data[["simulated_openknot_score", "target_openknot_score"]].corr(
+        method="spearman"
+    ).iloc[0, 1]
+    ax.set_title(
+        f"Scoring without an experiment: Spearman {rho:.2f}",
+        fontsize=10.5, color=INK, loc="left", pad=10,
+    )
+    ax.text(0.03, 0.95, "points above the diagonal are\ndesigns RNet scores too generously",
+            transform=ax.transAxes, va="top", fontsize=7.5, color=INK_SOFT)
+
+    fig.suptitle(
+        f"RibonanzaNet reproduced on {len(data)} released designs",
+        fontsize=12.5, color=INK, x=0.01, ha="left", y=0.98,
+    )
+    fig.tight_layout(rect=(0, 0, 1, 0.95))
+    out = FIGURES / "fig_rnet_validation.png"
+    fig.savefig(out, dpi=200, facecolor=SURFACE)
+    plt.close(fig)
+    return out
+
+
+def figure_grnade_designs() -> Path | None:
+    """Per-target simulated scores: designs made here vs the ones the paper submitted."""
+    path = RESULTS / "design_comparison.csv"
+    if not path.exists():
+        return None
+    table = pd.read_csv(path).sort_values(["round", "puzzle"])
+    fig, ax = plt.subplots(figsize=(11.0, 5.2), facecolor=SURFACE)
+    style(ax)
+    ax.yaxis.grid(True, color=GRID, linewidth=0.6)
+    ax.xaxis.grid(False)
+    x = np.arange(len(table))
+    width = 0.4
+    ax.bar(x - width / 2, table["our_gRNAde_best_simulated"], width=width * 0.92,
+           color=BLUE, label="best of the designs made here")
+    ax.bar(x + width / 2, table["released_gRNAde_simulated"], width=width * 0.92,
+           color=ORANGE, label="the paper's submitted gRNAde design")
+    ax.scatter(x + width / 2, table["released_gRNAde_experimental"], s=22, color=INK,
+               zorder=3, label="its measured score")
+    ax.axhline(90, color=INK_SOFT, linewidth=1, linestyle=(0, (4, 3)))
+    ax.set_xticks(x)
+    ax.set_xticklabels(table["puzzle"], fontsize=7.5, color=INK, rotation=90)
+    ax.set_ylim(0, 105)
+    ax.set_ylabel("OpenKnot score", fontsize=9, color=INK_SOFT)
+    ax.legend(frameon=False, fontsize=8.5, labelcolor=INK_SOFT, ncols=3,
+              loc="lower left", bbox_to_anchor=(0.0, 1.0))
+    ax.set_title(
+        "gRNAde designs, scored from RNet-predicted reactivity (bars) and measured (dots)",
+        fontsize=11, color=INK, loc="left", pad=30,
+    )
+    fig.text(0.01, 0.005,
+             "Bars are like-for-like: both scored in silico. The designs here come from "
+             "8 samples per target; the paper's came from a search of up to a million.",
+             fontsize=7.5, color=INK_SOFT)
+    fig.tight_layout(rect=(0, 0.03, 1, 1))
+    out = FIGURES / "fig_grnade_designs.png"
+    fig.savefig(out, dpi=200, facecolor=SURFACE)
+    plt.close(fig)
+    return out
+
+
 def main() -> int:
     FIGURES.mkdir(exist_ok=True)
     per_method = pd.read_csv(RESULTS / "success_rates_by_method.csv")
@@ -221,8 +322,11 @@ def main() -> int:
         figure_success_by_method(per_method),
         figure_ai_vs_human(per_group),
         figure_score_validation(scores),
+        figure_rnet_validation(),
+        figure_grnade_designs(),
     ):
-        print(f"wrote {path}")
+        if path is not None:
+            print(f"wrote {path}")
     return 0
 
 

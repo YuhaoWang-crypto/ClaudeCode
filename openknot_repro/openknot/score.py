@@ -228,3 +228,32 @@ def embed_target(target_structure: str, sub_start: int, sub_end: int, full_lengt
             f"{end - start + 1}"
         )
     return "." * start + target_structure + "." * (full_length - end - 1)
+
+
+def pair_f1(structure: str, reference: str) -> float:
+    """F1 between the base-pair sets of two dot-bracket structures."""
+    left, right = set(bp_list(structure)), set(bp_list(reference))
+    if not left and not right:
+        return 1.0
+    shared = len(left & right)
+    if shared == 0:
+        return 0.0
+    return 2 * shared / (len(left) + len(right))
+
+
+def crossed_pairs(structure: str) -> set[tuple[int, int]]:
+    """The crossed (pseudoknotted) pairs of a structure."""
+    pairs = bp_list(structure)
+    residues = crossing_residues(pairs)
+    return {p for p in pairs if p[0] in residues and p[1] in residues}
+
+
+def crossed_pair_f1(structure: str, reference: str) -> float:
+    """F1 restricted to crossed pairs, the release's RNet_F1_crossed_pair."""
+    left, right = crossed_pairs(structure), crossed_pairs(reference)
+    if not left and not right:
+        return 1.0
+    shared = len(left & right)
+    if shared == 0:
+        return 0.0
+    return 2 * shared / (len(left) + len(right))

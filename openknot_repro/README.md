@@ -16,7 +16,9 @@ reproduced here; the released measurements are used as ground truth.
 | OpenKnot score (Eterna Classic Score + Crossed Pair Quality), dependency-free port | reproduces the released score for **every** design outside two documented puzzles |
 | Per-method, per-round success rates (the paper's Fig. 1H/1J, 2C/2F) | recomputed scores give **identical** rates to the released ones, to 0.000 pp |
 | Targets solved by AI vs by Eterna participants | matches the paper's headline **19/20 and 19/20** for Rounds 3 and 4 |
-| Design generation with gRNAde / NA-MPNN / Struct2SeQ, and RNet inference | not here — see *Not done yet* |
+| RibonanzaNet (RNet) inference: SHAPE reactivity and secondary structure | official checkpoints, reproduced without a Kaggle account; the paper's RNet F1 filter agrees on **100%** of designs |
+| gRNAde design, re-run on the Round 3 and 4 targets | runs on CPU; small sampling budget, scored in silico |
+| Struct2SeQ design | blocked — weights are Kaggle-only, see *Not done yet* |
 
 ## Results
 
@@ -53,6 +55,64 @@ parity with experienced human designers), and the Round 4 baseline of 4 successe
 matches the paper's "the starting sequences were successful in only 4 of 20
 targets" — the denominator differs because starting sequences for six of the
 targets have no design passing the release's signal-to-noise gate.
+
+## RibonanzaNet, reproduced
+
+RNet is the model that carries the paper's argument: it stands in for the 3D
+structure prediction that RNA design does not have, both to guide the design
+methods and to filter their output. Two things had to be established.
+
+**The checkpoints.** They are distributed through Kaggle, which needs an
+account. Three HuggingFace mirrors avoid that, and they agree with each other:
+`roos23/RibonanzaNet` carries the base model verbatim; `chaitjo/gRNAde` carries
+both official checkpoints alongside gRNAde; and `multimolecule/ribonanzanet-ss`
+carries the secondary-structure fine-tune under a different naming scheme.
+`scripts/convert_rnet_weights.py` derives the rename rule between the two
+layouts, requires it to map all 576 base tensors bit-identically, applies it to
+the SS checkpoint, and then checks the result against the official file — all
+578 tensors match. So the model here is the paper's model, not an approximation
+of it.
+
+**The inference.** Run on 399 released designs, stratified across the four
+rounds (`results/rnet_validation.csv`):
+
+| Quantity | Result |
+|---|---|
+| secondary structure vs the released `RNet_structure` | mean base-pair F1 **0.999**, identical pair sets on **96.9%** of designs |
+| RNet F1 against the target vs the released `RNet_F1` | Spearman **0.982**, mean absolute difference **0.002** |
+| the paper's filter decision at RNet F1 ≥ 0.8 | **100%** agreement (306 kept by both, 93 dropped by both) |
+
+RNet must be run on the design sequence alone. The released columns are
+design-length, and predicting on the padded construct and slicing agrees
+distinctly worse.
+
+### Scoring a design without an experiment
+
+The main text says RNet "gave simulated scores largely reproducing experimental
+scores, especially for poorly performing designs", which is what licenses
+filtering designs before spending an experiment on them. Computing the OpenKnot
+score from RNet-predicted reactivity instead of measured reactivity, on the same
+399 designs:
+
+- Spearman **0.56** against the experimental score (Pearson 0.49; 0.59 on the
+  designs that pass the release's signal-to-noise gate).
+- As a prospective filter at the cutoff of 90: precision **0.84**, recall
+  **0.83**, against a base rate of 0.73.
+- The error is **not** uniform, and not in the direction the sentence suggests
+  to a first reading. On designs that measured below 70, the simulated score is
+  **+17.4 points too generous** on average; between 80 and 90 the mean signed
+  error is +1.3. RNet is least reliable exactly on the designs that failed.
+
+The supplementary figure this refers to (Fig. S4) is not in the PDF used here,
+so this tests the main-text sentence rather than the figure. Two caveats also
+cut in the paper's favour: the experiment measures the design inside its
+flanking pads while RNet here sees the design alone
+(`scripts/rnet_padded_check.py` tests whether that explains the gap), and this
+is a 399-design sample rather than the full release.
+
+Either way the practical consequence stands: an in-silico score can rank and
+pre-filter designs, but it cannot stand in for the measurement — which is what
+the paper spent 50,000 experiments to establish.
 
 ## Getting the OpenKnot score right
 
