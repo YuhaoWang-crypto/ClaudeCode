@@ -41,3 +41,10 @@ python3 -m grn_pipeline.m1_symmetry   # or any single module
 Figures are written to `figures/`. A full write-up with numbers, rigour
 labels, and the interpretation (including the Lyapunov-exponent biomarker
 question) is in [`REPORT.md`](REPORT.md).
+
+## Also in this repository
+
+[`openknot_repro/`](openknot_repro/) — an unrelated reproduction: the scoring and
+benchmark analysis of the OpenKnot AI RNA pseudoknot design challenge
+(Townley et al. 2026), recomputed from the released SHAPE data. Has its own
+[README](openknot_repro/README.md).

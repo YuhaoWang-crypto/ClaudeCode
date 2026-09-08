@@ -1,0 +1,6 @@
+quantity,count,fraction
+designs scored,36761,
+exact vs own target structure,34415,93.618%
+exact vs best released target variant,34411,93.607%
+"explained (exact, or within rounding ties)",36143,98.319%
+unexplained,618,1.681%

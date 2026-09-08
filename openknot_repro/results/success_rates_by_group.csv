@@ -1,0 +1,49 @@
+round,group,score_column,rnet_filter,n_targets,n_solved,success_rate,standard_error
+1,AI (any method),target_openknot_score,False,17,11,64.70588235294117,11.59040430757386
+2,AI (any method),target_openknot_score,False,17,17,100.0,0.0
+3,AI (any method),target_openknot_score,False,20,20,100.0,0.0
+4,AI (any method),target_openknot_score,False,20,19,95.0,4.873397172404484
+1,Eterna (human),target_openknot_score,False,17,17,100.0,0.0
+2,Eterna (human),target_openknot_score,False,17,17,100.0,0.0
+3,Eterna (human),target_openknot_score,False,20,19,95.0,4.873397172404484
+4,Eterna (human),target_openknot_score,False,20,19,95.0,4.873397172404484
+1,Starting sequence,target_openknot_score,False,17,9,52.94117647058824,12.105782480647683
+2,Starting sequence,target_openknot_score,False,17,9,52.94117647058824,12.105782480647683
+3,Starting sequence,target_openknot_score,False,20,13,65.0,10.66536450385077
+4,Starting sequence,target_openknot_score,False,20,4,20.0,8.944271909999161
+1,AI (any method),target_openknot_score,True,16,11,68.75,11.587810136086974
+2,AI (any method),target_openknot_score,True,17,17,100.0,0.0
+3,AI (any method),target_openknot_score,True,20,19,95.0,4.873397172404484
+4,AI (any method),target_openknot_score,True,20,19,95.0,4.873397172404484
+1,Eterna (human),target_openknot_score,True,17,17,100.0,0.0
+2,Eterna (human),target_openknot_score,True,17,17,100.0,0.0
+3,Eterna (human),target_openknot_score,True,20,19,95.0,4.873397172404484
+4,Eterna (human),target_openknot_score,True,20,19,95.0,4.873397172404484
+1,Starting sequence,target_openknot_score,True,12,7,58.333333333333336,14.231876063832777
+2,Starting sequence,target_openknot_score,True,12,7,58.333333333333336,14.231876063832777
+3,Starting sequence,target_openknot_score,True,18,12,66.66666666666666,11.111111111111112
+4,Starting sequence,target_openknot_score,True,14,4,28.57142857142857,12.07363221040738
+1,AI (any method),OKS_recomputed,False,17,11,64.70588235294117,11.59040430757386
+2,AI (any method),OKS_recomputed,False,17,17,100.0,0.0
+3,AI (any method),OKS_recomputed,False,20,20,100.0,0.0
+4,AI (any method),OKS_recomputed,False,20,19,95.0,4.873397172404484
+1,Eterna (human),OKS_recomputed,False,17,17,100.0,0.0
+2,Eterna (human),OKS_recomputed,False,17,17,100.0,0.0
+3,Eterna (human),OKS_recomputed,False,20,19,95.0,4.873397172404484
+4,Eterna (human),OKS_recomputed,False,20,19,95.0,4.873397172404484
+1,Starting sequence,OKS_recomputed,False,17,9,52.94117647058824,12.105782480647683
+2,Starting sequence,OKS_recomputed,False,17,9,52.94117647058824,12.105782480647683
+3,Starting sequence,OKS_recomputed,False,20,13,65.0,10.66536450385077
+4,Starting sequence,OKS_recomputed,False,20,4,20.0,8.944271909999161
+1,AI (any method),OKS_recomputed,True,16,11,68.75,11.587810136086974
+2,AI (any method),OKS_recomputed,True,17,17,100.0,0.0
+3,AI (any method),OKS_recomputed,True,20,19,95.0,4.873397172404484
+4,AI (any method),OKS_recomputed,True,20,19,95.0,4.873397172404484
+1,Eterna (human),OKS_recomputed,True,17,17,100.0,0.0
+2,Eterna (human),OKS_recomputed,True,17,17,100.0,0.0
+3,Eterna (human),OKS_recomputed,True,20,19,95.0,4.873397172404484
+4,Eterna (human),OKS_recomputed,True,20,19,95.0,4.873397172404484
+1,Starting sequence,OKS_recomputed,True,12,7,58.333333333333336,14.231876063832777
+2,Starting sequence,OKS_recomputed,True,12,7,58.333333333333336,14.231876063832777
+3,Starting sequence,OKS_recomputed,True,18,12,66.66666666666666,11.111111111111112
+4,Starting sequence,OKS_recomputed,True,14,4,28.57142857142857,12.07363221040738

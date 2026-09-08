@@ -1,0 +1,127 @@
+round,method,score_column,rnet_filter,n_targets_in_round,n_targets_submitted,n_success,success_rate,standard_error
+1,3DRNA,target_openknot_score,False,17,17,0,0.0,0.0
+1,Eterna,target_openknot_score,False,17,17,17,100.0,0.0
+1,MPNN-RFdiff,target_openknot_score,False,17,17,3,17.647058823529413,9.245944094039714
+1,MPNN-fixbb,target_openknot_score,False,17,12,7,58.333333333333336,14.231876063832777
+1,Rosetta,target_openknot_score,False,17,17,3,17.647058823529413,9.245944094039714
+1,Rosetta-LoRes,target_openknot_score,False,17,17,5,29.411764705882355,11.051016901502637
+1,Starting sequence,target_openknot_score,False,17,17,9,52.94117647058824,12.105782480647683
+1,gRNAde,target_openknot_score,False,17,10,6,60.0,15.491933384829668
+2,Eterna,target_openknot_score,False,17,17,17,100.0,0.0
+2,MPNN-RFdiff,target_openknot_score,False,17,17,15,88.23529411764706,7.814248990059665
+2,MPNN-fixbb,target_openknot_score,False,17,12,12,100.0,0.0
+2,Starting sequence,target_openknot_score,False,17,17,9,52.94117647058824,12.105782480647683
+2,codesign-RFdiff,target_openknot_score,False,17,16,15,93.75,6.051536478449089
+2,gRNAde,target_openknot_score,False,17,11,9,81.81818181818183,11.629129983033296
+3,Eterna,target_openknot_score,False,20,20,19,95.0,4.873397172404484
+3,MPNN-RFdiff,target_openknot_score,False,20,20,14,70.0,10.2469507659596
+3,MPNN-fixbb,target_openknot_score,False,20,20,12,60.0,10.954451150103322
+3,Rosetta,target_openknot_score,False,20,20,11,55.00000000000001,11.124297730643494
+3,Starting sequence,target_openknot_score,False,20,20,13,65.0,10.66536450385077
+3,Struct2SeQ,target_openknot_score,False,20,20,14,70.0,10.2469507659596
+3,Struct2SeQ-SHAPE,target_openknot_score,False,20,20,19,95.0,4.873397172404484
+3,gRNAde,target_openknot_score,False,20,20,17,85.0,7.984359711335657
+3,gRNAde-no3d,target_openknot_score,False,20,20,16,80.0,8.944271909999157
+4,Eterna,target_openknot_score,False,20,20,19,95.0,4.873397172404484
+4,MPNN-RFdiff,target_openknot_score,False,20,19,11,57.89473684210527,11.32689656524148
+4,MPNN-fixbb,target_openknot_score,False,20,19,8,42.10526315789473,11.32689656524148
+4,Starting sequence,target_openknot_score,False,20,20,4,20.0,8.944271909999161
+4,Struct2SeQ,target_openknot_score,False,20,20,16,80.0,8.944271909999157
+4,Struct2SeQ-SHAPE,target_openknot_score,False,20,20,18,90.0,6.708203932499368
+4,codesign-RFdiff,target_openknot_score,False,20,17,8,47.05882352941176,12.105782480647683
+4,gRNAde,target_openknot_score,False,20,20,10,50.0,11.180339887498949
+4,gRNAde-no3d,target_openknot_score,False,20,19,12,63.1578947368421,11.066473327112565
+1,Eterna,target_openknot_score,True,17,17,17,100.0,0.0
+1,MPNN-RFdiff,target_openknot_score,True,17,11,3,27.27272727272727,13.428162652290842
+1,MPNN-fixbb,target_openknot_score,True,17,9,7,77.77777777777779,13.857990321384966
+1,Rosetta,target_openknot_score,True,17,12,3,25.0,12.5
+1,Rosetta-LoRes,target_openknot_score,True,17,7,4,57.14285714285714,18.704390591656487
+1,Starting sequence,target_openknot_score,True,17,12,7,58.333333333333336,14.231876063832777
+1,gRNAde,target_openknot_score,True,17,10,5,50.0,15.811388300841896
+2,Eterna,target_openknot_score,True,17,17,17,100.0,0.0
+2,MPNN-RFdiff,target_openknot_score,True,17,17,15,88.23529411764706,7.814248990059665
+2,MPNN-fixbb,target_openknot_score,True,17,12,12,100.0,0.0
+2,Starting sequence,target_openknot_score,True,17,12,7,58.333333333333336,14.231876063832777
+2,codesign-RFdiff,target_openknot_score,True,17,16,15,93.75,6.051536478449089
+2,gRNAde,target_openknot_score,True,17,10,9,90.0,9.486832980505138
+3,Eterna,target_openknot_score,True,20,20,19,95.0,4.873397172404484
+3,MPNN-RFdiff,target_openknot_score,True,20,20,14,70.0,10.2469507659596
+3,MPNN-fixbb,target_openknot_score,True,20,18,12,66.66666666666666,11.111111111111112
+3,Rosetta,target_openknot_score,True,20,8,5,62.5,17.116329922036442
+3,Starting sequence,target_openknot_score,True,20,18,12,66.66666666666666,11.111111111111112
+3,Struct2SeQ,target_openknot_score,True,20,20,12,60.0,10.954451150103322
+3,Struct2SeQ-SHAPE,target_openknot_score,True,20,20,17,85.0,7.984359711335657
+3,gRNAde,target_openknot_score,True,20,19,16,84.21052631578947,8.365467518305541
+3,gRNAde-no3d,target_openknot_score,True,20,20,15,75.0,9.682458365518542
+4,Eterna,target_openknot_score,True,20,20,19,95.0,4.873397172404484
+4,MPNN-RFdiff,target_openknot_score,True,20,19,11,57.89473684210527,11.32689656524148
+4,MPNN-fixbb,target_openknot_score,True,20,17,7,41.17647058823529,11.936462498726879
+4,Starting sequence,target_openknot_score,True,20,14,4,28.57142857142857,12.07363221040738
+4,Struct2SeQ,target_openknot_score,True,20,20,15,75.0,9.682458365518542
+4,Struct2SeQ-SHAPE,target_openknot_score,True,20,20,18,90.0,6.708203932499368
+4,codesign-RFdiff,target_openknot_score,True,20,17,8,47.05882352941176,12.105782480647683
+4,gRNAde,target_openknot_score,True,20,18,10,55.55555555555556,11.712139482105108
+4,gRNAde-no3d,target_openknot_score,True,20,18,12,66.66666666666666,11.111111111111112
+1,3DRNA,OKS_recomputed,False,17,17,0,0.0,0.0
+1,Eterna,OKS_recomputed,False,17,17,17,100.0,0.0
+1,MPNN-RFdiff,OKS_recomputed,False,17,17,3,17.647058823529413,9.245944094039714
+1,MPNN-fixbb,OKS_recomputed,False,17,12,7,58.333333333333336,14.231876063832777
+1,Rosetta,OKS_recomputed,False,17,17,3,17.647058823529413,9.245944094039714
+1,Rosetta-LoRes,OKS_recomputed,False,17,17,5,29.411764705882355,11.051016901502637
+1,Starting sequence,OKS_recomputed,False,17,17,9,52.94117647058824,12.105782480647683
+1,gRNAde,OKS_recomputed,False,17,10,6,60.0,15.491933384829668
+2,Eterna,OKS_recomputed,False,17,17,17,100.0,0.0
+2,MPNN-RFdiff,OKS_recomputed,False,17,17,15,88.23529411764706,7.814248990059665
+2,MPNN-fixbb,OKS_recomputed,False,17,12,12,100.0,0.0
+2,Starting sequence,OKS_recomputed,False,17,17,9,52.94117647058824,12.105782480647683
+2,codesign-RFdiff,OKS_recomputed,False,17,16,15,93.75,6.051536478449089
+2,gRNAde,OKS_recomputed,False,17,11,9,81.81818181818183,11.629129983033296
+3,Eterna,OKS_recomputed,False,20,20,19,95.0,4.873397172404484
+3,MPNN-RFdiff,OKS_recomputed,False,20,20,14,70.0,10.2469507659596
+3,MPNN-fixbb,OKS_recomputed,False,20,20,12,60.0,10.954451150103322
+3,Rosetta,OKS_recomputed,False,20,20,11,55.00000000000001,11.124297730643494
+3,Starting sequence,OKS_recomputed,False,20,20,13,65.0,10.66536450385077
+3,Struct2SeQ,OKS_recomputed,False,20,20,14,70.0,10.2469507659596
+3,Struct2SeQ-SHAPE,OKS_recomputed,False,20,20,19,95.0,4.873397172404484
+3,gRNAde,OKS_recomputed,False,20,20,17,85.0,7.984359711335657
+3,gRNAde-no3d,OKS_recomputed,False,20,20,16,80.0,8.944271909999157
+4,Eterna,OKS_recomputed,False,20,20,19,95.0,4.873397172404484
+4,MPNN-RFdiff,OKS_recomputed,False,20,19,11,57.89473684210527,11.32689656524148
+4,MPNN-fixbb,OKS_recomputed,False,20,19,8,42.10526315789473,11.32689656524148
+4,Starting sequence,OKS_recomputed,False,20,20,4,20.0,8.944271909999161
+4,Struct2SeQ,OKS_recomputed,False,20,20,16,80.0,8.944271909999157
+4,Struct2SeQ-SHAPE,OKS_recomputed,False,20,20,18,90.0,6.708203932499368
+4,codesign-RFdiff,OKS_recomputed,False,20,17,8,47.05882352941176,12.105782480647683
+4,gRNAde,OKS_recomputed,False,20,20,10,50.0,11.180339887498949
+4,gRNAde-no3d,OKS_recomputed,False,20,19,12,63.1578947368421,11.066473327112565
+1,Eterna,OKS_recomputed,True,17,17,17,100.0,0.0
+1,MPNN-RFdiff,OKS_recomputed,True,17,11,3,27.27272727272727,13.428162652290842
+1,MPNN-fixbb,OKS_recomputed,True,17,9,7,77.77777777777779,13.857990321384966
+1,Rosetta,OKS_recomputed,True,17,12,3,25.0,12.5
+1,Rosetta-LoRes,OKS_recomputed,True,17,7,4,57.14285714285714,18.704390591656487
+1,Starting sequence,OKS_recomputed,True,17,12,7,58.333333333333336,14.231876063832777
+1,gRNAde,OKS_recomputed,True,17,10,5,50.0,15.811388300841896
+2,Eterna,OKS_recomputed,True,17,17,17,100.0,0.0
+2,MPNN-RFdiff,OKS_recomputed,True,17,17,15,88.23529411764706,7.814248990059665
+2,MPNN-fixbb,OKS_recomputed,True,17,12,12,100.0,0.0
+2,Starting sequence,OKS_recomputed,True,17,12,7,58.333333333333336,14.231876063832777
+2,codesign-RFdiff,OKS_recomputed,True,17,16,15,93.75,6.051536478449089
+2,gRNAde,OKS_recomputed,True,17,10,9,90.0,9.486832980505138
+3,Eterna,OKS_recomputed,True,20,20,19,95.0,4.873397172404484
+3,MPNN-RFdiff,OKS_recomputed,True,20,20,14,70.0,10.2469507659596
+3,MPNN-fixbb,OKS_recomputed,True,20,18,12,66.66666666666666,11.111111111111112
+3,Rosetta,OKS_recomputed,True,20,8,5,62.5,17.116329922036442
+3,Starting sequence,OKS_recomputed,True,20,18,12,66.66666666666666,11.111111111111112
+3,Struct2SeQ,OKS_recomputed,True,20,20,12,60.0,10.954451150103322
+3,Struct2SeQ-SHAPE,OKS_recomputed,True,20,20,17,85.0,7.984359711335657
+3,gRNAde,OKS_recomputed,True,20,19,16,84.21052631578947,8.365467518305541
+3,gRNAde-no3d,OKS_recomputed,True,20,20,15,75.0,9.682458365518542
+4,Eterna,OKS_recomputed,True,20,20,19,95.0,4.873397172404484
+4,MPNN-RFdiff,OKS_recomputed,True,20,19,11,57.89473684210527,11.32689656524148
+4,MPNN-fixbb,OKS_recomputed,True,20,17,7,41.17647058823529,11.936462498726879
+4,Starting sequence,OKS_recomputed,True,20,14,4,28.57142857142857,12.07363221040738
+4,Struct2SeQ,OKS_recomputed,True,20,20,15,75.0,9.682458365518542
+4,Struct2SeQ-SHAPE,OKS_recomputed,True,20,20,18,90.0,6.708203932499368
+4,codesign-RFdiff,OKS_recomputed,True,20,17,8,47.05882352941176,12.105782480647683
+4,gRNAde,OKS_recomputed,True,20,18,10,55.55555555555556,11.712139482105108
+4,gRNAde-no3d,OKS_recomputed,True,20,18,12,66.66666666666666,11.111111111111112
