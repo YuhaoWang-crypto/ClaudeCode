@@ -1,13 +1,7 @@
-[data] 1116 conditions | 500 proteins | 18 cell lines | 62 drugs | positive rate 0.334
+[data] 1116 conditions | 200 proteins | 18 cell lines | 62 drugs | positive rate 0.321
 
 === Setting 1: random 0.7/0.2/0.1 split over conditions ===
 [split] train=781 val=223 test=112
-  Drug-mean (no proteome)          AUROC=0.749 AUPRC=0.713 ACC=0.848
-  Cell-line-mean (no proteome)     AUROC=0.690 AUPRC=0.485 ACC=0.786
-  Constant prior                   AUROC=0.500 AUPRC=0.286 ACC=0.714
-  Bootstrap (Bagging+DT)           AUROC=0.953 AUPRC=0.944 ACC=0.938
-  Random forest                    AUROC=0.971 AUPRC=0.962 ACC=0.955
-  Logistic regression              AUROC=0.866 AUPRC=0.825 ACC=0.893
-  SGD                              AUROC=0.839 AUPRC=0.805 ACC=0.848
-  KNN                              AUROC=0.738 AUPRC=0.703 ACC=0.866
-  DeepSynergy                      AUROC=0.836 AUPRC=0.786 ACC=0.866
+  Drug-mean (no proteome)          AUROC=0.909 AUPRC=0.892 ACC=0.929
+  Cell-line-mean (no proteome)     AUROC=0.707 AUPRC=0.557 ACC=0.786
+  Constant prior                   AUROC=0.500 AUPRC=0.321 ACC=0.679

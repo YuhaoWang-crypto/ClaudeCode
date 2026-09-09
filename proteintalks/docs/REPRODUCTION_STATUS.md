@@ -196,6 +196,16 @@ Reading this fairly, in both directions:
 - The SWA variant, which is the one the paper's Table S5A headline corresponds
   to most closely, is **not** significantly better than the control (p = 0.45).
 
+**Limitation of this test.** The pairing assumes the paper's held-out set for a
+given cell line contains the same conditions as that cell line's rows in Table
+S1 `C_Efficacy`. That is the natural reading of leave-one-cell-line-out on a
+18 × 62 design, but the per-cell-line test composition is not published, so it
+could not be verified. Table S5C covers 17 cell lines and `C_Efficacy` covers
+18; 15 are common and only those are used. If the paper's folds exclude
+conditions ours include, the control's per-cell-line AUROC would shift. The
+direction and size of every gap in the table would have to change a great deal
+to alter the conclusion, but the caveat is real.
+
 ## 7. The paper's own supplement already reports the negative result for new drugs
 
 Supplementary Table S6B, verbatim significance calls for leave-one-drug-out:
