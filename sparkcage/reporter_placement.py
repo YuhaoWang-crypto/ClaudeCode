@@ -15,8 +15,15 @@ project actually is:
    binding site looks like and why none of them is reusable as a module.
 
 3. Real protein E-AB sensors deliver only 4-30% signal change against domain
-   motions of 11-21 A. Two different mechanisms explain that, they need
-   different fixes, and one experiment distinguishes them.
+   motions of 11-21 A. THREE different mechanisms explain that, they need
+   different fixes, and the literature favours the third one.
+
+IMPORTANT CAVEAT ON SECTION 2: the displacement ranking assumes the signal
+comes from rigid-body motion of the attachment residue.  The only published
+protein E-AB study (Kang/Plaxco, JACS 2017) reports the opposite placement
+rule -- best gain with the reporter PROXIMAL to the binding site, via steric
+blocking.  Section 4 lays this out.  Do not treat section 2 as the answer;
+treat it as one of two competing hypotheses to test.
 """
 
 from __future__ import annotations
@@ -96,8 +103,11 @@ def rank_attachment_sites(top_n=15):
     print(f"  residues moving less than  3 A        : {np.mean(vals < 3)*100:4.0f}%")
     print("\n  Read-out: nearly half of all positions barely move. Picking an")
     print("  attachment site at random is close to a coin flip on whether the")
-    print("  sensor works at all. The good sites cluster in three loops around")
-    print("  residues 134-143, 200-202 and 352-356, all well exposed.")
+    print("  sensor works at all. Under a DISPLACEMENT mechanism the good sites")
+    print("  cluster in three loops around residues 134-143, 200-202 and")
+    print("  352-356, all well exposed. Under a STERIC-BLOCKING mechanism the")
+    print("  ranking is different and probably inverted -- see section 4 before")
+    print("  committing to any of these positions.")
     print("\n  CAVEAT: this ranks TOTAL displacement. What actually sets the")
     print("  signal is the component NORMAL to the electrode surface, which")
     print("  depends on how the protein is oriented once immobilised. Use this")
@@ -137,7 +147,7 @@ def conjugation_chemistry():
 
 def discriminate_signal_loss():
     print("\n" + "=" * 74)
-    print("4. WHY MEASURED SIGNAL IS ONLY 4-30%: TWO HYPOTHESES, DIFFERENT FIXES")
+    print("4. WHY MEASURED SIGNAL IS ONLY 4-30%: THREE HYPOTHESES, DIFFERENT FIXES")
     print("=" * 74)
     swv.k0_from_distance.__defaults__ = (3.0e2, 1.0, 5.0)
     cell = dict(area_cm2=0.03, freq_hz=87.0, e_step=0.002)
@@ -174,10 +184,29 @@ def discriminate_signal_loss():
         flag = "   <- in the measured band" if 4 <= abs(ch) <= 30 else ""
         print(f"      {dead*100:5.1f}%        {ch:7.1f}%{flag}")
 
-    print("\n  Both reproduce the measured 4-30%, and they demand opposite fixes:")
-    print("  A is fixed by moving the label to a better residue; B is fixed by")
-    print("  changing the immobilisation chemistry and surface density. Guessing")
-    print("  wrong wastes a design cycle.")
+    print("\n  Hypothesis C: STERIC BLOCKING, and this is the one the only")
+    print("  protein precedent actually supports.")
+    print("    Kang/Plaxco (JACS 2017, 139, 12113) scanned eight single-cysteine")
+    print("    positions on CheY (M17C, E37C, T71C, A80C, G89C, K91C, K97C,")
+    print("    E117C) and found gain was LARGEST WHEN MB SITS PROXIMAL TO THE")
+    print("    BINDING SITE, attributing it to the bound analyte sterically")
+    print("    blocking MB's approach to the electrode -- not to rigid-body")
+    print("    displacement of the attachment residue.")
+    print("    Consequence: the displacement ranking above optimises a DIFFERENT")
+    print("    mechanism from the one that demonstrably works. Under C the right")
+    print("    site is adjacent to the binding interface, which for MBP means the")
+    print("    maltose-site residues, NOT the 134-143 / 200-202 / 352-356 loops.")
+    print("    Treat the two rankings as competing hypotheses and test both.")
+    print("    The model in echem/ is agnostic: blocking and displacement both")
+    print("    act by lowering the effective electron-transfer rate, so the")
+    print("    voltammetry is described identically. What differs is WHERE to")
+    print("    put the cysteine, and that is the expensive decision.")
+    print("\n  A, B and C all reproduce the measured 4-30%, and they demand")
+    print("  different fixes:")
+    print("  A is fixed by moving the label to a higher-displacement residue;")
+    print("  B by changing immobilisation chemistry and surface density; C by")
+    print("  moving the label TOWARD the binding site instead of away from it.")
+    print("  Guessing wrong wastes a design cycle.")
     print("\n  They are distinguishable in ONE experiment. Under A the whole")
     print("  monolayer shifts a little, so the voltammogram stays single-peaked")
     print("  and simply changes height. Under B the monolayer splits into a large")
