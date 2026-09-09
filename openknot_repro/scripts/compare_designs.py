@@ -29,7 +29,11 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from openknot.data import BENCH_CSV, META_COLUMNS  # noqa: E402
 from openknot.rnet import RNet  # noqa: E402
-from openknot.score import crossed_pair_scores, eterna_classic_score  # noqa: E402
+from openknot.score import (  # noqa: E402
+    crossed_pair_scores,
+    embed_target,
+    eterna_classic_score,
+)
 
 RESULTS = Path(__file__).resolve().parent.parent / "results"
 DESIGNS = RESULTS / "grnade_designs.csv"
@@ -43,6 +47,20 @@ def simulated_score(target: str, reactivity: np.ndarray) -> float:
     data = list(reactivity)
     ecs = eterna_classic_score(target, data, 0, len(target) - 1)
     cpq = crossed_pair_scores(target, data, 0, len(target) - 1)[1]
+    return 0.5 * ecs + 0.5 * cpq
+
+
+def simulated_score_padded(row, reactivity: np.ndarray) -> float:
+    """Score the design region of the padded construct -- the molecule the experiment saw.
+
+    scripts/rnet_padded_check.py shows this agrees with the measurement
+    distinctly better than scoring the isolated design does.
+    """
+    start, end = int(row["sub_start"]) - 1, int(row["sub_end"]) - 1
+    full = embed_target(row["target_structure"], start + 1, end + 1, len(row["sequence"]))
+    data = list(reactivity[:, 0])
+    ecs = eterna_classic_score(full, data, start, end)
+    cpq = crossed_pair_scores(full, data, start, end)[1]
     return 0.5 * ecs + 0.5 * cpq
 
 
@@ -93,6 +111,19 @@ def main() -> int:
 
     released["simulated_openknot_score"] = released["design_sequence"].map(cache)
 
+    # Also score the padded construct for the method being compared head to head.
+    padded_rows = released[released["method"] == "gRNAde"]
+    padded_rows = padded_rows[padded_rows["sequence"].str.fullmatch(r"[ACGU]+")]
+    print(f"scoring {len(padded_rows)} released gRNAde designs on their padded constructs...")
+    padded_scores = {}
+    rnet_padded = RNet(load_ss=False)
+    for begin in range(0, len(padded_rows), 2):
+        batch = padded_rows.iloc[begin : begin + 2]
+        reactivities = rnet_padded.reactivity(list(batch["sequence"]))
+        for (_, row), reactivity in zip(batch.iterrows(), reactivities):
+            padded_scores[row["puzzle"]] = simulated_score_padded(row, reactivity)
+        print(f"  {min(begin + 2, len(padded_rows))}/{len(padded_rows)}", flush=True)
+
     rows = []
     for puzzle in sorted(puzzles):
         ours = mine[mine["puzzle"] == puzzle]
@@ -105,6 +136,7 @@ def main() -> int:
             "our_gRNAde_best_simulated": ours["simulated_openknot_score"].max(),
             "our_gRNAde_best_rnet_F1": ours["rnet_F1"].max(),
         }
+        row["released_gRNAde_simulated_padded"] = padded_scores.get(puzzle, np.nan)
         for method in COMPARED_METHODS:
             block = theirs[theirs["method"] == method]
             key = method.replace(" ", "_").replace("-", "_")
@@ -136,8 +168,14 @@ def main() -> int:
     print(f"  ours >= theirs on {int((both['our_gRNAde_best_simulated'] >= both['released_gRNAde_simulated']).sum())}"
           f"/{len(both)} targets")
     experimental = table["released_gRNAde_experimental"]
-    print(f"\n  for reference, their submitted designs measured >90 on "
-          f"{int((experimental > 90).sum())}/{experimental.notna().sum()} targets")
+    padded = table["released_gRNAde_simulated_padded"]
+    print("\n  their submitted designs, scored three ways:")
+    print(f"    simulated on the design alone:   above 90 on {int((theirs > 90).sum())}"
+          f"/{theirs.notna().sum()} targets, mean {theirs.mean():.1f}")
+    print(f"    simulated on the padded construct: above 90 on {int((padded > 90).sum())}"
+          f"/{padded.notna().sum()} targets, mean {padded.mean():.1f}")
+    print(f"    measured:                        above 90 on {int((experimental > 90).sum())}"
+          f"/{experimental.notna().sum()} targets, mean {experimental.mean():.1f}")
     print(f"\nwrote {OUT}")
     return 0
 

@@ -216,12 +216,24 @@ def figure_score_validation(scores: pd.DataFrame) -> Path:
 
 
 def figure_rnet_validation() -> Path | None:
-    """RNet reproduction (left) and the price of scoring without an experiment (right)."""
+    """RNet reproduction, and what the simulated score is worth on each molecule.
+
+    The middle and right panels are the same designs scored two ways, so the
+    difference between them is the choice of molecule: the isolated design, or
+    the padded construct the experiment actually measured.
+    """
     path = RESULTS / "rnet_predictions.csv"
     if not path.exists():
         return None
     data = pd.read_csv(path)
-    fig, axes = plt.subplots(1, 2, figsize=(11.0, 4.8), facecolor=SURFACE)
+    padded_path = RESULTS / "rnet_padded_check.csv"
+    padded = (
+        pd.read_csv(padded_path).drop_duplicates(subset=["design_sequence"])
+        if padded_path.exists()
+        else None
+    )
+    n_panels = 3 if padded is not None else 2
+    fig, axes = plt.subplots(1, n_panels, figsize=(5.4 * n_panels, 4.9), facecolor=SURFACE)
 
     ax = axes[0]
     style(ax)
@@ -233,40 +245,46 @@ def figure_rnet_validation() -> Path | None:
     ax.axhline(0.8, color=GRID, linewidth=1)
     ax.set_xlabel("released RNet F1", fontsize=9, color=INK_SOFT)
     ax.set_ylabel("RNet F1 recomputed here", fontsize=9, color=INK_SOFT)
-    agree = float((( data["rnet_F1"] >= 0.8) == (data["released_RNet_F1"] >= 0.8)).mean())
+    agree = float(((data["rnet_F1"] >= 0.8) == (data["released_RNet_F1"] >= 0.8)).mean())
     ax.set_title(
-        f"Secondary structure: same filter call on {100 * agree:.0f}% of designs",
-        fontsize=10.5, color=INK, loc="left", pad=10,
+        f"Secondary structure\nsame filter call on {100 * agree:.0f}% of {len(data)} designs",
+        fontsize=10, color=INK, loc="left", pad=10,
     )
 
-    ax = axes[1]
-    style(ax)
-    ax.yaxis.grid(True, color=GRID, linewidth=0.6)
-    ax.scatter(data["target_openknot_score"], data["simulated_openknot_score"],
-               s=16, color=ORANGE, alpha=0.55, linewidths=0)
-    limits = (30, 102)
-    ax.plot(limits, limits, color=INK_SOFT, linewidth=1, linestyle=(0, (4, 3)))
-    ax.axvline(90, color=GRID, linewidth=1)
-    ax.axhline(90, color=GRID, linewidth=1)
-    ax.set_xlim(*limits)
-    ax.set_ylim(*limits)
-    ax.set_xlabel("experimental OpenKnot score", fontsize=9, color=INK_SOFT)
-    ax.set_ylabel("simulated from RNet reactivity", fontsize=9, color=INK_SOFT)
-    rho = data[["simulated_openknot_score", "target_openknot_score"]].corr(
-        method="spearman"
-    ).iloc[0, 1]
-    ax.set_title(
-        f"Scoring without an experiment: Spearman {rho:.2f}",
-        fontsize=10.5, color=INK, loc="left", pad=10,
-    )
-    ax.text(0.03, 0.95, "points above the diagonal are\ndesigns RNet scores too generously",
-            transform=ax.transAxes, va="top", fontsize=7.5, color=INK_SOFT)
+    def score_panel(ax, measured, simulated, title, note):
+        style(ax)
+        ax.yaxis.grid(True, color=GRID, linewidth=0.6)
+        ax.scatter(measured, simulated, s=16, color=ORANGE, alpha=0.55, linewidths=0)
+        limits = (30, 102)
+        ax.plot(limits, limits, color=INK_SOFT, linewidth=1, linestyle=(0, (4, 3)))
+        ax.axvline(90, color=GRID, linewidth=1)
+        ax.axhline(90, color=GRID, linewidth=1)
+        ax.set_xlim(*limits)
+        ax.set_ylim(*limits)
+        ax.set_xlabel("experimental OpenKnot score", fontsize=9, color=INK_SOFT)
+        ax.set_ylabel("simulated from RNet reactivity", fontsize=9, color=INK_SOFT)
+        rho = pd.DataFrame({"a": simulated, "b": measured}).corr(method="spearman").iloc[0, 1]
+        ax.set_title(f"{title}\nSpearman {rho:.2f}", fontsize=10, color=INK, loc="left", pad=10)
+        ax.text(0.03, 0.96, note, transform=ax.transAxes, va="top", fontsize=7.5,
+                color=INK_SOFT)
+
+    if padded is None:
+        score_panel(axes[1], data["target_openknot_score"], data["simulated_openknot_score"],
+                    "Scoring without an experiment",
+                    "points above the diagonal are\ndesigns RNet scores too generously")
+    else:
+        score_panel(axes[1], padded["target_openknot_score"], padded["simulated_unpadded"],
+                    "Predicting on the design alone",
+                    f"{len(padded)} designs\nnot the molecule that was measured")
+        score_panel(axes[2], padded["target_openknot_score"], padded["simulated_padded"],
+                    "Predicting on the padded construct",
+                    "the same designs, and the same\nmolecule the experiment saw")
 
     fig.suptitle(
-        f"RibonanzaNet reproduced on {len(data)} released designs",
+        f"RibonanzaNet reproduced on released designs",
         fontsize=12.5, color=INK, x=0.01, ha="left", y=0.98,
     )
-    fig.tight_layout(rect=(0, 0, 1, 0.95))
+    fig.tight_layout(rect=(0, 0, 1, 0.94))
     out = FIGURES / "fig_rnet_validation.png"
     fig.savefig(out, dpi=200, facecolor=SURFACE)
     plt.close(fig)
@@ -317,7 +335,7 @@ def figure_grnade_designs() -> Path | None:
         0.01, 0.005,
         "Blue vs orange is like-for-like, both scored in silico: blue from 8 samples per target "
         "here, orange from the paper's search of up to a million.\nOrange vs green is the price "
-        "of the simulation: the same molecule, predicted and then measured.",
+        "of scoring the isolated design; predicting on the padded construct closes most of it.",
         fontsize=7.5, color=INK_SOFT,
     )
     fig.tight_layout(rect=(0, 0.065, 1, 1))

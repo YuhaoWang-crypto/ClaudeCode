@@ -17,6 +17,7 @@ reproduced here; the released measurements are used as ground truth.
 | Per-method, per-round success rates (the paper's Fig. 1H/1J, 2C/2F) | recomputed scores give **identical** rates to the released ones, to 0.000 pp |
 | Targets solved by AI vs by Eterna participants | matches the paper's headline **19/20 and 19/20** for Rounds 3 and 4 |
 | RibonanzaNet (RNet) inference: SHAPE reactivity and secondary structure | official checkpoints, reproduced without a Kaggle account; the paper's RNet F1 filter agrees on **100%** of designs |
+| Scoring a design in silico instead of measuring it | works when RNet is given the molecule the experiment measured: **26/40** targets above 90 against 27/40 measured |
 | gRNAde design, re-run on all 40 Round 3 and 4 targets | 320 designs on CPU; the gap to the paper's designs is a **search-budget** gap |
 | Struct2SeQ design | blocked — weights are Kaggle-only, see *Not done yet* |
 
@@ -84,33 +85,46 @@ rounds (`results/rnet_validation.csv`):
 | RNet F1 against the target vs the released `RNet_F1` | Spearman **0.982**, mean absolute difference **0.002** |
 | the paper's filter decision at RNet F1 ≥ 0.8 | **100%** agreement (306 kept by both, 93 dropped by both) |
 
-RNet must be run on the design sequence alone. The released columns are
-design-length, and predicting on the padded construct and slicing agrees
-distinctly worse.
+To reproduce the released columns RNet must be run on the design sequence alone:
+they are design-length, and predicting on the padded construct and slicing
+agrees distinctly worse. That is not the same choice as scoring a design against
+an experiment — see below.
 
 ### Scoring a design without an experiment
 
 The main text says RNet "gave simulated scores largely reproducing experimental
 scores, especially for poorly performing designs", which is what licenses
-filtering designs before spending an experiment on them. Computing the OpenKnot
-score from RNet-predicted reactivity instead of measured reactivity, on the same
-399 designs:
+filtering designs before spending an experiment on them. Testing that means
+computing the OpenKnot score from RNet-predicted reactivity instead of measured
+reactivity — and the answer turns on a detail that is easy to get wrong.
 
-- Spearman **0.56** against the experimental score (Pearson 0.49; 0.59 on the
-  designs that pass the release's signal-to-noise gate).
-- As a prospective filter at the cutoff of 90: precision **0.84**, recall
-  **0.83**, against a base rate of 0.73.
-- The error is **not** uniform, and not in the direction the sentence suggests
-  to a first reading. On designs that measured below 70, the simulated score is
-  **+17.4 points too generous** on average; between 80 and 90 the mean signed
-  error is +1.3. RNet is least reliable exactly on the designs that failed.
+**Which molecule you predict on decides the answer.** The release's own RNet
+columns are computed on the isolated design, so that is where this started. But
+the experiment measures the design *inside its flanking pads*, and those 40-90
+extra nucleotides are part of what folds. Scoring both ways on the same 150
+designs (`scripts/rnet_padded_check.py`, `figures/fig_rnet_validation.png`):
 
-The supplementary figure this refers to (Fig. S4) is not in the PDF used here,
-so this tests the main-text sentence rather than the figure. Two caveats also
-cut in the paper's favour: the experiment measures the design inside its
-flanking pads while RNet here sees the design alone
-(`scripts/rnet_padded_check.py` tests whether that explains the gap), and this
-is a 399-design sample rather than the full release.
+| predicted on | Spearman vs measured | mean absolute error | bias on designs that measured < 70 |
+|---|---|---|---|
+| the design alone | 0.51 | 7.5 | **+21.8** |
+| the padded construct — what was measured | **0.74** | **5.6** | +12.5 |
+
+On the paper's own submitted gRNAde designs the same correction lands the
+simulation almost exactly on the measurement: above 90 on **26/40** targets
+predicted on the padded construct against **27/40** measured (means 91.3 and
+92.0), where predicting on the design alone claims 35/40.
+
+So the honest summary is narrower than "RNet flatters designs". Given the
+molecule the experiment actually saw, the simulated score tracks the measurement
+well — Spearman 0.74, and it calls the 90-point cutoff about as often as the
+experiment does. It remains optimistic at the bottom of the range: on designs
+that measured below 70 it is still +12.5 points too generous, so a filter built
+on it will let through failures it should catch. As a prospective filter at the
+cutoff of 90 it reaches precision 0.88 and recall 0.89.
+
+The supplementary figure the claim refers to (Fig. S4) is not in the PDF used
+here, so this tests the main-text sentence rather than the figure, on a
+150-design sample from Rounds 1-3.
 
 Either way the practical consequence stands: an in-silico score can rank and
 pre-filter designs, but it cannot stand in for the measurement — which is what
@@ -130,24 +144,22 @@ paper's *measured* scores would confound two different things. The comparison in
 `scripts/compare_designs.py` separates them by scoring the paper's own submitted
 gRNAde design the same in-silico way (`figures/fig_grnade_designs.png`):
 
-|  | mean simulated score | above 90 |
+|  | mean score | above 90 |
 |---|---|---|
-| best of 8 samples per target, here | 89.4 | 21/40 targets |
-| the paper's submitted design, simulated | 93.6 | 35/40 targets |
-| the paper's submitted design, **measured** | — | **27/40 targets** |
+| best of 8 samples per target, here — simulated on the design | 89.4 | 21/40 targets |
+| the paper's submitted design — simulated on the design | 93.6 | 35/40 targets |
+| the paper's submitted design — simulated on the padded construct | 91.3 | 26/40 targets |
+| the paper's submitted design — **measured** | 92.0 | **27/40 targets** |
 
-Two things fall out of that table.
+The first two rows are the like-for-like pair, and **the gap between them is a
+search-budget gap**. Same model, same targets, same scorer, both scored on the
+isolated design: 4.2 points separate 8 samples from a search of up to a million.
+Our best beat theirs on 5 of 40 targets, about what a tiny sample should manage
+against a large one.
 
-**The gap to the paper's designs is a search-budget gap.** Same model, same
-targets, same scorer: 4.2 points of simulated score separate 8 samples from a
-search of up to a million. Our best beat theirs on 5 of 40 targets, which is
-about what a tiny sample should manage against a large one.
-
-**The simulation is optimistic, and by a measurable amount.** For the very same
-molecules, the in-silico score clears 90 on 35 targets while the experiment
-clears it on 27. That is the same bias the RNet section quantifies, seen from the
-design side: a design pipeline scored only by RNet will believe it has succeeded
-about a third more often than the experiment agrees.
+The last two rows are the point of the padded correction: for the paper's
+molecules, scoring what the experiment actually measured puts the simulation
+within one target of the measurement.
 
 ## Getting the OpenKnot score right
 
