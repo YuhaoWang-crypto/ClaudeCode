@@ -136,13 +136,16 @@ def conjugation_chemistry():
         print(f"\n  {label} ({pid}): {len(seq)} aa")
         print(f"    cysteines : {len(cys)} {cys if cys else '(none)'}")
         print(f"    lysines   : {seq.count('K')}")
-    print("\n  Read-out: MBP is CYSTEINE-FREE. Introduce one cysteine anywhere and")
-    print("  maleimide-MB labels it, site-specifically, at 1:1 stoichiometry, with")
-    print("  nothing to compete. The LucCage-family construct carries two native")
-    print("  cysteines inside the grafted binder, so it needs them mutated out")
-    print("  first, and any mislabelling puts a reporter somewhere that does not")
-    print("  move. On conjugation chemistry alone the clamshell is the easier")
-    print("  starting point.")
+    print("\n  CORRECTION to an earlier version of this analysis: BOTH scaffolds")
+    print("  are cysteine-free. MBP has none, and the lucCage and lucKey")
+    print("  sequences in Quijano-Rubio 2021 Table S6 also contain none. The two")
+    print("  cysteines seen in 7CBC at positions 275 and 301 belong to the")
+    print("  GRAFTED HA binder HB1.9549.2, not to the cage or latch.")
+    print("\n  So conjugation chemistry does NOT favour one scaffold over the")
+    print("  other. Both accept a single engineered cysteine with nothing to")
+    print("  compete. What matters instead is whether the binder Monod Bio")
+    print("  supplies carries cysteines of its own; if it does, they have to be")
+    print("  mutated out or the label lands somewhere that never moves.")
 
 
 def discriminate_signal_loss():

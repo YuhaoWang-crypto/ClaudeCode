@@ -93,16 +93,39 @@ def check_pdb_ids():
   nothing to do with LOCKR. The near-miss 6SOA (letter O) is BamABCDE in a
   nanodisc, also unrelated.
 
-  The LOCKR-family entries that do exist:
-    7CBC   sCageHA_267-1S, the shortened crystallisation construct from the
-           lucCage paper (Quijano-Rubio 2021), 2.0 A, 319 residues. This is
-           the structure to build the lucCage option on.
-    7JH5   Co-LOCKR, the colocalisation-dependent variant, 2.1 A.
+  There are exactly TWO LOCKR-family entries in the whole PDB:
+    7CBC   sCageHA267_1S, a switch cage holding an HA binder, 1.99 A, from
+           Quijano-Rubio 2021. Note this is NOT lucCage: different cage
+           sequence, no NanoLuc or SmBiT. It is still the structure to model
+           on, because it is the only caged-latch coordinate set available.
+    7JH5   Co-LOCKR, the colocalisation-dependent variant, 2.10 A, from
+           Lajoie et al. Science 2020.
 
-  Residue numbering matters here. In full lucCage (359 aa) the CAGE is
-  residues 1-300 and the LATCH is residues 301-359. So positions 112 and 115
-  named in the specification fall inside the cage, not the latch. In 7CBC the
-  latch is helix H6, residues 244-269. Section 3 gives the correct positions.
+  Two further corrections worth having:
+    - Langan et al. Nature 2019, the original LOCKR paper, deposited NO
+      structures at all. It was characterised by circular dichroism, SAXS,
+      biolayer interferometry and SEC-MALS. Any PDB ID attributed to it is
+      wrong.
+    - No lucCage or lucKey crystal structure exists. A lucCage model has to
+      be built on 7CBC or predicted.
+
+  Residue numbering matters here, and it is where this specification goes
+  wrong in a specific way. In full lucCage, tag stripped, the sequence is 359
+  residues: the CAGE is 1-300 and the LATCH is 301-359. Read against the
+  published Table S6 sequence, position 112 is arginine and position 115 is
+  leucine, both in the last turn of CAGE HELIX 2, immediately before the
+  GSGSGS linker at 118-123. They are solvent-facing cage positions.
+
+  That is the opposite of what the design needs. A reporter on a solvent-facing
+  cage helix is exposed in BOTH states, so latch release neither buries nor
+  reveals it and there is no signal. The specification asks for the internal
+  face of the latch, which is the right idea; the residue numbers point
+  somewhere else. In 7CBC the latch is helix H6, residues 244-269, and
+  section 3 gives the positions that actually face the cage.
+
+  Beware also of the tag: if a collaborator counts the 18-residue
+  MGSHHHHHHGSENLYFQG His-TEV tag, every number shifts by 18. Agree the
+  convention before ordering DNA.
 """)
 
 
