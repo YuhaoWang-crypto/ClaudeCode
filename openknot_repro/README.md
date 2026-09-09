@@ -17,10 +17,12 @@ reproduced here; the released measurements are used as ground truth.
 | Per-method, per-round success rates (the paper's Fig. 1H/1J, 2C/2F) | recomputed scores give **identical** rates to the released ones, to 0.000 pp |
 | Targets solved by AI vs by Eterna participants | matches the paper's headline **19/20 and 19/20** for Rounds 3 and 4 |
 | RibonanzaNet (RNet) inference: SHAPE reactivity and secondary structure | official checkpoints, reproduced without a Kaggle account; the paper's RNet F1 filter agrees on **100%** of designs |
-| gRNAde design, re-run on the Round 3 and 4 targets | runs on CPU; small sampling budget, scored in silico |
+| gRNAde design, re-run on all 40 Round 3 and 4 targets | 320 designs on CPU; the gap to the paper's designs is a **search-budget** gap |
 | Struct2SeQ design | blocked — weights are Kaggle-only, see *Not done yet* |
 
 ## Results
+
+### Scoring
 
 Run over all 36,761 released designs (`results/score_validation.csv`):
 
@@ -113,6 +115,39 @@ is a 399-design sample rather than the full release.
 Either way the practical consequence stands: an in-silico score can rank and
 pre-filter designs, but it cannot stand in for the measurement — which is what
 the paper spent 50,000 experiments to establish.
+
+## Designing with gRNAde
+
+gRNAde runs here on CPU against the paper's own target set — the Round 3 and
+Round 4 metadata and structures ship inside the gRNAde repository, under
+`projects/openknot_benchmark`. 8 samples per target (4 each at temperature 0.1
+and 0.5), in 2D mode, which conditions on the target secondary structure alone
+and is the paper's `gRNAde-no3d` variant. 320 designs across 40 targets, about
+40 minutes on four cores.
+
+Those designs can only be scored in silico, so comparing them against the
+paper's *measured* scores would confound two different things. The comparison in
+`scripts/compare_designs.py` separates them by scoring the paper's own submitted
+gRNAde design the same in-silico way (`figures/fig_grnade_designs.png`):
+
+|  | mean simulated score | above 90 |
+|---|---|---|
+| best of 8 samples per target, here | 89.4 | 21/40 targets |
+| the paper's submitted design, simulated | 93.6 | 35/40 targets |
+| the paper's submitted design, **measured** | — | **27/40 targets** |
+
+Two things fall out of that table.
+
+**The gap to the paper's designs is a search-budget gap.** Same model, same
+targets, same scorer: 4.2 points of simulated score separate 8 samples from a
+search of up to a million. Our best beat theirs on 5 of 40 targets, which is
+about what a tiny sample should manage against a large one.
+
+**The simulation is optimistic, and by a measurable amount.** For the very same
+molecules, the in-silico score clears 90 on 35 targets while the experiment
+clears it on 27. That is the same bias the RNet section quantifies, seen from the
+design side: a design pipeline scored only by RNet will believe it has succeeded
+about a third more often than the experiment agrees.
 
 ## Getting the OpenKnot score right
 

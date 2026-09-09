@@ -274,39 +274,53 @@ def figure_rnet_validation() -> Path | None:
 
 
 def figure_grnade_designs() -> Path | None:
-    """Per-target simulated scores: designs made here vs the ones the paper submitted."""
+    """Per-target scores: designs made here, the paper's design, and its measurement.
+
+    A dot plot rather than bars: every value sits between 80 and 100, and bars
+    would have to start at zero and waste the range that carries the signal.
+    """
     path = RESULTS / "design_comparison.csv"
     if not path.exists():
         return None
-    table = pd.read_csv(path).sort_values(["round", "puzzle"])
-    fig, ax = plt.subplots(figsize=(11.0, 5.2), facecolor=SURFACE)
+    table = pd.read_csv(path).sort_values(["round", "puzzle"]).reset_index(drop=True)
+    fig, ax = plt.subplots(figsize=(12.0, 5.0), facecolor=SURFACE)
     style(ax)
     ax.yaxis.grid(True, color=GRID, linewidth=0.6)
     ax.xaxis.grid(False)
     x = np.arange(len(table))
-    width = 0.4
-    ax.bar(x - width / 2, table["our_gRNAde_best_simulated"], width=width * 0.92,
-           color=BLUE, label="best of the designs made here")
-    ax.bar(x + width / 2, table["released_gRNAde_simulated"], width=width * 0.92,
-           color=ORANGE, label="the paper's submitted gRNAde design")
-    ax.scatter(x + width / 2, table["released_gRNAde_experimental"], s=22, color=INK,
-               zorder=3, label="its measured score")
+
+    ours = table["our_gRNAde_best_simulated"].to_numpy()
+    theirs = table["released_gRNAde_simulated"].to_numpy()
+    measured = table["released_gRNAde_experimental"].to_numpy()
+    ax.vlines(x, np.minimum(ours, theirs), np.maximum(ours, theirs),
+              color=GRID, linewidth=1.4, zorder=1)
+    ax.scatter(x, theirs, s=34, color=ORANGE, zorder=3, label="the paper's design, simulated")
+    ax.scatter(x, ours, s=34, color=BLUE, zorder=3, label="best design made here, simulated")
+    ax.scatter(x, measured, s=40, color=AQUA, marker="D", zorder=2,
+               label="the paper's design, measured")
     ax.axhline(90, color=INK_SOFT, linewidth=1, linestyle=(0, (4, 3)))
+
     ax.set_xticks(x)
     ax.set_xticklabels(table["puzzle"], fontsize=7.5, color=INK, rotation=90)
-    ax.set_ylim(0, 105)
+    ax.set_xlim(-0.8, len(table) - 0.2)
+    ax.set_ylim(78.5, 101)
     ax.set_ylabel("OpenKnot score", fontsize=9, color=INK_SOFT)
+    ax.text(-0.6, 90.4, "success cutoff", fontsize=7.5, color=INK_SOFT,
+            ha="left", va="bottom")
     ax.legend(frameon=False, fontsize=8.5, labelcolor=INK_SOFT, ncols=3,
               loc="lower left", bbox_to_anchor=(0.0, 1.0))
     ax.set_title(
-        "gRNAde designs, scored from RNet-predicted reactivity (bars) and measured (dots)",
+        "gRNAde designs for the Round 3 and Round 4 targets",
         fontsize=11, color=INK, loc="left", pad=30,
     )
-    fig.text(0.01, 0.005,
-             "Bars are like-for-like: both scored in silico. The designs here come from "
-             "8 samples per target; the paper's came from a search of up to a million.",
-             fontsize=7.5, color=INK_SOFT)
-    fig.tight_layout(rect=(0, 0.03, 1, 1))
+    fig.text(
+        0.01, 0.005,
+        "Blue vs orange is like-for-like, both scored in silico: blue from 8 samples per target "
+        "here, orange from the paper's search of up to a million.\nOrange vs green is the price "
+        "of the simulation: the same molecule, predicted and then measured.",
+        fontsize=7.5, color=INK_SOFT,
+    )
+    fig.tight_layout(rect=(0, 0.065, 1, 1))
     out = FIGURES / "fig_grnade_designs.png"
     fig.savefig(out, dpi=200, facecolor=SURFACE)
     plt.close(fig)
