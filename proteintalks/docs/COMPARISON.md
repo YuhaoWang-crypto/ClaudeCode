@@ -132,9 +132,11 @@ they were never designed for — informative about modality transfer, weak as
 evidence of architectural superiority.
 
 The more demanding comparison is against the drug-mean control, which beats
-every one of those three models by a wide margin and comes within 0.034 of
-ProteinTalks. Paired per cell line, ProteinTalks (non-SWA) is ahead by 0.016
-AUROC, p = 0.015 (`REPRODUCTION_STATUS.md` §6).
+every model in that table by a wide margin and comes within 0.034 of
+ProteinTalks. Paired per cell line, ProteinTalks (non-SWA) is the only model
+significantly ahead of the control, by 0.016 AUROC (p = 0.015); its SWA variant
+is not (p = 0.45), and linear regression is statistically tied with the control
+(p = 0.64). See `REPRODUCTION_STATUS.md` §6.
 
 ## 4. Context: the field's baseline problem
 
@@ -227,8 +229,8 @@ The dataset is a genuine and expensive contribution with no equivalent: 16,311
 perturbation proteomes across 18 cell lines, 63 drugs and four timepoints. The
 model is small, fully released with weights under MIT, and exactly reproducible
 — we matched the reference implementation to 1.8e-7 using the published
-checkpoint. On its own leave-one-cell-line-out task it is the only model
-benchmarked that is not significantly worse than a no-input control. Four
+checkpoint. On its own leave-one-cell-line-out task it is the only
+model benchmarked that is significantly *better* than a no-input control. Four
 predicted synergies validated in cells.
 
 **Claims that need qualification.**

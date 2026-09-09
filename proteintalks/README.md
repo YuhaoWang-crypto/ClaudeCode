@@ -25,16 +25,18 @@ its convolutions use `kernel_size=1`, so each protein's trajectory depends only
 on its own baseline and its own perturbation entry), and the ODE integrates over
 **uniform integer ticks 0,1,2,3** rather than over 0/6/24/48 hours.
 
-**A one-line predictor that uses no proteomics gets most of the way there.** On
-the paper's own openly published label matrix, predicting each drug's average
-efficacy rate across training cell lines scores AUROC 0.919 in the
-leave-one-cell-line-out setting, against ProteinTalks' 0.953 — and beats every
-baseline the paper reports, including Geneformer (0.684) and UCE (0.482).
-Paired per cell line, ProteinTalks' advantage is +0.016 AUROC (p = 0.015).
+**A one-line predictor that uses no proteomics beats every baseline the paper
+reports.** On the paper's own openly published label matrix, predicting each
+drug's average efficacy rate across training cell lines scores AUROC 0.919 in
+the leave-one-cell-line-out setting, ahead of KNN (0.805), DeepSynergy (0.806),
+GeneCompass (0.751), Geneformer (0.684) and UCE (0.482). Paired per cell line,
+ProteinTalks is the only model significantly *better* than that control, by
+0.016 AUROC (p = 0.015), and linear regression is statistically tied with it.
 
 **On unseen drugs the paper's own supplement reports no significant advantage.**
 Table S6: ProteinTalks AUROC 0.638 vs random forest 0.648 (p = 0.80) and linear
-regression 0.669.
+regression 0.669. That is the setting that matters for prospective drug
+discovery.
 
 ![Leave-one-cell-line-out AUROC for every model the paper benchmarks, against a
 drug-mean control that uses no proteomics](figures/cellline_auroc.png)

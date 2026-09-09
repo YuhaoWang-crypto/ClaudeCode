@@ -54,7 +54,7 @@ def main():
     vals = [r[1] for r in rows]
     is_pt = ["ppODE" in r[3] for r in rows]
 
-    fig, ax = plt.subplots(figsize=(9.2, 5.4), dpi=200)
+    fig, ax = plt.subplots(figsize=(9.8, 5.4), dpi=200)
     fig.patch.set_facecolor(SURFACE)
     ax.set_facecolor(SURFACE)
 
@@ -70,20 +70,23 @@ def main():
 
     # Value labels sit in a fixed column clear of the reference line, so no
     # label can collide with it regardless of bar length.
-    label_x = 1.005
+    label_x = 1.010
     for b, v, p, pt in zip(bars, vals, [r[2] for r in rows], is_pt):
-        note = ""
-        if pt:
-            note = f"  (p = {p:.3f})" if p < 0.05 else f"  (p = {p:.2f}, n.s.)"
+        # Show the paired p-value against the control for every model, so the
+        # reader can see which differences are real in both directions.
+        note = f"  (p = {p:.3f})" if p < 0.001 else (
+            f"  (p = {p:.3f})" if p < 0.05 else f"  (p = {p:.2f}, n.s.)")
+        if p < 0.001:
+            note = "  (p < 0.001)"
         ax.text(label_x, b.get_y() + b.get_height() / 2, f"{v:.3f}{note}",
                 va="center", fontsize=9, color=INK_2)
 
-    ax.set_xlim(0.40, 1.22)
+    ax.set_xlim(0.40, 1.30)
     ax.set_xticks([0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0])
     ax.set_xlabel("AUROC, leave-one-cell-line-out (15 cell lines)", fontsize=9.5, color=INK_2)
     ax.set_title(
-        "Only ProteinTalks matches a predictor that uses no proteomics at all",
-        fontsize=12.5, color=INK, pad=34, loc="left", weight="bold",
+        "A no-proteomics control beats every comparator the paper reports",
+        fontsize=12, color=INK, pad=34, loc="left", weight="bold",
     )
     ax.xaxis.grid(True, color=GRID, lw=0.8, zorder=0)
     ax.set_axisbelow(True)

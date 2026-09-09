@@ -182,15 +182,19 @@ lines present in both tables, Wilcoxon signed-rank:
 
 Reading this fairly, in both directions:
 
-- ProteinTalks is the **only** model in the paper's own benchmark that is not
-  significantly worse than a predictor with no inputs. In its non-SWA form it is
-  significantly better, by 0.016 AUROC. That is a real result and it is more
-  than most published perturbation models achieve against this kind of control.
-- The margin is 0.016, not the 0.15–0.28 implied by comparing against the
-  reported baselines. The reported baselines are weak: three transcriptomic
-  foundation models applied zero-shot, and a KNN.
-- Linear regression is statistically indistinguishable from both the control and
-  ProteinTalks.
+- **ProteinTalks (non-SWA) is the only model that is significantly better than a
+  predictor with no inputs**, by 0.016 AUROC (p = 0.015). That is a real result,
+  and it is more than most published perturbation models achieve against this
+  kind of control.
+- Two models are not significantly *worse* than the control: ProteinTalks (both
+  variants) and **linear regression** (0.941, p = 0.64). Everything else the
+  paper benchmarks is significantly worse, including all three transcriptomic
+  foundation models and DeepSynergy.
+- The margin over the control is 0.016, not the 0.15–0.28 implied by comparing
+  against the reported baselines. Those baselines are weak: three transcriptomic
+  foundation models applied zero-shot to a proteomic task, plus a KNN.
+- The SWA variant, which is the one the paper's Table S5A headline corresponds
+  to most closely, is **not** significantly better than the control (p = 0.45).
 
 ## 7. The paper's own supplement already reports the negative result for new drugs
 
