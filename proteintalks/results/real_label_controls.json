@@ -1,0 +1,119 @@
+{
+  "n_conditions": 1116,
+  "paper_reported": {
+    "setting1": {
+      "auroc": 0.96,
+      "auprc": 0.854,
+      "accuracy": 0.91,
+      "source": "main text (preprint v1 Results)"
+    },
+    "setting2": {
+      "auroc": 0.953,
+      "auprc": 0.891,
+      "accuracy": 0.902,
+      "source": "Supplementary Table S5A (mean +- SE over folds)"
+    },
+    "setting3": {
+      "auroc": 0.638,
+      "auprc": 0.573,
+      "accuracy": 0.775,
+      "source": "Supplementary Table S6A (mean +- SE over folds)"
+    }
+  },
+  "setting1": [
+    {
+      "predictor": "drug-mean",
+      "n_folds": 200,
+      "auroc": 0.9094159982888435,
+      "auroc_se": 0.0021569475570650796,
+      "auprc": 0.8174834318743794,
+      "auprc_se": 0.005131501956139495,
+      "accuracy": 0.8615625,
+      "accuracy_se": 0.0022107259518785454
+    },
+    {
+      "predictor": "cell-line-mean",
+      "n_folds": 200,
+      "auroc": 0.46311514479009874,
+      "auroc_se": 0.0038282437120542136,
+      "auprc": 0.3249752071371019,
+      "auprc_se": 0.003790368423560798,
+      "accuracy": 0.6652678571428571,
+      "accuracy_se": 0.003049243268721756
+    },
+    {
+      "predictor": "additive",
+      "n_folds": 200,
+      "auroc": 0.9069641597912778,
+      "auroc_se": 0.002109715610524386,
+      "auprc": 0.808716144009062,
+      "auprc_se": 0.0054871540047992315,
+      "accuracy": 0.8516517857142857,
+      "accuracy_se": 0.0023713142350365647
+    }
+  ],
+  "setting2": [
+    {
+      "predictor": "drug-mean",
+      "n_folds": 18,
+      "auroc": 0.9191768937308491,
+      "auroc_se": 0.025533171303283517,
+      "auprc": 0.8587633516206363,
+      "auprc_se": 0.031550299093786024,
+      "accuracy": 0.8602150537634409,
+      "accuracy_se": 0.01925266445948694
+    },
+    {
+      "predictor": "cell-line-mean",
+      "n_folds": 18,
+      "auroc": 0.5,
+      "auroc_se": 0.0,
+      "auprc": 0.33422939068100355,
+      "auprc_se": 0.0104157810568469,
+      "accuracy": 0.6657706093189963,
+      "accuracy_se": 0.010415781056846898
+    },
+    {
+      "predictor": "additive",
+      "n_folds": 18,
+      "auroc": 0.9186693802428643,
+      "auroc_se": 0.025707953771737832,
+      "auprc": 0.8583440030173718,
+      "auprc_se": 0.03226270293080813,
+      "accuracy": 0.868279569892473,
+      "accuracy_se": 0.0186356106263972
+    }
+  ],
+  "setting3": [
+    {
+      "predictor": "drug-mean",
+      "n_folds": 45,
+      "auroc": 0.5,
+      "auroc_se": 0.0,
+      "auprc": 0.43827160493827166,
+      "auprc_se": 0.05102827860171203,
+      "accuracy": 0.5617283950617283,
+      "accuracy_se": 0.05102827860171202
+    },
+    {
+      "predictor": "cell-line-mean",
+      "n_folds": 45,
+      "auroc": 0.5082374787018035,
+      "auroc_se": 0.0320504079697323,
+      "auprc": 0.5093412575027593,
+      "auprc_se": 0.04518885887941443,
+      "accuracy": 0.5617283950617283,
+      "accuracy_se": 0.05102827860171202
+    },
+    {
+      "predictor": "additive",
+      "n_folds": 45,
+      "auroc": 0.5084318556554397,
+      "auroc_se": 0.03234919571019863,
+      "auprc": 0.5117063998233145,
+      "auprc_se": 0.04535063248121225,
+      "accuracy": 0.5617283950617283,
+      "accuracy_se": 0.05102827860171202
+    }
+  ]
+}
