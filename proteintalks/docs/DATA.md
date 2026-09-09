@@ -20,10 +20,10 @@ Modelled conditions after averaging replicates: 1,529 (1,070 train / 305 val /
 
 ## The reproducibility problem
 
-That corpus is the entire contribution. It took roughly nine months of
-continuous mass-spectrometer time to generate, and it cannot be regenerated,
-approximated, or substituted. A reproduction that lacks it is not reproducing
-the result — it is reproducing the method.
+That corpus is the entire contribution. It took roughly 6,668 hours of
+mass-spectrometer time to generate, and it cannot be regenerated, approximated,
+or substituted. A reproduction that lacks it is not reproducing the result — it
+is reproducing the method.
 
 This matters more here than for a transcriptomics foundation model, where public
 corpora (CELLxGENE, Human Cell Atlas, Tahoe-100M) let an independent group
@@ -32,12 +32,38 @@ scale to fall back on.
 
 ## Where the real data lives
 
-- **Raw MS data**: ProteomeXchange via iProX, accession `IPX0007409000`.
-- **Processed datasets (PTDS)**: `db.prottalks.com`.
-- **Code**: see the availability statement of the Nature version.
+**Open, no login** (all verified retrievable):
 
-See `docs/REPRODUCTION_STATUS.md` for what was and was not retrievable during
-this reproduction attempt, with observed HTTP status codes.
+- **Code and trained weights**: `github.com/guomics-lab/PTV-1`, MIT licence.
+  `ProteinTalks/best_checkpoint.pth` is 10.1 MB and loads cleanly.
+- **Nature supplementary tables**, a single 126 MB ZIP, `41586_2026_11001_MOESM3_ESM.zip`
+  on `media.springernature.com`. Contains the 1,116-condition efficacy label
+  matrix (Table S1 `C_Efficacy`), 63 drug SMILES and targets (Table S1
+  `B_Drugs`), a 2,487 × 3,631 multi-timepoint protein matrix across 11
+  timepoints and 3 cell lines (Table S2), a 501-patient FFPE matrix with
+  survival (Table S13), 3,000 compound SMILES (Table S14), and the complete
+  per-cell-line and per-drug benchmark results (Tables S5, S6).
+
+**Gated**:
+
+- **PTDS protein matrix**, 16,311 samples × 5,583 protein groups, 325 MB, at
+  `db.prottalks.com`. Requires an application form with an institutional email
+  (the site server-side rejects consumer domains), PI name, lab URL and a stated
+  intended use, followed by reviewer approval and an emailed link.
+
+**Asserted but not retrievable**:
+
+- **Raw MS data**, ProteomeXchange via iProX `IPX0007409000`. The PROXI endpoint
+  returns all-null fields, ProteomeCentral returns zero datasets for the
+  accession, and `download.iprox.cn` returns HTTP 403.
+
+**Missing entirely**: the ordering of the 5,585 protein groups that the released
+checkpoint's first phenotype layer expects. Without it the trained weights
+cannot be applied to any new proteome. The portal also lists 5,583 protein
+groups against the checkpoint's 5,585.
+
+See `docs/REPRODUCTION_STATUS.md` §1 for the full table with observed HTTP
+status codes.
 
 ## Using the real data with this code
 
@@ -95,3 +121,23 @@ either.
 The simulator is deliberately generous to the model: the ground truth is exactly
 the model class the architecture assumes. Results on it are an upper bound on
 the architecture's advantage, not an estimate of it.
+
+### Calibration against the real label structure
+
+A simulator whose labels are driven by the wrong factor makes every downstream
+comparison meaningless. In the real label matrix, **drug identity carries almost
+all of the efficacy signal and cell-line identity carries almost none**. The
+simulator is tuned to reproduce that asymmetry, and
+`scripts/calibrate_simulator.py` measures it:
+
+| Statistic | Real (Table S1, C_Efficacy) | Simulator (defaults) |
+|---|---|---|
+| Positive rate | 0.334 | 0.318 |
+| Drug-mean AUROC | 0.909 | 0.967 |
+| Cell-line-mean AUROC | 0.463 | 0.532 |
+
+The asymmetry is reproduced. The drug-mean AUROC is higher than reality, i.e.
+the simulator's drug effects are somewhat more deterministic than real drug
+responses, which makes it an easier problem than the real one. This is left as
+measured rather than tuned further, because tuning a simulator until it matches
+a target metric is a good way to build in whatever conclusion you were after.

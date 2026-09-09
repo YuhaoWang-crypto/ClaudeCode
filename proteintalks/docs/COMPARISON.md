@@ -110,6 +110,8 @@ drug-mean control from `REPRODUCTION_STATUS.md` §5:
 | Geneformer | 0.684 | 0.453 | 0.744 |
 | UCE | 0.482 | 0.277 | 0.744 |
 
+![Leave-one-cell-line-out AUROC by model, against the drug-mean control](../figures/cellline_auroc.png)
+
 ProteinTalks beats all three transcriptomic foundation models decisively. But
 note that GeneCompass, Geneformer and UCE all report **accuracy 0.744, identical
 to three decimal places**, which is the signature of three models collapsing

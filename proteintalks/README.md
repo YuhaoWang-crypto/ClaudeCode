@@ -36,6 +36,9 @@ Paired per cell line, ProteinTalks' advantage is +0.016 AUROC (p = 0.015).
 Table S6: ProteinTalks AUROC 0.638 vs random forest 0.648 (p = 0.80) and linear
 regression 0.669.
 
+![Leave-one-cell-line-out AUROC for every model the paper benchmarks, against a
+drug-mean control that uses no proteomics](figures/cellline_auroc.png)
+
 Full detail with reproduction commands: [`docs/REPRODUCTION_STATUS.md`](docs/REPRODUCTION_STATUS.md).
 Comparison against scGPT, Geneformer, UCE, GEARS, CPA, STATE and others, with
 the 2025–26 benchmarking literature: [`docs/COMPARISON.md`](docs/COMPARISON.md).
