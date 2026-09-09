@@ -5,3 +5,15 @@
   Drug-mean (no proteome)          AUROC=0.909 AUPRC=0.892 ACC=0.929
   Cell-line-mean (no proteome)     AUROC=0.707 AUPRC=0.557 ACC=0.786
   Constant prior                   AUROC=0.500 AUPRC=0.321 ACC=0.679
+  Bootstrap (Bagging+DT)           AUROC=1.000 AUPRC=1.000 ACC=1.000
+  Random forest                    AUROC=1.000 AUPRC=1.000 ACC=1.000
+  Logistic regression              AUROC=0.946 AUPRC=0.923 ACC=0.929
+  SGD                              AUROC=0.891 AUPRC=0.767 ACC=0.866
+  KNN                              AUROC=0.879 AUPRC=0.862 ACC=0.929
+  DeepSynergy                      AUROC=0.853 AUPRC=0.829 ACC=0.866
+  ProteinTalks (neural ODE)        AUROC=0.957 [0.913,0.988] AUPRC=0.936 ACC=0.920 | traj skill vs no-change=-104.959 delta_r=0.066 | 168226 params
+  Ablation: MLP dynamics           AUROC=0.983 [0.957,0.998] AUPRC=0.973 ACC=0.938 | traj skill vs no-change=-121.978 delta_r=0.070 | 234274 params
+  Ablation: no dynamics            AUROC=0.999 [0.995,1.000] AUPRC=0.998 ACC=0.991 | traj skill vs no-change=0.000 delta_r=nan | 110338 params
+  Ablation: fixed task weights     AUROC=0.994 [0.983,1.000] AUPRC=0.988 ACC=0.929 | traj skill vs no-change=-7.390 delta_r=0.014 | 168226 params
+
+[saved] /home/user/ClaudeCode/proteintalks/results/results_ablation.json

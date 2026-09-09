@@ -223,7 +223,60 @@ ProteinTalks does not outperform a random forest on ranking metrics, and linear
 regression has a higher mean AUROC (0.669 vs 0.638). The paper reports this
 honestly in its supplement. It deserves to be read alongside the 0.960 headline.
 
-## 8. What was NOT reproduced
+## 8. Architecture ablation, on the simulator
+
+`scripts/run_experiments.py`, Setting 1, on the mechanistic simulator (1,116
+conditions, 200 proteins, 18 cell lines, 62 drugs; 781 train / 223 val / 112
+test). All four variants share the equation-faithful implementation in
+`model.py` and differ only where stated.
+
+| Variant | AUROC [95% CI] | Proteome skill vs no-change | Params |
+|---|---|---|---|
+| Drug-mean control (no proteome) | 0.909 | — | 0 |
+| ProteinTalks, neural ODE | 0.957 [0.913, 0.988] | **−105.0** | 168,226 |
+| Ablation: MLP dynamics | 0.983 [0.957, 0.998] | −122.0 | 234,274 |
+| Ablation: fixed task weights | 0.994 [0.983, 1.000] | −7.4 | 168,226 |
+| **Ablation: no dynamics at all** | **0.999 [0.995, 1.000]** | 0 by construction | 110,338 |
+| Random forest | 1.000 | — | — |
+
+Two things stand out.
+
+**Deleting the dynamics module improves classification.** Feeding the phenotype
+head the baseline proteome three times, with no learned dynamics whatsoever,
+scores 0.999 against the neural ODE's 0.957, and the intervals do not overlap.
+
+**The predicted proteome is far worse than predicting no change.** A skill score
+of −105 means the trajectory MSE is 106× the MSE of simply asserting that the
+proteome does not move. Delta-space correlation with the true change is 0.066.
+The dynamics module is not merely unhelpful here; it is actively wrong, and the
+multi-task objective then makes the phenotype head consume its output.
+
+**The adaptive weighting of Eq. 13–18 also hurts**: fixing the weights at
+(0.2, 0.8) gives 0.994 against 0.957 with adaptation on.
+
+### How much weight to put on this
+
+Not much, and here is why:
+
+1. **This is simulated data.** It says nothing about real proteomes.
+2. **The training budget is 60 epochs; the released config uses 1,000** with
+   patience 500. A skill score of −105 is the signature of a badly under-trained
+   dynamics module, not necessarily of a bad one. The honest reading is "at this
+   budget", not "in principle".
+3. **The benchmark has no headroom.** Random forest and bagging both reach AUROC
+   1.000 on a 112-condition test set, so the ceiling is saturated and small
+   differences near the top are not well resolved.
+4. **This is the equation-faithful architecture, not the released one.** The
+   released code differs in the ten ways listed in §4, and its dynamics module is
+   protein-independent, which changes what it can learn.
+
+What the ablation does establish is narrower and still useful: the claim that
+the neural-ODE component carries the model's performance is not self-evident and
+needs its own ablation on the real corpus. The paper does not report one, and
+§3's parameter census — 1.7% of parameters in the dynamics module, 90.5% in a
+single linear layer over proteins — points the same way.
+
+## 9. What was NOT reproduced
 
 - **The headline 0.960 AUROC was not re-derived from data.** That requires the
   gated 325 MB PTDS matrix. We compare against the paper's reported values.
@@ -237,7 +290,7 @@ honestly in its supplement. It deserves to be read alongside the 0.960 headline.
   sits at 0.006–0.025, but we did not establish what the corresponding
   ProteinTalks values mean without the underlying matrix.
 
-## 9. Reproducing these checks
+## 10. Reproducing these checks
 
 ```bash
 git clone https://github.com/guomics-lab/PTV-1        # code + weights

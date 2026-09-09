@@ -1,0 +1,194 @@
+{
+  "config": {
+    "n_proteins": 200,
+    "n_cell_lines": 18,
+    "n_drugs": 62,
+    "n_moa": 20,
+    "epochs": 60,
+    "ds_epochs": 40,
+    "ds_hidden": [
+      256,
+      256
+    ],
+    "lam": 0.8,
+    "seed": 0,
+    "max_holdout": 18,
+    "settings": "1",
+    "quick": false,
+    "verbose": false,
+    "tag": "ablation"
+  },
+  "setting1": [
+    {
+      "n": 112,
+      "positive_rate": 0.32142857142857145,
+      "auroc": 0.9091739766081872,
+      "auprc": 0.8921710063335679,
+      "accuracy": 0.9285714285714286,
+      "model": "Drug-mean (no proteome)",
+      "family": "trivial control"
+    },
+    {
+      "n": 112,
+      "positive_rate": 0.32142857142857145,
+      "auroc": 0.7068713450292398,
+      "auprc": 0.556506063002573,
+      "accuracy": 0.7857142857142857,
+      "model": "Cell-line-mean (no proteome)",
+      "family": "trivial control"
+    },
+    {
+      "n": 112,
+      "positive_rate": 0.32142857142857145,
+      "auroc": 0.5,
+      "auprc": 0.32142857142857145,
+      "accuracy": 0.6785714285714286,
+      "model": "Constant prior",
+      "family": "trivial control"
+    },
+    {
+      "n": 112,
+      "positive_rate": 0.32142857142857145,
+      "auroc": 1.0,
+      "auprc": 1.0,
+      "accuracy": 1.0,
+      "model": "Bootstrap (Bagging+DT)",
+      "family": "paper baseline",
+      "seconds": 16.783024311065674
+    },
+    {
+      "n": 112,
+      "positive_rate": 0.32142857142857145,
+      "auroc": 1.0,
+      "auprc": 1.0,
+      "accuracy": 1.0,
+      "model": "Random forest",
+      "family": "paper baseline",
+      "seconds": 0.6484837532043457
+    },
+    {
+      "n": 112,
+      "positive_rate": 0.32142857142857145,
+      "auroc": 0.9462719298245614,
+      "auprc": 0.9232601957110029,
+      "accuracy": 0.9285714285714286,
+      "model": "Logistic regression",
+      "family": "paper baseline",
+      "seconds": 2.156614303588867
+    },
+    {
+      "n": 112,
+      "positive_rate": 0.32142857142857145,
+      "auroc": 0.8910818713450293,
+      "auprc": 0.7668251190438164,
+      "accuracy": 0.8660714285714286,
+      "model": "SGD",
+      "family": "paper baseline",
+      "seconds": 0.4750640392303467
+    },
+    {
+      "n": 112,
+      "positive_rate": 0.32142857142857145,
+      "auroc": 0.8790204678362574,
+      "auprc": 0.8622134038800706,
+      "accuracy": 0.9285714285714286,
+      "model": "KNN",
+      "family": "paper baseline",
+      "seconds": 0.06817889213562012
+    },
+    {
+      "n": 112,
+      "positive_rate": 0.32142857142857145,
+      "auroc": 0.8534356725146199,
+      "auprc": 0.8292120920618185,
+      "accuracy": 0.8660714285714286,
+      "model": "DeepSynergy",
+      "family": "paper baseline",
+      "seconds": 5.089601755142212
+    },
+    {
+      "n": 112,
+      "positive_rate": 0.32142857142857145,
+      "auroc": 0.9565058479532164,
+      "auprc": 0.9361403201119244,
+      "accuracy": 0.9196428571428571,
+      "model": "ProteinTalks (neural ODE)",
+      "family": "ProteinTalks",
+      "seconds": 687.9912464618683,
+      "n_params": 168226,
+      "auroc_ci": [
+        0.9131531730369754,
+        0.9880955805797579
+      ],
+      "traj_mse": 0.23521076334147856,
+      "traj_rmse": 0.48498532281036977,
+      "traj_pearson_r_per_condition": 0.06478467675371642,
+      "traj_mse_nochange_baseline": 0.0022198379983979165,
+      "traj_skill_vs_nochange": -104.95852648311858,
+      "traj_delta_pearson_r": 0.06632309810683155
+    },
+    {
+      "n": 112,
+      "positive_rate": 0.32142857142857145,
+      "auroc": 0.9828216374269007,
+      "auprc": 0.9728928864999891,
+      "accuracy": 0.9375,
+      "model": "Ablation: MLP dynamics",
+      "family": "ProteinTalks",
+      "seconds": 234.25914430618286,
+      "n_params": 234274,
+      "auroc_ci": [
+        0.9571749213519399,
+        0.9983389649301855
+      ],
+      "traj_mse": 0.27299116969426795,
+      "traj_rmse": 0.5224855688861348,
+      "traj_pearson_r_per_condition": 0.07547546363952196,
+      "traj_mse_nochange_baseline": 0.0022198379983979165,
+      "traj_skill_vs_nochange": -121.9779695145722,
+      "traj_delta_pearson_r": 0.07049082253035958
+    },
+    {
+      "n": 112,
+      "positive_rate": 0.32142857142857145,
+      "auroc": 0.9989035087719298,
+      "auprc": 0.9978632478632479,
+      "accuracy": 0.9910714285714286,
+      "model": "Ablation: no dynamics",
+      "family": "ProteinTalks",
+      "seconds": 21.603827476501465,
+      "n_params": 110338,
+      "auroc_ci": [
+        0.9950138431746534,
+        1.0
+      ],
+      "traj_mse": 0.0022198379983979165,
+      "traj_rmse": 0.047115156779935656,
+      "traj_pearson_r_per_condition": 0.9094264209875162,
+      "traj_mse_nochange_baseline": 0.0022198379983979165,
+      "traj_skill_vs_nochange": 0.0,
+      "traj_delta_pearson_r": NaN
+    },
+    {
+      "n": 112,
+      "positive_rate": 0.32142857142857145,
+      "auroc": 0.9937865497076023,
+      "auprc": 0.9882791996827084,
+      "accuracy": 0.9285714285714286,
+      "model": "Ablation: fixed task weights",
+      "family": "ProteinTalks",
+      "seconds": 439.8031041622162,
+      "n_params": 168226,
+      "auroc_ci": [
+        0.9829799278385117,
+        1.0
+      ],
+      "traj_mse": 0.01862385842585362,
+      "traj_rmse": 0.1364692581714051,
+      "traj_pearson_r_per_condition": 0.8432660501186359,
+      "traj_mse_nochange_baseline": 0.0022198379983979165,
+      "traj_skill_vs_nochange": -7.389737647204292,
+      "traj_delta_pearson_r": 0.013823370747692697
+    }
+  ]
+}

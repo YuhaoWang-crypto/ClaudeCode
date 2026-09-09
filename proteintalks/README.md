@@ -33,6 +33,12 @@ GeneCompass (0.751), Geneformer (0.684) and UCE (0.482). Paired per cell line,
 ProteinTalks is the only model significantly *better* than that control, by
 0.016 AUROC (p = 0.015), and linear regression is statistically tied with it.
 
+**Removing the dynamics module entirely improves classification on our
+simulator**, and the module's proteome predictions are worse than asserting that
+nothing changes. That result is from synthetic data at a reduced training budget
+and is suggestive rather than conclusive, but the paper reports no ablation of
+its own and 98.3% of the model's parameters sit outside the dynamics module.
+
 **On unseen drugs the paper's own supplement reports no significant advantage.**
 Table S6: ProteinTalks AUROC 0.638 vs random forest 0.648 (p = 0.80) and linear
 regression 0.669. That is the setting that matters for prospective drug
