@@ -1,5 +1,12 @@
 # What the paper specifies, and what it leaves open
 
+> **Read this alongside `REPRODUCTION_STATUS.md` §4.** This file was written
+> from the paper alone, before the authors' code was located, and it records
+> what a reader can and cannot recover from the published text. The released
+> implementation (`github.com/guomics-lab/PTV-1`) answers most of the open
+> questions below — and departs from the published equations in ten places.
+> Where the two disagree, the code is what was trained and published.
+
 The ProteinTalks methods section is unusually explicit: Equations 1–18 pin down
 the layer types, dimensions, activations, dropout rate, ODE solver, loss
 functions and the multi-task weighting rule. Most re-implementations of a
@@ -75,27 +82,48 @@ literal_sign=True)` reproduces the equations as printed, for anyone who wants to
 check both. Note also that Eq. 14's clip at 1.0 is a no-op, since a cosine
 similarity is already bounded above by 1; it is implemented anyway for fidelity.
 
-## Not specified anywhere in the paper
+## Not specified anywhere in the paper — and what the code says
 
-These have no stated value and are not recoverable from the text. They are
-exposed as arguments with the defaults listed:
+None of these has a stated value in the paper. The right-hand column is what the
+released `config.py` and `model.py` actually use, which is the answer for anyone
+trying to match the published model.
 
-- optimiser and learning rate (we use Adam, 1e-3)
-- batch size (32)
-- number of training epochs and the early-stopping rule (300, patience 40 on the
-  combined validation objective)
-- weight initialisation
-- whether the perturbation channel `D` encodes drug target identity, dose, or
-  both. The results text says the second module uses "61 targets of 63 drugs",
-  which implies target identity is available to the model; Eq. 1's `D` has the
-  same dimension as `P0`, so we encode it as a per-protein target-occupancy
-  vector.
-- how the three timepoints are weighted inside Loss1 (we weight them equally)
+| Hyperparameter | Recoverable from the paper? | Released code |
+|---|---|---|
+| Optimiser | no | AdamW |
+| Learning rate | no | 5e-4 |
+| Weight decay | no | 1e-4 |
+| Batch size | no | 64 |
+| Epochs / patience | no | 1,000 / 500 |
+| LR warm-up | no | 10 epochs |
+| Gradient clipping | no | norm 1.0 |
+| Random seed | no | 1995 |
+| Hidden size | stated as 128 (Eq. 1) | **64** |
+| Dropout | stated as 0.1 (Eq. 3) | **0.0** |
+| Normalisation layers | not mentioned | LayerNorm + GroupNorm throughout |
+| Weight averaging | not mentioned | SWAG, reported separately in Table S5C |
+| Timepoint weighting in Loss1 | no | equal |
+
+One item the code does *not* settle: whether the perturbation channel `D`
+encodes drug target identity, dose, or both. The Results text mentions "61
+targets of 63 drugs", and Eq. 1 gives `D` the same dimension as `P0`, so we
+encode it as a per-protein target-occupancy vector; the released repository
+ships no `pert.csv` to check against.
 
 ## Parameter count
 
-The implementation has **168,226 parameters** at 400 proteins, and the same
-count at 5,585 proteins, because every layer is either per-protein
-weight-shared or followed by global pooling. For scale, scGPT has ~53 M
-parameters and Geneformer ~10–110 M. The paper's claim of "significantly fewer
-parameters" is architecturally sound and reproduces directly.
+The released model has **790,306 parameters** (verified against
+`best_checkpoint.pth`; see `scripts/equivalence_check.py`). For scale, scGPT has
+~50 M and UCE >650 M, so the paper's claim of far fewer parameters holds and
+reproduces directly.
+
+The distribution is the interesting part: **98.3% of those parameters are in the
+phenotype head**, and 90.5% are in the single layer `drugsens_conv1`
+(32 × 5585 × 4). The neural-ODE dynamics module is 13,089 parameters, or 1.7%.
+
+The equation-faithful implementation in `proteintalks/model.py` has 168,226
+parameters, and that count is independent of the number of proteins because
+every layer there is either per-protein weight-shared or followed by global
+pooling. The released code is *not* protein-count-independent, precisely
+because `drugsens_conv1` maps all 5,585 proteins as input channels — which is
+why that one layer dominates.
