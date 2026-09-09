@@ -87,13 +87,24 @@ developmental trajectories rather than predict perturbation responses.
 "Neural ODE × perturbation × proteome" appears to be unoccupied apart from this
 paper.
 
-**With one large caveat, established in `REPRODUCTION_STATUS.md` §4.** The
-released code integrates the ODE over `linspace(0, 3, 4)` — integer ticks — not
-over 0, 6, 24, 48 hours. The model is never told that the 24→48 h gap is four
-times the 0→6 h gap. So the continuous-time formalism is, in the shipped
-implementation, a uniform three-step recurrence solved with RK4. The temporal
-*data* is a real and rare asset; the temporal *modelling* is thinner than the
-framing suggests.
+**With two caveats.**
+
+First, established in `REPRODUCTION_STATUS.md` §4: the released code integrates
+the ODE over `linspace(0, 3, 4)` — integer ticks — not over 0, 6, 24, 48 hours.
+The model is never told that the 24→48 h gap is four times the 0→6 h gap. So the
+continuous-time formalism is, in the shipped implementation, a uniform
+three-step recurrence solved with RK4.
+
+Second, the *Nature* version's own extended-data figure caption reports that on
+its multi-timepoint dataset, **AUPRC and AUROC *decrease* as the number of
+timepoints increases**, while accuracy increases. That is a striking result for a
+model whose central claim is that time is the missing dimension, and it is worth
+weighing before treating denser temporal sampling as the obvious next step. (We
+read this from the openly available figure caption; the body text discussing it
+is paywalled, so we cannot report how the authors interpret it.)
+
+The temporal *data* is a real and rare asset. The temporal *modelling* is
+thinner than the framing suggests.
 
 ## 3. The one head-to-head comparison that exists
 

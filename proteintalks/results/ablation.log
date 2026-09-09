@@ -1,0 +1,7 @@
+[data] 1116 conditions | 500 proteins | 18 cell lines | 62 drugs | positive rate 0.334
+
+=== Setting 1: random 0.7/0.2/0.1 split over conditions ===
+[split] train=781 val=223 test=112
+  Drug-mean (no proteome)          AUROC=0.749 AUPRC=0.713 ACC=0.848
+  Cell-line-mean (no proteome)     AUROC=0.690 AUPRC=0.485 ACC=0.786
+  Constant prior                   AUROC=0.500 AUPRC=0.286 ACC=0.714

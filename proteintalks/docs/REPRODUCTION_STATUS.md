@@ -146,6 +146,14 @@ model**?
 The drug-mean predictor is one line: for a held-out condition, predict that
 drug's efficacy rate across the training cell lines.
 
+**Provenance of the ProteinTalks rows.** The Setting 2 and Setting 3 values are
+from the *published* Supplementary Tables S5A and S6A, so they are the final
+peer-reviewed numbers. The Setting 1 headline (0.960 / 0.854 / 0.910) is from
+the **preprint** Results text: the *Nature* body text is paywalled and only its
+abstract, figure captions and availability statements are readable without a
+subscription, so we could not confirm that this figure is unchanged in the
+published version. Treat the Setting 1 row as provisional.
+
 Two things follow. First, that one-line predictor **beats every baseline the
 paper benchmarks** in the leave-one-cell-line-out setting — KNN 0.805,
 GeneCompass 0.751, Geneformer 0.684, DeepSynergy 0.806, UCE 0.482 — and lands
