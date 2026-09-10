@@ -71,9 +71,25 @@ def build_msm(store, n_clusters=150, lag=10, seed=0):
     mask = np.isin(labels, keep)
     w = np.zeros(len(labels))
     w[mask] = msmlib.frame_weights(labels[mask], pi)
+    # macrostate membership of the (connected) microstates, from the frames
+    phi_all, _ = common.phi_psi(store["coords"])
+    micro_state = np.full(labels.max() + 1, -1)
+    for k in range(labels.max() + 1):
+        sel = labels == k
+        if not sel.any():
+            continue
+        c = common.which_core(phi_all[sel])
+        vals, cnt = np.unique(c, return_counts=True)
+        micro_state[k] = vals[cnt.argmax()]
+    sub_a = np.where(micro_state[keep] == 0)[0]
+    sub_b = np.where(micro_state[keep] == 1)[0]
+    lag_ps = lag * 0.2
+    mfpt_ab = msmlib.mfpt(t, pi_sub, sub_a, sub_b, lag_ps)
+    mfpt_ba = msmlib.mfpt(t, pi_sub, sub_b, sub_a, lag_ps)
     return dict(feats=feats, labels=labels, centers=centers, pi=pi,
                 weights=w, mask=mask, its=its, lags=lags, lag=lag, T=t,
-                keep=keep)
+                keep=keep, micro_state=micro_state,
+                mfpt_ab=mfpt_ab, mfpt_ba=mfpt_ba)
 
 
 def fel_from_weights(phi, psi, w, nbins=36):
@@ -164,6 +180,9 @@ def main():
         print(f"    lag={lag * 0.2:5.1f}   " +
               "  ".join(f"{t * 0.2:8.2f}" for t in ts))
 
+    print(f"[analysis] MSM mean first passage time  A->B = "
+          f"{m['mfpt_ab'] / 1000:.1f} ns,  B->A = {m['mfpt_ba'] / 1000:.1f} ns")
+
     w = m["weights"]
     fel, edges = fel_from_weights(phi, psi, w)
     ref, _ = metad_fes()
@@ -199,6 +218,8 @@ def main():
         n_traj=int(len(store["segs"])),
         n_frames=int(len(store["coords"])),
         dG_gencompas=float(dg),
+        mfpt_ab_ns=float(m["mfpt_ab"]) / 1000.0,
+        mfpt_ba_ns=float(m["mfpt_ba"]) / 1000.0,
         barrier_gencompas=bar,
         tse_n=int(tse.sum()),
         tse_phi=[float(v) for v in np.percentile(phi[tse], [10, 50, 90])]

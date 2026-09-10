@@ -239,12 +239,14 @@ def iteration(engine, store, it, cfg, rng, log, sep_store):
     ns_before = engine.ns_used()
 
     # ---- (1) train the generative model on everything sampled so far ------
-    all_x = store.all_frames(stride=cfg["diff_stride"])
-    feats = common.featurize(all_x)
-    diff = models.DiffusionModel(feats.shape[1], n_steps=cfg["ddpm_steps"],
-                                 hidden=cfg["ddpm_hidden"], seed=it)
-    diff.fit(feats, steps=cfg["ddpm_steps_train"], batch=256,
-             lr=2e-4, verbose=cfg["verbose"], seed=it)
+    diff = None
+    if cfg["generator"] == "diffusion":
+        all_x = store.all_frames(stride=cfg["diff_stride"])
+        feats = common.featurize(all_x)
+        diff = models.DiffusionModel(feats.shape[1], n_steps=cfg["ddpm_steps"],
+                                     hidden=cfg["ddpm_hidden"], seed=it)
+        diff.fit(feats, steps=cfg["ddpm_steps_train"], batch=256,
+                 lr=2e-4, verbose=cfg["verbose"], seed=it)
 
     # ---- (3a) learn the committor from the accumulated outcomes -----------
     lx, ly, lg = store.labelled_frames(stride=cfg["committor_stride"], rng=rng)
@@ -262,7 +264,14 @@ def iteration(engine, store, it, cfg, rng, log, sep_store):
     fa = common.featurize(a_frames[ia])
     fb = common.featurize(b_frames[ib])
     lambdas = np.linspace(0.15, 0.85, cfg["n_lambda"])
-    gen = diff.interpolate(fa, fb, lambdas, n_infer=cfg["ddim_steps"])
+    if diff is not None:
+        gen = diff.interpolate(fa, fb, lambdas, n_infer=cfg["ddim_steps"])
+    else:
+        # Ablation: straight-line interpolation in the same feature space,
+        # i.e. the generative model removed and nothing else changed.
+        gen = np.concatenate([(1.0 - lam) * fa + lam * fb for lam in lambdas])
+    n_physical = int(sum(mdops.target_is_physical(g.reshape(-1, 3))
+                         for g in gen))
 
     # ---- (3b) committor filter: keep targets on the separatrix ------------
     qgen = qnet.predict(gen)
@@ -320,6 +329,8 @@ def iteration(engine, store, it, cfg, rng, log, sep_store):
     rec = dict(
         iteration=it,
         n_targets=int(len(targets)),
+        n_generated=int(len(gen)),
+        frac_physical=float(n_physical / max(1, len(gen))),
         q_targets_mean=float(np.mean(q_targets)),
         n_tmd=len(tmd_products),
         tmd_rmsd_nm=float(np.mean(tmd_rmsd)) if tmd_rmsd else float("nan"),
@@ -333,7 +344,9 @@ def iteration(engine, store, it, cfg, rng, log, sep_store):
         wall_s=time.time() - t0,
     )
     log.append(rec)
-    print(f"  [iter {it}] targets={rec['n_targets']} tmd={rec['n_tmd']} "
+    print(f"  [iter {it}] gen={rec['n_generated']} "
+          f"physical={rec['frac_physical'] * 100:.0f}% "
+          f"targets={rec['n_targets']} tmd={rec['n_tmd']} "
           f"shot_pts={rec['n_shot_points']} "
           f"on-separatrix={rec['frac_separatrix'] * 100:.0f}% "
           f"<q_emp>={rec['empirical_q_mean']:.2f} "
@@ -360,6 +373,7 @@ DEFAULT_CFG = dict(
     tmd_steps=6000,
     tmd_relax=1000,
     tmd_k=20000.0,
+    generator="diffusion",
     ddpm_steps=400,
     ddpm_hidden=384,
     ddpm_steps_train=8000,
@@ -379,13 +393,16 @@ def main():
     ap.add_argument("--shots", type=int, default=DEFAULT_CFG["n_shots"])
     ap.add_argument("--rng", type=int, default=0)
     ap.add_argument("--tag", type=str, default="run")
+    ap.add_argument("--generator", choices=["diffusion", "linear"],
+                    default="diffusion",
+                    help="linear = ablation with the generative model removed")
     ap.add_argument("--verbose", action="store_true")
     args = ap.parse_args()
 
     cfg = dict(DEFAULT_CFG)
     cfg.update(n_iterations=args.iterations, seed_ns=args.seed_ns,
                n_targets=args.targets, n_shots=args.shots,
-               verbose=args.verbose)
+               generator=args.generator, verbose=args.verbose)
 
     rng = np.random.default_rng(args.rng)
     engine = mdops.Engine(threads=1, seed=args.rng + 1)
@@ -393,7 +410,8 @@ def main():
     log = []
     sep_store = []
 
-    print(f"[gen-compas] tag={args.tag} seed={args.rng}", flush=True)
+    print(f"[gen-compas] tag={args.tag} seed={args.rng} "
+          f"generator={args.generator}", flush=True)
     t_all = time.time()
     seed(engine, store, ns_per_state=cfg["seed_ns"], save_ps=cfg["save_ps"])
     print(f"  [seed] cumulative MD = {engine.ns_used():.2f} ns", flush=True)

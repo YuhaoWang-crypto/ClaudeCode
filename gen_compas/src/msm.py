@@ -94,6 +94,32 @@ def frame_weights(labels, pi):
     return w / w.sum()
 
 
+def mfpt(t, pi, source, target, lag_ps):
+    """Mean first passage time from a set of states to a target set.
+
+    Solves (I - T_rest) m = tau on the states outside the target, then
+    averages over the source set with equilibrium weights.
+    """
+    n = t.shape[0]
+    rest = np.setdiff1d(np.arange(n), target)
+    if len(rest) == 0 or len(target) == 0:
+        return float("nan")
+    a = np.eye(len(rest)) - t[np.ix_(rest, rest)]
+    try:
+        m = np.linalg.solve(a, np.full(len(rest), lag_ps))
+    except np.linalg.LinAlgError:
+        return float("nan")
+    full = np.zeros(n)
+    full[rest] = m
+    src = np.intersect1d(source, rest)
+    if len(src) == 0:
+        return float("nan")
+    w = pi[src]
+    if w.sum() <= 0:
+        return float(full[src].mean())
+    return float((full[src] * w).sum() / w.sum())
+
+
 def implied_timescales(c, lags, labels, traj_lengths, n_ts=3):
     out = []
     for lag in lags:
