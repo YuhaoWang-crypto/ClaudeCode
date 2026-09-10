@@ -68,6 +68,8 @@ the results.
 | `src/validate_committor.py` | committor test by fresh shooting |
 | `src/reference_metad.py` | reference free energy by well-tempered metadynamics |
 | `src/reference_bruteforce.py` | brute-force MD cost baseline |
+| `src/compare_generators.py` | diffusion model vs. plain linear interpolation |
+| `src/summarize.py` | collects every reported number from `results/` |
 | `src/figures.py` | figures |
 
 ## Reproducing
@@ -81,7 +83,12 @@ python3 src/reference_bruteforce.py 0 120 & # cost baseline
 python3 src/gen_compas.py --iterations 5 --seed-ns 1.0 --tag main
 python3 src/analysis.py --tag main
 python3 src/validate_committor.py --tag main
+python3 src/compare_generators.py main
 python3 src/figures.py main
+python3 src/summarize.py
 ```
+
+To run the loop with the generative model removed (straight-line
+interpolation instead), add `--generator linear`.
 
 Results, numbers and caveats are in `REPORT.md`.

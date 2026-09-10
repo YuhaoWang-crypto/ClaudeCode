@@ -7,3 +7,4 @@ results/bruteforce_*.npz
 results/*smoke*
 data/nanma_raw.pdb
 __pycache__/
+results/*lintest*

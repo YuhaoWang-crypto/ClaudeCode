@@ -83,6 +83,16 @@ def build_msm(store, n_clusters=150, lag=10, seed=0):
         micro_state[k] = vals[cnt.argmax()]
     sub_a = np.where(micro_state[keep] == 0)[0]
     sub_b = np.where(micro_state[keep] == 1)[0]
+    print(f"[analysis] Markov model: {labels.max() + 1} microstates, "
+          f"{len(keep)} in the largest connected set, "
+          f"{100 * mask.mean():.0f}% of frames retained")
+    print(f"           microstates assigned to A / B / neither: "
+          f"{int((micro_state[keep] == 0).sum())} / "
+          f"{int((micro_state[keep] == 1).sum())} / "
+          f"{int((micro_state[keep] == -1).sum())}")
+    if len(sub_a) == 0 or len(sub_b) == 0:
+        print("           WARNING: a macrostate is missing from the connected "
+              "set; free energies and passage times are not defined")
     lag_ps = lag * 0.2
     mfpt_ab = msmlib.mfpt(t, pi_sub, sub_a, sub_b, lag_ps)
     mfpt_ba = msmlib.mfpt(t, pi_sub, sub_b, sub_a, lag_ps)
@@ -120,13 +130,19 @@ def metad_fes(nbins=36):
 
 
 def state_free_energies(f, edges):
-    """Delta G between the two macrostates from a (phi, psi) landscape."""
+    """Delta G between the two macrostates from a (phi, psi) landscape.
+
+    Returns nan (not +-inf) when one of the states carries no weight, which
+    happens if the Markov model's connected set does not reach it.
+    """
     centers = 0.5 * (edges[1:] + edges[:-1])
     p = np.exp(-f / KT)
     p[~np.isfinite(p)] = 0.0
     core = common.which_core(centers)
     pa = p[core == 0].sum()
     pb = p[core == 1].sum()
+    if pa <= 0 or pb <= 0:
+        return float("nan")
     return -KT * np.log(pb / pa)
 
 
@@ -210,6 +226,24 @@ def main():
         print(f"    phi  {np.percentile(phi[tse], [10, 50, 90]).round(0)}")
         print(f"    psi  {np.percentile(psi[tse], [10, 50, 90]).round(0)}")
 
+    # ---- is sampling actually concentrating on the barrier? ---------------
+    frame_iter = np.concatenate([np.full(L, it) for L, it in
+                                 zip(store["lengths"], store["iteration"])])
+    print("\n[analysis] sampling concentrated on the barrier region")
+    print("    iteration   frames   in 0.1<q<0.9   fraction")
+    per_iter = []
+    for it in sorted(set(frame_iter.tolist())):
+        sel = frame_iter == it
+        bar = sel & (q > 0.1) & (q < 0.9)
+        per_iter.append(dict(iteration=int(it), frames=int(sel.sum()),
+                             barrier=int(bar.sum()),
+                             fraction=float(bar.sum() / max(1, sel.sum()))))
+        print(f"    {it:9d}   {sel.sum():6d}   {bar.sum():12d}   "
+              f"{100 * bar.sum() / max(1, sel.sum()):6.1f}%")
+
+    # write representative structures for inspection
+    write_representatives(store, q, phi, args.tag)
+
     # ---- committor-consistent pathways -----------------------------------
     paths = committor_paths(store, q, w, phi, psi)
 
@@ -227,6 +261,7 @@ def main():
         tse_psi=[float(v) for v in np.percentile(psi[tse], [10, 50, 90])]
         if tse.sum() else [],
         paths=paths,
+        per_iteration=per_iter,
     )
     if ref is not None:
         out.update(dG_metad=float(dgr), barrier_metad=barr, fel_rmse=rmse)
@@ -239,6 +274,33 @@ def main():
         its=m["its"], lags=np.array(m["lags"]),
     )
     print(f"[analysis] wrote results/analysis_{args.tag}.*")
+
+
+def write_representatives(store, q, phi, tag, n_each=10):
+    """Multi-model PDB of reactant, transition-state and product structures."""
+    from openmm.app import PDBFile
+    from openmm import unit as u
+
+    top, _, _, _ = common.get_system()
+    groups = {
+        "reactant": np.abs(q - 0.0) < 0.02,
+        "transition": np.abs(q - 0.5) < 0.05,
+        "product": np.abs(q - 1.0) < 0.02,
+    }
+    rng = np.random.default_rng(0)
+    for name, sel in groups.items():
+        idx = np.where(sel)[0]
+        if len(idx) == 0:
+            continue
+        idx = rng.choice(idx, min(n_each, len(idx)), replace=False)
+        path = os.path.join(common.RESULTS, f"{tag}_{name}.pdb")
+        with open(path, "w") as fh:
+            for k, i in enumerate(idx):
+                PDBFile.writeModel(top, store["coords"][i] * u.nanometer,
+                                   fh, modelIndex=k + 1)
+        print(f"    wrote {os.path.basename(path)} "
+              f"({len(idx)} structures, phi = "
+              f"{np.percentile(phi[idx], [10, 90]).round(0)})")
 
 
 def committor_paths(store, q, w, phi, psi, n_bins=16):
