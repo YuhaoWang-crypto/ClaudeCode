@@ -1,0 +1,9 @@
+logs/
+results/metad_bias/
+results/*_store.npz
+results/*_committor.pt
+results/*_separatrix.npz
+results/bruteforce_*.npz
+results/*smoke*
+data/nanma_raw.pdb
+__pycache__/
