@@ -180,9 +180,17 @@ def fig_convergence(tag):
 
     ax = axes[1]
     ax.plot(it, [100 * r["frac_separatrix"] for r in log], "o-", ms=3,
-            color="#2f855a")
+            color="#2f855a", label="on separatrix")
+    if "committor_mae" in log[0]:
+        ax2 = ax.twinx()
+        ax2.plot(it, [r["committor_mae"] for r in log], "s--", ms=3,
+                 color="#c05621", label="committor error")
+        ax2.set_ylabel(r"$|q_{\rm pred}-q_{\rm measured}|$", color="#c05621")
+        ax2.set_ylim(0, 0.55)
+        ax2.tick_params(axis="y", colors="#c05621")
     ax.set_xlabel("iteration")
-    ax.set_ylabel("% of shooting points with 0.2 < q < 0.8")
+    ax.set_ylabel("% of shooting points with 0.2 < q < 0.8", color="#2f855a")
+    ax.tick_params(axis="y", colors="#2f855a")
     ax.set_ylim(0, 100)
     ax.set_title("Hits on the separatrix")
 

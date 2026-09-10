@@ -93,14 +93,15 @@ def main():
             print(f"  total MD                       {L['total_ns']:.2f} ns")
             print(f"  wall clock (1 CPU core)        {L['wall_s'] / 60:.0f} min")
             print("  per iteration:")
-            print("    it   ns    cum ns   targets  TMD  shot pts  "
-                  "on-separatrix  <q_emp>")
+            print("    it   ns    cum ns  shot pts  on-separatrix  <q_emp>"
+                  "  |q_pred-q_meas|  t_commit/ps")
             for r_ in L["log"]:
                 print(f"    {r_['iteration']:2d}  {r_['ns_this_iteration']:5.2f}"
-                      f"  {r_['ns_cumulative']:6.2f}   {r_['n_targets']:5d}"
-                      f"  {r_['n_tmd']:4d}  {r_['n_shot_points']:7d}"
-                      f"  {100 * r_['frac_separatrix']:11.0f}%"
-                      f"  {r_['empirical_q_mean']:8.2f}")
+                      f"  {r_['ns_cumulative']:6.2f}  {r_['n_shot_points']:8d}"
+                      f"  {100 * r_['frac_separatrix']:12.0f}%"
+                      f"  {r_['empirical_q_mean']:7.2f}"
+                      f"  {r_.get('committor_mae', float('nan')):15.2f}"
+                      f"  {r_.get('commit_ps_median', float('nan')):12.1f}")
         print(f"  frames collected               {a['n_frames']}")
         print(f"  dG(B - A)                      {a['dG_gencompas']:+.2f} kcal/mol"
               + (f"   [reference {a['dG_metad']:+.2f}]" if "dG_metad" in a else ""))
