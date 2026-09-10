@@ -226,20 +226,22 @@ class CommittorNet(nn.Module):
 
 
 def train_committor(x, y, w=None, dim=None, steps=4000, lr=1e-3, batch=512,
-                    hidden=256, seed=0, verbose=False):
+                    hidden=256, n_blocks=3, weight_decay=1e-5, seed=0,
+                    verbose=False):
     """Fit q(x) = P(reach B before A | x) by weighted logistic regression on
     observed commitment outcomes.  This is the definition of the committor, so
     the fit is a Monte-Carlo estimator of it -- no CV, no biasing potential."""
     torch.manual_seed(seed)
     dim = dim or x.shape[1]
-    model = CommittorNet(dim, hidden=hidden)
+    model = CommittorNet(dim, hidden=hidden, n_blocks=n_blocks)
     model.set_scaler(x)
     xt = torch.tensor(x, dtype=torch.float32)
     yt = torch.tensor(y, dtype=torch.float32)
     wt = torch.ones(len(x)) if w is None else torch.tensor(w, dtype=torch.float32)
     per_epoch = max(1, int(np.ceil(len(xt) / batch)))
     epochs = max(50, int(np.ceil(steps / per_epoch)))
-    opt = torch.optim.AdamW(model.parameters(), lr=lr, weight_decay=1e-5)
+    opt = torch.optim.AdamW(model.parameters(), lr=lr,
+                            weight_decay=weight_decay)
     sched = torch.optim.lr_scheduler.CosineAnnealingLR(opt, epochs)
     bce = nn.BCEWithLogitsLoss(reduction="none")
     n = len(xt)

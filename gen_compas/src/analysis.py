@@ -39,40 +39,111 @@ def load_store(tag):
                 iteration=d["iteration"])
 
 
-def fit_committor(store, rng_seed=0, steps=8000):
-    """Refit the committor on the complete accumulated dataset."""
-    xs, ys = [], []
+def _jsonable(o):
+    if hasattr(o, "tolist"):
+        return o.tolist()
+    if isinstance(o, (np.integer, np.floating, np.bool_)):
+        return o.item()
+    return str(o)
+
+
+# Save intervals actually used by the sampler, in picoseconds.
+SAVE_PS = {"seed": 0.2, "shoot": 0.1}
+DT_PS = 0.2  # common time step the Markov model is built on
+
+
+def uniform_dt_frames(store):
+    """Frame indices, and per-trajectory lengths, at one common time step.
+
+    Trajectories recorded more finely than DT_PS are strided down.  Returns
+    (indices into store["coords"], lengths of each resulting trajectory).
+    """
+    idx, lengths = [], []
+    start = 0
+    for L, src in zip(store["lengths"], store["source"]):
+        name = str(src).split("_")[0]
+        dt = SAVE_PS.get(name, DT_PS)
+        stride = max(1, int(round(DT_PS / dt)))
+        sel = np.arange(start, start + L, stride)
+        if len(sel) >= 2:
+            idx.append(sel)
+            lengths.append(len(sel))
+        start += L
+    return np.concatenate(idx), np.array(lengths)
+
+
+def committor_training_set(store, rng_seed=0, core_ratio=1.0):
+    """Frames to fit the committor on.
+
+    Frames already inside a core carry no information about where the
+    separatrix is -- their committor is 0 or 1 by definition -- and there are
+    an order of magnitude more of them than transition-region frames, because
+    a shot spends most of its length in a basin after committing.  Training on
+    all of them makes the fit a hard classifier that saturates at 0 and 1 and
+    never places a separatrix at all.  So every labelled transition-region
+    frame is kept, and core frames are subsampled to a comparable number,
+    enough to impose the boundary conditions.
+    """
     rng = np.random.default_rng(rng_seed)
-    for c, lab, s in zip(store["segs"], store["lsegs"], store["source"]):
-        sel = np.arange(0, len(c), 3)
-        sel = sel[lab[sel] >= 0]
-        if len(sel) == 0:
-            continue
-        if str(s).startswith("seed") and len(sel) > 400:
-            sel = np.sort(rng.choice(sel, 400, replace=False))
-        xs.append(c[sel])
-        ys.append(lab[sel].astype(float))
-    x = common.featurize(np.concatenate(xs))
-    y = np.concatenate(ys)
+    trans_x, trans_y, core_x, core_y = [], [], [], []
+    for c, lab in zip(store["segs"], store["lsegs"]):
+        phi, _ = common.phi_psi(c)
+        in_core = common.which_core(phi) >= 0
+        ok = lab >= 0
+        t = ok & ~in_core
+        k = ok & in_core
+        if t.any():
+            trans_x.append(c[t])
+            trans_y.append(lab[t].astype(float))
+        if k.any():
+            core_x.append(c[k])
+            core_y.append(lab[k].astype(float))
+    tx = np.concatenate(trans_x) if trans_x else np.zeros((0, 22, 3), np.float32)
+    ty = np.concatenate(trans_y) if trans_y else np.zeros(0)
+    cx = np.concatenate(core_x) if core_x else np.zeros((0, 22, 3), np.float32)
+    cy = np.concatenate(core_y) if core_y else np.zeros(0)
+    n_core = int(min(len(cx), max(200, core_ratio * len(tx))))
+    if len(cx) > n_core:
+        pick = rng.choice(len(cx), n_core, replace=False)
+        cx, cy = cx[pick], cy[pick]
+    return (np.concatenate([tx, cx]), np.concatenate([ty, cy]),
+            len(tx), len(cx))
+
+
+def fit_committor(store, rng_seed=0, steps=4000):
+    """Refit the committor on the complete accumulated dataset."""
+    xr, y, n_trans, n_core = committor_training_set(store, rng_seed)
+    x = common.featurize(xr)
+    print(f"[analysis] committor training set: {n_trans} transition-region "
+          f"frames + {n_core} core frames")
     return models.train_committor(x, y, dim=x.shape[1], steps=steps,
+                                  hidden=128, n_blocks=2, weight_decay=1e-3,
                                   seed=rng_seed), len(y)
 
 
-def build_msm(store, n_clusters=150, lag=10, seed=0):
-    feats = common.featurize(store["coords"])
+def build_msm(store, n_clusters=150, lag=4, seed=0):
+    # A Markov model needs one time step.  Seed runs are saved every 0.2 ps
+    # and shots every 0.1 ps, so the shots are strided down to the common
+    # 0.2 ps before any transition is counted; mixing them would count a lag
+    # of different physical length in different trajectories.
+    idx, lengths = uniform_dt_frames(store)
+    feats = common.featurize(store["coords"][idx])
     centers, labels = msmlib.cluster(feats, n_clusters=n_clusters, seed=seed)
-    lags = [1, 2, 4, 6, 8, 10, 14, 20]
-    its = msmlib.implied_timescales(None, lags, labels, store["lengths"])
-    cm = msmlib.count_matrix(labels, store["lengths"], lag)
+    lags = [1, 2, 3, 4, 6, 8, 12, 16]
+    its = msmlib.implied_timescales(None, lags, labels, lengths)
+    cm = msmlib.count_matrix(labels, lengths, lag)
     keep = msmlib.largest_connected_set(cm)
     t, pi_sub = msmlib.reversible_mle(cm[np.ix_(keep, keep)])
     pi = np.zeros(labels.max() + 1)
     pi[keep] = pi_sub
     mask = np.isin(labels, keep)
-    w = np.zeros(len(labels))
-    w[mask] = msmlib.frame_weights(labels[mask], pi)
+    w_sub = np.zeros(len(labels))
+    w_sub[mask] = msmlib.frame_weights(labels[mask], pi)
+    # map the weights back onto the full frame list
+    w = np.zeros(len(store["coords"]))
+    w[idx] = w_sub
     # macrostate membership of the (connected) microstates, from the frames
-    phi_all, _ = common.phi_psi(store["coords"])
+    phi_all, _ = common.phi_psi(store["coords"][idx])
     micro_state = np.full(labels.max() + 1, -1)
     for k in range(labels.max() + 1):
         sel = labels == k
@@ -93,13 +164,13 @@ def build_msm(store, n_clusters=150, lag=10, seed=0):
     if len(sub_a) == 0 or len(sub_b) == 0:
         print("           WARNING: a macrostate is missing from the connected "
               "set; free energies and passage times are not defined")
-    lag_ps = lag * 0.2
+    lag_ps = lag * 0.2  # uniform frame spacing, see uniform_dt_frames
     mfpt_ab = msmlib.mfpt(t, pi_sub, sub_a, sub_b, lag_ps)
     mfpt_ba = msmlib.mfpt(t, pi_sub, sub_b, sub_a, lag_ps)
     return dict(feats=feats, labels=labels, centers=centers, pi=pi,
                 weights=w, mask=mask, its=its, lags=lags, lag=lag, T=t,
-                keep=keep, micro_state=micro_state,
-                mfpt_ab=mfpt_ab, mfpt_ba=mfpt_ba)
+                keep=keep, micro_state=micro_state, idx=idx,
+                dt_ps=0.2, mfpt_ab=mfpt_ab, mfpt_ba=mfpt_ba)
 
 
 def fel_from_weights(phi, psi, w, nbins=36):
@@ -193,7 +264,7 @@ def main():
     m = build_msm(store, n_clusters=args.clusters, lag=args.lag)
     print("[analysis] implied timescales (ps) vs lag (ps):")
     for lag, ts in zip(m["lags"], m["its"]):
-        print(f"    lag={lag * 0.2:5.1f}   " +
+        print(f"    lag={lag * 0.2:5.2f}   " +
               "  ".join(f"{t * 0.2:8.2f}" for t in ts))
 
     print(f"[analysis] MSM mean first passage time  A->B = "
@@ -266,7 +337,7 @@ def main():
     if ref is not None:
         out.update(dG_metad=float(dgr), barrier_metad=barr, fel_rmse=rmse)
     with open(os.path.join(common.RESULTS, f"analysis_{args.tag}.json"), "w") as fh:
-        json.dump(out, fh, indent=2)
+        json.dump(out, fh, indent=2, default=_jsonable)
     np.savez_compressed(
         os.path.join(common.RESULTS, f"analysis_{args.tag}.npz"),
         fel=fel, edges=edges, ref=ref if ref is not None else np.zeros(0),
