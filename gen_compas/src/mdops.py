@@ -86,6 +86,14 @@ class Engine:
     def clear_restraint(self):
         self.sim.context.setParameter("k_tmd", 0.0)
 
+    def potential_energy(self, x=None):
+        """Unrestrained potential energy in kcal/mol."""
+        if x is not None:
+            self.clear_restraint()
+            self.set_positions(x)
+        return self.sim.context.getState(getEnergy=True).getPotentialEnergy(
+        ).value_in_unit(unit.kilocalorie_per_mole)
+
     def step(self, n):
         self.sim.step(n)
         self.steps_used += n

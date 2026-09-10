@@ -318,8 +318,10 @@ def iteration(engine, store, it, cfg, rng, log, sep_store):
     shot_q = []
     shot_qpred = []
     commit_times = []
+    shot_pe = []
     sep_points = []
     for p, (x, side, k, q_pred) in enumerate(tmd_products):
+        shot_pe.append(engine.potential_energy(x))
         outs = []
         for s in range(cfg["n_shots"]):
             r = mdops.shoot(engine, x, total_ps=cfg["shoot_total_ps"],
@@ -360,6 +362,7 @@ def iteration(engine, store, it, cfg, rng, log, sep_store):
         if shot_q else float("nan"),
         commit_ps_median=float(np.median(commit_times))
         if commit_times else float("nan"),
+        shot_pe_median=float(np.median(shot_pe)) if shot_pe else float("nan"),
         frames=store.n_frames(),
         ns_this_iteration=ns_used,
         ns_cumulative=engine.ns_used(),
@@ -374,6 +377,7 @@ def iteration(engine, store, it, cfg, rng, log, sep_store):
           f"<q_emp>={rec['empirical_q_mean']:.2f} "
           f"|q_pred-q_emp|={rec['committor_mae']:.2f} "
           f"t_commit={rec['commit_ps_median']:.1f}ps "
+          f"E={rec['shot_pe_median']:.0f} "
           f"frames={rec['frames']} "
           f"ns={rec['ns_this_iteration']:.2f} (cum {rec['ns_cumulative']:.2f}) "
           f"[{rec['wall_s']:.0f}s]", flush=True)
