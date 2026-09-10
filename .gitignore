@@ -1,2 +1,5 @@
 __pycache__/
 *.pyc
+
+# Large downloaded raw data (re-fetched automatically by the modules)
+figures/_cellstate_cache/*.gz

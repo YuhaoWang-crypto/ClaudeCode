@@ -38,6 +38,36 @@ python3 -m grn_pipeline.run_all       # full pipeline + figures
 python3 -m grn_pipeline.m1_symmetry   # or any single module
 ```
 
+---
+
+# cellstate — can a six-variable cell-state space be built from open data?
+
+A second, self-contained pipeline answering a different question: if you want to
+predict cell fate after a stimulus from six latent variables (cell cycle, stress,
+metabolic reserve, DNA damage, apoptotic priming, epigenetic/lineage state), can
+that state space be constructed out of existing open databases?
+
+Same standard as above: every number is computed from a downloaded file, and each
+module degrades explicitly rather than substituting an invented value.
+
+| Module | What it does | Key result |
+|---|---|---|
+| `c1_inventory` | live GEO / BioModels / Europe PMC queries per axis | 4,293x spread across axes; apoptotic priming has **21** GEO datasets and **0** with fate labels |
+| `c2_axis_anchors` | one curated SBML per axis, fetched + integrated | 128 species / 239 parameters -> 6 variables = **21:1** compression; no curated model couples the six |
+| `c3_orthogonality` | axis correlations on 3 real human datasets, gene-set overlap controlled | effective dimension **3.00 / 6**, consistent across all three |
+| `c4_observability` | closed-form posterior, Sigma taken from C3 | omics recovers **27%** of the state; +3 functional assays -> **66%** |
+| `c5_pairing` | surrogate-design ceiling + optimal imaging panel | 3 channels lock **64%** of the state; 6 channels only 84% |
+| `c6_larry_ceiling` | LARRY split-well cross-well fate correlation (Weinreb 2020) | r = **0.77** (null 0.045) -> a clonal twin caps fate prediction at **60%** |
+| `c7_budget` | the three measured ceilings multiplied | same-cell 3-colour imaging **64%** vs clone-paired scRNA-seq **16%** |
+
+```bash
+pip install numpy scipy matplotlib libroadrunner
+python3 -m cellstate.run_all
+```
+
+Full write-up, with rigour labels and the three corrections to the original
+six-axis formulation, is in [`REPORT_CELLSTATE.md`](REPORT_CELLSTATE.md).
+
 Figures are written to `figures/`. A full write-up with numbers, rigour
 labels, and the interpretation (including the Lyapunov-exponent biomarker
 question) is in [`REPORT.md`](REPORT.md).
