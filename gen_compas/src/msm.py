@@ -35,13 +35,28 @@ def count_matrix(labels, traj_lengths, lag):
     return c
 
 
-def largest_connected_set(c):
-    """Indices of the largest strongly connected component of the count graph."""
+def largest_connected_set(c, symmetrize=True):
+    """Indices of the largest connected component of the count graph.
+
+    Connectivity is assessed on the symmetrised counts by default.  The
+    estimator that follows imposes detailed balance, so a pair of states with
+    an observed transition in one direction only is perfectly usable: it is
+    the reversible chain that is being fitted, and under a reversible chain a
+    transition one way implies a nonzero rate the other way.  Requiring
+    *strong* connectivity of the raw counts instead throws away any state
+    whose return transition simply was not observed, which here discarded a
+    whole macrostate -- the barrier is crossed rarely enough that the handful
+    of reactive shots often go only one way between a given pair of
+    microstates.
+    """
     from scipy.sparse.csgraph import connected_components
     from scipy.sparse import csr_matrix
 
-    adj = csr_matrix((c > 0).astype(int))
-    n_comp, lab = connected_components(adj, directed=True, connection="strong")
+    m = (c + c.T) if symmetrize else c
+    adj = csr_matrix((m > 0).astype(int))
+    n_comp, lab = connected_components(
+        adj, directed=not symmetrize,
+        connection="weak" if symmetrize else "strong")
     if n_comp == 1:
         return np.arange(c.shape[0])
     sizes = np.bincount(lab)

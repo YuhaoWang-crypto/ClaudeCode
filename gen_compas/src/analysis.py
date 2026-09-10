@@ -86,7 +86,8 @@ def committor_training_set(store, rng_seed=0, core_ratio=1.0):
     """
     rng = np.random.default_rng(rng_seed)
     trans_x, trans_y, core_x, core_y = [], [], [], []
-    for c, lab in zip(store["segs"], store["lsegs"]):
+    trans_g, core_g = [], []
+    for gi, (c, lab) in enumerate(zip(store["segs"], store["lsegs"])):
         phi, _ = common.phi_psi(c)
         in_core = common.which_core(phi) >= 0
         ok = lab >= 0
@@ -95,30 +96,102 @@ def committor_training_set(store, rng_seed=0, core_ratio=1.0):
         if t.any():
             trans_x.append(c[t])
             trans_y.append(lab[t].astype(float))
+            trans_g.append(np.full(int(t.sum()), gi))
         if k.any():
             core_x.append(c[k])
             core_y.append(lab[k].astype(float))
+            core_g.append(np.full(int(k.sum()), gi))
     tx = np.concatenate(trans_x) if trans_x else np.zeros((0, 22, 3), np.float32)
     ty = np.concatenate(trans_y) if trans_y else np.zeros(0)
+    tg = np.concatenate(trans_g) if trans_g else np.zeros(0, int)
     cx = np.concatenate(core_x) if core_x else np.zeros((0, 22, 3), np.float32)
     cy = np.concatenate(core_y) if core_y else np.zeros(0)
+    cg = np.concatenate(core_g) if core_g else np.zeros(0, int)
     n_core = int(min(len(cx), max(200, core_ratio * len(tx))))
     if len(cx) > n_core:
         pick = rng.choice(len(cx), n_core, replace=False)
-        cx, cy = cx[pick], cy[pick]
+        cx, cy, cg = cx[pick], cy[pick], cg[pick]
     return (np.concatenate([tx, cx]), np.concatenate([ty, cy]),
-            len(tx), len(cx))
+            len(tx), len(cx), np.concatenate([tg, cg]))
 
 
-def fit_committor(store, rng_seed=0, steps=4000):
-    """Refit the committor on the complete accumulated dataset."""
-    xr, y, n_trans, n_core = committor_training_set(store, rng_seed)
+GRID = [(128, 1e-3, 4000), (64, 1e-2, 3000), (32, 3e-2, 2000),
+        (16, 1e-1, 1500), (8, 3e-1, 800)]
+
+
+def fit_committor(store, rng_seed=0, verbose=True):
+    """Fit the committor, choosing capacity by held-out validation.
+
+    Each frame contributes one Bernoulli sample, and frames within a
+    trajectory are strongly correlated, so the effective sample size is far
+    smaller than the frame count.  An unregularised network simply memorises
+    the binary labels: its bin-averaged predictions match the observed
+    frequencies perfectly while every individual prediction is 0 or 1, so it
+    places no separatrix at all.  Capacity and weight decay are therefore
+    chosen on trajectories held out of the fit, and the winner is refitted on
+    everything.
+    """
+    xr, y, n_trans, n_core, groups = committor_training_set(store, rng_seed)
     x = common.featurize(xr)
-    print(f"[analysis] committor training set: {n_trans} transition-region "
-          f"frames + {n_core} core frames")
-    return models.train_committor(x, y, dim=x.shape[1], steps=steps,
-                                  hidden=128, n_blocks=2, weight_decay=1e-3,
-                                  seed=rng_seed), len(y)
+    if verbose:
+        print(f"[analysis] committor training set: {n_trans} transition-region "
+              f"frames + {n_core} core frames")
+
+    # Holding out whole trajectories is not enough: the three shots fired from
+    # one shooting point are different trajectories but almost the same
+    # configuration, so a memorising model transfers straight across the
+    # split and wins on held-out loss.  Whole regions of configuration space
+    # are held out instead, by clustering the frames and reserving clusters.
+    rng = np.random.default_rng(rng_seed)
+    _, cl = msmlib.cluster(x, n_clusters=min(40, max(4, len(x) // 40)),
+                           seed=rng_seed)
+    uniq = np.unique(cl)
+    val_g = set(rng.choice(uniq, max(1, len(uniq) // 5),
+                           replace=False).tolist())
+    val = np.array([c in val_g for c in cl])
+    if val.sum() < 20 or (~val).sum() < 20 or len(np.unique(y[val])) < 2:
+        val = np.zeros(len(y), bool)
+
+    best = None
+    for hidden, wd, steps in GRID:
+        if val.any():
+            m = models.train_committor(x[~val], y[~val], dim=x.shape[1],
+                                       steps=steps, hidden=hidden, n_blocks=1,
+                                       weight_decay=wd, seed=rng_seed)
+            p = np.clip(m.predict(x[val]), 1e-6, 1 - 1e-6)
+            loss = float(-(y[val] * np.log(p)
+                           + (1 - y[val]) * np.log(1 - p)).mean())
+        else:
+            loss = float("inf")
+        if verbose:
+            print(f"    hidden={hidden:4d} weight_decay={wd:<6} "
+                  f"held-out log-loss = {loss:.4f}")
+        if best is None or loss < best[0]:
+            best = (loss, hidden, wd, steps)
+
+    _, hidden, wd, steps = best
+    if verbose:
+        print(f"[analysis] committor: hidden={hidden}, weight_decay={wd}")
+    model = models.train_committor(x, y, dim=x.shape[1], steps=steps,
+                                   hidden=hidden, n_blocks=1,
+                                   weight_decay=wd, seed=rng_seed)
+    if verbose:
+        calibration_table(model, xr, y, n_trans)
+    return model, len(y)
+
+
+def calibration_table(model, xr, y, n_trans):
+    """Predicted committor against the frequency actually observed."""
+    phi, _ = common.phi_psi(xr)
+    q = model.predict(common.featurize(xr[:n_trans]))
+    print("    committor calibration in the transition region:")
+    print("      phi window      n   observed   predicted")
+    for lo, hi in [(-45, -20), (-20, -10), (-10, 0), (0, 10), (10, 20),
+                   (20, 55)]:
+        m = (phi[:n_trans] > lo) & (phi[:n_trans] < hi)
+        if m.sum():
+            print(f"      [{lo:4d},{hi:4d})  {int(m.sum()):5d}   "
+                  f"{y[:n_trans][m].mean():8.2f}   {q[m].mean():9.2f}")
 
 
 def build_msm(store, n_clusters=150, lag=4, seed=0):
