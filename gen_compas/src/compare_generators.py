@@ -40,7 +40,7 @@ def main():
     store = load_store(tag)
     rng = np.random.default_rng(0)
     phi_all, _ = common.phi_psi(store["coords"])
-    core = common.which_core(phi_all)
+    core = common.which_basin(phi_all)
     a = store["coords"][core == 0]
     b = store["coords"][core == 1]
     print(f"[compare] state A frames {len(a)}, state B frames {len(b)}")

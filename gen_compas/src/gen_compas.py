@@ -92,7 +92,7 @@ class Store:
         out = []
         for c in self.coords:
             phi, _ = common.phi_psi(c)
-            m = common.which_core(phi) == label
+            m = common.which_basin(phi) == label
             if m.any():
                 out.append(c[m])
         return np.concatenate(out) if out else np.zeros((0, 22, 3), np.float32)
@@ -147,7 +147,7 @@ def find_basin_minimum(engine, label, verbose=True):
             x = st.getPositions(asNumpy=True).value_in_unit(
                 openmm_unit.nanometer)
             ph, ps = common.phi_psi(x)
-            if int(common.which_core(np.array(ph))) != label:
+            if int(common.which_basin(np.array(ph))) != label:
                 continue
             if best is None or e < best[0]:
                 best = (e, np.array(x), float(ph), float(ps))
@@ -169,7 +169,7 @@ def make_state_structure(engine, label, warmup_ps=200.0, tries=8,
         engine.step(int(warmup_ps / 0.002))
         x = engine.positions()
         ph, ps = common.phi_psi(x)
-        if int(common.which_core(np.array(ph))) == label:
+        if int(common.which_basin(np.array(ph))) == label:
             if verbose:
                 print(f"    equilibrated {warmup_ps:.0f} ps, "
                       f"phi={ph:.0f} psi={ps:.0f}"
@@ -197,7 +197,7 @@ def seed(engine, store, ns_per_state=1.0, save_ps=0.2, verbose=True):
             frames.append(engine.positions())
         frames = np.asarray(frames, dtype=np.float32)
         ph, ps = common.phi_psi(frames)
-        core = common.which_core(ph)
+        core = common.which_basin(ph)
         frac = float(np.mean(core == label))
         if verbose:
             print(f"    {ns_per_state} ns unbiased: "

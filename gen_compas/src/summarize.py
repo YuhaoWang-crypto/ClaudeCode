@@ -16,7 +16,7 @@ def brute_force():
     for f in sorted(glob.glob(os.path.join(common.RESULTS, "bruteforce_r*.npz"))):
         d = np.load(f)
         phi = d["phi"]
-        core = common.which_core(phi)
+        core = common.which_basin(phi)
         cc = core[core >= 0]
         n_switch = int(np.sum(np.diff(cc) != 0)) if len(cc) > 1 else 0
         out.append(dict(file=os.path.basename(f), ns=len(phi) / 1000.0,
@@ -33,7 +33,7 @@ def reference():
         return None
     centers = 0.5 * (edges[1:] + edges[:-1])
     fphi = free_energy_along_phi(f, edges)
-    core = common.which_core(centers)
+    core = common.which_basin(centers)
     return dict(dG=float(state_free_energies(f, edges)),
                 barrier=barrier_height(f, edges),
                 fphi_A_min=float(np.nanmin(fphi[core == 0])),

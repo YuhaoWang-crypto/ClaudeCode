@@ -50,7 +50,7 @@ def main():
         if (i + 1) % 5000 == 0:
             np.savez_compressed(out + ".npz", phi=phis[:i + 1], psi=psis[:i + 1],
                                 coords=coords[:i // coord_stride + 1])
-            st = common.which_core(phis[:i + 1], psis[:i + 1])
+            st = common.which_basin(phis[:i + 1])
             st = st[st >= 0]
             trans = int(np.sum(np.diff(st) != 0)) if len(st) > 1 else 0
             print(f"[bf r{rep}] {(i + 1) * save_every * 0.002 / 1000:7.2f} ns  "

@@ -78,7 +78,7 @@ def build_msm(store, n_clusters=150, lag=10, seed=0):
         sel = labels == k
         if not sel.any():
             continue
-        c = common.which_core(phi_all[sel])
+        c = common.which_basin(phi_all[sel])
         vals, cnt = np.unique(c, return_counts=True)
         micro_state[k] = vals[cnt.argmax()]
     sub_a = np.where(micro_state[keep] == 0)[0]
@@ -138,7 +138,7 @@ def state_free_energies(f, edges):
     centers = 0.5 * (edges[1:] + edges[:-1])
     p = np.exp(-f / KT)
     p[~np.isfinite(p)] = 0.0
-    core = common.which_core(centers)
+    core = common.which_basin(centers)
     pa = p[core == 0].sum()
     pb = p[core == 1].sum()
     if pa <= 0 or pb <= 0:
@@ -161,7 +161,7 @@ def barrier_height(f, edges, side=0):
     energy marginalised onto phi."""
     centers = 0.5 * (edges[1:] + edges[:-1])
     fphi = free_energy_along_phi(f, edges)
-    core = common.which_core(centers)
+    core = common.which_basin(centers)
     sel = (centers > -25) & (centers < 25)
     if not np.any(np.isfinite(fphi[sel])):
         return dict(saddle=float("nan"), from_A=float("nan"),

@@ -167,7 +167,8 @@ def target_rmsd(engine, positions, target_heavy_xyz):
 
 
 def targeted_md(engine, start_positions, target_heavy_xyz, n_steps=6000,
-                k=200000.0, relax_steps=100, n_path=10):
+                k=200000.0, relax_steps=100, n_windows=60,
+                n_path=60):
     """Pull `start_positions` toward a generated heavy-atom target.
 
     `target_heavy_xyz` is a (n_heavy, 3) array produced by the diffusion model.
@@ -185,14 +186,15 @@ def targeted_md(engine, start_positions, target_heavy_xyz, n_steps=6000,
         return None
     try:
         return _targeted_md(engine, start_positions, target_heavy_xyz,
-                            n_steps, k, relax_steps, n_path)
+                            n_steps, k, relax_steps, n_windows,
+                            n_path)
     except openmm.OpenMMException:
         engine.recover()
         return None
 
 
 def _targeted_md(engine, start_positions, target_heavy_xyz, n_steps, k,
-                 relax_steps, n_path):
+                 relax_steps, n_windows, n_path):
     engine.set_positions(start_positions)
     engine.randomize_velocities()
 
@@ -202,7 +204,6 @@ def _targeted_md(engine, start_positions, target_heavy_xyz, n_steps, k,
     # Schlitter-style steering: at each window the target is best-fit onto the
     # instantaneous structure, and the restraint reference is placed a fraction
     # s of the way from the current heavy-atom positions to that fitted target.
-    n_windows = 30
     per = max(1, n_steps // n_windows)
     keep_every = max(1, n_windows // n_path)
     engine.set_k(k)

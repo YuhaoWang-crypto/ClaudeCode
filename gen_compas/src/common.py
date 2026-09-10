@@ -126,8 +126,21 @@ def phi_psi(coords):
 #
 # State B wraps across phi = 180, so the test is periodic: B is everything
 # from +25 round through 180 to -150.
-CORE_A = dict(name="C7eq / alpha_R", phi_lo=-105.0, phi_hi=-25.0)
-CORE_B = dict(name="C7ax / extended", phi_lo=25.0, phi_hi=210.0)
+# Two nested definitions are needed, and conflating them is a mistake that
+# quietly ruins the committor.
+#
+# BASIN_* are the thermodynamic macrostates: everything on one side of the
+# barriers.  They are what the free energies are integrated over.
+#
+# CORE_* are strict subsets used to decide that a trajectory has *committed*.
+# They must sit well away from the barrier: with a boundary only 25 degrees
+# from the saddle, ordinary libration carries a structure that is still
+# genuinely on the barrier across it within one saved frame, and every
+# measured committor collapses to 0 or 1.
+BASIN_A = dict(name="C7eq / alpha_R", phi_lo=-105.0, phi_hi=-25.0)
+BASIN_B = dict(name="C7ax / extended", phi_lo=25.0, phi_hi=210.0)
+CORE_A = dict(name="C7eq / alpha_R", phi_lo=-95.0, phi_hi=-45.0)
+CORE_B = dict(name="C7ax / extended", phi_lo=55.0, phi_hi=210.0)
 
 # representative structures used to start the seed runs
 START_A = (-82.0, 73.0)
@@ -143,13 +156,22 @@ def _in_range(phi, lo, hi):
     return ((phi - lo) % 360.0) < (hi - lo)
 
 
-def which_core(phi, psi=None):
-    """Return 0 for core A, 1 for core B, -1 for neither."""
+def _assign(phi, a, b):
     phi = np.asarray(phi, dtype=float)
     out = np.full(phi.shape, -1, dtype=int)
-    out = np.where(_in_range(phi, CORE_A["phi_lo"], CORE_A["phi_hi"]), 0, out)
-    out = np.where(_in_range(phi, CORE_B["phi_lo"], CORE_B["phi_hi"]), 1, out)
+    out = np.where(_in_range(phi, a["phi_lo"], a["phi_hi"]), 0, out)
+    out = np.where(_in_range(phi, b["phi_lo"], b["phi_hi"]), 1, out)
     return out
+
+
+def which_core(phi, psi=None):
+    """Strict commitment test: 0 = committed to A, 1 = to B, -1 = neither."""
+    return _assign(phi, CORE_A, CORE_B)
+
+
+def which_basin(phi, psi=None):
+    """Thermodynamic macrostate: 0 = A, 1 = B, -1 = on a barrier."""
+    return _assign(phi, BASIN_A, BASIN_B)
 
 
 # ---------------------------------------------------------------------------
