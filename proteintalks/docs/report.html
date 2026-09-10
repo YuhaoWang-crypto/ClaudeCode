@@ -1,0 +1,791 @@
+<title>ProteinTalks 复现审计</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+Condensed:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+
+<style>
+:root{
+  color-scheme: light;
+  --paper:#f5f7f4;
+  --card:#ffffff;
+  --sunk:#eef1ed;
+  --ink:#12211d;
+  --ink-2:#3d4c47;
+  --muted:#5d6b66;
+  --rule:#dbe2de;
+  --rule-strong:#c3cec8;
+  --teal:#008975;
+  --clay:#c4690a;
+  --ok:#00695a;
+  --warn:#a4610b;
+  --stop:#a33a32;
+  --ok-bg:#e2efeb;
+  --warn-bg:#f7eddf;
+  --stop-bg:#f6e6e3;
+  --bar-track:#e6ebe7;
+
+  --f-display:"IBM Plex Sans Condensed","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  --f-body:"IBM Plex Sans","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:where(:not([data-theme="light"])){
+    color-scheme: dark;
+    --paper:#111714;
+    --card:#18201d;
+    --sunk:#141b18;
+    --ink:#e7eeeb;
+    --ink-2:#bccac4;
+    --muted:#93a29c;
+    --rule:#26302c;
+    --rule-strong:#35423d;
+    --teal:#17a48d;
+    --clay:#c17c2c;
+    --ok:#3fbda6;
+    --warn:#d0913c;
+    --stop:#d97a70;
+    --ok-bg:#122b26;
+    --warn-bg:#2b2115;
+    --stop-bg:#2d1c1a;
+    --bar-track:#232c28;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme: dark;
+  --paper:#111714;
+  --card:#18201d;
+  --sunk:#141b18;
+  --ink:#e7eeeb;
+  --ink-2:#bccac4;
+  --muted:#93a29c;
+  --rule:#26302c;
+  --rule-strong:#35423d;
+  --teal:#17a48d;
+  --clay:#c17c2c;
+  --ok:#3fbda6;
+  --warn:#d0913c;
+  --stop:#d97a70;
+  --ok-bg:#122b26;
+  --warn-bg:#2b2115;
+  --stop-bg:#2d1c1a;
+  --bar-track:#232c28;
+}
+
+*{box-sizing:border-box}
+body{
+  background:var(--paper);
+  color:var(--ink);
+  font-family:var(--f-body);
+  font-size:16px;
+  line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{
+  max-width:920px;
+  margin:0 auto;
+  padding-inline:20px;
+  padding-block:0 72px;
+}
+h1,h2,h3{font-family:var(--f-display);text-wrap:balance;margin:0;line-height:1.2}
+p{margin:0}
+a{color:var(--teal)}
+
+/* ---------- masthead ---------- */
+.masthead{
+  padding-block:52px 30px;
+  border-bottom:2px solid var(--ink);
+}
+.eyebrow{
+  font-family:var(--f-mono);
+  font-size:11.5px;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:var(--muted);
+  margin-bottom:14px;
+}
+h1{font-size:clamp(34px,6vw,52px);font-weight:700;letter-spacing:-.015em}
+.standfirst{
+  margin-top:16px;
+  font-size:18px;
+  color:var(--ink-2);
+  max-width:64ch;
+}
+.byline{
+  margin-top:22px;
+  display:flex;flex-wrap:wrap;gap:8px 22px;
+  font-family:var(--f-mono);font-size:12px;color:var(--muted);
+}
+
+/* ---------- sections ---------- */
+section{padding-block:44px 0}
+.sec-head{
+  display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;
+  border-bottom:1px solid var(--rule-strong);
+  padding-bottom:10px;margin-bottom:22px;
+}
+.sec-num{
+  font-family:var(--f-mono);font-size:12px;font-weight:600;
+  color:var(--teal);letter-spacing:.08em;
+}
+h2{font-size:clamp(22px,3.4vw,29px);font-weight:600;letter-spacing:-.01em;flex:1 1 auto}
+h3{font-size:18px;font-weight:600;margin-top:26px;margin-bottom:8px}
+.prose{max-width:68ch;display:flex;flex-direction:column;gap:14px;color:var(--ink-2)}
+.prose strong{color:var(--ink);font-weight:600}
+
+/* source tag: the recurring provenance device */
+.src{
+  display:inline-flex;align-items:center;gap:7px;
+  font-family:var(--f-mono);font-size:11.5px;
+  color:var(--muted);
+  border:1px solid var(--rule);
+  border-radius:2px;
+  padding:2px 8px;
+  white-space:nowrap;
+}
+.src::before{
+  content:"";width:5px;height:5px;flex:none;
+  background:var(--teal);
+}
+.srcrow{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+
+/* ---------- callout: the question ---------- */
+.answer{
+  background:var(--card);
+  border:1px solid var(--rule);
+  border-top:3px solid var(--teal);
+  padding:24px 26px;
+  margin-top:26px;
+  display:flex;flex-direction:column;gap:14px;
+}
+.answer .q{
+  font-family:var(--f-display);font-size:20px;font-weight:600;color:var(--ink);
+}
+.answer p{color:var(--ink-2);max-width:66ch}
+
+/* ---------- tables ---------- */
+.tablewrap{overflow-x:auto;margin-top:18px;border:1px solid var(--rule);background:var(--card)}
+table{border-collapse:collapse;width:100%;min-width:520px;font-size:14.5px}
+caption{
+  caption-side:top;text-align:left;
+  font-family:var(--f-mono);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--muted);padding:12px 16px 0;
+}
+th,td{padding:10px 16px;text-align:left;border-bottom:1px solid var(--rule);vertical-align:top}
+thead th{
+  font-family:var(--f-mono);font-size:11px;letter-spacing:.09em;text-transform:uppercase;
+  color:var(--muted);font-weight:500;
+  border-bottom:1px solid var(--rule-strong);
+  white-space:nowrap;
+}
+tbody tr:last-child td{border-bottom:none}
+td.num,th.num{font-family:var(--f-mono);font-variant-numeric:tabular-nums;text-align:right;white-space:nowrap}
+td.mono{font-family:var(--f-mono);font-size:13px}
+tr.accent td{background:var(--sunk)}
+tr.accent td:first-child{font-weight:600;color:var(--ink)}
+
+/* status pills: the three availability states */
+.pill{
+  display:inline-block;font-family:var(--f-mono);font-size:11px;font-weight:500;
+  padding:2px 8px;border-radius:2px;white-space:nowrap;
+  letter-spacing:.03em;
+}
+.pill.ok{background:var(--ok-bg);color:var(--ok);border:1px solid color-mix(in srgb,var(--ok) 32%,transparent)}
+.pill.warn{background:var(--warn-bg);color:var(--warn);border:1px solid color-mix(in srgb,var(--warn) 32%,transparent)}
+.pill.stop{background:var(--stop-bg);color:var(--stop);border:1px solid color-mix(in srgb,var(--stop) 32%,transparent)}
+
+/* ---------- route cards ---------- */
+.routes{display:grid;gap:16px;margin-top:20px;grid-template-columns:repeat(auto-fit,minmax(250px,1fr))}
+.route{
+  background:var(--card);border:1px solid var(--rule);
+  padding:20px;display:flex;flex-direction:column;gap:12px;
+}
+.route .rid{font-family:var(--f-mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--teal)}
+.route h3{margin:0;font-size:17px}
+.route dl{margin:0;display:flex;flex-direction:column;gap:9px}
+.route dt{
+  font-family:var(--f-mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--muted);margin-bottom:2px;
+}
+.route dd{margin:0;font-size:14px;color:var(--ink-2)}
+.route dd.yes{color:var(--ink)}
+.route dd.no{color:var(--muted)}
+
+/* ---------- bar chart ---------- */
+.chart{margin-top:20px;border:1px solid var(--rule);background:var(--card);padding:22px 20px 16px}
+.chart-title{font-family:var(--f-display);font-size:16px;font-weight:600;margin-bottom:4px}
+.chart-sub{font-size:13px;color:var(--muted);margin-bottom:20px;max-width:62ch}
+.legend{display:flex;gap:18px;flex-wrap:wrap;margin-bottom:18px;font-size:12.5px;color:var(--ink-2)}
+.legend span{display:inline-flex;align-items:center;gap:7px}
+.swatch{width:11px;height:11px;flex:none;border-radius:1px}
+.row{display:grid;grid-template-columns:minmax(96px,150px) 1fr minmax(126px,auto);align-items:center;gap:12px;margin-bottom:7px}
+.row .lbl{font-size:13px;color:var(--ink-2);text-align:right}
+.track{background:var(--bar-track);height:17px;position:relative}
+.bar{height:100%;background:var(--clay)}
+/* The reference line is drawn inside each track, so it is positioned on the
+   same scale as the bars and cannot drift into the label columns. */
+.track::after{
+  content:"";position:absolute;left:91%;top:-4px;bottom:-4px;
+  border-left:2px dashed var(--ink);
+}
+.bar.pt{background:var(--teal)}
+.row .val{font-family:var(--f-mono);font-size:12.5px;font-variant-numeric:tabular-nums;color:var(--ink-2);white-space:nowrap}
+.axis{
+  display:flex;justify-content:space-between;
+  grid-column:2;font-family:var(--f-mono);font-size:11px;color:var(--muted);
+  border-top:1px solid var(--rule);padding-top:5px;margin-top:4px;
+}
+.axis-row{display:grid;grid-template-columns:minmax(96px,150px) 1fr minmax(120px,auto);gap:12px}
+.chart-note{font-size:11.5px;color:var(--muted);margin-top:14px;font-family:var(--f-mono);line-height:1.55}
+
+/* ---------- param strip ---------- */
+.strip{display:flex;height:42px;margin-top:18px;border:1px solid var(--rule);overflow:hidden}
+.strip div{display:flex;align-items:center;justify-content:center;font-family:var(--f-mono);font-size:11.5px;color:#fff;overflow:hidden;white-space:nowrap}
+.strip-key{display:flex;flex-wrap:wrap;gap:8px 20px;margin-top:12px;font-size:13px;color:var(--ink-2)}
+.strip-key span{display:inline-flex;align-items:center;gap:7px}
+.strip-key b{font-family:var(--f-mono);font-weight:500;color:var(--ink)}
+
+/* ---------- diff list ---------- */
+ol.diffs{margin:18px 0 0;padding:0;list-style:none;counter-reset:d;display:flex;flex-direction:column;gap:0}
+ol.diffs li{
+  counter-increment:d;
+  display:grid;grid-template-columns:34px minmax(0,1fr);gap:14px;
+  padding:13px 0;border-bottom:1px solid var(--rule);
+  font-size:14.5px;color:var(--ink-2);
+}
+ol.diffs li:last-child{border-bottom:none}
+ol.diffs li::before{
+  content:counter(d,decimal-leading-zero);
+  font-family:var(--f-mono);font-size:12px;color:var(--muted);padding-top:2px;
+}
+/* All prose sits in one wrapper: without it every inline <b> would become its
+   own grid item and the list would shred into single-word columns. */
+ol.diffs li > div{max-width:66ch}
+ol.diffs li b{color:var(--ink);font-weight:600}
+ol.diffs li.major::before{color:var(--clay)}
+
+code{font-family:var(--f-mono);font-size:.9em;background:var(--sunk);padding:1px 5px;border-radius:2px}
+
+.footnote{
+  margin-top:44px;padding-top:20px;border-top:1px solid var(--rule);
+  font-size:13px;color:var(--muted);max-width:70ch;
+  display:flex;flex-direction:column;gap:10px;
+}
+
+@media (max-width:560px){
+  .row,.axis-row{grid-template-columns:1fr;gap:3px}
+  .row .lbl{text-align:left}
+  .row .val{text-align:left}
+  .refline,.reflabel{display:none}
+  .axis{grid-column:1}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+
+<div class="wrap">
+
+<header class="masthead">
+  <div class="eyebrow">复现审计 · 独立第三方</div>
+  <h1>ProteinTalks 复现审计</h1>
+  <p class="standfirst">
+    对一个扰动蛋白质组学"虚拟细胞"模型的独立复现：架构逐张量核对、
+    用论文自己公开的标签矩阵补上它没做的对照、与现有虚拟细胞模型横向比较。
+  </p>
+  <div class="byline">
+    <span>Sun, Qian, Li et al.</span>
+    <span>Nature 2026 · 10.1038/s41586-026-11001-9</span>
+    <span>代码 guomics-lab/PTV-1 · MIT</span>
+  </div>
+</header>
+
+<!-- ============ 0. 直接回答方法论质疑 ============ -->
+<section>
+  <div class="sec-head">
+    <span class="sec-num">§00</span>
+    <h2>没有蛋白质组矩阵，验证了什么</h2>
+  </div>
+
+  <div class="answer">
+    <div class="q">完整的 PTDS 矩阵确实拿不到。但本文的三项验证没有一项需要它。</div>
+    <p>
+      这不是绕过限制，而是刻意选题：把"需要原始矩阵才能回答的问题"和"用公开产物就能回答的问题"分开，
+      只做后者，并且把每个数字的输入文件写在旁边。
+    </p>
+    <p>
+      架构核对只吃<strong>代码和权重</strong>，喂的是随机张量，比的是两份实现的输出差；
+      对照实验只吃<strong>1116 行的疗效标签表</strong>，因为对照本身的定义就是"不用蛋白质组学"；
+      配对检验只吃<strong>论文自己发表的逐细胞系结果表</strong>。三者都在公开附件里。
+    </p>
+  </div>
+
+  <div class="routes">
+    <article class="route">
+      <div class="rid">路径 A</div>
+      <h3>架构等价性</h3>
+      <dl>
+        <div><dt>输入</dt><dd class="yes">官方 <code>model.py</code> + <code>best_checkpoint.pth</code>，随机张量</dd></div>
+        <div><dt>不需要</dt><dd class="no">任何真实蛋白质组数据</dd></div>
+        <div><dt>结论</dt><dd class="yes">移植与参考实现数值等价，参数分布可点算</dd></div>
+      </dl>
+      <div class="srcrow"><span class="src">github.com/guomics-lab/PTV-1</span></div>
+    </article>
+
+    <article class="route">
+      <div class="rid">路径 B</div>
+      <h3>平凡对照</h3>
+      <dl>
+        <div><dt>输入</dt><dd class="yes">Table S1 / <code>C_Efficacy</code>，三列：细胞系、药物编号、是否有效</dd></div>
+        <div><dt>不需要</dt><dd class="no">蛋白丰度、药物结构、模型训练</dd></div>
+        <div><dt>结论</dt><dd class="yes">标签结构本身能解释多少已报告性能</dd></div>
+      </dl>
+      <div class="srcrow"><span class="src">1116 行 · 373 有效 / 743 无效</span></div>
+    </article>
+
+    <article class="route">
+      <div class="rid">路径 C</div>
+      <h3>配对显著性</h3>
+      <dl>
+        <div><dt>输入</dt><dd class="yes">Table S5C 逐细胞系结果 + 路径 B 的对照</dd></div>
+        <div><dt>不需要</dt><dd class="no">重训练模型</dd></div>
+        <div><dt>结论</dt><dd class="yes">按细胞系配对后，领先幅度与显著性</dd></div>
+      </dl>
+      <div class="srcrow"><span class="src">Wilcoxon 符号秩 · n=15</span></div>
+    </article>
+  </div>
+
+  <div class="prose" style="margin-top:24px">
+    <p>
+      代价也要说清楚。<strong>没有原始矩阵，就无法自己重训模型，也无法从数据端重新推出 0.960 这个数字。</strong>
+      路径 B 和 C 是拿我的对照去比论文<em>报告的</em>数值，因此必须接受两个前提：那些数值本身准确，
+      以及论文的逐细胞系测试集构成与标签表一致。后者论文没有公布，无法核实，已在正文标注为局限。
+    </p>
+  </div>
+</section>
+
+<!-- ============ 1. 可得性 ============ -->
+<section>
+  <div class="sec-head">
+    <span class="sec-num">§01</span>
+    <h2>什么能拿到，什么拿不到</h2>
+  </div>
+  <div class="prose">
+    <p>
+      论文见刊当天代码和训练权重就已开源，这比大多数生物基础模型的情况好。真正卡住的是两样东西：
+      完整的预训练矩阵需要人工审批，而权重期望的蛋白排序索引根本没有发布。
+    </p>
+  </div>
+
+  <div class="tablewrap">
+    <table>
+      <caption>数据资产与实测可得性（观测于 2026-09-09，Nature 版上线当天）</caption>
+      <thead>
+        <tr><th>资产</th><th>状态</th><th>细节</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>模型代码</td><td><span class="pill ok">开放</span></td><td>guomics-lab/PTV-1，MIT 许可</td></tr>
+        <tr><td>训练权重</td><td><span class="pill ok">开放</span></td><td><code>best_checkpoint.pth</code>，10.1 MB，无需登录</td></tr>
+        <tr><td>药物疗效标签</td><td><span class="pill ok">开放</span></td><td>Table S1 / C_Efficacy，1116 个条件</td></tr>
+        <tr><td>63 个药物 SMILES 与靶点</td><td><span class="pill ok">开放</span></td><td>Table S1 / B_Drugs</td></tr>
+        <tr><td>多时间点蛋白矩阵</td><td><span class="pill ok">开放</span></td><td>Table S2，2487 × 3631，11 个时间点、3 个细胞系</td></tr>
+        <tr><td>逐细胞系 / 逐药物基准结果</td><td><span class="pill ok">开放</span></td><td>Table S5、S6</td></tr>
+        <tr><td>501 例 FFPE 患者矩阵与生存</td><td><span class="pill ok">开放</span></td><td>Table S13</td></tr>
+        <tr><td>完整 PTDS 矩阵</td><td><span class="pill warn">受限</span></td><td>16311 × 5583，325 MB。需机构邮箱、PI 姓名、实验室主页、用途说明，再经人工审批，链接邮件发放</td></tr>
+        <tr><td>5585 个蛋白的排序索引</td><td><span class="pill stop">未发布</span></td><td>任何渠道均未找到。缺它则已发布权重无法作用于新的蛋白组</td></tr>
+        <tr><td>原始质谱数据 iProX IPX0007409000</td><td><span class="pill stop">不可得</span></td><td>PROXI 接口字段全空，ProteomeCentral 返回 0 条，下载域返回 403</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="prose" style="margin-top:16px">
+    <p>
+      还有一处对不上：门户标注 <strong>5583</strong> 个蛋白组，而 checkpoint 第一层的形状要求 <strong>5585</strong> 个输入通道。
+      两个数字差 2，来源不明。
+    </p>
+  </div>
+</section>
+
+<!-- ============ 2. 架构 ============ -->
+<section>
+  <div class="sec-head">
+    <span class="sec-num">§02</span>
+    <h2>架构：逐张量复现成功</h2>
+  </div>
+  <div class="prose">
+    <p>
+      把官方 <code>ppODE</code> 重新实现一遍，两份模型都载入<strong>官方发布的训练权重</strong>、喂相同输入，再比输出。
+      这是对已发表模型本身的等价性检验，不是对一个随机初始化副本的检验。
+    </p>
+  </div>
+
+  <div class="tablewrap">
+    <table>
+      <caption>等价性检验结果</caption>
+      <thead><tr><th>检验项</th><th class="num">结果</th><th>判定</th></tr></thead>
+      <tbody>
+        <tr><td>权重张量形状匹配</td><td class="num">30 / 30</td><td>全部一致，无缺失、无多余</td></tr>
+        <tr><td>蛋白组输出最大绝对差</td><td class="num">1.788 × 10⁻⁷</td><td>浮点噪声量级</td></tr>
+        <tr><td>表型输出最大绝对差</td><td class="num">5.428 × 10⁻²⁵</td><td>浮点噪声量级</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>一个不显然的坑：RK4 用的是哪张 Butcher 表</h3>
+  <div class="prose">
+    <p>
+      论文只写了 <code>rk4</code>。但 <code>torchdiffeq</code> 的 <code>method="rk4"</code> 实现的是
+      <strong>3/8 法则</strong>，而参考实现用的 <code>torchdyn</code> 是<strong>经典 RK4</strong>。
+      两者都是四阶，步长趋零时一致；可这个模型步长 <code>h = 1</code> 只走三步，差异就显出来了。
+    </p>
+  </div>
+  <div class="tablewrap">
+    <table>
+      <caption>两张 Butcher 表在该模型上的分歧</caption>
+      <thead><tr><th>量</th><th class="num">相对差</th></tr></thead>
+      <tbody>
+        <tr><td>ODE 轨迹</td><td class="num">0.19%</td></tr>
+        <tr><td>解码后的蛋白组</td><td class="num">2.6%（最大 3.6%）</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="prose" style="margin-top:14px">
+    <p>
+      也就是说，单写 <code>rk4</code> 并不足以确定这个模型。换成经典表之后残差才落到 10⁻⁷。
+    </p>
+  </div>
+</section>
+
+<!-- ============ 3. 参数 ============ -->
+<section>
+  <div class="sec-head">
+    <span class="sec-num">§03</span>
+    <h2>参数都在哪里</h2>
+  </div>
+  <div class="prose">
+    <p>
+      模型共 <strong>790,306</strong> 个参数，相对 scGPT 的约 5000 万、UCE 的 6.5 亿确实极小，
+      论文"参数量远少"的说法成立且已核实。但分布才是重点。
+    </p>
+  </div>
+
+  <div class="strip" role="img" aria-label="参数分布：drugsens_conv1 单层占 90.5%，表型头其余占 7.8%，神经 ODE 动力学模块占 1.7%">
+    <div style="width:90.5%;background:var(--clay)">drugsens_conv1 · 90.5%</div>
+    <div style="width:7.8%;background:color-mix(in srgb,var(--clay) 55%,var(--paper))"></div>
+    <div style="width:1.7%;background:var(--teal)"></div>
+  </div>
+  <div class="strip-key">
+    <span><span class="swatch" style="background:var(--clay)"></span>drugsens_conv1（32 × 5585 × 4）<b>714,880</b></span>
+    <span><span class="swatch" style="background:color-mix(in srgb,var(--clay) 55%,var(--paper))"></span>表型头其余 <b>62,017</b></span>
+    <span><span class="swatch" style="background:var(--teal)"></span>神经 ODE 动力学模块 <b>13,089</b></span>
+  </div>
+
+  <div class="prose" style="margin-top:22px">
+    <p>
+      给模型冠名的那个微分方程部分占 <strong>1.7%</strong>；<strong>90.5%</strong> 是一个把 5585 个蛋白线性映射到
+      32 维特征的单层卷积。这个比例应当影响我们如何理解"动力学基础模型"这一表述。
+    </p>
+  </div>
+  <div class="srcrow"><span class="src">scripts/equivalence_check.py</span></div>
+</section>
+
+<!-- ============ 4. 方程 vs 代码 ============ -->
+<section>
+  <div class="sec-head">
+    <span class="sec-num">§04</span>
+    <h2>论文方程与发布代码的十处不一致</h2>
+  </div>
+  <div class="prose">
+    <p>
+      逐行核对 <code>model.py</code>、<code>config.py</code>、<code>multi_task_learning.py</code> 得到。
+      前两条是实质性的，会改变模型能表示什么；其余多为未披露的实现细节。
+    </p>
+  </div>
+
+  <ol class="diffs">
+    <li class="major"><div><b>C1 / C2 的卷积核都是 1。</b>加上按蛋白独立的输入层、在通道维上作用的 ODE 场、按蛋白独立的解码层，
+      <b>模块一内部完全没有蛋白间耦合</b>：每个蛋白的轨迹只由它自己的基线值和自己的扰动项决定。
+      跨蛋白混合只出现在表型头。核为 1 在蛋白行序任意的前提下是合理选择，但这意味着模型被描述为学习的"蛋白网络动力学"，
+      在动力学模块里并不存在。</div></li>
+    <li class="major"><div><b>ODE 在 <code>linspace(0,3,4)</code> 上积分</b>，即整数刻度 0、1、2、3，而不是 0、6、24、48 小时。
+      求解器从不知道 24→48 小时的间隔是 0→6 小时的四倍。连续时间机制退化为均匀的三步递推。</div></li>
+    <li><div>C3 / C4 输出 32 通道，方程 7–8 写的是 128。</div></li>
+    <li><div><code>drugsens_conv1</code> 把蛋白当作通道、时间当作空间轴，与方程 7 的描述不同。</div></li>
+    <li><div>隐层宽度默认 64，方程 1 称 C1 升到 128。</div></li>
+    <li><div>dropout 默认 0.0，方程 3 写的是 0.1。</div></li>
+    <li><div>全程使用 LayerNorm 与 GroupNorm，论文完全未提。</div></li>
+    <li><div>ODE 第二层没有激活函数，方程 3 指定 Softplus。</div></li>
+    <li><div>实现了 SWAG 随机权重平均，Table S5C 分列 SWA 与 non-SWA，但方法部分未描述。</div></li>
+    <li><div>任务权重每步都从 <code>[1-λ, λ]</code> 重算，而非按方程 16–18 累积；且梯度在计算余弦相似度<em>之前</em>已逐张量裁剪。</div></li>
+  </ol>
+
+  <div class="prose" style="margin-top:22px">
+    <p>
+      有一处歧义在看到代码前就已标记，结果判断正确。方程 15 令 <code>adjustment_factor = 0.01 × 余弦相似度</code>，
+      而该调整仅在梯度冲突（相似度为负）时施加，代入方程 17–18 会得到与文字表述<em>相反</em>的方向。
+      官方代码用的是 <code>abs(similarity)</code>，与文字一致。本复现按文字实现，与代码吻合。
+    </p>
+  </div>
+</section>
+
+<!-- ============ 5. 对照 ============ -->
+<section>
+  <div class="sec-head">
+    <span class="sec-num">§05</span>
+    <h2>论文没有报告的那个对照</h2>
+  </div>
+  <div class="prose">
+    <p>
+      在论文自己的三种划分协议下，用论文自己公开的标签矩阵，
+      不用蛋白质组学、不用化学结构、不训练任何模型，能走多远？
+    </p>
+    <p>
+      <strong>药物均值</strong>预测器只有一行：对留出的条件，预测该药物在训练集细胞系上的有效率。
+      <strong>细胞系均值</strong>同理，按细胞系聚合。
+    </p>
+  </div>
+
+  <div class="tablewrap">
+    <table>
+      <caption>三种划分下的无蛋白组学对照，对比论文报告值</caption>
+      <thead>
+        <tr><th>划分</th><th>预测器</th><th class="num">AUROC</th><th class="num">AUPRC</th><th class="num">准确率</th></tr>
+      </thead>
+      <tbody>
+        <tr><td rowspan="3">随机划分</td><td>药物均值</td><td class="num">0.909 ± 0.002</td><td class="num">0.817</td><td class="num">0.862</td></tr>
+        <tr><td>细胞系均值</td><td class="num">0.463 ± 0.004</td><td class="num">0.325</td><td class="num">0.665</td></tr>
+        <tr class="accent"><td>ProteinTalks（论文）</td><td class="num">0.960</td><td class="num">0.854</td><td class="num">0.910</td></tr>
+
+        <tr><td rowspan="3">留一细胞系</td><td>药物均值</td><td class="num">0.919 ± 0.026</td><td class="num">0.859</td><td class="num">0.860</td></tr>
+        <tr><td>论文最强基线（KNN）</td><td class="num">0.805</td><td class="num">0.631</td><td class="num">0.817</td></tr>
+        <tr class="accent"><td>ProteinTalks（Table S5A）</td><td class="num">0.953</td><td class="num">0.891</td><td class="num">0.902</td></tr>
+
+        <tr><td rowspan="3">留一药物</td><td>细胞系均值</td><td class="num">0.508 ± 0.032</td><td class="num">0.509</td><td class="num">0.562</td></tr>
+        <tr><td>论文最强基线（线性回归）</td><td class="num">0.669</td><td class="num">0.566</td><td class="num">0.542</td></tr>
+        <tr class="accent"><td>ProteinTalks（Table S6A）</td><td class="num">0.638</td><td class="num">0.573</td><td class="num">0.775</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="prose" style="margin-top:18px">
+    <p>
+      两点结论。第一，这个一行预测器在留一细胞系设定下<strong>击败了论文基准的每一个基线</strong>，
+      并落在 ProteinTalks 0.034 AUROC 之内。第二，在留一药物设定下药物均值按定义只能得 0.5，
+      而 ProteinTalks 相对细胞系均值确实有真实增益（0.638 对 0.508）。
+    </p>
+    <p>
+      需要标注来源差异：留一细胞系和留一药物两行取自<em>已发表的</em>补充表 S5A 与 S6A；
+      随机划分那行 0.960 取自<strong>预印本</strong>正文，Nature 正文付费，无法核实该数字在见刊版是否有改动。
+    </p>
+  </div>
+  <div class="srcrow"><span class="src">scripts/real_label_controls.py</span><span class="src">n_rep = 200</span></div>
+</section>
+
+<!-- ============ 6. 配对检验 ============ -->
+<section>
+  <div class="sec-head">
+    <span class="sec-num">§06</span>
+    <h2>按细胞系配对之后</h2>
+  </div>
+  <div class="prose">
+    <p>
+      Table S5C 给出每个模型的逐细胞系结果（含 ProteinTalks 自身，记作 <code>ppODE</code>），
+      这就允许做论文没做的配对检验。取两表共有的 15 个细胞系，Wilcoxon 符号秩。
+    </p>
+  </div>
+
+  <div class="chart">
+    <div class="chart-title">留一细胞系 AUROC 对比无蛋白组学对照</div>
+    <div class="chart-sub">虚线为药物均值对照。p 值为按细胞系配对的 Wilcoxon 符号秩检验，对照为比较基准。</div>
+    <div class="legend">
+      <span><span class="swatch" style="background:var(--teal)"></span>ProteinTalks</span>
+      <span><span class="swatch" style="background:var(--clay)"></span>论文报告的对比模型</span>
+      <span><span class="swatch" style="background:transparent;border-left:2px dashed var(--ink);width:2px;height:13px"></span>药物均值对照 0.946</span>
+    </div>
+    <div class="plot">
+      <div class="row"><div class="lbl">ProteinTalks 非 SWA</div><div class="track"><div class="bar pt" style="width:93.7%"></div></div><div class="val">0.962 · p=0.015</div></div>
+      <div class="row"><div class="lbl">ProteinTalks SWA</div><div class="track"><div class="bar pt" style="width:91.8%"></div></div><div class="val">0.951 · p=0.45 n.s.</div></div>
+      <div class="row"><div class="lbl">线性回归</div><div class="track"><div class="bar" style="width:90.2%"></div></div><div class="val">0.941 · p=0.64 n.s.</div></div>
+      <div class="row"><div class="lbl">随机森林</div><div class="track"><div class="bar" style="width:86.2%"></div></div><div class="val">0.917 · p=0.004</div></div>
+      <div class="row"><div class="lbl">KNN</div><div class="track"><div class="bar" style="width:70.3%"></div></div><div class="val">0.822 · p&lt;0.001</div></div>
+      <div class="row"><div class="lbl">DeepSynergy</div><div class="track"><div class="bar" style="width:67.7%"></div></div><div class="val">0.806 · p&lt;0.001</div></div>
+      <div class="row"><div class="lbl">Bootstrap</div><div class="track"><div class="bar" style="width:59.8%"></div></div><div class="val">0.759 · p&lt;0.001</div></div>
+      <div class="row"><div class="lbl">GeneCompass</div><div class="track"><div class="bar" style="width:58.0%"></div></div><div class="val">0.748 · p&lt;0.001</div></div>
+      <div class="row"><div class="lbl">Geneformer</div><div class="track"><div class="bar" style="width:49.0%"></div></div><div class="val">0.694 · p&lt;0.001</div></div>
+      <div class="row"><div class="lbl">UCE</div><div class="track"><div class="bar" style="width:14.8%"></div></div><div class="val">0.489 · p&lt;0.001</div></div>
+
+      <div class="axis-row">
+        <div></div>
+        <div class="axis"><span>0.40</span><span>0.55</span><span>0.70</span><span>0.85</span><span>1.00</span></div>
+        <div></div>
+      </div>
+    </div>
+    <div class="chart-note">
+      模型值：Table S5C，重复运行取均值。对照：Table S1 / C_Efficacy。共有细胞系 n = 15。
+    </div>
+  </div>
+
+  <h3>怎么读这张图</h3>
+  <div class="prose">
+    <p>
+      <strong>ProteinTalks 非 SWA 版是唯一显著优于这个零输入对照的模型</strong>，
+      领先 0.016 AUROC。这是真实结果，而且以当前领域的标准看，能做到这一点的扰动模型并不多。
+    </p>
+    <p>
+      同时，不显著<em>劣于</em>对照的有两个：ProteinTalks 两个版本，以及<strong>线性回归</strong>。
+      其余全部显著更差，包括三个转录组基础模型和 DeepSynergy。
+    </p>
+    <p>
+      还要注意，与 Table S5A 头条数字对应更接近的 SWA 版本，相对对照<strong>并不显著</strong>（p = 0.45）。
+      真正的增量是 0.016，而不是与论文所选基线相比时看起来的 0.15 至 0.28。
+    </p>
+  </div>
+  <div class="srcrow"><span class="src">scripts/paired_cellline_test.py</span></div>
+</section>
+
+<!-- ============ 7. 论文自己的负结果 ============ -->
+<section>
+  <div class="sec-head">
+    <span class="sec-num">§07</span>
+    <h2>新药场景：论文补充材料已给出结论</h2>
+  </div>
+  <div class="prose">
+    <p>
+      留一药物，即面对训练集里没有的化学结构，这是决定这类模型能否用于前瞻性药物发现的场景。
+      补充表 S6B 的显著性判定原文如下。
+    </p>
+  </div>
+  <div class="tablewrap">
+    <table>
+      <caption>Table S6B 摘录：留一药物设定下的显著性</caption>
+      <thead><tr><th>比较</th><th>指标</th><th class="num">p</th><th>判定</th></tr></thead>
+      <tbody>
+        <tr><td>ProteinTalks vs 随机森林</td><td>AUPRC</td><td class="num">0.626</td><td><span class="pill warn">不显著</span></td></tr>
+        <tr><td>ProteinTalks vs 随机森林</td><td>AUROC</td><td class="num">0.798</td><td><span class="pill warn">不显著</span></td></tr>
+        <tr><td>ProteinTalks vs 随机森林</td><td>准确率</td><td class="num">0.015</td><td><span class="pill ok">显著</span></td></tr>
+        <tr><td>ProteinTalks vs Bootstrap</td><td>AUPRC</td><td class="num">0.918</td><td><span class="pill warn">不显著</span></td></tr>
+        <tr><td>ProteinTalks vs Bootstrap</td><td>AUROC</td><td class="num">0.328</td><td><span class="pill warn">不显著</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="prose" style="margin-top:16px">
+    <p>
+      排序类指标上不优于随机森林，线性回归的平均 AUROC 反而更高（0.669 对 0.638）。
+      论文在补充材料里如实报告了这一点，它值得与 0.960 的头条数字并列阅读。
+      唯一显著的准确率指标依赖阈值，而类别本身不平衡。
+    </p>
+  </div>
+</section>
+
+<!-- ============ 8. 横向比较 ============ -->
+<section>
+  <div class="sec-head">
+    <span class="sec-num">§08</span>
+    <h2>与现有虚拟细胞模型的位置</h2>
+  </div>
+  <div class="prose">
+    <p>
+      "它是否独特"和"它是否更好"是两个问题，答案不同。前者：明确独特。后者：基本无法回答，
+      因为它与被比较的模型之间不存在共享的留出基准，指标族也不同。
+    </p>
+  </div>
+
+  <div class="tablewrap">
+    <table>
+      <caption>模态、语料、参数量与是否显式建模时间</caption>
+      <thead>
+        <tr><th>模型</th><th>模态</th><th>预训练语料</th><th class="num">参数量</th><th>建模时间</th></tr>
+      </thead>
+      <tbody>
+        <tr class="accent"><td>ProteinTalks</td><td>批量 DIA-MS 蛋白组</td><td>16,311 个蛋白组</td><td class="num">790,306</td><td>是，显式</td></tr>
+        <tr><td>scGPT</td><td>单细胞转录组</td><td>3300 万细胞</td><td class="num">约 5000 万</td><td>否</td></tr>
+        <tr><td>Geneformer</td><td>单细胞转录组</td><td>2990 万细胞</td><td class="num">1000 万 – 3.16 亿</td><td>否</td></tr>
+        <tr><td>scFoundation</td><td>单细胞转录组</td><td>5000 万以上细胞</td><td class="num">1 亿</td><td>否</td></tr>
+        <tr><td>UCE</td><td>单细胞转录组，8 物种</td><td>3600 万细胞</td><td class="num">6.5 亿以上</td><td>否</td></tr>
+        <tr><td>STATE（Arc）</td><td>单细胞转录组</td><td>1.67 亿观测 + 1 亿扰动细胞</td><td class="num">SE 6 亿</td><td>否</td></tr>
+        <tr><td>GEARS</td><td>单细胞转录组</td><td>—</td><td class="num">—</td><td>否</td></tr>
+        <tr><td>CPA / chemCPA</td><td>单细胞转录组</td><td>—</td><td class="num">—</td><td>仅剂量</td></tr>
+        <tr><td>CellOT</td><td>转录组 + 4i 蛋白成像</td><td>—</td><td class="num">—</td><td>否</td></tr>
+        <tr><td>大肠杆菌全细胞模型</td><td>机理</td><td>1214 个基因</td><td class="num">手工参数化</td><td>是</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>真正不同的两件事</h3>
+  <div class="prose">
+    <p>
+      <strong>读的是蛋白不是 RNA。</strong>目前不存在第二个扰动蛋白质组学基础模型。
+      decryptM、decryptE、Mitchell 的 875 化合物图谱、ProCan-DepMapSanger 都是<em>数据集</em>而非预训练模型。
+      同一实验室 2024 年的综述原话是"足以支撑大型预训练模型的扰动蛋白质组数据目前并不存在"，
+      这篇工作正是为了推翻那句话而做的。
+    </p>
+    <p>
+      <strong>显式建模时间。</strong>表中除机理模拟器外只有它表示流逝时间。CPA 建的是剂量；
+      GEARS、scGen、STATE、CellOT 都是终点模型。神经 ODE 的单细胞模型（PRESCIENT、scNODE）存在，
+      但做的是发育轨迹插值，不是扰动响应。
+    </p>
+    <p>
+      不过第二点要打折扣：如 §04 第 2 条，发布代码在整数刻度上积分。<strong>时间的<em>数据</em>是真实且稀缺的资产，
+      时间的<em>建模</em>比表述听起来薄。</strong>此外 Nature 版的图注自己报告，在其多时间点数据集上
+      AUPRC 与 AUROC 随时间点数量增加而<em>下降</em>，准确率上升，这对一个以时间为核心主张的模型是个值得掂量的结果。
+    </p>
+  </div>
+
+  <h3>放在基准文献的背景里</h3>
+  <div class="prose">
+    <p>
+      Ahlmann-Eltze、Huber 与 Anders 在 Nature Methods 2025 的结论是，GEARS、scGPT、scFoundation、CPA、
+      Geneformer、scBERT、UCE 中<strong>没有一个能稳定超过均值或线性基线</strong>。
+      Csendes 等发现"训练集均值"预测器在四个数据集上都优于 scGPT 和 scFoundation。
+      Wong 等报告，一个 CRISPR 感知的均值对照击败 GEARS 与 scGPT，而<em>抹掉 scGPT 的预训练权重结果几乎不变</em>。
+      Arc 虚拟细胞挑战赛官方总结是"几乎所有模型在 MAE 上都不如基线"，冠军队自己说纯 AI 方法没能稳定超过统计基线。
+    </p>
+    <p>
+      也有反驳：Miller 等主张这些负结果源于指标未校准，在校准良好的排序指标上多个深度模型确实显著优于均值基线。
+      该文为预印本，尚未同行评议。
+    </p>
+    <p>
+      在这个背景下，ProteinTalks 在三种设定中的一种里显著超过平凡对照，属于中上水平，而非较差。
+    </p>
+  </div>
+</section>
+
+<!-- ============ 9. 局限 ============ -->
+<section>
+  <div class="sec-head">
+    <span class="sec-num">§09</span>
+    <h2>没有做到的事</h2>
+  </div>
+  <div class="prose">
+    <p>
+      <strong>没有从数据端重新推出 0.960。</strong>那需要受审批的 325 MB 矩阵。本文比较的是论文报告值。
+    </p>
+    <p>
+      <strong>没有重训模型。</strong>缺蛋白排序索引，已发布权重无法映射到任何可获取的蛋白组。
+    </p>
+    <p>
+      <strong>没有核实任何生物学结论。</strong>SHAP 提名的耐药蛋白（AKR1C3、CMPK1）、四对经细胞实验验证的协同组合、
+      患者生存分析，全部依赖湿实验与不可得的数据。
+    </p>
+    <p>
+      <strong>消融实验只在模拟数据上做。</strong>结果是删掉动力学模块后分类反而更好（AUROC 0.957 → 0.999），
+      且该模块的蛋白组预测比"断言什么都没变"还差两个数量级。但这是合成数据、训练预算被压到 60 轮
+      （官方配置是 1000 轮）、基准已饱和（随机森林达到 1.000），且用的是按方程实现的架构而非发布版架构。
+      它只能说明一件较弱的事：神经 ODE 组件的贡献并非不言自明，需要在真实语料上做专门的消融，而论文没有报告。
+    </p>
+    <p>
+      <strong>配对检验有一个未经核实的前提。</strong>它假设论文每一折的测试条件与标签表中该细胞系的行一致。
+      这是留一细胞系在 18 × 62 设计上的自然读法，但论文未公布逐折构成。
+    </p>
+  </div>
+</section>
+
+<div class="footnote">
+  <p>
+    全部代码、脚本与可复跑命令位于仓库 <code>proteintalks/</code> 目录，分支
+    <code>claude/virtual-cell-reproduction-comparison-l4y2yt</code>。
+    详见 <code>docs/REPRODUCTION_STATUS.md</code> 与 <code>docs/COMPARISON.md</code>。
+  </p>
+  <p>
+    本报告为独立复现审计，与原作者无关。原始工作的代码与权重以 MIT 许可发布，本仓库不含原研究的任何数据。
+  </p>
+</div>
+
+</div>
