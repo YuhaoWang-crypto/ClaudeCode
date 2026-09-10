@@ -59,6 +59,7 @@ module degrades explicitly rather than substituting an invented value.
 | `c5_pairing` | surrogate-design ceiling + optimal imaging panel | 3 channels lock **64%** of the state; 6 channels only 84% |
 | `c6_larry_ceiling` | LARRY split-well cross-well fate correlation (Weinreb 2020) | r = **0.77** (null 0.045) -> a clonal twin caps fate prediction at **60%** |
 | `c7_budget` | the three measured ceilings multiplied | same-cell 3-colour imaging **64%** vs clone-paired scRNA-seq **16%** |
+| `c8_reconcile` | 2x2 of variance source x scoring method, against a size-matched random-gene-set null | scoring method, correctly configured, converges to **2.6-3.0**; UCell at its single-cell default is indistinguishable from random on bulk |
 
 ```bash
 pip install numpy scipy matplotlib libroadrunner

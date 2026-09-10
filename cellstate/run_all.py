@@ -20,7 +20,8 @@ rather than substituting invented numbers when a download fails.
 import traceback
 
 from . import (c1_inventory, c2_axis_anchors, c3_orthogonality,
-               c4_observability, c5_pairing, c6_larry_ceiling, c7_budget)
+               c4_observability, c5_pairing, c6_larry_ceiling, c7_budget,
+               c8_reconcile)
 
 STEPS = [
     ("C1  六轴开源数据盘点(GEO / BioModels / Europe PMC 实时检索)", c1_inventory),
@@ -30,6 +31,7 @@ STEPS = [
     ("C5  配对问题:替代设计的天花板 + 成像通道数", c5_pairing),
     ("C6  实测天花板:LARRY split-well 跨孔命运相关", c6_larry_ceiling),
     ("C7  综合预算:三个约束相乘 + 可执行建议", c7_budget),
+    ("C8  与外部报告对账:方差来源 / 打分方法 / 随机对照", c8_reconcile),
 ]
 
 
