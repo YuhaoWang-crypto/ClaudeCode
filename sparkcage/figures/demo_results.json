@@ -98,11 +98,11 @@
   "echem": {
     "k0_docked_per_s": 110.3638323514327,
     "k0_released_per_s": 0.037022941226003865,
-    "kappa_at_maximum": 1.2626001098748565,
-    "interrogation_frequency_hz": 87.40996574312946,
-    "peak_docked_nA": 216.61869598108802,
-    "peak_released_nA": 6.5537670476804974,
-    "signal_change_pct": -96.97451458748849
+    "kappa_at_maximum": 1.0295755673125127,
+    "interrogation_frequency_hz": 107.19352309370933,
+    "peak_docked_nA": 434.46364105104146,
+    "peak_released_nA": 14.180395828166217,
+    "signal_change_pct": -96.73611448961266
   },
   "transport": [
     {

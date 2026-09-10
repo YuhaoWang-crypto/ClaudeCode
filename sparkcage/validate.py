@@ -154,11 +154,33 @@ check("scanning through E0 converts the whole monolayer",
       r["theta_initial"] < 0.01 and r["theta_final"] > 0.99,
       f"theta {r['theta_initial']:.4f} -> {r['theta_final']:.4f}")
 
-# (c) Slow kinetics must give a smaller peak than fast kinetics at fixed frequency.
-fast = abs(swv.swv_scan(k0=1.0e3, freq_hz=100.0)["peak_current"])
-slow = abs(swv.swv_scan(k0=1.0e-3, freq_hz=100.0)["peak_current"])
-check("a kinetically frozen reporter gives a smaller peak", fast > slow * 10,
-      f"fast {fast*1e9:.3f} nA vs slow {slow*1e9:.3g} nA")
+# (c) The sampled peak is NON-monotonic in k0, with a maximum near k0/f = 1.
+# This is the quasi-reversible maximum, and it is the reason a sensor cannot be
+# made better simply by making electron transfer faster.  An earlier version of
+# this check asserted "faster is bigger", which is only true below the maximum
+# and started failing the moment the electron count was put into the
+# Butler-Volmer exponent where it belongs.
+_f = 100.0
+_k = np.logspace(-1.0, 5.0, 80)
+_p = np.array([abs(swv.swv_scan(k0=k, freq_hz=_f)["peak_current"]) for k in _k])
+_kappa = _k[int(np.argmax(_p))] / _f
+check("the quasi-reversible maximum sits at k0/f near 1",
+      0.5 <= _kappa <= 2.0, f"maximum at k0/f = {_kappa:.2f}")
+check("peak falls away on BOTH sides of the quasi-reversible maximum",
+      _p[0] < _p.max() / 10.0 and _p[-1] < _p.max() / 10.0,
+      f"{_p[0]*1e9:.2f} nA .. {_p.max()*1e9:.0f} nA .. {_p[-1]*1e9:.2g} nA")
+
+# (c2) Laviron's surface-confined peak width: about 90/n mV at half height in
+# the reversible limit.  This is what pins the electron count to the exponent
+# rather than to the charge prefactor alone.
+for _n, _want in ((1, 90.6), (2, 45.3)):
+    _r = swv.swv_scan(k0=1.0e2, freq_hz=100.0, n_electrons=_n, e_step=0.001,
+                      alpha=0.5)
+    _i = np.abs(_r["i_net"])
+    _sel = np.where(_i >= _i.max() / 2.0)[0]
+    _fwhm = abs(_r["e"][_sel[-1]] - _r["e"][_sel[0]]) * 1000.0
+    check(f"n = {_n} peak half-width matches Laviron's {_want:.0f} mV",
+          abs(_fwhm - _want) < 0.25 * _want, f"{_fwhm:.1f} mV")
 
 # (d) Peak current must be strictly proportional to surface coverage.
 p1 = abs(swv.swv_scan(k0=100.0, gamma_mol_cm2=1e-11)["peak_current"])

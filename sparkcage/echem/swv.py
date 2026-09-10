@@ -15,8 +15,15 @@ interfacial kinetics -- no bulk transport term at all:
     theta = fraction of MB in the reduced (leuco-MB) form
     d(theta)/dt = k_c (1 - theta) - k_a theta
 
-    k_c = k0 exp( -alpha  * F/RT * (E - E0) )      (reduction)
-    k_a = k0 exp( (1-alpha) * F/RT * (E - E0) )    (oxidation)
+    k_c = k0 exp( -alpha  * n F/RT * (E - E0) )      (reduction)
+    k_a = k0 exp( (1-alpha) * n F/RT * (E - E0) )    (oxidation)
+
+The electron count n belongs in the exponent, not only in the charge prefactor.
+This is Laviron's surface-confined form, and it is why a two-electron couple
+gives a peak about half as wide as a one-electron one (roughly 90/n mV at half
+height in the reversible limit).  Leaving n out of the exponent -- which this
+module did until the Biomni report was reproduced -- makes n a pure scale factor
+and silently predicts a one-electron peak shape for methylene blue.
 
     i = n F A Gamma d(theta)/dt
 
@@ -107,7 +114,7 @@ def square_wave_potentials(e_start=0.0, e_end=-0.5, e_step=0.004,
 
 
 def _half_cycle(theta0, e, tau, k0, e0, alpha, temperature_k,
-                sample_window=0.25):
+                sample_window=0.25, n_electrons=1):
     """Exact integration of one constant-potential half cycle.
 
     Returns (theta_end, mean_current_density_factor).
@@ -123,7 +130,7 @@ def _half_cycle(theta0, e, tau, k0, e0, alpha, temperature_k,
 
     with t2 = tau and t1 = (1 - sample_window) tau.
     """
-    f_rt = F / (R * temperature_k)
+    f_rt = n_electrons * F / (R * temperature_k)
     eta = e - e0
     k_c = k0 * np.exp(-alpha * f_rt * eta)
     k_a = k0 * np.exp((1.0 - alpha) * f_rt * eta)
@@ -186,7 +193,7 @@ def swv_scan(k0, gamma_mol_cm2=2.0e-11, area_cm2=0.07, e0=-0.27,
     theta = 1.0 if theta_init is None else float(theta_init)
     if theta_init is None:
         # equilibrate at the initial potential (fully oxidised at E >> E0)
-        f_rt = F / (R * temperature_k)
+        f_rt = n_electrons * F / (R * temperature_k)
         eta0 = e_start - e0
         kc = np.exp(-alpha * f_rt * eta0)
         ka = np.exp((1.0 - alpha) * f_rt * eta0)
@@ -197,10 +204,10 @@ def swv_scan(k0, gamma_mol_cm2=2.0e-11, area_cm2=0.07, e0=-0.27,
     i_r = np.empty_like(e_stair)
     for j in range(len(e_stair)):
         theta, d1 = _half_cycle(theta, e_fwd[j], tau, k0, e0, alpha,
-                                temperature_k, sample_window)
+                                temperature_k, sample_window, n_electrons)
         i_f[j] = scale * d1
         theta, d2 = _half_cycle(theta, e_rev[j], tau, k0, e0, alpha,
-                                temperature_k, sample_window)
+                                temperature_k, sample_window, n_electrons)
         i_r[j] = scale * d2
 
     i_net = i_f - i_r
