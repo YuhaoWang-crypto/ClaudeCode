@@ -1,0 +1,8 @@
+{
+  "tag": "rep1",
+  "n_traj": 506,
+  "n_frames": 40240,
+  "dG_gencompas": 6.692631390890279,
+  "mfpt_ab_ns": NaN,
+  "mfpt_ba_ns": NaN,
+  "barrier_gencompas": 

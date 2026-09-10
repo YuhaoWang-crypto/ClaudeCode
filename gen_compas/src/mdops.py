@@ -168,7 +168,7 @@ def target_rmsd(engine, positions, target_heavy_xyz):
 
 def targeted_md(engine, start_positions, target_heavy_xyz, n_steps=6000,
                 k=200000.0, relax_steps=100, n_windows=60,
-                n_path=60):
+                save_stride=10):
     """Pull `start_positions` toward a generated heavy-atom target.
 
     `target_heavy_xyz` is a (n_heavy, 3) array produced by the diffusion model.
@@ -187,14 +187,14 @@ def targeted_md(engine, start_positions, target_heavy_xyz, n_steps=6000,
     try:
         return _targeted_md(engine, start_positions, target_heavy_xyz,
                             n_steps, k, relax_steps, n_windows,
-                            n_path)
+                            save_stride)
     except openmm.OpenMMException:
         engine.recover()
         return None
 
 
 def _targeted_md(engine, start_positions, target_heavy_xyz, n_steps, k,
-                 relax_steps, n_windows, n_path):
+                 relax_steps, n_windows, save_stride):
     engine.set_positions(start_positions)
     engine.randomize_velocities()
 
@@ -205,7 +205,6 @@ def _targeted_md(engine, start_positions, target_heavy_xyz, n_steps, k,
     # instantaneous structure, and the restraint reference is placed a fraction
     # s of the way from the current heavy-atom positions to that fitted target.
     per = max(1, n_steps // n_windows)
-    keep_every = max(1, n_windows // n_path)
     engine.set_k(k)
     path = []
     for i in range(n_windows):
@@ -214,8 +213,14 @@ def _targeted_md(engine, start_positions, target_heavy_xyz, n_steps, k,
         cen = cur.mean(0)
         fitted = common.kabsch_align(tgt, cur - cen) + cen
         engine.set_reference((1.0 - s) * cur + s * fitted)
-        engine.step(per)
-        if i % keep_every == 0 or i == n_windows - 1:
+        # Save inside the window, not just at its end.  The molecule crosses
+        # the barrier in roughly 0.1 ps -- less than one window -- so sampling
+        # once per window steps straight over the top and never records it.
+        done = 0
+        while done < per:
+            n = min(save_stride, per - done)
+            engine.step(n)
+            done += n
             path.append(engine.positions())
 
     engine.clear_restraint()

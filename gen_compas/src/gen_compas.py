@@ -299,7 +299,8 @@ def iteration(engine, store, it, cfg, rng, log, sep_store):
             res = mdops.targeted_md(engine, start, tgt_xyz,
                                     n_steps=cfg["tmd_steps"],
                                     k=cfg["tmd_k"],
-                                    relax_steps=cfg["tmd_relax"])
+                                    relax_steps=cfg["tmd_relax"],
+                                    save_stride=cfg["tmd_save_stride"])
             if res is None:
                 continue
             tmd_rmsd.append(res["rmsd"])
@@ -317,26 +318,9 @@ def iteration(engine, store, it, cfg, rng, log, sep_store):
             # on it.  Where consecutive points bracket 1/2, steer slowly from
             # one to the other: the same machinery, applied over the width of
             # a single window, resolves the top of the barrier.
-            cross = np.where((qp[:-1] - 0.5) * (qp[1:] - 0.5) < 0)[0]
-            used_refined = False
-            if len(cross):
-                j = int(cross[len(cross) // 2])
-                ref = mdops.targeted_md(
-                    engine, path[j], path[j + 1][heavy_idx],
-                    n_steps=cfg["refine_steps"], k=cfg["tmd_k"],
-                    relax_steps=1, n_windows=cfg["refine_windows"],
-                    n_path=cfg["refine_windows"])
-                if ref is not None:
-                    rpath = ref["path"]
-                    rq = qnet.predict(common.featurize(rpath))
-                    for jj in np.argsort(np.abs(rq - 0.5))[
-                            : cfg["n_path_points"]]:
-                        tmd_products.append((rpath[jj], side, k, float(rq[jj])))
-                    n_refined += 1
-                    used_refined = True
-            if not used_refined:
-                for j in np.argsort(np.abs(qp - 0.5))[: cfg["n_path_points"]]:
-                    tmd_products.append((path[j], side, k, float(qp[j])))
+            n_refined += int(np.any((qp[:-1] - 0.5) * (qp[1:] - 0.5) < 0))
+            for j in np.argsort(np.abs(qp - 0.5))[: cfg["n_path_points"]]:
+                tmd_products.append((path[j], side, k, float(qp[j])))
 
     # ---- (5) unbiased shooting from the separatrix ------------------------
     n_sep = 0
@@ -432,9 +416,8 @@ DEFAULT_CFG = dict(
     seed_save_ps=0.2,
     tmd_steps=6000,
     tmd_relax=100,
-    n_path_points=2,
-    refine_steps=4000,
-    refine_windows=40,
+    n_path_points=3,
+    tmd_save_stride=10,
     tmd_k=20000.0,
     generator="diffusion",
     ddpm_steps=400,
