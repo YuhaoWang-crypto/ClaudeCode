@@ -1,0 +1,576 @@
+<title>VC 套件模型可用性审计</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,600;0,700;1,400&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --ground:#F3F6F7; --surface:#FFFFFF; --surface-2:#EDF1F3;
+  --ink:#14222A; --ink-2:#41565F; --ink-3:#6E838C;
+  --line:#D9E1E4; --line-strong:#B9C7CC;
+  --assay:#14557F;        /* 抑菌孔的蓝 */
+  --growth:#A62A62;       /* 长菌孔的品红 */
+  --pass:#2C6B50; --warn:#8E5F06; --fail:#9E3126;
+  --pass-bg:#E4F0EA; --warn-bg:#F7EEDC; --fail-bg:#F7E5E2; --info-bg:#E2ECF3;
+  --shadow:0 1px 2px rgba(20,34,42,.06), 0 6px 18px rgba(20,34,42,.05);
+  --maxw:78rem; --prose:68ch;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --ground:#0E151A; --surface:#151E24; --surface-2:#1B262D;
+    --ink:#E7EEF1; --ink-2:#AFC0C8; --ink-3:#7F949D;
+    --line:#25333B; --line-strong:#3A4C56;
+    --assay:#63AEDA; --growth:#E58BB2;
+    --pass:#7BC49E; --warn:#D9A94C; --fail:#E5877A;
+    --pass-bg:#172A22; --warn-bg:#2B2418; --fail-bg:#2C1D1B; --info-bg:#152530;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 22px rgba(0,0,0,.35);
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#0E151A; --surface:#151E24; --surface-2:#1B262D;
+  --ink:#E7EEF1; --ink-2:#AFC0C8; --ink-3:#7F949D;
+  --line:#25333B; --line-strong:#3A4C56;
+  --assay:#63AEDA; --growth:#E58BB2;
+  --pass:#7BC49E; --warn:#D9A94C; --fail:#E5877A;
+  --pass-bg:#172A22; --warn-bg:#2B2418; --fail-bg:#2C1D1B; --info-bg:#152530;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 22px rgba(0,0,0,.35);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--ground);color:var(--ink);
+  font-family:"IBM Plex Sans",-apple-system,"Segoe UI",Roboto,"Noto Sans SC",sans-serif;
+  font-size:15px;line-height:1.68;-webkit-font-smoothing:antialiased}
+.wrap{max-width:var(--maxw);margin:0 auto;padding-inline:20px;padding-block:0 72px}
+p,li{max-width:var(--prose)}
+h1,h2,h3{font-family:Spectral,Georgia,"Songti SC",serif;text-wrap:balance;margin:0}
+a{color:var(--assay)}
+code,.mono{font-family:"IBM Plex Mono",ui-monospace,Menlo,monospace}
+
+/* ---------- masthead ---------- */
+.mast{border-bottom:1px solid var(--line-strong);padding-block:44px 26px;margin-bottom:34px}
+.eyebrow{font-family:"IBM Plex Mono",monospace;font-size:11.5px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--ink-3);margin-bottom:14px}
+h1{font-size:clamp(30px,4.6vw,46px);line-height:1.14;font-weight:700;letter-spacing:-.01em}
+.standfirst{font-size:17.5px;color:var(--ink-2);margin-top:16px;max-width:64ch}
+.meta{display:flex;flex-wrap:wrap;gap:8px 26px;margin-top:22px;
+  font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--ink-3)}
+.meta b{color:var(--ink-2);font-weight:500}
+
+/* ---------- sections ---------- */
+section{margin-top:52px;scroll-margin-top:20px}
+h2{font-size:24px;font-weight:600;letter-spacing:-.005em;padding-bottom:9px;
+  border-bottom:1px solid var(--line);margin-bottom:6px}
+h2 .num{font-family:"IBM Plex Mono",monospace;font-size:13px;color:var(--growth);
+  margin-right:11px;font-weight:500;vertical-align:2px}
+.lede{color:var(--ink-2);margin:14px 0 20px}
+h3{font-size:16.5px;font-weight:600;margin:26px 0 8px}
+
+/* ---------- verdict board ---------- */
+.verdicts{display:grid;grid-template-columns:repeat(auto-fit,minmax(268px,1fr));gap:14px;margin-top:22px}
+.vc{background:var(--surface);border:1px solid var(--line);border-radius:3px;
+  padding:16px 17px 17px;border-top:3px solid var(--tone);box-shadow:var(--shadow);
+  display:flex;flex-direction:column;gap:7px}
+.vc.pass{--tone:var(--pass)} .vc.warn{--tone:var(--warn)} .vc.fail{--tone:var(--fail)}
+.vc h3{margin:0;font-size:17px;font-family:Spectral,serif}
+.vc .pages{font-family:"IBM Plex Mono",monospace;font-size:11.5px;color:var(--ink-3)}
+.vc .call{font-weight:600;font-size:13.5px;color:var(--tone);letter-spacing:.01em}
+.vc p{margin:0;font-size:13.6px;color:var(--ink-2);max-width:none}
+.vc .num-line{font-family:"IBM Plex Mono",monospace;font-size:12.5px;color:var(--ink-2);
+  border-top:1px dotted var(--line-strong);padding-top:8px;margin-top:2px}
+
+/* ---------- tables ---------- */
+.tw{overflow-x:auto;margin:18px 0 6px;border:1px solid var(--line);border-radius:3px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:13.2px;font-variant-numeric:tabular-nums}
+th{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.07em;text-transform:uppercase;
+  color:var(--ink-3);text-align:right;padding:11px 13px;border-bottom:1.5px solid var(--line-strong);
+  white-space:nowrap;font-weight:500;background:var(--surface-2)}
+th:first-child,td:first-child{text-align:left}
+td{padding:8px 13px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover td{background:var(--surface-2)}
+td.name{font-weight:500;white-space:normal;min-width:150px}
+td.mono,th.mono{font-family:"IBM Plex Mono",monospace}
+tr.rule td{border-top:1.5px solid var(--line-strong)}
+.cap{font-size:12.4px;color:var(--ink-3);margin:6px 0 0;max-width:var(--prose)}
+
+.chip{display:inline-block;font-family:"IBM Plex Mono",monospace;font-size:11px;
+  padding:1.5px 7px;border-radius:2px;letter-spacing:.03em;white-space:nowrap}
+.chip.p{background:var(--pass-bg);color:var(--pass)}
+.chip.w{background:var(--warn-bg);color:var(--warn)}
+.chip.f{background:var(--fail-bg);color:var(--fail)}
+.chip.i{background:var(--info-bg);color:var(--assay)}
+
+/* ---------- figures ---------- */
+figure{margin:22px 0 6px;background:var(--surface);border:1px solid var(--line);
+  border-radius:3px;padding:18px 16px 10px;box-shadow:var(--shadow)}
+figure .fw{overflow-x:auto}
+figcaption{font-size:12.4px;color:var(--ink-3);margin-top:10px;padding-top:9px;
+  border-top:1px solid var(--line)}
+svg{display:block;max-width:100%}
+.legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:4px 0 12px;
+  font-family:"IBM Plex Mono",monospace;font-size:11.5px;color:var(--ink-2)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{width:16px;height:2.5px;border-radius:2px;display:inline-block}
+
+/* ---------- callout ---------- */
+.call-out{background:var(--surface);border-left:3px solid var(--growth);
+  padding:15px 18px;margin:20px 0;border-radius:0 3px 3px 0;box-shadow:var(--shadow)}
+.call-out p{margin:0;max-width:none;font-size:14.2px}
+.call-out .k{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.13em;
+  text-transform:uppercase;color:var(--growth);display:block;margin-bottom:5px}
+
+/* ---------- checklist ---------- */
+ol.steps{counter-reset:s;list-style:none;padding:0;margin:18px 0}
+ol.steps li{counter-increment:s;position:relative;padding-left:34px;margin-bottom:13px}
+ol.steps li::before{content:counter(s,decimal-leading-zero);position:absolute;left:0;top:1px;
+  font-family:"IBM Plex Mono",monospace;font-size:11.5px;color:var(--growth);font-weight:500}
+ul.plain{padding-left:20px;margin:12px 0}
+ul.plain li{margin-bottom:7px}
+
+.foot{margin-top:56px;padding-top:20px;border-top:1px solid var(--line-strong);
+  font-size:12.5px;color:var(--ink-3)}
+.foot p{max-width:none}
+@media (max-width:560px){ body{font-size:14.5px} .wrap{padding-inline:16px} }
+</style>
+
+<div class="wrap">
+<header class="mast">
+  <div class="eyebrow">独立复算 · 外部审计</div>
+  <h1>这些模型能不能用来指导药物筛选</h1>
+  <p class="standfirst">我把 VC 套件里六个已上线端点的训练数据从 ChEMBL 重新拉了一遍，
+    用四种严苛度递增的数据划分重训模型，测出它们在「真正没见过的化学型」上还剩多少能力。
+    结论按端点分档，不按套件分档。</p>
+  <div class="meta" id="meta"></div>
+</header>
+
+<section>
+  <h2><span class="num">01</span>结论</h2>
+  <p class="lede">同一套工程里的模型，可用性差了整整一个量级。抗菌 MIC 这一支可以现在就投产做排序；
+    抗病毒这一支不行。</p>
+  <div class="verdicts" id="verdicts"></div>
+</section>
+
+<section>
+  <h2><span class="num">02</span>我实际做了什么</h2>
+  <p class="lede">报告里所有指标都是「骨架划分交叉验证」。骨架划分对一个类似物系列几乎不设防：
+    环上换一个原子，Bemis-Murcko 骨架就变了，于是同一个系列的化合物被分到训练集和测试集两边。
+    真实筛选面对的是没见过的化学型，所以我加测了两种更严苛的划分。</p>
+  <ol class="steps">
+    <li><b>重新取数</b>：直接查 ChEMBL API，按报告 §11.6 声明的过滤条件（<code>standard_relation='='</code>、
+      单位 nM 或 µg/mL、最大片段、中位数去重、p 值截断 [2,10]）独立重建六个数据集。</li>
+    <li><b>四级划分阶梯</b>：随机划分 → 骨架划分（报告用的）→ 球面排除聚类划分（把整个相似化合物簇
+      整体分到同一折，簇心之间 Tanimoto &lt; 0.4）→ 时间划分（用早期文献训练，预测后 30% 年份的化合物）。</li>
+    <li><b>同配置重训</b>：ECFP4 2048 位 + 300 树随机森林（n &lt; 400 时用岭回归，与报告一致）；
+      CC50 用报告部署的 <code>min_samples_leaf=10</code> 配置。</li>
+    <li><b>q-RASAR 复现</b>：按报告 §8.7.3 的定义实现 6 个相似性特征（nn1、nn2、top-3/top-5 均值、
+      指数加权 kNN 预测、近邻标签标准差），含它声明的留一泄漏控制与 (-t, idx) 确定性排序。</li>
+    <li><b>适用域边界</b>：把预测按「到训练集的最近邻 Tanimoto」分箱，画出能力随相似度衰减的曲线。</li>
+    <li><b>迁移测试</b>：把一个靶点/菌种上训练好的模型直接拿去预测另一个端点。</li>
+  </ol>
+  <div class="call-out">
+    <span class="k">先说数据溯源</span>
+    <p id="prov-note"></p>
+  </div>
+  <div class="tw"><table id="prov"></table></div>
+  <p class="cap">独立重建的化合物数与骨架数对齐报告声明值，差异来自 ChEMBL 版本与去重细节。
+    这一步的意义是：报告的取数口径是真实、可复现的，后面所有分歧都不是数据来源造成的。</p>
+</section>
+
+<section>
+  <h2><span class="num">03</span>划分越严，能力掉多少</h2>
+  <p class="lede">这是整份审计的核心。横轴四档划分严苛度递增，纵轴是 Spearman 秩相关。
+    线掉得越陡，说明模型越依赖「测试集里有训练集的近亲」。</p>
+  <figure>
+    <div class="fw"><svg id="slope" role="img" aria-label="四种数据划分下各端点的 Spearman 相关系数"></svg></div>
+    <figcaption>球面排除划分把相似化合物整簇分到同一折，大幅降低但不能完全消除测试集与训练集的近邻——
+      第 05 节的相似度分箱给出实际残留分布。时间划分用早期文献训练、预测后期文献化合物，
+      是最接近真实前瞻筛选的代理。曲线为不加 q-RASAR 特征的基线模型。</figcaption>
+  </figure>
+  <div class="tw"><table id="splits"></table></div>
+  <p class="cap">R² 为负表示模型的预测比「一律输出训练集均值」还差。
+    「≤1 log」是预测值落在实测值一个数量级内的比例；「≤2 倍」对应药敏试验的一个倍比稀释度。</p>
+  <div id="split-read"></div>
+</section>
+
+<section>
+  <h2><span class="num">04</span>q-RASAR 增益只复现了一部分</h2>
+  <p class="lede">报告 §8.7.3 用 q-RASAR 相似性特征把三个抗病毒/毒性模型全部重训并上线，
+    宣称 NA +0.127、CC50 +0.169、PA +0.057 的 Spearman 提升，并以此作为门控通过、
+    替换页面内嵌权重的依据。我按同样定义实现后，只在其中一个模型上测到增益，且量级只有四成。</p>
+  <div class="tw"><table id="qr"></table></div>
+  <p class="cap">Δ 为加入 q-RASAR 特征后的 Spearman 变化。我的基线值与报告基线值高度吻合，
+    说明数据与模型配置一致；分歧只出现在加特征之后。</p>
+  <div id="qr-read"></div>
+  <div class="call-out">
+    <span class="k">我的实现是对的吗</span>
+    <p>做了三重对照。一、单独用 <code>knn_pred</code> 这一个特征去排序 NA 数据，随机划分下 Spearman 达 0.795、
+      骨架划分下 0.664——特征本身信息量充足。二、近邻选择的 (−t, idx) 确定性排序做了与朴素实现的
+      逐位等价性测试，含大量并列值的极端情形全部通过。三、报告未声称增益的三个端点上，我同样测不到增益。
+      所以问题不在实现，而在于<b>这些信息指纹随机森林大多已经提取过了</b>——
+      顺带一个值得注意的事实：一行最近邻查表（0.664）几乎追平整个 300 树模型（0.689）。</p>
+  </div>
+  <p>这不构成「报告造假」的指控——两边实现之间存在我看不到的差异。但它是一个应当先解决的阻塞项，
+    因为三个已上线模型的当前权重就是靠这个增益选出来的，其中两个（NA、PA）在我这里没有任何增益支撑。
+    判决方法很便宜：把 q-RASAR 门控在球面排除划分下重跑一遍，并公布两侧的折内/折外特征矩阵。
+    如果增益是真实泛化，它会在更严的划分下保留——泛细胞毒性模型就是这样（0.408 → 0.466）；
+    如果来自近邻记忆，它会消失。</p>
+</section>
+
+<section>
+  <h2><span class="num">05</span>能力边界在哪：相似度决定一切</h2>
+  <p class="lede">套件的适用域分层（high / borderline / out_of_domain）在设计上是对的。
+    但「域外」的真实含义比页面提示的更强硬：不是「置信度较低」，而是<b>没有排序能力</b>。</p>
+  <figure>
+    <div class="fw"><svg id="adchart" role="img" aria-label="预测能力随最近邻相似度变化"></svg></div>
+    <figcaption>横轴为化合物到同折训练集的最近邻 Tanimoto 相似度（ECFP4）。
+      每个点是该相似度区间内的 Spearman，取自球面排除划分下含 q-RASAR 特征模型的折外预测。
+      样本数不足 40 的区间不作图。</figcaption>
+  </figure>
+  <div class="tw"><table id="ad"></table></div>
+  <p class="cap">灰色格为该区间样本数不足 40，未计算。</p>
+  <div id="ad-read"></div>
+</section>
+
+<section>
+  <h2><span class="num">06</span>迁移能力</h2>
+  <p class="lede">报告用「NA 抑制剂在 PA 配置下全部跌出前 26 名」论证靶点特异性成立。
+    我换个问法：把一个端点的模型直接拿去预测另一个端点，剩多少相关？</p>
+  <div class="tw"><table id="tr"></table></div>
+  <p class="cap">「真值对真值」是同时在两个端点上有实测的化合物，其两个实测值之间的相关——
+    这是任何跨端点迁移的理论上限。</p>
+  <div id="tr-read"></div>
+</section>
+
+<section>
+  <h2><span class="num">07</span>把指标换算成实验成本</h2>
+  <p class="lede">Spearman 不能告诉实验室该订几块板。下面按各模型<b>报告声明</b>的准确度，
+    换算成筛选决策量：挑出预测最好的 5%，其中真正落在真实前 5% 的比例。
+    注意这是域内的乐观上限——第 03 节说明了域外会掉到什么程度。</p>
+  <div class="tw"><table id="util"></table></div>
+  <p class="cap">富集倍数 = 命中率 ÷ 随机命中率。「1 SD 误差倍数」是 RMSE 换算成浓度倍数，
+    表示单个化合物绝对预测值的典型偏差。</p>
+  <h3>串联端点的误差累积</h3>
+  <div class="tw"><table id="chain"></table></div>
+  <p class="cap">套件把多个模型串起来输出 SI、CPE%、峰下降%、ΔCt 等湿实验端点。
+    误差按平方和累积，串得越长精度越低。此处用的是本轮<b>实测</b>的聚类划分 RMSE，
+    不是报告声明值，单位为 log10。</p>
+  <div class="call-out">
+    <span class="k">VC-TRIAGE 的窗口门</span>
+    <p id="gate-note"></p>
+  </div>
+</section>
+
+<section>
+  <h2><span class="num">08</span>下一步该用什么测试集</h2>
+  <p class="lede">我这轮用的是 ChEMBL 内部的严格划分，这是「没有外部数据时能做的最好验证」。
+    要真正定级，需要来自不同实验室、不同协议的外部数据。下面按优先级排。</p>
+  <div id="ext"></div>
+</section>
+
+<section>
+  <h2><span class="num">09</span>这份审计没覆盖什么</h2>
+  <ul class="plain" id="limits"></ul>
+</section>
+
+<footer class="foot">
+  <p id="footnote"></p>
+</footer>
+</div>
+
+<script>
+const DATA = /*__DATA__*/ {};
+
+/* ---------- helpers ---------- */
+const $ = s => document.querySelector(s);
+const el = (t, c, h) => { const e = document.createElement(t); if (c) e.className = c;
+  if (h !== undefined) e.innerHTML = h; return e; };
+const f3 = v => (v === null || v === undefined || Number.isNaN(v)) ? "—" : v.toFixed(3);
+const f2 = v => (v === null || v === undefined || Number.isNaN(v)) ? "—" : v.toFixed(2);
+const pct = v => (v === null || v === undefined || Number.isNaN(v)) ? "—" : (v * 100).toFixed(0) + "%";
+
+function table(sel, cols, rows) {
+  const t = $(sel); t.innerHTML = "";
+  const thead = el("thead"), tr = el("tr");
+  cols.forEach(c => { const th = el("th", c.mono ? "mono" : "", c.h); tr.appendChild(th); });
+  thead.appendChild(tr); t.appendChild(thead);
+  const tb = el("tbody");
+  rows.forEach(r => {
+    const row = el("tr", r._cls || "");
+    cols.forEach((c, i) => {
+      const td = el("td", (i === 0 ? "name " : "") + (c.mono ? "mono" : ""), c.f(r));
+      row.appendChild(td);
+    });
+    tb.appendChild(row);
+  });
+  t.appendChild(tb);
+}
+
+const SPLIT_LABEL = { random: "随机划分", scaffold: "骨架划分", "cluster0.4": "聚类划分", temporal: "时间划分" };
+const SPLIT_ORDER = ["random", "scaffold", "cluster0.4", "temporal"];
+const DS_ORDER = ["MIC_E_cloacae", "MIC_H_influenzae", "CC50_pan", "hERG", "NA_influenza", "PA_influenza"];
+const COLORS = ["#2C6B50", "#4E8C3F", "#14557F", "#5A6E9E", "#A62A62", "#9E3126"];
+function dsColor(d) { const i = DS_ORDER.indexOf(d); return COLORS[i < 0 ? 0 : i]; }
+function dsLabel(d) { return (DATA.provenance[d] || {}).label || d; }
+function get(ds, split, qr) {
+  return DATA.splits.find(r => r.dataset === ds && r.split === split && r.qrasar === qr);
+}
+const present = () => DS_ORDER.filter(d => DATA.splits.some(r => r.dataset === d));
+
+/* ---------- meta ---------- */
+function meta() {
+  const n = present().length;
+  const rows = DATA.splits.length;
+  $("#meta").innerHTML =
+    `<span><b>审计对象</b> BioVenic / CD 干实验套件 · 16 页</span>` +
+    `<span><b>复算端点</b> ${n} 个</span>` +
+    `<span><b>重训模型</b> ${rows} 组划分 × 配置</span>` +
+    `<span><b>数据源</b> ChEMBL REST API（本轮实取）</span>` +
+    `<span><b>日期</b> 2026-09-10</span>`;
+}
+
+/* ---------- verdict cards ---------- */
+function verdicts() {
+  const V = DATA.verdicts || [];
+  const c = $("#verdicts"); c.innerHTML = "";
+  V.forEach(v => {
+    const card = el("div", "vc " + v.tone);
+    card.appendChild(el("div", "pages", v.pages));
+    card.appendChild(el("h3", "", v.title));
+    card.appendChild(el("div", "call", v.call));
+    card.appendChild(el("p", "", v.body));
+    card.appendChild(el("div", "num-line", v.num));
+    c.appendChild(card);
+  });
+}
+
+/* ---------- provenance ---------- */
+function provenance() {
+  const rows = present().map(d => ({ d, ...DATA.provenance[d] }));
+  table("#prov", [
+    { h: "端点", f: r => `${r.label}<br><span class="mono" style="font-size:11px;color:var(--ink-3)">${r.page}</span>` },
+    { h: "报告声明 化合物", mono: 1, f: r => r.rep_n.toLocaleString() },
+    { h: "我重建 化合物", mono: 1, f: r => r.my_n.toLocaleString() },
+    { h: "报告声明 骨架", mono: 1, f: r => r.rep_scaf.toLocaleString() },
+    { h: "我重建 骨架", mono: 1, f: r => r.my_scaf.toLocaleString() },
+    { h: "报告骨架CV ρ", mono: 1, f: r => f3(r.rep_rho) },
+    { h: "我复现 ρ", mono: 1, f: r => f3((get(r.d, "scaffold", false) || {}).spearman) },
+  ], rows);
+  $("#prov-note").innerHTML = DATA.notes.prov;
+}
+
+/* Push end-of-line labels apart so several converging series stay readable,
+   and draw a leader tick from the data point to its shifted label. */
+function declutter(ends, gap = 15, anchorX = null) {
+  ends.sort((a, b) => a.y - b.y);
+  ends.forEach(e => { e.ly = e.y; });
+  for (let i = 1; i < ends.length; i++)
+    if (ends[i].ly - ends[i - 1].ly < gap) ends[i].ly = ends[i - 1].ly + gap;
+  let out = "";
+  ends.forEach(e => {
+    const lx = anchorX === null ? e.x + 11 : anchorX;
+    if (anchorX !== null && (anchorX - e.x > 6 || Math.abs(e.ly - e.y) > 1.5))
+      out += `<path d="M${e.x + 4} ${e.y} L${lx - 4} ${e.ly}" stroke="${e.col}" stroke-width="1"
+               fill="none" opacity=".45" stroke-dasharray="2 2.5"/>`;
+    else if (Math.abs(e.ly - e.y) > 1.5)
+      out += `<path d="M${e.x + 4} ${e.y} L${e.x + 8} ${e.ly}" stroke="${e.col}"
+               stroke-width="1" fill="none" opacity=".55"/>`;
+    out += `<text x="${lx}" y="${e.ly + 4}" font-size="11.5" fill="${e.col}">${e.label}</text>`;
+  });
+  return out;
+}
+
+/* ---------- slope chart ---------- */
+function slope() {
+  const ds = present();
+  const W = Math.max(560, Math.min(980, window.innerWidth - 80)), H = 360;
+  const m = { t: 18, r: 168, b: 46, l: 46 };
+  const iw = W - m.l - m.r, ih = H - m.t - m.b;
+  const ymin = -0.05, ymax = 0.9;
+  const X = i => m.l + iw * i / (SPLIT_ORDER.length - 1);
+  const Y = v => m.t + ih * (1 - (v - ymin) / (ymax - ymin));
+  let s = `<svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}">`;
+  // grid
+  for (let v = 0; v <= 0.9; v += 0.1) {
+    const y = Y(v);
+    s += `<line x1="${m.l}" y1="${y}" x2="${m.l + iw}" y2="${y}" stroke="var(--line)" stroke-width="1"/>`;
+    s += `<text x="${m.l - 9}" y="${y + 4}" text-anchor="end" font-size="10.5" fill="var(--ink-3)"
+           font-family="IBM Plex Mono,monospace">${v.toFixed(1)}</text>`;
+  }
+  s += `<line x1="${m.l}" y1="${Y(0)}" x2="${m.l + iw}" y2="${Y(0)}" stroke="var(--line-strong)" stroke-width="1.5"/>`;
+  SPLIT_ORDER.forEach((sp, i) => {
+    s += `<text x="${X(i)}" y="${H - 24}" text-anchor="middle" font-size="12" fill="var(--ink-2)">${SPLIT_LABEL[sp]}</text>`;
+    s += `<line x1="${X(i)}" y1="${m.t}" x2="${X(i)}" y2="${m.t + ih}" stroke="var(--line)" stroke-width="1" stroke-dasharray="2 3"/>`;
+  });
+  s += `<text x="${m.l}" y="${H - 6}" font-size="10.5" fill="var(--ink-3)"
+         font-family="IBM Plex Mono,monospace">← 宽松　　划分严苛度　　严格 →</text>`;
+  const ends = [];
+  ds.forEach(d => {
+    const col = dsColor(d);
+    const pts = SPLIT_ORDER.map((sp, i) => { const r = get(d, sp, false); return r ? [X(i), Y(r.spearman)] : null; });
+    const valid = pts.filter(Boolean);
+    if (!valid.length) return;
+    s += `<polyline fill="none" stroke="${col}" stroke-width="2.1" stroke-linejoin="round"
+           points="${valid.map(p => p[0] + "," + p[1]).join(" ")}"/>`;
+    valid.forEach(p => { s += `<circle cx="${p[0]}" cy="${p[1]}" r="3.4" fill="${col}"/>`; });
+    const last = valid[valid.length - 1];
+    ends.push({ x: last[0], y: last[1], col, label: dsLabel(d) });
+  });
+  s += declutter(ends);
+  s += `</svg>`;
+  $("#slope").outerHTML = s.replace("<svg ", '<svg id="slope" role="img" ');
+}
+
+/* ---------- splits table ---------- */
+function splitsTable() {
+  const rows = [];
+  present().forEach(d => {
+    let first = true;                       // label the first split this endpoint actually has
+    SPLIT_ORDER.forEach(sp => {
+      const r = get(d, sp, false); if (!r) return;
+      rows.push({ ds: d, sp, r, first });
+      first = false;
+    });
+  });
+  table("#splits", [
+    { h: "端点 / 划分", f: r => (r.first ? `<b>${dsLabel(r.ds)}</b> · ` : "　") + SPLIT_LABEL[r.sp] },
+    { h: "n", mono: 1, f: r => r.r.n.toLocaleString() },
+    { h: "Spearman", mono: 1, f: r => f3(r.r.spearman) },
+    { h: "RMSE (log)", mono: 1, f: r => f2(r.r.rmse) },
+    { h: "R²", mono: 1, f: r => f2(r.r.r2) },
+    { h: "前5%富集", mono: 1, f: r => f2(r.r.ef5) + "×" },
+    { h: "≤1 log", mono: 1, f: r => pct(r.r.within1log) },
+    { h: "≤2 倍", mono: 1, f: r => pct(r.r.within2fold) },
+  ], rows.map(r => ({ ...r, _cls: r.first ? "rule" : "" })));
+  $("#split-read").innerHTML = DATA.notes.splits;
+}
+
+/* ---------- q-RASAR ---------- */
+function qrTable() {
+  const rows = [];
+  present().forEach(d => {
+    ["scaffold", "cluster0.4"].forEach(sp => {
+      const a = get(d, sp, false), b = get(d, sp, true);
+      if (!a || !b) return;
+      const p = DATA.provenance[d];
+      rows.push({ d, sp, base: a.spearman, qr: b.spearman, delta: b.spearman - a.spearman,
+        claim: (sp === "scaffold" && p.rep_rho_qr) ? p.rep_rho_qr - p.rep_rho : null });
+    });
+  });
+  table("#qr", [
+    { h: "端点 / 划分", f: r => `${dsLabel(r.d)} · ${SPLIT_LABEL[r.sp]}` },
+    { h: "报告声明 Δ", mono: 1, f: r => r.claim === null ? "—" : `<span class="chip i">+${r.claim.toFixed(3)}</span>` },
+    { h: "我测 基线 ρ", mono: 1, f: r => f3(r.base) },
+    { h: "我测 +q-RASAR ρ", mono: 1, f: r => f3(r.qr) },
+    { h: "我测 Δ", mono: 1, f: r => `<span class="chip ${r.delta > 0.01 ? "p" : r.delta < -0.01 ? "f" : "w"}">${r.delta >= 0 ? "+" : ""}${r.delta.toFixed(3)}</span>` },
+  ], rows);
+  $("#qr-read").innerHTML = DATA.notes.qrasar;
+}
+
+/* ---------- AD ---------- */
+const AD_BINS = [[0, .2], [.2, .3], [.3, .4], [.4, .5], [.5, .6], [.6, .7], [.7, 1.01]];
+function adGet(d, lo) { return DATA.ad.find(r => r.dataset === d && Math.abs(r.lo - lo) < 1e-6); }
+function adChart() {
+  const ds = present().filter(d => DATA.ad.some(r => r.dataset === d));
+  const W = Math.max(560, Math.min(980, window.innerWidth - 80)), H = 340;
+  const m = { t: 18, r: 168, b: 48, l: 46 };
+  const iw = W - m.l - m.r, ih = H - m.t - m.b;
+  const ymin = -0.15, ymax = 0.85;
+  const X = i => m.l + iw * i / (AD_BINS.length - 1);
+  const Y = v => m.t + ih * (1 - (v - ymin) / (ymax - ymin));
+  let s = `<svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}">`;
+  for (let v = -0.1; v <= 0.8001; v += 0.1) {
+    const y = Y(v);
+    s += `<line x1="${m.l}" y1="${y}" x2="${m.l + iw}" y2="${y}" stroke="var(--line)" stroke-width="1"/>`;
+    s += `<text x="${m.l - 9}" y="${y + 4}" text-anchor="end" font-size="10.5" fill="var(--ink-3)"
+           font-family="IBM Plex Mono,monospace">${v.toFixed(1)}</text>`;
+  }
+  s += `<line x1="${m.l}" y1="${Y(0)}" x2="${m.l + iw}" y2="${Y(0)}" stroke="var(--line-strong)" stroke-width="1.5"/>`;
+  // OOD shading
+  const xo = X(2);
+  s += `<rect x="${m.l}" y="${m.t}" width="${xo - m.l}" height="${ih}" fill="var(--growth)" opacity="0.055"/>`;
+  s += `<text x="${m.l + 8}" y="${m.t + 16}" font-size="11" fill="var(--growth)"
+         font-family="IBM Plex Mono,monospace">套件判为 out_of_domain 的区间</text>`;
+  AD_BINS.forEach((b, i) => {
+    s += `<text x="${X(i)}" y="${H - 26}" text-anchor="middle" font-size="11" fill="var(--ink-2)"
+           font-family="IBM Plex Mono,monospace">${b[0].toFixed(1)}</text>`;
+  });
+  s += `<text x="${m.l + iw / 2}" y="${H - 7}" text-anchor="middle" font-size="11.5" fill="var(--ink-3)">最近邻 Tanimoto 相似度</text>`;
+  const ends = [];
+  ds.forEach(d => {
+    const col = dsColor(d);
+    const pts = AD_BINS.map((b, i) => { const r = adGet(d, b[0]); return r ? [X(i), Y(r.spearman)] : null; }).filter(Boolean);
+    if (pts.length < 2) return;
+    s += `<polyline fill="none" stroke="${col}" stroke-width="2.1" stroke-linejoin="round"
+           points="${pts.map(p => p[0] + "," + p[1]).join(" ")}"/>`;
+    pts.forEach(p => { s += `<circle cx="${p[0]}" cy="${p[1]}" r="3.2" fill="${col}"/>`; });
+    const last = pts[pts.length - 1];
+    ends.push({ x: last[0], y: last[1], col, label: dsLabel(d) });
+  });
+  s += declutter(ends, 15, m.l + iw + 12);
+  s += `</svg>`;
+  $("#adchart").outerHTML = s.replace("<svg ", '<svg id="adchart" role="img" ');
+}
+function adTable() {
+  const rows = present().filter(d => DATA.ad.some(r => r.dataset === d)).map(d => ({ d }));
+  const cols = [{ h: "端点 \\ 最近邻相似度", f: r => dsLabel(r.d) }];
+  AD_BINS.forEach(b => cols.push({
+    h: `${b[0].toFixed(1)}–${b[1] > 1 ? "1.0" : b[1].toFixed(1)}`, mono: 1,
+    f: r => { const x = adGet(r.d, b[0]);
+      return x ? `${f3(x.spearman)}<br><span style="font-size:10.5px;color:var(--ink-3)">n=${x.n}</span>` :
+        `<span style="color:var(--ink-3)">—</span>`; }
+  }));
+  table("#ad", cols, rows);
+  $("#ad-read").innerHTML = DATA.notes.ad;
+}
+
+/* ---------- transfer ---------- */
+function trTable() {
+  if (!DATA.transfer.length) { $("#tr").closest(".tw").style.display = "none"; }
+  table("#tr", [
+    { h: "训练端点 → 预测端点", f: r => `${dsLabel(r.src)} <span style="color:var(--ink-3)">→</span> ${dsLabel(r.dst)}` },
+    { h: "未见过化合物 n", mono: 1, f: r => r.n_unseen.toLocaleString() },
+    { h: "迁移 ρ", mono: 1, f: r => f3(r.rho_unseen) },
+    { h: "域内子集 ρ", mono: 1, f: r => f3(r.rho_unseen_indomain) },
+    { h: "真值对真值 ρ", mono: 1, f: r => f3(r.rho_truth_vs_truth) },
+    { h: "共测化合物", mono: 1, f: r => (r.n_truth_pairs || 0).toLocaleString() },
+  ], DATA.transfer);
+  $("#tr-read").innerHTML = DATA.notes.transfer;
+}
+
+/* ---------- utility ---------- */
+function utilTable() {
+  table("#util", [
+    { h: "模型", f: r => r.model },
+    { h: "页面", mono: 1, f: r => r.page },
+    { h: "训练 n", mono: 1, f: r => r.n.toLocaleString() },
+    { h: "声明 ρ", mono: 1, f: r => f3(r.spearman) },
+    { h: "前5%命中率", mono: 1, f: r => r.hit_rate_top5.toFixed(0) + "%" },
+    { h: "前5%富集", mono: 1, f: r => r.EF_top5.toFixed(1) + "×" },
+    { h: "凑10个命中需测", mono: 1, f: r => r.tests_for_10_hits },
+    { h: "1 SD 误差倍数", mono: 1, f: r => r.fold_error_1sd.toFixed(1) + "×" },
+  ], DATA.utility);
+  table("#chain", [
+    { h: "串联端点", f: r => r.name },
+    { h: "组成", f: r => r.parts },
+    { h: "合成误差 (log)", mono: 1, f: r => r.sigma.toFixed(2) },
+    { h: "对应倍数 (1 SD)", mono: 1, f: r => r.fold },
+  ], DATA.chains);
+  $("#gate-note").innerHTML = DATA.notes.gate;
+}
+
+/* ---------- external test sets ---------- */
+function ext() {
+  const c = $("#ext"); c.innerHTML = "";
+  DATA.external.forEach(g => {
+    c.appendChild(el("h3", "", g.title));
+    const ul = el("ul", "plain");
+    g.items.forEach(i => ul.appendChild(el("li", "", i)));
+    c.appendChild(ul);
+  });
+}
+
+function limits() {
+  $("#limits").innerHTML = DATA.limits.map(l => `<li>${l}</li>`).join("");
+  $("#footnote").innerHTML = DATA.notes.foot;
+}
+
+meta(); verdicts(); provenance(); slope(); splitsTable(); qrTable();
+adChart(); adTable(); trTable(); utilTable(); ext(); limits();
+let rt; addEventListener("resize", () => { clearTimeout(rt); rt = setTimeout(() => { slope(); adChart(); }, 180); });
+</script>

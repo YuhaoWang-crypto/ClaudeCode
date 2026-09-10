@@ -1,0 +1,576 @@
+<title>VC 套件模型可用性审计</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,600;0,700;1,400&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --ground:#F3F6F7; --surface:#FFFFFF; --surface-2:#EDF1F3;
+  --ink:#14222A; --ink-2:#41565F; --ink-3:#6E838C;
+  --line:#D9E1E4; --line-strong:#B9C7CC;
+  --assay:#14557F;        /* 抑菌孔的蓝 */
+  --growth:#A62A62;       /* 长菌孔的品红 */
+  --pass:#2C6B50; --warn:#8E5F06; --fail:#9E3126;
+  --pass-bg:#E4F0EA; --warn-bg:#F7EEDC; --fail-bg:#F7E5E2; --info-bg:#E2ECF3;
+  --shadow:0 1px 2px rgba(20,34,42,.06), 0 6px 18px rgba(20,34,42,.05);
+  --maxw:78rem; --prose:68ch;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --ground:#0E151A; --surface:#151E24; --surface-2:#1B262D;
+    --ink:#E7EEF1; --ink-2:#AFC0C8; --ink-3:#7F949D;
+    --line:#25333B; --line-strong:#3A4C56;
+    --assay:#63AEDA; --growth:#E58BB2;
+    --pass:#7BC49E; --warn:#D9A94C; --fail:#E5877A;
+    --pass-bg:#172A22; --warn-bg:#2B2418; --fail-bg:#2C1D1B; --info-bg:#152530;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 22px rgba(0,0,0,.35);
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#0E151A; --surface:#151E24; --surface-2:#1B262D;
+  --ink:#E7EEF1; --ink-2:#AFC0C8; --ink-3:#7F949D;
+  --line:#25333B; --line-strong:#3A4C56;
+  --assay:#63AEDA; --growth:#E58BB2;
+  --pass:#7BC49E; --warn:#D9A94C; --fail:#E5877A;
+  --pass-bg:#172A22; --warn-bg:#2B2418; --fail-bg:#2C1D1B; --info-bg:#152530;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 22px rgba(0,0,0,.35);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--ground);color:var(--ink);
+  font-family:"IBM Plex Sans",-apple-system,"Segoe UI",Roboto,"Noto Sans SC",sans-serif;
+  font-size:15px;line-height:1.68;-webkit-font-smoothing:antialiased}
+.wrap{max-width:var(--maxw);margin:0 auto;padding-inline:20px;padding-block:0 72px}
+p,li{max-width:var(--prose)}
+h1,h2,h3{font-family:Spectral,Georgia,"Songti SC",serif;text-wrap:balance;margin:0}
+a{color:var(--assay)}
+code,.mono{font-family:"IBM Plex Mono",ui-monospace,Menlo,monospace}
+
+/* ---------- masthead ---------- */
+.mast{border-bottom:1px solid var(--line-strong);padding-block:44px 26px;margin-bottom:34px}
+.eyebrow{font-family:"IBM Plex Mono",monospace;font-size:11.5px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--ink-3);margin-bottom:14px}
+h1{font-size:clamp(30px,4.6vw,46px);line-height:1.14;font-weight:700;letter-spacing:-.01em}
+.standfirst{font-size:17.5px;color:var(--ink-2);margin-top:16px;max-width:64ch}
+.meta{display:flex;flex-wrap:wrap;gap:8px 26px;margin-top:22px;
+  font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--ink-3)}
+.meta b{color:var(--ink-2);font-weight:500}
+
+/* ---------- sections ---------- */
+section{margin-top:52px;scroll-margin-top:20px}
+h2{font-size:24px;font-weight:600;letter-spacing:-.005em;padding-bottom:9px;
+  border-bottom:1px solid var(--line);margin-bottom:6px}
+h2 .num{font-family:"IBM Plex Mono",monospace;font-size:13px;color:var(--growth);
+  margin-right:11px;font-weight:500;vertical-align:2px}
+.lede{color:var(--ink-2);margin:14px 0 20px}
+h3{font-size:16.5px;font-weight:600;margin:26px 0 8px}
+
+/* ---------- verdict board ---------- */
+.verdicts{display:grid;grid-template-columns:repeat(auto-fit,minmax(268px,1fr));gap:14px;margin-top:22px}
+.vc{background:var(--surface);border:1px solid var(--line);border-radius:3px;
+  padding:16px 17px 17px;border-top:3px solid var(--tone);box-shadow:var(--shadow);
+  display:flex;flex-direction:column;gap:7px}
+.vc.pass{--tone:var(--pass)} .vc.warn{--tone:var(--warn)} .vc.fail{--tone:var(--fail)}
+.vc h3{margin:0;font-size:17px;font-family:Spectral,serif}
+.vc .pages{font-family:"IBM Plex Mono",monospace;font-size:11.5px;color:var(--ink-3)}
+.vc .call{font-weight:600;font-size:13.5px;color:var(--tone);letter-spacing:.01em}
+.vc p{margin:0;font-size:13.6px;color:var(--ink-2);max-width:none}
+.vc .num-line{font-family:"IBM Plex Mono",monospace;font-size:12.5px;color:var(--ink-2);
+  border-top:1px dotted var(--line-strong);padding-top:8px;margin-top:2px}
+
+/* ---------- tables ---------- */
+.tw{overflow-x:auto;margin:18px 0 6px;border:1px solid var(--line);border-radius:3px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:13.2px;font-variant-numeric:tabular-nums}
+th{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.07em;text-transform:uppercase;
+  color:var(--ink-3);text-align:right;padding:11px 13px;border-bottom:1.5px solid var(--line-strong);
+  white-space:nowrap;font-weight:500;background:var(--surface-2)}
+th:first-child,td:first-child{text-align:left}
+td{padding:8px 13px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover td{background:var(--surface-2)}
+td.name{font-weight:500;white-space:normal;min-width:150px}
+td.mono,th.mono{font-family:"IBM Plex Mono",monospace}
+tr.rule td{border-top:1.5px solid var(--line-strong)}
+.cap{font-size:12.4px;color:var(--ink-3);margin:6px 0 0;max-width:var(--prose)}
+
+.chip{display:inline-block;font-family:"IBM Plex Mono",monospace;font-size:11px;
+  padding:1.5px 7px;border-radius:2px;letter-spacing:.03em;white-space:nowrap}
+.chip.p{background:var(--pass-bg);color:var(--pass)}
+.chip.w{background:var(--warn-bg);color:var(--warn)}
+.chip.f{background:var(--fail-bg);color:var(--fail)}
+.chip.i{background:var(--info-bg);color:var(--assay)}
+
+/* ---------- figures ---------- */
+figure{margin:22px 0 6px;background:var(--surface);border:1px solid var(--line);
+  border-radius:3px;padding:18px 16px 10px;box-shadow:var(--shadow)}
+figure .fw{overflow-x:auto}
+figcaption{font-size:12.4px;color:var(--ink-3);margin-top:10px;padding-top:9px;
+  border-top:1px solid var(--line)}
+svg{display:block;max-width:100%}
+.legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:4px 0 12px;
+  font-family:"IBM Plex Mono",monospace;font-size:11.5px;color:var(--ink-2)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{width:16px;height:2.5px;border-radius:2px;display:inline-block}
+
+/* ---------- callout ---------- */
+.call-out{background:var(--surface);border-left:3px solid var(--growth);
+  padding:15px 18px;margin:20px 0;border-radius:0 3px 3px 0;box-shadow:var(--shadow)}
+.call-out p{margin:0;max-width:none;font-size:14.2px}
+.call-out .k{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.13em;
+  text-transform:uppercase;color:var(--growth);display:block;margin-bottom:5px}
+
+/* ---------- checklist ---------- */
+ol.steps{counter-reset:s;list-style:none;padding:0;margin:18px 0}
+ol.steps li{counter-increment:s;position:relative;padding-left:34px;margin-bottom:13px}
+ol.steps li::before{content:counter(s,decimal-leading-zero);position:absolute;left:0;top:1px;
+  font-family:"IBM Plex Mono",monospace;font-size:11.5px;color:var(--growth);font-weight:500}
+ul.plain{padding-left:20px;margin:12px 0}
+ul.plain li{margin-bottom:7px}
+
+.foot{margin-top:56px;padding-top:20px;border-top:1px solid var(--line-strong);
+  font-size:12.5px;color:var(--ink-3)}
+.foot p{max-width:none}
+@media (max-width:560px){ body{font-size:14.5px} .wrap{padding-inline:16px} }
+</style>
+
+<div class="wrap">
+<header class="mast">
+  <div class="eyebrow">独立复算 · 外部审计</div>
+  <h1>这些模型能不能用来指导药物筛选</h1>
+  <p class="standfirst">我把 VC 套件里六个已上线端点的训练数据从 ChEMBL 重新拉了一遍，
+    用四种严苛度递增的数据划分重训模型，测出它们在「真正没见过的化学型」上还剩多少能力。
+    结论按端点分档，不按套件分档。</p>
+  <div class="meta" id="meta"></div>
+</header>
+
+<section>
+  <h2><span class="num">01</span>结论</h2>
+  <p class="lede">同一套工程里的模型，可用性差了整整一个量级。抗菌 MIC 这一支可以现在就投产做排序；
+    抗病毒这一支不行。</p>
+  <div class="verdicts" id="verdicts"></div>
+</section>
+
+<section>
+  <h2><span class="num">02</span>我实际做了什么</h2>
+  <p class="lede">报告里所有指标都是「骨架划分交叉验证」。骨架划分对一个类似物系列几乎不设防：
+    环上换一个原子，Bemis-Murcko 骨架就变了，于是同一个系列的化合物被分到训练集和测试集两边。
+    真实筛选面对的是没见过的化学型，所以我加测了两种更严苛的划分。</p>
+  <ol class="steps">
+    <li><b>重新取数</b>：直接查 ChEMBL API，按报告 §11.6 声明的过滤条件（<code>standard_relation='='</code>、
+      单位 nM 或 µg/mL、最大片段、中位数去重、p 值截断 [2,10]）独立重建六个数据集。</li>
+    <li><b>四级划分阶梯</b>：随机划分 → 骨架划分（报告用的）→ 球面排除聚类划分（把整个相似化合物簇
+      整体分到同一折，簇心之间 Tanimoto &lt; 0.4）→ 时间划分（用早期文献训练，预测后 30% 年份的化合物）。</li>
+    <li><b>同配置重训</b>：ECFP4 2048 位 + 300 树随机森林（n &lt; 400 时用岭回归，与报告一致）；
+      CC50 用报告部署的 <code>min_samples_leaf=10</code> 配置。</li>
+    <li><b>q-RASAR 复现</b>：按报告 §8.7.3 的定义实现 6 个相似性特征（nn1、nn2、top-3/top-5 均值、
+      指数加权 kNN 预测、近邻标签标准差），含它声明的留一泄漏控制与 (-t, idx) 确定性排序。</li>
+    <li><b>适用域边界</b>：把预测按「到训练集的最近邻 Tanimoto」分箱，画出能力随相似度衰减的曲线。</li>
+    <li><b>迁移测试</b>：把一个靶点/菌种上训练好的模型直接拿去预测另一个端点。</li>
+  </ol>
+  <div class="call-out">
+    <span class="k">先说数据溯源</span>
+    <p id="prov-note"></p>
+  </div>
+  <div class="tw"><table id="prov"></table></div>
+  <p class="cap">独立重建的化合物数与骨架数对齐报告声明值，差异来自 ChEMBL 版本与去重细节。
+    这一步的意义是：报告的取数口径是真实、可复现的，后面所有分歧都不是数据来源造成的。</p>
+</section>
+
+<section>
+  <h2><span class="num">03</span>划分越严，能力掉多少</h2>
+  <p class="lede">这是整份审计的核心。横轴四档划分严苛度递增，纵轴是 Spearman 秩相关。
+    线掉得越陡，说明模型越依赖「测试集里有训练集的近亲」。</p>
+  <figure>
+    <div class="fw"><svg id="slope" role="img" aria-label="四种数据划分下各端点的 Spearman 相关系数"></svg></div>
+    <figcaption>球面排除划分把相似化合物整簇分到同一折，大幅降低但不能完全消除测试集与训练集的近邻——
+      第 05 节的相似度分箱给出实际残留分布。时间划分用早期文献训练、预测后期文献化合物，
+      是最接近真实前瞻筛选的代理。曲线为不加 q-RASAR 特征的基线模型。</figcaption>
+  </figure>
+  <div class="tw"><table id="splits"></table></div>
+  <p class="cap">R² 为负表示模型的预测比「一律输出训练集均值」还差。
+    「≤1 log」是预测值落在实测值一个数量级内的比例；「≤2 倍」对应药敏试验的一个倍比稀释度。</p>
+  <div id="split-read"></div>
+</section>
+
+<section>
+  <h2><span class="num">04</span>q-RASAR 增益只复现了一部分</h2>
+  <p class="lede">报告 §8.7.3 用 q-RASAR 相似性特征把三个抗病毒/毒性模型全部重训并上线，
+    宣称 NA +0.127、CC50 +0.169、PA +0.057 的 Spearman 提升，并以此作为门控通过、
+    替换页面内嵌权重的依据。我按同样定义实现后，只在其中一个模型上测到增益，且量级只有四成。</p>
+  <div class="tw"><table id="qr"></table></div>
+  <p class="cap">Δ 为加入 q-RASAR 特征后的 Spearman 变化。我的基线值与报告基线值高度吻合，
+    说明数据与模型配置一致；分歧只出现在加特征之后。</p>
+  <div id="qr-read"></div>
+  <div class="call-out">
+    <span class="k">我的实现是对的吗</span>
+    <p>做了三重对照。一、单独用 <code>knn_pred</code> 这一个特征去排序 NA 数据，随机划分下 Spearman 达 0.795、
+      骨架划分下 0.664——特征本身信息量充足。二、近邻选择的 (−t, idx) 确定性排序做了与朴素实现的
+      逐位等价性测试，含大量并列值的极端情形全部通过。三、报告未声称增益的三个端点上，我同样测不到增益。
+      所以问题不在实现，而在于<b>这些信息指纹随机森林大多已经提取过了</b>——
+      顺带一个值得注意的事实：一行最近邻查表（0.664）几乎追平整个 300 树模型（0.689）。</p>
+  </div>
+  <p>这不构成「报告造假」的指控——两边实现之间存在我看不到的差异。但它是一个应当先解决的阻塞项，
+    因为三个已上线模型的当前权重就是靠这个增益选出来的，其中两个（NA、PA）在我这里没有任何增益支撑。
+    判决方法很便宜：把 q-RASAR 门控在球面排除划分下重跑一遍，并公布两侧的折内/折外特征矩阵。
+    如果增益是真实泛化，它会在更严的划分下保留——泛细胞毒性模型就是这样（0.408 → 0.466）；
+    如果来自近邻记忆，它会消失。</p>
+</section>
+
+<section>
+  <h2><span class="num">05</span>能力边界在哪：相似度决定一切</h2>
+  <p class="lede">套件的适用域分层（high / borderline / out_of_domain）在设计上是对的。
+    但「域外」的真实含义比页面提示的更强硬：不是「置信度较低」，而是<b>没有排序能力</b>。</p>
+  <figure>
+    <div class="fw"><svg id="adchart" role="img" aria-label="预测能力随最近邻相似度变化"></svg></div>
+    <figcaption>横轴为化合物到同折训练集的最近邻 Tanimoto 相似度（ECFP4）。
+      每个点是该相似度区间内的 Spearman，取自球面排除划分下含 q-RASAR 特征模型的折外预测。
+      样本数不足 40 的区间不作图。</figcaption>
+  </figure>
+  <div class="tw"><table id="ad"></table></div>
+  <p class="cap">灰色格为该区间样本数不足 40，未计算。</p>
+  <div id="ad-read"></div>
+</section>
+
+<section>
+  <h2><span class="num">06</span>迁移能力</h2>
+  <p class="lede">报告用「NA 抑制剂在 PA 配置下全部跌出前 26 名」论证靶点特异性成立。
+    我换个问法：把一个端点的模型直接拿去预测另一个端点，剩多少相关？</p>
+  <div class="tw"><table id="tr"></table></div>
+  <p class="cap">「真值对真值」是同时在两个端点上有实测的化合物，其两个实测值之间的相关——
+    这是任何跨端点迁移的理论上限。</p>
+  <div id="tr-read"></div>
+</section>
+
+<section>
+  <h2><span class="num">07</span>把指标换算成实验成本</h2>
+  <p class="lede">Spearman 不能告诉实验室该订几块板。下面按各模型<b>报告声明</b>的准确度，
+    换算成筛选决策量：挑出预测最好的 5%，其中真正落在真实前 5% 的比例。
+    注意这是域内的乐观上限——第 03 节说明了域外会掉到什么程度。</p>
+  <div class="tw"><table id="util"></table></div>
+  <p class="cap">富集倍数 = 命中率 ÷ 随机命中率。「1 SD 误差倍数」是 RMSE 换算成浓度倍数，
+    表示单个化合物绝对预测值的典型偏差。</p>
+  <h3>串联端点的误差累积</h3>
+  <div class="tw"><table id="chain"></table></div>
+  <p class="cap">套件把多个模型串起来输出 SI、CPE%、峰下降%、ΔCt 等湿实验端点。
+    误差按平方和累积，串得越长精度越低。此处用的是本轮<b>实测</b>的聚类划分 RMSE，
+    不是报告声明值，单位为 log10。</p>
+  <div class="call-out">
+    <span class="k">VC-TRIAGE 的窗口门</span>
+    <p id="gate-note"></p>
+  </div>
+</section>
+
+<section>
+  <h2><span class="num">08</span>下一步该用什么测试集</h2>
+  <p class="lede">我这轮用的是 ChEMBL 内部的严格划分，这是「没有外部数据时能做的最好验证」。
+    要真正定级，需要来自不同实验室、不同协议的外部数据。下面按优先级排。</p>
+  <div id="ext"></div>
+</section>
+
+<section>
+  <h2><span class="num">09</span>这份审计没覆盖什么</h2>
+  <ul class="plain" id="limits"></ul>
+</section>
+
+<footer class="foot">
+  <p id="footnote"></p>
+</footer>
+</div>
+
+<script>
+const DATA = {"splits":[{"tag":null,"n":9590,"spearman":0.6835186281,"rmse":0.5784285041,"r2":0.5705143269,"ef5":12.5833333333,"ef1":41.6666666667,"within1log":0.9263816475,"within2fold":0.490198123,"dataset":"hERG","split":"random","qrasar":false,"n_train_frac":0.8},{"tag":null,"n":9590,"spearman":0.6797253919,"rmse":0.5639582316,"r2":0.5917340235,"ef5":13.5833333333,"ef1":45.8333333333,"within1log":0.927632951,"within2fold":0.4917622523,"dataset":"hERG","split":"random","qrasar":true,"n_train_frac":0.8},{"tag":null,"n":9590,"spearman":0.5807836727,"rmse":0.6791776549,"r2":0.4078713334,"ef5":10.0833333333,"ef1":23.9583333333,"within1log":0.8987486966,"within2fold":0.4145985401,"dataset":"hERG","split":"scaffold","qrasar":false,"n_train_frac":0.8},{"tag":null,"n":9590,"spearman":0.5865524686,"rmse":0.6635288323,"r2":0.434843266,"ef5":10.875,"ef1":38.5416666667,"within1log":0.8987486966,"within2fold":0.4313868613,"dataset":"hERG","split":"scaffold","qrasar":true,"n_train_frac":0.8},{"tag":null,"n":9590,"spearman":0.3782216103,"rmse":0.8016931178,"r2":0.1749778292,"ef5":6.125,"ef1":17.7083333333,"within1log":0.8584984359,"within2fold":0.3739311783,"dataset":"hERG","split":"cluster0.4","qrasar":false,"n_train_frac":0.8},{"tag":null,"n":9590,"spearman":0.3977364854,"rmse":0.7994423444,"r2":0.1796038668,"ef5":6.9166666667,"ef1":17.7083333333,"within1log":0.8580813347,"within2fold":0.3831074035,"dataset":"hERG","split":"cluster0.4","qrasar":true,"n_train_frac":0.8},{"tag":null,"n":2792,"spearman":0.202183005,"rmse":0.8297962472,"r2":-0.0318916527,"ef5":3.1428571429,"ef1":14.2857142857,"within1log":0.8284383954,"within2fold":0.3413323782,"dataset":"hERG","split":"temporal","qrasar":false,"n_train_frac":0.7088633994},{"tag":null,"n":2792,"spearman":0.2203037794,"rmse":0.8181569939,"r2":-0.0031467282,"ef5":5.2857142857,"ef1":14.2857142857,"within1log":0.837034384,"within2fold":0.3531518625,"dataset":"hERG","split":"temporal","qrasar":true,"n_train_frac":0.7088633994},{"tag":null,"n":34893,"spearman":0.5272791224,"rmse":0.597431851,"r2":0.3052250174,"ef5":7.553008596,"ef1":32.3782234957,"within1log":0.9180064769,"within2fold":0.4664832488,"dataset":"CC50_pan","split":"scaffold","qrasar":false,"n_train_frac":null},{"tag":null,"n":34893,"spearman":0.5931781038,"rmse":0.5484340822,"r2":0.414514291,"ef5":9.6504297994,"ef1":34.9570200573,"within1log":0.9323073396,"within2fold":0.5184994125,"dataset":"CC50_pan","split":"scaffold","qrasar":true,"n_train_frac":null},{"tag":null,"n":34893,"spearman":0.4082894582,"rmse":0.6579373126,"r2":0.1573708867,"ef5":4.0916905444,"ef1":10.3151862464,"within1log":0.8980311237,"within2fold":0.4373943198,"dataset":"CC50_pan","split":"cluster0.4","qrasar":false,"n_train_frac":null},{"tag":null,"n":34893,"spearman":0.4655360333,"rmse":0.62859162,"r2":0.2308614114,"ef5":5.100286533,"ef1":18.6246418338,"within1log":0.9043934313,"within2fold":0.466597885,"dataset":"CC50_pan","split":"cluster0.4","qrasar":true,"n_train_frac":null},{"tag":null,"n":12190,"spearman":0.13787812,"rmse":0.6955506118,"r2":-0.080508192,"ef5":1.2131147541,"ef1":4.0983606557,"within1log":0.8885972108,"within2fold":0.4182936833,"dataset":"CC50_pan","split":"temporal","qrasar":false,"n_train_frac":null},{"tag":null,"n":12190,"spearman":0.1757966988,"rmse":0.6846175795,"r2":-0.0468071575,"ef5":3.2786885246,"ef1":7.3770491803,"within1log":0.8917145201,"within2fold":0.4419196062,"dataset":"CC50_pan","split":"temporal","qrasar":true,"n_train_frac":null},{"tag":null,"n":241,"spearman":0.7884950933,"rmse":0.6195284719,"r2":0.6686761537,"ef5":11.6666666667,"ef1":0.0,"within1log":0.9045643154,"within2fold":0.4356846473,"dataset":"PA_influenza","split":"random","qrasar":false,"n_train_frac":0.8},{"tag":null,"n":241,"spearman":0.8105970962,"rmse":0.6021359236,"r2":0.6870180946,"ef5":10.0,"ef1":0.0,"within1log":0.9336099585,"within2fold":0.4730290456,"dataset":"PA_influenza","split":"random","qrasar":true,"n_train_frac":0.8},{"tag":null,"n":241,"spearman":0.7049786914,"rmse":0.730652176,"r2":0.5391585674,"ef5":11.6666666667,"ef1":0.0,"within1log":0.846473029,"within2fold":0.356846473,"dataset":"PA_influenza","split":"scaffold","qrasar":false,"n_train_frac":0.8},{"tag":null,"n":241,"spearman":0.702289291,"rmse":0.729811614,"r2":0.5402182864,"ef5":10.0,"ef1":0.0,"within1log":0.8589211618,"within2fold":0.3526970954,"dataset":"PA_influenza","split":"scaffold","qrasar":true,"n_train_frac":0.8},{"tag":null,"n":241,"spearman":0.321613966,"rmse":1.0868502317,"r2":-0.0196932832,"ef5":0.0,"ef1":0.0,"within1log":0.7510373444,"within2fold":0.2987551867,"dataset":"PA_influenza","split":"cluster0.4","qrasar":false,"n_train_frac":0.8},{"tag":null,"n":241,"spearman":0.3708732021,"rmse":1.0971761732,"r2":-0.0391611201,"ef5":0.0,"ef1":0.0,"within1log":0.7676348548,"within2fold":0.3029045643,"dataset":"PA_influenza","split":"cluster0.4","qrasar":true,"n_train_frac":0.8},{"tag":null,"n":37,"spearman":0.3226418501,"rmse":1.0349862225,"r2":-1.5537588634,"ef5":0.0,"ef1":0.0,"within1log":0.6756756757,"within2fold":0.1351351351,"dataset":"PA_influenza","split":"temporal","qrasar":false,"n_train_frac":0.846473029},{"tag":null,"n":37,"spearman":0.3043813412,"rmse":1.0659894496,"r2":-1.7090471414,"ef5":0.0,"ef1":0.0,"within1log":0.6486486486,"within2fold":0.1351351351,"dataset":"PA_influenza","split":"temporal","qrasar":true,"n_train_frac":0.846473029},{"tag":null,"n":1209,"spearman":0.7916676435,"rmse":0.8098876897,"r2":0.6292039529,"ef5":10.0,"ef1":16.6666666667,"within1log":0.8271298594,"within2fold":0.4243176179,"dataset":"NA_influenza","split":"random","qrasar":false,"n_train_frac":0.8},{"tag":null,"n":1209,"spearman":0.7964143487,"rmse":0.8191041404,"r2":0.6207166811,"ef5":7.6666666667,"ef1":16.6666666667,"within1log":0.8254755997,"within2fold":0.4127377998,"dataset":"NA_influenza","split":"random","qrasar":true,"n_train_frac":0.8},{"tag":null,"n":1209,"spearman":0.6889964481,"rmse":0.9768609474,"r2":0.4605502503,"ef5":7.3333333333,"ef1":8.3333333333,"within1log":0.7394540943,"within2fold":0.3043837883,"dataset":"NA_influenza","split":"scaffold","qrasar":false,"n_train_frac":0.8},{"tag":null,"n":1209,"spearman":0.6770287707,"rmse":1.000707415,"r2":0.4338914217,"ef5":6.0,"ef1":8.3333333333,"within1log":0.7270471464,"within2fold":0.3159636063,"dataset":"NA_influenza","split":"scaffold","qrasar":true,"n_train_frac":0.8},{"tag":null,"n":1209,"spearman":0.5977313521,"rmse":1.0986263747,"r2":0.3176840211,"ef5":4.3333333333,"ef1":8.3333333333,"within1log":0.6335814723,"within2fold":0.2349048801,"dataset":"NA_influenza","split":"cluster0.4","qrasar":false,"n_train_frac":0.8},{"tag":null,"n":1209,"spearman":0.5717396328,"rmse":1.1159865811,"r2":0.2959500932,"ef5":5.3333333333,"ef1":8.3333333333,"within1log":0.6559139785,"within2fold":0.2539288668,"dataset":"NA_influenza","split":"cluster0.4","qrasar":true,"n_train_frac":0.8},{"tag":null,"n":341,"spearman":0.238503803,"rmse":1.2488080269,"r2":-0.2662344249,"ef5":2.3529411765,"ef1":33.3333333333,"within1log":0.4809384164,"within2fold":0.1319648094,"dataset":"NA_influenza","split":"temporal","qrasar":false,"n_train_frac":0.7179487179},{"tag":null,"n":341,"spearman":0.2734223634,"rmse":1.1677887524,"r2":-0.1072643804,"ef5":7.0588235294,"ef1":0.0,"within1log":0.5953079179,"within2fold":0.1759530792,"dataset":"NA_influenza","split":"temporal","qrasar":true,"n_train_frac":0.7179487179},{"tag":null,"n":2572,"spearman":0.878835223,"rmse":0.5799925615,"r2":0.7757019315,"ef5":9.3023255814,"ef1":46.1538461538,"within1log":0.9094090202,"within2fold":0.4988335925,"dataset":"MIC_E_cloacae","split":"random","qrasar":false,"n_train_frac":0.8},{"tag":null,"n":2572,"spearman":0.8778035675,"rmse":0.5827601871,"r2":0.7735562,"ef5":8.2170542636,"ef1":19.2307692308,"within1log":0.9144634526,"within2fold":0.5050544323,"dataset":"MIC_E_cloacae","split":"random","qrasar":true,"n_train_frac":0.8},{"tag":null,"n":2572,"spearman":0.8093272722,"rmse":0.7048048496,"r2":0.6687785503,"ef5":8.6821705426,"ef1":19.2307692308,"within1log":0.8573094868,"within2fold":0.3977449456,"dataset":"MIC_E_cloacae","split":"scaffold","qrasar":false,"n_train_frac":0.8},{"tag":null,"n":2572,"spearman":0.8002184969,"rmse":0.7276119232,"r2":0.6469954522,"ef5":7.7519379845,"ef1":11.5384615385,"within1log":0.849533437,"within2fold":0.4047433904,"dataset":"MIC_E_cloacae","split":"scaffold","qrasar":true,"n_train_frac":0.8},{"tag":null,"n":2572,"spearman":0.668110137,"rmse":0.8965191336,"r2":0.4640801888,"ef5":4.8062015504,"ef1":7.6923076923,"within1log":0.7604976672,"within2fold":0.333592535,"dataset":"MIC_E_cloacae","split":"cluster0.4","qrasar":false,"n_train_frac":0.8},{"tag":null,"n":2572,"spearman":0.6979507734,"rmse":0.9081763025,"r2":0.4500527722,"ef5":5.1162790698,"ef1":19.2307692308,"within1log":0.7814930016,"within2fold":0.3363141524,"dataset":"MIC_E_cloacae","split":"cluster0.4","qrasar":true,"n_train_frac":0.8},{"tag":null,"n":702,"spearman":0.3924413767,"rmse":1.1306800056,"r2":0.0685516007,"ef5":2.8571428571,"ef1":14.2857142857,"within1log":0.6638176638,"within2fold":0.2507122507,"dataset":"MIC_E_cloacae","split":"temporal","qrasar":false,"n_train_frac":0.7270606532},{"tag":null,"n":702,"spearman":0.4150975697,"rmse":1.1401042749,"r2":0.0529595606,"ef5":1.1428571429,"ef1":0.0,"within1log":0.6737891738,"within2fold":0.2435897436,"dataset":"MIC_E_cloacae","split":"temporal","qrasar":true,"n_train_frac":0.7270606532},{"tag":null,"n":3403,"spearman":0.8153012162,"rmse":0.4923431304,"r2":0.7129228946,"ef5":12.8235294118,"ef1":50.0,"within1log":0.945342345,"within2fold":0.5418748163,"dataset":"MIC_H_influenzae","split":"random","qrasar":false,"n_train_frac":0.8},{"tag":null,"n":3403,"spearman":0.8166356953,"rmse":0.4844324454,"r2":0.7220739603,"ef5":12.7058823529,"ef1":52.9411764706,"within1log":0.9473993535,"within2fold":0.5680282104,"dataset":"MIC_H_influenzae","split":"random","qrasar":true,"n_train_frac":0.8},{"tag":null,"n":3403,"spearman":0.743247263,"rmse":0.5816959999,"r2":0.5992671473,"ef5":12.3529411765,"ef1":23.5294117647,"within1log":0.9141933588,"within2fold":0.4613576256,"dataset":"MIC_H_influenzae","split":"scaffold","qrasar":false,"n_train_frac":0.8},{"tag":null,"n":3403,"spearman":0.7366437201,"rmse":0.5855822683,"r2":0.5938947269,"ef5":13.4117647059,"ef1":23.5294117647,"within1log":0.9074346165,"within2fold":0.4775198354,"dataset":"MIC_H_influenzae","split":"scaffold","qrasar":true,"n_train_frac":0.8},{"tag":null,"n":3403,"spearman":0.5402114498,"rmse":0.7367601678,"r2":0.3571419751,"ef5":10.9411764706,"ef1":20.5882352941,"within1log":0.8424919189,"within2fold":0.385836027,"dataset":"MIC_H_influenzae","split":"cluster0.4","qrasar":false,"n_train_frac":0.8},{"tag":null,"n":3403,"spearman":0.5169836187,"rmse":0.7791359172,"r2":0.2810656341,"ef5":7.6470588235,"ef1":20.5882352941,"within1log":0.8175139583,"within2fold":0.3702615339,"dataset":"MIC_H_influenzae","split":"cluster0.4","qrasar":true,"n_train_frac":0.8},{"tag":null,"n":998,"spearman":0.2851526094,"rmse":0.8858357223,"r2":0.0585796311,"ef5":8.0,"ef1":40.0,"within1log":0.74749499,"within2fold":0.3106212425,"dataset":"MIC_H_influenzae","split":"temporal","qrasar":false,"n_train_frac":0.7067293565},{"tag":null,"n":998,"spearman":0.18670857,"rmse":0.9599759253,"r2":-0.1055996553,"ef5":7.2,"ef1":30.0,"within1log":0.7184368737,"within2fold":0.2835671343,"dataset":"MIC_H_influenzae","split":"temporal","qrasar":true,"n_train_frac":0.7067293565}],"ad":[{"dataset":"CC50_pan","lo":0.2,"hi":0.3,"n":1170,"spearman":0.1311966208,"rmse":0.9355002386},{"dataset":"CC50_pan","lo":0.3,"hi":0.4,"n":6658,"spearman":0.2255914637,"rmse":0.7292276406},{"dataset":"CC50_pan","lo":0.4,"hi":0.5,"n":7971,"spearman":0.3639138876,"rmse":0.6558729328},{"dataset":"CC50_pan","lo":0.5,"hi":0.6,"n":7165,"spearman":0.4787953411,"rmse":0.6126998484},{"dataset":"CC50_pan","lo":0.6,"hi":0.7,"n":5717,"spearman":0.5915278455,"rmse":0.548061919},{"dataset":"CC50_pan","lo":0.7,"hi":1.01,"n":6202,"spearman":0.7025132072,"rmse":0.4714190646},{"dataset":"NA_influenza","lo":0.2,"hi":0.3,"n":58,"spearman":0.3075171903,"rmse":1.0387721158},{"dataset":"NA_influenza","lo":0.3,"hi":0.4,"n":98,"spearman":0.2279840481,"rmse":0.930192697},{"dataset":"NA_influenza","lo":0.4,"hi":0.5,"n":134,"spearman":0.6278845614,"rmse":0.9008675427},{"dataset":"NA_influenza","lo":0.5,"hi":0.6,"n":318,"spearman":0.2629888046,"rmse":1.368929944},{"dataset":"NA_influenza","lo":0.6,"hi":0.7,"n":310,"spearman":0.4171806498,"rmse":1.1568150391},{"dataset":"NA_influenza","lo":0.7,"hi":1.01,"n":285,"spearman":0.7455975966,"rmse":0.9089124526},{"dataset":"MIC_E_cloacae","lo":0.2,"hi":0.3,"n":210,"spearman":0.2796553128,"rmse":1.0551645521},{"dataset":"MIC_E_cloacae","lo":0.3,"hi":0.4,"n":179,"spearman":0.4412066569,"rmse":1.2590188129},{"dataset":"MIC_E_cloacae","lo":0.4,"hi":0.5,"n":412,"spearman":0.7042223469,"rmse":1.0214662362},{"dataset":"MIC_E_cloacae","lo":0.5,"hi":0.6,"n":470,"spearman":0.5355861848,"rmse":1.0878908909},{"dataset":"MIC_E_cloacae","lo":0.6,"hi":0.7,"n":416,"spearman":0.7292363493,"rmse":0.7373129053},{"dataset":"MIC_E_cloacae","lo":0.7,"hi":1.01,"n":850,"spearman":0.7643596083,"rmse":0.5696765578},{"dataset":"MIC_H_influenzae","lo":0.0,"hi":0.2,"n":66,"spearman":0.0617276219,"rmse":1.3293944244},{"dataset":"MIC_H_influenzae","lo":0.2,"hi":0.3,"n":186,"spearman":0.3272633518,"rmse":1.1991567654},{"dataset":"MIC_H_influenzae","lo":0.3,"hi":0.4,"n":180,"spearman":0.3123343322,"rmse":1.0920541711},{"dataset":"MIC_H_influenzae","lo":0.4,"hi":0.5,"n":510,"spearman":0.6362116755,"rmse":0.8523850462},{"dataset":"MIC_H_influenzae","lo":0.5,"hi":0.6,"n":753,"spearman":0.5187684013,"rmse":0.7578965944},{"dataset":"MIC_H_influenzae","lo":0.6,"hi":0.7,"n":754,"spearman":0.5109521174,"rmse":0.6926971341},{"dataset":"MIC_H_influenzae","lo":0.7,"hi":1.01,"n":954,"spearman":0.5872981003,"rmse":0.5627922147},{"dataset":"PA_influenza","lo":0.2,"hi":0.3,"n":48,"spearman":0.0435419963,"rmse":1.5111586796},{"dataset":"PA_influenza","lo":0.3,"hi":0.4,"n":63,"spearman":-0.1001164146,"rmse":1.4050455232},{"dataset":"PA_influenza","lo":0.4,"hi":0.5,"n":53,"spearman":0.5704840044,"rmse":0.7720282302},{"dataset":"PA_influenza","lo":0.5,"hi":0.6,"n":45,"spearman":0.586185316,"rmse":0.5632552517},{"dataset":"hERG","lo":0.2,"hi":0.3,"n":1193,"spearman":0.0194177201,"rmse":0.7670363404},{"dataset":"hERG","lo":0.3,"hi":0.4,"n":2594,"spearman":0.1870429486,"rmse":0.9131901449},{"dataset":"hERG","lo":0.4,"hi":0.5,"n":1826,"spearman":0.3229458038,"rmse":0.8837698518},{"dataset":"hERG","lo":0.5,"hi":0.6,"n":1508,"spearman":0.4575279616,"rmse":0.7573794251},{"dataset":"hERG","lo":0.6,"hi":0.7,"n":1144,"spearman":0.5932895892,"rmse":0.7334542123},{"dataset":"hERG","lo":0.7,"hi":1.01,"n":1313,"spearman":0.777928152,"rmse":0.5078136054}],"utility":[{"model":"NA pIC50 (RF+qRASAR)","page":"VC-AVI","endpoint":"antiviral potency","n":1143,"spearman":0.809,"rmse_log":1.07,"EF_top5":10.4,"hit_rate_top5":52.2,"EF_top1":40.7,"hit_rate_top1":40.7,"tests_for_10_hits":19,"fold_error_1sd":11.7},{"model":"PA pIC50 (Ridge+qRASAR)","page":"VC-AVI","endpoint":"antiviral potency","n":252,"spearman":0.734,"rmse_log":0.728,"EF_top5":8.8,"hit_rate_top5":44.0,"EF_top1":31.7,"hit_rate_top1":31.7,"tests_for_10_hits":23,"fold_error_1sd":5.3},{"model":"CC50 (RF_msl10+qRASAR)","page":"VC-AVI","endpoint":"cytotoxicity","n":33641,"spearman":0.704,"rmse_log":0.476,"EF_top5":8.2,"hit_rate_top5":41.1,"EF_top1":28.7,"hit_rate_top1":28.7,"tests_for_10_hits":24,"fold_error_1sd":3.0},{"model":"MIC E. coli","page":"VC-MIC","endpoint":"antibacterial","n":31676,"spearman":0.719,"rmse_log":0.72,"EF_top5":8.5,"hit_rate_top5":42.5,"EF_top1":30.1,"hit_rate_top1":30.1,"tests_for_10_hits":24,"fold_error_1sd":5.2},{"model":"MIC S. aureus","page":"VC-MIC","endpoint":"antibacterial","n":48610,"spearman":0.714,"rmse_log":0.73,"EF_top5":8.4,"hit_rate_top5":42.1,"EF_top1":29.6,"hit_rate_top1":29.6,"tests_for_10_hits":24,"fold_error_1sd":5.4},{"model":"MIC P. aeruginosa","page":"VC-MIC","endpoint":"antibacterial","n":20022,"spearman":0.698,"rmse_log":0.68,"EF_top5":8.1,"hit_rate_top5":40.6,"EF_top1":28.1,"hit_rate_top1":28.1,"tests_for_10_hits":25,"fold_error_1sd":4.8},{"model":"MIC K. pneumoniae","page":"VC-MIC","endpoint":"antibacterial","n":12015,"spearman":0.754,"rmse_log":0.7,"EF_top5":9.2,"hit_rate_top5":46.0,"EF_top1":33.9,"hit_rate_top1":33.9,"tests_for_10_hits":22,"fold_error_1sd":5.0},{"model":"MIC S. pyogenes","page":"VC-MIC2","endpoint":"antibacterial","n":6453,"spearman":0.824,"rmse_log":0.753,"EF_top5":10.8,"hit_rate_top5":54.1,"EF_top1":42.8,"hit_rate_top1":42.8,"tests_for_10_hits":18,"fold_error_1sd":5.7},{"model":"MIC M. tuberculosis","page":"VC-MIC2","endpoint":"antibacterial","n":19468,"spearman":0.643,"rmse_log":0.712,"EF_top5":7.2,"hit_rate_top5":35.8,"EF_top1":23.3,"hit_rate_top1":23.3,"tests_for_10_hits":28,"fold_error_1sd":5.2},{"model":"MIC E. cloacae","page":"VC-MIC2","endpoint":"antibacterial","n":2440,"spearman":0.785,"rmse_log":0.746,"EF_top5":9.9,"hit_rate_top5":49.4,"EF_top1":37.6,"hit_rate_top1":37.6,"tests_for_10_hits":20,"fold_error_1sd":5.6},{"model":"logS solubility","page":"VC-ADMET","endpoint":"ADMET","n":12930,"spearman":0.599,"rmse_log":1.898,"EF_top5":6.5,"hit_rate_top5":32.3,"EF_top1":19.9,"hit_rate_top1":19.9,"tests_for_10_hits":31,"fold_error_1sd":79.1},{"model":"hERG pIC50","page":"VC-ADMET","endpoint":"ADMET","n":9716,"spearman":0.606,"rmse_log":0.704,"EF_top5":6.6,"hit_rate_top5":32.8,"EF_top1":20.4,"hit_rate_top1":20.4,"tests_for_10_hits":30,"fold_error_1sd":5.1},{"model":"CYP3A4 pIC50","page":"VC-ADMET","endpoint":"ADMET","n":5490,"spearman":0.573,"rmse_log":0.652,"EF_top5":6.1,"hit_rate_top5":30.4,"EF_top1":18.2,"hit_rate_top1":18.2,"tests_for_10_hits":33,"fold_error_1sd":4.5},{"model":"CYP2D6 pIC50","page":"VC-ADMET","endpoint":"ADMET","n":2993,"spearman":0.579,"rmse_log":0.695,"EF_top5":6.2,"hit_rate_top5":30.8,"EF_top1":18.6,"hit_rate_top1":18.6,"tests_for_10_hits":32,"fold_error_1sd":5.0},{"model":"HLM half-life","page":"VC-ADMET","endpoint":"ADMET","n":601,"spearman":0.449,"rmse_log":0.488,"EF_top5":4.5,"hit_rate_top5":22.4,"EF_top1":11.3,"hit_rate_top1":11.3,"tests_for_10_hits":45,"fold_error_1sd":3.1}],"transfer":[{"src":"NA_influenza","dst":"PA_influenza","n_dst":241,"n_shared":0,"rho_all":-0.1491086914,"rho_unseen":-0.1491086914,"n_unseen":241,"rho_unseen_indomain":null,"n_unseen_indomain":0,"rho_truth_vs_truth":null,"n_truth_pairs":null},{"src":"PA_influenza","dst":"NA_influenza","n_dst":1209,"n_shared":0,"rho_all":-0.3482821952,"rho_unseen":-0.3482821952,"n_unseen":1209,"rho_unseen_indomain":null,"n_unseen_indomain":0,"rho_truth_vs_truth":null,"n_truth_pairs":null},{"src":"MIC_H_influenzae","dst":"MIC_E_cloacae","n_dst":2572,"n_shared":247,"rho_all":0.5176090582,"rho_unseen":0.5305894527,"n_unseen":2325,"rho_unseen_indomain":0.2720190045,"n_unseen_indomain":1556,"rho_truth_vs_truth":0.4864089822,"n_truth_pairs":247.0},{"src":"MIC_E_cloacae","dst":"MIC_H_influenzae","n_dst":3403,"n_shared":247,"rho_all":0.1311535409,"rho_unseen":0.0447459501,"n_unseen":3156,"rho_unseen_indomain":0.1092446335,"n_unseen_indomain":1847,"rho_truth_vs_truth":0.4864089822,"n_truth_pairs":247.0},{"src":"hERG","dst":"MIC_E_cloacae","n_dst":2572,"n_shared":10,"rho_all":-0.3150136034,"rho_unseen":-0.3131035,"n_unseen":2562,"rho_unseen_indomain":-0.2100494491,"n_unseen_indomain":776,"rho_truth_vs_truth":null,"n_truth_pairs":null}],"provenance":{"NA_influenza":{"label":"NA 流感神经氨酸酶 pIC50","page":"VC-AVI","rep_n":1143,"rep_scaf":318,"rep_rho":0.681,"rep_rho_qr":0.809,"my_n":1209,"my_scaf":329},"PA_influenza":{"label":"PA 核酸内切酶 pIC50","page":"VC-AVI","rep_n":252,"rep_scaf":126,"rep_rho":0.676,"rep_rho_qr":0.734,"my_n":241,"my_scaf":113},"CC50_pan":{"label":"泛细胞毒性 pCC50","page":"VC-AVI / VC-TRIAGE","rep_n":33641,"rep_scaf":13678,"rep_rho":0.535,"rep_rho_qr":0.704,"my_n":34893,"my_scaf":13886},"MIC_H_influenzae":{"label":"流感嗜血杆菌 pMIC","page":"VC-MIC2","rep_n":3499,"rep_scaf":1681,"rep_rho":0.73,"rep_rho_qr":null,"my_n":3403,"my_scaf":1615},"MIC_E_cloacae":{"label":"阴沟肠杆菌 pMIC","page":"VC-MIC2","rep_n":2440,"rep_scaf":822,"rep_rho":0.785,"rep_rho_qr":null,"my_n":2572,"my_scaf":823},"hERG":{"label":"hERG 抑制 pIC50","page":"VC-ADMET","rep_n":9716,"rep_scaf":5106,"rep_rho":0.606,"rep_rho_qr":null,"my_n":9590,"my_scaf":4839}},"verdicts":[{"tone":"warn","pages":"VC-MIC · VC-MIC2","title":"抗菌 MIC 预测","call":"可用于排序，不可用于报数","body":"十三个菌种模型里复算了两个。在与训练集无近邻的化学型上仍保住排序能力，前 5% 富集 4.8–10.9 倍——这是套件里最接近可投产的一支。但预测值落在一个倍比稀释度内的比例只有 33–39%，离药敏方法学要求的基本一致率（≥90%）差得远。","num":"聚类划分 ρ 0.54 / 0.67　·　前5%富集 10.9× / 4.8×　·　≤2倍 39% / 33%"},{"tone":"fail","pages":"VC-AVI（PA 靶点）","title":"PA 核酸内切酶活性","call":"不具备筛选能力","body":"241 个训练化合物、113 个骨架，撑不起一个能外推的模型。换到与训练集无近邻的化合物上，前 5% 富集降到 0 倍——挑出的候选里没有一个真正的高活性物，R² 转负。套件自己的 VC-TRIAGE 把五个抗病毒对照全判「待定」，与这个结果一致。","num":"聚类划分 ρ 0.32　·　前5%富集 0.0×　·　R² −0.02"},{"tone":"warn","pages":"VC-AVI（NA 靶点）","title":"NA 神经氨酸酶活性","call":"仅限类似物系列内","body":"在流感神经氨酸酶这类高度同质的化学空间里，骨架划分 0.69 是真实的。但按文献年份做时间划分——最接近真实前瞻筛选——ρ 掉到 0.24，R² 为负，即预测不如一律输出训练集均值。它能在已知抑制剂系列内做类似物排序，不能开新化学型。","num":"骨架划分 ρ 0.69　·　时间划分 ρ 0.24　·　R² −0.27"},{"tone":"fail","pages":"VC-AVI · VC-TRIAGE","title":"SI 与级联判定门","call":"分辨率不足以支撑判定","body":"SI = CC50/EC50 把两个模型的误差叠在一起，按实测误差合成标准差 1.27 log，约 18 倍。报告里「奥司他韦 SI = 8695」这种四位有效数字是虚假精度。抗菌窗口门设在 1.0 log，而两模型的实测联合噪声是 0.97–1.09 log——门槛整个落在一个标准差以内。","num":"SI 合成误差 1.27 log　·　窗口门 σ 1.09 log > 门槛 1.0 log"},{"tone":"warn","pages":"VC-ADMET","title":"成药性五端点","call":"只能做粗筛，不能做判定","body":"以 hERG 为代表复算：骨架划分 0.58（报告 0.61，吻合），但聚类划分掉到 0.38、时间划分 0.20 且 R² 转负。报告承认这些端点「够 triage、不够定量」是诚实的；问题在下游——这些值一旦进入 VC-TRIAGE 的硬判定，就被当成了确定量。","num":"hERG 骨架 0.58 → 聚类 0.38 → 时间 0.20（R² −0.03）"},{"tone":"pass","pages":"VC-VK · VC-SYNERGY · VC-PKPD","title":"解析计算类页面","call":"数值可信，参数才是风险","body":"这三页不含机器学习，是恒等数值计算：ODE 积分、Loewe/Bliss/HSA 期望面、棋盘格 ΣFIC。报告的自检（sham 组合 ΣFIC≡1、dt 收敛性、与 Python 对拍）足以支撑数值正确性。风险全部在输入参数——病毒动力学参数来自人源 H1N1 实验感染，禽源/兽医物种没有标定。","num":"数值层面无统计泛化问题　·　参数未标定"}],"notes":{"prov":"独立重取数据是这轮审计的第一道门。如果我拉出来的数据集和报告对不上，后面所有分歧都可以归因于取数差异，审计就没有意义了。结果是对得上的：六个端点的化合物数、骨架数、以及基线骨架划分 Spearman 全部落在报告声明值的几个百分点内，其中阴沟肠杆菌的骨架数我得到 823、报告写 822，泛细胞毒性基线 Spearman 我得到 0.527、报告写 0.535。报告的取数口径与基线模型是真实、可复现的。","splits":"<p>三件事值得单独指出。</p><p><b>一、真正该看的是富集倍数，不是 Spearman。</b>流感嗜血杆菌 MIC 模型在时间划分下 Spearman 只有 0.29，看着很差；但它挑出的前 5% 里有 8 倍于随机的真实高活性物。整体排序不准，榜首却是对的——而筛选服务卖的正是榜首。反过来，PA 模型骨架划分 Spearman 0.71 看着体面，换到新化学型上前 5% 富集是 0，一个都没挑中。两个反例方向相反，说明只报相关系数会同时高估和低估模型的实际价值。</p><p><b>二、时间划分是最接近真实业务的代理，所有模型在这里都掉得很惨。</b>用早期文献训练、预测后期文献化合物，六个端点的 R² 落在 −1.55 到 0.07 之间，其中四个为负。客户送来的化合物库若属于新化学型，得到的就是这一档表现，而不是页面上标的骨架 CV 数值。</p><p><b>三、绝对值不可用。</b>即使在最宽松的随机划分下，MIC 预测落在一个倍比稀释度内的比例也只有 50–54%；到聚类划分只剩 33–39%。MIC/IC50 的数值可以用来排序，不能写进报告当作预测浓度。</p><p class=\"cap\">一处需要打折的地方：PA 的时间划分测试集只有 37 个化合物，这一格不可信。PA 的判据应以聚类划分为准（241 个化合物，前 5% 富集 0.0×、R² −0.02）。</p>","qrasar":"<p>结论要分两半说，因为两半不一样。</p><p><b>大数据集上增益是真的，但只有声称的四成。</b>泛细胞毒性模型（3.5 万化合物）在同一骨架划分下 0.527 → 0.593，Δ=+0.066；报告声称 0.535 → 0.704，Δ=+0.169。方向一致、量级差 2.5 倍。这个增益还部分挺过了更严的聚类划分（0.408 → 0.466），所以它不是纯粹的近邻记忆。</p><p><b>两个抗病毒模型上增益完全不存在。</b>NA 的 Δ 是 −0.012（声称 +0.127），PA 是 −0.003（声称 +0.057）。这两个恰恰是训练集最小的模型——1,209 与 241 个化合物——相似性特征在这里没有足够的近邻可依托。</p><p>另外三个端点（两个菌种 MIC、hERG）报告没有声称增益，我也测不到（−0.009 至 +0.006），这一致性支持我的实现没有系统性问题。</p>","ad":"<p>六个端点给出同一个形状，而且随数据量增大越来越干净：<b>最近邻 Tanimoto 0.4 是悬崖</b>。在 0.4 以下，Spearman 落在 0.02–0.44——hERG 在 0.2–0.3 区间是 0.019（1,193 个化合物），PA 在 0.3–0.4 区间是 −0.10，即完全没有排序能力；越过 0.4 之后单调爬升，到 0.7 以上达到 0.59–0.78。</p><p>这验证了套件适用域设计的方向是对的，但也说明页面文案需要改：把 out_of_domain 表述为「置信度较低」会误导用户去看那个数字。正确的表述是「本模型对该化合物无预测能力，请直接实测」。VC-AVI 的 read-across 面板已经在 near_analog 档做了正确的事——把训练集近邻的实测值抬到模型预测之上。这个逻辑应该扩展到全部页面，并且把适用域从三档改成直接显示最近邻相似度数值，因为它本身就是最好的置信度。</p>","transfer":"<p>抗病毒两个靶点之间的迁移是<b>负相关</b>：NA 模型预测 PA 数据 ρ = −0.15，反向 −0.35。报告用「NA 抑制剂在 PA 配置下跌出前 26 名」论证靶点特异性成立，这个结论我确认了——但它同时意味着换靶点没有任何迁移红利，每个新靶点都要从零建模，并且都要面对 PA 那样的数据量问题。作为阴性对照，hERG 模型预测阴沟肠杆菌 MIC 得到 −0.31，说明这个指标不会对无关端点给出虚假的正相关。</p><p>菌种之间的情况相反，而且更值得注意。247 个同时在两个菌种上有实测的化合物，其两个<b>实测值</b>之间的 Spearman 只有 0.49——这是任何跨菌种预测的理论上限。而流感嗜血杆菌模型直接拿去预测阴沟肠杆菌，在 2,325 个未见过的化合物上拿到 0.53，已经贴着这个上限。换句话说，<b>菌种专属模型学到的主要是「泛抗菌性」，不是菌种特异性</b>。反方向只有 0.05，说明这种迁移不对称、不可依赖。十三个菌种模型的真实增量价值需要单独验证：对同一批化合物，各菌种模型给出的排序差异有多大，以及这个差异是否与实测的菌种间差异一致。</p>","gate":"VC-TRIAGE 的抗菌窗口门设在 pMIC − pCC50 ≥ 1.0 log。按本轮实测的聚类划分误差，CC50 模型 RMSE 0.63、MIC 模型 0.74–0.90，联合噪声 0.97–1.09 log——<b>门槛本身小于一个标准差</b>。后果是：真实窗口刚好压线的化合物有 50% 概率被判错；真实窗口超出门槛 1.0 log 的，仍有 18% 概率被误杀。报告自己注意到了症状（临床安全的万古霉素被判淘汰），但结论应该更强——在把 CC50 与 MIC 的误差压下来之前，这道门不应该做硬判定，只能输出连续分值与不确定区间，供人工复核。","foot":"复算方法：直接查询 ChEMBL REST API 重建数据集，ECFP4（Morgan r=2, 2048 位）+ 随机森林（n&lt;400 用岭回归 α=10；NA/PA/两个菌种 300 树，泛细胞毒性与 hERG 100 树、与页面内嵌规模一致），球面排除聚类以簇心间 Tanimoto &lt; 0.4 为约束，时间划分取文献年份后 30% 为测试集。q-RASAR 特征按报告 §8.7.3 定义实现，含留一泄漏控制与 (−t, idx) 确定性近邻排序，并对该排序做了与朴素实现的逐位等价性测试。本页所有数值均为本轮实测，脚本与中间结果随附。本页是对干实验模型的方法学审计，不构成对任何化合物的用药或注册建议。"},"limits":["<b>我没有页面里那份权重。</b>上传的只有门户页与主报告，含模型的 HTML（VC-AVI 44 MB、VC-MIC 43 MB 等）不在其中。所以我复算的是「同数据、同配置重训的等价模型」，不是页面内嵌的那一份。结论指向的是数据与方法的边界，不是某一份权重的实现质量——报告声称的浏览器端与 Python 端逐位对拍，我无法验证，也没有理由怀疑。","<b>只测了代表性端点。</b>十三个菌种模型测了两个，五个 ADMET 端点测了一个（hERG）。未覆盖的端点应按同一协议补测——这是可以直接复用本轮脚本完成的。","<b>VC-AMR 与 VC-PTM 完全未测。</b>这两个不是 QSAR，需要各自的标注测试集（见第 08 节），本轮没有条件运行。","<b>ChEMBL 版本可能不同。</b>报告用 ChEMBL 37，我用的是当前线上版本，这解释了化合物数几个百分点的差异，不影响结论方向。","<b>时间划分混合了两种效应。</b>后期文献化合物既更新颖，其活性分布也可能偏移，两者无法在本协议下分离。它是前瞻难度的下界估计，不是精确预测。","<b>q-RASAR 的分歧我没有定论。</b>我的实现与报告的实现之间存在我看不到的差异。我能证明的是：我的基线与报告基线吻合、我的特征本身有信息量、而在我的实现下声称的增益只在最大的数据集上出现且只有四成。这足以要求复核，不足以判定谁对。"],"chains":[{"name":"选择性指数 SI = CC50 / EC50","parts":"CC50 模型 0.63 ⊕ NA 活性模型 1.10","sigma":1.27,"fold":"约 18 倍"},{"name":"抗菌窗口 = pMIC − pCC50（阴沟肠杆菌）","parts":"CC50 模型 0.63 ⊕ MIC 模型 0.90","sigma":1.09,"fold":"约 12 倍"},{"name":"抗菌窗口 = pMIC − pCC50（流感嗜血杆菌）","parts":"CC50 模型 0.63 ⊕ MIC 模型 0.74","sigma":0.97,"fold":"约 9 倍"},{"name":"EC50 → ODE 峰下降 %","parts":"NA 活性模型 1.10 ⊕ 生化 IC50→细胞 EC50 系统偏移 ≈1.0","sigma":1.49,"fold":"约 31 倍"}],"external":[{"title":"先把验收标准写死，再去找数据","items":["<b>报排序指标，不报相关系数。</b>筛选服务卖的是「先测哪一批」，所以头条指标应该是<b>前 N% 富集倍数</b>与<b>批次命中率</b>，并同时给出这批要测多少个化合物。Spearman 只作附属信息——本轮流感嗜血杆菌模型 Spearman 0.29 但富集 8 倍、PA 模型 Spearman 0.71 但富集 0 倍，两个方向相反的反例说明相关系数会同时高估和低估模型的实际价值。","<b>每个指标必须标注划分方式。</b>同一个模型在随机划分与时间划分下能差 0.5 个 Spearman。页面上只标「骨架划分 CV」不够，应当把聚类划分与时间划分的数值一并列出，并明确告知用户：如果送来的库属于新化学型，参照的是后两列。","<b>绝对值端点用一致率，不用 RMSE。</b>MIC 用<b>基本一致率</b>（预测落在实测值一个倍比稀释度内的比例；药敏方法学的通行门槛是 ≥90%）。本轮实测即使在最宽松的随机划分下也只有 50–54%，这个数字比「RMSE 0.72 log」更能让实验室理解模型能做什么、不能做什么。","<b>适用域必须做校准检验。</b>标出层级不够，要证明层级确实预测误差：画出「最近邻相似度 → 实际 Spearman / 实际误差」曲线（本报告第 05 节的做法），并把 out_of_domain 的文案从「置信度较低」改为「无预测能力，请直接实测」。","<b>盲测才算数。</b>上述都是回顾性的。真正的定级需要一轮前瞻盲测：模型先出排序并封存，再送湿实验测定，最后比对。20–40 个化合物、覆盖高中低三档预测值，就能给出可用的富集估计——这也是把「发现级原型」变成「可售服务」最便宜的一步。"]},{"title":"ADMET：已有公开排行榜，可以直接对标（本轮已核）","items":["<b>TDC ADMET Benchmark Group</b>（tdcommons.ai）是这五个端点唯一现成的公开对标。我在本轮直接拉取了它的排行榜页面，两个端点与套件<b>任务、指标、划分方式完全一致</b>，可直接比较：","<b>半衰期（Half_Life_Obach）</b>：回归任务、Spearman、骨架划分、n=667。榜首 0.576 ± 0.025（CFA），第 2–5 名 0.544–0.562。套件的 HLM 端点报告 0.449（n=601）——低于榜首约 0.13。但更重要的结论是<b>天花板本身很低</b>：这个端点做到极致也就 0.58，说明它不是「再调调模型就能用」，而是<b>本质上不适合做判定</b>。套件已把它标为高不确定，正确的下一步是从任何硬判定链路里移除。","<b>水溶性（Solubility_AqSolDB）</b>：回归任务、MAE、骨架划分、n=9,982。榜首 MAE 0.741 log。套件报告 RMSE 1.898 log（n=12,930）。指标不同不能直接比，但 RMSE 恒 ≥ MAE，所以即使按最有利的口径，差距也在 2 倍以上——这里有明确的改进空间。","<b>hERG / CYP3A4 / CYP2D6 反而无法对标</b>：TDC 上这三个是<b>二分类</b>任务（hERG 用 AUROC、n=648；CYP3A4_Veith 与 CYP2D6_Veith 用 AUPRC、n=12,328 / 13,130），而套件建的是 pIC50 回归。任务定义不同，公开榜单帮不上忙。要么把套件端点改成与 TDC 对齐的二分类以获得对标能力，要么承认这三个端点只能自证。"]},{"title":"抗菌 MIC：最值得投入的一块，因为它最接近可用","items":["<b>CO-ADD</b>（昆士兰大学开放抗菌药物发现联盟）是首选目标：同一协议下对 ESKAPE 菌株组合加 HEK293 细胞毒与溶血做过大规模筛选，<b>同时覆盖活性与毒性</b>，正好能一次性外部验证 VC-MIC、CC50 与 VC-TRIAGE 的窗口门。注意：其主库多为固定浓度抑制率而非 MIC 滴定值，用于验证<b>排序与命中富集</b>合适，用于验证 MIC 绝对值不合适。<b>本轮未能核实其当前下载条款</b>——db.co-add.org 在本会话的网络策略下不可达，采用前需自行确认。","<b>Stokes 等 2020（halicin，Cell）</b>的初筛集与其验证集是公认的抗菌 ML 基准，报告自己也引了这篇。它的价值在于提供一个<b>与 ChEMBL 化学空间不同</b>的测试集，正是本轮聚类划分想模拟、但只能在 ChEMBL 内部近似的情形。","<b>菌种模型冗余度检验</b>（不需要新数据，可立刻做）：对同一批化合物跑全部 13 个菌种模型，统计两两排序相关。本轮已测到跨菌种迁移贴着真值上限，若 13 个模型的排序高度一致，那么「按菌种分训」的卖点就不成立，应当合并为一个泛抗菌模型 + 菌种偏移项。"]},{"title":"抗病毒与细胞毒：先补数据，再谈模型","items":["<b>PA 靶点的问题是数据量，不是算法。</b>241 个化合物做不出能外推的模型，换任何算法都一样。可行路径只有两条：把 PA 与其他流感聚合酶亚基/相关靶点合并建模并接受靶点混合，或者干脆下线 PA 分支、只保留 NA。继续用现在这个模型出结论是最差选项。","<b>细胞毒 CC50 需要单细胞系的外部集。</b>套件的池化模型把不同细胞系混为一个化合物级标签，报告自己测出跨系真值差异中位数 0.28 log、8.4% 的配对差异超过 1 log。外部验证应当取<b>单一细胞系、单一协议</b>的公开筛选数据（例如公开抗病毒筛选门户中带配套细胞毒读数的批次），否则测出来的仍是池化标签的噪声。","<b>ODE 那一层不需要更多化合物数据，需要物种参数。</b>VC-VK / VC-PKPD 的数值是对的，问题是病毒动力学参数全部来自人源 H1N1 实验感染。对禽源/兽医物种，这些参数是占位符。要么标定，要么把这两页的定位明确写成「方案比较的定性工具」，不输出具体百分比。"]},{"title":"VC-AMR 与 VC-PTM：本轮未测，但测法是明确的","items":["<b>VC-AMR（耐药基因 k-mer 检出）</b>有两层要分开测。第一层是<b>与参考工具的一致性</b>：取一批公开的细菌基因组组装，同时跑本页与 AMRFinderPlus 全库，报告逐基因的敏感性/特异性——这直接量化「42 个精选标志物」相对全库漏了多少。第二层是<b>基因型→表型一致率</b>：取带配套药敏表型的公开分离株，按抗生素类别分别报告一致率。报告已诚实引用该一致率在 0.4–0.92 之间波动，这意味着必须<b>按药物类别</b>报告，给一个总体数字会误导。","<b>VC-PTM（激酶 motif 扫描）</b>应按位点预测的通行做法评：以公开磷酸化位点库中的已知位点为正例，从同一批蛋白里取未报告的同类残基（S/T/K）为负例，报告 AUROC 与固定特异性下的敏感性，并与数据驱动的公开预测器同集比较。页面已正确标注自己是 motif 级而非结构级，这个测试会把「低多少」量化出来。"]}]};
+
+/* ---------- helpers ---------- */
+const $ = s => document.querySelector(s);
+const el = (t, c, h) => { const e = document.createElement(t); if (c) e.className = c;
+  if (h !== undefined) e.innerHTML = h; return e; };
+const f3 = v => (v === null || v === undefined || Number.isNaN(v)) ? "—" : v.toFixed(3);
+const f2 = v => (v === null || v === undefined || Number.isNaN(v)) ? "—" : v.toFixed(2);
+const pct = v => (v === null || v === undefined || Number.isNaN(v)) ? "—" : (v * 100).toFixed(0) + "%";
+
+function table(sel, cols, rows) {
+  const t = $(sel); t.innerHTML = "";
+  const thead = el("thead"), tr = el("tr");
+  cols.forEach(c => { const th = el("th", c.mono ? "mono" : "", c.h); tr.appendChild(th); });
+  thead.appendChild(tr); t.appendChild(thead);
+  const tb = el("tbody");
+  rows.forEach(r => {
+    const row = el("tr", r._cls || "");
+    cols.forEach((c, i) => {
+      const td = el("td", (i === 0 ? "name " : "") + (c.mono ? "mono" : ""), c.f(r));
+      row.appendChild(td);
+    });
+    tb.appendChild(row);
+  });
+  t.appendChild(tb);
+}
+
+const SPLIT_LABEL = { random: "随机划分", scaffold: "骨架划分", "cluster0.4": "聚类划分", temporal: "时间划分" };
+const SPLIT_ORDER = ["random", "scaffold", "cluster0.4", "temporal"];
+const DS_ORDER = ["MIC_E_cloacae", "MIC_H_influenzae", "CC50_pan", "hERG", "NA_influenza", "PA_influenza"];
+const COLORS = ["#2C6B50", "#4E8C3F", "#14557F", "#5A6E9E", "#A62A62", "#9E3126"];
+function dsColor(d) { const i = DS_ORDER.indexOf(d); return COLORS[i < 0 ? 0 : i]; }
+function dsLabel(d) { return (DATA.provenance[d] || {}).label || d; }
+function get(ds, split, qr) {
+  return DATA.splits.find(r => r.dataset === ds && r.split === split && r.qrasar === qr);
+}
+const present = () => DS_ORDER.filter(d => DATA.splits.some(r => r.dataset === d));
+
+/* ---------- meta ---------- */
+function meta() {
+  const n = present().length;
+  const rows = DATA.splits.length;
+  $("#meta").innerHTML =
+    `<span><b>审计对象</b> BioVenic / CD 干实验套件 · 16 页</span>` +
+    `<span><b>复算端点</b> ${n} 个</span>` +
+    `<span><b>重训模型</b> ${rows} 组划分 × 配置</span>` +
+    `<span><b>数据源</b> ChEMBL REST API（本轮实取）</span>` +
+    `<span><b>日期</b> 2026-09-10</span>`;
+}
+
+/* ---------- verdict cards ---------- */
+function verdicts() {
+  const V = DATA.verdicts || [];
+  const c = $("#verdicts"); c.innerHTML = "";
+  V.forEach(v => {
+    const card = el("div", "vc " + v.tone);
+    card.appendChild(el("div", "pages", v.pages));
+    card.appendChild(el("h3", "", v.title));
+    card.appendChild(el("div", "call", v.call));
+    card.appendChild(el("p", "", v.body));
+    card.appendChild(el("div", "num-line", v.num));
+    c.appendChild(card);
+  });
+}
+
+/* ---------- provenance ---------- */
+function provenance() {
+  const rows = present().map(d => ({ d, ...DATA.provenance[d] }));
+  table("#prov", [
+    { h: "端点", f: r => `${r.label}<br><span class="mono" style="font-size:11px;color:var(--ink-3)">${r.page}</span>` },
+    { h: "报告声明 化合物", mono: 1, f: r => r.rep_n.toLocaleString() },
+    { h: "我重建 化合物", mono: 1, f: r => r.my_n.toLocaleString() },
+    { h: "报告声明 骨架", mono: 1, f: r => r.rep_scaf.toLocaleString() },
+    { h: "我重建 骨架", mono: 1, f: r => r.my_scaf.toLocaleString() },
+    { h: "报告骨架CV ρ", mono: 1, f: r => f3(r.rep_rho) },
+    { h: "我复现 ρ", mono: 1, f: r => f3((get(r.d, "scaffold", false) || {}).spearman) },
+  ], rows);
+  $("#prov-note").innerHTML = DATA.notes.prov;
+}
+
+/* Push end-of-line labels apart so several converging series stay readable,
+   and draw a leader tick from the data point to its shifted label. */
+function declutter(ends, gap = 15, anchorX = null) {
+  ends.sort((a, b) => a.y - b.y);
+  ends.forEach(e => { e.ly = e.y; });
+  for (let i = 1; i < ends.length; i++)
+    if (ends[i].ly - ends[i - 1].ly < gap) ends[i].ly = ends[i - 1].ly + gap;
+  let out = "";
+  ends.forEach(e => {
+    const lx = anchorX === null ? e.x + 11 : anchorX;
+    if (anchorX !== null && (anchorX - e.x > 6 || Math.abs(e.ly - e.y) > 1.5))
+      out += `<path d="M${e.x + 4} ${e.y} L${lx - 4} ${e.ly}" stroke="${e.col}" stroke-width="1"
+               fill="none" opacity=".45" stroke-dasharray="2 2.5"/>`;
+    else if (Math.abs(e.ly - e.y) > 1.5)
+      out += `<path d="M${e.x + 4} ${e.y} L${e.x + 8} ${e.ly}" stroke="${e.col}"
+               stroke-width="1" fill="none" opacity=".55"/>`;
+    out += `<text x="${lx}" y="${e.ly + 4}" font-size="11.5" fill="${e.col}">${e.label}</text>`;
+  });
+  return out;
+}
+
+/* ---------- slope chart ---------- */
+function slope() {
+  const ds = present();
+  const W = Math.max(560, Math.min(980, window.innerWidth - 80)), H = 360;
+  const m = { t: 18, r: 168, b: 46, l: 46 };
+  const iw = W - m.l - m.r, ih = H - m.t - m.b;
+  const ymin = -0.05, ymax = 0.9;
+  const X = i => m.l + iw * i / (SPLIT_ORDER.length - 1);
+  const Y = v => m.t + ih * (1 - (v - ymin) / (ymax - ymin));
+  let s = `<svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}">`;
+  // grid
+  for (let v = 0; v <= 0.9; v += 0.1) {
+    const y = Y(v);
+    s += `<line x1="${m.l}" y1="${y}" x2="${m.l + iw}" y2="${y}" stroke="var(--line)" stroke-width="1"/>`;
+    s += `<text x="${m.l - 9}" y="${y + 4}" text-anchor="end" font-size="10.5" fill="var(--ink-3)"
+           font-family="IBM Plex Mono,monospace">${v.toFixed(1)}</text>`;
+  }
+  s += `<line x1="${m.l}" y1="${Y(0)}" x2="${m.l + iw}" y2="${Y(0)}" stroke="var(--line-strong)" stroke-width="1.5"/>`;
+  SPLIT_ORDER.forEach((sp, i) => {
+    s += `<text x="${X(i)}" y="${H - 24}" text-anchor="middle" font-size="12" fill="var(--ink-2)">${SPLIT_LABEL[sp]}</text>`;
+    s += `<line x1="${X(i)}" y1="${m.t}" x2="${X(i)}" y2="${m.t + ih}" stroke="var(--line)" stroke-width="1" stroke-dasharray="2 3"/>`;
+  });
+  s += `<text x="${m.l}" y="${H - 6}" font-size="10.5" fill="var(--ink-3)"
+         font-family="IBM Plex Mono,monospace">← 宽松　　划分严苛度　　严格 →</text>`;
+  const ends = [];
+  ds.forEach(d => {
+    const col = dsColor(d);
+    const pts = SPLIT_ORDER.map((sp, i) => { const r = get(d, sp, false); return r ? [X(i), Y(r.spearman)] : null; });
+    const valid = pts.filter(Boolean);
+    if (!valid.length) return;
+    s += `<polyline fill="none" stroke="${col}" stroke-width="2.1" stroke-linejoin="round"
+           points="${valid.map(p => p[0] + "," + p[1]).join(" ")}"/>`;
+    valid.forEach(p => { s += `<circle cx="${p[0]}" cy="${p[1]}" r="3.4" fill="${col}"/>`; });
+    const last = valid[valid.length - 1];
+    ends.push({ x: last[0], y: last[1], col, label: dsLabel(d) });
+  });
+  s += declutter(ends);
+  s += `</svg>`;
+  $("#slope").outerHTML = s.replace("<svg ", '<svg id="slope" role="img" ');
+}
+
+/* ---------- splits table ---------- */
+function splitsTable() {
+  const rows = [];
+  present().forEach(d => {
+    let first = true;                       // label the first split this endpoint actually has
+    SPLIT_ORDER.forEach(sp => {
+      const r = get(d, sp, false); if (!r) return;
+      rows.push({ ds: d, sp, r, first });
+      first = false;
+    });
+  });
+  table("#splits", [
+    { h: "端点 / 划分", f: r => (r.first ? `<b>${dsLabel(r.ds)}</b> · ` : "　") + SPLIT_LABEL[r.sp] },
+    { h: "n", mono: 1, f: r => r.r.n.toLocaleString() },
+    { h: "Spearman", mono: 1, f: r => f3(r.r.spearman) },
+    { h: "RMSE (log)", mono: 1, f: r => f2(r.r.rmse) },
+    { h: "R²", mono: 1, f: r => f2(r.r.r2) },
+    { h: "前5%富集", mono: 1, f: r => f2(r.r.ef5) + "×" },
+    { h: "≤1 log", mono: 1, f: r => pct(r.r.within1log) },
+    { h: "≤2 倍", mono: 1, f: r => pct(r.r.within2fold) },
+  ], rows.map(r => ({ ...r, _cls: r.first ? "rule" : "" })));
+  $("#split-read").innerHTML = DATA.notes.splits;
+}
+
+/* ---------- q-RASAR ---------- */
+function qrTable() {
+  const rows = [];
+  present().forEach(d => {
+    ["scaffold", "cluster0.4"].forEach(sp => {
+      const a = get(d, sp, false), b = get(d, sp, true);
+      if (!a || !b) return;
+      const p = DATA.provenance[d];
+      rows.push({ d, sp, base: a.spearman, qr: b.spearman, delta: b.spearman - a.spearman,
+        claim: (sp === "scaffold" && p.rep_rho_qr) ? p.rep_rho_qr - p.rep_rho : null });
+    });
+  });
+  table("#qr", [
+    { h: "端点 / 划分", f: r => `${dsLabel(r.d)} · ${SPLIT_LABEL[r.sp]}` },
+    { h: "报告声明 Δ", mono: 1, f: r => r.claim === null ? "—" : `<span class="chip i">+${r.claim.toFixed(3)}</span>` },
+    { h: "我测 基线 ρ", mono: 1, f: r => f3(r.base) },
+    { h: "我测 +q-RASAR ρ", mono: 1, f: r => f3(r.qr) },
+    { h: "我测 Δ", mono: 1, f: r => `<span class="chip ${r.delta > 0.01 ? "p" : r.delta < -0.01 ? "f" : "w"}">${r.delta >= 0 ? "+" : ""}${r.delta.toFixed(3)}</span>` },
+  ], rows);
+  $("#qr-read").innerHTML = DATA.notes.qrasar;
+}
+
+/* ---------- AD ---------- */
+const AD_BINS = [[0, .2], [.2, .3], [.3, .4], [.4, .5], [.5, .6], [.6, .7], [.7, 1.01]];
+function adGet(d, lo) { return DATA.ad.find(r => r.dataset === d && Math.abs(r.lo - lo) < 1e-6); }
+function adChart() {
+  const ds = present().filter(d => DATA.ad.some(r => r.dataset === d));
+  const W = Math.max(560, Math.min(980, window.innerWidth - 80)), H = 340;
+  const m = { t: 18, r: 168, b: 48, l: 46 };
+  const iw = W - m.l - m.r, ih = H - m.t - m.b;
+  const ymin = -0.15, ymax = 0.85;
+  const X = i => m.l + iw * i / (AD_BINS.length - 1);
+  const Y = v => m.t + ih * (1 - (v - ymin) / (ymax - ymin));
+  let s = `<svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}">`;
+  for (let v = -0.1; v <= 0.8001; v += 0.1) {
+    const y = Y(v);
+    s += `<line x1="${m.l}" y1="${y}" x2="${m.l + iw}" y2="${y}" stroke="var(--line)" stroke-width="1"/>`;
+    s += `<text x="${m.l - 9}" y="${y + 4}" text-anchor="end" font-size="10.5" fill="var(--ink-3)"
+           font-family="IBM Plex Mono,monospace">${v.toFixed(1)}</text>`;
+  }
+  s += `<line x1="${m.l}" y1="${Y(0)}" x2="${m.l + iw}" y2="${Y(0)}" stroke="var(--line-strong)" stroke-width="1.5"/>`;
+  // OOD shading
+  const xo = X(2);
+  s += `<rect x="${m.l}" y="${m.t}" width="${xo - m.l}" height="${ih}" fill="var(--growth)" opacity="0.055"/>`;
+  s += `<text x="${m.l + 8}" y="${m.t + 16}" font-size="11" fill="var(--growth)"
+         font-family="IBM Plex Mono,monospace">套件判为 out_of_domain 的区间</text>`;
+  AD_BINS.forEach((b, i) => {
+    s += `<text x="${X(i)}" y="${H - 26}" text-anchor="middle" font-size="11" fill="var(--ink-2)"
+           font-family="IBM Plex Mono,monospace">${b[0].toFixed(1)}</text>`;
+  });
+  s += `<text x="${m.l + iw / 2}" y="${H - 7}" text-anchor="middle" font-size="11.5" fill="var(--ink-3)">最近邻 Tanimoto 相似度</text>`;
+  const ends = [];
+  ds.forEach(d => {
+    const col = dsColor(d);
+    const pts = AD_BINS.map((b, i) => { const r = adGet(d, b[0]); return r ? [X(i), Y(r.spearman)] : null; }).filter(Boolean);
+    if (pts.length < 2) return;
+    s += `<polyline fill="none" stroke="${col}" stroke-width="2.1" stroke-linejoin="round"
+           points="${pts.map(p => p[0] + "," + p[1]).join(" ")}"/>`;
+    pts.forEach(p => { s += `<circle cx="${p[0]}" cy="${p[1]}" r="3.2" fill="${col}"/>`; });
+    const last = pts[pts.length - 1];
+    ends.push({ x: last[0], y: last[1], col, label: dsLabel(d) });
+  });
+  s += declutter(ends, 15, m.l + iw + 12);
+  s += `</svg>`;
+  $("#adchart").outerHTML = s.replace("<svg ", '<svg id="adchart" role="img" ');
+}
+function adTable() {
+  const rows = present().filter(d => DATA.ad.some(r => r.dataset === d)).map(d => ({ d }));
+  const cols = [{ h: "端点 \\ 最近邻相似度", f: r => dsLabel(r.d) }];
+  AD_BINS.forEach(b => cols.push({
+    h: `${b[0].toFixed(1)}–${b[1] > 1 ? "1.0" : b[1].toFixed(1)}`, mono: 1,
+    f: r => { const x = adGet(r.d, b[0]);
+      return x ? `${f3(x.spearman)}<br><span style="font-size:10.5px;color:var(--ink-3)">n=${x.n}</span>` :
+        `<span style="color:var(--ink-3)">—</span>`; }
+  }));
+  table("#ad", cols, rows);
+  $("#ad-read").innerHTML = DATA.notes.ad;
+}
+
+/* ---------- transfer ---------- */
+function trTable() {
+  if (!DATA.transfer.length) { $("#tr").closest(".tw").style.display = "none"; }
+  table("#tr", [
+    { h: "训练端点 → 预测端点", f: r => `${dsLabel(r.src)} <span style="color:var(--ink-3)">→</span> ${dsLabel(r.dst)}` },
+    { h: "未见过化合物 n", mono: 1, f: r => r.n_unseen.toLocaleString() },
+    { h: "迁移 ρ", mono: 1, f: r => f3(r.rho_unseen) },
+    { h: "域内子集 ρ", mono: 1, f: r => f3(r.rho_unseen_indomain) },
+    { h: "真值对真值 ρ", mono: 1, f: r => f3(r.rho_truth_vs_truth) },
+    { h: "共测化合物", mono: 1, f: r => (r.n_truth_pairs || 0).toLocaleString() },
+  ], DATA.transfer);
+  $("#tr-read").innerHTML = DATA.notes.transfer;
+}
+
+/* ---------- utility ---------- */
+function utilTable() {
+  table("#util", [
+    { h: "模型", f: r => r.model },
+    { h: "页面", mono: 1, f: r => r.page },
+    { h: "训练 n", mono: 1, f: r => r.n.toLocaleString() },
+    { h: "声明 ρ", mono: 1, f: r => f3(r.spearman) },
+    { h: "前5%命中率", mono: 1, f: r => r.hit_rate_top5.toFixed(0) + "%" },
+    { h: "前5%富集", mono: 1, f: r => r.EF_top5.toFixed(1) + "×" },
+    { h: "凑10个命中需测", mono: 1, f: r => r.tests_for_10_hits },
+    { h: "1 SD 误差倍数", mono: 1, f: r => r.fold_error_1sd.toFixed(1) + "×" },
+  ], DATA.utility);
+  table("#chain", [
+    { h: "串联端点", f: r => r.name },
+    { h: "组成", f: r => r.parts },
+    { h: "合成误差 (log)", mono: 1, f: r => r.sigma.toFixed(2) },
+    { h: "对应倍数 (1 SD)", mono: 1, f: r => r.fold },
+  ], DATA.chains);
+  $("#gate-note").innerHTML = DATA.notes.gate;
+}
+
+/* ---------- external test sets ---------- */
+function ext() {
+  const c = $("#ext"); c.innerHTML = "";
+  DATA.external.forEach(g => {
+    c.appendChild(el("h3", "", g.title));
+    const ul = el("ul", "plain");
+    g.items.forEach(i => ul.appendChild(el("li", "", i)));
+    c.appendChild(ul);
+  });
+}
+
+function limits() {
+  $("#limits").innerHTML = DATA.limits.map(l => `<li>${l}</li>`).join("");
+  $("#footnote").innerHTML = DATA.notes.foot;
+}
+
+meta(); verdicts(); provenance(); slope(); splitsTable(); qrTable();
+adChart(); adTable(); trTable(); utilTable(); ext(); limits();
+let rt; addEventListener("resize", () => { clearTimeout(rt); rt = setTimeout(() => { slope(); adChart(); }, 180); });
+</script>
