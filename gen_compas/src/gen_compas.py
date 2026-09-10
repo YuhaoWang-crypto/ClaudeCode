@@ -393,11 +393,16 @@ DEFAULT_CFG = dict(
     n_iterations=5,
     n_pairs=24,
     n_lambda=7,
-    n_targets=12,
+    n_targets=10,
     q_band=0.15,
     n_shots=3,
-    shoot_total_ps=20.0,
-    save_ps=0.2,
+    # The phi crossing in NANMA is quasi-ballistic: commitment happens
+    # within a few hundred femtoseconds, so a 20 ps shot would spend 95%
+    # of its cost watching the molecule sit in a basin.  Shots are short
+    # and finely saved; the seed runs, which sample the basins, are not.
+    shoot_total_ps=6.0,
+    save_ps=0.1,
+    seed_save_ps=0.2,
     tmd_steps=6000,
     tmd_relax=100,
     n_path_points=2,
@@ -442,7 +447,8 @@ def main():
     print(f"[gen-compas] tag={args.tag} seed={args.rng} "
           f"generator={args.generator}", flush=True)
     t_all = time.time()
-    seed(engine, store, ns_per_state=cfg["seed_ns"], save_ps=cfg["save_ps"])
+    seed(engine, store, ns_per_state=cfg["seed_ns"],
+         save_ps=cfg["seed_save_ps"])
     print(f"  [seed] cumulative MD = {engine.ns_used():.2f} ns", flush=True)
 
     for it in range(cfg["n_iterations"]):
