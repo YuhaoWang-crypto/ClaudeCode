@@ -298,15 +298,28 @@ def iteration(engine, store, it, cfg, rng, log, sep_store):
                                     n_steps=cfg["tmd_steps"],
                                     k=cfg["tmd_k"],
                                     relax_steps=cfg["tmd_relax"])
-            if res is not None:
-                tmd_products.append((res[0], side, k))
-                tmd_rmsd.append(res[1])
+            if res is None:
+                continue
+            tmd_rmsd.append(res["rmsd"])
+            # The steering carries the molecule across the barrier, so the
+            # separatrix lies between two consecutive path points.  Pick the
+            # path structures whose predicted committor is closest to 1/2 --
+            # a one-dimensional bracketing problem, which the committor can
+            # solve reliably even while it is still poorly calibrated in the
+            # full conformational space.
+            path = res["path"]
+            qp = qnet.predict(common.featurize(path))
+            order = np.argsort(np.abs(qp - 0.5))
+            for j in order[: cfg["n_path_points"]]:
+                tmd_products.append((path[j], side, k, float(qp[j])))
 
     # ---- (5) unbiased shooting from the separatrix ------------------------
     n_sep = 0
     shot_q = []
+    shot_qpred = []
+    commit_times = []
     sep_points = []
-    for p, (x, side, k) in enumerate(tmd_products):
+    for p, (x, side, k, q_pred) in enumerate(tmd_products):
         outs = []
         for s in range(cfg["n_shots"]):
             r = mdops.shoot(engine, x, total_ps=cfg["shoot_total_ps"],
@@ -318,12 +331,16 @@ def iteration(engine, store, it, cfg, rng, log, sep_store):
                       labels=r["labels"])
             if r["outcome"] >= 0:
                 outs.append(r["outcome"])
+                if np.isfinite(r["commit_ps"]):
+                    commit_times.append(r["commit_ps"])
         if outs:
             qe = float(np.mean(outs))
             shot_q.append(qe)
+            shot_qpred.append(q_pred)
             if 0.2 <= qe <= 0.8:
                 n_sep += 1
-                sep_points.append((np.asarray(x, dtype=np.float32), qe, len(outs)))
+                sep_points.append((np.asarray(x, dtype=np.float32), qe,
+                                   len(outs)))
 
     ns_used = engine.ns_used() - ns_before
     rec = dict(
@@ -338,6 +355,11 @@ def iteration(engine, store, it, cfg, rng, log, sep_store):
         n_separatrix_points=n_sep,
         frac_separatrix=float(n_sep / max(1, len(shot_q))),
         empirical_q_mean=float(np.mean(shot_q)) if shot_q else float("nan"),
+        committor_mae=float(np.mean(np.abs(np.array(shot_qpred)
+                                           - np.array(shot_q))))
+        if shot_q else float("nan"),
+        commit_ps_median=float(np.median(commit_times))
+        if commit_times else float("nan"),
         frames=store.n_frames(),
         ns_this_iteration=ns_used,
         ns_cumulative=engine.ns_used(),
@@ -350,6 +372,8 @@ def iteration(engine, store, it, cfg, rng, log, sep_store):
           f"shot_pts={rec['n_shot_points']} "
           f"on-separatrix={rec['frac_separatrix'] * 100:.0f}% "
           f"<q_emp>={rec['empirical_q_mean']:.2f} "
+          f"|q_pred-q_emp|={rec['committor_mae']:.2f} "
+          f"t_commit={rec['commit_ps_median']:.1f}ps "
           f"frames={rec['frames']} "
           f"ns={rec['ns_this_iteration']:.2f} (cum {rec['ns_cumulative']:.2f}) "
           f"[{rec['wall_s']:.0f}s]", flush=True)
@@ -371,7 +395,8 @@ DEFAULT_CFG = dict(
     shoot_total_ps=20.0,
     save_ps=0.2,
     tmd_steps=6000,
-    tmd_relax=1000,
+    tmd_relax=100,
+    n_path_points=2,
     tmd_k=20000.0,
     generator="diffusion",
     ddpm_steps=400,

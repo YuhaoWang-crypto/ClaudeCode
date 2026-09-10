@@ -159,7 +159,7 @@ def target_rmsd(engine, positions, target_heavy_xyz):
 
 
 def targeted_md(engine, start_positions, target_heavy_xyz, n_steps=6000,
-                k=200000.0, relax_steps=1000):
+                k=200000.0, relax_steps=100, n_path=10):
     """Pull `start_positions` toward a generated heavy-atom target.
 
     `target_heavy_xyz` is a (n_heavy, 3) array produced by the diffusion model.
@@ -167,21 +167,24 @@ def targeted_md(engine, start_positions, target_heavy_xyz, n_steps=6000,
     onto the target geometry, and is then switched off for a short unbiased
     relaxation so that the resulting structure is physical.
 
-    Returns (positions, rmsd_to_target) or None if the target was rejected or
-    the run blew up.
+    Returns dict(positions, rmsd, path) or None if the target was rejected or
+    the run blew up.  `path` holds structures sampled along the steering, which
+    is what makes the separatrix findable: the steering carries the molecule
+    all the way across the barrier, so the crossing is bracketed by consecutive
+    path points even when the committor is still poorly calibrated.
     """
     if not target_is_physical(target_heavy_xyz):
         return None
     try:
         return _targeted_md(engine, start_positions, target_heavy_xyz,
-                            n_steps, k, relax_steps)
+                            n_steps, k, relax_steps, n_path)
     except openmm.OpenMMException:
         engine.recover()
         return None
 
 
 def _targeted_md(engine, start_positions, target_heavy_xyz, n_steps, k,
-                 relax_steps):
+                 relax_steps, n_path):
     engine.set_positions(start_positions)
     engine.randomize_velocities()
 
@@ -193,7 +196,9 @@ def _targeted_md(engine, start_positions, target_heavy_xyz, n_steps, k,
     # s of the way from the current heavy-atom positions to that fitted target.
     n_windows = 30
     per = max(1, n_steps // n_windows)
+    keep_every = max(1, n_windows // n_path)
     engine.set_k(k)
+    path = []
     for i in range(n_windows):
         s = (i + 1) / n_windows
         cur = engine.positions()[engine.heavy]
@@ -201,9 +206,14 @@ def _targeted_md(engine, start_positions, target_heavy_xyz, n_steps, k,
         fitted = common.kabsch_align(tgt, cur - cen) + cen
         engine.set_reference((1.0 - s) * cur + s * fitted)
         engine.step(per)
+        if i % keep_every == 0 or i == n_windows - 1:
+            path.append(engine.positions())
 
     engine.clear_restraint()
     x_pulled = engine.positions()
+    # Only a brief relaxation: the restraint artefacts disappear in tens of
+    # femtoseconds, whereas a structure sitting on the barrier falls into a
+    # basin within about a picosecond, which would defeat the whole point.
     engine.step(relax_steps)
     x = engine.positions()
     if not np.all(np.isfinite(x)):
@@ -211,7 +221,10 @@ def _targeted_md(engine, start_positions, target_heavy_xyz, n_steps, k,
     e = engine.sim.context.getState(getEnergy=True).getPotentialEnergy()
     if e.value_in_unit(unit.kilocalorie_per_mole) > 200.0:
         return None
-    return x, target_rmsd(engine, x_pulled, target_heavy_xyz)
+    path.append(x)
+    return dict(positions=x, rmsd=target_rmsd(engine, x_pulled,
+                                              target_heavy_xyz),
+                path=np.asarray(path, dtype=np.float32))
 
 
 # ---------------------------------------------------------------------------
