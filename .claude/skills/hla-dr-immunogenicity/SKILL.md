@@ -16,7 +16,7 @@ description: >-
 
 # HLA-DR immunogenicity risk assessment for protein impurities and ligands
 
-A 14-module pipeline that turns a protein sequence into a **ranked, calibrated,
+A 15-module pipeline that turns a protein sequence into a **ranked, calibrated,
 population-weighted immunogenicity risk assessment** — with controls in every
 batch and every decision rule scored against labelled human T-cell outcomes.
 
@@ -34,7 +34,7 @@ ligands it is dominated by framework regions that are near-identical to human
 germline. Human germline VH3-23 scores in the same range as a camelid VHH on
 raw binder count — so the raw count cannot even separate self from foreign.
 
-Six additions turn the count into a decision:
+Seven additions turn the count into a decision. The last applies only to fusions:
 
 | # | Addition | The failure mode it fixes | Module |
 |---|---|---|---|
@@ -43,8 +43,8 @@ Six additions turn the count into a decision:
 | 3 | **Self / pre-existing-tolerance filter** | Framework hits inflate every VHH-, scFv- and Fab-derived ligand identically and destroy the ranking. Cores 9/9 or 8/9 identical to a human proteome 9-mer are down-weighted, validated against a shuffled-sequence null in the same run. | M4 |
 | 4 | **Population weighting + benchmark anchoring** | "13 strong binders" is uninterpretable. Weight each hit by the fraction of the population carrying the presenting molecule, then express it as a fold-change over a ligand with decades of controlled clinical leachate exposure. | M5, M6 |
 | 5 | **B-cell layer and exposure context** | The measured endpoint is an anti-drug **antibody** assay and risk scales with µg/dose. A T-cell-only, dose-free score cannot reach a risk call. | M7, M8 |
-| 7 | **Domain attribution for fusions** (M14) | When a ligand fuses a novel domain onto a scaffold that is *itself* a qualified affinity ligand, the whole-molecule fold-change over that scaffold is partly a comparison of the molecule with a piece of itself. Split the risk by domain and compare the shared half against the benchmark epitope-by-epitope, not by score. | M14 |
 | 6 | **Every decision rule measured** | Threshold, gate, tolerance weight, breadth criterion — each was scored against ~9,600 labelled HLA-DR-restricted human CD4 T-cell outcomes from IEDB with a cluster-level bootstrap. | M10–M13 |
+| 7 | **Domain attribution for fusions** (M14) | When a ligand fuses a novel domain onto a scaffold that is *itself* a qualified affinity ligand, the whole-molecule fold-change over that scaffold is partly a comparison of the molecule with a piece of itself. Split the risk by domain and compare the shared half against the benchmark epitope-by-epitope, not by score. | M14 |
 
 ## The non-negotiable discipline: rules are measured, not argued
 
