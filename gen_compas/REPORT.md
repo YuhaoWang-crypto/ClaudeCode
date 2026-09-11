@@ -181,10 +181,29 @@ out near phi = −4 measure 0.27 to 0.67 — genuinely on the separatrix.
 shooting points with a measured committor between 0.2 and 0.8 rises from
 10-21% at the first iteration to 29-32% by the fifth, in both replicas.
 
-**The generative step earns its place.** Replacing the diffusion model with
-straight-line interpolation between the same end-state pairs, everything else
-identical, drops the fraction of proposals that are physically realisable
-from 92-99% to 51%.
+**The generative step earns its place, but not in the way I expected.**
+Replacing the diffusion model with straight-line interpolation between the
+same end-state pairs, everything else identical:
+
+| | physically realisable | realisable *and* near the saddle |
+|---|---|---|
+| diffusion model | 96.4% | 3.3% |
+| linear interpolation | 40.0% | 12.1% |
+
+The diffusion model wins decisively on realism, and inside the loop 92-99% of
+its proposals survive the geometry check against 51% for the interpolator.
+But it places *fewer* proposals near the barrier, because it generates on the
+manifold it was trained on and that manifold is concentrated in the basins.
+Naive interpolation lands closer to the saddle precisely because it ignores
+the manifold — it just moves atoms along chords, which is also why most of
+its output is not a molecule.
+
+So in this implementation the generative model supplies plausible targets,
+and the barrier-region structures come from the targeted-MD steering that
+chases those targets, not from the generator itself. That is worth saying
+plainly: the paper presents the generative step as what "produces physically
+realistic intermediates", and it does, but on this system the intermediates
+that matter are found by the steering.
 
 ## What this does and does not establish
 
