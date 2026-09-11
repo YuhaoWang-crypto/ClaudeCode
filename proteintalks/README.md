@@ -19,11 +19,15 @@ matching in shape.
 head.** The neural ODE that gives the model its name is 1.7% of it. A single
 layer, `drugsens_conv1` (32 × 5585 × 4), is 90.5%.
 
-**The released code differs from the published equations in ten places.** Two
-matter: the dynamics module has **no protein-protein coupling whatsoever** (all
-its convolutions use `kernel_size=1`, so each protein's trajectory depends only
-on its own baseline and its own perturbation entry), and the ODE integrates over
-**uniform integer ticks 0,1,2,3** rather than over 0/6/24/48 hours.
+**The released code differs from the published description in twelve places.**
+Two matter most: the dynamics module has **no protein-protein coupling
+whatsoever** (all its convolutions use `kernel_size=1`, so each protein's
+trajectory depends only on its own baseline and its own perturbation entry), and
+the ODE integrates over **uniform integer ticks 0,1,2,3** rather than over
+0/6/24/48 hours. The published Supplementary Information then adds two more by
+describing a model the code does not implement: it writes the vector field as
+`f(z, t, D)`, non-autonomous and perturbation-conditioned, where the released
+field takes neither.
 
 **A one-line predictor that uses no proteomics beats every baseline the paper
 reports.** On the paper's own openly published label matrix, predicting each
@@ -35,9 +39,11 @@ ProteinTalks is the only model significantly *better* than that control, by
 
 **Removing the dynamics module entirely improves classification on our
 simulator**, and the module's proteome predictions are worse than asserting that
-nothing changes. That result is from synthetic data at a reduced training budget
-and is suggestive rather than conclusive, but the paper reports no ablation of
-its own and 98.3% of the model's parameters sit outside the dynamics module.
+nothing changes. Read this alongside the λ finding below: that ablation was also
+run at the published λ = 0.8, so it inherits the same confound, and a module
+receiving 0.2 of the gradient is a weak thing to ablate. What survives the
+confound is the parameter census: 98.3% of the model sits outside the dynamics
+module, and the paper reports no ablation of its own.
 
 **The published loss weighting leaves the proteome task barely trained.** At
 fixed λ = 0.8, which the Supplementary Information confirms is what the reported
