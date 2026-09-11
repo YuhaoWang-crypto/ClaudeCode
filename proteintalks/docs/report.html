@@ -823,10 +823,138 @@ code{font-family:var(--f-mono);font-size:.9em;background:var(--sunk);padding:1px
   </div>
 </section>
 
-<!-- ============ 9. 局限 ============ -->
+<!-- ============ 9. 优化尝试 ============ -->
 <section>
   <div class="sec-head">
     <span class="sec-num">§09</span>
+    <h2>试着改进这个模型</h2>
+  </div>
+
+  <div class="answer">
+    <div class="q">优化基本失败了。而那个本该只是用来验证优化的对照实验，发现了比优化本身重要得多的事。</div>
+    <p>
+      以下全部在模拟器上，不涉及真实语料。引用任何数字前请先看本节末尾的局限。
+    </p>
+  </div>
+
+  <div class="prose" style="margin-top:22px">
+    <p>
+      五处修改，每一处都对应本复现测到的问题，或对应补充信息说模型<em>应该</em>做、而发布代码没做的事。
+      每处都有独立开关，可单独消融。阶梯从发布架构起步，逐条叠加。
+    </p>
+    <p>
+      这个基线不是假定的而是验证过的：把发布权重载入全部开关关闭的改进模型，
+      两个输出头的差都<strong>恰好为零</strong>。
+    </p>
+  </div>
+
+  <div class="tablewrap">
+    <table>
+      <caption>消融阶梯 · 1116 个条件 · 200 蛋白 · 隐层 32 · 60 轮 · 两个种子取均值</caption>
+      <thead>
+        <tr><th>配置</th><th class="num">skill</th><th class="num">delta_r</th><th class="num">AUROC</th><th class="num">参数量</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>发布架构</td><td class="num">−2.693</td><td class="num">+0.006</td><td class="num">0.918</td><td class="num">92,226</td></tr>
+        <tr class="accent"><td>+ 残差解码</td><td class="num">−0.071</td><td class="num">−0.088</td><td class="num">0.919</td><td class="num">92,226</td></tr>
+        <tr><td>+ 真实流逝时间</td><td class="num">−0.259</td><td class="num">−0.026</td><td class="num">0.929</td><td class="num">92,226</td></tr>
+        <tr><td>+ f(z,t,D) 调制</td><td class="num">−3.410</td><td class="num">−0.034</td><td class="num">0.919</td><td class="num">92,754</td></tr>
+        <tr><td>+ 蛋白间耦合</td><td class="num">−0.381</td><td class="num">+0.040</td><td class="num">0.910</td><td class="num">97,011</td></tr>
+        <tr class="accent"><td>+ 低秩表型头（五项全开）</td><td class="num">−3.407</td><td class="num">−0.024</td><td class="num">0.937</td><td class="num">92,403</td></tr>
+        <tr><td><em>药物均值对照（不用蛋白组）</em></td><td class="num">—</td><td class="num">—</td><td class="num"><em>0.908</em></td><td class="num"><em>0</em></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="prose" style="margin-top:18px">
+    <p>
+      <code>skill</code> 是 <code>1 − MSE/MSE_不动</code>，为正才算赢过"蛋白组不动"。
+      <code>delta_r</code> 是预测变化量与真实变化量的相关。
+    </p>
+    <p>
+      <strong>残差解码在它针对的指标上确实有效</strong>，把超出"不动"基线的轨迹误差削掉约 38 倍，
+      且零参数代价。但它始终没能翻到基线<em>之上</em>。
+    </p>
+    <p>
+      <strong>照着补充信息去实现，反而更差。</strong>第三项即 SI 方程所指定的非自治、受扰动调制的向量场，
+      拿到了整个阶梯里最差的轨迹 skill（−3.410），AUROC 也没有提升。
+    </p>
+    <p>
+      <strong>分类上的收益在提问的噪声底之内。</strong>整个阶梯跨度是 AUROC 0.910 到 0.937，
+      而不用任何蛋白数据的对照是 0.908。最好的变体比它高 0.029，测试集只有 112 个条件，两个种子。
+    </p>
+    <p>
+      <strong>没有任何一个变体学会了响应的方向。</strong><code>delta_r</code> 在整个阶梯里
+      始终落在 [−0.088, +0.040]，发布架构和改进版都一样。
+    </p>
+  </div>
+
+  <h3>那个改变结论的对照</h3>
+  <div class="prose">
+    <p>
+      <code>delta_r</code> 处处接近零，有两种读法：模型没学到本来存在的响应，或者这个基准根本没有可学的响应、
+      那一列量的是噪声。把第二种当成第一种来报告，正是基准工作出错的典型方式。
+      所以要问的是：<em>有没有任何方法</em>能预测这个变化量。
+    </p>
+  </div>
+
+  <div class="tablewrap">
+    <table>
+      <caption>正对照 · 无任何动力学结构的方法</caption>
+      <thead><tr><th>预测器</th><th class="num">6 h</th><th class="num">24 h</th><th class="num">48 h</th></tr></thead>
+      <tbody>
+        <tr class="accent"><td>岭回归 delta_r</td><td class="num">+0.888</td><td class="num">+0.949</td><td class="num">+0.948</td></tr>
+        <tr class="accent"><td>岭回归 skill</td><td class="num">+0.829</td><td class="num">+0.965</td><td class="num">+0.971</td></tr>
+        <tr><td>同细胞系平均变化量 delta_r</td><td class="num">+0.174</td><td class="num">+0.131</td><td class="num">+0.124</td></tr>
+        <tr><td>不动（按定义）</td><td class="num">0.000</td><td class="num">0.000</td><td class="num">0.000</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="prose" style="margin-top:18px">
+    <p>
+      一个从基线蛋白组、扰动掩码、药物指纹到变化量的<strong>单一线性映射</strong>，
+      在 48 小时处回收了 <strong>97% 的响应方差</strong>。信号一点也不微弱：响应的 RMS 是注入噪声的 1.5 倍。
+    </p>
+    <p>
+      所以基准没问题，该取第一种读法。<strong>这个神经 ODE 架构，无论发布版还是改进版，
+      都没能学到岭回归在相同输入、相同划分下几乎完美学到的扰动响应。</strong>
+    </p>
+    <p>
+      这比优化本来想追的那 +0.029 AUROC 重要得多，而且与 2025 年基准文献对转录组扰动模型的发现是同一个模式。
+    </p>
+    <p>
+      <strong>引用岭回归这个数字时必须同时说明：它不是等参数量对照。</strong>
+      它为每个（输入特征，输出蛋白，时间点）拟合一个系数，在 200 蛋白下约为每时间点 26.7 万个，
+      而神经 ODE 是 92,226 个且三个时间点共享。它是可用信号量的上界，不是公平的架构对手。
+      重点不是岭回归更好，而是<em>信号明明就在那里，而 ODE 没找到</em>。
+    </p>
+  </div>
+
+  <h3>局限</h3>
+  <div class="prose">
+    <p>
+      <strong>只在模拟器上。</strong>完全不触及真实语料，因此对 ProteinTalks 能否预测真实蛋白组动力学不置一词。
+    </p>
+    <p>
+      <strong>预算很小。</strong>隐层 32、60 轮，而发布配置是隐层 64、1000 轮。
+      发布架构用它自己的预算可能表现更好；这个阶梯给的是共享预算下的相对行为。
+    </p>
+    <p>
+      <strong>模拟器对 ODE 是偏袒的</strong>——它的真值<em>就是</em>蛋白网络上的一个 ODE，
+      正是该架构所假设的模型类。学不会反而更难辩解，不是更容易。
+    </p>
+    <p>
+      <strong>阶梯是累积的</strong>，每一项都是叠在上面几项之上评估的。第三项最差不等于它单独有害。
+    </p>
+  </div>
+  <div class="srcrow"><span class="src">scripts/optimize_model.py</span><span class="src">scripts/delta_learnability_control.py</span><span class="src">scripts/verify_ladder_baseline.py</span></div>
+</section>
+
+<!-- ============ 10. 没有做到的事 ============ -->
+<section>
+  <div class="sec-head">
+    <span class="sec-num">§10</span>
     <h2>没有做到的事</h2>
   </div>
   <div class="prose">
