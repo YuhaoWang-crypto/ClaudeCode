@@ -1,0 +1,110 @@
+# =============================================================================
+# HLA-DR immunogenicity assessment of process-related affinity ligands
+# Configuration — everything the pipeline needs is here.
+# =============================================================================
+
+project:
+  name: "Affinity-ligand HLA-DR immunogenicity risk assessment"
+  intended_use: "RUO / internal risk ranking and impurity qualification support"
+  # This demo runs on a PUBLIC stand-in ligand (PDB 9DC3) so the whole
+  # pipeline is reproducible. For proprietary ligands, replace data/
+  # sequences.fasta with de-identified FASTA and re-run unchanged.
+
+panel:
+  # Requirement from the sponsor: >=12 HLA-DR molecules,
+  # 95-98% US/EU weighted population coverage.
+  min_alleles: 12
+  coverage_target: 0.97          # weighted US/EU DRB1 phenotypic coverage
+  # Populations pulled from the IEDB population-coverage frequency tables.
+  # US composite is weighted by US Census 2020 race/ethnicity shares.
+  us_weights:
+    "United States Caucasoid": 0.577   # White, not Hispanic or Latino
+    "United States Hispanic": 0.189
+    "United States Black": 0.123
+    "United States Asian": 0.060
+    "United States Amerindian": 0.013
+    "United States Mestizo": 0.038     # residual "two or more / other"
+  eu_population: "Europe"
+  us_eu_split: [0.5, 0.5]        # US : EU weighting in the headline number
+  # DRB3/4/5 do not appear in the IEDB DRB1-locus frequency tables, so they
+  # add immunological breadth (the second DR molecule) without changing the
+  # DRB1 coverage arithmetic. Reported separately, never double-counted.
+  include_drb345:
+    - "HLA-DRB3*01:01"
+    - "HLA-DRB3*02:02"
+    - "HLA-DRB4*01:01"
+    - "HLA-DRB5*01:01"
+
+prediction:
+  tool: "IEDB MHC-II binding, method=netmhciipan_el and netmhciipan_ba"
+  endpoint: "https://tools-cluster-interface.iedb.org/tools_api/mhcii/"
+  peptide_length: 15
+  sb_rank: 1.0                   # strong binder: EL %Rank < 1
+  wb_rank: 5.0                   # weak binder:   EL %Rank < 5
+  ba_confirm_rank: 10.0          # BA %Rank ceiling, used only if the gate is on
+
+  # Whether a strong-binder call also requires the binding-affinity head to
+  # agree. This was ON, on the argument that eluted-ligand scoring over-calls.
+  # M11 measured it against 5,795 labelled T-cell outcomes and the argument does
+  # not survive: at these thresholds the BA gate removes 23 true positives and
+  # 6 false positives - about four real epitopes for every false one - and MCC
+  # goes from 0.188 to 0.184. The AUC difference between the EL x BA consensus
+  # score and EL alone is +0.013 with a 95% CI of [-0.001, +0.025], i.e. not
+  # distinguishable from zero. The gate is therefore off; BA is still predicted
+  # and reported, it just no longer vetoes a call.
+  require_ba_agreement: false
+  alleles_per_request: 5
+  bcell_method: "Bepipred-2.0"
+  bcell_endpoint: "https://tools-cluster-interface.iedb.org/tools_api/bcell/"
+
+tolerance_filter:
+  # Predicted cores that also occur in the human proteome are pre-existing-
+  # tolerance candidates and are down-weighted, not deleted.
+  proteome: "data/human_sprot.fasta"     # UniProt Swiss-Prot Homo sapiens
+  # A 5-of-9 "TCR-face" screen was tested and rejected: 5 specified positions
+  # match the human proteome by chance several times per query, so it flags
+  # nearly every core and carries no information. Best-identity over the whole
+  # 9-mer is used instead, with a shuffled-sequence null reported in
+  # results/m4_filter_validation.json.
+  discount_exact: 0.0                    # weight kept for a 9/9 human core
+  discount_tcrface: 0.35                 # weight kept for an 8/9 near-human core
+
+exposure:
+  # Used only for the risk-in-context matrix; edit to your own product.
+  ligand_mw_kda: 13.5
+  leachate_ppm: [1, 10, 100]             # ng ligand / mg product
+  dose_mg: [1, 10, 100, 1000]            # mg drug product per administration
+  # Literature anchor: sub-microgram/dose protein impurity exposure is the
+  # regime in which rProtein A leachate has decades of clinical use.
+
+benchmarks:
+  anchor_low: "ProteinA_Z"      # clinically qualified affinity-ligand leachate
+  anchor_self: "HSA_D1"         # human self protein -> tolerised floor
+  anchor_high: "TT_p30_region"  # tetanus universal epitope -> assay ceiling
+
+  # Experimentally defined "universal" T-helper epitopes, used to calibrate what
+  # a promiscuity number means on this panel rather than to pass/fail a run.
+  # These peptides drive CD4 responses in most donors in vitro; whatever DR
+  # breadth the predictor assigns them is the practical ceiling of the method.
+  # IEDB human DR-restricted T-cell evidence, checked before use (M0 notes
+  # carry the counts): HA306-318 is positive on 25 distinct DR molecules,
+  # TT p2 on 6, TT p30 on 1. PADRE was a candidate and was dropped - IEDB
+  # holds no positive human DR T-cell record for it.
+  positive_control_epitopes:
+    HA_306_318_region: "PKYVKQNTLKLAT"     # influenza A HA 306-318
+    TT_p2_region: "QYIKANSKFIGITEL"        # tetanus toxin 830-844
+    TT_p30_region: "FNNFTVSFWLRVPKVSASHLE" # tetanus toxin 947-967
+
+  # Controls that probe the *boundary* of the tolerance filter rather than
+  # pass or fail the batch. Both are reported as measured limitations.
+  #   self_immunogenic  a human peptide that IS a validated DR epitope; the
+  #                     filter's core assumption (self => tolerated) is wrong
+  #                     for it, and the run says by how much.
+  #   tolerised_binder  a universal DR ligand with no T-cell positives; tests
+  #                     that binding strength alone is not read as risk.
+  boundary_control_epitopes:
+    MBP_85_99_region: "ENPVVHFFKNIVTPR"    # myelin basic protein 85-99
+    CLIP_87_101_region: "PVSKMRMATPLLMQA"  # invariant chain CLIP
+  # Minimum DR breadth a universal epitope must reach at the weak-binder tier
+  # for the batch to be considered sensitive enough to report.
+  positive_control_min_breadth_wb: 4

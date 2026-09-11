@@ -55,6 +55,21 @@ results/m11_scores_partial.tsv
 results/m13_panel_scores.tsv
 ```
 
+## Chimeric and fusion ligands
+
+`m14_domain_attribution.py` is off the main path and applies when the test
+article is a fusion. Declare the domains in its `DOMAINS` table (boundaries are
+a property of the construct, so they are stated in the script with their
+evidence, and the module recomputes the supporting alignments rather than
+trusting the annotation) and, if one domain derives from a batch benchmark, name
+the pair in `SCAFFOLD`. It then reports the share of pIRS per domain, the
+epitope density per 100 aa of each domain against the standalone benchmark, and
+which scaffold epitopes the qualified benchmark already carries versus which the
+engineering created.
+
+Run it after M5 and before the figures; `make_figures.py domains` draws
+`fig8_domain_attribution.png` from its output.
+
 ## The human proteome
 
 Fetched once, ~20,400 reviewed entries, needed by M4:

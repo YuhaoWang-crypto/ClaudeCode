@@ -1,0 +1,8 @@
+data/human_sprot.fasta
+data/_iedb_popcov/
+node_modules/
+results/*.log
+
+# Resume caches: regenerable per-request predictor output.
+results/m11_scores_partial.tsv
+results/m13_panel_scores.tsv

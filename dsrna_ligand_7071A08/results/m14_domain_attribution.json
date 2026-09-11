@@ -1,0 +1,207 @@
+{
+ "min_overlap": 9,
+ "anchor": "ProteinA_Z",
+ "articles": {
+  "dsRNA_7071_A08": {
+   "length": 132,
+   "pIRS": 0.7953,
+   "domains": [
+    {
+     "domain": "dsRBD",
+     "start": 1,
+     "end": 72,
+     "length": 72,
+     "evidence": "double-stranded-RNA-binding domain fold",
+     "n_epitopes": 8,
+     "n_foreign": 7,
+     "max_promiscuity": 5,
+     "pirs_contribution": 0.5565,
+     "share_of_pirs": 0.6997,
+     "pirs_density_per_100aa": 1.0202,
+     "nearest_human": [
+      {
+       "entry": "STAU1_HUMAN",
+       "accession": "O95793",
+       "score": 107.0,
+       "identity": 19,
+       "aligned_length": 62,
+       "identity_pct": 30.6
+      },
+      {
+       "entry": "DSRAD_HUMAN",
+       "accession": "P55265",
+       "score": 82.0,
+       "identity": 23,
+       "aligned_length": 55,
+       "identity_pct": 41.8
+      },
+      {
+       "entry": "CALD1_HUMAN",
+       "accession": "Q05682",
+       "score": 62.0,
+       "identity": 21,
+       "aligned_length": 70,
+       "identity_pct": 30.0
+      }
+     ],
+     "human_candidates_aligned": 101
+    },
+    {
+     "domain": "ProteinA_Z_variant",
+     "start": 73,
+     "end": 130,
+     "length": 58,
+     "evidence": "Protein A Z-domain variant",
+     "n_epitopes": 5,
+     "n_foreign": 5,
+     "max_promiscuity": 2,
+     "pirs_contribution": 0.1975,
+     "share_of_pirs": 0.2483,
+     "pirs_density_per_100aa": 0.4495
+    },
+    {
+     "domain": "C_term_Cys",
+     "start": 131,
+     "end": 132,
+     "length": 2,
+     "evidence": "terminal Cys for resin coupling",
+     "n_epitopes": 0,
+     "n_foreign": 0,
+     "max_promiscuity": 0,
+     "pirs_contribution": 0.0,
+     "share_of_pirs": 0.0,
+     "pirs_density_per_100aa": 0.0
+    }
+   ],
+   "scaffold_vs_benchmark": {
+    "domain": "ProteinA_Z_variant",
+    "benchmark": "ProteinA_Z",
+    "identity": "50/57",
+    "identity_pct": 87.7,
+    "n_substitutions": 7,
+    "substitutions": [
+     {
+      "ligand_pos": 76,
+      "ligand_aa": "A",
+      "benchmark_pos": 3,
+      "benchmark_aa": "N"
+     },
+     {
+      "ligand_pos": 79,
+      "ligand_aa": "D",
+      "benchmark_pos": 6,
+      "benchmark_aa": "N"
+     },
+     {
+      "ligand_pos": 84,
+      "ligand_aa": "A",
+      "benchmark_pos": 11,
+      "benchmark_aa": "N"
+     },
+     {
+      "ligand_pos": 86,
+      "ligand_aa": "R",
+      "benchmark_pos": 13,
+      "benchmark_aa": "F"
+     },
+     {
+      "ligand_pos": 87,
+      "ligand_aa": "A",
+      "benchmark_pos": 14,
+      "benchmark_aa": "Y"
+     },
+     {
+      "ligand_pos": 96,
+      "ligand_aa": "T",
+      "benchmark_pos": 23,
+      "benchmark_aa": "N"
+     },
+     {
+      "ligand_pos": 102,
+      "ligand_aa": "K",
+      "benchmark_pos": 29,
+      "benchmark_aa": "A"
+     }
+    ],
+    "n_scaffold_epitopes": 5,
+    "n_shared": 4,
+    "n_novel": 1,
+    "n_novel_engineering_attributable": 1,
+    "novel_pirs_contribution": 0.0,
+    "epitopes": [
+     {
+      "core": "FDKEQQAAR",
+      "ligand_pos": 78,
+      "benchmark_pos": 5,
+      "best_el_rank": 0.8,
+      "n_sb_alleles": 1,
+      "pop_presenting": 0.0,
+      "tolerance_class": "foreign",
+      "shared_with_benchmark": false,
+      "benchmark_core": null,
+      "substituted_positions_in_core": [
+       79,
+       84,
+       86
+      ],
+      "engineering_attributable": true
+     },
+     {
+      "core": "ILHLPNLTE",
+      "ligand_pos": 89,
+      "benchmark_pos": 16,
+      "best_el_rank": 0.27,
+      "n_sb_alleles": 2,
+      "pop_presenting": 0.0754,
+      "tolerance_class": "foreign",
+      "shared_with_benchmark": true,
+      "benchmark_core": "ILHLPNLNE",
+      "substituted_positions_in_core": [
+       96
+      ],
+      "engineering_attributable": false
+     },
+     {
+      "core": "IQSLKDDPS",
+      "ligand_pos": 104,
+      "benchmark_pos": 31,
+      "best_el_rank": 0.16,
+      "n_sb_alleles": 2,
+      "pop_presenting": 0.0551,
+      "tolerance_class": "foreign",
+      "shared_with_benchmark": true,
+      "benchmark_core": "IQSLKDDPS",
+      "substituted_positions_in_core": [],
+      "engineering_attributable": false
+     },
+     {
+      "core": "LLAEAKKLN",
+      "ligand_pos": 117,
+      "benchmark_pos": 44,
+      "best_el_rank": 0.96,
+      "n_sb_alleles": 1,
+      "pop_presenting": 0.0582,
+      "tolerance_class": "foreign",
+      "shared_with_benchmark": true,
+      "benchmark_core": "LLAEAKKLN",
+      "substituted_positions_in_core": [],
+      "engineering_attributable": false
+     },
+     {
+      "core": "LAEAKKLND",
+      "ligand_pos": 118,
+      "benchmark_pos": 45,
+      "best_el_rank": 0.23,
+      "n_sb_alleles": 2,
+      "pop_presenting": 0.072,
+      "tolerance_class": "foreign",
+      "shared_with_benchmark": true,
+      "benchmark_core": "LAEAKKLND",
+      "substituted_positions_in_core": [],
+      "engineering_attributable": false
+     }
+    ]
+   }
+  }
+ }
+}

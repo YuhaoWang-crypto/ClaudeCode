@@ -52,6 +52,17 @@ def tsv(name):
         return list(csv.DictReader(f, delimiter="\t"))
 
 
+def test_article():
+    """The batch's test article, from the metadata - never hard-coded, so the
+    figures follow the sequence under assessment instead of a previous run's."""
+    from common import read_metadata
+    meta = read_metadata()
+    for sid, r in meta.items():
+        if r["role"] == "test_article":
+            return sid
+    return next(iter(meta))
+
+
 # --------------------------------------------------------------------------
 def fig_panel_coverage():
     with open(results_path("m2_panel.json")) as f:
@@ -105,7 +116,8 @@ def fig_panel_coverage():
 
 
 # --------------------------------------------------------------------------
-def fig_binding_heatmap(target="AAVX_VHH"):
+def fig_binding_heatmap(target=None):
+    target = target or test_article()
     cfg = load_config()
     seqs = read_fasta(data_path("sequences.fasta"))
     L = len(seqs[target])
@@ -249,7 +261,8 @@ def fig_ranking():
 
 
 # --------------------------------------------------------------------------
-def fig_tb(target="AAVX_VHH"):
+def fig_tb(target=None):
+    target = target or test_article()
     seqs = read_fasta(data_path("sequences.fasta"))
     L = len(seqs[target])
     with open(results_path("m7_bcell_per_residue.json")) as f:
@@ -556,4 +569,11 @@ if __name__ == "__main__":
            "calib": fig_calibration, "promisc": fig_promiscuity}
     for t in todo:
         fns[t]()
-        print(f"  {t} ok")
+        # a figure function returns early when an input it needs is absent;
+        # say so instead of printing ok for a file that was never written
+        want = {"panel": "fig1_panel_coverage.png", "heatmap": "fig2_binding_landscape.png",
+                "ranking": "fig3_calibrated_ranking.png", "tb": "fig4_tb_coincidence.png",
+                "deimm": "fig5_deimmunization.png", "calib": "fig6_calibration.png",
+                "promisc": "fig7_promiscuity.png", "domains": "fig8_domain_attribution.png"}
+        ok = os.path.exists(figures_path(want[t]))
+        print(f"  {t} {'ok' if ok else 'SKIPPED - required input missing'}")

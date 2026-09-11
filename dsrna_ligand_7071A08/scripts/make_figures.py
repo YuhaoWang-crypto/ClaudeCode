@@ -561,12 +561,136 @@ def fig_promiscuity():
     plt.close(fig)
 
 
+# --------------------------------------------------------------------------
+def fig_domains():
+    """Where the risk sits in a chimeric ligand, and whether the scaffold half
+    reproduces the qualified benchmark or adds to it."""
+    jp = results_path("m14_domain_attribution.json")
+    if not os.path.exists(jp):
+        return
+    with open(jp) as f:
+        d = json.load(f)
+    sid = next(iter(d["articles"]))
+    art = d["articles"][sid]
+    L = art["length"]
+    eps = sorted((e for e in tsv("m5_epitopes.tsv") if e["id"] == sid),
+                 key=lambda e: int(e["pos"]))
+    sc = art.get("scaffold_vs_benchmark", {})
+    shared = {c["core"] for c in sc.get("epitopes", []) if c["shared_with_benchmark"]}
+    novel = {c["core"] for c in sc.get("epitopes", []) if not c["shared_with_benchmark"]}
+
+    fig = plt.figure(figsize=(11.8, 4.6))
+    gs = fig.add_gridspec(1, 2, width_ratios=[1.8, 1], wspace=0.3)
+    ax = fig.add_subplot(gs[0, 0])
+
+    dcol = {"dsRBD": BAD, "ProteinA_Z_variant": ACCENT, "C_term_Cys": MUTED}
+    top = max([float(e["pop_presenting"]) for e in eps], default=0.1)
+    ymax = top * 2.15
+
+    for dom in art["domains"]:
+        c = dcol.get(dom["domain"], MUTED)
+        ax.axvspan(dom["start"] - 0.5, dom["end"] + 0.5, color=c, alpha=0.07, lw=0)
+        ax.axvline(dom["end"] + 0.5, color=c, lw=0.8, ls=":", alpha=0.6)
+        if dom["length"] >= 10:
+            ax.text((dom["start"] + dom["end"]) / 2, ymax * 0.985,
+                    f"{dom['domain'].replace('_', ' ')}\n"
+                    f"{dom['start']}\u2013{dom['end']}  ·  "
+                    f"{dom['share_of_pirs']*100:.0f}% of pIRS",
+                    ha="center", va="top", fontsize=8, fontweight="bold", color=c,
+                    linespacing=1.5)
+
+    # label priority: a scaffold epitope absent from the qualified benchmark is
+    # the point of this figure, so it is placed before the merely tall ones
+    order = sorted(range(len(eps)),
+                   key=lambda i: (eps[i]["core"] not in novel,
+                                  -float(eps[i]["pop_presenting"])))
+    placed = []
+    for i in order:
+        e = eps[i]
+        p0, pop = int(e["pos"]), float(e["pop_presenting"])
+        core = e["core"]
+        tolerised = e["tolerance_class"] != "foreign"
+        col = GOOD if core in shared else (WARN if core in novel else INK)
+        xc = p0 + 4.5
+        # an epitope presented only by a DRB3/4/5 molecule has pop_presenting 0
+        # under the DRB1-only coverage model; draw it at a visible floor so the
+        # figure does not read as "no epitope here"
+        ytip = pop if pop > 0 else ymax * 0.022
+        ax.plot([xc, xc], [0, ytip], color=col, lw=1.2, alpha=0.9, zorder=2)
+        ax.plot([xc], [ytip], "o", ms=4.6, color="white", mec=col, mew=1.5, zorder=3)
+        if tolerised:
+            ax.plot([xc], [ytip], "x", ms=4.2, color=col, mew=1.4, zorder=4)
+        pop = ytip
+        if pop < top * 0.12 and core not in novel:
+            continue
+        if any(abs(xc - q) < 13 for q in placed):
+            continue
+        placed.append(xc)
+        ax.annotate(core, (xc, pop), textcoords="offset points", xytext=(0, 8),
+                    ha="center", fontsize=6.8, color=INK,
+                    family="DejaVu Sans Mono", zorder=5)
+
+    ax.set_xlim(0, L + 1)
+    ax.set_ylim(0, ymax)
+    ax.set_xlabel("residue")
+    ax.set_ylabel("weighted US/EU population\npredicted to present", fontsize=8)
+    ax.yaxis.set_major_formatter(lambda v, _: f"{v*100:.0f}%")
+    ax.set_title(f"{sid}: predicted DR epitopes by domain", loc="left")
+    ax.grid(axis="y", color=GRID, lw=0.6)
+    ax.set_axisbelow(True)
+    handles = [
+        plt.Line2D([], [], color=INK, marker="o", mfc="white", ls="none",
+                   label="epitope in the novel domain"),
+        plt.Line2D([], [], color=GOOD, marker="o", mfc="white", ls="none",
+                   label="scaffold epitope also in the qualified benchmark"),
+        plt.Line2D([], [], color=WARN, marker="o", mfc="white", ls="none",
+                   label="scaffold epitope not in the benchmark"),
+        plt.Line2D([], [], color=MUTED, marker="x", ls="none",
+                   label="self / near-self, down-weighted"),
+    ]
+    ax.legend(handles=handles, loc="upper left", bbox_to_anchor=(0.0, 0.80),
+              fontsize=6.8, frameon=False, handlelength=1.0, labelspacing=0.35)
+
+    # right: density per 100 aa vs the standalone benchmark
+    ax2 = fig.add_subplot(gs[0, 1])
+    bench = d["anchor"]
+    bsum = next((r for r in tsv("m5_ligand_summary.tsv") if r["id"] == bench), None)
+    names, vals, cols = [], [], []
+    for dom in art["domains"]:
+        if dom["length"] < 10:
+            continue
+        names.append(dom["domain"].replace("_", " "))
+        vals.append(dom["pirs_density_per_100aa"])
+        cols.append(dcol.get(dom["domain"], MUTED))
+    if bsum:
+        names.append(f"{bench}\nstandalone benchmark")
+        vals.append(float(bsum["pIRS"]))
+        cols.append("#7a5ea8")
+    y = np.arange(len(names))
+    ax2.barh(y, vals, color=cols, alpha=0.85, height=0.58)
+    ax2.set_yticks(y)
+    ax2.set_yticklabels(names, fontsize=7.8)
+    ax2.invert_yaxis()
+    for i, v in enumerate(vals):
+        ax2.text(v + max(vals) * 0.02, i, f"{v:.2f}", va="center", fontsize=8.5,
+                 color=INK, fontweight="bold")
+    ax2.set_xlim(0, max(vals) * 1.25)
+    ax2.set_xlabel("pIRS per 100 aa of domain")
+    ax2.set_title("Epitope density, domain vs benchmark", loc="left")
+    ax2.grid(axis="x", color=GRID, lw=0.6)
+    ax2.set_axisbelow(True)
+
+    fig.savefig(figures_path("fig8_domain_attribution.png"))
+    plt.close(fig)
+
+
 if __name__ == "__main__":
     todo = sys.argv[1:] or ["panel", "heatmap", "ranking", "tb", "deimm", "calib",
                             "promisc"]
     fns = {"panel": fig_panel_coverage, "heatmap": fig_binding_heatmap,
            "ranking": fig_ranking, "tb": fig_tb, "deimm": fig_deimmunization,
-           "calib": fig_calibration, "promisc": fig_promiscuity}
+           "calib": fig_calibration, "promisc": fig_promiscuity,
+           "domains": fig_domains}
     for t in todo:
         fns[t]()
         # a figure function returns early when an input it needs is absent;

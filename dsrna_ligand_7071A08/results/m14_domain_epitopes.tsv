@@ -1,0 +1,15 @@
+id	domain	core	ligand_pos	benchmark_pos	best_el_rank	n_sb_alleles	pop_presenting	tolerance_class	shared_with_benchmark	benchmark_core	substituted_positions_in_core	engineering_attributable
+dsRNA_7071_A08	dsRBD	ILQEITQKR	6		0.55	1	0.0	foreign			[]	
+dsRNA_7071_A08	dsRBD	YRLISVEGP	21		0.24	2	0.1482	foreign			[]	
+dsRNA_7071_A08	dsRBD	ISVEGPHHK	24		0.49	1	0.0	foreign			[]	
+dsRNA_7071_A08	dsRBD	FIVEAKIKE	35		0.01	5	0.2685	near_human_9mer			[]	
+dsRNA_7071_A08	dsRBD	IVEAKIKEY	36		0.61	1	0.0391	foreign			[]	
+dsRNA_7071_A08	dsRBD	VEAKIKEYR	37		0.93	1	0.104	foreign			[]	
+dsRNA_7071_A08	dsRBD	IKEYRTLGE	41		0.29	2	0.2092	foreign			[]	
+dsRNA_7071_A08	dsRBD	YRTLGEGKS	44		0.81	2	0.1401	foreign			[]	
+dsRNA_7071_A08	inter-domain	IKLLEEAAA	65		0.31	2	0.0545	foreign			[]	
+dsRNA_7071_A08	ProteinA_Z_variant	FDKEQQAAR	78	5	0.8	1	0.0	foreign	False		[79, 84, 86]	True
+dsRNA_7071_A08	ProteinA_Z_variant	ILHLPNLTE	89	16	0.27	2	0.0754	foreign	True	ILHLPNLNE	[96]	False
+dsRNA_7071_A08	ProteinA_Z_variant	IQSLKDDPS	104	31	0.16	2	0.0551	foreign	True	IQSLKDDPS	[]	False
+dsRNA_7071_A08	ProteinA_Z_variant	LLAEAKKLN	117	44	0.96	1	0.0582	foreign	True	LLAEAKKLN	[]	False
+dsRNA_7071_A08	ProteinA_Z_variant	LAEAKKLND	118	45	0.23	2	0.072	foreign	True	LAEAKKLND	[]	False
