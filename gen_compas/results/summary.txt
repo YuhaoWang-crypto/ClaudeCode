@@ -30,8 +30,8 @@ GEN-COMPAS  [main]
   MSM first passage time A->B    77 ns
   MSM first passage time B->A    70 ns
   transition-state ensemble      6 frames, phi(10/50/90) = [-39, 9, 171]
-  pathways found                 2
-    channel 0: 88 frames, q=1/2 at phi=-32, psi=-121
+  pathways found                 1
+    channel 0: 161 frames, q=1/2 at phi=-32, psi=-121
   --- committor validation (3.4 ns of fresh MD, 15 shots per structure) ---
   mean |q_pred - q_measured|     0.184 (binomial noise floor 0.063)
   correlation                    0.836
