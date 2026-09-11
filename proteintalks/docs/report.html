@@ -401,6 +401,25 @@ code{font-family:var(--f-mono);font-size:.9em;background:var(--sunk);padding:1px
       两个数字差 2，来源不明。
     </p>
   </div>
+
+  <h3>关于"open-access"这个措辞</h3>
+  <div class="prose">
+    <p>
+      已发表的 Data availability 原文是：PTDS 矩阵"available for academic and non-commercial use
+      through the <em>open-access platform</em> db.prottalks.com"。这句话的前半句限定了后半句。
+    </p>
+    <p>
+      平台确实免费，也确实对学术与非商业用途开放，这是"open-access"所主张的部分。
+      但取用不是自助的：325 MB 的 PTDS 矩阵在门户自己的清单里标着 <code>requireApproval: true</code>，
+      需要提交姓名、机构、PI、职称、实验室主页、国家与用途说明，通过验证码，接受许可协议，然后等待审稿人。
+      学术路径还要求机构邮箱，服务端实测 <code>gmail.com</code>、<code>qq.com</code>、<code>163.com</code>
+      均返回 <code>isEducational: false</code>。
+    </p>
+    <p>
+      这是一种<strong>中介式取用</strong>，对这种来源的数据集完全正常，本身不构成批评。
+      之所以值得写清楚，只是因为"open-access platform"在多数人读来意味着一个点开就能下的链接。
+    </p>
+  </div>
 </section>
 
 <!-- ============ 2. 架构 ============ -->
@@ -490,7 +509,7 @@ code{font-family:var(--f-mono);font-size:.9em;background:var(--sunk);padding:1px
 <section>
   <div class="sec-head">
     <span class="sec-num">§04</span>
-    <h2>论文方程与发布代码的十处不一致</h2>
+    <h2>论文方程与发布代码的不一致</h2>
   </div>
   <div class="prose">
     <p>
@@ -514,15 +533,49 @@ code{font-family:var(--f-mono);font-size:.9em;background:var(--sunk);padding:1px
     <li><div>ODE 第二层没有激活函数，方程 3 指定 Softplus。</div></li>
     <li><div>实现了 SWAG 随机权重平均，Table S5C 分列 SWA 与 non-SWA，但方法部分未描述。</div></li>
     <li><div>任务权重每步都从 <code>[1-λ, λ]</code> 重算，而非按方程 16–18 累积；且梯度在计算余弦相似度<em>之前</em>已逐张量裁剪。</div></li>
+    <li class="major"><div><b>SI 把向量场写成非自治且受扰动调制，代码两者皆无。</b>
+      补充信息称"<code>D_j</code> 也通过 <code>f_θ(z(t), t, D_j)</code> 直接调制潜在动力学"，
+      并把积分关系写作 <code>z(t_k) = z(0) + ∫ f_θ(z(s), s, D_j) ds</code>。
+      而发布代码的场是两层全连接，首层 <code>in_features = 64</code>，即只有潜在宽度，既不吃 <code>s</code> 也不吃 <code>D_j</code>。
+      torchdyn 自己在构造时就打印警告：该 callable 缺少时间参数，已被自动包装。扰动只通过初始状态 <code>z(0)</code> 进入。</div></li>
+    <li class="major"><div><b>四时间点的论证建立在真实小时上，代码却在整数刻度上积分。</b>
+      SI 的"Rationale for informativeness of four time points"是一个泰勒展开可辨识性论证：
+      展开 <code>x(t) = x(0) + tv + (t²/2)a + O(t³)</code>，主张三个互异的 <code>t_k</code> 给出线性无关约束。
+      这个论证是关于真实采样网格的——6、24、48 小时之间 <code>t²</code> 与 <code>O(t³)</code> 项相差数量级。
+      而实现是在 <code>linspace(0,3,4)</code> 上积分，三点按构造等距。论证与实现描述的是两个不同的时间网格。</div></li>
   </ol>
 
-  <div class="prose" style="margin-top:22px">
+  <h3>已发表补充信息带来的修正</h3>
+  <div class="prose">
     <p>
-      有一处歧义在看到代码前就已标记，结果判断正确。方程 15 令 <code>adjustment_factor = 0.01 × 余弦相似度</code>，
-      而该调整仅在梯度冲突（相似度为负）时施加，代入方程 17–18 会得到与文字表述<em>相反</em>的方向。
-      官方代码用的是 <code>abs(similarity)</code>，与文字一致。本复现按文字实现，与代码吻合。
+      上面这份清单写于阅读 Nature 补充信息 PDF 之前。该 PDF 公开可下载，它解决了其中四项，并<strong>推翻了第 10 项</strong>。
+    </p>
+    <p>
+      <strong>第 10 项作废，这是对本报告早期版本的更正。</strong>SI 的 Multi-task loss optimization 一节说明，
+      所报告的结果使用<em>固定</em>权重 <code>Loss = (1−λ)Loss1 + λLoss2</code>，λ = 0.8，随后原文写道：
+      "This gradient-conflict option was not used for the ProteinTalks results reported in this study."
+      也就是说，预印本作为方法呈现的梯度冲突方案（方程 13–18），在见刊版被降格为一个未被使用的可选项。
+      我们那个"固定任务权重"的消融，其实就是已发表配置本身。
+    </p>
+    <p>
+      <strong>方程 14–18 的符号矛盾在见刊版被修好了。</strong>SI 把冲突强度定义为
+      <code>a = η·max(0, −c)</code>，按构造非负。这正是我们依据文字所采用的读法，也正是官方代码里的
+      <code>abs(similarity)</code>。预印本的代数写错了，见刊版修正了它。
+    </p>
+    <p>
+      <strong>理化性质是 54 维，不是 55 维。</strong>SI 补充方法写明 881 维分子指纹加 54 维理化性质，
+      合计 935，与 checkpoint 的 <code>drugs_conv2</code> 形状一致。正文的 55 是笔误。
+    </p>
+    <p>
+      <strong>是 62 个扰动，不是 63 个。</strong>Table S1C 图注：化合物 #3 存量有限，未测疗效，
+      已从训练与评估中剔除。这解释了标签矩阵为何是 18 × 62 = 1116。疗效标签取自 <strong>24 小时</strong>活力响应。
+    </p>
+    <p>
+      <strong>SI 没有解决的：</strong>5583 与 5585 之差、缺失的蛋白排序索引、以及随机划分的 0.960。
+      全文检索 <code>5585</code>、<code>5583</code>、<code>0.96</code>、<code>index</code>、<code>SWAG</code> 均无命中。
     </p>
   </div>
+  <div class="srcrow"><span class="src">41586_2026_11001_MOESM1_ESM.pdf · 19 页</span></div>
 </section>
 
 <!-- ============ 5. 对照 ============ -->
@@ -722,9 +775,32 @@ code{font-family:var(--f-mono);font-size:.9em;background:var(--sunk);padding:1px
       但做的是发育轨迹插值，不是扰动响应。
     </p>
     <p>
-      不过第二点要打折扣：如 §04 第 2 条，发布代码在整数刻度上积分。<strong>时间的<em>数据</em>是真实且稀缺的资产，
-      时间的<em>建模</em>比表述听起来薄。</strong>此外 Nature 版的图注自己报告，在其多时间点数据集上
-      AUPRC 与 AUROC 随时间点数量增加而<em>下降</em>，准确率上升，这对一个以时间为核心主张的模型是个值得掂量的结果。
+      不过第二点要打折扣。如 §04 第 2 条，发布代码在整数刻度上积分。Nature 版的图注自己报告，
+      在其多时间点数据集上 AUPRC 与 AUROC 随时间点数量增加而<em>下降</em>，准确率上升，
+      这对一个以时间为核心主张的模型是个值得掂量的结果。
+    </p>
+    <p>
+      补充信息进一步放大了这个落差：它用泰勒展开的可辨识性论证来为四时间点设计辩护，
+      把动力学写作 <code>f_θ(z(t), t, D_j)</code>，并在真实的 6/24/48 小时网格上展开到 <code>O(t³)</code>。
+      而实现里的向量场既不接收 <code>t</code> 也不接收 <code>D_j</code>，且在等距整数刻度上积分（§04 第 11、12 条）。
+      <strong>时间的<em>数据</em>是真实且稀缺的资产；时间的<em>建模</em>比论证听起来薄。</strong>
+    </p>
+  </div>
+
+  <h3>作者自己试过那个显而易见的混合方案，没用</h3>
+  <div class="prose">
+    <p>
+      这一点应当记在模型这边：补充信息报告，他们把 GeneCompass、Geneformer、UCE 的嵌入
+      作为冻结的逐蛋白特征提取器接进 ProteinTalks，动力学与损失仍由蛋白质组定义。
+      三者<strong>没有一个</strong>在 AUPRC 或 AUROC 上带来统计显著的提升。
+    </p>
+    <p>
+      这是一个他们本可以不发表的负结果，而且对任何计划做"转录组加蛋白组"虚拟细胞的人都直接相关。
+    </p>
+    <p>
+      同样值得记的是，三个转录组模型准确率齐齐等于 0.744 这件事，作者在补充信息里主动写明了原因，
+      而不是留给读者推断：在 0.5 阈值下这些模型"几乎把所有样本都判给了负类多数类"。
+      在 PTNC 数据集上 SI 直接称之为"prediction collapse"。
     </p>
   </div>
 

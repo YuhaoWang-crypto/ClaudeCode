@@ -87,7 +87,7 @@ developmental trajectories rather than predict perturbation responses.
 "Neural ODE × perturbation × proteome" appears to be unoccupied apart from this
 paper.
 
-**With two caveats.**
+**With three caveats.**
 
 First, established in `REPRODUCTION_STATUS.md` §4: the released code integrates
 the ODE over `linspace(0, 3, 4)` — integer ticks — not over 0, 6, 24, 48 hours.
@@ -98,10 +98,19 @@ three-step recurrence solved with RK4.
 Second, the *Nature* version's own extended-data figure caption reports that on
 its multi-timepoint dataset, **AUPRC and AUROC *decrease* as the number of
 timepoints increases**, while accuracy increases. That is a striking result for a
-model whose central claim is that time is the missing dimension, and it is worth
-weighing before treating denser temporal sampling as the obvious next step. (We
-read this from the openly available figure caption; the body text discussing it
-is paywalled, so we cannot report how the authors interpret it.)
+model whose central claim is that time is the missing dimension. (We read this
+from the openly available figure caption; the body text discussing it is
+paywalled.)
+
+Third, and most specifically: the Supplementary Information defends the
+four-timepoint design with a Taylor-expansion identifiability argument, writing
+the dynamics as `f_θ(z(t), t, D_j)` and expanding `x(t) = x(0) + tv + (t²/2)a +
+O(t³)` over the real 6/24/48 h grid. The released code's vector field takes
+neither `t` nor `D_j` — its first layer has `in_features = 64`, the latent width
+alone, and torchdyn itself warns that the callable lacks a time argument — and it
+integrates over `linspace(0, 3, 4)`, where the three points are equally spaced by
+construction. The mathematical justification and the shipped implementation
+describe different models. See `REPRODUCTION_STATUS.md` §4, items 11 and 12.
 
 The temporal *data* is a real and rare asset. The temporal *modelling* is
 thinner than the framing suggests.
@@ -124,9 +133,17 @@ drug-mean control from `REPRODUCTION_STATUS.md` §5:
 ![Leave-one-cell-line-out AUROC by model, against the drug-mean control](../figures/cellline_auroc.png)
 
 ProteinTalks beats all three transcriptomic foundation models decisively. But
-note that GeneCompass, Geneformer and UCE all report **accuracy 0.744, identical
-to three decimal places**, which is the signature of three models collapsing
-onto the majority class. And UCE at AUROC 0.482 is at chance. This is a
+GeneCompass, Geneformer and UCE all report **accuracy 0.744, identical to three
+decimal places**, and the authors state why in the Supplementary Information
+rather than leaving it to be inferred:
+
+> At the default classification threshold of 0.5, the scFM baselines classified
+> nearly all samples as belonging to the negative majority class, resulting in
+> nearly identical accuracy values that corresponding to the prevalence of the
+> negative class.
+
+The same note appears for Tables S6, S7 and S9; on the PTNC dataset the SI calls
+it "prediction collapse" outright. UCE at AUROC 0.482 is at chance. This is a
 comparison against transcriptomic models applied zero-shot to a proteomic task
 they were never designed for — informative about modality transfer, weak as
 evidence of architectural superiority.
@@ -137,6 +154,16 @@ ProteinTalks. Paired per cell line, ProteinTalks (non-SWA) is the only model
 significantly ahead of the control, by 0.016 AUROC (p = 0.015); its SWA variant
 is not (p = 0.45), and linear regression is statistically tied with the control
 (p = 0.64). See `REPRODUCTION_STATUS.md` §6.
+
+### The authors tested the obvious hybrid, and it did not help
+
+Worth recording in the model's favour: the SI reports that they fed
+GeneCompass, Geneformer and UCE embeddings into ProteinTalks as frozen
+per-protein feature extractors, keeping the dynamics and losses proteomic. None
+of the three gave a statistically significant improvement over proteomics-only
+on AUPRC or AUROC. That is a negative result the paper did not have to publish,
+and it is directly relevant to anyone planning a transcriptome-plus-proteome
+virtual cell.
 
 ## 4. Context: the field's baseline problem
 

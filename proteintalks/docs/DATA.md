@@ -44,12 +44,29 @@ scale to fall back on.
   survival (Table S13), 3,000 compound SMILES (Table S14), and the complete
   per-cell-line and per-drug benchmark results (Tables S5, S6).
 
-**Gated**:
+**Gated** — and here the paper's wording and the portal's behaviour differ:
 
-- **PTDS protein matrix**, 16,311 samples × 5,583 protein groups, 325 MB, at
-  `db.prottalks.com`. Requires an application form with an institutional email
-  (the site server-side rejects consumer domains), PI name, lab URL and a stated
-  intended use, followed by reviewer approval and an emailed link.
+The published Data availability statement reads: "The PTDS protein matrix and
+associated resources are available for academic and non-commercial use through
+the **open-access platform** db.prottalks.com."
+
+Both halves of that sentence are load-bearing, and the first qualifies the
+second. The platform is free of charge and the data is offered to academic and
+non-commercial users, which is what "open-access" is claiming. But access is not
+self-service: the 325 MB PTDS matrix carries `requireApproval: true` in the
+portal's own dataset listing, and obtaining it requires submitting name,
+institution, PI name, job title, lab web URL, country and an intended-use
+statement, passing a captcha, accepting the Guomics Lab Software and Data Usage
+License Agreement, and then waiting for a reviewer. The academic route
+additionally requires an institutional email: the site calls
+`/pupy/email/validate` server-side, and `gmail.com`, `qq.com` and `163.com` all
+return `isEducational: false` while `stanford.edu` and `westlake.edu.cn` return
+true. Non-academic requests are forwarded to `aivc@westlakeomics.com`.
+
+That is a mediated-access arrangement, which is entirely normal for a dataset of
+this provenance and is not a criticism. It is worth stating precisely only
+because "open-access platform" reads, to most people, as a link you can click.
+See `docs/PTDS_ACCESS_REQUEST.md` for the full form contract.
 
 **Asserted but not retrievable**:
 

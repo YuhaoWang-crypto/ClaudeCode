@@ -30,13 +30,13 @@ marked with an `# INTERPRETATION` comment at the corresponding line of
 | `L4` | Linear, 32 → proteomics space | Eq. 5 |
 | Loss1 | MSE over the 6/24/48 h proteomes | Eq. 6 |
 | `C3` | Convolutional over `[P0, P̃6, P̃24, P̃48]` → 128 | Eq. 7 |
-| Drug features | 881 fingerprint bits + 55 physicochemical = 935, duplicated for single-drug conditions | Eq. 8 |
+| Drug features | 881 fingerprint bits + 54 physicochemical = 935, duplicated for single-drug conditions | Eq. 8; the main text's "55" is corrected to 54 in the published Supplementary Methods |
 | `C4` | Convolutional, (935 × 2) → 128 | Eq. 8 |
 | `L5` | Linear + ReLU → 32 | Eq. 9 |
 | `L6` | Linear + sigmoid → 1 | Eq. 10 |
 | Loss2 | Binary cross-entropy | Eq. 11 |
 | λ | 0.8 | Eq. 12 |
-| Weight adaptation | cosine similarity of task gradients, step 0.01 | Eq. 13–18 |
+| Weight adaptation | cosine similarity of task gradients, step 0.01 | Eq. 13–18. The published SI states this was **not used** for any reported result; the fixed λ = 0.8 weighting was |
 | Preprocessing | impute at 0.8 × minimum detected intensity; per-sample min–max | Methods |
 | Splits | 0.7/0.2/0.1 → 1070/305/154 conditions | Methods, Setting 1 |
 
@@ -81,6 +81,12 @@ We follow the prose and use the absolute value. `GradientConflictWeighter(
 literal_sign=True)` reproduces the equations as printed, for anyone who wants to
 check both. Note also that Eq. 14's clip at 1.0 is a no-op, since a cosine
 similarity is already bounded above by 1; it is implemented anyway for fidelity.
+
+**Confirmed by the published version.** The *Nature* Supplementary Information
+restates the rule as `a = η·max(0, −c)` with `η = 0.01`, which is non-negative by
+construction. The prose reading was right and the preprint's algebra was wrong.
+The same section adds that the scheme was an option and was not used for any
+reported result.
 
 ## Not specified anywhere in the paper — and what the code says
 

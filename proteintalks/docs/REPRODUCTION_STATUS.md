@@ -85,7 +85,7 @@ feature, and the differential-equation component that gives the model its name
 is 1.7% of it. That ratio should temper how the "dynamical foundation model"
 framing is read.
 
-## 4. Ten places where the released code differs from the published equations
+## 4. Where the released code differs from the published equations
 
 Verified line by line against `ProteinTalks/model.py`, `config.py` and
 `multi_task_learning.py`. Full detail in the docstring of
@@ -116,11 +116,79 @@ Verified line by line against `ProteinTalks/model.py`, `config.py` and
     as Eq. 16–18 imply, and gradients are clipped per tensor *before* the cosine
     similarity is measured.
 
-One ambiguity we flagged before seeing the code was resolved in our favour.
-Equation 15 sets `adjustment_factor = 0.01 × clipped_similarity`, which is
-negative exactly when the gradients conflict, inverting Eq. 17–18 against the
-stated intent. The released code uses `abs(similarity)`, matching the prose. We
-had implemented the prose reading; it is correct.
+### What the published Supplementary Information settles
+
+The *Nature* Supplementary Information PDF (MOESM1, openly downloadable) was
+read after the list above was written. It resolves four of these items and
+supersedes one.
+
+**Item 10 is superseded, and this corrects an earlier version of this document.**
+The SI's "Multi-task loss optimization" section states that the reported results
+used the **fixed** weighting `Loss = (1−λ)Loss1 + λLoss2`, λ = 0.8, and then says
+verbatim:
+
+> This gradient-conflict option was not used for the ProteinTalks results
+> reported in this study, which used the fixed lambda = 0.8 weighting described
+> above.
+
+So the gradient-cosine scheme that the preprint presents as the method (Eq. 13–18)
+is demoted in the published version to an unused option. Our
+`adaptive_weights=False` ablation is therefore the published configuration, not
+an ablation of it.
+
+**The Eq. 14–18 sign inconsistency is fixed in the published version.** The SI
+defines conflict strength as `a = η·max(0, −c)`, `η = 0.01`, which is
+non-negative by construction. That is the prose reading we implemented and the
+`abs(similarity)` the released code uses. The preprint's algebra was simply
+wrong; the published version repairs it.
+
+**Drug descriptors are 54-dimensional, not 55.** The SI's Supplementary Methods
+say "881-dimensional drug molecular fingerprints (DMF) and the 54-dimensional
+drug physicochemical properties", giving 881 + 54 = 935, which matches the
+checkpoint's `drugs_conv2` shape `(32, 935, 2)`. The main text's 55 is an error.
+
+**62 perturbations, not 63.** Table S1C's legend: "Compound #3 was available only
+in limited quantity; therefore, its drug efficacy was not measured, and it was
+excluded from subsequent model training and evaluation." This is why the label
+matrix is 18 × 62 = 1,116. Efficacy labels come from the **24 h** viability
+response.
+
+### Two further discrepancies the Supplementary Information introduces
+
+The SI's mathematical justification describes a model the released code does not
+implement. Both are verifiable against the source.
+
+**11. The SI writes the vector field as non-autonomous and
+perturbation-conditioned; the code's field is neither.** The SI states that
+"`D_j` also directly conditions the latent dynamics through
+`f_θ(z_ij(t), t, D_j)`" and writes the integral relation as
+`z(t_k) = z(0) + ∫ f_θ(z(s), s, D_j) ds`.
+
+In the released code the field is `nn.Sequential(FullyConnectedLayer(64→64),
+FullyConnectedLayer(64→64))`, whose first layer has `in_features = 64` — the
+latent width alone. It takes neither `s` nor `D_j`. torchdyn says so itself on
+construction: *"Your vector field callable (nn.Module) should have both time `t`
+and state `x` as arguments, we've wrapped it for you."* The perturbation reaches
+the dynamics only through the initial state `z(0)`, which the SI also says, but
+the additional direct conditioning it claims is absent.
+
+**12. The four-timepoint argument is made over real hours; the code integrates
+over integer ticks.** The SI's "Rationale for informativeness of four time
+points" is a Taylor-expansion identifiability argument: it expands
+`x(t) = x(0) + tv + (t²/2)a + O(t³)` and argues that three distinct `t_k > 0`
+give linearly independent constraints, with truncation error `O(t³)`.
+
+That argument is about the real sampling grid, where the three points are 6, 24
+and 48 hours apart and the `t²` and `O(t³)` terms differ by orders of magnitude
+between them. The implemented model integrates over `linspace(0, 3, 4)`, where
+the three points are equally spaced by construction. The justification and the
+implementation are describing different time grids.
+
+### What the Supplementary Information does not resolve
+
+The 5,583-versus-5,585 protein count, the missing protein ordering index, and the
+Setting 1 figure of 0.960 are not mentioned anywhere in the SI (searched for
+`5585`, `5583`, `5530`, `0.96`, `index`, `node_`, `SWAG` — no hits).
 
 ## 5. The control the paper does not report
 
@@ -251,8 +319,11 @@ proteome does not move. Delta-space correlation with the true change is 0.066.
 The dynamics module is not merely unhelpful here; it is actively wrong, and the
 multi-task objective then makes the phenotype head consume its output.
 
-**The adaptive weighting of Eq. 13–18 also hurts**: fixing the weights at
-(0.2, 0.8) gives 0.994 against 0.957 with adaptation on.
+**Fixing the task weights also beats adapting them**: holding them at (0.2, 0.8)
+gives 0.994 against 0.957 with the gradient-cosine scheme on. The published
+Supplementary Information says the authors also used the fixed weighting and did
+not use the adaptive scheme for any reported result, so this is agreement with
+them rather than a criticism of them.
 
 ### How much weight to put on this
 
