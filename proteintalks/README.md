@@ -39,6 +39,18 @@ nothing changes. That result is from synthetic data at a reduced training budget
 and is suggestive rather than conclusive, but the paper reports no ablation of
 its own and 98.3% of the model's parameters sit outside the dynamics module.
 
+**Trying to improve the model mostly failed, and the control run found something
+bigger.** Five targeted changes (residual decoding, real elapsed time, the
+`f(z,t,D)` field the Supplementary Information specifies, protein coupling, a
+low-rank head) moved AUROC from 0.918 to at best 0.937 against a no-proteomics
+control at 0.908. None of them, and not the released architecture either, learns
+the *direction* of the perturbation response: delta correlation stays within
+[-0.088, +0.040]. A positive control then showed the response is trivially
+learnable on the same inputs and split — **ridge regression reaches delta
+correlation 0.949 and recovers 97% of the response variance**. The benchmark is
+fine; the architecture does not find signal that a linear map finds almost
+perfectly. See [`docs/OPTIMIZATION.md`](docs/OPTIMIZATION.md).
+
 **On unseen drugs the paper's own supplement reports no significant advantage.**
 Table S6: ProteinTalks AUROC 0.638 vs random forest 0.648 (p = 0.80) and linear
 regression 0.669. That is the setting that matters for prospective drug
@@ -72,6 +84,7 @@ proteintalks/
   evaluate.py     AUROC/AUPRC/accuracy, trajectory metrics, bootstrap CIs
   baselines.py    the paper's comparators + the trivial controls it omits
   interpret.py    SHAP prioritisation + a label-permutation null
+  improved.py     ProteinTalks-R: five gated changes, each measurement-motivated
 scripts/
   verify_checkpoint.py     shape-match the port against the released weights
   equivalence_check.py     numerical equivalence vs the reference, + param census
@@ -79,11 +92,16 @@ scripts/
   paired_cellline_test.py  paired Wilcoxon vs the paper's per-cell-line results
   calibrate_simulator.py   check the simulator's label structure vs the real one
   run_experiments.py       settings 1/2/3 and architecture ablations
+  optimize_model.py        ablation ladder over the five proposed changes
+  verify_ladder_baseline.py  proves rung 0 is exactly the released model
+  delta_learnability_control.py  positive control: is the response learnable?
 docs/
   REPRODUCTION_STATUS.md   what was verified, what was not, with numbers
   COMPARISON.md            ProteinTalks vs the virtual-cell field
   ARCHITECTURE_NOTES.md    paper equations vs what had to be inferred
   DATA.md                  the corpus, and what is retrievable
+  OPTIMIZATION.md          the improvement attempt, and why the control matters
+  PTDS_ACCESS_REQUEST.md   what the gated-matrix application requires
 ```
 
 ## Install and run

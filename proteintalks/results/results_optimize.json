@@ -1,0 +1,163 @@
+{
+  "control_auroc": 0.9078947368421052,
+  "config": {
+    "n_proteins": 200,
+    "n_cell_lines": 18,
+    "n_drugs": 62,
+    "hidden": 32,
+    "epochs": 60,
+    "patience": 20,
+    "batch": 64,
+    "seeds": [
+      0,
+      1
+    ],
+    "tag": "optimize"
+  },
+  "ladder": [
+    {
+      "config": "released architecture",
+      "flags": {
+        "delta_decode": false,
+        "real_time": false,
+        "time_conditioned": false,
+        "pert_conditioned": false,
+        "coupling_rank": 0,
+        "head_rank": 0,
+        "substeps": 1
+      },
+      "skill": -2.692935463822936,
+      "skill_sd": 1.0307191143301537,
+      "delta_r": 0.006197595815100003,
+      "auroc": 0.9175804093567252,
+      "auroc_sd": 0.00785818713450287,
+      "params": {
+        "dynamics": 4609,
+        "head": 87617,
+        "total": 92226
+      },
+      "seconds": 104.46422004699707,
+      "n_seeds": 2
+    },
+    {
+      "config": "+ residual decoding",
+      "flags": {
+        "delta_decode": true,
+        "real_time": false,
+        "time_conditioned": false,
+        "pert_conditioned": false,
+        "coupling_rank": 0,
+        "head_rank": 0,
+        "substeps": 1
+      },
+      "skill": -0.07052084841807094,
+      "skill_sd": 0.00715643966742141,
+      "delta_r": -0.08757537331842286,
+      "auroc": 0.9190423976608187,
+      "auroc_sd": 0.0063961988304094275,
+      "params": {
+        "dynamics": 4609,
+        "head": 87617,
+        "total": 92226
+      },
+      "seconds": 87.77548789978027,
+      "n_seeds": 2
+    },
+    {
+      "config": "+ real elapsed time",
+      "flags": {
+        "delta_decode": true,
+        "real_time": true,
+        "time_conditioned": false,
+        "pert_conditioned": false,
+        "coupling_rank": 0,
+        "head_rank": 0,
+        "substeps": 2
+      },
+      "skill": -0.2587880897860191,
+      "skill_sd": 0.0023578687358702943,
+      "delta_r": -0.026339127074422774,
+      "auroc": 0.9294590643274854,
+      "auroc_sd": 0.003654970760233911,
+      "params": {
+        "dynamics": 4609,
+        "head": 87617,
+        "total": 92226
+      },
+      "seconds": 156.0397608280182,
+      "n_seeds": 2
+    },
+    {
+      "config": "+ f(z,t,D) conditioning",
+      "flags": {
+        "delta_decode": true,
+        "real_time": true,
+        "time_conditioned": true,
+        "pert_conditioned": true,
+        "coupling_rank": 0,
+        "head_rank": 0,
+        "substeps": 2
+      },
+      "skill": -3.4098852785578853,
+      "skill_sd": 3.402721550862622,
+      "delta_r": -0.03436068409332202,
+      "auroc": 0.918859649122807,
+      "auroc_sd": 0.013157894736842146,
+      "params": {
+        "dynamics": 5137,
+        "head": 87617,
+        "total": 92754
+      },
+      "seconds": 180.0203983783722,
+      "n_seeds": 2
+    },
+    {
+      "config": "+ protein coupling",
+      "flags": {
+        "delta_decode": true,
+        "real_time": true,
+        "time_conditioned": true,
+        "pert_conditioned": true,
+        "coupling_rank": 8,
+        "head_rank": 0,
+        "substeps": 2
+      },
+      "skill": -0.3814217342409124,
+      "skill_sd": 0.3755346846128452,
+      "delta_r": 0.039845622639850614,
+      "auroc": 0.9100877192982457,
+      "auroc_sd": 0.00255847953216376,
+      "params": {
+        "dynamics": 9394,
+        "head": 87617,
+        "total": 97011
+      },
+      "seconds": 254.0045132637024,
+      "n_seeds": 2
+    },
+    {
+      "config": "+ low-rank head (full)",
+      "flags": {
+        "delta_decode": true,
+        "real_time": true,
+        "time_conditioned": true,
+        "pert_conditioned": true,
+        "coupling_rank": 8,
+        "head_rank": 64,
+        "substeps": 2
+      },
+      "skill": -3.4070098565983327,
+      "skill_sd": 0.8557562405752015,
+      "delta_r": -0.024049172754532947,
+      "auroc": 0.9373172514619883,
+      "auroc_sd": 0.0063961988304093165,
+      "params": {
+        "dynamics": 9394,
+        "head": 83009,
+        "total": 92403
+      },
+      "seconds": 250.29101133346558,
+      "n_seeds": 2
+    }
+  ]
+}
