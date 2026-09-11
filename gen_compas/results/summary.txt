@@ -1,0 +1,64 @@
+========================================================================
+REFERENCE  (well-tempered metadynamics on phi,psi; same force field)
+========================================================================
+  dG(B - A)                      -2.13 kcal/mol
+  phi~0 saddle above basin A     6.16 kcal/mol
+  phi~0 saddle above basin B     8.09 kcal/mol
+  drift of the phi profile between the last two snapshots: 0.15 kcal/mol
+
+========================================================================
+BRUTE-FORCE BASELINE  (plain unbiased MD, same force field)
+========================================================================
+  bruteforce_r0.npz: 120.0 ns, 0 A<->B transitions, 100% of time in A
+
+========================================================================
+GEN-COMPAS  [main]
+========================================================================
+  total MD                       8.62 ns
+  wall clock (1 CPU core)        60 min
+  per iteration:
+    it   ns    cum ns  shot pts  on-separatrix  <q_emp>  |q_pred-q_meas|  t_commit/ps
+     0   0.93    3.33        42            21%     0.48             0.19           0.1
+     1   1.32    4.65        60            25%     0.37             0.16           0.1
+     2   1.32    5.97        60            28%     0.33             0.22           0.1
+     3   1.32    7.30        60            32%     0.36             0.16           0.1
+     4   1.32    8.62        60            30%     0.37             0.22           0.1
+  frames collected               60760
+  dG(B - A)                      +0.06 kcal/mol   [reference -2.13]
+  phi~0 saddle above A           4.89 kcal/mol   [reference 6.16]
+  landscape RMSE vs reference    1.24 kcal/mol
+  MSM first passage time A->B    77 ns
+  MSM first passage time B->A    70 ns
+  transition-state ensemble      6 frames, phi(10/50/90) = [-39, 9, 171]
+  pathways found                 2
+    channel 0: 88 frames, q=1/2 at phi=-32, psi=-121
+  --- committor validation (3.4 ns of fresh MD, 15 shots per structure) ---
+  mean |q_pred - q_measured|     0.184 (binomial noise floor 0.063)
+  correlation                    0.836
+  measured committor of the predicted TSE  0.667 +/- 0.408
+
+========================================================================
+GEN-COMPAS  [rep1]
+========================================================================
+  total MD                       8.36 ns
+  wall clock (1 CPU core)        53 min
+  per iteration:
+    it   ns    cum ns  shot pts  on-separatrix  <q_emp>  |q_pred-q_meas|  t_commit/ps
+     0   1.06    3.46        48            10%     0.43             0.19           0.1
+     1   1.32    4.78        60            18%     0.61             0.20           0.1
+     2   1.32    6.11        60            23%     0.24             0.16           0.1
+     3   1.19    7.30        54            31%     0.35             0.16           0.1
+     4   1.06    8.36        48            29%     0.17             0.14           0.1
+  frames collected               58600
+  dG(B - A)                      +0.17 kcal/mol   [reference -2.13]
+  phi~0 saddle above A           5.65 kcal/mol   [reference 6.16]
+  landscape RMSE vs reference    1.20 kcal/mol
+  MSM first passage time A->B    3681 ns
+  MSM first passage time B->A    2764 ns
+  transition-state ensemble      1 frames, phi(10/50/90) = [-4, -4, -4]
+  pathways found                 0
+  --- committor validation (2.2 ns of fresh MD, 15 shots per structure) ---
+  mean |q_pred - q_measured|     0.151 (binomial noise floor 0.047)
+  correlation                    0.825
+  measured committor of the predicted TSE  0.600 +/- 0.000
+

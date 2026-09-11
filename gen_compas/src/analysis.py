@@ -448,19 +448,27 @@ def write_representatives(store, q, phi, tag, n_each=10):
               f"{np.percentile(phi[idx], [10, 90]).round(0)})")
 
 
-def committor_paths(store, q, w, phi, psi, n_bins=16):
-    """Committor-consistent strings.
+def committor_paths(store, q, w, phi, psi, n_bins=16, n_channels=1):
+    """Committor-consistent string: the mean conformation at each value of q.
 
-    Transition-region frames are split into channels by k-means *in feature
-    space* (no CV), then within each channel the equilibrium-weighted mean
-    conformation is computed in each committor slab.  Projecting those means
-    onto (phi, psi) gives the pathway.
+    Frames are binned by committor and averaged with their equilibrium
+    weights; projecting the means onto (phi, psi) gives the pathway.
+
+    The paper reports two competing channels for Trp-cage and for the
+    ribose-binding protein.  For NANMA there is only one: the reference free
+    energy puts the second route, round the far side through phi = -127, some
+    13 kcal/mol above the basin against 6 for the phi ~ 0 saddle, so it
+    carries no measurable flux.  Splitting into two channels is therefore off
+    by default -- forcing it produces two strings whose difference is noise.
     """
     sel = (q > 0.03) & (q < 0.97)
     if sel.sum() < 50:
         return []
-    f = common.featurize(store["coords"][sel])
-    centers, labels = msmlib.cluster(f, n_clusters=2, seed=1)
+    if n_channels > 1:
+        f = common.featurize(store["coords"][sel])
+        _, labels = msmlib.cluster(f, n_clusters=n_channels, seed=1)
+    else:
+        labels = np.zeros(int(sel.sum()), dtype=int)
     qs, ws = q[sel], w[sel]
     ph, ps = phi[sel], psi[sel]
     edges = np.linspace(0.0, 1.0, n_bins + 1)
