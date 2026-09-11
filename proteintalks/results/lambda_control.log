@@ -1,0 +1,10 @@
+ lambda flags                      skill   delta_r
+----------------------------------------------------
+    0.8 released                  -2.693     0.006
+    0.8 all five changes          -3.407    -0.024
+    0.5 released                  -0.176     0.186
+    0.5 all five changes          -0.234     0.065
+    0.0 released                   0.036     0.361
+    0.0 all five changes           0.424     0.641
+
+ridge (trajectory only, no ODE):        +0.971    +0.948   [48h]

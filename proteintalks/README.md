@@ -39,17 +39,24 @@ nothing changes. That result is from synthetic data at a reduced training budget
 and is suggestive rather than conclusive, but the paper reports no ablation of
 its own and 98.3% of the model's parameters sit outside the dynamics module.
 
-**Trying to improve the model mostly failed, and the control run found something
-bigger.** Five targeted changes (residual decoding, real elapsed time, the
-`f(z,t,D)` field the Supplementary Information specifies, protein coupling, a
-low-rank head) moved AUROC from 0.918 to at best 0.937 against a no-proteomics
-control at 0.908. None of them, and not the released architecture either, learns
-the *direction* of the perturbation response: delta correlation stays within
-[-0.088, +0.040]. A positive control then showed the response is trivially
-learnable on the same inputs and split — **ridge regression reaches delta
-correlation 0.949 and recovers 97% of the response variance**. The benchmark is
-fine; the architecture does not find signal that a linear map finds almost
-perfectly. See [`docs/OPTIMIZATION.md`](docs/OPTIMIZATION.md).
+**The published loss weighting leaves the proteome task barely trained.** At
+fixed λ = 0.8, which the Supplementary Information confirms is what the reported
+results used, only 0.2 of the gradient goes to proteome reconstruction. On the
+simulator every variant then scores a delta correlation near zero and looks
+broken. Sweeping λ separates objective from architecture:
+
+| λ | released | five changes |
+|---|---|---|
+| 0.8 (published) | delta_r +0.006 | −0.024 |
+| 0.0 (trajectory only) | **+0.361** | **+0.641** |
+| *ridge, no ODE* | — | *+0.948* |
+
+So the architecture is not incapable, and the five proposed changes (residual
+decoding, real elapsed time, the `f(z,t,D)` field the SI specifies, protein
+coupling, a low-rank head) nearly **double** delta correlation once they are not
+masked by the objective. A linear map is still well ahead of both. Full write-up,
+including a correction to an earlier claim in this repository, in
+[`docs/OPTIMIZATION.md`](docs/OPTIMIZATION.md).
 
 **On unseen drugs the paper's own supplement reports no significant advantage.**
 Table S6: ProteinTalks AUROC 0.638 vs random forest 0.648 (p = 0.80) and linear
@@ -95,6 +102,7 @@ scripts/
   optimize_model.py        ablation ladder over the five proposed changes
   verify_ladder_baseline.py  proves rung 0 is exactly the released model
   delta_learnability_control.py  positive control: is the response learnable?
+  lambda_starvation_control.py   does the published objective starve Loss1?
 docs/
   REPRODUCTION_STATUS.md   what was verified, what was not, with numbers
   COMPARISON.md            ProteinTalks vs the virtual-cell field

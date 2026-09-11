@@ -831,7 +831,11 @@ code{font-family:var(--f-mono);font-size:.9em;background:var(--sunk);padding:1px
   </div>
 
   <div class="answer">
-    <div class="q">优化基本失败了。而那个本该只是用来验证优化的对照实验，发现了比优化本身重要得多的事。</div>
+    <div class="q">在已发表的损失权重下，蛋白组预测这一半几乎没被训练。去掉这个混淆之后，五处修改是有效的，但线性基线仍然领先。</div>
+    <p>
+      <strong>更正：</strong>本报告的早期版本得出的结论是"没有任何变体学会了响应的方向"、"优化基本失败"。
+      这两句话<strong>只在 λ = 0.8 这个已发表权重下成立</strong>，而我当初没有检验这个权重本身是不是原因。它就是原因。
+    </p>
     <p>
       以下全部在模拟器上，不涉及真实语料。引用任何数字前请先看本节末尾的局限。
     </p>
@@ -884,8 +888,8 @@ code{font-family:var(--f-mono);font-size:.9em;background:var(--sunk);padding:1px
       而不用任何蛋白数据的对照是 0.908。最好的变体比它高 0.029，测试集只有 112 个条件，两个种子。
     </p>
     <p>
-      <strong>没有任何一个变体学会了响应的方向。</strong><code>delta_r</code> 在整个阶梯里
-      始终落在 [−0.088, +0.040]，发布架构和改进版都一样。
+      <strong>在这个权重下，没有任何变体学会响应的方向。</strong><code>delta_r</code> 在整个阶梯里
+      始终落在 [−0.088, +0.040]。后面两节将证明，这是目标函数的性质，不是架构的性质。
     </p>
   </div>
 
@@ -917,17 +921,63 @@ code{font-family:var(--f-mono);font-size:.9em;background:var(--sunk);padding:1px
       在 48 小时处回收了 <strong>97% 的响应方差</strong>。信号一点也不微弱：响应的 RMS 是注入噪声的 1.5 倍。
     </p>
     <p>
-      所以基准没问题，该取第一种读法。<strong>这个神经 ODE 架构，无论发布版还是改进版，
-      都没能学到岭回归在相同输入、相同划分下几乎完美学到的扰动响应。</strong>
+      所以基准没问题，该取第一种读法：在 λ = 0.8 下，这个神经 ODE 架构没能学到
+      岭回归在相同输入、相同划分下几乎完美学到的扰动响应。
     </p>
     <p>
-      这比优化本来想追的那 +0.029 AUROC 重要得多，而且与 2025 年基准文献对转录组扰动模型的发现是同一个模式。
+      <strong>但这个比较并不对等，而这一点很要紧。</strong>岭回归只优化轨迹，而所有 ODE 变体只给了轨迹 0.2 的权重。见下一节。
     </p>
     <p>
       <strong>引用岭回归这个数字时必须同时说明：它不是等参数量对照。</strong>
       它为每个（输入特征，输出蛋白，时间点）拟合一个系数，在 200 蛋白下约为每时间点 26.7 万个，
       而神经 ODE 是 92,226 个且三个时间点共享。它是可用信号量的上界，不是公平的架构对手。
       重点不是岭回归更好，而是<em>信号明明就在那里，而 ODE 没找到</em>。
+    </p>
+  </div>
+
+  <h3>真正的元凶是损失权重</h3>
+  <div class="prose">
+    <p>
+      对上一节最直接的反驳是：岭回归只优化轨迹，而每个 ODE 变体训练时 λ = 0.8，
+      只把 <strong>0.2</strong> 的权重给了蛋白组损失。这个比较不对等，
+      平坦的阶梯说的可能更多是目标函数而非架构。
+    </p>
+  </div>
+
+  <div class="tablewrap">
+    <table>
+      <caption>扫 λ · 其余一切固定 · 两个种子</caption>
+      <thead><tr><th>λ</th><th>配置</th><th class="num">skill</th><th class="num">delta_r</th></tr></thead>
+      <tbody>
+        <tr><td>0.8（已发表）</td><td>发布架构</td><td class="num">−2.693</td><td class="num">+0.006</td></tr>
+        <tr><td>0.8（已发表）</td><td>五项修改全开</td><td class="num">−3.407</td><td class="num">−0.024</td></tr>
+        <tr><td>0.5</td><td>发布架构</td><td class="num">−0.176</td><td class="num">+0.186</td></tr>
+        <tr><td>0.5</td><td>五项修改全开</td><td class="num">−0.234</td><td class="num">+0.065</td></tr>
+        <tr class="accent"><td>0.0（只训轨迹）</td><td>发布架构</td><td class="num">+0.036</td><td class="num">+0.361</td></tr>
+        <tr class="accent"><td>0.0（只训轨迹）</td><td>五项修改全开</td><td class="num">+0.424</td><td class="num">+0.641</td></tr>
+        <tr><td>—</td><td><em>岭回归，只训轨迹，无 ODE</em></td><td class="num"><em>+0.971</em></td><td class="num"><em>+0.948</em></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="prose" style="margin-top:18px">
+    <p>
+      <strong>架构并非无能——是已发表的目标函数几乎没训练蛋白组这一半。</strong>
+      λ = 0 时发布架构就达到 delta_r +0.361，并且在本工作中<em>第一次</em>拿到正的 skill。
+      "什么都没学到"那个读法，是拿一个权重只有 0.2 的任务去比一个专门优化它的基线所产生的假象。
+    </p>
+    <p>
+      <strong>五处修改确实有效，只要它们不被掩盖。</strong>λ = 0 时它们把 skill 从 +0.036 推到 <strong>+0.424</strong>，
+      delta_r 从 +0.361 推到 <strong>+0.641</strong>，相关几乎翻倍。而在 λ = 0.8 下它们看起来毫无作用。
+    </p>
+    <p>
+      <strong>岭回归仍然赢，所以架构差距是真实存在的。</strong>+0.971 / +0.948 对 +0.424 / +0.641。
+      诚实的说法是"这个神经 ODE 在这个任务上明显落后于一个线性映射"，而不是"它什么都学不到"。
+    </p>
+    <p>
+      这对已发表模型本身也有含义。SI 确认所报告结果用的就是固定 λ = 0.8。
+      在这个模拟器上，该设定让一个<em>以蛋白组动力学命名</em>的模型、其蛋白组动力学那一半接近未训练，
+      而占 98.3% 参数的药效头拿走了 0.8 的梯度。真实语料上是否同样如此，没有那份受限矩阵就无法检验。
     </p>
   </div>
 
@@ -948,7 +998,7 @@ code{font-family:var(--f-mono);font-size:.9em;background:var(--sunk);padding:1px
       <strong>阶梯是累积的</strong>，每一项都是叠在上面几项之上评估的。第三项最差不等于它单独有害。
     </p>
   </div>
-  <div class="srcrow"><span class="src">scripts/optimize_model.py</span><span class="src">scripts/delta_learnability_control.py</span><span class="src">scripts/verify_ladder_baseline.py</span></div>
+  <div class="srcrow"><span class="src">scripts/optimize_model.py</span><span class="src">scripts/delta_learnability_control.py</span><span class="src">scripts/verify_ladder_baseline.py</span><span class="src">scripts/lambda_starvation_control.py</span></div>
 </section>
 
 <!-- ============ 10. 没有做到的事 ============ -->

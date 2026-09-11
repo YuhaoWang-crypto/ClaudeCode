@@ -1,8 +1,18 @@
 # Trying to improve the model, and what the attempt actually found
 
-Short version: **the optimisation largely failed, and the control run that was
-supposed to validate it found something more important than the optimisation
-would have been.**
+> **Correction, added after a further control.** An earlier version of this
+> document concluded that "nothing learns the direction of the response" and that
+> the five changes largely failed. Both statements were **true only at the
+> published loss weighting, lambda = 0.8**, and I did not initially test whether
+> that weighting was the cause. It is. Under trajectory-only training the
+> architecture does learn the response, and the five changes give a large
+> improvement rather than none. The corrected result is in
+> "The loss weighting was doing the damage" below. The original lambda = 0.8
+> table is kept unchanged, because it is what the published configuration does.
+
+Short version: at the published objective the proteome task is barely trained, so
+the ladder looks flat and the model looks broken. Remove that confound and the
+changes work, though a linear baseline is still well ahead.
 
 All numbers below are on the mechanistic simulator, not on the real corpus. See
 the limits section at the end before quoting any of them.
@@ -66,8 +76,10 @@ whole ladder spans AUROC 0.910 to 0.937 against a no-proteomics control at 0.908
 The best variant is +0.029 over a predictor that uses no protein data at all, on
 a 112-condition test set, over two seeds.
 
-**Nothing learns the direction of the response.** `delta_r` never leaves
-[−0.088, +0.040] anywhere in the ladder, released or improved.
+**At this weighting, nothing learns the direction of the response.** `delta_r`
+never leaves [−0.088, +0.040] anywhere in the ladder, released or improved. The
+next two sections establish that this is a property of the objective, not of the
+architecture.
 
 ## The control that changed the conclusion
 
@@ -88,26 +100,76 @@ A single linear map from baseline proteome, perturbation mask and drug
 fingerprint to the delta recovers **97% of the response variance** at 48 h. The
 signal is not subtle: the response RMS is 1.5× the injected measurement noise.
 
-So the benchmark is fine, and the reading is the first one. **The neural-ODE
-architecture — released and improved alike — fails to learn a perturbation
-response that ridge regression learns almost perfectly on the same inputs and
-the same split.**
+So the benchmark is fine, and the reading is the first one: at lambda = 0.8 the
+neural-ODE architecture, released and improved alike, fails to learn a
+perturbation response that ridge regression learns almost perfectly on the same
+inputs and the same split.
 
-That is a far more consequential finding than the +0.029 AUROC the optimisation
-was chasing, and it is the same pattern the 2025 benchmarking literature reports
+That looked like a far more consequential finding than the +0.029 AUROC the
+optimisation was chasing, and like the same pattern the 2025 benchmarking
+literature reports
 for transcriptomic perturbation models: Ahlmann-Eltze, Huber & Anders
 ([Nat Methods 22:1657](https://doi.org/10.1038/s41592-025-02772-6)) found no deep
 model consistently beating a linear model or the mean; Wong, Hill & Moccia
 ([Bioinformatics 41:btaf317](https://doi.org/10.1093/bioinformatics/btaf317))
 found ablating scGPT's pretrained weights changed nothing.
 
-**State this caveat whenever the ridge number is quoted.** Ridge is *not*
+**But the comparison as stated was not like-for-like, and that matters — see the
+next section.** Ridge optimises the trajectory alone; the ODE variants were
+giving it 0.2 weight.
+
+**State this caveat too whenever the ridge number is quoted.** Ridge is *not*
 parameter-matched. It fits one coefficient per (input feature, output protein)
 per timepoint — about 267,000 coefficients per timepoint at 200 proteins, against
 the neural ODE's 92,226 shared across all three. It is a capacity-rich upper
 bound on available signal, not a fair architectural rival. The point is not that
 ridge is the better model. The point is that the signal is plainly there and the
 ODE does not find it.
+
+## The loss weighting was doing the damage
+
+The objection to the section above is immediate: ridge optimises the trajectory
+alone, while every ODE variant was trained at lambda = 0.8, which puts only
+**0.2** weight on the proteome loss. So the comparison was not like-for-like, and
+the flat ladder may say more about the objective than the architecture.
+
+`scripts/lambda_starvation_control.py` sweeps lambda, holding everything else
+fixed. Two seeds, same budget, same split.
+
+| lambda | configuration | skill | delta_r |
+|---|---|---|---|
+| 0.8 *(published)* | released | −2.693 | +0.006 |
+| 0.8 *(published)* | all five changes | −3.407 | −0.024 |
+| 0.5 | released | −0.176 | +0.186 |
+| 0.5 | all five changes | −0.234 | +0.065 |
+| **0.0** *(trajectory only)* | released | **+0.036** | **+0.361** |
+| **0.0** *(trajectory only)* | all five changes | **+0.424** | **+0.641** |
+| — | *ridge, trajectory only, no ODE* | *+0.971* | *+0.948* |
+
+Three things follow, and the first two correct this document's earlier claims.
+
+**The architecture is not incapable — the published objective barely trains the
+proteome task.** At lambda = 0 the released architecture reaches delta_r +0.361
+and, for the first time anywhere in this work, a *positive* skill score. The
+"learns nothing" reading was an artefact of comparing a 0.2-weighted task against
+a baseline that optimised it exclusively.
+
+**The five changes do work, once they are not masked.** At lambda = 0 they take
+skill from +0.036 to **+0.424** and delta_r from +0.361 to **+0.641**, roughly
+doubling the correlation and turning a marginal fit into a substantial one. At
+lambda = 0.8 they appeared to do nothing. The improvements were real all along;
+the default weighting hid them.
+
+**Ridge still wins, so a real architectural gap remains.** +0.971 / +0.948
+against +0.424 / +0.641. The honest statement is "the neural ODE is well behind a
+linear map on this task", not "the neural ODE learns nothing".
+
+This also says something about the published model itself. The SI confirms the
+reported results used fixed lambda = 0.8. On this simulator that setting leaves
+the proteome-dynamics half of a model named for its proteome dynamics close to
+untrained, while the drug-efficacy head — which carries 98.3% of the parameters —
+gets 0.8 of the gradient. Whether the same holds on the real corpus cannot be
+checked without the gated matrix.
 
 ## Limits
 
@@ -131,4 +193,5 @@ ODE does not find it.
 python scripts/verify_ladder_baseline.py        # rung 0 == released model
 python scripts/optimize_model.py --n-proteins 200 --hidden 32 --epochs 60 --seeds 0 1
 python scripts/delta_learnability_control.py    # is the response learnable at all
+python scripts/lambda_starvation_control.py    # is the objective starving Loss1
 ```
