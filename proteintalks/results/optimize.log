@@ -1,0 +1,5 @@
+[data] 1116 conditions | 200 proteins | 18 cell lines | 62 drugs | positive rate 0.321
+[control] drug-mean AUROC=0.908
+
+configuration                  skill   delta_r    AUROC    params    sec
+----------------------------------------------------------------------------
