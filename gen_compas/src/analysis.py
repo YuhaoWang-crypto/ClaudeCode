@@ -378,12 +378,13 @@ def main():
     per_iter = []
     for it in sorted(set(frame_iter.tolist())):
         sel = frame_iter == it
-        bar = sel & (q > 0.1) & (q < 0.9)
+        in_barrier = sel & (q > 0.1) & (q < 0.9)
         per_iter.append(dict(iteration=int(it), frames=int(sel.sum()),
-                             barrier=int(bar.sum()),
-                             fraction=float(bar.sum() / max(1, sel.sum()))))
-        print(f"    {it:9d}   {sel.sum():6d}   {bar.sum():12d}   "
-              f"{100 * bar.sum() / max(1, sel.sum()):6.1f}%")
+                             barrier=int(in_barrier.sum()),
+                             fraction=float(in_barrier.sum()
+                                            / max(1, sel.sum()))))
+        print(f"    {it:9d}   {sel.sum():6d}   {in_barrier.sum():12d}   "
+              f"{100 * in_barrier.sum() / max(1, sel.sum()):6.1f}%")
 
     # write representative structures for inspection
     write_representatives(store, q, phi, args.tag)
