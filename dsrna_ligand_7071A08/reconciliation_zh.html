@@ -1,0 +1,292 @@
+<title>两份 7071-A08 报告的对照</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Noto+Sans+SC:wght@400;500;600&family=Noto+Serif+SC:wght@600;700&display=swap">
+<style>
+:root{
+  --paper:#FCFCFD; --ground:#F2F6F9; --surface:#FFFFFF; --line:#D8E1EA;
+  --ink:#16202B; --ink-2:#38485A; --muted:#5F7285;
+  --accent:#2C6E9E; --accent-soft:#E8F1F8;
+  --bad:#AF382E; --bad-soft:#FBEEEC; --warn:#A8661B; --warn-soft:#FBF2E6;
+  --good:#2F7D5E; --good-soft:#EAF4EF;
+  --them:#6E55A0; --them-soft:#F0ECF7;
+  --serif:"Noto Serif SC",Songti SC,SimSun,Georgia,serif;
+  --sans:"Noto Sans SC",-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --paper:#0F151B; --ground:#161F27; --surface:#18222C; --line:#2B3945;
+  --ink:#E4EBF2; --ink-2:#B7C6D3; --muted:#8699AB;
+  --accent:#6FACD8; --accent-soft:#172A38;
+  --bad:#E08278; --bad-soft:#2C1B19; --warn:#DBA45C; --warn-soft:#2B2016;
+  --good:#6FB897; --good-soft:#15261F; --them:#A38FD0; --them-soft:#1F1B2C;
+}}
+:root[data-theme="dark"]{
+  --paper:#0F151B; --ground:#161F27; --surface:#18222C; --line:#2B3945;
+  --ink:#E4EBF2; --ink-2:#B7C6D3; --muted:#8699AB;
+  --accent:#6FACD8; --accent-soft:#172A38;
+  --bad:#E08278; --bad-soft:#2C1B19; --warn:#DBA45C; --warn-soft:#2B2016;
+  --good:#6FB897; --good-soft:#15261F; --them:#A38FD0; --them-soft:#1F1B2C;
+}
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);
+  font-size:16px;line-height:1.85;margin:0}
+.wrap{max-width:58rem;margin:0 auto;padding:0 20px;padding-block:0 4.5rem}
+.col{max-width:36rem}
+h1,h2,h3{font-family:var(--serif);font-weight:700;text-wrap:balance;line-height:1.35}
+h1{font-size:clamp(1.7rem,4.2vw,2.4rem);margin:0 0 .5rem}
+h2{font-size:clamp(1.25rem,2.6vw,1.5rem);margin:0 0 .9rem}
+h3{font-size:1.04rem;margin:1.9rem 0 .5rem}
+p{margin:0 0 1rem}
+strong{font-weight:600}
+code{font-family:var(--mono);font-size:.86em;background:var(--ground);
+  padding:.1em .35em;border-radius:3px}
+.kicker{font-size:.72rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--accent);margin:0 0 .8rem}
+header{border-bottom:2px solid var(--ink);padding-block:3rem 1.5rem;margin-bottom:2rem}
+.lede{font-size:1.1rem;color:var(--ink-2)}
+section{padding-block:2.2rem 0}
+hr.rule{border:0;border-top:1px solid var(--line);margin:2.6rem 0 0}
+/* two-column verdict */
+.vs{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);
+  border:1px solid var(--line);margin:1.5rem 0}
+.vs>div{background:var(--surface);padding:1.1rem 1.15rem;min-width:0}
+.vs .who{font-size:.72rem;font-weight:600;letter-spacing:.09em;text-transform:uppercase;
+  margin:0 0 .45rem}
+.vs .call{font-family:var(--serif);font-size:1.5rem;font-weight:700;line-height:1.2;
+  margin:0 0 .5rem}
+.vs .sub{font-size:.85rem;color:var(--ink-2);line-height:1.65;margin:0}
+.mine .who{color:var(--accent)} .theirs .who{color:var(--them)}
+@media(max-width:600px){.vs{grid-template-columns:1fr}}
+.note{border-left:3px solid var(--accent);background:var(--accent-soft);
+  padding:1rem 1.15rem;margin:1.4rem 0;font-size:.95rem;line-height:1.78}
+.note.bad{border-color:var(--bad);background:var(--bad-soft)}
+.note.warn{border-color:var(--warn);background:var(--warn-soft)}
+.note.good{border-color:var(--good);background:var(--good-soft)}
+.note p:last-child{margin-bottom:0}
+.note .t{font-weight:600;font-family:var(--serif)}
+.tw{overflow-x:auto;margin:1.2rem 0 1.5rem;border:1px solid var(--line)}
+table{border-collapse:collapse;width:100%;font-size:.85rem;background:var(--surface)}
+th,td{text-align:left;padding:.54rem .7rem;border-bottom:1px solid var(--line);vertical-align:top}
+th{background:var(--ground);font-weight:600;font-size:.73rem;letter-spacing:.05em;
+  color:var(--muted);white-space:nowrap}
+tbody tr:last-child td{border-bottom:0}
+.num td:nth-child(n+2),.num th:nth-child(n+2){text-align:right;
+  font-variant-numeric:tabular-nums;font-family:var(--mono);font-size:.82rem}
+td.l,th.l{text-align:left!important;font-family:var(--sans)!important}
+tr.hi td{background:var(--accent-soft);font-weight:600}
+tr.dim td{color:var(--muted)}
+.tag{display:inline-block;font-size:.7rem;font-weight:600;padding:.08rem .42rem;
+  border-radius:2px;white-space:nowrap}
+.tag.ok{background:var(--good-soft);color:var(--good)}
+.tag.no{background:var(--bad-soft);color:var(--bad)}
+.tag.w{background:var(--warn-soft);color:var(--warn)}
+.cause{border-top:1px solid var(--line);padding-block:1.6rem;
+  display:grid;grid-template-columns:2.2rem 1fr;gap:0 1.2rem}
+.cause:last-of-type{border-bottom:1px solid var(--line)}
+.cn{font-family:var(--serif);font-weight:700;font-size:1.35rem;color:var(--bad)}
+.cause h3{margin:0 0 .4rem}
+.cause>div{min-width:0}
+ul{margin:0 0 1rem;padding-left:1.15rem}
+li{margin-bottom:.4rem}
+footer{margin-top:3rem;padding-top:1.3rem;border-top:1px solid var(--line);
+  font-size:.8rem;color:var(--muted);line-height:1.7}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+
+<header><div class="wrap">
+<p class="kicker">两份独立评估 · 同一条配体 · 对照与调和</p>
+<h1>7071-A08：两份报告读出了两个结论</h1>
+<p class="lede col">一份是 Workflow&nbsp;v4（17 页，23-allele panel），一份是本项目的 15 模块流程（16 页，25-allele panel）。
+两份独立跑出来的<strong>可执行内容高度一致</strong>，但<strong>风险等级不同</strong>。
+这份文件把分歧拆到具体数字上，并给出我认为该采纳哪一边。</p>
+</div></header>
+
+<main class="wrap">
+
+<section>
+<div class="vs">
+  <div class="theirs"><p class="who">Workflow v4</p>
+    <p class="call" style="color:var(--them)">HIGH</p>
+    <p class="sub">外源 SB 核心密度 <strong>8.33 / 100 aa</strong>，高于最强阳性对照 TTc（7.41）；
+    两个 HIGH 表位簇；68.1%（US）人群携带可强呈递的等位基因。</p></div>
+  <div class="mine"><p class="who">本项目流程</p>
+    <p class="call" style="color:var(--warn)">中度偏高</p>
+    <p class="sub">pIRS <strong>1.77×</strong> Protein A Z 域（区间 1.61–2.06×），
+    低于破伤风 p2（3.25×）与 HA306-318（1.90×）；68.5% 人群携带可呈递分子。</p></div>
+</div>
+<p class="col"><strong>先说结论：两份报告在"该拿哪条肽去做实验"上完全一致，分歧只在刻度。</strong>
+下面第一节是一致的部分（这部分互为独立验证，可信度应当提高），第二节是分歧的三个来源。</p>
+</section>
+
+<hr class="rule">
+
+<section>
+<h2>一、两份独立分析一致的部分</h2>
+<p class="col">这些是两套不同的 panel、不同的聚类规则、不同的打分体系各自跑出来的结果。
+一致就是真正的交叉验证。</p>
+
+<div class="tw"><table class="num">
+<thead><tr><th class="l">发现</th><th class="l">Workflow v4</th><th class="l">本流程</th><th class="l"></th></tr></thead>
+<tbody>
+<tr class="hi"><td class="l">主导表位核心</td><td class="l"><code>FIVEAKIKE</code>（簇 C3，pos 29–42）</td>
+  <td class="l"><code>FIVEAKIKE</code>（簇 35–52，pos 35 起）</td><td class="l"><span class="tag ok">一致</span></td></tr>
+<tr><td class="l">主导表位 DR 广度</td><td class="l">5 / 23</td><td class="l">5 / 25</td><td class="l"><span class="tag ok">一致</span></td></tr>
+<tr><td class="l">该核心的人类近邻</td><td class="l">唯一有 1 错配近邻的核心，<code>FIVEADIKE</code></td>
+  <td class="l">8/9 匹配人类 SKA1，人类 9-mer 为 <code>FIVEADIKE</code></td><td class="l"><span class="tag ok">一致</span></td></tr>
+<tr><td class="l">SB 集人群覆盖</td><td class="l">US 68.05% / EU 64.19%</td><td class="l">68.5%（美欧加权）</td><td class="l"><span class="tag ok">一致</span></td></tr>
+<tr><td class="l"><code>FDKEQQAAR</code> 的性质</td><td class="l">LOW，DRB5 单等位基因限制，且亲和力未确认（0/2）</td>
+  <td class="l">仅 DRB5*01:01 呈递，人群权重结构性为零</td><td class="l"><span class="tag ok">一致</span></td></tr>
+<tr><td class="l">其余表位区段</td><td class="l"><code>YRLISVEGP</code> MOD、<code>ILHLPNLTE</code>、<code>LAEAKKLND</code>、<code>ILQEITQKR</code></td>
+  <td class="l">同样的四个核心均被检出</td><td class="l"><span class="tag ok">一致</span></td></tr>
+<tr><td class="l">IEDB 15-allele 参考集</td><td class="l">覆盖不足，已弃用</td><td class="l">覆盖不足，已弃用</td><td class="l"><span class="tag ok">一致</span></td></tr>
+<tr><td class="l">建议的确证实验</td><td class="l">MAPPs → DC/T 细胞增殖</td><td class="l">DR 竞争结合 → MAPPs → 离体 CD4 增殖</td><td class="l"><span class="tag ok">一致</span></td></tr>
+</tbody></table></div>
+
+<div class="note good col"><p><span class="t">这一列的价值不该被低估。</span>
+两套独立实现在<strong>同一个 9-mer 核心</strong>上收敛，连"它在人类蛋白组里唯一的 1 错配近邻是
+<code>FIVEADIKE</code>"这种细节都对上了。
+无论风险等级怎么定，<code>FIVEAKIKE</code> 就是要送进湿实验的那条肽——这一点现在有两份独立证据。</p></div>
+</section>
+
+<hr class="rule">
+
+<section>
+<h2>二、分歧来自三件事</h2>
+<p class="col">我把对方的核心指标在自己的批次上重算了一遍，用来定位分歧究竟出在哪。
+结论是：<strong>对方的排序是对的，我的数据也把这条配体排在批次首位</strong>；
+但那把尺子不足以支撑一个"等级"。</p>
+
+<div class="cause"><div class="cn">1</div><div>
+<h3>对照组里没有亲和配体</h3>
+<p>Workflow v4 的 6 分子对照是 TTc、FVIII C2、英夫利昔单抗 Fv、HSA、IgG1 Fc、阿达木单抗 Fv。
+这是一套<strong>治疗性蛋白</strong>的对照，对生物药很合适。
+但 7071-A08 不是治疗性蛋白，它是<strong>树脂淋出的工艺杂质</strong>，ng/mg 量级。
+它该对标的是另一种淋出的亲和配体——Protein A，有几十年受控临床暴露史。</p>
+<p>把淋出物和破伤风类毒素 C 片段（一种主动免疫原，配佐剂、µg–mg 剂量）比，回答的是另一个问题。</p>
+</div></div>
+
+<div class="cause"><div class="cn">2</div><div>
+<h3>那把尺子能排序，但几乎没有量程</h3>
+<p>"外源 SB 核心密度 / 100 aa"是一个<strong>不加权的计数</strong>：不管呈递它的是常见还是罕见等位基因，
+一个核心就是一个核心。我用同样的规则在自己的批次上重算：</p>
+<div class="tw"><table class="num">
+<thead><tr><th class="l">分子</th><th class="l">角色</th><th>aa</th><th>外源 SB 核心 / 100 aa</th></tr></thead>
+<tbody>
+<tr class="hi"><td class="l">dsRNA_7071_A08</td><td class="l">受试品</td><td>132</td><td>10.61</td></tr>
+<tr><td class="l">TT_p2_region</td><td class="l">阳性对照（破伤风）</td><td>50</td><td>10.00</td></tr>
+<tr><td class="l" style="color:var(--bad)">ProteinG_B1</td><td class="l">临床在用亲和配体</td><td>55</td><td>7.27</td></tr>
+<tr><td class="l" style="color:var(--bad)">ProteinA_Z</td><td class="l">临床在用亲和配体</td><td>58</td><td>6.90</td></tr>
+<tr><td class="l">HA_306_318_region</td><td class="l">阳性对照（流感 HA）</td><td>50</td><td>4.00</td></tr>
+<tr><td class="l">Caplacizumab_VHH</td><td class="l">已上市纳米抗体</td><td>128</td><td>3.91</td></tr>
+<tr class="dim"><td class="l">HumanVH3_23 / HSA_D1</td><td class="l">阴性对照（自体）</td><td>98 / 130</td><td>0.00</td></tr>
+</tbody></table></div>
+<p><strong>Protein A Z 域是 6.90，Protein G B1 是 7.27。</strong>
+也就是说，两个每天在临床生产中使用、淋出物有长期安全记录的配体，
+在这把尺子上距离对方最强的阳性对照 TTc（7.41）不到 7%。</p>
+<div class="note bad"><p><span class="t">一把"安全淋出物 ≈ 6.9、破伤风毒素 ≈ 7.4"的尺子，可以用来排名，不能用来定级。</span>
+"超过 TTc"是真实的排序信息，但它不等于"免疫原性接近破伤风"。
+Workflow v4 自己在第 15 页也写了这句话：<em>"raw binding density does NOT separate positives
+from negatives"</em>——这个判断是对的，只是那张幻灯片随后仍用这个密度做了等级判定。</p></div>
+</div></div>
+
+<div class="cause"><div class="cn">3</div><div>
+<h3>没有做公共库比对，因而没有发现这是个融合体</h3>
+<p>Workflow v4 第 4 页明确写着：<em>"Proprietary sequence — analyzed as provided;
+no public-database cross-reference performed."</em>
+这是一个合理的合规选择，但代价很具体：<strong>残基 73–130 与 Protein A Z 域有 87.7% 一致性</strong>
+（本次比对实算，50/57，7 个突变）——也就是说，这条配体后半段基本就是<em>那个基准本身</em>。</p>
+<p>把受试品的 14 个外源 SB 核心按结构域拆开：</p>
+<div class="tw"><table class="num">
+<thead><tr><th class="l">结构域</th><th>残基</th><th>外源 SB 核心</th><th>/ 100 aa</th><th class="l">其中已存在于 Protein A 淋出物</th></tr></thead>
+<tbody>
+<tr><td class="l">dsRBD（新结构域）</td><td>1–72</td><td>8</td><td>11.11</td><td class="l">0</td></tr>
+<tr><td class="l">Protein A Z 域变体</td><td>73–130</td><td>5</td><td>8.62</td><td class="l"><strong>4</strong></td></tr>
+</tbody></table></div>
+<ul>
+<li>Workflow v4 的<strong>两个 HIGH 簇之一（C5，<code>ILHLPNLTE</code>，pos 83–104）落在 Z 域内，
+而且是 Protein A 淋出物本来就携带的表位</strong>。它真实存在，但不是新增暴露。</li>
+<li>它的 C6（<code>LAEAKKLND</code>）同样是 Protein A 已携带的表位。</li>
+<li>它的 C4（<code>FDKEQQAAR</code>）是工程化造出的唯一新表位，而两份报告都独立判定它很窄。</li>
+</ul>
+<div class="note warn"><p><span class="t">把这 4 个核心扣掉再算一次对方的指标：</span>
+密度从 <strong>10.61</strong> 降到 <strong>7.58 / 100 aa</strong>——
+<strong>不再"高于 TTc（7.41）"，而是与之持平。</strong>
+仅仅修正这一项，对方的核心论据就从"超过最强阳性对照"变成"与之相当"。</p></div>
+</div></div>
+</section>
+
+<hr class="rule">
+
+<section>
+<h2>三、对方报告里我认为应当采纳的东西</h2>
+<p class="col">这不是一份"我对你错"的文件。Workflow v4 有三件事做得比本流程好或是本流程没有的：</p>
+<ul class="col">
+<li><strong>阈值敏感性扫描</strong>（第 16 页，%Rank 0.5/1/2/5 四档）。本流程通过 M11 的校准切点做了等价的事，
+但对方那张表更易读，应当直接搬过来。</li>
+<li><strong>用已知临床 ADA 率的分子做锚点</strong>：英夫利昔 3.52、阿达木 2.63（已知 ~5–30% ADA）。
+本流程只有 Caplacizumab 一个这类锚点，多几个更好。</li>
+<li><strong>CD4EpiScore 作为第三个独立模型</strong>——正交检查有价值。
+<em>但要注意它的读数：</em>CD4EpiScore 给分最高的是 <code>FDKEQQAAR</code>（95.8），
+而这一簇被<strong>两份报告独立判定为最窄的一个</strong>（仅 DRB5、亲和力未确认、人群权重为零）。
+所以这次它更像是对 CD4EpiScore 本身的一个警示，而不是对风险结论的支持。</li>
+<li><strong>逐簇的 BA 确认明细</strong>（C4 是 0/2）——这条信息实际上<em>加强</em>了本流程对
+<code>FDKEQQAAR</code> 的判断，是本次对照中真正新增的证据。</li>
+</ul>
+
+<h3>两点我会反过来提醒对方</h3>
+<ul class="col">
+<li><strong>"EL+BA 一致性"不是特异性证据。</strong>84% 的一致度衡量的是<em>同一个模型的两个输出头彼此同意</em>，
+不是它们对真实 T 细胞应答判得准。本流程用 9,647 条有标签的人源 T 细胞实验结果测过：
+EL 单独 AUC 0.652、BA 单独 0.651、两者合并 0.664，
+差异在 cluster bootstrap 下与 0 不可区分。</li>
+<li><strong>"0/11 核心匹配人类蛋白组 → 完全外源、不做容忍降权"的这个选择，恰好落在它的头号簇上。</strong>
+<code>FIVEAKIKE</code> 是唯一有人类近邻的核心。不降权是一个可以辩护的选择（本流程的 M12 也证明数据无法界定这个权重），
+但它应该是一条<strong>敏感性坐标轴</strong>，而不是一条脚注——本流程把它扫出来是 1.61×–2.06×。</li>
+</ul>
+</section>
+
+<hr class="rule">
+
+<section>
+<h2>四、我建议的合并结论</h2>
+<div class="note col"><p><span class="t">风险定级按结构域给，而不是按整条分子给。</span></p>
+<p><strong>新的 dsRBD（残基 1–72）：偏高，两份报告一致指向它。</strong>
+对方指标 11.11/100 aa（全分子里最高的一半），本流程 pIRS 占比 70%、密度为基准的 2.3 倍。
+主导表位 <code>FIVEAKIKE</code> 两边独立收敛。这是要管的部分。</p>
+<p><strong>Protein A Z 域那一半（73–130）：不构成新增风险。</strong>
+每 100 aa 密度与单独打分的 Protein A Z 域一致（0.45 vs 0.45），
+5 个表位里 4 个是已获临床资格的淋出物本来就带的。
+不应计入"这条新配体带来了多少新风险"。</p>
+<p><strong>整分子等级：中度偏高，而非 HIGH。</strong>
+理由是对方 HIGH 的两条主要论据各被修正了一次——
+"超过 TTc"在扣除 Protein A 自有表位后变成"与 TTc 持平"；
+两个 HIGH 簇中有一个是已有暴露。</p></div>
+
+<div class="note bad col"><p><span class="t">但有一件事两份报告都没有做，而它比等级之争更要紧。</span>
+两份报告都推荐了 MAPPs 和 T 细胞增殖实验，都没有把<strong>剂量</strong>放进结论。
+免疫原性风险是"内在潜力 × 每剂微克数"。在 ≤1 ng/mg、10 mg 剂量下暴露约 0.01 µg，
+这正是 Protein A 淋出物几十年临床使用所处的区间；在 100 ng/mg、1000 mg 下是 100 µg，完全是另一回事。
+<strong>在拿到你们自己的淋出水平和剂量档位之前，HIGH 和"中度偏高"之争在实际决策上都还是空的。</strong>
+本流程的 M8 暴露网格目前用的是占位参数，需要换成真实产品参数。</p></div>
+
+<h3>下一步不受这场分歧影响</h3>
+<p class="col">两份报告推荐的确证实验其实是同一套，且都指向同一条肽。可以直接下单：</p>
+<ol class="col">
+<li><strong>HLA-DR 竞争结合</strong>，针对 <code>HKKKFIVEAKIKEYR</code>，对 DR8/DR11/DR12/DR13 家族分子。数天，成本最低，两边都指向它。</li>
+<li><strong>MAPPs</strong>，HLA 分型供体来源的 moDC，确认完整配体被实际加工呈递出什么。</li>
+<li><strong>离体 CD4 增殖</strong>，约 50 名分型匹配供体。</li>
+</ol>
+<p class="col">如果要做去免疫化：目标是 dsRBD 里的 <code>FIVEAKIKE</code>，
+而它位于功能域内部，排名靠前的取代多为去掉赖氨酸，而 dsRBD 结合 RNA 是静电驱动的——
+<strong>必须先测结合活性</strong>。支架那一半没有可改的必要。</p>
+</section>
+
+<footer class="col">
+<p>本文件中"本流程"一列的全部数字来自 <code>results/</code> 下的输出；
+"Workflow v4"一列的数字转录自所附 17 页 PPTX，未做二次计算。
+第二节表格与结构域拆分是用 Workflow v4 的指标定义在本项目批次上<strong>重新计算</strong>的结果，
+用于定位分歧来源，不是转录。</p>
+<p>两份报告均为 RUO。等级之争不改变确证实验清单，也不能替代剂量数据。</p>
+</footer>
+</main>
