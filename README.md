@@ -8,19 +8,20 @@
 ## electrolyte_pipeline
 
 One module per page of the digest; every number carries ✅ converged / ⚠️ demo / ❌ not-run.
+System: LiTFSI/DME at DME:Li = ∞, 20, 10, 5, 3 (0–2.2 M) + NaTFSI/DME, OpenFF Sage 2.2.1 + NAGL charges (ions ×0.8), 2 + 10 ns NPT per box on Modal A10G.
 
-| Module | Digest page | What it computes | Where it runs |
+| Module | Digest page | What it computes | Key result |
 |---|---|---|---|
-| `e0_systems` | p4 | compositions (counts, not "1 M"), force-field & dynamics spec, experimental reference table | – |
-| `e1_build` / `e1_run` | p4 | packmol → OpenFF Sage 2.2.1 + NAGL charges (ions ×0.8) → OpenMM; minimise / NPT / production with block-convergence check | Modal A10G (`modal_run.py`) |
-| `e2_rdf_cn` | p5 | Li–O(DME)/O(TFSI)/N/F RDF, r_min, density-weighted N(r), direct-count CN, P(n) at atom & molecule level, representative shell PDB | local |
-| `e3_clusters` | p6 | contact graph → no-contact / CIP / AGG fractions, cluster sizes, anion bridging; criteria written next to the numbers | local |
-| `e4_properties` / `e4_nemd_viscosity` | p8 | density, Einstein D with log-log slope check, Nernst–Einstein vs Einstein–Helfand conductivity, solvent dielectric, periodic-perturbation NEMD viscosity, all vs experiment | local / Modal |
-| `e5_qc_clusters` | p2 | Li⁺–EC / Li⁺–DME from several starting placements, B3LYP/def2-TZVP//def2-SVP, vertical / CP-corrected / relaxed ΔE, MD-shell cluster | local CPU (PySCF) |
-| `e6_desolvation` | p11 | same Li…O coordinate as (2) gas-phase electronic scan and (3) liquid PMF from g(r) — shown side by side, not interchanged | local |
-| `e7_interface` | p9 | rigid uncharged graphite(0001) + LiTFSI/DME, z-resolved number densities from the top C plane, DME orientation, Li PMF along z | Modal |
-| `e8_ml` | p12 | (A) GFN2-xTB vs DFT forces/energies on Li⁺ shells cut from the liquid; (B) property regressor under random vs leave-one-concentration-out split | local |
-| `e9_reactive` | p10 | why reactive MD is not run; bond-topology event counter returns 0 on a fixed-topology FF | local |
+| `e0_systems` | p4 | compositions (counts, not "1 M"), force-field & dynamics spec, experimental reference table | molarity derived from the NPT box, all model choices in one JSON |
+| `e1_build` / `e1_run` | p4 | packmol → OpenFF → OpenMM; minimise / NPT / production with block-convergence check | pure-DME density 0.8652 vs exp 0.8637 g/mL (0.2 %) |
+| `e2_rdf_cn` | p5 | RDF, r_min, density-weighted N(r) vs direct count, P(n) at atom and molecule level | Li–O 2.09 Å, total O CN ≈ 5.8 at all concentrations; 5.2 O(DME) = 2.6 DME molecules; Na–O 2.41 Å |
+| `e3_clusters` | p6 | contact graph → no-contact / CIP / AGG, cluster sizes, anion bridging, criteria stated | AGG 0 → 9 → 22 → 57 % from 0.45 to 2.2 M; 20-ion network at 2.2 M |
+| `e4_properties` / `e4_nemd_viscosity` | p8 | density, Einstein D, Nernst–Einstein vs Einstein–Helfand σ, solvent ε, NEMD viscosity vs experiment | σ_EH/σ_NE 0.73 → 0.07; η overestimated 1.6× (DME) to 4× (2.2 M); q-scaling changes σ_EH 2.5× but D only 0.9× |
+| `e5_qc_clusters` | p2 | Li⁺–EC / Li⁺–DME, several starts, B3LYP/def2-TZVP//def2-SVP, vertical / CP / relaxed ΔE, MD-shell cluster | EC −51.3, DME (bidentate) −63.0 kcal/mol; Li(DME)₃ shell −134 (not 3×) |
+| `e6_desolvation` | p11 | same Li…O coordinate: gas-phase electronic scan vs liquid PMF from g(r) | 25 kcal/mol (vacuum, electronic) vs 4.1 kcal/mol (liquid, free energy, lower bound) |
+| `e7_interface` | p9 | rigid uncharged graphite(0001) + LiTFSI/DME, z-profiles from the top C plane, DME orientation, Li PMF(z) | DME layer at 3.9 Å, Li first peak 5.9 Å (4.9× bulk), no direct Li–C contact |
+| `e8_ml` | p12 | (A) GFN2-xTB vs DFT forces on Li⁺ shells from the liquid; (B) regressor under random vs leave-one-concentration-out split | force RMSE 5 (DME shells) vs 11 kcal/mol/Å (TFSI shells); R² +0.41 random vs −0.2…−1.2 grouped |
+| `e9_reactive` | p10 | why reactive MD is not run; bond-topology counter on a fixed-topology FF | 0 events by construction ❌ |
 
 ```bash
 # environment (conda-forge): openmm openff-toolkit openff-interchange openff-nagl openff-nagl-models packmol
