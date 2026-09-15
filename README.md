@@ -41,3 +41,26 @@ python3 -m grn_pipeline.m1_symmetry   # or any single module
 Figures are written to `figures/`. A full write-up with numbers, rigour
 labels, and the interpretation (including the Lyapunov-exponent biomarker
 question) is in [`REPORT.md`](REPORT.md).
+
+---
+
+# protclock-pipeline
+
+A second, independent package in this repo:
+[`protclock_pipeline/`](protclock_pipeline/README.md) reimplements the
+analysis in [Zhavoronkov et al., *Nature Biotechnology* 2026](https://www.nature.com/articles/s41587-026-03286-y),
+six proteomic aging clocks read side by side on a phase 2a trial of
+rentosertib in idiopathic pulmonary fibrosis.
+
+The paper's numbers cannot be reproduced from public material: the trial
+proteome is controlled-access, the reference cohort needs a UK Biobank
+application, and three of the six clocks ship no usable weights. The package
+implements the full analysis anyway and validates it against a synthetic
+cohort with a planted answer, so it switches to the real data when access is
+granted. The feasibility assessment is in
+[`protclock_pipeline/REPRODUCTION.md`](protclock_pipeline/REPRODUCTION.md).
+
+```bash
+pip install numpy pandas scipy statsmodels scikit-learn matplotlib openpyxl
+python3 -m protclock_pipeline.run_all --quick
+```
