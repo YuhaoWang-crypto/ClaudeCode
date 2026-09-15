@@ -45,6 +45,7 @@ def run(label: str, workdir: str = WORK, amplitudes=(0.01, 0.02), ns: float = 2.
     pdb = app.PDBFile(os.path.join(sysdir, "final.pdb"))
     n = system.getNumParticles()
     mass = np.array([system.getParticleMass(i).value_in_unit(unit.amu) for i in range(n)])
+    dof = 3 * n - system.getNumConstraints() - 3          # kinetic temperature needs the constrained DOF count
     ext = openmm.CustomExternalForce("-fx*x")
     ext.addPerParticleParameter("fx")
     for i in range(n):
@@ -77,7 +78,7 @@ def run(label: str, workdir: str = WORK, amplitudes=(0.01, 0.02), ns: float = 2.
                 ext.setParticleParameters(i, i, [fx[i]])
             ext.updateParametersInContext(sim.context)
             Vs.append(2 * np.sum(mass * vel[:, 0] * cz) / mass.sum())
-            Ts.append(np.sum(mass * np.sum(vel**2, axis=1)) / (3 * n) * AMU * 1e6 / 1.380649e-23)
+            Ts.append(np.sum(mass * np.sum(vel**2, axis=1)) / dof * AMU * 1e6 / 1.380649e-23)
             sim.step(refresh_steps)
         Vs = np.array(Vs); Ts = np.array(Ts)
         tail = Vs[int(len(Vs) * settle_frac):]
