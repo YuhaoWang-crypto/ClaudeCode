@@ -18,7 +18,7 @@ System: LiTFSI/DME at DME:Li = ∞, 20, 10, 5, 3 (0–2.2 M) + NaTFSI/DME, OpenF
 | `e3_clusters` | p6 | contact graph → no-contact / CIP / AGG, cluster sizes, anion bridging, criteria stated | AGG 0 → 9 → 22 → 57 % from 0.45 to 2.2 M; 20-ion network at 2.2 M |
 | `e4_properties` / `e4_nemd_viscosity` | p8 | density, Einstein D, Nernst–Einstein vs Einstein–Helfand σ, solvent ε, NEMD viscosity vs experiment | σ_EH/σ_NE 0.73 → 0.07; η overestimated 1.6× (DME) to 4× (2.2 M); q-scaling changes σ_EH 2.5× but D only 0.9× |
 | `e5_qc_clusters` | p2 | Li⁺–EC / Li⁺–DME, several starts, B3LYP/def2-TZVP//def2-SVP, vertical / CP / relaxed ΔE, MD-shell cluster | EC −51.3, DME (bidentate) −63.0 kcal/mol; Li(DME)₃ shell −134 (not 3×) |
-| `e6_desolvation` | p11 | same Li…O coordinate: gas-phase electronic scan vs liquid PMF from g(r) | 25 kcal/mol (vacuum, electronic) vs 4.1 kcal/mol (liquid, free energy, lower bound) |
+| `e6_desolvation` / `e6_umbrella` | p11 | same Li…O coordinate: gas-phase electronic scan vs liquid PMF from g(r) vs umbrella sampling + MBAR (21 windows) | 25 kcal/mol (vacuum, electronic) vs 4.20 ± 0.21 kcal/mol (liquid free-energy barrier; g(r) estimate 4.11) |
 | `e7_interface` | p9 | rigid uncharged graphite(0001) + LiTFSI/DME, z-profiles from the top C plane, DME orientation, Li PMF(z) | DME layer at 3.9 Å, Li first peak 5.9 Å (4.9× bulk), no direct Li–C contact |
 | `e8_ml` | p12 | (A) GFN2-xTB vs DFT forces on Li⁺ shells from the liquid; (B) regressor under random vs leave-one-concentration-out split | force RMSE 5 (DME shells) vs 11 kcal/mol/Å (TFSI shells); R² +0.41 random vs −0.2…−1.2 grouped |
 | `e9_reactive` | p10 | why reactive MD is not run; bond-topology counter on a fixed-topology FF | 0 events by construction ❌ |
