@@ -8,6 +8,7 @@ Run the proteomic-aging-clock reproduction end to end.
   M5  trial statistics + negative control  (M5b: power sweep)
   M6  differential abundance + aging enrichment
   M7  pathway analysis
+  M8  the paper's supplementary tables - REAL data, not simulated
 
 Usage:
     python3 -m protclock_pipeline.run_all              # full run
@@ -24,7 +25,7 @@ import numpy as np
 
 from protclock_pipeline import (m1_cohort, m2_preprocess, m3_clocks,
                                 m4_ageaccel, m5_trialstats, m6_enrichment,
-                                m7_pathways)
+                                m7_pathways, m8_supplementary)
 
 N_REFERENCE = 2500
 
@@ -42,6 +43,8 @@ def main(argv=None):
     ap.add_argument("--figures", action="store_true",
                     help="write figures to figures/protclock/")
     ap.add_argument("--n-reference", type=int, default=N_REFERENCE)
+    ap.add_argument("--no-supplementary", action="store_true",
+                    help="skip M8, which downloads the paper's tables")
     ap.add_argument("--weight-dir", default=None,
                     help="directory of published clock coefficient CSVs")
     args = ap.parse_args(argv)
@@ -96,17 +99,28 @@ def main(argv=None):
     ag = m6_enrichment.aging_associated(pre)
     r7 = m7_pathways.report(pre=pre, differential=da, aging=ag)
 
+    supp = None
+    if not args.no_supplementary:
+        banner("M8  supplementary tables (REAL DATA)")
+        try:
+            supp = m8_supplementary.report()
+        except Exception as exc:
+            print(f"  could not load the supplementary workbook "
+                  f"({type(exc).__name__}: {str(exc)[:80]})")
+            print("  it is fetched from static-content.springer.com on first "
+                  "use; pass --no-supplementary to skip")
+
     banner("SUMMARY")
-    _summary(r1, pre, scored, r5, r6, r7, sweep, clocks, val)
+    _summary(r1, pre, scored, r5, r6, r7, sweep, clocks, val, supp)
 
     if args.figures:
         from protclock_pipeline import figures
-        figures.write_all(pre, scored, r5, r6, r7, sweep)
+        figures.write_all(pre, scored, r5, r6, r7, sweep, supp)
 
     return 0
 
 
-def _summary(r1, pre, scored, r5, r6, r7, sweep, clocks, val):
+def _summary(r1, pre, scored, r5, r6, r7, sweep, clocks, val, supp):
     truth = r1["truth"]
     conc = r5["concordance"]
     best = conc.sort_values("mean_diff_z").iloc[0]
@@ -136,6 +150,25 @@ def _summary(r1, pre, scored, r5, r6, r7, sweep, clocks, val):
     print(f"    paper's reported OR            : 1.74")
     rej = r7[(r7["aligned_q"] < 0.05) & (r7["aligned_npx"] < 0)]["pathway"]
     print(f"    pathways moved toward younger  : {', '.join(rej) or 'none'}")
+
+    if supp is not None:
+        eff = supp["effective"]
+        off = supp["corr"].to_numpy()
+        import numpy as _np
+        off = off[_np.triu_indices(len(supp["corr"]), k=1)]
+        print("\n  WHAT THE REAL SUPPLEMENTARY DATA SHOWS (not simulated)")
+        print(f"    mean pairwise clock correlation: {off.mean():+.3f} "
+              f"over 168 real samples")
+        print(f"    effective independent clocks   : "
+              f"{eff['li_ji']:.2f} of 6 (Li & Ji)")
+        print(f"    6/6 concordance p, independent : "
+              f"{m5_trialstats.stats.binomtest(6, 6, 0.5).pvalue:.4f}")
+        print(f"    same p at {eff['li_ji']:.2f} effective clocks  : "
+              f"{m8_supplementary.concordance_pvalue(6, 6, eff['li_ji']):.4f}")
+        tally = supp["tally"]
+        row = tally.iloc[0]
+        print(f"    the paper's own test tally     : "
+              f"{row['Passed tests']:.0f} of {row['Total tests']:.0f} passed")
 
     print("\n  WHAT THIS DOES NOT SHOW")
     print("    Nothing here is evidence about rentosertib. The drug effect,")

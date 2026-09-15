@@ -36,23 +36,42 @@ produced that way.
 Save as `data/reference_npx.parquet` plus `data/reference_meta.csv` with
 columns `age`, `sex`, and `died_10y` if you intend to fit mortality clocks.
 
-## 3. Clock weights (partly obtainable)
+## 3. Clock weights (mostly obtainable)
 
-Drop one CSV per clock into `data/weights/`, named after the clock, with
-columns `protein` and `coefficient` and an optional `(Intercept)` row. Then
-pass `--weight-dir data/weights`.
+Install the paper's own library and three of the six clocks run on their real
+published weights with no further work:
+
+```bash
+git clone https://github.com/Insilico-org/proteoclock
+cd proteoclock && pip install -e . && pip install --upgrade scikit-posthocs
+```
+
+The upgrade is required. `setup.py` pins `scikit-posthocs==0.11`, which
+imports `multipletests` from `statsmodels.sandbox.stats.multicomp`, removed
+in statsmodels 0.15. Without it the package raises on import. pip will warn
+that the pin is violated; the package works anyway.
 
 | Clock | Status | Where |
 |---|---|---|
-| `OrganAge_chrono` | obtainable | Goeminne 2025 supplementary Table S1A/S1C |
-| `OrganAge_mortality` | obtainable | same, mortality coefficients, no intercept |
-| `PAC` | obtainable | `github.com/kuo-lab-uchc/PAC`, coefficients inside `pac_proteomic_age.R` |
-| `PAOPAC` | unverified | `github.com/41way5/Organ-PAC` ships a training script and no README |
+| `PAC` | **real weights** | proteoclock `kuo_2024` (Gompertz, needs age) |
+| `OrganAge_chrono` | **real weights** | proteoclock `goeminne_2025_full_chrono` |
+| `OrganAge_mortality` | **real weights** | proteoclock `goeminne_2025_full_mortality` |
+| `PAOPAC` | blocked on platform | `github.com/JackieHanLab/PAOPAC`; `model.bin` is on Releases but the extension is a Windows-only `.pyd` for Python 3.9 |
+| `ipfP3GPT` | restricted | code at `osf.io/457w8`; proteoclock ships only the feature order. Weights are usable solely inside the UK Biobank Research Analysis Platform |
 | `ProtAge` | on request | not in `github.com/miargentieri/proteomic-age-ukb`; email the authors |
-| `ipfP3GPT` | unavailable | Precious3GPT base model is on HuggingFace, the IPF fine-tune is not |
 
-Any clock without a CSV falls back to a surrogate, and `run_all` reports how
-many of each it used.
+To force a specific coefficient set instead, drop a CSV per clock into
+`data/weights/` with columns `protein` and `coefficient` plus an optional
+`(Intercept)` row, and pass `--weight-dir data/weights`. That overrides
+proteoclock. Any clock with neither falls back to a surrogate, and `run_all`
+reports how many of each it used.
+
+## 4. Supplementary tables (open, fetched automatically)
+
+`m8_supplementary` downloads the workbook from static-content.springer.com on
+first use and caches it here as `supplementary_tables.xlsx`. It is
+git-ignored, being publisher-hosted content. No credentials are needed even
+though the article itself is paywalled.
 
 ## Identifier namespaces
 

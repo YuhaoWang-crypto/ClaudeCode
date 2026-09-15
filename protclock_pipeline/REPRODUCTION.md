@@ -13,31 +13,78 @@ proteins 1.74 times more likely than background to be aging-linked.
 
 ## Verdict
 
-**The paper's numbers cannot be reproduced from public material.** The
-obstacle is data access, not code. What this package does instead is
-reimplement the analysis end to end and validate it against a synthetic
-cohort with a known answer, so that the moment the controlled data arrives
-the pipeline produces the real numbers with no further work.
+**Partly reproducible, and more than it first appears.** The trial-level
+numbers cannot be recomputed, because the proteome is controlled-access. But
+the paper releases its own clock library with real weights, and its
+supplementary workbook is openly downloadable and contains the per-sample
+clock predictions. So a real, non-simulated piece of the paper is reproduced
+here, and it changes how the headline claim reads.
 
 | Requirement | Status |
 |---|---|
+| Supplementary tables S1-S15 | **Open.** Downloaded and analysed in M8 |
+| `proteoclock`, the paper's library | **Open.** Real weights for 3 of 6 clocks |
 | Trial serum proteome (OMIX008341) | Controlled access, request required |
 | UK Biobank reference (n=55,319) | Separate application, months |
+| PAC, OrganAge chrono + mortality | **Real weights**, shipped in proteoclock |
+| PAOPAC | Weights downloadable, but a Windows-only .pyd for Python 3.9 |
+| ipfP3GPT | Weights usable only inside the UK Biobank RAP |
 | ProtAge trained model | Not released, authors must be emailed |
-| ipfP3GPT (IPF fine-tune) | Not released; only the base model is public |
-| PAOPAC | Repository exists, no README, no weights confirmed |
-| OrganAge chrono + mortality | Coefficients published in supplementary tables |
-| PAC | Scoring script public |
-| The paper's own pipeline library | **Not findable** |
 
-That last row is worth stating plainly. The press release says the analysis
-pipeline "has been released as an open-source Python library on GitHub". The
-Insilico Medicine GitHub organisation carries 22 repositories and none of
-them concerns aging clocks, proteomics, or biological age. As of September
-2026 the library could not be located.
+An earlier draft of this document said the released library "could not be
+located". That was wrong. It is at
+https://github.com/Insilico-org/proteoclock, under the `Insilico-org`
+organisation, not the `insilicomedicine` one that carries the company's other
+repositories. Searching the wrong organisation produced a confident negative.
 
-So three of the six clocks have obtainable weights, and neither of the two
-datasets does.
+Three of the six clocks therefore run here on their real published weights,
+and M8 analyses real trial-derived data rather than simulation.
+
+## What the real data shows
+
+Supplementary Table S2 carries 168 rows, 42 patients times 4 visits, with
+predictions from all 43 clock variants. Each row is keyed by a SHA256 of its
+own NPX values, so predictions cannot be tied to an arm or visit without the
+controlled data. Per-arm statistics are therefore still out of reach.
+
+What S2 does give is the joint distribution of the six clocks over the real
+trial samples, and that settles a question simulation cannot.
+
+**The six clocks are not six independent votes.** Mean pairwise correlation
+is +0.622. PAC and OrganAge-mortality correlate at 0.940, ProtAge and PAOPAC
+at 0.917. The eigenvalues of the correlation matrix are 4.16, 1.37, 0.25,
+0.09, 0.09, 0.05: two components carry almost everything.
+
+| Estimator | Effective independent clocks |
+|---|---|
+| Li and Ji 2005 | 3.00 of 6 |
+| Nyholt 2004 | 3.79 of 6 |
+
+That matters directly for the concordance argument. Six of six clocks
+agreeing has a two-sided binomial p of 0.031 if they are independent. At
+three effective clocks it is 0.25. The agreement of the six clocks is a
+weaker piece of evidence than its face value.
+
+**The paper's own tally is more measured than its coverage.** Supplementary
+Table S5 reports 21 of 54 tests passed, 39%. Chronological clocks passed 13
+of 36, mortality clocks 8 of 18, and the mortality clocks passed 0 of 18 in
+the 60 mg QD arm.
+
+**The enrichment is heterogeneous and includes depletion.** Supplementary
+Table S8 splits clock-feature enrichment by response trajectory rather than
+reporting one number:
+
+| Arm | Trajectory | Odds ratio | p |
+|---|---|---|---|
+| 30 BID | Sustained | 4.65 | <0.001 |
+| 30 BID | Delayed | 0.38 | <0.01 |
+| 30 BID | Transient | 0.46 | 0.29 |
+| 60 QD | Sustained | 2.19 | <0.05 |
+| 60 QD | Delayed | 0.60 | 0.16 |
+
+Sustained responders are strongly enriched; delayed ones are significantly
+DEPLETED. The single 1.74-fold figure that appears in press coverage is not
+what this table says, and no single odds ratio summarises it.
 
 ## What this package is
 
@@ -51,8 +98,12 @@ m4_ageaccel.py    age acceleration, all six clocks on one scale
 m5_trialstats.py  within-patient change, mixed model, concordance, negative control, power
 m6_enrichment.py  differential abundance, aging set, Fisher enrichment
 m7_pathways.py    over-representation, mean shift, aging-aligned shift
+m8_supplementary.py  REAL data: the paper's own tables S2, S5, S8
+proteoclock_backend.py  the paper's released library, real weights for 3 clocks
 real_data.py      adapter for OMIX008341 and a real reference cohort
 ```
+
+M1 through M7 run on simulation. M8 does not; it is real published data.
 
 The simulation writes a specific answer into the data: 326 drug-responsive
 proteins, 72 of them aging-associated, giving a true enrichment odds ratio of
@@ -62,7 +113,16 @@ nothing whatsoever about rentosertib.
 
 ## What the validation showed
 
-Running it surfaced five things, four of them problems in the first draft.
+Running it surfaced six things, five of them problems in the first draft.
+
+**A namespace mismatch sent every clock silently to a surrogate.** The panel
+symbols were read from proteoclock's `feature_order.txt` a line at a time.
+The file is two tab-separated columns with the symbol repeated, so every
+identifier came out as `A1BG\tA1BG`, matched nothing, and all three real
+clocks fell back to surrogates while reporting success. This is exactly the
+failure `real_data.py` warns about, and it happened here. The guard that
+caught it was checking matched-protein counts against each clock's expected
+total, which is why that count is now printed on every load.
 
 **The pipeline is calibrated.** With the drug effect set to zero, the
 false-positive rate across replicates is 0.056 in the power sweep and 0.067
@@ -111,6 +171,15 @@ separate a drug effect from disease progression or assay drift. An order of
 magnitude separates the two protein counts, from one dataset, on an analyst's
 choice.
 
+**Real clocks cannot be validated on arbitrary synthetic biology.** Once the
+published clocks were wired in they read the synthetic cohort as noise,
+because its age slopes had been assigned at random over real gene symbols and
+a published clock is keyed on which proteins actually move with age in
+humans. M1 now derives its aging axis from a published clock's own
+coefficients. That makes the recovery circular for the clocks sharing that
+axis and is not evidence any clock works; it exists so the downstream
+statistics operate on realistic covariance rather than noise.
+
 ## The power problem
 
 The clearest result is about sample size. Six replicates per effect size:
@@ -131,11 +200,11 @@ per arm, not a larger effect, is what would close that gap.
 This bears directly on how the paper's dose ranking should be read. A
 42-patient trial split four ways leaves 10 to 11 patients per arm. Reading a
 dose-response ordering off that is not well supported, whatever the analysis.
-The six-clock concordance argument has a related weakness: the clocks are
-trained on overlapping proteins from overlapping cohorts, so they are not
-independent, and a binomial p-value over six agreeing clocks is
-anticonservative by an unknown factor. `m5_trialstats.concordance` reports it
-and labels the column `binom_p_ANTICONSERVATIVE`.
+
+The six-clock concordance argument has a related weakness, and M8 measures it
+rather than asserting it: the clocks correlate at +0.622 on average over the
+real trial samples, giving three effective independent clocks, so the
+binomial p for six agreeing rises from 0.031 to 0.25.
 
 None of this says the paper is wrong. It says these specific quantities are
 imprecise at this sample size, and the pipeline quantifies by how much.
@@ -143,7 +212,8 @@ imprecise at this sample size, and the pipeline quantifies by how much.
 ## Switching to real data
 
 1. Obtain `OMIX008341` and a reference cohort, per `data/README.md`.
-2. Drop clock coefficient CSVs into `data/weights/`.
+2. Install `proteoclock` for the three clocks whose real weights ship with
+   it, and drop coefficient CSVs into `data/weights/` for any others.
 3. Build the input through `real_data.build_preprocessed` instead of
    `m2_preprocess.run`, then run M3 through M7 unchanged.
 
@@ -162,10 +232,16 @@ M5's power sweep. The measurements themselves remain valid.
 - **Rigorous:** the preprocessing, calibration, statistics and enrichment
   code, and every claim above about the pipeline's own behaviour, all
   computed and reproducible with `python3 -m protclock_pipeline.run_all`.
+- **Rigorous:** everything in M8. The cross-clock correlations, the effective
+  clock count, and the S5 and S8 figures are computed from the paper's own
+  published tables, not simulated.
 - **Rigorous:** the weight-availability table, checked against each
-  repository in September 2026.
+  repository and against the paper's code-availability statement, September
+  2026.
 - **Hypothesis:** every biological number the demo prints. The drug effect,
   the dose ordering and the enrichment were injected by `m1_cohort` and
   measured back out.
-- **Not established:** anything about rentosertib. This package contains no
-  evidence for or against the paper's conclusions.
+- **Not established:** whether rentosertib has a geroprotective effect. The
+  M8 findings bear on how strongly the paper's statistical argument supports
+  its claim, not on whether the claim is true. Settling that needs the
+  controlled data.

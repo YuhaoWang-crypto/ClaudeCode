@@ -135,12 +135,40 @@ def fig_pathways(pathways, fname="f5_pathways.png"):
     return fname
 
 
-def write_all(pre, scored, r5, r6, r7, sweep=None):
+def fig_clock_corr(corr, eff, fname="f6_clock_correlation.png"):
+    """REAL cross-clock correlation from the paper's supplementary Table S2."""
+    _ensure()
+    m = corr.to_numpy()
+    labels = list(corr.columns)
+    fig, ax = plt.subplots(figsize=(6.6, 5.6))
+    im = ax.imshow(m, cmap="RdBu_r", vmin=-1, vmax=1)
+    ax.set_xticks(range(len(labels)))
+    ax.set_xticklabels(labels, rotation=45, ha="right", fontsize=8)
+    ax.set_yticks(range(len(labels)))
+    ax.set_yticklabels(labels, fontsize=8)
+    for i in range(len(labels)):
+        for j in range(len(labels)):
+            ax.text(j, i, f"{m[i, j]:.2f}", ha="center", va="center",
+                    fontsize=7.5,
+                    color="white" if abs(m[i, j]) > 0.6 else "black")
+    fig.colorbar(im, ax=ax, shrink=0.8, label="Pearson r")
+    ax.set_title(f"Six clocks on the REAL trial samples\n"
+                 f"effective independent clocks: {eff['li_ji']:.1f} of 6",
+                 fontweight="bold", fontsize=10)
+    fig.tight_layout()
+    fig.savefig(os.path.join(OUT, fname), dpi=140)
+    plt.close(fig)
+    return fname
+
+
+def write_all(pre, scored, r5, r6, r7, sweep=None, supp=None):
     made = [fig_trajectories(scored), fig_forest(r5["vs_placebo"])]
     made.append(fig_volcano(r6["paired_treated"]["differential"], r6["aging"]))
     made.append(fig_pathways(r7))
     if sweep is not None:
         made.append(fig_power(sweep))
+    if supp is not None:
+        made.append(fig_clock_corr(supp["corr"], supp["effective"]))
     print(f"\n  figures written to {OUT}/:")
     for f in made:
         print(f"    {f}")

@@ -68,7 +68,7 @@ class AgeAccelCalibration:
 
 def calibrate(clock, pre):
     """Fit the age+sex reference model for one clock and freeze it."""
-    pred = clock.predict(pre.ref_npx)
+    pred = clock.predict(pre.ref_npx, pre.ref_meta)
     age = pre.ref_meta["age"].to_numpy()
     sex = pre.ref_meta["sex"].to_numpy()
 
@@ -101,7 +101,7 @@ def score_trial(clocks, pre, verbose=False):
     rows = []
     for name, clk in clocks.items():
         cal = calibrate(clk, pre)
-        pred = clk.predict(pre.trial_npx)
+        pred = clk.predict(pre.trial_npx, meta)
         age_v, sex_v = meta["age"].to_numpy(), meta["sex"].to_numpy()
         block = meta.copy()
         block["clock"] = name

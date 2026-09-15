@@ -121,12 +121,54 @@ class ProteinPanel:
                 "odds_ratio": odds_ratio}
 
 
-def build_panel(seed=20260907):
+def real_panel_symbols():
+    """
+    The real Olink gene symbols, when the paper's library is installed.
+
+    Returns None if proteoclock is absent, in which case the panel falls back
+    to invented identifiers and only surrogate clocks can score it. A
+    published clock is keyed on gene symbols, so it cannot read a panel whose
+    proteins are called "OLK0001_PROT1".
+    """
+    try:
+        from protclock_pipeline import proteoclock_backend
+        if proteoclock_backend.available():
+            return proteoclock_backend.panel_symbols()
+    except Exception:
+        pass
+    return None
+
+
+def _published_aging_coefficients(ids):
+    """
+    Age-slope direction per protein, from a published clock when available.
+
+    Returns an array aligned with `ids`, zero where the clock has no
+    coefficient, or None when the paper's library is not installed.
+    """
+    try:
+        from protclock_pipeline import proteoclock_backend
+        coefs = proteoclock_backend.reference_aging_coefficients()
+    except Exception:
+        coefs = None
+    if not coefs:
+        return None
+    out = np.array([float(coefs.get(str(i), 0.0)) for i in ids])
+    return out if np.any(out != 0.0) else None
+
+
+def build_panel(seed=20260907, symbols=None):
     """Construct the protein panel and decide which proteins carry signal."""
     rng = np.random.default_rng(seed)
-    n = N_PROTEINS
 
-    ids = np.array([f"OLK{i:04d}_PROT{i}" for i in range(n)])
+    if symbols is None:
+        symbols = real_panel_symbols()
+    if symbols is not None:
+        ids = np.asarray(symbols)
+        n = len(ids)
+    else:
+        n = N_PROTEINS
+        ids = np.array([f"OLK{i:04d}_PROT{i}" for i in range(n)])
     mu = rng.normal(5.0, 1.5, n)
     sigma = rng.uniform(0.25, 0.60, n)
     gamma = rng.normal(0.0, 0.15, n)
@@ -134,13 +176,25 @@ def build_panel(seed=20260907):
     # Aging-associated proteins get a real age slope; the rest get a slope
     # small enough to be indistinguishable from noise in a finite cohort.
     n_aging = int(round(AGING_FRACTION * n))
-    aging_idx = rng.choice(n, size=n_aging, replace=False)
+    beta = rng.normal(0.0, 0.0008, n)                      # background drift
+
+    coefs = _published_aging_coefficients(ids)
+    if coefs is not None:
+        # Ground the aging axis in a published clock's coefficients, so the
+        # REAL clocks can read this cohort. See the backend's
+        # reference_aging_coefficients docstring on why this is circular for
+        # those clocks and what it is and is not evidence of.
+        strength = np.abs(coefs)
+        aging_idx = np.argsort(strength)[::-1][:n_aging]
+        scale = np.median(np.abs(coefs[aging_idx]))
+        beta[aging_idx] = (coefs[aging_idx] / max(scale, 1e-12)) * 0.015
+    else:
+        aging_idx = rng.choice(n, size=n_aging, replace=False)
+        signs = rng.choice([-1.0, 1.0], size=n_aging)
+        beta[aging_idx] = signs * rng.uniform(0.008, 0.030, n_aging)
+
     is_aging = np.zeros(n, dtype=bool)
     is_aging[aging_idx] = True
-
-    beta = rng.normal(0.0, 0.0008, n)                      # background drift
-    signs = rng.choice([-1.0, 1.0], size=n_aging)
-    beta[aging_idx] = signs * rng.uniform(0.008, 0.030, n_aging)
 
     # Drug-responsive set: N_RESPONSIVE_AGING drawn from the aging proteins,
     # the remainder from the rest. This fixes the true enrichment odds ratio.

@@ -1,2 +1,5 @@
 __pycache__/
 *.pyc
+
+# publisher-hosted supplementary workbook, fetched on demand by m8
+protclock_pipeline/data/supplementary_tables.xlsx

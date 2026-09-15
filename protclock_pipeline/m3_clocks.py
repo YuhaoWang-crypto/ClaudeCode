@@ -10,18 +10,28 @@ The paper scores six independently published clocks on the same samples:
   PAOPAC              Han       2026    organ-specific, chronological age
   ipfP3GPT            Galkin    2025    transformer (Precious3GPT), age
 
-WEIGHT AVAILABILITY - checked September 2026
---------------------------------------------
-Only some of these ship usable weights, which is the single biggest obstacle
-to an exact reproduction. Each ClockSpec below records its real status:
+WEIGHT AVAILABILITY - from the paper's code-availability statement
+------------------------------------------------------------------
+The paper releases `proteoclock` (https://github.com/Insilico-org/proteoclock),
+which ships the REAL published weights for PAC and both OrganAge variants.
+When that package is installed those three stop being surrogates. Each
+ClockSpec below records its status:
 
-  PUBLIC_SUPPLEMENTARY  coefficients printed in the paper's supplementary
-                        tables; drop them in via load_linear_weights()
-  PUBLIC_REPO           a scoring script or coefficient file is on GitHub
-  UNVERIFIED            repository exists but ships no README or weights
-  ON_REQUEST            authors must be emailed for the trained model
-  BASE_MODEL_ONLY       a general base model is public, the paper's
-                        fine-tuned variant is not
+  PROTEOCLOCK      real weights shipped in the paper's own library
+  PUBLIC_REPO      a usable repository exists but needs separate work
+  ON_REQUEST       authors must be emailed for the trained model
+  RESTRICTED       weights exist but may not leave a controlled platform
+
+Two clocks cannot be obtained at all:
+
+  ipfP3GPT  proteoclock carries its feature order and nothing else. The
+            weights are usable only inside the UK Biobank Research Analysis
+            Platform, so they cannot be downloaded here at any access level.
+  ProtAge   not in its repository; the authors must be emailed.
+
+PAOPAC is a third case: the weights exist and are downloadable, but the
+release is a Windows-only compiled extension for Python 3.9, so it does not
+run on this Linux container without a reimplementation.
 
 When real weights are absent this module fits a SURROGATE of the same model
 class on the M2 reference cohort. A surrogate exercises every downstream step
@@ -36,11 +46,10 @@ from sklearn.ensemble import HistGradientBoostingRegressor
 from sklearn.linear_model import ElasticNet, LogisticRegression, Ridge
 
 # Weight-availability states, see module docstring.
-PUBLIC_SUPPLEMENTARY = "PUBLIC_SUPPLEMENTARY"
+PROTEOCLOCK = "PROTEOCLOCK"
 PUBLIC_REPO = "PUBLIC_REPO"
-UNVERIFIED = "UNVERIFIED"
 ON_REQUEST = "ON_REQUEST"
-BASE_MODEL_ONLY = "BASE_MODEL_ONLY"
+RESTRICTED = "RESTRICTED"
 
 
 @dataclass
@@ -61,22 +70,24 @@ CLOCKS = [
               "github.com/miargentieri/proteomic-age-ukb - model not in repo; "
               "email aargentieri@mgh.harvard.edu"),
     ClockSpec("OrganAge_chrono", "Goeminne 2025 (Cell Metab)", "age",
-              "ridge", 500, PUBLIC_SUPPLEMENTARY,
-              "github.com/ludgergoeminne/organAging - coefficients in "
-              "supplementary Table S1A/S1C"),
+              "ridge", 500, PROTEOCLOCK,
+              "proteoclock: goeminne_2025_full_chrono. Original code at "
+              "github.com/ludgergoeminne/organAging"),
     ClockSpec("OrganAge_mortality", "Goeminne 2025 (Cell Metab)", "mortality",
-              "logistic", 500, PUBLIC_SUPPLEMENTARY,
-              "same repo, mortality coefficients; no intercept is added"),
+              "logistic", 500, PROTEOCLOCK,
+              "proteoclock: goeminne_2025_full_mortality (CPH model)"),
     ClockSpec("PAC", "Kuo 2024", "mortality", "elasticnet", 204,
-              PUBLIC_REPO,
-              "github.com/kuo-lab-uchc/PAC - pac_proteomic_age.R"),
+              PROTEOCLOCK,
+              "proteoclock: kuo_2024 (Gompertz, needs age). Original code at "
+              "github.com/kuo-lab-uchc/PAC"),
     ClockSpec("PAOPAC", "Han 2026 (Nat Aging)", "age", "ridge", 300,
-              UNVERIFIED,
-              "github.com/41way5/Organ-PAC - training script only, no README"),
+              PUBLIC_REPO,
+              "github.com/JackieHanLab/PAOPAC - model.bin on Releases, but "
+              "the extension is a Windows-only .pyd for Python 3.9"),
     ClockSpec("ipfP3GPT", "Galkin 2025 (Precious3GPT)", "age", "boosting", 800,
-              BASE_MODEL_ONLY,
-              "github.com/insilicomedicine/precious3-gpt + HuggingFace "
-              "10.57967/hf/2699 - IPF fine-tune not released"),
+              RESTRICTED,
+              "osf.io/457w8 for code; proteoclock ships feature order only. "
+              "Weights usable only inside the UK Biobank RAP"),
 ]
 
 
@@ -90,7 +101,10 @@ class FittedClock:
         self.is_surrogate = is_surrogate
         self.scaler = scaler          # (mean, sd) used to z-score features
 
-    def predict(self, npx):
+    def predict(self, npx, meta=None):
+        # `meta` is accepted and ignored: surrogates read only the proteome,
+        # but PAC (a Gompertz model) needs chronological age, so every clock
+        # has to take the same arguments.
         x = npx[:, self.feature_idx]
         if self.scaler is not None:
             mean, sd = self.scaler
@@ -132,7 +146,7 @@ def load_linear_weights(spec, path, protein_ids):
     coef = hit["coefficient"].to_numpy(dtype=float)
 
     class _Linear:
-        def predict(self, x):
+        def predict(self, x, meta=None):
             return x @ coef + intercept
         def decision_function(self, x):
             return x @ coef
@@ -185,15 +199,27 @@ def fit_surrogate(spec, ref_npx, ref_meta, seed=0):
     return FittedClock(spec, idx, model, is_surrogate=True, scaler=(mean, sd))
 
 
-def fit_all(pre, weight_dir=None, seed=0, verbose=True):
+def fit_all(pre, weight_dir=None, seed=0, verbose=True, use_proteoclock=True):
     """
-    Assemble all six clocks.
+    Assemble all six clocks, preferring real weights in this order:
 
-    If `weight_dir` holds a CSV named `<ClockName>.csv` the published
-    coefficients are used; otherwise a surrogate is fitted. That is the single
-    switch between a demonstration run and a real reproduction.
+      1. a CSV in `weight_dir` named `<ClockName>.csv`, which overrides
+         everything so a specific coefficient set can be forced;
+      2. the paper's own `proteoclock` library, if importable;
+      3. a surrogate fitted on the M2 reference cohort.
+
+    Steps 1 and 2 are the switch between a demonstration and a real
+    reproduction. Whichever applies, the result reports how many clocks ended
+    up real, because that number governs how any downstream figure should be
+    read.
     """
     import os
+
+    real = {}
+    if use_proteoclock:
+        from protclock_pipeline import proteoclock_backend
+        real = proteoclock_backend.load_real_clocks(
+            CLOCKS, pre.protein_ids, verbose=verbose)
 
     fitted = {}
     for spec in CLOCKS:
@@ -202,13 +228,15 @@ def fit_all(pre, weight_dir=None, seed=0, verbose=True):
         if wpath and os.path.exists(wpath):
             fitted[spec.name] = load_linear_weights(spec, wpath,
                                                     pre.protein_ids)
+        elif spec.name in real:
+            fitted[spec.name] = real[spec.name]
         else:
             fitted[spec.name] = fit_surrogate(spec, pre.ref_npx, pre.ref_meta,
                                               seed=seed)
     if verbose:
         n_sur = sum(f.is_surrogate for f in fitted.values())
-        print(f"    fitted {len(fitted)} clocks "
-              f"({n_sur} surrogate, {len(fitted) - n_sur} published)")
+        print(f"    {len(fitted)} clocks: {len(fitted) - n_sur} with real "
+              f"published weights, {n_sur} surrogate")
     return fitted
 
 
@@ -231,10 +259,11 @@ def evaluate_holdout(pre, frac=0.25, seed=0):
     tr_meta = pre.ref_meta.iloc[train].reset_index(drop=True)
     te_age = pre.ref_meta["age"].to_numpy()[test]
 
+    te_meta = pre.ref_meta.iloc[test].reset_index(drop=True)
     out = {}
     for spec in CLOCKS:
         clk = fit_surrogate(spec, tr_npx, tr_meta, seed=seed)
-        pred = clk.predict(pre.ref_npx[test])
+        pred = clk.predict(pre.ref_npx[test], te_meta)
         r = float(np.corrcoef(pred, te_age)[0, 1])
         mae = (float(np.mean(np.abs(pred - te_age)))
                if spec.target == "age" else float("nan"))
@@ -266,11 +295,12 @@ def report(pre=None):
                else f"{d['mae_years']:6.2f}")
         print(f"    {name:<19} r = {d['r']:+.3f}   MAE = {mae} yr")
 
-    n_public = sum(s.availability in (PUBLIC_SUPPLEMENTARY, PUBLIC_REPO)
-                   for s in CLOCKS)
-    print(f"\n  clocks whose real weights are obtainable now: {n_public}/6")
-    print("  the rest need an author request or an unreleased fine-tune.")
-    return {"fitted": fitted, "ref_corr": out}
+    n_real = sum(1 for c in fitted.values() if not c.is_surrogate)
+    print(f"\n  clocks running on REAL published weights: {n_real}/6")
+    for s in CLOCKS:
+        if fitted[s.name].is_surrogate:
+            print(f"    {s.name:<19} surrogate - {s.availability}")
+    return {"fitted": fitted, "holdout": out, "n_real": n_real}
 
 
 if __name__ == "__main__":

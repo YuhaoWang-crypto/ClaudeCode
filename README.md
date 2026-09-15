@@ -52,15 +52,23 @@ analysis in [Zhavoronkov et al., *Nature Biotechnology* 2026](https://www.nature
 six proteomic aging clocks read side by side on a phase 2a trial of
 rentosertib in idiopathic pulmonary fibrosis.
 
-The paper's numbers cannot be reproduced from public material: the trial
-proteome is controlled-access, the reference cohort needs a UK Biobank
-application, and three of the six clocks ship no usable weights. The package
-implements the full analysis anyway and validates it against a synthetic
-cohort with a planted answer, so it switches to the real data when access is
-granted. The feasibility assessment is in
+Partly reproducible. The trial proteome is controlled-access, so trial-level
+numbers cannot be recomputed. But the paper's own clock library ships real
+weights for three of the six clocks, and its supplementary workbook is openly
+downloadable, so part of the analysis is reproduced on real data and the rest
+is validated against a synthetic cohort with a planted answer.
+
+The headline real-data result: over the 168 real trial samples the six clocks
+correlate at +0.622 on average, which is three effective independent clocks,
+not six. The paper's central argument is that six independently built clocks
+agree. That agreement carries a binomial p of 0.031 under independence and
+0.25 at three effective clocks.
+
+The full assessment is in
 [`protclock_pipeline/REPRODUCTION.md`](protclock_pipeline/REPRODUCTION.md).
 
 ```bash
 pip install numpy pandas scipy statsmodels scikit-learn matplotlib openpyxl
-python3 -m protclock_pipeline.run_all --quick
+python3 -m protclock_pipeline.m8_supplementary   # real data only
+python3 -m protclock_pipeline.run_all --quick    # full pipeline
 ```
