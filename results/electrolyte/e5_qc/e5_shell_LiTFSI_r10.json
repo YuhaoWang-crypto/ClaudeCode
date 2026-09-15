@@ -1,0 +1,21 @@
+{
+ "label": "LiTFSI_r10",
+ "n_atoms": 49,
+ "n_DME": 3,
+ "n_TFSI": 0,
+ "cluster_charge": 1,
+ "relaxation": "none (ModuleNotFoundError)",
+ "level": "b3lyp/def2-svp single points",
+ "dE_Li_shell_vertical_kcal": -139.86232656689077,
+ "dE_Li_shell_vertical_CP_kcal": -133.68810535137408,
+ "Li_O_distances_A": [
+  2.0693000263084986,
+  2.070565347797416,
+  2.12250357386798,
+  2.1412403517206866,
+  2.891653297072271,
+  3.2395926832724995
+ ],
+ "wall_s": 733.5,
+ "note": "\u26a0\ufe0f one MD snapshot, xtb-relaxed, no thermal/solvent correction: illustrates that the Li+\u2013shell interaction is NOT the sum of 1:1 binding energies; not a free energy"
+}

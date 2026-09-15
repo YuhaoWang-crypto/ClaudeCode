@@ -1,0 +1,89 @@
+########################################################################
+#  ELECTROLYTE COMPUTATION PIPELINE — Yao et al. Chem. Rev. 2022 digest, reproduced
+########################################################################
+E2  RDF / CN   (r_min = first minimum of g(r); CN by density-weighted integral AND direct count)
+system       pair      r_peak  r_min N(r_min)  direct  ±sem mol-CN  blocks
+  g = hist / (nfr * len(cat_idx) * rho * shell)
+  bm = np.array([n_atom[b].mean() for b in blocks])
+  ret = ret.dtype.type(ret / rcount)
+  pn_atom = np.bincount(n_atom.ravel(), minlength=12)[:12] / n_atom.size
+  pn_mol = np.bincount(n_mol.ravel(), minlength=12)[:12] / n_mol.size
+  "cn_direct": float(n_atom.mean()), "cn_block_means": bm.round(3).tolist(),
+  "cn_mol": float(n_mol.mean()), "P_n_atom": pn_atom.tolist(), "P_n_mol": pn_mol.tolist(),
+DME_pure     O(DME)      0.01   0.31      nan     nan   nan    nan  [nan, nan, nan, nan, nan]
+LiTFSI_r20   O(DME)      2.07   4.01     5.33    5.33  0.06   2.69  [5.508, 5.383, 5.275, 5.18, 5.282]
+LiTFSI_r20   O(TFSI)     2.11   3.39     0.54    0.54  0.05   0.33  [0.382, 0.511, 0.566, 0.658, 0.575]
+LiTFSI_r20   N(TFSI)     3.81   4.99     0.33    0.33  0.03   0.33  [0.232, 0.295, 0.351, 0.397, 0.353]
+LiTFSI_r20   F(TFSI)     4.47   7.45     4.56    4.54  0.11   1.51  [4.555, 4.366, 4.243, 4.843, 4.702]
+             joint (n_O_DME, n_O_TFSI) top: (6,0):0.64, (4,2):0.21, (4,1):0.10, (5,0):0.03;  total O CN = 5.86
+LiTFSI_r10   O(DME)      2.09   4.07     5.21    5.21  0.04   2.63  [5.349, 5.24, 5.154, 5.172, 5.125]
+LiTFSI_r10   O(TFSI)     2.09   3.33     0.63    0.63  0.04   0.39  [0.529, 0.569, 0.685, 0.628, 0.746]
+LiTFSI_r10   N(TFSI)     3.73   5.01     0.40    0.40  0.02   0.40  [0.321, 0.38, 0.415, 0.425, 0.433]
+LiTFSI_r10   F(TFSI)     4.45   4.75     0.58    0.56  0.04   0.37  [0.43, 0.586, 0.579, 0.645, 0.584]
+             joint (n_O_DME, n_O_TFSI) top: (6,0):0.60, (4,2):0.21, (4,1):0.12, (5,0):0.03;  total O CN = 5.84
+LiTFSI_r5    O(DME)      2.09   3.93     4.59    4.59  0.03   2.31  [4.509, 4.555, 4.594, 4.632, 4.653]
+LiTFSI_r5    O(TFSI)     2.11   3.29     1.15    1.15  0.04   0.72  [1.269, 1.196, 1.118, 1.101, 1.064]
+LiTFSI_r5    N(TFSI)     3.71   5.01     0.72    0.72  0.02   0.72  [0.775, 0.737, 0.71, 0.701, 0.677]
+LiTFSI_r5    F(TFSI)     4.47   7.45    12.19   12.15  0.03   4.22  [12.166, 12.226, 12.062, 12.113, 12.164]
+             joint (n_O_DME, n_O_TFSI) top: (6,0):0.35, (4,2):0.33, (4,1):0.21, (2,4):0.04;  total O CN = 5.74
+LiTFSI_r3    O(DME)      2.07   3.93     3.81    3.81  0.06   1.92  [3.682, 3.696, 3.8, 3.879, 4.001]
+LiTFSI_r3    O(TFSI)     2.11   3.29     1.93    1.92  0.05   1.20  [2.02, 2.022, 1.93, 1.887, 1.765]
+LiTFSI_r3    N(TFSI)     3.71   5.11     1.21    1.21  0.03   1.21  [1.278, 1.222, 1.193, 1.214, 1.119]
+LiTFSI_r3    F(TFSI)     4.49   7.47    17.52   17.47  0.09   5.75  [17.426, 17.199, 17.689, 17.621, 17.392]
+             joint (n_O_DME, n_O_TFSI) top: (4,2):0.33, (6,0):0.20, (2,4):0.18, (4,1):0.17;  total O CN = 5.74
+NaTFSI_r10   O(DME)      2.41   3.87     5.71    5.71  0.04   2.95  [5.858, 5.647, 5.72, 5.614, 5.709]
+NaTFSI_r10   O(TFSI)     2.45   3.51     0.40    0.40  0.04   0.28  [0.233, 0.457, 0.403, 0.488, 0.423]
+NaTFSI_r10   N(TFSI)     4.11   5.37     0.29    0.29  0.03   0.29  [0.179, 0.33, 0.288, 0.343, 0.292]
+NaTFSI_r10   F(TFSI)     4.49   4.79     0.34    0.33  0.03   0.24  [0.234, 0.38, 0.319, 0.418, 0.322]
+             joint (n_O_DME, n_O_TFSI) top: (6,0):0.71, (5,1):0.07, (4,2):0.07, (6,1):0.05;  total O CN = 6.11
+E3  ion-pairing states (criteria in e3_clusters.json; free/SSIP not separated)
+system       r_cut no-contact      CIP      AGG anion-part cat/anion largest
+LiTFSI_r20    3.39   0.67±0.03  0.32±0.03  0.00±0.00       0.33      1.00       3
+LiTFSI_r10    3.33   0.63±0.02  0.28±0.01  0.09±0.02       0.36      1.10       7
+LiTFSI_r5     3.29   0.37±0.01  0.40±0.02  0.22±0.02       0.63      1.15       9
+LiTFSI_r3     3.29   0.21±0.01  0.22±0.02  0.57±0.03       0.83      1.44      20
+NaTFSI_r10    3.51   0.75±0.02  0.21±0.02  0.04±0.01       0.27      1.03       6
+E4  bulk properties (model charges; see labels in e4_properties.json)
+system           M  rho sim rho exp   D_cat  D_TFSI   D_DME    sNE    sEH ratio eps_solv  eta sim eta exp
+DME_pure      0.00   0.8652  0.8637       -       -   11.01    nan    nan   nan     9.95    0.657    0.42
+LiTFSI_r20    0.45   0.9461     nan    2.68    2.21    7.59  0.531  0.387  0.73     7.55    1.037    0.60
+LiTFSI_r10    0.85   1.0159     nan    1.64    1.98    4.62  0.746  0.231  0.31     6.01    2.311    0.85
+LiTFSI_r5     1.53   1.1280     nan    0.72    0.68    1.88  0.514  0.097  0.19     4.38    5.028    2.00
+LiTFSI_r3     2.23   1.2426     nan    0.12    0.12    0.47  0.133  0.010  0.07     2.83   24.024    6.00
+NaTFSI_r10    0.85   1.0208     nan    1.68    2.07    4.92  0.762  0.544  0.71     5.46    1.653     nan
+   D in 1e-10 m²/s; σ in S/m; η in mPa·s. Experimental viscosities are eye-read from Chem.Rev. Fig.25.
+E5  Li+–solvent clusters, gas phase, B3LYP/def2-TZVP//def2-SVP (electronic energies only)
+    EC: lowest start = EC_carbonylO, spread between starts = 0.00 kcal/mol
+    DME: lowest start = DME_bidentate, spread between starts = 0.02 kcal/mol
+E6  desolvation along Li…O(DME): gas-phase electronic scan vs. liquid PMF (same coordinate, different quantities)
+    gas scan: minimum at Li–O1 = 1.8 Å; E(5.0 Å) − E(min) = 25.1 kcal/mol (electronic, vacuum, 1:1 complex, O2 still bound at 1.84 Å)
+    liquid PMF (LiTFSI_r10): W_min = -1.92 kcal/mol at 2.09 Å; barrier to leave the shell ≈ 4.11 kcal/mol at 4.05 Å (5% of bins unsampled)
+E7  graphite(0001)/LiTFSI–DME interface, z' from the top carbon plane
+    first peak Li        at z' = 5.9 Å
+    first peak O(DME)    at z' = 4.7 Å
+    first peak N(TFSI)   at z' = 5.5 Å
+    first peak F(TFSI)   at z' = 3.1 Å
+    first peak DME(COM)  at z' = 3.9 Å
+    centre mass density 0.992 g/cm³ (E1 bulk 1.0159376549173667)
+    DME O–O |cosθ| vs normal: near surface 0.44, bulk 0.50 (0.5 isotropic)
+    ⚠️ uncharged, non-polarisable, rigid graphite; no potential control; one composition
+E8  AI4Electrolytes — potential model vs property model, validated differently
+  A. GFN2-xTB vs b3lyp/def2-svp single points on 12 Li+ shells cut from the liquid ({'3DME_0TFSI': 8, '2DME_1TFSI': 4}):
+     force RMSE 7.62 kcal/mol/Å (reference RMS force 17.83), on Li 4.84; force Pearson r = 0.904; relative-energy RMSE 1.7958102078013736 kcal/mol over 12 same-composition pairs
+     1:1 EC_carbonylO     ΔE_vertical DFT  -54.48  xtb  -60.70 kcal/mol
+     1:1 EC_etherO        ΔE_vertical DFT  -54.51  xtb  -60.74 kcal/mol
+     1:1 DME_bidentate    ΔE_vertical DFT  -67.57  xtb  -78.34 kcal/mol
+     1:1 DME_monodentate  ΔE_vertical DFT  -67.56  xtb  -78.34 kcal/mol
+  B. Li displacement over 100 ps from shell composition, 135630 rows, 4 concentrations:
+     random 5-fold split : R² = 0.405, MAE 0.78 Å
+     hold out LiTFSI_r10 : R² = -0.435, MAE 1.35 Å (baseline train-mean MAE 1.57); without ratio feature R² = -0.565
+     hold out LiTFSI_r20 : R² = -0.164, MAE 1.47 Å (baseline train-mean MAE 2.19); without ratio feature R² = -1.027
+     hold out LiTFSI_r3  : R² = -1.236, MAE 0.93 Å (baseline train-mean MAE 1.48); without ratio feature R² = -2.735
+     hold out LiTFSI_r5  : R² = -0.557, MAE 1.01 Å (baseline train-mean MAE 0.84); without ratio feature R² = -0.137
+     random split mixes frames of the same trajectory into train and test; LOCO is the split that matches 'predict a new formulation'. Negative R² = worse than predicting the mean.
+E9  reactions / SEI — scope statement
+    LiTFSI_r10: 1280 heavy-atom bonds tracked over 200 frames; topology changes = 0; max stretch ratio 1.16
+    ❌ fixed-topology force field: zero bond-topology events by construction; this is a property of the model, not a chemical result
+    Reactive MD (ReaxFF/eReaxFF) and AIMD were NOT run: no validated Li/EC/DME/TFSI reactive parameter set is available here, and short AIMD showing 'no reaction' would not be evidence (digest p3/p10).
+figures -> /home/user/ClaudeCode/figures/electrolyte
+exit 0

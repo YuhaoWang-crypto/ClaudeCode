@@ -1,0 +1,69 @@
+{
+  "composition": {
+    "label": "IF_LiTFSI_r10",
+    "counts": {
+      "DME": 251,
+      "Li": 25,
+      "TFSI": 25,
+      "C_graphite": 1344
+    }
+  },
+  "electrode": {
+    "type": "graphite basal plane, AB, 3 layers, fixed, uncharged",
+    "cell_A": [
+      34.43317005446928,
+      34.08,
+      52.7
+    ],
+    "z_top_A": 6.7,
+    "gap_A": 3.0,
+    "C_LJ": {
+      "sigma_nm": 0.355,
+      "eps_kJ_mol": 0.29288000000000003
+    }
+  },
+  "interactions": {
+    "name": "openff-2.2.1.offxml",
+    "charge_model": "openff-gnn-am1bcc-0.1.0-rc.3.pt",
+    "ion_charge_scale": 0.8,
+    "cutoff_nm": 1.0,
+    "switch_nm": 0.9,
+    "pme": true,
+    "constraints": "h-bonds",
+    "note": "Generic SMIRNOFF force field; NOT tuned for LiTFSI/DME. Ion charges scaled by 0.8 (common ECC-style practice for transport in non-polarisable models). Sensitivity to this choice is checked explicitly in E4.",
+    "dispersion_correction": false
+  },
+  "dynamics": {
+    "temperature_K": 298.15,
+    "pressure_bar": 1.0,
+    "timestep_fs": 2.0,
+    "friction_per_ps": 1.0,
+    "barostat_interval": 25,
+    "minimise_tol_kj_mol_nm": 10.0,
+    "equil_npt_ns": 2.0,
+    "prod_ns": 10.0,
+    "frame_ps": 2.0,
+    "thermo_ps": 0.2,
+    "ensemble": "NVT"
+  },
+  "species": {
+    "DME": {
+      "smiles": "COCCOC",
+      "charge": 0,
+      "mw": 90.121,
+      "note": "1,2-dimethoxyethane; two ether O can chelate Li+ (bidentate)"
+    },
+    "Li": {
+      "smiles": "[Li+]",
+      "charge": 1,
+      "mw": 6.941,
+      "note": "lithium cation"
+    },
+    "TFSI": {
+      "smiles": "[N-](S(=O)(=O)C(F)(F)F)S(=O)(=O)C(F)(F)F",
+      "charge": -1,
+      "mw": 280.146,
+      "note": "bis(trifluoromethanesulfonyl)imide anion"
+    }
+  }
+}

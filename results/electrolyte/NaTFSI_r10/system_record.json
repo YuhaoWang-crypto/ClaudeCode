@@ -1,0 +1,78 @@
+{
+  "composition": {
+    "label": "NaTFSI_r10",
+    "counts": {
+      "DME": 200,
+      "Na": 20,
+      "TFSI": 20
+    },
+    "target_note": "solvent:Na = 10  (\u22480.85 M)",
+    "total_charge": 0,
+    "n_atoms_est": 3520,
+    "molality_mol_kg": 1.109619289621731
+  },
+  "boundary": {
+    "periodic": true,
+    "initial_box_nm": 3.6,
+    "ensemble": "NPT (equil + production)"
+  },
+  "interactions": {
+    "name": "openff-2.2.1.offxml",
+    "charge_model": "openff-gnn-am1bcc-0.1.0-rc.3.pt",
+    "ion_charge_scale": 0.8,
+    "cutoff_nm": 1.0,
+    "switch_nm": 0.9,
+    "pme": true,
+    "constraints": "h-bonds",
+    "note": "Generic SMIRNOFF force field; NOT tuned for LiTFSI/DME. Ion charges scaled by 0.8 (common ECC-style practice for transport in non-polarisable models). Sensitivity to this choice is checked explicitly in E4."
+  },
+  "dynamics": {
+    "temperature_K": 298.15,
+    "pressure_bar": 1.0,
+    "timestep_fs": 2.0,
+    "friction_per_ps": 1.0,
+    "barostat_interval": 25,
+    "minimise_tol_kj_mol_nm": 10.0,
+    "equil_npt_ns": 2.0,
+    "prod_ns": 10.0,
+    "frame_ps": 2.0,
+    "thermo_ps": 0.2
+  },
+  "species": {
+    "DME": {
+      "smiles": "COCCOC",
+      "charge": 0,
+      "mw": 90.121,
+      "note": "1,2-dimethoxyethane; two ether O can chelate Li+ (bidentate)"
+    },
+    "Na": {
+      "smiles": "[Na+]",
+      "charge": 1,
+      "mw": 22.99,
+      "note": "sodium cation"
+    },
+    "TFSI": {
+      "smiles": "[N-](S(=O)(=O)C(F)(F)F)S(=O)(=O)C(F)(F)F",
+      "charge": -1,
+      "mw": 280.146,
+      "note": "bis(trifluoromethanesulfonyl)imide anion"
+    }
+  },
+  "build": {
+    "packmol_tolerance_A": 2.0,
+    "seed": 2024,
+    "n_atoms": 3520,
+    "net_charge_e": 0.0,
+    "species_order": [
+      "DME",
+      "Na",
+      "TFSI"
+    ],
+    "counts_order": [
+      200,
+      20,
+      20
+    ],
+    "partial_charges_note": "NAGL AM1-BCC (GNN) for molecules; ions formal charge x 0.8"
+  }
+}

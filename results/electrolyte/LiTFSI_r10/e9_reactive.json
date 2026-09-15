@@ -1,0 +1,16 @@
+{
+ "label": "LiTFSI_r10",
+ "frames_checked": 200,
+ "bond_criterion_A": {
+  "C-O": 1.8,
+  "C-C": 1.9,
+  "S-N": 2.1,
+  "S-O": 1.9,
+  "C-F": 1.7,
+  "C-S": 2.2
+ },
+ "bonds_in_reference_frame": 1280,
+ "topology_changes_detected": 0,
+ "max_bond_stretch_ratio": 1.1561255002857853,
+ "verdict": "\u274c fixed-topology force field: zero bond-topology events by construction; this is a property of the model, not a chemical result"
+}

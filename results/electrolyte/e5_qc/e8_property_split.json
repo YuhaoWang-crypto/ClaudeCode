@@ -1,0 +1,59 @@
+{
+ "n_rows": 135630,
+ "groups": {
+  "LiTFSI_r10": 19800,
+  "LiTFSI_r20": 9900,
+  "LiTFSI_r3": 66330,
+  "LiTFSI_r5": 39600
+ },
+ "features": [
+  "n_O(DME)",
+  "n_O(TFSI)",
+  "n_DME_molecules",
+  "n_TFSI_molecules",
+  "DME:Li ratio"
+ ],
+ "target": "|\u0394r(Li)| over 100 ps (\u00c5)",
+ "random_split": {
+  "r2_mean": 0.40469716724997884,
+  "mae_mean": 0.7809922066271814
+ },
+ "leave_one_concentration_out": {
+  "LiTFSI_r10": {
+   "r2": -0.4346526208498378,
+   "mae": 1.3515832567105401,
+   "mae_baseline_train_mean": 1.5682074984803864,
+   "y_mean_true": 3.2728846092842185,
+   "y_mean_pred": 2.2875821284014757
+  },
+  "LiTFSI_r20": {
+   "r2": -0.16356235514761552,
+   "mae": 1.471092112020661,
+   "mae_baseline_train_mean": 2.1863960419096067,
+   "y_mean_true": 4.014306228499995,
+   "y_mean_pred": 3.287477629408372
+  },
+  "LiTFSI_r3": {
+   "r2": -1.235631585263206,
+   "mae": 0.9265889267687253,
+   "mae_baseline_train_mean": 1.4809996913970531,
+   "y_mean_true": 1.360767364199506,
+   "y_mean_pred": 2.1545195008013356
+  },
+  "LiTFSI_r5": {
+   "r2": -0.5568807455349762,
+   "mae": 1.0118611135480648,
+   "mae_baseline_train_mean": 0.8426134340673779,
+   "y_mean_true": 2.2528731023252875,
+   "y_mean_pred": 1.4393686853684466
+  }
+ },
+ "loco_without_ratio_feature_r2": {
+  "LiTFSI_r10": -0.5648186825147996,
+  "LiTFSI_r20": -1.0274418079497094,
+  "LiTFSI_r3": -2.734801821287057,
+  "LiTFSI_r5": -0.1366309226665774
+ },
+ "loco_r2_mean": -0.5976818266989089,
+ "note": "random split mixes frames of the same trajectory into train and test; LOCO is the split that matches 'predict a new formulation'. Negative R\u00b2 = worse than predicting the mean."
+}

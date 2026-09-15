@@ -1,0 +1,89 @@
+{
+ "level": "b3lyp/def2-svp opt, b3lyp/def2-tzvp single points; gas phase; electronic energies",
+ "structures": {
+  "EC_carbonylO": {
+   "E_complex_Ha": -349.91336813394184,
+   "dE_vertical_kcal": -54.47739255972007,
+   "dE_vertical_CP_kcal": -54.160407887022544,
+   "BSSE_kcal": 0.3169846726975294,
+   "dE_relaxed_kcal": -51.628708928166084,
+   "solvent_deformation_kcal": 2.8486836315539903,
+   "dE_relaxed_CP_kcal": -51.311724255468555,
+   "xtb_dE_vertical_kcal": -60.695956257253826,
+   "Li_O_distances_A": [
+    1.7190878783702885,
+    3.8217204146654464,
+    3.83027869911332
+   ],
+   "start_Li_O_distances_A": [
+    1.9000000000000004,
+    4.052093861279787,
+    4.052094016321432
+   ],
+   "wall_s": 191.9
+  },
+  "EC_etherO": {
+   "E_complex_Ha": -349.91336227923756,
+   "dE_vertical_kcal": -54.5103198105839,
+   "dE_vertical_CP_kcal": -54.1998856140786,
+   "BSSE_kcal": 0.31043419650529813,
+   "dE_relaxed_kcal": -51.6259538563751,
+   "solvent_deformation_kcal": 2.8843659542088025,
+   "dE_relaxed_CP_kcal": -51.3155196598698,
+   "xtb_dE_vertical_kcal": -60.73610339349234,
+   "Li_O_distances_A": [
+    1.718943279942145,
+    3.8251627448866135,
+    3.8261794514229757
+   ],
+   "start_Li_O_distances_A": [
+    1.9,
+    3.9685465136179494,
+    4.082104881799749
+   ],
+   "wall_s": 456.7
+  },
+  "DME_bidentate": {
+   "E_complex_Ha": -316.3740526145294,
+   "dE_vertical_kcal": -67.56668099110546,
+   "dE_vertical_CP_kcal": -66.92904141813776,
+   "BSSE_kcal": 0.6376395729677,
+   "dE_relaxed_kcal": -63.65945873771647,
+   "solvent_deformation_kcal": 3.907222253388985,
+   "dE_relaxed_CP_kcal": -63.02181916474877,
+   "xtb_dE_vertical_kcal": -78.34358906901723,
+   "Li_O_distances_A": [
+    1.8511944032031575,
+    1.851762083123684
+   ],
+   "start_Li_O_distances_A": [
+    1.9383648356023362,
+    2.4073000954899584
+   ],
+   "wall_s": 717.4
+  },
+  "DME_monodentate": {
+   "E_complex_Ha": -316.37402465788824,
+   "dE_vertical_kcal": -67.55755124636045,
+   "dE_vertical_CP_kcal": -66.9319816334782,
+   "BSSE_kcal": 0.625569612882245,
+   "dE_relaxed_kcal": -63.64382063826391,
+   "solvent_deformation_kcal": 3.9137306080965333,
+   "dE_relaxed_CP_kcal": -63.018251025381666,
+   "xtb_dE_vertical_kcal": -78.34268314419887,
+   "Li_O_distances_A": [
+    1.8509382796095233,
+    1.8522314799271826
+   ],
+   "start_Li_O_distances_A": [
+    1.9000000000000001,
+    3.0630543926348905
+   ],
+   "wall_s": 597.0
+  }
+ },
+ "EC_lowest": "EC_carbonylO",
+ "EC_spread_kcal": 0.003673882405708086,
+ "DME_lowest": "DME_bidentate",
+ "DME_spread_kcal": 0.017543057172578345
+}
