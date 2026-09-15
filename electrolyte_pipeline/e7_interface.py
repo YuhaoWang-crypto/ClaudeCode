@@ -33,7 +33,8 @@ D_LAYER = 3.35
 GAP = 3.0                         # Å between top carbon plane and packmol region
 LIQ_Z = 40.0                      # Å of liquid
 C_SIGMA_NM, C_EPS_KJ = 0.355, 0.07 * 4.184
-COUNTS = {"DME": 236, "Li": 24, "TFSI": 24}   # r10 composition at rho≈0.99 g/mL for 34.44x34.09x40 Å
+COUNTS = {"DME": 258, "Li": 26, "TFSI": 26}   # r10 composition; a first run with 236/24/24 gave a centre
+                                              # density 9 % below the E1 bulk value, so the fill was raised
 
 
 def graphite_xyz():

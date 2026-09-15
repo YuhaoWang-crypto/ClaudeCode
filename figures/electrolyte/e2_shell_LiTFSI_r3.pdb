@@ -1,0 +1,128 @@
+TITLE     MDANALYSIS FRAME 0: Created by PDBWriter
+CRYST1   36.852   36.852   36.852  90.00  90.00  90.00 P 1           1
+HETATM    1      UNK J   1      18.564  -0.513  29.921  1.00  0.00      J   LI  
+HETATM    2  C1x UNK A   1      16.574   1.712  30.843  1.00  0.00      A    C  
+HETATM    3  O1x UNK A   1      16.532   0.363  30.175  1.00  0.00      A    O  
+HETATM    4  C2x UNK A   1      15.238  -0.049  29.633  1.00  0.00      A    C  
+HETATM    5  C3x UNK A   1      15.184  -1.474  29.234  1.00  0.00      A    C  
+HETATM    6  O2x UNK A   1      16.358  -1.815  28.440  1.00  0.00      A    O  
+HETATM    7  C4x UNK A   1      16.873  -3.107  28.636  1.00  0.00      A    C  
+HETATM    8  H1x UNK A   1      17.367   1.787  31.593  1.00  0.00      A    H  
+HETATM    9  H2x UNK A   1      15.644   1.943  31.370  1.00  0.00      A    H  
+HETATM   10  H3x UNK A   1      16.848   2.538  30.180  1.00  0.00      A    H  
+HETATM   11  H4x UNK A   1      14.438   0.130  30.357  1.00  0.00      A    H  
+HETATM   12  H5x UNK A   1      14.935   0.568  28.783  1.00  0.00      A    H  
+HETATM   13  H6x UNK A   1      14.293  -1.688  28.637  1.00  0.00      A    H  
+HETATM   14  H7x UNK A   1      15.091  -2.128  30.105  1.00  0.00      A    H  
+HETATM   15  H8x UNK A   1      16.259  -3.720  27.971  1.00  0.00      A    H  
+HETATM   16  H9x UNK A   1      17.940  -3.140  28.397  1.00  0.00      A    H  
+HETATM   17 H10x UNK A   1      16.819  -3.375  29.696  1.00  0.00      A    H  
+HETATM   18  C1x UNK H   1      20.012   2.342  29.417  1.00  0.00      H    C  
+HETATM   19  O1x UNK H   1      19.556   1.221  30.270  1.00  0.00      H    O  
+HETATM   20  C2x UNK H   1      20.554   0.892  31.270  1.00  0.00      H    C  
+HETATM   21  C3x UNK H   1      21.475  -0.192  30.757  1.00  0.00      H    C  
+HETATM   22  O2x UNK H   1      20.598  -1.284  30.441  1.00  0.00      H    O  
+HETATM   23  C4x UNK H   1      21.200  -2.498  30.323  1.00  0.00      H    C  
+HETATM   24  H1x UNK H   1      20.676   2.108  28.580  1.00  0.00      H    H  
+HETATM   25  H2x UNK H   1      20.502   3.076  30.064  1.00  0.00      H    H  
+HETATM   26  H3x UNK H   1      19.141   2.848  28.990  1.00  0.00      H    H  
+HETATM   27  H4x UNK H   1      21.203   1.729  31.546  1.00  0.00      H    H  
+HETATM   28  H5x UNK H   1      19.982   0.623  32.163  1.00  0.00      H    H  
+HETATM   29  H6x UNK H   1      22.180  -0.555  31.511  1.00  0.00      H    H  
+HETATM   30  H7x UNK H   1      22.148   0.138  29.960  1.00  0.00      H    H  
+HETATM   31  H8x UNK H   1      21.525  -2.768  31.333  1.00  0.00      H    H  
+HETATM   32  H9x UNK H   1      20.464  -3.201  29.922  1.00  0.00      H    H  
+HETATM   33 H10x UNK H   1      22.034  -2.425  29.619  1.00  0.00      H    H  
+HETATM   34  N1x UNK T   1      19.874   1.047  26.119  1.00  0.00      T    N  
+HETATM   35  S1x UNK T   1      20.356   1.373  24.564  1.00  0.00      T    S  
+HETATM   36  O1x UNK T   1      19.423   0.793  23.657  1.00  0.00      T    O  
+HETATM   37  O2x UNK T   1      21.751   0.983  24.515  1.00  0.00      T    O  
+HETATM   38  C1x UNK T   1      20.343   3.274  24.257  1.00  0.00      T    C  
+HETATM   39  F1x UNK T   1      20.795   3.559  23.011  1.00  0.00      T    F  
+HETATM   40  F2x UNK T   1      19.066   3.743  24.254  1.00  0.00      T    F  
+HETATM   41  F3x UNK T   1      21.103   3.910  25.117  1.00  0.00      T    F  
+HETATM   42  S2x UNK T   1      19.459  -0.469  26.452  1.00  0.00      T    S  
+HETATM   43  O3x UNK T   1      19.267  -0.389  27.876  1.00  0.00      T    O  
+HETATM   44  O4x UNK T   1      18.301  -0.837  25.651  1.00  0.00      T    O  
+HETATM   45  C2x UNK T   1      20.921  -1.732  26.234  1.00  0.00      T    C  
+HETATM   46  F4x UNK T   1      22.116  -1.312  26.838  1.00  0.00      T    F  
+HETATM   47  F5x UNK T   1      21.237  -1.919  24.916  1.00  0.00      T    F  
+HETATM   48  F6x UNK T   1      20.558  -2.880  26.750  1.00  0.00      T    F  
+HETATM   49  N1x UNK V   1      19.421  -3.332  33.357  1.00  0.00      V    N  
+HETATM   50  S1x UNK V   1      18.419  -2.122  33.167  1.00  0.00      V    S  
+HETATM   51  O1x UNK V   1      18.225  -1.825  31.742  1.00  0.00      V    O  
+HETATM   52  O2x UNK V   1      19.108  -1.054  33.933  1.00  0.00      V    O  
+HETATM   53  C1x UNK V   1      16.863  -2.485  34.108  1.00  0.00      V    C  
+HETATM   54  F1x UNK V   1      17.017  -3.034  35.415  1.00  0.00      V    F  
+HETATM   55  F2x UNK V   1      16.193  -1.302  34.143  1.00  0.00      V    F  
+HETATM   56  F3x UNK V   1      16.062  -3.333  33.376  1.00  0.00      V    F  
+HETATM   57  S2x UNK V   1      18.835  -4.780  32.860  1.00  0.00      V    S  
+HETATM   58  O3x UNK V   1      18.171  -5.281  34.071  1.00  0.00      V    O  
+HETATM   59  O4x UNK V   1      18.128  -4.586  31.625  1.00  0.00      V    O  
+HETATM   60  C2x UNK V   1      20.272  -5.956  32.514  1.00  0.00      V    C  
+HETATM   61  F4x UNK V   1      19.916  -7.258  32.249  1.00  0.00      V    F  
+HETATM   62  F5x UNK V   1      21.138  -6.093  33.492  1.00  0.00      V    F  
+HETATM   63  F6x UNK V   1      21.025  -5.485  31.515  1.00  0.00      V    F  
+CONECT    2    3    8    9   10
+CONECT    3    2    4
+CONECT    4    3    5   11   12
+CONECT    5    4    6   13   14
+CONECT    6    5    7
+CONECT    7    6   15   16   17
+CONECT    8    2
+CONECT    9    2
+CONECT   10    2
+CONECT   11    4
+CONECT   12    4
+CONECT   13    5
+CONECT   14    5
+CONECT   15    7
+CONECT   16    7
+CONECT   17    7
+CONECT   18   19   24   25   26
+CONECT   19   18   20
+CONECT   20   19   21   27   28
+CONECT   21   20   22   29   30
+CONECT   22   21   23
+CONECT   23   22   31   32   33
+CONECT   24   18
+CONECT   25   18
+CONECT   26   18
+CONECT   27   20
+CONECT   28   20
+CONECT   29   21
+CONECT   30   21
+CONECT   31   23
+CONECT   32   23
+CONECT   33   23
+CONECT   34   35   42
+CONECT   35   34   36   37   38
+CONECT   36   35
+CONECT   37   35
+CONECT   38   35   39   40   41
+CONECT   39   38
+CONECT   40   38
+CONECT   41   38
+CONECT   42   34   43   44   45
+CONECT   43   42
+CONECT   44   42
+CONECT   45   42   46   47   48
+CONECT   46   45
+CONECT   47   45
+CONECT   48   45
+CONECT   49   50   57
+CONECT   50   49   51   52   53
+CONECT   51   50
+CONECT   52   50
+CONECT   53   50   54   55   56
+CONECT   54   53
+CONECT   55   53
+CONECT   56   53
+CONECT   57   49   58   59   60
+CONECT   58   57
+CONECT   59   57
+CONECT   60   57   61   62   63
+CONECT   61   60
+CONECT   62   60
+CONECT   63   60
+END
