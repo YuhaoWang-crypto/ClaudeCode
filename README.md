@@ -1,3 +1,39 @@
+# ClaudeCode — two runnable, honesty-labelled pipelines
+
+| directory | topic | report |
+|---|---|---|
+| `electrolyte_pipeline/` | battery-electrolyte computation (MD / QC / interface / ML), reproducing the methods digest of Yao et al., *Chem. Rev.* 2022, 122, 10970 | [`REPORT_ELECTROLYTE.md`](REPORT_ELECTROLYTE.md) |
+| `grn_pipeline/` | gene-regulatory-network irreducibility / tipping-point biomarkers | [`REPORT.md`](REPORT.md) |
+
+## electrolyte_pipeline
+
+One module per page of the digest; every number carries ✅ converged / ⚠️ demo / ❌ not-run.
+
+| Module | Digest page | What it computes | Where it runs |
+|---|---|---|---|
+| `e0_systems` | p4 | compositions (counts, not "1 M"), force-field & dynamics spec, experimental reference table | – |
+| `e1_build` / `e1_run` | p4 | packmol → OpenFF Sage 2.2.1 + NAGL charges (ions ×0.8) → OpenMM; minimise / NPT / production with block-convergence check | Modal A10G (`modal_run.py`) |
+| `e2_rdf_cn` | p5 | Li–O(DME)/O(TFSI)/N/F RDF, r_min, density-weighted N(r), direct-count CN, P(n) at atom & molecule level, representative shell PDB | local |
+| `e3_clusters` | p6 | contact graph → no-contact / CIP / AGG fractions, cluster sizes, anion bridging; criteria written next to the numbers | local |
+| `e4_properties` / `e4_nemd_viscosity` | p8 | density, Einstein D with log-log slope check, Nernst–Einstein vs Einstein–Helfand conductivity, solvent dielectric, periodic-perturbation NEMD viscosity, all vs experiment | local / Modal |
+| `e5_qc_clusters` | p2 | Li⁺–EC / Li⁺–DME from several starting placements, B3LYP/def2-TZVP//def2-SVP, vertical / CP-corrected / relaxed ΔE, MD-shell cluster | local CPU (PySCF) |
+| `e6_desolvation` | p11 | same Li…O coordinate as (2) gas-phase electronic scan and (3) liquid PMF from g(r) — shown side by side, not interchanged | local |
+| `e7_interface` | p9 | rigid uncharged graphite(0001) + LiTFSI/DME, z-resolved number densities from the top C plane, DME orientation, Li PMF along z | Modal |
+| `e8_ml` | p12 | (A) GFN2-xTB vs DFT forces/energies on Li⁺ shells cut from the liquid; (B) property regressor under random vs leave-one-concentration-out split | local |
+| `e9_reactive` | p10 | why reactive MD is not run; bond-topology event counter returns 0 on a fixed-topology FF | local |
+
+```bash
+# environment (conda-forge): openmm openff-toolkit openff-interchange openff-nagl openff-nagl-models packmol
+#                            rdkit mdanalysis pyscf geometric xtb-python scikit-learn networkx  + pip 'modal[api-proxy-support]'
+modal run electrolyte_pipeline/modal_run.py                    # E1 bulk series (6 systems, 2+10 ns)
+modal run electrolyte_pipeline/modal_run.py --stage nemd       # E4 viscosity
+modal run electrolyte_pipeline/modal_run.py --stage interface  # E7
+modal volume get elyte-work / elyte_work/
+python -m electrolyte_pipeline.run_all --qc                    # all analyses + CPU quantum chemistry
+```
+
+---
+
 # grn-pipeline
 
 A small, fully-runnable pipeline that applies four "irreducibility / symmetry"
