@@ -19,7 +19,7 @@ import sys
 
 from electrolyte_pipeline.e0_systems import WORK, FIG
 from electrolyte_pipeline import e2_rdf_cn, e3_clusters, e4_properties, e5_qc_clusters, e6_desolvation, \
-    e7_interface, e8_ml, e9_reactive
+    e6_umbrella, e7_interface, e8_ml, e9_reactive
 
 
 def main(argv=None):
@@ -36,7 +36,8 @@ def main(argv=None):
             summary[name] = fn(force="--qc" in argv); print()
         except Exception as e:
             print(f"{name} skipped ({type(e).__name__}: {e})\n")
-    for name, fn in (("E7", e7_interface.report), ("E8", e8_ml.report), ("E9", e9_reactive.report)):
+    for name, fn in (("E6b", e6_umbrella.report), ("E7", e7_interface.report), ("E8", e8_ml.report),
+                     ("E9", e9_reactive.report)):
         try:
             summary[name] = fn(); print()
         except Exception as e:

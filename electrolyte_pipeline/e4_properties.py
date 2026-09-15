@@ -217,8 +217,44 @@ def report(labels=None, workdir: str = WORK) -> dict:
               f"{(c.get('ionicity_EH_over_NE') or float('nan')):5.2f} {r['dielectric_solvent']['eps']:8.2f} "
               f"{(eta if eta is not None else float('nan')):8.3f} {ex.get('viscosity_mPa_s', float('nan')):7.2f}")
     print("   D in 1e-10 m²/s; σ in S/m; η in mPa·s. Experimental viscosities are eye-read from Chem.Rev. Fig.25.")
+    for base in ("LiTFSI_r10", "LiTFSI_r3"):
+        rep = replica_report(base, workdir=workdir)
+        if rep:
+            out[base]["replicas"] = rep
     _plot_series(out)
     return out
+
+
+def replica_report(base: str, suffixes=("", "_rep2", "_rep3"), workdir: str = WORK) -> dict | None:
+    """Independent trajectories (different velocity seeds) -> mean ± SEM of D, σ_NE, σ_EH.
+    This is the only way to put an error bar on the collective σ_EH (digest p8: 必要时用
+    分段或独立轨迹估计波动)."""
+    labs = [base + s for s in suffixes if os.path.exists(os.path.join(workdir, base + s, "prod.dcd"))]
+    if len(labs) < 2:
+        return None
+    rows = []
+    for lab in labs:
+        p = os.path.join(workdir, lab, "e4_properties.json")
+        r = json.load(open(p)) if os.path.exists(p) else analyse(lab, workdir)
+        rows.append({"label": lab, "prod_ns": r.get("frame_ps", 2) * 0 + json.load(open(os.path.join(workdir, lab, "run_record.json")))["prod_ns"],
+                     "D_cat": r["diffusion"][[k for k in r["diffusion"] if k in ("Li", "Na")][0]]["D_m2_s"],
+                     "D_TFSI": r["diffusion"]["TFSI"]["D_m2_s"], "D_DME": r["diffusion"]["DME"]["D_m2_s"],
+                     "sigma_NE": r["conductivity"]["sigma_NE_S_m"], "sigma_EH": r["conductivity"]["sigma_EH_S_m"],
+                     "density": r["density"]["mean"]})
+    n = len(rows)
+    agg = {"base": base, "replicas": [r["label"] for r in rows], "prod_ns": [r["prod_ns"] for r in rows]}
+    for key in ("D_cat", "D_TFSI", "D_DME", "sigma_NE", "sigma_EH", "density"):
+        x = np.array([r[key] for r in rows])
+        agg[key] = {"mean": float(x.mean()), "sem": float(x.std(ddof=1) / np.sqrt(n)), "values": x.tolist()}
+    agg["ionicity"] = agg["sigma_EH"]["mean"] / agg["sigma_NE"]["mean"]
+    agg["label_note"] = ("✅ replica SEM" if agg["sigma_EH"]["sem"] / agg["sigma_EH"]["mean"] < 0.3
+                         else "⚠️ replica scatter > 30 % of the mean; more/longer replicas needed")
+    json.dump(agg, open(os.path.join(workdir, base, "e4_replicas.json"), "w"), indent=1)
+    print(f"E4 replicas {base} (n={n}, prod {agg['prod_ns']} ns): "
+          f"D_cat {agg['D_cat']['mean']*1e10:.2f}±{agg['D_cat']['sem']*1e10:.2f}, "
+          f"σ_NE {agg['sigma_NE']['mean']:.3f}±{agg['sigma_NE']['sem']:.3f}, "
+          f"σ_EH {agg['sigma_EH']['mean']:.3f}±{agg['sigma_EH']['sem']:.3f} S/m, ratio {agg['ionicity']:.2f}  {agg['label_note']}")
+    return agg
 
 
 def _plot_series(out):

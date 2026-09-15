@@ -34,13 +34,16 @@ CENTRES_A = np.arange(1.8, 7.01, 0.25)
 
 def _pick_pair(sysdir):
     """One Li and one DME O currently within 2.5 Å of it (a coordinated pair)."""
-    import MDAnalysis as mda
-    from MDAnalysis.lib.distances import distance_array
-    u = mda.Universe(os.path.join(sysdir, "final.pdb"))
+    from openmm import app, unit
+    pdb = app.PDBFile(os.path.join(sysdir, "final.pdb"))
+    pos = pdb.positions.value_in_unit(unit.angstrom); pos = np.array([[p.x, p.y, p.z] for p in pos])
+    box = np.array([pdb.topology.getPeriodicBoxVectors()[i][i].value_in_unit(unit.angstrom) for i in range(3)])
     atoms = json.load(open(os.path.join(sysdir, "atoms.json")))
     sp = np.array([a["species"] for a in atoms]); el = np.array([a["element"] for a in atoms])
     li = np.where(sp == "Li")[0]; od = np.where((sp == "DME") & (el == "O"))[0]
-    d = distance_array(u.atoms.positions[li], u.atoms.positions[od], box=u.dimensions)
+    d = pos[li][:, None, :] - pos[od][None, :, :]
+    d -= box * np.round(d / box)
+    d = np.linalg.norm(d, axis=-1)
     i, j = np.unravel_index(np.argmin(np.abs(d - 2.1)), d.shape)
     return int(li[i]), int(od[j])
 
