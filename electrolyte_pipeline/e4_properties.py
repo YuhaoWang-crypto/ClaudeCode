@@ -124,17 +124,26 @@ def analyse(label: str, workdir: str = WORK, stride: int = 1, nblocks: int = 4) 
         sig_NE = n * E**2 / (KB * T) * (qc**2 * D[tr.cation]["D_m2_s"] + qa**2 * D["TFSI"]["D_m2_s"])
         # collective charge displacement  P(t) = sum_i q_i r_i(t)
         P = qc * coms[tr.cation].sum(axis=1) + qa * coms["TFSI"].sum(axis=1)        # (frames, 3) Å·e
-        lags, mP = _msd(P[:, None, :])
+        lags, mP = _msd(P[:, None, :], nlags=100)
         t = lags * dt
-        i0, i1 = int(len(t) * 0.3), int(len(t) * 0.9)
+        # The collective displacement is ONE time series: at long lags there are few
+        # independent time origins and the slope scatters wildly between replicas
+        # (checked: 0.23/0.78/0.20 S/m at 1.5–4.5 ns vs 0.48/0.67/0.41 at 0.5–1.5 ns for
+        # three r10 replicas).  Fit on 10–30 % of the maximum lag (0.5–1.5 ns for 10 ns),
+        # and also report the long-lag value so the sensitivity is visible.
+        i0, i1 = int(len(t) * 0.1), int(len(t) * 0.3)
         slope = np.polyfit(t[i0:i1], mP[i0:i1], 1)[0]                            # Å² e² / ps
         sig_EH = slope * 1e-20 / 1e-12 * E**2 / (6 * V * KB * T)
-        Vb = V
+        j0, j1 = int(len(t) * 0.3), int(len(t) * 0.9)
+        sig_EH_long = np.polyfit(t[j0:j1], mP[j0:j1], 1)[0] * 1e-20 / 1e-12 * E**2 / (6 * V * KB * T)
         res["conductivity"] = {"sigma_NE_S_m": sig_NE, "sigma_EH_S_m": sig_EH,
+                               "sigma_EH_fit_window_ps": [float(t[i0]), float(t[i1 - 1])],
+                               "sigma_EH_longlag_S_m": sig_EH_long,
+                               "sigma_EH_longlag_window_ps": [float(t[j0]), float(t[j1 - 1])],
                                "ionicity_EH_over_NE": sig_EH / sig_NE if sig_NE > 0 else None,
                                "charges_used": {"cation": qc, "anion": qa},
-                               "label": "⚠️ σ_EH from a single collective observable (no block error possible "
-                                        "without independent trajectories); σ_NE inherits D errors"}
+                               "label": "⚠️ σ_EH from a single collective observable: error bar only from "
+                                        "independent replicas (e4_replicas.json); σ_NE inherits D errors"}
         msd_curves["charge"] = (t, mP)
 
     # --- dielectric (solvent dipole fluctuation, ions excluded) -----------------
@@ -236,15 +245,18 @@ def replica_report(base: str, suffixes=("", "_rep2", "_rep3"), workdir: str = WO
     for lab in labs:
         p = os.path.join(workdir, lab, "e4_properties.json")
         r = json.load(open(p)) if os.path.exists(p) else analyse(lab, workdir)
-        rows.append({"label": lab, "prod_ns": r.get("frame_ps", 2) * 0 + json.load(open(os.path.join(workdir, lab, "run_record.json")))["prod_ns"],
+        if "sigma_EH_longlag_S_m" not in r.get("conductivity", {}):      # stale file from the old estimator
+            r = analyse(lab, workdir)
+        rows.append({"label": lab, "prod_ns": json.load(open(os.path.join(workdir, lab, "run_record.json")))["prod_ns"],
+                     "sigma_EH_longlag": r["conductivity"].get("sigma_EH_longlag_S_m"),
                      "D_cat": r["diffusion"][[k for k in r["diffusion"] if k in ("Li", "Na")][0]]["D_m2_s"],
                      "D_TFSI": r["diffusion"]["TFSI"]["D_m2_s"], "D_DME": r["diffusion"]["DME"]["D_m2_s"],
                      "sigma_NE": r["conductivity"]["sigma_NE_S_m"], "sigma_EH": r["conductivity"]["sigma_EH_S_m"],
                      "density": r["density"]["mean"]})
     n = len(rows)
     agg = {"base": base, "replicas": [r["label"] for r in rows], "prod_ns": [r["prod_ns"] for r in rows]}
-    for key in ("D_cat", "D_TFSI", "D_DME", "sigma_NE", "sigma_EH", "density"):
-        x = np.array([r[key] for r in rows])
+    for key in ("D_cat", "D_TFSI", "D_DME", "sigma_NE", "sigma_EH", "sigma_EH_longlag", "density"):
+        x = np.array([r[key] for r in rows], float)
         agg[key] = {"mean": float(x.mean()), "sem": float(x.std(ddof=1) / np.sqrt(n)), "values": x.tolist()}
     agg["ionicity"] = agg["sigma_EH"]["mean"] / agg["sigma_NE"]["mean"]
     agg["label_note"] = ("✅ replica SEM" if agg["sigma_EH"]["sem"] / agg["sigma_EH"]["mean"] < 0.3
