@@ -1,0 +1,77 @@
+{
+  "label": "LiTFSI_r10_rep2",
+  "platform": "CUDA",
+  "velocity_seed": 2,
+  "minimisation": {
+    "E_before_kJ_mol": 42273.66803969576,
+    "E_after_kJ_mol": -2535.8706655965943
+  },
+  "equil_ns": 2.0,
+  "prod_ns": 10.0,
+  "timestep_fs": 2.0,
+  "frame_ps": 2.0,
+  "equil_convergence": {
+    "n_rows": 10000,
+    "tail_rows": 5000,
+    "density": {
+      "mean": 1.0150397279583157,
+      "block_means": [
+        1.01355,
+        1.01257,
+        1.01629,
+        1.0168,
+        1.01599
+      ],
+      "block_sd": 0.0018637895802952262,
+      "drift": 0.0024490759965254405,
+      "sem": 0.0008335120394591856
+    },
+    "epot": {
+      "mean": 5908.670099412153,
+      "block_means": [
+        5943.67936,
+        5928.98887,
+        5910.17955,
+        5882.80427,
+        5877.69844
+      ],
+      "block_sd": 28.587865271938657,
+      "drift": -65.9809203017785,
+      "sem": 12.78488201593207
+    },
+    "converged": false
+  },
+  "prod_stationarity": {
+    "n_rows": 50000,
+    "tail_rows": 50000,
+    "density": {
+      "mean": 1.015589745257711,
+      "block_means": [
+        1.01512,
+        1.01625,
+        1.01618,
+        1.01594,
+        1.01446
+      ],
+      "block_sd": 0.0007743476501085659,
+      "drift": -0.000660299853794788,
+      "sem": 0.00034629879677199515
+    },
+    "epot": {
+      "mean": 5896.642932657232,
+      "block_means": [
+        5890.96824,
+        5899.11437,
+        5886.4629,
+        5898.26545,
+        5908.4037
+      ],
+      "block_sd": 8.409688671775271,
+      "drift": 17.435462103447207,
+      "sem": 3.7609271079398843
+    },
+    "converged": false
+  },
+  "wall_s": 1022.2,
+  "label_note": "\u26a0\ufe0f equilibration NOT converged by the block criterion; extend equil_npt_ns before trusting production averages"
+}

@@ -42,13 +42,22 @@
  },
  "conductivity": {
   "sigma_NE_S_m": 0.5144595451143771,
-  "sigma_EH_S_m": 0.0974373626672051,
-  "ionicity_EH_over_NE": 0.18939752132607893,
+  "sigma_EH_S_m": 0.2250231070229595,
+  "sigma_EH_fit_window_ps": [
+   506.0,
+   1466.0
+  ],
+  "sigma_EH_longlag_S_m": 0.09775053200012684,
+  "sigma_EH_longlag_window_ps": [
+   1516.0,
+   4494.0
+  ],
+  "ionicity_EH_over_NE": 0.43739708818684914,
   "charges_used": {
    "cation": 0.8,
    "anion": -0.8
   },
-  "label": "\u26a0\ufe0f \u03c3_EH from a single collective observable (no block error possible without independent trajectories); \u03c3_NE inherits D errors"
+  "label": "\u26a0\ufe0f \u03c3_EH from a single collective observable: error bar only from independent replicas (e4_replicas.json); \u03c3_NE inherits D errors"
  },
  "dielectric_solvent": {
   "eps": 4.38486397681449,

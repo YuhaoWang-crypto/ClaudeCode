@@ -1,0 +1,52 @@
+{
+ "label": "LiTFSI_r10_rep2",
+ "cation": "Li",
+ "r_cut_A": 3.33,
+ "r_cut_source": "E2 first minimum of g_cat-O(TFSI)",
+ "criteria": "contact = any O(TFSI) within r_cut of the cation; CIP = 2-ion component; AGG = component with >=3 ions; free/SSIP not separated",
+ "n_frames": 5000,
+ "n_cations": 20,
+ "n_anions": 20,
+ "frac_no_contact": 0.6080399999999986,
+ "frac_CIP": 0.38414000000001436,
+ "frac_AGG": 0.007819999999999983,
+ "sem": [
+  0.0206,
+  0.0238,
+  0.0044
+ ],
+ "block_means": [
+  [
+   0.652,
+   0.324,
+   0.024
+  ],
+  [
+   0.628,
+   0.371,
+   0.001
+  ],
+  [
+   0.636,
+   0.353,
+   0.011
+  ],
+  [
+   0.585,
+   0.413,
+   0.001
+  ],
+  [
+   0.539,
+   0.46,
+   0.002
+  ]
+ ],
+ "anion_participation": 0.39978,
+ "cations_per_bound_anion": 1.0,
+ "cluster_size_dist_ionfrac": {
+  "2": 0.5488576776350569,
+  "3": 0.01675977653631285
+ },
+ "largest_cluster_ions": 3
+}

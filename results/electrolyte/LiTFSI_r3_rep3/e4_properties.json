@@ -1,0 +1,67 @@
+{
+ "label": "LiTFSI_r3_rep3",
+ "T_K": 298.15,
+ "frame_ps": 2.0,
+ "density": {
+  "mean": 1.2433134769333825,
+  "sem": 0.0006669662478121196,
+  "label": "\u2705 block SEM"
+ },
+ "molarity_from_box": 2.235644705336251,
+ "diffusion": {
+  "DME": {
+   "D_m2_s": 3.489545419896837e-11,
+   "sem": 1.870049177321545e-12,
+   "loglog_slope": 0.9129436937030205,
+   "fit_window_ps": [
+    4576.0,
+    13728.0
+   ],
+   "label": "\u2705 diffusive"
+  },
+  "Li": {
+   "D_m2_s": 1.3440038879901257e-11,
+   "sem": 7.64577162166904e-13,
+   "loglog_slope": 1.021559556678951,
+   "fit_window_ps": [
+    4576.0,
+    13728.0
+   ],
+   "label": "\u2705 diffusive"
+  },
+  "TFSI": {
+   "D_m2_s": 1.3953509597049706e-11,
+   "sem": 6.252453965564495e-13,
+   "loglog_slope": 1.0375411179195733,
+   "fit_window_ps": [
+    4576.0,
+    13728.0
+   ],
+   "label": "\u2705 diffusive"
+  }
+ },
+ "conductivity": {
+  "sigma_NE_S_m": 0.1471921489957452,
+  "sigma_EH_S_m": 0.09340881568026367,
+  "sigma_EH_fit_window_ps": [
+   1516.0,
+   4394.0
+  ],
+  "sigma_EH_longlag_S_m": 0.08096147293609002,
+  "sigma_EH_longlag_window_ps": [
+   4546.0,
+   13484.0
+  ],
+  "ionicity_EH_over_NE": 0.6346046057318164,
+  "charges_used": {
+   "cation": 0.8,
+   "anion": -0.7999999999999999
+  },
+  "label": "\u26a0\ufe0f \u03c3_EH from a single collective observable: error bar only from independent replicas (e4_replicas.json); \u03c3_NE inherits D errors"
+ },
+ "dielectric_solvent": {
+  "eps": 3.240235743872714,
+  "label": "\u26a0\ufe0f DME dipole fluctuation only (ions excluded; conducting-system correction not applied); non-polarisable FF, \u03b5\u221e=1 assumed"
+ },
+ "experiment": {}
+}

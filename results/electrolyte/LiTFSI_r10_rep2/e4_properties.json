@@ -1,18 +1,18 @@
 {
- "label": "LiTFSI_r10_q1",
+ "label": "LiTFSI_r10_rep2",
  "T_K": 298.15,
  "frame_ps": 2.0,
  "density": {
-  "mean": 1.0237980275235572,
-  "sem": 0.00032547200473540216,
+  "mean": 1.015589745257711,
+  "sem": 0.00034629879677195515,
   "label": "\u2705 block SEM"
  },
- "molarity_from_box": 0.8615054681057911,
+ "molarity_from_box": 0.8545941866798424,
  "diffusion": {
   "DME": {
-   "D_m2_s": 4.6565591167625173e-10,
-   "sem": 4.564652037497297e-12,
-   "loglog_slope": 1.001048267147141,
+   "D_m2_s": 4.750393026079718e-10,
+   "sem": 2.066683383975704e-11,
+   "loglog_slope": 1.0027018948469073,
    "fit_window_ps": [
     1526.0,
     4576.0
@@ -20,9 +20,9 @@
    "label": "\u2705 diffusive"
   },
   "Li": {
-   "D_m2_s": 1.455994038461023e-10,
-   "sem": 2.4350293077795092e-11,
-   "loglog_slope": 1.0743436739865493,
+   "D_m2_s": 1.6185034447693893e-10,
+   "sem": 8.404449538873372e-12,
+   "loglog_slope": 1.0055552305257351,
    "fit_window_ps": [
     1526.0,
     4576.0
@@ -30,9 +30,9 @@
    "label": "\u2705 diffusive"
   },
   "TFSI": {
-   "D_m2_s": 1.4723063895533776e-10,
-   "sem": 1.8143850463452703e-11,
-   "loglog_slope": 1.0387699713456156,
+   "D_m2_s": 1.5630970406801152e-10,
+   "sem": 1.0623205914295105e-11,
+   "loglog_slope": 0.9799702634878166,
    "fit_window_ps": [
     1526.0,
     4576.0
@@ -41,26 +41,26 @@
   }
  },
  "conductivity": {
-  "sigma_NE_S_m": 0.9473866547380738,
-  "sigma_EH_S_m": 0.44572702862072355,
+  "sigma_NE_S_m": 0.6534903005777535,
+  "sigma_EH_S_m": 0.6733643100812716,
   "sigma_EH_fit_window_ps": [
    506.0,
    1466.0
   ],
-  "sigma_EH_longlag_S_m": 0.5851843457646517,
+  "sigma_EH_longlag_S_m": 0.7789346711632565,
   "sigma_EH_longlag_window_ps": [
    1516.0,
    4494.0
   ],
-  "ionicity_EH_over_NE": 0.4704805861382486,
+  "ionicity_EH_over_NE": 1.0304120956132745,
   "charges_used": {
-   "cation": 1.0,
-   "anion": -0.9999999999999997
+   "cation": 0.8,
+   "anion": -0.7999999999999999
   },
   "label": "\u26a0\ufe0f \u03c3_EH from a single collective observable: error bar only from independent replicas (e4_replicas.json); \u03c3_NE inherits D errors"
  },
  "dielectric_solvent": {
-  "eps": 7.062414835100588,
+  "eps": 6.015111410744744,
   "label": "\u26a0\ufe0f DME dipole fluctuation only (ions excluded; conducting-system correction not applied); non-polarisable FF, \u03b5\u221e=1 assumed"
  },
  "experiment": {}
