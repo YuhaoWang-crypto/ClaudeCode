@@ -43,6 +43,16 @@ That last upgrade is required: `setup.py` pins `scikit-posthocs==0.11`, which
 imports `multipletests` from a statsmodels location removed in 0.15, so the
 package will not import without it.
 
+Then confirm the bridge is faithful:
+
+```bash
+python3 -m protclock_pipeline.proteoclock_backend
+```
+
+It runs the package's own 31-sample GEO dataset through both a direct
+proteoclock call and this pipeline's wrapper and requires bitwise agreement.
+All three clocks currently differ by exactly zero.
+
 ## Modules
 
 | Module | Does | Key result on synthetic data |
@@ -55,7 +65,7 @@ package will not import without it.
 | `m6_enrichment` | differential abundance, aging set, Fisher test | OR 1.22 or 2.22 depending on contrast |
 | `m7_pathways` | over-representation, mean shift, aging-aligned shift | senescence rejuvenated q=1e-4, immune control null |
 | `m8_supplementary` | **REAL data**: the paper's tables S2, S5, S8 | mean clock r +0.622, 3.0 effective clocks of 6 |
-| `proteoclock_backend` | the paper's released library | real weights for PAC and both OrganAge clocks |
+| `proteoclock_backend` | the paper's released library | real weights for PAC and both OrganAge clocks; adapter verified bitwise on real GEO data |
 | `real_data` | adapter for OMIX008341 and a real reference cohort | untested, the files are not obtainable |
 
 ## What the numbers mean

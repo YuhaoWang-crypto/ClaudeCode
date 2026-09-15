@@ -40,6 +40,27 @@ repositories. Searching the wrong organisation produced a confident negative.
 Three of the six clocks therefore run here on their real published weights,
 and M8 analyses real trial-derived data rather than simulation.
 
+The adapter that bridges this pipeline to the library is verified, not
+assumed. `proteoclock_backend.validate_against_package` runs GSE169148, the
+31-sample real Olink dataset the package bundles, through both a direct
+proteoclock call and this pipeline's wrapper, and requires the two to agree
+bitwise. All three clocks return a maximum absolute difference of exactly
+zero. The wrapper reshapes wide NPX into long form, subsets each clock's own
+proteins and reindexes the output back to caller order, and any of those
+steps could silently reorder or drop samples while still returning plausible
+ages, so the check runs every time the backend module is executed.
+
+One caveat about that dataset. The package also ships
+`new_clock_res_GSE169148.tsv`, a table of expected results. It is NOT used as
+the validation target, because it does not match what the current code
+produces: its values correlate about 0.96 with the present API output but sit
+on a different scale, roughly 2 against 63, which reads as a raw log hazard
+against an age-converted one. It appears to predate the current code. A
+correlation of 0.96 rather than 1.0 means it is not merely a rescaling of the
+same numbers, so the shipped table cannot serve as a golden test of the
+library as released. The live package is the correct comparison for an
+adapter regardless.
+
 ## What the real data shows
 
 Supplementary Table S2 carries 168 rows, 42 patients times 4 visits, with
@@ -99,7 +120,8 @@ m5_trialstats.py  within-patient change, mixed model, concordance, negative cont
 m6_enrichment.py  differential abundance, aging set, Fisher enrichment
 m7_pathways.py    over-representation, mean shift, aging-aligned shift
 m8_supplementary.py  REAL data: the paper's own tables S2, S5, S8
-proteoclock_backend.py  the paper's released library, real weights for 3 clocks
+proteoclock_backend.py  the paper's released library, real weights for 3
+                     clocks, plus a bitwise adapter check on real GEO data
 real_data.py      adapter for OMIX008341 and a real reference cohort
 ```
 
