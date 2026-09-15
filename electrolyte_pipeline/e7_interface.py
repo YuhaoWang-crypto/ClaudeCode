@@ -33,8 +33,9 @@ D_LAYER = 3.35
 GAP = 3.0                         # Å between top carbon plane and packmol region
 LIQ_Z = 40.0                      # Å of liquid
 C_SIGMA_NM, C_EPS_KJ = 0.355, 0.07 * 4.184
-COUNTS = {"DME": 258, "Li": 26, "TFSI": 26}   # r10 composition; a first run with 236/24/24 gave a centre
-                                              # density 9 % below the E1 bulk value, so the fill was raised
+COUNTS = {"DME": 251, "Li": 25, "TFSI": 25}   # r10 composition. Fill calibrated against the E1 bulk density:
+                                              # 236/24/24 -> centre 0.921 g/cm3 (-9 %), 258/26/26 -> 1.062 (+4.5 %),
+                                              # interpolated to 251/25/25 for the production run.
 
 
 def graphite_xyz():
