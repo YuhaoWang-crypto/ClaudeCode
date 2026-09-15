@@ -32,7 +32,8 @@ VOL = "/vol"
 
 
 @app.function(gpu="A10G", timeout=6 * 3600, volumes={VOL: vol})
-def run_system(label: str, equil_ns: float, prod_ns: float, scale: float | None, suffix: str) -> dict:
+def run_system(label: str, equil_ns: float, prod_ns: float, scale: float | None, suffix: str,
+               seed: int = 1) -> dict:
     from electrolyte_pipeline import e0_systems, e1_build, e1_run
     ff = e0_systems.ForceFieldSpec()
     if scale is not None:
@@ -40,7 +41,7 @@ def run_system(label: str, equil_ns: float, prod_ns: float, scale: float | None,
     name = label + suffix
     outdir = os.path.join(VOL, name)
     e1_build.build(label, ff=ff, outdir=outdir)
-    rec = e1_run.run(name, workdir=VOL, equil_ns=equil_ns, prod_ns=prod_ns)
+    rec = e1_run.run(name, workdir=VOL, equil_ns=equil_ns, prod_ns=prod_ns, seed=seed)
     vol.commit()
     return rec
 
@@ -61,18 +62,28 @@ def run_interface(equil_ns: float, prod_ns: float) -> dict:
     return out
 
 
+@app.function(gpu="A10G", timeout=6 * 3600, volumes={VOL: vol})
+def run_umbrella(label: str, ps_per_window: float) -> dict:
+    from electrolyte_pipeline import e6_umbrella
+    out = e6_umbrella.run(label, workdir=VOL, ps_per_window=ps_per_window)
+    vol.commit()
+    return out
+
+
 @app.local_entrypoint()
 def main(labels: str = "", stage: str = "md", equil_ns: float = 2.0, prod_ns: float = 10.0,
          scale: float = -1.0, suffix: str = "", nemd_ns: float = 2.0,
-         amplitudes: str = "0.01,0.02"):
+         amplitudes: str = "0.01,0.02", seed: int = 1):
     from electrolyte_pipeline.e0_systems import SERIES
     labs = [s for s in labels.split(",") if s] or [c.label for c in SERIES]
     sc = None if scale < 0 else scale
     if stage == "md":
-        args = [(l, equil_ns, prod_ns, sc, suffix) for l in labs]
+        args = [(l, equil_ns, prod_ns, sc, suffix, seed) for l in labs]
         for rec in run_system.starmap(args):
             print(rec["label"], rec["label_note"], "rho=%.4f" % rec["prod_stationarity"]["density"]["mean"],
                   "wall %.0fs" % rec["wall_s"])
+    elif stage == "umbrella":
+        print(run_umbrella.remote(labs[0], nemd_ns * 1000.0))      # --nemd-ns reused as ps_per_window/1000
     elif stage == "interface":
         print(run_interface.remote(equil_ns, prod_ns))
     elif stage == "nemd":

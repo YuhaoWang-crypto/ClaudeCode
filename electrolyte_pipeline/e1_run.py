@@ -90,7 +90,9 @@ def convergence_check(csv_path: str, nblocks: int = 5, tail_frac: float = 0.5) -
 
 
 def run(label: str, dyn: DynamicsSpec | None = None, workdir: str = WORK,
-        equil_ns: float | None = None, prod_ns: float | None = None) -> dict:
+        equil_ns: float | None = None, prod_ns: float | None = None, seed: int = 1) -> dict:
+    """`seed` sets the initial velocities; replicas with different seeds diverge
+    within the 2 ns equilibration and give independent production trajectories."""
     import openmm
     from openmm import app, unit
     dyn = dyn or DynamicsSpec()
@@ -106,7 +108,7 @@ def run(label: str, dyn: DynamicsSpec | None = None, workdir: str = WORK,
     e0 = sim.context.getState(getEnergy=True).getPotentialEnergy()
     sim.minimizeEnergy(tolerance=dyn.minimise_tol_kj_mol_nm * unit.kilojoule_per_mole / unit.nanometer)
     e1 = sim.context.getState(getEnergy=True).getPotentialEnergy()
-    sim.context.setVelocitiesToTemperature(dyn.temperature_K * unit.kelvin, 1)
+    sim.context.setVelocitiesToTemperature(dyn.temperature_K * unit.kelvin, seed)
 
     # --- NPT equilibration ---------------------------------------------------
     sim.reporters = [_reporter(os.path.join(sysdir, "equil.csv"), int(dyn.thermo_ps * steps_per_ps))]
@@ -124,7 +126,7 @@ def run(label: str, dyn: DynamicsSpec | None = None, workdir: str = WORK,
         app.PDBFile.writeFile(sim.topology, st.getPositions(), fh)
     prod_conv = convergence_check(os.path.join(sysdir, "prod.csv"), tail_frac=1.0)
 
-    rec = {"label": label, "platform": platform,
+    rec = {"label": label, "platform": platform, "velocity_seed": seed,
            "minimisation": {"E_before_kJ_mol": e0.value_in_unit(unit.kilojoule_per_mole),
                             "E_after_kJ_mol": e1.value_in_unit(unit.kilojoule_per_mole)},
            "equil_ns": dyn.equil_npt_ns, "prod_ns": dyn.prod_ns,
