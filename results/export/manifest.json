@@ -1,0 +1,74 @@
+{
+  "gates": [
+    {
+      "gate": "cohort cell accounting",
+      "passed": true,
+      "detail": "75,095 cells summed over compartments = 75,095 in the cohort table = 75,095 in provenance"
+    },
+    {
+      "gate": "sampling ceiling",
+      "passed": true,
+      "detail": "max sampled per atlas 20,000 <= ceiling 20,000"
+    },
+    {
+      "gate": "expression matrix coverage",
+      "passed": true,
+      "detail": "2,674/2,674 genes carry statistics from all 5 atlases"
+    },
+    {
+      "gate": "ranking integrity",
+      "passed": true,
+      "detail": "379 unique genes, scores monotone in [0,1], range 0.151-0.633"
+    },
+    {
+      "gate": "recall report",
+      "passed": true,
+      "detail": "@10: reported 2/9, recomputed 2/9; @20: reported 3/9, recomputed 3/9"
+    },
+    {
+      "gate": "negative-control verdicts",
+      "passed": true,
+      "detail": "EPCAM=PASS(rank 83); CDH1=PASS(rank 99); ATP1A1=PASS(rank 238); CGN=PASS(rank -)"
+    },
+    {
+      "gate": "literature coverage",
+      "passed": true,
+      "detail": "12 reviewed candidates match ranks 1-12"
+    },
+    {
+      "gate": "figures present",
+      "passed": true,
+      "detail": "8 files (4 figures x PNG+SVG)"
+    }
+  ],
+  "all_gates_passed": true,
+  "files": {
+    "antigen_targets_all_ranked.csv": {
+      "bytes": 187475,
+      "sha256_16": "9b1f0184bc079b8c"
+    },
+    "antigen_targets_literature.csv": {
+      "bytes": 10812,
+      "sha256_16": "b0d1a710a958c646"
+    },
+    "antigen_targets_top50.csv": {
+      "bytes": 25446,
+      "sha256_16": "8caed62de681f600"
+    },
+    "cohort_datasets.csv": {
+      "bytes": 1786,
+      "sha256_16": "37e0fd4854278d91"
+    },
+    "validation_negative_controls.csv": {
+      "bytes": 690,
+      "sha256_16": "d23e9add0d89142e"
+    },
+    "validation_positives.csv": {
+      "bytes": 1882,
+      "sha256_16": "27b8f8ce1926a334"
+    }
+  },
+  "census_version": "2025-11-08",
+  "cells_analysed": 75095,
+  "candidates_ranked": 379
+}

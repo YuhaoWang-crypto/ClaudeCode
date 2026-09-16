@@ -1,0 +1,13 @@
+{
+  "directory": "/home/user/ClaudeCode/figures/antigen",
+  "figures": [
+    "fig1_candidate_ranking",
+    "fig2_compartment_heatmap",
+    "fig3_therapeutic_index",
+    "fig4_validation_ranks"
+  ],
+  "formats": [
+    "png",
+    "svg"
+  ]
+}

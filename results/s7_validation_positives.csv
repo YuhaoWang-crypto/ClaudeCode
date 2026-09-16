@@ -1,0 +1,10 @@
+status_code,status,epi_detection,gene,rationale,in_search_space,ranked,rank,percentile,final_score,tier,tumour_quality,safety_score,worst_normal_tissue
+ranked,ranked,0.1030021464177684,CEACAM5,"CEACAM5 ADC tusamitamab ravtansine, phase 3 non-squamous NSCLC",True,True,7.0,98.4,0.5279428392247388,Tier 2,0.7007150030790052,0.30000000000000004,Colon
+ranked,ranked,0.3063505238081803,MSLN,mesothelin ADC and CAR-T programmes in lung adenocarcinoma,True,True,9.0,97.9,0.5146040896968893,Tier 2,0.7767862780247146,0.17543577304818891,Colon
+ranked,ranked,0.2308456209996458,EGFR,EGFR-directed ADC/bispecifics in LUAD (amivantamab; patritumab deruxtecan partner axis),True,True,15.0,96.3,0.49998978419059853,Tier 2,0.4977483890591492,0.2790172282643405,Kidney
+ranked,ranked,0.154087076844571,CD276,B7-H3 ADC (ifinatamab deruxtecan) and CAR-T in lung cancer,True,True,45.0,88.4,0.3888720685989484,Tier 2,0.3153126647449332,0.373,Liver
+ranked,ranked,0.2641301956072768,ERBB2,"HER2 ADC, trastuzumab deruxtecan approved for HER2-mutant NSCLC",True,True,59.0,84.7,0.368815115981439,Tier 2,0.5850878001668555,0.08574426751062758,Heart muscle
+ranked,ranked,0.3490877104208515,FOLR1,"folate receptor alpha ADC mirvetuximab class, NSCLC expansion cohorts",True,True,98.0,74.4,0.3286277463562278,Tier 3,0.7098109279955669,0.050000000000000044,nan
+ranked,ranked,0.4088281678655958,TACSTD2,TROP2 ADC (sacituzumab govitecan / datopotamab deruxtecan) in NSCLC,True,True,107.0,72.0,0.32328683332312635,Tier 3,0.6757624369557059,0.050000000000000044,Kidney
+ranked,ranked,0.2490544177116607,MET,"telisotuzumab vedotin, c-Met ADC, approved/advanced in c-Met-high NSCLC",True,True,126.0,67.0,0.306694918411927,Tier 3,0.5769653557937964,0.050000000000000044,Cerebral cortex
+below_display_threshold,"not ranked: displayed on 4.6% of epithelial cells, below the 10% antigen display threshold",0.0460305043950166,ROR1,"ROR1 ADC zilovertamab vedotin, NSCLC cohorts",True,False,,,,,,,

@@ -1,0 +1,97 @@
+[
+  {
+    "dataset_id": "1e4214ce-7347-4ec7-97b3-fcf7c1938e8b",
+    "collection": "Transcriptome Analysis of Archived Tumor Tissues by Visium, GeoMx DSP, and Chromium Methods Reveals Inter- and Intra-Patient Heterogeneity",
+    "title": "Lung cancer 4 patients archival FFPE samples profiling with Chromium FLEX",
+    "assays": [
+      "10x gene expression flex"
+    ],
+    "donors": 2,
+    "cells_available": 2558,
+    "cells_sampled": 2558,
+    "cells_in_compartments": 2454,
+    "genes_measured": 2682,
+    "cells_epithelial": 1063,
+    "cells_caf": 56,
+    "cells_immune": 1269,
+    "cells_endothelial": 66
+  },
+  {
+    "dataset_id": "1e6a6ef9-7ec9-4c90-bbfb-2ad3c3165fd1",
+    "collection": "High-resolution single-cell atlas reveals diversity and plasticity of tumor-associated neutrophils in non-small cell lung cancer",
+    "title": "The single-cell lung cancer atlas (LuCA) -- extended atlas",
+    "assays": [
+      "10x 3' v1",
+      "10x 3' v2",
+      "10x 3' v3",
+      "10x 5' v1",
+      "BD Rhapsody Whole Transcriptome Analysis",
+      "GEXSCOPE technology",
+      "Smart-seq2",
+      "inDrop"
+    ],
+    "donors": 154,
+    "cells_available": 647147,
+    "cells_sampled": 20000,
+    "cells_in_compartments": 19910,
+    "genes_measured": 2682,
+    "cells_epithelial": 2510,
+    "cells_caf": 159,
+    "cells_immune": 16706,
+    "cells_endothelial": 535
+  },
+  {
+    "dataset_id": "576f193c-75d0-4a11-bd25-8676587e6dc2",
+    "collection": "HTAN MSK - Single cell profiling reveals novel tumor and myeloid subpopulations in small cell lung cancer",
+    "title": "Combined samples",
+    "assays": [
+      "10x 3' transcription profiling",
+      "10x 3' v2",
+      "10x 3' v3"
+    ],
+    "donors": 21,
+    "cells_available": 57679,
+    "cells_sampled": 20000,
+    "cells_in_compartments": 20000,
+    "genes_measured": 2682,
+    "cells_epithelial": 2610,
+    "cells_caf": 1378,
+    "cells_immune": 15195,
+    "cells_endothelial": 817
+  },
+  {
+    "dataset_id": "9f222629-9e39-47d0-b83f-e08d610c7479",
+    "collection": "The integrated Human Lung Cell Atlas",
+    "title": "An integrated cell atlas of the human lung in health and disease (full)",
+    "assays": [
+      "10x 3' v2"
+    ],
+    "donors": 3,
+    "cells_available": 41012,
+    "cells_sampled": 20000,
+    "cells_in_compartments": 12731,
+    "genes_measured": 2682,
+    "cells_epithelial": 1277,
+    "cells_caf": 71,
+    "cells_immune": 10807,
+    "cells_endothelial": 576
+  },
+  {
+    "dataset_id": "d41f45c1-1b7b-4573-a998-ac5c5acb1647",
+    "collection": "HTAN MSK - Transcriptional connectivity of regulatory T cells in the tumor microenvironment informs novel combination cancer therapy strategies",
+    "title": "Transcriptional connectivity of regulatory T cells in the tumor microenvironment informs novel combination cancer therapy strategies",
+    "assays": [
+      "10x 3' v2",
+      "10x 3' v3"
+    ],
+    "donors": 23,
+    "cells_available": 82991,
+    "cells_sampled": 20000,
+    "cells_in_compartments": 20000,
+    "genes_measured": 2682,
+    "cells_epithelial": 5393,
+    "cells_caf": 606,
+    "cells_immune": 13451,
+    "cells_endothelial": 550
+  }
+]

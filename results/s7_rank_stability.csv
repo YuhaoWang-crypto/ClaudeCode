@@ -1,0 +1,7 @@
+scheme,description,spearman_vs_baseline,top20_overlap,tier1_count
+A_safety_mean,"safety = mean(protein, RNA) instead of the conservative min",0.8008,15,9
+B_safety_protein_only,safety = IHC protein arm only,0.6583,8,33
+C_safety_rna_only,safety = consensus RNA arm only,0.6866,13,6
+D_safety_sqrt,safety enters as sqrt(safety): a softer toxicity penalty,0.9395,17,31
+E_equal_weights,all five tumour-quality sub-scores weighted 0.20,0.9963,18,4
+F_specificity_heavy,"specificity 0.50, the other four 0.125 each",0.992,20,7

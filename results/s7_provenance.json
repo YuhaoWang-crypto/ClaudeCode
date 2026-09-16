@@ -1,0 +1,93 @@
+{
+  "mechanism": {
+    "cohort_median_safety": 0.05,
+    "cohort_median_tumour_quality": 0.306,
+    "positive_best_rank": 7,
+    "positive_median_percentile_from_top": 13.7,
+    "positive_median_safety": 0.131,
+    "positive_median_tumour_quality": 0.63,
+    "positive_worst_rank": 126,
+    "positives_not_ranked": {
+      "ROR1": "not ranked: displayed on 4.6% of epithelial cells, below the 10% antigen display threshold"
+    },
+    "positives_not_ranked_codes": {
+      "ROR1": {
+        "code": "below_display_threshold",
+        "epi_detection": 0.0460305043950166
+      }
+    },
+    "positives_ranked": 8,
+    "positives_total": 9,
+    "top10_median_safety": 0.337,
+    "top10_median_tumour_quality": 0.509
+  },
+  "median_spearman": 0.87015,
+  "min_top20_overlap": 8,
+  "n_ranked": 379,
+  "negative_control_overall": "PASS",
+  "negative_controls": {
+    "ATP1A1": "PASS",
+    "CDH1": "PASS",
+    "CGN": "PASS",
+    "EPCAM": "PASS"
+  },
+  "rank_stability": [
+    {
+      "description": "safety = mean(protein, RNA) instead of the conservative min",
+      "scheme": "A_safety_mean",
+      "spearman_vs_baseline": 0.8008,
+      "tier1_count": 9,
+      "top20_overlap": 15
+    },
+    {
+      "description": "safety = IHC protein arm only",
+      "scheme": "B_safety_protein_only",
+      "spearman_vs_baseline": 0.6583,
+      "tier1_count": 33,
+      "top20_overlap": 8
+    },
+    {
+      "description": "safety = consensus RNA arm only",
+      "scheme": "C_safety_rna_only",
+      "spearman_vs_baseline": 0.6866,
+      "tier1_count": 6,
+      "top20_overlap": 13
+    },
+    {
+      "description": "safety enters as sqrt(safety): a softer toxicity penalty",
+      "scheme": "D_safety_sqrt",
+      "spearman_vs_baseline": 0.9395,
+      "tier1_count": 31,
+      "top20_overlap": 17
+    },
+    {
+      "description": "all five tumour-quality sub-scores weighted 0.20",
+      "scheme": "E_equal_weights",
+      "spearman_vs_baseline": 0.9963,
+      "tier1_count": 4,
+      "top20_overlap": 18
+    },
+    {
+      "description": "specificity 0.50, the other four 0.125 each",
+      "scheme": "F_specificity_heavy",
+      "spearman_vs_baseline": 0.992,
+      "tier1_count": 7,
+      "top20_overlap": 20
+    }
+  ],
+  "recall": {
+    "recall@10": "2/9",
+    "recall@20": "3/9"
+  },
+  "validated_antigen_ranks": {
+    "CD276": 45,
+    "CEACAM5": 7,
+    "EGFR": 15,
+    "ERBB2": 59,
+    "FOLR1": 98,
+    "MET": 126,
+    "MSLN": 9,
+    "ROR1": null,
+    "TACSTD2": 107
+  }
+}

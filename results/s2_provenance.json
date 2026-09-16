@@ -1,0 +1,21 @@
+{
+  "cells_analysed": 75095,
+  "cells_available": 831387,
+  "cells_per_compartment": {
+    "caf": 2270,
+    "endothelial": 2544,
+    "epithelial": 12853,
+    "immune": 57428
+  },
+  "cells_sampled": 82558,
+  "census_version": "2025-11-08",
+  "disease_label": "lung adenocarcinoma",
+  "expression_pseudocount": 0.05,
+  "expression_units": "counts per 10,000 (CP10K)",
+  "genes_with_expression": 2674,
+  "layer": "normalized",
+  "max_cells_per_dataset": 20000,
+  "n_datasets": 5,
+  "sampling_seed": 0,
+  "suspension_type": "cell"
+}

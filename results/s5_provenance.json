@@ -1,0 +1,32 @@
+{
+  "candidates_default_safety": 139,
+  "candidates_scored": 2486,
+  "default_value": 0.7,
+  "hpa_ihc_genes": 11152,
+  "hpa_ihc_tissues": 59,
+  "hpa_rna_genes": 20151,
+  "hpa_rna_tissues": 51,
+  "median_safety": 0.373,
+  "validated_antigen_safety": {
+    "CD276": 0.373,
+    "CEACAM5": 0.3,
+    "EGFR": 0.279,
+    "ERBB2": 0.086,
+    "FOLR1": 0.05,
+    "MET": 0.05,
+    "MSLN": 0.175,
+    "ROR1": 0.517,
+    "TACSTD2": 0.05
+  },
+  "validated_antigen_worst_normal_tissue": {
+    "CD276": "Liver",
+    "CEACAM5": "Colon",
+    "EGFR": "Kidney",
+    "ERBB2": "Heart muscle",
+    "FOLR1": "nan",
+    "MET": "Cerebral cortex",
+    "MSLN": "Colon",
+    "ROR1": "nan",
+    "TACSTD2": "Kidney"
+  }
+}

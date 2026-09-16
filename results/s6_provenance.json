@@ -1,0 +1,143 @@
+{
+  "accessible_without_expression": 119,
+  "candidates_scored": 379,
+  "min_epithelial_detection": 0.1,
+  "score_formula": "geometric mean of tumour_quality, safety_coefficient and consensus_multiplier (cube root of their product; a monotone transform, so ranks are those of the raw product)",
+  "set_aside_below_display_threshold": 2127,
+  "tier1_threshold": 0.55,
+  "tier2_threshold": 0.35,
+  "tier_counts": {
+    "Tier 1": 3,
+    "Tier 2": 76,
+    "Tier 3": 300
+  },
+  "top20": [
+    {
+      "final_score": 0.632704285831263,
+      "gene": "LY6K",
+      "rank": 1,
+      "tier": "Tier 1"
+    },
+    {
+      "final_score": 0.5548432179191631,
+      "gene": "ITGB6",
+      "rank": 2,
+      "tier": "Tier 1"
+    },
+    {
+      "final_score": 0.5514115812788326,
+      "gene": "CDCP1",
+      "rank": 3,
+      "tier": "Tier 1"
+    },
+    {
+      "final_score": 0.5482328912620984,
+      "gene": "IGSF3",
+      "rank": 4,
+      "tier": "Tier 2"
+    },
+    {
+      "final_score": 0.5427124382093363,
+      "gene": "SLC6A14",
+      "rank": 5,
+      "tier": "Tier 2"
+    },
+    {
+      "final_score": 0.5312815062090823,
+      "gene": "CRB3",
+      "rank": 6,
+      "tier": "Tier 2"
+    },
+    {
+      "final_score": 0.5279428392247388,
+      "gene": "CEACAM5",
+      "rank": 7,
+      "tier": "Tier 2"
+    },
+    {
+      "final_score": 0.523211104867672,
+      "gene": "CDH3",
+      "rank": 8,
+      "tier": "Tier 2"
+    },
+    {
+      "final_score": 0.5146040896968893,
+      "gene": "MSLN",
+      "rank": 9,
+      "tier": "Tier 2"
+    },
+    {
+      "final_score": 0.5115422787733365,
+      "gene": "MUC4",
+      "rank": 10,
+      "tier": "Tier 2"
+    },
+    {
+      "final_score": 0.505770186592967,
+      "gene": "CELSR1",
+      "rank": 11,
+      "tier": "Tier 2"
+    },
+    {
+      "final_score": 0.504146694585674,
+      "gene": "EFNA4",
+      "rank": 12,
+      "tier": "Tier 2"
+    },
+    {
+      "final_score": 0.5028759108108087,
+      "gene": "SLC44A4",
+      "rank": 13,
+      "tier": "Tier 2"
+    },
+    {
+      "final_score": 0.5010560898785358,
+      "gene": "FZD5",
+      "rank": 14,
+      "tier": "Tier 2"
+    },
+    {
+      "final_score": 0.49998978419059853,
+      "gene": "EGFR",
+      "rank": 15,
+      "tier": "Tier 2"
+    },
+    {
+      "final_score": 0.4974430878862846,
+      "gene": "ROS1",
+      "rank": 16,
+      "tier": "Tier 2"
+    },
+    {
+      "final_score": 0.4926131492839663,
+      "gene": "SLC39A4",
+      "rank": 17,
+      "tier": "Tier 2"
+    },
+    {
+      "final_score": 0.48120560636886683,
+      "gene": "ABCC3",
+      "rank": 18,
+      "tier": "Tier 2"
+    },
+    {
+      "final_score": 0.46266212276490776,
+      "gene": "TMEM184A",
+      "rank": 19,
+      "tier": "Tier 2"
+    },
+    {
+      "final_score": 0.46234556182027164,
+      "gene": "TMEM63B",
+      "rank": 20,
+      "tier": "Tier 2"
+    }
+  ],
+  "weights": {
+    "accessibility": 0.15,
+    "druggability": 0.15,
+    "intensity": 0.2,
+    "specificity": 0.3,
+    "uniformity": 0.2
+  }
+}

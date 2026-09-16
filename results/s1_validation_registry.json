@@ -1,0 +1,64 @@
+{
+  "locked_before_ranking": true,
+  "positives": {
+    "EGFR": {
+      "rationale": "EGFR-directed ADC/bispecifics in LUAD (amivantamab; patritumab deruxtecan partner axis)",
+      "in_search_space": true
+    },
+    "ERBB2": {
+      "rationale": "HER2 ADC, trastuzumab deruxtecan approved for HER2-mutant NSCLC",
+      "in_search_space": true
+    },
+    "MET": {
+      "rationale": "telisotuzumab vedotin, c-Met ADC, approved/advanced in c-Met-high NSCLC",
+      "in_search_space": true
+    },
+    "TACSTD2": {
+      "rationale": "TROP2 ADC (sacituzumab govitecan / datopotamab deruxtecan) in NSCLC",
+      "in_search_space": true
+    },
+    "CEACAM5": {
+      "rationale": "CEACAM5 ADC tusamitamab ravtansine, phase 3 non-squamous NSCLC",
+      "in_search_space": true
+    },
+    "MSLN": {
+      "rationale": "mesothelin ADC and CAR-T programmes in lung adenocarcinoma",
+      "in_search_space": true
+    },
+    "FOLR1": {
+      "rationale": "folate receptor alpha ADC mirvetuximab class, NSCLC expansion cohorts",
+      "in_search_space": true
+    },
+    "CD276": {
+      "rationale": "B7-H3 ADC (ifinatamab deruxtecan) and CAR-T in lung cancer",
+      "in_search_space": true
+    },
+    "ROR1": {
+      "rationale": "ROR1 ADC zilovertamab vedotin, NSCLC cohorts",
+      "in_search_space": true
+    }
+  },
+  "negative_controls": {
+    "EPCAM": {
+      "rationale": "pan-epithelial adhesion molecule; high in normal epithelium, catumaxomab-class toxicity",
+      "in_search_space": true
+    },
+    "CDH1": {
+      "rationale": "E-cadherin, ubiquitous epithelial junction protein",
+      "in_search_space": true
+    },
+    "ATP1A1": {
+      "rationale": "Na+/K+ ATPase alpha-1, housekeeping pump expressed in every tissue",
+      "in_search_space": true
+    },
+    "CGN": {
+      "rationale": "cingulin, cytoplasmic tight-junction plaque protein -- must fail the topology gate",
+      "in_search_space": false
+    }
+  },
+  "recall_k": [
+    10,
+    20
+  ],
+  "negative_control_fail_rank": 50
+}

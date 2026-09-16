@@ -1,0 +1,30 @@
+{
+  "accessible": 2625,
+  "excluded": 174,
+  "exclusions_by_class": {
+    "localisation": 104,
+    "no extracellular segment >= 25 aa": 70
+  },
+  "exclusions_detail": {
+    "localisation: no plasma-membrane entry (cytoplasmic vesicle membrane)": 2,
+    "localisation: no plasma-membrane entry (cytoplasmic vesicle, phagosome; endoplasmic reticulum membrane; endosome)": 3,
+    "localisation: no plasma-membrane entry (cytoplasmic vesicle, secretory vesicle membrane)": 2,
+    "localisation: no plasma-membrane entry (cytoplasmic vesicle, secretory vesicle, synaptic vesicle membrane)": 2,
+    "localisation: no plasma-membrane entry (endoplasmic reticulum membrane)": 18,
+    "localisation: no plasma-membrane entry (endoplasmic reticulum membrane; golgi apparatus membrane)": 3,
+    "localisation: no plasma-membrane entry (endosome membrane; lysosome membrane)": 4,
+    "localisation: no plasma-membrane entry (golgi apparatus membrane)": 3,
+    "localisation: no plasma-membrane entry (late endosome membrane; lysosome membrane)": 5,
+    "localisation: no plasma-membrane entry (lysosome membrane)": 16,
+    "localisation: no plasma-membrane entry (melanosome membrane)": 4,
+    "no extracellular segment >= 25 aa": 70
+  },
+  "input_genes": 2799,
+  "min_ecd_length": 25,
+  "negative_control_status": {
+    "ATP1A1": "passed the topology gate",
+    "CDH1": "passed the topology gate",
+    "CGN": "not in surfaceome search space",
+    "EPCAM": "passed the topology gate"
+  }
+}

@@ -1,0 +1,111 @@
+{
+  "candidates_reviewed": 12,
+  "control_hits": 0,
+  "control_symbol": "ZZZFAKE1",
+  "evidence_class_counts": {
+    "clinically validated target": 4,
+    "novel -- no surface-targeting literature": 1,
+    "preclinical surface-targeting evidence": 6,
+    "tumour-biology evidence only": 1
+  },
+  "gene_field": "TITLE_ABS",
+  "per_gene": [
+    {
+      "evidence_class": "preclinical surface-targeting evidence",
+      "gene": "LY6K",
+      "hits_clinical": 2,
+      "hits_indication": 19,
+      "hits_modality": 10,
+      "rank": 1
+    },
+    {
+      "evidence_class": "clinically validated target",
+      "gene": "ITGB6",
+      "hits_clinical": 4,
+      "hits_indication": 30,
+      "hits_modality": 21,
+      "rank": 2
+    },
+    {
+      "evidence_class": "preclinical surface-targeting evidence",
+      "gene": "CDCP1",
+      "hits_clinical": 3,
+      "hits_indication": 67,
+      "hits_modality": 70,
+      "rank": 3
+    },
+    {
+      "evidence_class": "novel -- no surface-targeting literature",
+      "gene": "IGSF3",
+      "hits_clinical": 0,
+      "hits_indication": 5,
+      "hits_modality": 2,
+      "rank": 4
+    },
+    {
+      "evidence_class": "tumour-biology evidence only",
+      "gene": "SLC6A14",
+      "hits_clinical": 0,
+      "hits_indication": 12,
+      "hits_modality": 1,
+      "rank": 5
+    },
+    {
+      "evidence_class": "preclinical surface-targeting evidence",
+      "gene": "CRB3",
+      "hits_clinical": 0,
+      "hits_indication": 5,
+      "hits_modality": 11,
+      "rank": 6
+    },
+    {
+      "evidence_class": "clinically validated target",
+      "gene": "CEACAM5",
+      "hits_clinical": 43,
+      "hits_indication": 111,
+      "hits_modality": 147,
+      "rank": 7
+    },
+    {
+      "evidence_class": "clinically validated target",
+      "gene": "CDH3",
+      "hits_clinical": 6,
+      "hits_indication": 42,
+      "hits_modality": 22,
+      "rank": 8
+    },
+    {
+      "evidence_class": "clinically validated target",
+      "gene": "MSLN",
+      "hits_clinical": 104,
+      "hits_indication": 100,
+      "hits_modality": 295,
+      "rank": 9
+    },
+    {
+      "evidence_class": "preclinical surface-targeting evidence",
+      "gene": "MUC4",
+      "hits_clinical": 12,
+      "hits_indication": 102,
+      "hits_modality": 157,
+      "rank": 10
+    },
+    {
+      "evidence_class": "preclinical surface-targeting evidence",
+      "gene": "CELSR1",
+      "hits_clinical": 1,
+      "hits_indication": 5,
+      "hits_modality": 5,
+      "rank": 11
+    },
+    {
+      "evidence_class": "preclinical surface-targeting evidence",
+      "gene": "EFNA4",
+      "hits_clinical": 5,
+      "hits_indication": 12,
+      "hits_modality": 9,
+      "rank": 12
+    }
+  ],
+  "source": "https://www.ebi.ac.uk/europepmc/webservices/rest/search"
+}

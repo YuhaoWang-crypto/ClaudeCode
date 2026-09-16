@@ -1,0 +1,5 @@
+gene,rationale,rank,final_score,tier,verdict,reason_code,note
+EPCAM,"pan-epithelial adhesion molecule; high in normal epithelium, catumaxomab-class toxicity",83.0,0.3451700544941646,Tier 3,PASS,ranked_below_window,ranked 83 of 379
+CDH1,"E-cadherin, ubiquitous epithelial junction protein",99.0,0.3278441024701961,Tier 3,PASS,ranked_below_window,ranked 99 of 379
+ATP1A1,"Na+/K+ ATPase alpha-1, housekeeping pump expressed in every tissue",238.0,0.2237560638664944,Tier 3,PASS,ranked_below_window,ranked 238 of 379
+CGN,"cingulin, cytoplasmic tight-junction plaque protein -- must fail the topology gate",,,,PASS,not_in_search_space,never entered the search space (SURFY calls it non-surface)

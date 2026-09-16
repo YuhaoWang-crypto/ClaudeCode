@@ -1,0 +1,23 @@
+{
+  "candidates": 2625,
+  "depmap_genes": 18443,
+  "depmap_used_as_filter": false,
+  "median_gene_effect_all_candidates": -0.012248282844306391,
+  "open_targets_hits": 2361,
+  "surface_confirmation_tiers": {
+    "Open Targets confirmed": 868,
+    "experimental (CSPA/GPI)": 1217,
+    "unconfirmed (ML prediction only)": 540
+  },
+  "validated_antigen_gene_effect": {
+    "CD276": -0.264,
+    "CEACAM5": -0.029,
+    "EGFR": -0.347,
+    "ERBB2": -0.342,
+    "FOLR1": 0.018,
+    "MET": -0.121,
+    "MSLN": 0.082,
+    "ROR1": 0.044,
+    "TACSTD2": -0.096
+  }
+}

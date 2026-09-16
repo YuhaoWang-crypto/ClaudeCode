@@ -1,0 +1,12 @@
+{
+  "cspa_high_confidence_genes": 746,
+  "experimental_evidence_genes": 1254,
+  "machine_learning_genes": 1545,
+  "negative_controls_in_search_space": 3,
+  "positives_in_search_space": 9,
+  "proteins_in_master_table": 20193,
+  "source": "https://wollscheidlab.org/SURFY/table_S3_surfaceome.xlsx",
+  "surface_labelled_proteins": 2886,
+  "surface_labelled_with_gene_symbol": 2882,
+  "unique_surface_genes": 2799
+}

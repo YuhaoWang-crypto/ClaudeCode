@@ -1,3 +1,17 @@
+This repository holds two independent, fully-runnable computational biology
+pipelines:
+
+- **[`grn_pipeline/`](#grn-pipeline)** — irreducibility and symmetry tools plus
+  critical-slowing biomarkers on gene-regulatory and metabolic networks.
+- **[`antigen_pipeline/`](antigen_pipeline/README.md)** — cell-surface antigen
+  discovery: ADC / CAR-T target nomination in lung adenocarcinoma from tumour
+  single-cell expression, extracellular topology and a normal-tissue
+  therapeutic index. Run with `python3 -m antigen_pipeline.run_all`; it writes
+  `results/`, `figures/antigen/` and English and Chinese PDF reports in
+  `reports/`.
+
+---
+
 # grn-pipeline
 
 A small, fully-runnable pipeline that applies four "irreducibility / symmetry"
