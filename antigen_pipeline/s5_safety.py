@@ -58,10 +58,11 @@ def run(candidates: pd.DataFrame | None = None) -> pd.DataFrame:
 
     rna = _read_zip_tsv(C.HPA_RNA_FILE)
     ihc = _read_zip_tsv(C.HPA_IHC_FILE)
+    n_ihc_genes_raw = int(ihc["Gene name"].nunique())
     print(f"  HPA consensus RNA: {rna['Gene name'].nunique():,} genes x "
           f"{rna.Tissue.nunique()} tissues")
-    print(f"  HPA normal IHC:    {ihc['Gene name'].nunique():,} genes x "
-          f"{ihc.Tissue.nunique()} tissues")
+    print(f"  HPA normal IHC:    {n_ihc_genes_raw:,} genes x "
+          f"{ihc.Tissue.nunique()} tissues (before the reliability filter)")
 
     # ---- RNA arm ---------------------------------------------------------
     rna = rna.rename(columns={"Gene name": "gene", "Tissue": "tissue", "nTPM": "ntpm"})
@@ -124,7 +125,9 @@ def run(candidates: pd.DataFrame | None = None) -> pd.DataFrame:
     C.write_provenance("s5", {
         "hpa_rna_genes": int(rna.gene.nunique()),
         "hpa_rna_tissues": int(rna.tissue.nunique()),
+        "hpa_ihc_genes_total": n_ihc_genes_raw,
         "hpa_ihc_genes": int(ihc.gene.nunique()),
+        "hpa_ihc_reliability_kept": sorted(GOOD_RELIABILITY),
         "hpa_ihc_tissues": int(ihc.tissue.nunique()),
         "candidates_scored": int(len(df) - n_default),
         "candidates_default_safety": n_default,

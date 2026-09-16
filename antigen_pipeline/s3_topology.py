@@ -26,8 +26,11 @@ def _location_verdict(row) -> tuple[bool, str]:
     membrane protein)' means the plasma membrane. Matching substrings across
     the whole string confuses the two, so each entry is judged on its own.
     """
-    raw = str(row.uniprot_subcellular)
-    if raw.lower() in ("nan", ""):
+    value = row.uniprot_subcellular
+    # missing reaches here as None in memory and as NaN after a CSV round-trip;
+    # both must behave the same or the step is not reproducible
+    raw = "" if value is None or pd.isna(value) else str(value)
+    if raw.strip().lower() in ("nan", "none", ""):
         # no annotation: SURFY's own surface call and the parsed topology decide
         return True, ""
     entries = [e.strip().lower() for e in raw.split(";") if e.strip()]

@@ -1,11 +1,11 @@
 {
-  "candidates": 2625,
+  "candidates": 2626,
   "depmap_genes": 18443,
   "depmap_used_as_filter": false,
   "median_gene_effect_all_candidates": -0.012248282844306391,
-  "open_targets_hits": 2361,
+  "open_targets_hits": 2362,
   "surface_confirmation_tiers": {
-    "Open Targets confirmed": 868,
+    "Open Targets confirmed": 869,
     "experimental (CSPA/GPI)": 1217,
     "unconfirmed (ML prediction only)": 540
   },

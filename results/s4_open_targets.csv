@@ -2360,3 +2360,4 @@ ENSG00000198246,SLC29A3,UniProt loc high conf,0.7,True,uniprot:Lysosome membrane
 ENSG00000204278,TMEM235,UniProt SigP or TMHMM,0.45,False,uniprot:Membrane ; Multi-pass membrane protein; uniprot:Endoplasmic reticulum,False,0,,
 ENSG00000213088,ACKR1,GO CC high conf,0.65,False,uniprot:Early endosome; uniprot:Recycling endosome; uniprot:Membrane; Multi-pass membrane protein,False,0,,
 ENSG00000241399,CD302,UniProt SigP or TMHMM,0.45,True,"uniprot:Cell membrane ; Single-pass type I membrane protein; uniprot:Cell projection, filopodium; uniprot:Cytoplasm, cell cortex; uniprot:Cell projection, microvillus",False,0,,
+ENSG00000185716,MOSMO,UniProt loc med conf,0.55,True,"uniprot:Cell projection, cilium membrane; Multi-pass membrane protein; uniprot:Cell membrane; Multi- pass membrane protein",False,0,,

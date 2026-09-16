@@ -1,5 +1,5 @@
 {
-  "accessible_without_expression": 119,
+  "accessible_without_expression": 120,
   "candidates_scored": 379,
   "min_epithelial_detection": 0.1,
   "score_formula": "geometric mean of tumour_quality, safety_coefficient and consensus_multiplier (cube root of their product; a monotone transform, so ranks are those of the raw product)",

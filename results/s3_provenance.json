@@ -1,8 +1,8 @@
 {
-  "accessible": 2625,
-  "excluded": 174,
+  "accessible": 2626,
+  "excluded": 173,
   "exclusions_by_class": {
-    "localisation": 104,
+    "localisation": 103,
     "no extracellular segment >= 25 aa": 70
   },
   "exclusions_detail": {

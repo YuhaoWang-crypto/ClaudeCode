@@ -1,8 +1,14 @@
 {
-  "candidates_default_safety": 139,
+  "candidates_default_safety": 140,
   "candidates_scored": 2486,
   "default_value": 0.7,
   "hpa_ihc_genes": 11152,
+  "hpa_ihc_genes_total": 15306,
+  "hpa_ihc_reliability_kept": [
+    "Approved",
+    "Enhanced",
+    "Supported"
+  ],
   "hpa_ihc_tissues": 59,
   "hpa_rna_genes": 20151,
   "hpa_rna_tissues": 51,
