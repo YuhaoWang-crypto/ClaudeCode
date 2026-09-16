@@ -1,0 +1,69 @@
+endpoint,property,drug,role,score,rank_in_panel,above_0.5,source
+hERG,hERG blockade / known TdP risk,Terfenadine,positive control,0.97,3,True,CredibleMeds known-risk list; terfenadine & cisapride withdrawn for QT
+hERG,hERG blockade / known TdP risk,Cisapride,positive control,0.977,2,True,CredibleMeds known-risk list; terfenadine & cisapride withdrawn for QT
+hERG,hERG blockade / known TdP risk,Amiodarone,positive control,0.952,7,True,CredibleMeds known-risk list; terfenadine & cisapride withdrawn for QT
+hERG,hERG blockade / known TdP risk,Haloperidol,positive control,0.946,9,True,CredibleMeds known-risk list; terfenadine & cisapride withdrawn for QT
+hERG,hERG blockade / known TdP risk,Quinidine,positive control,0.873,13,True,CredibleMeds known-risk list; terfenadine & cisapride withdrawn for QT
+hERG,hERG blockade / known TdP risk,Metformin,negative control,0.043,29,False,CredibleMeds known-risk list; terfenadine & cisapride withdrawn for QT
+hERG,hERG blockade / known TdP risk,Aspirin,negative control,0.021,30,False,CredibleMeds known-risk list; terfenadine & cisapride withdrawn for QT
+hERG,hERG blockade / known TdP risk,Ibuprofen,negative control,0.127,25,False,CredibleMeds known-risk list; terfenadine & cisapride withdrawn for QT
+hERG,hERG blockade / known TdP risk,Acetaminophen,negative control,0.096,26,False,CredibleMeds known-risk list; terfenadine & cisapride withdrawn for QT
+hERG,hERG blockade / known TdP risk,Caffeine,negative control,0.048,28,False,CredibleMeds known-risk list; terfenadine & cisapride withdrawn for QT
+hERG,hERG blockade / known TdP risk,Ciprofloxacin,negative control,0.091,27,False,CredibleMeds known-risk list; terfenadine & cisapride withdrawn for QT
+CYP3A4_Veith,CYP3A4 inhibition,Ketoconazole,positive control,0.992,1,True,"FDA clinical index inhibitors (ketoconazole strong, verapamil moderate)"
+CYP3A4_Veith,CYP3A4 inhibition,Verapamil,positive control,0.912,3,True,"FDA clinical index inhibitors (ketoconazole strong, verapamil moderate)"
+CYP3A4_Veith,CYP3A4 inhibition,Metformin,negative control,0.0,30,False,"FDA clinical index inhibitors (ketoconazole strong, verapamil moderate)"
+CYP3A4_Veith,CYP3A4 inhibition,Aspirin,negative control,0.0,29,False,"FDA clinical index inhibitors (ketoconazole strong, verapamil moderate)"
+CYP3A4_Veith,CYP3A4 inhibition,Caffeine,negative control,0.004,27,False,"FDA clinical index inhibitors (ketoconazole strong, verapamil moderate)"
+CYP3A4_Veith,CYP3A4 inhibition,Acetaminophen,negative control,0.012,25,False,"FDA clinical index inhibitors (ketoconazole strong, verapamil moderate)"
+CYP3A4_Veith,CYP3A4 inhibition,Ibuprofen,negative control,0.011,26,False,"FDA clinical index inhibitors (ketoconazole strong, verapamil moderate)"
+CYP2D6_Veith,CYP2D6 inhibition,Quinidine,positive control,0.598,8,True,"FDA clinical index inhibitors (quinidine/fluoxetine strong, sertraline moderate)"
+CYP2D6_Veith,CYP2D6 inhibition,Fluoxetine,positive control,0.664,5,True,"FDA clinical index inhibitors (quinidine/fluoxetine strong, sertraline moderate)"
+CYP2D6_Veith,CYP2D6 inhibition,Sertraline,positive control,0.837,2,True,"FDA clinical index inhibitors (quinidine/fluoxetine strong, sertraline moderate)"
+CYP2D6_Veith,CYP2D6 inhibition,Metformin,negative control,0.034,27,False,"FDA clinical index inhibitors (quinidine/fluoxetine strong, sertraline moderate)"
+CYP2D6_Veith,CYP2D6 inhibition,Aspirin,negative control,0.007,29,False,"FDA clinical index inhibitors (quinidine/fluoxetine strong, sertraline moderate)"
+CYP2D6_Veith,CYP2D6 inhibition,Caffeine,negative control,0.001,30,False,"FDA clinical index inhibitors (quinidine/fluoxetine strong, sertraline moderate)"
+CYP2D6_Veith,CYP2D6 inhibition,Ciprofloxacin,negative control,0.026,28,False,"FDA clinical index inhibitors (quinidine/fluoxetine strong, sertraline moderate)"
+CYP2D6_Veith,CYP2D6 inhibition,Ibuprofen,negative control,0.039,25,False,"FDA clinical index inhibitors (quinidine/fluoxetine strong, sertraline moderate)"
+CYP1A2_Veith,CYP1A2 inhibition,Ciprofloxacin,positive control,0.015,26,False,"FDA clinical index inhibitor (ciprofloxacin, strong)"
+CYP1A2_Veith,CYP1A2 inhibition,Metformin,negative control,0.006,28,False,"FDA clinical index inhibitor (ciprofloxacin, strong)"
+CYP1A2_Veith,CYP1A2 inhibition,Aspirin,negative control,0.015,27,False,"FDA clinical index inhibitor (ciprofloxacin, strong)"
+CYP1A2_Veith,CYP1A2 inhibition,Ibuprofen,negative control,0.025,24,False,"FDA clinical index inhibitor (ciprofloxacin, strong)"
+Pgp_Broccatelli,P-glycoprotein inhibition,Verapamil,positive control,0.869,7,True,FDA clinical index P-gp inhibitors
+Pgp_Broccatelli,P-glycoprotein inhibition,Ketoconazole,positive control,0.977,1,True,FDA clinical index P-gp inhibitors
+Pgp_Broccatelli,P-glycoprotein inhibition,Quinidine,positive control,0.355,21,False,FDA clinical index P-gp inhibitors
+Pgp_Broccatelli,P-glycoprotein inhibition,Amiodarone,positive control,0.897,5,True,FDA clinical index P-gp inhibitors
+Pgp_Broccatelli,P-glycoprotein inhibition,Metformin,negative control,0.0,30,False,FDA clinical index P-gp inhibitors
+Pgp_Broccatelli,P-glycoprotein inhibition,Aspirin,negative control,0.005,28,False,FDA clinical index P-gp inhibitors
+Pgp_Broccatelli,P-glycoprotein inhibition,Caffeine,negative control,0.001,29,False,FDA clinical index P-gp inhibitors
+Pgp_Broccatelli,P-glycoprotein inhibition,Acetaminophen,negative control,0.016,26,False,FDA clinical index P-gp inhibitors
+NR-ER,Estrogen receptor activity,Tamoxifen,positive control,0.184,5,False,Tamoxifen is an approved selective estrogen-receptor modulator
+NR-ER,Estrogen receptor activity,Metformin,negative control,0.025,28,False,Tamoxifen is an approved selective estrogen-receptor modulator
+NR-ER,Estrogen receptor activity,Caffeine,negative control,0.028,27,False,Tamoxifen is an approved selective estrogen-receptor modulator
+NR-ER,Estrogen receptor activity,Aspirin,negative control,0.063,23,False,Tamoxifen is an approved selective estrogen-receptor modulator
+NR-ER,Estrogen receptor activity,Ciprofloxacin,negative control,0.132,13,False,Tamoxifen is an approved selective estrogen-receptor modulator
+NR-AR,Androgen receptor activity,Bicalutamide,positive control,0.056,6,False,Bicalutamide is an approved androgen-receptor antagonist
+NR-AR,Androgen receptor activity,Metformin,negative control,0.012,28,False,Bicalutamide is an approved androgen-receptor antagonist
+NR-AR,Androgen receptor activity,Caffeine,negative control,0.012,29,False,Bicalutamide is an approved androgen-receptor antagonist
+NR-AR,Androgen receptor activity,Aspirin,negative control,0.02,20,False,Bicalutamide is an approved androgen-receptor antagonist
+NR-AR,Androgen receptor activity,Ciprofloxacin,negative control,0.095,4,False,Bicalutamide is an approved androgen-receptor antagonist
+NR-Aromatase,Aromatase (CYP19A1) activity,Anastrozole,positive control,0.272,6,False,Anastrozole is an approved aromatase inhibitor; ketoconazole inhibits CYP19A1
+NR-Aromatase,Aromatase (CYP19A1) activity,Ketoconazole,positive control,0.681,1,True,Anastrozole is an approved aromatase inhibitor; ketoconazole inhibits CYP19A1
+NR-Aromatase,Aromatase (CYP19A1) activity,Metformin,negative control,0.001,29,False,Anastrozole is an approved aromatase inhibitor; ketoconazole inhibits CYP19A1
+NR-Aromatase,Aromatase (CYP19A1) activity,Caffeine,negative control,0.001,30,False,Anastrozole is an approved aromatase inhibitor; ketoconazole inhibits CYP19A1
+NR-Aromatase,Aromatase (CYP19A1) activity,Aspirin,negative control,0.002,28,False,Anastrozole is an approved aromatase inhibitor; ketoconazole inhibits CYP19A1
+NR-Aromatase,Aromatase (CYP19A1) activity,Ciprofloxacin,negative control,0.004,27,False,Anastrozole is an approved aromatase inhibitor; ketoconazole inhibits CYP19A1
+NR-PPAR-gamma,PPAR-gamma activity,Rosiglitazone,positive control,0.299,2,False,Rosiglitazone is an approved PPAR-gamma agonist
+NR-PPAR-gamma,PPAR-gamma activity,Metformin,negative control,0.0,30,False,Rosiglitazone is an approved PPAR-gamma agonist
+NR-PPAR-gamma,PPAR-gamma activity,Caffeine,negative control,0.0,29,False,Rosiglitazone is an approved PPAR-gamma agonist
+NR-PPAR-gamma,PPAR-gamma activity,Aspirin,negative control,0.014,16,False,Rosiglitazone is an approved PPAR-gamma agonist
+NR-PPAR-gamma,PPAR-gamma activity,Ciprofloxacin,negative control,0.004,24,False,Rosiglitazone is an approved PPAR-gamma agonist
+BBB_Martins,Blood-brain-barrier penetration,Diazepam,positive control,0.984,2,True,CNS-active drugs vs peripherally restricted drugs
+BBB_Martins,Blood-brain-barrier penetration,Caffeine,positive control,0.982,3,True,CNS-active drugs vs peripherally restricted drugs
+BBB_Martins,Blood-brain-barrier penetration,Haloperidol,positive control,0.981,4,True,CNS-active drugs vs peripherally restricted drugs
+BBB_Martins,Blood-brain-barrier penetration,Fluoxetine,positive control,0.976,5,True,CNS-active drugs vs peripherally restricted drugs
+BBB_Martins,Blood-brain-barrier penetration,Risperidone,positive control,0.987,1,True,CNS-active drugs vs peripherally restricted drugs
+BBB_Martins,Blood-brain-barrier penetration,Propranolol,positive control,0.95,9,True,CNS-active drugs vs peripherally restricted drugs
+BBB_Martins,Blood-brain-barrier penetration,Metformin,negative control,0.397,29,False,CNS-active drugs vs peripherally restricted drugs
+BBB_Martins,Blood-brain-barrier penetration,Atorvastatin,negative control,0.235,30,False,CNS-active drugs vs peripherally restricted drugs
+BBB_Martins,Blood-brain-barrier penetration,Ciprofloxacin,negative control,0.468,26,False,CNS-active drugs vs peripherally restricted drugs

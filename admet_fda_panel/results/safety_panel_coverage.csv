@@ -1,0 +1,15 @@
+target_family,panel_targets,admet_ai_endpoint,in_bowes44,in_safetyscreen87,panel_positives_in_this_study,n_positive_of_30,positive_control_recovered,verdict,note
+离子通道,hERG (Kv11.1),hERG,是,是,"Imatinib 0.98, Cisapride 0.98, Terfenadine 0.97 等 21 个",21,5/5,mapped and validated,唯一干净映射。面板为膜制备结合测定，TDC 标签多源于膜片钳 IC50，靶点相同但测定原理不同
+核受体,雄激素受体 (AR),NR-AR,是,是,无 (最高: Quinidine 0.13),0,0/1,nominal mapping only - validation failed,靶点名义对应，但面板为放射配体结合测定，Tox21 NR-AR 为激动模式转录报告测定；本报告第 4.2 节验证显示比卡鲁胺预测值仅 0.06，不可用
+核受体,糖皮质激素受体 (GR),,是,是,,,,requires in vitro assay,ADMET-AI / Tox21 终点集中无对应终点
+核受体,雌激素受体 ERα、PPARγ、PR、RARα,NR-ER,否,是,无 (最高: Warfarin 0.37),0,0/1,nominal mapping only (87 panel) - validation failed,仅存在于 SafetyScreen87，不在 Bowes-44 中。ER 与 PPARγ 有名义对应的 Tox21 终点，但第 4.2 节验证显示他莫昔芬 0.18、罗格列酮 0.30，均不可用
+GPCR,5-HT2B（瓣膜病）、5-HT1A/1B/2A、多巴胺 D1/D2S、肾上腺素 α1A/α2A/β1/β2、毒蕈碱 M1/M2/M3、组胺 H1/H2、阿片 µ/δ/κ 等共 24 个,,是,是,,,,requires in vitro assay,全部无计算终点。这是覆盖缺口最大的家族（占 Bowes-44 的 54.5%）。5-HT2B 的风险来自激动作用，方向性判断本身即超出当前预测能力
+离子通道,Cav1.2（L-型钙通道）、Nav1.5、GABA-A(BZD)、NMDA、nAChR α4β2、5-HT3、Kv 等其余 7 个,,是,是,,,,requires in vitro assay,无计算终点。CiPA 框架下 Cav1.2 与 Nav1.5 对整合致心律失常风险判断至关重要，而 Bowes-44 本身仅以通用型结合测定覆盖，SafetyScreen87 才细化到分子亚型
+酶（非激酶）,COX-1、COX-2、乙酰胆碱酯酶、MAO-A、PDE3A、PDE4D2,,是,是,,,,requires in vitro assay,无计算终点。COX-1（消化道出血）、MAO-A（高血压危象）、PDE3A（心衰死亡率）、PDE4D2（恶心呕吐）均为有明确临床后果的靶点
+转运体,DAT、NET、SERT,,是,是,,,,requires in vitro assay,无计算终点。ADMET-AI 的 P-糖蛋白终点不属于本面板（见下）
+激酶,Lck（Bowes-44）；Safety-77 扩展至 20 个激酶,,是,是,,,,requires in vitro assay,无计算终点。这是 Safety-77 相对 Bowes-44 最大的扩充方向，而计算覆盖度为零
+不属于面板 (DMPK/Tox21),CYP1A2 / 2C9 / 2C19 / 2D6 / 3A4 抑制,CYP3A4_Veith,否,否,"Ketoconazole 0.99, Anastrozole 0.93, Verapamil 0.91 等 11 个",11,2/2,not a secondary-pharmacology panel target,不属于三个面板中的任何一个。CYP 抑制属于 DMPK / 药物相互作用 (DDI) 学科，依 FDA/EMA 的 DDI 指导原则执行，在 CRO 的业务线上也与安全药理学分属不同部门
+不属于面板 (DMPK/Tox21),P-糖蛋白 (ABCB1) 抑制,Pgp_Broccatelli,否,否,"Ketoconazole 0.98, Terfenadine 0.95, Tamoxifen 0.94 等 18 个",18,3/4,not a secondary-pharmacology panel target,不属于三个面板。Bowes-44 的 3 个转运体仅为 DAT/NET/SERT；SafetyScreen87 增加的是 Na⁺/K⁺-ATP 酶、ENT1、GAT-1，均非 ABC 外排转运体。P-gp 属于 DMPK 吸收分布与 DDI 终点
+不属于面板 (DMPK/Tox21),芳香化酶 (CYP19A1),NR-Aromatase,否,否,Ketoconazole 0.68,1,1/2,not a secondary-pharmacology panel target,不在任何一个面板中。属于 Tox21 内分泌干扰筛查终点
+不属于面板 (DMPK/Tox21),芳香烃受体 (AhR),NR-AhR,否,否,"Omeprazole 0.83, Gefitinib 0.82, Imatinib 0.69",3,,not a secondary-pharmacology panel target,不在任何一个面板中。AhR 为 bHLH-PAS 类转录因子，并非经典核受体，属于 Tox21 / CALUX 毒理学终点
+不属于面板 (DMPK/Tox21),BSEP (ABCB11) 抑制,(none),否,否,,,,not a secondary-pharmacology panel target,不在任何一个面板中，且 ADMET-AI 亦无对应终点。胆汁盐外排泵抑制与胆汁淤积型肝损伤相关，需专门的肝转运体测定（BSEP 转染的倒置膜囊泡或三明治培养肝细胞）

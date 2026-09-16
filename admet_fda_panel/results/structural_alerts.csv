@@ -1,0 +1,15 @@
+name,catalog,alert
+Aspirin,BRENK,phenol_ester
+Acetaminophen,BRENK,hydroquinone
+Warfarin,BRENK,cumarine
+Metformin,BRENK,imine_1
+Metformin,BRENK,imine_2
+Omeprazole,BRENK,charged_oxygen_or_sulfur_atoms
+Amiodarone,BRENK,iodine
+Cisapride,BRENK,Aliphatic_long_chain
+Cisapride,BRENK,aniline
+Ketoconazole,PAINS_A,anil_di_alk_C(246)
+Gefitinib,BRENK,Aliphatic_long_chain
+Tamoxifen,BRENK,stilbene
+Rosiglitazone,BRENK,thioester
+Quinidine,BRENK,isolated_alkene
