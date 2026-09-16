@@ -55,6 +55,15 @@ def main():
         r20b = None
         print(f"M20b exact-biomodels skipped ({type(e).__name__}: {e})\n")
     r22 = m22_snic_mixed.report();           print()
+    try:
+        # Reads the committed Proteinbase tables, so it runs offline; only a
+        # deleted/unbuilt data/proteinbase/ needs the network.
+        from grn_pipeline import m23_proteinbase_kd
+        r23 = m23_proteinbase_kd.report();   print()
+    except Exception as e:
+        r23 = None
+        print(f"M23 Proteinbase recalibration skipped "
+              f"({type(e).__name__}: {e})\n")
 
     print("=" * 68)
     print("CONSOLIDATED SUMMARY")
@@ -129,6 +138,13 @@ def main():
     print(f"M22 SNIC    : mixed saddle-node+oscillation; period diverges "
           f"(T~1/sqrt, slope {r22['slope']:.2f}) -> frequency->0 signature "
           f"distinct from Hopf and pure saddle-node")
+    if r23:
+        d = r23["discrimination"][r23["best_metric"]]
+        print(f"M23 recalib : Proteinbase (Adaptyv, ODC-BY) gives "
+              f"{r23['n_labelled']} measured design/target pairs incl. "
+              f"{r23['n_labelled'] - r23['n_binders']} NON-binders; co-folding "
+              f"confidence predicts IF a design binds (AUROC {d[0]:.2f}) but "
+              f"NOT how tightly -> M10's n=5 affinity claim does not scale")
     print("\nAbstract, measurable biomarker candidates produced:")
     print("  * irreducible-core node identity        (M1 quotient)")
     print("  * deficiency delta / distance-to-bistability (M2)")

@@ -1,2 +1,7 @@
 __pycache__/
 *.pyc
+
+# Proteinbase raw snapshot + derived sqlite (40 MB; rebuild with
+# python3 -m grn_pipeline.proteinbase_db --rebuild)
+figures/_pb_cache/
+*.db

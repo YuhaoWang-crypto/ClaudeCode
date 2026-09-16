@@ -29,6 +29,22 @@ literature-grounded systems where every number is *computed*, not asserted.
 | `m21_oscillators` | extend framework to oscillatory (Hopf) pathways | Goodwin (circadian), p53-Mdm2, Brusselator (glycolytic) | approaching Hopf: variance rises AND a spectral peak sharpens at the intrinsic frequency — distinct from saddle-node |
 | `m20b_biomodels_exact` | fetch + simulate EXACT curated models (fills M20 gap) | Markevich2004 (BIOMD27), Legewie2006 apoptosis (BIOMD102) | download method = biomodels GitHub mirror + libRoadRunner; official Km5=78 confirms hand-coded M15 (states to the decimal); Legewie caspase switch bistable in XIAP synthesis |
 | `m22_snic_mixed` | mixed bifurcation: saddle-node ON a limit cycle (SNIC) | θ / Ermentrout-Kopell normal form (cell-cycle / excitable) | finite-amplitude spikes whose period diverges (T~π/√I, log-log slope −0.50; frequency→0) — signature distinct from both Hopf and pure saddle-node; ISI mean+CV both grow |
+| `proteinbase_db` | **data layer**: local mirror of an open measured-Kd release | Proteinbase / Adaptyv Bio, snapshot 28_01_2026 (ODC-BY) | 5,253 designs · 2,630 assayed (design, target) pairs · **2,161 measured NON-binders** · 435 Kd; QC caught 2 constant score columns in the upstream release |
+| `m23_proteinbase_kd` | recalibrate M10's binding claim on that truth set | 1,025 Nipah-glycoprotein-G designs with measured outcomes | co-folding confidence predicts **IF** a design binds (AUROC 0.698, CI 0.645–0.752) but **not how tightly** (ρ=+0.02 within target) — M10's n=5 affinity claim does not scale; top-100 hit rate 2.4× base |
+
+## Data
+
+`data/proteinbase/` holds the derived tables (committed, ~0.7 MB gzipped) from
+[Proteinbase](https://proteinbase.com/), Adaptyv Bio's open release of
+experimental protein-design data. The 40 MB raw snapshot is cached, not
+committed; rebuild it with:
+
+```bash
+python3 -m grn_pipeline.proteinbase_db --rebuild   # re-fetch + regenerate
+python3 -m grn_pipeline.proteinbase_db --sqlite    # queryable .db + `measured` view
+```
+
+> This work used Proteinbase by Adaptyv Bio under ODC-BY license.
 
 ## Run
 

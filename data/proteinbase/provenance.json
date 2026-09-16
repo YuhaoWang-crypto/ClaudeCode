@@ -1,0 +1,13 @@
+{
+  "source": "Proteinbase (Adaptyv Bio)",
+  "url": "https://storage.proteinbase.com/proteinbase_all_data_28_01_2026.csv",
+  "snapshot": "28_01_2026",
+  "license": "ODC-By 1.0 (Open Data Commons Attribution)",
+  "attribution": "This work used Proteinbase by Adaptyv Bio under ODC-BY license",
+  "raw_bytes": 40224478,
+  "raw_sha256": "51c467edb1ec4cab647fd7739d760521f811e0d2310577f9565ce8749446d8ef",
+  "n_designs": 5253,
+  "n_complexes": 5354,
+  "retrieved_utc": "2026-09-16T19:49:40Z",
+  "built_by": "grn_pipeline.proteinbase_db"
+}

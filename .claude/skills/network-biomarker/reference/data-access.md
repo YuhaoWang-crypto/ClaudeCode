@@ -66,5 +66,52 @@ ChEMBL (targets, IC50, mechanism), Boltz-2.1 (structure + binding — remember t
 disable the reactive-group SMARTS filter for covalent warheads), Inductive Bio
 (physchem), ClinicalTrials (endpoints), PubMed / bioRxiv (methods). All were
 used live in M5–M10. Validate computational rankings against measured values
-(M10): use Boltz `optimization_score` (tracks potency, ρ≈+0.6), **not**
+(M10): use Boltz `optimization_score` (tracks potency, ρ≈+0.6 at n=5), **not**
 `binding_confidence` (pose confidence, ρ≈−0.2).
+
+⚠️ **M23 supersedes the strength of that M10 advice.** At n=5 a ρ of +0.6 has a
+CI of roughly [−0.5, +0.95] — it cannot separate a useful predictor from noise.
+Re-tested on 1,025 measured protein-binder outcomes (below), co-folding
+confidence predicts **whether** a design binds (AUROC ≈0.70) but **not how
+tightly** (ρ≈+0.02 within a target). Treat any "our score correlates with
+affinity" claim — including M10's — as unmeasured until it has been scored
+against non-binders too.
+
+## Measured binding affinity + NEGATIVES: Proteinbase (Adaptyv Bio)
+
+**This is the working recipe for a real binding truth set.** One 40 MB CSV,
+no auth, fetchable through the proxy, ODC-BY:
+
+```
+https://storage.proteinbase.com/proteinbase_all_data_28_01_2026.csv
+```
+
+Snapshot 28_01_2026: 5,253 designs, 2,630 assayed (design, target) pairs,
+**2,161 measured non-binders**, 435 Kd (with kon/koff), one lab, standardised
+protocols. `grn_pipeline/proteinbase_db.py` fetches, normalises and QCs it;
+`m23_proteinbase_kd.py` is the worked analysis.
+
+Traps this cost real time to find — check for all of them in any new snapshot:
+
+- The raw shape is one row per design with every measurement buried in a nested
+  `evaluations` JSON array. Normalise to **(design, target)** for anything
+  interface-level: 113 designs are assayed against two targets, and collapsing
+  to the design alone silently merges two different experiments.
+- **Constant columns.** `boltz2_pdockq` (0.0183) and `boltz2_pdockq2` (0.0073)
+  are constant across all 3,796 rows in this snapshot. A constant column scores
+  AUROC exactly **0.500**, which reads like a legitimate null result rather than
+  a broken column. Always check `len(set(values)) > 1` before believing a null.
+- **"None" is data, not missing.** It is the label for a measured non-binder.
+  Dropping it destroys the negatives, which are the whole point of this release.
+- **Two platforms.** Kd comes from both SPR (~193) and BLI (~236) with different
+  medians; stratify or the platform offset enters your correlation.
+- **Aggregate Kd as a geometric mean** of replicates — it spans 5 orders of
+  magnitude, so an arithmetic mean is dragged to the weakest replicate. The
+  replicate spread (median 1.44×) is the **noise floor**: the ceiling on any
+  correlation, and the number that tells you whether a weak result is the
+  assay's fault (here it is not).
+- Adaptyv's own `control-*` constructs are known binders — exclude them before
+  computing a hit rate or an AUROC.
+
+Attribution is required by the licence and must survive into any derived work:
+`This work used Proteinbase by Adaptyv Bio under ODC-BY license`.
