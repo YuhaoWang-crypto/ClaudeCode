@@ -1,0 +1,50 @@
+{
+  "allele_support": {
+    "HLA-A*32:01": true,
+    "HLA-B*57:01": true,
+    "H2-IAd": true
+  },
+  "control_ova_iad": {
+    "rank": 0.17,
+    "core": "VHAAHAEIN",
+    "call": "strong"
+  },
+  "control_b5701": [
+    {
+      "allele": "HLA-B*57:01",
+      "rank": 0.09,
+      "call": "strong"
+    },
+    {
+      "allele": "HLA-A*32:01",
+      "rank": 0.71,
+      "call": "weak"
+    }
+  ],
+  "shuffle_control": {
+    "real_rank": 0.09,
+    "shuffle_median": 31.0,
+    "shuffle_best": 0.18,
+    "n_better": 0,
+    "n_shuffles": 20
+  },
+  "d_amino_acid_blind_spot": {
+    "peptide": "ISPRTLNAW",
+    "d_positions": [
+      2,
+      4,
+      6,
+      8
+    ],
+    "L_form_string": "ISPRTLNAW",
+    "D_form_string_as_the_model_sees_it": "ISPRTLNAW",
+    "strings_identical": true,
+    "implication": "Any sequence-based MHC predictor returns the same number for both, so it cannot inform the L-vs-D comparison.",
+    "also_unrepresentable": [
+      "N-terminal acetylation",
+      "C-terminal amidation",
+      "TFA-to-acetate counter-ion form",
+      "diblock/uniblock assembly state"
+    ]
+  }
+}
