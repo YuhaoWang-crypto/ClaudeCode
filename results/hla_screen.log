@@ -1,0 +1,37 @@
+==========================================================================
+1. Class II, the mouse step: does the pipeline recover the published
+   I-Ad register of cOVA323-339, which DO11.10 is specific for?
+   cOVA_323_339 on H2-IAd: core VHAAHAEIN  %rank 0.17  -> STRONG
+   Published core for this epitope is ISQAVHAAHAEINEAGR residues 327-335.
+   A correct core here is the pipeline validating itself.
+
+==========================================================================
+2. Class I, positive controls: do known B*57:01 epitopes score as
+   binders, and does a known A*02:01 epitope score on its own allele?
+allele      HLA-A*02:01  HLA-A*32:01  HLA-B*57:01
+peptide_id                                       
+IW9_Gag           20.00         0.71         0.09
+KF11_Gag           9.10         0.33         0.11
+SL9_Gag            0.06         0.12         6.90
+TW10_Gag          39.00         1.50         0.06
+
+   Read the diagonal: each epitope should score best on its own
+   restricting allele and worse elsewhere. Off-diagonal is the
+   specificity control -- a predictor that calls everything a binder
+   for every allele is useless for deciding which tetramers to make.
+
+==========================================================================
+3. The null: what a non-binder looks like, per allele.
+   HLA-A*32:01: 60 random 9-mers, median %rank 29.0, 5% would be called weak-or-better by chance
+   HLA-B*57:01: 60 random 9-mers, median %rank 33.0, 8% would be called weak-or-better by chance
+
+==========================================================================
+4. The refusal: D-containing peptides are not scored.
+   9mer_core_test_4D: D-flagged = True  -> refused
+   D-Ala_diblock_test: D-flagged = True  -> refused
+   Every sequence-based MHC predictor is trained on L-peptides only.
+   A %rank for a D-substituted peptide describes a molecule that was
+   never in the training set. The RFP's 9-mer core test and 30-mer
+   diblock test both carry 4 D-residues.
+
+wrote results/hla_screen.json

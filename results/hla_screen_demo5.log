@@ -1,0 +1,18 @@
+REFUSED uniblock_5_4D: D-residues are outside every sequence predictor's applicability domain
+peptide_id      allele   peptide  percentile_rank    score       call
+uniblock_3 HLA-A*32:01 SLYNTVATL             0.12 0.465000     STRONG
+uniblock_1 HLA-A*32:01 ISPRTLNAW             0.71 0.104000       weak
+uniblock_2 HLA-A*32:01 KAFSPEVIP             6.90 0.002490 non-binder
+uniblock_4 HLA-A*32:01 TSTLQEQIG            69.00 0.000003 non-binder
+uniblock_1 HLA-B*57:01 ISPRTLNAW             0.09 0.923000     STRONG
+uniblock_2 HLA-B*57:01 KAFSPEVIP             5.20 0.014800 non-binder
+uniblock_3 HLA-B*57:01 SLYNTVATL             6.90 0.008290 non-binder
+uniblock_4 HLA-B*57:01 TSTLQEQIG            21.00 0.000837 non-binder
+
+assay-design flags
+  binds BOTH alleles (1): uniblock_1
+    -> tetramer staining cannot attribute a T cell to one allele for these
+  binds NEITHER (2): uniblock_2, uniblock_4
+    -> a complex that will not fold; synthesising it spends the budget for no readout
+
+wrote results/hla_screen_demo5.json

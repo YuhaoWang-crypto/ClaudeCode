@@ -1,0 +1,71 @@
+{
+  "scored": [
+    {
+      "peptide_id": "uniblock_3",
+      "allele": "HLA-A*32:01",
+      "peptide": "SLYNTVATL",
+      "percentile_rank": 0.12,
+      "score": 0.465,
+      "call": "STRONG"
+    },
+    {
+      "peptide_id": "uniblock_1",
+      "allele": "HLA-A*32:01",
+      "peptide": "ISPRTLNAW",
+      "percentile_rank": 0.71,
+      "score": 0.104,
+      "call": "weak"
+    },
+    {
+      "peptide_id": "uniblock_2",
+      "allele": "HLA-A*32:01",
+      "peptide": "KAFSPEVIP",
+      "percentile_rank": 6.9,
+      "score": 0.00249,
+      "call": "non-binder"
+    },
+    {
+      "peptide_id": "uniblock_4",
+      "allele": "HLA-A*32:01",
+      "peptide": "TSTLQEQIG",
+      "percentile_rank": 69.0,
+      "score": 3e-06,
+      "call": "non-binder"
+    },
+    {
+      "peptide_id": "uniblock_1",
+      "allele": "HLA-B*57:01",
+      "peptide": "ISPRTLNAW",
+      "percentile_rank": 0.09,
+      "score": 0.923,
+      "call": "STRONG"
+    },
+    {
+      "peptide_id": "uniblock_2",
+      "allele": "HLA-B*57:01",
+      "peptide": "KAFSPEVIP",
+      "percentile_rank": 5.2,
+      "score": 0.0148,
+      "call": "non-binder"
+    },
+    {
+      "peptide_id": "uniblock_3",
+      "allele": "HLA-B*57:01",
+      "peptide": "SLYNTVATL",
+      "percentile_rank": 6.9,
+      "score": 0.00829,
+      "call": "non-binder"
+    },
+    {
+      "peptide_id": "uniblock_4",
+      "allele": "HLA-B*57:01",
+      "peptide": "TSTLQEQIG",
+      "percentile_rank": 21.0,
+      "score": 0.000837,
+      "call": "non-binder"
+    }
+  ],
+  "refused": [
+    "uniblock_5_4D"
+  ]
+}

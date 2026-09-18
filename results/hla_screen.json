@@ -1,0 +1,111 @@
+{
+  "class_ii_ova": [
+    {
+      "peptide_id": "cOVA_323_339",
+      "allele": "H2-IAd",
+      "window": "SQAVHAAHAEINEAG",
+      "core": "VHAAHAEIN",
+      "percentile_rank": 0.17
+    }
+  ],
+  "class_i_controls": [
+    {
+      "peptide_id": "IW9_Gag",
+      "allele": "HLA-B*57:01",
+      "peptide": "ISPRTLNAW",
+      "percentile_rank": 0.09,
+      "score": 0.923
+    },
+    {
+      "peptide_id": "SL9_Gag",
+      "allele": "HLA-B*57:01",
+      "peptide": "SLYNTVATL",
+      "percentile_rank": 6.9,
+      "score": 0.00829
+    },
+    {
+      "peptide_id": "TW10_Gag",
+      "allele": "HLA-B*57:01",
+      "peptide": "TSTLQEQIGW",
+      "percentile_rank": 0.06,
+      "score": 0.95
+    },
+    {
+      "peptide_id": "KF11_Gag",
+      "allele": "HLA-B*57:01",
+      "peptide": "KAFSPEVIPMF",
+      "percentile_rank": 0.11,
+      "score": 0.905
+    },
+    {
+      "peptide_id": "SL9_Gag",
+      "allele": "HLA-A*02:01",
+      "peptide": "SLYNTVATL",
+      "percentile_rank": 0.06,
+      "score": 0.828
+    },
+    {
+      "peptide_id": "IW9_Gag",
+      "allele": "HLA-A*02:01",
+      "peptide": "ISPRTLNAW",
+      "percentile_rank": 20.0,
+      "score": 0.000427
+    },
+    {
+      "peptide_id": "TW10_Gag",
+      "allele": "HLA-A*02:01",
+      "peptide": "TSTLQEQIGW",
+      "percentile_rank": 39.0,
+      "score": 6.4e-05
+    },
+    {
+      "peptide_id": "KF11_Gag",
+      "allele": "HLA-A*02:01",
+      "peptide": "KAFSPEVIPMF",
+      "percentile_rank": 9.1,
+      "score": 0.00269
+    },
+    {
+      "peptide_id": "SL9_Gag",
+      "allele": "HLA-A*32:01",
+      "peptide": "SLYNTVATL",
+      "percentile_rank": 0.12,
+      "score": 0.465
+    },
+    {
+      "peptide_id": "IW9_Gag",
+      "allele": "HLA-A*32:01",
+      "peptide": "ISPRTLNAW",
+      "percentile_rank": 0.71,
+      "score": 0.104
+    },
+    {
+      "peptide_id": "TW10_Gag",
+      "allele": "HLA-A*32:01",
+      "peptide": "TSTLQEQIGW",
+      "percentile_rank": 1.5,
+      "score": 0.0399
+    },
+    {
+      "peptide_id": "KF11_Gag",
+      "allele": "HLA-A*32:01",
+      "peptide": "KAFSPEVIPMF",
+      "percentile_rank": 0.33,
+      "score": 0.235
+    }
+  ],
+  "null_by_allele": {
+    "HLA-A*32:01": {
+      "median": 29.0,
+      "q10": 3.79,
+      "frac_strong": 0.016666666666666666,
+      "frac_weak_or_better": 0.05
+    },
+    "HLA-B*57:01": {
+      "median": 33.0,
+      "q10": 6.340000000000001,
+      "frac_strong": 0.0,
+      "frac_weak_or_better": 0.08333333333333333
+    }
+  }
+}
