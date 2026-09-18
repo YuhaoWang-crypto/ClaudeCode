@@ -14,7 +14,8 @@ from grn_pipeline import (m1_symmetry, m2_crnt, m3_efm, m4_dnb_lyapunov,
                           m14_atlas, m15_markevich_mm, m16_erk_dnb,
                           m18_titration_benchmark,
                           m19_switch_library, m20_literature_bistable,
-                          m21_oscillators, m22_snic_mixed)
+                          m21_oscillators, m22_snic_mixed,
+                          m23_virtual_tcell)
 
 
 def main():
@@ -55,6 +56,7 @@ def main():
         r20b = None
         print(f"M20b exact-biomodels skipped ({type(e).__name__}: {e})\n")
     r22 = m22_snic_mixed.report();           print()
+    r23 = m23_virtual_tcell.report();        print()
 
     print("=" * 68)
     print("CONSOLIDATED SUMMARY")
@@ -126,6 +128,12 @@ def main():
         print(f"M20b exact  : fetched official BioModels via GitHub mirror + "
               f"libRoadRunner; Markevich Km5={r20b['km5']} confirms M15, "
               f"Legewie apoptosis bistable (XIAP {r20b['apop_window']})")
+    lo23, hi23 = (r23["bistable_window"] or (float("nan"),) * 2)
+    print(f"M23 T cell  : kinetic proofreading exponent -> N+1 (rigorous); "
+          f"a {r23['dose_span']:.0f}x ligand-dose change moves the quality "
+          f"threshold only {r23['threshold_spread']:.2f}x; ERK hysteresis "
+          f"window tau in [{lo23:.2f}, {hi23:.2f}] s. Ligand RANKING only - "
+          f"no pg/mL (see VIRTUAL_TCELL_REPORT.md)")
     print(f"M22 SNIC    : mixed saddle-node+oscillation; period diverges "
           f"(T~1/sqrt, slope {r22['slope']:.2f}) -> frequency->0 signature "
           f"distinct from Hopf and pure saddle-node")
