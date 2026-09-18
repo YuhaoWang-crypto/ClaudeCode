@@ -69,6 +69,18 @@ def main():
     except Exception as e:               # IEDB call is network-gated
         r25 = None
         print(f'M25 peptide-to-cytokine chain skipped ({type(e).__name__}: {e})\n')
+    try:
+        from grn_pipeline import m26_secretion_model
+        r26 = m26_secretion_model.report(); print()
+    except Exception as e:               # needs the TRAPS-seq cache + sklearn
+        r26 = None
+        print(f'M26 secretion model skipped ({type(e).__name__}: {e})\n')
+    try:
+        from grn_pipeline import m27_aim_response_audit
+        r27 = m27_aim_response_audit.report(); print()
+    except Exception as e:               # needs ~810 MB from Zenodo
+        r27 = None
+        print(f'M27 AIM-seq audit skipped ({type(e).__name__}: {e})\n')
 
     print("=" * 68)
     print("CONSOLIDATED SUMMARY")
@@ -159,6 +171,20 @@ def main():
                   f"(Spearman {pr['rho']:+.2f} overall, {pr['rho_strong']:+.2f} on the "
                   f"six stimulatory ones); chain runs from measured dwell time onward "
                   f"and outputs a ranking, never pg/mL")
+    if r26:
+        b = r26["best"]
+        print(f"M26 secretion: audited protocol (depth-residual target, "
+              f"leave-one-hashtag-out) - high-secretor AUC "
+              f"{b['IFNG']['boosted']:.2f} (IFN-g), {b['TNF']['boosted']:.2f} (TNF), "
+              f"{b['IL2']['boosted']:.2f} (IL-2); raw-count targets scored up to "
+              f"0.85 from capture depth alone")
+    if r27:
+        t = r27["tiers"].get("AIM+ vs AIM- (both stimulated)", {})
+        if t:
+            print(f"M27 AIM-seq : antigen response, leave-one-donor - RNA content "
+                  f"alone {t['0 depth'][0]:.3f}, full model {t['3 everything'][0]:.3f}; "
+                  f"donor AIM+ frequency spans "
+                  f"{min(r27['donor_freq'].values()):.0%}-{max(r27['donor_freq'].values()):.0%}")
     print(f"M22 SNIC    : mixed saddle-node+oscillation; period diverges "
           f"(T~1/sqrt, slope {r22['slope']:.2f}) -> frequency->0 signature "
           f"distinct from Hopf and pure saddle-node")

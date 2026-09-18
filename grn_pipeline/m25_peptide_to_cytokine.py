@@ -77,6 +77,18 @@ M24_IL2_BINS = {"mRNA=0": 57.4, "Q1": 49.4, "Q2": 65.9, "Q3": 99.6, "Q4": 204.8}
 M24_IL2_R2 = 0.017          # per-cell R^2, EndTimePoint sample
 M24_IL2_R2_PARTIAL = 0.257  # partial rho after controlling CD69 and depth
 
+# Measured by M26 under its audited protocol (depth-residual target,
+# leave-one-hashtag-out): the AUC for "is this cell a top-25% secretor".
+# The OWN-GENE row is this chain's ceiling, because the cell's own cytokine
+# transcript is the only thing joints (C)+(D) produce. The FULL-STATE row is
+# what a model gets if it is also handed the rest of the cell's state, which
+# the chain does not predict. The gap between them is the chain's headroom.
+M26_CEILING = {            # cytokine: (own gene alone, full cell state)
+    "IL-2":  (0.686, 0.696),
+    "IFN-g": (0.566, 0.841),
+    "TNF-a": (0.677, 0.776),
+}
+
 
 # ----------------------------------------------------------- joint (A): presentation
 def netmhcpan(peptides, allele="H-2-Kb", length=8, method="netmhcpan_el", timeout=300):
@@ -254,6 +266,15 @@ def report() -> dict:
     out["secretion"] = sec
     print(f"   the band is the measured per-cell scatter (IL-2 R^2 = {M24_IL2_R2:.3f}),")
     print(f"   not a confidence interval. Ranking is the output; pg/mL is not.")
+    own, full = M26_CEILING["IL-2"]
+    print(f"\n   MEASURED CEILING for this joint (M26, depth-residual target,")
+    print(f"   leave-one-hashtag-out): predicting a top-25% IL-2 secretor from the")
+    print(f"   cell's own IL2 transcript alone reaches AUC {own:.3f}; handing the model")
+    print(f"   the whole cell state reaches {full:.3f}. For IFN-g the same two numbers")
+    print(f"   are {M26_CEILING['IFN-g'][0]:.3f} and {M26_CEILING['IFN-g'][1]:.3f}.")
+    print("   The chain only produces the own-gene number, so that is its ceiling:")
+    print("   improving joints (C) and (D) cannot push past it. The way past it is to")
+    print("   predict cell state, which is a different model, not a better ODE.")
     if M24_IL2_BINS["Q1"] < M24_IL2_BINS["mRNA=0"]:
         print("   NOTE: the measured curve is NON-MONOTONE at its low end -- cells with")
         print("   no detected IL2 mRNA secrete MORE (57.4) than the lowest nonzero")
