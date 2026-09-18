@@ -1,0 +1,6 @@
+data/_iedb_popcov/
+
+# Resume cache: raw per-request predictor output, appended while the long
+# calibration runs and read back to skip work on restart. Regenerable.
+results/c3_benchmark_scored.tsv
+results/*.log

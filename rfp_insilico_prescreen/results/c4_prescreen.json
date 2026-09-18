@@ -1,0 +1,159 @@
+{
+ "alleles": [
+  "HLA-A*32:01",
+  "HLA-B*57:01"
+ ],
+ "candidate_provenance": "held-out benchmark stand-in",
+ "n_candidates": 5,
+ "complexes_possible": 10,
+ "complexes_requested_by_rfp": 8,
+ "skip_cuts": {
+  "HLA-A*32:01": 2.0,
+  "HLA-B*57:01": 20.0
+ },
+ "skip_npv": {
+  "HLA-A*32:01": 0.9676,
+  "HLA-B*57:01": 0.9489
+ },
+ "n_build": 7,
+ "n_skip": 3,
+ "ic50_standard_nM": 500.0,
+ "n_passing_ic50_standard": 5,
+ "agreement_with_known_labels": {
+  "n_checkable": 5,
+  "n_agree": 4,
+  "accuracy": 0.8
+ },
+ "rows": [
+  {
+   "candidate": "uniblock_4",
+   "peptide": "RTLGLRETW",
+   "allele": "HLA-A*32:01",
+   "el_rank": 0.01,
+   "ba_rank": 0.02,
+   "ic50_nM": 9.63,
+   "passes_ic50_500": true,
+   "skip_cut": 2.0,
+   "call": "BUILD",
+   "warrant": "",
+   "known_label": 1
+  },
+  {
+   "candidate": "uniblock_4",
+   "peptide": "RTLGLRETW",
+   "allele": "HLA-B*57:01",
+   "el_rank": 0.01,
+   "ba_rank": 0.02,
+   "ic50_nM": 5.3,
+   "passes_ic50_500": true,
+   "skip_cut": 20.0,
+   "call": "BUILD",
+   "warrant": "",
+   "known_label": null
+  },
+  {
+   "candidate": "uniblock_3",
+   "peptide": "MTMNIVNFF",
+   "allele": "HLA-A*32:01",
+   "el_rank": 0.04,
+   "ba_rank": 0.02,
+   "ic50_nM": 9.6,
+   "passes_ic50_500": true,
+   "skip_cut": 2.0,
+   "call": "BUILD",
+   "warrant": "",
+   "known_label": 1
+  },
+  {
+   "candidate": "uniblock_2",
+   "peptide": "KARLEVHRF",
+   "allele": "HLA-B*57:01",
+   "el_rank": 0.07,
+   "ba_rank": 0.22,
+   "ic50_nM": 142.03,
+   "passes_ic50_500": true,
+   "skip_cut": 20.0,
+   "call": "BUILD",
+   "warrant": "",
+   "known_label": 1
+  },
+  {
+   "candidate": "uniblock_3",
+   "peptide": "MTMNIVNFF",
+   "allele": "HLA-B*57:01",
+   "el_rank": 0.1,
+   "ba_rank": 0.06,
+   "ic50_nM": 24.03,
+   "passes_ic50_500": true,
+   "skip_cut": 20.0,
+   "call": "BUILD",
+   "warrant": "",
+   "known_label": null
+  },
+  {
+   "candidate": "uniblock_2",
+   "peptide": "KARLEVHRF",
+   "allele": "HLA-A*32:01",
+   "el_rank": 0.26,
+   "ba_rank": 0.87,
+   "ic50_nM": 1549.1,
+   "passes_ic50_500": false,
+   "skip_cut": 2.0,
+   "call": "BUILD",
+   "warrant": "",
+   "known_label": null
+  },
+  {
+   "candidate": "uniblock_1",
+   "peptide": "RPKPDYSAM",
+   "allele": "HLA-A*32:01",
+   "el_rank": 5.4,
+   "ba_rank": 16.0,
+   "ic50_nM": 24255.01,
+   "passes_ic50_500": false,
+   "skip_cut": 2.0,
+   "call": "SKIP",
+   "warrant": "NPV 0.97 at %Rank>=2.0",
+   "known_label": null
+  },
+  {
+   "candidate": "uniblock_5",
+   "peptide": "ALIFILLTA",
+   "allele": "HLA-A*32:01",
+   "el_rank": 7.3,
+   "ba_rank": 5.8,
+   "ic50_nM": 12502.56,
+   "passes_ic50_500": false,
+   "skip_cut": 2.0,
+   "call": "SKIP",
+   "warrant": "NPV 0.97 at %Rank>=2.0",
+   "known_label": 0
+  },
+  {
+   "candidate": "uniblock_1",
+   "peptide": "RPKPDYSAM",
+   "allele": "HLA-B*57:01",
+   "el_rank": 7.9,
+   "ba_rank": 31.0,
+   "ic50_nM": 28441.45,
+   "passes_ic50_500": false,
+   "skip_cut": 20.0,
+   "call": "BUILD",
+   "warrant": "",
+   "known_label": 0
+  },
+  {
+   "candidate": "uniblock_5",
+   "peptide": "ALIFILLTA",
+   "allele": "HLA-B*57:01",
+   "el_rank": 30.0,
+   "ba_rank": 58.0,
+   "ic50_nM": 36409.12,
+   "passes_ic50_500": false,
+   "skip_cut": 20.0,
+   "call": "SKIP",
+   "warrant": "NPV 0.95 at %Rank>=20.0",
+   "known_label": null
+  }
+ ]
+}

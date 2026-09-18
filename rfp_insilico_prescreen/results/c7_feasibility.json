@@ -1,0 +1,80 @@
+{
+ "items": [
+  {
+   "id": "step1_il2",
+   "rfp_item": "Step 1 \u00b7 MHC-II-dependent IL-2 readout (DO11.10 / I-A(d))",
+   "verdict": "NO \u2014 with one useful exception",
+   "evidence_type": "measured (C6)",
+   "what_in_silico_did": "Reproduced the documented I-A(d) register for cOVA323-339 (core VHAAHAEIN, %Rank 0.17), confirming the hybridoma system's restriction element behaves as published.",
+   "what_it_cannot_do": "IL-2 secretion is a cellular functional readout. No sequence model predicts cytokine output. Binding is necessary, not sufficient.",
+   "changes_the_study": false,
+   "group": "NO"
+  },
+  {
+   "id": "step1_panel",
+   "rfp_item": "Step 1 \u00b7 the five-peptide panel (8-mer, 9-mer+4D, 17-mer, 2x 30-mer)",
+   "verdict": "NO for the comparison the step is built around",
+   "evidence_type": "measured (C6)",
+   "what_in_silico_did": "Scored 2 of 6 panel members. The 17-mer uniblock and the 30-mer diblock return the same core at the same %Rank, i.e. appending the assembly block changes nothing a sequence model can see.",
+   "what_it_cannot_do": "2 peptides sit below the class II API's 11-residue floor and cannot be submitted at all. 2 contain D-amino acids, which no class II predictor represents \u2014 a D-substituted peptide is scored as its all-L twin, which is a different molecule. Since Step 1 is an all-L control versus D-substituted test comparison, in-silico cannot perform it.",
+   "changes_the_study": false,
+   "group": "NO"
+  },
+  {
+   "id": "step2_binding",
+   "rfp_item": "Step 2 \u00b7 cell-free peptide-MHC binding / stability screen",
+   "verdict": "DE-RISK \u2014 strongly",
+   "evidence_type": "measured (C1, C3)",
+   "what_in_silico_did": "Measured NetMHCpan on these two alleles specifically, against every labelled IEDB record for them: HLA-A*32:01 AUC 0.912; HLA-B*57:01 AUC 0.923. That converts the pre-screen from an opinion into a calibrated rule: HLA-A*32:01 skip at %Rank>=2.0 (NPV 0.97); HLA-B*57:01 skip at %Rank>=20.0 (NPV 0.95).",
+   "what_it_cannot_do": "Predicts binding, not complex stability or off-rate. The RFP asks for stability, which is the property that governs whether a tetramer survives staining, and no sequence model reports a half-life.",
+   "changes_the_study": true,
+   "group": "DE-RISK"
+  },
+  {
+   "id": "step2_tetramer",
+   "rfp_item": "Step 2 \u00b7 custom synthesis of 2 alleles + 8 uniblock complexes",
+   "verdict": "DE-RISK \u2014 this is where the money is",
+   "evidence_type": "measured (C4)",
+   "what_in_silico_did": "Ranked all 10 possible (peptide, allele) complexes and called 7 worth building. A monomer that does not fold never becomes a tetramer, and that is discovered after the spend.",
+   "what_it_cannot_do": "Cannot confirm refolding, biotinylation or multimerisation yield. A predicted binder can still fail to refold.",
+   "changes_the_study": true,
+   "group": "DE-RISK"
+  },
+  {
+   "id": "step2_precursor",
+   "rfp_item": "Step 2 \u00b7 baseline precursor frequency by FACS after IL-7/IL-15 expansion",
+   "verdict": "NO",
+   "evidence_type": "reasoning, not measurement",
+   "what_in_silico_did": "Nothing. There is no sequence-level surrogate.",
+   "what_it_cannot_do": "Precursor frequency is a property of one donor's T-cell repertoire, set by their thymic selection and exposure history. It is measured, not predicted. This is the single most irreplaceable item in the RFP.",
+   "changes_the_study": false,
+   "group": "NO"
+  },
+  {
+   "id": "step3_mlr",
+   "rfp_item": "Step 3 \u00b7 MLR (proliferation, cytokines, ICS)",
+   "verdict": "NO",
+   "evidence_type": "reasoning, not measurement",
+   "what_in_silico_did": "Nothing.",
+   "what_it_cannot_do": "Proliferation and cytokine output are cellular outcomes downstream of processing, presentation, co-stimulation and repertoire. Sequence models see only the first step.",
+   "changes_the_study": false,
+   "group": "NO"
+  },
+  {
+   "id": "donors",
+   "rfp_item": "Donors \u00b7 human PBMC carrying the specified HLA antigens",
+   "verdict": "DE-RISK \u2014 and it may change the study design",
+   "evidence_type": "measured (C5)",
+   "what_in_silico_did": "Carrier frequency, weighted US/EU: HLA-A*32:01 5.7%, HLA-B*57:01 5.9%, either 11.2%, both 0.35%. To obtain 10 donors: ~89 typed if either allele suffices, ~2882 if each donor must carry both.",
+   "what_it_cannot_do": "Cannot tell you what a commercial HLA-typed bank already holds, and the two-locus combination assumes independence, which linkage disequilibrium violates.",
+   "changes_the_study": true,
+   "group": "DE-RISK"
+  }
+ ],
+ "group_counts": {
+  "REPLACE": 0,
+  "DE-RISK": 3,
+  "NO": 4
+ },
+ "headline": "No item in this RFP can be replaced by computation. Three of 7 can be materially de-risked before commissioning: the binding pre-screen, the tetramer build list, and donor feasibility. The wet-lab study should still be run \u2014 but it should be a smaller, better-targeted one."
+}

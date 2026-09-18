@@ -1,0 +1,27 @@
+{
+ "alleles": {
+  "HLA-A*32:01": {
+   "raw_records": 9021,
+   "peptides_9mer": 4209,
+   "positives": 4044,
+   "negatives": 165,
+   "ambiguous_excluded": 0
+  },
+  "HLA-B*57:01": {
+   "raw_records": 46369,
+   "peptides_9mer": 8901,
+   "positives": 7262,
+   "negatives": 1636,
+   "ambiguous_excluded": 3
+  }
+ },
+ "raw_records": 55390,
+ "labelled_pairs": 13107,
+ "length": 9,
+ "positive_terms": [
+  "Positive",
+  "Positive-High",
+  "Positive-Intermediate",
+  "Positive-Low"
+ ]
+}

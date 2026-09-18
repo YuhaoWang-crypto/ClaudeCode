@@ -1,0 +1,133 @@
+{
+ "allele": "H2-IAd",
+ "method": "netmhciipan_el",
+ "documented_core": "VHAAHAEIN",
+ "positive_control": {
+  "peptide": "ISQAVHAAHAEINEAGR",
+  "result": {
+   "core": "VHAAHAEIN",
+   "peptide": "SQAVHAAHAEINEAG",
+   "rank": 0.17,
+   "score": 0.8527
+  },
+  "core_matches_literature": true
+ },
+ "panel": [
+  {
+   "name": "uniblock_17mer_L",
+   "length": 17,
+   "note": "17-mer uniblock stand-in = cOVA323-339",
+   "scoreable_in_silico": true,
+   "result": {
+    "core": "VHAAHAEIN",
+    "peptide": "SQAVHAAHAEINEAG",
+    "rank": 0.17,
+    "score": 0.8527
+   }
+  },
+  {
+   "name": "core_9mer_L",
+   "length": 9,
+   "note": "9-mer core, all L",
+   "scoreable_in_silico": true,
+   "result": null,
+   "api_refusal": "unexpected IEDB response: The length of input sequence is less than the input/default length 15.\n* Please go to the link below for usage info:\nhttp://tools.iedb.org/main/html/tools_api.html\n"
+  },
+  {
+   "name": "core_8mer_L",
+   "length": 8,
+   "note": "8-mer core control, all L",
+   "scoreable_in_silico": true,
+   "result": null,
+   "api_refusal": "unexpected IEDB response: The length of input sequence is less than the input/default length 15.\n* Please go to the link below for usage info:\nhttp://tools.iedb.org/main/html/tools_api.html\n"
+  },
+  {
+   "name": "diblock_30mer_L",
+   "length": 30,
+   "note": "30-mer diblock control (uniblock + GG + EAK block)",
+   "scoreable_in_silico": true,
+   "result": {
+    "core": "VHAAHAEIN",
+    "peptide": "SQAVHAAHAEINEAG",
+    "rank": 0.17,
+    "score": 0.8527
+   }
+  },
+  {
+   "name": "core_9mer_D4",
+   "length": 9,
+   "note": "9-mer core test with 4 D-amino acids",
+   "scoreable_in_silico": false,
+   "excluded_reason": "contains D-amino acids; class II predictors are trained on L-peptides only and have no stereochemistry representation, so any score returned would be the score of the all-L sequence, which is a different molecule"
+  },
+  {
+   "name": "diblock_30mer_D4",
+   "length": 30,
+   "note": "30-mer diblock test with 4 D-amino acids",
+   "scoreable_in_silico": false,
+   "excluded_reason": "contains D-amino acids; class II predictors are trained on L-peptides only and have no stereochemistry representation, so any score returned would be the score of the all-L sequence, which is a different molecule"
+  }
+ ],
+ "padding_sweep": {
+  "core": "VHAAHAEIN",
+  "pad_residue": "G",
+  "sweep": [
+   {
+    "padded_length": 11,
+    "sequence": "GVHAAHAEING",
+    "result": {
+     "core": "VHAAHAEIN",
+     "peptide": "GVHAAHAEING",
+     "rank": 0.08,
+     "score": 0.1887
+    },
+    "api_refusal": null
+   },
+   {
+    "padded_length": 13,
+    "sequence": "GGVHAAHAEINGG",
+    "result": {
+     "core": "VHAAHAEIN",
+     "peptide": "GGVHAAHAEINGG",
+     "rank": 0.3,
+     "score": 0.7024
+    },
+    "api_refusal": null
+   },
+   {
+    "padded_length": 15,
+    "sequence": "GGGVHAAHAEINGGG",
+    "result": {
+     "core": "VHAAHAEIN",
+     "peptide": "GGGVHAAHAEINGGG",
+     "rank": 0.24,
+     "score": 0.8258
+    },
+    "api_refusal": null
+   },
+   {
+    "padded_length": 17,
+    "sequence": "GGGGVHAAHAEINGGGG",
+    "result": {
+     "core": "VHAAHAEIN",
+     "peptide": "GGGGVHAAHAEINGGGG",
+     "rank": 0.39,
+     "score": 0.7389
+    },
+    "api_refusal": null
+   }
+  ],
+  "rank_range": [
+   0.08,
+   0.39
+  ],
+  "fold_range": 4.9
+ },
+ "verdict": {
+  "panel_size": 6,
+  "scored": 2,
+  "blocked_by_d_amino_acids": 2,
+  "blocked_by_length_floor": 2,
+  "statement": "Class II prediction can confirm the DO11.10 / I-A(d) system control and can score the all-L constructs of 11 residues or more. It cannot score the 8-mer control, and it cannot score any D-substituted peptide. Since the comparison Step 1 is built around is all-L control versus D-substituted test, in-silico cannot perform that comparison - it can only characterise the L arm."
+ }
+}

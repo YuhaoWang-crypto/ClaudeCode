@@ -1,0 +1,139 @@
+{
+ "alleles": {
+  "HLA-A": "HLA-A*32:01",
+  "HLA-B": "HLA-B*57:01"
+ },
+ "weighting": {
+  "us_weights": {
+   "United States Caucasoid": 0.577,
+   "United States Hispanic": 0.189,
+   "United States Black": 0.123,
+   "United States Asian": 0.06,
+   "United States Amerindian": 0.013,
+   "United States Mestizo": 0.038
+  },
+  "us_eu_split": [
+   0.5,
+   0.5
+  ],
+  "eu_population": "Europe"
+ },
+ "per_population": {
+  "United States Caucasoid": {
+   "HLA-A*32:01": {
+    "allele_frequency": 0.0293,
+    "carrier_frequency": 0.05774
+   },
+   "HLA-B*57:01": {
+    "allele_frequency": 0.0369,
+    "carrier_frequency": 0.07244
+   },
+   "either": 0.126,
+   "both_independent": 0.00418
+  },
+  "United States Hispanic": {
+   "HLA-A*32:01": {
+    "allele_frequency": 0.0266,
+    "carrier_frequency": 0.05249
+   },
+   "HLA-B*57:01": {
+    "allele_frequency": 0.0121,
+    "carrier_frequency": 0.02405
+   },
+   "either": 0.07528,
+   "both_independent": 0.00126
+  },
+  "United States Black": {
+   "HLA-A*32:01": {
+    "allele_frequency": 0.0146,
+    "carrier_frequency": 0.02899
+   },
+   "HLA-B*57:01": {
+    "allele_frequency": 0.0071,
+    "carrier_frequency": 0.01415
+   },
+   "either": 0.04273,
+   "both_independent": 0.00041
+  },
+  "United States Asian": {
+   "HLA-A*32:01": {
+    "allele_frequency": 0.0121,
+    "carrier_frequency": 0.02405
+   },
+   "HLA-B*57:01": {
+    "allele_frequency": 0.0188,
+    "carrier_frequency": 0.03725
+   },
+   "either": 0.0604,
+   "both_independent": 0.0009
+  },
+  "United States Amerindian": {
+   "HLA-A*32:01": {
+    "allele_frequency": 0.0061,
+    "carrier_frequency": 0.01216
+   },
+   "HLA-B*57:01": {
+    "allele_frequency": 0.0073,
+    "carrier_frequency": 0.01455
+   },
+   "either": 0.02653,
+   "both_independent": 0.00018
+  },
+  "United States Mestizo": {
+   "HLA-A*32:01": {
+    "allele_frequency": 0.029,
+    "carrier_frequency": 0.05716
+   },
+   "HLA-B*57:01": {
+    "allele_frequency": 0.02,
+    "carrier_frequency": 0.0396
+   },
+   "either": 0.0945,
+   "both_independent": 0.00226
+  },
+  "Europe": {
+   "HLA-A*32:01": {
+    "allele_frequency": 0.0319,
+    "carrier_frequency": 0.06278
+   },
+   "HLA-B*57:01": {
+    "allele_frequency": 0.0332,
+    "carrier_frequency": 0.0653
+   },
+   "either": 0.12398,
+   "both_independent": 0.0041
+  }
+ },
+ "weighted_us_eu": {
+  "HLA-A*32:01": 0.05668,
+  "HLA-B*57:01": 0.05866,
+  "either": 0.11186,
+  "both_independent": 0.00347
+ },
+ "donors_to_screen": {
+  "HLA-A*32:01": {
+   "5": 88.2,
+   "10": 176.4,
+   "20": 352.9
+  },
+  "HLA-B*57:01": {
+   "5": 85.2,
+   "10": 170.5,
+   "20": 340.9
+  },
+  "either": {
+   "5": 44.7,
+   "10": 89.4,
+   "20": 178.8
+  },
+  "both_independent": {
+   "5": 1440.9,
+   "10": 2881.8,
+   "20": 5763.7
+  }
+ },
+ "caveats": [
+  "Two loci combined as independent. HLA-A and HLA-B are ~1.3 Mb apart and in strong linkage disequilibrium, so the true double-carrier rate is not the product. B*57:01 in Europeans travels mostly on the 57.1 ancestral haplotype (A*01:01-B*57:01-C*06:02-DRB1*07:01), which carries A*01:01 rather than A*32:01 - so for THIS pair the independent product is more likely an over- than an under-estimate. Confirm against a haplotype table before costing the study.",
+  "Registry-typed donors are not a random population sample; a commercial HLA-typed PBMC bank may already hold rare-allele donors, which changes the arithmetic from screening to availability."
+ ]
+}
