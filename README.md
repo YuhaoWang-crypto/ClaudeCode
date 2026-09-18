@@ -30,6 +30,8 @@ literature-grounded systems where every number is *computed*, not asserted.
 | `m20b_biomodels_exact` | fetch + simulate EXACT curated models (fills M20 gap) | Markevich2004 (BIOMD27), Legewie2006 apoptosis (BIOMD102) | download method = biomodels GitHub mirror + libRoadRunner; official Km5=78 confirms hand-coded M15 (states to the decimal); Legewie caspase switch bistable in XIAP synthesis |
 | `m22_snic_mixed` | mixed bifurcation: saddle-node ON a limit cycle (SNIC) | θ / Ermentrout-Kopell normal form (cell-cycle / excitable) | finite-amplitude spikes whose period diverges (T~π/√I, log-log slope −0.50; frequency→0) — signature distinct from both Hopf and pure saddle-node; ISI mean+CV both grow |
 | `m23_virtual_tcell` | a "virtual T cell": kinetic proofreading → ERK switch → relative IL-2 | McKeithan 1995 chain + Altan-Bonnet/Germain 2005 feedback topology | proofreading exponent → N+1 (rigorous, verified against the closed form); a 33× ligand-dose change moves the quality threshold only 2.58×; ERK hysteresis window τ∈[0.02, 1.03] s. **Ligand ranking only, never pg/mL** |
+| `m24_rna_secretion_coupling` | does cytokine mRNA predict what the same cell secreted? | TRAPS-seq, GEO GSE200690 (4,875 + 3,223 cells) | own-mRNA explains R²=0.25 (IFN-γ), 0.12 (TNF), **0.02 (IL-2)** of per-cell secretion; a cell's earlier secretion predicts its later secretion far better (ρ 0.55–0.80) and adding mRNA buys +0.002…+0.033 R² |
+| `m25_peptide_to_cytokine` | the full chain: peptide → signalling → IL2 mRNA → secreted IL-2 | OT-I altered-peptide series + live NetMHCpan via IEDB | presentation cannot order MHC-matched APLs (Spearman **+0.36** overall, **−0.54** on the six stimulatory ones); above threshold the chain compresses a 700× potency range into ~1.2× output |
 
 ## Can a virtual cell replace a functional T-cell assay?
 
@@ -37,7 +39,9 @@ Short answer: no, and [`VIRTUAL_TCELL_REPORT.md`](VIRTUAL_TCELL_REPORT.md) says
 exactly why, with the numbers computed rather than asserted — including a full
 pass over the IEDB T-cell assay table (577,789 records, of which 1.0% carry any
 quantitative value) and over the CELLxGENE index (168M T cells, single-digit
-stimulation datasets). `m23_virtual_tcell` is the model that report is about.
+stimulation datasets). `m23_virtual_tcell` is the model that report is about, and `m25_peptide_to_cytokine`
+is the coupled peptide→pathway→RNA→cytokine chain, built so that each joint is
+tested rather than assumed.
 
 ## Run
 

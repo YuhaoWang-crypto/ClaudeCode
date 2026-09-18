@@ -57,6 +57,18 @@ def main():
         print(f"M20b exact-biomodels skipped ({type(e).__name__}: {e})\n")
     r22 = m22_snic_mixed.report();           print()
     r23 = m23_virtual_tcell.report();        print()
+    try:
+        from grn_pipeline import m24_rna_secretion_coupling
+        r24 = m24_rna_secretion_coupling.report(); print()
+    except Exception as e:               # needs network + ~86 MB from GEO
+        r24 = None
+        print(f'M24 RNA/secretion coupling skipped ({type(e).__name__}: {e})\n')
+    try:
+        from grn_pipeline import m25_peptide_to_cytokine
+        r25 = m25_peptide_to_cytokine.report(); print()
+    except Exception as e:               # IEDB call is network-gated
+        r25 = None
+        print(f'M25 peptide-to-cytokine chain skipped ({type(e).__name__}: {e})\n')
 
     print("=" * 68)
     print("CONSOLIDATED SUMMARY")
@@ -134,6 +146,19 @@ def main():
           f"threshold only {r23['threshold_spread']:.2f}x; ERK hysteresis "
           f"window tau in [{lo23:.2f}, {hi23:.2f}] s. Ligand RANKING only - "
           f"no pg/mL (see VIRTUAL_TCELL_REPORT.md)")
+    if r24:
+        e = r24["end"]
+        print(f"M24 RNA->sec: TRAPS-seq, same-cell mRNA vs secreted protein - "
+              f"R2 {e['IFNG']['r2']:.2f} (IFN-g), {e['TNF']['r2']:.2f} (TNF), "
+              f"{e['IL2']['r2']:.2f} (IL-2); secretion is better predicted by the "
+              f"cell's own earlier secretion than by its mRNA")
+    if r25:
+        pr = r25.get("presentation")
+        if pr:
+            print(f"M25 chain   : presentation cannot order MHC-matched APLs "
+                  f"(Spearman {pr['rho']:+.2f} overall, {pr['rho_strong']:+.2f} on the "
+                  f"six stimulatory ones); chain runs from measured dwell time onward "
+                  f"and outputs a ranking, never pg/mL")
     print(f"M22 SNIC    : mixed saddle-node+oscillation; period diverges "
           f"(T~1/sqrt, slope {r22['slope']:.2f}) -> frequency->0 signature "
           f"distinct from Hopf and pure saddle-node")
