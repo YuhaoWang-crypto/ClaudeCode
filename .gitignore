@@ -1,2 +1,4 @@
 __pycache__/
 *.pyc
+figures/_traps_cache/
+figures/_aim_cache/

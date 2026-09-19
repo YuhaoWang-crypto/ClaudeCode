@@ -14,7 +14,8 @@ from grn_pipeline import (m1_symmetry, m2_crnt, m3_efm, m4_dnb_lyapunov,
                           m14_atlas, m15_markevich_mm, m16_erk_dnb,
                           m18_titration_benchmark,
                           m19_switch_library, m20_literature_bistable,
-                          m21_oscillators, m22_snic_mixed)
+                          m21_oscillators, m22_snic_mixed,
+                          m23_virtual_tcell)
 
 
 def main():
@@ -55,6 +56,31 @@ def main():
         r20b = None
         print(f"M20b exact-biomodels skipped ({type(e).__name__}: {e})\n")
     r22 = m22_snic_mixed.report();           print()
+    r23 = m23_virtual_tcell.report();        print()
+    try:
+        from grn_pipeline import m24_rna_secretion_coupling
+        r24 = m24_rna_secretion_coupling.report(); print()
+    except Exception as e:               # needs network + ~86 MB from GEO
+        r24 = None
+        print(f'M24 RNA/secretion coupling skipped ({type(e).__name__}: {e})\n')
+    try:
+        from grn_pipeline import m25_peptide_to_cytokine
+        r25 = m25_peptide_to_cytokine.report(); print()
+    except Exception as e:               # IEDB call is network-gated
+        r25 = None
+        print(f'M25 peptide-to-cytokine chain skipped ({type(e).__name__}: {e})\n')
+    try:
+        from grn_pipeline import m26_secretion_model
+        r26 = m26_secretion_model.report(); print()
+    except Exception as e:               # needs the TRAPS-seq cache + sklearn
+        r26 = None
+        print(f'M26 secretion model skipped ({type(e).__name__}: {e})\n')
+    try:
+        from grn_pipeline import m27_aim_response_audit
+        r27 = m27_aim_response_audit.report(); print()
+    except Exception as e:               # needs ~810 MB from Zenodo
+        r27 = None
+        print(f'M27 AIM-seq audit skipped ({type(e).__name__}: {e})\n')
 
     print("=" * 68)
     print("CONSOLIDATED SUMMARY")
@@ -126,6 +152,39 @@ def main():
         print(f"M20b exact  : fetched official BioModels via GitHub mirror + "
               f"libRoadRunner; Markevich Km5={r20b['km5']} confirms M15, "
               f"Legewie apoptosis bistable (XIAP {r20b['apop_window']})")
+    lo23, hi23 = (r23["bistable_window"] or (float("nan"),) * 2)
+    print(f"M23 T cell  : kinetic proofreading exponent -> N+1 (rigorous); "
+          f"a {r23['dose_span']:.0f}x ligand-dose change moves the quality "
+          f"threshold only {r23['threshold_spread']:.2f}x; ERK hysteresis "
+          f"window tau in [{lo23:.2f}, {hi23:.2f}] s. Ligand RANKING only - "
+          f"no pg/mL (see VIRTUAL_TCELL_REPORT.md)")
+    if r24:
+        e = r24["end"]
+        print(f"M24 RNA->sec: TRAPS-seq, same-cell mRNA vs secreted protein - "
+              f"R2 {e['IFNG']['r2']:.2f} (IFN-g), {e['TNF']['r2']:.2f} (TNF), "
+              f"{e['IL2']['r2']:.2f} (IL-2); secretion is better predicted by the "
+              f"cell's own earlier secretion than by its mRNA")
+    if r25:
+        pr = r25.get("presentation")
+        if pr:
+            print(f"M25 chain   : presentation cannot order MHC-matched APLs "
+                  f"(Spearman {pr['rho']:+.2f} overall, {pr['rho_strong']:+.2f} on the "
+                  f"six stimulatory ones); chain runs from measured dwell time onward "
+                  f"and outputs a ranking, never pg/mL")
+    if r26:
+        b = r26["best"]
+        print(f"M26 secretion: audited protocol (depth-residual target, "
+              f"leave-one-hashtag-out) - high-secretor AUC "
+              f"{b['IFNG']['boosted']:.2f} (IFN-g), {b['TNF']['boosted']:.2f} (TNF), "
+              f"{b['IL2']['boosted']:.2f} (IL-2); raw-count targets scored up to "
+              f"0.85 from capture depth alone")
+    if r27:
+        t = r27["tiers"].get("AIM+ vs AIM- (both stimulated)", {})
+        if t:
+            print(f"M27 AIM-seq : antigen response, leave-one-donor - RNA content "
+                  f"alone {t['0 depth'][0]:.3f}, full model {t['3 everything'][0]:.3f}; "
+                  f"donor AIM+ frequency spans "
+                  f"{min(r27['donor_freq'].values()):.0%}-{max(r27['donor_freq'].values()):.0%}")
     print(f"M22 SNIC    : mixed saddle-node+oscillation; period diverges "
           f"(T~1/sqrt, slope {r22['slope']:.2f}) -> frequency->0 signature "
           f"distinct from Hopf and pure saddle-node")
