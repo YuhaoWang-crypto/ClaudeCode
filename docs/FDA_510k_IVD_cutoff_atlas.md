@@ -194,6 +194,7 @@ FDA 决策摘要 “Standards/Guidance Documents Referenced” 一节里反复�
 ## 心肌肌钙蛋白 I / T（cardiac troponin, cTnI / cTnT；hs-cTn）
 
 ### 1. 法规定位
+
 - Product code：**MMI**（"Immunoassay method, troponin subunit"）
 - 21 CFR：**862.1215**（Creatine phosphokinase/creatine kinase or isoenzymes test system）
 - Class：**II**；Panel：Clinical Chemistry (75 / CH)
@@ -217,6 +218,7 @@ FDA 决策摘要 “Standards/Guidance Documents Referenced” 一节里反复�
 （另下载了 K240984 i-STAT 1 hs-TnI（K253051 的 predicate）与 K121790 Access AccuTnI，未单独展开。）
 
 ### 3. 预期用途与声明类型
+
 - 全部为**辅助诊断 MI/AMI**（"aid in the diagnosis of myocardial infarction"），**处方用**（Rx only），体外诊断用。
 - 明确的**声明收窄**：Roche K162895 与 predicate K051752（4 代 TnT STAT）比较表写明，新一代 hs 产品"Not indicated for these uses"——即不再声明 ACS 患者风险分层、慢性肾衰心脏风险、强化治疗选择。VIDAS TnI Ultra（K063243）也去掉了 predicate（Dade Dimension cTnI K010313）的"risk stratification ... relative risk of mortality"声明。PATHFAST 510(k) summary 直接注明"Not for risk stratification"。
 - **POC 声明**：i-STAT hs-TnI（K253051/K240984）与 PATHFAST hs-cTnI-II（K231974）标注"for use in clinical laboratory or point of care (POC) settings"，样本含全血。其他为中央实验室自动化分析仪。
@@ -239,16 +241,19 @@ FDA 决策摘要 “Standards/Guidance Documents Referenced” 一节里反复�
 | bioMérieux VIDAS TnI Ultra（K063243，非 hs） | — | — | **cutoff 0.11 ng/mL = 10% CV 处 LoQ**，而非 99th | 399 份美国健康人肝素血浆 99th = 0.01 ng/mL（即 LoD 水平，低于 cutoff） | 文件未载明方法 |
 
 **cutoff 建立逻辑的演变（申报文件可见）**：
+
 - 旧一代（VIDAS 2007）：健康人 99th 落在 LoD 附近无法用，故取 **10% CV 浓度（功能灵敏度）**作为 cutoff；Roche 4 代 TnT（K051752，作为 predicate 被引述）cutoff 0.1 ng/mL 基于 **ROC**。
 - hs 一代（2017 起）：cutoff = 99th URL；FDA 要求同时评估**性别特异**与**总体** cutoff 在临床队列中的敏感性/特异性/PPV/NPV，并在说明书写入"女性用较低的性别特异 cutoff 时 PPV 更低、阳性中非 MI 比例可高达 xx%"（K162895：69/82/78%；K191595：87.6%；K172783：75%；K171274：71%）以及"男性用较高的性别特异 cutoff 会增加假阴性"（K171274：最多 +2.9%；K253051：+2.00%）。
 - 灰区：troponin 申报文件未设置灰区；解读依赖系列采样的 rise/fall（说明书语言）。
 - **hs 定义**（K252393、K171274 510(k) summary 引 IFCC TF-CB）：① 99th 处 %CV ≤10%；② ≥50% 健康男性及 ≥50% 健康女性可测出 >LoD 的浓度。K252393 用 LoQ 研究的不精密度曲线回归估算 99th 处 CV：女 4.7%、男 4.5%、总体 4.5%。
 
 ### 5. 生物学 / 生理学依据
+
 - **申报文件所载**：troponin 在心肌细胞坏死时释放，"cardiac specific but not specific for MI"，可见于心律失常、主动脉综合征、急性心衰、高血压危象、心肌炎、心包炎、肺栓塞、Takotsubo（K162895 说明书节选）；Ortho K252393 临床试验中 15.79% (311/1970) 非 MI 者至少一次结果 >11 ng/L，其中 91.96% 有 eGFR <60 或心绞痛/房颤/心肌病/CAD/心衰/心动过速。判定标准为 Universal Definition of MI（2007 版：K162895、K191595、K172783、K171274；第三版：K171274 510(k) summary；第四版：K252393、K253051，要求 rise and/or fall + 缺血证据 + 系列采样）。
 - **背景（非申报文件）**：cTnI/cTnT 为心肌肌钙蛋白复合体亚单位，胞质游离池早期释放、结构池持续释放；hs 检测把可检出下限推到健康人分布内，使 0/1 h、0/2 h 快速排除策略成为可能（ESC 指南），但 FDA 510(k) 说明书仅按时间窗报告诊断性能，不清关具体的 0/1 h 算法阈值。
 
 ### 6. 样本类型与样本要求
+
 | 产品 | 样本 | 稳定性 / 基质研究（文件所载） |
 |---|---|---|
 | Roche TnT Gen 5（K162895） | **仅 Li-heparin 血浆**（predicate 允许血清+血浆） | 2–8 °C 24 h；−20 °C 12 个月；仅冻融 1 次；Hb >0.1 g/dL 假性降低；高剂量 biotin（>5 mg/d）停药 8 h；无基质比对（"intended for lithium heparin only"） |
@@ -288,6 +293,7 @@ FDA 决策摘要 “Standards/Guidance Documents Referenced” 一节里反复�
 - **方法学比对 vs predicate**：hs 产品普遍写"Not applicable"，以临床研究替代（Beckman、Siemens、Abbott、Ortho）；i-STAT Alinity 对 i-STAT 1 做 EP09c 比对（数值本文未转录）。
 
 ### 9. 厂家间差异与要点
+
 1. **99th 值差异极大**（Ortho 11 / i-STAT 21 / Roche 19 / Beckman 18 / Abbott 28 / PATHFAST 29 / Siemens 47 ng/L），与抗体表位、标准化（Abbott/i-STAT/VIDAS 溯源 NIST SRM 2921；Beckman/Siemens 溯源"商品化 troponin 方法"；Ortho 溯源内部标准；Roche 溯源前一代 TnT）以及参考人群筛查严格度相关——Abbott、Ortho、i-STAT 用 BNP/NT-proBNP + HbA1c + eGFR 生物标志物筛查，Roche/Beckman/Siemens 用问卷式健康定义；Siemens 允许剔除 2 名 outlier 女性。
 2. **统计方法**：多数用非参数法；Abbott ARCHITECT 用 EP28-A3c robust 法；Roche 2017 文件未写明。
 3. **样本类型策略**：Roche/Ortho 只留 Li-heparin 血浆，Abbott ARCHITECT 只留 K2-EDTA，Beckman/Siemens 血清+Li-hep 并分别给出 99th（血清/血浆值略不同），POC 产品覆盖全血。
@@ -296,6 +302,7 @@ FDA 决策摘要 “Standards/Guidance Documents Referenced” 一节里反复�
 6. **特殊干扰**：Beckman（ALP 标记）受内源 ALP >400 U/L 与 asfotase alfa 影响；Roche 受 biotin（2021 版加 scavenger）；Abbott 受 fibrinogen；Siemens 写入自身抗体致负偏倚并建议首采阴性者再采两次；i-STAT 受 HCT >55% 影响并声明 <1% 卡式假高/假低。
 
 ### 10. 来源
+
 - K253051：https://www.accessdata.fda.gov/cdrh_docs/reviews/K253051.pdf ；https://www.accessdata.fda.gov/cdrh_docs/pdf25/K253051.pdf
 - K252393：https://www.accessdata.fda.gov/cdrh_docs/reviews/K252393.pdf ；https://www.accessdata.fda.gov/cdrh_docs/pdf25/K252393.pdf
 - K231974：https://www.accessdata.fda.gov/cdrh_docs/reviews/K231974.pdf ；https://www.accessdata.fda.gov/cdrh_docs/pdf23/K231974.pdf
@@ -311,6 +318,7 @@ FDA 决策摘要 “Standards/Guidance Documents Referenced” 一节里反复�
 ## 利钠肽（NT-proBNP / BNP；B-type natriuretic peptide test system）
 
 ### 1. 法规定位
+
 - Product code：**NBC**（B-type natriuretic peptide test system）
 - 21 CFR：**862.1117**；Class **II（special controls）**；Panel：Clinical Chemistry (75)
 - Special control：*Class II Special Controls Guidance Document for B-Type Natriuretic Peptide Premarket Notifications; Final Guidance for Industry and FDA Reviewers*（2000-11-30）——K032646、K072437、K073091、K232164、K223637 均列入引用。
@@ -333,6 +341,7 @@ FDA 决策摘要 “Standards/Guidance Documents Referenced” 一节里反复�
 | K032646 | 2003-11-12 | Roche / Elecsys proBNP（"原型"，多克隆羊抗体） | ECLIA | 血清、血浆 | CHF 辅助诊断 + 新增 ACS/CHF 风险分层 | 仅决策摘要 |
 
 ### 3. 预期用途与声明类型
+
 - 核心声明：**aid in the diagnosis of (congestive) heart failure**；2020 年后新清关产品把人群细化为"ED 就诊、临床怀疑新发、急性失代偿或加重 HF"（K192380、K252169、K232164、K223637、K201312），Siemens K220265 与 Ortho K201312 另加**门诊（OP）**人群。
 - 附加声明：① **HF 严重度评估**（i-STAT K053597、Ortho K201312、Beckman NT-proBNP K232164）；② **ACS 风险分层 / HF 风险分层**（Roche 2003 起，Beckman 2024/2026，Alere 2026）——文件显示均以**同行评议文献**支持（Roche/Beckman NT-proBNP：GUSTO IV 亚组 James 2003、Jernberg JACC 2002、Fisher Heart 2003；Beckman BNP：deLemos NEJM 2001、Doust BMJ 2005、Vrtovec 2003、Harrison 2002、Logeart 2004、2014 AHA/ACC NSTE-ACS 指南）；③ **12 个月预后**（Alere K253539，前瞻随访自有队列）；④ 稳定 CAD 患者心血管事件与死亡风险（Roche K072437 起）。
 - 全部处方用；i-STAT 为 POC（全血）。
@@ -341,6 +350,7 @@ FDA 决策摘要 “Standards/Guidance Documents Referenced” 一节里反复�
 ### 4. 阳性 / 阴性判定与 cutoff 逻辑
 
 **NT-proBNP**
+
 | 产品 | cutoff（文件原值） | 建立方式 |
 |---|---|---|
 | Roche Elecsys proBNP（K032646, 2003）/ proBNP II（K072437, 2008） | 125 pg/mL（<75 岁）；450 pg/mL（≥75 岁） | K022516 建立（本文件"previously established"）；未说明为 ROC 还是参考区间；K072437 用 NYHA I–IV 及参考组做 cutoff 一致性 |
@@ -352,6 +362,7 @@ FDA 决策摘要 “Standards/Guidance Documents Referenced” 一节里反复�
 | Alere NT-proBNP Alinity（K253539） | 预后用**人群四分位**：≤1214.7 / >1214.7–3261.3 / >3261.3–7031.3 / >7031.3 pg/mL | 861 例随访队列的四分位（非固定 cutoff） |
 
 **BNP**
+
 | 产品 | cutoff | 建立方式 |
 |---|---|---|
 | i-STAT BNP（K053597, 2006） | >100 pg/mL 异常 | 与 Abbott ARCHITECT/AxSYM 对齐（一次性赋值校准，slope 0.97）；AxSYM 队列 ROC：100 pg/mL 处 Sens 74.2%、Spec 91.5%，AUC 0.90 (0.86–0.92)；年龄匹配后 AUC 0.87 (0.85–0.90) |
@@ -359,16 +370,19 @@ FDA 决策摘要 “Standards/Guidance Documents Referenced” 一节里反复�
 | Beckman Access BNP II（K252169, 2026） | ≤100 正常；>100 异常提示 HF | "Same as described in K033383"（Triage BNP for Beckman）；用 1323 例 ED 队列验证 |
 
 **参考人群（健康人）定义与数值（文件所载）**
+
 - Beckman NT-proBNP K232164：675 例（369 女/306 男），排除心血管病、未控高血压（≥140/85）、服心血管药（降压药除外）、BMI ≥30、糖尿病、CKD、其他严重慢性病、急性感染；Li-hep 女性 95th：<50 岁 152、50–75 岁 282、>75 岁 443 ng/L；男性 84/188/243；<125 ng/L 比例女 67.2%、男 86.6%。
 - Siemens K220265：723 例自报无 HF（362 女/361 男），EP28-A3c 非参数；95th：男 <50 124、50–75 322、>75 154；女 133/192/178；总体 163 pg/mL。
 - Ortho K201312：血清 385 女/374 男，排除吸烟、心脏病、高血压、肾病、糖尿病、5 年内癌症/卒中/肺病、高脂、甲状腺病、妊娠，加 troponin >99th（VITROS TnI ES 0.034 ng/mL）、HbA1c >6.5%、eGFR ≤60；95% 参考区间上限：女 22–<50 95.3、50–<75 221、≥75 296；男 125/299/326；总体 217 pg/mL。
 - i-STAT BNP K053597（AxSYM 数据转移）：890 例非 HF（含非透析肾病、糖尿病、高血压、COPD 门诊患者，BNP 与健康人无差异）：全体 95th 135 pg/mL，91.5% <100；≥75 岁 95th 254。
 
 ### 5. 生物学 / 生理学依据
+
 - **申报文件所载**：利钠肽因心肌壁应力升高而释放；慢性 HF 患者即使临床稳定也可持续升高（K252169 引 AHA/ACC/HFSA Stage C 定义）；BNP 与 BMI 负相关（K252169：31 例假阴性中 74.2% BMI ≥30；K220265：44 例假阴性中 93% BMI ≥30；K192380：BMI ≥37 Sens 仅 76%）；随肾功能恶化升高（K220265：eGFR <60 者假阳性 45.9% vs 17.6%；K192380 eGFR<60 Spec 59%）；随年龄升高（K192380 ≥75 岁 Spec 53%）；有 HF 史者假阳性高（K220265 46.1% vs 16.1%）；透析、nesiritide 输注患者排除（Natrecor 不与 NT-proBNP 检测交叉，K032646）。Roche K223637 说明书：eGFR <60 者假阳性率更高，<50 及 50–75 岁假阴性率更高，"use caution"。
 - **背景（非申报文件）**：proBNP(1-108) 裂解为有活性的 BNP(1-32) 与无活性的 NT-proBNP(1-76)；NT-proBNP 半衰期更长、更依赖肾清除，故年龄/肾功能依赖性更强；ED 年龄分层 450/900/1800 与 rule-out 300 源自 ICON 合并分析（Januzzi 2006），BNP 100 pg/mL 源自 Breathing Not Properly（Maisel 2002）；上述文献名称在申报文件中未直接出现（Roche 文件仅提 ICON-Reloaded 队列）。
 
 ### 6. 样本类型与样本要求
+
 | 产品 | 样本 | 基质研究 / 稳定性（文件所载） |
 |---|---|---|
 | Roche proBNP（K032646） | 血清、肝素血浆 | EDTA 血浆结果**约低 10%**；接受标准回收 90–110% 或 slope 0.9–1.1 + r>0.95 |
@@ -400,6 +414,7 @@ FDA 决策摘要 “Standards/Guidance Documents Referenced” 一节里反复�
 ### 8. 临床验证设计与结果
 
 **NT-proBNP，ED 急性 HF/ADHF 队列（设计高度一致：≥22 岁、ED 呼吸困难/怀疑 HF、排除透析或 eGFR<15 / CKD 4–5、排除非 HF 明确原因的呼吸困难与胸外伤；独立中心裁定小组（心脏科/HF 专科或急诊科医生）；以年龄分层阳性 + 300 阴性 cutoff 报告患病率、验后概率、LR）**
+
 - **Roche K223637**：17 家美国站点，n=1485（741 女/744 男，22–97 岁），STAT 版全体：<50 岁患病率 7.5% (36/478)，阳性验后概率 53.4% (31/58)，阴性验后"无 ADHF"98.7% (392/397)，LR+ 14.10、LR− 0.16；50–75 岁患病率 21.6%，阳性 56.2% (146/260)，灰区 17.6%，阴性 97.5% (429/440)，LR+ 4.64、LR− 0.09；>75 岁患病率 34.5%，阳性 58.1% (43/74)，灰区 21.2%，阴性 100% (25/25)，LR+ 2.63。
 - **Siemens K220265**：30 站点，n=3128（1148 急性 HF/1980 非），全体：<50 岁验前 25.3%，>450 验后 63.0% (209/332)，LR+ 5.01，<300 者 HF 仅 2.4% (13/549)，LR− 0.07；50–75 岁验前 37.0%，>900 验后 68.5%，<300 者 4.8%，LR− 0.09；>75 岁验前 47.6%，>1800 验后 68.3%，<300 者 5.4%，LR− 0.06。**门诊队列**：28 站点 n=1033（185 新发 HF），cutoff 125：男 ≤75 Sens 85.5% (53/62)、Spec 68.9%、NPV 95.2%；女 ≤75 79.2%/70.8%/95.7%；男 >75 90.5%/37.2%；女 >75 100%/20.8%；AUC 0.839。
 - **Ortho K201312**：ED 20 站点 n=2200（1095 HF/1105 非，22–106 岁，冻存）；交叉表：阳性 949 HF/196 非，灰区 133/310，阴性 13/599；22–<50 岁阳性验后 84.7%，阴性验后非 HF 96.5%，LR+ 6.84、LR− 0.05；50–<75 岁 80.4%/98.1%，LR+ 4.81、LR− 0.02。**门诊** n=777（10 站点），cutoff 125：Sens 91.7% (44/48)、Spec 67.2% (490/729)、NPV 99.2%、PPV 15.6%。
@@ -409,11 +424,13 @@ FDA 决策摘要 “Standards/Guidance Documents Referenced” 一节里反复�
 - **Alere K253539**（预后）：K241176 队列 880 例裁定中 861 例随访 6±1、12±2 个月（495 男/366 女，平均 62.0 岁）；12 个月复合终点绝对风险 Q1 44.03% (36.86–50.39) → Q4 63.08% (55.99–69.02)；全因死亡 10.21% → 25.50%；心脏死亡 2.03% → 15.78%；心脏相关住院 39.69% → 53.41%；KM 与 Cox（单/多变量）结果文件有，HR 数值本文未转录。
 
 **BNP，ED 队列（单一 cutoff 100 pg/mL）**
+
 - **Beckman K252169**：18 采集点，n=1323（572 女/751 男；449 HF/874 非；冻存），Sens 93.1% (418/449, 90.4–95.1)，Spec 65.6% (573/874, 62.3–68.6)，PPV 58.1%，NPV 94.9%；<50 岁 Sens 93.7%/Spec 82.0%；50–75 岁 91.8%/66.4%；>75 岁 96.1%/38.1%（NPV 93.0%）。假阴性 6.9%，假阳性 34.4%（57.1% 有 HF 史，36.9% eGFR<60，28.6% >75 岁）。NYHA I/II/III/IV 中位数 900/661/712/808 pg/mL。
 - **Tosoh K192380**：8 家 ED，825 份/724 例分析（329 HF）：Sens 88.4% (84.5–91.5)、Spec 70.6% (66.0–74.9)、PPV 71.5%、NPV 88.0%、LR+ 3.012、LR− 0.164；一致率 78.7%。
 - **i-STAT K053597**（AxSYM 数据转移，非自有队列）：100 pg/mL 男性总 Sens 71.0% (328/462)、Spec 94.8%；女性 80.5%/88.4%；≥75 岁男 86.1%/89.5%；HF 组 693 例（NYHA I–IV 中位数 133/266/335/1531 pg/mL）。参考范围转移依据 C28-A2 + slope 0.97。
 
 ### 9. 厂家间差异与要点
+
 1. **NT-proBNP 三个时代的 cutoff**：2003–2008（125/450 两档，Roche 起源，VIDAS 通过溯源直接借用）→ 2021 起 ED 用 300 + 450/900/1800 + 灰区（Ortho 首先在本清单中写入，Roche 2023 才把自家产品说明书更新为同一套），门诊仍用 125。各厂无一在文件中重新用 ROC 推导 cutoff，均为"验证既定 cutoff"。
 2. **BNP 阵营**统一 100 pg/mL，但依据不同：i-STAT 用校准对齐 + AxSYM ROC，Tosoh 引 AHA 2010 科学声明，Beckman 引 predicate K033383。
 3. **风险分层声明**几乎全靠文献（FDA 接受），Alere 2026 是清单中唯一用自有前瞻随访数据建立 12 个月预后声明的产品，且用四分位而非固定 cutoff。
@@ -423,6 +440,7 @@ FDA 决策摘要 “Standards/Guidance Documents Referenced” 一节里反复�
 7. **LoQ 口径**：从"功能灵敏度 <50 pg/mL"（Roche 2003/2008 claim 50）到 EP17-A2 精密度曲线（Ortho 20、Roche 2023 36、Siemens 35、Beckman 4.8 ng/L）。
 
 ### 10. 来源
+
 - K252169：https://www.accessdata.fda.gov/cdrh_docs/reviews/K252169.pdf ；https://www.accessdata.fda.gov/cdrh_docs/pdf25/K252169.pdf
 - K253539：https://www.accessdata.fda.gov/cdrh_docs/reviews/K253539.pdf ；https://www.accessdata.fda.gov/cdrh_docs/pdf25/K253539.pdf
 - K232164：https://www.accessdata.fda.gov/cdrh_docs/reviews/K232164.pdf ；https://www.accessdata.fda.gov/cdrh_docs/pdf23/K232164.pdf
@@ -440,6 +458,7 @@ FDA 决策摘要 “Standards/Guidance Documents Referenced” 一节里反复�
 ## 高敏 / 心脏 C 反应蛋白（hsCRP / cardiac CRP, cCRP）
 
 ### 1. 法规定位
+
 - Product code：**NQD**（"Cardiac C-Reactive Protein, Antigen, Antiserum, and Control"）
 - 21 CFR：**866.5270**（C-reactive protein immunological test system）；Class **II**；Panel：Immunology (82 / IM)（Roche K042485 标注 Chemistry 75）
 - openFDA 该代码累计清关数：**total = 19**。
@@ -460,24 +479,28 @@ FDA 决策摘要 “Standards/Guidance Documents Referenced” 一节里反复�
 | K033908 | 2004-01-22 | Dade Behring / N High Sensitivity CRP（BN Systems）——"原型" | PENIA | 血清、肝素、EDTA 血浆 | 在 K991385 基础上新增心脏风险声明（文献 + AHA/CDC 声明支持） | 仅决策摘要 |
 
 ### 3. 预期用途与声明类型
+
 - 声明类型：**风险分层 / 风险识别**（primary prevention）+ **预后**（secondary：stable CAD 或 ACS 的复发事件独立标志物），均为"aid"性质；无诊断、无监测声明。Roche K042485 文件转录了 AHA/CDC 使用建议：有感染/全身炎症/外伤时不做风险评估；持续 >10 mg/L 应查非心血管原因；最好取间隔 2 周两次结果的平均值；不推荐全民筛查；不能替代传统危险因素；不应据此单独决定 ACS 处理或二级预防；**不用系列 hsCRP 监测治疗**。
 - 处方用；均为中央实验室化学/免疫分析仪，本组无 POC 产品（NQD 清单中 Dade Stratus CS K062924/K060369 为急诊台式，未展开）。
 - 2004–2007 年的清关多为"给已清关炎症 CRP 加心脏声明"（K033908、K042485、K070626），2018 年后为新试剂或改版，仍**无临床研究**，依靠分析等效 + 文献。
 
 ### 4. 阳性 / 阴性判定与 cutoff 逻辑
+
 - 全部产品采用 **AHA/CDC 2003 三分位**（Pearson et al., Circulation 2003;107:499–511；部分另引 Ridker Circulation 2003;107:363–369）：
-  - Low <1.0 mg/L；Average 1.0–3.0 mg/L；High >3.0 mg/L（K033908、K070626、K173833、K233242、K260026）。
-  - Ortho K041799 加一档：High 3.0–10.0；**Indeterminate >10.0 mg/L**（提示其他炎症/感染来源）。
-  - Sentinel K173833 说明书表中 Low 误印为"<0.1"（文件原样）。
+    - Low <1.0 mg/L；Average 1.0–3.0 mg/L；High >3.0 mg/L（K033908、K070626、K173833、K233242、K260026）。
+    - Ortho K041799 加一档：High 3.0–10.0；**Indeterminate >10.0 mg/L**（提示其他炎症/感染来源）。
+    - Sentinel K173833 说明书表中 Low 误印为"<0.1"（文件原样）。
 - cutoff 的建立：**不是由申办方数据建立**。K042485 决策摘要明文："The cutoff was established previously in the literature not with this device"；"The expected range was established in the literature not with this device"。K041799 论证逻辑：CDC/AHA 分类基于 Dade Behring BN ProSpec 比浊法建立 → 195 例（101 女/94 男）血清与 BN ProSpec 比对等效 → 已发表分类适用于本产品。K070626 同样以 Deming 回归对 Dade CardioPhase 的等效为桥。
 - 产品自有参考区间（补充信息，非 cutoff）：Beckman K070626：551 例南加州血库健康非吸烟成人 95% <7.48 mg/L；Dade CardioPhase（在 K070626 比较表引述）2147 例健康人 90th 1.69、95th 2.87 mg/L，并注明"each laboratory should determine its own reference interval"。Roche K260026、Siemens K233242 未提供自有健康人分布，仅列三分位。
 - 灰区：无；仅 >10 mg/L 作为"另有炎症来源"提示（Ortho 表格、Roche 文件的 AHA/CDC 文字）。
 
 ### 5. 生物学 / 生理学依据
+
 - **申报文件所载**（Roche K042485 器件描述）：CRP 为经典急性期蛋白，肝脏合成，五个相同多肽链组成五聚环，分子量 120,000；与配体复合后经 C1q 激活补体，启动调理与吞噬；主要功能是结合并解毒组织损伤产生的内源性毒性物质；高敏测定用于"apparently healthy persons"冠心病风险预测与复发事件预后。Beckman K070626、Siemens K233242 等直接引 AHA/CDC 2003 声明。
 - **背景（非申报文件）**：hsCRP 是 IL-6 驱动的下游炎症标志物，反映动脉粥样硬化的低度慢性炎症；"hs"指测量下限 ≤0.3 mg/L 以区分 1/3 mg/L 三分位，而非分析原理不同。
 
 ### 6. 样本类型与样本要求
+
 | 产品 | 样本 | 基质研究 / 稳定性（文件所载） |
 |---|---|---|
 | Roche K260026 | 血清、Li-hep、K2-EDTA | 70 例配对 Passing-Bablok：K2-EDTA slope 1.023 截距 −0.029 r 0.999；Li-hep 1.028/−0.027/1.000（0.185–9.23 mg/L）。稳定性：血清/Li-hep 15–25 °C 14 天、2–8 °C 28 天、−20 °C 12 个月；K2-EDTA 室温仅 2 天；可冻融 4 次 |
@@ -504,11 +527,13 @@ FDA 决策摘要 “Standards/Guidance Documents Referenced” 一节里反复�
 溯源材料演变：CRM 470/RPPHS（K033908、K041799、K070626）→ ERM-DA472（K173833）→ ERM-DA474/IFCC（K212559、K233242、K260026）。
 
 ### 8. 临床验证设计与结果
+
 - **本组 8 份文件全部写明"Clinical sensitivity / specificity: Not applicable"或 N/A**，没有申办方自行开展的临床结局研究。
 - 支持心脏声明的证据链：K033908（Dade）提供"substantial peer-reviewed literature using the Dade test"+ AHA/CDC 专家小组声明 → FDA 认为心脏声明恰当；后续产品（Roche K042485、Ortho K041799、Beckman K070626、Sentinel K173833、Siemens K233242、Roche K260026）通过与 Dade/Siemens 比浊法在 0.2–10 mg/L 心脏区间的**方法比对等效**（Deming / Passing-Bablok，n=100–269，slope 0.954–1.068，r 0.990–0.999）"分析桥接"到该文献证据。
 - 评价指标因此为：slope/截距/r，以及 Roche K260026 新增的**医学决策水平（1、3 mg/L）预测偏倚及 95% CI**；Sentinel 在 1 mg/L 决策点设计精密度；Siemens 报告 3 台 3 批总重现性。无 Sens/Spec/AUC/PPA/NPA。
 
 ### 9. 厂家间差异与要点
+
 1. **声明措辞差异**：Beckman/Roche 2004/Dade 版本同时保留炎症用途 + 心脏用途；Ortho 2004 只写冠心病风险（>3 mg/L）；Sentinel/Siemens 2024 只写心脏用途；Roche 2026 明确排除炎症用途——反映 FDA 2005 review criteria 把 CRP / hsCRP / cCRP 三类分开处理的思路（背景（非申报文件）：该指南按预期用途区分产品代码与所需证据）。
 2. **测量范围收窄**：早期 0.2–80 mg/L（Beckman，含 ORDAC 扩展 60–380）→ 0.10–15（Ortho）→ 0.3–10（Sentinel）→ 0.16–9.50（Siemens）→ 0.150–10.0（Roche 2026）：cardiac 专用产品把上限压到 10 mg/L 左右，超出即提示炎症。
 3. **检出限**：新产品 LoQ 0.15–0.30 mg/L（EP17-A2，20% CV），旧产品用"功能灵敏度"0.1–0.18 mg/L；所有产品在 1 mg/L 附近 CV <3%（Sentinel 2.6%、Siemens 1.6%、Roche 1.9%）。
@@ -517,6 +542,7 @@ FDA 决策摘要 “Standards/Guidance Documents Referenced” 一节里反复�
 6. 无 POC、无全血产品；EDTA 血浆稳定性明显短于血清/肝素（Roche：2 天 vs 14 天）。
 
 ### 10. 来源
+
 - K260026：https://www.accessdata.fda.gov/cdrh_docs/reviews/K260026.pdf ；https://www.accessdata.fda.gov/cdrh_docs/pdf26/K260026.pdf
 - K233242：https://www.accessdata.fda.gov/cdrh_docs/reviews/K233242.pdf ；https://www.accessdata.fda.gov/cdrh_docs/pdf23/K233242.pdf
 - K212559：https://www.accessdata.fda.gov/cdrh_docs/reviews/K212559.pdf
@@ -529,6 +555,7 @@ FDA 决策摘要 “Standards/Guidance Documents Referenced” 一节里反复�
 ---
 
 ### 附：本节未能从文件中获得的信息（汇总）
+
 - Troponin：Roche K162895 参考区间的统计方法与 CI；Abbott ARCHITECT / Siemens / i-STAT 的"10% CV 处浓度"具体数值；PATHFAST K231974 的参考人群与临床性能（决策摘要全部转引 K100130，未下载）；Ortho K252393 逐时间窗 Sens/Spec 表格（文件有，未逐格转录）；Siemens K171274、Ortho K252393 的样本稳定性时限。
 - NT-proBNP/BNP：Roche 125/450 cutoff 的原始建立方法（在 K022516，未下载）；Beckman NT-proBNP、Ortho 的逐年龄层 LR/验后概率完整表格（文件有，本文只转录部分）；Alere K253539 的 Cox HR 数值；i-STAT BNP 方法比对回归参数（决策摘要中表格为图片，文本抽取缺失）；Beckman BNP II vs predicate 回归参数（未转录）。
 - hsCRP：Roche K042485、Dade K033908、Siemens K212559 的全部分析性能（转引 predicate，未下载 K003400/K991385）；Ortho K041799 的基质比对数值；Roche/Siemens 新产品的自有健康人分布（文件未提供）。
@@ -571,10 +598,10 @@ FDA 决策摘要 “Standards/Guidance Documents Referenced” 一节里反复�
 
 - **风险分层（prognostic）而非诊断**：所有产品均声明「in conjunction with other laboratory findings and clinical assessments」，警示「not indicated to be used as a stand-alone diagnostic assay」。
 - 四类声明（以 K162827 / K170652 / K181002 / K220262 为完整版）：
-  1. **ICU 首日风险评估**：进展为 severe sepsis / septic shock（K070310 原型声明）。
-  2. **28 天全因死亡累积风险**：severe sepsis / septic shock 患者，用 ΔPCT（Day 0 或 Day 1 → Day 4）（DEN150009 首次建立）。
-  3. **LRTI（CAP、急性支气管炎、AECOPD）抗生素治疗决策**：住院或急诊场景（K162827 首次建立；明确排除门诊，因门诊数据「not generalizable」）。
-  4. **疑似/确诊脓毒症抗生素停用决策**（K162827）。
+    1. **ICU 首日风险评估**：进展为 severe sepsis / septic shock（K070310 原型声明）。
+    2. **28 天全因死亡累积风险**：severe sepsis / septic shock 患者，用 ΔPCT（Day 0 或 Day 1 → Day 4）（DEN150009 首次建立）。
+    3. **LRTI（CAP、急性支气管炎、AECOPD）抗生素治疗决策**：住院或急诊场景（K162827 首次建立；明确排除门诊，因门诊数据「not generalizable」）。
+    4. **疑似/确诊脓毒症抗生素停用决策**（K162827）。
 - 「借用型」产品（Diazyme K162297、Beckman K192271、DiaSys K242294，均 PTF）只申报第 1 项，且 Diazyme/Beckman 标签明确写入「not indicated to be used as an aid in decision making on antibiotic therapy」。
 - 全部为 **prescription use only**；均为中心实验室自动化平台，**无 POC 声明**（文件未载明任何 POC/CLIA-waived 用途）。
 - 警示语（K162827 起标准化）：肾功能不全可能影响 PCT；多发伤、烧伤、大手术、心源性休克可升高 PCT；非典型病原体（*Chlamydophila pneumoniae*、*Mycoplasma pneumoniae*）PCT 可不升高；<17 岁、孕妇、免疫抑制人群未在支持性 RCT 中正式分析。
@@ -668,16 +695,19 @@ FDA 决策摘要 “Standards/Guidance Documents Referenced” 一节里反复�
 **K070310（原型）**：无临床敏感性/特异性研究（N/A）；仅方法比对 vs BRAHMS PCT LIA（K040887），3 站点 184 份样本，Passing-Bablok y = 0.95x + 0.03，r² = 0.98。
 
 **K160911 / K160729 / DEN150009 — MOSES 研究（28 天死亡）**：前瞻性、美国 13 中心，858 例成人 severe sepsis / septic shock 患者，Day 0、1、4 测 PCT；per-protocol 598 例（44% 女，平均 64 岁；severe sepsis 51% / shock 49%；社区获得性 91%；Day 4 仍在 ICU 44%）；PP 死亡率 16.8%（全人群 22%）。主要分析：Fisher 精确检验 ΔPCT（≤80% vs >80%）vs Day 28 存活；Cox 回归。
+
 - VIDAS 3（K160911）：ΔPCT Day0→4 ≤80% vs >80% 的 HR 2.27 (1.41–3.63, p=0.0007)；VIDAS：HR 2.05 (1.30–3.23)。Day 4 仍在 ICU 者：ΔPCT>80% 死亡率 18.4% vs ≤80% 31.3%；预后敏感性 78.4%、特异性 35.7%。非 ICU：5.4% vs 11.4%。校正 APACHE/SOFA/年龄/Day 4 位置后 ΔPCT 仍独立（HR 1.6–2.1）。
 - Elecsys（K160729）：ICU 组 Day0→4：ΔPCT>80% 死亡率 22.1% (13.3–31.0) vs ≤80% 29.6% (22.9–36.4)；敏感性 73.4%、特异性 35.0%；非 ICU 组 5.6% vs 11.0%，敏感性 72.3%、特异性 44.4%。基线 PCT 分层死亡率：<0.5 15.2%、0.5–2.0 12.5%、>2.0 19.5%。
 - 对比：单独「PCT Day 0 >2 vs ≤2」HR 仅 1.38 (0.89–2.14, p=0.149)——即绝对值分层在此人群对死亡的预测弱于 ΔPCT。
 
 **K162827 — 抗生素决策（meta 分析替代诊断准确性）**：系统文献回顾 + 研究级与患者级 meta 分析（PubMed/Cochrane，Cochrane 偏倚工具，漏斗图，固定/随机效应）。2016-11-10 Microbiology Devices Panel 会议审议。
+
 - LRTI：研究级 11 RCT / 4090 例；患者级 13 RCT / 3142 例。抗生素启动 OR 0.26 (0.13–0.52)（研究级）；患者级 PCT 组 71.4% vs 标准组 88.4%（adj OR 0.27）；疗程中位 7 vs 10 d（−2.87 d）；总暴露 5 vs 9 d（−3.60 d）；30 天死亡 6.7% vs 7.4%（OR 0.95, 0.77–1.16）；并发症 18.0% vs 21.1%（OR 0.82, 0.68–0.99）；住院日 −0.18 d。按初始 PCT 分层：<0.10 组启动率 34.5% vs 71.4%；0.10–0.25 组 57.2% vs 87.4%；>0.50 组两组均 ≈99%。算法依从率 59–91%。DOOR/RADAR 分析支持 PCT 指导组更优。
 - 脓毒症停药：研究级 10 RCT / 3489 例；患者级 5 RCT / 598 例；疗程 −1.49 d (−2.27, −0.71)；死亡 RR 0.90 (0.79–1.03)；患者级总暴露 8 vs 12 d（−3.20 d）；30 天死亡 19.9% vs 23.8%（OR 0.87）。依从 47–91%。
 - 方法比对 vs KRYPTOR（ProRESP bank 203 份）：0.10 ng/mL PPA 83.7% / NPA 89.2% / OPA 86.7% / κ 0.731（未达预设 κ 标准但被接受，因不一致不跨越两级）；0.25：94.6/98.6/97.5/κ 0.938；0.50：100/98.8/99.0/κ 0.971；2.00：100/97.3/97.5/κ 0.870。
 
 **K170652 ARCHITECT（一致性验证型）**：
+
 - 方法比对 EP09-A3：ICU 血清 142 份（130 天然 + 12 人工）vs KRYPTOR：Weighted Deming ARCHITECT = −0.02 + 1.00×KRYPTOR，r 0.99；0.5 ng/mL：NPA 97.96% (48/49)、PPA 95.70% (89/93)；2.0：NPA 100% (77/77)、PPA 100% (65/65)。
 - 临床一致性：MOSES banked 样本 n=2331（<0.1 µg/L 84 例；<0.25 351；<0.5 594；<2.0 1091）：PPA/NPA/总一致/κ — 0.10：96.1%/95.2%/96.1%/0.619；0.25：96.8/95.2/96.5/0.871；0.50：96.9/96.8/96.9/0.920；2.00：96.9/98.4/97.6/0.951；Passing-Bablok 斜率 0.95 (0.94–0.96)，截距 −0.04；范围 0.02–862.43 µg/L。
 
@@ -962,6 +992,7 @@ FDA 决策摘要 “Standards/Guidance Documents Referenced” 一节里反复�
 ### 8. 临床验证设计与结果
 
 **K040882 VIDAS Exclusion（原型）**
+
 - DVT：3 中心前瞻性队列冻存样本，556 例连续门诊首次疑似 DVT，Wells 模型分低/中/高 PTP；阴性 + 低/中 PTP 不再检查、随访 3 个月；阳性或高 PTP 做系列加压超声。n=555：敏感性 100% (93.6–100)、特异性 32.9% (28.8–37.2)、NPV 100% (97.8–100)；低 PTP 295：特异性 39.7%、NPV 100% (96.7–100)；中 PTP 189：特异性 26.7%、NPV 100% (92.3–100)；高 PTP 71：特异性 16.0%、NPV 100% (63.1–100)。
 - PE：3 中心前瞻性，965 例急诊疑似 PE，新鲜样本，「WICKIE model」（文件原文；背景：即 Wicki/Geneva 评分）分层；阴性者不治疗不检查；阳性者超声/螺旋 CT/血管造影，随访 3 个月。全人群：敏感性 100% (98.4–100)、特异性 37.7%、NPV 100% (98.7–100)、PPV 32.4%；低+中 PTP n=891：敏感性 100% (97.7–100)、NPV 100% (98.7–100)、PPV 25.8%；高 PTP 74：PPV 91.3%。
 
@@ -974,6 +1005,7 @@ FDA 决策摘要 “Standards/Guidance Documents Referenced” 一节里反复�
 **K112818 VIDAS DEX2**：既往 VTE 管理研究的冻存样本 n=315（VTE 患病率 23.5%），客观检查 + 3 个月随访确诊；低+中 PTP n=303：DEX2 敏感性 100% (94.2–100)、特异性 35.7% (29.6–42.1)、NPV 100% (95.8–100)、PPV 28.6%；旧 VIDAS 同批：特异性 37.8%。方法比对 vs 旧 VIDAS n=326：250 处偏差 +5.0%、500 处 +12.2% (8.5–16.0)、3000 处 +18.2%。
 
 **K090264 HemosIL D-Dimer HS 500**：
+
 - cutoff 建立：295 例急诊冻存样本 ROC（VTE 75 例）；盲法研究 100 例（HS 500 敏感性 100% (28/28)、特异性 31.9%；VIDAS 特异性 25.0%）。
 - 多中心管理研究（4 医院，747 例连续急诊：DVT 疑似 401 例，平均 65.9 岁；PE 疑似 346 例，平均 51 岁）：Wells；阴性 + 低 PTP 不再检查、3 个月随访；阴性 + 中 PTP 由医生决定随访或影像；阳性或高 PTP 影像。DVT 患病率 22.4%：全体敏感性 100% (90/90; 96–100)、特异性 42.1% (36.6–47.8)、NPV 100% (97.2–100)；低+中 PTP 322：敏感性 100% (45/45)、特异性 43.3%、NPV 100% (97–100)。PE 患病率 15%：全体敏感性 100% (52/52; 93.2–100)、特异性 48.3%、NPV 100% (97.4–100)；低+中 PTP 322：敏感性 100% (43/43)、特异性 49.1%、NPV 100% (97.3–100)。3 个月随访中无 D-dimer 阴性者发生 VTE。
 - 结局研究 295 例：HS 500 敏感性 100% (95.2–100)、特异性 42.3%、NPV 100%；VIDAS 特异性 35%。
@@ -981,6 +1013,7 @@ FDA 决策摘要 “Standards/Guidance Documents Referenced” 一节里反复�
 **K162227 STA-Liatest D-Di（DVT 排除）**：前瞻性，16 中心（美国 9，法/意/西/加 7），1219 例急诊或门诊疑似 VTE；Wells 评分；**高 PTP 158 例排除**、其他排除 96 → 980 例分析；影像 + 3 个月随访。DVT 患病率 8.4% (85/980)（美国 6.0%，欧加 10.3%）；敏感性 100% (85/85; LCL 95.8%)、特异性 55.2% (LCL 51.9%)、NPV 100% (494/494; LCL 99.3%)、PPV 17.5%。美国亚组 369：敏感性 100% (LCL 84.6)、特异性 58.2%。510k summary 引述既往 PE 排除研究：低+中 PTP n=1130，敏感性 97.0% (91.6–99.4)、NPV 99.7% (99.2–100)。
 
 **K110303 Stratus CS（POC，PE 排除）**：
+
 - 柠檬酸血浆：730 例连续急诊疑似 PE（排除 75 → 655），Wells 高/中/低；PE 患病率 14.0%；cutoff 450 ng/mL FEU：敏感性 98.9% (94.1–100)、特异性 42.5% (38.3–46.7)、NPV 99.6% (97.7–100)；低+中 PTP 625：98.7% / 43.0% / 99.6%。
 - 肝素血浆：468 → 427 例；患病率 14.1%；敏感性 98.3% (91.1–100)、特异性 29.7%、NPV 99.1% (95.04–100)；低+中 401：97.9% / 29.9% / 99.1%。
 - 方法比对 vs INNOVANCE n=396（54–4506 ng/mL）：斜率 0.950、截距 −12.32、r 0.938。
@@ -1028,6 +1061,7 @@ FDA 决策摘要 “Standards/Guidance Documents Referenced” 一节里反复�
 ## 癌胚抗原（CEA, Carcinoembryonic Antigen）
 
 ### 1. 法规定位
+
 - Product code **DHX**（System, Test, Carcinoembryonic Antigen）；21 CFR **866.6010** Tumor-associated antigen immunological test system；**Class II**；Panel: Immunology (82 / IM)。
 - openFDA 该代码累计清关数：**total = 28**（含早期对照品/柱等附属品；近 20 年 IVD 主流平台清关约 10 件）。
 
@@ -1041,11 +1075,13 @@ FDA 决策摘要 “Standards/Guidance Documents Referenced” 一节里反复�
 | K071603 | 2008-06-25 | Dade Behring (Siemens) / Dimension Vista CEA Flex（LOCI） | 均相 LOCI 化学发光夹心 | 血清、Na/Li-heparin 血浆 | aid in the management of cancer patients in whom changing CEA concentrations have been observed | 决策摘要（无 510(k) summary） |
 
 ### 3. 预期用途与声明类型
+
 - 声明类型：**监测/管理（monitoring / management）**，Ortho 版本另含 "prognosis"。四份文件均为 **Rx only**（处方用）、中心实验室全自动平台，非 POC。
 - 标签限制（K231517 510(k) summary 原文）："not recommended as a screening procedure for cancer detection"；"CEA levels…regardless of level, should not be interpreted as absolute evidence of the presence or absence of malignant disease"。
 - 三份近年文件（K223921、K231517、K200215）均为已清关产品的修改（平台迁移/底物更换、biotin 干扰改造、新增血浆基质），临床研究与 cutoff 均 "Refer to" 原始清关（K981985、K041322、K981478）；只有 K071603 是新器械并载有完整临床监测研究。
 
 ### 4. 阳性 / 阴性判定与 cutoff 逻辑
+
 | 产品 | 参考区间/期望值 | 建立方式 | serial change 定义 |
 |---|---|---|---|
 | K071603 Vista CEA | 非吸烟者 0.0–3.0 ng/mL；吸烟者 0.0–5.0 ng/mL；健康人群 96.4% < 5.0 ng/mL | 非参数法，健康成人 n=347（非吸烟 198，96.0% ≤3.0；吸烟 149，96.6% ≤5.0）+ 结直肠癌 74 例分布 | **RCV = 36.2%**（predicate Access CEA 36.7%）；公式 RCV = 2^1/2 × Z × (CV_A² + CV_I²)^1/2，CV_I（个体内生物学变异）取文献 12.7%（Ricos 1999），CV_A 取本产品总不精密度；决策摘要明确 "Clinical cut-off: Not applicable for serial monitoring assay that looks for a significant rise" |
@@ -1057,10 +1093,12 @@ FDA 决策摘要 “Standards/Guidance Documents Referenced” 一节里反复�
 - 灰区：Ortho/Vista 期望值表均把 >3.0–5.0、>5.0–10.0 ng/mL 作为分布区间列出，但文件未赋予其"灰区"判定含义。
 
 ### 5. 生物学 / 生理学依据
+
 - 申报文件内：吸烟者 CEA 分布右移（K071603、K231517 数据）；非恶性疾病（肝硬化 12.3% >10 ng/mL、肝炎、良性 GI/肺）亦可升高（K231517 表）；交叉反应物 NCA（non-specific cross-reacting antigen）/NCA-2 在 500/100 ng/mL 下无显著交叉（K071603、K231517、K200215）。K071603 引用 NACB tumor marker 实践指南作为参考文件。
 - 背景（非申报文件）：CEA 属 CEACAM 家族糖蛋白，主要用于结直肠癌术后复发监测；ASCO/NACB 建议每 3 个月检测；生物学变异约 10–13%（与 K071603 引用值一致）。
 
 ### 6. 样本类型与样本要求
+
 - K223921：仅血清；矩阵比对 "Not applicable"。
 - K231517：血清 + Li-heparin/K2-EDTA 血浆；矩阵等效 n=40 配对，Deming 斜率 0.998（Li-hep）/0.995（EDTA），r 0.999/0.998；注明本次配方改进（BSA 0.5%→3%、加 Tween/EDTA）改善了此前 EDTA 偏差限制；不推荐浑浊样本。
 - K200215：新增 K2-EDTA（n=64 配对，Deming 斜率 0.95，r 1.00）和 Li-heparin（n=46，斜率 0.99）；并做抗凝剂过量滴定（3×/5× 标称浓度，回收 96–105%）。
@@ -1068,6 +1106,7 @@ FDA 决策摘要 “Standards/Guidance Documents Referenced” 一节里反复�
 - 溯源：Ortho 溯源至 WHO 1st IRP 72/225（510(k) summary 处写 73/601，两处不一致，如实记录）；Vista 用 predicate Access CEA 赋值（"No information provided on traceability to any reference standard"）；Siemens Centaur 为内部标准品。
 
 ### 7. 分析性能验证所依据的标准
+
 | K 号 | 文件列出的标准 | 对应项目 |
 |---|---|---|
 | K223921 | CLSI EP05-A3；EP06 2nd Ed；EP09c 3rd Ed；EP17-A2 | 精密度（7 水平 2×3×20 天，n≥120，within-lab CV 2.5–5.2%）；线性 0.1–1042.7 ng/mL；方法比对 n=153 Passing-Bablok；LoB 0.09 / LoD 0.1 / LoQ 0.2 ng/mL（20% CV）；AMI 0.2–1,000 ng/mL |
@@ -1076,18 +1115,21 @@ FDA 决策摘要 “Standards/Guidance Documents Referenced” 一节里反复�
 | K071603 | NACB 指南；NCCLS H3-A5（采血）；EP5-A2；EP9-A2；EP7-A2；EP17-A；FDA bundling/leftover specimen 指南 | 精密度（within-lab ≤3.6%）；线性 1.3–1207.8；干扰 + HAMA（3 份 HAMA 样本，偏差 < −8.9%）；LoB 0.12/LoD 0.2；hook 225,000 ng/mL |
 
 ### 8. 临床验证设计与结果
+
 - **K071603（唯一含完整监测临床研究）**：75 套回顾性结直肠癌 serial serum sets（≥3 次采血），排除 1 例，74 例（36.1–86.2 岁，均 63 岁；I–IV 期）；医生依据体检/影像（CT/MRI/X 线/结肠镜/超声）/手术病理判定 Active-Progressive / Responding / Stable / NED。逐访视配对 n=217。以 RCV >36.2% 升高判"阳性"：Progression 58 对中 32 阳性，No-Progression 159 对中 26 阳性 → **Sensitivity 55.2% (41.5–68.3)、Specificity 83.6% (77.0–89.0)、Overall agreement 76.0% (69.8–81.6)**；predicate（Access CEA，RCV 36.7%）Sens 55.2%、Spec 79.9%、agreement 73.3%。有效性判据：Sens+Spec > 1（bootstrap 2000 次，95% CI 1.2416–1.5227）。与 predicate 一致性：overall 94.5%、PPA 85.9% (55/64)、NPA 98.0% (150/153)。方法比对：n=141，斜率 1.01、截距 9.01、r 0.989（0.8–974 ng/mL）。
 - K223921：方法比对 n=153（0.46–1071 ng/mL），Passing-Bablok 斜率 0.98 (0.97–0.99)、截距 0.06、R 1.00。临床 "Refer to K981985"。
 - K231517：修改前后比对 n=110（0.56–396），加权 Deming 斜率 1.01 (0.997–1.012)、截距 0.106、R² 0.999。临床 "Refer to K041322"。
 - K200215：Centaur vs ACS:180 重新分析 n=201（2.0–78.9），Deming 斜率 0.97、截距 0.11、r 1.00。
 
 ### 9. 厂家间差异与要点
+
 - AMI 差异显著：Access 0.2–1,000；Vista 0.2–1,000；VITROS 0.31–400（自动稀释至 40,000）；Centaur 2.0–100 ng/mL（K200215 将 LoQ 上调至 2.0）。
 - 溯源不统一（WHO 72/225 vs 内部标准 vs predicate 赋值），因此各家均强调结果不可互换。
 - 只有 Vista（2008）以 RCV 形式给出显著变化定义；Ortho/Beckman/Siemens 近年修改型申报均引用原清关，未在本次文件中载明 % change。
 - Ortho 与 Beckman（K223921、K240479、K240927）2022–2024 系列申报的共同主题：biotin 干扰改造（预结合 biotinylated 抗体）和 DxI 9000/Lumi-Phos PRO 平台迁移。
 
 ### 10. 来源
+
 - K223921: https://www.accessdata.fda.gov/cdrh_docs/reviews/K223921.pdf ；https://www.accessdata.fda.gov/cdrh_docs/pdf22/K223921.pdf
 - K231517: https://www.accessdata.fda.gov/cdrh_docs/reviews/K231517.pdf ；https://www.accessdata.fda.gov/cdrh_docs/pdf23/K231517.pdf
 - K200215: https://www.accessdata.fda.gov/cdrh_docs/reviews/K200215.pdf ；https://www.accessdata.fda.gov/cdrh_docs/pdf20/K200215.pdf
@@ -1098,6 +1140,7 @@ FDA 决策摘要 “Standards/Guidance Documents Referenced” 一节里反复�
 ## 糖类抗原 125（CA 125）
 
 ### 1. 法规定位
+
 - Product code **LTK**（Test, epithelial ovarian tumor-associated antigen (CA 125)）；21 CFR 866.6010；Class II；Panel Immunology (82)。
 - openFDA 累计清关数：**total = 26**。
 
@@ -1112,10 +1155,12 @@ FDA 决策摘要 “Standards/Guidance Documents Referenced” 一节里反复�
 | K142895 | 2015-05-21 | Fujirebio / Lumipulse G CA125II + G1200 System | CLEIA（ALP–AMPPD），OC125/M11 | 血清、Na/Li-heparin、K2-EDTA 血浆 | aid in monitoring recurrence or progressive disease in patients with ovarian cancer | 决策摘要 + summary |
 
 ### 3. 预期用途与声明类型
+
 - 均为 **监测（recurrence / progression / response to therapy）**，Rx only，非 POC。Siemens 版本最明确："not intended for screening or diagnosis of ovarian cancer"，并建议由"physician trained and experienced in the management of gynecological cancers"开具。
 - Roche 版本描述测量物为 "OC 125 reactive determinants…associated with a high molecular weight glycoprotein…of women with primary epithelial invasive ovarian cancer (excluding those with cancer of low malignant potential)"。
 
 ### 4. 阳性 / 阴性判定与 cutoff 逻辑
+
 | 产品 | 健康参考上限（ULN） | 建立方式 / 人群 | serial change 定义 |
 |---|---|---|---|
 | K142895 Lumipulse G CA125II | **ULN = 30.8 U/mL**（97.5th 百分位） | 表观健康女性 n=240（120 绝经前 + 120 绝经后，19–69 岁），97.5% 低于 ULN；良性妇科 n=260（86.5% <ULN）、良性非妇科 40、妊娠 40（72.5%）、CHF 40、高血压 40；未治疗卵巢癌 n=105（35.2% <ULN）；决策摘要注明干扰实验特意包含"接近常规正常上限 35 U/mL"的样本 | **≥20% 升高**：由 1.645×√2×总 CV（8.6%）≈ 20% 推导；"cut-off of >20% was chosen to balance sensitivity and specificity"；ROC AUC 0.727 (SE 0.047) |
@@ -1127,10 +1172,12 @@ FDA 决策摘要 “Standards/Guidance Documents Referenced” 一节里反复�
 - 关键点：**35 U/mL 并非 ROC 最优，而是各家健康女性 95th–97.5th 百分位（Lumipulse 30.8、Roche 38.1、Ortho 35）**；serial change 阈值由分析不精密度推导（Lumipulse 20%）或 predicate 既定（Ortho 25%）。
 
 ### 5. 生物学 / 生理学依据
+
 - 申报文件内：K142895 test principle 段落——CA 125 由 OC125 单抗识别（免疫原为卵巢浆液性囊腺瘤细胞），"可在 >80% 手术证实的上皮性卵巢癌中检出，其水平与临床病程显著相关"；第二代试剂使用 OC125（固相）+ M11（标记）。良性妇科病、妊娠、CHF、肝硬化/浆膜炎均可升高（K143534、K142895、K221355 分布表）。
 - 背景（非申报文件）：CA 125 = MUC16 黏蛋白；GCIG 复发定义（CA125 ≥2×ULN 或 ≥2×最低点）与这里 20–25% 的 RCV 型定义不同。
 
 ### 6. 样本类型与样本要求
+
 - K143534：血清、Li-heparin、K2/K3-EDTA、Li-heparin 分离胶管；矩阵比对 n=51–52（2.2–2980 U/mL），Passing-Bablok 斜率 0.98–1.00；predicate 允许 Na-heparin/枸橼酸（枸橼酸需 +10% 校正），本次删除；样本稳定 2–8°C 5 天、15–25°C 8 h、−20°C 24 周、2 次冻融。
 - K142895：5 种管型（红头、SST、K2-EDTA、Li-hep、Na-hep），45 名供者 ×8 个加标浓度，加权 Deming 斜率 0.99–1.01；2–10°C 10 天、−20°C 10 天、≤6 次冻融；自动稀释仅允许 1:10（1:100 自动稀释未达标，须手工）。
 - K221355：Li-hep/K2-EDTA vs 血清 n=49，斜率 0.984/0.990，r 1.00。
@@ -1139,6 +1186,7 @@ FDA 决策摘要 “Standards/Guidance Documents Referenced” 一节里反复�
 - 溯源：Roche 标准化至 Enzymun-Test CA125 II → Fujirebio CA125 II RIA；Fujirebio 溯源至内部参考校准品（对应其 CA125 II RIA）；Ortho 溯源至内部参考物（对应另一商业方法）；**"There are no reference standards for CA 125"**（K143534）。
 
 ### 7. 分析性能验证所依据的标准
+
 | K 号 | 标准 | 项目/结果摘录 |
 |---|---|---|
 | K240479 | EP05-A3；EP06 2nd；EP09c；EP17-A2；EP34 | 精密度 8 水平 n=120，within-lab CV 2.6–6.1%；线性 0.5–6,162 U/mL；EMI 1:20 自动稀释至 100,000 U/mL（回收 94–99%）；LoB 0.5/LoD 0.7/LoQ 2.0；方法比对 n=152 斜率 0.98 |
@@ -1148,6 +1196,7 @@ FDA 决策摘要 “Standards/Guidance Documents Referenced” 一节里反复�
 | K142895 | EP05-A2；EP07-A2；C28-A3c；EP06-A；EP09-A3；FDA Tumor Associated Antigen 510(k) 指南；软件指南 | 精密度 20 天总 CV ≤2.6%，三站点 ≤8.4%；线性 2.5–1000；hook >200,000（>20,000 平台，标签警示）；LoB 0.1/LoD 0.5/LoQ 0.5；HAMA 1000 ng/mL、RF 1000、biotin 19.7 mg/dL |
 
 ### 8. 临床验证设计与结果
+
 - **K142895（Lumipulse G CA125II）**：59 名卵巢癌女性（16–84 岁，67.8% 绝经后，72.9% 白人），348 份可评估样本、**289 对连续观察**（每人 3–20 次，中位 5.9 次；随访 29–2446 天）。医生依据临床/影像判定进展。以 ≥20% 升高：Progression 52 对中 35 阳性；No-progression 237 对中 57 阳性 → **Sens 67.31%、Spec 75.95%、Total concordance 74.39%、PPV 38.04%、NPV 91.37%**；预设成功标准 Sens+Spec >125%（实测 143.26）。连续比值中位数：NED 0.99、Stable 1.01、Responding 0.91、Progression 1.64。方法比对 vs ADVIA Centaur（predicate）n=102 加权 Deming 斜率 1.13 (1.06–1.20)——超出 0.9–1.1 验收标准，FDA 接受但要求标签警示不可互换。
 - **K221355**："Refer to K983875"，标签给出 25% 规则；本次仅方法比对/参考区间验证。
 - **K143534**：临床 "Not Applicable"；method comparison n=80（4.7–2680），Passing-Bablok y=0.98x+1.2，R² 0.99；新旧校准品 n=111 斜率 0.99。
@@ -1155,6 +1204,7 @@ FDA 决策摘要 “Standards/Guidance Documents Referenced” 一节里反复�
 - **K200199**：临床 Refer to K020828。
 
 ### 9. 厂家间差异与要点
+
 - 抗体对：Fujirebio/Abbott/Roche/Ortho 均用 OC125 + M11（第二代 "II"）；Siemens 用 M11-吖啶酯 + OC125-荧光素 + 抗荧光素固相。
 - AMI：Access 2.0–5,000；Lumipulse 2.5–1,000；VITROS 5.5–1,000；Elecsys 2.0–3,000（predicate 0.6–5,000）；Centaur 3.0–600。
 - ULN：30.8 / 35 / 38.1 U/mL，取决于百分位选择（97.5th vs 95th）与人群；serial change 20%（Lumipulse，按 1.645×√2×CV 推导）vs 25%（Ortho）。
@@ -1162,6 +1212,7 @@ FDA 决策摘要 “Standards/Guidance Documents Referenced” 一节里反复�
 - Lumipulse 特别注明 1:100 自动稀释失败、>20,000 U/mL 信号平台。
 
 ### 10. 来源
+
 - K240479: https://www.accessdata.fda.gov/cdrh_docs/reviews/K240479.pdf ；https://www.accessdata.fda.gov/cdrh_docs/pdf24/K240479.pdf
 - K221355: https://www.accessdata.fda.gov/cdrh_docs/reviews/K221355.pdf ；https://www.accessdata.fda.gov/cdrh_docs/pdf22/K221355.pdf
 - K200199: https://www.accessdata.fda.gov/cdrh_docs/reviews/K200199.pdf ；https://www.accessdata.fda.gov/cdrh_docs/pdf20/K200199.pdf
@@ -1173,6 +1224,7 @@ FDA 决策摘要 “Standards/Guidance Documents Referenced” 一节里反复�
 ## 糖类抗原 19-9（CA 19-9）
 
 ### 1. 法规定位
+
 - Product code **NIG**（System, Test, Carbohydrate Antigen (CA 19-9) for Monitoring and Management of Pancreatic Cancer）；21 CFR 866.6010；Class II；Panel Immunology (82)。
 - openFDA 累计清关数：**total = 12**。
 
@@ -1186,11 +1238,13 @@ FDA 决策摘要 “Standards/Guidance Documents Referenced” 一节里反复�
 | K100375 | 2011-04-06 | Siemens / Dimension Vista LOCI CA19-9 Flex + LOCI 7 Calibrator | 均相 LOCI 化学发光（1116-NS-19-9） | 血清、Li-heparin/EDTA 血浆 | serial measurement…aid in managing patients…confirmed pancreatic cancer who have levels…exceeding the median concentration determined for the apparently healthy cohort | 决策摘要 + summary |
 
 ### 3. 预期用途与声明类型
+
 - 全部为**监测/管理已确诊外分泌胰腺癌患者**，Rx only，非 POC。Lumipulse 标签："should not be used for cancer screening or diagnosis"。
 - 独特限定条件：仅适用于"病程中某时点 CA 19-9 曾高于健康人群 ULN（或中位数）/曾有可测值"的患者；并附 **Lewis 血型抗原阴性者无法产生 CA 19-9** 的警示（K253528、K191973）。
 - K253528 明确说明抗体为 1116-NS-19-9（Fujirebio 授权），"assays using antibodies other than 1116-NS-19-9 may give different results"。
 
 ### 4. 阳性 / 阴性判定与 cutoff 逻辑
+
 | 产品 | 健康参考上限 | 建立方式 / 人群 | serial change 定义 |
 |---|---|---|---|
 | K253528 Atellica CA 19-9 II | **35 U/mL**（ADVIA Centaur 既定 ULN） | 本次按 EP28-A3c 用 40 名健康者（20 男 20 女）验证，95% (38/40) 在范围内 | **>15% 升高** = positive change（沿用 predicate ADVIA Centaur 标签值） |
@@ -1201,16 +1255,19 @@ FDA 决策摘要 “Standards/Guidance Documents Referenced” 一节里反复�
 - 观察：ULN 35/37 U/mL 为各家健康人群百分位/分布（非 ROC）；15% 变化为 Siemens Centaur 传统值，被 Atellica 与 Lumipulse 沿用；Vista 用 RCV 公式得到 84.7%，代价是极低灵敏度（见第 8 节）。
 
 ### 5. 生物学 / 生理学依据
+
 - 申报文件内：Lewis 抗原基因型阴性者不表达 CA 19-9，表型检测可能不足以识别（K253528、K191973）；良性胰腺炎、肝硬化、胆道疾病可升高（K191973 分布：胰腺炎 n=75 中位 18.5、最高 1966；胆道癌中位 73.3）；与 AFP/CA125/CA15-3/CA27.29/CEA/PSA 无交叉（K253528、K100375）。K253528 溯源注明"no internationally recognized reference method or material for CA 19-9"，按 ISO 17511:2020 赋值。
 - 背景（非申报文件）：CA 19-9 为 sialyl-Lewis^a 糖抗原，胆道梗阻时非特异升高；约 5–10% 人群 Lewis 阴性。
 
 ### 6. 样本类型与样本要求
+
 - K253528：血清、K2/K3-EDTA、Li-heparin 血浆 n=62 配对（4.0–674.7），加权 Deming 斜率 0.99–1.04，r ≥0.991。
 - K231525：按 **CLSI EP35** 做矩阵等效，n=41（4 例超范围剔除），斜率 0.97/0.98，R² 0.99/1.00。
 - K191973：50 名供者 5 种管型（红头、SST、K2-EDTA、Li-hep、Na-hep），斜率 0.989–1.009；样本稳定 2–10°C 4 天、−20°C 14 天。
 - K100375：Li-hep n=60（y=1.013x−1.649）、EDTA n=63（y=0.9754x+0.4812）；加标回收在 Li-hep 中近 cutoff 处偏高（113.8–115.5%）。
 
 ### 7. 分析性能验证所依据的标准
+
 | K 号 | 标准 | 项目/结果 |
 |---|---|---|
 | K253528 | EP05-A3；EP06 2nd；EP07 3rd；EP09c；EP17-A2；EP25 2nd；EP28-A3c；EP34；EP37；**ISO 17511:2020** | 精密度 5 水平 n=80，within-lab CV 3.5–8.2%；线性 1.2–732；hook 3,845,000 U/mL 无；自动稀释 1:10/100/200（EMI 至 140,000）；LoB 1.2/LoD 1.5/LoQ 2.0；HAMA 1000 µg/L、RF 1000 IU/mL、biotin 3500 ng/mL；交叉反应 6 种标志物；货架期 10 个月、在机 23 天 |
@@ -1219,12 +1276,14 @@ FDA 决策摘要 “Standards/Guidance Documents Referenced” 一节里反复�
 | K100375 | EP05-A2；EP06-A；EP07-A2；EP09-A2；EP17-A | 精密度含站点/校准品 lot 变量；LoB 1.0/LoD 2.0；hook 1,230,509 U/mL；HAMA 至 327.1 mg/mL；62 种外源物 |
 
 ### 8. 临床验证设计与结果
+
 - **K253528（Atellica）**：前瞻/回顾（"remnant sample documentation"）79 例外分泌胰腺癌（IA–IV 期），排除后 71 例（47–87 岁，均 65.3），413 份样本/342 次随访对；状态分类 NED/SD/RD/PD/RC。>15% 升高：Progression 63 中 43 阳、No-progression 279 中 111 阳 → **Sens 68.3% (59.5–78.4)、Spec 60.2% (54.7–65.2)、PPV 27.9%、NPV 89.4%**。与 predicate（ADVIA Centaur XPT）同一队列 n=321：Sens 66.7 vs 68.4%，Spec 60.9 vs 61.2%。比值中位数：NED 0.92、SD 1.06、RD 0.71、PD/RC 1.48。
 - **K191973（Lumipulse）**：83 例（47–87 岁，中位 65；89.2% 白人），374 对（均 5.6 次/人）。≥15%：Progression 70 中 45 阳、No-progression 304 中 120 阳 → **Sens 64.29% (55.49–73.08)、Spec 60.53% (55.60–65.45)、Total concordance 61.23%、PPV 27.27%、NPV 88.04%**。同队列 predicate ARCHITECT CA 19-9XR（≥14%）n=301：Sens 64.71%、Spec 62.40%。方法比对 vs ARCHITECT n=84：Passing-Bablok 斜率 0.903 但 **R 仅 0.6628、平均偏差 164%**——文件如实记录，未做进一步解释。
 - **K100375（Vista）**：38 回顾 + 34 前瞻 = 72 例（45.4–69.5 岁），189 对。>84.7%（RCV）升高：Progression 73 中 14 阳、No-progression 116 中 13 阳 → **Positive concordance 19.2% (10.9–30.1)、Negative concordance 88.8% (81.6–93.9)、Total 61.9%**；predicate（>15%）Positive 39.7%、Negative 69.8%、Total 58.2%。方法比对 vs ADVIA Centaur n=293，Passing-Bablok y=1.12x−5.71，R² 0.787。
 - **K231525**：临床 "Refer to K052889"；方法比对 n=117/118（两 predicate lot），加权 Deming 斜率 0.96/0.97，R² 0.99。
 
 ### 9. 厂家间差异与要点
+
 - 抗体均为 1116-NS-19-9（Fujirebio 授权），但不同平台间 R 可低至 0.66（Lumipulse vs ARCHITECT）、R² 0.787（Vista vs Centaur）——CA 19-9 是本组中方法间一致性最差的靶点。
 - 变化阈值：15%（Siemens/Fujirebio）vs 84.7% RCV（Vista）→ Sens 64–68% vs 19%。
 - AMI：Atellica 2.0–700；VITROS 1.4–1000；Lumipulse 0.7–500；Vista 2–1000 U/mL。
@@ -1232,6 +1291,7 @@ FDA 决策摘要 “Standards/Guidance Documents Referenced” 一节里反复�
 - 预期用途措辞差异："exceeding the upper limit of normal"（Atellica 2026）vs "exceeding the median concentration"（Vista 2011 / Centaur 2003）vs "detectable levels"（Lumipulse）。
 
 ### 10. 来源
+
 - K253528: https://www.accessdata.fda.gov/cdrh_docs/reviews/K253528.pdf ；https://www.accessdata.fda.gov/cdrh_docs/pdf25/K253528.pdf
 - K231525: https://www.accessdata.fda.gov/cdrh_docs/reviews/K231525.pdf ；https://www.accessdata.fda.gov/cdrh_docs/pdf23/K231525.pdf
 - K191973: https://www.accessdata.fda.gov/cdrh_docs/reviews/K191973.pdf ；https://www.accessdata.fda.gov/cdrh_docs/pdf19/K191973.pdf
@@ -1243,6 +1303,7 @@ FDA 决策摘要 “Standards/Guidance Documents Referenced” 一节里反复�
 ## 前列腺特异抗原用于前列腺癌管理/监测（Total PSA for Management of Prostate Cancer）
 
 ### 1. 法规定位
+
 - Product code **LTJ**（Prostate Specific Antigen (PSA) for Management of Prostate Cancers）；21 CFR 866.6010；Class II；Panel Immunology (82)。
 - openFDA 累计清关数：**total = 34**（多数为 1997–2003 年清关；2013 年后仅 NanoEnTek FREND 与 2026 年 Siemens Atellica tPSAII）。
 - **与筛查/检测用途的界线（文件实证）**：K251630 的 predicate 为 **P950021/S015（PMA）**，其"aid in the detection of prostate cancer in conjunction with DRE in men aged 50 years and older"用途及全部分析性能均"Refer to P240021"（PMA）；510(k) K251630 仅承载**新增的 "management (monitoring)" 用途**及其临床监测研究。即：PSA 用于癌症检测/筛查 = Class III PMA（product code MTF），PSA 用于已确诊患者监测 = Class II 510(k)（LTJ）。同一试剂可同时具备两种用途，但分别走两条法规路径。
@@ -1256,10 +1317,12 @@ FDA 决策摘要 “Standards/Guidance Documents Referenced” 一节里反复�
 | K124056 | 2013-05-29 | NanoEnTek / FREND PSA Plus（原始清关） | 同上 | 血清、heparin/EDTA 血浆 | 同上；"for use in clinical laboratories upon prescription" | 决策摘要 + summary |
 
 ### 3. 预期用途与声明类型
+
 - 声明类型：**监测（management/monitoring）已确诊前列腺癌患者**；Rx only。FREND 为台式小型荧光读卡仪（属 POC 形态），但标签限定 "for use in clinical laboratories upon prescription by the physician"（K124056），非 CLIA-waived。
 - K251630 标签警示：不同方法 PSA 值不可互换，更换方法须补做序列检测确认基线。
 
 ### 4. 阳性 / 阴性判定与 cutoff 逻辑
+
 | 产品 | 参考区间 | 建立方式 | serial change 定义 |
 |---|---|---|---|
 | K251630 Atellica tPSAII | Refer to P240021 | — | **RCV = 50.0%**（"increase in 50% RCV of the visit compared to previous visit"）；来源/推导文件未载明（仅说明用于候选与 predicate 两者） |
@@ -1269,16 +1332,19 @@ FDA 决策摘要 “Standards/Guidance Documents Referenced” 一节里反复�
 - 用户提到的 4 ng/mL：仅在 K124056 中以"健康男性 >99% ≤4.0 ng/mL"形式出现，且文件明确该值不是监测 cutoff。4.0 ng/mL 作为检测辅助阈值属 PMA 范畴（背景，非本组文件）。
 
 ### 5. 生物学 / 生理学依据
+
 - 申报文件内：K124056 说明治疗（前列腺切除、放疗、激素）可使 PSA 下降而肿瘤仍在进展，故须结合 DRE/影像；K162378 干扰实验涵盖前列腺癌治疗药（flutamide、goserelin、leuprolide、finasteride、tamsulosin、docetaxel）及 PAP、kallikrein（K124056）。
 - 背景（非申报文件）：PSA（hK3）为前列腺上皮丝氨酸蛋白酶；术后生化复发定义（如 ≥0.2 ng/mL 两次）与此处"≤1 ng/mL 时 +0.2 ng/mL"规则思路相近但非文件引用。
 
 ### 6. 样本类型与样本要求
+
 - K251630：血清、EDTA/Li-heparin 血浆；矩阵比对 "Refer to P240021"；临床研究要求血清且在 SOC PSA 采血 ±28 天内。
 - K162378：Li-hep/K3-EDTA vs 血清 n=40（0.08–23.59），Passing-Bablok 斜率 0.96 (0.89–1.03)/1.03 (0.99–1.09)，r 0.99。
 - K124056：样本 2–8°C 一周，>1 周须 ≤−20°C（临床纳入标准）。
 - 溯源：FREND 溯源 WHO 96/670（90:10 PSA-ACT:fPSA），校准品经 ARCHITECT total PSA (P910007)/Tosoh AIA PA (P910065) 确认；Atellica 溯源 "Refer to P240021"。
 
 ### 7. 分析性能验证所依据的标准
+
 | K 号 | 标准 | 项目/结果 |
 |---|---|---|
 | K251630 | 仅列 **CLSI EP34 1st Ed**（其余 "Refer to P240021"） | 自动稀释 1:5/10/50/100/500（Multi-Diluent 2）；AMI 0.009–50.00 ng/mL |
@@ -1286,16 +1352,19 @@ FDA 决策摘要 “Standards/Guidance Documents Referenced” 一节里反复�
 | K124056 | EP05-A2；EP06-A；EP07-A2；I/LA19-A；EP17-A | 精密度总 CV ~8%（@4 ng/mL）；LoB 0.04；方法比对 vs Tosoh ST AIA-PACK PA（n=236 监测样本 + 160 单点）；HAMA/PAP/kallikrein |
 
 ### 8. 临床验证设计与结果
+
 - **K251630（Atellica tPSAII）**：前瞻性、6 个采集点，88 名 >50 岁确诊前列腺癌男性（54–86 岁，均 67.7；83% 白人、17% 非裔），随访 121–1014 天（中位 768），访视间隔中位 182 天；323 份（88 基线 + 235 随访）。状态 NED/Stable/Responding/Progression 由医生依据 DRE/活检/超声/MRI/CT/PET/骨扫描判定。RCV 50%：Progression 33 中 18 阳、No-progression 290 中 36 阳 → **Sens 54.5% (36.4–71.9)、Spec 87.6% (83.3–91.2)、PPV 33.3%、NPV 94.4%、LR+ 4.39、LR− 0.52**，患病率 10.22%。predicate（Atellica IM PSA，PMA）同队列：Sens 54.5%、Spec 89.3%。候选 vs predicate：**PPA 91.8% (45/49)、NPA 96.7% (265/274)**。
 - **K162378（FREND 修改版）**：63 例（49 白人；I 期 3、II 期 25、III 期 22、IV 期 12；40 例接受手术），257 份（63 基线 + 194 随访，均 4.08 次/人），回顾性，样本须来自确诊后。规则（>20% 或 >0.2 ng/mL）：Progression 73 中 46 阳、No-progression 121 中 23 阳 → **Sens 63.0% (51.5–73.2)、Spec 81.0% (73.1–87.0)、PPV 66.7%、NPV 78.4%、LR+ 3.32**；分期/手术分层亦列出（手术组 Sens 60.5%/Spec 82.2%；非手术 66.7%/79.2%）。predicate（原 FREND）同队列 Sens 65.8%、Spec 81.0%、Total concordance 75.3%。方法比对 vs 原 FREND n=64 斜率 0.98。
 - **K124056（FREND 原始）**：75 套回顾性 serial sets（311 份，3–9 次/人，均 4.2），236 对；Gleason 5–9，多种治疗。≥20%：Progression 108 中 84 阳、No-progression 128 中 46 阳 → **Sens 77.8% (69.1–84.6)、Spec 64.1% (55.5–71.9)、PPV 64.6%、NPV 77.4%、ROC AUC 0.759 (0.697–0.822)**。predicate Tosoh 用 8.5%。另有 85 例单点前列腺癌样本分布。
 
 ### 9. 厂家间差异与要点
+
 - 显著变化定义三种：RCV 50%（Siemens，推导未载明）、20%/0.2 ng/mL 双层规则（FREND 2017）、2.5×CV=20%（FREND 2013）。对应 Sens 54.5% / 63.0% / 77.8%，Spec 87.6% / 81.0% / 64.1%。
 - FREND 是 POC 型平台，低端精密度差（0.08 ng/mL 时 CV 14.6%），AMI 上限仅 25 ng/mL。
 - Siemens 采用 PMA + 510(k) 双路径，510(k) 文件几乎不含分析性能。
 
 ### 10. 来源
+
 - K251630: https://www.accessdata.fda.gov/cdrh_docs/reviews/K251630.pdf ；https://www.accessdata.fda.gov/cdrh_docs/pdf25/K251630.pdf
 - K162378: https://www.accessdata.fda.gov/cdrh_docs/reviews/K162378.pdf ；https://www.accessdata.fda.gov/cdrh_docs/pdf16/K162378.pdf
 - K124056: https://www.accessdata.fda.gov/cdrh_docs/reviews/K124056.pdf ；https://www.accessdata.fda.gov/cdrh_docs/pdf12/K124056.pdf
@@ -1305,6 +1374,7 @@ FDA 决策摘要 “Standards/Guidance Documents Referenced” 一节里反复�
 ## 甲胎蛋白用于睾丸癌/生殖细胞肿瘤（AFP for Testicular / Germ Cell Cancer）
 
 ### 1. 法规定位
+
 - Product code **LOJ**（Kit, Test, Alpha-fetoprotein for testicular cancer）；21 CFR 866.6010；Class II；Panel Immunology (82)。
 - openFDA 累计清关数：**total = 17**。
 - **与神经管缺陷 AFP 的 Class III 区别（文件实证）**：K071597 的 predicate 为 **Abbott AxSYM AFP, P820060/S019（PMA）**，其差异表列出 predicate 另有"quantitative determination of AFP in amniotic fluid at 15–21 weeks gestation to aid in the detection of fetal open neural tube defects (NTD)"用途，而候选 Vista AFP 该项为 "Not applicable"。即 AFP 用于羊水/母血 NTD 检测属 Class III PMA（文件仅记录该用途归 PMA P820060，未载明其 product code），AFP 用于非精原细胞睾丸癌管理属 Class II 510(k)（LOJ）。K071597 差异表还显示 predicate 的样本类型含 "Serum, plasma and amniotic fluid"，候选仅血清。
@@ -1319,10 +1389,12 @@ FDA 决策摘要 “Standards/Guidance Documents Referenced” 一节里反复�
 | K090236 | 2009-04-27 | Siemens / Dimension Vista AFP（新增 Li-heparin 血浆） | 同上 | 血清、Li-heparin 血浆 | 同上 | 决策摘要 |
 
 ### 3. 预期用途与声明类型
+
 - 均为**管理/监测非精原细胞性生殖细胞肿瘤**，Rx only，非 POC。Vista 版本强调须与体检、组织病理及其它临床评估联用。
 - 三份近年/补充文件（K220176、K213626、K090236）临床均 "Refer to" 原清关（K981282、K983031、K071597）。
 
 ### 4. 阳性 / 阴性判定与 cutoff 逻辑
+
 | 产品 | 参考上限 | 建立方式 | serial change |
 |---|---|---|---|
 | K071597 Vista AFP | 健康男性（18–61 岁）n=231：**97.4% <8.0 ng/mL [6.6 IU/mL]** | 分布表（共 803 份：睾丸精原细胞瘤 10、肝细胞癌 123（44.7% ≤8）、胰腺 35、其他 GI 164、肝硬化 122（50.8% ≤8）、肝炎 118） | **RCV = 33.7%**（predicate AxSYM 37.7%）；CV_I 取文献 12%（Trapé 2003）；Clinical cut-off "Not applicable" |
@@ -1331,16 +1403,19 @@ FDA 决策摘要 “Standards/Guidance Documents Referenced” 一节里反复�
 | K090236 | Refer to K071597 | — | — |
 
 ### 5. 生物学 / 生理学依据
+
 - 申报文件内：肝细胞癌与肝硬化 AFP 显著升高（Vista 分布表）；精原细胞瘤 100% ≤8 ng/mL（n=10）而非精原细胞瘤 35% >500 IU/mL（Ortho 表）；交叉反应物 hCG（1,000,000 mIU/mL）、α1-酸性糖蛋白、α1-抗胰蛋白酶、铜蓝蛋白、HPL、转铁蛋白、催乳素无交叉（K213626）；溯源 WHO 1st IRP 72/225（Roche、Ortho、Vista 均是），IU/mL↔ng/mL 换算因子各家不一（Ortho 由 1.04 改为 1.21 "to align…to other vendors"）。
 - 背景（非申报文件）：AFP 由卵黄囊成分分泌，精原细胞瘤不产生 AFP；IGCCCG 分期用 AFP 绝对值（<1000 / 1000–10000 / >10000 ng/mL）。
 
 ### 6. 样本类型与样本要求
+
 - K220176：血清、Li-hep、K2-EDTA、K3-EDTA；矩阵 n=52/48/53（1.63–927 IU/mL），Passing-Bablok 斜率 0.976–0.985，r ≥0.998。
 - K213626：仅血清；矩阵 "Not applicable"。
 - K090236：新增 Li-heparin 血浆，n=70 配对（0.9–999.5 ng/mL），Passing-Bablok 斜率 0.99 (0.96–1.00)、截距 −0.05、r 0.997；样本 −20°C 冻存 ≤60 天后检测。
 - K071597：样本 7 天应激/−20°C 30 天/冻融稳定。
 
 ### 7. 分析性能验证所依据的标准
+
 | K 号 | 标准 | 项目/结果 |
 |---|---|---|
 | K220176 | EP05-A3；EP06-A；EP17-A2；EP28-A3c | 精密度 n=84 within-lab 3.4–4.2%；3 lot 总 CV 3.5–9.1%；线性 R² 0.958（15 水平），AMI 1.5–1000 IU/mL；hook 1,000,000 IU/mL 无；biotin 无干扰至 1200 ng/mL（原 60）；Hb 2200 mg/dL、RF 1500；LoB 0.75/LoD 1.5/LoQ 1.5；货架期 21 个月；方法比对 3 lot n≈181，斜率 0.965–0.971 |
@@ -1349,16 +1424,19 @@ FDA 决策摘要 “Standards/Guidance Documents Referenced” 一节里反复�
 | K090236 | EP5-A2 | 血浆精密度（249 ng/mL：within-lab 2.0%；7.5 ng/mL：1.7%） |
 
 ### 8. 临床验证设计与结果
+
 - **K071597（Vista AFP，唯一含监测临床研究）**：74 套回顾性睾丸癌 serial sets，排除 4 例非非精原细胞瘤，70 例（1.1–53.7 岁，均 30.8；无非裔样本；I–IV 期）；医生依据体检/影像（CT/MRI/X 线/超声）/手术（穿刺、睾丸切除）判定状态。逐访视 n=244。RCV >33.7% 升高：Progression 59 中 16 阳、No-progression 185 中 24 阳 → **Sensitivity 27.1% (16.4–40.3)、Specificity 87.0% (81.3–91.5)、Accuracy 72.5%**；predicate（RCV 37.7%）Sens 27.1%、Spec 90.3%。Sens+Spec >1 bootstrap 95% CI 1.0062–1.2861（下限勉强 >1）。与 predicate 一致性 overall 97.5%、PPA 100% (34/34)、NPA 97.1%。注：三分类表显示 Progression 59 例中 21 例 AFP 反而下降 >33.7%（响应治疗中仍被判进展），解释了低灵敏度。
 - K220176 / K213626 / K090236：临床 Refer to 原清关；仅方法比对与参考区间验证（见第 7 节）。
 
 ### 9. 厂家间差异与要点
+
 - 单位：Roche 与 Ortho 报 IU/mL（AMI 1.5–1000 与 0.8–500），Vista 报 ng/mL（0.5–1000）；Ortho 换算因子改变导致 ng/mL 期望值整体 +16%，是标签层面需要关注的"cutoff 漂移"案例。
 - 参考上限：8.0 ng/mL（97.4%，Vista）、7.22 IU/mL（97.5th，Ortho）、6.90 IU/mL（97%，Roche）。
 - 仅 Vista 2008 给出 RCV（33.7%）；在睾丸癌监测中 RCV 型规则灵敏度极低（27%）。
 - biotin 改良是 2022 年 Roche/Ortho 申报共同主题。
 
 ### 10. 来源
+
 - K220176: https://www.accessdata.fda.gov/cdrh_docs/reviews/K220176.pdf ；https://www.accessdata.fda.gov/cdrh_docs/pdf22/K220176.pdf
 - K213626: https://www.accessdata.fda.gov/cdrh_docs/reviews/K213626.pdf ；https://www.accessdata.fda.gov/cdrh_docs/pdf21/K213626.pdf
 - K071597: https://www.accessdata.fda.gov/cdrh_docs/reviews/K071597.pdf
@@ -1369,6 +1447,7 @@ FDA 决策摘要 “Standards/Guidance Documents Referenced” 一节里反复�
 ## 人附睾蛋白 4（HE4）及 ROMA 算法
 
 ### 1. 法规定位
+
 - HE4：Product code **OIU**（Test, Epithelial Ovarian Tumor Associated Antigen (HE4)）；21 CFR 866.6010；Class II；Panel Immunology (82)。openFDA 累计清关数：**total = 5**（含 1 件 Tumor Marker Control K103676）。
 - ROMA：Product code **ONX**（Ovarian adnexal mass assessment score test system）；21 CFR **866.6050**；Class II（special controls，"Class II Special Controls Guidance Document: Ovarian Adnexal Mass Assessment Score Test System"）；Panel Immunology (82)。openFDA 累计清关数：**total = 6**（含 OVA1 DEN090004 de novo 与 OVA1 Next Generation K150588；ROMA 4 件）。原型为 **K103358 ROMA (HE4 EIA + ARCHITECT CA 125 II)**，其 predicate 为 OVA1（k081754）。
 
@@ -1393,6 +1472,7 @@ FDA 决策摘要 “Standards/Guidance Documents Referenced” 一节里反复�
 | K153607 | 2016-06-15 | Roche / ROMA Calculation Tool Using Elecsys Assays (RCTUEA) | Elecsys HE4 + Elecsys CA 125 II | 血清、K2/K3-EDTA、Li-hep 血浆 | 同上 | 决策摘要 + summary |
 
 ### 3. 预期用途与声明类型
+
 - **HE4**：监测已确诊上皮性卵巢癌复发/进展（serial testing），Rx only，非 POC；决策摘要多次强调 "There is no assay cut-off for monitoring the progression"。
 - **ROMA**：**术前风险分层（辅助评估附件包块恶性可能性）**，是本组中唯一的"单次检测、定性 high/low likelihood"声明；带 PRECAUTION 黑框："should not be used without an independent clinical/radiological evaluation…not intended to be a screening test or to determine whether a patient should proceed to surgery. Incorrect use…carries the risk of unnecessary testing, surgery, and/or delayed diagnosis"。Rx only。绝经状态须基于卵巢功能的临床判断；两种绝经状态的分数同时报告给医生。
 
@@ -1428,10 +1508,12 @@ FDA 决策摘要 “Standards/Guidance Documents Referenced” 一节里反复�
 - 干扰导致的判定限制：K103358 中 **RF ≥500 IU/mL 使 ROMA 分数偏差 12.6–28.2%**，标签规定 RF >250 IU/mL 样本不适用 ROMA。
 
 ### 5. 生物学 / 生理学依据
+
 - 申报文件内：HE4（WFDC2 基因产物）在肺腺癌上调，肺癌灵敏度 42%（K072939）；CHF 与非妇科良性病中 HE4 意外升高（K072939 CHF 特异度 78.1%，K112624 CHF 46.7% >140 pmol/L；文件称"not associated with the known tissue expression of the HE4 gene"）；HE4 随年龄上升（K112624 分层表）；良性妇科病（子宫内膜异位、肌瘤、囊腺瘤）中 HE4 多低于 ULN（K093957 良性妇科 96% <140），这是 ROMA 相对 CA125 的设计依据（文件隐含）。Roche 交叉反应物 SLPI、Elafin/SKALP 无交叉。
 - 背景（非申报文件）：HE4 为 WAP 四二硫核心域蛋白 2；肾功能不全时升高（文件仅提及 ESRD 个例）。
 
 ### 6. 样本类型与样本要求
+
 - K072939 / K093957 / K103358 / K151502：仅血清（K093957 验证红头、SST、Hemogard 管型等效；4 天 2–8°C、24 h 室温、6 次冻融）。
 - K112624：血清、Li-hep、K2/K3-EDTA，n=40 配对（17.1–1458 pmol/L），Passing-Bablok 斜率 0.980–1.010；稳定 15–25°C 5 h、2–8°C 2 天、−20°C 12 周、2 次冻融。
 - K151378 / K160090：血清、Li-hep、K2-EDTA（SST/K2EDTA/Li-hep 斜率 95% CI 在 0.9–1.1 内）；ROMA 矩阵比对 n=86 配对 Deming 斜率 1.00。
@@ -1439,6 +1521,7 @@ FDA 决策摘要 “Standards/Guidance Documents Referenced” 一节里反复�
 - 溯源：HE4 无国际标准；Fujirebio 用重组 Ig-HE4 融合蛋白（CHO 表达，MALDI-TOF 定值）；Roche 用 OvCar-3 细胞来源 HE4、标准化至 Fujirebio HE4 EIA。
 
 ### 7. 分析性能验证所依据的标准
+
 | K 号 | 标准 | 项目/结果 |
 |---|---|---|
 | K072939 | EP5-A2；EP6-A（另用 EP17-A、EP7-A） | 三站点精密度总 CV 3.3–6.5%（验收 ≤20%，声明 <15%）；线性 15–900 pM，回收 84.8–102.1%；hook 300,000 pM 无；LoD 1.1–2.2 pM、LoQ 3.85 pM；脂类 3 g/dL 回收 90.3%、蛋白 12 g/dL 113.1%、HAMA 400 ng/mL、RF 568 IU/mL、10 种化疗药 |
@@ -1480,6 +1563,7 @@ FDA 决策摘要 “Standards/Guidance Documents Referenced” 一节里反复�
 - 健康女性 ROMA 分布（各 n=240 左右）：K103358 绝经前 95th 2.36、绝经后 2.75（15.8%/5.0% 被判高可能）；K153607 1.70/2.58；K151502 1.65/2.02；K160090 1.73/2.03。良性妇科病 23–26% 判高可能（K103358）。
 
 ### 9. 厂家间差异与要点
+
 - HE4 ULN：150 pM（EIA 单一）→ 70/140 pmol/L 绝经分层（ARCHITECT、Roche 分析亦用 140）→ Lumipulse 以 90/135 pM 为分布标记；serial change 14%/18%/20%/25%，均由分析 CV 倍数推导，无临床共识值，各文件均附多 cutoff ROC 表让临床自选。
 - HE4 监测灵敏度普遍 47–60%、特异度 75–84%，与 CA125 相当（非劣效设计，K072939）；HE4 绝对值 ≤140 对 NED 灵敏度 98–99%，是文件强调的第二种判读方式。
 - ROMA cutoff：Fujirebio/Abbott 系 1.31/2.77；Roche 1.14/2.99（因 HE4/CA125 定值差异）；四份 ROMA 文件复用同一 512 例队列（各自重测样本），联合 NPV 提升 ~2.2–2.4% 是共同主要终点。
@@ -1487,6 +1571,7 @@ FDA 决策摘要 “Standards/Guidance Documents Referenced” 一节里反复�
 - 文件类型缺口：K151378 仅有 510(k) summary，无决策摘要。
 
 ### 10. 来源
+
 - K072939: https://www.accessdata.fda.gov/cdrh_docs/reviews/K072939.pdf
 - K093957: https://www.accessdata.fda.gov/cdrh_docs/reviews/K093957.pdf
 - K112624: https://www.accessdata.fda.gov/cdrh_docs/reviews/K112624.pdf ；https://www.accessdata.fda.gov/cdrh_docs/pdf11/K112624.pdf
@@ -1501,6 +1586,7 @@ FDA 决策摘要 “Standards/Guidance Documents Referenced” 一节里反复�
 ## 甲状腺球蛋白用于分化型甲状腺癌监测（Thyroglobulin, Tg）
 
 ### 1. 法规定位
+
 - Product code **MSW**；21 CFR 866.6010；Class II；Panel Immunology (82 / IM)。
 - openFDA 累计清关数：**total = 13**。
 
@@ -1515,10 +1601,12 @@ FDA 决策摘要 “Standards/Guidance Documents Referenced” 一节里反复�
 | K240927 | 2024-06-28 | Beckman / Access Thyroglobulin（DxI 9000, Lumi-Phos PRO） | 同上 | 血清、heparin 血浆 | 同上 | 决策摘要 + summary |
 
 ### 3. 预期用途与声明类型
+
 - 全部为**术后监测**（persistent / recurrent / metastatic disease），Rx only，非 POC；Beckman 明确限定"lack serum thyroglobulin antibodies"，Siemens/Roche 以警示/黑框形式要求 anti-Tg 阳性样本不得检测 Tg。
 - Roche 标签含 blackbox 声明：Tg 自身抗体可致假高/假低；不同方法结果不可直接比较，更换方法须平行检测。
 
 ### 4. 阳性 / 阴性判定与 cutoff 逻辑
+
 | 产品 | 临床 cutoff | 建立方式 | 健康参考区间 | 无病 DTC 患者分布 |
 |---|---|---|---|---|
 | K242981 Atellica Tg | **0.2 ng/mL**（阳性 = 术后复发证据）；分层：<0.2 Excellent、0.2–<1.0 Indeterminate、≥1.0 Biochemical Incomplete | **直接采用 2015 ATA 指南**"Excellent response"定义（非 TSH 刺激、无 TgAb 时 suppressed Tg <0.2） | 321 名健康者（157 男/164 女，22–80 岁）：中位 15.9，2.5th 2.4、**97.5th 74.9 ng/mL**（男 70.1、女 78.3） | 136 例术后 ≥4 年无病 DTC（排除 aTg >LoQ、妊娠、<22 岁）：95% ≤1.272 ng/mL |
@@ -1528,16 +1616,19 @@ FDA 决策摘要 “Standards/Guidance Documents Referenced” 一节里反复�
 - 要点：Tg 是本组中唯一**直接引用临床指南既定值（ATA 2015）**作为 cutoff 的靶点，且 cutoff 是绝对浓度而非 serial change；健康人群 97.5th（50–78 ng/mL）与临床 cutoff（0.2 ng/mL）相差两个数量级，因目标人群为甲状腺全切后。
 
 ### 5. 生物学 / 生理学依据
+
 - 申报文件内：anti-Tg 自身抗体干扰（各文件警示；Access 用 80 份嗜异性血清测试，19 份有 HAMA 干扰；Atellica 6 份 HAMA 样本中 1 份 775 ng/mL 干扰）；RAI 治疗与非 RAI 患者分层的结构性疾病概率不同（Atellica：Tg ≥1.0 时 RAI 组 63.6%、非 RAI 31.6%；Roche：45%/22%）；交叉反应物 TBG、TSH、T3、T4、FSH、AFP、galectin-3、VEGF 无交叉。溯源统一至 **BCR CRM 457**。
 - 背景（非申报文件）：Tg 仅由甲状腺滤泡细胞合成，全切+消融后应不可测；ATA 2015 将 Tg <0.2（非刺激）或 <1（刺激）定义为 excellent response。
 
 ### 6. 样本类型与样本要求
+
 - K242981：血清（含 SST 胶管）、Li-hep（含 PST）、K2-EDTA，n=84–99 配对（0.05–145 ng/mL），Passing-Bablok 斜率 0.99–1.01；稳定性：血清 20–30°C 4 天、2–8°C 7 天；血浆 3 天/4 天；−20°C 12 个月、−70°C 24 个月；4 次冻融。
 - K221890：Li-hep、K2/K3-EDTA n=65（分 0.197–19.9 与 20–490 两段），斜率 0.95–1.01；0.2 ng/mL 处 K3-EDTA 偏差 9.9%；稳定 2–8°C 与 15–25°C 14 天、−20°C 24 个月。
 - K220972：仅血清；K241423 新增 Li-hep/Na-hep n=45（0.227–494），斜率 1.000/1.021，r 0.999（依 CLSI EP35）。
 - 临床研究纳入：影像须在采血 ±30 天内；rhTSH 刺激 72 h 内排除；TgAb 阳性排除（Atellica 用 Beckman Access TgAb II >0.9 IU/mL；Roche 用 Elecsys anti-Tg ≥22 IU/mL）。
 
 ### 7. 分析性能验证所依据的标准
+
 | K 号 | 标准 | 项目/结果 |
 |---|---|---|
 | K242981 | EP05-A3；EP06 2nd；EP07 3rd；EP09c；**EP12-A2**（临床定性性能）；EP17-A2；EP25-A；EP28-A3c；EP34；EP37；**I/LA30-A**（内源抗体干扰） | 精密度 7 水平 n=80，0.08 ng/mL 时 within-lab 9.0%，≥0.15 时 ≤3.3%；三站点 n=90 总 CV 1.9–5.8%；线性 0.04–163.8；稀释 1:10/20/50（EMI 至 7500）；hook 82,972 ng/mL 无；biotin 3510 ng/mL；LoB 0.039/LoD 0.044/LoQ 0.05；货架期 12 个月、在机 28 天；方法比对 vs Access Tg n=483，Passing-Bablok 斜率 **1.09** (1.06–1.12)、R 0.985 |
@@ -1547,17 +1638,20 @@ FDA 决策摘要 “Standards/Guidance Documents Referenced” 一节里反复�
 | K240927 | EP05-A3；EP06-2nd；EP09c；EP17-A2 | 3 lot × 3 仪器精密度（0.3 ng/mL 时 within-lab 8.4%）；线性 0.03–642；LoB 0.03/LoD 0.05/LoQ 0.1；方法比对 vs Access 2 n=187 斜率 0.996、r 0.999 |
 
 ### 8. 临床验证设计与结果
+
 - **K242981（Atellica Tg）**：前瞻性、美国 3 站点，407 例入组，排除 70 例，189 例（≥22 岁；全切/近全切 ± RAI 后 ≥6–12 周；ATA 初始风险低 37.6%/中 37.6%/高 24.9%；女性 70.9%），**291 次可评估访视**（影像在采血 30 天内）。金标准：结构性疾病（SD+）= 超声/CT/MRI 或 RAI 扫描/FDG-PET 阳性。Tg ≥0.2 判阳：SD+ 55 中 54 阳，SD− 236 中 110 阳 → **Sens 98.2% (94.6–100)、Spec 53.4% (47.8–58.0)**；按患病率 4.99% 调整 **NPV 99.8%、PPV 10.0%**（bootstrap 处理访视相关性，依 CLSI EP12-A2）。LR：RAI 组 Tg ≥1.0 LR 5.52，<0.2 LR 0.15；非 RAI 组 ≥1.0 LR 4.67。
 - **K221890（Elecsys Tg II）**：前瞻性、美国 9 站点；纵向队列 219 例（术后 4–12 周入组，6/12/18/24 个月随访，5 次计划访视）+ 横断面队列 72 例（术后 >12 周且有结构性疾病，用于增加 SD+ 例数）；排除 242 份后 **530 份**（461 纵向 + 69 横断）；人群 68.5% 女性，中位 53 岁，RAI 20.4%，ATA 低/中/高 44.7/32.5/22.8%。Tg ≥0.2：SD+ 92 中 91 阳，SD− 438 中 204 阳 → **Sens 98.91% (94.10–99.81)、Spec 53.42% (48.74–58.05)**；以纵向队列真实患病率 4.99% (23/461) 调整 **NPV 99.89%、PPV 10.03%**。LR：RAI 组 ≥1.0 为 7.22、<0.2 为 0.03；非 RAI 组 ≥1.0 为 6.25。
 - Access 系列（K220972/K241423/K240927）：临床 Refer to K002905（2000 年清关，文件未获取）。
 
 ### 9. 厂家间差异与要点
+
 - 三家 AMI：Atellica 0.05–150（EMI 7500）；Elecsys 0.1–500（EMI 5000）；Access 0.1–500。LoQ：0.05 / 0.1 / 0.05–0.1 ng/mL——均满足 ATA 0.2 ng/mL 阈值所需的"高敏"要求。
 - 尽管均溯源 CRM 457，Elecsys Tg II vs Access 斜率 1.394、Atellica vs Access 1.09，表明**方法间偏差仍显著**，FDA 接受了 CRM 回收实验作为补充证据。
 - Siemens 与 Roche 2023–2025 两份新器械文件采用几乎相同的临床设计（前瞻、SD+ 影像金标准、ATA 三分层、按真实患病率调整 PPV/NPV），Roche 额外用横断面富集队列。
 - Beckman 三份文件为改良型（biotin、血浆、DxI 9000），不含临床数据。
 
 ### 10. 来源
+
 - K242981: https://www.accessdata.fda.gov/cdrh_docs/reviews/K242981.pdf ；https://www.accessdata.fda.gov/cdrh_docs/pdf24/K242981.pdf
 - K221890: https://www.accessdata.fda.gov/cdrh_docs/reviews/K221890.pdf ；https://www.accessdata.fda.gov/cdrh_docs/pdf22/K221890.pdf
 - K220972: https://www.accessdata.fda.gov/cdrh_docs/reviews/K220972.pdf ；https://www.accessdata.fda.gov/cdrh_docs/pdf22/K220972.pdf
@@ -1597,13 +1691,13 @@ HbA1c 在 FDA 体系中有**两条平行的法规路径**，这是本靶点最�
 | 糖尿病**诊断 / 风险识别**（aid in diagnosis; aid in identifying patients at risk） | **PDJ** – Hemoglobin A1c Test System | **862.1373**（Class II, special controls；2014-08-25 生效，源自 Roche De Novo DEN130002） | II | CH – Chemistry (75) | **26** |
 
 - 21 CFR 862.1373 的特殊控制（special controls）原文要点（来自 eCFR 全文）：
-  1. 须获得 FDA 认可的糖化血红蛋白标准化组织的**初始及每年一次**的标准化验证（实际即 NGSP 认证）；
-  2. 510(k) 须包含精密度、准确度、线性、干扰的性能测试：
+    1. 须获得 FDA 认可的糖化血红蛋白标准化组织的**初始及每年一次**的标准化验证（实际即 NGSP 认证）；
+    2. 510(k) 须包含精密度、准确度、线性、干扰的性能测试：
      - (i) 精密度至少用 **≈5.0%、6.5%、8.0%、12% HbA1c** 四个水平的血样，≥20 天、≥3 个试剂批、≥3 台仪器；
      - (ii) 准确度至少 **120 份**跨测量区间的血样，与标准化方法（standardized test method）比对，须显示“little or no bias”；
      - (iii) **总误差（total error）以单次测量对标准化方法评价，须 ≤ 6%**；
      - (iv) 须证明对常见血红蛋白变异体 **HbC、HbD、HbE、HbA2、HbS** 几乎无干扰；
-  3. 若观察到 **HbF** 或低频变异体的干扰，须在所有标签材料中以**黑框警示（black box）**说明干扰及受影响人群。
+    3. 若观察到 **HbF** 或低频变异体的干扰，须在所有标签材料中以**黑框警示（black box）**说明干扰及受影响人群。
 - 与之对应，LCP 监测类产品的决策摘要一律写「Assay cut-off: Not applicable」「Clinical cut-off: Not applicable」，并在特殊使用条件中明示「not intended for use in the diagnosis of or screening for diabetes」（K221326、K163633、K121842、K140829）。
 - POC 产品常同时携带仪器代码 JQT（21 CFR 862.2400 反射式密度计，Class I，如 Afinion、Allegro）或 JJE（862.2160 离散光度分析仪，如 cobas b 101、DxI 9000）。
 - 注：DEN130002（Roche Tina-quant HbA1c Gen.2，2013-05-23，PDJ 首个产品）在 openFDA 有记录，但 `cdrh_docs/reviews/DEN130002.pdf` 返回 404，本节未能读取其正文；诊断用途的规则内容改用 K121610（Roche cobas c 501 Tina-quant HbA1cDx Gen.3，2013-08-08，PDJ 第 2 个清关）与 eCFR 条文。
@@ -1693,6 +1787,7 @@ HbA1c 在 FDA 体系中有**两条平行的法规路径**，这是本靶点最�
 ### 8. 临床/准确度验证设计与结果
 
 **K180296 Afinion HbA1c Dx（PDJ，POC 诊断）**
+
 - 精密度（EP05-A3，特殊控制要求的 4 个水平）：内部 4 份 K2-EDTA 静脉血（≈5, 6.5, 8, 12%），11 名操作者，3 批试剂，9 台 AS100，20 天，每份 720 次：合并总 CV **1.64% (5.14%)、1.51% (6.55%)、1.31% (8.06%)、1.42% (11.26%)**。外部 3 个 POC 中等复杂度站点、6 台仪器、3 批、10 天，每站点每份 240 次：总 CV 1.78 / 1.48 / 1.36 / 1.22%。指尖血精密度由三项研究合成：总 CV 2.03% (低)、1.58% (阈值 6.5%)、1.49% (中)、1.30% (高)。
 - 准确度：120 份配对指尖血 + K2-EDTA 静脉血（4.6–11.4%），2 批试剂，3 个 POC 站点；样本分布刻意围绕决策点（6.1–6.5% 占 25%，6.6–7% 占 25%）；比对方法 **NGSP comparator Tosoh G8 HPLC**（静脉血双份均值）。指尖血：加权 Deming 斜率 0.997 (95% CI 0.966–1.027)、截距 0.000；Passing-Bablok 斜率 1.000、截距 −0.040。静脉血：Deming 斜率 0.991、截距 0.053；PB 斜率 1.000、截距 −0.030。
 - 决策水平偏倚：指尖血 Deming 在 5.0/6.5/8.0/12.0% 处 %bias 均约 −0.33%；静脉血 +0.20/−0.05/−0.21/−0.43%。
@@ -1700,6 +1795,7 @@ HbA1c 在 FDA 体系中有**两条平行的法规路径**，这是本靶点最�
 - Hb 变异体：221 份 K2-EDTA 样本（HbA2 26、HbS 21、HbC 25、HbE 20、HbD 21、HbF 121），比对方法 Premier Hb9210（HbA2/S/E）与 Tosoh G8（HbF）；显著干扰阈值 ≤7% 平均相对偏差。平均 %bias（~6.5% / ~8.5%）：HbA2 −3.4/−2.5；HbS −4.1/−1.0；HbC −5.5/−1.8；HbE +3.5/+3.7；HbD −2.2/−2.9。**HbF：10.4% 为无显著干扰的最高浓度，超过则负干扰** → 黑框警示。
 
 **K121610 Roche cobas c 501 Tina-quant HbA1cDx Gen.3（PDJ，实验室诊断）**
+
 - 精密度：4 份静脉全血（5, 6.5, 8, 12%）+ 2 控制品，3 台 c 501 × 3 批 × 21 天；合并总 CV 1.9% (5.05%)、1.7% (6.40%)、2.1% (7.99%)、2.0% (11.34%)。
 - 准确度：**141 份无变异体样本**（4.7–12.2%），3 天单次测定，比对 **NGSP 二级参考实验室 HPLC**；样本分布 6–6.5% 占 19.9%、6.5–7% 占 23.4%。Deming 斜率 1.002 (0.974–1.0285)、截距 −0.114；PB 斜率 1.006、截距 −0.135。决策水平偏倚：5.2% −1.98%；6.5% −1.45%；8.0% −1.06%。
 - **总误差**：5.2% → **6.0%**（%CV 2.07）；6.5% → 4.7%；8.0% → 5.1%（此文件公式写作 %TE = |%Bias| + 1.96×%CV×(1+%Bias)）。
@@ -1707,29 +1803,34 @@ HbA1c 在 FDA 体系中有**两条平行的法规路径**，这是本靶点最�
 - 线性 4.2–20.2%；LoB 2.3%、LoD 2.5%；干扰接受标准 ±7%（脂血 600 mg/dL、胆红素 60 mg/dL、RF 750 IU/mL、葡萄糖 1000 mg/dL、总蛋白 21 g/dL 无干扰）。
 
 **K221326 Nova Allegro（LCP，CLIA waived，指尖血）**
+
 - 方法比对：4 个医师办公室、15 名代表 CLIA waived 用户的操作者、533 名患者指尖血 vs 配对 K2-EDTA 静脉血在 **NGSP 二级参考实验室**的 FDA 已清关比对法；8 台仪器、3 批；PB（n=526，4.4–13.8%）合并斜率 0.972、截距 0.217、r 0.993；各站点斜率 0.968–0.983。
 - 精密度（waived 用户）：20 天控制品 4 站点合并再现性 CV 2.00% (5.67%)、2.55% (9.47%)；5 天静脉血单站点 within-lab 1.55–2.71%；指尖血重复性（524 例第二次采血）1.50% (4.0–6.0%)、1.51%、1.92%、2.38% (10.1–14.0%)；合成再现性 2.31/1.87/2.45/2.91%。
 - 线性：11 份 4.0–15.4% 与 Tosoh G8 比：斜率 1.016、截距 −0.14、r 0.999；声明 4–14%。
 - 变异体：119 份（HbC/E/D/F 各 20、HbS 25、HbA2 14）；平均偏倚 C +1.9%、E +4.4%、D +3.0%、A2 +0.6%、S −4.5%；**HbF 仅 5.4% 以内无显著干扰（<10%）** → 标签警示「HbA1c results are invalid for patients with abnormal amounts of HbF」。干扰接受标准为 ±10%（与诊断类 ±7% 不同）。
 
 **K163633 Roche cobas b 101（LCP，POC）**
+
 - 精密度（EP05-A3）：内部 1 台 × 2 批 × 21 天 n=84，总 CV 1.2–2.9%；外部 3 个 POC 站点、6 台、3 批，合并总 CV 1.3–2.7%（全血）、3.1–3.7%（控制品）。
 - 方法比对（EP09-A3）：3 个 POC 站点、n=379 前瞻性样本，指尖血/K2-EDTA/Li-heparin 分别 vs 配对 K2-EDTA 在 **NGSP 二级参考实验室 Tosoh G8**：各站点 PB y=1.00x−0.10~−0.20（K2-EDTA 站点 3 为 0.97x−0.04），r 0.99。
 - 变异体：130 份（S/C/D/E/F 各 20、A2 10），比对 Tina-quant Gen.3 (k121610) 与 Tosoh G8；接受标准 ±10%；HbS ≤41%、HbC 36%、HbD 42%、HbE 27%、HbA2 6.2% 无干扰；HbF >10% 致偏低。
 - 线性 3.6–12.9%：斜率 0.996、截距 −0.014、r 0.9961；声明 4–12%。
 
 **K121842 Abbott ARCHITECT HbA1c**
+
 - 精密度（EP5-A2）2 台 × 2 批 × 20 天 n=80：总 CV 2.8–3.8%（5.1–9.9%）。
 - 方法比对 vs predicate AxSYM（EP9-A2）：n=127 EDTA 全血 4.07–13.61%，r 0.95 (0.93–0.96)，斜率 1.04 (0.97–1.12)，截距 −0.07。
 - LoB 2.7%、LoD 2.8%、LoQ 4.0%（EP17-A）；线性 y=0.96x−0.09, r²=0.98（4.0–15.8%）。
 - 变异体：HbA2/C/D/E/F/J/S 样本 4.7–11.3% 全部 <10% 偏倚，但标签仍写 **HbD、HbE、HbF (>9%)、HbS 会干扰**；总 Hb 7–20 g/dL 无干扰。
 
 **K140829 Beckman DxC HbA1c3**
+
 - 精密度（EP05-A2）DxC 600/800 各 n=80：总 CV 1.34–1.93%。
 - 方法比对 vs predicate（Deming）：DxC 600 n=119（4.4–16.6%）r 0.998、斜率 1.031、截距 −0.267；DxC 800 n=118 r 0.999、斜率 1.031、截距 −0.294。
 - 变异体 vs HPLC 参考：C ≤36.4%、D ≤35.1%、E ≤21.7%、S ≤31.9% 无干扰（接受 ±7%）；HbF >10% 致偏低（接受 ±10%）；内源干扰接受标准 ±6%。
 
 **K071132 Tosoh G8（HPLC）**
+
 - 精密度 within-run/between-run CV 0.39–1.30%；线性 4.0–16.9%（回收 97.9–103.2%）；方法比对 vs G7 n=114：斜率 1.020、截距 −0.16、r 0.998。
 - 变异体：HbAD/AS/AC 在 A0 峰后洗脱并被扣除，≤30% 无干扰；HbF ≤10% 无干扰；**HbAE 无法与其他峰区分，故干扰 sA1c**。
 
@@ -1844,6 +1945,7 @@ HbA1c 在 FDA 体系中有**两条平行的法规路径**，这是本靶点最�
 要点：各厂家均按 CLSI EP17-A2 做 LoB/LoD/LoQ，“功能灵敏度”实质上即 LoQ，但 CV 判据不同（Roche/Siemens/DiaSorin 20%，Beckman 10% between-run）；声明的测量区间下限（0.005–0.02）普遍高于 LoQ。
 
 **精密度（低端水平尤其关键）**
+
 - K251543：血清 0.091 µIU/mL 重复性 2.2%、within-lab 4.2%；0.205 → 4.1%；再现性（3 台 × 3 批 × 5 天）0.087 → 4.43%。
 - K233050：血清 0.088 → 重复性 2.5%、within-lab 3.6%。
 - K221225：0.022 µIU/mL 总 CV 6.4%（80 复）；再现性 0.024 → 4.0%。
@@ -1852,6 +1954,7 @@ HbA1c 在 FDA 体系中有**两条平行的法规路径**，这是本靶点最�
 - K130469：0.2660 mIU/L 总 CV 5.5%（2 批 × 20 天 n=160）。
 
 **方法比对**
+
 - K251543 vs ADVIA Centaur TSH3-Ultra II（EP09c）：n=323 血清 0.011–147.2，PB 斜率 0.97、截距 −0.006、r 0.998。
 - K233050 vs predicate TSH3-Ultra (K083844)：n=404，0.028–147.337，y=0.95x−0.016，r 0.999。
 - K221225 vs Access 2：n=111，0.01–47，PB 斜率 1.06 (1.04–1.07)、截距 −0.019、r 1.00。
@@ -1860,6 +1963,7 @@ HbA1c 在 FDA 体系中有**两条平行的法规路径**，这是本靶点最�
 - K130469 vs 市售免疫法（EP9-A2）：n=181，0.0257–59.56 mIU/L，PB y=1.005x−0.0030，斜率 CI 0.988–1.026。
 
 **线性 / 高剂量钩状效应 / 交叉反应**
+
 - 线性：K251543 15 级 0.004–158，最大偏离 ±6.5%；K221225 两项研究（全量程 9 级 0.002–58.5 与低端 0.002–4.898），≤0.02 µIU/mL 时偏离 ≤0.000001，>0.02 时 ≤5–6%；K162606 12 级 0–102，斜率 0.952、r 0.9986；K130469 7 级 0.015–91.3，y=0.9807x+0.0013。
 - 钩状效应：Roche ≥1,000 µIU/mL 无；Beckman 至 1000 µIU/mL 无（WHO 81/565 加标）；Siemens 至 3000 µIU/mL 无（>150 报「>150」）。
 - 交叉反应：Roche LH 10,000 mU/mL <0.038%、FSH 10,000 <0.080%、hGH 1,000 0%、hCG 50,000 0%；Beckman hCG 1,000,000 mIU/mL <0.010%、hFSH 1,000 <0.10%、hLH 3,000 <0.10%；Siemens hCG 200,000、FSH 1,500、LH 600 mIU/mL ≤5%；DiaSorin LH 1000、FSH 5000、hGH 100 ng/mL、hCG 200,000、HAMA 1268 ng/mL 无干扰。
@@ -1981,6 +2085,7 @@ HbA1c 在 FDA 体系中有**两条平行的法规路径**，这是本靶点最�
 | K121608 Ortho | predicate IDS-iSYS | n=102–103/系统，12.8–126 | 5600: 0.99x−5.12, r 0.92；3600: 1.08x−7.87, r 0.93；ECi: 0.96x−9.07, r 0.94 | — |
 
 **精密度（决策点附近）**
+
 - Roche：21 天 n=84，12.3 ng/mL within-lab 9.8%；28.7 → 6.0%；33.0 → 5.6%；52.3 → 4.0%。
 - Siemens：20 天 n=80，21.29 → within-lab 9.6%；32.16 → 7.4%；65.47 → 5.5%。
 - Beckman K142373：3 台 × 3 批 × 20 天，24.6 → 总 7.5%；49.8 → 7.3%；K223503 DxI 9000：7.0 → 18.6%（SD 1.3）；28 → 6.8%；71 → 4.3%。
@@ -1990,6 +2095,7 @@ HbA1c 在 FDA 体系中有**两条平行的法规路径**，这是本靶点最�
 - AB Sciex LC-MS/MS：3 站点 × 5 天 × 5 复，31.0 → 再现性 6.5%；未修饰患者样本 28.4 → 7.4%。
 
 **LoB / LoD / LoQ 与测量区间**
+
 - Roche 2.0 / 3.0 / 6.0（20% CV），6–120 ng/mL（可 1:2 稀释至 240）；Siemens 1.7 / 3.2 / 4.2，4.2–150；Beckman Access 2 0.55 / 1.0 / 3.0，7.0–120（DxI 9000：2.5/4.5/7.0）；Abbott 1.6 / 2.2 / 2.4，3.4–155.9；DiaSorin <2.03 / 2.91 / 4.0，4–150；Ortho 4.34 / 8.64 / 12.8，12.8–126；AB Sciex LLMI 2.9（<20% bias 且 <20% CV），4–140。
 
 **D2/D3 交叉反应与 C3-epimer（关键差异）**
@@ -2210,6 +2316,7 @@ HbA1c 在 FDA 体系中有**两条平行的法规路径**，这是本靶点最�
 ## 抗环瓜氨酸肽抗体（anti-CCP / ACPA）
 
 ### 1. 法规定位
+
 - Product code **NHX**（Antibodies, Anti-Cyclic Citrullinated Peptide (CCP)）；21 CFR **866.5775**（Rheumatoid factor immunological test system）；**Class II**；Panel: Immunology (82)。校准品/质控品另配 JIT/JIX（Class II 校准品）、JJX/JJY（Class I 质控品，Clinical Chemistry 75）。
 - openFDA `product_code:NHX` 累计清关数 **total=21**（2002-04-29 K020414 QUANTA Lite CCP ELISA 至 2016-08-04 K153551）。注：2016 年以后未再见以 NHX 为主代码的新清关记录。
 - 相关但独立的代码：OQZ（anti-mutated citrullinated vimentin, 866.5775, total=1）。
@@ -2229,6 +2336,7 @@ HbA1c 在 FDA 体系中有**两条平行的法规路径**，这是本靶点最�
 | K110296 | 2011-08-18 | Axis-Shield / Axis-Shield Anti-CCP (FCCP600) | 手工 ELISA，定性/半定量，U/mL | 血清、SST、EDTA、Li-heparin、枸橼酸血浆 | 同上 | 决策摘要 + 510(k) summary |
 
 ### 3. 预期用途与声明类型
+
 - 所有产品均为 **处方用（Rx only）**、**辅助诊断（aid in the diagnosis of rheumatoid arthritis）**，且明确要求 “in conjunction with clinical findings and other laboratory tests / other clinical information”。Siemens/Abbott 系列进一步写明 “autoantibody levels represent one parameter in a multi-criteria (multicriterion) diagnostic process, encompassing both clinical and laboratory-based assessments”。
 - 分析物一律限定为 **IgG 类** anti-CCP（QUANTA Flash CCP3 的前代 QUANTA Lite CCP3.1 曾含 IgG/IgA，K072944，本次未取文件）。
 - 测量类型：绝大多数为 **semi-quantitative**（无国际标准物质，单位为厂家任意单位）；Euroimmun 与 Axis-Shield ELISA 另提供 qualitative（OD ratio）判读方案。
@@ -2249,16 +2357,19 @@ HbA1c 在 FDA 体系中有**两条平行的法规路径**，这是本靶点最�
 | Axis-Shield FCCP600 (K110296) | 半定量：>5 U/mL 阳性；定性：OD ratio <0.95 阴性、0.95–1.0 borderline（建议复测）、>1.0 阳性 | **沿用 predicate DIASTAT (K023285) cutoff**；510(k) summary 载 ROC AUC 0.910 (0.881–0.940) vs DIASTAT 0.903 | 514 例（229 RA、150 健康、135 非 RA） |
 
 要点：
+
 - 各厂家单位（CU、U/mL、RU/mL、EliA U/mL）互不可换算；文件均声明 “no recognized standard or reference material for anti-CCP”。仅 Inova（K143754）报告以 IUIS/CDC ACPA 参考试剂建立 CU↔U/mL 换算。
 - cutoff 建立路径有三类：健康/疾病对照百分位（Inova 99th）、ROC（Siemens IMMULITE、Roche、Euroimmun）、与 predicate 对齐（Abbott、Siemens ADVIA、Bio-Rad 以 predicate 为标准的 ROC、Axis-Shield）。
 - 灰区：仅 Phadia EliA（7–10 U/mL）与手工 ELISA 定性方案（Axis-Shield ratio 0.95–1.0）设 equivocal/borderline；自动化 CIA/CMIA/ECLIA 产品均为单一 cutoff。
 
 ### 5. 生物学 / 免疫学依据
+
 - 申报文件所载：所有产品抗原均为 **synthetic cyclic citrullinated peptide（第二代，“CCP, second generation”）**，Inova 标为 CCP3；检测 IgG 类自身抗体；申报文件将 anti-CCP 归入 21 CFR 866.5775（RF 试验系统）并强调 RA 诊断为多参数过程。Bio-Rad K093954 引用文献说明 anti-CCP 亦可见于原发性干燥综合征（非侵蚀性滑膜炎）并提示 Centromere B 阳性（23%）、SS-A 阳性（12%）、骨髓瘤 IgG（30%）样本可能出现交叉阳性；Siemens IMMULITE K121576 引用 Ann Intern Med 2007/2010 两篇 Meta 分析佐证其灵敏度/特异度水平。
 - **与 RF 的关系（申报文件）**：(1) 法规上 anti-CCP 与 RF 同属 866.5775。(2) 各产品均做 RF 干扰试验：ADVIA/IMMULITE/BioPlex/ARCHITECT 至 200 IU/mL 无干扰、Elecsys <150 IU/mL、EliA IgM-RF 550 IU/mL、Euroimmun 用 10 例 IgM-RF 阳性 RA 血清做交叉反应“无阳性”；IMMULITE 说明书加注 “RF may have unpredictable effects on patient samples with low concentrations of anti-CCP”。(3) BioPlex cutoff 研究纳入 504 例 “RF tested or positive” 患者以挑战特异性；IMMULITE 临床研究说明入组仅依诊断、predicate anti-CCP 与 RF 状态对申办方设盲。(4) **RF 与 anti-CCP 联合判读的诊断性能**：所有文件均未载明。
 - 背景（非申报文件）：ACPA 靶向 PAD 酶介导的瓜氨酸化蛋白（filaggrin、fibrinogen、vimentin、α-enolase 等），CCP 为合成环肽模拟表位；ACPA 与 RF 一同列入 2010 ACR/EULAR RA 分类标准血清学项（高滴度 >3×ULN 计 3 分），可在临床发病前数年出现，与侵蚀性病程相关。
 
 ### 6. 样本类型与样本要求
+
 - QUANTA Flash CCP3：**仅血清**（predicate QUANTA Lite 允许枸橼酸/EDTA 血浆）；稳定性 RT 48 h、2–8 °C 21 d、≤−20 °C 3 次冻融。
 - ADVIA Centaur：血清、SST、K2-EDTA、Li-heparin（各约 50 对，Passing-Bablok 斜率 0.98–1.01）；样本稳定性沿用 K083868（RT 22 h、2–8 °C 14 d、2 次冻融）。
 - IMMULITE 2000：血清、SST、EDTA、Li-heparin（39 组匹配，Deming 斜率 1.01–1.02）；20–25 °C 2 d、2–8 °C 7 d、血清 −20 °C 6 个月、血浆 4 个月；短抽血 5 倍抗凝剂过量 8 例中 7 例回收 ±10%。
@@ -2270,6 +2381,7 @@ HbA1c 在 FDA 体系中有**两条平行的法规路径**，这是本靶点最�
 - Axis-Shield FCCP600：血清、SST、K-EDTA、Li-heparin、Na-citrate（19 组匹配 + 16 组加标）。
 
 ### 7. 分析性能验证所依据的标准（文件 “Standards/Guidance Documents Referenced” 原文）
+
 | K 号 | 引用标准 | 对应项目 |
 |---|---|---|
 | K143754 QUANTA Flash CCP3 | EP05-A2（精密度）、EP06-A（线性）、EP07-A2（干扰）、EP09-A3（方法比对）、EP17-A2（LoB/LoD）、C28-A3（参考区间/cutoff） | 20 天×2 次×2 复精密度；3 中心再现性；线性 4.6–2776.8 CU；LoB 410 RLU；胆红素/血红蛋白/甘油三酯干扰；CDC ANA 12 份参考血清交叉反应 |
@@ -2283,6 +2395,7 @@ HbA1c 在 FDA 体系中有**两条平行的法规路径**，这是本靶点最�
 | K110296 Axis-Shield FCCP600 | EP05-A2、EP06-A、EP07-A2、EP09-A2、EP17-A | LoD 1.04 U/mL；多聚回归线性；Passing-Bablok 基质比对 |
 
 ### 8. 临床验证设计与结果
+
 | 产品 | RA 组（分类标准） | 对照组构成 | 临床灵敏度 (95% CI) | 临床特异度 (95% CI) | 与 predicate/参考法一致性 |
 |---|---|---|---|---|---|
 | QUANTA Flash CCP3 (K143754) | 352 例 “diagnosed with RA”（分类标准：文件未载明） | 376 例：AS 13、OA 49、PMR 20、PsA 14、SLE 53、SjS 20、AIH 19、UC 11、乳糜泻 20、Lyme 25、parvovirus 12、沙门菌 10、HBV 22、HCV 13、其他 75 | **70.7%** (65.8–75.2) | **96.5%** (94.2–98.0)；对照阳性率 3.5%（PMR 10%、PsA 7.1%、SLE 3.8%） | vs QUANTA Lite CCP3 ELISA（n=420 在测量范围内）：PPA 94.2% (90.3–96.6)，NPA 90.3% (85.4–93.7) |
@@ -2296,6 +2409,7 @@ HbA1c 在 FDA 体系中有**两条平行的法规路径**，这是本靶点最�
 | Axis-Shield FCCP600 (K110296) | 229 例，**ACR 1987** | 150 健康 + 135 非 RA（炎性多关节炎 41、EBV 18、桥本 17、SjS 16、SLE 16 等） | Early RA 43 例 **63%**；established RA 186 例 **82%**；全部 **78%** | 健康 99.3%、非 RA 97.8%、合计 98.6% | vs DIASTAT（n=514）：PPA 99.4%，NPA 98.8%；AUC 0.910 |
 
 ### 9. 厂家间差异与要点
+
 1. **灵敏度差异主要源于 RA 人群构成**：前瞻性、治疗中、含早期 RA 的队列（IMMULITE 63.6%、Axis-Shield 早期 RA 63%）显著低于 “previously diagnosed” 库存样本（BioPlex 83.1%、EliA 87.8%）；特异度普遍 96–98%。
 2. **cutoff 数值不可跨平台比较**（3、4、5、17、20 单位不等），但各家都用 predicate 一致性 + 健康人群百分位/ROC 两条证据链；FDA 接受“沿用 predicate cutoff”（Abbott、ADVIA、Axis-Shield）而不强制重新做 ROC。
 3. **灰区**只见于 Phadia EliA 和手工 ELISA 定性方案，自动化平台一律单点 cutoff。
@@ -2305,6 +2419,7 @@ HbA1c 在 FDA 体系中有**两条平行的法规路径**，这是本靶点最�
 7. **RF 状态**从未作为入组/分层变量报告；文件中 RF 仅出现在干扰试验与 BioPlex cutoff 人群。
 
 ### 10. 来源
+
 - K143754：https://www.accessdata.fda.gov/cdrh_docs/reviews/K143754.pdf ；https://www.accessdata.fda.gov/cdrh_docs/pdf14/K143754.pdf
 - K153551：https://www.accessdata.fda.gov/cdrh_docs/reviews/K153551.pdf ；https://www.accessdata.fda.gov/cdrh_docs/pdf15/K153551.pdf
 - K121576：https://www.accessdata.fda.gov/cdrh_docs/reviews/K121576.pdf ；https://www.accessdata.fda.gov/cdrh_docs/pdf12/K121576.pdf
@@ -2320,12 +2435,13 @@ HbA1c 在 FDA 体系中有**两条平行的法规路径**，这是本靶点最�
 ## 抗核抗体筛查（ANA screen：IFA HEp-2 与固相法）
 
 ### 1. 法规定位
+
 - 21 CFR **866.5100**（Antinuclear antibody immunological test system），**Class II**，Panel: Immunology (82)。
 - Product codes 与 openFDA 累计清关数：
-  - **DHN** Antinuclear Antibody, Indirect Immunofluorescent, Antigen, Control（IFA HEp-2）：**total=110**（含大量 Bio-Rad Liquichek 质控品记录）。
-  - **LKJ** Antinuclear Antibody, Antigen, Control（多重微珠/CLIA 等）：**total=50**。
-  - **LJM** Antinuclear Antibody (Enzyme-Labeled), Antigen, Controls（ELISA 筛查）：**total=112**。
-  - 相关：PIV（Automated indirect immunofluorescence microscope and software-assisted system，21 CFR 866.4750，NOVA View 经 DEN140039 建立）、NVI（BioPlex Medical Decision Support Software，21 CFR 862.3100，total=1）。
+    - **DHN** Antinuclear Antibody, Indirect Immunofluorescent, Antigen, Control（IFA HEp-2）：**total=110**（含大量 Bio-Rad Liquichek 质控品记录）。
+    - **LKJ** Antinuclear Antibody, Antigen, Control（多重微珠/CLIA 等）：**total=50**。
+    - **LJM** Antinuclear Antibody (Enzyme-Labeled), Antigen, Controls（ELISA 筛查）：**total=112**。
+    - 相关：PIV（Automated indirect immunofluorescence microscope and software-assisted system，21 CFR 866.4750，NOVA View 经 DEN140039 建立）、NVI（BioPlex Medical Decision Support Software，21 CFR 862.3100，total=1）。
 - FDA 专门指南：*Guidance for Industry and FDA Staff: Recommendations for Anti-Nuclear Antibody (ANA) Test System Premarket (510(k)) Submissions*（2009-01-22），被 K150155、K131791、K131185、K131330、K112996 明确引用。
 
 ### 2. 代表性 510(k) 一览
@@ -2343,6 +2459,7 @@ HbA1c 在 FDA 体系中有**两条平行的法规路径**，这是本靶点最�
 | K083188 | 2009-03-13 | Phadia / Varelisa ReCombi ANA Screen（8 抗原；Sm 抗原改为 16 肽） | EIA，定性（cut-off calibrator） | 血清、枸橼酸/EDTA 血浆（肝素禁用） | aid in the diagnosis of SLE、SSc、MCTD、SS、PM/DM | 决策摘要（device modification） |
 
 ### 3. 预期用途与声明类型
+
 - 均为 **Rx only**、**qualitative and/or semi-quantitative（IFA 滴度）** 的 **辅助诊断** 声明，措辞为 “aid in the diagnosis of systemic lupus erythematosus and other systemic rheumatic diseases / systemic autoimmune diseases, in conjunction with other serological tests and clinical findings”。固相法多列出目标疾病清单（SLE、MCTD、SjS、SSc/PSS、PM/DM；BioPlex 另含 UCTD、RA、CREST、Raynaud）。
 - 自动读片系统（NOVA View、dIFine、HELIOS）附加特殊条件：“All software-aided results must be confirmed by the trained operator”。
 - BioPlex MDSS（K043341/K113610）为可选的 kNN 模式识别工具，输出 Negative / No Association / Association with Disease（≤2 个疾病分类），不改变各分析物判读。
@@ -2371,10 +2488,12 @@ HbA1c 在 FDA 体系中有**两条平行的法规路径**，这是本靶点最�
 **IFA 1:40 vs 1:80 的实测差异（K150155，同一 410 例队列）**：健康对照 150 例阳性率 1:40 为 27.3%、1:80 为 11.3%；SLE 85% vs 80%；SjS 76.7% vs 70%；SSc 66.7% vs 50%；RA 66.7% vs 56.7%。1:80 vs 1:40 PPA 79.9% (74.1–85.0)、NPA 97.3% (91.5–100)。Aesku K153117 同样报告 1:80 较 1:40 SLE 灵敏度下降（A 法 86.4%→78.1%）、非健康对照特异度上升（58.0%→68.3%）。
 
 ### 5. 生物学 / 免疫学依据
+
 - 申报文件所载：IFA 以 HEp-2（人喉癌上皮）细胞为基质，检测 IgG 类抗核抗体；Euroimmun 用 HEp-20-10、Immco 用 PSIP1 敲除 HEp-2 消除 LEDGF/DFS70 抗原，文件引用 ICAP 2014–2015 共识并称 “due to the high prevalence of AC-2 patterns in an ANA screening population and relatively low association with autoimmune rheumatic diseases, ICAP recommends all clinical labs report the DFS70 pattern”；Euroimmun IFA 决策摘要引用 “As per the American College of Rheumatology a prevalence of ANAs in healthy individuals is about 3.0–15.0%”，NOVA Lite 摘要称健康人 “10–20% of positivity may be seen in reference subjects according to published literature”。固相筛查以有限抗原组合（dsDNA、组蛋白、ENA 等）替代全细胞，各文件均用 CDC/IUIS ANA 参考血清验证：Euroimmun ELISA 对 CDC #6（U3-RNP/fibrillarin）和 #11（PM-Scl）阴性，Euroimmun ENA pool 对 CDC #1（dsDNA）、#6、#8（centromere）、#11 阴性——即固相法漏检其抗原谱之外的特异性。
 - 背景（非申报文件）：ACR 2009 年立场声明（*Methodology of testing for antinuclear antibodies*）认定 **IFA HEp-2 为 ANA 筛查的金标准/参考方法**，要求实验室报告方法学；2019 EULAR/ACR SLE 分类标准把 HEp-2 IFA ANA ≥1:80 作为入门标准。固相法（ELISA/CLIA/多重微珠）因抗原有限、对核仁型/DFS70 等敏感度不同，与 IFA 一致性有限，这正是 K041658 中 BioPlex vs EIA 筛查 PPA 仅 70% 的机理基础。
 
 ### 6. 样本类型与样本要求
+
 - 所有 IFA 产品：**仅血清**（NOVA Lite、Euroimmun、Immco、Zeus、Aesku 均 “Serum”，Matrix comparison: Not applicable）。样本稳定性各 IFA 文件未载明（NOVA Lite 仅给试剂/结合物稳定性）。
 - BioPlex 2200：血清、EDTA、钠肝素（214 例匹配，EDTA 回收 95.3–100.2%、钠肝素 90.5–103.6%）；锂肝素在再现性研究中验证。
 - Euroimmun ANA Screen ELISA：血清、EDTA/Li-heparin/枸橼酸血浆（各 12 对，Passing-Bablok 斜率 0.99–1.00）。
@@ -2382,6 +2501,7 @@ HbA1c 在 FDA 体系中有**两条平行的法规路径**，这是本靶点最�
 - Varelisa ReCombi：血清、枸橼酸、EDTA 血浆；**肝素血浆干扰，说明书警告不得使用**；样本稳定性依 CLSI H18-A3。
 
 ### 7. 分析性能验证所依据的标准
+
 | K 号 | 引用标准 | 对应项目 |
 |---|---|---|
 | K150155 NOVA Lite DAPI | FDA ANA 指南（2009）；C28-A3（LIU cutoff 参考区间）；EP07-A2（干扰：胆红素 10 mg/dL、Hb 200、TG 1000、胆固醇 224、RF IgM 56 AU）；EP09-A2IR（基质比对，实际未做） | 3 项重复性（LIU 与读片一致性）、3 中心×2 操作者再现性、3 批次 |
@@ -2416,6 +2536,7 @@ HbA1c 在 FDA 体系中有**两条平行的法规路径**，这是本靶点最�
 | Varelisa ReCombi (K083188) | 无临床灵敏度/特异度（“Not applicable”） | — | — | — | 新旧版本比对（253 例：感染 50、非 CTD 50、CTD 103、RA 50 + 92 献血者）PPA 99.0% (94.7–100)、NPA 96.7% (92.4–98.9) |
 
 ### 9. 厂家间差异与要点
+
 1. **筛查稀释度**：多数 IFA 沿用文献/predicate 的 1:40；Inova 改为 1:80 并用同一队列证明健康人阳性率由 27.3% 降至 11.3%、SLE 灵敏度由 85.9% 降至 80.8%；Aesku 同时申报 1:40/1:80 由实验室选择。
 2. **自动读片系统的“cutoff”是荧光强度阈值**（NOVA View LIU 48 = 健康人 90th percentile；dIFine 输出 uncertain 类），临床判读仍以稀释度 + 核型为准并须人工确认。
 3. **固相法 cutoff** 均为比值/指数：BioPlex AI 1.0（≈99th percentile，配合 predicate-EIA-阳性样本 ROC）；ELISA 用 cutoff 校准品 ratio 1.0，Gold Standard 独有 mean+3SD 及 ±20% 灰区。
@@ -2425,6 +2546,7 @@ HbA1c 在 FDA 体系中有**两条平行的法规路径**，这是本靶点最�
 7. **样本类型**：IFA 一律血清；固相法部分允许 EDTA/肝素/枸橼酸血浆，但 Varelisa 明确肝素血浆干扰。
 
 ### 10. 来源
+
 - K150155：https://www.accessdata.fda.gov/cdrh_docs/reviews/K150155.pdf ；https://www.accessdata.fda.gov/cdrh_docs/pdf15/K150155.pdf
 - K131791：https://www.accessdata.fda.gov/cdrh_docs/reviews/K131791.pdf ；https://www.accessdata.fda.gov/cdrh_docs/pdf13/K131791.pdf
 - K172745：https://www.accessdata.fda.gov/cdrh_docs/reviews/K172745.pdf ；https://www.accessdata.fda.gov/cdrh_docs/pdf17/K172745.pdf
@@ -2440,13 +2562,14 @@ HbA1c 在 FDA 体系中有**两条平行的法规路径**，这是本靶点最�
 ## 可提取核抗原抗体与抗 dsDNA（ENA panel：dsDNA、Sm、RNP、SS-A/Ro、SS-B/La、Scl-70、Jo-1、centromere）
 
 ### 1. 法规定位
+
 - 21 CFR **866.5100**，**Class II**，Panel: Immunology (82)。
 - Product codes 与 openFDA 累计清关数：
-  - **LLL** Extractable Antinuclear Antibody, Antigen and Control：**total=182**（ENA 单项/组合、CTD screen 多在此码下）。
-  - **LSW** Anti-DNA Antibody, Antigen and Control：**total=8**（QUANTA Flash dsDNA、EliA dsDNA、Aeskulisa/AESKUSLIDES nDNA、FIDIS dsDNA）。
-  - **LRM** Anti-DNA Antibody (Enzyme-Labeled), Antigen, Control：**total=29**（dsDNA ELISA：Euroimmun NcX、FARRZYME、Immco 等）。
-  - **KTL**（Crithidia luciliae IFA / anti-nDNA）：**total=19**（NOVA Lite DAPI dsDNA CLIFT、Euroimmun CLIFT EUROPattern、Zeus/Immuno Concepts nDNA）。
-  - 其他相关：LKO（Anti-RNP）、LKJ（EliA Ro52/Ro60 用此码）、MQA（Anti-Ribosomal P）、OBE/PET（IDS 产品同时列出）。
+    - **LLL** Extractable Antinuclear Antibody, Antigen and Control：**total=182**（ENA 单项/组合、CTD screen 多在此码下）。
+    - **LSW** Anti-DNA Antibody, Antigen and Control：**total=8**（QUANTA Flash dsDNA、EliA dsDNA、Aeskulisa/AESKUSLIDES nDNA、FIDIS dsDNA）。
+    - **LRM** Anti-DNA Antibody (Enzyme-Labeled), Antigen, Control：**total=29**（dsDNA ELISA：Euroimmun NcX、FARRZYME、Immco 等）。
+    - **KTL**（Crithidia luciliae IFA / anti-nDNA）：**total=19**（NOVA Lite DAPI dsDNA CLIFT、Euroimmun CLIFT EUROPattern、Zeus/Immuno Concepts nDNA）。
+    - 其他相关：LKO（Anti-RNP）、LKJ（EliA Ro52/Ro60 用此码）、MQA（Anti-Ribosomal P）、OBE/PET（IDS 产品同时列出）。
 - 提示：openFDA 仅按主代码索引，多重/多项产品（如 BioPlex ANA Screen 列 LKJ/LRM/MQA/LKO/LJM/LLL）只计入一个代码。
 
 ### 2. 代表性 510(k) 一览
@@ -2473,6 +2596,7 @@ HbA1c 在 FDA 体系中有**两条平行的法规路径**，这是本靶点最�
 | K041658 | 2004-12-20 | Bio-Rad / BioPlex 2200 ANA Screen（各单项，见 ANA 节） | 多重微珠 | 血清、EDTA/肝素血浆 | — | 决策摘要 |
 
 ### 3. 预期用途与声明类型
+
 - 全部为 **Rx only**、**辅助诊断**。单项抗体声明与疾病绑定：dsDNA→SLE；Sm→SLE；RNP/U1RNP/RNP70→MCTD 与 SLE；Ro60/SS-B→SLE 与 SjS；Ro52→SLE、SjS、IIM、SSc；Scl-70→SSc；centromere/CENP-B→SSc（CREST）；Jo-1→IIM/肌炎；Rib-P→SLE；RNA Pol III→弥漫型 SSc（EliA RNA Pol III K202541，为 CTD 13 的 predicate）。
 - 测量类型：dsDNA 多为 **quantitative（IU/mL，溯源 WHO Wo/80）**；其余 ENA 单项 **semi-quantitative**（CU、FLU、EliA U/mL、AU/mL）；筛查组合为 **qualitative**（ratio/CLIA Units）。
 - 组合筛查（EliA CTD 13、SymphonyS、Alegria、Euroimmun ENA pool、BioPlex）不报告单项特异性（BioPlex 除外，其同时输出 11 项结果）。
@@ -2510,13 +2634,15 @@ HbA1c 在 FDA 体系中有**两条平行的法规路径**，这是本靶点最�
 | BioPlex 各项 (K041658) | AI ≥1.0（≈99th percentile） | 见 ANA 节 | — |
 
 ### 5. 生物学 / 免疫学依据
+
 - 申报文件所载：
-  - **dsDNA 亲合力/抗原形式**决定不同方法一致性：FARRZYME 以更严格洗涤只检测高亲合力抗体，故与常规 ELISA（PPA 58.8%）和 CLIFT（PPA 67.3%）一致性低，但与 Farr RIA 高（PPA 89.8%）；Bio-Rad 解释 dsDNA 方法差异源于“捕获抗原类型、是否同时检出 ssDNA 抗体、对高/低亲合力抗体的捕获能力”；Phadia 指出 AMLI-J（低亲合力 dsDNA）在 EliA 阴性可能因严格洗涤；Euroimmun 用 dsDNA–核小体复合物（NcX）抗原。
-  - 参考血清：各产品用 CDC/IUIS ANA 参考血清与 AMLI 共识盘验证抗原特异性（如 QUANTA Flash dsDNA 对 CDC #1 50.7 IU/mL 阳性、#5 (Sm) 22.7、#7 (SS-A) 14.8 IU/mL 阴性）。
-  - Euroimmun ENA pool 发现 CDC #10（Jo-1）阳性系样本共存 Ro-52 抗体所致；Aptiva 注明 MCTD 样本可因疾病关联而 Ro52 阳性。
+    - **dsDNA 亲合力/抗原形式**决定不同方法一致性：FARRZYME 以更严格洗涤只检测高亲合力抗体，故与常规 ELISA（PPA 58.8%）和 CLIFT（PPA 67.3%）一致性低，但与 Farr RIA 高（PPA 89.8%）；Bio-Rad 解释 dsDNA 方法差异源于“捕获抗原类型、是否同时检出 ssDNA 抗体、对高/低亲合力抗体的捕获能力”；Phadia 指出 AMLI-J（低亲合力 dsDNA）在 EliA 阴性可能因严格洗涤；Euroimmun 用 dsDNA–核小体复合物（NcX）抗原。
+    - 参考血清：各产品用 CDC/IUIS ANA 参考血清与 AMLI 共识盘验证抗原特异性（如 QUANTA Flash dsDNA 对 CDC #1 50.7 IU/mL 阳性、#5 (Sm) 22.7、#7 (SS-A) 14.8 IU/mL 阴性）。
+    - Euroimmun ENA pool 发现 CDC #10（Jo-1）阳性系样本共存 Ro-52 抗体所致；Aptiva 注明 MCTD 样本可因疾病关联而 Ro52 阳性。
 - 背景（非申报文件）：抗 dsDNA 与抗 Sm 为 SLE 分类标准（ACR 1997、SLICC 2012、EULAR/ACR 2019）免疫学项，抗 dsDNA 滴度随疾病活动/狼疮肾炎波动；Farr 法（放射免疫沉淀）偏向高亲合力抗体、CLIFT 特异性高、ELISA 灵敏度高但可检出低亲合力抗体——这是 FDA 文件中“以 Farr/CLIFT 作比较法”并出现低 PPA 的免疫学背景。Ro52（TRIM21）与 Ro60（hY-RNA 结合蛋白）为不同抗原，Ro52 与肌炎/SSc 相关性更强，因此新一代平台分别检测。
 
 ### 6. 样本类型与样本要求
+
 - QUANTA Flash dsDNA/Scl-70/Jo-1/Ro60/SS-B、Aptiva、EliA Ro52/Ro60、EliA CTD 13、IDS、Euroimmun ENA pool：**仅血清**。QUANTA Flash dsDNA 样本稳定性 RT 48 h、2–8 °C 10 d、3 次冻融；Scl-70/Jo-1 RT 48 h、2–8 °C 21 d；EliA CTD 13 支持冷冻 24.5 个月；IDS 2 次冻融。
 - EliA dsDNA：血清、肝素/EDTA/枸橼酸血浆（46 组，斜率 1.015–1.067）。
 - Euroimmun NcX：血清、EDTA/枸橼酸血浆（35 组）；**肝素血浆不适用**。
@@ -2526,6 +2652,7 @@ HbA1c 在 FDA 体系中有**两条平行的法规路径**，这是本靶点最�
 - Alegria Flash CTD Screen：仅血清（“Sample matrix: Serum — Same” as predicate）；样本稳定性文件未载明。
 
 ### 7. 分析性能验证所依据的标准
+
 | K 号 | 引用标准 | 对应项目 |
 |---|---|---|
 | K152013 QF dsDNA | EP05-A2、EP6-A、EP07-A2、EP09-A3、EP17-A2、C28-A3 | 精密度（9 样本 20–21 天）、3 中心再现性、线性 9.8–666.9 IU/mL、LoB/LoD/LoQ（RLU）、干扰含 RF IgM 947 IU/mL、CDC 参考血清、cutoff 百分位 |
@@ -2592,6 +2719,7 @@ HbA1c 在 FDA 体系中有**两条平行的法规路径**，这是本靶点最�
 | Alegria Flash CTD Screen (K250666) | 589：SjS 135、SSc 55、CREST 55、PM 51、DM 53、MCTD 60、SLE 180 | 354：AIH 30、APS 20、肿瘤 20、乳糜泻 24、DIL 5、纤维肌痛 20、Crohn 31、UC 29、HBV 18、HCV 10、HIV 12、HSV 10、PBC 30、RA 20、血管炎 16、萎缩性胃炎 20、Graves 20、桥本 19 | **70.8%** (67.0–74.3)：SjS 83.7%、SLE 77.2%、MCTD 65.0%、DM 41.5% | **90.1%** (86.6–92.8) | vs Zeus ANA Screen ELISA (K940362)（n=943，indeterminate 计阴性）：PPA 84.2% (80.6–87.2)、NPA 87.8% (84.5–90.4) |
 
 ### 9. 厂家间差异与要点
+
 1. **dsDNA cutoff 与单位**：虽都溯源 WHO Wo/80（IU/mL），厂家 cutoff 差异极大（BioPlex 10、EliA 15、FARRZYME 30、QUANTA Flash/Aptiva 35、Euroimmun NcX 100 IU/mL），K041658 明确指出校准品在他家平台回收仅 27–121%，故 IU/mL 不可跨平台比较。
 2. **dsDNA 灰区**：QUANTA Flash/Aptiva（27–35，95th→99th percentile）、EliA（10–15）、BioPlex（5–9）设 indeterminate；FARRZYME 与 Euroimmun 无灰区。灰区计阴/阳会使灵敏度/特异度各移动 5–7 个百分点（K152013）。
 3. **Farr/CLIFT 作为比较法**只见于 FARRZYME（K062183，PPA 89.8% vs Farr、67.3% vs CLIFT）和 EliA dsDNA（K072393，vs DPC RIA PPA 90.6%）；新一代 CIA/PMAT 产品均以 ELISA 或同厂 CIA 为 predicate。CLIFT 自身作为申报产品（K192916）灵敏度 32.7–48.1%、特异度 91–96%。
@@ -2603,6 +2731,7 @@ HbA1c 在 FDA 体系中有**两条平行的法规路径**，这是本靶点最�
 9. **干扰研究**新近扩展到生物制剂/免疫抑制剂（belimumab、rituximab、infliximab、MTX、MMF、HCQ、AZA、CTX），见 K253367、K192916、K213403（rituximab 未评估）。
 
 ### 10. 来源
+
 - K152013：https://www.accessdata.fda.gov/cdrh_docs/reviews/K152013.pdf ；https://www.accessdata.fda.gov/cdrh_docs/pdf15/K152013.pdf
 - K072393：https://www.accessdata.fda.gov/cdrh_docs/reviews/K072393.pdf
 - K083381：https://www.accessdata.fda.gov/cdrh_docs/reviews/K083381.pdf
@@ -2631,6 +2760,7 @@ HbA1c 在 FDA 体系中有**两条平行的法规路径**，这是本靶点最�
 ## 单纯疱疹病毒 2 型特异性 IgG（HSV-2 type-specific IgG；兼看 HSV-1 IgG）
 
 ### 1. 法规定位
+
 - Product code **MYF**（Enzyme linked immunosorbent assay, Herpes Simplex Virus, HSV-2）；HSV-1 型特异性 IgG 为 **MXJ**；双抗原 immunoblot 型（HerpeSelect 1&2 Immunoblot，K000238）为 **LGC**。
 - 21 CFR **866.3305** Herpes simplex virus serological assays；**Class II（Special Controls）**；Panel：Microbiology (83 / MI)。
 - 适用 Special Controls 指导原则：*Class II Special Controls Guidance Document: Herpes Simplex Virus Types 1 and 2 Serological Assays*（K081687 引用 2007-04-03 版；K103603 引用 2010-09-28 版；K220924 引用 2011-08-09 版；K243575 引用同名文件未注明日期）。
@@ -2648,6 +2778,7 @@ HbA1c 在 FDA 体系中有**两条平行的法规路径**，这是本靶点最�
 | K120959（原始 K090409） | 2012-07-25 | Bio-Rad / BioPlex 2200 HSV-1 & HSV-2 IgG | 多重微珠流式免疫分析（Luminex），重组 gG1（55 kD）与 gG2（31 kD）分别包被两种微珠 | 血清、EDTA 或肝素血浆 | 同时检测并区分 HSV-1/HSV-2 IgG；sexually active individuals / expectant mothers | 决策摘要 + 510(k) summary（本次为改良申报，临床性能引用 K090409） |
 
 ### 3. 预期用途与声明类型
+
 - 全部为 **处方用（Rx only）定性辅助诊断**：措辞统一为 "aid in the presumptive diagnosis of HSV-2 infection"，目标人群限定为 **sexually active adults/individuals 与 expectant mothers/pregnant women**。
 - 共同限定语：(1) 预测值取决于人群流行率与验前概率（"The predictive value of a positive or negative result depends on the population's prevalence and the pretest likelihood"）；(2) 未在儿科、新生儿筛查、免疫抑制/免疫功能低下患者中建立性能；(3) **not FDA cleared for screening blood or plasma donors**；(4) K243575、K220924 另加 "test results may not determine the state of active lesions or associated disease manifestations, particularly for primary infection"。
 - K103603 额外声明 "not intended for donor screening or for self testing"。
@@ -2665,11 +2796,12 @@ HbA1c 在 FDA 体系中有**两条平行的法规路径**，这是本靶点最�
 | BioPlex 2200 HSV-1 & HSV-2 IgG（K120959） | Antibody Index (AI) | 文件（改良申报）称 cutoff 保持不变，结果分 Positive/Equivocal/Negative；精密度表中 "Near Cutoff" 样本 AI≈1.0–1.2 | 有 equivocal 类别，具体区间文件未载明（引用 K090409） | 引用 K090409 |
 
 - FDA 对 **低流行人群 PPV** 的关注在申报文件中的体现：
-  - K081687（LIAISON）决策摘要列出 "HSV-2 Prevalence vs. Hypothetical Predictive Values" 表：以灵敏度/特异度 98.1%/98.0%（sexually active）计算，流行率 10% 时 PPV 仅 84.5%（expectant mothers 79.6%）。
-  - K103603（ZEUS）同样列表：流行率 5% 时 sexually active PPV 92.9%、pregnant women PPV 82.5%；package insert 限制条款要求 "False positive test results may occur. Repeat testing or testing with a different device may be indicated in some settings e.g., patients with low likelihood of HSV infection"。
-  - K243575、K103603、K081687、K121895 均专门设置 **Low Prevalence 人群**（16–19 岁 / 17–19 岁非 STD 场所个体，或非 STD 门诊患者）做特异度/NPA 研究（见第 8 节）。
+    - K081687（LIAISON）决策摘要列出 "HSV-2 Prevalence vs. Hypothetical Predictive Values" 表：以灵敏度/特异度 98.1%/98.0%（sexually active）计算，流行率 10% 时 PPV 仅 84.5%（expectant mothers 79.6%）。
+    - K103603（ZEUS）同样列表：流行率 5% 时 sexually active PPV 92.9%、pregnant women PPV 82.5%；package insert 限制条款要求 "False positive test results may occur. Repeat testing or testing with a different device may be indicated in some settings e.g., patients with low likelihood of HSV infection"。
+    - K243575、K103603、K081687、K121895 均专门设置 **Low Prevalence 人群**（16–19 岁 / 17–19 岁非 STD 场所个体，或非 STD 门诊患者）做特异度/NPA 研究（见第 8 节）。
 
 ### 5. 生物学 / 免疫学依据
+
 - **抗原选择（申报文件）**：除 ZEUS（亲和纯化天然 gG-2）外，各厂家均使用 **重组 glycoprotein G-2（gG2）** 作为型特异性抗原；BioPlex 同时用重组 gG1（55 kD）与 gG2（31 kD）双微珠实现分型；Elecsys 用 "HSV-2-specific recombinant antigens"（大肠杆菌表达，具体抗原文件未细述）。predicate HerpeSelect immunoblot 则为 HSV-1/HSV-2 天然抗原 + 重组 gG1 + 重组 gG2 混合条带。
 - **类特异性（申报文件）**：K243575 做了 class-specificity 研究证明仅检测 IgG；K103603 用去除总 IgG 的 HSV-2 IgM 阳性标本（0/10 阳性）证明不检测 IgM。
 - **gG 缺陷株导致假阴性（申报文件）**：K121895 限制条款载 "False negative results may occur when the HSV virus is glycoprotein G (gG) deficient (0.2 % HSV isolates were gG deficient)"。
@@ -2677,6 +2809,7 @@ HbA1c 在 FDA 体系中有**两条平行的法规路径**，这是本靶点最�
 - 背景（非申报文件）：gG1 与 gG2 的氨基酸序列同源性低，是唯一可靠区分 HSV-1/HSV-2 抗体的糖蛋白，故 CDC/ASM 推荐仅接受 gG-based 型特异性血清学；IgG 血清转换通常在原发感染后 2–12 周，故急性期单次阴性不能排除感染（申报文件限制条款亦有类似表述）。
 
 ### 6. 样本类型与样本要求
+
 - **ARCHITECT（K243575）**：血清、SST、K2-EDTA、Li-heparin、Li-heparin PST；61 组配对基质回归 y=1.00–1.03x，r 0.996–0.998。样本稳定性：≤-20 °C 1 个月，2–8 °C 离凝块 14 天/在凝块 7 天，室温 48 h，3 次冻融。
 - **Elecsys（K220924/K121895）**：血清、Li-heparin、K2/K3-EDTA；枸橼酸钠血浆未评估；样本稳定性研究仅用血清（K121895 限制条款）。
 - **ADVIA Centaur（K181334）**：血清、SST、EDTA、Li-heparin；68 组配对 Deming 回归斜率 0.98–0.99，r 0.997–0.999。
@@ -2697,6 +2830,7 @@ HbA1c 在 FDA 体系中有**两条平行的法规路径**，这是本靶点最�
 ### 8. 临床验证设计与结果
 
 **ARCHITECT HSV-2 IgG（K243575）**——多中心（3 家美国外部实验室）前瞻性采集 915 份（sexually active + pregnant；女 670、男 245，年龄 14–99）；**参考方法为 3 种市售 anti-HSV-2 IgG 检测组成的复合比较法（2/3 多数规则）**（未用 Western blot）。
+
 - Sexually active（n=618）：PPA 96.54%（223/231；95% CI 93.32–98.24），NPA 96.90%（375/387；94.66–98.22）。
 - Pregnant（n=297）：PPA 95.12%（78/82；88.12–98.09），NPA 98.60%（212/215；95.98–99.52）。
 - CDC panel（50 份血清 ×2 = 100 份盲样）：PPA 100%（30/30），NPA 97.14%（68/70）。
@@ -2704,6 +2838,7 @@ HbA1c 在 FDA 体系中有**两条平行的法规路径**，这是本靶点最�
 - 观察到 HSV-2 阳性率 35%（女 36%、男 31%）。
 
 **Elecsys HSV-2 IgG（K121895，经 K220924 引用）**——参考方法为 predicate immunoblot，并对 Western blot 计算相对灵敏度/特异度。
+
 - Expectant mother（n=125）：PPA 97.83%（88.47–99.94），NPA 98.73%（93.15–99.97）。
 - Sexually active（n=469）：PPA 93.63%（88.60–96.90），NPA 98.72%（96.75–99.65）。
 - Low prevalence（n=200）：PPA 75.00%（19.41–99.37，阳性例数极少），NPA 98.47%（95.59–99.68）。
@@ -2711,18 +2846,21 @@ HbA1c 在 FDA 体系中有**两条平行的法规路径**，这是本靶点最�
 - CDC panel 一致性 100%。K220924 本身为生物素改良，仅做 206 份样本与原版 100% 定性一致。
 
 **ADVIA Centaur Herpes-2 IgG（K181334）**——864 份（≥18 岁，含 274 孕妇），3 家外部实验室；比较法为市售 anti-HSV-2 IgG immunoblot；比较法 equivocal（22 份）送 **University of Washington（Seattle）Western blot** 裁定（20 份阴性、2 份仍 equivocal）。
+
 - 总体：灵敏度 95.3%（245/257；92.0–97.3），特异度 98.5%（598/607；97.2–99.2），总一致 97.6%。
 - 孕妇（n=274）：灵敏度 100%（34/34；89.9–100），特异度 98.3%（236/240；95.8–99.4）。
 - CDC panel 100 份 100% 一致；ZeptoMetrix ToRCH 混合盘 24 份 100% 一致。
 - 交叉反应/特殊人群 522 份总一致 96.9%（506/522）。
 
 **LIAISON HSV-2（K081687）**——951 份美国东北部样本，2 家外部实验室；比较法为 FDA 清关 immunoblot，predicate 重复 equivocal 送 "Reference Laboratory in the Pacific Northwest" 做 Western blot。
+
 - Sexually active/STD 门诊（n=401）：灵敏度 98.1%（104/106；95.6–99.9），特异度 98.0%（289/295；96.0–99.1）。
 - Expectant mothers（n=430）：灵敏度 94.8%（91/96；89.4–97.9），特异度 97.3%（325/334；95.3–98.6）。
 - Low prevalence（n=120，非 STD 门诊）：灵敏度 100%（20/20），特异度 100%（100/100）。
 - CDC panel（52% 阳性/48% 阴性）100% 一致（52/52，48/48）。
 
 **ZEUS ELISA HSV gG-2 IgG（K103603）**——3 中心，788 份；比较法为市售 HSV-1/2 immunoblot；equivocal 不一致按不利于受试产品计。
+
 - Sexually active（n=336）：PPA 93.3%（70/75；86.9–98.5），NPA 99.6%（260/261；97.9–100）。
 - Pregnant（n=252；孕早/中/晚 121/64/67）：PPA 98.6%（70/71；92.5–100），NPA 98.9%（179/181；96.1–99.9）。
 - Low prevalence（n=100，17–19 岁非 STD）：NPA 98.0%（98/100；2 份 equivocal），PPA 不适用。
@@ -2731,6 +2869,7 @@ HbA1c 在 FDA 体系中有**两条平行的法规路径**，这是本靶点最�
 **BioPlex 2200 HSV-1 & HSV-2 IgG（K120959）**——改良申报，仅做与已清关 BioPlex 的一致性（399 份 sexually active）：HSV-2 PPA 99.4%（166/167），NPA 100%（232/232）；CDC panel 80 份：HSV-2 PPA/NPA 均 100%（40/40，40/40），HSV-1 PPA 100%（42/42）、NPA 97.4%（37/38）。原始灵敏度/特异度需查 K090409（本次未获取）。
 
 ### 9. 厂家间差异与要点
+
 1. **Equivocal 区策略分化**：老一代 ELISA/CLIA（ZEUS 0.91–1.09；LIAISON >0.90–<1.1）设 ±10% 灰区并要求复测/Western blot；新一代全自动 CMIA/ECLIA（ARCHITECT、Elecsys）以 ROC 或 predicate 对齐后**不设灰区**（ARCHITECT 精密度 Serum Panel 1 均值 0.95 S/CO，总 CV 以 SD 报告）。
 2. **参考方法演变**：2008–2018 年清关产品以 FDA 清关 immunoblot 为比较法、以 UW Western blot 裁定 equivocal（K081687、K181334、K121895）；2025 年 ARCHITECT 改用 **3 种市售 IgG 检测 2/3 复合比较法**，并不再要求 Western blot。
 3. **低流行人群**：所有决策摘要均包含 16–19 岁或非 STD 门诊人群 NPA（98.0–100%），并（K081687、K103603）附 PPV-流行率假设表，直接回应 Special Controls 指南对低流行人群假阳性的关注。
@@ -2739,6 +2878,7 @@ HbA1c 在 FDA 体系中有**两条平行的法规路径**，这是本靶点最�
 6. **性能差异**：sexually active 人群 PPA 范围 93.3%（ZEUS）–98.1%（LIAISON）；孕妇 PPA 94.8%–100%；NPA 普遍 ≥96.9%。
 
 ### 10. 来源
+
 - K243575：https://www.accessdata.fda.gov/cdrh_docs/reviews/K243575.pdf ；https://www.accessdata.fda.gov/cdrh_docs/pdf24/K243575.pdf
 - K220924：https://www.accessdata.fda.gov/cdrh_docs/reviews/K220924.pdf ；https://www.accessdata.fda.gov/cdrh_docs/pdf22/K220924.pdf
 - K121895：https://www.accessdata.fda.gov/cdrh_docs/reviews/K121895.pdf ；https://www.accessdata.fda.gov/cdrh_docs/pdf12/K121895.pdf
@@ -2752,6 +2892,7 @@ HbA1c 在 FDA 体系中有**两条平行的法规路径**，这是本靶点最�
 ## 莱姆病伯氏疏螺旋体抗体（*Borrelia burgdorferi* antibodies, Lyme disease serology）
 
 ### 1. 法规定位
+
 - Product code **LSR**（Reagent, Borrelia Serological Reagent）；控制品另编 QCH。
 - 21 CFR **866.3830**（法规名称为 *Treponema pallidum treponemal test reagents*，Lyme 血清学试剂历史上归入此条）；**Class II**；Panel：Microbiology (83 / MI)。
 - 相关 FDA 指导原则（K233367 引用）：*Establishing the Performance Characteristics of in Vitro Diagnostic Devices for the Detection of Antibodies to Borrelia burgdorferi – Guidance for Industry and FDA Staff*。
@@ -2771,10 +2912,11 @@ HbA1c 在 FDA 体系中有**两条平行的法规路径**，这是本靶点最�
 | K233367 | 2024-08-12 | ID-FISH Technology / iDart Lyme IgG ImmunoBlot | 线性重组抗原免疫印迹（P93、P41、P39、P23、P31、P66、P58、P45、P34、P30、P28、P18 + LSA［嵌合 VlsE 肽］） | 血清 | **MTTT 二线**免疫印迹；不用于无症状者筛查 | 决策摘要 |
 
 ### 3. 预期用途与声明类型
+
 - 均为 **Rx 定性辅助诊断**，限用于 "patients with signs and symptoms consistent with / suspected of Lyme disease"；K233367 明确 "not intended as a screen for asymptomatic patients"。
 - **两步法声明（申报文件）**：
-  - 2019 年前（K183446、K173496）：所有 reactive/equivocal 须以 "second tier test such as Lyme IgG and IgM Western blot" 补充；"Non-reactive first tier or negative second tier results should not be used to exclude borreliosis"。
-  - 2019 年起（K190907/K191240、K202574、K203289、K233367）：intended use 明文列出两条路径——**(1) STTT** "using IgG or IgM Western blot testing following current interpretation guidelines"；**(2) MTTT** 用指定的第二个 EIA/CLIA/免疫印迹。"Positive test results by either the STTT or MTTT methodology are supportive evidence for the presence of antibodies and exposure to B. burgdorferi"。
+    - 2019 年前（K183446、K173496）：所有 reactive/equivocal 须以 "second tier test such as Lyme IgG and IgM Western blot" 补充；"Non-reactive first tier or negative second tier results should not be used to exclude borreliosis"。
+    - 2019 年起（K190907/K191240、K202574、K203289、K233367）：intended use 明文列出两条路径——**(1) STTT** "using IgG or IgM Western blot testing following current interpretation guidelines"；**(2) MTTT** 用指定的第二个 EIA/CLIA/免疫印迹。"Positive test results by either the STTT or MTTT methodology are supportive evidence for the presence of antibodies and exposure to B. burgdorferi"。
 - 背景（非申报文件）：CDC 于 2019 年 MMWR（Mead P. et al., *MMWR* 68(32):703）更新推荐，承认以 FDA 清关的两个 EIA 串联（MTTT）作为 STTT 的可接受替代；上述 ZEUS 三项清关即为首批 MTTT 用途清关。
 
 ### 4. 阳性 / 阴性判定与 cutoff 逻辑
@@ -2792,14 +2934,16 @@ HbA1c 在 FDA 体系中有**两条平行的法规路径**，这是本靶点最�
 - **MTTT 判定**：第一 EIA 阳性或 equivocal → 第二 EIA；第二 EIA 阳性**或 equivocal** 即判 MTTT 阳性（K190907、K191240、K202574、K203289 均如此规定）。
 
 ### 5. 生物学 / 免疫学依据
+
 - **抗原设计（申报文件）**：
-  - 一线高灵敏抗原：VlsE 或其 C6/pepC10/FVlsE 肽（Bio-Rad、ZEUS、DiaSorin、GSD、iDart LSA），常与 **OspC**（早期 IgM 主要靶抗原：Bio-Rad OspC type B、DiaSorin IgM 用 B. afzelii pKo OspC、GSD B31 OspC）或 p58 联用。
-  - 二线：全菌超声裂解物 ELISA（ZEUS B31 whole cell、GSD B31+2591 株）或多抗原免疫印迹（iDart 12 种重组蛋白）。
-  - 免疫印迹 K233367 中 LSA 带为嵌合 VlsE 肽，作为必要条件。
+    - 一线高灵敏抗原：VlsE 或其 C6/pepC10/FVlsE 肽（Bio-Rad、ZEUS、DiaSorin、GSD、iDart LSA），常与 **OspC**（早期 IgM 主要靶抗原：Bio-Rad OspC type B、DiaSorin IgM 用 B. afzelii pKo OspC、GSD B31 OspC）或 p58 联用。
+    - 二线：全菌超声裂解物 ELISA（ZEUS B31 whole cell、GSD B31+2591 株）或多抗原免疫印迹（iDart 12 种重组蛋白）。
+    - 免疫印迹 K233367 中 LSA 带为嵌合 VlsE 肽，作为必要条件。
 - **IgM/IgG 动力学（申报文件数据体现）**：各期分层灵敏度显示急性/EM 期一线阳性率仅 60–80%，晚期近 100%（见第 8 节）；ZEUS IgM ELISA 加入抗人 IgG 沉淀以去除 IgG 及 RF（防止 RF 假阳性与 IgG 竞争）；DiaSorin 用 **DTT 灭活 IgM** 证明 IgG 检测类特异性（IgM 信号降至 <0.13，IgG 变化 ≤9.7%）。
 - **交叉反应机制（申报文件）**：多个文件显示与 **梅毒（螺旋体共同抗原）、其他蜱传病（Babesiosis、Ehrlichiosis、tick-borne relapsing fever）、Leptospirosis、EBV/传染性单核细胞增多症、H. pylori** 的交叉最常见（K203289：TBRF 3/4、Ehrlichiosis IgM 3/6、Babesiosis 6/16、Leptospirosis 2/10，且 predicate 亦阳性；K202574：Babesiosis 5/10；K183446：EBV NPA 91.8%、Ehrlichiosis 90.9%；K173496 Sofia IgM 在 Lupus 8/20、Syphilis 8/28、ANA 4/10 阳性）。背景（非申报文件）：p41 鞭毛蛋白与其他螺旋体/细菌鞭毛高度同源，是 IgM 假阳性主要来源，故 STTT 要求 IgM 至少 2 条带。
 
 ### 6. 样本类型与样本要求
+
 - 血清为所有产品共有；BioPlex（EDTA、肝素钠/锂，配对 74–78 组，斜率 0.97–1.02，r 0.951–0.981）与 LIAISON（SST、K2-EDTA、Li-heparin，32 组 Passing-Bablok，比例偏差 0.96–1.04）另支持血浆。
 - LIAISON 样本稳定性：室温 3 天、2–8 °C 14 天、-20 °C（3 个月数据，研究进行中）、5 次冻融。GSD：2–8 °C 7 天，3 次冻融。iDart：冻存（-20 °C 9–44 天）与新鲜结果 100% 一致（72 份）。
 - Sofia 2 为**指尖全血**（CLIA-waived，CW170015），与血清/血浆 321 组配对阳性率相当（IgM 42.4/42.1/41.4%）。
@@ -2821,29 +2965,33 @@ HbA1c 在 FDA 体系中有**两条平行的法规路径**，这是本靶点最�
 **统一设计要素**：(1) 流行区前瞻性送检人群（"test-ordered"）与 predicate 一线一致性 + Western blot 二线一致性；(2) **CDC Lyme Serum Repository 280 份盲样**（Stage I/早期 EM 急性 & 恢复期、Stage II 播散［心脏/神经］、Stage III 晚期关节炎/神经；90 份 look-alike 疾病［梅毒、RA、MS、纤维肌痛、传染性单核细胞增多症、重度牙周炎各 15］；健康对照 100 份［流行区/非流行区各 50］）；(3) 各分期临床特征化样本灵敏度；(4) 流行区/非流行区无症状人群特异度。
 
 **BioPlex 2200 Lyme Total（K183446）**
+
 - 前瞻 792 份（3 中心）vs 市售 IgM/IgG 免疫分析：一线 PPA 70.1%（68/97），NPA 95.1%（661/695）；二线 WB（IgG+IgM 合并）PPA 97.9%（46/47）。
 - 105 份分期样本：Acute（<3 月）69.4%（50/72）vs 比较法 58.3%；Convalescent（<12 月）61.5%（16/26）；Late（>12 月）85.7%（6/7）；总 68.6%。
 - CDC panel 280：Acute 84.6%（33/39）、Convalescent 93.5%、Late 100%（20/20）；look-alike 96.7%（1 反应+2 equivocal/90）；健康对照 97.0%。细分：早期 EM 急性 80.0%（vs 比较法 63.3%）、恢复期 93.3%、心脏/神经播散 100%、晚期关节炎/神经 100%、梅毒 15/15 阴性、传单 2 份 equivocal。
 - 健康人 836 份（流行/非流行各 ~420）：NPA 96.4%/96.4%。
 
 **ZEUS MTTT（K191240 IgM 路径；K190907 IgG/IgM 路径）**
+
 - 回顾队列 356 份（CDC 280 + 46 Stage 2 + 30 Stage 3；共 166 例 LD：Stage 1/2/3 = 60/56/50；90 份其他疾病；100 份健康）。VlsE1/pepC10 一线 160 阳性 + 6 equivocal。
-  - IgM 路径（K191240）灵敏度 STTT vs MTTT：Stage I 46.7% → **76.7%**；Stage II 50.0% → 75.0%；Stage III 16.0% → 72.0%；健康对照特异度 100%/100%；疾病对照 100%/97.8%。
-  - IgG/IgM 路径（K190907）：Stage I 63.3% → **78.3%**；Stage II 60.7% → 66.1%；Stage III 100%/100%；健康 100%/100%；疾病对照 100%/97.8%。
+    - IgM 路径（K191240）灵敏度 STTT vs MTTT：Stage I 46.7% → **76.7%**；Stage II 50.0% → 75.0%；Stage III 16.0% → 72.0%；健康对照特异度 100%/100%；疾病对照 100%/97.8%。
+    - IgG/IgM 路径（K190907）：Stage I 63.3% → **78.3%**；Stage II 60.7% → 66.1%；Stage III 100%/100%；健康 100%/100%；疾病对照 100%/97.8%。
 - 前瞻队列 2,932 份（MA 900、WI 990、MN 1042）：一线 363 阳 + 58 equivocal。
-  - IgM：MTTT vs WB-STTT PPA 96.2%（101/105；90.6–98.5），NPA 95.5%（2701/2827；94.7–96.2）；126 份 MTTT+/STTT− 中 5 份临床符合 Stage 1，91 份无临床资料。
-  - IgG/IgM：PPA 93.3%（167/179；88.6–96.1），NPA 97.7%（2690/2753；97.1–98.2）；63 份 MTTT+/STTT− 中 4 份为确诊 Lyme（3 Stage 1、1 晚期）。
+    - IgM：MTTT vs WB-STTT PPA 96.2%（101/105；90.6–98.5），NPA 95.5%（2701/2827；94.7–96.2）；126 份 MTTT+/STTT− 中 5 份临床符合 Stage 1，91 份无临床资料。
+    - IgG/IgM：PPA 93.3%（167/179；88.6–96.1），NPA 97.7%（2690/2753；97.1–98.2）；63 份 MTTT+/STTT− 中 4 份为确诊 Lyme（3 Stage 1、1 晚期）。
 
 **LIAISON Lyme IgG（K202574）/ IgM（K202573）**
+
 - 前瞻 2,621 份（14 州 5 区域，3 实验室）：
-  - IgG 一线 vs ZEUS IgG ELISA：PPA 55.1%（166/301）、NPA 96.5%（2210/2320）；两者 WB IgG 阳性数相同（各 109）；predicate+/LIAISON− 的 135 份中 123（91.1%）WB 阴性。STTT 算法级 PPA 89.0%（97/109；81.7–93.6）、NPA 99.5%（2500/2512）。
-  - IgG 作 MTTT 二线（Lyme Total Antibody Plus 一线阳/equivocal 225 份）vs WB-STTT：PPA 96.9%（93/96；91.2–98.9），NPA **30.2%**（39/129；23.0–38.6）。
-  - IgM（K202573）：一线 PPA 56.5%（190/336）、NPA 96.5%（2206/2285）；STTT 级 PPA 91.6%（109/119）、NPA 99.4%（2486/2502）；MTTT vs STTT PPA 93.0%（93/100）、NPA 57.6%（72/125）。
+    - IgG 一线 vs ZEUS IgG ELISA：PPA 55.1%（166/301）、NPA 96.5%（2210/2320）；两者 WB IgG 阳性数相同（各 109）；predicate+/LIAISON− 的 135 份中 123（91.1%）WB 阴性。STTT 算法级 PPA 89.0%（97/109；81.7–93.6）、NPA 99.5%（2500/2512）。
+    - IgG 作 MTTT 二线（Lyme Total Antibody Plus 一线阳/equivocal 225 份）vs WB-STTT：PPA 96.9%（93/96；91.2–98.9），NPA **30.2%**（39/129；23.0–38.6）。
+    - IgM（K202573）：一线 PPA 56.5%（190/336）、NPA 96.5%（2206/2285）；STTT 级 PPA 91.6%（109/119）、NPA 99.4%（2486/2502）；MTTT vs STTT PPA 93.0%（93/100）、NPA 57.6%（72/125）。
 - CDC panel（IgG 一线）：Acute 74.4%（vs ZEUS 61.5%）、Convalescent 93.5%、Late 100%、健康 97%（3/100 假阳）、疾病对照 90%（9 假阳：梅毒 4、传单 2、牙周炎 1、RA 1、纤维肌痛 1）。
 - CDC panel MTTT vs WB-STTT（IgG）：Stage I **30% → 80%**；Stage II 50% → 90%；Stage III 100%/100%；健康 100%/100%；疾病对照 100%/97.8%。IgM（K202573）：Stage I 50% → 73.3%；Stage II 90%/90%；Stage III 35% → 45%；对照均 100%。
 - 健康人 300 份：流行区阳性 6.7%（10/150），非流行区 1.3%（2/150）。
 
 **GSD VlsE-OspC IgG/IgM ELISA（K203289）**
+
 - 前瞻 481 份（3 中心）vs predicate 全菌 IgG/IgM ELISA：一线 PPA 90.7%（49/54）、NPA 96.7%（413/427）；STTT 算法级 PPA 100%（36/36）、NPA 99.6%（443/445）。
 - MTTT（VlsE-OspC → IgG/IgM ELISA）vs WB-STTT：全样本 PPA 100%（36/36）、NPA 97.1%（432/445）；仅一线阳性 68 份内 NPA 40.0%（12/30）。IgG 路径 PPA 100%（23/23）、NPA 96.7%；IgM 路径 PPA 94.7%（18/19）、NPA 95.2%。
 - 125 份分期样本（一线单独）：Early 62.9%（39/62）、Disseminated 100%（22/22）、Late 97.6%（40/41）；MTTT IgG 路径 vs WB-STTT IgG：Early 48.4% vs **8.1%**、Disseminated 81.8% vs 27.3%、Late 97.6% vs 95.1%；MTTT IgM 路径 vs WB-STTT IgM：Early 62.9% vs 58.1%、Late 82.9% vs 24.4%。
@@ -2851,17 +2999,20 @@ HbA1c 在 FDA 体系中有**两条平行的法规路径**，这是本靶点最�
 - 无症状人群 238 份：流行区特异度 97.0%（4/132 阳/equivocal），非流行区 99.1%（1/106）。
 
 **Sofia 2 Lyme FIA（K173496）**
+
 - 前瞻 327 例症状患者（11 流行区 POC 站点，CLIA-waived 操作者），324 可评估，配对指尖全血 vs VIDAS Lyme IgM/IgG（predicate）：IgM 一线 PPA 82.4%（75/91）、NPA 79.8%（186/233）；IgG PPA 88.9%（48/54）、NPA 85.9%（232/270）；二线 WB PPA：IgM 94.1%（48/51）、IgG 95.7%（22/23）。
 - 95 份临床/培养确诊样本：IgM 总灵敏度 64.2%（Acute <1 月 EM 60.9%；Late 66.7%），IgG 总 80.0%（Acute 78.1%；Late 100%），均高于 predicate（58.9%/49.5%）。
 - CDC panel 280：IgM 在阴性对照仅 82.6% 一致（33/190 假阳），早期 EM 81.7%，晚期 73.3%；IgG 阴性对照 86.8%（25/190 假阳），早期 81.7%，晚期 100%。
 - 健康人 200 份：IgM 阴性率 89.5%（流行区 86.0%），IgG 96.5%。
 
 **iDart Lyme IgG ImmunoBlot（K233367）**
+
 - 768 份（Bay Area Lyme Foundation 前瞻性库存 290；IGeneX 送检 248 + 230）vs STTT（FDA 清关 EIA + immunoblot）：Cohort 1 PPA 95.00%（19/20）、NPA 86.67%（234/270）；Cohort 2 PPA 95.00%（114/120）、NPA 90.63%；Cohort 3 PPA 90.91%（10/11）、NPA 96.80%（212/219）。
 - CDC panel：Stage I 灵敏度 **58.33%（35/60）vs STTT 30.00%**；Stage II 90%（9/10）/90%；Stage III 100%（20/20）；健康 100 份及疾病对照 90 份均 0 阳性。
 - 健康人：流行区 313 份阳性 0.64%（2/313）；非流行区 112 份 0%。
 
 ### 9. 厂家间差异与要点
+
 1. **STTT → MTTT 的转变**：2019 年 ZEUS 三项清关首次将 "两个 EIA 串联" 写入 intended use，并以回顾（CDC 盘）+ 前瞻（~2,900 份）两队列证明 MTTT 对 Stage I 灵敏度较 WB-STTT 提升 15–30 个百分点而对照特异度维持 ≥97.8%。DiaSorin（2021）、GSD（2021）、ID-FISH（2024）沿用同一证据框架。
 2. **MTTT 二线的 NPA 天然偏低**（DiaSorin IgG 30.2%、GSD 40.0%、GSD IgM 53.2%）：因二线 EIA 比 WB 更敏感，FDA 决策摘要接受此现象并明确 "The above performance table artificially inflates the negative percent agreement…"，评价重点转向分期灵敏度与健康/疾病对照特异度。
 3. **cutoff 建立方法多样**：Bio-Rad 用 1,372 份正常血清 98 百分位；GSD 用 238 份正常血清 均值+3SD 再 ROC；DiaSorin 以特征化样本平衡灵敏/特异；Quidel 以全血-血清 PPA/NPA 等效为目标。灰区宽度普遍 ±10%（0.9–1.1 Index 或 9–11 Units），Bio-Rad 为 0.9–1.0 AI。
@@ -2870,6 +3021,7 @@ HbA1c 在 FDA 体系中有**两条平行的法规路径**，这是本靶点最�
 6. **免疫印迹判读现代化**：iDart 用 Protein L 对照带（C2）作强度校准并要求 LSA 带 + 两组特异带，与传统 5/10 条带规则不同，Stage I 灵敏度 58% vs STTT 30%。
 
 ### 10. 来源
+
 - K183446：https://www.accessdata.fda.gov/cdrh_docs/reviews/K183446.pdf
 - K191240：https://www.accessdata.fda.gov/cdrh_docs/reviews/K191240.pdf ；https://www.accessdata.fda.gov/cdrh_docs/pdf19/K191240.pdf
 - K190907：https://www.accessdata.fda.gov/cdrh_docs/reviews/K190907.pdf ；https://www.accessdata.fda.gov/cdrh_docs/pdf19/K190907.pdf
@@ -2884,6 +3036,7 @@ HbA1c 在 FDA 体系中有**两条平行的法规路径**，这是本靶点最�
 ## 梅毒螺旋体抗体（*Treponema pallidum* treponemal antibodies）
 
 ### 1. 法规定位
+
 - Product code **LIP**（Enzyme linked immunoabsorption assay, Treponema pallidum）；非密螺旋体（RPR）抗原为 GMQ（866.3820）；校准品 JIT、控制品 JJX。
 - 21 CFR **866.3830** Treponema pallidum treponemal test reagents；**Class II**；Panel：Microbiology (83 / MI)。
 - openFDA 累计清关数：**LIP total = 35**。
@@ -2901,10 +3054,11 @@ HbA1c 在 FDA 体系中有**两条平行的法规路径**，这是本靶点最�
 | K160910（K211302 为生物素改良） | 2016-07-28 / 2021-07-20 | Roche / Elecsys Syphilis | 双抗原夹心 ECLIA；重组 TpN15、TpN17、TpN47（单体与多聚体） | 血清、Li/Na-heparin、K2/K3-EDTA、CPDA、枸橼酸钠血浆 | 总抗体；aid in the diagnosis in conjunction with clinical signs；不用于 blood/tissue donor | 决策摘要 + 510(k) summary |
 
 ### 3. 预期用途与声明类型
+
 - 全部为 **Rx 定性、总抗体（IgG+IgM）或 "antibodies to T. pallidum"**（ADVIA Centaur 措辞因 "administrative error" 删去 IgG 字样）。
 - **算法定位（申报文件）**：
-  - 2006 年 LIAISON（K061247）：仅 "in conjunction with nontreponemal laboratory tests"，并附警示 "A positive result is not useful for establishing a diagnosis of syphilis. In most situations, such a result may reflect prior treated infection"；equivocal/阳性须补做定量 RPR/VDRL。FDA 在该文件中同时评价了 "clinical laboratory screen (treponemal test followed by a non treponemal test)" 与 "diagnostic confirmatory test（RPR/VDRL 阳性后）" 两种用法。
-  - 2016 年起 ARCHITECT（K153730）、Access（K241427）明文 "**intended to be used as an initial diagnostic test** or in conjunction with a nontreponemal laboratory test"，即支持反向算法（treponemal 先行）。Elecsys 要求初始反应性样本双份复测，"Repeatedly reactive samples must be confirmed according to recommended confirmatory algorithms"。
+    - 2006 年 LIAISON（K061247）：仅 "in conjunction with nontreponemal laboratory tests"，并附警示 "A positive result is not useful for establishing a diagnosis of syphilis. In most situations, such a result may reflect prior treated infection"；equivocal/阳性须补做定量 RPR/VDRL。FDA 在该文件中同时评价了 "clinical laboratory screen (treponemal test followed by a non treponemal test)" 与 "diagnostic confirmatory test（RPR/VDRL 阳性后）" 两种用法。
+    - 2016 年起 ARCHITECT（K153730）、Access（K241427）明文 "**intended to be used as an initial diagnostic test** or in conjunction with a nontreponemal laboratory test"，即支持反向算法（treponemal 先行）。Elecsys 要求初始反应性样本双份复测，"Repeatedly reactive samples must be confirmed according to recommended confirmatory algorithms"。
 - 共同限定："not intended for use in screening blood, plasma, or tissue donors"；结果须结合其他 treponemal/nontreponemal 结果、临床与病史 "to produce a diagnosis of syphilis by disease stage"。
 - 背景（非申报文件）：CDC 传统算法为 RPR/VDRL 筛查 → treponemal 确认；反向算法（reverse sequence）为 treponemal EIA/CIA 筛查 → RPR 定量 → 不一致时 TP-PA 裁定（CDC MMWR 2011）。申报文件中 "2 out of 3（TP-CLIA、RPR、TP-PA）" 复合比较法即模拟该裁定逻辑。
 
@@ -2920,6 +3074,7 @@ HbA1c 在 FDA 体系中有**两条平行的法规路径**，这是本靶点最�
 | Elecsys Syphilis（K160910/K211302） | COI | <1.00 Nonreactive；≥1.00 Reactive；初始反应须双份复测 | 无 | 原型批测定天然血清设初步 cutoff → 与市售检测比较 → 欧美多中心临床最终验证 |
 
 ### 5. 生物学 / 免疫学依据
+
 - **抗原（申报文件）**：均为大肠杆菌重组 T. pallidum 脂蛋白：Tp17（TpN17）为所有产品共有；Tp47、Tp15 为 Abbott/Roche（三抗原）、Beckman（Tp17+Tp47）、Siemens（Tp17+Tp15）所加；Bio-Rad 用 rTP47/rTP17 融合蛋白；DiaSorin 仅 Tp17。predicate CAPTIA Syphilis-G 为 Nichols 株全菌超声抗原。
 - **格式**：双抗原夹心（Siemens、DiaSorin、Roche、Beckman）可同时捕获 IgG/IgM；Abbott 用抗人 IgG+IgM 混合结合物；Bio-Rad 用抗 IgG+抗 IgM PE 结合物。
 - **IgM 检测证明（申报文件）**：Abbott 用 Protein G 去 IgG 后以 IgM 特异结合物证明 IgM 信号增加 >2 倍；Bio-Rad 用 DTT 去 IgM + 9 成员 **血清转换盘**（Syphilis Total 在第 31 天 AI 1.3 阳性，早于 IgG 检测与 TP-PA［第 45 天］）。
@@ -2928,6 +3083,7 @@ HbA1c 在 FDA 体系中有**两条平行的法规路径**，这是本靶点最�
 - 背景（非申报文件）：Tp15/Tp17/Tp47 为免疫优势外膜脂蛋白，treponemal 抗体一旦产生通常终身存在（治疗后不转阴），故治疗史患者阳性不代表活动感染——与 LIAISON 警示语一致；yaws/pinta 等地方性密螺旋体病抗体无法区分。
 
 ### 6. 样本类型与样本要求
+
 - ARCHITECT：7 种管型（血清、SST、K2/K3-EDTA、Li/Na-heparin、Li-heparin PST），28 组配对，阴性差异 ≤0.20 S/CO、阳性 %差 ≥-20%；稳定性 室温 ≤72 h、2–8 °C ≤7 天、≤-10 °C ≤30 天、6 次冻融；仪器上 3 h。
 - Access：10 种管型（含枸橼酸钠、CPD、ACD、CPDA），65 组配对；2–8 °C 7 天、20–25 °C 72 h、-20 °C 30 天、5 次冻融。
 - BioPlex：血清、K2/K3-EDTA、Li/Na-heparin（82–113 组）；室温 3 天、-20 °C 6 个月、5 次冻融。
@@ -2951,12 +3107,14 @@ HbA1c 在 FDA 体系中有**两条平行的法规路径**，这是本靶点最�
 **统一设计（2012 年后）**：前瞻性 intended-use 人群（常规送检、孕妇、HIV 阳性）+ 回顾性预选阳性 + 医学确诊分期（primary/secondary/latent，treated/untreated）+ 表观健康人（含儿科）；**参考方法为 TP-CLIA（predicate）+ RPR + TP-PA 三项 2/3 复合算法**（Abbott、Bio-Rad、Beckman、Roche），或 predicate 单一比较法（Siemens）、predicate + TP-PA/RPR 裁定（DiaSorin）。
 
 **ARCHITECT Syphilis TP（K153730）**——2,220 份，2015 年 7–12 月，8 个美国站点。
+
 - 前瞻 1,145 份（常规 442、孕妇 304、HIV+ 399；儿科 136）：PPA 96.2%（153/159；92.0–98.3），NPA 99.0%（976/986；98.1–99.4）。分层：常规 PPA 97.3%/NPA 99.5%；孕妇 NPA 99.7%（303/304，各孕期 99.2–100%）；HIV+ PPA 95.9%（117/122）/NPA 97.5%（270/277）。6 份假阴性均为 TP-CLIA 阴性但 TP-PA+RPR 阳性。
 - 回顾预选 406 份：PPA 98.9%（376/380），NPA 92.3%（24/26）；20 份阳性孕妇 100%。
 - 医学确诊 179 份：Primary treated 33/44 反应（11 份 nonreactive，其中 9 份 TP-CLIA 亦阴性）、Primary untreated 25/25、Secondary 56/56、Latent 54/54。
 - 表观健康 480 份：反应率 3.1%（成人 15/367=4.1%，14 份 TP-CLIA 亦阳性；儿科 0/113）。前瞻人群阳性率 14.2%。
 
 **BioPlex 2200 Syphilis Total & RPR（K170413）**——2,008 份，2016 年 11–12 月，3 站点（1 内部）。
+
 - 前瞻 1,001 份（送检 401、孕妇 295、HIV+ 305）：Syphilis Total PPA 92.45%（147/159；87.27–95.63），NPA 97.86%（824/842）；RPR vs predicate RPR PPA 81.52%（75/92）、NPA 96.48%。
 - 回顾 544 份：Total PPA 99.59%（486/488）、NPA 100%（56/56）；RPR PPA 98.14%、NPA 80.70%。
 - 孕妇 372 份：Total PPA 100%（32/32）、NPA 98.83%（338/340）；HIV+ 362 份：PPA 93.33%（140/150）、NPA 93.87%（199/212）。
@@ -2964,12 +3122,14 @@ HbA1c 在 FDA 体系中有**两条平行的法规路径**，这是本靶点最�
 - 表观健康 301 份：NPA 99.0%。
 
 **ADVIA Centaur Syphilis（K112343）**——2,108 份，3 站点，比较法为市售梅毒检测（predicate IMMULITE 2000）。
+
 - 总体 PPA 97.9%（700/715；96.6–98.8），NPA 99.4%（1382/1391；98.8–99.7）。
 - 表观健康 806 份（孕妇 332、儿科 75、其他 399）：反应 0.6%，NPA 98.8%（791/801）。
 - 预期阳性 561 份（TPPA 反应 276、确诊 285）：PPA 99.4%（535/538）；确诊组 21/285 nonreactive（比较法亦阴性）。
 - Intended-use 741 份（常规 + HIV+）：PPA 98.2%（160/163），NPA 98.4%（568/577）。
 
 **LIAISON Treponema（K061247）**——3 站点冻存样本，predicate Trinity CAPTIA Syphilis-G。
+
 - 美国确诊 51 份：PPA 97.9%（47/48）；欧洲 127 份 99.2%（118/119）。
 - 送检 999 份（NY + 东南部）：PPA 55%（22/40）、NPA 98.9%（909/919）；12 份经 RPR/TP-PA 仍不能裁定。
 - HIV+ 200 份：PPA 75.8%（69/91）、NPA 96.2%（100/104）；孕妇 200 份：PPA 100%（4/4）、NPA 100%（192/192）；表观健康 992 份：PPA 62.7%（54/86）、NPA 99.3%（881/887）。
@@ -2977,6 +3137,7 @@ HbA1c 在 FDA 体系中有**两条平行的法规路径**，这是本靶点最�
 - 注：该文件的低 PPA 反映 predicate（全菌 IgG EIA）与 Tp17 重组抗原检测间不一致，非灵敏度不足；FDA 因此在 2016 年后转向三项复合比较法。
 
 **Access Syphilis（K241427）**——1,910 份，2023 年 6–9 月，3 站点，双平台（Access 2 / DxI 9000）。
+
 - 前瞻 1,104 份（常规 399、孕妇 405、HIV+ 300）：PPA **100%**（184/184；98.0–100），NPA 96.7%（890/920；95.4–97.7）。分层：常规 NPA 99.7%；孕妇 PPA 100%（6/6）/NPA 99.7%（398/399）；HIV+ NPA **84.6%**（154/182），28 份比较法阴性者 25（89.3%）经另一 TP-CLIA 亦反应。
 - 回顾 402 + 高危 STI 50 份：PPA 100%（378/378；20/20）；高危组 NPA 80.0%（24/30）。
 - 确诊 150 份：Primary treated 96.3%（26/27）、untreated 100%（49/49）；Secondary 100%；Latent treated 100%（25/25）、**untreated 53.8%（7/13，6 份另一 TP-CLIA 亦阴性）**；总 95.3%。
@@ -2985,6 +3146,7 @@ HbA1c 在 FDA 体系中有**两条平行的法规路径**，这是本靶点最�
 **Elecsys Syphilis（K160910；K211302 引用）**——前瞻常规、301 孕妇、457 HIV+：PPA 100%（228/228；98.4–100），NPA 99.2%（2038/2054；98.7–99.6）；HIV+ NPA 95.6%（282/295）；孕妇 NPA 100%（301/301）。回顾 169 份：PPA 98.7%（155/157）、NPA 100%（12/12）。确诊：Primary treated 16/29 反应（13 份 nonreactive，其中 12 份复合算法亦阴性），Primary untreated 25/25，Secondary treated 24/25、untreated 25/25，Latent 50/50。表观健康 209 份：反应 9.6%（20/209；女 11.3%、男 8.5%）。K211302 仅做 232 份样本与原版 100% 定性一致。
 
 ### 9. 厂家间差异与要点
+
 1. **灰区**：DiaSorin（0.9–1.1）、Siemens（0.9–<1.1）、Bio-Rad（0.9–1.0）保留 ±10% 灰区；Abbott、Beckman、Roche 以大样本 ROC（3,348–6,845 份）取消灰区，Abbott 明确以 TP-PA 一致性为优化目标。
 2. **参考方法**：从 predicate 单一比较（2006、2012）演进为 **TP-CLIA + RPR + TP-PA 2/3 复合算法**（2016 起 Abbott、Bio-Rad、Roche、Beckman 一致），FTA-ABS 仅在 Abbott 交叉反应研究中作最后裁定。
 3. **抗原数量与早期灵敏度**：三抗原（Tp15/17/47）产品在 untreated primary 100%；治疗后 primary 反应率 75–96%（Abbott 33/44、Roche 16/29、Bio-Rad 25/29、Beckman 26/27），反映治疗后抗体水平下降（背景推断）。Beckman 在 untreated latent 仅 53.8%，为文件中最低分期数据。
@@ -2993,6 +3155,7 @@ HbA1c 在 FDA 体系中有**两条平行的法规路径**，这是本靶点最�
 6. **管型**：从仅血清（DiaSorin 2006）扩展到 10 种含枸橼酸/CPD/ACD 管型（Beckman 2024）；Siemens 排除 ACD。
 
 ### 10. 来源
+
 - K153730：https://www.accessdata.fda.gov/cdrh_docs/reviews/K153730.pdf ；https://www.accessdata.fda.gov/cdrh_docs/pdf15/K153730.pdf
 - K170413：https://www.accessdata.fda.gov/cdrh_docs/reviews/K170413.pdf ；https://www.accessdata.fda.gov/cdrh_docs/pdf17/K170413.pdf
 - K112343：https://www.accessdata.fda.gov/cdrh_docs/reviews/K112343.pdf ；https://www.accessdata.fda.gov/cdrh_docs/pdf11/K112343.pdf
@@ -3006,6 +3169,7 @@ HbA1c 在 FDA 体系中有**两条平行的法规路径**，这是本靶点最�
 ## 巨细胞病毒 IgG / IgM（Cytomegalovirus, CMV IgG / IgM）
 
 ### 1. 法规定位
+
 - Product code **LFZ**（Cytomegalovirus serological reagents）；部分文件附 JJE（分析仪）、JJX（控制品）。
 - 21 CFR **866.3175** Cytomegalovirus serological reagents；**Class II**；Panel：Microbiology (83 / MI)。
 - openFDA 累计清关数：**LFZ total = 58**。
@@ -3021,6 +3185,7 @@ HbA1c 在 FDA 体系中有**两条平行的法规路径**，这是本靶点最�
 | K162969（原始 K040290，2005） | 2017-01-06 | DiaSorin / LIAISON CMV IgG + Serum Control Set | 间接 CLIA（Special 510(k)：仅控制品基质变更） | 血清 | aid in the determination of serological status to CMV | Special 510(k) 决策摘要（无性能数据）；K040290 文件未能获取 |
 
 ### 3. 预期用途与声明类型
+
 - **IgG**：双重声明——(a) "aid in the determination of serological status"（免疫状态/既往暴露）；(b) "aid in the diagnosis of CMV infection"（Abbott、Siemens）。Roche IgG 仅声明 serological status。目标人群 "individuals for whom a CMV IgG test was ordered, including pregnant women / women of child-bearing age"（Abbott）。
 - **IgM**：仅 "aid in the diagnosis of recent or current CMV infection"（Roche），不作免疫状态。
 - 共同限定：**"not intended/cleared for use in screening blood, plasma, or tissue donors"**（全部）；Roche 另加免疫抑制者未评估、不用于新生儿筛查、不用于 POC；Siemens 儿科（2–21 岁）人群纳入 intended use 并有专门亚组数据；移植受者仅 Siemens 做了亚组（术前/术后）。
@@ -3037,6 +3202,7 @@ HbA1c 在 FDA 体系中有**两条平行的法规路径**，这是本靶点最�
 | LIAISON CMV IgG（K162969） | — | 文件（Special 510(k)）未载明 | 文件未载明 | 引用 K040290（未获取） |
 
 ### 5. 生物学 / 免疫学依据
+
 - **抗原（申报文件）**：Abbott、Siemens 用 **AD169 株病毒裂解物**（多抗原天然混合）；Roche IgG/IgM 用 **大肠杆菌重组 CMV 特异抗原**（文件未指明具体蛋白）。predicate VIDAS CMV IgG（K920661）亦为 AD169 抗原（K131605 表格）。
 - **IgM 捕获法 vs 间接法（申报文件）**：Elecsys CMV IgM 为 µ-capture，文件说明 "designed to specifically bind the anti-CMV IgM antibodies due to the µ-capture design and antigens minimizing interference from CMV IgG antibodies"；其 predicate Diamedix Is-CMV IgM Capture 亦为捕获 EIA。IgM 特异性验证：11 份 IgM 阳性样本 DTT 处理后 10 份转阴、1 份 COI 下降 82%。RF 干扰：K142133 声明 RF <2000 IU/mL 无干扰；K163569 用高 RF 血清 1:1 稀释实验声明 RF <899 IU/mL。本组文件中未包含间接法 IgM 产品（LIAISON CMV IgM 属 K040290，未获取）。背景（非申报文件）：间接法 IgM 易受 RF（IgM 类抗 IgG）与高浓度特异 IgG 竞争影响，故需 IgG 吸附；µ-capture 先捕获总 IgM 再加抗原，可避免上述干扰。
 - **IgG 动力学（申报文件）**：Abbott 结果解释 "Reactivity for anti-CMV IgG indicates past or acute infection"；Nonreactive "presumed to be not infected with CMV and susceptible to primary infection"。Elecsys IgM 前瞻研究显示送检人群 IgM 阳性率仅 1.67%（10/599）。
@@ -3044,6 +3210,7 @@ HbA1c 在 FDA 体系中有**两条平行的法规路径**，这是本靶点最�
 - 背景（非申报文件）：EBV/HHV-6 等疱疹病毒急性感染可产生多克隆 IgM 反应导致 CMV IgM 假阳性；孕早期原发感染风险评估通常需 IgG avidity（本组 510(k) 文件均未涉及 avidity）。
 
 ### 6. 样本类型与样本要求
+
 - ARCHITECT：血清、SST、Li-heparin、Li-heparin PST、K3-EDTA（≥40 供者配对，接受标准 <6 AU/mL 差 ≤0.6、6–<15 差 ≤1.5、≥15 %差 ≥-10%）；室温 3 天、2–8 °C 7 天、-20 °C 28 天。
 - ADVIA Centaur：血清、K2-EDTA、Li-heparin（38 组，斜率 1.01，r 0.96–0.99）。
 - Elecsys IgG：血清、Li-heparin、K2/K3-EDTA（38 组，阴性差 <0.2 COI、阳性 ±20%）；Elecsys IgM：加 SST；样本 2–8 °C 4 周、20–25 °C 7 天、-20 °C 3 个月、5 次冻融。
@@ -3062,22 +3229,26 @@ HbA1c 在 FDA 体系中有**两条平行的法规路径**，这是本靶点最�
 ### 8. 临床验证设计与结果
 
 **ARCHITECT CMV IgG（K220949）**——989 份（美国 791：常规 591、孕妇 200；OUS 198），3 站点，比较法为一种 FDA 清关市售 CMV IgG（equivocal 者再用 2 种检测 2/3 共识）。
+
 - 常规送检：PPA 97.7%（514/526；96.1–98.7），NPA 99.2%（261/263；97.3–99.8）；7 份 ARCHITECT equivocal/比较法阳性计入分母。
 - 孕妇：PPA 99.0%（98/99；94.5–99.8），NPA 100%（102/102）。
 - CDC CMV IgG 盘 80 份：PPA 100%（91.59–100），NPA 92.11%（78.62–98.34），总 96.25%。
 - 美国人群阳性率 64.2%，grayzone 1.3%。
 
 **ADVIA Centaur CMV IgG（K181213）**——1,842 份（前瞻 1,699：送检 684、孕妇 348、儿科 229、HIV+ 44、移植 394；回顾 HIV+ 143），6 采集点，比较法为市售 CMV IgG（equivocal 再用 2 种检测共识）。
+
 - 合并前瞻：PPA 99.6%（1037/1041；99.0–99.9），NPA 96.8%（637/658；95.2–98.0）。
 - 送检 PPA 99.5%/NPA 95.8%；孕妇 PPA 100%（287/287）/NPA 98.4%（60/61）；儿科 PPA 98.8%/NPA 98.6%；HIV+ 100%/100%（1/1）；移植术前 100%/100%（151/151；87/87）；移植术后 PPA 99.0%/NPA 90.7%（49/54）；回顾 HIV+ 100%/100%。
 - CDC 盘 80 份：100% 一致（39/39，41/41）。
 
 **Elecsys CMV IgG（K131605）**——美国 605 份（送检 400、孕妇 205），2 外部 + 1 内部站点，比较法为市售 CMV IgG。
+
 - 送检人群：PPA 98.94%（280/283；96.93–99.78），NPA 92.86%（299/322；89.47–95.42）（12 份 Elecsys+/比较法− 与 8 份 equivocal 计入）。
 - 孕妇：PPA 96.55%（84/87；90.25–99.28），NPA 100%（118/118；96.92–100）。
 - K220911（生物素改良）：280 份 3 批 vs 原版，PPA 96.5–100%、NPA 98.8–100%（保守法）。
 
 **Elecsys CMV IgM（K142133）**——比较法为 2–3 种 FDA 清关 CMV IgM 的 2/3 共识；Elecsys equivocal 一律按不利计。
+
 - 前瞻疑似感染 418 份：NPA 97.2%（384/395；95.1–98.6），PPA 87.0%（20/23；66.4–97.2）（3 份共识 equivocal/Elecsys 阴性按假阴性计）。
 - 前瞻孕妇 199 份：NPA 98.5%（190/193；95.5–99.7），PPA 0/6（0.00–45.9；共识仅 1 阳 + 5 equivocal，全部按不利计）。
 - 预选 IgM 阳性 134 份：PPA 100%（134/134；97.3–100）。
@@ -3086,6 +3257,7 @@ HbA1c 在 FDA 体系中有**两条平行的法规路径**，这是本靶点最�
 **LIAISON CMV IgG（K162969）**——Special 510(k)，仅控制品基质由 5% 血清改为 100% 血清/去纤维蛋白血浆、开瓶稳定 4→8 周；性能 "No Change"，引用 K040290（文件未能获取）。
 
 ### 9. 厂家间差异与要点
+
 1. **IgG 灰区设计**：Abbott 设宽灰区 6–<15 AU/mL（约 2.5 倍跨度）并建议以 IgM 或复采解决；Roche 0.5–<1.0 COI；Siemens **无灰区**（以 PPA/NPA ≥95% 为 cutoff 设定准则）。对 "immune status" 用途而言，灰区处理直接影响孕妇/移植前的易感判定（背景推断）。
 2. **IgM 判定**：Roche 三分类（<0.7 / 0.7–<1.0 / ≥1.0），cutoff 以低流行 931 份保特异 + 152 份原发感染各期保灵敏；FDA 要求 equivocal 全部按不利计，导致孕妇 PPA 0/6，决策摘要仍接受（预选阳性 134/134）。
 3. **抗原**：病毒裂解物（Abbott、Siemens）vs 重组抗原（Roche）；Roche 因此对 E. coli 抗体交叉需加限制说明。
@@ -3094,6 +3266,7 @@ HbA1c 在 FDA 体系中有**两条平行的法规路径**，这是本靶点最�
 6. **生物素耐受**：Roche 两次改良（IgG：100→1200 ng/mL；IgM 100 ng/mL）；Abbott 3510 ng/mL；Siemens 4500 ng/mL。
 
 ### 10. 来源
+
 - K220949：https://www.accessdata.fda.gov/cdrh_docs/reviews/K220949.pdf ；https://www.accessdata.fda.gov/cdrh_docs/pdf22/K220949.pdf
 - K181213：https://www.accessdata.fda.gov/cdrh_docs/reviews/K181213.pdf ；https://www.accessdata.fda.gov/cdrh_docs/pdf18/K181213.pdf
 - K131605：https://www.accessdata.fda.gov/cdrh_docs/reviews/K131605.pdf ；https://www.accessdata.fda.gov/cdrh_docs/pdf13/K131605.pdf
@@ -3120,6 +3293,7 @@ python3 docs/tools/fda_510k_fetch.py get K231974 K252393
 ```
 
 注意事项：
+
 - `accessdata.fda.gov` 对无 User-Agent 的请求返回反爬页面，脚本已带浏览器 UA。
 - 决策摘要（`cdrh_docs/reviews/`）从约 2003 年起才有，且并非每个 K 号都有；更早或缺失的只能用 510(k) summary（`cdrh_docs/pdfYY/`），信息量明显少。
 - 修改型申报（Special 510(k) / 换平台）常写 “previously established in Kxxxxxx”，需要沿 predicate 链回溯到原始申报才能拿到 cutoff 的建立过程。
