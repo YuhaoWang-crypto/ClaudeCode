@@ -61,6 +61,7 @@ def split_docs(txt):
 def detect_template(ds):
     if re.search(r'^\s*VII\s+Performance Characteristics', ds, flags=re.M): return 'new'
     if re.search(r'^\s*M\.\s+Performance Characteristics', ds, flags=re.M): return 'old'
+    if re.search(r'^\s*L\.\s+Performance Characteristics', ds, flags=re.M): return 'denovo'
     if re.search(r'Performance Characteristics', ds): return 'other'
     return 'none'
 
@@ -111,12 +112,12 @@ def derive(fields, ds):
     clin = ' '.join(filter(None, [fields.get('clinical_studies', ''), fields.get('clinical_sensitivity', ''), fields.get('clinical_specificity', '')]))
     ns = re.findall(r'\b[nN]\s*=\s*(\d{2,5})\b', clin)
     d['sample_n'] = '; '.join(dict.fromkeys(ns))[:200]
-    sens = re.findall(r'(?:sensitivity|PPA)[^.%\n]{0,80}?(\d{1,3}(?:\.\d+)?)\s*%', clin, flags=re.I)
-    spec = re.findall(r'(?:specificity|NPA)[^.%\n]{0,80}?(\d{1,3}(?:\.\d+)?)\s*%', clin, flags=re.I)
+    sens = re.findall(r'(?:sensitivity|PPA|positive percent agreement)[^%\n]{0,90}?(\d{1,3}(?:\.\d+)?)\s*%', clin, flags=re.I)
+    spec = re.findall(r'(?:specificity|NPA|negative percent agreement)[^%\n]{0,90}?(\d{1,3}(?:\.\d+)?)\s*%', clin, flags=re.I)
     d['sens_pct'] = '; '.join(dict.fromkeys(sens))[:200]; d['spec_pct'] = '; '.join(dict.fromkeys(spec))[:200]
-    mc = fields.get('method_comparison', '') or ''
-    sl = re.findall(r'slope\s*(?:=|:|of)?\s*(-?\d+\.\d+)', mc, flags=re.I)
-    rr = re.findall(r'\b(?:r|R|correlation coefficient)\s*(?:=|:)\s*(0?\.\d+|1\.0+)', mc)
+    mc = ' '.join(filter(None, [fields.get('method_comparison', ''), fields.get('predicate_comparison', '')]))
+    sl = re.findall(r'slope[^0-9\-\n]{0,40}?(-?[01]\.\d{2,4})\b', mc, flags=re.I) + re.findall(r'y\s*=\s*(-?[01]\.\d{2,4})\s*\(?x', mc, flags=re.I)
+    rr = re.findall(r'(?:\br\b|\bR\b|correlation coefficient|\br2\b|\bR²)[^0-9\n]{0,25}?(0\.\d{2,4}|1\.0+)\b', mc)
     d['mc_slope'] = '; '.join(dict.fromkeys(sl))[:120]; d['mc_r'] = '; '.join(dict.fromkeys(rr))[:120]
     # regulatory bits from the header block
     pc = re.search(r'Product [Cc]ode\(?s?\)?:?\s*\n?\s*([A-Z]{3})\b', ds) or re.search(r'\b([A-Z]{3})\s*[–-]\s*[A-Z][a-z]', ds[:3000])
