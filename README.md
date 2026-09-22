@@ -41,3 +41,20 @@ python3 -m grn_pipeline.m1_symmetry   # or any single module
 Figures are written to `figures/`. A full write-up with numbers, rigour
 labels, and the interpretation (including the Lyapunov-exponent biomarker
 question) is in [`REPORT.md`](REPORT.md).
+
+## `genotox/` — virtual in-vitro genotoxicity assays
+
+A separate package, sharing the conventions but not the code. Step 1 is the
+**umu test** (SOS/umuDC-lacZ) as a mechanistic ODE with the readout layer
+split out, so a p53/GADD45a reporter core and a comet readout plug in later
+without touching the upstream chemistry layer.
+
+```bash
+python3 -m genotox.run_umu
+```
+
+The interface between chemistry and biology is a per-channel lesion *vector*,
+not a potency scalar — which is what lets one upstream prediction give
+different (correct) answers at different endpoints, e.g. an aneugen that must
+be SOS-negative and micronucleus-positive. Rate constants are illustrative,
+not fitted. See [`genotox/README.md`](genotox/README.md).
