@@ -199,6 +199,10 @@ DEMO_COMPOUNDS = [
         name="aneugen (colchicine-like)",
         per_uM=DamageFlux(aneugenic=1.20),
         direct_fraction=1.0,
+        # Spindle poisons are strongly antiproliferative -- they arrest cells
+        # in mitosis.  Omitting that gives an aneugen with an unbounded valid
+        # window, which no real one has.
+        cytostatic_per_uM=0.08,
         note="NO DNA lesion; must be SOS-negative and MN-positive",
     ),
     Compound(

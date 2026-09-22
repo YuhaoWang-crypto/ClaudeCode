@@ -89,7 +89,7 @@ def series_report(assay, comp, s9, lo, hi) -> tuple:
     return ser, res
 
 
-def checks(results: dict) -> list:
+def checks(results: dict, series: dict) -> list:
     """Structural properties the architecture must have, not curve fits.
 
     Each one fails loudly if a layer is wired wrong, which is what makes the
@@ -114,11 +114,39 @@ def checks(results: dict) -> list:
         f"-S9 {m9['verdict']} (max IR {m9['max_IR_valid']:.2f}) -> "
         f"+S9 {p9['verdict']} (max IR {p9['max_IR_valid']:.2f})")
 
+    # Test the mechanism, not the readout.  The claim is that the aneugenic
+    # channel has no route into this core; whether the raw induction ratio
+    # stays low is a separate question, answered by the next check.
+    assay = build()
+    comp = DEMO_COMPOUNDS[3]
+    ctrl = assay.well(comp, 0.0)
+    hi = assay.well(comp, 500.0)
     a = results[("aneugen (colchicine-like)", False)]
-    chk("aneugen is SOS-negative (weight 0 on the aneugenic channel)",
-        a["verdict"] == "NEGATIVE" and a["max_IR_any"] < IR_THRESHOLD,
-        f"verdict={a['verdict']}, max IR over ALL wells = "
-        f"{a['max_IR_any']:.2f}")
+    prom_fold = hi["promoter_end"] / ctrl["promoter_end"]
+    # The claim is that the promoter is never INDUCED, not that it is
+    # unchanged: LexA is cleared only by growth dilution in this core, so
+    # arresting the culture raises LexA and deepens repression.  That the
+    # promoter goes *down* while the induction ratio goes up is the whole
+    # point of the following check.
+    chk("aneugen never engages the SOS pathway (weight 0 on its channel)",
+        hi["lesions_end"] == 0.0 and hi["recA_active_end"] == 0.0
+        and prom_fold <= 1.0,
+        f"at 500 uM: lesions = {hi['lesions_end']:.3f}, "
+        f"RecA* = {hi['recA_active_end']:.3f}, "
+        f"P_umuDC fold vs control = {prom_fold:.3f} (<= 1: repressed further, "
+        f"never induced)")
+
+    # A finding, kept as a check so it cannot quietly regress: growth arrest
+    # alone manufactures an induction ratio, because beta-gal stops being
+    # diluted.  Nothing in the signal path moved.  The gate is what catches
+    # it -- which is the argument for reporting the gate with every number.
+    gated_only = all(not r["valid"] for r in series[("aneugen (colchicine-like)", False)]["rows"]
+                     if r["IR"] >= IR_THRESHOLD)
+    chk("apparent aneugen 'induction' is a growth-arrest artifact, gated out",
+        a["max_IR_any"] >= IR_THRESHOLD > a["max_IR_valid"] and gated_only,
+        f"max IR over ALL wells = {a['max_IR_any']:.2f} while the promoter "
+        f"fell to {prom_fold:.2f}x; max IR among VALID wells = "
+        f"{a['max_IR_valid']:.2f}")
 
     c = results[("non-genotoxic cytotoxicant", False)]
     chk("pure cytotoxicant is not called positive",
@@ -216,7 +244,7 @@ def report() -> dict:
         results[(comp.name, s9)] = res
 
     traj = timecourse_report(assay, DEMO_COMPOUNDS[0], 1.0)
-    ck = checks(results)
+    ck = checks(results, series_by_key)
     path = figure(assay, series_by_key, traj)
 
     n_ok = sum(1 for _, ok, _ in ck if ok)

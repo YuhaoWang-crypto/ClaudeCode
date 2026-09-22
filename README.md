@@ -44,17 +44,25 @@ question) is in [`REPORT.md`](REPORT.md).
 
 ## `genotox/` — virtual in-vitro genotoxicity assays
 
-A separate package, sharing the conventions but not the code. Step 1 is the
-**umu test** (SOS/umuDC-lacZ) as a mechanistic ODE with the readout layer
-split out, so a p53/GADD45a reporter core and a comet readout plug in later
-without touching the upstream chemistry layer.
+A separate package, sharing the conventions but not the code. Two endpoints
+so far, as mechanistic ODEs with the readout and decision layers split out:
+
+| Step | Endpoint | Core | Notable behaviour |
+|---|---|---|---|
+| 1 | umu test | SOS / LexA-RecA / umuDC-lacZ | graded induction; bell-shaped dose response from damage-linked viability |
+| 2 | GADD45a-GFP reporter line | p53 ⇄ Mdm2 delayed feedback | p53 **pulses** (~5.3 h); stable GFP integrates the pulse train |
 
 ```bash
 python3 -m genotox.run_umu
+python3 -m genotox.run_p53
 ```
 
+Step 2 reuses step 1's upstream layer, readout registry and decision layer
+unchanged — only the core is new, which was the point of the split.
+
 The interface between chemistry and biology is a per-channel lesion *vector*,
-not a potency scalar — which is what lets one upstream prediction give
-different (correct) answers at different endpoints, e.g. an aneugen that must
-be SOS-negative and micronucleus-positive. Rate constants are illustrative,
-not fitted. See [`genotox/README.md`](genotox/README.md).
+not a potency scalar, so one upstream prediction gives different answers at
+different endpoints. Three findings the runs produced, including one against
+expectation (reporter lines overstate aneugens ~2x, almost all of it growth
+artifact), are in [`genotox/README.md`](genotox/README.md). Rate constants are
+illustrative, not fitted.

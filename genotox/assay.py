@@ -24,6 +24,9 @@ class VirtualAssay:
     core: SignalCore = field(default_factory=SOSCore)
     readouts: tuple = ("umu_betagal_ONPG", "growth", "damage_probe")
     duration_min: float = 120.0
+    #: trajectory sampling.  Matters for cores whose signal oscillates: too
+    #: coarse a grid and PulseProbe silently miscounts peaks.
+    n_points: int = 241
 
     @property
     def description(self) -> str:
@@ -39,7 +42,7 @@ class VirtualAssay:
             s9=s9,
             duration_min=self.duration_min,
         )
-        obs = self.core.simulate(exp)
+        obs = self.core.simulate(exp, n_points=self.n_points)
         res = apply_readouts(obs, self.readouts)
         res.update(dose_uM=dose_uM, s9=s9, compound=compound.name)
         return res
@@ -58,4 +61,4 @@ class VirtualAssay:
             s9=s9,
             duration_min=self.duration_min,
         )
-        return self.core.simulate(exp)
+        return self.core.simulate(exp, n_points=self.n_points)
