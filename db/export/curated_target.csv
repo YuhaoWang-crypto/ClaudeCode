@@ -1,0 +1,26 @@
+target_id,group_letter,group_name,title,product_codes,archetype,representative_cutoff,marker_ids,source
+t-A-1,A,心脏标志物,"心肌肌钙蛋白 I / T（cardiac troponin, cTnI / cTnT；hs-cTn）",MMI,A (+B),总体 99th URL：Ortho 11、Roche TnT 19、Beckman 18、i-STAT 21、Abbott 28、PATHFAST 29、**Siemens 47.34** ng/L；均另给性别特异值,M1092; M1093; M1094,atlas_2026-09-22
+t-A-2,A,心脏标志物,利钠肽（NT-proBNP / BNP；B-type natriuretic peptide test system）,NBC,B,ED：**<300 rule-out；450/900/1800** 按 <50/50–75/>75 岁 rule-in，中间为灰区；门诊 125 pg/mL,M0200; M0824,atlas_2026-09-22
+t-A-3,A,心脏标志物,"高敏 / 心脏 C 反应蛋白（hsCRP / cardiac CRP, cCRP）",NQD,B + H,<1 / 1–3 / >3 mg/L（AHA/CDC 2003）；FDA 指南要求 1.0 mg/L 处 CV ≤ 10%,M0244,atlas_2026-09-22
+t-B-1,B,感染 / 炎症,"降钙素原（Procalcitonin, PCT）",NTM; PMT; PRI; PTF,B + H,ICU 风险 0.5 / 2.0 ng/mL；LRTI/脓毒症抗生素决策 **0.10 / 0.25 / 0.50 ng/mL**；28 天死亡 **ΔPCT ≤ 80%**,M0925,atlas_2026-09-22
+t-B-2,B,感染 / 炎症,"粪便钙卫蛋白（Fecal Calprotectin, fCAL）",NXO,C (+A),原型 **<50 阴性 / 50–120 灰区 / >120 µg/g 阳性**（n=908，120 处特异度 95%、灵敏度 70%）；BÜHLMANN 80/160；ALPCO 50/100,M0251,atlas_2026-09-22
+t-B-3,B,感染 / 炎症,D-二聚体（D-dimer）,DAP; GHH,B / C,VTE 排除 **500 ng/mL FEU**（VIDAS 原型）；HemosIL HS 230 ng/mL（ROC 建立）；Stratus CS 450 ng/mL FEU,M0366,atlas_2026-09-22
+t-C-1,C,肿瘤标志物,"癌胚抗原（CEA, Carcinoembryonic Antigen）",DHX,A + G,参考上限 3 / 5 ng/mL（非吸烟/吸烟）；Vista RCV **36.2%**,M0266,atlas_2026-09-22
+t-C-2,C,肿瘤标志物,糖类抗原 125（CA 125）,LTK,A + G,30.8 / 35 / 38.1 U/mL（按厂家）；serial change 20%（= 1.645·√2·CV）或 25%,M0253,atlas_2026-09-22
+t-C-3,C,肿瘤标志物,糖类抗原 19-9（CA 19-9）,NIG,A + G,35–37 U/mL；Vista RCV 84.7%,M0246,atlas_2026-09-22
+t-C-4,C,肿瘤标志物,前列腺特异抗原用于前列腺癌管理/监测（Total PSA for Management of Prostate Cancer）,LTJ; MTF,A + G,4 ng/mL 参考上限；Siemens RCV 50%；FREND 20%,M0935; M0936; M0940,atlas_2026-09-22
+t-C-5,C,肿瘤标志物,甲胎蛋白用于睾丸癌/生殖细胞肿瘤（AFP for Testicular / Germ Cell Cancer）,LOJ,A + G,参考上限按厂家；Vista RCV 33.7%,M0058; M0085; M0086; M0087,atlas_2026-09-22
+t-C-6,C,肿瘤标志物,人附睾蛋白 4（HE4）及 ROMA 算法,OIU; ONX,A + G,绝经前 70 / 绝经后 140 pmol/L（95th）；serial change 14–25%,M0257,atlas_2026-09-22
+t-C-7,C,肿瘤标志物,"甲状腺球蛋白用于分化型甲状腺癌监测（Thyroglobulin, Tg）",MSW,B + G,**0.2 ng/mL** 三分层（ATA 2015）；Siemens 以 structural disease 为金标准,M0169; M1055,atlas_2026-09-22
+t-D-1,D,内分泌 / 代谢,"糖化血红蛋白（HbA1c, Hemoglobin A1c / Glycated hemoglobin）",LCP; PDJ,B + F,6.5%；21 CFR 862.1373 特殊控制：TE ≤ 6%、5.0/6.5/8.0/12% 四水平、≥120 样本、HbF 黑框,M0062; M0500; M0501; M0504; M0948,atlas_2026-09-22
+t-D-2,D,内分泌 / 代谢,"促甲状腺激素（TSH, Thyroid-Stimulating Hormone / Thyrotropin）",JLW,F (+A),参考区间约 0.3–4.x mIU/L，孕期分层；WHO **81/565** 溯源,M1056; M1057; M1058; M1059; M1098,atlas_2026-09-22
+t-D-3,D,内分泌 / 代谢,"25-羟维生素 D（25-OH Vitamin D, 25(OH)D）",MRG; PSL,F,无 cutoff；VDSP / Ghent RMP / NIST **SRM 972a** 溯源,M0001; M0009,atlas_2026-09-22
+t-D-4,D,内分泌 / 代谢,铁蛋白（Ferritin）,DBF,F,性别分层参考区间；WHO 94/572 或 80/602,M0447,atlas_2026-09-22
+t-D-5,D,内分泌 / 代谢,胱抑素 C（Cystatin C）,NDY,F,无 cutoff；ERM-DA471 溯源；文件均无 eGFR 方程声明,M0356,atlas_2026-09-22
+t-E-1,E,自身免疫,抗环瓜氨酸肽抗体（anti-CCP / ACPA）,NHX,A / C / H,Inova **20 CU**（99th）；IMMULITE 4、**Roche 17**、Euroimmun 5 RU/mL（ROC）；Abbott/ADVIA 5、BioPlex 3 U/mL（predicate）,M0118,atlas_2026-09-22
+t-E-2,E,自身免疫,抗核抗体筛查（ANA screen：IFA HEp-2 与固相法）,DHN; LJM; LKJ,A / D,IFA 1:40 vs 1:80 同队列实测；NOVA View **48 LIU**（健康人 90th）；固相 ratio/AI ≈1.0,M0141,atlas_2026-09-22
+t-E-3,E,自身免疫,可提取核抗原抗体与抗 dsDNA（ENA panel：dsDNA、Sm、RNP、SS-A/Ro、SS-B/La、Scl-70、Jo-1、centromere）,KTL; LLL; LRM; LSW,D,单项 index/IU/mL，dsDNA 10–100 IU/mL 各平台不可换算（校准品回收 27–121%）,M0116; M0123; M0134; M0155; M0156; M0158; M0161; M0164; M0165; M0166; M0167,atlas_2026-09-22
+t-F-1,F,感染性疾病血清学,单纯疱疹病毒 2 型特异性 IgG（HSV-2 type-specific IgG；兼看 HSV-1 IgG）,LGC; MXJ; MYF,D,index 1.0，equivocal 0.9–1.1（各厂家略异）,M0568; M0569; M0570; M0571; M0572; M0573,atlas_2026-09-22
+t-F-2,F,感染性疾病血清学,"莱姆病伯氏疏螺旋体抗体（Borrelia burgdorferi antibodies, Lyme disease serology）",LSR,D + E,EIA index 1.0/1.1；WB **IgM 2/3、IgG 5/10** 条带；MTTT 双 EIA 串联,M0731,atlas_2026-09-22
+t-F-3,F,感染性疾病血清学,梅毒螺旋体抗体（Treponema pallidum treponemal antibodies）,LIP,D + E,**index 1.0**（Abbott S/CO、Bio-Rad AI）；TPPA/FTA-ABS 为参考,M1082; M1083; M1084,atlas_2026-09-22
+t-F-4,F,感染性疾病血清学,"巨细胞病毒 IgG / IgM（Cytomegalovirus, CMV IgG / IgM）",LFZ,D,IgG index/AU 加 equivocal；IgM µ-capture,M0119; M0363; M0364,atlas_2026-09-22

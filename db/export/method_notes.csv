@@ -1,0 +1,32 @@
+item,handling,official_source
+范围,本版为官方目录字段的全量初筛及补充索引，不是已穷尽所有独立marker的最终字典。尚未逐产品下载全部IFU、Decision Summary和PMA Supplements。,
+计数口径,"1,177个规范化CLIA检测对象标签＋29个CDx补充标签＝1,206；864个有数据库或目录级关联，342个待核实。不同分子层次、样本和用途可能仍有同义标签。",
+同义处理,CLIA仅去首尾空格、合并连续空白及忽略大小写；保留标点、亚型、标本和免疫球蛋白类别。未按生物学同义词全面归并。,
+CLIA记录不是获准证明,"80,677条记录用于发现对象；CR/CW/CD/X等不能据此当作510(k)/PMA号。关联路径只接受获准数据库或明确CDx目录证据。",https://www.fda.gov/medical-devices/medical-device-databases/clinical-laboratory-improvement-amendments-download-data
+CLIA时间,数据中最大DATE_EFFECTIVE为2026-09-18；它是复杂性分类生效日，不是清除/批准日期。原始文件名不表示数据只到2014年。,
+CDC历史库,"另核查25,712条CDC历史记录；20种不匹配拼写主要为历史别名，本次不自动并入主表，避免旧新Analyte ID复用造成误关联。",https://www.accessdata.fda.gov/premarket/ftparea/clia_cdc.zip
+510(k)与De Novo,"读取176,223条历年批量记录，包括489条DENG。De Novo以DENG判定，不能仅凭旧K号识别路径。",https://www.fda.gov/medical-devices/510k-clearances/downloadable-510k-files
+De Novo覆盖边界,选CH/HE/IM/MI/PA/TX审查专业，并补入核酸、CDx目录中的DEN号及明显遗传项目，共154条。其他专业中的未识别诊断项目仍可能遗漏。,https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfPMN/denovo.cfm
+PMA覆盖边界,"从57,183条原始及补充记录筛选常见IVD专业，得到305个PMA号；不是所有FDA PMA，也不等于305种marker。另23个N开头历史编号未计入。",https://www.fda.gov/medical-devices/device-approvals-and-clearances/pma-approvals
+PMA撤回与在售,获准历史记录不证明当前在售。305个PMA号中72个存在原始申请APWD记录，已明确标注；主表关联用于历史证据发现。,
+主表关联层级,510(k)/PMA主要由CLIA文档号连接；De Novo额外49条人工目录映射，CDx额外192条关联。尚未全部阅读申报原文，不能直接用于注册结论。,
+路线计数,主表数值是对象-申报号关联数量；PMA补充号单列，不等于产品数量。跨路径标签可重叠；分类概览三路径列不能相加作为总数。,
+FDA专业分类,以CLIA SPECIALTY_ID的众数作为分类；跨学科标志物可能归在免疫或生化，不能理解为仅适用于该科室。CDx新增标签人工归类。,
+marker层级,临床指标、抗体、抗原、核酸、基因变异、细胞计数、功能读数、比值和panel分别保留。标签层级通过关键词初分，需人工完善。,
+大panel与开放平台,未展开所有NGS panel基因/变异、HLA等位基因、过敏原、微生物鉴定库及药敏菌药组合。全外显子测序平台授权也不等于每个基因的诊断用途获准。,
+CDx范围,提取FDA主表225行；其中3条仅HDE，不纳入三路径关联。药物组适应证的第二表8行未重复纳入；其EGFR/BRAF标志物已在主表出现。,https://www.fda.gov/medical-devices/in-vitro-diagnostics/list-fda-authorized-companion-diagnostic-devices-in-vitro-and-imaging-tools
+CDx归并,例如BRCA1/2并入较宽BRCA mutations；ERBB2按DNA/蛋白分开。细节表保留原始biomarker和变异描述，不能把同名label理解为同一cutoff。,
+CDx原文疑点,原目录部分拼写/染色体表述可能有误，例如t(9;21) Philadelphia chromosome；本版保留原文，未当成已核实的细胞遗传学结论。,
+核酸目录,580行包含疾病/用途或微生物、产品及原始申报号。目录有重复及历史K号；不是580个独立基因。HDE两行明确范围外。,https://www.fda.gov/medical-devices/in-vitro-diagnostics/nucleic-acid-based-tests
+未纳入的授权类型,不将EUA、HDE、BLA、510(k)豁免或仅RUO标签作为本次三路径的获准依据。CBER的BK/BP/BL等编号需另行补查，尤其输血/组织相容性。,
+用途,先选对象，再选择申报产品和版本，下一层才能核对样本、cutoff、判阳逻辑、分析验证及临床证据。本版未编造这些尚未提取的字段。,
+当前性,数据库快照包含历史记录；CLIA、获准目录、分类库和专题页的更新节奏不同。下载日期不能保证所有2026年新授权都完整入库。,
+clia_detail.zip,原始ZIP 1194050 bytes；SHA-256 184463a98fbf91003112e4dc812beed5a8ff87ac113eb3af8f6e1dc2d45fbef1,https://www.accessdata.fda.gov/premarket/ftparea/clia_detail.zip
+clia_cdc.zip,原始ZIP 417998 bytes；SHA-256 d37bc7a305043b6ef45c03c48b42c9fcad5eb43aa9c32270c967d46a9b10fa33,https://www.accessdata.fda.gov/premarket/ftparea/clia_cdc.zip
+pmn96cur.zip,原始ZIP 6913322 bytes；SHA-256 721615a44a1e0ac80e3745a287f34f525d24bd47d6071bc5a5031b7741f0532b,https://www.accessdata.fda.gov/premarket/ftparea/pmn96cur.zip
+pmn9195.zip,原始ZIP 1343399 bytes；SHA-256 ba288fbf3fee8b51361683872d11fb162b0955889841a4f5b03f2ba099638aee,https://www.accessdata.fda.gov/premarket/ftparea/pmn9195.zip
+pmn8690.zip,原始ZIP 1234737 bytes；SHA-256 56574ff3385802958568f36ed3a1c275111580863efd8cf875c0b78d2459e878,https://www.accessdata.fda.gov/premarket/ftparea/pmn8690.zip
+pmn8185.zip,原始ZIP 716989 bytes；SHA-256 1555d6013783eb1393c85de01050a13597d37b586e6ead6c3b41da4ac442183e,https://www.accessdata.fda.gov/premarket/ftparea/pmn8185.zip
+pmn7680.zip,原始ZIP 315224 bytes；SHA-256 432447036376769d7c599a0471c06caa1849f985b3c85fa661f0c10929be0b90,https://www.accessdata.fda.gov/premarket/ftparea/pmn7680.zip
+pma.zip,原始ZIP 5053908 bytes；SHA-256 9d0d20bd9682b756427521321ebc8454df2e60aab4ffb2916b3bcb5f865336ee,https://www.accessdata.fda.gov/premarket/ftparea/pma.zip
+foiclass.zip,原始ZIP 417289 bytes；SHA-256 376540baa07972bf0454a4821a72914687f10fcb59c7b289986b41e27e930696,https://www.accessdata.fda.gov/premarket/ftparea/foiclass.zip

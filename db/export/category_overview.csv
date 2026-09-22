@@ -1,0 +1,18 @@
+category_cn,n_labels,n_510k,n_denovo,n_pma,n_pending,examples
+尿液分析,20,19,0,0,1,"Hemoglobin, Urine; Leukocyte esterase, urinary; Total solids (specific gravity); Urinary protein, qualitative"
+临床生化,283,226,7,10,48,"1,25-Dihydroxyvitamin D (1,25-(OH)2D); 1,5-Anhydroglucitol; 1-Methylhistidine; 2’-deoxyadenosine (D-ADO)"
+免疫与自身免疫,261,176,11,21,65,21-hydroxylase antibody (21-OHAb); Adenine triphosphate (ATP); Adeno-associated virus (AAV) antibodies; Adenovirus antibodies
+血液学与凝血,128,93,3,0,33,Activated clotting time (ACT); Activated factor XII (FXIIa); Activated partial thromboplastin time (APTT); Activated plasma clotting time (APCT)
+输血与免疫血液学,49,3,0,0,46,"ABH secretor status, saliva; ABO group - determination of A and B antigens; ABO group - determination of A, B, D antigens; ABO group - RBC"
+内分泌与生殖,91,77,2,0,13,"17 alpha-OH Progesterone; 17 Ketosteroid; 17 OH progesterone; 17 OH progesterone, neonatal"
+毒理与治疗药物监测,103,70,7,2,27,6-Acetylmorphine; Acetaminophen; Acetylcholine/choline; Adalimumab
+细菌与耐药,85,53,5,0,29,Aerobic &/or anaerobic organisms-unlimited sources; Aerobic and facultative anaerobic organisms from platelets; Aerobic organisms from anterior nares specimens only; Aerobic organisms from salivary specimens only
+分枝杆菌,7,4,0,2,3,Mycobacteria; Mycobacterium avium; Mycobacterium avium complex; Mycobacterium gordonae
+病毒,65,37,7,5,23,Adenovirus; BK Virus DNA; Coxsackie A24 Virus; Coxsackie A9 Virus
+寄生虫,16,8,0,0,8,"Acanthamoeba; Babesia sp. nucleic acids; Blood, tissue \& intestinal parasites; Cryptosporidium"
+真菌,16,7,0,0,9,Antifungal; Aspergillus antigen; Aspergillus galactomannan antigen; Beta-D-glucan
+细胞学,2,0,0,1,1,Epithelial cells-cervical/vaginal (papanicolaou); Tissue cell cytology
+细胞遗传,1,0,1,0,0,Copy number variations in genomic DNA
+组织相容性,20,0,0,0,20,Anti-HLA antibodies; HLA Class I; HLA Class I antibody detection; HLA Class I DNA allele typing
+病理与分子肿瘤,57,2,7,33,16,BCR-ABL; Bloom syndrome (BLM) gene mutations; BRAF V600E protein; BRCA mutations
+梅毒血清学,2,2,1,0,0,Treponema pallidum (syphilis) antibodies; Treponema pallidum antibodies (includes reagin)
