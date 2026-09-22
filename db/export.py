@@ -7,12 +7,11 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 DB = sys.argv[1] if len(sys.argv) > 1 else os.path.join(HERE, 'fda_ivd_markers.sqlite')
 OUT = sys.argv[2] if len(sys.argv) > 2 else os.path.join(HERE, 'export')
 os.makedirs(OUT, exist_ok=True)
-KEY_FIELDS = ['measurand', 'type_of_test', 'intended_use', 'indications', 'specimen_types', 'assay_cutoff', 'clinical_cutoff', 'cutoff_numbers',
-              'reference_range', 'standards', 'clsi_codes', 'precision', 'detection_limit', 'traceability', 'method_comparison', 'mc_slope', 'mc_r',
-              'clinical_studies', 'clinical_sensitivity', 'clinical_specificity', 'sens_pct', 'spec_pct', 'sample_n', 'predicate', 'instrument', 'conclusion']
-SHORT = {'intended_use': 600, 'indications': 600, 'assay_cutoff': 700, 'clinical_cutoff': 700, 'reference_range': 700, 'standards': 500, 'precision': 400,
-         'detection_limit': 300, 'traceability': 300, 'method_comparison': 500, 'clinical_studies': 700, 'clinical_sensitivity': 400, 'clinical_specificity': 400,
-         'predicate': 200, 'instrument': 150, 'conclusion': 250, 'measurand': 120, 'type_of_test': 150}
+# The browser bundle carries a clipped subset of fields (full text stays in SQLite / CSV); sizes are tuned to keep the single-file page well under 16 MB.
+KEY_FIELDS = ['measurand', 'type_of_test', 'intended_use', 'specimen_types', 'assay_cutoff', 'clinical_cutoff', 'cutoff_numbers',
+              'reference_range', 'clsi_codes', 'detection_limit', 'mc_slope', 'mc_r', 'clinical_studies', 'sens_pct', 'spec_pct', 'sample_n', 'predicate']
+SHORT = {'intended_use': 320, 'assay_cutoff': 320, 'clinical_cutoff': 320, 'reference_range': 320, 'detection_limit': 160, 'clinical_studies': 320,
+         'predicate': 120, 'measurand': 80, 'type_of_test': 80, 'clsi_codes': 160, 'cutoff_numbers': 160, 'sens_pct': 80, 'spec_pct': 80, 'sample_n': 60, 'mc_slope': 60, 'mc_r': 60, 'specimen_types': 120}
 
 def clip(s, n):
     s = re.sub(r'\s+', ' ', s or '').strip()
@@ -32,12 +31,12 @@ for t in tables:
 # JSON bundle for the browser
 markers = [dict(r) for r in cur.execute('SELECT marker_id, category_cn, label, tier, n_510k, n_denovo, n_pma, link_status, clia_analyte_id FROM marker ORDER BY category_cn, label')]
 links = {}
-for r in cur.execute('SELECT marker_id, pathway, submission_no, product_name, qualifier1 FROM marker_submission'):
-    links.setdefault(r['marker_id'], []).append([r['pathway'], r['submission_no'], r['product_name'] or '', r['qualifier1'] or ''])
+for r in cur.execute('SELECT marker_id, pathway, submission_no FROM marker_submission'):
+    links.setdefault(r['marker_id'], []).append([r['pathway'], r['submission_no']])
 subs = {}
 for r in cur.execute('SELECT * FROM submission'):
-    subs[r['submission_no']] = {'p': r['pathway'], 'y': r['year'], 'd': r['decision_date'], 'a': r['applicant'], 'n': r['device_name'], 'pc': r['product_code'],
-                                'reg': r['regulation_number'], 'ac': r['advisory_committee'], 'cat': r['in_catalog'], 'ds': r['has_decision_summary'], 'sm': r['has_510k_summary']}
+    subs[r['submission_no']] = {'p': r['pathway'], 'y': r['year'], 'd': r['decision_date'], 'a': clip(r['applicant'], 60), 'n': clip(r['device_name'], 110), 'pc': r['product_code'],
+                                'reg': r['regulation_number'], 'cat': r['in_catalog'], 'ds': r['has_decision_summary'], 'sm': r['has_510k_summary']}
 ext = {}
 for r in cur.execute('SELECT submission_no, field, value, template FROM extraction'):
     if r['field'] in KEY_FIELDS:

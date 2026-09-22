@@ -213,7 +213,7 @@ details.sub[open] summary::before{transform:rotate(45deg)}
   document.getElementById('dclose').addEventListener('click',function(){ document.getElementById('dp').hidden=true; state.sel=null; apply(); });
   // detail
   var FIELD_LABEL={measurand:'Measurand',type_of_test:'检测类型',intended_use:'Intended use',indications:'Indications for use',specimen_types:'样本类型（推导）',assay_cutoff:'Assay cut-off',clinical_cutoff:'Clinical cut-off',cutoff_numbers:'cutoff 数值（推导）',reference_range:'Expected values / reference range',standards:'Standards / guidance referenced',clsi_codes:'CLSI/ISO 编号（推导）',precision:'Precision',detection_limit:'Detection limit',traceability:'Traceability / stability',method_comparison:'Method comparison',mc_slope:'斜率（推导）',mc_r:'r（推导）',clinical_studies:'Clinical studies',clinical_sensitivity:'Clinical sensitivity',clinical_specificity:'Clinical specificity',sens_pct:'灵敏度 %（推导）',spec_pct:'特异度 %（推导）',sample_n:'n（推导）',predicate:'Predicate',instrument:'Instrument',conclusion:'Conclusion'};
-  var ORDER=['measurand','type_of_test','intended_use','indications','specimen_types','assay_cutoff','clinical_cutoff','cutoff_numbers','reference_range','standards','clsi_codes','precision','detection_limit','traceability','method_comparison','mc_slope','mc_r','clinical_studies','clinical_sensitivity','clinical_specificity','sens_pct','spec_pct','sample_n','predicate','instrument','conclusion'];
+  var ORDER=['measurand','type_of_test','intended_use','specimen_types','assay_cutoff','clinical_cutoff','cutoff_numbers','reference_range','clsi_codes','detection_limit','mc_slope','mc_r','clinical_studies','sens_pct','spec_pct','sample_n','predicate'];
   function subRow(k,pathTag){
     var s=SUB[k]||{}, e=EXT[k]; var dot=e?'ds':(s.sm||s.ds?'sm':'no');
     var url=k.indexOf('DEN')===0?'https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfpmn/denovo.cfm?id='+k:(k.indexOf('P')===0?'https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfpma/pma.cfm?id='+k:'https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfpmn/pmn.cfm?ID='+k);
@@ -221,7 +221,7 @@ details.sub[open] summary::before{transform:rotate(45deg)}
     var head='<summary><span class="dot '+dot+'"></span><span class="k">'+k+'</span> <span>'+esc(s.d||s.y||'')+'</span> <span>'+esc(s.a||'')+'</span> <span style="color:var(--ink-2)">'+esc(s.n||'')+'</span>'+(s.pc?'<span class="chip pc">'+s.pc+'</span>':'')+(pathTag==='510(k)*'?'<span class="chip" title="目录未收录，按产品代码从 openFDA 补入">补入</span>':'')+(s.cat===0?'':'')+'</summary>';
     var body='<div class="fields"><div>FDA 记录</div><div><a href="'+url+'" target="_blank" rel="noopener">'+url.replace('https://www.accessdata.fda.gov','…')+'</a>'+(e||s.ds?' · <a href="'+dsurl+'" target="_blank" rel="noopener">决策摘要 PDF</a>':'')+'</div>';
     if(s.reg) body+='<div>21 CFR</div><div>'+esc(s.reg)+'</div>';
-    if(e){ body+='<div>模板</div><div>'+esc(e.tpl)+'</div>'; ORDER.forEach(function(f){ if(e[f]) body+='<div>'+FIELD_LABEL[f]+'</div><div>'+esc(e[f])+'</div>'; }); }
+    if(e){ body+='<div>模板</div><div>'+esc(e.tpl)+'（页面只显示截断的关键字段；完整段落在 SQLite/CSV 的 extraction 表）</div>'; ORDER.forEach(function(f){ if(e[f]) body+='<div>'+FIELD_LABEL[f]+'</div><div>'+esc(e[f])+'</div>'; }); }
     else body+='<div>结构化字段</div><div style="color:var(--ink-3)">'+(s.ds?'决策摘要已抓取，未识别模板':'无决策摘要文本（'+(s.sm?'仅 510(k) summary':'目录/元数据')+'）')+'</div>';
     body+='</div>';
     return '<details class="sub">'+head+body+'</details>';
