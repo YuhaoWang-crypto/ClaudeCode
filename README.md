@@ -30,6 +30,18 @@ literature-grounded systems where every number is *computed*, not asserted.
 | `m20b_biomodels_exact` | fetch + simulate EXACT curated models (fills M20 gap) | Markevich2004 (BIOMD27), Legewie2006 apoptosis (BIOMD102) | download method = biomodels GitHub mirror + libRoadRunner; official Km5=78 confirms hand-coded M15 (states to the decimal); Legewie caspase switch bistable in XIAP synthesis |
 | `m22_snic_mixed` | mixed bifurcation: saddle-node ON a limit cycle (SNIC) | θ / Ermentrout-Kopell normal form (cell-cycle / excitable) | finite-amplitude spikes whose period diverges (T~π/√I, log-log slope −0.50; frequency→0) — signature distinct from both Hopf and pure saddle-node; ISI mean+CV both grow |
 
+## Regulatory companion: FDA 510(k) IVD cutoff atlas
+
+[`docs/FDA_510k_IVD_cutoff_atlas.md`](docs/FDA_510k_IVD_cutoff_atlas.md) organises,
+per analyte, how cleared 510(k) kits define positive/negative, where each cutoff
+comes from (99th-percentile URL, guideline/RCT decision point, ROC, negative-population
++ equivocal zone, algorithm, traceability-only, serial-change), which sample types and
+CLSI/ISO standards they rely on, and how the clinical validation was designed — all
+taken from FDA decision summaries. 25 analytes in six groups (cardiac, infection /
+inflammation, tumour markers, endocrine / metabolic, autoimmune, infectious serology);
+per-group source files are in `docs/fda_510k_sections/` and the fetch script in
+`docs/tools/fda_510k_fetch.py`.
+
 ## Run
 
 ```bash
