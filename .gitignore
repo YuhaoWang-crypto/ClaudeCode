@@ -2,3 +2,6 @@ __pycache__/
 *.pyc
 db/*.sqlite-wal
 db/*.sqlite-shm
+# large derived files are committed gzipped (see db/README.md)
+db/fda_ivd_markers.sqlite
+db/export/extraction.csv

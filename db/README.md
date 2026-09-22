@@ -6,8 +6,8 @@
 
 | 路径 | 内容 |
 |---|---|
-| `fda_ivd_markers.sqlite` | 数据库本体（SQLite，WAL 关闭后单文件） |
-| `export/*.csv` | 每张表一份 CSV |
+| `fda_ivd_markers.sqlite.gz` | 数据库本体（SQLite；仓库里是 gzip，`gunzip -k db/fda_ivd_markers.sqlite.gz` 后即可用 sqlite3 / pandas 打开，解压后约 130 MB） |
+| `export/*.csv`，`export/extraction.csv.gz` | 每张表一份 CSV；extraction 表（决策摘要原文段落，约 100 MB）以 gzip 提交 |
 | `export/bundle.json` | 浏览页面用的压缩 JSON |
 | `../docs/FDA_510k_marker_db.html` | 单文件浏览页面（筛选 / 搜索 / marker 详情 / 决策摘要字段 / 人工层） |
 | `source/FDA_Marker_Catalog_CN.xlsx` | 用户提供的目录工作簿（v1，2026-09-22 快照） |
@@ -37,6 +37,19 @@ python3 db/load_curated.py db/fda_ivd_markers.sqlite                 # 5. 载入
 python3 db/export.py db/fda_ivd_markers.sqlite db/export             # 6. CSV + JSON
 python3 db/build_browser.py db/export/bundle.json docs/FDA_510k_marker_db.html   # 7. 浏览页面
 ```
+
+## 当前规模（2026-09-22 构建）
+
+| 项 | 数量 |
+|---|---|
+| marker 标签 | 1,206（864 个有申报关联） |
+| 申报号 | 14,551（510(k) 14,064、De Novo 166、PMA 321）；其中 5,874 个为按产品代码从 openFDA 补入的 2003 年后清关 |
+| 有 openFDA 元数据 | 13,825 |
+| 产品代码 | 728 |
+| 已抓取决策摘要 | 5,841（2003 年后 9,287 个候选号中约 63% 有决策摘要 PDF） |
+| 已结构化解析 | 4,757（旧模板 3,460、新模板 734、De Novo 314、其他 249）；未识别模板的多为扫描件或仪器类摘要 |
+| 字段覆盖（解析成功者） | intended_use 93%、reference_range 89%、assay_cutoff 88%、specimen_types 76%、clsi_codes 58%、clinical_cutoff 24%、cutoff_numbers 17%、sens_pct 13% |
+| 目录关联到 ≥1 份已解析决策摘要的 marker | 544 |
 
 ## 边界与注意
 

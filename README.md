@@ -42,6 +42,13 @@ inflammation, tumour markers, endocrine / metabolic, autoimmune, infectious sero
 per-group source files are in `docs/fda_510k_sections/` and the fetch script in
 `docs/tools/fda_510k_fetch.py`.
 
+`db/` extends this to a marker database: 1,206 catalogued analytes, 14,551 FDA
+submissions (510(k) / De Novo / PMA) with openFDA metadata, 5,841 fetched decision
+summaries of which 4,757 are parsed into structured fields (intended use, specimen,
+cutoff, reference range, standards, clinical performance), plus the curated
+25-analyte layer. Browse it in `docs/FDA_510k_marker_db.html`; schema and pipeline
+are described in [`db/README.md`](db/README.md).
+
 ## Run
 
 ```bash

@@ -19,7 +19,7 @@ for c in b['curated']:
         h = markdown.markdown(normalise(v), extensions=['tables', 'sane_lists'])
         h = h.replace('文件未载明', '<span class="tag na">文件未载明</span>').replace('背景（非申报文件）', '<span class="tag bg">背景（非申报文件）</span>')
         c['sections'][k] = h
-data = json.dumps(b, ensure_ascii=False, separators=(',', ':')).replace('<', '\\u003c')
+data = json.dumps(b, ensure_ascii=False, separators=(',', ':')).replace('<', '\\u003c').replace('\ufffd', '')
 n_m, n_s, n_e, n_c = len(b['markers']), len(b['submissions']), len(b['extraction']), len(b['curated'])
 n_ds = sum(1 for s in b['submissions'].values() if s.get('ds'))
 
@@ -151,8 +151,11 @@ details.sub[open] summary::before{transform:rotate(45deg)}
   D.markers.forEach(function(m){
     var subs={}; (LINKS[m.marker_id]||[]).forEach(function(l){ subs[l[1].split('/')[0]]=l[0]; });
     var codes={}, ncoded=0; Object.keys(subs).forEach(function(k){ var s=SUB[k]; if(s&&s.pc){ codes[s.pc]=(codes[s.pc]||0)+1; ncoded++; } });
-    // post-2014 fill by product code, only for codes that carry the marker (>=3 catalog links or >=25% of its coded links)
-    Object.keys(codes).forEach(function(pc){ if(codes[pc]>=3 || codes[pc]>=0.25*ncoded){ (pcIndex[pc]||[]).forEach(function(k){ if(!subs[k]) subs[k]='510(k)*'; }); } });
+    // post-2014 fill by product code, only for codes that carry the marker (>=3 catalog links or >=25% of its coded links),
+    // plus the product codes named in the curated atlas for this marker (covers newer codes such as PMT/PRI for procalcitonin)
+    var fill={}; Object.keys(codes).forEach(function(pc){ if(codes[pc]>=3 || codes[pc]>=0.25*ncoded) fill[pc]=1; });
+    (CUR[m.marker_id]||[]).forEach(function(c){ (c.product_codes||'').split('; ').forEach(function(pc){ if(pc){ fill[pc]=1; if(!codes[pc]) codes[pc]=0; } }); });
+    Object.keys(fill).forEach(function(pc){ (pcIndex[pc]||[]).forEach(function(k){ if(!subs[k]) subs[k]='510(k)*'; }); });
     m.subs=subs; m.codes=Object.keys(codes).sort(function(a,b){return codes[b]-codes[a];}); m.codeCounts=codes; m.n_sub=Object.keys(subs).length;
     var ds=0, latest=0, paths={};
     Object.keys(subs).forEach(function(k){ var s=SUB[k]; paths[subs[k].replace('*','')]=1; if(s){ if(s.ds&&EXT[k]) ds++; if(s.y&&s.y>latest) latest=s.y; } else { paths[subs[k].replace('*','')]=1; } });

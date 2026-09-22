@@ -14,7 +14,7 @@ SHORT = {'intended_use': 320, 'assay_cutoff': 320, 'clinical_cutoff': 320, 'refe
          'predicate': 120, 'measurand': 80, 'type_of_test': 80, 'clsi_codes': 160, 'cutoff_numbers': 160, 'sens_pct': 80, 'spec_pct': 80, 'sample_n': 60, 'mc_slope': 60, 'mc_r': 60, 'specimen_types': 120}
 
 def clip(s, n):
-    s = re.sub(r'\s+', ' ', s or '').strip()
+    s = re.sub(r'\s+', ' ', (s or '').replace('�', '')).strip()  # drop PDF-decoding replacement characters
     return s if len(s) <= n else s[:n - 1] + '…'
 
 con = sqlite3.connect(DB); con.row_factory = sqlite3.Row; cur = con.cursor()
@@ -37,6 +37,13 @@ subs = {}
 for r in cur.execute('SELECT * FROM submission'):
     subs[r['submission_no']] = {'p': r['pathway'], 'y': r['year'], 'd': r['decision_date'], 'a': clip(r['applicant'], 60), 'n': clip(r['device_name'], 110), 'pc': r['product_code'],
                                 'reg': r['regulation_number'], 'cat': r['in_catalog'], 'ds': r['has_decision_summary'], 'sm': r['has_510k_summary']}
+# De Novo and PMA numbers are not in the openFDA 510(k) endpoint: take name/date from the catalog sheets
+for r in cur.execute('SELECT den_no, product_name, product_code, decision_date FROM denovo_catalog'):
+    s = subs.get(r['den_no'])
+    if s and not s.get('n'): s['n'] = clip(r['product_name'], 110); s['pc'] = s.get('pc') or r['product_code']; s['d'] = s.get('d') or (r['decision_date'] or '')[:10]
+for r in cur.execute('SELECT pma_no, product_name, product_code, decision_date FROM pma_catalog'):
+    s = subs.get(r['pma_no'])
+    if s and not s.get('n'): s['n'] = clip(r['product_name'], 110); s['pc'] = s.get('pc') or r['product_code']; s['d'] = s.get('d') or (r['decision_date'] or '')[:10]
 ext = {}
 for r in cur.execute('SELECT submission_no, field, value, template FROM extraction'):
     if r['field'] in KEY_FIELDS:
