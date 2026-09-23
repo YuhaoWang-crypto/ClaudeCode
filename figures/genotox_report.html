@@ -154,7 +154,7 @@ li{padding-left:.1em}
     <div class="mast-meta">
       <span>Package <b class="mono">genotox/</b></span>
       <span>Branch <b class="mono">claude/great-faraday-ma8b1i</b></span>
-      <span>Structural checks <b class="mono">20 / 20</b></span>
+      <span>Structural checks <b class="mono">29 / 29</b></span>
       <span>Parameters <b>illustrative, not fitted</b></span>
     </div>
   </div>
@@ -385,13 +385,22 @@ li{padding-left:.1em}
             <tr><th>alkylating agent</th><td><span class="pill v-pos">POS</span></td><td><span class="pill v-pos">POS</span></td><td class="num">0.0</td><td>clastogenic</td></tr>
             <tr><th>direct clastogen</th><td><span class="pill v-pos">POS</span></td><td><span class="pill v-pos">POS</span></td><td class="num">0.0</td><td>clastogenic</td></tr>
             <tr class="win"><th>aneugen</th><td><span class="pill v-neg">NEG</span></td><td><span class="pill v-pos">POS</span></td><td class="num">98.8</td><td><b>aneugenic</b> — whole chromosomes</td></tr>
+            <tr class="win"><th>mixed clastogen/aneugen</th><td><span class="pill v-pos">POS</span></td><td><span class="pill v-pos">POS</span></td><td class="num">80.1</td><td><b>MIXED</b> — both components</td></tr>
             <tr><th>non-genotoxic cytotoxicant</th><td><span class="pill v-neg">NEG</span></td><td><span class="pill v-neg">NEG</span></td><td class="num">—</td><td>negative</td></tr>
           </tbody>
         </table>
       </div>
       <p class="col note">The aneugen is comet-negative at <i>every</i> dose because nothing is
-        broken. That is structural rather than tuned: the <code>aneugenic</code> channel reaches
+        broken — structural rather than tuned: the <code>aneugenic</code> channel reaches
         neither break pool.</p>
+      <p class="col">But that statement is worth exactly as much as the compound it is shown on,
+        and the demo set was built almost entirely from <i>pure</i> mechanisms — one channel live,
+        every other at zero. Real chemicals are not obliged to be. Adding a two-mechanism compound
+        broke this classifier immediately: written as an either/or, it called a plainly
+        comet-positive compound "aneugenic" purely because 80&nbsp;% of its micronuclei carried
+        centromeres, and the clastogenic half disappeared from the verdict. The two observables
+        evidence two components <i>independently</i>, so both are now allowed to fire — and the
+        pure compounds still each get exactly one.</p>
     </div>
     <figure>
       <img src="genotox_comet_mn.png" alt="Four panels: damage processing over 4 h showing the SSB pool as an excision intermediate; comet %tail dose-response with the aneugen flat at control level; micronucleus dose-response showing turnover; turnover decomposition on log axes.">
@@ -513,15 +522,101 @@ li{padding-left:.1em}
     <div class="sec-head">
       <div class="sec-num">06</div>
       <div class="stack">
+        <h2>Diagnostics: what could a fit to these readouts recover?</h2>
+        <p class="col">The stated next step has been "fit a core to a measured dose series". The
+          honest step <i>before</i> that is to ask how much such a fit could learn — because least
+          squares returns a confident number for a parameter the data cannot see. Relative
+          sensitivities, an SVD, and a count of directions estimable to better than a factor of
+          1.65 at 5&nbsp;% noise. A count of <i>directions</i>, not a condition number: a condition
+          number says a model is sloppy without saying what is measurable.</p>
+      </div>
+    </div>
+    <div class="scroll">
+      <table>
+        <caption>Local identifiability at one operating point. Estimable = pinned to better than a factor of 1.65 at 5&nbsp;% relative noise.</caption>
+        <thead><tr><th>Readout</th><th class="num">parameters</th><th class="num">estimable</th></tr></thead>
+        <tbody>
+          <tr class="win"><th>umu, endpoint (IR + gate)</th><td class="num">17</td><td class="num">6</td></tr>
+          <tr><th>umu, time-resolved (4 sampling times)</th><td class="num">17</td><td class="num">6</td></tr>
+          <tr><th>GADD45a-GFP, endpoint</th><td class="num">17</td><td class="num">6</td></tr>
+          <tr><th>comet alone</th><td class="num">12</td><td class="num">2</td></tr>
+          <tr><th>micronucleus alone</th><td class="num">12</td><td class="num">3</td></tr>
+          <tr><th>comet + micronucleus</th><td class="num">12</td><td class="num">5</td></tr>
+          <tr class="win"><th>…plus an alkylating agent in the design</th><td class="num">12</td><td class="num">6</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <figure>
+      <img src="genotox_identifiability.png" alt="Three panels: singular-value spectra for the umu endpoint and time-resolved readouts with an estimability threshold; per-parameter sensitivity bars with two parameters marked exactly zero; a bar chart of estimable directions against parameter count for every readout.">
+      <figcaption>Left: the spectrum falls through the estimability threshold after six directions,
+        and time-resolved sampling lifts the whole curve without moving where it crosses. Middle:
+        two parameters are not small — they are exactly zero, shown by scaling them over five
+        orders of magnitude.</figcaption>
+    </figure>
+
+    <div class="finding">
+      <div class="kicker">Diagnostic 01 · structural</div>
+      <h3>Some parameters are invisible by construction, not by noise</h3>
+      <p>The umu readout is a <i>ratio</i>, so anything scaling the reporter linearly cancels
+        exactly. Scaling <code>k_txn</code> or <code>k_tsl</code> over a 10⁵-fold range moves the
+        induction ratio by &lt;3×10⁻⁸ — solver tolerance — and a 1000× change in instrument gain
+        leaves it identical to twelve decimal places. A fitter handed these three would report
+        values for all of them.</p>
+    </div>
+
+    <div class="finding against">
+      <div class="kicker">Diagnostic 02 · not visible in the equations</div>
+      <h3>The model carries an exact symmetry</h3>
+      <p><code>beta_lexA</code> and <code>K_lexA</code> scaled <i>together</i> by any factor leave
+        every observable unchanged — drift ~10⁻⁸ across a 0.5×–4× scan — while basal LexA scales
+        exactly with the factor (3.416 → 13.664 at 4×). The LexA equation is homogeneous of degree
+        one under that rescaling, and the promoter only ever sees <code>L / K_umu</code> with
+        <code>K_umu</code> proportional to basal LexA. <b>The concentration scale of LexA is
+        unobservable</b>, so one of those two parameters should be fixed by convention rather than
+        fitted. This was not known when the core was written.</p>
+    </div>
+
+    <div class="finding against">
+      <div class="kicker">Diagnostic 03 · against the usual lesson</div>
+      <h3>More sampling does not fix a symmetry</h3>
+      <p>Sampling the reporter at four times instead of one raises every visible singular value by
+        ~1.5× — real precision — but the estimable count stays at six, because the flat directions
+        are symmetries and no sampling schedule removes one. This is worth separating from the
+        textbook demonstration, where extra time points <i>do</i> raise the rank: there the
+        unidentifiability is an artifact of normalising to the endpoint, which more data genuinely
+        repairs. A symmetry does not repair.</p>
+    </div>
+
+    <div class="finding">
+      <div class="kicker">Diagnostic 04 · experimental design</div>
+      <h3>Identifiability belongs to the experiment, not the model</h3>
+      <p><code>k_ber</code>, the alkyl-adduct excision rate, has <b>exactly zero</b> sensitivity in
+        the cytogenetic core — not because the model is degenerate but because the probe compound
+        makes no alkyl adducts. Adding an alkylating agent to the design takes it from 0 to 1.65 and
+        the estimable count from 5 to 6. No readout can estimate a rate for a lesion the probe
+        never makes.</p>
+    </div>
+
+    <p class="col note">All of this is local — a linearisation about one operating point, one probe
+      compound per design — and says nothing about whether the model is <i>right</i>, only about
+      what a fit to this readout could and could not learn.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap sec">
+    <div class="sec-head">
+      <div class="sec-num">07</div>
+      <div class="stack">
         <h2>Where the failures were fixed</h2>
-        <p class="col">Twenty structural checks pass now. Ten did not, at first. Where each was
+        <p class="col">Twenty-nine structural checks pass now. Twelve did not, at first. Where each was
           fixed is the most transferable thing in this build — and twice the model was right and the
           claim was wrong.</p>
       </div>
     </div>
     <div class="scroll">
       <table>
-        <caption>Every failure traced to the layer that was actually wrong.</caption>
+        <caption>Every failure traced to the layer that was actually wrong. The last two came from an independent review of this report.</caption>
         <thead><tr><th>What failed</th><th>Fixed in</th><th>Why</th></tr></thead>
         <tbody>
           <tr><th>promutagen did not flip on S9</th><td>data</td><td>2 % residual activity at 50 µM is not "near-silent"</td></tr>
@@ -534,10 +629,12 @@ li{padding-left:.1em}
           <tr><th>unexposed control "pulsed"</th><td>model</td><td>a purely relative prominence rule counted integrator ripple on a flat trace</td></tr>
           <tr><th>every comet induction ratio was <code>nan</code></th><td>model</td><td>zero endogenous breaks in the control — a real control slide reads a few percent tail, never none</td></tr>
           <tr><th>comet window closed before the assay could report</th><td>model</td><td>a bulky adduct was counted as lethal as a double-strand break</td></tr>
+          <tr><th>a two-mechanism compound was called purely aneugenic</th><td>model</td><td>the classifier selected between components instead of evidencing each independently</td></tr>
+          <tr><th>inserting a compound silently re-pointed two runners</th><td>model</td><td>positional access into the demo list; replaced with name lookup</td></tr>
         </tbody>
       </table>
     </div>
-    <p class="col">Four of the ten sat in the <b>assertion or the claim</b>, not the code. In each
+    <p class="col">Four of the twelve sat in the <b>assertion or the claim</b>, not the code. In each
       case the check was weaker than the sentence it was supposed to defend, and in two of them the
       model was telling the truth while the write-up was not. Both were only caught by building a
       tool to decompose the cause — a sweep over repair rates, a knockout of each suppression
@@ -549,7 +646,7 @@ li{padding-left:.1em}
 <section>
   <div class="wrap sec">
     <div class="sec-head">
-      <div class="sec-num">07</div>
+      <div class="sec-num">08</div>
       <h2>What this is, and what it is not</h2>
     </div>
     <div class="col stack">
@@ -592,7 +689,7 @@ li{padding-left:.1em}
 <section>
   <div class="wrap sec">
     <div class="sec-head">
-      <div class="sec-num">08</div>
+      <div class="sec-num">09</div>
       <h2>The layer that is still empty</h2>
     </div>
     <div class="col stack">
@@ -601,6 +698,13 @@ li{padding-left:.1em}
         channels is the assay outcome itself, not the lesion flux.</b> Training a model on Ames
         labels and then feeding it into a model of the Ames assay is circular — the mechanistic
         layer contributes nothing but a wrapper.</p>
+      <p class="col note">That wording has been tightened since the first version of this report.
+        Training end-to-end on assay outcomes is a perfectly good way to <i>predict</i> those
+        outcomes, and nothing here argues otherwise. What is not legitimate is relabelling such a
+        prediction as a measured lesion flux and then feeding it to a mechanistic model of the same
+        endpoint — the mechanism contributes no information and the apparent agreement is the
+        training signal coming back around. Establishing that an intermediate is real needs
+        independent state measurements, perturbation tests, or an identifiability argument.</p>
       <p>The channels worth implementing first are the ones derivable without assay labels:
         electrophilicity from quantum descriptors (LUMO, Fukui functions, hardness) for the
         alkylation and bulky channels; tubulin colchicine-site binding for the aneugenic channel;
@@ -617,7 +721,8 @@ li{padding-left:.1em}
   <div class="wrap">
     <div>Generated from the <span class="mono">genotox/</span> package — reproduce with
       <span class="mono">python3 -m genotox.run_umu</span>,
-      <span class="mono">run_p53</span>, <span class="mono">run_comet_mn</span>.</div>
+      <span class="mono">run_p53</span>, <span class="mono">run_comet_mn</span>,
+      <span class="mono">run_identifiability</span>.</div>
     <div>All numbers in this report are printed by those three runs. Parameters are illustrative
       <span class="h">H</span> and not fitted to measured data; this is a research modelling
       exercise, not a regulatory or safety assessment.</div>

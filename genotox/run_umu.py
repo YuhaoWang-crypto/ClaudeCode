@@ -14,7 +14,7 @@ import os
 import numpy as np
 
 from .assay import VirtualAssay
-from .damage import DEMO_COMPOUNDS, TabulatedSource
+from .damage import TabulatedSource, demo
 from .doseresponse import (GROWTH_GATE, IR_THRESHOLD, call_result,
                            dose_series, log_doses)
 
@@ -23,13 +23,13 @@ FIGDIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))
 
 # (compound index, +/-S9, dose range) — ranges differ because potencies do
 PANEL = [
-    (0, False, (0.02, 20.0)),
-    (1, False, (0.05, 50.0)),
-    (1, True, (0.05, 50.0)),
-    (2, False, (0.5, 500.0)),
-    (3, False, (0.5, 500.0)),
-    (4, False, (0.02, 20.0)),
-    (5, False, (1.0, 1000.0)),
+    ("direct-acting bulky (4NQO-like)", False, (0.02, 20.0)),
+    ("promutagen (2AA-like)", False, (0.05, 50.0)),
+    ("promutagen (2AA-like)", True, (0.05, 50.0)),
+    ("alkylating agent (MMS-like)", False, (0.5, 500.0)),
+    ("aneugen (colchicine-like)", False, (0.5, 500.0)),
+    ("masked genotoxicant", False, (0.02, 20.0)),
+    ("non-genotoxic cytotoxicant", False, (1.0, 1000.0)),
 ]
 
 
@@ -118,7 +118,7 @@ def checks(results: dict, series: dict) -> list:
     # channel has no route into this core; whether the raw induction ratio
     # stays low is a separate question, answered by the next check.
     assay = build()
-    comp = DEMO_COMPOUNDS[3]
+    comp = demo("aneugen (colchicine-like)")
     ctrl = assay.well(comp, 0.0)
     hi = assay.well(comp, 500.0)
     a = results[("aneugen (colchicine-like)", False)]
@@ -237,13 +237,13 @@ def report() -> dict:
     sp = setpoint_report(assay)
 
     series_by_key, results = {}, {}
-    for idx, s9, (lo, hi) in PANEL:
-        comp = DEMO_COMPOUNDS[idx]
+    for name, s9, (lo, hi) in PANEL:
+        comp = demo(name)
         ser, res = series_report(assay, comp, s9, lo, hi)
         series_by_key[(comp.name, s9)] = ser
         results[(comp.name, s9)] = res
 
-    traj = timecourse_report(assay, DEMO_COMPOUNDS[0], 1.0)
+    traj = timecourse_report(assay, demo("direct-acting bulky (4NQO-like)"), 1.0)
     ck = checks(results, series_by_key)
     path = figure(assay, series_by_key, traj)
 

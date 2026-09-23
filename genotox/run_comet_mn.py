@@ -19,7 +19,7 @@ import numpy as np
 
 from .assay import VirtualAssay
 from .cytogenetic import CytogeneticCore
-from .damage import DEMO_COMPOUNDS, Compound, DamageFlux, TabulatedSource
+from .damage import Compound, DamageFlux, TabulatedSource, demo
 from .doseresponse import (COMET, MN_CBMN, call_result, dose_series,
                            log_doses)
 
@@ -39,17 +39,25 @@ DIRECT_CLASTOGEN = Compound(
     note="frank breaks; comet-positive and MN-positive, centromere-negative",
 )
 
-PANEL = [DEMO_COMPOUNDS[0],      # bulky adduct former
-         DEMO_COMPOUNDS[2],      # alkylating agent
+PANEL = [demo("direct-acting bulky (4NQO-like)"),
+         demo("alkylating agent (MMS-like)"),
          DIRECT_CLASTOGEN,
-         DEMO_COMPOUNDS[3],      # aneugen
-         DEMO_COMPOUNDS[5]]      # non-genotoxic cytotoxicant
+         demo("aneugen (colchicine-like)"),
+         demo("mixed clastogen/aneugen"),
+         demo("non-genotoxic cytotoxicant")]
+
+#: centromere-positive fraction above which an aneugenic component is
+#: called.  Operational, like every other threshold in this package: it lives
+#: here rather than in the biology so it can be moved without anyone
+#: suspecting the model changed.
+CPOS_CALL = 20.0
 
 RANGES = {
     "direct-acting bulky (4NQO-like)": (0.02, 20.0),
     "alkylating agent (MMS-like)": (0.5, 500.0),
     "direct clastogen (bleomycin-like)": (0.5, 500.0),
     "aneugen (colchicine-like)": (0.05, 50.0),
+    "mixed clastogen/aneugen": (0.05, 50.0),
     "non-genotoxic cytotoxicant": (1.0, 1000.0),
 }
 
@@ -72,7 +80,7 @@ def build_mn(core=None) -> VirtualAssay:
 # --------------------------------------------------------------------------
 def processing_report(assay) -> None:
     """Where the damage sits over time, for a bulky-adduct former."""
-    tr = assay.trajectory(DEMO_COMPOUNDS[0], 1.0)
+    tr = assay.trajectory(demo("direct-acting bulky (4NQO-like)"), 1.0)
     print("Damage processing — bulky adduct former @ 1 uM, 4 h")
     print(f"  {'t/min':>6} {'bulky':>8} {'SSB':>8} {'DSB':>8} "
           f"{'acentric':>9}")
@@ -130,11 +138,21 @@ def mechanism_table(comet, mn) -> dict:
         cpos = (mn.well(comp, best["dose_uM"])["mn_centromere_pos_pct"]
                 if best else float("nan"))
 
+        # The two observables evidence two components INDEPENDENTLY; they do
+        # not select between them.  Written as an either/or, this classifier
+        # called a compound that is plainly comet-positive "aneugenic" purely
+        # because most of its micronuclei carried centromeres, and the
+        # clastogenic half vanished from the verdict.  Real chemicals are not
+        # obliged to use one channel.
         comet_pos = c["verdict"] == "POSITIVE"
         mn_pos = m["verdict"] == "POSITIVE"
-        if mn_pos and cpos >= 50:
+        aneugenic = mn_pos and cpos >= CPOS_CALL          # whole chromosomes lost
+        clastogenic = mn_pos and comet_pos                # DNA demonstrably broken
+        if aneugenic and clastogenic:
+            mech = f"MIXED ({cpos:.0f}% C+ micronuclei, comet-positive)"
+        elif aneugenic:
             mech = "ANEUGENIC (whole chromosomes)"
-        elif mn_pos and comet_pos:
+        elif clastogenic:
             mech = "CLASTOGENIC (strand breakage)"
         elif mn_pos:
             mech = "clastogenic, breaks below comet resolution"
@@ -146,6 +164,7 @@ def mechanism_table(comet, mn) -> dict:
               f"{cpos:8.1f}  {mech}")
         out[comp.name] = {"comet": c["verdict"], "mn": m["verdict"],
                           "pct_cpos": cpos, "mechanism": mech,
+                          "aneugenic": aneugenic, "clastogenic": clastogenic,
                           "mn_series": m_ser}
     return out
 
@@ -166,8 +185,8 @@ def repair_experiment() -> dict:
     for k in (0.0, 0.005, 0.02, 0.08, 0.20):
         core = CytogeneticCore(k_ner=k)
         a = build_comet(core)
-        w = a.well(DEMO_COMPOUNDS[0], 1.0)
-        tr = a.trajectory(DEMO_COMPOUNDS[0], 1.0)
+        w = a.well(demo("direct-acting bulky (4NQO-like)"), 1.0)
+        tr = a.trajectory(demo("direct-acting bulky (4NQO-like)"), 1.0)
         rows.append({"k_ner": k, "pct_tail": w["pct_tail_dna"],
                      "ssb": float(tr["ssb"][-1]),
                      "bulky": float(tr["adduct_bulky"][-1])})
@@ -191,7 +210,7 @@ def turnover_experiment() -> dict:
     instead of assuming it -- the first version of this asserted p53 arrest
     was the cause and the decomposition said otherwise.
     """
-    comp = DEMO_COMPOUNDS[0]
+    comp = demo("direct-acting bulky (4NQO-like)")
     lo, hi = RANGES[comp.name]
     doses = log_doses(lo, hi, 11)
     base = CytogeneticCore()
@@ -265,6 +284,13 @@ def checks(mech, repair, turnover) -> list:
         and cl["mechanism"].startswith("CLASTOGENIC"),
         f"aneugen -> {an['mechanism']}; clastogen -> {cl['mechanism']}")
 
+    mx = mech["mixed clastogen/aneugen"]
+    chk("a two-mechanism compound is reported as MIXED, not forced to one",
+        mx["aneugenic"] and mx["clastogenic"]
+        and not (an["clastogenic"] or cl["aneugenic"]),
+        f"mixed -> {mx['mechanism']}; the pure aneugen and pure clastogen "
+        f"each still get exactly one component")
+
     nt = mech["non-genotoxic cytotoxicant"]
     chk("pure cytotoxicant is negative in both endpoints",
         nt["comet"] != "POSITIVE" and nt["mn"] != "POSITIVE",
@@ -301,7 +327,7 @@ def figure(comet, mn, mech, repair, turnover):
     fig, ax = plt.subplots(1, 4, figsize=(19, 4.3))
 
     a = ax[0]
-    tr = comet.trajectory(DEMO_COMPOUNDS[0], 1.0)
+    tr = comet.trajectory(demo("direct-acting bulky (4NQO-like)"), 1.0)
     a.plot(tr["t"], tr["adduct_bulky"], label="bulky adduct")
     a.plot(tr["t"], tr["ssb"], label="SSB (excision gap)")
     a.plot(tr["t"], tr["dsb"] * 20, label="DSB x20")
@@ -360,10 +386,10 @@ def report() -> dict:
           "frequencies are not predictions.\n")
 
     processing_report(comet)
-    series_report(comet, DEMO_COMPOUNDS[0], COMET)
-    series_report(mn, DEMO_COMPOUNDS[0], MN_CBMN,
+    series_report(comet, demo("direct-acting bulky (4NQO-like)"), COMET)
+    series_report(mn, demo("direct-acting bulky (4NQO-like)"), MN_CBMN,
                   extra=(("mn_centromere_pos_pct", "%C+"), ("CBPI", "CBPI")))
-    series_report(mn, DEMO_COMPOUNDS[3], MN_CBMN,
+    series_report(mn, demo("aneugen (colchicine-like)"), MN_CBMN,
                   extra=(("mn_centromere_pos_pct", "%C+"), ("CBPI", "CBPI")))
 
     mech = mechanism_table(comet, mn)

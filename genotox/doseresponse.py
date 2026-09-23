@@ -68,6 +68,13 @@ def dose_series(assay, compound, doses, s9=False, protocol: Protocol = UMU) -> d
     """
     ctrl = assay.control(compound, s9=s9)
     s0, b0 = ctrl["signal"], ctrl["biomass"]
+    # Which channels this core reads but has no evidence for.  Carried with
+    # the series so a negative call can state its own coverage instead of
+    # implying the compound was cleared on every route.
+    probe = assay.source.flux(compound, 1.0, s9=s9)
+    weights = getattr(assay.core, "sos_weights", None) or \
+        getattr(assay.core, "dna_weights", None) or {}
+    uncovered = probe.uncovered(weights) if weights else ()
 
     rows = []
     for d in doses:
@@ -89,7 +96,8 @@ def dose_series(assay, compound, doses, s9=False, protocol: Protocol = UMU) -> d
                 row[k] = w[k]
         rows.append(row)
     return {"compound": compound.name, "s9": s9, "protocol": protocol,
-            "control_signal": s0, "rows": rows}
+            "control_signal": s0, "uncovered_channels": uncovered,
+            "rows": rows}
 
 
 def ec_ir(series: dict, threshold: float | None = None):
@@ -139,9 +147,15 @@ def call_result(series: dict, threshold: float | None = None) -> dict:
     else:
         verdict, why = "NEGATIVE", "IR below threshold across the valid window"
 
+    uncovered = series.get("uncovered_channels", ())
+    if verdict == "NEGATIVE" and uncovered:
+        why += (f"; but {len(uncovered)} channel(s) this core reads had no "
+                f"evidence either way ({', '.join(uncovered)})")
+
     return {
         "verdict": verdict,
         "reason": why,
+        "uncovered_channels": uncovered,
         "protocol": proto.name,
         "max_IR_valid": max_ir_valid,
         "max_IR_any": max_ir_any,

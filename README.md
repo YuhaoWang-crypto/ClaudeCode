@@ -52,11 +52,13 @@ so far, as mechanistic ODEs with the readout and decision layers split out:
 | 1 | umu test | SOS / LexA-RecA / umuDC-lacZ | graded induction; bell-shaped dose response from damage-linked viability |
 | 2 | GADD45a-GFP reporter line | p53 ⇄ Mdm2 delayed feedback | p53 **pulses** (~5.3 h); stable GFP integrates the pulse train |
 | 3 | comet **and** micronucleus | cytogenetic: adducts → breaks → acentric fragments / lagging chromosomes | one core, two instruments, two exposure times; centromere status names the mechanism |
+| — | diagnostics | local identifiability of every core | what a fit to each readout could actually recover — 6 of 17 parameters for umu, and two provable structural invariances |
 
 ```bash
 python3 -m genotox.run_umu
 python3 -m genotox.run_p53
 python3 -m genotox.run_comet_mn
+python3 -m genotox.run_identifiability
 ```
 
 Each step reuses the earlier upstream layer, readout registry and decision
@@ -70,4 +72,5 @@ findings the runs produced — two of them against expectation, including that
 the micronucleus dose-response turnover is a cytotoxicity artifact rather
 than the p53-arrest effect it was first attributed to — are in
 [`genotox/README.md`](genotox/README.md). Rate constants are illustrative,
-not fitted. 20 structural checks pass.
+not fitted, and `identifiability.py` says how few of them a fit to these
+readouts could recover. 29 structural checks pass.

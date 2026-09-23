@@ -17,7 +17,7 @@ import numpy as np
 
 from .assay import VirtualAssay
 from .core import SOSCore
-from .damage import DEMO_COMPOUNDS, TabulatedSource
+from .damage import TabulatedSource, demo
 from .doseresponse import (GADD45A_GFP, UMU, call_result, dose_series,
                            log_doses)
 from .p53 import P53Core
@@ -29,10 +29,10 @@ EXPOSURE_MIN = 48 * 60          # 48 h, as reporter-line protocols run
 N_POINTS = 577                  # ~5 min grid; fine enough to resolve pulses
 
 PANEL = [
-    (0, False, (0.02, 20.0)),     # direct-acting bulky
-    (1, True, (0.05, 50.0)),      # promutagen, +S9
-    (3, False, (0.5, 500.0)),     # aneugen  <- the key contrast with umu
-    (5, False, (1.0, 1000.0)),    # non-genotoxic cytotoxicant
+    ("direct-acting bulky (4NQO-like)", False, (0.02, 20.0)),
+    ("promutagen (2AA-like)", True, (0.05, 50.0)),
+    ("aneugen (colchicine-like)", False, (0.5, 500.0)),
+    ("non-genotoxic cytotoxicant", False, (1.0, 1000.0)),
 ]
 
 
@@ -55,7 +55,7 @@ def pulse_report(assay) -> dict:
           f"{'AUC':>10} {'GFP/cell':>9}")
     rows = []
     for d in (0.0, 0.1, 0.3, 0.5, 0.7, 1.0, 2.0, 3.0):
-        obs = assay.trajectory(DEMO_COMPOUNDS[0], d)
+        obs = assay.trajectory(demo("direct-acting bulky (4NQO-like)"), d)
         pp = REGISTRY["pulse_probe"](obs)
         gf = REGISTRY["reporter_gfp"](obs)
         rows.append({"dose": d, **pp, **gf})
@@ -142,9 +142,9 @@ def cross_endpoint(assay_p53, assay_umu) -> list:
     print("\nCross-endpoint comparison (identical DamageFlux inputs)")
     print(f"  {'compound':34s} {'umu':>12} {'GADD45a-GFP':>14}")
     out = {}
-    for idx, s9, (lo, hi) in [(0, False, (0.02, 20.0)),
-                              (3, False, (0.5, 500.0))]:
-        comp = DEMO_COMPOUNDS[idx]
+    for name, s9, (lo, hi) in [("direct-acting bulky (4NQO-like)", False, (0.02, 20.0)),
+                               ("aneugen (colchicine-like)", False, (0.5, 500.0))]:
+        comp = demo(name)
         u = call_result(dose_series(assay_umu, comp, log_doses(lo, hi, 13),
                                     s9=s9, protocol=UMU))
         p = call_result(dose_series(assay_p53, comp, log_doses(lo, hi, 13),
@@ -195,7 +195,7 @@ def gate_sensitivity(assay) -> dict:
     is being made by the protocol constant, not by the model.
     """
     from dataclasses import replace as _replace
-    comp = DEMO_COMPOUNDS[3]
+    comp = demo("aneugen (colchicine-like)")
     doses = log_doses(0.5, 500.0, 13)
     print("\nGate sensitivity — aneugen, one simulation scored three ways")
     out = {}
@@ -284,14 +284,14 @@ def figure(assay, series_by_key):
 
     a = ax[0]
     for d in (0.0, 0.3, 1.0, 3.0):
-        tr = assay.trajectory(DEMO_COMPOUNDS[0], d)
+        tr = assay.trajectory(demo("direct-acting bulky (4NQO-like)"), d)
         a.plot(tr["t"] / 60.0, tr["p53"], lw=1.3, label=f"{d} uM")
     a.set_xlabel("time / h"); a.set_ylabel("p53 (a.u.)")
     a.set_title("p53 pulses (Mdm2 delayed feedback)"); a.legend(fontsize=8)
 
     a = ax[1]
     for d in (0.0, 0.3, 1.0, 3.0):
-        tr = assay.trajectory(DEMO_COMPOUNDS[0], d)
+        tr = assay.trajectory(demo("direct-acting bulky (4NQO-like)"), d)
         a.plot(tr["t"] / 60.0, tr["mature_gfp"], lw=1.3, label=f"{d} uM")
     a.set_xlabel("time / h"); a.set_ylabel("mature GFP / cell")
     a.set_title("reporter integrates the pulse train"); a.legend(fontsize=8)
@@ -339,8 +339,8 @@ def report() -> dict:
     integ = integrator_check(pulses["rows"])
 
     series_by_key, results = {}, {}
-    for idx, s9, (lo, hi) in PANEL:
-        comp = DEMO_COMPOUNDS[idx]
+    for name, s9, (lo, hi) in PANEL:
+        comp = demo(name)
         ser, res = series_report(assay, comp, s9, lo, hi, GADD45A_GFP)
         series_by_key[(comp.name, s9)] = ser
         results[(comp.name, s9)] = res

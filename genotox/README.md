@@ -15,9 +15,10 @@ pip install numpy scipy matplotlib
 python3 -m genotox.run_umu        # step 1: tables + checks + figure
 python3 -m genotox.run_p53        # step 2: pulses, cross-endpoint, checks
 python3 -m genotox.run_comet_mn   # step 3: mechanism table + 2 experiments
+python3 -m genotox.run_identifiability   # diagnostics: what a fit could recover
 ```
 
-Writes three figures into `figures/`.
+Writes four figures into `figures/`. 29 structural checks (6 + 7 + 8 + 8).
 
 ## The four seams
 
@@ -38,6 +39,7 @@ Each layer is replaceable on its own:
 | endpoint #2 (p53/GADD45a reporter) | new `SignalCore` — *done* | source, decision |
 | endpoint #3 (comet, micronucleus) | new `SignalCore` + 2 readouts — *done* | source, decision |
 | a different protocol threshold | a `Protocol` instance | all biology |
+| ask what a fit could recover | nothing — `identifiability.py` reads any core | everything |
 
 Readouts hand the decision layer exactly two generic names, `signal` and
 `biomass`; instrument-specific ones (`A410`, `fluorescence_per_cell`) ride
@@ -47,7 +49,7 @@ layer split would be fictional.
 
 ## Why the interface is a vector
 
-`DamageFlux` carries eight lesion channels, not one potency number. Each core
+`DamageFlux` carries eight channels, not one potency number. Each core
 declares its own per-channel weights, so one upstream prediction produces
 *different* answers at different endpoints — which is the actual situation:
 
@@ -57,6 +59,16 @@ declares its own per-channel weights, so one upstream prediction produces
   interface, one of those two must be wrong.
 - `lesions` is exposed as an observable specifically so a comet readout can
   be calibrated against the same quantity rather than re-deriving damage.
+
+Two things the channel vector is **not**. It is not eight quantities in one
+unit: the DNA-lesion channels are lesion-equivalents per cell per minute,
+while `topo` is trapped-complex occupancy and `aneugenic` is spindle
+engagement. And a channel left at zero is an assertion, not a default — a
+prediction that never examined a channel belongs in `DamageFlux.unknown`,
+which travels with the result so a NEGATIVE verdict reports its own coverage
+(`"NEGATIVE ...; but 3 channel(s) this core reads had no evidence either
+way"`). A channel the core weights at zero raises no caveat, because
+ignorance about it cannot mislead that endpoint.
 
 ## Step 2: what is different about the mammalian core
 
@@ -147,6 +159,7 @@ lost":
 | alkylating agent | POS | POS | 0.0 | clastogenic |
 | direct clastogen | POS | POS | 0.0 | clastogenic |
 | **aneugen** | **NEG** | **POS** | **98.8** | **aneugenic** |
+| **mixed clastogen/aneugen** | **POS** | **POS** | **80.1** | **MIXED — both components** |
 | non-genotoxic cytotoxicant | NEG | NEG | — | negative |
 
 The aneugen is comet-negative at every dose because nothing is broken — that
@@ -172,6 +185,63 @@ disabled, and **0%** with lethality disabled (where it rises monotonically to
 arrest contributes ~8%. Reading the high-dose decline as "less genotoxic"
 would be exactly backwards — which is what the protocol's cytostasis limit
 exists to prevent.
+
+## Diagnostics: what could a fit to these readouts actually recover?
+
+The stated next step has been "fit a core to a measured dose series". The
+honest step *before* that is to ask how much such a fit could learn, because
+least squares returns a confident number for a parameter the data cannot see.
+`identifiability.py` answers it by finite-difference relative sensitivities
+(`d log observable / d log parameter`), an SVD of that matrix, and a count of
+directions estimable to better than a factor of 1.65 at 5% relative noise —
+a count of *directions*, not a condition number, because a condition number
+says a model is sloppy without saying what is measurable.
+
+| Readout | parameters | estimable at 5% noise |
+|---|---:|---:|
+| umu, endpoint (IR + gate) | 17 | **6** |
+| umu, time-resolved (4 sampling times) | 17 | **6** |
+| GADD45a-GFP, endpoint | 17 | **6** |
+| comet alone | 12 | 2 |
+| micronucleus alone | 12 | 3 |
+| comet + micronucleus | 12 | **5** |
+| ...plus an alkylating agent in the design | 12 | **6** |
+
+Three results worth stating separately.
+
+**Some parameters are invisible by construction, not by noise.** The umu
+readout is a *ratio*, so anything that scales the reporter linearly cancels
+exactly: transcription rate, translation rate, and the instrument gain.
+Scaling `k_txn` or `k_tsl` over a 10⁵-fold range moves the induction ratio by
+<3×10⁻⁸ (solver tolerance), and a 1000× gain change leaves it identical to 12
+decimal places. A fitter handed these would report values for all three.
+
+**The model carries an exact symmetry that was not visible in the equations.**
+`(beta_lexA, K_lexA)` scaled *together* by any factor leaves every observable
+unchanged (drift ~10⁻⁸ over a 0.5×–4× scan) while basal LexA scales exactly
+with the factor. The LexA ODE is homogeneous of degree one under that
+rescaling and the promoter only ever sees `L / K_umu`, with `K_umu`
+proportional to basal LexA. The concentration scale of LexA is unobservable,
+so one of those two parameters should be fixed by convention rather than
+fitted.
+
+**More sampling does not fix a symmetry.** Sampling the reporter at four
+times instead of one raises every visible singular value by ~1.5× — better
+precision — but the estimable count stays at 6, because the flat directions
+are symmetries and no sampling schedule removes one. This is worth
+distinguishing from the usual demonstration, where extra time points *do*
+raise the rank; there the unidentifiability was an artifact of normalising to
+the endpoint, which more data genuinely repairs.
+
+**Identifiability is a property of the experiment, not the model.** `k_ber`
+(alkyl-adduct excision) has *exactly zero* sensitivity in the cytogenetic
+core — not because the model is degenerate but because the probe compound
+makes no alkyl adducts. Adding an alkylating agent to the design takes its
+sensitivity from 0 to 1.65 and the estimable count from 5 to 6.
+
+All of this is local to one operating point and says nothing about whether
+the model is *right* — only about what a fit to this readout could and could
+not learn.
 
 ## What the model does and does not claim
 
@@ -212,7 +282,7 @@ separates them from signal.
 
 ## Structural checks
 
-Twenty in total (6 + 7 + 7), none of them a curve fit. They assert properties of
+Twenty-nine in total (6 + 7 + 8 + 8), none of them a curve fit. They assert properties of
 the wiring and fail loudly if a layer is connected wrongly.
 
 `run_umu.py` (6): direct-acting compound positive without S9; promutagen call
@@ -228,12 +298,20 @@ reaches p53 by a route the bacterial core lacks; the reporter overstates the
 aneugen response; the aneugen verdict is set by the density gate; a pure
 cytotoxicant is not called positive.
 
-`run_comet_mn.py` (7): aneugen comet-negative at every dose; aneugen's
+`run_comet_mn.py` (8): aneugen comet-negative at every dose; aneugen's
 micronuclei centromere-positive; clastogen's centromere-negative; the two
 mechanisms are told apart; pure cytotoxicant negative in both; comet scores
 excision intermediates; MN turnover is a cytotoxicity artifact rather than a
 p53-arrest effect — this last one asserts the *attribution*, with all three
-decomposition numbers, not just the shape of the curve.
+decomposition numbers, not just the shape of the curve; and a two-mechanism
+compound is reported as MIXED rather than forced into one class.
+
+`run_identifiability.py` (8): the reporter rate constants and the instrument
+gain are invisible to a ratio readout; `(beta_lexA, K_lexA)` is an exact
+continuous symmetry; each of the three endpoints constrains far fewer
+directions than it has parameters; a parameter is identifiable only if the
+probe compound exercises it; and extra sampling buys precision rather than
+new directions.
 
 Where the failures were fixed matters. Two were fixed in the *assertion*,
 because the assertion tested the wrong thing — raw induction ratio where the
@@ -267,11 +345,19 @@ the lowest dose.
 - Comet %tail saturates by construction (ceiling 92%), which is right, but the
   model has no lysis/electrophoresis step, so slide-to-slide and
   condition-to-condition variation in migration is not represented.
+- The identifiability analysis is **local** — a linearisation about one
+  operating point, with one probe compound per design. A parameter estimable
+  there may not be estimable elsewhere in parameter space, and profile
+  likelihoods or a global method would be needed to say more.
 - S9 is a single scalar activation factor. Real S9 composition varies by
   batch and is a major source of false negatives; this is the layer most in
   need of replacement before any absolute claim is made.
-- `QSARSource` is a declared seam, deliberately unimplemented — training an
-  upstream on assay-outcome labels and then feeding it into a model of that
-  same assay is circular. Channels derivable from first principles
-  (electrophilicity, tubulin binding, Top2 pharmacophore) are the ones to
-  implement first.
+- `QSARSource` is a declared seam, deliberately unimplemented. The earlier
+  wording here ("training on endpoint labels is circular") was too broad and
+  has been corrected: training end-to-end on assay outcomes is a perfectly
+  good way to *predict* those outcomes. What is not legitimate is relabelling
+  such a prediction as a measured lesion flux and feeding it to a mechanistic
+  model of the same endpoint — the mechanism then adds no information and the
+  apparent agreement is the training signal coming back around. Channels with
+  evidence that is not the endpoint itself (electrophilicity, tubulin
+  binding, a Top2 pharmacophore) are the ones to implement first.

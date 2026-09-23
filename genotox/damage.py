@@ -49,12 +49,22 @@ CHANNELS = (
 
 @dataclass(frozen=True)
 class DamageFlux:
-    """Lesion production rate per cell, per minute, by channel.
+    """Per-channel perturbation rate, by channel.
 
-    Units are "lesion-equivalents per cell per minute".  They are internally
-    consistent across channels only in the weak sense that the downstream
-    cores apply their own per-channel efficiencies; do not compare channels
-    to each other as if they were on one absolute scale.
+    These are NOT eight quantities in one unit.  The DNA-lesion channels are
+    lesion-equivalents per cell per minute; ``topo`` is trapped-complex
+    occupancy and ``aneugenic`` is spindle engagement, neither of which is a
+    lesion count at all.  Each core converts its channels through its own
+    weights, so the numbers are comparable only within a channel, never
+    across them.  Calling this a "damage vector" rather than "eight lesion
+    counts" is the accurate description.
+
+    ``unknown`` names channels with no evidence either way.  They are not the
+    same as zero: a zero asserts the compound does not act through that
+    channel, which is a claim, whereas a prediction that never examined the
+    channel has made no claim at all.  Numerically an unknown channel still
+    contributes nothing, but it travels with the result so a NEGATIVE verdict
+    can report what it did not look at.
     """
 
     bulky_adduct: float = 0.0
@@ -65,10 +75,12 @@ class DamageFlux:
     icl: float = 0.0
     topo: float = 0.0
     aneugenic: float = 0.0
+    #: channels with no evidence either way — absent, not asserted zero
+    unknown: frozenset = frozenset()
 
     def scaled(self, k: float) -> "DamageFlux":
-        return replace(self, **{f.name: getattr(self, f.name) * k
-                                for f in fields(self)})
+        # scale the channels only; `unknown` is metadata and must ride along
+        return replace(self, **{c: getattr(self, c) * k for c in CHANNELS})
 
     def project(self, weights: dict) -> float:
         """Collapse the vector onto one scalar using per-channel weights.
@@ -77,6 +89,15 @@ class DamageFlux:
         same upstream chemistry yields different answers per endpoint.
         """
         return sum(getattr(self, c) * weights.get(c, 0.0) for c in CHANNELS)
+
+    def uncovered(self, weights: dict) -> tuple:
+        """Channels this core would read, but for which there is no evidence.
+
+        A core that weights a channel at zero cannot be misled by ignorance
+        about it, so only channels with a non-zero weight are reported.
+        """
+        return tuple(c for c in CHANNELS
+                     if c in self.unknown and weights.get(c, 0.0) != 0.0)
 
     def as_dict(self) -> dict:
         return {c: getattr(self, c) for c in CHANNELS}
@@ -103,11 +124,15 @@ class Compound:
     # because shutting down translation also shuts down the reporter.
     cytotoxic_per_uM: float = 0.0    # lethal: blocks biosynthesis AND growth
     cytostatic_per_uM: float = 0.0   # bacteriostatic: blocks growth only
+    #: channels never examined for this compound.  Declaring them keeps a
+    #: negative call honest about its own coverage.
+    untested: tuple = ()
     note: str = ""
 
     def flux(self, dose_uM: float, s9: bool = False) -> DamageFlux:
         eff = self.direct_fraction + (self.s9_fraction if s9 else 0.0)
-        return self.per_uM.scaled(dose_uM * eff)
+        f = self.per_uM.scaled(dose_uM * eff)
+        return replace(f, unknown=frozenset(self.untested)) if self.untested else f
 
     def extra_toxicity(self, dose_uM: float) -> float:
         return self.cytotoxic_per_uM * dose_uM
@@ -154,12 +179,22 @@ class TabulatedSource(DamageSource):
 class QSARSource(DamageSource):
     """Placeholder for the predictive upstream.
 
-    Left unimplemented on purpose.  The honest blocker is that the public
-    labelled data for most channels is the *assay outcome*, not the lesion
-    flux — training on Ames labels and then feeding an Ames model is circular.
-    Channels that can be derived from first principles or from target-binding
-    data (electrophilicity -> alkylation/bulky; tubulin binding -> aneugenic;
-    Top2 pharmacophore -> topo) are the ones to implement first.
+    Left unimplemented on purpose, but the reason needs stating precisely.
+    Training end-to-end on assay outcomes is a perfectly legitimate way to
+    *predict* those outcomes, and nothing here argues otherwise.  What is not
+    legitimate is relabelling such a prediction as a measured lesion flux and
+    then feeding it to a mechanistic model of the same endpoint: the
+    mechanism then contributes no information, and the apparent agreement is
+    the training signal coming back around.  Establishing that an
+    intermediate is real needs independent state measurements, perturbation
+    tests, or an identifiability argument — see
+    :mod:`genotox.identifiability` for what this readout could support.
+
+    So the channels to implement first are the ones with evidence that is not
+    the endpoint itself: electrophilicity from quantum descriptors ->
+    alkylation/bulky; tubulin binding -> aneugenic; a Top2 pharmacophore ->
+    topo.  Channels with no such evidence belong in ``DamageFlux.unknown``,
+    not at zero.
     """
 
     provenance = "not implemented"
@@ -214,6 +249,14 @@ DEMO_COMPOUNDS = [
              "threshold -> the assay cannot decide, and must say so",
     ),
     Compound(
+        name="mixed clastogen/aneugen",
+        per_uM=DamageFlux(aneugenic=0.80, dsb=0.012, ssb=0.060),
+        direct_fraction=1.0,
+        cytostatic_per_uM=0.05,
+        note="two mechanisms at once — the case every 'pure' demo compound "
+             "hides.  Real chemicals are not obliged to use one channel.",
+    ),
+    Compound(
         name="non-genotoxic cytotoxicant",
         per_uM=DamageFlux(),
         direct_fraction=1.0,
@@ -221,3 +264,18 @@ DEMO_COMPOUNDS = [
         note="kills growth without inducing; the assay's false-positive trap",
     ),
 ]
+
+
+#: Look demo compounds up by name.  Positional access into DEMO_COMPOUNDS is
+#: brittle: inserting a compound in the middle silently re-points every index
+#: after it, which is exactly how a runner ended up analysing the wrong
+#: chemical while still passing its own checks.
+BY_NAME = {c.name: c for c in DEMO_COMPOUNDS}
+
+
+def demo(name: str) -> Compound:
+    try:
+        return BY_NAME[name]
+    except KeyError:
+        raise KeyError(f"no demo compound {name!r}; have "
+                       f"{sorted(BY_NAME)}") from None
