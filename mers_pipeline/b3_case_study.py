@@ -42,6 +42,19 @@ def fp(s: str):
     return _MORGAN.GetFingerprint(m) if m is not None else None
 
 
+def strip_stereo(s: str) -> str | None:
+    """去立体化学的规范 SMILES —— 用于识别对映体/外消旋体关系。
+
+    Morgan 指纹（不含手性）无法区分对映体，所以相似性分析里会出现
+    Tanimoto = 1.0 却不是精确 SMILES 匹配的情况。这个函数把这类关系显式标出来。
+    """
+    m = Chem.MolFromSmiles(s)
+    if m is None:
+        return None
+    Chem.RemoveStereochemistry(m)
+    return Chem.MolToSmiles(m)
+
+
 def main() -> dict:
     sp = load_sciplex_compounds()
 
@@ -52,6 +65,7 @@ def main() -> dict:
         "MERS_细胞抗病毒": pd.read_csv(RES_A / "mers_cell_antiviral.csv"),
     }
 
+    sp["smiles_nostereo"] = [strip_stereo(s) for s in sp["smiles_std"]]
     sp_fps = [fp(s) for s in sp["smiles_std"]]
     valid = [i for i, f in enumerate(sp_fps) if f is not None]
     sp = sp.iloc[valid].reset_index(drop=True)
@@ -62,13 +76,21 @@ def main() -> dict:
     for name, df in sets.items():
         ref_smiles = df["smiles_std"].dropna().tolist()
         exact = sorted(set(sp["smiles_std"]) & set(ref_smiles))
+        # 去立体后的匹配：捕捉对映体/外消旋体这类"同一药物不同立体形式"的情况
+        ref_nostereo = {x for x in (strip_stereo(s) for s in ref_smiles) if x}
+        stereo_only = sorted(
+            set(sp.loc[sp["smiles_nostereo"].isin(ref_nostereo), "smiles_std"]) - set(exact)
+        )
         ref_fps = [f for f in (fp(s) for s in ref_smiles) if f is not None]
         sims = np.array([max(DataStructs.BulkTanimotoSimilarity(f, ref_fps))
                          for f in sp_fps]) if ref_fps else np.zeros(len(sp_fps))
+        stereo_names = sp.loc[sp["smiles_std"].isin(stereo_only), "name"].tolist()
         out["overlaps"][name] = {
             "n_reference": int(len(ref_smiles)),
             "n_exact_structural_overlap": len(exact),
             "overlapping_compound_names": sp.loc[sp["smiles_std"].isin(exact), "name"].tolist(),
+            "n_stereoisomer_only_overlap": len(stereo_only),
+            "stereoisomer_only_names": stereo_names,
         }
         out["similarity"][name] = {
             "nn_tanimoto_median": round(float(np.median(sims)), 3),
@@ -84,6 +106,7 @@ def main() -> dict:
         rows.append(pd.DataFrame({"sciplex_compound": sp["name"], "reference_set": name,
                                   "nn_tanimoto": sims.round(4)}))
         log(f"[{name}] 参考 {len(ref_smiles)} 个 | 完全相同结构 {len(exact)} 个 | "
+            f"仅立体异构体不同 {len(stereo_only)} 个{(' '+str(stereo_names)) if stereo_names else ''} | "
             f"最近邻 Tanimoto 中位 {np.median(sims):.3f} 最大 {sims.max():.3f} | "
             f"≥0.5 的 {int((sims>=0.5).sum())} 个")
 
@@ -91,7 +114,7 @@ def main() -> dict:
 
     # ---- 对交集化合物做逐个案例分析 ----
     hit_names = sorted({n for v in out["overlaps"].values()
-                        for n in v["overlapping_compound_names"]})
+                        for n in v["overlapping_compound_names"] + v["stereoisomer_only_names"]})
     out["case_studies"] = _case_studies(sp, hit_names)
     total_exact = len(hit_names)
     n_repro = sum(1 for c in out["case_studies"] if c["reproducible_anywhere"])
@@ -103,8 +126,12 @@ def main() -> dict:
         "case_study_feasible": total_exact > 0,
         "statement": (
             f"sci-Plex3 的 {len(sp)} 个化合物与 MERS-CoV 的四个化合物集合共有 "
-            f"{total_exact} 个完全相同的结构：{'、'.join(c['compound'] for c in out['case_studies'])}。"
-            f"样本量不足以做统计推断，只能作个案描述。"
+            f"{total_exact} 个可对应的分子："
+            + "、".join(
+                c["compound"] + ("（立体异构体对应：sci-Plex 为外消旋体，"
+                                 "MERS 集为单一对映体）" if c.get("stereoisomer_match") else "")
+                for c in out["case_studies"])
+            + "。样本量不足以做统计推断，只能作个案描述。"
         ),
         "key_finding": (
             f"这 {total_exact} 个交集化合物中只有 {n_repro} 个在任一细胞系达到可重复性门槛，"
@@ -143,10 +170,16 @@ def _case_studies(sp: pd.DataFrame, names: list[str]) -> list[dict]:
         if row.empty:
             continue
         smi = row.iloc[0]["smiles_std"]
+        nostereo = strip_stereo(smi)
         c: dict = {"compound": name.strip(), "smiles": smi, "mers_potency": {}}
         for label, (path, col) in sets.items():
             t = pd.read_csv(path)
             m = t[t["smiles_std"] == smi]
+            if not len(m):
+                # 退回到去立体匹配（对映体/外消旋体）
+                m = t[[strip_stereo(s) == nostereo for s in t["smiles_std"]]]
+                if len(m):
+                    c.setdefault("stereoisomer_match", []).append(label)
             if len(m):
                 c["mers_potency"][label] = {
                     "value_nM": float(m.iloc[0]["value_nM"]),

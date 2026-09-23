@@ -7,6 +7,10 @@
       "overlapping_compound_names": [
         "Disulfiram ",
         "KW-2449"
+      ],
+      "n_stereoisomer_only_overlap": 1,
+      "stereoisomer_only_names": [
+        "Ofloxacin"
       ]
     },
     "MERS_PLpro": {
@@ -14,7 +18,9 @@
       "n_exact_structural_overlap": 1,
       "overlapping_compound_names": [
         "Disulfiram "
-      ]
+      ],
+      "n_stereoisomer_only_overlap": 0,
+      "stereoisomer_only_names": []
     },
     "MERS_Mpro_基准集(含实测非活性)": {
       "n_reference": 79,
@@ -22,6 +28,10 @@
       "overlapping_compound_names": [
         "Disulfiram ",
         "KW-2449"
+      ],
+      "n_stereoisomer_only_overlap": 1,
+      "stereoisomer_only_names": [
+        "Ofloxacin"
       ]
     },
     "MERS_细胞抗病毒": {
@@ -29,7 +39,9 @@
       "n_exact_structural_overlap": 1,
       "overlapping_compound_names": [
         "Dasatinib"
-      ]
+      ],
+      "n_stereoisomer_only_overlap": 0,
+      "stereoisomer_only_names": []
     }
   },
   "similarity": {
@@ -221,18 +233,44 @@
         "MCF7": -0.014
       },
       "reproducible_anywhere": false
+    },
+    {
+      "compound": "Ofloxacin",
+      "smiles": "CC1COc2c(N3CCN(C)CC3)c(F)cc3c(=O)c(C(=O)O)cn1c23",
+      "mers_potency": {
+        "MERS_Mpro": {
+          "value_nM": 7600.0,
+          "p": 5.12,
+          "endpoint": "IC50"
+        }
+      },
+      "stereoisomer_match": [
+        "MERS_Mpro"
+      ],
+      "sciplex_split_half_reproducibility": {
+        "A549": 0.477,
+        "K562": 0.143,
+        "MCF7": 0.188
+      },
+      "loso_transfer_pearson": {
+        "A549": 0.082,
+        "K562": 0.033,
+        "MCF7": 0.092
+      },
+      "reproducible_anywhere": true
     }
   ],
   "verdict": {
-    "total_exact_overlaps": 3,
+    "total_exact_overlaps": 4,
     "overlapping_compounds": [
       "Dasatinib",
       "Disulfiram",
-      "KW-2449"
+      "KW-2449",
+      "Ofloxacin"
     ],
     "case_study_feasible": true,
-    "statement": "sci-Plex3 的 188 个化合物与 MERS-CoV 的四个化合物集合共有 3 个完全相同的结构：Dasatinib、Disulfiram、KW-2449。样本量不足以做统计推断，只能作个案描述。",
-    "key_finding": "这 3 个交集化合物中只有 1 个在任一细胞系达到可重复性门槛，其 LOSO 迁移 r 最高仅 0.099（远低于可重复子集的 0.22 中位）。换言之：**两类数据真正相交的那几个化合物，恰恰是 virtual cell 方法最没有话可说的那几个** —— 它们是弱效、常为泛试剂干扰型的蛋白酶结合剂（如 Disulfiram 这类巯基反应性化合物会非选择性地弱抑制两种半胱氨酸蛋白酶），而非强转录扰动剂。",
+    "statement": "sci-Plex3 的 188 个化合物与 MERS-CoV 的四个化合物集合共有 4 个可对应的分子：Dasatinib、Disulfiram、KW-2449、Ofloxacin（立体异构体对应：sci-Plex 为外消旋体，MERS 集为单一对映体）。样本量不足以做统计推断，只能作个案描述。",
+    "key_finding": "这 4 个交集化合物中只有 2 个在任一细胞系达到可重复性门槛，其 LOSO 迁移 r 最高仅 0.099（远低于可重复子集的 0.22 中位）。换言之：**两类数据真正相交的那几个化合物，恰恰是 virtual cell 方法最没有话可说的那几个** —— 它们是弱效、常为泛试剂干扰型的蛋白酶结合剂（如 Disulfiram 这类巯基反应性化合物会非选择性地弱抑制两种半胱氨酸蛋白酶），而非强转录扰动剂。",
     "chemical_space": "sci-Plex 化合物库以肿瘤表观遗传/激酶调控剂为主，MERS-CoV 抑制剂以肽模拟共价蛋白酶抑制剂为主，两者化学空间基本不相交（最近邻 Tanimoto 中位 0.15–0.23）。"
   }
 }

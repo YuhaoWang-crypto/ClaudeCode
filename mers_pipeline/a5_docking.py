@@ -144,19 +144,32 @@ def screen(df: pd.DataFrame, receptor_tag: str, exhaustiveness: int = 16,
 
 
 # ------------------------------------------------------------------ 富集指标
+MIN_EF_K = 3   # 前 k 个里少于这么多化合物时，EF 退化到没有意义
+
+
 def enrichment_factor(y_true: np.ndarray, score: np.ndarray, frac: float) -> float:
-    """score 越大越好。EF = (前 frac 中的活性率) / (总体活性率)。"""
+    """score 越大越好。EF = (前 frac 中的活性率) / (总体活性率)。
+
+    注意：小数据集上高百分位的 EF 会退化 —— n=79 时 EF1% 只看 1 个化合物，
+    取值只能是 0 或 1/Ra。此处对 k < MIN_EF_K 的情形返回 NaN 而不是给出
+    一个看起来像指标的数字。
+    """
     n = len(y_true)
-    k = max(1, int(round(n * frac)))
+    k = int(round(n * frac))
+    if k < MIN_EF_K:
+        return float("nan")
     order = np.argsort(-score)
-    hits = y_true[order][:k].sum()
-    rate_top = hits / k
+    rate_top = y_true[order][:k].sum() / k
     rate_all = y_true.sum() / n
     return float(rate_top / rate_all) if rate_all > 0 else float("nan")
 
 
 def bedroc(y_true: np.ndarray, score: np.ndarray, alpha: float = 20.0) -> float:
-    """BEDROC（Truchon & Bayly 2007），强调排序靠前的富集。"""
+    """BEDROC（Truchon & Bayly 2007, eq. 36），强调排序靠前的富集，取值 [0, 1]。
+
+        BEDROC = RIE · [Ra·sinh(α/2)] / [cosh(α/2) − cosh(α/2 − α·Ra)]
+                 + 1 / [1 − e^(α(1−Ra))]
+    """
     n = len(y_true)
     order = np.argsort(-score)
     y = y_true[order]
@@ -165,11 +178,10 @@ def bedroc(y_true: np.ndarray, score: np.ndarray, alpha: float = 20.0) -> float:
     if N_a == 0 or N_a == n:
         return float("nan")
     ra = N_a / n
-    s = np.sum(np.exp(-alpha * ranks / n))
-    denom = (ra * (1 - np.exp(-alpha)) / (np.exp(alpha / n) - 1))
-    rie = s / denom
+    rie = (np.sum(np.exp(-alpha * ranks / n))
+           / (ra * (1 - np.exp(-alpha)) / (np.exp(alpha / n) - 1)))
     fac = ra * np.sinh(alpha / 2) / (np.cosh(alpha / 2) - np.cosh(alpha / 2 - alpha * ra))
-    return float(rie / fac + 1 / (1 - np.exp(alpha * (1 - ra))))
+    return float(rie * fac + 1 / (1 - np.exp(alpha * (1 - ra))))
 
 
 def auc_bootstrap_ci(y: np.ndarray, s: np.ndarray, n_boot: int = 5000,
