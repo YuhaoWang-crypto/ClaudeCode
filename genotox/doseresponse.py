@@ -41,6 +41,18 @@ UMU = Protocol("umu", 1.5, 0.50, "growth factor",
 GADD45A_GFP = Protocol("GADD45a-GFP", 1.3, 0.80, "relative cell density",
                        "representative reporter-line criteria (H)")
 
+#: Alkaline comet.  A short exposure with no division; the gate is viability,
+#: because breaks from dying cells are indistinguishable from genotoxic ones
+#: and a "hedgehog"-laden slide is not scorable.
+COMET = Protocol("comet", 1.5, 0.70, "relative viability",
+                 "representative comet criteria (H)")
+
+#: Cytokinesis-block micronucleus.  The gate is proliferation, not cell
+#: number: the endpoint is scored per binucleated cell, so a culture that did
+#: not divide has no denominator rather than a low numerator.
+MN_CBMN = Protocol("MN-CBMN", 1.5, 0.45, "relative proliferation (CBPI-1)",
+                   "representative CBMN criteria, ~55% cytostasis limit (H)")
+
 # Backwards-compatible aliases for callers written against the umu-only API.
 IR_THRESHOLD = UMU.ir_threshold
 GROWTH_GATE = UMU.growth_gate

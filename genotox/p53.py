@@ -42,6 +42,66 @@ _ZERO_FLUX = DamageFlux()
 
 
 @dataclass
+class P53Mdm2:
+    """The p53-Mdm2 delayed-feedback loop, as a reusable 4-state sub-model.
+
+    Extracted so the cytogenetic core (endpoint #3) can share one p53
+    representation with the reporter core rather than carrying a second,
+    silently different one.  It owns states (p53, Mdm2_mRNA, Mdm2_cyt,
+    Mdm2_nuc) and knows nothing about what reads it.
+
+    Parameters were chosen by sweep to put the damaged-state pulse period
+    near the commonly reported few-hour range (~5.3 h) and keep the
+    undamaged state stable.  Illustrative (H), not fitted to a time series.
+    """
+
+    n_states: int = 4
+    s_p53: float = 0.06
+    k_deg: float = 0.60
+    K_deg: float = 0.05
+    d_p53_basal: float = 0.0015
+    K_atm: float = 0.30      # ATM shielding p53 from Mdm2-mediated degradation
+    k_mdm2_txn: float = 0.030
+    mdm2_leak: float = 0.04
+    K_p53: float = 0.35
+    h_p53: float = 6.0
+    d_mdm2_mrna: float = 0.006
+    k_mdm2_tsl: float = 0.060
+    k_import: float = 0.015
+    d_mdm2: float = 0.006
+    psi_atm: float = 3.0     # ATM also destabilising Mdm2
+    # p53 level giving 50% cycle arrest.  Set too low, a reporter core
+    # arrests the culture before it can accumulate signal and every
+    # genotoxicant self-gates into INCONCLUSIVE.
+    K_arrest: float = 0.60
+    h_arrest: float = 2.0
+
+    seed: tuple = (0.05, 0.5, 1.0, 1.0)
+
+    def rhs(self, y4, A: float):
+        """dy/dt for the four states, given DDR kinase activity ``A``."""
+        P, Mr, Mc, Mn = (max(v, 0.0) for v in y4)
+        deg = self.k_deg * Mn * P / (P + self.K_deg) / (1.0 + A / self.K_atm)
+        dP = self.s_p53 - deg - self.d_p53_basal * P
+        prom = (self.mdm2_leak + (1.0 - self.mdm2_leak)
+                * _hill(P, self.K_p53, self.h_p53))
+        dMr = self.k_mdm2_txn * prom - self.d_mdm2_mrna * Mr
+        dMc = (self.k_mdm2_tsl * Mr - self.k_import * Mc
+               - self.d_mdm2 * Mc * (1.0 + self.psi_atm * A))
+        dMn = self.k_import * Mc - self.d_mdm2 * Mn * (1.0 + self.psi_atm * A)
+        return (dP, dMr, dMc, dMn)
+
+    def arrest(self, P: float) -> float:
+        """Fraction of maximal cycling rate left, via p53 -> p21."""
+        return 1.0 / (1.0 + (max(P, 0.0) / self.K_arrest) ** self.h_arrest)
+
+
+def _hill(x, K, h):
+    x = max(x, 0.0)
+    return x ** h / (K ** h + x ** h) if x > 0 else 0.0
+
+
+@dataclass
 class P53Core(SignalCore):
     """DNA damage / mitotic stress -> ATM-ATR -> p53-Mdm2 -> GADD45a-GFP."""
 
@@ -80,21 +140,8 @@ class P53Core(SignalCore):
     w_dna: float = 1.0
     w_mit: float = 0.55   # mitotic surveillance is a real but weaker route
 
-    # -- p53 / Mdm2 core (swept, see module docstring) ----------------------
-    s_p53: float = 0.06
-    k_deg: float = 0.60
-    K_deg: float = 0.05
-    d_p53_basal: float = 0.0015
-    K_atm: float = 0.30      # ATM shielding p53 from Mdm2-mediated degradation
-    k_mdm2_txn: float = 0.030
-    mdm2_leak: float = 0.04
-    K_p53: float = 0.35
-    h_p53: float = 6.0
-    d_mdm2_mrna: float = 0.006
-    k_mdm2_tsl: float = 0.060
-    k_import: float = 0.015
-    d_mdm2: float = 0.006
-    psi_atm: float = 3.0     # ATM also destabilising Mdm2
+    # -- p53 / Mdm2 loop, shared with the cytogenetic core ------------------
+    p53: P53Mdm2 = field(default_factory=P53Mdm2)
 
     # -- GADD45a-GFP reporter ------------------------------------------------
     gfp_leak: float = 0.05
@@ -110,11 +157,6 @@ class P53Core(SignalCore):
     mu_max: float = np.log(2) / 1440.0   # 24 h doubling
     K_tox: float = 25.0
     h_tox: float = 3.0
-    # p53 level giving 50% cycle arrest.  Set too low, the reporter
-    # arrests the culture before it can accumulate GFP and every
-    # genotoxicant self-gates into INCONCLUSIVE.
-    K_arrest: float = 0.60
-    h_arrest: float = 2.0
     N0: float = 1.0
 
     def __post_init__(self):
@@ -155,7 +197,7 @@ class P53Core(SignalCore):
     def _solve_basal(self) -> np.ndarray:
         """Undamaged steady state, obtained by relaxing the model."""
         exp = Exposure(flux=_ZERO_FLUX, duration_min=20000.0)
-        y = np.array([0.0, 0.0, 0.05, 0.5, 1.0, 1.0, 0.1, 0.1, 1.0, self.N0])
+        y = np.array([0.0, 0.0, *self.p53.seed, 0.1, 0.1, 1.0, self.N0])
         from scipy.integrate import solve_ivp
         sol = solve_ivp(self.rhs, (0.0, 20000.0), y, args=(exp,),
                         method="LSODA", rtol=1e-9, atol=1e-11)
@@ -175,8 +217,7 @@ class P53Core(SignalCore):
         v = self.viability(D, exp.extra_toxicity)
         cycling = v / (1.0 + max(exp.growth_inhibition, 0.0))
         # p53 -> p21 -> cycle arrest: the assay's own cytostasis
-        arrest = 1.0 / (1.0 + (P / self.K_arrest) ** self.h_arrest)
-        mu = self.mu_max * cycling * arrest
+        mu = self.mu_max * cycling * self.p53.arrest(P)
 
         A = self.ddr_activity(D, S, cycling)
 
@@ -186,15 +227,7 @@ class P53Core(SignalCore):
         dS = (exp.flux.project(self.mitotic_weights)
               - self.k_clear_mitotic * S - mu * S)
 
-        deg = self.k_deg * Mn * P / (P + self.K_deg) / (1.0 + A / self.K_atm)
-        dP = self.s_p53 - deg - self.d_p53_basal * P
-
-        prom_mdm2 = (self.mdm2_leak + (1.0 - self.mdm2_leak)
-                     * self._hill(P, self.K_p53, self.h_p53))
-        dMr = self.k_mdm2_txn * prom_mdm2 - self.d_mdm2_mrna * Mr
-        dMc = (self.k_mdm2_tsl * Mr - self.k_import * Mc
-               - self.d_mdm2 * Mc * (1.0 + self.psi_atm * A))
-        dMn = self.k_import * Mc - self.d_mdm2 * Mn * (1.0 + self.psi_atm * A)
+        dP, dMr, dMc, dMn = self.p53.rhs((P, Mr, Mc, Mn), A)
 
         prom_gadd = self.gadd_promoter(P)
         dRg = self.k_gfp_txn * prom_gadd * v - self.d_gfp_mrna * Rg - mu * Rg

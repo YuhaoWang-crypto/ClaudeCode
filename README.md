@@ -51,18 +51,23 @@ so far, as mechanistic ODEs with the readout and decision layers split out:
 |---|---|---|---|
 | 1 | umu test | SOS / LexA-RecA / umuDC-lacZ | graded induction; bell-shaped dose response from damage-linked viability |
 | 2 | GADD45a-GFP reporter line | p53 ⇄ Mdm2 delayed feedback | p53 **pulses** (~5.3 h); stable GFP integrates the pulse train |
+| 3 | comet **and** micronucleus | cytogenetic: adducts → breaks → acentric fragments / lagging chromosomes | one core, two instruments, two exposure times; centromere status names the mechanism |
 
 ```bash
 python3 -m genotox.run_umu
 python3 -m genotox.run_p53
+python3 -m genotox.run_comet_mn
 ```
 
-Step 2 reuses step 1's upstream layer, readout registry and decision layer
-unchanged — only the core is new, which was the point of the split.
+Each step reuses the earlier upstream layer, readout registry and decision
+layer unchanged — only the core is new, which was the point of the split.
 
 The interface between chemistry and biology is a per-channel lesion *vector*,
 not a potency scalar, so one upstream prediction gives different answers at
-different endpoints. Three findings the runs produced, including one against
-expectation (reporter lines overstate aneugens ~2x, almost all of it growth
-artifact), are in [`genotox/README.md`](genotox/README.md). Rate constants are
-illustrative, not fitted.
+different endpoints: an aneugen is SOS-negative, comet-negative, and
+micronucleus-positive with 98.8% centromere-positive micronuclei. Five
+findings the runs produced — two of them against expectation, including that
+the micronucleus dose-response turnover is a cytotoxicity artifact rather
+than the p53-arrest effect it was first attributed to — are in
+[`genotox/README.md`](genotox/README.md). Rate constants are illustrative,
+not fitted. 20 structural checks pass.

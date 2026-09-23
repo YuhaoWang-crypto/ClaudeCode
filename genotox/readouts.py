@@ -189,9 +189,94 @@ class PulseProbe(Readout):
         return out
 
 
-#: Readouts available by name.  Endpoint #3 registers here.
+
+@dataclass
+class CometAlkaline(Readout):
+    """Alkaline comet assay: electrophoretic migration of broken DNA.
+
+    What migrates is strand breaks and alkali-labile sites -- NOT bulky
+    adducts, which are electrically and topologically silent until excision
+    repair cuts around them.  The consequences are worth stating because they
+    are easy to get backwards:
+
+    * an alkylating agent scores immediately (its adducts are alkali-labile);
+    * a bulky-adduct former scores only through the transient gaps excision
+      repair creates, so a faster-repairing cell looks *more* damaged;
+    * an aneugen scores zero at every dose, since nothing is broken.
+
+    %tail saturates: past a certain break density the whole nucleoid has
+    migrated and the assay cannot rank further. That ceiling is modelled,
+    because reporting an unbounded comet signal would invent resolution the
+    technique does not have.
+    """
+
+    name = "comet_alkaline"
+    requires = ("ssb", "dsb", "alkali_labile", "viability")
+    w_dsb: float = 1.8          # a double-strand break frees more DNA
+    w_als: float = 0.45         # alkali-labile sites converted under lysis
+    K_tail: float = 6.0
+    tail_max: float = 92.0      # %tail DNA ceiling
+
+    def __call__(self, obs: dict) -> dict:
+        self.check(obs)
+        ssb = float(obs["ssb"][-1])
+        dsb = float(obs["dsb"][-1])
+        als = float(obs["alkali_labile"][-1])
+        x = ssb + self.w_dsb * dsb + self.w_als * als
+        pct = self.tail_max * x / (self.K_tail + x)
+        viab = float(obs["viability"][-1])
+        return {"comet_breaks": x, "pct_tail_dna": pct,
+                # tail moment ~ %tail x tail length; length itself saturates
+                "tail_moment": pct * (x / (self.K_tail + x)),
+                "signal": pct, "biomass": viab}
+
+
+@dataclass
+class MicronucleusCBMN(Readout):
+    """Cytokinesis-block micronucleus assay, with centromere status.
+
+    Scored per binucleated cell, so it counts only cells that actually got
+    through a division -- which is why an arresting compound suppresses its
+    own endpoint and the dose-response turns over.
+
+    Centromere staining is the reason this endpoint can name a mechanism:
+    a centromere-negative micronucleus is an acentric fragment (clastogenic),
+    a centromere-positive one is a whole lagging chromosome (aneugenic).  No
+    transcriptional reporter can make that distinction.
+
+    The validity measure is proliferation (CBPI), not cell number.  CBPI runs
+    from 1 (nothing divided) to 2 (everything divided once), so the quantity
+    that behaves like a ratio is CBPI - 1.
+    """
+
+    name = "micronucleus_cbmn"
+    requires = ("mn_centromere_neg", "mn_centromere_pos",
+                "cells_undivided", "cells_divided")
+
+    def __call__(self, obs: dict) -> dict:
+        self.check(obs)
+        nu = float(obs["cells_undivided"][-1])
+        nd = float(obs["cells_divided"][-1])
+        mnc = float(obs["mn_centromere_neg"][-1])
+        mnp = float(obs["mn_centromere_pos"][-1])
+        total = nu + nd
+        cbpi = (nu + 2.0 * nd) / total if total > 0 else 1.0
+        mn_total = mnc + mnp
+        per_1000 = 1000.0 * mn_total / nd if nd > 0 else 0.0
+        pct_cpos = 100.0 * mnp / mn_total if mn_total > 0 else 0.0
+        return {"mn_per_1000_bn": per_1000,
+                "mn_centromere_pos_pct": pct_cpos,
+                "binucleate_fraction": nd / total if total > 0 else 0.0,
+                "CBPI": cbpi,
+                "signal": per_1000,
+                # CBPI-1 is the part that scales like a proliferation ratio
+                "biomass": cbpi - 1.0}
+
+
+#: Readouts available by name.
 REGISTRY = {r.name: r for r in (BetaGalONPG(), GrowthReadout(), DamageProbe(),
-                                ReporterFluorescence(), PulseProbe())}
+                                ReporterFluorescence(), PulseProbe(),
+                                CometAlkaline(), MicronucleusCBMN())}
 
 
 def apply_readouts(obs: dict, names=None) -> dict:

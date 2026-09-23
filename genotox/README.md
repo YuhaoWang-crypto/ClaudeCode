@@ -3,16 +3,21 @@
 **Step 1** — the **umu test** (SOS/umuDC-lacZ, *S. typhimurium*
 TA1535/pSK1002).
 **Step 2** — a mammalian **GADD45a-GFP reporter line** (p53/Mdm2 delayed
-feedback).  It reuses step 1's upstream layer, readout registry and decision
+feedback).
+**Step 3** — **comet + micronucleus** from one cytogenetic core, sharing the
+p53 sub-model with step 2.
+
+Each step reuses the upstream layer, the readout registry and the decision
 layer unchanged; only the core is new, which was the point of the split.
 
 ```bash
 pip install numpy scipy matplotlib
 python3 -m genotox.run_umu        # step 1: tables + checks + figure
 python3 -m genotox.run_p53        # step 2: pulses, cross-endpoint, checks
+python3 -m genotox.run_comet_mn   # step 3: mechanism table + 2 experiments
 ```
 
-Writes `figures/genotox_umu.png` and `figures/genotox_p53.png`.
+Writes three figures into `figures/`.
 
 ## The four seams
 
@@ -31,7 +36,7 @@ Each layer is replaceable on its own:
 |---|---|---|
 | a predictive chemistry front end | `DamageSource` subclass | core, readouts, decision |
 | endpoint #2 (p53/GADD45a reporter) | new `SignalCore` — *done* | source, decision |
-| endpoint #3 (comet, micronucleus) | new readout on a core exposing break density | source |
+| endpoint #3 (comet, micronucleus) | new `SignalCore` + 2 readouts — *done* | source, decision |
 | a different protocol threshold | a `Protocol` instance | all biology |
 
 Readouts hand the decision layer exactly two generic names, `signal` and
@@ -103,6 +108,71 @@ Relatedly, the aneugen's *verdict* is set by the protocol, not the biology:
 one unchanged simulation scores INCONCLUSIVE at a 0.80 density gate and
 POSITIVE at 0.60.
 
+## Step 3: two assays, one core
+
+Comet and CBMN are not different biologies — they are the same damaged cells
+measured with different instruments at different times. So step 3 adds **one**
+core and **two** readouts, and the two assays differ only in exposure length
+and readout:
+
+| | comet | micronucleus (CBMN) |
+|---|---|---|
+| exposure | 4 h | 36 h |
+| requires division | no | **yes** |
+| measures | break density in situ | what survived into the next mitosis |
+| validity gate | relative viability | relative proliferation (CBPI−1) |
+
+The lesion pool had to be split to support this. A single lumped `lesions`
+variable drives a transcriptional reporter fine, but the alkaline comet does
+**not** see bulky adducts — what migrates is strand breaks and alkali-labile
+sites. So the core tracks bulky adducts, alkyl adducts (themselves
+alkali-labile), SSB, DSB, acentric fragments and spindle engagement
+separately.
+
+Centromere status is carried through the whole chain: acentric fragments give
+centromere-negative micronuclei, lagging whole chromosomes give
+centromere-positive ones.
+
+## What step 3 buys: naming the mechanism
+
+Step 2's finding was that a transcriptional reporter cannot distinguish a
+clastogen from an aneugen — both just raise p53, and most of the apparent
+aneugen signal was growth artifact. Two observables fix that. Comet answers
+"was the DNA broken"; centromere status answers "was a whole chromosome
+lost":
+
+| compound | comet | MN | %MN C+ | mechanism |
+|---|---|---|---|---|
+| bulky adduct former | POS | POS | 0.0 | clastogenic |
+| alkylating agent | POS | POS | 0.0 | clastogenic |
+| direct clastogen | POS | POS | 0.0 | clastogenic |
+| **aneugen** | **NEG** | **POS** | **98.8** | **aneugenic** |
+| non-genotoxic cytotoxicant | NEG | NEG | — | negative |
+
+The aneugen is comet-negative at every dose because nothing is broken — that
+is structural, not tuned: the `aneugenic` channel reaches neither break pool.
+
+## Two more results from running it
+
+**The comet scores excision intermediates, not adducts.** Sweeping the NER
+rate at fixed dose, %tail rises from 24 to 58 as repair gets faster, while the
+adduct burden falls from 129 to 2.7 lesions/cell. A repair-*proficient* cell
+looks more damaged than a repair-deficient one, because the assay is counting
+the incisions repair makes, not the lesions it removes. This is the opposite
+of the intuition that repair protects, and it is a manipulation of the model,
+not a curve fit.
+
+**The micronucleus turnover is a cytotoxicity artifact, not a p53 effect.**
+The MN dose-response peaks and falls, which is expected — a cell that does
+not divide cannot form a micronucleus. The first version of this attributed
+the fall to p53 → p21 arrest. Disabling each cause in turn says otherwise:
+the signal falls 84% from peak to top dose normally, 85% with p53 arrest
+disabled, and **0%** with lethality disabled (where it rises monotonically to
+363/1000). So the turnover is driven almost entirely by cells dying, and p53
+arrest contributes ~8%. Reading the high-dose decline as "less genotoxic"
+would be exactly backwards — which is what the protocol's cytostasis limit
+exists to prevent.
+
 ## What the model does and does not claim
 
 The **topology** is standard and mechanistic in both cores: lesion → ssDNA →
@@ -142,7 +212,7 @@ separates them from signal.
 
 ## Structural checks
 
-Thirteen in total (6 + 7), none of them a curve fit. They assert properties of
+Twenty in total (6 + 7 + 7), none of them a curve fit. They assert properties of
 the wiring and fail loudly if a layer is connected wrongly.
 
 `run_umu.py` (6): direct-acting compound positive without S9; promutagen call
@@ -157,6 +227,13 @@ tracks the promoter integral; direct-acting genotoxicant positive; aneugen
 reaches p53 by a route the bacterial core lacks; the reporter overstates the
 aneugen response; the aneugen verdict is set by the density gate; a pure
 cytotoxicant is not called positive.
+
+`run_comet_mn.py` (7): aneugen comet-negative at every dose; aneugen's
+micronuclei centromere-positive; clastogen's centromere-negative; the two
+mechanisms are told apart; pure cytotoxicant negative in both; comet scores
+excision intermediates; MN turnover is a cytotoxicity artifact rather than a
+p53-arrest effect — this last one asserts the *attribution*, with all three
+decomposition numbers, not just the shape of the curve.
 
 Where the failures were fixed matters. Two were fixed in the *assertion*,
 because the assertion tested the wrong thing — raw induction ratio where the
@@ -179,6 +256,17 @@ the lowest dose.
 - In the SOS core LexA is cleared only by growth dilution, which is why
   arresting the culture deepens repression. Adding proteolysis would damp
   that coupling.
+- The cytogenetic core is deterministic and population-averaged. Real comet
+  and MN data are distributions over single cells — %tail is scored per
+  nucleoid and micronuclei are counted per binucleate — so the spread, the
+  "hedgehog" fraction and the overdispersion that drive real statistical
+  power are absent here.
+- Micronucleus formation is evaluated as a per-division probability from the
+  instantaneous fragment burden, not by tracking individual chromosomes
+  through an explicit mitosis.
+- Comet %tail saturates by construction (ceiling 92%), which is right, but the
+  model has no lysis/electrophoresis step, so slide-to-slide and
+  condition-to-condition variation in migration is not represented.
 - S9 is a single scalar activation factor. Real S9 composition varies by
   batch and is a major source of false negatives; this is the layer most in
   need of replacement before any absolute claim is made.
