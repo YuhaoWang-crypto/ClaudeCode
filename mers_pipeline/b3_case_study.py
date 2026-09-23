@@ -218,8 +218,11 @@ def _plot(rows: list, out: dict) -> None:
     ax.axvline(0.5, color="#e53e3e", ls="--", lw=1.6, label="相似性门槛 0.50")
     ax.set_xlabel("sci-Plex 化合物 到 MERS-CoV 化合物集的最近邻 Tanimoto")
     ax.set_ylabel("sci-Plex 化合物数")
+    n_exact = sum(v["n_exact_structural_overlap"] for v in out["overlaps"].values())
+    n_stereo = out["verdict"]["total_exact_overlaps"]
     ax.set_title(f"B3：sci-Plex 与 MERS-CoV 化学空间的距离\n"
-                 f"完全相同结构共 {out['verdict']['total_exact_overlaps']} 个")
+                 f"188 个 sci-Plex 化合物中，可对应到 MERS-CoV 的共 "
+                 f"{n_stereo} 个（其中 1 个为立体异构体对应）")
     ax.legend(frameon=False, fontsize=8.8)
     ax.grid(alpha=0.25)
     fig.tight_layout()
