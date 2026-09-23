@@ -1,0 +1,63 @@
+{
+  "chembl_version": "ChEMBL_37",
+  "datasets": {
+    "MERS_Mpro_IC50": {
+      "n_compounds": 19,
+      "n_scaffolds": 10,
+      "pActivity_min": 4.5718652059712115,
+      "pActivity_max": 6.3979400086720375,
+      "pActivity_median": 5.638272163982407
+    },
+    "MERS_PLpro": {
+      "n_compounds": 9,
+      "n_scaffolds": 9,
+      "pActivity_min": 4.145086977692144,
+      "pActivity_max": 5.119186407719209,
+      "pActivity_median": 5.119186407719209
+    },
+    "MERS_cell_antiviral": {
+      "n_compounds": 132,
+      "n_scaffolds": 65,
+      "pActivity_min": 4.164943898279883,
+      "pActivity_max": 8.326058001365912,
+      "pActivity_median": 5.928180382362728
+    },
+    "SARS_Mpro_train": {
+      "n_compounds": 2563,
+      "n_scaffolds": 1126,
+      "pActivity_min": 4.0,
+      "pActivity_max": 10.602059991327963,
+      "pActivity_median": 6.346787486224656
+    }
+  },
+  "leakage_check": {
+    "identical_structures_train_vs_MERS_test": 17,
+    "shared_scaffolds_train_vs_MERS_test": 8,
+    "overlapping_smiles": [
+      "CC(C)C[C@H](NC(=O)OC1(Cc2ccccc2)CCN(C(=O)OC(C)(C)C)CC1)C(=O)N[C@H](C=O)C[C@@H]1CCNC1=O",
+      "CC(C)C[C@H](NC(=O)OC1(Cc2ccccc2)CCN(S(C)(=O)=O)CC1)C(=O)N[C@@H](C[C@@H]1CCNC1=O)C(O)S(=O)(=O)[O-]",
+      "CC(C)C[C@H](NC(=O)OC1(Cc2ccccc2)CCN(S(C)(=O)=O)CC1)C(=O)N[C@H](C=O)C[C@@H]1CCNC1=O",
+      "CC(C)C[C@H](NC(=O)OC1CCN(C(=O)OC(C)(C)C)CC1)C(=O)N[C@@H](C[C@@H]1CCNC1=O)C(O)S(=O)(=O)[O-]",
+      "CC(C)C[C@H](NC(=O)OC1CCN(C(=O)OC(C)(C)C)CC1)C(=O)N[C@H](C=O)C[C@@H]1CCNC1=O",
+      "CC(C)C[C@H](NC(=O)OC1CCN(S(C)(=O)=O)CC1)C(=O)N[C@@H](C[C@@H]1CCNC1=O)C(O)S(=O)(=O)[O-]",
+      "CC(C)C[C@H](NC(=O)OC1CCN(S(C)(=O)=O)CC1)C(=O)N[C@H](C=O)C[C@@H]1CCNC1=O",
+      "CC(C)N(CCC(=O)c1ccc2ccccc2c1)Cc1ccccc1",
+      "CCC(C)SSc1ncc[nH]1",
+      "CCC1(OC(=O)N[C@@H](CC(C)C)C(=O)N[C@@H](C[C@@H]2CCNC2=O)C(O)S(=O)(=O)[O-])CCN(C(=O)OC(C)(C)C)CC1",
+      "CCC1(OC(=O)N[C@@H](CC(C)C)C(=O)N[C@H](C=O)C[C@@H]2CCNC2=O)CCN(C(=O)OC(C)(C)C)CC1",
+      "CCN(CC)C(=S)SSC(=S)N(CC)CC",
+      "CCOC(=O)N1CCC(OC(=O)N[C@@H](CC(C)C)C(=O)N[C@@H](C[C@@H]2CCNC2=O)C(O)S(=O)(=O)[O-])CC1",
+      "CCOC(=O)N1CCC(OC(=O)N[C@@H](CC(C)C)C(=O)N[C@H](C=O)C[C@@H]2CCNC2=O)CC1",
+      "N#CSc1cc(SC#N)c(N)nc1N",
+      "O=[N+]([O-])c1cnc(Sc2nnc(O)n2-c2ccc3c(c2)OCCO3)s1",
+      "[O-][S+](c1ccccc1)c1ccc2nnnn2n1"
+    ]
+  },
+  "rules": {
+    "relation": "= only",
+    "units": "converted to nM",
+    "drug_like": "150.0 <= MW <= 650.0",
+    "duplicates": "median pActivity per standardized SMILES",
+    "scaffold": "Bemis-Murcko (no chirality)"
+  }
+}

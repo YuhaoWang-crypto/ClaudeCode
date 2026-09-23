@@ -1,2 +1,7 @@
 __pycache__/
 *.pyc
+
+# MERS pipeline: 大体积中间数据（可由流程重新生成/下载）
+data/
+.venv/
+results/trackB/sciplex_pseudobulk.npz

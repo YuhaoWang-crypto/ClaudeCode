@@ -1,0 +1,238 @@
+{
+  "n_sciplex_compounds": 188,
+  "overlaps": {
+    "MERS_Mpro_活性": {
+      "n_reference": 19,
+      "n_exact_structural_overlap": 2,
+      "overlapping_compound_names": [
+        "Disulfiram ",
+        "KW-2449"
+      ]
+    },
+    "MERS_PLpro": {
+      "n_reference": 9,
+      "n_exact_structural_overlap": 1,
+      "overlapping_compound_names": [
+        "Disulfiram "
+      ]
+    },
+    "MERS_Mpro_基准集(含实测非活性)": {
+      "n_reference": 79,
+      "n_exact_structural_overlap": 2,
+      "overlapping_compound_names": [
+        "Disulfiram ",
+        "KW-2449"
+      ]
+    },
+    "MERS_细胞抗病毒": {
+      "n_reference": 132,
+      "n_exact_structural_overlap": 1,
+      "overlapping_compound_names": [
+        "Dasatinib"
+      ]
+    }
+  },
+  "similarity": {
+    "MERS_Mpro_活性": {
+      "nn_tanimoto_median": 0.152,
+      "nn_tanimoto_p95": 0.235,
+      "nn_tanimoto_max": 1.0,
+      "n_above_0.5": 3,
+      "n_above_0.7": 3,
+      "top_matches": [
+        {
+          "name": "Ofloxacin",
+          "sim": 1.0
+        },
+        {
+          "name": "Disulfiram ",
+          "sim": 1.0
+        },
+        {
+          "name": "KW-2449",
+          "sim": 1.0
+        },
+        {
+          "name": "Panobinostat (LBH589)",
+          "sim": 0.26
+        },
+        {
+          "name": "Zileuton",
+          "sim": 0.259
+        }
+      ]
+    },
+    "MERS_PLpro": {
+      "nn_tanimoto_median": 0.157,
+      "nn_tanimoto_p95": 0.238,
+      "nn_tanimoto_max": 1.0,
+      "n_above_0.5": 1,
+      "n_above_0.7": 1,
+      "top_matches": [
+        {
+          "name": "Disulfiram ",
+          "sim": 1.0
+        },
+        {
+          "name": "KW-2449",
+          "sim": 0.29
+        },
+        {
+          "name": "BRD4770",
+          "sim": 0.278
+        },
+        {
+          "name": "Momelotinib (CYT387)",
+          "sim": 0.266
+        },
+        {
+          "name": "TGX-221",
+          "sim": 0.263
+        }
+      ]
+    },
+    "MERS_Mpro_基准集(含实测非活性)": {
+      "nn_tanimoto_median": 0.193,
+      "nn_tanimoto_p95": 0.351,
+      "nn_tanimoto_max": 1.0,
+      "n_above_0.5": 6,
+      "n_above_0.7": 5,
+      "top_matches": [
+        {
+          "name": "Ofloxacin",
+          "sim": 1.0
+        },
+        {
+          "name": "Disulfiram ",
+          "sim": 1.0
+        },
+        {
+          "name": "KW-2449",
+          "sim": 1.0
+        },
+        {
+          "name": "Roscovitine (Seliciclib,CYC202)",
+          "sim": 0.787
+        },
+        {
+          "name": "Quercetin",
+          "sim": 0.757
+        }
+      ]
+    },
+    "MERS_细胞抗病毒": {
+      "nn_tanimoto_median": 0.225,
+      "nn_tanimoto_p95": 0.385,
+      "nn_tanimoto_max": 1.0,
+      "n_above_0.5": 3,
+      "n_above_0.7": 1,
+      "top_matches": [
+        {
+          "name": "Dasatinib",
+          "sim": 1.0
+        },
+        {
+          "name": "Azacitidine ",
+          "sim": 0.562
+        },
+        {
+          "name": "Nilotinib (AMN-107)",
+          "sim": 0.517
+        },
+        {
+          "name": "Mocetinostat (MGCD0103)",
+          "sim": 0.468
+        },
+        {
+          "name": "AICAR (Acadesine)",
+          "sim": 0.434
+        }
+      ]
+    }
+  },
+  "case_studies": [
+    {
+      "compound": "Dasatinib",
+      "smiles": "Cc1nc(Nc2ncc(C(=O)Nc3c(C)cccc3Cl)s2)cc(N2CCN(CCO)CC2)n1",
+      "mers_potency": {
+        "MERS_cell_antiviral": {
+          "value_nM": 5400.0,
+          "p": 5.27,
+          "endpoint": "EC50"
+        }
+      },
+      "sciplex_split_half_reproducibility": {
+        "A549": 0.097,
+        "K562": 0.295,
+        "MCF7": 0.462
+      },
+      "loso_transfer_pearson": {
+        "A549": 0.023,
+        "K562": 0.092,
+        "MCF7": 0.099
+      },
+      "reproducible_anywhere": true
+    },
+    {
+      "compound": "Disulfiram",
+      "smiles": "CCN(CC)C(=S)SSC(=S)N(CC)CC",
+      "mers_potency": {
+        "MERS_Mpro": {
+          "value_nM": 26800.0,
+          "p": 4.57,
+          "endpoint": "IC50"
+        },
+        "MERS_PLpro": {
+          "value_nM": 14600.0,
+          "p": 4.84,
+          "endpoint": "IC50"
+        }
+      },
+      "sciplex_split_half_reproducibility": {
+        "A549": 0.223,
+        "K562": 0.159,
+        "MCF7": 0.153
+      },
+      "loso_transfer_pearson": {
+        "A549": 0.054,
+        "K562": 0.028,
+        "MCF7": 0.06
+      },
+      "reproducible_anywhere": false
+    },
+    {
+      "compound": "KW-2449",
+      "smiles": "O=C(c1ccc(/C=C/c2n[nH]c3ccccc23)cc1)N1CCNCC1",
+      "mers_potency": {
+        "MERS_Mpro": {
+          "value_nM": 3600.0,
+          "p": 5.44,
+          "endpoint": "IC50"
+        }
+      },
+      "sciplex_split_half_reproducibility": {
+        "A549": 0.212,
+        "K562": 0.123,
+        "MCF7": 0.284
+      },
+      "loso_transfer_pearson": {
+        "A549": -0.046,
+        "K562": -0.003,
+        "MCF7": -0.014
+      },
+      "reproducible_anywhere": false
+    }
+  ],
+  "verdict": {
+    "total_exact_overlaps": 3,
+    "overlapping_compounds": [
+      "Dasatinib",
+      "Disulfiram",
+      "KW-2449"
+    ],
+    "case_study_feasible": true,
+    "statement": "sci-Plex3 的 188 个化合物与 MERS-CoV 的四个化合物集合共有 3 个完全相同的结构：Dasatinib、Disulfiram、KW-2449。样本量不足以做统计推断，只能作个案描述。",
+    "key_finding": "这 3 个交集化合物中只有 1 个在任一细胞系达到可重复性门槛，其 LOSO 迁移 r 最高仅 0.099（远低于可重复子集的 0.22 中位）。换言之：**两类数据真正相交的那几个化合物，恰恰是 virtual cell 方法最没有话可说的那几个** —— 它们是弱效、常为泛试剂干扰型的蛋白酶结合剂（如 Disulfiram 这类巯基反应性化合物会非选择性地弱抑制两种半胱氨酸蛋白酶），而非强转录扰动剂。",
+    "chemical_space": "sci-Plex 化合物库以肿瘤表观遗传/激酶调控剂为主，MERS-CoV 抑制剂以肽模拟共价蛋白酶抑制剂为主，两者化学空间基本不相交（最近邻 Tanimoto 中位 0.15–0.23）。"
+  }
+}

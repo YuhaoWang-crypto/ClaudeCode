@@ -1,0 +1,43 @@
+{
+  "dataset": "GSE139944 / GSM4150378 sci-Plex3 (Srivatsan et al. 2020, Science)",
+  "cell_lines": [
+    "A549",
+    "K562",
+    "MCF7"
+  ],
+  "n_groups": 2249,
+  "n_genes": 110983,
+  "n_cells_after_qc": 671778,
+  "qc": {
+    "min_umi": 500,
+    "max_hash_qval": 0.01,
+    "min_hash_ratio": 5.0,
+    "min_cells_per_group": 25
+  },
+  "per_cell_line": {
+    "A549": {
+      "n_groups": 752,
+      "n_vehicle_groups": 1,
+      "n_cells": 218362,
+      "median_cells_per_group": 225.0
+    },
+    "K562": {
+      "n_groups": 750,
+      "n_vehicle_groups": 1,
+      "n_cells": 150465,
+      "median_cells_per_group": 209.5
+    },
+    "MCF7": {
+      "n_groups": 747,
+      "n_vehicle_groups": 1,
+      "n_cells": 302951,
+      "median_cells_per_group": 413.0
+    }
+  },
+  "n_unique_compounds": 188,
+  "mapping": {
+    "context": "cell_type (A549/MCF7/K562)",
+    "perturbation": "product_name + dose",
+    "control": "vehicle=TRUE 的溶剂对照组（对应遗传扰动数据里的 non-targeting）"
+  }
+}

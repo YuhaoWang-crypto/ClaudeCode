@@ -1,0 +1,169 @@
+{
+  "primary_benchmark": {
+    "document": "CHEMBL4495564",
+    "rationale": "活性与非活性来自同一个 FRET 筛选活动，无跨文献批次混杂",
+    "name": "primary_single_campaign",
+    "n_active": 8,
+    "n_inactive": 60,
+    "univariate_baselines": {
+      "MW": {
+        "auc": 0.519,
+        "auc_symmetric": 0.519,
+        "mannwhitney_p": 0.8714662834320939,
+        "active_mean": 294.76,
+        "inactive_mean": 297.34
+      },
+      "cLogP": {
+        "auc": 0.512,
+        "auc_symmetric": 0.512,
+        "mannwhitney_p": 0.9166204403656635,
+        "active_mean": 2.57,
+        "inactive_mean": 2.31
+      },
+      "TPSA": {
+        "auc": 0.444,
+        "auc_symmetric": 0.556,
+        "mannwhitney_p": 0.6139298469720125,
+        "active_mean": 63.56,
+        "inactive_mean": 73.85
+      },
+      "HBD": {
+        "auc": 0.353,
+        "auc_symmetric": 0.647,
+        "mannwhitney_p": 0.171770227624938,
+        "active_mean": 0.88,
+        "inactive_mean": 2.08
+      },
+      "HBA": {
+        "auc": 0.523,
+        "auc_symmetric": 0.523,
+        "mannwhitney_p": 0.8394671070600157,
+        "active_mean": 4.88,
+        "inactive_mean": 4.58
+      },
+      "RotB": {
+        "auc": 0.629,
+        "auc_symmetric": 0.629,
+        "mannwhitney_p": 0.23626840186320386,
+        "active_mean": 3.5,
+        "inactive_mean": 2.9
+      },
+      "HeavyAtoms": {
+        "auc": 0.535,
+        "auc_symmetric": 0.535,
+        "mannwhitney_p": 0.7529112346809951,
+        "active_mean": 19.88,
+        "inactive_mean": 19.95
+      },
+      "RingCount": {
+        "auc": 0.524,
+        "auc_symmetric": 0.524,
+        "mannwhitney_p": 0.8298290765765056,
+        "active_mean": 2.5,
+        "inactive_mean": 2.53
+      },
+      "FracCSP3": {
+        "auc": 0.564,
+        "auc_symmetric": 0.564,
+        "mannwhitney_p": 0.564272338039021,
+        "active_mean": 0.3,
+        "inactive_mean": 0.24
+      }
+    },
+    "strongest_single_descriptor": {
+      "descriptor": "HBD",
+      "auc": 0.353,
+      "auc_symmetric": 0.647,
+      "mannwhitney_p": 0.171770227624938,
+      "active_mean": 0.88,
+      "inactive_mean": 2.08
+    },
+    "n_scaffolds": 56,
+    "caveat": "只有 8 个活性物，统计功效很低；AUC 的 95% CI 会很宽"
+  },
+  "pooled_benchmark": {
+    "documents": [
+      "CHEMBL4196085",
+      "CHEMBL4495564"
+    ],
+    "name": "pooled_two_documents",
+    "n_active": 19,
+    "n_inactive": 60,
+    "univariate_baselines": {
+      "MW": {
+        "auc": 0.792,
+        "auc_symmetric": 0.792,
+        "mannwhitney_p": 0.0001367023738445088,
+        "active_mean": 442.54,
+        "inactive_mean": 297.34
+      },
+      "cLogP": {
+        "auc": 0.347,
+        "auc_symmetric": 0.653,
+        "mannwhitney_p": 0.046569612720446484,
+        "active_mean": 1.57,
+        "inactive_mean": 2.31
+      },
+      "TPSA": {
+        "auc": 0.739,
+        "auc_symmetric": 0.739,
+        "mannwhitney_p": 0.0017705336817551223,
+        "active_mean": 127.17,
+        "inactive_mean": 73.85
+      },
+      "HBD": {
+        "auc": 0.59,
+        "auc_symmetric": 0.59,
+        "mannwhitney_p": 0.23106948109096126,
+        "active_mean": 2.37,
+        "inactive_mean": 2.08
+      },
+      "HBA": {
+        "auc": 0.748,
+        "auc_symmetric": 0.748,
+        "mannwhitney_p": 0.0010637950227631399,
+        "active_mean": 6.89,
+        "inactive_mean": 4.58
+      },
+      "RotB": {
+        "auc": 0.833,
+        "auc_symmetric": 0.833,
+        "mannwhitney_p": 1.1537654056831002e-05,
+        "active_mean": 7.68,
+        "inactive_mean": 2.9
+      },
+      "HeavyAtoms": {
+        "auc": 0.796,
+        "auc_symmetric": 0.796,
+        "mannwhitney_p": 0.00010560415057357164,
+        "active_mean": 30.16,
+        "inactive_mean": 19.95
+      },
+      "RingCount": {
+        "auc": 0.464,
+        "auc_symmetric": 0.536,
+        "mannwhitney_p": 0.6355663771146488,
+        "active_mean": 2.37,
+        "inactive_mean": 2.53
+      },
+      "FracCSP3": {
+        "auc": 0.799,
+        "auc_symmetric": 0.799,
+        "mannwhitney_p": 8.505377340102576e-05,
+        "active_mean": 0.57,
+        "inactive_mean": 0.24
+      }
+    },
+    "strongest_single_descriptor": {
+      "descriptor": "RotB",
+      "auc": 0.833,
+      "auc_symmetric": 0.833,
+      "mannwhitney_p": 1.1537654056831002e-05,
+      "active_mean": 7.68,
+      "inactive_mean": 2.9
+    },
+    "n_scaffolds": 58,
+    "caveat": "活性物混合了药化论文（分子更大）与筛选活动，引入分子量混杂：仅用分子量即可达到 AUC 0.792。任何模型在此集上的表现必须与该基线并列解读。"
+  },
+  "decoy_policy": "使用 ChEMBL 中 IC50 > 10 µM 的**实测非活性**化合物，而非性质匹配的合成诱饵。合成诱饵只是假定不活性；实测非活性是同一实验测过的阴性结果。"
+}

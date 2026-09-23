@@ -1,0 +1,46 @@
+{
+  "n_paired": 17,
+  "n_mers_total": 19,
+  "leakage_fraction": 0.895,
+  "spearman": {
+    "point": -0.22003791673184542,
+    "ci95": [
+      -0.6240799095078092,
+      0.3141705804553173
+    ],
+    "p": 0.3960994405365722
+  },
+  "pearson": {
+    "point": -0.26615484436385944,
+    "ci95": [
+      -0.6499640344232567,
+      0.15030711841050423
+    ],
+    "p": 0.301803342251556
+  },
+  "kendall": {
+    "point": -0.1343433226559697,
+    "p": 0.4566221065414031
+  },
+  "delta_pActivity_mers_minus_sars": {
+    "mean": 0.29255688381219613,
+    "ci95": [
+      -0.1427608157115302,
+      0.7359753146120479
+    ],
+    "wilcoxon_p": 0.2841644287109375,
+    "median": 0.5440680443502757
+  },
+  "direct_transfer_baseline": {
+    "r2": -1.8924990187651636,
+    "mae_log": 0.856832195882064,
+    "mae_predict_mean_baseline": 0.5255973508918484
+  },
+  "mers_dynamic_range_log": 1.8260748027008251,
+  "mers_pActivity_sd": 0.5703262520033998,
+  "verdict": {
+    "external_test_set_valid": false,
+    "reason": "17/19 的 MERS Mpro 化合物结构完全出现在 SARS 训练集中",
+    "potency_transfer_supported": "不成立"
+  }
+}

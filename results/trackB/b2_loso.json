@@ -1,0 +1,269 @@
+{
+  "design_note": "第一版在全部 188 化合物 × 4 剂量上跑 LOSO 得到 r≈0.03，但正对照显示同细胞系内相邻剂量的 delta 相关仅 0.07–0.10、||delta|| 跨四个数量级剂量不变，说明该分辨率下 delta 由噪声主导。本版改为化合物层聚合 + 分半可重复性天花板，并以 transfer_r / r_ceiling 报告归一化迁移效率。",
+  "reproducibility_ceiling": {
+    "median_split_half_r_all": 0.1661,
+    "median_split_half_r_reproducible": 0.4381,
+    "n_compound_cellline_pairs": 558,
+    "n_reproducible_pairs": 99,
+    "threshold": 0.3
+  },
+  "all_compounds": {
+    "summary": {
+      "no_change": {
+        "n": 563,
+        "pearson_delta_mean": 0.0,
+        "pearson_delta_median": 0.0,
+        "pearson_delta_ci95": [
+          0.0,
+          0.0
+        ],
+        "wilcoxon_greater_than_0_p": null,
+        "mae_mean": 0.2225,
+        "top50_overlap_mean": 0.0009,
+        "sign_match_mean": 0.0,
+        "transfer_efficiency_median": 0.0
+      },
+      "unweighted_consensus": {
+        "n": 563,
+        "pearson_delta_mean": 0.065,
+        "pearson_delta_median": 0.022,
+        "pearson_delta_ci95": [
+          -0.0327,
+          0.4727
+        ],
+        "wilcoxon_greater_than_0_p": 5.669744687730843e-53,
+        "mae_mean": 0.2745,
+        "top50_overlap_mean": 0.0425,
+        "sign_match_mean": 0.5956,
+        "transfer_efficiency_median": 0.1491
+      },
+      "weighted_consensus": {
+        "n": 563,
+        "pearson_delta_mean": 0.0706,
+        "pearson_delta_median": 0.0239,
+        "pearson_delta_ci95": [
+          -0.0417,
+          0.511
+        ],
+        "wilcoxon_greater_than_0_p": 7.673278430058744e-49,
+        "mae_mean": 0.2706,
+        "top50_overlap_mean": 0.0474,
+        "sign_match_mean": 0.5974,
+        "transfer_efficiency_median": 0.1571
+      },
+      "weighted_consensus_gated": {
+        "n": 563,
+        "pearson_delta_mean": 0.0685,
+        "pearson_delta_median": 0.0239,
+        "pearson_delta_ci95": [
+          -0.0456,
+          0.4533
+        ],
+        "wilcoxon_greater_than_0_p": 2.9554052567441374e-46,
+        "mae_mean": 0.2234,
+        "top50_overlap_mean": 0.0173,
+        "sign_match_mean": 0.5974,
+        "transfer_efficiency_median": 0.1604
+      }
+    },
+    "validity_criteria": {
+      "c1_pearson_gt_0": {
+        "value": 0.0685,
+        "p": 2.9554052567441374e-46,
+        "passed": true
+      },
+      "c2_magnitude_in_genetic_poc_range_0.2_0.45": {
+        "value": 0.0685,
+        "passed": false
+      },
+      "c3_weighted_ge_unweighted": {
+        "weighted": 0.0685,
+        "unweighted": 0.065,
+        "passed": true
+      },
+      "c4_beats_no_change_mae": {
+        "weighted_mae": 0.2234,
+        "no_change_mae": 0.2225,
+        "passed": false
+      }
+    }
+  },
+  "reproducible_subset_heldout_selected": {
+    "selection": "用留出细胞系自身的分半可重复性筛选；回答'在有可测响应的化合物上迁移是否有效'，但预测时拿不到留出上下文的扰动数据，不可前瞻使用",
+    "n_evaluations": 396,
+    "n_compounds": 70,
+    "summary": {
+      "no_change": {
+        "n": 99,
+        "pearson_delta_mean": 0.0,
+        "pearson_delta_median": 0.0,
+        "pearson_delta_ci95": [
+          0.0,
+          0.0
+        ],
+        "wilcoxon_greater_than_0_p": null,
+        "mae_mean": 0.2667,
+        "top50_overlap_mean": 0.0012,
+        "sign_match_mean": 0.0,
+        "transfer_efficiency_median": 0.0
+      },
+      "unweighted_consensus": {
+        "n": 99,
+        "pearson_delta_mean": 0.2215,
+        "pearson_delta_median": 0.1681,
+        "pearson_delta_ci95": [
+          -0.0454,
+          0.5682
+        ],
+        "wilcoxon_greater_than_0_p": 4.692432436554866e-16,
+        "mae_mean": 0.3036,
+        "top50_overlap_mean": 0.1358,
+        "sign_match_mean": 0.7543,
+        "transfer_efficiency_median": 0.4131
+      },
+      "weighted_consensus": {
+        "n": 99,
+        "pearson_delta_mean": 0.2429,
+        "pearson_delta_median": 0.2087,
+        "pearson_delta_ci95": [
+          -0.0545,
+          0.6053
+        ],
+        "wilcoxon_greater_than_0_p": 6.233898967476361e-16,
+        "mae_mean": 0.2924,
+        "top50_overlap_mean": 0.1515,
+        "sign_match_mean": 0.7622,
+        "transfer_efficiency_median": 0.4843
+      },
+      "weighted_consensus_gated": {
+        "n": 99,
+        "pearson_delta_mean": 0.2331,
+        "pearson_delta_median": 0.2241,
+        "pearson_delta_ci95": [
+          -0.0658,
+          0.5651
+        ],
+        "wilcoxon_greater_than_0_p": 1.0962732880930966e-15,
+        "mae_mean": 0.2542,
+        "top50_overlap_mean": 0.0598,
+        "sign_match_mean": 0.7622,
+        "transfer_efficiency_median": 0.5085
+      }
+    },
+    "validity_criteria": {
+      "c1_pearson_gt_0": {
+        "value": 0.2331,
+        "p": 1.0962732880930966e-15,
+        "passed": true
+      },
+      "c2_magnitude_in_genetic_poc_range_0.2_0.45": {
+        "value": 0.2331,
+        "passed": true
+      },
+      "c3_weighted_ge_unweighted": {
+        "weighted": 0.2331,
+        "unweighted": 0.2215,
+        "passed": true
+      },
+      "c4_beats_no_change_mae": {
+        "weighted_mae": 0.2542,
+        "no_change_mae": 0.2667,
+        "passed": true
+      }
+    }
+  },
+  "reproducible_subset_source_selected": {
+    "selection": "只用**源**细胞系的分半可重复性筛选 —— 部署时真正可用的口径",
+    "n_evaluations": 348,
+    "n_compounds": 40,
+    "summary": {
+      "no_change": {
+        "n": 87,
+        "pearson_delta_mean": 0.0,
+        "pearson_delta_median": 0.0,
+        "pearson_delta_ci95": [
+          0.0,
+          0.0
+        ],
+        "wilcoxon_greater_than_0_p": null,
+        "mae_mean": 0.3098,
+        "top50_overlap_mean": 0.0016,
+        "sign_match_mean": 0.0,
+        "transfer_efficiency_median": 0.0
+      },
+      "unweighted_consensus": {
+        "n": 87,
+        "pearson_delta_mean": 0.237,
+        "pearson_delta_median": 0.1844,
+        "pearson_delta_ci95": [
+          -0.0266,
+          0.5682
+        ],
+        "wilcoxon_greater_than_0_p": 2.1330809503328056e-15,
+        "mae_mean": 0.3387,
+        "top50_overlap_mean": 0.1471,
+        "sign_match_mean": 0.7402,
+        "transfer_efficiency_median": 0.6196
+      },
+      "weighted_consensus": {
+        "n": 87,
+        "pearson_delta_mean": 0.2556,
+        "pearson_delta_median": 0.2222,
+        "pearson_delta_ci95": [
+          -0.0269,
+          0.6059
+        ],
+        "wilcoxon_greater_than_0_p": 2.8876967415309776e-15,
+        "mae_mean": 0.3318,
+        "top50_overlap_mean": 0.1595,
+        "sign_match_mean": 0.7409,
+        "transfer_efficiency_median": 0.7192
+      },
+      "weighted_consensus_gated": {
+        "n": 87,
+        "pearson_delta_mean": 0.2385,
+        "pearson_delta_median": 0.224,
+        "pearson_delta_ci95": [
+          -0.0181,
+          0.5691
+        ],
+        "wilcoxon_greater_than_0_p": 2.5244345147767357e-15,
+        "mae_mean": 0.2963,
+        "top50_overlap_mean": 0.0556,
+        "sign_match_mean": 0.7409,
+        "transfer_efficiency_median": 0.6886
+      }
+    },
+    "validity_criteria": {
+      "c1_pearson_gt_0": {
+        "value": 0.2385,
+        "p": 2.5244345147767357e-15,
+        "passed": true
+      },
+      "c2_magnitude_in_genetic_poc_range_0.2_0.45": {
+        "value": 0.2385,
+        "passed": true
+      },
+      "c3_weighted_ge_unweighted": {
+        "weighted": 0.2385,
+        "unweighted": 0.237,
+        "passed": true
+      },
+      "c4_beats_no_change_mae": {
+        "weighted_mae": 0.2963,
+        "no_change_mae": 0.3098,
+        "passed": true
+      }
+    }
+  },
+  "verdict": {
+    "statement": "全部化合物：迁移 r=0.0685（被无响应化合物稀释）。限制到有可测响应的化合物后：留出侧筛选 r=0.2331、源侧筛选（可前瞻）r=0.2385。同上下文可重复性天花板中位 r=0.4381，归一化迁移效率中位 0.5085。",
+    "interpretation": "迁移/共识机制在化学扰动上**确实迁移了真实信号**，但只在化合物本身产生可重复转录响应时成立。sci-Plex 中 459/558 个 (细胞系,化合物) 对达不到可重复性门槛，把它们计入会把均值稀释到接近 0 —— 这正是第一版分析得出假阴性的原因。",
+    "power_limited": true
+  },
+  "scope_caveats": [
+    "按方案描述**重新实现**的 control-similarity 加权共识 + basal gating，非调用用户 VirtualCell PoC 原始代码（该压缩包不在本会话环境中）。",
+    "用户 PoC 中权重 70% 的 STATE 组件是遗传扰动模型，不接受小分子输入，本基准只检验其模态无关的迁移/共识机制。",
+    "本基准检验跨细胞系迁移化合物转录响应，**不是**预测生化 IC50。"
+  ]
+}

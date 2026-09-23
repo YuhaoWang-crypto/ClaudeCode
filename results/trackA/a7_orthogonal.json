@@ -1,0 +1,52 @@
+{
+  "orthogonal_cell_layer": {
+    "n_protease_compounds": 19,
+    "n_cell_compounds": 132,
+    "n_overlap_mpro": 1,
+    "n_overlap_plpro": 0,
+    "paired_compounds": [
+      {
+        "molecule_chembl_id": "CHEMBL4208240",
+        "p_protease": 6.4,
+        "p_cell": 6.3,
+        "cell_endpoint": "EC50"
+      }
+    ],
+    "correlation_computable": false,
+    "verdict": "只有 1 个化合物同时具备 MERS-CoV Mpro 生化 IC50 与细胞抗病毒效力（PLpro 为 0 个）。方案设想的'蛋白酶效力 vs 细胞活性相关性'在公开数据上**无法计算**。这本身是有信息量的结果：MERS-CoV 的生化数据与细胞数据几乎来自完全不同的化合物集合，机制一致性在现有公开数据下无法闭环。"
+  },
+  "drug_repurposing": {
+    "prerequisite_met": false,
+    "why": "重定位筛选依赖'A3 选出的模型'，但 A6 已按预先声明的口径拒绝模型选择（两种数据策略的 scaffold-split Spearman 95% CI 都跨过 0 且互相重叠），且 A5 的 redock 验证未通过 2 Å 门槛。没有经验证的打分函数，输出排序候选清单就是给出无依据的预测，因此本模块**不产出候选药物清单**。",
+    "applicability_domain_analysis": {
+      "library": "MERS-CoV 细胞水平活性化合物（ChEMBL CHEMBL4296578）",
+      "n_library": 132,
+      "reference_set": "MERS-CoV Mpro 基准集",
+      "n_reference": 79,
+      "tier_counts": {
+        "out-of-domain": 103,
+        "high": 15,
+        "borderline": 14
+      },
+      "tier_thresholds": {
+        "high": ">=0.50",
+        "borderline": "0.30-0.50",
+        "out_of_domain": "<0.30"
+      },
+      "nn_tanimoto": {
+        "median": 0.19,
+        "p90": 0.607,
+        "max": 1.0
+      },
+      "reference_internal_nn_tanimoto_median": 0.333,
+      "interpretation": "候选库中 103/132 个分子落在域外（到训练集最近邻 Tanimoto < 0.30）。即便存在一个有效模型，对这部分分子的预测也只是外推。这为'为什么不输出候选清单'提供了定量依据。"
+    }
+  },
+  "mechanism_question": {
+    "question": "MERS-CoV 细胞水平抗病毒活性能否由 Mpro/PLpro 抑制解释？",
+    "testable_form": "把 132 个细胞水平活性化合物与 60 个**实测蛋白酶非活性**化合物一起对接到 Mpro，检验前者的对接分数是否系统性优于后者。若不优于，说明这些化合物的细胞活性主要不是通过 Mpro 抑制实现的。",
+    "status": "已给出可执行形式；其结论受限于 A5 中 redock 未通过这一前提，即便出现差异也只能作探索性解读。",
+    "n_cell_active": 132,
+    "n_measured_protease_inactive": 60
+  }
+}

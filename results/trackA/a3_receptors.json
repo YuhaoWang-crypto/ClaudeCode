@@ -1,0 +1,1047 @@
+{
+  "receptors": {
+    "MPRO_5WKK": {
+      "pdb": "5WKK",
+      "enzyme": "Mpro",
+      "ligand_comp_id": "AW4",
+      "n_ligand_heavy_atoms": 31,
+      "receptor_residues": 301,
+      "box": {
+        "center": [
+          -21.664,
+          23.412,
+          3.375
+        ],
+        "size": [
+          16.0,
+          21.762,
+          20.161
+        ]
+      },
+      "redock": {
+        "primary_protocol": {
+          "exhaustiveness": 32,
+          "box_scale": 1.0,
+          "seed": 42
+        },
+        "primary_result": {
+          "exhaustiveness": 32,
+          "box_scale": 1.0,
+          "seed": 42,
+          "box_size_used": [
+            16.0,
+            21.76,
+            20.16
+          ],
+          "poses": [
+            {
+              "pose": 1,
+              "affinity_kcal_mol": -7.916,
+              "rmsd_to_crystal": 2.593
+            },
+            {
+              "pose": 2,
+              "affinity_kcal_mol": -7.681,
+              "rmsd_to_crystal": 7.023
+            },
+            {
+              "pose": 3,
+              "affinity_kcal_mol": -7.533,
+              "rmsd_to_crystal": 2.454
+            },
+            {
+              "pose": 4,
+              "affinity_kcal_mol": -7.478,
+              "rmsd_to_crystal": 7.366
+            },
+            {
+              "pose": 5,
+              "affinity_kcal_mol": -7.41,
+              "rmsd_to_crystal": 8.947
+            },
+            {
+              "pose": 6,
+              "affinity_kcal_mol": -7.388,
+              "rmsd_to_crystal": 4.12
+            },
+            {
+              "pose": 7,
+              "affinity_kcal_mol": -7.375,
+              "rmsd_to_crystal": 7.035
+            },
+            {
+              "pose": 8,
+              "affinity_kcal_mol": -7.375,
+              "rmsd_to_crystal": 2.162
+            },
+            {
+              "pose": 9,
+              "affinity_kcal_mol": -7.283,
+              "rmsd_to_crystal": 5.742
+            },
+            {
+              "pose": 10,
+              "affinity_kcal_mol": -7.24,
+              "rmsd_to_crystal": 1.994
+            }
+          ],
+          "top_pose_rmsd": 2.593,
+          "best_pose_rmsd": 1.994,
+          "top_pose_affinity": -7.916,
+          "passes_2A_top_pose": false,
+          "passes_2A_any_pose": true
+        },
+        "all_runs": [
+          {
+            "exhaustiveness": 8,
+            "box_scale": 1.0,
+            "seed": 42,
+            "box_size_used": [
+              16.0,
+              21.76,
+              20.16
+            ],
+            "poses": [
+              {
+                "pose": 1,
+                "affinity_kcal_mol": -7.916,
+                "rmsd_to_crystal": 2.593
+              },
+              {
+                "pose": 2,
+                "affinity_kcal_mol": -7.681,
+                "rmsd_to_crystal": 7.023
+              },
+              {
+                "pose": 3,
+                "affinity_kcal_mol": -7.478,
+                "rmsd_to_crystal": 7.366
+              },
+              {
+                "pose": 4,
+                "affinity_kcal_mol": -7.375,
+                "rmsd_to_crystal": 2.162
+              },
+              {
+                "pose": 5,
+                "affinity_kcal_mol": -7.327,
+                "rmsd_to_crystal": 2.662
+              },
+              {
+                "pose": 6,
+                "affinity_kcal_mol": -7.316,
+                "rmsd_to_crystal": 3.977
+              },
+              {
+                "pose": 7,
+                "affinity_kcal_mol": -7.19,
+                "rmsd_to_crystal": 2.091
+              },
+              {
+                "pose": 8,
+                "affinity_kcal_mol": -6.961,
+                "rmsd_to_crystal": 5.616
+              },
+              {
+                "pose": 9,
+                "affinity_kcal_mol": -6.821,
+                "rmsd_to_crystal": 4.261
+              },
+              {
+                "pose": 10,
+                "affinity_kcal_mol": -6.715,
+                "rmsd_to_crystal": 6.481
+              }
+            ],
+            "top_pose_rmsd": 2.593,
+            "best_pose_rmsd": 2.091,
+            "top_pose_affinity": -7.916,
+            "passes_2A_top_pose": false,
+            "passes_2A_any_pose": false
+          },
+          {
+            "exhaustiveness": 32,
+            "box_scale": 1.0,
+            "seed": 42,
+            "box_size_used": [
+              16.0,
+              21.76,
+              20.16
+            ],
+            "poses": [
+              {
+                "pose": 1,
+                "affinity_kcal_mol": -7.916,
+                "rmsd_to_crystal": 2.593
+              },
+              {
+                "pose": 2,
+                "affinity_kcal_mol": -7.681,
+                "rmsd_to_crystal": 7.023
+              },
+              {
+                "pose": 3,
+                "affinity_kcal_mol": -7.533,
+                "rmsd_to_crystal": 2.454
+              },
+              {
+                "pose": 4,
+                "affinity_kcal_mol": -7.478,
+                "rmsd_to_crystal": 7.366
+              },
+              {
+                "pose": 5,
+                "affinity_kcal_mol": -7.41,
+                "rmsd_to_crystal": 8.947
+              },
+              {
+                "pose": 6,
+                "affinity_kcal_mol": -7.388,
+                "rmsd_to_crystal": 4.12
+              },
+              {
+                "pose": 7,
+                "affinity_kcal_mol": -7.375,
+                "rmsd_to_crystal": 7.035
+              },
+              {
+                "pose": 8,
+                "affinity_kcal_mol": -7.375,
+                "rmsd_to_crystal": 2.162
+              },
+              {
+                "pose": 9,
+                "affinity_kcal_mol": -7.283,
+                "rmsd_to_crystal": 5.742
+              },
+              {
+                "pose": 10,
+                "affinity_kcal_mol": -7.24,
+                "rmsd_to_crystal": 1.994
+              }
+            ],
+            "top_pose_rmsd": 2.593,
+            "best_pose_rmsd": 1.994,
+            "top_pose_affinity": -7.916,
+            "passes_2A_top_pose": false,
+            "passes_2A_any_pose": true
+          },
+          {
+            "exhaustiveness": 32,
+            "box_scale": 1.25,
+            "seed": 42,
+            "box_size_used": [
+              20.0,
+              27.2,
+              25.2
+            ],
+            "poses": [
+              {
+                "pose": 1,
+                "affinity_kcal_mol": -7.858,
+                "rmsd_to_crystal": 2.535
+              },
+              {
+                "pose": 2,
+                "affinity_kcal_mol": -7.704,
+                "rmsd_to_crystal": 7.003
+              },
+              {
+                "pose": 3,
+                "affinity_kcal_mol": -7.596,
+                "rmsd_to_crystal": 2.417
+              },
+              {
+                "pose": 4,
+                "affinity_kcal_mol": -7.458,
+                "rmsd_to_crystal": 8.808
+              },
+              {
+                "pose": 5,
+                "affinity_kcal_mol": -7.382,
+                "rmsd_to_crystal": 1.835
+              },
+              {
+                "pose": 6,
+                "affinity_kcal_mol": -7.346,
+                "rmsd_to_crystal": 3.991
+              },
+              {
+                "pose": 7,
+                "affinity_kcal_mol": -7.339,
+                "rmsd_to_crystal": 7.35
+              },
+              {
+                "pose": 8,
+                "affinity_kcal_mol": -7.325,
+                "rmsd_to_crystal": 2.069
+              },
+              {
+                "pose": 9,
+                "affinity_kcal_mol": -7.162,
+                "rmsd_to_crystal": 8.148
+              },
+              {
+                "pose": 10,
+                "affinity_kcal_mol": -7.085,
+                "rmsd_to_crystal": 6.449
+              }
+            ],
+            "top_pose_rmsd": 2.535,
+            "best_pose_rmsd": 1.835,
+            "top_pose_affinity": -7.858,
+            "passes_2A_top_pose": false,
+            "passes_2A_any_pose": true
+          },
+          {
+            "exhaustiveness": 64,
+            "box_scale": 1.0,
+            "seed": 42,
+            "box_size_used": [
+              16.0,
+              21.76,
+              20.16
+            ],
+            "poses": [
+              {
+                "pose": 1,
+                "affinity_kcal_mol": -7.916,
+                "rmsd_to_crystal": 2.593
+              },
+              {
+                "pose": 2,
+                "affinity_kcal_mol": -7.66,
+                "rmsd_to_crystal": 6.893
+              },
+              {
+                "pose": 3,
+                "affinity_kcal_mol": -7.58,
+                "rmsd_to_crystal": 2.224
+              },
+              {
+                "pose": 4,
+                "affinity_kcal_mol": -7.547,
+                "rmsd_to_crystal": 2.376
+              },
+              {
+                "pose": 5,
+                "affinity_kcal_mol": -7.503,
+                "rmsd_to_crystal": 7.361
+              },
+              {
+                "pose": 6,
+                "affinity_kcal_mol": -7.41,
+                "rmsd_to_crystal": 8.947
+              },
+              {
+                "pose": 7,
+                "affinity_kcal_mol": -7.388,
+                "rmsd_to_crystal": 4.12
+              },
+              {
+                "pose": 8,
+                "affinity_kcal_mol": -7.375,
+                "rmsd_to_crystal": 7.035
+              },
+              {
+                "pose": 9,
+                "affinity_kcal_mol": -7.256,
+                "rmsd_to_crystal": 1.583
+              },
+              {
+                "pose": 10,
+                "affinity_kcal_mol": -7.247,
+                "rmsd_to_crystal": 7.894
+              }
+            ],
+            "top_pose_rmsd": 2.593,
+            "best_pose_rmsd": 1.583,
+            "top_pose_affinity": -7.916,
+            "passes_2A_top_pose": false,
+            "passes_2A_any_pose": true
+          },
+          {
+            "exhaustiveness": 32,
+            "box_scale": 1.0,
+            "seed": 43,
+            "box_size_used": [
+              16.0,
+              21.76,
+              20.16
+            ],
+            "poses": [
+              {
+                "pose": 1,
+                "affinity_kcal_mol": -7.862,
+                "rmsd_to_crystal": 2.567
+              },
+              {
+                "pose": 2,
+                "affinity_kcal_mol": -7.628,
+                "rmsd_to_crystal": 6.9
+              },
+              {
+                "pose": 3,
+                "affinity_kcal_mol": -7.612,
+                "rmsd_to_crystal": 2.377
+              },
+              {
+                "pose": 4,
+                "affinity_kcal_mol": -7.496,
+                "rmsd_to_crystal": 2.064
+              },
+              {
+                "pose": 5,
+                "affinity_kcal_mol": -7.302,
+                "rmsd_to_crystal": 1.47
+              },
+              {
+                "pose": 6,
+                "affinity_kcal_mol": -7.216,
+                "rmsd_to_crystal": 7.423
+              },
+              {
+                "pose": 7,
+                "affinity_kcal_mol": -7.209,
+                "rmsd_to_crystal": 6.869
+              },
+              {
+                "pose": 8,
+                "affinity_kcal_mol": -7.192,
+                "rmsd_to_crystal": 6.119
+              },
+              {
+                "pose": 9,
+                "affinity_kcal_mol": -7.033,
+                "rmsd_to_crystal": 2.481
+              },
+              {
+                "pose": 10,
+                "affinity_kcal_mol": -6.997,
+                "rmsd_to_crystal": 9.082
+              }
+            ],
+            "top_pose_rmsd": 2.567,
+            "best_pose_rmsd": 1.47,
+            "top_pose_affinity": -7.862,
+            "passes_2A_top_pose": false,
+            "passes_2A_any_pose": true
+          },
+          {
+            "exhaustiveness": 32,
+            "box_scale": 1.0,
+            "seed": 44,
+            "box_size_used": [
+              16.0,
+              21.76,
+              20.16
+            ],
+            "poses": [
+              {
+                "pose": 1,
+                "affinity_kcal_mol": -7.969,
+                "rmsd_to_crystal": 2.619
+              },
+              {
+                "pose": 2,
+                "affinity_kcal_mol": -7.668,
+                "rmsd_to_crystal": 6.887
+              },
+              {
+                "pose": 3,
+                "affinity_kcal_mol": -7.611,
+                "rmsd_to_crystal": 2.165
+              },
+              {
+                "pose": 4,
+                "affinity_kcal_mol": -7.534,
+                "rmsd_to_crystal": 7.337
+              },
+              {
+                "pose": 5,
+                "affinity_kcal_mol": -7.263,
+                "rmsd_to_crystal": 7.076
+              },
+              {
+                "pose": 6,
+                "affinity_kcal_mol": -7.25,
+                "rmsd_to_crystal": 1.582
+              },
+              {
+                "pose": 7,
+                "affinity_kcal_mol": -7.175,
+                "rmsd_to_crystal": 1.454
+              },
+              {
+                "pose": 8,
+                "affinity_kcal_mol": -7.132,
+                "rmsd_to_crystal": 2.343
+              },
+              {
+                "pose": 9,
+                "affinity_kcal_mol": -7.113,
+                "rmsd_to_crystal": 3.538
+              },
+              {
+                "pose": 10,
+                "affinity_kcal_mol": -7.062,
+                "rmsd_to_crystal": 5.442
+              }
+            ],
+            "top_pose_rmsd": 2.619,
+            "best_pose_rmsd": 1.454,
+            "top_pose_affinity": -7.969,
+            "passes_2A_top_pose": false,
+            "passes_2A_any_pose": true
+          }
+        ],
+        "top_rmsd_across_configs": {
+          "min": 2.535,
+          "max": 2.619,
+          "median": 2.593
+        },
+        "passes_2A_top_pose": false,
+        "passes_2A_any_pose": true,
+        "any_config_passes_top_pose": false
+      },
+      "redock_verdict": "仅次优位姿通过",
+      "altloc_note": "共晶抑制剂以 altloc A/B 双构象建模，occ 各 0.5；此处取 altloc A"
+    },
+    "MPRO_5WKJ": {
+      "pdb": "5WKJ",
+      "enzyme": "Mpro",
+      "ligand_comp_id": "B1S",
+      "n_ligand_heavy_atoms": 29,
+      "receptor_residues": 302,
+      "box": {
+        "center": [
+          -21.944,
+          -3.751,
+          3.39
+        ],
+        "size": [
+          16.0,
+          19.11,
+          20.206
+        ]
+      },
+      "redock": {
+        "primary_protocol": {
+          "exhaustiveness": 32,
+          "box_scale": 1.0,
+          "seed": 42
+        },
+        "primary_result": {
+          "exhaustiveness": 32,
+          "box_scale": 1.0,
+          "seed": 42,
+          "box_size_used": [
+            16.0,
+            19.11,
+            20.21
+          ],
+          "poses": [
+            {
+              "pose": 1,
+              "affinity_kcal_mol": -7.648,
+              "rmsd_to_crystal": 7.726
+            },
+            {
+              "pose": 2,
+              "affinity_kcal_mol": -7.516,
+              "rmsd_to_crystal": 7.258
+            },
+            {
+              "pose": 3,
+              "affinity_kcal_mol": -7.45,
+              "rmsd_to_crystal": 3.166
+            },
+            {
+              "pose": 4,
+              "affinity_kcal_mol": -7.334,
+              "rmsd_to_crystal": 5.901
+            },
+            {
+              "pose": 5,
+              "affinity_kcal_mol": -7.319,
+              "rmsd_to_crystal": 2.962
+            },
+            {
+              "pose": 6,
+              "affinity_kcal_mol": -7.237,
+              "rmsd_to_crystal": 6.111
+            },
+            {
+              "pose": 7,
+              "affinity_kcal_mol": -7.233,
+              "rmsd_to_crystal": 6.193
+            },
+            {
+              "pose": 8,
+              "affinity_kcal_mol": -7.23,
+              "rmsd_to_crystal": 2.183
+            },
+            {
+              "pose": 9,
+              "affinity_kcal_mol": -7.227,
+              "rmsd_to_crystal": 6.942
+            },
+            {
+              "pose": 10,
+              "affinity_kcal_mol": -7.189,
+              "rmsd_to_crystal": 5.862
+            }
+          ],
+          "top_pose_rmsd": 7.726,
+          "best_pose_rmsd": 2.183,
+          "top_pose_affinity": -7.648,
+          "passes_2A_top_pose": false,
+          "passes_2A_any_pose": false
+        },
+        "all_runs": [
+          {
+            "exhaustiveness": 8,
+            "box_scale": 1.0,
+            "seed": 42,
+            "box_size_used": [
+              16.0,
+              19.11,
+              20.21
+            ],
+            "poses": [
+              {
+                "pose": 1,
+                "affinity_kcal_mol": -7.625,
+                "rmsd_to_crystal": 7.783
+              },
+              {
+                "pose": 2,
+                "affinity_kcal_mol": -7.257,
+                "rmsd_to_crystal": 7.042
+              },
+              {
+                "pose": 3,
+                "affinity_kcal_mol": -7.255,
+                "rmsd_to_crystal": 6.128
+              },
+              {
+                "pose": 4,
+                "affinity_kcal_mol": -7.169,
+                "rmsd_to_crystal": 3.169
+              },
+              {
+                "pose": 5,
+                "affinity_kcal_mol": -7.063,
+                "rmsd_to_crystal": 6.961
+              },
+              {
+                "pose": 6,
+                "affinity_kcal_mol": -7.05,
+                "rmsd_to_crystal": 6.489
+              },
+              {
+                "pose": 7,
+                "affinity_kcal_mol": -6.963,
+                "rmsd_to_crystal": 3.207
+              },
+              {
+                "pose": 8,
+                "affinity_kcal_mol": -6.73,
+                "rmsd_to_crystal": 6.02
+              },
+              {
+                "pose": 9,
+                "affinity_kcal_mol": -6.701,
+                "rmsd_to_crystal": 4.88
+              },
+              {
+                "pose": 10,
+                "affinity_kcal_mol": -6.671,
+                "rmsd_to_crystal": 5.944
+              }
+            ],
+            "top_pose_rmsd": 7.783,
+            "best_pose_rmsd": 3.169,
+            "top_pose_affinity": -7.625,
+            "passes_2A_top_pose": false,
+            "passes_2A_any_pose": false
+          },
+          {
+            "exhaustiveness": 32,
+            "box_scale": 1.0,
+            "seed": 42,
+            "box_size_used": [
+              16.0,
+              19.11,
+              20.21
+            ],
+            "poses": [
+              {
+                "pose": 1,
+                "affinity_kcal_mol": -7.648,
+                "rmsd_to_crystal": 7.726
+              },
+              {
+                "pose": 2,
+                "affinity_kcal_mol": -7.516,
+                "rmsd_to_crystal": 7.258
+              },
+              {
+                "pose": 3,
+                "affinity_kcal_mol": -7.45,
+                "rmsd_to_crystal": 3.166
+              },
+              {
+                "pose": 4,
+                "affinity_kcal_mol": -7.334,
+                "rmsd_to_crystal": 5.901
+              },
+              {
+                "pose": 5,
+                "affinity_kcal_mol": -7.319,
+                "rmsd_to_crystal": 2.962
+              },
+              {
+                "pose": 6,
+                "affinity_kcal_mol": -7.237,
+                "rmsd_to_crystal": 6.111
+              },
+              {
+                "pose": 7,
+                "affinity_kcal_mol": -7.233,
+                "rmsd_to_crystal": 6.193
+              },
+              {
+                "pose": 8,
+                "affinity_kcal_mol": -7.23,
+                "rmsd_to_crystal": 2.183
+              },
+              {
+                "pose": 9,
+                "affinity_kcal_mol": -7.227,
+                "rmsd_to_crystal": 6.942
+              },
+              {
+                "pose": 10,
+                "affinity_kcal_mol": -7.189,
+                "rmsd_to_crystal": 5.862
+              }
+            ],
+            "top_pose_rmsd": 7.726,
+            "best_pose_rmsd": 2.183,
+            "top_pose_affinity": -7.648,
+            "passes_2A_top_pose": false,
+            "passes_2A_any_pose": false
+          },
+          {
+            "exhaustiveness": 32,
+            "box_scale": 1.25,
+            "seed": 42,
+            "box_size_used": [
+              20.0,
+              23.89,
+              25.26
+            ],
+            "poses": [
+              {
+                "pose": 1,
+                "affinity_kcal_mol": -7.695,
+                "rmsd_to_crystal": 7.818
+              },
+              {
+                "pose": 2,
+                "affinity_kcal_mol": -7.486,
+                "rmsd_to_crystal": 3.139
+              },
+              {
+                "pose": 3,
+                "affinity_kcal_mol": -7.46,
+                "rmsd_to_crystal": 7.09
+              },
+              {
+                "pose": 4,
+                "affinity_kcal_mol": -7.374,
+                "rmsd_to_crystal": 5.969
+              },
+              {
+                "pose": 5,
+                "affinity_kcal_mol": -7.368,
+                "rmsd_to_crystal": 3.114
+              },
+              {
+                "pose": 6,
+                "affinity_kcal_mol": -7.362,
+                "rmsd_to_crystal": 7.712
+              },
+              {
+                "pose": 7,
+                "affinity_kcal_mol": -7.343,
+                "rmsd_to_crystal": 6.075
+              },
+              {
+                "pose": 8,
+                "affinity_kcal_mol": -7.133,
+                "rmsd_to_crystal": 5.669
+              },
+              {
+                "pose": 9,
+                "affinity_kcal_mol": -7.055,
+                "rmsd_to_crystal": 1.991
+              },
+              {
+                "pose": 10,
+                "affinity_kcal_mol": -6.999,
+                "rmsd_to_crystal": 6.915
+              }
+            ],
+            "top_pose_rmsd": 7.818,
+            "best_pose_rmsd": 1.991,
+            "top_pose_affinity": -7.695,
+            "passes_2A_top_pose": false,
+            "passes_2A_any_pose": true
+          },
+          {
+            "exhaustiveness": 64,
+            "box_scale": 1.0,
+            "seed": 42,
+            "box_size_used": [
+              16.0,
+              19.11,
+              20.21
+            ],
+            "poses": [
+              {
+                "pose": 1,
+                "affinity_kcal_mol": -7.648,
+                "rmsd_to_crystal": 7.726
+              },
+              {
+                "pose": 2,
+                "affinity_kcal_mol": -7.516,
+                "rmsd_to_crystal": 7.258
+              },
+              {
+                "pose": 3,
+                "affinity_kcal_mol": -7.45,
+                "rmsd_to_crystal": 3.166
+              },
+              {
+                "pose": 4,
+                "affinity_kcal_mol": -7.406,
+                "rmsd_to_crystal": 2.902
+              },
+              {
+                "pose": 5,
+                "affinity_kcal_mol": -7.334,
+                "rmsd_to_crystal": 5.901
+              },
+              {
+                "pose": 6,
+                "affinity_kcal_mol": -7.237,
+                "rmsd_to_crystal": 6.111
+              },
+              {
+                "pose": 7,
+                "affinity_kcal_mol": -7.233,
+                "rmsd_to_crystal": 6.193
+              },
+              {
+                "pose": 8,
+                "affinity_kcal_mol": -7.227,
+                "rmsd_to_crystal": 6.942
+              },
+              {
+                "pose": 9,
+                "affinity_kcal_mol": -7.158,
+                "rmsd_to_crystal": 5.891
+              },
+              {
+                "pose": 10,
+                "affinity_kcal_mol": -7.102,
+                "rmsd_to_crystal": 2.196
+              }
+            ],
+            "top_pose_rmsd": 7.726,
+            "best_pose_rmsd": 2.196,
+            "top_pose_affinity": -7.648,
+            "passes_2A_top_pose": false,
+            "passes_2A_any_pose": false
+          },
+          {
+            "exhaustiveness": 32,
+            "box_scale": 1.0,
+            "seed": 43,
+            "box_size_used": [
+              16.0,
+              19.11,
+              20.21
+            ],
+            "poses": [
+              {
+                "pose": 1,
+                "affinity_kcal_mol": -7.933,
+                "rmsd_to_crystal": 7.776
+              },
+              {
+                "pose": 2,
+                "affinity_kcal_mol": -7.51,
+                "rmsd_to_crystal": 7.004
+              },
+              {
+                "pose": 3,
+                "affinity_kcal_mol": -7.506,
+                "rmsd_to_crystal": 3.178
+              },
+              {
+                "pose": 4,
+                "affinity_kcal_mol": -7.49,
+                "rmsd_to_crystal": 2.905
+              },
+              {
+                "pose": 5,
+                "affinity_kcal_mol": -7.452,
+                "rmsd_to_crystal": 7.236
+              },
+              {
+                "pose": 6,
+                "affinity_kcal_mol": -7.328,
+                "rmsd_to_crystal": 6.116
+              },
+              {
+                "pose": 7,
+                "affinity_kcal_mol": -7.252,
+                "rmsd_to_crystal": 5.843
+              },
+              {
+                "pose": 8,
+                "affinity_kcal_mol": -7.224,
+                "rmsd_to_crystal": 7.13
+              },
+              {
+                "pose": 9,
+                "affinity_kcal_mol": -7.197,
+                "rmsd_to_crystal": 2.131
+              },
+              {
+                "pose": 10,
+                "affinity_kcal_mol": -7.192,
+                "rmsd_to_crystal": 6.003
+              }
+            ],
+            "top_pose_rmsd": 7.776,
+            "best_pose_rmsd": 2.131,
+            "top_pose_affinity": -7.933,
+            "passes_2A_top_pose": false,
+            "passes_2A_any_pose": false
+          },
+          {
+            "exhaustiveness": 32,
+            "box_scale": 1.0,
+            "seed": 44,
+            "box_size_used": [
+              16.0,
+              19.11,
+              20.21
+            ],
+            "poses": [
+              {
+                "pose": 1,
+                "affinity_kcal_mol": -7.833,
+                "rmsd_to_crystal": 7.778
+              },
+              {
+                "pose": 2,
+                "affinity_kcal_mol": -7.363,
+                "rmsd_to_crystal": 7.098
+              },
+              {
+                "pose": 3,
+                "affinity_kcal_mol": -7.358,
+                "rmsd_to_crystal": 3.135
+              },
+              {
+                "pose": 4,
+                "affinity_kcal_mol": -7.353,
+                "rmsd_to_crystal": 6.067
+              },
+              {
+                "pose": 5,
+                "affinity_kcal_mol": -7.351,
+                "rmsd_to_crystal": 2.129
+              },
+              {
+                "pose": 6,
+                "affinity_kcal_mol": -7.283,
+                "rmsd_to_crystal": 6.121
+              },
+              {
+                "pose": 7,
+                "affinity_kcal_mol": -7.258,
+                "rmsd_to_crystal": 6.919
+              },
+              {
+                "pose": 8,
+                "affinity_kcal_mol": -7.246,
+                "rmsd_to_crystal": 7.036
+              },
+              {
+                "pose": 9,
+                "affinity_kcal_mol": -7.239,
+                "rmsd_to_crystal": 5.773
+              },
+              {
+                "pose": 10,
+                "affinity_kcal_mol": -7.139,
+                "rmsd_to_crystal": 5.854
+              }
+            ],
+            "top_pose_rmsd": 7.778,
+            "best_pose_rmsd": 2.129,
+            "top_pose_affinity": -7.833,
+            "passes_2A_top_pose": false,
+            "passes_2A_any_pose": false
+          }
+        ],
+        "top_rmsd_across_configs": {
+          "min": 7.726,
+          "max": 7.818,
+          "median": 7.776999999999999
+        },
+        "passes_2A_top_pose": false,
+        "passes_2A_any_pose": false,
+        "any_config_passes_top_pose": false
+      },
+      "redock_verdict": "未通过",
+      "altloc_note": "共晶抑制剂以 altloc A/B 双构象建模，occ 各 0.5；此处取 altloc A"
+    },
+    "PLPRO_4RNA": {
+      "pdb": "4RNA",
+      "enzyme": "PLpro",
+      "ligand_comp_id": null,
+      "receptor_residues": 321,
+      "box": {
+        "center": [
+          -0.105,
+          6.694,
+          7.841
+        ],
+        "size": [
+          20.65,
+          19.547,
+          19.323
+        ],
+        "defined_by": "4RF1 的 3CN 片段 + 泛素 C 端 L72-R73-G74-G75，经 CA 叠合映射到 4RNA",
+        "superposition_ca_rmsd": 1.347,
+        "n_marker_atoms": 38,
+        "dist_center_to_catalytic_triad": 10.53
+      },
+      "redock": null,
+      "redock_verdict": "无法执行",
+      "redock_limitation": "4RF1/4RF0 是 PLpro–泛素复合物，唯一非溶剂小分子 3CN 只有 4 个重原子（丙腈，位于催化位点但原子数过少），redock RMSD 无统计意义；4RNA 为 apo 结构无共晶配体。因此 PLpro 对接**没有 redock 验证**，其对接结果的可信度显著低于 Mpro，必须按探索性结果解读。",
+      "catalytic_triad": "Cys111(建模为 CSS)/His278/Asp293，Zn 距催化位点 46.6 Å（结构性锌指）"
+    }
+  },
+  "notes": [
+    "4RF1/4RF0 是 PLpro–泛素复合物，唯一非溶剂小分子 3CN 只有 4 个重原子（丙腈，位于催化位点但原子数过少），redock RMSD 无统计意义；4RNA 为 apo 结构无共晶配体。因此 PLpro 对接**没有 redock 验证**，其对接结果的可信度显著低于 Mpro，必须按探索性结果解读。"
+  ]
+}

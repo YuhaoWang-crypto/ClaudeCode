@@ -1,0 +1,753 @@
+sciplex_compound,reference_set,nn_tanimoto
+Navitoclax (ABT-263),MERS_Mpro_活性,0.1544
+ABT-737,MERS_Mpro_活性,0.1667
+Linifanib (ABT-869),MERS_Mpro_活性,0.1707
+Veliparib (ABT-888),MERS_Mpro_活性,0.1944
+Roxadustat (FG-4592),MERS_Mpro_活性,0.2
+Nintedanib (BIBF 1120),MERS_Mpro_活性,0.172
+BMS-536924,MERS_Mpro_活性,0.125
+Bosutinib (SKI-606),MERS_Mpro_活性,0.1212
+Cediranib (AZD2171),MERS_Mpro_活性,0.1111
+Dasatinib,MERS_Mpro_活性,0.1304
+Lapatinib (GW-572016) Ditosylate,MERS_Mpro_活性,0.1328
+Lenalidomide (CC-5013),MERS_Mpro_活性,0.1515
+Panobinostat (LBH589),MERS_Mpro_活性,0.2603
+Motesanib Diphosphate (AMG-706),MERS_Mpro_活性,0.1481
+Nilotinib (AMN-107),MERS_Mpro_活性,0.1237
+Sorafenib Tosylate,MERS_Mpro_活性,0.1111
+"Temsirolimus (CCI-779, NSC 683864)",MERS_Mpro_活性,0.1484
+Trichostatin A (TSA),MERS_Mpro_活性,0.1846
+Vandetanib (ZD6474),MERS_Mpro_活性,0.1613
+"Tozasertib (VX-680, MK-0457)",MERS_Mpro_活性,0.2065
+Entinostat (MS-275),MERS_Mpro_活性,0.1733
+Enzastaurin (LY317615),MERS_Mpro_活性,0.1712
+AC480 (BMS-599626),MERS_Mpro_活性,0.1429
+Obatoclax Mesylate (GX15-070),MERS_Mpro_活性,0.1392
+SL-327,MERS_Mpro_活性,0.1837
+SB431542,MERS_Mpro_活性,0.1728
+Crizotinib (PF-02341066),MERS_Mpro_活性,0.1182
+"Luminespib (AUY-922, NVP-AUY922)",MERS_Mpro_活性,0.1512
+Belinostat (PXD101),MERS_Mpro_活性,0.1884
+Iniparib (BSI-201),MERS_Mpro_活性,0.1594
+Abexinostat (PCI-24781),MERS_Mpro_活性,0.2
+Dacinostat (LAQ824),MERS_Mpro_活性,0.25
+Quisinostat (JNJ-26481585) 2HCl,MERS_Mpro_活性,0.1951
+"Rucaparib (AG-014699,PF-01367338) phosphate",MERS_Mpro_活性,0.1333
+MLN8054,MERS_Mpro_活性,0.1566
+ZM 447439,MERS_Mpro_活性,0.15
+Danusertib (PHA-739358),MERS_Mpro_活性,0.2235
+Mocetinostat (MGCD0103),MERS_Mpro_活性,0.1688
+BMS-754807,MERS_Mpro_活性,0.1462
+SRT1720 HCl,MERS_Mpro_活性,0.1932
+YM155 (Sepantronium Bromide),MERS_Mpro_活性,0.1574
+INO-1001 (3-Aminobenzamide),MERS_Mpro_活性,0.1765
+Alisertib (MLN8237),MERS_Mpro_活性,0.1683
+AT9283,MERS_Mpro_活性,0.1478
+Andarine,MERS_Mpro_活性,0.1333
+Tanespimycin (17-AAG),MERS_Mpro_活性,0.125
+Alvespimycin (17-DMAG) HCl,MERS_Mpro_活性,0.1349
+AG-490 (Tyrphostin B42),MERS_Mpro_活性,0.197
+Barasertib (AZD1152-HQPA),MERS_Mpro_活性,0.1313
+"Roscovitine (Seliciclib,CYC202)",MERS_Mpro_活性,0.1867
+SNS-314 Mesylate,MERS_Mpro_活性,0.1224
+S3I-201,MERS_Mpro_活性,0.1549
+Capecitabine ,MERS_Mpro_活性,0.1818
+Valproic acid sodium salt (Sodium valproate),MERS_Mpro_活性,0.1379
+TGX-221,MERS_Mpro_活性,0.1538
+CYC116,MERS_Mpro_活性,0.1628
+JNJ-26854165 (Serdemetan),MERS_Mpro_活性,0.1549
+PD98059,MERS_Mpro_活性,0.1159
+Regorafenib (BAY 73-4506),MERS_Mpro_活性,0.1092
+XAV-939,MERS_Mpro_活性,0.0976
+ENMD-2076,MERS_Mpro_活性,0.2237
+Fulvestrant,MERS_Mpro_活性,0.1138
+Raltitrexed,MERS_Mpro_活性,0.1905
+Thalidomide,MERS_Mpro_活性,0.1685
+CUDC-101,MERS_Mpro_活性,0.125
+Decitabine,MERS_Mpro_活性,0.125
+"Fluorouracil (5-Fluoracil, 5-FU)",MERS_Mpro_活性,0.1111
+PFI-1 (PF-6405761),MERS_Mpro_活性,0.1748
+2-Methoxyestradiol (2-MeOE2),MERS_Mpro_活性,0.0943
+JNJ-7706621,MERS_Mpro_活性,0.1282
+Ramelteon,MERS_Mpro_活性,0.1429
+Celecoxib,MERS_Mpro_活性,0.1429
+Avagacestat (BMS-708163),MERS_Mpro_活性,0.1477
+PD173074,MERS_Mpro_活性,0.1348
+Altretamine,MERS_Mpro_活性,0.1034
+Amisulpride,MERS_Mpro_活性,0.1809
+Carmofur,MERS_Mpro_活性,0.1558
+Epothilone A,MERS_Mpro_活性,0.122
+Mercaptopurine (6-MP),MERS_Mpro_活性,0.1707
+Streptozotocin (STZ),MERS_Mpro_活性,0.0909
+Ki16425,MERS_Mpro_活性,0.1765
+Costunolide,MERS_Mpro_活性,0.1026
+Ellagic acid,MERS_Mpro_活性,0.1385
+Glesatinib(MGCD265),MERS_Mpro_活性,0.1489
+Rigosertib (ON-01910),MERS_Mpro_活性,0.16
+Ki8751,MERS_Mpro_活性,0.1236
+"Patupilone (EPO906, Epothilone B)",MERS_Mpro_活性,0.1111
+Ruxolitinib (INCB018424),MERS_Mpro_活性,0.1286
+Pelitinib (EKB-569),MERS_Mpro_活性,0.1111
+Pirarubicin,MERS_Mpro_活性,0.1324
+Resveratrol,MERS_Mpro_活性,0.1887
+Droxinostat,MERS_Mpro_活性,0.1562
+Zileuton,MERS_Mpro_活性,0.2586
+Aurora A Inhibitor I,MERS_Mpro_活性,0.1828
+PHA-680632,MERS_Mpro_活性,0.2289
+Ofloxacin,MERS_Mpro_活性,1.0
+MC1568,MERS_Mpro_活性,0.1918
+Pracinostat (SB939),MERS_Mpro_活性,0.1687
+Hesperadin,MERS_Mpro_活性,0.1802
+Selisistat (EX 527),MERS_Mpro_活性,0.137
+Fasudil (HA-1077) HCl,MERS_Mpro_活性,0.2143
+Tie2 kinase inhibitor,MERS_Mpro_活性,0.1184
+Prednisone ,MERS_Mpro_活性,0.1296
+Alendronate sodium trihydrate,MERS_Mpro_活性,0.0758
+Triamcinolone Acetonide,MERS_Mpro_活性,0.1224
+Aminoglutethimide ,MERS_Mpro_活性,0.1304
+Disulfiram ,MERS_Mpro_活性,1.0
+Meprednisone,MERS_Mpro_活性,0.114
+Busulfan ,MERS_Mpro_活性,0.1029
+Divalproex Sodium,MERS_Mpro_活性,0.1458
+Mesna ,MERS_Mpro_活性,0.0959
+Thiotepa,MERS_Mpro_活性,0.069
+Toremifene Citrate,MERS_Mpro_活性,0.2419
+Azacitidine ,MERS_Mpro_活性,0.1154
+AICAR (Acadesine),MERS_Mpro_活性,0.1125
+Lomustine ,MERS_Mpro_活性,0.0976
+Cimetidine ,MERS_Mpro_活性,0.1452
+Curcumin,MERS_Mpro_活性,0.1642
+Cyclocytidine HCl,MERS_Mpro_活性,0.0938
+Maraviroc,MERS_Mpro_活性,0.193
+PCI-34051,MERS_Mpro_活性,0.2273
+PF-573228,MERS_Mpro_活性,0.1429
+BMS-265246,MERS_Mpro_活性,0.1529
+ENMD-2076 L-(+)-Tartaric acid ,MERS_Mpro_活性,0.2237
+KW-2449,MERS_Mpro_活性,1.0
+AZD1480,MERS_Mpro_活性,0.1364
+Givinostat (ITF2357),MERS_Mpro_活性,0.25
+AG-14361,MERS_Mpro_活性,0.1622
+Gandotinib (LY2784544),MERS_Mpro_活性,0.1165
+SGI-1776 free base,MERS_Mpro_活性,0.1478
+AZ 960,MERS_Mpro_活性,0.15
+Momelotinib (CYT387),MERS_Mpro_活性,0.1505
+AR-42,MERS_Mpro_活性,0.2333
+Quercetin,MERS_Mpro_活性,0.1169
+Daphnetin,MERS_Mpro_活性,0.1273
+Tubastatin A HCl,MERS_Mpro_活性,0.2133
+MK-0752,MERS_Mpro_活性,0.1495
+PF-3845,MERS_Mpro_活性,0.1795
+Trametinib (GSK1120212),MERS_Mpro_活性,0.1584
+Flavopiridol HCl,MERS_Mpro_活性,0.1622
+NVP-BSK805 2HCl,MERS_Mpro_活性,0.14
+TG101209,MERS_Mpro_活性,0.1474
+Resminostat,MERS_Mpro_活性,0.1857
+TAK-901,MERS_Mpro_活性,0.1795
+AMG-900,MERS_Mpro_活性,0.1047
+"Fedratinib (SAR302503, TG101348)",MERS_Mpro_活性,0.1405
+GSK1070916,MERS_Mpro_活性,0.1538
+CUDC-907,MERS_Mpro_活性,0.1505
+MK-5108 (VX-689),MERS_Mpro_活性,0.1638
+M344,MERS_Mpro_活性,0.1905
+WP1066,MERS_Mpro_活性,0.2029
+Sirtinol,MERS_Mpro_活性,0.2113
+CEP-33779,MERS_Mpro_活性,0.1505
+Tacedinaline (CI994),MERS_Mpro_活性,0.1833
+RG108,MERS_Mpro_活性,0.2029
+"Baricitinib (LY3009104, INCB028050)",MERS_Mpro_活性,0.1389
+WHI-P154,MERS_Mpro_活性,0.0941
+PJ34,MERS_Mpro_活性,0.1791
+S-Ruxolitinib (INCB018424),MERS_Mpro_活性,0.1286
+IOX2,MERS_Mpro_活性,0.1765
+Clevudine ,MERS_Mpro_活性,0.1519
+Entacapone,MERS_Mpro_活性,0.1569
+Sodium Phenylbutyrate,MERS_Mpro_活性,0.25
+Tranylcypromine (2-PCPA) HCl,MERS_Mpro_活性,0.1364
+Tofacitinib (CP-690550) Citrate,MERS_Mpro_活性,0.1604
+(+)-JQ1,MERS_Mpro_活性,0.1892
+Tazemetostat (EPZ-6438),MERS_Mpro_活性,0.1429
+BMS-911543,MERS_Mpro_活性,0.1415
+UNC1999,MERS_Mpro_活性,0.1393
+Bisindolylmaleimide IX (Ro 31-8220 Mesylate),MERS_Mpro_活性,0.1341
+G007-LK,MERS_Mpro_活性,0.1275
+FLLL32,MERS_Mpro_活性,0.1765
+UNC0379,MERS_Mpro_活性,0.1136
+A-366,MERS_Mpro_活性,0.1167
+GSK-LSD1 2HCl,MERS_Mpro_活性,0.1587
+GSK J1,MERS_Mpro_活性,0.1867
+Anacardic Acid,MERS_Mpro_活性,0.1667
+BRD4770,MERS_Mpro_活性,0.2361
+Filgotinib (GLPG0634),MERS_Mpro_活性,0.1532
+UNC0631,MERS_Mpro_活性,0.1197
+"Cerdulatinib (PRT062070, PRT2070)",MERS_Mpro_活性,0.1545
+SRT2104 (GSK2245840),MERS_Mpro_活性,0.1406
+Ivosidenib (AG-120),MERS_Mpro_活性,0.1515
+ITSA-1 (ITSA1),MERS_Mpro_活性,0.1765
+SRT3025 HCl,MERS_Mpro_活性,0.1613
+EED226,MERS_Mpro_活性,0.12
+TMP195,MERS_Mpro_活性,0.1728
+Tucidinostat (Chidamide),MERS_Mpro_活性,0.1928
+Navitoclax (ABT-263),MERS_PLpro,0.1933
+ABT-737,MERS_PLpro,0.1892
+Linifanib (ABT-869),MERS_PLpro,0.1444
+Veliparib (ABT-888),MERS_PLpro,0.1481
+Roxadustat (FG-4592),MERS_PLpro,0.1842
+Nintedanib (BIBF 1120),MERS_PLpro,0.1609
+BMS-536924,MERS_PLpro,0.2258
+Bosutinib (SKI-606),MERS_PLpro,0.11
+Cediranib (AZD2171),MERS_PLpro,0.1224
+Dasatinib,MERS_PLpro,0.1458
+Lapatinib (GW-572016) Ditosylate,MERS_PLpro,0.1413
+Lenalidomide (CC-5013),MERS_PLpro,0.127
+Panobinostat (LBH589),MERS_PLpro,0.2237
+Motesanib Diphosphate (AMG-706),MERS_PLpro,0.1786
+Nilotinib (AMN-107),MERS_PLpro,0.1638
+Sorafenib Tosylate,MERS_PLpro,0.1485
+"Temsirolimus (CCI-779, NSC 683864)",MERS_PLpro,0.0938
+Trichostatin A (TSA),MERS_PLpro,0.137
+Vandetanib (ZD6474),MERS_PLpro,0.1266
+"Tozasertib (VX-680, MK-0457)",MERS_PLpro,0.1562
+Entinostat (MS-275),MERS_PLpro,0.2128
+Enzastaurin (LY317615),MERS_PLpro,0.1364
+AC480 (BMS-599626),MERS_PLpro,0.1538
+Obatoclax Mesylate (GX15-070),MERS_PLpro,0.1279
+SL-327,MERS_PLpro,0.1311
+SB431542,MERS_PLpro,0.1707
+Crizotinib (PF-02341066),MERS_PLpro,0.1154
+"Luminespib (AUY-922, NVP-AUY922)",MERS_PLpro,0.1798
+Belinostat (PXD101),MERS_PLpro,0.2576
+Iniparib (BSI-201),MERS_PLpro,0.1957
+Abexinostat (PCI-24781),MERS_PLpro,0.234
+Dacinostat (LAQ824),MERS_PLpro,0.2
+Quisinostat (JNJ-26481585) 2HCl,MERS_PLpro,0.1928
+"Rucaparib (AG-014699,PF-01367338) phosphate",MERS_PLpro,0.1529
+MLN8054,MERS_PLpro,0.1461
+ZM 447439,MERS_PLpro,0.2386
+Danusertib (PHA-739358),MERS_PLpro,0.2136
+Mocetinostat (MGCD0103),MERS_PLpro,0.2083
+BMS-754807,MERS_PLpro,0.1333
+SRT1720 HCl,MERS_PLpro,0.1733
+YM155 (Sepantronium Bromide),MERS_PLpro,0.1781
+INO-1001 (3-Aminobenzamide),MERS_PLpro,0.1778
+Alisertib (MLN8237),MERS_PLpro,0.1667
+AT9283,MERS_PLpro,0.2069
+Andarine,MERS_PLpro,0.15
+Tanespimycin (17-AAG),MERS_PLpro,0.126
+Alvespimycin (17-DMAG) HCl,MERS_PLpro,0.127
+AG-490 (Tyrphostin B42),MERS_PLpro,0.2319
+Barasertib (AZD1152-HQPA),MERS_PLpro,0.1795
+"Roscovitine (Seliciclib,CYC202)",MERS_PLpro,0.1386
+SNS-314 Mesylate,MERS_PLpro,0.1284
+S3I-201,MERS_PLpro,0.2571
+Capecitabine ,MERS_PLpro,0.1919
+Valproic acid sodium salt (Sodium valproate),MERS_PLpro,0.1379
+TGX-221,MERS_PLpro,0.2632
+CYC116,MERS_PLpro,0.24
+JNJ-26854165 (Serdemetan),MERS_PLpro,0.1216
+PD98059,MERS_PLpro,0.1475
+Regorafenib (BAY 73-4506),MERS_PLpro,0.1509
+XAV-939,MERS_PLpro,0.0921
+ENMD-2076,MERS_PLpro,0.2368
+Fulvestrant,MERS_PLpro,0.1078
+Raltitrexed,MERS_PLpro,0.1429
+Thalidomide,MERS_PLpro,0.1429
+CUDC-101,MERS_PLpro,0.1468
+Decitabine,MERS_PLpro,0.1833
+"Fluorouracil (5-Fluoracil, 5-FU)",MERS_PLpro,0.1111
+PFI-1 (PF-6405761),MERS_PLpro,0.1667
+2-Methoxyestradiol (2-MeOE2),MERS_PLpro,0.0959
+JNJ-7706621,MERS_PLpro,0.2258
+Ramelteon,MERS_PLpro,0.1176
+Celecoxib,MERS_PLpro,0.2414
+Avagacestat (BMS-708163),MERS_PLpro,0.1505
+PD173074,MERS_PLpro,0.1263
+Altretamine,MERS_PLpro,0.1026
+Amisulpride,MERS_PLpro,0.137
+Carmofur,MERS_PLpro,0.1385
+Epothilone A,MERS_PLpro,0.1753
+Mercaptopurine (6-MP),MERS_PLpro,0.0962
+Streptozotocin (STZ),MERS_PLpro,0.0851
+Ki16425,MERS_PLpro,0.1455
+Costunolide,MERS_PLpro,0.1316
+Ellagic acid,MERS_PLpro,0.1333
+Glesatinib(MGCD265),MERS_PLpro,0.1552
+Rigosertib (ON-01910),MERS_PLpro,0.1507
+Ki8751,MERS_PLpro,0.1515
+"Patupilone (EPO906, Epothilone B)",MERS_PLpro,0.16
+Ruxolitinib (INCB018424),MERS_PLpro,0.1724
+Pelitinib (EKB-569),MERS_PLpro,0.1111
+Pirarubicin,MERS_PLpro,0.1071
+Resveratrol,MERS_PLpro,0.2075
+Droxinostat,MERS_PLpro,0.1639
+Zileuton,MERS_PLpro,0.1667
+Aurora A Inhibitor I,MERS_PLpro,0.1909
+PHA-680632,MERS_PLpro,0.1972
+Ofloxacin,MERS_PLpro,0.2
+MC1568,MERS_PLpro,0.1892
+Pracinostat (SB939),MERS_PLpro,0.2099
+Hesperadin,MERS_PLpro,0.1429
+Selisistat (EX 527),MERS_PLpro,0.1538
+Fasudil (HA-1077) HCl,MERS_PLpro,0.2143
+Tie2 kinase inhibitor,MERS_PLpro,0.1149
+Prednisone ,MERS_PLpro,0.0978
+Alendronate sodium trihydrate,MERS_PLpro,0.0862
+Triamcinolone Acetonide,MERS_PLpro,0.1071
+Aminoglutethimide ,MERS_PLpro,0.2075
+Disulfiram ,MERS_PLpro,1.0
+Meprednisone,MERS_PLpro,0.0957
+Busulfan ,MERS_PLpro,0.093
+Divalproex Sodium,MERS_PLpro,0.1429
+Mesna ,MERS_PLpro,0.0952
+Thiotepa,MERS_PLpro,0.0857
+Toremifene Citrate,MERS_PLpro,0.1977
+Azacitidine ,MERS_PLpro,0.1897
+AICAR (Acadesine),MERS_PLpro,0.129
+Lomustine ,MERS_PLpro,0.1096
+Cimetidine ,MERS_PLpro,0.1463
+Curcumin,MERS_PLpro,0.1864
+Cyclocytidine HCl,MERS_PLpro,0.1125
+Maraviroc,MERS_PLpro,0.1548
+PCI-34051,MERS_PLpro,0.1642
+PF-573228,MERS_PLpro,0.1548
+BMS-265246,MERS_PLpro,0.1546
+ENMD-2076 L-(+)-Tartaric acid ,MERS_PLpro,0.2368
+KW-2449,MERS_PLpro,0.2899
+AZD1480,MERS_PLpro,0.1127
+Givinostat (ITF2357),MERS_PLpro,0.1684
+AG-14361,MERS_PLpro,0.15
+Gandotinib (LY2784544),MERS_PLpro,0.1596
+SGI-1776 free base,MERS_PLpro,0.1481
+AZ 960,MERS_PLpro,0.1512
+Momelotinib (CYT387),MERS_PLpro,0.2658
+AR-42,MERS_PLpro,0.1765
+Quercetin,MERS_PLpro,0.1618
+Daphnetin,MERS_PLpro,0.1525
+Tubastatin A HCl,MERS_PLpro,0.1857
+MK-0752,MERS_PLpro,0.1481
+PF-3845,MERS_PLpro,0.1743
+Trametinib (GSK1120212),MERS_PLpro,0.1197
+Flavopiridol HCl,MERS_PLpro,0.1392
+NVP-BSK805 2HCl,MERS_PLpro,0.1868
+TG101209,MERS_PLpro,0.2
+Resminostat,MERS_PLpro,0.1875
+TAK-901,MERS_PLpro,0.1684
+AMG-900,MERS_PLpro,0.1446
+"Fedratinib (SAR302503, TG101348)",MERS_PLpro,0.1875
+GSK1070916,MERS_PLpro,0.1491
+CUDC-907,MERS_PLpro,0.2283
+MK-5108 (VX-689),MERS_PLpro,0.1613
+M344,MERS_PLpro,0.1477
+WP1066,MERS_PLpro,0.1867
+Sirtinol,MERS_PLpro,0.2105
+CEP-33779,MERS_PLpro,0.1892
+Tacedinaline (CI994),MERS_PLpro,0.1829
+RG108,MERS_PLpro,0.1831
+"Baricitinib (LY3009104, INCB028050)",MERS_PLpro,0.1316
+WHI-P154,MERS_PLpro,0.1622
+PJ34,MERS_PLpro,0.1667
+S-Ruxolitinib (INCB018424),MERS_PLpro,0.1724
+IOX2,MERS_PLpro,0.1648
+Clevudine ,MERS_PLpro,0.1519
+Entacapone,MERS_PLpro,0.1569
+Sodium Phenylbutyrate,MERS_PLpro,0.2297
+Tranylcypromine (2-PCPA) HCl,MERS_PLpro,0.125
+Tofacitinib (CP-690550) Citrate,MERS_PLpro,0.1522
+(+)-JQ1,MERS_PLpro,0.1481
+Tazemetostat (EPZ-6438),MERS_PLpro,0.1748
+BMS-911543,MERS_PLpro,0.15
+UNC1999,MERS_PLpro,0.1589
+Bisindolylmaleimide IX (Ro 31-8220 Mesylate),MERS_PLpro,0.1486
+G007-LK,MERS_PLpro,0.1489
+FLLL32,MERS_PLpro,0.1739
+UNC0379,MERS_PLpro,0.1358
+A-366,MERS_PLpro,0.1143
+GSK-LSD1 2HCl,MERS_PLpro,0.1667
+GSK J1,MERS_PLpro,0.2179
+Anacardic Acid,MERS_PLpro,0.1754
+BRD4770,MERS_PLpro,0.2778
+Filgotinib (GLPG0634),MERS_PLpro,0.1395
+UNC0631,MERS_PLpro,0.1193
+"Cerdulatinib (PRT062070, PRT2070)",MERS_PLpro,0.2048
+SRT2104 (GSK2245840),MERS_PLpro,0.1837
+Ivosidenib (AG-120),MERS_PLpro,0.1391
+ITSA-1 (ITSA1),MERS_PLpro,0.209
+SRT3025 HCl,MERS_PLpro,0.1858
+EED226,MERS_PLpro,0.1667
+TMP195,MERS_PLpro,0.1635
+Tucidinostat (Chidamide),MERS_PLpro,0.1765
+Navitoclax (ABT-263),MERS_Mpro_基准集(含实测非活性),0.1667
+ABT-737,MERS_Mpro_基准集(含实测非活性),0.1875
+Linifanib (ABT-869),MERS_Mpro_基准集(含实测非活性),0.1707
+Veliparib (ABT-888),MERS_Mpro_基准集(含实测非活性),0.1944
+Roxadustat (FG-4592),MERS_Mpro_基准集(含实测非活性),0.2222
+Nintedanib (BIBF 1120),MERS_Mpro_基准集(含实测非活性),0.1868
+BMS-536924,MERS_Mpro_基准集(含实测非活性),0.2209
+Bosutinib (SKI-606),MERS_Mpro_基准集(含实测非活性),0.165
+Cediranib (AZD2171),MERS_Mpro_基准集(含实测非活性),0.191
+Dasatinib,MERS_Mpro_基准集(含实测非活性),0.2255
+Lapatinib (GW-572016) Ditosylate,MERS_Mpro_基准集(含实测非活性),0.1553
+Lenalidomide (CC-5013),MERS_Mpro_基准集(含实测非活性),0.1818
+Panobinostat (LBH589),MERS_Mpro_基准集(含实测非活性),0.2603
+Motesanib Diphosphate (AMG-706),MERS_Mpro_基准集(含实测非活性),0.2151
+Nilotinib (AMN-107),MERS_Mpro_基准集(含实测非活性),0.1712
+Sorafenib Tosylate,MERS_Mpro_基准集(含实测非活性),0.1528
+"Temsirolimus (CCI-779, NSC 683864)",MERS_Mpro_基准集(含实测非活性),0.1484
+Trichostatin A (TSA),MERS_Mpro_基准集(含实测非活性),0.1846
+Vandetanib (ZD6474),MERS_Mpro_基准集(含实测非活性),0.1842
+"Tozasertib (VX-680, MK-0457)",MERS_Mpro_基准集(含实测非活性),0.3483
+Entinostat (MS-275),MERS_Mpro_基准集(含实测非活性),0.2031
+Enzastaurin (LY317615),MERS_Mpro_基准集(含实测非活性),0.1712
+AC480 (BMS-599626),MERS_Mpro_基准集(含实测非活性),0.1694
+Obatoclax Mesylate (GX15-070),MERS_Mpro_基准集(含实测非活性),0.2025
+SL-327,MERS_Mpro_基准集(含实测非活性),0.1837
+SB431542,MERS_Mpro_基准集(含实测非活性),0.1935
+Crizotinib (PF-02341066),MERS_Mpro_基准集(含实测非活性),0.1319
+"Luminespib (AUY-922, NVP-AUY922)",MERS_Mpro_基准集(含实测非活性),0.2078
+Belinostat (PXD101),MERS_Mpro_基准集(含实测非活性),0.2222
+Iniparib (BSI-201),MERS_Mpro_基准集(含实测非活性),0.2615
+Abexinostat (PCI-24781),MERS_Mpro_基准集(含实测非活性),0.2
+Dacinostat (LAQ824),MERS_Mpro_基准集(含实测非活性),0.25
+Quisinostat (JNJ-26481585) 2HCl,MERS_Mpro_基准集(含实测非活性),0.1951
+"Rucaparib (AG-014699,PF-01367338) phosphate",MERS_Mpro_基准集(含实测非活性),0.169
+MLN8054,MERS_Mpro_基准集(含实测非活性),0.2121
+ZM 447439,MERS_Mpro_基准集(含实测非活性),0.2597
+Danusertib (PHA-739358),MERS_Mpro_基准集(含实测非活性),0.2235
+Mocetinostat (MGCD0103),MERS_Mpro_基准集(含实测非活性),0.2644
+BMS-754807,MERS_Mpro_基准集(含实测非活性),0.2523
+SRT1720 HCl,MERS_Mpro_基准集(含实测非活性),0.1932
+YM155 (Sepantronium Bromide),MERS_Mpro_基准集(含实测非活性),0.2222
+INO-1001 (3-Aminobenzamide),MERS_Mpro_基准集(含实测非活性),0.2778
+Alisertib (MLN8237),MERS_Mpro_基准集(含实测非活性),0.1683
+AT9283,MERS_Mpro_基准集(含实测非活性),0.1881
+Andarine,MERS_Mpro_基准集(含实测非活性),0.1954
+Tanespimycin (17-AAG),MERS_Mpro_基准集(含实测非活性),0.125
+Alvespimycin (17-DMAG) HCl,MERS_Mpro_基准集(含实测非活性),0.1714
+AG-490 (Tyrphostin B42),MERS_Mpro_基准集(含实测非活性),0.3167
+Barasertib (AZD1152-HQPA),MERS_Mpro_基准集(含实测非活性),0.1667
+"Roscovitine (Seliciclib,CYC202)",MERS_Mpro_基准集(含实测非活性),0.7869
+SNS-314 Mesylate,MERS_Mpro_基准集(含实测非活性),0.1685
+S3I-201,MERS_Mpro_基准集(含实测非活性),0.2321
+Capecitabine ,MERS_Mpro_基准集(含实测非活性),0.1846
+Valproic acid sodium salt (Sodium valproate),MERS_Mpro_基准集(含实测非活性),0.1714
+TGX-221,MERS_Mpro_基准集(含实测非活性),0.2254
+CYC116,MERS_Mpro_基准集(含实测非活性),0.2174
+JNJ-26854165 (Serdemetan),MERS_Mpro_基准集(含实测非活性),0.16
+PD98059,MERS_Mpro_基准集(含实测非活性),0.2727
+Regorafenib (BAY 73-4506),MERS_Mpro_基准集(含实测非活性),0.1471
+XAV-939,MERS_Mpro_基准集(含实测非活性),0.1406
+ENMD-2076,MERS_Mpro_基准集(含实测非活性),0.3625
+Fulvestrant,MERS_Mpro_基准集(含实测非活性),0.1852
+Raltitrexed,MERS_Mpro_基准集(含实测非活性),0.1905
+Thalidomide,MERS_Mpro_基准集(含实测非活性),0.2308
+CUDC-101,MERS_Mpro_基准集(含实测非活性),0.1839
+Decitabine,MERS_Mpro_基准集(含实测非活性),0.1505
+"Fluorouracil (5-Fluoracil, 5-FU)",MERS_Mpro_基准集(含实测非活性),0.1277
+PFI-1 (PF-6405761),MERS_Mpro_基准集(含实测非活性),0.2045
+2-Methoxyestradiol (2-MeOE2),MERS_Mpro_基准集(含实测非活性),0.254
+JNJ-7706621,MERS_Mpro_基准集(含实测非活性),0.2034
+Ramelteon,MERS_Mpro_基准集(含实测非活性),0.1857
+Celecoxib,MERS_Mpro_基准集(含实测非活性),0.2453
+Avagacestat (BMS-708163),MERS_Mpro_基准集(含实测非活性),0.1477
+PD173074,MERS_Mpro_基准集(含实测非活性),0.1932
+Altretamine,MERS_Mpro_基准集(含实测非活性),0.1429
+Amisulpride,MERS_Mpro_基准集(含实测非活性),0.1831
+Carmofur,MERS_Mpro_基准集(含实测非活性),0.1923
+Epothilone A,MERS_Mpro_基准集(含实测非活性),0.1279
+Mercaptopurine (6-MP),MERS_Mpro_基准集(含实测非活性),0.1707
+Streptozotocin (STZ),MERS_Mpro_基准集(含实测非活性),0.2262
+Ki16425,MERS_Mpro_基准集(含实测非活性),0.2361
+Costunolide,MERS_Mpro_基准集(含实测非活性),0.1321
+Ellagic acid,MERS_Mpro_基准集(含实测非活性),0.3171
+Glesatinib(MGCD265),MERS_Mpro_基准集(含实测非活性),0.1829
+Rigosertib (ON-01910),MERS_Mpro_基准集(含实测非活性),0.1974
+Ki8751,MERS_Mpro_基准集(含实测非活性),0.1646
+"Patupilone (EPO906, Epothilone B)",MERS_Mpro_基准集(含实测非活性),0.125
+Ruxolitinib (INCB018424),MERS_Mpro_基准集(含实测非活性),0.1486
+Pelitinib (EKB-569),MERS_Mpro_基准集(含实测非活性),0.1616
+Pirarubicin,MERS_Mpro_基准集(含实测非活性),0.1574
+Resveratrol,MERS_Mpro_基准集(含实测非活性),0.64
+Droxinostat,MERS_Mpro_基准集(含实测非活性),0.1887
+Zileuton,MERS_Mpro_基准集(含实测非活性),0.2586
+Aurora A Inhibitor I,MERS_Mpro_基准集(含实测非活性),0.2
+PHA-680632,MERS_Mpro_基准集(含实测非活性),0.2289
+Ofloxacin,MERS_Mpro_基准集(含实测非活性),1.0
+MC1568,MERS_Mpro_基准集(含实测非活性),0.2143
+Pracinostat (SB939),MERS_Mpro_基准集(含实测非活性),0.2105
+Hesperadin,MERS_Mpro_基准集(含实测非活性),0.202
+Selisistat (EX 527),MERS_Mpro_基准集(含实测非活性),0.1647
+Fasudil (HA-1077) HCl,MERS_Mpro_基准集(含实测非活性),0.2143
+Tie2 kinase inhibitor,MERS_Mpro_基准集(含实测非活性),0.1558
+Prednisone ,MERS_Mpro_基准集(含实测非活性),0.1385
+Alendronate sodium trihydrate,MERS_Mpro_基准集(含实测非活性),0.1
+Triamcinolone Acetonide,MERS_Mpro_基准集(含实测非活性),0.1224
+Aminoglutethimide ,MERS_Mpro_基准集(含实测非活性),0.1875
+Disulfiram ,MERS_Mpro_基准集(含实测非活性),1.0
+Meprednisone,MERS_Mpro_基准集(含实测非活性),0.1343
+Busulfan ,MERS_Mpro_基准集(含实测非活性),0.1143
+Divalproex Sodium,MERS_Mpro_基准集(含实测非活性),0.2857
+Mesna ,MERS_Mpro_基准集(含实测非活性),0.1111
+Thiotepa,MERS_Mpro_基准集(含实测非活性),0.1
+Toremifene Citrate,MERS_Mpro_基准集(含实测非活性),0.2419
+Azacitidine ,MERS_Mpro_基准集(含实测非活性),0.1798
+AICAR (Acadesine),MERS_Mpro_基准集(含实测非活性),0.191
+Lomustine ,MERS_Mpro_基准集(含实测非活性),0.1636
+Cimetidine ,MERS_Mpro_基准集(含实测非活性),0.1452
+Curcumin,MERS_Mpro_基准集(含实测非活性),0.3519
+Cyclocytidine HCl,MERS_Mpro_基准集(含实测非活性),0.1648
+Maraviroc,MERS_Mpro_基准集(含实测非活性),0.193
+PCI-34051,MERS_Mpro_基准集(含实测非活性),0.2319
+PF-573228,MERS_Mpro_基准集(含实测非活性),0.181
+BMS-265246,MERS_Mpro_基准集(含实测非活性),0.1538
+ENMD-2076 L-(+)-Tartaric acid ,MERS_Mpro_基准集(含实测非活性),0.3625
+KW-2449,MERS_Mpro_基准集(含实测非活性),1.0
+AZD1480,MERS_Mpro_基准集(含实测非活性),0.1889
+Givinostat (ITF2357),MERS_Mpro_基准集(含实测非活性),0.25
+AG-14361,MERS_Mpro_基准集(含实测非活性),0.2237
+Gandotinib (LY2784544),MERS_Mpro_基准集(含实测非活性),0.1923
+SGI-1776 free base,MERS_Mpro_基准集(含实测非活性),0.1707
+AZ 960,MERS_Mpro_基准集(含实测非活性),0.2
+Momelotinib (CYT387),MERS_Mpro_基准集(含实测非活性),0.2133
+AR-42,MERS_Mpro_基准集(含实测非活性),0.2581
+Quercetin,MERS_Mpro_基准集(含实测非活性),0.7568
+Daphnetin,MERS_Mpro_基准集(含实测非活性),0.2703
+Tubastatin A HCl,MERS_Mpro_基准集(含实测非活性),0.2388
+MK-0752,MERS_Mpro_基准集(含实测非活性),0.1746
+PF-3845,MERS_Mpro_基准集(含实测非活性),0.1795
+Trametinib (GSK1120212),MERS_Mpro_基准集(含实测非活性),0.1584
+Flavopiridol HCl,MERS_Mpro_基准集(含实测非活性),0.2647
+NVP-BSK805 2HCl,MERS_Mpro_基准集(含实测非活性),0.1566
+TG101209,MERS_Mpro_基准集(含实测非活性),0.2041
+Resminostat,MERS_Mpro_基准集(含实测非活性),0.2029
+TAK-901,MERS_Mpro_基准集(含实测非活性),0.1887
+AMG-900,MERS_Mpro_基准集(含实测非活性),0.1546
+"Fedratinib (SAR302503, TG101348)",MERS_Mpro_基准集(含实测非活性),0.1827
+GSK1070916,MERS_Mpro_基准集(含实测非活性),0.1776
+CUDC-907,MERS_Mpro_基准集(含实测非活性),0.2169
+MK-5108 (VX-689),MERS_Mpro_基准集(含实测非活性),0.1638
+M344,MERS_Mpro_基准集(含实测非活性),0.2157
+WP1066,MERS_Mpro_基准集(含实测非活性),0.2609
+Sirtinol,MERS_Mpro_基准集(含实测非活性),0.2778
+CEP-33779,MERS_Mpro_基准集(含实测非活性),0.2083
+Tacedinaline (CI994),MERS_Mpro_基准集(含实测非活性),0.2128
+RG108,MERS_Mpro_基准集(含实测非活性),0.2188
+"Baricitinib (LY3009104, INCB028050)",MERS_Mpro_基准集(含实测非活性),0.1515
+WHI-P154,MERS_Mpro_基准集(含实测非活性),0.2542
+PJ34,MERS_Mpro_基准集(含实测非活性),0.2286
+S-Ruxolitinib (INCB018424),MERS_Mpro_基准集(含实测非活性),0.1486
+IOX2,MERS_Mpro_基准集(含实测非活性),0.3051
+Clevudine ,MERS_Mpro_基准集(含实测非活性),0.1739
+Entacapone,MERS_Mpro_基准集(含实测非活性),0.1829
+Sodium Phenylbutyrate,MERS_Mpro_基准集(含实测非活性),0.3684
+Tranylcypromine (2-PCPA) HCl,MERS_Mpro_基准集(含实测非活性),0.2439
+Tofacitinib (CP-690550) Citrate,MERS_Mpro_基准集(含实测非活性),0.1616
+(+)-JQ1,MERS_Mpro_基准集(含实测非活性),0.1972
+Tazemetostat (EPZ-6438),MERS_Mpro_基准集(含实测非活性),0.1807
+BMS-911543,MERS_Mpro_基准集(含实测非活性),0.1667
+UNC1999,MERS_Mpro_基准集(含实测非活性),0.1875
+Bisindolylmaleimide IX (Ro 31-8220 Mesylate),MERS_Mpro_基准集(含实测非活性),0.1644
+G007-LK,MERS_Mpro_基准集(含实测非活性),0.2027
+FLLL32,MERS_Mpro_基准集(含实测非活性),0.25
+UNC0379,MERS_Mpro_基准集(含实测非活性),0.2078
+A-366,MERS_Mpro_基准集(含实测非活性),0.1791
+GSK-LSD1 2HCl,MERS_Mpro_基准集(含实测非活性),0.2653
+GSK J1,MERS_Mpro_基准集(含实测非活性),0.2237
+Anacardic Acid,MERS_Mpro_基准集(含实测非活性),0.2667
+BRD4770,MERS_Mpro_基准集(含实测非活性),0.2361
+Filgotinib (GLPG0634),MERS_Mpro_基准集(含实测非活性),0.1739
+UNC0631,MERS_Mpro_基准集(含实测非活性),0.1593
+"Cerdulatinib (PRT062070, PRT2070)",MERS_Mpro_基准集(含实测非活性),0.2234
+SRT2104 (GSK2245840),MERS_Mpro_基准集(含实测非活性),0.1628
+Ivosidenib (AG-120),MERS_Mpro_基准集(含实测非活性),0.1515
+ITSA-1 (ITSA1),MERS_Mpro_基准集(含实测非活性),0.1765
+SRT3025 HCl,MERS_Mpro_基准集(含实测非活性),0.1919
+EED226,MERS_Mpro_基准集(含实测非活性),0.2065
+TMP195,MERS_Mpro_基准集(含实测非活性),0.1928
+Tucidinostat (Chidamide),MERS_Mpro_基准集(含实测非活性),0.1974
+Navitoclax (ABT-263),MERS_细胞抗病毒,0.2101
+ABT-737,MERS_细胞抗病毒,0.1969
+Linifanib (ABT-869),MERS_细胞抗病毒,0.2754
+Veliparib (ABT-888),MERS_细胞抗病毒,0.1912
+Roxadustat (FG-4592),MERS_细胞抗病毒,0.2273
+Nintedanib (BIBF 1120),MERS_细胞抗病毒,0.2381
+BMS-536924,MERS_细胞抗病毒,0.2273
+Bosutinib (SKI-606),MERS_细胞抗病毒,0.2842
+Cediranib (AZD2171),MERS_细胞抗病毒,0.2222
+Dasatinib,MERS_细胞抗病毒,1.0
+Lapatinib (GW-572016) Ditosylate,MERS_细胞抗病毒,0.4111
+Lenalidomide (CC-5013),MERS_细胞抗病毒,0.1477
+Panobinostat (LBH589),MERS_细胞抗病毒,0.2759
+Motesanib Diphosphate (AMG-706),MERS_细胞抗病毒,0.2526
+Nilotinib (AMN-107),MERS_细胞抗病毒,0.5169
+Sorafenib Tosylate,MERS_细胞抗病毒,0.3824
+"Temsirolimus (CCI-779, NSC 683864)",MERS_细胞抗病毒,0.1589
+Trichostatin A (TSA),MERS_细胞抗病毒,0.1944
+Vandetanib (ZD6474),MERS_细胞抗病毒,0.3678
+"Tozasertib (VX-680, MK-0457)",MERS_细胞抗病毒,0.2887
+Entinostat (MS-275),MERS_细胞抗病毒,0.2809
+Enzastaurin (LY317615),MERS_细胞抗病毒,0.284
+AC480 (BMS-599626),MERS_细胞抗病毒,0.2353
+Obatoclax Mesylate (GX15-070),MERS_细胞抗病毒,0.1647
+SL-327,MERS_细胞抗病毒,0.1711
+SB431542,MERS_细胞抗病毒,0.1905
+Crizotinib (PF-02341066),MERS_细胞抗病毒,0.1923
+"Luminespib (AUY-922, NVP-AUY922)",MERS_细胞抗病毒,0.2255
+Belinostat (PXD101),MERS_细胞抗病毒,0.2405
+Iniparib (BSI-201),MERS_细胞抗病毒,0.209
+Abexinostat (PCI-24781),MERS_细胞抗病毒,0.2329
+Dacinostat (LAQ824),MERS_细胞抗病毒,0.25
+Quisinostat (JNJ-26481585) 2HCl,MERS_细胞抗病毒,0.2179
+"Rucaparib (AG-014699,PF-01367338) phosphate",MERS_细胞抗病毒,0.2676
+MLN8054,MERS_细胞抗病毒,0.2449
+ZM 447439,MERS_细胞抗病毒,0.3295
+Danusertib (PHA-739358),MERS_细胞抗病毒,0.2376
+Mocetinostat (MGCD0103),MERS_细胞抗病毒,0.4684
+BMS-754807,MERS_细胞抗病毒,0.2087
+SRT1720 HCl,MERS_细胞抗病毒,0.2353
+YM155 (Sepantronium Bromide),MERS_细胞抗病毒,0.1735
+INO-1001 (3-Aminobenzamide),MERS_细胞抗病毒,0.2581
+Alisertib (MLN8237),MERS_细胞抗病毒,0.2632
+AT9283,MERS_细胞抗病毒,0.2264
+Andarine,MERS_细胞抗病毒,0.24
+Tanespimycin (17-AAG),MERS_细胞抗病毒,0.1455
+Alvespimycin (17-DMAG) HCl,MERS_细胞抗病毒,0.1525
+AG-490 (Tyrphostin B42),MERS_细胞抗病毒,0.2658
+Barasertib (AZD1152-HQPA),MERS_细胞抗病毒,0.2842
+"Roscovitine (Seliciclib,CYC202)",MERS_细胞抗病毒,0.1974
+SNS-314 Mesylate,MERS_细胞抗病毒,0.2414
+S3I-201,MERS_细胞抗病毒,0.2464
+Capecitabine ,MERS_细胞抗病毒,0.3
+Valproic acid sodium salt (Sodium valproate),MERS_细胞抗病毒,0.1268
+TGX-221,MERS_细胞抗病毒,0.2432
+CYC116,MERS_细胞抗病毒,0.2697
+JNJ-26854165 (Serdemetan),MERS_细胞抗病毒,0.2419
+PD98059,MERS_细胞抗病毒,0.1818
+Regorafenib (BAY 73-4506),MERS_细胞抗病毒,0.3158
+XAV-939,MERS_细胞抗病毒,0.2
+ENMD-2076,MERS_细胞抗病毒,0.2667
+Fulvestrant,MERS_细胞抗病毒,0.1379
+Raltitrexed,MERS_细胞抗病毒,0.2532
+Thalidomide,MERS_细胞抗病毒,0.1837
+CUDC-101,MERS_细胞抗病毒,0.3864
+Decitabine,MERS_细胞抗病毒,0.386
+"Fluorouracil (5-Fluoracil, 5-FU)",MERS_细胞抗病毒,0.1923
+PFI-1 (PF-6405761),MERS_细胞抗病毒,0.1959
+2-Methoxyestradiol (2-MeOE2),MERS_细胞抗病毒,0.1515
+JNJ-7706621,MERS_细胞抗病毒,0.2576
+Ramelteon,MERS_细胞抗病毒,0.1633
+Celecoxib,MERS_细胞抗病毒,0.169
+Avagacestat (BMS-708163),MERS_细胞抗病毒,0.1717
+PD173074,MERS_细胞抗病毒,0.191
+Altretamine,MERS_细胞抗病毒,0.1154
+Amisulpride,MERS_细胞抗病毒,0.2105
+Carmofur,MERS_细胞抗病毒,0.209
+Epothilone A,MERS_细胞抗病毒,0.1573
+Mercaptopurine (6-MP),MERS_细胞抗病毒,0.1346
+Streptozotocin (STZ),MERS_细胞抗病毒,0.2586
+Ki16425,MERS_细胞抗病毒,0.1765
+Costunolide,MERS_细胞抗病毒,0.1228
+Ellagic acid,MERS_细胞抗病毒,0.1698
+Glesatinib(MGCD265),MERS_细胞抗病毒,0.2174
+Rigosertib (ON-01910),MERS_细胞抗病毒,0.1852
+Ki8751,MERS_细胞抗病毒,0.2817
+"Patupilone (EPO906, Epothilone B)",MERS_细胞抗病毒,0.129
+Ruxolitinib (INCB018424),MERS_细胞抗病毒,0.2439
+Pelitinib (EKB-569),MERS_细胞抗病毒,0.3646
+Pirarubicin,MERS_细胞抗病毒,0.1789
+Resveratrol,MERS_细胞抗病毒,0.1633
+Droxinostat,MERS_细胞抗病毒,0.2167
+Zileuton,MERS_细胞抗病毒,0.1692
+Aurora A Inhibitor I,MERS_细胞抗病毒,0.3646
+PHA-680632,MERS_细胞抗病毒,0.2551
+Ofloxacin,MERS_细胞抗病毒,0.2048
+MC1568,MERS_细胞抗病毒,0.191
+Pracinostat (SB939),MERS_细胞抗病毒,0.2278
+Hesperadin,MERS_细胞抗病毒,0.2525
+Selisistat (EX 527),MERS_细胞抗病毒,0.2131
+Fasudil (HA-1077) HCl,MERS_细胞抗病毒,0.2254
+Tie2 kinase inhibitor,MERS_细胞抗病毒,0.1928
+Prednisone ,MERS_细胞抗病毒,0.1412
+Alendronate sodium trihydrate,MERS_细胞抗病毒,0.1013
+Triamcinolone Acetonide,MERS_细胞抗病毒,0.1512
+Aminoglutethimide ,MERS_细胞抗病毒,0.1628
+Disulfiram ,MERS_细胞抗病毒,0.1154
+Meprednisone,MERS_细胞抗病毒,0.1316
+Busulfan ,MERS_细胞抗病毒,0.1061
+Divalproex Sodium,MERS_细胞抗病毒,0.127
+Mesna ,MERS_细胞抗病毒,0.1014
+Thiotepa,MERS_细胞抗病毒,0.0625
+Toremifene Citrate,MERS_细胞抗病毒,0.2419
+Azacitidine ,MERS_细胞抗病毒,0.5625
+AICAR (Acadesine),MERS_细胞抗病毒,0.434
+Lomustine ,MERS_细胞抗病毒,0.1528
+Cimetidine ,MERS_细胞抗病毒,0.1134
+Curcumin,MERS_细胞抗病毒,0.1548
+Cyclocytidine HCl,MERS_细胞抗病毒,0.434
+Maraviroc,MERS_细胞抗病毒,0.25
+PCI-34051,MERS_细胞抗病毒,0.2344
+PF-573228,MERS_细胞抗病毒,0.2857
+BMS-265246,MERS_细胞抗病毒,0.2162
+ENMD-2076 L-(+)-Tartaric acid ,MERS_细胞抗病毒,0.2667
+KW-2449,MERS_细胞抗病毒,0.2903
+AZD1480,MERS_细胞抗病毒,0.2051
+Givinostat (ITF2357),MERS_细胞抗病毒,0.2877
+AG-14361,MERS_细胞抗病毒,0.2152
+Gandotinib (LY2784544),MERS_细胞抗病毒,0.1947
+SGI-1776 free base,MERS_细胞抗病毒,0.2079
+AZ 960,MERS_细胞抗病毒,0.3014
+Momelotinib (CYT387),MERS_细胞抗病毒,0.3793
+AR-42,MERS_细胞抗病毒,0.2203
+Quercetin,MERS_细胞抗病毒,0.1587
+Daphnetin,MERS_细胞抗病毒,0.1698
+Tubastatin A HCl,MERS_细胞抗病毒,0.2584
+MK-0752,MERS_细胞抗病毒,0.2338
+PF-3845,MERS_细胞抗病毒,0.2637
+Trametinib (GSK1120212),MERS_细胞抗病毒,0.2174
+Flavopiridol HCl,MERS_细胞抗病毒,0.1758
+NVP-BSK805 2HCl,MERS_细胞抗病毒,0.2111
+TG101209,MERS_细胞抗病毒,0.2812
+Resminostat,MERS_细胞抗病毒,0.2159
+TAK-901,MERS_细胞抗病毒,0.2243
+AMG-900,MERS_细胞抗病毒,0.2065
+"Fedratinib (SAR302503, TG101348)",MERS_细胞抗病毒,0.2549
+GSK1070916,MERS_细胞抗病毒,0.2476
+CUDC-907,MERS_细胞抗病毒,0.2105
+MK-5108 (VX-689),MERS_细胞抗病毒,0.219
+M344,MERS_细胞抗病毒,0.1875
+WP1066,MERS_细胞抗病毒,0.2432
+Sirtinol,MERS_细胞抗病毒,0.2394
+CEP-33779,MERS_细胞抗病毒,0.2347
+Tacedinaline (CI994),MERS_细胞抗病毒,0.2545
+RG108,MERS_细胞抗病毒,0.2787
+"Baricitinib (LY3009104, INCB028050)",MERS_细胞抗病毒,0.2353
+WHI-P154,MERS_细胞抗病毒,0.4127
+PJ34,MERS_细胞抗病毒,0.2667
+S-Ruxolitinib (INCB018424),MERS_细胞抗病毒,0.2439
+IOX2,MERS_细胞抗病毒,0.2222
+Clevudine ,MERS_细胞抗病毒,0.3448
+Entacapone,MERS_细胞抗病毒,0.2152
+Sodium Phenylbutyrate,MERS_细胞抗病毒,0.209
+Tranylcypromine (2-PCPA) HCl,MERS_细胞抗病毒,0.2368
+Tofacitinib (CP-690550) Citrate,MERS_细胞抗病毒,0.2471
+(+)-JQ1,MERS_细胞抗病毒,0.1818
+Tazemetostat (EPZ-6438),MERS_细胞抗病毒,0.2162
+BMS-911543,MERS_细胞抗病毒,0.1712
+UNC1999,MERS_细胞抗病毒,0.2
+Bisindolylmaleimide IX (Ro 31-8220 Mesylate),MERS_细胞抗病毒,0.2564
+G007-LK,MERS_细胞抗病毒,0.1753
+FLLL32,MERS_细胞抗病毒,0.169
+UNC0379,MERS_细胞抗病毒,0.2838
+A-366,MERS_细胞抗病毒,0.1892
+GSK-LSD1 2HCl,MERS_细胞抗病毒,0.2083
+GSK J1,MERS_细胞抗病毒,0.2366
+Anacardic Acid,MERS_细胞抗病毒,0.1739
+BRD4770,MERS_细胞抗病毒,0.2366
+Filgotinib (GLPG0634),MERS_细胞抗病毒,0.2826
+UNC0631,MERS_细胞抗病毒,0.2526
+"Cerdulatinib (PRT062070, PRT2070)",MERS_细胞抗病毒,0.3158
+SRT2104 (GSK2245840),MERS_细胞抗病毒,0.3077
+Ivosidenib (AG-120),MERS_细胞抗病毒,0.1825
+ITSA-1 (ITSA1),MERS_细胞抗病毒,0.2414
+SRT3025 HCl,MERS_细胞抗病毒,0.2642
+EED226,MERS_细胞抗病毒,0.1605
+TMP195,MERS_细胞抗病毒,0.1647
+Tucidinostat (Chidamide),MERS_细胞抗病毒,0.2903
