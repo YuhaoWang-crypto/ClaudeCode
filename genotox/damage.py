@@ -42,7 +42,12 @@ CHANNELS = (
     "ssb",            # single-strand breaks / alkali-labile sites
     "dsb",            # double-strand breaks
     "icl",            # interstrand crosslinks
-    "topo",           # trapped topoisomerase cleavage complexes
+    # Topoisomerase poisoning is species-specific: a bacterial gyrase poison
+    # and a human topo-II poison are different pharmacology, and a single
+    # channel forced the model to predict that a fluoroquinolone induces
+    # micronuclei.  The benchmark compound that exposed this is ciprofloxacin.
+    "topo_bacterial",  # gyrase / topo IV cleavage complexes
+    "topo_mammalian",  # topo II cleavage complexes
     "aneugenic",      # spindle / kinetochore interference — NOT a DNA lesion
 )
 
@@ -73,7 +78,8 @@ class DamageFlux:
     ssb: float = 0.0
     dsb: float = 0.0
     icl: float = 0.0
-    topo: float = 0.0
+    topo_bacterial: float = 0.0
+    topo_mammalian: float = 0.0
     aneugenic: float = 0.0
     #: channels with no evidence either way — absent, not asserted zero
     unknown: frozenset = frozenset()
@@ -117,6 +123,9 @@ class Compound:
 
     name: str
     per_uM: DamageFlux
+    #: structure, when there is one.  A structure-reading source computes
+    #: ``per_uM`` from this and ignores the tabulated value.
+    smiles: str = ""
     direct_fraction: float = 1.0     # active without metabolic activation
     s9_fraction: float = 0.0         # additional activity unlocked by S9
     # Two distinct, separately measurable liabilities.  Collapsing them into
@@ -154,6 +163,16 @@ class DamageSource:
 
     def flux(self, compound: Compound, dose_uM: float, s9: bool = False) -> DamageFlux:
         raise NotImplementedError
+
+    def flux_from_smiles(self, smiles: str) -> DamageFlux:
+        """Per-uM channel flux for a structure.
+
+        The seam a predictive upstream has to fill.  Sources that read a
+        table rather than a structure do not implement it.
+        """
+        raise NotImplementedError(
+            f"{type(self).__name__} cannot read structures; it is a "
+            f"tabulated source.")
 
     def toxicity(self, compound: Compound, dose_uM: float) -> float:
         return compound.extra_toxicity(dose_uM)

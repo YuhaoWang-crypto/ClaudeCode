@@ -78,7 +78,8 @@ class CytogeneticCore(SignalCore):
     to_ssb: dict = field(default_factory=lambda: {
         "ssb": 1.00, "oxidative": 0.55})
     to_dsb: dict = field(default_factory=lambda: {
-        "dsb": 1.00, "topo": 0.70})
+        "dsb": 1.00, "topo_mammalian": 0.70,
+        "topo_bacterial": 0.00})
     to_spindle: dict = field(default_factory=lambda: {
         "aneugenic": 1.00})
 

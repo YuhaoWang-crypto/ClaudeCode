@@ -53,12 +53,14 @@ so far, as mechanistic ODEs with the readout and decision layers split out:
 | 2 | GADD45a-GFP reporter line | p53 ⇄ Mdm2 delayed feedback | p53 **pulses** (~5.3 h); stable GFP integrates the pulse train |
 | 3 | comet **and** micronucleus | cytogenetic: adducts → breaks → acentric fragments / lagging chromosomes | one core, two instruments, two exposure times; centromere status names the mechanism |
 | — | diagnostics | local identifiability of every core | what a fit to each readout could actually recover — 6 of 17 parameters for umu, and two provable structural invariances |
+| — | upstream + benchmark | SMARTS structural alerts → channels | 20 reference chemicals with verified structures; scores any `DamageSource`; the benchmark's own compounds forced a species split of the topoisomerase channel |
 
 ```bash
 python3 -m genotox.run_umu
 python3 -m genotox.run_p53
 python3 -m genotox.run_comet_mn
 python3 -m genotox.run_identifiability
+python3 -m genotox.run_benchmark          # needs rdkit
 ```
 
 Each step reuses the earlier upstream layer, readout registry and decision
@@ -73,4 +75,4 @@ the micronucleus dose-response turnover is a cytotoxicity artifact rather
 than the p53-arrest effect it was first attributed to — are in
 [`genotox/README.md`](genotox/README.md). Rate constants are illustrative,
 not fitted, and `identifiability.py` says how few of them a fit to these
-readouts could recover. 29 structural checks pass.
+readouts could recover. 35 structural checks pass.

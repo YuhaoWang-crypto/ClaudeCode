@@ -89,7 +89,8 @@ class SOSCore(SignalCore):
     sos_weights: dict = field(default_factory=lambda: {
         "bulky_adduct": 1.00,
         "icl": 1.00,
-        "topo": 0.90,
+        "topo_bacterial": 0.90,
+        "topo_mammalian": 0.00,
         "dsb": 0.80,
         "ssb": 0.60,
         "oxidative": 0.35,

@@ -16,9 +16,12 @@ python3 -m genotox.run_umu        # step 1: tables + checks + figure
 python3 -m genotox.run_p53        # step 2: pulses, cross-endpoint, checks
 python3 -m genotox.run_comet_mn   # step 3: mechanism table + 2 experiments
 python3 -m genotox.run_identifiability   # diagnostics: what a fit could recover
+python3 -m genotox.run_benchmark         # score a structure-reading upstream
 ```
 
-Writes four figures into `figures/`. 29 structural checks (6 + 7 + 8 + 8).
+Requires `rdkit` for the benchmark and alert source only; the three endpoint
+runners need just numpy/scipy/matplotlib. Writes four figures into
+`figures/`. 35 structural checks (6 + 7 + 8 + 8 + 6).
 
 ## The four seams
 
@@ -40,6 +43,7 @@ Each layer is replaceable on its own:
 | endpoint #3 (comet, micronucleus) | new `SignalCore` + 2 readouts — *done* | source, decision |
 | a different protocol threshold | a `Protocol` instance | all biology |
 | ask what a fit could recover | nothing — `identifiability.py` reads any core | everything |
+| a structure-reading upstream | `DamageSource.flux_from_smiles` — *one exists now* | cores, readouts, decision |
 
 Readouts hand the decision layer exactly two generic names, `signal` and
 `biomass`; instrument-specific ones (`A410`, `fluorescence_per_cell`) ride
@@ -243,6 +247,59 @@ All of this is local to one operating point and says nothing about whether
 the model is *right* — only about what a fit to this readout could and could
 not learn.
 
+## The upstream layer: no longer empty, and scored
+
+`QSARSource` stayed unimplemented because the obvious way to fill it is
+circular. `alerts.StructuralAlertSource` fills it a different way: SMARTS
+rules that encode **chemistry and pharmacology**, fitted to nothing. A
+sulfonate ester alkylates because of what it is, not because a table says it
+is an Ames positive.
+
+`benchmark.py` gives that seam a target — 20 reference chemicals with
+structures (every formula verified against RDKit), the published reference
+classification for each, and a harness that scores any `DamageSource`.
+
+| Endpoint | n | sens | spec | acc |
+|---|---:|---:|---:|---:|
+| umu | 18 | 1.00 | 0.89 | 0.94 |
+| comet | 18 | 0.89 | 0.89 | 0.89 |
+| micronucleus | 16 | 0.83 | 1.00 | 0.88 |
+
+**These numbers are a floor, not a validation.** The compounds are famous
+control chemicals; any model built on public genotoxicity knowledge has seen
+them. Metabolic activation is supplied from the reference metadata, not
+predicted, so what is scored is channel routing. The first informative test
+is a compound set the source has not seen, scored before the answers are
+looked up.
+
+The error analysis is the part worth reading:
+
+- **`methotrexate` is a false positive** in umu and comet. The aromatic
+  primary amine rule fires on it. That group is a genuine promutagen alert
+  and also common in drugs that are not mutagens — a known limitation of
+  alert systems, reproduced here rather than tuned away.
+- **`etoposide` and `colchicine` are missed entirely.** Neither has a
+  reactive group: they are a topo-II poison and a tubulin binder. Alerts
+  describe reactivity, so this class is invisible to every rule in the file
+  and always will be. It needs a target-binding model, which is the next
+  thing to build.
+- **The "misleading positives" are scored separately.** Eugenol and
+  2-biphenylol are positive in the in-vitro micronucleus test, and that
+  positive is attributed to cytotoxicity rather than genotoxicity. A
+  damage-channel source *should* decline to fire on them, so counting the
+  in-vitro "+" as a miss would penalise it for being right. They are counted
+  as `artifact-class declined` (2/2) instead. Reproducing those positives
+  would need a cytotoxicity prediction, which this source does not make.
+
+### What the benchmark found in the model
+
+Including ciprofloxacin exposed a real gap. It poisons **bacterial** gyrase —
+umu-positive, unremarkable in mammalian cells — but the channel vector had a
+single `topo` channel feeding every core, so the model was obliged to predict
+that a fluoroquinolone induces micronuclei. The channel is now split into
+`topo_bacterial` and `topo_mammalian`, routed to the bacterial and mammalian
+cores respectively. A benchmark that changes the model is doing its job.
+
 ## What the model does and does not claim
 
 The **topology** is standard and mechanistic in both cores: lesion → ssDNA →
@@ -282,7 +339,7 @@ separates them from signal.
 
 ## Structural checks
 
-Twenty-nine in total (6 + 7 + 8 + 8), none of them a curve fit. They assert properties of
+Thirty-five in total (6 + 7 + 8 + 8 + 6), none of them a curve fit. They assert properties of
 the wiring and fail loudly if a layer is connected wrongly.
 
 `run_umu.py` (6): direct-acting compound positive without S9; promutagen call
@@ -312,6 +369,13 @@ continuous symmetry; each of the three endpoints constrains far fewer
 directions than it has parameters; a parameter is identifiable only if the
 probe compound exercises it; and extra sampling buys precision rather than
 new directions.
+
+`run_benchmark.py` (6): every benchmark structure parses and matches its
+formula; the species-split topo channels keep a gyrase poison out of the
+mammalian endpoints; the aneugen chemotype routes to the aneugenic channel;
+alerts miss target-binding aneugens *and the run says so*; misleading
+positives and negatives draw no alert; and specificity is not achieved by
+predicting nothing.
 
 Where the failures were fixed matters. Two were fixed in the *assertion*,
 because the assertion tested the wrong thing — raw induction ratio where the
@@ -345,6 +409,11 @@ the lowest dose.
 - Comet %tail saturates by construction (ceiling 92%), which is right, but the
   model has no lysis/electrophoresis step, so slide-to-slide and
   condition-to-condition variation in migration is not represented.
+- The alert source does not predict metabolic activation or cytotoxicity.
+  Both are supplied externally, so it cannot be scored on either.
+- Benchmark labels are published classifications for well-known control
+  chemicals, so they are almost certainly inside the knowledge any model
+  brings to them. A score there bounds nothing.
 - The identifiability analysis is **local** — a linearisation about one
   operating point, with one probe compound per design. A parameter estimable
   there may not be estimable elsewhere in parameter space, and profile

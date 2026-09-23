@@ -114,7 +114,7 @@ class P53Core(SignalCore):
     # replication-blocking bulky lesions, ATM by frank double-strand breaks.
     # Same upstream vector, different projection, different answer.
     dna_weights: dict = field(default_factory=lambda: {
-        "dsb": 1.00, "icl": 0.90, "topo": 0.85, "bulky_adduct": 0.60,
+        "dsb": 1.00, "icl": 0.90, "topo_mammalian": 0.85, "topo_bacterial": 0.00, "bulky_adduct": 0.60,
         "ssb": 0.40, "alkylation": 0.35, "oxidative": 0.25,
         "aneugenic": 0.00,          # never a DNA lesion — see point 3 above
     })
