@@ -1,22 +1,19 @@
 ---
 name: epitope-gated-binder-triage
 description: >-
-  Run and triage a de novo binder campaign whose goal is FUNCTIONAL BLOCKADE,
-  not just binding — nanobody/VHH, minibinder or antibody designs against a
-  structurally defined epitope, using Boltz-2 (or any co-folding design API).
-  The central finding this skill encodes: co-folding confidence scores
-  (binding_confidence, ipTM, PAE, ipSAE) tell you whether a complex is real,
-  NOT whether it sits on your blocking epitope — so selection must gate on
-  computed interface geometry and then rank on diversity, never on score
-  alone. Use this whenever someone wants to design a blocker/antagonist/
-  neutralizing binder, asks how many designs to order, asks whether a
-  co-folding score can be trusted for ranking, wants epitope occupancy or
-  paratope footprints computed from predicted complexes, is planning
-  predict-and-redesign iteration rounds, or is about to send designed protein
-  sequences for synthesis. Also use it when a campaign "looks great by score"
-  and you need to check whether that means anything. Enforces per-file
-  structure verification, honest stratified statistics, and a final
-  developability QC that catches fixes which introduce new defects.
+  Design and triage de novo binders that must BLOCK, not just bind — VHH,
+  nanobody, minibinder or antibody against a defined epitope, via Boltz-2 or
+  any co-folding design API. Encodes the measured finding that confidence
+  scores (binding_confidence, ipTM, PAE, ipSAE) say whether a complex is real,
+  not whether it sits on your blocking epitope, so selection must gate on
+  computed interface geometry and rank on diversity, never on score. Use
+  whenever someone designs a blocker, antagonist or neutralizing binder, asks
+  how many designs to order, asks whether a co-folding score can be trusted
+  for ranking, wants epitope occupancy or paratope footprints from predicted
+  complexes, plans predict-and-redesign rounds, or is about to send designed
+  sequences for synthesis. Also use when a campaign looks great by score and
+  you need to check whether that means anything. Enforces per-file structure
+  verification, stratified statistics, and batch developability QC.
 ---
 
 # Epitope-gated binder triage
