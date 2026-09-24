@@ -1,0 +1,16 @@
+{
+  "dataset": "Tahoe-100M (tahoebio/Tahoe-100M, CC0-1.0) pseudobulk_differential_expression",
+  "why_not_raw": "DE 表已是相对同板 DMSO 对照的 pseudobulk log2FC，即基准所需的 delta；全量 DE 为 86.5 GB，按 row group 选择性读取后只需其中极小一部分",
+  "layout_verified": {
+    "n_shards": 1026,
+    "one_cell_line_per_shard": true,
+    "n_cell_lines": 50,
+    "n_drugs": 379,
+    "n_conditions_total": 67342,
+    "concentrations": [
+      0.05,
+      0.5,
+      5.0
+    ]
+  }
+}
