@@ -317,33 +317,54 @@ def main(name: str = "tahoe_delta", tag: str = "") -> dict:
             log(f"有效性判据（{k}）: " + ", ".join(
                 f"{n.split('_')[0]}={'通过' if v['passed'] else '未通过'}" for n, v in c.items()))
 
-    # 与 sci-Plex 结果对比
-    comp = None
-    p = RES_B / "b2_loso.json"
-    if p.exists():
-        b2 = json.loads(p.read_text())
-        g = lambda d, k="pearson_delta_mean": (d or {}).get("weighted_consensus_gated", {}).get(k)
-        comp = {
-            "sciplex": {
-                "n_cell_lines": 3,
-                "n_source_contexts_per_fold": 2,
-                "all_compounds_r": g(b2["all_compounds"]["summary"]),
-                "source_selected_r": g(b2["reproducible_subset_source_selected"]["summary"]),
-                "ceiling_median_reproducible": b2["reproducibility_ceiling"]["median_split_half_r_reproducible"],
-                "reproducible_fraction": round(
-                    b2["reproducibility_ceiling"]["n_reproducible_pairs"]
-                    / b2["reproducibility_ceiling"]["n_compound_cellline_pairs"], 3),
-            },
-            "tahoe": {
-                "n_cell_lines": int(len(agg)),
-                "n_source_contexts_per_fold": int(len(agg) - 1),
-                "all_compounds_r": g(s_all),
-                "source_selected_r": g(s_src),
-                "ceiling_median_reproducible": ceiling["median_split_half_r_reproducible"],
-                "reproducible_fraction": round(
-                    ceiling["n_reproducible_pairs"] / ceiling["n_compound_cellline_pairs"], 3),
-            },
+    # 与 sci-Plex、以及（若存在）另一个 Tahoe 运行结果做对比
+    g = lambda d, k="pearson_delta_mean": (d or {}).get("weighted_consensus_gated", {}).get(k)
+
+    def _row(n_cl, n_drugs, s_a, s_s, ceil_med, n_rep, n_pair):
+        return {
+            "n_cell_lines": n_cl, "n_drugs": n_drugs,
+            "n_source_contexts_per_fold": n_cl - 1,
+            "all_compounds_r": g(s_a),
+            "source_selected_r": g(s_s),
+            "generic_response_r": (s_s or {}).get("generic_response", {}).get("pearson_delta_mean"),
+            "shuffled_compound_r": (s_s or {}).get("shuffled_compound", {}).get("pearson_delta_mean"),
+            "drug_specific_gain": (
+                round((g(s_s) or 0)
+                      - ((s_s or {}).get("generic_response", {}).get("pearson_delta_mean") or 0), 4)),
+            "sign_match": (s_s or {}).get("weighted_consensus_gated", {}).get("sign_match_mean"),
+            "top50_overlap": (s_s or {}).get("weighted_consensus_gated", {}).get("top50_overlap_mean"),
+            "ceiling_median_reproducible": ceil_med,
+            "reproducible_fraction": round(n_rep / n_pair, 3) if n_pair else None,
         }
+
+    comp: dict = {}
+    p2 = RES_B / "b2_loso.json"
+    if p2.exists():
+        b2 = json.loads(p2.read_text())
+        n_pairs_b2 = b2["reproducibility_ceiling"]["n_compound_cellline_pairs"]
+        comp["sciplex"] = _row(
+            3, b2.get("n_compounds") or round(n_pairs_b2 / 3),
+            b2["all_compounds"]["summary"],
+            b2["reproducible_subset_source_selected"]["summary"],
+            b2["reproducibility_ceiling"]["median_split_half_r_reproducible"],
+            b2["reproducibility_ceiling"]["n_reproducible_pairs"],
+            b2["reproducibility_ceiling"]["n_compound_cellline_pairs"])
+
+    # 另一个 Tahoe 运行（50 药物版 <-> 全量版互为对照）
+    other = RES_B / ("b5_tahoe_loso.json" if tag else "b5_tahoe_loso_full.json")
+    if other.exists():
+        o = json.loads(other.read_text())
+        comp["tahoe_" + ("subset" if tag else "full")] = _row(
+            o["n_cell_lines"], o["n_compounds"], o["all_compounds"]["summary"],
+            o["reproducible_subset_source_selected"]["summary"],
+            o["reproducibility_ceiling"]["median_split_half_r_reproducible"],
+            o["reproducibility_ceiling"]["n_reproducible_pairs"],
+            o["reproducibility_ceiling"]["n_compound_cellline_pairs"])
+
+    comp["tahoe_" + ("full" if tag else "subset")] = _row(
+        int(len(agg)), int(meta["drug"].nunique()), s_all, s_src,
+        ceiling["median_split_half_r_reproducible"],
+        ceiling["n_reproducible_pairs"], ceiling["n_compound_cellline_pairs"])
 
     out = {
         "dataset": "Tahoe-100M pseudobulk DE 子集（见 b4_tahoe.json）",
@@ -363,7 +384,7 @@ def main(name: str = "tahoe_delta", tag: str = "") -> dict:
         "reproducible_subset_source_selected": {
             "n_evaluations": int(df["source_reproducible"].sum()),
             "summary": s_src, "validity_criteria": crits["reproducible_source_selected"]},
-        "comparison_with_sciplex": comp,
+        "comparison": comp,
         "scope_caveats": [
             "按方案描述**重新实现**的 control-similarity 加权共识 + basal gating，"
             "非调用用户 VirtualCell PoC 原始代码（该压缩包不在本会话环境中）。",
@@ -425,21 +446,23 @@ def _plot(df: pd.DataFrame, rep_vals: pd.Series, out: dict, comp: dict | None,
 
     ax = axes[2]
     if comp:
-        keys = ["all_compounds_r", "source_selected_r", "ceiling_median_reproducible"]
-        names = ["全部化合物", "源侧可重复子集", "可重复性天花板"]
-        x = np.arange(len(keys)); wd = 0.36
-        for k, (ds, c) in enumerate([("sciplex", "#dd6b20"), ("tahoe", "#2b6cb0")]):
-            vals = [comp[ds][kk] or 0 for kk in keys]
-            lbl = (f"sci-Plex（3 细胞系）" if ds == "sciplex"
-                   else f"Tahoe（{comp['tahoe']['n_cell_lines']} 细胞系）")
-            b = ax.bar(x + (k - 0.5) * wd, vals, wd, label=lbl, color=c)
+        keys = ["all_compounds_r", "source_selected_r", "drug_specific_gain"]
+        names = ["全部化合物", "源侧可重复子集", "药物特异性增益\n(扣除通用响应)"]
+        dss = [k for k in ["sciplex", "tahoe_subset", "tahoe_full"] if k in comp]
+        nice = {"sciplex": "sci-Plex", "tahoe_subset": "Tahoe 子集", "tahoe_full": "Tahoe 全量"}
+        cols = {"sciplex": "#dd6b20", "tahoe_subset": "#4299e1", "tahoe_full": "#2b6cb0"}
+        x = np.arange(len(keys)); wd = 0.8 / max(len(dss), 1)
+        for k, ds in enumerate(dss):
+            vals = [comp[ds].get(kk) or 0 for kk in keys]
+            lbl = f"{nice[ds]}（{comp[ds]['n_cell_lines']} 细胞系 / {comp[ds].get('n_drugs') or '?'} 药物）"
+            b = ax.bar(x + k * wd - 0.4 + wd / 2, vals, wd, label=lbl, color=cols[ds])
             for bb, v in zip(b, vals):
                 ax.text(bb.get_x() + bb.get_width() / 2, v + 0.008, f"{v:.2f}",
-                        ha="center", fontsize=8)
-        ax.set_xticks(x); ax.set_xticklabels(names, fontsize=9)
+                        ha="center", fontsize=7.5)
+        ax.set_xticks(x); ax.set_xticklabels(names, fontsize=8.5)
         ax.set_ylabel("delta Pearson r")
-        ax.set_title("两个数据集对比")
-        ax.legend(frameon=False, fontsize=8.5)
+        ax.set_title("数据集对比")
+        ax.legend(frameon=False, fontsize=7.5)
         ax.grid(alpha=0.25, axis="y")
 
     fig.suptitle("B5：Tahoe-100M 上的跨上下文迁移基准（50 个细胞系）", fontsize=13)

@@ -324,6 +324,9 @@ def main() -> dict:
             "说明该分辨率下 delta 由噪声主导。本版改为化合物层聚合 + 分半可重复性天花板，"
             "并以 transfer_r / r_ceiling 报告归一化迁移效率。"
         ),
+        "n_cell_lines": len(controls),
+        "n_compounds": int(len({c for d in deltas.values() for c in d})),
+        "n_genes_evaluated": int(len(genes)),
         "reproducibility_ceiling": ceiling_stats,
         "all_compounds": {"summary": all_summary, "validity_criteria": crit_all},
         "reproducible_subset_heldout_selected": {
