@@ -1,0 +1,46 @@
+{
+  "dataset": "Tahoe-100M (tahoebio/Tahoe-100M, CC0-1.0) pseudobulk_differential_expression",
+  "why_not_raw": "DE 表已是相对同板 DMSO 对照的 pseudobulk log2FC，即基准所需的 delta；全量 DE 为 86.5 GB，按 row group 选择性读取后只取其中极小一部分，100M 细胞的原始计数矩阵（3388 个分片）完全不需要下载。",
+  "layout_verified": {
+    "n_shards": 1026,
+    "n_cell_lines": 50,
+    "n_drugs": 379,
+    "n_conditions_total": 67342,
+    "concentrations_uM": [
+      0.05,
+      0.5,
+      5.0
+    ],
+    "n_genes": 14930,
+    "note": "49 个分片跨两个细胞系；条件键含细胞系，已正确处理"
+  },
+  "subset": {
+    "n_drugs": 379,
+    "n_cell_lines": 50,
+    "n_conditions_requested": 56827,
+    "n_conditions_extracted": 56827,
+    "selection": "全部药物，无抽样",
+    "mers_overlap_drugs_included": [
+      "Benztropine (mesylate)",
+      "Carbidopa (monohydrate)",
+      "Gemcitabine",
+      "Loperamide (hydrochloride)",
+      "Lopinavir",
+      "Ralimetinib dimesylate"
+    ]
+  },
+  "gene_universe": {
+    "n_genes": 14930,
+    "selection": "由已有子集样本按非 NaN 覆盖率定出（受内存约束：全部 62710 个基因× 56827 个条件的 float32 矩阵为 14.3 GB，超过本机内存）",
+    "min_coverage_in_sample": 0.9
+  },
+  "data_quality": {
+    "fraction_nan_log2fc": 0.0332,
+    "note": "DESeq2 对低表达/离群基因返回 NaN，属正常行为；下游按非 NaN 基因求交集"
+  },
+  "basal_proxy": {
+    "field": "baseMean",
+    "n_cell_lines": 50,
+    "caveat": "baseMean 含处理细胞，但对照细胞数远多于处理细胞（典型 4862 vs 1378），故以对照为主；用作 basal gating 与对照相似度的近似，不泄漏留出上下文的扰动方向信息"
+  }
+}

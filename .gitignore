@@ -6,3 +6,4 @@ data/
 .venv/
 results/trackB/sciplex_pseudobulk.npz
 results/trackB/tahoe_delta.npz
+results/trackB/tahoe_delta_full.npz

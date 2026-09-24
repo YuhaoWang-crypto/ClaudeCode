@@ -74,7 +74,8 @@ def select_genes(delta: np.ndarray, genes: np.ndarray) -> np.ndarray:
 def build(delta: np.ndarray, meta: pd.DataFrame, gidx: np.ndarray):
     """化合物层聚合 + 分半可重复性（两个高浓度互为半份）。"""
     d = delta[:, gidx]
-    d = np.nan_to_num(d, nan=0.0)   # 余下的少量 NaN 视作"无变化"
+    # 原地填充，避免在 5.7 万条件 × 1.5 万基因的规模上多出一份拷贝
+    np.nan_to_num(d, nan=0.0, copy=False)   # 余下的少量 NaN 视作"无变化"
     meta = meta.reset_index(drop=True)
 
     agg: dict[str, dict[str, np.ndarray]] = {}
@@ -283,6 +284,7 @@ def main(name: str = "tahoe_delta", tag: str = "") -> dict:
     log(f"基础表达代理：{len(controls)} 个细胞系")
 
     agg, repro = build(delta, meta, gidx)
+    del delta   # 释放主矩阵，后续只用聚合结果
     df = loso(agg, repro, controls)
     df.to_csv(RES_B / f"tahoe_loso_per_compound{tag}.csv", index=False)
 
@@ -462,7 +464,9 @@ def _plot(df: pd.DataFrame, rep_vals: pd.Series, out: dict, comp: dict | None,
         ax.set_xticks(x); ax.set_xticklabels(names, fontsize=8.5)
         ax.set_ylabel("delta Pearson r")
         ax.set_title("数据集对比")
-        ax.legend(frameon=False, fontsize=7.5)
+        ax.set_ylim(0, max(max(comp[d].get(k) or 0 for k in keys) for d in dss) * 1.42)
+        ax.legend(frameon=False, fontsize=7.5, loc="upper center", ncol=1,
+                  handlelength=1.2, borderaxespad=0.2)
         ax.grid(alpha=0.25, axis="y")
 
     fig.suptitle("B5：Tahoe-100M 上的跨上下文迁移基准（50 个细胞系）", fontsize=13)

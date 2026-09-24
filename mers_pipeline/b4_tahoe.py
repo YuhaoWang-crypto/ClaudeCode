@@ -364,7 +364,9 @@ def main(n_drugs: int = 50, n_workers: int = 8, out_name: str = "tahoe_delta",
             "n_cell_lines": int(want["cell_line"].nunique()),
             "n_conditions_requested": int(len(want)),
             "n_conditions_extracted": int(meta["extracted"].sum()),
-            "selection": "强制纳入 MERS 交集药物 + 其余按固定种子随机抽取（不按响应强弱挑选）",
+            "selection": ("全部药物，无抽样"
+                          if want["drug"].nunique() >= cov["drug"].nunique()
+                          else "强制纳入 MERS 交集药物 + 其余按固定种子随机抽取（不按响应强弱挑选）"),
             "mers_overlap_drugs_included": [d for d in MERS_OVERLAP_DRUGS
                                             if d in set(want["drug"])],
         },

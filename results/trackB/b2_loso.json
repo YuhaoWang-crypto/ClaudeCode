@@ -1,5 +1,8 @@
 {
   "design_note": "第一版在全部 188 化合物 × 4 剂量上跑 LOSO 得到 r≈0.03，但正对照显示同细胞系内相邻剂量的 delta 相关仅 0.07–0.10、||delta|| 跨四个数量级剂量不变，说明该分辨率下 delta 由噪声主导。本版改为化合物层聚合 + 分半可重复性天花板，并以 transfer_r / r_ceiling 报告归一化迁移效率。",
+  "n_cell_lines": 3,
+  "n_compounds": 188,
+  "n_genes_evaluated": 15648,
   "reproducibility_ceiling": {
     "median_split_half_r_all": 0.1661,
     "median_split_half_r_reproducible": 0.4381,
