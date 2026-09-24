@@ -31,7 +31,8 @@ from .config import FIGS, RES_B, log, setup_cjk_fonts
 
 REPRO_THRESHOLD = 0.30
 SOFTMAX_TEMP = 10.0
-MIN_NONNAN_FRAC = 0.98     # 基因需在这么高比例的条件里非 NaN 才纳入
+MIN_NONNAN_FRAC = 0.98      # 基因需在这么高比例的条件里非 NaN 才纳入
+MIN_GENES_PER_COND = 5000   # 条件级 QC：DESeq2 可检验基因过少的条件视为失败
 BASAL_GATE_PCT = 20
 
 
@@ -40,6 +41,21 @@ def load():
     meta = pd.read_csv(RES_B / "tahoe_meta.csv")
     return (z["delta"], z["genes"].astype(str), z["basal"],
             z["basal_cells"].astype(str), meta)
+
+
+def qc_conditions(delta: np.ndarray, meta: pd.DataFrame) -> np.ndarray:
+    """条件级 QC：DESeq2 能检验的基因数过少的条件是失败的比较，不是"无响应"。
+
+    这些条件填 0 后会伪装成"没有变化"，从而稀释迁移指标 —— 必须先剔除。
+    """
+    n_ok = (~np.isnan(delta)).sum(axis=1)
+    keep = n_ok >= MIN_GENES_PER_COND
+    dropped = meta.loc[~keep, ["cell_line", "drug", "conc"]].assign(n_genes=n_ok[~keep])
+    log(f"条件级 QC：{len(meta)} -> {int(keep.sum())}"
+        f"（剔除可检验基因 < {MIN_GENES_PER_COND} 的 {int((~keep).sum())} 个条件）")
+    for _, r in dropped.iterrows():
+        log(f"    剔除 {r['cell_line']} / {r['drug']} @ {r['conc']} µM（{r['n_genes']} 个基因）")
+    return keep
 
 
 def select_genes(delta: np.ndarray, genes: np.ndarray) -> np.ndarray:
@@ -94,10 +110,24 @@ def metrics(pred: np.ndarray, true: np.ndarray, top_k: int = 50) -> dict:
             "sign_match": float(np.mean(np.sign(pred[ti]) == np.sign(true[ti])))}
 
 
-def loso(agg: dict, repro: dict, controls: dict) -> pd.DataFrame:
+def loso(agg: dict, repro: dict, controls: dict, seed: int = 0) -> pd.DataFrame:
+    """LOSO 迁移基准。
+
+    除 no-change 与未加权共识外，额外加入两个**负对照**，用来分离
+    "跨药物通用响应" 与 "药物特异性迁移"：
+
+      generic_response —— 用源细胞系**全部药物的平均响应**去预测。
+                          这个预测里没有任何药物特异性信息。
+      shuffled_compound —— 用**另一个随机药物**的共识去预测目标药物。
+
+    没有这两条基线，裸报 delta Pearson 会把通用响应算进迁移能力。
+    """
+    rng = np.random.default_rng(seed)
     rows = []
     cls = sorted(agg)
     log(f"LOSO：{len(cls)} 个细胞系，每折 {len(cls)-1} 个源上下文")
+    # 每个细胞系在全部药物上的平均响应 —— 通用响应成分
+    mean_resp = {c: np.mean(np.vstack(list(agg[c].values())), axis=0) for c in cls}
     for held in cls:
         others = [c for c in cls if c != held and c in controls]
         if not others or held not in controls:
@@ -108,6 +138,8 @@ def loso(agg: dict, repro: dict, controls: dict) -> pd.DataFrame:
         w = np.exp(sims * SOFTMAX_TEMP)
         w = w / w.sum()
 
+        drugs_here = sorted(agg[held])
+        generic = np.mean(np.vstack([mean_resp[o] for o in others]), axis=0)
         for cmpd, true in agg[held].items():
             srcs = [(o, agg[o][cmpd]) for o in others if cmpd in agg[o]]
             if not srcs:
@@ -115,10 +147,22 @@ def loso(agg: dict, repro: dict, controls: dict) -> pd.DataFrame:
             mats = np.vstack([v for _, v in srcs])
             ww = np.array([w[others.index(o)] for o, _ in srcs])
             ww = ww / ww.sum()
+
+            # 负对照：随机换一个别的药物的共识
+            other_drugs = [d for d in drugs_here if d != cmpd]
+            shuf = np.zeros_like(true)
+            if other_drugs:
+                d2 = other_drugs[int(rng.integers(len(other_drugs)))]
+                srcs2 = [agg[o][d2] for o in others if d2 in agg[o]]
+                if srcs2:
+                    shuf = np.mean(np.vstack(srcs2), axis=0)
+
             preds = {
                 "weighted_consensus_gated": (mats * ww[:, None]).sum(0) * gate,
                 "weighted_consensus": (mats * ww[:, None]).sum(0),
                 "unweighted_consensus": mats.mean(0),
+                "generic_response": generic,        # 负对照：无药物特异性
+                "shuffled_compound": shuf,          # 负对照：换一个药物
                 "no_change": np.zeros_like(true),
             }
             rc = repro.get((held, cmpd))
@@ -165,25 +209,55 @@ def summarize(df: pd.DataFrame, label: str) -> dict:
     return out
 
 
-def criteria(summ: dict) -> dict:
-    w = summ.get("weighted_consensus_gated", {})
+def criteria(summ: dict, primary: str = "weighted_consensus_gated") -> dict:
+    """有效性判据。
+
+    相对第一版的三处修正：
+      * c2 原写成"落在 [0.2, 0.45] 区间内"，于是**超出上界也算失败** —— 这是错的，
+        超过遗传扰动 PoC 的水平是更好而不是更差。改为"≥ 0.2"，并单独标注是否超出上界。
+      * c3 原拿 weighted_gated 与 unweighted 比，把"加权"和"gating"两件事混在一起。
+        改为在**同一 gating 条件下**比较加权与未加权，另设 c3b 单独评估 gating。
+      * 新增 c5：必须超过"通用响应"负对照，否则测到的只是跨药物共有成分，
+        不是药物特异性迁移。
+    """
+    p = summ.get(primary, {})
+    wg = summ.get("weighted_consensus_gated", {})
+    w = summ.get("weighted_consensus", {})
     u = summ.get("unweighted_consensus", {})
     nc = summ.get("no_change", {})
+    gen = summ.get("generic_response", {})
+    shuf = summ.get("shuffled_compound", {})
+    v = lambda d: d.get("pearson_delta_mean")
+
+    # 注意：不能写成 `(pv or 1) < 0.05` —— p 值下溢到 0.0 时 `0.0 or 1` 会得到 1，
+    # 把最显著的结果判成不显著。必须显式区分 None 与 0.0。
+    pv = p.get("wilcoxon_greater_than_0_p")
+    pv_ok = pv is not None and pv < 0.05
+
     return {
-        "c1_pearson_gt_0": {"value": w.get("pearson_delta_mean"),
-                            "p": w.get("wilcoxon_greater_than_0_p"),
-                            "passed": bool((w.get("pearson_delta_mean") or 0) > 0
-                                           and (w.get("wilcoxon_greater_than_0_p") or 1) < 0.05)},
-        "c2_magnitude_in_genetic_poc_range_0.2_0.45": {
-            "value": w.get("pearson_delta_mean"),
-            "passed": bool(0.2 <= (w.get("pearson_delta_mean") or -1) <= 0.45)},
-        "c3_weighted_ge_unweighted": {
-            "weighted": w.get("pearson_delta_mean"), "unweighted": u.get("pearson_delta_mean"),
-            "passed": bool((w.get("pearson_delta_mean") or -1)
-                           >= (u.get("pearson_delta_mean") or 1e9))},
+        "c1_pearson_gt_0": {
+            "value": v(p), "p": pv,
+            "passed": bool((v(p) or 0) > 0 and pv_ok)},
+        "c2_magnitude_at_least_genetic_poc": {
+            "value": v(p), "threshold": 0.2,
+            "exceeds_genetic_poc_upper_0.45": bool((v(p) or 0) > 0.45),
+            "passed": bool((v(p) or -1) >= 0.2)},
+        "c3_weighting_helps_same_gating": {
+            "weighted": v(w), "unweighted": v(u),
+            "delta": round((v(w) or 0) - (v(u) or 0), 4),
+            "passed": bool((v(w) or -1) >= (v(u) or 1e9))},
+        "c3b_gating_helps": {
+            "gated": v(wg), "ungated": v(w),
+            "gated_mae": wg.get("mae_mean"), "ungated_mae": w.get("mae_mean"),
+            "passed": bool((v(wg) or -1) >= (v(w) or 1e9))},
         "c4_beats_no_change_mae": {
-            "weighted_mae": w.get("mae_mean"), "no_change_mae": nc.get("mae_mean"),
-            "passed": bool((w.get("mae_mean") or 1e9) < (nc.get("mae_mean") or 0))},
+            "primary_mae": p.get("mae_mean"), "no_change_mae": nc.get("mae_mean"),
+            "passed": bool((p.get("mae_mean") or 1e9) < (nc.get("mae_mean") or 0))},
+        "c5_beats_generic_response": {
+            "primary": v(p), "generic_response": v(gen), "shuffled_compound": v(shuf),
+            "drug_specific_gain_vs_generic": round((v(p) or 0) - (v(gen) or 0), 4),
+            "drug_specific_gain_vs_shuffled": round((v(p) or 0) - (v(shuf) or 0), 4),
+            "passed": bool((v(p) or -1) > (v(gen) or 1e9))},
     }
 
 
@@ -191,6 +265,9 @@ def main() -> dict:
     delta, genes, basal, basal_cells, meta = load()
     log(f"Tahoe delta: {delta.shape[0]} 条件 × {delta.shape[1]} 基因；"
         f"{meta['cell_line'].nunique()} 细胞系 × {meta['drug'].nunique()} 药物")
+    keep = qc_conditions(delta, meta)
+    n_dropped = int((~keep).sum())
+    delta, meta = delta[keep], meta.loc[keep].reset_index(drop=True)
     gidx = select_genes(delta, genes)
 
     controls = {}
@@ -213,6 +290,10 @@ def main() -> dict:
         "n_reproducible_pairs": int((rep_vals > REPRO_THRESHOLD).sum()),
         "threshold": REPRO_THRESHOLD,
         "split_half_definition": "同细胞系同化合物的 0.5 µM 与 5 µM 两个浓度互为半份",
+        "caveat": ("这不是严格的重复测量分半：两个浓度的响应本身就可能不同，"
+                   "因此它**低估**了真实可重复性，使 transfer_efficiency 可能 > 1。"
+                   "sci-Plex 侧用的是交错剂量 {1,3} vs {2,4}，更接近重复分半。"
+                   "两个数据集的 transfer_efficiency 不可直接互比。"),
     }
     log(f"可重复性天花板：全部中位 r={ceiling['median_split_half_r_all']}，"
         f"可重复子集中位 r={ceiling['median_split_half_r_reproducible']}"
@@ -263,6 +344,11 @@ def main() -> dict:
         "n_cell_lines": int(len(agg)),
         "n_compounds": int(meta["drug"].nunique()),
         "n_genes_evaluated": int(len(gidx)),
+        "condition_qc": {"min_testable_genes": MIN_GENES_PER_COND,
+                         "n_conditions_dropped": n_dropped,
+                         "n_conditions_used": int(len(meta)),
+                         "rationale": "DESeq2 可检验基因过少的条件是失败的比较，"
+                                      "填 0 后会伪装成\"无响应\"并稀释迁移指标"},
         "reproducibility_ceiling": ceiling,
         "all_compounds": {"summary": s_all, "validity_criteria": crits["all"]},
         "reproducible_subset_heldout_selected": {
@@ -291,12 +377,13 @@ def _plot(df: pd.DataFrame, rep_vals: pd.Series, out: dict, comp: dict | None) -
     setup_cjk_fonts()
     import matplotlib.pyplot as plt
 
-    order = ["weighted_consensus_gated", "weighted_consensus",
-             "unweighted_consensus", "no_change"]
+    order = ["weighted_consensus_gated", "weighted_consensus", "unweighted_consensus",
+             "generic_response", "shuffled_compound", "no_change"]
     labels = {"weighted_consensus_gated": "加权共识\n+gating", "weighted_consensus": "加权共识",
-              "unweighted_consensus": "未加权共识", "no_change": "no-change"}
+              "unweighted_consensus": "未加权共识", "generic_response": "通用响应\n(负对照)",
+              "shuffled_compound": "打乱药物\n(负对照)", "no_change": "no-change"}
     order = [o for o in order if o in set(df["method"])]
-    colors = ["#2b6cb0", "#4299e1", "#dd6b20", "#a0aec0"]
+    colors = ["#2b6cb0", "#4299e1", "#dd6b20", "#d69e2e", "#e53e3e", "#a0aec0"]
 
     fig, axes = plt.subplots(1, 3, figsize=(16.5, 4.9))
 

@@ -1,0 +1,428 @@
+{
+  "dataset": "Tahoe-100M pseudobulk DE 子集（见 b4_tahoe.json）",
+  "n_cell_lines": 50,
+  "n_compounds": 50,
+  "n_genes_evaluated": 6464,
+  "condition_qc": {
+    "min_testable_genes": 5000,
+    "n_conditions_dropped": 9,
+    "n_conditions_used": 7491,
+    "rationale": "DESeq2 可检验基因过少的条件是失败的比较，填 0 后会伪装成\"无响应\"并稀释迁移指标"
+  },
+  "reproducibility_ceiling": {
+    "median_split_half_r_all": 0.2816,
+    "median_split_half_r_reproducible": 0.4319,
+    "n_compound_cellline_pairs": 2493,
+    "n_reproducible_pairs": 1151,
+    "threshold": 0.3,
+    "split_half_definition": "同细胞系同化合物的 0.5 µM 与 5 µM 两个浓度互为半份",
+    "caveat": "这不是严格的重复测量分半：两个浓度的响应本身就可能不同，因此它**低估**了真实可重复性，使 transfer_efficiency 可能 > 1。sci-Plex 侧用的是交错剂量 {1,3} vs {2,4}，更接近重复分半。两个数据集的 transfer_efficiency 不可直接互比。"
+  },
+  "all_compounds": {
+    "summary": {
+      "generic_response": {
+        "n": 2500,
+        "pearson_delta_mean": 0.3522,
+        "pearson_delta_median": 0.3692,
+        "pearson_delta_ci95": [
+          -0.1169,
+          0.6186
+        ],
+        "wilcoxon_greater_than_0_p": 0.0,
+        "mae_mean": 0.2435,
+        "top50_overlap_mean": 0.1482,
+        "sign_match_mean": 0.7277,
+        "transfer_efficiency_median": 1.2446
+      },
+      "no_change": {
+        "n": 2500,
+        "pearson_delta_mean": 0.0,
+        "pearson_delta_median": 0.0,
+        "pearson_delta_ci95": [
+          0.0,
+          0.0
+        ],
+        "wilcoxon_greater_than_0_p": null,
+        "mae_mean": 0.2585,
+        "top50_overlap_mean": 0.0247,
+        "sign_match_mean": 0.0,
+        "transfer_efficiency_median": 0.0
+      },
+      "shuffled_compound": {
+        "n": 2500,
+        "pearson_delta_mean": 0.1907,
+        "pearson_delta_median": 0.194,
+        "pearson_delta_ci95": [
+          -0.1554,
+          0.4948
+        ],
+        "wilcoxon_greater_than_0_p": 0.0,
+        "mae_mean": 0.2821,
+        "top50_overlap_mean": 0.1037,
+        "sign_match_mean": 0.632,
+        "transfer_efficiency_median": 0.6587
+      },
+      "unweighted_consensus": {
+        "n": 2500,
+        "pearson_delta_mean": 0.5995,
+        "pearson_delta_median": 0.6414,
+        "pearson_delta_ci95": [
+          0.1413,
+          0.8307
+        ],
+        "wilcoxon_greater_than_0_p": 0.0,
+        "mae_mean": 0.2054,
+        "top50_overlap_mean": 0.2646,
+        "sign_match_mean": 0.8518,
+        "transfer_efficiency_median": 1.964
+      },
+      "weighted_consensus": {
+        "n": 2500,
+        "pearson_delta_mean": 0.6014,
+        "pearson_delta_median": 0.645,
+        "pearson_delta_ci95": [
+          0.1407,
+          0.829
+        ],
+        "wilcoxon_greater_than_0_p": 0.0,
+        "mae_mean": 0.2058,
+        "top50_overlap_mean": 0.268,
+        "sign_match_mean": 0.8546,
+        "transfer_efficiency_median": 1.9732
+      },
+      "weighted_consensus_gated": {
+        "n": 2500,
+        "pearson_delta_mean": 0.5552,
+        "pearson_delta_median": 0.595,
+        "pearson_delta_ci95": [
+          0.1575,
+          0.7715
+        ],
+        "wilcoxon_greater_than_0_p": 0.0,
+        "mae_mean": 0.2345,
+        "top50_overlap_mean": 0.1683,
+        "sign_match_mean": 0.8546,
+        "transfer_efficiency_median": 1.8241
+      }
+    },
+    "validity_criteria": {
+      "c1_pearson_gt_0": {
+        "value": 0.5552,
+        "p": 0.0,
+        "passed": false
+      },
+      "c2_magnitude_at_least_genetic_poc": {
+        "value": 0.5552,
+        "threshold": 0.2,
+        "exceeds_genetic_poc_upper_0.45": true,
+        "passed": true
+      },
+      "c3_weighting_helps_same_gating": {
+        "weighted": 0.6014,
+        "unweighted": 0.5995,
+        "delta": 0.0019,
+        "passed": true
+      },
+      "c3b_gating_helps": {
+        "gated": 0.5552,
+        "ungated": 0.6014,
+        "gated_mae": 0.2345,
+        "ungated_mae": 0.2058,
+        "passed": false
+      },
+      "c4_beats_no_change_mae": {
+        "primary_mae": 0.2345,
+        "no_change_mae": 0.2585,
+        "passed": true
+      },
+      "c5_beats_generic_response": {
+        "primary": 0.5552,
+        "generic_response": 0.3522,
+        "shuffled_compound": 0.1907,
+        "drug_specific_gain_vs_generic": 0.203,
+        "drug_specific_gain_vs_shuffled": 0.3645,
+        "passed": true
+      }
+    }
+  },
+  "reproducible_subset_heldout_selected": {
+    "n_evaluations": 6906,
+    "summary": {
+      "generic_response": {
+        "n": 1151,
+        "pearson_delta_mean": 0.3981,
+        "pearson_delta_median": 0.429,
+        "pearson_delta_ci95": [
+          -0.1618,
+          0.6383
+        ],
+        "wilcoxon_greater_than_0_p": 2.786462599301037e-184,
+        "mae_mean": 0.1972,
+        "top50_overlap_mean": 0.1825,
+        "sign_match_mean": 0.7458,
+        "transfer_efficiency_median": 0.9627
+      },
+      "no_change": {
+        "n": 1151,
+        "pearson_delta_mean": 0.0,
+        "pearson_delta_median": 0.0,
+        "pearson_delta_ci95": [
+          0.0,
+          0.0
+        ],
+        "wilcoxon_greater_than_0_p": null,
+        "mae_mean": 0.2141,
+        "top50_overlap_mean": 0.0246,
+        "sign_match_mean": 0.0,
+        "transfer_efficiency_median": 0.0
+      },
+      "shuffled_compound": {
+        "n": 1151,
+        "pearson_delta_mean": 0.2169,
+        "pearson_delta_median": 0.2308,
+        "pearson_delta_ci95": [
+          -0.1665,
+          0.5146
+        ],
+        "wilcoxon_greater_than_0_p": 3.1847578232230995e-154,
+        "mae_mean": 0.2392,
+        "top50_overlap_mean": 0.1245,
+        "sign_match_mean": 0.6454,
+        "transfer_efficiency_median": 0.514
+      },
+      "unweighted_consensus": {
+        "n": 1151,
+        "pearson_delta_mean": 0.6885,
+        "pearson_delta_median": 0.7034,
+        "pearson_delta_ci95": [
+          0.4247,
+          0.8439
+        ],
+        "wilcoxon_greater_than_0_p": 3.967303896744439e-190,
+        "mae_mean": 0.1502,
+        "top50_overlap_mean": 0.3513,
+        "sign_match_mean": 0.9,
+        "transfer_efficiency_median": 1.5409
+      },
+      "weighted_consensus": {
+        "n": 1151,
+        "pearson_delta_mean": 0.6935,
+        "pearson_delta_median": 0.7125,
+        "pearson_delta_ci95": [
+          0.4095,
+          0.8443
+        ],
+        "wilcoxon_greater_than_0_p": 3.967302211777569e-190,
+        "mae_mean": 0.1503,
+        "top50_overlap_mean": 0.3564,
+        "sign_match_mean": 0.9048,
+        "transfer_efficiency_median": 1.5527
+      },
+      "weighted_consensus_gated": {
+        "n": 1151,
+        "pearson_delta_mean": 0.6393,
+        "pearson_delta_median": 0.6553,
+        "pearson_delta_ci95": [
+          0.382,
+          0.7816
+        ],
+        "wilcoxon_greater_than_0_p": 3.967303896744439e-190,
+        "mae_mean": 0.1865,
+        "top50_overlap_mean": 0.2219,
+        "sign_match_mean": 0.9048,
+        "transfer_efficiency_median": 1.4255
+      }
+    },
+    "validity_criteria": {
+      "c1_pearson_gt_0": {
+        "value": 0.6393,
+        "p": 3.967303896744439e-190,
+        "passed": true
+      },
+      "c2_magnitude_at_least_genetic_poc": {
+        "value": 0.6393,
+        "threshold": 0.2,
+        "exceeds_genetic_poc_upper_0.45": true,
+        "passed": true
+      },
+      "c3_weighting_helps_same_gating": {
+        "weighted": 0.6935,
+        "unweighted": 0.6885,
+        "delta": 0.005,
+        "passed": true
+      },
+      "c3b_gating_helps": {
+        "gated": 0.6393,
+        "ungated": 0.6935,
+        "gated_mae": 0.1865,
+        "ungated_mae": 0.1503,
+        "passed": false
+      },
+      "c4_beats_no_change_mae": {
+        "primary_mae": 0.1865,
+        "no_change_mae": 0.2141,
+        "passed": true
+      },
+      "c5_beats_generic_response": {
+        "primary": 0.6393,
+        "generic_response": 0.3981,
+        "shuffled_compound": 0.2169,
+        "drug_specific_gain_vs_generic": 0.2412,
+        "drug_specific_gain_vs_shuffled": 0.4224,
+        "passed": true
+      }
+    }
+  },
+  "reproducible_subset_source_selected": {
+    "n_evaluations": 7428,
+    "summary": {
+      "generic_response": {
+        "n": 1238,
+        "pearson_delta_mean": 0.3484,
+        "pearson_delta_median": 0.3852,
+        "pearson_delta_ci95": [
+          -0.1634,
+          0.6326
+        ],
+        "wilcoxon_greater_than_0_p": 8.247311127621931e-190,
+        "mae_mean": 0.2466,
+        "top50_overlap_mean": 0.1535,
+        "sign_match_mean": 0.717,
+        "transfer_efficiency_median": 0.9854
+      },
+      "no_change": {
+        "n": 1238,
+        "pearson_delta_mean": 0.0,
+        "pearson_delta_median": 0.0,
+        "pearson_delta_ci95": [
+          0.0,
+          0.0
+        ],
+        "wilcoxon_greater_than_0_p": null,
+        "mae_mean": 0.262,
+        "top50_overlap_mean": 0.0237,
+        "sign_match_mean": 0.0,
+        "transfer_efficiency_median": 0.0
+      },
+      "shuffled_compound": {
+        "n": 1238,
+        "pearson_delta_mean": 0.1886,
+        "pearson_delta_median": 0.1965,
+        "pearson_delta_ci95": [
+          -0.168,
+          0.495
+        ],
+        "wilcoxon_greater_than_0_p": 3.0927868372798345e-153,
+        "mae_mean": 0.2843,
+        "top50_overlap_mean": 0.1066,
+        "sign_match_mean": 0.6258,
+        "transfer_efficiency_median": 0.5141
+      },
+      "unweighted_consensus": {
+        "n": 1238,
+        "pearson_delta_mean": 0.614,
+        "pearson_delta_median": 0.6555,
+        "pearson_delta_ci95": [
+          0.1384,
+          0.8424
+        ],
+        "wilcoxon_greater_than_0_p": 2.5933110013689464e-204,
+        "mae_mean": 0.2042,
+        "top50_overlap_mean": 0.2938,
+        "sign_match_mean": 0.8635,
+        "transfer_efficiency_median": 1.5487
+      },
+      "weighted_consensus": {
+        "n": 1238,
+        "pearson_delta_mean": 0.6192,
+        "pearson_delta_median": 0.6689,
+        "pearson_delta_ci95": [
+          0.1388,
+          0.839
+        ],
+        "wilcoxon_greater_than_0_p": 2.5933110013689464e-204,
+        "mae_mean": 0.2037,
+        "top50_overlap_mean": 0.2996,
+        "sign_match_mean": 0.8675,
+        "transfer_efficiency_median": 1.5618
+      },
+      "weighted_consensus_gated": {
+        "n": 1238,
+        "pearson_delta_mean": 0.5719,
+        "pearson_delta_median": 0.615,
+        "pearson_delta_ci95": [
+          0.1531,
+          0.78
+        ],
+        "wilcoxon_greater_than_0_p": 2.5933110013689464e-204,
+        "mae_mean": 0.2364,
+        "top50_overlap_mean": 0.189,
+        "sign_match_mean": 0.8675,
+        "transfer_efficiency_median": 1.4402
+      }
+    },
+    "validity_criteria": {
+      "c1_pearson_gt_0": {
+        "value": 0.5719,
+        "p": 2.5933110013689464e-204,
+        "passed": true
+      },
+      "c2_magnitude_at_least_genetic_poc": {
+        "value": 0.5719,
+        "threshold": 0.2,
+        "exceeds_genetic_poc_upper_0.45": true,
+        "passed": true
+      },
+      "c3_weighting_helps_same_gating": {
+        "weighted": 0.6192,
+        "unweighted": 0.614,
+        "delta": 0.0052,
+        "passed": true
+      },
+      "c3b_gating_helps": {
+        "gated": 0.5719,
+        "ungated": 0.6192,
+        "gated_mae": 0.2364,
+        "ungated_mae": 0.2037,
+        "passed": false
+      },
+      "c4_beats_no_change_mae": {
+        "primary_mae": 0.2364,
+        "no_change_mae": 0.262,
+        "passed": true
+      },
+      "c5_beats_generic_response": {
+        "primary": 0.5719,
+        "generic_response": 0.3484,
+        "shuffled_compound": 0.1886,
+        "drug_specific_gain_vs_generic": 0.2235,
+        "drug_specific_gain_vs_shuffled": 0.3833,
+        "passed": true
+      }
+    }
+  },
+  "comparison_with_sciplex": {
+    "sciplex": {
+      "n_cell_lines": 3,
+      "n_source_contexts_per_fold": 2,
+      "all_compounds_r": 0.0685,
+      "source_selected_r": 0.2385,
+      "ceiling_median_reproducible": 0.4381,
+      "reproducible_fraction": 0.177
+    },
+    "tahoe": {
+      "n_cell_lines": 50,
+      "n_source_contexts_per_fold": 49,
+      "all_compounds_r": 0.5552,
+      "source_selected_r": 0.5719,
+      "ceiling_median_reproducible": 0.4319,
+      "reproducible_fraction": 0.462
+    }
+  },
+  "scope_caveats": [
+    "按方案描述**重新实现**的 control-similarity 加权共识 + basal gating，非调用用户 VirtualCell PoC 原始代码（该压缩包不在本会话环境中）。",
+    "用户 PoC 中权重 70% 的 STATE 组件是遗传扰动模型，不接受小分子输入，本基准只检验其模态无关的迁移/共识机制。",
+    "基础表达用 baseMean 代理（含少量处理细胞，见 b4 说明）。",
+    "本基准检验跨细胞系迁移化合物转录响应，**不是**预测生化 IC50。"
+  ]
+}

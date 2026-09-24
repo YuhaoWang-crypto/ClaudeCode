@@ -120,9 +120,21 @@ def metrics(pred: np.ndarray, true: np.ndarray, top_k: int = 50) -> dict:
 
 
 # ------------------------------------------------------------------ LOSO
-def loso(controls: dict, deltas: dict, repro: dict, genes_n: int) -> pd.DataFrame:
+def loso(controls: dict, deltas: dict, repro: dict, genes_n: int,
+         seed: int = 0) -> pd.DataFrame:
+    """LOSO 迁移基准。
+
+    除 no-change 与未加权共识外，额外加入两个**负对照**，用来分离
+    "跨化合物通用响应" 与 "化合物特异性迁移"：
+      generic_response  —— 用源细胞系**全部化合物的平均响应**去预测（无特异性信息）
+      shuffled_compound —— 用**另一个随机化合物**的共识去预测目标化合物
+    没有这两条基线，裸报 delta Pearson 会把通用响应算进迁移能力。
+    """
+    rng = np.random.default_rng(seed)
     rows = []
     cls = sorted(deltas)
+    mean_resp = {c: np.mean(np.vstack(list(deltas[c].values())), axis=0)
+                 for c in cls if deltas[c]}
     for held in cls:
         others = [c for c in cls if c != held]
         ctrl_held = controls[held]
@@ -132,6 +144,8 @@ def loso(controls: dict, deltas: dict, repro: dict, genes_n: int) -> pd.DataFram
         w = w / w.sum()
         log(f"  留出 {held}: 源 {others} 对照相似度 {np.round(sims,3)} -> 权重 {np.round(w,3)}")
 
+        drugs_here = sorted(deltas[held])
+        generic = np.mean(np.vstack([mean_resp[o] for o in others if o in mean_resp]), axis=0)
         for cmpd, true in deltas[held].items():
             srcs = [(o, deltas[o][cmpd]) for o in others if cmpd in deltas[o]]
             if not srcs:
@@ -140,10 +154,20 @@ def loso(controls: dict, deltas: dict, repro: dict, genes_n: int) -> pd.DataFram
             ww = np.array([w[others.index(o)] for o, _ in srcs])
             ww = ww / ww.sum()
 
+            other_drugs = [d for d in drugs_here if d != cmpd]
+            shuf = np.zeros_like(true)
+            if other_drugs:
+                d2 = other_drugs[int(rng.integers(len(other_drugs)))]
+                s2 = [deltas[o][d2] for o in others if d2 in deltas[o]]
+                if s2:
+                    shuf = np.mean(np.vstack(s2), axis=0)
+
             preds = {
                 "weighted_consensus_gated": (mats * ww[:, None]).sum(0) * gate,
                 "weighted_consensus": (mats * ww[:, None]).sum(0),
                 "unweighted_consensus": mats.mean(0),
+                "generic_response": generic,        # 负对照：无化合物特异性
+                "shuffled_compound": shuf,          # 负对照：换一个化合物
                 "no_change": np.zeros_like(true),
             }
             r_ceiling = repro.get((held, cmpd))
@@ -236,25 +260,51 @@ def main() -> dict:
     # ---- 有效性判据 ----
     def crit(summ: dict) -> dict:
         w = summ.get("weighted_consensus_gated", {})
+        wu = summ.get("weighted_consensus", {})
         u = summ.get("unweighted_consensus", {})
         nc = summ.get("no_change", {})
+        gen = summ.get("generic_response", {})
+        shuf = summ.get("shuffled_compound", {})
+        # 注意：不能写成 `(pv or 1) < 0.05` —— p 值下溢到 0.0 时 `0.0 or 1` 会得到 1，
+        # 把最显著的结果判成不显著。必须显式区分 None 与 0.0。
+        pv = w.get("wilcoxon_greater_than_0_p")
+        pv_ok = pv is not None and pv < 0.05
         return {
             "c1_pearson_gt_0": {
-                "value": w.get("pearson_delta_mean"),
-                "p": w.get("wilcoxon_greater_than_0_p"),
-                "passed": bool((w.get("pearson_delta_mean") or 0) > 0
-                               and (w.get("wilcoxon_greater_than_0_p") or 1) < 0.05)},
-            "c2_magnitude_in_genetic_poc_range_0.2_0.45": {
-                "value": w.get("pearson_delta_mean"),
-                "passed": bool(0.2 <= (w.get("pearson_delta_mean") or -1) <= 0.45)},
-            "c3_weighted_ge_unweighted": {
-                "weighted": w.get("pearson_delta_mean"),
+                "value": w.get("pearson_delta_mean"), "p": pv,
+                "passed": bool((w.get("pearson_delta_mean") or 0) > 0 and pv_ok)},
+            # c2 原写成"落在 [0.2,0.45] 内"，于是超出上界也算失败 —— 改为"≥0.2"。
+            "c2_magnitude_at_least_genetic_poc": {
+                "value": w.get("pearson_delta_mean"), "threshold": 0.2,
+                "exceeds_genetic_poc_upper_0.45": bool((w.get("pearson_delta_mean") or 0) > 0.45),
+                "passed": bool((w.get("pearson_delta_mean") or -1) >= 0.2)},
+            # c3 原把"加权"与"gating"混在一起比；改为同一 gating 下比加权与未加权。
+            "c3_weighting_helps_same_gating": {
+                "weighted": wu.get("pearson_delta_mean"),
                 "unweighted": u.get("pearson_delta_mean"),
-                "passed": bool((w.get("pearson_delta_mean") or -1)
+                "delta": round((wu.get("pearson_delta_mean") or 0)
+                               - (u.get("pearson_delta_mean") or 0), 4),
+                "passed": bool((wu.get("pearson_delta_mean") or -1)
                                >= (u.get("pearson_delta_mean") or 1e9))},
+            "c3b_gating_helps": {
+                "gated": w.get("pearson_delta_mean"), "ungated": wu.get("pearson_delta_mean"),
+                "gated_mae": w.get("mae_mean"), "ungated_mae": wu.get("mae_mean"),
+                "passed": bool((w.get("pearson_delta_mean") or -1)
+                               >= (wu.get("pearson_delta_mean") or 1e9))},
             "c4_beats_no_change_mae": {
                 "weighted_mae": w.get("mae_mean"), "no_change_mae": nc.get("mae_mean"),
                 "passed": bool((w.get("mae_mean") or 1e9) < (nc.get("mae_mean") or 0))},
+            # 新增：必须超过"通用响应"负对照，否则测到的只是跨化合物共有成分。
+            "c5_beats_generic_response": {
+                "primary": w.get("pearson_delta_mean"),
+                "generic_response": gen.get("pearson_delta_mean"),
+                "shuffled_compound": shuf.get("pearson_delta_mean"),
+                "drug_specific_gain_vs_generic": round(
+                    (w.get("pearson_delta_mean") or 0) - (gen.get("pearson_delta_mean") or 0), 4),
+                "drug_specific_gain_vs_shuffled": round(
+                    (w.get("pearson_delta_mean") or 0) - (shuf.get("pearson_delta_mean") or 0), 4),
+                "passed": bool((w.get("pearson_delta_mean") or -1)
+                               > (gen.get("pearson_delta_mean") or 1e9))},
         }
 
     crit_all = crit(all_summary)
@@ -336,7 +386,7 @@ def _plot(df: pd.DataFrame, rep_df: pd.DataFrame, out: dict) -> None:
               "weighted_consensus": "加权共识",
               "unweighted_consensus": "未加权共识",
               "no_change": "no-change"}
-    colors = ["#2b6cb0", "#4299e1", "#dd6b20", "#a0aec0"]
+    colors = ["#2b6cb0", "#4299e1", "#dd6b20", "#d69e2e", "#e53e3e", "#a0aec0"]
     order = [o for o in order if o in set(df["method"])]
 
     fig, axes = plt.subplots(1, 3, figsize=(16.5, 4.9))

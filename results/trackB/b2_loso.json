@@ -9,6 +9,20 @@
   },
   "all_compounds": {
     "summary": {
+      "generic_response": {
+        "n": 563,
+        "pearson_delta_mean": 0.023,
+        "pearson_delta_median": 0.0121,
+        "pearson_delta_ci95": [
+          -0.0809,
+          0.1875
+        ],
+        "wilcoxon_greater_than_0_p": 2.4416920417031855e-14,
+        "mae_mean": 0.235,
+        "top50_overlap_mean": 0.0235,
+        "sign_match_mean": 0.5987,
+        "transfer_efficiency_median": 0.0741
+      },
       "no_change": {
         "n": 563,
         "pearson_delta_mean": 0.0,
@@ -22,6 +36,20 @@
         "top50_overlap_mean": 0.0009,
         "sign_match_mean": 0.0,
         "transfer_efficiency_median": 0.0
+      },
+      "shuffled_compound": {
+        "n": 563,
+        "pearson_delta_mean": 0.0075,
+        "pearson_delta_median": 0.0061,
+        "pearson_delta_ci95": [
+          -0.0797,
+          0.13
+        ],
+        "wilcoxon_greater_than_0_p": 0.002024549829395978,
+        "mae_mean": 0.2898,
+        "top50_overlap_mean": 0.0137,
+        "sign_match_mean": 0.53,
+        "transfer_efficiency_median": 0.0271
       },
       "unweighted_consensus": {
         "n": 563,
@@ -72,27 +100,59 @@
         "p": 2.9554052567441374e-46,
         "passed": true
       },
-      "c2_magnitude_in_genetic_poc_range_0.2_0.45": {
+      "c2_magnitude_at_least_genetic_poc": {
         "value": 0.0685,
+        "threshold": 0.2,
+        "exceeds_genetic_poc_upper_0.45": false,
         "passed": false
       },
-      "c3_weighted_ge_unweighted": {
-        "weighted": 0.0685,
+      "c3_weighting_helps_same_gating": {
+        "weighted": 0.0706,
         "unweighted": 0.065,
+        "delta": 0.0056,
         "passed": true
+      },
+      "c3b_gating_helps": {
+        "gated": 0.0685,
+        "ungated": 0.0706,
+        "gated_mae": 0.2234,
+        "ungated_mae": 0.2706,
+        "passed": false
       },
       "c4_beats_no_change_mae": {
         "weighted_mae": 0.2234,
         "no_change_mae": 0.2225,
         "passed": false
+      },
+      "c5_beats_generic_response": {
+        "primary": 0.0685,
+        "generic_response": 0.023,
+        "shuffled_compound": 0.0075,
+        "drug_specific_gain_vs_generic": 0.0455,
+        "drug_specific_gain_vs_shuffled": 0.061,
+        "passed": true
       }
     }
   },
   "reproducible_subset_heldout_selected": {
     "selection": "用留出细胞系自身的分半可重复性筛选；回答'在有可测响应的化合物上迁移是否有效'，但预测时拿不到留出上下文的扰动数据，不可前瞻使用",
-    "n_evaluations": 396,
+    "n_evaluations": 594,
     "n_compounds": 70,
     "summary": {
+      "generic_response": {
+        "n": 99,
+        "pearson_delta_mean": 0.1242,
+        "pearson_delta_median": 0.1318,
+        "pearson_delta_ci95": [
+          0.0138,
+          0.2532
+        ],
+        "wilcoxon_greater_than_0_p": 3.983235331271963e-18,
+        "mae_mean": 0.2694,
+        "top50_overlap_mean": 0.022,
+        "sign_match_mean": 0.6844,
+        "transfer_efficiency_median": 0.2865
+      },
       "no_change": {
         "n": 99,
         "pearson_delta_mean": 0.0,
@@ -106,6 +166,20 @@
         "top50_overlap_mean": 0.0012,
         "sign_match_mean": 0.0,
         "transfer_efficiency_median": 0.0
+      },
+      "shuffled_compound": {
+        "n": 99,
+        "pearson_delta_mean": 0.0341,
+        "pearson_delta_median": 0.0155,
+        "pearson_delta_ci95": [
+          -0.0786,
+          0.1919
+        ],
+        "wilcoxon_greater_than_0_p": 0.00034182690874448053,
+        "mae_mean": 0.3212,
+        "top50_overlap_mean": 0.0184,
+        "sign_match_mean": 0.5442,
+        "transfer_efficiency_median": 0.0337
       },
       "unweighted_consensus": {
         "n": 99,
@@ -156,27 +230,59 @@
         "p": 1.0962732880930966e-15,
         "passed": true
       },
-      "c2_magnitude_in_genetic_poc_range_0.2_0.45": {
+      "c2_magnitude_at_least_genetic_poc": {
         "value": 0.2331,
+        "threshold": 0.2,
+        "exceeds_genetic_poc_upper_0.45": false,
         "passed": true
       },
-      "c3_weighted_ge_unweighted": {
-        "weighted": 0.2331,
+      "c3_weighting_helps_same_gating": {
+        "weighted": 0.2429,
         "unweighted": 0.2215,
+        "delta": 0.0214,
         "passed": true
+      },
+      "c3b_gating_helps": {
+        "gated": 0.2331,
+        "ungated": 0.2429,
+        "gated_mae": 0.2542,
+        "ungated_mae": 0.2924,
+        "passed": false
       },
       "c4_beats_no_change_mae": {
         "weighted_mae": 0.2542,
         "no_change_mae": 0.2667,
+        "passed": true
+      },
+      "c5_beats_generic_response": {
+        "primary": 0.2331,
+        "generic_response": 0.1242,
+        "shuffled_compound": 0.0341,
+        "drug_specific_gain_vs_generic": 0.1089,
+        "drug_specific_gain_vs_shuffled": 0.199,
         "passed": true
       }
     }
   },
   "reproducible_subset_source_selected": {
     "selection": "只用**源**细胞系的分半可重复性筛选 —— 部署时真正可用的口径",
-    "n_evaluations": 348,
+    "n_evaluations": 522,
     "n_compounds": 40,
     "summary": {
+      "generic_response": {
+        "n": 87,
+        "pearson_delta_mean": 0.0782,
+        "pearson_delta_median": 0.0431,
+        "pearson_delta_ci95": [
+          -0.0277,
+          0.2557
+        ],
+        "wilcoxon_greater_than_0_p": 1.3921601231326352e-11,
+        "mae_mean": 0.3144,
+        "top50_overlap_mean": 0.0172,
+        "sign_match_mean": 0.6621,
+        "transfer_efficiency_median": 0.1688
+      },
       "no_change": {
         "n": 87,
         "pearson_delta_mean": 0.0,
@@ -190,6 +296,20 @@
         "top50_overlap_mean": 0.0016,
         "sign_match_mean": 0.0,
         "transfer_efficiency_median": 0.0
+      },
+      "shuffled_compound": {
+        "n": 87,
+        "pearson_delta_mean": 0.0094,
+        "pearson_delta_median": -0.004,
+        "pearson_delta_ci95": [
+          -0.0776,
+          0.1923
+        ],
+        "wilcoxon_greater_than_0_p": 0.7103621585087376,
+        "mae_mean": 0.3584,
+        "top50_overlap_mean": 0.0163,
+        "sign_match_mean": 0.5253,
+        "transfer_efficiency_median": -0.0258
       },
       "unweighted_consensus": {
         "n": 87,
@@ -240,18 +360,36 @@
         "p": 2.5244345147767357e-15,
         "passed": true
       },
-      "c2_magnitude_in_genetic_poc_range_0.2_0.45": {
+      "c2_magnitude_at_least_genetic_poc": {
         "value": 0.2385,
+        "threshold": 0.2,
+        "exceeds_genetic_poc_upper_0.45": false,
         "passed": true
       },
-      "c3_weighted_ge_unweighted": {
-        "weighted": 0.2385,
+      "c3_weighting_helps_same_gating": {
+        "weighted": 0.2556,
         "unweighted": 0.237,
+        "delta": 0.0186,
         "passed": true
+      },
+      "c3b_gating_helps": {
+        "gated": 0.2385,
+        "ungated": 0.2556,
+        "gated_mae": 0.2963,
+        "ungated_mae": 0.3318,
+        "passed": false
       },
       "c4_beats_no_change_mae": {
         "weighted_mae": 0.2963,
         "no_change_mae": 0.3098,
+        "passed": true
+      },
+      "c5_beats_generic_response": {
+        "primary": 0.2385,
+        "generic_response": 0.0782,
+        "shuffled_compound": 0.0094,
+        "drug_specific_gain_vs_generic": 0.1603,
+        "drug_specific_gain_vs_shuffled": 0.2291,
         "passed": true
       }
     }
