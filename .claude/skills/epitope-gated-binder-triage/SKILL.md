@@ -77,6 +77,14 @@ single-domain binders are heavily claimed).
 Write one sentence: *"Existing reagents X, Y, Z demonstrably cannot do ___."*
 If that sentence will not write, stop.
 
+When the justification rests on species divergence, run `scripts/premise_check.py`
+before writing it. It re-derives ectodomain identity and interface identity from
+UniProt and the PDB, and these two numbers routinely disagree: in our case the
+ectodomain was 81.8% identical while the ligand interface was 91.7% (11/12). A
+premise phrased as "the binding site differs between species" would have been
+false. Persist the output — a number that exists only in a conversation is not
+citable, and a reviewer will ask where it came from.
+
 Also grade every reagent claim by evidence source — peer-reviewed vs patent vs
 vendor datasheet. Vendor cross-reactivity claims for receptor ectodomains are
 frequently unvalidated, and a vendor datasheet that itself reports <5%
@@ -233,3 +241,11 @@ not measured; it is still the right decision procedure, and it should say so.
   against score ranking, and the expected-modes argument.
 - `references/failure-modes.md` — every trap encountered, with the symptom, the
   cause, and the check that catches it. Read this before any long run.
+
+## Bundled scripts
+
+- `scripts/premise_check.py` — ectodomain vs interface species identity, with
+  the numbering offset derived and validated rather than assumed (Phase 0/1).
+- `scripts/occupancy.py` — contact and occupancy metrics from predicted
+  complexes, with the per-file verification assertions built in (Phase 4).
+  Prefer it over rewriting the contact loop; the assertions are the point.
