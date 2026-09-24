@@ -1,0 +1,196 @@
+{
+  "Mpro 5WKK · 主基准（单一筛选活动）": {
+    "label": "primary",
+    "n": 67,
+    "n_active": 8,
+    "n_inactive": 59,
+    "n_excluded": 1,
+    "excluded": [
+      {
+        "molecule_chembl_id": "CHEMBL51085",
+        "active": 0,
+        "smiles": "O=c1c2ccccc2[se]n1-c1ccccc1",
+        "reason": "ligand_prep_failed"
+      }
+    ],
+    "docking": {
+      "roc_auc": 0.376,
+      "auc_ci95": [
+        0.193,
+        0.578
+      ],
+      "EF1pct": null,
+      "EF5pct": 0.0,
+      "EF10pct": 0.0,
+      "BEDROC_a20": 0.005,
+      "mean_affinity_active": -6.16,
+      "mean_affinity_inactive": -6.66
+    },
+    "descriptor_baselines": {
+      "MW": {
+        "roc_auc": 0.517,
+        "EF10pct": 0.0,
+        "BEDROC_a20": 0.029,
+        "vs_docking": {
+          "auc_diff": -0.141,
+          "ci95": [
+            -0.294,
+            -0.006
+          ],
+          "p_empirical": 0.0388
+        }
+      },
+      "HeavyAtoms": {
+        "roc_auc": 0.533,
+        "EF10pct": 1.2,
+        "BEDROC_a20": 0.066,
+        "vs_docking": {
+          "auc_diff": -0.157,
+          "ci95": [
+            -0.272,
+            -0.056
+          ],
+          "p_empirical": 0.0016
+        }
+      },
+      "RotB": {
+        "roc_auc": 0.623,
+        "EF10pct": 1.2,
+        "BEDROC_a20": 0.054,
+        "vs_docking": {
+          "auc_diff": -0.247,
+          "ci95": [
+            -0.472,
+            0.007
+          ],
+          "p_empirical": 0.056
+        }
+      },
+      "cLogP": {
+        "roc_auc": 0.511,
+        "EF10pct": 1.2,
+        "BEDROC_a20": 0.192,
+        "vs_docking": {
+          "auc_diff": -0.135,
+          "ci95": [
+            -0.428,
+            0.176
+          ],
+          "p_empirical": 0.4292
+        }
+      },
+      "TPSA": {
+        "roc_auc": 0.561,
+        "EF10pct": 2.39,
+        "BEDROC_a20": 0.359,
+        "vs_docking": {
+          "auc_diff": -0.185,
+          "ci95": [
+            -0.513,
+            0.156
+          ],
+          "p_empirical": 0.2884
+        }
+      }
+    },
+    "strongest_baseline": "RotB",
+    "docking_beats_strongest_baseline": false
+  },
+  "Mpro 5WKK · 合并基准": {
+    "label": "pooled",
+    "n": 78,
+    "n_active": 19,
+    "n_inactive": 59,
+    "n_excluded": 1,
+    "excluded": [
+      {
+        "molecule_chembl_id": "CHEMBL51085",
+        "active": 0,
+        "smiles": "O=c1c2ccccc2[se]n1-c1ccccc1",
+        "reason": "ligand_prep_failed"
+      }
+    ],
+    "docking": {
+      "roc_auc": 0.629,
+      "auc_ci95": [
+        0.473,
+        0.773
+      ],
+      "EF1pct": null,
+      "EF5pct": 2.05,
+      "EF10pct": 1.54,
+      "BEDROC_a20": 0.396,
+      "mean_affinity_active": -7.1,
+      "mean_affinity_inactive": -6.66
+    },
+    "descriptor_baselines": {
+      "MW": {
+        "roc_auc": 0.791,
+        "EF10pct": 3.59,
+        "BEDROC_a20": 0.919,
+        "vs_docking": {
+          "auc_diff": -0.162,
+          "ci95": [
+            -0.263,
+            -0.073
+          ],
+          "p_empirical": 0.0
+        }
+      },
+      "HeavyAtoms": {
+        "roc_auc": 0.795,
+        "EF10pct": 3.59,
+        "BEDROC_a20": 0.896,
+        "vs_docking": {
+          "auc_diff": -0.166,
+          "ci95": [
+            -0.258,
+            -0.085
+          ],
+          "p_empirical": 0.0
+        }
+      },
+      "RotB": {
+        "roc_auc": 0.831,
+        "EF10pct": 3.59,
+        "BEDROC_a20": 0.737,
+        "vs_docking": {
+          "auc_diff": -0.201,
+          "ci95": [
+            -0.338,
+            -0.066
+          ],
+          "p_empirical": 0.0044
+        }
+      },
+      "cLogP": {
+        "roc_auc": 0.653,
+        "EF10pct": 1.03,
+        "BEDROC_a20": 0.259,
+        "vs_docking": {
+          "auc_diff": -0.024,
+          "ci95": [
+            -0.202,
+            0.153
+          ],
+          "p_empirical": 0.804
+        }
+      },
+      "TPSA": {
+        "roc_auc": 0.737,
+        "EF10pct": 2.57,
+        "BEDROC_a20": 0.806,
+        "vs_docking": {
+          "auc_diff": -0.107,
+          "ci95": [
+            -0.242,
+            0.022
+          ],
+          "p_empirical": 0.106
+        }
+      }
+    },
+    "strongest_baseline": "RotB",
+    "docking_beats_strongest_baseline": false
+  }
+}

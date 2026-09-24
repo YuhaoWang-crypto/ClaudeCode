@@ -219,19 +219,45 @@ def delong_like_paired_test(y: np.ndarray, s1: np.ndarray, s2: np.ndarray,
             "p_empirical": round(float(min(1.0, p)), 4)}
 
 
+def _json_safe(obj):
+    """把 NaN/Inf 转成 None —— NaN 不是合法 JSON，会让下游解析器报错。"""
+    if isinstance(obj, dict):
+        return {k: _json_safe(v) for k, v in obj.items()}
+    if isinstance(obj, (list, tuple)):
+        return [_json_safe(v) for v in obj]
+    if isinstance(obj, float) and not np.isfinite(obj):
+        return None
+    if isinstance(obj, (np.floating, np.integer)):
+        v = obj.item()
+        return None if isinstance(v, float) and not np.isfinite(v) else v
+    return obj
+
+
 def evaluate(df: pd.DataFrame, label: str) -> dict:
+    # 被排除的化合物必须显式记录，不能静默丢掉
+    dropped = df[df["best_affinity"].isna()]
+    excluded = [
+        {"molecule_chembl_id": r["molecule_chembl_id"], "active": int(r["active"]),
+         "smiles": r["smiles_std"],
+         "reason": r.get("error") if isinstance(r.get("error"), str) else "docking_failed"}
+        for _, r in dropped.iterrows()
+    ]
+    for e in excluded:
+        log(f"  [{label}] 排除 {e['molecule_chembl_id']}（{e['reason']}）")
+
     d = df[df["best_affinity"].notna()].copy()
     y = d["active"].to_numpy()
     # Vina 亲和力越负越好 -> 取负号使"越大越好"
     score = -d["best_affinity"].to_numpy()
 
     if y.sum() == 0 or y.sum() == len(y):
-        return {"label": label, "error": "缺少活性或非活性样本"}
+        return {"label": label, "error": "缺少活性或非活性样本", "excluded": excluded}
 
     auc, lo, hi = auc_bootstrap_ci(y, score)
     res = {
         "label": label,
         "n": int(len(d)), "n_active": int(y.sum()), "n_inactive": int((y == 0).sum()),
+        "n_excluded": len(excluded), "excluded": excluded,
         "docking": {
             "roc_auc": round(auc, 3), "auc_ci95": [round(lo, 3), round(hi, 3)],
             "EF1pct": round(enrichment_factor(y, score, 0.01), 2),
@@ -338,7 +364,8 @@ def main(exhaustiveness: int = 16) -> dict:
                 f"CI{b['vs_docking']['ci95']} p={b['vs_docking']['p_empirical']} "
                 f"-> 对接显著更优: {r['docking_beats_strongest_baseline']}")
 
-    (RES_A / "a5_enrichment.json").write_text(json.dumps(results, indent=2, ensure_ascii=False))
+    (RES_A / "a5_enrichment.json").write_text(
+        json.dumps(_json_safe(results), indent=2, ensure_ascii=False, allow_nan=False))
     _plot(results, scores)
     log(f"A5 完成 -> {RES_A/'a5_enrichment.json'}")
     return results

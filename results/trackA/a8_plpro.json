@@ -1,0 +1,120 @@
+{
+  "receptor": "PLPRO_4RNA (4RNA, 1.79 Å, apo)",
+  "n_compounds": 9,
+  "docking_affinity_kcal_mol": {
+    "min": -7.81,
+    "max": -3.83,
+    "median": -6.9,
+    "span": 3.98
+  },
+  "measured_pActivity": {
+    "min": 4.15,
+    "max": 5.12,
+    "span": 0.97
+  },
+  "measured_value_ties": {
+    "n_distinct_values": 5,
+    "n_compounds": 9,
+    "ties": [
+      {
+        "value_nM": 7600.0,
+        "n_compounds": 5,
+        "molecule_chembl_ids": [
+          "CHEMBL1368663",
+          "CHEMBL421",
+          "CHEMBL2030452",
+          "CHEMBL4544405",
+          "CHEMBL1595473"
+        ],
+        "same_standard_type": true,
+        "standard_type": [
+          "Kd"
+        ]
+      }
+    ],
+    "concern": "结构上互不相关的化合物报出完全相同的效力值，更可能是共用的筛选阈值或同一 assay 的统一报告值，而非独立精确测量。这会让秩相关的有效样本量远小于名义样本量 —— 本例 9 个化合物只有 5 个不同的效力值。"
+  },
+  "docking_vs_measured": {
+    "spearman": -0.237,
+    "spearman_ci95": [
+      -0.815,
+      0.429
+    ],
+    "pearson": -0.289,
+    "pearson_p": 0.4513,
+    "expected_sign": "负（亲和力越负 = 结合越强 = pActivity 越大）"
+  },
+  "per_compound": [
+    {
+      "molecule_chembl_id": "CHEMBL1368663",
+      "pActivity": 5.119,
+      "value_nM": 7600.0,
+      "best_affinity": -5.082,
+      "standard_type": "Kd"
+    },
+    {
+      "molecule_chembl_id": "CHEMBL421",
+      "pActivity": 5.119,
+      "value_nM": 7600.0,
+      "best_affinity": -6.897,
+      "standard_type": "Kd"
+    },
+    {
+      "molecule_chembl_id": "CHEMBL2030452",
+      "pActivity": 5.119,
+      "value_nM": 7600.0,
+      "best_affinity": -7.043,
+      "standard_type": "Kd"
+    },
+    {
+      "molecule_chembl_id": "CHEMBL4544405",
+      "pActivity": 5.119,
+      "value_nM": 7600.0,
+      "best_affinity": -6.987,
+      "standard_type": "Kd"
+    },
+    {
+      "molecule_chembl_id": "CHEMBL1595473",
+      "pActivity": 5.119,
+      "value_nM": 7600.0,
+      "best_affinity": -6.967,
+      "standard_type": "Kd"
+    },
+    {
+      "molecule_chembl_id": "CHEMBL964",
+      "pActivity": 4.836,
+      "value_nM": 14600.0,
+      "best_affinity": -3.832,
+      "standard_type": "IC50"
+    },
+    {
+      "molecule_chembl_id": "CHEMBL11350",
+      "pActivity": 4.726,
+      "value_nM": 19550.0,
+      "best_affinity": -7.808,
+      "standard_type": "IC50/Kd"
+    },
+    {
+      "molecule_chembl_id": "CHEMBL4475926",
+      "pActivity": 4.699,
+      "value_nM": 20000.0,
+      "best_affinity": -5.957,
+      "standard_type": "IC50/Kd/Ki"
+    },
+    {
+      "molecule_chembl_id": "CHEMBL165012",
+      "pActivity": 4.145,
+      "value_nM": 71600.0,
+      "best_affinity": -5.4,
+      "standard_type": "IC50"
+    }
+  ],
+  "caveats": [
+    "PLpro 没有 redock 验证（4RF1/4RF0 为 PLpro–泛素复合物，3CN 仅 4 个重原子；4RNA 为 apo），位姿与打分可信度显著低于 Mpro。",
+    "n=9，Spearman 的 95% CI 宽度为 1.24 —— 这个区间几乎覆盖了相关系数的全部可能取值，因此该点估计不构成任何证据。",
+    "实测效力跨度仅 0.97 log，而 Vina 打分误差约 2–3 kcal/mol —— 二者同量级时打分原则上就无法区分化合物。",
+    "受体为 apo 结构，未建模配体诱导的 BL2 环构象变化。",
+    "**5 个结构互不相关的化合物报出完全相同的实测值**，9 个化合物只有 5 个不同的效力值，秩相关的有效样本量远小于 9。"
+  ],
+  "verdict": "对接分数与实测效力的 Spearman = -0.237，95% CI [-0.815, +0.429]。区间跨过 0 且几乎覆盖全域，**无法据此判断对接是否捕捉到了 PLpro 的构效关系**。这与方案对 PLpro 的预期一致（数据量过小、富集统计功效弱），结果按定性/探索性呈现。"
+}
