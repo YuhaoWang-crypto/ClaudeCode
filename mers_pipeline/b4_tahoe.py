@@ -146,6 +146,31 @@ def gene_list(index: list[dict]) -> list[str]:
     return genes
 
 
+def gene_universe_from_sample(min_coverage: float = 0.90) -> list[str] | None:
+    """用已提取的子集定出基因全集，以控制全量提取时的内存。
+
+    为什么需要：全部 379 个药物 = 56827 个条件；若保留全部 62710 个基因，
+    float32 矩阵就是 14.25 GB，超过本机内存。而这些基因里有很大一部分
+    在绝大多数条件下都是 NaN（DESeq2 无法检验），保留它们没有信息价值。
+
+    取值口径：在已有的 7500 条件样本（50 个随机药物 × 50 个细胞系 × 3 个浓度）中
+    非 NaN 比例 ≥ min_coverage 的基因。这个样本足够大且药物是随机抽取的，
+    因此可代表全量。**后续分析中的 ≥98% 过滤在这个全集之内进行**。
+    """
+    p = RES_B / "tahoe_delta.npz"
+    if not p.exists():
+        return None
+    z = np.load(p, allow_pickle=True)
+    d, g = z["delta"], z["genes"].astype(str)
+    frac = (~np.isnan(d)).mean(axis=0)
+    keep = sorted(g[frac >= min_coverage].tolist())
+    log(f"基因全集由已有 {d.shape[0]} 条件样本定出："
+        f"{len(g)} -> {len(keep)}（非 NaN 比例 ≥ {min_coverage:.0%}）")
+    log(f"  预计矩阵大小：56827 × {len(keep)} × 4B = "
+        f"{56827*len(keep)*4/1e9:.2f} GB")
+    return keep
+
+
 def _extract_shard(args) -> tuple[dict, np.ndarray | None, str | None]:
     """一个分片内的全部所需条件。放在线程里跑（纯 I/O 等待）。"""
     shard, entry, keys, genes, want_basemean = args
@@ -226,11 +251,21 @@ def select_subset(cov: pd.DataFrame, n_drugs: int, seed: int = 42) -> pd.DataFra
 
     随机抽取而非"挑响应强的"，是为了避免用结果反过来选样本 ——
     响应强弱的筛选交给下游的可重复性门槛（与 sci-Plex 分析保持同一口径）。
+
+    n_drugs <= 0 或 >= 可用药物数时，取**全部**药物（此时不存在抽样问题）。
     """
     per = cov.groupby("drug").agg(n_cell=("cell_line", "nunique"),
                                   n_conc=("conc", "nunique"))
     full = per[(per["n_cell"] == cov["cell_line"].nunique()) & (per["n_conc"] == 3)].index
     forced = [d for d in MERS_OVERLAP_DRUGS if d in set(full)]
+
+    if n_drugs <= 0 or n_drugs >= len(full):
+        drugs = sorted(full)
+        log(f"药物集：全部 {len(drugs)} 个（无抽样）")
+        log(f"  其中 MERS 交集药物 {len(forced)} 个：{forced}")
+        sub = cov[cov["drug"].isin(drugs)].copy()
+        return sub.drop_duplicates(subset=["cell_line", "drug", "conc"]).reset_index(drop=True)
+
     rest = sorted(set(full) - set(forced))
     rng = np.random.default_rng(seed)
     n_extra = max(0, n_drugs - len(forced))
@@ -244,7 +279,8 @@ def select_subset(cov: pd.DataFrame, n_drugs: int, seed: int = 42) -> pd.DataFra
     return sub
 
 
-def main(n_drugs: int = 50, n_workers: int = 8) -> dict:
+def main(n_drugs: int = 50, n_workers: int = 8, out_name: str = "tahoe_delta",
+         gene_coverage: float | None = None) -> dict:
     index = build_index()
     cov = index_summary(index)
     cov.to_csv(TAHOE_DIR / "coverage.csv", index=False)
@@ -258,18 +294,22 @@ def main(n_drugs: int = 50, n_workers: int = 8) -> dict:
     log(f"待提取条件：{len(want)}（{want['cell_line'].nunique()} 细胞系 × "
         f"{want['drug'].nunique()} 药物 × {want['conc'].nunique()} 浓度）")
 
-    genes = gene_list(index)
+    genes = None
+    if gene_coverage is not None:
+        genes = gene_universe_from_sample(gene_coverage)
+    if genes is None:
+        genes = gene_list(index)
     mat, meta, basal = extract(index, want, genes, n_workers)
 
     cells = sorted(basal)
     np.savez_compressed(
-        RES_B / "tahoe_delta.npz",
+        RES_B / f"{out_name}.npz",
         delta=mat,
         genes=np.array(genes, dtype=object),
         basal=np.vstack([basal[c] for c in cells]) if cells else np.zeros((0, len(genes))),
         basal_cells=np.array(cells, dtype=object),
     )
-    meta.to_csv(RES_B / "tahoe_meta.csv", index=False)
+    meta.to_csv(RES_B / f"{out_name}_meta.csv", index=False)
 
     frac_nan = float(np.isnan(mat).mean())
     summary = {
@@ -296,6 +336,14 @@ def main(n_drugs: int = 50, n_workers: int = 8) -> dict:
             "mers_overlap_drugs_included": [d for d in MERS_OVERLAP_DRUGS
                                             if d in set(want["drug"])],
         },
+        "gene_universe": {
+            "n_genes": len(genes),
+            "selection": ("由已有子集样本按非 NaN 覆盖率定出（受内存约束：全部 62710 个基因"
+                          f"× {len(want)} 个条件的 float32 矩阵为 "
+                          f"{len(want)*62710*4/1e9:.1f} GB，超过本机内存）"
+                          if gene_coverage is not None else "全部基因"),
+            "min_coverage_in_sample": gene_coverage,
+        },
         "data_quality": {
             "fraction_nan_log2fc": round(frac_nan, 4),
             "note": "DESeq2 对低表达/离群基因返回 NaN，属正常行为；下游按非 NaN 基因求交集",
@@ -308,7 +356,8 @@ def main(n_drugs: int = 50, n_workers: int = 8) -> dict:
                       "不泄漏留出上下文的扰动方向信息",
         },
     }
-    (RES_B / "b4_tahoe.json").write_text(json.dumps(summary, indent=2, ensure_ascii=False))
+    (RES_B / f"b4_{out_name.replace('tahoe_delta','tahoe')}.json").write_text(
+        json.dumps(summary, indent=2, ensure_ascii=False))
     log(f"NaN 比例 {frac_nan:.1%}")
     log(f"B4 完成 -> {RES_B/'b4_tahoe.json'}")
     return summary
@@ -316,4 +365,8 @@ def main(n_drugs: int = 50, n_workers: int = 8) -> dict:
 
 if __name__ == "__main__":
     import sys
-    main(int(sys.argv[1]) if len(sys.argv) > 1 else 50)
+    if len(sys.argv) > 1 and sys.argv[1] == "full":
+        # 全量：379 个药物 × 50 个细胞系 × 3 个浓度 = 56827 个条件
+        main(n_drugs=0, n_workers=12, out_name="tahoe_delta_full", gene_coverage=0.90)
+    else:
+        main(int(sys.argv[1]) if len(sys.argv) > 1 else 50)

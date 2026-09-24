@@ -36,9 +36,15 @@ MIN_GENES_PER_COND = 5000   # 条件级 QC：DESeq2 可检验基因过少的条�
 BASAL_GATE_PCT = 20
 
 
-def load():
-    z = np.load(RES_B / "tahoe_delta.npz", allow_pickle=True)
-    meta = pd.read_csv(RES_B / "tahoe_meta.csv")
+def load(name: str = "tahoe_delta"):
+    z = np.load(RES_B / f"{name}.npz", allow_pickle=True)
+    # 50 药物版写的是 tahoe_meta.csv，全量版写的是 <name>_meta.csv
+    for cand in (RES_B / f"{name}_meta.csv", RES_B / "tahoe_meta.csv"):
+        if cand.exists():
+            meta = pd.read_csv(cand)
+            break
+    else:
+        raise FileNotFoundError(f"找不到 {name} 对应的条件元数据")
     return (z["delta"], z["genes"].astype(str), z["basal"],
             z["basal_cells"].astype(str), meta)
 
@@ -261,8 +267,8 @@ def criteria(summ: dict, primary: str = "weighted_consensus_gated") -> dict:
     }
 
 
-def main() -> dict:
-    delta, genes, basal, basal_cells, meta = load()
+def main(name: str = "tahoe_delta", tag: str = "") -> dict:
+    delta, genes, basal, basal_cells, meta = load(name)
     log(f"Tahoe delta: {delta.shape[0]} 条件 × {delta.shape[1]} 基因；"
         f"{meta['cell_line'].nunique()} 细胞系 × {meta['drug'].nunique()} 药物")
     keep = qc_conditions(delta, meta)
@@ -278,7 +284,7 @@ def main() -> dict:
 
     agg, repro = build(delta, meta, gidx)
     df = loso(agg, repro, controls)
-    df.to_csv(RES_B / "tahoe_loso_per_compound.csv", index=False)
+    df.to_csv(RES_B / f"tahoe_loso_per_compound{tag}.csv", index=False)
 
     rep_vals = pd.Series([v for v in repro.values()])
     ceiling = {
@@ -367,13 +373,14 @@ def main() -> dict:
             "本基准检验跨细胞系迁移化合物转录响应，**不是**预测生化 IC50。",
         ],
     }
-    (RES_B / "b5_tahoe_loso.json").write_text(json.dumps(out, indent=2, ensure_ascii=False))
-    _plot(df, rep_vals, out, comp)
-    log(f"B5 完成 -> {RES_B/'b5_tahoe_loso.json'}")
+    (RES_B / f"b5_tahoe_loso{tag}.json").write_text(json.dumps(out, indent=2, ensure_ascii=False))
+    _plot(df, rep_vals, out, comp, tag)
+    log(f"B5 完成 -> {RES_B/f'b5_tahoe_loso{tag}.json'}")
     return out
 
 
-def _plot(df: pd.DataFrame, rep_vals: pd.Series, out: dict, comp: dict | None) -> None:
+def _plot(df: pd.DataFrame, rep_vals: pd.Series, out: dict, comp: dict | None,
+          tag: str = "") -> None:
     setup_cjk_fonts()
     import matplotlib.pyplot as plt
 
@@ -437,11 +444,15 @@ def _plot(df: pd.DataFrame, rep_vals: pd.Series, out: dict, comp: dict | None) -
 
     fig.suptitle("B5：Tahoe-100M 上的跨上下文迁移基准（50 个细胞系）", fontsize=13)
     fig.tight_layout()
-    o = FIGS / "b5_tahoe_loso.png"
+    o = FIGS / f"b5_tahoe_loso{tag}.png"
     fig.savefig(o, dpi=150, bbox_inches="tight")
     plt.close(fig)
     log(f"图已保存 -> {o}")
 
 
 if __name__ == "__main__":
-    main()
+    import sys
+    if len(sys.argv) > 1 and sys.argv[1] == "full":
+        main(name="tahoe_delta_full", tag="_full")
+    else:
+        main()
