@@ -171,28 +171,54 @@ def gene_universe_from_sample(min_coverage: float = 0.90) -> list[str] | None:
     return keep
 
 
+def _open_shard(shard: int, whole: bool):
+    """打开分片。
+
+    whole=True  整片下载到内存后本地解析；
+    whole=False 通过 HTTP range 按需读取 row group。
+
+    两者的取舍完全取决于**要读这个分片里多大比例的条件**：
+      * 只要少数条件时，range 读只传所需数据，胜出；
+      * 要几乎全部条件时，逐条件的请求延迟累加起来远超整片传输时间 ——
+        实测每片 65 个条件：整片 3.4 秒 vs 逐条件 26 秒（7.7 倍）。
+    """
+    if not whole:
+        return pq.ParquetFile(_fs().open(shard_url(shard))), None
+    import io
+
+    import requests
+    r = requests.get(shard_url(shard), timeout=600)
+    r.raise_for_status()
+    buf = io.BytesIO(r.content)
+    return pq.ParquetFile(buf), buf
+
+
 def _extract_shard(args) -> tuple[dict, np.ndarray | None, str | None]:
-    """一个分片内的全部所需条件。放在线程里跑（纯 I/O 等待）。"""
-    shard, entry, keys, genes, want_basemean = args
+    """一个分片内的全部所需条件。放在线程里跑（I/O 等待为主）。"""
+    shard, entry, keys, genes, want_basemean, whole = args
     out: dict[str, np.ndarray] = {}
     bm = None
     cell = None
+    buf = None
     try:
-        with _fs().open(shard_url(int(shard))) as f:
-            pf = pq.ParquetFile(f)
-            for key in keys:
-                rgs = entry["conditions"].get(key)
-                if not rgs:
-                    continue
-                out[key] = read_condition(pf, rgs).reindex(genes).to_numpy(dtype=np.float32)
-            if want_basemean and keys:
-                k0 = keys[0]
-                rgs = entry["conditions"].get(k0)
-                if rgs:
-                    bm = read_basemean(pf, rgs).reindex(genes).to_numpy(dtype=np.float32)
-                    cell = k0.split("\t")[0]
+        pf, buf = _open_shard(int(shard), whole)
+        # 即使整片已在内存，仍按 row group 逐条件解析：
+        # 一次性 to_pandas 整片（约 400 万行含字符串列）会让每线程占用约 1 GB。
+        for key in keys:
+            rgs = entry["conditions"].get(key)
+            if not rgs:
+                continue
+            out[key] = read_condition(pf, rgs).reindex(genes).to_numpy(dtype=np.float32)
+        if want_basemean and keys:
+            rgs = entry["conditions"].get(keys[0])
+            if rgs:
+                bm = read_basemean(pf, rgs).reindex(genes).to_numpy(dtype=np.float32)
+                cell = keys[0].split("\t")[0]
     except Exception as exc:  # noqa: BLE001
         log(f"  分片 {shard} 提取失败: {exc.__class__.__name__}: {exc}")
+    finally:
+        if buf is not None:
+            buf.close()
     return out, bm, cell
 
 
@@ -210,8 +236,14 @@ def extract(index: list[dict], want: pd.DataFrame, genes: list[str],
     by_shard = {e["shard"]: e for e in index}
     jobs = []
     for shard, grp in want.groupby("shard"):
-        jobs.append((int(shard), by_shard[int(shard)], grp["key"].tolist(), genes, True))
-    log(f"提取 {len(want)} 个条件，跨 {len(jobs)} 个分片，{n_workers} 线程并行…")
+        e = by_shard[int(shard)]
+        keys = grp["key"].tolist()
+        # 该分片里要读的条件占比决定用整片下载还是 range 读（见 _open_shard）
+        whole = len(keys) / max(len(e["conditions"]), 1) >= 0.35
+        jobs.append((int(shard), e, keys, genes, True, whole))
+    n_whole = sum(1 for j in jobs if j[5])
+    log(f"提取 {len(want)} 个条件，跨 {len(jobs)} 个分片，{n_workers} 线程并行"
+        f"（整片下载 {n_whole} 片 / range 读 {len(jobs)-n_whole} 片）…")
 
     store: dict[str, np.ndarray] = {}
     basal: dict[str, list[np.ndarray]] = {}
