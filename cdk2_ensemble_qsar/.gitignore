@@ -1,0 +1,12 @@
+# smina static binary (9.8 MB) - fetched by setup.sh, not version controlled
+bin/smina
+# bulk intermediates
+data/ligands/
+data/chembl_raw_activities.csv.gz
+results/poses/
+results/crossdock/
+results/docking_ledger.jsonl
+structures/*.pdbqt
+structures/*_receptor.pdb
+__pycache__/
+*.pyc

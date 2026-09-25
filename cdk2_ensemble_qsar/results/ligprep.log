@@ -1,0 +1,12 @@
+selected 784 of 2200 compounds across 386 scaffolds (source pool had 935)
+  pIC50 selected: mean 6.52 sd 1.13 range 4.00-10.05
+  pIC50 full pool: mean 6.59 sd 1.14   (selection is label-blind, so these should agree)
+  embedded 100/784
+  embedded 200/784
+  embedded 300/784
+  embedded 400/784
+  embedded 500/784
+  embedded 600/784
+  embedded 700/784
+
+3D-ready ligands: 784  (439 reused from a previous run, failed: 0)

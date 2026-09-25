@@ -1,0 +1,228 @@
+MODEL 1
+REMARK minimizedAffinity -13.3325567
+REMARK minimizedRMSD -1
+REMARK  Name = /home/user/ClaudeCode/cdk2_ensemble_qsar/structures/1AQ1_native_ligand.pdb
+REMARK  5 active torsions:
+REMARK  status: ('A' for Active; 'I' for Inactive)
+REMARK    1  A    between atoms: C23_4  and  N4_34
+REMARK    2  A    between atoms: C22_5  and  O6_32
+REMARK    3  A    between atoms: C21_6  and  C26_7
+REMARK    4  A    between atoms: O6_32  and  C27_33
+REMARK    5  A    between atoms: N4_34  and  C28_35
+REMARK                            x       y       z     vdW  Elec       q    Type
+REMARK                         _______ _______ _______ _____ _____    ______ ____
+ROOT
+ATOM      1 O4   TU      1      99.223  99.803  81.298  0.00  0.00    +0.000 OA
+ATOM      2 C25  TU      1      99.325 100.130  79.920  0.00  0.00    +0.000 C 
+ATOM      3 C24  TU      1      98.810  98.985  79.013  0.00  0.00    +0.000 C 
+ATOM      4 C23  TU      1      98.412  97.783  79.874  0.00  0.00    +0.000 C 
+ATOM      5 C22  TU      1      99.603  97.389  80.793  0.00  0.00    +0.000 C 
+ATOM      6 C21  TU      1      99.710  98.574  81.810  0.00  0.00    +0.000 C 
+ATOM      7 C26  TU      1      98.786  98.249  82.969  0.00  0.00    +0.000 C 
+ATOM      8 N2   TU      1     101.102  98.773  82.300  0.00  0.00    +0.000 N 
+ATOM      9 C18  TU      1     101.958  99.648  81.582  0.00  0.00    +0.000 A 
+ATOM     10 C19  TU      1     101.786 100.389  80.484  0.00  0.00    +0.000 A 
+ATOM     11 C6   TU      1     102.833 101.183  79.923  0.00  0.00    +0.000 A 
+ATOM     12 C7   TU      1     104.101 101.131  80.671  0.00  0.00    +0.000 A 
+ATOM     13 C10  TU      1     104.262 100.403  81.745  0.00  0.00    +0.000 A 
+ATOM     14 C11  TU      1     103.227  99.600  82.278  0.00  0.00    +0.000 A 
+ATOM     15 C12  TU      1     103.094  98.737  83.389  0.00  0.00    +0.000 A 
+ATOM     16 C17  TU      1     101.765  98.210  83.400  0.00  0.00    +0.000 A 
+ATOM     17 C16  TU      1     101.388  97.334  84.369  0.00  0.00    +0.000 A 
+ATOM     18 C15  TU      1     102.268  96.961  85.340  0.00  0.00    +0.000 A 
+ATOM     19 C14  TU      1     103.605  97.458  85.354  0.00  0.00    +0.000 A 
+ATOM     20 C13  TU      1     103.978  98.332  84.360  0.00  0.00    +0.000 A 
+ATOM     21 C9   TU      1     105.703 100.530  82.274  0.00  0.00    +0.000 C 
+ATOM     22 N1   TU      1     106.218 101.450  81.281  0.00  0.00    +0.000 NA
+ATOM     23 C8   TU      1     105.372 101.838  80.316  0.00  0.00    +0.000 C 
+ATOM     24 O5   TU      1     105.591 102.593  79.388  0.00  0.00    +0.000 OA
+ATOM     25 C5   TU      1     102.354 101.802  78.753  0.00  0.00    +0.000 A 
+ATOM     26 C20  TU      1     101.001 101.384  78.599  0.00  0.00    +0.000 A 
+ATOM     27 C1   TU      1     100.181 101.846  77.567  0.00  0.00    +0.000 A 
+ATOM     28 C2   TU      1     100.739 102.716  76.658  0.00  0.00    +0.000 A 
+ATOM     29 C3   TU      1     102.085 103.129  76.793  0.00  0.00    +0.000 A 
+ATOM     30 C4   TU      1     102.856 102.690  77.828  0.00  0.00    +0.000 A 
+ATOM     31 N3   TU      1     100.692 100.529  79.600  0.00  0.00    +0.000 N 
+ENDROOT
+BRANCH   4  32
+ATOM     32 N4   TU      1      98.020  96.596  78.925  0.00  0.00    +0.000 NA
+ATOM     33 C28  TU      1      96.848  95.858  79.474  0.00  0.00    +0.000 C 
+ATOM     34  H   TU      1      97.784  96.965  78.005  0.00  0.00    +0.000 HD
+ENDBRANCH   4  32
+BRANCH   5  35
+ATOM     35 O6   TU      1     100.771  97.366  79.949  0.00  0.00    +0.000 OA
+ATOM     36 C27  TU      1     101.648  96.312  80.298  0.00  0.00    +0.000 C 
+ENDBRANCH   5  35
+TORSDOF 2
+ENDMDL
+MODEL 2
+REMARK minimizedAffinity -12.5976
+REMARK minimizedRMSD -1
+REMARK  Name = /home/user/ClaudeCode/cdk2_ensemble_qsar/structures/1AQ1_native_ligand.pdb
+REMARK  5 active torsions:
+REMARK  status: ('A' for Active; 'I' for Inactive)
+REMARK    1  A    between atoms: C23_4  and  N4_34
+REMARK    2  A    between atoms: C22_5  and  O6_32
+REMARK    3  A    between atoms: C21_6  and  C26_7
+REMARK    4  A    between atoms: O6_32  and  C27_33
+REMARK    5  A    between atoms: N4_34  and  C28_35
+REMARK                            x       y       z     vdW  Elec       q    Type
+REMARK                         _______ _______ _______ _____ _____    ______ ____
+ROOT
+ATOM      1 O4   TU      1      98.878  99.338  81.669  0.00  0.00    +0.000 OA
+ATOM      2 C25  TU      1      98.354  99.128  80.367  0.00  0.00    +0.000 C 
+ATOM      3 C24  TU      1      98.083  97.628  80.086  0.00  0.00    +0.000 C 
+ATOM      4 C23  TU      1      98.543  96.789  81.281  0.00  0.00    +0.000 C 
+ATOM      5 C22  TU      1     100.026  97.124  81.608  0.00  0.00    +0.000 C 
+ATOM      6 C21  TU      1      99.974  98.587  82.162  0.00  0.00    +0.000 C 
+ATOM      7 C26  TU      1      99.731  98.487  83.656  0.00  0.00    +0.000 C 
+ATOM      8 N2   TU      1     101.233  99.336  81.893  0.00  0.00    +0.000 N 
+ATOM      9 C18  TU      1     101.343 100.071  80.684  0.00  0.00    +0.000 A 
+ATOM     10 C19  TU      1     100.512 100.256  79.654  0.00  0.00    +0.000 A 
+ATOM     11 C6   TU      1     100.871 101.032  78.509  0.00  0.00    +0.000 A 
+ATOM     12 C7   TU      1     102.218 101.625  78.576  0.00  0.00    +0.000 A 
+ATOM     13 C10  TU      1     103.025 101.439  79.588  0.00  0.00    +0.000 A 
+ATOM     14 C11  TU      1     102.671 100.648  80.705  0.00  0.00    +0.000 A 
+ATOM     15 C12  TU      1     103.300 100.275  81.914  0.00  0.00    +0.000 A 
+ATOM     16 C17  TU      1     102.404  99.446  82.657  0.00  0.00    +0.000 A 
+ATOM     17 C16  TU      1     102.783  98.940  83.861  0.00  0.00    +0.000 A 
+ATOM     18 C15  TU      1     104.014  99.228  84.371  0.00  0.00    +0.000 A 
+ATOM     19 C14  TU      1     104.938 100.043  83.652  0.00  0.00    +0.000 A 
+ATOM     20 C13  TU      1     104.546 100.536  82.430  0.00  0.00    +0.000 A 
+ATOM     21 C9   TU      1     104.368 102.154  79.346  0.00  0.00    +0.000 C 
+ATOM     22 N1   TU      1     104.078 102.728  78.049  0.00  0.00    +0.000 NA
+ATOM     23 C8   TU      1     102.872 102.466  77.524  0.00  0.00    +0.000 C 
+ATOM     24 O5   TU      1     102.423 102.837  76.457  0.00  0.00    +0.000 OA
+ATOM     25 C5   TU      1      99.808 100.996  77.587  0.00  0.00    +0.000 A 
+ATOM     26 C20  TU      1      98.790 100.193  78.175  0.00  0.00    +0.000 A 
+ATOM     27 C1   TU      1      97.552  99.977  77.565  0.00  0.00    +0.000 A 
+ATOM     28 C2   TU      1      97.347 100.551  76.331  0.00  0.00    +0.000 A 
+ATOM     29 C3   TU      1      98.355 101.341  75.731  0.00  0.00    +0.000 A 
+ATOM     30 C4   TU      1      99.544 101.565  76.361  0.00  0.00    +0.000 A 
+ATOM     31 N3   TU      1      99.228  99.737  79.370  0.00  0.00    +0.000 N 
+ENDROOT
+BRANCH   4  32
+ATOM     32 N4   TU      1      98.380  95.270  80.917  0.00  0.00    +0.000 NA
+ATOM     33 C28  TU      1      98.801  94.414  82.062  0.00  0.00    +0.000 C 
+ATOM     34  H   TU      1      97.402  95.081  80.698  0.00  0.00    +0.000 HD
+ENDBRANCH   4  32
+BRANCH   5  35
+ATOM     35 O6   TU      1     100.729  97.105  80.350  0.00  0.00    +0.000 OA
+ATOM     36 C27  TU      1     101.970  96.435  80.453  0.00  0.00    +0.000 C 
+ENDBRANCH   5  35
+TORSDOF 2
+ENDMDL
+MODEL 3
+REMARK minimizedAffinity -11.8797674
+REMARK minimizedRMSD -1
+REMARK  Name = /home/user/ClaudeCode/cdk2_ensemble_qsar/structures/1AQ1_native_ligand.pdb
+REMARK  5 active torsions:
+REMARK  status: ('A' for Active; 'I' for Inactive)
+REMARK    1  A    between atoms: C23_4  and  N4_34
+REMARK    2  A    between atoms: C22_5  and  O6_32
+REMARK    3  A    between atoms: C21_6  and  C26_7
+REMARK    4  A    between atoms: O6_32  and  C27_33
+REMARK    5  A    between atoms: N4_34  and  C28_35
+REMARK                            x       y       z     vdW  Elec       q    Type
+REMARK                         _______ _______ _______ _____ _____    ______ ____
+ROOT
+ATOM      1 O4   TU      1      99.703  98.864  82.661  0.00  0.00    +0.000 OA
+ATOM      2 C25  TU      1      98.755  98.392  81.715  0.00  0.00    +0.000 C 
+ATOM      3 C24  TU      1      98.717  96.844  81.655  0.00  0.00    +0.000 C 
+ATOM      4 C23  TU      1      99.786  96.265  82.587  0.00  0.00    +0.000 C 
+ATOM      5 C22  TU      1     101.168  96.888  82.239  0.00  0.00    +0.000 C 
+ATOM      6 C21  TU      1     101.036  98.383  82.684  0.00  0.00    +0.000 C 
+ATOM      7 C26  TU      1     101.442  98.449  84.144  0.00  0.00    +0.000 C 
+ATOM      8 N2   TU      1     101.890  99.291  81.869  0.00  0.00    +0.000 N 
+ATOM      9 C18  TU      1     101.347  99.862  80.689  0.00  0.00    +0.000 A 
+ATOM     10 C19  TU      1     100.152  99.761  80.098  0.00  0.00    +0.000 A 
+ATOM     11 C6   TU      1      99.847 100.422  78.869  0.00  0.00    +0.000 A 
+ATOM     12 C7   TU      1     100.948 101.239  78.329  0.00  0.00    +0.000 A 
+ATOM     13 C10  TU      1     102.114 101.332  78.914  0.00  0.00    +0.000 A 
+ATOM     14 C11  TU      1     102.415 100.653  80.117  0.00  0.00    +0.000 A 
+ATOM     15 C12  TU      1     103.541 100.560  80.966  0.00  0.00    +0.000 A 
+ATOM     16 C17  TU      1     103.218  99.701  82.060  0.00  0.00    +0.000 A 
+ATOM     17 C16  TU      1     104.148  99.436  83.016  0.00  0.00    +0.000 A 
+ATOM     18 C15  TU      1     105.388  99.995  82.943  0.00  0.00    +0.000 A 
+ATOM     19 C14  TU      1     105.750 100.849  81.859  0.00  0.00    +0.000 A 
+ATOM     20 C13  TU      1     104.804 101.096  80.892  0.00  0.00    +0.000 A 
+ATOM     21 C9   TU      1     103.061 102.224  78.090  0.00  0.00    +0.000 C 
+ATOM     22 N1   TU      1     102.159 102.558  77.008  0.00  0.00    +0.000 NA
+ATOM     23 C8   TU      1     100.930 102.026  77.057  0.00  0.00    +0.000 C 
+ATOM     24 O5   TU      1     100.021 102.166  76.260  0.00  0.00    +0.000 OA
+ATOM     25 C5   TU      1      98.536 100.082  78.486  0.00  0.00    +0.000 A 
+ATOM     26 C20  TU      1      98.035  99.206  79.491  0.00  0.00    +0.000 A 
+ATOM     27 C1   TU      1      96.733  98.702  79.473  0.00  0.00    +0.000 A 
+ATOM     28 C2   TU      1      95.932  99.059  78.412  0.00  0.00    +0.000 A 
+ATOM     29 C3   TU      1      96.421  99.919  77.401  0.00  0.00    +0.000 A 
+ATOM     30 C4   TU      1      97.686 100.424  77.457  0.00  0.00    +0.000 A 
+ATOM     31 N3   TU      1      99.004  98.998  80.411  0.00  0.00    +0.000 N 
+ENDROOT
+BRANCH   4  32
+ATOM     32 N4   TU      1      99.814  94.706  82.408  0.00  0.00    +0.000 NA
+ATOM     33 C28  TU      1      98.502  94.218  81.899  0.00  0.00    +0.000 C 
+ATOM     34  H   TU      1     100.546  94.458  81.743  0.00  0.00    +0.000 HD
+ENDBRANCH   4  32
+BRANCH   5  35
+ATOM     35 O6   TU      1     101.290  96.817  80.805  0.00  0.00    +0.000 OA
+ATOM     36 C27  TU      1     102.541  96.288  80.411  0.00  0.00    +0.000 C 
+ENDBRANCH   5  35
+TORSDOF 2
+ENDMDL
+MODEL 4
+REMARK minimizedAffinity -10.8180075
+REMARK minimizedRMSD -1
+REMARK  Name = /home/user/ClaudeCode/cdk2_ensemble_qsar/structures/1AQ1_native_ligand.pdb
+REMARK  5 active torsions:
+REMARK  status: ('A' for Active; 'I' for Inactive)
+REMARK    1  A    between atoms: C23_4  and  N4_34
+REMARK    2  A    between atoms: C22_5  and  O6_32
+REMARK    3  A    between atoms: C21_6  and  C26_7
+REMARK    4  A    between atoms: O6_32  and  C27_33
+REMARK    5  A    between atoms: N4_34  and  C28_35
+REMARK                            x       y       z     vdW  Elec       q    Type
+REMARK                         _______ _______ _______ _____ _____    ______ ____
+ROOT
+ATOM      1 O4   TU      1     102.022  97.335  80.847  0.00  0.00    +0.000 OA
+ATOM      2 C25  TU      1     102.674  98.588  80.988  0.00  0.00    +0.000 C 
+ATOM      3 C24  TU      1     102.855  98.984  82.474  0.00  0.00    +0.000 C 
+ATOM      4 C23  TU      1     102.195  97.934  83.372  0.00  0.00    +0.000 C 
+ATOM      5 C22  TU      1     100.716  97.736  82.935  0.00  0.00    +0.000 C 
+ATOM      6 C21  TU      1     100.820  97.039  81.538  0.00  0.00    +0.000 C 
+ATOM      7 C26  TU      1     100.882  95.544  81.791  0.00  0.00    +0.000 C 
+ATOM      8 N2   TU      1      99.664  97.366  80.657  0.00  0.00    +0.000 N 
+ATOM      9 C18  TU      1      99.752  98.501  79.811  0.00  0.00    +0.000 A 
+ATOM     10 C19  TU      1     100.708  99.413  79.610  0.00  0.00    +0.000 A 
+ATOM     11 C6   TU      1     100.546 100.508  78.707  0.00  0.00    +0.000 A 
+ATOM     12 C7   TU      1      99.252 100.527  78.003  0.00  0.00    +0.000 A 
+ATOM     13 C10  TU      1      98.322  99.631  78.204  0.00  0.00    +0.000 A 
+ATOM     14 C11  TU      1      98.482  98.565  79.120  0.00  0.00    +0.000 A 
+ATOM     15 C12  TU      1      97.690  97.473  79.541  0.00  0.00    +0.000 A 
+ATOM     16 C17  TU      1      98.426  96.724  80.510  0.00  0.00    +0.000 A 
+ATOM     17 C16  TU      1      97.872  95.623  81.085  0.00  0.00    +0.000 A 
+ATOM     18 C15  TU      1      96.618  95.221  80.734  0.00  0.00    +0.000 A 
+ATOM     19 C14  TU      1      95.850  95.951  79.778  0.00  0.00    +0.000 A 
+ATOM     20 C13  TU      1      96.417  97.070  79.216  0.00  0.00    +0.000 A 
+ATOM     21 C9   TU      1      97.077  99.943  77.353  0.00  0.00    +0.000 C 
+ATOM     22 N1   TU      1      97.559 101.139  76.694  0.00  0.00    +0.000 NA
+ATOM     23 C8   TU      1      98.792 101.555  77.017  0.00  0.00    +0.000 C 
+ATOM     24 O5   TU      1      99.389 102.527  76.594  0.00  0.00    +0.000 OA
+ATOM     25 C5   TU      1     101.702 101.310  78.756  0.00  0.00    +0.000 A 
+ATOM     26 C20  TU      1     102.579 100.698  79.697  0.00  0.00    +0.000 A 
+ATOM     27 C1   TU      1     103.857 101.191  79.968  0.00  0.00    +0.000 A 
+ATOM     28 C2   TU      1     104.248 102.333  79.308  0.00  0.00    +0.000 A 
+ATOM     29 C3   TU      1     103.382 102.958  78.380  0.00  0.00    +0.000 A 
+ATOM     30 C4   TU      1     102.150 102.439  78.107  0.00  0.00    +0.000 A 
+ATOM     31 N3   TU      1     101.971  99.608  80.216  0.00  0.00    +0.000 N 
+ENDROOT
+BRANCH   4  32
+ATOM     32 N4   TU      1     102.277  98.426  84.861  0.00  0.00    +0.000 NA
+ATOM     33 C28  TU      1     103.580  99.104  85.112  0.00  0.00    +0.000 C 
+ATOM     34  H   TU      1     101.517  99.081  85.041  0.00  0.00    +0.000 HD
+ENDBRANCH   4  32
+BRANCH   5  35
+ATOM     35 O6   TU      1     100.163  99.058  82.778  0.00  0.00    +0.000 OA
+ATOM     36 C27  TU      1      98.808  99.110  83.180  0.00  0.00    +0.000 C 
+ENDBRANCH   5  35
+TORSDOF 2
+ENDMDL

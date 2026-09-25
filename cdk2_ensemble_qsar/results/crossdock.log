@@ -1,0 +1,24 @@
+  1FIN: ATP already represented, skipping duplicate
+ligands: [('1HCK', 'ATP'), ('1AQ1', 'STU'), ('2VTA', 'LZ1'), ('1KE5', 'LS1')]
+receptors: ['1HCK', '1AQ1', '2VTA', '1FIN', '1KE5', '3PXF']
+
+running 24 cross-docking jobs on 4 workers ...
+docking wall time: 521s
+
+cross-docking RMSD (A)   rows = ligand, cols = receptor
+             1HCK     1AQ1     2VTA     1FIN     1KE5     3PXF
+   ATP       n/a      n/a      n/a      n/a      n/a      n/a 
+   STU       n/a      n/a      n/a      n/a      n/a      n/a 
+   LZ1       n/a      n/a      n/a      n/a      n/a      n/a 
+   LS1       n/a      n/a      n/a      n/a      n/a      n/a 
+  (* = self-dock, i.e. the classic redocking control)
+
+cross-docking score (kcal/mol)
+             1HCK     1AQ1     2VTA     1FIN     1KE5     3PXF
+   ATP      -9.60    -9.40    -9.60    -8.40    -9.20    -9.90
+   STU      -8.70   -13.30    -9.70   -11.40    -8.60    -6.80
+   LZ1      -5.30    -6.20    -5.50    -6.70    -5.70    -6.40
+   LS1      -8.80    -8.90    -8.70    -8.60    -9.60    -8.20
+
+self-dock pass 0/0 (median None A); cross-dock median None A, None under 2.0 A
+mean 83.6s per dock at exh=16

@@ -1,0 +1,11 @@
+{
+  "n_requested": 800,
+  "max_per_scaffold": 25,
+  "n_selected": 784,
+  "n_embedded": 784,
+  "n_failed": 0,
+  "n_reused_from_disk": 439,
+  "n_scaffolds": 386,
+  "seed": 42,
+  "failed_ids": []
+}

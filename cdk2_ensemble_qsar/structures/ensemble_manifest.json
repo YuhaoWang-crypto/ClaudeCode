@@ -1,0 +1,97 @@
+{
+  "reference": "1HCK",
+  "box": {
+    "center_x": 100.801,
+    "center_y": 97.559,
+    "center_z": 79.79,
+    "size_x": 23.335,
+    "size_y": 23.071,
+    "size_z": 25.308
+  },
+  "slices": [
+    {
+      "pdb_id": "1HCK",
+      "native_ligand": "ATP",
+      "hinge_min_dist_A": 4.27,
+      "ligand_in_atp_site": true,
+      "pocket_rmsd_to_ref_A": 0.0,
+      "global_rmsd_in_pocket_frame_A": 0.0,
+      "n_pocket_ca": 30,
+      "n_residues": 294,
+      "n_ligand_heavy_atoms": 31,
+      "receptor_pdb": "1HCK_receptor.pdb",
+      "native_ligand_pdb": "1HCK_native_ligand.pdb",
+      "receptor_pdbqt": "1HCK_receptor.pdbqt"
+    },
+    {
+      "pdb_id": "1AQ1",
+      "native_ligand": "STU",
+      "hinge_min_dist_A": 3.67,
+      "ligand_in_atp_site": true,
+      "pocket_rmsd_to_ref_A": 0.862,
+      "global_rmsd_in_pocket_frame_A": 0.994,
+      "n_pocket_ca": 30,
+      "n_residues": 277,
+      "n_ligand_heavy_atoms": 35,
+      "receptor_pdb": "1AQ1_receptor.pdb",
+      "native_ligand_pdb": "1AQ1_native_ligand.pdb",
+      "receptor_pdbqt": "1AQ1_receptor.pdbqt"
+    },
+    {
+      "pdb_id": "2VTA",
+      "native_ligand": "LZ1",
+      "hinge_min_dist_A": 3.99,
+      "ligand_in_atp_site": true,
+      "pocket_rmsd_to_ref_A": 0.438,
+      "global_rmsd_in_pocket_frame_A": 0.432,
+      "n_pocket_ca": 30,
+      "n_residues": 278,
+      "n_ligand_heavy_atoms": 9,
+      "receptor_pdb": "2VTA_receptor.pdb",
+      "native_ligand_pdb": "2VTA_native_ligand.pdb",
+      "receptor_pdbqt": "2VTA_receptor.pdbqt"
+    },
+    {
+      "pdb_id": "1FIN",
+      "native_ligand": "ATP",
+      "hinge_min_dist_A": 3.78,
+      "ligand_in_atp_site": true,
+      "pocket_rmsd_to_ref_A": 2.014,
+      "global_rmsd_in_pocket_frame_A": 4.732,
+      "n_pocket_ca": 30,
+      "n_residues": 298,
+      "n_ligand_heavy_atoms": 31,
+      "receptor_pdb": "1FIN_receptor.pdb",
+      "native_ligand_pdb": "1FIN_native_ligand.pdb",
+      "receptor_pdbqt": "1FIN_receptor.pdbqt"
+    },
+    {
+      "pdb_id": "1KE5",
+      "native_ligand": "LS1",
+      "hinge_min_dist_A": 3.94,
+      "ligand_in_atp_site": true,
+      "pocket_rmsd_to_ref_A": 0.543,
+      "global_rmsd_in_pocket_frame_A": 0.926,
+      "n_pocket_ca": 30,
+      "n_residues": 281,
+      "n_ligand_heavy_atoms": 23,
+      "receptor_pdb": "1KE5_receptor.pdb",
+      "native_ligand_pdb": "1KE5_native_ligand.pdb",
+      "receptor_pdbqt": "1KE5_receptor.pdbqt"
+    },
+    {
+      "pdb_id": "3PXF",
+      "native_ligand": "2AN",
+      "hinge_min_dist_A": 11.53,
+      "ligand_in_atp_site": false,
+      "pocket_rmsd_to_ref_A": 1.484,
+      "global_rmsd_in_pocket_frame_A": 2.489,
+      "n_pocket_ca": 30,
+      "n_residues": 302,
+      "n_ligand_heavy_atoms": 21,
+      "receptor_pdb": "3PXF_receptor.pdb",
+      "native_ligand_pdb": "3PXF_native_ligand.pdb",
+      "receptor_pdbqt": "3PXF_receptor.pdbqt"
+    }
+  ]
+}

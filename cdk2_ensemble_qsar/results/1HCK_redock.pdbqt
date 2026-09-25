@@ -1,0 +1,465 @@
+MODEL 1
+REMARK minimizedAffinity -9.60870075
+REMARK minimizedRMSD -1
+REMARK  Name = /home/user/ClaudeCode/cdk2_ensemble_qsar/structures/1HCK_native_ligand.pdb
+REMARK  14 active torsions:
+REMARK  status: ('A' for Active; 'I' for Inactive)
+REMARK    1  A    between atoms: PG_1  and  O2G_3
+REMARK    2  A    between atoms: PG_1  and  O3G_4
+REMARK    3  A    between atoms: PG_1  and  O3B_8
+REMARK    4  A    between atoms: PB_5  and  O2B_7
+REMARK    5  A    between atoms: PB_5  and  O3B_8
+REMARK    6  A    between atoms: PB_5  and  O3A_12
+REMARK    7  A    between atoms: PA_9  and  O2A_11
+REMARK    8  A    between atoms: PA_9  and  O3A_12
+REMARK    9  A    between atoms: PA_9  and  O5'_13
+REMARK   10  A    between atoms: O5'_13  and  C5'_14
+REMARK   11  A    between atoms: C5'_14  and  C4'_15
+REMARK   12  A    between atoms: C3'_17  and  O3'_18
+REMARK   13  A    between atoms: C2'_19  and  O2'_20
+REMARK   14  A    between atoms: C1'_21  and  N9_22
+REMARK                            x       y       z     vdW  Elec       q    Type
+REMARK                         _______ _______ _______ _____ _____    ______ ____
+ROOT
+ATOM      1 C4'  TP      1      98.299  98.746  80.565  0.00  0.00    +0.000 C 
+ATOM      2 O4'  TP      1      99.223  99.726  81.066  0.00  0.00    +0.000 OA
+ATOM      3 C3'  TP      1      98.693  98.411  79.075  0.00  0.00    +0.000 C 
+ATOM      4 C2'  TP      1     100.215  98.531  79.217  0.00  0.00    +0.000 C 
+ATOM      5 C1'  TP      1     100.249  99.902  80.112  0.00  0.00    +0.000 C 
+ENDROOT
+BRANCH   5   6
+ATOM      6 N9   TP      1     101.493  99.924  80.778  0.00  0.00    +0.000 N 
+ATOM      7 C8   TP      1     101.953  99.124  81.839  0.00  0.00    +0.000 A 
+ATOM      8 N7   TP      1     103.215  99.324  82.214  0.00  0.00    +0.000 NA
+ATOM      9 C5   TP      1     103.752 100.236  81.163  0.00  0.00    +0.000 A 
+ATOM     10 C6   TP      1     105.033 100.819  80.882  0.00  0.00    +0.000 A 
+ATOM     11 N6   TP      1     106.123 100.593  81.546  0.00  0.00    +0.000 N 
+ATOM     12 N1   TP      1     105.024 101.699  79.833  0.00  0.00    +0.000 NA
+ATOM     13 C2   TP      1     104.004 102.009  79.079  0.00  0.00    +0.000 A 
+ATOM     14 N3   TP      1     102.761 101.655  79.291  0.00  0.00    +0.000 NA
+ATOM     15 C4   TP      1     102.638 100.659  80.312  0.00  0.00    +0.000 A 
+ATOM     16  H   TP      1     106.961 101.039  81.282  0.00  0.00    +0.000 HD
+ATOM     17  H   TP      1     106.114  99.977  82.314  0.00  0.00    +0.000 HD
+ENDBRANCH   5   6
+BRANCH   3  18
+ATOM     18 O3'  TP      1      98.535  99.630  78.263  0.00  0.00    +0.000 OA
+ATOM     19  H   TP      1      99.015 100.361  78.682  0.00  0.00    +0.000 HD
+ENDBRANCH   3  18
+BRANCH   4  20
+ATOM     20 O2'  TP      1     100.786  98.647  77.924  0.00  0.00    +0.000 OA
+ATOM     21  H   TP      1     100.349  99.365  77.440  0.00  0.00    +0.000 HD
+ENDBRANCH   4  20
+BRANCH   1  22
+ATOM     22 C5'  TP      1      98.336  97.665  81.486  0.00  0.00    +0.000 C 
+BRANCH  22  23
+ATOM     23 O5'  TP      1      98.714  97.982  82.808  0.00  0.00    +0.000 OA
+BRANCH  23  24
+ATOM     24 PA   TP      1      98.991  96.801  83.820  0.00  0.00    +0.000 P 
+ATOM     25 O1A  TP      1     100.284  96.361  83.374  0.00  0.00    +0.000 OA
+BRANCH  24  26
+ATOM     26 O2A  TP      1      98.702  97.084  85.236  0.00  0.00    +0.000 OA
+ATOM     27  H   TP      1      97.779  97.366  85.328  0.00  0.00    +0.000 HD
+ENDBRANCH  24  26
+BRANCH  24  28
+ATOM     28 O3A  TP      1      97.834  95.992  83.151  0.00  0.00    +0.000 OA
+BRANCH  28  29
+ATOM     29 PB   TP      1      97.696  94.382  82.748  0.00  0.00    +0.000 P 
+ATOM     30 O1B  TP      1      96.538  93.975  81.834  0.00  0.00    +0.000 OA
+BRANCH  29  31
+ATOM     31 O2B  TP      1      99.037  94.264  81.992  0.00  0.00    +0.000 OA
+ATOM     32  H   TP      1      98.969  94.723  81.140  0.00  0.00    +0.000 HD
+ENDBRANCH  29  31
+BRANCH  29  33
+ATOM     33 O3B  TP      1      97.851  93.539  84.292  0.00  0.00    +0.000 OA
+BRANCH  33  34
+ATOM     34 PG   TP      1      99.146  93.172  85.303  0.00  0.00    +0.000 P 
+ATOM     35 O1G  TP      1      98.915  94.233  86.531  0.00  0.00    +0.000 OA
+BRANCH  34  36
+ATOM     36 O2G  TP      1      98.857  91.726  85.690  0.00  0.00    +0.000 OA
+ATOM     37  H   TP      1      97.995  91.675  86.132  0.00  0.00    +0.000 HD
+ENDBRANCH  34  36
+BRANCH  34  38
+ATOM     38 O3G  TP      1     100.337  93.407  84.664  0.00  0.00    +0.000 OA
+ATOM     39  H   TP      1     100.416  94.353  84.466  0.00  0.00    +0.000 HD
+ENDBRANCH  34  38
+ENDBRANCH  33  34
+ENDBRANCH  29  33
+ENDBRANCH  28  29
+ENDBRANCH  24  28
+ENDBRANCH  23  24
+ENDBRANCH  22  23
+ENDBRANCH   1  22
+TORSDOF 14
+ENDMDL
+MODEL 2
+REMARK minimizedAffinity -9.53777027
+REMARK minimizedRMSD -1
+REMARK  Name = /home/user/ClaudeCode/cdk2_ensemble_qsar/structures/1HCK_native_ligand.pdb
+REMARK  14 active torsions:
+REMARK  status: ('A' for Active; 'I' for Inactive)
+REMARK    1  A    between atoms: PG_1  and  O2G_3
+REMARK    2  A    between atoms: PG_1  and  O3G_4
+REMARK    3  A    between atoms: PG_1  and  O3B_8
+REMARK    4  A    between atoms: PB_5  and  O2B_7
+REMARK    5  A    between atoms: PB_5  and  O3B_8
+REMARK    6  A    between atoms: PB_5  and  O3A_12
+REMARK    7  A    between atoms: PA_9  and  O2A_11
+REMARK    8  A    between atoms: PA_9  and  O3A_12
+REMARK    9  A    between atoms: PA_9  and  O5'_13
+REMARK   10  A    between atoms: O5'_13  and  C5'_14
+REMARK   11  A    between atoms: C5'_14  and  C4'_15
+REMARK   12  A    between atoms: C3'_17  and  O3'_18
+REMARK   13  A    between atoms: C2'_19  and  O2'_20
+REMARK   14  A    between atoms: C1'_21  and  N9_22
+REMARK                            x       y       z     vdW  Elec       q    Type
+REMARK                         _______ _______ _______ _____ _____    ______ ____
+ROOT
+ATOM      1 C4'  TP      1     101.572  97.616  81.743  0.00  0.00    +0.000 C 
+ATOM      2 O4'  TP      1     102.169  98.158  80.554  0.00  0.00    +0.000 OA
+ATOM      3 C3'  TP      1     102.407  98.111  82.986  0.00  0.00    +0.000 C 
+ATOM      4 C2'  TP      1     102.772  99.506  82.465  0.00  0.00    +0.000 C 
+ATOM      5 C1'  TP      1     103.171  99.076  80.936  0.00  0.00    +0.000 C 
+ENDROOT
+BRANCH   5   6
+ATOM      6 N9   TP      1     103.054 100.237  80.141  0.00  0.00    +0.000 N 
+ATOM      7 C8   TP      1     103.887 101.368  80.082  0.00  0.00    +0.000 A 
+ATOM      8 N7   TP      1     103.564 102.283  79.170  0.00  0.00    +0.000 NA
+ATOM      9 C5   TP      1     102.493 101.618  78.373  0.00  0.00    +0.000 A 
+ATOM     10 C6   TP      1     101.725 101.968  77.212  0.00  0.00    +0.000 A 
+ATOM     11 N6   TP      1     101.871 103.050  76.512  0.00  0.00    +0.000 N 
+ATOM     12 N1   TP      1     100.755 101.056  76.892  0.00  0.00    +0.000 NA
+ATOM     13 C2   TP      1     100.508  99.929  77.502  0.00  0.00    +0.000 A 
+ATOM     14 N3   TP      1     101.038  99.541  78.635  0.00  0.00    +0.000 NA
+ATOM     15 C4   TP      1     102.136 100.365  79.041  0.00  0.00    +0.000 A 
+ATOM     16  H   TP      1     101.298 103.210  75.728  0.00  0.00    +0.000 HD
+ATOM     17  H   TP      1     102.555 103.711  76.765  0.00  0.00    +0.000 HD
+ENDBRANCH   5   6
+BRANCH   3  18
+ATOM     18 O3'  TP      1     103.771  97.565  82.881  0.00  0.00    +0.000 OA
+ATOM     19  H   TP      1     104.136  97.772  82.007  0.00  0.00    +0.000 HD
+ENDBRANCH   3  18
+BRANCH   4  20
+ATOM     20 O2'  TP      1     103.842 100.018  83.241  0.00  0.00    +0.000 OA
+ATOM     21  H   TP      1     104.566  99.371  83.260  0.00  0.00    +0.000 HD
+ENDBRANCH   4  20
+BRANCH   1  22
+ATOM     22 C5'  TP      1     100.205  98.000  81.707  0.00  0.00    +0.000 C 
+BRANCH  22  23
+ATOM     23 O5'  TP      1      99.261  96.984  81.966  0.00  0.00    +0.000 OA
+BRANCH  23  24
+ATOM     24 PA   TP      1      98.576  96.932  83.388  0.00  0.00    +0.000 P 
+ATOM     25 O1A  TP      1      99.625  96.342  84.172  0.00  0.00    +0.000 OA
+BRANCH  24  26
+ATOM     26 O2A  TP      1      97.871  98.155  83.809  0.00  0.00    +0.000 OA
+ATOM     27  H   TP      1      97.203  98.388  83.147  0.00  0.00    +0.000 HD
+ENDBRANCH  24  26
+BRANCH  24  28
+ATOM     28 O3A  TP      1      97.581  95.859  82.839  0.00  0.00    +0.000 OA
+BRANCH  28  29
+ATOM     29 PB   TP      1      97.707  94.206  82.683  0.00  0.00    +0.000 P 
+ATOM     30 O1B  TP      1      96.710  93.501  81.761  0.00  0.00    +0.000 OA
+BRANCH  29  31
+ATOM     31 O2B  TP      1      99.118  94.186  82.056  0.00  0.00    +0.000 OA
+ATOM     32  H   TP      1      99.068  94.502  81.140  0.00  0.00    +0.000 HD
+ENDBRANCH  29  31
+BRANCH  29  33
+ATOM     33 O3B  TP      1      97.830  93.627  84.347  0.00  0.00    +0.000 OA
+BRANCH  33  34
+ATOM     34 PG   TP      1      99.110  93.159  85.335  0.00  0.00    +0.000 P 
+ATOM     35 O1G  TP      1      98.914  94.156  86.621  0.00  0.00    +0.000 OA
+BRANCH  34  36
+ATOM     36 O2G  TP      1      98.770  91.704  85.640  0.00  0.00    +0.000 OA
+ATOM     37  H   TP      1      97.907  91.658  86.079  0.00  0.00    +0.000 HD
+ENDBRANCH  34  36
+BRANCH  34  38
+ATOM     38 O3G  TP      1     100.309  93.388  84.710  0.00  0.00    +0.000 OA
+ATOM     39  H   TP      1     100.421  94.341  84.565  0.00  0.00    +0.000 HD
+ENDBRANCH  34  38
+ENDBRANCH  33  34
+ENDBRANCH  29  33
+ENDBRANCH  28  29
+ENDBRANCH  24  28
+ENDBRANCH  23  24
+ENDBRANCH  22  23
+ENDBRANCH   1  22
+TORSDOF 14
+ENDMDL
+MODEL 3
+REMARK minimizedAffinity -8.88444996
+REMARK minimizedRMSD -1
+REMARK  Name = /home/user/ClaudeCode/cdk2_ensemble_qsar/structures/1HCK_native_ligand.pdb
+REMARK  14 active torsions:
+REMARK  status: ('A' for Active; 'I' for Inactive)
+REMARK    1  A    between atoms: PG_1  and  O2G_3
+REMARK    2  A    between atoms: PG_1  and  O3G_4
+REMARK    3  A    between atoms: PG_1  and  O3B_8
+REMARK    4  A    between atoms: PB_5  and  O2B_7
+REMARK    5  A    between atoms: PB_5  and  O3B_8
+REMARK    6  A    between atoms: PB_5  and  O3A_12
+REMARK    7  A    between atoms: PA_9  and  O2A_11
+REMARK    8  A    between atoms: PA_9  and  O3A_12
+REMARK    9  A    between atoms: PA_9  and  O5'_13
+REMARK   10  A    between atoms: O5'_13  and  C5'_14
+REMARK   11  A    between atoms: C5'_14  and  C4'_15
+REMARK   12  A    between atoms: C3'_17  and  O3'_18
+REMARK   13  A    between atoms: C2'_19  and  O2'_20
+REMARK   14  A    between atoms: C1'_21  and  N9_22
+REMARK                            x       y       z     vdW  Elec       q    Type
+REMARK                         _______ _______ _______ _____ _____    ______ ____
+ROOT
+ATOM      1 C4'  TP      1      96.528  98.166  80.214  0.00  0.00    +0.000 C 
+ATOM      2 O4'  TP      1      97.453  98.897  81.035  0.00  0.00    +0.000 OA
+ATOM      3 C3'  TP      1      97.268  97.748  78.886  0.00  0.00    +0.000 C 
+ATOM      4 C2'  TP      1      98.661  97.501  79.478  0.00  0.00    +0.000 C 
+ATOM      5 C1'  TP      1      98.732  98.824  80.441  0.00  0.00    +0.000 C 
+ENDROOT
+BRANCH   5   6
+ATOM      6 N9   TP      1      99.686  98.548  81.445  0.00  0.00    +0.000 N 
+ATOM      7 C8   TP      1      99.673  97.556  82.442  0.00  0.00    +0.000 A 
+ATOM      8 N7   TP      1     100.761  97.486  83.207  0.00  0.00    +0.000 NA
+ATOM      9 C5   TP      1     101.720  98.411  82.538  0.00  0.00    +0.000 A 
+ATOM     10 C6   TP      1     103.085  98.792  82.759  0.00  0.00    +0.000 A 
+ATOM     11 N6   TP      1     103.865  98.301  83.672  0.00  0.00    +0.000 N 
+ATOM     12 N1   TP      1     103.528  99.782  81.923  0.00  0.00    +0.000 NA
+ATOM     13 C2   TP      1     102.855 100.354  80.961  0.00  0.00    +0.000 A 
+ATOM     14 N3   TP      1     101.576 100.199  80.726  0.00  0.00    +0.000 NA
+ATOM     15 C4   TP      1     101.004  99.123  81.477  0.00  0.00    +0.000 A 
+ATOM     16  H   TP      1     104.791  98.623  83.752  0.00  0.00    +0.000 HD
+ATOM     17  H   TP      1     103.529  97.607  84.284  0.00  0.00    +0.000 HD
+ENDBRANCH   5   6
+BRANCH   3  18
+ATOM     18 O3'  TP      1      97.646  98.970  78.155  0.00  0.00    +0.000 OA
+ATOM     19  H   TP      1      98.129  99.565  78.749  0.00  0.00    +0.000 HD
+ENDBRANCH   3  18
+BRANCH   4  20
+ATOM     20 O2'  TP      1      99.608  97.478  78.423  0.00  0.00    +0.000 OA
+ATOM     21  H   TP      1      99.514  98.280  77.886  0.00  0.00    +0.000 HD
+ENDBRANCH   4  20
+BRANCH   1  22
+ATOM     22 C5'  TP      1      96.036  97.107  81.023  0.00  0.00    +0.000 C 
+BRANCH  22  23
+ATOM     23 O5'  TP      1      95.617  95.943  80.344  0.00  0.00    +0.000 OA
+BRANCH  23  24
+ATOM     24 PA   TP      1      94.423  95.104  80.947  0.00  0.00    +0.000 P 
+ATOM     25 O1A  TP      1      93.400  96.108  81.028  0.00  0.00    +0.000 OA
+BRANCH  24  26
+ATOM     26 O2A  TP      1      94.185  93.787  80.331  0.00  0.00    +0.000 OA
+ATOM     27  H   TP      1      94.996  93.257  80.376  0.00  0.00    +0.000 HD
+ENDBRANCH  24  26
+BRANCH  24  28
+ATOM     28 O3A  TP      1      95.224  94.974  82.282  0.00  0.00    +0.000 OA
+BRANCH  28  29
+ATOM     29 PB   TP      1      96.138  93.732  82.911  0.00  0.00    +0.000 P 
+ATOM     30 O1B  TP      1      95.431  92.711  83.805  0.00  0.00    +0.000 OA
+BRANCH  29  31
+ATOM     31 O2B  TP      1      96.522  93.084  81.564  0.00  0.00    +0.000 OA
+ATOM     32  H   TP      1      95.748  92.636  81.189  0.00  0.00    +0.000 HD
+ENDBRANCH  29  31
+BRANCH  29  33
+ATOM     33 O3B  TP      1      97.565  94.540  83.567  0.00  0.00    +0.000 OA
+BRANCH  33  34
+ATOM     34 PG   TP      1      98.824  94.061  84.577  0.00  0.00    +0.000 P 
+ATOM     35 O1G  TP      1      99.112  95.437  85.418  0.00  0.00    +0.000 OA
+BRANCH  34  36
+ATOM     36 O2G  TP      1      98.170  92.965  85.413  0.00  0.00    +0.000 OA
+ATOM     37  H   TP      1      97.410  93.333  85.891  0.00  0.00    +0.000 HD
+ENDBRANCH  34  36
+BRANCH  34  38
+ATOM     38 O3G  TP      1      99.920  93.693  83.838  0.00  0.00    +0.000 OA
+ATOM     39  H   TP      1     100.252  94.462  83.349  0.00  0.00    +0.000 HD
+ENDBRANCH  34  38
+ENDBRANCH  33  34
+ENDBRANCH  29  33
+ENDBRANCH  28  29
+ENDBRANCH  24  28
+ENDBRANCH  23  24
+ENDBRANCH  22  23
+ENDBRANCH   1  22
+TORSDOF 14
+ENDMDL
+MODEL 4
+REMARK minimizedAffinity -8.76087475
+REMARK minimizedRMSD -1
+REMARK  Name = /home/user/ClaudeCode/cdk2_ensemble_qsar/structures/1HCK_native_ligand.pdb
+REMARK  14 active torsions:
+REMARK  status: ('A' for Active; 'I' for Inactive)
+REMARK    1  A    between atoms: PG_1  and  O2G_3
+REMARK    2  A    between atoms: PG_1  and  O3G_4
+REMARK    3  A    between atoms: PG_1  and  O3B_8
+REMARK    4  A    between atoms: PB_5  and  O2B_7
+REMARK    5  A    between atoms: PB_5  and  O3B_8
+REMARK    6  A    between atoms: PB_5  and  O3A_12
+REMARK    7  A    between atoms: PA_9  and  O2A_11
+REMARK    8  A    between atoms: PA_9  and  O3A_12
+REMARK    9  A    between atoms: PA_9  and  O5'_13
+REMARK   10  A    between atoms: O5'_13  and  C5'_14
+REMARK   11  A    between atoms: C5'_14  and  C4'_15
+REMARK   12  A    between atoms: C3'_17  and  O3'_18
+REMARK   13  A    between atoms: C2'_19  and  O2'_20
+REMARK   14  A    between atoms: C1'_21  and  N9_22
+REMARK                            x       y       z     vdW  Elec       q    Type
+REMARK                         _______ _______ _______ _____ _____    ______ ____
+ROOT
+ATOM      1 C4'  TP      1      98.974  98.706  80.064  0.00  0.00    +0.000 C 
+ATOM      2 O4'  TP      1      99.853  99.706  80.606  0.00  0.00    +0.000 OA
+ATOM      3 C3'  TP      1      99.136  98.705  78.495  0.00  0.00    +0.000 C 
+ATOM      4 C2'  TP      1     100.635  99.019  78.427  0.00  0.00    +0.000 C 
+ATOM      5 C1'  TP      1     100.668 100.198  79.564  0.00  0.00    +0.000 C 
+ENDROOT
+BRANCH   5   6
+ATOM      6 N9   TP      1     101.999 100.283  80.026  0.00  0.00    +0.000 N 
+ATOM      7 C8   TP      1     102.933 101.322  79.874  0.00  0.00    +0.000 A 
+ATOM      8 N7   TP      1     104.100 101.152  80.494  0.00  0.00    +0.000 NA
+ATOM      9 C5   TP      1     103.877  99.938  81.331  0.00  0.00    +0.000 A 
+ATOM     10 C6   TP      1     104.655  99.210  82.291  0.00  0.00    +0.000 A 
+ATOM     11 N6   TP      1     105.839  99.541  82.707  0.00  0.00    +0.000 N 
+ATOM     12 N1   TP      1     104.053  98.065  82.741  0.00  0.00    +0.000 NA
+ATOM     13 C2   TP      1     102.869  97.623  82.414  0.00  0.00    +0.000 A 
+ATOM     14 N3   TP      1     102.105  98.110  81.468  0.00  0.00    +0.000 NA
+ATOM     15 C4   TP      1     102.578  99.366  80.970  0.00  0.00    +0.000 A 
+ATOM     16  H   TP      1     106.302  98.979  83.370  0.00  0.00    +0.000 HD
+ATOM     17  H   TP      1     106.273 100.352  82.359  0.00  0.00    +0.000 HD
+ENDBRANCH   5   6
+BRANCH   3  18
+ATOM     18 O3'  TP      1      98.698 100.012  77.978  0.00  0.00    +0.000 OA
+ATOM     19  H   TP      1      99.157 100.720  78.457  0.00  0.00    +0.000 HD
+ENDBRANCH   3  18
+BRANCH   4  20
+ATOM     20 O2'  TP      1     100.953  99.447  77.113  0.00  0.00    +0.000 OA
+ATOM     21  H   TP      1     100.358 100.168  76.855  0.00  0.00    +0.000 HD
+ENDBRANCH   4  20
+BRANCH   1  22
+ATOM     22 C5'  TP      1      99.297  97.496  80.733  0.00  0.00    +0.000 C 
+BRANCH  22  23
+ATOM     23 O5'  TP      1      98.220  96.801  81.324  0.00  0.00    +0.000 OA
+BRANCH  23  24
+ATOM     24 PA   TP      1      97.897  97.058  82.848  0.00  0.00    +0.000 P 
+ATOM     25 O1A  TP      1      99.161  96.740  83.450  0.00  0.00    +0.000 OA
+BRANCH  24  26
+ATOM     26 O2A  TP      1      97.173  98.305  83.152  0.00  0.00    +0.000 OA
+ATOM     27  H   TP      1      96.346  98.330  82.646  0.00  0.00    +0.000 HD
+ENDBRANCH  24  26
+BRANCH  24  28
+ATOM     28 O3A  TP      1      96.933  95.829  82.824  0.00  0.00    +0.000 OA
+BRANCH  28  29
+ATOM     29 PB   TP      1      97.224  94.190  82.873  0.00  0.00    +0.000 P 
+ATOM     30 O1B  TP      1      96.189  93.265  82.228  0.00  0.00    +0.000 OA
+BRANCH  29  31
+ATOM     31 O2B  TP      1      98.519  94.207  82.034  0.00  0.00    +0.000 OA
+ATOM     32  H   TP      1      98.299  94.375  81.104  0.00  0.00    +0.000 HD
+ENDBRANCH  29  31
+BRANCH  29  33
+ATOM     33 O3B  TP      1      97.656  93.882  84.558  0.00  0.00    +0.000 OA
+BRANCH  33  34
+ATOM     34 PG   TP      1      99.058  93.367  85.333  0.00  0.00    +0.000 P 
+ATOM     35 O1G  TP      1      99.025  94.266  86.703  0.00  0.00    +0.000 OA
+BRANCH  34  36
+ATOM     36 O2G  TP      1      98.772  91.888  85.573  0.00  0.00    +0.000 OA
+ATOM     37  H   TP      1      97.974  91.797  86.117  0.00  0.00    +0.000 HD
+ENDBRANCH  34  36
+BRANCH  34  38
+ATOM     38 O3G  TP      1     100.163  93.660  84.575  0.00  0.00    +0.000 OA
+ATOM     39  H   TP      1     100.248  94.622  84.487  0.00  0.00    +0.000 HD
+ENDBRANCH  34  38
+ENDBRANCH  33  34
+ENDBRANCH  29  33
+ENDBRANCH  28  29
+ENDBRANCH  24  28
+ENDBRANCH  23  24
+ENDBRANCH  22  23
+ENDBRANCH   1  22
+TORSDOF 14
+ENDMDL
+MODEL 5
+REMARK minimizedAffinity -8.70878506
+REMARK minimizedRMSD -1
+REMARK  Name = /home/user/ClaudeCode/cdk2_ensemble_qsar/structures/1HCK_native_ligand.pdb
+REMARK  14 active torsions:
+REMARK  status: ('A' for Active; 'I' for Inactive)
+REMARK    1  A    between atoms: PG_1  and  O2G_3
+REMARK    2  A    between atoms: PG_1  and  O3G_4
+REMARK    3  A    between atoms: PG_1  and  O3B_8
+REMARK    4  A    between atoms: PB_5  and  O2B_7
+REMARK    5  A    between atoms: PB_5  and  O3B_8
+REMARK    6  A    between atoms: PB_5  and  O3A_12
+REMARK    7  A    between atoms: PA_9  and  O2A_11
+REMARK    8  A    between atoms: PA_9  and  O3A_12
+REMARK    9  A    between atoms: PA_9  and  O5'_13
+REMARK   10  A    between atoms: O5'_13  and  C5'_14
+REMARK   11  A    between atoms: C5'_14  and  C4'_15
+REMARK   12  A    between atoms: C3'_17  and  O3'_18
+REMARK   13  A    between atoms: C2'_19  and  O2'_20
+REMARK   14  A    between atoms: C1'_21  and  N9_22
+REMARK                            x       y       z     vdW  Elec       q    Type
+REMARK                         _______ _______ _______ _____ _____    ______ ____
+ROOT
+ATOM      1 C4'  TP      1      99.193  97.180  81.945  0.00  0.00    +0.000 C 
+ATOM      2 O4'  TP      1      99.937  97.471  80.750  0.00  0.00    +0.000 OA
+ATOM      3 C3'  TP      1     100.217  96.968  83.126  0.00  0.00    +0.000 C 
+ATOM      4 C2'  TP      1     101.266  98.000  82.696  0.00  0.00    +0.000 C 
+ATOM      5 C1'  TP      1     101.296  97.638  81.099  0.00  0.00    +0.000 C 
+ENDROOT
+BRANCH   5   6
+ATOM      6 N9   TP      1     101.802  98.774  80.432  0.00  0.00    +0.000 N 
+ATOM      7 C8   TP      1     101.148  99.667  79.565  0.00  0.00    +0.000 A 
+ATOM      8 N7   TP      1     101.870 100.704  79.144  0.00  0.00    +0.000 NA
+ATOM      9 C5   TP      1     103.110 100.624  79.968  0.00  0.00    +0.000 A 
+ATOM     10 C6   TP      1     104.293 101.426  80.104  0.00  0.00    +0.000 A 
+ATOM     11 N6   TP      1     104.514 102.549  79.494  0.00  0.00    +0.000 N 
+ATOM     12 N1   TP      1     105.237 100.887  80.937  0.00  0.00    +0.000 NA
+ATOM     13 C2   TP      1     105.139  99.776  81.616  0.00  0.00    +0.000 A 
+ATOM     14 N3   TP      1     104.183  98.889  81.497  0.00  0.00    +0.000 NA
+ATOM     15 C4   TP      1     103.081  99.366  80.717  0.00  0.00    +0.000 A 
+ATOM     16  H   TP      1     105.357 103.034  79.647  0.00  0.00    +0.000 HD
+ATOM     17  H   TP      1     103.839 102.915  78.878  0.00  0.00    +0.000 HD
+ENDBRANCH   5   6
+BRANCH   3  18
+ATOM     18 O3'  TP      1     101.048  95.792  82.819  0.00  0.00    +0.000 OA
+ATOM     19  H   TP      1     101.428  95.887  81.932  0.00  0.00    +0.000 HD
+ENDBRANCH   3  18
+BRANCH   4  20
+ATOM     20 O2'  TP      1     102.475  97.738  83.390  0.00  0.00    +0.000 OA
+ATOM     21  H   TP      1     102.723  96.808  83.269  0.00  0.00    +0.000 HD
+ENDBRANCH   4  20
+BRANCH   1  22
+ATOM     22 C5'  TP      1      98.265  98.244  82.098  0.00  0.00    +0.000 C 
+BRANCH  22  23
+ATOM     23 O5'  TP      1      96.903  97.881  82.170  0.00  0.00    +0.000 OA
+BRANCH  23  24
+ATOM     24 PA   TP      1      96.408  96.630  81.343  0.00  0.00    +0.000 P 
+ATOM     25 O1A  TP      1      94.993  96.872  81.306  0.00  0.00    +0.000 OA
+BRANCH  24  26
+ATOM     26 O2A  TP      1      97.184  96.310  80.132  0.00  0.00    +0.000 OA
+ATOM     27  H   TP      1      98.115  96.182  80.368  0.00  0.00    +0.000 HD
+ENDBRANCH  24  26
+BRANCH  24  28
+ATOM     28 O3A  TP      1      96.814  95.712  82.541  0.00  0.00    +0.000 OA
+BRANCH  28  29
+ATOM     29 PB   TP      1      97.134  94.080  82.628  0.00  0.00    +0.000 P 
+ATOM     30 O1B  TP      1      96.142  93.124  81.961  0.00  0.00    +0.000 OA
+BRANCH  29  31
+ATOM     31 O2B  TP      1      98.459  94.107  81.837  0.00  0.00    +0.000 OA
+ATOM     32  H   TP      1      98.272  94.257  80.897  0.00  0.00    +0.000 HD
+ENDBRANCH  29  31
+BRANCH  29  33
+ATOM     33 O3B  TP      1      97.508  93.807  84.332  0.00  0.00    +0.000 OA
+BRANCH  33  34
+ATOM     34 PG   TP      1      98.915  93.439  85.180  0.00  0.00    +0.000 P 
+ATOM     35 O1G  TP      1      98.799  94.449  86.465  0.00  0.00    +0.000 OA
+BRANCH  34  36
+ATOM     36 O2G  TP      1      98.702  91.973  85.542  0.00  0.00    +0.000 OA
+ATOM     37  H   TP      1      97.896  91.884  86.074  0.00  0.00    +0.000 HD
+ENDBRANCH  34  36
+BRANCH  34  38
+ATOM     38 O3G  TP      1     100.022  93.726  84.423  0.00  0.00    +0.000 OA
+ATOM     39  H   TP      1     100.058  94.681  84.253  0.00  0.00    +0.000 HD
+ENDBRANCH  34  38
+ENDBRANCH  33  34
+ENDBRANCH  29  33
+ENDBRANCH  28  29
+ENDBRANCH  24  28
+ENDBRANCH  23  24
+ENDBRANCH  22  23
+ENDBRANCH   1  22
+TORSDOF 14
+ENDMDL

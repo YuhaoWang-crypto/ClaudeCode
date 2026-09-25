@@ -1,0 +1,23 @@
+{
+  "affinity_screen": {
+    "job_id": "sm_scr_AXBh6xZ8w6bNRvS8aFDe",
+    "job_type": "small_molecule_screen",
+    "n_molecules": 100,
+    "molecules": "data/screening_set.csv rows 0-99 (ligand_id L0000-L0099)",
+    "estimated_cost_usd": 2.50,
+    "purpose": "Boltz-2 affinity head vs pIC50 on exactly the compounds the docking ensemble also scored, so the two arms are paired per compound."
+  },
+  "predicted_conformer_slices": [
+    {"ligand_ccd": "ATP", "job_id": "sab_pred_6eaMQZNUJ9s5FuoCxiL7", "estimated_cost_usd": 0.10},
+    {"ligand_ccd": "STU", "job_id": "sab_pred_TrRXABWzk45x7x0bsg17", "estimated_cost_usd": 0.10},
+    {"ligand_ccd": "LZ1", "job_id": "sab_pred_1rjMFiM6rigdBZeudA6H", "estimated_cost_usd": 0.10}
+  ],
+  "predicted_slice_purpose": "Three different co-ligands induce three different pockets, mirroring how the crystal slices differ. Lets the benchmark ask whether a predicted ensemble substitutes for a crystallographic one.",
+  "common": {
+    "target": "CDK2 UniProt P24941, residues 1-298",
+    "pocket_residues_0based": [9,10,11,12,13,14,15,16,17,30,32,63,79,80,81,82,83,84,85,88,126,128,129,130,131,132,133,143,144,163],
+    "seed": 42,
+    "num_samples": 5,
+    "total_estimated_cost_usd": 2.80
+  }
+}

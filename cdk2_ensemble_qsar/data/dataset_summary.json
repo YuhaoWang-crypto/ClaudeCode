@@ -1,0 +1,15 @@
+{
+  "target": "CHEMBL301",
+  "activity_types": [
+    "IC50",
+    "Ki"
+  ],
+  "n_raw_rows": 2897,
+  "n_compounds": 2200,
+  "n_scaffolds": 935,
+  "pchembl_min": 3.92,
+  "pchembl_max": 10.05,
+  "pchembl_mean": 6.592759090909091,
+  "pchembl_std": 1.1388797425113706,
+  "largest_scaffold_frac": 0.034545454545454546
+}
