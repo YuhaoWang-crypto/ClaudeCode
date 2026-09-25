@@ -1,0 +1,382 @@
+{
+  "dimer_AB": {
+    "ebselen": {
+      "iptm": 0.882387638092041,
+      "binding_confidence": 0.7878494262695312,
+      "structure_confidence": 0.9610015749931335,
+      "optimization_score": 0.3780364692211151,
+      "ptm": 0.9344481229782104,
+      "complex_plddt": 0.9806550741195679,
+      "complex_iplddt": 0.9709093570709229,
+      "adme_permeability": 0.9363449811935425,
+      "adme_lipophilicity": 2.3641724586486816
+    },
+    "carmofur": {
+      "iptm": 0.8767666816711426,
+      "binding_confidence": 0.41924723982810974,
+      "structure_confidence": 0.9488380551338196,
+      "optimization_score": 0.23563270270824432,
+      "ptm": 0.9362687468528748,
+      "complex_plddt": 0.9668558239936829,
+      "complex_iplddt": 0.9531441330909729,
+      "adme_permeability": 0.9995718002319336,
+      "adme_lipophilicity": 1.568063497543335
+    },
+    "disulfiram": {
+      "iptm": 0.8405526280403137,
+      "binding_confidence": 0.6940851211547852,
+      "structure_confidence": 0.9435254335403442,
+      "optimization_score": 0.2251853197813034,
+      "ptm": 0.9066687822341919,
+      "complex_plddt": 0.9692685604095459,
+      "complex_iplddt": 0.9394875764846802,
+      "adme_permeability": 0.4314446747303009,
+      "adme_lipophilicity": 2.2543044090270996
+    },
+    "PF-00835231": {
+      "iptm": 0.9491721391677856,
+      "binding_confidence": 0.9998953342437744,
+      "structure_confidence": 0.9739897847175598,
+      "optimization_score": 0.8004464507102966,
+      "ptm": 0.9598363041877747,
+      "complex_plddt": 0.9801942110061646,
+      "complex_iplddt": 0.9809665679931641,
+      "adme_permeability": 0.30146756768226624,
+      "adme_lipophilicity": 1.6735750436782837
+    },
+    "GC373_aldehyde": {
+      "iptm": 0.9256437420845032,
+      "binding_confidence": 0.9996976852416992,
+      "structure_confidence": 0.9605864882469177,
+      "optimization_score": 0.6792315244674683,
+      "ptm": 0.9456292390823364,
+      "complex_plddt": 0.969322144985199,
+      "complex_iplddt": 0.9638210535049438,
+      "adme_permeability": 0.40430280566215515,
+      "adme_lipophilicity": 1.9862451553344727
+    },
+    "GC376": {
+      "iptm": 0.9086510539054871,
+      "binding_confidence": 0.9978511333465576,
+      "structure_confidence": 0.9636911749839783,
+      "optimization_score": 0.6419385075569153,
+      "ptm": 0.9433810114860535,
+      "complex_plddt": 0.9774512052536011,
+      "complex_iplddt": 0.970432460308075,
+      "adme_permeability": -1.2236247062683105,
+      "adme_lipophilicity": -1.0395947694778442
+    },
+    "telaprevir": {
+      "iptm": 0.8961227536201477,
+      "binding_confidence": 0.9538918733596802,
+      "structure_confidence": 0.9622088670730591,
+      "optimization_score": 0.35597139596939087,
+      "ptm": 0.9334610104560852,
+      "complex_plddt": 0.978730320930481,
+      "complex_iplddt": 0.9755225777626038,
+      "adme_permeability": -0.11218827962875366,
+      "adme_lipophilicity": 3.7156009674072266
+    },
+    "masitinib": {
+      "iptm": 0.90484619140625,
+      "binding_confidence": 0.6963341236114502,
+      "structure_confidence": 0.9663228988647461,
+      "optimization_score": 0.3662357032299042,
+      "ptm": 0.9414539933204651,
+      "complex_plddt": 0.9816920161247253,
+      "complex_iplddt": 0.9768096208572388,
+      "adme_permeability": 0.5076296329498291,
+      "adme_lipophilicity": 3.042774200439453
+    },
+    "boceprevir": {
+      "iptm": 0.9551977515220642,
+      "binding_confidence": 0.9946327805519104,
+      "structure_confidence": 0.975486695766449,
+      "optimization_score": 0.5142407417297363,
+      "ptm": 0.9629122018814087,
+      "complex_plddt": 0.9805588722229004,
+      "complex_iplddt": 0.9817749261856079,
+      "adme_permeability": 0.2045794427394867,
+      "adme_lipophilicity": 2.810530185699463
+    },
+    "ensitrelvir": {
+      "iptm": 0.9032078981399536,
+      "binding_confidence": 0.9731547832489014,
+      "structure_confidence": 0.9623233675956726,
+      "optimization_score": 0.5963990688323975,
+      "ptm": 0.9316859245300293,
+      "complex_plddt": 0.9771022200584412,
+      "complex_iplddt": 0.9722135066986084,
+      "adme_permeability": 0.4247109591960907,
+      "adme_lipophilicity": 2.247612476348877
+    },
+    "nirmatrelvir": {
+      "iptm": 0.9382377862930298,
+      "binding_confidence": 0.9993023872375488,
+      "structure_confidence": 0.9725367426872253,
+      "optimization_score": 0.6129505038261414,
+      "ptm": 0.9526928067207336,
+      "complex_plddt": 0.981111466884613,
+      "complex_iplddt": 0.9820491671562195,
+      "adme_permeability": 0.1239566057920456,
+      "adme_lipophilicity": 1.6888898611068726
+    }
+  },
+  "monomer_A": {
+    "ebselen": {
+      "iptm": 0.7655738592147827,
+      "binding_confidence": 0.7299293875694275,
+      "structure_confidence": 0.928844153881073,
+      "optimization_score": 0.31989455223083496,
+      "ptm": 0.9543682336807251,
+      "complex_plddt": 0.9696617126464844,
+      "complex_iplddt": 0.9334004521369934,
+      "adme_permeability": 0.9363449811935425,
+      "adme_lipophilicity": 2.3641724586486816
+    },
+    "GC376": {
+      "iptm": 0.9565215110778809,
+      "binding_confidence": 0.992070734500885,
+      "structure_confidence": 0.9672393798828125,
+      "optimization_score": 0.5340170860290527,
+      "ptm": 0.9542160630226135,
+      "complex_plddt": 0.9699189066886902,
+      "complex_iplddt": 0.9504004716873169,
+      "adme_permeability": -1.2236247062683105,
+      "adme_lipophilicity": -1.0395952463150024
+    },
+    "GC373_aldehyde": {
+      "iptm": 0.960477888584137,
+      "binding_confidence": 0.9989246726036072,
+      "structure_confidence": 0.9650359153747559,
+      "optimization_score": 0.6096652150154114,
+      "ptm": 0.9475330114364624,
+      "complex_plddt": 0.9661754369735718,
+      "complex_iplddt": 0.9526121020317078,
+      "adme_permeability": 0.40430283546447754,
+      "adme_lipophilicity": 1.9862455129623413
+    },
+    "disulfiram": {
+      "iptm": 0.6776677370071411,
+      "binding_confidence": 0.6965426206588745,
+      "structure_confidence": 0.8995437622070312,
+      "optimization_score": 0.23586896061897278,
+      "ptm": 0.9457437992095947,
+      "complex_plddt": 0.9550127387046814,
+      "complex_iplddt": 0.8385863304138184,
+      "adme_permeability": 0.4314446449279785,
+      "adme_lipophilicity": 2.254304885864258
+    },
+    "telaprevir": {
+      "iptm": 0.9318726658821106,
+      "binding_confidence": 0.9553136825561523,
+      "structure_confidence": 0.9666234850883484,
+      "optimization_score": 0.34344035387039185,
+      "ptm": 0.9402081966400146,
+      "complex_plddt": 0.9753111600875854,
+      "complex_iplddt": 0.9626379013061523,
+      "adme_permeability": -0.11218833923339844,
+      "adme_lipophilicity": 3.7156009674072266
+    },
+    "PF-00835231": {
+      "iptm": 0.9731601476669312,
+      "binding_confidence": 0.9998428225517273,
+      "structure_confidence": 0.9774234890937805,
+      "optimization_score": 0.7746847867965698,
+      "ptm": 0.9542014002799988,
+      "complex_plddt": 0.9784892797470093,
+      "complex_iplddt": 0.977821409702301,
+      "adme_permeability": 0.30146756768226624,
+      "adme_lipophilicity": 1.673575520515442
+    },
+    "masitinib": {
+      "iptm": 0.8755375146865845,
+      "binding_confidence": 0.6730363368988037,
+      "structure_confidence": 0.9503465890884399,
+      "optimization_score": 0.2488526701927185,
+      "ptm": 0.9328845143318176,
+      "complex_plddt": 0.9690488576889038,
+      "complex_iplddt": 0.9362595677375793,
+      "adme_permeability": 0.5076295733451843,
+      "adme_lipophilicity": 3.0427746772766113
+    },
+    "nirmatrelvir": {
+      "iptm": 0.9719431400299072,
+      "binding_confidence": 0.9985129833221436,
+      "structure_confidence": 0.9773468375205994,
+      "optimization_score": 0.5627841353416443,
+      "ptm": 0.9503051042556763,
+      "complex_plddt": 0.9786977767944336,
+      "complex_iplddt": 0.9783925414085388,
+      "adme_permeability": 0.12395645678043365,
+      "adme_lipophilicity": 1.6888903379440308
+    },
+    "ensitrelvir": {
+      "iptm": 0.9319665431976318,
+      "binding_confidence": 0.9498752355575562,
+      "structure_confidence": 0.9694801568984985,
+      "optimization_score": 0.43705466389656067,
+      "ptm": 0.942389726638794,
+      "complex_plddt": 0.9788585305213928,
+      "complex_iplddt": 0.9694188237190247,
+      "adme_permeability": 0.4247108995914459,
+      "adme_lipophilicity": 2.2476131916046143
+    },
+    "boceprevir": {
+      "iptm": 0.973866879940033,
+      "binding_confidence": 0.9924142360687256,
+      "structure_confidence": 0.9800774455070496,
+      "optimization_score": 0.44729048013687134,
+      "ptm": 0.9593671560287476,
+      "complex_plddt": 0.9816300868988037,
+      "complex_iplddt": 0.9807785749435425,
+      "adme_permeability": 0.2045794129371643,
+      "adme_lipophilicity": 2.810530185699463
+    },
+    "carmofur": {
+      "iptm": 0.8187100291252136,
+      "binding_confidence": 0.2206069976091385,
+      "structure_confidence": 0.916524350643158,
+      "optimization_score": 0.16364584863185883,
+      "ptm": 0.9516949653625488,
+      "complex_plddt": 0.9409778714179993,
+      "complex_iplddt": 0.8795263171195984,
+      "adme_permeability": 0.9995718002319336,
+      "adme_lipophilicity": 1.5680629014968872
+    }
+  },
+  "dimer_AB_v2": {
+    "nirmatrelvir_epimer_CTRL": {
+      "iptm": 0.9372501373291016,
+      "binding_confidence": 0.9992733001708984,
+      "structure_confidence": 0.9724317789077759,
+      "optimization_score": 0.6161754131317139,
+      "ptm": 0.9524400234222412,
+      "complex_plddt": 0.9812272191047668,
+      "complex_iplddt": 0.9816863536834717,
+      "adme_permeability": 0.12395651638507843,
+      "adme_lipophilicity": 1.6888900995254517
+    },
+    "GC373_aldehyde": {
+      "iptm": 0.9300233125686646,
+      "binding_confidence": 0.9996885061264038,
+      "structure_confidence": 0.9613093733787537,
+      "optimization_score": 0.6817119121551514,
+      "ptm": 0.948129415512085,
+      "complex_plddt": 0.96913081407547,
+      "complex_iplddt": 0.9638990163803101,
+      "adme_permeability": 0.4043028652667999,
+      "adme_lipophilicity": 1.9862457513809204
+    },
+    "ebselen": {
+      "iptm": 0.8884559273719788,
+      "binding_confidence": 0.775997519493103,
+      "structure_confidence": 0.962573230266571,
+      "optimization_score": 0.37517276406288147,
+      "ptm": 0.9386577606201172,
+      "complex_plddt": 0.9811025261878967,
+      "complex_iplddt": 0.9732879400253296,
+      "adme_permeability": 0.9363449811935425,
+      "adme_lipophilicity": 2.3641726970672607
+    },
+    "boceprevir": {
+      "iptm": 0.9571360945701599,
+      "binding_confidence": 0.9949027299880981,
+      "structure_confidence": 0.9761521220207214,
+      "optimization_score": 0.5113582611083984,
+      "ptm": 0.9638371467590332,
+      "complex_plddt": 0.9809061288833618,
+      "complex_iplddt": 0.9821099638938904,
+      "adme_permeability": 0.20457959175109863,
+      "adme_lipophilicity": 2.810530185699463
+    },
+    "telaprevir": {
+      "iptm": 0.8994097709655762,
+      "binding_confidence": 0.9571902751922607,
+      "structure_confidence": 0.9628073573112488,
+      "optimization_score": 0.35921594500541687,
+      "ptm": 0.935488760471344,
+      "complex_plddt": 0.9786567687988281,
+      "complex_iplddt": 0.9756660461425781,
+      "adme_permeability": -0.11218826472759247,
+      "adme_lipophilicity": 3.7156007289886475
+    },
+    "ensitrelvir": {
+      "iptm": 0.9147016406059265,
+      "binding_confidence": 0.9715429544448853,
+      "structure_confidence": 0.9647870063781738,
+      "optimization_score": 0.5988365411758423,
+      "ptm": 0.9382314085960388,
+      "complex_plddt": 0.9773083925247192,
+      "complex_iplddt": 0.9731452465057373,
+      "adme_permeability": 0.42471086978912354,
+      "adme_lipophilicity": 2.247612476348877
+    },
+    "PF-00835231": {
+      "iptm": 0.952923059463501,
+      "binding_confidence": 0.9999091625213623,
+      "structure_confidence": 0.9746865630149841,
+      "optimization_score": 0.7979223132133484,
+      "ptm": 0.961980402469635,
+      "complex_plddt": 0.9801273941993713,
+      "complex_iplddt": 0.9810395240783691,
+      "adme_permeability": 0.3014675974845886,
+      "adme_lipophilicity": 1.6735752820968628
+    },
+    "disulfiram": {
+      "iptm": 0.8420487642288208,
+      "binding_confidence": 0.710189938545227,
+      "structure_confidence": 0.9448959231376648,
+      "optimization_score": 0.2275763750076294,
+      "ptm": 0.9104427099227905,
+      "complex_plddt": 0.9706076979637146,
+      "complex_iplddt": 0.9436871409416199,
+      "adme_permeability": 0.43144458532333374,
+      "adme_lipophilicity": 2.254304885864258
+    },
+    "GC376": {
+      "iptm": 0.9105278253555298,
+      "binding_confidence": 0.9982901811599731,
+      "structure_confidence": 0.9639464616775513,
+      "optimization_score": 0.6424605250358582,
+      "ptm": 0.9424039721488953,
+      "complex_plddt": 0.9773011207580566,
+      "complex_iplddt": 0.9706093072891235,
+      "adme_permeability": -1.2236247062683105,
+      "adme_lipophilicity": -1.0395952463150024
+    },
+    "carmofur": {
+      "iptm": 0.8582017421722412,
+      "binding_confidence": 0.36146336793899536,
+      "structure_confidence": 0.9441017508506775,
+      "optimization_score": 0.22654315829277039,
+      "ptm": 0.9267628788948059,
+      "complex_plddt": 0.9655766487121582,
+      "complex_iplddt": 0.9502089023590088,
+      "adme_permeability": 0.9995718002319336,
+      "adme_lipophilicity": 1.5680630207061768
+    },
+    "nirmatrelvir": {
+      "iptm": 0.9506670832633972,
+      "binding_confidence": 0.9993484020233154,
+      "structure_confidence": 0.9750760197639465,
+      "optimization_score": 0.624200701713562,
+      "ptm": 0.960458517074585,
+      "complex_plddt": 0.9811782240867615,
+      "complex_iplddt": 0.981805145740509,
+      "adme_permeability": 0.10843494534492493,
+      "adme_lipophilicity": 1.7275233268737793
+    },
+    "masitinib": {
+      "iptm": 0.9024034738540649,
+      "binding_confidence": 0.7023937702178955,
+      "structure_confidence": 0.9664403796195984,
+      "optimization_score": 0.3749616742134094,
+      "ptm": 0.9396976232528687,
+      "complex_plddt": 0.9824495911598206,
+      "complex_iplddt": 0.9777494072914124,
+      "adme_permeability": 0.5076296329498291,
+      "adme_lipophilicity": 3.042774200439453
+    }
+  }
+}

@@ -41,3 +41,63 @@ python3 -m grn_pipeline.m1_symmetry   # or any single module
 Figures are written to `figures/`. A full write-up with numbers, rigour
 labels, and the interpretation (including the Lyapunov-exponent biomarker
 question) is in [`REPORT.md`](REPORT.md).
+
+---
+
+# mpro-pipeline
+
+Enzymatic QSAR for SARS-CoV-2 Mpro (3CLpro), i.e. the in-silico counterpart of
+a purified-enzyme FRET protease assay (BPS Bioscience #79955 type: recombinant
+3CLpro + DABCYL-KTSAVLQ|SGFRKME-EDANS, Ex360/Em460, GC376 control). Buffer and
+protein only — **no cell**. Built to four standing rules: measured pIC50 as the
+only label, pool-then-quarantine instead of stratify, preincubation as a tier,
+and a null model before any reported statistic.
+
+| Module | Job | Key measured result |
+|---|---|---|
+| `m1_labels` | label QC on 3,629 enzymatic IC50 / 2,858 compounds / 507 assays | per-assay stratification impossible (median 2 records, largest 77); pooling sound for the 59.2% agreeing within 0.5 log; 2,787 compounds retained after quarantining the >1 log tail |
+| `m2_null_model` | descriptor bar every score must clear | strongest null \|ρ\|=0.486 (cLogP); Boltz `ptm`/`plddt` score *below* it |
+| `m3_boltz_calib` | pre-registered Boltz-2 calibration, Mpro **dimer** + monomer control | `optimization_score` ρ=**+0.779** (p=0.005, CI [+0.33,+0.94], +0.293 over null) → trust for ranking; `iptm` +0.519 but only +0.033 over null → useless |
+| `m4_qsar` | scaffold-split QSAR, null-gated, tier-reported | RF ρ=**+0.718**, R²=+0.516, RMSE 0.65 log (4.5× in IC50), +0.420 over null; tier A ρ=+0.764 vs tier B ρ=+0.568 |
+
+## What this pipeline does NOT establish
+
+- **Dimer > monomer.** Direction is consistent on both discriminative metrics
+  (Δρ=+0.123 each) but the bootstrap CI on Δ spans 0 (P(Δ≤0)≈0.17). The dimer
+  is required by structural biology (the N-finger of one protomer completes the
+  other's S1 pocket); n=11 does not demonstrate it.
+- **Stereo-SAR.** Boltz scores nirmatrelvir and its γ-lactam epimer within
+  0.008 `optimization_score` and identically on `binding_confidence` (0.999).
+- **Anything cellular.** Enzymatic pIC50 explains ~14% of cellular antiviral
+  variance (ρ=+0.43, n=615 paired); the rest is permeability / efflux /
+  glutathione / esterase, invisible here. Different axis, out of scope.
+
+## The label ceiling
+
+Nirmatrelvir's own measured pIC50 spans **6.12–9.10 (2.98 log)** across 35
+assays; ebselen's spans 4.99–8.00. RMSE near 0.65–0.9 log is the noise floor of
+the labels, not a modelling failure.
+
+## Two traps this code records
+
+1. ChEMBL `molecule/search` returns an **unnamed duplicate** of nirmatrelvir
+   (`CHEMBL5201264`, `pref_name: None`, 2 records) *ahead of* the curated entry
+   (`CHEMBL4802135`, 35 records); they differ at one γ-lactam stereocentre.
+   Taking result `[0]` submits the wrong epimer. Check `pref_name` and record
+   count, never search order.
+2. Boltz SMARTS filtering must be **disabled** for a calibration set — at the
+   default `recommended` level ebselen (Se) and disulfiram (thiuram disulfide)
+   are dropped before prediction and the weak end of the potency range
+   disappears.
+
+## Run
+
+```bash
+pip install numpy scipy rdkit scikit-learn
+python3 -m mpro_pipeline.run_all       # full pipeline
+python3 -m mpro_pipeline.m1_labels     # or any single module
+```
+
+Cached inputs are in `mpro_pipeline/data/` (ChEMBL labels, the exact SMILES
+submitted to Boltz, and the returned metrics for all three target
+configurations), so every number above reruns offline.
