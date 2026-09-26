@@ -5,6 +5,7 @@ Run the Mpro enzymatic pipeline end to end.
   M2  null-model gate   the descriptor bar every score must clear
   M3  Boltz calibration pre-registered criteria; which metric to trust
   M4  enzymatic QSAR     scaffold-split, null-gated, tier-reported
+  M5  warhead matched pairs  what opt_score sees: warhead vs recognition
 
 Scope: the purified-enzyme axis only (a BPS #79955-type FRET assay). Cellular
 antiviral activity is a different axis and is deliberately out of scope --
@@ -13,7 +14,8 @@ enzymatic pIC50 explains only ~14% of the variance in cellular potency
 permeability / efflux / glutathione / esterase, not anything this pipeline
 can see.
 """
-from mpro_pipeline import m1_labels, m2_null_model, m3_boltz_calib, m4_qsar
+from mpro_pipeline import (m1_labels, m2_null_model, m3_boltz_calib, m4_qsar,
+                           m5_warhead_mmp)
 
 
 def main():
@@ -25,6 +27,7 @@ def main():
     r2 = m2_null_model.report();  print()
     r3 = m3_boltz_calib.report(); print()
     r4 = m4_qsar.report();        print()
+    r5 = m5_warhead_mmp.report(); print()
 
     print("=" * 70)
     print("SUMMARY")
@@ -37,6 +40,15 @@ def main():
     print(f"QSAR ({best})       rho = {r4[best]['rho']:+.3f}  "
           f"RMSE = {r4[best]['rmse']:.2f} log  margin over null "
           f"{r4[best]['margin']:+.3f}")
+    wk, wn, wf, _ = r5["warhead"]
+    rk, rn, rf, _ = r5["recognition"]
+    print(f"within-series pairwise    warhead {100*wf:.1f}% ({wk}/{wn})  "
+          f"recognition {100*rf:.1f}% ({rk}/{rn})")
+    print(f"  blocked within-cluster rho = {r5['blocked_rho']:+.3f} "
+          f"(permutation p = {r5['perm_p']:.4f})")
+    print("\nrefuted by this pipeline:")
+    print("  - 'opt_score is warhead-blind, so covalent docking is skippable'")
+    print("    -> warhead and recognition swaps are called at the same rate")
     print("\nnot established by this pipeline:")
     print("  - dimer > monomer (direction consistent, CI on delta spans 0)")
     print("  - stereo-SAR (Boltz scores the nirmatrelvir epimer within 0.008)")

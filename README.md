@@ -59,6 +59,25 @@ and a null model before any reported statistic.
 | `m2_null_model` | descriptor bar every score must clear | strongest null \|ρ\|=0.486 (cLogP); Boltz `ptm`/`plddt` score *below* it |
 | `m3_boltz_calib` | pre-registered Boltz-2 calibration, Mpro **dimer** + monomer control | `optimization_score` ρ=**+0.779** (p=0.005, CI [+0.33,+0.94], +0.293 over null) → trust for ranking; `iptm` +0.519 but only +0.033 over null → useless |
 | `m4_qsar` | scaffold-split QSAR, null-gated, tier-reported | RF ρ=**+0.718**, R²=+0.516, RMSE 0.65 log (4.5× in IC50), +0.420 over null; tier A ρ=+0.764 vs tier B ρ=+0.568 |
+| `m5_warhead_mmp` | covalent-warhead matched pairs mined from the measured data (29 clusters found, 4 co-folded, 44 compounds) | within-series pairwise: warhead swaps **70.1%** (61/87), recognition swaps **71.8%** (74/103), large effects (≥1.5 log) **79.5%**; blocked within-cluster ρ=+0.536 (permutation p=0.0001) |
+
+## What this pipeline REFUTES
+
+**"opt_score is warhead-blind, so covalent docking can be skipped."** This was
+our own hypothesis after M3 — a noncovalent model reaching ρ=+0.78 on covalent
+inhibitors invited it. `m5` tested it on matched pairs differing only in
+warhead and it does not hold: warhead swaps (70.1%) and recognition swaps
+(71.8%) are called at the same rate. The model sees both, weakly.
+
+What *is* licensed: noncovalent co-folding calls ~70% of within-series pairs
+correctly, ~80% when the true gap is ≥1.5 log. That is the bar a covalent or
+QM/MM method must clear to be worth its cost — not a reason to skip it.
+
+`m5` also documents a power trap worth remembering: the pre-registered
+per-cluster test returned "blind" for all four clusters (every bootstrap CI
+spanning 0, n=6–17). A blocked within-cluster analysis on the same data gives
+ρ=+0.536 at permutation p=0.0001. **Underpowered is not the same as negative.**
+The blocked test is labelled post-hoc in the module.
 
 ## What this pipeline does NOT establish
 
@@ -96,6 +115,7 @@ the labels, not a modelling failure.
 pip install numpy scipy rdkit scikit-learn
 python3 -m mpro_pipeline.run_all       # full pipeline
 python3 -m mpro_pipeline.m1_labels     # or any single module
+python3 -m mpro_pipeline.m5_warhead_mmp   # the warhead matched-pair test
 ```
 
 Cached inputs are in `mpro_pipeline/data/` (ChEMBL labels, the exact SMILES

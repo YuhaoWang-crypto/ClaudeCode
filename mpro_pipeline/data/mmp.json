@@ -1,0 +1,813 @@
+[
+  {
+    "core": "CC(C)CC(NC(=O)C(Cc1ccc(F)cc1)NC(=O)OCc1ccccc1)C(N)=O",
+    "members": [
+      {
+        "mol": "CHEMBL5563979",
+        "warhead": "aldehyde",
+        "pIC50": 9.4,
+        "smiles": "CC(C)C[C@H](NC(=O)[C@H](Cc1ccc(F)cc1)NC(=O)OCc1ccccc1)C(=O)NC(C=O)C[C@@H]1CCNC1=O"
+      },
+      {
+        "mol": "CHEMBL5567825",
+        "warhead": "aldehyde",
+        "pIC50": 8.9,
+        "smiles": "CC(C)C[C@H](NC(=O)[C@H](Cc1ccc(F)cc1)NC(=O)OCc1ccccc1)C(=O)NC(C=O)CC1CCCO1"
+      },
+      {
+        "mol": "CHEMBL5562367",
+        "warhead": "aldehyde",
+        "pIC50": 8.5,
+        "smiles": "CC(C)C[C@H](NC(=O)[C@H](Cc1ccc(F)cc1)NC(=O)OCc1ccccc1)C(=O)NC(C=O)Cc1ccccc1F"
+      },
+      {
+        "mol": "CHEMBL5566880",
+        "warhead": "aldehyde",
+        "pIC50": 8.2,
+        "smiles": "CSCC[C@@H](C=O)NC(=O)[C@H](CC(C)C)NC(=O)[C@H](Cc1ccc(F)cc1)NC(=O)OCc1ccccc1"
+      },
+      {
+        "mol": "CHEMBL5564711",
+        "warhead": "aldehyde",
+        "pIC50": 8.1,
+        "smiles": "CC(C)C[C@H](NC(=O)[C@H](Cc1ccc(F)cc1)NC(=O)OCc1ccccc1)C(=O)N[C@H](C=O)CC[S+](C)[O-]"
+      },
+      {
+        "mol": "CHEMBL5556984",
+        "warhead": "aldehyde",
+        "pIC50": 7.9,
+        "smiles": "CC(C)C[C@H](NC(=O)[C@H](Cc1ccc(F)cc1)NC(=O)OCc1ccccc1)C(=O)NC(C=O)Cc1ccccn1"
+      },
+      {
+        "mol": "CHEMBL5563890",
+        "warhead": "aldehyde",
+        "pIC50": 7.8,
+        "smiles": "CC(C)C[C@H](NC(=O)[C@H](Cc1ccc(F)cc1)NC(=O)OCc1ccccc1)C(=O)NC(C=O)Cc1c[nH]cn1"
+      },
+      {
+        "mol": "CHEMBL5568244",
+        "warhead": "aldehyde",
+        "pIC50": 7.5,
+        "smiles": "COCCC(C=O)NC(=O)[C@H](CC(C)C)NC(=O)[C@H](Cc1ccc(F)cc1)NC(=O)OCc1ccccc1"
+      },
+      {
+        "mol": "CHEMBL5567405",
+        "warhead": "aldehyde",
+        "pIC50": 7.4,
+        "smiles": "CC(C)C[C@H](NC(=O)[C@H](Cc1ccc(F)cc1)NC(=O)OCc1ccccc1)C(=O)NC(C=O)CC1CCCCO1"
+      },
+      {
+        "mol": "CHEMBL5566569",
+        "warhead": "aldehyde",
+        "pIC50": 7.1,
+        "smiles": "CC(C)C[C@H](NC(=O)[C@H](Cc1ccc(F)cc1)NC(=O)OCc1ccccc1)C(=O)NC(C=O)CC1CCCC1"
+      },
+      {
+        "mol": "CHEMBL5563502",
+        "warhead": "aldehyde",
+        "pIC50": 6.9,
+        "smiles": "CC(C)C[C@H](NC(=O)[C@H](Cc1ccc(F)cc1)NC(=O)OCc1ccccc1)C(=O)NC(C=O)Cc1ccco1"
+      },
+      {
+        "mol": "CHEMBL5562719",
+        "warhead": "aldehyde",
+        "pIC50": 6.2,
+        "smiles": "CC(C)C[C@H](NC(=O)[C@H](Cc1ccc(F)cc1)NC(=O)OCc1ccccc1)C(=O)NC(C=O)Cc1cccc(F)c1"
+      },
+      {
+        "mol": "CHEMBL5532275",
+        "warhead": "aldehyde",
+        "pIC50": 6.2,
+        "smiles": "CC(C)C[C@H](NC(=O)[C@H](Cc1ccc(F)cc1)NC(=O)OCc1ccccc1)C(=O)NC(C=O)CCF"
+      },
+      {
+        "mol": "CHEMBL5560987",
+        "warhead": "aldehyde",
+        "pIC50": 6.1,
+        "smiles": "CC(C)C[C@H](NC(=O)[C@H](Cc1ccc(F)cc1)NC(=O)OCc1ccccc1)C(=O)NC(C=O)Cc1ccc(F)cc1"
+      },
+      {
+        "mol": "CHEMBL5532537",
+        "warhead": "aldehyde",
+        "pIC50": 6.0,
+        "smiles": "CC(C)C[C@H](NC(=O)[C@H](Cc1ccc(F)cc1)NC(=O)OCc1ccccc1)C(=O)NC(C=O)CC(F)F"
+      },
+      {
+        "mol": "CHEMBL5557033",
+        "warhead": "alpha_ketoamide",
+        "pIC50": 6.7,
+        "smiles": "CC(C)C[C@H](NC(=O)[C@H](Cc1ccc(F)cc1)NC(=O)OCc1ccccc1)C(=O)NC(CC1CCCO1)C(=O)C(=O)NC(C)C"
+      },
+      {
+        "mol": "CHEMBL5564253",
+        "warhead": "alpha_ketoamide",
+        "pIC50": 8.3,
+        "smiles": "CC(C)C[C@H](NC(=O)[C@H](Cc1ccc(F)cc1)NC(=O)OCc1ccccc1)C(=O)N[C@@H](C[C@@H]1CCNC1=O)C(=O)C(=O)NC(C)C"
+      }
+    ]
+  },
+  {
+    "core": "CC(C)CC(NC(=O)OCc1ccccc1)C(N)=O",
+    "members": [
+      {
+        "mol": "CHEMBL4850298",
+        "warhead": "aldehyde",
+        "pIC50": 6.4,
+        "smiles": "CC(C)C[C@H](NC(=O)OCc1ccccc1)C(=O)N[C@H](C=O)C[C@@H]1CCNC1=O"
+      },
+      {
+        "mol": "CHEMBL92708",
+        "warhead": "aldehyde",
+        "pIC50": 4.97,
+        "smiles": "CCCC[C@@H](C=O)NC(=O)[C@H](CC(C)C)NC(=O)OCc1ccccc1"
+      },
+      {
+        "mol": "CHEMBL5196922",
+        "warhead": "alpha_ketoamide",
+        "pIC50": 6.35,
+        "smiles": "CCC[C@@H](NC(=O)[C@@H](CC(C)C)NC(=O)OCc1ccccc1)C(=O)C(=O)NCc1ccccn1"
+      },
+      {
+        "mol": "CHEMBL5174530",
+        "warhead": "chloroacetamide",
+        "pIC50": 7.47,
+        "smiles": "CC(C)C[C@H](NC(=O)OCc1ccccc1)C(=O)NN(Cc1cc[nH]n1)C(=O)CCl"
+      },
+      {
+        "mol": "CHEMBL5176036",
+        "warhead": "chloroacetamide",
+        "pIC50": 7.06,
+        "smiles": "CC(C)C[C@H](NC(=O)OCc1ccccc1)C(=O)NN(Cc1c[nH]cn1)C(=O)CCl"
+      },
+      {
+        "mol": "CHEMBL5173143",
+        "warhead": "chloroacetamide",
+        "pIC50": 8.3,
+        "smiles": "CC(C)C[C@H](NC(=O)OCc1ccccc1)C(=O)NN(CC1CCCNC1=O)C(=O)CCl"
+      },
+      {
+        "mol": "CHEMBL5184210",
+        "warhead": "chloroacetamide",
+        "pIC50": 7.77,
+        "smiles": "CC(C)C[C@H](NC(=O)OCc1ccccc1)C(=O)NN(CC1CCNC1=O)C(=O)CCl"
+      },
+      {
+        "mol": "CHEMBL5189591",
+        "warhead": "chloroacetamide",
+        "pIC50": 7.77,
+        "smiles": "CC(C)C[C@H](NC(=O)OCc1ccccc1)C(=O)NN(CCC(N)=O)C(=O)CCl"
+      },
+      {
+        "mol": "CHEMBL3427167",
+        "warhead": "alpha_ketoamide",
+        "pIC50": 7.35,
+        "smiles": "CC(C)C[C@H](NC(=O)OCc1ccccc1)C(=O)N[C@@H](C[C@@H]1CCNC1=O)C(=O)C(=O)NC1CC1"
+      },
+      {
+        "mol": "CHEMBL5266148",
+        "warhead": "alpha_ketoamide",
+        "pIC50": 6.35,
+        "smiles": "CCC[C@H](NC(=O)[C@H](CC(C)C)NC(=O)OCc1ccccc1)C(=O)C(=O)NCc1ccccn1"
+      },
+      {
+        "mol": "CHEMBL1821850",
+        "warhead": "aldehyde",
+        "pIC50": 5.3,
+        "smiles": "CC(C)C[C@H](NC(=O)OCc1ccccc1)C(=O)N[C@H](C=O)CC1CCNC1=O"
+      },
+      {
+        "mol": "CHEMBL1821856",
+        "warhead": "alpha_ketoamide",
+        "pIC50": 5.3,
+        "smiles": "CC(C)C[C@H](NC(=O)OCc1ccccc1)C(=O)N[C@@H](CC1CCNC1=O)C(=O)C(=O)NC(C)C"
+      }
+    ]
+  },
+  {
+    "core": "CC(C)(C)NC(=O)NC(C(=O)N1CC2C(C1C(N)=O)C2(C)C)C(C)(C)C",
+    "members": [
+      {
+        "mol": "CHEMBL218394",
+        "warhead": "alpha_ketoamide",
+        "pIC50": 5.38,
+        "smiles": "CC(C)(C)NC(=O)N[C@H](C(=O)N1C[C@H]2[C@@H]([C@H]1C(=O)NC(CC1CCC1)C(=O)C(N)=O)C2(C)C)C(C)(C)C"
+      },
+      {
+        "mol": "CHEMBL5196043",
+        "warhead": "aldehyde",
+        "pIC50": 8.03,
+        "smiles": "CC(C)(C)NC(=O)N[C@H](C(=O)N1C[C@H]2[C@@H]([C@H]1C(=O)N[C@H](C=O)C[C@@H]1CCNC1=O)C2(C)C)C(C)(C)C"
+      },
+      {
+        "mol": "CHEMBL5180793",
+        "warhead": "alpha_ketoamide",
+        "pIC50": 7.72,
+        "smiles": "CC(C)(C)NC(=O)N[C@H](C(=O)N1C[C@H]2[C@@H]([C@H]1C(=O)N[C@@H](C[C@@H]1CCNC1=O)C(=O)C(N)=O)C2(C)C)C(C)(C)C"
+      },
+      {
+        "mol": "CHEMBL5175509",
+        "warhead": "alpha_ketoamide",
+        "pIC50": 6.44,
+        "smiles": "CC(C)(C)NC(=O)N[C@H](C(=O)N1C[C@H]2[C@@H]([C@H]1C(=O)N[C@@H](C[C@@H]1CCNC1=O)C(=O)C(=O)NC1CC1)C2(C)C)C(C)(C)C"
+      },
+      {
+        "mol": "CHEMBL5203173",
+        "warhead": "alpha_ketoamide",
+        "pIC50": 6.21,
+        "smiles": "CC(C)(C)NC(=O)N[C@H](C(=O)N1C[C@H]2[C@@H]([C@H]1C(=O)N[C@@H](C[C@@H]1CCNC1=O)C(=O)C(=O)NCC1CC1)C2(C)C)C(C)(C)C"
+      },
+      {
+        "mol": "CHEMBL5203431",
+        "warhead": "alpha_ketoamide",
+        "pIC50": 7.12,
+        "smiles": "CCNC(=O)C(=O)[C@H](C[C@@H]1CCNC1=O)NC(=O)[C@@H]1[C@@H]2[C@H](CN1C(=O)[C@@H](NC(=O)NC(C)(C)C)C(C)(C)C)C2(C)C"
+      },
+      {
+        "mol": "CHEMBL5179663",
+        "warhead": "alpha_ketoamide",
+        "pIC50": 6.43,
+        "smiles": "CCCCNC(=O)C(=O)[C@H](C[C@@H]1CCNC1=O)NC(=O)[C@@H]1[C@@H]2[C@H](CN1C(=O)[C@@H](NC(=O)NC(C)(C)C)C(C)(C)C)C2(C)C"
+      },
+      {
+        "mol": "CHEMBL5170923",
+        "warhead": "alpha_ketoamide",
+        "pIC50": 6.14,
+        "smiles": "CCCCCCNC(=O)C(=O)[C@H](C[C@@H]1CCNC1=O)NC(=O)[C@@H]1[C@@H]2[C@H](CN1C(=O)[C@@H](NC(=O)NC(C)(C)C)C(C)(C)C)C2(C)C"
+      },
+      {
+        "mol": "CHEMBL5200532",
+        "warhead": "alpha_ketoamide",
+        "pIC50": 6.92,
+        "smiles": "CC(C)(C)NC(=O)N[C@H](C(=O)N1C[C@H]2[C@@H]([C@H]1C(=O)N[C@@H](C[C@@H]1CCNC1=O)C(=O)C(=O)NCc1ccccc1)C2(C)C)C(C)(C)C"
+      },
+      {
+        "mol": "CHEMBL5573798",
+        "warhead": "alpha_ketoamide",
+        "pIC50": 7.92,
+        "smiles": "CC(C)(C)NC(=O)N[C@H](C(=O)N1C[C@H]2[C@@H]([C@H]1C(=O)N[C@H](C[C@@H]1CCNC1=O)C(=O)C(N)=O)C2(C)C)C(C)(C)C"
+      }
+    ]
+  },
+  {
+    "core": "CC(C)(C)C(NC(=O)C(F)(F)F)C(=O)N1CC2C(C1C(N)=O)C2(C)C",
+    "members": [
+      {
+        "mol": "CHEMBL4802135",
+        "warhead": "nitrile",
+        "pIC50": 7.51,
+        "smiles": "CC(C)(C)[C@H](NC(=O)C(F)(F)F)C(=O)N1C[C@H]2[C@@H]([C@H]1C(=O)N[C@H](C#N)C[C@@H]1CCNC1=O)C2(C)C"
+      },
+      {
+        "mol": "CHEMBL5201264",
+        "warhead": "nitrile",
+        "pIC50": 7.535,
+        "smiles": "CC(C)(C)[C@H](NC(=O)C(F)(F)F)C(=O)N1C[C@H]2[C@@H]([C@H]1C(=O)N[C@H](C#N)C[C@H]1CCNC1=O)C2(C)C"
+      },
+      {
+        "mol": "CHEMBL5173582",
+        "warhead": "aldehyde",
+        "pIC50": 7.27,
+        "smiles": "CC(C)(C)[C@H](NC(=O)C(F)(F)F)C(=O)N1C[C@H]2[C@@H]([C@H]1C(=O)N[C@H](C=O)C[C@@H]1CCNC1=O)C2(C)C"
+      },
+      {
+        "mol": "CHEMBL5182995",
+        "warhead": "hydroxymethylketone",
+        "pIC50": 8.1,
+        "smiles": "CC(C)(C)[C@H](NC(=O)C(F)(F)F)C(=O)N1C[C@H]2[C@@H]([C@H]1C(=O)N[C@@H](C[C@@H]1CCNC1=O)C(=O)CO)C2(C)C"
+      },
+      {
+        "mol": "CHEMBL5183165",
+        "warhead": "alpha_ketoamide",
+        "pIC50": 7.72,
+        "smiles": "CC(C)(C)[C@H](NC(=O)C(F)(F)F)C(=O)N1C[C@H]2[C@@H]([C@H]1C(=O)N[C@@H](C[C@@H]1CCNC1=O)C(=O)C(=O)NC1CC1)C2(C)C"
+      },
+      {
+        "mol": "CHEMBL5185801",
+        "warhead": "ketone_aryl",
+        "pIC50": 7.57,
+        "smiles": "CC(C)(C)[C@H](NC(=O)C(F)(F)F)C(=O)N1C[C@H]2[C@@H]([C@H]1C(=O)N[C@@H](C[C@@H]1CCNC1=O)C(=O)c1nc3ccccc3s1)C2(C)C"
+      },
+      {
+        "mol": "CHEMBL5397356",
+        "warhead": "nitrile",
+        "pIC50": 6.05,
+        "smiles": "CSCC[C@@H](C#N)NC(=O)[C@@H]1[C@@H]2[C@H](CN1C(=O)[C@@H](NC(=O)C(F)(F)F)C(C)(C)C)C2(C)C"
+      },
+      {
+        "mol": "CHEMBL5438511",
+        "warhead": "ketone_aryl",
+        "pIC50": 8.1,
+        "smiles": "CC(C)(C)[C@H](NC(=O)C(F)(F)F)C(=O)N1C[C@H]2[C@@H]([C@H]1C(=O)N[C@@H](C[C@@H]1CCNC1=O)C(=O)c1nc3c(F)cccc3s1)C2(C)C"
+      },
+      {
+        "mol": "CHEMBL5421881",
+        "warhead": "chloroacetamide",
+        "pIC50": 8.22,
+        "smiles": "CC(C)(C)[C@H](NC(=O)C(F)(F)F)C(=O)N1C[C@H]2[C@@H]([C@H]1C(=O)NN(C[C@@H]1CCNC1=O)C(=O)CCl)C2(C)C"
+      }
+    ]
+  },
+  {
+    "core": "COc1cccc2[nH]c(C(=O)NC(CC(C)C)C(N)=O)cc12",
+    "members": [
+      {
+        "mol": "CHEMBL4777223",
+        "warhead": "hydroxymethylketone",
+        "pIC50": 8.1,
+        "smiles": "COc1cccc2[nH]c(C(=O)N[C@@H](CC(C)C)C(=O)N[C@@H](C[C@@H]3CCNC3=O)C(=O)CO)cc12"
+      },
+      {
+        "mol": "CHEMBL5185160",
+        "warhead": "nitrile",
+        "pIC50": 7.89,
+        "smiles": "COc1cccc2[nH]c(C(=O)N[C@@H](CC(C)C)C(=O)N[C@H](C#N)C[C@@H]3CCCNC3=O)cc12"
+      },
+      {
+        "mol": "CHEMBL5180730",
+        "warhead": "nitrile",
+        "pIC50": 7.24,
+        "smiles": "COc1cccc2[nH]c(C(=O)N[C@@H](CC(C)C)C(=O)N[C@H](C#N)C[C@@H]3CCNC3=O)cc12"
+      },
+      {
+        "mol": "CHEMBL4851462",
+        "warhead": "aldehyde",
+        "pIC50": 7.22,
+        "smiles": "COc1cccc2[nH]c(C(=O)N[C@@H](CC(C)C)C(=O)N[C@H](C=O)C[C@@H]3CCNC3=O)cc12"
+      },
+      {
+        "mol": "CHEMBL5195798",
+        "warhead": "hydroxymethylketone",
+        "pIC50": 7.71,
+        "smiles": "COc1cccc2[nH]c(C(=O)N[C@@H](CC(C)C)C(=O)N[C@@H](C[C@@H]3CCCNC3=O)C(=O)CO)cc12"
+      },
+      {
+        "mol": "CHEMBL5424171",
+        "warhead": "nitrile",
+        "pIC50": 4.54,
+        "smiles": "COc1cccc2[nH]c(C(=O)N[C@@H](CC(C)C)C(=O)N[C@H](C#N)CCC(N)=O)cc12"
+      }
+    ]
+  },
+  {
+    "core": "NC(=O)C(CC1CCCCC1)NC(=O)c1cc2ccccc2[nH]1",
+    "members": [
+      {
+        "mol": "CHEMBL4796938",
+        "warhead": "aldehyde",
+        "pIC50": 7.28,
+        "smiles": "O=C[C@H](C[C@@H]1CCNC1=O)NC(=O)[C@H](CC1CCCCC1)NC(=O)c1cc2ccccc2[nH]1"
+      },
+      {
+        "mol": "CHEMBL5184946",
+        "warhead": "aldehyde",
+        "pIC50": 7.28,
+        "smiles": "O=C[C@@H](C[C@@H]1CCNC1=O)NC(=O)[C@@H](CC1CCCCC1)NC(=O)c1cc2ccccc2[nH]1"
+      },
+      {
+        "mol": "CHEMBL5208244",
+        "warhead": "chloroacetamide",
+        "pIC50": 8.7,
+        "smiles": "NC(=O)CCN(NC(=O)[C@H](CC1CCCCC1)NC(=O)c1cc2ccccc2[nH]1)C(=O)CCl"
+      },
+      {
+        "mol": "CHEMBL5560356",
+        "warhead": "aldehyde",
+        "pIC50": 7.28,
+        "smiles": "O=C[C@H](CC1CCNC1=O)NC(=O)[C@H](CC1CCCCC1)NC(=O)c1cc2ccccc2[nH]1"
+      }
+    ]
+  },
+  {
+    "core": "CC(C)CC(NC(=O)C(CC(C)C)NC(=O)OCc1ccccc1)C(N)=O",
+    "members": [
+      {
+        "mol": "CHEMBL4857345",
+        "warhead": "alpha_ketoamide",
+        "pIC50": 7.19,
+        "smiles": "CC(C)C[C@H](NC(=O)OCc1ccccc1)C(=O)N[C@@H](CC(C)C)C(=O)N[C@@H](C[C@@H]1CCNC1=O)C(=O)C(=O)NC(C)C"
+      },
+      {
+        "mol": "CHEMBL4518490",
+        "warhead": "aldehyde",
+        "pIC50": 5.5,
+        "smiles": "CCC[C@@H](C=O)NC(=O)[C@H](CC(C)C)NC(=O)[C@H](CC(C)C)NC(=O)OCc1ccccc1"
+      },
+      {
+        "mol": "CHEMBL64925",
+        "warhead": "aldehyde",
+        "pIC50": 5.41,
+        "smiles": "CC(C)C[C@@H](C=O)NC(=O)[C@H](CC(C)C)NC(=O)[C@H](CC(C)C)NC(=O)OCc1ccccc1"
+      }
+    ]
+  },
+  {
+    "core": "CC(C)CC(NC(=O)C(NC(=O)OCc1ccccc1)C(C)OC(C)(C)C)C(N)=O",
+    "members": [
+      {
+        "mol": "CHEMBL5178763",
+        "warhead": "aldehyde",
+        "pIC50": 7.22,
+        "smiles": "CC(C)C[C@H](NC(=O)[C@@H](NC(=O)OCc1ccccc1)[C@@H](C)OC(C)(C)C)C(=O)N[C@H](C=O)C[C@@H]1CCNC1=O"
+      },
+      {
+        "mol": "CHEMBL5275051",
+        "warhead": "aldehyde",
+        "pIC50": 6.98,
+        "smiles": "CC(C)C[C@H](NC(=O)[C@@H](NC(=O)OCc1ccccc1)C(C)OC(C)(C)C)C(=O)N[C@H](C=O)C[C@@H]1CCNC1=O"
+      },
+      {
+        "mol": "CHEMBL5566750",
+        "warhead": "acrylamide",
+        "pIC50": 7.47,
+        "smiles": "C=CC(=O)N(CCC(N)=O)NC(=O)[C@H](CC(C)C)NC(=O)[C@@H](NC(=O)OCc1ccccc1)[C@@H](C)OC(C)(C)C"
+      }
+    ]
+  },
+  {
+    "core": "CC(C)(C)CC(=O)NC(C(=O)N1CC2C(C1C(N)=O)C2(C)C)C(C)(C)C",
+    "members": [
+      {
+        "mol": "CHEMBL5206180",
+        "warhead": "aldehyde",
+        "pIC50": 6.75,
+        "smiles": "CC(C)(C)CC(=O)N[C@H](C(=O)N1C[C@H]2[C@@H]([C@H]1C(=O)N[C@H](C=O)C[C@@H]1CCNC1=O)C2(C)C)C(C)(C)C"
+      },
+      {
+        "mol": "CHEMBL5204666",
+        "warhead": "alpha_ketoamide",
+        "pIC50": 6.82,
+        "smiles": "CC(C)(C)CC(=O)N[C@H](C(=O)N1C[C@H]2[C@@H]([C@H]1C(=O)N[C@@H](C[C@@H]1CCNC1=O)C(=O)C(N)=O)C2(C)C)C(C)(C)C"
+      },
+      {
+        "mol": "CHEMBL5176204",
+        "warhead": "nitrile",
+        "pIC50": 6.14,
+        "smiles": "CC(C)(C)CC(=O)N[C@H](C(=O)N1C[C@H]2[C@@H]([C@H]1C(=O)N[C@H](C#N)C[C@@H]1CCNC1=O)C2(C)C)C(C)(C)C"
+      }
+    ]
+  },
+  {
+    "core": "CC1(C)C2CN(C(=O)COc3ccc(OC(F)(F)F)cc3)C(C(N)=O)C21",
+    "members": [
+      {
+        "mol": "CHEMBL5195325",
+        "warhead": "aldehyde",
+        "pIC50": 7.82,
+        "smiles": "CC1(C)[C@@H]2[C@@H](C(=O)N[C@H](C=O)C[C@@H]3CCNC3=O)N(C(=O)COc3ccc(OC(F)(F)F)cc3)C[C@@H]21"
+      },
+      {
+        "mol": "CHEMBL5434703",
+        "warhead": "nitrile",
+        "pIC50": 6.8,
+        "smiles": "CC1(C)[C@@H]2[C@@H](C(=O)N[C@H](C#N)C[C@@H]3CCNC3=O)N(C(=O)COc3ccc(OC(F)(F)F)cc3)C[C@@H]21"
+      },
+      {
+        "mol": "CHEMBL5555618",
+        "warhead": "aldehyde",
+        "pIC50": 7.82,
+        "smiles": "CC1(C)[C@@H]2[C@H]1CN(C(=O)COc1ccc(OC(F)(F)F)cc1)[C@H]2C(=O)N[C@@H](C=O)C[C@H]1CCNC1=O"
+      }
+    ]
+  },
+  {
+    "core": "ccc(nc)-c1cccc2c1CC(COC(C)=O)c1c(-c3ccc(Br)cc3)ccc(O)c1-2",
+    "members": [
+      {
+        "mol": "CHEMBL5198662",
+        "warhead": "nitrile",
+        "pIC50": 5.355,
+        "smiles": "CC(=O)OCC1Cc2c(-c3ccc(C#N)cn3)cccc2-c2c(O)ccc(-c3ccc(Br)cc3)c21"
+      },
+      {
+        "mol": "CHEMBL5205128",
+        "warhead": "aldehyde",
+        "pIC50": 5.05,
+        "smiles": "CC(=O)OCC1Cc2c(-c3ccc(C=O)cn3)cccc2-c2c(O)ccc(-c3ccc(Br)cc3)c21"
+      },
+      {
+        "mol": "CHEMBL5195252",
+        "warhead": "ketone_aryl",
+        "pIC50": 5.23,
+        "smiles": "CC(=O)OCC1Cc2c(-c3ccc(C(C)=O)cn3)cccc2-c2c(O)ccc(-c3ccc(Br)cc3)c21"
+      }
+    ]
+  },
+  {
+    "core": "ccc1c(c)N(C(=O)CSC#N)c2ccccc2S1",
+    "members": [
+      {
+        "mol": "CHEMBL5426704",
+        "warhead": "ketone_aryl",
+        "pIC50": 5.98,
+        "smiles": "CC(=O)c1ccc2c(c1)N(C(=O)CSC#N)c1ccccc1S2"
+      },
+      {
+        "mol": "CHEMBL5398507",
+        "warhead": "ketone_aryl",
+        "pIC50": 5.48,
+        "smiles": "CCC(=O)c1ccc2c(c1)N(C(=O)CSC#N)c1ccccc1S2"
+      },
+      {
+        "mol": "CHEMBL5406478",
+        "warhead": "nitrile",
+        "pIC50": 6.49,
+        "smiles": "N#CSCC(=O)N1c2ccccc2Sc2ccc(C#N)cc21"
+      }
+    ]
+  },
+  {
+    "core": "CC(C)CC(NC(=O)OCC(C)(C)Sc1ccccc1)C(N)=O",
+    "members": [
+      {
+        "mol": "CHEMBL5426970",
+        "warhead": "aldehyde",
+        "pIC50": 7.16,
+        "smiles": "CC(C)C[C@H](NC(=O)OCC(C)(C)Sc1ccccc1)C(=O)N[C@H](C=O)C[C@@H]1CCNC1=O"
+      },
+      {
+        "mol": "CHEMBL5433524",
+        "warhead": "alpha_ketoamide",
+        "pIC50": 6.68,
+        "smiles": "CC(C)C[C@H](NC(=O)OCC(C)(C)Sc1ccccc1)C(=O)N[C@@H](C[C@@H]1CCNC1=O)C(=O)C(=O)NC1CC1"
+      },
+      {
+        "mol": "CHEMBL5405589",
+        "warhead": "nitrile",
+        "pIC50": 6.31,
+        "smiles": "CC(C)C[C@H](NC(=O)OCC(C)(C)Sc1ccccc1)C(=O)N[C@H](C#N)C[C@@H]1CCNC1=O"
+      }
+    ]
+  },
+  {
+    "core": "CC(C)CC(NC(=O)C(NC(=O)OCc1ccccc1)C(C)C)C(N)=O",
+    "members": [
+      {
+        "mol": "CHEMBL2316746",
+        "warhead": "ketone_aryl",
+        "pIC50": 7.03,
+        "smiles": "CC(C)C[C@H](NC(=O)[C@@H](NC(=O)OCc1ccccc1)C(C)C)C(=O)N[C@@H](C[C@@H]1CCNC1=O)C(=O)c1nc2ccccc2s1"
+      },
+      {
+        "mol": "CHEMBL5171771",
+        "warhead": "aldehyde",
+        "pIC50": 8.07,
+        "smiles": "CC(C)C[C@H](NC(=O)[C@@H](NC(=O)OCc1ccccc1)C(C)C)C(=O)N[C@H](C=O)C[C@@H]1CCNC1=O"
+      }
+    ]
+  },
+  {
+    "core": "NC(=O)C(CC1CCCCC1)NC(=O)OCc1ccccc1",
+    "members": [
+      {
+        "mol": "CHEMBL5184792",
+        "warhead": "chloroacetamide",
+        "pIC50": 8.1,
+        "smiles": "NC(=O)CCN(NC(=O)[C@H](CC1CCCCC1)NC(=O)OCc1ccccc1)C(=O)CCl"
+      },
+      {
+        "mol": "CHEMBL3427168",
+        "warhead": "aldehyde",
+        "pIC50": 7.25,
+        "smiles": "O=C[C@H](C[C@@H]1CCNC1=O)NC(=O)[C@H](CC1CCCCC1)NC(=O)OCc1ccccc1"
+      }
+    ]
+  },
+  {
+    "core": "CC(NC(=O)c1ccccc1CCC(N)=O)c1cccc2ccccc12",
+    "members": [
+      {
+        "mol": "CHEMBL5196473",
+        "warhead": "chloroacetamide",
+        "pIC50": 5.27,
+        "smiles": "C[C@@H](NC(=O)c1ccccc1CCC(=O)NNC(=O)CCl)c1cccc2ccccc12"
+      },
+      {
+        "mol": "CHEMBL6166367",
+        "warhead": "alpha_ketoamide",
+        "pIC50": 4.43,
+        "smiles": "CC(=O)C(=O)NNC(=O)CCc1ccccc1C(=O)N[C@H](C)c1cccc2ccccc12"
+      }
+    ]
+  },
+  {
+    "core": "COc1cccc2[nH]c(C(=O)N3CC4CCCC4C3C(N)=O)cc12",
+    "members": [
+      {
+        "mol": "CHEMBL5184431",
+        "warhead": "nitrile",
+        "pIC50": 6.63,
+        "smiles": "COc1cccc2[nH]c(C(=O)N3C[C@@H]4CCC[C@@H]4[C@H]3C(=O)N[C@H](C#N)C[C@@H]3CCNC3=O)cc12"
+      },
+      {
+        "mol": "CHEMBL5184551",
+        "warhead": "hydroxymethylketone",
+        "pIC50": 6.63,
+        "smiles": "COc1cccc2[nH]c(C(=O)N3C[C@@H]4CCC[C@@H]4[C@H]3C(=O)N[C@@H](C[C@@H]3CCNC3=O)C(=O)CO)cc12"
+      }
+    ]
+  },
+  {
+    "core": "ccnc(c)-c1cccc2c1CC(COC(C)=O)c1c(-c3ccc(Br)cc3)ccc(O)c1-2",
+    "members": [
+      {
+        "mol": "CHEMBL5177686",
+        "warhead": "nitrile",
+        "pIC50": 4.99,
+        "smiles": "CC(=O)OCC1Cc2c(-c3cc(C#N)ccn3)cccc2-c2c(O)ccc(-c3ccc(Br)cc3)c21"
+      },
+      {
+        "mol": "CHEMBL5176434",
+        "warhead": "aldehyde",
+        "pIC50": 5.49,
+        "smiles": "CC(=O)OCC1Cc2c(-c3cc(C=O)ccn3)cccc2-c2c(O)ccc(-c3ccc(Br)cc3)c21"
+      }
+    ]
+  },
+  {
+    "core": "CC(C)(C)C(NC(=O)C(F)(F)F)C(=O)N1C2CCC(C2)C1C(N)=O",
+    "members": [
+      {
+        "mol": "CHEMBL5283975",
+        "warhead": "nitrile",
+        "pIC50": 7.26,
+        "smiles": "CC(C)(C)[C@H](NC(=O)C(F)(F)F)C(=O)N1[C@@H]2CC[C@@H](C2)[C@H]1C(=O)N[C@H](C#N)C[C@@H]1CCNC1=O"
+      },
+      {
+        "mol": "CHEMBL5630515",
+        "warhead": "ketone_aryl",
+        "pIC50": 6.96,
+        "smiles": "CC(C)(C)[C@H](NC(=O)C(F)(F)F)C(=O)N1[C@@H]2CC[C@@H](C2)[C@H]1C(=O)N[C@@H](C[C@@H]1CCNC1=O)C(=O)c1nc2ccccc2s1"
+      }
+    ]
+  },
+  {
+    "core": "NC(=O)C1C2CCCC2CN1C(=O)C(NC(=O)C(F)(F)F)C1CCCCC1",
+    "members": [
+      {
+        "mol": "CHEMBL5439916",
+        "warhead": "nitrile",
+        "pIC50": 7.33,
+        "smiles": "N#C[C@H](C[C@@H]1CCNC1=O)NC(=O)[C@@H]1[C@H]2CCC[C@H]2CN1C(=O)[C@@H](NC(=O)C(F)(F)F)C1CCCCC1"
+      },
+      {
+        "mol": "CHEMBL5403964",
+        "warhead": "alpha_ketoamide",
+        "pIC50": 7.47,
+        "smiles": "CC(C)(C)NC(=O)C(=O)[C@H](C[C@@H]1CCNC1=O)NC(=O)[C@@H]1[C@H]2CCC[C@H]2CN1C(=O)[C@@H](NC(=O)C(F)(F)F)C1CCCCC1"
+      }
+    ]
+  },
+  {
+    "core": "COc1cccc2[nH]c(C(=O)NC(CC(C)(C)C)C(N)=O)cc12",
+    "members": [
+      {
+        "mol": "CHEMBL5431050",
+        "warhead": "aldehyde",
+        "pIC50": 7.13,
+        "smiles": "COc1cccc2[nH]c(C(=O)N[C@@H](CC(C)(C)C)C(=O)N[C@H](C=O)C[C@@H]3CCNC3=O)cc12"
+      },
+      {
+        "mol": "CHEMBL6174060",
+        "warhead": "ketone_aryl",
+        "pIC50": 7.41,
+        "smiles": "COc1cccc2[nH]c(C(=O)N[C@@H](CC(C)(C)C)C(=O)N[C@@H](C[C@@H]3CCNC3=O)C(=O)c3nc4ccccc4s3)cc12"
+      }
+    ]
+  },
+  {
+    "core": "NC(=O)C1CC2(CCCC2)CN1C(=O)OCc1ccccc1",
+    "members": [
+      {
+        "mol": "CHEMBL5399799",
+        "warhead": "aldehyde",
+        "pIC50": 7.66,
+        "smiles": "O=C[C@H](C[C@@H]1CCNC1=O)NC(=O)C1CC2(CCCC2)CN1C(=O)OCc1ccccc1"
+      },
+      {
+        "mol": "CHEMBL5412310",
+        "warhead": "nitrile",
+        "pIC50": 5.66,
+        "smiles": "N#C[C@H](C[C@@H]1CCNC1=O)NC(=O)C1CC2(CCCC2)CN1C(=O)OCc1ccccc1"
+      }
+    ]
+  },
+  {
+    "core": "NC(=O)C1CC2(CCCCC2)CN1C(=O)OCc1ccccc1",
+    "members": [
+      {
+        "mol": "CHEMBL5435470",
+        "warhead": "aldehyde",
+        "pIC50": 7.31,
+        "smiles": "O=C[C@H](C[C@@H]1CCNC1=O)NC(=O)C1CC2(CCCCC2)CN1C(=O)OCc1ccccc1"
+      },
+      {
+        "mol": "CHEMBL5396421",
+        "warhead": "nitrile",
+        "pIC50": 5.85,
+        "smiles": "N#C[C@H](C[C@@H]1CCNC1=O)NC(=O)C1CC2(CCCCC2)CN1C(=O)OCc1ccccc1"
+      }
+    ]
+  },
+  {
+    "core": "COc1cccc2[nH]c(C(=O)N3CC4(CCCC4)CC3C(N)=O)cc12",
+    "members": [
+      {
+        "mol": "CHEMBL5399253",
+        "warhead": "aldehyde",
+        "pIC50": 5.82,
+        "smiles": "COc1cccc2[nH]c(C(=O)N3CC4(CCCC4)CC3C(=O)N[C@H](C=O)C[C@@H]3CCNC3=O)cc12"
+      },
+      {
+        "mol": "CHEMBL5398479",
+        "warhead": "nitrile",
+        "pIC50": 5.22,
+        "smiles": "COc1cccc2[nH]c(C(=O)N3CC4(CCCC4)CC3C(=O)N[C@H](C#N)C[C@@H]3CCCNC3=O)cc12"
+      }
+    ]
+  },
+  {
+    "core": "CC1(C)C2CN(C(=O)OCc3cccnc3)C(C(N)=O)C21",
+    "members": [
+      {
+        "mol": "CHEMBL5571652",
+        "warhead": "aldehyde",
+        "pIC50": 7.7,
+        "smiles": "CC1(C)[C@@H]2[C@@H](C(=O)N[C@H](C=O)C[C@@H]3CCNC3=O)N(C(=O)OCc3cccnc3)C[C@@H]21"
+      },
+      {
+        "mol": "CHEMBL5575592",
+        "warhead": "nitrile",
+        "pIC50": 7.1,
+        "smiles": "CC1(C)[C@@H]2[C@@H](C(=O)N[C@H](C#N)C[C@@H]3CCNC3=O)N(C(=O)OCc3cccnc3)C[C@@H]21"
+      }
+    ]
+  },
+  {
+    "core": "CC(C)c1cccc2[nH]c(C(=O)N3CC4C(C3C(N)=O)C4(C)C)cc12",
+    "members": [
+      {
+        "mol": "CHEMBL5574928",
+        "warhead": "aldehyde",
+        "pIC50": 7.7,
+        "smiles": "CC(C)c1cccc2[nH]c(C(=O)N3C[C@H]4[C@@H]([C@H]3C(=O)N[C@H](C=O)C[C@@H]3CCNC3=O)C4(C)C)cc12"
+      },
+      {
+        "mol": "CHEMBL5594722",
+        "warhead": "nitrile",
+        "pIC50": 6.4,
+        "smiles": "CC(C)c1cccc2[nH]c(C(=O)N3C[C@H]4[C@@H]([C@H]3C(=O)N[C@H](C#N)C[C@@H]3CCNC3=O)C4(C)C)cc12"
+      }
+    ]
+  },
+  {
+    "core": "COc1cccc2[nH]c(C(=O)N3CC4C(C3C(N)=O)C4(C)C)cc12",
+    "members": [
+      {
+        "mol": "CHEMBL5573701",
+        "warhead": "aldehyde",
+        "pIC50": 7.57,
+        "smiles": "COc1cccc2[nH]c(C(=O)N3C[C@H]4[C@@H]([C@H]3C(=O)N[C@H](C=O)C[C@@H]3CCNC3=O)C4(C)C)cc12"
+      },
+      {
+        "mol": "CHEMBL5400081",
+        "warhead": "ketone_aryl",
+        "pIC50": 6.29,
+        "smiles": "COc1cccc2[nH]c(C(=O)N3C[C@H]4[C@@H]([C@H]3C(=O)N[C@@H](C[C@@H]3CCNC3=O)C(=O)c3nc5ccccc5s3)C4(C)C)cc12"
+      }
+    ]
+  },
+  {
+    "core": "CC1(C)C2CN(C(=O)C3(c4cccc(Cl)c4)CC3)C(C(N)=O)C21",
+    "members": [
+      {
+        "mol": "CHEMBL5565685",
+        "warhead": "aldehyde",
+        "pIC50": 7.96,
+        "smiles": "CC1(C)[C@@H]2[C@@H](C(=O)N[C@H](C=O)C[C@@H]3CCNC3=O)N(C(=O)C3(c4cccc(Cl)c4)CC3)C[C@@H]21"
+      },
+      {
+        "mol": "CHEMBL5569851",
+        "warhead": "nitrile",
+        "pIC50": 6.75,
+        "smiles": "CC1(C)[C@@H]2[C@@H](C(=O)N[C@H](C#N)C[C@@H]3CCNC3=O)N(C(=O)C3(c4cccc(Cl)c4)CC3)C[C@@H]21"
+      }
+    ]
+  },
+  {
+    "core": "CCn1ccc(-c2cc(-c3cnn(C)c3)cc(C(C)NC(=O)c3ccccc3CCC(N)=O)c2)n1",
+    "members": [
+      {
+        "mol": "CHEMBL6162689",
+        "warhead": "chloroacetamide",
+        "pIC50": 6.52,
+        "smiles": "CCn1ccc(-c2cc(-c3cnn(C)c3)cc([C@@H](C)NC(=O)c3ccccc3CCC(=O)NNC(=O)CCl)c2)n1"
+      },
+      {
+        "mol": "CHEMBL6103390",
+        "warhead": "acrylamide",
+        "pIC50": 5.51,
+        "smiles": "C=CC(=O)NNC(=O)CCc1ccccc1C(=O)N[C@H](C)c1cc(-c2cnn(C)c2)cc(-c2ccn(CC)n2)c1"
+      }
+    ]
+  }
+]

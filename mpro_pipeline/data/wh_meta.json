@@ -1,0 +1,310 @@
+{
+  "c0_aldehyde_CHEMBL4850298": {
+    "cluster": 0,
+    "warhead": "aldehyde",
+    "pIC50": 6.4,
+    "mol": "CHEMBL4850298",
+    "core": "CC(C)CC(NC(=O)OCc1ccccc1)C(N)=O"
+  },
+  "c0_aldehyde_CHEMBL92708": {
+    "cluster": 0,
+    "warhead": "aldehyde",
+    "pIC50": 4.97,
+    "mol": "CHEMBL92708",
+    "core": "CC(C)CC(NC(=O)OCc1ccccc1)C(N)=O"
+  },
+  "c0_alpha_ketoam_CHEMBL5196922": {
+    "cluster": 0,
+    "warhead": "alpha_ketoamide",
+    "pIC50": 6.35,
+    "mol": "CHEMBL5196922",
+    "core": "CC(C)CC(NC(=O)OCc1ccccc1)C(N)=O"
+  },
+  "c0_chloroacetam_CHEMBL5174530": {
+    "cluster": 0,
+    "warhead": "chloroacetamide",
+    "pIC50": 7.47,
+    "mol": "CHEMBL5174530",
+    "core": "CC(C)CC(NC(=O)OCc1ccccc1)C(N)=O"
+  },
+  "c0_chloroacetam_CHEMBL5176036": {
+    "cluster": 0,
+    "warhead": "chloroacetamide",
+    "pIC50": 7.06,
+    "mol": "CHEMBL5176036",
+    "core": "CC(C)CC(NC(=O)OCc1ccccc1)C(N)=O"
+  },
+  "c0_chloroacetam_CHEMBL5173143": {
+    "cluster": 0,
+    "warhead": "chloroacetamide",
+    "pIC50": 8.3,
+    "mol": "CHEMBL5173143",
+    "core": "CC(C)CC(NC(=O)OCc1ccccc1)C(N)=O"
+  },
+  "c0_chloroacetam_CHEMBL5184210": {
+    "cluster": 0,
+    "warhead": "chloroacetamide",
+    "pIC50": 7.77,
+    "mol": "CHEMBL5184210",
+    "core": "CC(C)CC(NC(=O)OCc1ccccc1)C(N)=O"
+  },
+  "c0_chloroacetam_CHEMBL5189591": {
+    "cluster": 0,
+    "warhead": "chloroacetamide",
+    "pIC50": 7.77,
+    "mol": "CHEMBL5189591",
+    "core": "CC(C)CC(NC(=O)OCc1ccccc1)C(N)=O"
+  },
+  "c0_alpha_ketoam_CHEMBL3427167": {
+    "cluster": 0,
+    "warhead": "alpha_ketoamide",
+    "pIC50": 7.35,
+    "mol": "CHEMBL3427167",
+    "core": "CC(C)CC(NC(=O)OCc1ccccc1)C(N)=O"
+  },
+  "c0_alpha_ketoam_CHEMBL5266148": {
+    "cluster": 0,
+    "warhead": "alpha_ketoamide",
+    "pIC50": 6.35,
+    "mol": "CHEMBL5266148",
+    "core": "CC(C)CC(NC(=O)OCc1ccccc1)C(N)=O"
+  },
+  "c0_aldehyde_CHEMBL1821850": {
+    "cluster": 0,
+    "warhead": "aldehyde",
+    "pIC50": 5.3,
+    "mol": "CHEMBL1821850",
+    "core": "CC(C)CC(NC(=O)OCc1ccccc1)C(N)=O"
+  },
+  "c0_alpha_ketoam_CHEMBL1821856": {
+    "cluster": 0,
+    "warhead": "alpha_ketoamide",
+    "pIC50": 5.3,
+    "mol": "CHEMBL1821856",
+    "core": "CC(C)CC(NC(=O)OCc1ccccc1)C(N)=O"
+  },
+  "c1_nitrile_CHEMBL4802135": {
+    "cluster": 1,
+    "warhead": "nitrile",
+    "pIC50": 7.51,
+    "mol": "CHEMBL4802135",
+    "core": "CC(C)(C)C(NC(=O)C(F)(F)F)C(=O)N1CC2C(C1C(N)=O)C2(C)C"
+  },
+  "c1_nitrile_CHEMBL5201264": {
+    "cluster": 1,
+    "warhead": "nitrile",
+    "pIC50": 7.535,
+    "mol": "CHEMBL5201264",
+    "core": "CC(C)(C)C(NC(=O)C(F)(F)F)C(=O)N1CC2C(C1C(N)=O)C2(C)C"
+  },
+  "c1_aldehyde_CHEMBL5173582": {
+    "cluster": 1,
+    "warhead": "aldehyde",
+    "pIC50": 7.27,
+    "mol": "CHEMBL5173582",
+    "core": "CC(C)(C)C(NC(=O)C(F)(F)F)C(=O)N1CC2C(C1C(N)=O)C2(C)C"
+  },
+  "c1_hydroxymethy_CHEMBL5182995": {
+    "cluster": 1,
+    "warhead": "hydroxymethylketone",
+    "pIC50": 8.1,
+    "mol": "CHEMBL5182995",
+    "core": "CC(C)(C)C(NC(=O)C(F)(F)F)C(=O)N1CC2C(C1C(N)=O)C2(C)C"
+  },
+  "c1_alpha_ketoam_CHEMBL5183165": {
+    "cluster": 1,
+    "warhead": "alpha_ketoamide",
+    "pIC50": 7.72,
+    "mol": "CHEMBL5183165",
+    "core": "CC(C)(C)C(NC(=O)C(F)(F)F)C(=O)N1CC2C(C1C(N)=O)C2(C)C"
+  },
+  "c1_ketone_aryl_CHEMBL5185801": {
+    "cluster": 1,
+    "warhead": "ketone_aryl",
+    "pIC50": 7.57,
+    "mol": "CHEMBL5185801",
+    "core": "CC(C)(C)C(NC(=O)C(F)(F)F)C(=O)N1CC2C(C1C(N)=O)C2(C)C"
+  },
+  "c1_nitrile_CHEMBL5397356": {
+    "cluster": 1,
+    "warhead": "nitrile",
+    "pIC50": 6.05,
+    "mol": "CHEMBL5397356",
+    "core": "CC(C)(C)C(NC(=O)C(F)(F)F)C(=O)N1CC2C(C1C(N)=O)C2(C)C"
+  },
+  "c1_ketone_aryl_CHEMBL5438511": {
+    "cluster": 1,
+    "warhead": "ketone_aryl",
+    "pIC50": 8.1,
+    "mol": "CHEMBL5438511",
+    "core": "CC(C)(C)C(NC(=O)C(F)(F)F)C(=O)N1CC2C(C1C(N)=O)C2(C)C"
+  },
+  "c1_chloroacetam_CHEMBL5421881": {
+    "cluster": 1,
+    "warhead": "chloroacetamide",
+    "pIC50": 8.22,
+    "mol": "CHEMBL5421881",
+    "core": "CC(C)(C)C(NC(=O)C(F)(F)F)C(=O)N1CC2C(C1C(N)=O)C2(C)C"
+  },
+  "c2_aldehyde_CHEMBL5563979": {
+    "cluster": 2,
+    "warhead": "aldehyde",
+    "pIC50": 9.4,
+    "mol": "CHEMBL5563979",
+    "core": "CC(C)CC(NC(=O)C(Cc1ccc(F)cc1)NC(=O)OCc1ccccc1)C(N)=O"
+  },
+  "c2_aldehyde_CHEMBL5567825": {
+    "cluster": 2,
+    "warhead": "aldehyde",
+    "pIC50": 8.9,
+    "mol": "CHEMBL5567825",
+    "core": "CC(C)CC(NC(=O)C(Cc1ccc(F)cc1)NC(=O)OCc1ccccc1)C(N)=O"
+  },
+  "c2_aldehyde_CHEMBL5562367": {
+    "cluster": 2,
+    "warhead": "aldehyde",
+    "pIC50": 8.5,
+    "mol": "CHEMBL5562367",
+    "core": "CC(C)CC(NC(=O)C(Cc1ccc(F)cc1)NC(=O)OCc1ccccc1)C(N)=O"
+  },
+  "c2_aldehyde_CHEMBL5566880": {
+    "cluster": 2,
+    "warhead": "aldehyde",
+    "pIC50": 8.2,
+    "mol": "CHEMBL5566880",
+    "core": "CC(C)CC(NC(=O)C(Cc1ccc(F)cc1)NC(=O)OCc1ccccc1)C(N)=O"
+  },
+  "c2_aldehyde_CHEMBL5564711": {
+    "cluster": 2,
+    "warhead": "aldehyde",
+    "pIC50": 8.1,
+    "mol": "CHEMBL5564711",
+    "core": "CC(C)CC(NC(=O)C(Cc1ccc(F)cc1)NC(=O)OCc1ccccc1)C(N)=O"
+  },
+  "c2_aldehyde_CHEMBL5556984": {
+    "cluster": 2,
+    "warhead": "aldehyde",
+    "pIC50": 7.9,
+    "mol": "CHEMBL5556984",
+    "core": "CC(C)CC(NC(=O)C(Cc1ccc(F)cc1)NC(=O)OCc1ccccc1)C(N)=O"
+  },
+  "c2_aldehyde_CHEMBL5563890": {
+    "cluster": 2,
+    "warhead": "aldehyde",
+    "pIC50": 7.8,
+    "mol": "CHEMBL5563890",
+    "core": "CC(C)CC(NC(=O)C(Cc1ccc(F)cc1)NC(=O)OCc1ccccc1)C(N)=O"
+  },
+  "c2_aldehyde_CHEMBL5568244": {
+    "cluster": 2,
+    "warhead": "aldehyde",
+    "pIC50": 7.5,
+    "mol": "CHEMBL5568244",
+    "core": "CC(C)CC(NC(=O)C(Cc1ccc(F)cc1)NC(=O)OCc1ccccc1)C(N)=O"
+  },
+  "c2_aldehyde_CHEMBL5567405": {
+    "cluster": 2,
+    "warhead": "aldehyde",
+    "pIC50": 7.4,
+    "mol": "CHEMBL5567405",
+    "core": "CC(C)CC(NC(=O)C(Cc1ccc(F)cc1)NC(=O)OCc1ccccc1)C(N)=O"
+  },
+  "c2_aldehyde_CHEMBL5566569": {
+    "cluster": 2,
+    "warhead": "aldehyde",
+    "pIC50": 7.1,
+    "mol": "CHEMBL5566569",
+    "core": "CC(C)CC(NC(=O)C(Cc1ccc(F)cc1)NC(=O)OCc1ccccc1)C(N)=O"
+  },
+  "c2_aldehyde_CHEMBL5563502": {
+    "cluster": 2,
+    "warhead": "aldehyde",
+    "pIC50": 6.9,
+    "mol": "CHEMBL5563502",
+    "core": "CC(C)CC(NC(=O)C(Cc1ccc(F)cc1)NC(=O)OCc1ccccc1)C(N)=O"
+  },
+  "c2_aldehyde_CHEMBL5562719": {
+    "cluster": 2,
+    "warhead": "aldehyde",
+    "pIC50": 6.2,
+    "mol": "CHEMBL5562719",
+    "core": "CC(C)CC(NC(=O)C(Cc1ccc(F)cc1)NC(=O)OCc1ccccc1)C(N)=O"
+  },
+  "c2_aldehyde_CHEMBL5532275": {
+    "cluster": 2,
+    "warhead": "aldehyde",
+    "pIC50": 6.2,
+    "mol": "CHEMBL5532275",
+    "core": "CC(C)CC(NC(=O)C(Cc1ccc(F)cc1)NC(=O)OCc1ccccc1)C(N)=O"
+  },
+  "c2_aldehyde_CHEMBL5560987": {
+    "cluster": 2,
+    "warhead": "aldehyde",
+    "pIC50": 6.1,
+    "mol": "CHEMBL5560987",
+    "core": "CC(C)CC(NC(=O)C(Cc1ccc(F)cc1)NC(=O)OCc1ccccc1)C(N)=O"
+  },
+  "c2_aldehyde_CHEMBL5532537": {
+    "cluster": 2,
+    "warhead": "aldehyde",
+    "pIC50": 6.0,
+    "mol": "CHEMBL5532537",
+    "core": "CC(C)CC(NC(=O)C(Cc1ccc(F)cc1)NC(=O)OCc1ccccc1)C(N)=O"
+  },
+  "c2_alpha_ketoam_CHEMBL5557033": {
+    "cluster": 2,
+    "warhead": "alpha_ketoamide",
+    "pIC50": 6.7,
+    "mol": "CHEMBL5557033",
+    "core": "CC(C)CC(NC(=O)C(Cc1ccc(F)cc1)NC(=O)OCc1ccccc1)C(N)=O"
+  },
+  "c2_alpha_ketoam_CHEMBL5564253": {
+    "cluster": 2,
+    "warhead": "alpha_ketoamide",
+    "pIC50": 8.3,
+    "mol": "CHEMBL5564253",
+    "core": "CC(C)CC(NC(=O)C(Cc1ccc(F)cc1)NC(=O)OCc1ccccc1)C(N)=O"
+  },
+  "c3_hydroxymethy_CHEMBL4777223": {
+    "cluster": 3,
+    "warhead": "hydroxymethylketone",
+    "pIC50": 8.1,
+    "mol": "CHEMBL4777223",
+    "core": "COc1cccc2[nH]c(C(=O)NC(CC(C)C)C(N)=O)cc12"
+  },
+  "c3_nitrile_CHEMBL5185160": {
+    "cluster": 3,
+    "warhead": "nitrile",
+    "pIC50": 7.89,
+    "mol": "CHEMBL5185160",
+    "core": "COc1cccc2[nH]c(C(=O)NC(CC(C)C)C(N)=O)cc12"
+  },
+  "c3_nitrile_CHEMBL5180730": {
+    "cluster": 3,
+    "warhead": "nitrile",
+    "pIC50": 7.24,
+    "mol": "CHEMBL5180730",
+    "core": "COc1cccc2[nH]c(C(=O)NC(CC(C)C)C(N)=O)cc12"
+  },
+  "c3_aldehyde_CHEMBL4851462": {
+    "cluster": 3,
+    "warhead": "aldehyde",
+    "pIC50": 7.22,
+    "mol": "CHEMBL4851462",
+    "core": "COc1cccc2[nH]c(C(=O)NC(CC(C)C)C(N)=O)cc12"
+  },
+  "c3_hydroxymethy_CHEMBL5195798": {
+    "cluster": 3,
+    "warhead": "hydroxymethylketone",
+    "pIC50": 7.71,
+    "mol": "CHEMBL5195798",
+    "core": "COc1cccc2[nH]c(C(=O)NC(CC(C)C)C(N)=O)cc12"
+  },
+  "c3_nitrile_CHEMBL5424171": {
+    "cluster": 3,
+    "warhead": "nitrile",
+    "pIC50": 4.54,
+    "mol": "CHEMBL5424171",
+    "core": "COc1cccc2[nH]c(C(=O)NC(CC(C)C)C(N)=O)cc12"
+  }
+}
