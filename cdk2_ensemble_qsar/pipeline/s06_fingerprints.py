@@ -143,7 +143,11 @@ def main() -> None:
     frames = []
     for sl in manifest["slices"]:
         pid = sl["pdb_id"]
-        pose_file = POSES / f"{pid}.sdf.gz"
+        # Plain .sdf is what s05 writes; .sdf.gz is accepted so an archived
+        # run still reads.
+        pose_file = POSES / f"{pid}.sdf"
+        if not pose_file.exists():
+            pose_file = POSES / f"{pid}.sdf.gz"
         if not pose_file.exists():
             print(f"{pid}: no poses, skipped")
             continue
@@ -155,7 +159,8 @@ def main() -> None:
         )
 
         rows = []
-        with gzip.open(pose_file, "rb") as fh:
+        opener = gzip.open if pose_file.suffix == ".gz" else open
+        with opener(pose_file, "rb") as fh:
             supplier = Chem.ForwardSDMolSupplier(fh, removeHs=True, sanitize=False)
             for mol in supplier:
                 if mol is None:

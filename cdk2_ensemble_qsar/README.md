@@ -137,6 +137,165 @@ index-order RMSD would have produced a number that means nothing.
 
 ---
 
+## Results
+
+**Read the scale caveat first.** 60 compounds across 26 scaffolds went through the
+docking ensemble; 65 through Boltz-2; 37 through both. Spearman's standard error
+is ≈ 0.13 at n = 60 and ≈ 0.17 at n = 37. Differences smaller than about 0.3 are
+not resolvable here. Nothing below establishes a ranking between methods — it
+establishes what the pipeline measures, and which claims survive their own
+controls.
+
+### Question 2: does docking alone rank compounds?
+
+Zero-parameter baselines, raw score as the ranker, no model fitted:
+
+| slice | Spearman ρ | EF5% | what it is |
+|---|---|---|---|
+| 1AQ1 | **+0.351** | 2.31 | staurosporine-expanded pocket |
+| 1FIN | +0.331 | 1.54 | cyclin-A-bound active form |
+| 1HCK | +0.225 | 1.54 | ATP ground state (reference) |
+| 1KE5 | +0.060 | 1.54 | oxindole |
+| 2VTA | +0.054 | 0.77 | fragment-bound |
+| 3PXF | **−0.115** | 1.54 | ATP site empty — the negative control |
+| best-of-ensemble | +0.191 | 2.31 | |
+
+Two things fall out that were not put in by hand. **3PXF ranks worst and
+negative** — the slice whose ATP site is empty behaves like the negative control
+it was included as, which is a check on the whole setup. And
+**best-of-ensemble (+0.191) is worse than its best single slice (+0.351)**:
+taking the most favourable score across an ensemble is a common heuristic, and
+here it is dominated by whichever receptor is most permissive rather than most
+relevant.
+
+### Question 3: do 3D features add anything over 2D?
+
+Scaffold-grouped 5-fold CV, 5 partitions, mean ± sd:
+
+| arm | Spearman ρ | R² | RMSE | clears its null? |
+|---|---|---|---|---|
+| 2d (ECFP4 + descriptors) | +0.263 ± 0.047 | −0.019 | 1.252 | yes (null 95th pct +0.124) |
+| 2d + ifp_ens | +0.275 ± 0.096 | +0.007 | 1.236 | — |
+| ifp_ens | +0.098 ± 0.122 | −0.095 | 1.297 | **no** (null 95th pct +0.216) |
+| ifp_ens + score | +0.059 ± 0.104 | −0.125 | 1.314 | — |
+| ifp_1 | −0.022 ± 0.069 | −0.221 | 1.370 | no |
+| score_ens | −0.049 ± 0.101 | −0.528 | 1.532 | no |
+| score_1 | −0.299 ± 0.062 | −0.472 | 1.505 | no |
+
+**The ensemble interaction fingerprint does not clear its own permutation null.**
+At this scale it is indistinguishable from shuffled labels. Adding it to the 2D
+baseline moves ρ from +0.263 to +0.275 — well inside the ±0.096 spread, so no
+incremental information is demonstrated.
+
+**Fitting a model on docking scores is worse than not fitting one.** `score_1`
+reaches ρ = −0.299 where the same 1HCK score used raw gives +0.225. With 48
+training compounds and one feature, the learner fits fold-specific structure and
+inverts the sign. This is a result about small-N model fitting, not about
+docking.
+
+Note also that RMSE (1.24–1.53) sits above the 0.30-log assay noise floor by a
+wide margin, so none of these arms is near the ceiling the data allows.
+
+### What the random split would have told you instead
+
+| arm | scaffold split | random split | inflation |
+|---|---|---|---|
+| 2d | +0.263 | +0.723 | 2.7× |
+| ifp_ens | +0.098 | +0.437 | 4.5× |
+| 2d + ifp_ens | +0.275 | +0.608 | 2.2× |
+| score_ens | −0.049 | +0.331 | sign flip |
+
+The arm that gains most from leakage is the one that fails its null under a
+scaffold split. A random-split report of this same pipeline would have read as a
+clear success for ensemble docking.
+
+### Boltz-2 as a first-pass filter
+
+Zero-shot, no training, so no split is needed — which makes this a fairer
+comparison than the fitted arms above, not a worse one.
+
+| score | ρ vs pIC50 | p | n |
+|---|---|---|---|
+| `optimization_score` | **+0.553** | 1.8e-06 | 65 |
+| `binding_confidence` | +0.343 | 0.005 | 65 |
+| `iptm` | +0.338 | 0.006 | 65 |
+| `structure_confidence` | +0.124 | 0.33 | 65 |
+| `complex_plddt` | +0.030 | 0.81 | 65 |
+
+On the 37 compounds that went through **both** paths:
+
+| | ρ | p |
+|---|---|---|
+| Boltz `iptm` | **+0.594** | 1.1e-04 |
+| Boltz `binding_confidence` | +0.541 | 5.4e-04 |
+| docking, 1AQ1 | +0.384 | 0.019 |
+| docking, 1FIN | +0.379 | 0.021 |
+| docking, best-of-ensemble | +0.138 | 0.42 |
+| docking, 3PXF | −0.253 | 0.13 |
+
+Boltz-2's interface confidence ranks CDK2 potency above every docking arm on the
+same compounds. At n = 37 the gap (+0.594 vs +0.384) is about 1.2 standard
+errors, so this is suggestive, not established.
+
+The internal control matters more than the headline: **`structure_confidence`
+and `complex_plddt` carry no signal (ρ = +0.12, +0.03) while the interface
+scores do.** If the correlation were an artifact of easy-to-fold or
+easy-to-dock chemistry, overall confidence would track potency too. It does
+not, which is what you would want if the signal really is about the interface.
+
+Three caveats that are not optional:
+
+* **These are confidence scores, not affinities.** The library-screen endpoint
+  returns `iptm` / `binding_confidence` / `optimization_score` and ADME. There
+  is no calibrated affinity or predicted pIC50 in it. "Ranks potency" is the
+  claim; "predicts potency" is not.
+* **The default SMARTS alert filter silently dropped 35 of 100 compounds.** A
+  third of a literature CDK2 set never gets scored unless you disable it. The
+  dropped set is not potency-biased (Mann-Whitney p = 0.179, tested rather than
+  assumed), so the comparison stands — but anyone running a real library through
+  this endpoint should know the denominator changes underneath them.
+* **`optimization_score` ranks best on 65 compounds and `iptm` best on the
+  37-compound subset.** The ordering is not stable at this n; do not read a
+  winner off it.
+
+### Boltz-2 structures as ensemble slices
+
+Predicted CDK2–ATP (`sab_pred_6eaMQZNUJ9s5FuoCxiL7`, structure_confidence 0.932,
+iptm 0.952) against the 1HCK crystal, on the contact-shell residues:
+
+* pocket CA RMSD **0.30 Å**
+* global CA RMSD 0.51 Å
+
+For scale, the crystal slices' pocket RMSD to the same reference run 0.44 (2VTA)
+to 2.01 Å (1FIN). **The prediction is closer to 1HCK than any crystal form is** —
+Boltz reproduces the ATP-bound pocket essentially exactly.
+
+That is an accuracy result and a diversity problem at once. An ensemble is worth
+something because its members differ; a predictor that lands on the canonical
+structure adds a slice that is nearly redundant with the reference. Whether
+co-folding a *different* ligand recovers genuine induced-fit spread — the
+staurosporine-expanded pocket is the case that would show it — was **not
+tested**. Those two predictions completed and their IDs are in
+`results/boltz/job_ids.json`; the comparison is one download and one RMSD call,
+and it is the first thing to run next.
+
+### So, does the structural ensemble buy anything?
+
+At validation scale, on this target: **not demonstrably.** The ensemble
+interaction fingerprint fails its own permutation null, and fusing it with ECFP4
+does not move the 2D baseline outside its error bars. The two structure-based
+things that did carry signal were both zero-parameter: a single well-chosen
+crystal conformer used as a raw score (ρ +0.35), and Boltz-2's interface
+confidence (ρ +0.54–0.59).
+
+What this does **not** say is that 3D features are useless — n = 60 with 26
+scaffolds cannot support that conclusion, and the honest statement is that the
+signal was not detected rather than that it is absent. What it does say is that
+the benchmark is capable of returning a negative answer, which is the property
+that makes a positive answer from it worth anything.
+
+---
+
 ## Honesty machinery
 
 These are the parts that exist specifically to stop the benchmark from
@@ -201,20 +360,19 @@ each is a common way these pipelines go quietly wrong.
 ## Scale, and what that means for the numbers
 
 The full cross product is 784 compounds × 6 slices = 4,704 docking runs. On the
-4 cores available here that is ~19 h, so **this run is validation-scale: the
-first 100 compounds × 6 slices**, with the Boltz-2 arms on exactly the same 100
-compounds so every arm is paired per compound.
+4 cores available here that is ~19 h, so **this run is validation-scale: 60
+compounds × 6 slices = 360 docking runs**, with Boltz-2 on the first 100
+compounds (65 surviving its filter, 37 overlapping the docked set).
 
-At N = 100 the pipeline is exercised end to end and the controls above are fully
-valid — they do not depend on N. The *model comparison* does: Spearman's
-standard error at N = 100 is ≈ 0.10, so differences between arms smaller than
-about 0.2 are not resolvable. Any arm ranking from this run is reported with
-that stated, and the numbers should be read as "the pipeline produces these",
-not "3D features beat 2D by this much".
+The cross-docking and alignment controls do not depend on N and are fully valid.
+The model comparison does depend on N, and at n = 60 / 37 it is underpowered by
+design — see the scale caveat at the top of Results.
 
 `s05` is checkpointed through a JSONL ledger and queues all slices of a ligand
 together, so scaling up is `--max-ligands 784` and a re-run: everything already
-computed is reused and the matrix is never left ragged.
+computed is reused and the matrix is never left ragged. Poses are written as
+plain appended SDF rather than gzip, because appending to gzip corrupts silently
+across a restart — that bug cost a full re-dock and is documented in `s05`.
 
 ---
 
@@ -222,7 +380,7 @@ computed is reused and the matrix is never left ragged.
 
 | item | unit | this run |
 |---|---|---|
-| Boltz-2 affinity screen | $0.025 / compound | 100 compounds = $2.50 |
+| Boltz-2 library screen | $0.025 / compound | 100 submitted = $2.50 |
 | Boltz-2 structure + binding | $0.02 / sample | 3 × 5 samples = $0.30 |
 | Docking, dataset, features | free (local, smina + RDKit) | — |
 | | | **$2.80** |

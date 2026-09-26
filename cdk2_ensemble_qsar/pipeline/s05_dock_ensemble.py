@@ -152,9 +152,18 @@ def main() -> None:
         print("nothing to do")
         return
 
-    # Poses are appended per receptor as results arrive, so a crash keeps them.
+    # Poses are appended per receptor as results arrive, in PLAIN text.
+    #
+    # An earlier version appended to gzip. That silently corrupts across a
+    # restart: a killed process leaves an unterminated gzip member with no
+    # trailer, the next run opens in append mode and starts a fresh member
+    # after it, and the whole file then fails to decompress a few records in.
+    # It cost a full re-dock to discover, because the ledger said 600/600 while
+    # only 5 poses per receptor were readable. Plain text append has no such
+    # failure mode; s06 reads .sdf or .sdf.gz, and compressing afterwards is a
+    # separate, idempotent step.
     pose_handles = {
-        sl["pdb_id"]: gzip.open(POSES / f"{sl['pdb_id']}.sdf.gz", "at")
+        sl["pdb_id"]: open(POSES / f"{sl['pdb_id']}.sdf", "a")
         for sl in manifest["slices"]
     }
 

@@ -1,0 +1,153 @@
+{
+  "what_boltz_returned": "iptm / binding_confidence / structure_confidence / optimization_score plus ADME. No calibrated affinity or predicted pIC50 is available from the library-screen endpoint, so these are confidence rankers.",
+  "smarts_filter": {
+    "n_submitted": 100,
+    "n_scored": 65,
+    "n_dropped": 35,
+    "kept_pchembl_mean": 6.392,
+    "dropped_pchembl_mean": 6.664,
+    "mannwhitney_p": 0.179,
+    "potency_biased": false
+  },
+  "boltz_rankers": [
+    {
+      "name": "boltz_binding_confidence",
+      "n": 65,
+      "spearman_rho": 0.343,
+      "spearman_p": 0.00518,
+      "pearson_r": 0.378,
+      "ef5_percent": 2.55,
+      "n_actives": 17
+    },
+    {
+      "name": "boltz_iptm",
+      "n": 65,
+      "spearman_rho": 0.338,
+      "spearman_p": 0.00586,
+      "pearson_r": 0.006,
+      "ef5_percent": 3.82,
+      "n_actives": 17
+    },
+    {
+      "name": "boltz_optimization_score",
+      "n": 65,
+      "spearman_rho": 0.553,
+      "spearman_p": 1.77e-06,
+      "pearson_r": 0.555,
+      "ef5_percent": 1.27,
+      "n_actives": 17
+    },
+    {
+      "name": "boltz_structure_confidence",
+      "n": 65,
+      "spearman_rho": 0.124,
+      "spearman_p": 0.326,
+      "pearson_r": -0.05,
+      "ef5_percent": 1.27,
+      "n_actives": 17
+    },
+    {
+      "name": "boltz_complex_plddt",
+      "n": 65,
+      "spearman_rho": 0.03,
+      "spearman_p": 0.814,
+      "pearson_r": -0.089,
+      "ef5_percent": 0.0,
+      "n_actives": 17
+    }
+  ],
+  "paired_with_docking": [
+    {
+      "name": "dock_best_of_ensemble",
+      "n": 37,
+      "spearman_rho": 0.138,
+      "spearman_p": 0.416,
+      "pearson_r": 0.267,
+      "ef5_percent": 1.42,
+      "n_actives": 13
+    },
+    {
+      "name": "dock_mean_of_ensemble",
+      "n": 37,
+      "spearman_rho": 0.237,
+      "spearman_p": 0.158,
+      "pearson_r": 0.262,
+      "ef5_percent": 1.42,
+      "n_actives": 13
+    },
+    {
+      "name": "dock_1AQ1",
+      "n": 37,
+      "spearman_rho": 0.384,
+      "spearman_p": 0.0189,
+      "pearson_r": 0.412,
+      "ef5_percent": 1.42,
+      "n_actives": 13
+    },
+    {
+      "name": "dock_1FIN",
+      "n": 37,
+      "spearman_rho": 0.379,
+      "spearman_p": 0.0209,
+      "pearson_r": 0.392,
+      "ef5_percent": 1.42,
+      "n_actives": 13
+    },
+    {
+      "name": "dock_1HCK",
+      "n": 37,
+      "spearman_rho": 0.26,
+      "spearman_p": 0.121,
+      "pearson_r": 0.307,
+      "ef5_percent": 1.42,
+      "n_actives": 13
+    },
+    {
+      "name": "dock_1KE5",
+      "n": 37,
+      "spearman_rho": 0.138,
+      "spearman_p": 0.416,
+      "pearson_r": 0.265,
+      "ef5_percent": 1.42,
+      "n_actives": 13
+    },
+    {
+      "name": "dock_2VTA",
+      "n": 37,
+      "spearman_rho": 0.06,
+      "spearman_p": 0.725,
+      "pearson_r": 0.158,
+      "ef5_percent": 0.0,
+      "n_actives": 13
+    },
+    {
+      "name": "dock_3PXF",
+      "n": 37,
+      "spearman_rho": -0.253,
+      "spearman_p": 0.131,
+      "pearson_r": -0.105,
+      "ef5_percent": 1.42,
+      "n_actives": 13
+    },
+    {
+      "name": "boltz_binding_confidence__same_subset",
+      "n": 37,
+      "spearman_rho": 0.541,
+      "spearman_p": 0.000542,
+      "pearson_r": 0.53,
+      "ef5_percent": 2.85,
+      "n_actives": 13
+    },
+    {
+      "name": "boltz_iptm__same_subset",
+      "n": 37,
+      "spearman_rho": 0.594,
+      "spearman_p": 0.000105,
+      "pearson_r": 0.167,
+      "ef5_percent": 2.85,
+      "n_actives": 13
+    }
+  ],
+  "n_paired": 37,
+  "active_threshold_pchembl": 7.0
+}

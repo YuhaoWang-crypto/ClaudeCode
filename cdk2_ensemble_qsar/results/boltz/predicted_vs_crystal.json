@@ -1,0 +1,22 @@
+{
+  "predicted_vs_crystal": {
+    "prediction_id": "sab_pred_6eaMQZNUJ9s5FuoCxiL7",
+    "ligand": "ATP",
+    "reference_crystal": "1HCK",
+    "pocket_ca_rmsd_A": 0.3,
+    "global_ca_rmsd_in_pocket_frame_A": 0.51,
+    "n_pocket_residues": 30,
+    "boltz_structure_confidence": 0.932,
+    "boltz_iptm": 0.952,
+    "boltz_binding_confidence": 0.47,
+    "interpretation_note": "Compared against the spread among the crystal slices themselves: if the predicted pocket sits within that spread it is as usable a slice as any crystal form; if it sits outside, a predicted ensemble is not a drop-in substitute."
+  },
+  "crystal_slice_pocket_rmsd_for_scale": {
+    "1HCK": 0.0,
+    "1AQ1": 0.862,
+    "2VTA": 0.438,
+    "1FIN": 2.014,
+    "1KE5": 0.543,
+    "3PXF": 1.484
+  }
+}

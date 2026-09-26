@@ -93,5 +93,38 @@
       "native_ligand_pdb": "3PXF_native_ligand.pdb",
       "receptor_pdbqt": "3PXF_receptor.pdbqt"
     }
-  ]
+  ],
+  "pocket_residues": [
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    31,
+    33,
+    64,
+    80,
+    81,
+    82,
+    83,
+    84,
+    85,
+    86,
+    89,
+    127,
+    129,
+    130,
+    131,
+    132,
+    133,
+    134,
+    144,
+    145,
+    164
+  ],
+  "pocket_contact_cutoff_A": 6.0
 }
