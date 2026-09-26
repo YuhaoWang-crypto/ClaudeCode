@@ -1,0 +1,762 @@
+[
+  {
+    "template": {
+      "pdb": "1SM3",
+      "ab": [
+        "H",
+        "L"
+      ],
+      "pep": [
+        "P"
+      ],
+      "note": "SM3 Fab / MUC1"
+    },
+    "epitope_seq": "SAPDTRPAP",
+    "epitope_len": 9,
+    "phi_psi": [
+      [
+        null,
+        141.5
+      ],
+      [
+        -92.3,
+        160.0
+      ],
+      [
+        -80.5,
+        -164.6
+      ],
+      [
+        -78.5,
+        100.6
+      ],
+      [
+        -97.2,
+        16.0
+      ],
+      [
+        -70.7,
+        143.4
+      ],
+      [
+        -65.0,
+        134.8
+      ],
+      [
+        -65.7,
+        153.1
+      ],
+      [
+        -59.3,
+        null
+      ]
+    ],
+    "contacts_per_residue": [
+      3,
+      5,
+      7,
+      8,
+      3,
+      8,
+      2,
+      5,
+      6
+    ],
+    "windows": [
+      {
+        "offset_in_peptide": 0,
+        "txlna_range": [
+          502,
+          510
+        ],
+        "window": "ERRPEGPGA",
+        "admissible": true,
+        "violations": [],
+        "identity_to_template_seq": 0.111,
+        "buried_match_score": 2
+      },
+      {
+        "offset_in_peptide": 1,
+        "txlna_range": [
+          503,
+          511
+        ],
+        "window": "RRPEGPGAQ",
+        "admissible": true,
+        "violations": [],
+        "identity_to_template_seq": 0.222,
+        "buried_match_score": 12
+      },
+      {
+        "offset_in_peptide": 2,
+        "txlna_range": [
+          504,
+          512
+        ],
+        "window": "RPEGPGAQA",
+        "admissible": true,
+        "violations": [],
+        "identity_to_template_seq": 0.0,
+        "buried_match_score": 0
+      },
+      {
+        "offset_in_peptide": 3,
+        "txlna_range": [
+          505,
+          513
+        ],
+        "window": "PEGPGAQAP",
+        "admissible": true,
+        "violations": [],
+        "identity_to_template_seq": 0.222,
+        "buried_match_score": 11
+      },
+      {
+        "offset_in_peptide": 4,
+        "txlna_range": [
+          506,
+          514
+        ],
+        "window": "EGPGAQAPS",
+        "admissible": true,
+        "violations": [],
+        "identity_to_template_seq": 0.111,
+        "buried_match_score": 7
+      },
+      {
+        "offset_in_peptide": 5,
+        "txlna_range": [
+          507,
+          515
+        ],
+        "window": "GPGAQAPSS",
+        "admissible": true,
+        "violations": [],
+        "identity_to_template_seq": 0.111,
+        "buried_match_score": 2
+      },
+      {
+        "offset_in_peptide": 6,
+        "txlna_range": [
+          508,
+          516
+        ],
+        "window": "PGAQAPSSP",
+        "admissible": true,
+        "violations": [],
+        "identity_to_template_seq": 0.111,
+        "buried_match_score": 6
+      },
+      {
+        "offset_in_peptide": 7,
+        "txlna_range": [
+          509,
+          517
+        ],
+        "window": "GAQAPSSPR",
+        "admissible": true,
+        "violations": [],
+        "identity_to_template_seq": 0.111,
+        "buried_match_score": 5
+      },
+      {
+        "offset_in_peptide": 8,
+        "txlna_range": [
+          510,
+          518
+        ],
+        "window": "AQAPSSPRV",
+        "admissible": true,
+        "violations": [],
+        "identity_to_template_seq": 0.111,
+        "buried_match_score": 2
+      },
+      {
+        "offset_in_peptide": 9,
+        "txlna_range": [
+          511,
+          519
+        ],
+        "window": "QAPSSPRVT",
+        "admissible": true,
+        "violations": [],
+        "identity_to_template_seq": 0.222,
+        "buried_match_score": 12
+      },
+      {
+        "offset_in_peptide": 10,
+        "txlna_range": [
+          512,
+          520
+        ],
+        "window": "APSSPRVTE",
+        "admissible": true,
+        "violations": [],
+        "identity_to_template_seq": 0.111,
+        "buried_match_score": 8
+      },
+      {
+        "offset_in_peptide": 11,
+        "txlna_range": [
+          513,
+          521
+        ],
+        "window": "PSSPRVTEA",
+        "admissible": true,
+        "violations": [],
+        "identity_to_template_seq": 0.0,
+        "buried_match_score": 0
+      },
+      {
+        "offset_in_peptide": 12,
+        "txlna_range": [
+          514,
+          522
+        ],
+        "window": "SSPRVTEAP",
+        "admissible": true,
+        "violations": [],
+        "identity_to_template_seq": 0.444,
+        "buried_match_score": 21
+      },
+      {
+        "offset_in_peptide": 13,
+        "txlna_range": [
+          515,
+          523
+        ],
+        "window": "SPRVTEAPC",
+        "admissible": true,
+        "violations": [],
+        "identity_to_template_seq": 0.222,
+        "buried_match_score": 6
+      }
+    ]
+  },
+  {
+    "template": {
+      "pdb": "5A2J",
+      "ab": [
+        "H"
+      ],
+      "pep": [
+        "P"
+      ],
+      "note": "scFv-SM3 / APDTRP"
+    },
+    "epitope_seq": "APDTRP",
+    "epitope_len": 6,
+    "phi_psi": [
+      [
+        null,
+        160.7
+      ],
+      [
+        -81.4,
+        -157.5
+      ],
+      [
+        -76.0,
+        102.7
+      ],
+      [
+        -94.7,
+        8.7
+      ],
+      [
+        -65.4,
+        129.1
+      ],
+      [
+        -55.2,
+        null
+      ]
+    ],
+    "contacts_per_residue": [
+      5,
+      7,
+      8,
+      3,
+      9,
+      2
+    ],
+    "windows": [
+      {
+        "offset_in_peptide": 0,
+        "txlna_range": [
+          502,
+          507
+        ],
+        "window": "ERRPEG",
+        "admissible": true,
+        "violations": [],
+        "identity_to_template_seq": 0.0,
+        "buried_match_score": 0
+      },
+      {
+        "offset_in_peptide": 1,
+        "txlna_range": [
+          503,
+          508
+        ],
+        "window": "RRPEGP",
+        "admissible": true,
+        "violations": [],
+        "identity_to_template_seq": 0.167,
+        "buried_match_score": 2
+      },
+      {
+        "offset_in_peptide": 2,
+        "txlna_range": [
+          504,
+          509
+        ],
+        "window": "RPEGPG",
+        "admissible": true,
+        "violations": [],
+        "identity_to_template_seq": 0.167,
+        "buried_match_score": 7
+      },
+      {
+        "offset_in_peptide": 3,
+        "txlna_range": [
+          505,
+          510
+        ],
+        "window": "PEGPGA",
+        "admissible": true,
+        "violations": [],
+        "identity_to_template_seq": 0.0,
+        "buried_match_score": 0
+      },
+      {
+        "offset_in_peptide": 4,
+        "txlna_range": [
+          506,
+          511
+        ],
+        "window": "EGPGAQ",
+        "admissible": true,
+        "violations": [],
+        "identity_to_template_seq": 0.0,
+        "buried_match_score": 0
+      },
+      {
+        "offset_in_peptide": 5,
+        "txlna_range": [
+          507,
+          512
+        ],
+        "window": "GPGAQA",
+        "admissible": true,
+        "violations": [],
+        "identity_to_template_seq": 0.167,
+        "buried_match_score": 7
+      },
+      {
+        "offset_in_peptide": 6,
+        "txlna_range": [
+          508,
+          513
+        ],
+        "window": "PGAQAP",
+        "admissible": true,
+        "violations": [],
+        "identity_to_template_seq": 0.167,
+        "buried_match_score": 2
+      },
+      {
+        "offset_in_peptide": 7,
+        "txlna_range": [
+          509,
+          514
+        ],
+        "window": "GAQAPS",
+        "admissible": true,
+        "violations": [],
+        "identity_to_template_seq": 0.0,
+        "buried_match_score": 0
+      },
+      {
+        "offset_in_peptide": 8,
+        "txlna_range": [
+          510,
+          515
+        ],
+        "window": "AQAPSS",
+        "admissible": true,
+        "violations": [],
+        "identity_to_template_seq": 0.167,
+        "buried_match_score": 5
+      },
+      {
+        "offset_in_peptide": 9,
+        "txlna_range": [
+          511,
+          516
+        ],
+        "window": "QAPSSP",
+        "admissible": true,
+        "violations": [],
+        "identity_to_template_seq": 0.167,
+        "buried_match_score": 2
+      },
+      {
+        "offset_in_peptide": 10,
+        "txlna_range": [
+          512,
+          517
+        ],
+        "window": "APSSPR",
+        "admissible": true,
+        "violations": [],
+        "identity_to_template_seq": 0.333,
+        "buried_match_score": 12
+      },
+      {
+        "offset_in_peptide": 11,
+        "txlna_range": [
+          513,
+          518
+        ],
+        "window": "PSSPRV",
+        "admissible": true,
+        "violations": [],
+        "identity_to_template_seq": 0.167,
+        "buried_match_score": 9
+      },
+      {
+        "offset_in_peptide": 12,
+        "txlna_range": [
+          514,
+          519
+        ],
+        "window": "SSPRVT",
+        "admissible": true,
+        "violations": [],
+        "identity_to_template_seq": 0.0,
+        "buried_match_score": 0
+      },
+      {
+        "offset_in_peptide": 13,
+        "txlna_range": [
+          515,
+          520
+        ],
+        "window": "SPRVTE",
+        "admissible": true,
+        "violations": [],
+        "identity_to_template_seq": 0.167,
+        "buried_match_score": 7
+      },
+      {
+        "offset_in_peptide": 14,
+        "txlna_range": [
+          516,
+          521
+        ],
+        "window": "PRVTEA",
+        "admissible": true,
+        "violations": [],
+        "identity_to_template_seq": 0.167,
+        "buried_match_score": 3
+      },
+      {
+        "offset_in_peptide": 15,
+        "txlna_range": [
+          517,
+          522
+        ],
+        "window": "RVTEAP",
+        "admissible": true,
+        "violations": [],
+        "identity_to_template_seq": 0.167,
+        "buried_match_score": 2
+      },
+      {
+        "offset_in_peptide": 16,
+        "txlna_range": [
+          518,
+          523
+        ],
+        "window": "VTEAPC",
+        "admissible": true,
+        "violations": [],
+        "identity_to_template_seq": 0.0,
+        "buried_match_score": 0
+      }
+    ]
+  },
+  {
+    "template": {
+      "pdb": "2W65",
+      "ab": [
+        "A",
+        "B"
+      ],
+      "pep": [
+        "E"
+      ],
+      "note": "ACC4 Fab / citrullinated collagen II"
+    },
+    "epitope_seq": "ARGLTGRXG",
+    "epitope_len": 9,
+    "phi_psi": [
+      [
+        null,
+        -25.5
+      ],
+      [
+        -125.5,
+        136.7
+      ],
+      [
+        -78.5,
+        173.6
+      ],
+      [
+        -50.6,
+        -36.0
+      ],
+      [
+        -95.9,
+        6.5
+      ],
+      [
+        96.4,
+        0.5
+      ],
+      [
+        -78.5,
+        125.5
+      ],
+      [
+        -109.9,
+        -69.0
+      ],
+      [
+        -146.0,
+        null
+      ]
+    ],
+    "contacts_per_residue": [
+      0,
+      7,
+      2,
+      3,
+      7,
+      4,
+      7,
+      4,
+      4
+    ],
+    "windows": [
+      {
+        "offset_in_peptide": 0,
+        "txlna_range": [
+          502,
+          510
+        ],
+        "window": "ERRPEGPGA",
+        "admissible": true,
+        "violations": [],
+        "identity_to_template_seq": 0.222,
+        "buried_match_score": 11
+      },
+      {
+        "offset_in_peptide": 1,
+        "txlna_range": [
+          503,
+          511
+        ],
+        "window": "RRPEGPGAQ",
+        "admissible": false,
+        "violations": [
+          "P@6 needs phi in (-105.0, -35.0), template has 96",
+          "P@6 at positive phi 96 (Gly only)"
+        ],
+        "identity_to_template_seq": 0.111,
+        "buried_match_score": 7
+      },
+      {
+        "offset_in_peptide": 2,
+        "txlna_range": [
+          504,
+          512
+        ],
+        "window": "RPEGPGAQA",
+        "admissible": false,
+        "violations": [
+          "P@2 needs phi in (-105.0, -35.0), template has -125"
+        ],
+        "identity_to_template_seq": 0.111,
+        "buried_match_score": 4
+      },
+      {
+        "offset_in_peptide": 3,
+        "txlna_range": [
+          505,
+          513
+        ],
+        "window": "PEGPGAQAP",
+        "admissible": false,
+        "violations": [
+          "A@6 at positive phi 96 (Gly only)",
+          "P@9 needs phi in (-105.0, -35.0), template has -146"
+        ],
+        "identity_to_template_seq": 0.111,
+        "buried_match_score": 2
+      },
+      {
+        "offset_in_peptide": 4,
+        "txlna_range": [
+          506,
+          514
+        ],
+        "window": "EGPGAQAPS",
+        "admissible": false,
+        "violations": [
+          "Q@6 at positive phi 96 (Gly only)",
+          "P@8 needs phi in (-105.0, -35.0), template has -110"
+        ],
+        "identity_to_template_seq": 0.0,
+        "buried_match_score": 0
+      },
+      {
+        "offset_in_peptide": 5,
+        "txlna_range": [
+          507,
+          515
+        ],
+        "window": "GPGAQAPSS",
+        "admissible": false,
+        "violations": [
+          "P@2 needs phi in (-105.0, -35.0), template has -125",
+          "A@6 at positive phi 96 (Gly only)"
+        ],
+        "identity_to_template_seq": 0.111,
+        "buried_match_score": 2
+      },
+      {
+        "offset_in_peptide": 6,
+        "txlna_range": [
+          508,
+          516
+        ],
+        "window": "PGAQAPSSP",
+        "admissible": false,
+        "violations": [
+          "P@6 needs phi in (-105.0, -35.0), template has 96",
+          "P@6 at positive phi 96 (Gly only)",
+          "P@9 needs phi in (-105.0, -35.0), template has -146"
+        ],
+        "identity_to_template_seq": 0.0,
+        "buried_match_score": 0
+      },
+      {
+        "offset_in_peptide": 7,
+        "txlna_range": [
+          509,
+          517
+        ],
+        "window": "GAQAPSSPR",
+        "admissible": false,
+        "violations": [
+          "S@6 at positive phi 96 (Gly only)",
+          "P@8 needs phi in (-105.0, -35.0), template has -110"
+        ],
+        "identity_to_template_seq": 0.0,
+        "buried_match_score": 0
+      },
+      {
+        "offset_in_peptide": 8,
+        "txlna_range": [
+          510,
+          518
+        ],
+        "window": "AQAPSSPRV",
+        "admissible": false,
+        "violations": [
+          "S@6 at positive phi 96 (Gly only)"
+        ],
+        "identity_to_template_seq": 0.111,
+        "buried_match_score": 0
+      },
+      {
+        "offset_in_peptide": 9,
+        "txlna_range": [
+          511,
+          519
+        ],
+        "window": "QAPSSPRVT",
+        "admissible": false,
+        "violations": [
+          "P@6 needs phi in (-105.0, -35.0), template has 96",
+          "P@6 at positive phi 96 (Gly only)"
+        ],
+        "identity_to_template_seq": 0.111,
+        "buried_match_score": 7
+      },
+      {
+        "offset_in_peptide": 10,
+        "txlna_range": [
+          512,
+          520
+        ],
+        "window": "APSSPRVTE",
+        "admissible": false,
+        "violations": [
+          "P@2 needs phi in (-105.0, -35.0), template has -125",
+          "R@6 at positive phi 96 (Gly only)"
+        ],
+        "identity_to_template_seq": 0.111,
+        "buried_match_score": 0
+      },
+      {
+        "offset_in_peptide": 11,
+        "txlna_range": [
+          513,
+          521
+        ],
+        "window": "PSSPRVTEA",
+        "admissible": false,
+        "violations": [
+          "V@6 at positive phi 96 (Gly only)"
+        ],
+        "identity_to_template_seq": 0.0,
+        "buried_match_score": 0
+      },
+      {
+        "offset_in_peptide": 12,
+        "txlna_range": [
+          514,
+          522
+        ],
+        "window": "SSPRVTEAP",
+        "admissible": false,
+        "violations": [
+          "T@6 at positive phi 96 (Gly only)",
+          "P@9 needs phi in (-105.0, -35.0), template has -146"
+        ],
+        "identity_to_template_seq": 0.0,
+        "buried_match_score": 0
+      },
+      {
+        "offset_in_peptide": 13,
+        "txlna_range": [
+          515,
+          523
+        ],
+        "window": "SPRVTEAPC",
+        "admissible": false,
+        "violations": [
+          "P@2 needs phi in (-105.0, -35.0), template has -125",
+          "E@6 at positive phi 96 (Gly only)",
+          "P@8 needs phi in (-105.0, -35.0), template has -110"
+        ],
+        "identity_to_template_seq": 0.111,
+        "buried_match_score": 7
+      }
+    ]
+  }
+]

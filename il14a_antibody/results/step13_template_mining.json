@@ -1,0 +1,3471 @@
+{
+  "ptm_templates": [
+    {
+      "pdb": "5N7B",
+      "title": "Understanding the singular conformational landscape of the Tn antigens: Sulfur-for- oxygen substitution in the glycosidic linkage provides new insights into molecular recognition by an antibody",
+      "resolution": 1.7,
+      "heavy_chains": [
+        "H"
+      ],
+      "light_chains": [],
+      "peptide_chains": [
+        "I"
+      ],
+      "peptide": "APDCRPX",
+      "peptide_desc": "APD(CG6)RP(NH2) peptide",
+      "contacts": 66,
+      "epitope_residues_touched": 8,
+      "modified_residues": [
+        "A2G",
+        "CG6",
+        "NH2"
+      ],
+      "ptm": [
+        "C-terminal amide"
+      ],
+      "features": {
+        "len": 7,
+        "arom": 0.0,
+        "bigphobic": 0.0,
+        "pro_gly": 0.2857,
+        "sta": 0.1429,
+        "pos": 0.1429,
+        "neg": 0.1429,
+        "gravy": -1.15
+      },
+      "distance_to_TXLNA": 0.1607
+    },
+    {
+      "pdb": "2W65",
+      "title": "Anti citrullinated Collagen type 2 antibody acc4 in complex with a citrullinated peptide",
+      "resolution": 2.21,
+      "heavy_chains": [
+        "A",
+        "C"
+      ],
+      "light_chains": [
+        "B",
+        "D"
+      ],
+      "peptide_chains": [
+        "E",
+        "F"
+      ],
+      "peptide": "ARGLTGRPG",
+      "peptide_desc": "COLLAGEN DERIVED PEPTIDE PCII-CIT1",
+      "contacts": 74,
+      "epitope_residues_touched": 8,
+      "modified_residues": [
+        "CIR",
+        "HYP"
+      ],
+      "ptm": [
+        "citrulline"
+      ],
+      "features": {
+        "len": 9,
+        "arom": 0.0,
+        "bigphobic": 0.1111,
+        "pro_gly": 0.4444,
+        "sta": 0.2222,
+        "pos": 0.2222,
+        "neg": 0.0,
+        "gravy": -0.767
+      },
+      "distance_to_TXLNA": 0.2892
+    },
+    {
+      "pdb": "1HH9",
+      "title": "ANTI-P24 (HIV-1) FAB FRAGMENT CB41 COMPLEXED WITH A PEPTIDE",
+      "resolution": 2.7,
+      "heavy_chains": [
+        "B"
+      ],
+      "light_chains": [
+        "A"
+      ],
+      "peptide_chains": [
+        "C"
+      ],
+      "peptide": "DATPEDLNAKLX",
+      "peptide_desc": "PEP-2",
+      "contacts": 66,
+      "epitope_residues_touched": 12,
+      "modified_residues": [
+        "NH2"
+      ],
+      "ptm": [
+        "C-terminal amide"
+      ],
+      "features": {
+        "len": 12,
+        "arom": 0.0,
+        "bigphobic": 0.1667,
+        "pro_gly": 0.0833,
+        "sta": 0.25,
+        "pos": 0.0833,
+        "neg": 0.25,
+        "gravy": -0.818
+      },
+      "distance_to_TXLNA": 0.4473
+    },
+    {
+      "pdb": "1HI6",
+      "title": "ANTI-P24 (HIV-1) FAB FRAGMENT CB41 COMPLEXED WITH A PEPTIDE",
+      "resolution": 2.55,
+      "heavy_chains": [
+        "B"
+      ],
+      "light_chains": [
+        "A"
+      ],
+      "peptide_chains": [
+        "C"
+      ],
+      "peptide": "DATPEWLGARLX",
+      "peptide_desc": "PEPTIDE 5",
+      "contacts": 71,
+      "epitope_residues_touched": 12,
+      "modified_residues": [
+        "NH2"
+      ],
+      "ptm": [
+        "C-terminal amide"
+      ],
+      "features": {
+        "len": 12,
+        "arom": 0.0833,
+        "bigphobic": 0.25,
+        "pro_gly": 0.1667,
+        "sta": 0.25,
+        "pos": 0.0833,
+        "neg": 0.1667,
+        "gravy": -0.355
+      },
+      "distance_to_TXLNA": 0.4657
+    },
+    {
+      "pdb": "6BAH",
+      "title": "Trastuzumab Fab v3 with 5-diphenyl meditope variant",
+      "resolution": 1.9,
+      "heavy_chains": [
+        "B"
+      ],
+      "light_chains": [
+        "A"
+      ],
+      "peptide_chains": [
+        "D"
+      ],
+      "peptide": "XSQFDXCTRRLQS",
+      "peptide_desc": "meditope",
+      "contacts": 72,
+      "epitope_residues_touched": 10,
+      "modified_residues": [
+        "2GX",
+        "ACE"
+      ],
+      "ptm": [
+        "N-terminal acetyl"
+      ],
+      "features": {
+        "len": 13,
+        "arom": 0.0769,
+        "bigphobic": 0.1538,
+        "pro_gly": 0.0,
+        "sta": 0.2308,
+        "pos": 0.1538,
+        "neg": 0.0769,
+        "gravy": -1.155
+      },
+      "distance_to_TXLNA": 0.5583
+    },
+    {
+      "pdb": "1FRG",
+      "title": "CRYSTAL STRUCTURE, SEQUENCE, AND EPITOPE MAPPING OF A PEPTIDE COMPLEX OF AN ANTI-INFLUENZA HA PEPTIDE ANTIBODY FAB 26(SLASH)9: FINE-TUNING ANTIBODY SPECIFICITY",
+      "resolution": 2.8,
+      "heavy_chains": [
+        "H"
+      ],
+      "light_chains": [
+        "L"
+      ],
+      "peptide_chains": [
+        "P"
+      ],
+      "peptide": "XDVPDYASLX",
+      "peptide_desc": "INFLUENZA HEMAGGLUTININ HA1 (STRAIN X47) (RESIDUES 101 - 108)",
+      "contacts": 52,
+      "epitope_residues_touched": 9,
+      "modified_residues": [
+        "ACE",
+        "NH2"
+      ],
+      "ptm": [
+        "C-terminal amide",
+        "N-terminal acetyl"
+      ],
+      "features": {
+        "len": 10,
+        "arom": 0.1,
+        "bigphobic": 0.3,
+        "pro_gly": 0.1,
+        "sta": 0.2,
+        "pos": 0.0,
+        "neg": 0.2,
+        "gravy": -0.113
+      },
+      "distance_to_TXLNA": 0.6213
+    },
+    {
+      "pdb": "6BAE",
+      "title": "Trastuzumab Fab v3 in complex with CQFDLSTRRLKC",
+      "resolution": 2.14,
+      "heavy_chains": [
+        "B"
+      ],
+      "light_chains": [
+        "A"
+      ],
+      "peptide_chains": [
+        "D"
+      ],
+      "peptide": "XCQFDLSTRRLKCX",
+      "peptide_desc": "meditope",
+      "contacts": 61,
+      "epitope_residues_touched": 12,
+      "modified_residues": [
+        "ACE",
+        "NH2"
+      ],
+      "ptm": [
+        "C-terminal amide",
+        "N-terminal acetyl"
+      ],
+      "features": {
+        "len": 14,
+        "arom": 0.0714,
+        "bigphobic": 0.2143,
+        "pro_gly": 0.0,
+        "sta": 0.1429,
+        "pos": 0.2143,
+        "neg": 0.0714,
+        "gravy": -0.5
+      },
+      "distance_to_TXLNA": 0.6222
+    },
+    {
+      "pdb": "3EYF",
+      "title": "Crystal structure of anti-human cytomegalovirus antibody 8f9 plus gB peptide",
+      "resolution": 2.3,
+      "heavy_chains": [
+        "B",
+        "D"
+      ],
+      "light_chains": [
+        "A",
+        "C"
+      ],
+      "peptide_chains": [
+        "E",
+        "F"
+      ],
+      "peptide": "ETIYNTTLKYX",
+      "peptide_desc": "Synthetic peptide",
+      "contacts": 127,
+      "epitope_residues_touched": 10,
+      "modified_residues": [
+        "NH2"
+      ],
+      "ptm": [
+        "C-terminal amide"
+      ],
+      "features": {
+        "len": 11,
+        "arom": 0.1818,
+        "bigphobic": 0.3636,
+        "pro_gly": 0.0,
+        "sta": 0.2727,
+        "pos": 0.0909,
+        "neg": 0.0909,
+        "gravy": -0.73
+      },
+      "distance_to_TXLNA": 0.8141
+    }
+  ],
+  "target": {
+    "sequence": "ERRPEGPGAQAPSSPRVTEAPC",
+    "features": {
+      "len": 22,
+      "arom": 0.0,
+      "bigphobic": 0.0455,
+      "pro_gly": 0.3182,
+      "sta": 0.2727,
+      "pos": 0.1364,
+      "neg": 0.1364,
+      "gravy": -1.205
+    }
+  },
+  "n_entries_searched": 1759,
+  "n_with_heavy_chain": 149,
+  "n_verified_complexes": 96,
+  "weights": {
+    "arom": 3.0,
+    "bigphobic": 3.0,
+    "pro_gly": 2.5,
+    "sta": 1.0,
+    "pos": 1.0,
+    "neg": 1.0
+  },
+  "templates": [
+    {
+      "pdb": "5A2K",
+      "title": "Crystal structure of scFv-SM3 in complex with APD-TGalNAc-RP",
+      "resolution": 1.7,
+      "heavy_chains": [
+        "H"
+      ],
+      "light_chains": [],
+      "peptide_chains": [
+        "P"
+      ],
+      "peptide": "APDTRP",
+      "peptide_desc": "ANTIGEN TN, THR IS COVALENTLY BOUND TO GALNAC",
+      "contacts": 36,
+      "epitope_residues_touched": 7,
+      "modified_residues": [
+        "A2G"
+      ],
+      "ptm": [],
+      "features": {
+        "len": 6,
+        "arom": 0.0,
+        "bigphobic": 0.0,
+        "pro_gly": 0.3333,
+        "sta": 0.3333,
+        "pos": 0.1667,
+        "neg": 0.1667,
+        "gravy": -1.683
+      },
+      "distance_to_TXLNA": 0.1229
+    },
+    {
+      "pdb": "5A2J",
+      "title": "Crystal structure of scFv-SM3 in complex with the naked peptide APDTRP",
+      "resolution": 1.65,
+      "heavy_chains": [
+        "H"
+      ],
+      "light_chains": [],
+      "peptide_chains": [
+        "P"
+      ],
+      "peptide": "APDTRP",
+      "peptide_desc": "THE NAKED PEPTIDE APDTRP",
+      "contacts": 34,
+      "epitope_residues_touched": 6,
+      "modified_residues": [],
+      "ptm": [],
+      "features": {
+        "len": 6,
+        "arom": 0.0,
+        "bigphobic": 0.0,
+        "pro_gly": 0.3333,
+        "sta": 0.3333,
+        "pos": 0.1667,
+        "neg": 0.1667,
+        "gravy": -1.683
+      },
+      "distance_to_TXLNA": 0.1229
+    },
+    {
+      "pdb": "5A2I",
+      "title": "Crystal structure of scFv-SM3 in complex with APD-SGalNAc-RP",
+      "resolution": 1.88,
+      "heavy_chains": [
+        "H"
+      ],
+      "light_chains": [],
+      "peptide_chains": [
+        "P"
+      ],
+      "peptide": "APDSRP",
+      "peptide_desc": "ANTIGEN TN, SER IS COVALENTLY BOUND TO GALNAC",
+      "contacts": 35,
+      "epitope_residues_touched": 7,
+      "modified_residues": [
+        "A2G"
+      ],
+      "ptm": [],
+      "features": {
+        "len": 6,
+        "arom": 0.0,
+        "bigphobic": 0.0,
+        "pro_gly": 0.3333,
+        "sta": 0.3333,
+        "pos": 0.1667,
+        "neg": 0.1667,
+        "gravy": -1.7
+      },
+      "distance_to_TXLNA": 0.1238
+    },
+    {
+      "pdb": "5A2L",
+      "title": "Crystal structure of scFv-SM3 in complex with APD-CGalNAc-RP",
+      "resolution": 1.79,
+      "heavy_chains": [
+        "H"
+      ],
+      "light_chains": [],
+      "peptide_chains": [
+        "P"
+      ],
+      "peptide": "APDCRP",
+      "peptide_desc": "MODIFIED ANTIGEN TN",
+      "contacts": 36,
+      "epitope_residues_touched": 7,
+      "modified_residues": [
+        "A2G"
+      ],
+      "ptm": [],
+      "features": {
+        "len": 6,
+        "arom": 0.0,
+        "bigphobic": 0.0,
+        "pro_gly": 0.3333,
+        "sta": 0.1667,
+        "pos": 0.1667,
+        "neg": 0.1667,
+        "gravy": -1.15
+      },
+      "distance_to_TXLNA": 0.141
+    },
+    {
+      "pdb": "5N7B",
+      "title": "Understanding the singular conformational landscape of the Tn antigens: Sulfur-for- oxygen substitution in the glycosidic linkage provides new insights into molecular recognition by an antibody",
+      "resolution": 1.7,
+      "heavy_chains": [
+        "H"
+      ],
+      "light_chains": [],
+      "peptide_chains": [
+        "I"
+      ],
+      "peptide": "APDCRPX",
+      "peptide_desc": "APD(CG6)RP(NH2) peptide",
+      "contacts": 66,
+      "epitope_residues_touched": 8,
+      "modified_residues": [
+        "A2G",
+        "CG6",
+        "NH2"
+      ],
+      "ptm": [
+        "C-terminal amide"
+      ],
+      "features": {
+        "len": 7,
+        "arom": 0.0,
+        "bigphobic": 0.0,
+        "pro_gly": 0.2857,
+        "sta": 0.1429,
+        "pos": 0.1429,
+        "neg": 0.1429,
+        "gravy": -1.15
+      },
+      "distance_to_TXLNA": 0.1607
+    },
+    {
+      "pdb": "5OWP",
+      "title": "Crystal structure of glycopeptide \"GVTSAfPDT*RPAP\" in complex with scFv-SM3",
+      "resolution": 1.85,
+      "heavy_chains": [
+        "H"
+      ],
+      "light_chains": [],
+      "peptide_chains": [
+        "D"
+      ],
+      "peptide": "SAPDTRPA",
+      "peptide_desc": "5,6-DIHYDRO-BENZO[H]CINNOLIN-3-YLAMINE",
+      "contacts": 47,
+      "epitope_residues_touched": 9,
+      "modified_residues": [
+        "4FB",
+        "A2G"
+      ],
+      "ptm": [],
+      "features": {
+        "len": 8,
+        "arom": 0.0,
+        "bigphobic": 0.0,
+        "pro_gly": 0.25,
+        "sta": 0.5,
+        "pos": 0.125,
+        "neg": 0.125,
+        "gravy": -1.137
+      },
+      "distance_to_TXLNA": 0.2642
+    },
+    {
+      "pdb": "2W65",
+      "title": "Anti citrullinated Collagen type 2 antibody acc4 in complex with a citrullinated peptide",
+      "resolution": 2.21,
+      "heavy_chains": [
+        "A",
+        "C"
+      ],
+      "light_chains": [
+        "B",
+        "D"
+      ],
+      "peptide_chains": [
+        "E",
+        "F"
+      ],
+      "peptide": "ARGLTGRPG",
+      "peptide_desc": "COLLAGEN DERIVED PEPTIDE PCII-CIT1",
+      "contacts": 74,
+      "epitope_residues_touched": 8,
+      "modified_residues": [
+        "CIR",
+        "HYP"
+      ],
+      "ptm": [
+        "citrulline"
+      ],
+      "features": {
+        "len": 9,
+        "arom": 0.0,
+        "bigphobic": 0.1111,
+        "pro_gly": 0.4444,
+        "sta": 0.2222,
+        "pos": 0.2222,
+        "neg": 0.0,
+        "gravy": -0.767
+      },
+      "distance_to_TXLNA": 0.2892
+    },
+    {
+      "pdb": "1SM3",
+      "title": "CRYSTAL STRUCTURE OF THE TUMOR SPECIFIC ANTIBODY SM3 COMPLEX WITH ITS PEPTIDE EPITOPE",
+      "resolution": 1.95,
+      "heavy_chains": [
+        "H"
+      ],
+      "light_chains": [
+        "L"
+      ],
+      "peptide_chains": [
+        "P"
+      ],
+      "peptide": "TSAPDTRPAPGST",
+      "peptide_desc": "PEPTIDE EPITOPE",
+      "contacts": 47,
+      "epitope_residues_touched": 9,
+      "modified_residues": [],
+      "ptm": [],
+      "features": {
+        "len": 13,
+        "arom": 0.0,
+        "bigphobic": 0.0,
+        "pro_gly": 0.3077,
+        "sta": 0.5385,
+        "pos": 0.0769,
+        "neg": 0.0769,
+        "gravy": -1.023
+      },
+      "distance_to_TXLNA": 0.2909
+    },
+    {
+      "pdb": "6XP6",
+      "title": "3C11-DQ2-glia-a2 complex",
+      "resolution": 2.4,
+      "heavy_chains": [
+        "H",
+        "J"
+      ],
+      "light_chains": [
+        "G",
+        "I"
+      ],
+      "peptide_chains": [
+        "C",
+        "F"
+      ],
+      "peptide": "AAPQPELPYPQPGSGGSIEGRGGSGA",
+      "peptide_desc": "DQ2-glia-a2 peptide",
+      "contacts": 56,
+      "epitope_residues_touched": 8,
+      "modified_residues": [],
+      "ptm": [],
+      "features": {
+        "len": 26,
+        "arom": 0.0385,
+        "bigphobic": 0.1154,
+        "pro_gly": 0.4615,
+        "sta": 0.2308,
+        "pos": 0.0385,
+        "neg": 0.0769,
+        "gravy": -0.742
+      },
+      "distance_to_TXLNA": 0.2966
+    },
+    {
+      "pdb": "1KCR",
+      "title": "CRYSTAL STRUCTURE OF ANTIBODY PC283 IN COMPLEX WITH PS1 PEPTIDE",
+      "resolution": 2.9,
+      "heavy_chains": [
+        "H"
+      ],
+      "light_chains": [
+        "L"
+      ],
+      "peptide_chains": [
+        "P"
+      ],
+      "peptide": "HQLDPAFGANSTNPD",
+      "peptide_desc": "PS1 peptide",
+      "contacts": 74,
+      "epitope_residues_touched": 12,
+      "modified_residues": [],
+      "ptm": [],
+      "features": {
+        "len": 15,
+        "arom": 0.0667,
+        "bigphobic": 0.1333,
+        "pro_gly": 0.2,
+        "sta": 0.2667,
+        "pos": 0.0,
+        "neg": 0.1333,
+        "gravy": -1.04
+      },
+      "distance_to_TXLNA": 0.3006
+    },
+    {
+      "pdb": "1KC5",
+      "title": "CRYSTAL STRUCTURE OF ANTIBODY PC287 IN COMPLEX WITH PS1 PEPTIDE",
+      "resolution": 2.5,
+      "heavy_chains": [
+        "H"
+      ],
+      "light_chains": [
+        "L"
+      ],
+      "peptide_chains": [
+        "P"
+      ],
+      "peptide": "HQLDPAFGANSTNPD",
+      "peptide_desc": "PS1 peptide",
+      "contacts": 44,
+      "epitope_residues_touched": 8,
+      "modified_residues": [],
+      "ptm": [],
+      "features": {
+        "len": 15,
+        "arom": 0.0667,
+        "bigphobic": 0.1333,
+        "pro_gly": 0.2,
+        "sta": 0.2667,
+        "pos": 0.0,
+        "neg": 0.1333,
+        "gravy": -1.04
+      },
+      "distance_to_TXLNA": 0.3006
+    },
+    {
+      "pdb": "1W72",
+      "title": "Crystal structure of HLA-A1:MAGE-A1 in complex with Fab-Hyb3",
+      "resolution": 2.15,
+      "heavy_chains": [
+        "H",
+        "I"
+      ],
+      "light_chains": [
+        "L",
+        "M"
+      ],
+      "peptide_chains": [
+        "C",
+        "F"
+      ],
+      "peptide": "EADPTGHSY",
+      "peptide_desc": "MELANOMA-ASSOCIATED ANTIGEN 1",
+      "contacts": 45,
+      "epitope_residues_touched": 6,
+      "modified_residues": [],
+      "ptm": [],
+      "features": {
+        "len": 9,
+        "arom": 0.1111,
+        "bigphobic": 0.1111,
+        "pro_gly": 0.2222,
+        "sta": 0.3333,
+        "pos": 0.0,
+        "neg": 0.2222,
+        "gravy": -1.467
+      },
+      "distance_to_TXLNA": 0.3217
+    },
+    {
+      "pdb": "1BOG",
+      "title": "ANTI-P24 (HIV-1) FAB FRAGMENT CB41 COMPLEXED WITH AN EPITOPE-HOMOLOGOUS PEPTIDE",
+      "resolution": 2.6,
+      "heavy_chains": [
+        "B"
+      ],
+      "light_chains": [
+        "A"
+      ],
+      "peptide_chains": [
+        "C"
+      ],
+      "peptide": "GATPEDLNQKL",
+      "peptide_desc": "PEPTIDE",
+      "contacts": 69,
+      "epitope_residues_touched": 11,
+      "modified_residues": [],
+      "ptm": [],
+      "features": {
+        "len": 11,
+        "arom": 0.0,
+        "bigphobic": 0.1818,
+        "pro_gly": 0.1818,
+        "sta": 0.1818,
+        "pos": 0.0909,
+        "neg": 0.1818,
+        "gravy": -1.018
+      },
+      "distance_to_TXLNA": 0.3392
+    },
+    {
+      "pdb": "2V17",
+      "title": "Structure of the complex of antibody MN423 with a fragment of tau protein",
+      "resolution": 1.65,
+      "heavy_chains": [
+        "H"
+      ],
+      "light_chains": [
+        "L"
+      ],
+      "peptide_chains": [
+        "A"
+      ],
+      "peptide": "TDHGAE",
+      "peptide_desc": "PEPTIDE FRAGMENT",
+      "contacts": 33,
+      "epitope_residues_touched": 5,
+      "modified_residues": [],
+      "ptm": [],
+      "features": {
+        "len": 6,
+        "arom": 0.0,
+        "bigphobic": 0.0,
+        "pro_gly": 0.1667,
+        "sta": 0.3333,
+        "pos": 0.0,
+        "neg": 0.3333,
+        "gravy": -1.583
+      },
+      "distance_to_TXLNA": 0.3555
+    },
+    {
+      "pdb": "1HH6",
+      "title": "ANTI-P24 (HIV-1) FAB FRAGMENT CB41 COMPLEXED WITH A PEPTIDE",
+      "resolution": 2.6,
+      "heavy_chains": [
+        "B"
+      ],
+      "light_chains": [
+        "A"
+      ],
+      "peptide_chains": [
+        "C"
+      ],
+      "peptide": "DATPEDLGARL",
+      "peptide_desc": "PEP-4",
+      "contacts": 67,
+      "epitope_residues_touched": 11,
+      "modified_residues": [],
+      "ptm": [],
+      "features": {
+        "len": 11,
+        "arom": 0.0,
+        "bigphobic": 0.1818,
+        "pro_gly": 0.1818,
+        "sta": 0.2727,
+        "pos": 0.0909,
+        "neg": 0.2727,
+        "gravy": -0.591
+      },
+      "distance_to_TXLNA": 0.3571
+    },
+    {
+      "pdb": "1CFN",
+      "title": "ANTI-P24 (HIV-1) FAB FRAGMENT CB41 COMPLEXED WITH AN EPITOPE-RELATED PEPTIDE",
+      "resolution": 2.65,
+      "heavy_chains": [
+        "B"
+      ],
+      "light_chains": [
+        "A"
+      ],
+      "peptide_chains": [
+        "C"
+      ],
+      "peptide": "GATPQDLNTL",
+      "peptide_desc": "PROTEIN (BOUND PEPTIDE)",
+      "contacts": 56,
+      "epitope_residues_touched": 10,
+      "modified_residues": [
+        "NLE"
+      ],
+      "ptm": [],
+      "features": {
+        "len": 10,
+        "arom": 0.0,
+        "bigphobic": 0.2,
+        "pro_gly": 0.2,
+        "sta": 0.3,
+        "pos": 0.0,
+        "neg": 0.1,
+        "gravy": -0.45
+      },
+      "distance_to_TXLNA": 0.3664
+    },
+    {
+      "pdb": "2CK0",
+      "title": "ANTI-ANTI-IDIOTYPIC ANTIBODY AGAINST HUMAN ANGIOTENSIN II, COMPLEX WITH A SYNTHETIC CYCLIC PEPTIDE",
+      "resolution": 2.2,
+      "heavy_chains": [
+        "H"
+      ],
+      "light_chains": [
+        "L"
+      ],
+      "peptide_chains": [
+        "P"
+      ],
+      "peptide": "CKEWLSTAPCG",
+      "peptide_desc": "PROTEIN (11-MER; CYCLIC PEPTIDE)",
+      "contacts": 57,
+      "epitope_residues_touched": 11,
+      "modified_residues": [],
+      "ptm": [],
+      "features": {
+        "len": 11,
+        "arom": 0.0909,
+        "bigphobic": 0.1818,
+        "pro_gly": 0.1818,
+        "sta": 0.2727,
+        "pos": 0.0909,
+        "neg": 0.0909,
+        "gravy": -0.109
+      },
+      "distance_to_TXLNA": 0.3821
+    },
+    {
+      "pdb": "2FR4",
+      "title": "Structure of Fab DNA-1 complexed with a stem-loop DNA ligand",
+      "resolution": 1.95,
+      "heavy_chains": [
+        "B",
+        "H"
+      ],
+      "light_chains": [
+        "A",
+        "L"
+      ],
+      "peptide_chains": [
+        "M",
+        "N"
+      ],
+      "peptide": "CTGCCTTCAG",
+      "peptide_desc": "5'-D(*CP*TP*GP*CP*CP*TP*TP*CP*AP*G)-3'",
+      "contacts": 183,
+      "epitope_residues_touched": 9,
+      "modified_residues": [
+        "DA",
+        "DC",
+        "DG",
+        "DT"
+      ],
+      "ptm": [],
+      "features": {
+        "len": 10,
+        "arom": 0.0,
+        "bigphobic": 0.0,
+        "pro_gly": 0.2,
+        "sta": 0.4,
+        "pos": 0.0,
+        "neg": 0.0,
+        "gravy": 0.89
+      },
+      "distance_to_TXLNA": 0.3857
+    },
+    {
+      "pdb": "2G5B",
+      "title": "Crystal Structure of the anti-Bax monoclonal antibody 6A7 and a Bax peptide.",
+      "resolution": 2.3,
+      "heavy_chains": [
+        "B",
+        "D",
+        "F",
+        "H"
+      ],
+      "light_chains": [
+        "A",
+        "C",
+        "E",
+        "G"
+      ],
+      "peptide_chains": [
+        "I",
+        "J",
+        "K",
+        "L"
+      ],
+      "peptide": "PTSSEQI",
+      "peptide_desc": "Bax Peptide",
+      "contacts": 184,
+      "epitope_residues_touched": 7,
+      "modified_residues": [],
+      "ptm": [],
+      "features": {
+        "len": 7,
+        "arom": 0.0,
+        "bigphobic": 0.1429,
+        "pro_gly": 0.1429,
+        "sta": 0.4286,
+        "pos": 0.0,
+        "neg": 0.1429,
+        "gravy": -0.914
+      },
+      "distance_to_TXLNA": 0.3864
+    },
+    {
+      "pdb": "2A6D",
+      "title": "Crystal structure analysis of the anti-arsonate germline antibody 36-65 in complex with a phage display derived dodecapeptide RLLIADPPSPRE",
+      "resolution": 2.9,
+      "heavy_chains": [
+        "B",
+        "H"
+      ],
+      "light_chains": [
+        "A",
+        "L"
+      ],
+      "peptide_chains": [
+        "P"
+      ],
+      "peptide": "RLLIADPPSPRE",
+      "peptide_desc": "Dodecapeptide, RLLIADPPSPRE",
+      "contacts": 35,
+      "epitope_residues_touched": 7,
+      "modified_residues": [],
+      "ptm": [],
+      "features": {
+        "len": 12,
+        "arom": 0.0,
+        "bigphobic": 0.25,
+        "pro_gly": 0.25,
+        "sta": 0.1667,
+        "pos": 0.1667,
+        "neg": 0.1667,
+        "gravy": -0.642
+      },
+      "distance_to_TXLNA": 0.3925
+    },
+    {
+      "pdb": "1HH9",
+      "title": "ANTI-P24 (HIV-1) FAB FRAGMENT CB41 COMPLEXED WITH A PEPTIDE",
+      "resolution": 2.7,
+      "heavy_chains": [
+        "B"
+      ],
+      "light_chains": [
+        "A"
+      ],
+      "peptide_chains": [
+        "C"
+      ],
+      "peptide": "DATPEDLNAKLX",
+      "peptide_desc": "PEP-2",
+      "contacts": 66,
+      "epitope_residues_touched": 12,
+      "modified_residues": [
+        "NH2"
+      ],
+      "ptm": [
+        "C-terminal amide"
+      ],
+      "features": {
+        "len": 12,
+        "arom": 0.0,
+        "bigphobic": 0.1667,
+        "pro_gly": 0.0833,
+        "sta": 0.25,
+        "pos": 0.0833,
+        "neg": 0.25,
+        "gravy": -0.818
+      },
+      "distance_to_TXLNA": 0.4473
+    },
+    {
+      "pdb": "1UWX",
+      "title": "P1.2 serosubtype antigen derived from N. meningitidis PorA in complex with Fab fragment",
+      "resolution": 2.2,
+      "heavy_chains": [
+        "H",
+        "M"
+      ],
+      "light_chains": [
+        "K",
+        "L"
+      ],
+      "peptide_chains": [
+        "P",
+        "Q"
+      ],
+      "peptide": "HFVQQTPKSQPTL",
+      "peptide_desc": "CLASS 1 OUTER MEMBRANE PROTEIN VARIABLE REGION 2",
+      "contacts": 86,
+      "epitope_residues_touched": 11,
+      "modified_residues": [],
+      "ptm": [],
+      "features": {
+        "len": 13,
+        "arom": 0.0769,
+        "bigphobic": 0.2308,
+        "pro_gly": 0.1538,
+        "sta": 0.2308,
+        "pos": 0.0769,
+        "neg": 0.0,
+        "gravy": -0.938
+      },
+      "distance_to_TXLNA": 0.4616
+    },
+    {
+      "pdb": "6B9Y",
+      "title": "Trastuzumab Fab v3 in complex with 5-phenyl meditope variant",
+      "resolution": 2.14,
+      "heavy_chains": [
+        "B"
+      ],
+      "light_chains": [
+        "A"
+      ],
+      "peptide_chains": [
+        "D"
+      ],
+      "peptide": "XSQFDFCTRRLQSGGK",
+      "peptide_desc": "meditope",
+      "contacts": 66,
+      "epitope_residues_touched": 10,
+      "modified_residues": [],
+      "ptm": [],
+      "features": {
+        "len": 16,
+        "arom": 0.125,
+        "bigphobic": 0.1875,
+        "pro_gly": 0.125,
+        "sta": 0.1875,
+        "pos": 0.1875,
+        "neg": 0.0625,
+        "gravy": -0.973
+      },
+      "distance_to_TXLNA": 0.4655
+    },
+    {
+      "pdb": "1HI6",
+      "title": "ANTI-P24 (HIV-1) FAB FRAGMENT CB41 COMPLEXED WITH A PEPTIDE",
+      "resolution": 2.55,
+      "heavy_chains": [
+        "B"
+      ],
+      "light_chains": [
+        "A"
+      ],
+      "peptide_chains": [
+        "C"
+      ],
+      "peptide": "DATPEWLGARLX",
+      "peptide_desc": "PEPTIDE 5",
+      "contacts": 71,
+      "epitope_residues_touched": 12,
+      "modified_residues": [
+        "NH2"
+      ],
+      "ptm": [
+        "C-terminal amide"
+      ],
+      "features": {
+        "len": 12,
+        "arom": 0.0833,
+        "bigphobic": 0.25,
+        "pro_gly": 0.1667,
+        "sta": 0.25,
+        "pos": 0.0833,
+        "neg": 0.1667,
+        "gravy": -0.355
+      },
+      "distance_to_TXLNA": 0.4657
+    },
+    {
+      "pdb": "2OSL",
+      "title": "Crystal structure of Rituximab Fab in complex with an epitope peptide",
+      "resolution": 2.6,
+      "heavy_chains": [
+        "A",
+        "H"
+      ],
+      "light_chains": [
+        "B",
+        "L"
+      ],
+      "peptide_chains": [
+        "P",
+        "Q"
+      ],
+      "peptide": "NIYNCEPANPSEKNSPSTQYCYSIQ",
+      "peptide_desc": "B-lymphocyte antigen CD20",
+      "contacts": 85,
+      "epitope_residues_touched": 10,
+      "modified_residues": [],
+      "ptm": [],
+      "features": {
+        "len": 25,
+        "arom": 0.12,
+        "bigphobic": 0.2,
+        "pro_gly": 0.12,
+        "sta": 0.24,
+        "pos": 0.04,
+        "neg": 0.08,
+        "gravy": -1.148
+      },
+      "distance_to_TXLNA": 0.476
+    },
+    {
+      "pdb": "1QNZ",
+      "title": "NMR structure of the 0.5b anti-HIV antibody complex with the gp120 V3 peptide",
+      "resolution": null,
+      "heavy_chains": [
+        "H"
+      ],
+      "light_chains": [
+        "L"
+      ],
+      "peptide_chains": [
+        "P"
+      ],
+      "peptide": "RKSIRIQRGPGRAFVTIG",
+      "peptide_desc": "GP120",
+      "contacts": 64,
+      "epitope_residues_touched": 14,
+      "modified_residues": [],
+      "ptm": [],
+      "features": {
+        "len": 18,
+        "arom": 0.0556,
+        "bigphobic": 0.2778,
+        "pro_gly": 0.2222,
+        "sta": 0.1667,
+        "pos": 0.2778,
+        "neg": 0.0,
+        "gravy": -0.411
+      },
+      "distance_to_TXLNA": 0.5018
+    },
+    {
+      "pdb": "1GGI",
+      "title": "CRYSTAL STRUCTURE OF AN HIV-1 NEUTRALIZING ANTIBODY 50.1 IN COMPLEX WITH ITS V3 LOOP PEPTIDE ANTIGEN",
+      "resolution": 2.8,
+      "heavy_chains": [
+        "H",
+        "J"
+      ],
+      "light_chains": [
+        "L",
+        "M"
+      ],
+      "peptide_chains": [
+        "P",
+        "Q"
+      ],
+      "peptide": "CKRIHIGPGRAFYTTC",
+      "peptide_desc": "HIV-1 V3 LOOP PEPTIDE ANTIGEN",
+      "contacts": 83,
+      "epitope_residues_touched": 8,
+      "modified_residues": [],
+      "ptm": [],
+      "features": {
+        "len": 16,
+        "arom": 0.125,
+        "bigphobic": 0.25,
+        "pro_gly": 0.1875,
+        "sta": 0.1875,
+        "pos": 0.1875,
+        "neg": 0.0,
+        "gravy": -0.163
+      },
+      "distance_to_TXLNA": 0.5069
+    },
+    {
+      "pdb": "3F58",
+      "title": "IGG1 FAB FRAGMENT (58.2) COMPLEX WITH 12-RESIDUE CYCLIC PEPTIDE (INCLUDING RESIDUES 315-324 OF HIV-1 GP120 (MN ISOLATE); H315S MUTATION",
+      "resolution": 2.8,
+      "heavy_chains": [
+        "H"
+      ],
+      "light_chains": [
+        "L"
+      ],
+      "peptide_chains": [
+        "P"
+      ],
+      "peptide": "SIGPGRAFGGG",
+      "peptide_desc": "PROTEIN (CYCLIC PEPTIDE (GP120))",
+      "contacts": 50,
+      "epitope_residues_touched": 10,
+      "modified_residues": [],
+      "ptm": [],
+      "features": {
+        "len": 11,
+        "arom": 0.0909,
+        "bigphobic": 0.1818,
+        "pro_gly": 0.5455,
+        "sta": 0.1818,
+        "pos": 0.0909,
+        "neg": 0.0,
+        "gravy": 0.018
+      },
+      "distance_to_TXLNA": 0.507
+    },
+    {
+      "pdb": "2HKF",
+      "title": "Crystal structure of the Complex Fab M75- Peptide",
+      "resolution": 2.01,
+      "heavy_chains": [
+        "H"
+      ],
+      "light_chains": [
+        "L"
+      ],
+      "peptide_chains": [
+        "P"
+      ],
+      "peptide": "LPGEEDLPG",
+      "peptide_desc": "Carbonic anhydrase 9",
+      "contacts": 52,
+      "epitope_residues_touched": 9,
+      "modified_residues": [],
+      "ptm": [],
+      "features": {
+        "len": 9,
+        "arom": 0.0,
+        "bigphobic": 0.2222,
+        "pro_gly": 0.4444,
+        "sta": 0.0,
+        "pos": 0.0,
+        "neg": 0.3333,
+        "gravy": -0.767
+      },
+      "distance_to_TXLNA": 0.5173
+    },
+    {
+      "pdb": "1MPA",
+      "title": "BACTERICIDAL ANTIBODY AGAINST NEISSERIA MENINGITIDIS",
+      "resolution": 2.6,
+      "heavy_chains": [
+        "H"
+      ],
+      "light_chains": [
+        "L"
+      ],
+      "peptide_chains": [
+        "P"
+      ],
+      "peptide": "TKDTNNNLC",
+      "peptide_desc": "PORA P1.16 PEPTIDE FLUORESCEIN CONJUGATE",
+      "contacts": 64,
+      "epitope_residues_touched": 8,
+      "modified_residues": [
+        "CYF",
+        "THC"
+      ],
+      "ptm": [],
+      "features": {
+        "len": 9,
+        "arom": 0.0,
+        "bigphobic": 0.1111,
+        "pro_gly": 0.0,
+        "sta": 0.2222,
+        "pos": 0.1111,
+        "neg": 0.1111,
+        "gravy": -1.444
+      },
+      "distance_to_TXLNA": 0.5202
+    },
+    {
+      "pdb": "2MPA",
+      "title": "BACTERICIDAL ANTIBODY AGAINST NEISSERIA MENINGITIDIS",
+      "resolution": 2.6,
+      "heavy_chains": [
+        "H"
+      ],
+      "light_chains": [
+        "L"
+      ],
+      "peptide_chains": [
+        "P"
+      ],
+      "peptide": "TKDTNNNLC",
+      "peptide_desc": "CONJUGATE OF PORA P1.16 PEPTIDE WITH FLUORESCEIN",
+      "contacts": 66,
+      "epitope_residues_touched": 8,
+      "modified_residues": [
+        "CYF",
+        "THC"
+      ],
+      "ptm": [],
+      "features": {
+        "len": 9,
+        "arom": 0.0,
+        "bigphobic": 0.1111,
+        "pro_gly": 0.0,
+        "sta": 0.2222,
+        "pos": 0.1111,
+        "neg": 0.1111,
+        "gravy": -1.444
+      },
+      "distance_to_TXLNA": 0.5202
+    },
+    {
+      "pdb": "2F58",
+      "title": "IGG1 FAB FRAGMENT (58.2) COMPLEX WITH 12-RESIDUE CYCLIC PEPTIDE (INCLUDING RESIDUES 315-324 OF HIV-1 GP120) (MN ISOLATE)",
+      "resolution": 2.8,
+      "heavy_chains": [
+        "H"
+      ],
+      "light_chains": [
+        "L"
+      ],
+      "peptide_chains": [
+        "P"
+      ],
+      "peptide": "HIGPGRAFGGG",
+      "peptide_desc": "PROTEIN (HIV-1 GP120)",
+      "contacts": 64,
+      "epitope_residues_touched": 12,
+      "modified_residues": [
+        "ARN"
+      ],
+      "ptm": [],
+      "features": {
+        "len": 11,
+        "arom": 0.0909,
+        "bigphobic": 0.1818,
+        "pro_gly": 0.5455,
+        "sta": 0.0909,
+        "pos": 0.0909,
+        "neg": 0.0,
+        "gravy": -0.2
+      },
+      "distance_to_TXLNA": 0.5252
+    },
+    {
+      "pdb": "2QSC",
+      "title": "Crystal structure analysis of anti-HIV-1 V3-Fab F425-B4e8 in complex with a V3-peptide",
+      "resolution": 2.8,
+      "heavy_chains": [
+        "H"
+      ],
+      "light_chains": [
+        "L"
+      ],
+      "peptide_chains": [
+        "P"
+      ],
+      "peptide": "RKRIHIGPGRAFYTT",
+      "peptide_desc": "Envelope glycoprotein gp120",
+      "contacts": 48,
+      "epitope_residues_touched": 9,
+      "modified_residues": [],
+      "ptm": [],
+      "features": {
+        "len": 15,
+        "arom": 0.1333,
+        "bigphobic": 0.2667,
+        "pro_gly": 0.2,
+        "sta": 0.2,
+        "pos": 0.2667,
+        "neg": 0.0,
+        "gravy": -0.807
+      },
+      "distance_to_TXLNA": 0.5271
+    },
+    {
+      "pdb": "1FPT",
+      "title": "THREE-DIMENSIONAL STRUCTURE OF THE COMPLEX BETWEEN THE FAB FRAGMENT OF AN NEUTRALIZING ANTIBODY FOR TYPE 1 POLIOVIRUS AND ITS VIRAL EPITOPE",
+      "resolution": 3.0,
+      "heavy_chains": [
+        "H"
+      ],
+      "light_chains": [
+        "L"
+      ],
+      "peptide_chains": [
+        "P"
+      ],
+      "peptide": "CVTIMTVDNPASTTNKDK",
+      "peptide_desc": "FAB FRAGMENT OF AN NEUTRALIZING ANTIBODY FOR TYPE 1 POLIOVIRUS",
+      "contacts": 46,
+      "epitope_residues_touched": 8,
+      "modified_residues": [],
+      "ptm": [],
+      "features": {
+        "len": 18,
+        "arom": 0.0,
+        "bigphobic": 0.2222,
+        "pro_gly": 0.0556,
+        "sta": 0.3333,
+        "pos": 0.1111,
+        "neg": 0.1111,
+        "gravy": -0.439
+      },
+      "distance_to_TXLNA": 0.5275
+    },
+    {
+      "pdb": "2A6K",
+      "title": "Crystal Structure Analysis of the germline antibody 36-65 Fab in complex with the dodecapeptide SLGDNLTNHNLR",
+      "resolution": 3.0,
+      "heavy_chains": [
+        "B",
+        "H"
+      ],
+      "light_chains": [
+        "A",
+        "L"
+      ],
+      "peptide_chains": [
+        "P"
+      ],
+      "peptide": "SLGDNLTNHNLR",
+      "peptide_desc": "DODECAPEPTIDE: SLGDNLTNHNLR",
+      "contacts": 43,
+      "epitope_residues_touched": 7,
+      "modified_residues": [],
+      "ptm": [],
+      "features": {
+        "len": 12,
+        "arom": 0.0,
+        "bigphobic": 0.25,
+        "pro_gly": 0.0833,
+        "sta": 0.1667,
+        "pos": 0.0833,
+        "neg": 0.0833,
+        "gravy": -1.017
+      },
+      "distance_to_TXLNA": 0.5298
+    },
+    {
+      "pdb": "6UJ9",
+      "title": "Crystal structure of HLA-B*07:02 with R140Q mutant IDH2 peptide in complex with Fab",
+      "resolution": 2.9,
+      "heavy_chains": [
+        "H"
+      ],
+      "light_chains": [
+        "L"
+      ],
+      "peptide_chains": [
+        "C"
+      ],
+      "peptide": "SPNGTIQNIL",
+      "peptide_desc": "Isocitrate dehydrogenase [NADP], mitochondrial",
+      "contacts": 24,
+      "epitope_residues_touched": 6,
+      "modified_residues": [],
+      "ptm": [],
+      "features": {
+        "len": 10,
+        "arom": 0.0,
+        "bigphobic": 0.3,
+        "pro_gly": 0.2,
+        "sta": 0.2,
+        "pos": 0.0,
+        "neg": 0.0,
+        "gravy": -0.12
+      },
+      "distance_to_TXLNA": 0.535
+    },
+    {
+      "pdb": "33CG",
+      "title": "Cryo-EM structure of MAGE-A4 (230-239)-bound HLA-A*02:01 in complex with Fab VR-6",
+      "resolution": 2.2,
+      "heavy_chains": [
+        "G"
+      ],
+      "light_chains": [
+        "F",
+        "D"
+      ],
+      "peptide_chains": [
+        "C"
+      ],
+      "peptide": "GVYDGREHTV",
+      "peptide_desc": "Melanoma-associated antigen 4",
+      "contacts": 25,
+      "epitope_residues_touched": 4,
+      "modified_residues": [],
+      "ptm": [],
+      "features": {
+        "len": 10,
+        "arom": 0.1,
+        "bigphobic": 0.3,
+        "pro_gly": 0.2,
+        "sta": 0.1,
+        "pos": 0.1,
+        "neg": 0.2,
+        "gravy": -0.91
+      },
+      "distance_to_TXLNA": 0.5436
+    },
+    {
+      "pdb": "33CH",
+      "title": "Cryo-EM structure of MAGE-A4 (230-239)-bound HLA-A*02:01 in complex with Fab VR-4",
+      "resolution": 2.4,
+      "heavy_chains": [
+        "G"
+      ],
+      "light_chains": [
+        "D",
+        "F"
+      ],
+      "peptide_chains": [
+        "C"
+      ],
+      "peptide": "GVYDGREHTV",
+      "peptide_desc": "Melanoma-associated antigen 4",
+      "contacts": 15,
+      "epitope_residues_touched": 4,
+      "modified_residues": [],
+      "ptm": [],
+      "features": {
+        "len": 10,
+        "arom": 0.1,
+        "bigphobic": 0.3,
+        "pro_gly": 0.2,
+        "sta": 0.1,
+        "pos": 0.1,
+        "neg": 0.2,
+        "gravy": -0.91
+      },
+      "distance_to_TXLNA": 0.5436
+    },
+    {
+      "pdb": "8FJA",
+      "title": "CryoEM structure of HLA-A2 MAGEA4 (230-239) in complex with REGN6972 Fab",
+      "resolution": 3.0,
+      "heavy_chains": [
+        "E"
+      ],
+      "light_chains": [
+        "D"
+      ],
+      "peptide_chains": [
+        "C"
+      ],
+      "peptide": "GVYDGREHTV",
+      "peptide_desc": "Melanoma-associated antigen 4 peptide",
+      "contacts": 23,
+      "epitope_residues_touched": 5,
+      "modified_residues": [],
+      "ptm": [],
+      "features": {
+        "len": 10,
+        "arom": 0.1,
+        "bigphobic": 0.3,
+        "pro_gly": 0.2,
+        "sta": 0.1,
+        "pos": 0.1,
+        "neg": 0.2,
+        "gravy": -0.91
+      },
+      "distance_to_TXLNA": 0.5436
+    },
+    {
+      "pdb": "2HRP",
+      "title": "ANTIGEN-ANTIBODY COMPLEX",
+      "resolution": 2.2,
+      "heavy_chains": [
+        "H",
+        "N"
+      ],
+      "light_chains": [
+        "L",
+        "M"
+      ],
+      "peptide_chains": [
+        "P",
+        "Q"
+      ],
+      "peptide": "MSLPGRWKPK",
+      "peptide_desc": "HIV-1 PROTEASE PEPTIDE",
+      "contacts": 116,
+      "epitope_residues_touched": 10,
+      "modified_residues": [],
+      "ptm": [],
+      "features": {
+        "len": 10,
+        "arom": 0.1,
+        "bigphobic": 0.3,
+        "pro_gly": 0.3,
+        "sta": 0.1,
+        "pos": 0.3,
+        "neg": 0.0,
+        "gravy": -1.19
+      },
+      "distance_to_TXLNA": 0.548
+    },
+    {
+      "pdb": "1QGC",
+      "title": "STRUCTURE OF THE COMPLEX OF A FAB FRAGMENT OF A NEUTRALIZING ANTIBODY WITH FOOT AND MOUTH DISEASE VIRUS",
+      "resolution": 30.0,
+      "heavy_chains": [
+        "A"
+      ],
+      "light_chains": [
+        "4"
+      ],
+      "peptide_chains": [
+        "5"
+      ],
+      "peptide": "TTAYTASARGDLAHLTTTAARTLP",
+      "peptide_desc": "PROTEIN (GH-LOOP FROM VIRUS CAPSID PROTEIN VP1)",
+      "contacts": 39,
+      "epitope_residues_touched": 10,
+      "modified_residues": [],
+      "ptm": [],
+      "features": {
+        "len": 24,
+        "arom": 0.0417,
+        "bigphobic": 0.1667,
+        "pro_gly": 0.0833,
+        "sta": 0.5833,
+        "pos": 0.0833,
+        "neg": 0.0417,
+        "gravy": -0.104
+      },
+      "distance_to_TXLNA": 0.5572
+    },
+    {
+      "pdb": "3BKJ",
+      "title": "Crystal structure of Fab wo2 bound to the n terminal domain of amyloid beta peptide (1-16)",
+      "resolution": 1.59,
+      "heavy_chains": [
+        "H"
+      ],
+      "light_chains": [],
+      "peptide_chains": [
+        "A"
+      ],
+      "peptide": "DAEFRHDSGYEVHHQK",
+      "peptide_desc": "Amyloid Beta Peptide",
+      "contacts": 31,
+      "epitope_residues_touched": 6,
+      "modified_residues": [],
+      "ptm": [],
+      "features": {
+        "len": 16,
+        "arom": 0.125,
+        "bigphobic": 0.1875,
+        "pro_gly": 0.0625,
+        "sta": 0.125,
+        "pos": 0.125,
+        "neg": 0.25,
+        "gravy": -1.825
+      },
+      "distance_to_TXLNA": 0.5572
+    },
+    {
+      "pdb": "6BAH",
+      "title": "Trastuzumab Fab v3 with 5-diphenyl meditope variant",
+      "resolution": 1.9,
+      "heavy_chains": [
+        "B"
+      ],
+      "light_chains": [
+        "A"
+      ],
+      "peptide_chains": [
+        "D"
+      ],
+      "peptide": "XSQFDXCTRRLQS",
+      "peptide_desc": "meditope",
+      "contacts": 72,
+      "epitope_residues_touched": 10,
+      "modified_residues": [
+        "2GX",
+        "ACE"
+      ],
+      "ptm": [
+        "N-terminal acetyl"
+      ],
+      "features": {
+        "len": 13,
+        "arom": 0.0769,
+        "bigphobic": 0.1538,
+        "pro_gly": 0.0,
+        "sta": 0.2308,
+        "pos": 0.1538,
+        "neg": 0.0769,
+        "gravy": -1.155
+      },
+      "distance_to_TXLNA": 0.5583
+    },
+    {
+      "pdb": "3C2A",
+      "title": "Antibody Fab fragment 447-52D in complex with UG1033 peptide",
+      "resolution": 2.1,
+      "heavy_chains": [
+        "H",
+        "I"
+      ],
+      "light_chains": [
+        "L",
+        "M"
+      ],
+      "peptide_chains": [
+        "P",
+        "Q"
+      ],
+      "peptide": "KSIHLGPGRAFYA",
+      "peptide_desc": "Envelope glycoprotein",
+      "contacts": 109,
+      "epitope_residues_touched": 9,
+      "modified_residues": [],
+      "ptm": [],
+      "features": {
+        "len": 13,
+        "arom": 0.1538,
+        "bigphobic": 0.3077,
+        "pro_gly": 0.2308,
+        "sta": 0.2308,
+        "pos": 0.1538,
+        "neg": 0.0,
+        "gravy": -0.108
+      },
+      "distance_to_TXLNA": 0.576
+    },
+    {
+      "pdb": "1I8K",
+      "title": "CRYSTAL STRUCTURE OF DSFV MR1 IN COMPLEX WITH THE PEPTIDE ANTIGEN OF THE MUTANT EPIDERMAL GROWTH FACTOR RECEPTOR, EGFRVIII, AT LIQUID NITROGEN TEMPERATURE",
+      "resolution": 1.8,
+      "heavy_chains": [
+        "B"
+      ],
+      "light_chains": [],
+      "peptide_chains": [
+        "C"
+      ],
+      "peptide": "EEKKGNYVVTDH",
+      "peptide_desc": "EPIDERMAL GROWTH FACTOR RECEPTOR, EGFRVIII PEPTIDE ANTIGEN",
+      "contacts": 44,
+      "epitope_residues_touched": 8,
+      "modified_residues": [],
+      "ptm": [],
+      "features": {
+        "len": 12,
+        "arom": 0.0833,
+        "bigphobic": 0.25,
+        "pro_gly": 0.0833,
+        "sta": 0.0833,
+        "pos": 0.1667,
+        "neg": 0.25,
+        "gravy": -1.583
+      },
+      "distance_to_TXLNA": 0.5794
+    },
+    {
+      "pdb": "1I8I",
+      "title": "CRYSTAL STRUCTURE OF DSFV MR1 IN COMPLEX WITH THE PEPTIDE ANTIGEN OF THE MUTANT EPIDERMAL GROWTH FACTOR RECEPTOR, EGFRVIII, AT ROOM TEMPERATURE",
+      "resolution": 2.4,
+      "heavy_chains": [
+        "B"
+      ],
+      "light_chains": [],
+      "peptide_chains": [
+        "C"
+      ],
+      "peptide": "EEKKGNYVVTDH",
+      "peptide_desc": "EPIDERMAL GROWTH FACTOR RECEPTOR, EGFRVIII PEPTIDE ANTIGEN",
+      "contacts": 42,
+      "epitope_residues_touched": 6,
+      "modified_residues": [],
+      "ptm": [],
+      "features": {
+        "len": 12,
+        "arom": 0.0833,
+        "bigphobic": 0.25,
+        "pro_gly": 0.0833,
+        "sta": 0.0833,
+        "pos": 0.1667,
+        "neg": 0.25,
+        "gravy": -1.583
+      },
+      "distance_to_TXLNA": 0.5794
+    },
+    {
+      "pdb": "2QHR",
+      "title": "Crystal structure of the 13F6-1-2 Fab fragment bound to its Ebola virus glycoprotein peptide epitope.",
+      "resolution": 2.0,
+      "heavy_chains": [
+        "H"
+      ],
+      "light_chains": [
+        "L"
+      ],
+      "peptide_chains": [
+        "P"
+      ],
+      "peptide": "VEQHHRRTDND",
+      "peptide_desc": "Envelope glycoprotein peptide",
+      "contacts": 79,
+      "epitope_residues_touched": 11,
+      "modified_residues": [],
+      "ptm": [],
+      "features": {
+        "len": 11,
+        "arom": 0.0,
+        "bigphobic": 0.0909,
+        "pro_gly": 0.0,
+        "sta": 0.0909,
+        "pos": 0.1818,
+        "neg": 0.2727,
+        "gravy": -2.673
+      },
+      "distance_to_TXLNA": 0.5828
+    },
+    {
+      "pdb": "1ACY",
+      "title": "CRYSTAL STRUCTURE OF THE PRINCIPAL NEUTRALIZING SITE OF HIV-1",
+      "resolution": 3.0,
+      "heavy_chains": [
+        "H"
+      ],
+      "light_chains": [
+        "L"
+      ],
+      "peptide_chains": [
+        "P"
+      ],
+      "peptide": "YNKRKRIHIGPGRAFYTTKNIIGC",
+      "peptide_desc": "HIV-1 GP120 (MN ISOLATE)",
+      "contacts": 43,
+      "epitope_residues_touched": 7,
+      "modified_residues": [],
+      "ptm": [],
+      "features": {
+        "len": 24,
+        "arom": 0.125,
+        "bigphobic": 0.2917,
+        "pro_gly": 0.1667,
+        "sta": 0.125,
+        "pos": 0.25,
+        "neg": 0.0,
+        "gravy": -0.712
+      },
+      "distance_to_TXLNA": 0.5852
+    },
+    {
+      "pdb": "1AI1",
+      "title": "HIV-1 V3 LOOP MIMIC",
+      "resolution": 2.8,
+      "heavy_chains": [
+        "H"
+      ],
+      "light_chains": [
+        "L"
+      ],
+      "peptide_chains": [
+        "P"
+      ],
+      "peptide": "YNKRKRIHIGPGRAFYTTKNIIGC",
+      "peptide_desc": "AIB142",
+      "contacts": 44,
+      "epitope_residues_touched": 7,
+      "modified_residues": [
+        "AIB"
+      ],
+      "ptm": [],
+      "features": {
+        "len": 24,
+        "arom": 0.125,
+        "bigphobic": 0.2917,
+        "pro_gly": 0.1667,
+        "sta": 0.125,
+        "pos": 0.25,
+        "neg": 0.0,
+        "gravy": -0.712
+      },
+      "distance_to_TXLNA": 0.5852
+    },
+    {
+      "pdb": "1F58",
+      "title": "IGG1 FAB FRAGMENT (58.2) COMPLEX WITH 24-RESIDUE PEPTIDE (RESIDUES 308-333 OF HIV-1 GP120 (MN ISOLATE) WITH ALA TO AIB SUBSTITUTION AT POSITION 323",
+      "resolution": 2.0,
+      "heavy_chains": [
+        "H"
+      ],
+      "light_chains": [
+        "L"
+      ],
+      "peptide_chains": [
+        "P"
+      ],
+      "peptide": "YNKRKRIHIGPGRAFYTTKNIIG",
+      "peptide_desc": "Envelope glycoprotein gp120",
+      "contacts": 69,
+      "epitope_residues_touched": 11,
+      "modified_residues": [
+        "AIB"
+      ],
+      "ptm": [],
+      "features": {
+        "len": 23,
+        "arom": 0.1304,
+        "bigphobic": 0.3043,
+        "pro_gly": 0.1739,
+        "sta": 0.1304,
+        "pos": 0.2609,
+        "neg": 0.0,
+        "gravy": -0.852
+      },
+      "distance_to_TXLNA": 0.5999
+    },
+    {
+      "pdb": "2IPU",
+      "title": "PFA1 Fab fragment complexed with Abeta 1-8 peptide",
+      "resolution": 1.65,
+      "heavy_chains": [
+        "G",
+        "H"
+      ],
+      "light_chains": [
+        "K",
+        "L"
+      ],
+      "peptide_chains": [
+        "P",
+        "Q"
+      ],
+      "peptide": "DAEFRHDS",
+      "peptide_desc": "abeta 1-8 peptide",
+      "contacts": 104,
+      "epitope_residues_touched": 7,
+      "modified_residues": [],
+      "ptm": [],
+      "features": {
+        "len": 8,
+        "arom": 0.125,
+        "bigphobic": 0.125,
+        "pro_gly": 0.0,
+        "sta": 0.25,
+        "pos": 0.125,
+        "neg": 0.375,
+        "gravy": -1.8
+      },
+      "distance_to_TXLNA": 0.6172
+    },
+    {
+      "pdb": "2R0W",
+      "title": "PFA2 FAB complexed with Abeta1-8",
+      "resolution": 2.503,
+      "heavy_chains": [
+        "H"
+      ],
+      "light_chains": [
+        "L"
+      ],
+      "peptide_chains": [
+        "Q"
+      ],
+      "peptide": "DAEFRHDS",
+      "peptide_desc": "Amyloid beta peptide fragment",
+      "contacts": 54,
+      "epitope_residues_touched": 7,
+      "modified_residues": [],
+      "ptm": [],
+      "features": {
+        "len": 8,
+        "arom": 0.125,
+        "bigphobic": 0.125,
+        "pro_gly": 0.0,
+        "sta": 0.25,
+        "pos": 0.125,
+        "neg": 0.375,
+        "gravy": -1.8
+      },
+      "distance_to_TXLNA": 0.6172
+    },
+    {
+      "pdb": "1FRG",
+      "title": "CRYSTAL STRUCTURE, SEQUENCE, AND EPITOPE MAPPING OF A PEPTIDE COMPLEX OF AN ANTI-INFLUENZA HA PEPTIDE ANTIBODY FAB 26(SLASH)9: FINE-TUNING ANTIBODY SPECIFICITY",
+      "resolution": 2.8,
+      "heavy_chains": [
+        "H"
+      ],
+      "light_chains": [
+        "L"
+      ],
+      "peptide_chains": [
+        "P"
+      ],
+      "peptide": "XDVPDYASLX",
+      "peptide_desc": "INFLUENZA HEMAGGLUTININ HA1 (STRAIN X47) (RESIDUES 101 - 108)",
+      "contacts": 52,
+      "epitope_residues_touched": 9,
+      "modified_residues": [
+        "ACE",
+        "NH2"
+      ],
+      "ptm": [
+        "C-terminal amide",
+        "N-terminal acetyl"
+      ],
+      "features": {
+        "len": 10,
+        "arom": 0.1,
+        "bigphobic": 0.3,
+        "pro_gly": 0.1,
+        "sta": 0.2,
+        "pos": 0.0,
+        "neg": 0.2,
+        "gravy": -0.113
+      },
+      "distance_to_TXLNA": 0.6213
+    },
+    {
+      "pdb": "6BAE",
+      "title": "Trastuzumab Fab v3 in complex with CQFDLSTRRLKC",
+      "resolution": 2.14,
+      "heavy_chains": [
+        "B"
+      ],
+      "light_chains": [
+        "A"
+      ],
+      "peptide_chains": [
+        "D"
+      ],
+      "peptide": "XCQFDLSTRRLKCX",
+      "peptide_desc": "meditope",
+      "contacts": 61,
+      "epitope_residues_touched": 12,
+      "modified_residues": [
+        "ACE",
+        "NH2"
+      ],
+      "ptm": [
+        "C-terminal amide",
+        "N-terminal acetyl"
+      ],
+      "features": {
+        "len": 14,
+        "arom": 0.0714,
+        "bigphobic": 0.2143,
+        "pro_gly": 0.0,
+        "sta": 0.1429,
+        "pos": 0.2143,
+        "neg": 0.0714,
+        "gravy": -0.5
+      },
+      "distance_to_TXLNA": 0.6222
+    },
+    {
+      "pdb": "1N0X",
+      "title": "Crystal Structure of a Broadly Neutralizing Anti-HIV-1 Antibody in Complex with a Peptide Mimotope",
+      "resolution": 1.8,
+      "heavy_chains": [
+        "H",
+        "K"
+      ],
+      "light_chains": [
+        "L",
+        "M"
+      ],
+      "peptide_chains": [
+        "P",
+        "R"
+      ],
+      "peptide": "HERSYMFSDLENRCIAAEAKK",
+      "peptide_desc": "B2.1 peptide",
+      "contacts": 112,
+      "epitope_residues_touched": 16,
+      "modified_residues": [
+        "ORN"
+      ],
+      "ptm": [],
+      "features": {
+        "len": 21,
+        "arom": 0.0952,
+        "bigphobic": 0.2381,
+        "pro_gly": 0.0,
+        "sta": 0.2381,
+        "pos": 0.1905,
+        "neg": 0.1905,
+        "gravy": -0.929
+      },
+      "distance_to_TXLNA": 0.6321
+    },
+    {
+      "pdb": "8DAO",
+      "title": "Crystal structure of SARS-CoV-2 spike stem fusion peptide in complex with neutralizing antibody COV44-79",
+      "resolution": 2.8,
+      "heavy_chains": [
+        "A",
+        "C"
+      ],
+      "light_chains": [
+        "B",
+        "D"
+      ],
+      "peptide_chains": [
+        "I",
+        "J"
+      ],
+      "peptide": "PSKPSKRSFIEDLLF",
+      "peptide_desc": "Spike protein S2 fusion peptide",
+      "contacts": 100,
+      "epitope_residues_touched": 9,
+      "modified_residues": [],
+      "ptm": [],
+      "features": {
+        "len": 15,
+        "arom": 0.1333,
+        "bigphobic": 0.3333,
+        "pro_gly": 0.1333,
+        "sta": 0.2,
+        "pos": 0.2,
+        "neg": 0.1333,
+        "gravy": -0.48
+      },
+      "distance_to_TXLNA": 0.6349
+    },
+    {
+      "pdb": "1P4B",
+      "title": "Three-Dimensional Structure Of a Single Chain Fv Fragment Complexed With The peptide GCN4(7P-14P).",
+      "resolution": 2.35,
+      "heavy_chains": [
+        "H"
+      ],
+      "light_chains": [
+        "L"
+      ],
+      "peptide_chains": [
+        "P"
+      ],
+      "peptide": "AHLENEVARLKK",
+      "peptide_desc": "GCN4(7P-14P) peptide",
+      "contacts": 53,
+      "epitope_residues_touched": 9,
+      "modified_residues": [],
+      "ptm": [],
+      "features": {
+        "len": 12,
+        "arom": 0.0,
+        "bigphobic": 0.25,
+        "pro_gly": 0.0,
+        "sta": 0.1667,
+        "pos": 0.25,
+        "neg": 0.1667,
+        "gravy": -0.883
+      },
+      "distance_to_TXLNA": 0.6363
+    },
+    {
+      "pdb": "3BAE",
+      "title": "Crystal structure of Fab WO2 bound to the N terminal domain of Amyloid beta peptide (1-28)",
+      "resolution": 1.593,
+      "heavy_chains": [
+        "H"
+      ],
+      "light_chains": [
+        "L"
+      ],
+      "peptide_chains": [
+        "A"
+      ],
+      "peptide": "DAEFRHDSGYEVHHQKLVFFAEDVGSNK",
+      "peptide_desc": "Amyloid Beta Peptide",
+      "contacts": 48,
+      "epitope_residues_touched": 7,
+      "modified_residues": [],
+      "ptm": [],
+      "features": {
+        "len": 28,
+        "arom": 0.1429,
+        "bigphobic": 0.2857,
+        "pro_gly": 0.0714,
+        "sta": 0.1429,
+        "pos": 0.1071,
+        "neg": 0.2143,
+        "gravy": -0.9
+      },
+      "distance_to_TXLNA": 0.6415
+    },
+    {
+      "pdb": "4HIX",
+      "title": "Crystal structure of a humanised 3D6 Fab bound to amyloid beta peptide",
+      "resolution": 2.204,
+      "heavy_chains": [
+        "H"
+      ],
+      "light_chains": [
+        "L"
+      ],
+      "peptide_chains": [
+        "A"
+      ],
+      "peptide": "DAEFRHDSGYEVHHQKLVFFAEDVGSNK",
+      "peptide_desc": "Beta-amyloid protein 40",
+      "contacts": 44,
+      "epitope_residues_touched": 6,
+      "modified_residues": [],
+      "ptm": [],
+      "features": {
+        "len": 28,
+        "arom": 0.1429,
+        "bigphobic": 0.2857,
+        "pro_gly": 0.0714,
+        "sta": 0.1429,
+        "pos": 0.1071,
+        "neg": 0.2143,
+        "gravy": -0.9
+      },
+      "distance_to_TXLNA": 0.6415
+    },
+    {
+      "pdb": "1CFS",
+      "title": "ANTI-P24 (HIV-1) FAB FRAGMENT CB41 COMPLEXED WITH AN EPITOPE-UNRELATED PEPTIDE",
+      "resolution": 2.75,
+      "heavy_chains": [
+        "B"
+      ],
+      "light_chains": [
+        "A"
+      ],
+      "peptide_chains": [
+        "C"
+      ],
+      "peptide": "GLYEWGGARIT",
+      "peptide_desc": "PROTEIN (ANTIGEN BOUND PEPTIDE)",
+      "contacts": 53,
+      "epitope_residues_touched": 10,
+      "modified_residues": [],
+      "ptm": [],
+      "features": {
+        "len": 11,
+        "arom": 0.1818,
+        "bigphobic": 0.3636,
+        "pro_gly": 0.2727,
+        "sta": 0.1818,
+        "pos": 0.0909,
+        "neg": 0.0909,
+        "gravy": -0.182
+      },
+      "distance_to_TXLNA": 0.6582
+    },
+    {
+      "pdb": "2R0Z",
+      "title": "PFA1 FAB complexed with GripI peptide fragment",
+      "resolution": 2.096,
+      "heavy_chains": [
+        "H"
+      ],
+      "light_chains": [
+        "L"
+      ],
+      "peptide_chains": [
+        "Q"
+      ],
+      "peptide": "AKFRHD",
+      "peptide_desc": "GripI peptide fragment",
+      "contacts": 51,
+      "epitope_residues_touched": 6,
+      "modified_residues": [],
+      "ptm": [],
+      "features": {
+        "len": 6,
+        "arom": 0.1667,
+        "bigphobic": 0.1667,
+        "pro_gly": 0.0,
+        "sta": 0.1667,
+        "pos": 0.3333,
+        "neg": 0.1667,
+        "gravy": -1.75
+      },
+      "distance_to_TXLNA": 0.6597
+    },
+    {
+      "pdb": "6AU5",
+      "title": "Structure of cetuximab with aminoheptanoic acid-linked n-butylarginine meditope variant",
+      "resolution": 2.484,
+      "heavy_chains": [
+        "B",
+        "D"
+      ],
+      "light_chains": [
+        "A",
+        "C"
+      ],
+      "peptide_chains": [
+        "E",
+        "F"
+      ],
+      "peptide": "XQFDLSTXRLK",
+      "peptide_desc": "meditope",
+      "contacts": 129,
+      "epitope_residues_touched": 9,
+      "modified_residues": [
+        "BWV"
+      ],
+      "ptm": [],
+      "features": {
+        "len": 11,
+        "arom": 0.0909,
+        "bigphobic": 0.2727,
+        "pro_gly": 0.0,
+        "sta": 0.1818,
+        "pos": 0.1818,
+        "neg": 0.0909,
+        "gravy": -0.722
+      },
+      "distance_to_TXLNA": 0.6694
+    },
+    {
+      "pdb": "6AXP",
+      "title": "Structure of cetuximab with aminoheptanoic acid-linked n-octylarginine meditope variant",
+      "resolution": 2.484,
+      "heavy_chains": [
+        "B",
+        "D"
+      ],
+      "light_chains": [
+        "A",
+        "C"
+      ],
+      "peptide_chains": [
+        "E",
+        "F"
+      ],
+      "peptide": "XQFDLSTXRLK",
+      "peptide_desc": "meditope",
+      "contacts": 132,
+      "epitope_residues_touched": 8,
+      "modified_residues": [
+        "C1J"
+      ],
+      "ptm": [],
+      "features": {
+        "len": 11,
+        "arom": 0.0909,
+        "bigphobic": 0.2727,
+        "pro_gly": 0.0,
+        "sta": 0.1818,
+        "pos": 0.1818,
+        "neg": 0.0909,
+        "gravy": -0.722
+      },
+      "distance_to_TXLNA": 0.6694
+    },
+    {
+      "pdb": "6AZL",
+      "title": "Structure of cetuximab with aminoheptanoic acid-linked N-carboxyethylarginine meditope variant",
+      "resolution": 2.482,
+      "heavy_chains": [
+        "B",
+        "D"
+      ],
+      "light_chains": [
+        "A",
+        "C"
+      ],
+      "peptide_chains": [
+        "E",
+        "F"
+      ],
+      "peptide": "QFDLSTXRLKX",
+      "peptide_desc": "meditope",
+      "contacts": 142,
+      "epitope_residues_touched": 8,
+      "modified_residues": [
+        "C67"
+      ],
+      "ptm": [],
+      "features": {
+        "len": 11,
+        "arom": 0.0909,
+        "bigphobic": 0.2727,
+        "pro_gly": 0.0,
+        "sta": 0.1818,
+        "pos": 0.1818,
+        "neg": 0.0909,
+        "gravy": -0.722
+      },
+      "distance_to_TXLNA": 0.6694
+    },
+    {
+      "pdb": "6AZK",
+      "title": "Structure of cetuximab with aminoheptanoic acid-linked N-(3-hydroxypropyl)-L-arginine meditope variant",
+      "resolution": 2.477,
+      "heavy_chains": [
+        "B",
+        "D"
+      ],
+      "light_chains": [
+        "A",
+        "C"
+      ],
+      "peptide_chains": [
+        "E",
+        "F"
+      ],
+      "peptide": "QFDLSTXRLKX",
+      "peptide_desc": "meditope",
+      "contacts": 135,
+      "epitope_residues_touched": 9,
+      "modified_residues": [
+        "011",
+        "C6D"
+      ],
+      "ptm": [],
+      "features": {
+        "len": 11,
+        "arom": 0.0909,
+        "bigphobic": 0.2727,
+        "pro_gly": 0.0,
+        "sta": 0.1818,
+        "pos": 0.1818,
+        "neg": 0.0909,
+        "gravy": -0.722
+      },
+      "distance_to_TXLNA": 0.6694
+    },
+    {
+      "pdb": "6AYN",
+      "title": "Structure of cetuximab with aminoheptanoic acid-linked N-(3-aminopropyl)-L-arginine meditope variant",
+      "resolution": 2.48,
+      "heavy_chains": [
+        "B",
+        "D"
+      ],
+      "light_chains": [
+        "A",
+        "C"
+      ],
+      "peptide_chains": [
+        "E",
+        "F"
+      ],
+      "peptide": "XQFDLSTXRLK",
+      "peptide_desc": "Cyclic meditope",
+      "contacts": 127,
+      "epitope_residues_touched": 10,
+      "modified_residues": [
+        "011",
+        "C4G"
+      ],
+      "ptm": [],
+      "features": {
+        "len": 11,
+        "arom": 0.0909,
+        "bigphobic": 0.2727,
+        "pro_gly": 0.0,
+        "sta": 0.1818,
+        "pos": 0.1818,
+        "neg": 0.0909,
+        "gravy": -0.722
+      },
+      "distance_to_TXLNA": 0.6694
+    },
+    {
+      "pdb": "6DCW",
+      "title": "Crystal structure of human anti-tau antibody CBTAU-27.1 Fab in complex with a human tau peptide",
+      "resolution": 2.0,
+      "heavy_chains": [
+        "H"
+      ],
+      "light_chains": [
+        "L"
+      ],
+      "peptide_chains": [
+        "T"
+      ],
+      "peptide": "HVPGGGSVQIVYKPVDLSKV",
+      "peptide_desc": "tau peptide",
+      "contacts": 52,
+      "epitope_residues_touched": 9,
+      "modified_residues": [],
+      "ptm": [],
+      "features": {
+        "len": 20,
+        "arom": 0.05,
+        "bigphobic": 0.4,
+        "pro_gly": 0.25,
+        "sta": 0.1,
+        "pos": 0.1,
+        "neg": 0.05,
+        "gravy": 0.2
+      },
+      "distance_to_TXLNA": 0.6776
+    },
+    {
+      "pdb": "2OR9",
+      "title": "The structure of the anti-c-myc antibody 9E10 Fab fragment/epitope peptide complex reveals a novel binding mode dominated by the heavy chain hypervariable loops",
+      "resolution": 2.7,
+      "heavy_chains": [
+        "H",
+        "I"
+      ],
+      "light_chains": [
+        "L",
+        "M"
+      ],
+      "peptide_chains": [
+        "P"
+      ],
+      "peptide": "EQKLISEEDLN",
+      "peptide_desc": "synthetic epitope peptide of 9E10",
+      "contacts": 71,
+      "epitope_residues_touched": 11,
+      "modified_residues": [],
+      "ptm": [],
+      "features": {
+        "len": 11,
+        "arom": 0.0,
+        "bigphobic": 0.2727,
+        "pro_gly": 0.0,
+        "sta": 0.0909,
+        "pos": 0.0909,
+        "neg": 0.3636,
+        "gravy": -1.236
+      },
+      "distance_to_TXLNA": 0.7034
+    },
+    {
+      "pdb": "8VRA",
+      "title": "Structure of a synthetic antibody in complex with a class I MHC presenting a hapten-peptide conjugate",
+      "resolution": 3.12,
+      "heavy_chains": [
+        "E"
+      ],
+      "light_chains": [
+        "D"
+      ],
+      "peptide_chains": [
+        "C"
+      ],
+      "peptide": "VVVGACGVGK",
+      "peptide_desc": "GTPase KRas, N-terminally processed",
+      "contacts": 14,
+      "epitope_residues_touched": 4,
+      "modified_residues": [],
+      "ptm": [],
+      "features": {
+        "len": 10,
+        "arom": 0.0,
+        "bigphobic": 0.4,
+        "pro_gly": 0.3,
+        "sta": 0.1,
+        "pos": 0.1,
+        "neg": 0.0,
+        "gravy": 1.6
+      },
+      "distance_to_TXLNA": 0.7244
+    },
+    {
+      "pdb": "4XXD",
+      "title": "Crystal Structure of mid-region amyloid beta capture by solanezumab",
+      "resolution": 2.41,
+      "heavy_chains": [
+        "B",
+        "E"
+      ],
+      "light_chains": [
+        "A",
+        "D"
+      ],
+      "peptide_chains": [
+        "C",
+        "F"
+      ],
+      "peptide": "VHHQKLVFFAEDVGSNK",
+      "peptide_desc": "Amyloid-beta fragment",
+      "contacts": 122,
+      "epitope_residues_touched": 10,
+      "modified_residues": [],
+      "ptm": [],
+      "features": {
+        "len": 17,
+        "arom": 0.1176,
+        "bigphobic": 0.3529,
+        "pro_gly": 0.0588,
+        "sta": 0.1176,
+        "pos": 0.1176,
+        "neg": 0.1176,
+        "gravy": -0.329
+      },
+      "distance_to_TXLNA": 0.7262
+    },
+    {
+      "pdb": "6W51",
+      "title": "Structure of the antibody fragment H2 in complex with HLA-A*02:01/p53R175H",
+      "resolution": 3.53,
+      "heavy_chains": [
+        "M",
+        "O",
+        "Q",
+        "S"
+      ],
+      "light_chains": [
+        "N",
+        "P",
+        "R",
+        "T"
+      ],
+      "peptide_chains": [
+        "C",
+        "F",
+        "I",
+        "L"
+      ],
+      "peptide": "HMTEVVRHC",
+      "peptide_desc": "Cellular tumor antigen p53 peptide",
+      "contacts": 28,
+      "epitope_residues_touched": 5,
+      "modified_residues": [],
+      "ptm": [],
+      "features": {
+        "len": 9,
+        "arom": 0.0,
+        "bigphobic": 0.3333,
+        "pro_gly": 0.0,
+        "sta": 0.1111,
+        "pos": 0.1111,
+        "neg": 0.1111,
+        "gravy": -0.256
+      },
+      "distance_to_TXLNA": 0.7349
+    },
+    {
+      "pdb": "1PZ5",
+      "title": "Structural basis of peptide-carbohydrate mimicry in an antibody combining site",
+      "resolution": 1.8,
+      "heavy_chains": [
+        "B"
+      ],
+      "light_chains": [
+        "A"
+      ],
+      "peptide_chains": [
+        "C"
+      ],
+      "peptide": "MDWNMHAA",
+      "peptide_desc": "Octapeptide (MDWNMHAA)",
+      "contacts": 48,
+      "epitope_residues_touched": 8,
+      "modified_residues": [],
+      "ptm": [],
+      "features": {
+        "len": 8,
+        "arom": 0.125,
+        "bigphobic": 0.375,
+        "pro_gly": 0.0,
+        "sta": 0.25,
+        "pos": 0.0,
+        "neg": 0.125,
+        "gravy": -0.463
+      },
+      "distance_to_TXLNA": 0.8073
+    },
+    {
+      "pdb": "9YTF",
+      "title": "TCR mimic antibody vAB-30 in complex with MAGE-A3 in HLA-A1",
+      "resolution": 2.6,
+      "heavy_chains": [
+        "F",
+        "D"
+      ],
+      "light_chains": [
+        "G"
+      ],
+      "peptide_chains": [
+        "C"
+      ],
+      "peptide": "EVDPIGHLY",
+      "peptide_desc": "Melanoma-associated antigen 3",
+      "contacts": 31,
+      "epitope_residues_touched": 7,
+      "modified_residues": [],
+      "ptm": [],
+      "features": {
+        "len": 9,
+        "arom": 0.1111,
+        "bigphobic": 0.4444,
+        "pro_gly": 0.2222,
+        "sta": 0.0,
+        "pos": 0.0,
+        "neg": 0.2222,
+        "gravy": -0.111
+      },
+      "distance_to_TXLNA": 0.8078
+    },
+    {
+      "pdb": "1SVZ",
+      "title": "Crystal structure of the single-chain Fv fragment 1696 in complex with the epitope peptide corresponding to N-terminus of HIV-2 protease",
+      "resolution": 1.89,
+      "heavy_chains": [
+        "A",
+        "B"
+      ],
+      "light_chains": [],
+      "peptide_chains": [
+        "C",
+        "D"
+      ],
+      "peptide": "PQFSLWKR",
+      "peptide_desc": "epitope peptide corresponding to N-terminus of HIV-2 protease",
+      "contacts": 94,
+      "epitope_residues_touched": 6,
+      "modified_residues": [],
+      "ptm": [],
+      "features": {
+        "len": 8,
+        "arom": 0.25,
+        "bigphobic": 0.375,
+        "pro_gly": 0.125,
+        "sta": 0.125,
+        "pos": 0.25,
+        "neg": 0.0,
+        "gravy": -1.075
+      },
+      "distance_to_TXLNA": 0.8124
+    },
+    {
+      "pdb": "3EYF",
+      "title": "Crystal structure of anti-human cytomegalovirus antibody 8f9 plus gB peptide",
+      "resolution": 2.3,
+      "heavy_chains": [
+        "B",
+        "D"
+      ],
+      "light_chains": [
+        "A",
+        "C"
+      ],
+      "peptide_chains": [
+        "E",
+        "F"
+      ],
+      "peptide": "ETIYNTTLKYX",
+      "peptide_desc": "Synthetic peptide",
+      "contacts": 127,
+      "epitope_residues_touched": 10,
+      "modified_residues": [
+        "NH2"
+      ],
+      "ptm": [
+        "C-terminal amide"
+      ],
+      "features": {
+        "len": 11,
+        "arom": 0.1818,
+        "bigphobic": 0.3636,
+        "pro_gly": 0.0,
+        "sta": 0.2727,
+        "pos": 0.0909,
+        "neg": 0.0909,
+        "gravy": -0.73
+      },
+      "distance_to_TXLNA": 0.8141
+    },
+    {
+      "pdb": "9L1L",
+      "title": "Structure of anti-HEL AiTab",
+      "resolution": 3.09,
+      "heavy_chains": [
+        "C"
+      ],
+      "light_chains": [
+        "D"
+      ],
+      "peptide_chains": [
+        "P"
+      ],
+      "peptide": "STDYGILQINSRWWA",
+      "peptide_desc": "Lysozyme C",
+      "contacts": 39,
+      "epitope_residues_touched": 7,
+      "modified_residues": [],
+      "ptm": [],
+      "features": {
+        "len": 15,
+        "arom": 0.2,
+        "bigphobic": 0.4,
+        "pro_gly": 0.0667,
+        "sta": 0.2667,
+        "pos": 0.0667,
+        "neg": 0.0667,
+        "gravy": -0.413
+      },
+      "distance_to_TXLNA": 0.8201
+    },
+    {
+      "pdb": "7BBG",
+      "title": "CRYSTAL STRUCTURE OF HLA-A2-WT1-RMF AND FAB 11D06",
+      "resolution": 2.64,
+      "heavy_chains": [
+        "H"
+      ],
+      "light_chains": [
+        "L"
+      ],
+      "peptide_chains": [
+        "C"
+      ],
+      "peptide": "RMFPNAPYL",
+      "peptide_desc": "Wilms tumor 1 (WT1) derived peptide",
+      "contacts": 22,
+      "epitope_residues_touched": 6,
+      "modified_residues": [],
+      "ptm": [],
+      "features": {
+        "len": 9,
+        "arom": 0.2222,
+        "bigphobic": 0.4444,
+        "pro_gly": 0.2222,
+        "sta": 0.1111,
+        "pos": 0.1111,
+        "neg": 0.0,
+        "gravy": -0.244
+      },
+      "distance_to_TXLNA": 0.8398
+    },
+    {
+      "pdb": "9VSO",
+      "title": "Crystal structure of Fab bound to the WT1-derived RMF peptide presented by HLA-A*02:01",
+      "resolution": 3.03,
+      "heavy_chains": [
+        "G",
+        "I"
+      ],
+      "light_chains": [
+        "J",
+        "K"
+      ],
+      "peptide_chains": [
+        "M",
+        "T"
+      ],
+      "peptide": "RMFPNAPYL",
+      "peptide_desc": "Wilms tumor protein",
+      "contacts": 60,
+      "epitope_residues_touched": 8,
+      "modified_residues": [],
+      "ptm": [],
+      "features": {
+        "len": 9,
+        "arom": 0.2222,
+        "bigphobic": 0.4444,
+        "pro_gly": 0.2222,
+        "sta": 0.1111,
+        "pos": 0.1111,
+        "neg": 0.0,
+        "gravy": -0.244
+      },
+      "distance_to_TXLNA": 0.8398
+    },
+    {
+      "pdb": "1E4W",
+      "title": "crossreactive binding of a circularized peptide to an anti-TGFalpha antibody Fab-fragment",
+      "resolution": 1.95,
+      "heavy_chains": [
+        "H"
+      ],
+      "light_chains": [
+        "L"
+      ],
+      "peptide_chains": [
+        "P"
+      ],
+      "peptide": "SHFNEYE",
+      "peptide_desc": "CYCLIC PEPTIDE",
+      "contacts": 40,
+      "epitope_residues_touched": 7,
+      "modified_residues": [],
+      "ptm": [],
+      "features": {
+        "len": 7,
+        "arom": 0.2857,
+        "bigphobic": 0.2857,
+        "pro_gly": 0.0,
+        "sta": 0.1429,
+        "pos": 0.0,
+        "neg": 0.2857,
+        "gravy": -1.857
+      },
+      "distance_to_TXLNA": 0.8568
+    },
+    {
+      "pdb": "7STF",
+      "title": "Structure of KRAS G12V/HLA-A*03:01 in complex with antibody fragment V2",
+      "resolution": 3.14,
+      "heavy_chains": [
+        "H"
+      ],
+      "light_chains": [
+        "L"
+      ],
+      "peptide_chains": [
+        "C"
+      ],
+      "peptide": "VVVGAVGVGK",
+      "peptide_desc": "KRAS G12V (7-16)",
+      "contacts": 19,
+      "epitope_residues_touched": 6,
+      "modified_residues": [],
+      "ptm": [],
+      "features": {
+        "len": 10,
+        "arom": 0.0,
+        "bigphobic": 0.5,
+        "pro_gly": 0.3,
+        "sta": 0.1,
+        "pos": 0.1,
+        "neg": 0.0,
+        "gravy": 1.77
+      },
+      "distance_to_TXLNA": 0.8829
+    },
+    {
+      "pdb": "1E4X",
+      "title": "crossreactive binding of a circularized peptide to an anti-TGFalpha antibody Fab-fragment",
+      "resolution": 1.9,
+      "heavy_chains": [
+        "I",
+        "H"
+      ],
+      "light_chains": [
+        "L",
+        "M"
+      ],
+      "peptide_chains": [
+        "P",
+        "Q"
+      ],
+      "peptide": "VVSHFND",
+      "peptide_desc": "CYCLIC PEPTIDE",
+      "contacts": 95,
+      "epitope_residues_touched": 7,
+      "modified_residues": [],
+      "ptm": [],
+      "features": {
+        "len": 7,
+        "arom": 0.1429,
+        "bigphobic": 0.4286,
+        "pro_gly": 0.0,
+        "sta": 0.1429,
+        "pos": 0.0,
+        "neg": 0.1429,
+        "gravy": 0.029
+      },
+      "distance_to_TXLNA": 0.8994
+    },
+    {
+      "pdb": "5IQ7",
+      "title": "Crystal structure of 10E8-S74W Fab in complex with an HIV-1 gp41 peptide.",
+      "resolution": 3.2869,
+      "heavy_chains": [
+        "H"
+      ],
+      "light_chains": [
+        "L"
+      ],
+      "peptide_chains": [
+        "P"
+      ],
+      "peptide": "RRRNEQELLELDKWASLWNWFDITNWLWYIRRRR",
+      "peptide_desc": "gp41 MPER peptide",
+      "contacts": 56,
+      "epitope_residues_touched": 9,
+      "modified_residues": [],
+      "ptm": [],
+      "features": {
+        "len": 34,
+        "arom": 0.2059,
+        "bigphobic": 0.4118,
+        "pro_gly": 0.0,
+        "sta": 0.0882,
+        "pos": 0.2353,
+        "neg": 0.1471,
+        "gravy": -1.224
+      },
+      "distance_to_TXLNA": 0.9093
+    },
+    {
+      "pdb": "9NFB",
+      "title": "Structure of the cross-HLA supertype antibody R302 bound to a class I MHC presenting a divarasib-modified KRAS-G12C peptide on HLA-A*02",
+      "resolution": 3.23,
+      "heavy_chains": [
+        "E"
+      ],
+      "light_chains": [
+        "D"
+      ],
+      "peptide_chains": [
+        "C"
+      ],
+      "peptide": "KLVVVGACGV",
+      "peptide_desc": "GTPase KRas",
+      "contacts": 37,
+      "epitope_residues_touched": 4,
+      "modified_residues": [
+        "A1AWR"
+      ],
+      "ptm": [],
+      "features": {
+        "len": 10,
+        "arom": 0.0,
+        "bigphobic": 0.5,
+        "pro_gly": 0.2,
+        "sta": 0.1,
+        "pos": 0.1,
+        "neg": 0.0,
+        "gravy": 2.02
+      },
+      "distance_to_TXLNA": 0.9126
+    },
+    {
+      "pdb": "5IQ9",
+      "title": "Crystal structure of 10E8v4 Fab in complex with an HIV-1 gp41 peptide.",
+      "resolution": 2.4,
+      "heavy_chains": [
+        "A",
+        "H"
+      ],
+      "light_chains": [
+        "B",
+        "L"
+      ],
+      "peptide_chains": [
+        "C",
+        "P"
+      ],
+      "peptide": "RRRNEQELLELDKWASLWNWFDITNWLWYIRRR",
+      "peptide_desc": "gp41 MPER peptide",
+      "contacts": 134,
+      "epitope_residues_touched": 12,
+      "modified_residues": [],
+      "ptm": [],
+      "features": {
+        "len": 33,
+        "arom": 0.2121,
+        "bigphobic": 0.4242,
+        "pro_gly": 0.0,
+        "sta": 0.0909,
+        "pos": 0.2121,
+        "neg": 0.1515,
+        "gravy": -1.124
+      },
+      "distance_to_TXLNA": 0.926
+    },
+    {
+      "pdb": "3CVH",
+      "title": "How TCR-like antibody recognizes MHC-bound peptide",
+      "resolution": 2.9,
+      "heavy_chains": [
+        "H",
+        "Q"
+      ],
+      "light_chains": [
+        "L",
+        "R"
+      ],
+      "peptide_chains": [
+        "C",
+        "O"
+      ],
+      "peptide": "SIINFEKL",
+      "peptide_desc": "Ovalbumin",
+      "contacts": 58,
+      "epitope_residues_touched": 5,
+      "modified_residues": [],
+      "ptm": [],
+      "features": {
+        "len": 8,
+        "arom": 0.125,
+        "bigphobic": 0.5,
+        "pro_gly": 0.0,
+        "sta": 0.125,
+        "pos": 0.125,
+        "neg": 0.125,
+        "gravy": 0.487
+      },
+      "distance_to_TXLNA": 0.9885
+    },
+    {
+      "pdb": "3CK0",
+      "title": "ANTI-ANTI-IDIOTYPIC ANTIBODY AGAINST HUMAN ANGIOTENSIN II, COMPLEX WITH HUMAN ANGIOTENSIN II",
+      "resolution": 3.0,
+      "heavy_chains": [
+        "H"
+      ],
+      "light_chains": [
+        "L"
+      ],
+      "peptide_chains": [
+        "P"
+      ],
+      "peptide": "DRVYIHPF",
+      "peptide_desc": "PROTEIN (8-MER; HUMAN ANGIOTENSIN II)",
+      "contacts": 37,
+      "epitope_residues_touched": 5,
+      "modified_residues": [],
+      "ptm": [],
+      "features": {
+        "len": 8,
+        "arom": 0.25,
+        "bigphobic": 0.5,
+        "pro_gly": 0.125,
+        "sta": 0.0,
+        "pos": 0.125,
+        "neg": 0.125,
+        "gravy": -0.325
+      },
+      "distance_to_TXLNA": 0.9923
+    },
+    {
+      "pdb": "9NW6",
+      "title": "CA147v24 Fab bound to HLA-E-VL9",
+      "resolution": 3.1,
+      "heavy_chains": [
+        "E",
+        "G"
+      ],
+      "light_chains": [
+        "H",
+        "I"
+      ],
+      "peptide_chains": [
+        "F",
+        "P"
+      ],
+      "peptide": "VMAPRTLLL",
+      "peptide_desc": "VL9 peptide",
+      "contacts": 48,
+      "epitope_residues_touched": 6,
+      "modified_residues": [],
+      "ptm": [],
+      "features": {
+        "len": 9,
+        "arom": 0.0,
+        "bigphobic": 0.5556,
+        "pro_gly": 0.1111,
+        "sta": 0.2222,
+        "pos": 0.1111,
+        "neg": 0.0,
+        "gravy": 1.389
+      },
+      "distance_to_TXLNA": 0.9963
+    },
+    {
+      "pdb": "9K2R",
+      "title": "Human T cell receptor (TRAV24*01/TRBV27*01) in complex with HLA-C*1202 and IY11 peptide",
+      "resolution": 2.98,
+      "heavy_chains": [
+        "J",
+        "L",
+        "N"
+      ],
+      "light_chains": [],
+      "peptide_chains": [
+        "C",
+        "F",
+        "I"
+      ],
+      "peptide": "ILKEPVHGVYY",
+      "peptide_desc": "peptide from p51 RT",
+      "contacts": 71,
+      "epitope_residues_touched": 4,
+      "modified_residues": [],
+      "ptm": [],
+      "features": {
+        "len": 11,
+        "arom": 0.1818,
+        "bigphobic": 0.5455,
+        "pro_gly": 0.1818,
+        "sta": 0.0,
+        "pos": 0.0909,
+        "neg": 0.0909,
+        "gravy": 0.136
+      },
+      "distance_to_TXLNA": 0.9982
+    },
+    {
+      "pdb": "9PKC",
+      "title": "Mur35 Fab with HBV c18V pMHC",
+      "resolution": 2.5,
+      "heavy_chains": [
+        "H"
+      ],
+      "light_chains": [
+        "L"
+      ],
+      "peptide_chains": [
+        "P"
+      ],
+      "peptide": "FLPSDFFPSV",
+      "peptide_desc": "c18V peptide",
+      "contacts": 25,
+      "epitope_residues_touched": 6,
+      "modified_residues": [],
+      "ptm": [],
+      "features": {
+        "len": 10,
+        "arom": 0.3,
+        "bigphobic": 0.5,
+        "pro_gly": 0.2,
+        "sta": 0.2,
+        "pos": 0.0,
+        "neg": 0.1,
+        "gravy": 0.81
+      },
+      "distance_to_TXLNA": 1.0
+    },
+    {
+      "pdb": "9PIX",
+      "title": "Mur14 Fab with HBV c18V pMHC",
+      "resolution": 2.35,
+      "heavy_chains": [
+        "H"
+      ],
+      "light_chains": [
+        "L"
+      ],
+      "peptide_chains": [
+        "P"
+      ],
+      "peptide": "FLPSDFFPSV",
+      "peptide_desc": "c18V peptide",
+      "contacts": 26,
+      "epitope_residues_touched": 5,
+      "modified_residues": [],
+      "ptm": [],
+      "features": {
+        "len": 10,
+        "arom": 0.3,
+        "bigphobic": 0.5,
+        "pro_gly": 0.2,
+        "sta": 0.2,
+        "pos": 0.0,
+        "neg": 0.1,
+        "gravy": 0.81
+      },
+      "distance_to_TXLNA": 1.0
+    },
+    {
+      "pdb": "9PKF",
+      "title": "Mur35 Fab with HBV c18I pMHC",
+      "resolution": 2.6,
+      "heavy_chains": [
+        "H"
+      ],
+      "light_chains": [
+        "L"
+      ],
+      "peptide_chains": [
+        "P"
+      ],
+      "peptide": "FLPSDFFPSI",
+      "peptide_desc": "c18I peptide",
+      "contacts": 26,
+      "epitope_residues_touched": 6,
+      "modified_residues": [],
+      "ptm": [],
+      "features": {
+        "len": 10,
+        "arom": 0.3,
+        "bigphobic": 0.5,
+        "pro_gly": 0.2,
+        "sta": 0.2,
+        "pos": 0.0,
+        "neg": 0.1,
+        "gravy": 0.84
+      },
+      "distance_to_TXLNA": 1.0007
+    },
+    {
+      "pdb": "9PKV",
+      "title": "HU-38 Fab with PRAME pMHC",
+      "resolution": 2.72,
+      "heavy_chains": [
+        "K",
+        "H"
+      ],
+      "light_chains": [],
+      "peptide_chains": [
+        "P"
+      ],
+      "peptide": "SLLQHLIGL",
+      "peptide_desc": "PRAME peptide",
+      "contacts": 28,
+      "epitope_residues_touched": 5,
+      "modified_residues": [],
+      "ptm": [],
+      "features": {
+        "len": 9,
+        "arom": 0.0,
+        "bigphobic": 0.5556,
+        "pro_gly": 0.1111,
+        "sta": 0.1111,
+        "pos": 0.0,
+        "neg": 0.0,
+        "gravy": 1.311
+      },
+      "distance_to_TXLNA": 1.0145
+    },
+    {
+      "pdb": "8FJB",
+      "title": "CryoEM structure of HLA-A2 MAGEA4 (286-294) in complex with H2aM31345N Fab",
+      "resolution": 3.06,
+      "heavy_chains": [
+        "E"
+      ],
+      "light_chains": [
+        "D"
+      ],
+      "peptide_chains": [
+        "C"
+      ],
+      "peptide": "KVLEHVVRV",
+      "peptide_desc": "Melanoma-associated antigen 4 peptide",
+      "contacts": 27,
+      "epitope_residues_touched": 6,
+      "modified_residues": [],
+      "ptm": [],
+      "features": {
+        "len": 9,
+        "arom": 0.0,
+        "bigphobic": 0.5556,
+        "pro_gly": 0.0,
+        "sta": 0.0,
+        "pos": 0.2222,
+        "neg": 0.1111,
+        "gravy": 0.611
+      },
+      "distance_to_TXLNA": 1.0756
+    },
+    {
+      "pdb": "3GJF",
+      "title": "Rational development of high-affinity T-cell receptor-like antibodies",
+      "resolution": 1.9,
+      "heavy_chains": [
+        "H",
+        "M"
+      ],
+      "light_chains": [],
+      "peptide_chains": [
+        "C",
+        "F"
+      ],
+      "peptide": "SLLMWITQV",
+      "peptide_desc": "NYESO-1 peptide",
+      "contacts": 36,
+      "epitope_residues_touched": 4,
+      "modified_residues": [],
+      "ptm": [],
+      "features": {
+        "len": 9,
+        "arom": 0.1111,
+        "bigphobic": 0.6667,
+        "pro_gly": 0.0,
+        "sta": 0.2222,
+        "pos": 0.0,
+        "neg": 0.0,
+        "gravy": 1.367
+      },
+      "distance_to_TXLNA": 1.2527
+    },
+    {
+      "pdb": "3HAE",
+      "title": "Rational development of high-affinity T-cell receptor-like antibodies",
+      "resolution": 2.9,
+      "heavy_chains": [
+        "H",
+        "I",
+        "O",
+        "T"
+      ],
+      "light_chains": [],
+      "peptide_chains": [
+        "C",
+        "F",
+        "M",
+        "R"
+      ],
+      "peptide": "SLLMWITQV",
+      "peptide_desc": "NYESO-1 peptide",
+      "contacts": 85,
+      "epitope_residues_touched": 6,
+      "modified_residues": [],
+      "ptm": [],
+      "features": {
+        "len": 9,
+        "arom": 0.1111,
+        "bigphobic": 0.6667,
+        "pro_gly": 0.0,
+        "sta": 0.2222,
+        "pos": 0.0,
+        "neg": 0.0,
+        "gravy": 1.367
+      },
+      "distance_to_TXLNA": 1.2527
+    },
+    {
+      "pdb": "7RE7",
+      "title": "TCR mimic antibody (Fab fragment) in complex with AFP/HLA-A*02",
+      "resolution": 2.547,
+      "heavy_chains": [
+        "H",
+        "I"
+      ],
+      "light_chains": [
+        "J",
+        "L"
+      ],
+      "peptide_chains": [
+        "C",
+        "F"
+      ],
+      "peptide": "FMNKFIYEI",
+      "peptide_desc": "PHE-MET-ASN-LYS-PHE-ILE-TYR-GLU-ILE",
+      "contacts": 39,
+      "epitope_residues_touched": 6,
+      "modified_residues": [],
+      "ptm": [],
+      "features": {
+        "len": 9,
+        "arom": 0.3333,
+        "bigphobic": 0.6667,
+        "pro_gly": 0.0,
+        "sta": 0.0,
+        "pos": 0.1111,
+        "neg": 0.1111,
+        "gravy": 0.478
+      },
+      "distance_to_TXLNA": 1.3619
+    }
+  ]
+}
