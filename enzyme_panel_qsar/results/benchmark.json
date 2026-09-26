@@ -1,5 +1,226 @@
 [
   {
+    "name": "PARP1",
+    "n_compounds": 4479,
+    "n_scaffolds": 1992,
+    "best_model": "lgbm",
+    "models": {
+      "ridge": {
+        "scaffold_spearman_mean": 0.785,
+        "scaffold_rmse_mean": 0.713,
+        "scaffold_mae_mean": 0.5297,
+        "scaffold_r2_mean": 0.5995,
+        "scaffold_spearman_sd": 0.0004,
+        "scaffold_rmse_sd": 0.0019,
+        "scaffold_mae_sd": 0.0027,
+        "scaffold_r2_sd": 0.0022,
+        "random_spearman": 0.8131,
+        "random_rmse": 0.6629,
+        "random_mae": 0.4839,
+        "random_r2": 0.6537,
+        "fit_seconds": 90.7
+      },
+      "rf": {
+        "scaffold_spearman_mean": 0.8249,
+        "scaffold_rmse_mean": 0.6817,
+        "scaffold_mae_mean": 0.5063,
+        "scaffold_r2_mean": 0.6339,
+        "scaffold_spearman_sd": 0.0024,
+        "scaffold_rmse_sd": 0.0031,
+        "scaffold_mae_sd": 0.0029,
+        "scaffold_r2_sd": 0.0033,
+        "random_spearman": 0.8533,
+        "random_rmse": 0.6222,
+        "random_mae": 0.4519,
+        "random_r2": 0.695,
+        "fit_seconds": 22.2
+      },
+      "lgbm": {
+        "scaffold_spearman_mean": 0.836,
+        "scaffold_rmse_mean": 0.6426,
+        "scaffold_mae_mean": 0.4613,
+        "scaffold_r2_mean": 0.6746,
+        "scaffold_spearman_sd": 0.0019,
+        "scaffold_rmse_sd": 0.0038,
+        "scaffold_mae_sd": 0.0017,
+        "scaffold_r2_sd": 0.0039,
+        "random_spearman": 0.863,
+        "random_rmse": 0.589,
+        "random_mae": 0.4072,
+        "random_r2": 0.7266,
+        "fit_seconds": 41.9
+      }
+    },
+    "permutation_null": {
+      "mean": -0.0005,
+      "sd": 0.0178,
+      "p95": 0.0214,
+      "max": 0.0219,
+      "n_permutations": 8
+    },
+    "clears_null": true,
+    "leakage_factor_random_over_scaffold": 1.03,
+    "noise_floor_log": 0.705,
+    "rmse_vs_noise_floor": 0.91,
+    "per_assay_group": {
+      "binding": {
+        "n": 4475,
+        "spearman": 0.8363
+      }
+    },
+    "modellable": true
+  },
+  {
+    "name": "HDAC1",
+    "n_compounds": 8095,
+    "n_scaffolds": 3538,
+    "best_model": "lgbm",
+    "models": {
+      "ridge": {
+        "scaffold_spearman_mean": 0.7092,
+        "scaffold_rmse_mean": 0.8066,
+        "scaffold_mae_mean": 0.6204,
+        "scaffold_r2_mean": 0.485,
+        "scaffold_spearman_sd": 0.0048,
+        "scaffold_rmse_sd": 0.0052,
+        "scaffold_mae_sd": 0.0035,
+        "scaffold_r2_sd": 0.0067,
+        "random_spearman": 0.7818,
+        "random_rmse": 0.7072,
+        "random_mae": 0.5473,
+        "random_r2": 0.6041,
+        "fit_seconds": 140.7
+      },
+      "rf": {
+        "scaffold_spearman_mean": 0.7587,
+        "scaffold_rmse_mean": 0.7656,
+        "scaffold_mae_mean": 0.5912,
+        "scaffold_r2_mean": 0.536,
+        "scaffold_spearman_sd": 0.0038,
+        "scaffold_rmse_sd": 0.0038,
+        "scaffold_mae_sd": 0.0022,
+        "scaffold_r2_sd": 0.0046,
+        "random_spearman": 0.8304,
+        "random_rmse": 0.659,
+        "random_mae": 0.5037,
+        "random_r2": 0.6562,
+        "fit_seconds": 44.4
+      },
+      "lgbm": {
+        "scaffold_spearman_mean": 0.7831,
+        "scaffold_rmse_mean": 0.704,
+        "scaffold_mae_mean": 0.5238,
+        "scaffold_r2_mean": 0.6077,
+        "scaffold_spearman_sd": 0.0028,
+        "scaffold_rmse_sd": 0.0033,
+        "scaffold_mae_sd": 0.0023,
+        "scaffold_r2_sd": 0.0037,
+        "random_spearman": 0.8535,
+        "random_rmse": 0.5856,
+        "random_mae": 0.4337,
+        "random_r2": 0.7286,
+        "fit_seconds": 57.3
+      }
+    },
+    "permutation_null": {
+      "mean": -0.0043,
+      "sd": 0.0069,
+      "p95": 0.0068,
+      "max": 0.0105,
+      "n_permutations": 8
+    },
+    "clears_null": true,
+    "leakage_factor_random_over_scaffold": 1.09,
+    "noise_floor_log": 0.51,
+    "rmse_vs_noise_floor": 1.38,
+    "per_assay_group": {
+      "binding": {
+        "n": 7849,
+        "spearman": 0.7818
+      },
+      "functional": {
+        "n": 246,
+        "spearman": 0.8282
+      }
+    },
+    "modellable": true
+  },
+  {
+    "name": "HDAC6",
+    "n_compounds": 6320,
+    "n_scaffolds": 2658,
+    "best_model": "lgbm",
+    "models": {
+      "ridge": {
+        "scaffold_spearman_mean": 0.6922,
+        "scaffold_rmse_mean": 0.7533,
+        "scaffold_mae_mean": 0.5781,
+        "scaffold_r2_mean": 0.4909,
+        "scaffold_spearman_sd": 0.0011,
+        "scaffold_rmse_sd": 0.0028,
+        "scaffold_mae_sd": 0.003,
+        "scaffold_r2_sd": 0.0038,
+        "random_spearman": 0.7601,
+        "random_rmse": 0.6709,
+        "random_mae": 0.5079,
+        "random_r2": 0.5962,
+        "fit_seconds": 113.2
+      },
+      "rf": {
+        "scaffold_spearman_mean": 0.7599,
+        "scaffold_rmse_mean": 0.7105,
+        "scaffold_mae_mean": 0.5382,
+        "scaffold_r2_mean": 0.5471,
+        "scaffold_spearman_sd": 0.0036,
+        "scaffold_rmse_sd": 0.0026,
+        "scaffold_mae_sd": 0.0021,
+        "scaffold_r2_sd": 0.0033,
+        "random_spearman": 0.8179,
+        "random_rmse": 0.6294,
+        "random_mae": 0.469,
+        "random_r2": 0.6445,
+        "fit_seconds": 35.7
+      },
+      "lgbm": {
+        "scaffold_spearman_mean": 0.7709,
+        "scaffold_rmse_mean": 0.6607,
+        "scaffold_mae_mean": 0.4888,
+        "scaffold_r2_mean": 0.6084,
+        "scaffold_spearman_sd": 0.0028,
+        "scaffold_rmse_sd": 0.0028,
+        "scaffold_mae_sd": 0.0021,
+        "scaffold_r2_sd": 0.0033,
+        "random_spearman": 0.8344,
+        "random_rmse": 0.5698,
+        "random_mae": 0.4094,
+        "random_r2": 0.7087,
+        "fit_seconds": 52.0
+      }
+    },
+    "permutation_null": {
+      "mean": -0.0055,
+      "sd": 0.0205,
+      "p95": 0.017,
+      "max": 0.0197,
+      "n_permutations": 8
+    },
+    "clears_null": true,
+    "leakage_factor_random_over_scaffold": 1.08,
+    "noise_floor_log": 0.67,
+    "rmse_vs_noise_floor": 0.99,
+    "per_assay_group": {
+      "binding": {
+        "n": 6228,
+        "spearman": 0.7677
+      },
+      "functional": {
+        "n": 92,
+        "spearman": 0.6314
+      }
+    },
+    "modellable": true
+  },
+  {
     "name": "SIRT1",
     "n_compounds": 616,
     "n_scaffolds": 301,
@@ -18,7 +239,7 @@
         "random_rmse": 0.5667,
         "random_mae": 0.4261,
         "random_r2": 0.5675,
-        "fit_seconds": 1.0
+        "fit_seconds": 0.9
       },
       "rf": {
         "scaffold_spearman_mean": 0.6488,
@@ -33,7 +254,7 @@
         "random_rmse": 0.5647,
         "random_mae": 0.4308,
         "random_r2": 0.5704,
-        "fit_seconds": 10.1
+        "fit_seconds": 10.2
       },
       "lgbm": {
         "scaffold_spearman_mean": 0.6289,
@@ -48,15 +269,15 @@
         "random_rmse": 0.5404,
         "random_mae": 0.3867,
         "random_r2": 0.6066,
-        "fit_seconds": 11.1
+        "fit_seconds": 12.0
       }
     },
     "permutation_null": {
-      "mean": -0.0325,
-      "sd": 0.0683,
-      "p95": 0.0666,
-      "max": 0.0935,
-      "n_permutations": 5
+      "mean": 0.0076,
+      "sd": 0.0768,
+      "p95": 0.1025,
+      "max": 0.1074,
+      "n_permutations": 8
     },
     "clears_null": true,
     "leakage_factor_random_over_scaffold": 1.1,
@@ -66,6 +287,870 @@
       "binding": {
         "n": 616,
         "spearman": 0.6453
+      }
+    },
+    "modellable": true
+  },
+  {
+    "name": "PDE4B",
+    "n_compounds": 2223,
+    "n_scaffolds": 860,
+    "best_model": "lgbm",
+    "models": {
+      "ridge": {
+        "scaffold_spearman_mean": 0.7835,
+        "scaffold_rmse_mean": 0.8734,
+        "scaffold_mae_mean": 0.6774,
+        "scaffold_r2_mean": 0.6297,
+        "scaffold_spearman_sd": 0.0154,
+        "scaffold_rmse_sd": 0.0279,
+        "scaffold_mae_sd": 0.0151,
+        "scaffold_r2_sd": 0.0239,
+        "random_spearman": 0.8511,
+        "random_rmse": 0.733,
+        "random_mae": 0.5574,
+        "random_r2": 0.7394,
+        "fit_seconds": 12.0
+      },
+      "rf": {
+        "scaffold_spearman_mean": 0.8039,
+        "scaffold_rmse_mean": 0.8824,
+        "scaffold_mae_mean": 0.6936,
+        "scaffold_r2_mean": 0.6224,
+        "scaffold_spearman_sd": 0.0059,
+        "scaffold_rmse_sd": 0.0076,
+        "scaffold_mae_sd": 0.0038,
+        "scaffold_r2_sd": 0.0065,
+        "random_spearman": 0.8645,
+        "random_rmse": 0.7317,
+        "random_mae": 0.5618,
+        "random_r2": 0.7404,
+        "fit_seconds": 14.8
+      },
+      "lgbm": {
+        "scaffold_spearman_mean": 0.8238,
+        "scaffold_rmse_mean": 0.7963,
+        "scaffold_mae_mean": 0.6116,
+        "scaffold_r2_mean": 0.6923,
+        "scaffold_spearman_sd": 0.0077,
+        "scaffold_rmse_sd": 0.0188,
+        "scaffold_mae_sd": 0.0109,
+        "scaffold_r2_sd": 0.0146,
+        "random_spearman": 0.8846,
+        "random_rmse": 0.6495,
+        "random_mae": 0.4839,
+        "random_r2": 0.7954,
+        "fit_seconds": 33.9
+      }
+    },
+    "permutation_null": {
+      "mean": -0.0064,
+      "sd": 0.014,
+      "p95": 0.0117,
+      "max": 0.0123,
+      "n_permutations": 8
+    },
+    "clears_null": true,
+    "leakage_factor_random_over_scaffold": 1.07,
+    "noise_floor_log": 0.7,
+    "rmse_vs_noise_floor": 1.14,
+    "per_assay_group": {
+      "binding": {
+        "n": 2149,
+        "spearman": 0.8376
+      },
+      "functional": {
+        "n": 74,
+        "spearman": 0.328
+      }
+    },
+    "modellable": true
+  },
+  {
+    "name": "PDE5A",
+    "n_compounds": 2148,
+    "n_scaffolds": 896,
+    "best_model": "lgbm",
+    "models": {
+      "ridge": {
+        "scaffold_spearman_mean": 0.8398,
+        "scaffold_rmse_mean": 0.8457,
+        "scaffold_mae_mean": 0.6555,
+        "scaffold_r2_mean": 0.6982,
+        "scaffold_spearman_sd": 0.0015,
+        "scaffold_rmse_sd": 0.0085,
+        "scaffold_mae_sd": 0.0049,
+        "scaffold_r2_sd": 0.0061,
+        "random_spearman": 0.8822,
+        "random_rmse": 0.7347,
+        "random_mae": 0.5631,
+        "random_r2": 0.7723,
+        "fit_seconds": 10.5
+      },
+      "rf": {
+        "scaffold_spearman_mean": 0.8398,
+        "scaffold_rmse_mean": 0.8723,
+        "scaffold_mae_mean": 0.6931,
+        "scaffold_r2_mean": 0.679,
+        "scaffold_spearman_sd": 0.0012,
+        "scaffold_rmse_sd": 0.004,
+        "scaffold_mae_sd": 0.0053,
+        "scaffold_r2_sd": 0.003,
+        "random_spearman": 0.8893,
+        "random_rmse": 0.7424,
+        "random_mae": 0.5761,
+        "random_r2": 0.7675,
+        "fit_seconds": 13.5
+      },
+      "lgbm": {
+        "scaffold_spearman_mean": 0.8613,
+        "scaffold_rmse_mean": 0.7917,
+        "scaffold_mae_mean": 0.6041,
+        "scaffold_r2_mean": 0.7355,
+        "scaffold_spearman_sd": 0.0041,
+        "scaffold_rmse_sd": 0.009,
+        "scaffold_mae_sd": 0.0027,
+        "scaffold_r2_sd": 0.006,
+        "random_spearman": 0.8985,
+        "random_rmse": 0.6848,
+        "random_mae": 0.5027,
+        "random_r2": 0.8021,
+        "fit_seconds": 32.6
+      }
+    },
+    "permutation_null": {
+      "mean": 0.0132,
+      "sd": 0.0232,
+      "p95": 0.0539,
+      "max": 0.07,
+      "n_permutations": 8
+    },
+    "clears_null": true,
+    "leakage_factor_random_over_scaffold": 1.04,
+    "noise_floor_log": 0.733,
+    "rmse_vs_noise_floor": 1.08,
+    "per_assay_group": {
+      "binding": {
+        "n": 2143,
+        "spearman": 0.8672
+      }
+    },
+    "modellable": true
+  },
+  {
+    "name": "EZH2",
+    "n_compounds": 1003,
+    "n_scaffolds": 441,
+    "best_model": "rf",
+    "models": {
+      "ridge": {
+        "scaffold_spearman_mean": 0.8672,
+        "scaffold_rmse_mean": 0.676,
+        "scaffold_mae_mean": 0.5011,
+        "scaffold_r2_mean": 0.7452,
+        "scaffold_spearman_sd": 0.0029,
+        "scaffold_rmse_sd": 0.0093,
+        "scaffold_mae_sd": 0.0075,
+        "scaffold_r2_sd": 0.007,
+        "random_spearman": 0.8888,
+        "random_rmse": 0.6297,
+        "random_mae": 0.4673,
+        "random_r2": 0.779,
+        "fit_seconds": 2.0
+      },
+      "rf": {
+        "scaffold_spearman_mean": 0.8741,
+        "scaffold_rmse_mean": 0.6821,
+        "scaffold_mae_mean": 0.5004,
+        "scaffold_r2_mean": 0.7407,
+        "scaffold_spearman_sd": 0.0005,
+        "scaffold_rmse_sd": 0.0016,
+        "scaffold_mae_sd": 0.0015,
+        "scaffold_r2_sd": 0.0012,
+        "random_spearman": 0.899,
+        "random_rmse": 0.6251,
+        "random_mae": 0.4579,
+        "random_r2": 0.7823,
+        "fit_seconds": 11.0
+      },
+      "lgbm": {
+        "scaffold_spearman_mean": 0.8675,
+        "scaffold_rmse_mean": 0.6585,
+        "scaffold_mae_mean": 0.4763,
+        "scaffold_r2_mean": 0.7582,
+        "scaffold_spearman_sd": 0.005,
+        "scaffold_rmse_sd": 0.0138,
+        "scaffold_mae_sd": 0.0066,
+        "scaffold_r2_sd": 0.0102,
+        "random_spearman": 0.8896,
+        "random_rmse": 0.6205,
+        "random_mae": 0.449,
+        "random_r2": 0.7854,
+        "fit_seconds": 19.6
+      }
+    },
+    "permutation_null": {
+      "mean": -0.0013,
+      "sd": 0.0297,
+      "p95": 0.0361,
+      "max": 0.0367,
+      "n_permutations": 8
+    },
+    "clears_null": true,
+    "leakage_factor_random_over_scaffold": 1.03,
+    "noise_floor_log": 0.45,
+    "rmse_vs_noise_floor": 1.52,
+    "per_assay_group": {
+      "binding": {
+        "n": 1003,
+        "spearman": 0.8738
+      }
+    },
+    "modellable": true
+  },
+  {
+    "name": "PRMT5",
+    "n_compounds": 1051,
+    "n_scaffolds": 552,
+    "best_model": "lgbm",
+    "models": {
+      "ridge": {
+        "scaffold_spearman_mean": 0.7714,
+        "scaffold_rmse_mean": 0.7582,
+        "scaffold_mae_mean": 0.5819,
+        "scaffold_r2_mean": 0.5707,
+        "scaffold_spearman_sd": 0.0025,
+        "scaffold_rmse_sd": 0.0065,
+        "scaffold_mae_sd": 0.0046,
+        "scaffold_r2_sd": 0.0073,
+        "random_spearman": 0.8228,
+        "random_rmse": 0.6698,
+        "random_mae": 0.5113,
+        "random_r2": 0.665,
+        "fit_seconds": 2.0
+      },
+      "rf": {
+        "scaffold_spearman_mean": 0.7924,
+        "scaffold_rmse_mean": 0.7417,
+        "scaffold_mae_mean": 0.5771,
+        "scaffold_r2_mean": 0.5893,
+        "scaffold_spearman_sd": 0.0041,
+        "scaffold_rmse_sd": 0.004,
+        "scaffold_mae_sd": 0.0017,
+        "scaffold_r2_sd": 0.0045,
+        "random_spearman": 0.8223,
+        "random_rmse": 0.672,
+        "random_mae": 0.5175,
+        "random_r2": 0.6628,
+        "fit_seconds": 10.9
+      },
+      "lgbm": {
+        "scaffold_spearman_mean": 0.8031,
+        "scaffold_rmse_mean": 0.7188,
+        "scaffold_mae_mean": 0.5498,
+        "scaffold_r2_mean": 0.6141,
+        "scaffold_spearman_sd": 0.0053,
+        "scaffold_rmse_sd": 0.0091,
+        "scaffold_mae_sd": 0.0043,
+        "scaffold_r2_sd": 0.0097,
+        "random_spearman": 0.8394,
+        "random_rmse": 0.6455,
+        "random_mae": 0.4882,
+        "random_r2": 0.6888,
+        "fit_seconds": 22.9
+      }
+    },
+    "permutation_null": {
+      "mean": -0.0077,
+      "sd": 0.05,
+      "p95": 0.0536,
+      "max": 0.0687,
+      "n_permutations": 8
+    },
+    "clears_null": true,
+    "leakage_factor_random_over_scaffold": 1.05,
+    "noise_floor_log": 1.265,
+    "rmse_vs_noise_floor": 0.57,
+    "per_assay_group": {
+      "binding": {
+        "n": 1050,
+        "spearman": 0.8
+      }
+    },
+    "modellable": true
+  },
+  {
+    "name": "BRD4",
+    "n_compounds": 9107,
+    "n_scaffolds": 3610,
+    "best_model": "lgbm",
+    "models": {
+      "ridge": {
+        "scaffold_spearman_mean": 0.8536,
+        "scaffold_rmse_mean": 0.6353,
+        "scaffold_mae_mean": 0.4868,
+        "scaffold_r2_mean": 0.7283,
+        "scaffold_spearman_sd": 0.0011,
+        "scaffold_rmse_sd": 0.0021,
+        "scaffold_mae_sd": 0.0012,
+        "scaffold_r2_sd": 0.0018,
+        "random_spearman": 0.8794,
+        "random_rmse": 0.5813,
+        "random_mae": 0.4382,
+        "random_r2": 0.7725,
+        "fit_seconds": 152.9
+      },
+      "rf": {
+        "scaffold_spearman_mean": 0.8774,
+        "scaffold_rmse_mean": 0.6004,
+        "scaffold_mae_mean": 0.4527,
+        "scaffold_r2_mean": 0.7573,
+        "scaffold_spearman_sd": 0.0005,
+        "scaffold_rmse_sd": 0.0007,
+        "scaffold_mae_sd": 0.0,
+        "scaffold_r2_sd": 0.0006,
+        "random_spearman": 0.9016,
+        "random_rmse": 0.5393,
+        "random_mae": 0.3969,
+        "random_r2": 0.8042,
+        "fit_seconds": 48.2
+      },
+      "lgbm": {
+        "scaffold_spearman_mean": 0.8814,
+        "scaffold_rmse_mean": 0.572,
+        "scaffold_mae_mean": 0.4242,
+        "scaffold_r2_mean": 0.7797,
+        "scaffold_spearman_sd": 0.0013,
+        "scaffold_rmse_sd": 0.0026,
+        "scaffold_mae_sd": 0.0029,
+        "scaffold_r2_sd": 0.002,
+        "random_spearman": 0.9066,
+        "random_rmse": 0.5141,
+        "random_mae": 0.3631,
+        "random_r2": 0.8221,
+        "fit_seconds": 66.0
+      }
+    },
+    "permutation_null": {
+      "mean": 0.0052,
+      "sd": 0.0138,
+      "p95": 0.0255,
+      "max": 0.0293,
+      "n_permutations": 8
+    },
+    "clears_null": true,
+    "leakage_factor_random_over_scaffold": 1.03,
+    "noise_floor_log": 0.66,
+    "rmse_vs_noise_floor": 0.87,
+    "per_assay_group": {
+      "binding": {
+        "n": 9107,
+        "spearman": 0.883
+      }
+    },
+    "modellable": true
+  },
+  {
+    "name": "KDM1A",
+    "n_compounds": 3841,
+    "n_scaffolds": 1625,
+    "best_model": "lgbm",
+    "models": {
+      "ridge": {
+        "scaffold_spearman_mean": 0.814,
+        "scaffold_rmse_mean": 0.6904,
+        "scaffold_mae_mean": 0.5145,
+        "scaffold_r2_mean": 0.6911,
+        "scaffold_spearman_sd": 0.0033,
+        "scaffold_rmse_sd": 0.0051,
+        "scaffold_mae_sd": 0.0048,
+        "scaffold_r2_sd": 0.0045,
+        "random_spearman": 0.8532,
+        "random_rmse": 0.6123,
+        "random_mae": 0.4512,
+        "random_r2": 0.757,
+        "fit_seconds": 83.0
+      },
+      "rf": {
+        "scaffold_spearman_mean": 0.8325,
+        "scaffold_rmse_mean": 0.6683,
+        "scaffold_mae_mean": 0.497,
+        "scaffold_r2_mean": 0.7105,
+        "scaffold_spearman_sd": 0.0044,
+        "scaffold_rmse_sd": 0.0053,
+        "scaffold_mae_sd": 0.0044,
+        "scaffold_r2_sd": 0.0046,
+        "random_spearman": 0.8788,
+        "random_rmse": 0.5722,
+        "random_mae": 0.4201,
+        "random_r2": 0.7878,
+        "fit_seconds": 20.3
+      },
+      "lgbm": {
+        "scaffold_spearman_mean": 0.8406,
+        "scaffold_rmse_mean": 0.6388,
+        "scaffold_mae_mean": 0.4677,
+        "scaffold_r2_mean": 0.7355,
+        "scaffold_spearman_sd": 0.0066,
+        "scaffold_rmse_sd": 0.0099,
+        "scaffold_mae_sd": 0.01,
+        "scaffold_r2_sd": 0.0083,
+        "random_spearman": 0.8831,
+        "random_rmse": 0.5442,
+        "random_mae": 0.3806,
+        "random_r2": 0.8081,
+        "fit_seconds": 39.3
+      }
+    },
+    "permutation_null": {
+      "mean": -0.0092,
+      "sd": 0.0184,
+      "p95": 0.0197,
+      "max": 0.0277,
+      "n_permutations": 8
+    },
+    "clears_null": true,
+    "leakage_factor_random_over_scaffold": 1.05,
+    "noise_floor_log": 0.34,
+    "rmse_vs_noise_floor": 1.88,
+    "per_assay_group": {
+      "binding": {
+        "n": 3840,
+        "spearman": 0.8317
+      }
+    },
+    "modellable": true
+  },
+  {
+    "name": "PTPN11",
+    "n_compounds": 2328,
+    "n_scaffolds": 1001,
+    "best_model": "ridge",
+    "models": {
+      "ridge": {
+        "scaffold_spearman_mean": 0.8553,
+        "scaffold_rmse_mean": 0.6504,
+        "scaffold_mae_mean": 0.5031,
+        "scaffold_r2_mean": 0.7192,
+        "scaffold_spearman_sd": 0.0016,
+        "scaffold_rmse_sd": 0.0034,
+        "scaffold_mae_sd": 0.0015,
+        "scaffold_r2_sd": 0.0029,
+        "random_spearman": 0.8765,
+        "random_rmse": 0.6004,
+        "random_mae": 0.4563,
+        "random_r2": 0.7607,
+        "fit_seconds": 13.5
+      },
+      "rf": {
+        "scaffold_spearman_mean": 0.8497,
+        "scaffold_rmse_mean": 0.6633,
+        "scaffold_mae_mean": 0.5188,
+        "scaffold_r2_mean": 0.7079,
+        "scaffold_spearman_sd": 0.0029,
+        "scaffold_rmse_sd": 0.0051,
+        "scaffold_mae_sd": 0.0024,
+        "scaffold_r2_sd": 0.0045,
+        "random_spearman": 0.8764,
+        "random_rmse": 0.606,
+        "random_mae": 0.4647,
+        "random_r2": 0.7563,
+        "fit_seconds": 13.4
+      },
+      "lgbm": {
+        "scaffold_spearman_mean": 0.8518,
+        "scaffold_rmse_mean": 0.6468,
+        "scaffold_mae_mean": 0.4903,
+        "scaffold_r2_mean": 0.7222,
+        "scaffold_spearman_sd": 0.0047,
+        "scaffold_rmse_sd": 0.0102,
+        "scaffold_mae_sd": 0.0073,
+        "scaffold_r2_sd": 0.0088,
+        "random_spearman": 0.8865,
+        "random_rmse": 0.5713,
+        "random_mae": 0.4181,
+        "random_r2": 0.7833,
+        "fit_seconds": 32.5
+      }
+    },
+    "permutation_null": {
+      "mean": -0.0174,
+      "sd": 0.0263,
+      "p95": 0.0183,
+      "max": 0.0213,
+      "n_permutations": 8
+    },
+    "clears_null": true,
+    "leakage_factor_random_over_scaffold": 1.02,
+    "noise_floor_log": 0.575,
+    "rmse_vs_noise_floor": 1.13,
+    "per_assay_group": {
+      "binding": {
+        "n": 2167,
+        "spearman": 0.8613
+      },
+      "functional": {
+        "n": 161,
+        "spearman": 0.0431
+      }
+    },
+    "modellable": true
+  },
+  {
+    "name": "PTP1B",
+    "n_compounds": 3102,
+    "n_scaffolds": 1259,
+    "best_model": "lgbm",
+    "models": {
+      "ridge": {
+        "scaffold_spearman_mean": 0.6767,
+        "scaffold_rmse_mean": 0.5777,
+        "scaffold_mae_mean": 0.4331,
+        "scaffold_r2_mean": 0.5334,
+        "scaffold_spearman_sd": 0.0038,
+        "scaffold_rmse_sd": 0.0047,
+        "scaffold_mae_sd": 0.0021,
+        "scaffold_r2_sd": 0.0076,
+        "random_spearman": 0.7497,
+        "random_rmse": 0.501,
+        "random_mae": 0.3705,
+        "random_r2": 0.6491,
+        "fit_seconds": 72.9
+      },
+      "rf": {
+        "scaffold_spearman_mean": 0.7112,
+        "scaffold_rmse_mean": 0.5608,
+        "scaffold_mae_mean": 0.423,
+        "scaffold_r2_mean": 0.5604,
+        "scaffold_spearman_sd": 0.0048,
+        "scaffold_rmse_sd": 0.0057,
+        "scaffold_mae_sd": 0.0025,
+        "scaffold_r2_sd": 0.009,
+        "random_spearman": 0.7896,
+        "random_rmse": 0.4844,
+        "random_mae": 0.3573,
+        "random_r2": 0.672,
+        "fit_seconds": 20.8
+      },
+      "lgbm": {
+        "scaffold_spearman_mean": 0.7161,
+        "scaffold_rmse_mean": 0.5355,
+        "scaffold_mae_mean": 0.3938,
+        "scaffold_r2_mean": 0.599,
+        "scaffold_spearman_sd": 0.007,
+        "scaffold_rmse_sd": 0.0063,
+        "scaffold_mae_sd": 0.0024,
+        "scaffold_r2_sd": 0.0095,
+        "random_spearman": 0.7963,
+        "random_rmse": 0.4569,
+        "random_mae": 0.3247,
+        "random_r2": 0.7082,
+        "fit_seconds": 41.4
+      }
+    },
+    "permutation_null": {
+      "mean": -0.0117,
+      "sd": 0.0138,
+      "p95": 0.0036,
+      "max": 0.0067,
+      "n_permutations": 8
+    },
+    "clears_null": true,
+    "leakage_factor_random_over_scaffold": 1.11,
+    "noise_floor_log": 0.295,
+    "rmse_vs_noise_floor": 1.82,
+    "per_assay_group": {
+      "binding": {
+        "n": 3079,
+        "spearman": 0.7071
+      }
+    },
+    "modellable": true
+  },
+  {
+    "name": "IDO1",
+    "n_compounds": 3573,
+    "n_scaffolds": 1289,
+    "best_model": "lgbm",
+    "models": {
+      "ridge": {
+        "scaffold_spearman_mean": 0.7448,
+        "scaffold_rmse_mean": 0.763,
+        "scaffold_mae_mean": 0.5988,
+        "scaffold_r2_mean": 0.5562,
+        "scaffold_spearman_sd": 0.0042,
+        "scaffold_rmse_sd": 0.0091,
+        "scaffold_mae_sd": 0.0026,
+        "scaffold_r2_sd": 0.0106,
+        "random_spearman": 0.8138,
+        "random_rmse": 0.6538,
+        "random_mae": 0.5039,
+        "random_r2": 0.6742,
+        "fit_seconds": 77.2
+      },
+      "rf": {
+        "scaffold_spearman_mean": 0.7862,
+        "scaffold_rmse_mean": 0.7224,
+        "scaffold_mae_mean": 0.5704,
+        "scaffold_r2_mean": 0.6023,
+        "scaffold_spearman_sd": 0.0045,
+        "scaffold_rmse_sd": 0.0061,
+        "scaffold_mae_sd": 0.0039,
+        "scaffold_r2_sd": 0.0067,
+        "random_spearman": 0.8423,
+        "random_rmse": 0.6303,
+        "random_mae": 0.4815,
+        "random_r2": 0.6972,
+        "fit_seconds": 18.0
+      },
+      "lgbm": {
+        "scaffold_spearman_mean": 0.7997,
+        "scaffold_rmse_mean": 0.6877,
+        "scaffold_mae_mean": 0.5311,
+        "scaffold_r2_mean": 0.6396,
+        "scaffold_spearman_sd": 0.0045,
+        "scaffold_rmse_sd": 0.0075,
+        "scaffold_mae_sd": 0.0051,
+        "scaffold_r2_sd": 0.0078,
+        "random_spearman": 0.8557,
+        "random_rmse": 0.5861,
+        "random_mae": 0.432,
+        "random_r2": 0.7382,
+        "fit_seconds": 39.8
+      }
+    },
+    "permutation_null": {
+      "mean": -0.0046,
+      "sd": 0.0202,
+      "p95": 0.0301,
+      "max": 0.0368,
+      "n_permutations": 8
+    },
+    "clears_null": true,
+    "leakage_factor_random_over_scaffold": 1.07,
+    "noise_floor_log": 0.62,
+    "rmse_vs_noise_floor": 1.11,
+    "per_assay_group": {
+      "binding": {
+        "n": 3573,
+        "spearman": 0.8048
+      }
+    },
+    "modellable": true
+  },
+  {
+    "name": "NAMPT",
+    "n_compounds": 4147,
+    "n_scaffolds": 2046,
+    "best_model": "lgbm",
+    "models": {
+      "ridge": {
+        "scaffold_spearman_mean": 0.8149,
+        "scaffold_rmse_mean": 0.5645,
+        "scaffold_mae_mean": 0.4135,
+        "scaffold_r2_mean": 0.6457,
+        "scaffold_spearman_sd": 0.0023,
+        "scaffold_rmse_sd": 0.0027,
+        "scaffold_mae_sd": 0.0009,
+        "scaffold_r2_sd": 0.0033,
+        "random_spearman": 0.8331,
+        "random_rmse": 0.5367,
+        "random_mae": 0.3903,
+        "random_r2": 0.6799,
+        "fit_seconds": 84.3
+      },
+      "rf": {
+        "scaffold_spearman_mean": 0.8211,
+        "scaffold_rmse_mean": 0.5712,
+        "scaffold_mae_mean": 0.4242,
+        "scaffold_r2_mean": 0.6373,
+        "scaffold_spearman_sd": 0.003,
+        "scaffold_rmse_sd": 0.0017,
+        "scaffold_mae_sd": 0.0007,
+        "scaffold_r2_sd": 0.0022,
+        "random_spearman": 0.8445,
+        "random_rmse": 0.5366,
+        "random_mae": 0.3943,
+        "random_r2": 0.6799,
+        "fit_seconds": 20.7
+      },
+      "lgbm": {
+        "scaffold_spearman_mean": 0.8404,
+        "scaffold_rmse_mean": 0.5339,
+        "scaffold_mae_mean": 0.3818,
+        "scaffold_r2_mean": 0.6832,
+        "scaffold_spearman_sd": 0.0019,
+        "scaffold_rmse_sd": 0.0041,
+        "scaffold_mae_sd": 0.0008,
+        "scaffold_r2_sd": 0.0048,
+        "random_spearman": 0.8635,
+        "random_rmse": 0.4951,
+        "random_mae": 0.3536,
+        "random_r2": 0.7275,
+        "fit_seconds": 38.8
+      }
+    },
+    "permutation_null": {
+      "mean": -0.0088,
+      "sd": 0.0139,
+      "p95": 0.0058,
+      "max": 0.0073,
+      "n_permutations": 8
+    },
+    "clears_null": true,
+    "leakage_factor_random_over_scaffold": 1.03,
+    "noise_floor_log": 0.17,
+    "rmse_vs_noise_floor": 3.14,
+    "per_assay_group": {
+      "binding": {
+        "n": 4147,
+        "spearman": 0.8396
+      }
+    },
+    "modellable": true
+  },
+  {
+    "name": "HSP90AA1",
+    "n_compounds": 1605,
+    "n_scaffolds": 637,
+    "best_model": "lgbm",
+    "models": {
+      "ridge": {
+        "scaffold_spearman_mean": 0.6933,
+        "scaffold_rmse_mean": 0.7899,
+        "scaffold_mae_mean": 0.56,
+        "scaffold_r2_mean": 0.4752,
+        "scaffold_spearman_sd": 0.0052,
+        "scaffold_rmse_sd": 0.0082,
+        "scaffold_mae_sd": 0.0027,
+        "scaffold_r2_sd": 0.0108,
+        "random_spearman": 0.8034,
+        "random_rmse": 0.6168,
+        "random_mae": 0.4525,
+        "random_r2": 0.6801,
+        "fit_seconds": 5.3
+      },
+      "rf": {
+        "scaffold_spearman_mean": 0.7499,
+        "scaffold_rmse_mean": 0.7506,
+        "scaffold_mae_mean": 0.5362,
+        "scaffold_r2_mean": 0.5262,
+        "scaffold_spearman_sd": 0.0038,
+        "scaffold_rmse_sd": 0.0026,
+        "scaffold_mae_sd": 0.0045,
+        "scaffold_r2_sd": 0.0033,
+        "random_spearman": 0.8372,
+        "random_rmse": 0.5923,
+        "random_mae": 0.4306,
+        "random_r2": 0.705,
+        "fit_seconds": 12.2
+      },
+      "lgbm": {
+        "scaffold_spearman_mean": 0.7524,
+        "scaffold_rmse_mean": 0.7203,
+        "scaffold_mae_mean": 0.506,
+        "scaffold_r2_mean": 0.5635,
+        "scaffold_spearman_sd": 0.0146,
+        "scaffold_rmse_sd": 0.0159,
+        "scaffold_mae_sd": 0.0107,
+        "scaffold_r2_sd": 0.0191,
+        "random_spearman": 0.8395,
+        "random_rmse": 0.5653,
+        "random_mae": 0.3962,
+        "random_r2": 0.7313,
+        "fit_seconds": 27.7
+      }
+    },
+    "permutation_null": {
+      "mean": 0.0007,
+      "sd": 0.0204,
+      "p95": 0.0275,
+      "max": 0.035,
+      "n_permutations": 8
+    },
+    "clears_null": true,
+    "leakage_factor_random_over_scaffold": 1.12,
+    "noise_floor_log": 0.71,
+    "rmse_vs_noise_floor": 1.01,
+    "per_assay_group": {
+      "binding": {
+        "n": 1575,
+        "spearman": 0.7699
+      },
+      "functional": {
+        "n": 30,
+        "spearman": 0.755
+      }
+    },
+    "modellable": true
+  },
+  {
+    "name": "CTSK",
+    "n_compounds": 2144,
+    "n_scaffolds": 1105,
+    "best_model": "lgbm",
+    "models": {
+      "ridge": {
+        "scaffold_spearman_mean": 0.805,
+        "scaffold_rmse_mean": 0.8286,
+        "scaffold_mae_mean": 0.6284,
+        "scaffold_r2_mean": 0.6313,
+        "scaffold_spearman_sd": 0.0059,
+        "scaffold_rmse_sd": 0.0122,
+        "scaffold_mae_sd": 0.0076,
+        "scaffold_r2_sd": 0.0109,
+        "random_spearman": 0.8354,
+        "random_rmse": 0.7608,
+        "random_mae": 0.572,
+        "random_r2": 0.6892,
+        "fit_seconds": 10.9
+      },
+      "rf": {
+        "scaffold_spearman_mean": 0.804,
+        "scaffold_rmse_mean": 0.8446,
+        "scaffold_mae_mean": 0.6355,
+        "scaffold_r2_mean": 0.617,
+        "scaffold_spearman_sd": 0.001,
+        "scaffold_rmse_sd": 0.0015,
+        "scaffold_mae_sd": 0.001,
+        "scaffold_r2_sd": 0.0013,
+        "random_spearman": 0.8405,
+        "random_rmse": 0.7765,
+        "random_mae": 0.578,
+        "random_r2": 0.6763,
+        "fit_seconds": 14.1
+      },
+      "lgbm": {
+        "scaffold_spearman_mean": 0.8279,
+        "scaffold_rmse_mean": 0.7723,
+        "scaffold_mae_mean": 0.5654,
+        "scaffold_r2_mean": 0.6797,
+        "scaffold_spearman_sd": 0.0027,
+        "scaffold_rmse_sd": 0.0051,
+        "scaffold_mae_sd": 0.0028,
+        "scaffold_r2_sd": 0.0043,
+        "random_spearman": 0.8571,
+        "random_rmse": 0.7048,
+        "random_mae": 0.5008,
+        "random_r2": 0.7332,
+        "fit_seconds": 31.2
+      }
+    },
+    "permutation_null": {
+      "mean": 0.004,
+      "sd": 0.0209,
+      "p95": 0.032,
+      "max": 0.0367,
+      "n_permutations": 8
+    },
+    "clears_null": true,
+    "leakage_factor_random_over_scaffold": 1.04,
+    "noise_floor_log": 0.54,
+    "rmse_vs_noise_floor": 1.43,
+    "per_assay_group": {
+      "binding": {
+        "n": 2142,
+        "spearman": 0.8327
       }
     },
     "modellable": true

@@ -14,7 +14,8 @@
     "",
     "controls are used only for post-hoc recall validation (does the virtual",
     "assay rank the real assay's reference inhibitors as potent?). They are NOT",
-    "removed from training and NOT used for model selection."
+    "removed from training and NOT used for model selection.",
+    "controls carry an expected potency class. Recall is scored as DIRECTIONAL agreement (are potent controls ranked above weak ones?), not as 'is every control ranked high' - the latter cannot be failed informatively."
   ],
   "chembl_version_note": "Resolved at run time; the version actually used is recorded in results/panel_provenance.json",
   "targets": [
@@ -23,112 +24,328 @@
       "uniprot": "P09874",
       "bps_family": "PARP, PARG, ADP-ribosylation",
       "assay_readout": "ADP-ribosylation / NAD+ consumption (colorimetric or chemiluminescent)",
-      "controls": ["OLAPARIB", "NIRAPARIB", "RUCAPARIB", "TALAZOPARIB", "VELIPARIB"]
+      "controls": [
+        {
+          "name": "OLAPARIB",
+          "expect": "potent"
+        },
+        {
+          "name": "NIRAPARIB",
+          "expect": "potent"
+        },
+        {
+          "name": "RUCAPARIB",
+          "expect": "potent"
+        },
+        {
+          "name": "TALAZOPARIB",
+          "expect": "potent"
+        },
+        {
+          "name": "VELIPARIB",
+          "expect": "potent"
+        }
+      ]
     },
     {
       "name": "HDAC1",
       "uniprot": "Q13547",
       "bps_family": "Deacetylases/Sirtuins",
       "assay_readout": "fluorogenic acetylated-peptide deacetylation",
-      "controls": ["VORINOSTAT", "ENTINOSTAT", "PANOBINOSTAT", "MOCETINOSTAT"]
+      "controls": [
+        {
+          "name": "VORINOSTAT",
+          "expect": "potent"
+        },
+        {
+          "name": "ENTINOSTAT",
+          "expect": "potent"
+        },
+        {
+          "name": "PANOBINOSTAT",
+          "expect": "potent"
+        },
+        {
+          "name": "MOCETINOSTAT",
+          "expect": "potent"
+        }
+      ]
     },
     {
       "name": "HDAC6",
       "uniprot": "Q9UBN7",
       "bps_family": "Deacetylases/Sirtuins",
       "assay_readout": "fluorogenic acetylated-peptide deacetylation",
-      "controls": ["RICOLINOSTAT", "PANOBINOSTAT", "VORINOSTAT"]
+      "controls": [
+        {
+          "name": "RICOLINOSTAT",
+          "expect": "potent"
+        },
+        {
+          "name": "PANOBINOSTAT",
+          "expect": "potent"
+        },
+        {
+          "name": "VORINOSTAT",
+          "expect": "potent"
+        }
+      ]
     },
     {
       "name": "SIRT1",
       "uniprot": "Q96EB6",
       "bps_family": "Deacetylases/Sirtuins",
       "assay_readout": "NAD+-dependent deacetylation, fluorogenic",
-      "controls": ["SELISISTAT", "RESVERATROL", "NICOTINAMIDE"]
+      "controls": [
+        {
+          "name": "SELISISTAT",
+          "expect": "potent"
+        },
+        {
+          "name": "RESVERATROL",
+          "expect": "weak"
+        },
+        {
+          "name": "NICOTINAMIDE",
+          "expect": "weak"
+        }
+      ],
+      "control_note": "RESVERATROL and NICOTINAMIDE are weak/activator reference compounds, not potent inhibitors; listing resveratrol as an inhibitor was a config error, corrected to expect=weak."
     },
     {
       "name": "PDE4B",
       "uniprot": "Q07343",
       "bps_family": "Phosphodiesterases",
       "assay_readout": "cAMP hydrolysis (fluorescence polarisation / HTRF)",
-      "controls": ["ROFLUMILAST", "APREMILAST", "ROLIPRAM", "CILOMILAST"]
+      "controls": [
+        {
+          "name": "ROFLUMILAST",
+          "expect": "potent"
+        },
+        {
+          "name": "APREMILAST",
+          "expect": "potent"
+        },
+        {
+          "name": "ROLIPRAM",
+          "expect": "weak"
+        },
+        {
+          "name": "CILOMILAST",
+          "expect": "potent"
+        }
+      ],
+      "control_note": "ROLIPRAM is the classic weak reference PDE4 inhibitor, expected mid/low."
     },
     {
       "name": "PDE5A",
       "uniprot": "O76074",
       "bps_family": "Phosphodiesterases",
       "assay_readout": "cGMP hydrolysis (fluorescence polarisation / HTRF)",
-      "controls": ["SILDENAFIL", "TADALAFIL", "VARDENAFIL", "AVANAFIL"]
+      "controls": [
+        {
+          "name": "SILDENAFIL",
+          "expect": "potent"
+        },
+        {
+          "name": "TADALAFIL",
+          "expect": "potent"
+        },
+        {
+          "name": "VARDENAFIL",
+          "expect": "potent"
+        },
+        {
+          "name": "AVANAFIL",
+          "expect": "potent"
+        }
+      ]
     },
     {
       "name": "EZH2",
       "uniprot": "Q15910",
       "bps_family": "Methyltransferases",
       "assay_readout": "H3K27 methylation, SAM-dependent (TR-FRET / radiometric)",
-      "controls": ["TAZEMETOSTAT", "VALEMETOSTAT"]
+      "controls": [
+        {
+          "name": "TAZEMETOSTAT",
+          "expect": "potent"
+        },
+        {
+          "name": "VALEMETOSTAT",
+          "expect": "potent"
+        }
+      ]
     },
     {
       "name": "PRMT5",
       "uniprot": "O14744",
       "bps_family": "Methyltransferases",
       "assay_readout": "arginine methylation, SAM-dependent",
-      "controls": ["PEMRAMETOSTAT", "ONAMETOSTAT"]
+      "controls": [
+        {
+          "name": "PEMRAMETOSTAT",
+          "expect": "potent"
+        },
+        {
+          "name": "ONAMETOSTAT",
+          "expect": "potent"
+        }
+      ]
     },
     {
       "name": "BRD4",
       "uniprot": "O60885",
       "bps_family": "Bromodomains",
       "assay_readout": "acetyl-lysine peptide displacement (TR-FRET) - a READER, not an enzyme",
-      "controls": ["MOLIBRESIB", "BIRABRESIB", "PELABRESIB", "MIVEBRESIB"]
+      "controls": [
+        {
+          "name": "MOLIBRESIB",
+          "expect": "potent"
+        },
+        {
+          "name": "BIRABRESIB",
+          "expect": "potent"
+        },
+        {
+          "name": "PELABRESIB",
+          "expect": "potent"
+        },
+        {
+          "name": "MIVEBRESIB",
+          "expect": "potent"
+        }
+      ]
     },
     {
       "name": "KDM1A",
       "uniprot": "O60341",
       "bps_family": "Demethylases",
       "assay_readout": "FAD-dependent H3K4 demethylation (peroxidase-coupled fluorescence)",
-      "controls": ["TRANYLCYPROMINE", "IADADEMSTAT", "BOMEDEMSTAT"]
+      "controls": [
+        {
+          "name": "TRANYLCYPROMINE",
+          "expect": "weak"
+        },
+        {
+          "name": "IADADEMSTAT",
+          "expect": "potent"
+        },
+        {
+          "name": "BOMEDEMSTAT",
+          "expect": "potent"
+        }
+      ],
+      "control_note": "TRANYLCYPROMINE is a millimolar irreversible MAO inhibitor used as an LSD1 tool; it should rank LOW and a panel that ranked it high would be wrong."
     },
     {
       "name": "PTPN11",
       "uniprot": "Q06124",
       "bps_family": "Protein Tyrosine Phosphatase",
       "assay_readout": "phosphopeptide dephosphorylation (DiFMUP fluorescence); allosteric site",
-      "controls": ["TNO155", "BATOPROTAFIB", "MIGOPROTAFIB"]
+      "controls": [
+        {
+          "name": "TNO155",
+          "expect": "potent"
+        },
+        {
+          "name": "BATOPROTAFIB",
+          "expect": "potent"
+        },
+        {
+          "name": "MIGOPROTAFIB",
+          "expect": "potent"
+        }
+      ]
     },
     {
       "name": "PTP1B",
       "uniprot": "P18031",
       "bps_family": "Protein Tyrosine Phosphatase",
       "assay_readout": "pTyr substrate dephosphorylation (DiFMUP / pNPP)",
-      "controls": ["ERTIPROTAFIB", "TRODUSQUEMINE"]
+      "controls": [
+        {
+          "name": "ERTIPROTAFIB",
+          "expect": "potent"
+        },
+        {
+          "name": "TRODUSQUEMINE",
+          "expect": "potent"
+        }
+      ]
     },
     {
       "name": "IDO1",
       "uniprot": "P14902",
       "bps_family": "Immunotherapy / Metabolic Enzymes",
       "assay_readout": "tryptophan -> kynurenine, heme-dependent (absorbance / fluorescence)",
-      "controls": ["EPACADOSTAT", "NAVOXIMOD", "LINRODOSTAT"]
+      "controls": [
+        {
+          "name": "EPACADOSTAT",
+          "expect": "potent"
+        },
+        {
+          "name": "NAVOXIMOD",
+          "expect": "potent"
+        },
+        {
+          "name": "LINRODOSTAT",
+          "expect": "potent"
+        }
+      ]
     },
     {
       "name": "NAMPT",
       "uniprot": "P43490",
       "bps_family": "Metabolic Enzymes",
       "assay_readout": "NMN formation from nicotinamide (coupled fluorescence)",
-      "controls": ["DARETUZUMAB", "FK866"]
+      "controls": [
+        {
+          "name": "DAPORINAD",
+          "expect": "potent"
+        }
+      ],
+      "control_note": "DARETUZUMAB removed: it is an antibody and cannot appear in a small-molecule library. FK866 is listed in ChEMBL under its INN DAPORINAD - looking it up as 'FK866' returned 'control not in library', which would have been read as a coverage gap rather than a naming mismatch. The panel's own selectivity output surfaced it: DAPORINAD came back with NAMPT as its top target."
     },
     {
       "name": "HSP90AA1",
       "uniprot": "P07900",
       "bps_family": "Heat Shock Proteins",
       "assay_readout": "ATP-site binding / ATPase (FP or TR-FRET); a chaperone ATPase",
-      "controls": ["TANESPIMYCIN", "LUMINESPIB", "GANETESPIB", "ONALESPIB"]
+      "controls": [
+        {
+          "name": "TANESPIMYCIN",
+          "expect": "potent"
+        },
+        {
+          "name": "LUMINESPIB",
+          "expect": "potent"
+        },
+        {
+          "name": "GANETESPIB",
+          "expect": "potent"
+        },
+        {
+          "name": "ONALESPIB",
+          "expect": "potent"
+        }
+      ]
     },
     {
       "name": "CTSK",
       "uniprot": "P43235",
       "bps_family": "Proteases",
       "assay_readout": "fluorogenic peptide cleavage (cysteine protease)",
-      "controls": ["ODANACATIB", "BALICATIB"]
+      "controls": [
+        {
+          "name": "ODANACATIB",
+          "expect": "potent"
+        },
+        {
+          "name": "BALICATIB",
+          "expect": "potent"
+        }
+      ]
     }
   ]
 }

@@ -131,6 +131,111 @@ wants novelty. Neither has to be explained as the inverse of a tier.
 
 ---
 
+## Results
+
+### All sixteen virtual assays are modellable
+
+Scaffold-split Spearman **+0.649 to +0.881**, every target clearing its own
+permutation null by a wide margin (nulls land at +0.004 to +0.102). Model
+selection went to LightGBM on 13 targets, random forest on 2, and **ridge on
+PTPN11** — the linear model won there and is what PTPN11 uses.
+
+**Leakage factors are 1.02–1.12**, far milder than the 2.7× seen on a
+CDK2 dataset of 784 compounds. That is not a property of the method: these
+training sets carry 616–9,107 compounds over 301–3,610 scaffolds, so holding out
+a scaffold removes proportionally much less information. Leakage severity is a
+function of scaffold density, which is why it has to be measured per dataset
+rather than assumed from another one.
+
+RMSE sits below the target's noise floor on 4 of 16 targets. **That is not
+"better than the experiment."** Cross-validation predicts a median over pooled
+sources, and folds share source-specific consistency, so the CV task is easier
+than reproducing an independent assay. NAMPT's 0.17-log floor makes its ratio
+the least meaningful of the set.
+
+### Reference inhibitors come back — but that proves less than it looks
+
+44 of the panel's reference inhibitors are present in the screening library, and
+**43 reproduce their own measured value to within 1.5× the target's noise floor**
+(median |residual| 0.01–0.80 log). The one miss is navoximod on IDO1
+(predicted 6.54, measured 7.55).
+
+The number that matters is different: **only 2 of those 44 are genuinely
+out-of-sample.** The rest are in their target's training set, so reproducing
+them is a check that labels are plumbed through correctly, not evidence of
+generalisation. The two that are out-of-sample both land correctly —
+resveratrol at the 5th percentile on SIRT1 (it is an activator, not a potent
+inhibitor) and migoprotafib at the 100th on PTPN11 — but n = 2 is anecdote. The
+generalisation evidence is the scaffold-split CV, and nothing else here.
+
+Getting to that number required fixing three errors in the control list itself,
+all of which would have read as model failures:
+
+* **Resveratrol was listed as a SIRT1 reference inhibitor.** It is an activator.
+  Corrected to `expect: weak` with the reason recorded rather than deleted.
+* **Daretuzumab was listed as a NAMPT control.** It is an antibody and cannot
+  appear in a small-molecule library — a modality error, not a coverage gap.
+* **FK866 returned "not in library".** ChEMBL lists it under its INN,
+  **daporinad**. The panel's own output surfaced this: daporinad came back with
+  NAMPT as its top predicted target.
+
+A first version scored controls by percentile band and produced boundary
+artifacts — cilomilast failed at exactly the 75th percentile, and rolipram's
+correct ~1 µM prediction failed a "weak" band only because a clinical library
+skews weaker than that. Scoring against each control's own measured value
+removed both.
+
+### Selectivity: the panel can call it for one paralog pair and not the other
+
+This is the test that a single-target benchmark cannot run, and the one that
+decides whether the selectivity column is worth shipping.
+
+| pair | shared compounds | ρ(Δ measured, Δ predicted) | sign agreement | verdict |
+|---|---|---|---|---|
+| HDAC1 / HDAC6 | 3,847 | **+0.772** (+0.710 above noise) | 86% (95% above noise) | predictable |
+| PTP1B / PTPN11 | 150 | **+0.174** (+0.405 above noise) | 63% (68%) | **not reliable** |
+
+Both PTP models are individually strong — scaffold Spearman +0.716 and +0.855 —
+and their *difference* is close to a coin flip. Two good models do not make a
+good selectivity call. HDAC1/HDAC6 has 25× more shared measurements and
+selectivity is an explicit design objective across that series; PTPN11
+inhibitors are allosteric while PTP1B inhibitors target the active site, so
+there is little shared chemistry from which the gap could be learned.
+
+**A blanket "the panel does selectivity" claim would have been false for half
+the pairs tested.** The selectivity column in `compound_profiles.csv` should be
+read per pair, against this table.
+
+### The screen
+
+9,746 clinical and marketed compounds × 16 targets = **155,936 predictions**.
+2,624 compounds are inside the applicability domain of at least one target;
+**1,143 in-domain hits** at predicted pAffinity ≥ 6.0 and not already in
+training (101 carry a PAINS alert). 1,665 compounds (17%) are flagged frequent
+hitters and excluded from the selectivity view.
+
+The panel recovers known target assignments it was never told:
+
+| compound | panel's top target | reality |
+|---|---|---|
+| tadalafil | PDE5A (gap 1.97 log) | marketed PDE5 inhibitor |
+| daporinad (FK866) | NAMPT | the canonical NAMPT tool inhibitor |
+| AZD2461 | PARP1 | PARP inhibitor |
+| INCB-057643 | BRD4 | BET/BRD4 inhibitor |
+| tulmimetostat | EZH2 | EZH2 inhibitor |
+| KA-2507 | HDAC6 | selective HDAC6 inhibitor |
+| OBP-801 | HDAC1 | HDAC inhibitor |
+
+And it produces implausible ones next to them: **padimate A**, a sunscreen UV
+filter, ranks as an HDAC6 hit, and **miramistin**, an antiseptic surfactant,
+as a NAMPT hit. Both pass the applicability-domain filter. This is the
+characteristic ligand-based failure — small or greasy molecules whose
+fingerprint similarity to a training series is superficial — and it is why the
+hit lists are labelled discovery-grade and why the frequent-hitter flag exists.
+A shortlist from this panel needs a chemist's eye before it needs a plate.
+
+---
+
 ## Honesty machinery
 
 * **Scaffold-grouped 5-fold CV is the headline**, repeated over 3 fold

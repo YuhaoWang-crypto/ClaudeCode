@@ -1,0 +1,17 @@
+target,bps_family,model,scaffold_spearman,scaffold_rmse,noise_floor_log,n_train,n_in_ad_high,n_hits,n_hits_pains_flagged,top_hit
+BRD4,Bromodomains,lgbm,0.8814,0.572,0.66,9107,344,55,6,INCB-057643 (7.34)
+CTSK,Proteases,lgbm,0.8279,0.7723,0.54,2144,107,45,3,NARAZACICLIB (8.18)
+EZH2,Methyltransferases,rf,0.8741,0.6821,0.45,1003,39,6,1,TULMIMETOSTAT (8.99)
+HDAC1,Deacetylases/Sirtuins,lgbm,0.7831,0.704,0.51,8095,890,195,23,ESORUBICIN (7.72)
+HDAC6,Deacetylases/Sirtuins,lgbm,0.7709,0.6607,0.67,6320,999,376,36,DEURUXOLITINIB PHOSPHATE (7.85)
+HSP90AA1,Heat Shock Proteins,lgbm,0.7524,0.7203,0.71,1605,185,21,0,BIIB-028 (8.37)
+IDO1,Immunotherapy / Metabolic Enzymes,lgbm,0.7997,0.6877,0.62,3573,331,23,4,JNJ-17166864 (7.34)
+KDM1A,Demethylases,lgbm,0.8406,0.6388,0.34,3841,442,35,3,NILOTINIB (7.12)
+NAMPT,Metabolic Enzymes,lgbm,0.8404,0.5339,0.17,4147,208,95,5,TAGORIZINE (7.86)
+PARP1,"PARP, PARG, ADP-ribosylation",lgbm,0.836,0.6426,0.705,4479,345,177,12,SENAPARIB (8.37)
+PDE4B,Phosphodiesterases,lgbm,0.8238,0.7963,0.7,2223,135,57,2,GSK-256066 (11.11)
+PDE5A,Phosphodiesterases,lgbm,0.8613,0.7917,0.733,2148,165,35,4,TUNODAFIL (8.00)
+PRMT5,Methyltransferases,lgbm,0.8031,0.7188,1.265,1051,63,14,0,GS-9667 (7.30)
+PTP1B,Protein Tyrosine Phosphatase,lgbm,0.7161,0.5355,0.295,3102,545,3,1,SQUALAMINE (6.12)
+PTPN11,Protein Tyrosine Phosphatase,ridge,0.8553,0.6504,0.575,2328,194,6,1,MIGOPROTAFIB (7.69)
+SIRT1,Deacetylases/Sirtuins,rf,0.6488,0.6162,0.515,616,157,0,0,

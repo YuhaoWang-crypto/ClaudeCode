@@ -1,0 +1,54 @@
+[
+  {
+    "pair": "HDAC1/HDAC6",
+    "n_shared_compounds": 3847,
+    "combined_noise_floor_log": 0.842,
+    "per_target_scaffold_spearman": {
+      "HDAC1": 0.7831,
+      "HDAC6": 0.7709
+    },
+    "all": {
+      "subset": "all shared",
+      "n": 3847,
+      "spearman_delta": 0.772,
+      "sign_agreement": 0.857,
+      "median_abs_error_of_delta": 0.419,
+      "measured_delta_sd": 1.305
+    },
+    "gap_above_noise": {
+      "subset": "|measured gap| >= 0.84 log",
+      "n": 2326,
+      "spearman_delta": 0.71,
+      "sign_agreement": 0.946,
+      "median_abs_error_of_delta": 0.474,
+      "measured_delta_sd": 1.538
+    },
+    "verdict": "selectivity is predictable for this pair"
+  },
+  {
+    "pair": "PTP1B/PTPN11",
+    "n_shared_compounds": 150,
+    "combined_noise_floor_log": 0.646,
+    "per_target_scaffold_spearman": {
+      "PTP1B": 0.7161,
+      "PTPN11": 0.8553
+    },
+    "all": {
+      "subset": "all shared",
+      "n": 150,
+      "spearman_delta": 0.174,
+      "sign_agreement": 0.628,
+      "median_abs_error_of_delta": 0.442,
+      "measured_delta_sd": 0.698
+    },
+    "gap_above_noise": {
+      "subset": "|measured gap| >= 0.65 log",
+      "n": 38,
+      "spearman_delta": 0.405,
+      "sign_agreement": 0.684,
+      "median_abs_error_of_delta": 0.826,
+      "measured_delta_sd": 1.278
+    },
+    "verdict": "selectivity is NOT reliably predictable for this pair"
+  }
+]

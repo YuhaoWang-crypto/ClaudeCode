@@ -106,11 +106,19 @@ def main() -> None:
     masked = wide.where(tier.eq("high"))
     n_high = tier.eq("high").sum(axis=1)
 
-    ranked = masked.rank(axis=1, ascending=False)
-    best_t = masked.idxmax(axis=1)
+    # A compound can be in-domain on zero targets; idxmax raises on an all-NA
+    # row, so those are held out of the profile columns and reported as such
+    # rather than dropped silently.
+    has_any = masked.notna().any(axis=1)
+    best_t = pd.Series(index=masked.index, dtype=object)
+    best_t.loc[has_any] = masked.loc[has_any].idxmax(axis=1)
     best_v = masked.max(axis=1)
     second = masked.apply(
         lambda r: r.dropna().nlargest(2).iloc[1] if r.notna().sum() >= 2 else np.nan, axis=1
+    )
+    print(
+        f"  {int(has_any.sum())} of {len(masked)} compounds are in-domain on at "
+        f"least one target; the rest have no usable profile"
     )
 
     # Frequent hitters: top-decile on many targets, computed per target so a

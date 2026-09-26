@@ -6,3 +6,4 @@ data/raw_*.csv.gz
 results/panel_predictions_long.csv.gz
 __pycache__/
 *.pyc
+figures/*.png

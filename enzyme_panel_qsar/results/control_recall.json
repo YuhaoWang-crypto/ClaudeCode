@@ -1,0 +1,587 @@
+{
+  "PARP1": [
+    {
+      "control": "OLAPARIB",
+      "expect": "potent",
+      "in_library": true,
+      "pred_pAffinity": 8.319,
+      "percentile_in_library": 99.9,
+      "ad_tier": "high",
+      "in_training": true,
+      "measured_pAffinity": 8.3,
+      "residual_vs_measured": 0.019,
+      "as_expected": true
+    },
+    {
+      "control": "NIRAPARIB",
+      "expect": "potent",
+      "in_library": true,
+      "pred_pAffinity": 8.401,
+      "percentile_in_library": 99.9,
+      "ad_tier": "high",
+      "in_training": true,
+      "measured_pAffinity": 8.04,
+      "residual_vs_measured": 0.361,
+      "as_expected": true
+    },
+    {
+      "control": "RUCAPARIB",
+      "expect": "potent",
+      "in_library": true,
+      "pred_pAffinity": 8.849,
+      "percentile_in_library": 100.0,
+      "ad_tier": "high",
+      "in_training": true,
+      "measured_pAffinity": 8.7,
+      "residual_vs_measured": 0.149,
+      "as_expected": true
+    },
+    {
+      "control": "TALAZOPARIB",
+      "expect": "potent",
+      "in_library": true,
+      "pred_pAffinity": 8.593,
+      "percentile_in_library": 100.0,
+      "ad_tier": "high",
+      "in_training": true,
+      "measured_pAffinity": 9.185,
+      "residual_vs_measured": -0.592,
+      "as_expected": true
+    },
+    {
+      "control": "VELIPARIB",
+      "expect": "potent",
+      "in_library": true,
+      "pred_pAffinity": 8.485,
+      "percentile_in_library": 99.9,
+      "ad_tier": "high",
+      "in_training": true,
+      "measured_pAffinity": 8.29,
+      "residual_vs_measured": 0.195,
+      "as_expected": true
+    }
+  ],
+  "HDAC1": [
+    {
+      "control": "VORINOSTAT",
+      "expect": "potent",
+      "in_library": true,
+      "pred_pAffinity": 7.535,
+      "percentile_in_library": 99.8,
+      "ad_tier": "high",
+      "in_training": true,
+      "measured_pAffinity": 7.32,
+      "residual_vs_measured": 0.215,
+      "as_expected": true
+    },
+    {
+      "control": "ENTINOSTAT",
+      "expect": "potent",
+      "in_library": true,
+      "pred_pAffinity": 6.623,
+      "percentile_in_library": 97.0,
+      "ad_tier": "high",
+      "in_training": true,
+      "measured_pAffinity": 6.515,
+      "residual_vs_measured": 0.108,
+      "as_expected": true
+    },
+    {
+      "control": "PANOBINOSTAT",
+      "expect": "potent",
+      "in_library": true,
+      "pred_pAffinity": 8.337,
+      "percentile_in_library": 99.9,
+      "ad_tier": "high",
+      "in_training": true,
+      "measured_pAffinity": 8.6,
+      "residual_vs_measured": -0.263,
+      "as_expected": true
+    },
+    {
+      "control": "MOCETINOSTAT",
+      "expect": "potent",
+      "in_library": true,
+      "pred_pAffinity": 6.939,
+      "percentile_in_library": 99.0,
+      "ad_tier": "high",
+      "in_training": true,
+      "measured_pAffinity": 6.99,
+      "residual_vs_measured": -0.051,
+      "as_expected": true
+    }
+  ],
+  "HDAC6": [
+    {
+      "control": "RICOLINOSTAT",
+      "expect": "potent",
+      "in_library": true,
+      "pred_pAffinity": 8.147,
+      "percentile_in_library": 100.0,
+      "ad_tier": "high",
+      "in_training": true,
+      "measured_pAffinity": 8.3,
+      "residual_vs_measured": -0.153,
+      "as_expected": true
+    },
+    {
+      "control": "PANOBINOSTAT",
+      "expect": "potent",
+      "in_library": true,
+      "pred_pAffinity": 7.927,
+      "percentile_in_library": 99.9,
+      "ad_tier": "high",
+      "in_training": true,
+      "measured_pAffinity": 8.0,
+      "residual_vs_measured": -0.073,
+      "as_expected": true
+    },
+    {
+      "control": "VORINOSTAT",
+      "expect": "potent",
+      "in_library": true,
+      "pred_pAffinity": 7.738,
+      "percentile_in_library": 99.9,
+      "ad_tier": "high",
+      "in_training": true,
+      "measured_pAffinity": 7.51,
+      "residual_vs_measured": 0.228,
+      "as_expected": true
+    }
+  ],
+  "SIRT1": [
+    {
+      "control": "SELISISTAT",
+      "expect": "potent",
+      "in_library": false
+    },
+    {
+      "control": "RESVERATROL",
+      "expect": "weak",
+      "in_library": true,
+      "pred_pAffinity": 4.724,
+      "percentile_in_library": 5.3,
+      "ad_tier": "high",
+      "in_training": false,
+      "measured_pAffinity": null,
+      "residual_vs_measured": null,
+      "as_expected": true
+    },
+    {
+      "control": "NICOTINAMIDE",
+      "expect": "weak",
+      "in_library": false
+    }
+  ],
+  "PDE4B": [
+    {
+      "control": "ROFLUMILAST",
+      "expect": "potent",
+      "in_library": true,
+      "pred_pAffinity": 9.105,
+      "percentile_in_library": 99.9,
+      "ad_tier": "high",
+      "in_training": true,
+      "measured_pAffinity": 9.1,
+      "residual_vs_measured": 0.005,
+      "as_expected": true
+    },
+    {
+      "control": "APREMILAST",
+      "expect": "potent",
+      "in_library": true,
+      "pred_pAffinity": 7.543,
+      "percentile_in_library": 96.7,
+      "ad_tier": "high",
+      "in_training": true,
+      "measured_pAffinity": 7.57,
+      "residual_vs_measured": -0.027,
+      "as_expected": true
+    },
+    {
+      "control": "ROLIPRAM",
+      "expect": "weak",
+      "in_library": true,
+      "pred_pAffinity": 6.389,
+      "percentile_in_library": 67.0,
+      "ad_tier": "high",
+      "in_training": true,
+      "measured_pAffinity": 6.13,
+      "residual_vs_measured": 0.259,
+      "as_expected": true
+    },
+    {
+      "control": "CILOMILAST",
+      "expect": "potent",
+      "in_library": true,
+      "pred_pAffinity": 6.564,
+      "percentile_in_library": 75.0,
+      "ad_tier": "high",
+      "in_training": true,
+      "measured_pAffinity": 7.02,
+      "residual_vs_measured": -0.456,
+      "as_expected": true
+    }
+  ],
+  "PDE5A": [
+    {
+      "control": "SILDENAFIL",
+      "expect": "potent",
+      "in_library": true,
+      "pred_pAffinity": 8.353,
+      "percentile_in_library": 99.9,
+      "ad_tier": "high",
+      "in_training": true,
+      "measured_pAffinity": 8.44,
+      "residual_vs_measured": -0.087,
+      "as_expected": true
+    },
+    {
+      "control": "TADALAFIL",
+      "expect": "potent",
+      "in_library": true,
+      "pred_pAffinity": 8.335,
+      "percentile_in_library": 99.9,
+      "ad_tier": "high",
+      "in_training": true,
+      "measured_pAffinity": 8.4,
+      "residual_vs_measured": -0.065,
+      "as_expected": true
+    },
+    {
+      "control": "VARDENAFIL",
+      "expect": "potent",
+      "in_library": true,
+      "pred_pAffinity": 9.088,
+      "percentile_in_library": 100.0,
+      "ad_tier": "high",
+      "in_training": true,
+      "measured_pAffinity": 9.15,
+      "residual_vs_measured": -0.062,
+      "as_expected": true
+    },
+    {
+      "control": "AVANAFIL",
+      "expect": "potent",
+      "in_library": true,
+      "pred_pAffinity": 7.47,
+      "percentile_in_library": 99.7,
+      "ad_tier": "high",
+      "in_training": true,
+      "measured_pAffinity": 7.76,
+      "residual_vs_measured": -0.29,
+      "as_expected": true
+    }
+  ],
+  "EZH2": [
+    {
+      "control": "TAZEMETOSTAT",
+      "expect": "potent",
+      "in_library": true,
+      "pred_pAffinity": 7.956,
+      "percentile_in_library": 99.9,
+      "ad_tier": "high",
+      "in_training": true,
+      "measured_pAffinity": 8.37,
+      "residual_vs_measured": -0.414,
+      "as_expected": true
+    },
+    {
+      "control": "VALEMETOSTAT",
+      "expect": "potent",
+      "in_library": true,
+      "pred_pAffinity": 8.267,
+      "percentile_in_library": 100.0,
+      "ad_tier": "high",
+      "in_training": true,
+      "measured_pAffinity": 8.29,
+      "residual_vs_measured": -0.023,
+      "as_expected": true
+    }
+  ],
+  "PRMT5": [
+    {
+      "control": "PEMRAMETOSTAT",
+      "expect": "potent",
+      "in_library": true,
+      "pred_pAffinity": 8.095,
+      "percentile_in_library": 100.0,
+      "ad_tier": "high",
+      "in_training": true,
+      "measured_pAffinity": 7.94,
+      "residual_vs_measured": 0.155,
+      "as_expected": true
+    },
+    {
+      "control": "ONAMETOSTAT",
+      "expect": "potent",
+      "in_library": true,
+      "pred_pAffinity": 9.495,
+      "percentile_in_library": 100.0,
+      "ad_tier": "high",
+      "in_training": true,
+      "measured_pAffinity": 9.11,
+      "residual_vs_measured": 0.385,
+      "as_expected": true
+    }
+  ],
+  "BRD4": [
+    {
+      "control": "MOLIBRESIB",
+      "expect": "potent",
+      "in_library": true,
+      "pred_pAffinity": 6.615,
+      "percentile_in_library": 98.9,
+      "ad_tier": "high",
+      "in_training": true,
+      "measured_pAffinity": 7.17,
+      "residual_vs_measured": -0.555,
+      "as_expected": true
+    },
+    {
+      "control": "BIRABRESIB",
+      "expect": "potent",
+      "in_library": true,
+      "pred_pAffinity": 7.322,
+      "percentile_in_library": 99.9,
+      "ad_tier": "high",
+      "in_training": true,
+      "measured_pAffinity": 7.79,
+      "residual_vs_measured": -0.468,
+      "as_expected": true
+    },
+    {
+      "control": "PELABRESIB",
+      "expect": "potent",
+      "in_library": true,
+      "pred_pAffinity": 7.479,
+      "percentile_in_library": 99.9,
+      "ad_tier": "high",
+      "in_training": true,
+      "measured_pAffinity": 7.41,
+      "residual_vs_measured": 0.069,
+      "as_expected": true
+    },
+    {
+      "control": "MIVEBRESIB",
+      "expect": "potent",
+      "in_library": true,
+      "pred_pAffinity": 8.597,
+      "percentile_in_library": 100.0,
+      "ad_tier": "high",
+      "in_training": true,
+      "measured_pAffinity": 8.545,
+      "residual_vs_measured": 0.052,
+      "as_expected": true
+    }
+  ],
+  "KDM1A": [
+    {
+      "control": "TRANYLCYPROMINE",
+      "expect": "weak",
+      "in_library": true,
+      "pred_pAffinity": 4.553,
+      "percentile_in_library": 1.4,
+      "ad_tier": "high",
+      "in_training": true,
+      "measured_pAffinity": 4.6,
+      "residual_vs_measured": -0.047,
+      "as_expected": true
+    },
+    {
+      "control": "IADADEMSTAT",
+      "expect": "potent",
+      "in_library": true,
+      "pred_pAffinity": 7.459,
+      "percentile_in_library": 100.0,
+      "ad_tier": "high",
+      "in_training": true,
+      "measured_pAffinity": 7.75,
+      "residual_vs_measured": -0.291,
+      "as_expected": true
+    },
+    {
+      "control": "BOMEDEMSTAT",
+      "expect": "potent",
+      "in_library": true,
+      "pred_pAffinity": 4.577,
+      "percentile_in_library": 1.6,
+      "ad_tier": "high",
+      "in_training": true,
+      "measured_pAffinity": 5.0,
+      "residual_vs_measured": -0.423,
+      "as_expected": true
+    }
+  ],
+  "PTPN11": [
+    {
+      "control": "TNO155",
+      "expect": "potent",
+      "in_library": false
+    },
+    {
+      "control": "BATOPROTAFIB",
+      "expect": "potent",
+      "in_library": true,
+      "pred_pAffinity": 7.982999801635742,
+      "percentile_in_library": 100.0,
+      "ad_tier": "high",
+      "in_training": true,
+      "measured_pAffinity": 7.96,
+      "residual_vs_measured": 0.023,
+      "as_expected": true
+    },
+    {
+      "control": "MIGOPROTAFIB",
+      "expect": "potent",
+      "in_library": true,
+      "pred_pAffinity": 7.692999839782715,
+      "percentile_in_library": 100.0,
+      "ad_tier": "high",
+      "in_training": false,
+      "measured_pAffinity": null,
+      "residual_vs_measured": null,
+      "as_expected": true
+    }
+  ],
+  "PTP1B": [
+    {
+      "control": "ERTIPROTAFIB",
+      "expect": "potent",
+      "in_library": true,
+      "pred_pAffinity": 6.13,
+      "percentile_in_library": 99.8,
+      "ad_tier": "high",
+      "in_training": true,
+      "measured_pAffinity": 5.85,
+      "residual_vs_measured": 0.28,
+      "as_expected": true
+    },
+    {
+      "control": "TRODUSQUEMINE",
+      "expect": "potent",
+      "in_library": false
+    }
+  ],
+  "IDO1": [
+    {
+      "control": "EPACADOSTAT",
+      "expect": "potent",
+      "in_library": true,
+      "pred_pAffinity": 7.449,
+      "percentile_in_library": 99.9,
+      "ad_tier": "high",
+      "in_training": true,
+      "measured_pAffinity": 7.49,
+      "residual_vs_measured": -0.041,
+      "as_expected": true
+    },
+    {
+      "control": "NAVOXIMOD",
+      "expect": "potent",
+      "in_library": true,
+      "pred_pAffinity": 6.544,
+      "percentile_in_library": 94.5,
+      "ad_tier": "high",
+      "in_training": true,
+      "measured_pAffinity": 7.55,
+      "residual_vs_measured": -1.006,
+      "as_expected": false
+    },
+    {
+      "control": "LINRODOSTAT",
+      "expect": "potent",
+      "in_library": true,
+      "pred_pAffinity": 8.233,
+      "percentile_in_library": 100.0,
+      "ad_tier": "high",
+      "in_training": true,
+      "measured_pAffinity": 9.035,
+      "residual_vs_measured": -0.802,
+      "as_expected": true
+    }
+  ],
+  "NAMPT": [
+    {
+      "control": "FK866",
+      "expect": "potent",
+      "in_library": false
+    }
+  ],
+  "HSP90AA1": [
+    {
+      "control": "TANESPIMYCIN",
+      "expect": "potent",
+      "in_library": true,
+      "pred_pAffinity": 6.435,
+      "percentile_in_library": 88.7,
+      "ad_tier": "high",
+      "in_training": true,
+      "measured_pAffinity": 6.51,
+      "residual_vs_measured": -0.075,
+      "as_expected": true
+    },
+    {
+      "control": "LUMINESPIB",
+      "expect": "potent",
+      "in_library": true,
+      "pred_pAffinity": 7.754,
+      "percentile_in_library": 100.0,
+      "ad_tier": "high",
+      "in_training": true,
+      "measured_pAffinity": 7.8,
+      "residual_vs_measured": -0.046,
+      "as_expected": true
+    },
+    {
+      "control": "GANETESPIB",
+      "expect": "potent",
+      "in_library": true,
+      "pred_pAffinity": 8.063,
+      "percentile_in_library": 100.0,
+      "ad_tier": "high",
+      "in_training": true,
+      "measured_pAffinity": 8.06,
+      "residual_vs_measured": 0.003,
+      "as_expected": true
+    },
+    {
+      "control": "ONALESPIB",
+      "expect": "potent",
+      "in_library": true,
+      "pred_pAffinity": 7.742,
+      "percentile_in_library": 99.9,
+      "ad_tier": "high",
+      "in_training": true,
+      "measured_pAffinity": 7.785,
+      "residual_vs_measured": -0.043,
+      "as_expected": true
+    }
+  ],
+  "CTSK": [
+    {
+      "control": "ODANACATIB",
+      "expect": "potent",
+      "in_library": true,
+      "pred_pAffinity": 9.679,
+      "percentile_in_library": 100.0,
+      "ad_tier": "high",
+      "in_training": true,
+      "measured_pAffinity": 9.7,
+      "residual_vs_measured": -0.021,
+      "as_expected": true
+    },
+    {
+      "control": "BALICATIB",
+      "expect": "potent",
+      "in_library": true,
+      "pred_pAffinity": 8.856,
+      "percentile_in_library": 100.0,
+      "ad_tier": "high",
+      "in_training": true,
+      "measured_pAffinity": 8.85,
+      "residual_vs_measured": 0.006,
+      "as_expected": true
+    }
+  ]
+}
