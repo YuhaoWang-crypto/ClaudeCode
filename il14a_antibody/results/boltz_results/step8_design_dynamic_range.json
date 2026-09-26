@@ -1,0 +1,51 @@
+{
+  "framework_only_reference": {
+    "iptm_shift": 0.438,
+    "min_interaction_pae_shift": 8.96,
+    "source": "step7 identical-paratope control on epitope CC_367_382"
+  },
+  "stage2": {
+    "n": 200,
+    "iptm_p10_p90_spread": 0.5756,
+    "pae_p10_p90_spread": 14.856,
+    "signal_to_artifact_iptm": 1.314,
+    "signal_to_artifact_pae": 1.658,
+    "iptm_median": 0.5056,
+    "iptm_max": 0.9316,
+    "max_binding_confidence": 0.008962173759937287,
+    "n_binding_confidence_ge_0.5": 0,
+    "framework_integrity": {
+      "n": 200,
+      "j_region_Trp_present": 170,
+      "j_region_Trp_MISSING": 30,
+      "cys_count_distribution": {
+        "2": 200
+      },
+      "all_have_2_cys": true,
+      "vhh_hallmark_WFRQ_present": 123,
+      "vhh_hallmark_WFRQ_missing": 77
+    }
+  },
+  "stage3": {
+    "n": 150,
+    "iptm_p10_p90_spread": 0.5571,
+    "pae_p10_p90_spread": 14.188,
+    "signal_to_artifact_iptm": 1.272,
+    "signal_to_artifact_pae": 1.583,
+    "iptm_median": 0.5569,
+    "iptm_max": 0.9416,
+    "max_binding_confidence": 0.005752268433570862,
+    "n_binding_confidence_ge_0.5": 0,
+    "framework_integrity": {
+      "n": 150,
+      "j_region_Trp_present": 150,
+      "j_region_Trp_MISSING": 0,
+      "cys_count_distribution": {
+        "2": 150
+      },
+      "all_have_2_cys": true,
+      "vhh_hallmark_WFRQ_present": 150,
+      "vhh_hallmark_WFRQ_missing": 0
+    }
+  }
+}

@@ -23,8 +23,10 @@ control failed": it quantifies how much of the ranking is real.
 A ratio below 1 means the ranking is dominated by the artifact. Between 1 and 2
 is still unusable for picking a handful of candidates out of hundreds.
 """
+import collections
 import csv
 import json
+import re
 import statistics
 import sys
 from pathlib import Path
@@ -36,6 +38,48 @@ RES = RESULTS / "boltz_results"
 # measured in step7 on this same epitope, from the identical-paratope pair
 FRAMEWORK_ONLY_IPTM_SHIFT = 0.438
 FRAMEWORK_ONLY_PAE_SHIFT = 8.96
+
+
+def read_fasta(path):
+    recs, name, buf = {}, None, []
+    for line in Path(path).read_text().splitlines():
+        if line.startswith(">"):
+            if name:
+                recs[name] = "".join(buf)
+            name, buf = line[1:].split("|")[0].strip(), []
+        else:
+            buf.append(line.strip())
+    if name:
+        recs[name] = "".join(buf)
+    return recs
+
+
+def framework_integrity(seqs):
+    """Check that each design still has the parts an antibody V domain needs.
+
+    Three invariants, none of which the design objective enforces:
+
+    * The J-region tryptophan (Kabat W103, the WGQG/WGKG motif). It is
+      essentially invariant across natural V domains and packs into the
+      hydrophobic core; a design that loses it is not reliably foldable.
+    * The two conserved framework cysteines of the intradomain disulfide.
+    * The VHH hallmark tetrad, seen here as WFRQ in framework 2. A VHH must
+      fold and stay soluble with no VL partner, and the hallmarks are what
+      replace that interface. Losing them raises aggregation risk.
+    """
+    n = len(seqs)
+    has_j_trp = [k for k, v in seqs.items() if re.search(r"WG[QKR]G", v)]
+    cys = collections.Counter(v.count("C") for v in seqs.values())
+    hallmark = [k for k, v in seqs.items() if "WFRQ" in v]
+    return {
+        "n": n,
+        "j_region_Trp_present": len(has_j_trp),
+        "j_region_Trp_MISSING": n - len(has_j_trp),
+        "cys_count_distribution": {str(k): v for k, v in sorted(cys.items())},
+        "all_have_2_cys": set(cys) == {2},
+        "vhh_hallmark_WFRQ_present": len(hallmark),
+        "vhh_hallmark_WFRQ_missing": n - len(hallmark),
+    }
 
 
 def load_metrics():
@@ -120,6 +164,26 @@ def main():
                    if ratio_ipt < 2.0 else "   <- paratope does dominate"))
             print(f"  SIGNAL-TO-ARTIFACT (PAE)  = {ratio_pae:.2f}x")
         print()
+
+    # --- framework integrity of the generated pools ---------------------
+    fasta = {"stage3": RES / "stage3_cdr3_redesign_CC_designs.fasta",
+             "stage2": RES / "stage2_denovo_nanobody_CC_designs.fasta"}
+    print("=" * 94)
+    print("FRAMEWORK INTEGRITY OF THE GENERATED POOLS")
+    print("=" * 94)
+    for job, path in fasta.items():
+        if not path.exists():
+            continue
+        fi = framework_integrity(read_fasta(path))
+        out.setdefault(job, {})["framework_integrity"] = fi
+        print(f"  {job}  n={fi['n']}")
+        print(f"    J-region Trp (WGQG/WGKG) missing : {fi['j_region_Trp_MISSING']}"
+              f"{'   <- not reliably foldable' if fi['j_region_Trp_MISSING'] else ''}")
+        print(f"    conserved Cys pair intact        : {fi['all_have_2_cys']}"
+              f"  {fi['cys_count_distribution']}")
+        print(f"    VHH hallmark WFRQ missing        : {fi['vhh_hallmark_WFRQ_missing']}"
+              f"{'   <- must fold without a VL partner' if fi['vhh_hallmark_WFRQ_missing'] else ''}")
+    print()
 
     # stage3 is the clean comparison: framework and CDR1/CDR2 fixed by construction
     s3 = next((k for k in by_job if "stage3" in k), None)
