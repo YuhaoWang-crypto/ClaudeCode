@@ -1,12 +1,15 @@
 # IL-14alpha C-terminal immunogen panel
-# pS = phosphoserine at TXLNA S515. Cys shown at a terminus is the
-# maleimide conjugation handle (native C523 in P1/P2; added in P3).
+# Sequence lines are UNMODIFIED residues. Modifications are declared
+# in the header as MOD=. Cys at a terminus is the maleimide
+# conjugation handle (native C523 in P1/P2; added in P3).
 
 >P1-pan | TXLNA 502-523 | primary blocker immunogen | native C-terminal C523, maleimide (MBS/SMCC) to KLH
 ERRPEGPGAQAPSSPRVTEAPC
->P2-phospho | TXLNA 502-523 | proteoform probe / identity gate | native C-terminal C523, maleimide (MBS/SMCC) to KLH
-ERRPEGPGAQAPSpSPRVTEAPC
+>P2-phospho | TXLNA 502-523 | proteoform probe / identity gate | native C-terminal C523, maleimide (MBS/SMCC) to KLH | MOD=pSer@14 (TXLNA S515) | display ERRPEGPGAQAPSpSPRVTEAPC
+ERRPEGPGAQAPSSPRVTEAPC
 >P3-orthogonal | TXLNA 492-506 | second epitope bin, PTM-free | add C-terminal Cys, maleimide to KLH
 GQGSLTDSGPERRPEC
 >CONTROL_mouse_ortholog_502_523 | species cross-reactivity control
 ERRPESPGAQPASSPRATDAPC
+>CONTROL_scrambled_P1 | composition-matched scramble of P1-pan | a hit here is composition-driven, not sequence recognition
+ESPSAPPCQPTRPAAGVGEERR

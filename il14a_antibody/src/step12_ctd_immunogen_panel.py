@@ -44,6 +44,7 @@ That is why 1C6 and 1F2 were raised successfully in Balb/c against exactly this
 peptide, and it means wild-type mouse immunisation is viable here.
 """
 import json
+import re
 import random
 import sys
 from pathlib import Path
@@ -248,15 +249,33 @@ def main():
     RESULTS.mkdir(exist_ok=True)
     (RESULTS / "step12_immunogen_panel.json").write_text(json.dumps(out, indent=2))
 
+    # The sequence LINE carries the unmodified residues only, so the file
+    # parses as FASTA and every length matches its stated TXLNA range. A "pS"
+    # written inline would be read as a P followed by an S by any parser and
+    # would make P2 23 characters long for a 22-residue window - a synthesis
+    # house working from the raw line would build the wrong peptide. The
+    # modification is declared in the header instead, as MOD=pSer@<position
+    # in the peptide, 1-based> (TXLNA <site>), which is the form an order
+    # sheet needs anyway.
     lines = ["# IL-14alpha C-terminal immunogen panel",
-             "# pS = phosphoserine at TXLNA S515. Cys shown at a terminus is the",
-             "# maleimide conjugation handle (native C523 in P1/P2; added in P3).", ""]
+             "# Sequence lines are UNMODIFIED residues. Modifications are declared",
+             "# in the header as MOD=. Cys at a terminus is the maleimide",
+             "# conjugation handle (native C523 in P1/P2; added in P3).", ""]
     for e in panel:
-        lines.append(f">{e['id']} | TXLNA {e['txlna_range'][0]}-{e['txlna_range'][1]}"
-                     f" | {e['role']} | {e['conjugation']}")
-        lines.append(e["display"])
+        hdr = (f">{e['id']} | TXLNA {e['txlna_range'][0]}-{e['txlna_range'][1]}"
+               f" | {e['role']} | {e['conjugation']}")
+        if e["phosphorylated"]:
+            site = int(re.sub(r"\D", "", e["phospho_site"]))
+            idx = site - e["txlna_range"][0] + 1
+            assert e["synthesis_sequence"][idx - 1] == "S", e["id"]
+            hdr += f" | MOD=pSer@{idx} (TXLNA S{site}) | display {e['display']}"
+        lines.append(hdr)
+        lines.append(e["synthesis_sequence"])
     lines += [">CONTROL_mouse_ortholog_502_523 | species cross-reactivity control",
-              controls["mouse_ortholog_502_523"]]
+              controls["mouse_ortholog_502_523"],
+              ">CONTROL_scrambled_P1 | composition-matched scramble of P1-pan |"
+              " a hit here is composition-driven, not sequence recognition",
+              controls["scrambled_P1"]]
     (RESULTS / "IL14A_ctd_immunogen_panel.fasta").write_text("\n".join(lines) + "\n")
     print("\nwrote results/step12_immunogen_panel.json and "
           "results/IL14A_ctd_immunogen_panel.fasta")
