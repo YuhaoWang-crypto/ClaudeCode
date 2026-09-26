@@ -1,0 +1,24 @@
+{
+  "submitted_at": "2026-09-26T16:40Z",
+  "functional_endpoint": "inhibition of B-cell activation (user-specified 2026-09-26)",
+  "workspace_id": "ws_aQfDjROuzeGAPFS3Afwo",
+  "jobs": [
+    {"stage": "stage1_screen", "epitope": "CT_493_523", "id": "prot_scr_jtUi61EDbW1oXQk9iJN7",
+     "n": 9, "est_usd": 0.225, "kind": "protein_screen",
+     "purpose": "do any existing candidates contact the functionally-evidenced 1C6 zone?"},
+    {"stage": "stage1_screen", "epitope": "CC_367_382", "id": "prot_scr_OMZjMEpqJgcaCUayxgY2",
+     "n": 9, "est_usd": 0.225, "kind": "protein_screen",
+     "purpose": "same question for the ordered coiled-coil epitope"},
+    {"stage": "stage3_cdr3_redesign", "epitope": "CC_367_382", "id": "prot_des_AUyBIAl8wmG96PHA292C",
+     "n": 150, "est_usd": 7.50, "kind": "protein_design",
+     "purpose": "parent-anchored: humanised framework + CDR1/2 fixed, CDR3 redesigned 10-18 aa"},
+    {"stage": "stage2_denovo_nanobody", "epitope": "CC_367_382", "id": "prot_des_SqO8zym1CxIfRNHAh4oN",
+     "n": 200, "est_usd": 10.00, "kind": "protein_design",
+     "purpose": "constrained de novo nanobody generation"}
+  ],
+  "total_est_usd": 17.95,
+  "held_back": {
+    "stage2_and_3_for_CT_493_523": "est $17.50 - held pending stage1 evidence that constrained co-folding converges on this disordered epitope (mean pLDDT 41.6). Structure-based design against a disordered epitope is the likeliest way to repeat the previous campaign's non-convergence."
+  },
+  "acceptance_gate": "Two independent samples of the same input must agree on the target-contact set (Jaccard >= 0.6) AND contacts must fall inside the intended epitope. Otherwise the run is a FAILED run, not a low-affinity result."
+}
