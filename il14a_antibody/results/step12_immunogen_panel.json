@@ -1,0 +1,167 @@
+{
+  "question": "de novo binder/antibody against ERRPEGPGAQAPSSPRVTEAPC?",
+  "structure_based_design_verdict": "No. Zero aromatics, 4.5% large hydrophobics and 31.8% Pro+Gly in a disordered region leave a paratope nothing to bury. RFantibody 0/64 and this repo's failed co-folding controls are both explained by the epitope composition, not by tool choice.",
+  "phospho_verdict": "Phosphorylation supplies exactly the missing anchor and makes the peptide a tractable immunogen, but the product is a phospho-specific antibody - best used as a proteoform probe for the identity gate, with a phospho-insensitive clone carrying the blocking role.",
+  "epitope_composition": {
+    "1C6_502_523": {
+      "aromatic_pct": 0.0,
+      "large_hydrophobic_pct": 4.5,
+      "pro_gly_pct": 31.8,
+      "net_charge": 0.0,
+      "gravy": -1.2
+    },
+    "coiled_coil_367_382": {
+      "aromatic_pct": 0.0,
+      "large_hydrophobic_pct": 25.0,
+      "pro_gly_pct": 0.0,
+      "net_charge": -0.9,
+      "gravy": -1.24
+    },
+    "whole_protein": {
+      "aromatic_pct": 2.7,
+      "large_hydrophobic_pct": 19.4,
+      "pro_gly_pct": 11.0,
+      "net_charge": -4.9,
+      "gravy": -1.23
+    }
+  },
+  "species": {
+    "full_length_identity": 0.905,
+    "identity_502_523": 0.77,
+    "identity_492_506": 0.6,
+    "S515_conserved_in_mouse": true
+  },
+  "panel": [
+    {
+      "id": "P1-pan",
+      "role": "primary blocker immunogen",
+      "txlna_range": [
+        502,
+        523
+      ],
+      "native_sequence": "ERRPEGPGAQAPSSPRVTEAPC",
+      "synthesis_sequence": "ERRPEGPGAQAPSSPRVTEAPC",
+      "display": "ERRPEGPGAQAPSSPRVTEAPC",
+      "phosphorylated": false,
+      "phospho_site": null,
+      "conjugation": "native C-terminal C523, maleimide (MBS/SMCC) to KLH",
+      "cys_added": false,
+      "mouse_identity": 0.77,
+      "tolerance_risk": "low",
+      "composition": {
+        "aromatic_pct": 0.0,
+        "large_hydrophobic_pct": 4.5,
+        "pro_gly_pct": 31.8,
+        "net_charge": 0.0,
+        "gravy": -1.2
+      },
+      "rationale": "Exactly the 1C6 immunogen. Two independent hybridomas (1C6 6.16 nM, 1F2 1.6 nM) came from this stretch and 1C6 blocks IL-14a-driven B-cell proliferation - the user's endpoint. Highest prior probability of success of anything in this project."
+    },
+    {
+      "id": "P2-phospho",
+      "role": "proteoform probe / identity gate",
+      "txlna_range": [
+        502,
+        523
+      ],
+      "native_sequence": "ERRPEGPGAQAPSSPRVTEAPC",
+      "synthesis_sequence": "ERRPEGPGAQAPSSPRVTEAPC",
+      "display": "ERRPEGPGAQAPSpSPRVTEAPC",
+      "phosphorylated": true,
+      "phospho_site": "pS515",
+      "conjugation": "native C-terminal C523, maleimide (MBS/SMCC) to KLH",
+      "cys_added": false,
+      "mouse_identity": 0.77,
+      "tolerance_risk": "low",
+      "composition": {
+        "aromatic_pct": 0.0,
+        "large_hydrophobic_pct": 4.5,
+        "pro_gly_pct": 31.8,
+        "net_charge": 0.0,
+        "gravy": -1.2
+      },
+      "rationale": "Same peptide carrying pS515. The phosphate supplies the anchor the unmodified sequence lacks. Counter-screen against P1 to isolate phospho-SPECIFIC clones."
+    },
+    {
+      "id": "P3-orthogonal",
+      "role": "second epitope bin, PTM-free",
+      "txlna_range": [
+        492,
+        506
+      ],
+      "native_sequence": "GQGSLTDSGPERRPE",
+      "synthesis_sequence": "GQGSLTDSGPERRPEC",
+      "display": "GQGSLTDSGPERRPEC",
+      "phosphorylated": false,
+      "phospho_site": null,
+      "conjugation": "add C-terminal Cys, maleimide to KLH",
+      "cys_added": true,
+      "mouse_identity": 0.6,
+      "tolerance_risk": "low",
+      "composition": {
+        "aromatic_pct": 0.0,
+        "large_hydrophobic_pct": 6.7,
+        "pro_gly_pct": 33.3,
+        "net_charge": -1.0,
+        "gravy": -1.73
+      },
+      "rationale": "Overlaps 1F2's immunogen (493-512) so it has independent antibody precedent, avoids S515 entirely, and is the most mouse-divergent window (60%) so it should be the most immunogenic."
+    }
+  ],
+  "counter_screens": [
+    {
+      "clone_type": "pan (blocker)",
+      "immunogen": "P1-pan",
+      "positive_on": [
+        "P1-pan",
+        "P2-phospho"
+      ],
+      "negative_on": [
+        "scrambled",
+        "irrelevant KLH-peptide"
+      ],
+      "use": "blocking candidate - binds regardless of S515 state"
+    },
+    {
+      "clone_type": "phospho-specific",
+      "immunogen": "P2-phospho",
+      "positive_on": [
+        "P2-phospho"
+      ],
+      "negative_on": [
+        "P1-pan",
+        "scrambled"
+      ],
+      "use": "proteoform probe - reports pS515 occupancy"
+    },
+    {
+      "clone_type": "non-phospho-specific",
+      "immunogen": "P1-pan",
+      "positive_on": [
+        "P1-pan"
+      ],
+      "negative_on": [
+        "P2-phospho",
+        "scrambled"
+      ],
+      "use": "the complement of the phospho probe; together they quantify occupancy"
+    },
+    {
+      "clone_type": "second bin",
+      "immunogen": "P3-orthogonal",
+      "positive_on": [
+        "P3-orthogonal"
+      ],
+      "negative_on": [
+        "P1-pan",
+        "scrambled"
+      ],
+      "use": "non-overlapping epitope; pairs with a P1 clone for sandwich ELISA"
+    }
+  ],
+  "controls": {
+    "mouse_ortholog_502_523": "ERRPESPGAQPASSPRATDAPC",
+    "scrambled_P1": "ESPSAPPCQPTRPAAGVGEERR",
+    "note": "The mouse ortholog peptide is the species cross-reactivity control and matters if an IL-14a Tg mouse model is used. The scrambled peptide is composition-matched so a hit on it means composition-driven binding, not sequence recognition."
+  }
+}
