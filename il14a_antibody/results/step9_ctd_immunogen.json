@@ -18,6 +18,10 @@
     "end": 523,
     "length": 22,
     "sequence": "ERRPEGPGAQAPSSPRVTEAPC",
+    "phosphosites_inside": {
+      "515": "Phosphoserine (S515, in an S-P proline-directed motif)"
+    },
+    "ptm_free": false,
     "paralog_unique_exposed": 11,
     "specificity_fraction": 0.5,
     "mean_rel_sasa": 0.735,
@@ -34,6 +38,10 @@
       "end": 523,
       "length": 15,
       "sequence": "GAQAPSSPRVTEAPC",
+      "phosphosites_inside": {
+        "515": "Phosphoserine (S515, in an S-P proline-directed motif)"
+      },
+      "ptm_free": false,
       "paralog_unique_exposed": 8,
       "specificity_fraction": 0.533,
       "mean_rel_sasa": 0.73,
@@ -49,6 +57,8 @@
       "end": 506,
       "length": 15,
       "sequence": "GQGSLTDSGPERRPE",
+      "phosphosites_inside": {},
+      "ptm_free": true,
       "paralog_unique_exposed": 7,
       "specificity_fraction": 0.467,
       "mean_rel_sasa": 0.746,
@@ -64,6 +74,8 @@
       "end": 538,
       "length": 15,
       "sequence": "YPGAPSTEASGQTGP",
+      "phosphosites_inside": {},
+      "ptm_free": true,
       "paralog_unique_exposed": 6,
       "specificity_fraction": 0.4,
       "mean_rel_sasa": 0.774,

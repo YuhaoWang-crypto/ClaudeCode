@@ -47,6 +47,15 @@ COILED_COIL_END = 491          # UniProt P40222 annotation: coiled coil 186-491
 CTD_START, CTD_END = 492, 546
 # the 1C6 immunogen, verified earlier against P40222
 REF_1C6 = (502, 523)
+# 1F2's immunogen, native part (its leading Cys is an added conjugation handle)
+REF_1F2 = (493, 512)
+
+# Experimentally annotated PTM sites (UniProt P40222 MOD_RES). A phosphosite
+# inside an immunogen is a real problem: an antibody raised on the
+# unphosphorylated peptide may fail to recognise the phosphorylated protein,
+# and the phospho-occupancy of endogenous TXLNA is unknown. S515 sits in an
+# S-P motif, the consensus for proline-directed kinases.
+PHOSPHOSITES = {515: "Phosphoserine (S515, in an S-P proline-directed motif)"}
 
 
 def paralog_maps(alpha, beta, gamma):
@@ -101,8 +110,11 @@ def scan(alpha, mb, mg, struct, lo, hi, lengths=(15, 18, 20, 22, 25)):
             # does not need a defined fold.
             spec = len(exposed_uniq) / L
             clean = max(0.0, 1.0 - 0.34 * sum(len(v) for v in lia.values()))
+            ptm = {p: PHOSPHOSITES[p] for p in PHOSPHOSITES if s <= p <= e}
             out.append({
                 "start": s, "end": e, "length": L, "sequence": frag,
+                "phosphosites_inside": ptm,
+                "ptm_free": not ptm,
                 "paralog_unique_exposed": len(exposed_uniq),
                 "specificity_fraction": round(spec, 3),
                 "mean_rel_sasa": round(sasa, 3),
@@ -159,14 +171,18 @@ def main():
     print(f"B. IMMUNOGEN WINDOWS IN THE C-TERMINAL REGION (aa {CTD_START}-{CTD_END},")
     print(f"   i.e. after the coiled-coil ends at {COILED_COIL_END})")
     print("=" * 96)
-    print(f"{'rank':5} {'range':12} {'len':4} {'spec':6} {'rSASA':7} {'nUniq':6} {'score':7} sequence")
-    print("-" * 96)
+    print(f"{'rank':5} {'range':12} {'len':4} {'spec':6} {'rSASA':7} {'nUniq':6} {'score':7} {'PTM':5} sequence")
+    print("-" * 104)
     for i, c in enumerate(picked, 1):
         print(f"{i:<5} {str((c['start'], c['end'])):12} {c['length']:<4} "
               f"{c['specificity_fraction']:<6.2f} {c['mean_rel_sasa']:<7.3f} "
-              f"{c['paralog_unique_exposed']:<6} {c['score']:<7.4f} {c['sequence']}")
+              f"{c['paralog_unique_exposed']:<6} {c['score']:<7.4f} "
+              f"{'clean' if c['ptm_free'] else 'S515':5} {c['sequence']}")
         if c["liabilities"]:
             print(f"      liabilities: {c['liabilities']}")
+        if c["phosphosites_inside"]:
+            for pos, note in c["phosphosites_inside"].items():
+                print(f"      PTM: {note}")
     print()
     if ref:
         print(f"  reference - 1C6 immunogen {REF_1C6}: spec {ref['specificity_fraction']:.2f}"
@@ -176,6 +192,13 @@ def main():
         if best["score"] > ref["score"]:
             print(f"  -> best scanned window beats the 1C6 immunogen "
                   f"({best['score']:.4f} vs {ref['score']:.4f})")
+        ptm_free = [c for c in picked if c["ptm_free"]]
+        if ptm_free:
+            b = ptm_free[0]
+            print(f"\n  best PTM-FREE window: {(b['start'], b['end'])} {b['sequence']}"
+                  f"  spec {b['specificity_fraction']:.2f}  score {b['score']:.4f}")
+            print(f"    (1F2's immunogen is {REF_1F2} - this window overlaps it,"
+                  f" so it has independent antibody precedent)")
 
     RESULTS.mkdir(exist_ok=True)
     (RESULTS / "step9_ctd_immunogen.json").write_text(json.dumps({
