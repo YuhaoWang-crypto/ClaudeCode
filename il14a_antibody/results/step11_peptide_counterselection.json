@@ -1,0 +1,93 @@
+{
+  "seed": 20260926,
+  "groove": [
+    359,
+    443
+  ],
+  "heptad_frames": [
+    0,
+    0,
+    0
+  ],
+  "controls": {
+    "native_STX4_H3 (positive)": {
+      "peptide": "DTQVTRQALNEISARHSEIQQLERSIRELHDIFTFLATEVEMQGEMINRIEKNILSSADYVERGQEHVKTALENQKKA",
+      "len": 78,
+      "score_TXLNA": 0.281,
+      "score_TXLNB": 0.246,
+      "score_TXLNG": 0.271,
+      "selectivity_margin": 0.01,
+      "offset": 24,
+      "sdr_contacts": 0,
+      "net_charge": -3.7,
+      "gravy": -0.74,
+      "has_Cys": false,
+      "has_Pro": false
+    },
+    "G034x_PEP-01-K35E": {
+      "peptide": "DLAVLLKALAEIALREKRIAALRLSIKALLAIFLELAAEVALQG",
+      "len": 44,
+      "score_TXLNA": 0.176,
+      "score_TXLNB": 0.298,
+      "score_TXLNG": 0.166,
+      "selectivity_margin": -0.122,
+      "offset": 72,
+      "sdr_contacts": 0,
+      "net_charge": 1.0,
+      "gravy": 1.07,
+      "has_Cys": false,
+      "has_Pro": false
+    },
+    "scrambled (negative)": {
+      "peptide": "SLAELDAVAEKLIAAALLIKARKALLLLERGVEILAQIFRALAL",
+      "len": 44,
+      "score_TXLNA": 0.298,
+      "score_TXLNB": 0.442,
+      "score_TXLNG": 0.298,
+      "selectivity_margin": -0.143,
+      "offset": 73,
+      "sdr_contacts": 0,
+      "net_charge": 1.0,
+      "gravy": 1.07,
+      "has_Cys": false,
+      "has_Pro": false
+    },
+    "polyA (negative)": {
+      "peptide": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "len": 44,
+      "score_TXLNA": 0.188,
+      "score_TXLNB": 0.202,
+      "score_TXLNG": 0.236,
+      "selectivity_margin": -0.047,
+      "offset": 73,
+      "sdr_contacts": 0,
+      "net_charge": 0.0,
+      "gravy": 1.8,
+      "has_Cys": false,
+      "has_Pro": false
+    },
+    "register_shift +1 (negative)": {
+      "peptide": "DLAAVLLKALAEIALREKRIAALRLSIKALLAIFLELAAEVALQG",
+      "len": 45,
+      "score_TXLNA": 0.258,
+      "score_TXLNB": 0.263,
+      "score_TXLNG": 0.256,
+      "selectivity_margin": -0.005,
+      "offset": 23,
+      "sdr_contacts": 0,
+      "net_charge": 1.0,
+      "gravy": 1.09,
+      "has_Cys": false,
+      "has_Pro": false
+    }
+  },
+  "scorer_passes_controls": false,
+  "maturation_run": false,
+  "native_ligand_margin": 0.01,
+  "uniprot_subunit_shared": {
+    "P40222": "Binds to the C-terminal coiled coil region of syntaxin family members STX1A, STX3A and STX4A",
+    "Q8N3L3": "same, plus: Has a preference for STX1A",
+    "Q9NUQ3": "same"
+  },
+  "verdict": "Paralog counter-selection on the TXLNA coiled-coil groove is not achievable: syntaxin binding is the shared defining property of the taxilin family, so the natural ligand is itself not paralog-selective."
+}
