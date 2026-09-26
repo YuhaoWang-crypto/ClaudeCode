@@ -1,0 +1,16 @@
+{
+  "job_id": "prot_scr_jtUi61EDbW1oXQk9iJN7",
+  "epitope": "CT_493_523",
+  "note": "metrics transcribed from the Boltz screen result payload",
+  "results": [
+    {"id": "parent_G034-Ab-Ax2-C-03",  "structure_confidence": 0.7577, "binding_confidence": 0.0000287, "min_interaction_pae": 0.458, "iptm": 0.9592},
+    {"id": "parent_G034-Ab-Ax2-C-05",  "structure_confidence": 0.7565, "binding_confidence": 0.0000351, "min_interaction_pae": 0.566, "iptm": 0.9601},
+    {"id": "parent_G034-Ab-Ax2-C-06",  "structure_confidence": 0.7544, "binding_confidence": 0.0002367, "min_interaction_pae": 0.552, "iptm": 0.9563},
+    {"id": "parent_G034-Ab-Ax2-C-01",  "structure_confidence": 0.7137, "binding_confidence": 0.0000270, "min_interaction_pae": 1.387, "iptm": 0.9089},
+    {"id": "parent_G034-Ab-Ax2-C-09",  "structure_confidence": 0.6859, "binding_confidence": 0.0002167, "min_interaction_pae": 1.603, "iptm": 0.8634},
+    {"id": "humanised_VHH_C05",        "structure_confidence": 0.6189, "binding_confidence": 0.0001467, "min_interaction_pae": 2.533, "iptm": 0.7705},
+    {"id": "parent_G034-Ab-Ax2-C-02",  "structure_confidence": 0.6154, "binding_confidence": 0.0585801, "min_interaction_pae": 3.143, "iptm": 0.7838},
+    {"id": "parent_G034-Ab-Ax2-C-08",  "structure_confidence": 0.6124, "binding_confidence": 0.0000752, "min_interaction_pae": 3.356, "iptm": 0.8013},
+    {"id": "TMEL1011_humanised_Fv",    "structure_confidence": 0.6068, "binding_confidence": 0.0117018, "min_interaction_pae": 3.497, "iptm": 0.8078}
+  ]
+}
