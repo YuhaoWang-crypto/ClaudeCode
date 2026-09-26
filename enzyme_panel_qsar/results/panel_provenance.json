@@ -1,0 +1,859 @@
+{
+  "chembl_release": null,
+  "chembl_db_version": "ChEMBL_37",
+  "licence": "ChEMBL data is CC BY-SA 3.0 - attribute and share alike",
+  "min_compounds_gate": 300,
+  "min_assay_confidence_score": 8,
+  "max_mw": 650.0,
+  "activity_types": [
+    "IC50",
+    "Ki",
+    "Kd"
+  ],
+  "censored_values": "dropped (standard_relation '=' only)",
+  "targets": [
+    {
+      "name": "PARP1",
+      "uniprot": "P09874",
+      "bps_family": "PARP, PARG, ADP-ribosylation",
+      "assay_readout": "ADP-ribosylation / NAD+ consumption (colorimetric or chemiluminescent)",
+      "target_chembl_id": "CHEMBL3105",
+      "target_pref_name": "Poly [ADP-ribose] polymerase 1",
+      "target_type": "SINGLE PROTEIN",
+      "organism": "Homo sapiens",
+      "status": "ok",
+      "n_compounds": 4479,
+      "n_scaffolds": 1992,
+      "pAffinity_mean": 7.238,
+      "pAffinity_sd": 1.127,
+      "pAffinity_min": 4.0,
+      "pAffinity_max": 10.7,
+      "assay_group_counts": {
+        "binding": 4475,
+        "functional": 4
+      },
+      "binding_vs_functional_mean_offset_log": 1.005,
+      "noise_floor": {
+        "definition": "range of per-assay medians over compounds measured in >1 distinct ChEMBL assay record. The distribution is bimodal: exact ties are re-deposition of one measurement, not independent replication, so noise_floor_log is the median over non-zero ranges.",
+        "n_compounds_in_multiple_assays": 358,
+        "frac_exact_ties": 0.441,
+        "quantiles_all": {
+          "0.25": 0.0,
+          "0.5": 0.04,
+          "0.75": 0.81,
+          "0.9": 2.009,
+          "0.95": 3.0
+        },
+        "n_discordant": 200,
+        "noise_floor_log": 0.705,
+        "noise_floor_q75_log": 1.6,
+        "n_rows_flagged_potential_duplicate": 390
+      },
+      "audit": {
+        "n_raw_activities": 5436,
+        "n_distinct_assays": 390,
+        "n_assays_without_confidence": 0,
+        "dropped_low_confidence": 0,
+        "confidence_score_distribution": {
+          "8": 2429,
+          "9": 3007
+        },
+        "dropped_data_validity_flagged": 0,
+        "data_validity_reasons": {},
+        "dropped_no_pchembl": 0,
+        "dropped_unparseable": 0,
+        "dropped_mw_over_limit": 0
+      }
+    },
+    {
+      "name": "HDAC1",
+      "uniprot": "Q13547",
+      "bps_family": "Deacetylases/Sirtuins",
+      "assay_readout": "fluorogenic acetylated-peptide deacetylation",
+      "target_chembl_id": "CHEMBL325",
+      "target_pref_name": "Histone deacetylase 1",
+      "target_type": "SINGLE PROTEIN",
+      "organism": "Homo sapiens",
+      "status": "ok",
+      "n_compounds": 8095,
+      "n_scaffolds": 3538,
+      "pAffinity_mean": 6.622,
+      "pAffinity_sd": 1.124,
+      "pAffinity_min": 4.0,
+      "pAffinity_max": 10.3,
+      "assay_group_counts": {
+        "binding": 7849,
+        "functional": 246
+      },
+      "binding_vs_functional_mean_offset_log": 0.188,
+      "noise_floor": {
+        "definition": "range of per-assay medians over compounds measured in >1 distinct ChEMBL assay record. The distribution is bimodal: exact ties are re-deposition of one measurement, not independent replication, so noise_floor_log is the median over non-zero ranges.",
+        "n_compounds_in_multiple_assays": 803,
+        "frac_exact_ties": 0.468,
+        "quantiles_all": {
+          "0.25": 0.0,
+          "0.5": 0.01,
+          "0.75": 0.59,
+          "0.9": 1.52,
+          "0.95": 2.328
+        },
+        "n_discordant": 427,
+        "noise_floor_log": 0.51,
+        "noise_floor_q75_log": 1.215,
+        "n_rows_flagged_potential_duplicate": 1397
+      },
+      "audit": {
+        "n_raw_activities": 10356,
+        "n_distinct_assays": 1183,
+        "n_assays_without_confidence": 0,
+        "dropped_low_confidence": 0,
+        "confidence_score_distribution": {
+          "8": 1299,
+          "9": 9057
+        },
+        "dropped_data_validity_flagged": 0,
+        "data_validity_reasons": {},
+        "dropped_no_pchembl": 0,
+        "dropped_unparseable": 0,
+        "dropped_mw_over_limit": 0
+      }
+    },
+    {
+      "name": "HDAC6",
+      "uniprot": "Q9UBN7",
+      "bps_family": "Deacetylases/Sirtuins",
+      "assay_readout": "fluorogenic acetylated-peptide deacetylation",
+      "target_chembl_id": "CHEMBL1865",
+      "target_pref_name": "Protein deacetylase HDAC6",
+      "target_type": "SINGLE PROTEIN",
+      "organism": "Homo sapiens",
+      "status": "ok",
+      "n_compounds": 6320,
+      "n_scaffolds": 2658,
+      "pAffinity_mean": 7.03,
+      "pAffinity_sd": 1.056,
+      "pAffinity_min": 4.0,
+      "pAffinity_max": 11.0,
+      "assay_group_counts": {
+        "binding": 6228,
+        "functional": 92
+      },
+      "binding_vs_functional_mean_offset_log": 0.879,
+      "noise_floor": {
+        "definition": "range of per-assay medians over compounds measured in >1 distinct ChEMBL assay record. The distribution is bimodal: exact ties are re-deposition of one measurement, not independent replication, so noise_floor_log is the median over non-zero ranges.",
+        "n_compounds_in_multiple_assays": 779,
+        "frac_exact_ties": 0.67,
+        "quantiles_all": {
+          "0.25": 0.0,
+          "0.5": 0.0,
+          "0.75": 0.22,
+          "0.9": 1.072,
+          "0.95": 1.843
+        },
+        "n_discordant": 257,
+        "noise_floor_log": 0.67,
+        "noise_floor_q75_log": 1.35,
+        "n_rows_flagged_potential_duplicate": 886
+      },
+      "audit": {
+        "n_raw_activities": 8575,
+        "n_distinct_assays": 965,
+        "n_assays_without_confidence": 0,
+        "dropped_low_confidence": 0,
+        "confidence_score_distribution": {
+          "8": 525,
+          "9": 8050
+        },
+        "dropped_data_validity_flagged": 0,
+        "data_validity_reasons": {},
+        "dropped_no_pchembl": 0,
+        "dropped_unparseable": 0,
+        "dropped_mw_over_limit": 0
+      }
+    },
+    {
+      "name": "SIRT1",
+      "uniprot": "Q96EB6",
+      "bps_family": "Deacetylases/Sirtuins",
+      "assay_readout": "NAD+-dependent deacetylation, fluorogenic",
+      "target_chembl_id": "CHEMBL4506",
+      "target_pref_name": "NAD-dependent protein deacetylase sirtuin-1",
+      "target_type": "SINGLE PROTEIN",
+      "organism": "Homo sapiens",
+      "status": "ok",
+      "n_compounds": 616,
+      "n_scaffolds": 301,
+      "pAffinity_mean": 5.158,
+      "pAffinity_sd": 0.862,
+      "pAffinity_min": 4.0,
+      "pAffinity_max": 8.44,
+      "assay_group_counts": {
+        "binding": 616
+      },
+      "binding_vs_functional_mean_offset_log": null,
+      "noise_floor": {
+        "definition": "range of per-assay medians over compounds measured in >1 distinct ChEMBL assay record. The distribution is bimodal: exact ties are re-deposition of one measurement, not independent replication, so noise_floor_log is the median over non-zero ranges.",
+        "n_compounds_in_multiple_assays": 54,
+        "frac_exact_ties": 0.37,
+        "quantiles_all": {
+          "0.25": 0.0,
+          "0.5": 0.03,
+          "0.75": 0.57,
+          "0.9": 0.881,
+          "0.95": 1.484
+        },
+        "n_discordant": 34,
+        "noise_floor_log": 0.515,
+        "noise_floor_q75_log": 0.78,
+        "n_rows_flagged_potential_duplicate": 67
+      },
+      "audit": {
+        "n_raw_activities": 764,
+        "n_distinct_assays": 147,
+        "n_assays_without_confidence": 0,
+        "dropped_low_confidence": 0,
+        "confidence_score_distribution": {
+          "8": 99,
+          "9": 665
+        },
+        "dropped_data_validity_flagged": 0,
+        "data_validity_reasons": {},
+        "dropped_no_pchembl": 0,
+        "dropped_unparseable": 0,
+        "dropped_mw_over_limit": 0
+      }
+    },
+    {
+      "name": "PDE4B",
+      "uniprot": "Q07343",
+      "bps_family": "Phosphodiesterases",
+      "assay_readout": "cAMP hydrolysis (fluorescence polarisation / HTRF)",
+      "target_chembl_id": "CHEMBL275",
+      "target_pref_name": "3',5'-cyclic-AMP phosphodiesterase 4B",
+      "target_type": "SINGLE PROTEIN",
+      "organism": "Homo sapiens",
+      "status": "ok",
+      "n_compounds": 2223,
+      "n_scaffolds": 860,
+      "pAffinity_mean": 6.831,
+      "pAffinity_sd": 1.436,
+      "pAffinity_min": 4.0,
+      "pAffinity_max": 11.0,
+      "assay_group_counts": {
+        "binding": 2149,
+        "functional": 74
+      },
+      "binding_vs_functional_mean_offset_log": 0.68,
+      "noise_floor": {
+        "definition": "range of per-assay medians over compounds measured in >1 distinct ChEMBL assay record. The distribution is bimodal: exact ties are re-deposition of one measurement, not independent replication, so noise_floor_log is the median over non-zero ranges.",
+        "n_compounds_in_multiple_assays": 328,
+        "frac_exact_ties": 0.726,
+        "quantiles_all": {
+          "0.25": 0.0,
+          "0.5": 0.0,
+          "0.75": 0.153,
+          "0.9": 0.95,
+          "0.95": 2.463
+        },
+        "n_discordant": 90,
+        "noise_floor_log": 0.7,
+        "noise_floor_q75_log": 2.138,
+        "n_rows_flagged_potential_duplicate": 292
+      },
+      "audit": {
+        "n_raw_activities": 2744,
+        "n_distinct_assays": 239,
+        "n_assays_without_confidence": 0,
+        "dropped_low_confidence": 0,
+        "confidence_score_distribution": {
+          "8": 1121,
+          "9": 1623
+        },
+        "dropped_data_validity_flagged": 0,
+        "data_validity_reasons": {},
+        "dropped_no_pchembl": 0,
+        "dropped_unparseable": 0,
+        "dropped_mw_over_limit": 0
+      }
+    },
+    {
+      "name": "PDE5A",
+      "uniprot": "O76074",
+      "bps_family": "Phosphodiesterases",
+      "assay_readout": "cGMP hydrolysis (fluorescence polarisation / HTRF)",
+      "target_chembl_id": "CHEMBL1827",
+      "target_pref_name": "cGMP-specific 3',5'-cyclic phosphodiesterase",
+      "target_type": "SINGLE PROTEIN",
+      "organism": "Homo sapiens",
+      "status": "ok",
+      "n_compounds": 2148,
+      "n_scaffolds": 896,
+      "pAffinity_mean": 7.13,
+      "pAffinity_sd": 1.54,
+      "pAffinity_min": 4.0,
+      "pAffinity_max": 11.0,
+      "assay_group_counts": {
+        "binding": 2143,
+        "functional": 5
+      },
+      "binding_vs_functional_mean_offset_log": 0.204,
+      "noise_floor": {
+        "definition": "range of per-assay medians over compounds measured in >1 distinct ChEMBL assay record. The distribution is bimodal: exact ties are re-deposition of one measurement, not independent replication, so noise_floor_log is the median over non-zero ranges.",
+        "n_compounds_in_multiple_assays": 196,
+        "frac_exact_ties": 0.704,
+        "quantiles_all": {
+          "0.25": 0.0,
+          "0.5": 0.0,
+          "0.75": 0.028,
+          "0.9": 1.21,
+          "0.95": 1.743
+        },
+        "n_discordant": 58,
+        "noise_floor_log": 0.733,
+        "noise_floor_q75_log": 1.575,
+        "n_rows_flagged_potential_duplicate": 211
+      },
+      "audit": {
+        "n_raw_activities": 2531,
+        "n_distinct_assays": 240,
+        "n_assays_without_confidence": 0,
+        "dropped_low_confidence": 0,
+        "confidence_score_distribution": {
+          "8": 1110,
+          "9": 1421
+        },
+        "dropped_data_validity_flagged": 0,
+        "data_validity_reasons": {},
+        "dropped_no_pchembl": 0,
+        "dropped_unparseable": 0,
+        "dropped_mw_over_limit": 0
+      }
+    },
+    {
+      "name": "EZH2",
+      "uniprot": "Q15910",
+      "bps_family": "Methyltransferases",
+      "assay_readout": "H3K27 methylation, SAM-dependent (TR-FRET / radiometric)",
+      "target_chembl_id": "CHEMBL2189110",
+      "target_pref_name": "Histone-lysine N-methyltransferase EZH2",
+      "target_type": "SINGLE PROTEIN",
+      "organism": "Homo sapiens",
+      "status": "ok",
+      "n_compounds": 1003,
+      "n_scaffolds": 441,
+      "pAffinity_mean": 7.683,
+      "pAffinity_sd": 1.34,
+      "pAffinity_min": 4.0,
+      "pAffinity_max": 11.0,
+      "assay_group_counts": {
+        "binding": 1003
+      },
+      "binding_vs_functional_mean_offset_log": null,
+      "noise_floor": {
+        "definition": "range of per-assay medians over compounds measured in >1 distinct ChEMBL assay record. The distribution is bimodal: exact ties are re-deposition of one measurement, not independent replication, so noise_floor_log is the median over non-zero ranges.",
+        "n_compounds_in_multiple_assays": 436,
+        "frac_exact_ties": 0.092,
+        "quantiles_all": {
+          "0.25": 0.11,
+          "0.5": 0.41,
+          "0.75": 0.88,
+          "0.9": 1.41,
+          "0.95": 1.72
+        },
+        "n_discordant": 396,
+        "noise_floor_log": 0.45,
+        "noise_floor_q75_log": 0.962,
+        "n_rows_flagged_potential_duplicate": 152
+      },
+      "audit": {
+        "n_raw_activities": 1925,
+        "n_distinct_assays": 213,
+        "n_assays_without_confidence": 0,
+        "dropped_low_confidence": 0,
+        "confidence_score_distribution": {
+          "8": 860,
+          "9": 1065
+        },
+        "dropped_data_validity_flagged": 0,
+        "data_validity_reasons": {},
+        "dropped_no_pchembl": 0,
+        "dropped_unparseable": 0,
+        "dropped_mw_over_limit": 0
+      }
+    },
+    {
+      "name": "PRMT5",
+      "uniprot": "O14744",
+      "bps_family": "Methyltransferases",
+      "assay_readout": "arginine methylation, SAM-dependent",
+      "target_chembl_id": "CHEMBL1795116",
+      "target_pref_name": "Protein arginine N-methyltransferase 5",
+      "target_type": "SINGLE PROTEIN",
+      "organism": "Homo sapiens",
+      "status": "ok",
+      "n_compounds": 1051,
+      "n_scaffolds": 552,
+      "pAffinity_mean": 6.65,
+      "pAffinity_sd": 1.158,
+      "pAffinity_min": 4.02,
+      "pAffinity_max": 10.7,
+      "assay_group_counts": {
+        "binding": 1050,
+        "functional": 1
+      },
+      "binding_vs_functional_mean_offset_log": 0.49,
+      "noise_floor": {
+        "definition": "range of per-assay medians over compounds measured in >1 distinct ChEMBL assay record. The distribution is bimodal: exact ties are re-deposition of one measurement, not independent replication, so noise_floor_log is the median over non-zero ranges.",
+        "n_compounds_in_multiple_assays": 56,
+        "frac_exact_ties": 0.107,
+        "quantiles_all": {
+          "0.25": 0.653,
+          "0.5": 1.21,
+          "0.75": 1.617,
+          "0.9": 2.147,
+          "0.95": 2.817
+        },
+        "n_discordant": 50,
+        "noise_floor_log": 1.265,
+        "noise_floor_q75_log": 1.685,
+        "n_rows_flagged_potential_duplicate": 17
+      },
+      "audit": {
+        "n_raw_activities": 1170,
+        "n_distinct_assays": 120,
+        "n_assays_without_confidence": 0,
+        "dropped_low_confidence": 0,
+        "confidence_score_distribution": {
+          "8": 365,
+          "9": 805
+        },
+        "dropped_data_validity_flagged": 0,
+        "data_validity_reasons": {},
+        "dropped_no_pchembl": 0,
+        "dropped_unparseable": 0,
+        "dropped_mw_over_limit": 0
+      }
+    },
+    {
+      "name": "BRD4",
+      "uniprot": "O60885",
+      "bps_family": "Bromodomains",
+      "assay_readout": "acetyl-lysine peptide displacement (TR-FRET) - a READER, not an enzyme",
+      "target_chembl_id": "CHEMBL1163125",
+      "target_pref_name": "Bromodomain-containing protein 4",
+      "target_type": "SINGLE PROTEIN",
+      "organism": "Homo sapiens",
+      "status": "ok",
+      "n_compounds": 9107,
+      "n_scaffolds": 3610,
+      "pAffinity_mean": 6.385,
+      "pAffinity_sd": 1.219,
+      "pAffinity_min": 2.16,
+      "pAffinity_max": 9.52,
+      "assay_group_counts": {
+        "binding": 9107
+      },
+      "binding_vs_functional_mean_offset_log": null,
+      "noise_floor": {
+        "definition": "range of per-assay medians over compounds measured in >1 distinct ChEMBL assay record. The distribution is bimodal: exact ties are re-deposition of one measurement, not independent replication, so noise_floor_log is the median over non-zero ranges.",
+        "n_compounds_in_multiple_assays": 3239,
+        "frac_exact_ties": 0.193,
+        "quantiles_all": {
+          "0.25": 0.08,
+          "0.5": 0.45,
+          "0.75": 1.1,
+          "0.9": 2.162,
+          "0.95": 2.6
+        },
+        "n_discordant": 2613,
+        "noise_floor_log": 0.66,
+        "noise_floor_q75_log": 1.36,
+        "n_rows_flagged_potential_duplicate": 1205
+      },
+      "audit": {
+        "n_raw_activities": 15778,
+        "n_distinct_assays": 1187,
+        "n_assays_without_confidence": 0,
+        "dropped_low_confidence": 0,
+        "confidence_score_distribution": {
+          "8": 7913,
+          "9": 7865
+        },
+        "dropped_data_validity_flagged": 0,
+        "data_validity_reasons": {},
+        "dropped_no_pchembl": 0,
+        "dropped_unparseable": 0,
+        "dropped_mw_over_limit": 0
+      }
+    },
+    {
+      "name": "KDM1A",
+      "uniprot": "O60341",
+      "bps_family": "Demethylases",
+      "assay_readout": "FAD-dependent H3K4 demethylation (peroxidase-coupled fluorescence)",
+      "target_chembl_id": "CHEMBL6136",
+      "target_pref_name": "Lysine-specific histone demethylase 1A",
+      "target_type": "SINGLE PROTEIN",
+      "organism": "Homo sapiens",
+      "status": "ok",
+      "n_compounds": 3841,
+      "n_scaffolds": 1625,
+      "pAffinity_mean": 6.717,
+      "pAffinity_sd": 1.242,
+      "pAffinity_min": 3.36,
+      "pAffinity_max": 10.3,
+      "assay_group_counts": {
+        "binding": 3840,
+        "functional": 1
+      },
+      "binding_vs_functional_mean_offset_log": 1.338,
+      "noise_floor": {
+        "definition": "range of per-assay medians over compounds measured in >1 distinct ChEMBL assay record. The distribution is bimodal: exact ties are re-deposition of one measurement, not independent replication, so noise_floor_log is the median over non-zero ranges.",
+        "n_compounds_in_multiple_assays": 1056,
+        "frac_exact_ties": 0.711,
+        "quantiles_all": {
+          "0.25": 0.0,
+          "0.5": 0.0,
+          "0.75": 0.05,
+          "0.9": 0.585,
+          "0.95": 0.98
+        },
+        "n_discordant": 305,
+        "noise_floor_log": 0.34,
+        "noise_floor_q75_log": 0.77,
+        "n_rows_flagged_potential_duplicate": 1527
+      },
+      "audit": {
+        "n_raw_activities": 5918,
+        "n_distinct_assays": 351,
+        "n_assays_without_confidence": 0,
+        "dropped_low_confidence": 0,
+        "confidence_score_distribution": {
+          "8": 194,
+          "9": 5724
+        },
+        "dropped_data_validity_flagged": 0,
+        "data_validity_reasons": {},
+        "dropped_no_pchembl": 0,
+        "dropped_unparseable": 0,
+        "dropped_mw_over_limit": 0
+      }
+    },
+    {
+      "name": "PTPN11",
+      "uniprot": "Q06124",
+      "bps_family": "Protein Tyrosine Phosphatase",
+      "assay_readout": "phosphopeptide dephosphorylation (DiFMUP fluorescence); allosteric site",
+      "target_chembl_id": "CHEMBL3864",
+      "target_pref_name": "Tyrosine-protein phosphatase non-receptor type 11",
+      "target_type": "SINGLE PROTEIN",
+      "organism": "Homo sapiens",
+      "status": "ok",
+      "n_compounds": 2328,
+      "n_scaffolds": 1001,
+      "pAffinity_mean": 6.462,
+      "pAffinity_sd": 1.228,
+      "pAffinity_min": 3.0,
+      "pAffinity_max": 10.77,
+      "assay_group_counts": {
+        "binding": 2167,
+        "functional": 161
+      },
+      "binding_vs_functional_mean_offset_log": 0.989,
+      "noise_floor": {
+        "definition": "range of per-assay medians over compounds measured in >1 distinct ChEMBL assay record. The distribution is bimodal: exact ties are re-deposition of one measurement, not independent replication, so noise_floor_log is the median over non-zero ranges.",
+        "n_compounds_in_multiple_assays": 569,
+        "frac_exact_ties": 0.722,
+        "quantiles_all": {
+          "0.25": 0.0,
+          "0.5": 0.0,
+          "0.75": 0.08,
+          "0.9": 0.76,
+          "0.95": 1.046
+        },
+        "n_discordant": 158,
+        "noise_floor_log": 0.575,
+        "noise_floor_q75_log": 0.912,
+        "n_rows_flagged_potential_duplicate": 687
+      },
+      "audit": {
+        "n_raw_activities": 3355,
+        "n_distinct_assays": 238,
+        "n_assays_without_confidence": 0,
+        "dropped_low_confidence": 0,
+        "confidence_score_distribution": {
+          "8": 1027,
+          "9": 2328
+        },
+        "dropped_data_validity_flagged": 0,
+        "data_validity_reasons": {},
+        "dropped_no_pchembl": 0,
+        "dropped_unparseable": 0,
+        "dropped_mw_over_limit": 0
+      }
+    },
+    {
+      "name": "PTP1B",
+      "uniprot": "P18031",
+      "bps_family": "Protein Tyrosine Phosphatase",
+      "assay_readout": "pTyr substrate dephosphorylation (DiFMUP / pNPP)",
+      "target_chembl_id": "CHEMBL335",
+      "target_pref_name": "Tyrosine-protein phosphatase non-receptor type 1",
+      "target_type": "SINGLE PROTEIN",
+      "organism": "Homo sapiens",
+      "status": "ok",
+      "n_compounds": 3102,
+      "n_scaffolds": 1259,
+      "pAffinity_mean": 5.346,
+      "pAffinity_sd": 0.846,
+      "pAffinity_min": 2.92,
+      "pAffinity_max": 9.21,
+      "assay_group_counts": {
+        "binding": 3079,
+        "functional": 23
+      },
+      "binding_vs_functional_mean_offset_log": 0.367,
+      "noise_floor": {
+        "definition": "range of per-assay medians over compounds measured in >1 distinct ChEMBL assay record. The distribution is bimodal: exact ties are re-deposition of one measurement, not independent replication, so noise_floor_log is the median over non-zero ranges.",
+        "n_compounds_in_multiple_assays": 427,
+        "frac_exact_ties": 0.368,
+        "quantiles_all": {
+          "0.25": 0.0,
+          "0.5": 0.08,
+          "0.75": 0.415,
+          "0.9": 0.958,
+          "0.95": 1.348
+        },
+        "n_discordant": 270,
+        "noise_floor_log": 0.295,
+        "noise_floor_q75_log": 0.658,
+        "n_rows_flagged_potential_duplicate": 321
+      },
+      "audit": {
+        "n_raw_activities": 3924,
+        "n_distinct_assays": 543,
+        "n_assays_without_confidence": 0,
+        "dropped_low_confidence": 0,
+        "confidence_score_distribution": {
+          "8": 1189,
+          "9": 2735
+        },
+        "dropped_data_validity_flagged": 0,
+        "data_validity_reasons": {},
+        "dropped_no_pchembl": 0,
+        "dropped_unparseable": 0,
+        "dropped_mw_over_limit": 0
+      }
+    },
+    {
+      "name": "IDO1",
+      "uniprot": "P14902",
+      "bps_family": "Immunotherapy / Metabolic Enzymes",
+      "assay_readout": "tryptophan -> kynurenine, heme-dependent (absorbance / fluorescence)",
+      "target_chembl_id": "CHEMBL4685",
+      "target_pref_name": "Indoleamine 2,3-dioxygenase 1",
+      "target_type": "SINGLE PROTEIN",
+      "organism": "Homo sapiens",
+      "status": "ok",
+      "n_compounds": 3573,
+      "n_scaffolds": 1289,
+      "pAffinity_mean": 6.404,
+      "pAffinity_sd": 1.146,
+      "pAffinity_min": 3.03,
+      "pAffinity_max": 9.54,
+      "assay_group_counts": {
+        "binding": 3573
+      },
+      "binding_vs_functional_mean_offset_log": null,
+      "noise_floor": {
+        "definition": "range of per-assay medians over compounds measured in >1 distinct ChEMBL assay record. The distribution is bimodal: exact ties are re-deposition of one measurement, not independent replication, so noise_floor_log is the median over non-zero ranges.",
+        "n_compounds_in_multiple_assays": 787,
+        "frac_exact_ties": 0.107,
+        "quantiles_all": {
+          "0.25": 0.21,
+          "0.5": 0.53,
+          "0.75": 0.985,
+          "0.9": 1.57,
+          "0.95": 1.994
+        },
+        "n_discordant": 703,
+        "noise_floor_log": 0.62,
+        "noise_floor_q75_log": 1.05,
+        "n_rows_flagged_potential_duplicate": 342
+      },
+      "audit": {
+        "n_raw_activities": 5085,
+        "n_distinct_assays": 481,
+        "n_assays_without_confidence": 0,
+        "dropped_low_confidence": 0,
+        "confidence_score_distribution": {
+          "8": 60,
+          "9": 5025
+        },
+        "dropped_data_validity_flagged": 0,
+        "data_validity_reasons": {},
+        "dropped_no_pchembl": 0,
+        "dropped_unparseable": 0,
+        "dropped_mw_over_limit": 0
+      }
+    },
+    {
+      "name": "NAMPT",
+      "uniprot": "P43490",
+      "bps_family": "Metabolic Enzymes",
+      "assay_readout": "NMN formation from nicotinamide (coupled fluorescence)",
+      "target_chembl_id": "CHEMBL1744525",
+      "target_pref_name": "Nicotinamide phosphoribosyltransferase",
+      "target_type": "SINGLE PROTEIN",
+      "organism": "Homo sapiens",
+      "status": "ok",
+      "n_compounds": 4147,
+      "n_scaffolds": 2046,
+      "pAffinity_mean": 7.321,
+      "pAffinity_sd": 0.949,
+      "pAffinity_min": 3.07,
+      "pAffinity_max": 10.29,
+      "assay_group_counts": {
+        "binding": 4147
+      },
+      "binding_vs_functional_mean_offset_log": null,
+      "noise_floor": {
+        "definition": "range of per-assay medians over compounds measured in >1 distinct ChEMBL assay record. The distribution is bimodal: exact ties are re-deposition of one measurement, not independent replication, so noise_floor_log is the median over non-zero ranges.",
+        "n_compounds_in_multiple_assays": 582,
+        "frac_exact_ties": 0.479,
+        "quantiles_all": {
+          "0.25": 0.0,
+          "0.5": 0.02,
+          "0.75": 0.18,
+          "0.9": 0.627,
+          "0.95": 1.089
+        },
+        "n_discordant": 303,
+        "noise_floor_log": 0.17,
+        "noise_floor_q75_log": 0.465,
+        "n_rows_flagged_potential_duplicate": 398
+      },
+      "audit": {
+        "n_raw_activities": 5047,
+        "n_distinct_assays": 101,
+        "n_assays_without_confidence": 0,
+        "dropped_low_confidence": 0,
+        "confidence_score_distribution": {
+          "8": 1972,
+          "9": 3075
+        },
+        "dropped_data_validity_flagged": 0,
+        "data_validity_reasons": {},
+        "dropped_no_pchembl": 0,
+        "dropped_unparseable": 0,
+        "dropped_mw_over_limit": 0
+      }
+    },
+    {
+      "name": "HSP90AA1",
+      "uniprot": "P07900",
+      "bps_family": "Heat Shock Proteins",
+      "assay_readout": "ATP-site binding / ATPase (FP or TR-FRET); a chaperone ATPase",
+      "target_chembl_id": "CHEMBL3880",
+      "target_pref_name": "Heat shock protein HSP 90-alpha",
+      "target_type": "SINGLE PROTEIN",
+      "organism": "Homo sapiens",
+      "status": "ok",
+      "n_compounds": 1605,
+      "n_scaffolds": 637,
+      "pAffinity_mean": 6.563,
+      "pAffinity_sd": 1.091,
+      "pAffinity_min": 3.52,
+      "pAffinity_max": 10.37,
+      "assay_group_counts": {
+        "binding": 1575,
+        "functional": 30
+      },
+      "binding_vs_functional_mean_offset_log": 0.277,
+      "noise_floor": {
+        "definition": "range of per-assay medians over compounds measured in >1 distinct ChEMBL assay record. The distribution is bimodal: exact ties are re-deposition of one measurement, not independent replication, so noise_floor_log is the median over non-zero ranges.",
+        "n_compounds_in_multiple_assays": 180,
+        "frac_exact_ties": 0.406,
+        "quantiles_all": {
+          "0.25": 0.0,
+          "0.5": 0.195,
+          "0.75": 0.836,
+          "0.9": 1.743,
+          "0.95": 2.631
+        },
+        "n_discordant": 107,
+        "noise_floor_log": 0.71,
+        "noise_floor_q75_log": 1.275,
+        "n_rows_flagged_potential_duplicate": 250
+      },
+      "audit": {
+        "n_raw_activities": 2106,
+        "n_distinct_assays": 172,
+        "n_assays_without_confidence": 0,
+        "dropped_low_confidence": 0,
+        "confidence_score_distribution": {
+          "8": 149,
+          "9": 1957
+        },
+        "dropped_data_validity_flagged": 0,
+        "data_validity_reasons": {},
+        "dropped_no_pchembl": 0,
+        "dropped_unparseable": 0,
+        "dropped_mw_over_limit": 0
+      }
+    },
+    {
+      "name": "CTSK",
+      "uniprot": "P43235",
+      "bps_family": "Proteases",
+      "assay_readout": "fluorogenic peptide cleavage (cysteine protease)",
+      "target_chembl_id": "CHEMBL268",
+      "target_pref_name": "Cathepsin K",
+      "target_type": "SINGLE PROTEIN",
+      "organism": "Homo sapiens",
+      "status": "ok",
+      "n_compounds": 2144,
+      "n_scaffolds": 1105,
+      "pAffinity_mean": 6.959,
+      "pAffinity_sd": 1.365,
+      "pAffinity_min": 4.02,
+      "pAffinity_max": 11.0,
+      "assay_group_counts": {
+        "binding": 2142,
+        "functional": 2
+      },
+      "binding_vs_functional_mean_offset_log": 1.252,
+      "noise_floor": {
+        "definition": "range of per-assay medians over compounds measured in >1 distinct ChEMBL assay record. The distribution is bimodal: exact ties are re-deposition of one measurement, not independent replication, so noise_floor_log is the median over non-zero ranges.",
+        "n_compounds_in_multiple_assays": 381,
+        "frac_exact_ties": 0.837,
+        "quantiles_all": {
+          "0.25": 0.0,
+          "0.5": 0.0,
+          "0.75": 0.0,
+          "0.9": 0.33,
+          "0.95": 1.09
+        },
+        "n_discordant": 62,
+        "noise_floor_log": 0.54,
+        "noise_floor_q75_log": 1.88,
+        "n_rows_flagged_potential_duplicate": 366
+      },
+      "audit": {
+        "n_raw_activities": 2625,
+        "n_distinct_assays": 205,
+        "n_assays_without_confidence": 0,
+        "dropped_low_confidence": 0,
+        "confidence_score_distribution": {
+          "8": 499,
+          "9": 2126
+        },
+        "dropped_data_validity_flagged": 0,
+        "data_validity_reasons": {},
+        "dropped_no_pchembl": 0,
+        "dropped_unparseable": 0,
+        "dropped_mw_over_limit": 0
+      }
+    }
+  ]
+}

@@ -1,0 +1,134 @@
+{
+  "_comment": [
+    "Virtual enzyme-activity panel, one entry per BPS Bioscience biochemical",
+    "screening family. Targets are pinned by UniProt accession, not by name or",
+    "by ChEMBL ID typed from memory: the ChEMBL target record is resolved from",
+    "the accession at run time and must come back as SINGLE PROTEIN.",
+    "",
+    "That indirection is the fix for the failure mode the 3CLpro work hit, where",
+    "CHEMBL4523582 turned out to be the whole pp1ab polyprotein and mixed Mpro,",
+    "PLpro and RdRp assays into one record - 19% of labels belonged to a",
+    "different protein. Pinning to a single-protein accession makes that class of",
+    "contamination impossible rather than something to be caught by keyword",
+    "filtering afterwards.",
+    "",
+    "controls are used only for post-hoc recall validation (does the virtual",
+    "assay rank the real assay's reference inhibitors as potent?). They are NOT",
+    "removed from training and NOT used for model selection."
+  ],
+  "chembl_version_note": "Resolved at run time; the version actually used is recorded in results/panel_provenance.json",
+  "targets": [
+    {
+      "name": "PARP1",
+      "uniprot": "P09874",
+      "bps_family": "PARP, PARG, ADP-ribosylation",
+      "assay_readout": "ADP-ribosylation / NAD+ consumption (colorimetric or chemiluminescent)",
+      "controls": ["OLAPARIB", "NIRAPARIB", "RUCAPARIB", "TALAZOPARIB", "VELIPARIB"]
+    },
+    {
+      "name": "HDAC1",
+      "uniprot": "Q13547",
+      "bps_family": "Deacetylases/Sirtuins",
+      "assay_readout": "fluorogenic acetylated-peptide deacetylation",
+      "controls": ["VORINOSTAT", "ENTINOSTAT", "PANOBINOSTAT", "MOCETINOSTAT"]
+    },
+    {
+      "name": "HDAC6",
+      "uniprot": "Q9UBN7",
+      "bps_family": "Deacetylases/Sirtuins",
+      "assay_readout": "fluorogenic acetylated-peptide deacetylation",
+      "controls": ["RICOLINOSTAT", "PANOBINOSTAT", "VORINOSTAT"]
+    },
+    {
+      "name": "SIRT1",
+      "uniprot": "Q96EB6",
+      "bps_family": "Deacetylases/Sirtuins",
+      "assay_readout": "NAD+-dependent deacetylation, fluorogenic",
+      "controls": ["SELISISTAT", "RESVERATROL", "NICOTINAMIDE"]
+    },
+    {
+      "name": "PDE4B",
+      "uniprot": "Q07343",
+      "bps_family": "Phosphodiesterases",
+      "assay_readout": "cAMP hydrolysis (fluorescence polarisation / HTRF)",
+      "controls": ["ROFLUMILAST", "APREMILAST", "ROLIPRAM", "CILOMILAST"]
+    },
+    {
+      "name": "PDE5A",
+      "uniprot": "O76074",
+      "bps_family": "Phosphodiesterases",
+      "assay_readout": "cGMP hydrolysis (fluorescence polarisation / HTRF)",
+      "controls": ["SILDENAFIL", "TADALAFIL", "VARDENAFIL", "AVANAFIL"]
+    },
+    {
+      "name": "EZH2",
+      "uniprot": "Q15910",
+      "bps_family": "Methyltransferases",
+      "assay_readout": "H3K27 methylation, SAM-dependent (TR-FRET / radiometric)",
+      "controls": ["TAZEMETOSTAT", "VALEMETOSTAT"]
+    },
+    {
+      "name": "PRMT5",
+      "uniprot": "O14744",
+      "bps_family": "Methyltransferases",
+      "assay_readout": "arginine methylation, SAM-dependent",
+      "controls": ["PEMRAMETOSTAT", "ONAMETOSTAT"]
+    },
+    {
+      "name": "BRD4",
+      "uniprot": "O60885",
+      "bps_family": "Bromodomains",
+      "assay_readout": "acetyl-lysine peptide displacement (TR-FRET) - a READER, not an enzyme",
+      "controls": ["MOLIBRESIB", "BIRABRESIB", "PELABRESIB", "MIVEBRESIB"]
+    },
+    {
+      "name": "KDM1A",
+      "uniprot": "O60341",
+      "bps_family": "Demethylases",
+      "assay_readout": "FAD-dependent H3K4 demethylation (peroxidase-coupled fluorescence)",
+      "controls": ["TRANYLCYPROMINE", "IADADEMSTAT", "BOMEDEMSTAT"]
+    },
+    {
+      "name": "PTPN11",
+      "uniprot": "Q06124",
+      "bps_family": "Protein Tyrosine Phosphatase",
+      "assay_readout": "phosphopeptide dephosphorylation (DiFMUP fluorescence); allosteric site",
+      "controls": ["TNO155", "BATOPROTAFIB", "MIGOPROTAFIB"]
+    },
+    {
+      "name": "PTP1B",
+      "uniprot": "P18031",
+      "bps_family": "Protein Tyrosine Phosphatase",
+      "assay_readout": "pTyr substrate dephosphorylation (DiFMUP / pNPP)",
+      "controls": ["ERTIPROTAFIB", "TRODUSQUEMINE"]
+    },
+    {
+      "name": "IDO1",
+      "uniprot": "P14902",
+      "bps_family": "Immunotherapy / Metabolic Enzymes",
+      "assay_readout": "tryptophan -> kynurenine, heme-dependent (absorbance / fluorescence)",
+      "controls": ["EPACADOSTAT", "NAVOXIMOD", "LINRODOSTAT"]
+    },
+    {
+      "name": "NAMPT",
+      "uniprot": "P43490",
+      "bps_family": "Metabolic Enzymes",
+      "assay_readout": "NMN formation from nicotinamide (coupled fluorescence)",
+      "controls": ["DARETUZUMAB", "FK866"]
+    },
+    {
+      "name": "HSP90AA1",
+      "uniprot": "P07900",
+      "bps_family": "Heat Shock Proteins",
+      "assay_readout": "ATP-site binding / ATPase (FP or TR-FRET); a chaperone ATPase",
+      "controls": ["TANESPIMYCIN", "LUMINESPIB", "GANETESPIB", "ONALESPIB"]
+    },
+    {
+      "name": "CTSK",
+      "uniprot": "P43235",
+      "bps_family": "Proteases",
+      "assay_readout": "fluorogenic peptide cleavage (cysteine protease)",
+      "controls": ["ODANACATIB", "BALICATIB"]
+    }
+  ]
+}

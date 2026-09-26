@@ -1,0 +1,21 @@
+{
+  "min_max_phase": 1,
+  "max_mw": 650.0,
+  "n_compounds": 9746,
+  "n_scaffolds": 6246,
+  "by_max_phase": {
+    "4.0": 2053,
+    "3.0": 890,
+    "2.0": 6126,
+    "1.0": 677
+  },
+  "audit": {
+    "n_raw": 16784,
+    "after_small_molecule_only": 12742,
+    "after_has_structure": 12391,
+    "after_parseable": 12391,
+    "after_mw_filter": 11733,
+    "after_dedup_by_structure": 9746
+  },
+  "licence": "ChEMBL data is CC BY-SA 3.0 - attribute and share alike"
+}

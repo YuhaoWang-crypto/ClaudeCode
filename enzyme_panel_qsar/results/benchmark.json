@@ -1,0 +1,73 @@
+[
+  {
+    "name": "SIRT1",
+    "n_compounds": 616,
+    "n_scaffolds": 301,
+    "best_model": "rf",
+    "models": {
+      "ridge": {
+        "scaffold_spearman_mean": 0.6198,
+        "scaffold_rmse_mean": 0.6268,
+        "scaffold_mae_mean": 0.4742,
+        "scaffold_r2_mean": 0.4706,
+        "scaffold_spearman_sd": 0.0191,
+        "scaffold_rmse_sd": 0.0085,
+        "scaffold_mae_sd": 0.0066,
+        "scaffold_r2_sd": 0.0142,
+        "random_spearman": 0.6968,
+        "random_rmse": 0.5667,
+        "random_mae": 0.4261,
+        "random_r2": 0.5675,
+        "fit_seconds": 1.0
+      },
+      "rf": {
+        "scaffold_spearman_mean": 0.6488,
+        "scaffold_rmse_mean": 0.6162,
+        "scaffold_mae_mean": 0.4815,
+        "scaffold_r2_mean": 0.4886,
+        "scaffold_spearman_sd": 0.0078,
+        "scaffold_rmse_sd": 0.0038,
+        "scaffold_mae_sd": 0.0035,
+        "scaffold_r2_sd": 0.0063,
+        "random_spearman": 0.7139,
+        "random_rmse": 0.5647,
+        "random_mae": 0.4308,
+        "random_r2": 0.5704,
+        "fit_seconds": 10.1
+      },
+      "lgbm": {
+        "scaffold_spearman_mean": 0.6289,
+        "scaffold_rmse_mean": 0.6223,
+        "scaffold_mae_mean": 0.4648,
+        "scaffold_r2_mean": 0.478,
+        "scaffold_spearman_sd": 0.0192,
+        "scaffold_rmse_sd": 0.0163,
+        "scaffold_mae_sd": 0.0154,
+        "scaffold_r2_sd": 0.0274,
+        "random_spearman": 0.7253,
+        "random_rmse": 0.5404,
+        "random_mae": 0.3867,
+        "random_r2": 0.6066,
+        "fit_seconds": 11.1
+      }
+    },
+    "permutation_null": {
+      "mean": -0.0325,
+      "sd": 0.0683,
+      "p95": 0.0666,
+      "max": 0.0935,
+      "n_permutations": 5
+    },
+    "clears_null": true,
+    "leakage_factor_random_over_scaffold": 1.1,
+    "noise_floor_log": 0.515,
+    "rmse_vs_noise_floor": 1.2,
+    "per_assay_group": {
+      "binding": {
+        "n": 616,
+        "spearman": 0.6453
+      }
+    },
+    "modellable": true
+  }
+]

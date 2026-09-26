@@ -1,0 +1,8 @@
+# per-target pickles carry the full training fingerprint matrix (tens of MB each)
+models/
+# raw ChEMBL activity cache - regenerable, and large
+data/raw_*.csv.gz
+# long-format panel predictions (regenerable from models + library)
+results/panel_predictions_long.csv.gz
+__pycache__/
+*.pyc
