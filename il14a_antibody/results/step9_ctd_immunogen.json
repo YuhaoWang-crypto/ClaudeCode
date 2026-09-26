@@ -1,0 +1,79 @@
+{
+  "groove_paralog_identity": {
+    "region": [
+      359,
+      443
+    ],
+    "TXLNB": 0.5647,
+    "TXLNG": 0.6941,
+    "full_length_TXLNB": 0.5293,
+    "full_length_TXLNG": 0.522
+  },
+  "ctd_region": [
+    492,
+    546
+  ],
+  "ref_1C6_immunogen": {
+    "start": 502,
+    "end": 523,
+    "length": 22,
+    "sequence": "ERRPEGPGAQAPSSPRVTEAPC",
+    "paralog_unique_exposed": 11,
+    "specificity_fraction": 0.5,
+    "mean_rel_sasa": 0.735,
+    "mean_plddt": 43.6,
+    "net_charge": 0.0,
+    "gravy": -1.2,
+    "liabilities": {},
+    "score": 0.3676,
+    "outside_coiled_coil": true
+  },
+  "top_windows": [
+    {
+      "start": 509,
+      "end": 523,
+      "length": 15,
+      "sequence": "GAQAPSSPRVTEAPC",
+      "paralog_unique_exposed": 8,
+      "specificity_fraction": 0.533,
+      "mean_rel_sasa": 0.73,
+      "mean_plddt": 45.5,
+      "net_charge": 0.0,
+      "gravy": -0.46,
+      "liabilities": {},
+      "score": 0.3895,
+      "outside_coiled_coil": true
+    },
+    {
+      "start": 492,
+      "end": 506,
+      "length": 15,
+      "sequence": "GQGSLTDSGPERRPE",
+      "paralog_unique_exposed": 7,
+      "specificity_fraction": 0.467,
+      "mean_rel_sasa": 0.746,
+      "mean_plddt": 36.7,
+      "net_charge": -1.0,
+      "gravy": -1.73,
+      "liabilities": {},
+      "score": 0.3483,
+      "outside_coiled_coil": true
+    },
+    {
+      "start": 524,
+      "end": 538,
+      "length": 15,
+      "sequence": "YPGAPSTEASGQTGP",
+      "paralog_unique_exposed": 6,
+      "specificity_fraction": 0.4,
+      "mean_rel_sasa": 0.774,
+      "mean_plddt": 49.3,
+      "net_charge": -1.0,
+      "gravy": -0.91,
+      "liabilities": {},
+      "score": 0.3094,
+      "outside_coiled_coil": true
+    }
+  ],
+  "n_scanned": 180
+}

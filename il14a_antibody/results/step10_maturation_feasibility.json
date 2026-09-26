@@ -1,0 +1,74 @@
+{
+  "verdicts": [
+    {
+      "line": "peptide (groove registration)",
+      "pose_reproducible": true,
+      "scorer_passes_controls": true,
+      "noise_sd": 0.0352,
+      "deltas": {
+        "native_start -> R1": 0.348,
+        "R1 -> best (R3)": 0.065,
+        "R3 -> final (R5)": -0.028
+      },
+      "delta_exceeds_2sd": {
+        "native_start -> R1": true,
+        "R1 -> best (R3)": false,
+        "R3 -> final (R5)": false
+      },
+      "maturation_defined": true,
+      "notes": "Scorer passes its own positive (native H3 = 1.00) and negative (scrambled = 0.00) controls, unlike ipTM. But the reference interface is DEFINED by the native STX4 co-fold, so native H3 scoring 1.00 is near-tautological and the scale is 'overlap with where STX4 binds', not 'fraction of STX4's affinity'."
+    },
+    {
+      "line": "antibody, RFdiffusion-Ab/RF2 on 502-522",
+      "pose_reproducible": false,
+      "scorer_passes_controls": false,
+      "noise_sd": 0.0,
+      "deltas": {
+        "best_interaction_pae_vs_threshold": 2.22
+      },
+      "delta_exceeds_2sd": {
+        "best_interaction_pae_vs_threshold": true
+      },
+      "maturation_defined": false,
+      "notes": "0/64 passed interaction_pae<10; binding register undetermined. G034x correctly declined to mature on an undetermined pose."
+    },
+    {
+      "line": "antibody, Boltz co-fold on 367-382 / 493-523",
+      "pose_reproducible": false,
+      "scorer_passes_controls": false,
+      "noise_sd": 0.0,
+      "deltas": {
+        "stage3_signal_to_artifact": 0.27
+      },
+      "delta_exceeds_2sd": {
+        "stage3_signal_to_artifact": true
+      },
+      "maturation_defined": false,
+      "notes": "Identical-paratope control failed (framework-only change moved ipTM 0.438); signal-to-artifact 1.27; no design reached binding_confidence 0.5 across 350."
+    }
+  ],
+  "peptide_trajectory": {
+    "native_36mer_start": 0.407,
+    "R1": 0.755,
+    "R2": 0.723,
+    "R3": 0.82,
+    "R4": 0.792,
+    "R5": 0.792
+  },
+  "peptide_repeatability": [
+    0.82,
+    0.792,
+    0.75
+  ],
+  "peptide_noise_sd": 0.0352,
+  "peptide_leave_one_out": {
+    "E18R": -0.296,
+    "E23R": -0.116
+  },
+  "peptide_controls": {
+    "scrambled_early_rounds": 0.0,
+    "scrambled_late_rounds": 0.643,
+    "register_shift": null,
+    "native_H3_positive": 1.0
+  }
+}
