@@ -1,0 +1,271 @@
+{
+  "lead_epitope": {
+    "id": "IL14A-EPI-N1",
+    "range": [
+      367,
+      382
+    ],
+    "sequence": "VESQRMCELMKQQETH",
+    "sdr_positions": [
+      367,
+      370,
+      371,
+      372,
+      373,
+      375,
+      382
+    ],
+    "syntaxin_hotspots": [
+      371,
+      372,
+      375
+    ],
+    "paralog_residues_at_sdr": {
+      "367": {
+        "txlnb": "A",
+        "txlng": "T"
+      },
+      "370": {
+        "txlnb": "K",
+        "txlng": "R"
+      },
+      "371": {
+        "txlnb": "L",
+        "txlng": "H"
+      },
+      "372": {
+        "txlnb": "Q",
+        "txlng": "K"
+      },
+      "373": {
+        "txlnb": "A",
+        "txlng": "Y"
+      },
+      "375": {
+        "txlnb": "V",
+        "txlng": "Q"
+      },
+      "382": {
+        "txlnb": "V",
+        "txlng": "Q"
+      }
+    },
+    "epitope_net_charge_pH74": -0.9
+  },
+  "geometry": {
+    "sdr_pairwise_CB_distances_A": {
+      "367-370": 5.56,
+      "367-371": 6.29,
+      "367-372": 9.8,
+      "367-373": 10.63,
+      "367-375": 12.63,
+      "367-382": 22.7,
+      "370-371": 5.29,
+      "370-372": 7.29,
+      "370-373": 5.58,
+      "370-375": 9.76,
+      "370-382": 18.87,
+      "371-372": 5.44,
+      "371-373": 7.28,
+      "371-375": 6.42,
+      "371-382": 16.66,
+      "372-373": 5.37,
+      "372-375": 5.69,
+      "372-382": 15.7,
+      "373-375": 7.37,
+      "373-382": 15.11,
+      "375-382": 10.69
+    },
+    "max_sdr_span_A": 22.7,
+    "hotspot_span_A": 6.42,
+    "core_footprint_positions": [
+      370,
+      371,
+      372,
+      373,
+      375
+    ],
+    "core_footprint_span_A": 9.76,
+    "loop_model": "L = 2*span/3.3 + 4 (out-and-back loop, 3.3 A/residue)",
+    "cdr3_len_for_core_footprint": 10,
+    "cdr3_len_for_full_sdr_span": 18,
+    "cdr3_len_for_hotspots_only": 8
+  },
+  "retired_series": {
+    "Axis-1_IgG4_EPI-B": "EPI-B absent from secreted IL-14a (Met176 start) and 80% identical to a beta-taxilin 15-mer; all 5 leads also strongly cationic (net +2.5..+5.5)."
+  },
+  "parent_triage": [
+    {
+      "id": "G034-Ab-Ax2-C-05",
+      "cdr3": "VKEFEHVLHMGAIVK",
+      "cdr3_len": 15,
+      "legacy_dG_REU": -32.71,
+      "net_charge": 0.2,
+      "gravy": 0.39,
+      "charge_fit": 0.825,
+      "length_fit": 1.0,
+      "gravy_fit": 0.707,
+      "liabilities": {
+        "oxidation_MW": [
+          10
+        ]
+      },
+      "hard_blockers": [],
+      "parent_fitness": 0.583,
+      "usable_as_parent": true
+    },
+    {
+      "id": "G034-Ab-Ax2-C-08",
+      "cdr3": "RFAIWVDDHFTHHKN",
+      "cdr3_len": 15,
+      "legacy_dG_REU": -31.43,
+      "net_charge": 0.3,
+      "gravy": -0.93,
+      "charge_fit": 0.85,
+      "length_fit": 1.0,
+      "gravy_fit": 0.633,
+      "liabilities": {
+        "oxidation_MW": [
+          5
+        ]
+      },
+      "hard_blockers": [],
+      "parent_fitness": 0.5383,
+      "usable_as_parent": true
+    },
+    {
+      "id": "G034-Ab-Ax2-C-09",
+      "cdr3": "QRRNELTHHMVESYFVDKHL",
+      "cdr3_len": 20,
+      "legacy_dG_REU": -30.53,
+      "net_charge": 0.3,
+      "gravy": -1.1,
+      "charge_fit": 0.85,
+      "length_fit": 0.667,
+      "gravy_fit": 0.547,
+      "liabilities": {
+        "oxidation_MW": [
+          10
+        ]
+      },
+      "hard_blockers": [],
+      "parent_fitness": 0.3103,
+      "usable_as_parent": true
+    },
+    {
+      "id": "G034-Ab-Ax2-C-03",
+      "cdr3": "IANFGQHRQNLYGNEAYLD",
+      "cdr3_len": 19,
+      "legacy_dG_REU": -28.5,
+      "net_charge": -0.9,
+      "gravy": -0.9,
+      "charge_fit": 0.55,
+      "length_fit": 0.833,
+      "gravy_fit": 0.65,
+      "liabilities": {},
+      "hard_blockers": [],
+      "parent_fitness": 0.2979,
+      "usable_as_parent": true
+    },
+    {
+      "id": "G034-Ab-Ax2-C-02",
+      "cdr3": "AYTVGATAYIAVEG",
+      "cdr3_len": 14,
+      "legacy_dG_REU": -30.2,
+      "net_charge": -1.0,
+      "gravy": 0.84,
+      "charge_fit": 0.525,
+      "length_fit": 1.0,
+      "gravy_fit": 0.479,
+      "liabilities": {},
+      "hard_blockers": [],
+      "parent_fitness": 0.2513,
+      "usable_as_parent": true
+    },
+    {
+      "id": "G034-Ab-Ax2-C-01",
+      "cdr3": "YQEHAGDKQKFAKVYKEKI",
+      "cdr3_len": 19,
+      "legacy_dG_REU": -29.94,
+      "net_charge": 2.1,
+      "gravy": -1.48,
+      "charge_fit": 0.7,
+      "length_fit": 0.833,
+      "gravy_fit": 0.361,
+      "liabilities": {},
+      "hard_blockers": [],
+      "parent_fitness": 0.2103,
+      "usable_as_parent": true
+    },
+    {
+      "id": "G034-Ab-Ax2-C-06",
+      "cdr3": "IQFDVGLLLATYWD",
+      "cdr3_len": 14,
+      "legacy_dG_REU": -32.6,
+      "net_charge": -2.0,
+      "gravy": 0.78,
+      "charge_fit": 0.275,
+      "length_fit": 1.0,
+      "gravy_fit": 0.511,
+      "liabilities": {
+        "oxidation_MW": [
+          13
+        ]
+      },
+      "hard_blockers": [],
+      "parent_fitness": 0.1404,
+      "usable_as_parent": true
+    },
+    {
+      "id": "G034-Ab-Ax2-C-04",
+      "cdr3": "ACTANKVRGYHFTTSDEA",
+      "cdr3_len": 18,
+      "legacy_dG_REU": -27.6,
+      "net_charge": 0.1,
+      "gravy": -0.66,
+      "charge_fit": 0.8,
+      "length_fit": 1.0,
+      "gravy_fit": 0.772,
+      "liabilities": {
+        "free_Cys": [
+          2
+        ]
+      },
+      "hard_blockers": [
+        "free_Cys"
+      ],
+      "parent_fitness": 0.6178,
+      "usable_as_parent": false
+    },
+    {
+      "id": "G034-Ab-Ax2-C-07",
+      "cdr3": "MCFFIAAGQSGINFK",
+      "cdr3_len": 15,
+      "legacy_dG_REU": -31.91,
+      "net_charge": 1.0,
+      "gravy": 0.86,
+      "charge_fit": 0.975,
+      "length_fit": 1.0,
+      "gravy_fit": 0.47,
+      "liabilities": {
+        "free_Cys": [
+          2
+        ],
+        "oxidation_MW": [
+          1
+        ]
+      },
+      "hard_blockers": [
+        "free_Cys"
+      ],
+      "parent_fitness": 0.4582,
+      "usable_as_parent": false
+    }
+  ],
+  "selected_parents": [
+    "G034-Ab-Ax2-C-05",
+    "G034-Ab-Ax2-C-08",
+    "G034-Ab-Ax2-C-09",
+    "G034-Ab-Ax2-C-03"
+  ]
+}

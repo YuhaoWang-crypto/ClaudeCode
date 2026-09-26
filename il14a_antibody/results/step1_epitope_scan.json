@@ -1,0 +1,338 @@
+{
+  "target": "IL-14alpha (secreted TXLNA, alternate start Met176)",
+  "antigen_span_for_systemic_IgG": [
+    176,
+    546
+  ],
+  "patent_zone_excluded": [
+    493,
+    523
+  ],
+  "legacy_epitope_audit": {
+    "G034-EPI-A": {
+      "start": 1,
+      "end": 17,
+      "length": 17,
+      "sequence": "MKNQDKKNGAAKQSNPK",
+      "mean_rel_sasa": 0.7442,
+      "mean_plddt": 57.59,
+      "max_id_TXLNB": 0.3333,
+      "max_id_TXLNG": 0.3333,
+      "worst_paralog_id": 0.3333,
+      "specificity": 0.6667,
+      "liabilities": [
+        "deamidation_NG@8",
+        "oxidation_M@1"
+      ],
+      "cleanliness": 0.9412,
+      "composite": 0.21955,
+      "in_secreted_species": false,
+      "hits_patent_zone": false,
+      "worst_TXLNB_window": {
+        "txlna": "KNQDKKNGAAKQSNP",
+        "txlnb": "ANHSEQLSAERQSTP"
+      },
+      "worst_TXLNG_window": {
+        "txlna": "MKNQDKKNGAAKQSN",
+        "txlng": "LKEQVSIKAAIKAAN"
+      }
+    },
+    "G034-EPI-B": {
+      "start": 58,
+      "end": 98,
+      "length": 41,
+      "sequence": "AQARTAQSGALRDVSEELSRQLEDILSTYCVDNNQGGPGED",
+      "mean_rel_sasa": 0.6346,
+      "mean_plddt": 63.32,
+      "max_id_TXLNB": 0.8,
+      "max_id_TXLNG": 0.3333,
+      "worst_paralog_id": 0.8,
+      "specificity": 0.2,
+      "liabilities": [
+        "free_Cys@30"
+      ],
+      "cleanliness": 0.9878,
+      "composite": 0.035505,
+      "in_secreted_species": false,
+      "hits_patent_zone": false,
+      "worst_TXLNB_window": {
+        "txlna": "SEELSRQLEDILSTY",
+        "txlnb": "SEELNRQLEDIINTY"
+      },
+      "worst_TXLNG_window": {
+        "txlna": "RTAQSGALRDVSEEL",
+        "txlng": "RDKEYKALQIKLERL"
+      }
+    },
+    "G034-EPI-C": {
+      "start": 358,
+      "end": 384,
+      "length": 27,
+      "sequence": "EKDFLLKEAVESQRMCELMKQQETHLK",
+      "mean_rel_sasa": 0.4686,
+      "mean_plddt": 97.6,
+      "max_id_TXLNB": 0.4,
+      "max_id_TXLNG": 0.6,
+      "worst_paralog_id": 0.6,
+      "specificity": 0.4,
+      "liabilities": [
+        "oxidation_M@15",
+        "oxidation_M@19",
+        "free_Cys@16"
+      ],
+      "cleanliness": 0.9444,
+      "composite": 0.109283,
+      "in_secreted_species": true,
+      "hits_patent_zone": false,
+      "worst_TXLNB_window": {
+        "txlna": "EKDFLLKEAVESQRM",
+        "txlnb": "EKEYLLNQAAEWKLQ"
+      },
+      "worst_TXLNG_window": {
+        "txlna": "EKDFLLKEAVESQRM",
+        "txlng": "EREFLLKEATESRHK"
+      }
+    },
+    "G034-EPI-D": {
+      "start": 425,
+      "end": 445,
+      "length": 21,
+      "sequence": "LEKETTMYRSRWESSNKALLE",
+      "mean_rel_sasa": 0.4542,
+      "mean_plddt": 87.22,
+      "max_id_TXLNB": 0.4667,
+      "max_id_TXLNG": 0.5333,
+      "worst_paralog_id": 0.5333,
+      "specificity": 0.4667,
+      "liabilities": [
+        "oxidation_M@7",
+        "oxidation_W@12"
+      ],
+      "cleanliness": 0.9524,
+      "composite": 0.12027,
+      "in_secreted_species": true,
+      "hits_patent_zone": false,
+      "worst_TXLNB_window": {
+        "txlna": "TTMYRSRWESSNKAL",
+        "txlnb": "TATWKARFENCNKAL"
+      },
+      "worst_TXLNG_window": {
+        "txlna": "LEKETTMYRSRWESS",
+        "txlng": "LEKETIIWRTKWENN"
+      }
+    }
+  },
+  "denovo_ranked_epitopes": [
+    {
+      "start": 533,
+      "end": 546,
+      "length": 14,
+      "sequence": "SGQTGPQEPTSARA",
+      "mean_rel_sasa": 0.7721,
+      "mean_plddt": 54.74,
+      "max_id_TXLNB": 0.3571,
+      "max_id_TXLNG": 0.3571,
+      "worst_paralog_id": 0.3571,
+      "specificity": 0.6429,
+      "liabilities": [],
+      "cleanliness": 1.0,
+      "composite": 0.217852,
+      "in_secreted_species": true,
+      "hits_patent_zone": false,
+      "worst_TXLNB_window": {
+        "txlna": "SGQTGPQEPTSARA",
+        "txlnb": "SAASTAGKEGSARA"
+      },
+      "worst_TXLNG_window": {
+        "txlna": "SGQTGPQEPTSARA",
+        "txlng": "LGAHLEAEPKSQRS"
+      }
+    },
+    {
+      "start": 369,
+      "end": 382,
+      "length": 14,
+      "sequence": "SQRMCELMKQQETH",
+      "mean_rel_sasa": 0.4587,
+      "mean_plddt": 97.45,
+      "max_id_TXLNB": 0.2857,
+      "max_id_TXLNG": 0.5,
+      "worst_paralog_id": 0.5,
+      "specificity": 0.5,
+      "liabilities": [
+        "oxidation_M@4",
+        "oxidation_M@8",
+        "free_Cys@5"
+      ],
+      "cleanliness": 0.8929,
+      "composite": 0.141107,
+      "in_secreted_species": true,
+      "hits_patent_zone": false,
+      "worst_TXLNB_window": {
+        "txlna": "SQRMCELMKQQETH",
+        "txlnb": "PDISEELNRQLEDI"
+      },
+      "worst_TXLNG_window": {
+        "txlna": "SQRMCELMKQQETH",
+        "txlng": "SRHKYEQMKQQEVQ"
+      }
+    },
+    {
+      "start": 479,
+      "end": 492,
+      "length": 14,
+      "sequence": "NDLNKRVQDLSAGG",
+      "mean_rel_sasa": 0.6218,
+      "mean_plddt": 42.0,
+      "max_id_TXLNB": 0.2857,
+      "max_id_TXLNG": 0.3571,
+      "worst_paralog_id": 0.3571,
+      "specificity": 0.6429,
+      "liabilities": [],
+      "cleanliness": 1.0,
+      "composite": 0.13462,
+      "in_secreted_species": true,
+      "hits_patent_zone": false,
+      "worst_TXLNB_window": {
+        "txlna": "NDLNKRVQDLSAGG",
+        "txlnb": "NGLEKEDGQDSPTP"
+      },
+      "worst_TXLNG_window": {
+        "txlna": "NDLNKRVQDLSAGG",
+        "txlng": "NELNEKVEVLKEQV"
+      }
+    },
+    {
+      "start": 426,
+      "end": 439,
+      "length": 14,
+      "sequence": "EKETTMYRSRWESS",
+      "mean_rel_sasa": 0.4573,
+      "mean_plddt": 88.16,
+      "max_id_TXLNB": 0.3571,
+      "max_id_TXLNG": 0.5,
+      "worst_paralog_id": 0.5,
+      "specificity": 0.5,
+      "liabilities": [
+        "oxidation_M@6",
+        "oxidation_W@11"
+      ],
+      "cleanliness": 0.9286,
+      "composite": 0.132371,
+      "in_secreted_species": true,
+      "hits_patent_zone": false,
+      "worst_TXLNB_window": {
+        "txlna": "EKETTMYRSRWESS",
+        "txlnb": "LKEEALQRAREEEE"
+      },
+      "worst_TXLNG_window": {
+        "txlna": "EKETTMYRSRWESS",
+        "txlng": "EKETIIWRTKWENN"
+      }
+    },
+    {
+      "start": 216,
+      "end": 229,
+      "length": 14,
+      "sequence": "KQSQLVQEKDHLRG",
+      "mean_rel_sasa": 0.4615,
+      "mean_plddt": 95.64,
+      "max_id_TXLNB": 0.5714,
+      "max_id_TXLNG": 0.5714,
+      "worst_paralog_id": 0.5714,
+      "specificity": 0.4286,
+      "liabilities": [],
+      "cleanliness": 1.0,
+      "composite": 0.123847,
+      "in_secreted_species": true,
+      "hits_patent_zone": false,
+      "worst_TXLNB_window": {
+        "txlna": "KQSQLVQEKDHLRG",
+        "txlnb": "KQVQIQKEKDQLQG"
+      },
+      "worst_TXLNG_window": {
+        "txlna": "KQSQLVQEKDHLRG",
+        "txlng": "KQAQIVKEKVHLQS"
+      }
+    },
+    {
+      "start": 286,
+      "end": 299,
+      "length": 14,
+      "sequence": "LQMEQHNERNSKLR",
+      "mean_rel_sasa": 0.4512,
+      "mean_plddt": 97.72,
+      "max_id_TXLNB": 0.5714,
+      "max_id_TXLNG": 0.5714,
+      "worst_paralog_id": 0.5714,
+      "specificity": 0.4286,
+      "liabilities": [
+        "deamidation_NG@10",
+        "oxidation_M@3"
+      ],
+      "cleanliness": 0.9286,
+      "composite": 0.114863,
+      "in_secreted_species": true,
+      "hits_patent_zone": false,
+      "worst_TXLNB_window": {
+        "txlna": "LQMEQHNERNSKLR",
+        "txlnb": "GQIEQQSERNMKLC"
+      },
+      "worst_TXLNG_window": {
+        "txlna": "LQMEQHNERNSKLR",
+        "txlng": "AQLEQHDIHNAKLR"
+      }
+    },
+    {
+      "start": 453,
+      "end": 466,
+      "length": 14,
+      "sequence": "RDKELEGLQVKIQR",
+      "mean_rel_sasa": 0.491,
+      "mean_plddt": 75.79,
+      "max_id_TXLNB": 0.5,
+      "max_id_TXLNG": 0.5714,
+      "worst_paralog_id": 0.5714,
+      "specificity": 0.4286,
+      "liabilities": [],
+      "cleanliness": 1.0,
+      "composite": 0.104417,
+      "in_secreted_species": true,
+      "hits_patent_zone": false,
+      "worst_TXLNB_window": {
+        "txlna": "RDKELEGLQVKIQR",
+        "txlnb": "RAKEYECFVMKIGR"
+      },
+      "worst_TXLNG_window": {
+        "txlna": "RDKELEGLQVKIQR",
+        "txlng": "RDKEYKALQIKLER"
+      }
+    },
+    {
+      "start": 390,
+      "end": 403,
+      "length": 14,
+      "sequence": "YTEKFEEFQNTLSK",
+      "mean_rel_sasa": 0.4686,
+      "mean_plddt": 95.02,
+      "max_id_TXLNB": 0.6429,
+      "max_id_TXLNG": 0.6429,
+      "worst_paralog_id": 0.6429,
+      "specificity": 0.3571,
+      "liabilities": [],
+      "cleanliness": 1.0,
+      "composite": 0.095042,
+      "in_secreted_species": true,
+      "hits_patent_zone": false,
+      "worst_TXLNB_window": {
+        "txlna": "YTEKFEEFQNTLSK",
+        "txlnb": "YSGRFEEFQSTLTK"
+      },
+      "worst_TXLNG_window": {
+        "txlna": "YTEKFEEFQNTLSK",
+        "txlng": "YMDKFEEFQTTMAK"
+      }
+    }
+  ],
+  "n_windows_scanned": 1232
+}

@@ -1,0 +1,420 @@
+{
+  "seed": 20260926,
+  "epitopes": {
+    "COILED-COIL aa367-382": {
+      "range": [
+        367,
+        382
+      ],
+      "n_positions": 16,
+      "n_discriminating_positions": 7,
+      "discriminating_positions": [
+        "V367 (B:A G:T)",
+        "Q370 (B:K G:R)",
+        "R371 (B:L G:H)",
+        "M372 (B:Q G:K)",
+        "C373 (B:A G:Y)",
+        "L375 (B:V G:Q)",
+        "H382 (B:V G:Q)"
+      ],
+      "parent_baseline": [
+        {
+          "cdr3": "VKEFEHVLHMGAIVK",
+          "len": 15,
+          "compl_TXLNA": 10.86,
+          "compl_TXLNB": 7.23,
+          "compl_TXLNG": 9.8,
+          "spec_margin": 1.06,
+          "net_charge": 0.2,
+          "gravy": 0.387,
+          "developability": 1.0,
+          "liabilities": []
+        },
+        {
+          "cdr3": "RFAIWVDDHFTHHKN",
+          "len": 15,
+          "compl_TXLNA": 8.73,
+          "compl_TXLNB": 8.57,
+          "compl_TXLNG": 8.16,
+          "spec_margin": 0.16,
+          "net_charge": 0.3,
+          "gravy": -0.933,
+          "developability": 1.0,
+          "liabilities": []
+        },
+        {
+          "cdr3": "QRRNELTHHMVESYFVDKHL",
+          "len": 20,
+          "compl_TXLNA": 10.63,
+          "compl_TXLNB": 9.58,
+          "compl_TXLNG": 10.31,
+          "spec_margin": 0.32,
+          "net_charge": 0.3,
+          "gravy": -1.105,
+          "developability": 0.895,
+          "liabilities": []
+        },
+        {
+          "cdr3": "IANFGQHRQNLYGNEAYLD",
+          "len": 19,
+          "compl_TXLNA": 9.37,
+          "compl_TXLNB": 8.21,
+          "compl_TXLNG": 10.45,
+          "spec_margin": -1.08,
+          "net_charge": -0.9,
+          "gravy": -0.9,
+          "developability": 0.867,
+          "liabilities": []
+        }
+      ],
+      "rounds": [
+        {
+          "round": "R1_explore",
+          "library": 4653,
+          "criterion": "compl_TXLNA",
+          "best_margin": 5.62
+        },
+        {
+          "round": "R2_coselect",
+          "library": 24502,
+          "criterion": "compl_TXLNA + 1.5*margin",
+          "best_margin": 6.46
+        },
+        {
+          "round": "R3_counterselect",
+          "library": 17572,
+          "liability_free": 13003,
+          "criterion": "0.5*compl + 3*margin, zero liabilities",
+          "best_margin": 7.6
+        },
+        {
+          "round": "R4_polish",
+          "library": 5041,
+          "passed": 1849,
+          "criterion": "R3 + developability>=0.95",
+          "best_margin": 7.72
+        }
+      ],
+      "final_panel": [
+        {
+          "cdr3": "RKSEFHHVLHTAKVY",
+          "len": 15,
+          "compl_TXLNA": 15.62,
+          "compl_TXLNB": 7.32,
+          "compl_TXLNG": 7.9,
+          "spec_margin": 7.72,
+          "net_charge": 2.3,
+          "gravy": -0.76,
+          "developability": 1.0,
+          "liabilities": [],
+          "candidate_id": "CC-01"
+        },
+        {
+          "cdr3": "KQEFRHVLDMARVYK",
+          "len": 15,
+          "compl_TXLNA": 15.32,
+          "compl_TXLNB": 7.02,
+          "compl_TXLNG": 7.72,
+          "spec_margin": 7.6,
+          "net_charge": 2.1,
+          "gravy": -0.873,
+          "developability": 1.0,
+          "liabilities": [],
+          "candidate_id": "CC-02"
+        },
+        {
+          "cdr3": "VKEFHKVLEGRKLY",
+          "len": 14,
+          "compl_TXLNA": 14.92,
+          "compl_TXLNB": 5.97,
+          "compl_TXLNG": 7.5,
+          "spec_margin": 7.42,
+          "net_charge": 2.1,
+          "gravy": -0.664,
+          "developability": 1.0,
+          "liabilities": [],
+          "candidate_id": "CC-03"
+        },
+        {
+          "cdr3": "VPEFPKLFSGARRY",
+          "len": 14,
+          "compl_TXLNA": 15.01,
+          "compl_TXLNB": 6.72,
+          "compl_TXLNG": 7.71,
+          "spec_margin": 7.3,
+          "net_charge": 2.0,
+          "gravy": -0.479,
+          "developability": 1.0,
+          "liabilities": [],
+          "candidate_id": "CC-04"
+        },
+        {
+          "cdr3": "SKEFHHVWEGARVY",
+          "len": 14,
+          "compl_TXLNA": 15.01,
+          "compl_TXLNB": 7.56,
+          "compl_TXLNG": 8.02,
+          "spec_margin": 6.99,
+          "net_charge": 0.2,
+          "gravy": -0.871,
+          "developability": 1.0,
+          "liabilities": [],
+          "candidate_id": "CC-05"
+        },
+        {
+          "cdr3": "VSEFPKMLEMPAIYVK",
+          "len": 16,
+          "compl_TXLNA": 15.32,
+          "compl_TXLNB": 7.74,
+          "compl_TXLNG": 8.46,
+          "spec_margin": 6.86,
+          "net_charge": 0.0,
+          "gravy": 0.312,
+          "developability": 1.0,
+          "liabilities": [],
+          "candidate_id": "CC-06"
+        },
+        {
+          "cdr3": "VPEFHRILHPAIPY",
+          "len": 14,
+          "compl_TXLNA": 13.72,
+          "compl_TXLNB": 6.18,
+          "compl_TXLNG": 6.66,
+          "spec_margin": 7.06,
+          "net_charge": 0.2,
+          "gravy": 0.079,
+          "developability": 1.0,
+          "liabilities": [],
+          "candidate_id": "CC-07"
+        },
+        {
+          "cdr3": "VQEFHKVLYKAIVY",
+          "len": 14,
+          "compl_TXLNA": 15.38,
+          "compl_TXLNB": 8.68,
+          "compl_TXLNG": 8.76,
+          "spec_margin": 6.62,
+          "net_charge": 1.1,
+          "gravy": 0.35,
+          "developability": 1.0,
+          "liabilities": [],
+          "candidate_id": "CC-08"
+        }
+      ],
+      "best_parent_margin": 1.06,
+      "best_matured_margin": 7.72
+    },
+    "C-TERM aa493-523": {
+      "range": [
+        493,
+        523
+      ],
+      "n_positions": 31,
+      "n_discriminating_positions": 15,
+      "discriminating_positions": [
+        "Q493 (B:K G:K)",
+        "L496 (B:S G:N)",
+        "T497 (B:Q G:R)",
+        "G500 (B:A G:T)",
+        "E502 (B:S G:V)",
+        "R504 (B:D G:Q)",
+        "G507 (B:S G:S)",
+        "A510 (B:S G:E)",
+        "Q511 (B:D G:L)",
+        "P513 (B:E G:T)",
+        "P516 (B:S G:K)",
+        "V518 (B:A G:A)",
+        "T519 (B:S G:L)",
+        "E520 (B:N G:G)",
+        "C523 (B:A G:None)"
+      ],
+      "parent_baseline": [
+        {
+          "cdr3": "VKEFEHVLHMGAIVK",
+          "len": 15,
+          "compl_TXLNA": 5.72,
+          "compl_TXLNB": 5.12,
+          "compl_TXLNG": 5.12,
+          "spec_margin": 0.6,
+          "net_charge": 0.2,
+          "gravy": 0.387,
+          "developability": 1.0,
+          "liabilities": []
+        },
+        {
+          "cdr3": "RFAIWVDDHFTHHKN",
+          "len": 15,
+          "compl_TXLNA": 4.8,
+          "compl_TXLNB": 4.96,
+          "compl_TXLNG": 8.36,
+          "spec_margin": -3.56,
+          "net_charge": 0.3,
+          "gravy": -0.933,
+          "developability": 1.0,
+          "liabilities": []
+        },
+        {
+          "cdr3": "QRRNELTHHMVESYFVDKHL",
+          "len": 20,
+          "compl_TXLNA": 6.6,
+          "compl_TXLNB": 7.51,
+          "compl_TXLNG": 8.16,
+          "spec_margin": -1.56,
+          "net_charge": 0.3,
+          "gravy": -1.105,
+          "developability": 0.895,
+          "liabilities": []
+        },
+        {
+          "cdr3": "IANFGQHRQNLYGNEAYLD",
+          "len": 19,
+          "compl_TXLNA": 8.36,
+          "compl_TXLNB": 7.4,
+          "compl_TXLNG": 10.26,
+          "spec_margin": -1.9,
+          "net_charge": -0.9,
+          "gravy": -0.9,
+          "developability": 0.867,
+          "liabilities": []
+        }
+      ],
+      "rounds": [
+        {
+          "round": "R1_explore",
+          "library": 9057,
+          "criterion": "compl_TXLNA",
+          "best_margin": 2.02
+        },
+        {
+          "round": "R2_coselect",
+          "library": 25270,
+          "criterion": "compl_TXLNA + 1.5*margin",
+          "best_margin": 3.05
+        },
+        {
+          "round": "R3_counterselect",
+          "library": 18621,
+          "liability_free": 15157,
+          "criterion": "0.5*compl + 3*margin, zero liabilities",
+          "best_margin": 4.21
+        },
+        {
+          "round": "R4_polish",
+          "library": 5787,
+          "passed": 1353,
+          "criterion": "R3 + developability>=0.95",
+          "best_margin": 4.9
+        }
+      ],
+      "final_panel": [
+        {
+          "cdr3": "INFGIHRDDKRGPEAYLG",
+          "len": 18,
+          "compl_TXLNA": 9.96,
+          "compl_TXLNB": 4.6,
+          "compl_TXLNG": 5.06,
+          "spec_margin": 4.9,
+          "net_charge": 0.1,
+          "gravy": -0.933,
+          "developability": 1.0,
+          "liabilities": [],
+          "candidate_id": "CT-01"
+        },
+        {
+          "cdr3": "IKNAYQHRGYNLGGGEAYIR",
+          "len": 20,
+          "compl_TXLNA": 11.53,
+          "compl_TXLNB": 6.85,
+          "compl_TXLNG": 7.1,
+          "spec_margin": 4.43,
+          "net_charge": 2.1,
+          "gravy": -0.96,
+          "developability": 1.0,
+          "liabilities": [],
+          "candidate_id": "CT-02"
+        },
+        {
+          "cdr3": "IRNFDQSRGMYFNEAKLD",
+          "len": 18,
+          "compl_TXLNA": 10.62,
+          "compl_TXLNB": 6.25,
+          "compl_TXLNG": 6.36,
+          "spec_margin": 4.26,
+          "net_charge": 0.0,
+          "gravy": -1.044,
+          "developability": 0.956,
+          "liabilities": [],
+          "candidate_id": "CT-03"
+        },
+        {
+          "cdr3": "SANFGPHRQDDRGPVAYLG",
+          "len": 19,
+          "compl_TXLNA": 9.96,
+          "compl_TXLNB": 5.71,
+          "compl_TXLNG": 5.4,
+          "spec_margin": 4.25,
+          "net_charge": 0.1,
+          "gravy": -0.963,
+          "developability": 1.0,
+          "liabilities": [],
+          "candidate_id": "CT-04"
+        },
+        {
+          "cdr3": "IANFGWHREDLKGPAAYLG",
+          "len": 19,
+          "compl_TXLNA": 9.96,
+          "compl_TXLNB": 5.56,
+          "compl_TXLNG": 5.81,
+          "spec_margin": 4.15,
+          "net_charge": 0.1,
+          "gravy": -0.358,
+          "developability": 1.0,
+          "liabilities": [],
+          "candidate_id": "CT-05"
+        },
+        {
+          "cdr3": "QSRANLVHHMVEDKFVDKTL",
+          "len": 20,
+          "compl_TXLNA": 10.56,
+          "compl_TXLNB": 6.61,
+          "compl_TXLNG": 6.36,
+          "spec_margin": 3.95,
+          "net_charge": 0.2,
+          "gravy": -0.55,
+          "developability": 1.0,
+          "liabilities": [],
+          "candidate_id": "CT-06"
+        },
+        {
+          "cdr3": "INFGHHRQDHGGHIAYLD",
+          "len": 18,
+          "compl_TXLNA": 9.06,
+          "compl_TXLNB": 4.6,
+          "compl_TXLNG": 4.85,
+          "spec_margin": 4.21,
+          "net_charge": -0.6,
+          "gravy": -0.911,
+          "developability": 0.967,
+          "liabilities": [],
+          "candidate_id": "CT-07"
+        },
+        {
+          "cdr3": "IYNFGHRQESRGLEAYLG",
+          "len": 18,
+          "compl_TXLNA": 9.96,
+          "compl_TXLNB": 5.6,
+          "compl_TXLNG": 6.15,
+          "spec_margin": 3.81,
+          "net_charge": 0.1,
+          "gravy": -0.783,
+          "developability": 1.0,
+          "liabilities": [],
+          "candidate_id": "CT-08"
+        }
+      ],
+      "best_parent_margin": 0.6,
+      "best_matured_margin": 4.9
+    }
+  },
+  "recommended_epitope": "COILED-COIL aa367-382"
+}

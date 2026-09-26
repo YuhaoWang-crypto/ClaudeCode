@@ -1,0 +1,1323 @@
+{
+  "germline_index": {
+    "germline_sequences": 143,
+    "signal_peptides_trimmed": 73,
+    "distinct_kmers": 7513,
+    "k": 9
+  },
+  "chains": {
+    "TMEL1011_VH": {
+      "name": "TMEL1011_VH",
+      "parent": "PVQLVQSGAEVKKPGSSVKVSCKASGGTFSSYSFNWVRQAPGQGLEWMARIIPILGLANYAQKFQGRVTLTADESTSTAYMELSSLRSEDTAIFYCAGMVLGQLGFDPWGQGTLVTVSS",
+      "is_vhh": false,
+      "rounds": {
+        "R0_parent": {
+          "sequence": "PVQLVQSGAEVKKPGSSVKVSCKASGGTFSSYSFNWVRQAPGQGLEWMARIIPILGLANYAQKFQGRVTLTADESTSTAYMELSSLRSEDTAIFYCAGMVLGQLGFDPWGQGTLVTVSS",
+          "length": 119,
+          "germline_9mer_coverage": 0.4234,
+          "n_foreign_9mers": 64,
+          "nearest_germline": {
+            "identity": 0.8958,
+            "gene": "IGHV1-69D",
+            "locus": "IGHV",
+            "aligned_len": 96
+          },
+          "all_liabilities": {
+            "isomerisation_DG_DP": [
+              107
+            ],
+            "fragmentation_DP": [
+              107
+            ],
+            "unpaired_Cys": [
+              22,
+              96
+            ],
+            "oxidation_M": [
+              48,
+              81,
+              99
+            ],
+            "oxidation_W": [
+              36,
+              47,
+              109
+            ]
+          },
+          "framework_repairable_liabilities": {}
+        },
+        "R1_repair": {
+          "changes": [],
+          "sequence": "PVQLVQSGAEVKKPGSSVKVSCKASGGTFSSYSFNWVRQAPGQGLEWMARIIPILGLANYAQKFQGRVTLTADESTSTAYMELSSLRSEDTAIFYCAGMVLGQLGFDPWGQGTLVTVSS",
+          "length": 119,
+          "germline_9mer_coverage": 0.4234,
+          "n_foreign_9mers": 64,
+          "nearest_germline": {
+            "identity": 0.8958,
+            "gene": "IGHV1-69D",
+            "locus": "IGHV",
+            "aligned_len": 96
+          },
+          "all_liabilities": {
+            "isomerisation_DG_DP": [
+              107
+            ],
+            "fragmentation_DP": [
+              107
+            ],
+            "unpaired_Cys": [
+              22,
+              96
+            ],
+            "oxidation_M": [
+              48,
+              81,
+              99
+            ],
+            "oxidation_W": [
+              36,
+              47,
+              109
+            ]
+          },
+          "framework_repairable_liabilities": {}
+        },
+        "R2_germline": {
+          "target_germline": {
+            "identity": 0.8958,
+            "gene": "IGHV1-69D",
+            "locus": "IGHV",
+            "aligned_len": 96
+          },
+          "accepted": [
+            {
+              "pos": 35,
+              "from": "N",
+              "to": "S",
+              "coverage_gain": 0.0,
+              "distance_to_nearest_CDR_position": 1,
+              "binding_risk": "elevated - confirm experimentally"
+            },
+            {
+              "pos": 70,
+              "from": "L",
+              "to": "I",
+              "coverage_gain": 0.0811,
+              "distance_to_nearest_CDR_position": 11,
+              "binding_risk": "low"
+            },
+            {
+              "pos": 93,
+              "from": "I",
+              "to": "V",
+              "coverage_gain": 0.009,
+              "distance_to_nearest_CDR_position": 2,
+              "binding_risk": "elevated - confirm experimentally"
+            },
+            {
+              "pos": 94,
+              "from": "F",
+              "to": "Y",
+              "coverage_gain": 0.036,
+              "distance_to_nearest_CDR_position": 1,
+              "binding_risk": "elevated - confirm experimentally"
+            }
+          ],
+          "rejected": [
+            {
+              "pos": 33,
+              "from": "S",
+              "to": "A",
+              "reason": "CDR/Vernier"
+            },
+            {
+              "pos": 34,
+              "from": "F",
+              "to": "I",
+              "reason": "CDR/Vernier"
+            },
+            {
+              "pos": 49,
+              "from": "A",
+              "to": "G",
+              "reason": "CDR/Vernier"
+            },
+            {
+              "pos": 50,
+              "from": "R",
+              "to": "G",
+              "reason": "CDR/Vernier"
+            },
+            {
+              "pos": 55,
+              "from": "L",
+              "to": "F",
+              "reason": "CDR/Vernier"
+            },
+            {
+              "pos": 57,
+              "from": "L",
+              "to": "T",
+              "reason": "CDR/Vernier"
+            }
+          ],
+          "sequence": "PVQLVQSGAEVKKPGSSVKVSCKASGGTFSSYSFSWVRQAPGQGLEWMARIIPILGLANYAQKFQGRVTITADESTSTAYMELSSLRSEDTAVYYCAGMVLGQLGFDPWGQGTLVTVSS",
+          "length": 119,
+          "germline_9mer_coverage": 0.5495,
+          "n_foreign_9mers": 50,
+          "nearest_germline": {
+            "identity": 0.9375,
+            "gene": "IGHV1-69D",
+            "locus": "IGHV",
+            "aligned_len": 96
+          },
+          "all_liabilities": {
+            "isomerisation_DG_DP": [
+              107
+            ],
+            "fragmentation_DP": [
+              107
+            ],
+            "unpaired_Cys": [
+              22,
+              96
+            ],
+            "oxidation_M": [
+              48,
+              81,
+              99
+            ],
+            "oxidation_W": [
+              36,
+              47,
+              109
+            ]
+          },
+          "framework_repairable_liabilities": {}
+        },
+        "R3_verify": {
+          "cdrs_preserved": true,
+          "new_liabilities_introduced": [],
+          "cys_count_parent": 2,
+          "cys_count_final": 2,
+          "sequence": "PVQLVQSGAEVKKPGSSVKVSCKASGGTFSSYSFSWVRQAPGQGLEWMARIIPILGLANYAQKFQGRVTITADESTSTAYMELSSLRSEDTAVYYCAGMVLGQLGFDPWGQGTLVTVSS",
+          "length": 119,
+          "germline_9mer_coverage": 0.5495,
+          "n_foreign_9mers": 50,
+          "nearest_germline": {
+            "identity": 0.9375,
+            "gene": "IGHV1-69D",
+            "locus": "IGHV",
+            "aligned_len": 96
+          },
+          "all_liabilities": {
+            "isomerisation_DG_DP": [
+              107
+            ],
+            "fragmentation_DP": [
+              107
+            ],
+            "unpaired_Cys": [
+              22,
+              96
+            ],
+            "oxidation_M": [
+              48,
+              81,
+              99
+            ],
+            "oxidation_W": [
+              36,
+              47,
+              109
+            ]
+          },
+          "framework_repairable_liabilities": {}
+        },
+        "R4_final": {
+          "final_sequence": "PVQLVQSGAEVKKPGSSVKVSCKASGGTFSSYSFSWVRQAPGQGLEWMARIIPILGLANYAQKFQGRVTITADESTSTAYMELSSLRSEDTAVYYCAGMVLGQLGFDPWGQGTLVTVSS",
+          "delta": {
+            "germline_9mer_coverage": [
+              0.4234,
+              0.5495
+            ],
+            "n_foreign_9mers": [
+              64,
+              50
+            ],
+            "germline_identity": [
+              0.8958,
+              0.9375
+            ],
+            "n_framework_liabilities": [
+              0,
+              0
+            ]
+          },
+          "mhc2_peptides_for_submission": [
+            {
+              "start": 1,
+              "end": 15,
+              "peptide": "PVQLVQSGAEVKKPG"
+            },
+            {
+              "start": 5,
+              "end": 19,
+              "peptide": "VQSGAEVKKPGSSVK"
+            },
+            {
+              "start": 9,
+              "end": 23,
+              "peptide": "AEVKKPGSSVKVSCK"
+            },
+            {
+              "start": 13,
+              "end": 27,
+              "peptide": "KPGSSVKVSCKASGG"
+            },
+            {
+              "start": 17,
+              "end": 31,
+              "peptide": "SVKVSCKASGGTFSS"
+            },
+            {
+              "start": 21,
+              "end": 35,
+              "peptide": "SCKASGGTFSSYSFS"
+            },
+            {
+              "start": 25,
+              "end": 39,
+              "peptide": "SGGTFSSYSFSWVRQ"
+            },
+            {
+              "start": 29,
+              "end": 43,
+              "peptide": "FSSYSFSWVRQAPGQ"
+            },
+            {
+              "start": 33,
+              "end": 47,
+              "peptide": "SFSWVRQAPGQGLEW"
+            },
+            {
+              "start": 37,
+              "end": 51,
+              "peptide": "VRQAPGQGLEWMARI"
+            },
+            {
+              "start": 41,
+              "end": 55,
+              "peptide": "PGQGLEWMARIIPIL"
+            },
+            {
+              "start": 45,
+              "end": 59,
+              "peptide": "LEWMARIIPILGLAN"
+            },
+            {
+              "start": 49,
+              "end": 63,
+              "peptide": "ARIIPILGLANYAQK"
+            },
+            {
+              "start": 53,
+              "end": 67,
+              "peptide": "PILGLANYAQKFQGR"
+            },
+            {
+              "start": 57,
+              "end": 71,
+              "peptide": "LANYAQKFQGRVTIT"
+            },
+            {
+              "start": 61,
+              "end": 75,
+              "peptide": "AQKFQGRVTITADES"
+            },
+            {
+              "start": 65,
+              "end": 79,
+              "peptide": "QGRVTITADESTSTA"
+            },
+            {
+              "start": 69,
+              "end": 83,
+              "peptide": "TITADESTSTAYMEL"
+            },
+            {
+              "start": 73,
+              "end": 87,
+              "peptide": "DESTSTAYMELSSLR"
+            },
+            {
+              "start": 77,
+              "end": 91,
+              "peptide": "STAYMELSSLRSEDT"
+            },
+            {
+              "start": 81,
+              "end": 95,
+              "peptide": "MELSSLRSEDTAVYY"
+            },
+            {
+              "start": 85,
+              "end": 99,
+              "peptide": "SLRSEDTAVYYCAGM"
+            },
+            {
+              "start": 89,
+              "end": 103,
+              "peptide": "EDTAVYYCAGMVLGQ"
+            },
+            {
+              "start": 93,
+              "end": 107,
+              "peptide": "VYYCAGMVLGQLGFD"
+            },
+            {
+              "start": 97,
+              "end": 111,
+              "peptide": "AGMVLGQLGFDPWGQ"
+            },
+            {
+              "start": 101,
+              "end": 115,
+              "peptide": "LGQLGFDPWGQGTLV"
+            },
+            {
+              "start": 105,
+              "end": 119,
+              "peptide": "GFDPWGQGTLVTVSS"
+            }
+          ]
+        }
+      },
+      "protected_cys_positions": [
+        22,
+        96
+      ],
+      "cdr_positions": [
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        49,
+        50,
+        51,
+        52,
+        53,
+        54,
+        55,
+        56,
+        57,
+        58,
+        59,
+        95,
+        96,
+        97,
+        98,
+        99,
+        100,
+        101,
+        102,
+        103,
+        104,
+        105,
+        106,
+        107,
+        108,
+        109
+      ],
+      "vhh_hallmark_positions": [],
+      "vhh_hallmark_residues": []
+    },
+    "TMEL1011_VL": {
+      "name": "TMEL1011_VL",
+      "parent": "QFMLTQPHSVSESPGRTVTISCTRSSGSIARNYVHWYQHRPGSSPTTVIYEDDQRPSGVPDRFSGSIDSSSNSASLTISGLKPEDEADYFCQSYDSNIWVFGGGTKLTVL",
+      "is_vhh": false,
+      "rounds": {
+        "R0_parent": {
+          "sequence": "QFMLTQPHSVSESPGRTVTISCTRSSGSIARNYVHWYQHRPGSSPTTVIYEDDQRPSGVPDRFSGSIDSSSNSASLTISGLKPEDEADYFCQSYDSNIWVFGGGTKLTVL",
+          "length": 110,
+          "germline_9mer_coverage": 0.2647,
+          "n_foreign_9mers": 75,
+          "nearest_germline": {
+            "identity": 0.8958,
+            "gene": "IGLV6-57",
+            "locus": "IGLV",
+            "aligned_len": 96
+          },
+          "all_liabilities": {
+            "deamidation_NG_NS": [
+              72
+            ],
+            "unpaired_Cys": [
+              22,
+              91
+            ],
+            "oxidation_M": [
+              3
+            ],
+            "oxidation_W": [
+              36,
+              99
+            ],
+            "hydrophobic_run4": [
+              98
+            ]
+          },
+          "framework_repairable_liabilities": {
+            "deamidation_NG_NS": [
+              72
+            ]
+          }
+        },
+        "R1_repair": {
+          "changes": [],
+          "sequence": "QFMLTQPHSVSESPGRTVTISCTRSSGSIARNYVHWYQHRPGSSPTTVIYEDDQRPSGVPDRFSGSIDSSSNSASLTISGLKPEDEADYFCQSYDSNIWVFGGGTKLTVL",
+          "length": 110,
+          "germline_9mer_coverage": 0.2647,
+          "n_foreign_9mers": 75,
+          "nearest_germline": {
+            "identity": 0.8958,
+            "gene": "IGLV6-57",
+            "locus": "IGLV",
+            "aligned_len": 96
+          },
+          "all_liabilities": {
+            "deamidation_NG_NS": [
+              72
+            ],
+            "unpaired_Cys": [
+              22,
+              91
+            ],
+            "oxidation_M": [
+              3
+            ],
+            "oxidation_W": [
+              36,
+              99
+            ],
+            "hydrophobic_run4": [
+              98
+            ]
+          },
+          "framework_repairable_liabilities": {
+            "deamidation_NG_NS": [
+              72
+            ]
+          }
+        },
+        "R2_germline": {
+          "target_germline": {
+            "identity": 0.8958,
+            "gene": "IGLV6-57",
+            "locus": "IGLV",
+            "aligned_len": 96
+          },
+          "accepted": [
+            {
+              "pos": 16,
+              "from": "R",
+              "to": "K",
+              "coverage_gain": 0.0784,
+              "distance_to_nearest_CDR_position": 8,
+              "binding_risk": "low"
+            },
+            {
+              "pos": 35,
+              "from": "H",
+              "to": "Q",
+              "coverage_gain": 0.0,
+              "distance_to_nearest_CDR_position": 1,
+              "binding_risk": "elevated - confirm experimentally"
+            },
+            {
+              "pos": 39,
+              "from": "H",
+              "to": "Q",
+              "coverage_gain": 0.0393,
+              "distance_to_nearest_CDR_position": 5,
+              "binding_risk": "low"
+            },
+            {
+              "pos": 44,
+              "from": "S",
+              "to": "A",
+              "coverage_gain": 0.0882,
+              "distance_to_nearest_CDR_position": 5,
+              "binding_risk": "low"
+            },
+            {
+              "pos": 83,
+              "from": "P",
+              "to": "T",
+              "coverage_gain": 0.0686,
+              "distance_to_nearest_CDR_position": 7,
+              "binding_risk": "low"
+            }
+          ],
+          "rejected": [
+            {
+              "pos": 24,
+              "from": "R",
+              "to": "G",
+              "reason": "CDR/Vernier"
+            },
+            {
+              "pos": 31,
+              "from": "R",
+              "to": "S",
+              "reason": "CDR/Vernier"
+            },
+            {
+              "pos": 53,
+              "from": "D",
+              "to": "N",
+              "reason": "CDR/Vernier"
+            },
+            {
+              "pos": 90,
+              "from": "F",
+              "to": "Y",
+              "reason": "CDR/Vernier"
+            },
+            {
+              "pos": 97,
+              "from": "N",
+              "to": "S",
+              "reason": "CDR/Vernier"
+            }
+          ],
+          "sequence": "QFMLTQPHSVSESPGKTVTISCTRSSGSIARNYVQWYQQRPGSAPTTVIYEDDQRPSGVPDRFSGSIDSSSNSASLTISGLKTEDEADYFCQSYDSNIWVFGGGTKLTVL",
+          "length": 110,
+          "germline_9mer_coverage": 0.5392,
+          "n_foreign_9mers": 47,
+          "nearest_germline": {
+            "identity": 0.9479,
+            "gene": "IGLV6-57",
+            "locus": "IGLV",
+            "aligned_len": 96
+          },
+          "all_liabilities": {
+            "deamidation_NG_NS": [
+              72
+            ],
+            "unpaired_Cys": [
+              22,
+              91
+            ],
+            "oxidation_M": [
+              3
+            ],
+            "oxidation_W": [
+              36,
+              99
+            ],
+            "hydrophobic_run4": [
+              98
+            ]
+          },
+          "framework_repairable_liabilities": {
+            "deamidation_NG_NS": [
+              72
+            ]
+          }
+        },
+        "R3_verify": {
+          "cdrs_preserved": true,
+          "new_liabilities_introduced": [],
+          "cys_count_parent": 2,
+          "cys_count_final": 2,
+          "sequence": "QFMLTQPHSVSESPGKTVTISCTRSSGSIARNYVQWYQQRPGSAPTTVIYEDDQRPSGVPDRFSGSIDSSSNSASLTISGLKTEDEADYFCQSYDSNIWVFGGGTKLTVL",
+          "length": 110,
+          "germline_9mer_coverage": 0.5392,
+          "n_foreign_9mers": 47,
+          "nearest_germline": {
+            "identity": 0.9479,
+            "gene": "IGLV6-57",
+            "locus": "IGLV",
+            "aligned_len": 96
+          },
+          "all_liabilities": {
+            "deamidation_NG_NS": [
+              72
+            ],
+            "unpaired_Cys": [
+              22,
+              91
+            ],
+            "oxidation_M": [
+              3
+            ],
+            "oxidation_W": [
+              36,
+              99
+            ],
+            "hydrophobic_run4": [
+              98
+            ]
+          },
+          "framework_repairable_liabilities": {
+            "deamidation_NG_NS": [
+              72
+            ]
+          }
+        },
+        "R4_final": {
+          "final_sequence": "QFMLTQPHSVSESPGKTVTISCTRSSGSIARNYVQWYQQRPGSAPTTVIYEDDQRPSGVPDRFSGSIDSSSNSASLTISGLKTEDEADYFCQSYDSNIWVFGGGTKLTVL",
+          "delta": {
+            "germline_9mer_coverage": [
+              0.2647,
+              0.5392
+            ],
+            "n_foreign_9mers": [
+              75,
+              47
+            ],
+            "germline_identity": [
+              0.8958,
+              0.9479
+            ],
+            "n_framework_liabilities": [
+              1,
+              1
+            ]
+          },
+          "mhc2_peptides_for_submission": [
+            {
+              "start": 1,
+              "end": 15,
+              "peptide": "QFMLTQPHSVSESPG"
+            },
+            {
+              "start": 5,
+              "end": 19,
+              "peptide": "TQPHSVSESPGKTVT"
+            },
+            {
+              "start": 9,
+              "end": 23,
+              "peptide": "SVSESPGKTVTISCT"
+            },
+            {
+              "start": 13,
+              "end": 27,
+              "peptide": "SPGKTVTISCTRSSG"
+            },
+            {
+              "start": 17,
+              "end": 31,
+              "peptide": "TVTISCTRSSGSIAR"
+            },
+            {
+              "start": 21,
+              "end": 35,
+              "peptide": "SCTRSSGSIARNYVQ"
+            },
+            {
+              "start": 25,
+              "end": 39,
+              "peptide": "SSGSIARNYVQWYQQ"
+            },
+            {
+              "start": 29,
+              "end": 43,
+              "peptide": "IARNYVQWYQQRPGS"
+            },
+            {
+              "start": 33,
+              "end": 47,
+              "peptide": "YVQWYQQRPGSAPTT"
+            },
+            {
+              "start": 37,
+              "end": 51,
+              "peptide": "YQQRPGSAPTTVIYE"
+            },
+            {
+              "start": 41,
+              "end": 55,
+              "peptide": "PGSAPTTVIYEDDQR"
+            },
+            {
+              "start": 45,
+              "end": 59,
+              "peptide": "PTTVIYEDDQRPSGV"
+            },
+            {
+              "start": 49,
+              "end": 63,
+              "peptide": "IYEDDQRPSGVPDRF"
+            },
+            {
+              "start": 53,
+              "end": 67,
+              "peptide": "DQRPSGVPDRFSGSI"
+            },
+            {
+              "start": 57,
+              "end": 71,
+              "peptide": "SGVPDRFSGSIDSSS"
+            },
+            {
+              "start": 61,
+              "end": 75,
+              "peptide": "DRFSGSIDSSSNSAS"
+            },
+            {
+              "start": 65,
+              "end": 79,
+              "peptide": "GSIDSSSNSASLTIS"
+            },
+            {
+              "start": 69,
+              "end": 83,
+              "peptide": "SSSNSASLTISGLKT"
+            },
+            {
+              "start": 73,
+              "end": 87,
+              "peptide": "SASLTISGLKTEDEA"
+            },
+            {
+              "start": 77,
+              "end": 91,
+              "peptide": "TISGLKTEDEADYFC"
+            },
+            {
+              "start": 81,
+              "end": 95,
+              "peptide": "LKTEDEADYFCQSYD"
+            },
+            {
+              "start": 85,
+              "end": 99,
+              "peptide": "DEADYFCQSYDSNIW"
+            },
+            {
+              "start": 89,
+              "end": 103,
+              "peptide": "YFCQSYDSNIWVFGG"
+            },
+            {
+              "start": 93,
+              "end": 107,
+              "peptide": "SYDSNIWVFGGGTKL"
+            }
+          ]
+        }
+      },
+      "protected_cys_positions": [
+        22,
+        91
+      ],
+      "cdr_positions": [
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        49,
+        50,
+        51,
+        52,
+        53,
+        54,
+        90,
+        91,
+        92,
+        93,
+        94,
+        95,
+        96,
+        97,
+        98,
+        99,
+        100,
+        101
+      ],
+      "vhh_hallmark_positions": [],
+      "vhh_hallmark_residues": []
+    },
+    "VHH_C05": {
+      "name": "VHH_C05",
+      "parent": "QVQLVESGGGLVQAGGSLRLSCAASGFTFSSYAMGWFRQAPGKEREFVSAISGSGGSTYYADSVKGRFTISRDNAKNTVYLQMNSLKPEDTAVYYCVKEFEHVLHMGAIVKWGQGTQVTVSS",
+      "is_vhh": true,
+      "rounds": {
+        "R0_parent": {
+          "sequence": "QVQLVESGGGLVQAGGSLRLSCAASGFTFSSYAMGWFRQAPGKEREFVSAISGSGGSTYYADSVKGRFTISRDNAKNTVYLQMNSLKPEDTAVYYCVKEFEHVLHMGAIVKWGQGTQVTVSS",
+          "length": 122,
+          "germline_9mer_coverage": 0.3772,
+          "n_foreign_9mers": 71,
+          "nearest_germline": {
+            "identity": 0.8776,
+            "gene": "IGHV3-23",
+            "locus": "IGHV",
+            "aligned_len": 98
+          },
+          "all_liabilities": {
+            "deamidation_NG_NS": [
+              84
+            ],
+            "unpaired_Cys": [
+              22,
+              96
+            ],
+            "oxidation_M": [
+              34,
+              83,
+              106
+            ],
+            "oxidation_W": [
+              36,
+              112
+            ]
+          },
+          "framework_repairable_liabilities": {
+            "deamidation_NG_NS": [
+              84
+            ]
+          }
+        },
+        "R1_repair": {
+          "changes": [
+            {
+              "pos": 84,
+              "from": "N",
+              "to": "Q",
+              "motif": "deamidation_NG_NS",
+              "cov_after": 0.3772
+            }
+          ],
+          "sequence": "QVQLVESGGGLVQAGGSLRLSCAASGFTFSSYAMGWFRQAPGKEREFVSAISGSGGSTYYADSVKGRFTISRDNAKNTVYLQMQSLKPEDTAVYYCVKEFEHVLHMGAIVKWGQGTQVTVSS",
+          "length": 122,
+          "germline_9mer_coverage": 0.3772,
+          "n_foreign_9mers": 71,
+          "nearest_germline": {
+            "identity": 0.8673,
+            "gene": "IGHV3-23",
+            "locus": "IGHV",
+            "aligned_len": 98
+          },
+          "all_liabilities": {
+            "unpaired_Cys": [
+              22,
+              96
+            ],
+            "oxidation_M": [
+              34,
+              83,
+              106
+            ],
+            "oxidation_W": [
+              36,
+              112
+            ]
+          },
+          "framework_repairable_liabilities": {}
+        },
+        "R2_germline": {
+          "target_germline": {
+            "identity": 0.8673,
+            "gene": "IGHV3-23",
+            "locus": "IGHV",
+            "aligned_len": 98
+          },
+          "accepted": [
+            {
+              "pos": 1,
+              "from": "Q",
+              "to": "E",
+              "coverage_gain": 0.0,
+              "distance_to_nearest_CDR_position": 23,
+              "binding_risk": "low"
+            },
+            {
+              "pos": 14,
+              "from": "A",
+              "to": "P",
+              "coverage_gain": 0.0789,
+              "distance_to_nearest_CDR_position": 10,
+              "binding_risk": "low"
+            },
+            {
+              "pos": 35,
+              "from": "G",
+              "to": "S",
+              "coverage_gain": 0.0176,
+              "distance_to_nearest_CDR_position": 1,
+              "binding_risk": "elevated - confirm experimentally"
+            },
+            {
+              "pos": 79,
+              "from": "V",
+              "to": "L",
+              "coverage_gain": 0.0438,
+              "distance_to_nearest_CDR_position": 12,
+              "binding_risk": "low"
+            },
+            {
+              "pos": 87,
+              "from": "K",
+              "to": "R",
+              "coverage_gain": 0.0,
+              "distance_to_nearest_CDR_position": 8,
+              "binding_risk": "low"
+            },
+            {
+              "pos": 88,
+              "from": "P",
+              "to": "A",
+              "coverage_gain": 0.0264,
+              "distance_to_nearest_CDR_position": 7,
+              "binding_risk": "low"
+            }
+          ],
+          "rejected": [
+            {
+              "pos": 37,
+              "from": "F",
+              "to": "V",
+              "reason": "VHH hallmark"
+            },
+            {
+              "pos": 44,
+              "from": "E",
+              "to": "G",
+              "reason": "VHH hallmark"
+            },
+            {
+              "pos": 45,
+              "from": "R",
+              "to": "L",
+              "reason": "VHH hallmark"
+            },
+            {
+              "pos": 47,
+              "from": "F",
+              "to": "W",
+              "reason": "VHH hallmark"
+            },
+            {
+              "pos": 75,
+              "from": "A",
+              "to": "S",
+              "reason": "raises liability count"
+            },
+            {
+              "pos": 84,
+              "from": "Q",
+              "to": "N",
+              "reason": "raises liability count"
+            },
+            {
+              "pos": 97,
+              "from": "V",
+              "to": "A",
+              "reason": "CDR/Vernier"
+            }
+          ],
+          "sequence": "EVQLVESGGGLVQPGGSLRLSCAASGFTFSSYAMSWFRQAPGKEREFVSAISGSGGSTYYADSVKGRFTISRDNAKNTLYLQMQSLRAEDTAVYYCVKEFEHVLHMGAIVKWGQGTQVTVSS",
+          "length": 122,
+          "germline_9mer_coverage": 0.5439,
+          "n_foreign_9mers": 52,
+          "nearest_germline": {
+            "identity": 0.9286,
+            "gene": "IGHV3-23",
+            "locus": "IGHV",
+            "aligned_len": 98
+          },
+          "all_liabilities": {
+            "unpaired_Cys": [
+              22,
+              96
+            ],
+            "oxidation_M": [
+              34,
+              83,
+              106
+            ],
+            "oxidation_W": [
+              36,
+              112
+            ]
+          },
+          "framework_repairable_liabilities": {}
+        },
+        "R3_verify": {
+          "cdrs_preserved": true,
+          "new_liabilities_introduced": [],
+          "cys_count_parent": 2,
+          "cys_count_final": 2,
+          "sequence": "EVQLVESGGGLVQPGGSLRLSCAASGFTFSSYAMSWFRQAPGKEREFVSAISGSGGSTYYADSVKGRFTISRDNAKNTLYLQMQSLRAEDTAVYYCVKEFEHVLHMGAIVKWGQGTQVTVSS",
+          "length": 122,
+          "germline_9mer_coverage": 0.5439,
+          "n_foreign_9mers": 52,
+          "nearest_germline": {
+            "identity": 0.9286,
+            "gene": "IGHV3-23",
+            "locus": "IGHV",
+            "aligned_len": 98
+          },
+          "all_liabilities": {
+            "unpaired_Cys": [
+              22,
+              96
+            ],
+            "oxidation_M": [
+              34,
+              83,
+              106
+            ],
+            "oxidation_W": [
+              36,
+              112
+            ]
+          },
+          "framework_repairable_liabilities": {}
+        },
+        "R4_final": {
+          "final_sequence": "EVQLVESGGGLVQPGGSLRLSCAASGFTFSSYAMSWFRQAPGKEREFVSAISGSGGSTYYADSVKGRFTISRDNAKNTLYLQMQSLRAEDTAVYYCVKEFEHVLHMGAIVKWGQGTQVTVSS",
+          "delta": {
+            "germline_9mer_coverage": [
+              0.3772,
+              0.5439
+            ],
+            "n_foreign_9mers": [
+              71,
+              52
+            ],
+            "germline_identity": [
+              0.8776,
+              0.9286
+            ],
+            "n_framework_liabilities": [
+              1,
+              0
+            ]
+          },
+          "mhc2_peptides_for_submission": [
+            {
+              "start": 1,
+              "end": 15,
+              "peptide": "EVQLVESGGGLVQPG"
+            },
+            {
+              "start": 5,
+              "end": 19,
+              "peptide": "VESGGGLVQPGGSLR"
+            },
+            {
+              "start": 9,
+              "end": 23,
+              "peptide": "GGLVQPGGSLRLSCA"
+            },
+            {
+              "start": 13,
+              "end": 27,
+              "peptide": "QPGGSLRLSCAASGF"
+            },
+            {
+              "start": 17,
+              "end": 31,
+              "peptide": "SLRLSCAASGFTFSS"
+            },
+            {
+              "start": 21,
+              "end": 35,
+              "peptide": "SCAASGFTFSSYAMS"
+            },
+            {
+              "start": 25,
+              "end": 39,
+              "peptide": "SGFTFSSYAMSWFRQ"
+            },
+            {
+              "start": 29,
+              "end": 43,
+              "peptide": "FSSYAMSWFRQAPGK"
+            },
+            {
+              "start": 33,
+              "end": 47,
+              "peptide": "AMSWFRQAPGKEREF"
+            },
+            {
+              "start": 37,
+              "end": 51,
+              "peptide": "FRQAPGKEREFVSAI"
+            },
+            {
+              "start": 41,
+              "end": 55,
+              "peptide": "PGKEREFVSAISGSG"
+            },
+            {
+              "start": 45,
+              "end": 59,
+              "peptide": "REFVSAISGSGGSTY"
+            },
+            {
+              "start": 49,
+              "end": 63,
+              "peptide": "SAISGSGGSTYYADS"
+            },
+            {
+              "start": 53,
+              "end": 67,
+              "peptide": "GSGGSTYYADSVKGR"
+            },
+            {
+              "start": 57,
+              "end": 71,
+              "peptide": "STYYADSVKGRFTIS"
+            },
+            {
+              "start": 61,
+              "end": 75,
+              "peptide": "ADSVKGRFTISRDNA"
+            },
+            {
+              "start": 65,
+              "end": 79,
+              "peptide": "KGRFTISRDNAKNTL"
+            },
+            {
+              "start": 69,
+              "end": 83,
+              "peptide": "TISRDNAKNTLYLQM"
+            },
+            {
+              "start": 73,
+              "end": 87,
+              "peptide": "DNAKNTLYLQMQSLR"
+            },
+            {
+              "start": 77,
+              "end": 91,
+              "peptide": "NTLYLQMQSLRAEDT"
+            },
+            {
+              "start": 81,
+              "end": 95,
+              "peptide": "LQMQSLRAEDTAVYY"
+            },
+            {
+              "start": 85,
+              "end": 99,
+              "peptide": "SLRAEDTAVYYCVKE"
+            },
+            {
+              "start": 89,
+              "end": 103,
+              "peptide": "EDTAVYYCVKEFEHV"
+            },
+            {
+              "start": 93,
+              "end": 107,
+              "peptide": "VYYCVKEFEHVLHMG"
+            },
+            {
+              "start": 97,
+              "end": 111,
+              "peptide": "VKEFEHVLHMGAIVK"
+            },
+            {
+              "start": 101,
+              "end": 115,
+              "peptide": "EHVLHMGAIVKWGQG"
+            },
+            {
+              "start": 105,
+              "end": 119,
+              "peptide": "HMGAIVKWGQGTQVT"
+            }
+          ]
+        }
+      },
+      "protected_cys_positions": [
+        22,
+        96
+      ],
+      "cdr_positions": [
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        48,
+        49,
+        50,
+        51,
+        52,
+        53,
+        54,
+        55,
+        56,
+        57,
+        58,
+        59,
+        60,
+        61,
+        62,
+        63,
+        64,
+        65,
+        66,
+        67,
+        95,
+        96,
+        97,
+        98,
+        99,
+        100,
+        101,
+        102,
+        103,
+        104,
+        105,
+        106,
+        107,
+        108,
+        109,
+        110,
+        111,
+        112
+      ],
+      "vhh_hallmark_positions": [
+        37,
+        44,
+        45,
+        47
+      ],
+      "vhh_hallmark_residues": [
+        "F37",
+        "E44",
+        "R45",
+        "F47"
+      ]
+    }
+  }
+}

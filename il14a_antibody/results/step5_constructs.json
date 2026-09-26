@@ -1,0 +1,116 @@
+{
+  "constant_region_provenance": {
+    "IGHG1": "UniProt P01857 (membrane-bound entry; truncated at CH3 + GK)",
+    "IGLC2": "UniProt P0DOY2",
+    "membrane_tail_excluded": "ELQLEESCAEAQ"
+  },
+  "variable_domains": {
+    "humanised_VHH": "EVQLVESGGGLVQPGGSLRLSCAASGFTFSSYAMSWFRQAPGKEREFVSAISGSGGSTYYADSVKGRFTISRDNAKNTLYLQMQSLRAEDTAVYYCVKEFEHVLHMGAIVKWGQGTQVTVSS",
+    "humanised_TMEL1011_VH": "PVQLVQSGAEVKKPGSSVKVSCKASGGTFSSYSFSWVRQAPGQGLEWMARIIPILGLANYAQKFQGRVTITADESTSTAYMELSSLRSEDTAVYYCAGMVLGQLGFDPWGQGTLVTVSS",
+    "humanised_TMEL1011_VL_lambda": "QFMLTQPHSVSESPGKTVTISCTRSSGSIARNYVQWYQQRPGSAPTTVIYEDDQRPSGVPDRFSGSIDSSSNSASLTISGLKTEDEADYFCQSYDSNIWVFGGGTKLTVL"
+  },
+  "constructs": {
+    "IL14A-VHHFc-01_hIgG1wt": {
+      "name": "IL14A-VHHFc-01_hIgG1wt",
+      "length": 354,
+      "mw_kDa_monomer": 39.29,
+      "predicted_pI": 7.43,
+      "cys_total": 9,
+      "cys_in_variable_domain": 2,
+      "variable_domain_disulfide_intact": true,
+      "n_glyc_sequons_all": [
+        204
+      ],
+      "conserved_Fc_N297_sequon_at": 204,
+      "n_glyc_sequons_in_variable_domain": [],
+      "deamidation_NG_NS": [
+        204,
+        222,
+        291
+      ],
+      "isomerisation_DG_DP": [
+        177,
+        187,
+        308
+      ],
+      "variable_domain_germline_9mer_coverage": 0.5439,
+      "contains_membrane_tail": false,
+      "sequence": "EVQLVESGGGLVQPGGSLRLSCAASGFTFSSYAMSWFRQAPGKEREFVSAISGSGGSTYYADSVKGRFTISRDNAKNTLYLQMQSLRAEDTAVYYCVKEFEHVLHMGAIVKWGQGTQVTVSSEPKSCDKTHTCPPCPAPELLGGPSVFLFPPKPKDTLMISRTPEVTCVVVDVSHEDPEVKFNWYVDGVEVHNAKTKPREEQYNSTYRVVSVLTVLHQDWLNGKEYKCKVSNKALPAPIEKTISKAKGQPREPQVYTLPPSRDELTKNQVSLTCLVKGFYPSDIAVEWESNGQPENNYKTTPPVLDSDGSFFLYSKLTVDKSRWQQGNVFSCSVMHEALHNHYTQKSLSLSPGK"
+    },
+    "IL14A-VHHFc-01_hIgG1_LALA": {
+      "name": "IL14A-VHHFc-01_hIgG1_LALA",
+      "length": 354,
+      "mw_kDa_monomer": 39.21,
+      "predicted_pI": 7.43,
+      "cys_total": 9,
+      "cys_in_variable_domain": 2,
+      "variable_domain_disulfide_intact": true,
+      "n_glyc_sequons_all": [
+        204
+      ],
+      "conserved_Fc_N297_sequon_at": 204,
+      "n_glyc_sequons_in_variable_domain": [],
+      "deamidation_NG_NS": [
+        204,
+        222,
+        291
+      ],
+      "isomerisation_DG_DP": [
+        177,
+        187,
+        308
+      ],
+      "variable_domain_germline_9mer_coverage": 0.5439,
+      "contains_membrane_tail": false,
+      "sequence": "EVQLVESGGGLVQPGGSLRLSCAASGFTFSSYAMSWFRQAPGKEREFVSAISGSGGSTYYADSVKGRFTISRDNAKNTLYLQMQSLRAEDTAVYYCVKEFEHVLHMGAIVKWGQGTQVTVSSEPKSCDKTHTCPPCPAPEAAGGPSVFLFPPKPKDTLMISRTPEVTCVVVDVSHEDPEVKFNWYVDGVEVHNAKTKPREEQYNSTYRVVSVLTVLHQDWLNGKEYKCKVSNKALPAPIEKTISKAKGQPREPQVYTLPPSRDELTKNQVSLTCLVKGFYPSDIAVEWESNGQPENNYKTTPPVLDSDGSFFLYSKLTVDKSRWQQGNVFSCSVMHEALHNHYTQKSLSLSPGK"
+    },
+    "IL14A-TMEL1011hz_HeavyChain_IgG1": {
+      "name": "IL14A-TMEL1011hz_HeavyChain_IgG1",
+      "length": 449,
+      "mw_kDa_monomer": 48.77,
+      "predicted_pI": 8.1,
+      "cys_total": 11,
+      "cys_in_variable_domain": 2,
+      "variable_domain_disulfide_intact": true,
+      "n_glyc_sequons_all": [
+        299
+      ],
+      "conserved_Fc_N297_sequon_at": 299,
+      "n_glyc_sequons_in_variable_domain": [],
+      "deamidation_NG_NS": [
+        161,
+        299,
+        317,
+        386
+      ],
+      "isomerisation_DG_DP": [
+        107,
+        272,
+        282,
+        403
+      ],
+      "variable_domain_germline_9mer_coverage": 0.5495,
+      "contains_membrane_tail": false,
+      "sequence": "PVQLVQSGAEVKKPGSSVKVSCKASGGTFSSYSFSWVRQAPGQGLEWMARIIPILGLANYAQKFQGRVTITADESTSTAYMELSSLRSEDTAVYYCAGMVLGQLGFDPWGQGTLVTVSSASTKGPSVFPLAPSSKSTSGGTAALGCLVKDYFPEPVTVSWNSGALTSGVHTFPAVLQSSGLYSLSSVVTVPSSSLGTQTYICNVNHKPSNTKVDKKVEPKSCDKTHTCPPCPAPELLGGPSVFLFPPKPKDTLMISRTPEVTCVVVDVSHEDPEVKFNWYVDGVEVHNAKTKPREEQYNSTYRVVSVLTVLHQDWLNGKEYKCKVSNKALPAPIEKTISKAKGQPREPQVYTLPPSRDELTKNQVSLTCLVKGFYPSDIAVEWESNGQPENNYKTTPPVLDSDGSFFLYSKLTVDKSRWQQGNVFSCSVMHEALHNHYTQKSLSLSPGK"
+    },
+    "IL14A-TMEL1011hz_LightChain_lambda": {
+      "name": "IL14A-TMEL1011hz_LightChain_lambda",
+      "length": 216,
+      "mw_kDa_monomer": 23.26,
+      "predicted_pI": 5.55,
+      "cys_total": 5,
+      "cys_in_variable_domain": 2,
+      "variable_domain_disulfide_intact": true,
+      "n_glyc_sequons_all": [],
+      "conserved_Fc_N297_sequon_at": null,
+      "n_glyc_sequons_in_variable_domain": [],
+      "deamidation_NG_NS": [
+        72
+      ],
+      "isomerisation_DG_DP": [],
+      "variable_domain_germline_9mer_coverage": 0.5392,
+      "contains_membrane_tail": false,
+      "sequence": "QFMLTQPHSVSESPGKTVTISCTRSSGSIARNYVQWYQQRPGSAPTTVIYEDDQRPSGVPDRFSGSIDSSSNSASLTISGLKTEDEADYFCQSYDSNIWVFGGGTKLTVLGQPKAAPSVTLFPPSSEELQANKATLVCLISDFYPGAVTVAWKADSSPVKAGVETTTPSKQSNNKYAASSYLSLTPEQWKSHRSYSCQVTHEGSTVEKTVAPTECS"
+    }
+  }
+}

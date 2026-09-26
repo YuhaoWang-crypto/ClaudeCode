@@ -1,0 +1,296 @@
+{
+  "_tool": "mcp__Boltz_API__boltz_start_protein_screen",
+  "_note": "Run boltz_estimate_protein_screen with the same body first.",
+  "target": {
+    "type": "structure_template",
+    "structure": {
+      "type": "url",
+      "url": "https://alphafold.ebi.ac.uk/files/AF-P40222-F1-model_v6.cif"
+    },
+    "chain_selection": {
+      "A": {
+        "chain_type": "polymer",
+        "crop_residues": [
+          429,
+          430,
+          431,
+          432,
+          433,
+          434,
+          435,
+          436,
+          437,
+          438,
+          439,
+          440,
+          441,
+          442,
+          443,
+          444,
+          445,
+          446,
+          447,
+          448,
+          449,
+          450,
+          451,
+          452,
+          453,
+          454,
+          455,
+          456,
+          457,
+          458,
+          459,
+          460,
+          461,
+          462,
+          463,
+          464,
+          465,
+          466,
+          467,
+          468,
+          469,
+          470,
+          471,
+          472,
+          473,
+          474,
+          475,
+          476,
+          477,
+          478,
+          479,
+          480,
+          481,
+          482,
+          483,
+          484,
+          485,
+          486,
+          487,
+          488,
+          489,
+          490,
+          491,
+          492,
+          493,
+          494,
+          495,
+          496,
+          497,
+          498,
+          499,
+          500,
+          501,
+          502,
+          503,
+          504,
+          505,
+          506,
+          507,
+          508,
+          509,
+          510,
+          511,
+          512,
+          513,
+          514,
+          515,
+          516,
+          517,
+          518,
+          519,
+          520,
+          521,
+          522,
+          523,
+          524,
+          525,
+          526,
+          527,
+          528,
+          529,
+          530,
+          531,
+          532,
+          533,
+          534,
+          535,
+          536,
+          537,
+          538,
+          539,
+          540,
+          541,
+          542,
+          543,
+          544,
+          545
+        ],
+        "epitope_residues": [
+          492,
+          493,
+          494,
+          495,
+          496,
+          497,
+          498,
+          499,
+          500,
+          501,
+          502,
+          503,
+          504,
+          505,
+          506,
+          507,
+          508,
+          509,
+          510,
+          511,
+          512,
+          513,
+          514,
+          515,
+          516,
+          517,
+          518,
+          519,
+          520,
+          521,
+          522
+        ],
+        "non_binding_residues": [
+          432,
+          434,
+          439,
+          444,
+          449,
+          454,
+          459,
+          464
+        ]
+      }
+    }
+  },
+  "proteins": [
+    {
+      "id": "humanised_VHH_C05",
+      "entities": [
+        {
+          "type": "protein",
+          "chain_ids": [
+            "H"
+          ],
+          "value": "EVQLVESGGGLVQPGGSLRLSCAASGFTFSSYAMSWFRQAPGKEREFVSAISGSGGSTYYADSVKGRFTISRDNAKNTLYLQMQSLRAEDTAVYYCVKEFEHVLHMGAIVKWGQGTQVTVSS"
+        }
+      ]
+    },
+    {
+      "id": "TMEL1011_humanised_Fv",
+      "entities": [
+        {
+          "type": "protein",
+          "chain_ids": [
+            "H"
+          ],
+          "value": "PVQLVQSGAEVKKPGSSVKVSCKASGGTFSSYSFSWVRQAPGQGLEWMARIIPILGLANYAQKFQGRVTITADESTSTAYMELSSLRSEDTAVYYCAGMVLGQLGFDPWGQGTLVTVSS"
+        },
+        {
+          "type": "protein",
+          "chain_ids": [
+            "L"
+          ],
+          "value": "QFMLTQPHSVSESPGKTVTISCTRSSGSIARNYVQWYQQRPGSAPTTVIYEDDQRPSGVPDRFSGSIDSSSNSASLTISGLKTEDEADYFCQSYDSNIWVFGGGTKLTVL"
+        }
+      ]
+    },
+    {
+      "id": "parent_G034-Ab-Ax2-C-05",
+      "entities": [
+        {
+          "type": "protein",
+          "chain_ids": [
+            "H"
+          ],
+          "value": "QVQLVESGGGLVQAGGSLRLSCAASGFTFSSYAMGWFRQAPGKEREFVSAISGSGGSTYYADSVKGRFTISRDNAKNTVYLQMNSLKPEDTAVYYCVKEFEHVLHMGAIVKWGQGTQVTVSS"
+        }
+      ]
+    },
+    {
+      "id": "parent_G034-Ab-Ax2-C-08",
+      "entities": [
+        {
+          "type": "protein",
+          "chain_ids": [
+            "H"
+          ],
+          "value": "QVQLVESGGGLVQAGGSLRLSCAASGFTFSSYAMGWFRQAPGKEREFVSAISGSGGSTYYADSVKGRFTISRDNAKNTVYLQMNSLKPEDTAVYYCRFAIWVDDHFTHHKNWGQGTQVTVSS"
+        }
+      ]
+    },
+    {
+      "id": "parent_G034-Ab-Ax2-C-09",
+      "entities": [
+        {
+          "type": "protein",
+          "chain_ids": [
+            "H"
+          ],
+          "value": "QVQLVESGGGLVQAGGSLRLSCAASGFTFSSYAMGWFRQAPGKEREFVSAISGSGGSTYYADSVKGRFTISRDNAKNTVYLQMNSLKPEDTAVYYCQRRNELTHHMVESYFVDKHLWGQGTQVTVSS"
+        }
+      ]
+    },
+    {
+      "id": "parent_G034-Ab-Ax2-C-03",
+      "entities": [
+        {
+          "type": "protein",
+          "chain_ids": [
+            "H"
+          ],
+          "value": "QVQLVESGGGLVQAGGSLRLSCAASGFTFSSYAMGWFRQAPGKEREFVSAISGSGGSTYYADSVKGRFTISRDNAKNTVYLQMNSLKPEDTAVYYCIANFGQHRQNLYGNEAYLDWGQGTQVTVSS"
+        }
+      ]
+    },
+    {
+      "id": "parent_G034-Ab-Ax2-C-02",
+      "entities": [
+        {
+          "type": "protein",
+          "chain_ids": [
+            "H"
+          ],
+          "value": "QVQLVESGGGLVQAGGSLRLSCAASGFTFSSYAMGWFRQAPGKEREFVSAISGSGGSTYYADSVKGRFTISRDNAKNTVYLQMNSLKPEDTAVYYCAYTVGATAYIAVEGWGQGTQVTVSS"
+        }
+      ]
+    },
+    {
+      "id": "parent_G034-Ab-Ax2-C-01",
+      "entities": [
+        {
+          "type": "protein",
+          "chain_ids": [
+            "H"
+          ],
+          "value": "QVQLVESGGGLVQAGGSLRLSCAASGFTFSSYAMGWFRQAPGKEREFVSAISGSGGSTYYADSVKGRFTISRDNAKNTVYLQMNSLKPEDTAVYYCYQEHAGDKQKFAKVYKEKIWGQGTQVTVSS"
+        }
+      ]
+    },
+    {
+      "id": "parent_G034-Ab-Ax2-C-06",
+      "entities": [
+        {
+          "type": "protein",
+          "chain_ids": [
+            "H"
+          ],
+          "value": "QVQLVESGGGLVQAGGSLRLSCAASGFTFSSYAMGWFRQAPGKEREFVSAISGSGGSTYYADSVKGRFTISRDNAKNTVYLQMNSLKPEDTAVYYCIQFDVGLLLATYWDWGQGTQVTVSS"
+        }
+      ]
+    }
+  ],
+  "idempotency_key": "il14a-CT_493_523-stage1-screen-v1"
+}
