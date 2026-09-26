@@ -49,17 +49,22 @@ BB = ("N", "CA", "C", "O")
 # 511-519 and 503-511 are the runners-up and are carried as alternatives so
 # the result does not rest on one threading. For ACC4 only one window is
 # backbone-admissible at all.
+# Ordered by what the result depends on, because the run is long and a
+# truncated run should lose the least important arm: the native control
+# decides whether any of these numbers mean anything, the 514-522 graft is
+# the lead, ACC4 is the independent scaffold, the last two are alternative
+# windows that only refine the lead.
 CHIMERAS = [
+    {"id": "SM3_native_control", "pdb": "1SM3", "ab": ["H", "L"], "pep": "P",
+     "window": None, "txlna": None, "phospho_pos": None},
     {"id": "SM3_514_522", "pdb": "1SM3", "ab": ["H", "L"], "pep": "P",
      "window": "SSPRVTEAP", "txlna": [514, 522], "phospho_pos": 2},
+    {"id": "ACC4_502_510", "pdb": "2W65", "ab": ["A", "B"], "pep": "E",
+     "window": "ERRPEGPGA", "txlna": [502, 510], "phospho_pos": None},
     {"id": "SM3_511_519", "pdb": "1SM3", "ab": ["H", "L"], "pep": "P",
      "window": "QAPSSPRVT", "txlna": [511, 519], "phospho_pos": 5},
     {"id": "SM3_503_511", "pdb": "1SM3", "ab": ["H", "L"], "pep": "P",
      "window": "RRPEGPGAQ", "txlna": [503, 511], "phospho_pos": None},
-    {"id": "ACC4_502_510", "pdb": "2W65", "ab": ["A", "B"], "pep": "E",
-     "window": "ERRPEGPGA", "txlna": [502, 510], "phospho_pos": None},
-    {"id": "SM3_native_control", "pdb": "1SM3", "ab": ["H", "L"], "pep": "P",
-     "window": None, "txlna": None, "phospho_pos": None},
 ]
 
 PARATOPE_CUTOFF = 5.0
@@ -161,7 +166,7 @@ def mpnn_round(tag, pdb, design_chains, designable, nseq, temp, seed):
          f"--jsonl_path={parsed}", f"--chain_id_jsonl={assigned}",
          f"--fixed_positions_jsonl={fixed}", f"--out_folder={out}",
          f"--num_seq_per_target={nseq}", f"--sampling_temp={temp}",
-         f"--seed={seed}", "--batch_size=8"])
+         f"--seed={seed}", "--batch_size=10"])
     fa = list((out / "seqs").glob("*.fa"))[0]
     return parse_fasta_scores(fa.read_text())
 
@@ -243,9 +248,18 @@ def main():
     WORK.mkdir(parents=True, exist_ok=True)
     from humanness import germline_9mer_coverage, load_germline_kmers
     KMERS, kstats = load_germline_kmers()
+    RESULTS.mkdir(exist_ok=True)
+    OUT = RESULTS / "step15_mpnn_rounds.json"
+    done = {}
+    if OUT.exists():
+        done = {e["chimera"]["id"]: e for e in json.loads(OUT.read_text())}
     print(f"humanness reference: {kstats}")
     allres = []
     for ch in CHIMERAS:
+        if ch["id"] in done:
+            print(f"{ch['id']}: already in {OUT.name}, skipping")
+            allres.append(done[ch["id"]])
+            continue
         ab, pep = build(ch)
         chains = ch["ab"]
         sel = {c: expand(paratope(ab[c], pep), len(ab[c])) for c in chains}
@@ -262,7 +276,7 @@ def main():
         designable, frozen = dict(sel), {c: {} for c in chains}
         rounds = []
         for rnd, (nseq, temp) in enumerate(
-                [(200, 0.3), (200, 0.2), (200, 0.1)], start=1):
+                [(80, 0.3), (80, 0.2), (80, 0.1)], start=1):
             if not any(designable.values()):
                 print(f"  round {rnd}: converged, nothing left to design")
                 break
@@ -321,11 +335,14 @@ def main():
                        "native": native, "rounds": rounds,
                        "n_clean": len(clean),
                        "top": (clean or scored)[:10]})
+        # written after EVERY chimera: the run is long enough that a timeout
+        # partway through must not throw away the arms that finished.
+        OUT.write_text(json.dumps(allres, indent=2))
+        print(f"  [saved {len(allres)} chimera(s) to {OUT.name}]")
         print()
 
-    RESULTS.mkdir(exist_ok=True)
-    (RESULTS / "step15_mpnn_rounds.json").write_text(json.dumps(allres, indent=2))
-    print("wrote results/step15_mpnn_rounds.json")
+    OUT.write_text(json.dumps(allres, indent=2))
+    print(f"wrote {OUT} ({len(allres)} chimeras)")
 
 
 if __name__ == "__main__":
