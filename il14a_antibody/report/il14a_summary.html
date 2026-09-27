@@ -1,0 +1,391 @@
+<title>IL-14α C 端结合物设计</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Noto+Sans+SC:wght@400;500;700&family=Noto+Serif+SC:wght@600;700&display=swap">
+<style>
+:root{
+  --ink:#12171a; --ink-2:#39464a; --muted:#67736f;
+  --paper:#f4f5f3; --surface:#ffffff; --sunk:#eceeea;
+  --rule:#d5dad5; --rule-2:#e6e9e4;
+  --verify:#176b63; --verify-soft:#e2efec;
+  --negative:#9c5518; --negative-soft:#f6ece1;
+  --fail:#97292f; --fail-soft:#f7e8e7;
+  --accent:#176b63;
+  --fs-body:15.5px; --lh:1.85;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --ink:#e4eae6; --ink-2:#aebab5; --muted:#8a9793;
+    --paper:#0f1416; --surface:#161d1f; --sunk:#1b2325;
+    --rule:#2b3538; --rule-2:#222b2d;
+    --verify:#5cbcae; --verify-soft:#14302e;
+    --negative:#d7944f; --negative-soft:#312415;
+    --fail:#e07b84; --fail-soft:#331b1d;
+    --accent:#5cbcae;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --ink:#e4eae6; --ink-2:#aebab5; --muted:#8a9793;
+  --paper:#0f1416; --surface:#161d1f; --sunk:#1b2325;
+  --rule:#2b3538; --rule-2:#222b2d;
+  --verify:#5cbcae; --verify-soft:#14302e;
+  --negative:#d7944f; --negative-soft:#312415;
+  --fail:#e07b84; --fail-soft:#331b1d;
+  --accent:#5cbcae;
+}
+*{box-sizing:border-box}
+body{
+  background:var(--paper); color:var(--ink);
+  font-family:"Noto Sans SC","PingFang SC","Hiragino Sans GB","Microsoft YaHei",system-ui,sans-serif;
+  font-size:var(--fs-body); line-height:var(--lh);
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:860px; margin:0 auto; padding-inline:20px; padding-block:0 72px}
+h1,h2,h3{font-family:"Noto Serif SC","Songti SC","SimSun",Georgia,serif; text-wrap:balance; margin:0}
+code,.mono,td.n,th.n{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace}
+.n{font-variant-numeric:tabular-nums}
+
+/* masthead */
+header.top{padding-block:56px 30px; border-bottom:2px solid var(--ink)}
+.kicker{font-family:"IBM Plex Mono",monospace; font-size:11.5px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--verify); margin:0 0 16px}
+h1{font-size:clamp(30px,6.4vw,46px); line-height:1.25; font-weight:700; letter-spacing:-.01em}
+.dek{margin:18px 0 0; font-size:16.5px; color:var(--ink-2); max-width:60ch}
+.meta{margin-top:26px; display:flex; flex-wrap:wrap; gap:8px 26px;
+  font-family:"IBM Plex Mono",monospace; font-size:11.5px; color:var(--muted)}
+.meta span strong{color:var(--ink-2); font-weight:600}
+
+/* figures band */
+.band{display:grid; grid-template-columns:repeat(4,1fr); gap:0;
+  border-bottom:1px solid var(--rule)}
+.band div{padding:24px 18px 26px 0}
+.band div+div{padding-left:18px; border-left:1px solid var(--rule-2)}
+.band b{display:block; font-family:"IBM Plex Mono",monospace; font-variant-numeric:tabular-nums;
+  font-size:clamp(23px,4.6vw,32px); font-weight:600; line-height:1.1; letter-spacing:-.02em}
+.band small{display:block; margin-top:9px; font-size:12px; color:var(--muted); line-height:1.6}
+.band .v b{color:var(--verify)} .band .w b{color:var(--negative)} .band .f b{color:var(--fail)}
+
+/* sections */
+section{padding-block:40px; border-bottom:1px solid var(--rule-2)}
+.step{font-family:"IBM Plex Mono",monospace; font-size:11px; letter-spacing:.14em;
+  color:var(--muted); text-transform:uppercase; margin:0 0 10px}
+h2{font-size:clamp(20px,3.6vw,25px); font-weight:600; line-height:1.4}
+h3{font-size:16.5px; font-weight:600; margin:30px 0 10px}
+p{margin:16px 0 0; max-width:68ch}
+ul,ol{margin:14px 0 0; padding-left:1.25em; max-width:68ch}
+li{margin:7px 0}
+strong{font-weight:700}
+em{font-style:normal; color:var(--verify); font-weight:500}
+
+/* callouts */
+.note{margin-top:22px; padding:16px 18px; border-left:3px solid var(--verify);
+  background:var(--verify-soft); font-size:14.5px; line-height:1.8}
+.note.neg{border-left-color:var(--negative); background:var(--negative-soft)}
+.note.bad{border-left-color:var(--fail); background:var(--fail-soft)}
+.note p{margin:0; max-width:64ch} .note p+p{margin-top:10px}
+.note .lbl{font-family:"IBM Plex Mono",monospace; font-size:10.5px; letter-spacing:.14em;
+  text-transform:uppercase; display:block; margin-bottom:7px; font-weight:600}
+.note .lbl{color:var(--verify)} .note.neg .lbl{color:var(--negative)} .note.bad .lbl{color:var(--fail)}
+
+/* tables */
+.scroll{overflow-x:auto; margin-top:22px; -webkit-overflow-scrolling:touch}
+table{border-collapse:collapse; width:100%; min-width:520px; font-size:13.5px}
+caption{caption-side:top; text-align:left; font-size:12.5px; color:var(--muted);
+  padding-bottom:9px; line-height:1.65}
+th{text-align:left; font-weight:600; font-size:11.5px; letter-spacing:.06em;
+  text-transform:uppercase; color:var(--muted); border-bottom:1px solid var(--ink);
+  padding:0 14px 8px 0; white-space:nowrap}
+td{padding:9px 14px 9px 0; border-bottom:1px solid var(--rule-2); vertical-align:top}
+tr:last-child td{border-bottom:none}
+td.n,th.n{text-align:right; padding-right:14px}
+tbody tr.hi td{background:var(--verify-soft)}
+tbody tr.hi td:first-child{box-shadow:inset 3px 0 0 var(--verify)}
+td.pos{color:var(--verify); font-weight:600}
+td.neg{color:var(--negative); font-weight:600}
+td.bad{color:var(--fail); font-weight:600}
+
+/* sequence block */
+.seq{margin-top:22px; padding:18px 18px 16px; background:var(--sunk);
+  border:1px solid var(--rule-2); overflow-x:auto}
+.seq pre{margin:0; font-family:"IBM Plex Mono",monospace; font-size:13.5px;
+  line-height:2.05; white-space:pre}
+.seq .m{color:var(--verify); font-weight:600}
+.seq .lab{color:var(--muted)}
+.seq figcaption{margin-top:12px; font-size:12.5px; color:var(--muted); line-height:1.7}
+
+code{background:var(--sunk); padding:1px 5px; font-size:.9em; border-radius:2px}
+.foot{padding-block:34px 0; font-size:13px; color:var(--muted)}
+.foot p{max-width:68ch}
+.foot code{background:none; padding:0; color:var(--ink-2)}
+@media (max-width:640px){
+  .band{grid-template-columns:repeat(2,1fr)}
+  .band div{padding:20px 14px 20px 0}
+  .band div:nth-child(odd){padding-left:0; border-left:none}
+  .band div:nth-child(even){padding-left:14px; border-left:1px solid var(--rule-2)}
+  .band div:nth-child(n+3){border-top:1px solid var(--rule-2)}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important; transition:none!important}}
+</style>
+
+<div class="wrap">
+
+<header class="top">
+  <p class="kicker">TXLNA / P40222 · 阻断抗体设计</p>
+  <h1>IL-14α C 端结合物:<br>借骨架、重设计、人源化</h1>
+  <p class="dek">从 1C6 表位区出发,不做从头设计,而是在 PDB 里找到化学性质相同的表位所对应的真实抗体骨架,把 TXLNA 穿上去,用 ProteinMPNN 重设计 paratope,再移植到人源种系骨架。交付 18 对 VH/VL。</p>
+  <div class="meta">
+    <span><strong>靶点</strong> α-taxilin(TXLNA,UniProt P40222,546 aa)</span>
+    <span><strong>表位</strong> 502–523 <code>ERRPEGPGAQAPSSPRVTEAPC</code></span>
+    <span><strong>分支</strong> claude/amazing-einstein-2hccxc</span>
+  </div>
+</header>
+
+<div class="band">
+  <div class="v"><b>96</b><small>经实测接触验证的<br>抗体–多肽复合物</small></div>
+  <div class="v"><b>66.7%</b><small>原生对照的 paratope<br>序列复原率(中位)</small></div>
+  <div class="v"><b>18</b><small>人源化 VH/VL<br>候选序列对</small></div>
+  <div class="f"><b>12</b><small>途中修掉的<br>静默 bug</small></div>
+</div>
+
+<section>
+  <p class="step">结论</p>
+  <h2>能做,但要说清楚做出来的是什么</h2>
+  <p>这条路能走通,而且关键不在"装上 ProteinMPNN",在于<strong>骨架从哪来</strong>。ProteinMPNN 是逆折叠模型 —— 读骨架、写序列,它发明不出骨架。1C6 表位无序、没有复合物结构、没有疏水核心供扩散模型成核,所以从头设计在这里失败的原因是<em>表位组成</em>,不是工具选型。</p>
+  <p>骨架的来源就是"数据库里结合类似多肽的抗体"。无偏扫描 1759 条 PDB 条目后,打分最高的类比是<strong>抗 MUC1 抗体 SM3 结合串联重复</strong> —— 同样零芳香环、三分之一 Pro+Gly、游离时无序,而抗体照样抓得住。</p>
+  <div class="note neg">
+    <span class="lbl">必须先说的限度</span>
+    <p>对照显示,约<strong>三分之二的设计信号来自骨架,三分之一来自表位身份</strong>。这 18 条序列应被理解为<strong>偏向 TXLNA 的 SM3 变体</strong>,不是 TXLNA 原生 paratope。这正是"优先从已有抗体做优化"会得到的结果。</p>
+  </div>
+</section>
+
+<section>
+  <p class="step">Step 13 · 数据库挖掘</p>
+  <h2>让 PDB 自己找出化学性质相同的表位</h2>
+  <p>筛选按"让从头设计失败的那几个轴"加权:芳香环比例、大疏水比例、Pro+Gly 比例。TXLNA 502–523 的基线是 <span class="mono">芳香 0.0% / 大疏水 4.5% / Pro+Gly 31.8%</span>。</p>
+  <div class="scroll">
+  <table>
+    <caption>三级过滤:Pfam 注释 → 序列判定真抗体 → 逐原子实测接触</caption>
+    <thead><tr><th>过滤步骤</th><th class="n">剩余条目</th><th>判据</th></tr></thead>
+    <tbody>
+      <tr><td>RCSB 检索</td><td class="n mono">1759</td><td>带 Ig 结构域注释(<code>PF07686</code> V-set / <code>PF00047</code> / <code>PF16135</code> / <code>PF07654</code> C1-set)且含 6–40 aa 蛋白 entity</td></tr>
+      <tr><td>序列判定抗体</td><td class="n mono">149</td><td>重链 J 区 <code>W-G-x-G</code>;TCR α/β 与 MHC 用 <code>F-G-x-G</code> 或没有 → TCR–pMHC 全部剔除</td></tr>
+      <tr class="hi"><td>实测接触</td><td class="n mono">96</td><td>下载结构逐原子计算;长度合适的 entity <strong>不等于</strong>抗原</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p>只用 V-set(<code>PF07686</code>)检索只能拿到 132 条 —— Fab 的注释大多挂在恒定域上。这是第一个召回陷阱。</p>
+  <div class="scroll">
+  <table>
+    <caption>打分前八名:前六全是抗 MUC1 抗体 SM3 系列。这不是挑出来的类比,是排出来的。</caption>
+    <thead><tr><th>名次</th><th>PDB</th><th class="n">分辨率 Å</th><th class="n">距离</th><th class="n">芳香</th><th class="n">大疏水</th><th class="n">Pro+Gly</th><th>表位肽</th></tr></thead>
+    <tbody>
+      <tr class="hi"><td class="n">1</td><td class="mono">5A2K</td><td class="n mono">1.70</td><td class="n mono">0.123</td><td class="n mono">0%</td><td class="n mono">0%</td><td class="n mono">33%</td><td class="mono">APDTRP</td></tr>
+      <tr class="hi"><td class="n">2</td><td class="mono">5A2J</td><td class="n mono">1.65</td><td class="n mono">0.123</td><td class="n mono">0%</td><td class="n mono">0%</td><td class="n mono">33%</td><td class="mono">APDTRP</td></tr>
+      <tr><td class="n">3</td><td class="mono">5A2I</td><td class="n mono">1.88</td><td class="n mono">0.124</td><td class="n mono">0%</td><td class="n mono">0%</td><td class="n mono">33%</td><td class="mono">APDSRP</td></tr>
+      <tr><td class="n">4</td><td class="mono">5A2L</td><td class="n mono">1.79</td><td class="n mono">0.141</td><td class="n mono">0%</td><td class="n mono">0%</td><td class="n mono">33%</td><td class="mono">APDCRP</td></tr>
+      <tr><td class="n">5</td><td class="mono">5N7B</td><td class="n mono">1.70</td><td class="n mono">0.161</td><td class="n mono">0%</td><td class="n mono">0%</td><td class="n mono">29%</td><td class="mono">APDCRP·Tn</td></tr>
+      <tr><td class="n">6</td><td class="mono">5OWP</td><td class="n mono">1.85</td><td class="n mono">0.264</td><td class="n mono">0%</td><td class="n mono">0%</td><td class="n mono">25%</td><td class="mono">SAPDTRPA</td></tr>
+      <tr class="hi"><td class="n">7</td><td class="mono">2W65</td><td class="n mono">2.21</td><td class="n mono">0.289</td><td class="n mono">0%</td><td class="n mono">11%</td><td class="n mono">44%</td><td class="mono">ARG·Cit·LTGRPG</td></tr>
+      <tr class="hi"><td class="n">8</td><td class="mono">1SM3</td><td class="n mono">1.95</td><td class="n mono">0.291</td><td class="n mono">0%</td><td class="n mono">0%</td><td class="n mono">31%</td><td class="mono">TSAPDTRPAPGST</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p><code>1SM3</code>(SM3 Fab,VH+VL 完整)成为主设计骨架;<code>2W65</code>(抗瓜氨酸化 II 型胶原抗体 ACC4)作为独立骨架和 PTM 先例并行推进。</p>
+</section>
+
+<section>
+  <p class="step">Step 13b · 磷酸化模板</p>
+  <h2>PDB 里不存在抗体–磷酸肽共晶</h2>
+  <p>全文检索 <code>phosphopeptide</code> / <code>phosphoserine</code> / <code>phosphothreonine</code> / <code>phosphotyrosine</code> 加 Ig 注释加短肽,并集 36 条,逐条过同一条判定流水线。</p>
+  <div class="note bad">
+    <span class="lbl">决定性否定</span>
+    <p><strong>35/36 没有抗体重链</strong> —— 它们全部是 MHC-I 把磷酸肽呈递给 TCR(<code>RQASLSISV</code>、<code>EPRSPSHSM</code>、<code>RLSSPLHFV</code> 等典型 HLA-A2 磷酸表位)。磷酸特异 paratope 没有可移植的结构模板。</p>
+  </div>
+  <p>但排名第 7 的 <code>2W65</code> 是一个可用的先例:抗瓜氨酸化胶原抗体,表位 <code>ARGLTGRPG</code> —— Pro/Gly 富集、无序,而且<strong>识别的正是一个翻译后修饰</strong>。瓜氨酸比磷酸更小更中性,特异识别更难。所以这类表位上的 PTM 特异抗体在结构上成立,只是磷酸这一支得自己建口袋。</p>
+</section>
+
+<section>
+  <p class="step">Step 14 · 骨架穿线</p>
+  <h2>移植不是改残基名:用拉氏角当筛子</h2>
+  <p>脯氨酸的环把 φ 锁在 −63° 附近,而<strong>只有甘氨酸</strong>能待在正 φ 区。一个穿线只有在每个脯氨酸都落在能容纳脯氨酸的 φ 上、且没有非甘氨酸落在正 φ 上时才成立。</p>
+  <div class="scroll">
+  <table>
+    <caption>同一个 22 聚体,在两个骨架上的通过率差了 14 倍 —— 筛子在干活,不是摆设</caption>
+    <thead><tr><th>模板</th><th>有序表位</th><th>骨架特征</th><th class="n">可穿窗口</th></tr></thead>
+    <tbody>
+      <tr><td class="mono">1SM3</td><td class="mono">SAPDTRPAP</td><td>φ 全为负(−59…−97),整段 PPII</td><td class="n pos">14 / 14</td></tr>
+      <tr><td class="mono">5A2J</td><td class="mono">APDTRP</td><td>同上</td><td class="n pos">17 / 17</td></tr>
+      <tr><td class="mono">2W65</td><td class="mono">ARG·Cit·LTG·Gly⁺</td><td>含一个 <strong>φ = +96° 的甘氨酸</strong></td><td class="n neg">1 / 14</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p>ACC4 只放行一个窗口:<code>ERRPEGPGA</code>(TXLNA 502–510),因为 <strong>TXLNA 的 G508 正好落在那个左手位</strong>。13 个窗口被这条硬约束挡掉。</p>
+  <figure class="seq">
+    <pre><span class="lab">MUC1 模板    </span><span class="m">S</span> A <span class="m">P</span> D T R P <span class="m">A</span> <span class="m">P</span>
+<span class="lab">TXLNA 514–522</span> <span class="m">S</span> S <span class="m">P</span> R V T E <span class="m">A</span> <span class="m">P</span></pre>
+    <figcaption>SM3 上按埋藏位匹配度最优的窗口。<strong>两个脯氨酸(位 3、位 9)完全对齐</strong>,加上 S1、A8,同一性 0.44 —— TXLNA 514–522 是 MUC1 <code>SAPDTRPAP</code> 的天然模拟物。</figcaption>
+  </figure>
+  <p>接触法自动选出的可设计位点全部落在标准 CDR 上(H27/31–33、H52、H95–97/100、L30/54/89/91/94)。没有用任何编号方案就还原了 CDR,这是一个有力的自检。</p>
+</section>
+
+<section>
+  <p class="step">Step 15 · 四轮设计</p>
+  <h2>轮间冻结共识,让每一轮真正产生信息</h2>
+  <p>R1 自由设计所有 paratope 位点(T=0.3);R2 冻结 R1 前 10% 共识的位点,其余在 T=0.2 重设计;R3 同法 T=0.1 收敛;R4 不采样,只打分加责任基序过滤加人源性评估。把同一个无约束分布采样四遍,是四倍算力换一轮信息。</p>
+  <div class="scroll">
+  <table>
+    <caption>括号内为该轮可设计位点数;score 为 ProteinMPNN global_score(越低越好)</caption>
+    <thead><tr><th>嵌合体</th><th>表位</th><th class="n">R1</th><th class="n">R2</th><th class="n">R3</th><th class="n">复原率(中位)</th></tr></thead>
+    <tbody>
+      <tr class="hi"><td class="mono">SM3_native_control</td><td class="mono">SAPDTRPAP</td><td class="n mono">1.2289 (33)</td><td class="n mono">1.2432 (12)</td><td class="n mono">1.2581 (7)</td><td class="n pos">66.7%</td></tr>
+      <tr><td class="mono">SM3_514_522</td><td class="mono">SSPRVTEAP</td><td class="n mono">1.2495 (33)</td><td class="n mono">1.2717 (11)</td><td class="n mono">1.2873 (6)</td><td class="n">63.6%</td></tr>
+      <tr><td class="mono">SM3_511_519</td><td class="mono">QAPSSPRVT</td><td class="n mono">1.2761 (33)</td><td class="n mono">1.2904 (12)</td><td class="n mono">1.3071 (6)</td><td class="n">66.7%</td></tr>
+      <tr><td class="mono">SM3_503_511</td><td class="mono">RRPEGPGAQ</td><td class="n mono">1.2767 (33)</td><td class="n mono">1.3000 (10)</td><td class="n mono">1.3091 (6)</td><td class="n">54.6%</td></tr>
+      <tr><td class="mono">ACC4_502_510</td><td class="mono">ERRPEGPGA</td><td class="n mono">1.2556 (41)</td><td class="n mono">1.2950 (18)</td><td class="n mono">1.3092 (7)</td><td class="n">53.7%</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <div class="note">
+    <span class="lbl">对照怎么读</span>
+    <p>跑在模板自己的表位上时,<strong>正确答案是已知的</strong> —— SM3 真实的 CDR。MPNN 复原了 <strong>66.7%</strong>(最好 78.8%)。对 ProteinMPNN 的界面位点而言这是高的,说明流水线在做事,不是输出噪声。</p>
+    <p>global_score 逐轮上升不是退化:R2/R3 被前一轮共识钉住了 21 和 5 个位点,是在更小的可行域里找最优 —— 用一点最优性换收敛。</p>
+  </div>
+</section>
+
+<section>
+  <p class="step">Step 18 · 决定性对照</p>
+  <h2>MPNN 到底有没有在响应"是哪一条肽"?</h2>
+  <p>这个问题是被 step 15 的输出逼出来的:给 TXLNA 移植体提的突变,和给原生 MUC1 对照提的几乎一样(<code>T28D</code>、<code>M34A</code>、<code>R52G</code>、<code>G100T</code>、<code>G102N</code>、<code>A105G</code>、<code>Y93F</code>、<code>H96T</code> 两边都有)。如果换表位不换设计,那这些就不是 TXLNA 的设计,是 SM3 paratope 的通用修补。</p>
+  <div class="scroll">
+  <table>
+    <caption>同一骨架,四个条件,同种子同温度各 80 条。TV = 每个可设计位点上氨基酸分布的总变差距离均值。</caption>
+    <thead><tr><th>比较</th><th>表位序列相似度</th><th class="n">共识位点一致率</th><th class="n">TV 距离</th></tr></thead>
+    <tbody>
+      <tr><td>移植 vs <strong>原生</strong>表位</td><td class="mono">0.44</td><td class="n mono">84.8%</td><td class="n mono">0.053</td></tr>
+      <tr><td>移植 vs <strong>打乱</strong>表位</td><td class="mono">0.11</td><td class="n mono">81.8%</td><td class="n mono">0.137</td></tr>
+      <tr class="hi"><td>移植 vs <strong>完全去掉肽链</strong></td><td class="mono">—</td><td class="n mono">75.8%</td><td class="n mono">0.258</td></tr>
+      <tr><td>原生 vs 完全去掉肽链</td><td class="mono">—</td><td class="n mono">75.8%</td><td class="n mono">0.267</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p><strong>顺序是对的:表位越像,设计越像。</strong>打乱肽与移植体组成相同、位置同一性仅 1/9,它拉开的距离(0.137)是原生肽(同一性 0.44)的 2.6 倍;而整条肽拿掉拉开 0.258。</p>
+  <div class="note neg">
+    <span class="lbl">诚实的读法</span>
+    <p>换表位改变约 <strong>5–6 / 33</strong> 个位点的共识,拿掉肽链改变 <strong>8</strong> 个。约三分之二的设计信号来自骨架,三分之一来自表位身份。这些序列是<strong>偏向 TXLNA 的 SM3 变体</strong>。</p>
+  </div>
+</section>
+
+<section>
+  <p class="step">Step 16 · 磷酸化臂</p>
+  <h2>把磷酸当配体上下文,并验证它真的被看见了</h2>
+  <p>ProteinMPNN 只读 N/CA/C/O,<strong>磷酸对它不可见</strong> —— 让它"为磷酸化肽设计"会得到和非磷酸化完全一样的序列,差异纯属装饰。LigandMPNN 不同:prody 把"非蛋白非水"的原子选作配体上下文,所以把磷酸基团写成 HETATM <code>PO4</code> 就能被看见。</p>
+  <h3>磷酸位点放哪儿不是随便定的</h3>
+  <p>非磷酸臂选的 514–522 窗口把 S515 放在窗口第 2 位,那里 36/36 个转子全部无主链冲突 —— 听起来很好,实际意思相反:<strong>磷酸指向溶剂,paratope 根本碰不到它</strong>。所以磷酸臂改按埋藏度和口袋化学另选窗口。</p>
+  <div class="scroll">
+  <table>
+    <caption>三个含 S515 的候选窗口。埋藏 = 磷酸基团 6 Å 内的抗体重原子数。</caption>
+    <thead><tr><th>窗口</th><th class="n">pS 在窗口第几位</th><th>模板残基</th><th class="n">无主链冲突转子</th><th class="n">埋藏</th><th>口袋</th></tr></thead>
+    <tbody>
+      <tr class="hi"><td class="mono">512–520 APSSPRVTE</td><td class="n">4</td><td class="mono pos">ASP</td><td class="n mono">13 / 36</td><td class="n mono">145</td><td class="mono">H33W H34M H35N H50E H51I <strong>H52R</strong></td></tr>
+      <tr class="hi"><td class="mono">513–521 PSSPRVTEA</td><td class="n">3</td><td class="mono">PRO</td><td class="n mono">32 / 36</td><td class="n mono pos">173</td><td class="mono">L31N L32Y L91W L92Y L93S L96W</td></tr>
+      <tr><td class="mono">514–522 SSPRVTEAP</td><td class="n">2</td><td class="mono">ALA</td><td class="n mono">36 / 36</td><td class="n mono neg">94</td><td>朝向溶剂</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p>512–520 在化学上最说得通:<strong>模板在该位本来就是 Asp,说明口袋已经在结合一个阴离子,而且旁边就有 H52 Arg</strong>。</p>
+  <h3>原子上下文开关对照</h3>
+  <p>同一结构、同一种子,只切换 <code>--ligand_mpnn_use_atom_context</code> 1 / 0,各 100 条。</p>
+  <div class="scroll">
+  <table>
+    <caption>如果磷酸不影响设计,两组应当无差别。它有差别,而且方向与化学预期一致。</caption>
+    <thead><tr><th>窗口</th><th class="n">共识或碱性含量改变的位点</th><th class="n">碱性残基采样(可见)</th><th class="n">(隐藏)</th><th class="n">差值</th><th>H52 碱性频率</th></tr></thead>
+    <tbody>
+      <tr><td class="mono">512–520</td><td class="n mono">4 / 33</td><td class="n mono">363</td><td class="n mono">323</td><td class="n pos">+40</td><td class="mono">0.57 → <strong>0.81</strong></td></tr>
+      <tr><td class="mono">513–521</td><td class="n mono">6 / 33</td><td class="n mono">380</td><td class="n mono">348</td><td class="n pos">+32</td><td class="mono">0.54 → <strong>0.75</strong></td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p>增量落在对的位置:<strong>H52 就是口袋里那个天然精氨酸位</strong>。设计出的 CDR-L3 也出现了 <code>ALWFGD<strong>R</strong>LV</code>、<code>ALWYDD<strong>R</strong>LV</code>。效应不大,但真实且可复算。</p>
+</section>
+
+<section>
+  <p class="step">Step 17 / 19 · 交付</p>
+  <h2>18 对人源化 VH/VL</h2>
+  <p>SM3 和 ACC4 都是鼠源抗体,重设计只动了 paratope,骨架仍是鼠源 —— 而鼠源骨架正是这个项目一开始要解决的免疫原性问题。所以设计出的 CDR 被移植到最近的人源种系 V 基因上。</p>
+  <div class="scroll">
+  <table>
+    <caption>每个窗口列出第 1 名,文件中每个窗口各有 3 条。9-mer 覆盖为人源种系九肽覆盖率(人源性代理指标,非 OASis)。</caption>
+    <thead><tr><th>ID</th><th>TXLNA 窗口</th><th>CDR-H3</th><th>CDR-L3</th><th>受体 VH / VL</th><th class="n">VH 覆盖(鼠→人)</th><th class="n">责任基序</th></tr></thead>
+    <tbody>
+      <tr><td class="mono">SM3_514_522_d1</td><td class="mono">514–522 SSPRVTEAP</td><td class="mono">TTMNQFGY</td><td class="mono">ALWFNNTWV</td><td class="mono">IGHV3-11 / IGLV7-43</td><td class="n mono">0.107 → <strong>0.486</strong></td><td class="n mono">2</td></tr>
+      <tr><td class="mono">SM3_511_519_d1</td><td class="mono">511–519 QAPSSPRVT</td><td class="mono">TTAGQFSY</td><td class="mono">ALWFNNTWV</td><td class="mono">IGHV3-7 / IGLV7-43</td><td class="n mono">0.107 → <strong>0.495</strong></td><td class="n mono">2</td></tr>
+      <tr><td class="mono">SM3_503_511_d1</td><td class="mono">503–511 RRPEGPGAQ</td><td class="mono">TTANQFSY</td><td class="mono">ALWFDDTWV</td><td class="mono">IGHV3-11 / IGLV7-46</td><td class="n mono">0.107 → <strong>0.486</strong></td><td class="n mono">1</td></tr>
+      <tr><td class="mono">ACC4_502_510_d1</td><td class="mono">502–510 ERRPEGPGA</td><td class="mono">AISTSDSPLAY</td><td class="mono">WQQTHYPIT</td><td class="mono">IGHV1-3 / IGKV2D-30</td><td class="n mono">0.025 → <strong>0.527</strong></td><td class="n mono">1</td></tr>
+      <tr class="hi"><td class="mono">pS515_512_520_d1</td><td class="mono">512–520 APSSPRVTE · pS@4</td><td class="mono">TLGGQMAY</td><td class="mono">ALWFGD<strong>R</strong>LV</td><td class="mono">IGHV3-48 / IGLV7-46</td><td class="n mono">— → <strong>0.486</strong></td><td class="n mono">2</td></tr>
+      <tr class="hi"><td class="mono">pS515_513_521_d1</td><td class="mono">513–521 PSSPRVTEA · pS@3</td><td class="mono">TLGGQFAH</td><td class="mono">ALGFGD<strong>R</strong>LV</td><td class="mono">IGHV3-21 / IGLV7-43</td><td class="n mono">— → <strong>0.486</strong></td><td class="n mono">3</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <h3>人源化是怎么做的</h3>
+  <p>容器里没有 ANARCI,所以 CDR 由夹住它们的骨架基序定位,并且<strong>先在三条 CDR 已知的链上验证锚点</strong>(SM3 重链 CDR-H3 <code>TGVGQFAY</code>、SM3 λ 轻链、ACC4 κ 轻链)—— 验证不过脚本直接拒绝往下走。</p>
+  <p>受体不是简单取"同一性最高",而是按同一性排序后取<strong>第一个能被拆解且恰好带两个规范半胱氨酸</strong>的。<code>IGHV7-4-1</code> 因此被拒:UniProt 记录 <code>A0A0J9YVY3</code> 在 FR3 写的是 <code>AYLQI</code><strong>C</strong><code>SLKAEDT</code>(规范等位基因是 Ser),拿它当受体会得到一条带游离巯基的 V 域。</p>
+</section>
+
+<section>
+  <p class="step">限度</p>
+  <h2>这些数字不是什么</h2>
+  <ul>
+    <li><strong>MPNN 分数不是亲和力。</strong>它是"给定骨架下序列的负对数似然",回答的是"这个 paratope 对着这段表位骨架好不好搭、好不好装",不回答 K<sub>d</sub>。本报告任何排名都不得被读作预测亲和力。</li>
+    <li><strong>骨架是借来的。</strong>所有设计共用 SM3(或 ACC4)那条被结合的肽的主链构象。这条假设本身可证伪 —— step 14 的脯氨酸 φ 判据就在证伪它 —— 但"TXLNA 在真实抗体里会不会采用这个构象"只能靠实验回答。</li>
+    <li><strong>没有做侧链重装、能量最小化、MD 或复折叠验证。</strong>本项目此前已证明 Boltz 共折叠在这个靶点过不了同一 paratope 对照(信号/伪影比 1.27),用一个已知在此靶点失效的打分器去背书,比不验证更糟。</li>
+    <li><strong>18 对序列是候选,不是结论。</strong>它们给湿实验一个有结构依据的起点,不替代 1C6 / 1F2 那条已有功能证据的路线(6.16 nM / 1.6 nM,1C6 能阻断 IL-14α 驱动的 B 细胞增殖)。</li>
+  </ul>
+</section>
+
+<section>
+  <p class="step">质量</p>
+  <h2>12 个静默 bug</h2>
+  <p>都是不报错、结果照出的那种。其中第 3、6、9、12 条最危险 —— 它们给出的结果<strong>看起来完全正常</strong>。</p>
+  <div class="scroll">
+  <table>
+    <thead><tr><th class="n">#</th><th>bug</th><th>症状</th><th>影响</th></tr></thead>
+    <tbody>
+      <tr><td class="n">1</td><td>PDB 输出列偏一位</td><td>chainID 落进 resName 字段</td><td>ProteinMPNN 报"找不到链 H"</td></tr>
+      <tr><td class="n">2</td><td>溶剂计入表位</td><td>1SM3 把 60 个水放在肽链 P 里</td><td>9 肽报出 21 个"接触残基"</td></tr>
+      <tr class="hi"><td class="n">3</td><td>残基键未含插入码</td><td>H52A/B/C、L27A/B/C、H82A/B/C 被并进前一残基</td><td>重链 205 而非 211,<strong>吞掉的正是 CDR</strong></td></tr>
+      <tr><td class="n">4</td><td>mmCIF 用 <code>line[:6]</code> 判行首</td><td>非列对齐文件漏读</td><td>验证复合物从 101 掉到 87</td></tr>
+      <tr><td class="n">5</td><td>未禁用 Cys</td><td>81/81 对照设计带 <code>A105C</code>+<code>A56C</code></td><td>每条都有游离巯基</td></tr>
+      <tr class="hi"><td class="n">6</td><td>取"整链最后一个 Cys"</td><td>落进 CH1 / CL</td><td><strong>CDR-H3 全为空</strong>,移植带进恒定域残基</td></tr>
+      <tr><td class="n">7</td><td>信号肽未剪</td><td><code>IGLV7-43</code> 保留 <code>MAWTPLFLFLLTCC…</code></td><td>人源化轻链 4 个 Cys</td></tr>
+      <tr><td class="n">8</td><td>轻链套用重链 FR2 锚点</td><td>Vλ 是 <code>WVQE</code> 不是 <code>WYQQ</code></td><td><code>split_light</code> 返回 None</td></tr>
+      <tr class="hi"><td class="n">9</td><td>CDR-H2 锚点写死 <code>EW</code></td><td>ACC4 是 <code>GLKWMG</code></td><td><strong>整条 ACC4 臂无声消失</strong></td></tr>
+      <tr><td class="n">10</td><td>FR3 锚点过窄</td><td><code>IGHV7-4-1</code> 是 <code>RFVFS</code></td><td>受体拆不开</td></tr>
+      <tr><td class="n">11</td><td>保守骨架未保护</td><td>W47(VH/VL 界面 Trp)进了可设计集</td><td>MPNN 把它改成 Tyr</td></tr>
+      <tr class="hi"><td class="n">12</td><td>把 FASTA 第一条当设计</td><td>MPNN 回显输入序列</td><td><strong>"最佳设计"其实是 SM3 原生 CDR</strong></td></tr>
+    </tbody>
+  </table>
+  </div>
+</section>
+
+<section>
+  <p class="step">下一步</p>
+  <h2>按信息量除以成本排序</h2>
+  <ol>
+    <li><strong>合成 3 条免疫原肽(P1 / P2 / P3)加 2 条对照做免疫。</strong>这仍是全项目成功概率最高的一步 —— 1C6 / 1F2 已经证明这段区域能出高亲和力抗体,且 1C6 能阻断 B 细胞增殖。</li>
+    <li><strong>把 18 对序列做成 scFv / Fab 小库表达,对 P1 / P2 / P3 做 ELISA 分箱。</strong>代价小,能直接回答"借来的骨架加 MPNN 优化"这条路在这个表位上到底行不行。<strong>必须把 SM3 野生型作为对照一起测</strong> —— 若设计不优于 SM3 野生型对 TXLNA 肽的背景结合,说明设计没有增值。</li>
+    <li><strong>磷酸臂只在第 1 步的反向筛选显示 pS515 确实存在于内源蛋白上时才推进</strong>,否则做的是一个针对不存在的 proteoform 的探针。</li>
+  </ol>
+</section>
+
+<div class="foot">
+  <p><strong>产物</strong><br>
+  <code>results/IL14A_ctd_designed_humanised.fasta</code> — 18 对人源化 VH/VL<br>
+  <code>results/IL14A_ctd_immunogen_panel.fasta</code> — 免疫原肽组合(含磷酸版与两条对照)<br>
+  <code>results/step13…step19_*.json</code> — 各步完整数据<br>
+  <code>REPORT.md</code> — 完整技术报告(38 节)</p>
+  <p><strong>工具</strong><br>
+  ProteinMPNN(<code>v_48_020</code>)· LigandMPNN(<code>ligandmpnn_v_32_010_25</code>)· RCSB Search / GraphQL · Biopython · prody。CPU 运行,无 GPU。</p>
+</div>
+
+</div>
