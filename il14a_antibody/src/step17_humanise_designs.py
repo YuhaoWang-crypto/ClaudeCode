@@ -33,10 +33,22 @@ J_HEAVY = "WGQGTLVTVSS"
 J_KAPPA = "FGQGTKVEIK"
 J_LAMBDA = "FGGGTKLTVL"
 
-CYS1 = re.compile(r"C")
 FR2_TRP = re.compile(r"W[VIL][RKQGS]Q")
-H2_START = re.compile(r"[LMV]EW[VIAML][GASVN]")
-H2_END = re.compile(r"R[FLVIA][TAS][IFLMV][ST]")
+# Light chains do NOT share the heavy chain's W-V-R-Q. SM3's lambda reads
+# WVQE and ACC4's kappa reads WLLQ, so the light FR2 anchor is its own
+# pattern, and it is searched only in the window where CDR-L1 can end
+# (7-25 residues after the FR1 cysteine) so a tryptophan inside CDR-L1
+# cannot be mistaken for it.
+FR2_TRP_L = re.compile(r"W[YVFLAIM][QLRHY][QKELRV]")
+# Murine heavy chains do not all read L-E-W: ACC4's FR2 is G-L-K-W-M-G, so
+# hard-coding the glutamate made split_heavy return None for it and dropped
+# the entire ACC4 arm without a word.
+H2_START = re.compile(r"[LMVIF][EKQRDNSTG]W[VIAMLFY][GASVNT]")
+# FR3 opens R-F-T-I-S in most germlines but IGHV7-4-1 reads R-F-V-F-S, and
+# the narrower pattern silently returned None for it, taking the whole ACC4
+# arm with it. Constrained to the window just after CDR-H2 starts, so the
+# looser character classes cannot wander.
+H2_END = re.compile(r"R[FLVIAM][TASVG][IFLMVT][ST]")
 CYS2 = re.compile(r"[YFHVA][YFCHVMTL]C")
 J_H = re.compile(r"WG[QKRAE]G")
 J_L = re.compile(r"FG[QGSEA]G")
@@ -49,26 +61,39 @@ def split_heavy(seq):
         return None
     cdr1 = seq[c1 + 4:w.start()]
     m2s = H2_START.search(seq, w.end())
-    m2e = H2_END.search(seq, m2s.end() if m2s else w.end())
-    if not m2s or not m2e:
+    if not m2s:
+        return None
+    m2e = H2_END.search(seq, m2s.end())
+    if not m2e or m2e.start() > m2s.end() + 40:
         return None
     cdr2 = seq[m2s.end():m2e.start() - 3]
+    # The J-region motif is located FIRST and the CDR3 cysteine is then the
+    # last one BEFORE it. Taking the last cysteine in the whole chain instead
+    # lands in CH1 - these sequences are VH+CH1, not VH - and then no WG.G
+    # follows it, so CDR-H3 comes back empty and the graft silently carries
+    # constant-domain residues.
+    j = J_H.search(seq, m2e.end())
+    limit = j.start() if j else len(seq)
     c2 = None
     for m in CYS2.finditer(seq, m2e.end()):
-        c2 = m.start() + 2
-    j = J_H.search(seq, (c2 or 0) + 1)
+        if m.start() + 2 < limit:
+            c2 = m.start() + 2
     if c2 is None:
         return None
-    cdr3 = seq[c2 + 1:j.start()] if j else ""
+    cdr3 = seq[c2 + 1:limit]
     return {"FR1": seq[:c1 + 4], "CDR1": cdr1, "FR2": seq[w.start():m2s.end()],
             "CDR2": cdr2, "FR3": seq[m2e.start() - 3:c2 + 1], "CDR3": cdr3,
-            "post": seq[j.start():] if j else ""}
+            "post": seq[limit:]}
 
 
 def split_light(seq):
     c1 = seq.find("C", 15)
-    w = FR2_TRP.search(seq, c1)
-    if c1 < 0 or not w:
+    if c1 < 0:
+        return None
+    w = FR2_TRP_L.search(seq, c1 + 7)
+    if not w or w.start() > c1 + 25:
+        w = FR2_TRP.search(seq, c1 + 7)
+    if not w:
         return None
     cdr1 = seq[c1 + 1:w.start()]
     # FR2 of a light chain is 15 residues from the conserved Trp; CDR-L2 is
@@ -76,16 +101,92 @@ def split_light(seq):
     # motif itself sits inside the loop in some germlines.
     s2, e2 = w.start() + 15, w.start() + 22
     cdr2 = seq[s2:e2]
+    j = J_L.search(seq, e2)
+    limit = j.start() if j else len(seq)
     c2 = None
     for m in CYS2.finditer(seq, e2):
-        c2 = m.start() + 2
+        if m.start() + 2 < limit:
+            c2 = m.start() + 2
     if c2 is None:
         return None
-    j = J_L.search(seq, c2 + 1)
-    cdr3 = seq[c2 + 1:j.start()] if j else ""
+    cdr3 = seq[c2 + 1:limit]
     return {"FR1": seq[:c1 + 1], "CDR1": cdr1, "FR2": seq[w.start():s2],
             "CDR2": cdr2, "FR3": seq[e2:c2 + 1], "CDR3": cdr3,
-            "post": seq[j.start():] if j else ""}
+            "post": seq[limit:]}
+
+
+def mature_v(seq, kind):
+    """Strip the signal peptide from a germline V gene.
+
+    humanness._trim_signal_peptide leaves roughly half of them untrimmed -
+    IGLV7-43 comes back still carrying MAWTPLFLFLLTCC..., whose two leader
+    cysteines then land in the graft and make the "humanised" light chain
+    read four cysteines. The mature domain's first cysteine is at IMGT 23, so
+    the start is 22 residues before it, nudged forward to the first residue
+    that actually begins a V domain.
+    """
+    anchor = (FR2_TRP if kind == "H" else FR2_TRP_L).search(seq, 20)
+    if not anchor:
+        return seq
+    c1 = None
+    for i in range(anchor.start() - 20, anchor.start() - 10):
+        if 0 <= i < len(seq) and seq[i] == "C":
+            c1 = i
+    if c1 is None:
+        return seq
+    start = max(0, c1 - 22)
+    window = range(start, min(start + 5, len(seq)))
+    # Q, E and D begin the overwhelming majority of mature V domains; S and I
+    # only a few. Checking them in one pass let a leader's trailing serine win
+    # over the real start one residue later (SQVQLVQ... for IGHV1-69).
+    for pref in ("QED", "IS"):
+        hit = next((k for k in window if seq[k] in pref), None)
+        if hit is not None:
+            return seq[hit:]
+    return seq[start:]
+
+
+def pick_acceptor(query, locus, kind):
+    """Best human germline that is actually USABLE as an acceptor framework.
+
+    Highest identity is not sufficient. IGHV7-4-1 in this germline set carries
+    a third cysteine in FR3 (AYLQI-C-SLKAEDT where the canonical sequence has
+    a serine), and grafting onto it produces a V domain with an unpaired
+    thiol. Some germlines also cannot be split by the framework anchors. So
+    the candidates are ranked by identity and the first one that splits AND
+    carries exactly the two canonical cysteines is taken, with the rejection
+    recorded rather than hidden.
+    """
+    from humanness import _aligner
+    al = _aligner()
+    scored, rejected = [], []
+    for gene, raw in germlines(locus).items():
+        g = mature_v(raw.upper().replace("X", ""), kind)
+        if len(g) < 60:
+            continue
+        aln = al.align(query, g)[0]
+        ni = nt = 0
+        for (qs, qe), (gs, ge) in zip(*aln.aligned):
+            for off in range(qe - qs):
+                nt += 1
+                ni += int(query[qs + off] == g[gs + off])
+        if nt < 50:
+            continue
+        scored.append((ni / nt, gene, g))
+    scored.sort(reverse=True)
+    for ident, gene, g in scored:
+        parts = (split_heavy if kind == "H" else split_light)(g)
+        if parts is None:
+            rejected.append((gene, round(ident, 3), "frameworks not resolvable"))
+            continue
+        ncys = sum(parts[k].count("C")
+                   for k in ("FR1", "CDR1", "FR2", "CDR2", "FR3"))
+        if ncys != 2:
+            rejected.append((gene, round(ident, 3), f"{ncys} cysteines"))
+            continue
+        return {"gene": gene, "identity": round(ident, 4), "locus": locus,
+                "parts": parts, "sequence": g, "rejected": rejected[:4]}
+    return None
 
 
 def graft(designed_parts, germline_seq, kind):
@@ -100,7 +201,18 @@ def graft(designed_parts, germline_seq, kind):
 
 
 def germlines(locus):
-    return _read_multi_fasta(DATA / f"germline_{locus}.fasta")
+    """Keyed by gene symbol, matching what nearest_germline reports.
+
+    The FASTA headers are full UniProt descriptions; nearest_germline pulls
+    the GN= field out of them, so the raw dictionary cannot be indexed by the
+    gene name it returns.
+    """
+    out = {}
+    for header, seq in _read_multi_fasta(DATA / f"germline_{locus}.fasta").items():
+        gene = (header.split("GN=")[-1].split()[0]
+                if "GN=" in header else header[:24])
+        out[gene] = seq
+    return out
 
 
 def liabilities(seq):
@@ -166,7 +278,22 @@ def main():
         print("\n" + "=" * 96)
         print(f"{ch['id']}   TXLNA {ch['txlna']}  epitope {ch['window']}")
         print("=" * 96)
-        for rank, d in enumerate(entry["top"][:3], 1):
+        # ProteinMPNN was run with the full alphabet, so a design can carry
+        # an unpaired cysteine in a CDR. Two cysteines is the intradomain
+        # disulfide every V domain needs; anything else is a manufacturing
+        # liability, so those designs are dropped before ranking rather than
+        # being reported with a warning.
+        def spare_cys(d):
+            h = split_heavy(d["sequences"][heavy_id])
+            l = split_light(d["sequences"][light_id])
+            if h is None or l is None:
+                return True
+            return any("C" in h[k] or "C" in l[k]
+                       for k in ("CDR1", "CDR2", "CDR3"))
+        pool = [d for d in entry["top"] if not spare_cys(d)]
+        print(f"  {len(entry['top']) - len(pool)} of {len(entry['top'])} "
+              f"top designs carry a cysteine in a CDR and are dropped")
+        for rank, d in enumerate(pool[:3], 1):
             vh_m = d["sequences"][heavy_id]
             vl_m = d["sequences"][light_id]
             ph = split_heavy(vh_m)
@@ -175,21 +302,22 @@ def main():
                 print(f"  design {rank}: could not be split into loops, skipped")
                 continue
             # every designed/contacting position must fall in a loop
-            gh = nearest_germline(vh_m[:130], locus_files=("IGHV",))
-            gl_k = nearest_germline(vl_m[:130], locus_files=("IGKV",))
-            gl_l = nearest_germline(vl_m[:130], locus_files=("IGLV",))
-            gl = gl_k if gl_k["identity"] >= gl_l["identity"] else gl_l
-            lkind = "K" if gl is gl_k else "L"
-            hseq = germlines("IGHV")[gh["gene"]]
-            lseq = germlines("IGKV" if lkind == "K" else "IGLV")[gl["gene"]]
-            from humanness import _trim_signal_peptide
-            hseq = _trim_signal_peptide(hseq.upper().replace("X", ""))[0]
-            lseq = _trim_signal_peptide(lseq.upper().replace("X", ""))[0]
-            vh_h, _ = graft(ph, hseq, "H")
-            vl_h, _ = graft(pl, lseq, lkind)
-            if vh_h is None or vl_h is None:
-                print(f"  design {rank}: germline could not be split, skipped")
+            gh = pick_acceptor(vh_m[:130], "IGHV", "H")
+            gl_k = pick_acceptor(vl_m[:130], "IGKV", "L")
+            gl_l = pick_acceptor(vl_m[:130], "IGLV", "L")
+            if gh is None or (gl_k is None and gl_l is None):
+                print(f"  design {rank}: no usable acceptor framework, skipped")
                 continue
+            cands = [c for c in (gl_k, gl_l) if c]
+            gl = max(cands, key=lambda c: c["identity"])
+            lkind = "K" if gl is gl_k else "L"
+            vh_h, _ = graft(ph, gh["sequence"], "H")
+            vl_h, _ = graft(pl, gl["sequence"], lkind)
+            if vh_h is None or vl_h is None:
+                print(f"  design {rank}: graft failed, skipped")
+                continue
+            for rj in (gh["rejected"] + gl["rejected"])[:3]:
+                print(f"    acceptor {rj[0]} ({rj[1]*100:.1f}%) rejected: {rj[2]}")
             cov_m_h, _ = germline_9mer_coverage(vh_m[:130], KM)
             cov_h_h, _ = germline_9mer_coverage(vh_h, KM)
             cov_m_l, _ = germline_9mer_coverage(vl_m[:130], KM)
@@ -219,7 +347,11 @@ def main():
                         "n_paratope_mutations": d["n_mutations"],
                         "cdrs": {"H": {k: ph[k] for k in ("CDR1", "CDR2", "CDR3")},
                                  "L": {k: pl[k] for k in ("CDR1", "CDR2", "CDR3")}},
-                        "acceptor": {"VH": gh, "VL": gl},
+                        "acceptor": {
+                            "VH": {k: gh[k] for k in
+                                   ("gene", "identity", "locus", "rejected")},
+                            "VL": {k: gl[k] for k in
+                                   ("gene", "identity", "locus", "rejected")}},
                         "murine_design": {"VH": vh_m, "VL": vl_m},
                         "humanised": {"VH": vh_h, "VL": vl_h},
                         "germline_9mer_coverage": {

@@ -1,0 +1,275 @@
+[
+  {
+    "id": "pS515_512_520_d1",
+    "arm": "pS515_512_520",
+    "epitope": "APSSPRVTE",
+    "txlna_window": [
+      512,
+      520
+    ],
+    "phospho_position_in_window": 4,
+    "pocket": [
+      "H33TRP",
+      "H34MET",
+      "H35ASN",
+      "H50GLU",
+      "H51ILE",
+      "H52ARG"
+    ],
+    "cdrs": {
+      "H": {
+        "CDR1": "GFDFSKYGAN",
+        "CDR2": "EVKLKSNNYATHYAES",
+        "CDR3": "TLGGQMAY"
+      },
+      "L": {
+        "CDR1": "RSSTGAVTTSNEPN",
+        "CDR2": "GTNNRAP",
+        "CDR3": "ALWFGDRLV"
+      }
+    },
+    "acceptor": {
+      "VH": "IGHV3-48",
+      "VL": "IGLV7-46"
+    },
+    "humanised": {
+      "VH": "EVQLVESGGGLVQPGGSLRLSCAASGFDFSKYGANWVRQAPGKGLEWVSEVKLKSNNYATHYAESVKGRFTISRDNAKNSLYLQMNSLRAEDTAVYYCTLGGQMAYWGQGTLVTVSS",
+      "VL": "QAVVTQEPSLTVSPGGTVTLTCRSSTGAVTTSNEPNWFQQKPGQAPRTLIYGTNNRAPWTPARFSGSLLGGKAALTLLGAQPEDEAEYYCALWFGDRLVFGGGTKLTVL"
+    },
+    "germline_9mer_coverage": {
+      "VH": 0.4862,
+      "VL": 0.4653
+    },
+    "liabilities": {
+      "VH:deamidation_NG_NS": 2
+    }
+  },
+  {
+    "id": "pS515_512_520_d2",
+    "arm": "pS515_512_520",
+    "epitope": "APSSPRVTE",
+    "txlna_window": [
+      512,
+      520
+    ],
+    "phospho_position_in_window": 4,
+    "pocket": [
+      "H33TRP",
+      "H34MET",
+      "H35ASN",
+      "H50GLU",
+      "H51ILE",
+      "H52ARG"
+    ],
+    "cdrs": {
+      "H": {
+        "CDR1": "GFDFSKYGAN",
+        "CDR2": "EVKLKSNNYATHYAES",
+        "CDR3": "TFGGRMRY"
+      },
+      "L": {
+        "CDR1": "RSSTGAVTTSNEAN",
+        "CDR2": "GTNNRAP",
+        "CDR3": "ALWYDDRLV"
+      }
+    },
+    "acceptor": {
+      "VH": "IGHV3-48",
+      "VL": "IGLV7-46"
+    },
+    "humanised": {
+      "VH": "EVQLVESGGGLVQPGGSLRLSCAASGFDFSKYGANWVRQAPGKGLEWVSEVKLKSNNYATHYAESVKGRFTISRDNAKNSLYLQMNSLRAEDTAVYYCTFGGRMRYWGQGTLVTVSS",
+      "VL": "QAVVTQEPSLTVSPGGTVTLTCRSSTGAVTTSNEANWFQQKPGQAPRTLIYGTNNRAPWTPARFSGSLLGGKAALTLLGAQPEDEAEYYCALWYDDRLVFGGGTKLTVL"
+    },
+    "germline_9mer_coverage": {
+      "VH": 0.4862,
+      "VL": 0.4554
+    },
+    "liabilities": {
+      "VH:deamidation_NG_NS": 2
+    }
+  },
+  {
+    "id": "pS515_512_520_d3",
+    "arm": "pS515_512_520",
+    "epitope": "APSSPRVTE",
+    "txlna_window": [
+      512,
+      520
+    ],
+    "phospho_position_in_window": 4,
+    "pocket": [
+      "H33TRP",
+      "H34MET",
+      "H35ASN",
+      "H50GLU",
+      "H51ILE",
+      "H52ARG"
+    ],
+    "cdrs": {
+      "H": {
+        "CDR1": "GFDFSKYGAN",
+        "CDR2": "EVKLKSNNYATHYAES",
+        "CDR3": "TFGGRMAY"
+      },
+      "L": {
+        "CDR1": "RSSTGAVTTSNEPN",
+        "CDR2": "GTNNRNP",
+        "CDR3": "ALWHGDRLV"
+      }
+    },
+    "acceptor": {
+      "VH": "IGHV3-48",
+      "VL": "IGLV7-46"
+    },
+    "humanised": {
+      "VH": "EVQLVESGGGLVQPGGSLRLSCAASGFDFSKYGANWVRQAPGKGLEWVSEVKLKSNNYATHYAESVKGRFTISRDNAKNSLYLQMNSLRAEDTAVYYCTFGGRMAYWGQGTLVTVSS",
+      "VL": "QAVVTQEPSLTVSPGGTVTLTCRSSTGAVTTSNEPNWFQQKPGQAPRTLIYGTNNRNPWTPARFSGSLLGGKAALTLLGAQPEDEAEYYCALWHGDRLVFGGGTKLTVL"
+    },
+    "germline_9mer_coverage": {
+      "VH": 0.4862,
+      "VL": 0.4653
+    },
+    "liabilities": {
+      "VH:deamidation_NG_NS": 2
+    }
+  },
+  {
+    "id": "pS515_513_521_d1",
+    "arm": "pS515_513_521",
+    "epitope": "PSSPRVTEA",
+    "txlna_window": [
+      513,
+      521
+    ],
+    "phospho_position_in_window": 3,
+    "pocket": [
+      "L31ASN",
+      "L32TYR",
+      "L91TRP",
+      "L92TYR",
+      "L93SER",
+      "L96TRP"
+    ],
+    "cdrs": {
+      "H": {
+        "CDR1": "GFDFSKYSAN",
+        "CDR2": "EVKLKSNNYATHYAES",
+        "CDR3": "TLGGQFAH"
+      },
+      "L": {
+        "CDR1": "RSSTGAVTTSNGAN",
+        "CDR2": "GTNNRAP",
+        "CDR3": "ALGFGDRLV"
+      }
+    },
+    "acceptor": {
+      "VH": "IGHV3-21",
+      "VL": "IGLV7-43"
+    },
+    "humanised": {
+      "VH": "EVQLVESGGGLVKPGGSLRLSCAASGFDFSKYSANWVRQAPGKGLEWVSEVKLKSNNYATHYAESVKGRFTISRDNAKNSLYLQMNSLRAEDTAVYYCTLGGQFAHWGQGTLVTVSS",
+      "VL": "QTVVTQEPSLTVSPGGTVTLTCRSSTGAVTTSNGANWFQQKPGQAPRALIYGTNNRAPWTPARFSGSLLGGKAALTLSGVQPEDEAEYYCALGFGDRLVFGGGTKLTVL"
+    },
+    "germline_9mer_coverage": {
+      "VH": 0.4862,
+      "VL": 0.4554
+    },
+    "liabilities": {
+      "VH:deamidation_NG_NS": 2,
+      "VL:deamidation_NG_NS": 1
+    }
+  },
+  {
+    "id": "pS515_513_521_d2",
+    "arm": "pS515_513_521",
+    "epitope": "PSSPRVTEA",
+    "txlna_window": [
+      513,
+      521
+    ],
+    "phospho_position_in_window": 3,
+    "pocket": [
+      "L31ASN",
+      "L32TYR",
+      "L91TRP",
+      "L92TYR",
+      "L93SER",
+      "L96TRP"
+    ],
+    "cdrs": {
+      "H": {
+        "CDR1": "GFDFSKYWWN",
+        "CDR2": "EVKTKSNNYATHYAES",
+        "CDR3": "TGGGQMRY"
+      },
+      "L": {
+        "CDR1": "RSSTGAVTTSNGAN",
+        "CDR2": "GTNNRAP",
+        "CDR3": "ALWYGDRLV"
+      }
+    },
+    "acceptor": {
+      "VH": "IGHV3-7",
+      "VL": "IGLV7-43"
+    },
+    "humanised": {
+      "VH": "EVQLVESGGGLVQPGGSLRLSCAASGFDFSKYWWNWVRQAPGKGLEWVAEVKTKSNNYATHYAESVKGRFTISRDNAKNSLYLQMNSLRAEDTAVYYCTGGGQMRYWGQGTLVTVSS",
+      "VL": "QTVVTQEPSLTVSPGGTVTLTCRSSTGAVTTSNGANWFQQKPGQAPRALIYGTNNRAPWTPARFSGSLLGGKAALTLSGVQPEDEAEYYCALWYGDRLVFGGGTKLTVL"
+    },
+    "germline_9mer_coverage": {
+      "VH": 0.4862,
+      "VL": 0.4554
+    },
+    "liabilities": {
+      "VH:deamidation_NG_NS": 2,
+      "VL:deamidation_NG_NS": 1
+    }
+  },
+  {
+    "id": "pS515_513_521_d3",
+    "arm": "pS515_513_521",
+    "epitope": "PSSPRVTEA",
+    "txlna_window": [
+      513,
+      521
+    ],
+    "phospho_position_in_window": 3,
+    "pocket": [
+      "L31ASN",
+      "L32TYR",
+      "L91TRP",
+      "L92TYR",
+      "L93SER",
+      "L96TRP"
+    ],
+    "cdrs": {
+      "H": {
+        "CDR1": "GFDFSKYWAN",
+        "CDR2": "EVKTKSNNYATHYAES",
+        "CDR3": "TFGGQMAH"
+      },
+      "L": {
+        "CDR1": "RSSTGAVTTSNGAN",
+        "CDR2": "GTNNRNA",
+        "CDR3": "ALGFGNRLV"
+      }
+    },
+    "acceptor": {
+      "VH": "IGHV3-7",
+      "VL": "IGLV7-43"
+    },
+    "humanised": {
+      "VH": "EVQLVESGGGLVQPGGSLRLSCAASGFDFSKYWANWVRQAPGKGLEWVAEVKTKSNNYATHYAESVKGRFTISRDNAKNSLYLQMNSLRAEDTAVYYCTFGGQMAHWGQGTLVTVSS",
+      "VL": "QTVVTQEPSLTVSPGGTVTLTCRSSTGAVTTSNGANWFQQKPGQAPRALIYGTNNRNAWTPARFSGSLLGGKAALTLSGVQPEDEAEYYCALGFGNRLVFGGGTKLTVL"
+    },
+    "germline_9mer_coverage": {
+      "VH": 0.4862,
+      "VL": 0.4554
+    },
+    "liabilities": {
+      "VH:deamidation_NG_NS": 2,
+      "VL:deamidation_NG_NS": 1
+    }
+  }
+]

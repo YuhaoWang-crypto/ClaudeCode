@@ -1,0 +1,2479 @@
+[
+  {
+    "chimera": {
+      "id": "SM3_native_control",
+      "pdb": "1SM3",
+      "ab": [
+        "H",
+        "L"
+      ],
+      "pep": "P",
+      "window": null,
+      "txlna": null,
+      "phospho_pos": null
+    },
+    "paratope_recovery_median": 0.6667,
+    "paratope": {
+      "H": [
+        26,
+        27,
+        28,
+        30,
+        31,
+        32,
+        33,
+        34,
+        51,
+        52,
+        53,
+        100,
+        101,
+        102,
+        103,
+        104,
+        105,
+        106,
+        107
+      ],
+      "L": [
+        32,
+        33,
+        34,
+        56,
+        57,
+        58,
+        91,
+        92,
+        93,
+        94,
+        95,
+        96,
+        97,
+        98
+      ]
+    },
+    "native": {
+      "H": "QVQLQESGGGLVQPGGSMKLSCVASGFTFSNYWMNWVRQSPEKGLEWVAEIRLKSNNYATHYAESVKGRFTISRDDSKSSVYLQMNNLRAEDTGIYYCTGVGQFAYWGQGTTVTVSSAKTTPPTVYPLAPGSMVTLGCLVKGYFPEPVTVTWNSGSLASGVHTFPAVLQSDLYTLSSSVTVPSSTWPSETVTCNVAHPASSTKVDAKIVPR",
+      "L": "IVVTQESALTTSPGETVTLTCRSSTGAVTTSNYANWVQEKPDHLFTGLIGGTNNRAPGVPARFSGSLIGDKAALTITGAQTEDEAIYFCALWYSNHWVFGGGTKLTVLGSEKSSPSVTLFPPSSEELETNKATLVCTITDFYPGVVTVDWKVDGTPVTQGMETTQPSKQSNNKYMASSYLTLTARAWERHSSYSCQVTHEGHTVEKSLSR"
+    },
+    "rounds": [
+      {
+        "round": 1,
+        "temp": 0.3,
+        "n": 81,
+        "designable": {
+          "H": [
+            26,
+            27,
+            28,
+            30,
+            31,
+            32,
+            33,
+            34,
+            51,
+            52,
+            53,
+            100,
+            101,
+            102,
+            103,
+            104,
+            105,
+            106,
+            107
+          ],
+          "L": [
+            32,
+            33,
+            34,
+            56,
+            57,
+            58,
+            91,
+            92,
+            93,
+            94,
+            95,
+            96,
+            97,
+            98
+          ]
+        },
+        "best_global_score": 1.2289,
+        "median_global_score": 1.248
+      },
+      {
+        "round": 2,
+        "temp": 0.2,
+        "n": 81,
+        "designable": {
+          "H": [
+            28,
+            31,
+            53,
+            100,
+            101,
+            103
+          ],
+          "L": [
+            93,
+            94,
+            95,
+            96,
+            97,
+            98
+          ]
+        },
+        "best_global_score": 1.2432,
+        "median_global_score": 1.2651
+      },
+      {
+        "round": 3,
+        "temp": 0.1,
+        "n": 81,
+        "designable": {
+          "H": [
+            28,
+            31,
+            53,
+            101,
+            103
+          ],
+          "L": [
+            94,
+            96
+          ]
+        },
+        "best_global_score": 1.2581,
+        "median_global_score": 1.2751
+      }
+    ],
+    "n_clean": 0,
+    "top": [
+      {
+        "global_score": 1.2581,
+        "sequences": {
+          "H": "QVQLQESGGGLVQPGGSMKLSCVASGFNFSDYWANWVRQSPEKGLEWVAEIGTKSNNYATHYAESVKGRFTISRDDSKSSVYLQMNNLRAEDTGIYYCTTMNQFGYWGQGTTVTVSSAKTTPPTVYPLAPGSMVTLGCLVKGYFPEPVTVTWNSGSLASGVHTFPAVLQSDLYTLSSSVTVPSSTWPSETVTCNVAHPASSTKVDAKIVPR",
+          "L": "IVVTQESALTTSPGETVTLTCRSSTGAVTTSNYANWVQEKPDHLFTGLIGGTNNRNPGVPARFSGSLIGDKAALTITGAQTEDEAIYFCALWFGNTWVFGGGTKLTVLGSEKSSPSVTLFPPSSEELETNKATLVCTITDFYPGVVTVDWKVDGTPVTQGMETTQPSKQSNNKYMASSYLTLTARAWERHSSYSCQVTHEGHTVEKSLSR"
+        },
+        "n_mutations": 13,
+        "mutations": {
+          "H": [
+            "T28N",
+            "N31D",
+            "M34A",
+            "R52G",
+            "L53T",
+            "G100T",
+            "V101M",
+            "G102N",
+            "A105G"
+          ],
+          "L": [
+            "A56N",
+            "Y93F",
+            "S94G",
+            "H96T"
+          ]
+        },
+        "liabilities": {
+          "H:deamidation_NG_NS": 1,
+          "H:Nglyc_sequon": 1,
+          "L:isomerisation_DG_DP": 1
+        },
+        "heavy_germline_9mer_coverage": 0.1111
+      },
+      {
+        "global_score": 1.2582,
+        "sequences": {
+          "H": "QVQLQESGGGLVQPGGSMKLSCVASGFDFSKYWANWVRQSPEKGLEWVAEIGLKSNNYATHYAESVKGRFTISRDDSKSSVYLQMNNLRAEDTGIYYCTTVNQFGYWGQGTTVTVSSAKTTPPTVYPLAPGSMVTLGCLVKGYFPEPVTVTWNSGSLASGVHTFPAVLQSDLYTLSSSVTVPSSTWPSETVTCNVAHPASSTKVDAKIVPR",
+          "L": "IVVTQESALTTSPGETVTLTCRSSTGAVTTSNYANWVQEKPDHLFTGLIGGTNNRNPGVPARFSGSLIGDKAALTITGAQTEDEAIYFCALWFNNTWVFGGGTKLTVLGSEKSSPSVTLFPPSSEELETNKATLVCTITDFYPGVVTVDWKVDGTPVTQGMETTQPSKQSNNKYMASSYLTLTARAWERHSSYSCQVTHEGHTVEKSLSR"
+        },
+        "n_mutations": 11,
+        "mutations": {
+          "H": [
+            "T28D",
+            "N31K",
+            "M34A",
+            "R52G",
+            "G100T",
+            "G102N",
+            "A105G"
+          ],
+          "L": [
+            "A56N",
+            "Y93F",
+            "S94N",
+            "H96T"
+          ]
+        },
+        "liabilities": {
+          "H:deamidation_NG_NS": 1,
+          "L:isomerisation_DG_DP": 1,
+          "L:Nglyc_sequon": 1
+        },
+        "heavy_germline_9mer_coverage": 0.1111
+      },
+      {
+        "global_score": 1.2593,
+        "sequences": {
+          "H": "QVQLQESGGGLVQPGGSMKLSCVASGFDFSNYWANWVRQSPEKGLEWVAEIGLKSNNYATHYAESVKGRFTISRDDSKSSVYLQMNNLRAEDTGIYYCTTMNQFGYWGQGTTVTVSSAKTTPPTVYPLAPGSMVTLGCLVKGYFPEPVTVTWNSGSLASGVHTFPAVLQSDLYTLSSSVTVPSSTWPSETVTCNVAHPASSTKVDAKIVPR",
+          "L": "IVVTQESALTTSPGETVTLTCRSSTGAVTTSNYANWVQEKPDHLFTGLIGGTNNRNPGVPARFSGSLIGDKAALTITGAQTEDEAIYFCALWFNNTWVFGGGTKLTVLGSEKSSPSVTLFPPSSEELETNKATLVCTITDFYPGVVTVDWKVDGTPVTQGMETTQPSKQSNNKYMASSYLTLTARAWERHSSYSCQVTHEGHTVEKSLSR"
+        },
+        "n_mutations": 11,
+        "mutations": {
+          "H": [
+            "T28D",
+            "M34A",
+            "R52G",
+            "G100T",
+            "V101M",
+            "G102N",
+            "A105G"
+          ],
+          "L": [
+            "A56N",
+            "Y93F",
+            "S94N",
+            "H96T"
+          ]
+        },
+        "liabilities": {
+          "H:deamidation_NG_NS": 1,
+          "L:isomerisation_DG_DP": 1,
+          "L:Nglyc_sequon": 1
+        },
+        "heavy_germline_9mer_coverage": 0.1111
+      },
+      {
+        "global_score": 1.2598,
+        "sequences": {
+          "H": "QVQLQESGGGLVQPGGSMKLSCVASGFDFSNYWANWVRQSPEKGLEWVAEIGLKSNNYATHYAESVKGRFTISRDDSKSSVYLQMNNLRAEDTGIYYCTTVNQFGYWGQGTTVTVSSAKTTPPTVYPLAPGSMVTLGCLVKGYFPEPVTVTWNSGSLASGVHTFPAVLQSDLYTLSSSVTVPSSTWPSETVTCNVAHPASSTKVDAKIVPR",
+          "L": "IVVTQESALTTSPGETVTLTCRSSTGAVTTSNYANWVQEKPDHLFTGLIGGTNNRNPGVPARFSGSLIGDKAALTITGAQTEDEAIYFCALWFNNTWVFGGGTKLTVLGSEKSSPSVTLFPPSSEELETNKATLVCTITDFYPGVVTVDWKVDGTPVTQGMETTQPSKQSNNKYMASSYLTLTARAWERHSSYSCQVTHEGHTVEKSLSR"
+        },
+        "n_mutations": 10,
+        "mutations": {
+          "H": [
+            "T28D",
+            "M34A",
+            "R52G",
+            "G100T",
+            "G102N",
+            "A105G"
+          ],
+          "L": [
+            "A56N",
+            "Y93F",
+            "S94N",
+            "H96T"
+          ]
+        },
+        "liabilities": {
+          "H:deamidation_NG_NS": 1,
+          "L:isomerisation_DG_DP": 1,
+          "L:Nglyc_sequon": 1
+        },
+        "heavy_germline_9mer_coverage": 0.1111
+      },
+      {
+        "global_score": 1.2612,
+        "sequences": {
+          "H": "QVQLQESGGGLVQPGGSMKLSCVASGFDFSSYWANWVRQSPEKGLEWVAEIGTKSNNYATHYAESVKGRFTISRDDSKSSVYLQMNNLRAEDTGIYYCTTANQFGYWGQGTTVTVSSAKTTPPTVYPLAPGSMVTLGCLVKGYFPEPVTVTWNSGSLASGVHTFPAVLQSDLYTLSSSVTVPSSTWPSETVTCNVAHPASSTKVDAKIVPR",
+          "L": "IVVTQESALTTSPGETVTLTCRSSTGAVTTSNYANWVQEKPDHLFTGLIGGTNNRNPGVPARFSGSLIGDKAALTITGAQTEDEAIYFCALWFGNSWVFGGGTKLTVLGSEKSSPSVTLFPPSSEELETNKATLVCTITDFYPGVVTVDWKVDGTPVTQGMETTQPSKQSNNKYMASSYLTLTARAWERHSSYSCQVTHEGHTVEKSLSR"
+        },
+        "n_mutations": 13,
+        "mutations": {
+          "H": [
+            "T28D",
+            "N31S",
+            "M34A",
+            "R52G",
+            "L53T",
+            "G100T",
+            "V101A",
+            "G102N",
+            "A105G"
+          ],
+          "L": [
+            "A56N",
+            "Y93F",
+            "S94G",
+            "H96S"
+          ]
+        },
+        "liabilities": {
+          "H:deamidation_NG_NS": 1,
+          "L:deamidation_NG_NS": 1,
+          "L:isomerisation_DG_DP": 1
+        },
+        "heavy_germline_9mer_coverage": 0.1111
+      },
+      {
+        "global_score": 1.2616,
+        "sequences": {
+          "H": "QVQLQESGGGLVQPGGSMKLSCVASGFDFSNYWANWVRQSPEKGLEWVAEIGTKSNNYATHYAESVKGRFTISRDDSKSSVYLQMNNLRAEDTGIYYCTTVNQFGYWGQGTTVTVSSAKTTPPTVYPLAPGSMVTLGCLVKGYFPEPVTVTWNSGSLASGVHTFPAVLQSDLYTLSSSVTVPSSTWPSETVTCNVAHPASSTKVDAKIVPR",
+          "L": "IVVTQESALTTSPGETVTLTCRSSTGAVTTSNYANWVQEKPDHLFTGLIGGTNNRNPGVPARFSGSLIGDKAALTITGAQTEDEAIYFCALWFNNTWVFGGGTKLTVLGSEKSSPSVTLFPPSSEELETNKATLVCTITDFYPGVVTVDWKVDGTPVTQGMETTQPSKQSNNKYMASSYLTLTARAWERHSSYSCQVTHEGHTVEKSLSR"
+        },
+        "n_mutations": 11,
+        "mutations": {
+          "H": [
+            "T28D",
+            "M34A",
+            "R52G",
+            "L53T",
+            "G100T",
+            "G102N",
+            "A105G"
+          ],
+          "L": [
+            "A56N",
+            "Y93F",
+            "S94N",
+            "H96T"
+          ]
+        },
+        "liabilities": {
+          "H:deamidation_NG_NS": 1,
+          "L:isomerisation_DG_DP": 1,
+          "L:Nglyc_sequon": 1
+        },
+        "heavy_germline_9mer_coverage": 0.1111
+      },
+      {
+        "global_score": 1.2617,
+        "sequences": {
+          "H": "QVQLQESGGGLVQPGGSMKLSCVASGFNFSDYWANWVRQSPEKGLEWVAEIGTKSNNYATHYAESVKGRFTISRDDSKSSVYLQMNNLRAEDTGIYYCTTANIFGYWGQGTTVTVSSAKTTPPTVYPLAPGSMVTLGCLVKGYFPEPVTVTWNSGSLASGVHTFPAVLQSDLYTLSSSVTVPSSTWPSETVTCNVAHPASSTKVDAKIVPR",
+          "L": "IVVTQESALTTSPGETVTLTCRSSTGAVTTSNYANWVQEKPDHLFTGLIGGTNNRNPGVPARFSGSLIGDKAALTITGAQTEDEAIYFCALWFNNTWVFGGGTKLTVLGSEKSSPSVTLFPPSSEELETNKATLVCTITDFYPGVVTVDWKVDGTPVTQGMETTQPSKQSNNKYMASSYLTLTARAWERHSSYSCQVTHEGHTVEKSLSR"
+        },
+        "n_mutations": 14,
+        "mutations": {
+          "H": [
+            "T28N",
+            "N31D",
+            "M34A",
+            "R52G",
+            "L53T",
+            "G100T",
+            "V101A",
+            "G102N",
+            "Q103I",
+            "A105G"
+          ],
+          "L": [
+            "A56N",
+            "Y93F",
+            "S94N",
+            "H96T"
+          ]
+        },
+        "liabilities": {
+          "H:deamidation_NG_NS": 1,
+          "H:Nglyc_sequon": 1,
+          "L:isomerisation_DG_DP": 1,
+          "L:Nglyc_sequon": 1
+        },
+        "heavy_germline_9mer_coverage": 0.1111
+      },
+      {
+        "global_score": 1.2636,
+        "sequences": {
+          "H": "QVQLQESGGGLVQPGGSMKLSCVASGFDFSKYWANWVRQSPEKGLEWVAEIGLKSNNYATHYAESVKGRFTISRDDSKSSVYLQMNNLRAEDTGIYYCTTVNQFGYWGQGTTVTVSSAKTTPPTVYPLAPGSMVTLGCLVKGYFPEPVTVTWNSGSLASGVHTFPAVLQSDLYTLSSSVTVPSSTWPSETVTCNVAHPASSTKVDAKIVPR",
+          "L": "IVVTQESALTTSPGETVTLTCRSSTGAVTTSNYANWVQEKPDHLFTGLIGGTNNRNPGVPARFSGSLIGDKAALTITGAQTEDEAIYFCALWFNNTWVFGGGTKLTVLGSEKSSPSVTLFPPSSEELETNKATLVCTITDFYPGVVTVDWKVDGTPVTQGMETTQPSKQSNNKYMASSYLTLTARAWERHSSYSCQVTHEGHTVEKSLSR"
+        },
+        "n_mutations": 11,
+        "mutations": {
+          "H": [
+            "T28D",
+            "N31K",
+            "M34A",
+            "R52G",
+            "G100T",
+            "G102N",
+            "A105G"
+          ],
+          "L": [
+            "A56N",
+            "Y93F",
+            "S94N",
+            "H96T"
+          ]
+        },
+        "liabilities": {
+          "H:deamidation_NG_NS": 1,
+          "L:isomerisation_DG_DP": 1,
+          "L:Nglyc_sequon": 1
+        },
+        "heavy_germline_9mer_coverage": 0.1111
+      },
+      {
+        "global_score": 1.2639,
+        "sequences": {
+          "H": "QVQLQESGGGLVQPGGSMKLSCVASGFDFSNYWANWVRQSPEKGLEWVAEIGLKSNNYATHYAESVKGRFTISRDDSKSSVYLQMNNLRAEDTGIYYCTTANQFGYWGQGTTVTVSSAKTTPPTVYPLAPGSMVTLGCLVKGYFPEPVTVTWNSGSLASGVHTFPAVLQSDLYTLSSSVTVPSSTWPSETVTCNVAHPASSTKVDAKIVPR",
+          "L": "IVVTQESALTTSPGETVTLTCRSSTGAVTTSNYANWVQEKPDHLFTGLIGGTNNRNPGVPARFSGSLIGDKAALTITGAQTEDEAIYFCALWFNNTWVFGGGTKLTVLGSEKSSPSVTLFPPSSEELETNKATLVCTITDFYPGVVTVDWKVDGTPVTQGMETTQPSKQSNNKYMASSYLTLTARAWERHSSYSCQVTHEGHTVEKSLSR"
+        },
+        "n_mutations": 11,
+        "mutations": {
+          "H": [
+            "T28D",
+            "M34A",
+            "R52G",
+            "G100T",
+            "V101A",
+            "G102N",
+            "A105G"
+          ],
+          "L": [
+            "A56N",
+            "Y93F",
+            "S94N",
+            "H96T"
+          ]
+        },
+        "liabilities": {
+          "H:deamidation_NG_NS": 1,
+          "L:isomerisation_DG_DP": 1,
+          "L:Nglyc_sequon": 1
+        },
+        "heavy_germline_9mer_coverage": 0.1111
+      },
+      {
+        "global_score": 1.2644,
+        "sequences": {
+          "H": "QVQLQESGGGLVQPGGSMKLSCVASGFDFSKYWANWVRQSPEKGLEWVAEIGLKSNNYATHYAESVKGRFTISRDDSKSSVYLQMNNLRAEDTGIYYCTTANQFGYWGQGTTVTVSSAKTTPPTVYPLAPGSMVTLGCLVKGYFPEPVTVTWNSGSLASGVHTFPAVLQSDLYTLSSSVTVPSSTWPSETVTCNVAHPASSTKVDAKIVPR",
+          "L": "IVVTQESALTTSPGETVTLTCRSSTGAVTTSNYANWVQEKPDHLFTGLIGGTNNRNPGVPARFSGSLIGDKAALTITGAQTEDEAIYFCALWFNNTWVFGGGTKLTVLGSEKSSPSVTLFPPSSEELETNKATLVCTITDFYPGVVTVDWKVDGTPVTQGMETTQPSKQSNNKYMASSYLTLTARAWERHSSYSCQVTHEGHTVEKSLSR"
+        },
+        "n_mutations": 12,
+        "mutations": {
+          "H": [
+            "T28D",
+            "N31K",
+            "M34A",
+            "R52G",
+            "G100T",
+            "V101A",
+            "G102N",
+            "A105G"
+          ],
+          "L": [
+            "A56N",
+            "Y93F",
+            "S94N",
+            "H96T"
+          ]
+        },
+        "liabilities": {
+          "H:deamidation_NG_NS": 1,
+          "L:isomerisation_DG_DP": 1,
+          "L:Nglyc_sequon": 1
+        },
+        "heavy_germline_9mer_coverage": 0.1111
+      }
+    ]
+  },
+  {
+    "chimera": {
+      "id": "SM3_514_522",
+      "pdb": "1SM3",
+      "ab": [
+        "H",
+        "L"
+      ],
+      "pep": "P",
+      "window": "SSPRVTEAP",
+      "txlna": [
+        514,
+        522
+      ],
+      "phospho_pos": 2
+    },
+    "paratope_recovery_median": 0.6364,
+    "paratope": {
+      "H": [
+        26,
+        27,
+        28,
+        30,
+        31,
+        32,
+        33,
+        34,
+        51,
+        52,
+        53,
+        100,
+        101,
+        102,
+        103,
+        104,
+        105,
+        106,
+        107
+      ],
+      "L": [
+        32,
+        33,
+        34,
+        56,
+        57,
+        58,
+        91,
+        92,
+        93,
+        94,
+        95,
+        96,
+        97,
+        98
+      ]
+    },
+    "native": {
+      "H": "QVQLQESGGGLVQPGGSMKLSCVASGFTFSNYWMNWVRQSPEKGLEWVAEIRLKSNNYATHYAESVKGRFTISRDDSKSSVYLQMNNLRAEDTGIYYCTGVGQFAYWGQGTTVTVSSAKTTPPTVYPLAPGSMVTLGCLVKGYFPEPVTVTWNSGSLASGVHTFPAVLQSDLYTLSSSVTVPSSTWPSETVTCNVAHPASSTKVDAKIVPR",
+      "L": "IVVTQESALTTSPGETVTLTCRSSTGAVTTSNYANWVQEKPDHLFTGLIGGTNNRAPGVPARFSGSLIGDKAALTITGAQTEDEAIYFCALWYSNHWVFGGGTKLTVLGSEKSSPSVTLFPPSSEELETNKATLVCTITDFYPGVVTVDWKVDGTPVTQGMETTQPSKQSNNKYMASSYLTLTARAWERHSSYSCQVTHEGHTVEKSLSR"
+    },
+    "rounds": [
+      {
+        "round": 1,
+        "temp": 0.3,
+        "n": 81,
+        "designable": {
+          "H": [
+            26,
+            27,
+            28,
+            30,
+            31,
+            32,
+            33,
+            34,
+            51,
+            52,
+            53,
+            100,
+            101,
+            102,
+            103,
+            104,
+            105,
+            106,
+            107
+          ],
+          "L": [
+            32,
+            33,
+            34,
+            56,
+            57,
+            58,
+            91,
+            92,
+            93,
+            94,
+            95,
+            96,
+            97,
+            98
+          ]
+        },
+        "best_global_score": 1.2495,
+        "median_global_score": 1.2707
+      },
+      {
+        "round": 2,
+        "temp": 0.2,
+        "n": 81,
+        "designable": {
+          "H": [
+            28,
+            31,
+            53,
+            101,
+            103
+          ],
+          "L": [
+            56,
+            93,
+            94,
+            95,
+            96,
+            98
+          ]
+        },
+        "best_global_score": 1.2717,
+        "median_global_score": 1.2931
+      },
+      {
+        "round": 3,
+        "temp": 0.1,
+        "n": 81,
+        "designable": {
+          "H": [
+            31,
+            101,
+            103
+          ],
+          "L": [
+            56,
+            95,
+            96
+          ]
+        },
+        "best_global_score": 1.2873,
+        "median_global_score": 1.3091
+      }
+    ],
+    "n_clean": 0,
+    "top": [
+      {
+        "global_score": 1.2873,
+        "sequences": {
+          "H": "QVQLQESGGGLVQPGGSMKLSCVASGFDFSDYWANWVRQSPEKGLEWVAEIGLKSNNYATHYAESVKGRFTISRDDSKSSVYLQMNNLRAEDTGIYYCTTMNQFGYWGQGTTVTVSSAKTTPPTVYPLAPGSMVTLGCLVKGYFPEPVTVTWNSGSLASGVHTFPAVLQSDLYTLSSSVTVPSSTWPSETVTCNVAHPASSTKVDAKIVPR",
+          "L": "IVVTQESALTTSPGETVTLTCRSSTGAVTTSNYANWVQEKPDHLFTGLIGGTNNRAPGVPARFSGSLIGDKAALTITGAQTEDEAIYFCALWFNNTWVFGGGTKLTVLGSEKSSPSVTLFPPSSEELETNKATLVCTITDFYPGVVTVDWKVDGTPVTQGMETTQPSKQSNNKYMASSYLTLTARAWERHSSYSCQVTHEGHTVEKSLSR"
+        },
+        "n_mutations": 11,
+        "mutations": {
+          "H": [
+            "T28D",
+            "N31D",
+            "M34A",
+            "R52G",
+            "G100T",
+            "V101M",
+            "G102N",
+            "A105G"
+          ],
+          "L": [
+            "Y93F",
+            "S94N",
+            "H96T"
+          ]
+        },
+        "liabilities": {
+          "H:deamidation_NG_NS": 1,
+          "L:isomerisation_DG_DP": 1,
+          "L:Nglyc_sequon": 1
+        },
+        "heavy_germline_9mer_coverage": 0.1111
+      },
+      {
+        "global_score": 1.2946,
+        "sequences": {
+          "H": "QVQLQESGGGLVQPGGSMKLSCVASGFDFSDYWANWVRQSPEKGLEWVAEIGLKSNNYATHYAESVKGRFTISRDDSKSSVYLQMNNLRAEDTGIYYCTTSNQFGYWGQGTTVTVSSAKTTPPTVYPLAPGSMVTLGCLVKGYFPEPVTVTWNSGSLASGVHTFPAVLQSDLYTLSSSVTVPSSTWPSETVTCNVAHPASSTKVDAKIVPR",
+          "L": "IVVTQESALTTSPGETVTLTCRSSTGAVTTSNYANWVQEKPDHLFTGLIGGTNNRNPGVPARFSGSLIGDKAALTITGAQTEDEAIYFCALWFNDTWVFGGGTKLTVLGSEKSSPSVTLFPPSSEELETNKATLVCTITDFYPGVVTVDWKVDGTPVTQGMETTQPSKQSNNKYMASSYLTLTARAWERHSSYSCQVTHEGHTVEKSLSR"
+        },
+        "n_mutations": 13,
+        "mutations": {
+          "H": [
+            "T28D",
+            "N31D",
+            "M34A",
+            "R52G",
+            "G100T",
+            "V101S",
+            "G102N",
+            "A105G"
+          ],
+          "L": [
+            "A56N",
+            "Y93F",
+            "S94N",
+            "N95D",
+            "H96T"
+          ]
+        },
+        "liabilities": {
+          "H:deamidation_NG_NS": 1,
+          "L:isomerisation_DG_DP": 1,
+          "L:Nglyc_sequon": 1
+        },
+        "heavy_germline_9mer_coverage": 0.1111
+      },
+      {
+        "global_score": 1.2954,
+        "sequences": {
+          "H": "QVQLQESGGGLVQPGGSMKLSCVASGFDFSDYWANWVRQSPEKGLEWVAEIGLKSNNYATHYAESVKGRFTISRDDSKSSVYLQMNNLRAEDTGIYYCTTVNNFGYWGQGTTVTVSSAKTTPPTVYPLAPGSMVTLGCLVKGYFPEPVTVTWNSGSLASGVHTFPAVLQSDLYTLSSSVTVPSSTWPSETVTCNVAHPASSTKVDAKIVPR",
+          "L": "IVVTQESALTTSPGETVTLTCRSSTGAVTTSNYANWVQEKPDHLFTGLIGGTNNRNPGVPARFSGSLIGDKAALTITGAQTEDEAIYFCALWFNDSWVFGGGTKLTVLGSEKSSPSVTLFPPSSEELETNKATLVCTITDFYPGVVTVDWKVDGTPVTQGMETTQPSKQSNNKYMASSYLTLTARAWERHSSYSCQVTHEGHTVEKSLSR"
+        },
+        "n_mutations": 13,
+        "mutations": {
+          "H": [
+            "T28D",
+            "N31D",
+            "M34A",
+            "R52G",
+            "G100T",
+            "G102N",
+            "Q103N",
+            "A105G"
+          ],
+          "L": [
+            "A56N",
+            "Y93F",
+            "S94N",
+            "N95D",
+            "H96S"
+          ]
+        },
+        "liabilities": {
+          "H:deamidation_NG_NS": 1,
+          "L:isomerisation_DG_DP": 1,
+          "L:Nglyc_sequon": 1
+        },
+        "heavy_germline_9mer_coverage": 0.1111
+      },
+      {
+        "global_score": 1.2961,
+        "sequences": {
+          "H": "QVQLQESGGGLVQPGGSMKLSCVASGFDFSDYWANWVRQSPEKGLEWVAEIGLKSNNYATHYAESVKGRFTISRDDSKSSVYLQMNNLRAEDTGIYYCTTMNQFGYWGQGTTVTVSSAKTTPPTVYPLAPGSMVTLGCLVKGYFPEPVTVTWNSGSLASGVHTFPAVLQSDLYTLSSSVTVPSSTWPSETVTCNVAHPASSTKVDAKIVPR",
+          "L": "IVVTQESALTTSPGETVTLTCRSSTGAVTTSNYANWVQEKPDHLFTGLIGGTNNRNPGVPARFSGSLIGDKAALTITGAQTEDEAIYFCALWFNDTWVFGGGTKLTVLGSEKSSPSVTLFPPSSEELETNKATLVCTITDFYPGVVTVDWKVDGTPVTQGMETTQPSKQSNNKYMASSYLTLTARAWERHSSYSCQVTHEGHTVEKSLSR"
+        },
+        "n_mutations": 13,
+        "mutations": {
+          "H": [
+            "T28D",
+            "N31D",
+            "M34A",
+            "R52G",
+            "G100T",
+            "V101M",
+            "G102N",
+            "A105G"
+          ],
+          "L": [
+            "A56N",
+            "Y93F",
+            "S94N",
+            "N95D",
+            "H96T"
+          ]
+        },
+        "liabilities": {
+          "H:deamidation_NG_NS": 1,
+          "L:isomerisation_DG_DP": 1,
+          "L:Nglyc_sequon": 1
+        },
+        "heavy_germline_9mer_coverage": 0.1111
+      },
+      {
+        "global_score": 1.2978,
+        "sequences": {
+          "H": "QVQLQESGGGLVQPGGSMKLSCVASGFDFSDYWANWVRQSPEKGLEWVAEIGLKSNNYATHYAESVKGRFTISRDDSKSSVYLQMNNLRAEDTGIYYCTTANQFGYWGQGTTVTVSSAKTTPPTVYPLAPGSMVTLGCLVKGYFPEPVTVTWNSGSLASGVHTFPAVLQSDLYTLSSSVTVPSSTWPSETVTCNVAHPASSTKVDAKIVPR",
+          "L": "IVVTQESALTTSPGETVTLTCRSSTGAVTTSNYANWVQEKPDHLFTGLIGGTNNRNPGVPARFSGSLIGDKAALTITGAQTEDEAIYFCALWFNNSWVFGGGTKLTVLGSEKSSPSVTLFPPSSEELETNKATLVCTITDFYPGVVTVDWKVDGTPVTQGMETTQPSKQSNNKYMASSYLTLTARAWERHSSYSCQVTHEGHTVEKSLSR"
+        },
+        "n_mutations": 12,
+        "mutations": {
+          "H": [
+            "T28D",
+            "N31D",
+            "M34A",
+            "R52G",
+            "G100T",
+            "V101A",
+            "G102N",
+            "A105G"
+          ],
+          "L": [
+            "A56N",
+            "Y93F",
+            "S94N",
+            "H96S"
+          ]
+        },
+        "liabilities": {
+          "H:deamidation_NG_NS": 1,
+          "L:deamidation_NG_NS": 1,
+          "L:isomerisation_DG_DP": 1,
+          "L:Nglyc_sequon": 1
+        },
+        "heavy_germline_9mer_coverage": 0.1111
+      },
+      {
+        "global_score": 1.298,
+        "sequences": {
+          "H": "QVQLQESGGGLVQPGGSMKLSCVASGFDFSDYWANWVRQSPEKGLEWVAEIGLKSNNYATHYAESVKGRFTISRDDSKSSVYLQMNNLRAEDTGIYYCTTVNQFGYWGQGTTVTVSSAKTTPPTVYPLAPGSMVTLGCLVKGYFPEPVTVTWNSGSLASGVHTFPAVLQSDLYTLSSSVTVPSSTWPSETVTCNVAHPASSTKVDAKIVPR",
+          "L": "IVVTQESALTTSPGETVTLTCRSSTGAVTTSNYANWVQEKPDHLFTGLIGGTNNRAPGVPARFSGSLIGDKAALTITGAQTEDEAIYFCALWFNNSWVFGGGTKLTVLGSEKSSPSVTLFPPSSEELETNKATLVCTITDFYPGVVTVDWKVDGTPVTQGMETTQPSKQSNNKYMASSYLTLTARAWERHSSYSCQVTHEGHTVEKSLSR"
+        },
+        "n_mutations": 10,
+        "mutations": {
+          "H": [
+            "T28D",
+            "N31D",
+            "M34A",
+            "R52G",
+            "G100T",
+            "G102N",
+            "A105G"
+          ],
+          "L": [
+            "Y93F",
+            "S94N",
+            "H96S"
+          ]
+        },
+        "liabilities": {
+          "H:deamidation_NG_NS": 1,
+          "L:deamidation_NG_NS": 1,
+          "L:isomerisation_DG_DP": 1,
+          "L:Nglyc_sequon": 1
+        },
+        "heavy_germline_9mer_coverage": 0.1111
+      },
+      {
+        "global_score": 1.2982,
+        "sequences": {
+          "H": "QVQLQESGGGLVQPGGSMKLSCVASGFDFSDYWANWVRQSPEKGLEWVAEIGLKSNNYATHYAESVKGRFTISRDDSKSSVYLQMNNLRAEDTGIYYCTTVNQFGYWGQGTTVTVSSAKTTPPTVYPLAPGSMVTLGCLVKGYFPEPVTVTWNSGSLASGVHTFPAVLQSDLYTLSSSVTVPSSTWPSETVTCNVAHPASSTKVDAKIVPR",
+          "L": "IVVTQESALTTSPGETVTLTCRSSTGAVTTSNYANWVQEKPDHLFTGLIGGTNNRNPGVPARFSGSLIGDKAALTITGAQTEDEAIYFCALWFNDTWVFGGGTKLTVLGSEKSSPSVTLFPPSSEELETNKATLVCTITDFYPGVVTVDWKVDGTPVTQGMETTQPSKQSNNKYMASSYLTLTARAWERHSSYSCQVTHEGHTVEKSLSR"
+        },
+        "n_mutations": 12,
+        "mutations": {
+          "H": [
+            "T28D",
+            "N31D",
+            "M34A",
+            "R52G",
+            "G100T",
+            "G102N",
+            "A105G"
+          ],
+          "L": [
+            "A56N",
+            "Y93F",
+            "S94N",
+            "N95D",
+            "H96T"
+          ]
+        },
+        "liabilities": {
+          "H:deamidation_NG_NS": 1,
+          "L:isomerisation_DG_DP": 1,
+          "L:Nglyc_sequon": 1
+        },
+        "heavy_germline_9mer_coverage": 0.1111
+      },
+      {
+        "global_score": 1.2988,
+        "sequences": {
+          "H": "QVQLQESGGGLVQPGGSMKLSCVASGFDFSDYWANWVRQSPEKGLEWVAEIGLKSNNYATHYAESVKGRFTISRDDSKSSVYLQMNNLRAEDTGIYYCTTANQFGYWGQGTTVTVSSAKTTPPTVYPLAPGSMVTLGCLVKGYFPEPVTVTWNSGSLASGVHTFPAVLQSDLYTLSSSVTVPSSTWPSETVTCNVAHPASSTKVDAKIVPR",
+          "L": "IVVTQESALTTSPGETVTLTCRSSTGAVTTSNYANWVQEKPDHLFTGLIGGTNNRAPGVPARFSGSLIGDKAALTITGAQTEDEAIYFCALWFNDTWVFGGGTKLTVLGSEKSSPSVTLFPPSSEELETNKATLVCTITDFYPGVVTVDWKVDGTPVTQGMETTQPSKQSNNKYMASSYLTLTARAWERHSSYSCQVTHEGHTVEKSLSR"
+        },
+        "n_mutations": 12,
+        "mutations": {
+          "H": [
+            "T28D",
+            "N31D",
+            "M34A",
+            "R52G",
+            "G100T",
+            "V101A",
+            "G102N",
+            "A105G"
+          ],
+          "L": [
+            "Y93F",
+            "S94N",
+            "N95D",
+            "H96T"
+          ]
+        },
+        "liabilities": {
+          "H:deamidation_NG_NS": 1,
+          "L:isomerisation_DG_DP": 1,
+          "L:Nglyc_sequon": 1
+        },
+        "heavy_germline_9mer_coverage": 0.1111
+      },
+      {
+        "global_score": 1.2994,
+        "sequences": {
+          "H": "QVQLQESGGGLVQPGGSMKLSCVASGFDFSNYWANWVRQSPEKGLEWVAEIGLKSNNYATHYAESVKGRFTISRDDSKSSVYLQMNNLRAEDTGIYYCTTMNEFGYWGQGTTVTVSSAKTTPPTVYPLAPGSMVTLGCLVKGYFPEPVTVTWNSGSLASGVHTFPAVLQSDLYTLSSSVTVPSSTWPSETVTCNVAHPASSTKVDAKIVPR",
+          "L": "IVVTQESALTTSPGETVTLTCRSSTGAVTTSNYANWVQEKPDHLFTGLIGGTNNRNPGVPARFSGSLIGDKAALTITGAQTEDEAIYFCALWFNNTWVFGGGTKLTVLGSEKSSPSVTLFPPSSEELETNKATLVCTITDFYPGVVTVDWKVDGTPVTQGMETTQPSKQSNNKYMASSYLTLTARAWERHSSYSCQVTHEGHTVEKSLSR"
+        },
+        "n_mutations": 12,
+        "mutations": {
+          "H": [
+            "T28D",
+            "M34A",
+            "R52G",
+            "G100T",
+            "V101M",
+            "G102N",
+            "Q103E",
+            "A105G"
+          ],
+          "L": [
+            "A56N",
+            "Y93F",
+            "S94N",
+            "H96T"
+          ]
+        },
+        "liabilities": {
+          "H:deamidation_NG_NS": 1,
+          "L:isomerisation_DG_DP": 1,
+          "L:Nglyc_sequon": 1
+        },
+        "heavy_germline_9mer_coverage": 0.1111
+      },
+      {
+        "global_score": 1.3003,
+        "sequences": {
+          "H": "QVQLQESGGGLVQPGGSMKLSCVASGFDFSNYWANWVRQSPEKGLEWVAEIGLKSNNYATHYAESVKGRFTISRDDSKSSVYLQMNNLRAEDTGIYYCTTVNQFGYWGQGTTVTVSSAKTTPPTVYPLAPGSMVTLGCLVKGYFPEPVTVTWNSGSLASGVHTFPAVLQSDLYTLSSSVTVPSSTWPSETVTCNVAHPASSTKVDAKIVPR",
+          "L": "IVVTQESALTTSPGETVTLTCRSSTGAVTTSNYANWVQEKPDHLFTGLIGGTNNRAPGVPARFSGSLIGDKAALTITGAQTEDEAIYFCALWFNNTWVFGGGTKLTVLGSEKSSPSVTLFPPSSEELETNKATLVCTITDFYPGVVTVDWKVDGTPVTQGMETTQPSKQSNNKYMASSYLTLTARAWERHSSYSCQVTHEGHTVEKSLSR"
+        },
+        "n_mutations": 9,
+        "mutations": {
+          "H": [
+            "T28D",
+            "M34A",
+            "R52G",
+            "G100T",
+            "G102N",
+            "A105G"
+          ],
+          "L": [
+            "Y93F",
+            "S94N",
+            "H96T"
+          ]
+        },
+        "liabilities": {
+          "H:deamidation_NG_NS": 1,
+          "L:isomerisation_DG_DP": 1,
+          "L:Nglyc_sequon": 1
+        },
+        "heavy_germline_9mer_coverage": 0.1111
+      }
+    ]
+  },
+  {
+    "chimera": {
+      "id": "ACC4_502_510",
+      "pdb": "2W65",
+      "ab": [
+        "A",
+        "B"
+      ],
+      "pep": "E",
+      "window": "ERRPEGPGA",
+      "txlna": [
+        502,
+        510
+      ],
+      "phospho_pos": null
+    },
+    "paratope_recovery_median": 0.5366,
+    "paratope": {
+      "A": [
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        46,
+        48,
+        49,
+        50,
+        51,
+        52,
+        53,
+        54,
+        55,
+        58,
+        59,
+        60,
+        98,
+        99,
+        100,
+        101,
+        102,
+        103,
+        104,
+        105
+      ],
+      "B": [
+        30,
+        31,
+        32,
+        36,
+        37,
+        38,
+        95,
+        96,
+        97,
+        98,
+        99,
+        100,
+        101,
+        102
+      ]
+    },
+    "native": {
+      "A": "QIQLVQSGPELKKPGETVKISCKASGYTFTDYSIHWVKQAPGKGLKWMGWINTETGEPTYTDDFKGRFAFSLESSASTAFLQINNLKNEDTATYFCARATTATELAYWGQGTLVTVSAAKTTPPSVYPLAPGSMVTLGCLVKGYFPEPVTVTWNSGSLSSGVHTFPAVLQSDLYTLSSSVTVPSSTWPSETVTCNVAHPASSTKVDKKIVPR",
+      "B": "DVVMTQTPLTLSVTIGQPASISCKSSQSLLDSDGKTYLNWLLQRPGQSPKRLIYLVSKLDSGVPDRFTGSGSGTDFTLKISRVEAEDLGVYYCWQGTHFPLTFGAGTKLELKRADAAPTVSIFPPSSEQLTSGGASVVCFLNNFYPKDINVKWKIDGSERQNGVLNSWTDQDSKDSTYSMSSTLTLTKDEYERHNSYTCEATHKTSTSPIVKSFNRN"
+    },
+    "rounds": [
+      {
+        "round": 1,
+        "temp": 0.3,
+        "n": 81,
+        "designable": {
+          "A": [
+            29,
+            30,
+            31,
+            32,
+            33,
+            34,
+            35,
+            46,
+            48,
+            49,
+            50,
+            51,
+            52,
+            53,
+            54,
+            55,
+            58,
+            59,
+            60,
+            98,
+            99,
+            100,
+            101,
+            102,
+            103,
+            104,
+            105
+          ],
+          "B": [
+            30,
+            31,
+            32,
+            36,
+            37,
+            38,
+            95,
+            96,
+            97,
+            98,
+            99,
+            100,
+            101,
+            102
+          ]
+        },
+        "best_global_score": 1.2556,
+        "median_global_score": 1.2802
+      },
+      {
+        "round": 2,
+        "temp": 0.2,
+        "n": 81,
+        "designable": {
+          "A": [
+            31,
+            32,
+            46,
+            52,
+            54,
+            58,
+            59,
+            60,
+            98,
+            99,
+            100,
+            101,
+            103
+          ],
+          "B": [
+            30,
+            37,
+            96,
+            99,
+            102
+          ]
+        },
+        "best_global_score": 1.295,
+        "median_global_score": 1.3093
+      },
+      {
+        "round": 3,
+        "temp": 0.1,
+        "n": 81,
+        "designable": {
+          "A": [
+            46,
+            52,
+            59,
+            100,
+            101,
+            103
+          ],
+          "B": [
+            96
+          ]
+        },
+        "best_global_score": 1.3092,
+        "median_global_score": 1.3286
+      }
+    ],
+    "n_clean": 0,
+    "top": [
+      {
+        "global_score": 1.3092,
+        "sequences": {
+          "A": "QIQLVQSGPELKKPGETVKISCKASGYTFTSRSVHWVKQAPGKGLKWMGWIDTKTGEAVYTDDFKGRFAFSLESSASTAFLQINNLKNEDTATYFCAISTSDSPLAYWGQGTLVTVSAAKTTPPSVYPLAPGSMVTLGCLVKGYFPEPVTVTWNSGSLSSGVHTFPAVLQSDLYTLSSSVTVPSSTWPSETVTCNVAHPASSTKVDKKIVPR",
+          "B": "DVVMTQTPLTLSVTIGQPASISCKSSQSLLGSDGKTRVNWLLQRPGQSPKRLIYLVSKLDSGVPDRFTGSGSGTDFTLKISRVEAEDLGVYYCWQQTHYPITFGAGTKLELKRADAAPTVSIFPPSSEQLTSGGASVVCFLNNFYPKDINVKWKIDGSERQNGVLNSWTDQDSKDSTYSMSSTLTLTKDEYERHNSYTCEATHKTSTSPIVKSFNRN"
+        },
+        "n_mutations": 19,
+        "mutations": {
+          "A": [
+            "D31S",
+            "Y32R",
+            "I34V",
+            "N52D",
+            "E54K",
+            "P58A",
+            "T59V",
+            "R98I",
+            "A99S",
+            "T101S",
+            "A102D",
+            "T103S",
+            "E104P"
+          ],
+          "B": [
+            "D31G",
+            "Y37R",
+            "L38V",
+            "G96Q",
+            "F99Y",
+            "L101I"
+          ]
+        },
+        "liabilities": {
+          "A:deamidation_NG_NS": 1,
+          "B:deamidation_NG_NS": 3,
+          "B:isomerisation_DG_DP": 2
+        },
+        "heavy_germline_9mer_coverage": 0.0256
+      },
+      {
+        "global_score": 1.3099,
+        "sequences": {
+          "A": "QIQLVQSGPELKKPGETVKISCKASGYTFTSRSVHWVKQAPGKGLKWMGWIDTKTGEAVYTDDFKGRFAFSLESSASTAFLQINNLKNEDTATYFCAISTSDSPLAYWGQGTLVTVSAAKTTPPSVYPLAPGSMVTLGCLVKGYFPEPVTVTWNSGSLSSGVHTFPAVLQSDLYTLSSSVTVPSSTWPSETVTCNVAHPASSTKVDKKIVPR",
+          "B": "DVVMTQTPLTLSVTIGQPASISCKSSQSLLGSDGKTRVNWLLQRPGQSPKRLIYLVSKLDSGVPDRFTGSGSGTDFTLKISRVEAEDLGVYYCWQDTHYPITFGAGTKLELKRADAAPTVSIFPPSSEQLTSGGASVVCFLNNFYPKDINVKWKIDGSERQNGVLNSWTDQDSKDSTYSMSSTLTLTKDEYERHNSYTCEATHKTSTSPIVKSFNRN"
+        },
+        "n_mutations": 19,
+        "mutations": {
+          "A": [
+            "D31S",
+            "Y32R",
+            "I34V",
+            "N52D",
+            "E54K",
+            "P58A",
+            "T59V",
+            "R98I",
+            "A99S",
+            "T101S",
+            "A102D",
+            "T103S",
+            "E104P"
+          ],
+          "B": [
+            "D31G",
+            "Y37R",
+            "L38V",
+            "G96D",
+            "F99Y",
+            "L101I"
+          ]
+        },
+        "liabilities": {
+          "A:deamidation_NG_NS": 1,
+          "B:deamidation_NG_NS": 3,
+          "B:isomerisation_DG_DP": 2
+        },
+        "heavy_germline_9mer_coverage": 0.0256
+      },
+      {
+        "global_score": 1.3109,
+        "sequences": {
+          "A": "QIQLVQSGPELKKPGETVKISCKASGYTFTSRSVHWVKQAPGKGLKWMGWIDTKTGEAVYTDDFKGRFAFSLESSASTAFLQINNLKNEDTATYFCAISTEDSPLAYWGQGTLVTVSAAKTTPPSVYPLAPGSMVTLGCLVKGYFPEPVTVTWNSGSLSSGVHTFPAVLQSDLYTLSSSVTVPSSTWPSETVTCNVAHPASSTKVDKKIVPR",
+          "B": "DVVMTQTPLTLSVTIGQPASISCKSSQSLLGSDGKTRVNWLLQRPGQSPKRLIYLVSKLDSGVPDRFTGSGSGTDFTLKISRVEAEDLGVYYCWQDTHYPITFGAGTKLELKRADAAPTVSIFPPSSEQLTSGGASVVCFLNNFYPKDINVKWKIDGSERQNGVLNSWTDQDSKDSTYSMSSTLTLTKDEYERHNSYTCEATHKTSTSPIVKSFNRN"
+        },
+        "n_mutations": 19,
+        "mutations": {
+          "A": [
+            "D31S",
+            "Y32R",
+            "I34V",
+            "N52D",
+            "E54K",
+            "P58A",
+            "T59V",
+            "R98I",
+            "A99S",
+            "T101E",
+            "A102D",
+            "T103S",
+            "E104P"
+          ],
+          "B": [
+            "D31G",
+            "Y37R",
+            "L38V",
+            "G96D",
+            "F99Y",
+            "L101I"
+          ]
+        },
+        "liabilities": {
+          "A:deamidation_NG_NS": 1,
+          "B:deamidation_NG_NS": 3,
+          "B:isomerisation_DG_DP": 2
+        },
+        "heavy_germline_9mer_coverage": 0.0256
+      },
+      {
+        "global_score": 1.3122,
+        "sequences": {
+          "A": "QIQLVQSGPELKKPGETVKISCKASGYTFTSRSVHWVKQAPGKGLKWMGWIDTKTGEAVYTDDFKGRFAFSLESSASTAFLQINNLKNEDTATYFCAISTSDSPLAYWGQGTLVTVSAAKTTPPSVYPLAPGSMVTLGCLVKGYFPEPVTVTWNSGSLSSGVHTFPAVLQSDLYTLSSSVTVPSSTWPSETVTCNVAHPASSTKVDKKIVPR",
+          "B": "DVVMTQTPLTLSVTIGQPASISCKSSQSLLGSDGKTRVNWLLQRPGQSPKRLIYLVSKLDSGVPDRFTGSGSGTDFTLKISRVEAEDLGVYYCWQSTHYPITFGAGTKLELKRADAAPTVSIFPPSSEQLTSGGASVVCFLNNFYPKDINVKWKIDGSERQNGVLNSWTDQDSKDSTYSMSSTLTLTKDEYERHNSYTCEATHKTSTSPIVKSFNRN"
+        },
+        "n_mutations": 19,
+        "mutations": {
+          "A": [
+            "D31S",
+            "Y32R",
+            "I34V",
+            "N52D",
+            "E54K",
+            "P58A",
+            "T59V",
+            "R98I",
+            "A99S",
+            "T101S",
+            "A102D",
+            "T103S",
+            "E104P"
+          ],
+          "B": [
+            "D31G",
+            "Y37R",
+            "L38V",
+            "G96S",
+            "F99Y",
+            "L101I"
+          ]
+        },
+        "liabilities": {
+          "A:deamidation_NG_NS": 1,
+          "B:deamidation_NG_NS": 3,
+          "B:isomerisation_DG_DP": 2
+        },
+        "heavy_germline_9mer_coverage": 0.0256
+      },
+      {
+        "global_score": 1.3129,
+        "sequences": {
+          "A": "QIQLVQSGPELKKPGETVKISCKASGYTFTSRSVHWVKQAPGKGLKWMGWINTKTGEAVYTDDFKGRFAFSLESSASTAFLQINNLKNEDTATYFCAISTSDDPLAYWGQGTLVTVSAAKTTPPSVYPLAPGSMVTLGCLVKGYFPEPVTVTWNSGSLSSGVHTFPAVLQSDLYTLSSSVTVPSSTWPSETVTCNVAHPASSTKVDKKIVPR",
+          "B": "DVVMTQTPLTLSVTIGQPASISCKSSQSLLGSDGKTRVNWLLQRPGQSPKRLIYLVSKLDSGVPDRFTGSGSGTDFTLKISRVEAEDLGVYYCWQSTHYPITFGAGTKLELKRADAAPTVSIFPPSSEQLTSGGASVVCFLNNFYPKDINVKWKIDGSERQNGVLNSWTDQDSKDSTYSMSSTLTLTKDEYERHNSYTCEATHKTSTSPIVKSFNRN"
+        },
+        "n_mutations": 18,
+        "mutations": {
+          "A": [
+            "D31S",
+            "Y32R",
+            "I34V",
+            "E54K",
+            "P58A",
+            "T59V",
+            "R98I",
+            "A99S",
+            "T101S",
+            "A102D",
+            "T103D",
+            "E104P"
+          ],
+          "B": [
+            "D31G",
+            "Y37R",
+            "L38V",
+            "G96S",
+            "F99Y",
+            "L101I"
+          ]
+        },
+        "liabilities": {
+          "A:deamidation_NG_NS": 1,
+          "A:isomerisation_DG_DP": 1,
+          "B:deamidation_NG_NS": 3,
+          "B:isomerisation_DG_DP": 2
+        },
+        "heavy_germline_9mer_coverage": 0.0256
+      },
+      {
+        "global_score": 1.3144,
+        "sequences": {
+          "A": "QIQLVQSGPELKKPGETVKISCKASGYTFTSRSVHWVKQAPGKGLKWMGWIDTKTGEAVYTDDFKGRFAFSLESSASTAFLQINNLKNEDTATYFCAISTSDSPLAYWGQGTLVTVSAAKTTPPSVYPLAPGSMVTLGCLVKGYFPEPVTVTWNSGSLSSGVHTFPAVLQSDLYTLSSSVTVPSSTWPSETVTCNVAHPASSTKVDKKIVPR",
+          "B": "DVVMTQTPLTLSVTIGQPASISCKSSQSLLGSDGKTRVNWLLQRPGQSPKRLIYLVSKLDSGVPDRFTGSGSGTDFTLKISRVEAEDLGVYYCWQQTHYPITFGAGTKLELKRADAAPTVSIFPPSSEQLTSGGASVVCFLNNFYPKDINVKWKIDGSERQNGVLNSWTDQDSKDSTYSMSSTLTLTKDEYERHNSYTCEATHKTSTSPIVKSFNRN"
+        },
+        "n_mutations": 19,
+        "mutations": {
+          "A": [
+            "D31S",
+            "Y32R",
+            "I34V",
+            "N52D",
+            "E54K",
+            "P58A",
+            "T59V",
+            "R98I",
+            "A99S",
+            "T101S",
+            "A102D",
+            "T103S",
+            "E104P"
+          ],
+          "B": [
+            "D31G",
+            "Y37R",
+            "L38V",
+            "G96Q",
+            "F99Y",
+            "L101I"
+          ]
+        },
+        "liabilities": {
+          "A:deamidation_NG_NS": 1,
+          "B:deamidation_NG_NS": 3,
+          "B:isomerisation_DG_DP": 2
+        },
+        "heavy_germline_9mer_coverage": 0.0256
+      },
+      {
+        "global_score": 1.3149,
+        "sequences": {
+          "A": "QIQLVQSGPELKKPGETVKISCKASGYTFTSRSVHWVKQAPGKGLKWMGWIDTKTGEAVYTDDFKGRFAFSLESSASTAFLQINNLKNEDTATYFCAISTSDSPLAYWGQGTLVTVSAAKTTPPSVYPLAPGSMVTLGCLVKGYFPEPVTVTWNSGSLSSGVHTFPAVLQSDLYTLSSSVTVPSSTWPSETVTCNVAHPASSTKVDKKIVPR",
+          "B": "DVVMTQTPLTLSVTIGQPASISCKSSQSLLGSDGKTRVNWLLQRPGQSPKRLIYLVSKLDSGVPDRFTGSGSGTDFTLKISRVEAEDLGVYYCWQDTHYPITFGAGTKLELKRADAAPTVSIFPPSSEQLTSGGASVVCFLNNFYPKDINVKWKIDGSERQNGVLNSWTDQDSKDSTYSMSSTLTLTKDEYERHNSYTCEATHKTSTSPIVKSFNRN"
+        },
+        "n_mutations": 19,
+        "mutations": {
+          "A": [
+            "D31S",
+            "Y32R",
+            "I34V",
+            "N52D",
+            "E54K",
+            "P58A",
+            "T59V",
+            "R98I",
+            "A99S",
+            "T101S",
+            "A102D",
+            "T103S",
+            "E104P"
+          ],
+          "B": [
+            "D31G",
+            "Y37R",
+            "L38V",
+            "G96D",
+            "F99Y",
+            "L101I"
+          ]
+        },
+        "liabilities": {
+          "A:deamidation_NG_NS": 1,
+          "B:deamidation_NG_NS": 3,
+          "B:isomerisation_DG_DP": 2
+        },
+        "heavy_germline_9mer_coverage": 0.0256
+      },
+      {
+        "global_score": 1.3153,
+        "sequences": {
+          "A": "QIQLVQSGPELKKPGETVKISCKASGYTFTSRSVHWVKQAPGKGLKWMGWIDTKTGEAVYTDDFKGRFAFSLESSASTAFLQINNLKNEDTATYFCAISTSDSPLAYWGQGTLVTVSAAKTTPPSVYPLAPGSMVTLGCLVKGYFPEPVTVTWNSGSLSSGVHTFPAVLQSDLYTLSSSVTVPSSTWPSETVTCNVAHPASSTKVDKKIVPR",
+          "B": "DVVMTQTPLTLSVTIGQPASISCKSSQSLLGSDGKTRVNWLLQRPGQSPKRLIYLVSKLDSGVPDRFTGSGSGTDFTLKISRVEAEDLGVYYCWQDTHYPITFGAGTKLELKRADAAPTVSIFPPSSEQLTSGGASVVCFLNNFYPKDINVKWKIDGSERQNGVLNSWTDQDSKDSTYSMSSTLTLTKDEYERHNSYTCEATHKTSTSPIVKSFNRN"
+        },
+        "n_mutations": 19,
+        "mutations": {
+          "A": [
+            "D31S",
+            "Y32R",
+            "I34V",
+            "N52D",
+            "E54K",
+            "P58A",
+            "T59V",
+            "R98I",
+            "A99S",
+            "T101S",
+            "A102D",
+            "T103S",
+            "E104P"
+          ],
+          "B": [
+            "D31G",
+            "Y37R",
+            "L38V",
+            "G96D",
+            "F99Y",
+            "L101I"
+          ]
+        },
+        "liabilities": {
+          "A:deamidation_NG_NS": 1,
+          "B:deamidation_NG_NS": 3,
+          "B:isomerisation_DG_DP": 2
+        },
+        "heavy_germline_9mer_coverage": 0.0256
+      },
+      {
+        "global_score": 1.3153,
+        "sequences": {
+          "A": "QIQLVQSGPELKKPGETVKISCKASGYTFTSRSVHWVKQAPGKGLKWMGWIDTKTGEAVYTDDFKGRFAFSLESSASTAFLQINNLKNEDTATYFCAISTSDSPLAYWGQGTLVTVSAAKTTPPSVYPLAPGSMVTLGCLVKGYFPEPVTVTWNSGSLSSGVHTFPAVLQSDLYTLSSSVTVPSSTWPSETVTCNVAHPASSTKVDKKIVPR",
+          "B": "DVVMTQTPLTLSVTIGQPASISCKSSQSLLGSDGKTRVNWLLQRPGQSPKRLIYLVSKLDSGVPDRFTGSGSGTDFTLKISRVEAEDLGVYYCWQDTHYPITFGAGTKLELKRADAAPTVSIFPPSSEQLTSGGASVVCFLNNFYPKDINVKWKIDGSERQNGVLNSWTDQDSKDSTYSMSSTLTLTKDEYERHNSYTCEATHKTSTSPIVKSFNRN"
+        },
+        "n_mutations": 19,
+        "mutations": {
+          "A": [
+            "D31S",
+            "Y32R",
+            "I34V",
+            "N52D",
+            "E54K",
+            "P58A",
+            "T59V",
+            "R98I",
+            "A99S",
+            "T101S",
+            "A102D",
+            "T103S",
+            "E104P"
+          ],
+          "B": [
+            "D31G",
+            "Y37R",
+            "L38V",
+            "G96D",
+            "F99Y",
+            "L101I"
+          ]
+        },
+        "liabilities": {
+          "A:deamidation_NG_NS": 1,
+          "B:deamidation_NG_NS": 3,
+          "B:isomerisation_DG_DP": 2
+        },
+        "heavy_germline_9mer_coverage": 0.0256
+      },
+      {
+        "global_score": 1.3157,
+        "sequences": {
+          "A": "QIQLVQSGPELKKPGETVKISCKASGYTFTSRSVHWVKQAPGKGLKWMGWIDTKTGEAVYTDDFKGRFAFSLESSASTAFLQINNLKNEDTATYFCAISTSDDPLAYWGQGTLVTVSAAKTTPPSVYPLAPGSMVTLGCLVKGYFPEPVTVTWNSGSLSSGVHTFPAVLQSDLYTLSSSVTVPSSTWPSETVTCNVAHPASSTKVDKKIVPR",
+          "B": "DVVMTQTPLTLSVTIGQPASISCKSSQSLLGSDGKTRVNWLLQRPGQSPKRLIYLVSKLDSGVPDRFTGSGSGTDFTLKISRVEAEDLGVYYCWQSTHYPITFGAGTKLELKRADAAPTVSIFPPSSEQLTSGGASVVCFLNNFYPKDINVKWKIDGSERQNGVLNSWTDQDSKDSTYSMSSTLTLTKDEYERHNSYTCEATHKTSTSPIVKSFNRN"
+        },
+        "n_mutations": 19,
+        "mutations": {
+          "A": [
+            "D31S",
+            "Y32R",
+            "I34V",
+            "N52D",
+            "E54K",
+            "P58A",
+            "T59V",
+            "R98I",
+            "A99S",
+            "T101S",
+            "A102D",
+            "T103D",
+            "E104P"
+          ],
+          "B": [
+            "D31G",
+            "Y37R",
+            "L38V",
+            "G96S",
+            "F99Y",
+            "L101I"
+          ]
+        },
+        "liabilities": {
+          "A:deamidation_NG_NS": 1,
+          "A:isomerisation_DG_DP": 1,
+          "B:deamidation_NG_NS": 3,
+          "B:isomerisation_DG_DP": 2
+        },
+        "heavy_germline_9mer_coverage": 0.0256
+      }
+    ]
+  },
+  {
+    "chimera": {
+      "id": "SM3_511_519",
+      "pdb": "1SM3",
+      "ab": [
+        "H",
+        "L"
+      ],
+      "pep": "P",
+      "window": "QAPSSPRVT",
+      "txlna": [
+        511,
+        519
+      ],
+      "phospho_pos": 5
+    },
+    "paratope_recovery_median": 0.6667,
+    "paratope": {
+      "H": [
+        26,
+        27,
+        28,
+        30,
+        31,
+        32,
+        33,
+        34,
+        51,
+        52,
+        53,
+        100,
+        101,
+        102,
+        103,
+        104,
+        105,
+        106,
+        107
+      ],
+      "L": [
+        32,
+        33,
+        34,
+        56,
+        57,
+        58,
+        91,
+        92,
+        93,
+        94,
+        95,
+        96,
+        97,
+        98
+      ]
+    },
+    "native": {
+      "H": "QVQLQESGGGLVQPGGSMKLSCVASGFTFSNYWMNWVRQSPEKGLEWVAEIRLKSNNYATHYAESVKGRFTISRDDSKSSVYLQMNNLRAEDTGIYYCTGVGQFAYWGQGTTVTVSSAKTTPPTVYPLAPGSMVTLGCLVKGYFPEPVTVTWNSGSLASGVHTFPAVLQSDLYTLSSSVTVPSSTWPSETVTCNVAHPASSTKVDAKIVPR",
+      "L": "IVVTQESALTTSPGETVTLTCRSSTGAVTTSNYANWVQEKPDHLFTGLIGGTNNRAPGVPARFSGSLIGDKAALTITGAQTEDEAIYFCALWYSNHWVFGGGTKLTVLGSEKSSPSVTLFPPSSEELETNKATLVCTITDFYPGVVTVDWKVDGTPVTQGMETTQPSKQSNNKYMASSYLTLTARAWERHSSYSCQVTHEGHTVEKSLSR"
+    },
+    "rounds": [
+      {
+        "round": 1,
+        "temp": 0.3,
+        "n": 81,
+        "designable": {
+          "H": [
+            26,
+            27,
+            28,
+            30,
+            31,
+            32,
+            33,
+            34,
+            51,
+            52,
+            53,
+            100,
+            101,
+            102,
+            103,
+            104,
+            105,
+            106,
+            107
+          ],
+          "L": [
+            32,
+            33,
+            34,
+            56,
+            57,
+            58,
+            91,
+            92,
+            93,
+            94,
+            95,
+            96,
+            97,
+            98
+          ]
+        },
+        "best_global_score": 1.2761,
+        "median_global_score": 1.2975
+      },
+      {
+        "round": 2,
+        "temp": 0.2,
+        "n": 81,
+        "designable": {
+          "H": [
+            28,
+            30,
+            31,
+            53,
+            101,
+            103,
+            105
+          ],
+          "L": [
+            94,
+            95,
+            96,
+            97,
+            98
+          ]
+        },
+        "best_global_score": 1.2904,
+        "median_global_score": 1.3141
+      },
+      {
+        "round": 3,
+        "temp": 0.1,
+        "n": 81,
+        "designable": {
+          "H": [
+            28,
+            31,
+            53,
+            103,
+            105
+          ],
+          "L": [
+            96
+          ]
+        },
+        "best_global_score": 1.3071,
+        "median_global_score": 1.3261
+      }
+    ],
+    "n_clean": 0,
+    "top": [
+      {
+        "global_score": 1.3071,
+        "sequences": {
+          "H": "QVQLQESGGGLVQPGGSMKLSCVASGFDFSKYWANWVRQSPEKGLEWVAEIGLKSNNYATHYAESVKGRFTISRDDSKSSVYLQMNNLRAEDTGIYYCTTAGQFSYWGQGTTVTVSSAKTTPPTVYPLAPGSMVTLGCLVKGYFPEPVTVTWNSGSLASGVHTFPAVLQSDLYTLSSSVTVPSSTWPSETVTCNVAHPASSTKVDAKIVPR",
+          "L": "IVVTQESALTTSPGETVTLTCRSSTGAVTTSNYANWVQEKPDHLFTGLIGGTNNRNPGVPARFSGSLIGDKAALTITGAQTEDEAIYFCALWFNNTWVFGGGTKLTVLGSEKSSPSVTLFPPSSEELETNKATLVCTITDFYPGVVTVDWKVDGTPVTQGMETTQPSKQSNNKYMASSYLTLTARAWERHSSYSCQVTHEGHTVEKSLSR"
+        },
+        "n_mutations": 11,
+        "mutations": {
+          "H": [
+            "T28D",
+            "N31K",
+            "M34A",
+            "R52G",
+            "G100T",
+            "V101A",
+            "A105S"
+          ],
+          "L": [
+            "A56N",
+            "Y93F",
+            "S94N",
+            "H96T"
+          ]
+        },
+        "liabilities": {
+          "H:deamidation_NG_NS": 1,
+          "L:isomerisation_DG_DP": 1,
+          "L:Nglyc_sequon": 1
+        },
+        "heavy_germline_9mer_coverage": 0.1111
+      },
+      {
+        "global_score": 1.3119,
+        "sequences": {
+          "H": "QVQLQESGGGLVQPGGSMKLSCVASGFDFSKYWANWVRQSPEKGLEWVAEIGLKSNNYATHYAESVKGRFTISRDDSKSSVYLQMNNLRAEDTGIYYCTTAGQFTYWGQGTTVTVSSAKTTPPTVYPLAPGSMVTLGCLVKGYFPEPVTVTWNSGSLASGVHTFPAVLQSDLYTLSSSVTVPSSTWPSETVTCNVAHPASSTKVDAKIVPR",
+          "L": "IVVTQESALTTSPGETVTLTCRSSTGAVTTSNYANWVQEKPDHLFTGLIGGTNNRNPGVPARFSGSLIGDKAALTITGAQTEDEAIYFCALWFNNTWVFGGGTKLTVLGSEKSSPSVTLFPPSSEELETNKATLVCTITDFYPGVVTVDWKVDGTPVTQGMETTQPSKQSNNKYMASSYLTLTARAWERHSSYSCQVTHEGHTVEKSLSR"
+        },
+        "n_mutations": 11,
+        "mutations": {
+          "H": [
+            "T28D",
+            "N31K",
+            "M34A",
+            "R52G",
+            "G100T",
+            "V101A",
+            "A105T"
+          ],
+          "L": [
+            "A56N",
+            "Y93F",
+            "S94N",
+            "H96T"
+          ]
+        },
+        "liabilities": {
+          "H:deamidation_NG_NS": 1,
+          "L:isomerisation_DG_DP": 1,
+          "L:Nglyc_sequon": 1
+        },
+        "heavy_germline_9mer_coverage": 0.1111
+      },
+      {
+        "global_score": 1.312,
+        "sequences": {
+          "H": "QVQLQESGGGLVQPGGSMKLSCVASGFDFSKYWANWVRQSPEKGLEWVAEIGLKSNNYATHYAESVKGRFTISRDDSKSSVYLQMNNLRAEDTGIYYCTTAGQFTYWGQGTTVTVSSAKTTPPTVYPLAPGSMVTLGCLVKGYFPEPVTVTWNSGSLASGVHTFPAVLQSDLYTLSSSVTVPSSTWPSETVTCNVAHPASSTKVDAKIVPR",
+          "L": "IVVTQESALTTSPGETVTLTCRSSTGAVTTSNYANWVQEKPDHLFTGLIGGTNNRNPGVPARFSGSLIGDKAALTITGAQTEDEAIYFCALWFNNTWVFGGGTKLTVLGSEKSSPSVTLFPPSSEELETNKATLVCTITDFYPGVVTVDWKVDGTPVTQGMETTQPSKQSNNKYMASSYLTLTARAWERHSSYSCQVTHEGHTVEKSLSR"
+        },
+        "n_mutations": 11,
+        "mutations": {
+          "H": [
+            "T28D",
+            "N31K",
+            "M34A",
+            "R52G",
+            "G100T",
+            "V101A",
+            "A105T"
+          ],
+          "L": [
+            "A56N",
+            "Y93F",
+            "S94N",
+            "H96T"
+          ]
+        },
+        "liabilities": {
+          "H:deamidation_NG_NS": 1,
+          "L:isomerisation_DG_DP": 1,
+          "L:Nglyc_sequon": 1
+        },
+        "heavy_germline_9mer_coverage": 0.1111
+      },
+      {
+        "global_score": 1.3123,
+        "sequences": {
+          "H": "QVQLQESGGGLVQPGGSMKLSCVASGFPFSNYWANWVRQSPEKGLEWVAEIGLKSNNYATHYAESVKGRFTISRDDSKSSVYLQMNNLRAEDTGIYYCTTAGEFTYWGQGTTVTVSSAKTTPPTVYPLAPGSMVTLGCLVKGYFPEPVTVTWNSGSLASGVHTFPAVLQSDLYTLSSSVTVPSSTWPSETVTCNVAHPASSTKVDAKIVPR",
+          "L": "IVVTQESALTTSPGETVTLTCRSSTGAVTTSNYANWVQEKPDHLFTGLIGGTNNRNPGVPARFSGSLIGDKAALTITGAQTEDEAIYFCALWFNNTWVFGGGTKLTVLGSEKSSPSVTLFPPSSEELETNKATLVCTITDFYPGVVTVDWKVDGTPVTQGMETTQPSKQSNNKYMASSYLTLTARAWERHSSYSCQVTHEGHTVEKSLSR"
+        },
+        "n_mutations": 11,
+        "mutations": {
+          "H": [
+            "T28P",
+            "M34A",
+            "R52G",
+            "G100T",
+            "V101A",
+            "Q103E",
+            "A105T"
+          ],
+          "L": [
+            "A56N",
+            "Y93F",
+            "S94N",
+            "H96T"
+          ]
+        },
+        "liabilities": {
+          "H:deamidation_NG_NS": 1,
+          "L:isomerisation_DG_DP": 1,
+          "L:Nglyc_sequon": 1
+        },
+        "heavy_germline_9mer_coverage": 0.1111
+      },
+      {
+        "global_score": 1.3128,
+        "sequences": {
+          "H": "QVQLQESGGGLVQPGGSMKLSCVASGFPFSNYWANWVRQSPEKGLEWVAEIGTKSNNYATHYAESVKGRFTISRDDSKSSVYLQMNNLRAEDTGIYYCTTAGQFTYWGQGTTVTVSSAKTTPPTVYPLAPGSMVTLGCLVKGYFPEPVTVTWNSGSLASGVHTFPAVLQSDLYTLSSSVTVPSSTWPSETVTCNVAHPASSTKVDAKIVPR",
+          "L": "IVVTQESALTTSPGETVTLTCRSSTGAVTTSNYANWVQEKPDHLFTGLIGGTNNRNPGVPARFSGSLIGDKAALTITGAQTEDEAIYFCALWFNNTWVFGGGTKLTVLGSEKSSPSVTLFPPSSEELETNKATLVCTITDFYPGVVTVDWKVDGTPVTQGMETTQPSKQSNNKYMASSYLTLTARAWERHSSYSCQVTHEGHTVEKSLSR"
+        },
+        "n_mutations": 11,
+        "mutations": {
+          "H": [
+            "T28P",
+            "M34A",
+            "R52G",
+            "L53T",
+            "G100T",
+            "V101A",
+            "A105T"
+          ],
+          "L": [
+            "A56N",
+            "Y93F",
+            "S94N",
+            "H96T"
+          ]
+        },
+        "liabilities": {
+          "H:deamidation_NG_NS": 1,
+          "L:isomerisation_DG_DP": 1,
+          "L:Nglyc_sequon": 1
+        },
+        "heavy_germline_9mer_coverage": 0.1111
+      },
+      {
+        "global_score": 1.3133,
+        "sequences": {
+          "H": "QVQLQESGGGLVQPGGSMKLSCVASGFPFSNYWANWVRQSPEKGLEWVAEIGTKSNNYATHYAESVKGRFTISRDDSKSSVYLQMNNLRAEDTGIYYCTTAGQFTYWGQGTTVTVSSAKTTPPTVYPLAPGSMVTLGCLVKGYFPEPVTVTWNSGSLASGVHTFPAVLQSDLYTLSSSVTVPSSTWPSETVTCNVAHPASSTKVDAKIVPR",
+          "L": "IVVTQESALTTSPGETVTLTCRSSTGAVTTSNYANWVQEKPDHLFTGLIGGTNNRNPGVPARFSGSLIGDKAALTITGAQTEDEAIYFCALWFNNTWVFGGGTKLTVLGSEKSSPSVTLFPPSSEELETNKATLVCTITDFYPGVVTVDWKVDGTPVTQGMETTQPSKQSNNKYMASSYLTLTARAWERHSSYSCQVTHEGHTVEKSLSR"
+        },
+        "n_mutations": 11,
+        "mutations": {
+          "H": [
+            "T28P",
+            "M34A",
+            "R52G",
+            "L53T",
+            "G100T",
+            "V101A",
+            "A105T"
+          ],
+          "L": [
+            "A56N",
+            "Y93F",
+            "S94N",
+            "H96T"
+          ]
+        },
+        "liabilities": {
+          "H:deamidation_NG_NS": 1,
+          "L:isomerisation_DG_DP": 1,
+          "L:Nglyc_sequon": 1
+        },
+        "heavy_germline_9mer_coverage": 0.1111
+      },
+      {
+        "global_score": 1.3144,
+        "sequences": {
+          "H": "QVQLQESGGGLVQPGGSMKLSCVASGFDFSKYWANWVRQSPEKGLEWVAEIGTKSNNYATHYAESVKGRFTISRDDSKSSVYLQMNNLRAEDTGIYYCTTAGQFSYWGQGTTVTVSSAKTTPPTVYPLAPGSMVTLGCLVKGYFPEPVTVTWNSGSLASGVHTFPAVLQSDLYTLSSSVTVPSSTWPSETVTCNVAHPASSTKVDAKIVPR",
+          "L": "IVVTQESALTTSPGETVTLTCRSSTGAVTTSNYANWVQEKPDHLFTGLIGGTNNRNPGVPARFSGSLIGDKAALTITGAQTEDEAIYFCALWFNNTWVFGGGTKLTVLGSEKSSPSVTLFPPSSEELETNKATLVCTITDFYPGVVTVDWKVDGTPVTQGMETTQPSKQSNNKYMASSYLTLTARAWERHSSYSCQVTHEGHTVEKSLSR"
+        },
+        "n_mutations": 12,
+        "mutations": {
+          "H": [
+            "T28D",
+            "N31K",
+            "M34A",
+            "R52G",
+            "L53T",
+            "G100T",
+            "V101A",
+            "A105S"
+          ],
+          "L": [
+            "A56N",
+            "Y93F",
+            "S94N",
+            "H96T"
+          ]
+        },
+        "liabilities": {
+          "H:deamidation_NG_NS": 1,
+          "L:isomerisation_DG_DP": 1,
+          "L:Nglyc_sequon": 1
+        },
+        "heavy_germline_9mer_coverage": 0.1111
+      },
+      {
+        "global_score": 1.3167,
+        "sequences": {
+          "H": "QVQLQESGGGLVQPGGSMKLSCVASGFPFSNYWANWVRQSPEKGLEWVAEIGTKSNNYATHYAESVKGRFTISRDDSKSSVYLQMNNLRAEDTGIYYCTTAGNFTYWGQGTTVTVSSAKTTPPTVYPLAPGSMVTLGCLVKGYFPEPVTVTWNSGSLASGVHTFPAVLQSDLYTLSSSVTVPSSTWPSETVTCNVAHPASSTKVDAKIVPR",
+          "L": "IVVTQESALTTSPGETVTLTCRSSTGAVTTSNYANWVQEKPDHLFTGLIGGTNNRNPGVPARFSGSLIGDKAALTITGAQTEDEAIYFCALWFNNTWVFGGGTKLTVLGSEKSSPSVTLFPPSSEELETNKATLVCTITDFYPGVVTVDWKVDGTPVTQGMETTQPSKQSNNKYMASSYLTLTARAWERHSSYSCQVTHEGHTVEKSLSR"
+        },
+        "n_mutations": 12,
+        "mutations": {
+          "H": [
+            "T28P",
+            "M34A",
+            "R52G",
+            "L53T",
+            "G100T",
+            "V101A",
+            "Q103N",
+            "A105T"
+          ],
+          "L": [
+            "A56N",
+            "Y93F",
+            "S94N",
+            "H96T"
+          ]
+        },
+        "liabilities": {
+          "H:deamidation_NG_NS": 1,
+          "H:Nglyc_sequon": 1,
+          "L:isomerisation_DG_DP": 1,
+          "L:Nglyc_sequon": 1
+        },
+        "heavy_germline_9mer_coverage": 0.1111
+      },
+      {
+        "global_score": 1.3168,
+        "sequences": {
+          "H": "QVQLQESGGGLVQPGGSMKLSCVASGFPFSNYWANWVRQSPEKGLEWVAEIGTKSNNYATHYAESVKGRFTISRDDSKSSVYLQMNNLRAEDTGIYYCTTAGEFTYWGQGTTVTVSSAKTTPPTVYPLAPGSMVTLGCLVKGYFPEPVTVTWNSGSLASGVHTFPAVLQSDLYTLSSSVTVPSSTWPSETVTCNVAHPASSTKVDAKIVPR",
+          "L": "IVVTQESALTTSPGETVTLTCRSSTGAVTTSNYANWVQEKPDHLFTGLIGGTNNRNPGVPARFSGSLIGDKAALTITGAQTEDEAIYFCALWFNNTWVFGGGTKLTVLGSEKSSPSVTLFPPSSEELETNKATLVCTITDFYPGVVTVDWKVDGTPVTQGMETTQPSKQSNNKYMASSYLTLTARAWERHSSYSCQVTHEGHTVEKSLSR"
+        },
+        "n_mutations": 12,
+        "mutations": {
+          "H": [
+            "T28P",
+            "M34A",
+            "R52G",
+            "L53T",
+            "G100T",
+            "V101A",
+            "Q103E",
+            "A105T"
+          ],
+          "L": [
+            "A56N",
+            "Y93F",
+            "S94N",
+            "H96T"
+          ]
+        },
+        "liabilities": {
+          "H:deamidation_NG_NS": 1,
+          "L:isomerisation_DG_DP": 1,
+          "L:Nglyc_sequon": 1
+        },
+        "heavy_germline_9mer_coverage": 0.1111
+      },
+      {
+        "global_score": 1.3173,
+        "sequences": {
+          "H": "QVQLQESGGGLVQPGGSMKLSCVASGFPFSNYWANWVRQSPEKGLEWVAEIGLKSNNYATHYAESVKGRFTISRDDSKSSVYLQMNNLRAEDTGIYYCTTAGQFSYWGQGTTVTVSSAKTTPPTVYPLAPGSMVTLGCLVKGYFPEPVTVTWNSGSLASGVHTFPAVLQSDLYTLSSSVTVPSSTWPSETVTCNVAHPASSTKVDAKIVPR",
+          "L": "IVVTQESALTTSPGETVTLTCRSSTGAVTTSNYANWVQEKPDHLFTGLIGGTNNRNPGVPARFSGSLIGDKAALTITGAQTEDEAIYFCALWFNNTWVFGGGTKLTVLGSEKSSPSVTLFPPSSEELETNKATLVCTITDFYPGVVTVDWKVDGTPVTQGMETTQPSKQSNNKYMASSYLTLTARAWERHSSYSCQVTHEGHTVEKSLSR"
+        },
+        "n_mutations": 10,
+        "mutations": {
+          "H": [
+            "T28P",
+            "M34A",
+            "R52G",
+            "G100T",
+            "V101A",
+            "A105S"
+          ],
+          "L": [
+            "A56N",
+            "Y93F",
+            "S94N",
+            "H96T"
+          ]
+        },
+        "liabilities": {
+          "H:deamidation_NG_NS": 1,
+          "L:isomerisation_DG_DP": 1,
+          "L:Nglyc_sequon": 1
+        },
+        "heavy_germline_9mer_coverage": 0.1111
+      }
+    ]
+  },
+  {
+    "chimera": {
+      "id": "SM3_503_511",
+      "pdb": "1SM3",
+      "ab": [
+        "H",
+        "L"
+      ],
+      "pep": "P",
+      "window": "RRPEGPGAQ",
+      "txlna": [
+        503,
+        511
+      ],
+      "phospho_pos": null
+    },
+    "paratope_recovery_median": 0.5455,
+    "paratope": {
+      "H": [
+        26,
+        27,
+        28,
+        30,
+        31,
+        32,
+        33,
+        34,
+        51,
+        52,
+        53,
+        100,
+        101,
+        102,
+        103,
+        104,
+        105,
+        106,
+        107
+      ],
+      "L": [
+        32,
+        33,
+        34,
+        56,
+        57,
+        58,
+        91,
+        92,
+        93,
+        94,
+        95,
+        96,
+        97,
+        98
+      ]
+    },
+    "native": {
+      "H": "QVQLQESGGGLVQPGGSMKLSCVASGFTFSNYWMNWVRQSPEKGLEWVAEIRLKSNNYATHYAESVKGRFTISRDDSKSSVYLQMNNLRAEDTGIYYCTGVGQFAYWGQGTTVTVSSAKTTPPTVYPLAPGSMVTLGCLVKGYFPEPVTVTWNSGSLASGVHTFPAVLQSDLYTLSSSVTVPSSTWPSETVTCNVAHPASSTKVDAKIVPR",
+      "L": "IVVTQESALTTSPGETVTLTCRSSTGAVTTSNYANWVQEKPDHLFTGLIGGTNNRAPGVPARFSGSLIGDKAALTITGAQTEDEAIYFCALWYSNHWVFGGGTKLTVLGSEKSSPSVTLFPPSSEELETNKATLVCTITDFYPGVVTVDWKVDGTPVTQGMETTQPSKQSNNKYMASSYLTLTARAWERHSSYSCQVTHEGHTVEKSLSR"
+    },
+    "rounds": [
+      {
+        "round": 1,
+        "temp": 0.3,
+        "n": 81,
+        "designable": {
+          "H": [
+            26,
+            27,
+            28,
+            30,
+            31,
+            32,
+            33,
+            34,
+            51,
+            52,
+            53,
+            100,
+            101,
+            102,
+            103,
+            104,
+            105,
+            106,
+            107
+          ],
+          "L": [
+            32,
+            33,
+            34,
+            56,
+            57,
+            58,
+            91,
+            92,
+            93,
+            94,
+            95,
+            96,
+            97,
+            98
+          ]
+        },
+        "best_global_score": 1.2767,
+        "median_global_score": 1.2931
+      },
+      {
+        "round": 2,
+        "temp": 0.2,
+        "n": 81,
+        "designable": {
+          "H": [
+            28,
+            31,
+            53,
+            101,
+            103,
+            105
+          ],
+          "L": [
+            94,
+            96,
+            97,
+            98
+          ]
+        },
+        "best_global_score": 1.3,
+        "median_global_score": 1.3212
+      },
+      {
+        "round": 3,
+        "temp": 0.1,
+        "n": 81,
+        "designable": {
+          "H": [
+            31,
+            53,
+            101,
+            103
+          ],
+          "L": [
+            94,
+            97
+          ]
+        },
+        "best_global_score": 1.3091,
+        "median_global_score": 1.3308
+      }
+    ],
+    "n_clean": 0,
+    "top": [
+      {
+        "global_score": 1.3091,
+        "sequences": {
+          "H": "QVQLQESGGGLVQPGGSMKLSCVASGFDFSDYWANWVRQSPEKGLEWVAEIGRKSNNYATHYAESVKGRFTISRDDSKSSVYLQMNNLRAEDTGIYYCTTANQFSYWGQGTTVTVSSAKTTPPTVYPLAPGSMVTLGCLVKGYFPEPVTVTWNSGSLASGVHTFPAVLQSDLYTLSSSVTVPSSTWPSETVTCNVAHPASSTKVDAKIVPR",
+          "L": "IVVTQESALTTSPGETVTLTCRSSTGAVTTSNYANWVQEKPDHLFTGLIGGTNNRNPGVPARFSGSLIGDKAALTITGAQTEDEAIYFCALWFDDTWVFGGGTKLTVLGSEKSSPSVTLFPPSSEELETNKATLVCTITDFYPGVVTVDWKVDGTPVTQGMETTQPSKQSNNKYMASSYLTLTARAWERHSSYSCQVTHEGHTVEKSLSR"
+        },
+        "n_mutations": 14,
+        "mutations": {
+          "H": [
+            "T28D",
+            "N31D",
+            "M34A",
+            "R52G",
+            "L53R",
+            "G100T",
+            "V101A",
+            "G102N",
+            "A105S"
+          ],
+          "L": [
+            "A56N",
+            "Y93F",
+            "S94D",
+            "N95D",
+            "H96T"
+          ]
+        },
+        "liabilities": {
+          "H:deamidation_NG_NS": 1,
+          "L:isomerisation_DG_DP": 1
+        },
+        "heavy_germline_9mer_coverage": 0.1111
+      },
+      {
+        "global_score": 1.314,
+        "sequences": {
+          "H": "QVQLQESGGGLVQPGGSMKLSCVASGFDFSDYWANWVRQSPEKGLEWVAEIGRKSNNYATHYAESVKGRFTISRDDSKSSVYLQMNNLRAEDTGIYYCTTQNQFSYWGQGTTVTVSSAKTTPPTVYPLAPGSMVTLGCLVKGYFPEPVTVTWNSGSLASGVHTFPAVLQSDLYTLSSSVTVPSSTWPSETVTCNVAHPASSTKVDAKIVPR",
+          "L": "IVVTQESALTTSPGETVTLTCRSSTGAVTTSNYANWVQEKPDHLFTGLIGGTNNRNPGVPARFSGSLIGDKAALTITGAQTEDEAIYFCALWFDDTWVFGGGTKLTVLGSEKSSPSVTLFPPSSEELETNKATLVCTITDFYPGVVTVDWKVDGTPVTQGMETTQPSKQSNNKYMASSYLTLTARAWERHSSYSCQVTHEGHTVEKSLSR"
+        },
+        "n_mutations": 14,
+        "mutations": {
+          "H": [
+            "T28D",
+            "N31D",
+            "M34A",
+            "R52G",
+            "L53R",
+            "G100T",
+            "V101Q",
+            "G102N",
+            "A105S"
+          ],
+          "L": [
+            "A56N",
+            "Y93F",
+            "S94D",
+            "N95D",
+            "H96T"
+          ]
+        },
+        "liabilities": {
+          "H:deamidation_NG_NS": 1,
+          "L:isomerisation_DG_DP": 1
+        },
+        "heavy_germline_9mer_coverage": 0.1111
+      },
+      {
+        "global_score": 1.3145,
+        "sequences": {
+          "H": "QVQLQESGGGLVQPGGSMKLSCVASGFDFSDYWANWVRQSPEKGLEWVAEIGRKSNNYATHYAESVKGRFTISRDDSKSSVYLQMNNLRAEDTGIYYCTTANEFSYWGQGTTVTVSSAKTTPPTVYPLAPGSMVTLGCLVKGYFPEPVTVTWNSGSLASGVHTFPAVLQSDLYTLSSSVTVPSSTWPSETVTCNVAHPASSTKVDAKIVPR",
+          "L": "IVVTQESALTTSPGETVTLTCRSSTGAVTTSNYANWVQEKPDHLFTGLIGGTNNRNPGVPARFSGSLIGDKAALTITGAQTEDEAIYFCALWFDDTWVFGGGTKLTVLGSEKSSPSVTLFPPSSEELETNKATLVCTITDFYPGVVTVDWKVDGTPVTQGMETTQPSKQSNNKYMASSYLTLTARAWERHSSYSCQVTHEGHTVEKSLSR"
+        },
+        "n_mutations": 15,
+        "mutations": {
+          "H": [
+            "T28D",
+            "N31D",
+            "M34A",
+            "R52G",
+            "L53R",
+            "G100T",
+            "V101A",
+            "G102N",
+            "Q103E",
+            "A105S"
+          ],
+          "L": [
+            "A56N",
+            "Y93F",
+            "S94D",
+            "N95D",
+            "H96T"
+          ]
+        },
+        "liabilities": {
+          "H:deamidation_NG_NS": 1,
+          "L:isomerisation_DG_DP": 1
+        },
+        "heavy_germline_9mer_coverage": 0.1111
+      },
+      {
+        "global_score": 1.3173,
+        "sequences": {
+          "H": "QVQLQESGGGLVQPGGSMKLSCVASGFDFSDYWANWVRQSPEKGLEWVAEIGKKSNNYATHYAESVKGRFTISRDDSKSSVYLQMNNLRAEDTGIYYCTTANIFSYWGQGTTVTVSSAKTTPPTVYPLAPGSMVTLGCLVKGYFPEPVTVTWNSGSLASGVHTFPAVLQSDLYTLSSSVTVPSSTWPSETVTCNVAHPASSTKVDAKIVPR",
+          "L": "IVVTQESALTTSPGETVTLTCRSSTGAVTTSNYANWVQEKPDHLFTGLIGGTNNRNPGVPARFSGSLIGDKAALTITGAQTEDEAIYFCALWFDDTYVFGGGTKLTVLGSEKSSPSVTLFPPSSEELETNKATLVCTITDFYPGVVTVDWKVDGTPVTQGMETTQPSKQSNNKYMASSYLTLTARAWERHSSYSCQVTHEGHTVEKSLSR"
+        },
+        "n_mutations": 16,
+        "mutations": {
+          "H": [
+            "T28D",
+            "N31D",
+            "M34A",
+            "R52G",
+            "L53K",
+            "G100T",
+            "V101A",
+            "G102N",
+            "Q103I",
+            "A105S"
+          ],
+          "L": [
+            "A56N",
+            "Y93F",
+            "S94D",
+            "N95D",
+            "H96T",
+            "W97Y"
+          ]
+        },
+        "liabilities": {
+          "H:deamidation_NG_NS": 1,
+          "L:isomerisation_DG_DP": 1
+        },
+        "heavy_germline_9mer_coverage": 0.1111
+      },
+      {
+        "global_score": 1.3176,
+        "sequences": {
+          "H": "QVQLQESGGGLVQPGGSMKLSCVASGFDFSDYWANWVRQSPEKGLEWVAEIGKKSNNYATHYAESVKGRFTISRDDSKSSVYLQMNNLRAEDTGIYYCTTANIFSYWGQGTTVTVSSAKTTPPTVYPLAPGSMVTLGCLVKGYFPEPVTVTWNSGSLASGVHTFPAVLQSDLYTLSSSVTVPSSTWPSETVTCNVAHPASSTKVDAKIVPR",
+          "L": "IVVTQESALTTSPGETVTLTCRSSTGAVTTSNYANWVQEKPDHLFTGLIGGTNNRNPGVPARFSGSLIGDKAALTITGAQTEDEAIYFCALWFDDTYVFGGGTKLTVLGSEKSSPSVTLFPPSSEELETNKATLVCTITDFYPGVVTVDWKVDGTPVTQGMETTQPSKQSNNKYMASSYLTLTARAWERHSSYSCQVTHEGHTVEKSLSR"
+        },
+        "n_mutations": 16,
+        "mutations": {
+          "H": [
+            "T28D",
+            "N31D",
+            "M34A",
+            "R52G",
+            "L53K",
+            "G100T",
+            "V101A",
+            "G102N",
+            "Q103I",
+            "A105S"
+          ],
+          "L": [
+            "A56N",
+            "Y93F",
+            "S94D",
+            "N95D",
+            "H96T",
+            "W97Y"
+          ]
+        },
+        "liabilities": {
+          "H:deamidation_NG_NS": 1,
+          "L:isomerisation_DG_DP": 1
+        },
+        "heavy_germline_9mer_coverage": 0.1111
+      },
+      {
+        "global_score": 1.3199,
+        "sequences": {
+          "H": "QVQLQESGGGLVQPGGSMKLSCVASGFDFSDYWANWVRQSPEKGLEWVAEIGKKSNNYATHYAESVKGRFTISRDDSKSSVYLQMNNLRAEDTGIYYCTTANEFSYWGQGTTVTVSSAKTTPPTVYPLAPGSMVTLGCLVKGYFPEPVTVTWNSGSLASGVHTFPAVLQSDLYTLSSSVTVPSSTWPSETVTCNVAHPASSTKVDAKIVPR",
+          "L": "IVVTQESALTTSPGETVTLTCRSSTGAVTTSNYANWVQEKPDHLFTGLIGGTNNRNPGVPARFSGSLIGDKAALTITGAQTEDEAIYFCALWFDDTWVFGGGTKLTVLGSEKSSPSVTLFPPSSEELETNKATLVCTITDFYPGVVTVDWKVDGTPVTQGMETTQPSKQSNNKYMASSYLTLTARAWERHSSYSCQVTHEGHTVEKSLSR"
+        },
+        "n_mutations": 15,
+        "mutations": {
+          "H": [
+            "T28D",
+            "N31D",
+            "M34A",
+            "R52G",
+            "L53K",
+            "G100T",
+            "V101A",
+            "G102N",
+            "Q103E",
+            "A105S"
+          ],
+          "L": [
+            "A56N",
+            "Y93F",
+            "S94D",
+            "N95D",
+            "H96T"
+          ]
+        },
+        "liabilities": {
+          "H:deamidation_NG_NS": 1,
+          "L:isomerisation_DG_DP": 1
+        },
+        "heavy_germline_9mer_coverage": 0.1111
+      },
+      {
+        "global_score": 1.32,
+        "sequences": {
+          "H": "QVQLQESGGGLVQPGGSMKLSCVASGFDFSDYWANWVRQSPEKGLEWVAEIGKKSNNYATHYAESVKGRFTISRDDSKSSVYLQMNNLRAEDTGIYYCTTANIFSYWGQGTTVTVSSAKTTPPTVYPLAPGSMVTLGCLVKGYFPEPVTVTWNSGSLASGVHTFPAVLQSDLYTLSSSVTVPSSTWPSETVTCNVAHPASSTKVDAKIVPR",
+          "L": "IVVTQESALTTSPGETVTLTCRSSTGAVTTSNYANWVQEKPDHLFTGLIGGTNNRNPGVPARFSGSLIGDKAALTITGAQTEDEAIYFCALWFDDTYVFGGGTKLTVLGSEKSSPSVTLFPPSSEELETNKATLVCTITDFYPGVVTVDWKVDGTPVTQGMETTQPSKQSNNKYMASSYLTLTARAWERHSSYSCQVTHEGHTVEKSLSR"
+        },
+        "n_mutations": 16,
+        "mutations": {
+          "H": [
+            "T28D",
+            "N31D",
+            "M34A",
+            "R52G",
+            "L53K",
+            "G100T",
+            "V101A",
+            "G102N",
+            "Q103I",
+            "A105S"
+          ],
+          "L": [
+            "A56N",
+            "Y93F",
+            "S94D",
+            "N95D",
+            "H96T",
+            "W97Y"
+          ]
+        },
+        "liabilities": {
+          "H:deamidation_NG_NS": 1,
+          "L:isomerisation_DG_DP": 1
+        },
+        "heavy_germline_9mer_coverage": 0.1111
+      },
+      {
+        "global_score": 1.3208,
+        "sequences": {
+          "H": "QVQLQESGGGLVQPGGSMKLSCVASGFDFSDYWANWVRQSPEKGLEWVAEIGKKSNNYATHYAESVKGRFTISRDDSKSSVYLQMNNLRAEDTGIYYCTTANQFSYWGQGTTVTVSSAKTTPPTVYPLAPGSMVTLGCLVKGYFPEPVTVTWNSGSLASGVHTFPAVLQSDLYTLSSSVTVPSSTWPSETVTCNVAHPASSTKVDAKIVPR",
+          "L": "IVVTQESALTTSPGETVTLTCRSSTGAVTTSNYANWVQEKPDHLFTGLIGGTNNRNPGVPARFSGSLIGDKAALTITGAQTEDEAIYFCALWFDDTWVFGGGTKLTVLGSEKSSPSVTLFPPSSEELETNKATLVCTITDFYPGVVTVDWKVDGTPVTQGMETTQPSKQSNNKYMASSYLTLTARAWERHSSYSCQVTHEGHTVEKSLSR"
+        },
+        "n_mutations": 14,
+        "mutations": {
+          "H": [
+            "T28D",
+            "N31D",
+            "M34A",
+            "R52G",
+            "L53K",
+            "G100T",
+            "V101A",
+            "G102N",
+            "A105S"
+          ],
+          "L": [
+            "A56N",
+            "Y93F",
+            "S94D",
+            "N95D",
+            "H96T"
+          ]
+        },
+        "liabilities": {
+          "H:deamidation_NG_NS": 1,
+          "L:isomerisation_DG_DP": 1
+        },
+        "heavy_germline_9mer_coverage": 0.1111
+      },
+      {
+        "global_score": 1.3221,
+        "sequences": {
+          "H": "QVQLQESGGGLVQPGGSMKLSCVASGFDFSDYWANWVRQSPEKGLEWVAEIGTKSNNYATHYAESVKGRFTISRDDSKSSVYLQMNNLRAEDTGIYYCTTANQFSYWGQGTTVTVSSAKTTPPTVYPLAPGSMVTLGCLVKGYFPEPVTVTWNSGSLASGVHTFPAVLQSDLYTLSSSVTVPSSTWPSETVTCNVAHPASSTKVDAKIVPR",
+          "L": "IVVTQESALTTSPGETVTLTCRSSTGAVTTSNYANWVQEKPDHLFTGLIGGTNNRNPGVPARFSGSLIGDKAALTITGAQTEDEAIYFCALWFDDTWVFGGGTKLTVLGSEKSSPSVTLFPPSSEELETNKATLVCTITDFYPGVVTVDWKVDGTPVTQGMETTQPSKQSNNKYMASSYLTLTARAWERHSSYSCQVTHEGHTVEKSLSR"
+        },
+        "n_mutations": 14,
+        "mutations": {
+          "H": [
+            "T28D",
+            "N31D",
+            "M34A",
+            "R52G",
+            "L53T",
+            "G100T",
+            "V101A",
+            "G102N",
+            "A105S"
+          ],
+          "L": [
+            "A56N",
+            "Y93F",
+            "S94D",
+            "N95D",
+            "H96T"
+          ]
+        },
+        "liabilities": {
+          "H:deamidation_NG_NS": 1,
+          "L:isomerisation_DG_DP": 1
+        },
+        "heavy_germline_9mer_coverage": 0.1111
+      },
+      {
+        "global_score": 1.3222,
+        "sequences": {
+          "H": "QVQLQESGGGLVQPGGSMKLSCVASGFDFSDYWANWVRQSPEKGLEWVAEIGRKSNNYATHYAESVKGRFTISRDDSKSSVYLQMNNLRAEDTGIYYCTTQNQFSYWGQGTTVTVSSAKTTPPTVYPLAPGSMVTLGCLVKGYFPEPVTVTWNSGSLASGVHTFPAVLQSDLYTLSSSVTVPSSTWPSETVTCNVAHPASSTKVDAKIVPR",
+          "L": "IVVTQESALTTSPGETVTLTCRSSTGAVTTSNYANWVQEKPDHLFTGLIGGTNNRNPGVPARFSGSLIGDKAALTITGAQTEDEAIYFCALWFDDTWVFGGGTKLTVLGSEKSSPSVTLFPPSSEELETNKATLVCTITDFYPGVVTVDWKVDGTPVTQGMETTQPSKQSNNKYMASSYLTLTARAWERHSSYSCQVTHEGHTVEKSLSR"
+        },
+        "n_mutations": 14,
+        "mutations": {
+          "H": [
+            "T28D",
+            "N31D",
+            "M34A",
+            "R52G",
+            "L53R",
+            "G100T",
+            "V101Q",
+            "G102N",
+            "A105S"
+          ],
+          "L": [
+            "A56N",
+            "Y93F",
+            "S94D",
+            "N95D",
+            "H96T"
+          ]
+        },
+        "liabilities": {
+          "H:deamidation_NG_NS": 1,
+          "L:isomerisation_DG_DP": 1
+        },
+        "heavy_germline_9mer_coverage": 0.1111
+      }
+    ]
+  }
+]

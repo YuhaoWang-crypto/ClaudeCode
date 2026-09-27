@@ -1,0 +1,689 @@
+[
+  {
+    "id": "SM3_514_522_d1",
+    "chimera": "SM3_514_522",
+    "txlna_window": [
+      514,
+      522
+    ],
+    "epitope": "SSPRVTEAP",
+    "mpnn_global_score": 1.2873,
+    "n_paratope_mutations": 11,
+    "cdrs": {
+      "H": {
+        "CDR1": "GFDFSDYWAN",
+        "CDR2": "EIGLKSNNYATHYAES",
+        "CDR3": "TTMNQFGY"
+      },
+      "L": {
+        "CDR1": "RSSTGAVTTSNYAN",
+        "CDR2": "GTNNRAP",
+        "CDR3": "ALWFNNTWV"
+      }
+    },
+    "acceptor": {
+      "VH": {
+        "gene": "IGHV3-11",
+        "identity": 0.7188,
+        "locus": "IGHV",
+        "rejected": []
+      },
+      "VL": {
+        "gene": "IGLV7-43",
+        "identity": 0.6087,
+        "locus": "IGLV",
+        "rejected": []
+      }
+    },
+    "murine_design": {
+      "VH": "QVQLQESGGGLVQPGGSMKLSCVASGFDFSDYWANWVRQSPEKGLEWVAEIGLKSNNYATHYAESVKGRFTISRDDSKSSVYLQMNNLRAEDTGIYYCTTMNQFGYWGQGTTVTVSSAKTTPPTVYPLAPGSMVTLGCLVKGYFPEPVTVTWNSGSLASGVHTFPAVLQSDLYTLSSSVTVPSSTWPSETVTCNVAHPASSTKVDAKIVPR",
+      "VL": "IVVTQESALTTSPGETVTLTCRSSTGAVTTSNYANWVQEKPDHLFTGLIGGTNNRAPGVPARFSGSLIGDKAALTITGAQTEDEAIYFCALWFNNTWVFGGGTKLTVLGSEKSSPSVTLFPPSSEELETNKATLVCTITDFYPGVVTVDWKVDGTPVTQGMETTQPSKQSNNKYMASSYLTLTARAWERHSSYSCQVTHEGHTVEKSLSR"
+    },
+    "humanised": {
+      "VH": "QVQLVESGGGLVKPGGSLRLSCAASGFDFSDYWANWIRQAPGKGLEWVSEIGLKSNNYATHYAESVKGRFTISRDNAKNSLYLQMNSLRAEDTAVYYCTTMNQFGYWGQGTLVTVSS",
+      "VL": "QTVVTQEPSLTVSPGGTVTLTCRSSTGAVTTSNYANWFQQKPGQAPRALIYGTNNRAPWTPARFSGSLLGGKAALTLSGVQPEDEAEYYCALWFNNTWVFGGGTKLTVL"
+    },
+    "germline_9mer_coverage": {
+      "VH_murine": 0.1066,
+      "VH_humanised": 0.4862,
+      "VL_murine": 0.0164,
+      "VL_humanised": 0.4554
+    },
+    "liabilities": {
+      "VH:deamidation_NG_NS": 2,
+      "VL:Nglyc_sequon": 1
+    }
+  },
+  {
+    "id": "SM3_514_522_d2",
+    "chimera": "SM3_514_522",
+    "txlna_window": [
+      514,
+      522
+    ],
+    "epitope": "SSPRVTEAP",
+    "mpnn_global_score": 1.2946,
+    "n_paratope_mutations": 13,
+    "cdrs": {
+      "H": {
+        "CDR1": "GFDFSDYWAN",
+        "CDR2": "EIGLKSNNYATHYAES",
+        "CDR3": "TTSNQFGY"
+      },
+      "L": {
+        "CDR1": "RSSTGAVTTSNYAN",
+        "CDR2": "GTNNRNP",
+        "CDR3": "ALWFNDTWV"
+      }
+    },
+    "acceptor": {
+      "VH": {
+        "gene": "IGHV3-11",
+        "identity": 0.7188,
+        "locus": "IGHV",
+        "rejected": []
+      },
+      "VL": {
+        "gene": "IGLV7-43",
+        "identity": 0.6087,
+        "locus": "IGLV",
+        "rejected": []
+      }
+    },
+    "murine_design": {
+      "VH": "QVQLQESGGGLVQPGGSMKLSCVASGFDFSDYWANWVRQSPEKGLEWVAEIGLKSNNYATHYAESVKGRFTISRDDSKSSVYLQMNNLRAEDTGIYYCTTSNQFGYWGQGTTVTVSSAKTTPPTVYPLAPGSMVTLGCLVKGYFPEPVTVTWNSGSLASGVHTFPAVLQSDLYTLSSSVTVPSSTWPSETVTCNVAHPASSTKVDAKIVPR",
+      "VL": "IVVTQESALTTSPGETVTLTCRSSTGAVTTSNYANWVQEKPDHLFTGLIGGTNNRNPGVPARFSGSLIGDKAALTITGAQTEDEAIYFCALWFNDTWVFGGGTKLTVLGSEKSSPSVTLFPPSSEELETNKATLVCTITDFYPGVVTVDWKVDGTPVTQGMETTQPSKQSNNKYMASSYLTLTARAWERHSSYSCQVTHEGHTVEKSLSR"
+    },
+    "humanised": {
+      "VH": "QVQLVESGGGLVKPGGSLRLSCAASGFDFSDYWANWIRQAPGKGLEWVSEIGLKSNNYATHYAESVKGRFTISRDNAKNSLYLQMNSLRAEDTAVYYCTTSNQFGYWGQGTLVTVSS",
+      "VL": "QTVVTQEPSLTVSPGGTVTLTCRSSTGAVTTSNYANWFQQKPGQAPRALIYGTNNRNPWTPARFSGSLLGGKAALTLSGVQPEDEAEYYCALWFNDTWVFGGGTKLTVL"
+    },
+    "germline_9mer_coverage": {
+      "VH_murine": 0.1066,
+      "VH_humanised": 0.4862,
+      "VL_murine": 0.0164,
+      "VL_humanised": 0.4554
+    },
+    "liabilities": {
+      "VH:deamidation_NG_NS": 2,
+      "VL:Nglyc_sequon": 1
+    }
+  },
+  {
+    "id": "SM3_514_522_d3",
+    "chimera": "SM3_514_522",
+    "txlna_window": [
+      514,
+      522
+    ],
+    "epitope": "SSPRVTEAP",
+    "mpnn_global_score": 1.2954,
+    "n_paratope_mutations": 13,
+    "cdrs": {
+      "H": {
+        "CDR1": "GFDFSDYWAN",
+        "CDR2": "EIGLKSNNYATHYAES",
+        "CDR3": "TTVNNFGY"
+      },
+      "L": {
+        "CDR1": "RSSTGAVTTSNYAN",
+        "CDR2": "GTNNRNP",
+        "CDR3": "ALWFNDSWV"
+      }
+    },
+    "acceptor": {
+      "VH": {
+        "gene": "IGHV3-11",
+        "identity": 0.7188,
+        "locus": "IGHV",
+        "rejected": []
+      },
+      "VL": {
+        "gene": "IGLV7-43",
+        "identity": 0.6087,
+        "locus": "IGLV",
+        "rejected": []
+      }
+    },
+    "murine_design": {
+      "VH": "QVQLQESGGGLVQPGGSMKLSCVASGFDFSDYWANWVRQSPEKGLEWVAEIGLKSNNYATHYAESVKGRFTISRDDSKSSVYLQMNNLRAEDTGIYYCTTVNNFGYWGQGTTVTVSSAKTTPPTVYPLAPGSMVTLGCLVKGYFPEPVTVTWNSGSLASGVHTFPAVLQSDLYTLSSSVTVPSSTWPSETVTCNVAHPASSTKVDAKIVPR",
+      "VL": "IVVTQESALTTSPGETVTLTCRSSTGAVTTSNYANWVQEKPDHLFTGLIGGTNNRNPGVPARFSGSLIGDKAALTITGAQTEDEAIYFCALWFNDSWVFGGGTKLTVLGSEKSSPSVTLFPPSSEELETNKATLVCTITDFYPGVVTVDWKVDGTPVTQGMETTQPSKQSNNKYMASSYLTLTARAWERHSSYSCQVTHEGHTVEKSLSR"
+    },
+    "humanised": {
+      "VH": "QVQLVESGGGLVKPGGSLRLSCAASGFDFSDYWANWIRQAPGKGLEWVSEIGLKSNNYATHYAESVKGRFTISRDNAKNSLYLQMNSLRAEDTAVYYCTTVNNFGYWGQGTLVTVSS",
+      "VL": "QTVVTQEPSLTVSPGGTVTLTCRSSTGAVTTSNYANWFQQKPGQAPRALIYGTNNRNPWTPARFSGSLLGGKAALTLSGVQPEDEAEYYCALWFNDSWVFGGGTKLTVL"
+    },
+    "germline_9mer_coverage": {
+      "VH_murine": 0.1066,
+      "VH_humanised": 0.4862,
+      "VL_murine": 0.0164,
+      "VL_humanised": 0.4554
+    },
+    "liabilities": {
+      "VH:deamidation_NG_NS": 2,
+      "VL:Nglyc_sequon": 1
+    }
+  },
+  {
+    "id": "ACC4_502_510_d1",
+    "chimera": "ACC4_502_510",
+    "txlna_window": [
+      502,
+      510
+    ],
+    "epitope": "ERRPEGPGA",
+    "mpnn_global_score": 1.3092,
+    "n_paratope_mutations": 19,
+    "cdrs": {
+      "H": {
+        "CDR1": "GYTFTSRSVH",
+        "CDR2": "WIDTKTGEAVYTDD",
+        "CDR3": "AISTSDSPLAY"
+      },
+      "L": {
+        "CDR1": "KSSQSLLGSDGKTRVN",
+        "CDR2": "LVSKLDS",
+        "CDR3": "WQQTHYPIT"
+      }
+    },
+    "acceptor": {
+      "VH": {
+        "gene": "IGHV1-3",
+        "identity": 0.5773,
+        "locus": "IGHV",
+        "rejected": [
+          [
+            "IGHV7-4-1",
+            0.68,
+            "3 cysteines"
+          ],
+          [
+            "IGHV7-81",
+            0.619,
+            "frameworks not resolvable"
+          ]
+        ]
+      },
+      "VL": {
+        "gene": "IGKV2D-30",
+        "identity": 0.79,
+        "locus": "IGKV",
+        "rejected": []
+      }
+    },
+    "murine_design": {
+      "VH": "QIQLVQSGPELKKPGETVKISCKASGYTFTSRSVHWVKQAPGKGLKWMGWIDTKTGEAVYTDDFKGRFAFSLESSASTAFLQINNLKNEDTATYFCAISTSDSPLAYWGQGTLVTVSAAKTTPPSVYPLAPGSMVTLGCLVKGYFPEPVTVTWNSGSLSSGVHTFPAVLQSDLYTLSSSVTVPSSTWPSETVTCNVAHPASSTKVDKKIVPR",
+      "VL": "DVVMTQTPLTLSVTIGQPASISCKSSQSLLGSDGKTRVNWLLQRPGQSPKRLIYLVSKLDSGVPDRFTGSGSGTDFTLKISRVEAEDLGVYYCWQQTHYPITFGAGTKLELKRADAAPTVSIFPPSSEQLTSGGASVVCFLNNFYPKDINVKWKIDGSERQNGVLNSWTDQDSKDSTYSMSSTLTLTKDEYERHNSYTCEATHKTSTSPIVKSFNRN"
+    },
+    "humanised": {
+      "VH": "QVQLVQSGAEVKKPGASVKVSCKASGYTFTSRSVHWVRQAPGQRLEWMGWIDTKTGEAVYTDDFQGRVTITRDTSASTAYMELSSLRSEDTAVYYCAISTSDSPLAYWGQGTLVTVSS",
+      "VL": "DVVMTQSPLSLPVTLGQPASISCKSSQSLLGSDGKTRVNWFQQRPGQSPRRLIYLVSKLDSGVPDRFSGSGSGTDFTLKISRVEAEDVGVYYCWQQTHYPITFGQGTKVEIK"
+    },
+    "germline_9mer_coverage": {
+      "VH_murine": 0.0246,
+      "VH_humanised": 0.5273,
+      "VL_murine": 0.1475,
+      "VL_humanised": 0.5385
+    },
+    "liabilities": {
+      "VL:isomerisation_DG_DP": 1
+    }
+  },
+  {
+    "id": "ACC4_502_510_d2",
+    "chimera": "ACC4_502_510",
+    "txlna_window": [
+      502,
+      510
+    ],
+    "epitope": "ERRPEGPGA",
+    "mpnn_global_score": 1.3099,
+    "n_paratope_mutations": 19,
+    "cdrs": {
+      "H": {
+        "CDR1": "GYTFTSRSVH",
+        "CDR2": "WIDTKTGEAVYTDD",
+        "CDR3": "AISTSDSPLAY"
+      },
+      "L": {
+        "CDR1": "KSSQSLLGSDGKTRVN",
+        "CDR2": "LVSKLDS",
+        "CDR3": "WQDTHYPIT"
+      }
+    },
+    "acceptor": {
+      "VH": {
+        "gene": "IGHV1-3",
+        "identity": 0.5773,
+        "locus": "IGHV",
+        "rejected": [
+          [
+            "IGHV7-4-1",
+            0.68,
+            "3 cysteines"
+          ],
+          [
+            "IGHV7-81",
+            0.619,
+            "frameworks not resolvable"
+          ]
+        ]
+      },
+      "VL": {
+        "gene": "IGKV2D-30",
+        "identity": 0.79,
+        "locus": "IGKV",
+        "rejected": []
+      }
+    },
+    "murine_design": {
+      "VH": "QIQLVQSGPELKKPGETVKISCKASGYTFTSRSVHWVKQAPGKGLKWMGWIDTKTGEAVYTDDFKGRFAFSLESSASTAFLQINNLKNEDTATYFCAISTSDSPLAYWGQGTLVTVSAAKTTPPSVYPLAPGSMVTLGCLVKGYFPEPVTVTWNSGSLSSGVHTFPAVLQSDLYTLSSSVTVPSSTWPSETVTCNVAHPASSTKVDKKIVPR",
+      "VL": "DVVMTQTPLTLSVTIGQPASISCKSSQSLLGSDGKTRVNWLLQRPGQSPKRLIYLVSKLDSGVPDRFTGSGSGTDFTLKISRVEAEDLGVYYCWQDTHYPITFGAGTKLELKRADAAPTVSIFPPSSEQLTSGGASVVCFLNNFYPKDINVKWKIDGSERQNGVLNSWTDQDSKDSTYSMSSTLTLTKDEYERHNSYTCEATHKTSTSPIVKSFNRN"
+    },
+    "humanised": {
+      "VH": "QVQLVQSGAEVKKPGASVKVSCKASGYTFTSRSVHWVRQAPGQRLEWMGWIDTKTGEAVYTDDFQGRVTITRDTSASTAYMELSSLRSEDTAVYYCAISTSDSPLAYWGQGTLVTVSS",
+      "VL": "DVVMTQSPLSLPVTLGQPASISCKSSQSLLGSDGKTRVNWFQQRPGQSPRRLIYLVSKLDSGVPDRFSGSGSGTDFTLKISRVEAEDVGVYYCWQDTHYPITFGQGTKVEIK"
+    },
+    "germline_9mer_coverage": {
+      "VH_murine": 0.0246,
+      "VH_humanised": 0.5273,
+      "VL_murine": 0.1475,
+      "VL_humanised": 0.5385
+    },
+    "liabilities": {
+      "VL:isomerisation_DG_DP": 1
+    }
+  },
+  {
+    "id": "ACC4_502_510_d3",
+    "chimera": "ACC4_502_510",
+    "txlna_window": [
+      502,
+      510
+    ],
+    "epitope": "ERRPEGPGA",
+    "mpnn_global_score": 1.3109,
+    "n_paratope_mutations": 19,
+    "cdrs": {
+      "H": {
+        "CDR1": "GYTFTSRSVH",
+        "CDR2": "WIDTKTGEAVYTDD",
+        "CDR3": "AISTEDSPLAY"
+      },
+      "L": {
+        "CDR1": "KSSQSLLGSDGKTRVN",
+        "CDR2": "LVSKLDS",
+        "CDR3": "WQDTHYPIT"
+      }
+    },
+    "acceptor": {
+      "VH": {
+        "gene": "IGHV1-3",
+        "identity": 0.5773,
+        "locus": "IGHV",
+        "rejected": [
+          [
+            "IGHV7-4-1",
+            0.68,
+            "3 cysteines"
+          ],
+          [
+            "IGHV7-81",
+            0.619,
+            "frameworks not resolvable"
+          ]
+        ]
+      },
+      "VL": {
+        "gene": "IGKV2D-30",
+        "identity": 0.79,
+        "locus": "IGKV",
+        "rejected": []
+      }
+    },
+    "murine_design": {
+      "VH": "QIQLVQSGPELKKPGETVKISCKASGYTFTSRSVHWVKQAPGKGLKWMGWIDTKTGEAVYTDDFKGRFAFSLESSASTAFLQINNLKNEDTATYFCAISTEDSPLAYWGQGTLVTVSAAKTTPPSVYPLAPGSMVTLGCLVKGYFPEPVTVTWNSGSLSSGVHTFPAVLQSDLYTLSSSVTVPSSTWPSETVTCNVAHPASSTKVDKKIVPR",
+      "VL": "DVVMTQTPLTLSVTIGQPASISCKSSQSLLGSDGKTRVNWLLQRPGQSPKRLIYLVSKLDSGVPDRFTGSGSGTDFTLKISRVEAEDLGVYYCWQDTHYPITFGAGTKLELKRADAAPTVSIFPPSSEQLTSGGASVVCFLNNFYPKDINVKWKIDGSERQNGVLNSWTDQDSKDSTYSMSSTLTLTKDEYERHNSYTCEATHKTSTSPIVKSFNRN"
+    },
+    "humanised": {
+      "VH": "QVQLVQSGAEVKKPGASVKVSCKASGYTFTSRSVHWVRQAPGQRLEWMGWIDTKTGEAVYTDDFQGRVTITRDTSASTAYMELSSLRSEDTAVYYCAISTEDSPLAYWGQGTLVTVSS",
+      "VL": "DVVMTQSPLSLPVTLGQPASISCKSSQSLLGSDGKTRVNWFQQRPGQSPRRLIYLVSKLDSGVPDRFSGSGSGTDFTLKISRVEAEDVGVYYCWQDTHYPITFGQGTKVEIK"
+    },
+    "germline_9mer_coverage": {
+      "VH_murine": 0.0246,
+      "VH_humanised": 0.5273,
+      "VL_murine": 0.1475,
+      "VL_humanised": 0.5385
+    },
+    "liabilities": {
+      "VL:isomerisation_DG_DP": 1
+    }
+  },
+  {
+    "id": "SM3_511_519_d1",
+    "chimera": "SM3_511_519",
+    "txlna_window": [
+      511,
+      519
+    ],
+    "epitope": "QAPSSPRVT",
+    "mpnn_global_score": 1.3071,
+    "n_paratope_mutations": 11,
+    "cdrs": {
+      "H": {
+        "CDR1": "GFDFSKYWAN",
+        "CDR2": "EIGLKSNNYATHYAES",
+        "CDR3": "TTAGQFSY"
+      },
+      "L": {
+        "CDR1": "RSSTGAVTTSNYAN",
+        "CDR2": "GTNNRNP",
+        "CDR3": "ALWFNNTWV"
+      }
+    },
+    "acceptor": {
+      "VH": {
+        "gene": "IGHV3-7",
+        "identity": 0.7083,
+        "locus": "IGHV",
+        "rejected": []
+      },
+      "VL": {
+        "gene": "IGLV7-43",
+        "identity": 0.6087,
+        "locus": "IGLV",
+        "rejected": []
+      }
+    },
+    "murine_design": {
+      "VH": "QVQLQESGGGLVQPGGSMKLSCVASGFDFSKYWANWVRQSPEKGLEWVAEIGLKSNNYATHYAESVKGRFTISRDDSKSSVYLQMNNLRAEDTGIYYCTTAGQFSYWGQGTTVTVSSAKTTPPTVYPLAPGSMVTLGCLVKGYFPEPVTVTWNSGSLASGVHTFPAVLQSDLYTLSSSVTVPSSTWPSETVTCNVAHPASSTKVDAKIVPR",
+      "VL": "IVVTQESALTTSPGETVTLTCRSSTGAVTTSNYANWVQEKPDHLFTGLIGGTNNRNPGVPARFSGSLIGDKAALTITGAQTEDEAIYFCALWFNNTWVFGGGTKLTVLGSEKSSPSVTLFPPSSEELETNKATLVCTITDFYPGVVTVDWKVDGTPVTQGMETTQPSKQSNNKYMASSYLTLTARAWERHSSYSCQVTHEGHTVEKSLSR"
+    },
+    "humanised": {
+      "VH": "EVQLVESGGGLVQPGGSLRLSCAASGFDFSKYWANWVRQAPGKGLEWVAEIGLKSNNYATHYAESVKGRFTISRDNAKNSLYLQMNSLRAEDTAVYYCTTAGQFSYWGQGTLVTVSS",
+      "VL": "QTVVTQEPSLTVSPGGTVTLTCRSSTGAVTTSNYANWFQQKPGQAPRALIYGTNNRNPWTPARFSGSLLGGKAALTLSGVQPEDEAEYYCALWFNNTWVFGGGTKLTVL"
+    },
+    "germline_9mer_coverage": {
+      "VH_murine": 0.1066,
+      "VH_humanised": 0.4954,
+      "VL_murine": 0.0164,
+      "VL_humanised": 0.4554
+    },
+    "liabilities": {
+      "VH:deamidation_NG_NS": 2,
+      "VL:Nglyc_sequon": 1
+    }
+  },
+  {
+    "id": "SM3_511_519_d2",
+    "chimera": "SM3_511_519",
+    "txlna_window": [
+      511,
+      519
+    ],
+    "epitope": "QAPSSPRVT",
+    "mpnn_global_score": 1.3119,
+    "n_paratope_mutations": 11,
+    "cdrs": {
+      "H": {
+        "CDR1": "GFDFSKYWAN",
+        "CDR2": "EIGLKSNNYATHYAES",
+        "CDR3": "TTAGQFTY"
+      },
+      "L": {
+        "CDR1": "RSSTGAVTTSNYAN",
+        "CDR2": "GTNNRNP",
+        "CDR3": "ALWFNNTWV"
+      }
+    },
+    "acceptor": {
+      "VH": {
+        "gene": "IGHV3-7",
+        "identity": 0.7083,
+        "locus": "IGHV",
+        "rejected": []
+      },
+      "VL": {
+        "gene": "IGLV7-43",
+        "identity": 0.6087,
+        "locus": "IGLV",
+        "rejected": []
+      }
+    },
+    "murine_design": {
+      "VH": "QVQLQESGGGLVQPGGSMKLSCVASGFDFSKYWANWVRQSPEKGLEWVAEIGLKSNNYATHYAESVKGRFTISRDDSKSSVYLQMNNLRAEDTGIYYCTTAGQFTYWGQGTTVTVSSAKTTPPTVYPLAPGSMVTLGCLVKGYFPEPVTVTWNSGSLASGVHTFPAVLQSDLYTLSSSVTVPSSTWPSETVTCNVAHPASSTKVDAKIVPR",
+      "VL": "IVVTQESALTTSPGETVTLTCRSSTGAVTTSNYANWVQEKPDHLFTGLIGGTNNRNPGVPARFSGSLIGDKAALTITGAQTEDEAIYFCALWFNNTWVFGGGTKLTVLGSEKSSPSVTLFPPSSEELETNKATLVCTITDFYPGVVTVDWKVDGTPVTQGMETTQPSKQSNNKYMASSYLTLTARAWERHSSYSCQVTHEGHTVEKSLSR"
+    },
+    "humanised": {
+      "VH": "EVQLVESGGGLVQPGGSLRLSCAASGFDFSKYWANWVRQAPGKGLEWVAEIGLKSNNYATHYAESVKGRFTISRDNAKNSLYLQMNSLRAEDTAVYYCTTAGQFTYWGQGTLVTVSS",
+      "VL": "QTVVTQEPSLTVSPGGTVTLTCRSSTGAVTTSNYANWFQQKPGQAPRALIYGTNNRNPWTPARFSGSLLGGKAALTLSGVQPEDEAEYYCALWFNNTWVFGGGTKLTVL"
+    },
+    "germline_9mer_coverage": {
+      "VH_murine": 0.1066,
+      "VH_humanised": 0.4954,
+      "VL_murine": 0.0164,
+      "VL_humanised": 0.4554
+    },
+    "liabilities": {
+      "VH:deamidation_NG_NS": 2,
+      "VL:Nglyc_sequon": 1
+    }
+  },
+  {
+    "id": "SM3_511_519_d3",
+    "chimera": "SM3_511_519",
+    "txlna_window": [
+      511,
+      519
+    ],
+    "epitope": "QAPSSPRVT",
+    "mpnn_global_score": 1.312,
+    "n_paratope_mutations": 11,
+    "cdrs": {
+      "H": {
+        "CDR1": "GFDFSKYWAN",
+        "CDR2": "EIGLKSNNYATHYAES",
+        "CDR3": "TTAGQFTY"
+      },
+      "L": {
+        "CDR1": "RSSTGAVTTSNYAN",
+        "CDR2": "GTNNRNP",
+        "CDR3": "ALWFNNTWV"
+      }
+    },
+    "acceptor": {
+      "VH": {
+        "gene": "IGHV3-7",
+        "identity": 0.7083,
+        "locus": "IGHV",
+        "rejected": []
+      },
+      "VL": {
+        "gene": "IGLV7-43",
+        "identity": 0.6087,
+        "locus": "IGLV",
+        "rejected": []
+      }
+    },
+    "murine_design": {
+      "VH": "QVQLQESGGGLVQPGGSMKLSCVASGFDFSKYWANWVRQSPEKGLEWVAEIGLKSNNYATHYAESVKGRFTISRDDSKSSVYLQMNNLRAEDTGIYYCTTAGQFTYWGQGTTVTVSSAKTTPPTVYPLAPGSMVTLGCLVKGYFPEPVTVTWNSGSLASGVHTFPAVLQSDLYTLSSSVTVPSSTWPSETVTCNVAHPASSTKVDAKIVPR",
+      "VL": "IVVTQESALTTSPGETVTLTCRSSTGAVTTSNYANWVQEKPDHLFTGLIGGTNNRNPGVPARFSGSLIGDKAALTITGAQTEDEAIYFCALWFNNTWVFGGGTKLTVLGSEKSSPSVTLFPPSSEELETNKATLVCTITDFYPGVVTVDWKVDGTPVTQGMETTQPSKQSNNKYMASSYLTLTARAWERHSSYSCQVTHEGHTVEKSLSR"
+    },
+    "humanised": {
+      "VH": "EVQLVESGGGLVQPGGSLRLSCAASGFDFSKYWANWVRQAPGKGLEWVAEIGLKSNNYATHYAESVKGRFTISRDNAKNSLYLQMNSLRAEDTAVYYCTTAGQFTYWGQGTLVTVSS",
+      "VL": "QTVVTQEPSLTVSPGGTVTLTCRSSTGAVTTSNYANWFQQKPGQAPRALIYGTNNRNPWTPARFSGSLLGGKAALTLSGVQPEDEAEYYCALWFNNTWVFGGGTKLTVL"
+    },
+    "germline_9mer_coverage": {
+      "VH_murine": 0.1066,
+      "VH_humanised": 0.4954,
+      "VL_murine": 0.0164,
+      "VL_humanised": 0.4554
+    },
+    "liabilities": {
+      "VH:deamidation_NG_NS": 2,
+      "VL:Nglyc_sequon": 1
+    }
+  },
+  {
+    "id": "SM3_503_511_d1",
+    "chimera": "SM3_503_511",
+    "txlna_window": [
+      503,
+      511
+    ],
+    "epitope": "RRPEGPGAQ",
+    "mpnn_global_score": 1.3091,
+    "n_paratope_mutations": 14,
+    "cdrs": {
+      "H": {
+        "CDR1": "GFDFSDYWAN",
+        "CDR2": "EIGRKSNNYATHYAES",
+        "CDR3": "TTANQFSY"
+      },
+      "L": {
+        "CDR1": "RSSTGAVTTSNYAN",
+        "CDR2": "GTNNRNP",
+        "CDR3": "ALWFDDTWV"
+      }
+    },
+    "acceptor": {
+      "VH": {
+        "gene": "IGHV3-11",
+        "identity": 0.7188,
+        "locus": "IGHV",
+        "rejected": []
+      },
+      "VL": {
+        "gene": "IGLV7-46",
+        "identity": 0.6222,
+        "locus": "IGLV",
+        "rejected": []
+      }
+    },
+    "murine_design": {
+      "VH": "QVQLQESGGGLVQPGGSMKLSCVASGFDFSDYWANWVRQSPEKGLEWVAEIGRKSNNYATHYAESVKGRFTISRDDSKSSVYLQMNNLRAEDTGIYYCTTANQFSYWGQGTTVTVSSAKTTPPTVYPLAPGSMVTLGCLVKGYFPEPVTVTWNSGSLASGVHTFPAVLQSDLYTLSSSVTVPSSTWPSETVTCNVAHPASSTKVDAKIVPR",
+      "VL": "IVVTQESALTTSPGETVTLTCRSSTGAVTTSNYANWVQEKPDHLFTGLIGGTNNRNPGVPARFSGSLIGDKAALTITGAQTEDEAIYFCALWFDDTWVFGGGTKLTVLGSEKSSPSVTLFPPSSEELETNKATLVCTITDFYPGVVTVDWKVDGTPVTQGMETTQPSKQSNNKYMASSYLTLTARAWERHSSYSCQVTHEGHTVEKSLSR"
+    },
+    "humanised": {
+      "VH": "QVQLVESGGGLVKPGGSLRLSCAASGFDFSDYWANWIRQAPGKGLEWVSEIGRKSNNYATHYAESVKGRFTISRDNAKNSLYLQMNSLRAEDTAVYYCTTANQFSYWGQGTLVTVSS",
+      "VL": "QAVVTQEPSLTVSPGGTVTLTCRSSTGAVTTSNYANWFQQKPGQAPRTLIYGTNNRNPWTPARFSGSLLGGKAALTLLGAQPEDEAEYYCALWFDDTWVFGGGTKLTVL"
+    },
+    "germline_9mer_coverage": {
+      "VH_murine": 0.1066,
+      "VH_humanised": 0.4862,
+      "VL_murine": 0.0164,
+      "VL_humanised": 0.4554
+    },
+    "liabilities": {
+      "VH:deamidation_NG_NS": 2
+    }
+  },
+  {
+    "id": "SM3_503_511_d2",
+    "chimera": "SM3_503_511",
+    "txlna_window": [
+      503,
+      511
+    ],
+    "epitope": "RRPEGPGAQ",
+    "mpnn_global_score": 1.314,
+    "n_paratope_mutations": 14,
+    "cdrs": {
+      "H": {
+        "CDR1": "GFDFSDYWAN",
+        "CDR2": "EIGRKSNNYATHYAES",
+        "CDR3": "TTQNQFSY"
+      },
+      "L": {
+        "CDR1": "RSSTGAVTTSNYAN",
+        "CDR2": "GTNNRNP",
+        "CDR3": "ALWFDDTWV"
+      }
+    },
+    "acceptor": {
+      "VH": {
+        "gene": "IGHV3-11",
+        "identity": 0.7188,
+        "locus": "IGHV",
+        "rejected": []
+      },
+      "VL": {
+        "gene": "IGLV7-46",
+        "identity": 0.6222,
+        "locus": "IGLV",
+        "rejected": []
+      }
+    },
+    "murine_design": {
+      "VH": "QVQLQESGGGLVQPGGSMKLSCVASGFDFSDYWANWVRQSPEKGLEWVAEIGRKSNNYATHYAESVKGRFTISRDDSKSSVYLQMNNLRAEDTGIYYCTTQNQFSYWGQGTTVTVSSAKTTPPTVYPLAPGSMVTLGCLVKGYFPEPVTVTWNSGSLASGVHTFPAVLQSDLYTLSSSVTVPSSTWPSETVTCNVAHPASSTKVDAKIVPR",
+      "VL": "IVVTQESALTTSPGETVTLTCRSSTGAVTTSNYANWVQEKPDHLFTGLIGGTNNRNPGVPARFSGSLIGDKAALTITGAQTEDEAIYFCALWFDDTWVFGGGTKLTVLGSEKSSPSVTLFPPSSEELETNKATLVCTITDFYPGVVTVDWKVDGTPVTQGMETTQPSKQSNNKYMASSYLTLTARAWERHSSYSCQVTHEGHTVEKSLSR"
+    },
+    "humanised": {
+      "VH": "QVQLVESGGGLVKPGGSLRLSCAASGFDFSDYWANWIRQAPGKGLEWVSEIGRKSNNYATHYAESVKGRFTISRDNAKNSLYLQMNSLRAEDTAVYYCTTQNQFSYWGQGTLVTVSS",
+      "VL": "QAVVTQEPSLTVSPGGTVTLTCRSSTGAVTTSNYANWFQQKPGQAPRTLIYGTNNRNPWTPARFSGSLLGGKAALTLLGAQPEDEAEYYCALWFDDTWVFGGGTKLTVL"
+    },
+    "germline_9mer_coverage": {
+      "VH_murine": 0.1066,
+      "VH_humanised": 0.4862,
+      "VL_murine": 0.0164,
+      "VL_humanised": 0.4554
+    },
+    "liabilities": {
+      "VH:deamidation_NG_NS": 2
+    }
+  },
+  {
+    "id": "SM3_503_511_d3",
+    "chimera": "SM3_503_511",
+    "txlna_window": [
+      503,
+      511
+    ],
+    "epitope": "RRPEGPGAQ",
+    "mpnn_global_score": 1.3145,
+    "n_paratope_mutations": 15,
+    "cdrs": {
+      "H": {
+        "CDR1": "GFDFSDYWAN",
+        "CDR2": "EIGRKSNNYATHYAES",
+        "CDR3": "TTANEFSY"
+      },
+      "L": {
+        "CDR1": "RSSTGAVTTSNYAN",
+        "CDR2": "GTNNRNP",
+        "CDR3": "ALWFDDTWV"
+      }
+    },
+    "acceptor": {
+      "VH": {
+        "gene": "IGHV3-11",
+        "identity": 0.7188,
+        "locus": "IGHV",
+        "rejected": []
+      },
+      "VL": {
+        "gene": "IGLV7-46",
+        "identity": 0.6222,
+        "locus": "IGLV",
+        "rejected": []
+      }
+    },
+    "murine_design": {
+      "VH": "QVQLQESGGGLVQPGGSMKLSCVASGFDFSDYWANWVRQSPEKGLEWVAEIGRKSNNYATHYAESVKGRFTISRDDSKSSVYLQMNNLRAEDTGIYYCTTANEFSYWGQGTTVTVSSAKTTPPTVYPLAPGSMVTLGCLVKGYFPEPVTVTWNSGSLASGVHTFPAVLQSDLYTLSSSVTVPSSTWPSETVTCNVAHPASSTKVDAKIVPR",
+      "VL": "IVVTQESALTTSPGETVTLTCRSSTGAVTTSNYANWVQEKPDHLFTGLIGGTNNRNPGVPARFSGSLIGDKAALTITGAQTEDEAIYFCALWFDDTWVFGGGTKLTVLGSEKSSPSVTLFPPSSEELETNKATLVCTITDFYPGVVTVDWKVDGTPVTQGMETTQPSKQSNNKYMASSYLTLTARAWERHSSYSCQVTHEGHTVEKSLSR"
+    },
+    "humanised": {
+      "VH": "QVQLVESGGGLVKPGGSLRLSCAASGFDFSDYWANWIRQAPGKGLEWVSEIGRKSNNYATHYAESVKGRFTISRDNAKNSLYLQMNSLRAEDTAVYYCTTANEFSYWGQGTLVTVSS",
+      "VL": "QAVVTQEPSLTVSPGGTVTLTCRSSTGAVTTSNYANWFQQKPGQAPRTLIYGTNNRNPWTPARFSGSLLGGKAALTLLGAQPEDEAEYYCALWFDDTWVFGGGTKLTVL"
+    },
+    "germline_9mer_coverage": {
+      "VH_murine": 0.1066,
+      "VH_humanised": 0.4862,
+      "VL_murine": 0.0164,
+      "VL_humanised": 0.4554
+    },
+    "liabilities": {
+      "VH:deamidation_NG_NS": 2
+    }
+  }
+]

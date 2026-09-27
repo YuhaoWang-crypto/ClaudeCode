@@ -179,12 +179,23 @@ def read_designs(folder):
                 hdr = line
             elif hdr:
                 kv = dict(re.findall(r"([\w_]+)=([-\d.]+)", hdr))
+                # The first record in a LigandMPNN fasta is the INPUT
+                # sequence, not a design. Only designs carry id=. Reading it
+                # as a design puts SM3's own CDRs at the top of the list.
+                if "id" not in kv:
+                    hdr = None
+                    continue
                 if "T" in hdr and "overall_confidence" in kv or "id" in kv:
                     pass
-                out.append({"header": hdr, "seqs": line.strip().split(":"),
-                            "score": float(kv.get("overall_confidence",
-                                                  kv.get("ligand_confidence",
-                                                         "nan")))})
+                out.append({
+                    "header": hdr, "seqs": line.strip().split(":"),
+                    "score": float(kv.get("overall_confidence", "nan")),
+                    # reported separately by LigandMPNN and the more relevant
+                    # number here: confidence restricted to residues near the
+                    # context atoms, i.e. the ones facing the phosphate
+                    "ligand_confidence": float(
+                        kv.get("ligand_confidence", "nan")),
+                    "seq_recovery": float(kv.get("seq_rec", "nan"))})
                 hdr = None
     return out
 
@@ -274,6 +285,11 @@ def main():
                  "--pdb_path", pdb, "--out_folder", o,
                  "--redesigned_residues", redes,
                  "--ligand_mpnn_use_atom_context", str(ctx),
+                 # an unpaired cysteine in a CDR is a manufacturability
+                 # problem, and the smoke test produced one (CDR-H3
+                 # TFGGTMCYF), so the alphabet excludes it up front rather
+                 # than filtering it out afterwards
+                 "--omit_AA", "C",
                  "--batch_size", "10", "--number_of_batches", "10",
                  "--temperature", "0.2", "--seed", "37"], cwd=LMPNN)
             runs[tag] = read_designs(o)

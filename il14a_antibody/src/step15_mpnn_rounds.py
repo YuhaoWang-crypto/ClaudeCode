@@ -166,7 +166,14 @@ def mpnn_round(tag, pdb, design_chains, designable, nseq, temp, seed):
          f"--jsonl_path={parsed}", f"--chain_id_jsonl={assigned}",
          f"--fixed_positions_jsonl={fixed}", f"--out_folder={out}",
          f"--num_seq_per_target={nseq}", f"--sampling_temp={temp}",
-         f"--seed={seed}", "--batch_size=10"])
+         f"--seed={seed}", "--batch_size=10",
+         # Cysteine is excluded from the alphabet. Left in, ProteinMPNN put
+         # one in CDR-H3 (A105C) and one in CDR-L2 (A56C) in EVERY one of the
+         # 81 native-control designs: a V domain has exactly two cysteines,
+         # forming the intradomain disulfide, and a third is an unpaired thiol
+         # - aggregation, heterogeneous product, a manufacturability problem
+         # that no downstream filter should have to clean up.
+         "--omit_AAs=CX"])
     fa = list((out / "seqs").glob("*.fa"))[0]
     return parse_fasta_scores(fa.read_text())
 
@@ -178,6 +185,9 @@ def parse_fasta_scores(text):
             hdr = line
         elif hdr:
             kv = dict(re.findall(r"(\w+)=([-\d.]+)", hdr))
+            if "sample" not in kv:
+                hdr = None
+                continue        # ProteinMPNN echoes the input as record 1
             recs.append({"score": float(kv.get("score", "nan")),
                          "global_score": float(kv.get("global_score", "nan")),
                          "seq_recovery": float(kv.get("seq_recovery", "nan"))
@@ -203,6 +213,30 @@ def expand(sel, n):
             if 1 <= q <= n:
                 out.add(q)
     return sorted(out)
+
+
+FR2_W1 = re.compile(r"W[VIL][RKQGS]Q")
+FR2_W2 = re.compile(r"[LMVIF][EKQRDNSTG]W[VIAMLFY][GASVNT]")
+
+
+def protected(seq):
+    """Framework positions (1-based) that must never be redesigned.
+
+    Contact-based selection is agnostic about what a residue is FOR. On the
+    ACC4 scaffold it picked up position 47 - the conserved VH/VL interface
+    tryptophan of the L-K-W-M-G motif - and ProteinMPNN duly mutated it to
+    tyrosine in every top design. That residue packs the two domains
+    together; losing it is not a paratope tweak. The two conserved
+    cysteines are already excluded in paratope().
+    """
+    out = set()
+    m = FR2_W1.search(seq, 15)
+    if m:
+        out.add(m.start() + 1)
+        m2 = FR2_W2.search(seq, m.end())
+        if m2 and m2.start() + 3 <= m.end() + 20:
+            out.add(m2.start() + 3)          # the W inside the motif
+    return out
 
 
 def liabilities(seq):
@@ -262,7 +296,19 @@ def main():
             continue
         ab, pep = build(ch)
         chains = ch["ab"]
-        sel = {c: expand(paratope(ab[c], pep), len(ab[c])) for c in chains}
+        sel = {}
+        for c in chains:
+            native_c = "".join(THREE2ONE[r["comp"]] for r in ab[c])
+            prot = protected(native_c)
+            keep = [p for p in expand(paratope(ab[c], pep), len(ab[c]))
+                    if p not in prot]
+            if prot & set(expand(paratope(ab[c], pep), len(ab[c]))):
+                dropped = sorted(prot & set(expand(paratope(ab[c], pep),
+                                                   len(ab[c]))))
+                print(f"  chain {c}: protected framework position(s) "
+                      f"{[f'{native_c[p-1]}{p}' for p in dropped]} removed "
+                      f"from the designable set")
+            sel[c] = keep
         pdb = WORK / f"{ch['id']}.pdb"
         write_pdb(pdb, [(c, ab[c]) for c in chains] + [(ch["pep"], pep)])
         native = {c: "".join(THREE2ONE[r["comp"]] for r in ab[c]) for c in chains}
@@ -312,7 +358,9 @@ def main():
             for c, s in zip(chains, seqs):
                 for k, v in liabilities(s).items():
                     lia[f"{c}:{k}"] = v
-            hcov, _ = germline_9mer_coverage(seqs[0], KMERS)
+            # the template chains carry CH1/CL as well; the germline
+            # reference is V genes only, so score the V region
+            hcov, _ = germline_9mer_coverage(seqs[0][:125], KMERS)
             mut = {c: [(p, native[c][p - 1], s[p - 1])
                        for p in sel[c] if s[p - 1] != native[c][p - 1]]
                    for c, s in zip(chains, seqs)}
@@ -324,6 +372,15 @@ def main():
                            "liabilities": lia,
                            "heavy_germline_9mer_coverage": round(hcov, 4)})
         scored.sort(key=lambda r: (r["global_score"], len(r["liabilities"])))
+        # what the control is FOR: on the template's own epitope, the right
+        # answer is SM3's real paratope, so recovery is measurable.
+        n_pos = sum(len(v) for v in sel.values())
+        rec = [1 - s_["n_mutations"] / n_pos for s_ in scored]
+        rec_med = sorted(rec)[len(rec) // 2]
+        print(f"  paratope sequence recovery vs the template: "
+              f"median {rec_med*100:.1f}%  best {max(rec)*100:.1f}%"
+              + ("   <- the control: this is MPNN reproducing SM3's own CDRs"
+                 if ch["window"] is None else ""))
         clean = [s for s in scored if not s["liabilities"]]
         print(f"  round 4  scored {len(scored)}; {len(clean)} carry no "
               f"sequence liability")
@@ -331,7 +388,8 @@ def main():
             print(f"    score {s['global_score']:.4f}  {s['n_mutations']} muts"
                   f"  Hcov {s['heavy_germline_9mer_coverage']:.3f}"
                   f"  {s['mutations']}")
-        allres.append({"chimera": ch, "paratope": {c: list(v) for c, v in sel.items()},
+        allres.append({"chimera": ch,
+                       "paratope_recovery_median": round(rec_med, 4), "paratope": {c: list(v) for c, v in sel.items()},
                        "native": native, "rounds": rounds,
                        "n_clean": len(clean),
                        "top": (clean or scored)[:10]})
