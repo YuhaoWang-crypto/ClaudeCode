@@ -28,6 +28,14 @@ PEC50 = Quantity("target_affinity", "pEC50", "log10", "", (2.0, 12.0))
 
 #: ChEMBL `standard_type` -> the quantity it actually is.
 BY_STANDARD_TYPE = {"IC50": PIC50, "Ki": PKI, "Kd": PKD, "EC50": PEC50}
+
+#: The assay a downstream model expects its potency to be expressed in.
+#: Making this a separate quantity is what turns "which assay is this number
+#: from?" from a comment into a type error: a raw pIC50 cannot reach a model
+#: that wants reference-assay potency without an explicit transfer.
+REFERENCE_ASSAY = "CHEMBL5737244"
+PIC50_REF = Quantity("target_affinity", "pIC50", "log10",
+                     f"assay {REFERENCE_ASSAY}", (2.0, 12.0))
 IC50_NM = Quantity("target_affinity", "nM", "linear", "", (1e-3, 1e9))
 OCCUPANCY = Quantity("target_occupancy", "fraction", "linear",
                      "unbound target", (0.0, 1.0))
@@ -80,9 +88,17 @@ def _ic50_to_occupancy(x_nm, claim):
 
 
 PIC50_TO_IC50 = Coercion("pIC50->IC50nM", PIC50, IC50_NM, _pic50_to_nm)
+PIC50REF_TO_IC50 = Coercion("pIC50(ref)->IC50nM", PIC50_REF, IC50_NM,
+                            _pic50_to_nm)
 IC50_TO_PIC50 = Coercion("IC50nM->pIC50", IC50_NM, PIC50, _nm_to_pic50)
 IC50_TO_OCCUPANCY = Coercion("IC50nM->occupancy", IC50_NM, OCCUPANCY,
                              _ic50_to_occupancy)
 IC50_TO_OCCUPANCY.requires_context = ("dose_uM",)
 
-LOSSLESS = [PIC50_TO_IC50, IC50_TO_PIC50, IC50_TO_OCCUPANCY]
+LOSSLESS = [PIC50_TO_IC50, PIC50REF_TO_IC50, IC50_TO_PIC50, IC50_TO_OCCUPANCY]
+
+#: The same set minus the edge that lets a raw pIC50 reach the downstream
+#: model without ever stating which assay it came from. A registry built
+#: from this set forces an explicit, calibrated assay transfer -- see
+#: bioif.demo_routing.
+STRICT_LOSSLESS = [PIC50REF_TO_IC50, IC50_TO_PIC50, IC50_TO_OCCUPANCY]

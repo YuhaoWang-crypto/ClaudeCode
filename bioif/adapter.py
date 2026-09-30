@@ -21,6 +21,7 @@ same confidence for both.
 """
 from __future__ import annotations
 
+import math
 from dataclasses import dataclass
 from typing import Callable, Sequence
 
@@ -55,6 +56,19 @@ class Adapter:
     calibrated_systems: tuple[str, ...] = ()
     #: named assumption, surfaced as a flag on all downstream claims
     assumption: str = ""
+
+    def calibrated_width(self, alpha: float = 0.2) -> float:
+        """
+        The width of this edge's calibrated interval, or infinity if it has
+        none.
+
+        This is what lets the registry choose between two models of the SAME
+        hop. Algebra is free and wins by default; among fitted models, the
+        one whose interval has been calibrated and is narrower wins; a model
+        that has never been calibrated loses to one that has, which is the
+        incentive one wants.
+        """
+        return 0.0 if self.kind == COERCION else math.inf
 
     @property
     def max_evidence(self) -> str:

@@ -244,9 +244,8 @@ bridges, and was asked about a cell system no link was ever fitted on.
    **done, see §5.**
 2. ~~Wrap one model in conformal prediction and check the interval's
    empirical coverage~~ — **done, see §6.**
-3. Add a second model for the same hop and let the router pick; report how
-   much the endpoint moves. Disagreement between two routes is a free,
-   experiment-free uncertainty estimate.
+3. ~~Add a second model for the same hop and let the router pick~~ —
+   **done, see §7.**
 4. Then, and only then, a leakage-aware chain benchmark on a hop with real
    measured truth on both sides.
 
@@ -455,3 +454,140 @@ not a general claim about conformal prediction, about ChEMBL, or about assay
 transfer in other target classes. The downstream occupancy/activity/fitness
 adapters remain stubs, so chain endpoints are still hypotheses. And conformal
 calibrates an interval — it does not make the underlying predictor correct.
+
+---
+
+## 7. Two models for one hop, and letting the registry choose
+
+```bash
+python3 -m bioif.demo_routing     # R1–R5 below
+python3 -m bioif.selftest         # 34/34, ~5 s
+```
+
+Until now every hop had exactly one implementation, so "which model" was
+never a question the interface had to answer. It is the question that matters
+most in practice: several groups model the same step, they disagree, and a
+pipeline has to pick.
+
+The assay-transfer hop now carries **twelve competing adapters** — four source
+assays × three predictors (`identity` y=x, `shift` y=x+b, `linear` y=a+bx),
+all fitted on real ChEMBL pairs, all wrapped in the same split-conformal
+procedure. Two contract changes make the competition well-posed:
+
+- the transfer **produces a different quantity** (`pIC50` → `pIC50 in the
+  reference assay`), so "which assay is this number from?" is a type error
+  rather than a footnote, and a raw measurement cannot reach the downstream
+  model without an explicit calibrated transfer;
+- `Adapter.calibrated_width(alpha)` is a **declared property**, so the
+  registry can rank on it. Algebra declares 0; an uncalibrated model declares
+  infinity and loses to any model that has been calibrated.
+
+Selection is `in-domain first, then narrowest calibrated interval, then kind`,
+evaluated **per claim**. The domain test alone eliminates 11 of 12 (only one
+source assay is ever in domain); width settles the rest.
+
+### 7.1 A bug the demo caught, and the headline it reversed
+
+The first version of this section reported that in **14 of 18** assay pairs a
+rival model's prediction fell outside the selected model's 80% interval, with
+model disagreement running at **74%** of the interval width. **That was
+wrong, and it was my bug.**
+
+`ConformalAssayTransfer` emits `predict(x) + a resampled calibration
+residual`. Those residuals carry any bias in `predict` with the opposite sign,
+so the emitted distribution is *already de-biased* and is **not** centred on
+`predict(x)`. Scoring it with a symmetric interval around `predict(x)` — the
+textbook |residual| form — punished a model for a bias its own output no
+longer had, and comparing raw `predict(x)` values across models measured a
+gap that the adapters did not actually exhibit.
+
+The demo surfaced it: `identity` and `shift` were returning **byte-identical
+endpoints** while advertising widths that differed 4×. Fixed by scoring on
+**two-sided signed** conformal offsets, which are exactly the central
+(1−α) region of what the adapter emits.
+
+⚠️ §6's numbers are unaffected — `conformal.py` still uses the symmetric
+variant, which is a valid procedure and is what §6 measured. The two forms
+now coexist with their roles documented. One real cost: the two-sided form
+needs **n_cal ≥ 9** at α = 0.2 against **n_cal ≥ 4** for the symmetric one,
+so it supports 7 pairs rather than 18.
+
+### 7.2 Validity does not separate models; width does — and barely
+
+α = 0.2, 300 compound-level splits, 7 pairs with enough calibration data:
+
+| predictor | mean coverage | mean width | pairs valid |
+|---|---|---|---|
+| identity | 0.815 | 1.31 | 7/7 |
+| shift | 0.814 | 1.31 | 7/7 |
+| linear | 0.815 | 1.54 | 7/7 |
+
+Two things follow.
+
+**Identity and shift are the same model.** Not similar — identical widths,
+identical centres, identical intervals, verified to 1e-9 in the test suite,
+while their raw predictors differ by 0.70 log units. Conformalisation absorbs
+a constant bias, so "reuse the number as measured" and "reuse it with the
+median offset applied" are one conformalised model. Three candidate
+predictors, **two** distinct models.
+
+**The flexible model wins only where there is data to fit it.** `linear` is
+narrower on the well-powered pair (0.39 vs 0.43, n=226) and wider on all six
+small ones (1.54 vs 1.31 on average) — its extra parameter costs more in
+variance than it buys in fit. Across the four registered source assays the
+winner splits 3 linear / 1 identity≡shift. No model wins everywhere, which is
+precisely why this is a routing decision rather than a library-wide default.
+
+### 7.3 What running the alternatives buys
+
+`bioif/ensemble.py` runs **every** in-domain route, not just the chosen one,
+and compares the spread between their endpoints against the width the selected
+route advertises. Measured on the transfer hop across 7 pairs:
+
+| | |
+|---|---|
+| median (model spread ÷ selected interval width) | **0.13** |
+| worst pair (max spread ÷ width) | **1.22** |
+| pairs where some compound's rival falls outside the interval | 4/7 |
+
+So on this data **model choice is a second-order term**: typically it moves
+the answer about 13% of the calibrated interval width — far less than the
+interval itself, and nothing like the cross-assay failure of §6.3 where
+coverage collapsed to 0.00. The first, buggy version of this analysis
+overstated it by roughly 6×.
+
+But it is not uniformly small, and *where* it bites is the useful part.
+Sweeping a claim across the input range:
+
+| source assay | n | pIC50 in | selected endpoint | sel. width | spread | flag |
+|---|---|---|---|---|---|---|
+| CHEMBL5737243 | 226 | 4.50 | −0.012 | 0.378 | 0.003 | — |
+| CHEMBL5737243 | 226 | 6.00 | −0.396 | 0.488 | 0.037 | — |
+| CHEMBL5737243 | 226 | 7.50 | −0.878 | 0.591 | 0.018 | — |
+| CHEMBL4368373 | 13 | 4.50 | −0.152 | 0.489 | 0.482 | — |
+| CHEMBL4368373 | 13 | 7.00 | −0.854 | 0.694 | 0.716 | **YES** |
+| CHEMBL4368373 | 13 | 7.50 | −0.897 | 0.619 | 0.827 | **YES** |
+
+**The well-calibrated source never trips the flag; the thin one trips it
+across most of the range.** At pIC50 7.50 from the n=13 source, identity≡shift
+say −0.897 [−1.198, −0.579] and linear says −0.070 [−0.375, +0.173] — the two
+models disagree about whether the compound does much of anything, and the
+envelope (width 1.372) is more than twice the selected interval (0.619).
+
+Model choice bites exactly where there is not enough data to tell the models
+apart, which is also where you least want to be guessing. That is why
+`RouteComparison.flag()` fires **per claim** rather than per hop: whether the
+choice matters depends on where in the input range you are asking.
+
+### What this does and does not establish
+
+✅ Measured: per-predictor coverage and width, the identity≡shift collapse,
+the data-dependence of which model wins, and the spread-vs-width ratios.
+
+⚠️ Same scope caveat as §6 — one target, one snapshot, three deliberately
+simple predictors. "Model choice is second-order" is a statement about *these*
+models on *this* hop; a hop where the candidates embody different mechanistic
+assumptions would not be expected to behave this way. And a registry that
+ranks on interval width selects for **efficiency among valid models**, which
+is not the same as selecting the model that is right. Running the
+alternatives prices that gap; it does not close it.

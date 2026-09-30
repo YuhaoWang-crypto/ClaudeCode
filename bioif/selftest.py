@@ -11,6 +11,7 @@ survive to the endpoint.
 """
 from __future__ import annotations
 
+import math
 import random
 import statistics
 import traceback
@@ -20,8 +21,8 @@ from .chain import run_chain
 from .core import (Claim, Context, Entity, Estimate, Provenance,
                    check_identity, EXTRAPOLATE, IN_DOMAIN)
 from .demo import CALIBRATED, UNCALIBRATED, chemical_source, genetic_source
-from .quantities import (DELTA_PSI, FITNESS, IC50_NM, PIC50, PKD, PKI,
-                         PROTEIN_LFC, RESIDUAL_ACTIVITY, RNA_LFC)
+from .quantities import (DELTA_PSI, FITNESS, IC50_NM, PIC50, PIC50_REF, PKD,
+                         PKI, PROTEIN_LFC, RESIDUAL_ACTIVITY, RNA_LFC)
 from .registry import Registry
 
 _results: list[tuple[str, bool, str]] = []
@@ -410,16 +411,159 @@ def t_transfer_adapter():
 @check("CONFORMAL: an assay transfer is never auto-routed")
 def t_transfer_not_routed():
     from .real import conformal as C
-    from .real.transfer_adapter import build_transfer
+    from .real.transfer_adapter import ConformalAssayTransfer, build_transfer
     pts = C.build_points()
     key = max({p.pair for p in pts},
               key=lambda k: sum(1 for p in pts if p.pair == k))
     reg = _reg()
-    reg.register(build_transfer(key, alpha=0.2))
+    tx = build_transfer(key, alpha=0.2)
+    reg.register(tx)
     path = reg.route(PIC50, FITNESS)
     assert path is not None
-    assert not any("assay-transfer" in a.name for a in path), \
-        "routing silently inserted an assay transfer"
+    assert not any(isinstance(a, ConformalAssayTransfer) for a in path), \
+        "routing silently inserted an assay transfer into a plain pIC50 chain"
+    # the transfer produces a DIFFERENT quantity, which is what makes
+    # "which assay is this from" a type error rather than a comment
+    assert tx.produces.key != PIC50.key
+    assert reg.route(PIC50_REF, FITNESS) is not None
+
+
+# ==========================================================================
+# Competing models for one hop, and the registry choosing between them.
+# ==========================================================================
+
+@check("ROUTING: two-sided conformal offsets are exact and refuse when unearnable")
+def t_signed_quantiles():
+    import math
+    from .real.transfer_models import signed_quantiles
+    r = [float(i) for i in range(1, 21)]           # n=20
+    lo, hi = signed_quantiles(r, 0.2)
+    # floor(21*0.1)=2 -> 2nd smallest ; ceil(21*0.9)=19 -> 19th smallest
+    assert (lo, hi) == (2.0, 19.0), (lo, hi)
+    lo, hi = signed_quantiles([1.0, 2.0, 3.0], 0.2)   # n=3 is not enough
+    assert math.isinf(hi - lo)
+
+
+@check("ROUTING: identity and shift are ONE model once conformalised")
+def t_identity_is_shift():
+    from .real import conformal as C
+    from .real.transfer_models import fit_conformal
+    pts = C.build_points()
+    key = max({p.pair for p in pts},
+              key=lambda k: sum(1 for p in pts if p.pair == k))
+    idm = fit_conformal(pts, key, "identity", (0.2,))
+    shm = fit_conformal(pts, key, "shift", (0.2,))
+    assert abs(idm.width(0.2) - shm.width(0.2)) < 1e-9, \
+        (idm.width(0.2), shm.width(0.2))
+    for x in (4.5, 6.0, 7.5):
+        assert abs(idm.center(x) - shm.center(x)) < 1e-9
+        assert all(abs(a - b) < 1e-9
+                   for a, b in zip(idm.interval(x, 0.2), shm.interval(x, 0.2)))
+    # and the raw predictors really are different, so this is a property of
+    # conformalisation rather than of the two predictors being identical
+    assert abs(idm.predict(6.0) - shm.predict(6.0)) > 0.3
+
+
+@check("ROUTING: the registry picks per claim, by domain then by width")
+def t_registry_selects():
+    from .demo_routing import source_claim, strict_registry
+    reg = strict_registry()
+    cands = reg.candidates(PIC50, PIC50_REF)
+    assert len(cands) >= 6, f"only {len(cands)} competing adapters"
+    sources = sorted({a.pair.source for a in cands})
+    assert len(sources) >= 3
+    picked = {}
+    for src in sources:
+        claim = source_claim(src, 6.0)
+        a = reg.select(PIC50, PIC50_REF, claim, alpha=0.2)
+        assert a is not None and a.pair.source == src, \
+            "selected an adapter calibrated for a different source assay"
+        # and it is the narrowest among those in domain for this claim
+        same = [c for c in cands if c.pair.source == src]
+        assert a.calibrated_width(0.2) == min(c.calibrated_width(0.2)
+                                              for c in same)
+        picked[src] = a
+    assert len({id(a) for a in picked.values()}) == len(sources)
+    # an assay nobody calibrated for gets no route at all, not a default
+    assert reg.select(PIC50, PIC50_REF,
+                      source_claim("CHEMBL9999999", 6.0), 0.2) is None
+
+
+@check("ROUTING: a calibrated model beats an uncalibrated one; algebra beats both")
+def t_width_ranking():
+    from .adapter import Adapter, EMPIRICAL
+    from .demo_routing import source_claim, strict_registry
+
+    class Uncalibrated(Adapter):
+        name, version, kind = "uncalibrated-transfer", "0", EMPIRICAL
+        consumes, produces = PIC50, PIC50_REF
+
+        def _forward(self, xs, claim, rng, noise):
+            return list(xs)
+
+    reg = strict_registry()
+    reg.register(Uncalibrated())
+    claim = source_claim("CHEMBL5737243", 6.0)
+    pick = reg.select(PIC50, PIC50_REF, claim, alpha=0.2)
+    assert pick.name != "uncalibrated-transfer", \
+        "an edge with no calibrated interval outranked one that has one"
+    assert math.isinf(Uncalibrated().calibrated_width(0.2))
+    # a coercion declares width 0 and so wins its group by default
+    from .quantities import PIC50REF_TO_IC50
+    assert PIC50REF_TO_IC50.calibrated_width(0.2) == 0.0
+
+
+@check("ROUTING: every in-domain route runs, and the envelope contains them all")
+def t_compare_routes():
+    from .demo_routing import source_claim, strict_registry
+    from .ensemble import compare_routes
+    reg = strict_registry()
+    rc = compare_routes(reg, PIC50, FITNESS,
+                        source_claim("CHEMBL5737243", 6.0), alpha=0.2)
+    assert len(rc.results) >= 2, rc.results
+    assert rc.refused, "no adapter was refused; the domain test did nothing"
+    assert rc.selected in rc.results
+    lo, hi = rc.envelope(0.80)
+    for res in rc.results.values():
+        a, b = res.final.estimate.ci(0.80)
+        assert lo - 1e-9 <= a and b <= hi + 1e-9
+    assert rc.point_spread() >= 0.0
+    # each route ends on the same endpoint quantity
+    assert {r.final.quantity.key for r in rc.results.values()} == {FITNESS.key}
+
+
+@check("ROUTING: the model-choice flag fires on thin data, not on thick")
+def t_choice_flag():
+    from .demo_routing import source_claim, strict_registry
+    from .ensemble import compare_routes
+    reg = strict_registry()
+    thick = compare_routes(reg, PIC50, FITNESS,
+                           source_claim("CHEMBL5737243", 7.5), alpha=0.2)
+    thin = compare_routes(reg, PIC50, FITNESS,
+                          source_claim("CHEMBL4368373", 7.5), alpha=0.2)
+    assert thick.ok and thin.ok
+    assert not thick.choice_exceeds_interval(0.80), \
+        "flag fired on the well-calibrated source"
+    assert thin.choice_exceeds_interval(0.80), \
+        "flag did not fire on the thinly calibrated source"
+    assert thick.flag(0.80) is None and thin.flag(0.80)
+    assert "model-choice" in thin.flag(0.80)
+
+
+@check("ROUTING: model disagreement is second-order next to the interval")
+def t_disagreement_scale():
+    from .real import conformal as C
+    from .real.transfer_models import disagreement_vs_width
+    pts = C.build_points()
+    d = disagreement_vs_width(pts, alpha=0.2)
+    assert len(d) >= 5
+    ratios = [v["median_spread"] / v["width"] for v in d.values()]
+    med = statistics.median(ratios)
+    assert med < 0.35, (
+        f"median spread/width {med:.2f}: model choice is no longer the "
+        f"second-order term this documents")
+    # but not negligible at the extremes
+    assert max(v["max_spread"] / v["width"] for v in d.values()) > 0.8
 
 
 @check("REAL: assay identity moves potency more than readout type does")

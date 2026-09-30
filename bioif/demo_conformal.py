@@ -22,7 +22,7 @@ import statistics
 
 from .chain import run_chain
 from .core import Context
-from .quantities import FITNESS, PIC50
+from .quantities import FITNESS, PIC50, PIC50_REF
 from .real import conformal as C
 from .real.transfer_adapter import build_transfer
 from .demo_real import build_registry
@@ -142,10 +142,10 @@ def main() -> None:
     info = tx.pair
     print(f"  {tx.name}   [{tx.kind}]  {tx.version}")
     print(f"    source {info.source}  ->  target {info.target}")
-    print(f"    fitted shift {tx.cal.shift:+.3f} log units  "
-          f"(n_train={tx.cal.n_train}, n_cal={tx.cal.n_cal})")
-    print(f"    calibrated source range [{tx.cal.x_range[0]:.2f}, "
-          f"{tx.cal.x_range[1]:.2f}]")
+    print(f"    model: {tx.model.predictor.describe()}  "
+          f"(n_train={tx.model.n_train}, n_cal={tx.model.n_cal})")
+    print(f"    calibrated source range [{tx.model.x_range[0]:.2f}, "
+          f"{tx.model.x_range[1]:.2f}]")
 
     x = 6.00
     lo, hi = tx.conformal_interval(x)
@@ -173,7 +173,7 @@ def main() -> None:
     print(f"    {v.status.upper()}: {v.reason}")
 
     reg = build_registry()
-    path = [tx] + reg.route(PIC50, FITNESS)
+    path = [tx] + reg.route(PIC50_REF, FITNESS)
     res = run_chain(path, src, seed=7)
     print(f"\n  full chain: " + " -> ".join(a.name for a in path))
     print(f"    endpoint {res.final.estimate.summary()}  [{res.final.evidence}]")

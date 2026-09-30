@@ -60,8 +60,9 @@ estimate + domain + provenance), not a universal model.
 python3 -m bioif.demo             # six scenarios, stub adapters, no dependencies
 python3 -m bioif.demo_real        # same chain, REAL ChEMBL affinity source
 python3 -m bioif.demo_conformal   # a calibrated interval, with its coverage checked
+python3 -m bioif.demo_routing     # 12 models for one hop; the registry chooses
 python3 -m bioif.real.heterogeneity  # the measurement that justifies the contract
-python3 -m bioif.selftest         # 27 interface guarantees, ~3 s
+python3 -m bioif.selftest         # 34 interface guarantees, ~5 s
 ```
 
 Replacing the stub affinity source with measured ChEMBL bioactivity kept the
@@ -78,6 +79,13 @@ nominal 0.80); across assay pairs the guarantee collapses to 0.612 with a
 worst case of 0.002, which is why the adapter refuses uncalibrated pairs.
 [`INTEROP.md`](INTEROP.md) §6.
 
+Finally the same hop is given **twelve competing adapters** and the registry
+picks per claim, on declared properties (in-domain, then narrowest calibrated
+interval). Running the alternatives as well as the winner prices the
+uncertainty a conformal interval cannot see — the choice of model itself. It
+also caught a bug in this repo that had inflated that figure ~6×.
+[`INTEROP.md`](INTEROP.md) §7.
+
 | | |
 |---|---|
 | Bottleneck taxonomy (12 cross-cutting axes + 19 layer crossings), ranked plan, and what the demo does *not* show | [`INTEROP.md`](INTEROP.md) |
@@ -86,6 +94,8 @@ worst case of 0.002, which is why the adapter refuses uncalibrated pairs.
 | Automatic routing between quantities | `bioif/registry.py` |
 | Distribution propagation + variance attribution → experiment ranking | `bioif/chain.py` |
 | Real ChEMBL source, identity resolution that refuses, committed snapshot | `bioif/real/` |
+| Conformal calibration, competing models, the assay-transfer adapter | `bioif/real/conformal.py`, `transfer_models.py`, `transfer_adapter.py` |
+| Running every route and pricing the model choice | `bioif/ensemble.py` |
 
 ⚠️ Every numeric constant in `bioif/adapters_demo.py` is an illustrative
 stub. The demo exercises interface behaviour — typed seams, automatic

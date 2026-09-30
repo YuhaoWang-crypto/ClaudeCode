@@ -1,63 +1,69 @@
 """
-bioif.real.transfer_adapter -- the first adapter in this package whose
-uncertainty is earned rather than asserted.
+bioif.real.transfer_adapter -- the first adapters in this package whose
+uncertainty is earned rather than asserted, and the first hop with more than
+one model competing for it.
 
 `ConformalAssayTransfer` answers "may I reuse this potency, measured in assay
-A, where assay B is needed?" It is fitted on compounds measured in both, it
-emits a conformally calibrated interval whose coverage has been checked
-empirically (see `conformal.py` and `demo_conformal.py`), and it refuses
-outright for any assay pair it was not calibrated on -- because the
-leave-one-pair-out experiment shows the guarantee does not survive that move
-(mean coverage 0.61 against a nominal 0.80, worst case 0.00).
+A, where the downstream model wants assay B?" It is fitted on compounds
+measured in both, emits a conformally calibrated interval whose coverage has
+been checked empirically, and refuses any assay pair it was not calibrated on
+-- because leave-one-pair-out coverage for an uncalibrated pair is 0.61
+against a nominal 0.80, worst case 0.00.
 
-Three contract details are doing real work here:
+Several of these are registered at once. They differ in two ways, and the
+registry uses both:
 
-  * The adapter consumes and produces the SAME quantity (pIC50) and changes
-    only `context.assay`. Routing therefore never inserts it on its own: an
-    assay transfer is a deliberate act, and has to be asked for.
-  * Its kind is EMPIRICAL, so the evidence level of a measured input drops to
-    `calibrated_prediction` on the way through. A measurement transferred to
-    another assay is no longer a measurement of that assay. That demotion is
-    now backed by a coverage number instead of a convention.
-  * Calibration is per assay pair -- Mondrian conformal -- because the
-    experiment shows pooled calibration meets its marginal guarantee (0.799
-    vs 0.80) while under-covering 11 of 18 individual pairs, worst 0.009.
-    The class that restores conditional coverage is the assay: the context
-    field the contract already carries.
+  * different SOURCE assays -- only one is in domain for a given claim, so
+    the domain test alone picks the right family;
+  * different PREDICTORS for the same source assay (identity / shift /
+    linear) -- all conformally valid, so the tie is broken on calibrated
+    interval width.
+
+Contract details doing real work:
+
+  * consumes pIC50, produces pIC50-in-the-reference-assay. Two different
+    quantities, so "which assay is this number from" is a type error rather
+    than a comment, and a raw measurement cannot reach the downstream model
+    without an explicit, calibrated transfer.
+  * kind is EMPIRICAL, so a measured input leaves as `calibrated_prediction`.
+    A measurement transferred to another assay is not a measurement of that
+    assay, and the demotion is now backed by a coverage number.
 """
 from __future__ import annotations
 
 import math
-import statistics
 
 from ..adapter import Adapter, EMPIRICAL
 from ..core import Context, EXTRAPOLATE, IN_DOMAIN, REFUSE, Verdict
-from ..quantities import PIC50
+from ..quantities import PIC50, PIC50_REF, REFERENCE_ASSAY
 from . import conformal as C
+from .transfer_models import ConformalModel, PREDICTORS, fit_conformal
 
 
 class ConformalAssayTransfer(Adapter):
-    """Reuse a pIC50 from one assay in another, with a checked interval."""
+    """Express a pIC50 from one assay in the reference assay, with an interval."""
 
     kind = EMPIRICAL
     consumes = PIC50
-    produces = PIC50
+    produces = PIC50_REF
     requires_context = ("assay",)
 
-    def __init__(self, pair: C.PairInfo, cal: C.Calibration,
-                 residuals: list[float], alpha: float = 0.2):
+    def __init__(self, pair: C.PairInfo, model: ConformalModel,
+                 alpha: float = 0.2):
         self.pair = pair
-        self.cal = cal
-        self.residuals = residuals
+        self.model = model
         self.alpha = alpha
-        self.name = f"assay-transfer {pair.source[-6:]}->{pair.target[-6:]}"
+        self.name = (f"transfer {pair.source[-6:]}->{pair.target[-6:]} "
+                     f"[{model.predictor.name}]")
         self.version = f"conformal/a={alpha}"
         self.calibrated_systems = ()
 
-    # -- the guarantee, stated exactly ------------------------------------
+    # -- what the registry ranks on ---------------------------------------
+    def calibrated_width(self, alpha: float = 0.2) -> float:
+        return self.model.width(alpha)
+
     def conformal_interval(self, x: float, alpha: float | None = None):
-        a = self.alpha if alpha is None else alpha
-        return self.cal.interval(x, a)
+        return self.model.interval(x, self.alpha if alpha is None else alpha)
 
     def domain(self, claim) -> Verdict:
         base = super().domain(claim)
@@ -67,15 +73,14 @@ class ConformalAssayTransfer(Adapter):
             return Verdict(REFUSE,
                            f"{self.name} is calibrated for source assay "
                            f"{self.pair.source}; this claim is from "
-                           f"{claim.context.assay}. Leave-one-pair-out "
-                           f"coverage for an uncalibrated pair is 0.61 "
-                           f"against a nominal 0.80 (worst 0.00), so there "
-                           f"is no interval to offer")
-        if not self.cal.attainable(self.alpha):
+                           f"{claim.context.assay}. Cross-pair coverage is "
+                           f"0.61 against a nominal 0.80 (worst 0.00), so "
+                           f"there is no interval to offer")
+        if not self.model.attainable(self.alpha):
             return Verdict(REFUSE,
-                           f"{self.cal.n_cal} calibration points cannot "
+                           f"{self.model.n_cal} calibration points cannot "
                            f"support alpha={self.alpha}")
-        lo, hi = self.cal.x_range
+        lo, hi = self.model.x_range
         x = claim.estimate.mean
         if not (lo <= x <= hi):
             return Verdict(EXTRAPOLATE,
@@ -87,26 +92,27 @@ class ConformalAssayTransfer(Adapter):
         return Context(system=c.system, dose_uM=c.dose_uM, time_h=c.time_h,
                        assay=self.pair.target,
                        covariates=c.covariates +
-                       (("transferred_from", self.pair.source),))
+                       (("transferred_from", self.pair.source),
+                        ("transfer_model", self.model.predictor.name)))
 
     def _forward(self, xs, claim, rng, noise):
         """
-        Resample the calibration residuals around the shifted prediction.
+        Resample the calibration residuals around the model's prediction.
 
-        This gives the full empirical predictive distribution; its central
-        (1-alpha) interval agrees with `conformal_interval` up to the
-        finite-sample (n+1)/n correction, which conformal spends to buy the
-        guarantee. With noise off (variance attribution) only the shift
-        applies.
+        The central (1-alpha) interval of the result agrees with
+        `conformal_interval` up to the finite-sample (n+1)/n correction that
+        conformal spends to buy the guarantee. With noise off (variance
+        attribution) only the point prediction applies.
         """
-        if not noise or not self.residuals:
-            return [x + self.cal.shift for x in xs]
-        return [x + self.cal.shift + rng.choice(self.residuals) for x in xs]
+        if not noise or not self.model.residuals:
+            return [self.model.predict(x) for x in xs]
+        return [self.model.predict(x) + rng.choice(self.model.residuals)
+                for x in xs]
 
 
-def build_transfer(pair_key: str, alpha: float = 0.2,
+def build_transfer(pair_key: str, predictor: str = "shift", alpha: float = 0.2,
                    seed: int = 11) -> ConformalAssayTransfer:
-    """Fit a deployable transfer adapter for one assay pair from the snapshot."""
+    """Fit one deployable transfer adapter from the committed snapshot."""
     pairs = C.discover_pairs()
     info = pairs[pair_key]
     if info.status != "continuous":
@@ -114,9 +120,27 @@ def build_transfer(pair_key: str, alpha: float = 0.2,
             f"{pair_key} is {info.status}: {info.reason} -- a conformal "
             f"regression interval on binned data would be meaningless")
     pts = C.build_points(pairs)
-    cal = C.fit_deployable(pts, pair_key, alphas=(alpha, 0.1), seed=seed)
-    import random
-    tr, ca, _ = C.split_by_compound([p for p in pts if p.pair == pair_key],
-                                    random.Random(seed), fracs=(0.5, 0.5, 0.0))
-    residuals = [p.y - C.predict(p.x, cal.shift) for p in ca]
-    return ConformalAssayTransfer(info, cal, residuals, alpha)
+    model = fit_conformal(pts, pair_key, predictor, (alpha, 0.1), seed)
+    return ConformalAssayTransfer(info, model, alpha)
+
+
+def build_all_transfers(target: str = REFERENCE_ASSAY, alpha: float = 0.2,
+                        seed: int = 11) -> list[ConformalAssayTransfer]:
+    """
+    Every continuous transfer into the reference assay, times every predictor.
+
+    This is the registry's competition: several source assays (only one of
+    which is in domain for any given claim) and several models per source
+    (all valid, differing in width).
+    """
+    pairs = C.discover_pairs()
+    pts = C.build_points(pairs)
+    out = []
+    for key, info in pairs.items():
+        if info.target != target or info.status != "continuous":
+            continue
+        for pname in PREDICTORS:
+            m = fit_conformal(pts, key, pname, (alpha, 0.1), seed)
+            if m.attainable(alpha):
+                out.append(ConformalAssayTransfer(info, m, alpha))
+    return out
