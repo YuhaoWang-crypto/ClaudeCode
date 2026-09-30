@@ -41,3 +41,35 @@ python3 -m grn_pipeline.m1_symmetry   # or any single module
 Figures are written to `figures/`. A full write-up with numbers, rigour
 labels, and the interpretation (including the Lyapunov-exponent biomarker
 question) is in [`REPORT.md`](REPORT.md).
+
+---
+
+## `bioif/` — composing heterogeneous models into longer causal chains
+
+A second, independent piece of the repo. `grn_pipeline/` goes *deep* on one
+mechanistic layer; `bioif/` addresses the orthogonal problem: models at
+different layers (small molecule, protein, transcript, variant, epigenome)
+are each fitted on their own data for their own question, and do not compose
+into a longer causal chain.
+
+The thesis is that they fail at the **semantics of the seam**, not the file
+format — so the fix is a thin typed contract (entity + quantity + context +
+estimate + domain + provenance), not a universal model.
+
+```bash
+python3 -m bioif.demo        # six scenarios, no dependencies
+python3 -m bioif.selftest    # 13 interface guarantees
+```
+
+| | |
+|---|---|
+| Bottleneck taxonomy (12 cross-cutting axes + 19 layer crossings), ranked plan, and what the demo does *not* show | [`INTEROP.md`](INTEROP.md) |
+| The contract | `bioif/core.py` |
+| Adapters, domain verdicts, refusal | `bioif/adapter.py` |
+| Automatic routing between quantities | `bioif/registry.py` |
+| Distribution propagation + variance attribution → experiment ranking | `bioif/chain.py` |
+
+⚠️ Every numeric constant in `bioif/adapters_demo.py` is an illustrative
+stub. The demo exercises interface behaviour — typed seams, automatic
+routing, honest widening, refusal, variance attribution — and makes no
+prediction about any real gene, compound or cell line.
