@@ -57,9 +57,17 @@ format — so the fix is a thin typed contract (entity + quantity + context +
 estimate + domain + provenance), not a universal model.
 
 ```bash
-python3 -m bioif.demo        # six scenarios, no dependencies
-python3 -m bioif.selftest    # 13 interface guarantees
+python3 -m bioif.demo             # six scenarios, stub adapters, no dependencies
+python3 -m bioif.demo_real        # same chain, REAL ChEMBL affinity source
+python3 -m bioif.real.heterogeneity  # the measurement that justifies the contract
+python3 -m bioif.selftest         # 20 interface guarantees
 ```
+
+Replacing the stub affinity source with measured ChEMBL bioactivity kept the
+suite green — but only after fixing three defects in the contract that stub
+data structurally could not reveal (readout-type pooling, single-sample
+estimates collapsing the Monte Carlo, and an identity resolver that always
+answered). Details and two real measured numbers in [`INTEROP.md`](INTEROP.md) §5.
 
 | | |
 |---|---|
@@ -68,6 +76,7 @@ python3 -m bioif.selftest    # 13 interface guarantees
 | Adapters, domain verdicts, refusal | `bioif/adapter.py` |
 | Automatic routing between quantities | `bioif/registry.py` |
 | Distribution propagation + variance attribution → experiment ranking | `bioif/chain.py` |
+| Real ChEMBL source, identity resolution that refuses, committed snapshot | `bioif/real/` |
 
 ⚠️ Every numeric constant in `bioif/adapters_demo.py` is an illustrative
 stub. The demo exercises interface behaviour — typed seams, automatic

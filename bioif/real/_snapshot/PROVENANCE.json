@@ -1,0 +1,9 @@
+{
+ "source": "EMBL-EBI ChEMBL REST API",
+ "base_url": "https://www.ebi.ac.uk/chembl/api/data",
+ "target": "CHEMBL2189121",
+ "filter": "pchembl_value__isnull=false",
+ "n_activities": 5000,
+ "fetched_utc": "2026-09-30T18:49:52+00:00",
+ "note": "Measured bioactivity, not model output. Fields retained are exactly those needed to decide comparability."
+}

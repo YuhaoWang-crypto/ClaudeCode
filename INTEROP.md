@@ -240,8 +240,8 @@ bridges, and was asked about a cell system no link was ever fitted on.
 
 ### Next demos, in order
 
-1. Replace one adapter with a real model and keep every test green — the
-   swap cost is the thing being measured.
+1. ~~Replace one adapter with a real model and keep every test green~~ —
+   **done, see §5.**
 2. Wrap one model in conformal prediction and check the interval's empirical
    coverage.
 3. Add a second model for the same hop and let the router pick; report how
@@ -249,3 +249,71 @@ bridges, and was asked about a cell system no link was ever fitted on.
    experiment-free uncertainty estimate.
 4. Then, and only then, a leakage-aware chain benchmark on a hop with real
    measured truth on both sides.
+
+---
+
+## 5. Swapping in a real source: what broke
+
+```bash
+python3 -m bioif.demo_real          # the chain with a real affinity source
+python3 -m bioif.real.heterogeneity # the measurement that justifies §2
+python3 -m bioif.selftest           # 20/20
+```
+
+The stub `affinity-model@0.1-stub` was replaced with measured bioactivity
+from the EMBL-EBI ChEMBL REST API (target `CHEMBL2189121`, *GTPase KRas*;
+5,000 pChEMBL-bearing records over 2,689 compounds and 206 assays, snapshot
+committed under `bioif/real/_snapshot/` with provenance). Everything
+downstream of the source is still the illustrative stub set.
+
+**The suite is green at 20/20 — but it did not stay green for free.** Three
+of the four changes needed were genuine defects in the original contract that
+a stub source structurally could not reveal, because a stub emits exactly one
+tidy number of exactly one type with exactly the arity you asked for.
+
+| | Defect the real data exposed | Why stubs hid it | Fix |
+|---|---|---|---|
+| **A** | A single `PIC50` quantity silently absorbed ChEMBL's `pchembl_value`, which pools IC50, Ki, Kd and EC50 into one column. For the demo compound **11 of 16 records (69%) were not IC50 at all**; across the snapshot 277/5,000 (5.5%). The contract was committing the exact pooling error §1A axis 2 exists to prevent. | the stub only ever emitted a pIC50 | four distinct quantities + `BY_STANDARD_TYPE`; `route(pKd → fitness)` now returns `None` |
+| **B** | `Estimate.point(v)` defaulted to **one** sample. A real measurement reports no error bar, so feeding one collapsed the whole Monte Carlo to n=1 and every downstream interval silently became zero-width — the failure the package exists to prevent, inside the package. | stubs always drew N samples | explicit `n`; a measurement is carried as an exact point replicated N times, so any interval downstream is visibly the *adapters'*, not the measurement's |
+| **C** | Identity resolution was a dict that always answered. Against real ChEMBL, `"KRAS"` returns **9 candidates spanning 4 target types** (single protein, protein complex, three-way PPI, protein family). | the dict had one key | `resolve_target` refuses unless exactly one candidate survives the organism + target-type constraints |
+| **D** | Cheng-Prusoff (pKi → pIC50) had nowhere to declare that it needs `[S]/Km` and a competitive mechanism. | no stub needed it | `requires_covariates`; the bridge refuses on a real record and only fires when someone supplies both on the record |
+
+Defect A is the one worth dwelling on. It is not a coding slip — it is the
+contract in §2 being violated by the file that *defines* §2, and it survived
+13 passing tests. Only real data with real heterogeneity surfaced it.
+
+### Two real numbers that came out of the swap
+
+**✅ Assay identity moves potency more than readout type does.** Computed over
+the snapshot (measured data, not model output):
+
+| comparison | n | median | p90 | max |
+|---|---|---|---|---|
+| same compound, **different readout type** (IC50 vs Ki vs Kd vs EC50) | 158 compounds | **0.62** | 1.96 | 3.48 |
+| same compound, **same readout type, different assay** | 953 pairs | **1.00** | 2.00 | 2.95 |
+
+Units are log10. The rule everyone knows — don't mix IC50 with Ki — is *not*
+the dominant term. Holding readout type fixed and changing only the assay is
+worse: a median **10× difference in apparent potency for the same compound on
+the same target**. That is comparable to the entire uncertainty the stub model
+had been assigned (sd 0.60). So assay identity belongs in the context, not in
+a column dropped on the way into a model.
+
+**⚠️ The chain saturates, and says so.** Running the same chain once per assay:
+1.74 log units of input spread (55× in potency) became **0.290** gene-effect
+units of output, because at 0.3 µM every one of those affinities is already
+near-saturating. Read as a decision: at this dose, a better affinity number
+buys almost nothing, and the measurement worth paying for is further down the
+chain. That is the §2.5 value-of-information argument arriving from real data
+rather than from a stub tuned to produce it.
+
+### What is still not real
+
+The occupancy → residual-activity → fitness adapters remain stubs, so the
+endpoint numbers in `demo_real` are **not** predictions. The spread *between*
+them is the result worth reading. `bioif/real/` also adds `epistemics` from
+the blueprint's §3 rule 4 — `measured | inferred_association |
+calibrated_prediction | mechanistic_hypothesis` — with the invariant that a
+chain can only degrade evidence. The real source enters as `measured` and the
+endpoint leaves as `mechanistic_hypothesis`, because a bridge sits between
+them, and nothing downstream can restore the label.

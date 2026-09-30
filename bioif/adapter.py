@@ -25,7 +25,9 @@ from dataclasses import dataclass
 from typing import Callable, Sequence
 
 from .core import (Claim, Context, Entity, Estimate, Provenance, Quantity,
-                   Verdict, IN_DOMAIN, EXTRAPOLATE, REFUSE)
+                   Verdict, IN_DOMAIN, EXTRAPOLATE, REFUSE,
+                   CALIBRATED_PREDICTION, MEASURED, MECHANISTIC_HYPOTHESIS,
+                   weakest)
 
 #: Edge kinds.
 #:   'coercion'  -- algebraic identity, no information added or lost
@@ -45,10 +47,30 @@ class Adapter:
     produces: Quantity
     #: context axes that must be present on the incoming claim
     requires_context: tuple[str, ...] = ()
+    #: context covariate keys that must be present (for conditioning facts
+    #: that have no dedicated field, e.g. the [S]/Km a Cheng-Prusoff
+    #: conversion needs and that an affinity record does not carry)
+    requires_covariates: tuple[str, ...] = ()
     #: systems this edge was fitted on; empty tuple means "system-agnostic"
     calibrated_systems: tuple[str, ...] = ()
     #: named assumption, surfaced as a flag on all downstream claims
     assumption: str = ""
+
+    @property
+    def max_evidence(self) -> str:
+        """
+        The strongest evidence level this edge can emit, whatever it was fed.
+
+        Coercions are algebra, so they preserve whatever came in. An empirical
+        fit can at best yield a calibrated prediction. A bridge crosses a level
+        of biology on an assumption, so its output is a mechanistic hypothesis
+        even when every input to it was measured.
+        """
+        if self.kind == COERCION:
+            return MEASURED                    # i.e. imposes no ceiling
+        if self.kind == BRIDGE:
+            return MECHANISTIC_HYPOTHESIS
+        return CALIBRATED_PREDICTION
 
     # -- identity -----------------------------------------------------------
     def map_entity(self, e: Entity) -> Entity:
@@ -73,6 +95,12 @@ class Adapter:
                 return Verdict(REFUSE,
                                f"{self.name} requires context.{axis}, which "
                                f"the incoming claim does not carry")
+        have = dict(claim.context.covariates)
+        for cov in self.requires_covariates:
+            if cov not in have:
+                return Verdict(REFUSE,
+                               f"{self.name} requires the covariate {cov!r}, "
+                               f"which the incoming claim does not carry")
         if self.calibrated_systems and claim.context.system:
             if claim.context.system not in self.calibrated_systems:
                 return Verdict(
@@ -105,6 +133,7 @@ class Adapter:
             quantity=self.produces,
             context=self.map_context(claim.context, claim.entity),
             estimate=Estimate(tuple(ys)),
+            evidence=weakest(claim.evidence, self.max_evidence),
             provenance=claim.provenance + (
                 Provenance(self.name, self.version,
                            ",".join(self.calibrated_systems) or "n/a"),),

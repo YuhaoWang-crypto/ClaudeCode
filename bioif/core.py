@@ -219,7 +219,30 @@ class Verdict:
 
 
 # --------------------------------------------------------------------------
-# 6. Provenance
+# 6a. Evidence level -- "different evidence must not be implicitly upgraded"
+# --------------------------------------------------------------------------
+
+#: Strongest to weakest. Adopted from the cross-model interface blueprint's
+#: `epistemics.kind`. The point of ordering them is the invariant below: a
+#: chain can only ever degrade evidence, never improve it. A measured number
+#: pushed through a mechanistic bridge comes out a mechanistic hypothesis, and
+#: no amount of downstream machinery turns it back into a measurement.
+MEASURED = "measured"
+INFERRED_ASSOCIATION = "inferred_association"
+CALIBRATED_PREDICTION = "calibrated_prediction"
+MECHANISTIC_HYPOTHESIS = "mechanistic_hypothesis"
+
+EVIDENCE_ORDER = (MEASURED, INFERRED_ASSOCIATION, CALIBRATED_PREDICTION,
+                  MECHANISTIC_HYPOTHESIS)
+
+
+def weakest(*levels: str) -> str:
+    """The weakest evidence level among those given."""
+    return max(levels, key=EVIDENCE_ORDER.index)
+
+
+# --------------------------------------------------------------------------
+# 6b. Provenance
 # --------------------------------------------------------------------------
 
 @dataclass(frozen=True)
@@ -243,6 +266,8 @@ class Claim:
     quantity: Quantity
     context: Context
     estimate: Estimate
+    #: what kind of evidence this number is; can only degrade along a chain
+    evidence: str = CALIBRATED_PREDICTION
     provenance: tuple[Provenance, ...] = ()
     #: Free-text markers that survive the whole chain. An assumption made at
     #: link 2 must still be visible on the final number, or the consumer will
@@ -263,7 +288,8 @@ class Claim:
     def describe(self) -> str:
         return (f"{self.entity}  {self.quantity}\n"
                 f"    context: {self.context.describe()}\n"
-                f"    value:   {self.estimate.summary()}")
+                f"    value:   {self.estimate.summary()}   "
+                f"[{self.evidence}]")
 
 
 def check_identity(entity: Entity) -> list[str]:

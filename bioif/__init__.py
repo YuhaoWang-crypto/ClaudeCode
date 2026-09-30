@@ -14,15 +14,20 @@ See INTEROP.md for the bottleneck analysis and the ranked plan; run
 for the tests.
 """
 from .core import (Claim, Context, Entity, Estimate, Provenance, Quantity,
-                   Verdict, check_identity,
-                   IN_DOMAIN, EXTRAPOLATE, REFUSE)
+                   Verdict, check_identity, weakest,
+                   IN_DOMAIN, EXTRAPOLATE, REFUSE,
+                   MEASURED, INFERRED_ASSOCIATION, CALIBRATED_PREDICTION,
+                   MECHANISTIC_HYPOTHESIS, EVIDENCE_ORDER)
 from .adapter import Adapter, Coercion, BRIDGE, COERCION, EMPIRICAL
 from .registry import Registry
 from .chain import ChainResult, Experiment, rank_experiments, run_chain
 
 __all__ = [
     "Claim", "Context", "Entity", "Estimate", "Provenance", "Quantity",
-    "Verdict", "check_identity", "IN_DOMAIN", "EXTRAPOLATE", "REFUSE",
+    "Verdict", "check_identity", "weakest",
+    "IN_DOMAIN", "EXTRAPOLATE", "REFUSE",
+    "MEASURED", "INFERRED_ASSOCIATION", "CALIBRATED_PREDICTION",
+    "MECHANISTIC_HYPOTHESIS", "EVIDENCE_ORDER",
     "Adapter", "Coercion", "BRIDGE", "COERCION", "EMPIRICAL",
     "Registry", "ChainResult", "Experiment", "rank_experiments", "run_chain",
 ]

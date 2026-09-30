@@ -15,7 +15,19 @@ from .adapter import Coercion
 from .core import Quantity
 
 # --- chemistry -------------------------------------------------------------
+#: pIC50, pKi, pKd and pEC50 are DIFFERENT quantities. ChEMBL pools all four
+#: into one `pchembl_value` column, which is convenient and is exactly the
+#: implicit pooling the contract exists to catch: a functional IC50 and an
+#: equilibrium Kd are not interchangeable, and converting between them needs
+#: information (substrate concentration, Km, mechanism) that an affinity
+#: record does not carry.
 PIC50 = Quantity("target_affinity", "pIC50", "log10", "", (2.0, 12.0))
+PKI = Quantity("target_affinity", "pKi", "log10", "", (2.0, 12.0))
+PKD = Quantity("target_affinity", "pKd", "log10", "", (2.0, 12.0))
+PEC50 = Quantity("target_affinity", "pEC50", "log10", "", (2.0, 12.0))
+
+#: ChEMBL `standard_type` -> the quantity it actually is.
+BY_STANDARD_TYPE = {"IC50": PIC50, "Ki": PKI, "Kd": PKD, "EC50": PEC50}
 IC50_NM = Quantity("target_affinity", "nM", "linear", "", (1e-3, 1e9))
 OCCUPANCY = Quantity("target_occupancy", "fraction", "linear",
                      "unbound target", (0.0, 1.0))

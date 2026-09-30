@@ -1,0 +1,56 @@
+[
+ {
+  "target_chembl_id": "CHEMBL2189121",
+  "pref_name": "GTPase KRas",
+  "target_type": "SINGLE PROTEIN",
+  "organism": "Homo sapiens"
+ },
+ {
+  "target_chembl_id": "CHEMBL5483196",
+  "pref_name": "Protein cereblon/GTPase KRas",
+  "target_type": "PROTEIN-PROTEIN INTERACTION",
+  "organism": "Homo sapiens"
+ },
+ {
+  "target_chembl_id": "CHEMBL5169273",
+  "pref_name": "von Hippel-Lindau disease tumor suppressor/GTPase KRas",
+  "target_type": "PROTEIN-PROTEIN INTERACTION",
+  "organism": "Homo sapiens"
+ },
+ {
+  "target_chembl_id": "CHEMBL5465393",
+  "pref_name": "SOS1-KRAS",
+  "target_type": "PROTEIN COMPLEX",
+  "organism": "Homo sapiens"
+ },
+ {
+  "target_chembl_id": "CHEMBL4523623",
+  "pref_name": "PDE6D/KRAS",
+  "target_type": "PROTEIN-PROTEIN INTERACTION",
+  "organism": "Homo sapiens"
+ },
+ {
+  "target_chembl_id": "CHEMBL5291977",
+  "pref_name": "GTPase KRas/RAF1",
+  "target_type": "PROTEIN-PROTEIN INTERACTION",
+  "organism": "Homo sapiens"
+ },
+ {
+  "target_chembl_id": "CHEMBL6193831",
+  "pref_name": "von Hippel-Lindau disease tumor suppressor/Son of sevenless homolog 1/GTPase KRas",
+  "target_type": "PROTEIN-PROTEIN INTERACTION",
+  "organism": "Homo sapiens"
+ },
+ {
+  "target_chembl_id": "CHEMBL4524006",
+  "pref_name": "RAS",
+  "target_type": "PROTEIN FAMILY",
+  "organism": "Homo sapiens"
+ },
+ {
+  "target_chembl_id": "CHEMBL6193817",
+  "pref_name": "Protein cereblon/GTPase HRas/GTPase NRas/GTPase KRas",
+  "target_type": "PROTEIN-PROTEIN INTERACTION",
+  "organism": "Homo sapiens"
+ }
+]
