@@ -12,6 +12,7 @@ survive to the endpoint.
 from __future__ import annotations
 
 import random
+import statistics
 import traceback
 
 from .adapters_demo import DEMO_ADAPTERS, RnaToProtein
@@ -289,6 +290,136 @@ def t_pooling_is_visible():
     assert pooled.flags and "pooling" in pooled.flags[0]
     assert pooled.evidence == "inferred_association", pooled.evidence
     assert "POOLED" in pooled.context.assay
+
+
+@check("CONFORMAL: the quantile is exact, and infinite when unearnable")
+def t_conformal_quantile():
+    import math
+    from .real.conformal import conformal_quantile
+    s = [float(i) for i in range(1, 11)]          # n=10
+    # ceil(11*0.8)=9 -> the 9th smallest
+    assert conformal_quantile(s, 0.2) == 9.0
+    # ceil(11*0.9)=10 -> the 10th smallest
+    assert conformal_quantile(s, 0.1) == 10.0
+    # ceil(11*0.95)=11 > 10 -> not attainable
+    assert math.isinf(conformal_quantile(s, 0.05))
+    assert math.isinf(conformal_quantile([], 0.2))
+
+
+@check("CONFORMAL: binned patent bands are detected, not regressed on")
+def t_binned_gate():
+    from .real import conformal as C
+    from .real.transfer_adapter import build_transfer
+    pairs = C.discover_pairs()
+    binned = [p for p in pairs.values() if p.status == "binned"]
+    assert binned, "no binned pairs detected; the gate is not being exercised"
+    worst = max(binned, key=lambda p: p.tie_x)
+    assert worst.tie_x > 0.25 and worst.reason
+    try:
+        build_transfer(worst.key)
+    except ValueError as e:
+        assert "binned" in str(e)
+        return
+    raise AssertionError("built a conformal regression on binned data")
+
+
+@check("CONFORMAL: within-pair coverage reaches nominal, Gaussian does not")
+def t_coverage_within():
+    from .real import conformal as C
+    pts = C.build_points()
+    e1 = C.experiment_within_pair(pts, repeats=200)
+    assert e1, "no pairs evaluated"
+    conf = [d[0.2]["cov"] for d in e1.values()]
+    gaus = [d[0.2]["gcov"] for d in e1.values()]
+    # conformal is valid (>= 1-alpha) up to Monte Carlo slack
+    assert min(conf) >= 0.75, f"conformal under-covered: min {min(conf):.3f}"
+    assert statistics.fmean(conf) >= 0.80, statistics.fmean(conf)
+    # and the Gaussian interval is where it goes wrong
+    assert statistics.fmean(gaus) < statistics.fmean(conf) - 0.05, (
+        f"gaussian {statistics.fmean(gaus):.3f} vs conformal "
+        f"{statistics.fmean(conf):.3f}")
+    # the well-powered pair should be close to exact at both levels
+    big = max(e1.values(), key=lambda d: d["n"])
+    assert abs(big[0.2]["cov"] - 0.80) < 0.04, big[0.2]["cov"]
+    assert abs(big[0.1]["cov"] - 0.90) < 0.04, big[0.1]["cov"]
+
+
+@check("CONFORMAL: the guarantee does NOT survive a change of assay pair")
+def t_coverage_cross():
+    from .real import conformal as C
+    pts = C.build_points()
+    e2 = C.experiment_cross_pair(pts, repeats=60)
+    covs = [d[0.2] for d in e2.values() if d[0.2] == d[0.2]]
+    assert len(covs) > 5
+    mean = statistics.fmean(covs)
+    assert mean < 0.75, (
+        f"cross-pair coverage {mean:.3f} did not degrade; the "
+        f"exchangeability failure this documents may have gone away")
+    assert min(covs) < 0.30, f"worst cross-pair coverage only {min(covs):.3f}"
+
+
+@check("CONFORMAL: Mondrian restores the conditional coverage pooling loses")
+def t_mondrian():
+    from .real import conformal as C
+    pts = C.build_points()
+    e3 = C.experiment_mondrian(pts, alpha=0.2, repeats=200)
+    marg = e3.pop("_pooled_marginal")
+    pooled = [d["pooled"] for d in e3.values()]
+    mond = [d["mondrian"] for d in e3.values()]
+    # marginal promise kept ...
+    assert abs(marg - 0.80) < 0.05, f"marginal coverage {marg:.3f}"
+    # ... while individual classes fail badly
+    assert sum(1 for v in pooled if v < 0.80) >= len(pooled) // 2
+    assert min(pooled) < 0.20, f"worst pooled class {min(pooled):.3f}"
+    # and per-class calibration repairs it
+    assert min(mond) >= 0.78, f"worst mondrian class {min(mond):.3f}"
+
+
+@check("CONFORMAL: the adapter refuses an uncalibrated assay and demotes evidence")
+def t_transfer_adapter():
+    from .core import Claim, Estimate, Provenance, MEASURED
+    from .real.sources import KRAS
+    from .real import conformal as C
+    from .real.transfer_adapter import build_transfer
+    pts = C.build_points()
+    key = max({p.pair for p in pts},
+              key=lambda k: sum(1 for p in pts if p.pair == k))
+    tx = build_transfer(key, alpha=0.2)
+
+    def claim(assay, x=6.0):
+        return Claim(entity=KRAS, quantity=PIC50,
+                     context=Context(assay=assay), estimate=Estimate.point(x, 500),
+                     evidence=MEASURED,
+                     provenance=(Provenance("ChEMBL", "REST/34", assay),))
+
+    assert tx.domain(claim("CHEMBL9999999")).status == "refuse"
+    assert tx.domain(claim(tx.pair.source)).status == "in_domain"
+    # outside the calibrated input range it extrapolates rather than refusing
+    assert tx.domain(claim(tx.pair.source, x=12.0)).status == "extrapolate"
+
+    out = tx.apply(claim(tx.pair.source), random.Random(0))
+    assert out.evidence == "calibrated_prediction", out.evidence
+    assert out.context.assay == tx.pair.target
+    assert dict(out.context.covariates)["transferred_from"] == tx.pair.source
+    # the sampled interval should sit inside the guaranteed conformal one
+    lo, hi = tx.conformal_interval(6.0)
+    s_lo, s_hi = out.estimate.ci(0.80)
+    assert lo - 1e-9 <= s_lo and s_hi <= hi + 1e-9, (lo, s_lo, s_hi, hi)
+
+
+@check("CONFORMAL: an assay transfer is never auto-routed")
+def t_transfer_not_routed():
+    from .real import conformal as C
+    from .real.transfer_adapter import build_transfer
+    pts = C.build_points()
+    key = max({p.pair for p in pts},
+              key=lambda k: sum(1 for p in pts if p.pair == k))
+    reg = _reg()
+    reg.register(build_transfer(key, alpha=0.2))
+    path = reg.route(PIC50, FITNESS)
+    assert path is not None
+    assert not any("assay-transfer" in a.name for a in path), \
+        "routing silently inserted an assay transfer"
 
 
 @check("REAL: assay identity moves potency more than readout type does")

@@ -59,8 +59,9 @@ estimate + domain + provenance), not a universal model.
 ```bash
 python3 -m bioif.demo             # six scenarios, stub adapters, no dependencies
 python3 -m bioif.demo_real        # same chain, REAL ChEMBL affinity source
+python3 -m bioif.demo_conformal   # a calibrated interval, with its coverage checked
 python3 -m bioif.real.heterogeneity  # the measurement that justifies the contract
-python3 -m bioif.selftest         # 20 interface guarantees
+python3 -m bioif.selftest         # 27 interface guarantees, ~3 s
 ```
 
 Replacing the stub affinity source with measured ChEMBL bioactivity kept the
@@ -68,6 +69,14 @@ suite green — but only after fixing three defects in the contract that stub
 data structurally could not reveal (readout-type pooling, single-sample
 estimates collapsing the Monte Carlo, and an identity resolver that always
 answered). Details and two real measured numbers in [`INTEROP.md`](INTEROP.md) §5.
+
+One adapter's error bar is then **checked rather than asserted**: split
+conformal prediction on the assay-transfer hop (may a potency measured in
+assay A be reused where assay B is needed?). Within a pair it reaches nominal
+coverage where the usual Gaussian ±1.28·sd under-covers (0.830 vs 0.671 at a
+nominal 0.80); across assay pairs the guarantee collapses to 0.612 with a
+worst case of 0.002, which is why the adapter refuses uncalibrated pairs.
+[`INTEROP.md`](INTEROP.md) §6.
 
 | | |
 |---|---|

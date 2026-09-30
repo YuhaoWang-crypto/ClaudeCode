@@ -242,8 +242,8 @@ bridges, and was asked about a cell system no link was ever fitted on.
 
 1. ~~Replace one adapter with a real model and keep every test green~~ —
    **done, see §5.**
-2. Wrap one model in conformal prediction and check the interval's empirical
-   coverage.
+2. ~~Wrap one model in conformal prediction and check the interval's
+   empirical coverage~~ — **done, see §6.**
 3. Add a second model for the same hop and let the router pick; report how
    much the endpoint moves. Disagreement between two routes is a free,
    experiment-free uncertainty estimate.
@@ -317,3 +317,141 @@ calibrated_prediction | mechanistic_hypothesis` — with the invariant that a
 chain can only degrade evidence. The real source enters as `measured` and the
 endpoint leaves as `mechanistic_hypothesis`, because a bridge sits between
 them, and nothing downstream can restore the label.
+
+---
+
+## 6. Conformal prediction: an error bar that was checked
+
+```bash
+python3 -m bioif.demo_conformal    # the five experiments below
+python3 -m bioif.selftest          # 27/27, ~3 s
+```
+
+Every interval elsewhere in this package is **asserted** — a stub declares
+`sd=0.55` and the chain believes it. Rank 3 of §3 was the other half of that
+promise: replace one assertion with a *checked* interval.
+
+**The hop.** Not an arbitrary one: *may a potency measured in assay A be
+reused where assay B is needed?* That is §1A axis 3 in its most concrete
+form, it is the question a chain must answer before reusing any number, and
+uniquely among the hops in this repo it has real labels — compounds measured
+in both assays. Data is the committed ChEMBL snapshot, IC50 records only (so
+§5's readout-type confound cannot leak in), predictor is the median shift
+between the two assays, and **every split is on compound, never on row**.
+
+### 6.0 A gate that had to exist first
+
+Of 32 candidate assay pairs with ≥10 shared compounds, **13 are not
+continuous measurements at all.** They are patent potency bands at one-log
+spacing arriving as a float at the band midpoint: in the worst case 73% of
+source values are literally the same number, across 4 distinct levels for
+n=363. Nothing in the column types says so — only the tie fraction does.
+`classify()` refuses them, and `build_transfer()` raises rather than fitting
+a regression to an ordinal. That leaves **19 usable pairs, 496 paired
+points.**
+
+⚠️ This is a fourth defect class that only real data exposes, and it is not
+specific to ChEMBL: any "standard_value" column can carry binned data.
+
+### 6.1 Within a pair, conformal covers and the usual Gaussian does not
+
+α = 0.2 (nominal 0.80), 300 compound-level splits per pair:
+
+| | mean coverage | pairs at/above nominal | typical width |
+|---|---|---|---|
+| split conformal | **0.830** | **17/18** | 1.0–3.5 |
+| Gaussian ±1.28·sd | 0.671 | 3/18 | 0.6–2.0 |
+
+On the one well-powered pair (`CHEMBL5737243→CHEMBL5737244`, the *same*
+coupled nucleotide-exchange assay at 2 h vs 20 h, n=226), conformal is
+essentially exact at both levels:
+
+| α | nominal | empirical coverage | width |
+|---|---|---|---|
+| 0.2 | 0.80 | **0.809** | 0.42 |
+| 0.1 | 0.90 | **0.910** | 0.66 |
+
+✅ The guarantee holds. ⚠️ It is paid for in width: conformal intervals run
+~1.6–2× wider than the Gaussian ones. That is the honest trade — the Gaussian
+interval is narrower *and wrong*, under-covering by 10–25 points because
+residuals at these sample sizes are skewed and heavy-tailed.
+
+Note also the fitted shift on that pair: **+0.70 log units**. The same assay,
+run for 20 h instead of 2 h, reads 5× more potent. "Reuse the number as-is"
+is not a neutral default; it is a 5× error.
+
+### 6.2 When the guarantee cannot be bought, the method says so
+
+At α = 0.1, **17 of 18 pairs cannot support an interval at all**: with ~5–7
+calibration compounds, `ceil((n+1)·0.9) > n`, so the conformal quantile is
+`+∞`. The implementation returns infinity rather than the largest observed
+residual. Returning the latter would be claiming a guarantee it does not
+have — the same failure mode as an adapter that cannot refuse.
+
+### 6.3 The guarantee does not survive a change of assay pair
+
+Leave-one-assay-pair-out: calibrate on every *other* pair pooled, test on the
+held-out one.
+
+| | nominal 0.80 |
+|---|---|
+| mean coverage across 19 held-out pairs | **0.612** |
+| pairs under-covered | **12/19** |
+| worst case | **0.002** |
+
+Conformal guarantees coverage *under exchangeability*. Two assay pairs are
+not exchangeable — their systematic shifts range from −1.76 to +1.76 log
+units — so the guarantee is void, and **the failure is total rather than
+graceful**: near-zero coverage, not a slightly optimistic interval.
+
+This is the applicability-domain argument of §2.4 turned into a number. It is
+why `ConformalAssayTransfer` **refuses** an uncalibrated assay pair instead of
+widening for it: there is no honest width to widen to.
+
+### 6.4 Marginal coverage is met while most classes fail
+
+Pool all pairs into one calibration set, then score coverage per pair:
+
+| | nominal 0.80 |
+|---|---|
+| pooled, **marginal** coverage over all test points | **0.799** ✅ |
+| pooled, pairs under-covered | **11/18**, worst **0.009** |
+| Mondrian (per-pair calibration), pairs under-covered | **0/18**, worst **0.804** ✅ |
+
+The pooled interval keeps its promise *on average* and is useless for most
+individual pairs. This is the standard marginal-vs-conditional coverage gap,
+and the reason it matters here is what repairs it: **the conditioning class
+is the assay — the context field the contract already carries.** The
+statistics and the interface design land on the same object.
+
+### 6.5 The resulting adapter
+
+`bioif/real/transfer_adapter.py` ships the calibration:
+
+- **kind = EMPIRICAL**, so a `measured` input leaves as
+  `calibrated_prediction`. A measurement transferred to another assay is not
+  a measurement of that assay — and that demotion is now backed by a coverage
+  number rather than by convention.
+- **consumes and produces the same quantity**, changing only `context.assay`,
+  so routing never inserts it: an assay transfer is a deliberate act and must
+  be asked for (tested).
+- **refuses** an uncalibrated source assay, **extrapolates** outside the
+  calibrated input range, and **refuses** an α its calibration set cannot buy.
+
+Worked: a compound reading pIC50 6.00 in `CHEMBL5737243` gets a guaranteed
+80% interval of **[6.47, 6.93]** in `CHEMBL5737244`. In the full chain the
+transfer link owns **28.9%** of the endpoint variance — and it is the only
+link in that chain whose share rests on a measured coverage figure rather
+than an assumed sd.
+
+### What this does and does not establish
+
+✅ Measured, on held-out compounds: within-pair coverage, the Gaussian
+baseline's failure, the cross-pair collapse, the marginal/conditional gap, and
+the binned-data prevalence.
+
+⚠️ All of it is one target (KRAS) and its assays in one ChEMBL snapshot. It is
+not a general claim about conformal prediction, about ChEMBL, or about assay
+transfer in other target classes. The downstream occupancy/activity/fitness
+adapters remain stubs, so chain endpoints are still hypotheses. And conformal
+calibrates an interval — it does not make the underlying predictor correct.
