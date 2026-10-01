@@ -51,7 +51,10 @@ bought for.**
                    and 1.382 for independent LR. It reproduces phi(p53,MMP)
                    as 0.112 where the measured value is 0.384 -- worse than
                    independent logistic regressions, which get 0.228 for
-                   free just by sharing a fingerprint.
+                   free just by sharing a fingerprint. NOTE: these are the
+                   SELECTED config's numbers; see the CORRECTION below --
+                   the sweep's best checkpoint does beat independent LR on
+                   the joint, and still loses to the copula.
   (c) conditional  LOSS     inpainting the measured MMP at every reverse
                    step changed p53 AUROC by -0.000 (0.796 -> 0.795), i.e.
                    not at all. The copula's closed-form conditional gained
@@ -86,10 +89,37 @@ of "can a joint generative model use a measured endpoint" would train with
 random coordinate masking (or classifier-free guidance over the conditioning
 set) so that conditioning is in-distribution. So axis (c) establishes that
 THIS construction gains nothing, not that no diffusion model could. Axes (a)
-and (b) do not depend on the conditioning mechanism and are unaffected: a
-model that reproduces the endpoint correlation matrix worse than independent
-logistic regressions has not learned the joint, and no better conditioning
-scheme repairs that.
+and (b) do not depend on the conditioning mechanism and are unaffected.
+
+⚠️ CORRECTION, from an independent re-check of axis (b) on the calibration
+fold (seed 0, the diffusion side taken from the sweep log):
+
+    B2 copula                     0.983
+    best DDPM checkpoint in sweep 1.073
+    B1 independent LR             1.241
+
+The verdict stands, and now stands against the model class at its BEST
+rather than only at the configuration calibration happened to pick: a
+66-parameter copula beats every diffusion checkpoint observed. But two
+statements elsewhere in this docstring are too strong, and are wrong in the
+same direction:
+
+  * "worse than independent logistic regressions" is true of the SELECTED
+    configuration (1.889 vs 1.382 on test) and NOT true of the model class
+    -- diffusion's best checkpoint beats independent LR on the joint
+    (1.073 vs 1.241). The earlier gloss, that a model worse than independent
+    LR at the joint "has not learned the joint", therefore overreached.
+  * the selection rule IS costing axis (b) a lot: 1.889 for the selected
+    config against 1.073 for the sweep's best. The two are on different
+    folds and not strictly comparable, but the gap is far larger than the
+    ~0.001 AUROC that bought it. Calibration selected on marginal AUROC and
+    axis (b) pays for it; a joint-aware selection rule is the obvious next
+    change, and `cal_frob_ref["DDPM_best_over_sweep"]` is already the right
+    place to read it from.
+
+So: diffusion does learn some joint structure -- more than independent
+marginals do -- and still loses to the cheap closed-form alternative. That is
+a weaker and better-supported claim than the one first written here.
 
 Protocol, in brief (details at each call site):
   * Scaffold split train/calibration/test = 3726/1491/2236 compounds. Every
