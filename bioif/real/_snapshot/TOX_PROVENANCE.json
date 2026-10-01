@@ -1,0 +1,31 @@
+{
+ "tox21": {
+  "source": "MoleculeNet Tox21 release",
+  "url": "https://deepchemdata.s3-us-west-1.amazonaws.com/datasets/tox21.csv.gz",
+  "unique_skeletons": 7453,
+  "unparsed": 9,
+  "endpoints": [
+   "NR-AR",
+   "NR-AR-LBD",
+   "NR-AhR",
+   "NR-Aromatase",
+   "NR-ER",
+   "NR-ER-LBD",
+   "NR-PPAR-gamma",
+   "SR-ARE",
+   "SR-ATAD5",
+   "SR-HSE",
+   "SR-MMP",
+   "SR-p53"
+  ]
+ },
+ "ames": {
+  "source": "Hansen mutagenicity benchmark N=6512",
+  "url": "https://doc.ml.tu-berlin.de/toxbenchmark/Mutagenicity_N6512.csv",
+  "unique_skeletons": 6499,
+  "unparsed": 6
+ },
+ "join_key": "InChIKey skeleton (first block) of the salt-stripped, neutralised parent; ignores salt form, charge and stereochemistry",
+ "fetched_utc": "2026-10-01T16:23:42+00:00",
+ "note": "Measured assay labels, not model output. Tox21 labels are qHTS actives/inactives; Ames is the bacterial reverse mutation assay."
+}

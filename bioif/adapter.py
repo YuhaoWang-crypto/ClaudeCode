@@ -27,15 +27,20 @@ from typing import Callable, Sequence
 
 from .core import (Claim, Context, Entity, Estimate, Provenance, Quantity,
                    Verdict, IN_DOMAIN, EXTRAPOLATE, REFUSE,
-                   CALIBRATED_PREDICTION, MEASURED, MECHANISTIC_HYPOTHESIS,
-                   weakest)
+                   CALIBRATED_PREDICTION, INFERRED_ASSOCIATION, MEASURED,
+                   MECHANISTIC_HYPOTHESIS, weakest)
 
 #: Edge kinds.
-#:   'coercion'  -- algebraic identity, no information added or lost
-#:   'empirical' -- fitted on data, carries its own residual noise
-#:   'bridge'    -- crosses a level of biology on an assumption; the assumption
-#:                  is named and flagged onto every downstream claim
-COERCION, EMPIRICAL, BRIDGE = "coercion", "empirical", "bridge"
+#:   'coercion'    -- algebraic identity, no information added or lost
+#:   'association' -- a measured co-occurrence between two readouts, with no
+#:                    model in between (e.g. a 2x2 from compounds assayed on
+#:                    both sides). Empirically grounded but not causal, so it
+#:                    caps evidence at `inferred_association`.
+#:   'empirical'   -- fitted on data, carries its own residual noise
+#:   'bridge'      -- crosses a level of biology on an assumption; the
+#:                    assumption is named and flagged onto every downstream claim
+COERCION, ASSOCIATION, EMPIRICAL, BRIDGE = (
+    "coercion", "association", "empirical", "bridge")
 
 
 class Adapter:
@@ -82,6 +87,8 @@ class Adapter:
         """
         if self.kind == COERCION:
             return MEASURED                    # i.e. imposes no ceiling
+        if self.kind == ASSOCIATION:
+            return INFERRED_ASSOCIATION
         if self.kind == BRIDGE:
             return MECHANISTIC_HYPOTHESIS
         return CALIBRATED_PREDICTION

@@ -25,7 +25,27 @@ from .quantities import (DELTA_PSI, FITNESS, IC50_NM, PIC50, PIC50_REF, PKD,
                          PKI, PROTEIN_LFC, RESIDUAL_ACTIVITY, RNA_LFC)
 from .registry import Registry
 
-_results: list[tuple[str, bool, str]] = []
+#: (name, status, detail) where status is True / False / None (skipped)
+_results: list[tuple[str, bool | None, str]] = []
+
+
+class Skip(Exception):
+    """Raised by a test whose optional dependency is absent."""
+
+
+def needs(*modules):
+    """Skip rather than fail when an optional dependency is missing.
+
+    The contract layer (bioif/core, adapter, registry, chain, ensemble) is
+    stdlib-only on purpose. The pairings built on real chemistry need rdkit,
+    numpy and scikit-learn, and their absence is a missing dependency rather
+    than a broken guarantee -- so those tests report SKIP.
+    """
+    import importlib
+    missing = [m for m in modules
+               if importlib.util.find_spec(m) is None]
+    if missing:
+        raise Skip("needs " + ", ".join(missing))
 
 
 def check(name):
@@ -33,6 +53,8 @@ def check(name):
         try:
             fn()
             _results.append((name, True, ""))
+        except Skip as e:
+            _results.append((name, None, str(e)))
         except AssertionError as e:
             _results.append((name, False, str(e) or "assertion failed"))
         except Exception:
@@ -566,6 +588,179 @@ def t_disagreement_scale():
     assert max(v["max_spread"] / v["width"] for v in d.values()) > 0.8
 
 
+# ==========================================================================
+# Three more pairings of the interface map: C->F, C->G and the F->G edge.
+# These run off the committed Tox21 / Ames snapshots.
+# ==========================================================================
+
+import functools
+
+
+CHEM = ("rdkit", "numpy", "sklearn")
+
+
+@functools.lru_cache(maxsize=4)
+def _qsar(ds):
+    from .real import qsar
+    return qsar.build(ds, alpha=0.1, seed=0)
+
+
+@functools.lru_cache(maxsize=1)
+def _cvd():
+    from .real import chain_vs_direct
+    return chain_vs_direct.run()
+
+
+@check("TOX: the two datasets join, and the 2x2 enrichment is real")
+def t_tox_overlap():
+    needs(CHEM[0])
+    from .real import tox
+    ov = tox.overlap()
+    assert len(ov) > 1900, f"only {len(ov)} compounds in both datasets"
+    t = tox.two_by_two(tox.P53, ov)
+    assert t.n > 1800, t.n
+    assert t.risk_ratio > 1.5, t.risk_ratio
+    assert t.fisher_p() < 1e-6, t.fisher_p()
+    # and the edge is honest about being a poor screen
+    assert t.sensitivity < 0.3, (
+        f"sensitivity {t.sensitivity:.2f}: if this ever rises the 'ranks but "
+        f"does not clear' claim needs revisiting")
+
+
+@check("TOX: the signal is not explained by the cytotoxicity control")
+def t_cytotox_control():
+    needs(CHEM[0])
+    from .real import tox
+    ov = tox.overlap()
+    p53 = tox.two_by_two(tox.P53, ov)
+    mmp = tox.two_by_two(tox.CYTOTOX_CONTROL, ov)
+    ddr = tox.two_by_two(tox.DDR_CONTROL, ov)
+    # both genotoxic-stress reporters beat the general-cytotoxicity readout
+    assert p53.risk_ratio > mmp.risk_ratio, (p53.risk_ratio, mmp.risk_ratio)
+    assert ddr.risk_ratio > mmp.risk_ratio, (ddr.risk_ratio, mmp.risk_ratio)
+
+
+@check("TOX: the scaffold split leaks no scaffold between folds")
+def t_scaffold_split_clean():
+    needs(*CHEM)
+    from .real import qsar
+    b = _qsar("p53")
+    tr, ca, te = b["splits"]
+    smi = b["smiles"]
+    sets = [{qsar.scaffold(smi[i]) for i in fold} for fold in (tr, ca, te)]
+    # singletons get a synthetic key, so only real scaffolds can collide
+    real = [{x for x in s if x} for s in sets]
+    assert not (real[0] & real[2]), "a scaffold is in both train and test"
+    assert not (real[1] & real[2]), "a scaffold is in both calibrate and test"
+    assert min(len(f) for f in (tr, ca, te)) > 100
+
+
+@check("TOX: label-conditional conformal holds for the majority class")
+def t_classification_conformal():
+    needs(*CHEM)
+    e = _qsar("p53")["eval"]
+    assert e.cov[0] >= 0.88, f"majority-class coverage {e.cov[0]:.3f}"
+    # the minority class under-covers, because a scaffold split breaks the
+    # exchangeability the guarantee needs. Asserted so the regression is
+    # visible rather than silently fixed.
+    assert e.cov[1] < 0.90, (
+        f"minority coverage {e.cov[1]:.3f} now meets nominal; the "
+        f"exchangeability caveat in demo_pairings M3 needs updating")
+    assert 0.0 < e.set_sizes.get(2, 0.0) < 1.0, "abstention rate degenerate"
+    am = _qsar("ames")["eval"]
+    assert am.cov[0] >= 0.85 and am.cov[1] >= 0.85, (am.cov)
+
+
+@check("TOX: an ASSOCIATION edge caps evidence at inferred_association")
+def t_association_kind():
+    needs(CHEM[0])
+    from .adapter import ASSOCIATION
+    from .real.tox_adapters import P53ToMutagenicity
+    fg = P53ToMutagenicity()
+    assert fg.kind == ASSOCIATION
+    assert fg.max_evidence == "inferred_association"
+    # a measured input stays an association through this edge ...
+    from .core import MEASURED
+    from .quantities import P53_ACTIVE
+    from .real.tox_adapters import compound_claim
+    c = compound_claim("c1ccccc1", "UHOVQNZJ").derive(evidence=MEASURED)
+    out = fg.apply(c, random.Random(0))
+    assert out.evidence == "inferred_association", out.evidence
+    # ... and the ladder is ordered strongest-first
+    from .core import EVIDENCE_ORDER
+    assert EVIDENCE_ORDER.index("inferred_association") < \
+        EVIDENCE_ORDER.index("calibrated_prediction")
+
+
+@check("TOX: a chain carries its weakest link, not its best one")
+def t_weakest_link():
+    needs(*CHEM)
+    from .real import tox
+    from .real.tox_adapters import (CompoundToP53, P53ToMutagenicity,
+                                    compound_claim)
+    ov = tox.overlap()
+    k = sorted(ov)[0]
+    claim = compound_claim(ov[k]["ames"]["smiles"], k)
+    res = run_chain([CompoundToP53(), P53ToMutagenicity()], claim, seed=1)
+    assert res.ok
+    # the QSAR demotes to calibrated_prediction; the downstream association
+    # cannot lift it back up
+    assert res.final.evidence == "calibrated_prediction", res.final.evidence
+
+
+@check("TOX: the QSAR adapter refuses an unparseable structure")
+def t_qsar_refuses():
+    needs(*CHEM)
+    from .real.tox_adapters import CompoundToP53, compound_claim
+    cf = CompoundToP53()
+    good = compound_claim("c1ccccc1", "UHOVQNZJ")
+    assert cf.domain(good).status == "in_domain"
+    bad = compound_claim("not a smiles at all((", "XXXXXXXX")
+    assert cf.domain(bad).status == "refuse"
+    # and a claim with no structure at all is refused by the covariate check
+    from .core import Context
+    nosmi = good.derive(context=Context(assay="Tox21 qHTS"))
+    assert cf.domain(nosmi).status == "refuse"
+
+
+@check("CHAIN-VS-DIRECT: the direct one-hop model beats the chain")
+def t_chain_loses():
+    needs(*CHEM)
+    r = _cvd()
+    by = {a.name: a for a in r["arms"]}
+    direct, chain = by["direct  C->G"], by["chain   C->F->G"]
+    oracle, aug = by["oracle  F->G"], by["augment C+F->G"]
+    assert direct.ap > chain.ap + 0.10, (direct.ap, chain.ap)
+    # most of the gap is information loss at the intermediate, not model error
+    assert direct.ap - oracle.ap > abs(oracle.ap - chain.ap), (
+        f"information loss {direct.ap - oracle.ap:.3f} no longer dominates "
+        f"model error {abs(oracle.ap - chain.ap):.3f}")
+    # and a MEASURED intermediate adds essentially nothing over structure
+    assert abs(aug.ap - direct.ap) < 0.03, (aug.ap, direct.ap)
+
+
+@check("MAP21: the audit is complete and internally consistent")
+def t_map21():
+    from . import map21
+    keys = {p.key for p in map21.MAP}
+    assert len(keys) == len(map21.MAP), "duplicate pairing in the audit"
+    # every object class appears on at least one side
+    seen = set()
+    for p in map21.MAP:
+        a, b = p.key.split("->")
+        seen |= {a, b}
+    assert seen == set(map21.CLASSES), seen ^ set(map21.CLASSES)
+    # everything we refuse to build is a level-C edge in the blueprint
+    for p in map21.MAP:
+        if p.status == map21.REFUSED:
+            assert p.claimed == "C", (p.key, p.claimed)
+        if p.status == map21.BUILT:
+            assert p.module and p.paired_labels, p.key
+    g = map21.by_status()
+    assert len(g[map21.BUILT]) >= 4
+    assert map21.report()
+
+
 @check("REAL: assay identity moves potency more than readout type does")
 def t_heterogeneity():
     from .real.heterogeneity import analyse
@@ -582,13 +777,18 @@ def t_heterogeneity():
 
 def main() -> int:
     width = max(len(n) for n, _, _ in _results)
-    failed = 0
+    failed = skipped = 0
     for name, ok, msg in _results:
-        print(f"  {'PASS' if ok else 'FAIL'}  {name:<{width}}")
-        if not ok:
+        tag = "PASS" if ok else ("SKIP" if ok is None else "FAIL")
+        print(f"  {tag}  {name:<{width}}" + (f"   ({msg})" if ok is None else ""))
+        if ok is False:
             failed += 1
             print("        " + msg.replace("\n", "\n        "))
-    print(f"\n{len(_results) - failed}/{len(_results)} passed")
+        elif ok is None:
+            skipped += 1
+    passed = len(_results) - failed - skipped
+    tail = f", {skipped} skipped" if skipped else ""
+    print(f"\n{passed}/{len(_results) - skipped} passed{tail}")
     return 1 if failed else 0
 
 

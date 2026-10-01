@@ -56,6 +56,17 @@ RNA_LFC = Quantity("transcript_abundance", "log2_ratio", "log2",
 PROTEIN_LFC = Quantity("protein_abundance", "log2_ratio", "log2",
                        "isogenic wild-type", (-12.0, 12.0))
 
+# --- toxicology nodes (the C->F / C->G / F->G pairings) --------------------
+#: Probability that the p53 response-element reporter scores active in the
+#: Tox21 qHTS protocol. The reference state is that protocol's own inactive
+#: call -- NOT "p53 is activated in a cell", which is a different claim.
+P53_ACTIVE = Quantity("p53_reporter_active", "probability", "linear",
+                      "Tox21 SR-p53 inactive call", (0.0, 1.0))
+
+#: Probability of a positive bacterial reverse-mutation (Ames) result.
+AMES_POSITIVE = Quantity("ames_positive", "probability", "linear",
+                         "Ames negative call", (0.0, 1.0))
+
 # --- phenotype -------------------------------------------------------------
 FITNESS = Quantity("fitness_effect", "gene_effect", "linear",
                    "non-targeting control", (-3.0, 1.0))

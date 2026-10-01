@@ -32,11 +32,11 @@ from __future__ import annotations
 import math
 from collections import deque
 
-from .adapter import Adapter, BRIDGE, COERCION, EMPIRICAL
+from .adapter import Adapter, ASSOCIATION, BRIDGE, COERCION, EMPIRICAL
 from .core import Claim, EXTRAPOLATE, IN_DOMAIN, REFUSE, Quantity
 from .quantities import LOSSLESS
 
-_KIND_RANK = {COERCION: 0, EMPIRICAL: 1, BRIDGE: 2}
+_KIND_RANK = {COERCION: 0, ASSOCIATION: 1, EMPIRICAL: 2, BRIDGE: 3}
 _STATUS_RANK = {IN_DOMAIN: 0, EXTRAPOLATE: 1, REFUSE: 2}
 
 
