@@ -1,0 +1,26 @@
+{
+ "canonical_smiles": {
+  "tox21": 7823,
+  "ames": 6505,
+  "overlap": 1622,
+  "lost_vs_best": -442
+ },
+ "inchikey_full": {
+  "tox21": 7821,
+  "ames": 6504,
+  "overlap": 1656,
+  "lost_vs_best": -408
+ },
+ "inchikey_skeleton": {
+  "tox21": 7619,
+  "ames": 6499,
+  "overlap": 2045,
+  "lost_vs_best": -19
+ },
+ "parent_skeleton": {
+  "tox21": 7453,
+  "ames": 6499,
+  "overlap": 2064,
+  "lost_vs_best": 0
+ }
+}

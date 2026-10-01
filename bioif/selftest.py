@@ -723,6 +723,91 @@ def t_qsar_refuses():
     assert cf.domain(nosmi).status == "refuse"
 
 
+@check("CROSS-CHECK: the identity join key decides how much paired data exists")
+def t_identity_yield():
+    needs(*CHEM)
+    from .real.cross_check import identity_yield
+    iy = identity_yield()
+    best = iy["parent_skeleton"]["overlap"]
+    naive = iy["canonical_smiles"]["overlap"]
+    full = iy["inchikey_full"]["overlap"]
+    assert best > 2000, best
+    # normalising salt form / charge / stereo is worth hundreds of compounds
+    assert best - naive > 300, (best, naive)
+    assert best - full > 300, (best, full)
+    # and parent-skeleton is the best of the four, not merely different
+    assert best == max(v["overlap"] for v in iy.values())
+
+
+@check("CROSS-CHECK: the p53->Ames edge is absent inside the cytotoxic stratum")
+def t_stratified_edge():
+    needs(*CHEM)
+    from .real import tox
+    from .real.cross_check import stratified
+    st = stratified(tox.CYTOTOX_CONTROL)
+    assert st["marginal"].informative, st["marginal"]
+    # the whole point: stratifying dissolves the association among cytotoxic
+    # compounds and sharpens it among the rest
+    assert not st["+"].informative, (
+        f"cytotoxic stratum now informative (OR {st['+'].odds_ratio:.2f}, "
+        f"p={st['+'].p:.3f}); the conditional edge needs revisiting")
+    assert st["-"].informative, st["-"]
+    assert st["-"].odds_ratio > st["+"].odds_ratio + 1.0, (
+        st["-"].odds_ratio, st["+"].odds_ratio)
+
+
+@check("CROSS-CHECK: the F->G edge refuses to update on cytotoxic compounds")
+def t_conditional_edge():
+    needs(*CHEM)
+    from .core import Estimate
+    from .real import tox
+    from .real.tox_adapters import (COV_CYTOTOX, P53ToMutagenicity,
+                                    compound_claim)
+    fg = P53ToMutagenicity()
+    ov = tox.overlap()
+    k = sorted(ov)[0]
+    base = compound_claim(ov[k]["ames"]["smiles"], k).derive(
+        estimate=Estimate.point(0.9, 300))
+
+    def out(cov):
+        c = base if cov is None else base.derive(
+            context=base.context.with_cov(COV_CYTOTOX, cov))
+        return fg.apply(c, random.Random(0))
+
+    unknown, non_cyto, cyto = out(None), out("0"), out("1")
+    # a high p53 probability moves the answer in the non-cytotoxic stratum ...
+    assert non_cyto.estimate.mean > 0.45, non_cyto.estimate.mean
+    # ... and is ignored in the cytotoxic one, where it returns that
+    # stratum's own prevalence instead
+    cyt_prev = fg._apply(0.0, fg.strata["+"], refuse_update=True)
+    assert abs(cyto.estimate.mean - cyt_prev) < 1e-6, (cyto.estimate.mean,
+                                                       cyt_prev)
+    assert abs(out_hi := fg.apply(base.derive(
+        estimate=Estimate.point(0.1, 300), context=base.context.with_cov(
+            COV_CYTOTOX, "1")), random.Random(0)).estimate.mean
+        - cyto.estimate.mean) < 1e-6, "cytotoxic stratum used the p53 value"
+    # every regime says which one it was in
+    assert any("no-update" in f for f in cyto.flags), cyto.flags
+    assert any("confounded" in f for f in unknown.flags), unknown.flags
+    assert not any("no-update" in f or "confounded" in f
+                   for f in non_cyto.flags), non_cyto.flags
+    # and the edge prices the missing measurement
+    assert fg.value_of_knowing_cytotox(0.1) > 0.05
+
+
+@check("CROSS-CHECK: AP lift reconciles two analyses that AP alone does not")
+def t_ap_lift():
+    needs(*CHEM)
+    from .real.cross_check import REPORTED, ap_lift
+    e = _qsar("p53")["eval"]
+    mine = ap_lift(e.ap, e.prevalence)
+    theirs = ap_lift(REPORTED["p53"]["ap"], REPORTED["p53"]["prevalence"])
+    # raw AP looks like a big disagreement
+    assert abs(e.ap - REPORTED["p53"]["ap"]) > 0.05
+    # lift over prevalence does not
+    assert abs(mine - theirs) < 0.8, (mine, theirs)
+
+
 @check("CHAIN-VS-DIRECT: the direct one-hop model beats the chain")
 def t_chain_loses():
     needs(*CHEM)

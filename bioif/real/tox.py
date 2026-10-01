@@ -46,6 +46,11 @@ AMES_URL = ("https://doc.ml.tu-berlin.de/toxbenchmark/"
             "Mutagenicity_N6512.csv")
 
 SNAP_TOX = SNAPSHOT / "tox21_keyed.csv"
+#: The PRE-deduplication structures, kept so that the cost of the identity
+#: normalisation choice can be re-measured offline (see cross_check.py).
+#: Deduplicating first would destroy the very thing being measured.
+SNAP_TOX_RAW = SNAPSHOT / "tox21_raw_smiles.csv"
+SNAP_AMES_RAW = SNAPSHOT / "ames_raw_smiles.csv"
 SNAP_AMES = SNAPSHOT / "ames_keyed.csv"
 SNAP_META = SNAPSHOT / "TOX_PROVENANCE.json"
 
@@ -148,6 +153,16 @@ def build_snapshot() -> dict:
                         row["Activity"]])
     n_ames = len(seen_a)
 
+    # raw structures, before any dedup, for the identity-yield comparison
+    with gzip.open(tox_gz, "rt") as fh, SNAP_TOX_RAW.open("w", newline="") as o:
+        w = csv.writer(o); w.writerow(["smiles"])
+        for row in csv.DictReader(fh):
+            w.writerow([row["smiles"]])
+    with open(ames_raw) as fh, SNAP_AMES_RAW.open("w", newline="") as o:
+        w = csv.writer(o); w.writerow(["smiles", "ames"])
+        for row in csv.DictReader(fh):
+            w.writerow([row["Canonical_Smiles"], row["Activity"]])
+
     meta = {
         "tox21": {"source": "MoleculeNet Tox21 release", "url": TOX21_URL,
                   "unique_skeletons": n_tox, "unparsed": n_tox_bad,
@@ -179,6 +194,17 @@ def load_ames() -> list[dict]:
         raise OfflineError("no Ames snapshot; run python3 -m bioif.real.tox")
     with SNAP_AMES.open() as fh:
         return list(csv.DictReader(fh))
+
+
+def load_raw_smiles() -> tuple[list[str], list[str]]:
+    """Pre-dedup structure lists for both datasets."""
+    if not SNAP_TOX_RAW.exists():
+        raise OfflineError("no raw snapshot; run python3 -m bioif.real.tox")
+    with SNAP_TOX_RAW.open() as fh:
+        t = [r["smiles"] for r in csv.DictReader(fh)]
+    with SNAP_AMES_RAW.open() as fh:
+        a = [r["smiles"] for r in csv.DictReader(fh)]
+    return t, a
 
 
 def provenance() -> dict:
