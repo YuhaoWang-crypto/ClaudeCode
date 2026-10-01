@@ -61,8 +61,10 @@ python3 -m bioif.demo             # six scenarios, stub adapters, no dependencie
 python3 -m bioif.demo_real        # same chain, REAL ChEMBL affinity source
 python3 -m bioif.demo_conformal   # a calibrated interval, with its coverage checked
 python3 -m bioif.demo_routing     # 12 models for one hop; the registry chooses
+python3 -m bioif.demo_pairings    # 3 more interface-map pairings, on real labels
+python3 -m bioif.map21            # all 21 pairings audited against what is buildable
 python3 -m bioif.real.heterogeneity  # the measurement that justifies the contract
-python3 -m bioif.selftest         # 34 interface guarantees, ~5 s
+python3 -m bioif.selftest         # 43 guarantees, ~35 s
 ```
 
 Replacing the stub affinity source with measured ChEMBL bioactivity kept the
@@ -86,6 +88,15 @@ uncertainty a conformal interval cannot see — the choice of model itself. It
 also caught a bug in this repo that had inflated that figure ~6×.
 [`INTEROP.md`](INTEROP.md) §7.
 
+Then the whole 21-pairing interface map is audited against what can actually
+be built (4 built, 3 partial, 9 blocked, 5 correctly refused), three more
+pairings are built on measured public labels (Tox21 SR-p53, Hansen Ames, and
+the p53→mutagenicity edge a blueprint had marked *blocked* — RR 1.81,
+p=5e-9, sensitivity 0.13), and the long-chain question is settled on the
+1,908 compounds that have labels at **both** ends: a direct one-hop model
+beats the two-hop chain by +0.223 AP, and a *measured* intermediate adds
+−0.000 on top of structure. [`INTEROP.md`](INTEROP.md) §8.
+
 | | |
 |---|---|
 | Bottleneck taxonomy (12 cross-cutting axes + 19 layer crossings), ranked plan, and what the demo does *not* show | [`INTEROP.md`](INTEROP.md) |
@@ -96,6 +107,13 @@ also caught a bug in this repo that had inflated that figure ~6×.
 | Real ChEMBL source, identity resolution that refuses, committed snapshot | `bioif/real/` |
 | Conformal calibration, competing models, the assay-transfer adapter | `bioif/real/conformal.py`, `transfer_models.py`, `transfer_adapter.py` |
 | Running every route and pricing the model choice | `bioif/ensemble.py` |
+| The 21-pairing audit | `bioif/map21.py` |
+| Tox21 / Ames pairings, QSAR + classification conformal | `bioif/real/tox.py`, `qsar.py`, `tox_adapters.py` |
+| Chain vs direct, with labels at both ends | `bioif/real/chain_vs_direct.py` |
+
+Dependencies: the contract layer (`core`, `adapter`, `registry`, `chain`,
+`ensemble`) is **stdlib-only**. The real-data pairings need `rdkit`, `numpy`
+and `scikit-learn`; without them those tests report SKIP rather than fail.
 
 ⚠️ Every numeric constant in `bioif/adapters_demo.py` is an illustrative
 stub. The demo exercises interface behaviour — typed seams, automatic

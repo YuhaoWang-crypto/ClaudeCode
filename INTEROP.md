@@ -591,3 +591,156 @@ assumptions would not be expected to behave this way. And a registry that
 ranks on interval width selects for **efficiency among valid models**, which
 is not the same as selecting the model that is right. Running the
 alternatives prices that gap; it does not close it.
+
+---
+
+## 8. The interface map's 21 pairings, audited and extended
+
+```bash
+python3 -m bioif.map21          # the full audit
+python3 -m bioif.demo_pairings  # M1–M5 below
+```
+
+Working from the uploaded blueprint's map — seven object classes (C compound,
+G DNA/variant, E chromatin, R transcript, P protein, F cell phenotype,
+D clinical), 21 directed pairings, each graded **A** verifiable under stated
+conditions / **B** needs paired experimental calibration / **C** hypothesis
+and ranking only.
+
+### 8.1 What is actually buildable
+
+`bioif/map21.py` audits all 21 (plus F→G, which the blueprint's own Demo B
+raises and marks `blocked`). The audit keeps two things apart that a
+dataset-availability check would conflate: **is there data** versus **are
+there labels on BOTH sides**. Sources were probed from this container, not
+assumed.
+
+| status | n | pairings |
+|---|---|---|
+| **built** | 4 | C→P, C→F, C→G, F→G |
+| partial | 3 | G→F, P→F, R→P |
+| reachable | 1 | G→P |
+| blocked | 9 | C→R, C→E, G→E, G→R, E→R, E→P, E→F, R→F, G→D |
+| refused | 5 | C→D, R→D, P→D, E→D, F→D |
+
+Probing mattered: SpliceAI's lookup API and Ensembl REST are **not**
+reachable here (so G→R stays a stub), while ChEMBL, UniProt/EBI Proteins,
+UCSC and the DepMap portal are.
+
+Two things the audit says that the map alone does not:
+
+1. **Every buildable pairing is one where some public source happens to hold
+   labels on both sides — 4 of 21.** The binding constraint across the whole
+   map is paired measurement, not models and not formats. That is precisely
+   why the blueprint grades so much of it B.
+2. **R→P is simultaneously the hop contributing the most endpoint variance in
+   our chains (~50%, §4 S1) and the hop with no reachable paired labels.** The
+   most load-bearing edge is the least verifiable one. Any honest long-chain
+   programme should buy that measurement first; no modelling choice
+   substitutes for it.
+
+The five `refused` pairings are all level C and all end in D. That is not a
+gap in coverage — `REFUSE` is the correct output. F→D in particular is the
+largest context gap in the map and is a study-design question, not an
+interface one.
+
+### 8.2 Three pairings built on measured labels
+
+Datasets: Tox21 (MoleculeNet release, 7,453 unique skeletons × 12 endpoints)
+and the Hansen Ames benchmark (N=6512, 6,499 skeletons), both snapshotted
+with provenance. Joined on **InChIKey skeleton** — a declared identity
+choice, recorded rather than buried, since joining on full InChIKey loses
+most of the overlap to salt and stereo differences.
+
+| node | split | n test | prev | AUROC | AP | cov\|0 | cov\|1 | abstain |
+|---|---|---|---|---|---|---|---|---|
+| **C→F** SR-p53 | scaffold | 1,933 | 0.074 | 0.718 | 0.286 | 0.920 | **0.832** | 0.535 |
+| **C→G** Ames | scaffold | 1,950 | 0.552 | 0.787 | 0.820 | 0.889 | 0.904 | 0.467 |
+
+Both use **label-conditional (Mondrian) conformal**, not marginal: at 6.2%
+prevalence a marginal 90% classifier can meet its guarantee by calling
+everything inactive. Calibrating per class forbids that, and the price
+surfaces as prediction sets of `{0,1}` — "I don't know" — rather than as
+silent failure on the minority class. The p53 AUROC of 0.718 sits where the
+plan document's own model does (0.733).
+
+⚠️ **The p53 minority class is covered at 0.832 against a nominal 0.90.** Not
+a bug: a scaffold split is *designed* to break exchangeability between
+calibration and test chemistry, and conformal's guarantee is conditional on
+it. Same mechanism as §6.3's cross-assay collapse, and asserted in the suite
+so it stays visible.
+
+### 8.3 The blocked edge, graded
+
+The blueprint's Demo B correctly refuses p53 → mutagenicity for want of a
+bridge. **2,064 compounds are assayed in both datasets**, so the edge now has
+a 2×2:
+
+| endpoint | n | ep+ %Ames+ | ep− %Ames+ | RR | OR | sens | Fisher p |
+|---|---|---|---|---|---|---|---|
+| SR-p53 | 1,908 | 55.2% | 30.5% | 1.81 | 2.81 | 0.13 | 5.2e-09 |
+| SR-ATAD5 (DDR) | 1,979 | 57.7% | 30.8% | 1.87 | 3.06 | 0.09 | 6.2e-08 |
+| SR-MMP (cytotox control) | 1,685 | 42.7% | 29.5% | 1.45 | 1.78 | 0.24 | 1.5e-05 |
+
+Both genotoxic-stress reporters beat the general-cytotoxicity control, so the
+association is not merely dying cells — the confound the blueprint warns
+about is real but does not explain the signal.
+
+The edge moves from `blocked` to **`inferred_association`**, which required a
+new edge kind. `ASSOCIATION` is a measured co-occurrence with no model in
+between: empirically grounded, not causal, capping evidence at
+`inferred_association` — stronger than a prediction, weaker than a
+measurement. The blueprint's four-rung ladder has that rung; bioif did not.
+
+And the edge states its own limits: RR 1.81 with **sensitivity 0.13** means it
+orders a list and cannot clear one. As a screen it would miss 87% of what it
+is screening for.
+
+### 8.4 Does routing through an intermediate beat going direct?
+
+This is the question the whole programme rests on, and for once there are
+labels on **both** ends — 1,908 compounds with SR-p53 and Ames. Four
+predictors of Ames, same held-out scaffolds, p53 model trained with the test
+scaffolds dropped so nothing leaks through the intermediate:
+
+| arm | AUROC | AP | P@50 | P@100 | P@200 |
+|---|---|---|---|---|---|
+| **direct** C→G | **0.748** | **0.656** | **0.900** | 0.780 | 0.630 |
+| chain C→F→G | 0.601 | 0.433 | 0.540 | 0.490 | 0.450 |
+| oracle F→G (*measured* p53) | 0.533 | 0.376 | 0.520 | 0.420 | 0.400 |
+| augment C+F→G | 0.748 | 0.655 | 0.900 | 0.780 | 0.625 |
+
+The direct one-hop model wins by **+0.223 AP**, and the decomposition says
+why:
+
+- chain vs oracle = **−0.056** → the C→F model's error (slightly *negative*:
+  a continuous probability ranks better than the binary label it predicts)
+- oracle vs direct = **+0.279** → information the intermediate **throws
+  away**, which no improvement to the C→F model can recover
+- augment vs direct = **−0.000** → what a *measured* p53 label adds on top of
+  structure: **nothing**
+
+So the intermediate is, for this endpoint, redundant given the structure.
+Routing a 2048-bit input through a 1-bit node destroys information, and the
+destruction is irreversible.
+
+**The conclusion for long chains:** build them where end-to-end labels are
+*missing*, and expect a direct model to beat them wherever such labels exist.
+A chain's value is reach and interpretability, not accuracy. That is not a
+reason to abandon chains — most of this map has no end-to-end labels at all —
+but it does mean a chain should never be sold as the more accurate option.
+
+⚠️ Scope: this is about predicting the **Ames label**. The reporter still says
+*why*, which a structure model does not, and Ames is not Comet — the endpoint
+the blueprint actually wants. The honest use of this result is as a prior on
+experiment design: before paying for reporter panels to predict a genotoxicity
+endpoint, check whether structure alone already carries that information. On
+this evidence, for Ames, it does.
+
+### 8.5 One more thing the evidence ladder enforces
+
+In the typed chain `C→F→G`, the endpoint comes out as
+`calibrated_prediction`, not `inferred_association` — because the ASSOCIATION
+edge sits *downstream* of a QSAR, and a chain carries its weakest link.
+Putting a measured association after a model prediction does not recover the
+association's standing. That is the ladder doing its job.
