@@ -40,10 +40,10 @@ obvious one:
       because leaving it out would overstate what (c) proves.
 
 VERDICT (measured, held-out scaffolds, seed 0): **the diffusion model does
-NOT beat the baselines. It wins 1 of the 3 axes, and loses the 2 it was
-bought for.**
+NOT beat the baselines. It TIES the one axis it was expected to lose, and
+loses both of the axes it was bought for.**
 
-  (a) marginals    TIE/WIN  mean AUROC 0.731 vs 0.735 for independent
+  (a) marginals    TIE      mean AUROC 0.731 vs 0.735 for independent
                    logistic regression (-0.004, better on 6 of 12
                    endpoints). It does not regress, which is the gate.
   (b) joint        LOSS     Frobenius error of the 12x12 endpoint
@@ -95,22 +95,39 @@ and (b) do not depend on the conditioning mechanism and are unaffected.
 fold (seed 0, the diffusion side taken from the sweep log):
 
     B2 copula                     0.983
-    best DDPM checkpoint in sweep 1.073
+    best DDPM checkpoint in sweep 0.993
     B1 independent LR             1.241
 
-The verdict stands, and now stands against the model class at its BEST
-rather than only at the configuration calibration happened to pick: a
-66-parameter copula beats every diffusion checkpoint observed. But two
-statements elsewhere in this docstring are too strong, and are wrong in the
-same direction:
+(The re-check first quoted 1.073 for the diffusion row. That is the best
+checkpoint of ONE block of the sweep, not of the sweep: the minimum over all
+35 configurations is 0.993, at h=128 / 40 epochs / T=50, which is what
+`cal_frob_ref["DDPM_best_over_sweep"]` returns and what the report prints.
+It cuts both ways, and the two directions should not be averaged into
+"slightly strengthened": the SELECTION-COST bullet below gets stronger,
+because 1.889 against 0.993 is a worse trade than 1.889 against 1.073, while
+the headline "the copula beats every checkpoint" gets WEAKER -- 0.983
+against 0.993 is a margin of 0.010 on a 48-sample Monte-Carlo estimate, i.e.
+almost certainly inside its own noise.)
+
+So the defensible form of axis (b) is narrower than first written. At the
+configuration calibration selected, diffusion loses the joint clearly. At
+its BEST over the sweep it is roughly LEVEL with the copula (0.993 vs 0.983)
+and beats independent marginals (1.241). What is not in doubt is the price:
+the copula reaches that joint structure with ~66 parameters in seconds, the
+diffusion model with 1.6M parameters in ~24 minutes. The recommendation --
+use the copula -- survives unchanged, but it now rests on cost rather than
+on capability, which is a different and more honest argument.
+
+Two statements elsewhere in this docstring remain too strong, in the same
+direction:
 
   * "worse than independent logistic regressions" is true of the SELECTED
     configuration (1.889 vs 1.382 on test) and NOT true of the model class
     -- diffusion's best checkpoint beats independent LR on the joint
-    (1.073 vs 1.241). The earlier gloss, that a model worse than independent
+    (0.993 vs 1.241). The earlier gloss, that a model worse than independent
     LR at the joint "has not learned the joint", therefore overreached.
   * the selection rule IS costing axis (b) a lot: 1.889 for the selected
-    config against 1.073 for the sweep's best. The two are on different
+    config against 0.993 for the sweep's best. The two are on different
     folds and not strictly comparable, but the gap is far larger than the
     ~0.001 AUROC that bought it. Calibration selected on marginal AUROC and
     axis (b) pays for it; a joint-aware selection rule is the obvious next
