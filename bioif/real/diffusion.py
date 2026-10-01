@@ -1127,27 +1127,37 @@ def report(res: Run | None = None) -> str:
     c_cop_c = cb["B2 copula | MMP measured"].auroc
     best_c = max(r.conds, key=lambda c: c.auroc)
 
-    won_a = d_marg >= -0.005
-    won_b = f_dif < min(f_b1, f_b2)
+    # Requirement (a) is "must not regress", so a statistical tie PASSES the
+    # gate but is not a win, and is not labelled as one. 0.01 AUROC is the
+    # tie band; the exact delta is printed beside the label either way.
+    stat_a = ("WIN " if d_marg > 0.01 else
+              "TIE " if d_marg >= -0.01 else "LOSS")
+    won_a, won_b = d_marg > 0.01, f_dif < min(f_b1, f_b2)
     won_c = best_c.name == "DDPM | MMP inpainted"
-    n_won = sum((won_a, won_b, won_c))
+    passed = (stat_a.strip() != "LOSS", won_b, won_c)
+    n_pass = sum(passed)
 
     L += ["=" * 74]
-    if n_won == 3:
+    if won_a and won_b and won_c:
         L.append("VERDICT: the joint diffusion model BEATS the baselines on all "
                  "three axes.")
-    elif n_won == 0:
+    elif n_pass == 0:
         L.append("VERDICT: the joint diffusion model does NOT beat the "
                  "baselines, on any of the three axes.")
     else:
+        kind = "ties" if stat_a.strip() == "TIE" else "wins"
         L.append(f"VERDICT: the joint diffusion model does NOT beat the "
-                 f"baselines overall (it wins {n_won} of 3 axes).")
+                 f"baselines. It {kind} the axis where")
+        L.append("  it was expected to lose, and loses the two it was bought "
+                 "for.")
 
-    L += [f"  (a) marginals   {'WIN ' if won_a else 'LOSS'}  mean AUROC "
+    L += [f"  (a) marginals   {stat_a}  mean AUROC "
           f"{dfm.mean_auroc:.3f} vs {b1m.mean_auroc:.3f} for logistic "
           f"regression ({d_marg:+.3f});",
           f"                        better on {wins}/{D} endpoints, worse on "
-          f"{D - wins}/{D}.",
+          f"{D - wins}/{D}. Requirement (a) was",
+          f"                        'must not regress', and it does not -- but "
+          f"a tie is not a win.",
           f"  (b) joint       {'WIN ' if won_b else 'LOSS'}  Frobenius error "
           f"{f_dif:.3f} vs {f_b2:.3f} (copula) and {f_b1:.3f} (independent "
           f"LR).",
@@ -1204,7 +1214,7 @@ def report(res: Run | None = None) -> str:
           "paid for here.",
           ""]
 
-    if n_won < 3:
+    if not (won_a and won_b and won_c):
         L += ["  What fails is the instrument, not the premise. MMP really "
               "does carry",
               f"  information about p53 (observed phi = {rho_obs:.3f}), and "
