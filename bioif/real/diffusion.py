@@ -103,12 +103,18 @@ Protocol, in brief (details at each call site):
     loss target and never a scoring target.
   * Labels are ✅ when measured on the held-out test fold, ⚠️ when chosen on
     calibration or illustrative.
-  * Runtime is ~19 min on 4 CPU threads, over the ~12 min this was meant to
-    fit in. The overshoot is disclosed in the report rather than fixed,
-    because the only way to fix it after the fact was to re-pick the
-    architecture grid and score the test fold a second time. The cause --
-    calibration preferred the widest, slowest configuration by a margin
-    inside Monte-Carlo noise -- is reported with it.
+  * Runtime MISSES its target: 18.7 min on an unloaded container, and more
+    on a loaded one, against the ~12 min this was meant to fit in. The cause
+    is that the calibration fold preferred the widest configuration in the
+    grid (h=512, beyond the 256 the brief specifies) by ~0.001 AUROC, a
+    margin inside the Monte-Carlo noise of a 48-sample estimate, and the
+    test-time cost of that choice is ~3x. It is disclosed rather than fixed:
+    fixing it meant re-picking the grid and scoring the test fold a second
+    time, and requirement (2) -- score the test fold once -- is a
+    correctness requirement where the runtime target is not. Capping
+    CAL_GRID to widths <= 256 brings the whole run under ~7 min and, on the
+    calibration fold, costs about 0.001 AUROC; that is the configuration to
+    use for a rerun, and it would be a clean single-touch run of its own.
 """
 from __future__ import annotations
 
