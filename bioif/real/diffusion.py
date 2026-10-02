@@ -14,8 +14,10 @@ cannot* use a measured MMP value when predicting p53 -- there is no slot for
 it. A joint model over the endpoint vector can, by conditioning.
 
 So: fit a conditional DDPM over x0 in R^12 (labels mapped {0,1} -> {-1,+1}),
-conditioned on a Morgan count fingerprint, and ask three questions that a
-marginal AUROC table cannot answer on its own.
+conditioned on a Morgan count fingerprint and trained with random coordinate
+masking so that "these endpoints are already known" is a case the denoiser
+has actually seen, and ask three questions that a marginal AUROC table
+cannot answer on its own.
 
   (a) marginals  -- does per-endpoint predictive quality REGRESS? A joint
                     model that is worse at every single endpoint has bought
@@ -39,129 +41,113 @@ obvious one:
       A joint model gives every conditional at once; B3 gives one. Included
       because leaving it out would overstate what (c) proves.
 
-VERDICT (measured, held-out scaffolds, seed 0): **the diffusion model does
-NOT beat the baselines. It TIES the one axis it was expected to lose, and
-loses both of the axes it was bought for.**
+VERDICT (measured on held-out scaffolds, mean over 3 seeds, after the
+conditional-training and joint-error-selection revision): **the diffusion
+model still does not beat the baselines -- but the two fixes both worked, and
+the reason it loses has changed from "the mechanism is broken" to "there is
+not enough data to fit a joint this way".**
 
-  (a) marginals    TIE      mean AUROC 0.731 vs 0.735 for independent
-                   logistic regression (-0.004, better on 6 of 12
-                   endpoints). It does not regress, which is the gate.
-  (b) joint        LOSS     Frobenius error of the 12x12 endpoint
-                   correlation matrix 1.889, against 1.095 for the copula
-                   and 1.382 for independent LR. It reproduces phi(p53,MMP)
-                   as 0.112 where the measured value is 0.384 -- worse than
-                   independent logistic regressions, which get 0.228 for
-                   free just by sharing a fingerprint. NOTE: these are the
-                   SELECTED config's numbers; see the CORRECTION below --
-                   the sweep's best checkpoint does beat independent LR on
-                   the joint, and still loses to the copula.
-  (c) conditional  LOSS     inpainting the measured MMP at every reverse
-                   step changed p53 AUROC by -0.000 (0.796 -> 0.795), i.e.
-                   not at all. The copula's closed-form conditional gained
-                   +0.025 (0.808 -> 0.833) from the same information with
-                   ~66 parameters. Appending the measured MMP as a 2049th
-                   feature to one logistic regression (B3) reaches 0.806.
+  (a) marginals    LOSS  mean AUROC 0.689 [0.675, 0.705] vs 0.745
+                   [0.736, 0.752] for independent logistic regression.
+                   Paired difference -0.056, seed range 0.024 -> decisive.
+                   This is a REGRESSION from the previous run's tie
+                   (-0.004), and it is the price of change 1: selecting on
+                   joint error picks checkpoints trained 40-160 epochs
+                   instead of 10-20, which sharpens the correlation
+                   structure and blunts the marginals.
+  (b) joint        TIE   Frobenius error 1.092 [0.956, 1.222] vs 1.038
+                   [1.011, 1.070] for the copula and 1.343 [1.320, 1.355]
+                   for independent LR. Paired difference vs the copula
+                   -0.054 with a seed range of 0.207 -- comfortably inside
+                   its own noise, so a TIE, not a loss. Down from 1.889
+                   before the fix. phi(p53,MMP) is now reproduced as 0.276
+                   against the copula's 0.271 and a measured 0.401; before
+                   the fix it was 0.112.
+  (c) conditional  LOSS  inpainting the measured MMP now gains +0.021
+                   [+0.015, +0.028] AUROC, every seed positive and the mean
+                   larger than the range -> decisive and real. Before the
+                   fix it was -0.000. But the copula's closed-form
+                   conditional gains +0.028 [+0.024, +0.033] from the same
+                   information, and the paired difference (-0.008, range
+                   0.007) is decisive in the copula's favour. Worse, the
+                   DDPM conditions from a much lower base: 0.715 conditioned
+                   against 0.809 for a logistic regression that cannot see
+                   MMP at all (-0.094, decisive). B3 -- one logistic
+                   regression with the measured MMP as a 2049th feature --
+                   reaches 0.820, and the copula 0.837.
 
-The surprise is WHERE it fails. The expectation going in was that a 1.6M-
-parameter denoiser fitted to 37k observed labels (43 parameters per label)
-would be beaten on per-endpoint marginals and might redeem itself on the
-joint. The opposite happened: it matches logistic regression on marginal
-RANKING and fails on the joint structure and the conditional -- precisely
-the two things a joint model is for. Its sampled frequencies are also badly
-miscalibrated in level (it under-generates positives by a median 1.7x and
-by 4.3x on SR-ATAD5), which AUROC is blind to but which makes the output
-unusable as a probability -- and quoting a calibrated joint probability is
-most of the reason to fit a generative model at all.
+So the conditioning mechanism was indeed the thing that was broken on axis
+(c), and fixing it produced a real, measurable, repeatable lift. It still
+does not pay: the lift is smaller than the copula's and starts 0.09 AUROC
+further back.
 
-The premise is not what fails. SR-MMP genuinely carries information about
-SR-p53 (measured phi = 0.384 on the test fold), and the method that can
-condition on it cheaply does gain. The instrument is what fails, and a
-better learning rate will not fix a model that is worse at the joint than a
-66-parameter copula.
+THE MOST INFORMATIVE NUMBER in this revision is a calibration-to-test gap.
+Under joint-error selection the chosen checkpoint BEATS the copula on the
+calibration fold (0.862 vs 0.968 on seed 0) and loses to it on test (1.222
+vs 1.070). The copula barely moves between folds; the diffusion model
+degrades by ~0.36. Since the selection objective now IS joint error, that
+gap cannot be a selection artefact -- it is overfitting of the correlation
+structure itself. A denoiser with 8-18 parameters per observed training
+label can fit the endpoint covariance of the scaffolds it has seen and does
+not carry it to new chemistry; a 66-parameter copula has too few degrees of
+freedom to overfit that way. The binding constraint is sample size, not
+architecture and not the conditioning scheme.
 
-⚠️ One limitation of axis (c) that bounds how far that reading goes. This
-model is trained UNCONDITIONALLY and then conditioned at sampling time by
-replacement: the known coordinate is overwritten at every reverse step.
-Replacement inpainting is a well-known APPROXIMATION to the true conditional
--- the denoiser was never trained on trajectories where one coordinate is
-pinned, so nothing forces the other eleven to respond to it. The fair test
-of "can a joint generative model use a measured endpoint" would train with
-random coordinate masking (or classifier-free guidance over the conditioning
-set) so that conditioning is in-distribution. So axis (c) establishes that
-THIS construction gains nothing, not that no diffusion model could. Axes (a)
-and (b) do not depend on the conditioning mechanism and are unaffected.
+THE TRADE, stated plainly because it is a finding and not a bug: the fixes
+improved axis (b) (1.889 -> 1.092) and axis (c) (-0.000 -> +0.021) and cost
+axis (a) (-0.004 -> -0.056). There was no checkpoint in the sweep that was
+good at marginals and good at the joint simultaneously; the two objectives
+select models 4-16x apart in training length. Any deployment would have to
+choose which axis it is buying.
 
-⚠️ CORRECTION, from an independent re-check of axis (b) on the calibration
-fold (seed 0, the diffusion side taken from the sweep log):
+RECOMMENDATION unchanged, and now resting on better evidence: use the
+copula. It wins or ties every axis, gains more from a measured MMP than the
+diffusion model does, costs ~66 parameters against 308k-682k, and runs in
+seconds. The premise being tested was whether a properly conditioned joint
+model can use a measured endpoint. It can -- that is now measured rather
+than assumed -- and the information is still cheaper to extract with a
+closed-form conditional.
 
-    B2 copula                     0.983
-    best DDPM checkpoint in sweep 0.993
-    B1 independent LR             1.241
-
-(The re-check first quoted 1.073 for the diffusion row. That is the best
-checkpoint of ONE block of the sweep, not of the sweep: the minimum over all
-35 configurations is 0.993, at h=128 / 40 epochs / T=50, which is what
-`cal_frob_ref["DDPM_best_over_sweep"]` returns and what the report prints.
-It cuts both ways, and the two directions should not be averaged into
-"slightly strengthened": the SELECTION-COST bullet below gets stronger,
-because 1.889 against 0.993 is a worse trade than 1.889 against 1.073, while
-the headline "the copula beats every checkpoint" gets WEAKER -- 0.983
-against 0.993 is a margin of 0.010 on a 48-sample Monte-Carlo estimate, i.e.
-almost certainly inside its own noise.)
-
-So the defensible form of axis (b) is narrower than first written. At the
-configuration calibration selected, diffusion loses the joint clearly. At
-its BEST over the sweep it is roughly LEVEL with the copula (0.993 vs 0.983)
-and beats independent marginals (1.241). What is not in doubt is the price:
-the copula reaches that joint structure with ~66 parameters in seconds, the
-diffusion model with 1.6M parameters in ~24 minutes. The recommendation --
-use the copula -- survives unchanged, but it now rests on cost rather than
-on capability, which is a different and more honest argument.
-
-Two statements elsewhere in this docstring remain too strong, in the same
-direction:
-
-  * "worse than independent logistic regressions" is true of the SELECTED
-    configuration (1.889 vs 1.382 on test) and NOT true of the model class
-    -- diffusion's best checkpoint beats independent LR on the joint
-    (0.993 vs 1.241). The earlier gloss, that a model worse than independent
-    LR at the joint "has not learned the joint", therefore overreached.
-  * the selection rule IS costing axis (b) a lot: 1.889 for the selected
-    config against 0.993 for the sweep's best. The two are on different
-    folds and not strictly comparable, but the gap is far larger than the
-    ~0.001 AUROC that bought it. Calibration selected on marginal AUROC and
-    axis (b) pays for it; a joint-aware selection rule is the obvious next
-    change, and `cal_frob_ref["DDPM_best_over_sweep"]` is already the right
-    place to read it from.
-
-So: diffusion does learn some joint structure -- more than independent
-marginals do -- and still loses to the cheap closed-form alternative. That is
-a weaker and better-supported claim than the one first written here.
+RESOLVED from the previous revision (both were flagged there as limitations
+and have now been acted on, so the earlier caveats no longer apply):
+  * axis (c) tested replacement inpainting on an unconditionally-trained
+    model, which was an out-of-distribution hack. It is now trained with
+    random coordinate masking and a given-mask input channel, and the
+    conditioning works.
+  * selection on marginal AUROC was costing axis (b) far more than it
+    bought. The objective is now joint error, and axis (b) improved from a
+    clear loss to a tie.
+  * the 0.983-vs-0.993 axis-(b) margin that neither write-up could call
+    either way is now answered: with 3 seeds the copula-vs-diffusion joint
+    margin is -0.054 against a seed range of 0.207, i.e. a tie. The earlier
+    margin was noise, as suspected.
 
 Protocol, in brief (details at each call site):
-  * Scaffold split train/calibration/test = 3726/1491/2236 compounds. Every
-    choice -- epochs, diffusion steps T, hidden width, learning rate -- is
-    made on the calibration fold, over a 35-configuration sweep that is
-    printed in full. The test fold is scored once.
-  * Missingness (7-26% per endpoint) is handled by MASKING the loss to
-    observed coordinates and evaluating only observed labels. Missing
-    coordinates are resampled from the train-fold prevalence each epoch so
-    that the denoiser's INPUT is always a full 12-vector; they are never a
-    loss target and never a scoring target.
-  * Labels are ✅ when measured on the held-out test fold, ⚠️ when chosen on
+  * Scaffold split train/calibration/test = 3726/1491/2236 compounds, whole
+    scaffolds to one fold, asserted disjoint. Every choice -- epochs,
+    diffusion steps T, hidden width, learning rate -- is made on that seed's
+    calibration fold over a 27-configuration sweep that is printed in full.
+    The test fold is scored once per seed.
+  * TWO masks, never conflated. Real Tox21 missingness (7-26% per endpoint):
+    the loss is masked to observed coordinates, only observed labels are
+    scored, and a missing coordinate is filled from the train-fold prevalence
+    for the denoiser's INPUT only -- never a loss target, never a scoring
+    target, and never offered as a conditioning "given". The synthetic
+    conditioning mask: a random subset of the OBSERVED coordinates per
+    example per step, supplied as known and excluded from the loss, which is
+    what makes conditional sampling in-distribution.
+  * 3 seeds for every headline number, each resampling the split, the
+    calibration sweep and all sampling; reported as mean [min, max] with a
+    declared tie rule on paired per-seed differences. Note that
+    qsar.scaffold_split ignores its own seed argument, so the seed is applied
+    by permuting its input; this moves ~18% of the test fold per seed, which
+    means the spread covers training/sampling/selection noise fully but
+    split variance only partly, and so understates total uncertainty.
+  * Labels are ✅ when measured on a held-out test fold, ⚠️ when chosen on
     calibration or illustrative.
-  * Runtime MISSES its target: 18.7 min on an unloaded container, and more
-    on a loaded one, against the ~12 min this was meant to fit in. The cause
-    is that the calibration fold preferred the widest configuration in the
-    grid (h=512, beyond the 256 the brief specifies) by ~0.001 AUROC, a
-    margin inside the Monte-Carlo noise of a 48-sample estimate, and the
-    test-time cost of that choice is ~3x. It is disclosed rather than fixed:
-    fixing it meant re-picking the grid and scoring the test fold a second
-    time, and requirement (2) -- score the test fold once -- is a
-    correctness requirement where the runtime target is not. Capping
-    CAL_GRID to widths <= 256 brings the whole run under ~7 min and, on the
-    calibration fold, costs about 0.001 AUROC; that is the configuration to
-    use for a rerun, and it would be a clean single-touch run of its own.
+  * Runtime ~15 min for all 3 seeds (~5 min/seed), against 18.7 min for
+    the single seed of the previous revision. Capping CAL_GRID at the
+    specified width of 256 paid for the seed repeats, as intended.
 """
 from __future__ import annotations
 
@@ -227,9 +213,36 @@ def load_data(seed: int = SEED) -> Data:
 
     # Scaffold split, never random: a congeneric dataset split at random
     # reports a number that does not survive new chemistry.
-    tr, ca, te = qsar.scaffold_split(smiles, fracs=FRACS, seed=seed)
+    #
+    # The seed is applied by permuting the INPUT ORDER rather than by being
+    # passed through, because qsar.scaffold_split's own `seed` argument turns
+    # out not to move the split at all: it deals the largest scaffold groups
+    # out by bucket deficit and only consults its rng in a tie-break branch
+    # that never fires at these fractions, so seeds 0/1/7 return byte-identical
+    # folds (verified). A seed repeat built on it would have resampled the
+    # training and sampling noise while silently holding the split fixed --
+    # which is most of the variance, and exactly the variance the noise
+    # estimate is supposed to capture.
+    #
+    # Permuting the input is enough to move it, because the group ordering is
+    # keyed on (-size, smiles[g[0]]) and g[0] is the first-encountered member,
+    # so the tie-breaks among the many equal-sized (mostly singleton) scaffold
+    # groups change. Whole scaffolds still go to exactly one fold -- grouping
+    # is by scaffold string and is unaffected by order -- so this is still a
+    # scaffold split, not a random one. Asserted below rather than trusted.
+    order = np.random.default_rng(1000 + seed).permutation(len(smiles))
+    parts = qsar.scaffold_split([smiles[i] for i in order], fracs=FRACS,
+                                seed=seed)
+    tr, ca, te = ([int(order[i]) for i in part] for part in parts)
+
     scafs = np.array([qsar.scaffold(s) or f"__singleton_{i}"
                       for i, s in enumerate(smiles)], dtype=object)
+    # No scaffold may appear in two folds. This is the one property the whole
+    # evaluation rests on, so it is checked, not assumed.
+    sets = [{scafs[i] for i in part} for part in (tr, ca, te)]
+    assert not (sets[0] & sets[1]) and not (sets[0] & sets[2]) \
+        and not (sets[1] & sets[2]), "scaffold leaked across folds"
+    assert len(tr) + len(ca) + len(te) == len(smiles)
     return Data(X, Y, M, smiles, scafs, tr, ca, te)
 
 
@@ -1040,24 +1053,12 @@ def report_seed(res: Run) -> str:
          "  for this dataset, and nothing below should be read as a statement "
          "about",
          "  diffusion models given 100x more data.",
-         f"  ⚠️  runtime overshoot, disclosed: {r.wall / 60:.1f} min against a "
-         "~12 min target. The",
-         f"      calibration fold chose the widest and slowest configuration "
-         f"in the grid (h={ch['h']},",
-         f"      T={ch['T']}), and nearly all of the excess is the "
-         f"{N_SAMPLES_TEST}-sample x {ch['T']}-step test sampling",
-         "      that implies. It was preferred over h=128 by ~0.001 "
-         "calibration AUROC, which is",
-         f"      inside the Monte-Carlo noise of a {N_SAMPLES_CAL}-sample "
-         "estimate, so a budget-capped grid",
-         "      would run ~3x faster at essentially no cost in quality. That "
-         "grid was NOT",
-         "      substituted after the fact: requirement (2) is that the test "
-         "fold is scored",
-         "      once, and re-picking the grid to hit a runtime target after "
-         "seeing the test",
-         "      numbers would buy speed with the only thing here worth "
-         "having.",
+         f"  runtime for this seed: {r.wall / 60:.1f} min (previous revision: "
+         f"{PREV['wall_min']:.1f} min for a single",
+         f"      seed). Capping the grid at the specified width of 256 and "
+         f"letting the joint-error",
+         f"      rule pick a cheap configuration (h={ch['h']}, T={ch['T']}) "
+         "paid for the seed repeats.",
          "",
          f"  ⚠️  chosen on CALIBRATION: hidden={ch['h']}, lr={ch['lr']}, "
          f"epochs={ch['epochs']}, T={ch['T']}",
@@ -1069,11 +1070,10 @@ def report_seed(res: Run) -> str:
          "scored once.",
          ""]
 
-    # The whole search, printed. The joint-error column is shown but was NOT
-    # used to select, so a reader can check whether a different criterion
-    # would have been kinder to the model.
+    # The whole search, printed. The AUROC column is shown but is no longer
+    # what selects, so a reader can see exactly what the swap to joint-error
+    # selection gave up.
     cl = ch["cal_log"]
-    best_fr = min(cl, key=lambda c: c["frob"])
     L += ["  ⚠️  calibration sweep (the entire search; calibration fold, "
           f"{N_SAMPLES_CAL} samples/compound)",
           f"      {'h':>5}{'lr':>8}{'epochs':>8}{'T':>5}{'meanAUROC':>11}"
@@ -1085,25 +1085,33 @@ def report_seed(res: Run) -> str:
         L.append(f"      {c['h']:>5}{c['lr']:>8.1e}{c['epochs']:>8}"
                  f"{c['T']:>5}{c['mean_auroc']:>11.4f}{c['frob']:>10.3f}"
                  f"{mark}")
-    same = (best_fr["h"] == ch["h"] and best_fr["epochs"] == ch["epochs"]
-            and best_fr["T"] == ch["T"])
-    L.append(f"      Marginal AUROC is maximised at {ch['epochs']} epochs "
-             f"(h={ch['h']}, T={ch['T']}).")
+    # The selected row minimises joint error by construction. What is worth
+    # printing is how far that row sits from the AUROC optimum, because that
+    # distance IS the cost of the selection swap on axis (a).
+    best_au = ch["cal_frob_ref"]["auroc_rule_would_pick"]
+    same = (best_au["h"] == ch["h"] and best_au["epochs"] == ch["epochs"]
+            and best_au["T"] == ch["T"])
+    L.append(f"      Selected (joint-error minimum): h={ch['h']} "
+             f"epochs={ch['epochs']} T={ch['T']} -> frob "
+             f"{ch['cal_frob']:.3f}, AUROC {ch['cal_mean_auroc']:.4f}.")
     if same:
-        L.append("      The same configuration also minimises joint error, so "
-                 "the selection rule is not load-bearing.")
+        L.append("      The same row also maximises marginal AUROC, so the two "
+                 "objectives agree here and the")
+        L.append("      selection rule is not load-bearing on this seed.")
     else:
-        L += [f"      Joint error is minimised somewhere else "
-              f"(h={best_fr['h']}, epochs={best_fr['epochs']}, "
-              f"T={best_fr['T']}: {best_fr['frob']:.3f} joint error but only",
-              f"      {best_fr['mean_auroc']:.4f} marginal AUROC). The two "
-              "axes disagree about which checkpoint is best,",
-              "      which is itself a finding: this model cannot be made good "
-              "at marginals and at joint",
-              "      structure simultaneously at this data scale. Selecting on "
-              "marginals, as declared, is the",
-              "      choice that gives it the best shot at the primary gate "
-              "(a)."]
+        L += [f"      Marginal AUROC peaks elsewhere: h={best_au['h']} "
+              f"epochs={best_au['epochs']} T={best_au['T']} -> AUROC "
+              f"{best_au['mean_auroc']:.4f} but frob",
+              f"      {best_au['frob']:.3f}. The two objectives therefore "
+              f"disagree, and the distance between them is",
+              f"      the cost of the swap: "
+              f"{best_au['mean_auroc'] - ch['cal_mean_auroc']:+.4f} AUROC "
+              f"given up to gain "
+              f"{best_au['frob'] - ch['cal_frob']:+.3f} joint error on the",
+              "      calibration fold. Trained far longer than the AUROC "
+              "optimum, which is the mechanism:",
+              "      more training sharpens the correlation structure and "
+              "blunts the marginals."]
     L.append("")
 
     # ---- axis (a) ---------------------------------------------------------
@@ -1165,30 +1173,48 @@ def report_seed(res: Run) -> str:
           "    sharply asymmetric x0 posterior through a Gaussian reverse "
           "kernel, and the mass",
           "    ends up on the wrong side of zero at the wrong rate.",
-          "",
-          "    Read this against axis (a) above, because the two together say "
-          "something more",
-          "    specific than either alone: AUROC is rank-based and is "
-          "therefore blind to a",
-          "    monotone level error, so this miscalibration costs the DDPM "
-          "almost nothing on",
-          "    axis (a) -- its RANKING is competitive with logistic "
-          "regression. What it costs is",
-          "    the interpretation of the output AS A PROBABILITY. B1 is "
-          "miscalibrated too, and in",
-          "    the opposite direction (class_weight='balanced' inflates its "
-          "rates by design), but",
-          "    B1's distortion is a known monotone reweighting that a single "
-          "Platt scaling undoes,",
-          "    whereas the DDPM's varies per endpoint by a factor of "
-          f"{float((gr / np.maximum(orr, 1e-9)).max() / (gr / np.maximum(orr, 1e-9)).min()):.1f}x "
-          "across the 12. So",
-          "    the sampled frequencies here are usable as a ranking and NOT "
-          "usable as risk",
-          "    estimates -- which matters, because being able to quote a "
-          "calibrated joint",
-          "    probability is most of the reason to fit a generative model in "
-          "the first place.",
+          ""]
+    # Whether the miscalibration also costs RANKING depends on the regime,
+    # so this reads the measured marginal gap rather than assuming one. The
+    # previous run was a tie on axis (a) and this paragraph said the ranking
+    # survived; under joint-error selection it does not, and saying so is the
+    # point of printing it.
+    d_a = dfm.mean_auroc - b1m.mean_auroc
+    ratio_spread = float((gr / np.maximum(orr, 1e-9)).max()
+                         / max((gr / np.maximum(orr, 1e-9)).min(), 1e-9))
+    L += ["    Read this against axis (a) above. AUROC is rank-based and so "
+          "blind to a monotone",
+          "    level error, which makes the two failures separable in "
+          "principle:"]
+    if d_a >= -0.01:
+        L += ["    here they ARE separate -- the miscalibration costs the DDPM "
+              "almost nothing on",
+              f"    axis (a) ({d_a:+.3f}), so its ranking survives and only "
+              "the probability reading is",
+              "    lost."]
+    else:
+        L += [f"    here they are NOT separate -- the DDPM also loses "
+              f"{abs(d_a):.3f} of mean AUROC, so the",
+              "    ranking degrades alongside the level. Under joint-error "
+              "selection the model is",
+              "    pushed towards checkpoints that fit the correlation "
+              "structure, and those are",
+              "    trained far longer (40-160 epochs here vs 10-20 under the "
+              "old rule); the extra",
+              "    training sharpens the joint and blunts the marginals at "
+              "the same time."]
+    L += ["    Either way the level error is not a rescalable one: B1 is "
+          "miscalibrated too, in the",
+          "    opposite direction (class_weight='balanced' inflates its rates "
+          "by design), but B1's",
+          "    distortion is a monotone reweighting a single Platt scaling "
+          "undoes, whereas the",
+          f"    DDPM's varies per endpoint by a factor of {ratio_spread:.1f}x "
+          "across the 12. Quoting a",
+          "    calibrated joint probability is most of the reason to fit a "
+          "generative model, and",
+          "    these sampled frequencies cannot be used that way without "
+          "per-endpoint recalibration.",
           ""]
 
     # ---- axis (b) ---------------------------------------------------------
@@ -1216,26 +1242,51 @@ def report_seed(res: Run) -> str:
           "'independent",
           "  models predict independence', which is false.",
           ""]
+    # The selection rule now IS joint error, so the old "would a different
+    # rule have done better on (b)?" question is answered by construction:
+    # the selected checkpoint is the sweep's minimum. What the same three
+    # numbers now show is something more interesting -- whether the joint
+    # structure the model fits on calibration survives a move to new
+    # scaffolds.
     cfr = ch["cal_frob_ref"]
-    sweep_wins_b = cfr["DDPM_best_over_sweep"] < cfr["B2"]
-    L += ["  ⚠️  Is this an artefact of selecting on marginals? Settled on the "
-          "CALIBRATION",
-          "      fold, so that looking costs no test-fold touch. Best joint "
-          "error achieved by",
-          f"      ANY of the {len(cl)} checkpoints in the sweep: "
-          f"{cfr['DDPM_best_over_sweep']:.3f}, against {cfr['B2']:.3f} for the "
-          f"copula and",
-          f"      {cfr['B1']:.3f} for independent LR on the same fold.",
-          ("      So a luckier selection rule WOULD have beaten the copula "
-           "here, and the test-fold" if sweep_wins_b else
-           "      So no checkpoint in the sweep beats the copula on joint "
-           "structure, whichever one"),
-          ("      ranking on (b) is partly a consequence of selecting on "
-           "marginals -- read it with that" if sweep_wins_b else
-           "      you select. The test-fold ranking on axis (b) is a property "
-           "of the model, not of"),
-          ("      caveat." if sweep_wins_b else "      the selection rule."),
+    cal_dif, cal_b2 = cfr["DDPM_best_over_sweep"], cfr["B2"]
+    gap = jb["DDPM joint"].frob - cal_dif
+    L += ["  ⚠️  CALIBRATION vs TEST on this same axis, which is where the "
+          "loss now comes from.",
+          f"      On the calibration fold the selected checkpoint (the "
+          f"sweep's minimum over {len(cl)})",
+          f"      scores {cal_dif:.3f}, against {cal_b2:.3f} for the copula "
+          f"and {cfr['B1']:.3f} for independent LR.",
+          f"      On the test fold the same model scores "
+          f"{jb['DDPM joint'].frob:.3f}, against "
+          f"{jb['B2 LR + copula'].frob:.3f} for the copula.",
           ""]
+    if cal_dif < cal_b2 and jb["DDPM joint"].frob > jb["B2 LR + copula"].frob:
+        L += [f"      So on calibration the diffusion model WINS axis (b) and "
+              f"on test it does not:",
+              f"      its joint error degrades by {gap:+.3f} across the fold "
+              "boundary while the copula's",
+              f"      barely moves ({cal_b2:.3f} -> "
+              f"{jb['B2 LR + copula'].frob:.3f}). That is a GENERALISATION "
+              "gap, not a selection",
+              "      artefact -- the selection rule is now joint error, so "
+              "this checkpoint is the best",
+              f"      the sweep had on this axis. The correlation structure a "
+              f"{r.n_params:,}-parameter denoiser",
+              f"      fits to {r.n_tr} training compounds is partly specific "
+              "to the scaffolds it saw; a",
+              "      ~66-parameter copula has too few degrees of freedom to "
+              "overfit the same way.",
+              "      This is the single most informative number in the "
+              "revision: the fix worked, and",
+              "      what it exposed underneath is a sample-size problem "
+              "rather than a mechanism one."]
+    else:
+        L += [f"      Calibration-to-test change in joint error: "
+              f"{gap:+.3f} for the diffusion model,",
+              f"      {jb['B2 LR + copula'].frob - cal_b2:+.3f} for the "
+              "copula."]
+    L.append("")
 
     # ---- axis (c) ---------------------------------------------------------
     L += [f"(c) THE CONFOUND -- predicting SR-p53 when SR-MMP is known   ✅",
@@ -1377,9 +1428,15 @@ def report(runs: list[Run] | None = None) -> str:
          f"{torch.__version__}, 4 threads",
          f"  {rs[0].n} compounds x {D} endpoints; per seed: train {rs[0].n_tr}"
          f" / calibration {rs[0].n_cal} / test {rs[0].n_te}",
-         f"  DDPM denoiser: {rs[0].n_params:,} parameters  ->  "
-         f"{rs[0].n_params / rs[0].n_obs_train:.1f} per observed training "
-         f"label (still heavily over-parameterised)",
+         # Widths are selected per seed, so this is a range, not a constant.
+         f"  DDPM denoiser: "
+         + (f"{rs[0].n_params:,}" if len({r.n_params for r in rs}) == 1
+            else f"{min(r.n_params for r in rs):,}-"
+                 f"{max(r.n_params for r in rs):,}")
+         + f" parameters  ->  "
+           f"{min(r.n_params for r in rs) / rs[0].n_obs_train:.1f}-"
+           f"{max(r.n_params for r in rs) / rs[0].n_obs_train:.1f} per "
+           f"observed training label (still heavily over-parameterised)",
          "",
          "WHAT CHANGED since the previous run, and why:",
          "  1. SELECTION OBJECTIVE. Was mean calibration AUROC; now "
@@ -1406,10 +1463,25 @@ def report(runs: list[Run] | None = None) -> str:
          "loss target.",
          f"  3. SEED REPEATS. {len(seeds)} seeds, each resampling the scaffold "
          "split, the calibration",
-         "     sweep and all sampling. Every headline number below is "
-         "mean [min, max] over",
-         "     seeds, and the tie rule is applied to PAIRED per-seed "
-         "differences.",
+         "     sweep (so selection variance is inside the spread) and all "
+         "sampling. Every",
+         "     headline number below is mean [min, max] over seeds, and the "
+         "tie rule is applied",
+         "     to PAIRED per-seed differences.",
+         "     ⚠️  honest limit on this: qsar.scaffold_split ignores its own "
+         "seed (it deals the",
+         "     largest scaffold groups out by bucket deficit and never reaches "
+         "its tie-break",
+         "     branch), so the seed is applied by permuting the input order. "
+         "That moves the",
+         f"     tie-breaks among the many singleton scaffolds but not the big "
+         f"groups, leaving",
+         "     ~82% of test compounds shared between any two seeds. The spread "
+         "below therefore",
+         "     covers training, sampling and selection noise in full but only "
+         "part of the",
+         "     split-to-split variance, and so if anything UNDERSTATES the "
+         "true uncertainty.",
          "",
          "  TIE RULE (declared): a difference counts only if all seeds agree "
          "on its sign AND",
@@ -1491,8 +1563,8 @@ def report(runs: list[Run] | None = None) -> str:
           "",
           "  LIFT from conditioning on the measured MMP (the number that "
           "decides this axis):",
-          row("    B2 copula, closed form", lift_cop, "{:+.3f}", width=26),
-          row("    DDPM, inpainting", lift_df, "{:+.3f}", width=26),
+          row("    B2 copula, closed form", lift_cop, "{:+.3f}", width=30),
+          row("    DDPM, inpainting", lift_df, "{:+.3f}", width=30),
           "",
           f"  DDPM lift: {m_lc:+.3f}, seed range {r_lc:.3f}  ->  "
           f"{'DECISIVE' if dec_lc else 'TIE (indistinguishable from zero)'}",

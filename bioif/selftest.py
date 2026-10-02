@@ -640,6 +640,30 @@ def t_cytotox_control():
     assert ddr.risk_ratio > mmp.risk_ratio, (ddr.risk_ratio, mmp.risk_ratio)
 
 
+@check("TOX: `seed` alone does not move the split; `permute` does")
+def t_split_seed_semantics():
+    needs(*CHEM)
+    from .real import qsar, tox
+    smi = [r["smiles"] for r in tox.load_tox21()][:1500]
+    a = qsar.scaffold_split(smi, seed=0)
+    b = qsar.scaffold_split(smi, seed=7)
+    c = qsar.scaffold_split(smi, seed=7, permute=True)
+    d = qsar.scaffold_split(smi, seed=8, permute=True)
+    # documented, not accidental: one canonical split regardless of seed
+    assert all(x == y for x, y in zip(a, b)), \
+        "seed now moves the split; every committed number was measured on " \
+        "the canonical one and would need re-measuring"
+    # and a real mechanism exists for genuine repeats
+    assert any(x != y for x, y in zip(a, c))
+    assert any(x != y for x, y in zip(c, d))
+    # fold balance survives permutation
+    assert [len(x) for x in a] == [len(x) for x in c]
+    # a permutation moves only part of the set, so its spread understates
+    # total uncertainty -- asserted so that caveat stays true
+    overlap = len(set(a[2]) & set(c[2])) / len(a[2])
+    assert 0.2 < overlap < 0.8, overlap
+
+
 @check("TOX: the scaffold split leaks no scaffold between folds")
 def t_scaffold_split_clean():
     needs(*CHEM)

@@ -71,19 +71,42 @@ def scaffold(smiles: str) -> str:
         return ""
 
 
-def scaffold_split(smiles: list[str], fracs=(0.4, 0.3, 0.3), seed: int = 0):
+def scaffold_split(smiles: list[str], fracs=(0.4, 0.3, 0.3), seed: int = 0,
+                   permute: bool = False):
     """
     Assign whole scaffolds to train / calibrate / test.
 
-    Largest scaffold groups are dealt out first to keep the sizes close to
-    the requested fractions; the shuffle only breaks ties among equal-sized
-    groups, so the split is stable.
+    Largest scaffold groups are dealt out first to keep fold sizes close to
+    the requested fractions.
+
+    ⚠️ `seed` ALONE DOES NOT MOVE THE SPLIT. The greedy fill always leaves a
+    deficit somewhere, so the random branch below is effectively unreachable
+    and every seed returns the identical split. That is deliberate now --
+    one canonical split everyone compares on -- but it was previously an
+    advertised parameter that did nothing, which is a trap: anyone seeking a
+    seed spread through it would get zero spread and conclude their estimate
+    was stable. Verified by test.
+
+    Pass `permute=True` for a genuinely different split. It shuffles the
+    group order before the size sort, and since the sort is stable the
+    shuffle survives among equal-sized groups while fold balance is kept.
+
+    Note what a permuted split does and does not buy: scaffold groups are
+    very unequal in size, so the largest groups land in the same folds
+    regardless and only part of the set moves. A permutation spread therefore
+    covers training and selection noise fully and split variance only
+    partly, and understates total uncertainty.
     """
     groups: dict[str, list[int]] = collections.defaultdict(list)
     for i, s in enumerate(smiles):
         groups[scaffold(s) or f"__singleton_{i}"].append(i)
-    order = sorted(groups.values(), key=lambda g: (-len(g), smiles[g[0]]))
     rng = np.random.default_rng(seed)
+    items = list(groups.values())
+    if permute:
+        rng.shuffle(items)                 # stable sort keeps this within ties
+        order = sorted(items, key=lambda g: -len(g))
+    else:
+        order = sorted(items, key=lambda g: (-len(g), smiles[g[0]]))
     targets = [f * len(smiles) for f in fracs]
     buckets: list[list[int]] = [[], [], []]
     for g in order:

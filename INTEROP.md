@@ -848,3 +848,23 @@ readouts co-occur; it does not say cytotoxicity causes reporter activation.
 ⚠️ One split, one seed, one target class. The +0.0246 has no error bar here —
 the seed-repeat discipline demanded of the diffusion rerun in §7 applies to
 this number too and has not been done.
+
+### 9.5 Two things the diffusion rerun gave back
+
+**The error bar §9.4 said was missing.** The rerun measures the copula's
+conditional gain over 3 seeds at **+0.028 [+0.024, +0.033]** AUROC. The
+single-seed +0.0246 reported in §9.1 sits at the bottom of that range, so the
+number is reproducible and the point estimate here was, if anything, slightly
+conservative.
+
+**A bug in this repo's splitter.** `qsar.scaffold_split` accepted a `seed`
+and ignored it: the greedy fill always leaves a deficit, so the random branch
+was unreachable and every seed returned the identical split. No reported
+number is wrong — all were honest measurements on one canonical split, and
+§9.4 already said so — but it was a trap, because anyone seeking a seed
+spread through that argument would have got zero spread and concluded their
+estimate was stable. The split is now documented as canonical by design, with
+an explicit `permute=True` for genuine repeats, and a test asserts both
+behaviours. A permuted split moves ~58% of the test fold, which is why a
+permutation spread covers training and selection noise fully and split
+variance only partly.
