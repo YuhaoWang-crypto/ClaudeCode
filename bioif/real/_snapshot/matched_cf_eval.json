@@ -1,0 +1,17 @@
+{
+ "fold_id": "tox21/p53/scaffold/0.5-0.2-0.3/seed0/p53+mmp-observed",
+ "n_scored": 1512,
+ "prevalence": 0.057539682539682536,
+ "n_train": 3248,
+ "n_cal": 1276,
+ "auroc": 0.8081145392216171,
+ "ap": 0.29399363014621455,
+ "abstain": 0.6104497354497355,
+ "q": {
+  "0": 0.3384692668914795,
+  "1": 0.9982450604438782
+ },
+ "alpha": 0.1,
+ "seed": 0,
+ "note": "plain p53 QSAR refitted on the copula module's scaffold split and scored on its p53+MMP-observed test subset, so that the two C->F adapters declare one fold"
+}

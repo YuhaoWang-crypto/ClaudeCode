@@ -308,15 +308,27 @@ class CompoundToP53Copula(Adapter):
     version = "logreg+probit-copula/scaffold-split"
 
     def __init__(self):
-        from .copula import load
+        from .copula import MATCHED_FOLD, load, load_matched_eval
         self.model = load()
-        # Measured on the copula module's own split, on the compounds with
-        # BOTH p53 and MMP observed -- a different fold from the plain
-        # QSAR's, which is precisely why the registry will refuse to rank
-        # the two on discrimination until one of them is refitted.
-        self.declared_auroc = 0.8327
-        self.eval_fold_id = ("tox21/p53/scaffold/0.5-0.2-0.3/seed0"
-                             "/p53+mmp-observed")
+        self.matched = load_matched_eval()
+        self.eval_fold_id = MATCHED_FOLD
+        #: AUROC when a cytotoxicity call IS supplied. Without one this
+        #: adapter is the marginal model, so `declared_discrimination`
+        #: reports the marginal number instead -- see below.
+        self.auroc_conditional = 0.8327
+        self.declared_auroc = self.auroc_conditional
+
+    def declared_discrimination(self, claim=None):
+        """
+        Claim-aware: this adapter is only the better model when the claim
+        actually carries a measured endpoint. With nothing measured it IS
+        the marginal model and must declare the marginal number, or the
+        registry would prefer it for an advantage it is not delivering on
+        this claim.
+        """
+        if claim is not None and not self._given(claim):
+            return float(self.matched["auroc"]), self.eval_fold_id
+        return float(self.auroc_conditional), self.eval_fold_id
 
     def _given(self, claim) -> dict[str, int]:
         """Measured endpoints the claim carries, if any."""
@@ -340,6 +352,9 @@ class CompoundToP53Copula(Adapter):
         """
         import math
         return float(self.model.abstain.get("cond", math.inf))
+
+    # -- the marginal arm, served from the same artefact ------------------
+    # See CompoundToP53Marginal below.
 
     def domain(self, claim) -> Verdict:
         base = super().domain(claim)
@@ -385,6 +400,76 @@ class CompoundToP53Copula(Adapter):
         if not noise:
             return [p] * len(xs)
         pset = self.model.predict_set([smi], given)[0]
+        if len(pset) != 1:
+            return [rng.random() for _ in xs]
+        return [min(max(p + rng.gauss(0.0, 0.05), 0.0), 1.0) for _ in xs]
+
+
+class CompoundToP53Marginal(Adapter):
+    """
+    C->F without consuming the cytotoxicity call -- the status-quo model,
+    made rankable.
+
+    This exists so the registry's choice on the C->F hop is between two
+    adapters that were fitted and scored identically, differing ONLY in
+    whether they use a second measured endpoint. Refitting the plain p53
+    QSAR on the copula module's split produced AUROC 0.8081 / AP 0.2940 /
+    abstention 0.610 -- numerically identical to the copula's own marginal,
+    because it is the same estimator on the same rows. So this adapter is
+    served from the same artefact with conditioning switched off, rather
+    than from a second copy of the same coefficients.
+
+    That identity is the point. The +0.0246 AUROC between the two arms is
+    the value of the MEASUREMENT, not of a model family.
+    """
+
+    kind = EMPIRICAL
+    consumes = P53_ACTIVE
+    produces = P53_ACTIVE
+    requires_covariates = (SMILES_COV,)
+    name = "C->F p53-marginal"
+    version = "logreg-morgan2048/matched-fold"
+
+    def __init__(self):
+        from .copula import MATCHED_FOLD, load, load_matched_eval
+        self.model = load()
+        self.matched = load_matched_eval()
+        self.eval_fold_id = MATCHED_FOLD
+        self.declared_auroc = float(self.matched["auroc"])
+
+    def calibrated_width(self, alpha: float = 0.2) -> float:
+        return float(self.matched["abstain"])
+
+    def domain(self, claim) -> Verdict:
+        base = super().domain(claim)
+        if base.status == REFUSE:
+            return base
+        smi = dict(claim.context.covariates).get(SMILES_COV, "")
+        if not qsar.featurize([smi])[1][0]:
+            return Verdict(REFUSE, f"{self.name}: unparseable SMILES "
+                                   f"{smi[:40]!r}")
+        return Verdict(IN_DOMAIN)
+
+    def map_context(self, c: Context, e: Entity) -> Context:
+        return c
+
+    def apply(self, claim, rng, noise: bool = True, inflate: float = 1.0):
+        out = super().apply(claim, rng, noise=noise, inflate=inflate)
+        cov = dict(claim.context.covariates)
+        if COV_CYTOTOX in cov:
+            return out.add_flag(
+                f"[ignored-measurement] a measured {tox.CYTOTOX_CONTROL} was "
+                f"available on this claim and this adapter does not consume "
+                f"it; the conditional model scores +0.0246 AUROC on the same "
+                f"fold")
+        return out
+
+    def _forward(self, xs, claim, rng, noise):
+        smi = dict(claim.context.covariates)[SMILES_COV]
+        p = float(self.model.proba([smi], None)[0])
+        if not noise:
+            return [p] * len(xs)
+        pset = self.model.predict_set([smi], None)[0]
         if len(pset) != 1:
             return [rng.random() for _ in xs]
         return [min(max(p + rng.gauss(0.0, 0.05), 0.0), 1.0) for _ in xs]

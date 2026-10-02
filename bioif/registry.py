@@ -76,25 +76,27 @@ class Registry:
         rule falls back to width, which is a refusal to guess rather than a
         preference for width.
         """
-        folds = {a.eval_fold_id for a in cands}
-        decl = [a.declared_discrimination() for a in cands]
+        decl = [a.declared_discrimination(claim) for a in cands]
+        folds = {d[1] for d in decl if d is not None}
         comparable = (len(cands) > 1 and all(d is not None for d in decl)
                       and len(folds) == 1 and "" not in folds)
         rows = []
-        for a in cands:
+        for a, d in zip(cands, decl):
             status = a.domain(claim).status if claim is not None else IN_DOMAIN
-            disc = -float(a.declared_auroc) if comparable else 0.0
+            disc = -d[0] if (comparable and d) else 0.0
             rows.append(((_STATUS_RANK[status], disc,
                           a.calibrated_width(alpha),
                           _KIND_RANK.get(a.kind, 9), a.name), a))
         rows.sort(key=lambda r: r[0])
         return rows
 
-    def discrimination_comparable(self, src: Quantity, dst: Quantity) -> bool:
+    def discrimination_comparable(self, src: Quantity, dst: Quantity,
+                                  claim: Claim | None = None) -> bool:
         """Whether this hop's candidates can be ranked on measured AUROC."""
         c = self.candidates(src, dst)
-        folds = {a.eval_fold_id for a in c}
-        return (len(c) > 1 and all(a.declared_discrimination() for a in c)
+        decl = [a.declared_discrimination(claim) for a in c]
+        folds = {d[1] for d in decl if d is not None}
+        return (len(c) > 1 and all(d is not None for d in decl)
                 and len(folds) == 1 and "" not in folds)
 
     def select(self, src: Quantity, dst: Quantity, claim: Claim | None = None,

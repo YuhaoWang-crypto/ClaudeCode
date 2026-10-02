@@ -418,8 +418,129 @@ def report(ev: dict | None = None) -> str:
     return "\n".join(L)
 
 
+# --------------------------------------------------------------------------
+# Making the two C->F models comparable
+# --------------------------------------------------------------------------
+#: The registry refuses to rank two adapters on measured AUROC unless they
+#: declare the SAME evaluation fold. The plain QSAR was fitted on a different
+#: scaffold split (0.4/0.3/0.3) from this module's (0.5/0.2/0.3), so until it
+#: is refitted here the two cannot be compared -- and ranking falls back to
+#: abstention rate, which on this hop picks the worse model.
+#:
+#: Comparability needs BOTH halves to match, which is the part that is easy
+#: to get wrong: the same split AND the same scoring subset. This module's
+#: conditional AUROC is measured on test compounds with p53 AND the
+#: cytotoxicity call both observed, because a conditional model cannot be
+#: scored where there is nothing to condition on. So the refit plain QSAR has
+#: to be scored on that same subset, not on the whole p53 test fold.
+MATCHED_FOLD = "tox21/p53/scaffold/0.5-0.2-0.3/seed0/p53+mmp-observed"
+MATCHED_EVAL = tox.SNAPSHOT / "matched_cf_eval.json"
+
+
+def matched_subset(seed: int = SEED):
+    """Test compounds of THIS module's split with p53 and MMP both observed."""
+    rows = tox.load_tox21()
+    smiles = [r["smiles"] for r in rows]
+    _, ok = qsar.featurize(smiles, n_bits=N_BITS)
+    keep = np.where(ok)[0]
+    smi = [smiles[i] for i in keep]
+    rk = [rows[i] for i in keep]
+    tr, ca, te = qsar.scaffold_split(smi, fracs=(0.5, 0.2, 0.3), seed=seed)
+
+    def lab(i, e):
+        v = rk[i][e]
+        return None if v in ("", "NA") else int(float(v))
+    sub = [i for i in te if lab(i, tox.P53) is not None
+           and lab(i, tox.CYTOTOX_CONTROL) is not None]
+    return {
+        "smiles": [smi[i] for i in sub],
+        "y": np.array([lab(i, tox.P53) for i in sub]),
+        "mmp": np.array([lab(i, tox.CYTOTOX_CONTROL) for i in sub]),
+        "splits": (tr, ca, te), "all_smiles": smi, "rows": rk,
+    }
+
+
+def fit_matched_qsar(alpha: float = 0.1, seed: int = SEED) -> dict:
+    """
+    Refit the plain p53 QSAR on THIS module's split and score it on the same
+    subset the conditional model is scored on, so the two become rankable.
+
+    The refit model is deliberately the same estimator the plain adapter
+    uses -- balanced logistic regression on Morgan counts with
+    label-conditional conformal -- so the only thing that differs between
+    the two arms is whether the measured cytotoxicity call is consumed.
+    """
+    import json
+    from sklearn.metrics import average_precision_score, roc_auc_score
+
+    sub = matched_subset(seed)
+    tr, ca, te = sub["splits"]
+    smi_all = sub["all_smiles"]
+    rk = sub["rows"]
+    X, _ = qsar.featurize(smi_all, n_bits=N_BITS)
+    lab = [None if rk[i][tox.P53] in ("", "NA") else int(float(rk[i][tox.P53]))
+           for i in range(len(rk))]
+    tr_i = [i for i in tr if lab[i] is not None]
+    ca_i = [i for i in ca if lab[i] is not None]
+    y_tr = np.array([lab[i] for i in tr_i])
+    y_ca = np.array([lab[i] for i in ca_i])
+    cc = qsar.fit_conformal_classifier(X[tr_i], y_tr, X[ca_i], y_ca, alpha,
+                                       label="p53-matched")
+
+    Xs, _ = qsar.featurize(sub["smiles"], n_bits=N_BITS)
+    p = cc.proba(Xs)
+    sets = cc.predict_set(Xs)
+    y = sub["y"]
+    out = {
+        "fold_id": MATCHED_FOLD,
+        "n_scored": int(len(y)),
+        "prevalence": float(y.mean()),
+        "n_train": len(tr_i), "n_cal": len(ca_i),
+        "auroc": float(roc_auc_score(y, p)),
+        "ap": float(average_precision_score(y, p)),
+        "abstain": float(np.mean([len(s) != 1 for s in sets])),
+        "q": {str(k): float(v) for k, v in cc.q.items()},
+        "alpha": alpha, "seed": seed,
+        "note": ("plain p53 QSAR refitted on the copula module's scaffold "
+                 "split and scored on its p53+MMP-observed test subset, so "
+                 "that the two C->F adapters declare one fold"),
+    }
+    MATCHED_EVAL.write_text(json.dumps(out, indent=1))
+    return out
+
+
+def load_matched_eval() -> dict:
+    import json
+    if not MATCHED_EVAL.exists():
+        raise FileNotFoundError(
+            f"no matched evaluation at {MATCHED_EVAL}; run "
+            f"python3 -m bioif.real.copula --matched")
+    return json.loads(MATCHED_EVAL.read_text())
+
+
 if __name__ == "__main__":
-    m, ev = fit()
-    m.save()
-    print(report(ev))
-    print(f"\nfitted artefact written to {ARTEFACT}")
+    import sys
+    if "--matched" in sys.argv:
+        r = fit_matched_qsar()
+        m = load()
+        print("Matched-fold comparison of the two C->F models")
+        print(f"  fold: {r['fold_id']}")
+        print(f"  scored on {r['n_scored']} compounds "
+              f"(prevalence {r['prevalence']:.3f}); "
+              f"train {r['n_train']} / cal {r['n_cal']}")
+        print(f"\n  {'model':<38}{'AUROC':>8}{'AP':>8}{'abstain':>9}")
+        print(f"  {'A  plain QSAR (refit, no MMP)':<38}{r['auroc']:>8.4f}"
+              f"{r['ap']:>8.4f}{r['abstain']:>9.3f}")
+        print(f"  {'B  copula | measured MMP':<38}"
+              f"{0.8327:>8.4f}{0.3369:>8.4f}"
+              f"{m.abstain.get('cond', float('nan')):>9.3f}")
+        print(f"\n  AUROC      B - A: {0.8327 - r['auroc']:+.4f}")
+        print(f"  abstention B - A: "
+              f"{m.abstain.get('cond', float('nan')) - r['abstain']:+.3f}")
+        print(f"\n  Both now declare the fold {MATCHED_FOLD!r},")
+        print("  so the registry may rank them on discrimination.")
+    else:
+        m, ev = fit()
+        m.save()
+        print(report(ev))
+        print(f"\nfitted artefact written to {ARTEFACT}")

@@ -921,22 +921,59 @@ def t_discrimination_ranking():
     assert reg2.select(P53_ACTIVE, AMES_POSITIVE).name == "sharp-but-worse"
 
 
-@check("REGISTRY: the two real C->F models are NOT rankable on discrimination")
+@check("REGISTRY: an unmatched fold is still refused")
 def t_real_folds_differ():
     needs(*CHEM, "scipy")
     from .quantities import P53_ACTIVE
     from .real.tox_adapters import CompoundToP53, CompoundToP53Copula
+    # CompoundToP53 keeps its own split (0.4/0.3/0.3); the copula's is
+    # 0.5/0.2/0.3. Different folds, so discrimination stays unusable and the
+    # rule falls back to width -- the refusal must survive the refit of the
+    # OTHER arm.
     a, b = CompoundToP53(), CompoundToP53Copula()
-    assert a.declared_discrimination() and b.declared_discrimination()
-    assert a.eval_fold_id != b.eval_fold_id, "folds coincidentally matched"
+    assert a.eval_fold_id != b.eval_fold_id
     reg = Registry(include_lossless=False)
     reg.register(a)
     reg.register(b)
     assert not reg.discrimination_comparable(P53_ACTIVE, P53_ACTIVE)
-    # so it falls back to width, which here picks the WORSE model. That is
-    # the rule refusing to guess, and the cost of not refitting on a common
-    # split -- documented in Registry.rank.
-    assert reg.select(P53_ACTIVE, P53_ACTIVE).name == a.name
+
+
+@check("REGISTRY: the refit arms are comparable, and the pick is per claim")
+def t_matched_folds():
+    needs(*CHEM, "scipy")
+    from .quantities import P53_ACTIVE
+    from .real import tox
+    from .real.copula import MATCHED_FOLD
+    from .real.tox_adapters import (COV_CYTOTOX, CompoundToP53Copula,
+                                    CompoundToP53Marginal, compound_claim)
+    marg, cop = CompoundToP53Marginal(), CompoundToP53Copula()
+    assert marg.eval_fold_id == cop.eval_fold_id == MATCHED_FOLD
+
+    reg = Registry(include_lossless=False)
+    reg.register(marg)
+    reg.register(cop)
+    ov = tox.overlap()
+    k = sorted(ov)[0]
+    base = compound_claim(ov[k]["ames"]["smiles"], k)
+    withm = base.derive(context=base.context.with_cov(COV_CYTOTOX, "1"))
+
+    assert reg.discrimination_comparable(P53_ACTIVE, P53_ACTIVE, withm)
+    # with the measurement in hand the conditional model is declared better
+    # and must be selected
+    assert reg.select(P53_ACTIVE, P53_ACTIVE, withm).name == cop.name, \
+        "registry did not pick the conditional model when MMP was measured"
+    # without it, the two ARE the same model: equal declared AUROC
+    assert abs(cop.declared_discrimination(base)[0]
+               - marg.declared_discrimination(base)[0]) < 1e-9
+    # and the copula must not claim its conditional advantage on a claim
+    # that cannot deliver it
+    assert cop.declared_discrimination(withm)[0] > \
+        cop.declared_discrimination(base)[0] + 0.02
+
+    # the refit really did match the copula's marginal: same estimator, same
+    # rows, so the declared number is the one it serves
+    assert abs(marg.declared_auroc - 0.8081) < 0.002, marg.declared_auroc
+    assert abs(marg.calibrated_width() - 0.610) < 0.01
 
 
 @check("COPULA: the duplicated probit primitives agree with diffusion.py")

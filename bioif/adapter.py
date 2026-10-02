@@ -72,7 +72,18 @@ class Adapter:
     declared_auroc: float | None = None
     eval_fold_id: str = ""
 
-    def declared_discrimination(self) -> tuple[float, str] | None:
+    def declared_discrimination(self, claim: Claim | None = None
+                                ) -> tuple[float, str] | None:
+        """
+        Measured AUROC and the fold it was measured on, optionally for the
+        claim at hand.
+
+        Claim-aware because a model's measured performance can depend on
+        what the input carries: a conditional model that is +0.025 AUROC
+        better when a second endpoint is measured is exactly as good as the
+        marginal when it is not, and declaring the better number
+        unconditionally would be a lie by omission.
+        """
         if self.declared_auroc is None or not self.eval_fold_id:
             return None
         return float(self.declared_auroc), self.eval_fold_id

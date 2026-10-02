@@ -744,3 +744,107 @@ In the typed chain `C→F→G`, the endpoint comes out as
 edge sits *downstream* of a QSAR, and a chain carries its weakest link.
 Putting a measured association after a model prediction does not recover the
 association's standing. That is the ladder doing its job.
+
+---
+
+## 9. The cheap joint model, and a ranking rule it falsified
+
+```bash
+python3 -m bioif.real.copula            # fit + evaluate
+python3 -m bioif.real.copula --matched  # the matched-fold comparison
+python3 -m bioif.selftest               # 53/53
+```
+
+§8.3 left the p53 → mutagenicity edge conditional on a cytotoxicity readout,
+implemented by switching between three measured 2×2 tables. That works and
+wastes most of what is known: it uses the cytotoxicity call as a binary
+stratifier and nothing else. A Gaussian copula over the Tox21 endpoint vector
+does the job properly — 12 logistic marginals plus the 66 free correlations
+of a latent multivariate probit, giving `P(p53 | fingerprint, MMP = measured)`
+in closed form.
+
+### 9.1 What the measurement is worth
+
+✅ Measured on one scaffold split, 1,512 test compounds with both labels
+observed (prevalence 0.058), ρ(p53, MMP) = 0.328:
+
+| model | AUROC | AP | abstention |
+|---|---|---|---|
+| marginal — no MMP | 0.8081 | 0.2940 | 0.610 |
+| **conditional — measured MMP** | **0.8327** | **0.3369** | 0.615 |
+| gain from the measurement | **+0.0246** | **+0.0429** | +0.005 |
+
+For **66 parameters**. The joint diffusion model of §7 was handed the same
+information through inpainting and gained **+0.000** with 1.6M.
+
+Correlations are estimated from **cross-fitted** out-of-fold marginals, which
+is not a detail: in-sample marginals explain each label too well on their own,
+which drives the latent thresholds to extremes and attenuates the very
+correlation the model exists to use.
+
+### 9.2 A leak in my own verification, measured
+
+The first comparison here scored the plain QSAR against the copula on
+compounds chosen by the **copula's** scaffold split, while the plain QSAR used
+its own (0.4/0.3/0.3 against 0.5/0.2/0.3). **127 of the 1,512 scoring
+compounds (8%) sat in the plain QSAR's training fold** — and that alone showed
+it at AP 0.509 against an honest 0.294, making it look as though the copula
+lost badly.
+
+An 8% leak inflating AP by ~0.21. §1A axis 10, in this repo's own script,
+caught before it reached a commit.
+
+### 9.3 The registry's ranking rule was wrong, and this hop proved it
+
+§7 ranks competing models of a hop on **calibrated width** (abstention rate).
+On this hop the conditional model is +0.0246 AUROC better and abstains
+**0.005 more** — so a width-only rule prefers the *worse* model. Width is a
+proxy for sharpness, and **sharpness is not discrimination**: two models can
+be equally sharp and differ in ranking quality.
+
+Fixed by letting an adapter declare a measured AUROC together with the
+**identity of the fold it was measured on**, and ranking on discrimination
+first — but only among candidates declaring the *same* fold. Mixed or missing
+fold ids mean discrimination is not comparable and the rule falls back to
+width. That is a refusal to guess, and it is motivated directly by §9.2:
+comparing AUROCs across splits is how an 8% leak becomes a 0.21 AP swing.
+
+Two further pieces were needed to make it correct rather than merely
+plausible:
+
+**The arms had to be made genuinely comparable** — same split *and* same
+scoring subset, since a conditional model cannot be scored where there is
+nothing to condition on. Refitting the plain p53 QSAR on the copula's split
+and scoring it on the same 1,512 compounds gives AUROC 0.8081 / AP 0.2940 /
+abstention 0.610: **numerically identical to the copula's own marginal**,
+because it is the same estimator on the same rows. That identity is the
+result, not an accident — **the +0.0246 is the value of the measurement, not
+of a model family.** So the marginal arm is served from the same artefact with
+conditioning switched off, rather than from a second copy of the same
+coefficients.
+
+**Declared discrimination had to become claim-aware.** A conditional model is
+only the better model when the claim actually carries the extra endpoint;
+declaring 0.8327 unconditionally would be a lie by omission. So:
+
+| claim | comparable | declared AUROC (marginal / copula) | registry picks |
+|---|---|---|---|
+| no MMP measured | yes | 0.8081 / 0.8081 | marginal (tie → width) |
+| MMP measured | yes | 0.8081 / **0.8327** | **copula** |
+
+The hop is now selected correctly, per claim, for the stated reason.
+
+### 9.4 What this does not do
+
+⚠️ The copula sharpens the **upstream** p53 estimate. It does **not** replace
+the stratified 2×2 on F→G, which is conditional for a different reason — the
+association is *absent* among cytotoxic compounds (OR 1.13, p=0.77). Both are
+needed: one makes the estimate sharper, the other decides whether that
+estimate may move the mutagenicity risk at all.
+
+⚠️ It remains an association model over assay endpoints. ρ = 0.328 says these
+readouts co-occur; it does not say cytotoxicity causes reporter activation.
+
+⚠️ One split, one seed, one target class. The +0.0246 has no error bar here —
+the seed-repeat discipline demanded of the diffusion rerun in §7 applies to
+this number too and has not been done.
