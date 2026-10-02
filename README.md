@@ -29,14 +29,32 @@ literature-grounded systems where every number is *computed*, not asserted.
 | `m21_oscillators` | extend framework to oscillatory (Hopf) pathways | Goodwin (circadian), p53-Mdm2, Brusselator (glycolytic) | approaching Hopf: variance rises AND a spectral peak sharpens at the intrinsic frequency — distinct from saddle-node |
 | `m20b_biomodels_exact` | fetch + simulate EXACT curated models (fills M20 gap) | Markevich2004 (BIOMD27), Legewie2006 apoptosis (BIOMD102) | download method = biomodels GitHub mirror + libRoadRunner; official Km5=78 confirms hand-coded M15 (states to the decimal); Legewie caspase switch bistable in XIAP synthesis |
 | `m22_snic_mixed` | mixed bifurcation: saddle-node ON a limit cycle (SNIC) | θ / Ermentrout-Kopell normal form (cell-cycle / excitable) | finite-amplitude spikes whose period diverges (T~π/√I, log-log slope −0.50; frequency→0) — signature distinct from both Hopf and pure saddle-node; ISI mean+CV both grow |
+| `m23_certified_folds` | **certified** saddle-node folds via BootLoops ball arithmetic | exact Markevich switch (from M15's own rate laws, over Q) | window PROVEN = [39.24602397, 57.37975379] nM: Krawczyk existence+uniqueness, exact-resultant completeness (no other folds, no Hopf), 30-digit dual-route tripwire; planted/displaced/mutant controls; Km5 sensitivity (upper edge 19× more sensitive) |
 
 ## Run
 
 ```bash
-pip install numpy scipy networkx matplotlib
+pip install numpy scipy networkx matplotlib sympy python-flint
 python3 -m grn_pipeline.run_all       # full pipeline + figures
 python3 -m grn_pipeline.m1_symmetry   # or any single module
 ```
+
+### BootLoops (certified numerics + claims integrity)
+
+M23 uses the [BootLoops](https://github.com/BootLoops-ai/bootloops) toolkit
+(ball arithmetic `baller`, claims-integrity `emitall`). Install it once beside
+this repo (`../bootloops`, pinned commit) and run its batteries:
+
+```bash
+bash scripts/setup_bootloops.sh                 # or BOOTLOOPS_DIR=/path ...
+python3 -m grn_pipeline.m23_certified_folds     # proofs + receipt (~5 s)
+bash scripts/check_claims.sh                    # REPORT.md numbers vs certified receipt
+```
+
+Selected BootLoops working protocols (acceptance-gate, planted-truth,
+independence-bookkeeping, timing-discipline, tool-stewardship, referee-sim,
+lit-review, ref-check, prose-lint) are installed as Claude Code skills under
+`.claude/skills/` (see `.claude/skills/BOOTLOOPS_NOTICE.md`).
 
 Figures are written to `figures/`. A full write-up with numbers, rigour
 labels, and the interpretation (including the Lyapunov-exponent biomarker

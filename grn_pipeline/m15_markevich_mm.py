@@ -52,11 +52,14 @@ def rhs(state, K):
 
 
 def jacobian(state, K, eps=1e-4):
+    # central difference: the former forward difference carried an O(eps)
+    # error that shifted tau at MAPKK=39.3 by 0.37 s (caught by M23's
+    # certified receipt + the emitall claims check)
     J = np.zeros((2, 2))
-    f0 = rhs(state, K)
     for j in range(2):
-        s = np.array(state, float); s[j] += eps
-        J[:, j] = (rhs(s, K) - f0) / eps
+        sp_ = np.array(state, float); sp_[j] += eps
+        sm_ = np.array(state, float); sm_[j] -= eps
+        J[:, j] = (rhs(sp_, K) - rhs(sm_, K)) / (2 * eps)
     return J
 
 

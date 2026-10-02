@@ -74,7 +74,24 @@ Every result carries one of:
   calibration (e.g. "λ crosses zero ⇒ apoptosis/toxicity", illustrative
   couplings, approximate PK values).
 
-Never blur the two. Negative and partial results (e.g. M17: real single-cell
+A third, stronger tier exists for polynomial/rational models:
+
+- **✅✅ certified** — a machine proof in ball arithmetic (BootLoops `baller`):
+  Krawczyk existence + uniqueness, exact-resultant completeness, two routes
+  agreeing through `baller.tripwire.dual`. Reference implementation:
+  `m23_certified_folds` (Markevich window). To certify a new switch, build its
+  `sysd` like `markevich_system()` (numerators/denominators from the module's
+  own rate function via sympy over Q) and call `certify_fold` +
+  `enumerate_folds`; keep the planted / displaced-box / mutant controls.
+  Setup: `bash scripts/setup_bootloops.sh`.
+
+Quoted numbers in REPORT.md are bound to receipts: after changing a model,
+re-run M23 and `bash scripts/check_claims.sh` (BootLoops `emitall`); add new
+claims to `receipts/claims.json`. The BootLoops protocol skills
+(`acceptance-gate`, `planted-truth`, `independence-bookkeeping`, ...) sit beside
+this skill in `.claude/skills/`.
+
+Never blur the tiers. Negative and partial results (e.g. M17: real single-cell
 ERK data was all supra-threshold, so the biomarker could not be decisively
 confirmed) are reported as findings, not hidden. When a prior claim is
 overturned by data (e.g. M10 overturned M7's ranking), say so explicitly.
@@ -107,3 +124,8 @@ overturned by data (e.g. M10 overturned M7's ranking), say so explicitly.
   residual SD**.
 - Track the **least-stable / disappearing** branch (max λ) into a saddle-node,
   not the persistent one.
+- Near a fold λ_max → 0, so **finite-difference Jacobian error is amplified in
+  τ = −1/λ**: M15's forward difference (h=1e-4) put τ(39.3 nM) at 4723.2 s vs
+  the certified 4723.55 s. Use central differences; check against M23.
+- Locating a window by counting stable states on a grid is accurate only to
+  ~1e-5 nM (M15 vs M23); quote certified fold values when digits matter.

@@ -55,6 +55,12 @@ def main():
         r20b = None
         print(f"M20b exact-biomodels skipped ({type(e).__name__}: {e})\n")
     r22 = m22_snic_mixed.report();           print()
+    try:
+        from grn_pipeline import m23_certified_folds
+        r23 = m23_certified_folds.report();  print()
+    except ImportError as e:             # needs sympy + python-flint
+        r23 = None
+        print(f"M23 certified folds skipped ({type(e).__name__}: {e})\n")
 
     print("=" * 68)
     print("CONSOLIDATED SUMMARY")
@@ -129,6 +135,11 @@ def main():
     print(f"M22 SNIC    : mixed saddle-node+oscillation; period diverges "
           f"(T~1/sqrt, slope {r22['slope']:.2f}) -> frequency->0 signature "
           f"distinct from Hopf and pure saddle-node")
+    if r23:
+        lo, hi = (f["MAPKK_mid"] for f in r23["folds"])
+        print(f"M23 certified: ball-arithmetic (BootLoops) proof that the ERK "
+              f"window is exactly [{lo:.6f}, {hi:.6f}] nM - unique folds, "
+              f"no others in the simplex; all controls pass")
     print("\nAbstract, measurable biomarker candidates produced:")
     print("  * irreducible-core node identity        (M1 quotient)")
     print("  * deficiency delta / distance-to-bistability (M2)")

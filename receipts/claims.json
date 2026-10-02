@@ -1,0 +1,177 @@
+{
+ "campaign": "grn_pipeline REPORT.md — headline numbers of the Markevich ERK switch (M15/M16/M20b) re-emitted from the M23 ball-arithmetic receipt",
+ "register": "each quoted number is checked at its own printed register (BootLoops emitall 'printed' mode) against the midpoint of a certified Arb enclosure whose radius is < 1e-30",
+ "quote_source": "REPORT.md M15 three-state table + window, M16 critical-slowing table; scripts/check_claims.sh also verifies every quote still appears in REPORT.md",
+ "receipts": {
+  "c": {
+   "path": "m23_certified_folds.json"
+  }
+ },
+ "defaults": {
+  "mode": "printed"
+ },
+ "claims": [
+  {
+   "section": "M15",
+   "label": "bistable window, lower edge (nM)",
+   "quoted": "39.25",
+   "expr": "f('c','/folds/0/MAPKK_mid')"
+  },
+  {
+   "section": "M15",
+   "label": "bistable window, upper edge (nM)",
+   "quoted": "57.38",
+   "expr": "f('c','/folds/1/MAPKK_mid')"
+  },
+  {
+   "section": "M15 table",
+   "label": "MAPKK=50 OFF M",
+   "quoted": "437.73",
+   "expr": "f('c','/states/50/0/M_mid')"
+  },
+  {
+   "section": "M15 table",
+   "label": "MAPKK=50 OFF Mp",
+   "quoted": "12.85",
+   "expr": "f('c','/states/50/0/Mp_mid')"
+  },
+  {
+   "section": "M15 table",
+   "label": "MAPKK=50 OFF Mpp",
+   "quoted": "49.42",
+   "expr": "f('c','/states/50/0/Mpp_mid')"
+  },
+  {
+   "section": "M15 table",
+   "label": "MAPKK=50 OFF lmax",
+   "quoted": "-0.0032",
+   "expr": "f('c','/states/50/0/lmax_mid')"
+  },
+  {
+   "section": "M15 table",
+   "label": "MAPKK=50 saddle M",
+   "quoted": "202.06",
+   "expr": "f('c','/states/50/1/M_mid')"
+  },
+  {
+   "section": "M15 table",
+   "label": "MAPKK=50 saddle Mp",
+   "quoted": "20.68",
+   "expr": "f('c','/states/50/1/Mp_mid')"
+  },
+  {
+   "section": "M15 table",
+   "label": "MAPKK=50 saddle Mpp",
+   "quoted": "277.26",
+   "expr": "f('c','/states/50/1/Mpp_mid')"
+  },
+  {
+   "section": "M15 table",
+   "label": "MAPKK=50 saddle lmax",
+   "quoted": "0.0011",
+   "expr": "f('c','/states/50/1/lmax_mid')"
+  },
+  {
+   "section": "M15 table",
+   "label": "MAPKK=50 ON M",
+   "quoted": "11.54",
+   "expr": "f('c','/states/50/2/M_mid')"
+  },
+  {
+   "section": "M15 table",
+   "label": "MAPKK=50 ON Mp",
+   "quoted": "6.52",
+   "expr": "f('c','/states/50/2/Mp_mid')"
+  },
+  {
+   "section": "M15 table",
+   "label": "MAPKK=50 ON Mpp",
+   "quoted": "481.95",
+   "expr": "f('c','/states/50/2/Mpp_mid')"
+  },
+  {
+   "section": "M15 table",
+   "label": "MAPKK=50 ON lmax",
+   "quoted": "-0.0049",
+   "expr": "f('c','/states/50/2/lmax_mid')"
+  },
+  {
+   "section": "M16 table",
+   "label": "MAPKK=39.3 ON Mpp",
+   "quoted": "443.8",
+   "expr": "f('c','/states/39.3/2/Mpp_mid')"
+  },
+  {
+   "section": "M16 table",
+   "label": "MAPKK=39.3 ON lambda_max",
+   "quoted": "-0.00021",
+   "expr": "f('c','/states/39.3/2/lmax_mid')"
+  },
+  {
+   "section": "M16 table",
+   "label": "MAPKK=39.3 ON tau (s)",
+   "quoted": "4724",
+   "expr": "f('c','/states/39.3/2/tau_mid')"
+  },
+  {
+   "section": "M16 table",
+   "label": "MAPKK=50 OFF Mpp",
+   "quoted": "49.4",
+   "expr": "f('c','/states/50/0/Mpp_mid')"
+  },
+  {
+   "section": "M16 table",
+   "label": "MAPKK=50 OFF lambda_max",
+   "quoted": "-0.00324",
+   "expr": "f('c','/states/50/0/lmax_mid')"
+  },
+  {
+   "section": "M16 table",
+   "label": "MAPKK=50 OFF tau (s)",
+   "quoted": "309.1",
+   "expr": "f('c','/states/50/0/tau_mid')"
+  },
+  {
+   "section": "M16 table",
+   "label": "MAPKK=50 ON Mpp",
+   "quoted": "481.9",
+   "expr": "f('c','/states/50/2/Mpp_mid')"
+  },
+  {
+   "section": "M16 table",
+   "label": "MAPKK=50 ON lambda_max",
+   "quoted": "-0.00492",
+   "expr": "f('c','/states/50/2/lmax_mid')"
+  },
+  {
+   "section": "M16 table",
+   "label": "MAPKK=50 ON tau (s)",
+   "quoted": "203.1",
+   "expr": "f('c','/states/50/2/tau_mid')"
+  },
+  {
+   "section": "M16 table",
+   "label": "MAPKK=57.3 OFF Mpp",
+   "quoted": "118.3",
+   "expr": "f('c','/states/57.3/0/Mpp_mid')"
+  },
+  {
+   "section": "M16 table",
+   "label": "MAPKK=57.3 OFF lambda_max",
+   "quoted": "-0.00021",
+   "expr": "f('c','/states/57.3/0/lmax_mid')"
+  },
+  {
+   "section": "M16 table",
+   "label": "MAPKK=57.3 OFF tau (s)",
+   "quoted": "4721",
+   "expr": "f('c','/states/57.3/0/tau_mid')"
+  },
+  {
+   "section": "M16",
+   "label": "tau at MAPKK=50 OFF (s), text",
+   "quoted": "309.11",
+   "expr": "f('c','/states/50/0/tau_mid')"
+  }
+ ]
+}
