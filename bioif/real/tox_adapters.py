@@ -28,8 +28,8 @@ from __future__ import annotations
 import math
 
 from ..adapter import Adapter, ASSOCIATION, EMPIRICAL
-from ..core import (Claim, Context, Entity, Estimate, IN_DOMAIN, Provenance,
-                    REFUSE, Verdict)
+from ..core import (Claim, Context, Entity, Estimate, EXTRAPOLATE, IN_DOMAIN,
+                    Provenance, REFUSE, Verdict)
 from ..quantities import AMES_POSITIVE, P53_ACTIVE
 from . import qsar, tox
 
@@ -266,3 +266,116 @@ def compound_claim(smiles: str, skeleton: str, quantity=P53_ACTIVE) -> Claim:
         estimate=Estimate.point(0.0, 2000),
         provenance=(Provenance("structure", "input", "", smiles[:60]),),
     )
+
+
+# --------------------------------------------------------------------------
+# A second model for the C->F hop: the copula conditional
+# --------------------------------------------------------------------------
+
+class CompoundToP53Copula(Adapter):
+    """
+    C->F, conditioned on whatever else has been measured.
+
+    Same hop as `CompoundToP53` and a strictly richer model: the plain QSAR
+    can only ever answer "p53 given structure", while this one answers
+    "p53 given structure AND a measured cytotoxicity call" in closed form.
+    Measured on held-out scaffolds (1,512 compounds with both labels):
+
+        p53 | fingerprint           AUROC 0.8081   AP 0.2940
+        p53 | fingerprint + MMP     AUROC 0.8327   AP 0.3369
+
+    for 66 correlation parameters. Registering both means the C->F hop has
+    two competing models and the registry picks per claim -- and here the
+    choice has a real basis rather than a tie-break, because this adapter's
+    advantage exists only when the claim actually carries a measured
+    endpoint. With nothing measured the two are the same model.
+
+    Note which problem this does and does not solve. It makes the UPSTREAM
+    node sharper. It does not change the F->G edge, which is conditional for
+    a separate reason (the association is absent among cytotoxic compounds),
+    and both effects are needed: this one improves the p53 estimate, the
+    stratified 2x2 decides whether that estimate is allowed to move the
+    mutagenicity risk at all.
+    """
+
+    kind = EMPIRICAL
+    consumes = P53_ACTIVE
+    produces = P53_ACTIVE
+    requires_covariates = (SMILES_COV,)
+    name = "C->F p53-copula"
+    version = "logreg+probit-copula/scaffold-split"
+
+    def __init__(self):
+        from .copula import load
+        self.model = load()
+
+    def _given(self, claim) -> dict[str, int]:
+        """Measured endpoints the claim carries, if any."""
+        cov = dict(claim.context.covariates)
+        v = cov.get(COV_CYTOTOX)
+        if v is None:
+            return {}
+        return {tox.CYTOTOX_CONTROL: int(str(v) in ("1", "True", "true"))}
+
+    def calibrated_width(self, alpha: float = 0.2) -> float:
+        """
+        Abstention rate: the fraction of prediction sets that are not a
+        singleton, measured on the test fold.
+
+        This must be the SAME quantity `_QsarAdapter.calibrated_width`
+        reports, or the registry would rank two models of one hop on
+        different scales -- the error this package exists to prevent. It
+        reports the CONDITIONED rate, because that is the regime in which
+        this adapter differs from the plain QSAR; with nothing measured the
+        two are the same model and should tie.
+        """
+        import math
+        return float(self.model.abstain.get("cond", math.inf))
+
+    def domain(self, claim) -> Verdict:
+        base = super().domain(claim)
+        if base.status == REFUSE:
+            return base
+        smi = dict(claim.context.covariates).get(SMILES_COV, "")
+        if not qsar.featurize([smi])[1][0]:
+            return Verdict(REFUSE,
+                           f"{self.name}: RDKit cannot parse the SMILES "
+                           f"{smi[:40]!r}")
+        given = self._given(claim)
+        if not self.model.conditioning_is_exact(given):
+            return Verdict(EXTRAPOLATE,
+                           f"{len(given)} conditioning endpoints are applied "
+                           f"sequentially, which is an approximation to the "
+                           f"joint conditional", inflate=1.3)
+        return Verdict(IN_DOMAIN)
+
+    def prediction_set(self, smiles: str, given=None) -> frozenset:
+        return self.model.predict_set([smiles], given)[0]
+
+    def map_context(self, c: Context, e: Entity) -> Context:
+        return c
+
+    def apply(self, claim, rng, noise: bool = True, inflate: float = 1.0):
+        out = super().apply(claim, rng, noise=noise, inflate=inflate)
+        given = self._given(claim)
+        if given:
+            return out.add_flag(
+                f"[conditioned] p53 estimated given a measured "
+                f"{tox.CYTOTOX_CONTROL} (rho="
+                f"{self.model.rho(tox.P53, tox.CYTOTOX_CONTROL):.3f}); "
+                f"closed-form probit conditional")
+        return out.add_flag(
+            f"[marginal] no measured endpoint supplied, so this is the same "
+            f"estimate the plain QSAR gives; supplying "
+            f"{tox.CYTOTOX_CONTROL} buys +0.025 AUROC on held-out scaffolds")
+
+    def _forward(self, xs, claim, rng, noise):
+        smi = dict(claim.context.covariates)[SMILES_COV]
+        given = self._given(claim)
+        p = float(self.model.proba([smi], given)[0])
+        if not noise:
+            return [p] * len(xs)
+        pset = self.model.predict_set([smi], given)[0]
+        if len(pset) != 1:
+            return [rng.random() for _ in xs]
+        return [min(max(p + rng.gauss(0.0, 0.05), 0.0), 1.0) for _ in xs]
