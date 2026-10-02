@@ -908,3 +908,132 @@ magnitude was quoted from the luckiest split. That is the same discipline I
 asked of the diffusion rerun, applied to my own number, with the same kind of
 result — which is an argument for making seed repeats cheap enough that they
 are routine rather than a special exercise.
+
+
+---
+
+## 10. Deployment datasheet: what each pairing needs, and what it returns
+
+```bash
+python3 -m bioif.datasheet            # the full per-pairing spec
+python3 -m bioif.datasheet --chains   # the chain verdict alone
+```
+
+Sections 1-9 asked whether a pairing is *buildable*. This asks what comes
+after: **what must I supply per query, what comes back that I can trust, and
+how many queries per day?** Generated from `bioif/datasheet.py`, so every
+number carries its source: `[here]` measured in this repo, `[rep]` from the
+independent strategy report's demos, `[both]` reproduced twice.
+
+### 10.1 The organising finding
+
+**Throughput is set by the input the interface demands, not by the model.** A
+pairing whose input is a string you already hold runs at screening scale --
+measured here at **10-13 M SMILES/hour on CPU** for featurize + predict. A
+pairing whose input is "a paired measurement in the same cell line at the same
+dose and time" has the throughput of your wet lab, however fast its model is.
+
+Four classes: **S** screening (input already in hand), **B** batch (reference
+lookup / API / GPU, 10e3-10e5 per day), **T** targeted (per-target setup,
+10-100 per day), **X** experiment-bound (a new paired measurement per query).
+
+| | count | pairings |
+|---|---|---|
+| screening or batch, with a usable output | **8 / 22** | `C-P` `C-F` `C-G` `G-R` `G-P` `P-F` `F-G` `G-F` |
+| experiment-bound | **11 / 22** | `R-P` `R-F` `C-E` `G-E` `E-P` `E-F` and the five `*-D` |
+
+Those two sets barely overlap, and that is the whole answer to *can this be
+high-throughput?* Every screening-capable pairing is one whose input is cheap
+-- which is also **why** it has a large training set and therefore a usable
+model. Reliability and throughput are not a trade-off here; they have a common
+cause.
+
+### 10.2 The table
+
+| pairing | ref | thr | grade | input required per query | output you can trust |
+|---|---|---|---|---|---|
+| `C->F` | P05 | S | calibrated_prediction | SMILES only | P(assay endpoint active) for ONE named endpoint and protocol, as a conformal prediction set {0}/{1}/abstain |
+| `C->G` | P04 | S | calibrated_prediction | SMILES only | P(Ames positive) |
+| `C->P` | P01 | S | calibrated_prediction | SMILES; the target's assay id you want the number expressed in | pIC50 for ONE named assay, with a conformal interval and a refusal outside the calibrated assay pair |
+| `F->G` | (Demo C) | S | inferred_association | A measured reporter call, PLUS the cytotoxicity call -- the second one is not optional | A likelihood-ratio update on mutagenicity risk, published ONLY in the non-cytotoxic stratum |
+| `G->F` | P15 | B | calibrated_prediction | An sgRNA plus its cut-site context; a matched screen in the SAME editing system | Relative depletion ranking among guides WITHIN one gene |
+| `G->P` | P08 | B | calibrated_prediction | Variant + the protein isoform it is to be scored on | Missense pathogenicity / functional-disruption score |
+| `G->R` | P11 | B | calibrated_prediction | Variant in HGVS + an explicit genome build; the MANE transcript | Splice-disruption score, and a transcript consequence (LoF-via-NMD / in-frame skip) under a MANE contract |
+| `P->F` | P09 | B | measured | A gene identifier and a cell-line panel | Gene-effect / dependency score per cell line |
+| `C->R` | P02 | T | inferred_association | SMILES + dose + time + cell line; a reference perturbation signature library | Direction of pathway-level change, not per-gene magnitudes |
+| `E->R` | P10 | T | mechanistic_hypothesis | Genome sequence + matched chromatin tracks in the right cell type | Direction of effect for PROXIMAL elements at best |
+| `G->D` | P? | T | mechanistic_hypothesis | Fine-mapped locus + matched-tissue QTL evidence | A ranked candidate gene list |
+| `C->D` | P? | X | none | n/a | REFUSE |
+| `C->E` | P03 | X | none | Dose-time-matched ATAC/CUT&Tag in the right cell type | Nothing |
+| `E->D` | P? | X | none | n/a | REFUSE |
+| `E->F` | P14 | X | none | Chromatin-regulator perturbation + phenotype | Nothing |
+| `E->P` | P? | X | none | Paired ATAC/RNA/proteome time series | Nothing |
+| `F->D` | P? | X | none | n/a | REFUSE |
+| `G->E` | P13 | X | none | Same-cell CRISPRi/a plus ATAC | Nothing |
+| `P->D` | P? | X | none | n/a | REFUSE |
+| `R->D` | P? | X | none | n/a | REFUSE |
+| `R->F` | P12 | X | mechanistic_hypothesis | An expression signature + a same-batch functional readout to calibrate against | Pathway/mechanism class ranking only |
+| `R->P` | P06 | X | mechanistic_hypothesis | Matched RNA and protein on the SAME samples | Nothing reliable without that pairing |
+
+Per-pairing evidence and the binding limitation for each: run the module. Four
+worth singling out:
+
+- **`C-P`** is the most deployable and the most routinely misused. `[here]`
+  assay identity alone moves the same compound's potency a **median 1.00 log
+  (10x)**, and a conformal interval calibrated on one assay pair collapses to
+  **0.61 coverage against a nominal 0.80** on another (worst case 0.00). The
+  number is only meaningful *per assay*. `[rep]` AD gating leaves **3.5%** of a
+  screening library usable, which is the price of making it honest.
+- **`G-R`** has the best model-level numbers in the map (`[rep]` Pangolin AUROC
+  0.866 against 3,912 functionally measured variants) and a structural blind
+  spot: **deep-exonic P/LP recall 0.018**. SS10.3 is about what fixes that.
+- **`F-G`** is the only pairing here upgraded by analysis rather than by new
+  data: `blocked` to `inferred_association`, `[both]` OR about 2.8, but
+  **sensitivity 0.13**, and the association **vanishes among cytotoxic
+  compounds** (`[here]` OR 1.13, p=0.77). It ranks candidates; it cannot clear
+  them.
+- **`R-P`** is the one to fund. `[here]` it contributes **~50%** of endpoint
+  variance in a 4-hop chain, the largest single contributor, and no public
+  paired source was reachable to calibrate it. Most load-bearing, least
+  verifiable.
+
+### 10.3 Do chains buy more biology?
+
+Four demos across two independent efforts answer this the same way.
+
+**Chains do not buy accuracy.** `[here]` a direct one-hop model beats the
+two-hop chain by **+0.186 AP [0.166, 0.223]** over three splits, and a
+*measured* intermediate adds **+0.001 [-0.003, +0.005]** on top of structure.
+`[rep]` Demo D's 4-hop routing reaches AUROC 0.992, but its own ablation shows
+routing with one model also scores 0.963, identical to serial-max, so **the
+gain came from fusing a second model at one node, not from depth**; in their
+words, "the value of routing is mechanistic interpretability, not accuracy."
+`[rep]` Demo E's chain is significant at guide resolution (rho=-0.142,
+p=4e-21) and **null at gene resolution** (rho=0.008). `[rep]` Demo F's
+flow-matching edge is **beaten 3x by a linear co-expression kernel** on the
+same conditioning information.
+
+**Chains do buy three things, all measured.** *Reach*: `[rep]` deep-exonic
+P/LP recall **0.018 to 0.860**, covering variants a splice model cannot
+represent at all -- the strongest result in either effort, and a capability
+rather than an accuracy gain. *Interpretability*: a mechanism attached to every
+call. *Honest uncertainty*: `[rep]` distribution-valued edges flip **15.4%** of
+direction calls and leave **0%** at 90% confidence or above, where a point
+chain reported confidence.
+
+**So the architecture that pays is wide, not deep.** Several complementary
+models at *one* node, fused, gated on domain, emitting distributions. Adding
+nodes in series multiplies unvalidated maps; adding models in parallel at a
+node covers blind spots. Demo D is the existence proof and its own ablation is
+the control, and SS7 of this document is the same finding arrived at
+independently.
+
+And the reason the big model loses is now measured rather than argued:
+`[here]` under joint-error selection the diffusion checkpoint **beats** the
+copula on calibration (0.862 vs 0.968) and **loses** on test (1.222 vs 1.070),
+degrading about 0.36 while the copula barely moves. Since the selection
+objective *is* joint error, that cannot be a selection artefact -- the
+correlation structure itself overfits at 8-18 parameters per observed label.
+**The binding constraint is sample size, not architecture.** Which turns
+"should we train a bigger joint model?" into "go buy the paired measurement in
+`R-P` first."

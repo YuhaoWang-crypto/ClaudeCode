@@ -63,6 +63,7 @@ python3 -m bioif.demo_conformal   # a calibrated interval, with its coverage che
 python3 -m bioif.demo_routing     # 12 models for one hop; the registry chooses
 python3 -m bioif.demo_pairings    # 3 more interface-map pairings, on real labels
 python3 -m bioif.map21            # all 21 pairings audited against what is buildable
+python3 -m bioif.datasheet        # per-pairing inputs/outputs/throughput + chain verdict
 python3 -m bioif.real.heterogeneity  # the measurement that justifies the contract
 python3 -m bioif.selftest         # 53 guarantees, ~70 s
 ```
@@ -108,6 +109,7 @@ beats the two-hop chain by +0.223 AP, and a *measured* intermediate adds
 | Conformal calibration, competing models, the assay-transfer adapter | `bioif/real/conformal.py`, `transfer_models.py`, `transfer_adapter.py` |
 | Running every route and pricing the model choice | `bioif/ensemble.py` |
 | The 21-pairing audit | `bioif/map21.py` |
+| Deployment datasheet: inputs, outputs, throughput, chain verdict | `bioif/datasheet.py` |
 | Tox21 / Ames pairings, QSAR + classification conformal | `bioif/real/tox.py`, `qsar.py`, `tox_adapters.py` |
 | Chain vs direct, with labels at both ends | `bioif/real/chain_vs_direct.py` |
 | The cheap joint model (copula) behind the conditional C→F edge | `bioif/real/copula.py` |
