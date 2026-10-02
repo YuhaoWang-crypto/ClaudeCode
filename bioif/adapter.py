@@ -62,6 +62,21 @@ class Adapter:
     #: named assumption, surfaced as a flag on all downstream claims
     assumption: str = ""
 
+    #: Measured discrimination on this adapter's own held-out fold, and the
+    #: IDENTITY of that fold. Both or neither: an AUROC without the fold it
+    #: was measured on cannot be compared with another adapter's, and
+    #: comparing across folds is how an 8% leak turned AP 0.294 into 0.509
+    #: in this repo's own verification script. The registry therefore ranks
+    #: on discrimination only among candidates declaring the SAME fold id,
+    #: and otherwise refuses to use it.
+    declared_auroc: float | None = None
+    eval_fold_id: str = ""
+
+    def declared_discrimination(self) -> tuple[float, str] | None:
+        if self.declared_auroc is None or not self.eval_fold_id:
+            return None
+        return float(self.declared_auroc), self.eval_fold_id
+
     def calibrated_width(self, alpha: float = 0.2) -> float:
         """
         The width of this edge's calibrated interval, or infinity if it has

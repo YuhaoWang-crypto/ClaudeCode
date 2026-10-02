@@ -824,6 +824,139 @@ def t_chain_loses():
     assert abs(aug.ap - direct.ap) < 0.03, (aug.ap, direct.ap)
 
 
+@check("COPULA: a measured cytotoxicity call really does sharpen p53")
+def t_copula_gain():
+    needs(*CHEM, "scipy")
+    import numpy as np
+    from sklearn.metrics import average_precision_score, roc_auc_score
+    from .real import copula as C, qsar, tox
+    m = C.load()
+    rows = tox.load_tox21()
+    smiles = [r["smiles"] for r in rows]
+    X, ok = qsar.featurize(smiles, n_bits=C.N_BITS)
+    keep = np.where(ok)[0]
+    smi = [smiles[i] for i in keep]
+    rk = [rows[i] for i in keep]
+    _, _, te = qsar.scaffold_split(smi, fracs=(0.5, 0.2, 0.3), seed=0)
+
+    def lab(i, e):
+        v = rk[i][e]
+        return None if v in ("", "NA") else int(float(v))
+    both = [i for i in te if lab(i, tox.P53) is not None
+            and lab(i, tox.CYTOTOX_CONTROL) is not None]
+    y = np.array([lab(i, tox.P53) for i in both])
+    mmp = np.array([lab(i, tox.CYTOTOX_CONTROL) for i in both])
+    sm = [smi[i] for i in both]
+    assert len(both) > 1400, len(both)
+
+    pa = m.proba(sm, None)
+    pb = np.array([m.proba([t], {tox.CYTOTOX_CONTROL: int(v)})[0]
+                   for t, v in zip(sm, mmp)])
+    gain = roc_auc_score(y, pb) - roc_auc_score(y, pa)
+    ap_gain = average_precision_score(y, pb) - average_precision_score(y, pa)
+    assert gain > 0.015, f"AUROC gain collapsed to {gain:+.4f}"
+    assert ap_gain > 0.03, f"AP gain collapsed to {ap_gain:+.4f}"
+    assert 0.25 < m.rho(tox.P53, tox.CYTOTOX_CONTROL) < 0.40, m.rho(
+        tox.P53, tox.CYTOTOX_CONTROL)
+    # 66 free correlations, not 1.6M denoiser parameters
+    assert C.NE * (C.NE - 1) // 2 == 66
+
+
+@check("COPULA: better ranking does NOT mean fewer abstentions")
+def t_width_is_not_discrimination():
+    needs(*CHEM, "scipy")
+    from .real import copula as C
+    m = C.load()
+    # the conditional model is +0.025 AUROC better and abstains no less.
+    # Asserted so that the limitation in the registry's docstring stays
+    # true: ranking on width alone would pick the worse model here.
+    assert m.abstain, "fitted artefact has no abstention rates"
+    assert m.abstain["cond"] >= m.abstain["marg"] - 0.005, m.abstain
+
+
+@check("REGISTRY: discrimination outranks width when the folds match")
+def t_discrimination_ranking():
+    from .adapter import Adapter, EMPIRICAL
+    from .quantities import P53_ACTIVE, AMES_POSITIVE
+
+    class Sharp(Adapter):
+        """Abstains less, discriminates worse."""
+        name, version, kind = "sharp-but-worse", "0", EMPIRICAL
+        consumes, produces = P53_ACTIVE, AMES_POSITIVE
+        declared_auroc, eval_fold_id = 0.70, "fold-A"
+
+        def calibrated_width(self, alpha=0.2):
+            return 0.20
+
+        def _forward(self, xs, claim, rng, noise):
+            return list(xs)
+
+    class Discriminating(Adapter):
+        """Abstains more, discriminates better."""
+        name, version, kind = "wide-but-better", "0", EMPIRICAL
+        consumes, produces = P53_ACTIVE, AMES_POSITIVE
+        declared_auroc, eval_fold_id = 0.85, "fold-A"
+
+        def calibrated_width(self, alpha=0.2):
+            return 0.60
+
+        def _forward(self, xs, claim, rng, noise):
+            return list(xs)
+
+    reg = Registry(include_lossless=False)
+    reg.register(Sharp())
+    reg.register(Discriminating())
+    assert reg.discrimination_comparable(P53_ACTIVE, AMES_POSITIVE)
+    pick = reg.select(P53_ACTIVE, AMES_POSITIVE)
+    assert pick.name == "wide-but-better", f"width still won: {pick.name}"
+
+    # now break the fold match: discrimination becomes unusable and the
+    # rule must fall back to width rather than compare across folds
+    d2 = Discriminating()
+    d2.eval_fold_id = "fold-B"
+    reg2 = Registry(include_lossless=False)
+    reg2.register(Sharp())
+    reg2.register(d2)
+    assert not reg2.discrimination_comparable(P53_ACTIVE, AMES_POSITIVE)
+    assert reg2.select(P53_ACTIVE, AMES_POSITIVE).name == "sharp-but-worse"
+
+
+@check("REGISTRY: the two real C->F models are NOT rankable on discrimination")
+def t_real_folds_differ():
+    needs(*CHEM, "scipy")
+    from .quantities import P53_ACTIVE
+    from .real.tox_adapters import CompoundToP53, CompoundToP53Copula
+    a, b = CompoundToP53(), CompoundToP53Copula()
+    assert a.declared_discrimination() and b.declared_discrimination()
+    assert a.eval_fold_id != b.eval_fold_id, "folds coincidentally matched"
+    reg = Registry(include_lossless=False)
+    reg.register(a)
+    reg.register(b)
+    assert not reg.discrimination_comparable(P53_ACTIVE, P53_ACTIVE)
+    # so it falls back to width, which here picks the WORSE model. That is
+    # the rule refusing to guess, and the cost of not refitting on a common
+    # split -- documented in Registry.rank.
+    assert reg.select(P53_ACTIVE, P53_ACTIVE).name == a.name
+
+
+@check("COPULA: the duplicated probit primitives agree with diffusion.py")
+def t_primitives_agree():
+    needs(*CHEM, "scipy")
+    import numpy as np
+    from .real import copula as C
+    try:
+        from .real import diffusion as DF
+    except Exception as e:
+        raise Skip(f"diffusion.py not importable (mid-revision): {e}")
+    t1 = np.array([-1.0, 0.0, 0.5, 1.5])
+    t2 = np.array([0.2, -0.4, 1.0, 0.0])
+    for rho in (-0.6, 0.0, 0.33, 0.9):
+        assert np.allclose(C.bvn_sf(t1, t2, rho), DF.bvn_sf(t1, t2, rho),
+                           atol=1e-12), rho
+    assert np.allclose(C.thresholds(np.array([[0.1, 0.9]])),
+                       DF._thresholds(np.array([[0.1, 0.9]])))
+
+
 @check("MAP21: the audit is complete and internally consistent")
 def t_map21():
     from . import map21

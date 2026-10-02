@@ -61,14 +61,41 @@ class Registry:
 
     def rank(self, cands: list[Adapter], claim: Claim | None = None,
              alpha: float = 0.2) -> list[tuple]:
-        """Score competing adapters; lowest sorts first. Returns (score, adapter)."""
+        """
+        Score competing adapters; lowest sorts first. Returns (score, adapter).
+
+        Discrimination beats sharpness when it is usable. Ranking on
+        calibrated width alone is a proxy for informativeness, and the proxy
+        can fail outright: on this repo's own C->F hop the conditional model
+        is +0.025 AUROC better and abstains 0.005 MORE, so a width-only rule
+        picks the worse model. So a declared AUROC is used first -- but only
+        among candidates that declare the SAME evaluation fold, because
+        comparing AUROCs across different splits is exactly the error that
+        turned AP 0.294 into 0.509 in this repo's verification script. Mixed
+        or missing fold ids mean discrimination is not comparable and the
+        rule falls back to width, which is a refusal to guess rather than a
+        preference for width.
+        """
+        folds = {a.eval_fold_id for a in cands}
+        decl = [a.declared_discrimination() for a in cands]
+        comparable = (len(cands) > 1 and all(d is not None for d in decl)
+                      and len(folds) == 1 and "" not in folds)
         rows = []
         for a in cands:
             status = a.domain(claim).status if claim is not None else IN_DOMAIN
-            rows.append(((_STATUS_RANK[status], a.calibrated_width(alpha),
+            disc = -float(a.declared_auroc) if comparable else 0.0
+            rows.append(((_STATUS_RANK[status], disc,
+                          a.calibrated_width(alpha),
                           _KIND_RANK.get(a.kind, 9), a.name), a))
         rows.sort(key=lambda r: r[0])
         return rows
+
+    def discrimination_comparable(self, src: Quantity, dst: Quantity) -> bool:
+        """Whether this hop's candidates can be ranked on measured AUROC."""
+        c = self.candidates(src, dst)
+        folds = {a.eval_fold_id for a in c}
+        return (len(c) > 1 and all(a.declared_discrimination() for a in c)
+                and len(folds) == 1 and "" not in folds)
 
     def select(self, src: Quantity, dst: Quantity, claim: Claim | None = None,
                alpha: float = 0.2, allow_refused: bool = False) -> Adapter | None:

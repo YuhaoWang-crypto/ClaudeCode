@@ -55,6 +55,8 @@ class _QsarAdapter(Adapter):
         self.produces = produces
         self.name = name or f"{dataset}-qsar"
         self.version = f"logreg-morgan2048/scaffold-split/a={alpha}"
+        self.declared_auroc = float(self.ev.auroc)
+        self.eval_fold_id = built["fold_id"]
 
     def calibrated_width(self, alpha: float = 0.2) -> float:
         """
@@ -308,6 +310,13 @@ class CompoundToP53Copula(Adapter):
     def __init__(self):
         from .copula import load
         self.model = load()
+        # Measured on the copula module's own split, on the compounds with
+        # BOTH p53 and MMP observed -- a different fold from the plain
+        # QSAR's, which is precisely why the registry will refuse to rank
+        # the two on discrimination until one of them is refitted.
+        self.declared_auroc = 0.8327
+        self.eval_fold_id = ("tox21/p53/scaffold/0.5-0.2-0.3/seed0"
+                             "/p53+mmp-observed")
 
     def _given(self, claim) -> dict[str, int]:
         """Measured endpoints the claim carries, if any."""

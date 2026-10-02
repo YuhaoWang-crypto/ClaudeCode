@@ -197,7 +197,18 @@ def ames_dataset():
     return rows, smi, y
 
 
-def build(dataset: str, alpha: float = 0.1, seed: int = 0):
+FOLD_FRACS = (0.4, 0.3, 0.3)
+
+
+def fold_id(dataset: str, fracs=FOLD_FRACS, seed: int = 0) -> str:
+    """
+    A name for the exact evaluation fold, so two adapters' measured metrics
+    can be compared only when they really are comparable.
+    """
+    return f"tox21/{dataset}/scaffold/{'-'.join(str(f) for f in fracs)}/seed{seed}"
+
+
+def build(dataset: str, alpha: float = 0.1, seed: int = 0, fracs=FOLD_FRACS):
     """Featurize, scaffold-split, fit, conformalise, evaluate."""
     rows, smi, y = p53_dataset() if dataset == "p53" else ames_dataset()
     X, ok = featurize(smi)
@@ -205,9 +216,9 @@ def build(dataset: str, alpha: float = 0.1, seed: int = 0):
     smi = [smi[i] for i in keep]
     X, y = X[keep], y[keep]
     rows = [rows[i] for i in keep]
-    tr, ca, te = scaffold_split(smi, seed=seed)
+    tr, ca, te = scaffold_split(smi, fracs=fracs, seed=seed)
     cc = fit_conformal_classifier(X[tr], y[tr], X[ca], y[ca], alpha,
                                   label=dataset)
     return {"cc": cc, "eval": evaluate(cc, X[te], y[te]),
             "X": X, "y": y, "rows": rows, "smiles": smi,
-            "splits": (tr, ca, te)}
+            "splits": (tr, ca, te), "fold_id": fold_id(dataset, fracs, seed)}
