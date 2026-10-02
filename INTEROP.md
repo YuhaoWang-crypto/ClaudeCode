@@ -724,6 +724,25 @@ So the intermediate is, for this endpoint, redundant given the structure.
 Routing a 2048-bit input through a 1-bit node destroys information, and the
 destruction is irreversible.
 
+⚠️ **Corrected with a seed spread (added later).** The table above is one
+canonical split. Repeated over three splits (`permute=True`, which is the only
+way `seed` actually moves a scaffold split in this repo — see §9.5):
+
+| | AP, mean [min, max] over 3 splits |
+|---|---|
+| direct C→G | 0.637 [0.605, 0.656] |
+| chain C→F→G | 0.450 [0.433, 0.479] |
+| oracle F→G | 0.372 [0.367, 0.376] |
+| augment C+F→G | 0.637 [0.611, 0.655] |
+| **direct − chain** | **+0.186 [+0.166, +0.223]** |
+| **augment − direct** | **+0.001 [−0.003, +0.005]** |
+
+The direction is decisive — every split positive, mean far outside the range —
+but **the +0.223 quoted above was the top of the range, i.e. the most
+favourable of the three splits.** The honest effect is **+0.186**. The second
+result survives exactly as stated: a measured p53 label adds +0.001
+[−0.003, +0.005] on top of structure, which straddles zero.
+
 **The conclusion for long chains:** build them where end-to-end labels are
 *missing*, and expect a direct model to beat them wherever such labels exist.
 A chain's value is reach and interpretability, not accuracy. That is not a
@@ -868,3 +887,24 @@ an explicit `permute=True` for genuine repeats, and a test asserts both
 behaviours. A permuted split moves ~58% of the test fold, which is why a
 permutation spread covers training and selection noise fully and split
 variance only partly.
+
+### 9.6 Propagating the splitter fix, and one headline corrected
+
+`permute` is now plumbed through `qsar.build`, `copula.fit` and
+`chain_vs_direct.run`, so a genuine seed repeat is possible from any of them.
+Default `False`, so no committed number changes.
+
+Checked rather than assumed: **`conformal.split_by_compound` — the splitter
+§6 and §7 rest on — does vary with its seed** (four distinct test folds over
+four seeds). So the 300-repeat coverage figures and the routing results are
+intact. The broken seed was only ever in the Tox21-side `scaffold_split`, and
+every caller of it passed a fixed seed without looping, so no reported number
+was a fake average.
+
+Using the fix immediately found one of my own headlines to be optimistic:
+§8.4's "+0.223 AP" is the best of three splits against a mean of **+0.186**
+(see the correction in §8.4). The direction and the decisiveness hold; the
+magnitude was quoted from the luckiest split. That is the same discipline I
+asked of the diffusion rerun, applied to my own number, with the same kind of
+result — which is an argument for making seed repeats cheap enough that they
+are routine rather than a special exercise.

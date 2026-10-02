@@ -52,7 +52,8 @@ def _prec_at_k(y: np.ndarray, score: np.ndarray, ks=(50, 100, 200)):
     return {k: float(y[order[:k]].mean()) for k in ks if k <= len(y)}
 
 
-def run(alpha: float = 0.1, seed: int = 0) -> dict:
+def run(alpha: float = 0.1, seed: int = 0,
+        permute: bool = False) -> dict:
     # ---- the joined set -------------------------------------------------
     ov = tox.overlap()
     recs = [(k, v) for k, v in ov.items()
@@ -68,7 +69,8 @@ def run(alpha: float = 0.1, seed: int = 0) -> dict:
     X, y_ames, p53_meas = X[keep], y_ames[keep], p53_meas[keep]
     recs = [recs[i] for i in keep]
 
-    tr, ca, te = qsar.scaffold_split(smi, fracs=(0.45, 0.2, 0.35), seed=seed)
+    tr, ca, te = qsar.scaffold_split(smi, fracs=(0.45, 0.2, 0.35),
+                                     seed=seed, permute=permute)
     test_scaffolds = {qsar.scaffold(smi[i]) for i in te}
 
     out: dict = {
@@ -94,7 +96,8 @@ def run(alpha: float = 0.1, seed: int = 0) -> dict:
              if qsar.scaffold(psmi[i]) not in test_scaffolds]
     PX2, py2 = PX[pkeep], py[pkeep]
     psmi2 = [psmi[i] for i in pkeep]
-    ptr, pca, _ = qsar.scaffold_split(psmi2, fracs=(0.7, 0.3, 0.0), seed=seed)
+    ptr, pca, _ = qsar.scaffold_split(psmi2, fracs=(0.7, 0.3, 0.0),
+                                      seed=seed, permute=permute)
     p53_cc = qsar.fit_conformal_classifier(PX2[ptr], py2[ptr],
                                            PX2[pca], py2[pca], alpha, "p53")
     out["p53_model"] = {

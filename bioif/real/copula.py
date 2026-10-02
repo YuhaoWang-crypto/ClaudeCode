@@ -255,7 +255,8 @@ def _conformal_q(scores: list[float], alpha: float) -> float:
     return math.inf if k > n else sorted(scores)[k - 1]
 
 
-def fit(alpha: float = 0.1, seed: int = SEED) -> tuple[CopulaP53, dict]:
+def fit(alpha: float = 0.1, seed: int = SEED,
+        permute: bool = False) -> tuple[CopulaP53, dict]:
     """
     Fit on train scaffolds, estimate R from CROSS-FITTED train probabilities,
     calibrate conformal on the calibration fold, evaluate on test.
@@ -284,7 +285,8 @@ def fit(alpha: float = 0.1, seed: int = SEED) -> tuple[CopulaP53, dict]:
     smiles = [smiles[i] for i in keep]
     scafs = np.array([qsar.scaffold(s) or f"__s{i}" for i, s in enumerate(smiles)],
                      dtype=object)
-    tr, ca, te = qsar.scaffold_split(smiles, fracs=(0.5, 0.2, 0.3), seed=seed)
+    tr, ca, te = qsar.scaffold_split(smiles, fracs=(0.5, 0.2, 0.3),
+                                     seed=seed, permute=permute)
 
     coef = np.zeros((NE, N_BITS), dtype=np.float64)
     inter = np.zeros(NE)

@@ -231,17 +231,27 @@ def fold_id(dataset: str, fracs=FOLD_FRACS, seed: int = 0) -> str:
     return f"tox21/{dataset}/scaffold/{'-'.join(str(f) for f in fracs)}/seed{seed}"
 
 
-def build(dataset: str, alpha: float = 0.1, seed: int = 0, fracs=FOLD_FRACS):
-    """Featurize, scaffold-split, fit, conformalise, evaluate."""
+def build(dataset: str, alpha: float = 0.1, seed: int = 0, fracs=FOLD_FRACS,
+          permute: bool = False):
+    """
+    Featurize, scaffold-split, fit, conformalise, evaluate.
+
+    `permute=True` is required for `seed` to move the split -- see
+    scaffold_split. Without it every seed returns the canonical split, which
+    is what every number committed in this repo was measured on.
+    """
     rows, smi, y = p53_dataset() if dataset == "p53" else ames_dataset()
     X, ok = featurize(smi)
     keep = np.where(ok)[0]
     smi = [smi[i] for i in keep]
     X, y = X[keep], y[keep]
     rows = [rows[i] for i in keep]
-    tr, ca, te = scaffold_split(smi, fracs=fracs, seed=seed)
+    tr, ca, te = scaffold_split(smi, fracs=fracs, seed=seed,
+                                permute=permute)
     cc = fit_conformal_classifier(X[tr], y[tr], X[ca], y[ca], alpha,
                                   label=dataset)
     return {"cc": cc, "eval": evaluate(cc, X[te], y[te]),
             "X": X, "y": y, "rows": rows, "smiles": smi,
-            "splits": (tr, ca, te), "fold_id": fold_id(dataset, fracs, seed)}
+            "splits": (tr, ca, te),
+            "fold_id": fold_id(dataset, fracs, seed)
+            + ("/permuted" if permute else "")}
