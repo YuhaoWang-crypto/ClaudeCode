@@ -1,0 +1,38 @@
+[
+ {
+  "stage": "valid, unique, un-gated",
+  "in": 8175,
+  "out": 7170,
+  "removed": 1005
+ },
+ {
+  "stage": "novel (max Tanimoto < 0.4)",
+  "in": 7170,
+  "out": 2604,
+  "removed": 4566
+ },
+ {
+  "stage": "activity >= 0.5, QED >= 0.6",
+  "in": 2604,
+  "out": 264,
+  "removed": 2340
+ },
+ {
+  "stage": "PAINS-free",
+  "in": 264,
+  "out": 251,
+  "removed": 13
+ },
+ {
+  "stage": "ring sanity",
+  "in": 251,
+  "out": 248,
+  "removed": 3
+ },
+ {
+  "stage": "SA_Score <= 4.5",
+  "in": 248,
+  "out": 248,
+  "removed": 0
+ }
+]

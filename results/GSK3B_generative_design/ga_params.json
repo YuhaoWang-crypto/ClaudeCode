@@ -1,0 +1,9 @@
+{
+ "pop_size": 200,
+ "n_generations": 40,
+ "offspring_per_gen": 200,
+ "seed": 42,
+ "mutation_rate": 0.5,
+ "n_reference_actives": 1830,
+ "runtime_s": 229.2
+}

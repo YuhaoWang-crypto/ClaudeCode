@@ -1,0 +1,19 @@
+{
+ "chembl_release": "ChEMBL_37",
+ "retrieved": "2026-10-03",
+ "n_activity_records": 2195,
+ "n_reference_actives": 1830,
+ "n_unique": 8175,
+ "n_clusters": 85,
+ "n_retro_solved": 7,
+ "sim_min": 0.359375,
+ "sim_max": 0.39655172413793105,
+ "mean_score_selected": 0.8039773914486792,
+ "mean_score_naive": 0.8407996182175698,
+ "novelty_bands": {
+  "0.20-0.30": 25,
+  "0.30-0.35": 69,
+  "0.35-0.40": 154,
+  "<0.20": 0
+ }
+}
