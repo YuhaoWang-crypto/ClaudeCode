@@ -1,0 +1,16 @@
+# fftplsr runtime dependencies.
+#
+# Deliberately unpinned: unlike the reference implementation, results here do not
+# depend on the numerical stack. `tests/test_fftplsr.py` pins that property --
+# the DC-bin fix is what makes the features and scores precision-independent, and
+# the suite was checked against both numpy 1.26 / scikit-learn 1.2.2 (the paper's
+# stack) and numpy 2.4 / scikit-learn 1.9.
+numpy
+scipy
+pandas
+scikit-learn
+joblib
+aaindex
+
+# Optional, for running the test suite:
+# pytest

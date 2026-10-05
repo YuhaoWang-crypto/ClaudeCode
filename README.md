@@ -41,3 +41,57 @@ python3 -m grn_pipeline.m1_symmetry   # or any single module
 Figures are written to `figures/`. A full write-up with numbers, rigour
 labels, and the interpretation (including the Lyapunov-exponent biomarker
 question) is in [`REPORT.md`](REPORT.md).
+
+---
+
+# fftplsr
+
+A second, independent pipeline in this repo: **combinatorial enzyme design with
+FFT-PLSR**. Given measured activities for single mutants of one enzyme, rank the
+2^k recombinations and emit an order list — plus the baselines and numerical
+guardrails that decide whether the ranking deserves trust.
+
+Method source: Hu *et al.*, "Machine learning-guided evolution of pyrrolysyl-tRNA
+synthetase for improved incorporation efficiency of diverse noncanonical amino
+acids", *Nat Commun* **16** (2025),
+doi:[10.1038/s41467-025-61952-2](https://doi.org/10.1038/s41467-025-61952-2);
+reference code [zjuhaoran/FPFORCOM](https://github.com/zjuhaoran/FPFORCOM) (MIT).
+The paper's data is vendored under `fftplsr/data/` — see
+[`PROVENANCE.md`](fftplsr/data/PROVENANCE.md).
+
+| Module | What it establishes | Key result |
+|---|---|---|
+| `m1_reproduce` | re-runs the paper's prospective rounds | round-2 held-out R² = **0.833** (paper: 0.835); round-3 descriptor triple reproduces **exactly**; round-1 does **not** reproduce |
+| `m2_dc_artifact` | why FFT bin 0 must be dropped | bin 0 is round-off, but `scale=True` amplifies it to O(1); cvMSE at k=10 swings **0.29–8.05** across equally valid round-off draws, vs **7.7e-14** with it dropped |
+| `m3_baselines` | is the FFT worth it? | a plain one-hot PLS **beats** FFT-PLSR on the 38→64 split (R² 0.827 vs 0.750) and picks better variants on both splits |
+| `m4_design` | a worked design round | ranks a ~1.5k-variant space from measured singles; reports where the paper's final winner lands |
+
+```bash
+pip install numpy scipy pandas scikit-learn aaindex joblib
+python3 -m fftplsr.m1_reproduce     # or m2_dc_artifact / m3_baselines / m4_design
+python3 -m pytest tests/test_fftplsr.py -q
+```
+
+Design on your own enzyme:
+
+```python
+from fftplsr import design
+report = design.design_round(parent=seq, measured={"WT": 1.0, "D2N": 3.62, ...}, pick=8)
+print(report.summary())    # headline + baselines + pick-list + caveats
+```
+
+Three findings worth carrying away before using this method anywhere:
+
+1. **Drop FFT bin 0.** Mean-centering zeroes the DC term, so bin 0 is pure
+   floating-point round-off — and standardizing it turns that round-off into a
+   fitted predictor. This is what makes the published round-1 descriptor choice
+   irreproducible across numerical stacks.
+2. **Report out-of-fold scores.** The reference implementation's `R2` column is
+   in-sample; at 13 samples and 227 features it reads 0.999 and means nothing.
+3. **Beat the additive model or don't bother.** Only a dozen positions vary, so
+   the spectrum is a deterministic function of a dozen bits that a one-hot
+   regression handles directly — and usually better once you have ~40 measurements.
+
+The methodology, traps and composition rules are packaged as the
+[`enzyme-combinatorial-design`](.claude/skills/enzyme-combinatorial-design/SKILL.md)
+skill.
