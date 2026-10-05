@@ -359,8 +359,10 @@ def design_round(
         ascending = True
         notes.append(
             f"ranked by mean rank across the {len(models)} best-scoring descriptors "
-            f"({', '.join(models)}); near-ties on cross-validated error are not "
-            "near-ties on the ranking, so averaging them beats betting on one"
+            f"({', '.join(models)}), because near-ties on cross-validated error are "
+            "not near-ties on the ranking. This helps where the model has signal and "
+            "hurts where it barely does -- compare consensus=1 on held-out data, and "
+            "read rank_spread before acting on any single row"
         )
     else:
         pred = fit_predict(

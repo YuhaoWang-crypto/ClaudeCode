@@ -132,8 +132,8 @@ eventual winner `N7Y/H63L/K67N/V74W` (2.75× parent) lands:
 
 | round | training data | FFT-PLSR cvR² | best baseline cvR² | winner's rank |
 |---|---|---|---|---|
-| A | 27 singles only | **0.336** | −0.075 (`mean`) | 1853 / 11519 |
-| B | + 92 measured doubles | **0.634** | 0.405 (`onehot-pls`) | **332 / 11519** |
+| A | 27 singles only | **0.336** | −0.075 (`mean`) | 2543 / 11519 (top 22%) |
+| B | + 92 measured doubles | **0.634** | 0.405 (`onehot-pls`) | **65 / 11519 (top 0.6%)** |
 
 Three things to take from this:
 
@@ -141,13 +141,16 @@ Three things to take from this:
   is seen exactly once, so a one-hot model holding one out has no column for it and
   falls back to the intercept — *every* baseline scores below zero. FFT-PLSR is the
   only model with signal, because the spectrum shares information across
-  substitutions. This is the case where the Fourier detour is worth it.
-- **Doubles are what makes the winner reachable.** Adding 92 measured doubles
-  moves the winner from rank 1853 to 332 — a 5.6× improvement, and the point at
-  which epistasis first becomes visible to the model.
-- ⚠️ **But top-8 would still have missed it.** Rank 332 of 11,519 is the top 2.9% —
-  a ~35× enrichment over chance, not an oracle. Treat the output as a shortlist to
-  assay, size the order list to the enrichment, and expect to need a second round.
+  substitutions. This is the case where the Fourier detour is worth it. ⚠️ Note the
+  ranking is still poor in absolute terms (top 22%); the signal is real but thin.
+- **Doubles are what makes the winner findable.** Adding 92 measured doubles moves
+  it from rank 2543 to 65 — a 39× improvement, and the point at which epistasis
+  first becomes visible to the model. If you can only afford one extra assay
+  batch, spend it on doubles, not more singles.
+- ⚠️ **It is an enrichment filter, not an oracle.** Rank 65 of 11,519 is the top
+  0.6%, roughly 177× better than chance — but an 8-variant order list still misses
+  it, and you would need ~65 to be sure. Size the order list to the enrichment you
+  can demonstrate, and expect to need another round.
 
 ## What reproduces, and what doesn't
 
