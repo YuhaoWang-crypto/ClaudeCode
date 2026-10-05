@@ -64,7 +64,7 @@ The paper's data is vendored under `fftplsr/data/` — see
 | `m1_reproduce` | re-runs the paper's prospective rounds | round-2 held-out R² = **0.833** (paper: 0.835); round-3 descriptor triple reproduces **exactly**; round-1 does **not** reproduce |
 | `m2_dc_artifact` | why FFT bin 0 must be dropped | bin 0 is round-off, but `scale=True` amplifies it to O(1); cvMSE at k=10 swings **0.29–8.05** across equally valid round-off draws, vs **7.7e-14** with it dropped |
 | `m3_baselines` | is the FFT worth it? | a plain one-hot PLS **beats** FFT-PLSR on the 38→64 split (R² 0.827 vs 0.750) and picks better variants on both splits |
-| `m4_design` | a worked design round | ranks a ~1.5k-variant space from measured singles; reports where the paper's final winner lands |
+| `m4_design` | a worked design round | over the paper's own 11,520-variant space: the eventual winner ranks **1853/11519** from singles alone, **332/11519** once 92 doubles are added; with singles only, FFT-PLSR is the *only* model scoring above chance |
 
 ```bash
 pip install numpy scipy pandas scikit-learn aaindex joblib
@@ -91,6 +91,12 @@ Three findings worth carrying away before using this method anywhere:
 3. **Beat the additive model or don't bother.** Only a dozen positions vary, so
    the spectrum is a deterministic function of a dozen bits that a one-hot
    regression handles directly — and usually better once you have ~40 measurements.
+   The encoding's genuine niche is the **cold start**: with singles only, every
+   one-hot baseline scores below chance and FFT-PLSR is the only model with signal.
+4. **Pin `aaindex==1.0.5` to reproduce the paper.** 13 of the 566 entries return
+   `None` for some residue in 1.3.2, including `AVBF000109` — the first descriptor
+   of the paper's final-round model, which is therefore not rebuildable from
+   current data at all.
 
 The methodology, traps and composition rules are packaged as the
 [`enzyme-combinatorial-design`](.claude/skills/enzyme-combinatorial-design/SKILL.md)

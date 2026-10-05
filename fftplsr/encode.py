@@ -39,7 +39,10 @@ from .variants import parse_variant
 
 __all__ = [
     "aaindex_values",
+    "all_indices",
     "available_indices",
+    "incomplete_indices",
+    "IncompleteIndexError",
     "spectrum",
     "encode_sequences",
     "MutationEncoder",
@@ -57,15 +60,57 @@ def _aaindex1():
     return aaindex1
 
 
+AA20 = "ACDEFGHIKLMNPQRSTVWY"
+
+
 @lru_cache(maxsize=None)
-def available_indices() -> tuple[str, ...]:
-    """Accession codes of every AAindex1 entry (566 in aaindex 1.0.5)."""
+def all_indices() -> tuple[str, ...]:
+    """Accession codes of every AAindex1 entry (566 in aaindex 1.0.5 and 1.3.2)."""
     return tuple(_aaindex1().record_codes())
 
 
 @lru_cache(maxsize=None)
+def incomplete_indices() -> tuple[str, ...]:
+    """Entries missing a value for at least one of the 20 standard residues.
+
+    These cannot be used as encodings. The `aaindex` package changed here: all 566
+    entries carry full values in 1.0.5, while 1.3.2 returns ``None`` for 13 of them
+    (the AVBF000101-109 series, GUYH850103, ROSM880104, ROSM880105, YANJ020101).
+
+    ⚠️ Reproducibility consequence: the paper's round-3 model used the triple
+    ``AVBF000109_JUNJ780101_JUKT750101``, and AVBF000109 is one of the affected
+    entries. That model therefore cannot be rebuilt from current `aaindex` data at
+    all -- not approximately, but not at all -- without pinning `aaindex==1.0.5`
+    or supplying the missing value by hand.
+    """
+    return tuple(
+        code
+        for code in all_indices()
+        if any(aaindex_values(code).get(aa) is None for aa in AA20)
+    )
+
+
+@lru_cache(maxsize=None)
+def available_indices(complete_only: bool = True) -> tuple[str, ...]:
+    """Accession codes usable as encodings.
+
+    `complete_only` (the default) excludes entries with missing residue values,
+    which would otherwise fail mid-screen and be silently dropped from the
+    candidate pool. Pass ``False`` to get all 566.
+    """
+    if not complete_only:
+        return all_indices()
+    skip = set(incomplete_indices())
+    return tuple(code for code in all_indices() if code not in skip)
+
+
+@lru_cache(maxsize=None)
 def aaindex_values(code: str) -> dict[str, float]:
-    """The 20 residue values of one AAindex entry, keyed by one-letter code."""
+    """The residue values of one AAindex entry, keyed by one-letter code.
+
+    Values may be ``None`` where the source record has none; `_lookup_table`
+    rejects those rather than letting them become NaN features.
+    """
     try:
         record = _aaindex1()[code]
     except Exception as exc:
@@ -73,8 +118,20 @@ def aaindex_values(code: str) -> dict[str, float]:
     return dict(record.values)
 
 
+class IncompleteIndexError(ValueError):
+    """Raised when an AAindex entry lacks a value for some standard residue."""
+
+
 def _lookup_table(code: str) -> dict[str, float]:
-    return aaindex_values(code)
+    table = aaindex_values(code)
+    missing = [aa for aa in AA20 if table.get(aa) is None]
+    if missing:
+        raise IncompleteIndexError(
+            f"AAindex entry {code} has no value for {', '.join(missing)}; it cannot be used "
+            "as an encoding. Your `aaindex` package version omits values that aaindex 1.0.5 "
+            f"supplied for {len(incomplete_indices())} entries -- pin aaindex==1.0.5 to use them."
+        )
+    return table
 
 
 def _numeric(seq: str, table: dict[str, float]) -> np.ndarray:

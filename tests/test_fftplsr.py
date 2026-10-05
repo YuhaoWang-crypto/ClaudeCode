@@ -155,6 +155,36 @@ def test_spectrum_handles_constant_descriptor():
     assert np.count_nonzero(spectrum(np.ones(20))) == 0
 
 
+def test_candidate_pool_excludes_incomplete_indices():
+    """Entries missing residue values must leave the pool loudly, not silently.
+
+    `aaindex` 1.0.5 supplies all 566; 1.3.2 returns None for 13 of them, so the
+    counts are asserted relationally rather than as fixed numbers.
+    """
+    from fftplsr.encode import all_indices, available_indices, incomplete_indices
+
+    assert len(all_indices()) == 566
+    assert set(available_indices()) == set(all_indices()) - set(incomplete_indices())
+    assert set(available_indices(complete_only=False)) == set(all_indices())
+    assert len(available_indices()) + len(incomplete_indices()) == 566
+
+
+def test_incomplete_index_raises_a_named_error():
+    from fftplsr.encode import IncompleteIndexError, _lookup_table, incomplete_indices
+
+    _, labels, _, encoder = _round1()
+    for code in incomplete_indices():
+        with pytest.raises(IncompleteIndexError, match="no value for"):
+            _lookup_table(code)
+        with pytest.raises(IncompleteIndexError):
+            encoder.encode(labels, [code])
+    # Whatever the package version reports as usable must actually encode.
+    from fftplsr.encode import available_indices
+
+    for code in available_indices()[:25]:
+        assert np.isfinite(encoder.encode(labels, [code])).all()
+
+
 # ------------------------------------------------------------------------ model
 
 

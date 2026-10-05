@@ -191,8 +191,8 @@ def screen_indices(
         def score_one(code):
             try:
                 return code, cv_score(encode(chosen + [code]), y, cv=cv, components=components)
-            except Exception:
-                return code, None
+            except Exception as exc:
+                return code, exc
 
         # Threads, not processes: the per-candidate work is numpy/BLAS (which releases
         # the GIL) and the shared encoder caches the parent spectrum, so re-pickling
@@ -200,13 +200,22 @@ def screen_indices(
         results = Parallel(n_jobs=n_jobs, prefer="threads")(
             delayed(score_one)(code) for code in remaining
         )
-        rows = {
-            "_".join(chosen + [code]): res.as_row()
-            for code, res in results
-            if res is not None
-        }
+        scored = {code: res for code, res in results if isinstance(res, CVResult)}
+        failed = {code: res for code, res in results if not isinstance(res, CVResult)}
+        rows = {"_".join(chosen + [code]): res.as_row() for code, res in scored.items()}
         if not rows:
-            raise RuntimeError(f"every candidate AAindex entry failed in round {rnd + 1}")
+            first = next(iter(failed.values()), None)
+            raise RuntimeError(
+                f"every one of {len(remaining)} candidate AAindex entries failed in round "
+                f"{rnd + 1}; first error: {type(first).__name__}: {first}"
+            )
+        if failed and verbose:
+            # Don't let a candidate vanish from the pool without saying so.
+            kinds = sorted({type(e).__name__ for e in failed.values()})
+            print(
+                f"  round {rnd + 1}: skipped {len(failed)} of {len(remaining)} candidates "
+                f"({', '.join(kinds)}); {len(rows)} scored"
+            )
         table = pd.DataFrame(rows).T.sort_values("cvMSE")
         table["n_components"] = table["n_components"].astype(int)
         rounds.append(table)

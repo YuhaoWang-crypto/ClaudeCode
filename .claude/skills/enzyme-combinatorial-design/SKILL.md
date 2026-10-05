@@ -113,19 +113,63 @@ verdict on FFT-PLSR — it is the reason to run `evaluate_against_baselines` on
 *your* data before trusting a ranking. `design_round` does this automatically and
 annotates the report when the ML model fails to beat the best baseline.
 
+### Where the FFT encoding does earn its keep: the cold start
+
+✅ `python3 -m fftplsr.m4_design` reconstructs the position just before the paper's
+final round — parent Com1-IFRS, 27 measured saturation singles over 6 positions,
+11,492 recombinations (the paper's own 11,520-variant space) — and asks where the
+eventual winner `N7Y/H63L/K67N/V74W` (2.75× parent) lands:
+
+| round | training data | FFT-PLSR cvR² | best baseline cvR² | winner's rank |
+|---|---|---|---|---|
+| A | 27 singles only | **0.336** | −0.075 (`mean`) | 1853 / 11519 |
+| B | + 92 measured doubles | **0.634** | 0.405 (`onehot-pls`) | **332 / 11519** |
+
+Three things to take from this:
+
+- **Round A is the encoding's real niche.** With singles only, every substitution
+  is seen exactly once, so a one-hot model holding one out has no column for it and
+  falls back to the intercept — *every* baseline scores below zero. FFT-PLSR is the
+  only model with signal, because the spectrum shares information across
+  substitutions. This is the case where the Fourier detour is worth it.
+- **Doubles are what makes the winner reachable.** Adding 92 measured doubles
+  moves the winner from rank 1853 to 332 — a 5.6× improvement, and the point at
+  which epistasis first becomes visible to the model.
+- ⚠️ **But top-8 would still have missed it.** Rank 332 of 11,519 is the top 2.9% —
+  a ~35× enrichment over chance, not an oracle. Treat the output as a shortlist to
+  assay, size the order list to the enrichment, and expect to need a second round.
+
 ## What reproduces, and what doesn't
 
 ✅ `python3 -m fftplsr.m1_reproduce`
 
 | claim | status |
 |---|---|
-| Round-3 descriptor triple `QIAN880114_OOBM770105_QIAN880125` | ✅ reproduces exactly (1,698 candidate screens, same 3 in the same order) |
+| Site-triage descriptor triple `QIAN880114_OOBM770105_QIAN880125` | ✅ reproduces exactly (1,698 candidate screens, same 3 in the same order) |
 | Round-2 prospective accuracy, paper R² = 0.835 | ✅ R² = **0.833** with the paper's descriptor (`RADA880104`, k=4) |
 | Round-2 descriptor choice | ⚠️ `RADA880104` ranks 3rd of 553 here; the top 3 are within 3% cvMSE — a near-tie, not a determination |
 | Round-1 descriptor choice + cvMSE 0.359 | ❌ does not reproduce; it is the DC-bin artifact above. Honest round-1 held-out R² is **0.63**, not 0.84 |
+| Final-round model `AVBF000109_JUNJ780101_JUKT750101` | ❌ **not rebuildable at all** from current data — see below |
 
 The pattern: **the pipeline reproduces where the model is well-conditioned (few
 components, enough samples) and is a coin-flip where it is not.**
+
+### ⚠️ Third trap: the `aaindex` package changed under the method
+
+All 566 AAindex1 entries carry complete residue values in `aaindex` **1.0.5** (the
+version the paper pinned). In **1.3.2**, 13 of them return `None` for at least one
+standard residue: `AVBF000101`–`AVBF000109`, `GUYH850103`, `ROSM880104`,
+`ROSM880105`, `YANJ020101`.
+
+`AVBF000109` is one of them, and it is the first descriptor of the paper's
+final-round model. That model therefore cannot be rebuilt from current `aaindex`
+data — not approximately, but not at all. Pin `aaindex==1.0.5` if you need it.
+
+`fftplsr` makes this visible instead of silent: `available_indices()` returns the
+553 usable entries (not 566), `encode` raises `IncompleteIndexError` naming the
+missing residue, and `screen_indices` prints how many candidates it skipped and
+why. The reference implementation's bare `except ValueError` scored such a
+candidate as `-100` and moved on.
 
 ## Run it
 
