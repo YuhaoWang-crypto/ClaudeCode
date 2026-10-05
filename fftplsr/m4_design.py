@@ -105,7 +105,7 @@ def main() -> None:
         print(report.baselines.to_string(index=False, float_format=lambda v: f"{v:.3f}"))
         print(f"\nCom2 ({COM2}) rank: "
               + (f"{rank} of {report.n_space}" if rank else "not in the enumerated space"))
-        print(f"\nPick-list ({len(report.picks)} variants, diversity-filtered):")
+        print(f"\nPick-list ({len(report.picks)} variants):")
         shown = report.picks.copy()
         shown["later_measured"] = [truth.get(v, np.nan) for v in shown["variant"]]
         print(shown.to_string(index=False, float_format=lambda v: f"{v:.3f}"))

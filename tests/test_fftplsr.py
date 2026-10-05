@@ -18,6 +18,7 @@ import pathlib
 import sys
 
 import numpy as np
+import pandas as pd
 import pytest
 from sklearn.cross_decomposition import PLSRegression
 from sklearn.model_selection import LeaveOneOut
@@ -210,6 +211,38 @@ def test_cv_score_picks_the_cv_minimum():
     assert best.cv_mse == pytest.approx(mse[best.n_components - 1])
 
 
+def test_nested_cv_is_not_more_optimistic_than_flat_selection():
+    """Selecting the best of N descriptors by CV error makes that error optimistic.
+
+    Uses a deliberately small pool so the suite stays fast; the point is the
+    direction of the gap and that the chosen descriptor is unstable across folds,
+    both of which show up even with 12 candidates.
+    """
+    from sklearn.model_selection import KFold
+
+    from fftplsr.encode import available_indices
+    from fftplsr.model import nested_cv_r2, screen_indices
+
+    table, parent = datasets.trainset(2)
+    labels = table["Variants"].tolist()
+    y = table["Fitness"].to_numpy(dtype=float)
+    encoder = MutationEncoder(parent, positions=variants.mutated_positions(labels))
+    pool = list(available_indices())[:12]
+
+    flat = screen_indices(
+        lambda codes: encoder.encode(labels, codes),
+        y, n_rounds=1, cv=None, candidates=pool, verbose=False,
+    )
+    nested, _, oof, picked = nested_cv_r2(
+        lambda codes: encoder.encode(labels, codes),
+        y, n_rounds=1, inner_cv=None,
+        outer_cv=KFold(3, shuffle=True, random_state=0),
+        candidates=pool,
+    )
+    assert len(picked) == 3 and oof.shape == y.shape
+    assert nested <= flat.cv_r2 + 1e-9, "nested CV should not beat the selected-on score"
+
+
 def test_cv_score_reports_out_of_fold_not_in_sample():
     """The original implementation reported in-sample R2; these must differ here."""
     _, labels, y, encoder = _round1()
@@ -243,6 +276,55 @@ def test_mean_and_onehot_baselines_run():
 
 
 # --------------------------------------------------------------------- datasets
+
+
+def test_diversify_defaults_to_no_filtering():
+    """Pinned: the Jaccard filter is off by default because it discarded the winner.
+
+    Two variants differing by a single substitution have Jaccard 0.75, above the
+    0.6 that looked like a sensible cap -- and on the paper's round-2 data that cap
+    dropped Com1-IFRS (11.13x) from the pick-list in favour of an 8.54x variant.
+    """
+    from fftplsr.design import diversify
+    from fftplsr.m1_reproduce import COM1
+
+    near_duplicate = "D2N/K3N/T56P/R61K/H62Y/T122S/S193R"
+    ranking = pd.DataFrame({"variant": [near_duplicate, COM1], "mean_rank": [1.0, 2.0]})
+
+    assert diversify(ranking, pick=2)["variant"].tolist() == [near_duplicate, COM1]
+    filtered = diversify(ranking, pick=2, max_jaccard=0.6)["variant"].tolist()
+    assert filtered == [near_duplicate], "0.6 should drop the one-substitution neighbour"
+
+
+def test_consensus_ranking_beats_single_descriptor_on_the_known_winner():
+    """Pinned: averaging ranks over near-tied descriptors finds Com1-IFRS, one doesn't.
+
+    Uses a fixed descriptor set rather than a 566-entry screen so the test is fast;
+    the three are the actual top candidates from that screen, including the paper's.
+    """
+    from fftplsr.design import consensus_ranking
+    from fftplsr.m1_reproduce import COM1
+
+    table, parent = datasets.trainset(2)
+    labels = table["Variants"].tolist()
+    y = table["Fitness"].to_numpy(dtype=float)
+    space = variants.enumerate_combinations(parent, datasets.ROUND12_SITES, min_order=2)
+    encoder = MutationEncoder(
+        parent, positions=variants.mutated_positions(labels + datasets.ROUND12_SITES)
+    )
+    screen = pd.DataFrame(
+        {"n_components": [6, 6, 4]}, index=["VELV850101", "COSI940101", "RADA880104"]
+    )
+
+    def rank_of(n_models):
+        scored, used = consensus_ranking(encoder, labels, y, space, screen, n_models=n_models)
+        ordered = scored.sort_values("mean_rank", ignore_index=True)
+        assert len(used) == n_models
+        return int(ordered.index[ordered["variant"] == COM1][0]) + 1
+
+    single, ensemble = rank_of(1), rank_of(3)
+    assert single > 20, f"best-CV descriptor alone should bury the winner, got rank {single}"
+    assert ensemble < single, f"consensus should improve on it: {ensemble} vs {single}"
 
 
 def test_all_dataset_labels_are_consistent_with_their_parent():

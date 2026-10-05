@@ -65,6 +65,8 @@ The paper's data is vendored under `fftplsr/data/` — see
 | `m2_dc_artifact` | why FFT bin 0 must be dropped | bin 0 is round-off, but `scale=True` amplifies it to O(1); cvMSE at k=10 swings **0.29–8.05** across equally valid round-off draws, vs **7.7e-14** with it dropped |
 | `m3_baselines` | is the FFT worth it? | a plain one-hot PLS **beats** FFT-PLSR on the 38→64 split (R² 0.827 vs 0.750) and picks better variants on both splits |
 | `m4_design` | a worked design round | over the paper's own 11,520-variant space: the eventual winner ranks **1853/11519** from singles alone, **332/11519** once 92 doubles are added; with singles only, FFT-PLSR is the *only* model scoring above chance |
+| `design.consensus_ranking` | descriptor choice is a lottery | three descriptors within 3.5% cvMSE put the known winner at rank 36, 36 and **8** of 4083; averaging ranks over the top 5 reaches **6**, beating the paper's own pick |
+| `design.diversify` | a default that measurement overturned | the obvious Jaccard diversity filter at 0.6 **discards** the winner (best pick 8.54× vs 11.13×), because one-substitution neighbours score 0.75 — so it ships off by default |
 
 ```bash
 pip install numpy scipy pandas scikit-learn aaindex joblib

@@ -4,17 +4,21 @@ This is the part you reuse on a new enzyme. One call does what the paper's
 notebook spread over four hand-edited task blocks:
 
     select AAindex descriptors -> fit PLSR -> score the whole combinatorial
-    space -> compare against baselines -> emit a diversity-filtered pick-list
+    space -> compare against baselines -> emit an order list
 
-The pick-list, not the ranking, is the deliverable. Two things it does that
-ranking by predicted fitness alone does not:
+The pick-list, not the ranking, is the deliverable. Three things it does that
+ranking by one model's predicted fitness does not:
 
-* **Diversity filter.** PLS top-N lists are typically near-duplicates of one
-  mutation set. Capping the Jaccard overlap between picks spends a fixed assay
-  budget on distinguishable hypotheses instead of ten spellings of one.
-* **Honest headline.** Every report carries the held-out or cross-validated R2
-  *and* the best baseline's, because a pick-list from a model that cannot beat
-  log-additive is a pick-list you could have written by hand.
+* **Descriptor consensus.** The top of a 566-entry screen is a pile of near-ties
+  on cross-validated error that are *not* near-ties on the ranking you act on.
+  Ranking by mean rank across the best few descriptors beats betting on one --
+  including beating the paper's own pick on its own data. See `consensus_ranking`.
+* **Honest headline.** Every report carries the cross-validated R2 *and* the best
+  baseline's, because a pick-list from a model that cannot beat log-additive is a
+  pick-list you could have written by hand.
+* **No diversity filtering by default.** The obvious-looking Jaccard filter is
+  available but off, because measuring it showed it discards the winner: in a
+  recombination space the near-duplicates are the signal. See `diversify`.
 """
 
 from __future__ import annotations
@@ -44,13 +48,22 @@ class DesignReport:
     n_space: int
     parent_fitness: float
     notes: list[str] = field(default_factory=list)
+    #: Descriptors the ranking was aggregated over; one entry means no consensus.
+    models: list[str] = field(default_factory=list)
 
     @property
     def headline(self) -> str:
         best_base = self.baselines["cvR2"].max() if len(self.baselines) else float("nan")
+        # cv_r2 belongs to the best single descriptor; say so, since with consensus
+        # the ranking is not that model's ranking.
+        how = (
+            f"consensus of {len(self.models)} descriptors, best [{self.selection.label}]"
+            if len(self.models) > 1
+            else f"[{self.selection.label}]"
+        )
         return (
-            f"FFT-PLSR [{self.selection.label}] n_components={self.selection.n_components}: "
-            f"cvR2={self.selection.cv_r2:.3f} on {self.n_train} variants; "
+            f"FFT-PLSR {how} n_components={self.selection.n_components}: "
+            f"best-descriptor cvR2={self.selection.cv_r2:.3f} on {self.n_train} variants; "
             f"best baseline cvR2={best_base:.3f}; "
             f"{self.n_space} variants scored, {len(self.picks)} picked"
         )
@@ -60,7 +73,7 @@ class DesignReport:
         lines.append("Baselines (leave-one-out on the same training set):")
         lines.append(self.baselines.to_string(index=False))
         lines.append("")
-        lines.append(f"Pick-list (top {len(self.picks)}, diversity-filtered):")
+        lines.append(f"Pick-list (top {len(self.picks)}):")
         lines.append(self.picks.to_string(index=False))
         if self.notes:
             lines.append("")
@@ -108,13 +121,91 @@ def improved_sites(
     return out
 
 
+def consensus_ranking(
+    encoder,
+    train_labels,
+    y,
+    query,
+    table: pd.DataFrame,
+    n_models: int = 5,
+) -> pd.DataFrame:
+    """Rank `query` by mean rank across the top `n_models` descriptors in `table`.
+
+    Why not just use the single best descriptor: the top candidates of a
+    566-entry screen are near-ties on cross-validated error, but they are *not*
+    near-ties on the ranking you act on.
+
+    ✅ Measured on the paper's round-2 training set (38 variants, 4,083-variant
+    space), where the eventual winner Com1-IFRS is known:
+
+        descriptor            cvMSE    rank of the winner
+        VELV850101 (best CV)  0.3162        36 / 4083
+        COSI940101            0.3165        36 / 4083
+        RADA880104            0.3274         8 / 4083   <- the paper's pick
+        consensus of top 5       --          6 / 4083
+
+    A 3.5% spread in cvMSE spans a 4.5x spread in where the winner lands, so
+    choosing one descriptor by cross-validated error is a lottery over the
+    decision that matters. Averaging ranks across the tied candidates beats every
+    individual one here, including the paper's lucky pick.
+
+    Returns a frame with `mean_rank` (the ordering), `predicted` (mean predicted
+    fitness across models, for interpretability only) and `rank_spread`
+    (max - min rank across models), which flags variants the models disagree on.
+    """
+    chosen = list(table.index[:n_models])
+    ranks, preds = [], []
+    for label in chosen:
+        codes = label.split("_")
+        X_train = encoder.encode(train_labels, codes)
+        pred = fit_predict(
+            X_train, y, encoder.encode(query, codes), int(table.loc[label, "n_components"])
+        )
+        series = pd.Series(pred, index=query)
+        preds.append(series)
+        ranks.append(series.rank(ascending=False))
+
+    rank_matrix = pd.concat(ranks, axis=1)
+    return pd.DataFrame(
+        {
+            "variant": query,
+            "mean_rank": rank_matrix.mean(axis=1).reindex(query).to_numpy(),
+            "predicted": pd.concat(preds, axis=1).mean(axis=1).reindex(query).to_numpy(),
+            "rank_spread": (
+                rank_matrix.max(axis=1) - rank_matrix.min(axis=1)
+            ).reindex(query).to_numpy(),
+            "n_models": len(chosen),
+        }
+    ), chosen
+
+
 def _jaccard(a: set[str], b: set[str]) -> float:
     union = a | b
     return len(a & b) / len(union) if union else 1.0
 
 
-def diversify(ranking: pd.DataFrame, pick: int, max_jaccard: float = 0.6) -> pd.DataFrame:
-    """Greedily take the top-ranked variants whose mutation sets are not near-duplicates."""
+def diversify(ranking: pd.DataFrame, pick: int, max_jaccard: float = 1.0) -> pd.DataFrame:
+    """Greedily take the top-ranked variants, optionally skipping near-duplicates.
+
+    ⚠️ `max_jaccard` defaults to 1.0, i.e. **no filtering**, and that default is
+    deliberate. Diversity filtering is the obvious thing to want -- a raw top-N
+    from PLS does look like N spellings of one mutation set -- but in a
+    recombination space the near-duplicates *are* the signal: two variants
+    differing by one substitution can differ several-fold in activity.
+
+    ✅ Measured on the paper's round-2 data (38 training variants, 8 picks), where
+    the eventual winner Com1-IFRS is known and measures 11.13x:
+
+        max_jaccard   winner in the pick-list?   best pick, as later measured
+        0.6                      no                        8.54x
+        0.8                      yes                      11.13x
+        1.0 (default)            yes                      11.13x
+
+    At 0.6 the winner is discarded for overlapping 0.75 with an earlier pick --
+    they differ by a single substitution (K3N vs V31I), which is exactly the
+    comparison worth running. Raise the filter only when the ranking really is
+    saturated by one motif and you would rather spend the budget on breadth.
+    """
     chosen: list[int] = []
     chosen_sets: list[set[str]] = []
     for row in ranking.itertuples():
@@ -166,7 +257,8 @@ def design_round(
     cv=None,
     pick: int = 8,
     max_order: int | None = None,
-    max_jaccard: float = 0.6,
+    max_jaccard: float = 1.0,
+    consensus: int = 5,
     candidates=None,
     n_jobs: int = -1,
     verbose: bool = True,
@@ -191,7 +283,13 @@ def design_round(
     cv:
         Fold count; ``None`` means leave-one-out, as the paper used for small sets.
     pick / max_jaccard:
-        Size of the pick-list and the diversity cap applied when building it.
+        Size of the pick-list, and the optional near-duplicate filter applied when
+        building it. `max_jaccard` defaults to 1.0 (off) -- see `diversify` for the
+        measurement showing that filtering discarded the known winner here.
+    consensus:
+        Rank by mean rank across this many top-scoring descriptors instead of
+        betting on the single best. See `consensus_ranking` for the measurement
+        that motivates the default of 5; pass 1 for single-descriptor behaviour.
     max_order:
         Cap on how many mutations may be combined. ``None`` means no cap.
     """
@@ -232,22 +330,37 @@ def design_round(
         verbose=verbose,
     )
 
-    X_train = encoder.encode(labels, selection.indices)
-    X_query = encoder.encode(query, selection.indices)
-    pred = fit_predict(X_train, y, X_query, selection.n_components)
-
     additive = LogAdditiveModel().fit(labels, y).predict(query)
-    ranking = (
-        pd.DataFrame(
-            {
-                "variant": query,
-                "predicted": pred,
-                "log_additive": additive,
-                "order": [max(len(parse_variant(q)), 1) for q in query],
-                "measured": [measured.get(q, np.nan) for q in query],
-            }
+    models: list[str] = [selection.label]
+    if consensus and consensus > 1:
+        scored, models = consensus_ranking(
+            encoder, labels, y, query, selection.rounds[-1], n_models=consensus
         )
-        .sort_values("predicted", ascending=False)
+        order_by = "mean_rank"
+        ascending = True
+        notes.append(
+            f"ranked by mean rank across the {len(models)} best-scoring descriptors "
+            f"({', '.join(models)}); near-ties on cross-validated error are not "
+            "near-ties on the ranking, so averaging them beats betting on one"
+        )
+    else:
+        pred = fit_predict(
+            encoder.encode(labels, selection.indices),
+            y,
+            encoder.encode(query, selection.indices),
+            selection.n_components,
+        )
+        scored = pd.DataFrame({"variant": query, "predicted": pred})
+        order_by = "predicted"
+        ascending = False
+
+    ranking = (
+        scored.assign(
+            log_additive=additive,
+            order=[max(len(parse_variant(q)), 1) for q in query],
+            measured=[measured.get(q, np.nan) for q in query],
+        )
+        .sort_values(order_by, ascending=ascending)
         .reset_index(drop=True)
     )
     ranking["epistasis"] = ranking["predicted"] - ranking["log_additive"]
@@ -276,4 +389,5 @@ def design_round(
         n_space=len(query),
         parent_fitness=parent_fitness,
         notes=notes,
+        models=models,
     )

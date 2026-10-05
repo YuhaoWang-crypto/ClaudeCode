@@ -10,10 +10,15 @@ dozen positions ever change, so a 227-bin spectrum of a 454-residue protein is a
 deterministic function of at most 12 bits. The spectrum cannot encode anything the
 bits do not, and the bits are directly regressable.
 
-Two metrics, because they answer different questions:
+Three metrics, because they answer different questions:
 
 R2 / Pearson r
     How well does the model describe the whole held-out set? What a paper reports.
+Spearman rho
+    Does it get the *order* right? The one to read when the held-out set is itself
+    a selected, narrow-range sample -- as the third split below is, being the
+    variants the authors' own model nominated and then assayed. R2 there measures
+    the selection, not the model, and goes negative for everything.
 top-k mean fitness
     If you had ordered this model's k best untested variants, what would you have
     measured? What a design budget actually buys. Reported next to the oracle
@@ -75,6 +80,27 @@ def splits() -> list[dict]:
     return out
 
 
+def _spearman(a, b) -> float:
+    """Rank correlation, computed from ranks directly to avoid a scipy dependency."""
+    a, b = np.asarray(a, dtype=float), np.asarray(b, dtype=float)
+    if a.std() == 0 or b.std() == 0:
+        return float("nan")
+    ra = np.argsort(np.argsort(a)).astype(float)
+    rb = np.argsort(np.argsort(b)).astype(float)
+    return float(np.corrcoef(ra, rb)[0, 1])
+
+
+def _metrics(name, pred, truth) -> dict:
+    pred = np.asarray(pred, dtype=float)
+    return {
+        "model": name,
+        "heldR2": r2(truth, pred),
+        "pearson": float(np.corrcoef(truth, pred)[0, 1]) if pred.std() > 0 else float("nan"),
+        "spearman": _spearman(pred, truth),
+        f"top{TOP_K}": _top_k_mean(pred, truth),
+    }
+
+
 def _top_k_mean(pred, truth, k=TOP_K) -> float:
     order = np.argsort(-np.asarray(pred))
     return float(np.asarray(truth)[order[:k]].mean())
@@ -102,31 +128,18 @@ def evaluate_split(split, n_rounds=1, cv=None, verbose=True) -> pd.DataFrame:
         selection.n_components,
     )
 
-    rows = [
-        {
-            "model": f"FFT-PLSR [{selection.label}]",
-            "heldR2": r2(held_y, pred),
-            "pearson": float(np.corrcoef(held_y, pred)[0, 1]),
-            f"top{TOP_K}": _top_k_mean(pred, held_y),
-        }
-    ]
+    rows = [_metrics(f"FFT-PLSR [{selection.label}]", pred, held_y)]
     for cls in ALL_BASELINES:
         try:
             mdl = cls().fit(train_labels, train_y)
             p = np.asarray(mdl.predict(held_labels), dtype=float)
             if not np.isfinite(p).all():
                 raise ValueError("non-finite predictions")
-            rows.append(
-                {
-                    "model": cls.name,
-                    "heldR2": r2(held_y, p),
-                    "pearson": float(np.corrcoef(held_y, p)[0, 1]) if p.std() > 0 else float("nan"),
-                    f"top{TOP_K}": _top_k_mean(p, held_y),
-                }
-            )
+            rows.append(_metrics(cls.name, p, held_y))
         except Exception as exc:  # a baseline that cannot run is reported, not hidden
             rows.append({"model": cls.name, "heldR2": float("nan"), "pearson": float("nan"),
-                         f"top{TOP_K}": float("nan"), "note": str(exc)[:40]})
+                         "spearman": float("nan"), f"top{TOP_K}": float("nan"),
+                         "note": str(exc)[:40]})
 
     table = pd.DataFrame(rows).sort_values("heldR2", ascending=False, ignore_index=True)
     table.insert(0, "split", split["label"])

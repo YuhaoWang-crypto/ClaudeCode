@@ -108,7 +108,17 @@ Read this carefully, because it is the operational finding:
   high-order combinations — multiplying 7 fold-changes overshoots badly. It is a
   fine null for doubles and triples, not for order ≥5.
 
-⚠️ Scope: one enzyme, one assay, held-out n = 25/64/21. This is not a general
+`m3_baselines` reports a third split (120 → 21 later Com1 variants) separately,
+because those 21 variants are the ones the authors' own model nominated and then
+assayed: they span only 0.89–2.75× parent. R² under that restriction of range goes
+negative for every model including the baselines, so it measures the selection
+rather than the models. ⚠️ But the rank metrics do not rescue it either —
+FFT-PLSR's Spearman ρ there is **−0.07**, i.e. no rank signal at all, against
+0.445 for pairwise ridge. Within an already-enriched shortlist, this model does
+not tell you which of the finalists is best. Use it to build the shortlist, not to
+order it.
+
+⚠️ Scope: one enzyme, one assay, held-out n = 25/64. This is not a general
 verdict on FFT-PLSR — it is the reason to run `evaluate_against_baselines` on
 *your* data before trusting a ranking. `design_round` does this automatically and
 annotates the report when the ML model fails to beat the best baseline.
@@ -148,6 +158,7 @@ Three things to take from this:
 | Site-triage descriptor triple `QIAN880114_OOBM770105_QIAN880125` | ✅ reproduces exactly (1,698 candidate screens, same 3 in the same order) |
 | Round-2 prospective accuracy, paper R² = 0.835 | ✅ R² = **0.833** with the paper's descriptor (`RADA880104`, k=4) |
 | Round-2 descriptor choice | ⚠️ `RADA880104` ranks 3rd of 553 here; the top 3 are within 3% cvMSE — a near-tie, not a determination |
+| "descriptor X encodes the property that matters" | ⚠️ not supported. On round-2 data with a 60-entry pool, `nested_cv_r2` picks a **different winner in 4 of 5 outer folds**. Which entry wins is not identifiable; treat the selection as a hyperparameter, never as a biophysical result |
 | Round-1 descriptor choice + cvMSE 0.359 | ❌ does not reproduce; it is the DC-bin artifact above. Honest round-1 held-out R² is **0.63**, not 0.84 |
 | Final-round model `AVBF000109_JUNJ780101_JUKT750101` | ❌ **not rebuildable at all** from current data — see below |
 
@@ -191,10 +202,10 @@ report = design.design_round(
     parent=my_sequence,                  # the background every label is relative to
     measured={"WT": 1.0, "D2N": 3.62, "H62Y": 1.97, ...},
     sites=design.improved_sites(measured, threshold=1.05),
-    n_rounds=1,       # AAindex entries to select greedily; 3 for larger training sets
-    cv=None,          # leave-one-out; pass an int for k-fold once n > ~50
-    pick=8,           # size of the order list
-    max_jaccard=0.6,  # reject near-duplicate picks
+    n_rounds=1,     # AAindex entries to select greedily; 3 for larger training sets
+    cv=None,        # leave-one-out; pass an int for k-fold once n > ~50
+    pick=8,         # size of the order list
+    consensus=5,    # rank by mean rank over the 5 best descriptors, not just one
 )
 print(report.summary())   # headline + baselines + pick-list + caveats
 ```
@@ -206,11 +217,49 @@ Then read `report.summary()` in this order:
 2. **`report.selection.cv_r2`** vs the best baseline — the headline states both.
 3. **`report.notes`** — flags raised automatically (ML lost to a baseline; scored
    variants that already have measurements).
-4. **`report.picks`** — the order list. `epistasis` is predicted minus
-   log-additive: large values are where the model claims to add something, and are
-   the informative ones to assay whether or not they rank top.
+4. **`report.picks`** — the order list. Three columns earn their keep:
+   `epistasis` (predicted minus log-additive) marks where the model claims to add
+   something over naive stacking; `rank_spread` marks where the consensus
+   descriptors disagree, so a high-ranked variant with a large spread is a
+   hypothesis resting on one descriptor; `order` is how many substitutions it
+   carries.
 
-Operational defaults that matter:
+### ✅ Two defaults that were measured, not assumed
+
+**Rank by descriptor consensus, not by the single best descriptor.** The top of a
+566-entry screen is a pile of near-ties on cross-validated error — and they are
+*not* near-ties on the ranking you act on. On the round-2 training set, where the
+eventual winner Com1-IFRS is known:
+
+| descriptor | cvMSE | rank of the winner (of 4083) |
+|---|---|---|
+| `VELV850101` (best CV) | 0.3162 | 36 |
+| `COSI940101` | 0.3165 | 36 |
+| `RADA880104` (the paper's pick) | 0.3274 | **8** |
+| **consensus of the top 5** | — | **6** |
+
+A 3.5% spread in cvMSE spans a 4.5× spread in where the winner lands. Choosing one
+descriptor by cross-validated error is a lottery over the decision that matters;
+averaging ranks across the tied candidates beats every individual one, including
+the paper's. `design_round(consensus=5)` is the default; pass `consensus=1` for
+single-descriptor behaviour.
+
+**Do not filter for diversity by default.** A raw top-N from PLS *looks* like N
+spellings of one mutation set, so capping pairwise overlap seems obviously right.
+Measured, it is wrong: in a recombination space the near-duplicates are the signal.
+
+| `max_jaccard` | winner in the 8-variant pick-list? | best pick, as later measured |
+|---|---|---|
+| 0.6 | ❌ no | 8.54× |
+| 0.8 | ✅ yes | 11.13× |
+| **1.0 (default, off)** | ✅ yes | **11.13×** |
+
+At 0.6 the winner is discarded for overlapping 0.75 with an earlier pick — they
+differ by a single substitution (`K3N` vs `V31I`), which is exactly the comparison
+worth running. Raise the filter only when the ranking is genuinely saturated by one
+motif and you would rather buy breadth.
+
+Other operational defaults that matter:
 
 - **`improved_sites(threshold=1.05)`** — recombine only singles that beat the
   parent. ⚠️ **Prune positions, never substitutions within a position.** A single
