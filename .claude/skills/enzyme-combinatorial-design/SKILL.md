@@ -158,7 +158,7 @@ Three things to take from this:
 | Site-triage descriptor triple `QIAN880114_OOBM770105_QIAN880125` | ✅ reproduces exactly (1,698 candidate screens, same 3 in the same order) |
 | Round-2 prospective accuracy, paper R² = 0.835 | ✅ R² = **0.833** with the paper's descriptor (`RADA880104`, k=4) |
 | Round-2 descriptor choice | ⚠️ `RADA880104` ranks 3rd of 553 here; the top 3 are within 3% cvMSE — a near-tie, not a determination |
-| "descriptor X encodes the property that matters" | ⚠️ not supported. On round-2 data with a 60-entry pool, `nested_cv_r2` picks a **different winner in 4 of 5 outer folds**. Which entry wins is not identifiable; treat the selection as a hyperparameter, never as a biophysical result |
+| "descriptor X encodes the property that matters" | ⚠️ not supported. On round-2 data with a 60-entry pool, `nested_cv_r2` picks a **different winner in 4 of 5 outer folds**, and three near-tied descriptors put the known winner at rank 36, 36 and 8. Which entry wins is not identifiable; treat the selection as a hyperparameter, never as a biophysical result |
 | Round-1 descriptor choice + cvMSE 0.359 | ❌ does not reproduce; it is the DC-bin artifact above. Honest round-1 held-out R² is **0.63**, not 0.84 |
 | Final-round model `AVBF000109_JUNJ780101_JUKT750101` | ❌ **not rebuildable at all** from current data — see below |
 
@@ -226,9 +226,9 @@ Then read `report.summary()` in this order:
 
 ### ✅ Two defaults that were measured, not assumed
 
-**Rank by descriptor consensus, not by the single best descriptor.** The top of a
-566-entry screen is a pile of near-ties on cross-validated error — and they are
-*not* near-ties on the ranking you act on. On the round-2 training set, where the
+**Descriptor choice is a lottery; rank by consensus.** The top of a 566-entry
+screen is a pile of near-ties on cross-validated error — and they are *not*
+near-ties on the ranking you act on. On the round-2 training set, where the
 eventual winner Com1-IFRS is known:
 
 | descriptor | cvMSE | rank of the winner (of 4083) |
@@ -238,11 +238,33 @@ eventual winner Com1-IFRS is known:
 | `RADA880104` (the paper's pick) | 0.3274 | **8** |
 | **consensus of the top 5** | — | **6** |
 
-A 3.5% spread in cvMSE spans a 4.5× spread in where the winner lands. Choosing one
-descriptor by cross-validated error is a lottery over the decision that matters;
-averaging ranks across the tied candidates beats every individual one, including
-the paper's. `design_round(consensus=5)` is the default; pass `consensus=1` for
-single-descriptor behaviour.
+A 3.5% spread in cvMSE spans a 4.5× spread in where the winner lands, so betting
+on one descriptor by cross-validated error is a lottery over the only decision
+that matters. `nested_cv_r2` says the same from the other side: on a 60-entry pool
+it selects a different winner in 4 of 5 outer folds.
+
+⚠️ **But consensus is not a free lunch, and `consensus=3` is a compromise rather
+than a discovery.** Sweeping it over three training sets with a known winner
+(rank of that winner; lower is better):
+
+| training set | n=1 | n=2 | n=3 | n=5 | n=8 |
+|---|---|---|---|---|---|
+| 28 Com1 singles | **1852** | 2265 | 2542 | 3348 | 3743 |
+| 120 Com1 singles+doubles | 332 | 133 | **65** | 108 | 238 |
+| 38 IFRS variants | 36 | 36 | 19 | **6** | 6 |
+
+Where the model carries real signal (the latter two), averaging over 3–5
+descriptors improves the winner's rank 1.9–5×. In the singles-only cold start it
+degrades *monotonically* — there the best descriptor scores cvR² 0.34 while the
+next are 5–18% worse, so averaging dilutes the only model that works.
+
+An "average only over statistically tied descriptors" rule does **not** rescue
+this: the count within 5% of the best cvMSE is 2, 1 and 3 across those sets,
+which does not track the optimum (1, 3, 5). So the default is the best median of
+these three cases, tuned on one protein. ⚠️ On a new target, compare
+`consensus=1` against `consensus=3` on held-out data before trusting either, and
+read `rank_spread` — a high-ranked variant with a large spread rests on one
+descriptor's opinion.
 
 **Do not filter for diversity by default.** A raw top-N from PLS *looks* like N
 spellings of one mutation set, so capping pairwise overlap seems obviously right.

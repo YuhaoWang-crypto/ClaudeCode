@@ -127,31 +127,49 @@ def consensus_ranking(
     y,
     query,
     table: pd.DataFrame,
-    n_models: int = 5,
+    n_models: int = 3,
 ) -> pd.DataFrame:
     """Rank `query` by mean rank across the top `n_models` descriptors in `table`.
 
-    Why not just use the single best descriptor: the top candidates of a
-    566-entry screen are near-ties on cross-validated error, but they are *not*
-    near-ties on the ranking you act on.
+    Why not just the single best descriptor: the top candidates of a 566-entry
+    screen are near-ties on cross-validated error, but they are *not* near-ties on
+    the ranking you act on. On the paper's round-2 training set, where the eventual
+    winner Com1-IFRS is known:
 
-    ✅ Measured on the paper's round-2 training set (38 variants, 4,083-variant
-    space), where the eventual winner Com1-IFRS is known:
-
-        descriptor            cvMSE    rank of the winner
-        VELV850101 (best CV)  0.3162        36 / 4083
-        COSI940101            0.3165        36 / 4083
-        RADA880104            0.3274         8 / 4083   <- the paper's pick
-        consensus of top 5       --          6 / 4083
+        descriptor            cvMSE    rank of the winner (of 4083)
+        VELV850101 (best CV)  0.3162        36
+        COSI940101            0.3165        36
+        RADA880104            0.3274         8    <- the paper's pick
+        consensus of top 5       --          6
 
     A 3.5% spread in cvMSE spans a 4.5x spread in where the winner lands, so
-    choosing one descriptor by cross-validated error is a lottery over the
-    decision that matters. Averaging ranks across the tied candidates beats every
-    individual one here, including the paper's lucky pick.
+    betting on one descriptor is a lottery over the only decision that matters.
+
+    ⚠️ But consensus is not a free lunch, and the default is a compromise rather
+    than a discovery. Sweeping `n_models` over three training sets with a known
+    winner (rank of that winner; lower is better):
+
+        training set                  n=1    n=2    n=3    n=5    n=8
+        28 Com1 singles              1852   2265   2542   3348   3743
+        120 Com1 singles+doubles      332    133     65    108    238
+        38 IFRS variants               36     36     19      6      6
+
+    Where the model carries real signal (the latter two), averaging over ~3-5
+    descriptors improves the winner's rank 1.9-5x. In the singles-only cold start
+    it degrades monotonically: there the best descriptor scores cvR2 0.34 while the
+    next ones are 5-18% worse, so averaging dilutes the only model that works.
+
+    A "only average over statistically tied descriptors" rule does **not** fix
+    this -- the count within 5% of the best cvMSE is 2, 1 and 3 for those three
+    sets, which does not track the optimum (1, 3, 5). So `n_models=3` is chosen as
+    the best median across these three cases, not as a principled optimum.
+    ⚠️ It is tuned on one protein. On a new target, compare `consensus=1` against
+    `consensus=3` on held-out data before trusting either.
 
     Returns a frame with `mean_rank` (the ordering), `predicted` (mean predicted
     fitness across models, for interpretability only) and `rank_spread`
-    (max - min rank across models), which flags variants the models disagree on.
+    (max - min rank across models), which flags variants the models disagree on --
+    a high-ranked variant with a large spread rests on one descriptor's opinion.
     """
     chosen = list(table.index[:n_models])
     ranks, preds = [], []
@@ -258,7 +276,7 @@ def design_round(
     pick: int = 8,
     max_order: int | None = None,
     max_jaccard: float = 1.0,
-    consensus: int = 5,
+    consensus: int = 3,
     candidates=None,
     n_jobs: int = -1,
     verbose: bool = True,
@@ -288,8 +306,9 @@ def design_round(
         measurement showing that filtering discarded the known winner here.
     consensus:
         Rank by mean rank across this many top-scoring descriptors instead of
-        betting on the single best. See `consensus_ranking` for the measurement
-        that motivates the default of 5; pass 1 for single-descriptor behaviour.
+        betting on the single best. Pass 1 for single-descriptor behaviour. See
+        `consensus_ranking` for the sweep behind the default of 3 -- including the
+        case where consensus makes things worse.
     max_order:
         Cap on how many mutations may be combined. ``None`` means no cap.
     """
