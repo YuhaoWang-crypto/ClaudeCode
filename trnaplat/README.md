@@ -14,6 +14,11 @@ order they were specified:
 Shared: `ncaa_chemotype.py` holds the hand-curated descriptors for 13 TyrRS
 ncAAs, libY's 8 training substrates and AzK, in one feature space.
 
+`apnovo/` audits an AlphaProtein Novo run package before it reaches a GPU and
+rebuilds a runnable one — see `apnovo/README.md`. The short version: the repo and
+its weights are real, but a manifest can pass pydantic validation and still be
+unrunnable, because `motif_str`'s grammar is only checked by the sampler.
+
 ```bash
 python3 -m trnaplat.demo1_multisite            # design + power analysis
 python3 -m trnaplat.demo1_multisite --ingest yields.csv --baseline-arm unmodified

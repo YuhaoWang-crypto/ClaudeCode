@@ -58,6 +58,28 @@ def test_ifrs_differs_from_wild_type_only_in_the_catalytic_domain():
     assert all(d1.domain_of(p).startswith("catalytic") for p in diff)
 
 
+def test_ifrs_substitutions_are_n346s_and_c348i_not_the_reverse():
+    """Pins the direction. A report under review had these two swapped."""
+    from fftplsr import datasets
+    ifrs = datasets.ifrs()
+    assert d1.MM_PYLRS_WT[345] == "N" and ifrs[345] == "S"   # N346S
+    assert d1.MM_PYLRS_WT[347] == "C" and ifrs[347] == "I"   # C348I
+
+
+def test_d76n_lowers_com2_so_a_quintuple_top1_is_a_miss():
+    """The published Com2-IFRS is the quadruple; adding D76N costs activity."""
+    from fftplsr import datasets
+    panel, _ = datasets.measured_panel("Com1")
+    fitness = dict(zip(panel["Variants"].astype(str), panel["Fitness"]))
+    quad = fitness["N7Y/H63L/K67N/V74W"]
+    quint = fitness["N7Y/H63L/K67N/V74W/D76N"]
+    assert quad == pytest.approx(2.752, abs=1e-3)
+    assert quint == pytest.approx(2.519, abs=1e-3)
+    assert quint < quad
+    assert quad == pytest.approx(panel["Fitness"].max(), abs=1e-9), \
+        "the quadruple is the measured maximum of the whole panel"
+
+
 def test_check_transplant_refuses_wrong_target():
     scrambled = "A" * len(d1.MM_PYLRS_WT)
     with pytest.raises(d1.TransplantError) as err:

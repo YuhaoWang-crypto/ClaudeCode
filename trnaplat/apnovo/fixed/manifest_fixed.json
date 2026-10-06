@@ -1,0 +1,62 @@
+{
+  "settings": {
+    "model_dir": "./models/apnovo_generator"
+  },
+  "defaults": {
+    "is_author_naming": true,
+    "num_sampling_steps": 1000,
+    "num_designs": 50
+  },
+  "designs": [
+    {
+      "name": "ncaa_pocket_unindexed",
+      "description": "9 residues nearer the amino-acid half of the adenylate. Unindexed: the model places the motif.",
+      "input_file": "motif_ncaa_pocket.cif",
+      "motif_str": "260-360/B1",
+      "unindexed_motif_residues": "A300,A302,A305,A306,A346,A348,A384,A401,A417",
+      "seq_length": "260-360"
+    },
+    {
+      "name": "active_site_full_unindexed",
+      "description": "All 19 residues, i.e. amino-acid pocket AND adenylate site.",
+      "input_file": "motif_active_site_full.cif",
+      "motif_str": "260-360/B1",
+      "unindexed_motif_residues": "A300,A302,A305,A306,A330,A332,A338,A339,A342,A344,A346,A348,A384,A396,A399,A401,A417,A426,A437",
+      "seq_length": "260-360"
+    },
+    {
+      "name": "ncaa_pocket_indexed",
+      "description": "Same 9 residues, indexed: fixed residues interleaved with designable linkers. Shows the grammar the broken manifest was reaching for.",
+      "input_file": "motif_ncaa_pocket.cif",
+      "motif_str": "10-45,A300,10-45,A302,10-45,A305,10-45,A306,10-45,A346,10-45,A348,10-45,A384,10-45,A401,10-45,A417,10-45/B1",
+      "seq_length": "260-360"
+    }
+  ],
+  "resequence": {
+    "enabled": true,
+    "temperature": 0.1
+  },
+  "folding": {
+    "inputs": [
+      "resequenced"
+    ],
+    "seeds": [
+      230
+    ],
+    "states": [
+      {
+        "name": "apo_monomer",
+        "ligands": []
+      },
+      {
+        "name": "adenylate_complex",
+        "ligands": [
+          {
+            "id": "B",
+            "ccd_code": "YLY"
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "settings": {
+    "model_dir": "./models/apnovo_generator"
+  },
+  "defaults": {
+    "is_author_naming": true,
+    "num_designs": 50
+  },
+  "designs": [
+    {
+      "name": "pylrs_partial_diffusion",
+      "description": "Partial diffusion from the real structure: preserves the measured pocket geometry instead of asking a de novo scaffold to rediscover it. Point partial_diffusion_input_file at a full 2Q7H chain A, not at the motif fragment.",
+      "input_file": "motif_ncaa_pocket.cif",
+      "motif_str": "260-360/B1",
+      "unindexed_motif_residues": "A300,A302,A305,A306,A346,A348,A384,A401,A417",
+      "seq_length": "260-360",
+      "partial_diffusion_input_file": "REPLACE_WITH_2q7h_chainA.cif",
+      "partial_diffusion_num_steps": 200
+    }
+  ],
+  "resequence": {
+    "enabled": true,
+    "temperature": 0.1
+  },
+  "folding": {
+    "inputs": [
+      "resequenced"
+    ],
+    "seeds": [
+      230
+    ],
+    "states": [
+      {
+        "name": "apo_monomer",
+        "ligands": []
+      },
+      {
+        "name": "adenylate_complex",
+        "ligands": [
+          {
+            "id": "B",
+            "ccd_code": "YLY"
+          }
+        ]
+      }
+    ]
+  }
+}
