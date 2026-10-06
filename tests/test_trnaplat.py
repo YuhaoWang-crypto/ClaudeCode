@@ -284,6 +284,16 @@ def test_only_one_feature_block_is_substrate_aware():
     assert sum(b[1] for b in control.FEATURE_BLOCKS) == 280
 
 
+def test_audit_numbers_pin_the_cold_start_below_the_honest_pooled_figure():
+    """The published 0.990 and the real cold start must stay far apart."""
+    values = {name: value for name, value, _ in control.AUDIT_NUMBERS}
+    published = values["published score_test (in-sample)"]
+    cold = values["new ncAA AND new variants -- best block"]
+    pooled = values["by-variant GroupKFold, all features"]
+    assert cold < 0.5 <= pooled < published
+    assert published - cold > cold - 0.5
+
+
 def test_distance_fails_to_separate_azk_from_libY_training_spread():
     """Pins the ❌ finding: the metric gate does not detect a parent change."""
     frame = nc.full_table()

@@ -84,11 +84,24 @@ Three separate findings, two of them blockers rather than scores:
 
 ❌ **libY structurally cannot score AzK.** Only **18 of 280** features (6.4%) are
 substrate-aware — Rosetta `cartesian_ddg`, licence-gated. The other 262 are
-identical across all 8 substrate rows of a given variant. And the 18 that do
-know the substrate transfer at **AUC 0.487** across substrates — chance — while
-the variant-only block reaches 0.704. The one block that knows which substrate
-it was asked about is both unobtainable for a new one and worthless for
-transfer.
+identical across all 8 substrate rows of a given variant. The one block that
+knows which substrate it was asked about is both unobtainable for a new one and
+worthless for transfer:
+
+✅ `python3 pylrs/audit.py --repo <checkout>`, re-run on a fresh clone
+2026-10-06, best model per split:
+
+| split | AUC | |
+|---|---|---|
+| published `score_test` | 0.9905 | in-sample — scored on the rows it was fitted on |
+| random 5-fold | 0.708 | ignores structure; closest to the published number |
+| by-variant GroupKFold | 0.636 | the honest pooled figure |
+| new ncAA, Rosetta block | **0.487** | the only substrate-aware block — chance |
+| new ncAA, variant-only block | 0.704 | a promiscuity prior on the scaffold, not a fit to the ncAA |
+| **new ncAA + new variants** | **0.470** | ⚠️ the real cold start, and what a platform is asked for |
+
+⚠️ The published 0.990 and the real cold start differ by more than the gap
+between that cold start and a coin.
 
 ✅ **The categorical test detects the out-of-domain case decisively.** libY's 8
 training substrates occupy one chemotype cell (`parent=Tyr`, `attach=para_O`;

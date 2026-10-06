@@ -72,13 +72,23 @@ FEATURE_BLOCKS = [
      "identical across all 8 substrate rows"),
 ]
 
-#: ✅ Measured in `pylrs/audit.py` against the shipped repo.
-AUDIT_NUMBERS = {
-    "published score_test (in-sample)": 0.9905,
-    "by-variant GroupKFold": 0.64,
-    "leave-one-substrate-out, Rosetta block": 0.487,
-    "leave-one-substrate-out, variant-only block": 0.704,
-}
+#: ✅ Measured by `python3 pylrs/audit.py --repo <PylRS-libY checkout>`,
+#: re-confirmed 2026-10-06 on a fresh clone. Best model per split shown
+#: (ExtraTrees throughout); the audit prints logreg alongside, always lower.
+AUDIT_NUMBERS = [
+    ("published score_test (in-sample)", 0.9905,
+     "the repo's own leaderboard; scored on the rows it was fitted on"),
+    ("random 5-fold, all features", 0.708,
+     "ignores structure -- what the published number is closest to"),
+    ("by-variant GroupKFold, all features", 0.636,
+     "no sibling rows in train; the honest pooled figure"),
+    ("new ncAA, known variants -- Rosetta block", 0.487,
+     "the ONLY substrate-aware block, and it transfers at chance"),
+    ("new ncAA, known variants -- variant-only block", 0.704,
+     "what generalises is 'which variant is promiscuous', not fit to the ncAA"),
+    ("new ncAA AND new variants -- best block", 0.470,
+     "⚠️ the real cold start, and the scenario the platform actually faces"),
+]
 
 
 def categorical_coverage(frame: pd.DataFrame, probe: str,
@@ -151,12 +161,19 @@ def main(argv=None) -> int:
             print(f"\n  ⚠️ {info} not found -- is --repo a PylRS-libY checkout?")
 
     print("\n  ✅ What the audit measured on those same features"
-          " (pylrs/audit.py):")
-    for name, value in AUDIT_NUMBERS.items():
-        print(f"       {name:48s} AUC {value:.4f}")
-    print("\n  The one block that knows which substrate it is asked about scores")
-    print("  0.487 across substrates -- chance. The blocks that do generalise")
-    print("  (0.704) are the ones that cannot tell the substrates apart at all.")
+          " (pylrs/audit.py, best model per split):\n")
+    for name, value, note in AUDIT_NUMBERS:
+        print(f"       {value:.4f}  {name}")
+        print(f"               {note}")
+    print("\n  Two things to carry out of this table:")
+    print("  * The one block that knows which substrate it is asked about scores")
+    print("    0.487 across substrates -- chance. The block that does generalise")
+    print("    (0.704) is the one that cannot tell the substrates apart at all,")
+    print("    so what it has learned is a promiscuity prior on the scaffold.")
+    print("  * ⚠️ On a NEW ncAA with NEW variants -- which is exactly what a")
+    print("    platform is asked for -- the best figure is 0.470, at or below")
+    print("    chance. libY's published 0.990 and its real cold start differ by")
+    print("    more than the gap between its cold start and a coin.")
 
     # --- 2. the categorical test that works -------------------------------
     print("\n" + "=" * 78)
