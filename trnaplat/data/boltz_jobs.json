@@ -1,0 +1,566 @@
+[
+  {
+    "name": "Mc wild type + pAzF",
+    "variant": "Mc wild type",
+    "ligand": "pAzF",
+    "label": null,
+    "f_ratio": null,
+    "input": {
+      "entities": [
+        {
+          "type": "protein",
+          "chain_ids": [
+            "A"
+          ],
+          "value": "MDKLELVMRNTEEIVTVDELKGLLEKPSRPRAYVGYETSGKVHLGHMLTANKLLDLQRAGFDVVVLLADLHAFLNEKGTLEEVRQIADYNRDCFMALGLDPERTEFVYGTDYQLQPDFMLKILQMARNTSLNRARRSMDEVSRNAENPMVSQMIYPLMQAVDIADLKIDLAVGGIDQRKIHMLAREELPRLGLPAPVCLHTPLIPGLNGEKMSSSKGNNIAVDEPAQDVEKKIKSAFCPAKVVENNPVLAICKYHVFPRMEVGMTISRPEKFGGDVHYASYEQLEADFVSGAMHPMDLKKSCAECMIEILAPVREKMKV"
+        },
+        {
+          "type": "ligand_smiles",
+          "chain_ids": [
+            "B"
+          ],
+          "value": "N[C@@H](Cc1ccc(cc1)N=[N+]=[N-])C(O)=O"
+        }
+      ],
+      "binding": {
+        "type": "ligand_protein_binding",
+        "binder_chain_id": "B"
+      },
+      "num_samples": 1,
+      "constraints": [
+        {
+          "type": "pocket",
+          "binder_chain_id": "B",
+          "contact_residues": {
+            "A": [
+              32,
+              110,
+              111,
+              161,
+              162,
+              165
+            ]
+          },
+          "max_distance_angstrom": 6.0
+        }
+      ]
+    }
+  },
+  {
+    "name": "Mc wild type + Tyr",
+    "variant": "Mc wild type",
+    "ligand": "Tyr",
+    "label": null,
+    "f_ratio": null,
+    "input": {
+      "entities": [
+        {
+          "type": "protein",
+          "chain_ids": [
+            "A"
+          ],
+          "value": "MDKLELVMRNTEEIVTVDELKGLLEKPSRPRAYVGYETSGKVHLGHMLTANKLLDLQRAGFDVVVLLADLHAFLNEKGTLEEVRQIADYNRDCFMALGLDPERTEFVYGTDYQLQPDFMLKILQMARNTSLNRARRSMDEVSRNAENPMVSQMIYPLMQAVDIADLKIDLAVGGIDQRKIHMLAREELPRLGLPAPVCLHTPLIPGLNGEKMSSSKGNNIAVDEPAQDVEKKIKSAFCPAKVVENNPVLAICKYHVFPRMEVGMTISRPEKFGGDVHYASYEQLEADFVSGAMHPMDLKKSCAECMIEILAPVREKMKV"
+        },
+        {
+          "type": "ligand_smiles",
+          "chain_ids": [
+            "B"
+          ],
+          "value": "N[C@@H](Cc1ccc(O)cc1)C(O)=O"
+        }
+      ],
+      "binding": {
+        "type": "ligand_protein_binding",
+        "binder_chain_id": "B"
+      },
+      "num_samples": 1,
+      "constraints": [
+        {
+          "type": "pocket",
+          "binder_chain_id": "B",
+          "contact_residues": {
+            "A": [
+              32,
+              110,
+              111,
+              161,
+              162,
+              165
+            ]
+          },
+          "max_distance_angstrom": 6.0
+        }
+      ]
+    }
+  },
+  {
+    "name": "Mc Mut4 + pAzF",
+    "variant": "Mc Mut4",
+    "ligand": "pAzF",
+    "label": 0,
+    "f_ratio": null,
+    "input": {
+      "entities": [
+        {
+          "type": "protein",
+          "chain_ids": [
+            "A"
+          ],
+          "value": "MDKLELVMRNTEEIVTVDELKGLLEKPSRPRALVGYETSGKVHLGHMLTANKLLDLQRAGFDVVVLLADLHAFLNEKGTLEEVRQIADYNRDCFMALGLDPERTEFVYGTDYQLQPDFMLKILQMARNTSLNRARRSMDEVSRNAENPMVSQMIYPLMQAVLIADQKIDLAVGGIDQRKIHMLAREELPRLGLPAPVCLHTPLIPGLNGEKMSSSKGNNIAVDEPAQDVEKKIKSAFCPAKVVENNPVLAICKYHVFPRMEVGMTISRPEKFGGDVHYASYEQLEADFVSGAMHPMDLKKSCAECMIEILAPVREKMKV"
+        },
+        {
+          "type": "ligand_smiles",
+          "chain_ids": [
+            "B"
+          ],
+          "value": "N[C@@H](Cc1ccc(cc1)N=[N+]=[N-])C(O)=O"
+        }
+      ],
+      "binding": {
+        "type": "ligand_protein_binding",
+        "binder_chain_id": "B"
+      },
+      "num_samples": 1,
+      "constraints": [
+        {
+          "type": "pocket",
+          "binder_chain_id": "B",
+          "contact_residues": {
+            "A": [
+              32,
+              110,
+              111,
+              161,
+              162,
+              165
+            ]
+          },
+          "max_distance_angstrom": 6.0
+        }
+      ]
+    }
+  },
+  {
+    "name": "Mc Mut4 + Tyr",
+    "variant": "Mc Mut4",
+    "ligand": "Tyr",
+    "label": 0,
+    "f_ratio": null,
+    "input": {
+      "entities": [
+        {
+          "type": "protein",
+          "chain_ids": [
+            "A"
+          ],
+          "value": "MDKLELVMRNTEEIVTVDELKGLLEKPSRPRALVGYETSGKVHLGHMLTANKLLDLQRAGFDVVVLLADLHAFLNEKGTLEEVRQIADYNRDCFMALGLDPERTEFVYGTDYQLQPDFMLKILQMARNTSLNRARRSMDEVSRNAENPMVSQMIYPLMQAVLIADQKIDLAVGGIDQRKIHMLAREELPRLGLPAPVCLHTPLIPGLNGEKMSSSKGNNIAVDEPAQDVEKKIKSAFCPAKVVENNPVLAICKYHVFPRMEVGMTISRPEKFGGDVHYASYEQLEADFVSGAMHPMDLKKSCAECMIEILAPVREKMKV"
+        },
+        {
+          "type": "ligand_smiles",
+          "chain_ids": [
+            "B"
+          ],
+          "value": "N[C@@H](Cc1ccc(O)cc1)C(O)=O"
+        }
+      ],
+      "binding": {
+        "type": "ligand_protein_binding",
+        "binder_chain_id": "B"
+      },
+      "num_samples": 1,
+      "constraints": [
+        {
+          "type": "pocket",
+          "binder_chain_id": "B",
+          "contact_residues": {
+            "A": [
+              32,
+              110,
+              111,
+              161,
+              162,
+              165
+            ]
+          },
+          "max_distance_angstrom": 6.0
+        }
+      ]
+    }
+  },
+  {
+    "name": "Mc Mut5 + pAzF",
+    "variant": "Mc Mut5",
+    "ligand": "pAzF",
+    "label": 0,
+    "f_ratio": null,
+    "input": {
+      "entities": [
+        {
+          "type": "protein",
+          "chain_ids": [
+            "A"
+          ],
+          "value": "MDKLELVMRNTEEIVTVDELKGLLEKPSRPRAAVGYETSGKVHLGHMLTANKLLDLQRAGFDVVVLLADLHAFLNEKGTLEEVRQIADYNRDCFMALGLDPERTEFVYGTDYQLQPDFMLKILQMARNTSLNRARRSMDEVSRNAENPMVSQMIYPLMQAVVIADDKIDLAVGGIDQRKIHMLAREELPRLGLPAPVCLHTPLIPGLNGEKMSSSKGNNIAVDEPAQDVEKKIKSAFCPAKVVENNPVLAICKYHVFPRMEVGMTISRPEKFGGDVHYASYEQLEADFVSGAMHPMDLKKSCAECMIEILAPVREKMKV"
+        },
+        {
+          "type": "ligand_smiles",
+          "chain_ids": [
+            "B"
+          ],
+          "value": "N[C@@H](Cc1ccc(cc1)N=[N+]=[N-])C(O)=O"
+        }
+      ],
+      "binding": {
+        "type": "ligand_protein_binding",
+        "binder_chain_id": "B"
+      },
+      "num_samples": 1,
+      "constraints": [
+        {
+          "type": "pocket",
+          "binder_chain_id": "B",
+          "contact_residues": {
+            "A": [
+              32,
+              110,
+              111,
+              161,
+              162,
+              165
+            ]
+          },
+          "max_distance_angstrom": 6.0
+        }
+      ]
+    }
+  },
+  {
+    "name": "Mc Mut5 + Tyr",
+    "variant": "Mc Mut5",
+    "ligand": "Tyr",
+    "label": 0,
+    "f_ratio": null,
+    "input": {
+      "entities": [
+        {
+          "type": "protein",
+          "chain_ids": [
+            "A"
+          ],
+          "value": "MDKLELVMRNTEEIVTVDELKGLLEKPSRPRAAVGYETSGKVHLGHMLTANKLLDLQRAGFDVVVLLADLHAFLNEKGTLEEVRQIADYNRDCFMALGLDPERTEFVYGTDYQLQPDFMLKILQMARNTSLNRARRSMDEVSRNAENPMVSQMIYPLMQAVVIADDKIDLAVGGIDQRKIHMLAREELPRLGLPAPVCLHTPLIPGLNGEKMSSSKGNNIAVDEPAQDVEKKIKSAFCPAKVVENNPVLAICKYHVFPRMEVGMTISRPEKFGGDVHYASYEQLEADFVSGAMHPMDLKKSCAECMIEILAPVREKMKV"
+        },
+        {
+          "type": "ligand_smiles",
+          "chain_ids": [
+            "B"
+          ],
+          "value": "N[C@@H](Cc1ccc(O)cc1)C(O)=O"
+        }
+      ],
+      "binding": {
+        "type": "ligand_protein_binding",
+        "binder_chain_id": "B"
+      },
+      "num_samples": 1,
+      "constraints": [
+        {
+          "type": "pocket",
+          "binder_chain_id": "B",
+          "contact_residues": {
+            "A": [
+              32,
+              110,
+              111,
+              161,
+              162,
+              165
+            ]
+          },
+          "max_distance_angstrom": 6.0
+        }
+      ]
+    }
+  },
+  {
+    "name": "Mc Mut6 + pAzF",
+    "variant": "Mc Mut6",
+    "ligand": "pAzF",
+    "label": 1,
+    "f_ratio": 1.1081081081081081,
+    "input": {
+      "entities": [
+        {
+          "type": "protein",
+          "chain_ids": [
+            "A"
+          ],
+          "value": "MDKLELVMRNTEEIVTVDELKGLLEKPSRPRAGVGYETSGKVHLGHMLTANKLLDLQRAGFDVVVLLADLHAFLNEKGTLEEVRQIADYNRDCFMALGLDPERTEFVYGTDYQLQPDFMLKILQMARNTSLNRARRSMDEVSRNAENPMVSQMIYPLMQAVTIADLKIDLAVGGIDQRKIHMLAREELPRLGLPAPVCLHTPLIPGLNGEKMSSSKGNNIAVDEPAQDVEKKIKSAFCPAKVVENNPVLAICKYHVFPRMEVGMTISRPEKFGGDVHYASYEQLEADFVSGAMHPMDLKKSCAECMIEILAPVREKMKV"
+        },
+        {
+          "type": "ligand_smiles",
+          "chain_ids": [
+            "B"
+          ],
+          "value": "N[C@@H](Cc1ccc(cc1)N=[N+]=[N-])C(O)=O"
+        }
+      ],
+      "binding": {
+        "type": "ligand_protein_binding",
+        "binder_chain_id": "B"
+      },
+      "num_samples": 1,
+      "constraints": [
+        {
+          "type": "pocket",
+          "binder_chain_id": "B",
+          "contact_residues": {
+            "A": [
+              32,
+              110,
+              111,
+              161,
+              162,
+              165
+            ]
+          },
+          "max_distance_angstrom": 6.0
+        }
+      ]
+    }
+  },
+  {
+    "name": "Mc Mut6 + Tyr",
+    "variant": "Mc Mut6",
+    "ligand": "Tyr",
+    "label": 1,
+    "f_ratio": 1.1081081081081081,
+    "input": {
+      "entities": [
+        {
+          "type": "protein",
+          "chain_ids": [
+            "A"
+          ],
+          "value": "MDKLELVMRNTEEIVTVDELKGLLEKPSRPRAGVGYETSGKVHLGHMLTANKLLDLQRAGFDVVVLLADLHAFLNEKGTLEEVRQIADYNRDCFMALGLDPERTEFVYGTDYQLQPDFMLKILQMARNTSLNRARRSMDEVSRNAENPMVSQMIYPLMQAVTIADLKIDLAVGGIDQRKIHMLAREELPRLGLPAPVCLHTPLIPGLNGEKMSSSKGNNIAVDEPAQDVEKKIKSAFCPAKVVENNPVLAICKYHVFPRMEVGMTISRPEKFGGDVHYASYEQLEADFVSGAMHPMDLKKSCAECMIEILAPVREKMKV"
+        },
+        {
+          "type": "ligand_smiles",
+          "chain_ids": [
+            "B"
+          ],
+          "value": "N[C@@H](Cc1ccc(O)cc1)C(O)=O"
+        }
+      ],
+      "binding": {
+        "type": "ligand_protein_binding",
+        "binder_chain_id": "B"
+      },
+      "num_samples": 1,
+      "constraints": [
+        {
+          "type": "pocket",
+          "binder_chain_id": "B",
+          "contact_residues": {
+            "A": [
+              32,
+              110,
+              111,
+              161,
+              162,
+              165
+            ]
+          },
+          "max_distance_angstrom": 6.0
+        }
+      ]
+    }
+  },
+  {
+    "name": "Mc Mut7 + pAzF",
+    "variant": "Mc Mut7",
+    "ligand": "pAzF",
+    "label": 0,
+    "f_ratio": null,
+    "input": {
+      "entities": [
+        {
+          "type": "protein",
+          "chain_ids": [
+            "A"
+          ],
+          "value": "MDKLELVMRNTEEIVTVDELKGLLEKPSRPRALVGYETSGKVHLGHMLTANKLLDLQRAGFDVVVLLADLHAFLNEKGTLEEVRQIADYNRDCFMALGLDPERTEFVYGTDYQLQPDFMLKILQMARNTSLNRARRSMDEVSRNAENPMVSQMIYPLMQAVQIADSKIDLAVGGIDQRKIHMLAREELPRLGLPAPVCLHTPLIPGLNGEKMSSSKGNNIAVDEPAQDVEKKIKSAFCPAKVVENNPVLAICKYHVFPRMEVGMTISRPEKFGGDVHYASYEQLEADFVSGAMHPMDLKKSCAECMIEILAPVREKMKV"
+        },
+        {
+          "type": "ligand_smiles",
+          "chain_ids": [
+            "B"
+          ],
+          "value": "N[C@@H](Cc1ccc(cc1)N=[N+]=[N-])C(O)=O"
+        }
+      ],
+      "binding": {
+        "type": "ligand_protein_binding",
+        "binder_chain_id": "B"
+      },
+      "num_samples": 1,
+      "constraints": [
+        {
+          "type": "pocket",
+          "binder_chain_id": "B",
+          "contact_residues": {
+            "A": [
+              32,
+              110,
+              111,
+              161,
+              162,
+              165
+            ]
+          },
+          "max_distance_angstrom": 6.0
+        }
+      ]
+    }
+  },
+  {
+    "name": "Mc Mut7 + Tyr",
+    "variant": "Mc Mut7",
+    "ligand": "Tyr",
+    "label": 0,
+    "f_ratio": null,
+    "input": {
+      "entities": [
+        {
+          "type": "protein",
+          "chain_ids": [
+            "A"
+          ],
+          "value": "MDKLELVMRNTEEIVTVDELKGLLEKPSRPRALVGYETSGKVHLGHMLTANKLLDLQRAGFDVVVLLADLHAFLNEKGTLEEVRQIADYNRDCFMALGLDPERTEFVYGTDYQLQPDFMLKILQMARNTSLNRARRSMDEVSRNAENPMVSQMIYPLMQAVQIADSKIDLAVGGIDQRKIHMLAREELPRLGLPAPVCLHTPLIPGLNGEKMSSSKGNNIAVDEPAQDVEKKIKSAFCPAKVVENNPVLAICKYHVFPRMEVGMTISRPEKFGGDVHYASYEQLEADFVSGAMHPMDLKKSCAECMIEILAPVREKMKV"
+        },
+        {
+          "type": "ligand_smiles",
+          "chain_ids": [
+            "B"
+          ],
+          "value": "N[C@@H](Cc1ccc(O)cc1)C(O)=O"
+        }
+      ],
+      "binding": {
+        "type": "ligand_protein_binding",
+        "binder_chain_id": "B"
+      },
+      "num_samples": 1,
+      "constraints": [
+        {
+          "type": "pocket",
+          "binder_chain_id": "B",
+          "contact_residues": {
+            "A": [
+              32,
+              110,
+              111,
+              161,
+              162,
+              165
+            ]
+          },
+          "max_distance_angstrom": 6.0
+        }
+      ]
+    }
+  },
+  {
+    "name": "Mc Mut6+RM + pAzF",
+    "variant": "Mc Mut6+RM",
+    "ligand": "pAzF",
+    "label": 1,
+    "f_ratio": 3.6875,
+    "input": {
+      "entities": [
+        {
+          "type": "protein",
+          "chain_ids": [
+            "A"
+          ],
+          "value": "MDKLELVMRNTEEIVTVDELKGLLEKPSRPRAGVGYETSGKVHLGHMLTANKLLDLQRAGFDVVVLLADLHAFLNEKGTLEEVRQIADYNRDCFMALGLDPERTEFVYGTDFQLQPDFMLKILQMARNTSLNRARRSMDEVSRNAENPMVSQMIYPLMQAVTIADLKIDLAVGGIDQRKIHMLAREELPRLGLPAPVCLHTPLIPGLNGEKMSSSKGNNIAVDEPAQDVEKKIKSAFCPAKVVENNPVLAICKYHVFPRMEVGMTISRPEKFGGDVHYASYEQLEADFVSGAMHPMDLKKSCAECMIEILAPVREKMKV"
+        },
+        {
+          "type": "ligand_smiles",
+          "chain_ids": [
+            "B"
+          ],
+          "value": "N[C@@H](Cc1ccc(cc1)N=[N+]=[N-])C(O)=O"
+        }
+      ],
+      "binding": {
+        "type": "ligand_protein_binding",
+        "binder_chain_id": "B"
+      },
+      "num_samples": 1,
+      "constraints": [
+        {
+          "type": "pocket",
+          "binder_chain_id": "B",
+          "contact_residues": {
+            "A": [
+              32,
+              110,
+              111,
+              161,
+              162,
+              165
+            ]
+          },
+          "max_distance_angstrom": 6.0
+        }
+      ]
+    }
+  },
+  {
+    "name": "Mc Mut6+RM + Tyr",
+    "variant": "Mc Mut6+RM",
+    "ligand": "Tyr",
+    "label": 1,
+    "f_ratio": 3.6875,
+    "input": {
+      "entities": [
+        {
+          "type": "protein",
+          "chain_ids": [
+            "A"
+          ],
+          "value": "MDKLELVMRNTEEIVTVDELKGLLEKPSRPRAGVGYETSGKVHLGHMLTANKLLDLQRAGFDVVVLLADLHAFLNEKGTLEEVRQIADYNRDCFMALGLDPERTEFVYGTDFQLQPDFMLKILQMARNTSLNRARRSMDEVSRNAENPMVSQMIYPLMQAVTIADLKIDLAVGGIDQRKIHMLAREELPRLGLPAPVCLHTPLIPGLNGEKMSSSKGNNIAVDEPAQDVEKKIKSAFCPAKVVENNPVLAICKYHVFPRMEVGMTISRPEKFGGDVHYASYEQLEADFVSGAMHPMDLKKSCAECMIEILAPVREKMKV"
+        },
+        {
+          "type": "ligand_smiles",
+          "chain_ids": [
+            "B"
+          ],
+          "value": "N[C@@H](Cc1ccc(O)cc1)C(O)=O"
+        }
+      ],
+      "binding": {
+        "type": "ligand_protein_binding",
+        "binder_chain_id": "B"
+      },
+      "num_samples": 1,
+      "constraints": [
+        {
+          "type": "pocket",
+          "binder_chain_id": "B",
+          "contact_residues": {
+            "A": [
+              32,
+              110,
+              111,
+              161,
+              162,
+              165
+            ]
+          },
+          "max_distance_angstrom": 6.0
+        }
+      ]
+    }
+  }
+]

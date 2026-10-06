@@ -241,6 +241,14 @@ def generate(attest_non_commercial: bool = False,
         raise RuntimeError(f"no job named {job!r} in {manifest}")
     spec["defaults"]["num_designs"] = num_designs
     spec["defaults"]["num_sampling_steps"] = num_sampling_steps
+    # `input_file` resolves relative to the MANIFEST's directory, not the cwd.
+    # The cut-down manifest lives in /tmp, so the relative path has to become
+    # absolute or the generator looks for the motif beside the wrong file.
+    for design in spec["designs"]:
+        name = design.get("input_file") or spec["defaults"].get("input_file")
+        if name and not name.startswith("/"):
+            design["input_file"] = str(package / name)
+    spec["defaults"].pop("input_file", None)
     # LigandMPNN lives in its own interpreter, so the smoke run skips it -- and
     # `folding.inputs` has to follow, because the pipeline refuses the pair:
     # "The manifest specifies folding.inputs=["resequenced"], but
@@ -265,6 +273,19 @@ def generate(attest_non_commercial: bool = False,
                       for p in pathlib.Path("/tmp/out").rglob("*")
                       if p.is_file()) if pathlib.Path("/tmp/out").exists() else []
     out["files"] = produced[:40]
+
+    # run_pipeline.py reports only "the generation stage exited with code 1"
+    # and points at its own log, so the actual error lives there. Without this
+    # a failed run tells you nothing.
+    for log in sorted(pathlib.Path("/tmp/out").glob("logs/*.log")):
+        out[f"log:{log.name}"] = log.read_text()[-6000:]
+
+    # The designs themselves, so a successful run returns something inspectable
+    # rather than a list of filenames.
+    designs = {}
+    for fasta in sorted(pathlib.Path("/tmp/out").rglob("*.fa")):
+        designs[fasta.name] = fasta.read_text().strip()
+    out["designs"] = designs
     print(json.dumps({k: v for k, v in out.items() if k != "stdout"}, indent=2))
     return out
 

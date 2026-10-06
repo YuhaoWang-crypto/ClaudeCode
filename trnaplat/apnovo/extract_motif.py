@@ -111,6 +111,25 @@ def extract(pdb_path: pathlib.Path, residues: list[int], ligand: str | None,
 
     out.add_model(out_model)
     out.setup_entities()
+
+    # ⚠️ Force label_asym_id to equal the chain name. `setup_entities` assigns
+    # subchains by convention -- "A" for the polymer but "L" for the ligand --
+    # and AP Novo classifies a motif segment by looking its chain id up in
+    # `input_struct.iter_chains()`, which is keyed on the INTERNAL id. A motif
+    # referring to the ligand as B1 then matches nothing and fails with
+    # "Segment B1 is neither protein nor ligand." Keeping the two namings equal
+    # removes the whole class of problem.
+    # ⚠️ Iterate `out[0]`, not `out_model`: gemmi's `add_model` copies by
+    # value, so mutating the local model after adding it changes nothing.
+    for chain in out[0]:
+        for res in chain:
+            res.subchain = chain.name
+    # Renaming subchains orphans the entity->subchain links, which shows up as
+    # `_struct_asym.entity_id` of "?" for the ligand. Re-derive them.
+    out.setup_entities()
+    for chain in out[0]:
+        for res in chain:
+            res.subchain = chain.name
     out.assign_label_seq_id()
 
     # `make_mmcif_document` only emits `_entity_poly_seq` and
