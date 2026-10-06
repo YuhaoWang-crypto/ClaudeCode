@@ -43,7 +43,8 @@ warnings.filterwarnings("ignore")
 sys.path.insert(0, str(pathlib.Path(__file__).parent))
 
 from baseline import esm_embeddings, onehot_features  # noqa: E402
-from tyrrs_dataset import apply_mutations, wild_type  # noqa: E402
+from crossspecies import scaffolds  # noqa: E402
+from tyrrs_dataset import apply_mutations  # noqa: E402
 
 AA20 = "ACDEFGHIKLMNPQRSTVWY"
 TARGET = "pAzF"
@@ -95,39 +96,50 @@ def main(argv=None) -> int:
     ap.add_argument("--campaigns", type=pathlib.Path,
                     default=pathlib.Path("pylrs/data/literature_campaigns.csv"))
     ap.add_argument("--out", type=pathlib.Path, default=pathlib.Path("pylrs/data"))
+    ap.add_argument("--scaffold", default="MjTyrRS",
+                    help="which TyrRS scaffold the variants are numbered against")
+    ap.add_argument("--positions", default=",".join(str(p) for p in PAZF_POSITIONS),
+                    help="positions the target ncAA's campaign randomised")
+    ap.add_argument("--hotspots", default=",".join(str(p) for p in HOTSPOTS),
+                    help="all engineered positions, used for the feature encoding")
     ap.add_argument("--pool", type=int, default=2000, help="calibration pool size")
     ap.add_argument("--pick", type=int, default=20)
     ap.add_argument("--quota", type=int, default=2,
                     help="max picks sharing one motif in the spread list")
-    ap.add_argument("--motif-positions", default="32,158,162",
-                    help="positions whose residues define a motif")
+    ap.add_argument("--motif-positions", default=None,
+                    help="positions whose residues define a motif; by default the "
+                         "three most variable positions among the target's clones, "
+                         "so this follows the scaffold instead of being hardcoded")
     ap.add_argument("--no-rerank", action="store_true",
                     help="skip the slow ESM-2 650M re-rank of the shortlist")
     args = ap.parse_args(argv)
 
     rng = np.random.default_rng(0)
-    wt = wild_type(args.campaigns)
+    wt = scaffolds(args.campaigns)[args.scaffold]
+    pazf_positions = [int(p) for p in args.positions.split(",")]
+    hotspots = sorted({int(p) for p in args.hotspots.split(",")} | set(pazf_positions))
     frame = pd.read_csv(args.variants).fillna({"mutations": ""})
     pos = frame[(frame["label"] == 1) & ~frame.duplicated(subset=["mutations"])]
     train_muts = pos["mutations"].tolist()
     y = pos["ncAA"].to_numpy()
+    print(f"scaffold {args.scaffold} ({len(wt)} aa); positions {pazf_positions}")
     print(f"training clones: {len(pos)} over {pos['ncAA'].nunique()} ncAAs "
           f"({(y == TARGET).sum()} are {TARGET})")
 
     # ---- candidate sets -----------------------------------------------------
-    ssm = [f"{wt[p - 1]}{p}{a}" for p in HOTSPOTS for a in AA20 if a != wt[p - 1]]
+    ssm = [f"{wt[p - 1]}{p}{a}" for p in hotspots for a in AA20 if a != wt[p - 1]]
 
-    observed = {p: set() for p in PAZF_POSITIONS}
+    observed = {p: set() for p in pazf_positions}
     for muts in pos.loc[pos["ncAA"] == TARGET, "mutations"]:
         for mut in muts.split("/"):
             p = int(mut[1:-1])
             if p in observed:
                 observed[p].add(mut[-1])
-    for p in PAZF_POSITIONS:
+    for p in pazf_positions:
         observed[p].add(wt[p - 1])          # allow keeping the wild-type residue
     combos = []
-    for choice in itertools.product(*(sorted(observed[p]) for p in PAZF_POSITIONS)):
-        muts = [f"{wt[p - 1]}{p}{a}" for p, a in zip(PAZF_POSITIONS, choice)
+    for choice in itertools.product(*(sorted(observed[p]) for p in pazf_positions)):
+        muts = [f"{wt[p - 1]}{p}{a}" for p, a in zip(pazf_positions, choice)
                 if a != wt[p - 1]]
         if len(muts) >= 2:
             combos.append("/".join(muts))
@@ -135,7 +147,7 @@ def main(argv=None) -> int:
     print(f"candidates: {len(ssm)} saturation singles, {len(combos)} recombinations "
           f"of residues seen in the {TARGET} clones")
 
-    calib_pool = random_library(wt, PAZF_POSITIONS, args.pool, rng,
+    calib_pool = random_library(wt, pazf_positions, args.pool, rng,
                                 set(train_muts) | set(combos))
 
     # ---- features -----------------------------------------------------------
@@ -145,7 +157,7 @@ def main(argv=None) -> int:
     # ~4.6 s/sequence on CPU here, i.e. hours for the ~5k candidates. The
     # shortlist is re-ranked with 650M afterwards, where the cost is affordable.
     everything = train_muts + ssm + combos + calib_pool
-    X_all = onehot_features(pd.DataFrame({"mutations": everything}), HOTSPOTS, wt)
+    X_all = onehot_features(pd.DataFrame({"mutations": everything}), hotspots, wt)
     cut1, cut2, cut3 = (len(train_muts), len(train_muts) + len(ssm),
                         len(train_muts) + len(ssm) + len(combos))
     X_train, X_ssm, X_combo, X_pool = (X_all[:cut1], X_all[cut1:cut2],
@@ -203,11 +215,19 @@ def main(argv=None) -> int:
     # misses the structurally distinct clones. A top-N list therefore elaborates
     # one family. This second list forces coverage: at most `quota` picks may
     # share the same residue choice at the decisive positions.
+    if args.motif_positions:
+        motif_pos = [int(p) for p in args.motif_positions.split(",")]
+    else:
+        # The positions the target's own clones disagree on most: those are what
+        # distinguish one solution family from another, and deriving them follows
+        # the scaffold instead of hardcoding MjTyrRS numbers onto McTyrRS.
+        motif_pos = sorted(sorted(pazf_positions,
+                                  key=lambda p: -len(observed[p]))[:3])
+
     print("\n" + "-" * 72)
     print(f"3b. SPREAD PICK-LIST -- same scores, but <= {args.quota} picks per motif")
-    print(f"    (motif = residues at {args.motif_positions})")
+    print(f"    (motif = residues at {motif_pos})")
     print("-" * 72)
-    motif_pos = [int(p) for p in args.motif_positions.split(",")]
     seen: dict[tuple, int] = {}
     chosen = []
     for row in combo_table.itertuples():
