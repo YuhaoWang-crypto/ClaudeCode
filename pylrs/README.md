@@ -10,7 +10,9 @@ AutoGluon model behind *Machine Learning Assisted Pyrrolysyl-tRNA Synthetase
 | `run_prediction.py` | re-runs the published TCOY/TCOC SSM predictions and **asserts** they match the upstream Colab output to 6 decimals |
 | `audit.py` | recovers the dataset's real structure and cross-validates it under four increasingly honest splits |
 | `literature.py` | turns the curated `dataset_from_paper_v2.0.xlsx` reading sheet into a tidy campaign table with a chemotype column |
-| `data/` | ranked SSM outputs and the parsed literature table |
+| `tyrrs_dataset.py` | builds a labelled MjTyrRS variant × ncAA dataset from the clone tables embedded as **images** in sheet 2 |
+| `baseline.py` | the sequence-only baseline on that dataset, with the confounds controlled |
+| `data/` | ranked SSM outputs, the parsed literature table, the TyrRS variant table |
 
 ```bash
 uv venv --python 3.8 venv38
@@ -101,3 +103,113 @@ variant against a new ncAA, nothing here beats chance.
 Practical consequence: the model is reusable as a **promiscuity prior** over the
 9 hotspot positions. Treating it as a substrate-specific predictor for an ncAA
 outside the O-alkyl-tyrosine chemotype is not supported by its own data.
+
+---
+
+# The MjTyrRS dataset and its sequence-only baseline
+
+```bash
+python3 pylrs/literature.py --xlsx dataset_from_paper_v2.0.xlsx --out pylrs/data
+python3 pylrs/tyrrs_dataset.py        # -> data/tyrrs_variants.csv
+python3 pylrs/baseline.py             # needs fair-esm + torch
+```
+
+## ⚠️ A two-character bug that would have invalidated everything
+
+The sequence cells are prefixed with a label and a colon — `WT:MDEFEM…`,
+`M.barkeri:MDKK…`. Stripping non-letters without removing the label glues it onto
+the N-terminus, shifting every residue number by two (or by eight for
+`M.barkeri`). Every mutation the literature cites then lands on the wrong residue,
+silently.
+
+`literature.verify_numbering` checks all 17 cited MjTyrRS positions against the
+sequence and refuses to continue if any disagree. ✅ With labels stripped, all 17
+match (Y32, L65, A67, H70, Y102, V103, E107, F108, Q109, L110, Y114, Q155, D158,
+I159, H160, Y161, L162) and the scaffolds come out at their correct lengths —
+MjTyrRS 306 aa, MbPylRS 419, McTyrRS 319, EcTyrRS 424.
+
+## The dataset: the clone tables are images
+
+The campaign rows hold prose; the actual clone tables are **21 embedded images**.
+`tyrrs_dataset.py` carries a hand transcription with the source image recorded per
+campaign, giving **62 positive clones (58 unique mutation sets) across 12 ncAAs**
+on one MjTyrRS scaffold:
+
+| ncAA | clones | | ncAA | clones |
+|---|---|---|---|---|
+| pBpa | 6 | | BipAla | 7 |
+| **pAzF** | **7** | | BpyAla | 2 |
+| pPRF (alkyne) | 8 | | pBoroPhe | 7 (3 unique) |
+| HQ-Ala | 8 | | pCMF | 5 |
+| 2-NPA | 6 | | OAY | 4 |
+| pIF / pAF | 1 + 1 | | | |
+
+Mutated positions, counted over all positives: 32 (61×), 158 (62×), 162 (50×),
+65 (35×), 159 (35×), 107 (27×), 108 (24×), 109 (22×), 70 (20×), then 67, 114,
+155, 102, 103, 110, 160, 161.
+
+Two campaigns are deliberately not transcribed: 2.9 (OCF₃Phe) is a dense 14-clone
+alignment image where a misread residue would be silent, and 2.15 (Nal) reports
+only IC₅₀ values with no sequences.
+
+⚠️ **There are no measured negatives.** These papers report survivors only, so the
+data is positive-unlabelled. `decoys()` samples random members of each campaign's
+own randomised library as presumed negatives — defensible, but assumed.
+
+## ✅ What a sequence-only model can do
+
+**Task A — ncAA attribution, decoy-free.** Given a selected clone, which of the 12
+ncAAs was it selected for? Leave-one-clone-out over the 58 unique variants, using
+only measured data.
+
+| scope | features | top-1 | MRR |
+|---|---|---|---|
+| free | chance (stratified) | 0.105 | — |
+| free | PSSM log-odds | 0.517 | 0.679 |
+| free | ESM-2 35M Δ-embedding | 0.569 | 0.703 |
+| free | one-hot of hotspot residues | 0.621 | 0.720 |
+| free | **ESM-2 650M Δ-embedding** | **0.672** | **0.758** |
+| controlled | one-hot of hotspot residues | 0.466 | 0.576 |
+| controlled | PSSM log-odds | 0.155 | 0.394 |
+
+**Sequence alone names the right ncAA 67% of the time against a 10.5% chance
+rate — a 6.4× lift.** So active-site sequence does carry ncAA-specific
+information; this is a genuinely better starting point than the PylRS model's
+cross-substrate behaviour.
+
+Two caveats that matter:
+
+- ⚠️ **Model size decides whether the PLM is worth it.** ESM-2 **35M scores below
+  a plain one-hot** of the hotspot residues (0.569 vs 0.621); only the 650M model
+  pulls ahead (0.672). A small PLM here is worse than counting residues.
+- ⚠️ **Part of the lift is library design, not biology.** Campaigns randomised
+  different position sets, so "which positions are mutated" leaks the ncAA. The
+  *controlled* scope uses only the three positions every campaign randomised
+  (32, 158, 162); one-hot still reaches 0.466, i.e. **4.4× chance from three
+  residues**. Real signal, but about a third of the free-scope lift is design
+  artifact.
+
+## ❌ What the impressive-looking number actually measures
+
+**Task B — selected clones vs library decoys**, leave-one-ncAA-out:
+
+| scope | features | mean AUC | mean AP |
+|---|---|---|---|
+| free | **PSSM log-odds** | **0.980** | 0.865 |
+| free | ESM-2 35M | 0.939 | 0.628 |
+| free | one-hot | 0.882 | 0.521 |
+| controlled | PSSM log-odds | 0.962 | 0.711 |
+
+AUC 0.98 looks like a working classifier. It is not. The simplest possible
+model — counting which residues are common among selected clones — **wins**, and
+the negatives were never assayed. The task measures "does this look like
+something selection would keep", which is a property of the decoy distribution,
+not of substrate recognition. Quote Task A, not Task B.
+
+## Where this leaves the plan
+
+The sequence-only baseline is **worth building on**: 6.4× chance on a decoy-free
+task, from 58 variants, with no structure and no Rosetta. The next honest step is
+more measured data rather than more model — specifically **measured negatives**,
+which no published campaign in this sheet provides and which currently cap what
+any classifier here can claim.

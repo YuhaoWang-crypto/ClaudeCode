@@ -41,8 +41,27 @@ AA = set("ACDEFGHIKLMNPQRSTVWY")
 COLUMNS = ["number", "ncAA", "aaRS spicies", "aaRS_sequence",
            "Library design", "Readout results", "paper"]
 
-#: Known scaffold lengths, used to label records and to split glued sequences.
-SCAFFOLDS = {308: "MjTyrRS", 309: "MjTyrRS", 319: "McTyrRS", 427: "MbPylRS", 429: "MbPylRS"}
+#: Known scaffold lengths, once labels are stripped. MjTyrRS is 306 aa and
+#: M. barkeri PylRS 419 aa; seeing 308/427 means the label is still attached.
+SCAFFOLDS = {306: "MjTyrRS", 319: "McTyrRS", 419: "MbPylRS", 454: "MmPylRS", 460: "MmPylRS"}
+
+#: Residues the sheet-2 campaigns cite by number on the MjTyrRS scaffold. Every
+#: one must match, or the numbering is off and no mutation parsed from this sheet
+#: can be trusted.
+MJ_EXPECTED = {32: "Y", 65: "L", 67: "A", 70: "H", 102: "Y", 103: "V", 107: "E",
+               108: "F", 109: "Q", 110: "L", 114: "Y", 155: "Q", 158: "D",
+               159: "I", 160: "H", 161: "Y", 162: "L"}
+
+
+def verify_numbering(sequence: str, expected: dict[int, str] = None) -> list[str]:
+    """Return the positions where `sequence` disagrees with the cited residues.
+
+    ✅ With labels stripped, all 17 cited MjTyrRS positions match.
+    """
+    expected = MJ_EXPECTED if expected is None else expected
+    return [f"{aa}{pos}->{sequence[pos - 1] if pos <= len(sequence) else '-'}"
+            for pos, aa in sorted(expected.items())
+            if pos > len(sequence) or sequence[pos - 1] != aa]
 
 #: Parent amino acid of an ncAA, inferred from its name. Order matters: the first
 #: pattern that matches wins, so the specific cases precede the generic ones.
@@ -61,32 +80,45 @@ def is_sequence(value) -> bool:
     return len(letters) >= 80 and sum(c in AA for c in letters) / len(letters) > 0.95
 
 
-#: An aaRS (or its catalytic domain, as curated here) falls in this length range.
-#: Used to split glued cells: a candidate split is only accepted when BOTH halves
-#: are plausible proteins, which is what distinguishes 427+460 from 308+579 for
-#: the 887-residue cell.
-PLAUSIBLE_LEN = (250, 520)
+#: Sequences in this sheet carry a `label:` prefix -- "WT:MDEFEM...",
+#: "M.barkeri:MDKK...", "E.coli:MASS..." -- sometimes with a full-width colon, and
+#: a cell may hold several such labelled sequences separated by whitespace.
+#:
+#: ⚠️ Getting this wrong is silent and fatal. Stripping non-letters without
+#: removing the label glues it onto the N-terminus: "WT:MDEFEM..." becomes
+#: "WTMDEFEM...", shifting every residue number by 2, and the MjTyrRS positions
+#: the literature cites (Y32, L65, D158, ...) then land on the wrong residues.
+#: `verify_numbering` exists to catch exactly that.
+COLON_RE = re.compile(r"[:：]")
+
+#: Shortest run of residues still treated as a sequence rather than stray text.
+MIN_SEQUENCE_LEN = 80
 
 
 def split_sequences(seq: str) -> list[str]:
-    """Split a cell that holds two concatenated sequences, else return the one."""
-    clean = re.sub(r"[^A-Za-z]", "", seq).upper()
-    lo, hi = PLAUSIBLE_LEN
-    if len(clean) in SCAFFOLDS or len(clean) <= hi:
-        return [clean]
+    """Split a cell into its labelled sequences, dropping the labels.
 
-    def plausible(n):
-        return lo <= n <= hi
+    Splits on the colon rather than pattern-matching the label, because a label
+    pattern permissive enough to cover "M.barkeri" and "M.Mazei" also matches
+    residues immediately before the next label and silently truncates the
+    preceding sequence. A protein sequence never contains a colon, so each
+    colon-delimited piece is exactly ``<sequence of the previous label><next
+    label>`` and the label is the final whitespace-delimited token.
+    """
+    pieces = COLON_RE.split(seq)
+    if len(pieces) == 1:
+        clean = re.sub(r"[^A-Za-z]", "", seq).upper()
+        return [clean] if clean else [""]
 
-    # Prefer a prefix that is a known scaffold length and leaves a plausible rest.
-    for n in sorted(SCAFFOLDS, reverse=True):
-        if plausible(n) and plausible(len(clean) - n):
-            return [clean[:n], clean[n:]]
-    # Otherwise fall back to any split into two plausible halves.
-    for n in range(lo, hi + 1):
-        if plausible(len(clean) - n):
-            return [clean[:n], clean[n:]]
-    return [clean]
+    bodies = []
+    for i, piece in enumerate(pieces[1:], start=1):
+        # Every piece but the last ends with the next sequence's label.
+        body = piece.rsplit(None, 1)[0] if i < len(pieces) - 1 and piece.split() else piece
+        bodies.append(body)
+
+    out = [re.sub(r"[^A-Za-z]", "", b).upper() for b in bodies]
+    out = [s for s in out if len(s) >= MIN_SEQUENCE_LEN]
+    return out or [re.sub(r"[^A-Za-z]", "", seq).upper()]
 
 
 def chemotype(name: str) -> str:
@@ -154,6 +186,16 @@ def main(argv=None) -> int:
     for scaffold, grp in table.groupby("scaffold"):
         print(f"  {scaffold:<18} {grp['sequence'].nunique()} distinct sequence(s), "
               f"{grp['record'].nunique()} records")
+    mj = table[table["scaffold"] == "MjTyrRS"]
+    if len(mj):
+        seq = mj["sequence"].iloc[0]
+        bad = verify_numbering(seq)
+        status = "✅ all 17 cited positions match" if not bad else f"*** MISMATCH: {bad}"
+        print(f"\nMjTyrRS numbering check ({len(seq)} aa): {status}")
+        if bad:
+            raise SystemExit("residue numbering is wrong; mutations parsed from this "
+                             "sheet would be meaningless")
+
     unknown = table[table["chemotype"] == "?"]
     if len(unknown):
         print(f"\n⚠️  {len(unknown)} rows whose parent amino acid the name does not "
