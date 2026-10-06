@@ -1,0 +1,3 @@
+# Raw PDB downloads: re-fetchable with ./fetch_structures.sh
+structures_raw/
+__pycache__/

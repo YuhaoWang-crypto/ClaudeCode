@@ -1,0 +1,286 @@
+{
+  "receptor": "igf2r_d11_human",
+  "description": "IGF2R domain 11, human (P11717), 1.4 A. Correct-species template for the D11 arm.",
+  "structure": {
+    "pdb_id": "1GP0",
+    "chain": "A",
+    "clean_file": "structures/igf2r_d11_human_1GP0_A.cif",
+    "n_residues": 133,
+    "auth_range": [
+      1515,
+      1647
+    ]
+  },
+  "numbering": {
+    "from_mmcif_header": [
+      {
+        "accession": "P11717",
+        "auth_range": [
+          1508,
+          1650
+        ],
+        "uniprot_range": [
+          1508,
+          1650
+        ],
+        "auth_minus_uniprot": 0
+      }
+    ],
+    "warning": "0-based indices below are relative to clean_file, which is the file a design run must upload. They are NOT auth numbers and NOT UniProt numbers."
+  },
+  "published_epitope_check": {
+    "status": "no_residues_published"
+  },
+  "native_ligand_footprint": {
+    "radius_A": 8.0,
+    "this_structure": {},
+    "other_structures": {},
+    "union_auth": [],
+    "union_0based": [],
+    "radius_sensitivity": {
+      "4A": {
+        "n_avoided": 0,
+        "n_exposed_still_free": 70
+      },
+      "5A": {
+        "n_avoided": 0,
+        "n_exposed_still_free": 70
+      },
+      "6A": {
+        "n_avoided": 0,
+        "n_exposed_still_free": 70
+      },
+      "8A": {
+        "n_avoided": 0,
+        "n_exposed_still_free": 70
+      },
+      "10A": {
+        "n_avoided": 0,
+        "n_exposed_still_free": 70
+      }
+    },
+    "by_subdomain": {}
+  },
+  "clamp_analysis": {},
+  "candidate_epitopes": {
+    "whole_chain": [
+      {
+        "seed_residue_auth": 1542,
+        "size": 11,
+        "residues_auth": [
+          1541,
+          1542,
+          1543,
+          1544,
+          1545,
+          1547,
+          1569,
+          1625,
+          1627,
+          1628,
+          1629
+        ],
+        "mean_relative_sasa": 0.524,
+        "hydrophobic_fraction": 0.545,
+        "score": 1.759,
+        "centre_xyz": [
+          -3.2,
+          18.4,
+          20.3
+        ],
+        "residues_0based": [
+          26,
+          27,
+          28,
+          29,
+          30,
+          32,
+          54,
+          110,
+          112,
+          113,
+          114
+        ]
+      },
+      {
+        "seed_residue_auth": 1641,
+        "size": 11,
+        "residues_auth": [
+          1614,
+          1615,
+          1616,
+          1617,
+          1618,
+          1620,
+          1621,
+          1622,
+          1623,
+          1625,
+          1641
+        ],
+        "mean_relative_sasa": 0.504,
+        "hydrophobic_fraction": 0.364,
+        "score": 1.649,
+        "centre_xyz": [
+          9.1,
+          6.5,
+          25.1
+        ],
+        "residues_0based": [
+          99,
+          100,
+          101,
+          102,
+          103,
+          105,
+          106,
+          107,
+          108,
+          110,
+          126
+        ]
+      },
+      {
+        "seed_residue_auth": 1633,
+        "size": 13,
+        "residues_auth": [
+          1597,
+          1599,
+          1600,
+          1602,
+          1603,
+          1604,
+          1605,
+          1607,
+          1629,
+          1630,
+          1631,
+          1632,
+          1633
+        ],
+        "mean_relative_sasa": 0.491,
+        "hydrophobic_fraction": 0.308,
+        "score": 1.646,
+        "centre_xyz": [
+          1.2,
+          14.8,
+          3.5
+        ],
+        "residues_0based": [
+          82,
+          84,
+          85,
+          87,
+          88,
+          89,
+          90,
+          92,
+          114,
+          115,
+          116,
+          117,
+          118
+        ]
+      },
+      {
+        "seed_residue_auth": 1521,
+        "size": 10,
+        "residues_auth": [
+          1521,
+          1522,
+          1523,
+          1524,
+          1525,
+          1526,
+          1582,
+          1584,
+          1585,
+          1586
+        ],
+        "mean_relative_sasa": 0.518,
+        "hydrophobic_fraction": 0.3,
+        "score": 1.551,
+        "centre_xyz": [
+          15.3,
+          -10.1,
+          13.6
+        ],
+        "residues_0based": [
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          67,
+          69,
+          70,
+          71
+        ]
+      },
+      {
+        "seed_residue_auth": 1571,
+        "size": 8,
+        "residues_auth": [
+          1547,
+          1557,
+          1560,
+          1561,
+          1569,
+          1570,
+          1571,
+          1572
+        ],
+        "mean_relative_sasa": 0.466,
+        "hydrophobic_fraction": 0.5,
+        "score": 1.356,
+        "centre_xyz": [
+          -14.1,
+          12.3,
+          16.3
+        ],
+        "residues_0based": [
+          32,
+          42,
+          45,
+          46,
+          54,
+          55,
+          56,
+          57
+        ]
+      }
+    ]
+  },
+  "geometry": {
+    "subdomains": {},
+    "inter_chain": null
+  },
+  "surface_summary": {
+    "n_exposed": 70,
+    "n_avoided": 0,
+    "n_excluded_as_artefact": 10,
+    "artefact_residues_auth": [
+      1515,
+      1516,
+      1517,
+      1518,
+      1519,
+      1643,
+      1644,
+      1645,
+      1646,
+      1647
+    ],
+    "exposure_cutoff": 0.25,
+    "terminal_exclude": 5,
+    "gap_flank_exclude": 2
+  },
+  "notes": [
+    "No native ligand in this crystal; the IGF2 footprint must be transferred from 6UM2 by sequence mapping."
+  ],
+  "validation": {
+    "index_assertions_passed": 53,
+    "status": "ok"
+  }
+}

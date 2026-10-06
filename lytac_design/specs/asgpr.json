@@ -1,0 +1,413 @@
+{
+  "receptor": "asgpr",
+  "description": "ASGPR / ASGR1 carbohydrate-recognition domain (human). Liver-restricted LTR; the classic tri-GalNAc receptor.",
+  "structure": {
+    "pdb_id": "5JQ1",
+    "chain": "A",
+    "clean_file": "structures/asgpr_5JQ1_A.cif",
+    "n_residues": 130,
+    "auth_range": [
+      151,
+      280
+    ]
+  },
+  "numbering": {
+    "from_mmcif_header": [
+      {
+        "accession": "P07306",
+        "auth_range": [
+          147,
+          290
+        ],
+        "uniprot_range": [
+          148,
+          291
+        ],
+        "auth_minus_uniprot": -1
+      }
+    ],
+    "warning": "0-based indices below are relative to clean_file, which is the file a design run must upload. They are NOT auth numbers and NOT UniProt numbers."
+  },
+  "published_epitope_check": {
+    "status": "no_residues_published"
+  },
+  "native_ligand_footprint": {
+    "radius_A": 8.0,
+    "this_structure": {
+      "CA": [
+        160,
+        161,
+        163,
+        164,
+        165,
+        187,
+        188,
+        189,
+        190,
+        191,
+        192,
+        193,
+        196,
+        200,
+        214,
+        215,
+        216,
+        218,
+        220,
+        222,
+        224,
+        226,
+        235,
+        238,
+        239,
+        240,
+        241,
+        242,
+        243,
+        244,
+        246,
+        250,
+        251,
+        252,
+        253,
+        254,
+        256,
+        258,
+        263,
+        264,
+        265,
+        266,
+        267,
+        268,
+        277,
+        278,
+        279
+      ],
+      "ZPF": [
+        207,
+        208,
+        209,
+        210,
+        235,
+        236,
+        237,
+        238,
+        239,
+        240,
+        241,
+        242,
+        243,
+        244,
+        245,
+        246,
+        251,
+        252,
+        254,
+        256,
+        257,
+        258,
+        259,
+        262,
+        263,
+        264,
+        265,
+        266,
+        267,
+        270,
+        272
+      ]
+    },
+    "other_structures": {},
+    "union_auth": [
+      160,
+      161,
+      163,
+      164,
+      165,
+      187,
+      188,
+      189,
+      190,
+      191,
+      192,
+      193,
+      196,
+      200,
+      207,
+      208,
+      209,
+      210,
+      214,
+      215,
+      216,
+      218,
+      220,
+      222,
+      224,
+      226,
+      235,
+      236,
+      237,
+      238,
+      239,
+      240,
+      241,
+      242,
+      243,
+      244,
+      245,
+      246,
+      250,
+      251,
+      252,
+      253,
+      254,
+      256,
+      257,
+      258,
+      259,
+      262,
+      263,
+      264,
+      265,
+      266,
+      267,
+      268,
+      270,
+      272,
+      277,
+      278,
+      279
+    ],
+    "union_0based": [
+      9,
+      10,
+      12,
+      13,
+      14,
+      36,
+      37,
+      38,
+      39,
+      40,
+      41,
+      42,
+      45,
+      49,
+      56,
+      57,
+      58,
+      59,
+      63,
+      64,
+      65,
+      67,
+      69,
+      71,
+      73,
+      75,
+      84,
+      85,
+      86,
+      87,
+      88,
+      89,
+      90,
+      91,
+      92,
+      93,
+      94,
+      95,
+      99,
+      100,
+      101,
+      102,
+      103,
+      105,
+      106,
+      107,
+      108,
+      111,
+      112,
+      113,
+      114,
+      115,
+      116,
+      117,
+      119,
+      121,
+      126,
+      127,
+      128
+    ],
+    "radius_sensitivity": {
+      "4A": {
+        "n_avoided": 16,
+        "n_exposed_still_free": 59
+      },
+      "5A": {
+        "n_avoided": 23,
+        "n_exposed_still_free": 57
+      },
+      "6A": {
+        "n_avoided": 32,
+        "n_exposed_still_free": 54
+      },
+      "8A": {
+        "n_avoided": 59,
+        "n_exposed_still_free": 44
+      },
+      "10A": {
+        "n_avoided": 82,
+        "n_exposed_still_free": 31
+      }
+    },
+    "by_subdomain": {}
+  },
+  "clamp_analysis": {},
+  "candidate_epitopes": {
+    "whole_chain": [
+      {
+        "seed_residue_auth": 176,
+        "size": 10,
+        "residues_auth": [
+          171,
+          172,
+          175,
+          176,
+          179,
+          182,
+          183,
+          269,
+          271,
+          273
+        ],
+        "mean_relative_sasa": 0.454,
+        "hydrophobic_fraction": 0.3,
+        "score": 1.36,
+        "centre_xyz": [
+          -4.9,
+          -9.1,
+          31.3
+        ],
+        "residues_0based": [
+          20,
+          21,
+          24,
+          25,
+          28,
+          31,
+          32,
+          118,
+          120,
+          122
+        ]
+      },
+      {
+        "seed_residue_auth": 227,
+        "size": 8,
+        "residues_auth": [
+          219,
+          221,
+          223,
+          225,
+          227,
+          229,
+          230,
+          231
+        ],
+        "mean_relative_sasa": 0.469,
+        "hydrophobic_fraction": 0.25,
+        "score": 1.22,
+        "centre_xyz": [
+          15.9,
+          -3.9,
+          22.8
+        ],
+        "residues_0based": [
+          68,
+          70,
+          72,
+          74,
+          76,
+          78,
+          79,
+          80
+        ]
+      },
+      {
+        "seed_residue_auth": 201,
+        "size": 8,
+        "residues_auth": [
+          194,
+          195,
+          198,
+          201,
+          202,
+          203,
+          206,
+          260
+        ],
+        "mean_relative_sasa": 0.466,
+        "hydrophobic_fraction": 0.25,
+        "score": 1.212,
+        "centre_xyz": [
+          -1.6,
+          8.7,
+          19.3
+        ],
+        "residues_0based": [
+          43,
+          44,
+          47,
+          50,
+          51,
+          52,
+          55,
+          109
+        ]
+      }
+    ]
+  },
+  "geometry": {
+    "subdomains": {},
+    "inter_chain": {
+      "chains": [
+        "A",
+        "B"
+      ],
+      "centroid_distance_A": 31.9,
+      "closest_approach_A": 2.8,
+      "farthest_A": 72.1
+    }
+  },
+  "surface_summary": {
+    "n_exposed": 63,
+    "n_avoided": 59,
+    "n_excluded_as_artefact": 10,
+    "artefact_residues_auth": [
+      151,
+      152,
+      153,
+      154,
+      155,
+      276,
+      277,
+      278,
+      279,
+      280
+    ],
+    "exposure_cutoff": 0.25,
+    "terminal_exclude": 5,
+    "gap_flank_exclude": 2
+  },
+  "notes": [
+    "ZPF is the compact galactosamine mimic -> marks the glycan site that a protein binder must avoid, or it will compete with GalNAc ligands.",
+    "CA is the structural Ca2+ of the C-type lectin fold; its site is part of the glycan-binding machinery.",
+    "5JQ1 contains two CRD copies (chains A and B); ASGPR is a trimer in vivo, so inter-CRD spacing sets the 2C/3C multivalent linker span."
+  ],
+  "validation": {
+    "index_assertions_passed": 85,
+    "status": "ok"
+  }
+}
