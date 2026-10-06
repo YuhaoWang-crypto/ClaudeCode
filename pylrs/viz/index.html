@@ -1,0 +1,430 @@
+<title>TyrRS Hotspot Atlas</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/3Dmol/2.4.2/3Dmol-min.js"></script>
+
+<style>
+/* Layout: an instrument. Structure viewport holds the top/left; a rail of
+   engineered positions ranked by mutation load drives it. Selection is the only
+   global state. */
+:root {
+  --bg: #f4f5f7;
+  --panel: #ffffff;
+  --panel-2: #eceef2;
+  --line: #d4d8e0;
+  --fg: #1b1f27;
+  --fg-dim: #5c6472;
+  --fg-faint: #8a92a1;
+  --accent: #b45309;
+  --accent-soft: #fdf0e1;
+  --cool: #3b6ea5;
+  --heat-0: #9aa4b4;
+  --heat-1: #d99a3d;
+  --heat-2: #b45309;
+  --heat-3: #8c2f1a;
+  --ok: #2f6b4f;
+  --warn: #8c5a00;
+  --font-ui: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  --r: 6px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #14171c;
+    --panel: #1b1f26;
+    --panel-2: #232831;
+    --line: #333a46;
+    --fg: #e6e9ef;
+    --fg-dim: #a2abba;
+    --fg-faint: #717b8b;
+    --accent: #e0a14c;
+    --accent-soft: #2a2218;
+    --cool: #7aa7d9;
+    --heat-0: #5a6474;
+    --heat-1: #c98b36;
+    --heat-2: #e0a14c;
+    --heat-3: #e8705a;
+    --ok: #6cbf96;
+    --warn: #d9a441;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #14171c;
+  --panel: #1b1f26;
+  --panel-2: #232831;
+  --line: #333a46;
+  --fg: #e6e9ef;
+  --fg-dim: #a2abba;
+  --fg-faint: #717b8b;
+  --accent: #e0a14c;
+  --accent-soft: #2a2218;
+  --cool: #7aa7d9;
+  --heat-0: #5a6474;
+  --heat-1: #c98b36;
+  --heat-2: #e0a14c;
+  --heat-3: #e8705a;
+  --ok: #6cbf96;
+  --warn: #d9a441;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-ui);
+  font-size: 14px;
+  line-height: 1.5;
+  padding-inline: 16px;
+  padding-block: 20px 36px;
+  margin: 0;
+}
+.wrap { max-width: 1180px; margin-inline: auto; }
+
+header { margin-bottom: 18px; }
+h1 {
+  font-size: clamp(20px, 3.4vw, 27px);
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  margin: 0 0 6px;
+  text-wrap: balance;
+}
+.sub { color: var(--fg-dim); margin: 0; max-width: 68ch; }
+.sub code { font-family: var(--font-mono); font-size: 0.92em; color: var(--fg); }
+
+.stats {
+  display: flex; flex-wrap: wrap; gap: 8px 22px;
+  margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--line);
+}
+.stat { display: flex; align-items: baseline; gap: 7px; }
+.stat b { font-family: var(--font-mono); font-size: 17px; font-weight: 600; font-variant-numeric: tabular-nums; }
+.stat span { color: var(--fg-dim); font-size: 12px; }
+
+main {
+  display: grid; gap: 14px;
+  grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+  margin-top: 18px;
+}
+@media (max-width: 860px) { main { grid-template-columns: minmax(0, 1fr); } }
+
+.card {
+  background: var(--panel); border: 1px solid var(--line);
+  border-radius: var(--r); min-width: 0;
+}
+.card-head {
+  display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  padding: 10px 13px; border-bottom: 1px solid var(--line); flex-wrap: wrap;
+}
+.card-head h2 {
+  font-size: 11px; font-weight: 600; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--fg-dim); margin: 0;
+}
+
+#viewport { position: relative; width: 100%; height: 440px; border-radius: 0 0 var(--r) var(--r); overflow: hidden; }
+@media (max-width: 860px) { #viewport { height: 340px; } }
+#viewstate {
+  position: absolute; inset: 0; display: grid; place-items: center;
+  font-family: var(--font-mono); font-size: 12px; color: var(--fg-dim);
+  background: var(--panel-2); text-align: center; padding: 20px;
+}
+.legend {
+  display: flex; flex-wrap: wrap; gap: 6px 14px; padding: 9px 13px;
+  border-top: 1px solid var(--line); font-size: 11px; color: var(--fg-dim);
+}
+.legend i { display: inline-block; width: 9px; height: 9px; border-radius: 2px; margin-right: 5px; vertical-align: -1px; }
+
+.toggles { display: flex; gap: 6px; flex-wrap: wrap; }
+button.t {
+  font: 500 11px/1 var(--font-ui); color: var(--fg-dim);
+  background: var(--panel-2); border: 1px solid var(--line);
+  border-radius: 999px; padding: 6px 11px; cursor: pointer;
+}
+button.t[aria-pressed="true"] { background: var(--accent-soft); border-color: var(--accent); color: var(--accent); }
+button.t:focus-visible, .pos:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+.rail { max-height: 392px; overflow-y: auto; }
+.pos {
+  display: grid; grid-template-columns: 58px 1fr 34px; align-items: center;
+  gap: 10px; width: 100%; text-align: left; cursor: pointer;
+  background: none; border: 0; border-bottom: 1px solid var(--line);
+  padding: 8px 13px; color: inherit; font: inherit;
+}
+.pos:hover { background: var(--panel-2); }
+.pos[aria-current="true"] { background: var(--accent-soft); }
+.pos .id { font-family: var(--font-mono); font-size: 13px; font-weight: 500; font-variant-numeric: tabular-nums; }
+.pos .bar { height: 7px; border-radius: 3px; background: var(--panel-2); overflow: hidden; }
+.pos .bar i { display: block; height: 100%; border-radius: 3px; }
+.pos .n { font-family: var(--font-mono); font-size: 12px; color: var(--fg-dim); text-align: right; font-variant-numeric: tabular-nums; }
+
+.detail { padding: 12px 13px; }
+.detail h3 { margin: 0 0 3px; font-family: var(--font-mono); font-size: 15px; font-weight: 600; }
+.detail .note { color: var(--fg-dim); font-size: 12px; margin: 0 0 11px; }
+.subs { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 13px; }
+.sub-chip {
+  font-family: var(--font-mono); font-size: 12px; padding: 3px 7px;
+  border-radius: 4px; border: 1px solid var(--line); background: var(--panel-2);
+  font-variant-numeric: tabular-nums;
+}
+.sub-chip b { font-weight: 600; }
+.sub-chip span { color: var(--fg-faint); }
+.bync { border-top: 1px solid var(--line); padding-top: 10px; }
+.bync div { display: flex; gap: 9px; padding: 3px 0; font-size: 12px; align-items: baseline; }
+.bync .nc { color: var(--fg-dim); min-width: 74px; }
+.bync .rs { font-family: var(--font-mono); color: var(--fg); }
+
+table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+th, td { text-align: left; padding: 6px 13px; border-bottom: 1px solid var(--line); }
+th { font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.07em; color: var(--fg-faint); font-weight: 600; }
+td.m, th.m { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+td.num { text-align: right; }
+.scroll { overflow-x: auto; }
+.pill { font-family: var(--font-mono); font-size: 11px; padding: 2px 6px; border-radius: 4px; }
+.pill.hit { background: color-mix(in srgb, var(--ok) 16%, transparent); color: var(--ok); }
+.pill.miss { background: color-mix(in srgb, var(--heat-3) 18%, transparent); color: var(--heat-3); }
+
+.caveat {
+  margin-top: 14px; padding: 11px 13px; border-radius: var(--r);
+  border: 1px solid var(--line); border-left: 3px solid var(--warn);
+  background: var(--panel); color: var(--fg-dim); font-size: 12.5px;
+}
+.caveat b { color: var(--fg); font-weight: 600; }
+footer { margin-top: 20px; color: var(--fg-faint); font-size: 11.5px; }
+footer code { font-family: var(--font-mono); }
+@media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
+</style>
+
+<div class="wrap">
+<header>
+  <h1>TyrRS Hotspot Atlas</h1>
+  <p class="sub">Where 72 published tyrosyl-tRNA synthetase clones, selected across 13 non-canonical amino acids, actually put their mutations — mapped onto an engineered <code>MjTyrRS</code> bound to a non-canonical substrate (PDB <code>1ZH6</code>, ligand <code>4AF</code>).</p>
+  <div class="stats" id="stats"></div>
+</header>
+
+<main>
+  <section class="card">
+    <div class="card-head">
+      <h2>Active site</h2>
+      <div class="toggles">
+        <button class="t" id="t-ligand" aria-pressed="true">Ligand</button>
+        <button class="t" id="t-hot" aria-pressed="true">Hotspots</button>
+        <button class="t" id="t-surface" aria-pressed="false">Pocket surface</button>
+        <button class="t" id="t-reset">Recentre</button>
+      </div>
+    </div>
+    <div id="viewport"><div id="viewstate">loading structure…</div></div>
+    <div class="legend">
+      <span><i style="background:var(--heat-3)"></i>mutated in &gt;50 clones</span>
+      <span><i style="background:var(--heat-1)"></i>20–50</span>
+      <span><i style="background:var(--heat-0)"></i>&lt;20</span>
+      <span><i style="background:var(--cool)"></i>bound ncAA (4AF)</span>
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="card-head"><h2>Engineered positions</h2><span style="font-size:11px;color:var(--fg-faint)">click to focus</span></div>
+    <div class="rail" id="rail"></div>
+  </section>
+</main>
+
+<section class="card" style="margin-top:14px">
+  <div class="card-head"><h2 id="dt">Position detail</h2></div>
+  <div class="detail" id="detail"></div>
+</section>
+
+<main style="margin-top:14px">
+  <section class="card">
+    <div class="card-head"><h2>pAzF screen, calibrated against its own known clones</h2></div>
+    <div class="scroll"><table id="calib"></table></div>
+    <div class="caveat" style="margin:0;border-radius:0 0 var(--r) var(--r);border-left-width:3px;border-top:1px solid var(--line)">
+      <b>Read the split, not the median.</b> The model recovers the dominant <code style="font-family:var(--font-mono)">D158P + L162Q</code> family and is worse than chance on the three clones that solve pAzF a different way — including AzPheRS-6, the one that converges with the best <i>Methanosaeta concilii</i> variant.
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="card-head"><h2>Spread pick-list</h2>
+      <div class="toggles">
+        <button class="t" id="t-mj" aria-pressed="true">MjTyrRS</button>
+        <button class="t" id="t-mc" aria-pressed="false">McTyrRS</button>
+      </div>
+    </div>
+    <div class="scroll"><table id="picks"></table></div>
+  </section>
+</main>
+
+<div class="caveat">
+  <b>What the structure is and is not.</b> 1ZH6 is an engineered MjTyrRS selected for <i>p</i>-acetylphenylalanine, not for pAzF — it carries Y32L / D158G / I159C / L162R. It is shown because it is a real structure of this scaffold with a non-canonical amino acid in the pocket, which is the closest experimental view of what these mutations are reshaping. Residue numbering was confirmed against the crystal structure independently of the sequence data.
+</div>
+
+<footer>
+  Clone data transcribed from figures in 17 published MjTyrRS campaigns; 72 unique mutation sets. Structure: RCSB PDB <code>1ZH6</code>, chain A, waters removed. Rendered with 3Dmol.js.
+</footer>
+</div>
+
+<script>
+const $ = (s) => document.querySelector(s);
+const token = (n) => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+let DATA = null, viewer = null, selected = null, surfaceOn = false, surf = null;
+
+const heat = (n) => n > 50 ? token('--heat-3') : n >= 20 ? token('--heat-1') : token('--heat-0');
+
+function renderStats() {
+  const p = DATA.positions, clones = DATA.clones;
+  const items = [
+    [clones.length, 'unique clones'],
+    [DATA.ncAAs.length, 'ncAAs'],
+    [p.length, 'positions touched'],
+    [DATA.wt_len + ' aa', 'MjTyrRS'],
+  ];
+  $('#stats').innerHTML = items.map(([a, b]) => `<div class="stat"><b>${a}</b><span>${b}</span></div>`).join('');
+}
+
+function renderRail() {
+  const max = Math.max(...DATA.positions.map(p => p.n));
+  const sorted = [...DATA.positions].sort((a, b) => b.n - a.n);
+  $('#rail').innerHTML = sorted.map(p => `
+    <button class="pos" data-pos="${p.pos}" aria-current="false">
+      <span class="id">${p.wt}${p.pos}</span>
+      <span class="bar"><i style="width:${Math.max(4, 100 * p.n / max)}%;background:${heat(p.n)}"></i></span>
+      <span class="n">${p.n}</span>
+    </button>`).join('');
+  document.querySelectorAll('.pos').forEach(el =>
+    el.addEventListener('click', () => select(Number(el.dataset.pos))));
+}
+
+function renderDetail(pos) {
+  const p = DATA.positions.find(x => x.pos === pos);
+  $('#dt').textContent = `Position ${p.wt}${p.pos}`;
+  const subs = Object.entries(p.residues)
+    .map(([aa, n]) => `<span class="sub-chip"><b>${p.wt}${p.pos}${aa}</b> <span>${n}</span></span>`).join('');
+  const rows = Object.entries(p.ncAAs)
+    .sort((a, b) => b[1].length - a[1].length)
+    .map(([nc, rs]) => `<div><span class="nc">${nc}</span><span class="rs">${rs.join(' ')}</span></div>`).join('');
+  $('#detail').innerHTML = `
+    <h3>${p.wt}${p.pos} &rarr; ${Object.keys(p.residues).length} distinct residues</h3>
+    <p class="note">Mutated in ${p.n} of ${DATA.clones.length} clones, across ${Object.keys(p.ncAAs).length} ncAAs. Counts are clones, not independent selections.</p>
+    <div class="subs">${subs}</div>
+    <div class="bync">${rows}</div>`;
+}
+
+function renderCalib() {
+  const rows = DATA.calibration.map(r => {
+    const good = r.percentile <= 10;
+    return `<tr>
+      <td class="m">${r.clone}</td>
+      <td class="m">${r.mutations}</td>
+      <td class="m num">${r.rank}</td>
+      <td class="num"><span class="pill ${good ? 'hit' : 'miss'}">${r.percentile.toFixed(1)}%</span></td>
+    </tr>`;
+  }).join('');
+  $('#calib').innerHTML =
+    `<thead><tr><th>Held-out clone</th><th>Mutations</th><th class="num">Rank / 2001</th><th class="num">Percentile</th></tr></thead><tbody>${rows}</tbody>`;
+}
+
+function renderPicks(which) {
+  const rows = (which === 'mc' ? DATA.mc_picks : DATA.picks).map(r => `<tr>
+      <td class="m">${r.motif}</td>
+      <td class="m">${r.mutations}</td>
+      <td class="m num">${Number(r.P_pAzF).toFixed(3)}</td>
+    </tr>`).join('');
+  $('#picks').innerHTML =
+    `<thead><tr><th>Motif</th><th>Variant</th><th class="num">Score</th></tr></thead><tbody>${rows}</tbody>`;
+}
+
+function styleStructure() {
+  if (!viewer) return;
+  viewer.setStyle({}, { cartoon: { color: token('--heat-0'), opacity: 0.62, thickness: 0.3 } });
+  if ($('#t-ligand').getAttribute('aria-pressed') === 'true') {
+    viewer.setStyle({ resn: '4AF' }, { stick: { radius: 0.21, color: token('--cool') } });
+  }
+  if ($('#t-hot').getAttribute('aria-pressed') === 'true') {
+    DATA.positions.forEach(p => {
+      viewer.addStyle({ resi: p.pos }, {
+        stick: { radius: p.pos === selected ? 0.26 : 0.15, color: p.pos === selected ? token('--accent') : heat(p.n) }
+      });
+    });
+  }
+  if (selected !== null) {
+    const p = DATA.positions.find(x => x.pos === selected);
+    viewer.addResLabels({ resi: selected }, {
+      font: 'IBM Plex Mono', fontSize: 11, inFront: true,
+      fontColor: token('--fg'), backgroundColor: token('--panel'), backgroundOpacity: 0.85,
+    });
+    void p;
+  }
+  viewer.setBackgroundColor(token('--panel-2'));
+  viewer.render();
+}
+
+function select(pos) {
+  selected = pos;
+  document.querySelectorAll('.pos').forEach(el =>
+    el.setAttribute('aria-current', String(Number(el.dataset.pos) === pos)));
+  renderDetail(pos);
+  if (viewer) {
+    viewer.removeAllLabels();
+    styleStructure();
+    viewer.zoomTo({ resi: pos }, 420);
+  }
+}
+
+function toggleSurface() {
+  if (!viewer) return;
+  if (surfaceOn) {
+    viewer.removeAllSurfaces(); surf = null; surfaceOn = false;
+  } else {
+    surf = viewer.addSurface($3Dmol.SurfaceType.VDW,
+      { opacity: 0.55, color: token('--panel') },
+      { resi: DATA.positions.map(p => p.pos) });
+    surfaceOn = true;
+  }
+  $('#t-surface').setAttribute('aria-pressed', String(surfaceOn));
+  viewer.render();
+  void surf;
+}
+
+async function boot() {
+  DATA = await (await fetch('data.json')).json();
+  renderStats(); renderRail(); renderCalib(); renderPicks('mj');
+  renderDetail(DATA.positions.reduce((a, b) => (b.n > a.n ? b : a)).pos);
+
+  $('#t-mj').addEventListener('click', () => {
+    $('#t-mj').setAttribute('aria-pressed', 'true');
+    $('#t-mc').setAttribute('aria-pressed', 'false'); renderPicks('mj');
+  });
+  $('#t-mc').addEventListener('click', () => {
+    $('#t-mc').setAttribute('aria-pressed', 'true');
+    $('#t-mj').setAttribute('aria-pressed', 'false'); renderPicks('mc');
+  });
+
+  try {
+    const pdb = await (await fetch('1zh6.pdb.txt')).text();
+    viewer = $3Dmol.createViewer($('#viewport'), { backgroundColor: token('--panel-2') });
+    viewer.addModel(pdb, 'pdb');
+    $('#viewstate').hidden = true;
+    const top = DATA.positions.reduce((a, b) => (b.n > a.n ? b : a)).pos;
+    selected = top;
+    styleStructure();
+    viewer.zoomTo({ resn: '4AF' }, 0);
+    viewer.zoom(0.55);
+    viewer.render();
+    document.querySelectorAll('.pos').forEach(el =>
+      el.setAttribute('aria-current', String(Number(el.dataset.pos) === top)));
+
+    ['t-ligand', 't-hot'].forEach(id => $('#' + id).addEventListener('click', () => {
+      const b = $('#' + id);
+      b.setAttribute('aria-pressed', b.getAttribute('aria-pressed') === 'true' ? 'false' : 'true');
+      viewer.removeAllLabels(); styleStructure();
+    }));
+    $('#t-surface').addEventListener('click', toggleSurface);
+    $('#t-reset').addEventListener('click', () => {
+      viewer.zoomTo({ resn: '4AF' }, 420); viewer.zoom(0.55);
+    });
+    matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+      viewer.removeAllLabels(); styleStructure();
+    });
+  } catch (err) {
+    $('#viewstate').textContent = 'structure could not be loaded — the position data below is unaffected';
+  }
+}
+boot();
+</script>
