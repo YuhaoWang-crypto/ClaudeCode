@@ -15,6 +15,7 @@ The load-bearing ones:
 
 from __future__ import annotations
 
+import collections
 import json
 import pathlib
 import sys
@@ -98,6 +99,100 @@ def full_motif():
     return audit.read_motif_cif(path)
 
 
+def test_cif_header_check_rejects_a_space_after_data():
+    """The defect AlphaFold 3 found: `data <name>` instead of `data_<name>`."""
+    problem = audit.check_cif_header(["data pylrs_pyl_motif", "_entry.id x"])
+    assert problem is not None
+    assert "data_<name>" in problem
+
+
+def test_cif_header_check_accepts_a_legal_header():
+    assert audit.check_cif_header(["# a comment", "", "data_motif",
+                                   "_entry.id motif"]) is None
+
+
+def test_cif_header_check_rejects_a_bare_data_token():
+    assert audit.check_cif_header(["data_"]) is not None
+
+
+def test_read_motif_cif_refuses_a_malformed_header_by_default(tmp_path):
+    path = tmp_path / "bad.cif"
+    path.write_text("data bad\nloop_\n_atom_site.group_PDB\n_atom_site.type_symbol\n"
+                    "_atom_site.label_atom_id\n_atom_site.label_comp_id\n"
+                    "_atom_site.label_asym_id\n_atom_site.label_seq_id\n"
+                    "_atom_site.Cartn_x\n_atom_site.Cartn_y\n_atom_site.Cartn_z\n"
+                    "_atom_site.auth_seq_id\n_atom_site.auth_asym_id\n"
+                    "ATOM N N MET A 1 0.0 0.0 0.0 1 A\n")
+    with pytest.raises(audit.CifHeaderError):
+        audit.read_motif_cif(path)
+    assert audit.read_motif_cif(path, strict=False)["n_atoms"] == 1
+
+
+def test_fixed_cifs_have_a_legal_data_block_header():
+    for name in ("motif_active_site_full.cif", "motif_ncaa_pocket.cif"):
+        path = FIXED / name
+        if not path.exists():
+            pytest.skip("run `python3 -m trnaplat.apnovo.build_fixed_package` first")
+        assert audit.check_cif_header(path.read_text().splitlines()) is None, name
+
+
+def test_fixed_cifs_carry_every_column_af3_reads():
+    """Enumerated from alphafold3/structure/parsing.py, not guessed."""
+    from trnaplat.apnovo.build_fixed_package import ATOM_SITE_COLUMNS
+    af3_reads = {
+        "group_PDB", "type_symbol", "label_atom_id", "label_comp_id",
+        "label_asym_id", "label_entity_id", "label_seq_id",
+        "pdbx_PDB_ins_code", "Cartn_x", "Cartn_y", "Cartn_z", "occupancy",
+        "B_iso_or_equiv", "auth_seq_id", "pdbx_PDB_model_num",
+    }
+    assert af3_reads <= set(ATOM_SITE_COLUMNS)
+    for name in ("motif_active_site_full.cif", "motif_ncaa_pocket.cif"):
+        path = FIXED / name
+        if not path.exists():
+            pytest.skip("run `python3 -m trnaplat.apnovo.build_fixed_package` first")
+        present = {l.strip().split(".", 1)[1]
+                   for l in path.read_text().splitlines()
+                   if l.strip().startswith("_atom_site.")}
+        assert af3_reads <= present, f"{name} missing {sorted(af3_reads - present)}"
+
+
+def test_fixed_cifs_keep_author_numbering():
+    """auth_seq_id holds the motif's identity, which the manifest refers to."""
+    path = FIXED / "motif_ncaa_pocket.cif"
+    if not path.exists():
+        pytest.skip("run `python3 -m trnaplat.apnovo.build_fixed_package` first")
+    lines = path.read_text().splitlines()
+    cols = [l.strip().split(".", 1)[1] for l in lines
+            if l.strip().startswith("_atom_site.")]
+    idx = {name: i for i, name in enumerate(cols)}
+    auth, label, ligand_label = set(), set(), set()
+    for line in lines:
+        if not line.startswith(("ATOM", "HETATM")):
+            continue
+        row = line.split()
+        if row[idx["label_comp_id"]] in {"ALA", "ARG", "ASN", "ASP", "CYS", "GLN",
+                                         "GLU", "GLY", "HIS", "ILE", "LEU", "LYS",
+                                         "MET", "PHE", "PRO", "SER", "THR", "TRP",
+                                         "TYR", "VAL"}:
+            auth.add(int(row[idx["auth_seq_id"]]))
+            label.add(row[idx["label_seq_id"]])
+        else:
+            ligand_label.add(row[idx["label_seq_id"]])
+    assert auth == {300, 302, 305, 306, 346, 348, 384, 401, 417}
+    assert len(label) == 9, "each residue needs its own label_seq_id"
+    assert all(v.isdigit() for v in label)
+    assert ligand_label <= {".", "?"}, "a non-polymer atom has no label_seq_id"
+
+
+def test_normalise_header_repairs_the_shipped_defect():
+    from trnaplat.apnovo.build_fixed_package import normalise_header
+    out = normalise_header(["data pylrs_pyl_motif", "_entry.id pylrs_pyl_motif"])
+    assert out[0] == "data_pylrs_pyl_motif"
+    assert out[1] == "_entry.id pylrs_pyl_motif"
+    # already legal headers are left alone
+    assert normalise_header(["data_ok", "x"])[0] == "data_ok"
+
+
 def test_motif_residues_match_wild_type_mm_pylrs(full_motif):
     rows = audit.check_numbering(full_motif["residues"])
     assert len(rows) == 19
@@ -120,8 +215,14 @@ def test_adenylate_split_puts_n346_c348_on_the_ncaa_side(full_motif):
     side = {r["residue"]: r["side"] for r in rows}
     assert side["ASN346"] == "ncAA"
     assert side["CYS348"] == "ncAA"
-    n_amp = sum(1 for r in rows if r["side"] == "AMP")
-    assert n_amp == 10, "half the 'ncAA pocket' motif is the ATP site"
+    counts = collections.Counter(r["side"] for r in rows)
+    # ✅ 9 unambiguously the amino-acid pocket, 6 within 0.5 A of both halves,
+    # 4 the nucleotide site. Reproduced identically from the audited CIF and
+    # from an independent gemmi extraction of 2Q7H.
+    assert counts["ncAA"] == 9
+    assert counts["both"] == 6
+    assert counts["AMP"] == 4
+    assert counts["ncAA"] + counts["both"] + counts["AMP"] == 19
 
 
 def test_ncaa_pocket_cif_keeps_only_the_amino_acid_side():
@@ -177,6 +278,50 @@ def test_fixed_manifest_declares_the_ligand_state_by_ccd_code():
     states = {s["name"]: s for s in spec["folding"]["states"]}
     assert states["apo_monomer"]["ligands"] == []
     assert states["adenylate_complex"]["ligands"][0]["ccd_code"] == "YLY"
+
+
+# --------------------------------------------------- the Modal licence gate
+
+def _modal_app_source() -> str:
+    return (ROOT / "trnaplat/apnovo/modal_app.py").read_text()
+
+
+def test_generate_is_gated_on_an_explicit_attestation():
+    """The weighted step must refuse by default, not merely warn."""
+    source = _modal_app_source()
+    assert "attest_non_commercial: bool = False" in source, \
+        "the gate must default to refusing"
+    gate = source.split("def generate(")[1].split("def ")[0]
+    assert "if not attest_non_commercial:" in gate
+    assert "raise RuntimeError" in gate
+    # the refusal must come before any weight download
+    refuse_at = gate.index("raise RuntimeError")
+    assert gate.index("wget") > refuse_at, \
+        "weights must not be fetched before the attestation is checked"
+
+
+def test_generate_keeps_folding_inputs_consistent_with_resequence():
+    """The pipeline refuses folding.inputs=["resequenced"] with resequence off."""
+    gate = _modal_app_source().split("def generate(")[1].split("\ndef ")[0]
+    assert '"enabled": False' in gate
+    assert '["generated"]' in gate, (
+        "disabling resequence without switching folding.inputs to 'generated' "
+        "makes run_pipeline.py refuse the manifest"
+    )
+
+
+def test_weight_urls_point_at_the_official_buckets():
+    source = _modal_app_source()
+    assert "storage.googleapis.com/alphaprotein_novo/generator.bin.zst" in source
+    assert "storage.googleapis.com/alphafold3/af3_leaving_atom.bin.zst" in source
+
+
+def test_licence_free_functions_declare_no_weight_volume():
+    """featurize and gpu_probe must not even mount the weights volume."""
+    source = _modal_app_source()
+    for name in ("featurize", "gpu_probe"):
+        block = source.split(f"def {name}(")[0].rsplit("@app.function", 1)[1]
+        assert "volumes=" not in block, f"{name} should not mount the weights volume"
 
 
 if __name__ == "__main__":

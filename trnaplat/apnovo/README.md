@@ -116,17 +116,24 @@ pyrrolysine** and pyrophosphate"*, and CCD **`YLY`** is
 adenine. Free pyrrolysine has 18 heavy atoms; this ligand has 40.
 
 ✅ Splitting the ligand at the ester oxygen and taking each motif residue's
-minimum heavy-atom distance to each half:
+minimum heavy-atom distance to each half. Residues whose two distances differ by
+less than 0.5 Å — roughly the coordinate error of a 2.1 Å structure — are left
+uncalled, because they contact both:
 
-| nearer the amino-acid half (9) | nearer the nucleotide half (10) |
-|---|---|
-| M300, A302, L305, Y306, **N346**, **C348**, Y384, V401, W417 | R330, E332, H338, L339, F342, M344, E396, S399, R426, I437 |
+| nearer the amino-acid half (9) | within 0.5 Å of **both** (6) | nearer the nucleotide half (4) |
+|---|---|---|
+| M300, A302, L305, Y306, **N346**, **C348**, Y384, V401, W417 | R330, H338, L339, F342, M344, R426 | E332, E396, S399, I437 |
 
-**10 of 19 residues in a motif described as "the ncAA binding pocket" sit closer
-to AMP than to the amino acid.** Conditioning on it asks the model to rebuild the
-amino-acid pocket *and* the ATP site at once. For a synthetase that is arguably
-correct — it must bind both — but it is not what the package says it is doing,
-and it roughly doubles the problem's difficulty.
+**Only 9 of 19 residues in a motif described as "the ncAA binding pocket" are
+unambiguously in it.** Conditioning on the full motif asks the model to rebuild
+the amino-acid pocket *and* the ATP site at once. For a synthetase that is
+arguably correct — it must bind both — but it is not what the package says it is
+doing, and it roughly doubles the problem's difficulty.
+
+⚠️ The six uncalled residues are the honest part: four of them sit within 0.2 Å
+of the dividing line, so a clean two-way split of this pocket does not exist and
+any "ncAA pocket only" motif is a judgement call rather than a measurement.
+`fixed/motif_ncaa_pocket.cif` takes the 9 unambiguous ones and says so.
 
 The 9 amino-acid-side residues include exactly **N346 and C348**, the two
 positions that distinguish the FPFORCOM parent IFRS from wild-type MmPylRS
@@ -204,23 +211,110 @@ The package's own §4 is right, and the audit sharpens it:
 
 ---
 
+## Running it on Modal: three more defects that only a real run finds
+
+✅ The corrected package was taken to Modal and driven through the whole input
+path — CIF load, author→internal renumbering, designable-length sampling,
+residue mapping, and the complete `DiffusionInput` tensor construction including
+the CCD lookup of `YLY`. All three jobs reach `parsed: PASSED` and
+`featurised: PASSED` **with no model parameters loaded**, so that half is
+licence-clean. ✅ `jax 0.10.2`, `backend gpu`, `Tesla T4` confirms the CUDA
+stack in the image.
+
+Getting there found three defects the static audit could not reach, each
+surfacing only after the previous one was fixed:
+
+| # | failure | cause |
+|---|---|---|
+| 4 | `ValueError: The CIF file does not start with the data_ field.` | the header is `data pylrs_pyl_motif` — mmCIF needs `data_<name>`, no space |
+| 5 | `KeyError: '_atom_site.pdbx_PDB_model_num'` | 4 of the 15 `_atom_site` columns AF3 reads are absent |
+| 6 | `KeyError: ('B', 1)` | the motif file is an atom list, not an mmCIF: 6 of 8 required categories missing, so `author_naming_scheme` cannot be built and the ligand reference `/B1` cannot be renumbered |
+
+Defect 6 is the general lesson: **a loadable motif is a complete mmCIF.** The
+repo's own working example (`examples/kemp_eliminase/*.cif`) carries `_entry`,
+`_chem_comp`, `_entity`, `_entity_poly`, `_entity_poly_seq`,
+`_pdbx_poly_seq_scheme`, `_pdbx_nonpoly_scheme`, `_struct_asym` and
+`_atom_site`; the audited package has two of those. Patching category by
+category is how you earn a seventh failure, so `extract_motif.py` re-derives the
+motif from the deposited entry with `gemmi` (MIT) instead, and
+`audit_apnovo_package.py` now checks the whole category list up front.
+
+✅ Independent cross-check: the gemmi extraction from PDB 2Q7H reproduces the
+audited CIF **atom for atom** — 171 protein atoms over 19 residues plus 40
+ligand atoms — once alternate conformations are removed (2Q7H models MET344
+twice). So the audited file's *coordinates* were right; its *shape* was not.
+
+⚠️ Also two bugs of my own, both found by the tools above rather than reasoned
+about: an unknown top-level `_comment` key that `Manifest` rejects, and a CIF
+reader that kept mmCIF's quoting, so `"O5'"` did not match `O5'` and 9 of the
+adenylate's 17 nucleotide atoms went unmatched — which silently moved the moiety
+split by three residues until the two files were diffed atom by atom.
+
+## ⚠️ Running it: the licence is the binding constraint, not the GPU
+
+`modal_app.py` splits the pipeline along the licence boundary, because the two
+halves are not equally available:
+
+| function | weights | who may run it |
+|---|---|---|
+| `featurize` | none | anyone — Apache 2.0 code only |
+| `gpu_probe` | none | anyone |
+| `generate` | AP Novo Generator | **non-commercial organizations only** |
+
+`WEIGHTS_PROHIBITED_USE_POLICY.md` is narrower than a quick read suggests:
+
+> "only non-commercial organizations (*i.e.*, universities, non-profit
+> organizations and research institutes, educational, journalism and government
+> bodies) may access the AP Novo Generator … **and must not process Input
+> provided by or on behalf of any commercial organization**. The AP Novo
+> Generator Assets are **not available for any other types of organization, even
+> if conducting non-commercial work**."
+
+Three consequences for a commercial aaRS platform:
+
+1. A motif prepared for that platform is **Input provided on behalf of a
+   commercial organization**, which even a university may not process.
+2. `OUTPUT_TERMS_OF_USE.md` carries the restriction to the designs: Output is
+   "for non-commercial use only", must not be shared with a commercial
+   organization except through publication, and must not be used to train
+   another design model. So the designs could not feed the platform either.
+3. Being affiliated with a university is not sufficient if the work is on behalf
+   of a commercial client.
+
+`generate` therefore refuses unless `--attest-non-commercial` is passed. That is
+a statement about the caller's organization and their input, which nothing in
+this repository can verify and Claude does not assert on anyone's behalf.
+
+**AlphaFold 3's own weights are separately gated** — `af3.bin.zst` /
+`af3_leaving_atom.bin.zst` are served from the public bucket, but AF3 model
+parameters carry their own terms and a request process. The folding stage
+inherits whatever those permit.
+
 ## What `fixed/` contains
 
 | file | |
 |---|---|
-| `motif_active_site_full.cif` | all 19 residues + YLY — the whole active site |
-| `motif_ncaa_pocket.cif` | the 9 amino-acid-side residues + YLY, 120 atoms |
+| `motif_active_site_full.cif` | all 19 residues + YLY, 171 + 40 atoms, extracted from 2Q7H |
+| `motif_ncaa_pocket.cif` | the 9 unambiguous amino-acid-side residues + YLY, 80 + 40 atoms |
 | `manifest_fixed.json` | 3 jobs: ncAA pocket unindexed, full site unindexed, ncAA pocket indexed (correctly interleaved) |
 | `manifest_partial_diffusion.json` | the formulation that keeps the real geometry |
 | `run_commands_fixed.sh` | installs LigandMPNN, passes its two flags, and smoke-tests with `--only_stage=generation` at 50 steps × 1 design |
 
+Regenerate with
+`python3 -m trnaplat.apnovo.build_fixed_package <pkg> --pdb 2q7h.cif`; without
+`--pdb` it falls back to rewriting the supplied atom list and says that AF3
+cannot load the result.
+
 ✅ All four jobs pass upstream `Manifest.from_file` and
-`sample_designable_lengths`. Sampled example from the indexed job:
+`sample_designable_lengths`, and the three in `manifest_fixed.json` additionally
+pass `MotifSpec.parsed()` and `to_diffusion_input()` on Modal. Sampled motif
+from the indexed job, after author→internal renumbering:
 
 ```
-39,A300,33,A302,42,A305,28,A306,31,A346,44,A348,36,A384,32,A401,29,A417,25/B1
+39,A137,33,A139,42,A142,28,A143,31,A183,44,A185,36,A221,32,A238,29,A254,25/L1
 ```
 
-⚠️ "Passes validation and sampling" is not "produces a good design". Nothing
-here has been near a GPU, and the evaluation gap above is unfixed: there is no
-aaRS suite to score the output against.
+⚠️ "Loads, parses and featurises" is not "produces a good design". The
+evaluation gap above is unfixed: there is no aaRS suite to score output against,
+so a design campaign would need a custom pocket-RMSD metric on top of AF3
+confidence before any of it means anything.

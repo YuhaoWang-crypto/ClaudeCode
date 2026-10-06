@@ -146,9 +146,68 @@ def check_motif_str(motif_str: str, seq_length: str | None,
 
 # --------------------------------------------------------------------- CIF
 
-def read_motif_cif(path: pathlib.Path) -> dict:
+class CifHeaderError(ValueError):
+    """Raised when the mmCIF data-block header is malformed."""
+
+
+def check_cif_header(lines: list[str]) -> str | None:
+    """The mmCIF data block must open with `data_<name>`, no space.
+
+    ✅ Found the hard way: the audited package opens with `data pylrs_pyl_motif`,
+    which every permissive reader here accepted and AlphaFold 3's parser refused
+    with `INVALID_ARGUMENT: The CIF file does not start with the data_ field.`
+    That error only surfaces once the real pipeline loads the file, so it is
+    checked up front instead.
+    """
+    for line in lines:
+        stripped = line.strip()
+        if not stripped or stripped.startswith("#"):
+            continue
+        if stripped.startswith("data_") and len(stripped) > len("data_"):
+            return None
+        return (
+            f"first content line is {stripped[:40]!r}; mmCIF requires a data "
+            "block header of the form `data_<name>` with no space. AlphaFold 3 "
+            "rejects this with 'The CIF file does not start with the data_ "
+            "field.'"
+        )
+    return "file has no content lines"
+
+
+#: mmCIF categories the repo's own working example carries
+#: (`examples/kemp_eliminase/*.cif`). ✅ A motif file is not an atom list: AF3
+#: builds `author_naming_scheme` from the entity and `pdbx_*_scheme` tables, and
+#: without them a load fails with `KeyError: ('B', 1)` while renumbering the
+#: ligand reference in `motif_str`.
+REQUIRED_CIF_CATEGORIES = [
+    "_entry", "_chem_comp", "_entity", "_entity_poly", "_entity_poly_seq",
+    "_pdbx_poly_seq_scheme", "_struct_asym", "_atom_site",
+]
+
+
+def cif_categories(lines: list[str]) -> list[str]:
+    seen = []
+    for line in lines:
+        stripped = line.strip()
+        if stripped.startswith("_") and "." in stripped:
+            category = stripped.split(".", 1)[0]
+            if category not in seen:
+                seen.append(category)
+    return seen
+
+
+def check_cif_shape(lines: list[str]) -> list[str]:
+    """Categories a loadable motif needs and this file lacks."""
+    present = set(cif_categories(lines))
+    return [c for c in REQUIRED_CIF_CATEGORIES if c not in present]
+
+
+def read_motif_cif(path: pathlib.Path, strict: bool = True) -> dict:
     """Minimal mmCIF atom_site reader -- enough to audit a motif file."""
     lines = path.read_text().splitlines()
+    header_problem = check_cif_header(lines)
+    if header_problem and strict:
+        raise CifHeaderError(f"{path.name}: {header_problem}")
     header = [l.strip().split(".", 1)[1] for l in lines
               if l.strip().startswith("_atom_site.")]
     if not header:
@@ -156,10 +215,25 @@ def read_motif_cif(path: pathlib.Path) -> dict:
     col = {name: i for i, name in enumerate(header)}
     rows = [l.split() for l in lines if l.startswith(("ATOM", "HETATM"))]
 
+    def unquote(value: str | None) -> str | None:
+        """Strip mmCIF quoting.
+
+        ⚠️ Load-bearing: an atom name containing a prime, like O5', is written
+        quoted ("O5'") because the bare token would be ambiguous. Without this,
+        9 of the adenylate's 17 nucleotide atoms fail to match
+        `AMP_MOIETY_ATOMS` and the moiety split silently shifts by three
+        residues -- which it did, until the two CIFs were diffed atom by atom.
+        """
+        if value is None or len(value) < 2:
+            return value
+        if value[0] == value[-1] and value[0] in "\"'":
+            return value[1:-1]
+        return value
+
     def get(row, *names):
         for name in names:
             if name in col:
-                return row[col[name]]
+                return unquote(row[col[name]])
         return None
 
     residues, ligand_atoms = {}, []
@@ -200,12 +274,19 @@ def check_numbering(residues: dict, reference: str = MM_PYLRS_WT) -> list[dict]:
     return out
 
 
-def partition_by_moiety(info: dict) -> list[dict]:
+#: Below this difference the two subsite distances are a tie, and the residue
+#: contacts both halves of the adenylate. ⚠️ Chosen, not derived: it is roughly
+#: the coordinate error of a 2.1 A structure, and several motif residues sit
+#: inside it, so a clean two-way split of this pocket does not exist.
+MOIETY_TIE_ANGSTROM = 0.5
+
+
+def partition_by_moiety(info: dict, tie: float = MOIETY_TIE_ANGSTROM) -> list[dict]:
     """Split motif residues by which half of the adenylate they contact.
 
-    The question this answers: a motif described as "the ncAA binding pocket",
-    extracted from a structure whose ligand is the **adenylate**, is partly an
-    ATP-site motif. This measures how much.
+    The question: a motif described as "the ncAA binding pocket", extracted from
+    a structure whose ligand is the **adenylate**, is partly an ATP-site motif.
+    This measures how much -- and refuses to call the residues that touch both.
     """
     import math
 
@@ -223,11 +304,16 @@ def partition_by_moiety(info: dict) -> list[dict]:
     for (chain, res_id), coords in sorted(info["protein_xyz"].items(),
                                           key=lambda kv: kv[0][1]):
         d_ncaa, d_amp = nearest(coords, ncaa), nearest(coords, amp)
+        if abs(d_ncaa - d_amp) < tie:
+            side = "both"
+        else:
+            side = "ncAA" if d_ncaa < d_amp else "AMP"
         rows.append({
             "residue": f"{info['residues'][(chain, res_id)]}{res_id}",
             "res_id": res_id,
             "d_ncaa": round(d_ncaa, 2), "d_amp": round(d_amp, 2),
-            "side": "ncAA" if d_ncaa < d_amp else "AMP",
+            "margin": round(abs(d_ncaa - d_amp), 2),
+            "side": side,
         })
     return rows
 
@@ -314,10 +400,29 @@ def main(argv=None) -> int:
         (j.get("input_file") for j in spec["designs"] if j.get("input_file")), None)
     info = None
     if cif_name and (args.package / cif_name).exists():
-        info = read_motif_cif(args.package / cif_name)
+        cif_path = args.package / cif_name
         print("\n" + "=" * 78)
         print(f"[1] The motif CIF: {cif_name}")
         print("=" * 78 + "\n")
+        cif_lines = cif_path.read_text().splitlines()
+        header_problem = check_cif_header(cif_lines)
+        missing_categories = check_cif_shape(cif_lines)
+        if header_problem:
+            print(f"  ❌ malformed mmCIF header -- {header_problem}")
+        else:
+            print("  ✅ mmCIF data-block header is well formed.")
+        if missing_categories:
+            print(f"  ❌ not a loadable mmCIF: missing {missing_categories}")
+            print(f"     ({len(cif_categories(cif_lines))} categories present; a motif"
+                  " file is a complete mmCIF,")
+            print("     not an atom list. AF3 builds author_naming_scheme from the")
+            print("     entity and pdbx_*_scheme tables, and refuses without them.)")
+        else:
+            print("  ✅ every mmCIF category the working example carries is present.")
+        if header_problem or missing_categories:
+            print("     Everything below is read with a permissive parser instead.")
+        print()
+        info = read_motif_cif(cif_path, strict=False)
         print(f"  {info['n_atoms']} atoms | {len(info['residues'])} protein residues"
               f" | {len(info['ligand_atoms'])} ligand atoms")
         numbering = check_numbering(info["residues"])
@@ -343,23 +448,33 @@ def main(argv=None) -> int:
             print(f"\n  ligand: {ligand_comps} ({len(info['ligand_atoms'])} atoms)")
             moiety = partition_by_moiety(info)
             if moiety:
-                ncaa = [r["residue"] for r in moiety if r["side"] == "ncAA"]
-                amp = [r["residue"] for r in moiety if r["side"] == "AMP"]
+                groups = {side: [r["residue"] for r in moiety if r["side"] == side]
+                          for side in ("ncAA", "AMP", "both")}
                 print("\n  ⚠️ CCD YLY is pyrrolysyl-ADENYLATE (C22 H35 N8 O9 P), not the")
                 print("     free ncAA -- 2Q7H is 'bound to adenylated pyrrolysine'. So a")
                 print("     motif taken from it is partly an ATP-site motif:\n")
-                print("       residue   d(ncAA)  d(AMP)   nearer")
+                print("       residue   d(ncAA)  d(AMP)  margin  nearer")
                 for r in moiety:
                     print(f"       {r['residue']:<9s} {r['d_ncaa']:7.2f}"
-                          f"  {r['d_amp']:6.2f}   {r['side']}")
-                print(f"\n     nearer the ncAA half ({len(ncaa)}): {', '.join(ncaa)}")
-                print(f"     nearer the AMP half  ({len(amp)}): {', '.join(amp)}")
-                print(f"\n  ❌ {len(amp)}/{len(moiety)} of a motif described as 'the ncAA"
-                      " binding pocket' sit")
-                print("     closer to the adenylate's nucleotide half. Conditioning on"
-                      " this")
-                print("     motif asks the model to rebuild the amino-acid pocket AND the")
-                print("     ATP site at once.")
+                          f"  {r['d_amp']:6.2f}  {r['margin']:6.2f}  {r['side']}")
+                for side, label in (("ncAA", "the amino-acid half"),
+                                    ("AMP", "the nucleotide half"),
+                                    ("both", f"BOTH, within {MOIETY_TIE_ANGSTROM} A")):
+                    members = groups[side]
+                    print(f"\n     nearer {label} ({len(members)}):"
+                          f" {', '.join(members) or '-'}")
+                not_ncaa = len(groups["AMP"]) + len(groups["both"])
+                print(f"\n  ❌ only {len(groups['ncAA'])}/{len(moiety)} of a motif"
+                      " described as 'the ncAA binding pocket' are")
+                print(f"     unambiguously in it; {not_ncaa} touch the nucleotide half or"
+                      " both. Conditioning")
+                print("     on this motif asks the model to rebuild the amino-acid pocket")
+                print("     AND the ATP site at once.")
+                if groups["both"]:
+                    print(f"  ⚠️ {len(groups['both'])} residue(s) sit within"
+                          f" {MOIETY_TIE_ANGSTROM} A of both halves, so a clean")
+                    print("     two-way split of this pocket does not exist. Any 'ncAA")
+                    print("     pocket only' motif is a judgement call, not a measurement.")
 
     # --- 2. the motif strings ----------------------------------------------
     print("\n" + "=" * 78)
@@ -400,6 +515,29 @@ def main(argv=None) -> int:
         else:
             failures += 1
             print(f"  ❌ UNSATISFIABLE -> {check['error']}")
+
+    # --- 2b. cross-field consistency ---------------------------------------
+    resequence = spec.get("resequence")
+    folding_inputs = (spec.get("folding") or {}).get("inputs")
+    print("\n" + "=" * 78)
+    print("[2b] Cross-field consistency")
+    print("=" * 78 + "\n")
+    if resequence is None:
+        failures += 1
+        print("  ❌ no `resequence` block. run_pipeline.py refuses to guess whether")
+        print("     designs are resequenced before folding -- set it to true or false.")
+    elif folding_inputs and "resequenced" in folding_inputs \
+            and not resequence.get("enabled"):
+        failures += 1
+        print('  ❌ folding.inputs includes "resequenced" while resequence.enabled is')
+        print("     false. The pipeline refuses this pair: enable resequencing or fold")
+        print('     the generated structure ("generated") instead.')
+    else:
+        print("  ✅ resequence.enabled and folding.inputs agree.")
+    if resequence and resequence.get("enabled"):
+        print("  ⚠️ resequence.enabled is true, so --ligandmpnn_dir and")
+        print("     --ligandmpnn_python are required at launch or run_pipeline.py")
+        print("     raises app.UsageError before any GPU work starts.")
 
     # --- 3. upstream cross-check -------------------------------------------
     if args.repo:

@@ -54,34 +54,142 @@ LINKER = (10, 45)
 
 
 def ncaa_side_residues(info: dict) -> list[int]:
-    """Residue ids nearer the adenylate's amino-acid half than its nucleotide half."""
+    """Residue ids unambiguously nearer the adenylate's amino-acid half.
+
+    Residues within `MOIETY_TIE_ANGSTROM` of both halves are excluded: they
+    contact the nucleotide too, so including them would smuggle the ATP site
+    into a motif advertised as the ncAA pocket.
+    """
     return [r["res_id"] for r in partition_by_moiety(info) if r["side"] == "ncAA"]
 
 
-def filter_cif(source: pathlib.Path, target: pathlib.Path,
-               keep_res_ids: set[int]) -> int:
-    """Copy an mmCIF keeping only `keep_res_ids` of the protein chain, plus ligands."""
+def normalise_header(lines: list[str]) -> list[str]:
+    """Repair a `data <name>` header into the mmCIF-legal `data_<name>`.
+
+    ✅ The audited package ships `data pylrs_pyl_motif`. AlphaFold 3's parser
+    refuses it with "The CIF file does not start with the data_ field", so every
+    job fails at structure load — after the manifest has validated and the
+    motif grammar has been checked. Repaired here rather than passed through.
+    """
+    out = list(lines)
+    for i, line in enumerate(out):
+        stripped = line.strip()
+        if not stripped or stripped.startswith("#"):
+            continue
+        if stripped.startswith("data_") and len(stripped) > len("data_"):
+            return out
+        parts = stripped.split(None, 1)
+        if parts and parts[0] == "data" and len(parts) == 2:
+            out[i] = f"data_{parts[1].strip()}"
+        else:
+            out[i] = "data_motif"
+            out.insert(i + 1 if stripped else i, line)
+        return out
+    return ["data_motif"]
+
+
+#: The `_atom_site` columns AlphaFold 3's parser reads, plus the author and
+#: bookkeeping columns a well-formed mmCIF carries. ✅ Enumerated from
+#: alphafold3/structure/parsing.py rather than guessed: the audited package
+#: supplies only 12 columns and is missing `label_entity_id`, `occupancy`,
+#: `pdbx_PDB_ins_code` and `pdbx_PDB_model_num`, which fails with
+#: `KeyError: '_atom_site.pdbx_PDB_model_num'` after the data_ header is fixed.
+ATOM_SITE_COLUMNS = [
+    "group_PDB", "id", "type_symbol", "label_atom_id", "label_alt_id",
+    "label_comp_id", "label_asym_id", "label_entity_id", "label_seq_id",
+    "pdbx_PDB_ins_code", "Cartn_x", "Cartn_y", "Cartn_z", "occupancy",
+    "B_iso_or_equiv", "auth_seq_id", "auth_comp_id", "auth_asym_id",
+    "auth_atom_id", "pdbx_PDB_model_num",
+]
+
+AMINO_ACIDS = frozenset(
+    "ALA ARG ASN ASP CYS GLN GLU GLY HIS ILE LEU LYS MET PHE PRO SER THR TRP "
+    "TYR VAL".split()
+)
+
+
+def write_motif_cif(source: pathlib.Path, target: pathlib.Path,
+                    keep_res_ids: set[int] | None, entry_id: str) -> int:
+    """Rewrite a motif as a complete mmCIF, optionally keeping only some residues.
+
+    Rebuilt rather than patched, because the source is missing four columns the
+    parser requires and `label_seq_id` has to be renumbered: AF3 wants
+    `label_seq_id` contiguous per entity while the motif's identity lives in
+    `auth_seq_id` (the manifest sets `is_author_naming: true` and names A300,
+    A302, …). Copying the author numbering into both fields is what a naive
+    patch would do, and it is wrong.
+    """
     lines = source.read_text().splitlines()
     header = [l.strip().split(".", 1)[1] for l in lines
               if l.strip().startswith("_atom_site.")]
     col = {name: i for i, name in enumerate(header)}
-    three = {"ALA", "ARG", "ASN", "ASP", "CYS", "GLN", "GLU", "GLY", "HIS", "ILE",
-             "LEU", "LYS", "MET", "PHE", "PRO", "SER", "THR", "TRP", "TYR", "VAL"}
 
-    out, kept = [], 0
+    def get(row, *names, default=None):
+        for name in names:
+            if name in col:
+                return row[col[name]]
+        return default
+
+    rows = []
     for line in lines:
         if not line.startswith(("ATOM", "HETATM")):
-            out.append(line)
             continue
         row = line.split()
-        comp = row[col["label_comp_id"]]
-        res_id = int(row[col.get("auth_seq_id", col["label_seq_id"])])
-        if comp in three and res_id not in keep_res_ids:
+        comp = get(row, "label_comp_id", "auth_comp_id")
+        auth_seq = int(get(row, "auth_seq_id", "label_seq_id"))
+        if comp in AMINO_ACIDS and keep_res_ids is not None \
+                and auth_seq not in keep_res_ids:
             continue
-        out.append(line)
-        kept += 1
+        rows.append({
+            "group_PDB": get(row, "group_PDB"),
+            "type_symbol": get(row, "type_symbol"),
+            "label_atom_id": get(row, "label_atom_id"),
+            "label_comp_id": comp,
+            "label_asym_id": get(row, "label_asym_id", "auth_asym_id"),
+            "auth_asym_id": get(row, "auth_asym_id", "label_asym_id"),
+            "auth_seq_id": auth_seq,
+            "Cartn_x": get(row, "Cartn_x"), "Cartn_y": get(row, "Cartn_y"),
+            "Cartn_z": get(row, "Cartn_z"),
+            "B_iso_or_equiv": get(row, "B_iso_or_equiv", default="1.00"),
+            "is_polymer": comp in AMINO_ACIDS,
+        })
+
+    # label_entity_id per chain, label_seq_id contiguous within each polymer
+    # chain, "." for non-polymer atoms.
+    chains = sorted({r["label_asym_id"] for r in rows})
+    entity_of = {chain: str(i + 1) for i, chain in enumerate(chains)}
+    seq_of: dict[tuple[str, int], int] = {}
+    for chain in chains:
+        residues = sorted({r["auth_seq_id"] for r in rows
+                           if r["label_asym_id"] == chain and r["is_polymer"]})
+        for index, auth in enumerate(residues, start=1):
+            seq_of[(chain, auth)] = index
+
+    out = [f"data_{entry_id}", f"_entry.id {entry_id}", "#", "loop_"]
+    out += [f"_atom_site.{name}" for name in ATOM_SITE_COLUMNS]
+    for serial, r in enumerate(rows, start=1):
+        label_seq = (str(seq_of[(r["label_asym_id"], r["auth_seq_id"])])
+                     if r["is_polymer"] else ".")
+        values = {
+            "group_PDB": r["group_PDB"], "id": str(serial),
+            "type_symbol": r["type_symbol"],
+            "label_atom_id": r["label_atom_id"], "label_alt_id": ".",
+            "label_comp_id": r["label_comp_id"],
+            "label_asym_id": r["label_asym_id"],
+            "label_entity_id": entity_of[r["label_asym_id"]],
+            "label_seq_id": label_seq, "pdbx_PDB_ins_code": "?",
+            "Cartn_x": r["Cartn_x"], "Cartn_y": r["Cartn_y"],
+            "Cartn_z": r["Cartn_z"], "occupancy": "1.00",
+            "B_iso_or_equiv": r["B_iso_or_equiv"],
+            "auth_seq_id": str(r["auth_seq_id"]),
+            "auth_comp_id": r["label_comp_id"],
+            "auth_asym_id": r["auth_asym_id"],
+            "auth_atom_id": r["label_atom_id"], "pdbx_PDB_model_num": "1",
+        }
+        out.append(" ".join(values[name] for name in ATOM_SITE_COLUMNS))
+    out.append("#")
     target.write_text("\n".join(out) + "\n")
-    return kept
+    return len(rows)
 
 
 def indexed_motif_str(res_ids: list[int], chain: str = "A",
@@ -119,23 +227,54 @@ def main(argv=None) -> int:
     ap.add_argument("--cif", default="pylrs_pyl_motif.cif")
     ap.add_argument("--out", type=pathlib.Path, default=ROOT / "fixed")
     ap.add_argument("--target-length", default="260-360")
+    ap.add_argument("--pdb", type=pathlib.Path, default=None,
+                    help="deposited mmCIF to re-extract the motif from "
+                         "(e.g. 2q7h.cif). Strongly recommended: without it the "
+                         "output carries only an _atom_site loop, which AF3 "
+                         "cannot load.")
+    ap.add_argument("--ligand", default="YLY")
     args = ap.parse_args(argv)
 
     args.out.mkdir(parents=True, exist_ok=True)
     src_cif = args.source / args.cif
-    info = read_motif_cif(src_cif)
+    # strict=False: this builder repairs a malformed data-block header rather
+    # than refusing it, so it must be able to read the broken original.
+    info = read_motif_cif(src_cif, strict=False)
     all_ids = sorted(r for _, r in info["residues"])
     ncaa_ids = ncaa_side_residues(info)
     target = tuple(int(x) for x in args.target_length.split("-"))
 
     # --- the motif files ---------------------------------------------------
-    shutil.copy(src_cif, args.out / "motif_active_site_full.cif")
-    n_kept = filter_cif(src_cif, args.out / "motif_ncaa_pocket.cif", set(ncaa_ids))
-    print(f"motif files in {args.out}:")
-    print(f"  motif_active_site_full.cif  {len(all_ids)} residues"
-          f" {all_ids}")
-    print(f"  motif_ncaa_pocket.cif       {len(ncaa_ids)} residues"
-          f" {ncaa_ids}  ({n_kept} atoms kept)")
+    # Rebuilt from the deposited entry when one is given, because a loadable
+    # motif is a complete mmCIF (entity + pdbx_*_scheme categories), not an
+    # atom list -- see extract_motif for the three failures that established it.
+    if args.pdb:
+        from trnaplat.apnovo import extract_motif as em
+        plans = [("motif_active_site_full.cif", all_ids, "pylrs_active_site"),
+                 ("motif_ncaa_pocket.cif", ncaa_ids, "pylrs_ncaa_pocket")]
+        print(f"motif files in {args.out}, extracted from {args.pdb.name} with gemmi:")
+        for name, ids, entry in plans:
+            structure, meta = em.extract(args.pdb, ids, args.ligand, entry)
+            em.write(structure, args.out / name)
+            missing = [c for c in em.REQUIRED_CATEGORIES
+                       if c not in em.categories(args.out / name)]
+            status = "✅" if not missing else f"❌ missing {missing}"
+            print(f"  {name:28s} {len(ids)} residues,"
+                  f" {meta['protein_atoms']} protein + {meta['ligand_atoms']}"
+                  f" ligand atoms  {status}")
+    else:
+        n_full = write_motif_cif(src_cif, args.out / "motif_active_site_full.cif",
+                                 None, "pylrs_active_site")
+        n_kept = write_motif_cif(src_cif, args.out / "motif_ncaa_pocket.cif",
+                                 set(ncaa_ids), "pylrs_ncaa_pocket")
+        print(f"⚠️ no --pdb given, so the motifs are rewritten from"
+              f" {src_cif.name} with an")
+        print(f"   {len(ATOM_SITE_COLUMNS)}-column _atom_site loop only. AF3 needs the"
+              " entity and")
+        print("   pdbx_*_scheme categories too, so pass --pdb for a loadable file.")
+        print(f"  motif_active_site_full.cif  {len(all_ids)} residues, {n_full} atoms")
+        print(f"  motif_ncaa_pocket.cif       {len(ncaa_ids)} residues, {n_kept} atoms")
+    print(f"  ncAA-side residues (unambiguous): {ncaa_ids}")
 
     # --- the fixed manifest ------------------------------------------------
     unindexed_full = ",".join(f"A{r}" for r in all_ids)
