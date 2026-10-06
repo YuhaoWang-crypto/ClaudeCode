@@ -1,0 +1,7 @@
+name,scaffold,ncAA,mutations_native,mutations_Mj_numbering,F_plus,F_minus,F_ratio,note
+Mc Mut4,McTyrRS,AzF,Y33L/D162L/L166Q,Y32L/D158L/L162Q,,,,
+Mc Mut5,McTyrRS,AzF,Y33A/D162V/L166D,Y32A/D158V/L162D,,,,
+Mc Mut6,McTyrRS,AzF,Y33G/D162T,Y32G/D158T,41.0,37.0,1.11,"selected from Mut4-7, but the paper calls the others 'not good'"
+Mc Mut7,McTyrRS,AzF,Y33L/D162Q/L166S,Y32L/D158Q/L162S,,,,
+Mc Mut6+RM,McTyrRS,AzF,Y33G/Y112F/D162T,Y32G/F108F/D158T,177.0,48.0,3.69,random mutagenesis on Mut6; the best McTyrRS variant reported
+Mj TyrRS variant,MjTyrRS,AzF,,,145.0,52.0,2.79,randomised at Y32/E107/D158/I159/L162; the paper gives no clone sequence

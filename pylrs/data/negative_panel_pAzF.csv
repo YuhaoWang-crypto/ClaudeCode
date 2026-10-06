@@ -1,0 +1,26 @@
+well,ncAA,stratum,mutations,score,purpose,n_mut
+A1,pAzF,top,Y32L/E107N/D158Q/I159V/L162Q,0.9974959838287152,predicted hits; doubles as the pick-list,5
+A2,pAzF,top,Y32L/E107N/D158Q/L162Q,0.99726700788818,predicted hits; doubles as the pick-list,4
+A3,pAzF,top,Y32L/E107R/D158Q/I159V/L162Q,0.9971024217288218,predicted hits; doubles as the pick-list,5
+A4,pAzF,top,Y32L/E107N/D158Q/I159L/L162Q,0.9969008856282846,predicted hits; doubles as the pick-list,5
+A5,pAzF,top,Y32L/E107N/D158Q/I159Y/L162Q,0.9969000604964988,predicted hits; doubles as the pick-list,5
+A6,pAzF,top,Y32L/E107R/D158Q/L162Q,0.9967819621094972,predicted hits; doubles as the pick-list,4
+A7,pAzF,upper-mid,Y32T/D158V/I159L/L162Q,0.9123196251409388,near the decision boundary,4
+A8,pAzF,upper-mid,Y32L/E107P/D158V/I159S/L162Q,0.9056335035731672,near the decision boundary,5
+A9,pAzF,upper-mid,Y32T/E107S/D158Q/I159S/L162D,0.9276478267002588,near the decision boundary,5
+A10,pAzF,upper-mid,Y32T/E107S/D158P/I159Y/L162D,0.8969736823283175,near the decision boundary,5
+A11,pAzF,upper-mid,E107R/D158V/I159V/L162D,0.9069818153573806,near the decision boundary,4
+A12,pAzF,lower-mid,Y32A/D158Q/I159S/L162S,0.7401668419489233,"near the decision boundary, below it",4
+B1,pAzF,lower-mid,E107N/D158P/I159L,0.7241915988770824,"near the decision boundary, below it",3
+B2,pAzF,lower-mid,Y32A/E107N/I159V/L162S,0.7658283463224715,"near the decision boundary, below it",4
+B3,pAzF,lower-mid,Y32A/E107R/D158T/I159L/L162D,0.6981385420397535,"near the decision boundary, below it",5
+B4,pAzF,lower-mid,Y32L/D158V/I159Y,0.7281730028400261,"near the decision boundary, below it",3
+B5,pAzF,bottom,Y32G/E107P/D158T/I159S/L162D,0.0634139664871736,the model's confident negatives,5
+B6,pAzF,bottom,Y32A/E107P/I159L/L162S,0.1024670323412685,the model's confident negatives,4
+B7,pAzF,bottom,Y32A/E107P/L162S,0.1564284697307676,the model's confident negatives,3
+B8,pAzF,bottom,Y32G/E107P/I159Y/L162S,0.1329115087861722,the model's confident negatives,4
+B9,pAzF,bottom,E107P/D158V/I159Y,0.205663168066418,the model's confident negatives,3
+B10,pAzF,random-library,Y32V/E107P/D158M/I159G/L162H,,unselected library members; tests the decoy assumption,5
+B11,pAzF,random-library,Y32A/E107C/D158A/I159E/L162T,,unselected library members; tests the decoy assumption,5
+B12,pAzF,random-library,Y32P/E107W/D158M/I159P/L162Y,,unselected library members; tests the decoy assumption,5
+C1,pAzF,random-library,Y32R/E107P/D158M/I159N/L162W,,unselected library members; tests the decoy assumption,5

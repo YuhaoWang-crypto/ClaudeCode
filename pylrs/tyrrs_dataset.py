@@ -128,12 +128,50 @@ CAMPAIGNS = [
          freq={"pCMFRS#1": 11, "pCMFRS#2": 11, "pCMFRS#3": 2,
                "pCMFRS#4": 1, "pCMFRS#5": 1}),
 
+    # Transcribed from a sequence alignment rather than a clone table, so the
+    # library consensus rows are carried too and checked against the wild type by
+    # `verify_alignment_rows` -- if the transcription or the numbering were off,
+    # that check fails instead of silently producing wrong mutations.
+    dict(record="2.9", ncAA="OCF3Phe", ncAA_full="p-trifluoromethoxy-L-phenylalanine",
+         provenance="image13.png (sheet2 Figure 7, Table S2 alignment)",
+         positions=[26, 32, 64, 65, 70, 108, 109, 155, 158, 159, 162],
+         clones={
+             "OCF3PHE_A6":  "KVIAHQWQAIK", "OCF3PHE_B6":  "KAIAHKWQGIV",
+             "OCF3PHE_B7":  "KVILHAWQGIQ", "OCF3PHE_B10": "KAIAHWMQGNL",
+             "OCF3PHE_C2":  "KVLGHEWQGIV", "OCF3PHE_D5":  "KVIHHEPQSIS",
+             "OCF3PHE_D9":  "KLIPHWMQGAL", "OCF3PHE_E7":  "KVISHTQQAIV",
+             "OCF3PHE_F6":  "KAISHQAQAIY", "OCF3PHE_F7":  "KIITHRWQAIS",
+             "OCF3PHE_F8":  "KVIQHRESSVH", "OCF3PHE_G2":  "KHIANWMQGAL",
+             "OCF3PHE_G5":  "KVITHLGQSIS", "OCF3PHE_H4":  "IVIGHHYQAIH"}),
+
     dict(record="2.16", ncAA="2-NPA", ncAA_full="2-nitrophenylalanine",
          provenance="image19.png (sheet2 FIgure12, Table S1)",
          positions=[32, 65, 67, 70, 108, 109, 114, 158, 159, 162],
          clones={"2NPA-1": "GHGGLSSTYD", "2NPA-2": "GHGGQLNACD", "2NPA-3": "GHGGYLSAHD",
                  "2NPA-4": "GHGGQLNTYE", "2NPA-5": "GHGGQFGAYD", "2NPA-6": "GHGGECASVE"}),
 ]
+
+
+#: The "Library" consensus rows of the OCF3Phe alignment (image13), as three
+#: blocks starting at residues 1, 61 and 121. 'X' marks a randomised column.
+#: Every non-X residue must equal the wild type, which is what makes the
+#: transcription of that alignment checkable rather than trusted.
+ALIGNMENT_LIBRARY_ROWS = {
+    1: "MDEFEMIKRNTSEIISEEELREVLKKDEKSAXIGFEPSGKIHLGHYLQIKKMIDLQNAGF",
+    61: "DIIIXLADLXAYLNQKGELDEIRKIGDYNKKVFEAMGLKAKYVYGSEXXLDKDYTLNVYR",
+    121: "LALKTTLKRARRSMELIAREDENPKVAEVIYPIMXVNXXHYXGVDVAVGGMEQRKIHMLA",
+}
+
+
+def verify_alignment_rows(wt: str) -> list[str]:
+    """Positions where the transcribed library rows disagree with the wild type."""
+    bad = []
+    for start, row in ALIGNMENT_LIBRARY_ROWS.items():
+        for offset, aa in enumerate(row):
+            pos = start + offset
+            if aa != "X" and wt[pos - 1] != aa:
+                bad.append(f"{pos}: alignment {aa} vs wild type {wt[pos - 1]}")
+    return bad
 
 
 def wild_type(campaigns_csv: pathlib.Path) -> str:
@@ -243,6 +281,14 @@ def main(argv=None) -> int:
     args = ap.parse_args(argv)
 
     pos, wt = build(args.campaigns)
+
+    bad = verify_alignment_rows(wt)
+    if bad:
+        raise SystemExit("the transcribed OCF3Phe alignment disagrees with the wild "
+                         f"type at: {bad}")
+    fixed = sum(len(r) - r.count("X") for r in ALIGNMENT_LIBRARY_ROWS.values())
+    print(f"✅ OCF3Phe alignment library rows match the wild type at all {fixed} "
+          "non-randomised positions")
     neg = decoys(pos, wt, per_positive=args.decoys_per_positive)
     full = pd.concat([pos, neg], ignore_index=True)
 

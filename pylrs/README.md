@@ -213,3 +213,102 @@ task, from 58 variants, with no structure and no Rosetta. The next honest step i
 more measured data rather than more model — specifically **measured negatives**,
 which no published campaign in this sheet provides and which currently cap what
 any classifier here can claim.
+
+---
+
+# Follow-ups: OCF₃Phe, cross-species, the pAzF screen, and the negative panel
+
+```bash
+python3 pylrs/tyrrs_dataset.py      # now 76 clones / 72 unique / 13 ncAAs
+python3 pylrs/crossspecies.py       # McTyrRS vs MjTyrRS on AzF
+python3 pylrs/screen_pazf.py        # calibration + pick-lists
+python3 pylrs/negative_panel.py     # the plate to order
+```
+
+## ✅ OCF₃Phe: 14 clones, transcription verified rather than trusted
+
+`image13` is a 14-clone sequence alignment, which is far easier to misread than a
+clone table. So the transcription carries the alignment's own **"Library"
+consensus rows**, and `verify_alignment_rows` checks them against the wild type:
+✅ all **172 non-randomised positions** match. A misread constant residue or an
+off-by-one would fail that check instead of silently producing wrong mutations.
+
+The dataset is now **76 clones, 72 unique mutation sets, 13 ncAAs**. Two clones
+carry substitutions outside their randomised set (C2 has I64L, H4 has K26I) —
+likely PCR artifacts, kept and recorded.
+
+## ✅ Cross-species: the strongest result in this dataset
+
+Sheet 3's McTyrRS campaign is the **only record anywhere in the file with a
+quantitative readout** (F+ with ncAA, F− without). Positions are made comparable
+by aligning McTyrRS to MjTyrRS (54.1% identity) rather than assuming an offset;
+every engineered site maps 1:1 (Mc Y33→Mj Y32, Mc D162→Mj D158, Mc L166→Mj L162,
+Mc Y112→Mj F108).
+
+Three things fall out, all computed:
+
+1. **The other species wins.** Best McTyrRS variant F+/F− = **3.69** vs the
+   MjTyrRS comparator's **2.79**, same paper, same assay. ⚠️ n = 1 ncAA, and the
+   Mj clone's sequence is not given.
+2. **Random mutagenesis rediscovered the other species' residue.** The mutation
+   that rescued McTyrRS, Y112F, maps to Mj position 108 — where the MjTyrRS wild
+   type is **already F**.
+3. **Independent convergence on the same solution.** The best McTyrRS variant is
+   `Y32G/D158T` in Mj numbering. `AzPheRS-6` — selected independently, in a
+   different lab, on MjTyrRS, for the same ncAA — is
+   `Y32G/E107T/D158T/I159Y/H160Y`, containing exactly those two substitutions.
+
+That is real support for the "screen other species' aaRS" idea, from measured data.
+
+## ⚠️ The pAzF screen: calibrate before you read the pick-list
+
+`screen_pazf.py` scores candidates as P(pAzF) from the multiclass attribution
+model, but reports **calibration first**: hold out each known pAzF clone, retrain,
+and rank it against 2,000 random library members.
+
+| held-out clone | mutations | rank of 2001 | percentile |
+|---|---|---|---|
+| AzPheRS-4 | Y32L/E107T/D158P/I159V/L162Q | 1 | 0.05% |
+| AzPheRS-1 | Y32T/E107N/D158P/I159L/L162Q | 53 | 2.7% |
+| AzPheRS-2 | Y32T/E107S/D158P/I159S/L162Q | 102 | 5.1% |
+| AzPheRS-3 | Y32T/E107S/D158P/I159L/L162Q | 151 | 7.6% |
+| AzPheRS-5 | Y32A/E107R/D158V/L162D | 1738 | **86.9%** |
+| AzPheRS-7 | Y32L/E107P/D158Q/Y161S/L162S | 1764 | **88.2%** |
+| AzPheRS-6 | Y32G/E107T/D158T/I159Y/H160Y | 1922 | **96.1%** |
+
+Median 7.6% → ~7× enrichment, 57% in the top 10%. But read the split, not the
+median: **the model recovers the dominant motif (D158P + L162Q) and is worse than
+chance on the three structurally distinct clones.** With seven examples, holding
+out a singleton leaves nothing resembling it in training.
+
+Note which clone it misses hardest: **AzPheRS-6** — the one the cross-species
+analysis shows converges with the best McTyrRS variant. The screen would have
+missed the most interesting solution.
+
+So the top-20 list elaborates one family (every entry carries L162Q + D158Q).
+`screen_pazf.py` therefore emits a second, **spread** list capped at 2 picks per
+motif: **3 distinct motifs → 11**, at a cost of 0.9975 → 0.9888 in score. Order
+from the spread list.
+
+Saturation singles are ranked too, but ⚠️ as **building blocks, not candidates** —
+every published pAzF synthetase carries 4–5 substitutions and the wild type is not
+a pAzF enzyme. Top singles: E107N, L162Q, E107R, D158Q, D158V, Y32L.
+
+## The negative panel: order a calibration curve, not a hit list
+
+`negative_panel.py` emits a 24-well, score-stratified plate (top / upper-mid /
+lower-mid / bottom / random-library). The instinct is to order only the top
+scorers; that measures a hit rate but **cannot calibrate** the model, so the score
+can never be used to *exclude* candidates — which is most of its value.
+
+The power calculation says something non-obvious:
+
+| measured negatives | 95% CI at AUC 0.70 | at AUC 0.85 |
+|---|---|---|
+| 10 | ±0.265 | ±0.203 |
+| 20 | ±0.243 | ±0.192 |
+| 50 | ±0.228 | ±0.184 |
+
+**The CI is dominated by the 7 positives, not the negatives.** Going 10 → 50
+negatives barely helps. So ~20 negatives for *each of several ncAAs*, pooled,
+buys far more than 50 for pAzF alone.
