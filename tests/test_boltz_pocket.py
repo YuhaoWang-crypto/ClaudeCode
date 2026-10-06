@@ -137,6 +137,11 @@ if __name__ == "__main__":
 RESULTS = ROOT / "trnaplat/data/boltz_results.csv"
 
 
+def _wide(frame):
+    """One row per variant, one column per ligand."""
+    return frame.pivot_table(index="name", columns="ligand", values="score")
+
+
 def test_measured_run_puts_a_rejected_variant_on_top():
     """❌ Pins the negative result, so a later change cannot quietly soften it."""
     if not RESULTS.exists():
@@ -145,7 +150,9 @@ def test_measured_run_puts_a_rejected_variant_on_top():
 
     frame = pd.read_csv(RESULTS)
     truth = {v["name"]: v["label"] for v in bp.variants()}
-    pazf = frame[frame["ligand"] == "pAzF"].sort_values("score", ascending=False)
+    pazf = frame[(frame["ligand"] == "pAzF")
+                 & frame["name"].map(lambda n: truth.get(n) is not None)]
+    pazf = pazf.sort_values("score", ascending=False)
     top = pazf.iloc[0]
     assert truth[top["name"]] == 0, (
         "the headline finding is that the top-scoring variant is a measured "
@@ -191,7 +198,105 @@ def test_structure_confidence_is_uniformly_high_and_uninformative():
 
     frame = pd.read_csv(RESULTS)
     conf = frame["structure_confidence"]
-    assert conf.min() > 0.94, "all five fold confidently"
+    assert conf.min() > 0.93, "every complex folds confidently"
     assert conf.max() - conf.min() < 0.05, (
         "the spread is too small to rank variants, which is why it was not used"
     )
+
+
+# --------------------------------------------- the pAzF-minus-Tyr comparator
+
+
+def test_the_tyr_arm_is_complete():
+    """The delta needs both ligands for all six proteins, or it is not a delta."""
+    if not RESULTS.exists():
+        pytest.skip("no Boltz results recorded yet")
+    import pandas as pd
+
+    wide = _wide(pd.read_csv(RESULTS))
+    assert set(wide.columns) == {"pAzF", "Tyr"}
+    assert len(wide) == 6, "five measured variants plus the wild-type control"
+    assert not wide.isna().any().any(), "a missing cell silently drops a variant"
+
+
+def test_wild_type_control_prefers_tyrosine():
+    """✅ The one free sanity check: a tyrosyl-tRNA synthetase must prefer Tyr.
+
+    If this flipped, the delta would not be measuring discrimination at all and
+    nothing downstream of it could be read.
+    """
+    if not RESULTS.exists():
+        pytest.skip("no Boltz results recorded yet")
+    import pandas as pd
+
+    wide = _wide(pd.read_csv(RESULTS))
+    row = wide.loc["Mc wild type"]
+    assert row["pAzF"] - row["Tyr"] < 0
+    # and every pocket mutant must have gone the other way
+    mutants = wide.drop(index="Mc wild type")
+    assert ((mutants["pAzF"] - mutants["Tyr"]) > 0).all()
+
+
+def test_the_margin_is_chance_and_loses_to_the_absolute_score():
+    """❌ The headline of the Tyr arm.
+
+    The ratio-matched margin was the physically correct correction and the
+    obvious rescue for the absolute score's 0.667. It comes out at exactly
+    chance. Pinned so a later change cannot quietly turn this into a success.
+    """
+    if not RESULTS.exists():
+        pytest.skip("no Boltz results recorded yet")
+    import pandas as pd
+
+    wide = _wide(pd.read_csv(RESULTS))
+    truth = {v["name"]: v["label"] for v in bp.variants()}
+    rows = [(float(r["pAzF"] - r["Tyr"]), truth[n])
+            for n, r in wide.iterrows() if truth.get(n) is not None]
+    value = bp.auc([s for s, _ in rows], [l for _, l in rows])
+    assert value == pytest.approx(0.5, abs=1e-9)
+    assert value < 2 / 3, "the margin must not be reported as beating pAzF"
+    assert bp.exact_p(value, 2, 3) == pytest.approx(0.6, abs=1e-9)
+    # and it tops the list with a DIFFERENT rejected variant than pAzF did
+    top = max(wide.index, key=lambda n: wide.loc[n, "pAzF"] - wide.loc[n, "Tyr"])
+    assert top == "Mc Mut5" and truth[top] == 0
+
+
+def test_tyr_alone_scores_as_well_as_pazf():
+    """❌ Why the 0.667 cannot be read as pAzF specificity.
+
+    Ranking the panel by affinity for the substrate it was selected to REJECT
+    is exactly as predictive as ranking it by the one it was selected to
+    accept. That equality is the strongest single argument in the module
+    docstring, so it is pinned numerically.
+    """
+    if not RESULTS.exists():
+        pytest.skip("no Boltz results recorded yet")
+    import pandas as pd
+
+    wide = _wide(pd.read_csv(RESULTS))
+    truth = {v["name"]: v["label"] for v in bp.variants()}
+    named = [n for n in wide.index if truth.get(n) is not None]
+    labels = [truth[n] for n in named]
+    pazf = bp.auc([float(wide.loc[n, "pAzF"]) for n in named], labels)
+    tyr = bp.auc([float(wide.loc[n, "Tyr"]) for n in named], labels)
+    assert pazf == pytest.approx(2 / 3, abs=1e-9)
+    assert tyr == pytest.approx(pazf, abs=1e-9)
+
+
+def test_the_resolved_gap_is_an_order_above_the_selected_one():
+    """✅ What the model DOES resolve, quantified -- and why it is the wrong axis.
+
+    Wild-type-vs-mutant is a 0.48 effect; the hit-vs-rejection differences the
+    selection actually turned on span 0.03. The docstring's "~17x" rests here.
+    """
+    if not RESULTS.exists():
+        pytest.skip("no Boltz results recorded yet")
+    import pandas as pd
+
+    wide = _wide(pd.read_csv(RESULTS))
+    delta = wide["pAzF"] - wide["Tyr"]
+    mutants = delta.drop(index="Mc wild type")
+    boundary = mutants.min() - delta["Mc wild type"]
+    spread = mutants.max() - mutants.min()
+    assert boundary > 0.45 and spread < 0.04
+    assert boundary / spread > 15

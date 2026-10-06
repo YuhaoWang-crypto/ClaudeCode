@@ -21,30 +21,53 @@ non-working one.
 
 ## ❌ The measured outcome: it does not separate them
 
-✅ Run 2026-10-06, Boltz-2.1, pocket-constrained, one sample each
-(`trnaplat/data/boltz_results.csv`):
+✅ Run 2026-10-06, Boltz-2.1, pocket-constrained, one sample each, both
+ligands for all six proteins -- 12 predictions
+(`trnaplat/data/boltz_results.csv`). `binding_confidence`:
 
-| variant | outcome | binding_confidence | optimization_score |
-|---|---|---|---|
-| **Mc Mut7** | **built, rejected** | **0.6196** | **0.2483** |
-| Mc Mut6+RM | selected, F+/F- 3.69 | 0.6008 | 0.2211 |
-| Mc Mut6 | selected, F+/F- 1.11 | 0.5960 | 0.2171 |
-| Mc Mut5 | built, rejected | 0.5823 | 0.1987 |
-| Mc Mut4 | built, rejected | 0.5680 | 0.2117 |
+| variant | outcome | pAzF | Tyr | pAzF - Tyr |
+|---|---|---|---|---|
+| **Mc Mut7** | **built, rejected** | **0.6196** | 0.3528 | +0.2669 |
+| Mc Mut6+RM | selected, F+/F- 3.69 | 0.6008 | 0.3267 | +0.2741 |
+| Mc Mut6 | selected, F+/F- 1.11 | 0.5960 | 0.3071 | +0.2889 |
+| Mc Mut5 | built, rejected | 0.5823 | 0.2876 | **+0.2947** |
+| Mc Mut4 | built, rejected | 0.5680 | 0.2888 | +0.2793 |
+| Mc wild type | control | 0.5447 | **0.7619** | **-0.2172** |
 
 **The highest-scoring variant on both metrics is one the experimenters built and
-rejected.** AUC 0.667, exact one-sided p = 0.400. Both metrics give the same
-ordering, so this is not a choice-of-score artifact. Structure confidence was
-high and uninformative across the board (0.951-0.969, ligand ipTM 0.925-0.975):
-Boltz is confident about where the ligand sits in every variant, including the
-ones that do not work.
+rejected.** AUC 0.667, exact one-sided p = 0.400. `optimization_score` gives the
+same top three, so this is not a choice-of-score artifact. Structure confidence
+was high and uninformative across the board (0.933-0.969, ligand ipTM
+0.902-0.984): Boltz is confident about where the ligand sits in every variant,
+including the ones that do not work.
+
+### ❌ The discrimination margin is worse, not better
+
+The assay's readout is a *ratio* -- fluorescence with the ncAA over without --
+so the physically comparable prediction is the margin over the native
+substrate, not the absolute pAzF score. That correction was the obvious rescue,
+and it fails: **pAzF - Tyr gives AUC 0.500, exact one-sided p = 0.600** -- dead
+chance, and worse than the absolute score it was meant to fix. It demotes Mut7,
+but promotes Mut5 (also rejected) to the top in its place.
+
+Two further things the Tyr arm settled, both negatives:
+
+* **Tyr alone scores exactly as well as pAzF: AUC 0.667.** Ranking these
+  variants by how tightly they bind the substrate they were selected to
+  *reject* is as predictive as ranking them by the substrate they were selected
+  to accept. Whatever the 0.667 is tracking, it is not pAzF specificity.
+* ✅ The sign convention is sound: the wild type prefers Tyr (-0.2172) and all
+  five pocket mutants prefer pAzF (+0.267 to +0.295). So the model does resolve
+  "pocket opened to pAzF" -- it just resolves nothing finer. The wild-type-to-
+  mutant gap is 0.484; the spread *among* the five mutants is 0.028. The
+  quantity Boltz separates here is ~17x larger than the quantity the selection
+  actually turned on.
 
 Read it as: on the only measured-negative panel this project has, a pocket-
 constrained binding prediction would have put a rejected clone at the top of the
-pick-list. It does separate the two hits from two of the three rejections, so it
-is not anti-correlated -- it is just not usable as a filter at this n. ⚠️ With
-2x3 the result cannot be significant either way (see below), so this rules out a
-gross success, not a weak signal.
+pick-list, and the ratio-matched margin would have put a different rejected
+clone there. ⚠️ With 2x3 the result cannot be significant either way (see
+below), so this rules out a gross success, not a weak signal.
 
 ## ⚠️ What this can and cannot establish
 
@@ -252,24 +275,85 @@ def main(argv=None) -> int:
 
         frame = pd.read_csv(args.ingest)
         truth = {v["name"]: v for v in variants()}
+        tag_of = {1: "selected", 0: "rejected", None: "control"}
+
+        def report(title: str, rows: list[tuple[str, float, int | None]]) -> float:
+            """Rank the panel by one score and return its AUC."""
+            print(f"  {title}")
+            for name, score, label in sorted(rows, key=lambda t: -t[1]):
+                ratio = truth[name]["f_ratio"]
+                measured = f"F+/F- {ratio:.2f}" if ratio else ""
+                print(f"    {name:<14s} {score:>+10.4f}  {tag_of[label]:<9s}"
+                      f" {measured}")
+            labelled = [(s, l) for _, s, l in rows if l is not None]
+            if len({l for _, l in labelled}) < 2:
+                print()
+                return float("nan")
+            value = auc([s for s, _ in labelled], [l for _, l in labelled])
+            n_pos = sum(1 for _, l in labelled if l == 1)
+            p = exact_p(value, n_pos, len(labelled) - n_pos)
+            print(f"    AUC {value:.3f}, exact one-sided p = {p:.3f}\n")
+            return value
+
         print("=" * 76)
         print(f"Boltz vs the measured McTyrRS panel -- {args.ingest}")
         print("=" * 76 + "\n")
+
+        aucs = {}
         for ligand, block in frame.groupby("ligand"):
             rows = [(r.name, r.score, truth[r.name]["label"])
                     for r in block.itertuples() if r.name in truth]
-            labelled = [(n, s, l) for n, s, l in rows if l is not None]
-            print(f"  ligand {ligand}:")
-            for name, score, label in sorted(rows, key=lambda t: -t[1]):
-                tag = {1: "selected", 0: "rejected", None: "control"}[label]
-                print(f"    {name:<14s} {score:>10.4f}  {tag}")
-            if len({l for _, _, l in labelled}) == 2:
-                scores = [s for _, s, _ in labelled]
-                labels = [l for _, _, l in labelled]
-                value = auc(scores, labels)
-                p = exact_p(value, labels.count(1), labels.count(0))
-                print(f"    AUC {value:.3f}, exact one-sided p = {p:.3f}\n")
-        print("  ⚠️ " + power_note().replace("\n", "\n  "))
+            aucs[ligand] = report(f"ligand {ligand} (absolute score):", rows)
+
+        # --- the discrimination score -------------------------------------
+        # The assay's F+/F- is a RATIO: fluorescence with the ncAA over without.
+        # So the comparable prediction is not "how well does this bind pAzF" but
+        # "how much better than the native substrate" -- pAzF minus Tyr.
+        wide = frame.pivot_table(index="name", columns="ligand", values="score")
+        if {"pAzF", "Tyr"} <= set(wide.columns):
+            wide = wide.dropna(subset=["pAzF", "Tyr"])
+            delta_rows = [(name, float(row["pAzF"] - row["Tyr"]),
+                           truth[name]["label"])
+                          for name, row in wide.iterrows() if name in truth]
+            print("=" * 76)
+            print("Discrimination: pAzF minus Tyr")
+            print("=" * 76 + "\n")
+            print("  The assay measured a RATIO (fluorescence with the ncAA over")
+            print("  without), so the comparable quantity is the margin over the")
+            print("  native substrate, not the absolute pAzF score.\n")
+            aucs["delta"] = report("pAzF - Tyr:", delta_rows)
+
+            control = [d for n, d, l in delta_rows if l is None]
+            if control:
+                print(f"  ✅ wild-type control delta = {control[0]:+.4f}")
+                if control[0] < 0:
+                    print("     Negative, as it must be: wild-type McTyrRS prefers")
+                    print("     tyrosine. The sign convention is behaving.")
+                else:
+                    print("     ⚠️ POSITIVE. Wild-type McTyrRS is a tyrosyl-tRNA")
+                    print("     synthetase and should prefer tyrosine, so a positive")
+                    print("     delta here means the delta is not measuring")
+                    print("     discrimination. Read the ranking below with that in")
+                    print("     mind -- the control is the part that was supposed to")
+                    print("     be free.")
+
+            print("\n" + "=" * 76)
+            print("Does the margin beat the absolute score?")
+            print("=" * 76 + "\n")
+            for key in ("pAzF", "Tyr", "delta"):
+                if key in aucs and not math.isnan(aucs[key]):
+                    print(f"    {key:<6s} AUC {aucs[key]:.3f}")
+            best = max((v, k) for k, v in aucs.items() if not math.isnan(v))
+            if best[1] == "delta" and best[0] > aucs.get("pAzF", 0):
+                print(f"\n  ✅ the margin ranks better than the absolute pAzF score")
+                print(f"     ({best[0]:.3f} vs {aucs['pAzF']:.3f}) -- which is what the")
+                print("     assay's own ratio readout predicts it should.")
+            else:
+                print(f"\n  ❌ the margin does NOT beat the absolute pAzF score.")
+                print("     The discrimination framing, which is the physically")
+                print("     correct one, does not rescue the prediction here.")
+
+        print("\n  ⚠️ " + power_note().replace("\n", "\n  "))
         return 0
 
     pocket = None if args.no_pocket else MC_POCKET_POSITIONS
