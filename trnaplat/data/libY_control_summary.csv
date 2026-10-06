@@ -1,0 +1,2 @@
+probe,liby_internal_min,liby_internal_median,liby_internal_max,probe_to_nearest_training,nearest_training,within_pairs_further_than_probe,within_pairs_total,unseen_categorical_levels,categorical_levels_tested
+AzK,0.3515615246553261,2.3301555914079857,4.318094747587063,3.6980708873419137,libY-H ONitrobenzyl-Tyr,3,28,3,3

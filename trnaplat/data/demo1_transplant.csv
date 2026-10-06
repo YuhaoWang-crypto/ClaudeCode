@@ -1,0 +1,8 @@
+substitution,position,from,to,target_native,defined,domain,nearest_pocket_pos,residues_away
+D2N,2,D,N,D,True,N-terminal tRNA-binding domain,346,344
+V31I,31,V,I,V,True,N-terminal tRNA-binding domain,346,315
+T56P,56,T,P,T,True,N-terminal tRNA-binding domain,346,290
+R61K,61,R,K,R,True,N-terminal tRNA-binding domain,346,285
+H62Y,62,H,Y,H,True,N-terminal tRNA-binding domain,346,284
+T122S,122,T,S,T,True,N-terminal tRNA-binding domain,346,224
+S193R,193,S,R,S,True,catalytic domain (ncAA pocket),346,153

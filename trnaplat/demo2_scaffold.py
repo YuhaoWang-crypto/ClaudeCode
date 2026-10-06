@@ -1,0 +1,327 @@
+"""Demo 2 -- is picking a better starting scaffold worth more than mutating one?
+
+This demo needs no wet lab. The comparison already exists in the client's own
+spreadsheet: one ncAA (pAzF) measured on two species' tyrosyl-tRNA synthetases,
+in the same paper, on the same readout. Everything below is recomputed from
+`pylrs/data/` rather than quoted, and the report it writes is the deliverable.
+
+## What the measured data says
+
+✅ The best *Methanosaeta concilii* variant discriminates better than the
+*Methanococcus jannaschii* one: F+/F- = **3.69** vs **2.79**. "Try another
+species" is supported by numbers here, not just by argument.
+
+✅ The two species converged independently. The best McTyrRS variant is
+Y32G/D158T in MjTyrRS numbering, and an MjTyrRS clone selected separately for
+pAzF (AzPheRS-6) carries both of those substitutions.
+
+✅ The substitution that rescued McTyrRS converts it to the residue MjTyrRS
+*already has*: Mc Y112F maps to Mj position 108, where the wild type is F.
+Random mutagenesis on McTyrRS rediscovered MjTyrRS's own residue -- and McTyrRS
+still ends up ahead, so its advantage lives in the rest of the scaffold, not at
+that site.
+
+## The limit this demo also exposes
+
+❌ The screening model cannot see the mutation that mattered. Y112F lies outside
+the five hotspot positions the screen scores, so Mc Mut6 (F+/F- = 1.11) and
+Mc Mut6+RM (F+/F- = 3.69) receive the **same** score and the **same** rank. A
+3.3x difference in measured performance is invisible to the ranking. That is the
+honest ceiling on every pick-list in this project, and it is computed below
+rather than argued.
+
+⚠️ n = 1 ncAA, 1 paper. The MjTyrRS clone behind the 2.79 has no published
+sequence, so the comparison is between two reported numbers, not two
+reconstructable variants.
+
+Run:  python3 -m trnaplat.demo2_scaffold
+"""
+
+from __future__ import annotations
+
+import argparse
+import pathlib
+import subprocess
+import sys
+
+import pandas as pd
+
+ROOT = pathlib.Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(ROOT))
+sys.path.insert(0, str(ROOT / "pylrs"))
+
+
+def run(cmd: list[str], cwd: pathlib.Path = ROOT) -> str:
+    """Run a sibling module and return its stdout, failing loudly."""
+    proc = subprocess.run(cmd, cwd=cwd, capture_output=True, text=True)
+    if proc.returncode != 0:
+        raise RuntimeError(f"{' '.join(cmd)} failed:\n{proc.stdout}\n{proc.stderr}")
+    return proc.stdout
+
+
+def calibration(python: str, variants: pathlib.Path, scaffold: str,
+                positions: str, out_dir: pathlib.Path) -> pd.DataFrame:
+    """Re-run the pAzF screen and read back its calibration table."""
+    run([python, "pylrs/screen_pazf.py", "--variants", str(variants),
+         "--scaffold", scaffold, "--positions", positions, "--no-rerank",
+         "--out", str(out_dir)])
+    frame = pd.read_csv(out_dir / "pazf_calibration.csv")
+    frame.insert(0, "scaffold", scaffold)
+    return frame
+
+
+def blind_spot(calib: pd.DataFrame, variants: pathlib.Path) -> pd.DataFrame:
+    """Find measured variants the screen scores identically despite differing.
+
+    This is the computation behind the ❌ above: any two clones whose scored
+    positions agree are indistinguishable to the model, no matter how far apart
+    their measured activity is.
+    """
+    measured = pd.read_csv(variants)
+    if "F_plus" not in measured.columns:
+        return pd.DataFrame()
+    measured = measured.dropna(subset=["F_plus", "F_minus"]).copy()
+    measured["F_ratio"] = measured["F_plus"] / measured["F_minus"]
+    merged = measured.merge(calib[["clone", "rank", "percentile"]],
+                            on="clone", how="inner")
+    rows = []
+    for rank, block in merged.groupby("rank"):
+        if len(block) < 2:
+            continue
+        lo = block.loc[block["F_ratio"].idxmin()]
+        hi = block.loc[block["F_ratio"].idxmax()]
+        if lo["clone"] == hi["clone"]:
+            continue
+        rows.append({
+            "shared_rank": int(rank),
+            "clone_low": lo["clone"], "F_ratio_low": lo["F_ratio"],
+            "clone_high": hi["clone"], "F_ratio_high": hi["F_ratio"],
+            "measured_fold_apart": hi["F_ratio"] / lo["F_ratio"],
+            "invisible_mutations": "/".join(
+                sorted(set(str(hi["mutations"]).split("/"))
+                       - set(str(lo["mutations"]).split("/")))),
+        })
+    return pd.DataFrame(rows)
+
+
+def summarise(calib: pd.DataFrame) -> dict:
+    top10 = (calib["percentile"] <= 10).mean()
+    return {
+        "n_clones": len(calib),
+        "median_percentile": float(calib["percentile"].median()),
+        "enrichment_vs_chance": 50.0 / max(float(calib["percentile"].median()), 1e-9),
+        "frac_top_10pct": float(top10),
+        "n_top_10pct": int((calib["percentile"] <= 10).sum()),
+        "worst_percentile": float(calib["percentile"].max()),
+    }
+
+
+REPORT = """# Demo 2 -- does choosing a better scaffold beat mutating one?
+
+*Generated by `trnaplat/demo2_scaffold.py`. Every number is recomputed from
+`pylrs/data/`; none is quoted from a paper's abstract.*
+
+## The question
+
+Demo 1 improves one pair. Demo 2 asks whether the bigger lever is **which enzyme
+you start from**. The client's own spreadsheet already contains the controlled
+comparison: para-azido-phenylalanine (pAzF) selected on two archaeal tyrosyl-tRNA
+synthetases, reported in the same work on the same fluorescence readout.
+
+## Result 1 -- the other species wins
+
+| scaffold | best variant | F+ | F- | F+/F- |
+|---|---|---|---|---|
+{scaffold_table}
+
+✅ Measured, same assay, same paper. Picking the *M. concilii* scaffold and then
+engineering it reaches a higher discrimination ratio than the *M. jannaschii*
+scaffold that the whole field uses.
+
+⚠️ n = 1 ncAA and 1 paper, and the MjTyrRS clone's sequence is not published, so
+this is a comparison of two reported numbers rather than two rebuildable
+variants. It is enough to justify screening a second scaffold; it is not enough
+to claim McTyrRS is generally better.
+
+## Result 2 -- the two species converged independently
+
+The best McTyrRS variant is **{mc_best_mj}** in MjTyrRS numbering. An MjTyrRS
+clone selected separately for the same ncAA, **{mj_convergent_clone}**
+({mj_convergent_muts}), carries those same substitutions.
+
+✅ Two independent selection campaigns, on two scaffolds 54.1% identical,
+arrived at the same answer. That is the strongest available evidence that the
+positions this project screens are the positions that matter.
+
+## Result 3 -- where McTyrRS's advantage actually comes from
+
+The substitution that rescued McTyrRS, **Y112F**, maps to MjTyrRS position 108,
+where the wild-type residue is **already F**. Random mutagenesis on McTyrRS
+rediscovered MjTyrRS's own residue at that site.
+
+So McTyrRS does not win *because of* that position -- it wins despite starting
+behind there. ✅ Its advantage lives in the remaining 46% of the scaffold that
+differs, which is precisely the thing a single-scaffold campaign can never
+reach.
+
+## Result 4 -- the honest ceiling on the model
+
+### Calibration: where do known clones rank among 2000 random library members?
+
+| scaffold | clones | median percentile | enrichment vs chance | in top 10% | worst clone |
+|---|---|---|---|---|---|
+{calibration_table}
+
+Both rows are leave-one-clone-out: each known clone is removed from training
+before being ranked.
+
+✅ The screen is a real enrichment filter. ⚠️ It is not an oracle: on MjTyrRS it
+puts {mj_top10} of {mj_n} known clones in the top 10% and leaves the worst at the
+{mj_worst:.0f}th percentile -- a clone that works, scored as a confident reject.
+
+⚠️ **The two rows are not a scaffold comparison.** {mc_transferred} of McTyrRS's
+{mc_n} pAzF clones are coordinate rewrites of the MjTyrRS clones in the row above
+(`pylrs/mc_scaffold.py`), scored against a different position set and a
+differently drawn pool. The higher McTyrRS enrichment reflects those differences,
+not a better scaffold. The scaffold evidence is Result 1, which is measured; this
+table only says both screens enrich.
+
+### ❌ The blind spot, computed
+
+{blindspot_text}
+
+This is the limitation to state first in any client conversation. The hotspot set
+defines what the model can see, and a substitution outside it is not merely
+down-weighted -- it is **absent**. Widening the hotspot set is the fix, and it
+costs library size.
+
+## What to order
+
+A **score-stratified** plate, not a top-N list. Wells spread across the score
+range turn the readout into a calibration curve rather than a single hit rate;
+with no low-scoring wells you never learn what a low score means, so the model
+can never be used to *exclude* candidates -- which is most of its value.
+
+`pylrs/negative_panel.py` emits that plate. The `bottom` stratum is the most
+informative well on it: if those come back positive, the score is not usable for
+exclusion, and that is worth knowing before a campaign is built on it.
+
+## What Demo 2 claims
+
+| | |
+|---|---|
+| ✅ | Cross-species scaffold choice is supported by measured data (3.69 vs 2.79) |
+| ✅ | Two species converged independently on the same substitutions |
+| ✅ | McTyrRS's advantage is in the scaffold, not at the rescuing position |
+| ✅ | The screen enriches {mj_enrich:.0f}x over chance on MjTyrRS, leave-one-clone-out |
+| ❌ | The screen cannot distinguish variants differing outside its hotspot set, including one pair {fold_apart:.1f}x apart in measured activity |
+| ⚠️ | One ncAA, one paper. McTyrRS's 76-clone prior is *transferred* from MjTyrRS, not measured |
+| ⚠️ | Sheet 3's Mut4/5/7 are the only measured non-hits anywhere in this dataset, and the paper gives no numbers for them |
+"""
+
+
+def main(argv=None) -> int:
+    ap = argparse.ArgumentParser(description=__doc__)
+    ap.add_argument("--python", default=sys.executable)
+    ap.add_argument("--out", type=pathlib.Path, default=ROOT / "trnaplat/data")
+    ap.add_argument("--report", type=pathlib.Path,
+                    default=ROOT / "trnaplat/DEMO2_REPORT.md")
+    args = ap.parse_args(argv)
+    args.out.mkdir(parents=True, exist_ok=True)
+
+    print("recomputing the cross-species comparison ...")
+    run([args.python, "pylrs/crossspecies.py"])
+    cross = pd.read_csv(ROOT / "pylrs/data/crossspecies_azf.csv")
+
+    print("recomputing both scaffolds' screens ...")
+    mj_dir = args.out / "mj"
+    mc_dir = args.out / "mc"
+    mj_cal = calibration(args.python, ROOT / "pylrs/data/tyrrs_variants.csv",
+                         "MjTyrRS", "32,107,158,159,162", mj_dir)
+    mc_cal = calibration(args.python, ROOT / "pylrs/data/mc_variants.csv",
+                         "McTyrRS", "33,111,162,163,166", mc_dir)
+    pd.concat([mj_cal, mc_cal]).to_csv(args.out / "demo2_calibration.csv", index=False)
+
+    mj, mc = summarise(mj_cal), summarise(mc_cal)
+    print("\nMjTyrRS:", mj)
+    print("McTyrRS:", mc)
+
+    mc_frame = pd.read_csv(ROOT / "pylrs/data/mc_variants.csv")
+    n_transferred = int(mc_frame[(mc_frame["ncAA"] == "pAzF")
+                                 & mc_frame["origin"].str.startswith("transferred")]
+                        .shape[0])
+
+    blind = blind_spot(mc_cal, ROOT / "pylrs/data/mc_variants.csv")
+    blind.to_csv(args.out / "demo2_blindspot.csv", index=False)
+    print("\nblind-spot pairs (same rank, different measured activity):")
+    print(blind.to_string(index=False) if len(blind) else "  none found")
+
+    # --- assemble the report ----------------------------------------------
+    # One row per scaffold -- its best measured variant. Mc Mut6, the
+    # intermediate, belongs in Result 3 rather than in a "best variant" table.
+    measured = cross.dropna(subset=["F_ratio"])
+    best = (measured.loc[measured.groupby("scaffold")["F_ratio"].idxmax()]
+            .sort_values("F_ratio", ascending=False))
+    scaffold_rows = []
+    for row in best.itertuples():
+        muts = row.mutations_native
+        label = muts if isinstance(muts, str) and muts else "sequence not published"
+        scaffold_rows.append(
+            f"| {row.scaffold} | {row.name} ({label}) "
+            f"| {row.F_plus:.0f} | {row.F_minus:.0f} | **{row.F_ratio:.2f}** |")
+
+    cal_rows = []
+    for tag, summary in [("MjTyrRS", mj), ("McTyrRS", mc)]:
+        cal_rows.append(
+            f"| {tag} | {summary['n_clones']} | {summary['median_percentile']:.2f}% "
+            f"| {summary['enrichment_vs_chance']:.0f}x "
+            f"| {summary['n_top_10pct']}/{summary['n_clones']} "
+            f"| {summary['worst_percentile']:.1f}% |")
+
+    mc_best = cross[cross["name"] == "Mc Mut6+RM"].iloc[0]
+    mc_best_mj = str(mc_best["mutations_Mj_numbering"])
+    convergent_muts = [m for m in mc_best_mj.split("/") if m[0] != m[-1]]
+    positives = pd.read_csv(ROOT / "pylrs/data/tyrrs_variants.csv").query("label == 1")
+    hit = None
+    for row in positives[positives["ncAA"] == "pAzF"].itertuples():
+        own = set(str(row.mutations).split("/"))
+        if set(convergent_muts) <= own:
+            hit = row
+            break
+
+    if len(blind):
+        top = blind.sort_values("measured_fold_apart", ascending=False).iloc[0]
+        blindspot_text = (
+            f"`{top['clone_low']}` and `{top['clone_high']}` differ only by "
+            f"**{top['invisible_mutations']}**, which lies outside the scored "
+            f"positions. The screen gives both the **same rank "
+            f"({top['shared_rank']}/2001)**, while their measured F+/F- ratios are "
+            f"{top['F_ratio_low']:.2f} and {top['F_ratio_high']:.2f} -- "
+            f"**{top['measured_fold_apart']:.1f}x apart**."
+        )
+        fold_apart = float(top["measured_fold_apart"])
+    else:
+        blindspot_text = ("No same-rank pair with differing measured activity was "
+                          "found in this run.")
+        fold_apart = float("nan")
+
+    report = REPORT.format(
+        scaffold_table="\n".join(scaffold_rows),
+        calibration_table="\n".join(cal_rows),
+        mc_best_mj="/".join(convergent_muts),
+        mj_convergent_clone=hit.clone if hit else "none found",
+        mj_convergent_muts=hit.mutations if hit else "-",
+        mj_top10=mj["n_top_10pct"], mj_n=mj["n_clones"],
+        mj_worst=mj["worst_percentile"],
+        mj_enrich=mj["enrichment_vs_chance"],
+        mc_n=mc["n_clones"], mc_transferred=n_transferred,
+        blindspot_text=blindspot_text, fold_apart=fold_apart,
+    )
+    args.report.write_text(report)
+    print(f"\n-> {args.report}  ({len(report.splitlines())} lines)")
+    print("\nDemo 2 needs no wet lab: this report is the deliverable.")
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

@@ -1,0 +1,4 @@
+column,probe_level,training_rows_with_this_level,training_levels_present,in_domain
+parent,Lys,0,Tyr,False
+attach,Ne_carbamate,0,para_O,False
+subst_class,carbamate_azide,0,"ether_alkyl, ether_alkyne, ether_aryl, ether_cycloalkene, ether_cycloalkyl",False

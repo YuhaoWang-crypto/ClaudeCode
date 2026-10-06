@@ -1,0 +1,17 @@
+true_b,replicates,wells_per_arm,calls_tRNA_limited,kind
+0.0,2,8,0.0735,FALSE POSITIVE
+0.0,3,12,0.0715,FALSE POSITIVE
+0.0,4,16,0.0555,FALSE POSITIVE
+0.0,6,24,0.045,FALSE POSITIVE
+-0.02,2,8,0.245,detection
+-0.02,3,12,0.295,detection
+-0.02,4,16,0.3205,detection
+-0.02,6,24,0.4015,detection
+-0.04,2,8,0.509,detection
+-0.04,3,12,0.614,detection
+-0.04,4,16,0.6995,detection
+-0.04,6,24,0.812,detection
+-0.08,2,8,0.8885,detection
+-0.08,3,12,0.9595,detection
+-0.08,4,16,0.9815,detection
+-0.08,6,24,0.9975,detection

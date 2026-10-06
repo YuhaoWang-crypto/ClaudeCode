@@ -1,0 +1,18 @@
+grouping,group,held_out,n_members,n_train_clones,auc_within_group,auc_all_others,note
+product,dual_orthogonal_click,pAzF,2,8.0,0.676530612244898,0.863265306122449,
+product,dual_orthogonal_click,pPRF,2,7.0,0.5796875,0.8492187499999999,
+product,photocrosslink_plus_click,pBpa,2,7.0,0.9111111111111111,0.9041666666666667,
+product,photocrosslink_plus_click,pAzF,2,6.0,0.6857142857142857,0.863265306122449,
+product,metal_chelation,BpyAla,2,8.0,1.0,0.975,
+product,metal_chelation,HQ-Ala,2,2.0,0.705078125,0.9457031250000001,
+product,fluorine_probe,,1,,,,needs >=2 members with data
+chemistry,phe_para_substituted,pBpa,7,28.0,0.9402777777777778,0.9041666666666667,
+chemistry,phe_para_substituted,pAzF,7,27.0,0.8142857142857143,0.863265306122449,
+chemistry,phe_para_substituted,pIF,7,33.0,1.0,1.0,
+chemistry,phe_para_substituted,pAF,7,33.0,1.0,1.0,
+chemistry,phe_para_substituted,BipAla,7,27.0,0.8622448979591837,0.9704081632653061,
+chemistry,phe_para_substituted,pBoroPhe,7,27.0,0.7897959183673469,0.9469387755102041,
+chemistry,phe_para_substituted,pCMF,7,29.0,0.9380000000000001,0.9239999999999999,
+chemistry,tyr_ether,OAY,3,22.0,0.38125000000000003,0.534375,
+chemistry,tyr_ether,pPRF,3,18.0,0.7749999999999999,0.8492187499999999,
+chemistry,tyr_ether,OCF3Phe,3,12.0,0.5533163265306122,0.8686224489795918,

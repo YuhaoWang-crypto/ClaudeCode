@@ -1,2 +1,8 @@
 __pycache__/
 *.pyc
+.venv/
+venv38/
+# Intermediate per-scaffold screen output; the consolidated
+# trnaplat/data/demo2_*.csv are the ones the report cites.
+trnaplat/data/mj/
+trnaplat/data/mc/
