@@ -1,0 +1,452 @@
+[
+ {
+  "name": "tabula sapiens bladder",
+  "modelIds": [
+   {
+    "model": "scvi",
+    "scviHubId": "scvi-tools/tabula-sapiens-bladder-scvi"
+   },
+   {
+    "model": "scanvi",
+    "scviHubId": "scvi-tools/tabula-sapiens-bladder-scanvi"
+   }
+  ],
+  "compatibleModels": [
+   "scvi",
+   "scanvi"
+  ],
+  "scviAtlas": true
+ },
+ {
+  "name": "tabula sapiens blood",
+  "modelIds": [
+   {
+    "model": "scvi",
+    "scviHubId": "scvi-tools/tabula-sapiens-blood-scvi"
+   },
+   {
+    "model": "scanvi",
+    "scviHubId": "scvi-tools/tabula-sapiens-blood-scanvi"
+   }
+  ],
+  "compatibleModels": [
+   "scvi",
+   "scanvi"
+  ],
+  "scviAtlas": true
+ },
+ {
+  "name": "tabula sapiens bone marrow",
+  "modelIds": [
+   {
+    "model": "scvi",
+    "scviHubId": "scvi-tools/tabula-sapiens-bone_marrow-scvi"
+   },
+   {
+    "model": "scanvi",
+    "scviHubId": "scvi-tools/tabula-sapiens-bone_marrow-scanvi"
+   }
+  ],
+  "compatibleModels": [
+   "scvi",
+   "scanvi"
+  ],
+  "scviAtlas": true
+ },
+ {
+  "name": "tabula sapiens eye",
+  "modelIds": [
+   {
+    "model": "scvi",
+    "scviHubId": "scvi-tools/tabula-sapiens-eye-scvi"
+   },
+   {
+    "model": "scanvi",
+    "scviHubId": "scvi-tools/tabula-sapiens-eye-scanvi"
+   }
+  ],
+  "compatibleModels": [
+   "scvi",
+   "scanvi"
+  ],
+  "scviAtlas": true
+ },
+ {
+  "name": "tabula sapiens fat",
+  "modelIds": [
+   {
+    "model": "scvi",
+    "scviHubId": "scvi-tools/tabula-sapiens-fat-scvi"
+   },
+   {
+    "model": "scanvi",
+    "scviHubId": "scvi-tools/tabula-sapiens-fat-scanvi"
+   }
+  ],
+  "compatibleModels": [
+   "scvi",
+   "scanvi"
+  ],
+  "scviAtlas": true
+ },
+ {
+  "name": "tabula sapiens heart",
+  "modelIds": [
+   {
+    "model": "scvi",
+    "scviHubId": "scvi-tools/tabula-sapiens-heart-scvi"
+   },
+   {
+    "model": "scanvi",
+    "scviHubId": "scvi-tools/tabula-sapiens-heart-scanvi"
+   }
+  ],
+  "compatibleModels": [
+   "scvi",
+   "scanvi"
+  ],
+  "scviAtlas": true
+ },
+ {
+  "name": "tabula sapiens liver",
+  "modelIds": [
+   {
+    "model": "scvi",
+    "scviHubId": "scvi-tools/tabula-sapiens-liver-scvi"
+   },
+   {
+    "model": "scanvi",
+    "scviHubId": "scvi-tools/tabula-sapiens-liver-scanvi"
+   }
+  ],
+  "compatibleModels": [
+   "scvi",
+   "scanvi"
+  ],
+  "scviAtlas": true
+ },
+ {
+  "name": "tabula sapiens lung",
+  "modelIds": [
+   {
+    "model": "scvi",
+    "scviHubId": "scvi-tools/tabula-sapiens-lung-scvi"
+   },
+   {
+    "model": "scanvi",
+    "scviHubId": "scvi-tools/tabula-sapiens-lung-scanvi"
+   }
+  ],
+  "compatibleModels": [
+   "scvi",
+   "scanvi"
+  ],
+  "scviAtlas": true
+ },
+ {
+  "name": "tabula sapiens lymph node",
+  "modelIds": [
+   {
+    "model": "scvi",
+    "scviHubId": "scvi-tools/tabula-sapiens-lymph_node-scvi"
+   },
+   {
+    "model": "scanvi",
+    "scviHubId": "scvi-tools/tabula-sapiens-lymph_node-scanvi"
+   }
+  ],
+  "compatibleModels": [
+   "scvi",
+   "scanvi"
+  ],
+  "scviAtlas": true
+ },
+ {
+  "name": "tabula sapiens mammary",
+  "modelIds": [
+   {
+    "model": "scvi",
+    "scviHubId": "scvi-tools/tabula-sapiens-mammary-scvi"
+   },
+   {
+    "model": "scanvi",
+    "scviHubId": "scvi-tools/tabula-sapiens-mammary-scanvi"
+   }
+  ],
+  "compatibleModels": [
+   "scvi",
+   "scanvi"
+  ],
+  "scviAtlas": true
+ },
+ {
+  "name": "tabula sapiens muscle",
+  "modelIds": [
+   {
+    "model": "scvi",
+    "scviHubId": "scvi-tools/tabula-sapiens-muscle-scvi"
+   },
+   {
+    "model": "scanvi",
+    "scviHubId": "scvi-tools/tabula-sapiens-muscle-scanvi"
+   }
+  ],
+  "compatibleModels": [
+   "scvi",
+   "scanvi"
+  ],
+  "scviAtlas": true
+ },
+ {
+  "name": "tabula sapiens pancreas",
+  "modelIds": [
+   {
+    "model": "scvi",
+    "scviHubId": "scvi-tools/tabula-sapiens-pancreas-scvi"
+   },
+   {
+    "model": "scanvi",
+    "scviHubId": "scvi-tools/tabula-sapiens-pancreas-scanvi"
+   }
+  ],
+  "compatibleModels": [
+   "scvi",
+   "scanvi"
+  ],
+  "scviAtlas": true
+ },
+ {
+  "name": "tabula sapiens prostate",
+  "modelIds": [
+   {
+    "model": "scvi",
+    "scviHubId": "scvi-tools/tabula-sapiens-prostate-scvi"
+   },
+   {
+    "model": "scanvi",
+    "scviHubId": "scvi-tools/tabula-sapiens-prostate-scanvi"
+   }
+  ],
+  "compatibleModels": [
+   "scvi",
+   "scanvi"
+  ],
+  "scviAtlas": true
+ },
+ {
+  "name": "tabula sapiens salivary gland",
+  "modelIds": [
+   {
+    "model": "scvi",
+    "scviHubId": "scvi-tools/tabula-sapiens-salivary_gland-scvi"
+   },
+   {
+    "model": "scanvi",
+    "scviHubId": "scvi-tools/tabula-sapiens-salivary_gland-scanvi"
+   }
+  ],
+  "compatibleModels": [
+   "scvi",
+   "scanvi"
+  ],
+  "scviAtlas": true
+ },
+ {
+  "name": "tabula sapiens skin",
+  "modelIds": [
+   {
+    "model": "scvi",
+    "scviHubId": "scvi-tools/tabula-sapiens-skin-scvi"
+   },
+   {
+    "model": "scanvi",
+    "scviHubId": "scvi-tools/tabula-sapiens-skin-scanvi"
+   }
+  ],
+  "compatibleModels": [
+   "scvi",
+   "scanvi"
+  ],
+  "scviAtlas": true
+ },
+ {
+  "name": "tabula sapiens spleen",
+  "modelIds": [
+   {
+    "model": "scvi",
+    "scviHubId": "scvi-tools/tabula-sapiens-spleen-scvi"
+   },
+   {
+    "model": "scanvi",
+    "scviHubId": "scvi-tools/tabula-sapiens-spleen-scanvi"
+   }
+  ],
+  "compatibleModels": [
+   "scvi",
+   "scanvi"
+  ],
+  "scviAtlas": true
+ },
+ {
+  "name": "tabula sapiens thymus",
+  "modelIds": [
+   {
+    "model": "scvi",
+    "scviHubId": "scvi-tools/tabula-sapiens-thymus-scvi"
+   },
+   {
+    "model": "scanvi",
+    "scviHubId": "scvi-tools/tabula-sapiens-thymus-scanvi"
+   }
+  ],
+  "compatibleModels": [
+   "scvi",
+   "scanvi"
+  ],
+  "scviAtlas": true
+ },
+ {
+  "name": "tabula sapiens tongue",
+  "modelIds": [
+   {
+    "model": "scvi",
+    "scviHubId": "scvi-tools/tabula-sapiens-tongue-scvi"
+   },
+   {
+    "model": "scanvi",
+    "scviHubId": "scvi-tools/tabula-sapiens-tongue-scanvi"
+   }
+  ],
+  "compatibleModels": [
+   "scvi",
+   "scanvi"
+  ],
+  "scviAtlas": true
+ },
+ {
+  "name": "tabula sapiens trachea",
+  "modelIds": [
+   {
+    "model": "scvi",
+    "scviHubId": "scvi-tools/tabula-sapiens-trachea-scvi"
+   },
+   {
+    "model": "scanvi",
+    "scviHubId": "scvi-tools/tabula-sapiens-trachea-scanvi"
+   }
+  ],
+  "compatibleModels": [
+   "scvi",
+   "scanvi"
+  ],
+  "scviAtlas": true
+ },
+ {
+  "name": "tabula sapiens uterus",
+  "modelIds": [
+   {
+    "model": "scvi",
+    "scviHubId": "scvi-tools/tabula-sapiens-uterus-scvi"
+   },
+   {
+    "model": "scanvi",
+    "scviHubId": "scvi-tools/tabula-sapiens-uterus-scanvi"
+   }
+  ],
+  "compatibleModels": [
+   "scvi",
+   "scanvi"
+  ],
+  "scviAtlas": true
+ },
+ {
+  "name": "tabula sapiens vasculature",
+  "modelIds": [
+   {
+    "model": "scvi",
+    "scviHubId": "scvi-tools/tabula-sapiens-vasculature-scvi"
+   },
+   {
+    "model": "scanvi",
+    "scviHubId": "scvi-tools/tabula-sapiens-vasculature-scanvi"
+   }
+  ],
+  "compatibleModels": [
+   "scvi",
+   "scanvi"
+  ],
+  "scviAtlas": true
+ },
+ {
+  "name": "tabula sapiens ear",
+  "modelIds": [
+   {
+    "model": "scvi",
+    "scviHubId": "scvi-tools/tabula-sapiens-ear-scvi"
+   },
+   {
+    "model": "scanvi",
+    "scviHubId": "scvi-tools/tabula-sapiens-ear-scanvi"
+   }
+  ],
+  "compatibleModels": [
+   "scvi",
+   "scanvi"
+  ],
+  "scviAtlas": true
+ },
+ {
+  "name": "tabula sapiens kidney",
+  "modelIds": [
+   {
+    "model": "scvi",
+    "scviHubId": "scvi-tools/tabula-sapiens-kidney-scvi"
+   },
+   {
+    "model": "scanvi",
+    "scviHubId": "scvi-tools/tabula-sapiens-kidney-scanvi"
+   }
+  ],
+  "compatibleModels": [
+   "scvi",
+   "scanvi"
+  ],
+  "scviAtlas": true
+ },
+ {
+  "name": "tabula sapiens ovary",
+  "modelIds": [
+   {
+    "model": "scvi",
+    "scviHubId": "scvi-tools/tabula-sapiens-ovary-scvi"
+   },
+   {
+    "model": "scanvi",
+    "scviHubId": "scvi-tools/tabula-sapiens-ovary-scanvi"
+   }
+  ],
+  "compatibleModels": [
+   "scvi",
+   "scanvi"
+  ],
+  "scviAtlas": true
+ },
+ {
+  "name": "tabula sapiens stomach",
+  "modelIds": [
+   {
+    "model": "scvi",
+    "scviHubId": "scvi-tools/tabula-sapiens-stomach-scvi"
+   },
+   {
+    "model": "scanvi",
+    "scviHubId": "scvi-tools/tabula-sapiens-stomach-scanvi"
+   }
+  ],
+  "compatibleModels": [
+   "scvi",
+   "scanvi"
+  ],
+  "scviAtlas": true
+ }
+]
