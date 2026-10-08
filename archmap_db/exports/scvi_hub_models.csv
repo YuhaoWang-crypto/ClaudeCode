@@ -1,0 +1,51 @@
+﻿atlas_name,model,scvi_hub_id,hf_url
+tabula sapiens bladder,scvi,scvi-tools/tabula-sapiens-bladder-scvi,https://huggingface.co/scvi-tools/tabula-sapiens-bladder-scvi
+tabula sapiens bladder,scanvi,scvi-tools/tabula-sapiens-bladder-scanvi,https://huggingface.co/scvi-tools/tabula-sapiens-bladder-scanvi
+tabula sapiens blood,scvi,scvi-tools/tabula-sapiens-blood-scvi,https://huggingface.co/scvi-tools/tabula-sapiens-blood-scvi
+tabula sapiens blood,scanvi,scvi-tools/tabula-sapiens-blood-scanvi,https://huggingface.co/scvi-tools/tabula-sapiens-blood-scanvi
+tabula sapiens bone marrow,scvi,scvi-tools/tabula-sapiens-bone_marrow-scvi,https://huggingface.co/scvi-tools/tabula-sapiens-bone_marrow-scvi
+tabula sapiens bone marrow,scanvi,scvi-tools/tabula-sapiens-bone_marrow-scanvi,https://huggingface.co/scvi-tools/tabula-sapiens-bone_marrow-scanvi
+tabula sapiens eye,scvi,scvi-tools/tabula-sapiens-eye-scvi,https://huggingface.co/scvi-tools/tabula-sapiens-eye-scvi
+tabula sapiens eye,scanvi,scvi-tools/tabula-sapiens-eye-scanvi,https://huggingface.co/scvi-tools/tabula-sapiens-eye-scanvi
+tabula sapiens fat,scvi,scvi-tools/tabula-sapiens-fat-scvi,https://huggingface.co/scvi-tools/tabula-sapiens-fat-scvi
+tabula sapiens fat,scanvi,scvi-tools/tabula-sapiens-fat-scanvi,https://huggingface.co/scvi-tools/tabula-sapiens-fat-scanvi
+tabula sapiens heart,scvi,scvi-tools/tabula-sapiens-heart-scvi,https://huggingface.co/scvi-tools/tabula-sapiens-heart-scvi
+tabula sapiens heart,scanvi,scvi-tools/tabula-sapiens-heart-scanvi,https://huggingface.co/scvi-tools/tabula-sapiens-heart-scanvi
+tabula sapiens liver,scvi,scvi-tools/tabula-sapiens-liver-scvi,https://huggingface.co/scvi-tools/tabula-sapiens-liver-scvi
+tabula sapiens liver,scanvi,scvi-tools/tabula-sapiens-liver-scanvi,https://huggingface.co/scvi-tools/tabula-sapiens-liver-scanvi
+tabula sapiens lung,scvi,scvi-tools/tabula-sapiens-lung-scvi,https://huggingface.co/scvi-tools/tabula-sapiens-lung-scvi
+tabula sapiens lung,scanvi,scvi-tools/tabula-sapiens-lung-scanvi,https://huggingface.co/scvi-tools/tabula-sapiens-lung-scanvi
+tabula sapiens lymph node,scvi,scvi-tools/tabula-sapiens-lymph_node-scvi,https://huggingface.co/scvi-tools/tabula-sapiens-lymph_node-scvi
+tabula sapiens lymph node,scanvi,scvi-tools/tabula-sapiens-lymph_node-scanvi,https://huggingface.co/scvi-tools/tabula-sapiens-lymph_node-scanvi
+tabula sapiens mammary,scvi,scvi-tools/tabula-sapiens-mammary-scvi,https://huggingface.co/scvi-tools/tabula-sapiens-mammary-scvi
+tabula sapiens mammary,scanvi,scvi-tools/tabula-sapiens-mammary-scanvi,https://huggingface.co/scvi-tools/tabula-sapiens-mammary-scanvi
+tabula sapiens muscle,scvi,scvi-tools/tabula-sapiens-muscle-scvi,https://huggingface.co/scvi-tools/tabula-sapiens-muscle-scvi
+tabula sapiens muscle,scanvi,scvi-tools/tabula-sapiens-muscle-scanvi,https://huggingface.co/scvi-tools/tabula-sapiens-muscle-scanvi
+tabula sapiens pancreas,scvi,scvi-tools/tabula-sapiens-pancreas-scvi,https://huggingface.co/scvi-tools/tabula-sapiens-pancreas-scvi
+tabula sapiens pancreas,scanvi,scvi-tools/tabula-sapiens-pancreas-scanvi,https://huggingface.co/scvi-tools/tabula-sapiens-pancreas-scanvi
+tabula sapiens prostate,scvi,scvi-tools/tabula-sapiens-prostate-scvi,https://huggingface.co/scvi-tools/tabula-sapiens-prostate-scvi
+tabula sapiens prostate,scanvi,scvi-tools/tabula-sapiens-prostate-scanvi,https://huggingface.co/scvi-tools/tabula-sapiens-prostate-scanvi
+tabula sapiens salivary gland,scvi,scvi-tools/tabula-sapiens-salivary_gland-scvi,https://huggingface.co/scvi-tools/tabula-sapiens-salivary_gland-scvi
+tabula sapiens salivary gland,scanvi,scvi-tools/tabula-sapiens-salivary_gland-scanvi,https://huggingface.co/scvi-tools/tabula-sapiens-salivary_gland-scanvi
+tabula sapiens skin,scvi,scvi-tools/tabula-sapiens-skin-scvi,https://huggingface.co/scvi-tools/tabula-sapiens-skin-scvi
+tabula sapiens skin,scanvi,scvi-tools/tabula-sapiens-skin-scanvi,https://huggingface.co/scvi-tools/tabula-sapiens-skin-scanvi
+tabula sapiens spleen,scvi,scvi-tools/tabula-sapiens-spleen-scvi,https://huggingface.co/scvi-tools/tabula-sapiens-spleen-scvi
+tabula sapiens spleen,scanvi,scvi-tools/tabula-sapiens-spleen-scanvi,https://huggingface.co/scvi-tools/tabula-sapiens-spleen-scanvi
+tabula sapiens thymus,scvi,scvi-tools/tabula-sapiens-thymus-scvi,https://huggingface.co/scvi-tools/tabula-sapiens-thymus-scvi
+tabula sapiens thymus,scanvi,scvi-tools/tabula-sapiens-thymus-scanvi,https://huggingface.co/scvi-tools/tabula-sapiens-thymus-scanvi
+tabula sapiens tongue,scvi,scvi-tools/tabula-sapiens-tongue-scvi,https://huggingface.co/scvi-tools/tabula-sapiens-tongue-scvi
+tabula sapiens tongue,scanvi,scvi-tools/tabula-sapiens-tongue-scanvi,https://huggingface.co/scvi-tools/tabula-sapiens-tongue-scanvi
+tabula sapiens trachea,scvi,scvi-tools/tabula-sapiens-trachea-scvi,https://huggingface.co/scvi-tools/tabula-sapiens-trachea-scvi
+tabula sapiens trachea,scanvi,scvi-tools/tabula-sapiens-trachea-scanvi,https://huggingface.co/scvi-tools/tabula-sapiens-trachea-scanvi
+tabula sapiens uterus,scvi,scvi-tools/tabula-sapiens-uterus-scvi,https://huggingface.co/scvi-tools/tabula-sapiens-uterus-scvi
+tabula sapiens uterus,scanvi,scvi-tools/tabula-sapiens-uterus-scanvi,https://huggingface.co/scvi-tools/tabula-sapiens-uterus-scanvi
+tabula sapiens vasculature,scvi,scvi-tools/tabula-sapiens-vasculature-scvi,https://huggingface.co/scvi-tools/tabula-sapiens-vasculature-scvi
+tabula sapiens vasculature,scanvi,scvi-tools/tabula-sapiens-vasculature-scanvi,https://huggingface.co/scvi-tools/tabula-sapiens-vasculature-scanvi
+tabula sapiens ear,scvi,scvi-tools/tabula-sapiens-ear-scvi,https://huggingface.co/scvi-tools/tabula-sapiens-ear-scvi
+tabula sapiens ear,scanvi,scvi-tools/tabula-sapiens-ear-scanvi,https://huggingface.co/scvi-tools/tabula-sapiens-ear-scanvi
+tabula sapiens kidney,scvi,scvi-tools/tabula-sapiens-kidney-scvi,https://huggingface.co/scvi-tools/tabula-sapiens-kidney-scvi
+tabula sapiens kidney,scanvi,scvi-tools/tabula-sapiens-kidney-scanvi,https://huggingface.co/scvi-tools/tabula-sapiens-kidney-scanvi
+tabula sapiens ovary,scvi,scvi-tools/tabula-sapiens-ovary-scvi,https://huggingface.co/scvi-tools/tabula-sapiens-ovary-scvi
+tabula sapiens ovary,scanvi,scvi-tools/tabula-sapiens-ovary-scanvi,https://huggingface.co/scvi-tools/tabula-sapiens-ovary-scanvi
+tabula sapiens stomach,scvi,scvi-tools/tabula-sapiens-stomach-scvi,https://huggingface.co/scvi-tools/tabula-sapiens-stomach-scvi
+tabula sapiens stomach,scanvi,scvi-tools/tabula-sapiens-stomach-scanvi,https://huggingface.co/scvi-tools/tabula-sapiens-stomach-scanvi

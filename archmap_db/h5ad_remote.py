@@ -117,7 +117,19 @@ def _norm_ensembl(x):
     return s.split(".")[0] if ENSEMBL_RE.match(s) else None
 
 
-def summarise_h5ad(url, cell_type_key=None, batch_key=None, block_size=2 ** 22):
+def _resolve_key(candidates, available):
+    """First candidate present in obs (exact match, then case-insensitive)."""
+    lower = {c.lower(): c for c in available}
+    for cand in candidates:
+        if cand in available:
+            return cand
+        if cand and cand.lower() in lower:
+            return lower[cand.lower()]
+    return None
+
+
+def summarise_h5ad(url, cell_type_keys=(), batch_keys=(), block_size=2 ** 22):
+    """cell_type_keys / batch_keys: candidate obs columns in order of preference."""
     fs = fsspec.filesystem("http")
     res = {}
     with fs.open(url, "rb", block_size=block_size, cache_type="blockcache") as fh, \
@@ -151,6 +163,9 @@ def summarise_h5ad(url, cell_type_key=None, batch_key=None, block_size=2 ** 22):
         res["obs_columns"], res["category_counts"] = columns, cat_counts
 
         # cell type x batch, and cell type x Cell Ontology (CELLxGENE schema)
+        cell_type_key = _resolve_key(cell_type_keys, coded)
+        batch_key = _resolve_key(batch_keys, coded)
+        res["cell_type_key_used"], res["batch_key_used"] = cell_type_key, batch_key
         res["celltype_batch"], res["celltype_ontology"] = [], []
         if cell_type_key in coded and batch_key in coded and batch_key != cell_type_key:
             res["celltype_batch"] = _crosstab(*coded[cell_type_key], *coded[batch_key])

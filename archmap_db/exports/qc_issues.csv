@@ -1,0 +1,15 @@
+﻿atlas,issue,detail
+HLCA,cell_count_mismatch,"portal reports 584,885 cells; data.h5ad has 584,944 (100.0%)"
+Retina,cell_type_key_substituted,portal key 'CellType' is not in data.h5ad; using obs column 'celltype'
+Retina,batch_key_missing,'batch' is not an obs column of data.h5ad
+Glioblastoma,cell_count_mismatch,"portal reports 1,135,677 cells; data.h5ad has 338,564 (29.8%)"
+HNOCA,cell_count_mismatch,"portal reports 1,800,000 cells; data.h5ad has 1,770,578 (98.4%)"
+HNOCA,cell_type_key_substituted,portal key 'snapseed_pca_rss_level_123' is not in data.h5ad; using obs column 'annot_level_2'
+HEOCA,cell_count_mismatch,"portal reports 936,563 cells; data.h5ad has 806,646 (86.1%)"
+HEOCA,cell_type_key_substituted,portal key 'cell_type' is not in data.h5ad; using obs column 'Cell_type'
+HNOCA Extended,cell_count_mismatch,"portal reports 1,971,082 cells; data.h5ad has 1,923,686 (97.6%)"
+Plaque (refined cell type level),cell_count_mismatch,"portal reports 184,635 cells; data.h5ad has 2,122,065 (1149.3%)"
+Plaque (refined cell type level),cell_type_key_missing,'cell_type_level2' is not an obs column of data.h5ad
+Plaque (refined cell type level),batch_key_missing,'sample' is not an obs column of data.h5ad
+Plaque,cell_count_mismatch,"portal reports 184,635 cells; data.h5ad has 259,493 (140.5%)"
+Plaque (refined cell type level),duplicate_reference_file,data.h5ad is byte-size/shape/gene identical to atlas 'Breast' (670f6f4a037f805a37639eca); this atlas's own data is not in the file

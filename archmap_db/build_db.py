@@ -10,7 +10,9 @@ from __future__ import annotations
 import argparse
 import concurrent.futures as cf
 import csv
+import gzip
 import json
+import shutil
 import sqlite3
 from datetime import datetime, timezone
 from pathlib import Path
@@ -25,7 +27,8 @@ CREATE TABLE atlas (
     n_cells_reported INTEGER, n_obs_file INTEGER, n_vars_file INTEGER,
     x_encoding TEXT, x_dtype TEXT, n_samples INTEGER, n_individuals INTEGER,
     n_datasets INTEGER, doi TEXT, source_url TEXT, atlas_url TEXT,
-    batch_key TEXT, cell_type_key TEXT, counts_description TEXT,
+    batch_key TEXT, cell_type_key TEXT, batch_key_used TEXT,
+    cell_type_key_used TEXT, counts_description TEXT,
     var_names_description TEXT, compatible_models TEXT, is_hca INTEGER,
     is_nature INTEGER, in_revision INTEGER, uploaded_by TEXT, created_at TEXT,
     updated_at TEXT, preview_image_url TEXT, archmap_page_url TEXT,
@@ -50,7 +53,8 @@ CREATE TABLE celltype_batch_count (atlas_id TEXT, cell_type TEXT, batch TEXT,
 CREATE TABLE celltype_ontology_map (atlas_id TEXT, cell_type TEXT,
     ontology_term_id TEXT, n_cells INTEGER);
 CREATE TABLE gene (atlas_id TEXT, position INTEGER, feature_id TEXT, symbol TEXT,
-    ensembl_id TEXT, PRIMARY KEY (atlas_id, position));
+    ensembl_id TEXT, species TEXT, ensembl_resolved TEXT, symbol_resolved TEXT,
+    PRIMARY KEY (atlas_id, position));
 CREATE TABLE scvi_hub_model (atlas_name TEXT, model TEXT, scvi_hub_id TEXT,
     hf_url TEXT, PRIMARY KEY (atlas_name, model));
 CREATE TABLE qc_issue (atlas_id TEXT, issue TEXT, detail TEXT);
@@ -60,15 +64,22 @@ CREATE INDEX ix_occ_cat ON obs_category_count (category);
 CREATE INDEX ix_ctb ON celltype_batch_count (atlas_id, cell_type);
 CREATE INDEX ix_gene_sym ON gene (symbol);
 CREATE INDEX ix_gene_ens ON gene (ensembl_id);
+CREATE INDEX ix_gene_res ON gene (ensembl_resolved);
 CREATE INDEX ix_ont ON celltype_ontology_map (ontology_term_id);
 
--- one row per gene (Ensembl id if known, else symbol): in how many atlases' model features
+-- atlases whose data file is not their own (see qc_issue); left out of cross-atlas views
+CREATE VIEW v_atlas_usable AS
+SELECT * FROM atlas WHERE atlas_id NOT IN
+    (SELECT atlas_id FROM qc_issue WHERE issue = 'duplicate_reference_file');
+
+-- one row per gene (Ensembl id, resolved from symbol where needed): in how many
+-- atlases' model feature sets it appears
 CREATE VIEW v_gene_presence AS
-SELECT COALESCE(g.ensembl_id, g.symbol) AS gene_key,
-       MAX(g.symbol) AS symbol, COUNT(DISTINCT g.atlas_id) AS n_atlases,
+SELECT g.species, COALESCE(g.ensembl_resolved, g.symbol_resolved) AS gene_key,
+       MAX(g.symbol_resolved) AS symbol, COUNT(DISTINCT g.atlas_id) AS n_atlases,
        GROUP_CONCAT(DISTINCT a.name) AS atlases
-FROM gene g JOIN atlas a USING (atlas_id)
-GROUP BY gene_key;
+FROM gene g JOIN v_atlas_usable a USING (atlas_id)
+GROUP BY g.species, gene_key;
 
 -- majority Cell Ontology term for each atlas cell-type label (CELLxGENE-schema atlases)
 CREATE VIEW v_celltype_ontology AS
@@ -83,13 +94,13 @@ CREATE VIEW v_ontology_across_atlases AS
 SELECT o.category AS ontology_term_id,
        COUNT(DISTINCT o.atlas_id) AS n_atlases, SUM(o.n_cells) AS n_cells,
        GROUP_CONCAT(a.name || ':' || o.n_cells, '; ') AS atlas_cells
-FROM obs_category_count o JOIN atlas a USING (atlas_id)
+FROM obs_category_count o JOIN v_atlas_usable a USING (atlas_id)
 WHERE o.column_name = 'cell_type_ontology_term_id' AND o.n_cells > 0
 GROUP BY o.category;
 
 CREATE VIEW v_atlas_summary AS
 SELECT a.name, a.species, a.n_cells_reported, a.n_obs_file, a.n_vars_file,
-       a.cell_type_key, (SELECT COUNT(*) FROM cell_type c WHERE c.atlas_id = a.atlas_id) AS n_cell_types,
+       a.cell_type_key_used, (SELECT COUNT(*) FROM cell_type c WHERE c.atlas_id = a.atlas_id) AS n_cell_types,
        a.batch_key, a.compatible_models,
        ROUND((SELECT SUM(size_bytes) FROM atlas_file f WHERE f.atlas_id = a.atlas_id) / 1e9, 2) AS total_gb,
        (SELECT GROUP_CONCAT(issue, ', ') FROM qc_issue q WHERE q.atlas_id = a.atlas_id) AS qc_issues
@@ -97,6 +108,11 @@ FROM atlas a ORDER BY a.name;
 """
 
 MODEL_ALIASES = {"scanvi": "scANVI", "scvi": "scVI", "scpoli": "scPoli"}
+# portal cellTypeKey absent from data.h5ad -> closest existing annotation column
+CELLTYPE_FALLBACK = {
+    "Retina": ["celltype"],          # portal says 'CellType'; 123 labels, = scANVI_predictions
+    "HNOCA": ["annot_level_2"],      # portal says 'snapseed_pca_rss_level_123'
+}
 
 
 def file_kind(path):
@@ -108,8 +124,8 @@ def file_kind(path):
 
 def _summarise(args):
     from h5ad_remote import summarise_h5ad
-    atlas_id, url, ct, batch = args
-    return atlas_id, summarise_h5ad(url, ct, batch)
+    atlas_id, url, cts, batches = args
+    return atlas_id, summarise_h5ad(url, cts, batches)
 
 
 def strip_urls(files):
@@ -154,13 +170,17 @@ def main():
     for a in atlases:
         cf_path = cache / f"{a['_id']}.json"
         if cf_path.exists():
-            summaries[a["_id"]] = json.loads(cf_path.read_text())
-            continue
+            cached = json.loads(cf_path.read_text())
+            if "cell_type_key_used" in cached:
+                summaries[a["_id"]] = cached
+                continue
         if args.no_remote:
             continue
         url = next(f["presignedUrl"] for f in files[a["_id"]]
                    if f["fileName"].endswith("/data.h5ad"))
-        todo.append((a["_id"], url, a.get("cellTypeKey"), a.get("batchKey")))
+        cts = [a.get("cellTypeKey"), a.get("cell_type_key")] + CELLTYPE_FALLBACK.get(a["name"], [])
+        batches = [a.get("batchKey"), a.get("batch_key")]
+        todo.append((a["_id"], url, [k for k in cts if k], [k for k in batches if k]))
     if todo:
         with cf.ProcessPoolExecutor(args.workers) as ex:
             futs = {ex.submit(_summarise, t): t[0] for t in todo}
@@ -197,12 +217,14 @@ def main():
     for a in atlases:
         aid, s = a["_id"], summaries.get(a["_id"], {})
         ct_key, b_key = a.get("cellTypeKey"), a.get("batchKey")
-        con.execute("INSERT INTO atlas VALUES (" + ",".join("?" * 33) + ")", (
+        ct_used, b_used = s.get("cell_type_key_used"), s.get("batch_key_used")
+        con.execute("INSERT INTO atlas VALUES (" + ",".join("?" * 35) + ")", (
             aid, a["name"], ", ".join(x.capitalize() for x in a.get("species", [])),
             ", ".join(a.get("modalities", [])), a.get("numberOfCells"), s.get("n_obs"),
             s.get("n_vars"), s.get("x_encoding"), s.get("x_dtype"), a.get("samples"),
             a.get("individuals"), a.get("datasets"), a.get("doi"),
             (a.get("url") or "").strip() or None, a.get("atlasUrl"), b_key, ct_key,
+            b_used, ct_used,
             a.get("counts"), a.get("vars"), json.dumps(a.get("compatibleModels", [])),
             int(bool(a.get("isHCAAtlas"))), int(bool(a.get("isNature"))),
             int(bool(a.get("inrevision") or a.get("inRevison"))), a.get("uploadedBy"),
@@ -230,10 +252,10 @@ def main():
             con.execute("INSERT INTO obs_column VALUES (?,?,?,?,?,?,?,?,?,?,?,?)", (
                 aid, c["column"], c["kind"], c["dtype"], c["n_categories"], c["n_missing"],
                 c["min"], c["max"], c["mean"], c["median"],
-                int(c["column"] == ct_key), int(c["column"] == b_key)))
+                int(c["column"] == ct_used), int(c["column"] == b_used)))
         con.executemany("INSERT INTO obs_category_count VALUES (?,?,?,?)",
                         [(aid, *r) for r in s["category_counts"]])
-        ct = [(c, n) for col, c, n in s["category_counts"] if col == ct_key]
+        ct = [(c, n) for col, c, n in s["category_counts"] if col == ct_used]
         tot = sum(n for _, n in ct) or 1
         con.executemany("INSERT INTO cell_type VALUES (?,?,?,?)",
                         [(aid, c, n, round(n / tot, 6)) for c, n in ct])
@@ -241,8 +263,9 @@ def main():
                         [(aid, *r) for r in s["celltype_batch"]])
         con.executemany("INSERT INTO celltype_ontology_map VALUES (?,?,?,?)",
                         [(aid, *r) for r in s["celltype_ontology"]])
-        con.executemany("INSERT INTO gene VALUES (?,?,?,?,?)",
-                        [(aid, *g) for g in s["genes"]])
+        species = a["species"][0].capitalize() if a.get("species") else None
+        con.executemany("INSERT INTO gene (atlas_id, position, feature_id, symbol, ensembl_id, species) "
+                        "VALUES (?,?,?,?,?,?)", [(aid, *g, species) for g in s["genes"]])
 
         # ---- QC: compare portal metadata against the actual file -------------------
         rep = a.get("numberOfCells")
@@ -251,8 +274,14 @@ def main():
                 aid, "cell_count_mismatch",
                 f"portal reports {rep:,} cells; data.h5ad has {s['n_obs']:,} "
                 f"({s['n_obs'] / rep:.1%})"))
-        for key, label in [(ct_key, "cell_type_key"), (b_key, "batch_key")]:
-            if key and key not in cat_cols:
+        for key, used, label in [(ct_key, ct_used, "cell_type_key"), (b_key, b_used, "batch_key")]:
+            if not key or key == used:
+                continue
+            if used:
+                con.execute("INSERT INTO qc_issue VALUES (?,?,?)", (
+                    aid, f"{label}_substituted",
+                    f"portal key '{key}' is not in data.h5ad; using obs column '{used}'"))
+            else:
                 con.execute("INSERT INTO qc_issue VALUES (?,?,?)", (
                     aid, f"{label}_missing", f"'{key}' is not an obs column of data.h5ad"))
 
@@ -265,13 +294,40 @@ def main():
         p = next(f["fileName"] for f in files[a["_id"]] if f["fileName"].endswith("/data.h5ad"))
         sig = (sizes.get(p), s["n_obs"], s["n_vars"], tuple(g[1] for g in s["genes"]))
         if sig in seen:
+            # the copy whose cell count disagrees with its own portal record is the misfiled one
             other = seen[sig]
             for x, y in [(a, other), (other, a)]:
-                con.execute("INSERT INTO qc_issue VALUES (?,?,?)", (
-                    x["_id"], "duplicate_reference_file",
-                    f"data.h5ad is byte-size/shape/gene identical to atlas '{y['name']}' ({y['_id']})"))
+                if x.get("numberOfCells") != summaries[x["_id"]]["n_obs"]:
+                    con.execute("INSERT INTO qc_issue VALUES (?,?,?)", (
+                        x["_id"], "duplicate_reference_file",
+                        f"data.h5ad is byte-size/shape/gene identical to atlas '{y['name']}' "
+                        f"({y['_id']}); this atlas's own data is not in the file"))
         else:
             seen[sig] = a
+
+    # resolve symbol <-> Ensembl across atlases of the same species, so atlases that
+    # only ship symbols (or only Ensembl ids) can be joined with the others
+    con.executescript("""
+        CREATE TEMP TABLE sym2ens AS
+        SELECT species, symbol, ensembl_id FROM (
+            SELECT species, symbol, ensembl_id, ROW_NUMBER() OVER (
+                PARTITION BY species, symbol ORDER BY COUNT(*) DESC, ensembl_id) AS rk
+            FROM gene WHERE symbol IS NOT NULL AND ensembl_id IS NOT NULL
+            GROUP BY species, symbol, ensembl_id) WHERE rk = 1;
+        CREATE TEMP TABLE ens2sym AS
+        SELECT species, ensembl_id, symbol FROM (
+            SELECT species, ensembl_id, symbol, ROW_NUMBER() OVER (
+                PARTITION BY species, ensembl_id ORDER BY COUNT(*) DESC, symbol) AS rk
+            FROM gene WHERE symbol IS NOT NULL AND ensembl_id IS NOT NULL
+            GROUP BY species, ensembl_id, symbol) WHERE rk = 1;
+        CREATE INDEX t1 ON sym2ens (species, symbol);
+        CREATE INDEX t2 ON ens2sym (species, ensembl_id);
+        UPDATE gene SET
+            ensembl_resolved = COALESCE(ensembl_id, (SELECT m.ensembl_id FROM sym2ens m
+                WHERE m.species = gene.species AND m.symbol = gene.symbol)),
+            symbol_resolved = COALESCE(symbol, (SELECT m.symbol FROM ens2sym m
+                WHERE m.species = gene.species AND m.ensembl_id = gene.ensembl_id));
+    """)
 
     for e in scvi:
         for m in e.get("modelIds", []):
@@ -303,7 +359,11 @@ def main():
             w.writerow([d[0] for d in cur.description])
             w.writerows(cur)
     con.close()
-    print(f"wrote {db} and {len(queries)} CSVs in {out}")
+    # committed copy is gzipped: raw SQLite pages concatenate gene names (AKAP...)
+    # into strings that secret scanners mistake for cloud access keys
+    with open(db, "rb") as src, gzip.open(f"{db}.gz", "wb", compresslevel=9) as dst:
+        shutil.copyfileobj(src, dst)
+    print(f"wrote {db} (+ .gz) and {len(queries)} CSVs in {out}")
 
 
 if __name__ == "__main__":

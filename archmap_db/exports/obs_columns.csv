@@ -1,0 +1,649 @@
+﻿atlas,atlas_id,column_name,kind,dtype,n_categories,n_missing,min,max,mean,median,is_cell_type_key,is_batch_key
+HLCA,628668716f930d8b7f44d575,3'_or_5',categorical,object,2,0,,,,,0,0
+HLCA,628668716f930d8b7f44d575,BMI,numeric,float64,,157029,19.9,48.9,28.404068765993248,25.3,0,0
+HLCA,628668716f930d8b7f44d575,age_or_mean_of_age_range,numeric,float64,,3427,10.0,76.0,44.1399142243477,46.0,0,0
+HLCA,628668716f930d8b7f44d575,age_range,categorical,object,7,0,,,,,0,0
+HLCA,628668716f930d8b7f44d575,anatomical_region_ccf_score,numeric,float64,,0,0.0,0.97,0.7325658011707104,0.97,0,0
+HLCA,628668716f930d8b7f44d575,ann_coarse_for_GWAS_and_modeling,categorical,object,39,0,,,,,0,0
+HLCA,628668716f930d8b7f44d575,ann_finest_level,categorical,object,61,0,,,,,0,0
+HLCA,628668716f930d8b7f44d575,ann_level_1,categorical,object,4,0,,,,,0,0
+HLCA,628668716f930d8b7f44d575,ann_level_2,categorical,object,11,0,,,,,0,0
+HLCA,628668716f930d8b7f44d575,ann_level_3,categorical,object,25,0,,,,,0,0
+HLCA,628668716f930d8b7f44d575,ann_level_4,categorical,object,39,0,,,,,0,0
+HLCA,628668716f930d8b7f44d575,ann_level_5,categorical,object,17,0,,,,,0,0
+HLCA,628668716f930d8b7f44d575,assay,categorical,object,5,0,,,,,0,0
+HLCA,628668716f930d8b7f44d575,assay_ontology_term_id,categorical,object,5,0,,,,,0,0
+HLCA,628668716f930d8b7f44d575,cause_of_death,categorical,object,15,400905,,,,,0,0
+HLCA,628668716f930d8b7f44d575,cell_type,categorical,object,50,0,,,,,0,0
+HLCA,628668716f930d8b7f44d575,cell_type_ontology_term_id,categorical,object,50,0,,,,,0,0
+HLCA,628668716f930d8b7f44d575,core_or_extension,categorical,object,1,0,,,,,0,0
+HLCA,628668716f930d8b7f44d575,dataset,categorical,object,14,0,,,,,0,1
+HLCA,628668716f930d8b7f44d575,development_stage,categorical,object,50,0,,,,,0,0
+HLCA,628668716f930d8b7f44d575,development_stage_ontology_term_id,categorical,object,50,0,,,,,0,0
+HLCA,628668716f930d8b7f44d575,disease,categorical,object,1,0,,,,,0,0
+HLCA,628668716f930d8b7f44d575,disease_ontology_term_id,categorical,object,1,0,,,,,0,0
+HLCA,628668716f930d8b7f44d575,donor_id,categorical,object,107,0,,,,,0,0
+HLCA,628668716f930d8b7f44d575,fresh_or_frozen,categorical,object,2,0,,,,,0,0
+HLCA,628668716f930d8b7f44d575,is_primary_data,boolean,bool,2,0,,,,,0,0
+HLCA,628668716f930d8b7f44d575,log10_total_counts,numeric,float32,,0,2.383815288543701,5.225508213043213,3.6611030073081636,3.6494321823120117,0,0
+HLCA,628668716f930d8b7f44d575,lung_condition,categorical,object,2,0,,,,,0,0
+HLCA,628668716f930d8b7f44d575,mixed_ancestry,categorical,object,2,571228,,,,,0,0
+HLCA,628668716f930d8b7f44d575,observation_joinid,string,str,,0,,,,,0,0
+HLCA,628668716f930d8b7f44d575,organism,categorical,object,1,0,,,,,0,0
+HLCA,628668716f930d8b7f44d575,organism_ontology_term_id,categorical,object,1,0,,,,,0,0
+HLCA,628668716f930d8b7f44d575,original_ann_level_1,categorical,object,5,0,,,,,0,0
+HLCA,628668716f930d8b7f44d575,original_ann_level_2,categorical,object,13,0,,,,,0,0
+HLCA,628668716f930d8b7f44d575,original_ann_level_3,categorical,object,30,0,,,,,0,0
+HLCA,628668716f930d8b7f44d575,original_ann_level_4,categorical,object,65,0,,,,,0,0
+HLCA,628668716f930d8b7f44d575,original_ann_level_5,categorical,object,20,0,,,,,0,0
+HLCA,628668716f930d8b7f44d575,original_ann_nonharmonized,categorical,object,354,0,,,,,0,0
+HLCA,628668716f930d8b7f44d575,reannotation_type,categorical,object,3,0,,,,,0,0
+HLCA,628668716f930d8b7f44d575,sample,categorical,object,166,0,,,,,0,0
+HLCA,628668716f930d8b7f44d575,scanvi_label,categorical,object,29,0,,,,,1,0
+HLCA,628668716f930d8b7f44d575,self_reported_ethnicity,categorical,object,7,0,,,,,0,0
+HLCA,628668716f930d8b7f44d575,self_reported_ethnicity_ontology_term_id,categorical,object,7,0,,,,,0,0
+HLCA,628668716f930d8b7f44d575,sequencing_platform,categorical,object,8,377,,,,,0,0
+HLCA,628668716f930d8b7f44d575,sex,categorical,object,2,0,,,,,0,0
+HLCA,628668716f930d8b7f44d575,sex_ontology_term_id,categorical,object,2,0,,,,,0,0
+HLCA,628668716f930d8b7f44d575,smoking_status,categorical,object,3,101182,,,,,0,0
+HLCA,628668716f930d8b7f44d575,study,categorical,object,11,0,,,,,0,0
+HLCA,628668716f930d8b7f44d575,subject_type,categorical,object,3,0,,,,,0,0
+HLCA,628668716f930d8b7f44d575,suspension_type,categorical,object,1,0,,,,,0,0
+HLCA,628668716f930d8b7f44d575,tissue,categorical,object,3,0,,,,,0,0
+HLCA,628668716f930d8b7f44d575,tissue_coarse_unharmonized,categorical,object,7,0,,,,,0,0
+HLCA,628668716f930d8b7f44d575,tissue_detailed_unharmonized,categorical,object,29,134558,,,,,0,0
+HLCA,628668716f930d8b7f44d575,tissue_dissociation_protocol,categorical,object,6,0,,,,,0,0
+HLCA,628668716f930d8b7f44d575,tissue_level_2,categorical,object,9,134558,,,,,0,0
+HLCA,628668716f930d8b7f44d575,tissue_level_3,categorical,object,15,349266,,,,,0,0
+HLCA,628668716f930d8b7f44d575,tissue_ontology_term_id,categorical,object,3,0,,,,,0,0
+HLCA,628668716f930d8b7f44d575,tissue_sampling_method,categorical,object,5,0,,,,,0,0
+HLCA,628668716f930d8b7f44d575,tissue_type,categorical,object,1,0,,,,,0,0
+HLCA,628668716f930d8b7f44d575,total_counts,numeric,float32,,0,242.0,168077.0,7800.268771027654,4461.0,0,0
+HLCA,628668716f930d8b7f44d575,transf_ann_level_1_label,categorical,object,0,584944,,,,,0,0
+HLCA,628668716f930d8b7f44d575,transf_ann_level_1_uncert,numeric,float64,,584944,,,,,0,0
+HLCA,628668716f930d8b7f44d575,transf_ann_level_2_label,categorical,object,0,584944,,,,,0,0
+HLCA,628668716f930d8b7f44d575,transf_ann_level_2_uncert,numeric,float64,,584944,,,,,0,0
+HLCA,628668716f930d8b7f44d575,transf_ann_level_3_label,categorical,object,0,584944,,,,,0,0
+HLCA,628668716f930d8b7f44d575,transf_ann_level_3_uncert,numeric,float64,,584944,,,,,0,0
+HLCA,628668716f930d8b7f44d575,transf_ann_level_4_label,categorical,object,0,584944,,,,,0,0
+HLCA,628668716f930d8b7f44d575,transf_ann_level_4_uncert,numeric,float64,,584944,,,,,0,0
+HLCA,628668716f930d8b7f44d575,transf_ann_level_5_label,categorical,object,0,584944,,,,,0,0
+HLCA,628668716f930d8b7f44d575,transf_ann_level_5_uncert,numeric,float64,,584944,,,,,0,0
+Hypomap,640a038d7fc2a071ebb30ebe,Age,categorical,object,4,0,,,,,0,0
+Hypomap,640a038d7fc2a071ebb30ebe,Author_Batch,categorical,object,7,0,,,,,0,0
+Hypomap,640a038d7fc2a071ebb30ebe,Author_CellType,categorical,object,654,0,,,,,1,0
+Hypomap,640a038d7fc2a071ebb30ebe,Author_Class,categorical,object,19,0,,,,,0,0
+Hypomap,640a038d7fc2a071ebb30ebe,Author_Class_Curated,categorical,object,14,0,,,,,0,0
+Hypomap,640a038d7fc2a071ebb30ebe,Author_Condition,categorical,object,29,0,,,,,0,0
+Hypomap,640a038d7fc2a071ebb30ebe,Author_Exclude,categorical,object,3,0,,,,,0,0
+Hypomap,640a038d7fc2a071ebb30ebe,Author_Region,categorical,object,9,0,,,,,0,0
+Hypomap,640a038d7fc2a071ebb30ebe,Batch_ID,categorical,object,29,0,,,,,0,1
+Hypomap,640a038d7fc2a071ebb30ebe,C185,categorical,object,185,0,,,,,0,0
+Hypomap,640a038d7fc2a071ebb30ebe,C185_named,categorical,object,185,0,,,,,0,0
+Hypomap,640a038d7fc2a071ebb30ebe,C2,categorical,object,2,0,,,,,0,0
+Hypomap,640a038d7fc2a071ebb30ebe,C25,categorical,object,25,0,,,,,0,0
+Hypomap,640a038d7fc2a071ebb30ebe,C25_named,categorical,object,25,0,,,,,0,0
+Hypomap,640a038d7fc2a071ebb30ebe,C286,categorical,object,286,0,,,,,0,0
+Hypomap,640a038d7fc2a071ebb30ebe,C286_named,categorical,object,286,0,,,,,0,0
+Hypomap,640a038d7fc2a071ebb30ebe,C2_named,categorical,object,2,0,,,,,0,0
+Hypomap,640a038d7fc2a071ebb30ebe,C465,categorical,object,465,0,,,,,0,0
+Hypomap,640a038d7fc2a071ebb30ebe,C465_named,categorical,object,465,0,,,,,0,0
+Hypomap,640a038d7fc2a071ebb30ebe,C66,categorical,object,66,0,,,,,0,0
+Hypomap,640a038d7fc2a071ebb30ebe,C66_named,categorical,object,66,0,,,,,0,0
+Hypomap,640a038d7fc2a071ebb30ebe,C7,categorical,object,7,0,,,,,0,0
+Hypomap,640a038d7fc2a071ebb30ebe,C7_named,categorical,object,7,0,,,,,0,0
+Hypomap,640a038d7fc2a071ebb30ebe,Cell_ID,string,str,,0,,,,,0,0
+Hypomap,640a038d7fc2a071ebb30ebe,Dataset,categorical,object,18,0,,,,,0,0
+Hypomap,640a038d7fc2a071ebb30ebe,Diet,categorical,object,6,0,,,,,0,0
+Hypomap,640a038d7fc2a071ebb30ebe,G2M.Score,numeric,float64,,0,-0.17236223909488235,1.8692821295896747,-0.021496227740834123,-0.026854305813694447,0,0
+Hypomap,640a038d7fc2a071ebb30ebe,GEO_ID,categorical,object,95,0,,,,,0,0
+Hypomap,640a038d7fc2a071ebb30ebe,Phase,categorical,object,3,0,,,,,0,0
+Hypomap,640a038d7fc2a071ebb30ebe,Pooled,categorical,object,4,0,,,,,0,0
+Hypomap,640a038d7fc2a071ebb30ebe,Region_predicted,categorical,object,22,0,,,,,0,0
+Hypomap,640a038d7fc2a071ebb30ebe,Region_summarized,categorical,object,16,0,,,,,0,0
+Hypomap,640a038d7fc2a071ebb30ebe,Run10x,categorical,object,19,0,,,,,0,0
+Hypomap,640a038d7fc2a071ebb30ebe,S.Score,numeric,float64,,0,-0.13816935799516125,1.0560085305141431,-0.0046440617015933,-0.011066792091676325,0,0
+Hypomap,640a038d7fc2a071ebb30ebe,SRA_ID,categorical,object,114,0,,,,,0,0
+Hypomap,640a038d7fc2a071ebb30ebe,Sample_ID,categorical,object,126,0,,,,,0,0
+Hypomap,640a038d7fc2a071ebb30ebe,Sex,categorical,object,4,0,,,,,0,0
+Hypomap,640a038d7fc2a071ebb30ebe,Strain,categorical,object,11,0,,,,,0,0
+Hypomap,640a038d7fc2a071ebb30ebe,Technology,categorical,object,4,0,,,,,0,0
+Hypomap,640a038d7fc2a071ebb30ebe,_scvi_batch,numeric,int8,,0,0.0,28.0,13.712078976423978,12.0,0,0
+Hypomap,640a038d7fc2a071ebb30ebe,_scvi_labels,numeric,int8,,0,0.0,0.0,0.0,0.0,0,0
+Hypomap,640a038d7fc2a071ebb30ebe,_scvi_observed_lib_size,numeric,float64,,0,60.67680755484781,949.8594149539825,398.70658344615964,399.7655700865512,0,0
+Hypomap,640a038d7fc2a071ebb30ebe,inferred_sex,categorical,object,3,0,,,,,0,0
+Hypomap,640a038d7fc2a071ebb30ebe,nCount_RNA,numeric,float64,,0,1000.0,52648.0,4812.308701695136,3388.0,0,0
+Hypomap,640a038d7fc2a071ebb30ebe,nFeature_RNA,numeric,int32,,0,500.0,8739.0,2171.8265402351108,1854.0,0,0
+Hypomap,640a038d7fc2a071ebb30ebe,percent_exclude_features,numeric,float64,,0,0.0066138540899042,11.029904306220097,0.26465488827887035,0.25040387722132473,0,0
+Hypomap,640a038d7fc2a071ebb30ebe,percent_mt,numeric,float64,,0,0.0,10.0,2.5543050122250945,1.8596001859600186,0,0
+Retina,628668d56f930d8b7f44d579,AC_celltype_number,categorical,object,89,2605731,,,,,0,0
+Retina,628668d56f930d8b7f44d579,AC_cluster,categorical,object,95,2605731,,,,,0,0
+Retina,628668d56f930d8b7f44d579,AC_subclass,categorical,object,3,2605731,,,,,0,0
+Retina,628668d56f930d8b7f44d579,BC_subclass,categorical,object,3,2486302,,,,,0,0
+Retina,628668d56f930d8b7f44d579,RGC_celltype_number,categorical,object,11,2777705,,,,,0,0
+Retina,628668d56f930d8b7f44d579,RGC_cluster,categorical,object,12,2777705,,,,,0,0
+Retina,628668d56f930d8b7f44d579,_scvi_batch,numeric,int16,,0,0.0,228.0,104.23838687443151,90.0,0,0
+Retina,628668d56f930d8b7f44d579,_scvi_labels,numeric,int8,,0,0.0,122.0,78.50362791166113,101.0,0,0
+Retina,628668d56f930d8b7f44d579,age,categorical,object,61,0,,,,,0,0
+Retina,628668d56f930d8b7f44d579,celltype,categorical,object,123,0,,,,,1,0
+Retina,628668d56f930d8b7f44d579,donor,categorical,object,104,0,,,,,0,0
+Retina,628668d56f930d8b7f44d579,gender,categorical,object,4,0,,,,,0,0
+Retina,628668d56f930d8b7f44d579,majorclass,categorical,object,10,0,,,,,0,0
+Retina,628668d56f930d8b7f44d579,nCount_RNA,numeric,float64,,0,500.0,200551.0,5659.4660876653525,4422.0,0,0
+Retina,628668d56f930d8b7f44d579,nFeature_RNA,numeric,int64,,0,305.0,13588.0,2495.04474225052,2222.0,0,0
+Retina,628668d56f930d8b7f44d579,pANN,numeric,float64,,0,0.0,0.5892857142857143,0.09354611073331671,0.0591133004926108,0,0
+Retina,628668d56f930d8b7f44d579,percent.mt,numeric,float64,,0,0.0,5.0,0.36498028858466786,0.0717360114777618,0,0
+Retina,628668d56f930d8b7f44d579,race,categorical,object,6,0,,,,,0,0
+Retina,628668d56f930d8b7f44d579,sampleid,categorical,object,229,0,,,,,0,0
+Retina,628668d56f930d8b7f44d579,scANVI_predictions,categorical,object,123,0,,,,,0,0
+Retina,628668d56f930d8b7f44d579,tissue,categorical,object,3,0,,,,,0,0
+NSCLC,646ddfb9fd46b85aafce28cc,ALK_mutation,categorical,object,2,752117,,,,,0,0
+NSCLC,646ddfb9fd46b85aafce28cc,BRAF_mutation,categorical,object,2,752117,,,,,0,0
+NSCLC,646ddfb9fd46b85aafce28cc,EGFR_mutation,categorical,object,2,752117,,,,,0,0
+NSCLC,646ddfb9fd46b85aafce28cc,ERBB2_mutation,categorical,object,2,752117,,,,,0,0
+NSCLC,646ddfb9fd46b85aafce28cc,KRAS_mutation,categorical,object,2,752117,,,,,0,0
+NSCLC,646ddfb9fd46b85aafce28cc,ROS_mutation,categorical,object,2,752117,,,,,0,0
+NSCLC,646ddfb9fd46b85aafce28cc,TP53_mutation,categorical,object,2,752117,,,,,0,0
+NSCLC,646ddfb9fd46b85aafce28cc,_scanvi_observed_lib_size,numeric,float32,,0,146.0,83398576.0,48647.932502218995,1218.0,0,0
+NSCLC,646ddfb9fd46b85aafce28cc,_scvi_batch,numeric,int16,,0,0.0,504.0,209.04039242583178,187.0,0,0
+NSCLC,646ddfb9fd46b85aafce28cc,_scvi_labels,numeric,int8,,0,0.0,43.0,21.66391085469396,20.0,0,0
+NSCLC,646ddfb9fd46b85aafce28cc,age,numeric,float64,,339024,20.0,86.0,59.26454799809135,61.0,0,0
+NSCLC,646ddfb9fd46b85aafce28cc,cell_type,categorical,object,44,0,,,,,1,0
+NSCLC,646ddfb9fd46b85aafce28cc,cell_type_coarse,categorical,object,12,0,,,,,0,0
+NSCLC,646ddfb9fd46b85aafce28cc,cell_type_major,categorical,object,24,0,,,,,0,0
+NSCLC,646ddfb9fd46b85aafce28cc,cell_type_tumor,categorical,object,51,0,,,,,0,0
+NSCLC,646ddfb9fd46b85aafce28cc,condition,categorical,object,5,0,,,,,0,0
+NSCLC,646ddfb9fd46b85aafce28cc,dataset,categorical,object,21,0,,,,,0,0
+NSCLC,646ddfb9fd46b85aafce28cc,doublet_status,categorical,object,1,43715,,,,,0,0
+NSCLC,646ddfb9fd46b85aafce28cc,driver_genes,categorical,object,13,752117,,,,,0,0
+NSCLC,646ddfb9fd46b85aafce28cc,ever_smoker,categorical,object,2,221728,,,,,0,0
+NSCLC,646ddfb9fd46b85aafce28cc,n_genes_by_counts,numeric,int32,,0,182.0,12708.0,1398.520051642056,1097.0,0,0
+NSCLC,646ddfb9fd46b85aafce28cc,origin,categorical,object,5,0,,,,,0,0
+NSCLC,646ddfb9fd46b85aafce28cc,origin_fine,categorical,object,8,0,,,,,0,0
+NSCLC,646ddfb9fd46b85aafce28cc,patient,categorical,object,298,0,,,,,0,0
+NSCLC,646ddfb9fd46b85aafce28cc,platform_fine,categorical,object,8,0,,,,,0,0
+NSCLC,646ddfb9fd46b85aafce28cc,sample,categorical,object,505,0,,,,,0,1
+NSCLC,646ddfb9fd46b85aafce28cc,sex,categorical,object,2,36343,,,,,0,0
+NSCLC,646ddfb9fd46b85aafce28cc,study,categorical,object,19,0,,,,,0,0
+NSCLC,646ddfb9fd46b85aafce28cc,tissue,categorical,object,6,0,,,,,0,0
+NSCLC,646ddfb9fd46b85aafce28cc,total_counts,numeric,float32,,0,395.0,88751600.0,85397.25714897299,3000.0,0,0
+NSCLC,646ddfb9fd46b85aafce28cc,tumor_stage,categorical,object,2,268186,,,,,0,0
+NSCLC,646ddfb9fd46b85aafce28cc,uicc_stage,categorical,object,5,268186,,,,,0,0
+Glioblastoma,646ddf52fd46b85aafce28c2,CellID,categorical,object,20,0,,,,,1,0
+Glioblastoma,646ddf52fd46b85aafce28c2,_scanvi_observed_lib_size,numeric,float32,,0,91.0,700256.0,10220.521109745869,2077.0,0,0
+Glioblastoma,646ddf52fd46b85aafce28c2,_scvi_batch,numeric,int8,,0,0.0,16.0,6.491283775002659,8.0,0,0
+Glioblastoma,646ddf52fd46b85aafce28c2,_scvi_labels,numeric,int8,,0,0.0,19.0,10.253048168145462,11.0,0,0
+Glioblastoma,646ddf52fd46b85aafce28c2,_scvi_local_l_mean,numeric,float64,,0,6.4410881996154785,12.570625305175781,7.758860689153957,7.791853904724121,0,0
+Glioblastoma,646ddf52fd46b85aafce28c2,_scvi_local_l_var,numeric,float64,,0,0.055830828845500946,0.8650112152099609,0.5450757452071459,0.5414806008338928,0,0
+Glioblastoma,646ddf52fd46b85aafce28c2,author,categorical,object,17,0,,,,,0,1
+Glioblastoma,646ddf52fd46b85aafce28c2,method,categorical,object,1,0,,,,,0,0
+Glioblastoma,646ddf52fd46b85aafce28c2,patient,categorical,object,113,0,,,,,0,0
+Heart,628668436f930d8b7f44d573,_scvi_batch,numeric,int8,,0,0.0,31.0,16.587033008848554,18.0,0,0
+Heart,628668436f930d8b7f44d573,_scvi_labels,numeric,int8,,0,0.0,0.0,0.0,0.0,0,0
+Heart,628668436f930d8b7f44d573,age,categorical,object,9,0,,,,,0,0
+Heart,628668436f930d8b7f44d573,batch,categorical,object,32,0,,,,,0,0
+Heart,628668436f930d8b7f44d573,batch_key,categorical,object,32,0,,,,,0,0
+Heart,628668436f930d8b7f44d573,cell_or_nuclei,categorical,object,2,0,,,,,0,0
+Heart,628668436f930d8b7f44d573,cell_state,categorical,object,76,0,,,,,0,0
+Heart,628668436f930d8b7f44d573,cell_state_HCAv1,categorical,object,79,0,,,,,0,0
+Heart,628668436f930d8b7f44d573,cell_state_scNym,categorical,object,81,0,,,,,0,0
+Heart,628668436f930d8b7f44d573,cell_state_scNym_confidence,numeric,float32,,410972,0.05272478237748146,0.9999997615814209,0.7571289673378596,0.7980420291423798,0,0
+Heart,628668436f930d8b7f44d573,cell_type,categorical,object,12,0,,,,,1,0
+Heart,628668436f930d8b7f44d573,clus20,categorical,object,2,0,,,,,0,0
+Heart,628668436f930d8b7f44d573,cluster_scrublet_score,numeric,float64,,0,0.003052769297863062,0.858267716535433,0.09291472332744198,0.08860759493670886,0,0
+Heart,628668436f930d8b7f44d573,combinedID,categorical,object,48,0,,,,,0,0
+Heart,628668436f930d8b7f44d573,donor,categorical,object,22,0,,,,,0,1
+Heart,628668436f930d8b7f44d573,donor_type,categorical,object,2,0,,,,,0,0
+Heart,628668436f930d8b7f44d573,doublet_bh_pval,numeric,float64,,0,0.0,0.999999547913736,0.8559735126214318,0.9014598540145985,0,0
+Heart,628668436f930d8b7f44d573,doublet_cls,categorical,object,2,0,,,,,0,0
+Heart,628668436f930d8b7f44d573,doublet_pval,numeric,float64,,0,0.0,0.999999547913736,0.5043564095157917,0.5077930841483097,0,0
+Heart,628668436f930d8b7f44d573,facility,categorical,object,2,0,,,,,0,0
+Heart,628668436f930d8b7f44d573,flushed,categorical,object,2,0,,,,,0,0
+Heart,628668436f930d8b7f44d573,gender,categorical,object,2,0,,,,,0,0
+Heart,628668436f930d8b7f44d573,kit_10x,categorical,object,3,0,,,,,0,0
+Heart,628668436f930d8b7f44d573,latent_RT_efficiency,numeric,float64,,629041,0.1260872632265091,7.437037467956543,0.9682595263786169,0.8595649003982544,0,0
+Heart,628668436f930d8b7f44d573,latent_cell_probability,numeric,float64,,629041,0.5100386738777161,1.0,0.9972054661924155,0.9998319149017334,0,0
+Heart,628668436f930d8b7f44d573,latent_scale,numeric,float64,,629041,1527.551513671875,72125.7734375,6669.429716937672,4745.23046875,0,0
+Heart,628668436f930d8b7f44d573,leiden_scArches,categorical,object,42,0,,,,,0,0
+Heart,628668436f930d8b7f44d573,leiden_scVI,categorical,object,49,0,,,,,0,0
+Heart,628668436f930d8b7f44d573,modality,categorical,object,3,0,,,,,0,0
+Heart,628668436f930d8b7f44d573,n_counts,numeric,float32,,0,457.0,433048.0,3735.7708491884096,2210.0,0,0
+Heart,628668436f930d8b7f44d573,n_genes,numeric,int64,,0,200.0,16033.0,1507.9440476731374,1185.0,0,0
+Heart,628668436f930d8b7f44d573,n_genes_by_counts,numeric,int32,,0,200.0,16033.0,1507.9440476731374,1185.0,0,0
+Heart,628668436f930d8b7f44d573,original_or_new,categorical,object,2,0,,,,,0,0
+Heart,628668436f930d8b7f44d573,pct_counts_mt,numeric,float32,,0,0.0,19.99881935119629,1.418775225336026,0.20163197070360184,0,0
+Heart,628668436f930d8b7f44d573,pct_counts_ribo,numeric,float32,,0,0.0,19.996891021728516,1.2510282930485739,0.2271694540977478,0,0
+Heart,628668436f930d8b7f44d573,region,categorical,object,8,0,,,,,0,0
+Heart,628668436f930d8b7f44d573,region_finest,categorical,object,28,0,,,,,0,0
+Heart,628668436f930d8b7f44d573,sangerID,categorical,object,193,0,,,,,0,0
+Heart,628668436f930d8b7f44d573,scANVI_predictions,categorical,object,12,0,,,,,0,0
+Heart,628668436f930d8b7f44d573,scrublet_leiden,categorical,object,971,0,,,,,0,0
+Heart,628668436f930d8b7f44d573,scrublet_score,numeric,float64,,0,0.001858736059479554,0.29999999999999993,0.0957289311491256,0.08583690987124462,0,0
+Heart,628668436f930d8b7f44d573,total_counts,numeric,float32,,0,500.0,437662.0,3766.4498960664264,2222.0,0,0
+Heart,628668436f930d8b7f44d573,total_counts_mt,numeric,float32,,0,0.0,12875.0,46.39466928677715,4.0,0,0
+Heart,628668436f930d8b7f44d573,total_counts_ribo,numeric,float32,,0,0.0,15164.0,41.11475430784784,6.0,0,0
+Fetal immune,628668f96f930d8b7f44d57b,Sample,categorical,object,221,0,,,,,0,0
+Fetal immune,628668f96f930d8b7f44d57b,Sort_id,categorical,object,7,0,,,,,0,0
+Fetal immune,628668f96f930d8b7f44d57b,_scvi_batch,numeric,int8,,0,0.0,32.0,15.236231104697717,16.0,0,0
+Fetal immune,628668f96f930d8b7f44d57b,_scvi_labels,numeric,int8,,0,0.0,0.0,0.0,0.0,0,0
+Fetal immune,628668f96f930d8b7f44d57b,_scvi_observed_lib_size,numeric,float32,,0,0.0,49945.0,2721.1599267030006,1813.0,0,0
+Fetal immune,628668f96f930d8b7f44d57b,age,numeric,int64,,0,4.0,17.0,12.15783972771547,12.0,0,0
+Fetal immune,628668f96f930d8b7f44d57b,anno_lvl_2_final_clean,categorical,object,84,0,,,,,0,0
+Fetal immune,628668f96f930d8b7f44d57b,bbk,categorical,object,33,0,,,,,0,1
+Fetal immune,628668f96f930d8b7f44d57b,celltype_annotation,categorical,object,84,0,,,,,1,0
+Fetal immune,628668f96f930d8b7f44d57b,donor,categorical,object,25,0,,,,,0,0
+Fetal immune,628668f96f930d8b7f44d57b,doublet_scores,numeric,float64,,0,0.0013315579227696,0.3999999999999999,0.07779708216696068,0.0617021276595744,0,0
+Fetal immune,628668f96f930d8b7f44d57b,file,categorical,object,221,0,,,,,0,0
+Fetal immune,628668f96f930d8b7f44d57b,is_maternal_contaminant,boolean,bool,2,0,,,,,0,0
+Fetal immune,628668f96f930d8b7f44d57b,method,categorical,object,2,0,,,,,0,0
+Fetal immune,628668f96f930d8b7f44d57b,mito,numeric,float64,,0,0.0,0.91524076461792,0.03727005847512143,0.0305607225745916,0,0
+Fetal immune,628668f96f930d8b7f44d57b,n_counts,numeric,float64,,0,2001.0,113036.0,10473.382880733914,7248.0,0,0
+Fetal immune,628668f96f930d8b7f44d57b,n_genes,numeric,int64,,0,501.0,6994.0,2261.130641618468,1974.0,0,0
+Fetal immune,628668f96f930d8b7f44d57b,old_annotation_uniform,categorical,object,83,0,,,,,0,0
+Fetal immune,628668f96f930d8b7f44d57b,organ,categorical,object,9,0,,,,,0,0
+Fetal immune,628668f96f930d8b7f44d57b,predicted_doublets,categorical,object,3,0,,,,,0,0
+Fetal immune,628668f96f930d8b7f44d57b,scvi_clusters,categorical,int64,50,0,,,,,0,0
+Fetal immune,628668f96f930d8b7f44d57b,sex,categorical,object,3,0,,,,,0,0
+Pancreas,6570cb1459a7aa8b4daafdc7,GEO_accession,categorical,object,9,0,,,,,0,0
+Pancreas,6570cb1459a7aa8b4daafdc7,GP_1,numeric,float64,,199653,-0.4894864285919673,1.1268895988673486,0.2612685453070065,0.2567290316907078,0,0
+Pancreas,6570cb1459a7aa8b4daafdc7,GP_10,numeric,float64,,199653,-0.4014964106267358,1.6432942702301705,0.5375920823542816,0.55632201088066,0,0
+Pancreas,6570cb1459a7aa8b4daafdc7,GP_11,numeric,float64,,199653,-0.393128065873036,1.218737516113657,0.48335993741030553,0.4809669468620633,0,0
+Pancreas,6570cb1459a7aa8b4daafdc7,GP_12,numeric,float64,,199653,-0.2181347278076416,0.6658434032186562,-0.002714170336023412,-0.0328795150302794,0,0
+Pancreas,6570cb1459a7aa8b4daafdc7,GP_13,numeric,float64,,199653,-0.1436840204499356,1.176458905449921,0.46038343177979696,0.4351578027460287,0,0
+Pancreas,6570cb1459a7aa8b4daafdc7,GP_14,numeric,float64,,199653,-0.625039813707532,1.5815650012345817,0.14374592071472148,0.1383741523677782,0,0
+Pancreas,6570cb1459a7aa8b4daafdc7,GP_15,numeric,float64,,199653,-0.3174692160150853,0.9357040708471944,0.05001868340025584,0.014256963547843,0,0
+Pancreas,6570cb1459a7aa8b4daafdc7,GP_16,numeric,float64,,199653,-0.2195580556903109,0.7085093178124549,0.1302989711357075,0.0947227594635098,0,0
+Pancreas,6570cb1459a7aa8b4daafdc7,GP_17,numeric,float64,,199653,-0.2813470957602779,0.7159525544074048,0.07088395037843148,0.0353244768659399,0,0
+Pancreas,6570cb1459a7aa8b4daafdc7,GP_18,numeric,float64,,199653,-0.3087552078404035,1.1932896677610398,0.2525693709437397,0.2346776616069498,0,0
+Pancreas,6570cb1459a7aa8b4daafdc7,GP_19,numeric,float64,,199653,-0.2913240687890439,0.8412186069699712,0.25351591648718425,0.3099436741294714,0,0
+Pancreas,6570cb1459a7aa8b4daafdc7,GP_2,numeric,float64,,199653,-0.1473104213736518,0.9628416108088562,0.3677962505516968,0.3446683506444211,0,0
+Pancreas,6570cb1459a7aa8b4daafdc7,GP_20,numeric,float64,,199653,-0.2587440842537036,0.7444719929584973,0.1736563736047803,0.1674622227784783,0,0
+Pancreas,6570cb1459a7aa8b4daafdc7,GP_21,numeric,float64,,199653,-0.1907881042462687,1.4032868884192815,0.3658742825493034,0.3382147679440858,0,0
+Pancreas,6570cb1459a7aa8b4daafdc7,GP_22,numeric,float64,,199653,-0.2670529437064556,0.5833641770047928,-0.06043379644115814,-0.1530391693656675,0,0
+Pancreas,6570cb1459a7aa8b4daafdc7,GP_23,numeric,float64,,199653,-0.1858397789168716,0.8850282039749622,0.1972385864668534,0.1593461520457556,0,0
+Pancreas,6570cb1459a7aa8b4daafdc7,GP_24,numeric,float64,,199653,-0.2143574215851794,1.1151540109093026,0.4268344667431437,0.4264114584335904,0,0
+Pancreas,6570cb1459a7aa8b4daafdc7,GP_25,numeric,float64,,199653,-0.1871707949905191,1.524221067535721,-0.009997456645575898,-0.0665747813111413,0,0
+Pancreas,6570cb1459a7aa8b4daafdc7,GP_26,numeric,float64,,199653,-0.2294004179935273,1.138070475135751,-0.0370695568802362,-0.0562309922233984,0,0
+Pancreas,6570cb1459a7aa8b4daafdc7,GP_27,numeric,float64,,199653,-0.2591291187022659,0.9150222799074244,-0.13683578934857585,-0.1537180637153336,0,0
+Pancreas,6570cb1459a7aa8b4daafdc7,GP_3,numeric,float64,,199653,-0.1553337895633577,0.5912620900350706,0.07988522552522936,0.0097397277487827,0,0
+Pancreas,6570cb1459a7aa8b4daafdc7,GP_4,numeric,float64,,199653,-0.0465626544521939,1.5984428157029944,0.7708379402204941,0.7329754284412584,0,0
+Pancreas,6570cb1459a7aa8b4daafdc7,GP_5,numeric,float64,,199653,-0.3635373768542884,2.4396126676322245,0.7939453661792393,0.781902454346118,0,0
+Pancreas,6570cb1459a7aa8b4daafdc7,GP_6,numeric,float64,,199653,-0.3705884016988196,0.7994570298697204,0.1793041818753229,0.189779753287564,0,0
+Pancreas,6570cb1459a7aa8b4daafdc7,GP_7,numeric,float64,,199653,-0.2141190190830364,2.652277387886466,1.6385037152165611,1.6692910129574918,0,0
+Pancreas,6570cb1459a7aa8b4daafdc7,GP_8,numeric,float64,,199653,-0.1989208463920327,1.1149592905659804,0.1617281122102795,0.146677936443561,0,0
+Pancreas,6570cb1459a7aa8b4daafdc7,GP_9,numeric,float64,,199653,-0.5892386213598614,1.7268804956051984,0.43874219004356074,0.4278298606665309,0,0
+Pancreas,6570cb1459a7aa8b4daafdc7,age,categorical,object,14,0,,,,,0,0
+Pancreas,6570cb1459a7aa8b4daafdc7,age_approxDays,numeric,float64,,0,-8.5,730.0,131.60415479330408,119.0,0,0
+Pancreas,6570cb1459a7aa8b4daafdc7,assay,categorical,object,2,0,,,,,0,0
+Pancreas,6570cb1459a7aa8b4daafdc7,assay_ontology_term_id,categorical,object,2,0,,,,,0,0
+Pancreas,6570cb1459a7aa8b4daafdc7,batch_integration,categorical,object,56,0,,,,,0,1
+Pancreas,6570cb1459a7aa8b4daafdc7,cell_cycle_phase,categorical,object,3,0,,,,,0,0
+Pancreas,6570cb1459a7aa8b4daafdc7,cell_filtering,categorical,object,6,155311,,,,,0,0
+Pancreas,6570cb1459a7aa8b4daafdc7,cell_subtype_beta_coarse_reannotatedIntegrated,categorical,object,9,199653,,,,,0,0
+Pancreas,6570cb1459a7aa8b4daafdc7,cell_subtype_beta_fine_reannotatedIntegrated,categorical,object,21,199653,,,,,0,0
+Pancreas,6570cb1459a7aa8b4daafdc7,cell_subtype_endothelial_reannotatedIntegrated,categorical,object,5,288327,,,,,0,0
+Pancreas,6570cb1459a7aa8b4daafdc7,cell_subtype_immune_reannotatedIntegrated,categorical,object,10,270093,,,,,0,0
+Pancreas,6570cb1459a7aa8b4daafdc7,cell_type,categorical,object,13,0,,,,,1,0
+Pancreas,6570cb1459a7aa8b4daafdc7,cell_type_ontology_term_id,categorical,object,13,0,,,,,0,0
+Pancreas,6570cb1459a7aa8b4daafdc7,cell_type_originalDataset,categorical,object,64,115768,,,,,0,0
+Pancreas,6570cb1459a7aa8b4daafdc7,cell_type_originalDataset_unified,categorical,object,44,124133,,,,,0,0
+Pancreas,6570cb1459a7aa8b4daafdc7,cell_type_reannotatedIntegrated,categorical,object,20,0,,,,,0,0
+Pancreas,6570cb1459a7aa8b4daafdc7,chemical_stress,categorical,object,4,274269,,,,,0,0
+Pancreas,6570cb1459a7aa8b4daafdc7,dataset,categorical,object,9,0,,,,,0,0
+Pancreas,6570cb1459a7aa8b4daafdc7,dataset__design__sample,categorical,object,56,0,,,,,0,0
+Pancreas,6570cb1459a7aa8b4daafdc7,design,categorical,object,42,0,,,,,0,0
+Pancreas,6570cb1459a7aa8b4daafdc7,development_stage,categorical,object,12,0,,,,,0,0
+Pancreas,6570cb1459a7aa8b4daafdc7,development_stage_ontology_term_id,categorical,object,12,0,,,,,0,0
+Pancreas,6570cb1459a7aa8b4daafdc7,diabetes_model,categorical,object,11,145030,,,,,0,0
+Pancreas,6570cb1459a7aa8b4daafdc7,disease,categorical,object,4,0,,,,,0,0
+Pancreas,6570cb1459a7aa8b4daafdc7,disease_ontology_term_id,categorical,object,4,0,,,,,0,0
+Pancreas,6570cb1459a7aa8b4daafdc7,donor_id,categorical,object,56,0,,,,,0,0
+Pancreas,6570cb1459a7aa8b4daafdc7,doublet_score,numeric,float64,,0,0.0008912655971479,0.387096774193548,0.05163164951041276,0.0344097406034939,0,0
+Pancreas,6570cb1459a7aa8b4daafdc7,emptyDrops_LogProb_scaled,numeric,float64,,0,0.0,1.0000000000000002,0.712032650469803,0.7207249162193683,0,0
+Pancreas,6570cb1459a7aa8b4daafdc7,gcg_high,boolean,bool,2,0,,,,,0,0
+Pancreas,6570cb1459a7aa8b4daafdc7,ins_high,boolean,bool,2,0,,,,,0,0
+Pancreas,6570cb1459a7aa8b4daafdc7,is_primary_data,boolean,bool,2,0,,,,,0,0
+Pancreas,6570cb1459a7aa8b4daafdc7,log10_n_counts,numeric,float64,,0,2.69897,5.4189425,4.055303332430848,4.0954311,0,0
+Pancreas,6570cb1459a7aa8b4daafdc7,low_q,boolean,bool,2,0,,,,,0,0
+Pancreas,6570cb1459a7aa8b4daafdc7,mt_frac,numeric,float64,,0,0.0,0.21833897,0.036451337030626266,0.029801324,0,0
+Pancreas,6570cb1459a7aa8b4daafdc7,n_genes,numeric,float64,,0,250.0,9644.0,2869.5833311243355,2824.0,0,0
+Pancreas,6570cb1459a7aa8b4daafdc7,observed_lib_size,numeric,float32,,0,835.1004028320312,4485.97900390625,3068.8459863579674,3182.8055419921875,0,0
+Pancreas,6570cb1459a7aa8b4daafdc7,organism,categorical,object,1,0,,,,,0,0
+Pancreas,6570cb1459a7aa8b4daafdc7,organism_ontology_term_id,categorical,object,1,0,,,,,0,0
+Pancreas,6570cb1459a7aa8b4daafdc7,ppy_high,boolean,bool,2,0,,,,,0,0
+Pancreas,6570cb1459a7aa8b4daafdc7,self_reported_ethnicity,categorical,object,1,0,,,,,0,0
+Pancreas,6570cb1459a7aa8b4daafdc7,self_reported_ethnicity_ontology_term_id,categorical,object,1,0,,,,,0,0
+Pancreas,6570cb1459a7aa8b4daafdc7,sex,categorical,object,2,0,,,,,0,0
+Pancreas,6570cb1459a7aa8b4daafdc7,sex_annotation,categorical,object,2,0,,,,,0,0
+Pancreas,6570cb1459a7aa8b4daafdc7,sex_ontology_term_id,categorical,object,2,0,,,,,0,0
+Pancreas,6570cb1459a7aa8b4daafdc7,sst_high,boolean,bool,2,0,,,,,0,0
+Pancreas,6570cb1459a7aa8b4daafdc7,strain,categorical,object,10,0,,,,,0,0
+Pancreas,6570cb1459a7aa8b4daafdc7,suspension_type,categorical,object,1,0,,,,,0,0
+Pancreas,6570cb1459a7aa8b4daafdc7,tissue,categorical,object,2,0,,,,,0,0
+Pancreas,6570cb1459a7aa8b4daafdc7,tissue_ontology_term_id,categorical,object,2,0,,,,,0,0
+HLCA retrained,6571bc2859a7aa8b4daafdcc,3'_or_5',categorical,object,2,0,,,,,0,0
+HLCA retrained,6571bc2859a7aa8b4daafdcc,BMI,numeric,float64,,157020,19.9,48.9,28.403214072696,25.3,0,0
+HLCA retrained,6571bc2859a7aa8b4daafdcc,age,categorical,object,53,0,,,,,0,0
+HLCA retrained,6571bc2859a7aa8b4daafdcc,anatomical_region_ccf_score,numeric,float64,,0,0.0,0.97,0.7325424186676331,0.97,0,0
+HLCA retrained,6571bc2859a7aa8b4daafdcc,anatomical_region_highest_res,numeric,float64,,0,1.0,3.0,2.172824012966674,2.0,0,0
+HLCA retrained,6571bc2859a7aa8b4daafdcc,anatomical_region_level_2,categorical,object,10,0,,,,,0,0
+HLCA retrained,6571bc2859a7aa8b4daafdcc,anatomical_region_level_3,categorical,object,24,0,,,,,0,0
+HLCA retrained,6571bc2859a7aa8b4daafdcc,ann_coarse_for_GWAS_and_modeling,categorical,object,38,0,,,,,0,0
+HLCA retrained,6571bc2859a7aa8b4daafdcc,ann_finest_level,categorical,object,58,0,,,,,1,0
+HLCA retrained,6571bc2859a7aa8b4daafdcc,ann_highest_res,numeric,int64,,0,1.0,5.0,3.6482481996430063,4.0,0,0
+HLCA retrained,6571bc2859a7aa8b4daafdcc,ann_level_1,categorical,object,4,0,,,,,0,0
+HLCA retrained,6571bc2859a7aa8b4daafdcc,ann_level_2,categorical,object,10,0,,,,,0,0
+HLCA retrained,6571bc2859a7aa8b4daafdcc,ann_level_3,categorical,object,25,0,,,,,0,0
+HLCA retrained,6571bc2859a7aa8b4daafdcc,ann_level_4,categorical,object,38,0,,,,,0,0
+HLCA retrained,6571bc2859a7aa8b4daafdcc,ann_level_5,categorical,object,15,0,,,,,0,0
+HLCA retrained,6571bc2859a7aa8b4daafdcc,assay,categorical,object,5,0,,,,,0,0
+HLCA retrained,6571bc2859a7aa8b4daafdcc,assay_ontology_term_id,categorical,object,5,0,,,,,0,0
+HLCA retrained,6571bc2859a7aa8b4daafdcc,cell_ranger_version,categorical,object,9,0,,,,,0,0
+HLCA retrained,6571bc2859a7aa8b4daafdcc,cell_type,categorical,object,46,0,,,,,0,0
+HLCA retrained,6571bc2859a7aa8b4daafdcc,cell_type_ontology_term_id,categorical,object,46,0,,,,,0,0
+HLCA retrained,6571bc2859a7aa8b4daafdcc,condition,categorical,object,6,0,,,,,0,0
+HLCA retrained,6571bc2859a7aa8b4daafdcc,dataset,categorical,object,14,0,,,,,0,0
+HLCA retrained,6571bc2859a7aa8b4daafdcc,development_stage,categorical,object,48,0,,,,,0,0
+HLCA retrained,6571bc2859a7aa8b4daafdcc,development_stage_ontology_term_id,categorical,object,48,0,,,,,0,0
+HLCA retrained,6571bc2859a7aa8b4daafdcc,disease,categorical,object,1,0,,,,,0,0
+HLCA retrained,6571bc2859a7aa8b4daafdcc,disease_ontology_term_id,categorical,object,1,0,,,,,0,0
+HLCA retrained,6571bc2859a7aa8b4daafdcc,entropy_dataset_leiden_3,numeric,float64,,0,0.0,2.148653059289685,1.4075073465270558,1.4619235582530918,0,0
+HLCA retrained,6571bc2859a7aa8b4daafdcc,entropy_original_ann_level_1_leiden_3,numeric,float64,,0,0.0,0.8495622621001413,0.04792997083599487,0.019870363598637447,0,0
+HLCA retrained,6571bc2859a7aa8b4daafdcc,entropy_original_ann_level_2_clean_leiden_3,numeric,float64,,18,0.0,0.7646494283145382,0.08799280647898444,0.04269288806868073,0,0
+HLCA retrained,6571bc2859a7aa8b4daafdcc,entropy_original_ann_level_3_clean_leiden_3,numeric,float64,,7218,0.0,1.3483666321636045,0.3232274513272847,0.27738548136920765,0,0
+HLCA retrained,6571bc2859a7aa8b4daafdcc,entropy_original_ann_level_4_clean_leiden_3,numeric,float64,,105581,0.019441059116474556,2.009717694275393,0.8644294555436558,0.7787493070249621,0,0
+HLCA retrained,6571bc2859a7aa8b4daafdcc,entropy_original_ann_level_5_clean_leiden_3,numeric,float64,,561617,0.0,1.734216524571211,0.27154199758804437,0.04175855816100897,0,0
+HLCA retrained,6571bc2859a7aa8b4daafdcc,entropy_study_leiden_3,numeric,float64,,0,0.0,2.114777783470762,1.3172557905249727,1.3775670212170028,0,0
+HLCA retrained,6571bc2859a7aa8b4daafdcc,entropy_subject_ID_leiden_3,numeric,float64,,0,0.11186046617229325,3.793014909109342,2.7583190421401884,2.928493088166498,0,0
+HLCA retrained,6571bc2859a7aa8b4daafdcc,ethnicity,categorical,object,6,0,,,,,0,0
+HLCA retrained,6571bc2859a7aa8b4daafdcc,ethnicity_ontology_term_id,categorical,object,6,0,,,,,0,0
+HLCA retrained,6571bc2859a7aa8b4daafdcc,fresh_or_frozen,categorical,object,3,0,,,,,0,0
+HLCA retrained,6571bc2859a7aa8b4daafdcc,is_primary_data,boolean,bool,2,0,,,,,0,0
+HLCA retrained,6571bc2859a7aa8b4daafdcc,leiden_1,categorical,object,3,0,,,,,0,0
+HLCA retrained,6571bc2859a7aa8b4daafdcc,leiden_2,categorical,object,23,0,,,,,0,0
+HLCA retrained,6571bc2859a7aa8b4daafdcc,leiden_3,categorical,object,93,0,,,,,0,0
+HLCA retrained,6571bc2859a7aa8b4daafdcc,leiden_4,categorical,object,233,0,,,,,0,0
+HLCA retrained,6571bc2859a7aa8b4daafdcc,leiden_5,categorical,object,4,0,,,,,0,0
+HLCA retrained,6571bc2859a7aa8b4daafdcc,log10_total_counts,numeric,float32,,0,2.383815288543701,5.225508213043213,3.6610791745389735,3.6494321823120117,0,0
+HLCA retrained,6571bc2859a7aa8b4daafdcc,mito_frac,numeric,float32,,0,0.0,0.859268844127655,0.059733850397706116,0.04721171595156193,0,0
+HLCA retrained,6571bc2859a7aa8b4daafdcc,n_genes,numeric,int64,,0,200.0,10216.0,1952.042678548225,1564.0,0,0
+HLCA retrained,6571bc2859a7aa8b4daafdcc,observed_lib_size,numeric,float64,,0,5.999999608681775,66528.00728366987,1354.0789609073217,644.9999960936138,0,0
+HLCA retrained,6571bc2859a7aa8b4daafdcc,organism,categorical,object,1,0,,,,,0,0
+HLCA retrained,6571bc2859a7aa8b4daafdcc,organism_ontology_term_id,categorical,object,1,0,,,,,0,0
+HLCA retrained,6571bc2859a7aa8b4daafdcc,original_ann_level_1,categorical,object,5,0,,,,,0,0
+HLCA retrained,6571bc2859a7aa8b4daafdcc,original_ann_level_2,categorical,object,13,0,,,,,0,0
+HLCA retrained,6571bc2859a7aa8b4daafdcc,original_ann_level_3,categorical,object,30,0,,,,,0,0
+HLCA retrained,6571bc2859a7aa8b4daafdcc,original_ann_level_4,categorical,object,65,0,,,,,0,0
+HLCA retrained,6571bc2859a7aa8b4daafdcc,original_ann_level_5,categorical,object,20,0,,,,,0,0
+HLCA retrained,6571bc2859a7aa8b4daafdcc,original_ann_nonharmonized,categorical,object,354,0,,,,,0,0
+HLCA retrained,6571bc2859a7aa8b4daafdcc,reannotation_type,categorical,object,4,0,,,,,0,0
+HLCA retrained,6571bc2859a7aa8b4daafdcc,ribo_frac,numeric,float32,,0,0.0,0.7414299845695496,0.18687079097711404,0.17278718948364258,0,0
+HLCA retrained,6571bc2859a7aa8b4daafdcc,sample,categorical,object,166,0,,,,,0,1
+HLCA retrained,6571bc2859a7aa8b4daafdcc,sample_type,categorical,object,5,0,,,,,0,0
+HLCA retrained,6571bc2859a7aa8b4daafdcc,scanvi_label,categorical,object,29,0,,,,,0,0
+HLCA retrained,6571bc2859a7aa8b4daafdcc,sequencing_platform,categorical,object,9,0,,,,,0,0
+HLCA retrained,6571bc2859a7aa8b4daafdcc,sex,categorical,object,2,0,,,,,0,0
+HLCA retrained,6571bc2859a7aa8b4daafdcc,sex_ontology_term_id,categorical,object,2,0,,,,,0,0
+HLCA retrained,6571bc2859a7aa8b4daafdcc,size_factors,numeric,float64,,0,0.010449321094670878,23.6652350701008,1.001826125021774,0.5620464855773263,0,0
+HLCA retrained,6571bc2859a7aa8b4daafdcc,smoking_status,categorical,object,4,0,,,,,0,0
+HLCA retrained,6571bc2859a7aa8b4daafdcc,study,categorical,object,11,0,,,,,0,0
+HLCA retrained,6571bc2859a7aa8b4daafdcc,subject_ID,categorical,object,107,0,,,,,0,0
+HLCA retrained,6571bc2859a7aa8b4daafdcc,subject_type,categorical,object,3,0,,,,,0,0
+HLCA retrained,6571bc2859a7aa8b4daafdcc,tissue,categorical,object,3,0,,,,,0,0
+HLCA retrained,6571bc2859a7aa8b4daafdcc,tissue_ontology_term_id,categorical,object,3,0,,,,,0,0
+PBMC,6571bd0659a7aa8b4daafdcd,assay,categorical,object,6,0,,,,,0,0
+PBMC,6571bd0659a7aa8b4daafdcd,assay_ontology_term_id,categorical,object,6,0,,,,,0,0
+PBMC,6571bd0659a7aa8b4daafdcd,batch,categorical,object,1,0,,,,,0,0
+PBMC,6571bd0659a7aa8b4daafdcd,batch_czi,categorical,object,21,0,,,,,0,0
+PBMC,6571bd0659a7aa8b4daafdcd,cell_type,categorical,object,90,0,,,,,0,0
+PBMC,6571bd0659a7aa8b4daafdcd,cell_type_for_integration,categorical,object,13,0,,,,,1,0
+PBMC,6571bd0659a7aa8b4daafdcd,cell_type_ontology_term_id,categorical,object,90,0,,,,,0,0
+PBMC,6571bd0659a7aa8b4daafdcd,dataset,categorical,object,31,0,,,,,0,0
+PBMC,6571bd0659a7aa8b4daafdcd,development_stage,categorical,object,106,0,,,,,0,0
+PBMC,6571bd0659a7aa8b4daafdcd,development_stage_ontology_term_id,categorical,object,106,0,,,,,0,0
+PBMC,6571bd0659a7aa8b4daafdcd,disease,categorical,object,5,0,,,,,0,0
+PBMC,6571bd0659a7aa8b4daafdcd,disease_ontology_term_id,categorical,object,4,0,,,,,0,0
+PBMC,6571bd0659a7aa8b4daafdcd,ethnicity,categorical,object,10,0,,,,,0,0
+PBMC,6571bd0659a7aa8b4daafdcd,ethnicity_ontology_term_id,categorical,object,10,0,,,,,0,0
+PBMC,6571bd0659a7aa8b4daafdcd,observed_lib_size,numeric,float32,,0,112.0,123983.0,2474.94255013947,1898.0,0,0
+PBMC,6571bd0659a7aa8b4daafdcd,organism,categorical,object,1,0,,,,,0,0
+PBMC,6571bd0659a7aa8b4daafdcd,organism_ontology_term_id,categorical,object,1,0,,,,,0,0
+PBMC,6571bd0659a7aa8b4daafdcd,sample_ID_czi,categorical,object,2144,0,,,,,0,0
+PBMC,6571bd0659a7aa8b4daafdcd,sample_ID_lataq,categorical,object,2212,0,,,,,0,1
+PBMC,6571bd0659a7aa8b4daafdcd,sex,categorical,object,3,0,,,,,0,0
+PBMC,6571bd0659a7aa8b4daafdcd,sex_ontology_term_id,categorical,object,3,0,,,,,0,0
+PBMC,6571bd0659a7aa8b4daafdcd,subject_ID_czi,categorical,object,1842,0,,,,,0,0
+PBMC,6571bd0659a7aa8b4daafdcd,tissue,categorical,object,2,0,,,,,0,0
+PBMC,6571bd0659a7aa8b4daafdcd,tissue_ontology_term_id,categorical,object,2,0,,,,,0,0
+PBMC,6571bd0659a7aa8b4daafdcd,total_counts_lisa,numeric,float32,,0,245.0,188899.0,4155.8165992671,3303.0,0,0
+HNOCA,65b3b52e0cae6d0c1e93340c,annot_level_1,categorical,object,13,0,,,,,0,0
+HNOCA,65b3b52e0cae6d0c1e93340c,annot_level_2,categorical,object,17,0,,,,,1,0
+HNOCA,65b3b52e0cae6d0c1e93340c,annot_level_3_rev2,categorical,object,29,0,,,,,0,0
+HNOCA,65b3b52e0cae6d0c1e93340c,annot_level_4_rev2,categorical,object,44,0,,,,,0,0
+HNOCA,65b3b52e0cae6d0c1e93340c,annot_ntt_rev2,categorical,object,6,0,,,,,0,0
+HNOCA,65b3b52e0cae6d0c1e93340c,annot_region_rev2,categorical,object,10,0,,,,,0,0
+HNOCA,65b3b52e0cae6d0c1e93340c,assay_differentiation,categorical,object,27,0,,,,,0,0
+HNOCA,65b3b52e0cae6d0c1e93340c,assay_sc,categorical,object,10,0,,,,,0,0
+HNOCA,65b3b52e0cae6d0c1e93340c,assay_type_differentiation,categorical,object,2,0,,,,,0,0
+HNOCA,65b3b52e0cae6d0c1e93340c,batch,categorical,object,396,0,,,,,0,1
+HNOCA,65b3b52e0cae6d0c1e93340c,bio_sample,categorical,object,303,0,,,,,0,0
+HNOCA,65b3b52e0cae6d0c1e93340c,cell_line,categorical,object,42,0,,,,,0,0
+HNOCA,65b3b52e0cae6d0c1e93340c,id,categorical,object,81,0,,,,,0,0
+HNOCA,65b3b52e0cae6d0c1e93340c,individual,categorical,object,16,0,,,,,0,0
+HNOCA,65b3b52e0cae6d0c1e93340c,log1p_total_counts_mt,numeric,float32,,0,0.0,10.709650993347168,4.9784544498135785,5.1704840660095215,0,0
+HNOCA,65b3b52e0cae6d0c1e93340c,obs_names_original,categorical,object,1768109,0,,,,,0,0
+HNOCA,65b3b52e0cae6d0c1e93340c,observed_lib_size,numeric,float32,,0,3.0,288315.0,1722.4895224496752,1253.0,0,0
+HNOCA,65b3b52e0cae6d0c1e93340c,organoid_age_days,numeric,int64,,0,7.0,450.0,80.73588737689049,61.0,0,0
+HNOCA,65b3b52e0cae6d0c1e93340c,organoid_age_months,numeric,float64,,0,0.0,15.0,2.3637925016576506,2.0,0,0
+HNOCA,65b3b52e0cae6d0c1e93340c,organoid_age_weeks,numeric,float64,,0,1.0,64.0,11.20130431983228,8.0,0,0
+HNOCA,65b3b52e0cae6d0c1e93340c,pct_counts_mt,numeric,float32,,0,0.0,41.51572799682617,4.702511968813489,3.461178779602051,0,0
+HNOCA,65b3b52e0cae6d0c1e93340c,publication,categorical,object,27,0,,,,,0,0
+HNOCA,65b3b52e0cae6d0c1e93340c,publication_protocol,categorical,object,36,0,,,,,0,0
+HNOCA,65b3b52e0cae6d0c1e93340c,sex,categorical,object,3,0,,,,,0,0
+HNOCA,65b3b52e0cae6d0c1e93340c,suspension_type_original,categorical,object,2,0,,,,,0,0
+HEOCA,65b3b6ea0cae6d0c1e933412,Cell_type,categorical,object,17,0,,,,,1,0
+HEOCA,65b3b6ea0cae6d0c1e933412,batch,categorical,object,218,0,,,,,0,0
+HEOCA,65b3b6ea0cae6d0c1e933412,conditions_combined,categorical,object,218,0,,,,,0,0
+HEOCA,65b3b6ea0cae6d0c1e933412,derive,categorical,object,3,0,,,,,0,0
+HEOCA,65b3b6ea0cae6d0c1e933412,detail_tissue,categorical,object,12,0,,,,,0,0
+HEOCA,65b3b6ea0cae6d0c1e933412,gel,categorical,object,3,0,,,,,0,0
+HEOCA,65b3b6ea0cae6d0c1e933412,initial_size,numeric,float32,,345543,171.0,340998.0,15419.234400990668,11329.0,0,0
+HEOCA,65b3b6ea0cae6d0c1e933412,initial_size_spliced,numeric,float64,,345543,171.0,340998.0,15419.234400990668,11329.0,0,0
+HEOCA,65b3b6ea0cae6d0c1e933412,initial_size_unspliced,numeric,float64,,345543,2.0,197934.0,3959.010661392357,2752.0,0,0
+HEOCA,65b3b6ea0cae6d0c1e933412,leiden,categorical,object,57,0,,,,,0,0
+HEOCA,65b3b6ea0cae6d0c1e933412,leiden_10.0,categorical,object,259,0,,,,,0,0
+HEOCA,65b3b6ea0cae6d0c1e933412,leiden_20.0,categorical,object,443,0,,,,,0,0
+HEOCA,65b3b6ea0cae6d0c1e933412,level_1,categorical,object,5,0,,,,,0,0
+HEOCA,65b3b6ea0cae6d0c1e933412,level_1_late,categorical,object,4,0,,,,,0,0
+HEOCA,65b3b6ea0cae6d0c1e933412,level_2,categorical,object,58,0,,,,,0,0
+HEOCA,65b3b6ea0cae6d0c1e933412,level_2_late,categorical,object,46,0,,,,,0,0
+HEOCA,65b3b6ea0cae6d0c1e933412,level_3,categorical,object,75,0,,,,,0,0
+HEOCA,65b3b6ea0cae6d0c1e933412,level_3_late,categorical,object,50,0,,,,,0,0
+HEOCA,65b3b6ea0cae6d0c1e933412,main_cells,categorical,object,5,0,,,,,0,0
+HEOCA,65b3b6ea0cae6d0c1e933412,molecular,categorical,object,9,0,,,,,0,0
+HEOCA,65b3b6ea0cae6d0c1e933412,n_counts,numeric,float32,,745247,406.0,90457.0,18337.87157771299,16997.0,0,0
+HEOCA,65b3b6ea0cae6d0c1e933412,n_genes,numeric,float64,,61399,200.0,13370.0,3616.3343428420376,3469.0,0,0
+HEOCA,65b3b6ea0cae6d0c1e933412,n_genes_by_counts,numeric,int64,,0,200.0,13370.0,3633.926446049444,3518.0,0,0
+HEOCA,65b3b6ea0cae6d0c1e933412,observed_lib_size,numeric,float64,,0,41.481393863828615,1176.2628313915427,605.1283181022859,616.7121230237358,0,0
+HEOCA,65b3b6ea0cae6d0c1e933412,pct_counts_hb,numeric,float64,,0,0.0,37.960025787353516,0.007319665377987495,0.0,0,0
+HEOCA,65b3b6ea0cae6d0c1e933412,pct_counts_mt,numeric,float64,,0,0.0,39.99553680419922,7.228047148258021,5.971632719039917,0,0
+HEOCA,65b3b6ea0cae6d0c1e933412,pct_counts_ribo,numeric,float64,,0,0.0,69.4039306640625,20.27042752294984,21.09460163116455,0,0
+HEOCA,65b3b6ea0cae6d0c1e933412,protocol,categorical,object,2,0,,,,,0,0
+HEOCA,65b3b6ea0cae6d0c1e933412,publication,categorical,object,57,0,,,,,0,0
+HEOCA,65b3b6ea0cae6d0c1e933412,sample_id,categorical,object,218,0,,,,,0,1
+HEOCA,65b3b6ea0cae6d0c1e933412,sample_name,categorical,object,216,0,,,,,0,0
+HEOCA,65b3b6ea0cae6d0c1e933412,sort_batch,categorical,object,3,0,,,,,0,0
+HEOCA,65b3b6ea0cae6d0c1e933412,tech,categorical,object,7,0,,,,,0,0
+HEOCA,65b3b6ea0cae6d0c1e933412,tech_detail,categorical,object,9,0,,,,,0,0
+HEOCA,65b3b6ea0cae6d0c1e933412,time,categorical,object,34,0,,,,,0,0
+HEOCA,65b3b6ea0cae6d0c1e933412,time2,categorical,object,35,0,,,,,0,0
+HEOCA,65b3b6ea0cae6d0c1e933412,tissue,categorical,object,9,0,,,,,0,0
+HEOCA,65b3b6ea0cae6d0c1e933412,total_counts,numeric,float64,,0,227.0,1518915.0,17599.93295005211,13418.0,0,0
+HEOCA,65b3b6ea0cae6d0c1e933412,total_counts_hb,numeric,float64,,0,0.0,6325.0,1.2785624920988912,0.0,0,0
+HEOCA,65b3b6ea0cae6d0c1e933412,total_counts_mt,numeric,float64,,0,0.0,60771.0,1304.732894463104,734.0,0,0
+HEOCA,65b3b6ea0cae6d0c1e933412,total_counts_ribo,numeric,float64,,0,0.0,129047.0,3868.824732854398,2649.0,0,0
+Fetal Brain,6639e18b02159a38bf9546b2,Age,numeric,float32,,0,5.0,14.0,8.275691342312854,7.0,0,0
+Fetal Brain,6639e18b02159a38bf9546b2,CellClass,categorical,object,12,0,,,,,0,0
+Fetal Brain,6639e18b02159a38bf9546b2,CellCycleFraction,numeric,float32,,0,0.0,0.0869821086525917,0.0063606765887842965,0.00240615988150239,0,0
+Fetal Brain,6639e18b02159a38bf9546b2,Chemistry,categorical,object,2,0,,,,,0,0
+Fetal Brain,6639e18b02159a38bf9546b2,Clusters,numeric,uint32,,0,0.0,616.0,280.368733123979,241.0,0,0
+Fetal Brain,6639e18b02159a38bf9546b2,Donor,categorical,object,26,0,,,,,0,0
+Fetal Brain,6639e18b02159a38bf9546b2,DoubletFlag,numeric,uint8,,0,0.0,1.0,0.002502457716989505,0.0,0,0
+Fetal Brain,6639e18b02159a38bf9546b2,DoubletScore,numeric,float32,,0,0.0,0.4000000059604645,0.14045257505645006,0.12195122241973877,0,0
+Fetal Brain,6639e18b02159a38bf9546b2,Region,categorical,object,10,0,,,,,0,0
+Fetal Brain,6639e18b02159a38bf9546b2,SampleID,categorical,object,340,0,,,,,0,0
+Fetal Brain,6639e18b02159a38bf9546b2,Sex,categorical,object,1,0,,,,,0,0
+Fetal Brain,6639e18b02159a38bf9546b2,Subdivision,categorical,object,27,0,,,,,0,0
+Fetal Brain,6639e18b02159a38bf9546b2,Subregion,categorical,object,18,0,,,,,0,0
+Fetal Brain,6639e18b02159a38bf9546b2,Tissue,categorical,object,31,0,,,,,0,0
+Fetal Brain,6639e18b02159a38bf9546b2,TopLevelCluster,numeric,uint32,,0,0.0,39.0,19.15358947601353,16.0,0,0
+Fetal Brain,6639e18b02159a38bf9546b2,TotalUMIs,numeric,uint64,,0,527.0,97708.0,6949.678485877045,5230.0,0,0
+Fetal Brain,6639e18b02159a38bf9546b2,_scanvi_observed_lib_size,numeric,float32,,0,43.0,23415.0,1231.2525215027563,868.0,0,0
+Fetal Brain,6639e18b02159a38bf9546b2,_scvi_batch,numeric,int16,,0,0.0,25.0,12.702266782911945,13.0,0,0
+Fetal Brain,6639e18b02159a38bf9546b2,_scvi_labels,numeric,int16,,0,0.0,190.0,89.25128992354172,91.0,0,0
+Fetal Brain,6639e18b02159a38bf9546b2,batch,categorical,object,26,0,,,,,0,1
+Fetal Brain,6639e18b02159a38bf9546b2,n_genes,numeric,int64,,0,300.0,10353.0,2782.9986910314187,2464.0,0,0
+Fetal Brain,6639e18b02159a38bf9546b2,region_class,categorical,object,113,0,,,,,0,0
+Fetal Brain,6639e18b02159a38bf9546b2,subregion_class,categorical,object,191,0,,,,,1,0
+HNOCA Extended,667c49bf1b50130bc39e867a,Hallmark_Glycolysis,numeric,float64,,153108,-0.436962909647351,1.760808052287984,0.4897802516082713,0.4738937126343754,0,0
+HNOCA Extended,667c49bf1b50130bc39e867a,annot_level_1,categorical,object,13,153108,,,,,0,0
+HNOCA Extended,667c49bf1b50130bc39e867a,annot_level_2,categorical,object,17,153108,,,,,0,0
+HNOCA Extended,667c49bf1b50130bc39e867a,annot_level_2_extended,categorical,object,17,0,,,,,1,0
+HNOCA Extended,667c49bf1b50130bc39e867a,annot_level_3_rev2,categorical,object,29,153108,,,,,0,0
+HNOCA Extended,667c49bf1b50130bc39e867a,annot_level_4_rev2,categorical,object,44,153108,,,,,0,0
+HNOCA Extended,667c49bf1b50130bc39e867a,annot_ntt_rev2,categorical,object,5,1067032,,,,,0,0
+HNOCA Extended,667c49bf1b50130bc39e867a,annot_region_rev2,categorical,object,10,153108,,,,,0,0
+HNOCA Extended,667c49bf1b50130bc39e867a,assay_differentiation,categorical,object,27,153108,,,,,0,0
+HNOCA Extended,667c49bf1b50130bc39e867a,assay_sc,categorical,object,10,0,,,,,0,0
+HNOCA Extended,667c49bf1b50130bc39e867a,assay_sc_original,categorical,object,10,153108,,,,,0,0
+HNOCA Extended,667c49bf1b50130bc39e867a,assay_type_differentiation,categorical,object,2,153108,,,,,0,0
+HNOCA Extended,667c49bf1b50130bc39e867a,batch,categorical,object,430,0,,,,,0,1
+HNOCA Extended,667c49bf1b50130bc39e867a,bio_sample,categorical,object,303,153108,,,,,0,0
+HNOCA Extended,667c49bf1b50130bc39e867a,cell_line,categorical,object,42,153108,,,,,0,0
+HNOCA Extended,667c49bf1b50130bc39e867a,cell_line_original,categorical,object,72,0,,,,,0,0
+HNOCA Extended,667c49bf1b50130bc39e867a,cell_type,categorical,object,63,0,,,,,0,0
+HNOCA Extended,667c49bf1b50130bc39e867a,cell_type_original,categorical,object,272,0,,,,,0,0
+HNOCA Extended,667c49bf1b50130bc39e867a,development_stage,categorical,object,18,0,,,,,0,0
+HNOCA Extended,667c49bf1b50130bc39e867a,disease,categorical,object,2,0,,,,,0,0
+HNOCA Extended,667c49bf1b50130bc39e867a,disease_original,categorical,object,4,153108,,,,,0,0
+HNOCA Extended,667c49bf1b50130bc39e867a,doi,categorical,object,31,0,,,,,0,0
+HNOCA Extended,667c49bf1b50130bc39e867a,ethnicity,categorical,object,5,0,,,,,0,0
+HNOCA Extended,667c49bf1b50130bc39e867a,ethnicity_original,categorical,object,4,153108,,,,,0,0
+HNOCA Extended,667c49bf1b50130bc39e867a,gm,categorical,object,3,153108,,,,,0,0
+HNOCA Extended,667c49bf1b50130bc39e867a,hnoca_core,boolean,bool,2,0,,,,,0,0
+HNOCA Extended,667c49bf1b50130bc39e867a,id,categorical,object,81,153108,,,,,0,0
+HNOCA Extended,667c49bf1b50130bc39e867a,individual,categorical,object,16,153108,,,,,0,0
+HNOCA Extended,667c49bf1b50130bc39e867a,obs_names_original,categorical,object,1920991,0,,,,,0,0
+HNOCA Extended,667c49bf1b50130bc39e867a,observed_lib_size,numeric,float32,,0,25.420154571533203,4039.139404296875,1323.4907507650803,1303.4631958007812,0,0
+HNOCA Extended,667c49bf1b50130bc39e867a,organ,categorical,object,11,0,,,,,0,0
+HNOCA Extended,667c49bf1b50130bc39e867a,organ_original,categorical,object,20,153108,,,,,0,0
+HNOCA Extended,667c49bf1b50130bc39e867a,organism,categorical,object,1,0,,,,,0,0
+HNOCA Extended,667c49bf1b50130bc39e867a,organism_original,categorical,object,1,153108,,,,,0,0
+HNOCA Extended,667c49bf1b50130bc39e867a,organoid_age_days,numeric,int64,,0,7.0,450.0,84.65494160689427,70.0,0,0
+HNOCA Extended,667c49bf1b50130bc39e867a,publication,categorical,object,31,0,,,,,0,0
+HNOCA Extended,667c49bf1b50130bc39e867a,sample_source,categorical,object,1,0,,,,,0,0
+HNOCA Extended,667c49bf1b50130bc39e867a,sex,categorical,object,3,0,,,,,0,0
+HNOCA Extended,667c49bf1b50130bc39e867a,sex_original,categorical,object,23,153108,,,,,0,0
+HNOCA Extended,667c49bf1b50130bc39e867a,state_exact,categorical,object,27,153108,,,,,0,0
+HNOCA Extended,667c49bf1b50130bc39e867a,suspension_type,categorical,object,2,0,,,,,0,0
+HNOCA Extended,667c49bf1b50130bc39e867a,suspension_type_original,categorical,object,2,153108,,,,,0,0
+HNOCA Extended,667c49bf1b50130bc39e867a,tech_sample,categorical,object,354,153108,,,,,0,0
+HNOCA Extended,667c49bf1b50130bc39e867a,treatment,categorical,object,7,0,,,,,0,0
+Breast,670f6f4a037f805a37639eca,FACS_status,categorical,object,4,0,,,,,0,0
+Breast,670f6f4a037f805a37639eca,_scvi_batch,numeric,int16,,0,0.0,242.0,87.46293775167113,61.0,0,0
+Breast,670f6f4a037f805a37639eca,_scvi_labels,numeric,int8,,0,0.0,0.0,0.0,0.0,0,0
+Breast,670f6f4a037f805a37639eca,assay,categorical,object,3,0,,,,,0,0
+Breast,670f6f4a037f805a37639eca,assay_ontology_term_id,categorical,object,3,0,,,,,0,0
+Breast,670f6f4a037f805a37639eca,batch,categorical,object,243,0,,,,,0,1
+Breast,670f6f4a037f805a37639eca,cell_type,categorical,object,25,0,,,,,1,0
+Breast,670f6f4a037f805a37639eca,cell_type_ontology_term_id,categorical,object,25,0,,,,,0,0
+Breast,670f6f4a037f805a37639eca,dataset,categorical,object,7,0,,,,,0,0
+Breast,670f6f4a037f805a37639eca,development_stage,categorical,object,43,0,,,,,0,0
+Breast,670f6f4a037f805a37639eca,development_stage_ontology_term_id,categorical,object,43,0,,,,,0,0
+Breast,670f6f4a037f805a37639eca,disease,categorical,object,1,0,,,,,0,0
+Breast,670f6f4a037f805a37639eca,disease_ontology_term_id,categorical,object,1,0,,,,,0,0
+Breast,670f6f4a037f805a37639eca,doi,categorical,object,7,0,,,,,0,0
+Breast,670f6f4a037f805a37639eca,donor_age,numeric,float64,,844660,19.0,65.0,37.7254668644635,36.0,0,0
+Breast,670f6f4a037f805a37639eca,donor_id,categorical,object,286,0,,,,,0,0
+Breast,670f6f4a037f805a37639eca,is_primary_data,boolean,bool,2,0,,,,,0,0
+Breast,670f6f4a037f805a37639eca,level2,categorical,object,44,0,,,,,0,0
+Breast,670f6f4a037f805a37639eca,map_celltype_map2gray,categorical,object,40,0,,,,,0,0
+Breast,670f6f4a037f805a37639eca,map_celltype_map2kumar,categorical,object,116,0,,,,,0,0
+Breast,670f6f4a037f805a37639eca,map_celltype_map2murrow,categorical,object,18,0,,,,,0,0
+Breast,670f6f4a037f805a37639eca,map_celltype_map2nee,categorical,object,24,0,,,,,0,0
+Breast,670f6f4a037f805a37639eca,map_celltype_map2pal,categorical,object,12,0,,,,,0,0
+Breast,670f6f4a037f805a37639eca,map_celltype_map2reed,categorical,object,89,0,,,,,0,0
+Breast,670f6f4a037f805a37639eca,map_celltype_map2twigger,categorical,object,18,0,,,,,0,0
+Breast,670f6f4a037f805a37639eca,n_counts,numeric,float32,,0,374.50872802734375,4252.1220703125,2384.8353024723806,2408.56689453125,0,0
+Breast,670f6f4a037f805a37639eca,observation_joinid,string,str,,0,,,,,0,0
+Breast,670f6f4a037f805a37639eca,organism,categorical,object,1,0,,,,,0,0
+Breast,670f6f4a037f805a37639eca,organism_ontology_term_id,categorical,object,1,0,,,,,0,0
+Breast,670f6f4a037f805a37639eca,original_celltype,categorical,object,151,13076,,,,,0,0
+Breast,670f6f4a037f805a37639eca,parity,categorical,object,15,20538,,,,,0,0
+Breast,670f6f4a037f805a37639eca,reported_ethnicity,categorical,object,8,1737650,,,,,0,0
+Breast,670f6f4a037f805a37639eca,risk_status,categorical,object,8,0,,,,,0,0
+Breast,670f6f4a037f805a37639eca,sample_type,categorical,object,5,0,,,,,0,0
+Breast,670f6f4a037f805a37639eca,self_reported_ethnicity,categorical,object,7,0,,,,,0,0
+Breast,670f6f4a037f805a37639eca,self_reported_ethnicity_ontology_term_id,categorical,object,7,0,,,,,0,0
+Breast,670f6f4a037f805a37639eca,sex,categorical,object,1,0,,,,,0,0
+Breast,670f6f4a037f805a37639eca,sex_ontology_term_id,categorical,object,1,0,,,,,0,0
+Breast,670f6f4a037f805a37639eca,suspension_type,categorical,object,1,0,,,,,0,0
+Breast,670f6f4a037f805a37639eca,tissue,categorical,object,1,0,,,,,0,0
+Breast,670f6f4a037f805a37639eca,tissue_ontology_term_id,categorical,object,1,0,,,,,0,0
+Breast,670f6f4a037f805a37639eca,tissue_origin,categorical,object,2,0,,,,,0,0
+Breast,670f6f4a037f805a37639eca,tissue_type,categorical,object,1,0,,,,,0,0
+Plaque (refined cell type level),6782dd3d02c803e25dc495ec,FACS_status,categorical,object,4,0,,,,,0,0
+Plaque (refined cell type level),6782dd3d02c803e25dc495ec,_scvi_batch,numeric,int16,,0,0.0,242.0,87.46293775167113,61.0,0,0
+Plaque (refined cell type level),6782dd3d02c803e25dc495ec,_scvi_labels,numeric,int8,,0,0.0,0.0,0.0,0.0,0,0
+Plaque (refined cell type level),6782dd3d02c803e25dc495ec,assay,categorical,object,3,0,,,,,0,0
+Plaque (refined cell type level),6782dd3d02c803e25dc495ec,assay_ontology_term_id,categorical,object,3,0,,,,,0,0
+Plaque (refined cell type level),6782dd3d02c803e25dc495ec,batch,categorical,object,243,0,,,,,0,0
+Plaque (refined cell type level),6782dd3d02c803e25dc495ec,cell_type,categorical,object,25,0,,,,,0,0
+Plaque (refined cell type level),6782dd3d02c803e25dc495ec,cell_type_ontology_term_id,categorical,object,25,0,,,,,0,0
+Plaque (refined cell type level),6782dd3d02c803e25dc495ec,dataset,categorical,object,7,0,,,,,0,0
+Plaque (refined cell type level),6782dd3d02c803e25dc495ec,development_stage,categorical,object,43,0,,,,,0,0
+Plaque (refined cell type level),6782dd3d02c803e25dc495ec,development_stage_ontology_term_id,categorical,object,43,0,,,,,0,0
+Plaque (refined cell type level),6782dd3d02c803e25dc495ec,disease,categorical,object,1,0,,,,,0,0
+Plaque (refined cell type level),6782dd3d02c803e25dc495ec,disease_ontology_term_id,categorical,object,1,0,,,,,0,0
+Plaque (refined cell type level),6782dd3d02c803e25dc495ec,doi,categorical,object,7,0,,,,,0,0
+Plaque (refined cell type level),6782dd3d02c803e25dc495ec,donor_age,numeric,float64,,844660,19.0,65.0,37.7254668644635,36.0,0,0
+Plaque (refined cell type level),6782dd3d02c803e25dc495ec,donor_id,categorical,object,286,0,,,,,0,0
+Plaque (refined cell type level),6782dd3d02c803e25dc495ec,is_primary_data,boolean,bool,2,0,,,,,0,0
+Plaque (refined cell type level),6782dd3d02c803e25dc495ec,level2,categorical,object,44,0,,,,,0,0
+Plaque (refined cell type level),6782dd3d02c803e25dc495ec,map_celltype_map2gray,categorical,object,40,0,,,,,0,0
+Plaque (refined cell type level),6782dd3d02c803e25dc495ec,map_celltype_map2kumar,categorical,object,116,0,,,,,0,0
+Plaque (refined cell type level),6782dd3d02c803e25dc495ec,map_celltype_map2murrow,categorical,object,18,0,,,,,0,0
+Plaque (refined cell type level),6782dd3d02c803e25dc495ec,map_celltype_map2nee,categorical,object,24,0,,,,,0,0
+Plaque (refined cell type level),6782dd3d02c803e25dc495ec,map_celltype_map2pal,categorical,object,12,0,,,,,0,0
+Plaque (refined cell type level),6782dd3d02c803e25dc495ec,map_celltype_map2reed,categorical,object,89,0,,,,,0,0
+Plaque (refined cell type level),6782dd3d02c803e25dc495ec,map_celltype_map2twigger,categorical,object,18,0,,,,,0,0
+Plaque (refined cell type level),6782dd3d02c803e25dc495ec,n_counts,numeric,float32,,0,374.50872802734375,4252.1220703125,2384.8353024723806,2408.56689453125,0,0
+Plaque (refined cell type level),6782dd3d02c803e25dc495ec,observation_joinid,string,str,,0,,,,,0,0
+Plaque (refined cell type level),6782dd3d02c803e25dc495ec,organism,categorical,object,1,0,,,,,0,0
+Plaque (refined cell type level),6782dd3d02c803e25dc495ec,organism_ontology_term_id,categorical,object,1,0,,,,,0,0
+Plaque (refined cell type level),6782dd3d02c803e25dc495ec,original_celltype,categorical,object,151,13076,,,,,0,0
+Plaque (refined cell type level),6782dd3d02c803e25dc495ec,parity,categorical,object,15,20538,,,,,0,0
+Plaque (refined cell type level),6782dd3d02c803e25dc495ec,reported_ethnicity,categorical,object,8,1737650,,,,,0,0
+Plaque (refined cell type level),6782dd3d02c803e25dc495ec,risk_status,categorical,object,8,0,,,,,0,0
+Plaque (refined cell type level),6782dd3d02c803e25dc495ec,sample_type,categorical,object,5,0,,,,,0,0
+Plaque (refined cell type level),6782dd3d02c803e25dc495ec,self_reported_ethnicity,categorical,object,7,0,,,,,0,0
+Plaque (refined cell type level),6782dd3d02c803e25dc495ec,self_reported_ethnicity_ontology_term_id,categorical,object,7,0,,,,,0,0
+Plaque (refined cell type level),6782dd3d02c803e25dc495ec,sex,categorical,object,1,0,,,,,0,0
+Plaque (refined cell type level),6782dd3d02c803e25dc495ec,sex_ontology_term_id,categorical,object,1,0,,,,,0,0
+Plaque (refined cell type level),6782dd3d02c803e25dc495ec,suspension_type,categorical,object,1,0,,,,,0,0
+Plaque (refined cell type level),6782dd3d02c803e25dc495ec,tissue,categorical,object,1,0,,,,,0,0
+Plaque (refined cell type level),6782dd3d02c803e25dc495ec,tissue_ontology_term_id,categorical,object,1,0,,,,,0,0
+Plaque (refined cell type level),6782dd3d02c803e25dc495ec,tissue_origin,categorical,object,2,0,,,,,0,0
+Plaque (refined cell type level),6782dd3d02c803e25dc495ec,tissue_type,categorical,object,1,0,,,,,0,0
+Plaque,6782e3eb02c803e25dc49b6b,cell_type_level1,categorical,object,13,0,,,,,1,0
+Plaque,6782e3eb02c803e25dc49b6b,cell_type_level2,categorical,object,21,0,,,,,0,0
+Plaque,6782e3eb02c803e25dc49b6b,dataset,categorical,object,13,0,,,,,0,0
+Plaque,6782e3eb02c803e25dc49b6b,n_counts,numeric,float64,,80659,499.0,39950.0,5278.374453403715,3974.0,0,0
+Plaque,6782e3eb02c803e25dc49b6b,n_genes,numeric,float64,,44412,200.0,6258.0,1591.629827832305,1361.0,0,0
+Plaque,6782e3eb02c803e25dc49b6b,n_genes_by_counts,numeric,float64,,0,200.0,7036.0,1583.1283233073725,1363.0,0,0
+Plaque,6782e3eb02c803e25dc49b6b,observed_lib_size,numeric,float64,,0,9.358035137680394,1876.4580249647872,252.650144996011,225.7327021843193,0,0
+Plaque,6782e3eb02c803e25dc49b6b,pct_counts_mt,numeric,float64,,0,0.0,38.12729263305664,4.3922453963954755,3.625045770779934,0,0
+Plaque,6782e3eb02c803e25dc49b6b,sample,categorical,object,79,0,,,,,0,1
+Plaque,6782e3eb02c803e25dc49b6b,size_factors,numeric,float64,,0,2.9273858606909637e-09,14.941932479337627,1.0028813193610813,0.7958858461919371,0,0
+Plaque,6782e3eb02c803e25dc49b6b,total_counts,numeric,float64,,0,270.0,113378.0,5311.249636791744,3965.0,0,0
+Plaque,6782e3eb02c803e25dc49b6b,total_counts_mt,numeric,float64,,0,0.0,6728.0,221.37395613754515,150.0,0,0

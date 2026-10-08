@@ -1,0 +1,4 @@
+﻿model_id,name,description,compatible_classifiers,native_classifier_removed_for
+626ea2361d7d1a27de465b5e,scANVI,"scANVI is a semi-supervised variant of scVI designed to leverage any available cell state annotations. Compared to unsupervised models, this model will perform better integration if cell type labels are partially available in the query.","[""scANVI"", ""XGBoost"", ""KNN""]","[""HLCA"", ""HLCA updated metadata""]"
+626ea2361d7d1a27de465b5f,scVI,scVI is an unsupervised model that maps query to reference atlases. It does not require cell type labels for the mapping.,"[""XGBoost"", ""KNN""]",[]
+6570c12c59a7aa8b4daafdae,scPoli,"a semi-supervised conditional deep generative model for data integration, label transfer and query-to-reference mapping","[""scPoli"", ""XGBoost"", ""KNN""]",[]

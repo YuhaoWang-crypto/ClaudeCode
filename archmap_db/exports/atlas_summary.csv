@@ -1,0 +1,18 @@
+﻿name,species,n_cells_reported,n_obs_file,n_vars_file,cell_type_key_used,n_cell_types,batch_key,compatible_models,total_gb,qc_issues
+Breast,Human,2122065,2122065,5000,cell_type,25,batch,"[""scVI""]",8.53,
+Fetal Brain,Human,1653974,1653974,2000,subregion_class,191,batch,"[""scANVI""]",4.05,
+Fetal immune,Human,593203,593203,7500,celltype_annotation,84,bbk,"[""scVI""]",1.75,
+Glioblastoma,Human,1135677,338564,5000,CellID,20,author,"[""scANVI""]",1.69,cell_count_mismatch
+HEOCA,Human,936563,806646,3000,Cell_type,17,sample_id,"[""scPoli""]",0.29,"cell_count_mismatch, cell_type_key_substituted"
+HLCA,Human,584885,584944,2000,scanvi_label,29,dataset,"[""scANVI""]",1.91,cell_count_mismatch
+HLCA retrained,Human,584884,584884,1897,ann_finest_level,58,sample,"[""scPoli""]",2.08,
+HNOCA,Human,1800000,1770578,3000,annot_level_2,17,batch,"[""scPoli""]",3.96,"cell_count_mismatch, cell_type_key_substituted"
+HNOCA Extended,Human,1971082,1923686,3000,annot_level_2_extended,17,batch,"[""scPoli""]",4.98,cell_count_mismatch
+Heart,Human,704296,704296,3056,cell_type,12,donor,"[""scVI""]",4.33,
+Hypomap,Mouse,384925,384925,3000,Author_CellType,654,Batch_ID,"[""scVI""]",2.08,
+NSCLC,Human,892296,892296,6000,cell_type,44,sample,"[""scANVI""]",3.44,
+PBMC,Human,7094012,7094012,10000,cell_type_for_integration,13,sample_ID_lataq,"[""scPoli""]",54.17,
+Pancreas,Mouse,301796,301796,31334,cell_type,13,batch_integration,"[""scPoli"", ""scanVI""]",7.16,
+Plaque,Human,184635,259493,2000,cell_type_level1,13,sample,"[""scPoli""]",0.75,cell_count_mismatch
+Plaque (refined cell type level),Human,184635,2122065,5000,,0,sample,"[""scPoli""]",1.24,"cell_count_mismatch, cell_type_key_missing, batch_key_missing, duplicate_reference_file"
+Retina,Human,3177310,3177310,10000,celltype,123,batch,"[""scANVI""]",0.86,"cell_type_key_substituted, batch_key_missing"
