@@ -29,6 +29,7 @@ literature-grounded systems where every number is *computed*, not asserted.
 | `m21_oscillators` | extend framework to oscillatory (Hopf) pathways | Goodwin (circadian), p53-Mdm2, Brusselator (glycolytic) | approaching Hopf: variance rises AND a spectral peak sharpens at the intrinsic frequency — distinct from saddle-node |
 | `m20b_biomodels_exact` | fetch + simulate EXACT curated models (fills M20 gap) | Markevich2004 (BIOMD27), Legewie2006 apoptosis (BIOMD102) | download method = biomodels GitHub mirror + libRoadRunner; official Km5=78 confirms hand-coded M15 (states to the decimal); Legewie caspase switch bistable in XIAP synthesis |
 | `m22_snic_mixed` | mixed bifurcation: saddle-node ON a limit cycle (SNIC) | θ / Ermentrout-Kopell normal form (cell-cycle / excitable) | finite-amplitude spikes whose period diverges (T~π/√I, log-log slope −0.50; frequency→0) — signature distinct from both Hopf and pure saddle-node; ISI mean+CV both grow |
+| `m23_msm_tpt` | conformational flux: MSM + Transition Path Theory (deeptime) | alanine dipeptide, 4×50 ns OpenMM (amber99sb-ildn/OBC, 300 K) | β→αR: MSM-TPT MFPT 52 ps vs 48 ps counted directly (2346 events, no Markov assumption); 94% of reactive flux crosses ψ≈+60…120, 6% wraps through ψ=±180; CK error 0.003; flux through q⁺=½ = 1.0000·F. β→αL only 4 events → flagged order-of-magnitude. αL vs αR overlap 31% in RMSD |
 
 ## Run
 
@@ -37,6 +38,22 @@ pip install numpy scipy networkx matplotlib
 python3 -m grn_pipeline.run_all       # full pipeline + figures
 python3 -m grn_pipeline.m1_symmetry   # or any single module
 ```
+
+M23 (MSM + TPT) additionally needs `pip install openmm mdtraj deeptime`. With no
+arguments it simulates/analyses the alanine-dipeptide demo (trajectories are
+cached in `figures/_md_cache/`, ~15 min to regenerate on 4 cores). On your own
+GROMACS/AMBER trajectories:
+
+```bash
+gmx trjconv -s md.tpr -f md.xtc -o md_whole.xtc -pbc mol -center   # whole molecules
+gmx editconf -f md.tpr -o conf.gro                                  # mdtraj cannot read .tpr
+python3 -m grn_pipeline.m23_msm_tpt --top conf.gro --traj md_whole.xtc \
+    --dt-ps 10 --features both --n-macro 4 --source 0 --target 2 --out flux.png
+```
+
+Run once without `--source/--target` to see the PCCA+ macro-states, then pick
+A and B. TPT uses PCCA+ core sets (membership >= 0.9); a warning is printed
+when fewer than 10 A->B events were sampled.
 
 Figures are written to `figures/`. A full write-up with numbers, rigour
 labels, and the interpretation (including the Lyapunov-exponent biomarker
