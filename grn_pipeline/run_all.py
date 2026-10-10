@@ -55,6 +55,12 @@ def main():
         r20b = None
         print(f"M20b exact-biomodels skipped ({type(e).__name__}: {e})\n")
     r22 = m22_snic_mixed.report();           print()
+    try:
+        from grn_pipeline import m23_msm_tpt
+        r23 = m23_msm_tpt.report();          print()
+    except Exception as e:               # needs openmm + mdtraj + deeptime
+        r23 = None
+        print(f"M23 MSM+TPT skipped ({type(e).__name__}: {e})\n")
 
     print("=" * 68)
     print("CONSOLIDATED SUMMARY")
@@ -129,6 +135,12 @@ def main():
     print(f"M22 SNIC    : mixed saddle-node+oscillation; period diverges "
           f"(T~1/sqrt, slope {r22['slope']:.2f}) -> frequency->0 signature "
           f"distinct from Hopf and pure saddle-node")
+    if r23:
+        print(f"M23 MSM+TPT : alanine dipeptide beta->alphaR MFPT "
+              f"{r23['mfpt_ps']:.0f} ps (MSM) vs {r23['mfpt_direct_ps']:.0f} ps "
+              f"(direct, {r23['n_events']} events); "
+              f"{max(r23['channels'].values()) * 100:.0f}% of reactive flux "
+              f"in the dominant channel; CK err {r23['ck_err']:.3f}")
     print("\nAbstract, measurable biomarker candidates produced:")
     print("  * irreducible-core node identity        (M1 quotient)")
     print("  * deficiency delta / distance-to-bistability (M2)")
