@@ -13,7 +13,7 @@ Reachability below was tested from this sandbox (agent proxy) on 2026-10-11.
 
 | Source | Access that works | Notes |
 |---|---|---|
-| **BioModels** (curated SBML+ODE) | `raw.githubusercontent.com/biomodels/{id}/master/{id}/{id}.xml` ✅ (`core.fetch_biomodel`) | biomodels.org / EBI download are proxy-blocked. Used: BIOMD64 Teusink glycolysis, BIOMD206 Wolf oscillations; also BIOMD27 Markevich ERK, BIOMD102 Legewie apoptosis, BIOMD42 Nielsen, BIOMD172 Pritchard |
+| **BioModels** (curated SBML+ODE) | `raw.githubusercontent.com/biomodels/{id}/master/{id}/{id}.xml` ✅ (`core.fetch_biomodel`); **mirror covers BIOMD 1–548 only**. Human candidates found: BIOMD70 Holzhütter erythrocyte glycolysis/PPP (used in D4), BIOMD482 Noguchi hepatoma (rat, mixed signalling) | biomodels.org / EBI download are proxy-blocked. Used: BIOMD64 Teusink glycolysis, BIOMD206 Wolf oscillations; also BIOMD27 Markevich ERK, BIOMD102 Legewie apoptosis, BIOMD42 Nielsen, BIOMD172 Pritchard |
 | **SABIO-RK** (kinetic constants) | REST `sabiork.h-its.org/sabioRestWebServices` (301 → https; untested beyond) | Km/kcat with conditions; an alternative to BRENDA for parameterising a GEM |
 | **BRENDA** | website 200; the SOAP/REST API needs free registration | Use for Km, Ki, kcat and **allosteric effector** lists, i.e. the candidate EDGES |
 
@@ -31,7 +31,7 @@ Reachability below was tested from this sandbox (agent proxy) on 2026-10-11.
 |---|---|---|
 | **Metabolomics Workbench** | REST `metabolomicsworkbench.org/rest/...` ✅ | thousands of studies with group labels; covariance per group → Lyapunov inverse (D1-D) |
 | **MetaboLights** | `ebi.ac.uk/metabolights/ws` ✅ | same, EBI |
-| **TCGA / GDC** | `api.gdc.cancer.gov` ✅ | tumour/normal transcriptome → enzyme-level scaling of Vmax per patient (patient-specific Jacobian) |
+| **TCGA / GDC** | `api.gdc.cancer.gov` ✅ (`netjac.data.tcga`) | tumour/normal STAR-Counts streamed per file (~1.2 s each, only the needed genes kept; whole KIRC project ~2 min) + clinical OS. `gene_expression/values` is faster but returns primary tumour only (one column per case, UQ-FPKM). Follow-up time is in `follow_ups`, not just `diagnoses` |
 | **CPTAC / PDC** proteomics | `pdc.cancer.gov/graphql` (400 = endpoint alive, needs a query) | enzyme protein abundance (better than mRNA for Vmax) |
 | **GTEx** | `gtexportal.org/api/v2` ✅ | normal-tissue enzyme expression reference |
 | HMDB | 403 through proxy ✗ | use Metabolomics Workbench `refmet` instead |

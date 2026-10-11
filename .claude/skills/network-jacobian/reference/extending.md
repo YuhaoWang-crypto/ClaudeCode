@@ -39,9 +39,12 @@
 - Compare against the clinical standard, including the partial correlation.
 
 ## Natural next steps (not done yet)
-- Patient-specific Jacobians: TCGA/CPTAC enzyme levels → Vmax scaling of a
-  human kinetic model (e.g. hepatic/erythrocyte glycolysis on BioModels) →
-  tumour vs normal fragility profiles.
+- Patient-specific Jacobians (D4 done on KIRC with an RBC chassis): swap in a
+  tissue-appropriate chassis, e.g. a Human-GEM / Recon3D sub-network with
+  SABIO-RK kinetics and a kidney ATP-demand term. Replace mRNA with CPTAC
+  protein abundance. Re-test survival with `dissect` against single genes.
+  Other projects: `d4.report(project="TCGA-LIHC")` is parameterised for
+  this, but untested so far (LIHC has 50 normals).
 - Group-level inverse Jacobian on a real Metabolomics Workbench study,
   restricted to a non-stiff sub-module.
 - CGM: per-meal mixed model (carbs/fat/fiber covariates); a minimal-model fit

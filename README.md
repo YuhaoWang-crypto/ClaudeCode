@@ -42,11 +42,13 @@ diagnostic directions:
 |---|---|---|
 | `d1_edge_biomarker` | Teusink 2000 glycolysis (BIOMD64) | loss of PFK–ATP feedback leaves the metabolome identical (max \|Δln x\| 9e-16). Static panel AUC 0.62 vs a model-predicted challenge edge readout AUC 0.91. Passive covariance inversion needs ~1e6 samples (stiff) |
 | `d2_perturbation_relaxation` | Teusink, Wolf 2000 oscillations (BIOMD206), **real CGMacros CGM (n=45)** | eigenvalues recovered from 1–2-analyte pulses; Hopf read as ringing damping from NADH alone. Real data: meal recovery rate vs HbA1c ρ=−0.44 (p=0.002), but no information beyond fasting glucose |
+| `d4_patient_jacobian` | Holzhütter 2004 human glycolysis/PPP (BIOMD70) × **TCGA-KIRC (537 tumours + 72 normals)** | 609 patient-specific Jacobians. Recovers Warburg and an ALDOB-loss aldolase bottleneck (10 % of tumours lose the steady state, OS HR 1.69). Every survival signal reduces to a single-gene proxy (BPGM, ALDOB). The chassis is the bottleneck |
 | `d3_fragility` | Teusink, Wolf | total fragility predicts Hopf crossing 100 % (local-only formula r=0.16). Zero-flux-control vPDC is a collapse node. Best probe = critical-mode participation (ρ=+0.96), not abundance (ρ≈0) |
 
 ```bash
 pip install numpy scipy networkx matplotlib libroadrunner python-libsbml scikit-learn pandas
 python3 -m netjac.run_all            # figures -> figures/netjac/ ; --offline skips real data
+python3 -m netjac.run_all --tcga     # + D4 patient-specific Jacobians (~15 min first run)
 ```
 
 Chinese write-up: [`NETJAC_REPORT.md`](NETJAC_REPORT.md). Skill:

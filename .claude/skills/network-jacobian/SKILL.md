@@ -68,6 +68,15 @@ sp.total_fragility(m, "vGLT", x, solver="integrate")   # dReλ/dlnE incl. state 
    the largest critical-mode participation |u_k|/x_k (ρ=+0.96 with AUC), not
    the most abundant one (ρ≈0).
 
+4. **Patient-specific Jacobians** (`demos/d4_patient_jacobian.py`,
+   `data/tcga.py`). TCGA-KIRC: 609 samples, each instantiated on the
+   Holzhütter 2004 human glycolysis/PPP chassis (BIOMD70) by Vmax ∝
+   isoform-summed TPM / median normal. The pipeline works (theorems hold),
+   and it recovers Warburg shifts and an ALDOB-loss aldolase bottleneck (10 %
+   of tumours have no steady state). However, every survival signal
+   dissected to a single-gene proxy (λ_lead ≈ BPGM, collapse ≈ ALDOB).
+   The chassis is the bottleneck.
+
 ## Mandatory discipline
 
 - Label every claim **✅ rigorous** (deterministic computation, theorem check,
@@ -100,6 +109,17 @@ sp.total_fragility(m, "vGLT", x, solver="integrate")   # dReλ/dlnE incl. state 
   the spread over noise realisations.
 - Pick the RIGHT eigenvalue: `spectrum.critical_pair` / `target=` follows the
   Hopf pair even when a real mode is slower.
+- Chassis modes: on a borrowed kinetic model the slowest mode may be
+  chassis physiology (RBC 2,3-BPG pool), not the tissue's. Label modes by
+  pathway (`d4.pathway_modes`) before calling anything "resilience".
+- Every network feature that predicts an outcome must be dissected against
+  its strongest single-gene correlate (`d4.dissect`). On KIRC, all of them
+  reduced to one gene.
+- Eigenvalue features have extreme outliers. Use rank-based inverse-normal
+  covariates in Cox. A post-hoc p = 0.0003 vanished (p = 0.2) after doing so.
+- GDC clinical data: follow-up time is in `follow_ups.days_to_follow_up`,
+  not only in `diagnoses`. Missing it dropped 55 % of censored patients.
+- BioModels GitHub mirror covers BIOMD 1–548 only.
 
 ## Where to look
 

@@ -179,9 +179,17 @@ def _cindex(time, event, risk):
     return num / den
 
 
+def _rint(v):
+    """Rank-based inverse-normal transform (robust to eigenvalue outliers)."""
+    from scipy.stats import norm, rankdata
+    v = np.asarray(v, float)
+    return norm.ppf((rankdata(v) - 0.5) / len(v))
+
+
 def _cox(df, cols):
     from statsmodels.duration.hazard_regression import PHReg
-    X = df[cols].values.astype(float)
+    X = np.column_stack([_rint(df[c].values) if df[c].nunique() > 5
+                         else df[c].values.astype(float) for c in cols])
     X = (X - X.mean(0)) / X.std(0)
     res = PHReg(df["time"].values, X, status=df["event"].values).fit()
     return res
@@ -210,8 +218,16 @@ def survival(tab):
                     "hr_adj": float(np.exp(adj.params[0])),
                     "p_adj": float(adj.pvalues[0]),
                     "c": _cindex(d.time, d.event, d[col])}
-    # does the network feature add beyond the expression score + stage + age?
-    base_cols = ["glyc_score", "ppp_score", "stage_n", "age"]
+    # does the network feature add beyond the expression score + stage + age
+    # (+ GLUT expression, since the glycolytic mode is mostly glucose uptake)?
+    base_cols = ["glyc_score", "ppp_score", "glut_expr", "stage_n", "age"]
+    uni_glut = _cox(d, ["glut_expr", "stage_n", "age"])
+    out["GLUT1+3 expression"] = {
+        "hr": float(np.exp(_cox(d, ["glut_expr"]).params[0])),
+        "p": float(_cox(d, ["glut_expr"]).pvalues[0]),
+        "hr_adj": float(np.exp(uni_glut.params[0])),
+        "p_adj": float(uni_glut.pvalues[0]),
+        "c": _cindex(d.time, d.event, d["glut_expr"])}
     base = _cox(d, base_cols)
     add = {}
     for lab, col in [("lam_lead [pre]", "lam"), ("glycolytic flux [pre]", "glyc"),
@@ -221,11 +237,74 @@ def survival(tab):
         full = _cox(d, base_cols + [col])
         lr = 2 * (full.llf - base.llf)
         add[lab] = {"LR": lr, "p": float(chi2.sf(lr, 1))}
+    # Holm correction over the 3 PRE-SPECIFIED features (adjusted model)
+    pre = sorted([k for k in out if "[pre]" in k], key=lambda k: out[k]["p_adj"])
+    for i, k in enumerate(pre):
+        out[k]["p_holm"] = min(1.0, out[k]["p_adj"] * (len(pre) - i))
     return {"n": len(d), "events": int(d.event.sum()), "uni": out,
             "adds": add, "c_stage": _cindex(d.time, d.event, d.stage_n)}
 
 
-def report(make_fig=True, project="TCGA-KIRC", workers=4):
+def dissect(T_all, expr, S, cl):
+    """What is each survival-associated network feature a proxy for?
+    (the boring-baseline check, done per feature)"""
+    from scipy.stats import spearmanr
+    from statsmodels.duration.hazard_regression import PHReg
+    from netjac import discriminate as di
+    genes = [g for g in expr.columns
+             if g not in ("patient", "case_id", "sample_type")]
+    To = T_all[T_all.ok.astype(bool)]
+    prox = {}
+    for f in ("lam", "glyc"):
+        rho = {g: spearmanr(np.log2(expr.loc[To.index, g] + 1),
+                            To[f]).statistic for g in genes}
+        g = max(rho, key=lambda k: abs(rho[k]))
+        prox[f] = (g, rho[g])
+    bad = ~T_all.ok.astype(bool)
+    ez = {r: di.auc(S.loc[T_all.index[bad], r], S.loc[T_all.index[~bad], r],
+                    n_boot=1)["auc"] for r in S.columns}
+    driver = max(ez, key=ez.get)
+    d = T_all.drop_duplicates("patient").merge(cl, on="patient")
+    d = d[d.time > 0].copy()
+    d["stage_n"] = d["stage"].map({"Stage I": 1, "Stage II": 2,
+                                   "Stage III": 3, "Stage IV": 4})
+    d["age10"] = d["age_days"] / 3652.5
+    d = d.dropna(subset=["stage_n", "age10"])
+    d["no_ss"] = (~d.ok.astype(bool)).astype(float)
+    tum = expr[expr.sample_type == "Primary Tumor"].drop_duplicates(
+        "patient").set_index("patient")
+    d["ALDOB"] = np.log2(tum.loc[d.patient, "ALDOB"].values + 1)
+    fit = lambda cols: PHReg(d.time.values, d[cols].values,
+                             status=d.event.values).fit()
+    r1 = fit(["no_ss", "stage_n", "age10"])
+    r2 = fit(["no_ss", "ALDOB", "stage_n", "age10"])
+    return {"proxy": prox, "collapse_driver": (driver, ez[driver]),
+            "hr_noss": (float(np.exp(r1.params[0])),
+                        tuple(np.exp(r1.conf_int()[0])), float(r1.pvalues[0])),
+            "hr_noss_adj_aldob": (float(np.exp(r2.params[0])),
+                                  float(r2.pvalues[0])),
+            "hr_aldob": (float(np.exp(r2.params[1])), float(r2.pvalues[1]))}
+
+
+def collapse_survival(T_all, cl):
+    """Do tumours whose expression profile has NO steady state on the chassis
+    differ in survival? (also a selection check for the main analysis)"""
+    d = T_all.drop_duplicates("patient").merge(cl, on="patient")
+    d = d.dropna(subset=["time"])
+    d = d[d.time > 0].copy()
+    stage_map = {"Stage I": 1, "Stage II": 2, "Stage III": 3, "Stage IV": 4}
+    d["stage_n"] = d["stage"].map(stage_map)
+    d["age"] = d["age_days"] / 365.25
+    d = d.dropna(subset=["stage_n", "age"])
+    d["no_ss"] = (~d.ok.astype(bool)).astype(float)
+    r = _cox(d, ["no_ss", "stage_n", "age"])
+    return {"n": len(d), "n_no_ss": int(d.no_ss.sum()),
+            "hr_adj": float(np.exp(r.params[0])), "p_adj": float(r.pvalues[0]),
+            "death_rate_no_ss": d[d.no_ss == 1].event.mean(),
+            "death_rate_ss": d[d.no_ss == 0].event.mean()}
+
+
+def report(make_fig=True, project="TCGA-KIRC", workers=4, recompute=False):
     import pandas as pd
     from scipy.stats import wilcoxon, mannwhitneyu
     from netjac.data import tcga
@@ -238,7 +317,14 @@ def report(make_fig=True, project="TCGA-KIRC", workers=4):
                                        "Solid Tissue Normal"])]
     n_dup = int(expr.index.duplicated().sum())
     expr = expr[~expr.index.duplicated()]      # one aliquot per sample
-    S, res = run_cohort(expr, workers)
+    import pickle
+    from netjac import DATA_CACHE
+    cache = os.path.join(DATA_CACHE, "tcga", f"d4_{project}.pkl")
+    if os.path.exists(cache) and not recompute:
+        S, res = pickle.load(open(cache, "rb"))
+    else:
+        S, res = run_cohort(expr, workers)
+        pickle.dump((S, res), open(cache, "wb"))
     from netjac.core import KineticModel
     m0 = KineticModel(MODEL)
     rxn = m0.rxn_ids
@@ -258,6 +344,7 @@ def report(make_fig=True, project="TCGA-KIRC", workers=4):
         / np.log2(expr[g] + 1).std()
     tab["glyc_score"] = pd.concat([z(g) for g in GLYC_GENES], axis=1).mean(axis=1)
     tab["ppp_score"] = pd.concat([z(g) for g in PPP_GENES], axis=1).mean(axis=1)
+    tab["glut_expr"] = np.log2(expr["SLC2A1"] + expr["SLC2A3"] + 1)
     T = tab[tab.sample_type == "Primary Tumor"]
     N = tab[tab.sample_type == "Solid Tissue Normal"]
 
@@ -307,6 +394,8 @@ def report(make_fig=True, project="TCGA-KIRC", workers=4):
     cl = tcga.clinical(project)
     Tt = T[T.ok].drop_duplicates("patient").merge(cl, on="patient")
     surv = survival(Tt)
+    coll = collapse_survival(T, cl)
+    dis = dissect(T, expr, S, cl)
 
     print("=" * 68)
     print(f"D4  PATIENT-SPECIFIC JACOBIANS — {project} on Holzhütter 2004 "
@@ -349,18 +438,34 @@ def report(make_fig=True, project="TCGA-KIRC", workers=4):
     print(f"[C] OS, n={surv['n']} tumours with stage+age, {surv['events']} "
           f"deaths (Cox, per SD):  C-index of stage alone {surv['c_stage']:.2f}")
     for lab, d in surv["uni"].items():
+        holm = f" Holm {d['p_holm']:.2g}" if "p_holm" in d else ""
         print(f"    {lab:24s} HR {d['hr']:.2f} (p={d['p']:.1g}); adj. stage+age "
-              f"HR {d['hr_adj']:.2f} (p={d['p_adj']:.1g}); C {d['c']:.2f}")
+              f"HR {d['hr_adj']:.2f} (p={d['p_adj']:.1g}{holm}); C {d['c']:.2f}")
     for lab, d in surv["adds"].items():
-        print(f"    adds beyond expression scores+stage+age: {lab:22s} "
+        print(f"    adds beyond expr scores+GLUT+stage+age: {lab:22s} "
               f"LR {d['LR']:.2f}, p={d['p']:.2g}")
+    print(f"    tumours with NO steady state on the chassis: {coll['n_no_ss']}/"
+          f"{coll['n']}; death rate {coll['death_rate_no_ss']:.2f} vs "
+          f"{coll['death_rate_ss']:.2f}; adj. HR {coll['hr_adj']:.2f} "
+          f"(p={coll['p_adj']:.2g})")
+    print("[D] proxy dissection (boring-baseline check per feature):")
+    for f, (g, r) in dis["proxy"].items():
+        print(f"    {f:5s} is mostly {g} expression (Spearman {r:+.2f})")
+    h, ci, p = dis["hr_noss"]
+    print(f"    no-steady-state driver: {dis['collapse_driver'][0]} capacity "
+          f"(AUC {dis['collapse_driver'][1]:.2f}); OS HR {h:.2f} "
+          f"[{ci[0]:.2f},{ci[1]:.2f}] p={p:.2g} -> adjusted for ALDOB "
+          f"expression HR {dis['hr_noss_adj_aldob'][0]:.2f} "
+          f"(p={dis['hr_noss_adj_aldob'][1]:.2g}); ALDOB itself HR "
+          f"{dis['hr_aldob'][0]:.2f}/log2 (p={dis['hr_aldob'][1]:.2g})")
     if make_fig:
         _figure(tab, T, N, fccT, fccN, frT, frN, surv, Tt)
     return {"tab": tab, "paired": paired, "gene_auc": gene_auc,
             "g6pd_auc": g6pd_auc, "fcc_ppp_t": fppT_t, "fcc_ppp_n": fppT_n,
             "drivers": drivers,
             "fccT": fccT, "fccN": fccN, "top_T": top_T, "top_N": top_N,
-            "dfrag": dfrag, "surv": surv, "S": S}
+            "dfrag": dfrag, "surv": surv, "collapse": coll, "dissect": dis,
+            "S": S}
 
 
 def _figure(tab, T, N, fccT, fccN, frT, frN, surv, Tt):
@@ -388,17 +493,24 @@ def _figure(tab, T, N, fccT, fccN, frT, frN, surv, Tt):
     a.set_xlabel("median flux-control coefficient on glycolysis")
     a.set_title("A  who controls glycolytic flux"); a.legend(fontsize=8)
     a = ax[1, 0]
-    cols = sorted(set(frT.columns), key=lambda r: -frT[r].abs().median())[:10]
-    a.boxplot([frN[c].dropna() for c in cols], positions=np.arange(10) - .2,
-              widths=.35, showfliers=False)
-    b = a.boxplot([frT[c].dropna() for c in cols], positions=np.arange(10) + .2,
-                  widths=.35, showfliers=False, patch_artist=True)
-    for p in b["boxes"]:
-        p.set_facecolor("#f4a582")
-    a.set_xticks(range(10)); a.set_xticklabels(cols, rotation=60, fontsize=8)
-    a.axhline(0, color="k", lw=.5)
-    a.set_ylabel("total fragility dReλ/dlnE")
-    a.set_title("B  fragility profiles (white normal, orange tumour)")
+    shares = {}
+    for lab, d, fr_ in (("normal", N, frN), ("tumour", T, frT)):
+        top = fr_.abs().idxmax(axis=1).value_counts()
+        sh = {r: top.get(r, 0) / len(d) for r in ("vGLT", "vALD", "vHEX")}
+        sh["other"] = (len(fr_) - sum(top.get(r, 0) for r in
+                                      ("vGLT", "vALD", "vHEX"))) / len(d)
+        sh["no steady state"] = 1 - d.ok.mean()
+        shares[lab] = sh
+    cats = list(shares["normal"])
+    xx = np.arange(len(cats))
+    a.bar(xx - .2, [shares["normal"][c] * 100 for c in cats], .4,
+          label="normal")
+    a.bar(xx + .2, [shares["tumour"][c] * 100 for c in cats], .4,
+          label="tumour")
+    a.set_xticks(xx); a.set_xticklabels(cats, fontsize=8)
+    a.set_ylabel("% of samples")
+    a.set_title("B  most fragile node of the glycolytic mode")
+    a.legend(fontsize=8)
     a = ax[1, 1]
     labs = list(surv["uni"])
     hr = [surv["uni"][l]["hr_adj"] for l in labs]

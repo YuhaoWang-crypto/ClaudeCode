@@ -2,6 +2,8 @@
 
     python3 -m netjac.run_all            # all three (D2-C needs network)
     python3 -m netjac.run_all --offline  # skip the real CGMacros download
+    python3 -m netjac.run_all --tcga     # also D4 patient-specific Jacobians
+                                         # (TCGA-KIRC, ~15 min first time)
 """
 import sys
 
@@ -9,10 +11,14 @@ from netjac.demos import d1_edge_biomarker, d2_perturbation_relaxation, \
     d3_fragility
 
 
-def main(offline=False):
+def main(offline=False, tcga=False):
     r1 = d1_edge_biomarker.report(); print()
     r2 = d2_perturbation_relaxation.report(with_real=not offline); print()
     r3 = d3_fragility.report(); print()
+    r4 = None
+    if tcga and not offline:
+        from netjac.demos import d4_patient_jacobian
+        r4 = d4_patient_jacobian.report(); print()
     print("=" * 68)
     print("NETJAC SUMMARY")
     print("=" * 68)
@@ -35,7 +41,13 @@ def main(offline=False):
           f"{r3['C']['agree_local']*100:.0f} %); best probe follows mode "
           f"participation (ρ={r3['D']['rho_part']:+.2f}), not abundance "
           f"(ρ={r3['D']['rho_abund']:+.2f})")
+    if r4:
+        sv = r4["surv"]["uni"]
+        print(f"D4 TCGA   : {len(r4['tab'])} KIRC samples instantiated; "
+              f"glycolytic flux [pre-specified] adj. HR "
+              f"{sv['glycolytic flux [pre]']['hr_adj']:.2f} (Holm p="
+              f"{sv['glycolytic flux [pre]']['p_holm']:.2g})")
 
 
 if __name__ == "__main__":
-    main(offline="--offline" in sys.argv)
+    main(offline="--offline" in sys.argv, tcga="--tcga" in sys.argv)
