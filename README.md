@@ -41,3 +41,46 @@ python3 -m grn_pipeline.m1_symmetry   # or any single module
 Figures are written to `figures/`. A full write-up with numbers, rigour
 labels, and the interpretation (including the Lyapunov-exponent biomarker
 question) is in [`REPORT.md`](REPORT.md).
+
+---
+
+## msm_pipeline — 构象通量 (MSM / TPT) on real protein MD
+
+A second, independent pipeline in this repo: the same "find the irreducible
+core and the measurable signal" philosophy, applied to **protein conformational
+dynamics** instead of regulatory networks.
+
+**Question:** can MSM + transition-path-theory find an allosteric site that
+RMSD/RMSF analysis of the *same trajectories* would miss?
+
+**System:** TEM β-lactamase, 48 × 500 ns (24 μs) from
+[Zenodo 6565237](https://zenodo.org/records/6565237), the data behind
+Avery, Baker & Jacobs, *Entropy* 2022 ([doi:10.3390/e24050729](https://doi.org/10.3390/e24050729)).
+
+| Module | What it does | Rigor |
+|---|---|---|
+| `m1_dataset` | provenance + sampling budget | ✅ |
+| `m2_cryptic_pocket` | opening axis fixed by **crystals** (1BTL→1PZO), not by the trajectories | ✅ |
+| `m3_msm_diagnostics` | implied-timescale test — **it fails**, and why (trajectory-identity variance 0.6–0.86) | ✅ negative result |
+| `m4_tpt_flux` | core-set MSM + TPT: committor, flux, bottleneck | ⚠️ topology only |
+| `m5_variant_allostery` | **main result:** TEM-10 (R164S/E240K) opens a pocket 30 Å away **282×** more than WT, paired Wilcoxon p=0.0156 | ✅ |
+| `m6_traditional_contrast` | RMSD/RMSF/PCA shift 1.1× on the same data | ✅ |
+| `m7_druggability` | open-state export, docking template, chemical starting point | ✅ / ⚠️ |
+| `m8_positive_control` | alanine dipeptide — proves the ITS test **does** pass when it should (1.12×) | ✅ |
+
+**Headline:** a distal mutation pair shifts the population of a known cryptic
+allosteric pocket by two orders of magnitude, giving a falsifiable prediction
+(non-competitive 1PZO-chemotype inhibitors should be more potent against
+TEM-10 than TEM-1). The conventional metrics see a 1.1× change on the
+identical trajectories — significant, but not actionable. Full write-up with
+the caveats in [`MSM_REPORT.md`](MSM_REPORT.md).
+
+```bash
+pip install deeptime mdtraj scipy matplotlib numpy
+python -m msm_pipeline.run_all            # reproduce (downloads ~660 MB)
+
+# ...or point it at your own trajectories, on any disk:
+python -m msm_pipeline.run_gromacs \
+    --top /Volumes/T7/run/md.gro --traj "/Volumes/T7/run/*/md.xtc" \
+    --sel "name CA" --a-pair 220 276 --a-max 7.0 --b-min 9.5
+```

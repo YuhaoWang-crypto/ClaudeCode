@@ -1,2 +1,8 @@
 __pycache__/
 *.pyc
+tem_data/
+tem_cache/
+msm_out/
+*.xtc
+*.npy
+!figures/**/*.npy
