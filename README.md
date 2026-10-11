@@ -67,6 +67,9 @@ Avery, Baker & Jacobs, *Entropy* 2022 ([doi:10.3390/e24050729](https://doi.org/1
 | `m6_traditional_contrast` | RMSD/RMSF/PCA shift 1.1× on the same data | ✅ |
 | `m7_druggability` | open-state export, docking template, chemical starting point | ✅ / ⚠️ |
 | `m8_positive_control` | alanine dipeptide — proves the ITS test **does** pass when it should (1.12×) | ✅ |
+| `m9_adaptive_benchmark` | controlled test with known ground truth: adaptive reseeding cuts median timescale error **29.1 % → 8.5 %** at matched cost; but the seeding heuristics are **statistically indistinguishable** (0/6 comparisons p<0.05) | ✅ |
+| `m10_tem_projection` | measured throughput on this box (5.3 ns/day) → honest TEM cost: 8 GPUs ≈ 3–8 days, this container ≈ 8 years | ✅ |
+| `adaptive_md.py` | production round-based OpenMM driver, checkpointed and resumable; validated end-to-end on real MD | ✅ |
 
 **Headline:** a distal mutation pair shifts the population of a known cryptic
 allosteric pocket by two orders of magnitude, giving a falsifiable prediction
@@ -83,4 +86,18 @@ python -m msm_pipeline.run_all            # reproduce (downloads ~660 MB)
 python -m msm_pipeline.run_gromacs \
     --top /Volumes/T7/run/md.gro --traj "/Volumes/T7/run/*/md.xtc" \
     --sel "name CA" --a-pair 220 276 --a-max 7.0 --b-min 9.5
+
+# ...or run an adaptive-sampling campaign that reseeds from the barrier:
+python -m msm_pipeline.adaptive_md \
+    --pdb 1BTL.pdb --out /Volumes/T7/tem_adaptive \
+    --rounds 60 --walkers 16 --ns-per-walker 20 \
+    --sel "name CA and (resid 214 to 231 or resid 269 to 287)" \
+    --strategy hybrid --platform CUDA
 ```
+
+**On adaptive sampling** (M9): reseeding in rounds is what fixes the
+connectivity failure M3 diagnosed — median error on the slowest timescale
+drops from 29.1 % to 8.5 %, and "few long trajectories" failed to connect the
+two basins in 3/24 repeats while adaptive never did. Targeting the committor
+bottleneck specifically was **not** measurably better than simply reseeding
+the least-visited states, so run rounds and don't over-engineer the rule.

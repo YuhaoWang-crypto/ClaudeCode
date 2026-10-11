@@ -199,10 +199,71 @@ def fig_msm():
     return p
 
 
+def fig_adaptive():
+    """Reads the cached M9 benchmark; run m9_adaptive_benchmark first."""
+    from .common import CACHE
+    p = os.path.join(CACHE, "m9_benchmark.npz")
+    if not os.path.exists(p):
+        print("  (skipping adaptive figure: run m9_adaptive_benchmark first)")
+        return None
+    d = np.load(p)
+    order = [("long", "few long\n(8 traj)", "#c0392b"),
+             ("min_counts", "adaptive\nmin-count", "#2e86c1"),
+             ("bottleneck", "adaptive\nbottleneck", "#6aa84f"),
+             ("hybrid", "adaptive\nhybrid", "#e8a33d")]
+    fig, ax = plt.subplots(1, 3, figsize=(15.5, 4.6))
+
+    for a, key, lab, ttl in [(ax[0], "EI", "slowest implied timescale",
+                              "(a) error on $t_1$"),
+                             (ax[1], "EM", "MFPT(A$\\to$B)",
+                              "(b) error on the rate")]:
+        data, cols, names = [], [], []
+        for k, nm, c in order:
+            v = d[f"{key}_{k}"]
+            v = v[np.isfinite(v)] * 100
+            data.append(v)
+            cols.append(c)
+            names.append(nm)
+        bp = a.boxplot(data, patch_artist=True, widths=.6, showfliers=False)
+        for patch, c in zip(bp["boxes"], cols):
+            patch.set_facecolor(c)
+            patch.set_alpha(.65)
+        for i, (v, c) in enumerate(zip(data, cols), start=1):
+            a.scatter(np.full(len(v), i) + np.random.uniform(-.13, .13, len(v)),
+                      v, s=11, color="k", alpha=.5, zorder=3)
+        a.set_xticklabels(names, fontsize=8)
+        a.set_ylabel(f"|relative error| in {lab}  (%)")
+        a.set_title(ttl)
+        a.set_yscale("log")
+        a.grid(alpha=.3, axis="y")
+
+    a = ax[2]
+    fails = [int(np.isnan(d[f"EI_{k}"]).sum()) for k, _, _ in order]
+    tot = len(d["EI_long"])
+    a.bar(range(4), fails, color=[c for _, _, c in order])
+    a.set_xticks(range(4))
+    a.set_xticklabels([nm for _, nm, _ in order], fontsize=8)
+    a.set_ylabel(f"repeats (of {tot}) where A and B\nnever connected")
+    a.set_title("(c) outright failures")
+    a.grid(alpha=.3, axis="y")
+
+    fig.suptitle(f"Adaptive sampling at matched cost "
+                 f"({float(d['budget'])/1e6:.0f}M steps = "
+                 f"{100*float(d['budget'])/float(d['ref_cost']):.1f} % of the reference), "
+                 f"{tot} paired repeats", fontsize=10)
+    fig.tight_layout()
+    pth = os.path.join(FIG, "msm_adaptive_benchmark.png")
+    fig.savefig(pth, dpi=135)
+    plt.close(fig)
+    return pth
+
+
 def main():
     os.makedirs(FIG, exist_ok=True)
-    for f in (fig_overview, fig_msm):
-        print("  wrote", os.path.relpath(f(), os.path.dirname(FIG)))
+    for f in (fig_overview, fig_msm, fig_adaptive):
+        out = f()
+        if out:
+            print("  wrote", os.path.relpath(out, os.path.dirname(FIG)))
 
 
 if __name__ == "__main__":
