@@ -116,15 +116,21 @@ def clinical(project, force=False):
         "fields": "submitter_id,demographic.vital_status,"
                   "demographic.days_to_death,diagnoses.days_to_last_follow_up,"
                   "diagnoses.ajcc_pathologic_stage,diagnoses.tumor_grade,"
-                  "diagnoses.age_at_diagnosis,diagnoses.diagnosis_is_primary_disease"})
+                  "diagnoses.age_at_diagnosis,diagnoses.diagnosis_is_primary_disease,"
+                  "follow_ups.days_to_follow_up"})
     rows = []
     for h in d["data"]["hits"]:
         dem = h.get("demographic", {}) or {}
         dx = h.get("diagnoses", []) or [{}]
         prim = [x for x in dx if x.get("diagnosis_is_primary_disease")] or dx
         x = prim[0]
+        # follow-up time lives in diagnoses (legacy) OR follow_ups (current
+        # GDC model); using diagnoses only silently drops ~55 % of censored
+        # (alive) patients and biases any survival analysis toward deaths
         fu = [y.get("days_to_last_follow_up") for y in dx
               if y.get("days_to_last_follow_up") is not None]
+        fu += [y.get("days_to_follow_up") for y in (h.get("follow_ups") or [])
+               if y.get("days_to_follow_up") is not None]
         rows.append({"patient": h["submitter_id"],
                      "vital_status": dem.get("vital_status"),
                      "days_to_death": dem.get("days_to_death"),

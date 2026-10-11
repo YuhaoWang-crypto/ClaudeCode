@@ -58,6 +58,32 @@ FRAG_ENZ = ["vGLT", "vHEX", "vGPI", "vPFK", "vALD", "vTPI", "vGAPDH", "vPGK",
             "vBPGM", "vBPGP", "vPGM", "vENO", "vPK", "vLDHNADH", "vG6PDH",
             "vPGLDH", "vGSSGRD", "vTrKet1", "vTrAld", "vPPRPPS", "vLacexch"]
 CLIP = (0.02, 50.0)
+# species groups used to label eigenmodes by pathway: the slowest mode of the
+# erythrocyte chassis is the 2,3-BPG/Mg pool (RBC-specific, ~absent in kidney),
+# so "the" lead eigenvalue is chassis physiology, not tumour glycolysis
+MODE_GROUPS = {
+    "shunt": ["Gri23P2f", "MgGri23P2", "Mgf", "MgAMP", "MgATP", "MgADP"],
+    "glycolysis": ["Glcin", "Glc6P", "Fru6P", "Fru16P2", "GraP", "DHAP",
+                   "Gri13P2", "Gri3P", "Gri2P", "PEP", "Pyr", "Lac"],
+    "ppp": ["GlcA6P", "Rul5P", "Xul5P", "Rib5P", "Sed7P", "E4P", "NADPHf",
+            "NADPf", "P1NADP", "P1NADPH", "P2NADP", "P2NADPH", "GSH", "GSSG"],
+}
+
+
+def pathway_modes(m, x, Jz):
+    """Slowest eigenvalue whose (relative) mode shape puts >50 % weight on each
+    species group. Returns {group: eigenvalue or nan}."""
+    vals, vr = np.linalg.eig(Jz)
+    out = {g: np.nan for g in MODE_GROUPS}
+    idx = {g: [m.state_ids.index(s) for s in ss if s in m.state_ids]
+           for g, ss in MODE_GROUPS.items()}
+    for i in np.argsort(-vals.real):
+        u = np.abs(m.B @ vr[:, i]) / np.maximum(np.abs(x), 1e-12)
+        w = u ** 2 / np.sum(u ** 2)
+        for g, ii in idx.items():
+            if np.isnan(out[g]) and w[ii].sum() > 0.5:
+                out[g] = vals[i]
+    return out
 
 _W = {}
 
@@ -89,9 +115,15 @@ def analyse_sample(scales, with_fragility=True):
     c = m.control(x)
     vals = np.linalg.eigvals(c["Jz"])
     lam = vals.real.max()
+    modes = pathway_modes(m, x, c["Jz"])
     v = c["v"]
     ix = m.rxn_ids.index
-    out = {"ok": True, "lam": lam, "glyc": v[ix("vHEX")],
+    out = {"ok": True, "lam": lam,
+           "lam_shunt": np.real(modes["shunt"]),
+           "lam_glyc": np.real(modes["glycolysis"]),
+           "lam_ppp": np.real(modes["ppp"]),
+           "fcc_ppp": c["CJ_scaled"][ix("vG6PDH")].copy(),
+           "glyc": v[ix("vHEX")],
            "lactate": -v[ix("vLacexch")],
            "ppp_share": v[ix("vG6PDH")] / v[ix("vHEX")],
            "atp": m.rr["MgATP"] + m.rr["ATPf"],
@@ -101,7 +133,9 @@ def analyse_sample(scales, with_fragility=True):
         fr = {}
         for r in FRAG_ENZ:
             try:
-                fr[r] = sp.total_fragility(m, r, x, solver="integrate")
+                # fragility of the GLYCOLYTIC mode (not the RBC shunt mode)
+                fr[r] = sp.total_fragility(m, r, x, target=modes["glycolysis"],
+                                           solver="integrate")
             except RuntimeError:
                 fr[r] = np.nan
         out["frag"] = fr
@@ -114,8 +148,8 @@ def enzyme_scales(expr):
     normals = expr[expr.sample_type == "Solid Tissue Normal"]
     S = {}
     for r, genes in GENE_MAP.items():
-        lvl = expr[genes].sum(1)
-        ref = normals[genes].sum(1).median()
+        lvl = expr[genes].sum(axis=1)
+        ref = normals[genes].sum(axis=1).median()
         S[r] = np.clip(lvl / ref, *CLIP)
     import pandas as pd
     return pd.DataFrame(S, index=expr.index)
@@ -161,9 +195,11 @@ def survival(tab):
     stage_map = {"Stage I": 1, "Stage II": 2, "Stage III": 3, "Stage IV": 4}
     d["stage_n"] = d["stage"].map(stage_map)
     d["age"] = d["age_days"] / 365.25
-    d = d.dropna(subset=["stage_n", "age"])
-    feats = {"lam (resilience)": "lam", "glycolytic flux": "glyc",
-             "PPP share": "ppp_share", "glycolysis gene score": "glyc_score",
+    d = d.dropna(subset=["stage_n", "age", "lam_glyc", "lam_ppp"])
+    feats = {"lam_lead [pre]": "lam", "glycolytic flux [pre]": "glyc",
+             "PPP share [pre]": "ppp_share",
+             "lam_glyc [post-hoc]": "lam_glyc", "lam_ppp [post-hoc]": "lam_ppp",
+             "glycolysis gene score": "glyc_score",
              "PPP gene score": "ppp_score"}
     out = {}
     for lab, col in feats.items():
@@ -178,8 +214,10 @@ def survival(tab):
     base_cols = ["glyc_score", "ppp_score", "stage_n", "age"]
     base = _cox(d, base_cols)
     add = {}
-    for lab, col in [("lam (resilience)", "lam"), ("glycolytic flux", "glyc"),
-                     ("PPP share", "ppp_share")]:
+    for lab, col in [("lam_lead [pre]", "lam"), ("glycolytic flux [pre]", "glyc"),
+                     ("PPP share [pre]", "ppp_share"),
+                     ("lam_glyc [post-hoc]", "lam_glyc"),
+                     ("lam_ppp [post-hoc]", "lam_ppp")]:
         full = _cox(d, base_cols + [col])
         lr = 2 * (full.llf - base.llf)
         add[lab] = {"LR": lr, "p": float(chi2.sf(lr, 1))}
@@ -210,15 +248,16 @@ def report(make_fig=True, project="TCGA-KIRC", workers=4):
     tab["sample_type"] = expr.sample_type
     tab["patient"] = expr.patient
     tab["ok"] = ok
-    for k in ("lam", "glyc", "lactate", "ppp_share", "atp", "fcc_theorem"):
+    for k in ("lam", "lam_shunt", "lam_glyc", "lam_ppp", "glyc", "lactate",
+              "ppp_share", "atp", "fcc_theorem"):
         tab[k] = [r.get(k, np.nan) for r in res]
     fr = pd.DataFrame([r.get("frag", {}) for r in res], index=expr.index)
     fcc = pd.DataFrame([r["fcc"] if r["ok"] else np.full(len(rxn), np.nan)
                         for r in res], index=expr.index, columns=rxn)
     z = lambda g: (np.log2(expr[g] + 1) - np.log2(expr[g] + 1).mean()) \
         / np.log2(expr[g] + 1).std()
-    tab["glyc_score"] = pd.concat([z(g) for g in GLYC_GENES], axis=1).mean(1)
-    tab["ppp_score"] = pd.concat([z(g) for g in PPP_GENES], axis=1).mean(1)
+    tab["glyc_score"] = pd.concat([z(g) for g in GLYC_GENES], axis=1).mean(axis=1)
+    tab["ppp_score"] = pd.concat([z(g) for g in PPP_GENES], axis=1).mean(axis=1)
     T = tab[tab.sample_type == "Primary Tumor"]
     N = tab[tab.sample_type == "Solid Tissue Normal"]
 
@@ -228,7 +267,8 @@ def report(make_fig=True, project="TCGA-KIRC", workers=4):
     npr = N.drop_duplicates("patient").set_index("patient").loc[pairs]
     okp = tp.ok.values & npr.ok.values
     paired = {}
-    for k in ("lam", "glyc", "lactate", "ppp_share", "atp"):
+    for k in ("lam", "lam_glyc", "lam_ppp", "glyc", "lactate", "ppp_share",
+              "atp"):
         a, b = tp[k].values[okp], npr[k].values[okp]
         paired[k] = {"tumour": np.median(a), "normal": np.median(b),
                      "p": wilcoxon(a, b).pvalue,
@@ -239,6 +279,17 @@ def report(make_fig=True, project="TCGA-KIRC", workers=4):
     best_gene = max(gene_auc, key=gene_auc.get)
     # flux-control redistribution (median scaled C^J on glycolytic flux)
     fccT, fccN = fcc.loc[T.index[T.ok]].median(), fcc.loc[N.index[N.ok]].median()
+    # PPP mechanism: is the model's PPP shift visible in G6PD expression alone?
+    from scipy.stats import spearmanr
+    g6pd_auc = di.auc(expr.loc[T.index, "G6PD"], expr.loc[N.index, "G6PD"])
+    fppT = pd.DataFrame([r["fcc_ppp"] for r in res if r["ok"]],
+                        index=[i for i, r in zip(expr.index, res) if r["ok"]],
+                        columns=rxn)
+    fppT_t = fppT.loc[[i for i in fppT.index if i in T.index]].median()
+    fppT_n = fppT.loc[[i for i in fppT.index if i in N.index]].median()
+    To = T[T.ok]
+    drivers = {r: spearmanr(S.loc[To.index, r], To.ppp_share).statistic
+               for r in GENE_MAP}
     # ---------- B: fragile nodes
     frT, frN = fr.loc[T.index[T.ok]], fr.loc[N.index[N.ok]]
     top_T = frT.abs().idxmax(1).value_counts(normalize=True)
@@ -274,7 +325,19 @@ def report(make_fig=True, project="TCGA-KIRC", workers=4):
     top = (fccT - fccN).abs().sort_values(ascending=False).index[:5]
     print("    flux control on glycolysis, normal -> tumour: " + ", ".join(
         f"{r} {fccN[r]:+.3f}->{fccT[r]:+.3f}" for r in top))
-    print("[B] most fragile enzyme per sample (share of samples):")
+    print(f"    PPP: model PPP share x{paired['ppp_share']['tumour']/paired['ppp_share']['normal']:.1f}"
+          f" in tumours, but G6PD expression alone AUC {g6pd_auc['auc']:.2f} "
+          f"(median TPM ratio {expr.loc[T.index,'G6PD'].median()/expr.loc[N.index,'G6PD'].median():.2f})")
+    top_pc = (fppT_t.abs()).sort_values(ascending=False).index[:5]
+    print("    flux control of PPP (vG6PDH) in tumours: " + ", ".join(
+        f"{r} {fppT_t[r]:+.2f} (normal {fppT_n[r]:+.2f})" for r in top_pc))
+    dr = sorted(drivers, key=lambda r: -abs(drivers[r]))[:5]
+    print("    tumour PPP-share drivers (Spearman with enzyme scale): " +
+          ", ".join(f"{r} {drivers[r]:+.2f}" for r in dr))
+    print("    pathway modes (median, tumour vs normal): " + ", ".join(
+        f"{k} {T[k].median():.3f} vs {N[k].median():.3f}"
+        for k in ("lam_shunt", "lam_glyc", "lam_ppp")))
+    print("[B] most fragile enzyme for the GLYCOLYTIC mode (share of samples):")
     print("    tumour: " + ", ".join(f"{r} {p*100:.0f}%" for r, p in
                                       top_T.head(4).items()))
     print("    normal: " + ", ".join(f"{r} {p*100:.0f}%" for r, p in
@@ -286,14 +349,16 @@ def report(make_fig=True, project="TCGA-KIRC", workers=4):
     print(f"[C] OS, n={surv['n']} tumours with stage+age, {surv['events']} "
           f"deaths (Cox, per SD):  C-index of stage alone {surv['c_stage']:.2f}")
     for lab, d in surv["uni"].items():
-        print(f"    {lab:22s} HR {d['hr']:.2f} (p={d['p']:.1g}); adj. stage+age "
+        print(f"    {lab:24s} HR {d['hr']:.2f} (p={d['p']:.1g}); adj. stage+age "
               f"HR {d['hr_adj']:.2f} (p={d['p_adj']:.1g}); C {d['c']:.2f}")
     for lab, d in surv["adds"].items():
-        print(f"    adds beyond expression scores+stage+age: {lab:18s} "
+        print(f"    adds beyond expression scores+stage+age: {lab:22s} "
               f"LR {d['LR']:.2f}, p={d['p']:.2g}")
     if make_fig:
         _figure(tab, T, N, fccT, fccN, frT, frN, surv, Tt)
     return {"tab": tab, "paired": paired, "gene_auc": gene_auc,
+            "g6pd_auc": g6pd_auc, "fcc_ppp_t": fppT_t, "fcc_ppp_n": fppT_n,
+            "drivers": drivers,
             "fccT": fccT, "fccN": fccN, "top_T": top_T, "top_N": top_N,
             "dfrag": dfrag, "surv": surv, "S": S}
 
@@ -306,13 +371,13 @@ def _figure(tab, T, N, fccT, fccN, frT, frN, surv, Tt):
     fig, ax = plt.subplots(2, 2, figsize=(13, 9))
     a = ax[0, 0]
     for k, (lab, d) in enumerate([("normal", N), ("tumour", T)]):
-        v = d.lam[d.ok]
+        v = d.lam_glyc[d.ok].dropna()
         a.scatter(np.full(len(v), k) + np.random.default_rng(k).uniform(
             -.15, .15, len(v)), -1 / v, s=6, alpha=.5)
         a.plot([k - .25, k + .25], [np.median(-1 / v)] * 2, color="k")
     a.set_xticks([0, 1]); a.set_xticklabels(["normal (72)", "tumour (541)"])
     a.set_yscale("log"); a.set_ylabel("recovery time τ = 1/|Re λ| (model h)")
-    a.set_title("A  patient-specific resilience (lead eigenvalue)")
+    a.set_title("A  glycolytic-mode recovery time per patient")
     a = ax[0, 1]
     idx = (fccT - fccN).abs().sort_values(ascending=False).index[:8]
     y = np.arange(len(idx))
