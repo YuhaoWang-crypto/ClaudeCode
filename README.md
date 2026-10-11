@@ -30,6 +30,28 @@ literature-grounded systems where every number is *computed*, not asserted.
 | `m20b_biomodels_exact` | fetch + simulate EXACT curated models (fills M20 gap) | Markevich2004 (BIOMD27), Legewie2006 apoptosis (BIOMD102) | download method = biomodels GitHub mirror + libRoadRunner; official Km5=78 confirms hand-coded M15 (states to the decimal); Legewie caspase switch bistable in XIAP synthesis |
 | `m22_snic_mixed` | mixed bifurcation: saddle-node ON a limit cycle (SNIC) | θ / Ermentrout-Kopell normal form (cell-cycle / excitable) | finite-amplitude spikes whose period diverges (T~π/√I, log-log slope −0.50; frequency→0) — signature distinct from both Hopf and pure saddle-node; ISI mean+CV both grow |
 
+## netjac — network-Jacobian diagnostics platform
+
+A second package, [`netjac/`](netjac), builds on exact BioModels kinetics (SBML
+via libRoadRunner). It keeps three objects separate: the state Jacobian,
+which gives eigenvalues and stability; the elasticities, which are the network
+edges; and the flux-control matrix dFlux/dEnzyme. It then demos three
+diagnostic directions:
+
+| Demo | System | Key result |
+|---|---|---|
+| `d1_edge_biomarker` | Teusink 2000 glycolysis (BIOMD64) | loss of PFK–ATP feedback leaves the metabolome identical (max \|Δln x\| 9e-16). Static panel AUC 0.62 vs a model-predicted challenge edge readout AUC 0.91. Passive covariance inversion needs ~1e6 samples (stiff) |
+| `d2_perturbation_relaxation` | Teusink, Wolf 2000 oscillations (BIOMD206), **real CGMacros CGM (n=45)** | eigenvalues recovered from 1–2-analyte pulses; Hopf read as ringing damping from NADH alone. Real data: meal recovery rate vs HbA1c ρ=−0.44 (p=0.002), but no information beyond fasting glucose |
+| `d3_fragility` | Teusink, Wolf | total fragility predicts Hopf crossing 100 % (local-only formula r=0.16). Zero-flux-control vPDC is a collapse node. Best probe = critical-mode participation (ρ=+0.96), not abundance (ρ≈0) |
+
+```bash
+pip install numpy scipy networkx matplotlib libroadrunner python-libsbml scikit-learn pandas
+python3 -m netjac.run_all            # figures -> figures/netjac/ ; --offline skips real data
+```
+
+Chinese write-up: [`NETJAC_REPORT.md`](NETJAC_REPORT.md). Skill:
+`.claude/skills/network-jacobian/`.
+
 ## Run
 
 ```bash
