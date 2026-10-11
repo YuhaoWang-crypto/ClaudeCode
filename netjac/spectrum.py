@@ -45,11 +45,13 @@ def critical_pair(Jz):
     return cp[np.argmax(cp.real)] if len(cp) else None
 
 
-def classify(Jz, tol=1e-6):
+def classify(Jz, tol=1e-9):
     vals = np.linalg.eigvals(Jz)
     lead = vals[np.argmax(vals.real)]
     re, im = lead.real, abs(lead.imag)
-    scale = np.abs(vals).max()
+    # median, not max: stiff models (|λ|max/|λ|min ~ 1e10) would otherwise
+    # mislabel a clearly stable slow mode as "critical"
+    scale = np.median(np.abs(vals))
     if abs(re) < tol * scale:
         kind = "critical (non-hyperbolic: linearisation inconclusive)"
     elif re < 0:
