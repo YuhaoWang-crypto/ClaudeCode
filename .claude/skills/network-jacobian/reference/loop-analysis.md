@@ -85,3 +85,36 @@ D7 on real FRED data (x = UNRATE − NROU, y = CPI YoY − 2):
 - 1960–83 has the user's sign pattern with δ ≈ 0 (near-centre, scenario 2).
 - 1984–2007 has δ = 0.56 and 5× faster damping (soft landing).
 - 2008–19 has a Phillips coupling indistinguishable from 0.
+
+## Worked cases for each module (D8, `demos/d8_module_cases.py`)
+
+1. **Energy / sensitivity (Topp).** The β-cell-loss margin is 87.8 %. Of the
+   intervention levers, only β-cell turnover moves it: r1 +2.93, d0 −0.80,
+   r2 −0.75 per ln-unit. Insulin sensitivity, clearance and secretion score
+   exactly 0, because compensation absorbs them; the tipping glucose
+   r1/2r2 = 175 depends on turnover alone. The linear (eigenvalue) and
+   nonlinear (basin margin) rankings differ, so always compute both.
+2. **Delay / reactivity (Sturis).** Hopf at hepatic delay t3* = 24.6 min
+   (model default 36). Reactivity at t3 = 15: a glucose shock is amplified
+   3.9× in relative units at 17 min.
+3. **Observability / controllability.**
+   - Topp, one readout: glucose cond 1.8e7, insulin 7e3, β-cell mass 3e15
+     (insulin is the informative readout, cf. HOMA-B).
+   - Lemaire bone: PTH, RANKL and OPG all enter only the osteoclast
+     equation. The steady-state gain matrix −J⁻¹B has effective rank 1, so
+     formation and resorption cannot be steered independently.
+4. **Pole placement / LQR (artificial pancreas on Topp T1D + 1 h
+   absorption).**
+   - Glucose-only feedback reaches a Hopf at k ≈ 3859. Above it, with u ≥ 0,
+     the response becomes a sustained bang-bang oscillation.
+   - LQR with insulin-on-board feedback avoids undershoot and oscillation.
+5. **Segmented VAR (PhysioNet Fantasia, 40 subjects).**
+   - RSA gain: young 35.6 vs elderly 9.2 ms/SD (p = 1e-6).
+   - |J| coupling: 0.41 vs 0.15.
+   - Within-subject segment reliability 0.87–0.88.
+   - Caveat: the VAR(1) off-diagonals are nearly antisymmetric, i.e. they
+     encode a shared oscillation's phase rotation, not two-way causality.
+
+Pitfall: a waiter loop `until ! pgrep -f "<pattern>"` never exits when the
+pattern also appears in the waiter's own command line. Wait on a PID or on
+the output file instead.

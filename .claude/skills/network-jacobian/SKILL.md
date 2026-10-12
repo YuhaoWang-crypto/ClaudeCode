@@ -92,6 +92,14 @@ sp.total_fragility(m, "vGLT", x, solver="integrate")   # dReλ/dlnE incl. state 
    from data. Tested on the user's macro model and on real FRED data, where
    the Great Inflation shows δ ≈ 0 and the Great Moderation δ = 0.56.
 
+7. **Module case studies** (`demos/d8_module_cases.py`). One worked case
+   per tool:
+   - Topp diabetes levers (only β-cell turnover moves the tipping margin);
+   - Sturis critical hepatic delay of 24.6 min;
+   - Topp readout observability and Lemaire drug-input rank 1;
+   - artificial-pancreas LQR vs glucose-only Hopf;
+   - Fantasia segmented VAR (RSA positive control, reliability 0.87).
+
 ## Mandatory discipline
 
 - Label every claim **✅ rigorous** (deterministic computation, theorem check,
