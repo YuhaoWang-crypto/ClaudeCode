@@ -14,6 +14,8 @@ import base64
 import json
 import os
 
+import numpy as np
+
 HERE = os.path.dirname(os.path.abspath(__file__))
 FIG = os.path.join(HERE, "..", "figures")
 
@@ -121,11 +123,116 @@ a { color: var(--accent); }
 """
 
 
+SCORE_CN = {"MSM: d ln K": "MSM 预测的平衡偏移 ΔlnK",
+            "MSM: d ln k (rate)": "MSM 预测的速率变化 Δln k",
+            "static structure difference": "静态结构差异（两个晶体结构比较）",
+            "RMSF (conventional MD)": "RMSF（常规 MD 柔性）"}
+SYS_CN = {"GK": "葡萄糖激酶（GK）", "SHP2": "SHP2 磷酸酶"}
+
+
+def _retro(path):
+    """Summary card + section for the M25 retrospective test, or ('', '')
+    when m25_summary.json does not exist yet."""
+    if not os.path.exists(path):
+        return "", ""
+    with open(path) as fh:
+        R = json.load(fh)
+    msm = [r["eval"]["MSM: d ln K"] for r in R]
+    st = [r["eval"]["static structure difference"] for r in R]
+    win = all(a["auc"] >= b["auc"] and a["patch_percentile"] >= 0.95
+              for a, b in zip(msm, st))
+    state = ("pass" if win else
+             "fail" if np.mean([a["auc"] for a in msm]) < 0.6 else "warn")
+    auc_txt = "，".join(f"{SYS_CN[r['name']]} {a['auc']:.2f}（静态结构 "
+                       f"{b['auc']:.2f}）" for r, a, b in zip(R, msm, st))
+    card = (f'<div class="verdict">{_chip(state)}<b>已知变构药物回顾性验证</b>'
+            f'<span class="small">MSM 位点打分的 ROC-AUC：{auc_txt}。'
+            f'{"优于" if win else "没有稳定优于"}直接比较两个晶体结构的简单基线。'
+            f'</span></div>')
+    rows_diag, rows_eval, rows_chk, rows_post = "", "", "", ""
+    for r in R:
+        nm = SYS_CN[r["name"]]
+        rows_diag += (f"<tr><td>{nm}</td><td>{'抑制剂' if r['kind'] == 'inhibitor' else '激活剂'}</td>"
+                      f"<td class='num'>{r['n_beads']}</td><td class='num'>{r['n_site']}</td>"
+                      f"<td class='num'>{r['n_frames']}</td><td class='num'>{r['transitions']}</td>"
+                      f"<td class='num'>{r['ck_err']:.3f}</td><td class='num'>{r['p_active']:.2f}</td></tr>")
+        for k, e in r["eval"].items():
+            rows_eval += (f"<tr><td>{nm}</td><td>{SCORE_CN[k]}</td>"
+                          f"<td class='num'>{e['auc']:.2f}</td>"
+                          f"<td class='num'>{e['enrich_top10']:.1f}×</td>"
+                          f"<td class='num'>{e['best_rank']}</td>"
+                          f"<td class='num'>{e['patch_percentile'] * 100:.0f}</td></tr>")
+        for c in r.get("checks", []):
+            ok = c["ci"][0] <= c["dlnK_pred"] <= c["ci"][1]
+            rows_chk += (f"<tr><td>{nm}</td><td>{'最高分位点' if c['tag'].startswith('top') else '远处对照位点'}"
+                         f"（残基 {c['tag'][3:]}）</td>"
+                         f"<td class='num'>{c['dlnK_pred']:+.2f}</td>"
+                         f"<td class='num'>{c['dlnK_sim']:+.2f} ({c['ci'][0]:+.2f}, {c['ci'][1]:+.2f})</td>"
+                         f"<td>{_chip('pass' if ok else 'warn')}</td></tr>")
+        for k, d in r.get("posthoc", {}).items():
+            rows_post += (f"<tr><td>{nm}</td><td>{SCORE_CN[k]}</td>"
+                          f"<td class='num'>{d['median_dist_A']:.1f} Å</td>"
+                          f"<td class='num'>{r['posthoc_random']['median']:.1f} / {r['posthoc_random']['p5']:.1f} Å</td></tr>")
+    verdict_lines = "".join(
+        f"<li><b>{SYS_CN[r['name']]}：</b>MSM ΔlnK 的 AUC 为 {a['auc']:.2f}，静态结构基线为 {b['auc']:.2f}；"
+        f"真实位点在随机空间片段中的百分位为 {a['patch_percentile'] * 100:.0f}"
+        f"（{'达到' if a['patch_percentile'] >= 0.95 else '未达到'} 95% 显著水平）。</li>"
+        for r, a, b in zip(R, msm, st))
+    section = f"""
+<section>
+  <div class="col">
+  <h2>7. 回顾性验证：已知变构药物的蛋白</h2>
+  <p>用两个有已知变构药物共晶结构的蛋白，检验第 4 节的位点扫描能否在不知道药物位置的情况下找出它：
+  SHP2 的变构<b>抑制剂</b> SHP099（PDB 5EHR），以及葡萄糖激酶的变构<b>激活剂</b>（PDB 1V4S）。
+  标准答案是共晶结构中距药物 4.5 Å 以内的残基。5EHR 只用于打分，不参与建模；
+  葡萄糖激酶唯一的闭合结构本身带有激活剂，建模时只用了蛋白坐标，这一点仍可能泄漏少量信息。</p>
+  <p>全原子显式溶剂的 MSM 需要 GPU 上微秒级采样，这里只有 4 个 CPU 核，因此用双势阱 Cα 结构模型（由失活态和激活态两个晶体结构构建）。
+  它检验的是"给定构象景观，通量分析能否定位位点"，不检验力场精度。打分规则在看到结果之前固定：
+  在每个残基周围 8 Å 放一个虚拟配体，稳定药物应偏好的状态（抑制剂偏好失活态，激活剂偏好激活态）的局部接触，结合能 2 kT，
+  用一个无偏 MSM 重加权预测平衡偏移。</p>
+  <h3>采样与模型诊断</h3>
+  </div>
+  <div class="tbl"><table>
+    <tr><th>体系</th><th>药物类型</th><th class="num">残基</th><th class="num">药物接触残基</th><th class="num">帧数</th>
+    <th class="num">失活↔激活转变</th><th class="num">CK 误差</th><th class="num">激活态布居</th></tr>{rows_diag}
+  </table></div>
+  <p class="col note">过程中做过三次修正，均在打分之前：从两个端态直接模拟时转变太少，CK 误差 0.55，于是改用自适应采样
+  （在失活→激活坐标上均匀撒种子，SHP2 的种子来自驱动模拟，但驱动轨迹不进入 MSM）；PCCA+ 抓到的是模型局部缓慢重排而不是失活↔激活转变，
+  于是改用物理序参量定义两个状态；之后 CK 误差降到上表的水平。</p>
+  <div class="col"><h3>位点识别（预先固定的指标）</h3></div>
+  <div class="tbl"><table>
+    <tr><th>体系</th><th>打分方法</th><th class="num">ROC-AUC</th><th class="num">前 10% 富集</th><th class="num">最佳排名</th><th class="num">相对随机片段百分位</th></tr>{rows_eval}
+  </table></div>
+  <div class="col"><ul>{verdict_lines}</ul></div>
+  <div class="col"><h3>显式虚拟配体检验</h3>
+  <p>在最高分位点和一个远处的对照位点真正施加虚拟配体，重新做种子模拟并建 MSM，与重加权预测比较。</p></div>
+  <div class="tbl"><table>
+    <tr><th>体系</th><th>位点</th><th class="num">预测 ΔlnK</th><th class="num">模拟 ΔlnK（95% CI）</th><th>一致</th></tr>{rows_chk}
+  </table></div>
+  <div class="col"><h3>事后分析：前 10 名离药物有多远</h3>
+  <p>这一项不在预先固定的指标里，单独列出。数值是每种方法前 10 个残基到最近药物接触残基的 Cα 距离中位数；随机 10 个残基作为对照（中位数 / 第 5 百分位）。</p></div>
+  <div class="tbl"><table>
+    <tr><th>体系</th><th>打分方法</th><th class="num">前 10 名距药物</th><th class="num">随机（中位 / 5%）</th></tr>{rows_post}
+  </table></div>
+  {_img("m25_allosteric_retro.png", "图 5 回顾性验证：(a) 沿序列的位点得分与药物接触残基；(b) ROC 曲线；(c) 显式虚拟配体检验")}
+  <div class="col">
+  <h3>结论</h3>
+  <p>在这个粗粒化模型里，MSM 位点扫描能把搜索范围缩小到药物位点附近，但{"在两个体系上都" if win else "没有"}稳定超过"直接比较两个晶体结构"这一简单基线。
+  原因可以理解：结构模型里所有的耦合都来自这两个结构，动力学分析能提供的额外信息有限。
+  要真正检验 MSM 相对静态分析的增量，需要全原子模拟，那里会出现晶体结构里看不到的构象（例如隐藏口袋）和非局部耦合。</p>
+  <p>重加权预测在蛋白上与显式模拟一致，但置信区间较宽，说明这一步本身可用，限制在于采样量。</p>
+  </div>
+</section>
+"""
+    return card, section
+
+
 def build(path=os.path.join(FIG, "msm_report.html")):
     with open(os.path.join(FIG, "m23_summary.json")) as fh:
         a = json.load(fh)
     with open(os.path.join(FIG, "m24_summary.json")) as fh:
         v = json.load(fh)
+    retro_card, retro_section = _retro(os.path.join(FIG, "m25_summary.json"))
     rate, sc, neg = v["rate"], v["screening"], v["negative"]
     md = v["md"]
     covered = rate["ci"][0] <= rate["exact"] <= rate["ci"][1]
@@ -222,6 +329,7 @@ def build(path=os.path.join(FIG, "msm_report.html")):
     <div class="verdict">{_chip("fail")}<b>稀有事件与新构象</b>
       <span class="small">β→αL 只采到 {a['rare_events']} 次；重加权只能预测已采样构象内的扰动，
       不能预测诱导出的新状态或隐藏口袋。</span></div>
+    {retro_card}
   </div>
 </section>
 
@@ -365,15 +473,17 @@ def build(path=os.path.join(FIG, "msm_report.html")):
     <li>重加权只覆盖已采样的构象。配体诱导出的新状态、隐藏口袋的打开过程若没在无偏模拟中出现，就预测不了，必须带配体重新采样。</li>
     <li>真实配体不是一个光滑的势能扰动：它有结合与解离动力学、溶剂效应和熵贡献，把对接分数转成 δ<sub>i</sub> 本身就有较大误差。</li>
     <li>稀有事件（本报告的 β→αL）采样不足时，任何 MSM 结果都只有数量级意义；需要更长模拟或增强采样。</li>
-    <li>本报告的筛选验证用的是二维模型体系和一个二肽；在真实蛋白上的准确度还需要用已知变构调节剂的体系做回顾性验证。</li>
+    <li>在真实蛋白上的回顾性验证见第 7 节：用的是粗粒化模型，全原子精度仍待检验。</li>
   </ul>
 </section>
 
+{retro_section}
 <section class="col">
-  <h2>7. 复现</h2>
+  <h2>8. 复现</h2>
   <pre>pip install numpy scipy matplotlib openmm mdtraj deeptime
 python3 -m grn_pipeline.m23_msm_tpt          # 丙氨酸二肽 MSM + TPT（首次运行约 15 分钟模拟）
 python3 -m grn_pipeline.m24_msm_validation   # 对照、筛选、MD 扰动（首次运行另需约 20 分钟模拟）
+python3 -m grn_pipeline.m25_allosteric_retro # 回顾性验证（自适应采样，首次运行约 3 小时）
 python3 -m grn_pipeline.msm_html_report      # 生成本报告
 
 # 自己的 GROMACS 轨迹

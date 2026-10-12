@@ -762,6 +762,22 @@ def run_system(name, paths=None, checks=True):
                scores={k: v.tolist() for k, v in scores.items()})
     top = np.argsort(-scores["MSM: d ln K"])[:10]
     res["top10"] = [int(m.ids[i]) for i in top]
+    # post-hoc (not pre-registered): 3D distance of each method's top-10
+    # residues to the nearest drug-contact residue, vs random 10-sets
+    X = m.X1 if target == "inactive" else m.X2
+    site = np.array(m.site_idx)
+    dmin = lambda idx: np.median([np.min(np.linalg.norm(X[site] - X[t],
+                                                        axis=1)) * 10
+                                  for t in idx])
+    rng = np.random.default_rng(0)
+    rnd = [dmin(rng.choice(len(m.ids), 10, replace=False))
+           for _ in range(2000)]
+    res["posthoc"] = {k: dict(top10=[int(m.ids[i]) for i in
+                                     np.argsort(-v)[:10]],
+                              median_dist_A=float(dmin(np.argsort(-v)[:10])))
+                      for k, v in scores.items()}
+    res["posthoc_random"] = dict(median=float(np.median(rnd)),
+                                 p5=float(np.percentile(rnd, 5)))
     print(f"  MSM: lag {res['lag_ns']:.2f} ns, CK err {r['ck_err']:.3f}, "
           f"p(active) {res['p_active']:.2f}, {flips} transitions")
     for k, v in ev.items():
