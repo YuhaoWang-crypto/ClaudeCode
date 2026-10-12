@@ -84,6 +84,20 @@ def brs_tf(Z):
     return np.mean(np.abs(Pxy[ok]) / Pxx[ok]), Coh[band].mean()
 
 
+def var_spectrum(A, S, freqs, dt):
+    """Parametric cross-spectral matrix of a VAR at the given frequencies."""
+    k = A[0].shape[0]
+    out = []
+    for f in freqs:
+        z = np.exp(-2j * np.pi * f * dt)
+        H = np.eye(k, dtype=complex)
+        for i, Ai in enumerate(A, start=1):
+            H = H - Ai * z ** i
+        Hi = np.linalg.inv(H)
+        out.append(Hi @ S @ Hi.conj().T)
+    return np.array(out)
+
+
 def analyse_subject(npz):
     from scipy.linalg import logm
     pr = prepare(npz)
@@ -103,11 +117,17 @@ def analyse_subject(npz):
     lam = np.log(mu.astype(complex)) / dt
     f = np.abs(lam.imag) / (2 * np.pi)
     lf = (f >= LF[0]) & (f <= LF[1]) & (lam.imag > 0)
+    # Mayer wave = peak of the SBP spectrum in LF; take the pole nearest it
+    fr = np.linspace(LF[0], LF[1], 111)
+    Ssbp = var_spectrum(A, S, fr, dt)[:, 1, 1].real
+    f_peak = fr[np.argmax(Ssbp)]
+    peak_inside = 2 < np.argmax(Ssbp) < len(fr) - 3
     out = {"p": p, "rho": np.abs(mu).max(), "J": J, "lamJ": lamJ,
+           "f_peak": f_peak, "peak_inside": bool(peak_inside),
            "J_complex": bool(np.abs(lamJ.imag).max() > 1e-9),
            "rr": pr["rr_mean"], "sbp": pr["sbp_mean"]}
     if lf.any():
-        j = np.argmax(np.where(lf, lam.real, -np.inf))
+        j = np.argmin(np.where(lf, np.abs(f - f_peak), np.inf))
         L = lam[j]
         out.update(lf_freq=abs(L.imag) / (2 * np.pi), lf_decay=-L.real,
                    lf_zeta=-L.real / abs(L))
@@ -151,6 +171,7 @@ def report(make_fig=True, ids=None, workers=6):
     R["group"] = pd.cut(R.age, [0, 30, 50, 100], labels=["18-29", "30-49",
                                                           "50+"])
     feats = {"brs": "BRS (ms/mmHg) [positive control]",
+             "f_peak": "SBP spectral LF peak (Hz)",
              "lf_freq": "Mayer-mode frequency (Hz)",
              "lf_decay": "Mayer-mode decay |Re λ| (1/s)",
              "lf_zeta": "Mayer-mode damping ratio ζ",
@@ -177,6 +198,8 @@ def report(make_fig=True, ids=None, workers=6):
           f"median:\n    {np.round(Jmed, 3).tolist()}")
     print(f"    its eigenvalues are complex (can oscillate) in "
           f"{jc*100:.0f} % of subjects")
+    print(f"    SBP LF spectral peak strictly inside 0.04-0.15 Hz in "
+          f"{R.peak_inside.mean()*100:.0f} % of subjects")
     print(f"[ii] delay-embedded VAR(p): median p = {R.p.median():.0f} "
           f"({R.p.median()/FS:.1f} s of memory); an LF (Mayer) mode found in "
           f"{lf_found*100:.0f} %; median frequency {R.lf_freq.median():.3f} Hz")
