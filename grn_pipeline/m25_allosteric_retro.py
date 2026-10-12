@@ -851,12 +851,31 @@ def figure(results, path):
     plt.close(fig)
 
 
+def default_paths(name, n_rounds=3, n_proc=4):
+    """The trajectories the MSM is built from (all at PARAMS[name]):
+    GK = one seed run at production parameters + adaptive rounds;
+    SHP2 = adaptive rounds only (its driven seed runs are excluded)."""
+    if not all(os.path.exists(os.path.join(CACHE, f"{name}_ad{r}_{k}.npy"))
+               for r in range(n_rounds) for k in range(n_proc)):
+        if name == "GK":
+            s0 = os.path.join(CACHE, "GK_seed0.npy")
+            if not os.path.exists(s0):      # end-state run, same parameters
+                _run_copies(dict(PARAMS["GK"], name="GK", n_copies=8,
+                                 n_frames=80, stride=2500, seed=42, out=s0))
+            adaptive(name, [s0], n_rounds)
+        else:
+            adaptive(name, driven_seeds(name), n_rounds, include_seeds=False)
+    pre = [os.path.join(CACHE, "GK_seed0.npy")] if name == "GK" else []
+    return pre + [os.path.join(CACHE, f"{name}_ad{r}_{k}.npy")
+                  for r in range(n_rounds) for k in range(n_proc)]
+
+
 def report(systems=("GK", "SHP2")):
     import json
     print("=" * 70)
     print("MODULE 25 — retrospective allosteric-site test")
     print("=" * 70)
-    results = [run_system(s) for s in systems]
+    results = [run_system(s, paths=default_paths(s)) for s in systems]
     figure(results, os.path.join(FIG, "m25_allosteric_retro.png"))
     with open(os.path.join(FIG, "m25_summary.json"), "w") as fh:
         json.dump(results, fh, indent=1, default=lambda o: (
