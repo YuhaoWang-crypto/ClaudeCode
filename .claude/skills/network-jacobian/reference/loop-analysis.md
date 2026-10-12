@@ -1,0 +1,63 @@
+# Pairwise → network: attractor analysis of interacting indicators
+
+`netjac/loops.py` is the engine. `demos/d5_pairwise_to_network.py` covers
+models and theory, and `demos/d6_baroreflex_jacobian.py` covers real data.
+
+## The workflow for any set of interacting indicators
+
+1. **Write or obtain the equations.** Use a curated BioModels model when one
+   exists (`loops.sbml_system(id)` handles reaction-based and rate-rule ODE
+   models). Otherwise write a `loops.System(name, f, names, params)`. With
+   only time series, estimate the Jacobian from data (step 7).
+2. **Find every equilibrium.** Use `System.equilibria(box)` (multi-start).
+   One model can hold several states, e.g. healthy, threshold and disease in
+   Topp 2000.
+3. **Classify each one.** `analyse_point(J)` returns stable node / stable
+   focus / saddle / unstable focus pair / centre / non-hyperbolic.
+   Linearisation is **local**. `global_portrait` simulates many starting
+   states and reports which attractor each one reaches, or oscillation or
+   divergence.
+4. **Look at every sub-system.** `principal_subsystems(J, k)` gives every
+   k×k block with the other variables clamped. This is the "pairwise
+   matrix" view.
+5. **Combine them exactly.** The whole is governed by
+   det(λI − J) = λⁿ + a₁λⁿ⁻¹ + … + aₙ, and each a_k is a signed sum over sets
+   of disjoint feedback loops (Levins). `loop_decomposition` lists each
+   loop's contribution, and `hurwitz` decides stability.
+   - Necessary: every Levins feedback F_k = −a_k < 0.
+   - A long loop enters only the high-order a_k. That is how a 3-step
+     negative loop destabilises a network whose pairs are all stable
+     (Goodwin: unstable once the loop gain exceeds sec(π/3)³ = 8).
+6. **Map the parameter dependence.** `bifurcation_scan` reports:
+   - Hopf → oscillation;
+   - saddle-node → the state disappears (tipping point);
+   - transcritical → two states exchange stability.
+   The leading eigenvalue → 0 before a saddle-node (critical slowing).
+7. **Data-driven Jacobian (D6).** Fit a VAR on multichannel time series.
+   - VAR(1): J = logm(A)/Δt is the direct pairwise Jacobian.
+   - VAR(p): the companion-matrix eigenvalues ln(μ)/Δt include the
+     delay-embedded modes. A real physiological loop with delays usually
+     needs p > 1.
+
+## Rules of thumb (all demonstrated)
+
+| Statement | Evidence |
+|---|---|
+| All pairs stable does **not** imply the whole is stable | Goodwin; random 5×5: 21 % of "all pairs stable" networks are unstable; Sturis/Tolić: 0/15 pairs unstable, yet the whole oscillates (110-min ultradian cycle) |
+| A pair unstable on its own does **not** imply the whole is unstable | Topp: the {G,B} and {I,B} pairs run away when insulin/glucose is clamped; the fast G–I loop holds them |
+| A linear centre is **not** a limit cycle | Orbit size = shock size; ±0.01 of damping flips it. A real cycle needs nonlinearity (fixed amplitude whatever the shock) |
+| Sign pattern alone can decide | Prey self-damping + predator–prey pair: `sign_pattern_stability` = 1.0 |
+| Diagonal self-damping = "buffering" (γ, δ) | Degradation, dilution, product inhibition, saturation. Gershgorin: enough self-damping beats any coupling |
+| More variables is **not** automatically better | May 1972: random networks lose stability past n* = (d/σ)²/C. Feedback-paired structure keeps them stable |
+| A pairwise 2×2 fit to delayed real data misses the oscillation | D6: the 2×2 VAR(1) Jacobian vs the Mayer mode, which only appears with delay embedding |
+
+## Pitfalls hit while building this
+
+- A solver "failure" can sit exactly on the solution (scipy `hybr`: "no
+  progress"). Judge roots by their residual, with a tolerance relative to
+  the model's own rate scale.
+- A roadrunner instance is stateful: a parameter set during a scan leaks
+  into later calls unless it is reset (`sbml_system` now does this).
+- Branch continuation can hop branches at a transcritical point. Detect a
+  zero eigenvalue as well as sign changes.
+- Do not run `grep -v "^\["` on numpy output: it deletes every array line.

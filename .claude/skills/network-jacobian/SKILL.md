@@ -77,6 +77,14 @@ sp.total_fragility(m, "vGLT", x, solver="integrate")   # dReλ/dlnE incl. state 
    dissected to a single-gene proxy (λ_lead ≈ BPGM, collapse ≈ ALDOB).
    The chassis is the bottleneck.
 
+5. **Pairwise → network attractors** (`loops.py`, `demos/d5_*`, `demos/d6_*`,
+   method in `reference/loop-analysis.md`). Find every equilibrium and
+   classify it. Analyse every k×k sub-system, then combine them EXACTLY
+   through the Levins loop decomposition of the characteristic polynomial
+   plus Routh–Hurwitz. Add bifurcation scans and a global portrait. On
+   real data, use VAR → Jacobian. Pairwise stability neither implies nor
+   excludes whole-network stability (Goodwin, Sturis, Topp).
+
 ## Mandatory discipline
 
 - Label every claim **✅ rigorous** (deterministic computation, theorem check,
