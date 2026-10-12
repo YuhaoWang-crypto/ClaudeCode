@@ -178,6 +178,16 @@ def _retro(path):
         f"真实位点在随机空间片段中的百分位为 {a['patch_percentile'] * 100:.0f}"
         f"（{'达到' if a['patch_percentile'] >= 0.95 else '未达到'} 95% 显著水平）。</li>"
         for r, a, b in zip(R, msm, st))
+    near = [SYS_CN[r["name"]] for r in R if "posthoc" in r and
+            r["posthoc"]["MSM: d ln K"]["median_dist_A"]
+            < r["posthoc_random"]["p5"]]
+    far = [SYS_CN[r["name"]] for r in R if SYS_CN[r["name"]] not in near]
+    near_txt = ""
+    if near:
+        near_txt += ("在" + "、".join(near) + "上，MSM 的前 10 名比 95% 的随机残基组更靠近药物位点，"
+                     "可以把搜索范围缩小到位点附近（事后分析）。")
+    if far:
+        near_txt += ("在" + "、".join(far) + "上，MSM 的前 10 名并不比随机残基更靠近药物位点。")
     section = f"""
 <section>
   <div class="col">
@@ -217,7 +227,7 @@ def _retro(path):
   {_img("m25_allosteric_retro.png", "图 5 回顾性验证：(a) 沿序列的位点得分与药物接触残基；(b) ROC 曲线；(c) 显式虚拟配体检验")}
   <div class="col">
   <h3>结论</h3>
-  <p>在这个粗粒化模型里，MSM 位点扫描能把搜索范围缩小到药物位点附近，但{"在两个体系上都" if win else "没有"}稳定超过"直接比较两个晶体结构"这一简单基线。
+  <p>{near_txt}在预先固定的指标上，MSM 位点扫描{"在两个体系上都" if win else "没有"}稳定超过"直接比较两个晶体结构"这一简单基线。
   原因可以理解：结构模型里所有的耦合都来自这两个结构，动力学分析能提供的额外信息有限。
   要真正检验 MSM 相对静态分析的增量，需要全原子模拟，那里会出现晶体结构里看不到的构象（例如隐藏口袋）和非局部耦合。</p>
   <p>重加权预测在蛋白上与显式模拟一致，但置信区间较宽，说明这一步本身可用，限制在于采样量。</p>
