@@ -1,5 +1,5 @@
 """
-PhysioNet "Autonomic Aging" (open access, ODC-By 1.0 per PhysioNet listing):
+PhysioNet "Autonomic Aging" (open access, Open Data Commons ODbL v1.0):
   Schumann A, Bär K. Autonomic Aging: A dataset to quantify changes of
   cardiovascular autonomic function during healthy aging (v1.0.0).
   PhysioNet 2021. doi:10.13026/2hsy-t491
