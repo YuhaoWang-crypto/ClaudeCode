@@ -107,8 +107,36 @@ def build_alanine_dipeptide(path):
     return path
 
 
+# Torsions (residue, atom name) used for perturbation controls.
+TORSIONS = {
+    "psi": [("ALA", "N"), ("ALA", "CA"), ("ALA", "C"), ("NME", "N")],
+    "methyl": [("ACE", "H1"), ("ACE", "CH3"), ("ACE", "C"), ("ACE", "O")],
+}
+
+
+def torsion_atoms(topology, name):
+    """Atom indices of a named torsion in an OpenMM or mdtraj topology."""
+    want = TORSIONS[name]
+    atoms = topology.atoms
+    atoms = list(atoms() if callable(atoms) else atoms)   # OpenMM vs mdtraj
+    idx = []
+    for res, atom in want:
+        hit = [a.index for a in atoms
+               if a.residue.name == res and a.name == atom]
+        if len(hit) != 1:
+            raise ValueError(f"atom {res}:{atom} not unique in topology")
+        idx.append(hit[0])
+    return idx
+
+
+def bias_energy(theta_rad, eps, theta0_deg):
+    """Torsional bias V = -eps (1 + cos(theta - theta0)) / 2 (kJ/mol):
+    a well of depth eps at theta0, zero on the opposite side."""
+    return -eps * (1 + np.cos(theta_rad - np.radians(theta0_deg))) / 2
+
+
 def _run_one(args):
-    pdb_path, out_xtc, ns, seed, save_ps = args
+    pdb_path, out_xtc, ns, seed, save_ps, bias = args
     import openmm as mm
     import openmm.app as app
     import openmm.unit as u
@@ -118,6 +146,13 @@ def _run_one(args):
     # a modest factor but leaves the thermodynamics unchanged.
     system = ff.createSystem(pdb.topology, nonbondedMethod=app.NoCutoff,
                              constraints=app.HBonds, hydrogenMass=4 * u.amu)
+    if bias is not None:                    # (torsion name, eps kJ/mol, deg)
+        name, eps, theta0 = bias
+        f = mm.CustomTorsionForce("-eps*(1+cos(theta-theta0))/2")
+        f.addGlobalParameter("eps", eps)
+        f.addGlobalParameter("theta0", np.radians(theta0))
+        f.addTorsion(*torsion_atoms(pdb.topology, name), [])
+        system.addForce(f)
     dt_fs = 4.0
     integ = mm.LangevinMiddleIntegrator(300 * u.kelvin, 1 / u.picosecond,
                                         dt_fs * u.femtosecond)
@@ -133,16 +168,19 @@ def _run_one(args):
     return out_xtc
 
 
-def simulate_alanine_dipeptide(n_traj=4, ns=40.0, save_ps=1.0, out=CACHE):
-    """n_traj independent Langevin runs in parallel processes. Returns
-    (topology_pdb, [xtc paths])."""
+def simulate_alanine_dipeptide(n_traj=4, ns=40.0, save_ps=1.0, out=CACHE,
+                               bias=None, tag="ala2", seed0=1000):
+    """n_traj independent Langevin runs in parallel processes. `bias` =
+    (torsion name, eps kJ/mol, theta0 deg) adds a torsional bias (see
+    bias_energy). Returns (topology_pdb, [xtc paths])."""
     from multiprocessing import Pool
     os.makedirs(out, exist_ok=True)
-    pdb_path = os.path.join(out, "ala2.pdb")
+    pdb_path = os.path.join(CACHE, "ala2.pdb")
     if not os.path.exists(pdb_path):
+        os.makedirs(CACHE, exist_ok=True)
         build_alanine_dipeptide(pdb_path)
-    jobs = [(pdb_path, os.path.join(out, f"ala2_run{i}.xtc"), ns, 1000 + i,
-             save_ps) for i in range(n_traj)]
+    jobs = [(pdb_path, os.path.join(out, f"{tag}_run{i}.xtc"), ns, seed0 + i,
+             save_ps, bias) for i in range(n_traj)]
     todo = [j for j in jobs if not os.path.exists(j[1])]
     if todo:
         with Pool(min(len(todo), os.cpu_count() or 1)) as pool:
@@ -381,6 +419,10 @@ def analyze(feats, dt_ps, rama=None, tica_lag=None, n_clusters=100,
         + ", ".join(f"{t:.0f}" for t in ts[:4]) + " ps")
     say(f"largest spectral gap suggests {gap} macro-states; using "
         f"{n_macro or gap}")
+    if ts[0] < 2 * lag * dt_ps:
+        say(f"  WARNING: slowest implied timescale ({ts[0]:.2g}) < 2 x lag: "
+            f"no resolvable slow process -- no metastable states, TPT "
+            f"results are not meaningful")
     n_macro = n_macro or gap
 
     pcca = msm.pcca(n_macro)
@@ -425,7 +467,8 @@ def analyze(feats, dt_ps, rama=None, tica_lag=None, n_clusters=100,
                dt_ps=dt_ps, lag=lag, msm=msm, n_macro=n_macro, pcca=pcca,
                assign=assign, pis=pis, ck=(mults, pred, est), ck_err=ck_err,
                active=active, macro_dtrajs=macro_dtrajs, centers=centers,
-               macro_center=macro_center, Y=Y, rama=rama, timescales_ps=ts)
+               macro_center=macro_center, Y=Y, rama=rama, timescales_ps=ts,
+               tica=tica, km=km, dtrajs=dtrajs)
     kT = 0.0083144626 * 300.0
     say(f"\nmacro-states (PCCA+):")
     for k in range(n_macro):
@@ -819,14 +862,26 @@ def report(fig_path=os.path.join(HERE, "..", "figures", "m23_msm_tpt.png"),
            title="Alanine dipeptide: MSM + Transition Path Theory "
                  "(conformational flux, not RMSD)")
     print(f"\nfigure written to: {fig_path}")
-    return dict(lag_ps=r["lag"] * r["dt_ps"], labels=lab,
+    out = dict(lag_ps=r["lag"] * r["dt_ps"], labels=lab,
                 timescales_ps=r["timescales_ps"], pis=r["pis"],
                 ck_err=r["ck_err"], d_short=r["d_short"],
                 mfpt_ps=1 / r["rate_ps"], mfpt_direct_ps=1 / r["k_direct"],
                 n_events=r["n_events"], channels=ch, rmsd_overlap=ov,
                 cut_total=r["cut_total"] / r["flux"].total_flux,
                 rare_mfpt_ns=(1 / rare["rate_ps"] / 1e3 if rare else None),
-                rare_events=(rare["n_events"] if rare else None))
+                rare_events=(rare["n_events"] if rare else None),
+                mfpt_back_ps=1 / r["rate_back_ps"],
+                mfpt_back_direct_ps=1 / r["k_back_direct"],
+                ccaps=list(zip([" -> ".join(p) for p in r["cpaths"]],
+                               r["ccaps"])))
+    import json
+    with open(os.path.join(os.path.dirname(fig_path), "m23_summary.json"),
+              "w") as fh:
+        json.dump(out, fh, indent=1, default=lambda o: (
+            o.tolist() if hasattr(o, "tolist") else
+            {str(k): v for k, v in o.items()} if isinstance(o, dict)
+            else float(o)))
+    return out
 
 
 def main(argv=None):

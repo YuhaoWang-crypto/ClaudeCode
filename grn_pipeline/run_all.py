@@ -61,6 +61,13 @@ def main():
     except Exception as e:               # needs openmm + mdtraj + deeptime
         r23 = None
         print(f"M23 MSM+TPT skipped ({type(e).__name__}: {e})\n")
+    try:
+        from grn_pipeline import m24_msm_validation, msm_html_report
+        r24 = m24_msm_validation.report();   print()
+        msm_html_report.build()
+    except Exception as e:               # needs openmm + mdtraj + deeptime
+        r24 = None
+        print(f"M24 MSM validation skipped ({type(e).__name__}: {e})\n")
 
     print("=" * 68)
     print("CONSOLIDATED SUMMARY")
@@ -141,6 +148,12 @@ def main():
               f"(direct, {r23['n_events']} events); "
               f"{max(r23['channels'].values()) * 100:.0f}% of reactive flux "
               f"in the dominant channel; CK err {r23['ck_err']:.3f}")
+    if r24:
+        print(f"M24 MSM check: rate vs exact {r24['rate']['msm']:.4f}/"
+              f"{r24['rate']['exact']:.4f}; screening rho "
+              f"{r24['screening']['rho_msm']:.3f} (static "
+              f"{r24['screening']['rho_static']:.3f}); committor r "
+              f"{r24['committor']['r']:.4f}")
     print("\nAbstract, measurable biomarker candidates produced:")
     print("  * irreducible-core node identity        (M1 quotient)")
     print("  * deficiency delta / distance-to-bistability (M2)")

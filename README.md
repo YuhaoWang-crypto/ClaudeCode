@@ -30,6 +30,7 @@ literature-grounded systems where every number is *computed*, not asserted.
 | `m20b_biomodels_exact` | fetch + simulate EXACT curated models (fills M20 gap) | Markevich2004 (BIOMD27), Legewie2006 apoptosis (BIOMD102) | download method = biomodels GitHub mirror + libRoadRunner; official Km5=78 confirms hand-coded M15 (states to the decimal); Legewie caspase switch bistable in XIAP synthesis |
 | `m22_snic_mixed` | mixed bifurcation: saddle-node ON a limit cycle (SNIC) | θ / Ermentrout-Kopell normal form (cell-cycle / excitable) | finite-amplitude spikes whose period diverges (T~π/√I, log-log slope −0.50; frequency→0) — signature distinct from both Hopf and pure saddle-node; ISI mean+CV both grow |
 | `m23_msm_tpt` | conformational flux: MSM + Transition Path Theory (deeptime) | alanine dipeptide, 4×50 ns OpenMM (amber99sb-ildn/OBC, 300 K) | β→αR: MSM-TPT MFPT 52 ps vs 48 ps counted directly (2346 events, no Markov assumption); 94% of reactive flux crosses ψ≈+60…120, 6% wraps through ψ=±180; CK error 0.003; flux through q⁺=½ = 1.0000·F. β→αL only 4 events → flagged order-of-magnitude. αL vs αR overlap 31% in RMSD |
+| `m24_msm_validation` | reliability of M23: exact ground truth + positive/negative controls + perturbation screening | triple-well SqRA jump process (exact rates/committor); alanine dipeptide with ψ-bias (positive) / methyl-bias (negative) | rate within 0.4% of exact (bootstrap CI covers it); committor r=0.999; shuffled / blind-coordinate negatives collapse the slow process; 56 virtual ligands ranked from ONE MSM with Spearman ρ=0.989 (static baseline 0.03), 100% correct sign, decoys ≈0; real MD: population shift predicted 0.73 vs 0.72, kinetics right direction but ~1.5× off; hyper-parameter spread −14…+11% |
 
 ## Run
 
@@ -50,6 +51,9 @@ gmx editconf -f md.tpr -o conf.gro                                  # mdtraj can
 python3 -m grn_pipeline.m23_msm_tpt --top conf.gro --traj md_whole.xtc \
     --dt-ps 10 --features both --n-macro 4 --source 0 --target 2 --out flux.png
 ```
+
+`python3 -m grn_pipeline.m24_msm_validation` runs the reliability suite and
+`python3 -m grn_pipeline.msm_html_report` builds `figures/msm_report.html`.
 
 Run once without `--source/--target` to see the PCCA+ macro-states, then pick
 A and B. TPT uses PCCA+ core sets (membership >= 0.9); a warning is printed
