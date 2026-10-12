@@ -394,7 +394,7 @@ def analyze(feats, dt_ps, rama=None, tica_lag=None, n_clusters=100,
     n_frames = sum(len(x) for x in feats)
     if lags is None:
         lags = [1, 2, 5, 10, 20, 30, 50, 75, 100]
-    tica_lag = tica_lag or lags[3]
+    tica_lag = tica_lag or lags[min(3, len(lags) - 1)]
     tica, Y, km, dtrajs = tica_cluster(feats, tica_lag, n_clusters, seed=seed,
                                        method=cluster)
     say(f"data: {len(feats)} trajectories, {n_frames} frames, dt={dt_ps} ps "
