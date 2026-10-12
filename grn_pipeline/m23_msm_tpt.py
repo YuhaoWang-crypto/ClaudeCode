@@ -322,6 +322,8 @@ def ck_test(dtrajs, msm, lag, memberships, mults=(1, 2, 3, 4, 5)):
     norm = w.sum(0)
     syms = msm.count_model.state_symbols
     pred, est = [], []
+    longest = max(len(d) for d in dtrajs)
+    mults = tuple(k for k in mults if lag * k < longest)
     for k in mults:
         Tk = np.linalg.matrix_power(T, k)
         pred.append((w.T @ Tk @ M) / norm[:, None])

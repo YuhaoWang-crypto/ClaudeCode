@@ -405,11 +405,12 @@ def _run_copies(args):
 
 
 PARAMS = {"GK": dict(eps=1.2, alpha=0.35, lam=2.3, w=0.05),
-          "SHP2": dict(eps=1.2, alpha=0.3, lam=0.6, w=0.05)}
+          "SHP2": dict(eps=1.2, alpha=0.35, lam=0.85, w=0.05)}
 
 
 def adaptive(name, seed_paths, n_rounds=3, n_proc=4, n_copies=8,
-             n_frames=80, stride=2500, n_bins=16, seed0=300):
+             n_frames=80, stride=2500, n_bins=16, seed0=300,
+             include_seeds=True, tag="ad"):
     """Adaptive sampling: each round seeds n_proc*n_copies short
     trajectories from frames spread uniformly over the inactive->active
     coordinate z (least-sampled bins first), pooling all earlier data.
@@ -418,8 +419,9 @@ def adaptive(name, seed_paths, n_rounds=3, n_proc=4, n_copies=8,
     m = DualBasin(name)
     paths = list(seed_paths)
     rng = np.random.default_rng(seed0)
+    msm_paths = list(seed_paths) if include_seeds else []
     for rd in range(n_rounds):
-        outs = [os.path.join(CACHE, f"{name}_ad{rd}_{k}.npy")
+        outs = [os.path.join(CACHE, f"{name}_{tag}{rd}_{k}.npy")
                 for k in range(n_proc)]
         if not all(os.path.exists(o) for o in outs):
             pool_x = np.concatenate([np.load(p).reshape(-1, len(m.ids), 3)
@@ -437,7 +439,7 @@ def adaptive(name, seed_paths, n_rounds=3, n_proc=4, n_copies=8,
                         picks.append(int(rng.choice(idx)))
             jobs = []
             for k in range(n_proc):
-                sp = os.path.join(CACHE, f"{name}_ad{rd}_{k}_seeds.npy")
+                sp = os.path.join(CACHE, f"{name}_{tag}{rd}_{k}_seeds.npy")
                 np.save(sp, pool_x[picks[k * n_copies:(k + 1) * n_copies]])
                 jobs.append(dict(PARAMS[name], name=name, n_copies=n_copies,
                                  n_frames=n_frames, stride=stride,
@@ -445,9 +447,31 @@ def adaptive(name, seed_paths, n_rounds=3, n_proc=4, n_copies=8,
                                  out=outs[k]))
             with Pool(n_proc) as p:
                 p.map(_run_copies, jobs)
-        paths += outs
-        print(f"  adaptive round {rd + 1}/{n_rounds} done")
-    return paths
+        paths += outs; msm_paths += outs
+        print(f"  adaptive round {rd + 1}/{n_rounds} done", flush=True)
+    return msm_paths
+
+
+def driven_seeds(name, lam_push=(3.0, 0.15), n_copies=8, n_frames=80,
+                 stride=2500, seed0=900):
+    """Seed generation only: copies started in the inactive state with a
+    very large active-contact weight (and vice versa) are driven across the
+    transition. Their frames are used solely as STARTING coordinates for
+    adaptive runs at the production parameters; they never enter the MSM."""
+    from multiprocessing import Pool
+    jobs = []
+    for k, (lam, start) in enumerate([(lam_push[0], "1"), (lam_push[0], "1"),
+                                      (lam_push[1], "2"),
+                                      (lam_push[1], "2")]):
+        jobs.append(dict(PARAMS[name], name=name, lam=lam, start=start,
+                         n_copies=n_copies, n_frames=n_frames, stride=stride,
+                         seed=seed0 + k,
+                         out=os.path.join(CACHE, f"{name}_drive{k}.npy")))
+    todo = [j for j in jobs if not os.path.exists(j["out"])]
+    if todo:
+        with Pool(len(todo)) as p:
+            p.map(_run_copies, todo)
+    return [j["out"] for j in jobs]
 
 
 def produce(name, n_proc=4, n_copies=8, n_frames=200, stride=2500,
@@ -503,7 +527,7 @@ class _Cores:
         self.memberships = M
 
 
-def build_msm(m, trajs, lags=(1, 2, 3, 5, 8, 12, 20), n_clusters=100,
+def build_msm(m, trajs, lags=(1, 2, 3, 5, 8, 12), n_clusters=100,
               core=0.25):
     """MSM on contact-distance features. States are defined by the physical
     order parameter z, not by PCCA+: micro-states with mean z < -core form
