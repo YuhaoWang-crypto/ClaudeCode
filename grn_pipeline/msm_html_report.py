@@ -188,6 +188,13 @@ def _retro(path):
                      "可以把搜索范围缩小到位点附近（事后分析）。")
     if far:
         near_txt += ("在" + "、".join(far) + "上，MSM 的前 10 名并不比随机残基更靠近药物位点。")
+    shaky = [SYS_CN[r["name"]] for r in R
+             if r["ck_err"] > 0.1 or any(
+                 not (c["ci"][0] <= c["dlnK_pred"] <= c["ci"][1])
+                 for c in r.get("checks", []))]
+    if shaky:
+        near_txt += ("其中" + "、".join(shaky) + "的模型诊断不合格（CK 误差大于 0.1，或远处对照位点的显式模拟与预测不符），"
+                     "那里的结果首先说明模型和采样不足，不能单独当作方法失败的证据。")
     section = f"""
 <section>
   <div class="col">

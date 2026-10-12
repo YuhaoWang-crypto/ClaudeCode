@@ -725,9 +725,12 @@ def ligand_checks(m, r, pool_paths, sites, tags, predicted, n_copies=8,
                     0, len(raw), len(raw))], r["lag"]) - lnK0)
             except Exception:
                 pass
+        bs = np.array(bs); fin = np.isfinite(bs)
         out.append(dict(tag=tag, dlnK_sim=float(val),
-                        ci=[float(x) for x in np.percentile(bs, [2.5, 97.5])],
-                        dlnK_pred=float(pred)))
+                        ci=[float(x) for x in np.percentile(bs[fin],
+                                                            [2.5, 97.5])],
+                        dlnK_pred=float(pred),
+                        boot_nonfinite=float(1 - fin.mean())))
     return out
 
 
@@ -820,16 +823,19 @@ def figure(results, path):
         ids = np.array(res["ids"]); site = set(res["site"])
         pos = np.array([i in site for i in ids])
         a = ax[row, 0]
+        gap = np.r_[False, np.diff(ids) > 1]          # break lines at gaps
         for k in ("MSM: d ln K", "static structure difference"):
-            v = np.array(res["scores"][k])
+            v = np.array(res["scores"][k], float)
             v = (v - v.mean()) / (v.std() + 1e-12)
-            a.plot(ids, v, lw=0.9, c=cols[k], label=k)
+            xs = np.insert(ids.astype(float), np.where(gap)[0], np.nan)
+            ys = np.insert(v, np.where(gap)[0], np.nan)
+            a.plot(xs, ys, lw=0.9, c=cols[k], label=k)
         a.scatter(ids[pos], np.full(pos.sum(), a.get_ylim()[1] * 0.92),
                   marker="v", c="k", s=18, label="drug-contact residue")
         a.set_xlabel("residue"); a.set_ylabel("score (z-scored)")
         a.legend(fontsize=7, loc="lower right")
-        a.set_title(f"({'abc'[0]}) {res['name']} ({res['kind']}): site "
-                    f"scores along the sequence")
+        a.set_title(f"(a) {res['name']} ({res['kind']}): site scores along "
+                    f"the sequence")
         a = ax[row, 1]
         for k, v in res["scores"].items():
             v = np.array(v); o = np.argsort(-v)
