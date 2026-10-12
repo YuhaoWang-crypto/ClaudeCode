@@ -62,3 +62,26 @@ models and theory, and `demos/d6_baroreflex_jacobian.py` covers real data.
 - Branch continuation can hop branches at a transcritical point. Detect a
   zero eigenvalue as well as sign changes.
 - Do not run `grep -v "^\["` on numpy output: it deletes every array line.
+
+## Beyond eigenvalues: `netjac/statespace.py` (D7)
+
+Each tool answers a different, testable question about the same J:
+
+| Tool | Question | Biology use |
+|---|---|---|
+| `phase_map` / `classify_2x2` | where do parameter pairs sit (node / focus / centre / saddle) | bifurcation map of a 2-variable loop |
+| `quadratic_energy` | a Lyapunov energy; with a diagonal P, the diagonal of J is the only dissipation and the off-diagonal loop only exchanges energy | degradation / dilution = dissipation; interaction loops = oscillation |
+| `reactivity`, `max_amplification` | does a stable system first amplify a shock, how much, from which direction | rebound / overshoot after a dose |
+| `noise_response` | quasi-cycles under random shocks (spectral peak), lead-lag, contemporaneous correlation | Mayer waves; why static correlations miss strong causal coupling |
+| `critical_delay` + `simulate_dde` | the delay on one coupling that creates sustained oscillation | hepatic delay (Sturis), baroreflex delay |
+| `gramians` | controllability (which input steers) / observability (which single readout suffices) | drug-target choice, minimal biomarker panel |
+| `pole_placement`, `lqr` | the feedback gains for a chosen damping | closed-loop dosing |
+| `coupling_sensitivity` | dλ/dJ_ij: which entry sets damping vs frequency | where to intervene |
+| `var_jacobian` | J = logm(A)/Δt from time series, with an equilibrium | data-driven state space, era by era |
+
+D7 results on the user's macro model: V = x² + 0.625y², dV/dt = −0.4x² − 0.125y². Reactive iff γδ < 0.0225. The quasi-cycle exists for a stable focus. Contemporaneous corr is +0.02, but lagged corr is +0.72. Critical policy lag τ* = 0.78.
+
+D7 on real FRED data (x = UNRATE − NROU, y = CPI YoY − 2):
+- 1960–83 has the user's sign pattern with δ ≈ 0 (near-centre, scenario 2).
+- 1984–2007 has δ = 0.56 and 5× faster damping (soft landing).
+- 2008–19 has a Phillips coupling indistinguishable from 0.

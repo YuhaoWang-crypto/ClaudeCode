@@ -85,6 +85,13 @@ sp.total_fragility(m, "vGLT", x, solver="integrate")   # dReλ/dlnE incl. state 
    real data, use VAR → Jacobian. Pairwise stability neither implies nor
    excludes whole-network stability (Goodwin, Sturis, Topp).
 
+6. **Beyond eigenvalues** (`statespace.py`, `demos/d7_state_judgments.py`).
+   On the same J, compute: energy / dissipation, reactivity, noise
+   quasi-cycles and lead-lag, critical delay, controllability /
+   observability, pole placement / LQR, coupling sensitivity, and VAR → J
+   from data. Tested on the user's macro model and on real FRED data, where
+   the Great Inflation shows δ ≈ 0 and the Great Moderation δ = 0.56.
+
 ## Mandatory discipline
 
 - Label every claim **✅ rigorous** (deterministic computation, theorem check,
