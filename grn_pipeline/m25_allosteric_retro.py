@@ -495,19 +495,45 @@ def msm_features(m, trajs, n_pairs=300, seed=0):
             for t in trajs]
 
 
-def build_msm(m, trajs, lags=(1, 2, 3, 5, 8, 12, 20), n_clusters=100):
+class _Cores:
+    """Stand-in for a PCCA+ result: crisp memberships from the order
+    parameter (column 0 = inactive core, 1 = active core)."""
+
+    def __init__(self, M):
+        self.memberships = M
+
+
+def build_msm(m, trajs, lags=(1, 2, 3, 5, 8, 12, 20), n_clusters=100,
+              core=0.25):
+    """MSM on contact-distance features. States are defined by the physical
+    order parameter z, not by PCCA+: micro-states with mean z < -core form
+    the inactive core, > +core the active core, and z = 0 splits the two
+    macro-states (in this model PCCA+ can latch onto slow local unfolding
+    instead of the inactive<->active switch)."""
     feats = msm_features(m, trajs)
     r = m23.analyze(feats, dt_ps=FRAME_NS, n_clusters=n_clusters, n_macro=2,
                     its_samples=0, run_tpt=False, verbose=False,
                     lags=list(lags))
     z = np.concatenate([state_coordinate(m, t) for t in trajs])
     a = np.concatenate(r["active"])
-    zmac = [z[np.isin(a, np.where(r["assign"] == k)[0])].mean()
-            for k in range(2)]
-    inact, act = int(np.argmin(zmac)), int(np.argmax(zmac))
-    r.update(m23.tpt_analysis(r, inact, act, verbose=False))
-    r["inactive"], r["active_macro"] = inact, act
-    r["z"] = z
+    n = r["msm"].n_states
+    zm = np.array([z[a == k].mean() if (a == k).any() else 0.0
+                   for k in range(n)])
+    M = np.zeros((n, 2))
+    M[zm < -core, 0] = 1.0; M[zm > core, 1] = 1.0
+    mid = (zm >= -core) & (zm <= core)
+    M[mid] = 0.5
+    r["assign"] = (zm > 0).astype(int)
+    r["pcca"] = _Cores(M)
+    r["inactive"], r["active_macro"] = 0, 1
+    crisp = np.c_[r["assign"] == 0, r["assign"] == 1].astype(float)
+    mults, pred, est = m23.ck_test(r["dtrajs"], r["msm"], r["lag"], crisp)
+    r["ck"], r["ck_err"] = (mults, pred, est), float(np.nanmax(np.abs(pred
+                                                                     - est)))
+    r["macro_dtrajs"] = [np.where(x >= 0, r["assign"][np.maximum(x, 0)], -1)
+                         for x in r["active"]]
+    r.update(m23.tpt_analysis(r, 0, 1, verbose=False))
+    r["z"] = z; r["z_micro"] = zm
     return r
 
 
