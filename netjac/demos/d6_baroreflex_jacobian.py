@@ -208,11 +208,22 @@ def report(make_fig=True, ids=None, workers=6):
         s, p, pa, ppa, n = assoc[c]
         print(f"    {lab:44s} rho {s:+.2f} (p={p:.1g}); adj {pa:+.2f} "
               f"(p={ppa:.1g}); n={n}")
+    # beyond the positive control: does the loop's slowing just restate BRS?
+    Rb = R.dropna(subset=["brs", "Sex", "Device"])
+    beyond = {c: _adjusted_rank_assoc(Rb[c].values, Rb.age.values,
+                                      [Rb.Sex.values, Rb.Device.values,
+                                       np.log(Rb.brs.values)])
+              for c in ("lf_decay", "lf_zeta", "rho")}
+    for c, pa in beyond.items():
+        print(f"    {feats[c]:44s} | sex+device+log BRS: {pa.statistic:+.2f} "
+              f"(p={pa.pvalue:.2g}); n={len(Rb)}")
     print("    group medians:")
     print(med.round(4).to_string())
     if make_fig:
         _figure(R, feats)
     return {"R": R, "assoc": assoc, "median": med, "Jmed": Jmed,
+            "beyond_brs": {c: (pa.statistic, pa.pvalue)
+                           for c, pa in beyond.items()},
             "J_complex": jc, "lf_found": lf_found}
 
 

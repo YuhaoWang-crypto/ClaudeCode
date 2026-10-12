@@ -49,7 +49,8 @@ models and theory, and `demos/d6_baroreflex_jacobian.py` covers real data.
 | Sign pattern alone can decide | Prey self-damping + predator–prey pair: `sign_pattern_stability` = 1.0 |
 | Diagonal self-damping = "buffering" (γ, δ) | Degradation, dilution, product inhibition, saturation. Gershgorin: enough self-damping beats any coupling |
 | More variables is **not** automatically better | May 1972: random networks lose stability past n* = (d/σ)²/C. Feedback-paired structure keeps them stable |
-| A pairwise 2×2 fit to delayed real data misses the oscillation | D6: the 2×2 VAR(1) Jacobian vs the Mayer mode, which only appears with delay embedding |
+| A pairwise 2×2 fit to delayed real data misses the oscillation | D6 (286 real subjects): the 2×2 VAR(1) Jacobian's eigenvalues lie mostly on or near the real axis; the Mayer mode appears only with delay embedding (p ≈ 12 samples = 6 s) |
+| A real feedback loop loses resilience with age, beyond its gain | D6: baroreflex mode decay rate ρ=−0.23 with age, still −0.23 (p=6e-4) after adjusting for BRS; BRS itself ρ=−0.54 (positive control) |
 
 ## Pitfalls hit while building this
 
