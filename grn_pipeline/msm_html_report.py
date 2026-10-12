@@ -195,6 +195,13 @@ def _retro(path):
     if shaky:
         near_txt += ("其中" + "、".join(shaky) + "的模型诊断不合格（CK 误差大于 0.1，或远处对照位点的显式模拟与预测不符），"
                      "那里的结果首先说明模型和采样不足，不能单独当作方法失败的证据。")
+    checks = [(SYS_CN[r["name"]], c) for r in R for c in r.get("checks", [])]
+    ok = [c["ci"][0] <= c["dlnK_pred"] <= c["ci"][1] for _, c in checks]
+    bad = [f"{nm}的{'最高分位点' if c['tag'].startswith('top') else '远处对照位点'}"
+           for (nm, c), o in zip(checks, ok) if not o]
+    chk_txt = (f"显式虚拟配体检验：{sum(ok)}/{len(ok)} 个位点的预测落在模拟的 95% 置信区间内，区间普遍较宽。"
+               + (f"不一致的是{'、'.join(bad)}，说明在该模型里，即便预测某位点没有效应，也不能直接相信。" if bad else
+                  "重加权这一步在蛋白上可用，限制在于采样量。"))
     section = f"""
 <section>
   <div class="col">
@@ -237,7 +244,7 @@ def _retro(path):
   <p>{near_txt}在预先固定的指标上，MSM 位点扫描{"在两个体系上都" if win else "没有"}稳定超过"直接比较两个晶体结构"这一简单基线。
   原因可以理解：结构模型里所有的耦合都来自这两个结构，动力学分析能提供的额外信息有限。
   要真正检验 MSM 相对静态分析的增量，需要全原子模拟，那里会出现晶体结构里看不到的构象（例如隐藏口袋）和非局部耦合。</p>
-  <p>重加权预测在蛋白上与显式模拟一致，但置信区间较宽，说明这一步本身可用，限制在于采样量。</p>
+  <p>{chk_txt}</p>
   </div>
 </section>
 """
