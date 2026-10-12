@@ -371,7 +371,8 @@ def _run_copies(args):
     """Worker: simulate n_copies in one context; save C-alpha frames.
     args = dict(name, eps, lam, w, n_copies, n_frames, stride, seed, out,
     start)."""
-    a = dict(lam=1.0, w=0.05, start=None, eps=1.0, alpha=1.0, ligand=None)
+    a = dict(lam=1.0, w=0.05, start=None, eps=1.0, alpha=1.0, ligand=None,
+             seeds=None)
     a.update(args)
     name, eps, lam, n_copies = a["name"], a["eps"], a["lam"], a["n_copies"]
     n_frames, stride, seed, out, start = (a["n_frames"], a["stride"],
@@ -384,8 +385,14 @@ def _run_copies(args):
     integ.setRandomNumberSeed(seed)
     ctx = mm.Context(s, integ, mm.Platform.getPlatformByName("CPU"),
                      {"Threads": "1"})
-    ctx.setPositions(copies_positions(m, n_copies, which=start))
-    mm.LocalEnergyMinimizer.minimize(ctx)
+    if a["seeds"] is not None:        # adaptive sampling: start from frames
+        S = np.load(a["seeds"])
+        ctx.setPositions(np.concatenate(
+            [x - x.mean(0) + np.array([c * 60.0, 0, 0])
+             for c, x in enumerate(S)]))
+    else:
+        ctx.setPositions(copies_positions(m, n_copies, which=start))
+        mm.LocalEnergyMinimizer.minimize(ctx)
     ctx.setVelocitiesToTemperature(300, seed)
     n = len(m.ids)
     traj = np.empty((n_frames, n_copies, n, 3), dtype=np.float32)
@@ -397,8 +404,50 @@ def _run_copies(args):
     return out
 
 
-PARAMS = {"GK": dict(eps=1.2, alpha=0.5, lam=1.5, w=0.05),
+PARAMS = {"GK": dict(eps=1.2, alpha=0.35, lam=2.3, w=0.05),
           "SHP2": dict(eps=1.2, alpha=0.3, lam=0.6, w=0.05)}
+
+
+def adaptive(name, seed_paths, n_rounds=3, n_proc=4, n_copies=8,
+             n_frames=80, stride=2500, n_bins=16, seed0=300):
+    """Adaptive sampling: each round seeds n_proc*n_copies short
+    trajectories from frames spread uniformly over the inactive->active
+    coordinate z (least-sampled bins first), pooling all earlier data.
+    Returns all trajectory files (same model parameters throughout)."""
+    from multiprocessing import Pool
+    m = DualBasin(name)
+    paths = list(seed_paths)
+    rng = np.random.default_rng(seed0)
+    for rd in range(n_rounds):
+        outs = [os.path.join(CACHE, f"{name}_ad{rd}_{k}.npy")
+                for k in range(n_proc)]
+        if not all(os.path.exists(o) for o in outs):
+            pool_x = np.concatenate([np.load(p).reshape(-1, len(m.ids), 3)
+                                     for p in paths])
+            z = state_coordinate(m, pool_x)
+            edges = np.linspace(z.min(), z.max(), n_bins + 1)
+            b = np.clip(np.digitize(z, edges) - 1, 0, n_bins - 1)
+            counts = np.bincount(b, minlength=n_bins)
+            order = np.argsort(counts)          # least-sampled first
+            picks = []
+            while len(picks) < n_proc * n_copies:
+                for bi in order:
+                    idx = np.where(b == bi)[0]
+                    if len(idx) and len(picks) < n_proc * n_copies:
+                        picks.append(int(rng.choice(idx)))
+            jobs = []
+            for k in range(n_proc):
+                sp = os.path.join(CACHE, f"{name}_ad{rd}_{k}_seeds.npy")
+                np.save(sp, pool_x[picks[k * n_copies:(k + 1) * n_copies]])
+                jobs.append(dict(PARAMS[name], name=name, n_copies=n_copies,
+                                 n_frames=n_frames, stride=stride,
+                                 seed=seed0 + 10 * rd + k, seeds=sp,
+                                 out=outs[k]))
+            with Pool(n_proc) as p:
+                p.map(_run_copies, jobs)
+        paths += outs
+        print(f"  adaptive round {rd + 1}/{n_rounds} done")
+    return paths
 
 
 def produce(name, n_proc=4, n_copies=8, n_frames=200, stride=2500,
@@ -563,56 +612,82 @@ def evaluate(score, m, target, n_null=2000, seed=0):
                 patch_percentile=pct)
 
 
-def ligand_checks(m, r, trajs, sites, tags, n_copies=8, n_frames=100,
-                  stride=2500, eps_l=2.0 * 2.494, beta=1 / 2.494):
-    """Simulate WITH the virtual ligand applied explicitly (2 processes per
-    site, all sites concurrently) and compare the measured d ln K with the
-    prediction from reweighting the unbiased frames. Populations are split
-    on the order parameter z (independent of the MSM)."""
+def _lnK_msm(r, dtrajs_raw, lag):
+    """ln K(active/inactive) of an MSM estimated on raw cluster labels,
+    mapped onto the reference model's macro-states."""
+    msm, _ = m23.estimate_msm(dtrajs_raw, lag)
+    pos = {s_: i for i, s_ in enumerate(r["msm"].count_model.state_symbols)}
+    act_ref = r["assign"] == r["active_macro"]
+    pi = msm.stationary_distribution
+    lab = np.array([act_ref[pos[s_]] if s_ in pos else False
+                    for s_ in msm.count_model.state_symbols])
+    known = np.array([s_ in pos for s_ in msm.count_model.state_symbols])
+    return np.log(pi[lab & known].sum() / pi[~lab & known].sum())
+
+
+def ligand_checks(m, r, pool_paths, sites, tags, predicted, n_copies=8,
+                  n_frames=80, stride=2500, eps_l=2.0 * 2.494, seed0=700):
+    """Explicit virtual-ligand check. For each site: 2 x n_copies seeded
+    trajectories WITH the ligand force (seeds spread over z as in the
+    adaptive runs), assigned to the reference micro-states; an MSM on them
+    gives the simulated d ln K, compared with the reweighting prediction
+    from the unbiased MSM. Bootstrap over trajectories for the CI."""
     from multiprocessing import Pool
+    pool_x = np.concatenate([np.load(p).reshape(-1, len(m.ids), 3)
+                             for p in pool_paths])
+    z = state_coordinate(m, pool_x)
+    rng = np.random.default_rng(seed0)
+    edges = np.linspace(z.min(), z.max(), 17)
+    b = np.clip(np.digitize(z, edges) - 1, 0, 15)
     jobs = []
     for (P, R0), tag in zip(sites, tags):
-        jobs += [dict(PARAMS[m.name], name=m.name, n_copies=n_copies,
-                      n_frames=n_frames, stride=stride, seed=500 + k,
-                      ligand=(P, R0, eps_l, 0.1),
-                      out=os.path.join(CACHE, f"{m.name}_lig_{tag}_{k}.npy"))
-                 for k in range(2)]
+        for k in range(2):
+            picks = [int(rng.choice(np.where(b == bi)[0]))
+                     for bi in rng.permutation(
+                         [x for x in range(16) if (b == x).any()])
+                     [:n_copies]]
+            while len(picks) < n_copies:
+                picks.append(int(rng.integers(len(pool_x))))
+            sp = os.path.join(CACHE, f"{m.name}_lig_{tag}_{k}_seeds.npy")
+            np.save(sp, pool_x[picks])
+            jobs.append(dict(PARAMS[m.name], name=m.name, n_copies=n_copies,
+                             n_frames=n_frames, stride=stride,
+                             seed=seed0 + len(jobs), seeds=sp,
+                             ligand=(P, R0, eps_l, 0.1),
+                             out=os.path.join(CACHE,
+                                              f"{m.name}_lig_{tag}_{k}.npy")))
     todo = [j for j in jobs if not os.path.exists(j["out"])]
     if todo:
         with Pool(min(len(todo), os.cpu_count() or 1)) as p:
             p.map(_run_copies, todo)
-    z0 = r["z"]
-    act = r["assign"] == r["active_macro"]
-    a = np.concatenate(r["active"])
-    thr = 0.5 * (np.median(z0[np.isin(a, np.where(act)[0])])
-                 + np.median(z0[np.isin(a, np.where(~act)[0])]))
-
-    def lnK(z, w=None):
-        w = np.ones_like(z) if w is None else w
-        return np.log((w * (z > thr)).sum() / (w * (z <= thr)).sum())
-
+    lnK0 = _lnK_msm(r, r["dtrajs"], r["lag"])
     out = []
-    rng = np.random.default_rng(0)
-    for site, tag in zip(sites, tags):
-        bt = load_copies([j["out"] for j in jobs if f"_lig_{tag}_" in
-                          j["out"]])
-        zc = [state_coordinate(m, t) for t in bt]
-        zb = np.concatenate(zc)
-        bs = [lnK(np.concatenate([zc[i] for i in rng.integers(0, len(zc),
-                                                             len(zc))]))
-              for _ in range(300)]
-        w = np.exp(-beta * np.concatenate(ligand_energy(trajs, site, eps_l)))
-        out.append(dict(tag=tag, dlnK_sim=float(lnK(zb) - lnK(z0)),
-                        ci=[float(x - lnK(z0))
-                            for x in np.percentile(bs, [2.5, 97.5])],
-                        dlnK_pred=float(lnK(z0, w) - lnK(z0))))
+    for tag, pred in zip(tags, predicted):
+        bt = load_copies([j["out"] for j in jobs
+                          if f"_lig_{tag}_" in j["out"]], burn=0.05)
+        raw = [r["km"].transform(r["tica"].transform(f)).astype(np.int32)
+               for f in msm_features(m, bt)]
+        val = _lnK_msm(r, raw, r["lag"]) - lnK0
+        bs = []
+        for _ in range(200):
+            try:
+                bs.append(_lnK_msm(r, [raw[i] for i in rng.integers(
+                    0, len(raw), len(raw))], r["lag"]) - lnK0)
+            except Exception:
+                pass
+        out.append(dict(tag=tag, dlnK_sim=float(val),
+                        ci=[float(x) for x in np.percentile(bs, [2.5, 97.5])],
+                        dlnK_pred=float(pred)))
     return out
 
 
-def run_system(name, checks=True):
+def run_system(name, paths=None, checks=True):
+    """Full evaluation for one protein. `paths`: trajectory files (default:
+    the adaptive-sampling set). Seeded trajectories start from equilibrated
+    frames, so only a short relaxation is discarded."""
     m = DualBasin(name)
     print(m.summary())
-    trajs = load_copies(produce(name))
+    trajs = load_copies(paths or produce(name), burn=0.05)
     r = build_msm(m, trajs)
     z = r["z"]
     flips = sum(int(np.abs(np.diff(np.sign(state_coordinate(m, t))))
@@ -650,10 +725,10 @@ def run_system(name, checks=True):
         far = np.linalg.norm(X - X[i_top], axis=1) > 2.0
         cand = np.where(far)[0]
         i_ctl = int(cand[np.argmin(np.abs(scores["MSM: d ln K"][cand]))])
-        res["checks"] = ligand_checks(m, r, trajs,
-                                      [sites[i_top], sites[i_ctl]],
-                                      [f"top{m.ids[i_top]}",
-                                       f"ctl{m.ids[i_ctl]}"])
+        res["checks"] = ligand_checks(
+            m, r, paths or produce(name), [sites[i_top], sites[i_ctl]],
+            [f"top{m.ids[i_top]}", f"ctl{m.ids[i_ctl]}"],
+            [dK[i_top], dK[i_ctl]])
         for c in res["checks"]:
             print(f"  explicit-ligand check {c['tag']}: predicted d ln K "
                   f"{c['dlnK_pred']:+.2f}, simulated {c['dlnK_sim']:+.2f} "
