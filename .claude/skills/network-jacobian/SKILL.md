@@ -119,6 +119,12 @@ sp.total_fragility(m, "vGLT", x, solver="integrate")   # dReλ/dlnE incl. state 
    - **Sparse MRA.** 7,291 split-half-replicated direct edges with 4× enrichment for known interactions, against 1.6× for total responses.
    - **β-cell micro → macro.** The threshold distribution sets the macro loop gain (susceptibility = density at threshold). Heterogeneity protects: the tipping threshold shift is ×2.7 for synchronised cells, ×5.3 for normal ones and ×15 for broad ones.
 
+9. **Signs, genome-wide, measured thresholds**
+   (`demos/d10_signs_genomewide_thresholds.py`).
+   - Phospho layer (`cptac.load_phospho`): normalise each site to its protein and remove 3 modes. Then the SIGNOR up/down sign shows in kinase-activity correlations (7/8 indications), where abundance stays blind.
+   - Genome-wide Perturb-seq: calibrate |z| on non-targeting rows (tails are ~10⁴× heavier than Gaussian at |z| 6). Replicate in the independent essential screen: 98% sign agreement.
+   - Measured β-cell triggering width w≈0.21 (Jonkers & Henquin 2001): recruitment is a narrow switch, and macro gradedness is amplification.
+
 ## Mandatory discipline
 
 - Label every claim **✅ rigorous** (deterministic computation, theorem check,

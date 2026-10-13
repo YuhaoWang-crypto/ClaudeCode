@@ -49,11 +49,26 @@ def _gql(query, tries=4):
     raise RuntimeError("PDC query failed: " + query[:80])
 
 
-def load(name, min_present=0.8):
+# matching phosphoproteome studies (same cases, same TMT plexes)
+PHOSPHO = {
+    "ccRCC": "PDC000128",
+    "LUAD": "PDC000149",
+    "LSCC": "PDC000232",
+    "HNSCC": "PDC000222",
+    "PDAC": "PDC000271",
+    "UCEC": "PDC000126",
+    "HCC": "PDC000199",
+    "COAD": "PDC000117",
+}
+
+
+def load(name, min_present=0.8, kind="proteome"):
     """Return dict(X: samples x proteins log2 ratio (NaN allowed), genes,
     aliquots, cases, sample_type) for one indication. Proteins missing in more
-    than (1-min_present) of samples are dropped."""
-    sid = STUDIES.get(name, name)
+    than (1-min_present) of samples are dropped.
+    kind="phospho": rows are phosphosites 'NP_xxx.v:s123' (CDAP site-level
+    log2 ratios, not normalised to protein); see `load_phospho`."""
+    sid = (PHOSPHO if kind == "phospho" else STUDIES).get(name, name)
     os.makedirs(DIR, exist_ok=True)
     fn = os.path.join(DIR, f"{sid}.npz")
     if not os.path.exists(fn):
@@ -101,6 +116,63 @@ def load(name, min_present=0.8):
     return {"X": V[:, keep_g], "genes": genes[keep_g], "aliquots": al,
             "cases": case, "tumour": typ == "Primary Tumor", "name": name,
             "study": sid}
+
+
+_NP2SYM = None
+
+
+def _np2sym():
+    """RefSeq protein accession (no version) -> gene symbol, from NCBI
+    gene2refseq (human rows, streamed once) + Homo_sapiens.gene_info."""
+    global _NP2SYM
+    if _NP2SYM is None:
+        import gzip
+        fn = os.path.join(DIR, "np2geneid.tsv")
+        if not os.path.exists(fn):
+            os.makedirs(DIR, exist_ok=True)
+            subprocess.run(
+                "curl -s https://ftp.ncbi.nlm.nih.gov/gene/DATA/gene2refseq.gz | zcat | "
+                "awk -F'\\t' '$1==9606 && $6!=\"-\" {split($6,a,\".\"); print a[1]\"\\t\"$2}' "
+                f"| sort -u > {fn}", shell=True, check=True)
+        info = os.path.join(DATA_CACHE, "islet_xin", "Homo_sapiens.gene_info.gz")
+        if not os.path.exists(info):
+            os.makedirs(os.path.dirname(info), exist_ok=True)
+            subprocess.run(["curl", "-sS", "-o", info,
+                            "https://ftp.ncbi.nlm.nih.gov/gene/DATA/GENE_INFO/"
+                            "Mammalia/Homo_sapiens.gene_info.gz"], check=True)
+        sym = {}
+        with gzip.open(info, "rt") as fh:
+            next(fh)
+            for ln in fh:
+                f = ln.split("\t")
+                sym[f[1]] = f[2]
+        _NP2SYM = {}
+        for ln in open(fn):
+            a, g = ln.rstrip("\n").split("\t")
+            if g in sym:
+                _NP2SYM[a] = sym[g]
+    return _NP2SYM
+
+
+def load_phospho(name, min_present=0.7):
+    """Phosphosite matrix for one indication with sites renamed
+    GENE_S123 (single sites) or GENE_S123_S125 (multiply phosphorylated
+    peptides). Returns the `load` dict plus `site_gene`, `single` (bool)."""
+    import re
+    d = load(name, min_present=min_present, kind="phospho")
+    m = _np2sym()
+    names, gene, single = [], [], []
+    for r in d["genes"]:
+        acc, _, sites = r.partition(":")
+        g = m.get(acc.split(".")[0], acc)
+        ss = re.findall(r"([sty])(\d+)", sites)
+        names.append(g + "_" + "_".join(f"{a.upper()}{b}" for a, b in ss))
+        gene.append(g)
+        single.append(len(ss) == 1)
+    d["site"] = np.array(names)
+    d["site_gene"] = np.array(gene)
+    d["single"] = np.array(single)
+    return d
 
 
 def impute(X):

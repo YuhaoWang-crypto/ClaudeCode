@@ -49,3 +49,12 @@ worked study. Numbers for each result are in `NETJAC_REPORT.md` §10.
 - PR saturates at n−1. Ten-cell donor subsamples (islet scRNA) cannot resolve population order.
 - PDC `clinicalPerStudy` returns empty fields. Take CPTAC-3 grade / stage from GDC `cases` (`tcga.clinical("CPTAC-3")`).
 - HBV-HCC (PDC000198) has no biospecimen sample type. Aliquot labels T<n> / P<n> carry it.
+
+## D10 additions
+
+- **Phosphosites**: PDC returns `NP_xxx.v:s123`. Map with NCBI gene2refseq: stream the 2.4 GB file once (≈2 min) and keep the human rows. Ensembl BioMart was down; useast returned "Service unavailable".
+- **The raw phospho layer has a huge global mode**: a random kinase's activity correlates 0.4–0.55 with any site. Protein-normalise each site, then remove modes.
+- **No split halves in genome-wide bulk**: empirical non-targeting tails are heavy (|z|>6: 9e-5 vs Gaussian 2e-9). Validate in the independent screen instead. The anti-FDT count alone is at null level; the evidence is family enrichment plus cross-screen rank agreement.
+- **gwps bulk contains ±inf / NaN entries (6,881)**: set them to 0 before any SVD (LAPACK DLASCL errors otherwise).
+- **HBV-HCC pairing**: the proteome uses aliquots T471 / P472 and the phosphoproteome uses 471 / 472. Match on the aliquot number.
+- **Patch-seq exocytosis is voltage-clamped**: it measures amplification and capacity, not the triggering threshold. Take triggering thresholds from Ca²⁺ recruitment data.
