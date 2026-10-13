@@ -1,0 +1,84 @@
+{
+ "tau_slow": 112.20672601574347,
+ "tau_fast": 0.00030872285539750754,
+ "span": 363454.54848578526,
+ "n_osc": 1,
+ "participation": [
+  [
+   "Phosphoenol pyruvate",
+   0.1980168572633437
+  ],
+  [
+   "Fructose-6-Phosphate",
+   0.19262494615553533
+  ],
+  [
+   "6-Phosphogluconate",
+   0.15816136974678616
+  ],
+  [
+   "Ribulose-5-phosphate",
+   0.14616231109041966
+  ],
+  [
+   "3-Phosphoglycerate",
+   0.08781475354528843
+  ],
+  [
+   "Dihydroxyacetonephosphate",
+   0.03572907198606469
+  ]
+ ],
+ "rho_fragility_flux": -0.03296703296703297,
+ "p": 0.8703294888309194,
+ "top_destabilising": [
+  {
+   "enzyme": "Glyceraldehyde-3-phosphate dehydrogenase",
+   "dlam": 0.009286376004480047,
+   "tau": 124.55190999649581
+  },
+  {
+   "enzyme": "Glucose-6-phosphate dehydrogenase",
+   "dlam": 0.002432795710763312,
+   "tau": 115.18087501052234
+  },
+  {
+   "enzyme": "Pyruvate kinase",
+   "dlam": 0.0018460401195914862,
+   "tau": 114.44370306180555
+  }
+ ],
+ "top_stabilising": [
+  {
+   "enzyme": "Phosphofructokinase",
+   "dlam": -0.001582455593047414,
+   "tau": 110.31815371410802
+  },
+  {
+   "enzyme": "DAHP synthesis",
+   "dlam": -0.001322437531191158,
+   "tau": 110.62058431940395
+  }
+ ],
+ "struct": {
+  "loops": [
+   [
+    [
+     0,
+     1
+    ],
+    4.0
+   ],
+   [
+    [
+     1,
+     2
+    ],
+    1.5
+   ]
+  ],
+  "max_re": 1.7685438564653997,
+  "can_oscillate": false,
+  "has_complex": false
+ }
+}
