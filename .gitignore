@@ -3,3 +3,4 @@ __pycache__/
 figures/_md_cache/*.xtc
 figures/_md_cache/**/*.xtc
 figures/_retro_cache/*.npy
+data_cache/

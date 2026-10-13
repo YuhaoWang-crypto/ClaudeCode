@@ -251,12 +251,118 @@ def _retro(path):
     return card, section
 
 
+def _texh(path):
+    """Summary card + section for M26 (T cell exhaustion), or ('', '')."""
+    if not os.path.exists(path):
+        return "", ""
+    with open(path) as fh:
+        R = json.load(fh)
+    ko = R["ko"]; mra = R["mra"]
+    nsig = sum(1 for k in ko if k.get("q", 1) < 0.1)
+    card = (f'<div class="verdict">{_chip("warn")}<b>T 细胞耗竭：序参量成立，雅可比不成立</b>'
+            f'<span class="small">{nsig}/{len(ko)} 个基因敲除显著改变耗竭序参量（阴性对照通过），'
+            f'但从稳态 Perturb-seq 反推相互作用矩阵的符号一致性只有 '
+            f'{mra["sign_consistency"] * 100:.0f}%（随机为 50%）。</span></div>')
+    rows = ""
+    for k in sorted(ko, key=lambda x: x["dE"]):
+        if k.get("q", 1) < 0.1:
+            rows += (f"<tr><td>{k['gene']}</td><td class='num'>{k['n']}</td>"
+                     f"<td class='num'>{k['dE']:+.3f}</td>"
+                     f"<td class='num'>{k['lo']:+.2f}, {k['hi']:+.2f}</td>"
+                     f"<td class='num'>{k['q']:.1g}</td>"
+                     f"<td class='num'>{k.get('target_dlog', float('nan')):+.2f}</td></tr>")
+    bd = {}
+    for b in R["breakdown"]:
+        key = ("<1.5" if b["ratio"] < 1.5 else "1.5–3" if b["ratio"] < 3 else
+               "3–6" if b["ratio"] < 6 else "6–12" if b["ratio"] < 12 else
+               "12–40" if b["ratio"] < 40 else ">40")
+        bd.setdefault(key, []).append(b["sign"])
+    bdrows = "".join(f"<tr><td class='num'>{k}</td>"
+                     f"<td class='num'>{100 * np.median(v):.0f}%</td></tr>"
+                     for k, v in sorted(bd.items(),
+                                        key=lambda x: float(x[0].strip("<>")
+                                                            .split("–")[0])))
+    tau_span = np.median([x["tau_range"][1] / x["tau_range"][0]
+                          for x in R["identifiability"]])
+    section = f"""
+<section>
+  <div class="col">
+  <h2>8. 把同一套思路用到真实组学：T 细胞耗竭</h2>
+  <p>前面几节用的是分子模拟。这一节换成真实的公共数据，检验"降维得到宏观序参量 → 扰动反推雅可比 → 找拓扑脆弱点"这条路线。
+  数据是 GSE327731：把 73 个基因分别敲除的 CD8 T 细胞输注到小鼠黑色素瘤模型中，再做单细胞测序（in vivo Perturb-seq），
+  质控后 25,423 个细胞、42 个敲除有足够细胞数。</p>
+  <h3>第一步：序参量——成立</h3>
+  <p>用三种互相独立的方式定义耗竭程度 E：标志基因打分、扩散伪时间、与之最对齐的主成分。三者给出同一条轴
+  （Spearman {R["agreement"]["E_dpt"]:.2f} 和 {R["agreement"]["E_pc"]:.2f}）。
+  表达空间的有效维度（参与比）为 {R["participation_ratio"]:.0f}，远小于 17,681 个基因，
+  所以"两万维坍缩成低维流形"这一点在数据上是成立的。注意：构建 E 时排除了所有被敲除的基因，避免循环论证。</p>
+  <h3>第二步：敲除确实能推动这个序参量</h3>
+  <p>每个敲除的效应都在同一只小鼠内部与非靶向对照比较（hashtag 配对），再对小鼠做 bootstrap；
+  显著性用小鼠内标签置换检验加 BH 校正。{nsig}/{len(ko)} 个敲除在 FDR &lt; 0.1 下显著。</p>
+  <p class="note">阴性对照很关键：两类对照向导（切割型的基因间位点 vs 不切割的无位点）之间的差异为
+  {R["ctrl_ci"][0]:+.2f} 到 {R["ctrl_ci"][1]:+.2f}（95% CI 含 0），说明"切割本身"不会产生假信号。
+  如果不做小鼠内配对，直接比较两类对照会看到 −0.09 的虚假差异——那是批次效应，不是生物学效应。</p>
+  </div>
+  <div class="tbl"><table>
+    <tr><th>敲除基因</th><th class="num">细胞数</th><th class="num">ΔE</th><th class="num">95% CI</th><th class="num">q</th><th class="num">靶基因自身 mRNA 变化</th></tr>
+    {rows}
+  </table></div>
+  <div class="col">
+  <h3>第三步：反推雅可比——不成立</h3>
+  <p>这里有三个独立的失败，每一个都足以否定这一步。</p>
+  <p><b>(1) 稳态扰动测到的不是雅可比。</b>敲除后测稳态，得到的是总响应矩阵 R = −J⁻¹B，包含了所有间接通路。
+  要拿到直接相互作用，需要模块响应分析（MRA，Kholodenko 2002）：r = −[diag(R⁻¹)]⁻¹R⁻¹。
+  在已知答案的合成网络上，这一步确实有效（无噪声时方向判断 100% 正确，识别真实边的 AUC 0.94）。</p>
+  <p><b>(2) 真实数据的信噪比不够，而且原因明确。</b>MRA 要求响应矩阵有强对角线，即"敲除 A 主要影响 A 自己"。
+  但 CRISPR 敲除常常不降低靶基因的 mRNA（移码转录本未必被降解）——上表最后一列里，多数基因的自身变化接近 0。
+  结果：真实数据的对角/非对角比只有 {mra["ratio"]:.1f}，条件数 {mra["cond"]:.0f}，
+  bootstrap 重采样下推出的相互作用符号一致性只有 {mra["sign_consistency"] * 100:.0f}%，等于掷硬币。</p>
+  <p>这不是"试了没成功"，而是可以定量预测的。把合成网络的数据质量退化到同样的对角比，MRA 的表现正好落在同一水平：</p>
+  </div>
+  <div class="tbl"><table>
+    <tr><th class="num">对角/非对角比</th><th class="num">合成网络上恢复的符号正确率</th></tr>
+    {bdrows}
+    <tr><td class="num"><b>{mra["ratio"]:.1f}（真实数据）</b></td><td class="num"><b>{mra["sign_consistency"] * 100:.0f}%</b></td></tr>
+  </table></div>
+  <div class="col">
+  <p><b>(3) 即使有完美的相互作用矩阵，特征值仍然不可识别。</b>MRA 给出的 r 是归一化的相互作用，
+  与真正的雅可比相差每个节点自身的周转速率：J = D·r，D 是未知的正对角矩阵。
+  在合成网络上用<b>真实的</b> r 配上不同的 D，弛豫时间 τ 的跨度中位数达到 {tau_span:.0f} 倍。
+  所以"耗竭吸引子有多深"、"特征值实部有多负"这类结论，无法由稳态扰动数据得出，必须有时间序列数据
+  （不同时间点采样，或 RNA velocity 这类带时间信息的测量）。</p>
+  <h3>附带检验：in-silico 敲除也没通过</h3>
+  <p>按 CellOracle 的思路（在对照细胞上拟合线性调控网络，再传播敲除扰动）预测每个敲除的效应，
+  与实测的相关性为 ρ = {R["pred_rho"]["pred_grn"]:+.2f}（置换检验 p = {R["pred_p"]["pred_grn"]:.2f}），
+  即没有预测力；简单的相关性基线同样失败（ρ = {R["pred_rho"]["pred_corr"]:+.2f}）。
+  这与该数据集原论文的结论一致：参赛算法的表现主要取决于是否使用了<b>扰动数据</b>本身作为特征，
+  而不是从表达相关性推断的网络。需要说明的是，这里没有使用 TF motif 先验，所以这是对"线性传播"这一思路的检验，
+  不能完全代表 CellOracle 的完整实现。</p>
+  </div>
+  {_img("m26_texh_jacobian.png", "图 6 T 细胞耗竭：(a) 序参量在 UMAP 上的分布；(b) 三种定义互相一致；(c) 各敲除的效应与阴性对照；(d) in-silico 敲除无预测力；(e) MRA 失效的定量原因；(f) 周转速率未知导致弛豫时间不可识别")}
+  <div class="col">
+  <h3>这对你提出的三步范式意味着什么</h3>
+  <ul>
+    <li><b>第一步（降维涌现序参量）成立。</b>两万维确实坍缩到低维，序参量稳健且可重复，不同定义互相印证。</li>
+    <li><b>第二步（扰动反推雅可比）在当前数据上不成立。</b>瓶颈不是维度灾难——我们只用了 42 个被扰动的节点，远未到高维问题。
+    真正的瓶颈是：敲除不改变靶基因自身的转录本，使响应矩阵失去对角优势；这是可测量、可诊断的，建议在做任何网络反推之前先算这个比值。</li>
+    <li><b>第三步（特征值判断吸引子深浅）在原理上就需要额外数据。</b>稳态数据最多给出相互作用的方向和相对强度，给不出时间尺度。
+    要讲"吸引子有多深、是否发生分岔"，必须有时间分辨的扰动数据。</li>
+  </ul>
+  <p>可行的替代路线：把分析目标从"重建雅可比"降级为"直接用扰动数据排序"——本节的 ΔE 本身就是一个可靠的排序量（阴性对照通过、FDR 控制）。
+  这与原论文的发现一致，也是该数据集最终筛出 Ndufv2 和 Dimt1 的方式。</p>
+  </div>
+</section>
+"""
+    return card, section
+
+
 def build(path=os.path.join(FIG, "msm_report.html")):
     with open(os.path.join(FIG, "m23_summary.json")) as fh:
         a = json.load(fh)
     with open(os.path.join(FIG, "m24_summary.json")) as fh:
         v = json.load(fh)
     retro_card, retro_section = _retro(os.path.join(FIG, "m25_summary.json"))
+    texh_card, texh_section = _texh(os.path.join(FIG, "m26_summary.json"))
     rate, sc, neg = v["rate"], v["screening"], v["negative"]
     md = v["md"]
     covered = rate["ci"][0] <= rate["exact"] <= rate["ci"][1]
@@ -354,6 +460,7 @@ def build(path=os.path.join(FIG, "msm_report.html")):
       <span class="small">β→αL 只采到 {a['rare_events']} 次；重加权只能预测已采样构象内的扰动，
       不能预测诱导出的新状态或隐藏口袋。</span></div>
     {retro_card}
+    {texh_card}
   </div>
 </section>
 
@@ -502,12 +609,14 @@ def build(path=os.path.join(FIG, "msm_report.html")):
 </section>
 
 {retro_section}
+{texh_section}
 <section class="col">
-  <h2>8. 复现</h2>
+  <h2>9. 复现</h2>
   <pre>pip install numpy scipy matplotlib openmm mdtraj deeptime
 python3 -m grn_pipeline.m23_msm_tpt          # 丙氨酸二肽 MSM + TPT（首次运行约 15 分钟模拟）
 python3 -m grn_pipeline.m24_msm_validation   # 对照、筛选、MD 扰动（首次运行另需约 20 分钟模拟）
 python3 -m grn_pipeline.m25_allosteric_retro # 回顾性验证（自适应采样，首次运行约 3 小时）
+python3 -m grn_pipeline.m26_texh_jacobian    # T 细胞耗竭（需下载 2.5 GB 数据）
 python3 -m grn_pipeline.msm_html_report      # 生成本报告
 
 # 自己的 GROMACS 轨迹
