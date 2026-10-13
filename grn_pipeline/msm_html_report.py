@@ -356,6 +356,72 @@ def _texh(path):
     return card, section
 
 
+def _crispra(path):
+    """Summary card + section for M27 (CRISPRa MRA follow-up)."""
+    if not os.path.exists(path):
+        return "", ""
+    with open(path) as fh:
+        R = json.load(fh)
+    card = (f'<div class="verdict">{_chip("warn")}<b>换扰动方式：对角线修好了，网络只修回一半</b>'
+            f'<span class="small">CRISPRa 直接驱动靶基因转录，对角/非对角比从 {R["ratio_m26"]:.1f} 升到 {R["ratio"]:.0f}；'
+            f'但独立样本（split-half）检验下，相互作用符号的可重复率只从 {R["split_m26"] * 100:.0f}% 升到 '
+            f'{R["split_all"] * 100:.0f}%，只有最强的边达到 {R["split_by_mag"][2] * 100:.0f}%。</span></div>')
+    section = f"""
+<section>
+  <div class="col">
+  <h2>9. 换一种扰动方式：对角线修好之后呢？</h2>
+  <p>第 8 节的结论是：CRISPR 切割常常不改变靶基因自身的转录本，响应矩阵失去对角优势（比值 {R["ratio_m26"]:.1f}），
+  网络反推停在随机水平。那么换成直接作用于转录的扰动，能不能救回来？这一节用 GSE190604
+  （原代人 T 细胞 CRISPRa Perturb-seq，{R["n_cells"]:,} 个细胞，73 个靶基因）做同样的检验。</p>
+  <p class="note">说明：原计划用你指定的 GSE249595（Jurkat 全基因组 CRISPRi）。实测后放弃，原因是技术性的：
+  该数据只提供未过滤的原始矩阵，而 10x 的基因表达文库与 feature barcode（向导）文库使用两套互相翻译的细胞条形码白名单。
+  我验证过：向导 UMI 最多的 2000 个条形码与转录本 UMI 最多的 2000 个条形码<b>交集为 0</b>，
+  落在真实细胞里的向导 UMI 只占 1%，反向互补等简单变换也对不上。把两者配对需要 CellRanger 内置的翻译表，
+  该文件需接受 10x 许可协议才能下载，本环境无法获取。GSE190604 提供了已经配对好的向导判定表，
+  且每个靶基因的细胞数中位数为 816（全基因组筛选只有约 40），更适合做这个检验。
+  CRISPRa 与 CRISPRi 方向相反，但对本问题等价：两者都直接改变靶基因自身的转录水平。</p>
+  <h3>对角线：完全修好了</h3>
+  <ul>
+    <li>{R["frac_pos"] * 100:.0f}% 的对角元为正，即每个靶基因都被成功激活。</li>
+    <li>对角/非对角比 <b>{R["ratio"]:.0f}</b>（CRISPR 切割：{R["ratio_m26"]:.1f}）。</li>
+    <li>矩阵条件数 {R["cond"]:.0f}（CRISPR 切割：{R["cond_m26"]:.0f}），不再病态。</li>
+    <li>71 个基因既被扰动又被测量，构成 MRA 所要求的<b>闭合模块</b>。</li>
+  </ul>
+  <h3>网络反推：从随机水平上升，但远未可靠</h3>
+  <p>这里有一个方法学上的坑，值得单独指出。用 bootstrap（重采样同一批细胞）衡量，符号可重复率
+  是 {R["sign_boot"] * 100:.0f}%，看起来很成功；但 bootstrap 反复使用同一批细胞，会高估稳定性。
+  改用 <b>split-half</b>（把细胞随机分成两半，各自独立推断，再比较两个结果）这一真正的样本外检验，
+  可重复率降到 <b>{R["split_all"] * 100:.0f}%</b>——高估了约 20 个百分点。</p>
+  </div>
+  <div class="tbl"><table>
+    <tr><th>指标</th><th class="num">CRISPR 切割（GSE327731）</th><th class="num">CRISPRa（GSE190604）</th></tr>
+    <tr><td>对角/非对角比</td><td class="num">{R["ratio_m26"]:.1f}</td><td class="num">{R["ratio"]:.0f}</td></tr>
+    <tr><td>条件数</td><td class="num">{R["cond_m26"]:.0f}</td><td class="num">{R["cond"]:.0f}</td></tr>
+    <tr><td>bootstrap 符号可重复率</td><td class="num">{R["sign_m26"] * 100:.0f}%</td><td class="num">{R["sign_boot"] * 100:.0f}%</td></tr>
+    <tr><td><b>split-half 符号可重复率（样本外）</b></td><td class="num"><b>{R["split_m26"] * 100:.0f}%</b></td><td class="num"><b>{R["split_all"] * 100:.0f}%</b></td></tr>
+    <tr><td>　其中最弱的边（|r| &lt; 0.02）</td><td class="num">—</td><td class="num">{R["split_by_mag"][0] * 100:.0f}%</td></tr>
+    <tr><td>　中等强度（0.02–0.1）</td><td class="num">—</td><td class="num">{R["split_by_mag"][1] * 100:.0f}%</td></tr>
+    <tr><td>　最强的边（|r| &gt; 0.1）</td><td class="num">—</td><td class="num">{R["split_by_mag"][2] * 100:.0f}%</td></tr>
+  </table></div>
+  {_img("m27_crispri_mra.png", "图 7 (a) CRISPRa 的扰动在靶基因自身上清晰可见；(b) 两个数据集落在合成网络的标定曲线上；(c) 只有最强的边能在独立样本间重复；(d) bootstrap 高估可靠性约 20 个百分点")}
+  <div class="col">
+  <h3>结论</h3>
+  <ul>
+    <li><b>诊断是对的。</b>第 8 节识别出的瓶颈（对角优势不足）确实是关键：换成直接改变靶基因转录的扰动后，
+    比值从 {R["ratio_m26"]:.1f} 升到 {R["ratio"]:.0f}，反推也随之脱离随机水平。合成网络标定曲线预测的方向得到验证。</li>
+    <li><b>但只修回一半。</b>样本外可重复率 {R["split_all"] * 100:.0f}%，多数（弱）边仍接近随机；
+    只有最强的约 10–20% 的边达到 {R["split_by_mag"][2] * 100:.0f}%，可以当作候选来用。</li>
+    <li><b>方法学提醒：不要用 bootstrap 汇报网络反推的可靠性。</b>它会高估约 20 个百分点。
+    应当用 split-half 或其他真正的样本外检验。这一条适用于任何从扰动数据反推网络的工作。</li>
+    <li>即使如此，第 8 节的第三点仍然成立：这里得到的是归一化的相互作用 r，不是雅可比 J = D·r，
+    特征值和弛豫时间依然需要时间分辨数据。</li>
+  </ul>
+  </div>
+</section>
+"""
+    return card, section
+
+
 def build(path=os.path.join(FIG, "msm_report.html")):
     with open(os.path.join(FIG, "m23_summary.json")) as fh:
         a = json.load(fh)
@@ -363,6 +429,7 @@ def build(path=os.path.join(FIG, "msm_report.html")):
         v = json.load(fh)
     retro_card, retro_section = _retro(os.path.join(FIG, "m25_summary.json"))
     texh_card, texh_section = _texh(os.path.join(FIG, "m26_summary.json"))
+    ca_card, ca_section = _crispra(os.path.join(FIG, "m27_summary.json"))
     rate, sc, neg = v["rate"], v["screening"], v["negative"]
     md = v["md"]
     covered = rate["ci"][0] <= rate["exact"] <= rate["ci"][1]
@@ -461,6 +528,7 @@ def build(path=os.path.join(FIG, "msm_report.html")):
       不能预测诱导出的新状态或隐藏口袋。</span></div>
     {retro_card}
     {texh_card}
+    {ca_card}
   </div>
 </section>
 
@@ -610,13 +678,15 @@ def build(path=os.path.join(FIG, "msm_report.html")):
 
 {retro_section}
 {texh_section}
+{ca_section}
 <section class="col">
-  <h2>9. 复现</h2>
+  <h2>10. 复现</h2>
   <pre>pip install numpy scipy matplotlib openmm mdtraj deeptime
 python3 -m grn_pipeline.m23_msm_tpt          # 丙氨酸二肽 MSM + TPT（首次运行约 15 分钟模拟）
 python3 -m grn_pipeline.m24_msm_validation   # 对照、筛选、MD 扰动（首次运行另需约 20 分钟模拟）
 python3 -m grn_pipeline.m25_allosteric_retro # 回顾性验证（自适应采样，首次运行约 3 小时）
 python3 -m grn_pipeline.m26_texh_jacobian    # T 细胞耗竭（需下载 2.5 GB 数据）
+python3 -m grn_pipeline.m27_crispri_mra      # CRISPRa 对照（需下载 1 GB 数据）
 python3 -m grn_pipeline.msm_html_report      # 生成本报告
 
 # 自己的 GROMACS 轨迹
