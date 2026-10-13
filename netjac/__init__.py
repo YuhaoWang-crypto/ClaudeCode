@@ -23,6 +23,8 @@ Modules
   relax         perturbation-relaxation: pulse response, decay-rate fitting
   discriminate  AUC with bootstrap CIs, cross-validated classifiers
   data.cgmacros real CGM data (PhysioNet CGMacros) via HTTP range reads
+  statmech      micro -> macro: random-matrix nulls, collective modes, shrinkage
+                couplings, all-pairs rewiring, fluctuation-response, MRA
   demos/        D1 edge biomarkers, D2 perturbation-relaxation, D3 fragility
 """
 import os

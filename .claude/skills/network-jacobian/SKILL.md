@@ -9,8 +9,11 @@ description: >-
   controls the critical eigenvalue). Use when asked to compute a Jacobian /
   flux-control (dFlux/dEnzyme) matrix, find network-state or resilience
   biomarkers, design a challenge test or a multiplex probe panel, infer a
-  Jacobian from metabolomics covariance, analyse CGM/OGTT recovery, or extend
-  netjac with a new model or dataset. Enforces ✅-rigorous vs ⚠️-hypothesis
+  Jacobian from metabolomics covariance, analyse CGM/OGTT recovery, derive
+  macro order parameters / couplings / feedback signs from omics ensembles
+  (CPTAC, Perturb-seq, scRNA: statistical-physics micro -> macro), infer a
+  directed Jacobian from knockdown responses (MRA), or extend netjac with a
+  new model or dataset. Enforces ✅-rigorous vs ⚠️-hypothesis
   labeling.
 ---
 
@@ -100,6 +103,22 @@ sp.total_fragility(m, "vGLT", x, solver="integrate")   # dReλ/dlnE incl. state 
    - artificial-pancreas LQR vs glucose-only Hopf;
    - Fantasia segmented VAR (RSA positive control, reliability 0.87).
 
+8. **Micro → macro statistical physics** (`statmech.py`,
+   `demos/d9_micro_to_macro.py`, method in `reference/micro-macro.md`).
+   Treat an omics cohort or a cell population as an ensemble. The tools:
+   - order parameters = collective modes above a shuffle null;
+   - effective dimension = participation ratio;
+   - couplings = shrinkage partial correlations, after subtracting the macro fields;
+   - the fluctuation-response test.
+
+   Exact: negative feedback cancels in static correlations, positive feedback adds up. A homeostat working through a hidden sensed variable gives anti-FDT, i.e. its co-fluctuating partners RISE on knockdown.
+
+   Results:
+   - **8 CPTAC indications.** Tumours are higher-dimensional and more weakly coupled than normals. Most of the tumour-vs-normal rewiring across 1.8–5.2×10⁷ pairs per indication is the shift of 1–5 macro fields; HNSCC and HCC keep real residual rewiring.
+   - **Perturb-seq K562.** Anti-FDT knockdowns are enriched for the textbook homeostats: proteasome (p=1e-8), tRNA synthetases (1e-6), UPR, actin, sterol. Ribosomal knockdowns are FDT-consistent (p=6e-58).
+   - **Sparse MRA.** 7,291 split-half-replicated direct edges with 4× enrichment for known interactions, against 1.6× for total responses.
+   - **β-cell micro → macro.** The threshold distribution sets the macro loop gain (susceptibility = density at threshold). Heterogeneity protects: the tipping threshold shift is ×2.7 for synchronised cells, ×5.3 for normal ones and ×15 for broad ones.
+
 ## Mandatory discipline
 
 - Label every claim **✅ rigorous** (deterministic computation, theorem check,
@@ -147,6 +166,7 @@ sp.total_fragility(m, "vGLT", x, solver="integrate")   # dReλ/dlnE incl. state 
 ## Where to look
 
 - Public data sources (what is reachable from this sandbox) → `reference/data-sources.md`
+- Micro → macro ensembles, FDT, MRA, rewiring → `reference/micro-macro.md`
 - Math, definitions, theorem checks, honest limits → `reference/methodology.md`
 - Add a model / dataset / readout → `reference/extending.md` + `assets/new_model_template.py`
 - Full Chinese write-up with all numbers → `NETJAC_REPORT.md` (repo root)

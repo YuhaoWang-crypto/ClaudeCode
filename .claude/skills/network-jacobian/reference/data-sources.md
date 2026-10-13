@@ -45,6 +45,22 @@ Reachability below was tested from this sandbox (agent proxy) on 2026-10-11.
 | Hall 2018 "glucotypes" CGM | PLoS Biol supplement (not tested) | normoglycaemic people with CGM |
 | Pertz-lab single-cell ERK (EKAR) | GitHub raw ✅ (see `network-biomarker` skill, M17) | single-cell signalling relaxations |
 
+## Micro → macro ensembles (D9), all verified reachable from this sandbox
+
+| Source | Access | What it gives | Loader |
+|---|---|---|---|
+| CPTAC proteomes via PDC GraphQL `quantDataMatrix(data_type:"log2_ratio", acceptDUA:true)` | ✅ open | 6k–10k proteins × tumour + normal aliquots per study. Studies: ccRCC PDC000127, LUAD 153, LSCC 234, HNSCC 221, PDAC 270, UCEC 125, HBV-HCC 198, COAD 116 | `data/cptac.py` |
+| CPTAC-3 clinical (grade, stage, vital status) | ✅ GDC `cases`, project CPTAC-3 (PDC `clinicalPerStudy` returns empty fields) | per-case clinical data | `tcga.clinical("CPTAC-3")` |
+| Replogle 2022 Perturb-seq, figshare article 20029387 (CC BY 4.0) | ✅ ~16 MB/s | K562 essential (2,285 knockdowns), genome-wide (~11k), RPE1. Bulk z-scored files are 80–375 MB; single-cell 10.7 GB | `data/perturbseq.py` (one-pass split-half reducer) |
+| OmniPath interactions / DoRothEA / complexes | ✅ omnipathdb.org. Occasionally 503: retry | 54,723 signed directed edges, 1,001 2-loops, 46,912 complexes | `data/omnipath.py` |
+| SIGNOR `getData.php?organism=9606` | ✅ | causal edges with mechanism | `data/omnipath.py` |
+| g:Profiler g:GOSt API | ✅ | enrichment with a custom background | `data/gprofiler.py` |
+| Xin 2016 islets, GEO GSE81608 | ✅ GEO FTP | 1,600 cells, 12 ND + 6 T2D donors, cell-type calls | `data/islet.py:load_xin` |
+| Segerstolpe 2016 islets, E-MTAB-5061 | ✅ via `ftp.ebi.ac.uk/biostudies/fire/E-MTAB-/061/E-MTAB-5061/Files/` (the www path redirects) | 3,514 cells, donors with HbA1c | `data/islet.py:load` |
+| DepMap portal | ❌ verification wall | — | — |
+| cellxgene curation API | ❌ 404 | — | — |
+| HMDB | ❌ 403 | — | — |
+
 ## What to use for which direction
 
 - **Edge biomarkers:** BioModels (exact kinetics) or GEM + SABIO/BRENDA to
@@ -71,3 +87,7 @@ Reachability below was tested from this sandbox (agent proxy) on 2026-10-11.
 - Teusink … Snoep 2000 *Eur J Biochem* 267:5313 (PMID 10951190); Bergman … Cobelli 1979 *Am J Physiol* 236:E667 (PMID 443421)
 - Kacser & Burns 1973 (PMID 4148886); Heinrich & Rapoport 1974 *Eur J Biochem* 42:89 (PMID 4830198): MCA theorems
 - Sugimoto … Kuroda 2025 *Commun Med* 5:103 (PMID 40263561): CGM autocorrelation index tracks clamp disposition index (closest prior art for D2-C)
+- Replogle … Weissman 2022 *Cell* 185:2559 (PMID 35688146): genome-scale Perturb-seq
+- Kholodenko … Hoek 2002 *PNAS* 99:12841 (PMID 12242336): modular response analysis
+- Topp, Promislow … Finegood 2000 *J Theor Biol* 206:605 (PMID 11013117): β-cell mass–insulin–glucose model
+- Segerstolpe … Sandberg 2016 *Cell Metab* 24:593 (PMID 27667667); Xin … Gromada 2016 *Cell Metab* 24:608 (PMID 27667665): islet scRNA-seq
