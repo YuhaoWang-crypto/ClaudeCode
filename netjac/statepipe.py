@@ -243,24 +243,30 @@ def _J_from(theta, m):
     return -(P @ P.T + 1e-3 * np.eye(m)) + (Q - Q.T), k + m * (m - 1) // 2
 
 
-def _simulate(J, b0, b, tr):
+def _eig(J):
+    lam, V = np.linalg.eig(J)
+    return lam, V, np.linalg.inv(V), np.linalg.inv(J)
+
+
+def _simulate(J, b0, b, tr, eig=None):
     """Exact solution of dy/dt = J (y - yD) + b0 + b u with yD = y(0) (the
     patient's untreated steady state): y(t) = y* + e^{Jt} (y0 - y*),
-    y* = y0 - J^-1 (b0 + b u)."""
-    from scipy.linalg import expm
+    y* = y0 - J^-1 (b0 + b u). `eig` = _eig(J), computed once per J."""
+    lam, V, Vi, Ji = _eig(J) if eig is None else eig
     y0 = tr["Y"][0]
-    ys = y0 - np.linalg.solve(J, b0 + b * tr["u"])
-    return np.array([ys + expm(J * t) @ (y0 - ys) for t in tr["t"]])
+    ys = y0 - Ji @ (b0 + b * tr["u"])
+    c = Vi @ (y0 - ys)
+    return ys + ((np.exp(np.outer(tr["t"], lam)) * c) @ V.T).real
 
 
-def fit_dynamics(D, OP, names=None, treated_fn=None, lams=(0.03, 0.3, 3.0), drift=None):
+def fit_dynamics(D, OP, names=None, treated_fn=None, lams=(0.1, 1.0), drift=None, n_folds=5):
     """Fit dy/dt = J (y - y_D) + b0 + b u to whole trajectories (exact
     exponential solution from each subject's first sample; y_D = that
     sample, i.e. the untreated patient is assumed to be at steady state).
     b0 = natural-course drift (placebo / standard care, identifiable only
     when a control arm exists), b = intervention-specific direct input.
-    Ridge on the coupling parameters (lambda by leave-subject-out).
-    Baselines (leave-subject-out): no change from y0, and the mean
+    Ridge on the coupling parameters (lambda by subject-level k-fold CV).
+    Baselines (same folds): no change from y0, and the mean
     trajectory of the same arm at the same time (a strong baseline)."""
     from scipy.optimize import least_squares
     names = OP["module_names"] if names is None else names
@@ -290,23 +296,24 @@ def fit_dynamics(D, OP, names=None, treated_fn=None, lams=(0.03, 0.3, 3.0), drif
             e = _eig(J)
             r = [(_simulate(J, b0, b, t, e)[1:] - t["Y"][1:]).ravel() for t in trs]
             return np.r_[np.concatenate(r), np.sqrt(lam) * th[off]]
-        return least_squares(res, theta0(), method="trf", max_nfev=400).x
+        return least_squares(res, theta0(), method="trf", max_nfev=300).x
 
-    subs = [t["subject"] for t in TR]
+    fold = np.arange(len(TR)) % n_folds
+    np.random.default_rng(0).shuffle(fold)
     cv = {}
     for lam in lams:
         err = []
-        for i, t in enumerate(TR):
-            th = fit(TR[:i] + TR[i + 1:], lam)
-            J, b0, b = unpack(th)
-            err.append(((_simulate(J, b0, b, t)[1:] - t["Y"][1:]) ** 2).ravel())
+        for f in range(n_folds):
+            J, b0, b = unpack(fit([t for t, g in zip(TR, fold) if g != f], lam))
+            err += [((_simulate(J, b0, b, t)[1:] - t["Y"][1:]) ** 2).ravel()
+                    for t, g in zip(TR, fold) if g == f]
         cv[lam] = float(np.sqrt(np.mean(np.concatenate(err))))
     lam = min(cv, key=cv.get)
     J, b0, b = unpack(fit(TR, lam))
     e0, e1 = [], []
     for i, t in enumerate(TR):
         e0.append(((t["Y"][1:] - t["Y"][0]) ** 2).ravel())
-        same = [o for j, o in enumerate(TR) if j != i and o["u"] == t["u"]]
+        same = [o for j, o in enumerate(TR) if fold[j] != fold[i] and o["u"] == t["u"]]
         for k, tt in enumerate(t["t"][1:], 1):
             pool = [o["Y"][list(o["t"]).index(tt)] - o["Y"][0] for o in same if tt in o["t"]]
             pred = t["Y"][0] + (np.mean(pool, 0) if pool else 0)
@@ -315,10 +322,19 @@ def fit_dynamics(D, OP, names=None, treated_fn=None, lams=(0.03, 0.3, 3.0), drif
     o = np.argsort(-ev.real)
     ev, V = ev[o], V[:, o]
     yD = np.mean([t["Y"][0] for t in TR], 0)
-    return {"names": names, "J": J, "b0": b0, "b": b, "drift": drift, "lam": lam, "cv_rmse": cv[lam],
+    # identifiability: with one follow-up time a rate and an endpoint cannot be
+    # separated; the infinite-time steady state is an extrapolation unless
+    # >= 2 follow-up times exist and the slowest time constant is < 2x the window
+    n_times = len(set(float(x) for t in TR for x in t["t"][1:]))
+    T_obs = max(float(t["t"][-1]) for t in TR)
+    tau = -1 / ev.real
+    ident = bool(n_times >= 2 and tau.max() < 2 * T_obs)
+    y_obs = np.mean([_simulate(J, b0, b, {"Y": np.array([yD]), "t": np.array([0.0, T_obs]), "u": 1.0})[1]], 0)
+    return {"identifiable": ident, "n_times": n_times, "T_obs": T_obs, "y_at_T": y_obs,
+            "names": names, "J": J, "b0": b0, "b": b, "drift": drift, "lam": lam, "cv_rmse": cv[lam],
             "cv_all": cv, "rmse_no_change": float(np.sqrt(np.mean(np.concatenate(e0)))),
             "rmse_arm_mean": float(np.sqrt(np.mean(np.concatenate(e1)))),
-            "eig": ev, "tau": -1 / ev.real, "slow_mode": np.abs(V[:, 0].real) / np.abs(V[:, 0].real).sum(),
+            "eig": ev, "tau": tau, "slow_mode": np.abs(V[:, 0].real) / np.abs(V[:, 0].real).sum(),
             "yD": yD, "y_star": yD - np.linalg.solve(J, b0 + b),
             "n_subjects": len(TR), "n_points": int(sum(len(t["t"]) - 1 for t in TR))}
 
@@ -366,8 +382,9 @@ def minimal_adjustment(dyn, target=0.9, max_size=None, J=None):
     # the intervention actually applied, seen as a lever pattern
     applied = None
     if "b" in dyn and np.any(dyn["b"]):
-        y = one - Ji @ dyn["b"]
+        y = one - Ji @ dyn["b"] if dyn.get("identifiable", True) else dyn["y_at_T"]
         applied = {"restoration": float(1 - np.linalg.norm(y) / np.linalg.norm(one)),
+                   "basis": "steady state" if dyn.get("identifiable", True) else f"t = {dyn['T_obs']:g} (steady state not identifiable)",
                    "direct_target": names[int(np.argmin(dyn["b"]))],
                    "b": dict(zip(names, dyn["b"]))}
     return {"singles": singles, "path": path, "structural_drivers": drivers, "applied": applied}
@@ -434,8 +451,13 @@ def print_card(card, title=""):
             print("  natural-course drift b0: " + ", ".join(f"{a} {v:+.3f}" for a, v in zip(d['names'], d['b0'])))
         print("  direct input b (most negative = where the intervention acts): " +
               ", ".join(f"{a} {v:+.3f}" for a, v in sorted(zip(d['names'], d['b']), key=lambda z: z[1])))
-        print("  cohort disease state yD -> predicted on-intervention steady state y*: " +
-              ", ".join(f"{a} {u:+.2f}->{v:+.2f}" for a, u, v in zip(d['names'], d['yD'], d['y_star'])))
+        if d["identifiable"]:
+            print("  cohort disease state yD -> predicted on-intervention steady state y*: " +
+                  ", ".join(f"{a} {u:+.2f}->{v:+.2f}" for a, u, v in zip(d['names'], d['yD'], d['y_star'])))
+        else:
+            print(f"  steady state NOT identifiable ({d['n_times']} follow-up time(s), slowest tau {d['tau'].max():.0f} vs window "
+                  f"{d['T_obs']:g}); predicted state at t = {d['T_obs']:g}: " +
+                  ", ".join(f"{a} {u:+.2f}->{v:+.2f}" for a, u, v in zip(d['names'], d['yD'], d['y_at_T'])))
         a = card["adjust"]
         print("5 minimal adjustment (sustained direct adjustment of a module set):")
         for p in a["path"]:
@@ -445,5 +467,5 @@ def print_card(card, title=""):
                                                     sorted(a["singles"].items(), key=lambda kv: -kv[1]["restoration"])))
         print(f"  structural driver modules (max matching on |J|): {a['structural_drivers']}")
         if a["applied"]:
-            print(f"  applied intervention: model restoration {a['applied']['restoration']:.2f}, "
+            print(f"  applied intervention ({a['applied']['basis']}): model restoration {a['applied']['restoration']:.2f}, "
                   f"largest direct effect on {a['applied']['direct_target']}")
