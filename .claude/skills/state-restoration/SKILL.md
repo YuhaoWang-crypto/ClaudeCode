@@ -188,6 +188,7 @@ D15 details:
 ## Read next
 
 - `reference/workflow.md`: formulas, parameter choices and decision rules for each step.
+- `reference/datasets.md`: verified public datasets grouped by what they can answer (withdrawal, treatment+outcome, perturbation libraries, reference cohorts), with five proposed studies.
 - `reference/pitfalls.md`: every way this went wrong before it was fixed (regression to the mean, distance vs projection, unstable J, ratio blow-ups, overlapping cohorts, citation errors).
 - `reference/validation.md`: the pre-specified checks and their outcomes, case by case.
 - The `network-jacobian` skill: kinetic models, fragility, statistical-physics micro → macro, Perturb-seq MRA (causal J for step 5).
