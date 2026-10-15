@@ -55,6 +55,10 @@ def evaluate(sm, build, val, frame_ps, rng):
     order = np.argsort(contrib)[::-1]
     cover = order[: int(np.searchsorted(np.cumsum(contrib[order]), 0.95) + 1)]
     seed_of = np.repeat(np.arange(len(build["n_per_seed"])), build["n_per_seed"])
+    ess = np.zeros(k)
+    for sd in range(len(build["n_per_seed"])):
+        idx = np.where(seed_of == sd)[0]
+        ess += msm.ess_and_entries([dB[i] for i in idx], k, 1)[0]
     results = []
     for lag in LAGS:
         gens = {}
@@ -70,13 +74,11 @@ def evaluate(sm, build, val, frame_ps, rng):
         ck = msm.ck_test(gens[1], dV, lag, mults=(2, 4, 8), rng=rng)
         ck_ok = all(c["max_dev"] <= 0.10 and (c["max_dev"] <= 3 * c["se_at_max"] or c["max_dev"] <= 0.03) for c in ck)
         # sampling gate: per-seed counting so that "from >= 2 seeds" can be checked
-        ess = np.zeros(k)
         ent = np.zeros(k, int)
         seeds_with = np.zeros(k, int)
         for sd in range(len(build["n_per_seed"])):
             idx = np.where(seed_of == sd)[0]
-            e, n_ent, _ = msm.ess_and_entries([dB[i] for i in idx], k, lag)
-            ess += e
+            n_ent = msm.committed_entries([dB[i] for i in idx], k, lag)
             ent += n_ent
             seeds_with += (n_ent > 0).astype(int)
         samp_ok = bool(all(ess[i] >= 200 and ent[i] >= 50 and seeds_with[i] >= 2 for i in cover))
@@ -144,7 +146,8 @@ def main(dt):
     report = dict(dt_ps=dt, frame_ps=frame_ps, build=names[:2], validation=names[2], extra=names[3], candidates=[])
     chosen = None
     for k in STATE_COUNTS:
-        sm = msm.StateModel(build["reps"], k, seed=k)
+        sm = msm.StateModel(build["reps"], k, seed=k, stride=20)
+        print(f"k={k}: states built", flush=True)
         pi, contrib, res = evaluate(sm, build, val, frame_ps, rng)
         report["candidates"].append(dict(k=k, pi_build=pi.tolist(), current_share=contrib.tolist(),
                                          centres_std=sm.centres.tolist(), lags=res))
@@ -159,7 +162,7 @@ def main(dt):
         # fallback (not ranked): 12 states, lag with the smallest worst-case CK error
         cand = report["candidates"][-1]
         best = min(cand["lags"], key=lambda r: max(c["max_dev"] for c in r["ck"]))
-        sm = msm.StateModel(build["reps"], cand["k"], seed=cand["k"])
+        sm = msm.StateModel(build["reps"], cand["k"], seed=cand["k"], stride=20)
         chosen = (cand["k"], sm, best["lag_frames"])
         report["fallback_note"] = "no candidate passed all gates; conditional (unvalidated) generator"
     k, sm, lag = chosen

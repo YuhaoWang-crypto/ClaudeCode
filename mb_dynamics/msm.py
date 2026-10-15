@@ -187,3 +187,15 @@ def ess_and_entries(dtrajs, k, lag):
                 got[s[st]] = True
         seeds_with += got
     return ess, entries, seeds_with
+
+
+def committed_entries(dtrajs, k, lag):
+    """Entries into each state followed by >= lag frames of residence (flicker not counted)."""
+    entries = np.zeros(k, int)
+    for s in dtrajs:
+        change = np.r_[True, s[1:] != s[:-1]]
+        starts = np.where(change)[0]
+        lens = np.diff(np.r_[starts, len(s)])
+        ok = lens[1:] >= lag
+        entries += np.bincount(s[starts[1:]][ok], minlength=k)
+    return entries
