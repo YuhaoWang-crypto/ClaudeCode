@@ -54,6 +54,14 @@ Model, in module coordinates (0 = balance; y_D = the subject's untreated state):
   - Restoration = 1 − |y| / |y_D|.
   - Greedy forward selection until restoration ≥ 0.9.
   - For each single module, also report its **propagation**: restoration of the OTHER modules. Weak couplings mean every module must be adjusted itself, so the minimal set is large.
+- **Ready-made skin library.** `netjac.data.keratinocyte.lever_library()`
+  (nine cytokines in primary keratinocytes, IL-4 included) with
+  `rank_levers`, or the template `assets/keratinocyte_levers.py`. Columns from
+  different studies are directionally comparable (each is scored against the
+  disease vector on its own) but NOT magnitude-comparable, so run a multi-lever
+  least-squares solve within one source; every column carries its `source`.
+  Duplicated levers are taken from GSE36287 (3 donors, same platform as the
+  atopic-dermatitis cohort) and the duplicate is listed in `also_in`.
 - **Structural.** Driver nodes of the |J| sparsity pattern by maximum matching (`recovery.driver_nodes`). This says how many inputs FULL control would need.
 - **Applied intervention as a lever.** Put b into the same formula. The model's restoration should match the observed one.
 - **Predicting a lever for a drug that is not in the data.** Use J from any intervention dataset. The prediction is only as good as J's couplings; if propagation is ~0, the model cannot rank levers beyond "the module itself".

@@ -85,6 +85,19 @@ Jacobian J = −R⁻¹ this equals **−R[:, j]**, the measured response to pert
 module j (verified numerically in `statepipe.causal_J`). So the question is never
 "is the formalism right" but "does J⁻¹ reproduce measured perturbation responses".
 
+- **For a skin indication, a default library ships with the skill.**
+  `netjac.data.keratinocyte.lever_library()` returns nine measured cytokine
+  responses in primary keratinocytes: IFN-α, IFN-γ, **IL-4**, IL-13, IL-17A,
+  TNF (GSE36287, 3 donors) plus IL-9, IL-22, IL-26 (GSE305982). Run it from
+  `assets/keratinocyte_levers.py`; verify the library with
+  `python3 -m netjac.data.keratinocyte`, which re-runs the published checks
+  (psoriasis top lever IL-17A; IL-17A +0.175 [0.149, 0.202] and IL-4 +0.103
+  [0.074, 0.129] pass their crossed contrast). `VALIDATED` in that module
+  lists the approved drug targets per indication, so the crossed check runs
+  automatically. **IL-4 is in the default deliberately**: with IL-13 as the
+  only type-2 lever the atopic-dermatitis question cannot be answered
+  (IL-13 +0.007 n.s.). The sign of the fitted coefficient says what to do —
+  positive means the lesion lies along that input, so restoration is blockade.
 - **If you have perturbation data** (each module perturbed individually: CRISPR
   screens, cytokine or drug panels hitting different modules, several
   interventions): build R, then use `rank_levers` /
