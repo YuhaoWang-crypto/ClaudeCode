@@ -287,7 +287,8 @@ def fit_dynamics(D, OP, names=None, treated_fn=None, lams=(0.03, 0.3, 3.0), drif
 
         def res(th):
             J, b0, b = unpack(th)
-            r = [(_simulate(J, b0, b, t)[1:] - t["Y"][1:]).ravel() for t in trs]
+            e = _eig(J)
+            r = [(_simulate(J, b0, b, t, e)[1:] - t["Y"][1:]).ravel() for t in trs]
             return np.r_[np.concatenate(r), np.sqrt(lam) * th[off]]
         return least_squares(res, theta0(), method="trf", max_nfev=400).x
 
