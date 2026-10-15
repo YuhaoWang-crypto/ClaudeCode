@@ -399,6 +399,62 @@ def minimal_adjustment(dyn, target=0.9, max_size=None, J=None):
             "meaning": meaning, "reliable": reliable}
 
 
+# ====================================== 5b levers from perturbation data
+def causal_J(R, ridge=0.0):
+    """Causal Jacobian from a MEASURED response matrix R (module i's
+    steady-state shift when module j is perturbed): MRA gives
+    R = -J^-1 B, and with B = I in the perturbed basis, J = -R^-1.
+    Note the identity used below: the effect direction of lever j is
+    J^-1 e_j = -R[:, j], i.e. simply the measured response to perturbing j.
+    So `minimal_adjustment` needs no new formalism - it needs a J whose
+    inverse reproduces measured perturbation responses."""
+    R = np.asarray(R, float)
+    if ridge:
+        return -np.linalg.solve(R.T @ R + ridge * np.eye(len(R)), R.T)
+    return -np.linalg.pinv(R)
+
+
+def rank_levers(y0, R, names=None):
+    """Rank single levers by how much of the displacement y0 one lever can
+    cancel: projection energy (R[:, j].y0)^2 / |R[:, j]|^2. R's columns are
+    MEASURED responses, so this is a causal ranking. Validated in
+    demos/d16_causal_lever.py: it names the module that was actually
+    perturbed in 66% of 439 held-out knockdowns (chance 7%, covariance-based
+    ranking 15%)."""
+    R = np.asarray(R, float)
+    sc = (R.T @ np.asarray(y0, float)) ** 2 / np.maximum((R ** 2).sum(0), 1e-12)
+    o = np.argsort(-sc)
+    return [(names[j] if names is not None else j, float(sc[j])) for j in o]
+
+
+def minimal_adjustment_from_responses(y0, R, names=None, target=0.9, max_size=None):
+    """Fewest MEASURED perturbations whose combination cancels y0:
+    greedy forward selection minimising |y0 + R_S u| with u by least
+    squares. Restoration = 1 - |residual| / |y0|."""
+    R = np.asarray(R, float)
+    y0 = np.asarray(y0, float)
+    m = R.shape[1]
+    names = list(names) if names is not None else list(range(m))
+    chosen, path = [], []
+    for _ in range(max_size or m):
+        best, bres = None, None
+        for j in range(m):
+            if j in chosen:
+                continue
+            A = R[:, chosen + [j]]
+            u, *_ = np.linalg.lstsq(A, -y0, rcond=None)
+            res = float(np.linalg.norm(y0 + A @ u))
+            if bres is None or res < bres:
+                best, bres, bu = j, res, u
+        chosen.append(best)
+        path.append({"set": [names[k] for k in chosen],
+                     "restoration": float(1 - bres / np.linalg.norm(y0)),
+                     "u": dict(zip([names[k] for k in chosen], map(float, bu)))})
+        if path[-1]["restoration"] >= target:
+            break
+    return path
+
+
 # =================================================================== card
 def run(D, modules, treated_fn=None, outcome_time=None):
     """All five steps; returns one dict (the 'state card')."""

@@ -60,9 +60,23 @@ Every number is reproducible with the named demo. Status:
 | | D15 AD | Top lever IL-23 / IL-17 cytokines; Th2 fourth; steady state not identifiable | ❌ / unreliable |
 | Structural control on large networks | D11 Perturb-seq | 51 % driver nodes (null 48 %) → full control impractical; target functional restoration | ✅ (informative) |
 
+### Step 5 re-tested with a causal J (D16)
+
+| Check | Result | Status |
+|---|---|---|
+| Response matrix reproducible | split-half r 0.91 ± 0.04 (15 modules, Replogle genome-wide CRISPRi) | ✅ |
+| Identity J⁻¹e_j = −R[:,j] | verified numerically in `statepipe.causal_J` | ✅ |
+| **Lever names the module actually broken** (439 held-out knockdowns, leave-one-out, perturbed gene excluded) | causal 66 % [61–70 %]; naive 25 %; covariance 15 %; chance 7 %; permutation null 10 % (p < 0.0005) | ✅ **the D15 failure is fixed** |
+| Advance diagnostic of which levers are nameable | none found: \|R_j\| Spearman +0.43 (p = 0.11), max\|cos\| −0.11 (p = 0.69), n = 15 | ❌ hypothesis not supported |
+| Errors are structured | named lever resembles the true one more than random (median \|cos\| 0.55 vs 0.40, p = 0.01); only 32 % strongly collinear; confusions are causally nested (mitoribosome → complex I) | ⚠️ |
+| Doubles: beat additive superposition | AUC 0.89 both ways; in linear response d_AB = d_A + d_B exactly, so epistasis is outside the model class | ⚠️ by construction |
+| Doubles: pick the best partner | 54 % correct (37 perturbations, chance 21 %) | ✅ |
+
 **What the step-5 results mean.** A J fitted from one observational intervention describes how the system relaxes under that intervention. Its "levers" are the modules that relax least by themselves: bottlenecks and candidate add-on targets.
 
-To rank causal upstream targets, J must come from one of these:
+Confirmed in D16: with a measured response library the same formula recovers the
+right lever 66 % of the time against a 7 % chance rate, while covariance-based
+ranking stays at 15 %. To rank causal upstream targets, J must come from one of these:
 - perturbations of individual modules or genes (Perturb-seq MRA, CRISPR screens in the relevant cell type);
 - several interventions that act on different modules;
 - a mechanistic kinetic model (the network-jacobian skill).

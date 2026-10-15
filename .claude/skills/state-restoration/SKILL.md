@@ -76,7 +76,39 @@ What each step returns, and how to read it:
 | 2 Order parameters | φ per sample (1 = own disease state, 0 = balance); module coordinates; number of collective modes over the shuffle null; \|r(PC, φ)\| | If PC1 ≈ φ, the state is ONE collective mode, and one high-loading prior gene is a sufficient readout. If not, inter-individual heterogeneity dominates |
 | 3 Core network | modules actually disrupted; partial correlations; core genes replicated in every group | The minimal set of components that describes the state. Replication across groups is mandatory |
 | 4 Dynamics | J, time constants, slow mode, b0 (natural course), b (intervention), y* or y(T) | Slow mode = what will remain (residual disease). b = mechanism. CV error must beat "no change" |
-| 5 Minimal adjustment | greedy module set to 90 %; single-module levers with propagation; structural drivers; applied intervention as a lever | With J from one observational intervention: BOTTLENECKS, not causal drivers. Causal levers need perturbational J |
+| 5 Minimal adjustment | greedy module set to 90 %; single-module levers with propagation; structural drivers; applied intervention as a lever | With J from one observational intervention: BOTTLENECKS, not causal drivers. With a measured response library: causal levers (see below) |
+
+## Step 5 needs a response library, not a better formula
+
+The effect direction of lever j in `minimal_adjustment` is J⁻¹e_j. With the MRA
+Jacobian J = −R⁻¹ this equals **−R[:, j]**, the measured response to perturbing
+module j (verified numerically in `statepipe.causal_J`). So the question is never
+"is the formalism right" but "does J⁻¹ reproduce measured perturbation responses".
+
+- **If you have perturbation data** (each module perturbed individually: CRISPR
+  screens, drug panels hitting different modules, several interventions):
+  build R, then use `rank_levers` / `minimal_adjustment_from_responses`.
+  Report lever rankings.
+- **If you have one observational intervention** (a single drug time course):
+  you may report bottlenecks and the slow mode, explicitly labelled as such.
+  Do NOT report a causal lever ranking. This is the check D15 failed.
+
+Ground truth for the causal route (`demos/d16_causal_lever.py`, 439 held-out
+CRISPRi knockdowns, leave-one-out, perturbed gene excluded from module scores):
+
+| Predictor | Names the module that was actually broken |
+|---|---|
+| causal (measured response library) | **66 %** [61–70 %] |
+| naive (largest shift) | 25 % |
+| observational (covariance of controls) | 15 % |
+| chance / label-permutation null | 7 % / 10 % (p < 0.0005) |
+
+Limits found: per-module hit rate ranges 19–90 %, and **no module-level property
+predicts it in advance** (|R_j| p = 0.11, collinearity p = 0.69; n = 15 modules).
+Errors land on causally nested modules (mitoribosome → complex I), so top-3 is
+78 %. For double perturbations a linear J cannot beat additive superposition,
+because d_AB = d_A + d_B exactly in linear response: epistasis is outside the
+model class (Norman 2019: AUC 0.89 both ways; best-partner ranking 54 % vs 21 %).
 
 ## Validation gates (do not report a step that fails its gate)
 
