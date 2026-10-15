@@ -129,6 +129,7 @@ sp.total_fragility(m, "vGLT", x, solver="integrate")   # dReλ/dlnE incl. state 
    - Nested M0 static → M1 challenge → M2 dose → M3 recovery, compared on the same folds: ΔAUC/ΔC with paired bootstrap, ΔFP at fixed sensitivity, leave-family-out for transfer.
    - Core = total fragility of the defect-affected mode. Minimal control = driver nodes (structural) + greedy restoration set (functional), with the true fix as positive control.
    - Validated: dynamics are essential when the defect is compensated at the set point (Teusink, K562 homeostats, Norman rescue pairs). They add nothing when a static marker already integrates the state (NHANES OGTT, CGMacros).
+   - Real time series (`demos/d12_timecourse_cell_state.py`, GEO GSE75210 Myd88⁻/⁻ macrophages): a FUNCTIONAL state (which inputs route through MyD88) needs a stimulus (static AUC 0.50 → 1.0, trajectory area most replicate-robust). A COMPOSITIONAL / genotype state is visible statically. Use prior modules, not data-driven gene picks, on low-input time courses. Score restoration by projection (gain + cosine) against WT leave-one-out positive and KO negative controls, never by Euclidean distance.
 
 ## Mandatory discipline
 

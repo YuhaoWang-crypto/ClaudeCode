@@ -17,8 +17,8 @@ DIR = os.path.join(DATA_CACHE, "gprofiler")
 
 
 def enrich(genes, background=None, sources=("GO:BP", "REAC", "CORUM", "KEGG"),
-           threshold=0.05, tries=4):
-    body = {"organism": "hsapiens", "query": sorted(set(genes)),
+           threshold=0.05, tries=4, organism="hsapiens"):
+    body = {"organism": organism, "query": sorted(set(genes)),
             "sources": list(sources), "user_threshold": threshold,
             "no_evidences": True}
     if background is not None:
