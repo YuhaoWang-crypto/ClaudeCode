@@ -91,6 +91,20 @@ Limits: one donor; no IL-4 in the panel (dupilumab blocks IL-4Rα, covering IL-4
 and IL-13); whole-biopsy disease vectors against a pure keratinocyte library;
 RNA-seq library vs array disease data.
 
+### IL-4 and measured combinations (D18)
+
+| Check | Result | Status |
+|---|---|---|
+| Psoriasis → IL-17A replicates on independent data (GSE36287, 3 donors, GPL570) | cos +0.220 vs next +0.104; IL-4 and IL-13 negative | ✅ |
+| Its crossed specificity with a better library | +0.174 [0.147, 0.201] (was +0.026, p = 0.071 in D17) | ✅ |
+| AD-specific lever | **IL-4** +0.097 [0.070, 0.125]; IL-13 +0.004 n.s. — a panel without IL-4 cannot answer AD | ✅ (explains the D17 miss) |
+| AD top-1 | still IFN-γ (IL-4 third) | ❌ |
+| TNF specific to psoriasis | −0.032 [−0.055, −0.007]: TNF is a shared inflammatory input despite being a validated psoriasis target | ❌ |
+| Measured IL-17+TNF beats linear superposition | +0.053 [0.031, 0.074] | ✅ |
+| Whole-transcriptome non-additivity is real | looked like 65 %, but synergy-vector between-donor r = 0.10 (combination response r = 0.54): **mostly noise** | ❌ claim withdrawn |
+| Synergy real at specific genes | leave-one-donor-out: +1.1 to +1.6 log2 at the top-20 synergy genes found in other donors vs ~0 random, p < 0.001 in all three; genes are IL19, S100A7A, DEFB4A, SERPINB4, IL23A, S100A7 | ✅ |
+| Two levers beat one for this lesion | IL-17 alone +0.284 ≈ measured combination +0.282 | ❌ no gain |
+
 **What the step-5 results mean.** A J fitted from one observational intervention describes how the system relaxes under that intervention. Its "levers" are the modules that relax least by themselves: bottlenecks and candidate add-on targets.
 
 Confirmed in D16: with a measured response library the same formula recovers the

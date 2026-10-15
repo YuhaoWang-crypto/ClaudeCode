@@ -112,6 +112,12 @@ wrong: the top lever at 24 h is **IL-17A** (cos +0.231 vs IFN-γ +0.132), the
 clinically validated target, with a positive coefficient, so restoration means
 blockade. The same analysis with the FIBROBLAST library misses in all four
 settings. A perturbation library from the wrong cell type is not a substitute.
+Replicated and extended with IL-4 and TNF in the library (GSE36287, 3 donors,
+`demos/d18_il4_and_combinations.py`): psoriasis → IL-17A again (cos +0.220),
+and its crossed specificity becomes significant (+0.174 [0.147, 0.201]). The
+AD-specific lever is **IL-4, not IL-13** (+0.097 [0.070, 0.125] vs +0.004 n.s.),
+so a panel missing IL-4 cannot answer the AD question — **check that the library
+contains the levers the clinic actually uses** before concluding anything.
 Caveats kept: atopic dermatitis picks IL-22 at 24 h (IL-13 only at 3 h), and
 psoriasis flips to IFN-γ under a rank-based metric, so report the metric and the
 time point, and prefer the crossed specificity contrast (IL-13→AD +0.181
@@ -123,6 +129,13 @@ Errors land on causally nested modules (mitoribosome → complex I), so top-3 is
 78 %. For double perturbations a linear J cannot beat additive superposition,
 because d_AB = d_A + d_B exactly in linear response: epistasis is outside the
 model class (Norman 2019: AUC 0.89 both ways; best-partner ranking 54 % vs 21 %).
+Measured combinations put a number on what is lost (D18, keratinocyte
+IL-17 + TNF): the measured combination aligns with the psoriasis lesion better
+than the additive prediction (+0.053 [0.031, 0.074]). But treat whole-vector
+non-additivity with suspicion — it looked like 65 % and was mostly donor noise
+(synergy-vector between-donor r 0.10 vs 0.54 for the response itself). Test
+synergy per gene with leave-one-donor-out: it was real and concentrated at
+IL19, S100A7A, DEFB4A, SERPINB4 and IL23A, i.e. the disease signature genes.
 
 ## Validation gates (do not report a step that fails its gate)
 

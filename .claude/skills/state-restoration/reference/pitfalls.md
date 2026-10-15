@@ -41,6 +41,14 @@ Each entry gives the symptom, the cause and the fix, with the case where it happ
 | Ranking flips between metrics | Cosine weights large-fold-change genes; Spearman weights all genes equally | Report both, and prefer a crossed specificity contrast over top-1 | D17 (psoriasis: IL-17A by cosine, IFN-γ by rank) |
 | Top-1 lever wrong although the direction is right | Lesions carry several cytokine programmes (chronic AD has Th22/Th17 besides Th2) | Test the crossed contrast: is the lever more aligned with its own indication than the other? | D17 (IL-13 → AD, p < 0.001) |
 
+## Combination and library design
+
+| Symptom | Cause | Fix | Case |
+|---|---|---|---|
+| The indication's own lever ranks low or flat | The library does not contain the lever the clinic uses (IL-4 absent, only IL-13) | List the validated targets first, then check the panel covers them | D17 → D18 |
+| Non-additivity looks enormous (65 %) | The synergy vector is a difference of differences, so it carries the noise of three measurements | Check the between-donor correlation of the synergy vector against that of the response itself (0.10 vs 0.54 here); test synergy per gene by leave-one-donor-out | D18 |
+| A validated drug target is not indication-specific | Shared inflammatory inputs (TNF) drive several diseases | Do not require every validated target to win the crossed contrast; report it | D18 (TNF −0.032) |
+
 ## Engineering
 
 - **GEO series matrices.** Some are linear MAS5 (GSE52428, GSE16879): use log2(max(x, 16)), then quantile-normalise. Others are already log scale. Check the range before choosing.
