@@ -60,7 +60,35 @@ A second distinction from D12: is the state you want to define **functional** (h
 4. **Pick minimal readouts from the collective mode.** Run a label-free PCA of the response. If PC1 alone separates the groups, any high-loading prior gene is a sufficient readout. Benchmark data-driven picks against random gene sets signed the same way.
 5. **Restoration cannot be tested without a treatment arm.** Report it as out of scope rather than inferring it.
 
+## Restoration under real treatment (D14, `demos/d14_treatment_restoration.py`)
+
+1. **Balance state**: the patient's own non-lesional tissue if sampled, otherwise control tissue. Disease genes are selected from lesion vs reference only, with no response labels.
+2. **Axis**: the leave-one-out cohort mean deviation (`loo_axes`). R = 1 − ⟨x_t − ref, u⟩ / ⟨x_0 − ref, u⟩.
+3. **Off-axis deviation at t vs at baseline**: if it rises, treatment is pushing the tissue into a new abnormal state rather than back.
+4. **Pre-specified exclusion**: drop pre-treatment biopsies whose projection is < 25 % of the cohort median, because the ratio is undefined there.
+5. **Modules**: score only module genes the disease actually perturbs (|log2FC| > 0.585, ≥ 3 genes). An undefined module (housekeeping) is the negative control.
+6. **Validation in this order**:
+   - correlation with the clinical score;
+   - drug vs placebo;
+   - module specificity (does the targeted axis move and an untargeted one stay?);
+   - comparison with published numbers.
+7. **Results**:
+
+   | Cohort | Result |
+   |---|---|
+   | Psoriasis responders, week 16 | R 0.96 (ρ with PASI 0.58) |
+   | Dupilumab vs placebo | 0.63 vs −0.04 (week 4), 1.06 vs 0.43 (week 16); the paper reports 68.8 % / 110.8 % vs −10.5 % / 55 % |
+   | Dupilumab, module level | Th2 +1.12 vs −0.01; interferon 0.25 vs 0.24 |
+   | IBD colon responders | 0.58 at 4–6 weeks |
+
+   Barrier/lipid (skin) and epithelial metabolism (gut) restore last.
+
 ## Pitfalls hit
+
+- **Using the patient's own disease deviation as the restoration axis creates fake restoration** (regression to the mean). Housekeeping genes "restored" 0.5–0.7 and placebo +0.13. A leave-one-out cohort axis fixes it: placebo −0.04.
+- **A lesional biopsy without disease signal makes the ratio explode.** One psoriasis patient scored R = 40. Pre-specify the exclusion.
+- **BH correction with NaN p-values returns nothing.** Constant floor-value genes give NaN; set them to 1 before the step-up.
+- **Placebo arms shrink over time** (dropout or rescue: 7 left at week 16 in GSE130588). Make the week-4 comparison the primary one.
 
 - **The personal baseline helps pre-specified modules early, but not high-dimensional classifiers.** Subtracting a noisy baseline adds its variance. Its advantage for modules (ΔAUC about +0.1 at 29–53 h) did not reach significance with n = 41.
 - **The sampling window can end before recovery.** In GSE52428 the IFN programme is still at +13 SD at 108 h. State the window limit instead of calling it "non-recovery".

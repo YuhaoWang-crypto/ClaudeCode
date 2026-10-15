@@ -60,6 +60,9 @@ Reachability below was tested from this sandbox (agent proxy) on 2026-10-11.
 | O'Connell 2016 (TF-seq) Myd88⁻/⁻ macrophage time course, GEO GSE75210 (PMID 27211859) | ✅ GEO FTP `suppl/GSE75210_myd88_exp.csv.gz` + series matrix | 384 low-input RNA-seq libraries: WT/KO × 2 plates × 12 stimuli × 8 times (0–4 h) | `demos/d12_timecourse_cell_state.py:load` |
 | Woods 2013 influenza challenge, GEO GSE52428 (PMID 23326326) | ✅ GEO FTP series matrix (linear MAS5) | 41 adults (H3N2 17, H1N1 24), 2 pre-challenge + 14 blood samples to 108 h, symptomatic/asymptomatic + symptom score | `data/geo.py:series_matrix` |
 | Zaas 2009 HRV / RSV / H3N2 challenge, GEO GSE17156 (PMID 19664979) | ✅ GEO FTP (log2) | baseline + peak-symptom sample; H3N2 arm overlaps GSE52428, so drop it | `data/geo.py:series_matrix` |
+| Psoriasis ADA / MTX time course, GEO GSE85034 (PMID 27667537) | ✅ GEO FTP (log2, Illumina GPL10558) | 29 patients, NL + LS week 0, LS weeks 1/2/4/16, PASI each visit | `demos/d14_treatment_restoration.py:load_psoriasis` |
+| Atopic dermatitis dupilumab vs placebo, GEO GSE130588 (PMID 30194992) | ✅ GEO FTP (log2, GPL570) | LS weeks 0/4/16, NL weeks 0/16, 20 healthy skins, EASI/SCORAD | `demos/d14_treatment_restoration.py:load_ad` |
+| IBD infliximab before/after, GEO GSE16879 (PMID 19956723) | ✅ GEO FTP (linear MAS5, GPL570) | 61 patients UC/CDc/CDi, response yes/no, 12 controls; pair by title `<group><R|NR><n>_before/afterT` | `demos/d14_treatment_restoration.py:analyse_ibd` |
 | GEO platform annotation (e.g. GPL571) | ✅ `geo/platforms/GPLnnn/<GPL>/annot/<GPL>.annot.gz` | probe → gene symbol | `data/geo.py:gpl_symbols` |
 | DARPA challenge set GSE73072 (7 studies, 148 subjects) | ⚠️ expression open, symptom / shedding labels only via an external link | — | not used |
 | Glue-grant trauma GSE36809 | ⚠️ no outcome labels in GEO | — | not used |
