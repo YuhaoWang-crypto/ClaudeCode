@@ -741,7 +741,7 @@
 
 ## 13. 真实时间序列验证：MyD88 缺失巨噬细胞（GEO GSE75210，`demos/d12_timecourse_cell_state.py`）
 
-**数据** ✅：Tong et al., *Cell Systems* 2016（PMID 27211859），公开于 GEO GSE75210。
+**数据** ✅：O'Connell et al., *Cell Systems* 2016;2:323（TF-seq，PMID 27211859，doi:10.1016/j.cels.2016.04.011），公开于 GEO GSE75210。
 - 骨髓来源巨噬细胞，野生型 vs *Myd88*⁻/⁻，12 种天然免疫刺激 × 8 个时间点（0、0.5、1、1.5、2、2.5、3、4 h）。
 - 每个基因型 2 块独立 96 孔板（复制），共 384 个低起始量 RNA-seq 文库，即 48 条时间序列，8,307 个表达基因。
 

@@ -57,7 +57,7 @@ Reachability below was tested from this sandbox (agent proxy) on 2026-10-11.
 | g:Profiler g:GOSt API | ✅ | enrichment with a custom background | `data/gprofiler.py` |
 | Xin 2016 islets, GEO GSE81608 | ✅ GEO FTP | 1,600 cells, 12 ND + 6 T2D donors, cell-type calls | `data/islet.py:load_xin` |
 | Segerstolpe 2016 islets, E-MTAB-5061 | ✅ via `ftp.ebi.ac.uk/biostudies/fire/E-MTAB-/061/E-MTAB-5061/Files/` (the www path redirects) | 3,514 cells, donors with HbA1c | `data/islet.py:load` |
-| Tong 2016 Myd88⁻/⁻ macrophage time course, GEO GSE75210 (PMID 27211859) | ✅ GEO FTP `suppl/GSE75210_myd88_exp.csv.gz` + series matrix | 384 low-input RNA-seq libraries: WT/KO × 2 plates × 12 stimuli × 8 times (0–4 h) | `demos/d12_timecourse_cell_state.py:load` |
+| O'Connell 2016 (TF-seq) Myd88⁻/⁻ macrophage time course, GEO GSE75210 (PMID 27211859) | ✅ GEO FTP `suppl/GSE75210_myd88_exp.csv.gz` + series matrix | 384 low-input RNA-seq libraries: WT/KO × 2 plates × 12 stimuli × 8 times (0–4 h) | `demos/d12_timecourse_cell_state.py:load` |
 | DepMap portal | ❌ verification wall | — | — |
 | cellxgene curation API | ❌ 404 | — | — |
 | HMDB | ❌ 403 | — | — |

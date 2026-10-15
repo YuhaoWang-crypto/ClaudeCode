@@ -1,6 +1,6 @@
 """
 D12  Real time-series validation of perturbation-recovery state definition:
-     Myd88-deficient macrophages (GEO GSE75210; Tong et al., Cell Systems
+     Myd88-deficient macrophages (GEO GSE75210; O'Connell et al., Cell Systems
      2016, PMID 27211859).
 
 Design: bone-marrow-derived macrophages, wild type vs Myd88-/-, 12 innate
