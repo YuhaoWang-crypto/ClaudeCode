@@ -94,5 +94,57 @@
     "sim_wall_s": 2478.870096683502
    }
   ]
+ },
+ {
+  "batch": "sensitivity",
+  "started": "2026-10-15T23:24:14",
+  "wall_s": 1422.3939409255981,
+  "cpu_s": 2940.119879961014,
+  "jobs": [
+   {
+    "name": "sens_link2_dt0.5",
+    "seed": 202,
+    "mode": "mixed",
+    "dt": 0.5,
+    "t_ns": 500.0,
+    "t_eq_ns": 100.0,
+    "n_link": 2,
+    "wall_s": 644.007342338562,
+    "sim_wall_s": 641.8558533191681
+   },
+   {
+    "name": "sens_link6_dt0.5",
+    "seed": 206,
+    "mode": "mixed",
+    "dt": 0.5,
+    "t_ns": 500.0,
+    "t_eq_ns": 100.0,
+    "n_link": 6,
+    "wall_s": 826.0173547267914,
+    "sim_wall_s": 823.8318331241608
+   },
+   {
+    "name": "sens_lp0.7_dt0.5",
+    "seed": 307,
+    "mode": "mixed",
+    "dt": 0.5,
+    "t_ns": 500.0,
+    "t_eq_ns": 100.0,
+    "lp_link": 0.7,
+    "wall_s": 691.7371146678925,
+    "sim_wall_s": 689.5554559230804
+   },
+   {
+    "name": "sens_lp2.0_dt0.5",
+    "seed": 320,
+    "mode": "mixed",
+    "dt": 0.5,
+    "t_ns": 500.0,
+    "t_eq_ns": 100.0,
+    "lp_link": 2.0,
+    "wall_s": 778.358068227768,
+    "sim_wall_s": 776.3288164138794
+   }
+  ]
  }
 ]
