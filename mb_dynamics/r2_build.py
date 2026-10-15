@@ -23,7 +23,7 @@ import msm
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 RES = os.path.join(HERE, "results")
-LAGS = (1, 2, 5, 10, 20, 50, 100, 200)       # frames (10 ps each)
+LAGS = (1, 2, 5, 10, 20, 50, 100, 200, 500, 1000)   # frames (10 ps each); 500, 1000 added (deviation: tau_z ~ 20 ns)
 STATE_COUNTS = (4, 8, 12)
 BETAS = (2.0, 5.0, 10.0)
 
