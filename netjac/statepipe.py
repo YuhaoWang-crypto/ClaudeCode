@@ -387,7 +387,16 @@ def minimal_adjustment(dyn, target=0.9, max_size=None, J=None):
                    "basis": "steady state" if dyn.get("identifiable", True) else f"t = {dyn['T_obs']:g} (steady state not identifiable)",
                    "direct_target": names[int(np.argmin(dyn["b"]))],
                    "b": dict(zip(names, dyn["b"]))}
-    return {"singles": singles, "path": path, "structural_drivers": drivers, "applied": applied}
+    # what the lever ranking means: with J fitted from ONE observational
+    # intervention it ranks BOTTLENECKS (slow, weakly self-restoring modules),
+    # not causal upstream drivers (D15: psoriasis -> barrier, not IL-17).
+    # Causal levers need J from perturbations of individual modules
+    # (Perturb-seq / MRA, D9-D11) or several interventions on different modules.
+    meaning = ("causal levers (J from module-level perturbations)" if dyn.get("perturbational")
+               else "bottlenecks under the observed intervention (not causal drivers)")
+    reliable = bool(dyn.get("identifiable", True))
+    return {"singles": singles, "path": path, "structural_drivers": drivers, "applied": applied,
+            "meaning": meaning, "reliable": reliable}
 
 
 # =================================================================== card
@@ -459,7 +468,8 @@ def print_card(card, title=""):
                   f"{d['T_obs']:g}); predicted state at t = {d['T_obs']:g}: " +
                   ", ".join(f"{a} {u:+.2f}->{v:+.2f}" for a, u, v in zip(d['names'], d['yD'], d['y_at_T'])))
         a = card["adjust"]
-        print("5 minimal adjustment (sustained direct adjustment of a module set):")
+        print(f"5 minimal adjustment (sustained direct adjustment of a module set) - ranks {a['meaning']}"
+              + ("" if a["reliable"] else "; UNRELIABLE: steady state not identifiable") + ":")
         for p in a["path"]:
             print(f"  {len(p['set'])} module(s) {p['set']} -> restoration {p['restoration']:.2f}")
         print("  single-module levers (restoration of whole state | of the other modules): " +

@@ -143,9 +143,11 @@ def figures(R):
         ax2.set_yticks(range(len(sing)), [k.split(" (")[0] for k, _ in sing], fontsize=8)
         ax2.invert_yaxis()
         ax2.set_xlim(0, 1)
-        path = " + ".join(x.split(" (")[0] for x in a["path"][-1]["set"])
+        nset = len(a["path"][-1]["set"])
         ax2.set_xlabel("predicted restoration of the whole state")
-        ax2.set_title(f"{key}: single-module levers\nminimal set to 90%: {path}", fontsize=9)
+        flag = "" if a["reliable"] else " - UNRELIABLE (steady state not identifiable)"
+        ax2.set_title(f"{key}: single-module levers = bottlenecks, not causal drivers{flag}\n"
+                      f"minimal set to 90%: {nset} of {len(a['singles'])} modules", fontsize=9)
     fig.tight_layout()
     p = os.path.join(FIG, "d15_state_pipeline.png")
     fig.savefig(p, dpi=110)
