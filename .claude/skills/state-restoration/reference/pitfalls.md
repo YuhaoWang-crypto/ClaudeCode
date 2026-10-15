@@ -49,6 +49,14 @@ Each entry gives the symptom, the cause and the fix, with the case where it happ
 | Non-additivity looks enormous (65 %) | The synergy vector is a difference of differences, so it carries the noise of three measurements | Check the between-donor correlation of the synergy vector against that of the response itself (0.10 vs 0.54 here); test synergy per gene by leave-one-donor-out | D18 |
 | A validated drug target is not indication-specific | Shared inflammatory inputs (TNF) drive several diseases | Do not require every validated target to win the crossed contrast; report it | D18 (TNF −0.032) |
 
+## Relapse / residual questions
+
+| Symptom | Cause | Fix | Case |
+|---|---|---|---|
+| "Residual predicts relapse" cannot be tested cleanly | With one post-treatment sample, residual = x−ref and rise = flare−x share x with opposite signs, so their cosine is biased downward | Need ≥ 2 post-clearance samples per patient, or a cohort with non-relapsers | D19 |
+| A random-gene null looks "significant" | Disease genes carry signal in both vectors, which alone beats random genes — it does not show prediction | Ask for a contrast that isolates the claim (own vs other patients), and check whether the bias explains the gap | D19 |
+| Everyone in the cohort has the outcome | No contrast exists; a relapser-vs-non-relapser test is impossible | Say so and switch to within-patient questions (what restored, where relapse lands) | D19 |
+
 ## Engineering
 
 - **GEO series matrices.** Some are linear MAS5 (GSE52428, GSE16879): use log2(max(x, 16)), then quantile-normalise. Others are already log scale. Check the range before choosing.

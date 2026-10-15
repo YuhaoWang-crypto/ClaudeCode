@@ -105,6 +105,19 @@ RNA-seq library vs array disease data.
 | Synergy real at specific genes | leave-one-donor-out: +1.1 to +1.6 log2 at the top-20 synergy genes found in other donors vs ~0 random, p < 0.001 in all three; genes are IL19, S100A7A, DEFB4A, SERPINB4, IL23A, S100A7 | ✅ |
 | Two levers beat one for this lesion | IL-17 alone +0.284 ≈ measured combination +0.282 | ❌ no gain |
 
+### Does an unrestored slow module mark relapse? (D19)
+
+| Check | Result | Status |
+|---|---|---|
+| Restoration ordering replicates in a 4th drug (efalizumab) at clinical clearance | proliferation +1.05, T cell +0.89, interferon +0.59, IL-17 keratinocyte +0.33, **barrier +0.10** | ✅ |
+| Housekeeping module undefined (negative control) | fewer than 3 disrupted genes | ✅ |
+| Relapse returns to the original lesion state | median φ +0.95 (range 0.71–1.55) from φ 0.18–0.65 at week 12 | ✅ new |
+| **Residual at clearance predicts the flare** | **confounded**: one post-treatment sample enters the residual (+) and the rise (−), so the cosine is biased down; raw median −0.06, own-vs-other gap ≈ the bias; n=4 ordering runs the wrong way | ❌ not answerable |
+| Long-resolved skin still inflamed? | 13 paired patients: all inflammatory modules n.s.; no over-response to OKT3 (resolved +1.08 vs non-lesional +1.35) | ✅ informative negative |
+
+Design needed to answer it: ≥ 2 post-clearance biopsies per patient (to separate
+noise from signal), or a withdrawal cohort where some patients do NOT relapse.
+
 **What the step-5 results mean.** A J fitted from one observational intervention describes how the system relaxes under that intervention. Its "levers" are the modules that relax least by themselves: bottlenecks and candidate add-on targets.
 
 Confirmed in D16: with a measured response library the same formula recovers the
