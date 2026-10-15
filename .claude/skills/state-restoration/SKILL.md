@@ -86,9 +86,11 @@ module j (verified numerically in `statepipe.causal_J`). So the question is neve
 "is the formalism right" but "does J⁻¹ reproduce measured perturbation responses".
 
 - **If you have perturbation data** (each module perturbed individually: CRISPR
-  screens, drug panels hitting different modules, several interventions):
-  build R, then use `rank_levers` / `minimal_adjustment_from_responses`.
-  Report lever rankings.
+  screens, cytokine or drug panels hitting different modules, several
+  interventions): build R, then use `rank_levers` /
+  `minimal_adjustment_from_responses`. Report lever rankings, **and state the
+  cell type the library came from** — a library from the wrong cell type scored
+  0/4 where the right one scored the clinically validated target.
 - **If you have one observational intervention** (a single drug time course):
   you may report bottlenecks and the slow mode, explicitly labelled as such.
   Do NOT report a causal lever ranking. This is the check D15 failed.
@@ -102,6 +104,18 @@ CRISPRi knockdowns, leave-one-out, perturbed gene excluded from module scores):
 | naive (largest shift) | 25 % |
 | observational (covariance of controls) | 15 % |
 | chance / label-permutation null | 7 % / 10 % (p < 0.0005) |
+
+**The right cell type is part of the requirement** (`demos/d17_keratinocyte_lever.py`).
+A public cytokine panel on primary keratinocytes (GSE305982: IL-9/IL-13/IL-17A/
+IL-22/IL-26/IFN-γ, 3 h and 24 h) answers the psoriasis lever question D15 got
+wrong: the top lever at 24 h is **IL-17A** (cos +0.231 vs IFN-γ +0.132), the
+clinically validated target, with a positive coefficient, so restoration means
+blockade. The same analysis with the FIBROBLAST library misses in all four
+settings. A perturbation library from the wrong cell type is not a substitute.
+Caveats kept: atopic dermatitis picks IL-22 at 24 h (IL-13 only at 3 h), and
+psoriasis flips to IFN-γ under a rank-based metric, so report the metric and the
+time point, and prefer the crossed specificity contrast (IL-13→AD +0.181
+[0.154, 0.207]; IL-17A→psoriasis +0.026 [−0.009, +0.061] n.s.) over top-1.
 
 Limits found: per-module hit rate ranges 19–90 %, and **no module-level property
 predicts it in advance** (|R_j| p = 0.11, collinearity p = 0.69; n = 15 modules).

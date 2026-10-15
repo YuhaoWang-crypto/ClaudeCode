@@ -36,10 +36,12 @@ def series_matrix(gse):
     fn = _fetch(f"{FTP}/series/{_stub(gse)}/{gse}/matrix/{gse}_series_matrix.txt.gz",
                 os.path.join(DATA_CACHE, f"geo_{gse.lower()}", "matrix.txt.gz"))
     lines = gzip.open(fn, "rt", errors="replace").read().split("\n")
-    meta, titles, ids = {}, None, None
+    meta, titles, ids, desc = {}, None, None, None
     for l in lines:
         if l.startswith("!Sample_title"):
             titles = [x.strip('"') for x in l.split("\t")[1:]]
+        elif l.startswith("!Sample_description") and desc is None:
+            desc = [x.strip('"') for x in l.split("\t")[1:]]
         elif l.startswith("!Sample_geo_accession"):
             ids = [x.strip('"') for x in l.split("\t")[1:]]
         elif l.startswith("!Sample_characteristics_ch1"):
@@ -51,6 +53,8 @@ def series_matrix(gse):
     X = pd.read_csv(io.StringIO("\n".join(lines[i + 1:j])), sep="\t", index_col=0)
     M = pd.DataFrame(meta, index=ids)
     M["title"] = titles
+    if desc is not None and len(desc) == len(M):
+        M["description"] = desc
     return X[ids], M
 
 

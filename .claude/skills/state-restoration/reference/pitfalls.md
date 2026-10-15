@@ -32,6 +32,15 @@ Each entry gives the symptom, the cause and the fix, with the case where it happ
 | Every module is its own best lever | Couplings ≈ 0 (J nearly diagonal) | Report propagation; a lever prediction needs measurable off-diagonal J | D15 |
 | Full structural control needs about half of all nodes | Sparse directed networks (Perturb-seq: 51 % drivers) | The target is functional: restore one signature with the fewest knobs | D11 |
 
+## Lever prediction
+
+| Symptom | Cause | Fix | Case |
+|---|---|---|---|
+| Top lever is the slowest module, not the drug target | J from one observational treatment has no measurement of other levers | Use a measured response library (perturbation screen, cytokine/drug panel) | D15 → D16/D17 |
+| Lever library gives a confident but wrong answer | Library from the wrong cell type (fibroblasts for an epidermal disease): 0/4 correct | Match the cell type to the tissue compartment the disease signature comes from | D17 |
+| Ranking flips between metrics | Cosine weights large-fold-change genes; Spearman weights all genes equally | Report both, and prefer a crossed specificity contrast over top-1 | D17 (psoriasis: IL-17A by cosine, IFN-γ by rank) |
+| Top-1 lever wrong although the direction is right | Lesions carry several cytokine programmes (chronic AD has Th22/Th17 besides Th2) | Test the crossed contrast: is the lever more aligned with its own indication than the other? | D17 (IL-13 → AD, p < 0.001) |
+
 ## Engineering
 
 - **GEO series matrices.** Some are linear MAS5 (GSE52428, GSE16879): use log2(max(x, 16)), then quantile-normalise. Others are already log scale. Check the range before choosing.

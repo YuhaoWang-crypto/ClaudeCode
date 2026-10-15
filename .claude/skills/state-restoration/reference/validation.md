@@ -72,6 +72,25 @@ Every number is reproducible with the named demo. Status:
 | Doubles: beat additive superposition | AUC 0.89 both ways; in linear response d_AB = d_A + d_B exactly, so epistasis is outside the model class | ⚠️ by construction |
 | Doubles: pick the best partner | 54 % correct (37 perturbations, chance 21 %) | ✅ |
 
+### Step 5 in the relevant cell type (D17, the psoriasis question itself)
+
+Library: GSE305982, primary keratinocytes and fibroblasts, six T-cell cytokines
+(IL-9, IL-13, IL-17A, IL-22, IL-26, IFN-γ) over ImmunoCult, 3 h and 24 h, one donor.
+Ground truth is crossed and clinical: psoriasis → IL-17A, atopic dermatitis → IL-13.
+
+| Check | Result | Status |
+|---|---|---|
+| **Psoriasis top lever (keratinocytes, 24 h)** | **IL-17A**, cos +0.231 vs IFN-γ +0.132; coefficient positive, so restoration = blockade; IL-13 negative | ✅ **the D15 answer is corrected** |
+| Wrong cell type must fail | fibroblast library: 0/4 settings correct (always IFN-γ) | ✅ |
+| Crossed specificity IL-13 → AD | +0.029 [0.009, 0.049] at 3 h; +0.181 [0.154, 0.207] at 24 h | ✅ |
+| Crossed specificity IL-17A → psoriasis | +0.008 [−0.014, 0.031] at 3 h; +0.026 [−0.009, 0.061] at 24 h (p = 0.071) | ⚠️ right direction, n.s. |
+| AD top lever | IL-22 at 24 h (IL-13 fourth); IL-13 only at 3 h | ❌ |
+| Psoriasis robust to metric | survives dropping the 200 strongest disease genes, but rank-based (Spearman) ranking puts IFN-γ first | ⚠️ metric-dependent |
+
+Limits: one donor; no IL-4 in the panel (dupilumab blocks IL-4Rα, covering IL-4
+and IL-13); whole-biopsy disease vectors against a pure keratinocyte library;
+RNA-seq library vs array disease data.
+
 **What the step-5 results mean.** A J fitted from one observational intervention describes how the system relaxes under that intervention. Its "levers" are the modules that relax least by themselves: bottlenecks and candidate add-on targets.
 
 Confirmed in D16: with a measured response library the same formula recovers the
