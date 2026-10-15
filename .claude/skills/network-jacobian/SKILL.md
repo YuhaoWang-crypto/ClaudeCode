@@ -125,6 +125,11 @@ sp.total_fragility(m, "vGLT", x, solver="integrate")   # dReλ/dlnE incl. state 
    - Genome-wide Perturb-seq: calibrate |z| on non-targeting rows (tails are ~10⁴× heavier than Gaussian at |z| 6). Replicate in the independent essential screen: 98% sign agreement.
    - Measured β-cell triggering width w≈0.21 (Jonkers & Henquin 2001): recruitment is a narrow switch, and macro gradedness is amplification.
 
+10. **Perturbation-recovery state definition** (`recovery.py`, `demos/d11_recovery_state.py`, recipe in `reference/recovery-state.md`).
+   - Nested M0 static → M1 challenge → M2 dose → M3 recovery, compared on the same folds: ΔAUC/ΔC with paired bootstrap, ΔFP at fixed sensitivity, leave-family-out for transfer.
+   - Core = total fragility of the defect-affected mode. Minimal control = driver nodes (structural) + greedy restoration set (functional), with the true fix as positive control.
+   - Validated: dynamics are essential when the defect is compensated at the set point (Teusink, K562 homeostats, Norman rescue pairs). They add nothing when a static marker already integrates the state (NHANES OGTT, CGMacros).
+
 ## Mandatory discipline
 
 - Label every claim **✅ rigorous** (deterministic computation, theorem check,
@@ -173,6 +178,7 @@ sp.total_fragility(m, "vGLT", x, solver="integrate")   # dReλ/dlnE incl. state 
 
 - Public data sources (what is reachable from this sandbox) → `reference/data-sources.md`
 - Micro → macro ensembles, FDT, MRA, rewiring → `reference/micro-macro.md`
+- Perturbation-recovery state definition, transfer recipe → `reference/recovery-state.md`
 - Math, definitions, theorem checks, honest limits → `reference/methodology.md`
 - Add a model / dataset / readout → `reference/extending.md` + `assets/new_model_template.py`
 - Full Chinese write-up with all numbers → `NETJAC_REPORT.md` (repo root)
