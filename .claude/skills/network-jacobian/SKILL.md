@@ -130,6 +130,7 @@ sp.total_fragility(m, "vGLT", x, solver="integrate")   # dReλ/dlnE incl. state 
    - Core = total fragility of the defect-affected mode. Minimal control = driver nodes (structural) + greedy restoration set (functional), with the true fix as positive control.
    - Validated: dynamics are essential when the defect is compensated at the set point (Teusink, K562 homeostats, Norman rescue pairs). They add nothing when a static marker already integrates the state (NHANES OGTT, CGMacros).
    - Real time series (`demos/d12_timecourse_cell_state.py`, GEO GSE75210 Myd88⁻/⁻ macrophages): a FUNCTIONAL state (which inputs route through MyD88) needs a stimulus (static AUC 0.50 → 1.0, trajectory area most replicate-robust). A COMPOSITIONAL / genotype state is visible statically. Use prior modules, not data-driven gene picks, on low-input time courses. Score restoration by projection (gain + cosine) against WT leave-one-out positive and KO negative controls, never by Euclidean distance.
+   - Human tissue time series (`demos/d13_human_challenge_state.py`, GSE52428 influenza challenge, transfer to GSE17156 HRV/RSV): pre-challenge AUC 0.59–0.72 → + response 0.93 with 0 % FP (leave-strain-out). The state is a collective mode, so pick minimal readouts from prior high-loading genes. Small-n data-driven picks do not beat random gene sets. Any GEO series loads with `data/geo.py`.
 
 ## Mandatory discipline
 

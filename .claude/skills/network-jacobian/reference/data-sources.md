@@ -58,6 +58,11 @@ Reachability below was tested from this sandbox (agent proxy) on 2026-10-11.
 | Xin 2016 islets, GEO GSE81608 | ✅ GEO FTP | 1,600 cells, 12 ND + 6 T2D donors, cell-type calls | `data/islet.py:load_xin` |
 | Segerstolpe 2016 islets, E-MTAB-5061 | ✅ via `ftp.ebi.ac.uk/biostudies/fire/E-MTAB-/061/E-MTAB-5061/Files/` (the www path redirects) | 3,514 cells, donors with HbA1c | `data/islet.py:load` |
 | O'Connell 2016 (TF-seq) Myd88⁻/⁻ macrophage time course, GEO GSE75210 (PMID 27211859) | ✅ GEO FTP `suppl/GSE75210_myd88_exp.csv.gz` + series matrix | 384 low-input RNA-seq libraries: WT/KO × 2 plates × 12 stimuli × 8 times (0–4 h) | `demos/d12_timecourse_cell_state.py:load` |
+| Woods 2013 influenza challenge, GEO GSE52428 (PMID 23326326) | ✅ GEO FTP series matrix (linear MAS5) | 41 adults (H3N2 17, H1N1 24), 2 pre-challenge + 14 blood samples to 108 h, symptomatic/asymptomatic + symptom score | `data/geo.py:series_matrix` |
+| Zaas 2009 HRV / RSV / H3N2 challenge, GEO GSE17156 (PMID 19664979) | ✅ GEO FTP (log2) | baseline + peak-symptom sample; H3N2 arm overlaps GSE52428, so drop it | `data/geo.py:series_matrix` |
+| GEO platform annotation (e.g. GPL571) | ✅ `geo/platforms/GPLnnn/<GPL>/annot/<GPL>.annot.gz` | probe → gene symbol | `data/geo.py:gpl_symbols` |
+| DARPA challenge set GSE73072 (7 studies, 148 subjects) | ⚠️ expression open, symptom / shedding labels only via an external link | — | not used |
+| Glue-grant trauma GSE36809 | ⚠️ no outcome labels in GEO | — | not used |
 | DepMap portal | ❌ verification wall | — | — |
 | cellxgene curation API | ❌ 404 | — | — |
 | HMDB | ❌ 403 | — | — |

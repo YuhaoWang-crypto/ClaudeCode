@@ -35,6 +35,7 @@
 | CGMacros meals → T2D (n = 45) | fasting AUC 0.92 | recovery kinetics 0.91 | no gain; small n overfits |
 | GSE75210 macrophages: which inputs route through MyD88 (real time series) | t=0 AUC 0.50 | any stimulated time point ≈ 1.0; trajectory area 1.0, replicate r 0.91, 0 errors on held-out plate | a functional state exists only under stimulation |
 | GSE75210: is this macrophage Myd88⁻/⁻ | modules AUC 1.0, transcriptome 0.93 | + trajectory: 1.0 / 0.80 (worse) | genotype is compositional: static suffices |
+| GSE52428 influenza challenge: who becomes ill (41 adults, human blood) | pre-challenge 0.59–0.72, FP 50–70 % | + 36 h → 60 h → trajectory: 0.80 → 0.89 → 0.93, FP 0 % (leave-strain-out) | susceptibility is functional; the response transfers to HRV/RSV (0.88) while the static signal flips between viruses (0.80 vs 0.38) |
 
 The rule that emerges: dynamics help when the system COMPENSATES at the set point (a hidden feedback, homeostats), and do not help when the static marker already integrates the defect (HbA1c, fasting glucose).
 
@@ -51,7 +52,20 @@ A second distinction from D12: is the state you want to define **functional** (h
    - **off-target cost** = response in a module the target does not use (here the interferon arm).
 5. **Result**: bypass inputs (LPS, zymosan, Poly(I:C), MDP+LPS) reach the positive-control gain and shape but add +3 to +8 log2·h interferon. The minimal restoration set is therefore two knobs: a bypass input plus suppression of the side programme.
 
+## Human time series without an intervention arm (D13, `demos/d13_human_challenge_state.py`)
+
+1. **Use the pre-challenge samples twice.** Their mean is the personal reference. Their difference is the noise floor of that reference (ISG module SD 0.23 log2).
+2. **Report AUC time point by time point.** This says when the state becomes readable (about 45 h here).
+3. **Find core genes by replication across groups.** Require significance in each strain separately, and add a label-permutation null.
+4. **Pick minimal readouts from the collective mode.** Run a label-free PCA of the response. If PC1 alone separates the groups, any high-loading prior gene is a sufficient readout. Benchmark data-driven picks against random gene sets signed the same way.
+5. **Restoration cannot be tested without a treatment arm.** Report it as out of scope rather than inferring it.
+
 ## Pitfalls hit
+
+- **The personal baseline helps pre-specified modules early, but not high-dimensional classifiers.** Subtracting a noisy baseline adds its variance. Its advantage for modules (ΔAUC about +0.1 at 29–53 h) did not reach significance with n = 41.
+- **The sampling window can end before recovery.** In GSE52428 the IFN programme is still at +13 SD at 108 h. State the window limit instead of calling it "non-recovery".
+- **GEO challenge series overlap.** GSE17156's H3N2 arm is the same DEE2 cohort as GSE52428. Drop it before calling a test "independent".
+- **GSE52428 values are linear MAS5.** Take log2(max(x, 16)), quantile-normalise, and keep the highest-mean probe per gene. GSE17156 is already on a log scale.
 
 - **Euclidean restoration distance is noise-dominated on low-input time courses.** Myd88⁻/⁻ cells' "no response" vector already had a norm of 1.07 × the target. As a result, doing nothing scored better (0.30) than every bypass, and the positive controls only reached about 0.45. Use projection and cosine, and calibrate with positive and negative controls.
 - **Data-driven "response genes" on 2-replicate time courses replicate at r ≈ 0.** Fix the modules from prior knowledge before looking at the data.
