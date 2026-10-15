@@ -119,3 +119,26 @@ def test_long_hold_reaches_nernst():
     wf = sb.Waveform(0.01, 0.0, e_start=-0.25, e_end=-0.25)   # 50 s hold
     out = sb.simulate(kin, [wf], 1e3, 0.4, -0.26)[0]
     assert abs(out["fwd"][0]) < 1e-10
+
+
+def test_generator_estimator_recovers_known_ctmc():
+    import msm
+    rng = np.random.default_rng(7)
+    pi, L = random_reversible(4, rng, scale=0.05)          # rates per frame-time unit
+    gen_true = msm.Generator(pi, L * pi[None, :])
+    P = gen_true.propagator(1.0)                            # one frame
+    n = 400000
+    s = np.empty(n, int)
+    s[0] = 0
+    u = rng.random(n)
+    cum = np.cumsum(P, axis=0)
+    for t in range(1, n):
+        s[t] = np.searchsorted(cum[:, s[t - 1]], u[t] * cum[-1, s[t - 1]])
+    for lag in (1, 5):
+        C = msm.count_matrix([s], lag, 4)
+        g = msm.fit_generator(C, msm.stationary_from([s], 4), float(lag))
+        assert g.converged
+        rel = np.abs(g.timescales() - gen_true.timescales()) / gen_true.timescales()
+        assert rel.max() < 0.1, rel
+        off = ~np.eye(4, dtype=bool)
+        assert np.allclose(g.L[off], L[off], rtol=0.25, atol=0.003)
