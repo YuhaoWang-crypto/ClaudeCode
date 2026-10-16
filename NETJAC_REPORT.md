@@ -1799,6 +1799,8 @@ IFN-γ 通路敲除 → 抗性，✅ 复现了该文章的主结果。然后看�
 
 图：`figures/netjac/d24_cooccurrence_sensitisation.png`。
 
+网页报告：<https://claude.ai/artifact/6BukYbwS9BHRSz9KHyJUFS>（私有）。
+
 ---
 
 ## 26. 平台与 skill（可延伸）
