@@ -85,3 +85,12 @@ Kinetic gain claim requires a ≥10 % relative reduction of the held-out NRMSE v
 vs R2 and with the 5-parameter non-MD control. Digitization floor ≈3 % NRMSE. Nine curves on presumably one
 electrode: no statistical claim of superiority. Labels kept separate: numerically correct / molecular
 dynamics internally gated / time scale experimentally calibrated / held-out target met / target-system transfer.
+
+---
+## Deviations recorded after the freeze (none used current data to choose anything)
+1. Excluded volume and wall: WCA replaced by truncated harmonic repulsion (1000 k_BT nm⁻², same contact
+   distances) because WCA on 0.15 nm linker beads is unstable for every allowed Brownian time step.
+2. 64 non-interacting replicas per OpenMM context; a "seed" is one context.
+3. R2 lag candidates extended to 5 and 10 ns; CK compatibility = deviation ≤ 3 SE or ≤ 0.03.
+4. Buffer not stated in the source; water viscosity assumed.
+5. Fit objective uses forward, backward and net components; primary metric is net NRMSE (as stated above).
