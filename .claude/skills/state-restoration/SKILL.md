@@ -56,6 +56,12 @@ Answer these four questions first and write the answers down.
 | Perturbation screen (each module / gene perturbed) | causal J by MRA → causal levers | Perturb-seq (D9–D11), Norman doubles |
 | Kinetic model available | exact J, fragility, ground-truth levers | Teusink (D11), network-jacobian skill |
 
+5. **If the question is about rates rather than about a state, run the identifiability audit before promising anything.** This is its own deliverable (D27), and it has two layers that must both be reported:
+   - **Structural**: write the ODE of the quantity you will actually measure. A proportion is invariant to anything that scales all compartments together, so a proportion time course can never give absolute rates — shifting both growth rates of a two-state model by the same amount leaves p(t) identical to 2.2e-16 while the cell number changes 16-fold. Get the Fisher information's rank and null vectors; `pinv` will otherwise report a finite error bar for a parameter that is not estimable at all.
+   - **Practical**: with the actual design and noise, which parameters are estimable? Structurally identifiable is not the same as estimable — in D27 both the switching rate and the growth difference are structurally identifiable, yet the identifiable block has condition number 7.1e+05 and only one combination comes out.
+
+   Then say which measurement unblocks the rest and compute its specification (cells per timepoint x measurement precision x sampling density), because for a structural null direction no amount of either helps, and for a sloppy direction sampling density barely helps (6 → 48 timepoints moved one CV from 1.81 to 0.63).
+
 ## 1–5. Run
 
 ```python
@@ -195,6 +201,7 @@ IL19, S100A7A, DEFB4A, SERPINB4 and IL23A, i.e. the disease signature genes.
 | D13 | GSE52428 influenza challenge → GSE17156 HRV/RSV | Static 0.59–0.72 → 0.93 (leave-strain-out). Core = type I IFN (111 genes, null 0). Illness = one collective mode ✅ |
 | D14 | Psoriasis, AD vs placebo, IBD | Restoration tracks clinical scores (ρ 0.58–0.66). Dupilumab 0.63 vs placebo −0.04 (paper: 68.8 % vs −10.5 %). Th2 restored, interferon not ✅ |
 | D15 | Pipeline end to end on D14 data | See below |
+| D27 | GSE149383 PC9 + erlotinib, plus 120 audited GEO series | Feasibility audit. Structure: proportions never give the common growth level (FIM rank 3/4; 4/4 with ln N, cond 1.0e4 as the negative control), and for a two-compartment maturation model the differentiation rate IS identifiable from proportions while the kill rate is not, even with counts ✅. Practice: after thinning every cell to a common UMI budget (corr(PC1, depth) +0.964 → −0.013) the three independent day-11 libraries agree to sd 0.023 ✅, but three definitions of the second state disagree (+0.44 to +0.86) and the fit's dg profile covers the whole grid ❌. 0/120 audited series carry an absolute-count field ❌ |
 
 D15 details:
 - Steps 1–3 pass on all three datasets.

@@ -276,3 +276,69 @@ D20 adds the ceiling on this: even with the right cell type and the right
 lever in the library, the ranking is an indication-level statement. The
 clinical response to a drug cannot confirm its own mechanism, because other
 mechanisms in the same disease produce almost the same response vector.
+
+## D27 — EGFR / AML feasibility audit (scenarios 4 and 5): what proportions pin down
+
+Run as the NJ-FEAS-01 product, not a result product. `demos/d27_egfr_aml_feasibility.py`.
+
+**Structural identifiability (algebra, verified to machine precision).**
+
+| Claim | Check | Verdict |
+|---|---|---|
+| EGFR: p(t) obeys dp/dt = a(1−p) − bp + (gR−gS)p(1−p) | shifting gS and gR by the same +0.25/day moves p(t) by 2.2e-16 while N(11) changes 16-fold | ✅ the common growth level is an exact null direction |
+| EGFR proportions see only (a, b, dg) | FIM rank 3/4, null vector (0, 0, +0.707, +0.707) | ✅ |
+| EGFR + ln N is full rank (negative control for the rank test) | rank 4/4, cond 1.0e+04 | ✅ the deficiencies are structure, not finite-difference noise |
+| "Proportions cannot tell switching from selection" | both a and dg are structurally identifiable | ❌ the common claim is wrong |
+| AML: r = M/I obeys dr/dt = delta − Cr, C = gI − dI − delta + dM | two parameter sets with equal (delta, C) agree in mature fraction to 1.3e-15 (0.280 at day 7) with 67-fold different totals | ✅ |
+| "Proportions cannot distinguish differentiation from killing" | **delta IS identifiable** from proportions (CV 11% at 2,000 cells x 6 days); the kill rate is not | ❌ half wrong, and the wrong half is the one that was being sold |
+| Absolute counts fix the AML kill rate | rank goes 2/4 → 3/4 only; gI and dI stay lumped (null vector (+0.707, +0.707, 0, 0)) | ❌ a third channel is required |
+
+**Practical identifiability is a separate question.** In the (a, b, dg) basis at
+6 timepoints and sigma_p = 0.02, the best-determined combination is essentially
+a alone (sd 0.0045, CV 6%) while b and dg are confounded (worst direction
+−0.01a +0.60b +0.80dg, sd 3.78; block cond 7.1e+05). Report both layers: the
+structural layer says what no amount of data can fix, the practical layer says
+what this design actually estimates.
+
+**The real deposit (GSE149383, PC9 + erlotinib Drop-seq).**
+
+| Finding | Number | Consequence |
+|---|---|---|
+| Re-deposition across subseries | 3 of 14 advertised PC9 libraries are byte-identical after decompression (D0 = D0_b, D2 = D2_b, D11_ERL = D11_ERL_c) | "three independent replicates" were one library; always hash before counting replicates |
+| Depth confounded with day | corr(day, log median UMI) = +0.865 (2,142 → 8,425 UMI from day 0 to day 11) | the time axis and the depth axis cannot be separated by design |
+| PC1 is depth | corr(PC1, log UMI) = +0.964 raw, −0.013 after exact thinning to 1,000 UMI/cell | any unsupervised state call on raw counts is a depth call |
+| Depth matching rescues reproducibility | day-11 p across three independent libraries: 0.870 / 0.341 / 0.643 raw (spread 0.53) → 1.000 / 0.954 / 0.971 (sd 0.023) | the state fraction IS reproducible; depth was moving it |
+| The second state is not well defined | three definitions (label-free mixture, supervised D11−D0 axis, DTP marker score) agree pairwise at only +0.44 to +0.86; the label-free one tracks proliferation arrest (cycle shift −0.369) and is non-monotone in time | define the second state before fitting any two-state model |
+| The fit pins nothing | a 95% profile [0.05, 5.74]/day; dg's profile spans the whole [−5, 5] grid; b and p0 sit on bounds. Half-conversion 0.22 day, so the design samples the plateau | good chi2 (0.49 on 2 dof) is not evidence of estimability |
+| Circularity check | refitting with the independent libraries at days 0 and 11 (p 0.116 → 0.963) gives a = 1.43 and the same unconstrained profiles | the conclusion is not an artefact of the axis construction |
+| Burden span | 6.0e+04-fold at day 11 for gS in [−0.5, +0.5]/day with dg fixed; 4.6e+47 with dg free | efficacy is unidentifiable by construction |
+| Barcodes are not cells | deposited barcode counts span 24-fold (494–12,000) with 52–95% empty droplets; the xenograft arms of the same study carry 29,340–29,983 cells, CV 1.0% | recovered cell number is set by loading, never by survival |
+
+**Audit of what public deposits carry** (top 60 series of each of two
+reproducible GEO queries, scanning `!Sample_characteristics`):
+
+| Query | GEO hits | audited | >=3 time values | any count field | both |
+|---|---|---|---|---|---|
+| EGFR drug-tolerant persister | 183 | 60 | 1/60 | **0/60** | **0/60** |
+| AML differentiation therapy | 174 | 60 | 1/60 | **0/60** | **0/60** |
+
+**Design that unblocks each scenario** (Cramer-Rao, not opinion). EGFR: without
+a count, gS is not estimable at 500, 2,000 or 10,000 cells per timepoint; with
+2,000 cells and a count at CV 5%, CV(a) 0.11, CV(dg) 0.48, CV(gS) 0.09. Densifying
+sampling does not help dg — 6 → 48 timepoints only takes CV(dg) from 1.81 to 0.63.
+AML needs three channels: proportions alone give delta at CV 0.11 and nothing
+else; adding counts buys dM (0.25); only adding a proliferation readout (EdU or
+dye dilution, CV 20%) makes the design full rank, and even then dI lands at CV 1.04.
+
+**Rules it sets.**
+- Split every feasibility answer into structural identifiability (what no amount
+  of data fixes) and practical identifiability (what this design estimates).
+  Quoting only the first overstates capability; quoting only the second makes
+  "collect more cells" look like a solution when it is not.
+- Before claiming replicates from a GEO SuperSeries, hash the decompressed files.
+- Before any unsupervised state call, regress or thin out sequencing depth and
+  report corr(PC1, log depth) both ways.
+- A two-state model needs the second state defined first; report the agreement
+  between at least two independent definitions of it.
+- A good chi2 with a flat profile is not an estimate. Profile every parameter
+  that enters a feasibility claim.
