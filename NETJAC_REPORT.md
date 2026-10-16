@@ -1874,6 +1874,8 @@ IFN-γ 通路敲除 → 抗性，✅ 复现了该文章的主结果。然后看�
 
 图：`figures/netjac/d25_cart_rest_timescales.png`。
 
+网页报告：<https://claude.ai/artifact/CVTn681ocwfsH1u1o7LtTP>（私有）。
+
 ---
 
 ## 27. 平台与 skill（可延伸）
