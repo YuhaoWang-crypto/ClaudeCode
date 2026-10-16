@@ -221,6 +221,27 @@ it on a pair that cannot co-vary, (2) split-half the statistic itself, and
 (3) convert its bootstrap SE into a cells-per-group requirement. The hypothesis
 here is under-powered by 10–30x, not refuted.
 
+### Is there a slow mode behind "rest" in CAR-T exhaustion? (D25)
+
+Weber 2021 (GSE164949 RNA-seq: 3 donors x HA-28z CAR-T at days 7/11/15, always
+ON / always OFF / transient rest from day 7 or 11 / ON + nivolumab; GSE164947
+ATAC + H3K27me3).
+
+| Check | Result | Status |
+|---|---|---|
+| One exhaustion axis across days | cross-day cos +0.55 to +0.72 vs +0.51 between donors within a day | ✅ |
+| Rest restores, as a dose-response | 4 d: +0.63 and +0.85 (two independent arms); 8 d: +1.07 | ✅ |
+| The read-out is specific (not "any intervention restores") | nivolumab +0.05 (day 11) and +0.35 (day 15) vs rest, paired p 0.0033 / 0.040 | ✅ |
+| **A slow mode inside the transcriptome** | every defined module has tau 1.2–2.6 days (ratio 2.3); effector function overshoots to +1.87 | ❌ one fast mode |
+| Housekeeping module undefined | 1 disrupted gene | ✅ |
+| RNA can proxy the chromatin arm | the epigenetic-machinery module is undefined — EZH2/DNMT/TET2 transcripts do not differ | ❌ |
+| The cross-modality (false recovery) test | deposited ATAC has no rested arm; H3K27me3 matrix labels (D11/HA/SI) are not mappable to rested/always-off/always-on | ❌ design gap |
+
+**Rule it sets.** Before claiming two timescales, check that the slow modality is
+actually measured in the same rest/recovery arms. A transcriptome time course can
+show that there is no slow mode *in RNA*, which is not the same as showing there
+is none — and the expression of chromatin machinery is not a usable stand-in.
+
 **What the step-5 results mean.** A J fitted from one observational intervention describes how the system relaxes under that intervention. Its "levers" are the modules that relax least by themselves: bottlenecks and candidate add-on targets.
 
 Confirmed in D16: with a measured response library the same formula recovers the
