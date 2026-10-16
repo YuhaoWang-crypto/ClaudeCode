@@ -160,6 +160,27 @@ GSE70138 (LINCS L1000 Phase 2): 118,050 level-5 signatures, 2,171 compounds,
 responses to a disease-relevant perturbation. Drug effects on unstimulated
 cancer lines satisfy neither, however many compounds they cover.
 
+### Remove the cause instead of the drug: what stays? (D22)
+
+GSE7895 (bronchial epithelium: 21 never, 52 current, 31 former smokers, 1–504
+months since quitting) and GSE145358 (coeliac duodenum: 15 patients on a
+gluten-free diet then gluten-challenged, 6 healthy controls).
+
+| Check | Result | Status |
+|---|---|---|
+| Exposure-driven modules return once the cause is gone | xenobiotic metabolism +1.07 → +0.10 (slope per doubling of time −0.076, p 0.008); NRF2 +1.03 → +0.32 (p 0.004); cilia −0.09, n.s. vs never | ✅ |
+| Structural / differentiation modules lag | secretory/mucous still +0.56 after 10+ years (p 0.0005 vs never, raw) | ✅ raw |
+| ... and that survives the age confound | age-matched 40–60 window (n 5 vs 7): secretory/mucous +0.93 vs +0.20 and squamous/basal +0.62 vs −0.39, both p 0.030, **BH q 0.091**; xenobiotic p 0.20, cilia p 1.0 | ⚠️ suggestive |
+| Gene-level "scar" fraction | 80/323 (25 %) raw; **0 with age in the model** — corr(group, age) = 0.79, so this is non-identifiability, not absence | ❌ not estimable |
+| Coeliac: residue on a gluten-free diet | crypt proliferation +0.51, epithelial absorption +0.41 (BH q 0.073) — but the **housekeeping control drifts +0.36** | ❌ not separable |
+| Re-exposure returns along the disease axis | leave-one-patient-out median cos +0.52 (and the GFD residue lies on the same axis, +0.67) | ✅ third disease |
+
+**Rules it sets.** (1) In a cause-removal cohort, compute corr(group, confounder)
+before anything else; above ~0.7 the regression adjustment is not identifiable
+and only a matched window answers the question. (2) In bulk tissue with large
+composition change, housekeeping genes are not a negative control; report the
+control module's own drift and count only the excess.
+
 **What the step-5 results mean.** A J fitted from one observational intervention describes how the system relaxes under that intervention. Its "levers" are the modules that relax least by themselves: bottlenecks and candidate add-on targets.
 
 Confirmed in D16: with a measured response library the same formula recovers the

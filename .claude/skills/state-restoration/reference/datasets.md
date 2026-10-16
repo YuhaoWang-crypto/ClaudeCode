@@ -60,6 +60,8 @@ mostly cannot be answered from existing public data.
 | **GSE52428** / **GSE17156** ★★★ | two pre-challenge samples per subject: mean = personal balance, difference = personal noise floor |
 | **GSE75214** | IBD mucosa reference ensemble (mean and covariance of controls) |
 | **GSE75210** ★★ | Myd88⁻/⁻ macrophages, 12 stimuli × 8 times — a known-answer test set for the method |
+| **GSE7895** ★★★ | bronchial epithelium, never / current / former smokers with 1–504 months since quitting — a dose-of-time cause-removal design (used in D22; age-confounded, see pitfalls) |
+| **GSE145358** ★★ | coeliac duodenum, 15 patients on a gluten-free diet then gluten-challenged, paired, plus healthy controls — cause removed AND restored in the same people (used in D22) |
 | **GSE70138** (LINCS L1000 Phase 2) | 118,050 signatures, 2,171 compounds, 7 main cell lines; 978 MEASURED genes, 11,350 inferred. Used in D21: fails the psoriasis positive control; useful as a cautionary benchmark, not as a lever library for a tissue disease |
 
 ## Five studies worth doing first
@@ -90,8 +92,14 @@ mostly cannot be answered from existing public data.
    different answer: the limit is the assay (drugs on unstimulated cancer lines),
    not the compound count. The experiment that would work is drug x cytokine-stimulus
    screening in keratinocytes.
-5. **Does removing the cause leave a scar?** (GSE254592 HCV cure + GSE7895 quitting).
-   Prediction: inflammatory modules fully recover, structural/epigenetic ones do not.
+5. ~~**Does removing the cause leave a scar?**~~ **DONE — D22**, with GSE7895
+   (smoking cessation) and GSE145358 (coeliac on a gluten-free diet) instead of
+   GSE254592 (that one is PBMC, not tissue). Exposure-driven modules return,
+   secretory/structural ones do not, but only at q ≈ 0.09 in the age-matched
+   window — a cause-removal cohort is confounded by age (corr 0.79 here), and in
+   coeliac bulk tissue the housekeeping control drifts as much as the modules.
+   Still open, and the design that settles it is a cohort matched on age and
+   exposure, or a longitudinal one sampled before and years after removal.
 
 ## Limits to state every time
 
