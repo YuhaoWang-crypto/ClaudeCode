@@ -139,6 +139,27 @@ response was produced through this pathway") needs at least two mechanistically
 different drugs sampled against the same library, because in one disease their
 transcriptome effects are nearly the same vector.
 
+### Can a generic drug library replace the response library? (D21)
+
+GSE70138 (LINCS L1000 Phase 2): 118,050 level-5 signatures, 2,171 compounds,
+7 main cell lines, 978 measured genes + 11,350 inferred.
+
+| Check | Result | Status |
+|---|---|---|
+| Machinery works where the platform measures the genes | 16 antiproliferatives lower the proliferation module (4 landmark genes) vs unrelated drugs, AUC 0.72 | ✅ |
+| **23 psoriasis therapies rank above 28 unrelated drugs** | AUC 0.634 (p 0.055) measured-genes/cosine; 0.514 measured/rank-based; 0.520 disease-genes/cosine; 0.556 disease-genes/rank-based — the two metrics agree at Spearman +0.85 | ❌ all four |
+| Best psoriasis therapy's rank of 1768 compounds | #166 (dexamethasone-acetate) / #50 (methylprednisolone) | ❌ |
+| Known psoriasis aggravators score below the therapies | aggravators +0.039 vs therapies +0.004 in the disease-gene space | ❌ reversed |
+| Ranking survives the cell line | per-line AUC 0.31–0.79; between-line ranking Spearman +0.15 to +0.37 | ❌ |
+| Score is not a magnitude artefact | Spearman with signature norm +0.29 (p 1e-35); top of the list is HSP90 / mTOR / proteasome | ❌ |
+| Ranking is disease-specific | psoriasis vs atopic dermatitis Spearman +0.41 to +0.52, 9–10/20 top-20 overlap, therapies' psoriasis-minus-AD +0.027 = the library's +0.029 | ❌ |
+| The barrier module can be asked at all | 0 measured genes (7/12 inferred); "best" barrier-raising compounds are CDK/proteasome inhibitors | ❌ not answerable |
+| Drugs are simply inactive in these lines | median |z| by class 30–40 vs library 31 — they do perturb the cells, the direction is wrong | ⚠️ explanation withdrawn |
+
+**Rule it sets.** A step-5 response library needs the right cell type AND
+responses to a disease-relevant perturbation. Drug effects on unstimulated
+cancer lines satisfy neither, however many compounds they cover.
+
 **What the step-5 results mean.** A J fitted from one observational intervention describes how the system relaxes under that intervention. Its "levers" are the modules that relax least by themselves: bottlenecks and candidate add-on targets.
 
 Confirmed in D16: with a measured response library the same formula recovers the

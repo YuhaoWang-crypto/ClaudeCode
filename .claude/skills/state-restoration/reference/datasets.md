@@ -60,6 +60,7 @@ mostly cannot be answered from existing public data.
 | **GSE52428** / **GSE17156** ★★★ | two pre-challenge samples per subject: mean = personal balance, difference = personal noise floor |
 | **GSE75214** | IBD mucosa reference ensemble (mean and covariance of controls) |
 | **GSE75210** ★★ | Myd88⁻/⁻ macrophages, 12 stimuli × 8 times — a known-answer test set for the method |
+| **GSE70138** (LINCS L1000 Phase 2) | 118,050 signatures, 2,171 compounds, 7 main cell lines; 978 MEASURED genes, 11,350 inferred. Used in D21: fails the psoriasis positive control; useful as a cautionary benchmark, not as a lever library for a tissue disease |
 
 ## Five studies worth doing first
 
@@ -80,9 +81,15 @@ mostly cannot be answered from existing public data.
    extent of slow (barrier) restoration. D20 already did two of the three and found
    the drug effects cos +0.671 apart, so the interesting question is now what the
    0.33 of difference *is*, and whether JAK inhibition separates from both.
-4. **Extend levers to real drugs** (GSE92742 LINCS). Project the disease
-   displacement onto thousands of drug responses; known-effective drugs ranking
-   high is the positive control.
+4. ~~**Extend levers to real drugs** (LINCS).~~ **DONE — D21, and it FAILED the
+   positive control.** On GSE70138 (Phase 2, 2,171 compounds) the 23 psoriasis
+   therapies do not rank above 28 unrelated drugs in any of four score/gene-space
+   variants, the top of the list is HSP90/mTOR inhibitors, the ranking is
+   cell-line-dependent and not disease-specific, and the barrier module has zero
+   measured genes. Do not spend time on GSE92742 (Phase 1, 21 GB) expecting a
+   different answer: the limit is the assay (drugs on unstimulated cancer lines),
+   not the compound count. The experiment that would work is drug x cytokine-stimulus
+   screening in keratinocytes.
 5. **Does removing the cause leave a scar?** (GSE254592 HCV cure + GSE7895 quitting).
    Prediction: inflammatory modules fully recover, structural/epigenetic ones do not.
 

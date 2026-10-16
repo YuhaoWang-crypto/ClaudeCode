@@ -107,6 +107,19 @@ module j (verified numerically in `statepipe.causal_J`). So the question is neve
 - **If you have one observational intervention** (a single drug time course):
   you may report bottlenecks and the slow mode, explicitly labelled as such.
   Do NOT report a causal lever ranking. This is the check D15 failed.
+- **A generic drug library is not a response library.** D21 scored ~1,800 LINCS
+  L1000 compounds against the psoriasis displacement the Connectivity-Map way.
+  The machinery works (16 antiproliferatives lower the measured proliferation
+  module, AUC 0.72) but the drug-level positive control fails in all four
+  variants (23 psoriasis therapies vs 28 unrelated drugs: AUC 0.63 p 0.055 /
+  0.51 / 0.52 / 0.56), the best therapy ranks #166 of 1768, and the two known
+  psoriasis aggravators outscore the therapies in the disease-gene space. A
+  usable step-5 library needs BOTH: (1) the cell type the disease signature
+  comes from, and (2) responses to a DISEASE-RELEVANT PERTURBATION, not drug
+  effects on unstimulated cells. The keratinocyte library works because it
+  measures cytokine-stimulus responses. For skin the missing experiment is
+  drug x cytokine-stimulus screening in keratinocytes, not a bigger compound
+  library.
 - **A lever ranking is about the INDICATION, not about a drug.** D20 closed the
   loop with secukinumab, the antibody against the lever the library predicted:
   IL-17A did rank #1 (cos +0.375 [0.247, 0.483]), but the ranking tracks "how
