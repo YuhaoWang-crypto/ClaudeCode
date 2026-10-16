@@ -242,6 +242,27 @@ actually measured in the same rest/recovery arms. A transcriptome time course ca
 show that there is no slow mode *in RNA*, which is not the same as showing there
 is none — and the expression of chromatin machinery is not a usable stand-in.
 
+### Can a composition snapshot prove a blocked exit? (D26)
+
+GSE135893 (human IPF, Habermann 2020) + GSE141259 (mouse bleomycin time course,
+Strunz 2020), cell-level annotations only. Three-state repair model
+AT2 -> transitional -> AT1.
+
+| Check | Result | Status |
+|---|---|---|
+| Fractions equal residence-time ratios (1/k1 : 1/k2 : 1/d) | max relative error 4e-16 over 200 random parameter sets | ✅ exact |
+| **D/T = d/k2, independent of k1 and s** | spread 1.1e-16 with k1 over 5 orders of magnitude — entry acceleration cannot move the ratio at all | ✅ sharper than the "ceiling" claim |
+| k1 -> infinity fraction ceiling = healthy f_D/(f_D+f_T) | predicted 0.3636 = simulated | ✅ |
+| Human: disease exceeds the fraction ceiling | ceiling from controls 0.484 vs disease f_D 0.121 | ❌ not exceeded |
+| Human: D/T rises | 2.55x but [0.35, 11.33] on a **donor-level** bootstrap (10 vs 20 donors) | ❌ not significant |
+| Mouse: usable baseline | PBS has 3 transitional and 20 AT1 cells; days 2 and 4 give D/T of 40 and 72 off 2–3 AT1 cells; whole-lung deposit has AT1 = 38 of 29,297 | ❌ |
+| **AT1 recovery is condition-independent** | mouse 0.84 % (PBS) to 3.3 % (injury) although bleomycin destroys AT1; human 8.9 % to 5.0 %; r = 0.39 erases the human effect | ❌ decisive |
+
+**Rule it sets.** The bound is real and parameter-free, but dissociation-based
+composition cannot supply its inputs when one compartment is fragile. Ask what
+relative recovery would erase the result before interpreting any ratio of cell
+types, and get absolute rates from pulse-chase, not from a snapshot.
+
 **What the step-5 results mean.** A J fitted from one observational intervention describes how the system relaxes under that intervention. Its "levers" are the modules that relax least by themselves: bottlenecks and candidate add-on targets.
 
 Confirmed in D16: with a measured response library the same formula recovers the
