@@ -1471,6 +1471,8 @@ IL-17A 在九个杠杆里**排第一**，对"打乱基因标签的 IL-17A"也显
 
 图：`figures/netjac/d20_secukinumab_closed_loop.png`。
 
+网页报告：<https://claude.ai/artifact/9M85EFVzf5nLZL8aFWJ7En>（私有，需在页面 Share 菜单分享）。
+
 ---
 
 ## 22. 平台与 skill（可延伸）
