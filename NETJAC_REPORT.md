@@ -2157,7 +2157,7 @@ AML：
 
 图：`figures/netjac/d27_egfr_aml_feasibility.png`
 
-网页报告（私有，需在页面 Share 菜单分享后他人才可见）：__ARTIFACT__
+网页报告（私有，需在页面 Share 菜单分享后他人才可见）：https://claude.ai/artifact/X4HPetArA1PdfEgSi8nCRP
 
 ## 29. 平台与 skill（可延伸）
 
