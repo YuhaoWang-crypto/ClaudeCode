@@ -32,18 +32,22 @@ N_ELEC = 2
 
 
 class Waveform:
-    """Osteryoung SWV: staircase E_k = E_start - k*dE (reduction scan), forward half-pulse at
-    E_k - Esw, backward at E_k + Esw, each 1/(2f) long, sampled at the end of each half."""
+    """Osteryoung SWV staircase from e_start towards e_end in steps de, each step = forward half-pulse
+    (displaced by e_sw in the scan direction) then backward half-pulse, each 1/(2f) long, currents
+    sampled at the end of each half.  Reduction scan (e_end < e_start, e.g. methylene blue): forward at
+    E_k - e_sw.  Oxidation scan (e_end > e_start, e.g. ferrocene): forward at E_k + e_sw.
+    Currents are always reported cathodic-positive; on an oxidation scan the forward current is negative.
+    Potentials are handled in integer mV (exact for 1 mV steps and integer-mV amplitudes)."""
 
     def __init__(self, f_hz, esw_v, e_start=0.0, e_end=-0.45, de=0.001):
         self.f = float(f_hz)
         self.esw = float(esw_v)
-        nstep = int(round((e_start - e_end) / de)) + 1
-        self.e_stair = e_start - de * np.arange(nstep)
+        self.direction = -1 if e_end <= e_start else 1   # a single-point scan keeps the reduction convention
+        nstep = int(round(abs(e_start - e_end) / de)) + 1
+        self.e_stair = e_start + self.direction * de * np.arange(nstep)
         self.h = 0.5 / self.f
-        # potentials in integer mV (exact for 1 mV steps and integer-mV amplitudes)
-        self.mv_fwd = np.rint((self.e_stair - self.esw) * 1000).astype(int)
-        self.mv_bwd = np.rint((self.e_stair + self.esw) * 1000).astype(int)
+        self.mv_fwd = np.rint((self.e_stair + self.direction * self.esw) * 1000).astype(int)
+        self.mv_bwd = np.rint((self.e_stair - self.direction * self.esw) * 1000).astype(int)
         self.e_start = e_start
 
 

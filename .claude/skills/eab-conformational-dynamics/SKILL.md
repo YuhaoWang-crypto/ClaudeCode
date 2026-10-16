@@ -42,7 +42,16 @@ Report to the user in their own language. Keep every claim labelled by what supp
 | `tests/` | 11 numerical tests (expm, stiff Radau, exchange limits, detailed balance, reversible limits, CTMC recovery). Run `python -m pytest tests -q` before trusting any change |
 
 Dependencies: numpy, scipy, matplotlib; openmm only for `cg_md.py`. Pin BLAS to one thread
-(`OPENBLAS_NUM_THREADS=1`) when running parallel fits.
+(`OPENBLAS_NUM_THREADS=1`) when running parallel fits, and set `PYTHONDONTWRITEBYTECODE=1` so runs do
+not write `__pycache__` into the skill folder. The test suite takes ~3 min.
+
+Conventions: `Waveform(f, E_sw, e_start, e_end)` scans in whichever direction `e_end` lies (reduction
+for MB, oxidation for ferrocene); currents are always reported cathodic-positive. Chemistry `E1` is
+one-electron (ferrocene), `C0` the apparent concerted 2e⁻ step (MB).
+
+**Two depths of use.** A *triage* question ("can dynamics matter for my probe and frequencies?")
+needs only steps 2–3 below, minutes of compute, and no pre-registration. A *comparison against
+measured currents* needs the full workflow, starting with step 0.
 
 ## Workflow
 
@@ -66,10 +75,18 @@ drove it. This is what makes a negative or surprising result believable.
 - Paywalled/closed data: say "insufficient", never substitute author simulations or another reporter.
 
 ### 2. Triage — run `timescale_check.py` first
-It needs an equilibrium height distribution of the reporter (from step 3, or a quick short CG run).
-If half-pulses exceed conformational relaxation by ≫10³ and |R1 − R0| at s = 1 is below the noise
-floor, the routes will converge. Tell the user that prediction up front, then still run the
-comparison (it is cheap) but put the effort into chemistry and identifiability.
+It needs an equilibrium height distribution of the reporter (from step 3; a short replica run is
+enough for triage) and, ideally, the measured height correlation time (`--tau-conf`): Stokes–Einstein
+for the bare reporter ignores chain friction, so calibrate the motion scale to the trajectories.
+Pick `--chem`, `--alpha`, `--E0` and `--scan` for the reporter (write `--scan=-0.05,0.45` when the
+value starts with a minus sign). Output is |R − R0| as a share of the largest net signal, at s = 1,
+10⁻², 10⁻³ and with the chain frozen, plus curves that carry almost no signal at that rate.
+- s = 1 column far below the noise floor → R1/R2 cannot beat R0 here; say so first and invest in
+  chemistry, rate heterogeneity and identifiability.
+- Large "frozen chain" value but tiny s = 1 value → heights are heterogeneous, exchange washes it out.
+- Rule of thumb seen in practice: |R1 − R0| / max signal ≈ 5·k_eff·τ_conf, saturating at the frozen value.
+- Effects only at s ≤ 10⁻² require motion 100–1000× slower than modelled (e.g. sticky
+  reporter–surface states the CG model cannot produce) — name that as the main risk, not a finding.
 
 ### 3. Molecular model (`cg_md.py`)
 - Defaults (all assumptions to declare): 1 bead/nt, bond 0.6 nm, 100 k_BT nm⁻², l_p 1 nm,
@@ -79,6 +96,9 @@ comparison (it is cheap) but put the effort into chemistry and identifiability.
 - Use many replicas per context (`n_rep=64`): single small systems run at only ~1.5×10⁴ steps/s on
   CPU, replicas give ~6× throughput. ≥3 seeds (contexts) with mixed extended/collapsed starts;
   seeds 1–2 build, seed 3 validates.
+- Equilibration scales roughly with N²: 20 ns suits ~20 nt; use ≥ 20·(N/20)² ns and check that the
+  first and second halves of each run agree (mean height, contact-weighted rate) and that the height
+  autocorrelation actually decays within the run. Drift makes the time-step rule undecidable.
 - Time-step rule: fastest dt whose halving changes every equilibrium observable and correlation time
   by ≤5 %. Size runs so the standard error is well below 5 % (contact-weighted rates need ~10²–10³ µs
   of pooled sampling); otherwise the rule cannot be decided.

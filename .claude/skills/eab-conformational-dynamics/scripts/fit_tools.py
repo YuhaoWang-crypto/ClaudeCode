@@ -72,13 +72,17 @@ def make_model_fn(build, data, de=0.001, e_start=0.0, e_end=None, **baseline_kw)
 
     def mf(params, keys):
         kin, chem, cp = build(params)
-        lo = min(data[k]["E"].min() for k in keys) if e_end is None else e_end
-        wfs = [sb.Waveform(f, a, e_start=e_start, e_end=lo - 1e-9, de=de) for f, a in keys]
+        if e_end is None:      # scan to the far end of the data in the direction away from e_start
+            ends = [data[k]["E"][np.argmax(np.abs(data[k]["E"] - e_start))] for k in keys]
+            end = max(ends, key=lambda x: abs(x - e_start))
+        else:
+            end = e_end
+        wfs = [sb.Waveform(f, a, e_start=e_start, e_end=end, de=de) for f, a in keys]
         sims = cb.simulate(kin, chem, cp, wfs) if chem is not None else sb.simulate(kin, wfs, *cp)
         out = {}
         for key, s in zip(keys, sims):
             E = data[key]["E"]
-            idx = np.rint((e_start - E) / de).astype(int)
+            idx = np.rint(np.abs(E - e_start) / de).astype(int)
             out[key] = {c: baseline_subtract(E, s[c][idx] * 1e6, **baseline_kw) for c in COMPS}
         return out
     return mf

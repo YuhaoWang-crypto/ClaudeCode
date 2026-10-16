@@ -1,19 +1,23 @@
-"""Coarse-grained Brownian dynamics of a surface-tethered DNA20-MB probe (OpenMM, CPU).
+"""Coarse-grained Brownian dynamics of a surface-tethered redox-reporter probe (OpenMM, CPU).
 
 Model (all values are simplifying assumptions, not sequence-specific measurements):
-  anchor (fixed, z = 0 = SAM top) -0.3- C6 bead -0.3- DNA1 -0.6- ... -0.6- DNA20 -0.3- L1 -0.3- L2 -0.3- MB
-  harmonic bonds (100 kT/nm^2), cosine bending U = kappa (1 + cos theta) with kappa = l_p / b,
-  excluded volume for pairs >= 3 bonds apart and a repulsive plane at z = 0, both as truncated
-  harmonic repulsion U = (k_rep/2)(sigma - r)^2 for r < sigma, k_rep = 1000 kT/nm^2, sigma = sum of
-  radii (pairs) or bead radius (wall).  (Deviation from the protocol's WCA: WCA on 0.15 nm linker
-  beads makes explicit Brownian steps unstable for every allowed dt >= 0.1 ps.)
-  Radii: DNA 0.25 nm, MB 0.35 nm, linker/C6 beads 0.15 nm (assumed).
+  anchor (fixed, z = 0 = SAM top) -0.3- C6 bead -0.3- nt1 -0.6- ... -0.6- ntN -0.3- L1 ... -0.3- reporter
+  N = --n_dna (default 20), reporter radius = --r_reporter (MB ~0.35 nm, ferrocene ~0.30 nm),
+  reporter linker = --n_link segments of 0.3 nm with persistence length --lp_link.
+  Harmonic bonds (100 kT/nm^2), cosine bending U = kappa (1 + cos theta), kappa = l_p / b; excluded volume
+  (pairs >= 3 bonds apart) and a repulsive plane at z = 0 as truncated harmonic repulsion
+  U = (k_rep/2)(sigma - r)^2 for r < sigma, k_rep = 1000 kT/nm^2 (WCA on 0.15 nm linker beads is unstable
+  for every Brownian step >= 0.1 ps).  Radii: nucleotide 0.25 nm, linker/C6 beads 0.15 nm.
   No surface attraction, no base pairing/stacking, no electrostatics, no hydrodynamic interaction
   (free-draining Stokes friction 6 pi eta a, water at 298.15 K, no near-wall correction).
 Time is coarse-grained Brownian time with the stated friction; it is NOT experimentally validated.
 
-Output per run (npz), arrays shaped (frames, replicas): t_ps, z_mb, rg_dna, r_end (anchor-MB), n_contact (MB to DNA beads 1..18
-within r_MB + r_DNA + 0.3 nm), and every 100th frame of coordinates for audit.
+Output per run (npz), arrays shaped (frames, replicas).  Key names are historical:
+  z_mb = reporter-centre height (nm) for ANY reporter; rg_dna; r_end (anchor-reporter distance);
+  n_contact = reporter contacts with nucleotides 1..N-2 (within r_reporter + 0.25 + 0.3 nm);
+  every 100th frame of coordinates (first 4 replicas) for audit.
+Equilibration: default --t_eq_ns 20 is enough for ~20 nt; longer chains relax ~N^2 slower, so scale
+t_eq with (N/20)^2 at least and check that the two halves of each run agree (drift) before using it.
 """
 import argparse
 import json
