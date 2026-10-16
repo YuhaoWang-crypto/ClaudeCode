@@ -94,3 +94,43 @@ dynamics internally gated / time scale experimentally calibrated / held-out targ
 3. R2 lag candidates extended to 5 and 10 ns; CK compatibility = deviation ≤ 3 SE or ≤ 0.03.
 4. Buffer not stated in the source; water viscosity assumed.
 5. Fit objective uses forward, backward and net components; primary metric is net NRMSE (as stated above).
+
+---
+## Round 2 addendum — stepwise MB electron/proton chemistry (frozen before any round-2 fit)
+
+**Question.** Repeat the three-route comparison with MB reduction modelled stepwise instead of as a concerted
+2e⁻ Butler–Volmer step, and report separately whether the chemistry change reduces the shared misfit.
+Routes are compared only within a chemistry; chemistries are compared with parameter counts shown and are
+not mixed into the route ranking.
+
+**Chemistries** (Q = 2FAΓ in all; current = (Q/2)·Σ electrons transferred; cathodic positive):
+- **C0** concerted apparent 2e⁻ BV (round 1): k, α, E⁰ (+Q) — 4 parameters.
+- **C1 EE**: O + e⁻ ⇌ I (k₁, E₁), I + e⁻ ⇌ R (k₂, E₂), n = 1 each, shared α; protonation fast and folded
+  into apparent potentials at pH 7.2. Parameterized as log k₁, log k₂, α, E_m = (E₁+E₂)/2, ΔE = E₁ − E₂
+  (+Q) — 6 parameters.
+- **C2 E–C–E**: O + e⁻ ⇌ I (k₁, E₁); I ⇌ IH semiquinone protonation, pseudo-first-order k_p at pH 7.2,
+  equilibrium constant K_p fixed at 10 (sensitivity 1 and 100, R0 only); IH + e⁻ ⇌ R (k₂, E₂′). E_m is the
+  apparent overall potential, E₁ + E₂′ = 2E_m − (RT/F) ln K_p, ΔE = E₁ − E₂′. Parameters log k₁, log k₂, α,
+  E_m, ΔE, log k_p (+Q) — 7.
+- Both electron steps carry the same distance factor w(z) (rates k·w); protonation is solution-side and not
+  distance-dependent; O, I, IH, R share the conformational landscape and L (assumption, as in round 1).
+- Bounds: log k 10⁻³–10⁸ s⁻¹, α 0.1–0.9, E_m −0.45–0 V, ΔE −0.3–+0.3 V, k_p 1–10⁸ s⁻¹, s 10⁻³–10³.
+
+**Routes per chemistry**: R0 (fast equilibrium, ⟨w⟩), R1 (40-cell Smoluchowski, + global s), R2 (12-state
+generator, conditional only — it failed its dynamic gates in round 1), and a static two-population control
+(weights ½, both electron-transfer rates scaled by e^{±δ}, δ ∈ [0, ln 10⁴]), giving it the same parameter
+count as R1/R2. β = 5 nm⁻¹ only (round 1 showed β changes no held-out metric by more than 0.1 %).
+
+**Numerics**: the joint chain (conformation × redox species) is reversible with respect to π⊗q(E) because every
+step obeys detailed balance and the landscape is shared, so the round-1 exact symmetric square-root/SVD
+propagator generalizes. Tests before fitting: identity with the round-1 backend for C0; full-system expm per
+half-pulse and stiff Radau over a scan for C1/C2 with random reversible conformational models; fast/slow
+exchange limits; conservation of per-conformation population.
+
+**Fits and evaluation**: identical data, preprocessing, folds (primary leave-one-frequency-out, secondary
+leave-one-amplitude-out), objective, Q profiling and metrics as round 1. Fit B for every route and chemistry on
+all folds; fit A (shared θ, s = 1) on the full data and the frequency folds. Starts: 4 per fit (3 Latin-hypercube +
+1 from the R0 solution of the same chemistry and the same training fold — never from a fit that saw the
+held-out curves). Kinetic-gain criterion unchanged (≥10 % held-out NRMSE reduction vs R0 within a chemistry).
+Chemistry comparison: held-out NRMSE and the count of curves meeting NRMSE ≤ 30 % and |peak error| ≤ 30 %,
+with parameter counts; no chemistry is declared "validated" from 9 retrospective curves on one electrode.
