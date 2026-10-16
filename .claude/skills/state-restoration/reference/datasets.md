@@ -34,7 +34,7 @@ mostly cannot be answered from existing public data.
 |---|---|---|
 | **GSE85034** ★★★ | psoriasis adalimumab/methotrexate, weeks 0/1/2/4/16 + own NL + PASI | used in D14/D15; week-1 molecular recovery predicts PASI75 at AUC 0.78 (n.s., n=25) |
 | **GSE102725** ★★★ | psoriasis **secukinumab (anti-IL-17A)**, weeks 0/16/32, **randomised withdrawal at PASI 98** (5 continue / 5 placebo), lesional + non-affected, PMID 39565228 | used in D20: closed-loop lever test, plus the only randomised withdrawal arm in this catalogue |
-| **GSE69967** ★★ | psoriasis tofacitinib (JAK), randomised phase 2, per-patient time course | different mechanism, same disease |
+| **GSE69967** ★★ | psoriasis tofacitinib (JAK), randomised phase 2, per-patient time course, placebo arm n=3 | used in D23: third mechanism; the placebo arm is too small to be a strong control |
 | **GSE11903** ★★ | psoriasis etanercept (anti-TNF), weeks 0/1/2/4/12 | with the two above: three mechanisms, one disease |
 | **GSE130588** / **GSE59294** ★★★ | atopic dermatitis dupilumab, **placebo-controlled** | separates drug effect from natural course |
 | **GSE16879** / **GSE73661** ★★★ | IBD infliximab / vedolizumab, before-after and W0/W4-6/W12, endoscopic response | two mechanisms + hard outcome |
@@ -78,11 +78,13 @@ mostly cannot be answered from existing public data.
    not drug-level. The same trial's randomised withdrawal arm reproduced the
    attractor result (+0.86 vs −0.01) and again gave no support for "residual
    predicts relapse".
-3. **Do three mechanisms share one path?** (GSE11903 anti-TNF, GSE102725 anti-IL-17,
-   GSE69967 JAK). Prediction: same disease axis, same fast modules, different
-   extent of slow (barrier) restoration. D20 already did two of the three and found
-   the drug effects cos +0.671 apart, so the interesting question is now what the
-   0.33 of difference *is*, and whether JAK inhibition separates from both.
+3. ~~**Do three mechanisms share one path?**~~ **DONE — D23.** Same disease axis
+   (cross-cohort cosines equal the within-cohort patient spread) and the same
+   ordering (barrier last under all three). The 0.33 of "difference" between drug
+   effects turned out to be mostly platform: cross-platform pairs 0.483 vs 0.812
+   within-drug, and only 0.09 of margin survives in the one same-platform pair.
+   Drug and study are perfectly confounded with one cohort per drug, so this
+   question needs head-to-head sampling in one cohort.
 4. ~~**Extend levers to real drugs** (LINCS).~~ **DONE — D21, and it FAILED the
    positive control.** On GSE70138 (Phase 2, 2,171 compounds) the 23 psoriasis
    therapies do not rank above 28 unrelated drugs in any of four score/gene-space

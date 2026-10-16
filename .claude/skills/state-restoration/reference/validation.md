@@ -181,6 +181,24 @@ and only a matched window answers the question. (2) In bulk tissue with large
 composition change, housekeeping genes are not a negative control; report the
 control module's own drift and count only the excess.
 
+### Three mechanisms, one disease (D23)
+
+GSE11903 (etanercept) + GSE102725 (secukinumab) + GSE69967 (tofacitinib, with a
+placebo arm): three mechanisms, three platforms, per-patient effect vectors.
+
+| Check | Result | Status |
+|---|---|---|
+| The three cohorts share one disease axis | cross-cohort cos +0.51 to +0.72, the same range as patient-to-patient cos inside one cohort (+0.48 to +0.66) | ✅ a disease axis transfers across studies |
+| The restoration ordering repeats under every mechanism | barrier/lipid least restored in all three (+0.53 etanercept, +0.38 secukinumab, +0.77 tofacitinib) | ✅ |
+| Barrier restoration differs by mechanism | tofacitinib +0.77 vs secukinumab +0.38 — but different visit (12 vs 16 weeks) and cohort | ⚠️ hypothesis |
+| **A drug-specific response component** | naive test: same drug +0.812 vs different drug +0.538, p 2e-18. **Confounded**: one cohort per drug. Same-platform pair 0.727 vs 0.815 within (p 0.005); cross-platform 0.483 | ❌ not attributable |
+| Mechanism-specific module (JAK clears interferon first) | excess over the other modules +0.05 under tofacitinib vs +0.01 under anti-TNF, −0.21 under anti-IL-17A | ❌ |
+| Placebo arm as a negative control | n = 3, median restoration ≈ 0 | ⚠️ too small |
+
+**Rule it sets.** With one cohort per drug, every drug-vs-drug contrast is also a
+study-vs-study contrast. Estimate the technical gap from a same-platform subset
+before interpreting anything as mechanism.
+
 **What the step-5 results mean.** A J fitted from one observational intervention describes how the system relaxes under that intervention. Its "levers" are the modules that relax least by themselves: bottlenecks and candidate add-on targets.
 
 Confirmed in D16: with a measured response library the same formula recovers the
