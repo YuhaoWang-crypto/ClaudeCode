@@ -1694,6 +1694,8 @@ Mann-Whitney p = 2.3e-18，看上去"药物特异成分"很明显。**但这个�
 
 图：`figures/netjac/d23_three_mechanisms.png`。
 
+网页报告：<https://claude.ai/artifact/D6bdmw7mLHLotLufur45Z7>（私有）。服务目录（本仓库能力的产品化整理）：<https://claude.ai/artifact/SaL2HWHMgGQ9iPZgQHo8NX>。
+
 ---
 
 ## 25. 平台与 skill（可延伸）
