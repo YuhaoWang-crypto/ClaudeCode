@@ -107,6 +107,17 @@ module j (verified numerically in `statepipe.causal_J`). So the question is neve
 - **If you have one observational intervention** (a single drug time course):
   you may report bottlenecks and the slow mode, explicitly labelled as such.
   Do NOT report a causal lever ranking. This is the check D15 failed.
+- **A lever ranking is about the INDICATION, not about a drug.** D20 closed the
+  loop with secukinumab, the antibody against the lever the library predicted:
+  IL-17A did rank #1 (cos +0.375 [0.247, 0.483]), but the ranking tracks "how
+  much this lever looks like the disease" at Spearman +0.95, and the anti-TNF
+  drug's clinical effect also ranks IL-17A first. Two rules follow:
+  (1) before reading a lever ranking against a treatment response, project the
+  disease axis out of both sides and report what survives (IL-17A: +0.375 →
+  +0.058); (2) never attribute an observed clinical response to a pathway from
+  one drug's data — in one disease, mechanistically different drugs move the
+  transcriptome along nearly the same vector (cos +0.671), so only a crossed
+  design (≥ 2 drugs × the same library) supports a drug-level claim.
 
 Ground truth for the causal route (`demos/d16_causal_lever.py`, 439 held-out
 CRISPRi knockdowns, leave-one-out, perturbed gene excluded from module scores):

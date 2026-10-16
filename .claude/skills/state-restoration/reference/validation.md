@@ -118,6 +118,27 @@ RNA-seq library vs array disease data.
 Design needed to answer it: ≥ 2 post-clearance biopsies per patient (to separate
 noise from signal), or a withdrawal cohort where some patients do NOT relapse.
 
+### Closing the loop with the drug that blocks the predicted lever (D20)
+
+GSE102725 (PSORITUS secukinumab withdrawal trial, 10 patients, weeks 0/16/32,
+randomised continue vs placebo at PASI 98) + GSE11903 (etanercept, 15 patients).
+
+| Check | Result | Status |
+|---|---|---|
+| The drug's own target ranks #1 of 9 levers | IL-17A cos +0.375 [0.247, 0.483]; gene-shuffle p < 1e-4 | ✅ |
+| ... and that ranking carries drug information | ranking vs "looks like the disease" Spearman **+0.95**; after removing the disease axis IL-17A +0.058 and IL-4 tops | ❌ |
+| Multi-lever magnitude fit is usable | within one source R² 0.268 with IL-13 coefficient −1.25 (absurd sign); IL-17A alone R² 0.140 | ❌ collinear |
+| **Crossed control: library distinguishes the two drugs** | etanercept also ranks IL-17A first (+0.54 > its own target TNF +0.40); DoD −0.120 [−0.296, +0.083], p 0.88; the two drug effects are cos +0.671 | ❌ decisive |
+| Barrier lags at the strictest endpoint (PASI 98), 5th drug | +0.38 vs IL-17 keratinocyte +1.08, proliferation +0.98, interferon +0.77 — but only 4/12 barrier genes disrupted, sd 0.90 | ✅ weakly |
+| Randomised withdrawal returns to the lesion state | week 32: placebo +0.86 vs continued drug −0.01 | ✅ (D19's attractor result, now randomised) |
+| Residual at clearance predicts relapse | own-vs-other −0.33 vs −0.11; residual size vs relapse size ρ +0.10, p 0.87 | ❌ second negative |
+
+**Rule it sets.** Lever ranking from a response library is an *indication-level*
+statement ("this disease is an IL-17-type state"). A *drug-level* claim ("this
+response was produced through this pathway") needs at least two mechanistically
+different drugs sampled against the same library, because in one disease their
+transcriptome effects are nearly the same vector.
+
 **What the step-5 results mean.** A J fitted from one observational intervention describes how the system relaxes under that intervention. Its "levers" are the modules that relax least by themselves: bottlenecks and candidate add-on targets.
 
 Confirmed in D16: with a measured response library the same formula recovers the
@@ -126,3 +147,8 @@ ranking stays at 15 %. To rank causal upstream targets, J must come from one of 
 - perturbations of individual modules or genes (Perturb-seq MRA, CRISPR screens in the relevant cell type);
 - several interventions that act on different modules;
 - a mechanistic kinetic model (the network-jacobian skill).
+
+D20 adds the ceiling on this: even with the right cell type and the right
+lever in the library, the ranking is an indication-level statement. The
+clinical response to a drug cannot confirm its own mechanism, because other
+mechanisms in the same disease produce almost the same response vector.

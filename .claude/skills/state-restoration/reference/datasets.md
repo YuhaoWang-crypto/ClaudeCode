@@ -33,7 +33,7 @@ mostly cannot be answered from existing public data.
 | Accession | Design | Notes |
 |---|---|---|
 | **GSE85034** ★★★ | psoriasis adalimumab/methotrexate, weeks 0/1/2/4/16 + own NL + PASI | used in D14/D15; week-1 molecular recovery predicts PASI75 at AUC 0.78 (n.s., n=25) |
-| **GSE102725** ★★★ | psoriasis **secukinumab (anti-IL-17A)**, lesional + non-affected | closes the loop: the lever D17/D18 predicted is this drug's target |
+| **GSE102725** ★★★ | psoriasis **secukinumab (anti-IL-17A)**, weeks 0/16/32, **randomised withdrawal at PASI 98** (5 continue / 5 placebo), lesional + non-affected, PMID 39565228 | used in D20: closed-loop lever test, plus the only randomised withdrawal arm in this catalogue |
 | **GSE69967** ★★ | psoriasis tofacitinib (JAK), randomised phase 2, per-patient time course | different mechanism, same disease |
 | **GSE11903** ★★ | psoriasis etanercept (anti-TNF), weeks 0/1/2/4/12 | with the two above: three mechanisms, one disease |
 | **GSE130588** / **GSE59294** ★★★ | atopic dermatitis dupilumab, **placebo-controlled** | separates drug effect from natural course |
@@ -63,16 +63,23 @@ mostly cannot be answered from existing public data.
 
 ## Five studies worth doing first
 
-1. **Do slow modules predict relapse?** (GSE30768 + GSE85034) Prediction from D14:
-   patients whose barrier/lipid module is least restored at week 12 relapse sooner.
-   Small n, directional only — but nobody has tested it, and it would give a
-   molecular criterion for when therapy can be stopped.
-2. **Close the loop on IL-17A** (GSE102725). The method predicted IL-17A from a
-   cytokine library; secukinumab blocks exactly that. Check the state moves along
-   the predicted direction with the predicted gain.
+1. ~~**Do slow modules predict relapse?**~~ **DONE — D19 (and D20).** Premise
+   replicated (barrier unrestored at clinical clearance in a 4th and 5th drug) and
+   relapse returns to the lesion position, but the predictive claim is not
+   answerable in either cohort: one post-clearance biopsy makes residual and rise
+   share a sample. Still open, and still needs ≥ 2 post-clearance biopsies with
+   relapsers and non-relapsers in one arm.
+2. ~~**Close the loop on IL-17A** (GSE102725).~~ **DONE — D20.** IL-17A ranks #1
+   for secukinumab, but the ranking is 95 % explained by the disease axis and the
+   anti-TNF drug's effect ranks IL-17A first too: lever ranking is indication-level,
+   not drug-level. The same trial's randomised withdrawal arm reproduced the
+   attractor result (+0.86 vs −0.01) and again gave no support for "residual
+   predicts relapse".
 3. **Do three mechanisms share one path?** (GSE11903 anti-TNF, GSE102725 anti-IL-17,
    GSE69967 JAK). Prediction: same disease axis, same fast modules, different
-   extent of slow (barrier) restoration.
+   extent of slow (barrier) restoration. D20 already did two of the three and found
+   the drug effects cos +0.671 apart, so the interesting question is now what the
+   0.33 of difference *is*, and whether JAK inhibition separates from both.
 4. **Extend levers to real drugs** (GSE92742 LINCS). Project the disease
    displacement onto thousands of drug responses; known-effective drugs ranking
    high is the positive control.

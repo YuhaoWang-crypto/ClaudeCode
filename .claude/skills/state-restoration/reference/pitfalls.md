@@ -40,6 +40,8 @@ Each entry gives the symptom, the cause and the fix, with the case where it happ
 | Lever library gives a confident but wrong answer | Library from the wrong cell type (fibroblasts for an epidermal disease): 0/4 correct | Match the cell type to the tissue compartment the disease signature comes from | D17 |
 | Ranking flips between metrics | Cosine weights large-fold-change genes; Spearman weights all genes equally | Report both, and prefer a crossed specificity contrast over top-1 | D17 (psoriasis: IL-17A by cosine, IFN-γ by rank) |
 | Top-1 lever wrong although the direction is right | Lesions carry several cytokine programmes (chronic AD has Th22/Th17 besides Th2) | Test the crossed contrast: is the lever more aligned with its own indication than the other? | D17 (IL-13 → AD, p < 0.001) |
+| The drug's own target ranks #1 against the clinical response — and it means less than it looks | On-treatment change ≈ reverse of the disease (cos +0.975), so ranking levers against the drug effect is ranking them against the disease (rank correlation +0.95) | Project the disease axis out of both sides before claiming the ranking is about the drug; report the raw and the residual ranking | D20 (IL-17A +0.375 raw → +0.058 residual) |
+| Lever ranking read as "this drug worked through this pathway" | Mechanistically different drugs produce near-identical transcriptome reversal in the same disease (secukinumab vs etanercept cos +0.671) | Only a crossed design (≥2 drugs × the same library) can support a drug-level claim; without it, the claim is indication-level | D20 (anti-TNF effect also ranks IL-17A first; DoD −0.120 [−0.296, +0.083]) |
 
 ## Combination and library design
 
@@ -56,6 +58,7 @@ Each entry gives the symptom, the cause and the fix, with the case where it happ
 | "Residual predicts relapse" cannot be tested cleanly | With one post-treatment sample, residual = x−ref and rise = flare−x share x with opposite signs, so their cosine is biased downward | Need ≥ 2 post-clearance samples per patient, or a cohort with non-relapsers | D19 |
 | A random-gene null looks "significant" | Disease genes carry signal in both vectors, which alone beats random genes — it does not show prediction | Ask for a contrast that isolates the claim (own vs other patients), and check whether the bias explains the gap | D19 |
 | Everyone in the cohort has the outcome | No contrast exists; a relapser-vs-non-relapser test is impossible | Say so and switch to within-patient questions (what restored, where relapse lands) | D19 |
+| A control arm seems to prove the residual points at relapse | The shared-sample bias shrinks as the rise grows, and the relapsing arm has the larger rise by construction, so the arm gap comes for free | Compare |rise| between arms first; use pairings that do not share a sample (own vs other patients) | D20 (placebo −0.18 vs continued drug −0.67, but |rise| 25.7 vs 13.5) |
 
 ## Engineering
 

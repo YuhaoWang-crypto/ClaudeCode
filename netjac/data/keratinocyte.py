@@ -33,6 +33,13 @@ one source; `lever_library` labels every column with its source for this.
 
 Validated targets (from approved drugs, independent of any dataset here) are
 in `VALIDATED`, so the crossed specificity check can be run automatically.
+
+Scope (demos/d20_secukinumab_closed_loop.py): a ranking from this library is a
+statement about the INDICATION, not about a drug. Against the real secukinumab
+response IL-17A ranks first, but the ranking tracks "how much this lever looks
+like the disease" at Spearman +0.95, and an anti-TNF drug's clinical response
+ranks IL-17A first as well. Do not use a single drug's clinical transcriptome to
+confirm that drug's mechanism.
 """
 import numpy as np
 
