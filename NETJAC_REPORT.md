@@ -1935,6 +1935,8 @@ AT1 细胞体积大、极薄、易碎，解离时大量丢失。比值检验要�
 
 图：`figures/netjac/d26_alveolar_three_state.png`。
 
+网页报告：<https://claude.ai/artifact/QbMq9giCPkuxo39jv9MoFe>（私有）。
+
 ---
 
 ## 28. 平台与 skill（可延伸）
