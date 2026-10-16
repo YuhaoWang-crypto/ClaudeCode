@@ -134,3 +134,9 @@ all folds; fit A (shared θ, s = 1) on the full data and the frequency folds. St
 held-out curves). Kinetic-gain criterion unchanged (≥10 % held-out NRMSE reduction vs R0 within a chemistry).
 Chemistry comparison: held-out NRMSE and the count of curves meeting NRMSE ≤ 30 % and |peak error| ≤ 30 %,
 with parameter counts; no chemistry is declared "validated" from 9 retrospective curves on one electrode.
+
+**Round-2 compute amendment (before any round-2 fit).** R1 under C2 costs 4.4 s per evaluation at 40 cells,
+which would exceed the 24 h cap. R1 is therefore fitted on 20 cells and every R1 optimum is re-evaluated on
+40 and 80 cells (pre-fit check: max curve difference 20 vs 80 cells ≤ 0.6 % of range even at s = 10⁻³ with
+fast contact rates; 40 vs 80 ≤ 0.3 %). Fit A uses 2 starts (the R0 warm start + 1 Latin-hypercube point).
+C0 results are taken from round 1 unchanged (6 starts, 40 cells).
