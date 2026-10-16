@@ -1613,6 +1613,8 @@ L1000 只**实测** 978 个基因（landmark），其余 11,350 个是模型**�
 
 图：`figures/netjac/d22_scar_after_cause_removed.png`。
 
+网页报告：<https://claude.ai/artifact/NYthfQtYXisYdnWjAc1xsN>（私有，需在页面 Share 菜单分享）。
+
 ---
 
 ## 24. 平台与 skill（可延伸）
