@@ -1,0 +1,378 @@
+<title>MB–DNA 构象动力学三路线比较</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@600;700&family=Noto+Sans+SC:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one reading column (~46rem) with figures and tables allowed to widen to 70rem; a voltammogram-trace motif in the header. */
+:root {
+  --bg: #f7f8f9;
+  --surface: #ffffff;
+  --ink: #15191d;
+  --ink-2: #4a525b;
+  --ink-3: #737c86;
+  --rule: #dde1e5;
+  --accent: #1f5f8b;
+  --accent-soft: #e6eff6;
+  --good: #1d7a4c;
+  --bad: #b2402f;
+  --warn: #9a6a00;
+  --plate: #ffffff;
+  --series-1: #2a78d6;
+  --series-2: #eb6834;
+  --series-3: #1baf7a;
+  --series-4: #eda100;
+  --ref: #737c86;
+  --f-display: "Noto Serif SC", "Songti SC", "STSong", serif;
+  --f-body: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #111417; --surface: #181c20; --ink: #eceff2; --ink-2: #b9c0c7; --ink-3: #8b949d;
+    --rule: #2b3137; --accent: #7fb3da; --accent-soft: #1b2833; --good: #5cc28e; --bad: #ec7f6c; --warn: #e0b34a;
+    --plate: #f4f5f6; --series-1: #3987e5; --series-2: #d95926; --series-3: #199e70; --series-4: #c98500; --ref: #8b949d;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #111417; --surface: #181c20; --ink: #eceff2; --ink-2: #b9c0c7; --ink-3: #8b949d;
+  --rule: #2b3137; --accent: #7fb3da; --accent-soft: #1b2833; --good: #5cc28e; --bad: #ec7f6c; --warn: #e0b34a;
+  --plate: #f4f5f6; --series-1: #3987e5; --series-2: #d95926; --series-3: #199e70; --series-4: #c98500; --ref: #8b949d;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font-family: var(--f-body); font-size: 15.5px; line-height: 1.75; }
+.page { max-width: 70rem; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 2.5rem 4rem; }
+.col { max-width: 46rem; }
+h1, h2, h3 { font-family: var(--f-display); text-wrap: balance; line-height: 1.3; margin: 0; }
+h1 { font-size: clamp(1.75rem, 1.2rem + 2.2vw, 2.6rem); letter-spacing: 0.01em; }
+h2 { font-size: 1.45rem; margin-top: 3.2rem; padding-top: 1.4rem; border-top: 1px solid var(--rule); }
+h3 { font-size: 1.1rem; margin-top: 1.8rem; }
+p { margin: 0.8rem 0; }
+.eyebrow { font-family: var(--f-mono); font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-3); }
+.lede { font-size: 1.08rem; color: var(--ink-2); margin-top: 1rem; }
+.mono { font-family: var(--f-mono); font-variant-numeric: tabular-nums; }
+.trace { display: block; width: 100%; max-width: 46rem; height: 56px; margin: 1.2rem 0 0.4rem; }
+.trace path { fill: none; stroke: var(--accent); stroke-width: 2; }
+.trace .zero { stroke: var(--rule); stroke-width: 1; }
+.meta { display: flex; flex-wrap: wrap; gap: 0.4rem 1.4rem; font-size: 0.85rem; color: var(--ink-3); }
+.verdict { margin-top: 2rem; background: var(--surface); border: 1px solid var(--rule); border-left: 4px solid var(--accent); padding: 1.2rem 1.4rem; max-width: 46rem; }
+.verdict h2 { border: 0; margin: 0; padding: 0; font-size: 1.2rem; }
+.verdict ol { margin: 0.6rem 0 0; padding-left: 1.3rem; display: grid; gap: 0.55rem; }
+.figs { display: grid; grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr)); gap: 1rem; margin-top: 1.6rem; max-width: 70rem; }
+.fig-num { background: var(--surface); border: 1px solid var(--rule); padding: 0.9rem 1rem; min-width: 0; }
+.fig-num .v { font-family: var(--f-mono); font-size: 1.45rem; font-weight: 500; font-variant-numeric: tabular-nums; }
+.fig-num .k { font-size: 0.85rem; color: var(--ink-2); line-height: 1.5; margin-top: 0.2rem; }
+.table-wrap { overflow-x: auto; margin: 1rem 0; max-width: 70rem; }
+table { border-collapse: collapse; font-size: 0.9rem; min-width: 34rem; width: 100%; }
+th, td { text-align: left; padding: 0.45rem 0.7rem; border-bottom: 1px solid var(--rule); vertical-align: top; }
+th { font-weight: 500; color: var(--ink-2); font-size: 0.82rem; letter-spacing: 0.02em; background: var(--surface); }
+td.n, th.n { text-align: right; font-family: var(--f-mono); font-variant-numeric: tabular-nums; white-space: nowrap; }
+tr.hl td { background: var(--accent-soft); }
+.pill { display: inline-block; font-size: 0.78rem; padding: 0.05rem 0.5rem; border-radius: 999px; border: 1px solid currentColor; white-space: nowrap; }
+.pill.ok { color: var(--good); } .pill.no { color: var(--bad); } .pill.na { color: var(--ink-3); } .pill.mid { color: var(--warn); }
+figure { margin: 1.4rem 0; max-width: 70rem; }
+figure .plate { background: var(--plate); border: 1px solid var(--rule); padding: 0.6rem; }
+figure img { display: block; width: 100%; height: auto; }
+figcaption { font-size: 0.86rem; color: var(--ink-2); margin-top: 0.5rem; max-width: 46rem; }
+.chart { background: var(--surface); border: 1px solid var(--rule); padding: 1rem; max-width: 70rem; }
+.chart-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 0.6rem 1.5rem; }
+.legend { display: flex; flex-wrap: wrap; gap: 0.3rem 1rem; font-size: 0.84rem; color: var(--ink-2); }
+.legend span { display: inline-flex; align-items: center; gap: 0.4rem; }
+.legend i { width: 12px; height: 12px; border-radius: 2px; display: inline-block; }
+.tabs { display: inline-flex; border: 1px solid var(--rule); border-radius: 6px; overflow: hidden; }
+.tabs button { font: inherit; font-size: 0.85rem; padding: 0.3rem 0.8rem; border: 0; background: transparent; color: var(--ink-2); cursor: pointer; }
+.tabs button[aria-pressed="true"] { background: var(--accent); color: var(--surface); }
+.tabs button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.svg-wrap { overflow-x: auto; margin-top: 0.6rem; }
+.chart svg { width: 100%; min-width: 600px; height: auto; display: block; overflow: visible; }
+.chart svg text { fill: var(--ink-2); font-family: var(--f-mono); font-size: 11px; }
+.chart svg .grp { fill: var(--ink); font-family: var(--f-body); font-size: 12.5px; font-weight: 500; }
+.chart svg .grid { stroke: var(--rule); stroke-width: 1; }
+.chart svg .refl { stroke: var(--ref); stroke-width: 1.2; stroke-dasharray: 4 3; fill: none; }
+.chart svg .star { fill: none; stroke: var(--ink); stroke-width: 1.6; }
+.chart svg rect.bar { stroke: var(--surface); stroke-width: 2; }
+.chart svg rect.hit { fill: transparent; cursor: default; }
+.tip { position: fixed; pointer-events: none; background: var(--ink); color: var(--bg); font-size: 0.8rem; padding: 0.35rem 0.55rem; border-radius: 4px; line-height: 1.4; max-width: 16rem; z-index: 20; }
+.note { font-size: 0.86rem; color: var(--ink-3); }
+ul.tight { padding-left: 1.2rem; margin: 0.6rem 0; display: grid; gap: 0.35rem; }
+code { font-family: var(--f-mono); font-size: 0.88em; background: var(--accent-soft); padding: 0.05rem 0.3rem; border-radius: 3px; }
+a { color: var(--accent); }
+footer { margin-top: 3.5rem; padding-top: 1.2rem; border-top: 1px solid var(--rule); font-size: 0.84rem; color: var(--ink-3); max-width: 46rem; }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+
+<div class="page">
+  <header class="col">
+    <div class="eyebrow">结构动力学分析 · 脉冲电子转移 · 方波伏安（SWV）</div>
+    <h1>MB–DNA 构象动力学三路线比较</h1>
+    <svg class="trace" viewBox="0 0 600 56" preserveAspectRatio="none" aria-hidden="true">
+      <line class="zero" x1="0" y1="40" x2="600" y2="40"/>
+      <path d="M0 40 L170 40 C215 40 240 36 262 22 C282 9 300 6 318 6 C336 6 354 12 372 26 C392 38 420 40 460 40 L600 40"/>
+    </svg>
+    <p class="lede">问题：在同一数据和同一电子转移假设下，保留 DNA 链与亚甲基蓝（MB）报告基团的构象转换，能否比静态／快平衡平均更准确地预测方波电流？第二轮把 MB 的协同双电子反应换成分步电子／质子反应后再比较了一次。</p>
+    <div class="meta"><span>基准：Dauphin-Ducharme 等，<i>Langmuir</i> 2017，20 nt DNA–MB，9 条 SWV</span><span>两轮均预注册，拟合前冻结</span><span>2026-10-16</span></div>
+  </header>
+
+  <section class="verdict" aria-labelledby="v">
+    <h2 id="v">结论</h2>
+    <ol>
+      <li><b>构象动力学没有带来可归因的预测增益。</b>两轮、三种化学模型下，保留构象转换（R1、R2）都没有在同一化学参数点上稳定优于静态平均（R0）。</li>
+      <li><b>原因是时间尺度相差约 10⁵–10⁶ 倍。</b>本粗粒化模型里 MB 高度的弛豫约 5–15 ns，而半脉冲长 1–25 ms；数据也无法约束构象运动快慢（运动倍率 s 的剖面完全平坦）。</li>
+      <li><b>改善来自化学模型。</b>分步的 E–C–E 机理（半醌质子化速率约 10³ s⁻¹）使训练误差降低约 5 倍，振幅留出误差从 16.7 % 降到 7–11 %，达标曲线由 4/9 升到 8/9。</li>
+      <li><b>频率外推仍未解决。</b>任何模型在留出 20 Hz 时都把峰值低估 43–73 %；EE 机理在留出 500 Hz 时不可识别（训练同样好的解给出 17 %–126 % 的留出误差）。</li>
+    </ol>
+  </section>
+
+  <div class="figs" role="list">
+    <div class="fig-num" role="listitem"><div class="v">~10⁵–10⁶ ×</div><div class="k">半脉冲时长 ÷ 构象最慢弛豫时间</div></div>
+    <div class="fig-num" role="listitem"><div class="v">≤ 0.1 %</div><div class="k">第一轮三路线留出误差差别（数字化噪声地板约 3 %）</div></div>
+    <div class="fig-num" role="listitem"><div class="v">16.7 → 6.9 %</div><div class="k">留一振幅误差：协同 2e⁻ → 分步 E–C–E（同折最佳盆地）</div></div>
+    <div class="fig-num" role="listitem"><div class="v">2 / 9</div><div class="k">留一频率时同时满足误差与峰值 ≤ 30 % 的曲线（R0，任一化学）</div></div>
+  </div>
+
+  <section class="col">
+    <h2>设计</h2>
+    <p>三条路线共享同一柔性分子模型的平衡分布和同一电流后端，只在"是否以及如何保留构象动力学"上不同。电流只来自红氧跃迁；每个半脉冲按真实波形精确传播，状态跨半脉冲和跨阶梯保留，不重置为平衡。</p>
+  </section>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>路线</th><th>构象模型</th><th>脉冲内求解</th><th>检验什么</th></tr></thead>
+      <tbody>
+        <tr><td><b>R0</b> 静态／快平衡</td><td>完整高度分布的速率平均（不是平均高度）</td><td>氧化／还原占有率演化，构象始终平衡</td><td>忽略构象记忆是否足够</td></tr>
+        <tr><td><b>R1</b> 一维物理时间</td><td>MB 高度 z 的 F(z) 与 Stokes–Einstein 扩散系数</td><td>Smoluchowski 有限体积生成矩阵，20/40/80 格</td><td>一个距离坐标、一个时间尺度是否足够</td></tr>
+        <tr><td><b>R2</b> 多状态动力学</td><td>无偏布朗动力学的 4/8/12 个构象状态</td><td>可逆生成矩阵 × 红氧态联合传播</td><td>链形状／接触转换是否增加预测力</td></tr>
+        <tr><td>非 MD 对照</td><td>两个不交换的静态群体，速率 k·e^{±δ}</td><td>同上，无构象交换</td><td>新增自由度／速率异质性能否解释改善</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <section class="col">
+    <p>分子模型：OpenMM CPU 布朗动力学，每核苷酸一珠，C6 固定臂与 MB 连接臂为几何代理，排斥平面代表 SAM 表面；4 个种子 × 64 个独立副本 × 1 µs，时间步 0.5 ps（减半后各观测量变化 ≤ 3.9 %）。电子转移局部速率为 k·exp[−β(z − z<sub>min</sub>)]，β = 5 nm⁻¹（2、10 nm⁻¹ 为敏感性）。</p>
+    <p>数据：SI 图 S-7 的 9 条实验曲线（20/100/500 Hz × 25/50/75 mV），只读取实验线、剔除作者拟合圆点，保留原图、坐标映射和读数误差。主评价为留一频率三折，次评价为留一振幅三折。</p>
+  </section>
+
+  <section>
+    <h2 class="col">留出误差：化学 × 路线</h2>
+    <p class="col">柱高为留出曲线差分电流 NRMSE 的等权平均（越低越好）。空心框是同一折里训练误差最低的解放回 R0 后的留出误差（R0*，事后诊断，用来排除优化初值运气）。虚线为 30 % 目标。</p>
+    <div class="chart" id="chart">
+      <div class="chart-head">
+        <div class="tabs" role="group" aria-label="交叉验证方式">
+          <button type="button" id="tab-freq" aria-pressed="true">留一频率（主评价）</button>
+          <button type="button" id="tab-amp" aria-pressed="false">留一振幅</button>
+        </div>
+        <div class="legend">
+          <span><i style="background:var(--series-1)"></i>R0 静态</span>
+          <span><i style="background:var(--series-2)"></i>R1 一维</span>
+          <span><i style="background:var(--series-3)"></i>R2 多状态（条件）</span>
+          <span><i style="background:var(--series-4)"></i>双群体对照</span>
+          <span><i style="border:1.6px solid var(--ink);width:11px;height:11px"></i>R0* 最佳盆地</span>
+        </div>
+      </div>
+      <div class="svg-wrap"><svg id="bars" viewBox="0 0 720 330" role="img" aria-labelledby="bars-title"><title id="bars-title">各化学模型下四条路线的平均留出 NRMSE</title></svg></div>
+    </div>
+    <div class="table-wrap">
+      <table id="chart-table">
+        <thead><tr><th>化学</th><th>参数（含 Q）</th><th class="n">R0</th><th class="n">R0*</th><th class="n">R1</th><th class="n">R2</th><th class="n">双群体</th><th class="n">达标曲线 R0</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="col">
+    <h2>为什么 R1/R2 的表面增益不算数</h2>
+    <p>在两种分步化学下，预注册指标表面上显示 R1/R2 比 R0 好 13–67 %。逐折分解时，把 R1/R2 找到的同一组化学参数放回 R0（去掉动力学）重新计算：几乎每一折都复现了 R1/R2 的训练误差和留出误差。差别来自 R0 的初值落在训练误差相同、但外推不同的解上。</p>
+  </section>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>化学 · 路线 · 留出</th><th class="n">log₁₀ s</th><th class="n">R0 自身拟合</th><th class="n">R0 放到同一参数点</th><th class="n">该路线</th><th>解读</th></tr></thead>
+      <tbody>
+        <tr class="hl"><td>EE · R1 · 500 Hz</td><td class="n">−3.0</td><td class="n">125.7 %</td><td class="n">17.0 %</td><td class="n">17.0 %</td><td>两个解训练误差同为 0.0047；差别是优化盆地</td></tr>
+        <tr><td>EE · R1 · 100 Hz</td><td class="n">−3.0</td><td class="n">31.5 %</td><td class="n">16.8 %</td><td class="n">16.8 %</td><td>同上</td></tr>
+        <tr><td>E–C–E · R1 · 500 Hz</td><td class="n">+1.79</td><td class="n">24.8 %</td><td class="n">17.2 %</td><td class="n">17.2 %</td><td>同上（运动反而加快）</td></tr>
+        <tr><td>E–C–E · R1 · 50 mV</td><td class="n">−2.74</td><td class="n">10.2 %</td><td class="n">7.7 %</td><td class="n">4.2 %</td><td>真实动力学差异，但 s 接近下界（运动慢约 550 倍）</td></tr>
+        <tr><td>E–C–E · R2 · 25 mV</td><td class="n">−2.70</td><td class="n">9.2 %</td><td class="n">6.7 %</td><td class="n">9.8 %</td><td>动力学使留出变差，方向不一致</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <section class="col">
+    <p class="note">24 个 R1/R2 留出折中，只有 s 被推到下界附近的少数折出现真实动力学差异，方向有正有负。Fit A（三路线共享同一组参数、s = 1）下各路线逐曲线相同到 0.1 %。完整分解见仓库 <code>results/chem_gain_decomposition.json</code>。</p>
+  </section>
+
+  <section>
+    <h2 class="col">分步化学的预测曲线</h2>
+    <figure>
+      <div class="plate"><img src="figures/heldout_freq_chem.png" alt="留一频率时 9 个条件的正向、反向、差分电流：黑点为数字化实验数据，灰线为协同 2e⁻，蓝线 EE，红线 E–C–E（R0），绿色虚线 E–C–E（R1）"></div>
+      <figcaption>留一频率预测。E–C–E 对留出的 100 Hz 很好；留出 500 Hz 时 R0 偏高、R1 偏低，这是同一化学落在不同盆地，而不是动力学；三种化学都严重低估留出的 20 Hz。</figcaption>
+    </figure>
+  </section>
+
+  <section class="col">
+    <h3>化学参数（E–C–E，各频率折）</h3>
+    <ul class="tight">
+      <li>有效速率 k₁⟨w⟩ ≈ 70–280 s⁻¹，k₂⟨w⟩ ≈ 360 s⁻¹；α ≈ 0.32–0.45；表观 E<sub>m</sub> ≈ −0.26 V vs Ag/AgCl。</li>
+      <li>电位反转 ΔE = E₁ − E₂′ ≈ −0.13 至 −0.17 V：半醌不稳定，第二个电子更易转移。</li>
+      <li>半醌质子化 k<sub>p</sub> ≈ 600–1700 s⁻¹，与 SWV 时间尺度相当，是频率依赖波形的一个可信来源。</li>
+      <li>质子化平衡常数 K<sub>p</sub> 未被数据确定：K<sub>p</sub> = 1 / 10 / 100 时留一频率误差为 24 / 20 / 25 %。因此 E–C–E 只是候选机理，不是被验证的机理。</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2 class="col">第一轮：协同双电子化学</h2>
+    <p class="col">三路线在所有折、Fit A/B、β = 2/5/10 nm⁻¹ 下留出误差相差 ≤ 0.1 %。留一频率平均 23.6 %（2/9 达标），留一振幅 16.7 %（4/9）。单速率 Butler–Volmer 无法同时解释 500 Hz 下的强阳极反向电流和 20 Hz 下仍然很大的电流。</p>
+    <figure>
+      <div class="plate"><img src="figures/heldout_freq_dt0.5.png" alt="第一轮留一频率预测：R0、R1、R2 三条线完全重合，双群体对照略有差异"></div>
+      <figcaption>第一轮留一频率预测（协同 2e⁻）。R0、R1、R2 三条曲线重合。</figcaption>
+    </figure>
+  </section>
+
+  <section>
+    <h2 class="col">分子模型与 R2 门槛</h2>
+    <p class="col">平衡侧全部合格：4 个种子 × 2 个半程块的 MB 高度自由能差 ≤ 0.22 k<sub>B</sub>T，状态权重跨种子差 ≤ 0.01，接触占有率 0.018–0.022。动力学侧不合格：4、8、12 个状态配合 10 ps–10 ns 的所有滞后，隐含时间尺度都随滞后持续上升，CK 检验在独立种子上误差 0.08–0.35。因此 R2 没有正式排名资格，只作"给定未验证动力学的条件预测"。</p>
+    <figure>
+      <div class="plate"><img src="figures/md_diagnostics_dt0.5.png" alt="左：MB 高度自由能曲线，五种连接臂几何几乎重合；中：R2 隐含时间尺度随滞后上升无平台；右：CK 检验最大偏差随滞后变化，只在 10 ns 接近 0.10"></div>
+      <figcaption>左：MB 高度自由能（连接臂几何敏感性）。中：R2 最慢隐含时间尺度。右：独立种子上的 CK 检验，虚线为 0.10 门槛。</figcaption>
+    </figure>
+  </section>
+
+  <section>
+    <h2 class="col">状态标签</h2>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>标签</th><th>状态</th><th>依据</th></tr></thead>
+        <tbody>
+          <tr><td>数值正确</td><td><span class="pill ok">合格</span></td><td>11 项测试：全系统矩阵指数、刚性积分、快/慢交换极限、细致平衡、可逆极限、已知速率恢复；网格 20/40/80 格留出变化 ≤ 0.1 %</td></tr>
+          <tr><td>分子模型平衡量</td><td><span class="pill ok">合格</span></td><td>时间步、分块自由能、跨种子权重</td></tr>
+          <tr><td>分子模型动力学（R2）</td><td><span class="pill no">不合格</span></td><td>隐含时间尺度无平台，CK 未过</td></tr>
+          <tr><td>时间经实验校准</td><td><span class="pill no">不合格</span></td><td>运动倍率 s 不可识别</td></tr>
+          <tr><td>留出预测达标</td><td><span class="pill mid">部分</span></td><td>振幅外推 8/9（分步化学）；频率外推 ≤ 2/9（R0）</td></tr>
+          <tr><td>目标体系转移（TBA／NPY）</td><td><span class="pill na">未执行</span></td><td>首轮冻结的数据与拆分不在本仓库</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="col">
+    <h2>局限与偏离</h2>
+    <ul class="tight">
+      <li>9 条曲线来自同一篇论文的读图，推测为同一电极；不是 9 个独立电极，不做统计显著性主张。数字化本身的噪声地板约 3 % NRMSE。</li>
+      <li>分子模型没有碱基配对／堆积、静电和近壁水动力；时间是粗粒化布朗时间，没有被实验校准。</li>
+      <li>预注册后的偏离（均在拟合前或与电流数据无关）：排斥势由 WCA 改为截断谐振排斥（数值稳定性）；每个 OpenMM 上下文 64 个独立副本；R2 候选滞后加入 5、10 ns；第二轮 R1 用 20 格拟合并在每个最优点用 40/80 格重算；Fit A 用 2 个初值。</li>
+      <li>"R0*"、增益分解和不可识别性扫描是事后诊断，不在预注册方案中。</li>
+      <li>2018 链动力学论文主文闭源，未得到可核查的实验速率；2021 MB–DNA CV 和 TBA／NPY 转移层本轮未执行。</li>
+      <li>累计计算约 16 CPU·h（24 h 上限内），未使用付费资源。</li>
+    </ul>
+  </section>
+
+  <footer>
+    <p>数据来源：P. Dauphin-Ducharme 等，“Simulation-Based Approach to Determining Electron Transfer Rates Using Square-Wave Voltammetry”，<i>Langmuir</i> 2017, 33, 4407–4413，<a href="https://doi.org/10.1021/acs.langmuir.7b00359">doi:10.1021/acs.langmuir.7b00359</a>（SI 图 S-7）。参考：Dauphin-Ducharme 等，<i>J. Phys. Chem. C</i> 2018, 122, 21441，<a href="https://doi.org/10.1021/acs.jpcc.8b06111">doi:10.1021/acs.jpcc.8b06111</a>。</p>
+    <p>代码、预注册方案与全部结果：仓库 <code>YuhaoWang-crypto/ClaudeCode</code>，分支 <code>claude/dreamy-cerf-xros3c</code>，目录 <code>mb_dynamics/</code>。</p>
+  </footer>
+</div>
+<div class="tip" id="tip" hidden></div>
+
+<script>
+(function () {
+  // Held-out mean NRMSE of the net current (%), fit B, beta = 5 nm^-1. R0* = best-training-basin point evaluated as R0 (post hoc).
+  var DATA = {
+    freq: [
+      { chem: "协同 2e⁻", npar: "4 / 5", R0: 23.6, star: null, R1: 23.6, R2: 23.6, pop: 22.3, ok: "2/9" },
+      { chem: "EE", npar: "6 / 7", R0: 61.6, star: 57.0, R1: 20.5, R2: 20.8, pop: 39.3, ok: "1/9" },
+      { chem: "E–C–E", npar: "7 / 8", R0: 19.6, star: 17.0, R1: 17.0, R2: 19.2, pop: 15.6, ok: "2/9" }
+    ],
+    amp: [
+      { chem: "协同 2e⁻", npar: "4 / 5", R0: 16.7, star: null, R1: 16.7, R2: 16.7, pop: 16.0, ok: "4/9" },
+      { chem: "EE", npar: "6 / 7", R0: 9.0, star: 9.1, R1: 9.1, R2: 9.1, pop: 8.5, ok: "8/9" },
+      { chem: "E–C–E", npar: "7 / 8", R0: 10.6, star: 6.9, R1: 7.4, R2: 8.3, pop: 6.1, ok: "8/9" }
+    ]
+  };
+  var SERIES = [
+    { key: "R0", name: "R0 静态", color: "var(--series-1)" },
+    { key: "R1", name: "R1 一维", color: "var(--series-2)" },
+    { key: "R2", name: "R2 多状态（条件）", color: "var(--series-3)" },
+    { key: "pop", name: "双群体对照", color: "var(--series-4)" }
+  ];
+  var NS = "http://www.w3.org/2000/svg";
+  var svg = document.getElementById("bars");
+  var tip = document.getElementById("tip");
+  var W = 720, H = 330, L = 44, R = 12, T = 14, B = 46, YMAX = 65;
+  function el(name, attrs, text) {
+    var e = document.createElementNS(NS, name);
+    for (var k in attrs) e.setAttribute(k, attrs[k]);
+    if (text != null) e.textContent = text;
+    return e;
+  }
+  function y(v) { return T + (H - T - B) * (1 - v / YMAX); }
+  function showTip(evt, html) {
+    tip.innerHTML = html; tip.hidden = false;
+    var x = evt.clientX + 12, yy = evt.clientY + 12;
+    var w = tip.offsetWidth, h = tip.offsetHeight;
+    if (x + w > window.innerWidth - 8) x = evt.clientX - w - 12;
+    if (yy + h > window.innerHeight - 8) yy = evt.clientY - h - 12;
+    tip.style.left = x + "px"; tip.style.top = yy + "px";
+  }
+  function hideTip() { tip.hidden = true; }
+  function draw(mode) {
+    while (svg.childNodes.length > 1) svg.removeChild(svg.lastChild);
+    var rows = DATA[mode];
+    [0, 10, 20, 30, 40, 50, 60].forEach(function (v) {
+      svg.appendChild(el("line", { x1: L, x2: W - R, y1: y(v), y2: y(v), "class": "grid" }));
+      svg.appendChild(el("text", { x: L - 8, y: y(v) + 4, "text-anchor": "end" }, v + "%"));
+    });
+    svg.appendChild(el("line", { x1: L, x2: W - R, y1: y(30), y2: y(30), "class": "refl" }));
+    svg.appendChild(el("text", { x: W - R, y: y(30) - 5, "text-anchor": "end" }, "目标 30 %"));
+    var gw = (W - L - R) / rows.length, bw = 30, gap = 6;
+    rows.forEach(function (r, gi) {
+      var x0 = L + gi * gw + (gw - (SERIES.length * bw + (SERIES.length - 1) * gap)) / 2;
+      SERIES.forEach(function (s, si) {
+        var v = r[s.key], x = x0 + si * (bw + gap), top = y(v), h = y(0) - top;
+        var p = "M" + x + "," + y(0) + " V" + (top + 4) + " Q" + x + "," + top + " " + (x + 4) + "," + top +
+                " H" + (x + bw - 4) + " Q" + (x + bw) + "," + top + " " + (x + bw) + "," + (top + 4) + " V" + y(0) + " Z";
+        svg.appendChild(el("path", { d: p, fill: s.color, stroke: "var(--surface)", "stroke-width": 2 }));
+        if (s.key === "R0" && r.star != null) {
+          svg.appendChild(el("rect", { x: x - 3, y: y(r.star), width: bw + 6, height: y(0) - y(r.star), "class": "star", rx: 3 }));
+        }
+        if (s.key === "R0" || v === Math.min(r.R0, r.R1, r.R2, r.pop)) {
+          svg.appendChild(el("text", { x: x + bw / 2, y: top - 6, "text-anchor": "middle" }, v.toFixed(1)));
+        }
+        var hit = el("rect", { x: x - gap / 2, y: T, width: bw + gap, height: y(0) - T, "class": "hit", tabindex: 0,
+                               "aria-label": r.chem + " " + s.name + " " + v.toFixed(1) + "%" });
+        var html = "<b>" + r.chem + " · " + s.name + "</b><br>平均留出 NRMSE " + v.toFixed(1) + " %" +
+                   (s.key === "R0" && r.star != null ? "<br>R0*（最佳盆地）" + r.star.toFixed(1) + " %" : "");
+        hit.addEventListener("mousemove", function (e) { showTip(e, html); });
+        hit.addEventListener("mouseleave", hideTip);
+        hit.addEventListener("focus", function () {
+          var b = hit.getBoundingClientRect(); showTip({ clientX: b.right, clientY: b.top }, html);
+        });
+        hit.addEventListener("blur", hideTip);
+        svg.appendChild(hit);
+      });
+      svg.appendChild(el("text", { x: L + gi * gw + gw / 2, y: H - B + 20, "text-anchor": "middle", "class": "grp" }, r.chem));
+      svg.appendChild(el("text", { x: L + gi * gw + gw / 2, y: H - B + 36, "text-anchor": "middle" }, "参数 " + r.npar));
+    });
+    svg.appendChild(el("line", { x1: L, x2: W - R, y1: y(0), y2: y(0), stroke: "var(--ink-3)", "stroke-width": 1 }));
+    var tb = document.querySelector("#chart-table tbody");
+    tb.innerHTML = "";
+    rows.forEach(function (r) {
+      var tr = document.createElement("tr");
+      [r.chem, r.npar, r.R0.toFixed(1) + "%", r.star == null ? "—" : r.star.toFixed(1) + "%", r.R1.toFixed(1) + "%",
+       r.R2.toFixed(1) + "%", r.pop.toFixed(1) + "%", r.ok].forEach(function (c, i) {
+        var td = document.createElement("td"); td.textContent = c; if (i >= 2) td.className = "n"; tr.appendChild(td);
+      });
+      tb.appendChild(tr);
+    });
+  }
+  function setMode(mode) {
+    document.getElementById("tab-freq").setAttribute("aria-pressed", mode === "freq");
+    document.getElementById("tab-amp").setAttribute("aria-pressed", mode === "amp");
+    hideTip();
+    draw(mode);
+    try { localStorage.setItem("mbdyn-mode", mode); } catch (e) {}
+  }
+  document.getElementById("tab-freq").addEventListener("click", function () { setMode("freq"); });
+  document.getElementById("tab-amp").addEventListener("click", function () { setMode("amp"); });
+  var start = "freq";
+  try { if (localStorage.getItem("mbdyn-mode") === "amp") start = "amp"; } catch (e) {}
+  if (location.hash === "#amp") start = "amp";
+  setMode(start);
+})();
+</script>
