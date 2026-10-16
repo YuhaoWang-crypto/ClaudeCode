@@ -8,7 +8,55 @@ propagated through the exact SWV waveform, and current comes only from redox jum
 is never used as a current. Pre-registered protocol: [`PROTOCOL.md`](PROTOCOL.md), frozen in commit
 `c05c2a4` before any fitting. Data provenance and digitization: [`data/dauphin2017/MANIFEST.md`](data/dauphin2017/MANIFEST.md).
 
-## 结论（先说结果）
+## 第二轮：加入 MB 分步电子／质子化学后再比较（预注册见 `PROTOCOL.md` Round 2 addendum）
+
+**结论：换成分步化学后，化学模型本身显著改善了拟合与振幅留出预测，但保留构象转换仍然没有带来可归因于动力学的预测增益。** 预注册指标表面上显示 R1/R2 在 C1、C2 下比 R0 好 13–67 %，但逐折分解证明这些差异来自优化盆地（R0 的 4 个初值落在外推较差的等价训练解上），不是构象动力学。
+
+化学模型（每种化学下都跑 R0/R1/R2/静态双群体对照，数据、折、目标函数、指标与第一轮相同）：
+
+| 化学 | 机理 | 参数（含 Q） |
+|---|---|---|
+| C0 | 协同表观 2e⁻ Butler–Volmer（第一轮） | 4 |
+| C1 EE | O + e⁻ ⇌ I ⇌(+e⁻) R，两步 1e⁻ BV，质子化快速并入表观电位 | 6 |
+| C2 E–C–E | O + e⁻ ⇌ I；I + H⁺ ⇌ IH（有限速率 k_p，K_p = 10 固定，1/100 为敏感性）；IH + e⁻ ⇌ R | 7 |
+
+两步电子转移都乘同一距离因子 w(z)，质子化不随距离变化；联合链（构象 × 红氧物种）对 π⊗q(E) 满足细致平衡，因此第一轮的精确对称平方根/SVD 传播器可直接推广（`chem_backend.py`；`tests/test_chem.py` 与第一轮后端、稠密 expm、Radau 刚性积分、快/慢交换极限、可逆极限和两波分离极限一致）。
+
+**1. 化学的作用（R0 路线，Fit B；括号为同折最佳训练盆地 R0\*，事后诊断）**
+
+| 化学 | 全数据训练代价 | 留一频率 NRMSE_net | 达标（频率） | 留一振幅 NRMSE_net | 达标（振幅） |
+|---|---|---|---|---|---|
+| C0 | 0.0245 | 23.6 % | 2/9 | 16.7 % | 4/9 |
+| C1 EE | 0.0094 | 61.6 %（R0\* 57.0 %；500 Hz 留出不可识别，近最优解 17–126 %） | 1/9 | 9.0 % | 8/9 |
+| C2 E–C–E | 0.0049 | 19.6 %（R0\* 17.0 %） | 2/9 | 10.6 %（R0\* 6.9 %） | 8/9 |
+| C2，K_p = 1 / 100 | 0.0047 / 0.0052 | 24.1 % / 25.3 % | 2/9 / 1/9 | — | — |
+
+- 分步化学使训练误差降低 2.6–5 倍；**振幅留出**从 16.7 % 降到 7–11 %，达标曲线从 4/9 升到 8/9。
+- **频率外推仍未解决**：所有化学下留出 20 Hz 时峰值仍低估 43–73 %（C2 对 100 Hz 留出很好，2.7–13 %）；C1 对 500 Hz 留出完全不可识别（训练代价相差 < 5 % 的 7 个解，留出误差 17 %–126 %）。
+- C2 参数在各频率折间稳定、化学上可解释：有效速率 k₁⟨w⟩ ≈ 70–280 s⁻¹、k₂⟨w⟩ ≈ 360 s⁻¹，电位反转 ΔE = E₁ − E₂′ ≈ −0.13 至 −0.17 V（半醌不稳定，第二个电子更易转移），质子化 k_p ≈ 600–1700 s⁻¹，与 SWV 时间尺度相当——这是频率依赖波形的一个可信来源。但 K_p 未被数据确定（1/10/100 留出误差 24/20/25 %），因此 C2 只是"可拟合且对振幅外推较好"的候选机理，**不是被验证的机理**（9 条回顾性曲线、推测单电极）。
+
+**2. 三路线比较（每种化学内部）**
+
+| 化学 | 折 | R0 拟合 | R0\*（事后最佳盆地） | R1 | R2（条件） | 静态双群体 |
+|---|---|---|---|---|---|---|
+| C1 | 留一频率 | 61.6 % | 57.0 % | 20.5 % | 20.8 % | 39.3 % |
+| C1 | 留一振幅 | 9.0 % | 9.1 % | 9.1 % | 9.1 % | 8.5 % |
+| C2 | 留一频率 | 19.6 % | 17.0 % | 17.0 % | 19.2 % | 15.6 % |
+| C2 | 留一振幅 | 10.6 % | 6.9 % | 7.4 % | 8.3 % | 6.1 % |
+
+增益分解（`decompose_gain.py`，`results/chem_gain_decomposition.json`）：对每个 R1/R2 解，把**同一化学参数点**放回 R0（去掉动力学）以及同路线 s = 1 重算。在 24 个 R1/R2 留出折中，"R0@同参数" 与 R1/R2 的训练代价和留出误差几乎在所有折相同——例如 C1 留出 500 Hz：R0 自身拟合与 R1 训练代价同为 0.0047，留出误差却是 125.7 % vs 17.0 %，R0 放到 R1 的参数点上即得 17.0 %。真正由构象动力学造成的差异只出现在 s 撞到下界 10⁻³（运动比 Stokes–Einstein 慢 1000 倍）的少数折，且方向不一致（C2-R1 留 50 mV：7.7 % → 4.2 %；C2-R2 留 25 mV：6.7 % → 9.8 %）。Fit A（共享 θ、s = 1）下三路线逐曲线相同（≤0.1 %）。因此：**不宣称动力学增益**；预注册的"≥10 % 降低"在表面数字上被满足，但经分解不可归因于构象动力学，记为优化盆地差异。
+
+静态双群体对照在 C2 下最好（留一频率 15.6 %、5/9 达标；留一振幅 6.1 %），相对 R0\* 改善 8–12 %，且去掉异质性（δ = 0）会显著恶化训练代价——速率异质性（而非构象运动快慢）被数据实际使用，但仍只多一个参数、只有 9 条曲线，不宣称机制成立。
+
+R1 网格检查（20 格拟合，在每个最优点用 40/80 格重算）：曲线最大差 1.9 % / 3.6 %（出现在 s 下界的解），所有折留出 NRMSE 变化 ≤0.1 %。第二轮计算约 4.5 CPU·h；累计约 16 CPU·h，低于 24 h 上限。
+
+![按化学的留一频率预测](figures/heldout_freq_chem.png)
+
+全部表格：[`results/tables_chem.md`](results/tables_chem.md)；不可识别性与双群体诊断：`identifiability_chem.py`、`results/chem_identifiability.json`（事后诊断，非预注册）。
+
+---
+
+## 第一轮结论（协同 2e⁻ 化学）
 
 **在同一数据、同一表观双电子 Butler–Volmer 假设下，保留构象转换（R1、R2）没有比静态／快平衡平均（R0）更准确地预测 SWV 电流。** 三条路线的留出 NRMSE 在所有折、Fit A/B、β = 2/5/10 nm⁻¹ 下相差 ≤0.1 %（数字化噪声地板约 3 %），远低于预设的 10 % 动力学增益门槛。这是一个有效的阴性结论，原因可直接定量：
 
@@ -92,6 +140,9 @@ is never used as a current. Pre-registered protocol: [`PROTOCOL.md`](PROTOCOL.md
 | R2 | `msm.py`, `r2_build.py` | k-means states on (z, R_g, r_end, contacts), reversible generator by lag-τ likelihood, timescale / CK / sampling / block-PMF gates |
 | fits | `fit_cv.py`, `run_analysis.py` | fit A (shared θ) and fit B (per-route + global s), frequency and amplitude folds, β and grid sensitivity, profiles |
 | report | `summarize.py` | tables (`results/tables_dt*.md`) and figures (`figures/`) |
+| round 2 chemistry | `chem_backend.py`, `tests/test_chem.py` | C0/C1 EE/C2 E–C–E on conformation × redox species, same exact propagator |
+| round 2 fits | `run_chem.py`, `summarize_chem.py` | per-chemistry routes, folds, fit A/B, K_p sensitivity, 20/40/80-cell checks |
+| round 2 diagnostics | `decompose_gain.py`, `identifiability_chem.py` | dynamics-vs-optimum decomposition; near-optimal held-out spread (post hoc) |
 
 Reproduce (about 2–3 h on 4 cores):
 ```
