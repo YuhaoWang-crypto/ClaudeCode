@@ -60,6 +60,7 @@ mostly cannot be answered from existing public data.
 | **GSE52428** / **GSE17156** ★★★ | two pre-challenge samples per subject: mean = personal balance, difference = personal noise floor |
 | **GSE75214** | IBD mucosa reference ensemble (mean and covariance of controls) |
 | **GSE75210** ★★ | Myd88⁻/⁻ macrophages, 12 stimuli × 8 times — a known-answer test set for the method |
+| **FrangiehIzar2021** (scPerturb) ★★★ | melanoma Perturb-CITE-seq: 218k cells x 24 surface proteins (incl. four isotype controls) x CRISPR KO x {control, IFN-γ, TIL co-culture}. Used in D24. The isotype controls make it the reference dataset for testing any within-cell covariance claim; note ~100–500 cells per KO is too few for second moments |
 | **GSE7895** ★★★ | bronchial epithelium, never / current / former smokers with 1–504 months since quitting — a dose-of-time cause-removal design (used in D22; age-confounded, see pitfalls) |
 | **GSE145358** ★★ | coeliac duodenum, 15 patients on a gluten-free diet then gluten-challenged, paired, plus healthy controls — cause removed AND restored in the same people (used in D22) |
 | **GSE70138** (LINCS L1000 Phase 2) | 118,050 signatures, 2,171 compounds, 7 main cell lines; 978 MEASURED genes, 11,350 inferred. Used in D21: fails the psoriasis positive control; useful as a cautionary benchmark, not as a lever library for a tissue disease |

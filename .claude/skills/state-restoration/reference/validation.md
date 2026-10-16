@@ -199,6 +199,28 @@ placebo arm): three mechanisms, three platforms, per-patient effect vectors.
 study-vs-study contrast. Estimate the technical gap from a same-platform subset
 before interpreting anything as mechanism.
 
+### Does within-cell co-occurrence carry information the means do not? (D24)
+
+Frangieh/Izar 2021 Perturb-CITE-seq melanoma (scPerturb): 218,331 cells x 24
+surface proteins including HLA-A, CD58 and four isotype controls, CRISPR KO
+across control / IFN-gamma / TIL co-culture.
+
+| Check | Result | Status |
+|---|---|---|
+| Depth artefact in a within-cell covariance | raw ADT: isotype x isotype +0.074, HLA-A x CD58 +0.132, r(HLA-A, depth) +0.55; CLR removes it | ✅ quantified |
+| The ADT panel resolves its own knockouts | B2M KO → HLA-A −1.46 (z −56), CD274 −1.37, CD58 −0.94 (z −30) | ✅ |
+| **Per-knockout covariance is estimable** | split-half r −0.005 to +0.170, and the isotype pair scores as high (+0.209); means split at r 0.78–0.94 | ❌ not estimable |
+| Cells needed for a usable estimate | bootstrap SE 0.030 at n=100 vs a 0.020 total between-KO spread; ~3,000 cells/KO for SE = spread/4 | ✅ design number |
+| The screen's resistance read-out is sound | STAT1 +1.25, IFNGR2 +1.11, JAK1 +0.84, CD58 +0.35 (median over all KOs +0.03) | ✅ reproduces the paper |
+| Covariance predicts resistance beyond the means | added R² +0.001, permutation p 0.71; ρ(ΔCov) −0.09 n.s. — while ρ(Δmean CD58) −0.343 (p 8e-7) and ρ(Δmean HLA-A) −0.216 (p 0.002) | ❌ |
+| Size of the co-occurrence term | sd(Cov) is 10–21% of sd(E[A]E[H]) | ⚠️ minor term |
+
+**Rule it sets.** A second moment is not a mean: before interpreting any
+within-cell covariance, (1) normalise away the shared per-cell total and prove
+it on a pair that cannot co-vary, (2) split-half the statistic itself, and
+(3) convert its bootstrap SE into a cells-per-group requirement. The hypothesis
+here is under-powered by 10–30x, not refuted.
+
 **What the step-5 results mean.** A J fitted from one observational intervention describes how the system relaxes under that intervention. Its "levers" are the modules that relax least by themselves: bottlenecks and candidate add-on targets.
 
 Confirmed in D16: with a measured response library the same formula recovers the
