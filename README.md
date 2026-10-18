@@ -41,3 +41,27 @@ python3 -m grn_pipeline.m1_symmetry   # or any single module
 Figures are written to `figures/`. A full write-up with numbers, rigour
 labels, and the interpretation (including the Lyapunov-exponent biomarker
 question) is in [`REPORT.md`](REPORT.md).
+
+---
+
+# landscape_flux — 势能–通量景观诊断设想的公开数据实测
+
+Seven runnable demos that test the "landscape–flux" diagnostic proposal
+(entropy / potential / flux / macroscopic physical readouts) on public data
+or PMID-referenced literature measurements. Full write-up (Chinese):
+[`LANDSCAPE_FLUX_REPORT.md`](LANDSCAPE_FLUX_REPORT.md).
+
+| Module | Claim tested | Data | Key result |
+|---|---|---|---|
+| `lf1_maxent` | macro entropy → P(X); MaxEnt residual exposes hidden interactions | pancreas scRNA, PBMC-3k | equal entropy (ΔH=0.022) yet AUC 0.51 vs 0.97 for one gene; 79% of MaxEnt residual = hidden cell identity |
+| `lf2_landscape_flux` | curl flux & entropy production in gene circuits | exact Fokker–Planck on grid | symmetric A⇄B σ≈5e-4 (near detailed balance) vs A→B⊣A σ=7.7 |
+| `lf3_flux_realdata` | measuring flux without / with time series | GEO GSE3431, pancreas RNA velocity | YMC rotation p=2e-4; 81% of cycling cells rotate G1→S→G2M (p=0.001); Hodge rotational 0.46 (cycle) vs 0.06 (differentiation) |
+| `lf4_hamiltonian` | U + K = const ("potency + metabolism = const") | model, pancreas, Paul15 | refuted (corr +0.91 / +0.26 / ≈0 after depth control); rotational flux runs along iso-U contours |
+| `lf5_nuclear_texture` | nuclear fractal dimension / texture entropy as chromatin readout | BBBC021 MCF-7 (7923 nuclei) | taxol texture entropy AUC 0.71 vs area 0.52; adds to size+DNA (0.60→0.76); box-counting FD fails synthetic check |
+| `lf6_dielectric` | membrane capacitance tracks EMT / T-cell state | single-shell model + Lannin 2016, Pethig 2002/2007 | model reproduces crossovers ≤5%; EMT C_m unchanged (20.2→20.1); T-cell activation single-cell AUC≈0.66 |
+| `lf7_calorimetry` | heat output reads out state entropy production | published pW/cell + TAM limits | 2.32 pW = 5.4e8 k_BT/s; circuit ≈0.2% of heat; single-cell fluctuations averaged to 0.09% |
+
+```bash
+pip install numpy scipy pandas matplotlib scikit-learn scikit-image anndata h5py scanpy pooch tifffile
+python3 -m landscape_flux.run_all
+```
