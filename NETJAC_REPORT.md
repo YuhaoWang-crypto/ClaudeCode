@@ -2316,7 +2316,7 @@ CRISPRi 这一侧**贴着自己的噪声底**：响应范数中位 2.87 vs 非�
 
 图：`figures/netjac/d28_overexpression_vs_knockdown.png`
 
-网页报告（私有，需在页面 Share 菜单分享后他人才可见）：__ARTIFACT__
+网页报告（私有，需在页面 Share 菜单分享后他人才可见）：https://claude.ai/artifact/DemvsXxJZES89UJwewPZBw
 
 ## 30. 平台与 skill（可延伸）
 
