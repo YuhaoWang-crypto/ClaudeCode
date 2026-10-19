@@ -2455,7 +2455,7 @@ Part A 里种进去的完美先验在 25% 数据时增益反而最大（+0.20）
 
 图：`figures/netjac/d29_prior_network_value.png`
 
-网页报告（私有，需在页面 Share 菜单分享后他人才可见）：__ARTIFACT__
+网页报告（私有，需在页面 Share 菜单分享后他人才可见）：https://claude.ai/artifact/SgV6nvdDQK8A5rxRPVGUC9
 
 ## 31. 平台与 skill（可延伸）
 
