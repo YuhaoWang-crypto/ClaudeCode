@@ -163,6 +163,31 @@ def helmholtz_curl_fraction(P, Vel, n=40, bw=None):
     return dict(rot_frac=num / den, grid=(rho, Jx, Jy, curl), lo=lo, hi=hi)
 
 
+def hodge_validation(n=1500, seed=0):
+    """Why a Hodge split of the DENSITY FLUX J = ρv on a grid overstates
+    rotation for developmental data: a one-way current flowing along a curved
+    density ridge is divergence-free in J (∇·J ≈ 0 along a channel), even
+    though the velocity field is a pure gradient (v = ∇ of arc length)."""
+    rng = np.random.default_rng(seed)
+    out = {}
+    # 1. uniform translation through an elongated cloud
+    P = np.c_[rng.uniform(0, 3, n), rng.normal(0, 0.3, n)]
+    V = np.c_[np.ones(n), np.zeros(n)]
+    out["uniform flow"] = (helmholtz_curl_fraction(P, V)["rot_frac"], graph_hodge(P, V))
+    # 2. one-way flow along a U-shaped ridge (like an endocrine trajectory)
+    th = rng.uniform(0.15 * np.pi, 0.85 * np.pi, n)
+    rad = 1 + 0.08 * rng.normal(size=n)
+    P = np.c_[rad * np.cos(th), -rad * np.sin(th)]
+    V = np.c_[np.sin(th), np.cos(th)]          # tangential, one direction, no return
+    out["one-way U-shaped channel"] = (helmholtz_curl_fraction(P, V)["rot_frac"], graph_hodge(P, V))
+    # 3. genuine closed rotation on a ring
+    th = rng.uniform(0, 2 * np.pi, n)
+    P = np.c_[rad * np.cos(th), rad * np.sin(th)]
+    V = np.c_[-np.sin(th), np.cos(th)]
+    out["closed ring rotation"] = (helmholtz_curl_fraction(P, V)["rot_frac"], graph_hodge(P, V))
+    return out
+
+
 def pancreas_flux(seed=0, n_null=1000):
     from sklearn.decomposition import PCA
     a = _data.load_pancreas()
@@ -227,6 +252,10 @@ def run(make_fig=True):
           f"(time-shuffled null sd = {Y['null_sd']:.2f}, p = {Y['p']:.1e})")
     print(f"    implied period = {Y['period']:.0f} min (Tu et al. 2005 report ~4–5 h)")
 
+    HV = hodge_validation()
+    print("\n[check] rotational fraction: grid Hodge of density flux J=ρv  vs  graph Hodge of v")
+    for k, (j, g) in HV.items():
+        print(f"    {k:26s} J-grid {j:.2f}   v-graph {g:.2f}")
     Pn = pancreas_flux()
     print("\n[b] endocrine pancreas, RNA velocity from ONE snapshot (n=3696 cells)")
     print(f"    cycling progenitors n={Pn['n_cyc']}: fraction rotating counter-clockwise "
@@ -283,7 +312,7 @@ def run(make_fig=True):
             ax[2 + k].set_xticks([]); ax[2 + k].set_yticks([])
         fig.tight_layout(); fig.savefig(_data.fig("lf3_flux_realdata.png"), dpi=130)
         plt.close(fig)
-    return dict(ymc=Y, pancreas=Pn)
+    return dict(ymc=Y, pancreas=Pn, hodge_check=HV)
 
 
 if __name__ == "__main__":

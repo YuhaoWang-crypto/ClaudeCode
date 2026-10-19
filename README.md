@@ -49,7 +49,8 @@ question) is in [`REPORT.md`](REPORT.md).
 Seven runnable demos that test the "landscape–flux" diagnostic proposal
 (entropy / potential / flux / macroscopic physical readouts) on public data
 or PMID-referenced literature measurements. Full write-up (Chinese):
-[`LANDSCAPE_FLUX_REPORT.md`](LANDSCAPE_FLUX_REPORT.md).
+[`LANDSCAPE_FLUX_REPORT.md`](LANDSCAPE_FLUX_REPORT.md); cross-check against an independent
+analysis: [`COMPARISON_WITH_SYNTHESIS.md`](COMPARISON_WITH_SYNTHESIS.md).
 
 | Module | Claim tested | Data | Key result |
 |---|---|---|---|
@@ -57,9 +58,10 @@ or PMID-referenced literature measurements. Full write-up (Chinese):
 | `lf2_landscape_flux` | curl flux & entropy production in gene circuits | exact Fokker–Planck on grid | symmetric A⇄B σ≈5e-4 (near detailed balance) vs A→B⊣A σ=7.7 |
 | `lf3_flux_realdata` | measuring flux without / with time series | GEO GSE3431, pancreas RNA velocity | YMC rotation p=2e-4; 81% of cycling cells rotate G1→S→G2M (p=0.001); Hodge rotational 0.46 (cycle) vs 0.06 (differentiation) |
 | `lf4_hamiltonian` | U + K = const ("potency + metabolism = const") | model, pancreas, Paul15 | refuted (corr +0.91 / +0.26 / ≈0 after depth control); rotational flux runs along iso-U contours |
-| `lf5_nuclear_texture` | nuclear fractal dimension / texture entropy as chromatin readout | BBBC021 MCF-7 (7923 nuclei) | taxol texture entropy AUC 0.71 vs area 0.52; adds to size+DNA (0.60→0.76); box-counting FD fails synthetic check |
+| `lf5_nuclear_texture` | nuclear fractal dimension / texture entropy as chromatin readout | BBBC021 MCF-7 (7923 nuclei) | taxol texture entropy AUC 0.71 vs area 0.52, but 4 trivial scalars incl. sharpness already 0.75 (→0.77 with entropy/FD); box-counting FD fails synthetic check |
 | `lf6_dielectric` | membrane capacitance tracks EMT / T-cell state | single-shell model + Lannin 2016, Pethig 2002/2007 | model reproduces crossovers ≤5%; EMT C_m unchanged (20.2→20.1); T-cell activation single-cell AUC≈0.66 |
 | `lf7_calorimetry` | heat output reads out state entropy production | published pW/cell + TAM limits | 2.32 pW = 5.4e8 k_BT/s; circuit ≈0.2% of heat; single-cell fluctuations averaged to 0.09% |
+| `lf8_jacobian_slowing` | critical slowing at the Pre-endocrine fork (replication of an independent report) | pancreas RNA velocity | raw τ 1.16x vs shuffled-velocity null 1.17x across 2–10 PCs: not replicated |
 
 ```bash
 pip install numpy scipy pandas matplotlib scikit-learn scikit-image anndata h5py scanpy pooch tifffile

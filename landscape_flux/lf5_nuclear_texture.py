@@ -152,7 +152,9 @@ def nucleus_features(img, lab, bg):
         # erode by 2 px so the nuclear rim (a step edge) does not dominate γ(r)
         inner = ndi.binary_erosion(msk, iterations=2)
         fd = variogram_fd(crop, inner) if inner.sum() > 60 else np.nan
-        rows.append(dict(area=p.area, dna=v.sum(), mean=mu,
+        gy, gx = np.gradient(crop)
+        grad = np.hypot(gx, gy)[inner].mean() if inner.sum() > 0 else np.nan
+        rows.append(dict(area=p.area, dna=v.sum(), mean=mu, grad=grad,
                          H_hist=hist_entropy(v / mu), H_glcm=glcm_entropy(crop, msk),
                          fd=fd, cv=v.std() / mu))
     return rows
@@ -237,10 +239,24 @@ def run(make_fig=True):
     y = (two.group == "taxol").values
     base = two[["area", "dna"]].apply(np.log).values
     full = np.column_stack([base, two[["H_hist", "H_glcm", "fd"]].values])
-    cv_base = cross_val_score(LogisticRegression(max_iter=2000), base, y, cv=5, scoring="roc_auc").mean()
-    cv_full = cross_val_score(LogisticRegression(max_iter=2000), full, y, cv=5, scoring="roc_auc").mean()
+    from sklearn.pipeline import make_pipeline
+    from sklearn.preprocessing import StandardScaler
+
+    def cvauc(X):
+        return cross_val_score(make_pipeline(StandardScaler(), LogisticRegression(max_iter=2000)),
+                               X, y, cv=5, scoring="roc_auc").mean()
+    cv_base = cvauc(base); cv_full = cvauc(full)
     print(f"    nucleus-level taxol-vs-DMSO classifier (5-fold CV AUC): size+DNA {cv_base:.2f} "
           f"-> + entropy/FD {cv_full:.2f}")
+    # stricter baseline (cf. the BBBC048 synthesis report): 4 trivial scalars incl.
+    # mean intensity and mean gradient magnitude (a focus / sharpness proxy)
+    base4 = np.column_stack([base, two[["mean", "grad"]].values])
+    full4 = np.column_stack([base4, two[["H_hist", "H_glcm", "fd"]].values])
+    cv_b4 = cvauc(base4); cv_f4 = cvauc(full4)
+    ent_only = cvauc(two[["H_hist", "H_glcm", "fd"]].values)
+    r_grad = np.corrcoef(two.H_glcm, two.grad)[0, 1]
+    print(f"    4 trivial scalars (area, DNA, mean intensity, gradient) {cv_b4:.2f} -> + entropy/FD "
+          f"{cv_f4:.2f};  entropy/FD alone {ent_only:.2f};  corr(GLCM entropy, gradient) = {r_grad:+.2f}")
 
     if make_fig:
         import matplotlib; matplotlib.use("Agg")
@@ -262,7 +278,8 @@ def run(make_fig=True):
             ax[2 + k].set_title(lab)
         fig.tight_layout(); fig.savefig(_data.fig("lf5_nuclear_texture.png"), dpi=130)
         plt.close(fig)
-    return dict(validation=V, table=table, img_auc=img_auc, cv=(cv_base, cv_full), df=df)
+    return dict(validation=V, table=table, img_auc=img_auc, cv=(cv_base, cv_full),
+                cv4=(cv_b4, cv_f4, ent_only, r_grad), df=df)
 
 
 if __name__ == "__main__":
