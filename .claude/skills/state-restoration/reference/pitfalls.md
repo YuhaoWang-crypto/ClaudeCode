@@ -104,6 +104,18 @@ Each entry gives the symptom, the cause and the fix, with the case where it happ
 | A perturbation library is assumed to have signal because the screen is large | The responses can sit on the library's own noise floor for the genes you care about: 7/84 above the 95th percentile of 585 non-targeting rows, two-TSS replicate cos +0.050 | Use non-targeting rows as the noise floor and report how many perturbations clear it before interpreting any correlation | D28 |
 | Two directions are compared across two studies | Cross-study, cross-lab and cross-technology differences are perfectly confounded with the biological contrast, exactly as drug and study were in D23 | Say so; the design that settles it is both directions on the same genes in one experiment | D28 |
 
+## Prior networks and "recovers known interactions"
+
+| Symptom | Cause | Fix | Case |
+|---|---|---|---|
+| A method is validated by its overlap with a known interaction database | A prior raises overlap with itself by construction: adding it lifted the recovered edges' overlap from 11.3 % to 37.2 %, while a degree-preserving SHUFFLED prior gave as many reproducible edges (7,198 vs 7,146) with overlap flat at 11.4 % | Report the same overlap for a degree-preserving shuffled reference graph. If they are close, the overlap is manufactured | D29 |
+| A prior network is assumed to help because it encodes biology | It has to beat no prior out of sample. Here it bought **+0.0005** in held-out R² against a calibrated ceiling of +0.178 — an effective accuracy of ~6 % | Hold out whole perturbation columns and compare; calibrate the detectable range on a planted network first so the measured number is readable | D29 |
+| J is restricted to the prior graph's support "to make it interpretable" | The data-driven edges outside the graph carry real predictive signal: prior-only support cost **-0.0996** in held-out R² | Let the sparse regression choose the support; use the graph to annotate the result afterwards, outside the fit | D29 |
+| "A prior helps when data is scarce" is used as the defence | Test it. On a planted prior the gain does grow when thinned (+0.178 to +0.201), but the real graph's gain went NEGATIVE at 25 % of the training columns (-0.0077) | Run the thinning sweep rather than asserting the argument | D29 |
+| A prior is described as a regulatory network | Check what it actually contains on YOUR node set: here 5,800 of 5,836 entries were protein-complex co-membership and only 108 were signed signalling edges | Decompose the prior by source and state which component the result is really about | D29 |
+| A single Lasso alpha is shared across configurations being compared | The prior can win or lose purely from a penalty level that suits one configuration | Sweep the same alpha grid for every configuration and let each report its own best held-out score | D29 |
+| A Lasso alpha is reused across datasets of different scale | sklearn's objective is (1/2n)||y-Xb||² + α||b||₁, so α must track the data scale; a synthetic response with off-diagonal std 0.03 had everything shrunk to zero at α = 0.01 | Divide X and y by the RMS of y per row — it leaves the solution unchanged and makes α a relative penalty | D29 |
+
 ## Engineering
 
 - **GEO series matrices.** Some are linear MAS5 (GSE52428, GSE16879): use log2(max(x, 16)), then quantile-normalise. Others are already log scale. Check the range before choosing.

@@ -272,6 +272,15 @@ ranking stays at 15 %. To rank causal upstream targets, J must come from one of 
 - several interventions that act on different modules;
 - a mechanistic kinetic model (the network-jacobian skill).
 
+A prior interaction network is NOT one of these, and D29 measured the gap: as a
+Lasso prior on the sparse MRA it bought +0.0005 in held-out R² against a
+calibrated ceiling of +0.178, and restricting J to its support cost -0.0996.
+Where perturbation data exists, let the sparse regression choose the support and
+use the graph only to annotate the result afterwards. Never validate a recovered
+network by its overlap with the database you primed it with: report the same
+overlap for a degree-preserving shuffled graph, which here matched the real one
+(11.4 % vs 11.3 %) while the real prior reported 37.2 %.
+
 D20 adds the ceiling on this: even with the right cell type and the right
 lever in the library, the ranking is an indication-level statement. The
 clinical response to a drug cannot confirm its own mechanism, because other
@@ -421,3 +430,73 @@ with noise rather than proven reversals.
 - Cross-study and cross-technology differences cannot be separated with one
   dataset per direction. Settling this needs CRISPRa and CRISPRi on the same
   genes in one experiment, on genes whose knockdown has a phenotype in that line.
+
+## D29 — does the prior interaction network earn its place in J? (`demos/d29_prior_network_value.py`)
+
+D9 reported that sparse-MRA edges overlap OmniPath and complexes more than
+chance (14.4 % vs 3.6 %). That is not the question. The question is whether
+putting the graph IN as a prior makes the recovered J **predict** better, and
+overlap cannot answer it: a prior raises overlap with itself by construction.
+Tested out of sample — hold out whole perturbation columns, fit the row-wise
+sparse MRA on the rest, predict the held-out responses. The prior enters as a
+per-feature Lasso penalty weight, exact via column rescaling.
+
+**Calibration first (planted network, 120 nodes, 420 true edges, 25 % noise).**
+
+| prior accuracy | best held-out R² | gain over no prior (0.4026) |
+|---|---|---|
+| 0 % | 0.3973 | **-0.0053** |
+| 25 % | 0.4206 | +0.0180 |
+| 50 % | 0.4655 | +0.0629 |
+| 75 % | 0.5224 | +0.1198 |
+| 100 % | **0.5805** | **+0.1780** |
+
+Thinning the training columns to 25 % raises the perfect prior's gain to
++0.2011, confirming the usual argument for priors — on a prior that is real.
+So anything under about +0.005 on this design is not a gain.
+
+**Real data: 300 most reproducible K562 CRISPRi nodes.**
+
+| | value |
+|---|---|
+| graph coverage | 5,836 of 89,700 ordered pairs (6.51 %), **5,800 from complexes, only 108 from OmniPath signalling edges (1.9 %)** |
+| nodes with ≥ 1 prior edge | 284 / 300 |
+| held-out R², no prior | **0.7543** |
+| held-out R², real prior (best discount) | 0.7548, **gain +0.0005** |
+| held-out R², penalty /20 | 0.7336, **-0.0207** — forcing known edges in hurts |
+| held-out R², degree-preserving SHUFFLED prior | 0.7449, -0.0094 |
+| held-out R², prior-only support | **0.6547, -0.0996** |
+| implied prior accuracy read off the calibration curve | **≈ 6 %** |
+| thinning to 25 % of training columns | gain **-0.0077** (does not reverse) |
+
+**The circularity, measured.**
+
+| configuration | edges A | edges B | both, same sign | enrichment | overlap with the REAL graph |
+|---|---|---|---|---|---|
+| no prior | 18,379 | 18,150 | 6,041 | 1.6x | **11.3 %** |
+| real prior /5 | 19,765 | 19,590 | 7,146 | 1.7x | **37.2 %** |
+| SHUFFLED prior /5 | 19,944 | 19,681 | **7,198** | 1.6x | **11.4 %** |
+
+A shuffled prior gives as many reproducible edges as the real one with overlap
+unchanged, so the reproducibility gain is the sparsity nudge and the overlap
+gain is manufactured by the prior.
+
+**Why.** Two measurable reasons. (1) The data is not scarce: no-prior held-out
+R² is already 0.754 at 300 nodes with ~200 training perturbations. (2) The
+graph covers complexes, not causal edges — consistent with D9's other negative,
+that OmniPath "inhibition" edges still correlate POSITIVELY in tumour abundance
+(+0.02 to +0.09).
+
+**What it changes.** The three-layer design said the graph supplies J's support
+and the data supplies the numbers. Where perturbation data exists, the graph
+should not supply the support either — row-wise sparse regression picks a better
+one. The graph belongs in (a) post-hoc annotation of recovered edges, outside
+the fit, and (b) candidate sets for nodes with no perturbation data, where
+nothing else is available and nothing can be validated.
+
+**Rule it sets.** Any claim of the form "our method recovers known
+interactions" must report the same number for a **degree-preserving shuffled**
+prior / reference graph. If they are close, the overlap was produced by the
+method, not discovered in the data. And scope the claim: this node set's prior
+is 99 % complexes, so a kinase–substrate or receptor-downstream node set could
+behave differently — the test transfers directly.
