@@ -92,6 +92,18 @@ Each entry gives the symptom, the cause and the fix, with the case where it happ
 | Recovered cell counts are used as a survival read-out | Barcode counts span 24-fold within one experiment with 52–95% empty droplets, and the four xenograft arms of the same study carry 29,340–29,983 cells (CV 1.0%) — set by loading | Never infer survival from the number of cells in a deposit; it needs beads, volumetric counting or imaging | D27 |
 | A deposit is assumed to carry the counts because the paper reports them | Across 120 audited GEO series, 0 carried any absolute-count field in sample characteristics, and only 1/60 carried ≥3 structured time values | Audit the structured metadata programmatically before designing around it; also expect time to live in sample titles rather than characteristics | D27 |
 
+## Direction of perturbation (knockdown vs overexpression)
+
+| Symptom | Cause | Fix | Case |
+|---|---|---|---|
+| A lever ranking from a knockdown library is used to prescribe an overexpression | The step is the linear-response identity d(-u) = -d(u), which is assumed, not measured. In K562 the matched cosine is **-0.083** against a prediction of -1, and 70/84 genes are directionally independent | Measure the antisymmetry on genes perturbed in both directions before transferring a ranking; report the corrected cosine, not the raw one | D28 |
+| A loss of antisymmetry is explained by "saturation" or "the dose was different" | An odd input changes magnitude only: a 3x stronger perturbation still gives cos = -1.000000 exactly. Only a direction-specific channel can rotate the response | Rule out dose first with the planted check; then look for a program that only one direction engages | D28 |
+| matched-minus-mismatched is used as the control for a global mode | The contrast collapses along with the raw value: at a global mode 4x the signal it goes from -1.00 to -0.06 | Subtract the across-perturbation mean field explicitly AND report the mismatched null; neither alone is sufficient | D28 (this refuted the planned design) |
+| A cosine and a regression slope are corrected for noise the same way | A cosine is attenuated by the noise on BOTH sides, a slope only by the noise on the regressor. Here the same data gives a corrected correlation of -0.17 to -0.39 but a corrected slope of -0.87 | Correct them separately; mixing the two reads "right sign, wrong content" as either "fully right" or "fully wrong" | D28 |
+| A near-zero median correlation is reported as "no relationship" | Noise fills both tails equally, so the tail COUNTS carry information the median hides: 14 significantly antisymmetric vs 0 co-directional, binomial p = 6e-5 | Classify per unit against the mismatched null and test the tail asymmetry | D28 |
+| A perturbation library is assumed to have signal because the screen is large | The responses can sit on the library's own noise floor for the genes you care about: 7/84 above the 95th percentile of 585 non-targeting rows, two-TSS replicate cos +0.050 | Use non-targeting rows as the noise floor and report how many perturbations clear it before interpreting any correlation | D28 |
+| Two directions are compared across two studies | Cross-study, cross-lab and cross-technology differences are perfectly confounded with the biological contrast, exactly as drug and study were in D23 | Say so; the design that settles it is both directions on the same genes in one experiment | D28 |
+
 ## Engineering
 
 - **GEO series matrices.** Some are linear MAS5 (GSE52428, GSE16879): use log2(max(x, 16)), then quantile-normalise. Others are already log scale. Check the range before choosing.

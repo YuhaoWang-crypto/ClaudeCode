@@ -342,3 +342,82 @@ dye dilution, CV 20%) makes the design full rank, and even then dI lands at CV 1
   between at least two independent definitions of it.
 - A good chi2 with a flat profile is not an estimate. Profile every parameter
   that enters a feasibility claim.
+
+## D28 — is overexpression the negative of knockdown? (`demos/d28_overexpression_vs_knockdown.py`)
+
+The identity that silently connects every knockdown-derived lever ranking to
+every "raise module X" prescription is d(-u) = -d(u). K562 is the one cell line
+where both directions are public: Norman 2019 CRISPRa (105 activations) and
+Replogle 2022 CRISPRi (11,258 knockdowns), 84 genes in both, 799 shared genes.
+
+**Estimator validated on planted answers before touching data.**
+
+| Check | Result | Verdict |
+|---|---|---|
+| pure linear response | cos(r_up, r_down) = **-1.000000** | ✅ |
+| 3x stronger perturbation | still **-1.000000**, norm ratio 3.00 | ✅ dose and saturation change magnitude, never direction — they can never explain a loss of antisymmetry |
+| an up-only second channel, weight 0 -> 4 | cos rises monotonically -1.000 -> -0.250 | ✅ the estimator tracks the planted value |
+| a shared global mode, weight 0 -> 4 | raw matched -1.00 -> +0.88; **matched-minus-mismatched contrast also collapses, -1.00 -> -0.06**; mean-field removal holds -1 to within 0.017 while the mode <= signal | ✅ and it refuted the planned design: the contrast alone is NOT a sufficient control |
+
+**Measured.**
+
+| Quantity | Value | Prediction |
+|---|---|---|
+| matched cos(r_OE, r_KD), mean-field removed | **-0.0831** [5–95%: -0.453, +0.192] | -1 |
+| mismatched cos(r_OE,i, r_KD,j) | +0.0135 | 0 |
+| permutation test on the pairing | observed -0.0831, null +0.0125 ± 0.0150, **p < 2e-4** | — |
+| pooled slope | **-0.2161** | -1 |
+| per gene | **14 antisymmetric, 70 independent, 0 co-directional** | — |
+| tail asymmetry 14 vs 0 | binomial **p = 6.1e-05** | noise fills both tails equally |
+| efficiency-filtered subset (CRISPRa own-gene > 0.5 SD and CRISPRi fold_expr < 0.7, n = 40) | matched -0.1519, mismatched +0.0067 | conclusion does not depend on efficiency |
+| direction positive control | CRISPRa raises the gene 51/52 (median +1.24 SD); CRISPRi lowers it 52/52 (median -0.39 SD) | ✅ not a sign-bookkeeping error |
+
+**Reliability, and the power caveat reported rather than hidden.**
+
+| Anchor | median cos | n |
+|---|---|---|
+| CRISPRa split-half | +0.856 | 122 |
+| CRISPRa two guide-pair orientations (same activation, same study) | **+0.915** | 38 |
+| CRISPRi non-targeting pairs (noise floor) | -0.001 | 341,640 |
+| CRISPRi two-TSS pairs | **+0.050** | 12 |
+
+The CRISPRi side sits on its own noise floor for these mostly non-essential
+transcription factors: norm 2.87 vs non-targeting 2.49, and only **7/84** exceed
+the 95th percentile of the non-targeting norms; 6/84 are detectable on both
+sides. Two reliability estimates (two-TSS 0.050; 1-(noise/signal)^2 = 0.249) put
+the attenuation ceiling on any cross-study |cos| at 0.213–0.478.
+
+**The two attenuation corrections are different by construction** — a cosine is
+damped by the noise on BOTH sides, a regression slope only by the noise on the
+regressor:
+
+| | raw | corrected |
+|---|---|---|
+| direction correlation | -0.0831 | **-0.17 to -0.39** (r² ≈ 0.03) |
+| slope | -0.2161 | **-0.87** (dividing by 0.249; the two-TSS 0.050 over-corrects to -4.37) |
+
+Read together: the knockdown response has the right sign and roughly the right
+per-gene scale but explains a minority of what the activation does. Mechanically
+r_OE ≈ -r_KD plus a large orthogonal component; CRISPRa responses are 2.3x
+larger in norm (6.72 vs 2.87), which is why a small correlation is compatible
+with a near -1 slope.
+
+**Cost to a screen owning only a knockdown library.** Ranking 84 candidates by
+cos(-r_KD, the state change an overexpression actually produced): top-1 **13.1%**
+vs 1.2% chance (11x), top-5 21.4%, **median rank 17 of 84**; permuted-library
+baseline 1.2%. The same lever test WITHIN the knockdown modality (D16) hits 66%.
+Crossing the modality costs most of it. -r_KD points the wrong way for 23/84
+(27%), though none reach the co-directional threshold, so those are consistent
+with noise rather than proven reversals.
+
+**Rules it sets.**
+- Going from a knockdown library to an overexpression prescription (or back):
+  verify the direction positive control, remove the mean field AND report the
+  mismatched null, and correct the cosine and the slope separately.
+- Never explain a loss of antisymmetry by dose or saturation: an odd input
+  changes magnitude only, as the planted check shows exactly.
+- A tail-count asymmetry (14 significantly antisymmetric vs 0 co-directional) is
+  often stronger evidence than the median cosine, because noise fills both tails.
+- Cross-study and cross-technology differences cannot be separated with one
+  dataset per direction. Settling this needs CRISPRa and CRISPRi on the same
+  genes in one experiment, on genes whose knockdown has a phenotype in that line.
