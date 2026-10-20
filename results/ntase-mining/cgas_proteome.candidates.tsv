@@ -1,0 +1,191 @@
+accession	description	tax_name	tax_id	db	evalue	prob	seq_identity	tm_score_qnorm	aln_length	query_len	target_len	n_conserved	n_conserved_exact	max_offset	n_catalytic	site_passed	catalytic_residues	core_rmsd	n_core	core_frac	local_rmsd	n_shell	shell_plddt	carboxylate_geometry	label
+A0A0G2JVC4	Cyclic GMP-AMP synthase	Rattus norvegicus	10116	afdb-proteome	1.683e-43	1	0.682	0.9336	362	362	510	3	3	0	3	True	E225->E214;D227->D216;D319->D310	1.185	43	0.81	3.179	53			hypothesis
+E1BGN7	Cyclic GMP-AMP synthase	Bos taurus	9913	afdb-swissprot	7.978e-40	1	0.7170000000000001	0.7279	365	362	498	3	3	0	3	True	E225->E214;D227->D216;D319->D310	1.213	42	0.79	3.353	53			hypothesis
+P0DXB4	Cyclic GMP-AMP synthase-like receptor	Trichogramma pretiosum	7493	afdb-swissprot	6.882e-11	1	0.182	0.6041	362	362	485	3	3	0	3	True	E225->E82;D227->D84;D319->D204	1.27	31	0.72	3.892	43			hypothesis
+Q8C6L5	Cyclic GMP-AMP synthase	Mus musculus	10090	afdb-proteome	1.644e-42	1	0.685	0.9312	362	362	507	3	3	0	3	True	E225->E211;D227->D213;D319->D307	1.306	42	0.79	3.381	53			hypothesis
+Q8C6L5	Cyclic GMP-AMP synthase	Mus musculus	10090	afdb-swissprot	1.556e-42	1	0.685	0.9312	362	362	507	3	3	0	3	True	E225->E211;D227->D213;D319->D307	1.306	42	0.79	3.381	53			hypothesis
+I3LM39	Cyclic GMP-AMP synthase	Sus scrofa	9823	afdb-swissprot	5.1e-44	1	0.738	0.9356	363	362	495	3	3	0	3	True	E225->E200;D227->D202;D319->D294	1.31	43	0.81	3.321	53			hypothesis
+Q8N884	Cyclic GMP-AMP synthase	Homo sapiens	9606	afdb-proteome	9.692e-55	1	1.0	0.9555	362	362	522	3	3	0	3	True	E225->E225;D227->D227;D319->D319	1.333	44	0.83	3.307	53			hypothesis
+Q8N884	Cyclic GMP-AMP synthase	Homo sapiens	9606	afdb-swissprot	9.177e-55	1	1.0	0.9555	362	362	522	3	3	0	3	True	E225->E225;D227->D227;D319->D319	1.333	44	0.83	3.307	53			hypothesis
+Q8N884	Cyclic GMP-AMP synthase	Homo sapiens	9606	afdb-proteome	7.609e-38	1	0.996	0.744	285	362	447	3	3	0	3	True	E225->E225;D227->D227;D319->D319	1.355	44	0.83	3.324	53			hypothesis
+Q8N884	Cyclic GMP-AMP synthase	Homo sapiens	9606	afdb-swissprot	7.205e-38	1	0.996	0.744	285	362	447	3	3	0	3	True	E225->E225;D227->D227;D319->D319	1.355	44	0.83	3.324	53			hypothesis
+P0DSP3	Cyclic dipyrimidine nucleotide synthase CdnE	Legionella pneumophila	446	afdb-swissprot	3.865e-05	1	0.115	0.4602	345	362	295	3	3	0	3	True	E225->D65;D227->D67;D319->D139	1.363	23	0.53	5.975	43			hypothesis
+B3NQ14	Cyclic GMP-AMP synthase-like receptor 1	Drosophila erecta	7220	afdb-swissprot	6.174e-11	1	0.168	0.6094	368	362	445	3	3	0	3	True	E225->E70;D227->D72;D319->D186	1.366	31	0.67	4.025	46			hypothesis
+A8DYP7	Cyclic GMP-AMP synthase-like receptor 2	Drosophila melanogaster	7227	afdb-proteome	1.917e-12	1	0.174	0.6518	407	362	459	3	3	0	3	True	E225->E79;D227->D81;D319->D199	1.369	32	0.68	4.116	47			hypothesis
+A8DYP7	Cyclic GMP-AMP synthase-like receptor 2	Drosophila melanogaster	7227	afdb-swissprot	1.815e-12	1	0.174	0.6518	407	362	459	3	3	0	3	True	E225->E79;D227->D81;D319->D199	1.369	32	0.68	4.116	47			hypothesis
+P0DXB7	Cyclic GMP-AMP synthase-like receptor	Nicrophorus vespilloides	110193	afdb-swissprot	3.198e-13	1	0.203	0.6177	373	362	353	3	3	0	3	True	E225->E72;D227->D74;D319->D183	1.375	25	0.49	6.138	51			hypothesis
+A0A6J1SUS3	Cyclic GMP-AMP synthase-like receptor	Frankliniella occidentalis	133901	afdb-swissprot	2.958e-12	1	0.184	0.6335	423	362	431	3	3	0	3	True	E225->E85;D227->D87;D319->D212	1.391	34	0.67	4.627	51			hypothesis
+P0DXB6	Cyclic GMP-AMP synthase-like receptor	Microplitis demolitor	69319	afdb-swissprot	1.417e-13	1	0.193	0.6458	403	362	520	3	3	0	3	True	E225->E80;D227->D82;D319->D198	1.4	35	0.71	3.939	49			hypothesis
+P0DXB9	Cyclic GMP-AMP synthase-like receptor	Magallana gigas	29159	afdb-swissprot	1.375e-14	1	0.22399999999999998	0.6935	374	362	587	3	3	0	3	True	E225->E307;D227->D309;D319->D409	1.41	33	0.62	4.338	53			hypothesis
+P0DXB8	Cyclic GMP-AMP synthase-like receptor	Aethina tumida	116153	afdb-swissprot	8.697e-14	1	0.20199999999999999	0.6684	371	362	396	3	3	0	3	True	E225->E75;D227->D77;D319->D194	1.442	32	0.65	4.161	49			hypothesis
+A0A482WD11	Cyclic GMP-AMP synthase-like receptor	Asbolus verrucosus	1661398	afdb-swissprot	2.636e-14	1	0.223	0.6547	384	362	383	3	3	0	3	True	E225->E69;D227->D71;D319->D189	1.456	35	0.73	4.43	48			hypothesis
+A0A8B6XWW9	Cyclic GMP-AMP synthase-like receptor	Hydra vulgaris	6087	afdb-swissprot	1.506e-11	1	0.193	0.6127	377	362	341	3	2	2	3	True	E225->D74[-2];D227->E77;D319->D172	1.462	27	0.54	4.461	50			hypothesis
+A0A8M1RMT3	Cyclic GMP-AMP synthase	Danio rerio	7955	afdb-proteome	6.891e-27	1	0.35700000000000004	0.8743	380	362	457	3	3	0	3	True	E225->E90;D227->D92;D319->D193	1.473	37	0.71	4.317	52			hypothesis
+F1QCP4	Cyclic GMP-AMP synthase	Danio rerio	7955	afdb-proteome	1.648e-33	1	0.38299999999999995	0.8977	378	362	592	3	3	0	3	True	E225->E287;D227->D289;D319->D387	1.478	40	0.77	3.498	52			hypothesis
+A1ZA55	Cyclic GMP-AMP synthase-like receptor 1	Drosophila melanogaster	7227	afdb-proteome	7.91e-10	1	0.155	0.5487	411	362	378	3	3	0	3	True	E225->E71;D227->D73;D319->D187	1.479	31	0.65	4.128	48			hypothesis
+A1ZA55	Cyclic GMP-AMP synthase-like receptor 1	Drosophila melanogaster	7227	afdb-swissprot	7.49e-10	1	0.155	0.5487	411	362	378	3	3	0	3	True	E225->E71;D227->D73;D319->D187	1.479	31	0.65	4.128	48			hypothesis
+B4QGZ2	Cyclic GMP-AMP synthase-like receptor 1	Drosophila simulans	7240	afdb-swissprot	8.348e-10	1	0.168	0.5691	404	362	393	3	3	0	3	True	E225->E89;D227->D91;D319->D205	1.55	31	0.63	4.612	49			hypothesis
+Q9VSH0	Cyclic GMP-AMP synthase-like protein	Drosophila melanogaster	7227	afdb-swissprot	5.373e-12	1	0.184	0.6106	384	362	346	3	3	0	3	True	E225->E70;D227->D72;D319->D165	1.552	33	0.65	4.468	51			hypothesis
+A0A8B8BQ58	Cyclic GMP-AMP synthase-like receptor 1	Crassostrea virginica	6565	afdb-swissprot	1.532e-14	1	0.2	0.6875	365	362	633	3	3	0	3	True	E225->E353;D227->D355;D319->D455	1.558	35	0.69	4.346	51			hypothesis
+P0DSP2	Cyclic dipurine nucleotide synthase	Elizabethkingia meningoseptica	238	afdb-swissprot	0.0005518	1	0.091	0.4905	362	362	292	3	3	0	3	True	E225->D61;D227->D63;D319->D136	1.666	27	0.53	5.234	51			hypothesis
+A0A2B4RP11	Cyclic GMP-AMP synthase-like receptor 1	Stylophora pistillata	50429	afdb-swissprot	8.381e-17	1	0.228	0.7482	390	362	376	3	3	0	3	True	E225->E77;D227->D79;D319->D184	1.68	36	0.71	3.997	51			hypothesis
+A7SFB5	Cyclic GMP-AMP synthase	Nematostella vectensis	45351	afdb-swissprot	1.451e-14	1	0.207	0.7073	404	362	422	3	3	0	3	True	E225->E131;D227->D133;D319->D242	1.682	39	0.76	4.342	51			hypothesis
+P0DV11	Cyclic GMP-AMP synthase-like receptor	Drosophila eugracilis	29029	afdb-swissprot	4.82e-12	1	0.171	0.6471	390	362	372	3	3	0	3	True	E225->E82;D227->D84;D319->D190	1.696	36	0.72	4.079	50			hypothesis
+A0A3M6TIF0	Cyclic GMP-AMP synthase-like receptor	Pocillopora damicornis	46731	afdb-swissprot	1.601e-09	1	0.145	0.6486	448	362	432	3	3	0	3	True	E225->E71;D227->D73;D319->D205	1.729	28	0.53	4.817	53			hypothesis
+P0DV12	Cyclic GMP-AMP synthase-like receptor	Lucilia cuprina	7375	afdb-swissprot	1.629e-12	1	0.184	0.6597	411	362	368	3	3	0	3	True	E225->E72;D227->D74;D319->D190	1.779	33	0.67	4.193	49			hypothesis
+P0DXB5	Cyclic GMP-AMP synthase-like receptor	Ctenocephalides felis	7515	afdb-swissprot	6.475e-13	1	0.17300000000000001	0.6369	415	362	435	3	3	0	3	True	E225->E82;D227->D84;D319->D209	1.955	37	0.7	4.244	53			hypothesis
+A0A077Z677	Poly(A) RNA polymerase mitochondrial-like central palm domain-containing protein	Trichuris trichiura	36087	afdb-proteome	0.268	0.505	0.10400000000000001	0.2681	413	362	691	3	1	2	3	True	E225->D180[+2];D227->D182[+2];D319->E278	5.56	36	1.0	5.56	36			hypothesis
+A0A853PXE5	Cyclic GMP-AMP synthase	Bacteroides fragilis	817	afdb-swissprot	0.004337	0.997	0.086	0.3915	371	362	341	3	3	0	3	True	E225->E69;D227->D71;D319->D123	5.979	43	1.0	5.979	43			hypothesis
+A0A0K0E7Y9	PAP-associated domain-containing protein	Strongyloides stercoralis	6248	afdb-proteome	0.1125	0.663	0.161	0.1892	173	362	401	3	2	1	3	True	E225->D113[+1];D227->D115;D319->D186	6.192	47	1.0	6.192	47			hypothesis
+D3ZI33	Ribitol-5-phosphate transferase	Rattus norvegicus	10116	afdb-proteome	0.4867	0.326	0.09699999999999999	0.1585	194	362	461	3	1	2	3	True	E225->D317[+2];D227->D319[+2];D319->D366	6.579	49	1.0	6.579	49			hypothesis
+Q60HG0	Ribitol-5-phosphate transferase FKTN	Macaca fascicularis	9541	afdb-swissprot	0.3328	0.382	0.09699999999999999	0.1581	194	362	461	3	1	2	3	True	E225->D317[+2];D227->D319[+2];D319->D366	6.595	49	1.0	6.595	49			hypothesis
+E7F782	Transmembrane protein 102	Danio rerio	7955	afdb-proteome	3.701e-10	1	0.156	0.63	442	362	522	3	3	0	3	True	E225->D110;D227->D112;D319->D257	6.738	45	1.0	6.738	45			hypothesis
+O75072	Ribitol-5-phosphate transferase FKTN	Homo sapiens	9606	afdb-proteome	0.5425	0.382	0.10300000000000001	0.1728	155	362	430	3	1	2	3	True	E225->D317[+2];D227->D319[+2];D319->D366	6.809	49	1.0	6.809	49			hypothesis
+O75072	Ribitol-5-phosphate transferase FKTN	Homo sapiens	9606	afdb-swissprot	0.5137	0.382	0.10300000000000001	0.1728	155	362	430	3	1	2	3	True	E225->D317[+2];D227->D319[+2];D319->D366	6.809	49	1.0	6.809	49			hypothesis
+A0A8B8EY61	Cyclic GMP-AMP synthase-like receptor 2	Crassostrea virginica	6565	afdb-swissprot	2.471e-09	1	0.163	0.5653	403	362	632	3	3	0	3	True	E225->D67;D227->D71;D319->D181	6.832	47	1.0	6.832	47			hypothesis
+Q57WQ6	DNA polymerase sigma-like protein	Trypanosoma brucei brucei TREU927	185431	afdb-proteome	0.3711	0.277	0.08900000000000001	0.2909	448	362	488	3	1	2	3	True	E225->D171[+2];D227->D173[+2];D319->D270	6.838	48	1.0	6.838	48			hypothesis
+D6WI29	Cyclic GMP-AMP synthase-like receptor	Tribolium castaneum	7070	afdb-swissprot	2.31e-13	1	0.203	0.6582	384	362	398	3	3	0	3	True	E225->E69;D227->D71;D319->D192	7.029	51	1.0	7.029	51			hypothesis
+E7FBQ4	Nucleotidyltransferase MB21D2	Danio rerio	7955	afdb-proteome	3.881e-12	1	0.151	0.6966	416	362	499	3	3	0	3	True	E225->D121;D227->D123;D319->D242	7.408	45	1.0	7.408	45			hypothesis
+B8JLG8	Mab-21 domain-containing 2	Danio rerio	7955	afdb-proteome	1.553e-10	1	0.154	0.6941	415	362	510	3	3	0	3	True	E225->D130;D227->D132;D319->D251	7.506	45	1.0	7.506	45			hypothesis
+Q8C525	Nucleotidyltransferase MB21D2	Mus musculus	10090	afdb-proteome	5.091e-12	1	0.174	0.6072	350	362	428	3	3	0	3	True	E225->D50;D227->D52;D319->D171	7.533	36	1.0	7.533	36			hypothesis
+Q8C525	Nucleotidyltransferase MB21D2	Mus musculus	10090	afdb-swissprot	4.82e-12	1	0.174	0.6072	350	362	428	3	3	0	3	True	E225->D50;D227->D52;D319->D171	7.533	36	1.0	7.533	36			hypothesis
+Q8IYB1	Nucleotidyltransferase MB21D2	Homo sapiens	9606	afdb-proteome	1.976e-11	1	0.162	0.6957	412	362	491	3	3	0	3	True	E225->D113;D227->D115;D319->D234	7.546	46	1.0	7.546	46			hypothesis
+Q8IYB1	Nucleotidyltransferase MB21D2	Homo sapiens	9606	afdb-swissprot	1.871e-11	1	0.162	0.6957	412	362	491	3	3	0	3	True	E225->D113;D227->D115;D319->D234	7.546	46	1.0	7.546	46			hypothesis
+D4ACS3	Nucleotidyltransferase MB21D2	Rattus norvegicus	10116	afdb-proteome	2.455e-11	1	0.172	0.6895	418	362	491	3	3	0	3	True	E225->D113;D227->D115;D319->D234	7.703	43	1.0	7.703	43			hypothesis
+A0A4E9FS35	Fukutin, putative	Brugia malayi	6279	afdb-proteome	5.905	0.045	0.115	0.1336	173	362	442	3	2	2	3	True	E225->E250[-2];D227->D259;D319->D309	9.041	49	1.0	9.041	49			hypothesis
+A0A0K0JC34	Bm3847	Brugia malayi	6279	afdb-proteome	8.439e-15	1	0.187	0.6599	374	362	364	2	2	0	3	False	E225->E74;D227->E76;D319->Q170	1.035	31	0.58	4.374	53			hypothesis
+A0A158Q2T7	Mab-21 domain-containing protein	Dracunculus medinensis	318479	afdb-proteome	1.107e-14	1	0.193	0.7201	377	362	364	2	2	0	3	False	E225->E74;D227->E76;D319->Q170	1.051	32	0.6	4.15	53			hypothesis
+A0A8R1TXT8	Mab-21 domain-containing protein	Onchocerca volvulus	6282	afdb-proteome	7.994e-15	1	0.193	0.6565	377	362	364	2	2	0	3	False	E225->E74;D227->E76;D319->Q170	1.051	32	0.6	4.357	53			hypothesis
+Q9U3W6	Protein mab-21	Drosophila melanogaster	7227	afdb-proteome	2.423e-15	1	0.207	0.6894	385	362	365	2	2	0	3	False	E225->E79;D227->E81;D319->Q175	1.085	35	0.69	3.935	51			hypothesis
+Q9U3W6	Protein mab-21	Drosophila melanogaster	7227	afdb-swissprot	2.294e-15	1	0.207	0.6894	385	362	365	2	2	0	3	False	E225->E79;D227->E81;D319->Q175	1.085	35	0.69	3.935	51			hypothesis
+Q29H56	Protein mab-21	Drosophila pseudoobscura pseudoobscura	46245	afdb-swissprot	2.557e-15	1	0.21	0.6886	385	362	365	2	2	0	3	False	E225->E79;D227->E81;D319->Q175	1.087	35	0.69	3.936	51			hypothesis
+Q6DCQ5	Protein mab-21-like 2-B	Xenopus laevis	8355	afdb-swissprot	3.435e-16	1	0.213	0.6906	365	362	359	2	2	0	3	False	E225->E73;D227->E75;D319->Q169	1.102	35	0.69	4.018	51			hypothesis
+Q29H55	Protein mab-21-like	Drosophila pseudoobscura pseudoobscura	46245	afdb-swissprot	5.91e-16	1	0.196	0.6998	381	362	368	2	2	0	3	False	E225->E79;D227->E81;D319->Q175	1.109	32	0.67	4.166	48			hypothesis
+Q9Y106	Protein mab-21-like	Drosophila melanogaster	7227	afdb-proteome	3.178e-15	1	0.193	0.6998	383	362	368	2	2	0	3	False	E225->E79;D227->E81;D319->Q175	1.11	32	0.67	4.166	48			hypothesis
+Q9Y106	Protein mab-21-like	Drosophila melanogaster	7227	afdb-swissprot	3.009e-15	1	0.193	0.6998	383	362	368	2	2	0	3	False	E225->E79;D227->E81;D319->Q175	1.11	32	0.67	4.166	48			hypothesis
+A0A077ZL35	Cell fate determining protein mab21l2	Trichuris trichiura	36087	afdb-proteome	6.956e-16	1	0.21600000000000003	0.6701	378	362	360	2	2	0	3	False	E225->E73;D227->E75;D319->Q169	1.151	35	0.69	4.091	51			hypothesis
+Q8AY65	Putative nucleotidyltransferase MAB21L1	Gallus gallus	9031	afdb-swissprot	8.64e-16	1	0.20600000000000002	0.6807	373	362	359	2	2	0	3	False	E225->E73;D227->E75;D319->Q169	1.171	35	0.67	4.038	52			hypothesis
+D3ZRJ3	Putative nucleotidyltransferase MAB21L1	Rattus norvegicus	10116	afdb-proteome	1.134e-15	1	0.21	0.6785	376	362	359	2	2	0	3	False	E225->E73;D227->E75;D319->Q169	1.173	35	0.67	4.037	52			hypothesis
+A4FV14	Putative nucleotidyltransferase MAB21L1	Bos taurus	9913	afdb-swissprot	3.009e-15	1	0.209	0.6624	377	362	359	2	2	0	3	False	E225->E73;D227->E75;D319->Q169	1.183	35	0.67	4.066	52			hypothesis
+Q13394	Putative nucleotidyltransferase MAB21L1	Homo sapiens	9606	afdb-proteome	5.304e-16	1	0.209	0.6642	377	362	359	2	2	0	3	False	E225->E73;D227->E75;D319->Q169	1.19	35	0.67	4.065	52			hypothesis
+Q0IES8	Protein mab-21	Aedes aegypti	7159	afdb-swissprot	1.486e-15	1	0.214	0.6928	383	362	365	2	2	0	3	False	E225->E79;D227->E81;D319->Q175	1.19	36	0.69	3.942	52			hypothesis
+Q13394	Putative nucleotidyltransferase MAB21L1	Homo sapiens	9606	afdb-swissprot	5.022e-16	1	0.209	0.6642	377	362	359	2	2	0	3	False	E225->E73;D227->E75;D319->Q169	1.19	35	0.67	4.065	52			hypothesis
+O70299	Putative nucleotidyltransferase MAB21L1	Mus musculus	10090	afdb-proteome	1.657e-15	1	0.207	0.6737	381	362	359	2	2	0	3	False	E225->E73;D227->E75;D319->Q169	1.191	35	0.67	4.061	52			hypothesis
+O70299	Putative nucleotidyltransferase MAB21L1	Mus musculus	10090	afdb-swissprot	1.569e-15	1	0.207	0.6737	381	362	359	2	2	0	3	False	E225->E73;D227->E75;D319->Q169	1.191	35	0.67	4.061	52			hypothesis
+Q0V9X7	Putative nucleotidyltransferase MAB21L1	Xenopus tropicalis	8364	afdb-swissprot	1.334e-15	1	0.212	0.6861	377	362	359	2	2	0	3	False	E225->E73;D227->E75;D319->Q169	1.196	36	0.69	4.002	52			hypothesis
+D4ACZ1	Mab-21 like 2	Rattus norvegicus	10116	afdb-proteome	6.589e-16	1	0.20800000000000002	0.6709	375	362	359	2	2	0	3	False	E225->E73;D227->E75;D319->Q169	1.197	36	0.69	4.007	52			hypothesis
+Q9Y586	Protein mab-21-like 2	Homo sapiens	9606	afdb-proteome	5.599e-16	1	0.20800000000000002	0.6703	375	362	359	2	2	0	3	False	E225->E73;D227->E75;D319->Q169	1.198	36	0.69	4.011	52			hypothesis
+Q8UUZ1	Protein mab-21-like 2	Danio rerio	7955	afdb-proteome	4.758e-16	1	0.21	0.6651	375	362	359	2	2	0	3	False	E225->E73;D227->E75;D319->Q169	1.198	36	0.69	4.012	52			hypothesis
+Q9Y586	Protein mab-21-like 2	Homo sapiens	9606	afdb-swissprot	5.302e-16	1	0.20800000000000002	0.6703	375	362	359	2	2	0	3	False	E225->E73;D227->E75;D319->Q169	1.198	36	0.69	4.011	52			hypothesis
+Q8UUZ1	Protein mab-21-like 2	Danio rerio	7955	afdb-swissprot	4.506e-16	1	0.21	0.6651	375	362	359	2	2	0	3	False	E225->E73;D227->E75;D319->Q169	1.198	36	0.69	4.012	52			hypothesis
+A4IIW0	Protein mab-21-like 2	Xenopus tropicalis	8364	afdb-swissprot	6.239e-16	1	0.21600000000000003	0.6891	365	362	359	2	2	0	3	False	E225->E73;D227->E75;D319->Q169	1.2	36	0.69	4.01	52			hypothesis
+Q6GQD9	Putative nucleotidyltransferase MAB21L1	Xenopus laevis	8355	afdb-swissprot	6.587e-16	1	0.217	0.6861	377	362	359	2	2	0	3	False	E225->E73;D227->E75;D319->Q169	1.2	36	0.69	4.002	52			hypothesis
+Q8BPP1	Protein mab-21-like 2	Mus musculus	10090	afdb-proteome	1.197e-15	1	0.20800000000000002	0.6704	375	362	359	2	2	0	3	False	E225->E73;D227->E75;D319->Q169	1.201	36	0.69	4.013	52			hypothesis
+Q8BPP1	Protein mab-21-like 2	Mus musculus	10090	afdb-swissprot	1.133e-15	1	0.20800000000000002	0.6704	375	362	359	2	2	0	3	False	E225->E73;D227->E75;D319->Q169	1.201	36	0.69	4.013	52			hypothesis
+Q9I9K2	Protein mab-21-like 2-A	Xenopus laevis	8355	afdb-swissprot	4.042e-16	1	0.217	0.6949	364	362	359	2	2	0	3	False	E225->E73;D227->E75;D319->Q169	1.208	36	0.69	4.008	52			hypothesis
+Q6NYB4	Putative nucleotidyltransferase MAB21L1	Danio rerio	7955	afdb-proteome	5.304e-16	1	0.217	0.682	381	362	359	2	2	0	3	False	E225->E73;D227->E75;D319->Q169	1.373	38	0.95	1.812	40			hypothesis
+Q6NYB4	Putative nucleotidyltransferase MAB21L1	Danio rerio	7955	afdb-swissprot	5.022e-16	1	0.217	0.682	381	362	359	2	2	0	3	False	E225->E73;D227->E75;D319->Q169	1.373	38	0.95	1.812	40			hypothesis
+Q9VXD4	Mab-21-like HhH/H2TH-like domain-containing protein	Drosophila melanogaster	7227	afdb-proteome	1.338e-06	1	0.193	0.4494	284	362	1084	2	0	2	3	False	E225->E381[-1];D227->S384;D319->E472[-2]	1.38	11	0.69	3.998	16			hypothesis
+A0AB32TQQ4	Inositol 1,4,5-trisphosphate receptor-interacting protein-like 2	Danio rerio	7955	afdb-proteome	1.731e-10	1	0.139	0.6378	402	362	556	2	1	1	3	False	E225->D231[-1];D227->D234;D319->R353	1.443	27	0.52	4.303	52			hypothesis
+Q5TW90	Protein mab-21	Anopheles gambiae	7165	afdb-swissprot	1.133e-15	1	0.21899999999999997	0.6951	373	362	365	2	2	0	3	False	E225->E79;D227->E81;D319->Q175	1.457	41	0.84	3.112	49			hypothesis
+Q9GQ38	Protein male abnormal 21	Caenorhabditis briggsae	6238	afdb-swissprot	2.188e-13	1	0.154	0.6897	383	362	364	2	2	0	3	False	E225->E74;D227->E76;D319->Q170	1.513	37	0.76	3.627	49			hypothesis
+Q20054	Protein male abnormal 21	Caenorhabditis elegans	6239	afdb-proteome	9.185e-14	1	0.163	0.6788	372	362	364	2	2	0	3	False	E225->E74;D227->E76;D319->Q170	1.547	37	0.76	3.648	49			hypothesis
+Q20054	Protein male abnormal 21	Caenorhabditis elegans	6239	afdb-swissprot	8.697e-14	1	0.163	0.6788	372	362	364	2	2	0	3	False	E225->E74;D227->E76;D319->Q170	1.547	37	0.76	3.648	49			hypothesis
+A0A0K0EAT0	Mab-21 domain-containing protein	Strongyloides stercoralis	6248	afdb-proteome	9.697e-14	1	0.16	0.6592	405	362	394	2	2	0	3	False	E225->E74;D227->E76;D319->Q170	1.553	37	0.76	3.761	49			hypothesis
+A0A0K0EI57	C2H2-type domain-containing protein	Strongyloides stercoralis	6248	afdb-proteome	3.624	0.098	0.132	0.1831	173	362	681	2	2	0	3	False	E225->S185;D227->D190;D319->D288	1.582	21	0.49	6.556	43			hypothesis
+B1WC80	Mab-21 like 4	Rattus norvegicus	10116	afdb-proteome	3.221e-11	1	0.15	0.6709	392	362	452	2	1	1	3	False	E225->D82[-1];D227->D85;D319->N205	1.655	32	0.63	4.37	51			hypothesis
+Q08AI8	Protein mab-21-like 4	Homo sapiens	9606	afdb-proteome	1.088e-11	1	0.134	0.6563	394	362	447	2	1	1	3	False	E225->D77[-1];D227->D80;D319->H200	1.659	29	0.57	4.606	51			hypothesis
+Q08AI8	Protein mab-21-like 4	Homo sapiens	9606	afdb-swissprot	1.03e-11	1	0.134	0.6563	394	362	447	2	1	1	3	False	E225->D77[-1];D227->D80;D319->H200	1.659	29	0.57	4.606	51			hypothesis
+Q473F6	Ferredoxin--NADP reductase 1	Cupriavidus pinatubonensis JMP134	264198	afdb-swissprot	7.743	0.024	0.053	0.0517	56	362	362	2	1	2	3	False	E225->D19[-2];D227->V23;D319->D128	1.691	11	0.48	8.242	23			hypothesis
+Q8CEZ4	Protein mab-21-like 4	Mus musculus	10090	afdb-proteome	3.881e-12	1	0.14800000000000002	0.663	396	362	452	2	1	1	3	False	E225->D82[-1];D227->D85;D319->N205	1.749	32	0.63	4.422	51			hypothesis
+Q8CEZ4	Protein mab-21-like 4	Mus musculus	10090	afdb-swissprot	3.675e-12	1	0.14800000000000002	0.663	396	362	452	2	1	1	3	False	E225->D82[-1];D227->D85;D319->N205	1.749	32	0.63	4.422	51			hypothesis
+P0DXA3	Cyclic GMP-AMP synthase	Escherichia albertii	208962	afdb-swissprot	0.0006855	1	0.111	0.3997	359	362	443	2	2	0	3	False	E225->S75;D227->D78;D319->D138	1.759	24	0.52	5.787	46			hypothesis
+A0A2B4RNI3	Cyclic GMP-AMP synthase-like receptor 2	Stylophora pistillata	50429	afdb-swissprot	3.504e-10	1	0.132	0.5962	400	362	688	2	2	0	3	False	E225->Q43;D227->D48;D319->D178	1.882	21	0.53	5.126	40			hypothesis
+Q5RBN0	Mitochondrial dynamics protein MID51	Pongo abelii	9601	afdb-swissprot	1.393e-10	1	0.161	0.6384	385	362	463	2	1	1	3	False	E225->D200[-1];D227->Q203;D319->D311	2.044	36	0.71	3.935	51			hypothesis
+Q8BGV8	Mitochondrial dynamics protein MID51	Mus musculus	10090	afdb-proteome	1.828e-10	1	0.134	0.6675	386	362	463	2	0	2	3	False	E225->D200[-1];D227->Q203;D319->D311[+2]	2.62	27	0.53	4.371	51			hypothesis
+Q8BGV8	Mitochondrial dynamics protein MID51	Mus musculus	10090	afdb-swissprot	1.731e-10	1	0.134	0.6675	386	362	463	2	0	2	3	False	E225->D200[-1];D227->Q203;D319->D311[+2]	2.62	27	0.53	4.371	51			hypothesis
+Q9NQG6	Mitochondrial dynamics protein MIEF1	Homo sapiens	9606	afdb-proteome	4.355e-10	1	0.132	0.6625	392	362	463	2	1	1	3	False	E225->D200[-1];D227->Q203;D319->D311	2.629	35	0.69	4.206	51			hypothesis
+Q9NQG6	Mitochondrial dynamics protein MIEF1	Homo sapiens	9606	afdb-swissprot	4.124e-10	1	0.132	0.6625	392	362	463	2	1	1	3	False	E225->D200[-1];D227->Q203;D319->D311	2.629	35	0.69	4.206	51			hypothesis
+Q5XIS8	Mitochondrial dynamics protein MID51	Rattus norvegicus	10116	afdb-proteome	3.145e-10	1	0.129	0.6449	393	362	463	2	1	1	3	False	E225->D200[-1];D227->Q203;D319->D311	2.805	35	0.67	4.26	52			hypothesis
+Q5XIS8	Mitochondrial dynamics protein MID51	Rattus norvegicus	10116	afdb-swissprot	2.978e-10	1	0.129	0.6449	393	362	463	2	1	1	3	False	E225->D200[-1];D227->Q203;D319->D311	2.805	35	0.67	4.26	52			hypothesis
+Q54W08	Uncharacterized protein	Dictyostelium discoideum	44689	afdb-proteome	0.002388	1	0.142	0.4581	380	362	604	2	2	0	3	False	E225->G340;D227->D346;D319->D414	6.018	47	1.0	6.018	47			hypothesis
+Q3UPR7	Transmembrane protein 102	Mus musculus	10090	afdb-proteome	4.281e-07	1	0.124	0.6034	507	362	509	2	2	0	3	False	E225->H114;D227->D116;D319->D318	7.355	46	1.0	7.355	46			hypothesis
+Q3UPR7	Transmembrane protein 102	Mus musculus	10090	afdb-swissprot	4.053e-07	1	0.124	0.6034	507	362	509	2	2	0	3	False	E225->H114;D227->D116;D319->D318	7.355	46	1.0	7.355	46			hypothesis
+A4IG61	Mitochondrial dynamics protein MID51	Danio rerio	7955	afdb-proteome	5.712e-10	1	0.14800000000000002	0.5596	405	362	468	2	1	1	3	False	E225->D201[-1];D227->Q204;D319->D312	7.425	50	1.0	7.425	50			hypothesis
+A4IG61	Mitochondrial dynamics protein MID51	Danio rerio	7955	afdb-swissprot	5.409e-10	1	0.14800000000000002	0.5596	405	362	468	2	1	1	3	False	E225->D201[-1];D227->Q204;D319->D312	7.425	50	1.0	7.425	50			hypothesis
+F1M0L2	Transmembrane protein 102	Rattus norvegicus	10116	afdb-proteome	7.365e-07	1	0.11900000000000001	0.5878	511	362	508	2	2	0	3	False	E225->H114;D227->D116;D319->D317	7.439	45	1.0	7.439	45			hypothesis
+A0A077Z460	PAP assoc domain containing protein	Trichuris trichiura	36087	afdb-proteome	0.1254	0.537	0.083	0.2978	431	362	347	2	0	2	3	False	E225->D88[+2];D227->D90[+2];D319->N154	8.099	45	1.0	8.099	45			hypothesis
+P0DX86	Cyclic GMP-AMP synthase	Pseudomonas aeruginosa BWHPSA011	1402511	afdb-swissprot	0.0002445	0.999	0.12	0.3163	406	362	380	2	2	0	3	False	E225->Q84;D227->D87;D319->D150	8.166	43	1.0	8.166	43			hypothesis
+P62588	GTP 3',8-cyclase 3	Mycobacterium tuberculosis variant bovis AF2122/97	233413	afdb-swissprot	0.6382	0.277	0.155	0.0746	58	362	378	1	1	0	3	False	E225->D197;D227->V199;D319->G282	1.148	19	0.9	3.592	21			hypothesis
+Q8N8X9	Protein mab-21-like 3	Homo sapiens	9606	afdb-proteome	2.073e-13	1	0.175	0.6599	411	362	362	1	1	0	3	False	E225->Q69;D227->L71;D319->E186	1.227	37	0.95	2.197	39			hypothesis
+Q8N8X9	Protein mab-21-like 3	Homo sapiens	9606	afdb-swissprot	1.963e-13	1	0.175	0.6599	411	362	362	1	1	0	3	False	E225->Q69;D227->L71;D319->E186	1.227	37	0.95	2.197	39			hypothesis
+Q0IES7	Protein mab-21-like	Aedes aegypti	7159	afdb-swissprot	6.791e-15	1	0.188	0.6732	376	362	365	1	0	2	3	False	E225->E81[+2];D227->P77;D319->Q175	1.308	30	0.62	5.08	48			hypothesis
+Q8S8P0	Putative serine carboxypeptidase-like 52	Arabidopsis thaliana	3702	afdb-swissprot	9.619	0.034	0.107	0.0603	28	362	184	1	0	2	3	False	E225->E59[-2];D227->I63;D319->A155	1.35	15	0.68	3.734	22			hypothesis
+Q7QHX4	Protein mab-21-like	Anopheles gambiae	7165	afdb-swissprot	1.375e-14	1	0.187	0.6353	383	362	365	1	1	0	3	False	E225->A79;D227->E81;D319->Q175	1.387	38	0.95	1.85	40			hypothesis
+Q7TX84	GTP 3',8-cyclase 1	Mycobacterium tuberculosis variant bovis AF2122/97	233413	afdb-swissprot	1.789	0.138	0.10099999999999999	0.08	59	362	359	1	0	1	3	False	E225->D178[+1];D227->T179;D319->G263	1.399	20	1.0	1.399	20			hypothesis
+Q6GPH6	Inositol 1,4,5-trisphosphate receptor-interacting protein-like 1	Homo sapiens	9606	afdb-proteome	2.151e-10	1	0.133	0.5961	421	362	563	1	1	0	3	False	E225->K242;D227->D244;D319->H373	1.432	36	0.73	4.148	49			hypothesis
+Q6GPH6	Inositol 1,4,5-trisphosphate receptor-interacting protein-like 1	Homo sapiens	9606	afdb-swissprot	2.037e-10	1	0.133	0.5961	421	362	563	1	1	0	3	False	E225->K242;D227->D244;D319->H373	1.432	36	0.73	4.148	49			hypothesis
+P62589	GTP 3',8-cyclase 3	Mycobacterium tuberculosis CDC1551	83331	afdb-swissprot	0.6045	0.277	0.155	0.0749	58	362	378	1	1	0	3	False	E225->D197;D227->V199;D319->G282	1.436	20	0.95	3.566	21			hypothesis
+Q6GPH6	Inositol 1,4,5-trisphosphate receptor-interacting protein-like 1	Homo sapiens	9606	afdb-proteome	2.821e-10	1	0.129	0.592	441	362	555	1	1	0	3	False	E225->K234;D227->D236;D319->H365	1.441	36	0.73	4.15	49			hypothesis
+Q6GPH6	Inositol 1,4,5-trisphosphate receptor-interacting protein-like 1	Homo sapiens	9606	afdb-swissprot	2.672e-10	1	0.129	0.592	441	362	555	1	1	0	3	False	E225->K234;D227->D236;D319->H365	1.441	36	0.73	4.15	49			hypothesis
+Q66H52	Inositol 1,4,5-trisphosphate receptor-interacting protein-like 1	Rattus norvegicus	10116	afdb-proteome	3.505e-10	1	0.14	0.6161	448	362	547	1	1	0	3	False	E225->K227;D227->D229;D319->S357	1.445	37	0.76	4.065	49			hypothesis
+Q66H52	Inositol 1,4,5-trisphosphate receptor-interacting protein-like 1	Rattus norvegicus	10116	afdb-swissprot	3.319e-10	1	0.14	0.6161	448	362	547	1	1	0	3	False	E225->K227;D227->D229;D319->S357	1.445	37	0.76	4.065	49			hypothesis
+Q6GPH6	Inositol 1,4,5-trisphosphate receptor-interacting protein-like 1	Homo sapiens	9606	afdb-proteome	2.979e-10	1	0.11800000000000001	0.5884	437	362	547	1	1	0	3	False	E225->K226;D227->D228;D319->H357	1.453	36	0.77	3.976	47			hypothesis
+Q6GPH6	Inositol 1,4,5-trisphosphate receptor-interacting protein-like 1	Homo sapiens	9606	afdb-swissprot	2.821e-10	1	0.11800000000000001	0.5884	437	362	547	1	1	0	3	False	E225->K226;D227->D228;D319->H357	1.453	36	0.77	3.976	47			hypothesis
+A2ASA8	Inositol 1,4,5-trisphosphate receptor-interacting protein-like 1	Mus musculus	10090	afdb-proteome	7.673e-11	1	0.138	0.6237	427	362	547	1	1	0	3	False	E225->N227;D227->D229;D319->S357	1.469	37	0.76	4.066	49			hypothesis
+A2ASA8	Inositol 1,4,5-trisphosphate receptor-interacting protein-like 1	Mus musculus	10090	afdb-swissprot	7.265e-11	1	0.138	0.6237	427	362	547	1	1	0	3	False	E225->N227;D227->D229;D319->S357	1.469	37	0.76	4.066	49			hypothesis
+Q8IWB1	Inositol 1,4,5-trisphosphate receptor-interacting protein	Homo sapiens	9606	afdb-swissprot	3.789e-11	1	0.152	0.6689	445	362	547	1	0	2	3	False	E225->L207;D227->D203[-2];D319->N347	1.539	24	0.5	5.024	48			hypothesis
+A7MB64	Inositol 1,4,5-trisphosphate receptor-interacting protein	Bos taurus	9913	afdb-swissprot	9.026e-11	1	0.155	0.6903	444	362	556	1	1	0	3	False	E225->L211;D227->D213;D319->N351	1.568	32	0.62	4.172	52			hypothesis
+A0A096MJ54	Inositol 1,4,5-trisphosphate receptor-interacting protein	Rattus norvegicus	10116	afdb-proteome	1.731e-10	1	0.145	0.6558	447	362	557	1	0	2	3	False	E225->L208;D227->E204[-2];D319->V352	1.59	25	0.52	4.958	48			hypothesis
+A0A8M1NB06	Mitochondrial elongation factor 1	Danio rerio	7955	afdb-proteome	3.071e-09	1	0.125	0.6806	391	362	467	1	0	1	3	False	E225->D199[-1];D227->C202;D319->T316	2.074	34	0.68	4.058	50			hypothesis
+Q5NCS9	Mitochondrial dynamics protein MID49	Mus musculus	10090	afdb-proteome	6.031e-10	1	0.147	0.6415	367	362	454	1	1	0	3	False	E225->E192;D227->R195;D319->A302	2.094	31	0.63	4.611	49			hypothesis
+Q5NCS9	Mitochondrial dynamics protein MID49	Mus musculus	10090	afdb-swissprot	5.71e-10	1	0.147	0.6415	367	362	454	1	1	0	3	False	E225->E192;D227->R195;D319->A302	2.094	31	0.63	4.611	49			hypothesis
+Q567X9	Inositol 1,4,5-trisphosphate receptor-interacting protein	Danio rerio	7955	afdb-swissprot	2.15e-10	1	0.141	0.6479	439	362	539	1	1	0	3	False	E225->T194;D227->D196;D319->V334	2.263	26	0.5	4.495	52			hypothesis
+Q8AA39	Phenylalanine--tRNA ligase beta subunit	Bacteroides thetaiotaomicron VPI-5482	226186	afdb-swissprot	5.296	0.045	0.126	0.0974	71	362	820	1	0	1	3	False	E225->Y593;D227->D596[+1];D319->A683	2.306	11	0.61	4.446	18			hypothesis
+Q96C03	Mitochondrial dynamics protein MID49	Homo sapiens	9606	afdb-swissprot	1.258e-08	1	0.14800000000000002	0.6272	363	362	465	1	0	1	3	False	E225->D203[-1];D227->R206;D319->A313	2.962	37	0.73	4.286	51			hypothesis
+Q6GNM3	Protein mab-21-like 3	Xenopus laevis	8355	afdb-swissprot	9.182e-14	1	0.184	0.6668	391	362	368	1	1	0	3	False	E225->Q69;D227->L71;D319->E187	4.599	50	1.0	4.599	50			hypothesis
+A0A8M1PUB2	Inositol 1,4,5-trisphosphate receptor-interacting protein	Danio rerio	7955	afdb-proteome	8.552e-11	1	0.14300000000000002	0.5805	447	362	652	1	1	0	3	False	E225->V318;D227->D321;D319->Q457	4.672	49	1.0	4.672	49			hypothesis
+Q6GQ81	Mitochondrial dynamics protein MID49	Xenopus laevis	8355	afdb-swissprot	2.397e-10	1	0.15	0.6538	385	362	463	1	0	1	3	False	E225->D199[+1];D227->H200;D319->I307	4.737	46	1.0	4.737	46			hypothesis
+E9Q5M4	Zinc finger RNA binding protein 2	Mus musculus	10090	afdb-proteome	0.000469	1	0.102	0.3475	381	362	874	1	0	2	3	False	E225->D604[-2];D227->S606;D319->T664	8.776	51	1.0	8.776	51			hypothesis
+A0A8I5Y1D0	Zinc finger RNA binding protein 2	Rattus norvegicus	10116	afdb-proteome	0.0001347	1	0.105	0.3531	388	362	819	1	0	2	3	False	E225->D553[-2];D227->S555;D319->T613	8.871	50	1.0	8.871	50			hypothesis
+A8E4S7	Protein mab-21-like 3	Danio rerio	7955	afdb-proteome	1.976e-11	1	0.16699999999999998	0.647	423	362	387	1	0	2	3	False	E225->L93;D227->P91;D319->E209[-2]	10.99	48	1.0	10.99	48			hypothesis
+A8E4S7	Protein mab-21-like 3	Danio rerio	7955	afdb-swissprot	1.871e-11	1	0.16699999999999998	0.647	423	362	387	1	0	2	3	False	E225->L93;D227->P91;D319->E209[-2]	10.99	48	1.0	10.99	48			hypothesis
+Q9UPR6	Zinc finger RNA-binding protein 2	Homo sapiens	9606	afdb-proteome	0.009789	0.988	0.09	0.3578	387	362	939	1	1	0	3	False	E225->D671;D227->N673;D319->T731	11.515	52	1.0	11.515	52			hypothesis
+Q9UPR6	Zinc finger RNA-binding protein 2	Homo sapiens	9606	afdb-swissprot	0.009269	0.988	0.09	0.3578	387	362	939	1	1	0	3	False	E225->D671;D227->N673;D319->T731	11.515	52	1.0	11.515	52			hypothesis
+Q10QA2	Cyclin-D5-3	Oryza sativa Japonica Group	39947	afdb-proteome	6.582	0.057	0.13699999999999998	0.0785	160	362	345	1	1	0	3	False	E225->--;D227->--;D319->D34	nan	0	0.0	nan	0			hypothesis
+Q39067	Cyclin-B1-2	Arabidopsis thaliana	3702	afdb-proteome	5.593	0.051	0.142	0.1164	140	362	445	1	0	2	3	False	E225->R32;D227->A34;D319->E124[-2]	nan	0	0.0	nan	0			hypothesis
+Q10QA2	Cyclin-D5-3	Oryza sativa Japonica Group	39947	afdb-swissprot	6.232	0.057	0.13699999999999998	0.0785	160	362	345	1	1	0	3	False	E225->--;D227->--;D319->D34	nan	0	0.0	nan	0			hypothesis
+Q39067	Cyclin-B1-2	Arabidopsis thaliana	3702	afdb-swissprot	5.296	0.051	0.142	0.1164	140	362	445	1	0	2	3	False	E225->R32;D227->A34;D319->E124[-2]	nan	0	0.0	nan	0			hypothesis
+P34800	G2/mitotic-specific cyclin-1	Antirrhinum majus	4151	afdb-swissprot	9.111	0.034	0.142	0.1181	140	362	473	1	0	1	3	False	E225->T44;D227->R46;D319->E139[+1]	nan	0	0.0	nan	0			hypothesis
+Q0JNK6	Cyclin-B1-3	Oryza sativa Japonica Group	39947	afdb-swissprot	9.111	0.029	0.142	0.1146	140	362	423	1	1	0	3	False	E225->A13;D227->D15;D319->K107	nan	0	0.0	nan	0			hypothesis
+Q08AI8	Protein mab-21-like 4	Homo sapiens	9606	afdb-proteome	5.967e-05	1	0.155	0.4128	232	362	279	0	0	0	3	False	E225->--;D227->--;D319->H32	0.671	15	0.88	2.267	17			hypothesis
+Q08AI8	Protein mab-21-like 4	Homo sapiens	9606	afdb-swissprot	5.65e-05	1	0.155	0.4128	232	362	279	0	0	0	3	False	E225->--;D227->--;D319->H32	0.671	15	0.88	2.267	17			hypothesis
+Q9ZL75	GTP 3',8-cyclase	Helicobacter pylori J99	85963	afdb-swissprot	5.016	0.09	0.094	0.0629	53	362	321	0	0	0	3	False	E225->K155;D227->N157;D319->G239	0.956	18	0.9	3.63	20			hypothesis
+A0A3Q0KBF2	Mab-21-like	Schistosoma mansoni	6183	afdb-proteome	5.375e-12	1	0.18600000000000003	0.5559	344	362	563	0	0	0	3	False	E225->L233;D227->S235;D319->Q333	0.959	16	0.64	4.145	25			hypothesis
+B6JM01	GTP 3',8-cyclase	Helicobacter pylori P12	570508	afdb-swissprot	7.334	0.057	0.068	0.0654	58	362	321	0	0	0	3	False	E225->K153;D227->K155;D319->G239	1.099	18	0.9	3.8	20			hypothesis
+Q08AI8	Protein mab-21-like 4	Homo sapiens	9606	afdb-proteome	3.662e-05	1	0.162	0.4333	228	362	298	0	0	0	3	False	E225->--;D227->--;D319->H51	1.167	21	0.91	2.166	23			hypothesis
+Q08AI8	Protein mab-21-like 4	Homo sapiens	9606	afdb-swissprot	3.467e-05	1	0.162	0.4333	228	362	298	0	0	0	3	False	E225->--;D227->--;D319->H51	1.167	21	0.91	2.166	23			hypothesis
+A7GWA5	GTP 3',8-cyclase	Campylobacter curvus 525.92	360105	afdb-swissprot	1.994	0.179	0.17300000000000001	0.0711	52	362	322	0	0	0	3	False	E225->K155;D227->N157;D319->G239	1.252	20	1.0	1.252	20			hypothesis
+A7ZB87	GTP 3',8-cyclase	Campylobacter concisus 13826	360104	afdb-swissprot	1.159	0.196	0.175	0.0745	57	362	322	0	0	0	3	False	E225->K153;D227->K155;D319->G239	1.255	20	1.0	1.255	20			hypothesis
+A8ERS0	GTP 3',8-cyclase	Aliarcobacter butzleri RM4018	367737	afdb-swissprot	1.994	0.15	0.145	0.0784	55	362	323	0	0	0	3	False	E225->I154;D227->I156;D319->G240	1.274	20	0.95	2.576	21			hypothesis
+B9KDV3	GTP 3',8-cyclase	Campylobacter lari RM2100	306263	afdb-swissprot	1.994	0.196	0.115	0.066	52	362	322	0	0	0	3	False	E225->K155;D227->N157;D319->G239	1.28	20	0.95	3.464	21			hypothesis
+A0RMJ2	GTP 3',8-cyclase	Campylobacter fetus subsp. fetus 82-40	360106	afdb-swissprot	1.159	0.233	0.153	0.0712	52	362	322	0	0	0	3	False	E225->K155;D227->N157;D319->G239	1.339	20	1.0	1.339	20			hypothesis
+A0A0K0EHB3	Cyclic pyranopterin monophosphate synthase	Strongyloides stercoralis	6248	afdb-proteome	1.89	0.082	0.07400000000000001	0.0839	108	362	511	0	0	0	3	False	E225->A163;D227->N165;D319->G259	1.434	20	0.95	2.205	21			hypothesis
+A0A175W990	Carboxylic ester hydrolase	Madurella mycetomatis	100816	afdb-proteome	8.633	0.034	0.077	0.0498	77	362	311	0	0	0	3	False	E225->P183;D227->G185;D319->V289	1.505	20	0.87	4.483	23			hypothesis
+O67929	GTP 3',8-cyclase	Aquifex aeolicus VF5	224324	afdb-swissprot	0.5137	0.353	0.125	0.0716	56	362	320	0	0	0	3	False	E225->V158;D227->S160;D319->G243	1.509	20	0.95	3.348	21			hypothesis
+Q9MAR8	Serine carboxypeptidase-like 44	Arabidopsis thaliana	3702	afdb-proteome	7.336	0.057	0.106	0.071	47	362	479	0	0	0	3	False	E225->R342;D227->K344;D319->A439	1.552	15	0.65	4.564	23			hypothesis
+Q9MAR8	Serine carboxypeptidase-like 44	Arabidopsis thaliana	3702	afdb-swissprot	6.947	0.057	0.106	0.071	47	362	479	0	0	0	3	False	E225->R342;D227->K344;D319->A439	1.552	15	0.65	4.564	23			hypothesis
+K7KM24	Carboxypeptidase	Glycine max	3847	afdb-proteome	9.114	0.051	0.12	0.0764	50	362	473	0	0	0	3	False	E225->R336;D227->N338;D319->A433	1.569	15	0.65	4.557	23			hypothesis
+K7KUN7	Carboxypeptidase	Glycine max	3847	afdb-proteome	7.336	0.051	0.106	0.071	47	362	473	0	0	0	3	False	E225->R336;D227->N338;D319->A433	1.576	15	0.65	4.555	23			hypothesis
+Q2R8W8	Carboxypeptidase	Oryza sativa Japonica Group	39947	afdb-proteome	5.905	0.069	0.14	0.0765	50	362	465	0	0	0	3	False	E225->R329;D227->H331;D319->A426	1.58	15	0.65	4.545	23			hypothesis
+K7TVF9	Carboxypeptidase	Zea mays	4577	afdb-proteome	9.622	0.045	0.085	0.0717	47	362	471	0	0	0	3	False	E225->R335;D227->H337;D319->A432	1.581	15	0.65	4.514	23			hypothesis
+Q9FH05	Serine carboxypeptidase-like 42	Arabidopsis thaliana	3702	afdb-proteome	9.114	0.045	0.063	0.0712	47	362	473	0	0	0	3	False	E225->R336;D227->H338;D319->A433	1.594	15	0.65	4.551	23			hypothesis
+Q9FH05	Serine carboxypeptidase-like 42	Arabidopsis thaliana	3702	afdb-swissprot	8.63	0.045	0.063	0.0712	47	362	473	0	0	0	3	False	E225->R336;D227->H338;D319->A433	1.594	15	0.65	4.551	23			hypothesis
+Q30P92	GTP 3',8-cyclase	Sulfurimonas denitrificans DSM 1251	326298	afdb-swissprot	0.9851	0.196	0.203	0.0692	59	362	321	0	0	0	3	False	E225->K153;D227->K155;D319->G239	1.613	20	0.95	3.568	21			hypothesis
+Q1CTA2	GTP 3',8-cyclase	Helicobacter pylori HPAG1	357544	afdb-swissprot	5.296	0.076	0.07	0.0687	57	362	321	0	0	0	3	False	E225->K153;D227->K155;D319->G239	1.614	20	0.95	3.523	21			hypothesis
+P56414	GTP 3',8-cyclase	Helicobacter pylori 26695	85962	afdb-proteome	6.234	0.082	0.096	0.0661	52	362	321	0	0	0	3	False	E225->K155;D227->N157;D319->G239	1.665	20	0.95	3.547	21			hypothesis
+P56414	GTP 3',8-cyclase	Helicobacter pylori 26695	85962	afdb-swissprot	5.903	0.082	0.096	0.0661	52	362	321	0	0	0	3	False	E225->K155;D227->N157;D319->G239	1.665	20	0.95	3.547	21			hypothesis
+Q84W27	Serine carboxypeptidase-like 43	Arabidopsis thaliana	3702	afdb-proteome	9.622	0.057	0.08	0.0792	50	362	442	0	0	0	3	False	E225->R303;D227->R305;D319->A400	1.806	16	0.7	4.567	23			hypothesis
+Q84W27	Serine carboxypeptidase-like 43	Arabidopsis thaliana	3702	afdb-swissprot	9.111	0.057	0.08	0.0792	50	362	442	0	0	0	3	False	E225->R303;D227->R305;D319->A400	1.806	16	0.7	4.567	23			hypothesis
+A0A3P7DFM4	Uncharacterized protein	Wuchereria bancrofti	6293	afdb-proteome	1.289e-09	1	0.203	0.4441	260	362	241	0	0	0	3	False	E225->--;D227->--;D319->Q47	2.367	21	0.88	2.852	24			hypothesis
+P22674	Cyclin-O	Homo sapiens	9606	afdb-swissprot	9.619	0.029	0.111	0.1215	143	362	350	0	0	0	3	False	E225->--;D227->--;D319->L46	nan	0	0.0	nan	0			hypothesis

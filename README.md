@@ -41,3 +41,39 @@ python3 -m grn_pipeline.m1_symmetry   # or any single module
 Figures are written to `figures/`. A full write-up with numbers, rigour
 labels, and the interpretation (including the Lyapunov-exponent biomarker
 question) is in [`REPORT.md`](REPORT.md).
+
+---
+
+# Structure-first catalytic-scaffold mining
+
+A second, independent pipeline in this repo:
+[`.claude/skills/catalytic-scaffold-mining/`](.claude/skills/catalytic-scaffold-mining/).
+
+It generalises the discovery method behind Li *et al.*, *Vita* 2026, 10.0078
+(*De novo* RNA synthesis from free nucleotides by a family of conserved plant
+proteins) — use a known **catalytic architecture** as a 3D query against the
+AlphaFold Database, then keep only hits that conserve the catalytic residue
+constellation, verify the active-site geometry, and rank what survives.
+
+| Stage | Method |
+|---|---|
+| 1 structural sweep | DALI / Foldseek vs AlphaFold DB (web or local proteome) |
+| 2 tiering | permissive threshold to size the landscape, strict one to shortlist |
+| 3 chemistry filter | catalytic residues mapped through the *structural* alignment, judged by chemical class |
+| 4 geometry | outlier-trimmed RMSD over the catalytic shell only; carboxylate spacing; shell pLDDT |
+| 5 family structure | all-vs-all clustering + ML phylogeny → clade priors |
+| 6 triage | ranked table, ✅/⚠️ labels, required control ladder |
+
+Validated by reproducing the source paper: searching from AtURT1 recovers all
+three experimentally confirmed enzymes in the top 6 and independently derives
+OsNTP4's catalytic triad as **D100/D102/D157** — the exact residues the paper
+reports.
+
+Applied beyond plants, the same scaffold with a fully conserved acidic triad is
+found in animals, fungi, trypanosomatids, amoebozoa, apicomplexa, bacteria and
+archaea. Results: [`results/ntase-mining/`](results/ntase-mining/). Full
+write-up (Chinese, with ✅/⚠️ labels on every claim):
+[`NTASE_REPORT.md`](NTASE_REPORT.md).
+
+**All new candidates are hypotheses.** A structural hit is never evidence of
+catalytic activity.

@@ -1,0 +1,51 @@
+# Results — structure-first mining of the de novo RNA synthase scaffold
+
+Output of `.claude/skills/catalytic-scaffold-mining/` applied to the catalytic
+architecture of OsNTP4 / OsNTP10 / AtURT1 (Li *et al.*, *Vita* 2026, 10.0078).
+
+Full write-up and honesty labelling: [`../../NTASE_REPORT.md`](../../NTASE_REPORT.md).
+
+**Every row in every file is a ⚠️ nominated candidate.** None of these proteins
+has been shown to synthesise RNA. Structural similarity plus conservation of an
+acidic carboxylate configuration nominates a protein for functional analysis; it
+says nothing about its substrates, products or biological role.
+
+## Files
+
+| File | Query | Database | Rows |
+|---|---|---|---|
+| `urt1_proteome.annotated.tsv` | AtURT1 (PDB 6L8K, catalytic 491/493/547) | `afdb-proteome` + `afdb-swissprot` | 1004 hits / 816 unique proteins |
+| `cgas_proteome.candidates.tsv` | human cGAS (PDB 4KM5, catalytic 225/227/319) — the paper's own query | `afdb-proteome` + `afdb-swissprot` | 190 |
+| `yeast_local.candidates.tsv` | AtURT1 | *S. cerevisiae* proteome, local Foldseek | 18 |
+| `metja_local.candidates.tsv` | AtURT1 | *M. jannaschii* proteome, local Foldseek | 83 |
+
+Searches ran with `--window 2`. The two local files carry pLDDT and
+side-chain geometry; the two web files cannot (see `reference/data-access.md`).
+
+## Columns
+
+| Column | Meaning |
+|---|---|
+| `core_rmsd`, `n_core`, `core_frac` | **rank by this.** Outlier-trimmed RMSD over the catalytic shell, how many residue pairs survived trimming, and what fraction of the shell that is. A tight RMSD over few residues is weak evidence — always read `n_core` alongside. |
+| `local_rmsd`, `n_shell` | Untrimmed shell RMSD. Inflated by flexible loops next to the active site; kept for transparency. |
+| `n_conserved` / `n_conserved_exact` / `n_catalytic` | Catalytic positions conserved (windowed / at offset 0 only) out of the total. |
+| `max_offset` | Largest registration offset used. `0` is strongest; non-zero means the structural alignment was shifted and the counterpart was found nearby. |
+| `catalytic_residues` | Explicit per-position mapping, e.g. `D491->D100;D493->D102;A547->D157`, with `[+2]` marking an offset. |
+| `site_passed` | All catalytic positions conserved. |
+| `tm_score_qnorm` | TM-score over aligned pairs, normalised by query length. Penalises targets much shorter than the query — informative but not the ranking metric. |
+| `shell_plddt` | Mean AlphaFold pLDDT **over the catalytic shell only**. Local mode only; empty in web results. Never substitute whole-chain pLDDT. |
+| `carboxylate_geometry` | Distance between catalytic carboxylate carbons in the target, with the deviation from the query in parentheses. Local mode only. |
+| `lineage_group`, `lineage`, `known_class` | Added by `annotate.py`. `known_class = unknown` means *the annotation is uninformative*, **not** that the protein is novel. |
+| `label` | Always `hypothesis`. |
+
+## Reproduce
+
+Commands are listed at the end of [`../../NTASE_REPORT.md`](../../NTASE_REPORT.md).
+
+## Positive controls embedded in these files
+
+`urt1_proteome.annotated.tsv` recovers all three experimentally validated
+enzymes in the top 6 by `core_rmsd`, and independently derives OsNTP4's
+catalytic triad as **D100 / D102 / D157** — the exact residues the paper reports
+and mutates. That reproduction is the reason to trust the rest of the table's
+*geometry*; it is not a reason to trust any claim about *activity*.
