@@ -1,0 +1,63 @@
+{
+  "scope": "Software integrity and self-reconstruction only. Not independent biological accuracy, not leave-donor-out validation.",
+  "v0_1_monocyte_compatibility": "passed (scores, cosine 0.67714, condition number 2.27919 match v0.1)",
+  "self_reconstruction_13_subsets": {
+    "Monocyte": {
+      "IFNA": 1.0,
+      "IFNG": 1.0
+    },
+    "CD4_Naive": {
+      "IFNA": 1.0,
+      "IFNG": 1.0
+    },
+    "CD4_Memory": {
+      "IFNA": 1.0,
+      "IFNG": 1.0
+    },
+    "CD8_Naive": {
+      "IFNA": 1.0,
+      "IFNG": 1.0
+    },
+    "CD8_Memory": {
+      "IFNA": 1.0,
+      "IFNG": 1.0
+    },
+    "Treg": {
+      "IFNA": 1.0,
+      "IFNG": 1.0
+    },
+    "MAIT": {
+      "IFNA": 1.0,
+      "IFNG": 1.0
+    },
+    "gdT": {
+      "IFNA": 1.0,
+      "IFNG": 1.0
+    },
+    "B_Naive": {
+      "IFNA": 1.0,
+      "IFNG": 1.0
+    },
+    "B_Memory": {
+      "IFNA": 1.0,
+      "IFNG": 1.0
+    },
+    "Plasma": {
+      "IFNA": 1.0,
+      "IFNG": 1.0
+    },
+    "NK.CD56hi": {
+      "IFNA": 1.0,
+      "IFNG": 1.0
+    },
+    "NK.CD56dim": {
+      "IFNA": 1.0,
+      "IFNG": 1.0
+    }
+  },
+  "rejected_inputs": {
+    "missing_genes": "Insufficient overlap: 1/824. Prototype gate: >=30 genes and >=50% reference coverage; this is an engineering gate, not validated sensitivity.",
+    "zero_signal": "Zero-norm reference or target; no meaningful score.",
+    "non_finite": "All log2FC values must be finite numbers; missing is not zero."
+  }
+}

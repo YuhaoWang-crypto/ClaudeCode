@@ -1,2 +1,3 @@
 __pycache__/
 *.pyc
+cell_state_library/data/

@@ -1,0 +1,254 @@
+{
+  "assumed_sigma": 0.5,
+  "z_min": 5.0,
+  "min_genes": 30,
+  "cell_types": {
+    "Monocyte": {
+      "n_genes": 824,
+      "rms_ifna": 0.6486174052789523,
+      "rms_ifng": 1.131224953977999,
+      "cosine": 0.6771438363501309,
+      "condition_number": 2.27919043822263,
+      "se_ifna": 0.03649455763370882,
+      "se_ifng": 0.020925108835284558,
+      "z_ifna": 27.401345977032285,
+      "z_ifng": 47.789476646055455,
+      "status": "both",
+      "sensitivity": {
+        "sigma_0.25": "both",
+        "sigma_0.5": "both",
+        "sigma_1.0": "both"
+      },
+      "author_ifng_zero_rule": 0,
+      "notes": null
+    },
+    "CD4_Naive": {
+      "n_genes": 184,
+      "rms_ifna": 2.127980680857428,
+      "rms_ifng": 0.7926270330791818,
+      "cosine": 0.9321187328514793,
+      "condition_number": 5.335092273977636,
+      "se_ifna": 0.047830127217085586,
+      "se_ifng": 0.12841044076621017,
+      "z_ifna": 20.907324696447517,
+      "z_ifng": 7.787528755707997,
+      "status": "both",
+      "sensitivity": {
+        "sigma_0.25": "both",
+        "sigma_0.5": "both",
+        "sigma_1.0": "ifna_only"
+      },
+      "author_ifng_zero_rule": 0,
+      "notes": null
+    },
+    "CD4_Memory": {
+      "n_genes": 226,
+      "rms_ifna": 2.2958439280163723,
+      "rms_ifng": 0.617696285914438,
+      "cosine": 0.9447815488001194,
+      "condition_number": 5.934625279141538,
+      "se_ifna": 0.04420749435808247,
+      "se_ifng": 0.16430972600809882,
+      "z_ifna": 22.62059893962684,
+      "z_ifng": 6.08606699247195,
+      "status": "both",
+      "sensitivity": {
+        "sigma_0.25": "both",
+        "sigma_0.5": "both",
+        "sigma_1.0": "ifna_only"
+      },
+      "author_ifng_zero_rule": 0,
+      "notes": null
+    },
+    "CD8_Naive": {
+      "n_genes": 173,
+      "rms_ifna": 2.249697506977527,
+      "rms_ifng": 0.7946536294216899,
+      "cosine": 0.961117851213936,
+      "condition_number": 7.101935399297346,
+      "se_ifna": 0.061192169425784704,
+      "se_ifng": 0.17323757912478083,
+      "z_ifna": 16.341960243995327,
+      "z_ifng": 5.77241961618335,
+      "status": "both",
+      "sensitivity": {
+        "sigma_0.25": "both",
+        "sigma_0.5": "both",
+        "sigma_1.0": "ifna_only"
+      },
+      "author_ifng_zero_rule": 0,
+      "notes": null
+    },
+    "CD8_Memory": {
+      "n_genes": 187,
+      "rms_ifna": 2.4055314738148508,
+      "rms_ifng": 0.3079340091945433,
+      "cosine": 0.8676202542974962,
+      "condition_number": 3.756068607191312,
+      "se_ifna": 0.03056913139544425,
+      "se_ifng": 0.23880118955118615,
+      "z_ifna": 32.712738450560984,
+      "z_ifng": 4.18758383021226,
+      "status": "ifna_only",
+      "sensitivity": {
+        "sigma_0.25": "both",
+        "sigma_0.5": "ifna_only",
+        "sigma_1.0": "ifna_only"
+      },
+      "author_ifng_zero_rule": 0,
+      "notes": "author R list says 'Memory_CD8', which never matches this label, so the author zero rule does not fire"
+    },
+    "Treg": {
+      "n_genes": 147,
+      "rms_ifna": 2.482758719844883,
+      "rms_ifng": 1.002897088109745,
+      "cosine": 0.9699552414060304,
+      "condition_number": 8.097366936133424,
+      "se_ifna": 0.06827540456684644,
+      "se_ifng": 0.1690216853244327,
+      "z_ifna": 14.646562789985804,
+      "z_ifng": 5.916400597240089,
+      "status": "both",
+      "sensitivity": {
+        "sigma_0.25": "both",
+        "sigma_0.5": "both",
+        "sigma_1.0": "ifna_only"
+      },
+      "author_ifng_zero_rule": 0,
+      "notes": null
+    },
+    "MAIT": {
+      "n_genes": 82,
+      "rms_ifna": 3.3212737677062485,
+      "rms_ifng": 0.30257345702729926,
+      "cosine": 0.890342773497063,
+      "condition_number": 4.15194557521275,
+      "se_ifna": 0.03651484768969833,
+      "se_ifng": 0.40081442356208474,
+      "z_ifna": 27.386119983245138,
+      "z_ifng": 2.4949201955181226,
+      "status": "ifna_only",
+      "sensitivity": {
+        "sigma_0.25": "ifna_only",
+        "sigma_0.5": "ifna_only",
+        "sigma_1.0": "ifna_only"
+      },
+      "author_ifng_zero_rule": 1,
+      "notes": null
+    },
+    "gdT": {
+      "n_genes": 85,
+      "rms_ifna": 3.331946903053869,
+      "rms_ifng": 0.3428732401130837,
+      "cosine": 0.783526658743764,
+      "condition_number": 2.8703680835801255,
+      "se_ifna": 0.026195123879781675,
+      "se_ifng": 0.25455693730302414,
+      "z_ifna": 38.17504374437547,
+      "z_ifng": 3.9283942154348037,
+      "status": "ifna_only",
+      "sensitivity": {
+        "sigma_0.25": "both",
+        "sigma_0.5": "ifna_only",
+        "sigma_1.0": "ifna_only"
+      },
+      "author_ifng_zero_rule": 1,
+      "notes": null
+    },
+    "B_Naive": {
+      "n_genes": 478,
+      "rms_ifna": 1.6928528154679192,
+      "rms_ifng": 1.452182483693277,
+      "cosine": 0.6326048058138156,
+      "condition_number": 2.1080154993584315,
+      "se_ifna": 0.01744333755118537,
+      "se_ifng": 0.02033422343008953,
+      "z_ifna": 57.32847839844987,
+      "z_ifng": 49.17817508192872,
+      "status": "both",
+      "sensitivity": {
+        "sigma_0.25": "both",
+        "sigma_0.5": "both",
+        "sigma_1.0": "both"
+      },
+      "author_ifng_zero_rule": 0,
+      "notes": null
+    },
+    "B_Memory": {
+      "n_genes": 538,
+      "rms_ifna": 1.582021343239631,
+      "rms_ifng": 1.259743509574541,
+      "cosine": 0.6993423604219727,
+      "condition_number": 2.377411285417404,
+      "se_ifna": 0.019062943675722633,
+      "se_ifng": 0.023939781019513693,
+      "z_ifna": 52.4577954491644,
+      "z_ifng": 41.77147648864809,
+      "status": "both",
+      "sensitivity": {
+        "sigma_0.25": "both",
+        "sigma_0.5": "both",
+        "sigma_1.0": "both"
+      },
+      "author_ifng_zero_rule": 0,
+      "notes": null
+    },
+    "Plasma": {
+      "n_genes": 77,
+      "rms_ifna": 3.448848773960683,
+      "rms_ifng": 1.521030199985731,
+      "cosine": 0.9727707486898575,
+      "condition_number": 8.51178136580802,
+      "se_ifna": 0.07128437234472593,
+      "se_ifng": 0.16163322737837232,
+      "z_ifna": 14.028320192875857,
+      "z_ifng": 6.18684670361168,
+      "status": "both",
+      "sensitivity": {
+        "sigma_0.25": "both",
+        "sigma_0.5": "both",
+        "sigma_1.0": "ifna_only"
+      },
+      "author_ifng_zero_rule": 1,
+      "notes": "author forces IFNg_score=0 here, but the data pass the identifiability gate"
+    },
+    "NK.CD56hi": {
+      "n_genes": 279,
+      "rms_ifna": 2.1638684581442678,
+      "rms_ifng": 0.13739186169231174,
+      "cosine": 0.33591546819572554,
+      "condition_number": 1.4183316914461066,
+      "se_ifna": 0.014687094011465852,
+      "se_ifng": 0.23131602615869468,
+      "z_ifna": 68.08698842802563,
+      "z_ifng": 4.3230900020474525,
+      "status": "ifna_only",
+      "sensitivity": {
+        "sigma_0.25": "both",
+        "sigma_0.5": "ifna_only",
+        "sigma_1.0": "ifna_only"
+      },
+      "author_ifng_zero_rule": 1,
+      "notes": null
+    },
+    "NK.CD56dim": {
+      "n_genes": 287,
+      "rms_ifna": 2.2152008726468986,
+      "rms_ifng": 0.13831875986927702,
+      "cosine": 0.43979157166814176,
+      "condition_number": 1.6031530817943445,
+      "se_ifna": 0.01483512839609773,
+      "se_ifng": 0.23758736269702388,
+      "z_ifna": 67.40757297813765,
+      "z_ifng": 4.208978072942457,
+      "status": "ifna_only",
+      "sensitivity": {
+        "sigma_0.25": "both",
+        "sigma_0.5": "ifna_only",
+        "sigma_1.0": "ifna_only"
+      },
+      "author_ifng_zero_rule": 1,
+      "notes": null
+    }
+  }
+}

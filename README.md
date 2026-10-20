@@ -41,3 +41,10 @@ python3 -m grn_pipeline.m1_symmetry   # or any single module
 Figures are written to `figures/`. A full write-up with numbers, rigour
 labels, and the interpretation (including the Lyapunov-exponent biomarker
 question) is in [`REPORT.md`](REPORT.md).
+
+## Cell state library (separate project)
+
+[`cell_state_library/`](cell_state_library/README_zh.md) — v0.2 of a cell-state ↔ condition reference
+library: long-format SQLite schema, 13 immune subsets × IFN-α/IFN-γ (author HIRISA matrix),
+per-subset identifiability checks, and a 16-gene gene-pair code panel benchmarked against NNLS scoring.
+Report (Chinese): `cell_state_library/README_zh.md`.

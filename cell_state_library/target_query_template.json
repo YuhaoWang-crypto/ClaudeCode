@@ -1,0 +1,6 @@
+{
+  "cell_type": "CD4_Naive",
+  "celltype_level": "L2",
+  "contrast": "REPLACE: target vs matched control, same cell type",
+  "log2fc": {}
+}

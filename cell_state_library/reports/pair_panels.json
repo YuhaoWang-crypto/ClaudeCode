@@ -1,0 +1,760 @@
+{
+  "sigma": 0.5,
+  "tau": 0.7071067811865476,
+  "panels": {
+    "Monocyte": [
+      {
+        "rank": 1,
+        "gene_i": "APOBEC3A",
+        "gene_j": "CXCL9",
+        "d_ifna": 2.106164132,
+        "d_ifng": -2.7180641230000004
+      },
+      {
+        "rank": 2,
+        "gene_i": "CD300E",
+        "gene_j": "LIPA",
+        "d_ifna": 2.387028582,
+        "d_ifng": -2.104933295
+      },
+      {
+        "rank": 3,
+        "gene_i": "MS4A6A",
+        "gene_j": "SOCS1",
+        "d_ifna": 1.98039195,
+        "d_ifng": -2.119763311
+      },
+      {
+        "rank": 4,
+        "gene_i": "IFIT1",
+        "gene_j": "TGM2",
+        "d_ifna": 2.1535223279999998,
+        "d_ifng": -1.942545929
+      },
+      {
+        "rank": 5,
+        "gene_i": "CD14",
+        "gene_j": "MT-CO3",
+        "d_ifna": 1.7502299829999999,
+        "d_ifng": -2.43766989
+      },
+      {
+        "rank": 6,
+        "gene_i": "CCL8",
+        "gene_j": "IDO1",
+        "d_ifna": 1.4608334129999998,
+        "d_ifng": -3.6198117300000003
+      },
+      {
+        "rank": 7,
+        "gene_i": "OTOF",
+        "gene_j": "SLAMF8",
+        "d_ifna": 1.7906726229999999,
+        "d_ifng": -1.7881085250000002
+      },
+      {
+        "rank": 8,
+        "gene_i": "IFITM3",
+        "gene_j": "WARS",
+        "d_ifna": 1.546276693,
+        "d_ifng": -2.1989270650000003
+      }
+    ],
+    "CD4_Naive": [
+      {
+        "rank": 1,
+        "gene_i": "PARP14",
+        "gene_j": "PLXDC1",
+        "d_ifna": 3.116530288,
+        "d_ifng": -1.337974445
+      },
+      {
+        "rank": 2,
+        "gene_i": "SAT1",
+        "gene_j": "EIF3L",
+        "d_ifna": 2.4237677389999996,
+        "d_ifng": -1.11948858
+      },
+      {
+        "rank": 3,
+        "gene_i": "IFIT1",
+        "gene_j": "TRANK1",
+        "d_ifna": 4.83910473,
+        "d_ifng": 3.0596387820000004
+      },
+      {
+        "rank": 4,
+        "gene_i": "SP140",
+        "gene_j": "KPNB1",
+        "d_ifna": 1.961983976,
+        "d_ifng": -0.854274207
+      },
+      {
+        "rank": 5,
+        "gene_i": "IFI44L",
+        "gene_j": "CHST12",
+        "d_ifna": 4.846415745,
+        "d_ifng": 2.8439364080000002
+      },
+      {
+        "rank": 6,
+        "gene_i": "NUB1",
+        "gene_j": "TRIM14",
+        "d_ifna": 1.861275736,
+        "d_ifng": -0.797095798
+      },
+      {
+        "rank": 7,
+        "gene_i": "IFIT3",
+        "gene_j": "RARA",
+        "d_ifna": 4.8331243719999994,
+        "d_ifng": 2.766050957
+      },
+      {
+        "rank": 8,
+        "gene_i": "ANKFY1",
+        "gene_j": "TOMM7",
+        "d_ifna": 1.7164968090000001,
+        "d_ifng": -0.753462039
+      }
+    ],
+    "CD4_Memory": [
+      {
+        "rank": 1,
+        "gene_i": "TRIM5",
+        "gene_j": "GPATCH11",
+        "d_ifna": 3.436931194,
+        "d_ifng": -0.838518613
+      },
+      {
+        "rank": 2,
+        "gene_i": "IFIT1",
+        "gene_j": "AIM2",
+        "d_ifna": 5.585815921,
+        "d_ifng": 3.033093674
+      },
+      {
+        "rank": 3,
+        "gene_i": "ADAR",
+        "gene_j": "EIF3L",
+        "d_ifna": 2.819234201,
+        "d_ifng": -0.607142591
+      },
+      {
+        "rank": 4,
+        "gene_i": "IFIT3",
+        "gene_j": "PARP11",
+        "d_ifna": 5.744480546,
+        "d_ifng": 2.618029458
+      },
+      {
+        "rank": 5,
+        "gene_i": "AZI2",
+        "gene_j": "SLFN11",
+        "d_ifna": 2.488452396,
+        "d_ifng": -0.496874774
+      },
+      {
+        "rank": 6,
+        "gene_i": "RSAD2",
+        "gene_j": "KLHDC7B",
+        "d_ifna": 5.663569236,
+        "d_ifng": 2.5179504560000003
+      },
+      {
+        "rank": 7,
+        "gene_i": "LAMP3",
+        "gene_j": "EEF2",
+        "d_ifna": 7.3400389530000005,
+        "d_ifng": 2.181201239
+      },
+      {
+        "rank": 8,
+        "gene_i": "CMPK2",
+        "gene_j": "BAG1",
+        "d_ifna": 5.3171395630000005,
+        "d_ifng": 2.125662599
+      }
+    ],
+    "CD8_Naive": [
+      {
+        "rank": 1,
+        "gene_i": "DHX58",
+        "gene_j": "EIF3L",
+        "d_ifna": 3.153131706,
+        "d_ifng": -1.222067988
+      },
+      {
+        "rank": 2,
+        "gene_i": "IFIT3",
+        "gene_j": "SMCHD1",
+        "d_ifna": 6.23410172,
+        "d_ifng": 3.0749925449999997
+      },
+      {
+        "rank": 3,
+        "gene_i": "IFIT1",
+        "gene_j": "TOMM7",
+        "d_ifna": 7.449034343999999,
+        "d_ifng": 2.8209809470000002
+      },
+      {
+        "rank": 4,
+        "gene_i": "IFI44L",
+        "gene_j": "HADHA",
+        "d_ifna": 5.659703398,
+        "d_ifng": 2.710446123
+      },
+      {
+        "rank": 5,
+        "gene_i": "EEF2",
+        "gene_j": "KPNB1",
+        "d_ifna": 1.488484287,
+        "d_ifng": -0.50863438
+      },
+      {
+        "rank": 6,
+        "gene_i": "OAS1",
+        "gene_j": "EEF1B2",
+        "d_ifna": 5.423081583,
+        "d_ifng": 2.334687166
+      },
+      {
+        "rank": 7,
+        "gene_i": "NELL2",
+        "gene_j": "EIF4B",
+        "d_ifna": 1.349137535,
+        "d_ifng": -0.474607735
+      },
+      {
+        "rank": 8,
+        "gene_i": "CMPK2",
+        "gene_j": "SOCS1",
+        "d_ifna": 5.433954203,
+        "d_ifng": 1.964895893
+      }
+    ],
+    "CD8_Memory": [
+      {
+        "rank": 1,
+        "gene_i": "IFIT1",
+        "gene_j": "SLC26A11",
+        "d_ifna": 9.467921048000001,
+        "d_ifng": 1.769253624
+      },
+      {
+        "rank": 2,
+        "gene_i": "IFIT3",
+        "gene_j": "GPATCH11",
+        "d_ifna": 9.071129682,
+        "d_ifng": 1.231764801
+      },
+      {
+        "rank": 3,
+        "gene_i": "IFI44L",
+        "gene_j": "MATK",
+        "d_ifna": 8.660164802,
+        "d_ifng": 0.9228747339999999
+      },
+      {
+        "rank": 4,
+        "gene_i": "RSAD2",
+        "gene_j": "HOPX",
+        "d_ifna": 7.8354774250000006,
+        "d_ifng": 0.9379949250000001
+      },
+      {
+        "rank": 5,
+        "gene_i": "CMPK2",
+        "gene_j": "EIF3L",
+        "d_ifna": 7.720573425,
+        "d_ifng": 0.810857956
+      },
+      {
+        "rank": 6,
+        "gene_i": "IFI6",
+        "gene_j": "SGSH",
+        "d_ifna": 6.501274190999999,
+        "d_ifng": 0.66742895
+      },
+      {
+        "rank": 7,
+        "gene_i": "OAS3",
+        "gene_j": "SLFN11",
+        "d_ifna": 6.3060839689999995,
+        "d_ifng": 0.661415542
+      },
+      {
+        "rank": 8,
+        "gene_i": "OAS1",
+        "gene_j": "EEF1G",
+        "d_ifna": 6.0485561830000005,
+        "d_ifng": 0.6523107
+      }
+    ],
+    "Treg": [
+      {
+        "rank": 1,
+        "gene_i": "NAPA",
+        "gene_j": "EIF3L",
+        "d_ifna": 2.772629804,
+        "d_ifng": -1.073984274
+      },
+      {
+        "rank": 2,
+        "gene_i": "IFIT1",
+        "gene_j": "IFI16",
+        "d_ifna": 5.687855752999999,
+        "d_ifng": 4.289718109
+      },
+      {
+        "rank": 3,
+        "gene_i": "CMPK2",
+        "gene_j": "DYNLT1",
+        "d_ifna": 5.66024459,
+        "d_ifng": 3.467066703
+      },
+      {
+        "rank": 4,
+        "gene_i": "TAGAP",
+        "gene_j": "GPR155",
+        "d_ifna": 1.789327111,
+        "d_ifng": -0.49128709400000004
+      },
+      {
+        "rank": 5,
+        "gene_i": "IFIT3",
+        "gene_j": "GIMAP4",
+        "d_ifna": 4.752697966,
+        "d_ifng": 2.516541006
+      },
+      {
+        "rank": 6,
+        "gene_i": "RSAD2",
+        "gene_j": "GBP1",
+        "d_ifna": 5.978295814,
+        "d_ifng": 2.567922427
+      },
+      {
+        "rank": 7,
+        "gene_i": "IFI44L",
+        "gene_j": "GBP4",
+        "d_ifna": 5.890698304,
+        "d_ifng": 2.51746288
+      },
+      {
+        "rank": 8,
+        "gene_i": "SOCS1",
+        "gene_j": "SMCHD1",
+        "d_ifna": 1.509453294,
+        "d_ifng": -0.345957948
+      }
+    ],
+    "MAIT": [
+      {
+        "rank": 1,
+        "gene_i": "IFIT1",
+        "gene_j": "EEF1G",
+        "d_ifna": 9.585784904999999,
+        "d_ifng": 1.178567236
+      },
+      {
+        "rank": 2,
+        "gene_i": "IFIT3",
+        "gene_j": "EEF2",
+        "d_ifna": 9.135329671,
+        "d_ifng": 1.008910957
+      },
+      {
+        "rank": 3,
+        "gene_i": "RSAD2",
+        "gene_j": "PNRC1",
+        "d_ifna": 8.111048796,
+        "d_ifng": 0.746300644
+      },
+      {
+        "rank": 4,
+        "gene_i": "IFI44L",
+        "gene_j": "NAPA",
+        "d_ifna": 5.704412936,
+        "d_ifng": 0.709079543
+      },
+      {
+        "rank": 5,
+        "gene_i": "CMPK2",
+        "gene_j": "SMCHD1",
+        "d_ifna": 4.990538203,
+        "d_ifng": 0.5980347579999999
+      },
+      {
+        "rank": 6,
+        "gene_i": "IFI6",
+        "gene_j": "TRIM38",
+        "d_ifna": 4.442885478,
+        "d_ifng": 0.571400723
+      },
+      {
+        "rank": 7,
+        "gene_i": "IFIT2",
+        "gene_j": "TRANK1",
+        "d_ifna": 4.22332902,
+        "d_ifng": 0.517639537
+      },
+      {
+        "rank": 8,
+        "gene_i": "OAS3",
+        "gene_j": "TMEM123",
+        "d_ifna": 3.9588693740000003,
+        "d_ifng": 0.517317327
+      }
+    ],
+    "gdT": [
+      {
+        "rank": 1,
+        "gene_i": "IFIT1",
+        "gene_j": "S100A4",
+        "d_ifna": 9.891904231,
+        "d_ifng": 1.325745668
+      },
+      {
+        "rank": 2,
+        "gene_i": "IFI44L",
+        "gene_j": "PNRC1",
+        "d_ifna": 8.358394137,
+        "d_ifng": 1.0435791250000002
+      },
+      {
+        "rank": 3,
+        "gene_i": "IFIT3",
+        "gene_j": "EEF2",
+        "d_ifna": 8.035563397,
+        "d_ifng": 0.867335937
+      },
+      {
+        "rank": 4,
+        "gene_i": "RSAD2",
+        "gene_j": "MCL1",
+        "d_ifna": 6.031432902,
+        "d_ifng": 0.812210113
+      },
+      {
+        "rank": 5,
+        "gene_i": "CMPK2",
+        "gene_j": "SMCHD1",
+        "d_ifna": 5.444303278,
+        "d_ifng": 0.7881765340000001
+      },
+      {
+        "rank": 6,
+        "gene_i": "OAS3",
+        "gene_j": "TRANK1",
+        "d_ifna": 4.622145917999999,
+        "d_ifng": 0.668855937
+      },
+      {
+        "rank": 7,
+        "gene_i": "IFI6",
+        "gene_j": "SHISA5",
+        "d_ifna": 4.509093001,
+        "d_ifng": 0.698868748
+      },
+      {
+        "rank": 8,
+        "gene_i": "OAS1",
+        "gene_j": "IFI16",
+        "d_ifna": 4.22759474,
+        "d_ifng": 0.643718527
+      }
+    ],
+    "B_Naive": [
+      {
+        "rank": 1,
+        "gene_i": "PLSCR1",
+        "gene_j": "MYD88",
+        "d_ifna": 5.255697868,
+        "d_ifng": -4.350433443
+      },
+      {
+        "rank": 2,
+        "gene_i": "TNFSF13B",
+        "gene_j": "TAP2",
+        "d_ifna": 4.638067088,
+        "d_ifng": -3.9136655739999995
+      },
+      {
+        "rank": 3,
+        "gene_i": "FBXO6",
+        "gene_j": "MAML3",
+        "d_ifna": 4.353627941,
+        "d_ifng": -3.7670202170000002
+      },
+      {
+        "rank": 4,
+        "gene_i": "APOL6",
+        "gene_j": "TAP1",
+        "d_ifna": 4.1997303089999996,
+        "d_ifng": -3.634081734
+      },
+      {
+        "rank": 5,
+        "gene_i": "AGRN",
+        "gene_j": "CNP",
+        "d_ifna": 3.9769323219999997,
+        "d_ifng": -3.5361400209999996
+      },
+      {
+        "rank": 6,
+        "gene_i": "CCSER1",
+        "gene_j": "DYNLT1",
+        "d_ifna": 3.778168797,
+        "d_ifng": -3.419582082
+      },
+      {
+        "rank": 7,
+        "gene_i": "RNF213",
+        "gene_j": "MCL1",
+        "d_ifna": 3.552315177,
+        "d_ifng": -3.342549398
+      },
+      {
+        "rank": 8,
+        "gene_i": "SAMHD1",
+        "gene_j": "KIAA0040",
+        "d_ifna": 3.3198889200000004,
+        "d_ifng": -3.289444726
+      }
+    ],
+    "B_Memory": [
+      {
+        "rank": 1,
+        "gene_i": "MACROD2",
+        "gene_j": "PLXND1",
+        "d_ifna": 4.376480312,
+        "d_ifng": -3.459660781
+      },
+      {
+        "rank": 2,
+        "gene_i": "LGALS9",
+        "gene_j": "SHFL",
+        "d_ifna": 3.9378399460000004,
+        "d_ifng": -3.283107368
+      },
+      {
+        "rank": 3,
+        "gene_i": "SAMD9",
+        "gene_j": "PFKFB3",
+        "d_ifna": 3.65834911,
+        "d_ifng": -3.133634168
+      },
+      {
+        "rank": 4,
+        "gene_i": "DDX58",
+        "gene_j": "IZUMO4",
+        "d_ifna": 3.335870949,
+        "d_ifng": -3.0064099769999997
+      },
+      {
+        "rank": 5,
+        "gene_i": "SIGLEC14",
+        "gene_j": "TAP1",
+        "d_ifna": 3.229950856,
+        "d_ifng": -2.948940273
+      },
+      {
+        "rank": 6,
+        "gene_i": "DRAP1",
+        "gene_j": "CKLF",
+        "d_ifna": 3.0718080580000002,
+        "d_ifng": -2.8458604899999997
+      },
+      {
+        "rank": 7,
+        "gene_i": "TMCC3",
+        "gene_j": "SESN3",
+        "d_ifna": 3.048395133,
+        "d_ifng": -2.833112145
+      },
+      {
+        "rank": 8,
+        "gene_i": "CCDC194",
+        "gene_j": "SNX9",
+        "d_ifna": 2.9405853090000003,
+        "d_ifng": -2.740390747
+      }
+    ],
+    "Plasma": [
+      {
+        "rank": 1,
+        "gene_i": "IFIT3",
+        "gene_j": "DRAP1",
+        "d_ifna": 6.25570544,
+        "d_ifng": 4.4995392149999995
+      },
+      {
+        "rank": 2,
+        "gene_i": "HERC6",
+        "gene_j": "WARS",
+        "d_ifna": 2.7720304999999996,
+        "d_ifng": 1.979134985
+      },
+      {
+        "rank": 3,
+        "gene_i": "IFITM1",
+        "gene_j": "UNC93B1",
+        "d_ifna": 2.93266107,
+        "d_ifng": 2.092476361
+      },
+      {
+        "rank": 4,
+        "gene_i": "MOV10",
+        "gene_j": "TAP2",
+        "d_ifna": 2.133190594,
+        "d_ifng": 1.518973428
+      },
+      {
+        "rank": 5,
+        "gene_i": "XAF1",
+        "gene_j": "NAPA",
+        "d_ifna": 3.169021117,
+        "d_ifng": 2.036959301
+      },
+      {
+        "rank": 6,
+        "gene_i": "RSAD2",
+        "gene_j": "IFI44",
+        "d_ifna": 1.9813822879999998,
+        "d_ifng": 1.4147492339999999
+      },
+      {
+        "rank": 7,
+        "gene_i": "HERC5",
+        "gene_j": "SP100",
+        "d_ifna": 2.124904487,
+        "d_ifng": 1.507898905
+      },
+      {
+        "rank": 8,
+        "gene_i": "CMPK2",
+        "gene_j": "LGALS9",
+        "d_ifna": 2.8732174390000003,
+        "d_ifng": 1.483417407
+      }
+    ],
+    "NK.CD56hi": [
+      {
+        "rank": 1,
+        "gene_i": "IFIT1",
+        "gene_j": "FGFBP2",
+        "d_ifna": 11.489320539,
+        "d_ifng": 1.917238445
+      },
+      {
+        "rank": 2,
+        "gene_i": "IFI44L",
+        "gene_j": "CCR7",
+        "d_ifna": 9.015956229,
+        "d_ifng": 0.281150542
+      },
+      {
+        "rank": 3,
+        "gene_i": "IFIT3",
+        "gene_j": "TNR",
+        "d_ifna": 8.891350953,
+        "d_ifng": 0.19947455200000003
+      },
+      {
+        "rank": 4,
+        "gene_i": "LAMP3",
+        "gene_j": "ITGAM",
+        "d_ifna": 8.450761391,
+        "d_ifng": 0.33869104699999997
+      },
+      {
+        "rank": 5,
+        "gene_i": "MX1",
+        "gene_j": "ITM2C",
+        "d_ifna": 8.05314172,
+        "d_ifng": 0.197416643
+      },
+      {
+        "rank": 6,
+        "gene_i": "RSAD2",
+        "gene_j": "TIMP1",
+        "d_ifna": 7.993917223,
+        "d_ifng": -0.199175081
+      },
+      {
+        "rank": 7,
+        "gene_i": "IFI6",
+        "gene_j": "NMUR1",
+        "d_ifna": 7.594286898,
+        "d_ifng": -0.288248229
+      },
+      {
+        "rank": 8,
+        "gene_i": "OAS1",
+        "gene_j": "ADAMTS10",
+        "d_ifna": 7.480606171,
+        "d_ifng": -0.27727915599999997
+      }
+    ],
+    "NK.CD56dim": [
+      {
+        "rank": 1,
+        "gene_i": "IFIT1",
+        "gene_j": "SGSH",
+        "d_ifna": 11.271126136000001,
+        "d_ifng": 2.070379929
+      },
+      {
+        "rank": 2,
+        "gene_i": "IFI44L",
+        "gene_j": "GPR68",
+        "d_ifna": 10.656845892000002,
+        "d_ifng": 0.361714273
+      },
+      {
+        "rank": 3,
+        "gene_i": "IFIT3",
+        "gene_j": "CBX7",
+        "d_ifna": 9.321292205,
+        "d_ifng": 0.33223807299999997
+      },
+      {
+        "rank": 4,
+        "gene_i": "RSAD2",
+        "gene_j": "VASH1",
+        "d_ifna": 8.422851607,
+        "d_ifng": 0.328577331
+      },
+      {
+        "rank": 5,
+        "gene_i": "MX1",
+        "gene_j": "FGFBP2",
+        "d_ifna": 8.262986117,
+        "d_ifng": -0.32629108399999995
+      },
+      {
+        "rank": 6,
+        "gene_i": "CMPK2",
+        "gene_j": "MATK",
+        "d_ifna": 7.982810216,
+        "d_ifng": -0.21472572499999998
+      },
+      {
+        "rank": 7,
+        "gene_i": "OAS1",
+        "gene_j": "S1PR1",
+        "d_ifna": 7.774421875,
+        "d_ifng": 0.151115478
+      },
+      {
+        "rank": 8,
+        "gene_i": "IFI6",
+        "gene_j": "SEMA4C",
+        "d_ifna": 7.544161966000001,
+        "d_ifng": 0.231871247
+      }
+    ]
+  }
+}

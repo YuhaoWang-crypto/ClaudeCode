@@ -1,0 +1,59 @@
+{
+  "version": "0.2",
+  "created": "2026-10-20",
+  "schema": "long format: reference_profiles (cell type x condition vs control) + reference_values (profile x gene)",
+  "active_cell_types": [
+    "Monocyte",
+    "CD4_Naive",
+    "CD4_Memory",
+    "CD8_Naive",
+    "CD8_Memory",
+    "Treg",
+    "MAIT",
+    "gdT",
+    "B_Naive",
+    "B_Memory",
+    "Plasma",
+    "NK.CD56hi",
+    "NK.CD56dim"
+  ],
+  "staged_cell_types": [
+    "Bcell",
+    "NK",
+    "PBMC",
+    "Tcell"
+  ],
+  "identifiability_summary": {
+    "Monocyte": "both",
+    "CD4_Naive": "both",
+    "CD4_Memory": "both",
+    "CD8_Naive": "both",
+    "CD8_Memory": "ifna_only",
+    "Treg": "both",
+    "MAIT": "ifna_only",
+    "gdT": "ifna_only",
+    "B_Naive": "both",
+    "B_Memory": "both",
+    "Plasma": "both",
+    "NK.CD56hi": "ifna_only",
+    "NK.CD56dim": "ifna_only"
+  },
+  "reference_values_rows": 11400,
+  "pair_panel": {
+    "pairs_per_panel": 8,
+    "genes_per_panel": 16,
+    "sigma": 0.5,
+    "tau": 0.7071067811865476
+  },
+  "own_measured_samples": 0,
+  "planned_samples": 15,
+  "source_rows": 6524,
+  "source_label_groups": 18,
+  "source_url": "https://github.com/aifimmunology/IFN_manuscript",
+  "source_commit": "3f4b18740c96adc0643be2a64c73f484eea8d270",
+  "source_sha256": "813fa4aa0b69686a9cfeff1c62e0eca7e2b21df02460be55a4b07cd29c9ba584",
+  "methods_url": "https://apps.allenimmunology.org/aifi/resources/ifn-response/methods/",
+  "analysis_url": "https://apps.allenimmunology.org/aifi/resources/ifn-response/analysis/",
+  "license_note": "No explicit license found in the author repository. Source CSV and built SQLite are not committed; build.py downloads the pinned file. Confirm reuse rights before commercial redistribution.",
+  "status": "13 subsets active as research references; no own experiments; no patient validation"
+}
