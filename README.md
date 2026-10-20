@@ -38,6 +38,20 @@ python3 -m grn_pipeline.run_all       # full pipeline + figures
 python3 -m grn_pipeline.m1_symmetry   # or any single module
 ```
 
+### Side project: `dcsc/` — compact cell-state codes
+
+A separate, self-contained prototype (numpy/scipy, optional faiss) that tests
+whether a 64-byte "disentangled cell state code" (identity | ternary pathway
+programs | memory | culture artifacts), Δ-state recipe search and
+partial-panel queries are feasible. Scored on synthetic data with known
+ground truth. Assessment: [`DCSC.md`](DCSC.md); numbers:
+[`dcsc/RESULTS.md`](dcsc/RESULTS.md).
+
+```bash
+pip install numpy scipy faiss-cpu
+python3 -m dcsc.run_demo            # ~3-5 min; --quick for a smoke test
+```
+
 Figures are written to `figures/`. A full write-up with numbers, rigour
 labels, and the interpretation (including the Lyapunov-exponent biomarker
 question) is in [`REPORT.md`](REPORT.md).
