@@ -335,7 +335,50 @@ n_core ≥ 30 的共 9 个,**全部配准偏移为 0**,催化壳层 pLDDT 88–9
 ⚠️ 其中三个只被注释为 "Nucleotidyltransferase, putative",是囊泡虫类里最值得
 跟进的候选;`A0A5K1K8X2` 的结构域架构(PF22600+PF03828)与三个已验证的植物酶一致。
 
-### 4.11 一个说明 `n_core` 为什么必须报告的例子
+### 4.11 第 5 阶段:亚家族聚类与"最近的非植物亲戚"
+
+论文里先验强度最高的一步是建树分 clade(三个有活性的酶全落在 Clade I)。
+本次用 `cluster.py` 做了对应的一步,但**必须说清楚:这是基于距离的层次聚类,
+不是最大似然系统发育**(论文用的是 MEGA + JTT+gamma + bootstrap)。
+没有分支支持度,不能当系统发育树报告。⚠️ 方法等级低于论文。
+
+距离计算只用**催化结构域**(即比对到查询的那一段),而不是全长序列 —— 否则
+1202 aa 的 cid16 和 367 aa 的 OsNTP4 会被无关结构域带偏。72 个代表性蛋白,
+全对全比对(BLOSUM62 全局),8 秒完成。
+
+**(a) 复现了 "Clade I" 的结构。** 在 0.55 距离切割下,含参考蛋白的簇正好是
+**植物 URT1/NTP 直系同源群**,7 个成员全部来自绿色植物,且包含两个已验证的水稻酶:
+
+```
+* AtURT1 (O64642)        * OsNTP10 (A0A0P0XSC2)   * OsNTP4 (A0A0P0VE25)
+  大豆 I1JKI3 / K7L0E8     玉米 A0A1D6GS01 / C0PGI5
+```
+(`*` = 已实验验证有从头合成活性)
+
+三个已验证酶彼此的催化域距离 0.31–0.37(即 63–69% 一致性),明显紧于全体中位
+0.766。✅ 这与论文"活性集中在一个 clade"的结论一致。
+
+**(b) 最近的非植物亲戚。** 按与三个已验证酶的平均催化域距离排序:
+
+| 距离 | 登录号 | 谱系 | 物种 | 注释 |
+|---|---|---|---|---|
+| **0.586** | **Q54Y43** | 变形虫 | 盘基网柄菌 | **Uncharacterized protein** |
+| 0.663 | Q5TAX3 | 后生动物 | 人 | TUT4 |
+| 0.668 | O13833 | 真菌 | 粟酒裂殖酵母 | Cid1 |
+| 0.674 | Q641A1 | 后生动物 | 非洲爪蟾 | GLD2-A |
+| 0.676 | Q9UT49 | 真菌 | 粟酒裂殖酵母 | Cid13 |
+| 0.682 | C1GSM7 | 真菌 | Paracoccidioides | PAP-associated 结构域蛋白 |
+| 0.713 | A0A5K1K8X2 | 囊泡虫 | 恶性疟原虫 | Nucleotidyltransferase, putative |
+
+**盘基网柄菌的 `Q54Y43` 以明显优势排在第一(0.586,与第二名差 0.077)** ——
+它比人 TENT2(0.737)、人 TENT4B(0.736)、裂殖酵母 Cid1(0.679)都更接近那三个
+已验证的酶,而它至今只被注释为 "Uncharacterized protein"。
+
+⚠️ 综合结构(core RMSD 1.125 Å)、序列(对 AtURT1 38% 一致性,非植物最高)、
+结构域架构(PF22600+PF03828,与三个已验证酶相同)和这里的聚类距离,
+**`Q54Y43` 是本次挖掘中优先级最高的单个候选**。仍然是假说。
+
+### 4.12 一个说明 `n_core` 为什么必须报告的例子
 
 搜索结果里排第 7–13 位的是假单胞菌的双功能 uridylyltransferase(GlnD),
 core RMSD 低至 0.909 Å —— 看着比大多数真核命中还好。但它们的 **n_core 只有 21**,
@@ -352,14 +395,17 @@ core RMSD 低至 0.909 Å —— 看着比大多数真核命中还好。但它�
 - 四个物种做了全蛋白质组本地筛选(含 pLDDT 与侧链几何):裂殖酵母**完整召回了
   整个 Cid 家族 + pla1 + 两个 CCA 酶,5196 个蛋白里只有这 9 个通过**,不漏不滥,
   是筛选条件灵敏度与特异性的直接证据。
+- 催化结构域聚类复现了"已验证酶自成一个紧密 clade"的结构,并定出了最近的
+  非植物亲戚(盘基网柄菌 `Q54Y43`)。
 - 阈值是从已知阳性/阴性校准出来的,不是搬的。
 - 跨门类排序把唯一已被独立证实具有该活性的非植物蛋白(TENT4B)排进前列。
 
 ### 这次没有做到什么(⚠️,必须明说)
 - **没有任何活性证据。** 全部候选都是结构 + 残基保守性提名。
-- **没有做系统发育分树。** 论文第 8 步(MEGA 建树 → 5 个 clade → 活性全在 Clade I)
-  是先验强度最高的一步,本次只做到聚类前的排序,**clade 归属尚未计算**。这是
-  最该补的一步。
+- **没有做真正的最大似然系统发育。** 4.11 节做的是催化结构域上的**距离聚类**,
+  它复现了"已验证酶聚成一个 clade"的结构,也给出了最近的非植物亲戚排序,
+  但**没有分支支持度**,方法等级低于论文的 MEGA(JTT+gamma+bootstrap)。
+  要把 clade 归属当结论用,需要用 MAFFT + IQ-TREE/RAxML 重跑。
 - **没有做复合物建模。** 论文第 9 步(AlphaFold 预测结合 RNA/UTP)未复现。
 - **截断偏倚。** 搜索有 1000 条上限,因此"某类群没出现"不构成阴性结论。
 - **注释分类是关键词匹配**,很粗糙;"unknown" 只表示"注释没给出有用信息",
@@ -407,7 +453,14 @@ python3 .claude/skills/catalytic-scaffold-mining/scripts/calibrate.py \
   --positives O64642 A0A0P0VE25 A0A0P0XSC2 \
   --negatives Q9HI95 Q46AZ4 Q8TGX2
 
-# 5) 单个蛋白质组本地搜索(有 pLDDT 与侧链几何)
+# 5) 第 5 阶段:催化结构域聚类 + 最近亲戚
+#    (先加 --emit-fasta 重跑第 2 步,--reuse 会直接复用已下载的结果)
+python3 .claude/skills/catalytic-scaffold-mining/scripts/cluster.py \
+  out/urt1.domains.fasta --table out/urt1.annotated.tsv \
+  --references O64642 A0A0P0VE25 A0A0P0XSC2 \
+  --per-lineage 12 --max-seqs 72 --out out/urt1_clades
+
+# 6) 单个蛋白质组本地搜索(有 pLDDT 与侧链几何)
 python3 .claude/skills/catalytic-scaffold-mining/scripts/mine.py \
   --query 6L8K.pdb --chain A --catalytic 491,493,547 --window 2 \
   --mode local --target-dir extracted/METJA --out out/metja

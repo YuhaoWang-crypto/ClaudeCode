@@ -1,0 +1,73 @@
+accession	clade	with_reference	is_reference	core_rmsd	lineage_group	tax_name	known_class	description
+O64642	17	True	True	0.692	Viridiplantae	Arabidopsis thaliana	TUTase / uridylyltransferase	UTP:RNA uridylyltransferase 1
+I1JKI3	17	True	False	0.753	Viridiplantae	Glycine max	TUTase / uridylyltransferase	RNA uridylyltransferase
+A0A1D6GS01	17	True	False	0.787	Viridiplantae	Zea mays	TUTase / uridylyltransferase	RNA uridylyltransferase
+A0A0P0XSC2	17	True	True	0.815	Viridiplantae	Oryza sativa Japonica Group	TUTase / uridylyltransferase	RNA uridylyltransferase (Fragment)
+A0A0P0VE25	17	True	True	0.894	Viridiplantae	Oryza sativa Japonica Group	TUTase / uridylyltransferase	RNA uridylyltransferase (Fragment)
+C0PGI5	17	True	False	0.894	Viridiplantae	Zea mays	TUTase / uridylyltransferase	RNA uridylyltransferase
+K7L0E8	17	True	False	0.909	Viridiplantae	Glycine max	TUTase / uridylyltransferase	RNA uridylyltransferase
+P51004	34	False	False	1.172	Metazoa	Xenopus laevis	poly(A) polymerase	Poly(A) polymerase alpha-A (Fragment)
+P25500	34	False	False	1.177	Metazoa	Bos taurus	poly(A) polymerase	Poly(A) polymerase alpha
+P51006	34	False	False	1.198	Metazoa	Xenopus laevis	poly(A) polymerase	Poly(A) polymerase type 3 (Fragment)
+P29468	34	False	False	1.25	Fungi	Saccharomyces cerevisiae S288C	poly(A) polymerase	Poly(A) polymerase
+O42617	34	False	False	1.293	Fungi	Candida albicans SC5314	poly(A) polymerase	Poly(A) polymerase PAPalpha
+I1KV14	34	False	False	1.387	Viridiplantae	Glycine max	poly(A) polymerase	polynucleotide adenylyltransferase
+Q6PIY7	16	False	False	1.022	Metazoa	Homo sapiens	poly(A) polymerase	Poly(A) RNA polymerase GLD2
+Q6DFA8	16	False	False	1.032	Metazoa	Xenopus laevis	poly(A) polymerase	Poly(A) RNA polymerase GLD2-B
+Q641A1	16	False	False	1.063	Metazoa	Xenopus laevis	poly(A) polymerase	Poly(A) RNA polymerase GLD2-A
+Q2HJ44	16	False	False	1.074	Metazoa	Bos taurus	poly(A) polymerase	Poly(A) RNA polymerase GLD2
+Q0VFA3	16	False	False	1.128	Metazoa	Xenopus tropicalis	poly(A) polymerase	Poly(A) RNA polymerase GLD2
+Q46AZ4	26	False	False	1.219	Archaea	Methanosarcina barkeri str. Fusaro	CCA-adding enzyme	CCA-adding enzyme
+Q8TGX2	26	False	False	1.224	Archaea	Methanosarcina acetivorans C2A	CCA-adding enzyme	CCA-adding enzyme
+Q8PZM3	26	False	False	1.24	Archaea	Methanosarcina mazei Go1	CCA-adding enzyme	CCA-adding enzyme
+A7I912	26	False	False	1.278	Archaea	Methanoregula boonei 6A8	CCA-adding enzyme	CCA-adding enzyme
+U7PNY2	33	False	False	1.246	Fungi	Sporothrix schenckii ATCC 58251	poly(A) polymerase	polynucleotide adenylyltransferase
+C0NES5	33	False	False	1.246	Fungi	Histoplasma capsulatum G186AR	poly(A) polymerase	polynucleotide adenylyltransferase
+C1H3L9	33	False	False	1.372	Fungi	Paracoccidioides lutzii Pb01	poly(A) polymerase	polynucleotide adenylyltransferase
+A0A175WAE4	33	False	False	1.433	Fungi	Madurella mycetomatis	poly(A) polymerase	polynucleotide adenylyltransferase
+Q4CV31	1	False	False	1.189	Discoba	Trypanosoma cruzi strain CL Brener	unknown	Polymerase nucleotidyl transferase domain-containing protein
+Q38EI4	1	False	False	1.283	Discoba	Trypanosoma brucei brucei TREU927	unknown	Polymerase nucleotidyl transferase domain-containing protein
+Q4D666	1	False	False	1.346	Discoba	Trypanosoma cruzi strain CL Brener	unknown	Polymerase nucleotidyl transferase domain-containing protein
+A9JTS5	11	False	False	1.031	Metazoa	Xenopus tropicalis	poly(A) polymerase	Speckle targeted PIP5K1A-regulated poly(A) polymerase
+D2HS90	11	False	False	1.105	Metazoa	Ailuropoda melanoleuca	poly(A) polymerase	Speckle targeted PIP5K1A-regulated poly(A) polymerase
+Q1JPD6	11	False	False	1.121	Metazoa	Bos taurus	poly(A) polymerase	Speckle targeted PIP5K1A-regulated poly(A) polymerase
+B1Y9T4	27	False	False	1.329	Archaea	Pyrobaculum neutrophilum V24Sta	CCA-adding enzyme	CCA-adding enzyme
+A1RS16	27	False	False	1.359	Archaea	Pyrobaculum islandicum DSM 4184	CCA-adding enzyme	CCA-adding enzyme
+Q8ZTC3	27	False	False	1.382	Archaea	Pyrobaculum aerophilum str. IM2	CCA-adding enzyme	CCA-adding enzyme
+Q8NDF8	6	False	False	1.055	Metazoa	Homo sapiens	TENT family	Terminal nucleotidyltransferase 4B
+Q5XG87	6	False	False	1.082	Metazoa	Homo sapiens	TENT family	Terminal nucleotidyltransferase 4A
+Q9HFW3	7	False	False	1.156	Fungi	Eremothecium gossypii ATCC 10895	poly(A) polymerase	Poly(A) RNA polymerase protein 1
+P53632	7	False	False	1.177	Fungi	Saccharomyces cerevisiae S288C	poly(A) polymerase	Poly(A) RNA polymerase protein 2
+U7PTK7	13	False	False	0.85	Fungi	Sporothrix schenckii ATCC 58251	poly(A) polymerase	polynucleotide adenylyltransferase
+A0A175W973	13	False	False	0.858	Fungi	Madurella mycetomatis	poly(A) polymerase	polynucleotide adenylyltransferase
+Q8WQX5	23	False	False	1.147	Discoba	Trypanosoma brucei brucei	TUTase / uridylyltransferase	Terminal uridylyltransferase 1
+Q8WQX6	23	False	False	1.316	Discoba	Leishmania tarentolae	TUTase / uridylyltransferase	Terminal uridylyltransferase 1
+Q9HI95	28	False	False	1.202	Archaea	Thermoplasma acidophilum DSM 1728	CCA-adding enzyme	CCA-adding enzyme
+Q97CI4	28	False	False	1.238	Archaea	Thermoplasma volcanium GSS1	CCA-adding enzyme	CCA-adding enzyme
+Q4E5C4	38	False	False	1.012	Discoba	Trypanosoma cruzi strain CL Brener	other annotated	Nucleolar protein 6
+Q4CVT0	38	False	False	1.171	Discoba	Trypanosoma cruzi strain CL Brener	unknown	Uncharacterized protein
+Q57WQ6	2	False	False	1.26	Discoba	Trypanosoma brucei brucei TREU927	unknown	DNA polymerase sigma-like protein
+D7Y2H2	3	False	False	1.283	Bacteria	Escherichia coli MS 115-1	other annotated	Cyclic AMP-AMP-AMP synthase
+A4HYQ1	4	False	False	1.183	Discoba	Leishmania infantum	TUTase / uridylyltransferase	RNA uridylyltransferase
+K0F2N5	5	False	False	1.444	Bacteria	Nocardia brasiliensis ATCC 700358	unknown	DNA polymerase beta domain-containing protein
+Q5K9E2	8	False	False	1.379	Fungi	Cryptococcus deneoformans JEC21	poly(A) polymerase	Poly(A) RNA polymerase CID14
+A0A5K1K8X2	9	False	False	1.252	Alveolata	Plasmodium falciparum 3D7	unknown	Nucleotidyltransferase, putative
+A0A0P0WZT3	10	False	False	0.905	Viridiplantae	Oryza sativa Japonica Group	other annotated	Os06g0669275 protein
+K0F3S8	12	False	False	1.458	Bacteria	Nocardia brasiliensis ATCC 700358	TUTase / uridylyltransferase	Bifunctional uridylyltransferase/uridylyl-removing enzyme
+C1GSM7	14	False	False	0.349	Fungi	Paracoccidioides lutzii Pb01	poly(A) polymerase	PAP-associated domain-containing protein
+O13833	15	False	False	1.263	Fungi	Schizosaccharomyces pombe 972h-	TUTase / uridylyltransferase	Terminal uridylyltransferase cid1
+Q54Y43	18	False	False	1.125	Amoebozoa	Dictyostelium discoideum	unknown	Uncharacterized protein
+Q5TAX3	19	False	False	1.203	Metazoa	Homo sapiens	TUTase / uridylyltransferase	Terminal uridylyltransferase 4
+Q9UT49	20	False	False	1.115	Fungi	Schizosaccharomyces pombe 972h-	poly(A) polymerase	Poly(A) RNA polymerase cid13
+Q86MV5	21	False	False	1.229	Discoba	Trypanosoma brucei brucei	TUTase / uridylyltransferase	Terminal uridylyltransferase 2
+Q54L61	22	False	False	1.461	Amoebozoa	Dictyostelium discoideum	unknown	DUF4269 domain-containing protein
+Q6B9Y8	24	False	False	1.197	Discoba	Trypanosoma brucei brucei	TUTase / uridylyltransferase	Terminal uridylyltransferase 3
+Q88MI2	25	False	False	0.909	Bacteria	Pseudomonas putida KT2440	TUTase / uridylyltransferase	Bifunctional uridylyltransferase/uridylyl-removing enzyme
+A6VFP0	29	False	False	1.423	Archaea	Methanococcus maripaludis C7	CCA-adding enzyme	CCA-adding enzyme
+Q9YB04	30	False	False	1.267	Archaea	Aeropyrum pernix K1	CCA-adding enzyme	CCA-adding enzyme
+Q74NA6	31	False	False	1.481	Archaea	Nanoarchaeum equitans Kin4-M	CCA-adding enzyme	CCA-adding enzyme
+A0A077ZIT1	32	False	False	1.258	Metazoa	Trichuris trichiura	other annotated	Nucleolar protein 6
+A0A0N7KP35	35	False	False	1.258	Viridiplantae	Oryza sativa Japonica Group	poly(A) polymerase	polynucleotide adenylyltransferase
+Q51D88	36	False	False	1.27	Amoebozoa	Entamoeba histolytica HM-1:IMSS	poly(A) polymerase	Poly(A) polymerase
+Q57ZJ6	37	False	False	1.419	Discoba	Trypanosoma brucei brucei TREU927	poly(A) polymerase	polynucleotide adenylyltransferase
+Q17780	39	False	False	1.063	Metazoa	Caenorhabditis elegans	poly(A) polymerase	PAP-associated domain-containing protein

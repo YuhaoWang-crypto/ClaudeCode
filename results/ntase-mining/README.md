@@ -31,6 +31,21 @@ the whole Cid family (cid1, cid11, cid12, cid13, cid14, cid16), pla1, and both
 CCA-adding enzymes. Nothing missing, nothing spurious, every registration
 offset zero.
 
+### Stage 5 outputs
+
+| File | Contents |
+|---|---|
+| `urt1_clades.clades.tsv` | 72 representative catalytic domains assigned to subfamilies; `with_reference` marks the clade containing the validated enzymes |
+| `urt1_clades.tree.nwk` | the dendrogram, Newick |
+
+**This is distance-based clustering on the catalytic domain, not a
+maximum-likelihood phylogeny** — no branch support, and a weaker method than
+the source paper's MEGA tree. It reproduces the structure (the three validated
+enzymes form one tight, plant-restricted clade; pairwise distance 0.31–0.37
+against an all-pairs median of 0.766) and ranks the nearest non-plant
+relatives, with *Dictyostelium* `Q54Y43` first at 0.586 — ahead of human TUT4
+(0.663), *S. pombe* Cid1 (0.668) and human TENT4B (0.736).
+
 ## Columns
 
 | Column | Meaning |

@@ -111,6 +111,12 @@ def main():
     ap.add_argument("--min-conserved", type=int, default=0,
                     help="keep hits with at least this many conserved positions")
     ap.add_argument("--out", required=True, help="output prefix")
+    ap.add_argument("--emit-fasta", action="store_true",
+                    help="also write <out>.domains.fasta containing, per hit, "
+                         "the target region that aligned to the query. That "
+                         "region is the catalytic domain, which is what Stage 5 "
+                         "should cluster -- full-length sequences mix in "
+                         "unrelated domains and distort the tree.")
     ap.add_argument("--reuse", action="store_true",
                     help="reuse an existing raw result file if present")
     args = ap.parse_args()
@@ -128,6 +134,7 @@ def main():
           f"catalytic={resnums} ({found}) class={args.klass}")
 
     rows = []
+    domains = []        # (accession, tax_name, sequence) for --emit-fasta
 
     if args.mode == "web":
         raw_path = f"{args.out}.raw.json"
@@ -146,6 +153,9 @@ def main():
             chk = check_site(query, target, site, mapping,
                              shell_radius=args.shell_radius, window=args.window)
             rows.append(_row(h, chk, query, target, mapping, mode="web"))
+            if args.emit_fasta and h.get("tseq"):
+                domains.append((h["accession"], h.get("tax_name") or "",
+                                h["tseq"][h["tstart"] - 1:h["tend"]]))
     else:
         if not args.target_dir:
             sys.exit("--target-dir is required in local mode")
@@ -170,6 +180,9 @@ def main():
                              shell_radius=args.shell_radius, window=args.window)
             h["accession"] = _accession_from_filename(h["target"])
             rows.append(_row(h, chk, query, target, mapping, mode="local"))
+            if args.emit_fasta:
+                domains.append((h["accession"], "",
+                                target.sequence[h["tstart"] - 1:h["tend"]]))
 
     if args.require_all:
         rows = [r for r in rows if r["site_passed"]]
@@ -188,6 +201,20 @@ def main():
     with open(f"{args.out}.candidates.json", "w") as fh:
         json.dump(rows, fh, indent=1)
     print(f"  wrote {len(rows)} rows -> {tsv}")
+
+    if args.emit_fasta:
+        keep = {r["accession"] for r in rows}
+        seen, n = set(), 0
+        with open(f"{args.out}.domains.fasta", "w") as fh:
+            for acc, tax, seq in domains:
+                if acc not in keep or acc in seen or not seq:
+                    continue
+                seen.add(acc)
+                n += 1
+                fh.write(f">{acc} {tax}\n")
+                for i in range(0, len(seq), 60):
+                    fh.write(seq[i:i + 60] + "\n")
+        print(f"  wrote {n} catalytic domains -> {args.out}.domains.fasta")
     print("  NOTE: every row is a nominated candidate, not a demonstrated "
           "activity (see reference/validation.md)")
 

@@ -69,6 +69,10 @@ python3 scripts/mine.py --query ref.pdb --catalytic 225,227,319 \
 
 python3 scripts/annotate.py  out/run.candidates.tsv --out out/run.annotated.tsv
 python3 scripts/calibrate.py out/run.annotated.tsv --positives ... --negatives ...
+
+# Stage 5 (add --emit-fasta to the mine.py call above; --reuse makes it instant)
+python3 scripts/cluster.py out/run.domains.fasta --table out/run.annotated.tsv \
+    --references <validated accessions> --per-lineage 12 --out out/run
 ```
 
 Stage-by-stage detail with the paper's exact numbers is in
