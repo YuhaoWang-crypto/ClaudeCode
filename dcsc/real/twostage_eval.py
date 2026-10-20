@@ -248,6 +248,119 @@ def part_census_space(held_out=("COMBAT (10x 5' v1)", "SLE_1.2M (10x 3' v2)", "W
     return rows
 
 
+def _census_split(X, obs, test, rng, n_q, n_hvg=2000):
+    lib = np.where((obs.dataset != test).values)[0]
+    qry = rng.choice(np.where((obs.dataset == test).values)[0], n_q, replace=False)
+    Xl = X[lib]
+    mu = np.asarray(Xl.mean(0)).ravel()
+    var = np.asarray(Xl.multiply(Xl).mean(0)).ravel() - mu ** 2
+    hv = np.argsort(-var)[:n_hvg]
+    sd = np.sqrt(var[hv]) + 1e-3
+    F = np.clip((X[:, hv].toarray() - mu[hv]) / sd, -10, 10).astype(np.float32)
+    return lib, qry, F[lib], F[qry]
+
+
+def part_hybrid(held_out=("COMBAT (10x 5' v1)", "SLE_1.2M (10x 3' v2)", "Wilk (Seq-Well)"),
+                n_q=300, scale_copies=12):
+    """PQ coarse pass -> int8 program-code rescoring (HybridIndex).
+    Reference neighbours = exhaustive scan of the int8 program codes, which
+    the previous test showed is the biologically best space. Single core."""
+    import faiss
+    from ..twostage import HybridIndex
+    from .census import load
+    faiss.omp_set_num_threads(1)
+    X, obs, genes, _ = load()
+    rng = np.random.default_rng(0)
+    rows, scale_rows = [], []
+    for test in held_out:
+        lib, qry, Fl, Fq = _census_split(X, obs, test, rng, n_q)
+        fit = rng.choice(len(Fl), 20000, replace=False)
+        leaf, sick = obs.leaf.values[lib], (obs.disease.values[lib] != "normal")
+        q_leaf, q_sick = obs.leaf.values[qry], obs.disease.values[qry] != "normal"
+
+        def bio(nbs):
+            return (float(np.mean([np.mean(leaf[n] == ql) for n, ql in zip(nbs, q_leaf)])),
+                    float(np.mean([np.mean(sick[n] == qs) for n, qs in zip(nbs, q_sick)])))
+
+        idx = {
+            "PQ m=8 raw (flat)": HybridIndex(Fl, K=32, pq_m=8, coarse="pq", fit_rows=fit),
+            "PQ m=32 raw (flat)": HybridIndex(Fl, K=32, pq_m=32, coarse="pq", fit_rows=fit),
+            "IVF-PQ m=32 raw": HybridIndex(Fl, K=32, pq_m=32, coarse="ivfpq", nlist=1024, fit_rows=fit),
+            "IVF-PQ m=8 program": HybridIndex(Fl, K=32, pq_m=8, coarse="ivfpq", coarse_space="program",
+                                              nlist=1024, fit_rows=fit),
+        }
+        ref_ix = idx["PQ m=32 raw (flat)"]
+        ref = [ref_ix.program_scan(q, 10) for q in Fq]
+        t = _time(lambda: ref_ix.program_scan(Fq[0], 10), 20)
+        lf, st = bio(ref)
+        rows.append(dict(held_out=test, method="int8 program scan (exhaustive, reference)", bytes=32,
+                         M=None, nprobe=None, recall=1.0, same_leaf=lf, same_status=st, ms=t * 1e3))
+        exact_raw = [exact_knn(Fl, q, 10) for q in Fq]
+        lf, st = bio(exact_raw)
+        rows.append(dict(held_out=test, method="exact raw-gene scan (previous baseline)", bytes=Fl.shape[1] * 4,
+                         M=None, nprobe=None, recall=float(np.mean([len(set(a) & set(b)) / 10
+                                                                   for a, b in zip(exact_raw, ref)])),
+                         same_leaf=lf, same_status=st, ms=float("nan")))
+        plan = []
+        for name in ["PQ m=8 raw (flat)", "PQ m=32 raw (flat)"]:
+            plan.append((name, "none", 10, None))
+            for M in (100, 1000):
+                plan.append((name, "int8", M, None))
+        plan.append(("PQ m=32 raw (flat)", "float", 1000, None))
+        for name in ["IVF-PQ m=32 raw", "IVF-PQ m=8 program"]:
+            for nprobe in (8, 32):
+                for M in (200, 1000):
+                    plan.append((name, "int8", M, nprobe))
+        for name, rescore, M, nprobe in plan:
+            ix = idx[name]
+            got = [ix.search(q, 10, M=M, nprobe=nprobe or 16, rescore=rescore) for q in Fq]
+            t = _time(lambda: ix.search(Fq[0], 10, M=M, nprobe=nprobe or 16, rescore=rescore), 20)
+            lf, st = bio(got)
+            label = f"{name} -> {'no rescoring' if rescore == 'none' else rescore + ' program code'}"
+            rows.append(dict(held_out=test, method=label, bytes=ix.bytes_per_item, M=M, nprobe=nprobe,
+                             recall=float(np.mean([len(set(a) & set(b)) / 10 for a, b in zip(got, ref)])),
+                             same_leaf=lf, same_status=st, ms=t * 1e3))
+            print(rows[-1])
+        rows.append(dict(held_out=test, method="random library cell", bytes=0, M=None, nprobe=None, recall=0.0,
+                         same_leaf=float(np.mean([np.mean(leaf == ql) for ql in q_leaf[:50]])),
+                         same_status=float(np.mean([np.mean(sick == qs) for qs in q_sick[:50]])), ms=0))
+        if test == held_out[0] and scale_copies:
+            scale_rows = _scale_test(Fl, Fq, fit, scale_copies, rng)
+        del Fl, idx
+    return dict(rows=rows, scale=scale_rows)
+
+
+def _scale_test(Fl, Fq, fit, copies, rng, n_q=50):
+    """Timing at ~1M items: real cells re-added with fresh noise (sd 0.3 in
+    z-units) — realistic code statistics, not new biology."""
+    from ..twostage import HybridIndex
+    out = []
+    builds = {"IVF-PQ m=32 raw": dict(pq_m=32, coarse="ivfpq", nlist=4096),
+              "IVF-PQ m=8 program": dict(pq_m=8, coarse="ivfpq", coarse_space="program", nlist=4096)}
+    for name, kw in builds.items():
+        t0 = time.time()
+        ix = HybridIndex(Fl, K=32, fit_rows=np.concatenate([fit, rng.choice(len(Fl), 40000)]), **kw)
+        for c in range(copies - 1):
+            for s0 in range(0, len(Fl), 20000):
+                blk = Fl[s0:s0 + 20000]
+                ix.add(blk + rng.normal(0, 0.3, blk.shape).astype(np.float32))
+        build = time.time() - t0
+        N = len(ix)
+        ref = [ix.program_scan(q, 10) for q in Fq[:n_q]]
+        t_scan = _time(lambda: ix.program_scan(Fq[0], 10), 10)
+        out.append(dict(index=name, N=N, method="int8 program scan (exhaustive)", ms=t_scan * 1e3, recall=1.0))
+        for nprobe in (8, 32, 128):
+            for M in (200, 1000):
+                got = [ix.search(q, 10, M=M, nprobe=nprobe) for q in Fq[:n_q]]
+                t = _time(lambda: ix.search(Fq[0], 10, M=M, nprobe=nprobe), 10)
+                out.append(dict(index=name, N=N, method=f"hybrid nprobe={nprobe} M={M}", ms=t * 1e3,
+                                recall=float(np.mean([len(set(a) & set(b)) / 10 for a, b in zip(got, ref)])),
+                                build_s=round(build)))
+                print(out[-1])
+        del ix
+    return out
+
+
 def _time(fn, reps=10):
     fn()
     t = time.perf_counter()
@@ -264,7 +377,7 @@ def main():
         res = {}
     for p in parts:
         res[p] = {"norman": part_norman, "sciplex": part_sciplex, "census": part_census,
-                  "census_space": part_census_space}[p]()
+                  "census_space": part_census_space, "hybrid": part_hybrid}[p]()
         with open(OUT, "w") as f:
             json.dump(res, f, indent=1, default=lambda o: o.item() if hasattr(o, "item") else str(o))
 

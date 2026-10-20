@@ -146,3 +146,106 @@ def timeit(fn, reps=20):
     for _ in range(reps):
         fn()
     return (time.perf_counter() - t) / reps
+
+
+class HybridIndex:
+    """PQ coarse pass -> program-code rescoring. No full vectors at query time.
+
+    Per item in RAM: PQ code (pq_m bytes) + int8 program code (K bytes).
+
+        coarse_space  "raw"      PQ over the z-scored gene vector (default)
+                      "program"  PQ over the K float program coordinates
+        coarse        "pq"       exhaustive ADC scan over all PQ codes
+                      "ivfpq"    inverted file: only nprobe of nlist cells
+                                 are scanned -> sublinear in library size
+        rescore       "int8"     cosine on the int8 program code (default)
+                      "float"    cosine on float program coordinates
+                      "none"     keep the coarse order (PQ only)
+
+    `full` is used only at build time (basis, codes); `add()` streams more
+    items in chunks without keeping them.
+    """
+
+    def __init__(self, full, K=32, pq_m=32, coarse="pq", coarse_space="raw", nlist=1024,
+                 fit_rows=None, basis=None):
+        import faiss
+        full = np.asarray(full, dtype=np.float32)
+        fit = full if fit_rows is None else full[fit_rows]
+        if basis is None:
+            _, _, vt = np.linalg.svd(fit, full_matrices=False)
+            basis = vt[:K].T
+        self.W = basis.astype(np.float32)
+        self.K, self.pq_m, self.coarse_space = K, pq_m, coarse_space
+        Zfit = fit @ self.W
+        self.scale = np.abs(Zfit).max(0) / 127 + 1e-12
+        cdata = self._coarse_vec(fit)
+        d = cdata.shape[1]
+        if coarse == "pq":
+            self.index = faiss.IndexPQ(d, pq_m, 8, faiss.METRIC_INNER_PRODUCT)
+        else:
+            q = faiss.IndexFlatIP(d)
+            self.index = faiss.IndexIVFPQ(q, d, nlist, pq_m, 8, faiss.METRIC_INNER_PRODUCT)
+            self._quantizer = q          # keep a reference (faiss does not own it)
+        self.index.train(cdata)
+        self.Q = np.zeros((0, K), np.int8)
+        self.Zf = np.zeros((0, K), np.float32)   # float coords, only for rescore="float"
+        self.add(full)
+
+    def _coarse_vec(self, X):
+        V = X @ self.W if self.coarse_space == "program" else X
+        V = V / (np.linalg.norm(V, axis=1, keepdims=True) + 1e-12)
+        pad = (-V.shape[1]) % self.pq_m
+        return np.ascontiguousarray(np.hstack([V, np.zeros((len(V), pad), np.float32)]), dtype=np.float32)
+
+    def add(self, X, chunk=50_000):
+        """Stream items in; codes are appended in chunks (linear-time build)."""
+        if not hasattr(self, "_chunks"):
+            self._chunks = []
+        for s in range(0, len(X), chunk):
+            x = np.asarray(X[s:s + chunk], dtype=np.float32)
+            z = x @ self.W
+            self._chunks.append((np.clip(np.round(z / self.scale), -127, 127).astype(np.int8), z))
+            self.index.add(self._coarse_vec(x))
+        self._dirty = True
+
+    def _finalize(self):
+        if not getattr(self, "_dirty", False):
+            return
+        if self._chunks:
+            self.Q = np.vstack([self.Q] + [c[0] for c in self._chunks])
+            self.Zf = np.vstack([self.Zf] + [c[1] for c in self._chunks])
+            self._chunks = []
+        self.Zhat = self.Q.astype(np.float32) * self.scale
+        self.Zhat /= np.linalg.norm(self.Zhat, axis=1, keepdims=True) + 1e-12
+        self.Zf_n = self.Zf / (np.linalg.norm(self.Zf, axis=1, keepdims=True) + 1e-12)
+        self._dirty = False
+
+    def __len__(self):
+        self._finalize()
+        return len(self.Q)
+
+    @property
+    def bytes_per_item(self):
+        return self.pq_m + self.K
+
+    def search(self, q, k=10, M=1000, nprobe=16, rescore="int8"):
+        if hasattr(self.index, "nprobe"):
+            self.index.nprobe = nprobe
+        self._finalize()
+        _, I = self.index.search(self._coarse_vec(q[None]), M)
+        cand = I[0][I[0] >= 0]
+        if rescore == "none":
+            return cand[:k]
+        z = q @ self.W
+        z /= np.linalg.norm(z) + 1e-12
+        S = self.Zhat if rescore == "int8" else self.Zf_n
+        s = S[cand] @ z
+        return cand[np.argsort(-s)[:k]]
+
+    def program_scan(self, q, k=10):
+        """Reference: exhaustive cosine over all int8 program codes (O(N))."""
+        self._finalize()
+        z = q @ self.W
+        s = self.Zhat @ (z / (np.linalg.norm(z) + 1e-12))
+        idx = np.argpartition(-s, k - 1)[:k]
+        return idx[np.argsort(-s[idx])]
