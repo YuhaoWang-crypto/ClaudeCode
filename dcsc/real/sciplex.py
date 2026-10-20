@@ -76,7 +76,8 @@ def pseudobulks():
     return out
 
 
-def main(out_json="dcsc/real/results_sciplex.json"):
+def load_deltas():
+    """10 µM Δ per (line, drug, replicate) on reproducibly-moved genes + activity calls."""
     pb = pseudobulks()
     g = pd.DataFrame([x.split("|") for x in pb["groups"]], columns=["line", "drug", "dose", "rep"])
     g["dose"] = g.dose.astype(int)
@@ -118,6 +119,15 @@ def main(out_json="dcsc/real/results_sciplex.json"):
         return a @ b / (np.linalg.norm(a) * np.linalg.norm(b))
     active = {l: {d for d in D1[l] if rcos(l, d) > ACTIVE_COS} for l in lines}
     print({l: len(v) for l, v in active.items()})
+
+    return dict(D1=D1, D2=D2, hv=hv, active=active, lines=lines, target=target, pathway=pathway,
+                delta=delta)
+
+
+def main(out_json="dcsc/real/results_sciplex.json"):
+    dd = load_deltas()
+    D1, D2, hv, active, lines = dd["D1"], dd["D2"], dd["hv"], dd["active"], dd["lines"]
+    target, pathway, delta = dd["target"], dd["pathway"], dd["delta"]
 
     results = []
     for la in lines:

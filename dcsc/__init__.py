@@ -6,6 +6,7 @@ DCSC — Disentangled Cell State Code: a feasibility prototype.
     index     ternary-Hamming search (numpy / C POPCNT / faiss binary + HNSW)
     delta     Δ-state signatures and residual pursuit (cocktail recipes)
     partial   partial-view queries (gene panels, cytokines) with calibrated error bars
+    twostage  two-stage retrieval: compact-code shortlist -> exact rescoring / residual pursuit
     run_demo  end-to-end scoring; writes dcsc/RESULTS.md
 
 See DCSC.md at the repository root for the feasibility assessment.

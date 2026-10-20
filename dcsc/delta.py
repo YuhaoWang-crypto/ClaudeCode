@@ -104,13 +104,20 @@ def signature(D):
 
 
 def residual_pursuit(delta, L, Lsig, max_terms=3, prefilter=8, stop_frac=0.25,
-                     min_gain=0.05, min_dose=0.2):
+                     min_gain=0.05, min_dose=0.2, candidates=None):
+    """candidates(r, sel) -> library indices to rescore at this step (stage 1
+    of a two-stage search, refreshed on the current residual). If None, the
+    Hamming prefilter on Lsig is used, or every entry when Lsig is None."""
     from .index import mod_distance
     norm0 = np.linalg.norm(delta) + 1e-12
     sel, r, dose, hist = [], delta.copy(), np.zeros(0), []
     Ln = L / (np.linalg.norm(L, axis=1, keepdims=True) + 1e-12)
     for _ in range(max_terms):
-        if Lsig is None:            # no coarse stage: rescore every entry
+        if candidates is not None:
+            cand = [c for c in candidates(r, sel) if c not in sel]
+            if not cand:
+                break
+        elif Lsig is None:            # no coarse stage: rescore every entry
             cand = [c for c in range(len(L)) if c not in sel]
         else:
             ham = mod_distance(Lsig, signature(r[None])[0])
