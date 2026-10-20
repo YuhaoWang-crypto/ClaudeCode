@@ -17,10 +17,19 @@ says nothing about its substrates, products or biological role.
 | `urt1_proteome.annotated.tsv` | AtURT1 (PDB 6L8K, catalytic 491/493/547) | `afdb-proteome` + `afdb-swissprot` | 1004 hits / 816 unique proteins |
 | `cgas_proteome.candidates.tsv` | human cGAS (PDB 4KM5, catalytic 225/227/319) — the paper's own query | `afdb-proteome` + `afdb-swissprot` | 190 |
 | `yeast_local.candidates.tsv` | AtURT1 | *S. cerevisiae* proteome, local Foldseek | 18 |
+| `SCHPO_local.candidates.tsv` | AtURT1 | *S. pombe* proteome, local Foldseek | 19 |
+| `PLAF7_local.candidates.tsv` | AtURT1 | *P. falciparum* proteome, local Foldseek | 13 |
 | `metja_local.candidates.tsv` | AtURT1 | *M. jannaschii* proteome, local Foldseek | 83 |
 
-Searches ran with `--window 2`. The two local files carry pLDDT and
+Searches ran with `--window 2`. The four local files carry pLDDT and
 side-chain geometry; the two web files cannot (see `reference/data-access.md`).
+
+The *S. pombe* run is the cleanest demonstration that the filter is both
+sensitive and specific: of 5,196 predicted structures, exactly 9 pass, and
+those 9 are precisely the organism's known terminal nucleotidyltransferases —
+the whole Cid family (cid1, cid11, cid12, cid13, cid14, cid16), pla1, and both
+CCA-adding enzymes. Nothing missing, nothing spurious, every registration
+offset zero.
 
 ## Columns
 
