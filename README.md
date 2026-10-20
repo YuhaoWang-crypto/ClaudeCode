@@ -44,7 +44,7 @@ A separate, self-contained prototype (numpy/scipy, optional faiss) that tests
 whether a 64-byte "disentangled cell state code" (identity | ternary pathway
 programs | memory | culture artifacts), Δ-state recipe search and
 partial-panel queries are feasible. Scored on synthetic data with known
-ground truth. Assessment: [`DCSC.md`](DCSC.md); numbers:
+ground truth. Assessment: [`DCSC.md`](DCSC.md); real-data validation (Census, Norman 2019, sci-Plex3): [`dcsc/real/REAL_RESULTS.md`](dcsc/real/REAL_RESULTS.md); synthetic numbers:
 [`dcsc/RESULTS.md`](dcsc/RESULTS.md).
 
 ```bash

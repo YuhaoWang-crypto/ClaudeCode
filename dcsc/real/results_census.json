@@ -1,0 +1,205 @@
+{
+ "n_cells": 97723,
+ "n_genes": 16594,
+ "n_donors": 247,
+ "datasets": [
+  {
+   "dataset": "Arunachalam (10x 3' v3)",
+   "cells": 4800,
+   "assay": "10x 3' v3",
+   "donors": 12
+  },
+  {
+   "dataset": "COMBAT (10x 5' v1)",
+   "cells": 14000,
+   "assay": "10x 5' v1",
+   "donors": 35
+  },
+  {
+   "dataset": "IFN-autoAb (10x 5')",
+   "cells": 13751,
+   "assay": "10x 5' transcription profiling",
+   "donors": 36
+  },
+  {
+   "dataset": "Lee COVID/flu (10x 3' v3)",
+   "cells": 4800,
+   "assay": "10x 3' v3",
+   "donors": 12
+  },
+  {
+   "dataset": "SLE_1.2M (10x 3' v2)",
+   "cells": 20000,
+   "assay": "10x 3' v2",
+   "donors": 50
+  },
+  {
+   "dataset": "Schulte-Schrepping (10x 3' v3)",
+   "cells": 15600,
+   "assay": "10x 3' v3",
+   "donors": 39
+  },
+  {
+   "dataset": "Stephenson (10x 3')",
+   "cells": 19572,
+   "assay": "10x 3' transcription profiling",
+   "donors": 50
+  },
+  {
+   "dataset": "Wilk (Seq-Well)",
+   "cells": 5200,
+   "assay": "Seq-Well",
+   "donors": 13
+  }
+ ],
+ "identity": [
+  {
+   "dataset": "Wilk (Seq-Well)",
+   "n": 5200,
+   "lineage_acc": 0.8315384615384616,
+   "leaf_acc": 0.7390384615384615
+  },
+  {
+   "dataset": "Lee COVID/flu (10x 3' v3)",
+   "n": 4800,
+   "lineage_acc": 0.9514583333333333,
+   "leaf_acc": 0.8995833333333333
+  },
+  {
+   "dataset": "Arunachalam (10x 3' v3)",
+   "n": 4800,
+   "lineage_acc": 0.910625,
+   "leaf_acc": 0.8620833333333333
+  },
+  {
+   "dataset": "Schulte-Schrepping (10x 3' v3)",
+   "n": 15600,
+   "lineage_acc": 0.953974358974359,
+   "leaf_acc": 0.9053846153846153
+  },
+  {
+   "dataset": "COMBAT (10x 5' v1)",
+   "n": 14000,
+   "lineage_acc": 0.9472142857142857,
+   "leaf_acc": 0.8520714285714286
+  },
+  {
+   "dataset": "IFN-autoAb (10x 5')",
+   "n": 13751,
+   "lineage_acc": 0.9512035488328121,
+   "leaf_acc": 0.8794269507672169
+  },
+  {
+   "dataset": "Stephenson (10x 3')",
+   "n": 19572,
+   "lineage_acc": 0.9385857347230738,
+   "leaf_acc": 0.8303188228080932
+  },
+  {
+   "dataset": "SLE_1.2M (10x 3' v2)",
+   "n": 20000,
+   "lineage_acc": 0.9741,
+   "leaf_acc": 0.8645
+  }
+ ],
+ "identity_mean": {
+  "lineage": 0.9323374653895407,
+  "leaf": 0.8540508682170602
+ },
+ "flow_panel": [
+  {
+   "thr": 0.0,
+   "leaf_cov": 1.0,
+   "leaf_acc": 0.7281220219711062,
+   "lin_cov": 1.0,
+   "lin_acc": 0.8221491440100657
+  },
+  {
+   "thr": 0.9,
+   "leaf_cov": 0.5463730304885857,
+   "leaf_acc": 0.8540906512348735,
+   "lin_cov": 0.7003124763866307,
+   "lin_acc": 0.9398829816209432
+  }
+ ],
+ "ifn": {
+  "naive": {
+   "within_auroc": 0.875,
+   "n_strata": 51,
+   "pooled_auroc": 0.8418713450292398,
+   "healthy_eta2": 0.5325022722371343,
+   "ifn_pos_sick": 0.15089514066496162,
+   "ifn_pos_healthy": 0.0016420361247947454,
+   "corr_with_joint": 0.8711101749437732
+  },
+  "solo": {
+   "within_auroc": 0.8831168831168831,
+   "n_strata": 51,
+   "pooled_auroc": 0.8107509994288978,
+   "healthy_eta2": 0.6817987593359405,
+   "ifn_pos_sick": 0.043478260869565216,
+   "ifn_pos_healthy": 0.0,
+   "corr_with_joint": 0.9870668926313031
+  },
+  "joint": {
+   "within_auroc": 0.84375,
+   "n_strata": 51,
+   "pooled_auroc": 0.7533553355335534,
+   "healthy_eta2": 0.5586471515507945,
+   "ifn_pos_sick": 0.04092071611253197,
+   "ifn_pos_healthy": 0.0,
+   "corr_with_joint": 1.0
+  },
+  "solo + batch floor": {
+   "within_auroc": 0.86,
+   "n_strata": 51,
+   "pooled_auroc": 0.8060818713450293,
+   "healthy_eta2": 0.5247054963986453,
+   "ifn_pos_sick": 0.01918158567774936,
+   "ifn_pos_healthy": 0.0,
+   "corr_with_joint": 0.9864441351492742
+  },
+  "joint + batch floor": {
+   "within_auroc": 0.8221343873517786,
+   "n_strata": 51,
+   "pooled_auroc": 0.7629629629629631,
+   "healthy_eta2": 0.36363300840771084,
+   "ifn_pos_sick": 0.01918158567774936,
+   "ifn_pos_healthy": 0.0,
+   "corr_with_joint": 0.9879342408420997
+  },
+  "6-gene IFN score genes": {
+   "within_auroc": 0.8125,
+   "n_strata": 51,
+   "pooled_auroc": 0.8046830382638492,
+   "healthy_eta2": 0.19520997944705987,
+   "ifn_pos_sick": 0.08312020460358056,
+   "ifn_pos_healthy": 0.0,
+   "corr_with_joint": 0.9552868248121286
+  },
+  "12 genes A-optimal": {
+   "within_auroc": 0.7857142857142857,
+   "n_strata": 51,
+   "pooled_auroc": 0.739337231968811,
+   "healthy_eta2": 0.19822972724452087,
+   "ifn_pos_sick": 0.00639386189258312,
+   "ifn_pos_healthy": 0.0,
+   "corr_with_joint": 0.9333320117403217
+  }
+ },
+ "ifn_by_disease": {
+  "COVID-19": {
+   "within_auroc": 0.8071969696969696,
+   "n_strata": 44,
+   "median_ifn_sick": 0.02075505951797055,
+   "median_ifn_healthy": -0.0005449951918392427
+  },
+  "systemic lupus erythematosus": {
+   "within_auroc": 0.8685714285714285,
+   "n_strata": 7,
+   "median_ifn_sick": 0.02704350131991249,
+   "median_ifn_healthy": -0.002877607306044497
+  }
+ },
+ "n_donor_leaf": 1391
+}

@@ -1,0 +1,2163 @@
+{
+ "summary": {
+  "n_singles": 105,
+  "n_doubles": 131,
+  "n_clusters": 38,
+  "near_duplicate_singles": 8,
+  "var_explained_K32": 0.912431001663208,
+  "single_effect_over_noise_quartiles": [
+   2.05,
+   3.01,
+   3.97
+  ],
+  "detectable_doubles": 49,
+  "search": {
+   "full 2000 genes": {
+    "exact": 0.4580152671755725,
+    "dup": 0.5190839694656488,
+    "cluster": 0.5877862595419847,
+    "one": 0.9389312977099237
+   },
+   "code only (K=32, 8 B)": {
+    "exact": 0.16793893129770993,
+    "dup": 0.17557251908396945,
+    "cluster": 0.33587786259541985,
+    "one": 0.7251908396946565
+   },
+   "two-stage M=8": {
+    "exact": 0.24427480916030533,
+    "dup": 0.2748091603053435,
+    "cluster": 0.4122137404580153,
+    "one": 0.7709923664122137
+   },
+   "two-stage M=16": {
+    "exact": 0.2824427480916031,
+    "dup": 0.32061068702290074,
+    "cluster": 0.45038167938931295,
+    "one": 0.816793893129771
+   },
+   "two-stage M=32": {
+    "exact": 0.31297709923664124,
+    "dup": 0.3511450381679389,
+    "cluster": 0.4732824427480916,
+    "one": 0.8625954198473282
+   },
+   "top-2 cosine (baseline)": {
+    "exact": 0.2366412213740458,
+    "dup": 0.24427480916030533,
+    "cluster": 0.5572519083969466,
+    "one": 0.9541984732824428
+   }
+  },
+  "shortlist_recall": {
+   "8": 0.3893129770992366,
+   "16": 0.5190839694656488,
+   "32": 0.6335877862595419
+  },
+  "full_on_detectable": 0.7142857142857143,
+  "full_on_undetectable": 0.4024390243902439,
+  "nonadditivity": {
+   "spearman_rho": 0.5966689798750868,
+   "p": 5.4550575850314037e-14,
+   "auroc_top_third_raw": 0.755485893416928,
+   "auroc_top_third_excess": 0.7053291536050156,
+   "share_flagged": 0.33587786259541985,
+   "flagged_among_top_third_nonadditive": 0.5681818181818182,
+   "flagged_among_rest": 0.21839080459770116,
+   "median_split_half_noise": 0.2087557315826416
+  },
+  "partial_view": [
+   {
+    "panel": "12 genes (A-optimal)",
+    "exact": 0.05343511450381679,
+    "dup": 0.05343511450381679,
+    "cluster": 0.183206106870229,
+    "one": 0.6335877862595419
+   },
+   {
+    "panel": "12 genes (top-variance)",
+    "exact": 0.030534351145038167,
+    "dup": 0.03816793893129771,
+    "cluster": 0.17557251908396945,
+    "one": 0.4198473282442748
+   },
+   {
+    "panel": "50 genes (A-optimal)",
+    "exact": 0.29770992366412213,
+    "dup": 0.3435114503816794,
+    "cluster": 0.48854961832061067,
+    "one": 0.8702290076335878
+   },
+   {
+    "panel": "200 genes (A-optimal)",
+    "exact": 0.4198473282442748,
+    "dup": 0.48091603053435117,
+    "cluster": 0.6183206106870229,
+    "one": 0.9465648854961832
+   },
+   {
+    "panel": "all 2000 genes",
+    "exact": 0.4580152671755725,
+    "dup": 0.5190839694656488,
+    "cluster": 0.5877862595419847,
+    "one": 0.9389312977099237
+   }
+  ]
+ },
+ "per_double": [
+  {
+   "double": "AHR_FEV",
+   "nonadd": 0.4593699276447296,
+   "noise": 0.13077011704444885,
+   "detectable": true,
+   "unexplained": 0.4077544692296639,
+   "full_ok": true,
+   "got": [
+    "AHR",
+    "FEV"
+   ],
+   "dose": [
+    1.58,
+    0.94
+   ]
+  },
+  {
+   "double": "AHR_KLF1",
+   "nonadd": 0.7426264882087708,
+   "noise": 0.20401768386363983,
+   "detectable": true,
+   "unexplained": 0.4083632942550263,
+   "full_ok": true,
+   "got": [
+    "KLF1",
+    "AHR"
+   ],
+   "dose": [
+    1.06,
+    0.38
+   ]
+  },
+  {
+   "double": "BCL2L11_BAK1",
+   "nonadd": 1.1338021755218506,
+   "noise": 0.7724941968917847,
+   "detectable": false,
+   "unexplained": 0.8998229936752505,
+   "full_ok": false,
+   "got": [
+    "MAP2K6"
+   ],
+   "dose": [
+    0.34
+   ]
+  },
+  {
+   "double": "BCL2L11_TGFBR2",
+   "nonadd": 0.8860145211219788,
+   "noise": 0.5540946125984192,
+   "detectable": false,
+   "unexplained": 0.8549585727109363,
+   "full_ok": false,
+   "got": [
+    "TGFBR2"
+   ],
+   "dose": [
+    0.75
+   ]
+  },
+  {
+   "double": "BPGM_SAMD1",
+   "nonadd": 0.40500813722610474,
+   "noise": 0.19452154636383057,
+   "detectable": false,
+   "unexplained": 0.31297205314317167,
+   "full_ok": true,
+   "got": [
+    "BPGM",
+    "SAMD1"
+   ],
+   "dose": [
+    0.97,
+    0.67
+   ]
+  },
+  {
+   "double": "BPGM_ZBTB1",
+   "nonadd": 0.5021854639053345,
+   "noise": 0.19520922005176544,
+   "detectable": false,
+   "unexplained": 0.3510260356512527,
+   "full_ok": true,
+   "got": [
+    "ZBTB1",
+    "BPGM"
+   ],
+   "dose": [
+    0.68,
+    0.78
+   ]
+  },
+  {
+   "double": "C3orf72_FOXL2",
+   "nonadd": 0.7370852828025818,
+   "noise": 0.43224629759788513,
+   "detectable": false,
+   "unexplained": 0.5737958156092479,
+   "full_ok": false,
+   "got": [
+    "C3orf72"
+   ],
+   "dose": [
+    1.15
+   ]
+  },
+  {
+   "double": "CBL_CNN1",
+   "nonadd": 0.4818834662437439,
+   "noise": 0.1380285620689392,
+   "detectable": false,
+   "unexplained": 0.3666387648246327,
+   "full_ok": false,
+   "got": [
+    "CNN1",
+    "IKZF3"
+   ],
+   "dose": [
+    1.27,
+    0.47
+   ]
+  },
+  {
+   "double": "CBL_PTPN12",
+   "nonadd": 0.4315672516822815,
+   "noise": 0.19359803199768066,
+   "detectable": false,
+   "unexplained": 0.41898017874434984,
+   "full_ok": false,
+   "got": [
+    "PTPN12",
+    "IKZF3"
+   ],
+   "dose": [
+    1.23,
+    0.27
+   ]
+  },
+  {
+   "double": "CBL_PTPN9",
+   "nonadd": 0.41435715556144714,
+   "noise": 0.20114031434059143,
+   "detectable": false,
+   "unexplained": 0.38596653533296926,
+   "full_ok": false,
+   "got": [
+    "PTPN1"
+   ],
+   "dose": [
+    0.95
+   ]
+  },
+  {
+   "double": "CBL_TGFBR2",
+   "nonadd": 0.5151170492172241,
+   "noise": 0.3399635851383209,
+   "detectable": false,
+   "unexplained": 0.4510364573754768,
+   "full_ok": false,
+   "got": [
+    "CBL",
+    "PRTG"
+   ],
+   "dose": [
+    0.92,
+    0.34
+   ]
+  },
+  {
+   "double": "CBL_UBASH3A",
+   "nonadd": 0.6749905347824097,
+   "noise": 0.4753342270851135,
+   "detectable": false,
+   "unexplained": 0.5405399661223773,
+   "full_ok": false,
+   "got": [
+    "ATL1",
+    "IKZF3"
+   ],
+   "dose": [
+    0.55,
+    0.24
+   ]
+  },
+  {
+   "double": "CBL_UBASH3B",
+   "nonadd": 0.48420509696006775,
+   "noise": 0.12967324256896973,
+   "detectable": false,
+   "unexplained": 0.37368742956034806,
+   "full_ok": false,
+   "got": [
+    "PTPN1",
+    "C19orf26"
+   ],
+   "dose": [
+    1.08,
+    0.8
+   ]
+  },
+  {
+   "double": "CDKN1B_CDKN1A",
+   "nonadd": 0.526525616645813,
+   "noise": 0.2565170228481293,
+   "detectable": true,
+   "unexplained": 0.29019213214506084,
+   "full_ok": true,
+   "got": [
+    "CDKN1B",
+    "CDKN1A"
+   ],
+   "dose": [
+    0.75,
+    0.63
+   ]
+  },
+  {
+   "double": "CDKN1C_CDKN1A",
+   "nonadd": 0.6557722687721252,
+   "noise": 0.28796252608299255,
+   "detectable": false,
+   "unexplained": 0.3865729843106759,
+   "full_ok": false,
+   "got": [
+    "CDKN1C"
+   ],
+   "dose": [
+    1.15
+   ]
+  },
+  {
+   "double": "CDKN1C_CDKN1B",
+   "nonadd": 0.6304941177368164,
+   "noise": 0.33527442812919617,
+   "detectable": false,
+   "unexplained": 0.4020241710752629,
+   "full_ok": false,
+   "got": [
+    "CDKN1B"
+   ],
+   "dose": [
+    1.34
+   ]
+  },
+  {
+   "double": "CEBPB_CEBPA",
+   "nonadd": 0.5865899324417114,
+   "noise": 0.21224988996982574,
+   "detectable": true,
+   "unexplained": 0.2651542534214972,
+   "full_ok": false,
+   "got": [
+    "CEBPA"
+   ],
+   "dose": [
+    0.94
+   ]
+  },
+  {
+   "double": "CEBPB_MAPK1",
+   "nonadd": 0.6362019777297974,
+   "noise": 0.1440005898475647,
+   "detectable": true,
+   "unexplained": 0.2524755841448414,
+   "full_ok": true,
+   "got": [
+    "MAPK1",
+    "CEBPB"
+   ],
+   "dose": [
+    0.78,
+    0.52
+   ]
+  },
+  {
+   "double": "CEBPB_OSR2",
+   "nonadd": 0.33086591958999634,
+   "noise": 0.18393763899803162,
+   "detectable": true,
+   "unexplained": 0.2658856242978138,
+   "full_ok": true,
+   "got": [
+    "CEBPB",
+    "OSR2"
+   ],
+   "dose": [
+    0.92,
+    0.7
+   ]
+  },
+  {
+   "double": "CEBPB_PTPN12",
+   "nonadd": 0.9099136590957642,
+   "noise": 0.2151084542274475,
+   "detectable": false,
+   "unexplained": 0.44408410851322105,
+   "full_ok": true,
+   "got": [
+    "CEBPB",
+    "PTPN12"
+   ],
+   "dose": [
+    0.5,
+    0.65
+   ]
+  },
+  {
+   "double": "CEBPE_CEBPA",
+   "nonadd": 0.6463814377784729,
+   "noise": 0.14282011985778809,
+   "detectable": true,
+   "unexplained": 0.2634878993154101,
+   "full_ok": false,
+   "got": [
+    "CEBPA"
+   ],
+   "dose": [
+    0.94
+   ]
+  },
+  {
+   "double": "CEBPE_CEBPB",
+   "nonadd": 0.5221264362335205,
+   "noise": 0.24212497472763062,
+   "detectable": true,
+   "unexplained": 0.31921283893571206,
+   "full_ok": false,
+   "got": [
+    "CEBPE",
+    "HES7"
+   ],
+   "dose": [
+    1.01,
+    0.27
+   ]
+  },
+  {
+   "double": "CEBPE_CNN1",
+   "nonadd": 0.771336019039154,
+   "noise": 0.20452433824539185,
+   "detectable": true,
+   "unexplained": 0.4054398326956603,
+   "full_ok": true,
+   "got": [
+    "CEBPE",
+    "CNN1"
+   ],
+   "dose": [
+    0.56,
+    0.68
+   ]
+  },
+  {
+   "double": "CEBPE_KLF1",
+   "nonadd": 1.6300764083862305,
+   "noise": 0.21156473457813263,
+   "detectable": true,
+   "unexplained": 0.528194543918152,
+   "full_ok": true,
+   "got": [
+    "KLF1",
+    "CEBPE"
+   ],
+   "dose": [
+    0.8,
+    0.29
+   ]
+  },
+  {
+   "double": "CEBPE_PTPN12",
+   "nonadd": 1.1554499864578247,
+   "noise": 0.19474990665912628,
+   "detectable": false,
+   "unexplained": 0.40728912583112276,
+   "full_ok": true,
+   "got": [
+    "CEBPE",
+    "PTPN12"
+   ],
+   "dose": [
+    0.44,
+    0.56
+   ]
+  },
+  {
+   "double": "CEBPE_RUNX1T1",
+   "nonadd": 0.8757453560829163,
+   "noise": 0.11557400226593018,
+   "detectable": false,
+   "unexplained": 0.2623203168312233,
+   "full_ok": false,
+   "got": [
+    "CEBPE"
+   ],
+   "dose": [
+    0.57
+   ]
+  },
+  {
+   "double": "CEBPE_SPI1",
+   "nonadd": 0.32770687341690063,
+   "noise": 0.12200020998716354,
+   "detectable": true,
+   "unexplained": 0.29347122134406795,
+   "full_ok": true,
+   "got": [
+    "CEBPE",
+    "SPI1"
+   ],
+   "dose": [
+    1.11,
+    0.66
+   ]
+  },
+  {
+   "double": "CNN1_MAPK1",
+   "nonadd": 0.5834004878997803,
+   "noise": 0.2129128873348236,
+   "detectable": true,
+   "unexplained": 0.38869807592976896,
+   "full_ok": true,
+   "got": [
+    "MAPK1",
+    "CNN1"
+   ],
+   "dose": [
+    0.72,
+    0.61
+   ]
+  },
+  {
+   "double": "CNN1_UBASH3A",
+   "nonadd": 0.5927070379257202,
+   "noise": 0.1796351671218872,
+   "detectable": false,
+   "unexplained": 0.38267132493927947,
+   "full_ok": false,
+   "got": [
+    "PTPN1",
+    "CNN1",
+    "PRDM1"
+   ],
+   "dose": [
+    0.59,
+    0.85,
+    0.35
+   ]
+  },
+  {
+   "double": "DUSP9_ETS2",
+   "nonadd": 0.6063975095748901,
+   "noise": 0.131729856133461,
+   "detectable": true,
+   "unexplained": 0.2798982437993765,
+   "full_ok": true,
+   "got": [
+    "DUSP9",
+    "ETS2"
+   ],
+   "dose": [
+    0.81,
+    0.27
+   ]
+  },
+  {
+   "double": "DUSP9_IGDCC3",
+   "nonadd": 0.3294704258441925,
+   "noise": 0.14042259752750397,
+   "detectable": true,
+   "unexplained": 0.2528612927259047,
+   "full_ok": true,
+   "got": [
+    "DUSP9",
+    "IGDCC3"
+   ],
+   "dose": [
+    0.8,
+    0.85
+   ]
+  },
+  {
+   "double": "DUSP9_KLF1",
+   "nonadd": 0.41578900814056396,
+   "noise": 0.1481490135192871,
+   "detectable": true,
+   "unexplained": 0.40708339833422336,
+   "full_ok": true,
+   "got": [
+    "DUSP9",
+    "KLF1"
+   ],
+   "dose": [
+    0.92,
+    0.89
+   ]
+  },
+  {
+   "double": "DUSP9_MAPK1",
+   "nonadd": 1.367353916168213,
+   "noise": 0.29754218459129333,
+   "detectable": true,
+   "unexplained": 0.5413878422332464,
+   "full_ok": true,
+   "got": [
+    "DUSP9",
+    "ETS2"
+   ],
+   "dose": [
+    0.48,
+    0.45
+   ]
+  },
+  {
+   "double": "DUSP9_PRTG",
+   "nonadd": 0.3602727949619293,
+   "noise": 0.1600414514541626,
+   "detectable": true,
+   "unexplained": 0.2656896906911559,
+   "full_ok": true,
+   "got": [
+    "DUSP9",
+    "PRTG"
+   ],
+   "dose": [
+    0.74,
+    0.89
+   ]
+  },
+  {
+   "double": "DUSP9_SNAI1",
+   "nonadd": 0.533841609954834,
+   "noise": 0.15863360464572906,
+   "detectable": false,
+   "unexplained": 0.3763922391800789,
+   "full_ok": false,
+   "got": [
+    "HOXA13",
+    "DUSP9",
+    "SNAI1"
+   ],
+   "dose": [
+    0.49,
+    0.63,
+    1.23
+   ]
+  },
+  {
+   "double": "ETS2_CEBPE",
+   "nonadd": 0.48499855399131775,
+   "noise": 0.13835592567920685,
+   "detectable": true,
+   "unexplained": 0.26062090047245,
+   "full_ok": true,
+   "got": [
+    "CEBPE",
+    "ETS2"
+   ],
+   "dose": [
+    0.68,
+    0.79
+   ]
+  },
+  {
+   "double": "ETS2_CNN1",
+   "nonadd": 0.48973554372787476,
+   "noise": 0.16533303260803223,
+   "detectable": true,
+   "unexplained": 0.34845341258051976,
+   "full_ok": true,
+   "got": [
+    "CNN1",
+    "ETS2"
+   ],
+   "dose": [
+    0.83,
+    0.64
+   ]
+  },
+  {
+   "double": "ETS2_IGDCC3",
+   "nonadd": 0.6322956085205078,
+   "noise": 0.2087557315826416,
+   "detectable": true,
+   "unexplained": 0.3682790837549423,
+   "full_ok": true,
+   "got": [
+    "IGDCC3",
+    "ETS2"
+   ],
+   "dose": [
+    0.79,
+    0.42
+   ]
+  },
+  {
+   "double": "ETS2_IKZF3",
+   "nonadd": 0.33466923236846924,
+   "noise": 0.12308423966169357,
+   "detectable": true,
+   "unexplained": 0.22980307529924415,
+   "full_ok": true,
+   "got": [
+    "IKZF3",
+    "ETS2"
+   ],
+   "dose": [
+    0.92,
+    0.51
+   ]
+  },
+  {
+   "double": "ETS2_MAP7D1",
+   "nonadd": 0.4512300491333008,
+   "noise": 0.21297962963581085,
+   "detectable": false,
+   "unexplained": 0.42761166661467626,
+   "full_ok": true,
+   "got": [
+    "MAPK1",
+    "MAP7D1"
+   ],
+   "dose": [
+    0.69,
+    1.26
+   ]
+  },
+  {
+   "double": "ETS2_MAPK1",
+   "nonadd": 0.32635951042175293,
+   "noise": 0.10952448844909668,
+   "detectable": true,
+   "unexplained": 0.31386131448439797,
+   "full_ok": false,
+   "got": [
+    "MAPK1"
+   ],
+   "dose": [
+    1.59
+   ]
+  },
+  {
+   "double": "ETS2_PRTG",
+   "nonadd": 0.6401957869529724,
+   "noise": 0.2260861098766327,
+   "detectable": true,
+   "unexplained": 0.38413439582326847,
+   "full_ok": true,
+   "got": [
+    "PRTG",
+    "ETS2"
+   ],
+   "dose": [
+    0.84,
+    0.42
+   ]
+  },
+  {
+   "double": "FEV_CBFA2T3",
+   "nonadd": 0.6340619325637817,
+   "noise": 0.17194926738739014,
+   "detectable": false,
+   "unexplained": 0.45982880940700993,
+   "full_ok": false,
+   "got": [
+    "FEV",
+    "HES7"
+   ],
+   "dose": [
+    1.3,
+    0.65
+   ]
+  },
+  {
+   "double": "FEV_ISL2",
+   "nonadd": 0.46858108043670654,
+   "noise": 0.14338995516300201,
+   "detectable": false,
+   "unexplained": 0.3376535126742591,
+   "full_ok": false,
+   "got": [
+    "FEV",
+    "HES7"
+   ],
+   "dose": [
+    1.24,
+    0.35
+   ]
+  },
+  {
+   "double": "FEV_MAP7D1",
+   "nonadd": 0.40258458256721497,
+   "noise": 0.17877531051635742,
+   "detectable": false,
+   "unexplained": 0.31812349306469445,
+   "full_ok": false,
+   "got": [
+    "FEV",
+    "MAP7D1",
+    "STIL"
+   ],
+   "dose": [
+    0.91,
+    1.18,
+    0.68
+   ]
+  },
+  {
+   "double": "FOSB_CEBPB",
+   "nonadd": 0.41173404455184937,
+   "noise": 0.24383661150932312,
+   "detectable": false,
+   "unexplained": 0.3036179454187601,
+   "full_ok": false,
+   "got": [
+    "CEBPA",
+    "CEBPB"
+   ],
+   "dose": [
+    0.4,
+    0.77
+   ]
+  },
+  {
+   "double": "FOSB_CEBPE",
+   "nonadd": 0.3147223889827728,
+   "noise": 0.18928247690200806,
+   "detectable": false,
+   "unexplained": 0.2980043478731319,
+   "full_ok": false,
+   "got": [
+    "CEBPE"
+   ],
+   "dose": [
+    1.27
+   ]
+  },
+  {
+   "double": "FOSB_IKZF3",
+   "nonadd": 0.7207901477813721,
+   "noise": 0.2250773012638092,
+   "detectable": false,
+   "unexplained": 0.33473983917608313,
+   "full_ok": true,
+   "got": [
+    "IKZF3",
+    "FOSB"
+   ],
+   "dose": [
+    0.62,
+    0.51
+   ]
+  },
+  {
+   "double": "FOSB_OSR2",
+   "nonadd": 0.3558466136455536,
+   "noise": 0.12952643632888794,
+   "detectable": false,
+   "unexplained": 0.3443172113912738,
+   "full_ok": true,
+   "got": [
+    "OSR2",
+    "FOSB"
+   ],
+   "dose": [
+    0.92,
+    1.24
+   ]
+  },
+  {
+   "double": "FOSB_PTPN12",
+   "nonadd": 0.8387683033943176,
+   "noise": 0.28338924050331116,
+   "detectable": false,
+   "unexplained": 0.5409467132238683,
+   "full_ok": true,
+   "got": [
+    "PTPN12",
+    "FOSB"
+   ],
+   "dose": [
+    0.84,
+    0.39
+   ]
+  },
+  {
+   "double": "FOSB_UBASH3B",
+   "nonadd": 0.6949771642684937,
+   "noise": 0.3014761805534363,
+   "detectable": false,
+   "unexplained": 0.4363585628034255,
+   "full_ok": true,
+   "got": [
+    "FOSB",
+    "UBASH3B"
+   ],
+   "dose": [
+    0.62,
+    0.63
+   ]
+  },
+  {
+   "double": "FOXA1_FOXF1",
+   "nonadd": 0.4873613119125366,
+   "noise": 0.21692857146263123,
+   "detectable": false,
+   "unexplained": 0.4771115216169598,
+   "full_ok": false,
+   "got": [
+    "FOXA3"
+   ],
+   "dose": [
+    1.28
+   ]
+  },
+  {
+   "double": "FOXA1_FOXL2",
+   "nonadd": 0.4280339479446411,
+   "noise": 0.23668651282787323,
+   "detectable": false,
+   "unexplained": 0.4501845211143203,
+   "full_ok": false,
+   "got": [
+    "C3orf72"
+   ],
+   "dose": [
+    1.23
+   ]
+  },
+  {
+   "double": "FOXA1_HOXB9",
+   "nonadd": 0.4008449614048004,
+   "noise": 0.17608772218227386,
+   "detectable": false,
+   "unexplained": 0.3712002188795786,
+   "full_ok": true,
+   "got": [
+    "HOXB9",
+    "FOXA1"
+   ],
+   "dose": [
+    1.3,
+    0.98
+   ]
+  },
+  {
+   "double": "FOXA3_FOXA1",
+   "nonadd": 0.3445926010608673,
+   "noise": 0.1962805688381195,
+   "detectable": false,
+   "unexplained": 0.37744247338779446,
+   "full_ok": false,
+   "got": [
+    "FOXA3"
+   ],
+   "dose": [
+    1.62
+   ]
+  },
+  {
+   "double": "FOXA3_FOXF1",
+   "nonadd": 0.4366424083709717,
+   "noise": 0.26950034499168396,
+   "detectable": false,
+   "unexplained": 0.4579804153381372,
+   "full_ok": false,
+   "got": [
+    "FOXA3"
+   ],
+   "dose": [
+    1.34
+   ]
+  },
+  {
+   "double": "FOXA3_FOXL2",
+   "nonadd": 0.43983471393585205,
+   "noise": 0.23797406256198883,
+   "detectable": true,
+   "unexplained": 0.43220040400714493,
+   "full_ok": true,
+   "got": [
+    "C3orf72",
+    "FOXA3"
+   ],
+   "dose": [
+    1.01,
+    0.86
+   ]
+  },
+  {
+   "double": "FOXA3_HOXB9",
+   "nonadd": 0.3568069636821747,
+   "noise": 0.15704038739204407,
+   "detectable": true,
+   "unexplained": 0.3228610091616976,
+   "full_ok": false,
+   "got": [
+    "HOXA13",
+    "FOXA3",
+    "HOXB9"
+   ],
+   "dose": [
+    0.28,
+    0.89,
+    0.76
+   ]
+  },
+  {
+   "double": "FOXF1_FOXL2",
+   "nonadd": 0.45675304532051086,
+   "noise": 0.20640228688716888,
+   "detectable": false,
+   "unexplained": 0.41805112115310855,
+   "full_ok": false,
+   "got": [
+    "FOXL2"
+   ],
+   "dose": [
+    1.71
+   ]
+  },
+  {
+   "double": "FOXF1_HOXB9",
+   "nonadd": 0.4114384055137634,
+   "noise": 0.221408873796463,
+   "detectable": false,
+   "unexplained": 0.3923936686396544,
+   "full_ok": true,
+   "got": [
+    "HOXB9",
+    "FOXF1"
+   ],
+   "dose": [
+    1.23,
+    0.9
+   ]
+  },
+  {
+   "double": "FOXL2_HOXB9",
+   "nonadd": 0.3924696445465088,
+   "noise": 0.2617134749889374,
+   "detectable": true,
+   "unexplained": 0.3688078035079321,
+   "full_ok": true,
+   "got": [
+    "C3orf72",
+    "HOXB9"
+   ],
+   "dose": [
+    0.96,
+    1.08
+   ]
+  },
+  {
+   "double": "FOXL2_MEIS1",
+   "nonadd": 0.3766147494316101,
+   "noise": 0.2453203648328781,
+   "detectable": false,
+   "unexplained": 0.3804794738763305,
+   "full_ok": true,
+   "got": [
+    "C3orf72",
+    "MEIS1"
+   ],
+   "dose": [
+    0.93,
+    0.98
+   ]
+  },
+  {
+   "double": "IGDCC3_MAPK1",
+   "nonadd": 0.9188025593757629,
+   "noise": 0.23263084888458252,
+   "detectable": true,
+   "unexplained": 0.45573462678619353,
+   "full_ok": true,
+   "got": [
+    "IGDCC3",
+    "ETS2"
+   ],
+   "dose": [
+    0.68,
+    0.66
+   ]
+  },
+  {
+   "double": "IGDCC3_PRTG",
+   "nonadd": 0.6787453293800354,
+   "noise": 0.27914294600486755,
+   "detectable": true,
+   "unexplained": 0.4394697553082955,
+   "full_ok": false,
+   "got": [
+    "IGDCC3"
+   ],
+   "dose": [
+    1.07
+   ]
+  },
+  {
+   "double": "IGDCC3_ZBTB25",
+   "nonadd": 0.3633391261100769,
+   "noise": 0.23135638236999512,
+   "detectable": true,
+   "unexplained": 0.3020649014494551,
+   "full_ok": false,
+   "got": [
+    "IGDCC3",
+    "IKZF3",
+    "ZBTB25"
+   ],
+   "dose": [
+    0.93,
+    0.22,
+    0.73
+   ]
+  },
+  {
+   "double": "IRF1_SET",
+   "nonadd": 0.3829500377178192,
+   "noise": 0.09615668654441833,
+   "detectable": true,
+   "unexplained": 0.3670728250039587,
+   "full_ok": true,
+   "got": [
+    "IRF1",
+    "SET"
+   ],
+   "dose": [
+    0.9,
+    0.89
+   ]
+  },
+  {
+   "double": "JUN_CEBPA",
+   "nonadd": 0.3663998246192932,
+   "noise": 0.23774676024913788,
+   "detectable": false,
+   "unexplained": 0.326753993976462,
+   "full_ok": false,
+   "got": [
+    "CEBPA"
+   ],
+   "dose": [
+    1.05
+   ]
+  },
+  {
+   "double": "JUN_CEBPB",
+   "nonadd": 0.44532763957977295,
+   "noise": 0.2838011384010315,
+   "detectable": false,
+   "unexplained": 0.38584491434614515,
+   "full_ok": false,
+   "got": [
+    "CEBPB",
+    "JUN",
+    "HES7"
+   ],
+   "dose": [
+    0.76,
+    0.63,
+    0.34
+   ]
+  },
+  {
+   "double": "KIF18B_KIF2C",
+   "nonadd": 0.9120245575904846,
+   "noise": 0.6950127482414246,
+   "detectable": false,
+   "unexplained": 0.8060641164242557,
+   "full_ok": false,
+   "got": [
+    "KIF18B"
+   ],
+   "dose": [
+    0.83
+   ]
+  },
+  {
+   "double": "KLF1_BAK1",
+   "nonadd": 0.355556845664978,
+   "noise": 0.2480827122926712,
+   "detectable": false,
+   "unexplained": 0.31889776957577665,
+   "full_ok": true,
+   "got": [
+    "KLF1",
+    "BAK1"
+   ],
+   "dose": [
+    0.93,
+    0.64
+   ]
+  },
+  {
+   "double": "KLF1_CEBPA",
+   "nonadd": 0.42389073967933655,
+   "noise": 0.11666596680879593,
+   "detectable": true,
+   "unexplained": 0.24419991785849868,
+   "full_ok": false,
+   "got": [
+    "CEBPA"
+   ],
+   "dose": [
+    0.76
+   ]
+  },
+  {
+   "double": "KLF1_CLDN6",
+   "nonadd": 0.42494285106658936,
+   "noise": 0.17804336547851562,
+   "detectable": true,
+   "unexplained": 0.420388710995152,
+   "full_ok": true,
+   "got": [
+    "CLDN6",
+    "KLF1"
+   ],
+   "dose": [
+    1.0,
+    0.87
+   ]
+  },
+  {
+   "double": "KLF1_COL2A1",
+   "nonadd": 0.5911856293678284,
+   "noise": 0.17781715095043182,
+   "detectable": true,
+   "unexplained": 0.41092255068114836,
+   "full_ok": false,
+   "got": [
+    "COL2A1",
+    "KLF1",
+    "COL1A1"
+   ],
+   "dose": [
+    0.51,
+    0.77,
+    0.42
+   ]
+  },
+  {
+   "double": "KLF1_FOXA1",
+   "nonadd": 0.5199414491653442,
+   "noise": 0.22449657320976257,
+   "detectable": false,
+   "unexplained": 0.4214873387909262,
+   "full_ok": false,
+   "got": [
+    "KLF1",
+    "ZBTB10",
+    "FOXA1"
+   ],
+   "dose": [
+    0.97,
+    0.26,
+    0.65
+   ]
+  },
+  {
+   "double": "KLF1_MAP2K6",
+   "nonadd": 0.5195707082748413,
+   "noise": 0.3081582486629486,
+   "detectable": false,
+   "unexplained": 0.3624956341909042,
+   "full_ok": true,
+   "got": [
+    "KLF1",
+    "MAP2K6"
+   ],
+   "dose": [
+    0.84,
+    0.49
+   ]
+  },
+  {
+   "double": "KLF1_TGFBR2",
+   "nonadd": 0.4759669005870819,
+   "noise": 0.26350027322769165,
+   "detectable": false,
+   "unexplained": 0.3567231635777245,
+   "full_ok": false,
+   "got": [
+    "KLF1",
+    "PRTG"
+   ],
+   "dose": [
+    0.9,
+    0.26
+   ]
+  },
+  {
+   "double": "LHX1_ELMSAN1",
+   "nonadd": 0.37675565481185913,
+   "noise": 0.15827676653862,
+   "detectable": false,
+   "unexplained": 0.36734552525648184,
+   "full_ok": true,
+   "got": [
+    "LHX1",
+    "ELMSAN1"
+   ],
+   "dose": [
+    0.98,
+    0.75
+   ]
+  },
+  {
+   "double": "LYL1_CEBPB",
+   "nonadd": 0.7631890773773193,
+   "noise": 0.27022093534469604,
+   "detectable": false,
+   "unexplained": 0.44234400707024063,
+   "full_ok": true,
+   "got": [
+    "CEBPB",
+    "LYL1"
+   ],
+   "dose": [
+    0.58,
+    0.65
+   ]
+  },
+  {
+   "double": "LYL1_IER5L",
+   "nonadd": 0.3981318771839142,
+   "noise": 0.13715660572052002,
+   "detectable": false,
+   "unexplained": 0.43492936764959667,
+   "full_ok": false,
+   "got": [
+    "IER5L"
+   ],
+   "dose": [
+    1.22
+   ]
+  },
+  {
+   "double": "MAP2K3_ELMSAN1",
+   "nonadd": 0.38691067695617676,
+   "noise": 0.15762820839881897,
+   "detectable": false,
+   "unexplained": 0.3777226578424121,
+   "full_ok": true,
+   "got": [
+    "MAP2K3",
+    "ELMSAN1"
+   ],
+   "dose": [
+    0.86,
+    1.04
+   ]
+  },
+  {
+   "double": "MAP2K3_IKZF3",
+   "nonadd": 0.4300670027732849,
+   "noise": 0.1912737488746643,
+   "detectable": false,
+   "unexplained": 0.4098409152245096,
+   "full_ok": true,
+   "got": [
+    "IKZF3",
+    "MAP2K3"
+   ],
+   "dose": [
+    0.89,
+    0.69
+   ]
+  },
+  {
+   "double": "MAP2K3_MAP2K6",
+   "nonadd": 0.7783514857292175,
+   "noise": 0.23396256566047668,
+   "detectable": false,
+   "unexplained": 0.31774355600212745,
+   "full_ok": true,
+   "got": [
+    "MAP2K3",
+    "MAP2K6"
+   ],
+   "dose": [
+    0.56,
+    0.59
+   ]
+  },
+  {
+   "double": "MAP2K3_SLC38A2",
+   "nonadd": 0.44073161482810974,
+   "noise": 0.25022590160369873,
+   "detectable": false,
+   "unexplained": 0.3837099842086196,
+   "full_ok": true,
+   "got": [
+    "MAP2K3",
+    "SLC38A2"
+   ],
+   "dose": [
+    0.93,
+    0.61
+   ]
+  },
+  {
+   "double": "MAP2K6_ELMSAN1",
+   "nonadd": 0.4439324736595154,
+   "noise": 0.2315123826265335,
+   "detectable": false,
+   "unexplained": 0.3957261489744973,
+   "full_ok": true,
+   "got": [
+    "MAP2K6",
+    "ELMSAN1"
+   ],
+   "dose": [
+    0.9,
+    0.74
+   ]
+  },
+  {
+   "double": "MAP2K6_IKZF3",
+   "nonadd": 0.3488349914550781,
+   "noise": 0.15965676307678223,
+   "detectable": false,
+   "unexplained": 0.3422171154257402,
+   "full_ok": false,
+   "got": [
+    "IKZF3"
+   ],
+   "dose": [
+    0.81
+   ]
+  },
+  {
+   "double": "MAP2K6_SPI1",
+   "nonadd": 1.2376270294189453,
+   "noise": 0.272666871547699,
+   "detectable": false,
+   "unexplained": 0.5550884734848941,
+   "full_ok": false,
+   "got": [
+    "SPI1"
+   ],
+   "dose": [
+    0.38
+   ]
+  },
+  {
+   "double": "MAPK1_IKZF3",
+   "nonadd": 0.6602413058280945,
+   "noise": 0.1819506585597992,
+   "detectable": true,
+   "unexplained": 0.342350798499967,
+   "full_ok": true,
+   "got": [
+    "IKZF3",
+    "MAPK1"
+   ],
+   "dose": [
+    0.67,
+    0.54
+   ]
+  },
+  {
+   "double": "MAPK1_PRTG",
+   "nonadd": 1.0166023969650269,
+   "noise": 0.21223315596580505,
+   "detectable": true,
+   "unexplained": 0.5175712535726708,
+   "full_ok": true,
+   "got": [
+    "PRTG",
+    "MAPK1"
+   ],
+   "dose": [
+    0.62,
+    0.41
+   ]
+  },
+  {
+   "double": "MAPK1_TGFBR2",
+   "nonadd": 0.3924506902694702,
+   "noise": 0.18326294422149658,
+   "detectable": false,
+   "unexplained": 0.3124048445039425,
+   "full_ok": false,
+   "got": [
+    "MAPK1"
+   ],
+   "dose": [
+    0.77
+   ]
+  },
+  {
+   "double": "PLK4_STIL",
+   "nonadd": 0.7484109997749329,
+   "noise": 0.45062941312789917,
+   "detectable": false,
+   "unexplained": 0.6520955091503139,
+   "full_ok": false,
+   "got": [
+    "STIL"
+   ],
+   "dose": [
+    1.4
+   ]
+  },
+  {
+   "double": "POU3F2_CBFA2T3",
+   "nonadd": 0.4402337968349457,
+   "noise": 0.21294213831424713,
+   "detectable": false,
+   "unexplained": 0.42980450709994794,
+   "full_ok": true,
+   "got": [
+    "POU3F2",
+    "CBFA2T3"
+   ],
+   "dose": [
+    1.18,
+    0.91
+   ]
+  },
+  {
+   "double": "POU3F2_FOXL2",
+   "nonadd": 0.37209567427635193,
+   "noise": 0.16110122203826904,
+   "detectable": false,
+   "unexplained": 0.3545069784789099,
+   "full_ok": true,
+   "got": [
+    "C3orf72",
+    "POU3F2"
+   ],
+   "dose": [
+    1.06,
+    0.84
+   ]
+  },
+  {
+   "double": "PRDM1_CBFA2T3",
+   "nonadd": 0.43607771396636963,
+   "noise": 0.28938138484954834,
+   "detectable": false,
+   "unexplained": 0.40964099919588104,
+   "full_ok": false,
+   "got": [
+    "PRDM1",
+    "HES7"
+   ],
+   "dose": [
+    0.99,
+    0.32
+   ]
+  },
+  {
+   "double": "PTPN12_OSR2",
+   "nonadd": 1.2801614999771118,
+   "noise": 0.3384888470172882,
+   "detectable": false,
+   "unexplained": 0.6782604134585557,
+   "full_ok": true,
+   "got": [
+    "OSR2",
+    "PTPN12"
+   ],
+   "dose": [
+    0.41,
+    0.39
+   ]
+  },
+  {
+   "double": "PTPN12_PTPN9",
+   "nonadd": 0.39621642231941223,
+   "noise": 0.17521345615386963,
+   "detectable": false,
+   "unexplained": 0.33954971916614046,
+   "full_ok": false,
+   "got": [
+    "PTPN1",
+    "PTPN12"
+   ],
+   "dose": [
+    0.65,
+    0.76
+   ]
+  },
+  {
+   "double": "PTPN12_SNAI1",
+   "nonadd": 0.5675284266471863,
+   "noise": 0.27081194519996643,
+   "detectable": false,
+   "unexplained": 0.4537771744877135,
+   "full_ok": true,
+   "got": [
+    "SNAI1",
+    "PTPN12"
+   ],
+   "dose": [
+    0.77,
+    0.66
+   ]
+  },
+  {
+   "double": "PTPN12_UBASH3A",
+   "nonadd": 0.5485138893127441,
+   "noise": 0.17459233105182648,
+   "detectable": false,
+   "unexplained": 0.3475422096784685,
+   "full_ok": false,
+   "got": [
+    "PTPN1",
+    "DUSP9",
+    "PTPN12"
+   ],
+   "dose": [
+    0.64,
+    0.21,
+    0.76
+   ]
+  },
+  {
+   "double": "PTPN12_ZBTB25",
+   "nonadd": 0.3895038068294525,
+   "noise": 0.18857960402965546,
+   "detectable": false,
+   "unexplained": 0.3777295265127466,
+   "full_ok": false,
+   "got": [
+    "PTPN1",
+    "PTPN12"
+   ],
+   "dose": [
+    0.58,
+    0.98
+   ]
+  },
+  {
+   "double": "RHOXF2_SET",
+   "nonadd": 0.4510517120361328,
+   "noise": 0.13389693200588226,
+   "detectable": true,
+   "unexplained": 0.35723724920503497,
+   "full_ok": true,
+   "got": [
+    "SET",
+    "RHOXF2"
+   ],
+   "dose": [
+    0.8,
+    0.74
+   ]
+  },
+  {
+   "double": "RHOXF2_ZBTB25",
+   "nonadd": 0.3640003204345703,
+   "noise": 0.1773388534784317,
+   "detectable": true,
+   "unexplained": 0.34180619963120146,
+   "full_ok": true,
+   "got": [
+    "RHOXF2",
+    "ZBTB25"
+   ],
+   "dose": [
+    0.85,
+    1.01
+   ]
+  },
+  {
+   "double": "SAMD1_PTPN12",
+   "nonadd": 0.35290512442588806,
+   "noise": 0.17524300515651703,
+   "detectable": false,
+   "unexplained": 0.3473295259124115,
+   "full_ok": true,
+   "got": [
+    "SAMD1",
+    "PTPN12"
+   ],
+   "dose": [
+    0.96,
+    0.9
+   ]
+  },
+  {
+   "double": "SAMD1_TGFBR2",
+   "nonadd": 0.5132264494895935,
+   "noise": 0.4274905025959015,
+   "detectable": false,
+   "unexplained": 0.4855596784770988,
+   "full_ok": false,
+   "got": [
+    "SAMD1",
+    "PRTG"
+   ],
+   "dose": [
+    0.79,
+    0.37
+   ]
+  },
+  {
+   "double": "SAMD1_UBASH3B",
+   "nonadd": 0.3027997612953186,
+   "noise": 0.18830861151218414,
+   "detectable": true,
+   "unexplained": 0.3015877515772533,
+   "full_ok": true,
+   "got": [
+    "SAMD1",
+    "UBASH3B"
+   ],
+   "dose": [
+    1.03,
+    1.03
+   ]
+  },
+  {
+   "double": "SAMD1_ZBTB1",
+   "nonadd": 0.33668071031570435,
+   "noise": 0.21087005734443665,
+   "detectable": true,
+   "unexplained": 0.31108823838421906,
+   "full_ok": true,
+   "got": [
+    "ZBTB1",
+    "SAMD1"
+   ],
+   "dose": [
+    0.92,
+    0.84
+   ]
+  },
+  {
+   "double": "SET_CEBPE",
+   "nonadd": 1.1245338916778564,
+   "noise": 0.1212204322218895,
+   "detectable": true,
+   "unexplained": 0.445753187977429,
+   "full_ok": true,
+   "got": [
+    "SET",
+    "CEBPE"
+   ],
+   "dose": [
+    0.6,
+    0.38
+   ]
+  },
+  {
+   "double": "SET_KLF1",
+   "nonadd": 0.7217332124710083,
+   "noise": 0.14342054724693298,
+   "detectable": true,
+   "unexplained": 0.3888499312380698,
+   "full_ok": false,
+   "got": [
+    "SET",
+    "KLF1",
+    "ZBTB25"
+   ],
+   "dose": [
+    0.47,
+    0.96,
+    0.46
+   ]
+  },
+  {
+   "double": "SGK1_S1PR2",
+   "nonadd": 0.43208199739456177,
+   "noise": 0.1743125170469284,
+   "detectable": true,
+   "unexplained": 0.3462937488482762,
+   "full_ok": false,
+   "got": [
+    "S1PR2",
+    "SPI1"
+   ],
+   "dose": [
+    1.54,
+    0.23
+   ]
+  },
+  {
+   "double": "SGK1_TBX2",
+   "nonadd": 0.3625209629535675,
+   "noise": 0.17305462062358856,
+   "detectable": true,
+   "unexplained": 0.28387059267522935,
+   "full_ok": true,
+   "got": [
+    "TBX2",
+    "SGK1"
+   ],
+   "dose": [
+    0.94,
+    0.72
+   ]
+  },
+  {
+   "double": "SGK1_TBX3",
+   "nonadd": 0.33017173409461975,
+   "noise": 0.155461847782135,
+   "detectable": true,
+   "unexplained": 0.25077951514095764,
+   "full_ok": true,
+   "got": [
+    "TBX3",
+    "SGK1"
+   ],
+   "dose": [
+    1.01,
+    0.64
+   ]
+  },
+  {
+   "double": "SNAI1_DLX2",
+   "nonadd": 0.4383738040924072,
+   "noise": 0.22645923495292664,
+   "detectable": false,
+   "unexplained": 0.37731061469344257,
+   "full_ok": false,
+   "got": [
+    "DLX2",
+    "STIL",
+    "SNAI1"
+   ],
+   "dose": [
+    1.01,
+    0.83,
+    0.78
+   ]
+  },
+  {
+   "double": "SNAI1_UBASH3B",
+   "nonadd": 0.4184074103832245,
+   "noise": 0.24463443458080292,
+   "detectable": false,
+   "unexplained": 0.3493557091665164,
+   "full_ok": true,
+   "got": [
+    "SNAI1",
+    "UBASH3B"
+   ],
+   "dose": [
+    0.75,
+    0.91
+   ]
+  },
+  {
+   "double": "TBX3_TBX2",
+   "nonadd": 0.36087173223495483,
+   "noise": 0.094448983669281,
+   "detectable": true,
+   "unexplained": 0.20612880487424837,
+   "full_ok": true,
+   "got": [
+    "TBX3",
+    "TBX2"
+   ],
+   "dose": [
+    0.78,
+    0.75
+   ]
+  },
+  {
+   "double": "TGFBR2_C19orf26",
+   "nonadd": 0.6485424041748047,
+   "noise": 0.2439768761396408,
+   "detectable": false,
+   "unexplained": 0.38851268599604205,
+   "full_ok": false,
+   "got": [
+    "ATL1",
+    "C19orf26",
+    "PRTG"
+   ],
+   "dose": [
+    0.24,
+    0.89,
+    0.32
+   ]
+  },
+  {
+   "double": "TGFBR2_ETS2",
+   "nonadd": 0.5885555744171143,
+   "noise": 0.38307836651802063,
+   "detectable": false,
+   "unexplained": 0.5053845158422373,
+   "full_ok": false,
+   "got": [
+    "ETS2"
+   ],
+   "dose": [
+    0.68
+   ]
+  },
+  {
+   "double": "TGFBR2_IGDCC3",
+   "nonadd": 0.3750876486301422,
+   "noise": 0.22209088504314423,
+   "detectable": false,
+   "unexplained": 0.3243550409852175,
+   "full_ok": false,
+   "got": [
+    "IGDCC3"
+   ],
+   "dose": [
+    0.95
+   ]
+  },
+  {
+   "double": "TGFBR2_PRTG",
+   "nonadd": 0.37294837832450867,
+   "noise": 0.25382208824157715,
+   "detectable": false,
+   "unexplained": 0.30981654228098926,
+   "full_ok": false,
+   "got": [
+    "PRTG"
+   ],
+   "dose": [
+    1.05
+   ]
+  },
+  {
+   "double": "TMSB4X_BAK1",
+   "nonadd": 0.4662646949291229,
+   "noise": 0.3366273045539856,
+   "detectable": false,
+   "unexplained": 0.4326326560006983,
+   "full_ok": true,
+   "got": [
+    "TMSB4X",
+    "BAK1"
+   ],
+   "dose": [
+    0.91,
+    0.67
+   ]
+  },
+  {
+   "double": "UBASH3B_CNN1",
+   "nonadd": 0.4240553081035614,
+   "noise": 0.12386354804039001,
+   "detectable": true,
+   "unexplained": 0.2877034463403207,
+   "full_ok": false,
+   "got": [
+    "CNN1",
+    "IKZF3",
+    "UBASH3B"
+   ],
+   "dose": [
+    1.08,
+    0.28,
+    1.05
+   ]
+  },
+  {
+   "double": "UBASH3B_OSR2",
+   "nonadd": 1.1531753540039062,
+   "noise": 0.22886639833450317,
+   "detectable": true,
+   "unexplained": 0.6114031273649725,
+   "full_ok": false,
+   "got": [
+    "OSR2"
+   ],
+   "dose": [
+    0.47
+   ]
+  },
+  {
+   "double": "UBASH3B_PTPN12",
+   "nonadd": 0.4304926097393036,
+   "noise": 0.18178412318229675,
+   "detectable": false,
+   "unexplained": 0.4077998478678834,
+   "full_ok": false,
+   "got": [
+    "PTPN1",
+    "PTPN12"
+   ],
+   "dose": [
+    0.57,
+    0.93
+   ]
+  },
+  {
+   "double": "UBASH3B_PTPN9",
+   "nonadd": 0.37964868545532227,
+   "noise": 0.16173331439495087,
+   "detectable": false,
+   "unexplained": 0.36258878511339904,
+   "full_ok": false,
+   "got": [
+    "PTPN1"
+   ],
+   "dose": [
+    1.08
+   ]
+  },
+  {
+   "double": "UBASH3B_UBASH3A",
+   "nonadd": 0.39296990633010864,
+   "noise": 0.209771066904068,
+   "detectable": false,
+   "unexplained": 0.37622075296351243,
+   "full_ok": false,
+   "got": [
+    "UBASH3B"
+   ],
+   "dose": [
+    1.32
+   ]
+  },
+  {
+   "double": "UBASH3B_ZBTB25",
+   "nonadd": 0.4023788273334503,
+   "noise": 0.2050112634897232,
+   "detectable": true,
+   "unexplained": 0.44479424165306725,
+   "full_ok": false,
+   "got": [
+    "PTPN1"
+   ],
+   "dose": [
+    0.96
+   ]
+  },
+  {
+   "double": "ZBTB10_DLX2",
+   "nonadd": 0.49389198422431946,
+   "noise": 0.21646670997142792,
+   "detectable": true,
+   "unexplained": 0.4805456317094024,
+   "full_ok": true,
+   "got": [
+    "ZBTB10",
+    "DLX2"
+   ],
+   "dose": [
+    1.1,
+    1.24
+   ]
+  },
+  {
+   "double": "ZBTB10_ELMSAN1",
+   "nonadd": 0.3841368556022644,
+   "noise": 0.2527112662792206,
+   "detectable": false,
+   "unexplained": 0.37494881101490923,
+   "full_ok": false,
+   "got": [
+    "ZBTB10"
+   ],
+   "dose": [
+    1.02
+   ]
+  },
+  {
+   "double": "ZBTB10_PTPN12",
+   "nonadd": 0.47514039278030396,
+   "noise": 0.19392679631710052,
+   "detectable": false,
+   "unexplained": 0.39136734514937094,
+   "full_ok": true,
+   "got": [
+    "ZBTB10",
+    "PTPN12"
+   ],
+   "dose": [
+    0.77,
+    0.78
+   ]
+  },
+  {
+   "double": "ZBTB10_SNAI1",
+   "nonadd": 0.40958088636398315,
+   "noise": 0.22842217981815338,
+   "detectable": false,
+   "unexplained": 0.40350724756520007,
+   "full_ok": true,
+   "got": [
+    "ZBTB10",
+    "SNAI1"
+   ],
+   "dose": [
+    1.0,
+    0.8
+   ]
+  },
+  {
+   "double": "ZC3HAV1_CEBPA",
+   "nonadd": 0.2965298593044281,
+   "noise": 0.29496049880981445,
+   "detectable": false,
+   "unexplained": 0.26370731448198703,
+   "full_ok": false,
+   "got": [
+    "CEBPA"
+   ],
+   "dose": [
+    0.84
+   ]
+  },
+  {
+   "double": "ZC3HAV1_CEBPE",
+   "nonadd": 1.6516411304473877,
+   "noise": 0.2411833256483078,
+   "detectable": false,
+   "unexplained": 0.49056905837670656,
+   "full_ok": true,
+   "got": [
+    "CEBPE",
+    "ZC3HAV1"
+   ],
+   "dose": [
+    0.34,
+    0.87
+   ]
+  },
+  {
+   "double": "ZC3HAV1_HOXC13",
+   "nonadd": 0.6627245545387268,
+   "noise": 0.18051698803901672,
+   "detectable": false,
+   "unexplained": 0.41216611726278346,
+   "full_ok": true,
+   "got": [
+    "HOXC13",
+    "ZC3HAV1"
+   ],
+   "dose": [
+    0.64,
+    0.79
+   ]
+  },
+  {
+   "double": "ZNF318_FOXL2",
+   "nonadd": 0.4236459732055664,
+   "noise": 0.2579728066921234,
+   "detectable": false,
+   "unexplained": 0.38385944171786773,
+   "full_ok": true,
+   "got": [
+    "C3orf72",
+    "ZNF318"
+   ],
+   "dose": [
+    0.68,
+    0.88
+   ]
+  }
+ ]
+}

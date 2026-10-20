@@ -110,8 +110,11 @@ def residual_pursuit(delta, L, Lsig, max_terms=3, prefilter=8, stop_frac=0.25,
     sel, r, dose, hist = [], delta.copy(), np.zeros(0), []
     Ln = L / (np.linalg.norm(L, axis=1, keepdims=True) + 1e-12)
     for _ in range(max_terms):
-        ham = mod_distance(Lsig, signature(r[None])[0])
-        cand = [c for c in np.argsort(ham, kind="stable") if c not in sel][:prefilter]
+        if Lsig is None:            # no coarse stage: rescore every entry
+            cand = [c for c in range(len(L)) if c not in sel]
+        else:
+            ham = mod_distance(Lsig, signature(r[None])[0])
+            cand = [c for c in np.argsort(ham, kind="stable") if c not in sel][:prefilter]
         best = max(cand, key=lambda c: Ln[c] @ r)
         if Ln[best] @ r <= 0:
             break
