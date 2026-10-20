@@ -58,10 +58,22 @@ method. Everything else is making it not lie to you.
 | **5 Family structure** | how many distinct subfamilies, who is a sibling of whom? | all-vs-all structure + sequence matrices → clusters; ML phylogeny → clades | ✅ computed |
 | **6 Triage & labelling** | what is proven vs nominated? | rank, label every claim, specify the control ladder | ✅/⚠️ explicit |
 
-Run `scripts/pipeline.py --help`. Stage-by-stage detail with the paper's exact
-numbers is in `reference/methodology.md`; API recipes in
-`reference/data-access.md`; the anti-self-deception controls in
-`reference/validation.md`.
+```bash
+# Stages 1-4, against the whole AlphaFold DB, no downloads:
+python3 scripts/mine.py --query ref.pdb --chain A --catalytic 225,227,319 \
+    --mode web --databases afdb-proteome afdb-swissprot --window 2 --out out/run
+
+# Stages 1-4 against one downloaded proteome (adds side chains + pLDDT):
+python3 scripts/mine.py --query ref.pdb --catalytic 225,227,319 \
+    --mode local --target-dir proteomes/YEAST --out out/yeast
+
+python3 scripts/annotate.py  out/run.candidates.tsv --out out/run.annotated.tsv
+python3 scripts/calibrate.py out/run.annotated.tsv --positives ... --negatives ...
+```
+
+Stage-by-stage detail with the paper's exact numbers is in
+`reference/methodology.md`; API recipes in `reference/data-access.md`; the
+anti-self-deception controls in `reference/validation.md`.
 
 ## Stage 2 — the two-threshold rule
 
@@ -101,6 +113,19 @@ In the precedent this removed 10 of 29 (34%). A filter that removes almost
 nothing is mis-specified; a filter that removes almost everything means your
 conservation class is too narrow.
 
+**Expect misregistration.** Below ~20% identity a structural alignment
+routinely places a catalytic motif one or two residues off — verified here:
+aligning cGAS to AtURT1 puts Glu225 in a gap and lands Asp227 on the wrong
+Asp. Use `--window 2` there, and keep the three safeguards the script
+enforces: offsets are reported per position, exact (offset-0) matches are
+counted separately, and the assignment is **unique and order-preserving** so
+two catalytic positions cannot both claim the same nearby residue. That last
+constraint is not optional; without it the filter manufactures conservation.
+
+**Check your reference structure for engineered mutations** before trusting
+its catalytic residues. Substrate-bound structures are routinely solved with
+an active-site residue mutated to Ala — both AtURT1 crystals are D547A.
+
 ## Stage 4 — global RMSD will look bad; that is expected
 
 The precedent's headline numbers:
@@ -111,6 +136,14 @@ The precedent's headline numbers:
 **Judge the active site, not the protein.** A divergent scaffold with a
 conserved catalytic core is exactly the thing this method exists to find, and
 it is precisely the thing a global-RMSD cutoff throws away.
+
+**Trim outliers, or a flexible loop ruins the number.** An activation loop or
+lid beside the catalytic residues inflates the shell RMSD while the core
+superimposes perfectly. On a verified self-match (cGAS crystal vs its own
+AlphaFold model, all 362 positions mapped correctly) the whole shell gave
+3.31 A over 53 pairs while the trimmed core gave **1.33 A over 44**. Rank by
+`core_rmsd`, and always read `n_core` beside it — a tight fit over 15 residues
+is not a tight fit over 50.
 
 ## Stage 5 — clade membership is the strongest prior you get
 
@@ -172,7 +205,8 @@ sensitivity assay alone does not establish bond chemistry).
 Produce a table with one row per candidate and these columns, nothing hidden:
 
 `accession | organism | lineage | structure score (+ method) | aligned coverage |
-catalytic residues found (+ positions) | local active-site RMSD | clade |
+catalytic residues found (+ positions, + registration offsets) |
+core active-site RMSD + n_core | clade | prior characterisation |
 model confidence (pLDDT over catalytic shell) | label ✅/⚠️ | what would test it`
 
 Candidates with low pLDDT **over the catalytic shell specifically** are
