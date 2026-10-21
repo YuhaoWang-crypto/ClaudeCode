@@ -60,6 +60,28 @@ explicitly (initial conditions) to map both branches of a bistable model.
   pipeline is ready to judge such data on arrival; the prediction is a ~5×
   variance/AR1 peak at near-threshold doses (M18 positive control).
 
+## Chromatin-memory data (M23–M28): what is reachable behind the proxy
+
+- **JASPAR** motifs (PFMs) → `https://jaspar.elixir.no/api/v1/matrix/{ID}/?format=json`
+  is reachable (200). Used for real TF/CR binding-energy matrices (M24: REST
+  MA0138.2, ZNF263 MA0528.2). Cache under `figures/_jaspar_cache/`.
+- **STRING** PPI → `https://string-db.org/api/json/network?identifiers=...&species=9606`
+  is reachable (200). Used for the real chromatin-regulator PPI (M25, 22 genes).
+  Cache under `figures/_string_cache/`.
+- **Ensembl REST** (`rest.ensembl.org/lookup/symbol/...`) and **UCSC**
+  (`api.genome.ucsc.edu`) are reachable → real GRCh38 gene coords / hg38 sequence
+  (M27 locus panel). Cache under `figures/_alphagenome_cache/`.
+- **ENCODE** (`encodeproject.org/search/...`) returns 200 (not yet wired in).
+- **BLOCKED: Modal (AlphaGenome GPU).** Plain HTTPS to `api.modal.com` returns
+  200, but the `modal` client's gRPC/HTTP-2 control channel does NOT tunnel
+  through the egress proxy — every `modal` command reports "Could not connect to
+  the Modal server". So `alphagenome-modal` (and any Modal-hosted model) cannot
+  be run from this session. M27 ships the real locus panel + co-opening readout
+  and falls back to an explicitly-labeled illustrative accessibility matrix;
+  swap in real atac/dnase deltas in a Modal-reachable environment, code
+  unchanged. (The skill README's `download_weights` entrypoint is also absent
+  from the current `alphagenome_modal.py`; weights live in a Modal Volume.)
+
 ## Drug / target / trial data (MCP tools, when connected)
 
 ChEMBL (targets, IC50, mechanism), Boltz-2.1 (structure + binding — remember to

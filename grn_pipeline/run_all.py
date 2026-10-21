@@ -14,7 +14,11 @@ from grn_pipeline import (m1_symmetry, m2_crnt, m3_efm, m4_dnb_lyapunov,
                           m14_atlas, m15_markevich_mm, m16_erk_dnb,
                           m18_titration_benchmark,
                           m19_switch_library, m20_literature_bistable,
-                          m21_oscillators, m22_snic_mixed)
+                          m21_oscillators, m22_snic_mixed,
+                          m23_chromatin_memory, m24_binding_energy_memory,
+                          m25_chromatin_network, m26_minimal_pathways,
+                          m27_alphagenome_coopening,
+                          m28_compression_biomarker)
 
 
 def main():
@@ -55,6 +59,26 @@ def main():
         r20b = None
         print(f"M20b exact-biomodels skipped ({type(e).__name__}: {e})\n")
     r22 = m22_snic_mixed.report();           print()
+
+    # ---- chromatin-memory extension (M23-M28) ----
+    r23 = m23_chromatin_memory.report();     print()
+    try:
+        r24 = m24_binding_energy_memory.report(); print()
+    except Exception as e:                   # needs JASPAR (cached)
+        r24 = None
+        print(f"M24 skipped ({type(e).__name__}: {e})\n")
+    try:
+        r25 = m25_chromatin_network.report(); print()
+    except Exception as e:                   # needs STRING (cached)
+        r25 = None
+        print(f"M25 skipped ({type(e).__name__}: {e})\n")
+    try:
+        r26 = m26_minimal_pathways.report();  print()
+    except Exception as e:
+        r26 = None
+        print(f"M26 skipped ({type(e).__name__}: {e})\n")
+    r27 = m27_alphagenome_coopening.report(); print()
+    r28 = m28_compression_biomarker.report(); print()
 
     print("=" * 68)
     print("CONSOLIDATED SUMMARY")
@@ -129,6 +153,34 @@ def main():
     print(f"M22 SNIC    : mixed saddle-node+oscillation; period diverges "
           f"(T~1/sqrt, slope {r22['slope']:.2f}) -> frequency->0 signature "
           f"distinct from Hopf and pure saddle-node")
+    # ---- chromatin-memory extension summary ----
+    print(f"M23 chromatin: A->R->I memory Markov chain (Bintu 2016); "
+          f"t_half matches paper (KRAB {r23['t_half']['KRAB']:.0f}h, "
+          f"DNMT3B {r23['t_half']['DNMT3B']:.0f}h); {{I}} = absorbing class "
+          f"(irreversible-trajectory classification by graph SCC)")
+    if r24:
+        print(f"M24 binding  : real JASPAR REST/ZNF263 energy matrix -> "
+              f"occupancy -> silencing rate -> memory; decay rate is "
+              f"strength-INVARIANT (spread {r24['decay_rate_spread']*100:.0f}%)"
+              f" — concentration sets HOW MUCH memory, not decay speed")
+    if r25:
+        print(f"M25 network  : real STRING PPI ({r25['n_nodes']} regulators, "
+              f"{r25['n_edges']} edges) -> {len(r25['modules'])} irreducible "
+              f"mark x action modules; orbits incl. {{DNMT3A,DNMT3B}}, "
+              f"{{EHMT2,SUV39H1}}")
+    if r26:
+        gl = r26['groups']
+        print(f"M26 primes   : {r26['n_efms']} 'prime' minimal silencing "
+              f"pathways (EFMs); SHORT={len(gl['SHORT'])} HYBRID="
+              f"{len(gl['HYBRID'])} LONG={len(gl['LONG'])}; long memory needs "
+              f"the H3K9->DNMT->5mC crosstalk prime")
+    print(f"M27 alphagen : real hg38 locus panel ({len(r27['panel'])} regulator "
+          f"TSS); co-opening readout ready (Modal/AlphaGenome unreachable here: "
+          f"{r27['real_alphagenome']}); {r27['n_comodules']} illustrative "
+          f"co-modules")
+    print(f"M28 biomarker: silent={{R,I}} lumpable? {r28['lumpable_silent']} "
+          f"(hybrid memory irreducibly 3-state); commitment biomarker "
+          f"rho=k_RI/k_RA with P(commit)=rho/(1+rho)")
     print("\nAbstract, measurable biomarker candidates produced:")
     print("  * irreducible-core node identity        (M1 quotient)")
     print("  * deficiency delta / distance-to-bistability (M2)")
@@ -137,6 +189,9 @@ def main():
     print("  * paralog-symmetry order as drug-selectivity readout (M5)")
     print("  * binding-driven network-stability score (M6/M7)")
     print("  * occupancy-calibrated mu tied to PK endpoints (M9)")
+    print("  * chromatin memory class + commitment ratio rho=k_RI/k_RA (M23/M28)")
+    print("  * irreversible-trajectory (absorbing-class) identity (M23)")
+    print("  * minimal 'prime' silencing pathway per memory length (M26)")
 
 
 if __name__ == "__main__":

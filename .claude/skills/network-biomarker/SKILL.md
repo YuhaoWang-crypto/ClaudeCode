@@ -37,6 +37,32 @@ lag-1 autocorrelation and the DNB index rising alongside.
 | **Elementary flux modes** | what are the irreducible flux generators (the "prime factors")? | `m3_efm` | ✅ extreme rays + nnls |
 | **Critical slowing / Lyapunov / DNB** | how far from tipping? what's the biomarker? | `m4_dnb_lyapunov`, `m16_erk_dnb` | ✅ signals; ⚠️ "λ-flip ⇒ toxicity" |
 
+## Chromatin-memory extension (M23–M28) — epigenetic memory as a Markov chain
+
+A second网络 data structure for **chromatin accessibility / memory retention /
+reactivation / perturbation recovery**, anchored decimal-faithfully to Bintu et
+al., *Science* 2016 (doi:10.1126/science.aab2956). The unifying object here is
+the **A→R→I continuous-time Markov chain** (active → reversibly silent →
+irreversibly silent), `dp/dt = pQ` — a flow/diffusion of probability on the
+state graph.
+
+| Tool | Question it answers | Module | Rigor |
+|---|---|---|---|
+| A→R→I CTMC generator; SCC state classification | memory class? irreversible-trajectory (absorbing) class? | `m23_chromatin_memory` | ✅ generator/SCC/absorption exact; ⚠️ representative rates (calibrated to paper's reported times) |
+| JASPAR Berg-von Hippel energy → occupancy → rate | does binding energy/concentration change memory & decay speed? | `m24_binding_energy_memory` | ✅ real PFM energy, occupancy→memory; **decay rate is strength-invariant** (paper's dox result) |
+| STRING PPI → automorphism orbits + equitable partition | the irreducible read/write modules per memory class | `m25_chromatin_network` | ✅ real STRING, deterministic graph reduction; ⚠️ module→class bridge |
+| STRING MFPT (diffusion) + EFM "primes" | minimal pathways producing short vs long memory | `m26_minimal_pathways` | ✅ MFPT + EFM (reuses m3); long memory = +1 H3K9→DNMT→5mC crosstalk edge |
+| AlphaGenome atac/dnase co-accessibility graph | which position-switches co-open → co-trigger | `m27_alphagenome_coopening` | ✅ real Ensembl locus panel + readout; ⚠️ **Modal gRPC unreachable in-session**, accessibility matrix illustrative (labeled) |
+| Kemeny-Snell lumpability + commitment ratio | can we compress the state? diagnostic biomarker? | `m28_compression_biomarker` | ✅ exact; honest negative: **linear CTMC → no bifurcation/divergence**; biomarker = ρ=k_RI/k_RA |
+
+Key reusable pieces: `m23.generator(k_AR,k_RI,k_RA)` (the chain), `m23.evolve`
+(matrix-exponential flow), `m23.classify_states` (SCC absorbing classes),
+`m24.energy_matrix` (PFM→kT), `m25.load_network` (cached STRING graph),
+`m28.absorbing_stats` (commitment probability / dwell time). Key honest results:
+irreversibility = a graph-theoretic absorbing class (not a tuned number);
+concentration sets *how much* memory, not the *decay speed*; hybrid memory is
+irreducibly 3-state (cannot be lumped to active/silent).
+
 ## Bifurcation taxonomy — read the RIGHT signature
 
 The single most important operational rule. Three classes of dynamical

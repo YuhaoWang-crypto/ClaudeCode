@@ -1,0 +1,58 @@
+[
+  {
+    "gene": "EZH2",
+    "chrom": "chr7",
+    "tss": 148884625,
+    "strand": -1,
+    "memory_class": "hybrid (H3K27)"
+  },
+  {
+    "gene": "DNMT3B",
+    "chrom": "chr20",
+    "tss": 32762385,
+    "strand": 1,
+    "memory_class": "long (5mC)"
+  },
+  {
+    "gene": "SUV39H1",
+    "chrom": "chrX",
+    "tss": 48695554,
+    "strand": 1,
+    "memory_class": "hybrid (H3K9)"
+  },
+  {
+    "gene": "SETDB1",
+    "chrom": "chr1",
+    "tss": 150926263,
+    "strand": 1,
+    "memory_class": "hybrid (H3K9)"
+  },
+  {
+    "gene": "HDAC4",
+    "chrom": "chr2",
+    "tss": 239401661,
+    "strand": -1,
+    "memory_class": "short (acetyl)"
+  },
+  {
+    "gene": "CBX5",
+    "chrom": "chr12",
+    "tss": 54280141,
+    "strand": -1,
+    "memory_class": "hybrid (H3K9 reader)"
+  },
+  {
+    "gene": "TET2",
+    "chrom": "chr4",
+    "tss": 105145875,
+    "strand": 1,
+    "memory_class": "long-eraser (5mC)"
+  },
+  {
+    "gene": "KDM6A",
+    "chrom": "chrX",
+    "tss": 44873130,
+    "strand": 1,
+    "memory_class": "hybrid-eraser (H3K27)"
+  }
+]
