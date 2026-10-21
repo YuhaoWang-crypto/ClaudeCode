@@ -1,2 +1,11 @@
 __pycache__/
 *.pyc
+
+# API keys -- never commit
+.env
+*.env
+!*.env.example
+
+# Demo run artifacts and cached third-party structures
+demos/**/outputs/
+demos/**/inputs/
