@@ -8,6 +8,7 @@ Real-data validation of DCSC (see REAL_RESULTS.md):
     sciplex       cross-cell-line drug Δ retrieval and dose read-out (sci-Plex3)
     twostage_eval two-stage retrieval on Norman, sci-Plex3 and Census cells
     census_1m     hybrid retrieval on a real 1,000,000-cell Census library
+    donor_search  donor-level disease-state retrieval across labs (1M library + 3 external labs)
 
 Data are downloaded into data_cache/ (git-ignored).
 """
