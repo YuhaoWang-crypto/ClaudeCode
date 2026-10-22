@@ -7,6 +7,7 @@ Real-data validation of DCSC (see REAL_RESULTS.md):
     norman        residual pursuit on real CRISPRa double perturbations (Norman 2019)
     sciplex       cross-cell-line drug Δ retrieval and dose read-out (sci-Plex3)
     twostage_eval two-stage retrieval on Norman, sci-Plex3 and Census cells
+    census_1m     hybrid retrieval on a real 1,000,000-cell Census library
 
 Data are downloaded into data_cache/ (git-ignored).
 """

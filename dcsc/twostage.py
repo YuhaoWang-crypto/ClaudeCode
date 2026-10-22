@@ -167,7 +167,7 @@ class HybridIndex:
     """
 
     def __init__(self, full, K=32, pq_m=32, coarse="pq", coarse_space="raw", nlist=1024,
-                 fit_rows=None, basis=None):
+                 fit_rows=None, basis=None, add_init=True):
         import faiss
         full = np.asarray(full, dtype=np.float32)
         fit = full if fit_rows is None else full[fit_rows]
@@ -189,7 +189,8 @@ class HybridIndex:
         self.index.train(cdata)
         self.Q = np.zeros((0, K), np.int8)
         self.Zf = np.zeros((0, K), np.float32)   # float coords, only for rescore="float"
-        self.add(full)
+        if add_init:          # False: `full` is only a training sample; stream items with add()
+            self.add(full)
 
     def _coarse_vec(self, X):
         V = X @ self.W if self.coarse_space == "program" else X
