@@ -55,6 +55,12 @@ def main():
         r20b = None
         print(f"M20b exact-biomodels skipped ({type(e).__name__}: {e})\n")
     r22 = m22_snic_mixed.report();           print()
+    try:
+        from grn_pipeline import m23_gismo_paralogs
+        r23 = m23_gismo_paralogs.report();   print()
+    except Exception as e:               # needs gismo/ scores + gene lists
+        r23 = None
+        print(f"M23 GISMO paralogues skipped ({type(e).__name__}: {e})\n")
 
     print("=" * 68)
     print("CONSOLIDATED SUMMARY")
@@ -129,6 +135,11 @@ def main():
     print(f"M22 SNIC    : mixed saddle-node+oscillation; period diverges "
           f"(T~1/sqrt, slope {r22['slope']:.2f}) -> frequency->0 signature "
           f"distinct from Hopf and pure saddle-node")
+    if r23:
+        s23 = r23["summary"]
+        print("M23 GISMO   : essential paralogue in a fiber picked by " + ", ".join(
+              f"{m} {v['hits']}/{v['n_families']}" for m, v in s23.items())
+              + f" (random ~{next(iter(s23.values()))['random_baseline']:.0%})")
     print("\nAbstract, measurable biomarker candidates produced:")
     print("  * irreducible-core node identity        (M1 quotient)")
     print("  * deficiency delta / distance-to-bistability (M2)")
