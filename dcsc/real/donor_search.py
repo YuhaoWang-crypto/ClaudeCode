@@ -25,7 +25,8 @@ Lab (batch) handling:
 
 Evaluation: leave-one-lab-out. Every library lab with >= 3 sick and >= 3
 healthy donors is held out in turn; its donors query the donors of all other
-labs (k = 10, cosine). Plus 3 external labs never in the 1M library
+labs (k = 10, cosine). Donors from the query lab's whole Census COLLECTION
+are excluded from the library (datasets of one collection can share donors). Plus 3 external labs never in the 1M library
 (COMBAT, SLE_1.2M, Wilk; from the 97k subset).
   AUROC     fraction of sick neighbours as a score for "query is sick"
   COVID@10  for COVID queries: share of COVID-19 neighbours (vs base rate)
@@ -189,6 +190,15 @@ def center(blocks, P, mode):
     return np.hstack(out), keep
 
 
+def add_collection(P):
+    """Census collection of each donor's dataset. Datasets of one collection can
+    share donors (e.g. the same samples sequenced twice), so the collection,
+    not the dataset, is the unit that must be held out."""
+    ds = pd.read_parquet("data_cache/census_datasets.parquet").set_index("dataset_id")
+    P["collection"] = ds.collection_id.reindex(P["dataset"]).fillna(pd.Series(P["dataset"])).astype(str).values
+    return P
+
+
 def knn_eval(X, P, keep, within=False, metric="cosine"):
     ds, dis = P["dataset"], P["disease"]
     sick = dis != "normal"
@@ -200,7 +210,8 @@ def knn_eval(X, P, keep, within=False, metric="cosine"):
             and (sick[ds == d]).sum() >= 3 and (~sick[ds == d]).sum() >= 3]
     for d in labs:
         q = np.where(ds == d)[0]
-        lib = np.where((ds == d) if within else ((ds != d) & keep & ~ext))[0]
+        coll = P["collection"][q[0]]
+        lib = np.where((ds == d) if within else ((P["collection"] != coll) & keep & ~ext))[0]
         score, covid_share, cscore = [], [], []
         for i in q:
             cand = lib[lib != i]
@@ -224,7 +235,7 @@ def knn_eval(X, P, keep, within=False, metric="cosine"):
 
 
 def main(out="dcsc/real/results_donor_search.json"):
-    P = build_profiles()
+    P = add_collection(build_profiles())
     sick = P["disease"] != "normal"
     print(f"{len(P['donor'])} donors ({P['external'].sum()} external), {sick.sum()} sick, "
           f"{(P['disease'] == 'COVID-19').sum()} COVID-19, {len(np.unique(P['dataset']))} labs")

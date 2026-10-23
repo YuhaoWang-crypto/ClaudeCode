@@ -28,10 +28,10 @@
    "batch": "none",
    "metric": "cosine",
    "dims": 9,
-   "auroc_library_labs": 0.5441176470588235,
+   "auroc_library_labs": 0.49090909090909085,
    "auroc_external_labs": 0.6616000000000001,
-   "covid_at10": 0.40053371517127245,
-   "covid_base": 0.25836233053525975,
+   "covid_at10": 0.4001864929490502,
+   "covid_base": 0.25764830261534233,
    "within_lab_ceiling": 0.5967751736111111,
    "n_query_labs": 16,
    "covid_auroc_library": 0.6302325581395349,
@@ -47,10 +47,10 @@
    "batch": "none",
    "metric": "euclidean",
    "dims": 9,
-   "auroc_library_labs": 0.5269607843137254,
+   "auroc_library_labs": 0.507716049382716,
    "auroc_external_labs": 0.6519999999999999,
    "covid_at10": 0.3575090236296743,
-   "covid_base": 0.25836233053525975,
+   "covid_base": 0.25764830261534233,
    "within_lab_ceiling": 0.6043619791666668,
    "n_query_labs": 16,
    "covid_auroc_library": 0.6009615384615384,
@@ -66,10 +66,10 @@
    "batch": "label-free",
    "metric": "cosine",
    "dims": 9,
-   "auroc_library_labs": 0.5745098039215686,
+   "auroc_library_labs": 0.5735677083333333,
    "auroc_external_labs": 0.658,
-   "covid_at10": 0.3459637146567423,
-   "covid_base": 0.25836233053525975,
+   "covid_at10": 0.3453101198855005,
+   "covid_base": 0.25764830261534233,
    "within_lab_ceiling": 0.6998697916666667,
    "n_query_labs": 16,
    "covid_auroc_library": 0.5992063492063493,
@@ -85,10 +85,10 @@
    "batch": "label-free",
    "metric": "euclidean",
    "dims": 9,
-   "auroc_library_labs": 0.5488888888888889,
+   "auroc_library_labs": 0.5290909090909092,
    "auroc_external_labs": 0.6519999999999999,
-   "covid_at10": 0.2888333667305817,
-   "covid_base": 0.25836233053525975,
+   "covid_at10": 0.2876620467533154,
+   "covid_base": 0.25764830261534233,
    "within_lab_ceiling": 0.6043619791666668,
    "n_query_labs": 16,
    "covid_auroc_library": 0.602325581395349,
@@ -104,10 +104,10 @@
    "batch": "lab-centred",
    "metric": "cosine",
    "dims": 9,
-   "auroc_library_labs": 0.5529411764705883,
+   "auroc_library_labs": 0.5516304347826088,
    "auroc_external_labs": 0.7738095238095238,
    "covid_at10": 0.27747379260096355,
-   "covid_base": 0.20703495058915788,
+   "covid_base": 0.2055168695753249,
    "within_lab_ceiling": 0.5387878787878788,
    "n_query_labs": 16,
    "covid_auroc_library": 0.6333333333333333,
@@ -123,10 +123,10 @@
    "batch": "lab-centred",
    "metric": "euclidean",
    "dims": 9,
-   "auroc_library_labs": 0.5963636363636364,
+   "auroc_library_labs": 0.5649509803921569,
    "auroc_external_labs": 0.844,
    "covid_at10": 0.22860854082111443,
-   "covid_base": 0.20703495058915788,
+   "covid_base": 0.2055168695753249,
    "within_lab_ceiling": 0.5034722222222223,
    "n_query_labs": 16,
    "covid_auroc_library": 0.6610576923076923,
@@ -142,10 +142,10 @@
    "batch": "none",
    "metric": "cosine",
    "dims": 192,
-   "auroc_library_labs": 0.6706730769230769,
+   "auroc_library_labs": 0.6384803921568628,
    "auroc_external_labs": 0.7023809523809523,
-   "covid_at10": 0.6441794146205837,
-   "covid_base": 0.25836233053525975,
+   "covid_at10": 0.6180356237709105,
+   "covid_base": 0.25764830261534233,
    "within_lab_ceiling": 0.669921875,
    "n_query_labs": 16,
    "covid_auroc_library": 0.7880434782608696,
@@ -163,8 +163,8 @@
    "dims": 192,
    "auroc_library_labs": 0.5597826086956522,
    "auroc_external_labs": 0.5595238095238095,
-   "covid_at10": 0.609554961485774,
-   "covid_base": 0.25836233053525975,
+   "covid_at10": 0.5906007131197609,
+   "covid_base": 0.25764830261534233,
    "within_lab_ceiling": 0.6371527777777778,
    "n_query_labs": 16,
    "covid_auroc_library": 0.6111111111111112,
@@ -182,8 +182,8 @@
    "dims": 192,
    "auroc_library_labs": 0.5271739130434783,
    "auroc_external_labs": 0.8180000000000001,
-   "covid_at10": 0.3277716775284431,
-   "covid_base": 0.25836233053525975,
+   "covid_at10": 0.3258108932147176,
+   "covid_base": 0.25764830261534233,
    "within_lab_ceiling": 0.7291666666666667,
    "n_query_labs": 16,
    "covid_auroc_library": 0.7261904761904762,
@@ -199,13 +199,13 @@
    "batch": "label-free",
    "metric": "euclidean",
    "dims": 192,
-   "auroc_library_labs": 0.4591346153846154,
+   "auroc_library_labs": 0.5072115384615384,
    "auroc_external_labs": 0.7142857142857143,
-   "covid_at10": 0.20984689615650776,
-   "covid_base": 0.25836233053525975,
+   "covid_at10": 0.20908318487489364,
+   "covid_base": 0.25764830261534233,
    "within_lab_ceiling": 0.6531944444444445,
    "n_query_labs": 16,
-   "covid_auroc_library": 0.623015873015873,
+   "covid_auroc_library": 0.6906976744186047,
    "covid_auroc_external": 0.779,
    "n_covid_labs": 9,
    "covid_within_lab_ceiling": 0.9813953488372094,
@@ -221,7 +221,7 @@
    "auroc_library_labs": 0.5428571428571429,
    "auroc_external_labs": 0.8690476190476191,
    "covid_at10": 0.41473014338866654,
-   "covid_base": 0.20703495058915788,
+   "covid_base": 0.2055168695753249,
    "within_lab_ceiling": 0.5709252450980391,
    "n_query_labs": 16,
    "covid_auroc_library": 0.765625,
@@ -237,10 +237,10 @@
    "batch": "lab-centred",
    "metric": "euclidean",
    "dims": 192,
-   "auroc_library_labs": 0.5772058823529411,
+   "auroc_library_labs": 0.5625,
    "auroc_external_labs": 0.8440000000000001,
    "covid_at10": 0.21289795217041987,
-   "covid_base": 0.20703495058915788,
+   "covid_base": 0.2055168695753249,
    "within_lab_ceiling": 0.6599702380952381,
    "n_query_labs": 16,
    "covid_auroc_library": 0.627906976744186,
@@ -258,11 +258,11 @@
    "dims": 201,
    "auroc_library_labs": 0.5649038461538463,
    "auroc_external_labs": 0.778,
-   "covid_at10": 0.5257809456779005,
-   "covid_base": 0.25836233053525975,
+   "covid_at10": 0.5114018607105801,
+   "covid_base": 0.25764830261534233,
    "within_lab_ceiling": 0.6770833333333334,
    "n_query_labs": 16,
-   "covid_auroc_library": 0.818840579710145,
+   "covid_auroc_library": 0.7588235294117647,
    "covid_auroc_external": 0.5816190476190477,
    "n_covid_labs": 9,
    "covid_within_lab_ceiling": 0.8737980769230769,
@@ -275,10 +275,10 @@
    "batch": "none",
    "metric": "euclidean",
    "dims": 201,
-   "auroc_library_labs": 0.5571428571428572,
+   "auroc_library_labs": 0.5555555555555556,
    "auroc_external_labs": 0.6272,
-   "covid_at10": 0.5255185204853764,
-   "covid_base": 0.25836233053525975,
+   "covid_at10": 0.5189825727729581,
+   "covid_base": 0.25764830261534233,
    "within_lab_ceiling": 0.7457682291666667,
    "n_query_labs": 16,
    "covid_auroc_library": 0.7536231884057972,
@@ -294,10 +294,10 @@
    "batch": "label-free",
    "metric": "cosine",
    "dims": 201,
-   "auroc_library_labs": 0.6111111111111112,
+   "auroc_library_labs": 0.548076923076923,
    "auroc_external_labs": 0.716,
-   "covid_at10": 0.36623839309906636,
-   "covid_base": 0.25836233053525975,
+   "covid_at10": 0.36558479832782453,
+   "covid_base": 0.25764830261534233,
    "within_lab_ceiling": 0.7991071428571428,
    "n_query_labs": 16,
    "covid_auroc_library": 0.703125,
@@ -315,11 +315,11 @@
    "dims": 201,
    "auroc_library_labs": 0.5555555555555556,
    "auroc_external_labs": 0.676,
-   "covid_at10": 0.21865188348679546,
-   "covid_base": 0.25836233053525975,
+   "covid_at10": 0.21899910570901768,
+   "covid_base": 0.25764830261534233,
    "within_lab_ceiling": 0.76171875,
    "n_query_labs": 16,
-   "covid_auroc_library": 0.594951923076923,
+   "covid_auroc_library": 0.5829326923076923,
    "covid_auroc_external": 0.7162380952380952,
    "n_covid_labs": 9,
    "covid_within_lab_ceiling": 0.9026442307692307,
@@ -335,7 +335,7 @@
    "auroc_library_labs": 0.5642857142857143,
    "auroc_external_labs": 0.886,
    "covid_at10": 0.3513922351043552,
-   "covid_base": 0.20703495058915788,
+   "covid_base": 0.2055168695753249,
    "within_lab_ceiling": 0.5504419191919192,
    "n_query_labs": 16,
    "covid_auroc_library": 0.7117647058823529,
@@ -354,7 +354,7 @@
    "auroc_library_labs": 0.587962962962963,
    "auroc_external_labs": 0.796,
    "covid_at10": 0.17877898243894796,
-   "covid_base": 0.20703495058915788,
+   "covid_base": 0.2055168695753249,
    "within_lab_ceiling": 0.6735491071428572,
    "n_query_labs": 16,
    "covid_auroc_library": 0.717391304347826,
@@ -370,10 +370,10 @@
    "batch": "none",
    "metric": "cosine",
    "dims": 12000,
-   "auroc_library_labs": 0.6937500000000001,
+   "auroc_library_labs": 0.63125,
    "auroc_external_labs": 0.7619047619047619,
-   "covid_at10": 0.6062550731954393,
-   "covid_base": 0.25836233053525975,
+   "covid_at10": 0.584032850973217,
+   "covid_base": 0.25764830261534233,
    "within_lab_ceiling": 0.6628689236111112,
    "n_query_labs": 16,
    "covid_auroc_library": 0.7536231884057971,
@@ -391,8 +391,8 @@
    "dims": 12000,
    "auroc_library_labs": 0.5777777777777777,
    "auroc_external_labs": 0.5888,
-   "covid_at10": 0.5031480651074046,
-   "covid_base": 0.25836233053525975,
+   "covid_at10": 0.48876898014008435,
+   "covid_base": 0.25764830261534233,
    "within_lab_ceiling": 0.6123046875000001,
    "n_query_labs": 16,
    "covid_auroc_library": 0.7680288461538461,
@@ -410,8 +410,8 @@
    "dims": 12000,
    "auroc_library_labs": 0.5785714285714286,
    "auroc_external_labs": 0.7857142857142856,
-   "covid_at10": 0.4380416285489592,
-   "covid_base": 0.25836233053525975,
+   "covid_at10": 0.43673443900647557,
+   "covid_base": 0.25764830261534233,
    "within_lab_ceiling": 0.7358333333333333,
    "n_query_labs": 16,
    "covid_auroc_library": 0.6666666666666667,
@@ -427,13 +427,13 @@
    "batch": "label-free",
    "metric": "euclidean",
    "dims": 12000,
-   "auroc_library_labs": 0.46874999999999994,
+   "auroc_library_labs": 0.45,
    "auroc_external_labs": 0.4216,
-   "covid_at10": 0.2845178430994912,
-   "covid_base": 0.25836233053525975,
+   "covid_at10": 0.2809434966942625,
+   "covid_base": 0.25764830261534233,
    "within_lab_ceiling": 0.6276388888888889,
    "n_query_labs": 16,
-   "covid_auroc_library": 0.5,
+   "covid_auroc_library": 0.5228365384615384,
    "covid_auroc_external": 0.5142857142857142,
    "n_covid_labs": 9,
    "covid_within_lab_ceiling": 0.9395348837209302,
@@ -446,10 +446,10 @@
    "batch": "lab-centred",
    "metric": "cosine",
    "dims": 12000,
-   "auroc_library_labs": 0.6151960784313726,
+   "auroc_library_labs": 0.6472727272727272,
    "auroc_external_labs": 0.8690476190476191,
    "covid_at10": 0.538561583699877,
-   "covid_base": 0.20703495058915788,
+   "covid_base": 0.2055168695753249,
    "within_lab_ceiling": 0.5312054367201426,
    "n_query_labs": 16,
    "covid_auroc_library": 0.727906976744186,
@@ -465,10 +465,10 @@
    "batch": "lab-centred",
    "metric": "euclidean",
    "dims": 12000,
-   "auroc_library_labs": 0.4739583333333333,
+   "auroc_library_labs": 0.4742647058823529,
    "auroc_external_labs": 0.726,
    "covid_at10": 0.12747695943898288,
-   "covid_base": 0.20703495058915788,
+   "covid_base": 0.2055168695753249,
    "within_lab_ceiling": 0.5939416221033869,
    "n_query_labs": 16,
    "covid_auroc_library": 0.5930232558139534,
@@ -487,7 +487,7 @@
    "auroc_library_labs": 0.5,
    "auroc_external_labs": 0.5,
    "covid_at10": 0.46666666666666656,
-   "covid_base": 0.25836233053525975,
+   "covid_base": 0.25764830261534233,
    "within_lab_ceiling": 0.3980270606884058,
    "n_query_labs": 16,
    "covid_auroc_library": 0.5,
@@ -506,7 +506,7 @@
    "auroc_library_labs": 0.5,
    "auroc_external_labs": 0.5,
    "covid_at10": 0.4888888888888888,
-   "covid_base": 0.25836233053525975,
+   "covid_base": 0.25764830261534233,
    "within_lab_ceiling": 0.4257420568561873,
    "n_query_labs": 16,
    "covid_auroc_library": 0.5,
@@ -569,11 +569,11 @@
    "external": false,
    "n": 45,
    "n_sick": 32,
-   "covid_vs_healthy_auroc": 0.6346153846153846,
+   "covid_vs_healthy_auroc": 0.65625,
    "n_covid": 32,
-   "auroc": 0.5997596153846153,
-   "covid_at10": 0.09375,
-   "covid_base": 0.2351421188630491
+   "auroc": 0.6057692307692307,
+   "covid_at10": 0.090625,
+   "covid_base": 0.21399730820995963
   },
   {
    "profile": "comp",
@@ -601,7 +601,7 @@
    "n_covid": 23,
    "auroc": 0.828804347826087,
    "covid_at10": 0.6521739130434782,
-   "covid_base": 0.24238578680203046
+   "covid_base": 0.21399730820995963
   },
   {
    "profile": "comp",
@@ -615,7 +615,7 @@
    "n_covid": 0,
    "auroc": 0.28125,
    "covid_at10": NaN,
-   "covid_base": 0.2671660424469413
+   "covid_base": 0.2685069008782936
   },
   {
    "profile": "comp",
@@ -641,9 +641,9 @@
    "n_sick": 24,
    "covid_vs_healthy_auroc": NaN,
    "n_covid": 0,
-   "auroc": 0.5441176470588235,
+   "auroc": 0.4767156862745098,
    "covid_at10": NaN,
-   "covid_base": 0.2750642673521851
+   "covid_base": 0.29971988795518206
   },
   {
    "profile": "comp",
@@ -657,7 +657,7 @@
    "n_covid": 17,
    "auroc": 0.4352941176470588,
    "covid_at10": 0.388235294117647,
-   "covid_base": 0.2503176620076239
+   "covid_base": 0.24615384615384617
   },
   {
    "profile": "comp",
@@ -711,9 +711,9 @@
    "n_sick": 16,
    "covid_vs_healthy_auroc": NaN,
    "n_covid": 0,
-   "auroc": 0.5338541666666666,
+   "auroc": 0.3033854166666667,
    "covid_at10": NaN,
-   "covid_base": 0.28344370860927154
+   "covid_base": 0.29971988795518206
   },
   {
    "profile": "comp",
@@ -797,7 +797,7 @@
    "n_covid": 32,
    "auroc": 0.578125,
    "covid_at10": 0.0875,
-   "covid_base": 0.2351421188630491
+   "covid_base": 0.21399730820995963
   },
   {
    "profile": "comp",
@@ -825,7 +825,7 @@
    "n_covid": 23,
    "auroc": 0.809782608695652,
    "covid_at10": 0.5739130434782609,
-   "covid_base": 0.24238578680203046
+   "covid_base": 0.21399730820995963
   },
   {
    "profile": "comp",
@@ -839,7 +839,7 @@
    "n_covid": 0,
    "auroc": 0.35625,
    "covid_at10": NaN,
-   "covid_base": 0.2671660424469413
+   "covid_base": 0.2685069008782936
   },
   {
    "profile": "comp",
@@ -865,9 +865,9 @@
    "n_sick": 24,
    "covid_vs_healthy_auroc": NaN,
    "n_covid": 0,
-   "auroc": 0.5269607843137254,
+   "auroc": 0.4718137254901961,
    "covid_at10": NaN,
-   "covid_base": 0.2750642673521851
+   "covid_base": 0.29971988795518206
   },
   {
    "profile": "comp",
@@ -881,7 +881,7 @@
    "n_covid": 17,
    "auroc": 0.388235294117647,
    "covid_at10": 0.3470588235294118,
-   "covid_base": 0.2503176620076239
+   "covid_base": 0.24615384615384617
   },
   {
    "profile": "comp",
@@ -935,9 +935,9 @@
    "n_sick": 16,
    "covid_vs_healthy_auroc": NaN,
    "n_covid": 0,
-   "auroc": 0.5065104166666666,
+   "auroc": 0.2799479166666667,
    "covid_at10": NaN,
-   "covid_base": 0.28344370860927154
+   "covid_base": 0.29971988795518206
   },
   {
    "profile": "comp",
@@ -1021,7 +1021,7 @@
    "n_covid": 32,
    "auroc": 0.6069711538461539,
    "covid_at10": 0.253125,
-   "covid_base": 0.2351421188630491
+   "covid_base": 0.21399730820995963
   },
   {
    "profile": "comp",
@@ -1049,7 +1049,7 @@
    "n_covid": 23,
    "auroc": 0.7961956521739131,
    "covid_at10": 0.22608695652173913,
-   "covid_base": 0.24238578680203046
+   "covid_base": 0.21399730820995963
   },
   {
    "profile": "comp",
@@ -1061,9 +1061,9 @@
    "n_sick": 10,
    "covid_vs_healthy_auroc": NaN,
    "n_covid": 0,
-   "auroc": 0.65625,
+   "auroc": 0.6812499999999999,
    "covid_at10": NaN,
-   "covid_base": 0.2671660424469413
+   "covid_base": 0.2685069008782936
   },
   {
    "profile": "comp",
@@ -1089,9 +1089,9 @@
    "n_sick": 24,
    "covid_vs_healthy_auroc": NaN,
    "n_covid": 0,
-   "auroc": 0.6115196078431372,
+   "auroc": 0.5931372549019608,
    "covid_at10": NaN,
-   "covid_base": 0.2750642673521851
+   "covid_base": 0.29971988795518206
   },
   {
    "profile": "comp",
@@ -1101,11 +1101,11 @@
    "external": false,
    "n": 32,
    "n_sick": 17,
-   "covid_vs_healthy_auroc": 0.7294117647058823,
+   "covid_vs_healthy_auroc": 0.7235294117647059,
    "n_covid": 17,
    "auroc": 0.5745098039215686,
-   "covid_at10": 0.5588235294117647,
-   "covid_base": 0.2503176620076239
+   "covid_at10": 0.5529411764705883,
+   "covid_base": 0.24615384615384617
   },
   {
    "profile": "comp",
@@ -1159,9 +1159,9 @@
    "n_sick": 16,
    "covid_vs_healthy_auroc": NaN,
    "n_covid": 0,
-   "auroc": 0.615234375,
+   "auroc": 0.5735677083333333,
    "covid_at10": NaN,
-   "covid_base": 0.28344370860927154
+   "covid_base": 0.29971988795518206
   },
   {
    "profile": "comp",
@@ -1241,11 +1241,11 @@
    "external": false,
    "n": 45,
    "n_sick": 32,
-   "covid_vs_healthy_auroc": 0.6466346153846154,
+   "covid_vs_healthy_auroc": 0.6358173076923077,
    "n_covid": 32,
-   "auroc": 0.5841346153846154,
-   "covid_at10": 0.215625,
-   "covid_base": 0.2351421188630491
+   "auroc": 0.5997596153846154,
+   "covid_at10": 0.21250000000000002,
+   "covid_base": 0.21399730820995963
   },
   {
    "profile": "comp",
@@ -1269,11 +1269,11 @@
    "external": false,
    "n": 31,
    "n_sick": 23,
-   "covid_vs_healthy_auroc": 0.7934782608695652,
+   "covid_vs_healthy_auroc": 0.8315217391304348,
    "n_covid": 23,
-   "auroc": 0.7391304347826086,
-   "covid_at10": 0.17826086956521742,
-   "covid_base": 0.24238578680203046
+   "auroc": 0.763586956521739,
+   "covid_at10": 0.1826086956521739,
+   "covid_base": 0.21399730820995963
   },
   {
    "profile": "comp",
@@ -1287,7 +1287,7 @@
    "n_covid": 0,
    "auroc": 0.525,
    "covid_at10": NaN,
-   "covid_base": 0.2671660424469413
+   "covid_base": 0.2685069008782936
   },
   {
    "profile": "comp",
@@ -1313,9 +1313,9 @@
    "n_sick": 24,
    "covid_vs_healthy_auroc": NaN,
    "n_covid": 0,
-   "auroc": 0.5772058823529411,
+   "auroc": 0.525735294117647,
    "covid_at10": NaN,
-   "covid_base": 0.2750642673521851
+   "covid_base": 0.29971988795518206
   },
   {
    "profile": "comp",
@@ -1325,11 +1325,11 @@
    "external": false,
    "n": 32,
    "n_sick": 17,
-   "covid_vs_healthy_auroc": 0.7196078431372548,
+   "covid_vs_healthy_auroc": 0.7039215686274509,
    "n_covid": 17,
-   "auroc": 0.5862745098039216,
-   "covid_at10": 0.5411764705882354,
-   "covid_base": 0.2503176620076239
+   "auroc": 0.5784313725490197,
+   "covid_at10": 0.5294117647058825,
+   "covid_base": 0.24615384615384617
   },
   {
    "profile": "comp",
@@ -1383,9 +1383,9 @@
    "n_sick": 16,
    "covid_vs_healthy_auroc": NaN,
    "n_covid": 0,
-   "auroc": 0.708984375,
+   "auroc": 0.5813802083333333,
    "covid_at10": NaN,
-   "covid_base": 0.28344370860927154
+   "covid_base": 0.29971988795518206
   },
   {
    "profile": "comp",
@@ -1469,7 +1469,7 @@
    "n_covid": 32,
    "auroc": 0.6442307692307692,
    "covid_at10": 0.159375,
-   "covid_base": 0.17956204379562044
+   "covid_base": 0.1529051987767584
   },
   {
    "profile": "comp",
@@ -1497,7 +1497,7 @@
    "n_covid": 23,
    "auroc": 0.5516304347826088,
    "covid_at10": 0.31304347826086953,
-   "covid_base": 0.1888412017167382
+   "covid_base": 0.1529051987767584
   },
   {
    "profile": "comp",
@@ -1537,9 +1537,9 @@
    "n_sick": 24,
    "covid_vs_healthy_auroc": NaN,
    "n_covid": 0,
-   "auroc": 0.6066176470588235,
+   "auroc": 0.6924019607843137,
    "covid_at10": NaN,
-   "covid_base": 0.22496371552975328
+   "covid_base": 0.248
   },
   {
    "profile": "comp",
@@ -1607,9 +1607,9 @@
    "n_sick": 16,
    "covid_vs_healthy_auroc": NaN,
    "n_covid": 0,
-   "auroc": 0.677734375,
+   "auroc": 0.4609375,
    "covid_at10": NaN,
-   "covid_base": 0.23273273273273273
+   "covid_base": 0.248
   },
   {
    "profile": "comp",
@@ -1693,7 +1693,7 @@
    "n_covid": 32,
    "auroc": 0.5576923076923077,
    "covid_at10": 0.1375,
-   "covid_base": 0.17956204379562044
+   "covid_base": 0.1529051987767584
   },
   {
    "profile": "comp",
@@ -1721,7 +1721,7 @@
    "n_covid": 23,
    "auroc": 0.5,
    "covid_at10": 0.26521739130434785,
-   "covid_base": 0.1888412017167382
+   "covid_base": 0.1529051987767584
   },
   {
    "profile": "comp",
@@ -1761,9 +1761,9 @@
    "n_sick": 24,
    "covid_vs_healthy_auroc": NaN,
    "n_covid": 0,
-   "auroc": 0.6666666666666667,
+   "auroc": 0.5649509803921569,
    "covid_at10": NaN,
-   "covid_base": 0.22496371552975328
+   "covid_base": 0.248
   },
   {
    "profile": "comp",
@@ -1831,9 +1831,9 @@
    "n_sick": 16,
    "covid_vs_healthy_auroc": NaN,
    "n_covid": 0,
-   "auroc": 0.65234375,
+   "auroc": 0.6927083333333334,
    "covid_at10": NaN,
-   "covid_base": 0.23273273273273273
+   "covid_base": 0.248
   },
   {
    "profile": "comp",
@@ -1917,7 +1917,7 @@
    "n_covid": 32,
    "auroc": 0.6706730769230769,
    "covid_at10": 0.6781250000000001,
-   "covid_base": 0.2351421188630491
+   "covid_base": 0.21399730820995963
   },
   {
    "profile": "program",
@@ -1945,7 +1945,7 @@
    "n_covid": 23,
    "auroc": 0.8070652173913044,
    "covid_at10": 0.782608695652174,
-   "covid_base": 0.24238578680203046
+   "covid_base": 0.21399730820995963
   },
   {
    "profile": "program",
@@ -1957,9 +1957,9 @@
    "n_sick": 10,
    "covid_vs_healthy_auroc": NaN,
    "n_covid": 0,
-   "auroc": 0.725,
+   "auroc": 0.68125,
    "covid_at10": NaN,
-   "covid_base": 0.2671660424469413
+   "covid_base": 0.2685069008782936
   },
   {
    "profile": "program",
@@ -1985,9 +1985,9 @@
    "n_sick": 24,
    "covid_vs_healthy_auroc": NaN,
    "n_covid": 0,
-   "auroc": 0.38112745098039214,
+   "auroc": 0.6384803921568628,
    "covid_at10": NaN,
-   "covid_base": 0.2750642673521851
+   "covid_base": 0.29971988795518206
   },
   {
    "profile": "program",
@@ -1999,9 +1999,9 @@
    "n_sick": 17,
    "covid_vs_healthy_auroc": 1.0,
    "n_covid": 17,
-   "auroc": 0.7705882352941177,
-   "covid_at10": 0.5823529411764706,
-   "covid_base": 0.2503176620076239
+   "auroc": 0.6372549019607843,
+   "covid_at10": 0.3470588235294118,
+   "covid_base": 0.24615384615384617
   },
   {
    "profile": "program",
@@ -2055,9 +2055,9 @@
    "n_sick": 16,
    "covid_vs_healthy_auroc": NaN,
    "n_covid": 0,
-   "auroc": 0.37825520833333337,
+   "auroc": 0.2708333333333333,
    "covid_at10": NaN,
-   "covid_base": 0.28344370860927154
+   "covid_base": 0.29971988795518206
   },
   {
    "profile": "program",
@@ -2141,7 +2141,7 @@
    "n_covid": 32,
    "auroc": 0.8701923076923076,
    "covid_at10": 0.64375,
-   "covid_base": 0.2351421188630491
+   "covid_base": 0.21399730820995963
   },
   {
    "profile": "program",
@@ -2169,7 +2169,7 @@
    "n_covid": 23,
    "auroc": 0.5597826086956522,
    "covid_at10": 0.665217391304348,
-   "covid_base": 0.24238578680203046
+   "covid_base": 0.21399730820995963
   },
   {
    "profile": "program",
@@ -2181,9 +2181,9 @@
    "n_sick": 10,
    "covid_vs_healthy_auroc": NaN,
    "n_covid": 0,
-   "auroc": 0.80625,
+   "auroc": 0.75625,
    "covid_at10": NaN,
-   "covid_base": 0.2671660424469413
+   "covid_base": 0.2685069008782936
   },
   {
    "profile": "program",
@@ -2209,9 +2209,9 @@
    "n_sick": 24,
    "covid_vs_healthy_auroc": NaN,
    "n_covid": 0,
-   "auroc": 0.40073529411764697,
+   "auroc": 0.5379901960784315,
    "covid_at10": NaN,
-   "covid_base": 0.2750642673521851
+   "covid_base": 0.29971988795518206
   },
   {
    "profile": "program",
@@ -2223,9 +2223,9 @@
    "n_sick": 17,
    "covid_vs_healthy_auroc": 1.0,
    "n_covid": 17,
-   "auroc": 0.9058823529411765,
-   "covid_at10": 0.5470588235294117,
-   "covid_base": 0.2503176620076239
+   "auroc": 0.8215686274509804,
+   "covid_at10": 0.3764705882352941,
+   "covid_base": 0.24615384615384617
   },
   {
    "profile": "program",
@@ -2279,9 +2279,9 @@
    "n_sick": 16,
    "covid_vs_healthy_auroc": NaN,
    "n_covid": 0,
-   "auroc": 0.341796875,
+   "auroc": 0.29947916666666663,
    "covid_at10": NaN,
-   "covid_base": 0.28344370860927154
+   "covid_base": 0.29971988795518206
   },
   {
    "profile": "program",
@@ -2365,7 +2365,7 @@
    "n_covid": 32,
    "auroc": 0.5600961538461539,
    "covid_at10": 0.125,
-   "covid_base": 0.2351421188630491
+   "covid_base": 0.21399730820995963
   },
   {
    "profile": "program",
@@ -2393,7 +2393,7 @@
    "n_covid": 23,
    "auroc": 0.5271739130434783,
    "covid_at10": 0.3521739130434782,
-   "covid_base": 0.24238578680203046
+   "covid_base": 0.21399730820995963
   },
   {
    "profile": "program",
@@ -2407,7 +2407,7 @@
    "n_covid": 0,
    "auroc": 0.3375,
    "covid_at10": NaN,
-   "covid_base": 0.2671660424469413
+   "covid_base": 0.2685069008782936
   },
   {
    "profile": "program",
@@ -2433,9 +2433,9 @@
    "n_sick": 24,
    "covid_vs_healthy_auroc": NaN,
    "n_covid": 0,
-   "auroc": 0.5465686274509804,
+   "auroc": 0.5808823529411765,
    "covid_at10": NaN,
-   "covid_base": 0.2750642673521851
+   "covid_base": 0.29971988795518206
   },
   {
    "profile": "program",
@@ -2447,9 +2447,9 @@
    "n_sick": 17,
    "covid_vs_healthy_auroc": 0.9117647058823529,
    "n_covid": 17,
-   "auroc": 0.2568627450980392,
-   "covid_at10": 0.1823529411764706,
-   "covid_base": 0.2503176620076239
+   "auroc": 0.2156862745098039,
+   "covid_at10": 0.16470588235294117,
+   "covid_base": 0.24615384615384617
   },
   {
    "profile": "program",
@@ -2503,9 +2503,9 @@
    "n_sick": 16,
    "covid_vs_healthy_auroc": NaN,
    "n_covid": 0,
-   "auroc": 0.3522135416666667,
+   "auroc": 0.4186197916666667,
    "covid_at10": NaN,
-   "covid_base": 0.28344370860927154
+   "covid_base": 0.29971988795518206
   },
   {
    "profile": "program",
@@ -2585,11 +2585,11 @@
    "external": false,
    "n": 45,
    "n_sick": 32,
-   "covid_vs_healthy_auroc": 0.5036057692307693,
+   "covid_vs_healthy_auroc": 0.5576923076923077,
    "n_covid": 32,
-   "auroc": 0.4591346153846154,
-   "covid_at10": 0.13749999999999998,
-   "covid_base": 0.2351421188630491
+   "auroc": 0.5072115384615384,
+   "covid_at10": 0.125,
+   "covid_base": 0.21399730820995963
   },
   {
    "profile": "program",
@@ -2613,11 +2613,11 @@
    "external": false,
    "n": 31,
    "n_sick": 23,
-   "covid_vs_healthy_auroc": 0.6059782608695652,
+   "covid_vs_healthy_auroc": 0.7010869565217391,
    "n_covid": 23,
-   "auroc": 0.6929347826086958,
-   "covid_at10": 0.1826086956521739,
-   "covid_base": 0.24238578680203046
+   "auroc": 0.7336956521739131,
+   "covid_at10": 0.19999999999999998,
+   "covid_base": 0.21399730820995963
   },
   {
    "profile": "program",
@@ -2629,9 +2629,9 @@
    "n_sick": 10,
    "covid_vs_healthy_auroc": NaN,
    "n_covid": 0,
-   "auroc": 0.4375,
+   "auroc": 0.48750000000000004,
    "covid_at10": NaN,
-   "covid_base": 0.2671660424469413
+   "covid_base": 0.2685069008782936
   },
   {
    "profile": "program",
@@ -2657,9 +2657,9 @@
    "n_sick": 24,
    "covid_vs_healthy_auroc": NaN,
    "n_covid": 0,
-   "auroc": 0.43137254901960786,
+   "auroc": 0.5330882352941176,
    "covid_at10": NaN,
-   "covid_base": 0.2750642673521851
+   "covid_base": 0.29971988795518206
   },
   {
    "profile": "program",
@@ -2671,9 +2671,9 @@
    "n_sick": 17,
    "covid_vs_healthy_auroc": 0.8607843137254901,
    "n_covid": 17,
-   "auroc": 0.34509803921568627,
-   "covid_at10": 0.21176470588235294,
-   "covid_base": 0.2503176620076239
+   "auroc": 0.33137254901960783,
+   "covid_at10": 0.19999999999999998,
+   "covid_base": 0.24615384615384617
   },
   {
    "profile": "program",
@@ -2727,9 +2727,9 @@
    "n_sick": 16,
    "covid_vs_healthy_auroc": NaN,
    "n_covid": 0,
-   "auroc": 0.515625,
+   "auroc": 0.5201822916666667,
    "covid_at10": NaN,
-   "covid_base": 0.28344370860927154
+   "covid_base": 0.29971988795518206
   },
   {
    "profile": "program",
@@ -2813,7 +2813,7 @@
    "n_covid": 32,
    "auroc": 0.6826923076923077,
    "covid_at10": 0.056249999999999994,
-   "covid_base": 0.17956204379562044
+   "covid_base": 0.1529051987767584
   },
   {
    "profile": "program",
@@ -2841,7 +2841,7 @@
    "n_covid": 23,
    "auroc": 0.8586956521739131,
    "covid_at10": 0.36086956521739133,
-   "covid_base": 0.1888412017167382
+   "covid_base": 0.1529051987767584
   },
   {
    "profile": "program",
@@ -2881,9 +2881,9 @@
    "n_sick": 24,
    "covid_vs_healthy_auroc": NaN,
    "n_covid": 0,
-   "auroc": 0.6666666666666667,
+   "auroc": 0.6544117647058822,
    "covid_at10": NaN,
-   "covid_base": 0.22496371552975328
+   "covid_base": 0.248
   },
   {
    "profile": "program",
@@ -2951,9 +2951,9 @@
    "n_sick": 16,
    "covid_vs_healthy_auroc": NaN,
    "n_covid": 0,
-   "auroc": 0.4739583333333333,
+   "auroc": 0.5091145833333334,
    "covid_at10": NaN,
-   "covid_base": 0.23273273273273273
+   "covid_base": 0.248
   },
   {
    "profile": "program",
@@ -3037,7 +3037,7 @@
    "n_covid": 32,
    "auroc": 0.34615384615384615,
    "covid_at10": 0.0,
-   "covid_base": 0.17956204379562044
+   "covid_base": 0.1529051987767584
   },
   {
    "profile": "program",
@@ -3065,7 +3065,7 @@
    "n_covid": 23,
    "auroc": 0.5625,
    "covid_at10": 0.030434782608695653,
-   "covid_base": 0.1888412017167382
+   "covid_base": 0.1529051987767584
   },
   {
    "profile": "program",
@@ -3105,9 +3105,9 @@
    "n_sick": 24,
    "covid_vs_healthy_auroc": NaN,
    "n_covid": 0,
-   "auroc": 0.5772058823529411,
+   "auroc": 0.41299019607843135,
    "covid_at10": NaN,
-   "covid_base": 0.22496371552975328
+   "covid_base": 0.248
   },
   {
    "profile": "program",
@@ -3175,9 +3175,9 @@
    "n_sick": 16,
    "covid_vs_healthy_auroc": NaN,
    "n_covid": 0,
-   "auroc": 0.6223958333333333,
+   "auroc": 0.64453125,
    "covid_at10": NaN,
-   "covid_base": 0.23273273273273273
+   "covid_base": 0.248
   },
   {
    "profile": "program",
@@ -3261,7 +3261,7 @@
    "n_covid": 32,
    "auroc": 0.5649038461538463,
    "covid_at10": 0.36250000000000004,
-   "covid_base": 0.2351421188630491
+   "covid_base": 0.21399730820995963
   },
   {
    "profile": "comp+prog",
@@ -3289,7 +3289,7 @@
    "n_covid": 23,
    "auroc": 0.861413043478261,
    "covid_at10": 0.6826086956521739,
-   "covid_base": 0.24238578680203046
+   "covid_base": 0.21399730820995963
   },
   {
    "profile": "comp+prog",
@@ -3301,9 +3301,9 @@
    "n_sick": 10,
    "covid_vs_healthy_auroc": NaN,
    "n_covid": 0,
-   "auroc": 0.5,
+   "auroc": 0.4,
    "covid_at10": NaN,
-   "covid_base": 0.2671660424469413
+   "covid_base": 0.2685069008782936
   },
   {
    "profile": "comp+prog",
@@ -3329,9 +3329,9 @@
    "n_sick": 24,
    "covid_vs_healthy_auroc": NaN,
    "n_covid": 0,
-   "auroc": 0.5281862745098039,
+   "auroc": 0.4313725490196078,
    "covid_at10": NaN,
-   "covid_base": 0.2750642673521851
+   "covid_base": 0.29971988795518206
   },
   {
    "profile": "comp+prog",
@@ -3341,11 +3341,11 @@
    "external": false,
    "n": 32,
    "n_sick": 17,
-   "covid_vs_healthy_auroc": 0.9019607843137254,
+   "covid_vs_healthy_auroc": 0.7588235294117647,
    "n_covid": 17,
-   "auroc": 0.33725490196078434,
-   "covid_at10": 0.3764705882352941,
-   "covid_base": 0.2503176620076239
+   "auroc": 0.22745098039215683,
+   "covid_at10": 0.24705882352941178,
+   "covid_base": 0.24615384615384617
   },
   {
    "profile": "comp+prog",
@@ -3399,9 +3399,9 @@
    "n_sick": 16,
    "covid_vs_healthy_auroc": NaN,
    "n_covid": 0,
-   "auroc": 0.5442708333333333,
+   "auroc": 0.31901041666666663,
    "covid_at10": NaN,
-   "covid_base": 0.28344370860927154
+   "covid_base": 0.29971988795518206
   },
   {
    "profile": "comp+prog",
@@ -3485,7 +3485,7 @@
    "n_covid": 32,
    "auroc": 0.6706730769230769,
    "covid_at10": 0.41875,
-   "covid_base": 0.2351421188630491
+   "covid_base": 0.21399730820995963
   },
   {
    "profile": "comp+prog",
@@ -3513,7 +3513,7 @@
    "n_covid": 23,
    "auroc": 0.8695652173913044,
    "covid_at10": 0.6956521739130435,
-   "covid_base": 0.24238578680203046
+   "covid_base": 0.21399730820995963
   },
   {
    "profile": "comp+prog",
@@ -3525,9 +3525,9 @@
    "n_sick": 10,
    "covid_vs_healthy_auroc": NaN,
    "n_covid": 0,
-   "auroc": 0.375,
+   "auroc": 0.23750000000000002,
    "covid_at10": NaN,
-   "covid_base": 0.2671660424469413
+   "covid_base": 0.2685069008782936
   },
   {
    "profile": "comp+prog",
@@ -3553,9 +3553,9 @@
    "n_sick": 24,
    "covid_vs_healthy_auroc": NaN,
    "n_covid": 0,
-   "auroc": 0.5698529411764706,
+   "auroc": 0.4166666666666667,
    "covid_at10": NaN,
-   "covid_base": 0.2750642673521851
+   "covid_base": 0.29971988795518206
   },
   {
    "profile": "comp+prog",
@@ -3565,11 +3565,11 @@
    "external": false,
    "n": 32,
    "n_sick": 17,
-   "covid_vs_healthy_auroc": 0.896078431372549,
+   "covid_vs_healthy_auroc": 0.8431372549019608,
    "n_covid": 17,
-   "auroc": 0.4450980392156863,
-   "covid_at10": 0.34117647058823536,
-   "covid_base": 0.2503176620076239
+   "auroc": 0.40784313725490196,
+   "covid_at10": 0.28235294117647064,
+   "covid_base": 0.24615384615384617
   },
   {
    "profile": "comp+prog",
@@ -3623,9 +3623,9 @@
    "n_sick": 16,
    "covid_vs_healthy_auroc": NaN,
    "n_covid": 0,
-   "auroc": 0.5162760416666667,
+   "auroc": 0.28776041666666663,
    "covid_at10": NaN,
-   "covid_base": 0.28344370860927154
+   "covid_base": 0.29971988795518206
   },
   {
    "profile": "comp+prog",
@@ -3709,7 +3709,7 @@
    "n_covid": 32,
    "auroc": 0.548076923076923,
    "covid_at10": 0.2125,
-   "covid_base": 0.2351421188630491
+   "covid_base": 0.21399730820995963
   },
   {
    "profile": "comp+prog",
@@ -3737,7 +3737,7 @@
    "n_covid": 23,
    "auroc": 0.6603260869565217,
    "covid_at10": 0.2521739130434783,
-   "covid_base": 0.24238578680203046
+   "covid_base": 0.21399730820995963
   },
   {
    "profile": "comp+prog",
@@ -3751,7 +3751,7 @@
    "n_covid": 0,
    "auroc": 0.525,
    "covid_at10": NaN,
-   "covid_base": 0.2671660424469413
+   "covid_base": 0.2685069008782936
   },
   {
    "profile": "comp+prog",
@@ -3777,9 +3777,9 @@
    "n_sick": 24,
    "covid_vs_healthy_auroc": NaN,
    "n_covid": 0,
-   "auroc": 0.5379901960784313,
+   "auroc": 0.5355392156862746,
    "covid_at10": NaN,
-   "covid_base": 0.2750642673521851
+   "covid_base": 0.29971988795518206
   },
   {
    "profile": "comp+prog",
@@ -3789,11 +3789,11 @@
    "external": false,
    "n": 32,
    "n_sick": 17,
-   "covid_vs_healthy_auroc": 0.888235294117647,
+   "covid_vs_healthy_auroc": 0.8784313725490196,
    "n_covid": 17,
-   "auroc": 0.36274509803921573,
-   "covid_at10": 0.411764705882353,
-   "covid_base": 0.2503176620076239
+   "auroc": 0.3392156862745098,
+   "covid_at10": 0.4058823529411764,
+   "covid_base": 0.24615384615384617
   },
   {
    "profile": "comp+prog",
@@ -3847,9 +3847,9 @@
    "n_sick": 16,
    "covid_vs_healthy_auroc": NaN,
    "n_covid": 0,
-   "auroc": 0.6432291666666666,
+   "auroc": 0.48828125,
    "covid_at10": NaN,
-   "covid_base": 0.28344370860927154
+   "covid_base": 0.29971988795518206
   },
   {
    "profile": "comp+prog",
@@ -3929,11 +3929,11 @@
    "external": false,
    "n": 45,
    "n_sick": 32,
-   "covid_vs_healthy_auroc": 0.594951923076923,
+   "covid_vs_healthy_auroc": 0.5829326923076923,
    "n_covid": 32,
-   "auroc": 0.59375,
-   "covid_at10": 0.103125,
-   "covid_base": 0.2351421188630491
+   "auroc": 0.5973557692307693,
+   "covid_at10": 0.10625000000000001,
+   "covid_base": 0.21399730820995963
   },
   {
    "profile": "comp+prog",
@@ -3957,11 +3957,11 @@
    "external": false,
    "n": 31,
    "n_sick": 23,
-   "covid_vs_healthy_auroc": 0.41032608695652173,
+   "covid_vs_healthy_auroc": 0.38315217391304346,
    "n_covid": 23,
-   "auroc": 0.453804347826087,
+   "auroc": 0.4239130434782608,
    "covid_at10": 0.14347826086956522,
-   "covid_base": 0.24238578680203046
+   "covid_base": 0.21399730820995963
   },
   {
    "profile": "comp+prog",
@@ -3973,9 +3973,9 @@
    "n_sick": 10,
    "covid_vs_healthy_auroc": NaN,
    "n_covid": 0,
-   "auroc": 0.4,
+   "auroc": 0.325,
    "covid_at10": NaN,
-   "covid_base": 0.2671660424469413
+   "covid_base": 0.2685069008782936
   },
   {
    "profile": "comp+prog",
@@ -4001,9 +4001,9 @@
    "n_sick": 24,
    "covid_vs_healthy_auroc": NaN,
    "n_covid": 0,
-   "auroc": 0.5588235294117647,
+   "auroc": 0.6262254901960784,
    "covid_at10": NaN,
-   "covid_base": 0.2750642673521851
+   "covid_base": 0.29971988795518206
   },
   {
    "profile": "comp+prog",
@@ -4017,7 +4017,7 @@
    "n_covid": 17,
    "auroc": 0.4294117647058824,
    "covid_at10": 0.40588235294117647,
-   "covid_base": 0.2503176620076239
+   "covid_base": 0.24615384615384617
   },
   {
    "profile": "comp+prog",
@@ -4071,9 +4071,9 @@
    "n_sick": 16,
    "covid_vs_healthy_auroc": NaN,
    "n_covid": 0,
-   "auroc": 0.568359375,
+   "auroc": 0.7154947916666667,
    "covid_at10": NaN,
-   "covid_base": 0.28344370860927154
+   "covid_base": 0.29971988795518206
   },
   {
    "profile": "comp+prog",
@@ -4157,7 +4157,7 @@
    "n_covid": 32,
    "auroc": 0.360576923076923,
    "covid_at10": 0.065625,
-   "covid_base": 0.17956204379562044
+   "covid_base": 0.1529051987767584
   },
   {
    "profile": "comp+prog",
@@ -4185,7 +4185,7 @@
    "n_covid": 23,
    "auroc": 0.7336956521739131,
    "covid_at10": 0.33478260869565224,
-   "covid_base": 0.1888412017167382
+   "covid_base": 0.1529051987767584
   },
   {
    "profile": "comp+prog",
@@ -4225,9 +4225,9 @@
    "n_sick": 24,
    "covid_vs_healthy_auroc": NaN,
    "n_covid": 0,
-   "auroc": 0.5416666666666666,
+   "auroc": 0.633578431372549,
    "covid_at10": NaN,
-   "covid_base": 0.22496371552975328
+   "covid_base": 0.248
   },
   {
    "profile": "comp+prog",
@@ -4295,9 +4295,9 @@
    "n_sick": 16,
    "covid_vs_healthy_auroc": NaN,
    "n_covid": 0,
-   "auroc": 0.6197916666666666,
+   "auroc": 0.4661458333333333,
    "covid_at10": NaN,
-   "covid_base": 0.23273273273273273
+   "covid_base": 0.248
   },
   {
    "profile": "comp+prog",
@@ -4381,7 +4381,7 @@
    "n_covid": 32,
    "auroc": 0.5240384615384616,
    "covid_at10": 0.0125,
-   "covid_base": 0.17956204379562044
+   "covid_base": 0.1529051987767584
   },
   {
    "profile": "comp+prog",
@@ -4409,7 +4409,7 @@
    "n_covid": 23,
    "auroc": 0.3233695652173913,
    "covid_at10": 0.08260869565217392,
-   "covid_base": 0.1888412017167382
+   "covid_base": 0.1529051987767584
   },
   {
    "profile": "comp+prog",
@@ -4449,9 +4449,9 @@
    "n_sick": 24,
    "covid_vs_healthy_auroc": NaN,
    "n_covid": 0,
-   "auroc": 0.5906862745098039,
+   "auroc": 0.46568627450980393,
    "covid_at10": NaN,
-   "covid_base": 0.22496371552975328
+   "covid_base": 0.248
   },
   {
    "profile": "comp+prog",
@@ -4519,9 +4519,9 @@
    "n_sick": 16,
    "covid_vs_healthy_auroc": NaN,
    "n_covid": 0,
-   "auroc": 0.4993489583333333,
+   "auroc": 0.5976562499999999,
    "covid_at10": NaN,
-   "covid_base": 0.23273273273273273
+   "covid_base": 0.248
   },
   {
    "profile": "comp+prog",
@@ -4605,7 +4605,7 @@
    "n_covid": 32,
    "auroc": 0.9026442307692308,
    "covid_at10": 0.653125,
-   "covid_base": 0.2351421188630491
+   "covid_base": 0.21399730820995963
   },
   {
    "profile": "raw",
@@ -4633,7 +4633,7 @@
    "n_covid": 23,
    "auroc": 0.9755434782608696,
    "covid_at10": 0.8086956521739131,
-   "covid_base": 0.24238578680203046
+   "covid_base": 0.21399730820995963
   },
   {
    "profile": "raw",
@@ -4645,9 +4645,9 @@
    "n_sick": 10,
    "covid_vs_healthy_auroc": NaN,
    "n_covid": 0,
-   "auroc": 0.6937500000000001,
+   "auroc": 0.63125,
    "covid_at10": NaN,
-   "covid_base": 0.2671660424469413
+   "covid_base": 0.2685069008782936
   },
   {
    "profile": "raw",
@@ -4673,9 +4673,9 @@
    "n_sick": 24,
    "covid_vs_healthy_auroc": NaN,
    "n_covid": 0,
-   "auroc": 0.40808823529411753,
+   "auroc": 0.6862745098039216,
    "covid_at10": NaN,
-   "covid_base": 0.2750642673521851
+   "covid_base": 0.29971988795518206
   },
   {
    "profile": "raw",
@@ -4687,9 +4687,9 @@
    "n_sick": 17,
    "covid_vs_healthy_auroc": 1.0,
    "n_covid": 17,
-   "auroc": 0.696078431372549,
-   "covid_at10": 0.49411764705882344,
-   "covid_base": 0.2503176620076239
+   "auroc": 0.5568627450980392,
+   "covid_at10": 0.29411764705882354,
+   "covid_base": 0.24615384615384617
   },
   {
    "profile": "raw",
@@ -4743,9 +4743,9 @@
    "n_sick": 16,
    "covid_vs_healthy_auroc": NaN,
    "n_covid": 0,
-   "auroc": 0.38085937499999994,
+   "auroc": 0.34895833333333337,
    "covid_at10": NaN,
-   "covid_base": 0.28344370860927154
+   "covid_base": 0.29971988795518206
   },
   {
    "profile": "raw",
@@ -4829,7 +4829,7 @@
    "n_covid": 32,
    "auroc": 0.7319711538461539,
    "covid_at10": 0.6031249999999999,
-   "covid_base": 0.2351421188630491
+   "covid_base": 0.21399730820995963
   },
   {
    "profile": "raw",
@@ -4857,7 +4857,7 @@
    "n_covid": 23,
    "auroc": 0.8070652173913043,
    "covid_at10": 0.37391304347826093,
-   "covid_base": 0.24238578680203046
+   "covid_base": 0.21399730820995963
   },
   {
    "profile": "raw",
@@ -4869,9 +4869,9 @@
    "n_sick": 10,
    "covid_vs_healthy_auroc": NaN,
    "n_covid": 0,
-   "auroc": 0.35,
+   "auroc": 0.5562499999999999,
    "covid_at10": NaN,
-   "covid_base": 0.2671660424469413
+   "covid_base": 0.2685069008782936
   },
   {
    "profile": "raw",
@@ -4897,9 +4897,9 @@
    "n_sick": 24,
    "covid_vs_healthy_auroc": NaN,
    "n_covid": 0,
-   "auroc": 0.5196078431372549,
+   "auroc": 0.40318627450980393,
    "covid_at10": NaN,
-   "covid_base": 0.2750642673521851
+   "covid_base": 0.29971988795518206
   },
   {
    "profile": "raw",
@@ -4909,11 +4909,11 @@
    "external": false,
    "n": 32,
    "n_sick": 17,
-   "covid_vs_healthy_auroc": 0.9666666666666667,
+   "covid_vs_healthy_auroc": 0.9921568627450981,
    "n_covid": 17,
-   "auroc": 0.7784313725490195,
-   "covid_at10": 0.4235294117647059,
-   "covid_base": 0.2503176620076239
+   "auroc": 0.6627450980392157,
+   "covid_at10": 0.2941176470588236,
+   "covid_base": 0.24615384615384617
   },
   {
    "profile": "raw",
@@ -4967,9 +4967,9 @@
    "n_sick": 16,
    "covid_vs_healthy_auroc": NaN,
    "n_covid": 0,
-   "auroc": 0.3528645833333333,
+   "auroc": 0.5325520833333334,
    "covid_at10": NaN,
-   "covid_base": 0.28344370860927154
+   "covid_base": 0.29971988795518206
   },
   {
    "profile": "raw",
@@ -5053,7 +5053,7 @@
    "n_covid": 32,
    "auroc": 0.484375,
    "covid_at10": 0.21875,
-   "covid_base": 0.2351421188630491
+   "covid_base": 0.21399730820995963
   },
   {
    "profile": "raw",
@@ -5081,7 +5081,7 @@
    "n_covid": 23,
    "auroc": 0.6847826086956522,
    "covid_at10": 0.46521739130434786,
-   "covid_base": 0.24238578680203046
+   "covid_base": 0.21399730820995963
   },
   {
    "profile": "raw",
@@ -5093,9 +5093,9 @@
    "n_sick": 10,
    "covid_vs_healthy_auroc": NaN,
    "n_covid": 0,
-   "auroc": 0.38750000000000007,
+   "auroc": 0.375,
    "covid_at10": NaN,
-   "covid_base": 0.2671660424469413
+   "covid_base": 0.2685069008782936
   },
   {
    "profile": "raw",
@@ -5121,9 +5121,9 @@
    "n_sick": 24,
    "covid_vs_healthy_auroc": NaN,
    "n_covid": 0,
-   "auroc": 0.5845588235294118,
+   "auroc": 0.6176470588235294,
    "covid_at10": NaN,
-   "covid_base": 0.2750642673521851
+   "covid_base": 0.29971988795518206
   },
   {
    "profile": "raw",
@@ -5133,11 +5133,11 @@
    "external": false,
    "n": 32,
    "n_sick": 17,
-   "covid_vs_healthy_auroc": 0.9019607843137255,
+   "covid_vs_healthy_auroc": 0.8725490196078431,
    "n_covid": 17,
-   "auroc": 0.26078431372549016,
-   "covid_at10": 0.2,
-   "covid_base": 0.2503176620076239
+   "auroc": 0.2392156862745098,
+   "covid_at10": 0.18823529411764706,
+   "covid_base": 0.24615384615384617
   },
   {
    "profile": "raw",
@@ -5191,9 +5191,9 @@
    "n_sick": 16,
    "covid_vs_healthy_auroc": NaN,
    "n_covid": 0,
-   "auroc": 0.42122395833333337,
+   "auroc": 0.4153645833333333,
    "covid_at10": NaN,
-   "covid_base": 0.28344370860927154
+   "covid_base": 0.29971988795518206
   },
   {
    "profile": "raw",
@@ -5273,11 +5273,11 @@
    "external": false,
    "n": 45,
    "n_sick": 32,
-   "covid_vs_healthy_auroc": 0.40985576923076916,
+   "covid_vs_healthy_auroc": 0.5228365384615384,
    "n_covid": 32,
-   "auroc": 0.0973557692307692,
-   "covid_at10": 0.29374999999999996,
-   "covid_base": 0.2351421188630491
+   "auroc": 0.078125,
+   "covid_at10": 0.296875,
+   "covid_base": 0.21399730820995963
   },
   {
    "profile": "raw",
@@ -5305,7 +5305,7 @@
    "n_covid": 23,
    "auroc": 0.5,
    "covid_at10": 0.29999999999999993,
-   "covid_base": 0.24238578680203046
+   "covid_base": 0.21399730820995963
   },
   {
    "profile": "raw",
@@ -5317,9 +5317,9 @@
    "n_sick": 10,
    "covid_vs_healthy_auroc": NaN,
    "n_covid": 0,
-   "auroc": 0.46874999999999994,
+   "auroc": 0.45,
    "covid_at10": NaN,
-   "covid_base": 0.2671660424469413
+   "covid_base": 0.2685069008782936
   },
   {
    "profile": "raw",
@@ -5345,9 +5345,9 @@
    "n_sick": 24,
    "covid_vs_healthy_auroc": NaN,
    "n_covid": 0,
-   "auroc": 0.553921568627451,
+   "auroc": 0.5269607843137255,
    "covid_at10": NaN,
-   "covid_base": 0.2750642673521851
+   "covid_base": 0.29971988795518206
   },
   {
    "profile": "raw",
@@ -5357,11 +5357,11 @@
    "external": false,
    "n": 32,
    "n_sick": 17,
-   "covid_vs_healthy_auroc": 0.6803921568627451,
+   "covid_vs_healthy_auroc": 0.5980392156862745,
    "n_covid": 17,
-   "auroc": 0.36470588235294116,
-   "covid_at10": 0.1,
-   "covid_base": 0.2503176620076239
+   "auroc": 0.20784313725490194,
+   "covid_at10": 0.06470588235294118,
+   "covid_base": 0.24615384615384617
   },
   {
    "profile": "raw",
@@ -5415,9 +5415,9 @@
    "n_sick": 16,
    "covid_vs_healthy_auroc": NaN,
    "n_covid": 0,
-   "auroc": 0.4270833333333333,
+   "auroc": 0.419921875,
    "covid_at10": NaN,
-   "covid_base": 0.28344370860927154
+   "covid_base": 0.29971988795518206
   },
   {
    "profile": "raw",
@@ -5501,7 +5501,7 @@
    "n_covid": 32,
    "auroc": 0.721153846153846,
    "covid_at10": 0.13437500000000002,
-   "covid_base": 0.17956204379562044
+   "covid_base": 0.1529051987767584
   },
   {
    "profile": "raw",
@@ -5529,7 +5529,7 @@
    "n_covid": 23,
    "auroc": 0.8641304347826086,
    "covid_at10": 0.43913043478260866,
-   "covid_base": 0.1888412017167382
+   "covid_base": 0.1529051987767584
   },
   {
    "profile": "raw",
@@ -5569,9 +5569,9 @@
    "n_sick": 24,
    "covid_vs_healthy_auroc": NaN,
    "n_covid": 0,
-   "auroc": 0.6151960784313726,
+   "auroc": 0.7205882352941178,
    "covid_at10": NaN,
-   "covid_base": 0.22496371552975328
+   "covid_base": 0.248
   },
   {
    "profile": "raw",
@@ -5639,9 +5639,9 @@
    "n_sick": 16,
    "covid_vs_healthy_auroc": NaN,
    "n_covid": 0,
-   "auroc": 0.5423177083333333,
+   "auroc": 0.5266927083333334,
    "covid_at10": NaN,
-   "covid_base": 0.23273273273273273
+   "covid_base": 0.248
   },
   {
    "profile": "raw",
@@ -5725,7 +5725,7 @@
    "n_covid": 32,
    "auroc": 0.33774038461538464,
    "covid_at10": 0.0,
-   "covid_base": 0.17956204379562044
+   "covid_base": 0.1529051987767584
   },
   {
    "profile": "raw",
@@ -5753,7 +5753,7 @@
    "n_covid": 23,
    "auroc": 0.42934782608695654,
    "covid_at10": 0.0,
-   "covid_base": 0.1888412017167382
+   "covid_base": 0.1529051987767584
   },
   {
    "profile": "raw",
@@ -5793,9 +5793,9 @@
    "n_sick": 24,
    "covid_vs_healthy_auroc": NaN,
    "n_covid": 0,
-   "auroc": 0.5061274509803921,
+   "auroc": 0.4742647058823529,
    "covid_at10": NaN,
-   "covid_base": 0.22496371552975328
+   "covid_base": 0.248
   },
   {
    "profile": "raw",
@@ -5863,9 +5863,9 @@
    "n_sick": 16,
    "covid_vs_healthy_auroc": NaN,
    "n_covid": 0,
-   "auroc": 0.4739583333333333,
+   "auroc": 0.548828125,
    "covid_at10": NaN,
-   "covid_base": 0.23273273273273273
+   "covid_base": 0.248
   },
   {
    "profile": "raw",
@@ -5949,7 +5949,7 @@
    "n_covid": 32,
    "auroc": 0.5,
    "covid_at10": 0.0,
-   "covid_base": 0.2351421188630491
+   "covid_base": 0.21399730820995963
   },
   {
    "profile": "lab-only control",
@@ -5977,7 +5977,7 @@
    "n_covid": 23,
    "auroc": 0.5,
    "covid_at10": 0.40000000000000013,
-   "covid_base": 0.24238578680203046
+   "covid_base": 0.21399730820995963
   },
   {
    "profile": "lab-only control",
@@ -5991,7 +5991,7 @@
    "n_covid": 0,
    "auroc": 0.5,
    "covid_at10": NaN,
-   "covid_base": 0.2671660424469413
+   "covid_base": 0.2685069008782936
   },
   {
    "profile": "lab-only control",
@@ -6019,7 +6019,7 @@
    "n_covid": 0,
    "auroc": 0.5,
    "covid_at10": NaN,
-   "covid_base": 0.2750642673521851
+   "covid_base": 0.29971988795518206
   },
   {
    "profile": "lab-only control",
@@ -6033,7 +6033,7 @@
    "n_covid": 17,
    "auroc": 0.5,
    "covid_at10": 0.5,
-   "covid_base": 0.2503176620076239
+   "covid_base": 0.24615384615384617
   },
   {
    "profile": "lab-only control",
@@ -6089,7 +6089,7 @@
    "n_covid": 0,
    "auroc": 0.5,
    "covid_at10": NaN,
-   "covid_base": 0.28344370860927154
+   "covid_base": 0.29971988795518206
   },
   {
    "profile": "lab-only control",
@@ -6173,7 +6173,7 @@
    "n_covid": 32,
    "auroc": 0.5,
    "covid_at10": 0.0,
-   "covid_base": 0.2351421188630491
+   "covid_base": 0.21399730820995963
   },
   {
    "profile": "lab-only control",
@@ -6201,7 +6201,7 @@
    "n_covid": 23,
    "auroc": 0.5,
    "covid_at10": 0.29999999999999993,
-   "covid_base": 0.24238578680203046
+   "covid_base": 0.21399730820995963
   },
   {
    "profile": "lab-only control",
@@ -6215,7 +6215,7 @@
    "n_covid": 0,
    "auroc": 0.5,
    "covid_at10": NaN,
-   "covid_base": 0.2671660424469413
+   "covid_base": 0.2685069008782936
   },
   {
    "profile": "lab-only control",
@@ -6243,7 +6243,7 @@
    "n_covid": 0,
    "auroc": 0.5,
    "covid_at10": NaN,
-   "covid_base": 0.2750642673521851
+   "covid_base": 0.29971988795518206
   },
   {
    "profile": "lab-only control",
@@ -6257,7 +6257,7 @@
    "n_covid": 17,
    "auroc": 0.5,
    "covid_at10": 0.5,
-   "covid_base": 0.2503176620076239
+   "covid_base": 0.24615384615384617
   },
   {
    "profile": "lab-only control",
@@ -6313,7 +6313,7 @@
    "n_covid": 0,
    "auroc": 0.5,
    "covid_at10": NaN,
-   "covid_base": 0.28344370860927154
+   "covid_base": 0.29971988795518206
   },
   {
    "profile": "lab-only control",

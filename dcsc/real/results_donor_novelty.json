@@ -1,0 +1,1024 @@
+{
+ "program": {
+  "n_queries": 828,
+  "truth_counts": {
+   "healthy": 490,
+   "matchable": 200,
+   "novel": 138
+  },
+  "novel_diseases": {
+   "systemic lupus erythematosus": 25,
+   "post-COVID-19 disorder": 18,
+   "rheumatoid arthritis": 18,
+   "hematologic disorder": 18,
+   "myelodysplastic syndrome": 17,
+   "juvenile dermatomyositis": 14,
+   "common variable immunodeficiency": 10,
+   "clonal hematopoiesis": 9,
+   "myelodysplastic/myeloproliferative disease": 5,
+   "influenza": 4
+  },
+  "matchable_diseases": {
+   "COVID-19": 187,
+   "respiratory system disorder": 13
+  },
+  "auroc_p_match_matchable_vs_novel": 0.6498913043478262,
+  "auroc_p_abnormal_sick_vs_healthy": 0.8341866924284507,
+  "operating_points": [
+   {
+    "alpha_abnormal": 0.05,
+    "alpha_match": "off (previous behaviour)",
+    "healthy_false_alarm": 0.04285714285714286,
+    "matchable_flagged": 0.13,
+    "matchable|flagged_match_correct": 0.9615384615384616,
+    "matchable|flagged_match_wrong": 0.038461538461538464,
+    "matchable|flagged_no_similar": 0.0,
+    "novel_flagged": 0.14492753623188406,
+    "novel|flagged_match_correct": 0.0,
+    "novel|flagged_match_wrong": 1.0,
+    "novel|flagged_no_similar": 0.0
+   },
+   {
+    "alpha_abnormal": 0.05,
+    "alpha_match": 0.1,
+    "healthy_false_alarm": 0.04285714285714286,
+    "matchable_flagged": 0.13,
+    "matchable|flagged_match_correct": 0.9615384615384616,
+    "matchable|flagged_match_wrong": 0.038461538461538464,
+    "matchable|flagged_no_similar": 0.0,
+    "novel_flagged": 0.14492753623188406,
+    "novel|flagged_match_correct": 0.0,
+    "novel|flagged_match_wrong": 0.85,
+    "novel|flagged_no_similar": 0.15
+   },
+   {
+    "alpha_abnormal": 0.05,
+    "alpha_match": 0.2,
+    "healthy_false_alarm": 0.04285714285714286,
+    "matchable_flagged": 0.13,
+    "matchable|flagged_match_correct": 0.9615384615384616,
+    "matchable|flagged_match_wrong": 0.038461538461538464,
+    "matchable|flagged_no_similar": 0.0,
+    "novel_flagged": 0.14492753623188406,
+    "novel|flagged_match_correct": 0.0,
+    "novel|flagged_match_wrong": 0.4,
+    "novel|flagged_no_similar": 0.6
+   },
+   {
+    "alpha_abnormal": 0.05,
+    "alpha_match": 0.3,
+    "healthy_false_alarm": 0.04285714285714286,
+    "matchable_flagged": 0.13,
+    "matchable|flagged_match_correct": 0.9615384615384616,
+    "matchable|flagged_match_wrong": 0.0,
+    "matchable|flagged_no_similar": 0.038461538461538464,
+    "novel_flagged": 0.14492753623188406,
+    "novel|flagged_match_correct": 0.0,
+    "novel|flagged_match_wrong": 0.15,
+    "novel|flagged_no_similar": 0.85
+   },
+   {
+    "alpha_abnormal": 0.1,
+    "alpha_match": "off (previous behaviour)",
+    "healthy_false_alarm": 0.09387755102040816,
+    "matchable_flagged": 0.39,
+    "matchable|flagged_match_correct": 0.9102564102564102,
+    "matchable|flagged_match_wrong": 0.08974358974358974,
+    "matchable|flagged_no_similar": 0.0,
+    "novel_flagged": 0.3333333333333333,
+    "novel|flagged_match_correct": 0.0,
+    "novel|flagged_match_wrong": 1.0,
+    "novel|flagged_no_similar": 0.0
+   },
+   {
+    "alpha_abnormal": 0.1,
+    "alpha_match": 0.1,
+    "healthy_false_alarm": 0.09387755102040816,
+    "matchable_flagged": 0.39,
+    "matchable|flagged_match_correct": 0.9102564102564102,
+    "matchable|flagged_match_wrong": 0.08974358974358974,
+    "matchable|flagged_no_similar": 0.0,
+    "novel_flagged": 0.3333333333333333,
+    "novel|flagged_match_correct": 0.0,
+    "novel|flagged_match_wrong": 0.8695652173913043,
+    "novel|flagged_no_similar": 0.13043478260869565
+   },
+   {
+    "alpha_abnormal": 0.1,
+    "alpha_match": 0.2,
+    "healthy_false_alarm": 0.09387755102040816,
+    "matchable_flagged": 0.39,
+    "matchable|flagged_match_correct": 0.8974358974358975,
+    "matchable|flagged_match_wrong": 0.0641025641025641,
+    "matchable|flagged_no_similar": 0.038461538461538464,
+    "novel_flagged": 0.3333333333333333,
+    "novel|flagged_match_correct": 0.0,
+    "novel|flagged_match_wrong": 0.5869565217391305,
+    "novel|flagged_no_similar": 0.41304347826086957
+   },
+   {
+    "alpha_abnormal": 0.1,
+    "alpha_match": 0.3,
+    "healthy_false_alarm": 0.09387755102040816,
+    "matchable_flagged": 0.39,
+    "matchable|flagged_match_correct": 0.8589743589743589,
+    "matchable|flagged_match_wrong": 0.038461538461538464,
+    "matchable|flagged_no_similar": 0.10256410256410256,
+    "novel_flagged": 0.3333333333333333,
+    "novel|flagged_match_correct": 0.0,
+    "novel|flagged_match_wrong": 0.45652173913043476,
+    "novel|flagged_no_similar": 0.5434782608695652
+   },
+   {
+    "alpha_abnormal": 0.2,
+    "alpha_match": "off (previous behaviour)",
+    "healthy_false_alarm": 0.1836734693877551,
+    "matchable_flagged": 0.905,
+    "matchable|flagged_match_correct": 0.7900552486187845,
+    "matchable|flagged_match_wrong": 0.20994475138121546,
+    "matchable|flagged_no_similar": 0.0,
+    "novel_flagged": 0.5072463768115942,
+    "novel|flagged_match_correct": 0.0,
+    "novel|flagged_match_wrong": 1.0,
+    "novel|flagged_no_similar": 0.0
+   },
+   {
+    "alpha_abnormal": 0.2,
+    "alpha_match": 0.1,
+    "healthy_false_alarm": 0.1836734693877551,
+    "matchable_flagged": 0.905,
+    "matchable|flagged_match_correct": 0.7900552486187845,
+    "matchable|flagged_match_wrong": 0.20441988950276244,
+    "matchable|flagged_no_similar": 0.0055248618784530384,
+    "novel_flagged": 0.5072463768115942,
+    "novel|flagged_match_correct": 0.0,
+    "novel|flagged_match_wrong": 0.9,
+    "novel|flagged_no_similar": 0.1
+   },
+   {
+    "alpha_abnormal": 0.2,
+    "alpha_match": 0.2,
+    "healthy_false_alarm": 0.1836734693877551,
+    "matchable_flagged": 0.905,
+    "matchable|flagged_match_correct": 0.7348066298342542,
+    "matchable|flagged_match_wrong": 0.10497237569060773,
+    "matchable|flagged_no_similar": 0.16022099447513813,
+    "novel_flagged": 0.5072463768115942,
+    "novel|flagged_match_correct": 0.0,
+    "novel|flagged_match_wrong": 0.6857142857142857,
+    "novel|flagged_no_similar": 0.3142857142857143
+   },
+   {
+    "alpha_abnormal": 0.2,
+    "alpha_match": 0.3,
+    "healthy_false_alarm": 0.1836734693877551,
+    "matchable_flagged": 0.905,
+    "matchable|flagged_match_correct": 0.6961325966850829,
+    "matchable|flagged_match_wrong": 0.055248618784530384,
+    "matchable|flagged_no_similar": 0.24861878453038674,
+    "novel_flagged": 0.5072463768115942,
+    "novel|flagged_match_correct": 0.0,
+    "novel|flagged_match_wrong": 0.5428571428571428,
+    "novel|flagged_no_similar": 0.45714285714285713
+   }
+  ],
+  "previous_behaviour": {
+   "healthy": {
+    "n": 490,
+    "called_healthy": 0.9061224489795918,
+    "match_correct": 0.0,
+    "match_wrong": 0.09387755102040816,
+    "no_similar": 0.0
+   },
+   "matchable": {
+    "n": 200,
+    "called_healthy": 0.61,
+    "match_correct": 0.355,
+    "match_wrong": 0.035,
+    "no_similar": 0.0
+   },
+   "novel": {
+    "n": 138,
+    "called_healthy": 0.6666666666666666,
+    "match_correct": 0.0,
+    "match_wrong": 0.3333333333333333,
+    "no_similar": 0.0
+   }
+  },
+  "sweep": {
+   "alpha_abnormal=0.05, alpha_match=0.01": {
+    "healthy": {
+     "n": 490,
+     "called_healthy": 0.9571428571428572,
+     "match_correct": 0.0,
+     "match_wrong": 0.04285714285714286,
+     "no_similar": 0.0
+    },
+    "matchable": {
+     "n": 200,
+     "called_healthy": 0.87,
+     "match_correct": 0.125,
+     "match_wrong": 0.005,
+     "no_similar": 0.0
+    },
+    "novel": {
+     "n": 138,
+     "called_healthy": 0.855072463768116,
+     "match_correct": 0.0,
+     "match_wrong": 0.14492753623188406,
+     "no_similar": 0.0
+    }
+   },
+   "alpha_abnormal=0.05, alpha_match=0.02": {
+    "healthy": {
+     "n": 490,
+     "called_healthy": 0.9571428571428572,
+     "match_correct": 0.0,
+     "match_wrong": 0.04285714285714286,
+     "no_similar": 0.0
+    },
+    "matchable": {
+     "n": 200,
+     "called_healthy": 0.87,
+     "match_correct": 0.125,
+     "match_wrong": 0.005,
+     "no_similar": 0.0
+    },
+    "novel": {
+     "n": 138,
+     "called_healthy": 0.855072463768116,
+     "match_correct": 0.0,
+     "match_wrong": 0.14492753623188406,
+     "no_similar": 0.0
+    }
+   },
+   "alpha_abnormal=0.05, alpha_match=0.05": {
+    "healthy": {
+     "n": 490,
+     "called_healthy": 0.9571428571428572,
+     "match_correct": 0.0,
+     "match_wrong": 0.04285714285714286,
+     "no_similar": 0.0
+    },
+    "matchable": {
+     "n": 200,
+     "called_healthy": 0.87,
+     "match_correct": 0.125,
+     "match_wrong": 0.005,
+     "no_similar": 0.0
+    },
+    "novel": {
+     "n": 138,
+     "called_healthy": 0.855072463768116,
+     "match_correct": 0.0,
+     "match_wrong": 0.14492753623188406,
+     "no_similar": 0.0
+    }
+   },
+   "alpha_abnormal=0.05, alpha_match=0.1": {
+    "healthy": {
+     "n": 490,
+     "called_healthy": 0.9571428571428572,
+     "match_correct": 0.0,
+     "match_wrong": 0.036734693877551024,
+     "no_similar": 0.006122448979591836
+    },
+    "matchable": {
+     "n": 200,
+     "called_healthy": 0.87,
+     "match_correct": 0.125,
+     "match_wrong": 0.005,
+     "no_similar": 0.0
+    },
+    "novel": {
+     "n": 138,
+     "called_healthy": 0.855072463768116,
+     "match_correct": 0.0,
+     "match_wrong": 0.12318840579710146,
+     "no_similar": 0.021739130434782608
+    }
+   },
+   "alpha_abnormal=0.05, alpha_match=0.2": {
+    "healthy": {
+     "n": 490,
+     "called_healthy": 0.9571428571428572,
+     "match_correct": 0.0,
+     "match_wrong": 0.022448979591836733,
+     "no_similar": 0.02040816326530612
+    },
+    "matchable": {
+     "n": 200,
+     "called_healthy": 0.87,
+     "match_correct": 0.125,
+     "match_wrong": 0.005,
+     "no_similar": 0.0
+    },
+    "novel": {
+     "n": 138,
+     "called_healthy": 0.855072463768116,
+     "match_correct": 0.0,
+     "match_wrong": 0.057971014492753624,
+     "no_similar": 0.08695652173913043
+    }
+   },
+   "alpha_abnormal=0.05, alpha_match=0.3": {
+    "healthy": {
+     "n": 490,
+     "called_healthy": 0.9571428571428572,
+     "match_correct": 0.0,
+     "match_wrong": 0.006122448979591836,
+     "no_similar": 0.036734693877551024
+    },
+    "matchable": {
+     "n": 200,
+     "called_healthy": 0.87,
+     "match_correct": 0.125,
+     "match_wrong": 0.0,
+     "no_similar": 0.005
+    },
+    "novel": {
+     "n": 138,
+     "called_healthy": 0.855072463768116,
+     "match_correct": 0.0,
+     "match_wrong": 0.021739130434782608,
+     "no_similar": 0.12318840579710146
+    }
+   }
+  },
+  "sweep_abnormal_0.10": {
+   "alpha_abnormal=0.10, alpha_match=0.05": {
+    "healthy": {
+     "n": 490,
+     "called_healthy": 0.9061224489795918,
+     "match_correct": 0.0,
+     "match_wrong": 0.09387755102040816,
+     "no_similar": 0.0
+    },
+    "matchable": {
+     "n": 200,
+     "called_healthy": 0.61,
+     "match_correct": 0.355,
+     "match_wrong": 0.035,
+     "no_similar": 0.0
+    },
+    "novel": {
+     "n": 138,
+     "called_healthy": 0.6666666666666666,
+     "match_correct": 0.0,
+     "match_wrong": 0.3333333333333333,
+     "no_similar": 0.0
+    }
+   },
+   "alpha_abnormal=0.10, alpha_match=0.1": {
+    "healthy": {
+     "n": 490,
+     "called_healthy": 0.9061224489795918,
+     "match_correct": 0.0,
+     "match_wrong": 0.08163265306122448,
+     "no_similar": 0.012244897959183673
+    },
+    "matchable": {
+     "n": 200,
+     "called_healthy": 0.61,
+     "match_correct": 0.355,
+     "match_wrong": 0.035,
+     "no_similar": 0.0
+    },
+    "novel": {
+     "n": 138,
+     "called_healthy": 0.6666666666666666,
+     "match_correct": 0.0,
+     "match_wrong": 0.2898550724637681,
+     "no_similar": 0.043478260869565216
+    }
+   },
+   "alpha_abnormal=0.10, alpha_match=0.2": {
+    "healthy": {
+     "n": 490,
+     "called_healthy": 0.9061224489795918,
+     "match_correct": 0.0,
+     "match_wrong": 0.061224489795918366,
+     "no_similar": 0.0326530612244898
+    },
+    "matchable": {
+     "n": 200,
+     "called_healthy": 0.61,
+     "match_correct": 0.35,
+     "match_wrong": 0.025,
+     "no_similar": 0.015
+    },
+    "novel": {
+     "n": 138,
+     "called_healthy": 0.6666666666666666,
+     "match_correct": 0.0,
+     "match_wrong": 0.1956521739130435,
+     "no_similar": 0.13768115942028986
+    }
+   }
+  },
+  "by_disease_default": [
+   {
+    "truth": "healthy",
+    "disease": "normal",
+    "healthy": 0.906,
+    "match": 0.061,
+    "no_similar_disease": 0.033
+   },
+   {
+    "truth": "matchable",
+    "disease": "COVID-19",
+    "healthy": 0.599,
+    "match": 0.385,
+    "no_similar_disease": 0.016
+   },
+   {
+    "truth": "matchable",
+    "disease": "respiratory system disorder",
+    "healthy": 0.769,
+    "match": 0.231,
+    "no_similar_disease": 0.0
+   },
+   {
+    "truth": "novel",
+    "disease": "clonal hematopoiesis",
+    "healthy": 0.111,
+    "match": 0.222,
+    "no_similar_disease": 0.667
+   },
+   {
+    "truth": "novel",
+    "disease": "common variable immunodeficiency",
+    "healthy": 0.6,
+    "match": 0.4,
+    "no_similar_disease": 0.0
+   },
+   {
+    "truth": "novel",
+    "disease": "hematologic disorder",
+    "healthy": 1.0,
+    "match": 0.0,
+    "no_similar_disease": 0.0
+   },
+   {
+    "truth": "novel",
+    "disease": "influenza",
+    "healthy": 0.75,
+    "match": 0.25,
+    "no_similar_disease": 0.0
+   },
+   {
+    "truth": "novel",
+    "disease": "juvenile dermatomyositis",
+    "healthy": 0.929,
+    "match": 0.071,
+    "no_similar_disease": 0.0
+   },
+   {
+    "truth": "novel",
+    "disease": "myelodysplastic syndrome",
+    "healthy": 0.941,
+    "match": 0.059,
+    "no_similar_disease": 0.0
+   },
+   {
+    "truth": "novel",
+    "disease": "myelodysplastic/myeloproliferative disease",
+    "healthy": 1.0,
+    "match": 0.0,
+    "no_similar_disease": 0.0
+   },
+   {
+    "truth": "novel",
+    "disease": "post-COVID-19 disorder",
+    "healthy": 0.278,
+    "match": 0.667,
+    "no_similar_disease": 0.056
+   },
+   {
+    "truth": "novel",
+    "disease": "rheumatoid arthritis",
+    "healthy": 0.0,
+    "match": 0.333,
+    "no_similar_disease": 0.667
+   },
+   {
+    "truth": "novel",
+    "disease": "systemic lupus erythematosus",
+    "healthy": 1.0,
+    "match": 0.0,
+    "no_similar_disease": 0.0
+   }
+  ]
+ },
+ "comp+prog": {
+  "n_queries": 828,
+  "truth_counts": {
+   "healthy": 490,
+   "matchable": 200,
+   "novel": 138
+  },
+  "novel_diseases": {
+   "systemic lupus erythematosus": 25,
+   "post-COVID-19 disorder": 18,
+   "rheumatoid arthritis": 18,
+   "hematologic disorder": 18,
+   "myelodysplastic syndrome": 17,
+   "juvenile dermatomyositis": 14,
+   "common variable immunodeficiency": 10,
+   "clonal hematopoiesis": 9,
+   "myelodysplastic/myeloproliferative disease": 5,
+   "influenza": 4
+  },
+  "matchable_diseases": {
+   "COVID-19": 187,
+   "respiratory system disorder": 13
+  },
+  "auroc_p_match_matchable_vs_novel": 0.6303260869565217,
+  "auroc_p_abnormal_sick_vs_healthy": 0.8384283299118465,
+  "operating_points": [
+   {
+    "alpha_abnormal": 0.05,
+    "alpha_match": "off (previous behaviour)",
+    "healthy_false_alarm": 0.04285714285714286,
+    "matchable_flagged": 0.145,
+    "matchable|flagged_match_correct": 1.0,
+    "matchable|flagged_match_wrong": 0.0,
+    "matchable|flagged_no_similar": 0.0,
+    "novel_flagged": 0.13768115942028986,
+    "novel|flagged_match_correct": 0.0,
+    "novel|flagged_match_wrong": 1.0,
+    "novel|flagged_no_similar": 0.0
+   },
+   {
+    "alpha_abnormal": 0.05,
+    "alpha_match": 0.1,
+    "healthy_false_alarm": 0.04285714285714286,
+    "matchable_flagged": 0.145,
+    "matchable|flagged_match_correct": 1.0,
+    "matchable|flagged_match_wrong": 0.0,
+    "matchable|flagged_no_similar": 0.0,
+    "novel_flagged": 0.13768115942028986,
+    "novel|flagged_match_correct": 0.0,
+    "novel|flagged_match_wrong": 0.7368421052631579,
+    "novel|flagged_no_similar": 0.2631578947368421
+   },
+   {
+    "alpha_abnormal": 0.05,
+    "alpha_match": 0.2,
+    "healthy_false_alarm": 0.04285714285714286,
+    "matchable_flagged": 0.145,
+    "matchable|flagged_match_correct": 1.0,
+    "matchable|flagged_match_wrong": 0.0,
+    "matchable|flagged_no_similar": 0.0,
+    "novel_flagged": 0.13768115942028986,
+    "novel|flagged_match_correct": 0.0,
+    "novel|flagged_match_wrong": 0.05263157894736842,
+    "novel|flagged_no_similar": 0.9473684210526315
+   },
+   {
+    "alpha_abnormal": 0.05,
+    "alpha_match": 0.3,
+    "healthy_false_alarm": 0.04285714285714286,
+    "matchable_flagged": 0.145,
+    "matchable|flagged_match_correct": 0.9655172413793104,
+    "matchable|flagged_match_wrong": 0.0,
+    "matchable|flagged_no_similar": 0.034482758620689655,
+    "novel_flagged": 0.13768115942028986,
+    "novel|flagged_match_correct": 0.0,
+    "novel|flagged_match_wrong": 0.05263157894736842,
+    "novel|flagged_no_similar": 0.9473684210526315
+   },
+   {
+    "alpha_abnormal": 0.1,
+    "alpha_match": "off (previous behaviour)",
+    "healthy_false_alarm": 0.09183673469387756,
+    "matchable_flagged": 0.435,
+    "matchable|flagged_match_correct": 0.9425287356321839,
+    "matchable|flagged_match_wrong": 0.05747126436781609,
+    "matchable|flagged_no_similar": 0.0,
+    "novel_flagged": 0.3333333333333333,
+    "novel|flagged_match_correct": 0.0,
+    "novel|flagged_match_wrong": 1.0,
+    "novel|flagged_no_similar": 0.0
+   },
+   {
+    "alpha_abnormal": 0.1,
+    "alpha_match": 0.1,
+    "healthy_false_alarm": 0.09183673469387756,
+    "matchable_flagged": 0.435,
+    "matchable|flagged_match_correct": 0.9425287356321839,
+    "matchable|flagged_match_wrong": 0.04597701149425287,
+    "matchable|flagged_no_similar": 0.011494252873563218,
+    "novel_flagged": 0.3333333333333333,
+    "novel|flagged_match_correct": 0.0,
+    "novel|flagged_match_wrong": 0.8913043478260869,
+    "novel|flagged_no_similar": 0.10869565217391304
+   },
+   {
+    "alpha_abnormal": 0.1,
+    "alpha_match": 0.2,
+    "healthy_false_alarm": 0.09183673469387756,
+    "matchable_flagged": 0.435,
+    "matchable|flagged_match_correct": 0.9080459770114943,
+    "matchable|flagged_match_wrong": 0.04597701149425287,
+    "matchable|flagged_no_similar": 0.04597701149425287,
+    "novel_flagged": 0.3333333333333333,
+    "novel|flagged_match_correct": 0.0,
+    "novel|flagged_match_wrong": 0.41304347826086957,
+    "novel|flagged_no_similar": 0.5869565217391305
+   },
+   {
+    "alpha_abnormal": 0.1,
+    "alpha_match": 0.3,
+    "healthy_false_alarm": 0.09183673469387756,
+    "matchable_flagged": 0.435,
+    "matchable|flagged_match_correct": 0.8735632183908046,
+    "matchable|flagged_match_wrong": 0.04597701149425287,
+    "matchable|flagged_no_similar": 0.08045977011494253,
+    "novel_flagged": 0.3333333333333333,
+    "novel|flagged_match_correct": 0.0,
+    "novel|flagged_match_wrong": 0.34782608695652173,
+    "novel|flagged_no_similar": 0.6521739130434783
+   },
+   {
+    "alpha_abnormal": 0.2,
+    "alpha_match": "off (previous behaviour)",
+    "healthy_false_alarm": 0.19183673469387755,
+    "matchable_flagged": 0.895,
+    "matchable|flagged_match_correct": 0.8268156424581006,
+    "matchable|flagged_match_wrong": 0.17318435754189945,
+    "matchable|flagged_no_similar": 0.0,
+    "novel_flagged": 0.5072463768115942,
+    "novel|flagged_match_correct": 0.0,
+    "novel|flagged_match_wrong": 1.0,
+    "novel|flagged_no_similar": 0.0
+   },
+   {
+    "alpha_abnormal": 0.2,
+    "alpha_match": 0.1,
+    "healthy_false_alarm": 0.19183673469387755,
+    "matchable_flagged": 0.895,
+    "matchable|flagged_match_correct": 0.8268156424581006,
+    "matchable|flagged_match_wrong": 0.16759776536312848,
+    "matchable|flagged_no_similar": 0.00558659217877095,
+    "novel_flagged": 0.5072463768115942,
+    "novel|flagged_match_correct": 0.0,
+    "novel|flagged_match_wrong": 0.9285714285714286,
+    "novel|flagged_no_similar": 0.07142857142857142
+   },
+   {
+    "alpha_abnormal": 0.2,
+    "alpha_match": 0.2,
+    "healthy_false_alarm": 0.19183673469387755,
+    "matchable_flagged": 0.895,
+    "matchable|flagged_match_correct": 0.7988826815642458,
+    "matchable|flagged_match_wrong": 0.11731843575418995,
+    "matchable|flagged_no_similar": 0.08379888268156424,
+    "novel_flagged": 0.5072463768115942,
+    "novel|flagged_match_correct": 0.0,
+    "novel|flagged_match_wrong": 0.5428571428571428,
+    "novel|flagged_no_similar": 0.45714285714285713
+   },
+   {
+    "alpha_abnormal": 0.2,
+    "alpha_match": 0.3,
+    "healthy_false_alarm": 0.19183673469387755,
+    "matchable_flagged": 0.895,
+    "matchable|flagged_match_correct": 0.7486033519553073,
+    "matchable|flagged_match_wrong": 0.10614525139664804,
+    "matchable|flagged_no_similar": 0.1452513966480447,
+    "novel_flagged": 0.5072463768115942,
+    "novel|flagged_match_correct": 0.0,
+    "novel|flagged_match_wrong": 0.5,
+    "novel|flagged_no_similar": 0.5
+   }
+  ],
+  "previous_behaviour": {
+   "healthy": {
+    "n": 490,
+    "called_healthy": 0.9081632653061225,
+    "match_correct": 0.0,
+    "match_wrong": 0.09183673469387756,
+    "no_similar": 0.0
+   },
+   "matchable": {
+    "n": 200,
+    "called_healthy": 0.565,
+    "match_correct": 0.41,
+    "match_wrong": 0.025,
+    "no_similar": 0.0
+   },
+   "novel": {
+    "n": 138,
+    "called_healthy": 0.6666666666666666,
+    "match_correct": 0.0,
+    "match_wrong": 0.3333333333333333,
+    "no_similar": 0.0
+   }
+  },
+  "sweep": {
+   "alpha_abnormal=0.05, alpha_match=0.01": {
+    "healthy": {
+     "n": 490,
+     "called_healthy": 0.9571428571428572,
+     "match_correct": 0.0,
+     "match_wrong": 0.04285714285714286,
+     "no_similar": 0.0
+    },
+    "matchable": {
+     "n": 200,
+     "called_healthy": 0.855,
+     "match_correct": 0.145,
+     "match_wrong": 0.0,
+     "no_similar": 0.0
+    },
+    "novel": {
+     "n": 138,
+     "called_healthy": 0.8623188405797102,
+     "match_correct": 0.0,
+     "match_wrong": 0.13768115942028986,
+     "no_similar": 0.0
+    }
+   },
+   "alpha_abnormal=0.05, alpha_match=0.02": {
+    "healthy": {
+     "n": 490,
+     "called_healthy": 0.9571428571428572,
+     "match_correct": 0.0,
+     "match_wrong": 0.04285714285714286,
+     "no_similar": 0.0
+    },
+    "matchable": {
+     "n": 200,
+     "called_healthy": 0.855,
+     "match_correct": 0.145,
+     "match_wrong": 0.0,
+     "no_similar": 0.0
+    },
+    "novel": {
+     "n": 138,
+     "called_healthy": 0.8623188405797102,
+     "match_correct": 0.0,
+     "match_wrong": 0.13768115942028986,
+     "no_similar": 0.0
+    }
+   },
+   "alpha_abnormal=0.05, alpha_match=0.05": {
+    "healthy": {
+     "n": 490,
+     "called_healthy": 0.9571428571428572,
+     "match_correct": 0.0,
+     "match_wrong": 0.04285714285714286,
+     "no_similar": 0.0
+    },
+    "matchable": {
+     "n": 200,
+     "called_healthy": 0.855,
+     "match_correct": 0.145,
+     "match_wrong": 0.0,
+     "no_similar": 0.0
+    },
+    "novel": {
+     "n": 138,
+     "called_healthy": 0.8623188405797102,
+     "match_correct": 0.0,
+     "match_wrong": 0.13768115942028986,
+     "no_similar": 0.0
+    }
+   },
+   "alpha_abnormal=0.05, alpha_match=0.1": {
+    "healthy": {
+     "n": 490,
+     "called_healthy": 0.9571428571428572,
+     "match_correct": 0.0,
+     "match_wrong": 0.0326530612244898,
+     "no_similar": 0.01020408163265306
+    },
+    "matchable": {
+     "n": 200,
+     "called_healthy": 0.855,
+     "match_correct": 0.145,
+     "match_wrong": 0.0,
+     "no_similar": 0.0
+    },
+    "novel": {
+     "n": 138,
+     "called_healthy": 0.8623188405797102,
+     "match_correct": 0.0,
+     "match_wrong": 0.10144927536231885,
+     "no_similar": 0.036231884057971016
+    }
+   },
+   "alpha_abnormal=0.05, alpha_match=0.2": {
+    "healthy": {
+     "n": 490,
+     "called_healthy": 0.9571428571428572,
+     "match_correct": 0.0,
+     "match_wrong": 0.01020408163265306,
+     "no_similar": 0.0326530612244898
+    },
+    "matchable": {
+     "n": 200,
+     "called_healthy": 0.855,
+     "match_correct": 0.145,
+     "match_wrong": 0.0,
+     "no_similar": 0.0
+    },
+    "novel": {
+     "n": 138,
+     "called_healthy": 0.8623188405797102,
+     "match_correct": 0.0,
+     "match_wrong": 0.007246376811594203,
+     "no_similar": 0.13043478260869565
+    }
+   },
+   "alpha_abnormal=0.05, alpha_match=0.3": {
+    "healthy": {
+     "n": 490,
+     "called_healthy": 0.9571428571428572,
+     "match_correct": 0.0,
+     "match_wrong": 0.004081632653061225,
+     "no_similar": 0.03877551020408163
+    },
+    "matchable": {
+     "n": 200,
+     "called_healthy": 0.855,
+     "match_correct": 0.14,
+     "match_wrong": 0.0,
+     "no_similar": 0.005
+    },
+    "novel": {
+     "n": 138,
+     "called_healthy": 0.8623188405797102,
+     "match_correct": 0.0,
+     "match_wrong": 0.007246376811594203,
+     "no_similar": 0.13043478260869565
+    }
+   }
+  },
+  "sweep_abnormal_0.10": {
+   "alpha_abnormal=0.10, alpha_match=0.05": {
+    "healthy": {
+     "n": 490,
+     "called_healthy": 0.9081632653061225,
+     "match_correct": 0.0,
+     "match_wrong": 0.09183673469387756,
+     "no_similar": 0.0
+    },
+    "matchable": {
+     "n": 200,
+     "called_healthy": 0.565,
+     "match_correct": 0.41,
+     "match_wrong": 0.025,
+     "no_similar": 0.0
+    },
+    "novel": {
+     "n": 138,
+     "called_healthy": 0.6666666666666666,
+     "match_correct": 0.0,
+     "match_wrong": 0.3333333333333333,
+     "no_similar": 0.0
+    }
+   },
+   "alpha_abnormal=0.10, alpha_match=0.1": {
+    "healthy": {
+     "n": 490,
+     "called_healthy": 0.9081632653061225,
+     "match_correct": 0.0,
+     "match_wrong": 0.08163265306122448,
+     "no_similar": 0.01020408163265306
+    },
+    "matchable": {
+     "n": 200,
+     "called_healthy": 0.565,
+     "match_correct": 0.41,
+     "match_wrong": 0.02,
+     "no_similar": 0.005
+    },
+    "novel": {
+     "n": 138,
+     "called_healthy": 0.6666666666666666,
+     "match_correct": 0.0,
+     "match_wrong": 0.2971014492753623,
+     "no_similar": 0.036231884057971016
+    }
+   },
+   "alpha_abnormal=0.10, alpha_match=0.2": {
+    "healthy": {
+     "n": 490,
+     "called_healthy": 0.9081632653061225,
+     "match_correct": 0.0,
+     "match_wrong": 0.04897959183673469,
+     "no_similar": 0.04285714285714286
+    },
+    "matchable": {
+     "n": 200,
+     "called_healthy": 0.565,
+     "match_correct": 0.395,
+     "match_wrong": 0.02,
+     "no_similar": 0.02
+    },
+    "novel": {
+     "n": 138,
+     "called_healthy": 0.6666666666666666,
+     "match_correct": 0.0,
+     "match_wrong": 0.13768115942028986,
+     "no_similar": 0.1956521739130435
+    }
+   }
+  },
+  "by_disease_default": [
+   {
+    "truth": "healthy",
+    "disease": "normal",
+    "healthy": 0.908,
+    "match": 0.049,
+    "no_similar_disease": 0.043
+   },
+   {
+    "truth": "matchable",
+    "disease": "COVID-19",
+    "healthy": 0.551,
+    "match": 0.433,
+    "no_similar_disease": 0.016
+   },
+   {
+    "truth": "matchable",
+    "disease": "respiratory system disorder",
+    "healthy": 0.769,
+    "match": 0.154,
+    "no_similar_disease": 0.077
+   },
+   {
+    "truth": "novel",
+    "disease": "clonal hematopoiesis",
+    "healthy": 0.111,
+    "match": 0.444,
+    "no_similar_disease": 0.444
+   },
+   {
+    "truth": "novel",
+    "disease": "common variable immunodeficiency",
+    "healthy": 0.7,
+    "match": 0.2,
+    "no_similar_disease": 0.1
+   },
+   {
+    "truth": "novel",
+    "disease": "hematologic disorder",
+    "healthy": 1.0,
+    "match": 0.0,
+    "no_similar_disease": 0.0
+   },
+   {
+    "truth": "novel",
+    "disease": "influenza",
+    "healthy": 0.5,
+    "match": 0.5,
+    "no_similar_disease": 0.0
+   },
+   {
+    "truth": "novel",
+    "disease": "juvenile dermatomyositis",
+    "healthy": 0.929,
+    "match": 0.071,
+    "no_similar_disease": 0.0
+   },
+   {
+    "truth": "novel",
+    "disease": "myelodysplastic syndrome",
+    "healthy": 0.941,
+    "match": 0.059,
+    "no_similar_disease": 0.0
+   },
+   {
+    "truth": "novel",
+    "disease": "myelodysplastic/myeloproliferative disease",
+    "healthy": 1.0,
+    "match": 0.0,
+    "no_similar_disease": 0.0
+   },
+   {
+    "truth": "novel",
+    "disease": "post-COVID-19 disorder",
+    "healthy": 0.278,
+    "match": 0.5,
+    "no_similar_disease": 0.222
+   },
+   {
+    "truth": "novel",
+    "disease": "rheumatoid arthritis",
+    "healthy": 0.0,
+    "match": 0.0,
+    "no_similar_disease": 1.0
+   },
+   {
+    "truth": "novel",
+    "disease": "systemic lupus erythematosus",
+    "healthy": 1.0,
+    "match": 0.0,
+    "no_similar_disease": 0.0
+   }
+  ]
+ }
+}
