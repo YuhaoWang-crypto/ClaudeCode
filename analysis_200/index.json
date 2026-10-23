@@ -1,0 +1,2002 @@
+[
+ {
+  "id": 1,
+  "title_en": "Association of anticholinergic medications and AD biomarkers with incidence of MCI among cognitively normal older adults",
+  "title_zh": "认知正常老年人中抗胆碱能药物及 AD 生物标志物与轻度认知障碍发生的关联",
+  "one": "服用抗胆碱能药物（aCH）的认知正常老人 MCI 风险升高（HR 1.47），且与 APOE ε4 或 CSF AD 病理阳性叠加时风险分别升至 HR 2.69 和 4.89。",
+  "typ": "前瞻性队列（ADNI 二次分析）",
+  "field": "神经病学/老年药学",
+  "journal": "Neurology 2020",
+  "score": 3
+ },
+ {
+  "id": 2,
+  "title_en": "A general scaling law reveals why the largest animals are not the fastest",
+  "title_zh": "一条通用标度律揭示为何最大的动物不是最快的",
+  "one": "考虑“有限加速时间”后，最大速度与体重呈驼峰形而非幂律关系，模型在 474 个物种（30 μg–100 t）中跨陆、水、空运动方式均成立。",
+  "typ": "理论建模+跨物种数据分析",
+  "field": "宏观生态学/生物力学",
+  "journal": "Nat Ecol Evol 2017",
+  "score": 2
+ },
+ {
+  "id": 3,
+  "title_en": "Toxicological alert: Exposure to glycidyl methacrylate and cancer risk",
+  "title_zh": "毒理学警示：甲基丙烯酸缩水甘油酯（GMA）暴露与癌症风险",
+  "one": "作者就工业单体 GMA（CAS 106-91-2）发出警示：其已知具有眼、消化道、呼吸道与皮肤毒性，摘要称可用的致癌性数据缺乏而鼻腔致癌潜力“高度可预期”，呼吁开展人体暴露评估。",
+  "typ": "短篇警示性评论",
+  "field": "职业毒理学/化学品安全",
+  "journal": "Toxicol Ind Health 2020",
+  "score": 1
+ },
+ {
+  "id": 4,
+  "title_en": "Self-medication of ADHD symptoms with psychoactive substances in adults: a scoping review",
+  "title_zh": "成人 ADHD 症状的精神活性物质“自我用药”：关于症状缓解动机如何被表述与操作化的范围综述",
+  "one": "筛查 937 条记录、纳入 109 篇文献（1986–2026）后发现，ADHD“自我用药”假说的使用高度依赖物质种类，且绝大多数只基于关联或动机自述而未真正检验症状变化，因此不能作为 ADHD 人群物质使用的通用解释。",
+  "typ": "范围综述（scoping review）",
+  "field": "精神病学/成瘾医学/科学计量",
+  "journal": "Front Psychiatry 2026",
+  "score": 2
+ },
+ {
+  "id": 5,
+  "title_en": "Prenatal Sonographic Features of Ring Chromosome 15: A Case Report and Literature Review",
+  "title_zh": "环状 15 号染色体的产前超声特征：病例报告与文献综述",
+  "one": "报告一例 32 周经超声发现先天性膈疝、主动脉发育不良伴永存左上腔静脉、生长受限、马蹄足与脊柱侧凸的环状 15 号染色体胎儿，并通过文献综述提出该病具有相对特异的超声模式（多项特征在 >50% 病例中出现）。",
+  "typ": "病例报告 + 文献综述",
+  "field": "产前诊断/医学遗传学/超声",
+  "journal": "Diagnostics (Basel) 2022",
+  "score": 2
+ },
+ {
+  "id": 6,
+  "title_en": "Whole-blood transcriptomic findings in emergency department patients with suspected cannabinoid hyperemesis syndrome: a pilot study",
+  "title_zh": "急诊疑似大麻素剧吐综合征患者的全血转录组学发现：一项初步研究",
+  "one": "7 例疑似 CHS 患者与 7 例匹配对照的全血 RNA-seq 显示适应性免疫系统明显激活（B 细胞免疫球蛋白转录本上调、MHC I 类表达升高、II 类等位基因限制、IgE 受体转录本下调），提示 CHS 可能存在免疫/超敏成分。",
+  "typ": "探索性病例对照（基础/转化，n=7 vs 7）",
+  "field": "急诊医学/成瘾医学/转录组学",
+  "journal": "J Cannabis Res 2026",
+  "score": 3
+ },
+ {
+  "id": 7,
+  "title_en": "Photobiomodulation as a potential adjunct to improve the predictability of mandibular incisor autotransplantation to the maxillary lateral incisor site in orthodontic patients",
+  "title_zh": "光生物调节作为辅助手段提高正畸患者下切牙自体移植至上颌侧切牙位点可预测性的潜力",
+  "one": "该文（题录可见、摘要缺失）主张把光生物调节（PBM，低强度激光/LED）作为下切牙自体移植到上颌侧切牙缺隙的辅助手段，以提升愈合与成功率的可预测性——但本条仅有标题，无任何数据可供评估。",
+  "typ": "评论/通信（摘要未提供，仅题录）",
+  "field": "口腔正畸/牙自体移植/光生物调节",
+  "journal": "Photodiagnosis Photodyn Ther 2026（在线先发）",
+  "score": 2
+ },
+ {
+  "id": 8,
+  "title_en": "Updated treatment targets in inflammatory bowel disease (STRIDE-III): an initiative of the International Organization for the Study of IBD",
+  "title_zh": "炎症性肠病治疗目标更新（STRIDE-III）：IOIBD 倡议",
+  "one": "STRIDE-III 把 IBD 治疗目标重构为三类——可操作目标（临床反应/缓解 + CRP 正常化、粪钙卫蛋白达标、内镜缓解）、辅助目标（排便急迫感、UC 组织学缓解、CD 透壁缓解、生长）与以患者为中心目标（残疾、疲乏、生活质量），并首次明确区分“该换药”与“只需优化监测”的目标。",
+  "typ": "国际共识指南（改良 Delphi）",
+  "field": "消化病学/IBD/治疗达标（treat-to-target）",
+  "journal": "Lancet Gastroenterol Hepatol 2026（在线先发）",
+  "score": 4
+ },
+ {
+  "id": 9,
+  "title_en": "Incidence of multiple sclerosis misdiagnosis in referrals to two academic centers",
+  "title_zh": "转诊至两家学术中心的多发性硬化误诊发生率",
+  "one": "241 例带着既有 MS 诊断转诊的新患者中，Cedars-Sinai 17%、UCLA 19% 被判定为误诊，最常见的替代诊断是偏头痛（16%）、放射学孤立综合征（9%）、脊椎病（7%）和周围神经病（7%），误诊组累计接受了约 110 患者年的不必要疾病修正治疗（DMT）。",
+  "typ": "回顾性横断面（双中心连续病例）",
+  "field": "神经病学/诊断学/医疗质量",
+  "journal": "Mult Scler Relat Disord 2019",
+  "score": 4
+ },
+ {
+  "id": 10,
+  "title_en": "Chronic inhalation toxicity of size-separated glass fibers in Fischer 344 rats",
+  "title_zh": "粒径分选玻璃纤维对 Fischer 344 大鼠的慢性吸入毒性",
+  "one": "大鼠经鼻吸入两种建筑保温棉成分的玻璃纤维（MMVF 10、MMVF 11）3/16/30 mg/m³、每天 6 小时、每周 5 天、持续 24 个月后，仅见不进展、可逆的非特异性巨噬细胞炎症反应，无肺纤维化、无间皮瘤、肺肿瘤发生率无显著升高；而同期对照的温石棉（10 mg/m³）与耐火陶瓷纤维（RCF，30 mg/m³）则引起纤维化、间皮瘤与肺肿瘤增加。",
+  "typ": "慢性动物吸入毒理试验（GLP 级大型研究）",
+  "field": "职业/环境毒理学/纤维毒理学",
+  "journal": "Fundam Appl Toxicol 1993",
+  "score": 2
+ },
+ {
+  "id": 11,
+  "title_en": "[An unexpected cause of face presentation: iniencephaly]",
+  "title_zh": "面先露的一个意外病因：枕骨裂露脑畸形（iniencephaly）（法文）",
+  "one": "这是一篇法文病例短篇，报道罕见神经管缺陷 iniencephaly 表现为分娩期面先露这一意外机制——仅有题录，无摘要与数据可供分析。",
+  "typ": "病例报告/影像短篇（摘要未提供）",
+  "field": "产科/胎儿畸形/神经管缺陷",
+  "journal": "Pan Afr Med J 2016",
+  "score": 1
+ },
+ {
+  "id": 12,
+  "title_en": "Human coinfection with Bartonella henselae and two hemotropic mycoplasma variants resembling Mycoplasma ovis",
+  "title_zh": "人类同时感染汉塞巴尔通体与两种类似绵羊支原体的嗜血支原体变异株",
+  "one": "通过 PCR 在一名美国得克萨斯州兽医的血样中检出两种类似绵羊嗜血支原体（Mycoplasma ovis）的变异株，并合并汉塞巴尔通体感染——这是人类感染该类嗜血支原体的首次报道。",
+  "typ": "病例报告/分子检测首报",
+  "field": "临床微生物学/人兽共患病/One Health",
+  "journal": "J Clin Microbiol 2010",
+  "score": 3
+ },
+ {
+  "id": 13,
+  "title_en": "Unilateral amelia with limb deformities and multiple congenital malformations in a newborn: a case report from Palestine",
+  "title_zh": "新生儿单侧无肢伴肢体畸形与多发先天畸形：一例来自巴勒斯坦的病例报告",
+  "one": "报告一例 41 周妊娠分娩的婴儿，产前超声已发现左上肢缺失、严重下肢畸形、轴前多指、并指、右位心与不对称脑积水，出生后另见颅面、胃肠与呼吸系统异常，尽管畸形严重仍存活超过 2 个月。",
+  "typ": "病例报告",
+  "field": "新生儿学/先天畸形/产前诊断",
+  "journal": "Ann Med Surg (Lond) 2025",
+  "score": 1
+ },
+ {
+  "id": 14,
+  "title_en": "Lifetime Cannabis Use Is Associated With Brain Volume and Cognitive Function in Middle-Aged and Older Adults",
+  "title_zh": "终生大麻使用与中老年人脑容积及认知功能的关联",
+  "one": "在 UK Biobank（>50 万人总库）40–69 岁（平均 54.5 岁）人群中，终生大麻使用与 CB1 受体富集区（尾状核、壳核、海马、杏仁核）的脑容积更大、以及学习、处理速度与短期记忆表现更好相关，并存在性别差异。",
+  "typ": "大型横断面队列二次分析（UK Biobank）",
+  "field": "成瘾神经科学/脑影像流行病学",
+  "journal": "J Stud Alcohol Drugs 2026",
+  "score": 3
+ },
+ {
+  "id": 15,
+  "title_en": "A microbiome-bile acid axis mediates protection from chronic liver disease in females",
+  "title_zh": "微生物组—胆汁酸轴介导女性对慢性肝病的保护",
+  "one": "基于 9254 人的大规模代谢组数据库，鉴定内源性胆汁酸异熊去氧胆酸（isoUDCA）为女性肝保护的候选介质；其来源为被雌激素通过塑造特定肠道微环境而选择性富集的细菌菌群，机制上 isoUDCA 促进 SREBP2 核内积累，上调胞内转运蛋白 STARD4 及下游酶 CYP7B1，从而改善胆固醇的胞内处理与代谢转化。",
+  "typ": "机制研究（大规模代谢组学 + 微生物学 + 分子机制）",
+  "field": "肝病学/微生物组/代谢组学",
+  "journal": "Cell 2026（在线先发）",
+  "score": 5
+ },
+ {
+  "id": 16,
+  "title_en": "A rare case of craniofacial morphology with absent face and neck structures, with its review",
+  "title_zh": "一例罕见颅面形态异常：面部与颈部结构缺失（附综述）",
+  "one": "报告一例极罕见颅面畸形——面骨骼与颈部结构完全缺失，但双耳发育良好且位置正常、眼睑位于头胸交界处，作者将其归因于轴旁中胚层与神经嵴细胞相互作用的发育障碍。",
+  "typ": "病例报告（解剖/畸形学）",
+  "field": "发育解剖学/颅面畸形",
+  "journal": "J Clin Diagn Res 2013",
+  "score": 1
+ },
+ {
+  "id": 17,
+  "title_en": "Brain Tumor Stem Cells Remain in Play",
+  "title_zh": "脑肿瘤干细胞依然在局中",
+  "one": "这是三位脑肿瘤干细胞（BTSC）领域代表性研究者发表的立场性社论，针对当时对肿瘤干细胞模型的质疑做出回应，主张 BTSC 在胶质瘤发生与复发中仍是有效且重要的概念——仅有题录，无摘要数据。",
+  "typ": "评论/社论（摘要未提供）",
+  "field": "神经肿瘤学/肿瘤干细胞",
+  "journal": "J Clin Oncol 2017",
+  "score": 2
+ },
+ {
+  "id": 18,
+  "title_en": "Cyclic GMP causes Ca2+ desensitization in vascular smooth muscle by activating the myosin light chain phosphatase",
+  "title_zh": "cGMP 通过激活肌球蛋白轻链磷酸酶引起血管平滑肌的 Ca²⁺ 去敏化",
+  "one": "在 Ca²⁺ 被钳制的通透化动脉平滑肌条上，8-bromo-cGMP 以纳摩尔级 EC₅₀ 可逆地降低 20 kDa 肌球蛋白轻链（MLC20）磷酸化与收缩力；阻断轻链激酶后它显著加速去磷酸化与松弛，阻断磷酸酶后则无效——据此首次提出 cGMP 通过间接激活肌球蛋白轻链磷酸酶（MLCP）实现 Ca²⁺ 去敏化。",
+  "typ": "离体基础实验（通透化血管条、药理与动力学建模）",
+  "field": "血管生理学/平滑肌信号转导",
+  "journal": "J Biol Chem 1997",
+  "score": 3
+ },
+ {
+  "id": 19,
+  "title_en": "Recruit and retain a diverse workforce",
+  "title_zh": "招募并留住多元化的科研队伍",
+  "one": "这是一篇关于化学领域如何招募并留住多元背景科研人员的短篇评论，属于科研文化与人才政策倡议，不含实验数据——仅有题录可见。",
+  "typ": "评论/观点（摘要未提供）",
+  "field": "科研人才政策/科学社会学",
+  "journal": "Nat Rev Chem 2020",
+  "score": 1
+ },
+ {
+  "id": 20,
+  "title_en": "Dysregulated cholesterol trafficking through ABCA1 drives neurodegeneration in Parkinson's disease",
+  "title_zh": "ABCA1 介导的胆固醇转运失调驱动帕金森病神经退行",
+  "one": "ABCA1 在 PD 患者黑质与 PD 小鼠模型中表达升高，星形胶质细胞 ABCA1 过度外排胆固醇导致神经元胆固醇过载，而神经元内 ABCA1 定位于溶酶体促进胆固醇摄入，引起自噬障碍与 α-突触核蛋白病理；在星形胶质细胞或多巴胺神经元中敲低 Abca1 均可减轻神经退行与行为缺陷，并鉴定枸橼酸镁（magnesium citrate）为 ABCA1 抑制剂、可减少小鼠多巴胺神经元丢失。",
+  "typ": "机制研究（人脑尸检 + 小鼠模型 + 细胞生物学 + 药理干预）",
+  "field": "神经退行性疾病/脂质代谢/神经药理",
+  "journal": "Nat Neurosci 2026（在线先发）",
+  "score": 4
+ },
+ {
+  "id": 21,
+  "title_en": "Chronic cannabis promotes pro-hallucinogenic signaling of 5-HT2A receptors through Akt/mTOR pathway.",
+  "title_zh": "长期大麻暴露通过 Akt/mTOR 通路促进 5-HT2A 受体的促致幻信号转导",
+  "one": "青春期长期 THC 暴露使皮层 5-HT2A 受体转向与抑制性 Gαi/o/z 蛋白的\"超敏\"偶联、呈现促致幻构象，并加剧精神分裂样行为，而雷帕霉素抑制 Akt/mTOR 可逆转这一切，首次给出\"大麻→精神病风险\"的分子机制。",
+  "typ": "基础/动物实验（小鼠）",
+  "field": "神经精神药理学、受体信号转导",
+  "journal": "Neuropsychopharmacology 2018",
+  "score": 3
+ },
+ {
+  "id": 22,
+  "title_en": "Triploidy and Routine Combined First Trimester Pregnancy Screening.",
+  "title_zh": "三倍体与常规早孕期联合筛查",
+  "one": "一例 69,XXX 三倍体胎儿通过早孕期联合筛查（双标志物显著下降、落入 13/18 三体高危区）被提示，经羊水穿刺确诊，说明常规早孕筛查对三倍体有一定预警价值。",
+  "typ": "病例报告",
+  "field": "产前诊断、医学遗传学",
+  "journal": "Avicenna J Med Biotechnol 2019",
+  "score": 1
+ },
+ {
+  "id": 23,
+  "title_en": "Bile Acid Dysregulation Is Intrinsically Related to Cachexia in Tumor-Bearing Mice.",
+  "title_zh": "荷瘤小鼠中胆汁酸失调与恶病质本质相关",
+  "one": "癌性恶病质小鼠胆流减少、胆汁酸谱与通路发生与恶病质直接相关的改变，而常用的 UDCA 不仅无益反而加重肌萎缩并降低 TGR5 活性，提示 TGR5 激动剂（而非 UDCA）可能才是正确方向。",
+  "typ": "基础/动物实验（C26 结肠癌小鼠）",
+  "field": "肿瘤代谢、胆汁酸信号、恶病质",
+  "journal": "Cancers (Basel) 2021",
+  "score": 3
+ },
+ {
+  "id": 24,
+  "title_en": "Microalgae as tools for bio-circular-green economy: Zero-waste approaches for sustainable production and biorefineries of microalgal biomass.",
+  "title_zh": "微藻作为生物循环绿色经济工具：微藻生物质可持续生产与生物炼制的零废弃路径",
+  "one": "系统综述微藻在\"生物—循环—绿色（BCG）经济\"中的角色——废水上循环、温室气体捕集，并从同一批生物质中联产色素、蛋白、脂质、PUFA、多糖等高值产品，配合技术经济与环境分析，勾勒零废弃微藻生物炼制蓝图。",
+  "typ": "综述",
+  "field": "生物能源、环境工程、生物炼制",
+  "journal": "Bioresour Technol 2023",
+  "score": 3
+ },
+ {
+  "id": 25,
+  "title_en": "Medical cannabis for the treatment of insomnia.",
+  "title_zh": "医用大麻治疗失眠（Cochrane 系统评价）",
+  "one": "汇总 9 项 RCT（537 人）证据极不确定，医用大麻对睡眠质量、总睡眠时间、日间功能几乎没有临床意义的改善，可能改善生活质量但很不确定，且会轻度增加不良事件（OR 11.25），现有证据不足以支持推荐。",
+  "typ": "系统评价/Meta 分析（9 RCT, 537 人）",
+  "field": "循证医学、睡眠医学",
+  "journal": "Cochrane Database Syst Rev 2026",
+  "score": 3
+ },
+ {
+  "id": 26,
+  "title_en": "Molecular predictors of minimal residual disease in newly diagnosed multiple myeloma treated with quadruplet therapy.",
+  "title_zh": "四联疗法初诊多发性骨髓瘤微小残留病的分子预测因子",
+  "one": "对 423 例初诊骨髓瘤做基因组+转录组+表观组整合分析，发现表达亚型、增殖/MYC 程序、基因组不稳定性与 Isa-KRd 四联诱导后 MRD 转阴相关，并构建多模态随机森林模型预测 MRD（AUC 0.77），优于临床与单组学模型。",
+  "typ": "多组学队列研究（423 例，含多队列验证，共 1451+ 例）",
+  "field": "血液肿瘤、多组学、精准医学",
+  "journal": "Nat Med 2026",
+  "score": 4
+ },
+ {
+  "id": 27,
+  "title_en": "Over-Prescribed Medications, Under-Appreciated Risks: A Review of the Cognitive Effects of Anticholinergic Medications in Older Adults.",
+  "title_zh": "过度处方、被低估的风险：老年人抗胆碱能药物认知影响综述",
+  "one": "综述指出抗胆碱能药物在认知正常与受损老年人中均与不良认知效应相关，且在已有阿尔茨海默病等认知损害者中影响更大，提示这类药在老年人中被过度处方、风险被低估。",
+  "typ": "综述",
+  "field": "老年医学、临床药理、处方安全",
+  "journal": "Mo Med 2016",
+  "score": 2
+ },
+ {
+  "id": 28,
+  "title_en": "Keratin mediated protection of eroded enamel against abrasion - A pilot study.",
+  "title_zh": "角蛋白介导的受蚀牙釉质抗磨损保护——一项初步研究",
+  "one": "体外实验显示角蛋白（K）在酸蚀釉质表面形成的矿化层在 45/240 次刷牙后仍保持显著更高的台阶高度与显微硬度，抗磨损保护优于氟化钠和 TEGDMA 交联角蛋白，提示角蛋白可形成耐磨保护层。",
+  "typ": "体外基础实验（80 个釉质标本）",
+  "field": "口腔材料、再矿化、生物材料",
+  "journal": "J Dent 2026",
+  "score": 3
+ },
+ {
+  "id": 29,
+  "title_en": "Joint American Academy of Dermatology-Hidradenitis Suppurativa Foundation guidelines of care for the management of hidradenitis suppurativa.",
+  "title_zh": "AAD-HS 基金会联合制定的化脓性汗腺炎管理诊疗指南",
+  "one": "基于系统评价与 GRADE，发布化脓性汗腺炎（HS，患病率 0.7%–1.5%）管理的 37 条循证推荐，强推 adalimumab、bimekizumab、infliximab、secukinumab 及常规疼痛评估，条件推荐多种外用/口服/手术及戒烟、锌与维生素 D 等支持措施。",
+  "typ": "临床实践指南（GRADE，37 条推荐）",
+  "field": "皮肤病学、慢性炎症性疾病",
+  "journal": "J Am Acad Dermatol 2026",
+  "score": 3
+ },
+ {
+  "id": 30,
+  "title_en": "Attention deficit hyperactivity disorder: transition to psychotic disorders.",
+  "title_zh": "注意缺陷多动障碍向精神病性障碍的转化",
+  "one": "述评指出 ADHD 显著升高双相、精神病与精神分裂症风险（OR 4.7–8.9）却常被忽视，剖析为何仅部分 ADHD 转化为精神病的各种假说，并提出在初级/二级保健中如何分层、筛查与监测高危个体。",
+  "typ": "述评/观点（Perspective）",
+  "field": "精神病学、神经发育",
+  "journal": "Mol Psychiatry 2026",
+  "score": 2
+ },
+ {
+  "id": 31,
+  "title_en": "International Society of Sports Nutrition position stand: diets for body weight reduction.",
+  "title_zh": "国际运动营养学会立场声明：减重饮食",
+  "one": "ISSN 以 15 条立场系统总结减重饮食证据——能量赤字幅度决定减重、极低能量饮食短期更快但长期无优势且增肌肉流失；间歇性断食与持续限能效果无差异；抗阻训练+充足蛋白（一般 1.2–1.6 g/kg，训练者可至 1.6–3.2 g/kg）是保肌关键；碳水/脂肪比例可个体化；并剖析适应性产热与平台期管理。",
+  "typ": "立场声明/循证综述（15 条）",
+  "field": "运动营养、代谢、体重管理",
+  "journal": "J Int Soc Sports Nutr 2026",
+  "score": 3
+ },
+ {
+  "id": 32,
+  "title_en": "Opioid and Gabapentinoid Prescribing in Older Adults with Dementia Before and After the 2016 CDC Opioid Prescribing Guideline.",
+  "title_zh": "2016 年 CDC 阿片处方指南前后痴呆老年人阿片与加巴喷丁类药物处方变化",
+  "one": "对 3246 名痴呆老年人做 2010–2022 中断时间序列，发现 2016 CDC 阿片指南并未带来普遍阿片减量（典型阿片下降 26.5% 但与指南无关），而是引起\"镇痛药选择漂移\"——曲马多下降 27.1%（与指南相关）、加巴喷丁类从 9.5% 升至 11.5%，提示需更细化的循证镇痛指导。",
+  "typ": "中断时间序列分析（3246 例，2010–2022 MCBS 队列）",
+  "field": "药物流行病学、老年医学、卫生政策",
+  "journal": "J Gen Intern Med 2026",
+  "score": 2
+ },
+ {
+  "id": 33,
+  "title_en": "Parasites in grizzly bears from the central Canadian Arctic.",
+  "title_zh": "加拿大中部北极地区灰熊的寄生虫",
+  "one": "对 56 份灰熊粪样做漂浮法调查，首次在北美灰熊粪中报告 Nematodirus、胃肠球虫和原圆线虫一期幼虫等，并发现秋季寄生虫流行率（58%）显著高于春季（31%），支持熊在冬眠前排空胃肠道寄生虫的理论。",
+  "typ": "野生动物寄生虫调查（56 份粪样）",
+  "field": "野生动物流行病学、寄生虫学",
+  "journal": "J Wildl Dis 1999",
+  "score": 1
+ },
+ {
+  "id": 34,
+  "title_en": "Individualized Cardiac Index-Guided Hemodynamic Therapy in High-Risk Patients Undergoing Elective Major Abdominal Surgery: The PELICAN Randomized Clinical Trial.",
+  "title_zh": "高危择期大腹部手术患者个体化心指数导向血流动力学治疗：PELICAN 随机对照试验",
+  "one": "针对高危择期大腹部手术患者的多中心 RCT（1095 例），将血流动力学治疗目标设为患者术前静息心指数并未优于常规治疗——主要复合终点（AKI/心肌损伤/严重感染/心脏骤停/死亡）44.3% vs 46.9%（RR 0.94，95%CI 0.83–1.08，P=.38），各单项亦无差异，是一个严谨的阴性结果。",
+  "typ": "多中心随机对照试验（1095 例分析，5 国 12 中心）",
+  "field": "麻醉学、围术期医学",
+  "journal": "JAMA 2026",
+  "score": 3
+ },
+ {
+  "id": 35,
+  "title_en": "CRISPR/Cas12-mediated detection of GI and GII Norovirus in different food samples.",
+  "title_zh": "CRISPR/Cas12 介导的食品样本中 GI、GII 诺如病毒检测",
+  "one": "将 RT-LAMP 等温扩增与 CRISPR-Cas12a 结合，建立无需精密控温与昂贵实时荧光 PCR 的诺如病毒快速检测法，对 GI/GII 灵敏度达 32.8/22.8 copies/反应，三种食品基质 100% 定性准确，适合现场食品污染筛查。",
+  "typ": "方法学/基础实验",
+  "field": "食品安全、分子诊断、CRISPR 检测",
+  "journal": "J Food Sci 2025",
+  "score": 4
+ },
+ {
+  "id": 36,
+  "title_en": "The pyrin inflammasome senses OCTN2-mediated uptake of extracellular ʟ-carnitine from muscle injury or ingestion.",
+  "title_zh": "pyrin 炎症小体感知 OCTN2 介导摄取的来自肌肉损伤或摄食的细胞外 L-肉碱",
+  "one": "发现细胞外 L-肉碱经高亲和转运体 OCTN2 进入 LPS 致敏巨噬细胞后抑制甲羟戊酸合成，从而激活 pyrin 炎症小体；肌肉损伤的炎症反应亦需 pyrin 与 OCTN2，揭示巨噬细胞把 L-肉碱当作\"肌细胞损伤/红肉摄入\"的代谢哨兵，首次给出红肉—炎症的分子机制。",
+  "typ": "基础/机制研究（小鼠+人/鼠巨噬细胞）",
+  "field": "免疫学、代谢、炎症",
+  "journal": "Cell 2026",
+  "score": 4
+ },
+ {
+  "id": 37,
+  "title_en": "Selective Reduction of THC's Unwanted Effects through Serotonin Receptor Inhibition.",
+  "title_zh": "通过抑制血清素受体选择性减轻 THC 的不良效应",
+  "one": "这是一篇对原始研究的科普导读——指出 THC 的有害效应（损害记忆）特异地由大麻素受体与 5-HT2A 血清素受体的\"伙伴关系\"介导，而镇痛等有益效应不依赖该伙伴，提示可通过阻断该互作保留镇痛、去除记忆损害，具制药意义。",
+  "typ": "述评/导读（Primer，评论一篇原始研究）",
+  "field": "神经药理、大麻素—血清素互作",
+  "journal": "PLoS Biol 2015",
+  "score": 2
+ },
+ {
+  "id": 38,
+  "title_en": "Optuna-optimized stacking models for predicting total phenolic content in NFC compound juices based on routine physicochemical attributes: Interpretability analysis via SHAP.",
+  "title_zh": "基于常规理化指标、Optuna 优化的堆叠模型预测 NFC 复合果汁总酚含量及 SHAP 可解释性分析",
+  "one": "用 6 个常规理化指标（L*a*b* 颜色、可溶性固形物、可滴定酸、pH）和 Optuna 自动调参的堆叠集成模型预测 NFC 复合果汁总酚含量，达 Rp²=0.956、RMSEP=0.058 mg GAE/mL、RPD=4.825，SHAP 揭示 b*、a*、pH 为主要预测因子，替代耗时且产生化学废物的 Folin-Ciocalteu 法。",
+  "typ": "计算/机器学习方法学（282 样本）",
+  "field": "食品化学、化学计量学、可解释 AI",
+  "journal": "Food Chem 2026",
+  "score": 3
+ },
+ {
+  "id": 39,
+  "title_en": "Thyroxine changes in COVID-19 pandemic: A systematic review and meta-analysis.",
+  "title_zh": "COVID-19 大流行中甲状腺素变化：系统评价与 Meta 分析",
+  "one": "汇总 5873 例，COVID-19 患者与非 COVID 肺炎相似地表现 TSH 与 FT3 降低、FT4 升高（均 P<0.001），甲状腺功能变化与疾病严重度相关，生存者 FT3/FT4 高于死亡者，提示甲状腺素（尤其 FT3）具预后评估价值。",
+  "typ": "系统评价/Meta 分析（5873 例）",
+  "field": "内分泌、COVID-19、预后",
+  "journal": "Front Endocrinol 2023",
+  "score": 2
+ },
+ {
+  "id": 40,
+  "title_en": "Prenatal diagnosis of a fetus with ring chromosomal 15 by two- and three-dimensional ultrasonography.",
+  "title_zh": "二维与三维超声产前诊断环状 15 号染色体胎儿",
+  "one": "报告一例环状 15 号染色体（46,XX,r(15)）胎儿，表现为颈项透明层增厚、早发 IUGR、左侧先天性膈疝（CDH）伴肝疝、鼻骨发育不良、低位耳等，经羊穿确诊，并指出 CDH 与 r(15) 的关联源于膈肌发育关键位点位于 15q26.1-q26.2。",
+  "typ": "病例报告",
+  "field": "产前诊断、医学遗传学、胎儿影像",
+  "journal": "Case Rep Obstet Gynecol 2014",
+  "score": 1
+ },
+ {
+  "id": 41,
+  "title_en": "Innovative therapies in rheumatoid arthritis: CAR T cells and bispecific antibodies",
+  "title_zh": "类风湿关节炎的创新疗法：CAR-T 细胞与双特异性抗体",
+  "one": "针对多机制难治性 RA，CD19 定向 T 细胞衔接器（TCE）与 B 细胞清除型 CAR-T 可能通过“重置免疫记忆”带来部分患者的持续无药缓解，但证据仍属早期，需新型试验设计、深度免疫监测和长期安全随访。",
+  "typ": "综述（法国多中心专家共识性综述）",
+  "field": "风湿免疫 / 细胞治疗",
+  "journal": "Lancet Rheumatol 2026",
+  "score": 3
+ },
+ {
+  "id": 42,
+  "title_en": "Effectiveness of respiratory syncytial virus immunisation in practice",
+  "title_zh": "呼吸道合胞病毒（RSV）免疫接种的真实世界有效性",
+  "one": "已获批的母体疫苗、婴儿单抗与老年人疫苗真实世界保护效果高，甚至可能减少老年心血管事件，但高成本与接种率差异使“有产品”不等于“有人群影响”，交付与沟通策略是关键。",
+  "typ": "综述",
+  "field": "感染病 / 疫苗与公共卫生",
+  "journal": "Lancet Infect Dis 2026",
+  "score": 3
+ },
+ {
+  "id": 43,
+  "title_en": "Psoriasis: Which therapy for which patient, updated, part I. Focus on Psoriasis Comorbidities and Preferred Systemic Agents",
+  "title_zh": "银屑病“何种治疗适合何种患者”更新版（上）：聚焦共病与首选系统性药物",
+  "one": "随系统性药物急剧增多，银屑病治疗应依据炎症性共病（如 PsA、IBD 等）和恶性肿瘤史进行个体化选择，本文为系列第一部分。",
+  "typ": "综述/临床实践指导",
+  "field": "皮肤科",
+  "journal": "J Am Acad Dermatol 2026",
+  "score": 2
+ },
+ {
+  "id": 44,
+  "title_en": "Plasma Proteomic Signatures Predict Incident Amyotrophic Lateral Sclerosis: A Prospective Study Stratified by C9orf72 Expansion",
+  "title_zh": "血浆蛋白质组特征预测 ALS 发病：按 C9orf72 扩增分层的前瞻性研究",
+  "one": "在 52,584 人随访 11.8 年（291 例 ALS）中鉴定 9 个与 ALS 风险相关的血浆蛋白，NEFL 在诊断前约 9.27 年即开始上升，蛋白+年龄+性别预测 3/5/10 年 ALS 的 AUC>0.75。",
+  "typ": "前瞻性队列（UK Biobank，Olink 蛋白组）+ MR",
+  "field": "神经病学 / 蛋白质组学",
+  "journal": "J Cachexia Sarcopenia Muscle 2026",
+  "score": 4
+ },
+ {
+  "id": 45,
+  "title_en": "Iniencephaly and holoprosencephaly: report of a rare association",
+  "title_zh": "枕骨裂露脑畸形合并前脑无裂畸形：一种罕见合并的病例报告",
+  "one": "13 周超声已诊断无叶型前脑无裂合并枕骨裂露脑畸形（并独眼），患者拒绝终止妊娠，28 周娩出 1100 g 死胎；作者强调早孕期诊断与终止、叶酸补充的重要性。",
+  "typ": "病例报告",
+  "field": "产前诊断 / 围产医学",
+  "journal": "Case Rep Obstet Gynecol 2014",
+  "score": 1
+ },
+ {
+  "id": 46,
+  "title_en": "Carotenoids and UV protection",
+  "title_zh": "类胡萝卜素与紫外线防护",
+  "one": "类胡萝卜素可淬灭单线态氧和过氧自由基，补充剂或富含类胡萝卜素饮食连续至少 10 周可降低 UV 诱导红斑敏感性，提供“系统性光防护”。",
+  "typ": "综述",
+  "field": "营养学 / 皮肤光生物学",
+  "journal": "Photochem Photobiol Sci 2004",
+  "score": 2
+ },
+ {
+  "id": 47,
+  "title_en": "Complex torcular dural arteriovenous fistula leading to cortical venous reflux-induced severe varix and subsequent bilateral cerebral hemispheric hemorrhage: a case report",
+  "title_zh": "复杂窦汇区硬脑膜动静脉瘘致皮层静脉反流性重度静脉曲张及双侧大脑半球出血：病例报告",
+  "one": "56 岁男性因窦汇区复杂 dAVF 伴皮层静脉反流（CVR）和重度静脉曲张导致双侧半球出血，经动脉栓塞治疗后 3 个月与 1 年无复发；作者提出可能是一种新亚型，并强调评估静脉代偿能力。",
+  "typ": "病例报告",
+  "field": "神经外科 / 神经介入",
+  "journal": "Front Neurol 2023",
+  "score": 1
+ },
+ {
+  "id": 48,
+  "title_en": "Brachmann-de Lange syndrome: definition of prenatal sonographic features to facilitate definitive prenatal diagnosis",
+  "title_zh": "Brachmann-de Lange 综合征（Cornelia de Lange 综合征）：界定产前超声特征以促进产前确诊",
+  "one": "单中心 7 例 + 文献 28 例汇总显示，BDLS 最常见产前超声特征为 IUGR（80%），近半数有上肢异常，其次面部异常（40%）、NT/颈褶增厚（37%）、膈疝（34%）、心脏异常（14%）；不对称少指伴/不伴前臂缺陷合并小头或 IUGR/膈疝时应高度怀疑。",
+  "typ": "回顾性病例系列 + 文献汇总",
+  "field": "产前诊断 / 医学遗传",
+  "journal": "Prenat Diagn 2010",
+  "score": 2
+ },
+ {
+  "id": 49,
+  "title_en": "Fertility, pregnancy, and women's health in bronchiectasis: a multicenter study and ELF-EMBARC patient survey",
+  "title_zh": "支气管扩张症女性的生育、妊娠与健康：多中心研究及 ELF-EMBARC 患者调查",
+  "one": "83 名女性 121 次妊娠中，辅助生殖使用率 32.1%（PCD 48.5% vs 其他 8.7%），妊娠期急性加重 58.6%，孕前 FEV1 与出生体重（ρ=0.42）和孕周（ρ=0.25）相关；亚生育主要由 PCD 驱动。",
+  "typ": "多中心回顾性队列 + 国际患者调查",
+  "field": "呼吸病学 / 生殖与产科",
+  "journal": "Chest 2026",
+  "score": 2
+ },
+ {
+  "id": 50,
+  "title_en": "Computed-tomography imaging characteristics of venous intracerebral hematoma and its underlying pathophysiological mechanisms",
+  "title_zh": "静脉性脑内血肿的 CT 影像特征及其病理生理机制",
+  "one": "本条目在 PubMed 中无摘要，仅能依据标题判断其讨论静脉性脑出血（如静脉窦血栓、dAVF 皮层静脉反流所致）的 CT 表现与机制，具体发现无法核实。",
+  "typ": "短文/读者来信（无摘要）",
+  "field": "神经外科 / 神经影像",
+  "journal": "Asian J Surg 2024",
+  "score": 1
+ },
+ {
+  "id": 51,
+  "title_en": "Beyond the pump: a narrative review of the acute molecular, metabolic, and neuropsychological responses to a bout of resistance exercise",
+  "title_zh": "超越“泵感”：单次抗阻运动急性分子、代谢与神经心理反应的叙述性综述",
+  "one": "单次抗阻运动会在内分泌/肌因子、代谢、血管、疼痛、心理、认知和睡眠等多系统产生时间上重叠的急性反应，但这些反应不应被等同于慢性适应或长期健康获益的直接机制。",
+  "typ": "叙述性综述",
+  "field": "运动医学 / 运动生理",
+  "journal": "PeerJ 2026",
+  "score": 2
+ },
+ {
+  "id": 52,
+  "title_en": "Mortality Among People With Attention-Deficit/Hyperactivity Disorder: A Systematic Review and Meta-Analysis",
+  "title_zh": "ADHD 人群的死亡率：系统综述与荟萃分析",
+  "one": "19 项研究、15,920,970 人汇总显示 ADHD 全因死亡 HR 1.71，自杀 HR 1.89，伤害 HR 1.55，自然原因 HR 1.27；ADHD 药物使用与全因死亡降低相关（HR 0.75），但异质性大。",
+  "typ": "系统综述与荟萃分析",
+  "field": "精神病学 / 流行病学",
+  "journal": "JAMA Netw Open 2026",
+  "score": 3
+ },
+ {
+  "id": 53,
+  "title_en": "Effects of intensive insulin therapy combined with non-insulin antihyperglycemic agents on glycemic control, variability, and metabolic outcomes in patients with type 2 diabetes mellitus: a systematic review and meta-analysis",
+  "title_zh": "强化胰岛素治疗联合非胰岛素降糖药对 2 型糖尿病血糖控制、波动及代谢结局的影响：系统综述与荟萃分析",
+  "one": "IIT 联合 DPP-4i 可降低 MAGE（MD −1.39 mmol/L）与 LAGE（−1.20），联合 SGLT2i 降低 SDBG（−0.28）并提高 TIR（+8.23 个百分点），联合 GLP-1RA 降低 HbA1c（−0.73%）但胃肠不良反应增加（RR 5.28）。",
+  "typ": "系统综述与荟萃分析（39 项 RCT，PROSPERO 注册）",
+  "field": "内分泌 / 糖尿病",
+  "journal": "Front Endocrinol (Lausanne) 2026",
+  "score": 3
+ },
+ {
+  "id": 54,
+  "title_en": "Cerebrospinal fluid amyloid and neurodegeneration biomarkers in the diagnosis and prognosis of amyotrophic lateral sclerosis: a multicohort observational study",
+  "title_zh": "脑脊液淀粉样蛋白与神经退行性生物标志物在 ALS 诊断与预后中的作用：多队列观察性研究",
+  "one": "264 例 ALS 与 164 例对照中，CSF NfL 区分 ALS 的 AUC 0.85，加入 Aβ、pTau181/217、GFAP 的机器学习模型升至 0.90，并在 NfL 中间值人群中保持 PPV 0.90；Aβ 阳性 ALS（14%）中 NfL 与生存的关联显著更强（HR 4.02 vs 1.62）。",
+  "typ": "多队列观察性研究 + 机器学习",
+  "field": "神经病学 / 液体活检",
+  "journal": "EBioMedicine 2026",
+  "score": 3
+ },
+ {
+  "id": 55,
+  "title_en": "Association of Circulating Eosinophils With Systemic Immune Activation and Reduced Recurrence in Hormone Receptor-Positive/Human Epidermal Growth Factor Receptor 2-Negative Breast Cancer",
+  "title_zh": "循环嗜酸性粒细胞与 HR+/HER2− 乳腺癌全身免疫激活及复发风险降低的关联",
+  "one": "术前外周血嗜酸性粒细胞计数升高与 HR+/HER2− 乳腺癌更好的无复发和无远处转移生存相关，在 23,170 例验证队列中经倾向评分重叠加权证实，并在 21 基因 RS 之外提供增量预后价值、预测 CDK4/6 抑制剂获益。",
+  "typ": "发现队列 + 大型验证队列 + 多组学与动物实验",
+  "field": "肿瘤学 / 肿瘤免疫 / 生物标志物",
+  "journal": "J Clin Oncol 2026",
+  "score": 4
+ },
+ {
+  "id": 56,
+  "title_en": "Establishing Polycomb regulatory landscapes in human early development",
+  "title_zh": "人类早期胚胎发育中 Polycomb 调控图景的建立",
+  "one": "人类植入前胚胎中，PRC1 催化的 H2AK119ub 自 2 细胞期起在 GC 富集区出现并逐步聚集到 PcG 靶点，H3K27me3 的重建依赖 H2Aub；缺失 H2Aub 会导致 H3K27me3 重建失败、异位沉积及胚胎发育受损。",
+  "typ": "基础实验（人类配子/胚胎低起始量表观组学 + 功能干预）",
+  "field": "发育生物学 / 表观遗传学 / 生殖医学",
+  "journal": "Nat Genet 2026",
+  "score": 3
+ },
+ {
+  "id": 57,
+  "title_en": "Beyond the pelvis: redefining endometriosis as a systemic inflammatory disorder. A systematic review and meta-analysis",
+  "title_zh": "超越盆腔：将子宫内膜异位症重新定义为全身性炎症性疾病——系统综述与荟萃分析",
+  "one": "子宫内膜异位症女性 SLE（RR 1.81）、干燥综合征（RR 1.54）、RA（RR 1.71）、哮喘（RR 1.27）、纤维肌痛（RR 1.65）、慢性疲劳综合征（RR 1.41）、IBS（RR 2.51）风险升高，而甲状腺疾病无显著关联；支持“系统性免疫炎症疾病”的再定义，但证据质量低。",
+  "typ": "系统综述与荟萃分析（55 项研究，48 项定量）",
+  "field": "妇科 / 自身免疫 / 疼痛医学",
+  "journal": "Autoimmun Rev 2026",
+  "score": 3
+ },
+ {
+  "id": 58,
+  "title_en": "Development of the Movement Pattern Observation Tool (MPOT)-An Observational Tool to Measure Limb Movements during Elementary School Recess",
+  "title_zh": "动作模式观察工具（MPOT）的开发——用于测量小学课间休息时肢体动作的观察工具",
+  "one": "作者开发了观察记录小学生课间自由户外游戏中单侧、双侧与对侧肢体动作的 MPOT 工具，3 名观察者 35 次观察的评分者间信度 ICC 为 0.898 与 0.885，接近“优秀”标准。",
+  "typ": "测量工具开发（信度研究）",
+  "field": "儿童体育 / 公共卫生 / 教育",
+  "journal": "Int J Environ Res Public Health 2023",
+  "score": 2
+ },
+ {
+  "id": 59,
+  "title_en": "Cold activates a BH2 metabolic network promoting longevity and proteostasis",
+  "title_zh": "低温激活 BH2 代谢网络以促进长寿与蛋白质稳态",
+  "one": "低温上调肌肉中 CAT-4（人 GCH1），产生可转运的二氢生物蝶呤（BH2），在肠和神经元中经 DHFR-1 转为 BH4，作为 PAH-1 辅因子促进酪氨酸合成，延长寿命并抑制病理性蛋白聚集；人细胞中补充 BH2 或酪氨酸可减少 polyQ、突变 TDP-43 和 FUS 聚集。",
+  "typ": "基础实验（秀丽隐杆线虫 + 人类细胞）",
+  "field": "衰老生物学 / 代谢 / 神经退行性疾病",
+  "journal": "Nature 2026",
+  "score": 4
+ },
+ {
+  "id": 60,
+  "title_en": "Differential Trajectories of Brain Atrophy in Multiple Sclerosis, MOGAD, and AQP4 + NMOSD: The Role of Disease Activity in MOGAD",
+  "title_zh": "MS、MOGAD 与 AQP4+ NMOSD 的脑萎缩轨迹差异：MOGAD 中疾病活动的作用",
+  "one": "489 名受试者中，MS 表现为加速的全脑萎缩（β −2.027 cm³/年），MOGAD 表现为白质体积丢失与脑室扩大，AQP4+ NMOSD 表现为苍白球体积减少；MOGAD 的萎缩与复发和新病灶相关，支持“事件驱动”而非弥漫性神经退行。",
+  "typ": "多中心回顾性纵向影像队列（MAGNIMS，15 中心）",
+  "field": "神经免疫 / 神经影像",
+  "journal": "Neurology 2026",
+  "score": 3
+ },
+ {
+  "id": 61,
+  "title_en": "Resting heart rate - The forgotten risk factor? Comparison of resting heart rate and hypertension as predictors of all-cause mortality in 692,217 adults in Asia and Europe.",
+  "title_zh": "静息心率——被遗忘的危险因素？亚洲和欧洲 692,217 名成人中静息心率与高血压预测全因死亡的比较",
+  "one": "在台湾 MJ（n=636,064）与挪威 HUNT（n=56,153）约 25 年随访中，静息心率 80–99 次/分在血压正常者中带来的死亡风险不低于、甚至高于“心率正常的高血压”，在 <40 岁人群中尤为突出。",
+  "typ": "前瞻性队列（双队列合并分析）",
+  "field": "心血管流行病学/预防医学",
+  "journal": "Prog Cardiovasc Dis 2025",
+  "score": 3
+ },
+ {
+  "id": 62,
+  "title_en": "Cortex-wide imaging in naturally behaving mice with 1-gram wireless mesoscopes.",
+  "title_zh": "利用 1 克无线介观显微镜在自然行为小鼠中实现全皮层成像",
+  "one": "Airscope 以 1.0 g 重量、6 mm 视场、4 μm 侧向分辨率、12.5 Hz 实现无线单光子钙成像，每只动物可记录 >8,500 个神经元（提升 25 倍），并支持多动物、游泳、脑-脊髓同步记录等自然行为范式。",
+  "typ": "技术/方法学研究（仪器开发+神经科学应用）",
+  "field": "神经光学成像/系统神经科学",
+  "journal": "Nature 2026",
+  "score": 4
+ },
+ {
+  "id": 63,
+  "title_en": "Insight into the in vivo translocation of oral liposomes by fluorescence resonance energy transfer effect.",
+  "title_zh": "基于 FRET 效应揭示口服脂质体的体内转运",
+  "one": "用 FRET 探针区分完整脂质体后发现，口服脂质体几乎不被完整吸收入血，其提升生物利用度的机制是延长胃肠道滞留与增强黏液穿透，较小、阳离子和 PEG 化脂质体效果更好。",
+  "typ": "基础实验/动物实验",
+  "field": "药剂学/口服纳米递送",
+  "journal": "Int J Pharm 2020",
+  "score": 2
+ },
+ {
+  "id": 64,
+  "title_en": "Foundation artificial intelligence models for health recognition by use of face photographs (FAHR-Face): a model development and validation study.",
+  "title_zh": "基于面部照片的健康识别基础 AI 模型（FAHR-Face）：模型开发与验证研究",
+  "one": "在 >4,000 万张面部照片上预训练的基础模型，微调后可估计生物学年龄（MAE 5.1 年）并预测癌症患者生存（最高与最低风险四分位调整 HR 3.23），两者信息互补，联合使用提升预后准确性。",
+  "typ": "AI 模型开发与外部验证",
+  "field": "医学 AI/肿瘤预后/衰老生物学",
+  "journal": "Lancet Digit Health 2027（在线 2026）",
+  "score": 4
+ },
+ {
+  "id": 65,
+  "title_en": "Machine Learning Prediction for 6-Month Outcomes in Traumatic Cerebral Venous Sinus Thrombosis.",
+  "title_zh": "创伤性脑静脉窦血栓 6 个月预后的机器学习预测",
+  "one": "基于 9 个入院变量的 LightGBM 模型预测中重度 TBI 合并创伤性 CVST 的 6 个月不良结局（mRS≥2），内部 AUC 0.91±0.03、前瞻外部验证 AUC 0.86（95%CI 0.76–0.94）。",
+  "typ": "多中心回顾+前瞻队列，预测模型开发与外部验证",
+  "field": "神经外科/神经创伤/临床预测模型",
+  "journal": "J Neurotrauma 2026",
+  "score": 2
+ },
+ {
+  "id": 66,
+  "title_en": "IFM 2026 Recommendations for First-line Treatment of Newly Diagnosed Multiple Myeloma.",
+  "title_zh": "IFM 2026 新诊断多发性骨髓瘤一线治疗推荐",
+  "one": "IFM 将抗 CD38+VRd 四联方案确立为移植适合 NDMM 的标准诱导，移植不适合者以 DRd 为骨架（体能好加硼替佐米、衰弱者去地塞米松），模型预测 D-VRd 的中位 PFS 约 205 个月，提出“功能性治愈”概念。",
+  "typ": "指南/共识综述",
+  "field": "血液肿瘤",
+  "journal": "Clin Lymphoma Myeloma Leuk 2026",
+  "score": 2
+ },
+ {
+  "id": 67,
+  "title_en": "Hypofractionated Versus Conventionally Fractionated Postmastectomy Radiotherapy With Internal Mammary Node Irradiation for High-Risk Breast Cancer (HypoMast-IMNI): A Randomized Phase III Trial.",
+  "title_zh": "高危乳腺癌乳房切除术后含内乳淋巴结照射的大分割与常规分割放疗比较（HypoMast-IMNI）：随机 III 期试验",
+  "one": "在 1,494 例随机（mITT 1,429 例）高危乳腺癌中，42.56 Gy/16 次大分割含 IMNI 的术后放疗 5 年局部区域复发 1.7% vs 常规 50 Gy/25 次 2.2%（HR 0.69），达到非劣效，3 级急性皮肤毒性显著降低（1.7% vs 12.2%）。",
+  "typ": "随机对照 III 期非劣效试验",
+  "field": "放射肿瘤学/乳腺癌",
+  "journal": "J Clin Oncol 2026",
+  "score": 4
+ },
+ {
+  "id": 68,
+  "title_en": "Changes and debates in male stress urinary incontinence surgery practice patterns: a contemporary review.",
+  "title_zh": "男性压力性尿失禁手术实践模式的变化与争议：当代综述",
+  "one": "综述指出男性 SUI 手术中人工尿道括约肌（AUS）仍是金标准、男性吊带（MS）适合轻中度，并梳理 AUS 与 MS 使用比例、门诊手术、3.5 cm 袖带、术前尿检、围术期抗生素等受“教条”而非证据驱动的争议点。",
+  "typ": "临床实践综述",
+  "field": "泌尿外科/功能泌尿学",
+  "journal": "Transl Androl Urol 2023",
+  "score": 2
+ },
+ {
+  "id": 69,
+  "title_en": "Death from bronchial asthma.",
+  "title_zh": "支气管哮喘死亡",
+  "one": "作者指出 1980 年代美国哮喘死亡率持续显著上升，与“治疗进步”的普遍认知相矛盾，主张谨慎地假设超额死亡为医源性并据此改进管理。",
+  "typ": "评论/观点",
+  "field": "呼吸医学/医疗安全",
+  "journal": "Chest 1988",
+  "score": 1
+ },
+ {
+  "id": 70,
+  "title_en": "How to convince an editor to accept your paper quickly.",
+  "title_zh": "如何让编辑尽快接受你的论文",
+  "one": "资深 ACS 期刊副主编基于数百次投稿、审稿经验，给出与编辑和同行评议系统打交道的实用建议。",
+  "typ": "经验性评论/写作指导",
+  "field": "科研出版/学术交流",
+  "journal": "Sci Total Environ 2021",
+  "score": 1
+ },
+ {
+  "id": 71,
+  "title_en": "Intermittent or Continuous Renal-Replacement Therapy in Acute Kidney Injury",
+  "title_zh": "急性肾损伤的间歇性与连续性肾脏替代治疗",
+  "one": "554 例重症 AKI 患者的非劣效 RCT 因间歇性血液透析（IHD）组死亡信号持续升高而提前终止——IHD 未能证明非劣于连续性肾脏替代治疗（CRRT），90 天死亡率 63.1% vs 53.5%（HR 1.30, 95% CI 1.04–1.63）。",
+  "typ": "多中心开放标签非劣效 RCT（ICRAKI, NCT06032884）",
+  "field": "重症医学 / 肾脏替代治疗",
+  "journal": "N Engl J Med 2026",
+  "score": 4
+ },
+ {
+  "id": 72,
+  "title_en": "Potential unmet need for gout diagnosis and treatment: capture-recapture analysis of a national administrative dataset",
+  "title_zh": "痛风诊疗的潜在未满足需求：全国行政数据集的捕获-再捕获分析",
+  "one": "用生态学里的捕获-再捕获方法套在新西兰全国 429.5 万人的住院与处方（别嘌醇/秋水仙碱）数据上，估计痛风真实患病率为 4.67%（95% CI 4.49–4.90%），行政数据仅识别出其中 80%，≥65 岁毛利与太平洋岛裔男性患病率超过 30%。",
+  "typ": "人群横断面 + 捕获-再捕获统计建模",
+  "field": "风湿病流行病学 / 卫生信息学 / 健康公平",
+  "journal": "Rheumatology (Oxford) 2012;51(10):1820-4",
+  "score": 3
+ },
+ {
+  "id": 73,
+  "title_en": "Multiple ketolases involved in light regulation of canthaxanthin biosynthesis in Nostoc punctiforme PCC 73102",
+  "title_zh": "念珠藻 Nostoc punctiforme PCC 73102 中多个酮化酶参与角黄素生物合成的光调控",
+  "one": "该蓝藻基因组中三个 β-胡萝卜素酮化酶基因（一个 crtO 型、两个 crtW 型）均有功能、都能在大肠杆菌互补体系中合成角黄素但效率不同；高光胁迫下角黄素增加由\"入口酶 crtB（八氢番茄红素合成酶）上调 + 酮化酶 crtW148 上调、其余酮化酶下调\"这一组合实现，crtW148 还独占 4-keto-myxoxanthophyll 合成的最后一步。",
+  "typ": "基础实验（基因功能鉴定 + 异源互补 + 转录水平调控）",
+  "field": "微生物代谢工程 / 类胡萝卜素生物合成 / 蓝藻光生物学",
+  "journal": "Planta 2013;237(5):1279-85",
+  "score": 2
+ },
+ {
+  "id": 74,
+  "title_en": "Pembrolizumab plus gemcitabine and cisplatin for advanced biliary tract cancer: longer-term follow-up from the randomised, double-blind, placebo-controlled, phase 3 KEYNOTE-966 trial",
+  "title_zh": "帕博利珠单抗联合吉西他滨与顺铂治疗晚期胆道癌：KEYNOTE-966 III 期随机双盲安慰剂对照试验的长期随访",
+  "one": "1069 例未经治疗的晚期胆道癌患者，中位随访延长至 36.6 个月后，帕博利珠单抗+吉西他滨/顺铂的总生存获益仍然持续（OS HR 0.86, 95% CI 0.75–0.98），但 36 个月生存率仅 13% vs 11%，3–4 级治疗相关不良事件两组相当（70% vs 69%），无新安全性信号。",
+  "typ": "III 期随机双盲安慰剂对照试验的延长随访分析（NCT04003636）",
+  "field": "肿瘤免疫治疗 / 肝胆肿瘤",
+  "journal": "EClinicalMedicine 2026;100:104213",
+  "score": 4
+ },
+ {
+  "id": 75,
+  "title_en": "Evaluation of a digital tool supporting therapeutic decision making for the personalized management of patients with type 2 diabetes not treated with insulin: A pilot study",
+  "title_zh": "支持非胰岛素治疗 2 型糖尿病个体化管理的治疗决策数字工具评估：一项先导研究",
+  "one": "82 例血糖控制不佳（HbA1c 7.8±0.6%）的非胰岛素治疗 T2DM 患者，用基于 SMBG 数据的算法化网页决策支持工具（PTT）辅助医生调药，**总体终点未见组间差异**；仅在基线单药治疗的小亚组（PTT 组 9 人 vs 对照 14 人）中 HbA1c 与 CGM 衍生的 TIR 70–140、24h 平均血糖、GRADE、HBGI 显著改善。",
+  "typ": "单中心 16 周整群随机对照先导试验",
+  "field": "数字医疗 / 临床决策支持 / 糖尿病管理",
+  "journal": "Diabetes Res Clin Pract 2023;203:110836",
+  "score": 2
+ },
+ {
+  "id": 76,
+  "title_en": "Impact of socioeconomic factors and birth-related conditions on autism spectrum disorder, Down syndrome, and attention deficit/hyperactivity disorder",
+  "title_zh": "社会经济因素与出生相关条件对自闭症谱系障碍、唐氏综合征及注意缺陷/多动障碍的影响",
+  "one": "沙特利雅德单中心 2015–2024 年 269 名儿童（ASD 185、DS 51、ADHD 33）的回顾性分析报告：母亲孕期用药与 ASD 相关（OR 4.253, p=0.012）、出生顺序越靠后 ASD 可能性越高（头两胎 OR 0.660, p=0.002）、社会经济指数越高 DS 风险越低（OR 0.578, p=0.018）、孕期维生素 D 补充与 DS 负相关（OR 0.452, p=0.028）、辅助生殖是 ADHD 的唯一显著预测因素（OR 2.401, p=0.040）。",
+  "typ": "单中心回顾性病历分析 + 多变量 logistic 回归（辅以家长访谈）",
+  "field": "儿童发育行为 / 围产期流行病学 / 社会医学",
+  "journal": "BMC Pediatr 2026;26(1):1025",
+  "score": 1
+ },
+ {
+  "id": 77,
+  "title_en": "Caffeine Intake Is Associated with Urinary Incontinence in Korean Postmenopausal Women: Results from the Korean National Health and Nutrition Examination Survey",
+  "title_zh": "咖啡因摄入与韩国绝经后女性尿失禁相关：韩国国民健康与营养调查结果",
+  "one": "4028 名韩国绝经后女性（平均 63.19±0.25 岁）中，医生诊断尿失禁（UI）患病率 2.6%、自报 11.9%、终生 15.8%；咖啡因摄入越高 UI 患病率越高，校正年龄、产次、吸烟、高血压、糖尿病后关联仍存在（P=0.017）；但 EQ-5D 生活质量最差的是\"不喝咖啡因且有 UI\"的人群。",
+  "typ": "全国横断面调查二次分析（KNHANES IV）",
+  "field": "泌尿妇科 / 营养流行病学 / 生活质量",
+  "journal": "PLoS One 2016;11(2):e0149311",
+  "score": 2
+ },
+ {
+  "id": 78,
+  "title_en": "ACOG Clinical Practice Guideline: Management of Menopause-Related Vasomotor, Sleep, and Mood Symptoms",
+  "title_zh": "ACOG 临床实践指南：绝经相关血管舒缩、睡眠与情绪症状的管理",
+  "one": "ACOG 临床实践指南委员会（妇科）以预设方案与改良 GRADE 框架，对自发或诱导性绝经（≥40 岁）相关的血管舒缩症状（潮热）、睡眠与情绪症状给出药物与非药物干预推荐，并对证据不足之处以\"未分级的良好实践要点（Ungraded Good Practice Points）\"补位；目标人群明确纳入变性男性与性别多元个体。",
+  "typ": "循证临床实践指南（a priori 方案 + 改良 GRADE evidence-to-decision 框架）",
+  "field": "妇产科 / 绝经医学 / 循证方法学",
+  "journal": "Obstet Gynecol 2026;148(5):e345-e369",
+  "score": 3
+ },
+ {
+  "id": 79,
+  "title_en": "Distinct migratory dendritic cell subsets cooperate to prime tissue-resident memory-like CD8⁺ T cells in mouse tumors",
+  "title_zh": "不同迁移性树突状细胞亚群协同启动小鼠肿瘤中的组织驻留记忆样 CD8⁺ T 细胞",
+  "one": "在 KP（Kras^G12D；p53^−/−）肺腺癌模型中，XCR1⁺ DC1 是产生肿瘤浸润效应与耗竭 CD8⁺ T 细胞的必需者（DC2 不是），但 CD103⁺CD69⁺ TRM 样 CD8⁺ T 细胞的生成需要迁移性 DC1 与 DC2 共同参与——低 peptide/MHC-I 密度的 DC2 通过 TGFβ 依赖途径驱动 TRM 分化，高密度的 DC1 则驱动 TRM 样细胞增殖扩增，并以 IL-12 上调 CXCR6。",
+  "typ": "基础实验（小鼠肺腺癌 KP 模型 + 亚群选择性清除 + 机制解析）",
+  "field": "肿瘤免疫学 / 树突状细胞生物学 / T 细胞分化",
+  "journal": "Nat Commun 2026;17(1):10953",
+  "score": 4
+ },
+ {
+  "id": 80,
+  "title_en": "Lutein, a nonprovitamin A, activates the retinoic acid receptor to induce HAS3-dependent hyaluronan synthesis in keratinocytes",
+  "title_zh": "非维生素 A 原类胡萝卜素叶黄素通过激活视黄酸受体诱导角质细胞 HAS3 依赖的透明质酸合成",
+  "one": "在培养的人角质细胞中，不仅 β-胡萝卜素与 β-隐黄质（维生素 A 原），叶黄素、玉米黄质与虾青素这些**非**维生素 A 原类胡萝卜素也能上调 HAS3 并促进透明质酸合成；RAR 拮抗剂 LE540 完全消除该效应、叶黄素显著提高 RARE 驱动的转录活性，而视黄醛脱氢酶抑制剂 citral 可削弱该作用——说明是叶黄素的**代谢产物**而非叶黄素本身充当 RAR 配体。",
+  "typ": "基础实验（人角质细胞体外，药理阻断 + 报告基因）",
+  "field": "皮肤生物学 / 类胡萝卜素药理 / 化妆品科学",
+  "journal": "Biosci Biotechnol Biochem 2013;77(6):1282-6",
+  "score": 2
+ },
+ {
+  "id": 81,
+  "title_en": "Nanotherapeutic macrophage reprogramming through immunometabolic and microbial modulation for sepsis treatment",
+  "title_zh": "通过免疫代谢与微生物调控实现巨噬细胞重编程的纳米疗法治疗脓毒症",
+  "one": "将 STING 抑制剂 4-辛基衣康酸偶联 PEG 并包载 DHODH 抑制剂 EA6，构建谷胱甘肽响应纳米平台 EONPs，在脓毒症模型中同时抑制全身高炎症、将巨噬细胞重编程为抗炎表型、恢复肠道菌群稳态并减轻多器官损伤，并伴菌群代谢物 5-HIAA 升高。",
+  "typ": "基础实验/动物实验（纳米药物）",
+  "field": "脓毒症、纳米医学、免疫代谢、肠道微生态",
+  "journal": "Signal Transduct Target Ther 2026",
+  "score": 3
+ },
+ {
+  "id": 82,
+  "title_en": "Androgen Synthesis Inhibitors vs Androgen Receptor Inhibitors and Survival in Metastatic Hormone-Sensitive Prostate Cancer",
+  "title_zh": "转移性激素敏感性前列腺癌中雄激素合成抑制剂与雄激素受体抑制剂的生存比较",
+  "one": "基于 Flatiron Health 全美 EHR 数据库 3404 例 mHSPC 患者（ASI 阿比特龙 1830 例 vs ARI 阿帕他胺 507 + 恩扎卢胺 1067 例），IPTW 加权后 ARI 组中位 OS 67.9 个月显著优于 ASI 组 57.2 个月（HR 0.74，95%CI 0.64–0.87，P<0.001），敏感性分析一致（HR 0.73；2019-12-16 后限定 HR 0.67）。",
+  "typ": "回顾性真实世界队列（EHR，IPTW）",
+  "field": "泌尿肿瘤、真实世界证据、比较效果研究",
+  "journal": "JAMA Netw Open 2026",
+  "score": 4
+ },
+ {
+  "id": 83,
+  "title_en": "Oxysterol levels and metabolism in the course of neuroinflammation: insights from in vitro and in vivo models",
+  "title_zh": "神经炎症过程中氧化固醇水平与代谢：来自体内外模型的研究",
+  "one": "用 HPLC-MS 定量 10 余种氧化固醇，发现 LPS 激活可在 BV2 细胞与原代微胶质-星形胶质细胞共培养中产生足以区分激活与对照状态的氧化固醇谱变化，体内（LPS 小鼠与 EAE 模型）变化较弱但一致性地升高 GPR183 激动剂 7α,25-二羟基胆固醇；14 种氧化固醇中若干可下调 LPS 诱导的促炎标志物表达。",
+  "typ": "基础实验（细胞 + 小鼠模型，HPLC-MS 靶向脂质组学）",
+  "field": "神经炎症、生物活性脂质、代谢组学方法",
+  "journal": "J Neuroinflammation 2018",
+  "score": 2
+ },
+ {
+  "id": 84,
+  "title_en": "Environmental transmission of SARS at Amoy Gardens",
+  "title_zh": "淘大花园 SARS 的环境传播",
+  "one": "本文回顾 2003 年 3 月香港淘大花园 SARS 暴发的调查结论——病毒经建筑排水管道形成的气溶胶被抽入卫生间地漏、再由主导风输送至相邻楼栋，并据此给出建筑业主可执行的维护与防控建议。",
+  "typ": "综述/案例回顾（含管理建议）",
+  "field": "环境卫生、建筑卫生工程、传染病防控",
+  "journal": "J Environ Health 2006",
+  "score": 3
+ },
+ {
+  "id": 85,
+  "title_en": "An acetylcholine-inhibited sleep-active hippocampal interneuron orchestrates memory consolidation",
+  "title_zh": "一类被乙酰胆碱抑制的睡眠活跃海马中间神经元统筹记忆巩固",
+  "one": "小鼠海马中一类表达 M2 乙酰胆碱受体（Chrm2）的稀疏 GABA 能中间神经元在 NREM 睡眠与安静觉醒期优先活跃（与此前所有已知海马中间神经元在觉醒/REM 活跃相反），以约 0.015 Hz 的超慢节律广泛抑制全海马，双向调控 ripple 发生；抑制背侧 CA3 或腹侧海马的该群神经元分别损害空间记忆与社交记忆。",
+  "typ": "基础实验（小鼠，遗传标记 + 在体记录 + 环路操控）",
+  "field": "系统神经科学、睡眠、记忆巩固",
+  "journal": "Neuron 2026（online ahead of print）",
+  "score": 3
+ },
+ {
+  "id": 86,
+  "title_en": "Growth differentiation factor 15 ameliorates alcohol-associated liver disease by diminishing the glycolytic metabolism of neutrophils",
+  "title_zh": "生长分化因子 15 通过减弱中性粒细胞糖酵解代谢改善酒精性肝病",
+  "one": "",
+  "typ": "基础/动物实验（据题目判断）",
+  "field": "肝病学、免疫代谢",
+  "journal": "Gut 2026",
+  "score": 3
+ },
+ {
+  "id": 87,
+  "title_en": "Multisite metastatic atlas of gastric cancer identifies C/EBPβ as a regulator promoting liver metastasis",
+  "title_zh": "胃癌多部位转移图谱鉴定 C/EBPβ 为促进肝转移的调控因子",
+  "one": "",
+  "typ": "组学图谱 + 功能验证（据题目判断）",
+  "field": "胃癌、肿瘤转移、单细胞/空间组学",
+  "journal": "Gut 2026",
+  "score": 3
+ },
+ {
+  "id": 88,
+  "title_en": "Monocyte surface Y RNAs potentiate innate immunity",
+  "title_zh": "单核细胞表面 Y RNA 增强天然免疫",
+  "one": "开发了可在稀有原代细胞上检测、成像与定量细胞表面 RNA 的方法，发现小非编码 Y RNA 优先定位于人单核细胞表面；在探索性 IBD 混合队列中，表面 Y RNA 阳性外周单核细胞比例显著高于健康人与 IBS 患者；体内清除表面 Y RNA 可减轻小鼠结肠炎；机制上表面 Y RNA 与 TLR2/TLR4 共簇集、结合细胞外组蛋白并促进受体对组蛋白的识别，激活 NF-κB 与 AP-1，上调 IL6 表达与 IL-6 分泌。",
+  "typ": "基础实验 + 探索性临床队列（人单核细胞、小鼠结肠炎）",
+  "field": "天然免疫、非编码 RNA、炎症性肠病",
+  "journal": "Nat Cell Biol 2026",
+  "score": 4
+ },
+ {
+  "id": 89,
+  "title_en": "Cyclopia: The Face Predicts the Future",
+  "title_zh": "独眼畸形：面容预示结局",
+  "one": "报告一例 27 岁 IVF 受孕孕妇在孕 22 周经异常扫查发现严重胎脑发育异常与微头畸形、三维超声确认面部中线单一眼眶而诊断的独眼畸形（全前脑畸形最极端形式），父母拒绝羊水穿刺、父母核型正常，终止妊娠后标本检查证实独眼、并眼、眼睑融合伴额部中线喙状鼻突与左耳位置异常；作者强调该畸形虽与生命不相容，但熟悉其超声特征谱与恰当遗传咨询可决定当次及今后妊娠的结局。",
+  "typ": "病例报告 + 文献小结",
+  "field": "产前诊断、超声影像、遗传咨询",
+  "journal": "Cureus 2021",
+  "score": 2
+ },
+ {
+  "id": 90,
+  "title_en": "Global and regional burden of measles and vaccine coverage among children under 5 years, 1990-2023: a Global Burden of Disease Study",
+  "title_zh": "1990—2023 年 5 岁以下儿童麻疹负担与疫苗覆盖率的全球与区域分析（GBD 研究）",
+  "one": "覆盖 204 个国家与地区、1990—2023 年的 GBD 2023 估计显示，1990—2019 年全球麻疹发病与死亡分别下降约 80% 与 90%，但 2020 年后急剧反弹，2023 年估计 1560 万例、11.8 万例死亡（相较 2019 年分别 +40% 与 +12%）；MCV1 覆盖率从 1990 年 67.2% 升至 2019 年 83.6% 后停滞并略降至 2023 年 81.0%，MCV2 从 14.4% 升至 2019 年 68.4%、2023 年达 71.4%，多个区域仍远低于 IA2030 的 90% 目标，撒哈拉以南非洲与南亚负担最重。",
+  "typ": "全球疾病负担建模研究（描述性流行病学 + 贝叶斯估计）",
+  "field": "全球卫生、免疫规划、卫生政策",
+  "journal": "Nat Med 2026",
+  "score": 4
+ },
+ {
+  "id": 91,
+  "title_en": "Finerenone versus Steroidal MRAs in Type 2 Diabetes and Chronic Kidney Disease without Prior Heart Failure",
+  "title_zh": "2 型糖尿病合并慢性肾病且无心衰史患者中非奈利酮与甾体类 MRA 的比较",
+  "one": "基于 TriNetX 平台 2021—2024 年、以 SGLT2 抑制剂为一线治疗后起始 MRA 的 T2D+CKD 且无心衰与缺血性心脏病史患者（N=3680；非奈利酮 724 例、甾体类 MRA 1542 例，匹配后各 551 例），18 个月随访中非奈利酮组全因死亡率更低（2.1 vs 4.5 事件/100 人年，IRD −2.41，95%CI −4.38 至 −0.44）、新发心衰更低（6.5 vs 12.9，IRD −6.38，95%CI −9.75 至 −3.02），而肾脏复合终点（ESRD+透析）无显著差异（8.3 vs 9.1，IRD −0.81，95%CI −3.99 至 2.37）；作者自称结果仅为假设生成。",
+  "typ": "回顾性多中心观察性研究（TriNetX，倾向性评分匹配）",
+  "field": "心肾代谢、真实世界证据",
+  "journal": "ESC Heart Fail 2026",
+  "score": 3
+ },
+ {
+  "id": 92,
+  "title_en": "The miR-200 family is increased in dysplastic lesions in ulcerative colitis patients",
+  "title_zh": "miR-200 家族在溃疡性结肠炎异型增生病灶中升高",
+  "one": "对 UC 异型增生病灶（n=7）与 UC 对照（n=10）及炎症后假息肉（n=7）做 miRNA 全谱分析，发现 UC 异型增生伴有 miRNA 表达谱整体偏移（炎症后息肉中不出现），其中 miR-200b-3p 升高并经原位杂交定位于异型增生与 UC 癌的上皮细胞；但血清 miRNA 未检出相应变化。",
+  "typ": "小样本人体组织分子谱研究（microRNA profiling + qPCR + ISH）",
+  "field": "炎症性肠病、结直肠癌前病变、miRNA 生物标志物",
+  "journal": "PLoS One 2017",
+  "score": 2
+ },
+ {
+  "id": 93,
+  "title_en": "Medicinal chemistry endeavors around the phytocannabinoids",
+  "title_zh": "围绕植物源大麻素的药物化学探索",
+  "one": "综述自 1964 年鉴定 Δ9-THC 以来五十年围绕大麻（Cannabis sativa L.）天然成分的药物化学工作，指出 C3 侧链变化与三环骨架开环等关键化学改造催生了高亲和力、受体亚型选择性的配体，这些配体至今仍是重要的药理工具，并总结植物大麻素构效关系的历史与当时进展。",
+  "typ": "综述（药物化学/构效关系）",
+  "field": "天然产物药物化学、大麻素受体药理",
+  "journal": "Chem Biodivers 2007",
+  "score": 2
+ },
+ {
+  "id": 94,
+  "title_en": "810 nm diode laser for hair reduction with Chill-tip technology: prospective observational analysis of 55 patients of Fitzpatrick skin types III, IV, V",
+  "title_zh": "采用冷却探头技术的 810 nm 半导体激光脱毛：55 例 Fitzpatrick III–V 型皮肤患者的前瞻性观察研究",
+  "one": "55 例连续就诊者（51 女 4 男，67.3% 为 IV 型皮肤）接受 810 nm LightSheer 半导体激光（Chill-tip 接触冷却）脱毛，间隔 4–6 周治疗、随访 2 年，三次治疗后终毛平均减少 61.25%，仅 8%（4 例）出现短期副作用，作者结论为该激光在 III–V 型深色皮肤中有效且无永久性副作用。",
+  "typ": "前瞻性观察研究（单中心、无对照）",
+  "field": "医学美容、激光医学",
+  "journal": "J Cosmet Laser Ther 2020",
+  "score": 2
+ },
+ {
+  "id": 95,
+  "title_en": "L-Theanine healed NSAID-induced gastric ulcer by modulating pro/antioxidant balance in gastric ulcer margin",
+  "title_zh": "L-茶氨酸通过调节胃溃疡边缘的促氧化/抗氧化平衡促进 NSAID 诱导胃溃疡愈合",
+  "one": "小鼠单次口服吲哚美辛 18 mg/kg 后第 3 天溃疡最重，伴脂质过氧化与蛋白羰基化升高、Th1 细胞因子增加，以及巯基、黏蛋白、PGE、Th2 细胞因子与总抗氧化能力下降；L-茶氨酸 10 mg/kg 可促进溃疡愈合（通过调节 COX-1/COX-2 表达提升 PGE2、纠正 Th1/Th2 平衡与恢复溃疡边缘抗氧化状态），但 40 mg/kg 反而加重溃疡——首次报道该神经保护型天然氨基酸对胃溃疡的**剂量依赖性双相效应**。",
+  "typ": "动物实验（小鼠，吲哚美辛诱导溃疡模型）",
+  "field": "天然产物药理、胃肠黏膜保护、氧化应激",
+  "journal": "J Nat Med 2014",
+  "score": 2
+ },
+ {
+  "id": 96,
+  "title_en": "Parkinson's disease LRRK2 mutations dysregulate iron homeostasis and promote oxidative stress and ferroptosis in human neurons and astrocytes",
+  "title_zh": "帕金森病 LRRK2 突变在人类神经元与星形胶质细胞中扰乱铁稳态并促进氧化应激与铁死亡",
+  "one": "在携带致病性杂合 LRRK2 突变的人 iPSC 及其衍生的谷氨酸能神经元、多巴胺能神经元与星形胶质细胞中，**溶酶体内二价铁一致性升高**，并伴脂质过氧化与 ROS 升高；选择性 LRRK2 抑制剂 MLi-2 或铁螯合可不同程度逆转这些表型；CRISPR/Cas9 敲除 Rab8a 可重现铁相关表型，而外源表达 Rab8a 可使 R1441C LRRK2 iPSC 的溶酶体铁恢复正常，支持 Rab8a 依赖的膜转运参与其中。",
+  "typ": "基础实验（人 iPSC 等基因对照细胞模型、高内涵/超分辨成像、ICP-MS、CRISPR）",
+  "field": "帕金森病、铁代谢、溶酶体生物学、铁死亡",
+  "journal": "Mol Neurodegener 2026",
+  "score": 4
+ },
+ {
+  "id": 97,
+  "title_en": "Regulatable in vivo gene expression via adaptamers",
+  "title_zh": "通过 adaptamer 实现体内可调控的基因表达",
+  "one": "提出 adaptamer（ADAR-modulatable aptamer）——一个小于 120 bp 的 RNA 开关，把 FDA 已批准小分子响应的核酸适配体与**内源 ADAR 介导的 A-to-I RNA 编辑**耦合：配体结合稳定双链 RNA 结构、招募内源 ADAR 把终止密码子编辑为有义密码子，从而恢复下游蛋白翻译；该机制无需外源蛋白元件、不涉及切割，在多种细胞系（含人 T 细胞）中有效，并在小鼠中以 AAV 递送 adaptamer 控制的 FGF21 表达，诱导代谢重塑、逆转肥胖与肝脂肪变。",
+  "typ": "方法学/工具开发（细胞 + 小鼠在体 AAV 验证）",
+  "field": "基因治疗、RNA 工程、合成生物学",
+  "journal": "Mol Cell 2026",
+  "score": 5
+ },
+ {
+  "id": 98,
+  "title_en": "Protein disulphide isomerase protects against ALS/FTD phenotypes associated with cyclin F in zebrafish and cellular models",
+  "title_zh": "蛋白二硫键异构酶在斑马鱼与细胞模型中拮抗与 cyclin F 相关的 ALS/FTD 表型",
+  "one": "突变 cyclin F^S621G 在 Neuro-2a 细胞中引起胞质错定位、ER 应激（XBP-1 与 CHOP 激活）、蛋白酶体功能障碍（GFPu 蓄积）与凋亡（核浓缩、caspase-3 活化），共表达蛋白二硫键异构酶（PDI）可显著减轻上述全部表型；在 48 hpf 瞬时转基因斑马鱼中，表达 cyclin F^S621G 的幼鱼光动反应游动距离显著缩短，共表达 PDI 可使运动功能恢复至接近野生型。",
+  "typ": "基础实验（Neuro-2a 细胞共转染 + 瞬时转基因斑马鱼）",
+  "field": "ALS/FTD、内质网应激、氧化还原伴侣蛋白",
+  "journal": "Redox Rep 2026",
+  "score": 2
+ },
+ {
+  "id": 99,
+  "title_en": "Targeting oncogenic SOX2 condensates suppresses squamous cell carcinoma progression",
+  "title_zh": "靶向致癌性 SOX2 凝聚体可抑制鳞状细胞癌进展",
+  "one": "发现 SOX2 凝聚（condensation）是食管、头颈与肺鳞癌共有的癌症特征，其活化结构域 1（AD1）中的芳香族与疏水残基为凝聚驱动区；位点定向突变、原位小鼠模型与多组学表明 SOX2 凝聚体通过增强 SOX2 染色质占据、H3K27ac 富集与染色质相互作用上调 FGFR2 等致癌位点的表达；FDA 已批准药物筛选发现蛋白酶体抑制剂 ixazomib 以 HSP70 依赖方式解聚 SOX2 凝聚体——ixazomib 处理后 HSP70 的底物结合域阻断 SOX2 AD1，选择性溶解凝聚体、下调致癌基因并抑制凝聚体阳性的鳞癌 PDX 生长。",
+  "typ": "基础实验 + 药物再定位（细胞、原位小鼠模型、PDX、多组学）",
+  "field": "肿瘤生物学、生物分子凝聚体（相分离）、药物再定位",
+  "journal": "Cell Rep Med 2026",
+  "score": 4
+ },
+ {
+  "id": 100,
+  "title_en": "Interpretable machine learning model for brain metastasis in breast cancer: a large-scale, multi-center study",
+  "title_zh": "乳腺癌脑转移的可解释机器学习预测模型：一项大规模多中心研究",
+  "one": "汇总 SEER、美国国家癌症数据库（NCDB）与中国多中心共 186,351 例原发乳腺癌患者（其中 2982 例，1.6% 发生脑转移），用 LASSO 做特征选择后比较 9 种机器学习模型，最终以 LASSO 正则化逻辑回归表现最佳，验证集 AUC 0.907（95%CI 0.857–0.958），校准与决策曲线净获益良好，SHAP 解释确认 AJCC N/M/T 分期、年龄与手术状态为关键预测因子，并部署了在线实时风险估算工具。",
+  "typ": "回顾性队列 + 预测模型开发（SEER + NCDB + 中国多中心）",
+  "field": "临床预测模型、乳腺癌、医学人工智能",
+  "journal": "J Transl Med 2026",
+  "score": 3
+ },
+ {
+  "id": 101,
+  "title_en": "Environmental conditions and nutritional quality of vegetables in protected cultivation",
+  "title_zh": "设施栽培中的环境条件与蔬菜营养品质",
+  "one": "设施与植物工厂长期\"以产量为中心\"，本文系统论证可以通过光强、光谱、CO2、温湿度的主动调控把蔬菜从\"产量产品\"升级为\"营养品质产品\"，并给出环境因子对品质影响的优先级排序（光强 > CO2 > 光谱 > 温度 > 湿度）。",
+  "typ": "综述",
+  "field": "设施园艺 / 食品营养 / 植物工厂",
+  "journal": "Compr Rev Food Sci Food Saf 2025",
+  "score": 3
+ },
+ {
+  "id": 102,
+  "title_en": "Cytokine context shapes antigen-presenting and matrix-producing states of cancer-associated fibroblasts",
+  "title_zh": "细胞因子环境塑造肿瘤相关成纤维细胞的抗原呈递态与基质产生态",
+  "one": "跨四种癌种的单细胞与空间转录组整合，界定了两类保守的免疫调节性 CAF 状态——apCAF（抗原呈递型，促 T 细胞活化、预后好、免疫治疗响应好）与 mCAF（基质产生型，免疫抑制、预后差），并提出 IFN-γ 与 TGF-β 的细胞因子环境决定二者的可塑性转换。",
+  "typ": "多组学整合（单细胞 + 空间转录组 + 体外功能验证）",
+  "field": "肿瘤免疫 / 肿瘤微环境 / 免疫治疗生物标志物",
+  "journal": "Signal Transduct Target Ther 2026",
+  "score": 4
+ },
+ {
+  "id": 103,
+  "title_en": "A host-virus arms race over FAM134B in African swine fever virus infection",
+  "title_zh": "非洲猪瘟病毒感染中围绕 FAM134B 的宿主—病毒军备竞赛",
+  "one": "内质网自噬受体 FAM134B 通过把 ASFV 主要衣壳蛋白 p72 与 pA137R 送入溶酶体降解、阻断近核病毒工厂的衣壳组装，从而限制这一大型胞质 DNA 病毒；ASFV 则用毒力因子 pMGF300-2R 结合 FAM134B 并借 C 端 LIR 招募 LC3B 反过来降解它，删除 MGF300-2R 可降低复制并在猪体内减毒。",
+  "typ": "基础实验 + 动物（猪）实验",
+  "field": "病毒学 / 自噬 / 兽医生物技术",
+  "journal": "Autophagy 2026",
+  "score": 4
+ },
+ {
+  "id": 104,
+  "title_en": "The role of the gut microbiota in energy metabolism and metabolic disease",
+  "title_zh": "肠道微生物群在能量代谢与代谢性疾病中的作用",
+  "one": "这是奠定\"代谢性内毒素血症\"假说的早期综述，把高脂饮食—肠道菌群改变—LPS 经 CD14/TLR4 触发低度炎症—胰岛素抵抗/2 型糖尿病/动脉粥样硬化连成一条机制链，并提出用益生元/益生菌调节菌群来干预代谢病。",
+  "typ": "综述（经典，已 17 年）",
+  "field": "肠道微生态 / 代谢病 / 营养药理",
+  "journal": "Curr Pharm Des 2009",
+  "score": 2
+ },
+ {
+  "id": 105,
+  "title_en": "Spatiotemporal remodeling in habenula marks the onset of depression-related phenotypes",
+  "title_zh": "缰核的时空重塑标志着抑郁相关表型的起始",
+  "one": "在雄性小鼠中构建了侧缰核（LHb）空间分辨分子图谱，发现慢性应激引起拓扑组织化、时间上有明确阶段性的基因表达重塑；纵向双光子成像显示 LHb 单神经元对厌恶刺激的兴奋性反应逐步增强，与转录变化进程和抑郁样行为出现同步，且在该变化\"起始点\"给予氯胺酮或化学遗传学抑制 LHb 活动即产生抗抑郁效应。",
+  "typ": "基础/动物实验（空间转录组 + 在体双光子钙成像 + 化学遗传学）",
+  "field": "神经科学 / 精神药理 / 抑郁症治疗时机",
+  "journal": "Nat Neurosci 2026",
+  "score": 3
+ },
+ {
+  "id": 106,
+  "title_en": "Projected Effect of 2026 Federal Changes to the Childhood Immunization Schedule on Chronic Hepatitis B Virus Infections in the United States",
+  "title_zh": "2026 年美国联邦儿童免疫程序变更对慢性乙型肝炎病毒感染影响的模型预测",
+  "one": "以 360 万美国出生队列、20 年时间跨度的马尔可夫模型测算，相较普遍出生剂量接种（预计 255 例儿童期感染），推迟至 2 月龄接种使慢性 HBV 感染增加 19%（至 303 例），而\"共同决策\"策略（接种完成率仅 50.0%）增加 83%（至 467 例），并使 20 年时的 HBV 易感人群从 23.2 万扩大到 180.6 万。",
+  "typ": "决策分析/马尔可夫状态转移模型（模拟研究）",
+  "field": "疫苗政策 / 卫生经济学与决策科学 / 公共卫生建模",
+  "journal": "Ann Intern Med 2026",
+  "score": 2
+ },
+ {
+  "id": 107,
+  "title_en": "Study protocol of a prospective, non-interventional cohort study evaluating the benefits of TIPS in patients with HCC receiving first-line atezolizumab plus bevacizumab (NISTIPS TRITICC-4, IKF092)",
+  "title_zh": "评估 TIPS 对接受一线阿替利珠单抗联合贝伐珠单抗的肝细胞癌患者获益的前瞻性非干预队列研究方案",
+  "one": "这是一份尚未产出结果的研究方案：在德国最多 25 中心入组 350 例合并肝硬化的不可切除/转移性 HCC 患者，按真实临床实践分为\"已置入 TIPS + atezo/bev\"与\"仅 atezo/bev\"两组，主要终点为肝功能恶化时间（TTDL，定义为肝功能参数持续恶化 > 4 周），用倾向性评分匹配校正混杂。",
+  "typ": "研究方案（前瞻性、多中心、非干预队列；NCT07365930）",
+  "field": "肝癌系统治疗 / 介入放射学 / 门静脉高压管理",
+  "journal": "Future Oncol 2026",
+  "score": 2
+ },
+ {
+  "id": 108,
+  "title_en": "Comparative efficacy and safety of treatments for eosinophilic esophagitis: Systematic review and network meta-analysis of randomized controlled trials",
+  "title_zh": "嗜酸性食管炎治疗的疗效与安全性比较：随机对照试验的系统综述与网络荟萃分析",
+  "one": "纳入 48 项 RCT 共 3963 例的网络荟萃分析显示，高频度 dupilumab（症状 MD −11.08，95%CI −15.14 至 −7.03，高确定性）与吞咽型局部糖皮质激素（STC，MD −6.86，95%CI −9.17 至 −4.56，中确定性）是症状与生活质量上最有效的治疗；部分生物制剂与表皮免疫治疗与安慰剂无差异；多种干预能降低峰值嗜酸细胞计数（高确定性）却不转化为患者重要结局改善；四种/六种食物剔除饮食（4FED/6FED）可能优于 1FED 但确定性低且负担更大。",
+  "typ": "系统综述 + 网络荟萃分析（48 项 RCT，3963 例）",
+  "field": "过敏/免疫 / 消化病学 / 循证医学与证据合成",
+  "journal": "J Allergy Clin Immunol 2026",
+  "score": 4
+ },
+ {
+  "id": 109,
+  "title_en": "Adult Attention Deficit-Hyperactivity Disorder",
+  "title_zh": "成人注意缺陷多动障碍",
+  "one": "这是一篇面向临床实践的权威综述：成人 ADHD 全球患病率约 2.5%，常合并焦虑、心境、睡眠、物质使用与人格障碍，并与肥胖、心脑血管疾病、1 型与 2 型糖尿病、免疫与炎症性疾病风险升高相关，但仍在许多人身上未被识别；评估依赖对核心症状、共病与功能影响的访谈（标准化量表可辅助），治疗核心是心理教育加兴奋剂或非兴奋剂药物，多与心理社会干预和生活方式指导联合。",
+  "typ": "临床实践综述（NEJM Clinical Practice）",
+  "field": "精神医学 / 全科与多学科共病管理",
+  "journal": "N Engl J Med 2026",
+  "score": 3
+ },
+ {
+  "id": 110,
+  "title_en": "Comparison of Procedure-Based and Diagnosis-Based Identifications of Severe Sepsis and Disseminated Intravascular Coagulation in Administrative Data",
+  "title_zh": "行政数据中基于处置与基于诊断识别重症脓毒症及弥散性血管内凝血的方法比较",
+  "one": "以实验室数据为参考标准，在 595 例 ICU 住院中识别出重症脓毒症 212 例（35.6%）与 DIC 81 例（13.6%）；基于处置记录的识别方法对重症脓毒症灵敏度 64.2%、特异度 65.3%，而基于诊断码的 Angus 与 Martin 算法灵敏度仅 21.7% 与 14.6%、特异度 98.7% 与 99.5%；DIC 方面处置法灵敏度 55.6%/特异度 67.1%，诊断法 35.8%/98.2%——即处置信息更灵敏但更不特异，可作为行政数据库疾病识别的补充维度。",
+  "typ": "诊断准确性/方法学验证研究（三中心 ICU，595 例）",
+  "field": "真实世界数据 / 临床流行病学 / 医疗信息学",
+  "journal": "J Epidemiol 2016",
+  "score": 3
+ },
+ {
+  "id": 111,
+  "title_en": "The puzzle of monogamous marriage",
+  "title_zh": "一夫一妻制婚姻之谜",
+  "one": "人类学记录显示约 85% 的人类社会在历史上允许一夫多妻，经济学与演化逻辑都预测财富差距扩大会增加多配偶婚姻，但一夫一妻制婚姻规范却在欧洲及全球扩散；作者提出的假说是：这一制度组合之所以被文化演化选择，是因为它具有群体层面的效应，在群体间竞争中带来优势，并据此推导出若干可检验的社会指标预测，再用跨学科的汇聚证据加以检验。",
+  "typ": "理论综述/假说提出（文化演化，汇集多学科证据）",
+  "field": "文化演化 / 人类行为生态学 / 制度经济学与社会科学",
+  "journal": "Philos Trans R Soc Lond B Biol Sci 2012",
+  "score": 2
+ },
+ {
+  "id": 112,
+  "title_en": "Oral Versus Injectable Incretin-Based Anti-Obesity Therapies: An Integrated Computational and Evidence-Based Comparison of Orforglipron, Semaglutide, and Tirzepatide",
+  "title_zh": "口服与注射型肠促胰素类减重疗法的整合计算与循证比较：orforglipron、semaglutide 与 tirzepatide",
+  "one": "整合头对头 SURMOUNT-5 证据（tirzepatide 72 周减重 20.2% vs semaglutide 13.7%）、分子描述符、药物—靶点—疾病网络与四套权重的多准则决策分析后，tirzepatide 在均衡、疗效优先与安全优先模型中排名最高（前提是剔除被误用于两种大分子肽的复合 ADMET 评分），而首个完成 3 期的口服非肽类 GLP-1 受体激动剂 orforglipron 仅在\"可及性优先\"模型下排名第一；其亲脂性超出 Lipinski 上限，说明其口服吸收源自刻意的化学设计而非常规小分子可开发性。",
+  "typ": "计算方法 + 证据整合（网络药理学 + 多准则决策分析 MCDA）",
+  "field": "药物比较评价 / 计算药理学 / 肥胖药物治疗",
+  "journal": "OMICS 2026",
+  "score": 3
+ },
+ {
+  "id": 113,
+  "title_en": "Short-term recovery after anterior cruciate ligament reconstruction: a prospective comparison of three autografts",
+  "title_zh": "前交叉韧带重建术后短期恢复：三种自体移植物的前瞻性比较",
+  "one": "64 例接受 ACL 重建的患者按三种自体移植物（股四头肌腱、髌腱、腘绳肌腱）前瞻性评估活动度恢复、大腿周长、股四头肌活动、助行器使用与止痛药使用时长，结果股四头肌腱组比髌腱组更早恢复膝关节伸直、腘绳肌腱组助行器使用时间短于髌腱组、股四头肌腱组止痛药需求低于另两组。",
+  "typ": "前瞻性队列（非随机，64 例）",
+  "field": "运动医学 / 骨科康复",
+  "journal": "Orthopedics 2006",
+  "score": 1
+ },
+ {
+  "id": 114,
+  "title_en": "Sirenomelia Sympus Dipus: Autopsy Case Report of a Second-Trimester Fetus With Multiple Congenital Anomalies",
+  "title_zh": "并腿畸形（双足型）：一例孕中期胎儿多发先天畸形的尸检病例报告",
+  "one": "报告一例 19 周男性胎儿的尸检：下肢完全融合但保留双足（Stocker-Heifetz I 型，sympus dipus）合并腰骶部脊膜脊髓膨出、大血管转位、腹主动脉未发出肾动脉、双侧肾发育不全、膀胱/输尿管/尿道缺如、Bochdalek 膈疝伴双肺发育不全、右肺两叶、幽门与十二指肠闭锁、直肠闭锁与肛门闭锁、多发肝脏囊膜下血肿、双侧隐睾，影像确认骶骨与骨盆缺如但存在两套股骨、胫骨与双足，胎盘为两血管脐带；作者指出 Bochdalek 膈疝与右肺两叶是此前 sympus dipus 未报道的伴发异常。",
+  "typ": "病例报告（尸检）",
+  "field": "围产病理学 / 先天畸形学 / 产前诊断",
+  "journal": "Cureus 2026",
+  "score": 1
+ },
+ {
+  "id": 115,
+  "title_en": "Sugar-sweetened and artificially sweetened beverage consumption and risk of type 2 diabetes in men",
+  "title_zh": "含糖饮料与人工甜味饮料摄入与男性 2 型糖尿病风险",
+  "one": "在 40389 名健康男性 20 年随访、2680 例新发 2 型糖尿病的队列中，含糖饮料最高与最低四分位相比的 HR 为 1.25（95%CI 1.11–1.39；校正多因素含 BMI 后 1.24，95%CI 1.09–1.40，趋势 P<0.01）；人工甜味饮料在年龄校正模型中 HR 高达 1.91（95%CI 1.72–2.11）但多因素校正后降至 1.09（95%CI 0.98–1.21，趋势 P=0.13）不再显著；以 1 杯（≈237 mL）咖啡替换 1 份含糖饮料与风险降低 17% 相关。",
+  "typ": "前瞻性队列（Health Professionals Follow-Up Study，40389 名男性，20 年随访，2680 例新发糖尿病）",
+  "field": "营养流行病学 / 代谢病预防 / 公共卫生政策",
+  "journal": "Am J Clin Nutr 2011",
+  "score": 3
+ },
+ {
+  "id": 116,
+  "title_en": "Multi-omics atlas of chronic exercise",
+  "title_zh": "慢性运动的多组学图谱",
+  "one": "小鼠 8 周自主转轮运动后，在活动期与静息期两个时相采集 22 个组织与血浆，做转录组、代谢组、蛋白组与单核 RNA/甲基化测序，发现运动引起经典的肌纤维类型转换与广泛的组织特异性重塑（骨骼肌转录变化最大）；除下丘脑、肾与肺外，多数组织在活动期变化更大；雌性呈现更广泛的转录响应并有独特的下调模式；单核甲基化组与转录组配对解析出驱动表观遗传重塑的具体细胞类型（包括与纤维类型转换同步的特定肌核中基因体去甲基化与转录的协同变化），并在肌肉中刻画了部分甲基化域；机器学习识别出跨哺乳动物物种保守的运动特征。",
+  "typ": "基础/动物实验（多组学图谱：bulk RNA-seq、代谢组、蛋白组、单核 RNA 与甲基化测序 + 机器学习）",
+  "field": "运动生理学 / 多组学 / 表观遗传学 / 时间生物学",
+  "journal": "Cell 2026",
+  "score": 4
+ },
+ {
+  "id": 117,
+  "title_en": "Prophylactic IFN-γ blockade drives axi-cel expansion without preventing refractory toxicities: caution against pre-emptive use",
+  "title_zh": "预防性阻断 IFN-γ 促使 axi-cel 扩增但未能预防难治性毒性：对先发性使用的警示",
+  "one": "基于前期临床前数据，研究者在 axi-cel 输注前 1 天单次给予 emapalumab（抗 IFN-γ 单抗）以预防毒性，但首批 2 例患者均出现治疗难治性毒性，包括高级别 ICANS 与重叠的 CRS-IEC-HS，需多种免疫调节药物；CAR-T 扩增超过 ZUMA-1 及本机构标准治疗队列的报告水平；尽管 emapalumab 达治疗浓度、游离 IFN-γ 被抑制，IL-2 与 sIL-2R 仍显著升高，提示 CRS 可由非 IFN-γ 依赖的通路驱动；两例均达完全缓解，疗效未受损；因毒性意外严重且难治，该设计的入组被终止、方案修订。",
+  "typ": "早期临床试验的安全性警示报告（开放标签 2 期，NCT06550141，前 2 例）",
+  "field": "CAR-T 细胞治疗 / 免疫毒性管理 / 转化免疫学",
+  "journal": "Blood Cancer Discov 2026",
+  "score": 4
+ },
+ {
+  "id": 118,
+  "title_en": "A tunable immune-evasion function of Zika virus NS5 governs viral fitness and pathogenesis",
+  "title_zh": "寨卡病毒 NS5 的可调免疫逃逸功能决定病毒适应性与致病性",
+  "one": "通过同时评估 STAT2 降解能力与病毒 RNA 复制的多步突变扫描策略，鉴定出 NS5 上单一残基 L162 可被替换而选择性废除 STAT2 降解却不损伤复制功能；L162A/L162G 特异性破坏 NS5 对 ZSWIM8-CUL3 E3 泛素连接酶的招募，从而保留 STAT2 稳定性并恢复 IFN 信号；重组突变病毒在人细胞中复制下降、ISG 诱导增强，且该缺陷在 STAT2 敲除细胞中被完全挽救；在 I 型 IFN 受体缺陷 A129 小鼠中突变与野毒复制相当，而在人 STAT2 敲入小鼠中 ZIKV-NS5L162G 病毒载量与疾病显著减轻，在孕鼠中亦降低胎盘与胎鼠病毒负荷及不良妊娠结局；该突变病毒仍诱导强效中和抗体与 T 细胞应答，可保护免受野毒攻击。",
+  "typ": "基础实验 + 多种动物模型（含孕鼠）+ 反向遗传学",
+  "field": "病毒学 / 先天免疫 / 疫苗理性设计",
+  "journal": "Proc Natl Acad Sci U S A 2026",
+  "score": 5
+ },
+ {
+  "id": 119,
+  "title_en": "Emergence of Shamonda Orthobunyavirus, Central Europe, 2026",
+  "title_zh": "中欧地区 Shamonda 正布尼亚病毒的出现，2026 年",
+  "one": "2026 年 6 月中旬以来，德国南部与瑞士的奶牛群出现急性、非致死性综合征（群体发病率高、产奶量下降、腹泻、发热、精神沉郁），在排除主要病毒性病原后，通过泛 Simbu 血清群 RT-PCR 检出一种正布尼亚病毒，经宏基因组测序确认并获得完整的 Shamonda 病毒基因组。",
+  "typ": "病原发现/疫情快报（Dispatch）",
+  "field": "兽医传染病学 / 新发病原监测 / 病毒基因组学",
+  "journal": "Emerg Infect Dis 2026",
+  "score": 3
+ },
+ {
+  "id": 120,
+  "title_en": "Predicting 3-month prognosis of cerebral venous thrombosis: a machine learning approach incorporating inflammatory markers",
+  "title_zh": "预测脑静脉血栓 3 个月预后：纳入炎症标志物的机器学习方法",
+  "one": "以两家医院 2020–2023 年的 350 例脑静脉血栓（CVT）患者做开发队列，采用 5 折嵌套交叉验证、训练折内 Borderline-SMOTE 处理类别不平衡，从 31 个临床与实验室变量经 Lasso 与 Elastic Net 取交集得 11 个变量、再用随机森林降维至 5 个关键变量并以 SHAP 排序，SVM 模型内部验证 AUROC 0.870（灵敏度 0.784、特异度 0.897），在第三家医院 152 例前瞻性外部队列中 AUROC 0.862（95%CI 0.829–0.884）；但校准分析显示风险被轻度高估（calibration-in-the-large ≈ 9%），作者据此定位该模型当前宜作风险分层辅助而非确定性预后预测工具。",
+  "typ": "预测模型开发与外部验证（回顾性建模 + 前瞻性外部队列）",
+  "field": "神经病学 / 临床预测模型 / 医学机器学习",
+  "journal": "Front Neurol 2026",
+  "score": 3
+ },
+ {
+  "id": 121,
+  "title_en": "Complications from bay leaf ingestion",
+  "title_zh": "误食月桂叶（香叶）导致的并发症",
+  "one": "整片月桂叶因叶片坚硬、边缘锐利且不被消化，可嵌入食管或肠壁造成穿孔、梗阻等并发症，是一类被长期忽视的\"食品性异物\"风险。",
+  "typ": "病例报告（临床短篇）",
+  "field": "急诊外科／消化道异物／食品安全",
+  "journal": "JAMA 1983",
+  "score": 1
+ },
+ {
+  "id": 122,
+  "title_en": "Risk of fractures with selective serotonin-reuptake inhibitors or tricyclic antidepressants",
+  "title_zh": "SSRI 或三环类抗抑郁药与骨折风险",
+  "one": "对 1970–2008 年 13 项研究（7 项病例对照、5 项前瞻队列、1 项横断面）的汇总阅读显示，SSRI 与 TCA 均与骨折风险升高相关，且时间模式不同——TCA 风险在用药初期最高后衰减，SSRI 风险随用药时间轻度上升。",
+  "typ": "叙述性文献综述（非系统评价/非 meta 分析）",
+  "field": "临床药理／药物流行病学／骨健康",
+  "journal": "Ann Pharmacother 2009",
+  "score": 2
+ },
+ {
+  "id": 123,
+  "title_en": "Genomic and clinical landscape of RAS mutations in acute myeloid leukemia",
+  "title_zh": "急性髓系白血病中 RAS 突变的基因组与临床图谱",
+  "one": "在 8,553 例新诊断 AML 的集中化分子检测数据中，21%（1,775 例）携带 RAS 突变（NRAS 13%、KRAS 5%、双突变 3%），其预后效应完全依赖共突变背景与治疗方案——NRAS 在 NPM1（HR=0.61）或 FLT3-ITD（HR=0.63）背景下偏有利，在 AML-MR 背景下不利（HR=1.32），而在维奈克拉非强化方案中 RAS 突变在 NPM1（HR=2.98）或 IDH1/2（HR=4.06）背景下显著恶化生存。",
+  "typ": "大型多中心回顾性分子-临床队列研究",
+  "field": "血液肿瘤／分子诊断／风险分层",
+  "journal": "Blood 2026（在线先发）",
+  "score": 4
+ },
+ {
+  "id": 124,
+  "title_en": "Intraoperative Dobutamine Plus Norepinephrine to Prevent Postoperative Acute Kidney Injury in Septic Shock: A Randomized Clinical Trial",
+  "title_zh": "术中多巴胺丁胺联合去甲肾上腺素预防感染性休克患者术后急性肾损伤：随机临床试验",
+  "one": "584 例接受外科源头控制手术的感染性休克患者中，术中加用多巴胺丁胺（≤5 µg/kg/min）使术后 7 天内新发或加重 AKI 从 34.7%（102/294）降至 22.8%（66/290）（调整 RR=0.64，95% CI 0.49–0.83），2 级（4.8% vs 9.9%）与 3 级（7.9% vs 13.6%）AKI 亦显著减少，代价是心动过速增多。",
+  "typ": "多中心随机对照试验（开放标签，39 家三甲医院，NCT06462313）",
+  "field": "麻醉与围术期医学／重症／肾脏保护",
+  "journal": "JAMA 2026（在线先发）",
+  "score": 5
+ },
+ {
+  "id": 125,
+  "title_en": "Ponatinib-Blinatumomab or Imatinib-Chemotherapy for Adult Ph-Positive ALL",
+  "title_zh": "普纳替尼联合贝林妥欧单抗 vs 伊马替尼联合化疗治疗成人 Ph 阳性急性淋巴细胞白血病",
+  "one": "236 例成人 Ph+ ALL 以 2:1 随机，普纳替尼+贝林妥欧单抗的\"无化疗\"一线方案在中位随访 23.7 个月时 24 个月无事件生存率 86% vs 67%（P<0.001），无 MRD 生存 68% vs 42%，复发率 5% vs 13%，且仅 19% 患者在首次完全血液学缓解后接受了移植。",
+  "typ": "III 期随机对照试验（GIMEMA ALL2820，NCT04722848）",
+  "field": "血液肿瘤／靶向治疗+免疫治疗／无化疗方案",
+  "journal": "N Engl J Med 2026;395(15):1483-1494",
+  "score": 5
+ },
+ {
+  "id": 126,
+  "title_en": "Effect of retirement on cognitive function: the Whitehall II cohort study",
+  "title_zh": "退休对认知功能的影响：Whitehall II 队列研究",
+  "one": "3,433 名英国公务员在退休前后各长达 14 年的重复认知测评显示，在校正年龄相关自然下降后，退休后言语记忆的下降速度比退休前快 38%，且退休前\"高职级对言语记忆的保护效应\"在退休后消失，各职级下降速率趋同；抽象推理与语音/语义流畅性未见显著退休效应。",
+  "typ": "前瞻性队列（分段/piecewise 轨迹分析）",
+  "field": "认知老化流行病学／职业健康／老龄政策",
+  "journal": "Eur J Epidemiol 2018;33(10):989-1001",
+  "score": 3
+ },
+ {
+  "id": 127,
+  "title_en": "Synergisms in Science: Climate Change and Integrated Pest Management Through the Lens of Communication—2019 Student Debates",
+  "title_zh": "科学中的协同效应：从传播视角看气候变化与综合虫害治理——2019 年学生辩论赛纪要",
+  "one": "美国昆虫学会（ESA）2019 年年会学生辩论围绕三个议题展开——如何更好地向公众传播 IPM 科学、气候变化对农业与医学相关害虫的影响、以及促进粮食安全的可持续农业技术，本文为该活动的组织与内容纪要。",
+  "typ": "会议活动纪要（非研究性论文）",
+  "field": "昆虫学／科学传播／农业可持续",
+  "journal": "J Insect Sci 2020;20(5):31",
+  "score": 1
+ },
+ {
+  "id": 128,
+  "title_en": "Bioavailability of fluconazole in surgical intensive care unit patients: a study comparing routes of administration",
+  "title_zh": "外科 ICU 患者氟康唑的生物利用度：给药途径比较研究",
+  "one": "18 例外科 ICU 患者（9 例创伤 ISS≥18、9 例腹部手术）随机接受氟康唑 100 mg 肠内（鼻胃管/营养管研碎溶解给药）或静脉给药，肠内相对生物利用度为 77%，AUC、消除速率常数与终末半衰期组间无显著差异；由于肠内给药成本仅为静脉的 10%，作者主张更积极地采用肠内途径。",
+  "typ": "小样本随机药代动力学研究",
+  "field": "临床药代动力学／重症感染／药物经济学",
+  "journal": "J Trauma 1995;39(3):445-7",
+  "score": 2
+ },
+ {
+  "id": 129,
+  "title_en": "Engineered human Argonaute 2 for targeted C-to-U RNA base editing",
+  "title_zh": "改造人源 Argonaute 2 实现靶向 C-to-U RNA 碱基编辑",
+  "one": "将人源 AGO2 改造为模块化 RNA 靶向结构域并融合 C-to-U 脱氨酶（ALTER 系统），在 HEK293T 细胞中对 mRNA 的 C-to-U 编辑效率平均比 Cas13 编辑器 CURE 与 RESCUE 高 1.9 倍，全转录组脱靶编辑相当或更低，且机器学习预测其产生的免疫原性肽显著更少，并可进一步用 AI 导向的去免疫原化流程优化。",
+  "typ": "基础/工程研究（蛋白工程 + 细胞实验 + 计算预测）",
+  "field": "RNA 编辑／基因治疗工具／蛋白工程与去免疫原性",
+  "journal": "Nat Biotechnol 2026（在线先发）",
+  "score": 5
+ },
+ {
+  "id": 130,
+  "title_en": "Mindfulness Reduces Reactivity to Food Cues: Underlying Mechanisms and Applications in Daily Life",
+  "title_zh": "正念降低对食物线索的反应性：潜在机制与日常生活应用",
+  "one": "作者主张正念干预降低食物线索反应性的关键成分是\"去中心化（decentering）\"——即对体验之无常性的元认知洞察，它使食物线索引发的念头与\"消费模拟（consumption simulation）\"变得不再令人信服，从而降低主观渴求、生理唤起（如唾液分泌）与不健康进食。",
+  "typ": "叙述性综述（机制假说提出）",
+  "field": "健康心理学／食欲调节／行为干预",
+  "journal": "Curr Addict Rep 2017;4(2):151-157",
+  "score": 2
+ },
+ {
+  "id": 131,
+  "title_en": "Metabolic plasticity underlies ferroptosis resistance driven by mutant p53 in pancreatic ductal adenocarcinoma",
+  "title_zh": "代谢可塑性是突变型 p53 驱动胰腺癌铁死亡抵抗的基础",
+  "one": "在 CRISPR-Cas9 构建的 TP53-KO 与常见突变型 TP53 过表达等基因胰腺癌模型中，突变 p53 通过上调抗氧化/代谢基因、激活 PI3K-AKT 并选择性转向糖酵解以维持 ATP、保持线粒体完整性，从而抵抗铁死亡；药理学恢复野生型 p53 功能可破坏该适应网络、取消糖酵解重编程，并在体内外显著增强铁死亡性死亡。",
+  "typ": "基础实验（等基因细胞模型 + 转录组/代谢流 + 原位小鼠模型）",
+  "field": "肿瘤代谢／细胞死亡／胰腺癌治疗",
+  "journal": "Mol Cancer 2026;25(1):248",
+  "score": 3
+ },
+ {
+  "id": 132,
+  "title_en": "Single-oocyte proteome-transcriptome co-profiling reveals a role of dysregulated lactate metabolism in oocyte aging",
+  "title_zh": "单卵母细胞蛋白组-转录组共测揭示乳酸代谢失调在卵母细胞衰老中的作用",
+  "one": "对小鼠与人 GV/MII 期衰老卵母细胞实现单细胞蛋白组/转录组共profiling，发现蛋白组与转录组改变显著\"脱耦联\"（蛋白变化并非主要由 RNA 水平驱动），并鉴定 MCT4 为卵母细胞衰老候选标志物——其通过乳酸外排参与衰老相关缺陷，抑制 MCT4 可改善衰老卵母细胞质量。",
+  "typ": "技术方法 + 多组学图谱 + 功能验证（小鼠与人卵母细胞）",
+  "field": "生殖医学／单细胞多组学／衰老生物学",
+  "journal": "Nat Commun 2026;17(1):10994",
+  "score": 4
+ },
+ {
+  "id": 133,
+  "title_en": "The EF1α promoter of cilta-cel drives a highly effective GZMK(+) transcriptional program",
+  "title_zh": "cilta-cel 所用的 EF1α 启动子驱动高效的 GZMK⁺ 转录程序",
+  "one": "对 87 例多发性骨髓瘤患者（50 例 cilta-cel、37 例 ide-cel）的 CAR-T 产品与体内扩增做流式与单细胞多组学分析，发现 cilta-cel 的峰值扩增高 10 倍、持久性更好，驱动因素是以 EOMES 表达与基序可及性为特征的炎性 GZMK⁺ T 细胞亚群（而非耗竭表型）；在骨髓瘤异种移植模型中，决定这一差异的是 EF1α 启动子本身而非纳米抗体结合域。",
+  "typ": "转化研究（87 例患者样本单细胞多组学 + 小鼠异种移植对照实验）",
+  "field": "CAR-T 细胞治疗／载体工程／多发性骨髓瘤",
+  "journal": "Nat Commun 2026;17(1):10980",
+  "score": 4
+ },
+ {
+  "id": 134,
+  "title_en": "[The subtraction of the image in caudography with water soluble contrast]（意大利语）",
+  "title_zh": "水溶性对比剂马尾/骶尾部造影中的影像减影技术",
+  "one": "这是一篇 1968 年意大利语影像学文献，报告在水溶性对比剂马尾区造影（caudography）中应用减影技术以提高病变显示，属于数字减影血管造影（DSA）出现前的\"胶片光学减影\"时代技术记录，无摘要、无数据可供评估。",
+  "typ": "历史性技术报告（意大利语，仅有题录，无摘要）",
+  "field": "放射影像学（历史）／神经影像技术史",
+  "journal": "Nunt Radiol 1968;34(4):307-14",
+  "score": 1
+ },
+ {
+  "id": 135,
+  "title_en": "The brain of the female Anopheles gambiae mosquito at spatial and single-cell resolution",
+  "title_zh": "冈比亚按蚊雌蚊脑的空间与单细胞分辨率图谱",
+  "one": "构建了冈比亚按蚊雌蚊脑的单细胞与空间转录组图谱并与其他昆虫比较，发现交配后主要表现为神经递质系统的调制（而非特定细胞群扩增）、吸血后在胶质细胞/Kenyon 细胞/免疫细胞中出现代谢与免疫反应、并检出脑衰老特征，但未发现恶性疟原虫感染对脑转录组的影响。",
+  "typ": "单细胞/空间组学图谱 + 生理状态比较",
+  "field": "媒介生物学／神经科学／疟疾防控",
+  "journal": "Nat Commun 2026;17(1):10940",
+  "score": 3
+ },
+ {
+  "id": 136,
+  "title_en": "Anti-HIV activity of fucoidans from three brown seaweed species",
+  "title_zh": "三种褐藻来源岩藻多糖（fucoidan）的抗 HIV 活性",
+  "one": "从越南芽庄湾采集的三种褐藻（Sargassum mcclurei、S. polycystum、Turbinaria ornata）提取的岩藻多糖抗 HIV-1 活性相近，平均 IC50 为 0.33–0.7 μg/ml 且无细胞毒性；活性与硫酸基含量及其取代位置均不相关；仅在与病毒预孵育时有效（与细胞预孵育或感染后给药无效），说明其阻断 HIV 进入细胞的早期步骤。",
+  "typ": "体外基础实验（天然产物活性筛选 + 结构-活性关系）",
+  "field": "天然产物化学／抗病毒药理／海洋生物资源",
+  "journal": "Carbohydr Polym 2015;115:122-8",
+  "score": 2
+ },
+ {
+  "id": 137,
+  "title_en": "Icotrokinra, a Targeted Oral Peptide, in Participants With Moderate-to-Severe Plaque Psoriasis and Self-Reported Psoriatic Arthritis",
+  "title_zh": "靶向口服肽 icotrokinra 治疗中重度斑块状银屑病合并自报银屑病关节炎患者：三项 III 期试验的汇总分析",
+  "one": "汇总 ICONIC-LEAD 与 ICONIC-ADVANCE 1/2 中自报有 PsA 病史的 216 例患者（149 例 icotrokinra 200 mg 每日一次、67 例安慰剂），第 16 周 PsA 疾病活动患者总体评价（PtGA）与 PsA 疼痛改善显著优于安慰剂（−19.2 vs −0.8；−19.5 vs −7.8），≥50% 改善比例分别为 47.0% vs 10.7% 与 45.5% vs 16.1%，甲银屑病 mNAPSI 改善 41.6%（安慰剂恶化 118.6%），安全性与安慰剂相当。",
+  "typ": "III 期试验的事后（post-hoc）汇总亚组分析",
+  "field": "皮肤科／风湿免疫／口服多肽药物",
+  "journal": "J Psoriasis Psoriatic Arthritis 2026（在线先发）",
+  "score": 3
+ },
+ {
+  "id": 138,
+  "title_en": "Strategies for the Production of Molecular Animations",
+  "title_zh": "分子动画制作的策略",
+  "one": "系统归纳了分子动画制作的设计原则——用平面设计、电影叙事与界面设计的方法编排镜头与角色运动，通过简化与抽象实现\"清晰性\"，整合多来源数据（必要时补全结构缺口）并明确标注艺术加工以保证科学诚信，运动设计须遵循热运动、小/大构象变化与布朗运动四类动力学的\"动态真实性\"，并提出\"一致性复杂度（consistent complexity）\"作为统领原则。",
+  "typ": "方法学/实践综述（单作者观点与原则总结）",
+  "field": "科学可视化／科学传播／生物信息学",
+  "journal": "Front Bioinform 2022;2:793914",
+  "score": 2
+ },
+ {
+  "id": 139,
+  "title_en": "Glioblastoma immune landscape remodeling following treatment with CD70-targeted CAR-T cells",
+  "title_zh": "CD70 靶向 CAR-T 治疗后胶质母细胞瘤免疫景观的重塑",
+  "one": "在免疫健全小鼠原位 CD70⁺ 胶质母细胞瘤模型中瘤内注射配体型 mCD70 靶向 CAR-T（mCAR27）后，单细胞转录组显示过继细胞扩增、内源 CD8⁺T 浸润增加，同时 Treg、M2 样巨噬细胞（以及部分 DC 与 NK 亚群）减少，并出现 I 型干扰素刺激基因与 Arg1、Tgfbi、Cd274（PD-L1）、Pdcd1lg2（PD-L2）、Lag3 等免疫抑制介质的协同下调与炎症消退相关基因上调。",
+  "typ": "动物实验（同种免疫健全小鼠原位 GB 模型）+ bulk/单细胞 RNA-seq",
+  "field": "肿瘤免疫治疗／神经肿瘤／CAR-T",
+  "journal": "Oncoimmunology 2026;15(1):2745295",
+  "score": 3
+ },
+ {
+  "id": 140,
+  "title_en": "Dysregulation of brain and choroid plexus cell types in severe COVID-19",
+  "title_zh": "重症 COVID-19 中脑与脉络丛细胞类型的失调",
+  "one": "对 8 例 COVID-19 患者与 14 例对照（含 1 例终末期流感患者）的 30 份额叶皮质与脉络丛样本进行 65,309 个单核转录组测序，未检出脑内 SARS-CoV-2 分子痕迹，但发现脉络丛屏障细胞感知并向脑内传递外周炎症、外周 T 细胞浸润脑实质、出现与神经退行性疾病共享特征的微胶质与星形胶质亚群，且人类进化上扩展并与认知相关的上层兴奋性神经元突触信号被优先累及，这些扰动与慢性脑病及认知、精神分裂症、抑郁相关遗传变异有重叠。",
+  "typ": "人体尸检样本单核转录组学研究（含公开数据集）",
+  "field": "神经科学／神经免疫／COVID-19 神经并发症",
+  "journal": "Nature 2021;595(7868):565-571",
+  "score": 4
+ },
+ {
+  "id": 141,
+  "title_en": "[Relationship to Carcinogenesis of Repetitive Low-Dose Radiation Exposure]",
+  "title_zh": "反复低剂量辐射暴露与致癌关系的研究",
+  "one": "小鼠背部皮肤每周 3 次 β 射线照射直至癌变或死亡，单次 2.5–11.8 Gy 组潜伏期与致癌率接近，降至 1–1.5 Gy 潜伏期延长但仍致癌，降至 0.5 Gy 则终生照射未出现皮肤癌、寿命与对照相同，作者称之为“类阈值剂量”。",
+  "typ": "动物实验（作者系列实验总结，日文）",
+  "field": "放射生物学/辐射防护",
+  "journal": "J UOEH 2016",
+  "score": 2
+ },
+ {
+  "id": 142,
+  "title_en": "Cannabis and cancer: unveiling the potential of a green ally in breast, colorectal, and prostate cancer",
+  "title_zh": "大麻与癌症：大麻素在乳腺癌、结直肠癌与前列腺癌中的潜力",
+  "one": "综述汇总了 CBD、Δ9-THC 及合成 CB2 激动剂 JWH-133 在乳腺癌（BC）、结直肠癌（CRC）、前列腺癌（PC）中的体外/体内抗肿瘤证据，机制涉及 CB1/CB2、GPR55 拮抗、VEGF 下调与外泌体释放抑制，但证据层级仍以细胞和小鼠为主。",
+  "typ": "叙述性综述",
+  "field": "肿瘤药理学/天然产物/内源性大麻素系统",
+  "journal": "J Cannabis Res 2024",
+  "score": 2
+ },
+ {
+  "id": 143,
+  "title_en": "A bioavailable GPX4 inhibitor for ferroptosis induction in vivo and tumor suppression",
+  "title_zh": "一种口服可用的 GPX4 抑制剂实现体内铁死亡诱导与肿瘤抑制",
+  "one": "作者报道共价 GPX4 抑制剂 KY0418，以异硫脲（isourea）弹头靶向 GPX4 的 SeCys46，口服后血浆稳定、组织分布广，在多种肿瘤模型中生长抑制幅度从无效到约 70% 不等，但能一致清除循环肿瘤细胞（CTC）并抑制转移。",
+  "typ": "化学生物学 + 药理学基础研究（含动物模型）",
+  "field": "铁死亡/共价抑制剂/肿瘤药物化学",
+  "journal": "Cell 2026（在线先发）",
+  "score": 4
+ },
+ {
+  "id": 144,
+  "title_en": "Meta-analysis of 990 EBV genomes identifies EBER2 SNP7048 and its interaction with HLA-A*11:01 driving nasopharyngeal carcinoma risk",
+  "title_zh": "990 例 EBV 全基因组 meta 分析揭示 EBER2 位点 SNP7048 及其与 HLA-A*11:01 的交互作用驱动鼻咽癌风险",
+  "one": "整合新加坡 388 例 EBV 全基因组与配对宿主 WES，并与香港、广东广西队列合并共 990 例 EBV 基因组做 meta-GWAS，确认携带 EBER2 位点 SNP7048 的高危 EBV 株为鼻咽癌（NPC）主要病毒决定因素，占东南亚归因风险约 68%；携带高危株且缺乏保护性 HLA-A*11:01 者 NPC 风险升高 30.9 倍。",
+  "typ": "病毒基因组 meta-GWAS + 宿主外显子组 + 系统发生分析",
+  "field": "肿瘤病毒学/遗传流行病学/鼻咽癌筛查",
+  "journal": "PNAS 2026;123(43):e2617057123",
+  "score": 5
+ },
+ {
+  "id": 145,
+  "title_en": "Wheat amylase/trypsin inhibitors (ATIs): occurrence, function and health aspects",
+  "title_zh": "小麦淀粉酶/胰蛋白酶抑制剂（ATIs）：存在形式、功能与健康影响",
+  "one": "ATIs 是小麦中一类多亚型蛋白，被认为与呼吸道/食物过敏、乳糜泻相关肠道反应及非乳糜泻小麦敏感（NCWS）有关，但其定量分析、分离纯化、加工（热、湿、盐、酸、发酵）对活性的影响及人体层面的真实效应均存在大量空白，需以常见加工食品形式开展人体研究验证。",
+  "typ": "专家共识式简明综述（多机构联合作者）",
+  "field": "食品科学/谷物化学/胃肠免疫学",
+  "journal": "Eur J Nutr 2022;61(6):2873-2880",
+  "score": 3
+ },
+ {
+  "id": 146,
+  "title_en": "Cluster headache management and beyond",
+  "title_zh": "丛集性头痛的治疗管理及展望",
+  "one": "2015 年时点的专家观点认为丛集性头痛治疗建立在\"稳定三联\"之上——急性期以皮下舒马曲普坦为金标准（优于纯氧与吲哚美辛），预防以大剂量维拉帕米（≥360 mg）为金标准（优于碳酸锂与托吡酯），过渡期用短程皮质激素（全身或枕大神经局部），而神经调控（有创/无创）当时尚不推荐常规使用。",
+  "typ": "专家述评/编者观点（短篇综述）",
+  "field": "神经病学/头痛医学/药物治疗",
+  "journal": "Expert Opin Pharmacother 2015;16(10):1411-5",
+  "score": 1
+ },
+ {
+  "id": 147,
+  "title_en": "Mitochondria-targeted tetraoxanes initiate lipid peroxidation to drive ferroptosis and tumor suppression",
+  "title_zh": "线粒体靶向四氧烷通过启动脂质过氧化驱动铁死亡与肿瘤抑制",
+  "one": "作者设计\"脂质过氧化代谢启动剂\"（MILPO）概念化合物 WMK-1/2——四氧烷自由基生成基团 + 线粒体靶向基团，绕开 GPX4 与 FSP1 这两条传统靶点，在线粒体内直接启动脂质过氧化，诱导一种\"mito-ferroptosis\"亚通路，口服可用、在多种肿瘤模型中抑瘤并增强免疫检查点抑制剂疗效。",
+  "typ": "化学生物学 + 肿瘤药理学（含动物模型、与 ICB 联用）",
+  "field": "铁死亡/药物化学/线粒体靶向",
+  "journal": "Cell 2026（在线先发）",
+  "score": 4
+ },
+ {
+  "id": 148,
+  "title_en": "Spatial Transcriptomics on a Diverse Pancreatic Cancer Cohort Reveals Race-Related Differences in Tumor Subtypes and Immune Microenvironments",
+  "title_zh": "多种族胰腺癌队列的空间转录组揭示肿瘤亚型与免疫微环境的种族相关差异",
+  "one": "在黑人非裔美国人（BAA）与非非裔（NAA）胰腺癌（PDAC）对比中，驱动突变无显著差异，但 BAA 肿瘤的 classical 亚型细胞显著减少、中间/杂合亚型显著富集（basal-like 比例不变），同时 B 细胞互作增多、髓系互作减少，验证队列中三级淋巴结构（TLS）更大更多。",
+  "typ": "多组学队列研究（WES + 空间转录组 + 空间蛋白组）",
+  "field": "肿瘤空间组学/健康差异/胰腺癌",
+  "journal": "Cancer Res 2026（在线先发）",
+  "score": 3
+ },
+ {
+  "id": 149,
+  "title_en": "Mixture additives inhibit the dermal permeation of the fatty acid, ricinoleic acid",
+  "title_zh": "混合物添加剂抑制脂肪酸蓖麻油酸的皮肤渗透",
+  "one": "将 ³H-蓖麻油酸（RA）与三种常用金属切削液添加剂（三嗪 TRI、线性烷基苯磺酸盐 LAS、三乙醇胺 TEA）配成矿物油或聚乙二醇（PEG）体系，在惰性硅橡胶膜与离体猪皮上均显示添加剂显著降低 RA 的角质层分配与渗透，且两种膜趋势一致，提示该相互作用主要是物理化学性质而非生物膜改变所致。",
+  "typ": "体外经皮渗透毒理实验（硅橡胶膜 + 猪皮）",
+  "field": "职业毒理学/经皮吸收/混合物毒理",
+  "journal": "Toxicol Lett 2004;147(1):15-26",
+  "score": 2
+ },
+ {
+  "id": 150,
+  "title_en": "From Genes to Neural Circuits: Genetic and Systems Mechanisms of Ethanol Sensitivity and Tolerance in Drosophila melanogaster",
+  "title_zh": "从基因到神经环路：果蝇乙醇敏感性与耐受的遗传与系统机制",
+  "one": "综述四十年来果蝇乙醇研究，归纳出 cAMP/PKA 信号、离子通道、神经递质受体、细胞骨架调节因子与神经肽通路等保守的敏感性/耐受调控基因，以及椭球体、蘑菇体、生物钟神经元与屏障胶质细胞在醉态、耐受和奖赏中的分工，并指出表观遗传（染色质重塑）与系统遗传学/GWAS 揭示的多基因变异基础。",
+  "typ": "综述",
+  "field": "行为遗传学/神经科学/成瘤成瘾模型",
+  "journal": "BMB Rep 2026（在线先发）",
+  "score": 2
+ },
+ {
+  "id": 151,
+  "title_en": "GRP75-dependent SIMPA mediates inter-organellar quality control",
+  "title_zh": "GRP75 依赖的 SIMPA 介导细胞器间质量控制",
+  "one": "蛋白稳态应激下，受损线粒体蛋白被隔离形成\"应激诱导线粒体蛋白聚集体\"（SIMPA），以蛋白凝聚体形式在空间受限的局部激活质量控制，而不扰动整体线粒体网络；GRP75 既协调 SIMPA 生成，又经线粒体-内质网接触位点（MAM）局部激活 ER 未折叠蛋白反应以清除 SIMPA，在细胞与肝病模型中维持线粒体完整性。",
+  "typ": "细胞生物学基础研究（定量蛋白组 + CLEM + 细胞与肝病模型）",
+  "field": "线粒体质量控制/蛋白稳态/细胞器互作",
+  "journal": "Nature 2026（在线先发）",
+  "score": 3
+ },
+ {
+  "id": 152,
+  "title_en": "Familial hypercholesterolaemia and thymic ageing in a Chinese cohort",
+  "title_zh": "中国队列中家族性高胆固醇血症与胸腺衰老",
+  "one": "562 例杂合型 FH 患者（236 例未治疗、326 例接受降脂治疗）与 295 例年龄匹配健康对照比较，未治疗 FH 患者 CD4+ 近期胸腺迁出细胞（RTE）比例显著降低（18–30 岁及携带高致病性 LDLR 变异者尤甚）、TREC 下降、TCRβ 克隆偏向高频克隆；量化显示 FH 患者达到对照中位 RTE 水平的年龄提早约 6 年（男 19.12 vs 25.51 岁；女 19.18 vs 25.58 岁）；他汀治疗者（尤其女性）RTE 水平高于未治疗者。",
+  "typ": "横断面病例对照队列（含治疗分层）",
+  "field": "心血管代谢/免疫衰老/脂质学",
+  "journal": "Eur Heart J 2026（在线先发）",
+  "score": 4
+ },
+ {
+  "id": 153,
+  "title_en": "Continuous Glucose Monitoring in Non-Insulin-Treated Type 2 Diabetes",
+  "title_zh": "非胰岛素治疗 2 型糖尿病患者的持续葡萄糖监测",
+  "one": "283 例未用胰岛素的 2 型糖尿病成人随机分为 CGM 组（145 例）与常规照护组（138 例），26 周后 HbA1c 由 8.8±1.3% 降至 7.2±1.1%（对照 8.7±1.2% → 8.0±1.4%），校正后组间差 −0.9 个百分点（95% CI −1.1 至 −0.6，P<0.001）；葡萄糖在 70–180 mg/dL 范围内时间（TIR）高出 21 个百分点（95% CI 16–26），低血糖时间非劣且更低（<70 mg/dL 差 −0.20 个百分点，优效性 P=0.004），无严重低血糖事件。",
+  "typ": "随机对照试验（26 周、22 个美国初级保健机构，CONNECT 研究，NCT06601166）",
+  "field": "内分泌/数字健康/医疗器械",
+  "journal": "N Engl J Med 2026（在线先发）",
+  "score": 4
+ },
+ {
+  "id": 154,
+  "title_en": "Comparative transcriptomic and rhizosphere microbiome profiling and cross-omics association analysis of wild and cultivated Panax japonicus var. major",
+  "title_zh": "野生与栽培大叶三七的转录组、根际微生物组比较及跨组学关联分析",
+  "one": "对野生与栽培大叶三七作转录组与根际微生物组比较，根、根茎、叶分别检出 10,416、8,782、5,441 个差异表达 unigene，富集于植物激素信号转导、MAPK、植物-病原互作、苯丙烷与萜类合成通路，AACT、HMGS、HMGR、DXS、TPS 等萜类合成相关基因在野生植株中转录水平更高，并发现若干微生物类群与萜类基因的候选关联——但作者自己明确声明：未测皂苷含量、微生物组缺独立生物学重复、采样地点不同，因此不能证明代谢物积累差异、不能归因于栽培状态或生境、不能证明因果。",
+  "typ": "探索性组学比较研究（无生物学重复、无代谢物测定）",
+  "field": "药用植物学/植物-微生物互作/中药资源",
+  "journal": "Front Plant Sci 2026;17:1961578",
+  "score": 2
+ },
+ {
+  "id": 155,
+  "title_en": "Glutathione in spermatozoa and seminal plasma of infertile men",
+  "title_zh": "不育男性精子与精浆中的谷胱甘肽",
+  "one": "对 77 例不育男性与 11 例对照的射出精液与血浆作总谷胱甘肽测定，少精症患者精子内谷胱甘肽显著低于对照（2.57±0.96 vs 3.49±0.87 nmol/10⁸ 精子，P=0.03），精子内谷胱甘肽与穿透牛宫颈黏液能力弱相关（r=0.2, P=0.04）、与精浆谷胱甘肽相关（r=0.46, P<0.0001），精浆谷胱甘肽与血清 FSH 相关（r=0.53, P=0.005），但血浆与精液谷胱甘肽之间无相关。",
+  "typ": "横断面病例对照（临床实验室研究）",
+  "field": "生殖医学/氧化应激",
+  "journal": "Hum Reprod 1998;13(2):353-9",
+  "score": 2
+ },
+ {
+  "id": 156,
+  "title_en": "Oncogenic mutations in non-small cell lung cancer: from molecular mechanisms to clinical practice",
+  "title_zh": "非小细胞肺癌中的致癌突变：从分子机制到临床实践",
+  "one": "系统梳理 NSCLC 常见与罕见致癌变异的 TKI 与靶向抗体疗效与安全性、耐药机制与克服策略，并按\"有无基线脑转移\"分别讨论 CNS 进展的治疗路径，同时覆盖可手术/不可手术非转移期的靶向治疗潜力，最后强调共突变、转移灶异质性与 AI 辅助基因检测/标志物开发的重要性。",
+  "typ": "系统性综述",
+  "field": "肺癌靶向治疗/精准肿瘤学",
+  "journal": "Signal Transduct Target Ther 2026;11(1):454",
+  "score": 3
+ },
+ {
+  "id": 157,
+  "title_en": "Exercise promotes lipophagy and mitigates cognitive impairment in Alzheimer's disease through downregulating microglial TMEM9",
+  "title_zh": "运动通过下调微胶质细胞 TMEM9 促进脂噬并减轻阿尔茨海默病的认知损害",
+  "one": "5×FAD 小鼠三个月运动干预后脑内脂滴沉积减少、脂噬增强、线粒体完整性保留、认知下降减轻；机制上运动抑制微胶质 TMEM9，促进 LKB1 向溶酶体转位并激活 AMPK，TMEM9 与 ATP6AP1 存在相互作用；临床上 AD 患者血浆 TMEM9 与 p-tau217 进展强相关，血浆 TMEM9 与 TMEM9/ATP6AP1 比值的诊断 AUC 分别为 0.791 和 0.853。",
+  "typ": "动物实验 + 细胞机制 + 临床生物标志物验证（ChiCTR2400085313）",
+  "field": "神经退行/运动医学/脂质自噬",
+  "journal": "Transl Neurodegener 2026;15(1):56",
+  "score": 4
+ },
+ {
+  "id": 158,
+  "title_en": "Drug combinations identified by high-throughput screening promote cell cycle transition and upregulate Smad pathways in myeloma",
+  "title_zh": "高通量筛选发现的药物组合促进细胞周期转换并上调 Smad 通路（多发性骨髓瘤）",
+  "one": "在 47 个多发性骨髓瘤（MM）细胞系中做高通量药物筛选，用 Huber 稳健回归做 in silico 分析识别出 43 个潜在协同组合；其中 6 个组合协同性地降低 MYC 蛋白并提高 p16 表达，在蛋白酶体抑制剂敏感与耐药细胞系中均产生协同杀伤且不伤成纤维细胞；3 个组合在 Ras 驱动的可移植晚期 MM 同种异体移植模型中显著延长生存，并降低患者细胞 ex vivo 活性；共同下调的通路促进细胞周期转换，上调最明显的是 TGFβ/SMAD 信号。",
+  "typ": "高通量药物筛选 + 计算分析 + 动物模型 + 患者样本 ex vivo",
+  "field": "血液肿瘤/药物组合筛选/转化药理学",
+  "journal": "Cancer Lett 2023;568:216284",
+  "score": 3
+ },
+ {
+  "id": 159,
+  "title_en": "Capsaicin suppresses microglial inflammation through TRPV1-SSR4 interaction",
+  "title_zh": "辣椒素通过 TRPV1-SSR4 相互作用抑制微胶质细胞炎症",
+  "one": "在 LPS 诱导急性神经炎症模型中，TRPV1 激动剂辣椒素以 TRPV1 依赖方式减少促炎因子、神经元凋亡、微胶质增生与胞体增大；关键在于用门控阻断剂 capsazepine 阻断 TRPV1 通道门控后抗炎作用并未消失，提示存在非经典（非 Ca²⁺ 内流依赖）机制；邻近标记蛋白组筛出 SSR4 为辣椒素响应的 TRPV1 互作蛋白，敲低 SSR4 削弱抗炎效应，而强制 TRPV1-SSR4 结合可部分模拟抗炎作用，TRPV1 跨膜区支持 SSR4 招募。",
+  "typ": "基础机制研究（LPS 神经炎症模型 + 邻近标记蛋白组 + BRET/NanoBiT 互作 + 结构建模）",
+  "field": "神经免疫/化学生物学/GPCR-通道信号",
+  "journal": "Transl Neurodegener 2026;15(1):57",
+  "score": 3
+ },
+ {
+  "id": 160,
+  "title_en": "Plasma proteomic signatures of subclinical atherosclerosis progression for cardiovascular risk stratification: A cohort study",
+  "title_zh": "亚临床动脉粥样硬化进展的血浆蛋白组特征用于心血管风险分层：一项队列研究",
+  "one": "在 903 名接受 6 年重复亚临床动脉粥样硬化（SA）评估（冠脉钙化 CAC 或颈动脉斑块）的社区人群中，从 117 种蛋白里用 LASSO 分别构建 CAC 与斑块进展的蛋白风险评分（ProtRS，各含 14 种蛋白，分别解释 17.1% 与 18.4% 方差）；在 1,835 人病例队列（中位随访 10.4 年）中，每升高 1 个标准差对应 ASCVD 风险 HR 分别为 1.36（95% CI 1.20–1.54）与 1.38（1.23–1.54），加入传统风险评分后净重分类改善（NRI）0.127（P<0.001），18.6% 的传统中危者被重分类为高危（10 年事件率 10.9%），32.8% 的传统高危者被识别为风险更高（13.7%）。",
+  "typ": "前瞻性社区队列 + 病例队列设计（case-cohort）",
+  "field": "心血管流行病学/蛋白组学/风险预测",
+  "journal": "PLoS Med 2026;23(10):e1005265",
+  "score": 4
+ },
+ {
+  "id": 161,
+  "title_en": "Transcriptome Analysis Identifies a Myeloid-Like Signature in Relapsed or Refractory B-Cell Acute Lymphoblastic Leukemia Patients With Poor Response to CD19 Chimeric Antigen Receptor T Cell Therapy",
+  "title_zh": "转录组分析在CD19 CAR-T疗效不佳的复发/难治B-ALL患者中识别出髓系样特征",
+  "one": "治疗前骨髓转录组中的“髓系样”信号与CD19 CAR-T 3个月时应答不佳相关，但7基因LASSO评分外部验证AUC仅0.592，目前只能算候选相关因素。",
+  "typ": "前瞻性II期试验队列的探索性转录组分析",
+  "field": "血液肿瘤/细胞治疗/生物标志物",
+  "journal": "Cancer Med 2026",
+  "score": 2
+ },
+ {
+  "id": 162,
+  "title_en": "Final analysis results from DREAMM-3, a phase 3 study of belantamab mafodotin versus pomalidomide plus dexamethasone in patients with relapsed/refractory multiple myeloma",
+  "title_zh": "DREAMM-3最终分析：belantamab mafodotin对比泊马度胺+地塞米松治疗复发/难治多发性骨髓瘤的III期研究",
+  "one": "提供的文本仅有题目和利益冲突声明、无摘要正文，无法引用本次最终分析的具体数据；据背景知识，DREAMM-3的主分析未显示单药belamaf在PFS上优于Pd。",
+  "typ": "III期RCT最终分析",
+  "field": "血液肿瘤/抗体偶联药物（ADC）",
+  "journal": "Blood Cancer J 2026",
+  "score": 2
+ },
+ {
+  "id": 163,
+  "title_en": "Ring chromosome 15: characterization by array CGH",
+  "title_zh": "15号环状染色体的阵列比较基因组杂交（array CGH）表征",
+  "one": "两例常规核型/FISH无法区分的r(15)患者，经array CGH显示表型严重者有约6 Mb的15q远端缺失，而表型轻者仅缺失亚端粒克隆，表型严重度与缺失大小相关。",
+  "typ": "病例报告（2例）",
+  "field": "临床细胞遗传学",
+  "journal": "Hum Genet 2006",
+  "score": 1
+ },
+ {
+  "id": 164,
+  "title_en": "Interethnic mating and risk for preterm birth among Arab-American mothers: evidence from the Arab-American Birth Outcomes Study",
+  "title_zh": "阿拉伯裔美国母亲中的跨族婚配与早产风险：来自阿拉伯裔美国人出生结局研究的证据",
+  "one": "在密歇根2000–2005年21,621例阿拉伯裔母亲分娩中，父亲为非阿拉伯裔者早产风险更高（OR 1.18），晚期早产OR 1.24，而在非阿拉伯白人母亲中无此关联。",
+  "typ": "人群出生登记横断面/回顾性队列",
+  "field": "围产流行病学/移民健康",
+  "journal": "J Immigr Minor Health 2011",
+  "score": 1
+ },
+ {
+  "id": 165,
+  "title_en": "Retatrutide Once Weekly for Treatment of Obstructive Sleep Apnea",
+  "title_zh": "每周一次retatrutide治疗阻塞性睡眠呼吸暂停",
+  "one": "在中重度OSA合并超重/肥胖患者中，GIP/GLP-1/胰高血糖素受体三重激动剂retatrutide 80周显著降低AHI（较安慰剂差值最高-24.4次/小时），体重下降最高达22.2%。",
+  "typ": "两项III期双盲安慰剂对照RCT（嵌套于篮式试验）",
+  "field": "睡眠医学/肥胖代谢/肽类药物",
+  "journal": "N Engl J Med 2026",
+  "score": 4
+ },
+ {
+  "id": 166,
+  "title_en": "Biopsy-Proven Glomerular Diseases in Saudi Arabia: The Clinicopathological Spectrum and Predictors of Renal Outcomes in a Single-Center Cohort and Four Decades of National Data",
+  "title_zh": "沙特阿拉伯活检证实的肾小球疾病：单中心队列临床病理谱与肾脏结局预测因素及四十年全国数据",
+  "one": "在24年333例活检队列中，狼疮性肾炎（21.6%）和FSGS（18%）最常见，1年时39%达到复合肾脏终点，中重度IFTA（aOR 2.13）和动脉硬化（aOR 2.38）独立预测肾功能下降。",
+  "typ": "回顾性单中心队列+文献描述性比较",
+  "field": "肾脏病理/肾病学",
+  "journal": "Cureus 2026",
+  "score": 2
+ },
+ {
+  "id": 167,
+  "title_en": "Epigenetics in development, disease, and therapy: from mechanisms to clinical interventions",
+  "title_zh": "发育、疾病与治疗中的表观遗传学：从机制到临床干预",
+  "one": "该综述系统梳理DNA甲基化、组蛋白修饰、染色质重塑和非编码RNA在配子发生、早期发育、重编程与衰老中的作用，并展望表观治疗和精准表观医学。",
+  "typ": "大型综述（多团队联合）",
+  "field": "表观遗传学/发育生物学/衰老/转化医学",
+  "journal": "Sci China Life Sci 2026",
+  "score": 2
+ },
+ {
+  "id": 168,
+  "title_en": "NNMT enhances hyperandrogenism in polyendocrine metabolic ovarian syndrome through epigenetic remodelling",
+  "title_zh": "NNMT通过表观遗传重塑加重多内分泌代谢性卵巢综合征（PMOS）的高雄激素血症",
+  "one": "颗粒细胞中NNMT通过消耗甲基供体降低H3K27me3、上调RARB并放大卵巢雄激素合成，形成雄激素-表观抑制的正反馈环，药理抑制NNMT可改善PMOS模型的激素与代谢表型。",
+  "typ": "基础实验+动物模型",
+  "field": "生殖内分泌/代谢表观遗传",
+  "journal": "Nat Metab 2026",
+  "score": 3
+ },
+ {
+  "id": 169,
+  "title_en": "Miro1 mediates skeletal muscle insulin resistance in type 2 diabetes",
+  "title_zh": "Miro1介导2型糖尿病骨骼肌胰岛素抵抗",
+  "one": "Miro1在肥胖与T2D患者骨骼肌中蓄积，源于胰岛素介导的AKT-Miro1相互作用不足；运动训练可降低其蓄积，肌肉特异性敲除Miro1改善小鼠氧化能力与胰岛素敏感性。",
+  "typ": "横断面临床研究+RCT（运动干预）+小鼠基因敲除+细胞实验",
+  "field": "代谢病/线粒体生物学/运动医学",
+  "journal": "Nat Commun 2026",
+  "score": 3
+ },
+ {
+  "id": 170,
+  "title_en": "A multicentre phase III clinical trial of dual-epigenetic therapy plus CHOP compared with CHOP in previously untreated patients with peripheral T-cell lymphoma",
+  "title_zh": "双表观药物（阿扎胞苷+西达本胺）联合CHOP对比CHOP一线治疗外周T细胞淋巴瘤的多中心III期试验",
+  "one": "AC-CHOP（n=84）较CHOP（n=44）未显著提高ORR（60.7% vs 54.6%）或PFS（10.2 vs 8.4个月，P=0.093），OS延长（46.2 vs 24.1个月，P=0.023）但受后续治疗不平衡影响需谨慎解读。",
+  "typ": "多中心III期对照试验（按中心分组，非真正随机）",
+  "field": "淋巴瘤/表观治疗",
+  "journal": "Blood Cancer J 2026",
+  "score": 2
+ },
+ {
+  "id": 171,
+  "title_en": "Multimodal KCNQ1 Variant-Effect Maps Define Ion Channel Mechanisms and Disease Risk",
+  "title_zh": "多模态KCNQ1变异效应图谱揭示离子通道机制与疾病风险",
+  "one": "对KCNQ1的13,403个编码变异做4种汇集功能检测共49,305次测量，为大多数意义不明变异（VUS）提供功能证据，并发现显性负效应变异比单倍剂量不足变异具有更高心律失常风险。",
+  "typ": "高通量功能基因组学（深度突变扫描/MAVE）+病例对照+生物库分析",
+  "field": "心血管遗传学/精准医学",
+  "journal": "Circulation 2026",
+  "score": 5
+ },
+ {
+  "id": 172,
+  "title_en": "Genotoxic and nongenotoxic effects of glycidyl methacrylate on human lung fibroblast cells",
+  "title_zh": "甲基丙烯酸缩水甘油酯（GMA）对人肺成纤维细胞的遗传毒性与非遗传毒性效应",
+  "one": "GMA在2BS人肺成纤维细胞中剂量依赖性诱发DNA链断裂、HPRT基因突变和形态学转化，同时抑制缝隙连接通讯（GJIC），但不引起凋亡，兼具遗传毒性和非遗传毒性致癌潜能。",
+  "typ": "体外毒理学实验",
+  "field": "职业毒理/化学品安全",
+  "journal": "Biomed Environ Sci 2003",
+  "score": 1
+ },
+ {
+  "id": 173,
+  "title_en": "A Multifaceted Intervention and Its Effects on Antibiotic Usage in Norwegian Nursing Homes",
+  "title_zh": "多维度干预对挪威养老院抗生素使用的影响",
+  "one": "挪威一县33家养老院的12个月多维度干预（会议、教育、反馈报告、学术拜访、临床核查清单）使总抗生素使用下降15.8%（8.68→7.31 DDD/100BD），但相对4个对照县无显著额外下降；尿路感染口服抗生素用量显著多降（下降32.8%）。",
+  "typ": "准实验（对照组前后对比，非随机）",
+  "field": "抗菌药物管理（AMS）/老年医学/公共卫生",
+  "journal": "Antibiotics (Basel) 2023",
+  "score": 2
+ },
+ {
+  "id": 174,
+  "title_en": "Akkermansia muciniphila attenuates macrophage efferocytosis to enhance anti-PD-1 efficacy in microsatellite-stable colorectal cancer",
+  "title_zh": "Akkermansia muciniphila通过减弱巨噬细胞胞葬作用增强微卫星稳定型结直肠癌对抗PD-1的疗效",
+  "one": "口服Akkermansia muciniphila（Akk）通过TLR2/NF-κB减弱巨噬细胞胞葬，使凋亡肿瘤细胞堆积并激活cGAS-STING-I型干扰素通路，增强CD8+ T细胞应答；I期试验（n未明确）中Akk+PD-1抗体治疗转移性MSS CRC客观缓解率19%。",
+  "typ": "机制研究（小鼠）+ I期临床试验",
+  "field": "肿瘤免疫/微生物组",
+  "journal": "Cell Host Microbe 2026",
+  "score": 4
+ },
+ {
+  "id": 175,
+  "title_en": "The effect of glucagon-like peptide-1 receptor agonists versus metformin on pregnancy rates in women with polycystic ovary syndrome: a systematic review and meta-analysis of randomized trials",
+  "title_zh": "GLP-1受体激动剂对比二甲双胍对多囊卵巢综合征女性妊娠率的影响：随机试验的系统综述与荟萃分析",
+  "one": "纳入3项RCT共252人，GLP-1RA为基础的治疗未显著提高总体妊娠率（OR 1.41，95%CI 0.81–2.45），但自然妊娠率升高（OR 3.10，95%CI 1.74–5.49），对IVF妊娠无影响；证据等级自然妊娠为中等、其余为低。",
+  "typ": "系统综述与荟萃分析",
+  "field": "生殖内分泌/循证医学",
+  "journal": "Eur J Obstet Gynecol Reprod Biol 2026",
+  "score": 2
+ },
+ {
+  "id": 176,
+  "title_en": "UEFA consensus guidelines on anterior cruciate ligament (ACL) injury in Women's football - part one: risk factors and prevention",
+  "title_zh": "UEFA关于女子足球前交叉韧带（ACL）损伤的共识指南——第一部分：危险因素与预防",
+  "one": "UEFA召集31名多学科专家，用RAND-UCLA适当性方法对101条证据陈述做三轮Delphi投票，88条达成共识，结论是女足ACL损伤多发生于急停、变向、落地等非接触高强度动作，多组分预防训练（每周2–3次、每次15–20分钟的增强式、力量、近端控制练习）在高依从性下可降低非接触ACL损伤。",
+  "typ": "专家共识指南（RAND-UCLA+改良Delphi）",
+  "field": "运动医学/损伤预防",
+  "journal": "Sci Med Footb 2026",
+  "score": 3
+ },
+ {
+  "id": 177,
+  "title_en": "Identification of cholesterol metabolism-related subtypes in nonfunctioning pituitary neuroendocrine tumors and analysis of immune infiltration",
+  "title_zh": "无功能垂体神经内分泌肿瘤胆固醇代谢相关亚型的识别及免疫浸润分析",
+  "one": "146例NF-PitNET临床数据显示胆固醇是海绵窦侵袭（CSI）的独立危险因素（P=0.034），结合GSE169498数据集用机器学习筛出12个胆固醇代谢枢纽基因，将73例分为两亚型，免疫浸润和mTOR通路存在差异。",
+  "typ": "回顾性临床数据+公共数据集生物信息学",
+  "field": "神经肿瘤/生物信息学",
+  "journal": "Lipids Health Dis 2023",
+  "score": 2
+ },
+ {
+  "id": 178,
+  "title_en": "Direction-specific biomarker profiles and clinical significance of plasma p-tau217/amyloid PET discordance in cognitively normal adults",
+  "title_zh": "认知正常成人血浆p-tau217与淀粉样PET不一致的方向特异性生物标志物特征及临床意义",
+  "one": "在中国CPAS（n=594）与ADNI（n=475）认知正常队列中，血浆p-tau217与淀粉样PET的四种组合具有不同生物学与预后含义：p-tau+/PET-者GFAP和NfL升高，两个p-tau+组临床进展风险更高，不一致结果的解读需同时考虑组合模式与所用cutoff。",
+  "typ": "双队列横断面+纵向观察性研究",
+  "field": "阿尔茨海默病/血液生物标志物",
+  "journal": "Alzheimers Dement 2026",
+  "score": 4
+ },
+ {
+  "id": 179,
+  "title_en": "CD47 fuels intestinal fibrosis by inducing fibroblast phagocytic evasion and represents a therapeutic target",
+  "title_zh": "CD47通过诱导成纤维细胞逃避吞噬驱动肠纤维化并作为治疗靶点",
+  "one": "克罗恩病肠纤维化区存在CD47hi成纤维细胞与SIRPAhi巨噬细胞配对，IL-1β介导其交流形成“吞噬逃避”促纤维化微环境，遗传或抗体阻断CD47-SIRPα可增强成纤维细胞清除、使巨噬细胞转向NRF2相关促吞噬状态并减轻纤维化。",
+  "typ": "基础机制研究（单细胞/空间转录组+小鼠模型）",
+  "field": "炎症性肠病/纤维化",
+  "journal": "Cell Rep Med 2026",
+  "score": 4
+ },
+ {
+  "id": 180,
+  "title_en": "Assessment of Tidal Volume in Patients Undergoing Noninvasive Ventilation: Systematic Review and Meta-Analysis",
+  "title_zh": "无创通气患者潮气量的评估：系统综述与荟萃分析",
+  "one": "纳入11项研究1136例，NIV失败组的潮气量/预测体重（Vt/PBW）显著高于成功组（MD 1.02 mL/kg，95%CI 0.60–1.45），高Vt/PBW与死亡率升高（OR 9.11）、呼吸频率增快、PaCO2降低相关，提示过高呼吸驱动是死亡的驱动因素。",
+  "typ": "系统综述与荟萃分析（观察性研究）",
+  "field": "重症医学/呼吸支持",
+  "journal": "Crit Care Med 2026",
+  "score": 3
+ },
+ {
+  "id": 181,
+  "title_en": "CX3CL1 (fractalkine)-CX3CR1 interface drives CD8⁺ T cell-induced neurodegeneration in human brain organoids",
+  "title_zh": "CX3CL1（fractalkine）–CX3CR1 界面驱动 CD8⁺ T 细胞诱导的神经退行（人脑类器官模型）",
+  "one": "Aβ 刺激人皮层类器官上调神经元 CX3CL1 与 IL-15，招募并激活 CX3CR1^high CD8⁺ T 细胞，后者通过可溶性细胞因子与细胞毒分子造成神经元损伤（MAP2 丢失、cleaved Caspase-3 升高），中和这些效应分子可逆转表型。",
+  "typ": "基础实验（人源类器官 + 免疫细胞共培养）",
+  "field": "神经免疫学 / 阿尔茨海默病 / 类器官",
+  "journal": "PNAS 2026；123(43):e2605209123",
+  "score": 4
+ },
+ {
+  "id": 182,
+  "title_en": "Beyond libido: the multifaceted role of testosterone in women",
+  "title_zh": "超越性欲：睾酮在女性中的多重生理作用",
+  "one": "睾酮是女性体内含量最高的生物活性性激素，来源于卵巢、肾上腺、神经与外周转化并在绝经后持续存在，对骨、肌肉、代谢、内皮、认知、情绪、性功能与生殖均有作用，但检测标准化不足使\"循环水平–临床结局\"关系难以解释。",
+  "typ": "叙述性综述（PubMed/Scopus 检索 1974.01–2025.12，三人独立筛选）",
+  "field": "内分泌 / 女性健康 / 性医学",
+  "journal": "Sexual Medicine Reviews 2026；14(4):qeag072",
+  "score": 2
+ },
+ {
+  "id": 183,
+  "title_en": "Evolution of hypertrophic cardiomyopathy to a contemporary treatable disease",
+  "title_zh": "肥厚型心肌病如何演变为一种当代可治疾病",
+  "one": "这是 Maron 与 Braunwald 于 2012 年发表的里程碑式述评，论点是 HCM 已从\"预后不明的罕见致死病\"转变为可通过 ICD、室间隔减容（外科心肌切除/酒精消融）与系统化风险分层管理的\"可治疾病\"。",
+  "typ": "观点/述评（仅有题录，无摘要）",
+  "field": "心血管 / 肥厚型心肌病（HCM）",
+  "journal": "Circulation 2012；126(13):1640-4",
+  "score": 1
+ },
+ {
+  "id": 184,
+  "title_en": "Original W'-balance models do not transfer to high-intensity interval training in trained adult runners: Proposal of a single-coefficient linear alternative",
+  "title_zh": "原始 W'-平衡模型不适用于受训成年跑者的高强度间歇训练：提出单系数线性替代模型",
+  "one": "四种经典 W'-平衡恢复模型在跑步 HIIT 场景下严重高估可完成间歇数（汇总 MAE 26.4–72.4 个间歇，偏差 +20.1 至 +72.4），而作者提出的单系数线性模型（Linear_mod）在默认 R=1 时 MAE 4.85，群体最优 R=1.63 时 2.85，个体化 R=1.54±0.29 时降至 0.55 个间歇，且个体 R 在两种方案间稳定（受试者内 CV=9.9%）。",
+  "typ": "生理学验证研究 + 模型提出（n=27，受训跑者）",
+  "field": "运动生理学 / 计算建模 / 运动科技",
+  "journal": "Physiological Reports 2026；14(20):e71152",
+  "score": 4
+ },
+ {
+  "id": 185,
+  "title_en": "Epithelial NF-κB shapes protective Treg cell responses to restrain intestinal inflammation",
+  "title_zh": "上皮 NF-κB 塑造保护性 Treg 应答以限制肠道炎症",
+  "one": "肠上皮细胞 NF-κB 驱动的\"促炎\"分泌组实际上是炎症消退的必要条件——它通过 CCL22 招募 Treg 并诱导其耐受/修复状态（伴 GDPD3、CCR4 上调）；而在溃疡性结肠炎患者中上皮 NF-κB 被选择性激活：促炎程序开启，而调控 T 细胞招募的靶基因被抑制。",
+  "typ": "基础实验（患者活检 + 小鼠模型 + 单细胞测序 + 分泌组）",
+  "field": "黏膜免疫学 / 炎症性肠病（UC）",
+  "journal": "Nature Communications 2026；17(1):10956",
+  "score": 4
+ },
+ {
+  "id": 186,
+  "title_en": "Control of light-dependent keto carotenoid biosynthesis in Nostoc 7120 by the transcription factor NtcA",
+  "title_zh": "转录因子 NtcA 对 Nostoc 7120 中光依赖性酮类胡萝卜素生物合成的调控",
+  "one": "在 Nostoc PCC 7120 中，CrtW 只生成单酮的 echinenone 而 CrtO 是合成双酮 canthaxanthin（主要光保护色素）的唯一酶；高光可转录上调全部所检测的类胡萝卜素基因（phytoene synthase、phytoene desaturase 及两个 ketolase），其机制是 NtcA 结合启动子区，而该结合**绝对依赖**还原剂与 2-氧化戊二酸（oxo-glutarate）的存在；DCMU 可阻断光诱导，故推测光合电子传递为高光感受器、氧化还原态变化为 NtcA 结合的信号。",
+  "typ": "基础实验（微生物生理 + 分子调控）",
+  "field": "蓝藻生物学 / 类胡萝卜素代谢 / 合成生物学",
+  "journal": "Zeitschrift für Naturforschung C 2016；71(9-10):303-311",
+  "score": 2
+ },
+ {
+  "id": 187,
+  "title_en": "Prevention and management of non-steroidal anti-inflammatory drugs-induced small intestinal injury",
+  "title_zh": "非甾体抗炎药所致小肠损伤的预防与处理",
+  "one": "随胶囊内镜与球囊辅助小肠镜的普及，NSAID 小肠病（NSAID enteropathy）被发现相当常见且多为无症状，但可致大出血、狭窄与穿孔；其发病机制与上消化道损伤不同，目前尚无能完全预防或治疗的药物，需要在长期 NSAID 使用者中开展长期随机研究。",
+  "typ": "综述",
+  "field": "消化内科 / 药物安全 / 内镜",
+  "journal": "World Journal of Gastroenterology 2011；17(42):4647-53",
+  "score": 2
+ },
+ {
+  "id": 188,
+  "title_en": "Testing for Alzheimer Disease in Asymptomatic Adults",
+  "title_zh": "无症状成人的阿尔茨海默病检测",
+  "one": "该观点文章指出，在无症状个体中检测 AD 生物标志物的预后价值仍不确定，而阳性结果可能带来保险、就业、财务与心理层面的负面后果。",
+  "typ": "Viewpoint（观点评论）",
+  "field": "神经病学 / 生物标志物 / 医学伦理与卫生政策",
+  "journal": "JAMA 2026（在线先行）",
+  "score": 2
+ },
+ {
+  "id": 189,
+  "title_en": "Miniature microbial solar cells to power wireless sensor networks",
+  "title_zh": "用微型微生物太阳能电池为无线传感网络供电",
+  "one": "微型微生物太阳能电池（MSC）利用光合微生物连续从太阳能与水中收获电能、在低照度下还能靠微生物呼吸产电，是无人值守环境中小型低功耗传感节点最可行的候选电源之一，但目前的功率与寿命仍不足以支撑实际 WSN 应用。",
+  "typ": "综述/展望",
+  "field": "生物电化学 / 能量收集 / 物联网",
+  "journal": "Biosensors and Bioelectronics 2021；177:112970",
+  "score": 2
+ },
+ {
+  "id": 190,
+  "title_en": "Acetaminophen Use in Pregnancy: Evidence, Controversies, and Clinical Counseling",
+  "title_zh": "妊娠期对乙酰氨基酚的使用：证据、争议与临床咨询",
+  "one": "综述认为现有证据不支持常规妊娠期对乙酰氨基酚暴露与不良神经发育结局之间的因果关系——观察性研究报道的 ADHD、ASD、隐睾等关联在同胞对照等严格设计中显著减弱或消失，提示母体基础疾病（按适应症混杂）可解释大部分风险；鉴于未经治疗的疼痛与发热本身有害，该药仍应作为妊娠期一线解热镇痛药，并以最低有效剂量、最短必要疗程使用。",
+  "typ": "叙述性综述（侧重大型观察队列、同胞对照分析、药代数据与近期系统评价）",
+  "field": "母胎医学 / 药物流行病学 / 临床咨询",
+  "journal": "American Journal of Perinatology 2026（在线先行）",
+  "score": 2
+ },
+ {
+  "id": 191,
+  "title_en": "Biologic Use in Type 2 versus Non-Type 2 Asthma: Similarities, Differences, and Challenges",
+  "title_zh": "2 型与非 2 型哮喘的生物制剂使用：相似、差异与挑战",
+  "one": "已上市的六个哮喘单抗（omalizumab、mepolizumab、reslizumab、benralizumab、dupilumab、tezepelumab）加上新获批的超长效抗 IL-5 抗体 depemokimab，全部基于 2 型（T2）炎症通路开发与处方，导致非 T2 患者几乎无药可用；作者主张 T2/非 T2 二分法\"操作上有用但生物学上误导\"——阈值任意且在激素暴露下不稳定，低 T2 标志物不等于没有 T2 生物学，而非 T2 本身高度异质。",
+  "typ": "叙述性综述（基于结构化文献检索）",
+  "field": "呼吸病学 / 生物制剂 / 精准医学",
+  "journal": "Journal of Inflammation Research 2026；19:589946",
+  "score": 4
+ },
+ {
+  "id": 192,
+  "title_en": "Failure of oral water loading and intravenous hypotonic saline to suppress plasma prolactin in man",
+  "title_zh": "口服水负荷与静脉低渗盐水未能抑制人血浆催乳素",
+  "one": "在 10 名正常男性中，口服 20 mL/kg 水负荷后半小时内平均催乳素反而**小幅但显著升高**（7.6 → 12.3 ng/mL）；11 名女性中升高不显著但血浆催乳素与渗透压呈显著负相关；5 名男性静脉输注 0.45% 低渗或 5% 高渗盐水均未改变平均催乳素——结论是不支持此前报道的\"水负荷抑制催乳素\"，也不支持催乳素参与人体血浆渗透压的短期调节。",
+  "typ": "人体生理学干预实验（小样本）",
+  "field": "内分泌生理学 / 水盐代谢",
+  "journal": "Journal of Clinical Endocrinology & Metabolism 1975；41(2):383-9",
+  "score": 1
+ },
+ {
+  "id": 193,
+  "title_en": "Predictive Factors for Early-Onset Seizures in Patients With Cerebral Venous Sinus Thrombosis",
+  "title_zh": "脑静脉窦血栓患者早发癫痫发作的预测因素",
+  "one": "112 例 CVST 患者（63 男/49 女，平均年龄 39.82±15.70 岁）中 34 例（30.36%）发生癫痫；多因素 logistic 回归显示脑出血（P=0.002）、上矢状窦前部血栓（P=0.003）、NIHSS≥5（P=0.003）与 D-二聚体≥0.88 mg/L（P=0.004）为独立预测因素，四因素联合的 AUC 达 0.871（95% CI 0.803–0.939）。",
+  "typ": "双中心回顾性队列（2011.01–2020.12，n=112）",
+  "field": "神经病学 / 脑血管病 / 预测模型",
+  "journal": "Frontiers in Neurology 2022；13:842807",
+  "score": 3
+ },
+ {
+  "id": 194,
+  "title_en": "Emerging Lipid Nanoparticle Targeting Strategies for Extrahepatic Delivery of RNA Therapeutics",
+  "title_zh": "用于 RNA 疗法肝外递送的新型脂质纳米颗粒靶向策略",
+  "one": "LNP 已通过 COVID-19 mRNA 疫苗与已获批 siRNA 药物证明其递送效率、可放大制造与安全性，但其固有肝靶向性与细胞类型特异性不足限制了向脾、肺、淋巴结、脑与肿瘤的递送；综述系统梳理了脂质化学、颗粒工程、表面功能化、蛋白冠调控与给药途径五类重定向策略，并指出高通量筛选、机器学习与数据驱动设计是加速下一代 LNP 优化的路径。",
+  "typ": "综述",
+  "field": "药物递送 / 纳米材料 / RNA 疗法",
+  "journal": "Advanced Materials 2026（在线先行）",
+  "score": 5
+ },
+ {
+  "id": 195,
+  "title_en": "Endothelial exosomes remodel chromatin accessibility and superenhancer in cancer cells to promote liver metastatic colonization",
+  "title_zh": "内皮细胞外泌体重塑癌细胞染色质可及性与超级增强子以促进肝转移定植",
+  "one": "内皮细胞分泌的含 RN7SL2 外泌体可上调葡萄膜黑色素瘤（UM）细胞的先锋转录因子 KLF4，后者经 ATAC-seq/ChIP-seq 证实提高染色质可及性并重塑超级增强子（SE），显著增强 SE 关联基因 MCL1 与 RASGRP3 的转录，从而促进增殖、运动与转移；临床数据集中 RIG-I、STAT1、KLF4、RASGRP3 的高表达分别与 UM 和 PDAC 患者更短的无转移生存或总生存相关。",
+  "typ": "基础实验（多组学 + 临床数据集验证）",
+  "field": "肿瘤转移 / 表观遗传学 / 肿瘤微环境",
+  "journal": "Signal Transduction and Targeted Therapy 2026；11(1):453",
+  "score": 4
+ },
+ {
+  "id": 196,
+  "title_en": "In vivo Gene Writing with engineered retrotransposons",
+  "title_zh": "用工程化逆转座子实现体内基因写入",
+  "one": "作者建立计算流水线系统挖掘多样化非 LTR 逆转座子，经大量工程改造获得可用反式提供的 RNA 模板在人细胞中高效、稳定插入报告基因的元件（命名为 Gene Writers）；该系统在体外成功制备具强抗肿瘤活性的 CD19 与 CD20 CAR-T 细胞，并通过 LNP 递送 RNA 在人源化小鼠体内直接生成 CAR-T 并实现稳定的 B 细胞清除。",
+  "typ": "基础/平台技术研究（计算挖掘 + 蛋白工程 + 细胞与动物验证；Tessera Therapeutics）",
+  "field": "基因编辑 / 基因治疗 / 细胞治疗",
+  "journal": "Cell 2026（在线先行）",
+  "score": 5
+ },
+ {
+  "id": 197,
+  "title_en": "Expression characteristic and significance of interleukin-6, nuclear factor kappa beta, and bone formation markers in rat models of osteoporosis",
+  "title_zh": "骨质疏松大鼠模型中 IL-6、NF-κB 及骨形成标志物的表达特征与意义",
+  "one": "60 只成年雌性 SD 大鼠分为正常对照、假手术与去卵巢（OVX）三组，OVX 组骨密度在术后 4、5、6 个月显著降低（0.082/0.073/0.061 g/cm² vs 假手术约 0.095–0.097，P<0.01），血清 IL-6 自 2 个月起显著升高（P<0.01），BALP 与 BGP 在 4–6 个月升高（P<0.05），骨组织 IL-6 与 NF-κB mRNA 随时间递增且与 BMD 负相关，IL-6 与 NF-κB 相互正相关。",
+  "typ": "动物实验（卵巢切除去势大鼠模型，n=60，分三组，2–6 个月时间序列）",
+  "field": "骨代谢 / 炎症 / 绝经后骨质疏松",
+  "journal": "Translational Research 2008；152(1):18-23",
+  "score": 1
+ },
+ {
+  "id": 198,
+  "title_en": "A randomized phase 2 study combining midostaurin, low-dose cytarabine and venetoclax in newly diagnosed AML ≥60 years",
+  "title_zh": "米哚妥林联合低剂量阿糖胞苷与维奈克拉治疗新诊断 ≥60 岁 AML 的随机 2 期研究（INTERVENE）",
+  "one": "在非不良核型、不适合强化疗的 ≥60 岁新诊断 AML 中，在 LDAC+维奈克拉（LV）基础上序贯加入米哚妥林（LVM）**未改善**主要终点复合完全缓解率（CRc 72% vs 68%），但在 FLT3-ITD 亚组（n=29）中 CRc 提升（82% vs 57%，差值 25%，真实差值 >5% 的后验概率 0.85，95% CrI −10 至 59），超敏 NGS 检测的 FLT3-ITD 清除率 65% vs 0%，中位总生存 24.2 vs 8.8 个月（HR=0.34，95% CrI 0.071–0.960）。",
+  "typ": "随机 2 期临床试验（ACTRN12619001655134，含 n=18 导入期 + 120 例 2:1 随机）",
+  "field": "血液肿瘤 / 急性髓系白血病 / 联合用药",
+  "journal": "Blood 2026（在线先行）",
+  "score": 4
+ },
+ {
+  "id": 199,
+  "title_en": "Inflammatory biomarkers in cerebral venous thrombosis versus ischemic stroke: a network meta-analysis",
+  "title_zh": "脑静脉血栓与缺血性卒中的炎症标志物：一项网络 meta 分析",
+  "one": "纳入 18 项研究的贝叶斯网络 meta 分析显示，CVT 与缺血性卒中（IS）急性期炎症标志物均显著升高，但 CVT 的全身炎症反应相对更强——CRP（MD=7.58，95% CI 2.48–14.09）与 IL-6（MD=6.98，95% CI 2.75–11.44）在 CVT 急性期高于 IS，二者可能作为鉴别的辅助标志物；两病淋巴细胞计数均降低，提示脑血栓性疾病中存在免疫抑制现象；作者明确声明结论为假设生成、需前瞻验证，神经影像仍是诊断金标准。",
+  "typ": "系统评价 + 贝叶斯网络 meta 分析（PRISMA-NMA，PROSPERO CRD42024539498，纳入 18 项研究）",
+  "field": "脑血管病 / 炎症标志物 / 证据合成",
+  "journal": "Frontiers in Neurology 2025；16:1634369（另见 2026 年勘误）",
+  "score": 3
+ },
+ {
+  "id": 200,
+  "title_en": "Apolipoprotein E4 and immune dysfunction in Alzheimer's disease: mechanisms and therapeutic implications",
+  "title_zh": "载脂蛋白 E4 与阿尔茨海默病中的免疫功能障碍：机制与治疗启示",
+  "one": "综述提出 APOE4 并非仅是脂质转运变异，而是**脑–外周免疫交互的组织者**：在中枢它把微胶质细胞推离稳态监视、转向代谢应激/炎性/突触毒性状态从而削弱病理蛋白清除；在外周它使先天与适应性免疫细胞预激为促炎状态形成可与病脑通讯并浸润其中的\"储库\"；同时它削弱中枢与外周免疫区室的分隔，使双向交互放大神经炎症，形成自我强化的神经免疫环路，加速 AD 进展。",
+  "typ": "综述",
+  "field": "神经免疫学 / 阿尔茨海默病 / APOE 遗传学",
+  "journal": "Trends in Neurosciences 2026（在线先行）",
+  "score": 4
+ }
+]
