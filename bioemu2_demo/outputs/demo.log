@@ -1,0 +1,17 @@
+matmul_precision high requires a CUDA device. The setting has no effects
+[load] model loaded in 29.4s
+entities:
+- entity_type: protein
+  asym_ids:
+  - A
+  sequence: GYDPETGTWG
+  mods: []
+bonds: []
+asym_id_to_author_id: {}
+
+[structure] 1 sample in 55.2s
+[equilibrium] 4 samples in 104.2s
+[result] predicted structure CA-RMSD vs 5AWL: 1.12 A
+[result] equilibrium samples CA-RMSD vs 5AWL (A): [0.7900000214576721, 1.2100000381469727, 0.9200000166893005, 0.8500000238418579]
+[result] fraction folded (RMSD < 2 A): 1.00
+EXIT 0
