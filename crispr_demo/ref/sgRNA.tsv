@@ -1,0 +1,3 @@
+sgrna_id	target_gene	protospacer_20nt	pam	strand	proto_start	cut_site	purpose
+sgRNA-1	pheA	GGCGGTCAGAGACCTGACTC	AGG	+	12601	12617	precise 24 bp knock-in (FLAG-like tag + stop)
+sgRNA-2	lacZ	GGGCCGAACAACTTCCCCGG	TGG	+	26301	26317	knockout by NHEJ/MMEJ indel

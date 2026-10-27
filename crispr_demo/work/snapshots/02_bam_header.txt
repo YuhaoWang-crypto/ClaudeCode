@@ -1,0 +1,3 @@
+@HD	VN:1.6	SO:coordinate
+@SQ	SN:DEMO_chr1	LN:60000
+@RG	ID:EDIT_pool	SM:EDIT_pool	PL:ILLUMINA	LB:lib_EDIT_pool	PU:HXXKMDRXY

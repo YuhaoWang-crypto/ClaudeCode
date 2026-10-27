@@ -1,0 +1,9 @@
+5500	T	C	synonymous_variant	serC	c.804A>G	p.Val268Val
+12614	C	CTGAGTAAGCTAGCGGATCCAAGCT	stop_gained&disruptive_inframe_insertion	pheA	c.617_618insGTAAGCTAGCGGATCCAAGCTTGA	p.Pro205_Asp206insGluTerAlaSerGlySerLysLeu
+21330	A	G	missense_variant	carB	c.580A>G	p.Ile194Val
+26313	TTCCCCGG	T	frameshift_variant	lacZ	c.315_321delCCCCGGT	p.Phe105fs
+33213	CTGACT	C	upstream_gene_variant	leuD	c.-4104_-4100delAGTCA	
+38227	A	AT	frameshift_variant	yjgF	c.227_228insT	p.Ser77fs
+44120	T	C	missense_variant	uvrB	c.824T>C	p.Leu275Ser
+49656	G	A	missense_variant	rpoB	c.656G>A	p.Arg219His
+56499	TCTG	T	conservative_inframe_deletion	acpP	c.133_135delCTG	p.Leu45del

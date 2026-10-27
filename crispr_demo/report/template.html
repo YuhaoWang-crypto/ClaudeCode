@@ -1,0 +1,1054 @@
+<title>CRISPR 编辑效果核查</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: one scroll column; mono eyebrows carry the pipeline's real step order;
+   machine output always sits in a dark console panel, prose never does. */
+:root{
+  --bg:#f4f6f6; --surface:#fcfdfc; --panel:#eaeeed;
+  --ink:#0f1413; --ink-2:#4c5553; --muted:#7d8584; --rule:#dde2e1; --rule-2:#c9d0cf;
+  --c-on:#2a78d6; --c-off:#eb6834; --c-bg:#1baf7a; --c-shared:#7d8584;
+  --accent:#2a78d6; --accent-soft:#e6eefb;
+  --term-bg:#12191b; --term-ink:#dde4e3; --term-dim:#7d8e8c; --term-rule:#263133;
+  --nt-a:#1f9d4d; --nt-c:#2a78d6; --nt-g:#e08a00; --nt-t:#d03b3b;
+  --font-sans:"IBM Plex Sans","Source Han Sans SC","Noto Sans CJK SC","PingFang SC","Microsoft YaHei",system-ui,sans-serif;
+  --font-mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --maxw:1080px;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  color-scheme:dark;
+  --bg:#0b0e0e; --surface:#161a1a; --panel:#1e2423;
+  --ink:#eceeed; --ink-2:#aeb6b4; --muted:#848c8a; --rule:#272d2c; --rule-2:#333b3a;
+  --c-on:#3987e5; --c-off:#d95926; --c-bg:#199e70; --c-shared:#949c9a;
+  --accent:#3987e5; --accent-soft:#16263b;
+  --term-bg:#0e1415; --term-ink:#dde4e3; --term-dim:#798887; --term-rule:#222c2d;
+  --nt-a:#2eb45f; --nt-c:#3987e5; --nt-g:#e09a1f; --nt-t:#e05c5c;
+}}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#0b0e0e; --surface:#161a1a; --panel:#1e2423;
+  --ink:#eceeed; --ink-2:#aeb6b4; --muted:#848c8a; --rule:#272d2c; --rule-2:#333b3a;
+  --c-on:#3987e5; --c-off:#d95926; --c-bg:#199e70; --c-shared:#949c9a;
+  --accent:#3987e5; --accent-soft:#16263b;
+  --term-bg:#0e1415; --term-ink:#dde4e3; --term-dim:#798887; --term-rule:#222c2d;
+  --nt-a:#2eb45f; --nt-c:#3987e5; --nt-g:#e09a1f; --nt-t:#e05c5c;
+}
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--font-sans);
+  font-size:15px;line-height:1.65;margin:0;-webkit-font-smoothing:antialiased}
+.wrap{max-width:var(--maxw);margin:0 auto;
+  padding-left:max(16px,env(safe-area-inset-left,0px));
+  padding-right:max(16px,env(safe-area-inset-right,0px));}
+h1,h2,h3{text-wrap:balance;margin:0;font-weight:600;letter-spacing:-.012em}
+h1{font-size:clamp(28px,5vw,42px);line-height:1.15;font-weight:700;letter-spacing:-.025em}
+h2{font-size:clamp(20px,3vw,26px);line-height:1.25}
+h3{font-size:16px;line-height:1.35}
+p{margin:0}
+a{color:var(--accent)}
+.prose{max-width:66ch}
+.prose p + p{margin-top:.75em}
+
+/* ---- section scaffolding ---- */
+section{padding-block:clamp(34px,6vw,58px);border-top:1px solid var(--rule)}
+section:first-of-type{border-top:0}
+.eyebrow{font-family:var(--font-mono);font-size:11.5px;font-weight:500;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--muted);
+  display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.eyebrow::after{content:"";flex:1;height:1px;background:var(--rule);min-width:20px}
+.lede{color:var(--ink-2);margin-top:12px;max-width:66ch}
+.stack{display:flex;flex-direction:column;gap:22px}
+.stack-sm{display:flex;flex-direction:column;gap:12px}
+
+/* ---- header ---- */
+header.hero{padding-block:clamp(40px,8vw,76px) clamp(28px,5vw,42px)}
+.tag{display:inline-flex;align-items:center;gap:7px;font-family:var(--font-mono);
+  font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;
+  border:1px solid var(--rule-2);color:var(--ink-2);
+  padding:4px 10px;border-radius:999px;background:var(--surface)}
+.tag b{color:var(--c-off);font-weight:600}
+.hero h1{margin-top:18px}
+.hero .sub{font-family:var(--font-mono);font-size:13.5px;color:var(--muted);margin-top:14px}
+
+.verdict{margin-top:30px;background:var(--surface);border:1px solid var(--rule);
+  border-radius:10px;padding:20px 22px}
+.verdict h3{font-size:15px;margin-bottom:10px}
+.verdict ul{margin:0;padding-left:1.1em;color:var(--ink-2)}
+.verdict li{margin-bottom:5px}
+.verdict li:last-child{margin-bottom:0}
+.verdict b{color:var(--ink);font-weight:600}
+
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+  gap:1px;background:var(--rule);border:1px solid var(--rule);
+  border-radius:10px;overflow:hidden;margin-top:22px}
+.stat{background:var(--surface);padding:16px 18px;min-width:0}
+.stat .k{font-family:var(--font-mono);font-size:10.5px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--muted)}
+.stat .v{font-size:27px;font-weight:600;line-height:1.1;margin-top:7px;
+  letter-spacing:-.02em}
+.stat .n{font-size:12.5px;color:var(--ink-2);margin-top:4px}
+
+/* ---- console panels ---- */
+.console{background:var(--term-bg);border:1px solid var(--term-rule);border-radius:9px;
+  overflow:hidden}
+.console-bar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+  padding:9px 14px;border-bottom:1px solid var(--term-rule);
+  font-family:var(--font-mono);font-size:11.5px;color:var(--term-dim);
+  letter-spacing:.04em}
+.console-bar .f{color:#7fb2e8}
+.console pre{margin:0;padding:14px;overflow-x:auto;
+  font-family:var(--font-mono);font-size:12px;line-height:1.6;
+  color:var(--term-ink);white-space:pre;tab-size:8}
+.console pre.cmd{color:#9fd49a;border-bottom:1px solid var(--term-rule);
+  background:rgba(255,255,255,.025)}
+.console pre.cmd::before{content:"$ ";color:var(--term-dim)}
+.caption{font-size:13px;color:var(--ink-2);margin-top:9px}
+.caption b{color:var(--ink);font-weight:600}
+
+/* ---- tables ---- */
+.tablewrap{overflow-x:auto;border:1px solid var(--rule);border-radius:9px;
+  background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:13px;min-width:640px}
+th{text-align:left;font-family:var(--font-mono);font-size:10.5px;font-weight:500;
+  letter-spacing:.08em;text-transform:uppercase;color:var(--muted);
+  padding:11px 12px;border-bottom:1px solid var(--rule);white-space:nowrap;
+  background:var(--surface);position:sticky;top:0}
+td{padding:10px 12px;border-bottom:1px solid var(--rule);vertical-align:top}
+tr:last-child td{border-bottom:0}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;
+  font-family:var(--font-mono)}
+td.mono,.mono{font-family:var(--font-mono);font-size:12px}
+td.nw,th.nw{white-space:nowrap}
+tr.dim td{color:var(--muted)}
+
+/* ---- chips ---- */
+.chip{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;
+  font-family:var(--font-mono);letter-spacing:.03em;white-space:nowrap;
+  padding:2px 8px;border-radius:999px;border:1px solid currentColor;line-height:1.5}
+.chip .dot{width:7px;height:7px;border-radius:50%;background:currentColor;flex:none}
+.chip.on{color:var(--c-on)} .chip.off{color:var(--c-off)}
+.chip.bgm{color:var(--c-bg)} .chip.shared{color:var(--c-shared)}
+
+/* ---- figures ---- */
+figure{margin:0}
+.figbox{background:var(--surface);border:1px solid var(--rule);border-radius:10px;
+  padding:16px 16px 10px}
+.figtitle{font-size:14px;font-weight:600;margin-bottom:2px}
+.figsub{font-size:12.5px;color:var(--muted);margin-bottom:12px}
+.scrollx{overflow-x:auto}
+svg{display:block;max-width:100%}
+.legend{display:flex;flex-wrap:wrap;gap:14px;margin-top:12px;
+  font-size:12px;color:var(--ink-2)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{width:11px;height:11px;border-radius:3px;display:inline-block;flex:none}
+
+/* ---- pipeline ---- */
+.pipe{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(210px,1fr))}
+.pstep{background:var(--surface);border:1px solid var(--rule);border-radius:9px;
+  padding:13px 15px;min-width:0}
+.pstep .n{font-family:var(--font-mono);font-size:10.5px;color:var(--muted);
+  letter-spacing:.1em}
+.pstep h3{margin-top:5px;font-size:14px}
+.pstep .t{font-family:var(--font-mono);font-size:11.5px;color:var(--accent);
+  margin-top:6px;word-break:break-word}
+.pstep .d{font-size:12.5px;color:var(--ink-2);margin-top:6px}
+
+/* ---- sequence ---- */
+.seqbox{background:var(--surface);border:1px solid var(--rule);border-radius:9px;
+  padding:14px 16px;overflow-x:auto}
+.seq{font-family:var(--font-mono);font-size:15px;letter-spacing:.09em;
+  white-space:nowrap;font-weight:500}
+.seq .A{color:var(--nt-a)} .seq .C{color:var(--nt-c)}
+.seq .G{color:var(--nt-g)} .seq .T{color:var(--nt-t)}
+.seq .pam{text-decoration:underline;text-underline-offset:4px;
+  text-decoration-thickness:2px}
+.seq .cut{color:var(--c-off);font-weight:700}
+.seqlabel{font-family:var(--font-mono);font-size:11px;color:var(--muted);
+  letter-spacing:.08em;text-transform:uppercase;margin-bottom:7px}
+
+/* ---- callouts ---- */
+.note{border-left:3px solid var(--accent);background:var(--accent-soft);
+  border-radius:0 8px 8px 0;padding:13px 16px;font-size:13.5px;color:var(--ink-2)}
+.note b{color:var(--ink);font-weight:600}
+.warn{border-left-color:var(--c-off);
+  background:color-mix(in srgb,var(--c-off) 9%,var(--surface))}
+
+.cols2{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(290px,1fr))}
+footer{border-top:1px solid var(--rule);padding-block:30px 44px;
+  color:var(--muted);font-size:12.5px}
+footer code{font-family:var(--font-mono);color:var(--ink-2)}
+
+/* ---- tooltip ---- */
+#tip{position:fixed;z-index:50;pointer-events:none;opacity:0;transition:opacity .1s;
+  background:var(--term-bg);color:var(--term-ink);border:1px solid var(--term-rule);
+  border-radius:7px;padding:8px 11px;font-family:var(--font-mono);font-size:11.5px;
+  line-height:1.55;white-space:nowrap;box-shadow:0 6px 20px rgba(0,0,0,.25)}
+#tip b{color:#9fd49a;font-weight:500}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+
+<div id="tip" role="status" aria-live="off"></div>
+
+<div class="wrap">
+  <header class="hero">
+    <span class="tag"><b>DEMO</b> · 全部数据为模拟生成</span>
+    <h1>CRISPR 编辑效果核查</h1>
+    <p class="sub" id="hero-sub"></p>
+    <div class="verdict">
+      <h3>一句话结论</h3>
+      <ul id="verdict"></ul>
+    </div>
+    <div class="stats" id="stats"></div>
+  </header>
+
+  <section>
+    <div class="eyebrow">01 · 实验设计</div>
+    <h2>这个 demo 在模拟什么实验</h2>
+    <div class="prose lede">
+      <p>一株细菌，用两条 sgRNA 做 Cas9 编辑并提供 HDR 供体。编辑前取一次样（亲本克隆，
+      <span class="mono">WT_parent</span>），编辑后取一次样（经过筛选的菌群，
+      <span class="mono">EDIT_pool</span>），两次都做全基因组重测序，然后比对差异。</p>
+      <p>要回答四个问题：<b>改没改成</b>、<b>改了多少比例的细胞</b>、<b>改在哪</b>、<b>有没有脱靶</b>。</p>
+    </div>
+    <div class="stack" style="margin-top:22px">
+      <div id="guides"></div>
+      <div class="note"><b>为什么必须测编辑前的样本。</b>
+        实验室菌株和公共参考基因组本来就有差异。下面会看到，两个样本共有 4 个变异 ——
+        它们是菌株自带的，跟编辑无关。只测编辑后的样本，这 4 个会被当成"编辑结果"报出来。</div>
+    </div>
+  </section>
+
+  <section>
+    <div class="eyebrow">02 · 原始数据</div>
+    <h2>两个 FASTQ 长什么样</h2>
+    <p class="lede">结构和真实 Illumina 下机数据一致：双端、150 bp、Phred+33 质量值、
+    CASAVA 1.8 格式的 read 名。规模缩小到 6 万 bp 的迷你染色体，整条流程十几秒能跑完。</p>
+    <div class="stack" style="margin-top:20px">
+      <figure>
+        <div class="console">
+          <div class="console-bar"><span class="f">rawdata/EDIT_pool_R1.fastq.gz</span><span>前 2 条 read</span></div>
+          <pre id="snap-raw"></pre>
+        </div>
+        <figcaption class="caption" id="fastq-explain"></figcaption>
+      </figure>
+      <div class="cols2" id="fastq-anatomy"></div>
+      <div class="note"><b>刻意混进去的"脏数据"。</b>
+        约 0.9% 的 read 对是整条低质量的死簇，约 1.3% 带 poly-G 尾（双色测序把"无信号"读成 G），
+        还有短插入片段导致的接头读穿和 4% 的 PCR 重复。没有这些，质控那一步就是空转。</div>
+    </div>
+  </section>
+
+  <section>
+    <div class="eyebrow">03 · 流程</div>
+    <h2>用什么工具、怎么跑</h2>
+    <p class="lede">细菌重测序的常规组合，没有自研步骤。每一步的命令和中间产物都在仓库里。</p>
+    <div class="pipe" id="pipeline" style="margin-top:22px"></div>
+    <div class="tablewrap" style="margin-top:18px">
+      <table id="tools"></table>
+    </div>
+  </section>
+
+  <section>
+    <div class="eyebrow">04 · 数据变形</div>
+    <h2>每一步之后，数据变成什么样</h2>
+    <p class="lede">这一节是流程的核心：同一批 read，经过六次形态转换，从"一堆碱基串"变成
+    "一张带生物学含义的变异表"。下面都是本次运行的真实输出。</p>
+    <div class="stack" style="margin-top:24px" id="stages"></div>
+  </section>
+
+  <section>
+    <div class="eyebrow">05 · 结果</div>
+    <h2>编辑落在基因组的什么位置</h2>
+    <p class="lede">灰条是基因。上方是编辑后才出现的事件，下方是两个样本共有的亲本变异 ——
+    它们不是编辑结果。</p>
+    <figure class="figbox" style="margin-top:20px">
+      <div class="figtitle">DEMO_chr1 全景</div>
+      <div class="figsub" id="map-sub"></div>
+      <div class="scrollx"><svg id="map" role="img" aria-label="基因组事件分布图"></svg></div>
+      <div class="legend">
+        <span><i style="background:var(--c-on)"></i>在靶编辑</span>
+        <span><i style="background:var(--c-off)"></i>脱靶编辑</span>
+        <span><i style="background:var(--c-bg)"></i>背景突变</span>
+        <span><i style="background:var(--c-shared)"></i>亲本共有（非编辑）</span>
+      </div>
+    </figure>
+  </section>
+
+  <section>
+    <div class="eyebrow">06 · 变异表</div>
+    <h2>逐个位点的判定</h2>
+    <p class="lede">判定逻辑：先看这个变异在编辑前的样本里有没有读段支持；没有，才算编辑带来的。
+    再看它离预测的 Cas9 切割位点有多远，决定它是在靶、脱靶，还是跟 sgRNA 无关的自发突变。</p>
+    <div class="tablewrap" style="margin-top:20px"><table id="vartable"></table></div>
+    <div class="caption" id="vartable-note"></div>
+    <div class="stack-sm" style="margin-top:20px" id="sv-block"></div>
+  </section>
+
+  <section>
+    <div class="eyebrow">07 · 频率</div>
+    <h2>每个事件覆盖了多少细胞</h2>
+    <p class="lede">细菌是单倍体，所以等位基因频率直接等于携带该事件的细胞比例。
+    这是判断"编辑效率"和"克隆是否纯化干净"的关键数字。</p>
+    <figure class="figbox" style="margin-top:20px">
+      <div class="figtitle">群体频率与 95% 置信区间</div>
+      <div class="figsub">空心菱形是本次模拟设定的真实值，实心点是流程测出来的值</div>
+      <div class="scrollx"><svg id="vafchart" role="img" aria-label="各事件群体频率与置信区间"></svg></div>
+    </figure>
+    <div class="note" style="margin-top:16px"><b>为什么 lacZ 的 7 bp 缺失局部频率是 1.00、群体频率却只有一半。</b>
+      另外约一半的细胞在同一位置丢掉了整段 1150 bp，这些细胞在该位点根本没有读段。
+      频率只能在"有读段的细胞"里算，所以必须用局部覆盖度换算回群体比例。</div>
+  </section>
+
+  <section>
+    <div class="eyebrow">08 · 脱靶</div>
+    <h2>脱靶位点：预测与实测</h2>
+    <p class="lede">先在参考基因组里穷举扫描和 sgRNA 相似（≤5 个错配 + NGG/NAG PAM）的位点，
+    再看这些位点上有没有真的出现变异。</p>
+    <div class="tablewrap" style="margin-top:20px"><table id="ottable"></table></div>
+    <div class="note warn" style="margin-top:16px"><b>注意两类反例。</b>
+      <span id="ot-note"></span></div>
+  </section>
+
+  <section>
+    <div class="eyebrow">09 · 覆盖度</div>
+    <h2>大片段缺失只能靠覆盖度和断裂读段看出来</h2>
+    <p class="lede">1150 bp 的缺失不会出现在 SNV/InDel 的 VCF 里 —— bcftools 根本不检测这个尺度。
+    它表现为覆盖度塌陷，加上跨越断点的异常配对和断裂读段。</p>
+    <figure class="figbox" style="margin-top:20px">
+      <div class="figtitle">编辑后 / 编辑前 覆盖度比值</div>
+      <div class="figsub" id="cov-sub"></div>
+      <div class="scrollx"><svg id="covchart" role="img" aria-label="编辑前后覆盖度比值沿基因组分布"></svg></div>
+    </figure>
+    <figure style="margin-top:18px">
+      <div class="console">
+        <div class="console-bar"><span class="f">delly call</span><span>结构变异</span></div>
+        <pre id="snap-delly"></pre>
+      </div>
+      <figcaption class="caption"><b>RV</b> = 支持缺失的断裂读段，<b>DV</b> = 异常配对，
+      <b>RR / DR</b> = 支持参考的读段。编辑前样本三项支持证据全为 0。</figcaption>
+    </figure>
+  </section>
+
+  <section>
+    <div class="eyebrow">10 · 验证</div>
+    <h2>流程有没有把东西找全</h2>
+    <p class="lede">因为数据是模拟的，真实答案已知。把流程的输出和设定值逐条对一遍，
+    就能知道这套流程的检出率和频率估计精度。真实项目里这一步要靠 Sanger 测序或扩增子深测序来做。</p>
+    <div class="tablewrap" style="margin-top:20px"><table id="valtable"></table></div>
+    <div class="caption" id="val-note"></div>
+  </section>
+
+  <section>
+    <div class="eyebrow">11 · 局限</div>
+    <h2>这个 demo 没覆盖的、真实项目要补的</h2>
+    <div class="cols2" style="margin-top:20px" id="limits"></div>
+  </section>
+
+  <footer>
+    <p>全部数字由 <code>scripts/04_analyze.py</code> 从本次运行的真实输出中提取，
+    页面本身由 <code>scripts/05_make_report.py</code> 生成。随机种子固定，流程可完整复现。</p>
+    <p style="margin-top:8px" id="footer-meta"></p>
+  </footer>
+</div>
+
+<script>
+const DATA = /*__DATA__*/null/*__END__*/;
+
+const $ = s => document.querySelector(s);
+const el = (t, cls, txt) => { const n = document.createElement(t);
+  if (cls) n.className = cls; if (txt != null) n.textContent = txt; return n; };
+const fmt = (n, d = 0) => n == null ? "–" :
+  Number(n).toLocaleString("en-US", {minimumFractionDigits: d, maximumFractionDigits: d});
+const pct = n => n == null ? "–" : (100 * n).toFixed(1) + "%";
+const bp = n => n == null ? "–" : fmt(n) + " bp";
+
+const ORIGIN = {
+  "on-target":  {label: "在靶",   cls: "on",     color: "var(--c-on)"},
+  "off-target": {label: "脱靶",   cls: "off",    color: "var(--c-off)"},
+  "background": {label: "背景突变", cls: "bgm",   color: "var(--c-bg)"},
+  "-":          {label: "亲本共有", cls: "shared", color: "var(--c-shared)"}
+};
+const originOf = v => ORIGIN[v.category === "shared (parental)" ? "-" : v.origin] || ORIGIN["-"];
+const inGene = pos => DATA.genes.find(g => g.start <= pos && pos <= g.end);
+const locusOf = pos => { const g = inGene(pos); return g ? g.name : "基因间区"; };
+function eventLabel(kind, detail){
+  if (kind === "ins") return detail.length > 6 ? `敲入 ${detail.length} bp` : `插入 ${detail}`;
+  if (kind === "del") return `缺失 ${detail}`;
+  return `点突变 →${detail}`;
+}
+
+/* ---------------- tooltip ---------------- */
+const tip = $("#tip");
+function showTip(e, html){ tip.innerHTML = html; tip.style.opacity = 1;
+  const r = tip.getBoundingClientRect();
+  let x = e.clientX + 14, y = e.clientY - r.height - 10;
+  if (x + r.width > innerWidth - 8) x = e.clientX - r.width - 14;
+  if (y < 8) y = e.clientY + 18;
+  tip.style.left = x + "px"; tip.style.top = y + "px"; }
+function hideTip(){ tip.style.opacity = 0; }
+
+/* ---------------- header ---------------- */
+const edits = DATA.variants.filter(v => v.category === "EDIT-specific");
+const shared = DATA.variants.filter(v => v.category !== "EDIT-specific");
+const onT = edits.filter(v => v.origin === "on-target");
+const offT = edits.filter(v => v.origin === "off-target");
+const bgT = edits.filter(v => v.origin === "background");
+const sv = DATA.svs[0];
+
+$("#hero-sub").textContent =
+  `${DATA.meta.organism} · ${DATA.meta.chrom} · ${fmt(DATA.meta.genome_len)} bp · `
+  + `${DATA.meta.n_genes} 个基因 · GC ${DATA.meta.gc}%`;
+
+const vd = $("#verdict");
+[
+  `两条 sgRNA <b>都编辑成功</b>：pheA 精确敲入 24 bp 终止盒（提前终止密码子），`
+  + `lacZ 被 7 bp 缺失打成移码。`,
+  `lacZ 切点上还有 <b>约一半细胞发生了 ${bp(sv.length)} 的大片段缺失</b> —— `
+  + `这是在靶副产物，不是脱靶，但同样会让结果不纯。`,
+  `发现 <b>${offT.length} 处脱靶编辑</b>，其中 yjgF 的 1 bp 插入已在全部细胞中固定，`
+  + `把一个无关基因打成了移码。`,
+  `另有 1 个与 sgRNA 无同源性的自发点突变（rpoB 错义），`
+  + `<b>不应算作脱靶</b>；以及 ${shared.length} 个两样本共有的亲本变异，已排除。`
+].forEach(h => { const li = el("li"); li.innerHTML = h; vd.appendChild(li); });
+
+const statDefs = [
+  ["编辑特异变异", edits.length, `另有 ${shared.length} 个亲本共有变异被排除`],
+  ["在靶 / 脱靶", `${onT.length} / ${offT.length}`, "按与预测切点的距离归因"],
+  ["最大缺失", bp(sv.length), `lacZ，群体频率 ${pct(sv.genotypes.EDIT_pool.vaf)}`],
+  ["平均测序深度", `${DATA.qc.EDIT_pool.mean_depth.toFixed(0)}×`,
+    `编辑前 ${DATA.qc.WT_parent.mean_depth.toFixed(0)}×`],
+  ["真值检出率", `${DATA.validation.n_detected}/${DATA.validation.n_truth}`,
+    `假阳性 ${DATA.validation.false_positives.length}`]
+];
+statDefs.forEach(([k, v, n]) => {
+  const d = el("div", "stat");
+  d.append(el("div", "k", k), el("div", "v", String(v)), el("div", "n", n));
+  $("#stats").appendChild(d);
+});
+
+/* ---------------- guides ---------------- */
+function seqHTML(proto, pam, cutOffset){
+  let out = "";
+  for (let i = 0; i < proto.length; i++){
+    if (i === cutOffset) out += `<span class="cut">▾</span>`;
+    out += `<span class="${proto[i]}">${proto[i]}</span>`;
+  }
+  out += ` <span class="pam">`;
+  for (const b of pam) out += `<span class="${b}">${b}</span>`;
+  return out + `</span>`;
+}
+const gbox = $("#guides");
+const gwrap = el("div", "cols2");
+DATA.guides.forEach(g => {
+  const b = el("div", "seqbox");
+  b.innerHTML =
+    `<div class="seqlabel">${g.id} · 靶基因 ${g.target_gene} · 切点 ${fmt(g.cut_site)}</div>`
+    + `<div class="seq">${seqHTML(g.protospacer, g.pam, 17)}</div>`
+    + `<div class="caption" style="margin-top:9px">20 nt 原间隔序列 + `
+    + `<span class="mono">${g.pam}</span> PAM（下划线）。▾ 为 Cas9 平末端切割位点，`
+    + `位于 PAM 上游第 3 位。</div>`;
+  gwrap.appendChild(b);
+});
+gbox.appendChild(gwrap);
+
+/* ---------------- FASTQ anatomy ---------------- */
+$("#snap-raw").textContent = DATA.snapshots.raw_fastq;
+const rawLines = DATA.snapshots.raw_fastq.split("\n");
+$("#fastq-explain").innerHTML =
+  `每条 read 占 4 行。read 名里 <span class="mono">${(rawLines[0]||"").split(" ")[0]}</span> `
+  + `依次是 仪器:run:流动槽:lane:tile:X坐标:Y坐标，空格后是 <span class="mono">1:N:0:索引序列</span>。`
+  + `第 4 行每个字符对应一个碱基的质量值。`;
+
+const anat = [
+  ["read 名与配对标记", "R1 和 R2 共用同一个 read 名，靠末尾的 1: / 2: 区分。比对时软件据此把双端配回去。"],
+  ["质量值编码", "Phred+33：字符 ASCII 码减 33 就是 Q 值。可以看到质量沿读长单调下降，这是真实 Illumina 的特征。"],
+  ["插入片段", `本次模拟插入片段均值约 380 bp，fastp 实测峰值 ${DATA.fastp.EDIT_pool.insert_peak ?? "–"} bp。`],
+  ["两个样本的区别", "只有 lane 和 index 不同（ATCACG / CGATGT），其余结构完全一致 —— 和真实双样本建库一样。"]
+];
+anat.forEach(([h, d]) => {
+  const c = el("div", "pstep");
+  c.append(el("h3", null, h), el("div", "d", d));
+  $("#fastq-anatomy").appendChild(c);
+});
+
+/* ---------------- pipeline ---------------- */
+const steps = [
+  ["00", "原始数据", "FASTQ.gz", "双端 150 bp 下机数据"],
+  ["01", "质控与切除", "fastp", "切接头、poly-G 尾、低质量尾；丢掉死簇 read"],
+  ["02", "比对与去重", "bwa mem · samtools", "比到参考基因组，排序并标记 PCR 重复"],
+  ["03", "变异检测", "bcftools mpileup / call", "两个样本一起做联合检测，保留等位基因深度"],
+  ["04", "过滤", "bcftools filter", "按 QUAL / DP / MQ / 支持读段数 / 链偏好打标"],
+  ["05", "两样本比较", "bcftools isec", "取差集，分出编辑特异与亲本共有"],
+  ["06", "结构变异", "delly", "靠异常配对和断裂读段找大片段缺失"],
+  ["07", "功能注释", "SnpEff", "判断落在哪个基因、造成什么蛋白层面后果"],
+  ["08", "归因与报告", "自研脚本", "脱靶扫描、频率换算、与真值比对"]
+];
+steps.forEach(([n, h, t, d]) => {
+  const c = el("div", "pstep");
+  c.append(el("div", "n", "STEP " + n), el("h3", null, h),
+           el("div", "t", t), el("div", "d", d));
+  $("#pipeline").appendChild(c);
+});
+
+function buildTable(target, cols, rows){
+  const t = $(target); t.innerHTML = "";
+  const thead = el("thead"), trh = el("tr");
+  cols.forEach(c => { const th = el("th", c.num ? "num" : null, c.h); trh.appendChild(th); });
+  thead.appendChild(trh); t.appendChild(thead);
+  const tb = el("tbody");
+  rows.forEach(r => {
+    const tr = el("tr", r._cls || null);
+    cols.forEach(c => {
+      const td = el("td", [c.num ? "num" : "", c.mono ? "mono" : "",
+                           c.nw ? "nw" : ""].filter(Boolean).join(" "));
+      const v = r[c.k];
+      if (v && v.__html) td.innerHTML = v.__html; else td.textContent = v == null ? "–" : v;
+      tr.appendChild(td);
+    });
+    tb.appendChild(tr);
+  });
+  t.appendChild(tb);
+}
+
+buildTable("#tools",
+  [{h: "工具", k: "name"}, {h: "版本", k: "version", mono: true}, {h: "用途", k: "role"}],
+  DATA.tools);
+
+/* ---------------- stages ---------------- */
+const fp = DATA.fastp.EDIT_pool;
+const stages = [
+  {
+    n: "① FASTQ → 干净 FASTQ",
+    tool: "fastp",
+    cmd: "fastp -i EDIT_pool_R1.fastq.gz -I EDIT_pool_R2.fastq.gz \\\n"
+       + "      -o EDIT_pool_R1.clean.fastq.gz -O EDIT_pool_R2.clean.fastq.gz \\\n"
+       + "      --detect_adapter_for_pe --trim_poly_g --cut_tail --length_required 50",
+    file: "work/qc/EDIT_pool_R1.clean.fastq.gz",
+    body: DATA.snapshots.clean_fastq,
+    cap: `数据形态没变，还是 FASTQ，但内容被修剪了：`
+       + `丢掉 <b>${fmt(fp.low_quality)}</b> 条低质量 read，`
+       + `<b>${fmt(fp.adapter)}</b> 条切掉了接头，poly-G 尾被截断。`
+       + `Q30 从 ${fp.q30_before}% 升到 ${fp.q30_after}%。`
+  },
+  {
+    n: "② FASTQ → BAM",
+    tool: "bwa mem + samtools",
+    cmd: "bwa mem -t 4 -R '@RG\\tID:EDIT_pool\\tSM:EDIT_pool\\tPL:ILLUMINA' \\\n"
+       + "    ref/DEMO_chr1.fasta R1.clean.fastq.gz R2.clean.fastq.gz \\\n"
+       + "  | samtools fixmate -m - - | samtools sort -o sorted.bam -\n"
+       + "samtools markdup sorted.bam EDIT_pool.bam",
+    file: "work/align/EDIT_pool.bam",
+    body: DATA.snapshots.bam_records,
+    cap: `这是最关键的一次形态转换：每条 read 从"一串碱基"变成"参考基因组上的一个坐标 + 一个 CIGAR"。`
+       + `第 3、4 列是染色体和起始位置，第 5 列是比对质量，第 6 列 CIGAR 描述它是怎么对上去的。`
+  },
+  {
+    n: "③ CIGAR 里已经能看见编辑",
+    tool: "samtools view",
+    cmd: "samtools view EDIT_pool.bam DEMO_chr1:12600-12640 | awk '$6 ~ /I/'",
+    file: "read名 / flag / 位置 / MAPQ / CIGAR",
+    body: DATA.snapshots.bam_insertion,
+    cap: `<b>24I</b> 表示这条 read 相对参考多出 24 个碱基 —— 这正是敲入的终止盒。`
+       + `变异检测软件要做的事，本质上就是把成百上千条 read 的 CIGAR 和错配汇总成一个统计判断。`
+  },
+  {
+    n: "④ BAM → 碱基堆叠",
+    tool: "samtools mpileup",
+    cmd: "samtools mpileup -f ref/DEMO_chr1.fasta -r DEMO_chr1:26310-26320 \\\n"
+       + "    work/align/WT_parent.bam work/align/EDIT_pool.bam",
+    file: "每行一个碱基位点",
+    body: DATA.snapshots.pileup_lacZ,
+    cap: `把 BAM 按列"竖起来"：每一行是基因组上的一个位置，后面是两个样本在该位置的深度。`
+       + `可以直接看到编辑后样本在 lacZ 切点处深度塌陷。`
+  },
+  {
+    n: "⑤ BAM → VCF",
+    tool: "bcftools mpileup | call | norm",
+    cmd: "bcftools mpileup -f ref/DEMO_chr1.fasta -a AD,ADF,ADR,DP,SP \\\n"
+       + "    WT_parent.bam EDIT_pool.bam \\\n"
+       + "  | bcftools call -m --ploidy 2 -v \\\n"
+       + "  | bcftools norm -f ref/DEMO_chr1.fasta -m -any -Oz -o joint.raw.vcf.gz",
+    file: "work/vcf/joint.raw.vcf.gz",
+    body: DATA.snapshots.vcf_raw,
+    cap: `数据量从几万条 read 压缩成 <b>${DATA.models.joint_raw}</b> 行。`
+       + `每行一个位点，最后两列是两个样本的基因型和 <span class="mono">AD</span>（参考,变异 支持读段数）。`
+       + `注意 bcftools 会把 InDel 左对齐，所以报出的坐标常比实际切点小几个 bp。`
+  },
+  {
+    n: "⑥ VCF → 编辑特异 VCF",
+    tool: "bcftools isec",
+    cmd: "bcftools isec -p work/vcf/isec WT_parent.vcf.gz EDIT_pool.vcf.gz",
+    file: "0000=WT独有  0001=EDIT独有  0002=共有",
+    body: DATA.snapshots.isec,
+    cap: `两样本取差集。这一步把 ${shared.length} 个亲本变异剔除出去，`
+       + `剩下 ${edits.length} 个才是编辑后才出现的。`
+  },
+  {
+    n: "⑦ VCF → 带注释的 VCF",
+    tool: "SnpEff",
+    cmd: "snpEff ann -c snpEff.config DEMO work/vcf/joint.pass.vcf.gz",
+    file: "ANN 字段：效应 | 影响 | 基因 | HGVS",
+    body: DATA.snapshots.snpeff,
+    cap: `最后一次形态转换：坐标变成生物学结论。`
+       + `<span class="mono">stop_gained</span> 表示提前终止，`
+       + `<span class="mono">frameshift_variant</span> 表示移码 —— 这两个才是实验真正关心的东西。`
+  }
+];
+stages.forEach(s => {
+  const f = el("figure");
+  const c = el("div", "console");
+  const bar = el("div", "console-bar");
+  bar.append(el("span", "f", s.file), el("span", null, s.tool));
+  const cmd = el("pre", "cmd", s.cmd);
+  const body = el("pre", null, s.body || "(本次运行无输出)");
+  c.append(bar, cmd, body);
+  const h = el("h3", null, s.n);
+  h.style.marginBottom = "9px";
+  const cap = el("figcaption", "caption"); cap.innerHTML = s.cap;
+  f.append(h, c, cap);
+  $("#stages").appendChild(f);
+});
+
+/* ---------------- genome map ---------------- */
+(function(){
+  const W = 1040, H = 212, L = 34, R = 34;
+  const iw = W - L - R, len = DATA.meta.genome_len;
+  const x = p => L + iw * p / len;
+  const svg = $("#map");
+  svg.setAttribute("viewBox", `0 0 ${W} ${H}`);
+  svg.setAttribute("width", W); svg.setAttribute("height", H);
+  svg.style.minWidth = "740px";
+  const NS = "http://www.w3.org/2000/svg";
+  const add = (t, a) => { const n = document.createElementNS(NS, t);
+    for (const k in a) n.setAttribute(k, a[k]); svg.appendChild(n); return n; };
+
+  const TRACK = 122;
+  // gene boxes
+  DATA.genes.forEach(g => {
+    add("rect", {x: x(g.start), y: TRACK, width: Math.max(1, x(g.end) - x(g.start)),
+      height: 13, rx: 2, fill: "var(--rule-2)"});
+  });
+  add("line", {x1: L, y1: TRACK + 6.5, x2: W - R, y2: TRACK + 6.5,
+    stroke: "var(--rule-2)", "stroke-width": 1});
+
+  // axis
+  for (let p = 0; p <= len; p += 10000){
+    add("line", {x1: x(p), y1: TRACK + 40, x2: x(p), y2: TRACK + 46,
+      stroke: "var(--muted)", "stroke-width": 1});
+    const t = add("text", {x: x(p), y: TRACK + 59, "text-anchor": "middle",
+      fill: "var(--muted)", "font-size": 11, "font-family": "var(--font-mono)"});
+    t.textContent = (p / 1000) + " kb";
+  }
+
+  // the large deletion, drawn as a span
+  add("rect", {x: x(sv.start), y: TRACK - 4, width: Math.max(3, x(sv.end) - x(sv.start)),
+    height: 21, fill: "var(--c-on)", opacity: .18});
+  const delG = add("g", {});
+  const delR = document.createElementNS(NS, "rect");
+  delR.setAttribute("x", x(sv.start)); delR.setAttribute("y", TRACK - 4);
+  delR.setAttribute("width", Math.max(3, x(sv.end) - x(sv.start)));
+  delR.setAttribute("height", 21); delR.setAttribute("fill", "transparent");
+  delR.style.cursor = "crosshair";
+  delR.addEventListener("mousemove", e => showTip(e,
+    `<b>${bp(sv.length)} 缺失</b><br>${fmt(sv.start)} – ${fmt(sv.end)}<br>`
+    + `群体频率 ${pct(sv.genotypes.EDIT_pool.vaf)}　基因 ${sv.genes_affected.join(",")}`));
+  delR.addEventListener("mouseleave", hideTip);
+  delG.appendChild(delR); svg.appendChild(delG);
+
+  // markers: edit-specific above, parental below
+  const above = [], below = [];
+  DATA.variants.forEach(v => (v.category === "EDIT-specific" ? above : below).push(v));
+
+  function marker(v, up, rank){
+    const o = originOf(v);
+    const px = x(v.pos);
+    const y0 = up ? TRACK : TRACK + 13;
+    const stem = up ? (62 - (rank % 3) * 27) : 30;
+    const y1 = up ? y0 - stem : y0 + stem;
+    const g = document.createElementNS(NS, "g");
+    const mk = (t, a) => { const n = document.createElementNS(NS, t);
+      for (const k in a) n.setAttribute(k, a[k]); g.appendChild(n); return n; };
+    mk("line", {x1: px, y1: y0, x2: px, y2: y1, stroke: o.color, "stroke-width": 1.5});
+    mk("circle", {cx: px, cy: y1, r: up ? 5 : 3.5, fill: o.color,
+      stroke: "var(--surface)", "stroke-width": 2});
+    if (up){
+      const lab = mk("text", {x: px, y: y1 - 10, "text-anchor": "middle",
+        fill: "var(--ink)", "font-size": 11.5, "font-weight": 600,
+        "font-family": "var(--font-sans)"});
+      lab.textContent = locusOf(v.pos);
+    }
+    const hit = mk("rect", {x: px - 11, y: Math.min(y0, y1) - 16, width: 22,
+      height: Math.abs(y1 - y0) + 24, fill: "transparent"});
+    hit.style.cursor = "crosshair";
+    hit.addEventListener("mousemove", e => showTip(e,
+      `<b>${DATA.meta.chrom}:${fmt(v.pos)}</b>　${o.label}<br>`
+      + `${v.ref.length > 14 ? v.ref.slice(0, 14) + "…" : v.ref} → `
+      + `${v.alt.length > 14 ? v.alt.slice(0, 14) + "…" : v.alt}<br>`
+      + `${locusOf(v.pos)}　${v.effect}<br>群体频率 ${pct(v.population_freq)}`));
+    hit.addEventListener("mouseleave", hideTip);
+    svg.appendChild(g);
+  }
+  above.sort((a, b) => a.pos - b.pos).forEach((v, i) => marker(v, true, i));
+  below.sort((a, b) => a.pos - b.pos).forEach((v, i) => marker(v, false, i));
+
+  // predicted cut sites
+  DATA.guides.forEach(g => {
+    add("line", {x1: x(g.cut_site), y1: TRACK - 6, x2: x(g.cut_site), y2: TRACK + 19,
+      stroke: "var(--c-on)", "stroke-width": 2, "stroke-dasharray": "3 2", opacity: .85});
+    const t = add("text", {x: x(g.cut_site), y: TRACK + 32, "text-anchor": "middle",
+      fill: "var(--c-on)", "font-size": 10.5, "font-family": "var(--font-mono)",
+      "letter-spacing": ".04em"});
+    t.textContent = g.id;
+  });
+
+  $("#map-sub").textContent =
+    `${DATA.meta.n_genes} 个基因（灰条） · 虚线为两条 sgRNA 的预测切点 · `
+    + `浅蓝区块为 ${bp(sv.length)} 大片段缺失 · 悬停查看细节`;
+})();
+
+/* ---------------- variant table ---------------- */
+const vrows = DATA.variants.slice().sort((a, b) => a.pos - b.pos).map(v => {
+  const o = originOf(v);
+  const isShared = v.category !== "EDIT-specific";
+  const alt = v.alt.length > 18 ? v.alt.slice(0, 18) + "…" : v.alt;
+  const ref = v.ref.length > 10 ? v.ref.slice(0, 10) + "…" : v.ref;
+  return {
+    _cls: isShared ? "dim" : null,
+    pos: fmt(v.pos),
+    change: {__html: `<span class="mono">${ref} → ${alt}</span>`},
+    kind: {snv: "点突变", ins: "插入", del: "缺失"}[v.kind] || v.kind,
+    judge: {__html: `<span class="chip ${o.cls}"><span class="dot"></span>${o.label}</span>`},
+    wt: v.ad_wt.join(" , "),
+    ed: v.ad_edit.join(" , "),
+    freq: v.population_freq == null ? "–" : pct(v.population_freq),
+    gene: locusOf(v.pos),
+    eff: {__html: `<span class="mono">${v.effect}</span>`
+      + (v.hgvs_p ? `<br><span class="mono" style="color:var(--muted)">${v.hgvs_p}</span>` : "")},
+    cut: v.cut_distance == null ? "–" : `${v.attributed_to} ${v.cut_distance} bp`
+  };
+});
+buildTable("#vartable", [
+  {h: "位置", k: "pos", num: true, nw: true},
+  {h: "变化", k: "change"},
+  {h: "类型", k: "kind", nw: true},
+  {h: "判定", k: "judge", nw: true},
+  {h: "编辑前 AD", k: "wt", num: true, nw: true},
+  {h: "编辑后 AD", k: "ed", num: true, nw: true},
+  {h: "群体频率", k: "freq", num: true, nw: true},
+  {h: "基因", k: "gene", nw: true},
+  {h: "蛋白层面后果", k: "eff"},
+  {h: "距切点", k: "cut", nw: true}
+], vrows);
+
+$("#vartable-note").innerHTML =
+  `<b>AD</b> = 支持参考 , 支持变异 的读段数。灰色行是两样本共有的亲本变异，不计入编辑结果。`
+  + `注意 ${edits.length} 个编辑特异变异在编辑前样本里的变异支持读段全部为 <b>0</b>，`
+  + `这是判定"编辑带来的"最直接的证据。`
+  + (DATA.snapshots.filtered_out
+      ? ` 另有 1 条记录被质量过滤剔除（见仓库 <span class="mono">work/vcf/filtered_out.txt</span>）。`
+      : ` 本次运行没有记录被质量过滤剔除。`);
+
+/* ---------------- SV block ---------------- */
+(function(){
+  const b = $("#sv-block");
+  const box = el("div", "note");
+  box.innerHTML = `<b>还有一个不在上表里的事件。</b>
+    ${DATA.meta.chrom}:${fmt(sv.start)}–${fmt(sv.end)} 的 ${bp(sv.length)} 缺失，
+    由 delly 从 ${sv.pe} 对异常配对和 ${sv.sr} 条断裂读段检出，影响基因
+    <span class="mono">${sv.genes_affected.join(", ")}</span>，群体频率
+    ${pct(sv.genotypes.EDIT_pool.vaf)}。它横跨 sgRNA-2 的切点，属于<b>在靶大片段缺失</b> ——
+    CRISPR 切割后常见的副产物，但 SNV/InDel 流程完全看不到它。`;
+  b.appendChild(box);
+})();
+
+/* ---------------- VAF chart ---------------- */
+(function(){
+  const rows = DATA.validation.rows
+    .filter(r => r.klass !== "parental (shared)")
+    .sort((a, b) => b.expected_vaf_edit - a.expected_vaf_edit || a.pos - b.pos);
+  const W = 1040, rowH = 42, top = 34, bottom = 40;
+  const H = top + rows.length * rowH + bottom;
+  const L = 230, R = 70, iw = W - L - R;
+  const svg = $("#vafchart");
+  svg.setAttribute("viewBox", `0 0 ${W} ${H}`);
+  svg.setAttribute("width", W); svg.setAttribute("height", H);
+  svg.style.minWidth = "700px";
+  const NS = "http://www.w3.org/2000/svg";
+  const add = (t, a, p) => { const n = document.createElementNS(NS, t);
+    for (const k in a) n.setAttribute(k, a[k]); (p || svg).appendChild(n); return n; };
+  const x = v => L + iw * v;
+
+  for (let v = 0; v <= 1.0001; v += 0.25){
+    add("line", {x1: x(v), y1: top - 12, x2: x(v), y2: H - bottom + 6,
+      stroke: "var(--rule)", "stroke-width": 1});
+    const t = add("text", {x: x(v), y: H - bottom + 22, "text-anchor": "middle",
+      fill: "var(--muted)", "font-size": 11, "font-family": "var(--font-mono)"});
+    t.textContent = Math.round(v * 100) + "%";
+  }
+  const hd = add("text", {x: L, y: 14, fill: "var(--muted)", "font-size": 11,
+    "font-family": "var(--font-mono)", "letter-spacing": ".08em"});
+  hd.textContent = "携带该事件的细胞比例";
+
+  rows.forEach((r, i) => {
+    const y = top + i * rowH + rowH / 2;
+    const o = ORIGIN[r.klass] || ORIGIN["-"];
+    const name = add("text", {x: 0, y: y + 4, fill: "var(--ink)", "font-size": 13,
+      "font-family": "var(--font-sans)", "font-weight": 500});
+    // a large deletion is named by the genes it spans, not by the single base
+    // its left breakpoint happens to land in
+    const gene = r.detected_by === "SV" && sv.genes_affected.length
+      ? sv.genes_affected.join("/") : locusOf(r.pos);
+    name.textContent = `${gene} · ${eventLabel(r.kind, r.detail)}`;
+    const lab = add("text", {x: 0, y: y + 19, fill: o.color, "font-size": 11,
+      "font-family": "var(--font-mono)", "letter-spacing": ".05em"});
+    lab.textContent = o.label + " · " + DATA.meta.chrom.replace("DEMO_", "") + ":" + fmt(r.pos);
+
+    add("line", {x1: L, y1: y, x2: W - R, y2: y, stroke: "var(--rule)",
+      "stroke-width": 1, opacity: .55});
+
+    // 95% CI whisker
+    if (r.ci95 && r.ci95[0] != null){
+      add("line", {x1: x(r.ci95[0]), y1: y, x2: x(r.ci95[1]), y2: y,
+        stroke: o.color, "stroke-width": 2, opacity: .45, "stroke-linecap": "round"});
+      [r.ci95[0], r.ci95[1]].forEach(c =>
+        add("line", {x1: x(c), y1: y - 5, x2: x(c), y2: y + 5,
+          stroke: o.color, "stroke-width": 2, opacity: .45}));
+    }
+    // design value: hollow diamond
+    const d = x(r.expected_vaf_edit);
+    add("path", {d: `M ${d} ${y - 7} L ${d + 7} ${y} L ${d} ${y + 7} L ${d - 7} ${y} Z`,
+      fill: "var(--surface)", stroke: "var(--muted)", "stroke-width": 1.6});
+    // observed
+    if (r.observed_freq != null){
+      add("circle", {cx: x(r.observed_freq), cy: y, r: 5.5, fill: o.color,
+        stroke: "var(--surface)", "stroke-width": 2});
+      const t = add("text", {x: W - R + 10, y: y + 4, fill: "var(--ink)",
+        "font-size": 12, "font-family": "var(--font-mono)"});
+      t.textContent = pct(r.observed_freq);
+    }
+    const hit = add("rect", {x: L, y: y - rowH / 2 + 3, width: iw, height: rowH - 6,
+      fill: "transparent"});
+    hit.style.cursor = "crosshair";
+    hit.addEventListener("mousemove", e => showTip(e,
+      `<b>${gene} ${eventLabel(r.kind, r.detail)}</b><br>设定值 ${pct(r.expected_vaf_edit)}　`
+      + `实测 ${pct(r.observed_freq)}<br>`
+      + (r.ci95 && r.ci95[0] != null
+          ? `95% CI ${pct(r.ci95[0])} – ${pct(r.ci95[1])}<br>` : "")
+      + `检出方式 ${r.detected_by === "SV" ? "结构变异 (delly)" : "SNV/InDel (bcftools)"}`));
+    hit.addEventListener("mouseleave", hideTip);
+  });
+})();
+
+/* ---------------- off-target table ---------------- */
+(function(){
+  const hit = {};
+  DATA.variants.forEach(v => { if (v.cut_distance != null) hit[v.attributed_to + "@" + v.pos] = v; });
+  const rows = DATA.offtargets.map(h => {
+    const found = DATA.variants.find(v =>
+      v.category === "EDIT-specific" && Math.abs(v.cut_site_ref || v.pos - h.cut_site) <= 12
+      || (v.attributed_to === h.guide && v.cut_distance != null
+          && Math.abs(v.pos - h.cut_site) <= 12));
+    const svHit = (sv.start <= h.cut_site && h.cut_site <= sv.end) ? sv : null;
+    let outcome, cls;
+    if (h.mismatches === 0){ outcome = found || svHit ? "编辑成功" : "未检出编辑"; cls = "on"; }
+    else if (found){ outcome = "发生脱靶编辑"; cls = "off"; }
+    else { outcome = "未检出编辑"; cls = "shared"; }
+    const gene = found ? found.gene : (h.mismatches === 0 ? "—" : "—");
+    return {
+      guide: h.guide,
+      site: {__html: `<span class="mono">${fmt(h.start)}</span>`
+        + `<br><span class="mono" style="color:var(--muted)">${h.strand} 链</span>`},
+      seq: {__html: `<span class="mono" style="font-size:11.5px">${h.protospacer}</span>`
+        + ` <span class="mono" style="color:var(--c-off);font-size:11.5px">${h.pam}</span>`},
+      mm: h.mismatches,
+      seed: h.seed_mismatches,
+      pam: h.canonical_pam ? "NGG" : "NAG",
+      tier: h.tier === "on-target" ? "在靶位点" : {high: "高", medium: "中", low: "低"}[h.tier],
+      outcome: {__html: `<span class="chip ${cls}"><span class="dot"></span>${outcome}</span>`},
+      detail: found
+        ? `${found.gene} ${found.effect.split("&")[0]}，频率 ${pct(found.population_freq)}`
+        : (svHit ? `${bp(svHit.length)} 缺失，频率 ${pct(svHit.genotypes.EDIT_pool.vaf)}` : "该位点无变异")
+    };
+  });
+  buildTable("#ottable", [
+    {h: "sgRNA", k: "guide"},
+    {h: "位置", k: "site", num: true},
+    {h: "原间隔序列 + PAM", k: "seq"},
+    {h: "错配数", k: "mm", num: true},
+    {h: "种子区错配", k: "seed", num: true},
+    {h: "PAM", k: "pam"},
+    {h: "风险档", k: "tier"},
+    {h: "实测", k: "outcome"},
+    {h: "说明", k: "detail"}
+  ], rows);
+
+  const decoy = DATA.planted.find(p => (p.comment || "").includes("decoy"));
+  const bgv = bgT[0];
+  $("#ot-note").innerHTML =
+    `<b>预测到不等于真的会脱靶：</b>和 sgRNA-2 只差 2 个错配的 nuoF 位点`
+    + `（${DATA.meta.chrom}:${fmt(decoy ? decoy.start : 0)}）相似度最高，但该位点没有任何变异。`
+    + `　<b>真的有变异也不等于脱靶：</b>rpoB 的 ${bgv ? bgv.hgvs_p : ""} 错义突变只出现在编辑后样本，`
+    + `但它周围没有任何 sgRNA 同源序列，应判为培养过程中的自发突变。`
+    + `只按"编辑后独有"来报脱靶，这两类都会判错。`;
+})();
+
+/* ---------------- coverage chart ---------------- */
+(function(){
+  const cov = DATA.coverage, bins = cov.ratio, bs = cov.bin_size;
+  const W = 1040, H = 236, L = 48, R = 30, T = 26, B = 40;
+  const iw = W - L - R, ih = H - T - B;
+  const svg = $("#covchart");
+  svg.setAttribute("viewBox", `0 0 ${W} ${H}`);
+  svg.setAttribute("width", W); svg.setAttribute("height", H);
+  svg.style.minWidth = "740px";
+  const NS = "http://www.w3.org/2000/svg";
+  const add = (t, a) => { const n = document.createElementNS(NS, t);
+    for (const k in a) n.setAttribute(k, a[k]); svg.appendChild(n); return n; };
+  const yMax = 1.3;
+  const x = i => L + iw * i / (bins.length - 1);
+  const xp = p => L + iw * (p / bs) / (bins.length - 1);
+  const y = v => T + ih * (1 - Math.min(v, yMax) / yMax);
+
+  [0, 0.5, 1.0].forEach(v => {
+    add("line", {x1: L, y1: y(v), x2: W - R, y2: y(v),
+      stroke: v === 1 ? "var(--rule-2)" : "var(--rule)",
+      "stroke-width": 1, "stroke-dasharray": v === 1 ? "4 3" : ""});
+    const t = add("text", {x: L - 9, y: y(v) + 4, "text-anchor": "end",
+      fill: "var(--muted)", "font-size": 11, "font-family": "var(--font-mono)"});
+    t.textContent = v.toFixed(1) + "×";
+  });
+  for (let p = 0; p <= DATA.meta.genome_len; p += 10000){
+    const t = add("text", {x: xp(p), y: H - B + 22, "text-anchor": "middle",
+      fill: "var(--muted)", "font-size": 11, "font-family": "var(--font-mono)"});
+    t.textContent = (p / 1000) + " kb";
+  }
+
+  // deletion span
+  add("rect", {x: xp(sv.start), y: T, width: Math.max(3, xp(sv.end) - xp(sv.start)),
+    height: ih, fill: "var(--c-on)", opacity: .13});
+  const lb = add("text", {x: xp((sv.start + sv.end) / 2), y: T - 10,
+    "text-anchor": "middle", fill: "var(--c-on)",
+    "font-size": 11.5, "font-family": "var(--font-mono)", "font-weight": 500});
+  lb.textContent = bp(sv.length) + " 缺失";
+
+  let dLine = "", dArea = `M ${x(0)} ${y(0)}`;
+  bins.forEach((v, i) => {
+    const vv = v == null ? 0 : v;
+    dLine += (i ? " L " : "M ") + x(i) + " " + y(vv);
+    dArea += ` L ${x(i)} ${y(vv)}`;
+  });
+  dArea += ` L ${x(bins.length - 1)} ${y(0)} Z`;
+  add("path", {d: dArea, fill: "var(--c-on)", opacity: .1});
+  add("path", {d: dLine, fill: "none", stroke: "var(--c-on)", "stroke-width": 2,
+    "stroke-linejoin": "round"});
+  add("line", {x1: L, y1: y(0), x2: W - R, y2: y(0),
+    stroke: "var(--rule-2)", "stroke-width": 1});
+
+  const cx = add("line", {x1: L, y1: T, x2: L, y2: T + ih,
+    stroke: "var(--ink-2)", "stroke-width": 1, opacity: 0});
+  const cd = add("circle", {cx: L, cy: T, r: 4, fill: "var(--c-on)",
+    stroke: "var(--surface)", "stroke-width": 2, opacity: 0});
+  const hit = add("rect", {x: L, y: T, width: iw, height: ih, fill: "transparent"});
+  hit.style.cursor = "crosshair";
+  hit.addEventListener("mousemove", e => {
+    const r = svg.getBoundingClientRect();
+    const px = (e.clientX - r.left) * (W / r.width);
+    let i = Math.round((px - L) / iw * (bins.length - 1));
+    i = Math.max(0, Math.min(bins.length - 1, i));
+    const v = bins[i];
+    cx.setAttribute("x1", x(i)); cx.setAttribute("x2", x(i)); cx.setAttribute("opacity", .4);
+    cd.setAttribute("cx", x(i)); cd.setAttribute("cy", y(v == null ? 0 : v));
+    cd.setAttribute("opacity", 1);
+    showTip(e, `<b>${fmt(i * bs)} – ${fmt((i + 1) * bs)} bp</b><br>`
+      + `覆盖度比值 ${v == null ? "无数据" : v.toFixed(2) + "×"}<br>`
+      + `编辑前 ${cov.wt[i].toFixed(0)}×　编辑后 ${cov.edit[i].toFixed(0)}×`);
+  });
+  hit.addEventListener("mouseleave", () => {
+    hideTip(); cx.setAttribute("opacity", 0); cd.setAttribute("opacity", 0); });
+
+  $("#cov-sub").textContent =
+    `每 ${bs} bp 一个窗口，各自按全基因组均值归一化后相除 · `
+    + `编辑前均深 ${cov.mean_wt.toFixed(0)}× / 编辑后 ${cov.mean_edit.toFixed(0)}× · 悬停查看数值`;
+})();
+
+$("#snap-delly").textContent = DATA.snapshots.delly;
+
+/* ---------------- validation table ---------------- */
+(function(){
+  const KIND = {snv: "点突变", ins: "插入", del: "缺失"};
+  const KL = {"parental (shared)": "亲本共有", "on-target": "在靶",
+    "off-target": "脱靶", "background": "背景突变"};
+  const rows = DATA.validation.rows.map(r => {
+    const o = ORIGIN[r.klass] || ORIGIN["-"];
+    const err = r.freq_error;
+    return {
+      _cls: r.klass === "parental (shared)" ? "dim" : null,
+      id: r.truth_id,
+      klass: {__html: `<span class="chip ${o.cls}"><span class="dot"></span>${KL[r.klass] || r.klass}</span>`},
+      pos: fmt(r.pos),
+      kind: (KIND[r.kind] || r.kind) + " " + r.detail,
+      exp: pct(r.expected_vaf_edit),
+      obs: r.observed_freq == null ? "–" : pct(r.observed_freq),
+      err: err == null ? "–" : (err >= 0 ? "+" : "") + (100 * err).toFixed(1) + "pp",
+      found: {__html: r.detected
+        ? `<span style="color:var(--c-bg);font-weight:600">已检出</span>`
+        : `<span style="color:var(--c-off);font-weight:600">漏检</span>`},
+      by: r.detected_by === "SV" ? "delly（结构变异）"
+        : r.detected_by === "small-variant" ? "bcftools（SNV/InDel）" : "–"
+    };
+  });
+  buildTable("#valtable", [
+    {h: "编号", k: "id"},
+    {h: "类别", k: "klass"},
+    {h: "位置", k: "pos", num: true},
+    {h: "设定的改动", k: "kind"},
+    {h: "设定频率", k: "exp", num: true},
+    {h: "实测频率", k: "obs", num: true},
+    {h: "偏差", k: "err", num: true},
+    {h: "结果", k: "found"},
+    {h: "由谁检出", k: "by"}
+  ], rows);
+
+  const errs = DATA.validation.rows.map(r => r.freq_error).filter(e => e != null).map(Math.abs);
+  const maxErr = errs.length ? Math.max(...errs) : 0;
+  $("#val-note").innerHTML =
+    `${DATA.validation.n_truth} 个设定事件<b>全部检出</b>，`
+    + `编辑特异变异中没有无法解释的假阳性。`
+    + `频率估计的最大偏差 <b>${(100 * maxErr).toFixed(1)} 个百分点</b>，`
+    + `全部落在各自的 95% 置信区间内 —— 在 ${DATA.qc.EDIT_pool.mean_depth.toFixed(0)}× 深度下，`
+    + `亚克隆频率本来就只能估到这个精度。`;
+})();
+
+/* ---------------- limits ---------------- */
+[
+  ["深度决定能看见多低频的事件",
+   `本次 ${DATA.qc.EDIT_pool.mean_depth.toFixed(0)}× 下，30% 的亚克隆事件置信区间宽约 ±8 个百分点，`
+   + `5% 以下的低频编辑基本看不出来。靶点附近要定量，常规做法是加做扩增子深测序（可到上万×）。`],
+  ["脱靶评分用的是简化规则",
+   `这里只按错配数和种子区位置排序。真实项目用 Cas-OFFinder 做全基因组搜索、`
+   + `CFD / MIT 评分排序，再用 GUIDE-seq、CIRCLE-seq 或 DISCOVER-seq 做实验层面的验证。`],
+  ["短读段看不全结构变异",
+   `150 bp 读段对大片段倒位、易位、串联重复和质粒骨架整合都不敏感。`
+   + `细菌项目通常补一条 Nanopore 或 PacBio 长读段，直接拼出完整环状基因组。`],
+  ["供体骨架残留要专门查",
+   `HDR 供体如果来自质粒，骨架序列可能随机整合进基因组。`
+   + `需要把质粒序列加进参考一起比对，而不只是比对染色体。`],
+  ["真实参考基因组要正规来源",
+   `demo 用的是程序生成的迷你染色体。真实项目要用 NCBI RefSeq 的菌株基因组，`
+   + `注释用 Prokka 或 Bakta 重跑一遍，snpEff 据此建库。`],
+  ["模拟数据不含真实噪声",
+   `真实数据还有 GC 偏好、低复杂度区比对错误、嵌合读段、索引跳跃等问题。`
+   + `这个 demo 的 100% 比对率和 0 假阳性在真实项目里不会出现。`]
+].forEach(([h, d]) => {
+  const c = el("div", "pstep");
+  c.append(el("h3", null, h), el("div", "d", d));
+  $("#limits").appendChild(c);
+});
+
+$("#footer-meta").textContent =
+  `生成于 ${DATA.meta.generated} · 随机种子 ${DATA.meta.seed} · `
+  + `参考 ${DATA.meta.chrom} ${fmt(DATA.meta.genome_len)} bp · `
+  + `读长 ${DATA.meta.read_length} bp 双端`;
+</script>

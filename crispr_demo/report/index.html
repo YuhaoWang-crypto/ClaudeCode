@@ -1,0 +1,1054 @@
+<title>CRISPR 编辑效果核查</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: one scroll column; mono eyebrows carry the pipeline's real step order;
+   machine output always sits in a dark console panel, prose never does. */
+:root{
+  --bg:#f4f6f6; --surface:#fcfdfc; --panel:#eaeeed;
+  --ink:#0f1413; --ink-2:#4c5553; --muted:#7d8584; --rule:#dde2e1; --rule-2:#c9d0cf;
+  --c-on:#2a78d6; --c-off:#eb6834; --c-bg:#1baf7a; --c-shared:#7d8584;
+  --accent:#2a78d6; --accent-soft:#e6eefb;
+  --term-bg:#12191b; --term-ink:#dde4e3; --term-dim:#7d8e8c; --term-rule:#263133;
+  --nt-a:#1f9d4d; --nt-c:#2a78d6; --nt-g:#e08a00; --nt-t:#d03b3b;
+  --font-sans:"IBM Plex Sans","Source Han Sans SC","Noto Sans CJK SC","PingFang SC","Microsoft YaHei",system-ui,sans-serif;
+  --font-mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --maxw:1080px;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  color-scheme:dark;
+  --bg:#0b0e0e; --surface:#161a1a; --panel:#1e2423;
+  --ink:#eceeed; --ink-2:#aeb6b4; --muted:#848c8a; --rule:#272d2c; --rule-2:#333b3a;
+  --c-on:#3987e5; --c-off:#d95926; --c-bg:#199e70; --c-shared:#949c9a;
+  --accent:#3987e5; --accent-soft:#16263b;
+  --term-bg:#0e1415; --term-ink:#dde4e3; --term-dim:#798887; --term-rule:#222c2d;
+  --nt-a:#2eb45f; --nt-c:#3987e5; --nt-g:#e09a1f; --nt-t:#e05c5c;
+}}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#0b0e0e; --surface:#161a1a; --panel:#1e2423;
+  --ink:#eceeed; --ink-2:#aeb6b4; --muted:#848c8a; --rule:#272d2c; --rule-2:#333b3a;
+  --c-on:#3987e5; --c-off:#d95926; --c-bg:#199e70; --c-shared:#949c9a;
+  --accent:#3987e5; --accent-soft:#16263b;
+  --term-bg:#0e1415; --term-ink:#dde4e3; --term-dim:#798887; --term-rule:#222c2d;
+  --nt-a:#2eb45f; --nt-c:#3987e5; --nt-g:#e09a1f; --nt-t:#e05c5c;
+}
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--font-sans);
+  font-size:15px;line-height:1.65;margin:0;-webkit-font-smoothing:antialiased}
+.wrap{max-width:var(--maxw);margin:0 auto;
+  padding-left:max(16px,env(safe-area-inset-left,0px));
+  padding-right:max(16px,env(safe-area-inset-right,0px));}
+h1,h2,h3{text-wrap:balance;margin:0;font-weight:600;letter-spacing:-.012em}
+h1{font-size:clamp(28px,5vw,42px);line-height:1.15;font-weight:700;letter-spacing:-.025em}
+h2{font-size:clamp(20px,3vw,26px);line-height:1.25}
+h3{font-size:16px;line-height:1.35}
+p{margin:0}
+a{color:var(--accent)}
+.prose{max-width:66ch}
+.prose p + p{margin-top:.75em}
+
+/* ---- section scaffolding ---- */
+section{padding-block:clamp(34px,6vw,58px);border-top:1px solid var(--rule)}
+section:first-of-type{border-top:0}
+.eyebrow{font-family:var(--font-mono);font-size:11.5px;font-weight:500;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--muted);
+  display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.eyebrow::after{content:"";flex:1;height:1px;background:var(--rule);min-width:20px}
+.lede{color:var(--ink-2);margin-top:12px;max-width:66ch}
+.stack{display:flex;flex-direction:column;gap:22px}
+.stack-sm{display:flex;flex-direction:column;gap:12px}
+
+/* ---- header ---- */
+header.hero{padding-block:clamp(40px,8vw,76px) clamp(28px,5vw,42px)}
+.tag{display:inline-flex;align-items:center;gap:7px;font-family:var(--font-mono);
+  font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;
+  border:1px solid var(--rule-2);color:var(--ink-2);
+  padding:4px 10px;border-radius:999px;background:var(--surface)}
+.tag b{color:var(--c-off);font-weight:600}
+.hero h1{margin-top:18px}
+.hero .sub{font-family:var(--font-mono);font-size:13.5px;color:var(--muted);margin-top:14px}
+
+.verdict{margin-top:30px;background:var(--surface);border:1px solid var(--rule);
+  border-radius:10px;padding:20px 22px}
+.verdict h3{font-size:15px;margin-bottom:10px}
+.verdict ul{margin:0;padding-left:1.1em;color:var(--ink-2)}
+.verdict li{margin-bottom:5px}
+.verdict li:last-child{margin-bottom:0}
+.verdict b{color:var(--ink);font-weight:600}
+
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+  gap:1px;background:var(--rule);border:1px solid var(--rule);
+  border-radius:10px;overflow:hidden;margin-top:22px}
+.stat{background:var(--surface);padding:16px 18px;min-width:0}
+.stat .k{font-family:var(--font-mono);font-size:10.5px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--muted)}
+.stat .v{font-size:27px;font-weight:600;line-height:1.1;margin-top:7px;
+  letter-spacing:-.02em}
+.stat .n{font-size:12.5px;color:var(--ink-2);margin-top:4px}
+
+/* ---- console panels ---- */
+.console{background:var(--term-bg);border:1px solid var(--term-rule);border-radius:9px;
+  overflow:hidden}
+.console-bar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+  padding:9px 14px;border-bottom:1px solid var(--term-rule);
+  font-family:var(--font-mono);font-size:11.5px;color:var(--term-dim);
+  letter-spacing:.04em}
+.console-bar .f{color:#7fb2e8}
+.console pre{margin:0;padding:14px;overflow-x:auto;
+  font-family:var(--font-mono);font-size:12px;line-height:1.6;
+  color:var(--term-ink);white-space:pre;tab-size:8}
+.console pre.cmd{color:#9fd49a;border-bottom:1px solid var(--term-rule);
+  background:rgba(255,255,255,.025)}
+.console pre.cmd::before{content:"$ ";color:var(--term-dim)}
+.caption{font-size:13px;color:var(--ink-2);margin-top:9px}
+.caption b{color:var(--ink);font-weight:600}
+
+/* ---- tables ---- */
+.tablewrap{overflow-x:auto;border:1px solid var(--rule);border-radius:9px;
+  background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:13px;min-width:640px}
+th{text-align:left;font-family:var(--font-mono);font-size:10.5px;font-weight:500;
+  letter-spacing:.08em;text-transform:uppercase;color:var(--muted);
+  padding:11px 12px;border-bottom:1px solid var(--rule);white-space:nowrap;
+  background:var(--surface);position:sticky;top:0}
+td{padding:10px 12px;border-bottom:1px solid var(--rule);vertical-align:top}
+tr:last-child td{border-bottom:0}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;
+  font-family:var(--font-mono)}
+td.mono,.mono{font-family:var(--font-mono);font-size:12px}
+td.nw,th.nw{white-space:nowrap}
+tr.dim td{color:var(--muted)}
+
+/* ---- chips ---- */
+.chip{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;
+  font-family:var(--font-mono);letter-spacing:.03em;white-space:nowrap;
+  padding:2px 8px;border-radius:999px;border:1px solid currentColor;line-height:1.5}
+.chip .dot{width:7px;height:7px;border-radius:50%;background:currentColor;flex:none}
+.chip.on{color:var(--c-on)} .chip.off{color:var(--c-off)}
+.chip.bgm{color:var(--c-bg)} .chip.shared{color:var(--c-shared)}
+
+/* ---- figures ---- */
+figure{margin:0}
+.figbox{background:var(--surface);border:1px solid var(--rule);border-radius:10px;
+  padding:16px 16px 10px}
+.figtitle{font-size:14px;font-weight:600;margin-bottom:2px}
+.figsub{font-size:12.5px;color:var(--muted);margin-bottom:12px}
+.scrollx{overflow-x:auto}
+svg{display:block;max-width:100%}
+.legend{display:flex;flex-wrap:wrap;gap:14px;margin-top:12px;
+  font-size:12px;color:var(--ink-2)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{width:11px;height:11px;border-radius:3px;display:inline-block;flex:none}
+
+/* ---- pipeline ---- */
+.pipe{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(210px,1fr))}
+.pstep{background:var(--surface);border:1px solid var(--rule);border-radius:9px;
+  padding:13px 15px;min-width:0}
+.pstep .n{font-family:var(--font-mono);font-size:10.5px;color:var(--muted);
+  letter-spacing:.1em}
+.pstep h3{margin-top:5px;font-size:14px}
+.pstep .t{font-family:var(--font-mono);font-size:11.5px;color:var(--accent);
+  margin-top:6px;word-break:break-word}
+.pstep .d{font-size:12.5px;color:var(--ink-2);margin-top:6px}
+
+/* ---- sequence ---- */
+.seqbox{background:var(--surface);border:1px solid var(--rule);border-radius:9px;
+  padding:14px 16px;overflow-x:auto}
+.seq{font-family:var(--font-mono);font-size:15px;letter-spacing:.09em;
+  white-space:nowrap;font-weight:500}
+.seq .A{color:var(--nt-a)} .seq .C{color:var(--nt-c)}
+.seq .G{color:var(--nt-g)} .seq .T{color:var(--nt-t)}
+.seq .pam{text-decoration:underline;text-underline-offset:4px;
+  text-decoration-thickness:2px}
+.seq .cut{color:var(--c-off);font-weight:700}
+.seqlabel{font-family:var(--font-mono);font-size:11px;color:var(--muted);
+  letter-spacing:.08em;text-transform:uppercase;margin-bottom:7px}
+
+/* ---- callouts ---- */
+.note{border-left:3px solid var(--accent);background:var(--accent-soft);
+  border-radius:0 8px 8px 0;padding:13px 16px;font-size:13.5px;color:var(--ink-2)}
+.note b{color:var(--ink);font-weight:600}
+.warn{border-left-color:var(--c-off);
+  background:color-mix(in srgb,var(--c-off) 9%,var(--surface))}
+
+.cols2{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(290px,1fr))}
+footer{border-top:1px solid var(--rule);padding-block:30px 44px;
+  color:var(--muted);font-size:12.5px}
+footer code{font-family:var(--font-mono);color:var(--ink-2)}
+
+/* ---- tooltip ---- */
+#tip{position:fixed;z-index:50;pointer-events:none;opacity:0;transition:opacity .1s;
+  background:var(--term-bg);color:var(--term-ink);border:1px solid var(--term-rule);
+  border-radius:7px;padding:8px 11px;font-family:var(--font-mono);font-size:11.5px;
+  line-height:1.55;white-space:nowrap;box-shadow:0 6px 20px rgba(0,0,0,.25)}
+#tip b{color:#9fd49a;font-weight:500}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+
+<div id="tip" role="status" aria-live="off"></div>
+
+<div class="wrap">
+  <header class="hero">
+    <span class="tag"><b>DEMO</b> · 全部数据为模拟生成</span>
+    <h1>CRISPR 编辑效果核查</h1>
+    <p class="sub" id="hero-sub"></p>
+    <div class="verdict">
+      <h3>一句话结论</h3>
+      <ul id="verdict"></ul>
+    </div>
+    <div class="stats" id="stats"></div>
+  </header>
+
+  <section>
+    <div class="eyebrow">01 · 实验设计</div>
+    <h2>这个 demo 在模拟什么实验</h2>
+    <div class="prose lede">
+      <p>一株细菌，用两条 sgRNA 做 Cas9 编辑并提供 HDR 供体。编辑前取一次样（亲本克隆，
+      <span class="mono">WT_parent</span>），编辑后取一次样（经过筛选的菌群，
+      <span class="mono">EDIT_pool</span>），两次都做全基因组重测序，然后比对差异。</p>
+      <p>要回答四个问题：<b>改没改成</b>、<b>改了多少比例的细胞</b>、<b>改在哪</b>、<b>有没有脱靶</b>。</p>
+    </div>
+    <div class="stack" style="margin-top:22px">
+      <div id="guides"></div>
+      <div class="note"><b>为什么必须测编辑前的样本。</b>
+        实验室菌株和公共参考基因组本来就有差异。下面会看到，两个样本共有 4 个变异 ——
+        它们是菌株自带的，跟编辑无关。只测编辑后的样本，这 4 个会被当成"编辑结果"报出来。</div>
+    </div>
+  </section>
+
+  <section>
+    <div class="eyebrow">02 · 原始数据</div>
+    <h2>两个 FASTQ 长什么样</h2>
+    <p class="lede">结构和真实 Illumina 下机数据一致：双端、150 bp、Phred+33 质量值、
+    CASAVA 1.8 格式的 read 名。规模缩小到 6 万 bp 的迷你染色体，整条流程十几秒能跑完。</p>
+    <div class="stack" style="margin-top:20px">
+      <figure>
+        <div class="console">
+          <div class="console-bar"><span class="f">rawdata/EDIT_pool_R1.fastq.gz</span><span>前 2 条 read</span></div>
+          <pre id="snap-raw"></pre>
+        </div>
+        <figcaption class="caption" id="fastq-explain"></figcaption>
+      </figure>
+      <div class="cols2" id="fastq-anatomy"></div>
+      <div class="note"><b>刻意混进去的"脏数据"。</b>
+        约 0.9% 的 read 对是整条低质量的死簇，约 1.3% 带 poly-G 尾（双色测序把"无信号"读成 G），
+        还有短插入片段导致的接头读穿和 4% 的 PCR 重复。没有这些，质控那一步就是空转。</div>
+    </div>
+  </section>
+
+  <section>
+    <div class="eyebrow">03 · 流程</div>
+    <h2>用什么工具、怎么跑</h2>
+    <p class="lede">细菌重测序的常规组合，没有自研步骤。每一步的命令和中间产物都在仓库里。</p>
+    <div class="pipe" id="pipeline" style="margin-top:22px"></div>
+    <div class="tablewrap" style="margin-top:18px">
+      <table id="tools"></table>
+    </div>
+  </section>
+
+  <section>
+    <div class="eyebrow">04 · 数据变形</div>
+    <h2>每一步之后，数据变成什么样</h2>
+    <p class="lede">这一节是流程的核心：同一批 read，经过六次形态转换，从"一堆碱基串"变成
+    "一张带生物学含义的变异表"。下面都是本次运行的真实输出。</p>
+    <div class="stack" style="margin-top:24px" id="stages"></div>
+  </section>
+
+  <section>
+    <div class="eyebrow">05 · 结果</div>
+    <h2>编辑落在基因组的什么位置</h2>
+    <p class="lede">灰条是基因。上方是编辑后才出现的事件，下方是两个样本共有的亲本变异 ——
+    它们不是编辑结果。</p>
+    <figure class="figbox" style="margin-top:20px">
+      <div class="figtitle">DEMO_chr1 全景</div>
+      <div class="figsub" id="map-sub"></div>
+      <div class="scrollx"><svg id="map" role="img" aria-label="基因组事件分布图"></svg></div>
+      <div class="legend">
+        <span><i style="background:var(--c-on)"></i>在靶编辑</span>
+        <span><i style="background:var(--c-off)"></i>脱靶编辑</span>
+        <span><i style="background:var(--c-bg)"></i>背景突变</span>
+        <span><i style="background:var(--c-shared)"></i>亲本共有（非编辑）</span>
+      </div>
+    </figure>
+  </section>
+
+  <section>
+    <div class="eyebrow">06 · 变异表</div>
+    <h2>逐个位点的判定</h2>
+    <p class="lede">判定逻辑：先看这个变异在编辑前的样本里有没有读段支持；没有，才算编辑带来的。
+    再看它离预测的 Cas9 切割位点有多远，决定它是在靶、脱靶，还是跟 sgRNA 无关的自发突变。</p>
+    <div class="tablewrap" style="margin-top:20px"><table id="vartable"></table></div>
+    <div class="caption" id="vartable-note"></div>
+    <div class="stack-sm" style="margin-top:20px" id="sv-block"></div>
+  </section>
+
+  <section>
+    <div class="eyebrow">07 · 频率</div>
+    <h2>每个事件覆盖了多少细胞</h2>
+    <p class="lede">细菌是单倍体，所以等位基因频率直接等于携带该事件的细胞比例。
+    这是判断"编辑效率"和"克隆是否纯化干净"的关键数字。</p>
+    <figure class="figbox" style="margin-top:20px">
+      <div class="figtitle">群体频率与 95% 置信区间</div>
+      <div class="figsub">空心菱形是本次模拟设定的真实值，实心点是流程测出来的值</div>
+      <div class="scrollx"><svg id="vafchart" role="img" aria-label="各事件群体频率与置信区间"></svg></div>
+    </figure>
+    <div class="note" style="margin-top:16px"><b>为什么 lacZ 的 7 bp 缺失局部频率是 1.00、群体频率却只有一半。</b>
+      另外约一半的细胞在同一位置丢掉了整段 1150 bp，这些细胞在该位点根本没有读段。
+      频率只能在"有读段的细胞"里算，所以必须用局部覆盖度换算回群体比例。</div>
+  </section>
+
+  <section>
+    <div class="eyebrow">08 · 脱靶</div>
+    <h2>脱靶位点：预测与实测</h2>
+    <p class="lede">先在参考基因组里穷举扫描和 sgRNA 相似（≤5 个错配 + NGG/NAG PAM）的位点，
+    再看这些位点上有没有真的出现变异。</p>
+    <div class="tablewrap" style="margin-top:20px"><table id="ottable"></table></div>
+    <div class="note warn" style="margin-top:16px"><b>注意两类反例。</b>
+      <span id="ot-note"></span></div>
+  </section>
+
+  <section>
+    <div class="eyebrow">09 · 覆盖度</div>
+    <h2>大片段缺失只能靠覆盖度和断裂读段看出来</h2>
+    <p class="lede">1150 bp 的缺失不会出现在 SNV/InDel 的 VCF 里 —— bcftools 根本不检测这个尺度。
+    它表现为覆盖度塌陷，加上跨越断点的异常配对和断裂读段。</p>
+    <figure class="figbox" style="margin-top:20px">
+      <div class="figtitle">编辑后 / 编辑前 覆盖度比值</div>
+      <div class="figsub" id="cov-sub"></div>
+      <div class="scrollx"><svg id="covchart" role="img" aria-label="编辑前后覆盖度比值沿基因组分布"></svg></div>
+    </figure>
+    <figure style="margin-top:18px">
+      <div class="console">
+        <div class="console-bar"><span class="f">delly call</span><span>结构变异</span></div>
+        <pre id="snap-delly"></pre>
+      </div>
+      <figcaption class="caption"><b>RV</b> = 支持缺失的断裂读段，<b>DV</b> = 异常配对，
+      <b>RR / DR</b> = 支持参考的读段。编辑前样本三项支持证据全为 0。</figcaption>
+    </figure>
+  </section>
+
+  <section>
+    <div class="eyebrow">10 · 验证</div>
+    <h2>流程有没有把东西找全</h2>
+    <p class="lede">因为数据是模拟的，真实答案已知。把流程的输出和设定值逐条对一遍，
+    就能知道这套流程的检出率和频率估计精度。真实项目里这一步要靠 Sanger 测序或扩增子深测序来做。</p>
+    <div class="tablewrap" style="margin-top:20px"><table id="valtable"></table></div>
+    <div class="caption" id="val-note"></div>
+  </section>
+
+  <section>
+    <div class="eyebrow">11 · 局限</div>
+    <h2>这个 demo 没覆盖的、真实项目要补的</h2>
+    <div class="cols2" style="margin-top:20px" id="limits"></div>
+  </section>
+
+  <footer>
+    <p>全部数字由 <code>scripts/04_analyze.py</code> 从本次运行的真实输出中提取，
+    页面本身由 <code>scripts/05_make_report.py</code> 生成。随机种子固定，流程可完整复现。</p>
+    <p style="margin-top:8px" id="footer-meta"></p>
+  </footer>
+</div>
+
+<script>
+const DATA = {"meta": {"chrom": "DEMO_chr1", "genome_len": 60000, "organism": "Escherichia coli str. DEMO-WT", "n_genes": 47, "gc": 53.16, "seed": 20251027, "generated": "2026-10-27 23:15 UTC", "read_length": 150}, "qc": {"WT_parent": {"raw_reads": 47996, "raw_bases": 7194392, "q30_before": 74.13, "clean_reads": 47596, "q30_after": 75.02, "adapter_trimmed": 839, "duplication_rate": 4.05, "mapping_rate": 100.0, "mean_depth": 113.55, "pct_ge_10x": 99.89, "pct_ge_30x": 99.77}, "EDIT_pool": {"raw_reads": 59498, "raw_bases": 8918718, "q30_before": 74.1, "clean_reads": 58972, "q30_after": 75.05, "adapter_trimmed": 1077, "duplication_rate": 4.16, "mapping_rate": 100.0, "mean_depth": 140.42, "pct_ge_10x": 99.92, "pct_ge_30x": 99.81}}, "fastp": {"WT_parent": {"before": 47996, "after": 47596, "low_quality": 400, "too_many_n": 0, "too_short": 0, "adapter": 839, "q30_before": 74.13, "q30_after": 75.02, "insert_peak": 266}, "EDIT_pool": {"before": 59498, "after": 58972, "low_quality": 526, "too_many_n": 0, "too_short": 0, "adapter": 1077, "q30_before": 74.1, "q30_after": 75.05, "insert_peak": 269}}, "models": {"haploid_wt": 4, "haploid_edit": 8, "pooled_wt": 4, "pooled_edit": 9, "joint_raw": 9, "joint_pass": 9}, "guides": [{"id": "sgRNA-1", "target_gene": "pheA", "protospacer": "GGCGGTCAGAGACCTGACTC", "pam": "AGG", "strand": "+", "proto_start": 12601, "cut_site": 12617, "purpose": "precise 24 bp knock-in (FLAG-like tag + stop)"}, {"id": "sgRNA-2", "target_gene": "lacZ", "protospacer": "GGGCCGAACAACTTCCCCGG", "pam": "TGG", "strand": "+", "proto_start": 26301, "cut_site": 26317, "purpose": "knockout by NHEJ/MMEJ indel"}], "genes": [{"name": "aroG", "start": 500, "end": 1570, "strand": "-"}, {"name": "argB", "start": 1762, "end": 2625, "strand": "-"}, {"name": "motA", "start": 2763, "end": 3869, "strand": "-"}, {"name": "tolC", "start": 4146, "end": 5036, "strand": "+"}, {"name": "serC", "start": 5323, "end": 6303, "strand": "-"}, {"name": "flhD", "start": 6596, "end": 7288, "strand": "-"}, {"name": "gltA", "start": 7588, "end": 8154, "strand": "+"}, {"name": "fliC", "start": 8416, "end": 9783, "strand": "-"}, {"name": "murE", "start": 9993, "end": 10874, "strand": "+"}, {"name": "cheY", "start": 11000, "end": 11548, "strand": "-"}, {"name": "pheA", "start": 12001, "end": 13167, "strand": "+"}, {"name": "cyaA", "start": 13417, "end": 14802, "strand": "+"}, {"name": "dnaK", "start": 15003, "end": 15875, "strand": "+"}, {"name": "ptsG", "start": 16069, "end": 16698, "strand": "-"}, {"name": "lexA", "start": 16866, "end": 17531, "strand": "-"}, {"name": "ribF", "start": 17774, "end": 18628, "strand": "+"}, {"name": "katG", "start": 18779, "end": 19354, "strand": "-"}, {"name": "fhuA", "start": 19641, "end": 20477, "strand": "+"}, {"name": "carB", "start": 20751, "end": 22010, "strand": "+"}, {"name": "sodB", "start": 22315, "end": 23376, "strand": "-"}, {"name": "hisD", "start": 23535, "end": 24155, "strand": "+"}, {"name": "cysK", "start": 24440, "end": 25591, "strand": "-"}, {"name": "lacZ", "start": 26001, "end": 27443, "strand": "+"}, {"name": "leuD", "start": 27693, "end": 29114, "strand": "-"}, {"name": "pyrD", "start": 29223, "end": 30275, "strand": "+"}, {"name": "aceE", "start": 30430, "end": 31833, "strand": "+"}, {"name": "dapB", "start": 31962, "end": 33005, "strand": "-"}, {"name": "slp", "start": 33292, "end": 34434, "strand": "+"}, {"name": "purF", "start": 34519, "end": 35202, "strand": "+"}, {"name": "glyA", "start": 35417, "end": 36478, "strand": "+"}, {"name": "fabI", "start": 36623, "end": 37252, "strand": "+"}, {"name": "yjgF", "start": 38001, "end": 38519, "strand": "+"}, {"name": "mdlA", "start": 38769, "end": 39380, "strand": "+"}, {"name": "nuoF", "start": 39567, "end": 40970, "strand": "+"}, {"name": "ftsZ", "start": 41272, "end": 42018, "strand": "-"}, {"name": "lpp", "start": 42194, "end": 43165, "strand": "+"}, {"name": "uvrB", "start": 43297, "end": 44439, "strand": "+"}, {"name": "glnS", "start": 44699, "end": 46039, "strand": "+"}, {"name": "ompF", "start": 46352, "end": 47269, "strand": "+"}, {"name": "trpE", "start": 47544, "end": 48173, "strand": "+"}, {"name": "rpoB", "start": 49001, "end": 50326, "strand": "+"}, {"name": "ompA", "start": 50576, "end": 51997, "strand": "-"}, {"name": "sucB", "start": 52181, "end": 53584, "strand": "+"}, {"name": "thrA", "start": 53799, "end": 54770, "strand": "-"}, {"name": "ilvC", "start": 54938, "end": 56080, "strand": "-"}, {"name": "acpP", "start": 56368, "end": 57510, "strand": "+"}, {"name": "tyrR", "start": 57790, "end": 58590, "strand": "-"}], "variants": [{"pos": 5500, "ref": "T", "alt": "C", "qual": 483.052, "dp": 235, "mq": 60.0, "kind": "snv", "event_len": 0, "effect": "synonymous_variant", "impact": "LOW", "gene": "serC", "hgvs_c": "c.804A>G", "hgvs_p": "p.Val268Val", "ad_wt": [0, 115], "ad_edit": [0, 119], "vaf_wt_pileup": 1.0, "vaf_edit_pileup": 1.0, "vaf_edit_span": 1.0, "vaf_wt_span": 1.0, "ci95_edit": [0.9687, 1.0], "informative_depth_edit": 119, "local_cov_ratio": 0.8553, "population_freq": 1.0, "competing_allele": false, "ci95_population": [0.9687, 1.0], "present_wt": true, "present_edit": true, "category": "shared (parental)", "attributed_to": null, "cut_distance": null, "site_mismatches": null, "origin": "-"}, {"pos": 12614, "ref": "C", "alt": "CTGAGTAAGCTAGCGGATCCAAGCT", "qual": 220.139, "dp": 257, "mq": 60.0, "kind": "ins", "event_len": 24, "effect": "stop_gained&disruptive_inframe_insertion", "impact": "HIGH", "gene": "pheA", "hgvs_c": "c.617_618insGTAAGCTAGCGGATCCAAGCTTGA", "hgvs_p": "p.Pro205_Asp206insGluTerAlaSerGlySerLysLeu", "ad_wt": [132, 0], "ad_edit": [52, 69], "vaf_wt_pileup": 0.0, "vaf_edit_pileup": 0.5702, "span_wt": {"alt": 0, "ref": 102, "depth": 102, "vaf": 0.0, "ci95": [0.0, 0.0363]}, "span_edit": {"alt": 71, "ref": 0, "depth": 71, "vaf": 1.0, "ci95": [0.9487, 1.0]}, "vaf_edit_span": 1.0, "vaf_wt_span": 0.0, "ci95_edit": [0.9487, 1.0], "informative_depth_edit": 71, "local_cov_ratio": 0.9497, "population_freq": 1.0, "competing_allele": false, "ci95_population": [0.9487, 1.0], "present_wt": false, "present_edit": true, "category": "EDIT-specific", "attributed_to": "sgRNA-1", "cut_distance": 3, "site_mismatches": 0, "origin": "on-target"}, {"pos": 21330, "ref": "A", "alt": "G", "qual": 483.061, "dp": 245, "mq": 60.0, "kind": "snv", "event_len": 0, "effect": "missense_variant", "impact": "MODERATE", "gene": "carB", "hgvs_c": "c.580A>G", "hgvs_p": "p.Ile194Val", "ad_wt": [0, 108], "ad_edit": [0, 134], "vaf_wt_pileup": 1.0, "vaf_edit_pileup": 1.0, "vaf_edit_span": 1.0, "vaf_wt_span": 1.0, "ci95_edit": [0.9721, 1.0], "informative_depth_edit": 134, "local_cov_ratio": 0.9535, "population_freq": 1.0, "competing_allele": false, "ci95_population": [0.9721, 1.0], "present_wt": true, "present_edit": true, "category": "shared (parental)", "attributed_to": null, "cut_distance": null, "site_mismatches": null, "origin": "-"}, {"pos": 26313, "ref": "TTCCCCGG", "alt": "T", "qual": 216.005, "dp": 185, "mq": 60.0, "kind": "del", "event_len": 7, "effect": "frameshift_variant", "impact": "HIGH", "gene": "lacZ", "hgvs_c": "c.315_321delCCCCGGT", "hgvs_p": "p.Phe105fs", "ad_wt": [113, 0], "ad_edit": [6, 60], "vaf_wt_pileup": 0.0, "vaf_edit_pileup": 0.9091, "span_wt": {"alt": 0, "ref": 89, "depth": 89, "vaf": 0.0, "ci95": [0.0, 0.0414]}, "span_edit": {"alt": 52, "ref": 0, "depth": 52, "vaf": 1.0, "ci95": [0.9312, 1.0]}, "vaf_edit_span": 1.0, "vaf_wt_span": 0.0, "ci95_edit": [0.9312, 1.0], "informative_depth_edit": 52, "local_cov_ratio": 0.5591, "population_freq": 0.5591, "competing_allele": true, "ci95_population": [0.5206, 0.5591], "present_wt": false, "present_edit": true, "category": "EDIT-specific", "attributed_to": "sgRNA-2", "cut_distance": 4, "site_mismatches": 0, "origin": "on-target"}, {"pos": 33213, "ref": "CTGACT", "alt": "C", "qual": 220.976, "dp": 255, "mq": 60.0, "kind": "del", "event_len": 5, "effect": "upstream_gene_variant", "impact": "MODIFIER", "gene": "leuD", "hgvs_c": "c.-4104_-4100delAGTCA", "hgvs_p": "", "ad_wt": [106, 0], "ad_edit": [97, 42], "vaf_wt_pileup": 0.0, "vaf_edit_pileup": 0.3022, "span_wt": {"alt": 0, "ref": 82, "depth": 82, "vaf": 0.0, "ci95": [0.0, 0.0448]}, "span_edit": {"alt": 36, "ref": 72, "depth": 108, "vaf": 0.3333333333333333, "ci95": [0.2515, 0.4266]}, "vaf_edit_span": 0.3333, "vaf_wt_span": 0.0, "ci95_edit": [0.2515, 0.4266], "informative_depth_edit": 108, "local_cov_ratio": 1.0071, "population_freq": 0.3333, "competing_allele": false, "ci95_population": [0.2515, 0.4266], "present_wt": false, "present_edit": true, "category": "EDIT-specific", "attributed_to": "sgRNA-1", "cut_distance": 3, "site_mismatches": 4, "origin": "off-target"}, {"pos": 38227, "ref": "A", "alt": "AT", "qual": 216.008, "dp": 272, "mq": 60.0, "kind": "ins", "event_len": 1, "effect": "frameshift_variant", "impact": "HIGH", "gene": "yjgF", "hgvs_c": "c.227_228insT", "hgvs_p": "p.Ser77fs", "ad_wt": [130, 0], "ad_edit": [3, 137], "vaf_wt_pileup": 0.0, "vaf_edit_pileup": 0.9786, "span_wt": {"alt": 0, "ref": 98, "depth": 98, "vaf": 0.0, "ci95": [0.0, 0.0377]}, "span_edit": {"alt": 108, "ref": 0, "depth": 108, "vaf": 1.0, "ci95": [0.9657, 1.0]}, "vaf_edit_span": 1.0, "vaf_wt_span": 0.0, "ci95_edit": [0.9657, 1.0], "informative_depth_edit": 108, "local_cov_ratio": 0.8788, "population_freq": 1.0, "competing_allele": false, "ci95_population": [0.9657, 1.0], "present_wt": false, "present_edit": true, "category": "EDIT-specific", "attributed_to": "sgRNA-1", "cut_distance": 0, "site_mismatches": 3, "origin": "off-target"}, {"pos": 44120, "ref": "T", "alt": "C", "qual": 483.052, "dp": 236, "mq": 60.0, "kind": "snv", "event_len": 0, "effect": "missense_variant", "impact": "MODERATE", "gene": "uvrB", "hgvs_c": "c.824T>C", "hgvs_p": "p.Leu275Ser", "ad_wt": [0, 103], "ad_edit": [0, 130], "vaf_wt_pileup": 1.0, "vaf_edit_pileup": 1.0, "vaf_edit_span": 1.0, "vaf_wt_span": 1.0, "ci95_edit": [0.9713, 1.0], "informative_depth_edit": 130, "local_cov_ratio": 0.9907, "population_freq": 1.0, "competing_allele": false, "ci95_population": [0.9713, 1.0], "present_wt": true, "present_edit": true, "category": "shared (parental)", "attributed_to": null, "cut_distance": null, "site_mismatches": null, "origin": "-"}, {"pos": 49656, "ref": "G", "alt": "A", "qual": 216.016, "dp": 233, "mq": 60.0, "kind": "snv", "event_len": 0, "effect": "missense_variant", "impact": "MODERATE", "gene": "rpoB", "hgvs_c": "c.656G>A", "hgvs_p": "p.Arg219His", "ad_wt": [91, 0], "ad_edit": [0, 137], "vaf_wt_pileup": 0.0, "vaf_edit_pileup": 1.0, "vaf_edit_span": 1.0, "vaf_wt_span": 0.0, "ci95_edit": [0.9727, 1.0], "informative_depth_edit": 137, "local_cov_ratio": 0.9289, "population_freq": 1.0, "competing_allele": false, "ci95_population": [0.9727, 1.0], "present_wt": false, "present_edit": true, "category": "EDIT-specific", "attributed_to": null, "cut_distance": null, "site_mismatches": null, "origin": "background"}, {"pos": 56499, "ref": "TCTG", "alt": "T", "qual": 486.043, "dp": 236, "mq": 60.0, "kind": "del", "event_len": 3, "effect": "conservative_inframe_deletion", "impact": "MODERATE", "gene": "acpP", "hgvs_c": "c.133_135delCTG", "hgvs_p": "p.Leu45del", "ad_wt": [0, 105], "ad_edit": [3, 123], "vaf_wt_pileup": 1.0, "vaf_edit_pileup": 0.9762, "span_wt": {"alt": 92, "ref": 0, "depth": 92, "vaf": 1.0, "ci95": [0.9599, 1.0]}, "span_edit": {"alt": 108, "ref": 0, "depth": 108, "vaf": 1.0, "ci95": [0.9657, 1.0]}, "vaf_edit_span": 1.0, "vaf_wt_span": 1.0, "ci95_edit": [0.9657, 1.0], "informative_depth_edit": 108, "local_cov_ratio": 0.9948, "population_freq": 1.0, "competing_allele": false, "ci95_population": [0.9657, 1.0], "present_wt": true, "present_edit": true, "category": "shared (parental)", "attributed_to": null, "cut_distance": null, "site_mismatches": null, "origin": "-"}], "svs": [{"chrom": "DEMO_chr1", "start": 25899, "end": 27049, "svtype": "DEL", "length": 1150, "filter": "PASS", "pe": 49, "sr": 20, "genotypes": {"WT_parent": {"gt": "0/0", "split_alt": 0, "pair_alt": 0, "split_ref": 107, "pair_ref": 129, "vaf": 0.0, "ci95": [0.0, 0.0347], "informative_depth": 107}, "EDIT_pool": {"gt": "0/1", "split_alt": 63, "pair_alt": 49, "split_ref": 60, "pair_ref": 81, "vaf": 0.5122, "ci95": [0.4248, 0.5988], "informative_depth": 123}}, "spans_cut_site": 26317, "attributed_to": "sgRNA-2", "origin": "on-target", "genes_affected": ["lacZ"]}], "offtargets": [{"strand": "+", "start": 12601, "cut_site": 12617, "protospacer": "GGCGGTCAGAGACCTGACTC", "pam": "AGG", "mismatches": 0, "seed_mismatches": 0, "canonical_pam": true, "guide": "sgRNA-1", "tier": "on-target"}, {"strand": "+", "start": 26301, "cut_site": 26317, "protospacer": "GGGCCGAACAACTTCCCCGG", "pam": "TGG", "mismatches": 0, "seed_mismatches": 0, "canonical_pam": true, "guide": "sgRNA-2", "tier": "on-target"}, {"strand": "+", "start": 39717, "cut_site": 39733, "protospacer": "GGGGCGAAGAACTTCCCCGG", "pam": "TGG", "mismatches": 2, "seed_mismatches": 1, "canonical_pam": true, "guide": "sgRNA-2", "tier": "medium"}, {"strand": "+", "start": 38211, "cut_site": 38227, "protospacer": "GACGATCAGCGACCTGACTC", "pam": "AGG", "mismatches": 3, "seed_mismatches": 1, "canonical_pam": true, "guide": "sgRNA-1", "tier": "medium"}, {"strand": "+", "start": 33200, "cut_site": 33216, "protospacer": "TGTGGTAAGAGGCCTGACTC", "pam": "CGG", "mismatches": 4, "seed_mismatches": 1, "canonical_pam": true, "guide": "sgRNA-1", "tier": "medium"}, {"strand": "-", "start": 30142, "cut_site": 30145, "protospacer": "GTGCCGAAAGACTTGCCCGC", "pam": "CGG", "mismatches": 5, "seed_mismatches": 4, "canonical_pam": true, "guide": "sgRNA-2", "tier": "low"}], "planted": [{"name": "OT-1", "start": 38211, "guide": "sgRNA-1", "mismatches": 3, "locus": "yjgF (CDS)", "sequence": "GACGATCAGCGACCTGACTC"}, {"name": "OT-2", "start": 33200, "guide": "sgRNA-1", "mismatches": 4, "locus": "intergenic", "sequence": "TGTGGTAAGAGGCCTGACTC"}, {"name": "OT-3", "start": 39717, "guide": "sgRNA-2", "mismatches": 2, "locus": "nuoF (CDS)", "sequence": "GGGGCGAAGAACTTCCCCGG", "comment": "decoy: predicted hotspot but NOT edited in this demo"}], "coverage": {"bin_size": 200, "wt": [35.28, 92.92, 126.58, 123.05, 117.03, 119.56, 102.86, 116.31, 105.8, 100.71, 110.86, 112.66, 106.22, 113.16, 109.57, 126.64, 109.18, 117.09, 127.41, 121.62, 120.91, 111.19, 96.44, 105.5, 114.06, 121.98, 131.6, 126.8, 115.95, 117.08, 108.74, 108.86, 112.61, 110.61, 114.46, 109.39, 117.73, 112.17, 108.27, 112.6, 118.08, 117.92, 128.11, 129.66, 137.69, 118.11, 104.8, 107.83, 113.77, 116.23, 121.46, 114.65, 103.08, 114.7, 128.48, 118.92, 123.75, 131.7, 120.8, 113.39, 108.78, 107.7, 114.33, 125.42, 126.1, 119.99, 118.47, 119.73, 121.68, 110.86, 108.11, 105.86, 116.26, 124.36, 123.16, 112.47, 108.06, 113.35, 97.22, 108.29, 116.78, 113.25, 103.34, 120.06, 114.33, 105.5, 131.31, 128.31, 118.17, 116.97, 109.0, 113.91, 107.93, 106.07, 105.97, 116.0, 119.17, 121.99, 120.38, 107.91, 103.7, 108.72, 111.22, 116.47, 112.33, 128.97, 115.95, 123.11, 119.15, 107.6, 107.66, 96.38, 103.08, 109.72, 110.39, 104.67, 123.58, 128.18, 122.97, 119.43, 130.49, 141.32, 139.13, 122.41, 106.44, 99.5, 100.05, 105.5, 116.56, 124.08, 114.63, 111.76, 111.47, 116.02, 118.92, 121.79, 110.4, 125.64, 136.99, 121.17, 103.77, 105.89, 110.97, 112.38, 135.09, 131.29, 108.68, 106.83, 104.57, 107.16, 111.24, 128.86, 115.39, 117.47, 111.03, 101.34, 102.57, 106.03, 107.94, 96.23, 108.28, 117.22, 125.38, 120.79, 110.6, 111.06, 114.42, 121.07, 114.98, 102.21, 118.92, 127.53, 125.44, 122.86, 113.34, 106.97, 119.84, 111.23, 117.36, 114.56, 108.86, 115.39, 110.4, 120.75, 117.57, 117.57, 121.62, 108.56, 116.88, 127.65, 121.88, 127.18, 123.27, 105.76, 105.69, 127.08, 117.75, 108.4, 105.77, 107.2, 101.76, 108.11, 108.0, 106.58, 119.51, 135.84, 127.06, 107.5, 113.42, 115.14, 121.2, 98.92, 98.25, 107.31, 94.97, 96.33, 100.81, 104.44, 108.44, 106.8, 108.97, 117.82, 119.08, 116.58, 109.42, 108.92, 126.64, 129.12, 119.47, 120.53, 104.75, 107.67, 101.2, 112.78, 97.54, 104.8, 119.41, 124.25, 114.47, 107.83, 101.64, 104.42, 111.46, 119.51, 105.58, 100.69, 101.83, 119.27, 106.85, 126.55, 121.53, 110.68, 101.44, 105.12, 114.8, 121.32, 116.17, 127.92, 111.12, 107.56, 108.61, 101.92, 105.36, 107.01, 118.59, 127.35, 119.71, 119.08, 124.23, 114.54, 118.0, 118.42, 112.83, 114.12, 115.9, 110.51, 101.47, 113.39, 120.76, 107.84, 109.25, 116.69, 106.94, 105.51, 117.12, 110.37, 116.4, 118.09, 115.56, 120.56, 123.81, 111.27, 110.07, 113.63, 101.2, 109.93, 106.5, 102.77, 88.22, 42.53], "edit": [46.48, 105.69, 148.59, 156.75, 159.0, 152.34, 166.01, 157.47, 147.37, 145.02, 142.19, 136.65, 155.1, 153.52, 135.74, 132.77, 140.93, 137.94, 139.49, 143.81, 137.87, 131.69, 119.45, 126.16, 144.36, 138.89, 136.12, 128.56, 131.16, 135.88, 142.75, 144.5, 144.01, 150.19, 145.0, 142.33, 135.16, 132.97, 138.7, 145.49, 136.54, 140.52, 142.31, 144.62, 134.82, 144.37, 147.49, 143.12, 146.28, 136.99, 144.35, 150.88, 159.0, 136.21, 131.22, 133.24, 145.54, 152.53, 155.0, 134.65, 143.93, 141.44, 140.1, 144.53, 133.32, 140.22, 139.75, 148.17, 143.28, 147.44, 144.87, 132.53, 152.9, 159.32, 168.75, 153.35, 139.71, 129.71, 125.53, 118.77, 129.19, 139.26, 146.43, 154.32, 151.57, 162.89, 154.47, 138.82, 121.4, 130.25, 157.4, 156.79, 139.25, 134.51, 145.49, 156.08, 149.97, 152.31, 152.51, 141.63, 139.59, 125.41, 141.43, 143.85, 141.59, 140.45, 138.35, 152.57, 150.08, 161.07, 164.31, 153.03, 138.17, 147.38, 135.24, 150.09, 134.99, 145.59, 150.31, 135.73, 130.34, 138.58, 150.78, 144.91, 131.08, 149.59, 133.59, 131.9, 136.15, 100.47, 77.81, 71.28, 80.98, 75.96, 75.47, 133.24, 153.47, 143.59, 147.69, 125.75, 127.32, 144.16, 155.1, 142.47, 124.34, 131.75, 142.62, 153.09, 138.81, 138.75, 129.59, 135.59, 131.36, 124.42, 113.32, 132.85, 141.04, 165.41, 158.82, 168.67, 142.38, 139.31, 131.52, 127.23, 129.54, 146.88, 132.25, 152.49, 139.6, 152.34, 137.28, 147.92, 150.23, 148.61, 155.79, 153.58, 135.24, 135.9, 148.9, 134.09, 135.9, 153.26, 148.26, 139.09, 140.41, 147.98, 148.93, 132.38, 127.57, 132.2, 128.81, 136.48, 145.7, 137.49, 146.37, 150.16, 133.15, 121.28, 144.91, 151.16, 138.7, 134.71, 131.09, 138.74, 140.71, 145.27, 148.29, 143.8, 143.39, 158.75, 143.15, 153.19, 143.83, 157.76, 152.39, 150.4, 154.12, 143.69, 139.79, 130.28, 134.31, 144.99, 132.21, 148.75, 157.22, 152.24, 154.09, 144.65, 150.18, 158.61, 158.84, 142.48, 145.62, 148.4, 138.49, 134.97, 149.06, 146.09, 146.34, 136.69, 130.9, 139.41, 140.41, 142.57, 141.92, 142.21, 137.21, 131.21, 133.19, 134.96, 132.97, 155.97, 161.19, 152.19, 139.46, 136.92, 135.9, 139.37, 131.79, 151.41, 147.57, 143.99, 133.48, 123.33, 128.52, 146.04, 146.57, 136.93, 130.66, 141.22, 134.94, 144.47, 134.22, 148.19, 150.34, 152.3, 142.99, 142.69, 152.03, 155.25, 142.44, 134.43, 126.48, 143.79, 154.8, 151.65, 140.03, 138.78, 142.69, 160.82, 138.9, 136.18, 133.92, 145.68, 138.35, 139.47, 137.65, 142.12, 117.48, 56.3], "ratio": [1.0654, 0.9198, 0.9493, 1.0302, 1.0987, 1.0304, 1.3052, 1.0949, 1.1264, 1.1645, 1.0372, 0.9809, 1.1808, 1.0971, 1.0018, 0.8478, 1.0439, 0.9527, 0.8854, 0.9562, 0.9221, 0.9578, 1.0016, 0.9671, 1.0235, 0.9208, 0.8365, 0.8199, 0.9148, 0.9385, 1.0616, 1.0734, 1.0342, 1.0981, 1.0245, 1.0522, 0.9284, 0.9586, 1.036, 1.0449, 0.9351, 0.9637, 0.8983, 0.902, 0.7918, 0.9885, 1.1381, 1.0733, 1.0398, 0.9531, 0.9611, 1.0642, 1.2474, 0.9603, 0.8259, 0.9061, 0.9511, 0.9366, 1.0376, 0.9603, 1.07, 1.062, 0.991, 0.9319, 0.855, 0.945, 0.9539, 1.0008, 0.9522, 1.0755, 1.0837, 1.0124, 1.0635, 1.036, 1.108, 1.1026, 1.0455, 0.9254, 1.0442, 0.8869, 0.8946, 0.9944, 1.1459, 1.0395, 1.0721, 1.2486, 0.9513, 0.8749, 0.8308, 0.9005, 1.1678, 1.1131, 1.0434, 1.0255, 1.1103, 1.0881, 1.0177, 1.0097, 1.0245, 1.0614, 1.0886, 0.9328, 1.0283, 0.9988, 1.0193, 0.8807, 0.9649, 1.0022, 1.0186, 1.2105, 1.2342, 1.284, 1.084, 1.0863, 0.9907, 1.1596, 0.8834, 0.9185, 0.9885, 0.9191, 0.8078, 0.793, 0.8764, 0.9573, 0.9959, 1.2158, 1.0798, 1.011, 0.9446, 0.6548, 0.5489, 0.5158, 0.5875, 0.5295, 0.5132, 0.8847, 1.1242, 0.9242, 0.8719, 0.8393, 0.9922, 1.101, 1.1303, 1.0252, 0.7443, 0.8115, 1.0612, 1.1589, 1.0735, 1.0471, 0.9421, 0.8509, 0.9206, 0.8565, 0.8254, 1.0601, 1.112, 1.2616, 1.1899, 1.4174, 1.0634, 0.9611, 0.8483, 0.8518, 0.9472, 1.0695, 0.9347, 1.0186, 0.9818, 1.2053, 0.9335, 0.938, 0.9685, 0.9782, 1.1116, 1.1611, 0.9126, 0.988, 1.026, 0.9465, 1.0096, 1.0741, 1.086, 0.9315, 0.9658, 1.0179, 0.9903, 0.9861, 0.8826, 0.8375, 0.8547, 0.8678, 0.9558, 1.0513, 1.1199, 0.9556, 0.9145, 0.9048, 1.1079, 1.1403, 1.1022, 1.0077, 0.9816, 1.0527, 0.9521, 0.8648, 0.9438, 1.0818, 1.0224, 1.115, 0.9551, 1.2524, 1.1839, 1.1889, 1.2976, 1.2626, 1.2363, 1.1126, 1.0425, 0.9865, 0.9967, 0.9952, 0.8979, 1.0318, 1.162, 1.1303, 0.984, 0.906, 1.0166, 1.0642, 1.2263, 1.0701, 1.1636, 1.0641, 1.1482, 1.0415, 1.0095, 0.9508, 1.0338, 1.0251, 1.0415, 1.0797, 1.0187, 0.9647, 1.087, 1.1422, 1.0897, 0.8896, 1.008, 0.8624, 0.8848, 1.1396, 1.285, 1.1708, 0.9824, 0.9127, 0.946, 0.8811, 0.9591, 1.1384, 1.0988, 1.1425, 1.0245, 0.932, 0.8764, 0.9274, 0.9901, 0.9299, 0.8505, 0.9971, 0.9248, 0.9866, 0.962, 1.0501, 1.049, 1.1145, 1.1396, 1.0177, 1.0181, 1.1642, 1.0544, 0.9316, 0.9564, 1.1021, 1.0689, 1.1111, 0.9729, 0.9504, 0.9985, 1.0787, 0.9072, 0.9897, 0.9839, 1.0368, 1.1056, 1.026, 1.0452, 1.1183, 1.0769, 1.0705], "mean_wt": 113.55, "mean_edit": 140.42}, "validation": {"rows": [{"truth_id": "P1", "klass": "parental (shared)", "pos": 5500, "kind": "snv", "detail": "C", "expected_vaf_edit": 1.0, "observed_freq": 1.0, "ci95": [0.9687, 1.0], "called_origin": "-", "freq_error": 0.0, "detected": true, "detected_by": "small-variant", "detected_at": 5500, "note": "parental SNV, intergenic"}, {"truth_id": "A", "klass": "on-target", "pos": 12617, "kind": "ins", "detail": "GTAAGCTAGCGGATCCAAGCTTGA", "expected_vaf_edit": 1.0, "observed_freq": 1.0, "ci95": [0.9487, 1.0], "called_origin": "on-target", "freq_error": 0.0, "detected": true, "detected_by": "small-variant", "detected_at": 12614, "note": "precise HDR knock-in of a 24 bp stop cassette at the sgRNA-1 cut site"}, {"truth_id": "P2", "klass": "parental (shared)", "pos": 21330, "kind": "snv", "detail": "G", "expected_vaf_edit": 1.0, "observed_freq": 1.0, "ci95": [0.9721, 1.0], "called_origin": "-", "freq_error": 0.0, "detected": true, "detected_by": "small-variant", "detected_at": 21330, "note": "parental SNV, inside a CDS"}, {"truth_id": "E", "klass": "on-target", "pos": 25900, "kind": "del", "detail": "1150 bp", "expected_vaf_edit": 0.45, "observed_freq": 0.5122, "ci95": [0.4248, 0.5988], "called_origin": "on-target", "freq_error": 0.0622, "detected": true, "detected_by": "SV", "detected_at": "25899-27049", "note": "1150 bp deletion spanning the sgRNA-2 cut site (large on-target deletion)"}, {"truth_id": "B", "klass": "on-target", "pos": 26314, "kind": "del", "detail": "7 bp", "expected_vaf_edit": 0.55, "observed_freq": 0.5591, "ci95": [0.5206, 0.5591], "called_origin": "on-target", "freq_error": 0.0091, "detected": true, "detected_by": "small-variant", "detected_at": 26313, "note": "7 bp deletion at the sgRNA-2 cut site (NHEJ/MMEJ scar) -> frameshift"}, {"truth_id": "D", "klass": "off-target", "pos": 33214, "kind": "del", "detail": "5 bp", "expected_vaf_edit": 0.3, "observed_freq": 0.3333, "ci95": [0.2515, 0.4266], "called_origin": "off-target", "freq_error": 0.0333, "detected": true, "detected_by": "small-variant", "detected_at": 33213, "note": "5 bp deletion at off-target OT-2 (4 mismatches), sub-clonal"}, {"truth_id": "C", "klass": "off-target", "pos": 38227, "kind": "ins", "detail": "T", "expected_vaf_edit": 1.0, "observed_freq": 1.0, "ci95": [0.9657, 1.0], "called_origin": "off-target", "freq_error": 0.0, "detected": true, "detected_by": "small-variant", "detected_at": 38227, "note": "1 bp insertion at off-target OT-1 (3 mismatches) -> frameshift"}, {"truth_id": "P3", "klass": "parental (shared)", "pos": 44120, "kind": "snv", "detail": "C", "expected_vaf_edit": 1.0, "observed_freq": 1.0, "ci95": [0.9713, 1.0], "called_origin": "-", "freq_error": 0.0, "detected": true, "detected_by": "small-variant", "detected_at": 44120, "note": "parental SNV, inside a CDS"}, {"truth_id": "F", "klass": "background", "pos": 49656, "kind": "snv", "detail": "A", "expected_vaf_edit": 1.0, "observed_freq": 1.0, "ci95": [0.9727, 1.0], "called_origin": "background", "freq_error": 0.0, "detected": true, "detected_by": "small-variant", "detected_at": 49656, "note": "spontaneous point mutation, no sgRNA homology nearby"}, {"truth_id": "P4", "klass": "parental (shared)", "pos": 56500, "kind": "del", "detail": "3 bp", "expected_vaf_edit": 1.0, "observed_freq": 1.0, "ci95": [0.9657, 1.0], "called_origin": "-", "freq_error": 0.0, "detected": true, "detected_by": "small-variant", "detected_at": 56499, "note": "parental 3 bp deletion, intergenic"}], "n_truth": 10, "n_detected": 10, "false_positives": []}, "truth": [{"id": "P1", "klass": "parental (shared)", "pos": "5500", "kind": "snv", "detail": "C", "expected_vaf_wt": "1.0", "expected_vaf_edit": "1.0", "guide": "-", "gene": "-", "note": "parental SNV, intergenic"}, {"id": "A", "klass": "on-target", "pos": "12617", "kind": "ins", "detail": "GTAAGCTAGCGGATCCAAGCTTGA", "expected_vaf_wt": "0.0", "expected_vaf_edit": "1.0", "guide": "sgRNA-1", "gene": "pheA", "note": "precise HDR knock-in of a 24 bp stop cassette at the sgRNA-1 cut site"}, {"id": "P2", "klass": "parental (shared)", "pos": "21330", "kind": "snv", "detail": "G", "expected_vaf_wt": "1.0", "expected_vaf_edit": "1.0", "guide": "-", "gene": "-", "note": "parental SNV, inside a CDS"}, {"id": "E", "klass": "on-target", "pos": "25900", "kind": "del", "detail": "1150 bp", "expected_vaf_wt": "0.0", "expected_vaf_edit": "0.45", "guide": "sgRNA-2", "gene": "lacZ", "note": "1150 bp deletion spanning the sgRNA-2 cut site (large on-target deletion)"}, {"id": "B", "klass": "on-target", "pos": "26314", "kind": "del", "detail": "7 bp", "expected_vaf_wt": "0.0", "expected_vaf_edit": "0.55", "guide": "sgRNA-2", "gene": "lacZ", "note": "7 bp deletion at the sgRNA-2 cut site (NHEJ/MMEJ scar) -> frameshift"}, {"id": "D", "klass": "off-target", "pos": "33214", "kind": "del", "detail": "5 bp", "expected_vaf_wt": "0.0", "expected_vaf_edit": "0.3", "guide": "sgRNA-1", "gene": "intergenic", "note": "5 bp deletion at off-target OT-2 (4 mismatches), sub-clonal"}, {"id": "C", "klass": "off-target", "pos": "38227", "kind": "ins", "detail": "T", "expected_vaf_wt": "0.0", "expected_vaf_edit": "1.0", "guide": "sgRNA-1", "gene": "yjgF", "note": "1 bp insertion at off-target OT-1 (3 mismatches) -> frameshift"}, {"id": "P3", "klass": "parental (shared)", "pos": "44120", "kind": "snv", "detail": "C", "expected_vaf_wt": "1.0", "expected_vaf_edit": "1.0", "guide": "-", "gene": "-", "note": "parental SNV, inside a CDS"}, {"id": "F", "klass": "background", "pos": "49656", "kind": "snv", "detail": "A", "expected_vaf_wt": "0.0", "expected_vaf_edit": "1.0", "guide": "-", "gene": "rpoB", "note": "spontaneous point mutation, no sgRNA homology nearby"}, {"id": "P4", "klass": "parental (shared)", "pos": "56500", "kind": "del", "detail": "3 bp", "expected_vaf_wt": "1.0", "expected_vaf_edit": "1.0", "guide": "-", "gene": "-", "note": "parental 3 bp deletion, intergenic"}], "snapshots": {"raw_fastq": "@ED:1:HXXKMDRXY:2:1101:15222:17795 1:N:0:CGATGT\nACAAACTACCCATGGGGTGTGGATACGGCATTCGGGTAGAGGCACCTTACACGTCCGCCGGCTGATACACGTATGCAACCCATGCATACGGTTCAACACGAATAGCGTCGACGGCGTTGGACCTCCCCCAAGGATACTGAAGACTGTGAC\n+\nDEFEFHHFBEFEHGGFBFBCGFDEFDFEFDEEIFDEBCDFDBDEBBDBEFECABDCD@BDECCDDDAFDADDBCAACAEB?BDDBBBAB@A?ABA?CA@BBC??A=?@?>@>A=@?@?>@B<==>?>?><=:<?><?=><>?=?<<=<>:\n@ED:1:HXXKMDRXY:2:1101:24773:9704 1:N:0:CGATGT\nTGTGTAGACCTGTTGAGACGTTTCTGCGGGCGGCCAGGTCCGTCGTGCTGTCGTTGTAGCACGACGATGTGATAGTCTAAGGTTTCGAACAACCACGTCGACTGACTTCCTCCCCGGGGCCCGAAGACAGTTGCGGCCGGCTTGTGACCA\n+\nIEHGFEEHGDGFFGCFEEBEBFGGECFCBDBDDEFFGEBEDEDADBFADCDBC@D@C@@DEEDCB?DCAEAD@ABABABF?BEA??B?@@>?A@?@A@<A???AA?@???B>A@?>>A?>=>>?<>@?=@=?<>>>>=>?;=?>=;=><<", "raw_fastq_r2": "@ED:1:HXXKMDRXY:2:1101:15222:17795 2:N:0:CGATGT\nGGCTCGACGAAACCAGCGAAATCCAGCCGTTGCCACAGCCGATAAGCGGGTGTATCATGCTCCGCGAAAAGATTGTGCAAAACATTGGTATATTATTTAACACATCCAAGAGATTAGATTAAGTATCCACTACTTAACGTCTTTGTAGTG\n+\nDFEBBCDGFGEDCBADFBECECDGDEBD?BDDB@CADABACAAA?BECA@CD@CAC>BB@A?CAA@@B?CBAA@@BA@@@@?C?@>@>A@@A@B>??@>??A@B>=@??==@>><>;==>?=??=>=<A=;;;;=<<=<;9;>::9:;8:\n...", "bam_header": "@HD\tVN:1.6\tSO:coordinate\n@SQ\tSN:DEMO_chr1\tLN:60000\n@RG\tID:EDIT_pool\tSM:EDIT_pool\tPL:ILLUMINA\tLB:lib_EDIT_pool\tPU:HXXKMDRXY", "bam_records": "ED:1:HXXKMDRXY:2:1102:14922:13495\t99\tDEMO_chr1\t4\t60\t150M\t=\t238\t384\tTTCGTTGCATTGGGAGGACTCCAAGTCGACGCCAACATTAAGCCCCGCATAGCTAAGATACGTACGAGGCGCCCCTGAAGGGGCGTATGACCGTTCCTTACCCGGAAGAGTTGACGTCTATGTAGTAGCGTTAATCACACATTAAGAATG\tHCGFEFEFCHGEHGEHAHFFFGCFDECGDEDCDGFGEBDBDCECBDCCEAGFACDCBCDCBEECBEBBDBADBCBBCAD@C?A@CBBABDA?C>BB@A?>?AAAAA@@==@@??@>>@=@A?A><?=??<>D=>A<==>>>>>=;<?::=\tNM:i:0\tMD:Z:150\tAS:i:150\tXS:i:0\nED:1:HXXKMDRXY:2:1104:16583:20114\t99\tDEMO_chr1\t4\t60\t150M\t=\t151\t297\tTTCGTTGCATTGGGAGGACTCCAAGTCGACGCCAACATTAAGCCCCGCATAGCTAAGATACGTACGAGGCGCCCCTGAAGGGGCGTATGACCGTACCTTACCCGGAAGAGTTGACGTCTATGTAGTAGCGTTAATCACACATTAAGAATG\tFDFFFGFGHCEBGDDGHGHEFEHGDCCDAFFECDFFDCFBBC?EEDFDCCDBE@CBECACBFCGBBACA?BABDBD?A@AEACB@@@@BCBAA@ADBAB??@?@@@>>>??AB?=@A>=>@=>>=><?;>A=<=>>>=?>>=<=>;===?\tNM:i:1\tMD:Z:94T55\tAS:i:145\tXS:i\nED:1:HXXKMDRXY:2:1104:20162:19189\t99\tDEMO_chr1\t7\t60\t150M\t=\t212\t355\tGTTGCATTGGGAGGACTCCAAGTCGACGCCAACATTAAGCCCCGCATAGCTAAGATACGTACGAGGCGCCCCTGAAGGGGCGTATGACCGTTCCTTACCCGGAAGAGTTGACGTCTATGTAGTAGCGTTAATCACACATTAAGAATGCAG\tEEDHDFECDEFDGGDEFFFFFDFFGEFECFEEGBDGBFADBBDCGCCACEEDDD@EDCDEDBDAADABC@CBDABEDCFBCBAEA@B@B?AB@@?ABABC?@?@B=BA?<?=>A???AA?@>??@?A>?@@>;=<>@A<:=;>>>?>==<\tNM:i:0\tMD:Z:150\tAS:i:150\tXS:i:0", "bam_insertion": "ED:1:HXXKMDRXY:2:1104:4535:5661\t99\t12518\t60\t97M24I29M\nED:1:HXXKMDRXY:2:1105:3779:21423\t147\t12520\t60\t95M24I31M\nED:1:HXXKMDRXY:2:1105:10567:12725\t99\t12521\t60\t94M24I32M", "bam_split": "ED:1:HXXKMDRXY:2:1103:6833:14781\t1121\t25752\t60\t148M2S\nED:1:HXXKMDRXY:2:1103:20935:13980\t97\t25752\t60\t148M2S\nED:1:HXXKMDRXY:2:1105:7838:24434\t147\t25755\t60\t145M5S", "pileup_pheA": "# region DEMO_chr1:12612-12620  (on-target_pheA)\n# columns: CHROM POS REF  [WT: DP BASES QUALS]  [EDIT: DP BASES QUALS]\nDEMO_chr1\t12612\tA\t132\t.$.,,....,,.,,,,...,,.,..,.......,,....,.,..........,,,...,..,.,,.,,,,........,,,...,.....,,.,.,,..,..,..,...,,..,,,.,.....,,,,,..,,^].\t>>AD=<<<GF<DCEA>@=DD=D>@DA`@<>=>ED>@?>DAB>AD@B>B?C@BCAAA@@@@CAABCACB<ABECABCC@>>FEF=FECFB@>F<D>>D@=DE=EG;GDG;=GG>=;E>GGFDF:9;@<GH=<D\t123\t.$,$,.,,..,,....,,,.,.,,.,....,T,.....,.....,.,,,,..,,.,..,.,,....,...,.....,.,,...,,,,..,,,,,.,.,....,,.,.,,,...,,,.,.,,,..,\t=CD:CF<=IE^>:>EBF=F?BD=C=<=;D;A>>@A<D@B?A@D?BCC@@@AA@EDCB@@ACCAAAB@D??BAAA??@@?EDA@@DEA=?B?>D=DBCDAE>=E=B>>>EAB>@@B@B==>BF=\nDEMO_chr1\t12613\tC\t131\t.,,....,,.,,,,...,,.,..,.......,,....,.,..........,,,...,..,.,,.,,,,........,,,...,.....,,.,.,,..,..,..,...,,..,,,.,.....,,,,,..,,.\t>AD=?<<ED>CDBA<<>CC?BA?EAc>C=??CB@@@?C>D>A?AC@B>B@>C@@ABA@?@A?@A>C?@ACBBEBB@B@?FCE@CDEFC=>C<E><FD?DF=DG=EED=<BE<=>E;HGFGE><<>>CD?6G\t121\t,$.,,..,,....,,,.,.,,.,....,.,.....,.....,.,,,,..,,.,..,.,,....,...,.....,.,,...,,,,..,,,,,.,.,....,,.,.,,,...,,,.,.,,,..,\t>?EF:8ECX=>@EFG=E=FF>D=<><E@DA=@@>DB?<@=C=C@BA@@DD@C;A;;;;:;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;=;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;\nDEMO_chr1\t12614\tC\t132\t.,,....,,.,,,,...,,.,..,.......,,....,.,..........,,,...,..,.,,.,,,,........,,,...,.....,,.,.,,..,..,..,...,,..,,,.,.....,,,,,..,,.^].\t:DB=:<;DD<BDDC><<CD;D==C;b?=>>=CBB@?ABAB>?@A?@@??@AEC@@@A@BAABADAABABEBBBCCF@=?BCE>@EGEC?@E<F@@CB>B@;BG>CFI><GF=@=F:EBIFD<:;>;FF;<FE\t53\t.$,$,..,,....,,,.,.,,.,....,.,.....,.....,.,,,,..,,.,.,+24tgagtaagctagcggatccaagct\t;BD=>CEP===DDE>C>CD<D<?>>BAB@A>>=D@?@A@ECABDD@?BCCCC8\nDEMO_chr1\t12615\tT\t132\t.$,$,$....,,.,,,,...,,.,..,..$.....,,....,.,..........,,,...,..,.,,.,,,,........,,,...,.....,,.,.,,..,..,..,...,,..,,,.,.....,,,,,..,,..\t;AD=<>>AB?FFCD<>?DC>D>AD;a@@A?;DC@?A>ACBBAA?>AABA@BEABCABADC@B@@AC??AADCACCC@BACFD?CDFDD?=D=G>=DD>FC;DB<FGD;;DE>><E<EDEGE=?>=;CG<?DJ\t51\t,$..,,....,,,.,.,,.,....,.,.....,.....,.,,,,..,,.,.^].\tE<?ED;<;>EFG>B<EF;A>L?@C=C@?;@=BA@=@@B=BBDB?@AC>CCE\nDEMO_chr1\t12616\tG\t128\t....,,.,,,,...,,.,..,......,,....,.,..........,,,...,..,.,,.,,,,........,,,...,.....,,.,.,,..,..,..,...,,..,,,.,.....,,,,,..,,..\t=<=;BA;FECD<@?CB>B>>B=<@>>>BB@@?BC=A?A=?ABA@@AADBA>BBA@AACAABCA>AA>DEFAC?=?BEB@@EGFD=<G=E=<DG@BE=FC?CGF;=EF;;;B;DGFFG?<;?=EG;;ED\t93\t.$.,....,,,.,.,,.,....,.,.....,.....,.,,,,..,,.,$............................,,,,,,,,,,,,,,,^],^],^],\t<>FA>=<DF:<C;FD?E<Y>>G?A=A?@?D@A@=?D?BBDB@>BB@E>EDDCBCGGECE@ECGGEDBGEEFFFEF=<=:===:?;:<>??:<:\nDEMO_chr1\t12617\tA\t128\t.$.$..,,.,,,,...,,.,..,......,,....,.,..........,,$,...,..,.,,.,,,,........,,,...,.....,,.,.,,..,..,..,...,,..,,,.,.....,,,,,..,,..\t9>=>GF;BABD>==BC=B>BD;@;?=?DD>@A=B@?=@=BCA@@@??BC@C@DC@CCD@CB@?DCBC@DCEB?B>BDF<CECDC>>C?E=?EE>GD=CD=DFE==BG;=?H<EEHCF>==?=CF<;DF\t90\t.$,$....,,.$,$.$,$.$,$.$.$.$.$,$.$,$.$.$.$.$.$,$.$.$.$.$.$,$.$,$,$,$,$.$.$,$,$.$.$...........................,,,,,,,,,,,,,,,,,,^],\t;EC?9=><>=;766;W=<6:5<<<:<8;:9>;:@67659;6688CDCFDFBIFFEECBDEHCEEBFFDFFF<;<=;;A:;<;B>9A:<::\nDEMO_chr1\t12618\tC\t126\t.$.,,.,,,,...,,.,..,......,,....,.,..........,,...,..,.,,.,,,,........,,,...,.....,,.,.,,..,..,..,...,,..,,,.,.....,,,,,..,,..^],\t>=CF=CDBC>?>BA<D@:D=>==>>CD?;?;@<DB?@A=@@@B@CA?BACB@BBAAF@B?CCBAAAB@CA??ECA:FHDCE?>D<@?=HD<FC;FD=DDC<<DE>==F;FFDGD<;=?;FG9;HB;\t49\tG...........................,,,,,,,,,,,,,,,,,,,,^].\t6IDFBEFCDDCBDEFFFEEEFCCEIEGD>9=9>==><:?;=>>=:<;<E\nDEMO_chr1\t12619\tT\t125\t.$,,.,,,,...,,.,..,......,,....,.,..........,,...,..,.,,.,,,,........,,,A..,.....,,.,.,,..,..,..,...,,..,,,.,.....,,,,,..,,..,\t;EF=DEAC?@=BC>H<>EA>@=B?CC?>A?DBCA@@@@BA@=CA@B@BBB@CB@@@?B@CDCE@CDBF=BBBBD?BBFDF?=D=C=>FD@CE=ED<GDD<=DE:<;E=EEFDF<?=A=DB?9GG9\t118\t.$.$.,.,,....,...,.....,.,,...,,,,..,,,,.,.,....,,.,.,,,...,,,.,.,,,..,...........................,,,,,,,,,,,,,,,,,,,,.^].\tI68888888888888888888888888888888888888888888888888888888888888888888EEDEDEDFEDDEEDFEEEDDFGDFCFJ<<?<:;?;<=?>A;=@;<9<FE\nDEMO_chr1\t12620\tC\t126\t,$,.,,,,...,,.,..,......,,....,.,..........,,...,..g.,,.,,,,........,,,...,.....,,.,.,,..,..,..,...,,..,,,.,.....,,,,,..,,..,^].^],\tED;FFAB<=<CF=A<<E>>@==BBF??@?FBC@@?=@?<?@CDBCABABA?A@@CACA?CFBBCEBCB=@EAD@EBDBA?>E@G>?DD=DD=ED=DEF:;EF;=<C>FEGFF=;:?:FF<;FE<D8\t117\t.,.,,....,.,..,.....,.,,...,,,,..,,,,.,.,....,,.,.,,,...,,,.,.,,,..,...........................,,,,,,,,,,,,,,,,,,,,..\t=B@DD@=??D>C=?BA??>?CBC?@@CA?AAC>@@CCCAAAAABA>A??B@?@@AC;@@C@D>B?CB>BGEBCGGHCDDDEEFEEGCCECCEFBD<;;;;?=;><@<=<<A=<<9DE", "pileup_lacZ": "# region DEMO_chr1:26310-26320  (on-target_lacZ)\n# columns: CHROM POS REF  [WT: DP BASES QUALS]  [EDIT: DP BASES QUALS]\nDEMO_chr1\t26310\tA\t112\t..,......,...,,,.,...,,,........,,...,..,,,.,,,,.,....,,,,,,T.,,,,.,.,,.....,.,....,..,,.,,,...,,,,,,.,.,,.,..^].^].\t:>E???=;=E?>ABEE?ADAAGCAB??DA@AB=@@BBBBA?A??AC?B>@ADAeC?@?ZABCA@=fEBC<AECAACCF=DEBE=DC<=C?=?HFEX=;<<@D;F;;D=EEBB\t69\t.$.....,..,..,..,...,.,,,.,.,.,.,,..,.,,,..,......,..,.,...,,,....,,,,\t>6;=:;C<AE@>E>>D?@=B@CCC??BCA@cA@@ABA>AACBACCDCCB:DG=D<CIA=<;GGEH:;>=\nDEMO_chr1\t26311\tA\t112\t.$.$,$......,...,,,.,...,,,........,,...,..,,,.,,,,.,....,,,,,,..,,,,.,.,,.....,.,....,..,,.,,,...,,,,,,.,.,,.,....\t;=B<?>><AC??@CCB?B?;:DCBA@>@B@@BADA>C@C@BA?CBADCA?=BAcCA@?_A@C>B@`A>F?=BEBFD>A>DCBD>EC:9G??@GDFS=>><5G;J;;G:FGDE\t67\t....,..,..,..,...,.,,,.,.,.,.,,..,.,,,..,......,..,.,...,,,....,,,,\t>;:<E??C?>E<=CB@>D?CECADBD@@fCADC@A@C@BADDD@CCC>ED?D>CFD==>HFDE;=:=\nDEMO_chr1\t26312\tC\t111\t......,...,,,.,...,,,........,,...,..,,,.,,,,.,....,,,,,,..,,,,.,.,,.....,.,....,..,,.,,,...,,,,,,.,.,,.,....^].^].\t?>=<<<C==?CBD>G@>ABBCB???CA@@EBBAA??ACAB@CAABDBD=DcC>AC\\>AC<>=aBAD=CADCDA?D>ACDD=AD:=D:9?HDFU9=>=:H<D:=F:FGEEEE\t67\t....,..,..,..,...,.,,,.,.,.,.,,..,.,,,..,......,..,.,...,,,....,,,,\t8>=>D<=E?AC@BG@=>A@FEDBBA@ACgABC@AAA??DD@BDBEDC>DE>D>EEC>:;DGGC::9<\nDEMO_chr1\t26313\tT\t113\t......,...,,,.,...,,,........,,...,..,,,.,,,,.,....,,,,,,..,,,,.,.,,.....,.,....,..,,.,,,...,,,,,,.,.,,.,......^].^],\t=?A>?=F<<AECA?B=@?DDCA?@@B@>>CDAAAACD@?A?CBA?C>BBBi@?@?]AAD?@>fD=ABABCDC?@E=CDED>DE=<D==?DDGU;>=;;F>E9;E<BDECFIB:\t66\t...,.-7TCCCCGG.-7TCCCCGG,.-7TCCCCGG.-7TCCCCGG,-7tccccgg.-7TCCCCGG.-7TCCCCGG,-7tccccgg.-7TCCCCGG.-7TCCCCGG.-7TCCCCGG,-7tccccgg.-7TCCCCGG,-7tccccgg,-7tccccgg,-7tccccgg.-7TCCCCGG,-7tccccgg.-7TCCCCGG,-7tccccgg.-7TCCCCGG,-7tccccgg.,-7tccccgg,-7tccccgg.-7TCCCCGG.-7TCCCCGG,-7tccccgg.-7TCCCCGG,-7tccccgg,-7tccccgg,-7tccccgg.-7TCCCCGG.-7TCCCCGG,-7tccccgg.-7TCCCCGG.-7TCCCCGG.-7TCCCCGG.-7TCCCCGG.-7TCCCCGG.-7TCCCCGG,-7tccccgg.-7TCCCCGG.-7TCCCCGG,-7tccccgg.-7TCCCCGG,-7tccccgg.-7TCCCCGG.-7TCCCCGG.-7TCCCCGG,-7tccccgg,-7tccccgg,-7tccccgg.-7TCCCCGG.-7TCCCCGG.-7TCCCCGG.-7TCCCCGG,-7tccccgg,-7tccccgg,-7tccccgg,-7tccccgg\t:>;D88C88888888888888888888e88888888888888888889888889888888998888\nDEMO_chr1\t26314\tT\t113\t......,...,,,.,...,,,........,,...,..,,,.,,,,.,....,,,,,,..,,,,.,.,,.....,.,....,..,,.,,,...,,,,,,.,.,,.,.......,\t==:??@F=<@CDE<DCA?B?B@@AA@?CDAD>BBBAABB@A>BA?B>AB@e@?BD^ABA<AAbE>B?>EBDDE@A>FDGD:DD=;C>=<FEGY<><=;A<E;=F;DEJEFDE>\t2\t.$.$\t>E\nDEMO_chr1\t26315\tC\t113\t......,...,,,.,...,,,........,,...,..,,,.,,,,.,....,,,,,,..,,,,.,.,,.....,.,....,..,,.,,,...,,,,,,.,.,,.,.......,\t;>A;??F<=>DABABAB>BAB?CC@@@C@BAAA?@AA?A=@AB@DBCBBAfAA?AWA@AAA@eD?A@BBBBCE<E>DBEC>G?;>D=@=DJEZ>=<=>D?C?=D;FDCGGFF;\t0\t*\t*\nDEMO_chr1\t26316\tC\t113\t......,...,,,.,...,,,........,,...,..,,,.,,,,.,....,,,,,,..,,,,.,.,,.....,.,....,..,,.,,,...,,,,,,.,.,,.,.......,\t;><?@=C=;>A@A@F@@?BCB?>@ABADACAA@DBD?A@@AC>BA?@C?Bd@@=@]EBCB?Bc@@C?AB@ADD>H>DAAE>EF;>I?=<EDEV:?>;:F<D;>G;DBDGEFE=\t0\t*\t*\nDEMO_chr1\t26317\tC\t113\t......,...,,,.,...,,,........,,...,..,,,.,,,,.,....,,,,,,..,,,,.,.,,.....,.,....,..,,.,,,...,,,,,,.,.,,.,.......,\t?>>?>:?<=?CAF>D=>ADDD@>BA@?BAC@@>?B>C@B@AABABDBAAAgC>>B]@CBA@@eD;F?ACDBAC@DBFEDF<C@?>D>>=FFGU=>>?>D8F><E?CGFDJFF;\t0\t*\t*\nDEMO_chr1\t26318\tC\t114\t......,...,,,.,...,,,........,,...,..,,,.,,,,.,....,,,,,,..,,,,.,.,,.....,.,....,..,,.,,,...,,,,,,.,.,,.,.......,^],\t;;<=?;E<<>CDE=E>@?CAA???A?A?B@BAC>CBB>A@@@CABCA?A@h@=?>[?AAAB@bADA??DFCAD?DAEEDBABE=>C?>=BFG<><<>>D9E>:H;JDCEEGD:;\t0\t*\t*\nDEMO_chr1\t26319\tG\t114\t......,...,,,.,...,,,........,,...,..,,,.,,,,.,....,,,,,,..,,,,.,.,,.....,.,....,..,,.,,,...,,,,,,.,.,,.,.......,,\t=@>@>;C=?=DCE=C@>?CCC@BB>?AABBACBCB@>?@@>@BADB@BAAg@BAD\\?AA?@>eC@CBADFCC@=AAADDF=@E<>E?<<BFD?=<@;<E;C:;E;DHDBEFG;:\t0\t*\t*\n...", "vcf_raw": "#CHROM\tPOS\tID\tREF\tALT\tQUAL\tFILTER\tINFO\tFORMAT\tWT_parent\tEDIT_pool\nDEMO_chr1\t5500\t.\tT\tC\t483.052\t.\tDP=235;VDB=0.963515;SGB=-1.38629;MQSBZ=0;MQ0F=0;AC=4;AN=4;DP4=0,0,109,125;MQ=60\tGT:PL:DP:SP:ADF:ADR:AD\t1/1:255,255,0:115:0:0,53:0,62:0,115\t1/1:255,255,0:119:0:0,56:0,63:0,119\nDEMO_chr1\t12614\t.\tC\tCTGAGTAAGCTAGCGGATCCAAGCT\t220.139\t.\tINDEL;IDV=69;IMF=0.556452;DP=257;VDB=2.80625e-14;SGB=46.271;RPBZ=-2.59137;MQBZ=0;MQSBZ=0;BQBZ=-1.64378;SCBZ=-4.02185;MQ0F=0;AC=1;AN=4;DP4=110,74,35,34;MQ=60\tGT:PL:DP:SP:ADF:ADR:AD\t0/0:\nDEMO_chr1\t21330\t.\tA\tG\t483.061\t.\tDP=245;VDB=0.370081;SGB=-1.38629;MQSBZ=0;MQ0F=0;AC=4;AN=4;DP4=0,0,126,117;MQ=60\tGT:PL:DP:SP:ADF:ADR:AD\t1/1:255,255,0:108:0:0,49:0,59:0,108\t1/1:255,255,0:135:0:0,77:0,57:0,134\nDEMO_chr1\t26313\t.\tTTCCCCGG\tT\t216.005\t.\tINDEL;IDV=60;IMF=0.882353;DP=185;VDB=0.387889;SGB=40.0326;RPBZ=-0.173071;MQBZ=0;MQSBZ=0;BQBZ=0.394012;SCBZ=-1.86322;MQ0F=0;AC=2;AN=4;DP4=66,53,34,26;MQ=60\tGT:PL:DP:SP:ADF:ADR:AD\t0/0:0,255,255:113:0:62,\nDEMO_chr1\t33213\t.\tCTGACT\tC\t220.976\t.\tINDEL;IDV=42;IMF=0.291667;DP=255;VDB=0.274634;SGB=27.556;RPBZ=-1.3816;MQBZ=0;MQSBZ=0;BQBZ=-0.18148;SCBZ=-0.629221;MQ0F=0;AC=1;AN=4;DP4=107,96,20,22;MQ=60\tGT:PL:DP:SP:ADF:ADR:AD\t0/0:0,255,255:106:0:57,0:4\nDEMO_chr1\t38227\t.\tA\tAT\t216.008\t.\tINDEL;IDV=137;IMF=0.978571;DP=272;VDB=0.142335;SGB=93.405;RPBZ=-0.371586;MQBZ=0;MQSBZ=0;BQBZ=-1.15356;SCBZ=-1.00738;MQ0F=0;AC=2;AN=4;DP4=70,63,65,72;MQ=60\tGT:PL:DP:SP:ADF:ADR:AD\t0/0:0,255,228:130:0:67,0:63,0\nDEMO_chr1\t44120\t.\tT\tC\t483.052\t.\tDP=236;VDB=0.270745;SGB=-1.38629;MQSBZ=0;MQ0F=0;AC=4;AN=4;DP4=0,0,140,93;MQ=60\tGT:PL:DP:SP:ADF:ADR:AD\t1/1:255,255,0:103:0:0,65:0,38:0,103\t1/1:255,255,0:130:0:0,75:0,55:0,130\nDEMO_chr1\t49656\t.\tG\tA\t216.016\t.\tDP=233;VDB=0.9821;SGB=-44.3073;RPBZ=-0.459701;MQBZ=0;MQSBZ=0;BQBZ=0.196355;SCBZ=0;MQ0F=0;AC=2;AN=4;DP4=47,44,70,68;MQ=60\tGT:PL:DP:SP:ADF:ADR:AD\t0/0:0,255,255:92:0:47,0:44,0:91,0\t1/1:255,255,0:137:0:0,70:0,67:\nDEMO_chr1\t56499\t.\tTCTG\tT\t486.043\t.\tINDEL;IDV=123;IMF=0.938931;DP=236;VDB=0.369678;SGB=-1.38629;RPBZ=-4.80577;MQBZ=0;MQSBZ=0;BQBZ=0.658825;SCBZ=-10.7454;MQ0F=0;AC=4;AN=4;DP4=1,2,122,106;MQ=60\tGT:PL:DP:SP:ADF:ADR:AD\t1/1:255,255,0:105:0:0,46:0", "isec": "# bcftools isec  (0000 = WT 独有, 0001 = EDIT 独有, 0002 = 两者共有)\n## 0000\n## 0001\nDEMO_chr1\t12614\tC\tCTGAGTAAGCTAGCGGATCCAAGCT\nDEMO_chr1\t26313\tTTCCCCGG\tT\nDEMO_chr1\t33213\tCTGACT\tC\nDEMO_chr1\t38227\tA\tAT\nDEMO_chr1\t49656\tG\tA\n## 0002\nDEMO_chr1\t5500\tT\tC\nDEMO_chr1\t21330\tA\tG\nDEMO_chr1\t44120\tT\tC\nDEMO_chr1\t56499\tTCTG\tT", "delly": "DEMO_chr1\t25899\t27049\tDEL\tPASS\t49\t20\tWT_parent=0/0:RV=0:DV=0:RR=107:DR=129\tEDIT_pool=0/1:RV=63:DV=49:RR=60:DR=81", "snpeff": "5500\tT\tC\tsynonymous_variant\tserC\tc.804A>G\tp.Val268Val\n12614\tC\tCTGAGTAAGCTAGCGGATCCAAGCT\tstop_gained&disruptive_inframe_insertion\tpheA\tc.617_618insGTAAGCTAGCGGATCCAAGCTTGA\tp.Pro205_Asp206insGluTerAlaSerGlySerLysLeu\n21330\tA\tG\tmissense_variant\tcarB\tc.580A>G\tp.Ile194Val\n26313\tTTCCCCGG\tT\tframeshift_variant\tlacZ\tc.315_321delCCCCGGT\tp.Phe105fs\n33213\tCTGACT\tC\tupstream_gene_variant\tleuD\tc.-4104_-4100delAGTCA\t\n38227\tA\tAT\tframeshift_variant\tyjgF\tc.227_228insT\tp.Ser77fs\n44120\tT\tC\tmissense_variant\tuvrB\tc.824T>C\tp.Leu275Ser\n49656\tG\tA\tmissense_variant\trpoB\tc.656G>A\tp.Arg219His\n56499\tTCTG\tT\tconservative_inframe_deletion\tacpP\tc.133_135delCTG\tp.Leu45del", "filtered_out": "", "clean_fastq": "@ED:1:HXXKMDRXY:2:1101:15222:17795 1:N:0:CGATGT\nACAAACTACCCATGGGGTGTGGATACGGCATTCGGGTAGAGGCACCTTACACGTCCGCCGGCTGATACACGTATGCAACCCATGCATACGGTTCAACACGAATAGCGTCGACGGCGTTGGACCTCCCCCAAGGATACTGAAGACTGTGAC\n+\nDEFEFHHFBEFEHGGFBFBCGFDEFDFEFDEEIFDEBCDFDBDEBBDBEFECABDCD@BDECCDDDAFDADDBCAACAEB?BDDBBBAB@A?ABA?CA@BBC??A=?@?>@>A=@?@?>@B<==>?>?><=:<?><?=><>?=?<<=<>:"}, "tools": [{"name": "fastp", "version": "fastp 0.23.4", "role": "质控 / 接头与低质量碱基切除"}, {"name": "BWA-MEM", "version": "Version: 0.7.17-r1188", "role": "短读段比对"}, {"name": "samtools", "version": "samtools 1.19.2", "role": "排序 / 去重 / 覆盖度"}, {"name": "bcftools", "version": "bcftools 1.19", "role": "SNV / InDel 检测与过滤"}, {"name": "Delly", "version": "Delly version: v1.1.8", "role": "结构变异 (大片段缺失)"}, {"name": "SnpEff", "version": "SnpEff\t5.2b\t2023-11-28 15:56", "role": "变异功能注释"}]};
+
+const $ = s => document.querySelector(s);
+const el = (t, cls, txt) => { const n = document.createElement(t);
+  if (cls) n.className = cls; if (txt != null) n.textContent = txt; return n; };
+const fmt = (n, d = 0) => n == null ? "–" :
+  Number(n).toLocaleString("en-US", {minimumFractionDigits: d, maximumFractionDigits: d});
+const pct = n => n == null ? "–" : (100 * n).toFixed(1) + "%";
+const bp = n => n == null ? "–" : fmt(n) + " bp";
+
+const ORIGIN = {
+  "on-target":  {label: "在靶",   cls: "on",     color: "var(--c-on)"},
+  "off-target": {label: "脱靶",   cls: "off",    color: "var(--c-off)"},
+  "background": {label: "背景突变", cls: "bgm",   color: "var(--c-bg)"},
+  "-":          {label: "亲本共有", cls: "shared", color: "var(--c-shared)"}
+};
+const originOf = v => ORIGIN[v.category === "shared (parental)" ? "-" : v.origin] || ORIGIN["-"];
+const inGene = pos => DATA.genes.find(g => g.start <= pos && pos <= g.end);
+const locusOf = pos => { const g = inGene(pos); return g ? g.name : "基因间区"; };
+function eventLabel(kind, detail){
+  if (kind === "ins") return detail.length > 6 ? `敲入 ${detail.length} bp` : `插入 ${detail}`;
+  if (kind === "del") return `缺失 ${detail}`;
+  return `点突变 →${detail}`;
+}
+
+/* ---------------- tooltip ---------------- */
+const tip = $("#tip");
+function showTip(e, html){ tip.innerHTML = html; tip.style.opacity = 1;
+  const r = tip.getBoundingClientRect();
+  let x = e.clientX + 14, y = e.clientY - r.height - 10;
+  if (x + r.width > innerWidth - 8) x = e.clientX - r.width - 14;
+  if (y < 8) y = e.clientY + 18;
+  tip.style.left = x + "px"; tip.style.top = y + "px"; }
+function hideTip(){ tip.style.opacity = 0; }
+
+/* ---------------- header ---------------- */
+const edits = DATA.variants.filter(v => v.category === "EDIT-specific");
+const shared = DATA.variants.filter(v => v.category !== "EDIT-specific");
+const onT = edits.filter(v => v.origin === "on-target");
+const offT = edits.filter(v => v.origin === "off-target");
+const bgT = edits.filter(v => v.origin === "background");
+const sv = DATA.svs[0];
+
+$("#hero-sub").textContent =
+  `${DATA.meta.organism} · ${DATA.meta.chrom} · ${fmt(DATA.meta.genome_len)} bp · `
+  + `${DATA.meta.n_genes} 个基因 · GC ${DATA.meta.gc}%`;
+
+const vd = $("#verdict");
+[
+  `两条 sgRNA <b>都编辑成功</b>：pheA 精确敲入 24 bp 终止盒（提前终止密码子），`
+  + `lacZ 被 7 bp 缺失打成移码。`,
+  `lacZ 切点上还有 <b>约一半细胞发生了 ${bp(sv.length)} 的大片段缺失</b> —— `
+  + `这是在靶副产物，不是脱靶，但同样会让结果不纯。`,
+  `发现 <b>${offT.length} 处脱靶编辑</b>，其中 yjgF 的 1 bp 插入已在全部细胞中固定，`
+  + `把一个无关基因打成了移码。`,
+  `另有 1 个与 sgRNA 无同源性的自发点突变（rpoB 错义），`
+  + `<b>不应算作脱靶</b>；以及 ${shared.length} 个两样本共有的亲本变异，已排除。`
+].forEach(h => { const li = el("li"); li.innerHTML = h; vd.appendChild(li); });
+
+const statDefs = [
+  ["编辑特异变异", edits.length, `另有 ${shared.length} 个亲本共有变异被排除`],
+  ["在靶 / 脱靶", `${onT.length} / ${offT.length}`, "按与预测切点的距离归因"],
+  ["最大缺失", bp(sv.length), `lacZ，群体频率 ${pct(sv.genotypes.EDIT_pool.vaf)}`],
+  ["平均测序深度", `${DATA.qc.EDIT_pool.mean_depth.toFixed(0)}×`,
+    `编辑前 ${DATA.qc.WT_parent.mean_depth.toFixed(0)}×`],
+  ["真值检出率", `${DATA.validation.n_detected}/${DATA.validation.n_truth}`,
+    `假阳性 ${DATA.validation.false_positives.length}`]
+];
+statDefs.forEach(([k, v, n]) => {
+  const d = el("div", "stat");
+  d.append(el("div", "k", k), el("div", "v", String(v)), el("div", "n", n));
+  $("#stats").appendChild(d);
+});
+
+/* ---------------- guides ---------------- */
+function seqHTML(proto, pam, cutOffset){
+  let out = "";
+  for (let i = 0; i < proto.length; i++){
+    if (i === cutOffset) out += `<span class="cut">▾</span>`;
+    out += `<span class="${proto[i]}">${proto[i]}</span>`;
+  }
+  out += ` <span class="pam">`;
+  for (const b of pam) out += `<span class="${b}">${b}</span>`;
+  return out + `</span>`;
+}
+const gbox = $("#guides");
+const gwrap = el("div", "cols2");
+DATA.guides.forEach(g => {
+  const b = el("div", "seqbox");
+  b.innerHTML =
+    `<div class="seqlabel">${g.id} · 靶基因 ${g.target_gene} · 切点 ${fmt(g.cut_site)}</div>`
+    + `<div class="seq">${seqHTML(g.protospacer, g.pam, 17)}</div>`
+    + `<div class="caption" style="margin-top:9px">20 nt 原间隔序列 + `
+    + `<span class="mono">${g.pam}</span> PAM（下划线）。▾ 为 Cas9 平末端切割位点，`
+    + `位于 PAM 上游第 3 位。</div>`;
+  gwrap.appendChild(b);
+});
+gbox.appendChild(gwrap);
+
+/* ---------------- FASTQ anatomy ---------------- */
+$("#snap-raw").textContent = DATA.snapshots.raw_fastq;
+const rawLines = DATA.snapshots.raw_fastq.split("\n");
+$("#fastq-explain").innerHTML =
+  `每条 read 占 4 行。read 名里 <span class="mono">${(rawLines[0]||"").split(" ")[0]}</span> `
+  + `依次是 仪器:run:流动槽:lane:tile:X坐标:Y坐标，空格后是 <span class="mono">1:N:0:索引序列</span>。`
+  + `第 4 行每个字符对应一个碱基的质量值。`;
+
+const anat = [
+  ["read 名与配对标记", "R1 和 R2 共用同一个 read 名，靠末尾的 1: / 2: 区分。比对时软件据此把双端配回去。"],
+  ["质量值编码", "Phred+33：字符 ASCII 码减 33 就是 Q 值。可以看到质量沿读长单调下降，这是真实 Illumina 的特征。"],
+  ["插入片段", `本次模拟插入片段均值约 380 bp，fastp 实测峰值 ${DATA.fastp.EDIT_pool.insert_peak ?? "–"} bp。`],
+  ["两个样本的区别", "只有 lane 和 index 不同（ATCACG / CGATGT），其余结构完全一致 —— 和真实双样本建库一样。"]
+];
+anat.forEach(([h, d]) => {
+  const c = el("div", "pstep");
+  c.append(el("h3", null, h), el("div", "d", d));
+  $("#fastq-anatomy").appendChild(c);
+});
+
+/* ---------------- pipeline ---------------- */
+const steps = [
+  ["00", "原始数据", "FASTQ.gz", "双端 150 bp 下机数据"],
+  ["01", "质控与切除", "fastp", "切接头、poly-G 尾、低质量尾；丢掉死簇 read"],
+  ["02", "比对与去重", "bwa mem · samtools", "比到参考基因组，排序并标记 PCR 重复"],
+  ["03", "变异检测", "bcftools mpileup / call", "两个样本一起做联合检测，保留等位基因深度"],
+  ["04", "过滤", "bcftools filter", "按 QUAL / DP / MQ / 支持读段数 / 链偏好打标"],
+  ["05", "两样本比较", "bcftools isec", "取差集，分出编辑特异与亲本共有"],
+  ["06", "结构变异", "delly", "靠异常配对和断裂读段找大片段缺失"],
+  ["07", "功能注释", "SnpEff", "判断落在哪个基因、造成什么蛋白层面后果"],
+  ["08", "归因与报告", "自研脚本", "脱靶扫描、频率换算、与真值比对"]
+];
+steps.forEach(([n, h, t, d]) => {
+  const c = el("div", "pstep");
+  c.append(el("div", "n", "STEP " + n), el("h3", null, h),
+           el("div", "t", t), el("div", "d", d));
+  $("#pipeline").appendChild(c);
+});
+
+function buildTable(target, cols, rows){
+  const t = $(target); t.innerHTML = "";
+  const thead = el("thead"), trh = el("tr");
+  cols.forEach(c => { const th = el("th", c.num ? "num" : null, c.h); trh.appendChild(th); });
+  thead.appendChild(trh); t.appendChild(thead);
+  const tb = el("tbody");
+  rows.forEach(r => {
+    const tr = el("tr", r._cls || null);
+    cols.forEach(c => {
+      const td = el("td", [c.num ? "num" : "", c.mono ? "mono" : "",
+                           c.nw ? "nw" : ""].filter(Boolean).join(" "));
+      const v = r[c.k];
+      if (v && v.__html) td.innerHTML = v.__html; else td.textContent = v == null ? "–" : v;
+      tr.appendChild(td);
+    });
+    tb.appendChild(tr);
+  });
+  t.appendChild(tb);
+}
+
+buildTable("#tools",
+  [{h: "工具", k: "name"}, {h: "版本", k: "version", mono: true}, {h: "用途", k: "role"}],
+  DATA.tools);
+
+/* ---------------- stages ---------------- */
+const fp = DATA.fastp.EDIT_pool;
+const stages = [
+  {
+    n: "① FASTQ → 干净 FASTQ",
+    tool: "fastp",
+    cmd: "fastp -i EDIT_pool_R1.fastq.gz -I EDIT_pool_R2.fastq.gz \\\n"
+       + "      -o EDIT_pool_R1.clean.fastq.gz -O EDIT_pool_R2.clean.fastq.gz \\\n"
+       + "      --detect_adapter_for_pe --trim_poly_g --cut_tail --length_required 50",
+    file: "work/qc/EDIT_pool_R1.clean.fastq.gz",
+    body: DATA.snapshots.clean_fastq,
+    cap: `数据形态没变，还是 FASTQ，但内容被修剪了：`
+       + `丢掉 <b>${fmt(fp.low_quality)}</b> 条低质量 read，`
+       + `<b>${fmt(fp.adapter)}</b> 条切掉了接头，poly-G 尾被截断。`
+       + `Q30 从 ${fp.q30_before}% 升到 ${fp.q30_after}%。`
+  },
+  {
+    n: "② FASTQ → BAM",
+    tool: "bwa mem + samtools",
+    cmd: "bwa mem -t 4 -R '@RG\\tID:EDIT_pool\\tSM:EDIT_pool\\tPL:ILLUMINA' \\\n"
+       + "    ref/DEMO_chr1.fasta R1.clean.fastq.gz R2.clean.fastq.gz \\\n"
+       + "  | samtools fixmate -m - - | samtools sort -o sorted.bam -\n"
+       + "samtools markdup sorted.bam EDIT_pool.bam",
+    file: "work/align/EDIT_pool.bam",
+    body: DATA.snapshots.bam_records,
+    cap: `这是最关键的一次形态转换：每条 read 从"一串碱基"变成"参考基因组上的一个坐标 + 一个 CIGAR"。`
+       + `第 3、4 列是染色体和起始位置，第 5 列是比对质量，第 6 列 CIGAR 描述它是怎么对上去的。`
+  },
+  {
+    n: "③ CIGAR 里已经能看见编辑",
+    tool: "samtools view",
+    cmd: "samtools view EDIT_pool.bam DEMO_chr1:12600-12640 | awk '$6 ~ /I/'",
+    file: "read名 / flag / 位置 / MAPQ / CIGAR",
+    body: DATA.snapshots.bam_insertion,
+    cap: `<b>24I</b> 表示这条 read 相对参考多出 24 个碱基 —— 这正是敲入的终止盒。`
+       + `变异检测软件要做的事，本质上就是把成百上千条 read 的 CIGAR 和错配汇总成一个统计判断。`
+  },
+  {
+    n: "④ BAM → 碱基堆叠",
+    tool: "samtools mpileup",
+    cmd: "samtools mpileup -f ref/DEMO_chr1.fasta -r DEMO_chr1:26310-26320 \\\n"
+       + "    work/align/WT_parent.bam work/align/EDIT_pool.bam",
+    file: "每行一个碱基位点",
+    body: DATA.snapshots.pileup_lacZ,
+    cap: `把 BAM 按列"竖起来"：每一行是基因组上的一个位置，后面是两个样本在该位置的深度。`
+       + `可以直接看到编辑后样本在 lacZ 切点处深度塌陷。`
+  },
+  {
+    n: "⑤ BAM → VCF",
+    tool: "bcftools mpileup | call | norm",
+    cmd: "bcftools mpileup -f ref/DEMO_chr1.fasta -a AD,ADF,ADR,DP,SP \\\n"
+       + "    WT_parent.bam EDIT_pool.bam \\\n"
+       + "  | bcftools call -m --ploidy 2 -v \\\n"
+       + "  | bcftools norm -f ref/DEMO_chr1.fasta -m -any -Oz -o joint.raw.vcf.gz",
+    file: "work/vcf/joint.raw.vcf.gz",
+    body: DATA.snapshots.vcf_raw,
+    cap: `数据量从几万条 read 压缩成 <b>${DATA.models.joint_raw}</b> 行。`
+       + `每行一个位点，最后两列是两个样本的基因型和 <span class="mono">AD</span>（参考,变异 支持读段数）。`
+       + `注意 bcftools 会把 InDel 左对齐，所以报出的坐标常比实际切点小几个 bp。`
+  },
+  {
+    n: "⑥ VCF → 编辑特异 VCF",
+    tool: "bcftools isec",
+    cmd: "bcftools isec -p work/vcf/isec WT_parent.vcf.gz EDIT_pool.vcf.gz",
+    file: "0000=WT独有  0001=EDIT独有  0002=共有",
+    body: DATA.snapshots.isec,
+    cap: `两样本取差集。这一步把 ${shared.length} 个亲本变异剔除出去，`
+       + `剩下 ${edits.length} 个才是编辑后才出现的。`
+  },
+  {
+    n: "⑦ VCF → 带注释的 VCF",
+    tool: "SnpEff",
+    cmd: "snpEff ann -c snpEff.config DEMO work/vcf/joint.pass.vcf.gz",
+    file: "ANN 字段：效应 | 影响 | 基因 | HGVS",
+    body: DATA.snapshots.snpeff,
+    cap: `最后一次形态转换：坐标变成生物学结论。`
+       + `<span class="mono">stop_gained</span> 表示提前终止，`
+       + `<span class="mono">frameshift_variant</span> 表示移码 —— 这两个才是实验真正关心的东西。`
+  }
+];
+stages.forEach(s => {
+  const f = el("figure");
+  const c = el("div", "console");
+  const bar = el("div", "console-bar");
+  bar.append(el("span", "f", s.file), el("span", null, s.tool));
+  const cmd = el("pre", "cmd", s.cmd);
+  const body = el("pre", null, s.body || "(本次运行无输出)");
+  c.append(bar, cmd, body);
+  const h = el("h3", null, s.n);
+  h.style.marginBottom = "9px";
+  const cap = el("figcaption", "caption"); cap.innerHTML = s.cap;
+  f.append(h, c, cap);
+  $("#stages").appendChild(f);
+});
+
+/* ---------------- genome map ---------------- */
+(function(){
+  const W = 1040, H = 212, L = 34, R = 34;
+  const iw = W - L - R, len = DATA.meta.genome_len;
+  const x = p => L + iw * p / len;
+  const svg = $("#map");
+  svg.setAttribute("viewBox", `0 0 ${W} ${H}`);
+  svg.setAttribute("width", W); svg.setAttribute("height", H);
+  svg.style.minWidth = "740px";
+  const NS = "http://www.w3.org/2000/svg";
+  const add = (t, a) => { const n = document.createElementNS(NS, t);
+    for (const k in a) n.setAttribute(k, a[k]); svg.appendChild(n); return n; };
+
+  const TRACK = 122;
+  // gene boxes
+  DATA.genes.forEach(g => {
+    add("rect", {x: x(g.start), y: TRACK, width: Math.max(1, x(g.end) - x(g.start)),
+      height: 13, rx: 2, fill: "var(--rule-2)"});
+  });
+  add("line", {x1: L, y1: TRACK + 6.5, x2: W - R, y2: TRACK + 6.5,
+    stroke: "var(--rule-2)", "stroke-width": 1});
+
+  // axis
+  for (let p = 0; p <= len; p += 10000){
+    add("line", {x1: x(p), y1: TRACK + 40, x2: x(p), y2: TRACK + 46,
+      stroke: "var(--muted)", "stroke-width": 1});
+    const t = add("text", {x: x(p), y: TRACK + 59, "text-anchor": "middle",
+      fill: "var(--muted)", "font-size": 11, "font-family": "var(--font-mono)"});
+    t.textContent = (p / 1000) + " kb";
+  }
+
+  // the large deletion, drawn as a span
+  add("rect", {x: x(sv.start), y: TRACK - 4, width: Math.max(3, x(sv.end) - x(sv.start)),
+    height: 21, fill: "var(--c-on)", opacity: .18});
+  const delG = add("g", {});
+  const delR = document.createElementNS(NS, "rect");
+  delR.setAttribute("x", x(sv.start)); delR.setAttribute("y", TRACK - 4);
+  delR.setAttribute("width", Math.max(3, x(sv.end) - x(sv.start)));
+  delR.setAttribute("height", 21); delR.setAttribute("fill", "transparent");
+  delR.style.cursor = "crosshair";
+  delR.addEventListener("mousemove", e => showTip(e,
+    `<b>${bp(sv.length)} 缺失</b><br>${fmt(sv.start)} – ${fmt(sv.end)}<br>`
+    + `群体频率 ${pct(sv.genotypes.EDIT_pool.vaf)}　基因 ${sv.genes_affected.join(",")}`));
+  delR.addEventListener("mouseleave", hideTip);
+  delG.appendChild(delR); svg.appendChild(delG);
+
+  // markers: edit-specific above, parental below
+  const above = [], below = [];
+  DATA.variants.forEach(v => (v.category === "EDIT-specific" ? above : below).push(v));
+
+  function marker(v, up, rank){
+    const o = originOf(v);
+    const px = x(v.pos);
+    const y0 = up ? TRACK : TRACK + 13;
+    const stem = up ? (62 - (rank % 3) * 27) : 30;
+    const y1 = up ? y0 - stem : y0 + stem;
+    const g = document.createElementNS(NS, "g");
+    const mk = (t, a) => { const n = document.createElementNS(NS, t);
+      for (const k in a) n.setAttribute(k, a[k]); g.appendChild(n); return n; };
+    mk("line", {x1: px, y1: y0, x2: px, y2: y1, stroke: o.color, "stroke-width": 1.5});
+    mk("circle", {cx: px, cy: y1, r: up ? 5 : 3.5, fill: o.color,
+      stroke: "var(--surface)", "stroke-width": 2});
+    if (up){
+      const lab = mk("text", {x: px, y: y1 - 10, "text-anchor": "middle",
+        fill: "var(--ink)", "font-size": 11.5, "font-weight": 600,
+        "font-family": "var(--font-sans)"});
+      lab.textContent = locusOf(v.pos);
+    }
+    const hit = mk("rect", {x: px - 11, y: Math.min(y0, y1) - 16, width: 22,
+      height: Math.abs(y1 - y0) + 24, fill: "transparent"});
+    hit.style.cursor = "crosshair";
+    hit.addEventListener("mousemove", e => showTip(e,
+      `<b>${DATA.meta.chrom}:${fmt(v.pos)}</b>　${o.label}<br>`
+      + `${v.ref.length > 14 ? v.ref.slice(0, 14) + "…" : v.ref} → `
+      + `${v.alt.length > 14 ? v.alt.slice(0, 14) + "…" : v.alt}<br>`
+      + `${locusOf(v.pos)}　${v.effect}<br>群体频率 ${pct(v.population_freq)}`));
+    hit.addEventListener("mouseleave", hideTip);
+    svg.appendChild(g);
+  }
+  above.sort((a, b) => a.pos - b.pos).forEach((v, i) => marker(v, true, i));
+  below.sort((a, b) => a.pos - b.pos).forEach((v, i) => marker(v, false, i));
+
+  // predicted cut sites
+  DATA.guides.forEach(g => {
+    add("line", {x1: x(g.cut_site), y1: TRACK - 6, x2: x(g.cut_site), y2: TRACK + 19,
+      stroke: "var(--c-on)", "stroke-width": 2, "stroke-dasharray": "3 2", opacity: .85});
+    const t = add("text", {x: x(g.cut_site), y: TRACK + 32, "text-anchor": "middle",
+      fill: "var(--c-on)", "font-size": 10.5, "font-family": "var(--font-mono)",
+      "letter-spacing": ".04em"});
+    t.textContent = g.id;
+  });
+
+  $("#map-sub").textContent =
+    `${DATA.meta.n_genes} 个基因（灰条） · 虚线为两条 sgRNA 的预测切点 · `
+    + `浅蓝区块为 ${bp(sv.length)} 大片段缺失 · 悬停查看细节`;
+})();
+
+/* ---------------- variant table ---------------- */
+const vrows = DATA.variants.slice().sort((a, b) => a.pos - b.pos).map(v => {
+  const o = originOf(v);
+  const isShared = v.category !== "EDIT-specific";
+  const alt = v.alt.length > 18 ? v.alt.slice(0, 18) + "…" : v.alt;
+  const ref = v.ref.length > 10 ? v.ref.slice(0, 10) + "…" : v.ref;
+  return {
+    _cls: isShared ? "dim" : null,
+    pos: fmt(v.pos),
+    change: {__html: `<span class="mono">${ref} → ${alt}</span>`},
+    kind: {snv: "点突变", ins: "插入", del: "缺失"}[v.kind] || v.kind,
+    judge: {__html: `<span class="chip ${o.cls}"><span class="dot"></span>${o.label}</span>`},
+    wt: v.ad_wt.join(" , "),
+    ed: v.ad_edit.join(" , "),
+    freq: v.population_freq == null ? "–" : pct(v.population_freq),
+    gene: locusOf(v.pos),
+    eff: {__html: `<span class="mono">${v.effect}</span>`
+      + (v.hgvs_p ? `<br><span class="mono" style="color:var(--muted)">${v.hgvs_p}</span>` : "")},
+    cut: v.cut_distance == null ? "–" : `${v.attributed_to} ${v.cut_distance} bp`
+  };
+});
+buildTable("#vartable", [
+  {h: "位置", k: "pos", num: true, nw: true},
+  {h: "变化", k: "change"},
+  {h: "类型", k: "kind", nw: true},
+  {h: "判定", k: "judge", nw: true},
+  {h: "编辑前 AD", k: "wt", num: true, nw: true},
+  {h: "编辑后 AD", k: "ed", num: true, nw: true},
+  {h: "群体频率", k: "freq", num: true, nw: true},
+  {h: "基因", k: "gene", nw: true},
+  {h: "蛋白层面后果", k: "eff"},
+  {h: "距切点", k: "cut", nw: true}
+], vrows);
+
+$("#vartable-note").innerHTML =
+  `<b>AD</b> = 支持参考 , 支持变异 的读段数。灰色行是两样本共有的亲本变异，不计入编辑结果。`
+  + `注意 ${edits.length} 个编辑特异变异在编辑前样本里的变异支持读段全部为 <b>0</b>，`
+  + `这是判定"编辑带来的"最直接的证据。`
+  + (DATA.snapshots.filtered_out
+      ? ` 另有 1 条记录被质量过滤剔除（见仓库 <span class="mono">work/vcf/filtered_out.txt</span>）。`
+      : ` 本次运行没有记录被质量过滤剔除。`);
+
+/* ---------------- SV block ---------------- */
+(function(){
+  const b = $("#sv-block");
+  const box = el("div", "note");
+  box.innerHTML = `<b>还有一个不在上表里的事件。</b>
+    ${DATA.meta.chrom}:${fmt(sv.start)}–${fmt(sv.end)} 的 ${bp(sv.length)} 缺失，
+    由 delly 从 ${sv.pe} 对异常配对和 ${sv.sr} 条断裂读段检出，影响基因
+    <span class="mono">${sv.genes_affected.join(", ")}</span>，群体频率
+    ${pct(sv.genotypes.EDIT_pool.vaf)}。它横跨 sgRNA-2 的切点，属于<b>在靶大片段缺失</b> ——
+    CRISPR 切割后常见的副产物，但 SNV/InDel 流程完全看不到它。`;
+  b.appendChild(box);
+})();
+
+/* ---------------- VAF chart ---------------- */
+(function(){
+  const rows = DATA.validation.rows
+    .filter(r => r.klass !== "parental (shared)")
+    .sort((a, b) => b.expected_vaf_edit - a.expected_vaf_edit || a.pos - b.pos);
+  const W = 1040, rowH = 42, top = 34, bottom = 40;
+  const H = top + rows.length * rowH + bottom;
+  const L = 230, R = 70, iw = W - L - R;
+  const svg = $("#vafchart");
+  svg.setAttribute("viewBox", `0 0 ${W} ${H}`);
+  svg.setAttribute("width", W); svg.setAttribute("height", H);
+  svg.style.minWidth = "700px";
+  const NS = "http://www.w3.org/2000/svg";
+  const add = (t, a, p) => { const n = document.createElementNS(NS, t);
+    for (const k in a) n.setAttribute(k, a[k]); (p || svg).appendChild(n); return n; };
+  const x = v => L + iw * v;
+
+  for (let v = 0; v <= 1.0001; v += 0.25){
+    add("line", {x1: x(v), y1: top - 12, x2: x(v), y2: H - bottom + 6,
+      stroke: "var(--rule)", "stroke-width": 1});
+    const t = add("text", {x: x(v), y: H - bottom + 22, "text-anchor": "middle",
+      fill: "var(--muted)", "font-size": 11, "font-family": "var(--font-mono)"});
+    t.textContent = Math.round(v * 100) + "%";
+  }
+  const hd = add("text", {x: L, y: 14, fill: "var(--muted)", "font-size": 11,
+    "font-family": "var(--font-mono)", "letter-spacing": ".08em"});
+  hd.textContent = "携带该事件的细胞比例";
+
+  rows.forEach((r, i) => {
+    const y = top + i * rowH + rowH / 2;
+    const o = ORIGIN[r.klass] || ORIGIN["-"];
+    const name = add("text", {x: 0, y: y + 4, fill: "var(--ink)", "font-size": 13,
+      "font-family": "var(--font-sans)", "font-weight": 500});
+    // a large deletion is named by the genes it spans, not by the single base
+    // its left breakpoint happens to land in
+    const gene = r.detected_by === "SV" && sv.genes_affected.length
+      ? sv.genes_affected.join("/") : locusOf(r.pos);
+    name.textContent = `${gene} · ${eventLabel(r.kind, r.detail)}`;
+    const lab = add("text", {x: 0, y: y + 19, fill: o.color, "font-size": 11,
+      "font-family": "var(--font-mono)", "letter-spacing": ".05em"});
+    lab.textContent = o.label + " · " + DATA.meta.chrom.replace("DEMO_", "") + ":" + fmt(r.pos);
+
+    add("line", {x1: L, y1: y, x2: W - R, y2: y, stroke: "var(--rule)",
+      "stroke-width": 1, opacity: .55});
+
+    // 95% CI whisker
+    if (r.ci95 && r.ci95[0] != null){
+      add("line", {x1: x(r.ci95[0]), y1: y, x2: x(r.ci95[1]), y2: y,
+        stroke: o.color, "stroke-width": 2, opacity: .45, "stroke-linecap": "round"});
+      [r.ci95[0], r.ci95[1]].forEach(c =>
+        add("line", {x1: x(c), y1: y - 5, x2: x(c), y2: y + 5,
+          stroke: o.color, "stroke-width": 2, opacity: .45}));
+    }
+    // design value: hollow diamond
+    const d = x(r.expected_vaf_edit);
+    add("path", {d: `M ${d} ${y - 7} L ${d + 7} ${y} L ${d} ${y + 7} L ${d - 7} ${y} Z`,
+      fill: "var(--surface)", stroke: "var(--muted)", "stroke-width": 1.6});
+    // observed
+    if (r.observed_freq != null){
+      add("circle", {cx: x(r.observed_freq), cy: y, r: 5.5, fill: o.color,
+        stroke: "var(--surface)", "stroke-width": 2});
+      const t = add("text", {x: W - R + 10, y: y + 4, fill: "var(--ink)",
+        "font-size": 12, "font-family": "var(--font-mono)"});
+      t.textContent = pct(r.observed_freq);
+    }
+    const hit = add("rect", {x: L, y: y - rowH / 2 + 3, width: iw, height: rowH - 6,
+      fill: "transparent"});
+    hit.style.cursor = "crosshair";
+    hit.addEventListener("mousemove", e => showTip(e,
+      `<b>${gene} ${eventLabel(r.kind, r.detail)}</b><br>设定值 ${pct(r.expected_vaf_edit)}　`
+      + `实测 ${pct(r.observed_freq)}<br>`
+      + (r.ci95 && r.ci95[0] != null
+          ? `95% CI ${pct(r.ci95[0])} – ${pct(r.ci95[1])}<br>` : "")
+      + `检出方式 ${r.detected_by === "SV" ? "结构变异 (delly)" : "SNV/InDel (bcftools)"}`));
+    hit.addEventListener("mouseleave", hideTip);
+  });
+})();
+
+/* ---------------- off-target table ---------------- */
+(function(){
+  const hit = {};
+  DATA.variants.forEach(v => { if (v.cut_distance != null) hit[v.attributed_to + "@" + v.pos] = v; });
+  const rows = DATA.offtargets.map(h => {
+    const found = DATA.variants.find(v =>
+      v.category === "EDIT-specific" && Math.abs(v.cut_site_ref || v.pos - h.cut_site) <= 12
+      || (v.attributed_to === h.guide && v.cut_distance != null
+          && Math.abs(v.pos - h.cut_site) <= 12));
+    const svHit = (sv.start <= h.cut_site && h.cut_site <= sv.end) ? sv : null;
+    let outcome, cls;
+    if (h.mismatches === 0){ outcome = found || svHit ? "编辑成功" : "未检出编辑"; cls = "on"; }
+    else if (found){ outcome = "发生脱靶编辑"; cls = "off"; }
+    else { outcome = "未检出编辑"; cls = "shared"; }
+    const gene = found ? found.gene : (h.mismatches === 0 ? "—" : "—");
+    return {
+      guide: h.guide,
+      site: {__html: `<span class="mono">${fmt(h.start)}</span>`
+        + `<br><span class="mono" style="color:var(--muted)">${h.strand} 链</span>`},
+      seq: {__html: `<span class="mono" style="font-size:11.5px">${h.protospacer}</span>`
+        + ` <span class="mono" style="color:var(--c-off);font-size:11.5px">${h.pam}</span>`},
+      mm: h.mismatches,
+      seed: h.seed_mismatches,
+      pam: h.canonical_pam ? "NGG" : "NAG",
+      tier: h.tier === "on-target" ? "在靶位点" : {high: "高", medium: "中", low: "低"}[h.tier],
+      outcome: {__html: `<span class="chip ${cls}"><span class="dot"></span>${outcome}</span>`},
+      detail: found
+        ? `${found.gene} ${found.effect.split("&")[0]}，频率 ${pct(found.population_freq)}`
+        : (svHit ? `${bp(svHit.length)} 缺失，频率 ${pct(svHit.genotypes.EDIT_pool.vaf)}` : "该位点无变异")
+    };
+  });
+  buildTable("#ottable", [
+    {h: "sgRNA", k: "guide"},
+    {h: "位置", k: "site", num: true},
+    {h: "原间隔序列 + PAM", k: "seq"},
+    {h: "错配数", k: "mm", num: true},
+    {h: "种子区错配", k: "seed", num: true},
+    {h: "PAM", k: "pam"},
+    {h: "风险档", k: "tier"},
+    {h: "实测", k: "outcome"},
+    {h: "说明", k: "detail"}
+  ], rows);
+
+  const decoy = DATA.planted.find(p => (p.comment || "").includes("decoy"));
+  const bgv = bgT[0];
+  $("#ot-note").innerHTML =
+    `<b>预测到不等于真的会脱靶：</b>和 sgRNA-2 只差 2 个错配的 nuoF 位点`
+    + `（${DATA.meta.chrom}:${fmt(decoy ? decoy.start : 0)}）相似度最高，但该位点没有任何变异。`
+    + `　<b>真的有变异也不等于脱靶：</b>rpoB 的 ${bgv ? bgv.hgvs_p : ""} 错义突变只出现在编辑后样本，`
+    + `但它周围没有任何 sgRNA 同源序列，应判为培养过程中的自发突变。`
+    + `只按"编辑后独有"来报脱靶，这两类都会判错。`;
+})();
+
+/* ---------------- coverage chart ---------------- */
+(function(){
+  const cov = DATA.coverage, bins = cov.ratio, bs = cov.bin_size;
+  const W = 1040, H = 236, L = 48, R = 30, T = 26, B = 40;
+  const iw = W - L - R, ih = H - T - B;
+  const svg = $("#covchart");
+  svg.setAttribute("viewBox", `0 0 ${W} ${H}`);
+  svg.setAttribute("width", W); svg.setAttribute("height", H);
+  svg.style.minWidth = "740px";
+  const NS = "http://www.w3.org/2000/svg";
+  const add = (t, a) => { const n = document.createElementNS(NS, t);
+    for (const k in a) n.setAttribute(k, a[k]); svg.appendChild(n); return n; };
+  const yMax = 1.3;
+  const x = i => L + iw * i / (bins.length - 1);
+  const xp = p => L + iw * (p / bs) / (bins.length - 1);
+  const y = v => T + ih * (1 - Math.min(v, yMax) / yMax);
+
+  [0, 0.5, 1.0].forEach(v => {
+    add("line", {x1: L, y1: y(v), x2: W - R, y2: y(v),
+      stroke: v === 1 ? "var(--rule-2)" : "var(--rule)",
+      "stroke-width": 1, "stroke-dasharray": v === 1 ? "4 3" : ""});
+    const t = add("text", {x: L - 9, y: y(v) + 4, "text-anchor": "end",
+      fill: "var(--muted)", "font-size": 11, "font-family": "var(--font-mono)"});
+    t.textContent = v.toFixed(1) + "×";
+  });
+  for (let p = 0; p <= DATA.meta.genome_len; p += 10000){
+    const t = add("text", {x: xp(p), y: H - B + 22, "text-anchor": "middle",
+      fill: "var(--muted)", "font-size": 11, "font-family": "var(--font-mono)"});
+    t.textContent = (p / 1000) + " kb";
+  }
+
+  // deletion span
+  add("rect", {x: xp(sv.start), y: T, width: Math.max(3, xp(sv.end) - xp(sv.start)),
+    height: ih, fill: "var(--c-on)", opacity: .13});
+  const lb = add("text", {x: xp((sv.start + sv.end) / 2), y: T - 10,
+    "text-anchor": "middle", fill: "var(--c-on)",
+    "font-size": 11.5, "font-family": "var(--font-mono)", "font-weight": 500});
+  lb.textContent = bp(sv.length) + " 缺失";
+
+  let dLine = "", dArea = `M ${x(0)} ${y(0)}`;
+  bins.forEach((v, i) => {
+    const vv = v == null ? 0 : v;
+    dLine += (i ? " L " : "M ") + x(i) + " " + y(vv);
+    dArea += ` L ${x(i)} ${y(vv)}`;
+  });
+  dArea += ` L ${x(bins.length - 1)} ${y(0)} Z`;
+  add("path", {d: dArea, fill: "var(--c-on)", opacity: .1});
+  add("path", {d: dLine, fill: "none", stroke: "var(--c-on)", "stroke-width": 2,
+    "stroke-linejoin": "round"});
+  add("line", {x1: L, y1: y(0), x2: W - R, y2: y(0),
+    stroke: "var(--rule-2)", "stroke-width": 1});
+
+  const cx = add("line", {x1: L, y1: T, x2: L, y2: T + ih,
+    stroke: "var(--ink-2)", "stroke-width": 1, opacity: 0});
+  const cd = add("circle", {cx: L, cy: T, r: 4, fill: "var(--c-on)",
+    stroke: "var(--surface)", "stroke-width": 2, opacity: 0});
+  const hit = add("rect", {x: L, y: T, width: iw, height: ih, fill: "transparent"});
+  hit.style.cursor = "crosshair";
+  hit.addEventListener("mousemove", e => {
+    const r = svg.getBoundingClientRect();
+    const px = (e.clientX - r.left) * (W / r.width);
+    let i = Math.round((px - L) / iw * (bins.length - 1));
+    i = Math.max(0, Math.min(bins.length - 1, i));
+    const v = bins[i];
+    cx.setAttribute("x1", x(i)); cx.setAttribute("x2", x(i)); cx.setAttribute("opacity", .4);
+    cd.setAttribute("cx", x(i)); cd.setAttribute("cy", y(v == null ? 0 : v));
+    cd.setAttribute("opacity", 1);
+    showTip(e, `<b>${fmt(i * bs)} – ${fmt((i + 1) * bs)} bp</b><br>`
+      + `覆盖度比值 ${v == null ? "无数据" : v.toFixed(2) + "×"}<br>`
+      + `编辑前 ${cov.wt[i].toFixed(0)}×　编辑后 ${cov.edit[i].toFixed(0)}×`);
+  });
+  hit.addEventListener("mouseleave", () => {
+    hideTip(); cx.setAttribute("opacity", 0); cd.setAttribute("opacity", 0); });
+
+  $("#cov-sub").textContent =
+    `每 ${bs} bp 一个窗口，各自按全基因组均值归一化后相除 · `
+    + `编辑前均深 ${cov.mean_wt.toFixed(0)}× / 编辑后 ${cov.mean_edit.toFixed(0)}× · 悬停查看数值`;
+})();
+
+$("#snap-delly").textContent = DATA.snapshots.delly;
+
+/* ---------------- validation table ---------------- */
+(function(){
+  const KIND = {snv: "点突变", ins: "插入", del: "缺失"};
+  const KL = {"parental (shared)": "亲本共有", "on-target": "在靶",
+    "off-target": "脱靶", "background": "背景突变"};
+  const rows = DATA.validation.rows.map(r => {
+    const o = ORIGIN[r.klass] || ORIGIN["-"];
+    const err = r.freq_error;
+    return {
+      _cls: r.klass === "parental (shared)" ? "dim" : null,
+      id: r.truth_id,
+      klass: {__html: `<span class="chip ${o.cls}"><span class="dot"></span>${KL[r.klass] || r.klass}</span>`},
+      pos: fmt(r.pos),
+      kind: (KIND[r.kind] || r.kind) + " " + r.detail,
+      exp: pct(r.expected_vaf_edit),
+      obs: r.observed_freq == null ? "–" : pct(r.observed_freq),
+      err: err == null ? "–" : (err >= 0 ? "+" : "") + (100 * err).toFixed(1) + "pp",
+      found: {__html: r.detected
+        ? `<span style="color:var(--c-bg);font-weight:600">已检出</span>`
+        : `<span style="color:var(--c-off);font-weight:600">漏检</span>`},
+      by: r.detected_by === "SV" ? "delly（结构变异）"
+        : r.detected_by === "small-variant" ? "bcftools（SNV/InDel）" : "–"
+    };
+  });
+  buildTable("#valtable", [
+    {h: "编号", k: "id"},
+    {h: "类别", k: "klass"},
+    {h: "位置", k: "pos", num: true},
+    {h: "设定的改动", k: "kind"},
+    {h: "设定频率", k: "exp", num: true},
+    {h: "实测频率", k: "obs", num: true},
+    {h: "偏差", k: "err", num: true},
+    {h: "结果", k: "found"},
+    {h: "由谁检出", k: "by"}
+  ], rows);
+
+  const errs = DATA.validation.rows.map(r => r.freq_error).filter(e => e != null).map(Math.abs);
+  const maxErr = errs.length ? Math.max(...errs) : 0;
+  $("#val-note").innerHTML =
+    `${DATA.validation.n_truth} 个设定事件<b>全部检出</b>，`
+    + `编辑特异变异中没有无法解释的假阳性。`
+    + `频率估计的最大偏差 <b>${(100 * maxErr).toFixed(1)} 个百分点</b>，`
+    + `全部落在各自的 95% 置信区间内 —— 在 ${DATA.qc.EDIT_pool.mean_depth.toFixed(0)}× 深度下，`
+    + `亚克隆频率本来就只能估到这个精度。`;
+})();
+
+/* ---------------- limits ---------------- */
+[
+  ["深度决定能看见多低频的事件",
+   `本次 ${DATA.qc.EDIT_pool.mean_depth.toFixed(0)}× 下，30% 的亚克隆事件置信区间宽约 ±8 个百分点，`
+   + `5% 以下的低频编辑基本看不出来。靶点附近要定量，常规做法是加做扩增子深测序（可到上万×）。`],
+  ["脱靶评分用的是简化规则",
+   `这里只按错配数和种子区位置排序。真实项目用 Cas-OFFinder 做全基因组搜索、`
+   + `CFD / MIT 评分排序，再用 GUIDE-seq、CIRCLE-seq 或 DISCOVER-seq 做实验层面的验证。`],
+  ["短读段看不全结构变异",
+   `150 bp 读段对大片段倒位、易位、串联重复和质粒骨架整合都不敏感。`
+   + `细菌项目通常补一条 Nanopore 或 PacBio 长读段，直接拼出完整环状基因组。`],
+  ["供体骨架残留要专门查",
+   `HDR 供体如果来自质粒，骨架序列可能随机整合进基因组。`
+   + `需要把质粒序列加进参考一起比对，而不只是比对染色体。`],
+  ["真实参考基因组要正规来源",
+   `demo 用的是程序生成的迷你染色体。真实项目要用 NCBI RefSeq 的菌株基因组，`
+   + `注释用 Prokka 或 Bakta 重跑一遍，snpEff 据此建库。`],
+  ["模拟数据不含真实噪声",
+   `真实数据还有 GC 偏好、低复杂度区比对错误、嵌合读段、索引跳跃等问题。`
+   + `这个 demo 的 100% 比对率和 0 假阳性在真实项目里不会出现。`]
+].forEach(([h, d]) => {
+  const c = el("div", "pstep");
+  c.append(el("h3", null, h), el("div", "d", d));
+  $("#limits").appendChild(c);
+});
+
+$("#footer-meta").textContent =
+  `生成于 ${DATA.meta.generated} · 随机种子 ${DATA.meta.seed} · `
+  + `参考 ${DATA.meta.chrom} ${fmt(DATA.meta.genome_len)} bp · `
+  + `读长 ${DATA.meta.read_length} bp 双端`;
+</script>

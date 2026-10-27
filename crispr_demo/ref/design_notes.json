@@ -1,0 +1,436 @@
+{
+  "seed": 20251027,
+  "chrom": "DEMO_chr1",
+  "length": 60000,
+  "organism": "Escherichia coli str. DEMO-WT",
+  "n_genes": 47,
+  "gc_percent": 53.16,
+  "guides": [
+    {
+      "id": "sgRNA-1",
+      "target_gene": "pheA",
+      "protospacer": "GGCGGTCAGAGACCTGACTC",
+      "pam": "AGG",
+      "strand": "+",
+      "proto_start": 12601,
+      "cut_site": 12617,
+      "purpose": "precise 24 bp knock-in (FLAG-like tag + stop)"
+    },
+    {
+      "id": "sgRNA-2",
+      "target_gene": "lacZ",
+      "protospacer": "GGGCCGAACAACTTCCCCGG",
+      "pam": "TGG",
+      "strand": "+",
+      "proto_start": 26301,
+      "cut_site": 26317,
+      "purpose": "knockout by NHEJ/MMEJ indel"
+    }
+  ],
+  "planted_offtarget_sites": [
+    {
+      "name": "OT-1",
+      "start": 38211,
+      "guide": "sgRNA-1",
+      "mismatches": 3,
+      "locus": "yjgF (CDS)",
+      "sequence": "GACGATCAGCGACCTGACTC"
+    },
+    {
+      "name": "OT-2",
+      "start": 33200,
+      "guide": "sgRNA-1",
+      "mismatches": 4,
+      "locus": "intergenic",
+      "sequence": "TGTGGTAAGAGGCCTGACTC"
+    },
+    {
+      "name": "OT-3",
+      "start": 39717,
+      "guide": "sgRNA-2",
+      "mismatches": 2,
+      "locus": "nuoF (CDS)",
+      "sequence": "GGGGCGAAGAACTTCCCCGG",
+      "comment": "decoy: predicted hotspot but NOT edited in this demo"
+    }
+  ],
+  "genes": [
+    {
+      "name": "aroG",
+      "start": 500,
+      "end": 1570,
+      "strand": "-",
+      "anchored": false,
+      "locus_tag": "DEMO_0010"
+    },
+    {
+      "name": "argB",
+      "start": 1762,
+      "end": 2625,
+      "strand": "-",
+      "anchored": false,
+      "locus_tag": "DEMO_0020"
+    },
+    {
+      "name": "motA",
+      "start": 2763,
+      "end": 3869,
+      "strand": "-",
+      "anchored": false,
+      "locus_tag": "DEMO_0030"
+    },
+    {
+      "name": "tolC",
+      "start": 4146,
+      "end": 5036,
+      "strand": "+",
+      "anchored": false,
+      "locus_tag": "DEMO_0040"
+    },
+    {
+      "name": "serC",
+      "start": 5323,
+      "end": 6303,
+      "strand": "-",
+      "anchored": false,
+      "locus_tag": "DEMO_0050"
+    },
+    {
+      "name": "flhD",
+      "start": 6596,
+      "end": 7288,
+      "strand": "-",
+      "anchored": false,
+      "locus_tag": "DEMO_0060"
+    },
+    {
+      "name": "gltA",
+      "start": 7588,
+      "end": 8154,
+      "strand": "+",
+      "anchored": false,
+      "locus_tag": "DEMO_0070"
+    },
+    {
+      "name": "fliC",
+      "start": 8416,
+      "end": 9783,
+      "strand": "-",
+      "anchored": false,
+      "locus_tag": "DEMO_0080"
+    },
+    {
+      "name": "murE",
+      "start": 9993,
+      "end": 10874,
+      "strand": "+",
+      "anchored": false,
+      "locus_tag": "DEMO_0090"
+    },
+    {
+      "name": "cheY",
+      "start": 11000,
+      "end": 11548,
+      "strand": "-",
+      "anchored": false,
+      "locus_tag": "DEMO_0100"
+    },
+    {
+      "name": "pheA",
+      "start": 12001,
+      "end": 13167,
+      "strand": "+",
+      "anchored": true,
+      "locus_tag": "DEMO_0110"
+    },
+    {
+      "name": "cyaA",
+      "start": 13417,
+      "end": 14802,
+      "strand": "+",
+      "anchored": false,
+      "locus_tag": "DEMO_0120"
+    },
+    {
+      "name": "dnaK",
+      "start": 15003,
+      "end": 15875,
+      "strand": "+",
+      "anchored": false,
+      "locus_tag": "DEMO_0130"
+    },
+    {
+      "name": "ptsG",
+      "start": 16069,
+      "end": 16698,
+      "strand": "-",
+      "anchored": false,
+      "locus_tag": "DEMO_0140"
+    },
+    {
+      "name": "lexA",
+      "start": 16866,
+      "end": 17531,
+      "strand": "-",
+      "anchored": false,
+      "locus_tag": "DEMO_0150"
+    },
+    {
+      "name": "ribF",
+      "start": 17774,
+      "end": 18628,
+      "strand": "+",
+      "anchored": false,
+      "locus_tag": "DEMO_0160"
+    },
+    {
+      "name": "katG",
+      "start": 18779,
+      "end": 19354,
+      "strand": "-",
+      "anchored": false,
+      "locus_tag": "DEMO_0170"
+    },
+    {
+      "name": "fhuA",
+      "start": 19641,
+      "end": 20477,
+      "strand": "+",
+      "anchored": false,
+      "locus_tag": "DEMO_0180"
+    },
+    {
+      "name": "carB",
+      "start": 20751,
+      "end": 22010,
+      "strand": "+",
+      "anchored": false,
+      "locus_tag": "DEMO_0190"
+    },
+    {
+      "name": "sodB",
+      "start": 22315,
+      "end": 23376,
+      "strand": "-",
+      "anchored": false,
+      "locus_tag": "DEMO_0200"
+    },
+    {
+      "name": "hisD",
+      "start": 23535,
+      "end": 24155,
+      "strand": "+",
+      "anchored": false,
+      "locus_tag": "DEMO_0210"
+    },
+    {
+      "name": "cysK",
+      "start": 24440,
+      "end": 25591,
+      "strand": "-",
+      "anchored": false,
+      "locus_tag": "DEMO_0220"
+    },
+    {
+      "name": "lacZ",
+      "start": 26001,
+      "end": 27443,
+      "strand": "+",
+      "anchored": true,
+      "locus_tag": "DEMO_0230"
+    },
+    {
+      "name": "leuD",
+      "start": 27693,
+      "end": 29114,
+      "strand": "-",
+      "anchored": false,
+      "locus_tag": "DEMO_0240"
+    },
+    {
+      "name": "pyrD",
+      "start": 29223,
+      "end": 30275,
+      "strand": "+",
+      "anchored": false,
+      "locus_tag": "DEMO_0250"
+    },
+    {
+      "name": "aceE",
+      "start": 30430,
+      "end": 31833,
+      "strand": "+",
+      "anchored": false,
+      "locus_tag": "DEMO_0260"
+    },
+    {
+      "name": "dapB",
+      "start": 31962,
+      "end": 33005,
+      "strand": "-",
+      "anchored": false,
+      "locus_tag": "DEMO_0270"
+    },
+    {
+      "name": "slp",
+      "start": 33292,
+      "end": 34434,
+      "strand": "+",
+      "anchored": false,
+      "locus_tag": "DEMO_0280"
+    },
+    {
+      "name": "purF",
+      "start": 34519,
+      "end": 35202,
+      "strand": "+",
+      "anchored": false,
+      "locus_tag": "DEMO_0290"
+    },
+    {
+      "name": "glyA",
+      "start": 35417,
+      "end": 36478,
+      "strand": "+",
+      "anchored": false,
+      "locus_tag": "DEMO_0300"
+    },
+    {
+      "name": "fabI",
+      "start": 36623,
+      "end": 37252,
+      "strand": "+",
+      "anchored": false,
+      "locus_tag": "DEMO_0310"
+    },
+    {
+      "name": "yjgF",
+      "start": 38001,
+      "end": 38519,
+      "strand": "+",
+      "anchored": true,
+      "locus_tag": "DEMO_0320"
+    },
+    {
+      "name": "mdlA",
+      "start": 38769,
+      "end": 39380,
+      "strand": "+",
+      "anchored": false,
+      "locus_tag": "DEMO_0330"
+    },
+    {
+      "name": "nuoF",
+      "start": 39567,
+      "end": 40970,
+      "strand": "+",
+      "anchored": false,
+      "locus_tag": "DEMO_0340"
+    },
+    {
+      "name": "ftsZ",
+      "start": 41272,
+      "end": 42018,
+      "strand": "-",
+      "anchored": false,
+      "locus_tag": "DEMO_0350"
+    },
+    {
+      "name": "lpp",
+      "start": 42194,
+      "end": 43165,
+      "strand": "+",
+      "anchored": false,
+      "locus_tag": "DEMO_0360"
+    },
+    {
+      "name": "uvrB",
+      "start": 43297,
+      "end": 44439,
+      "strand": "+",
+      "anchored": false,
+      "locus_tag": "DEMO_0370"
+    },
+    {
+      "name": "glnS",
+      "start": 44699,
+      "end": 46039,
+      "strand": "+",
+      "anchored": false,
+      "locus_tag": "DEMO_0380"
+    },
+    {
+      "name": "ompF",
+      "start": 46352,
+      "end": 47269,
+      "strand": "+",
+      "anchored": false,
+      "locus_tag": "DEMO_0390"
+    },
+    {
+      "name": "trpE",
+      "start": 47544,
+      "end": 48173,
+      "strand": "+",
+      "anchored": false,
+      "locus_tag": "DEMO_0400"
+    },
+    {
+      "name": "rpoB",
+      "start": 49001,
+      "end": 50326,
+      "strand": "+",
+      "anchored": true,
+      "locus_tag": "DEMO_0410"
+    },
+    {
+      "name": "ompA",
+      "start": 50576,
+      "end": 51997,
+      "strand": "-",
+      "anchored": false,
+      "locus_tag": "DEMO_0420"
+    },
+    {
+      "name": "sucB",
+      "start": 52181,
+      "end": 53584,
+      "strand": "+",
+      "anchored": false,
+      "locus_tag": "DEMO_0430"
+    },
+    {
+      "name": "thrA",
+      "start": 53799,
+      "end": 54770,
+      "strand": "-",
+      "anchored": false,
+      "locus_tag": "DEMO_0440"
+    },
+    {
+      "name": "ilvC",
+      "start": 54938,
+      "end": 56080,
+      "strand": "-",
+      "anchored": false,
+      "locus_tag": "DEMO_0450"
+    },
+    {
+      "name": "acpP",
+      "start": 56368,
+      "end": 57510,
+      "strand": "+",
+      "anchored": false,
+      "locus_tag": "DEMO_0460"
+    },
+    {
+      "name": "tyrR",
+      "start": 57790,
+      "end": 58590,
+      "strand": "-",
+      "anchored": false,
+      "locus_tag": "DEMO_0470"
+    }
+  ],
+  "orfs_with_internal_stop": []
+}

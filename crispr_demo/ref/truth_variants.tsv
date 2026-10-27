@@ -1,0 +1,11 @@
+id	klass	pos	kind	detail	expected_vaf_wt	expected_vaf_edit	guide	gene	note
+P1	parental (shared)	5500	snv	C	1.0	1.0	-	-	parental SNV, intergenic
+A	on-target	12617	ins	GTAAGCTAGCGGATCCAAGCTTGA	0.0	1.0	sgRNA-1	pheA	precise HDR knock-in of a 24 bp stop cassette at the sgRNA-1 cut site
+P2	parental (shared)	21330	snv	G	1.0	1.0	-	-	parental SNV, inside a CDS
+E	on-target	25900	del	1150 bp	0.0	0.45	sgRNA-2	lacZ	1150 bp deletion spanning the sgRNA-2 cut site (large on-target deletion)
+B	on-target	26314	del	7 bp	0.0	0.55	sgRNA-2	lacZ	7 bp deletion at the sgRNA-2 cut site (NHEJ/MMEJ scar) -> frameshift
+D	off-target	33214	del	5 bp	0.0	0.3	sgRNA-1	intergenic	5 bp deletion at off-target OT-2 (4 mismatches), sub-clonal
+C	off-target	38227	ins	T	0.0	1.0	sgRNA-1	yjgF	1 bp insertion at off-target OT-1 (3 mismatches) -> frameshift
+P3	parental (shared)	44120	snv	C	1.0	1.0	-	-	parental SNV, inside a CDS
+F	background	49656	snv	A	0.0	1.0	-	rpoB	spontaneous point mutation, no sgRNA homology nearby
+P4	parental (shared)	56500	del	3 bp	1.0	1.0	-	-	parental 3 bp deletion, intergenic

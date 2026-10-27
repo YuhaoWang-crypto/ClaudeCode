@@ -1,0 +1,7 @@
+guide	tier	strand	start	cut_site	protospacer	pam	mismatches	seed_mismatches	canonical_pam
+sgRNA-1	on-target	+	12601	12617	GGCGGTCAGAGACCTGACTC	AGG	0	0	True
+sgRNA-2	on-target	+	26301	26317	GGGCCGAACAACTTCCCCGG	TGG	0	0	True
+sgRNA-2	medium	+	39717	39733	GGGGCGAAGAACTTCCCCGG	TGG	2	1	True
+sgRNA-1	medium	+	38211	38227	GACGATCAGCGACCTGACTC	AGG	3	1	True
+sgRNA-1	medium	+	33200	33216	TGTGGTAAGAGGCCTGACTC	CGG	4	1	True
+sgRNA-2	low	-	30142	30145	GTGCCGAAAGACTTGCCCGC	CGG	5	4	True

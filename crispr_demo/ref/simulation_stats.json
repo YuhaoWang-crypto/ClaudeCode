@@ -1,0 +1,27 @@
+{
+  "WT_parent": {
+    "pairs": 23998,
+    "duplicates": 963,
+    "adapter_readthrough": 378,
+    "lowqual_reads": 400,
+    "polyg_reads": 286,
+    "haplotype_counts": {
+      "WT": 23998
+    }
+  },
+  "EDIT_pool": {
+    "pairs": 29749,
+    "duplicates": 1218,
+    "adapter_readthrough": 481,
+    "lowqual_reads": 526,
+    "polyg_reads": 399,
+    "haplotype_counts": {
+      "H1": 4882,
+      "H2": 11481,
+      "H3": 3973,
+      "H4": 9413
+    }
+  },
+  "read_length": 150,
+  "seed": 42
+}

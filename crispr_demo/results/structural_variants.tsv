@@ -1,0 +1,2 @@
+chrom	start	end	svtype	length	filter	PE	SR	origin	genes_affected	WT_vaf	EDIT_vaf
+DEMO_chr1	25899	27049	DEL	1150	PASS	49	20	on-target	lacZ	0.000	0.512

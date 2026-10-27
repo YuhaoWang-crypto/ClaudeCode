@@ -1,2 +1,15 @@
 __pycache__/
 *.pyc
+
+# crispr_demo: 流程中间产物与 snpEff 自建库可由脚本重新生成
+crispr_demo/work/*
+!crispr_demo/work/snapshots/
+crispr_demo/snpeff/
+crispr_demo/work_run.log
+crispr_demo/results_summary.txt
+crispr_demo/ref/*.fasta.amb
+crispr_demo/ref/*.fasta.ann
+crispr_demo/ref/*.fasta.bwt
+crispr_demo/ref/*.fasta.pac
+crispr_demo/ref/*.fasta.sa
+crispr_demo/ref/*.fasta.fai

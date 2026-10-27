@@ -1,0 +1,11 @@
+truth_id	klass	pos	kind	detail	expected_freq	observed_freq	error	detected	detected_by	detected_at	called_origin
+P1	parental (shared)	5500	snv	C	1.00	1.000	+0.000	True	small-variant	5500	-
+A	on-target	12617	ins	GTAAGCTAGCGGATCCAAGCTTGA	1.00	1.000	+0.000	True	small-variant	12614	on-target
+P2	parental (shared)	21330	snv	G	1.00	1.000	+0.000	True	small-variant	21330	-
+E	on-target	25900	del	1150 bp	0.45	0.512	+0.062	True	SV	25899-27049	on-target
+B	on-target	26314	del	7 bp	0.55	0.559	+0.009	True	small-variant	26313	on-target
+D	off-target	33214	del	5 bp	0.30	0.333	+0.033	True	small-variant	33213	off-target
+C	off-target	38227	ins	T	1.00	1.000	+0.000	True	small-variant	38227	off-target
+P3	parental (shared)	44120	snv	C	1.00	1.000	+0.000	True	small-variant	44120	-
+F	background	49656	snv	A	1.00	1.000	+0.000	True	small-variant	49656	background
+P4	parental (shared)	56500	del	3 bp	1.00	1.000	+0.000	True	small-variant	56499	-
