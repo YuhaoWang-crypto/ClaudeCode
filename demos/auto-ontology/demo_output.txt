@@ -1,0 +1,120 @@
+
+========================================================================
+0. 健康检查
+========================================================================
+{"status": "ok", "postgres": {"status": "ok"}, "migrations": {"status": "ok", "revision": "99d4d343dd0b"}}
+
+========================================================================
+1. 数据目录 (Catalog)：自动从源库抽取的结构
+========================================================================
+  • chinook  → main(11 张表/视图)
+  • pagila   → analytics(3 张表/视图), public(23 张表/视图)
+
+========================================================================
+2. 本体 (Ontology)：业务术语、同义词、认证状态
+========================================================================
+  • Customer  同义词[renter, patron]  认证=partial
+      A person who rents films from a store.
+  • Film      同义词[movie, picture, title]  认证=partial
+      A motion picture available for rental.
+  • Payment   同义词[transaction]  认证=pending
+      Money received for a rental. Owning table is partitioned.
+  • Rental    同义词[hire, loan]  认证=partial
+      A single film rental transaction.
+  • Track     同义词[song]  认证=pending
+      A single piece of recorded music.
+
+========================================================================
+3. 语义关系：术语之间如何关联（本演示为手写；正式流程由 LLM 语义编译生成）
+========================================================================
+  • Rental ──▶ Customer   (HAS_ATTRIBUTE, REPRESENTS, SEMANTIC_FK)
+  • Customer ──▶ Payment   (HAS_ATTRIBUTE, REPRESENTS, SEMANTIC_FK)
+
+========================================================================
+4. 同义词检索：用户说的词 → 本体里的正式概念
+========================================================================
+  • “movie” → Term:Film
+  • “song” → Term:Track
+  • “renter” → Term:Customer
+  • “transaction” → Term:Payment
+
+========================================================================
+5. 受治理的指标 (SQL Attributes)：挂在术语上的标准计算口径，直接在源库执行
+========================================================================
+
+  ▸ [Customer] customer lifetime value — Total paid by each customer.  (certified=False)
+    SQL: SELECT customer_id, sum(amount) FROM payment GROUP BY customer_id
+     customer_id | sum  
+    -------------+------
+               1 | 3.98
+               2 | 4.99
+               3 | 1.99
+    (3 rows)
+
+  ▸ [Film] film count — Number of films in the catalog.  (certified=False)
+    SQL: SELECT count(film_id) FROM film
+     count 
+    -------
+      1000
+    (1 row)
+
+  ▸ [Film] films per category — Film count grouped by category, via the bridge table.  (certified=False)
+    SQL: SELECT c.name, count(fc.film_id) FROM film_category fc JOIN category c ON c.category_id = fc.category_id GROUP BY c.name
+       name    | count 
+    -----------+-------
+     Family    |    69
+     Games     |    61
+     Animation |    66
+    (3 rows)
+
+  ▸ [Payment] total revenue — Sum of all payment amounts.  (certified=False)
+    SQL: SELECT sum(amount) FROM payment
+       sum   
+    ---------
+     2502.01
+    (1 row)
+
+========================================================================
+6. 护栏：校验 Agent 生成的 SQL 是否基于目录里真实存在的表
+========================================================================
+  • 合法：按影片统计收入                   ✅ 通过
+  • 幻觉：引用不存在的表 films             ❌ 拒绝：SQL doesn't reference any table known to the catalog; ingest the schema first or check the query
+  • 重复：和已有指标 film count 口径相同     ❌ 拒绝：SQL snippet already exists
+
+========================================================================
+7. 自定义分析 (Custom Analyses)：保存下来的常用分析
+========================================================================
+
+  ▸ Revenue by staff — Payment totals per staff member.
+     staff_id | revenue 
+    ----------+---------
+            1 | 1364.76
+            2 | 1137.25
+    (2 rows)
+
+  ▸ Top rented films — Films ordered by rental count.
+          title      | rentals 
+    -----------------+---------
+     PULP BEVERLY    |       4
+     ROBBERS JOON    |       4
+     NETWORK PEAK    |       3
+     TIMBERLAND SKY  |       3
+     OUTBREAK DIVINE |       3
+    (5 rows)
+
+========================================================================
+8. 导出整个本体模型为 YAML（可版本管理 / 导入到别的实例）
+========================================================================
+  已写入 /home/user/ClaudeCode/demos/auto-ontology/exported_model.yaml  (1933 行)
+  顶层分区： data_layer:, semantic_layer:, zones: []
+
+========================================================================
+9. 自然语言问答（需要 LLM）
+========================================================================
+  问题：Which film category has the most films?
+    … Classifying the question
+    … Understanding the question
+    … Retrieving candidates
+    … Preparing candidates
+  ⚠ Agent failed after prepare_candidates: Input validation failed for candidate_preparation
+  → 这一步要调用大模型。在 .env 里填入 DEFAULT_MODELS_API_KEY（build.nvidia.com 免费申请）后重启后端即可。
