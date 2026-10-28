@@ -1,0 +1,21 @@
+{
+  "designable_positions_1based_per_chain": {
+    "D": [
+      30,
+      31
+    ],
+    "E": [
+      98
+    ]
+  },
+  "designed_chains": [
+    "D",
+    "E"
+  ],
+  "fixed_context_chains": [
+    "A",
+    "B",
+    "C"
+  ],
+  "note": "Designed chains are redesigned in the context of the fixed chains. Keep the pMHC chains as context so the model sees the epitope."
+}

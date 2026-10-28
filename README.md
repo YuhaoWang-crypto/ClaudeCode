@@ -41,3 +41,29 @@ python3 -m grn_pipeline.m1_symmetry   # or any single module
 Figures are written to `figures/`. A full write-up with numbers, rigour
 labels, and the interpretation (including the Lyapunov-exponent biomarker
 question) is in [`REPORT.md`](REPORT.md).
+
+---
+
+## `tcr_design` — computational TCR engineering
+
+A second, independent package in this repository: a survey of what is mature in
+computational TCR design (and what is near-random), plus a CPU-only demo
+pipeline that measures a real TCR–pMHC interface, triages single mutants, gates
+them on specificity and developability risk, screens the epitope against the
+human proteome, and writes the input files for AlphaFold3 / Rosetta / FoldX /
+ProteinMPNN.
+
+```bash
+pip install biopython matplotlib numpy pandas
+python3 -m tcr_design run 1AO7 --outdir results/1ao7   # ~14 s, no GPU
+python3 -m tcr_design validate 3QDG 4L3E               # retrospective benchmark
+```
+
+The demo ships a benchmark **that its own scoring heuristic fails**: the two
+mutations behind the best-validated published TCR affinity design (DMF5,
+~400-fold) rank at the 47th and 44th percentile of a blind scan. That result is
+reported up front, and it is why the package is built as a funnel into real
+physics tools rather than as a predictor.
+
+Survey, design rationale and full limits: [`tcr_design/README.md`](tcr_design/README.md).
+Example output: [`results/1ao7/REPORT.md`](results/1ao7/REPORT.md).

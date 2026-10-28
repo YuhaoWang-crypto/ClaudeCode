@@ -1,0 +1,183 @@
+{
+  "pdb_id": "1AO7",
+  "chains": {
+    "mhc": "A",
+    "b2m": "B",
+    "tcr_beta": "E",
+    "tcr_alpha": "D",
+    "peptide": "C"
+  },
+  "peptide": "LLFGYPVYV",
+  "loops": {
+    "A-CDR3": "CAVTTDSWGKLQF",
+    "A-CDR1": "DRGSQS",
+    "B-CDR3": "CASRPGLAGGRPEQYF",
+    "B-CDR1": "MNHEY"
+  },
+  "paratope_size": 26,
+  "buried_surface_A2": 993.0,
+  "mutations_scanned": 418,
+  "gate_counts": {
+    "reject-specificity": 195,
+    "below-threshold": 189,
+    "reject-liability": 27,
+    "advance": 5,
+    "watch-specificity": 2
+  },
+  "advance": [
+    "D:Q30D",
+    "D:Q30E",
+    "D:S31A",
+    "D:S31I",
+    "D:S31V"
+  ],
+  "offtarget_motif": {
+    "target_peptide": "LLFGYPVYV",
+    "tcr_contacts_per_position": [
+      10,
+      4,
+      7,
+      27,
+      92,
+      17,
+      24,
+      47,
+      0
+    ],
+    "weights_used": [
+      10.0,
+      4.0,
+      7.0,
+      27.0,
+      92.0,
+      17.0,
+      24.0,
+      47.0,
+      0.0
+    ],
+    "weighted_positions": [
+      "P1L",
+      "P2L",
+      "P3F",
+      "P4G",
+      "P5Y",
+      "P6P",
+      "P7V",
+      "P8Y"
+    ],
+    "anchor_filter": {
+      "P2": "AILMQTV",
+      "P9": "AILMTV"
+    },
+    "identity_required_at": [
+      "P5Y"
+    ],
+    "windows_scanned": 11251322,
+    "windows_passing_all_filters": 42582,
+    "hits_above_threshold": 1660,
+    "min_similarity": 0.72
+  },
+  "offtarget_top": [
+    {
+      "peptide": "LAQGYPAYT",
+      "similarity": 0.9242,
+      "identical_at_contacts": 5,
+      "contact_match": "L--GYP-Y.",
+      "gene": "ENOSF1",
+      "accession": "Q7L5Y1",
+      "protein": "Mitochondrial enolase superfamily member 1",
+      "position": 183
+    },
+    {
+      "peptide": "LLEGYEIYV",
+      "similarity": 0.9055,
+      "identical_at_contacts": 5,
+      "contact_match": "LL-GY-iY.",
+      "gene": "MDC1",
+      "accession": "Q14676",
+      "protein": "Mediator of DNA damage checkpoint protein 1",
+      "position": 1995
+    },
+    {
+      "peptide": "LLNNYPVYI",
+      "similarity": 0.9047,
+      "identical_at_contacts": 6,
+      "contact_match": "LL--YPVY.",
+      "gene": "BEND4",
+      "accession": "Q6ZU67",
+      "protein": "BEN domain-containing protein 4",
+      "position": 387
+    },
+    {
+      "peptide": "QAKGYPTYT",
+      "similarity": 0.8987,
+      "identical_at_contacts": 4,
+      "contact_match": "---GYP-Y.",
+      "gene": "VILL",
+      "accession": "O15195",
+      "protein": "Villin-like protein",
+      "position": 318
+    },
+    {
+      "peptide": "VTLAYPVYA",
+      "similarity": 0.8924,
+      "identical_at_contacts": 4,
+      "contact_match": "v---YPVY.",
+      "gene": "PIK3R1",
+      "accession": "P27986",
+      "protein": "Phosphatidylinositol 3-kinase regulatory subunit alpha",
+      "position": 712
+    },
+    {
+      "peptide": "FIQGYHVYL",
+      "similarity": 0.8881,
+      "identical_at_contacts": 4,
+      "contact_match": "-i-GY-VY.",
+      "gene": "OSMR",
+      "accession": "Q99650",
+      "protein": "Oncostatin-M-specific receptor subunit beta",
+      "position": 656
+    },
+    {
+      "peptide": "QVTGYAVYA",
+      "similarity": 0.8881,
+      "identical_at_contacts": 4,
+      "contact_match": "-v-GY-VY.",
+      "gene": "RIMBP3",
+      "accession": "Q9UFD9",
+      "protein": "RIMS-binding protein 3A",
+      "position": 1122
+    },
+    {
+      "peptide": "QVTGYAVYA",
+      "similarity": 0.8881,
+      "identical_at_contacts": 4,
+      "contact_match": "-v-GY-VY.",
+      "gene": "RIMBP3C",
+      "accession": "A6NJZ7",
+      "protein": "RIMS-binding protein 3C",
+      "position": 1122
+    },
+    {
+      "peptide": "QVTGYAVYA",
+      "similarity": 0.8881,
+      "identical_at_contacts": 4,
+      "contact_match": "-v-GY-VY.",
+      "gene": "RIMBP3B",
+      "accession": "A6NNM3",
+      "protein": "RIMS-binding protein 3B",
+      "position": 1122
+    },
+    {
+      "peptide": "LMVPYPVYT",
+      "similarity": 0.8843,
+      "identical_at_contacts": 5,
+      "contact_match": "Lm--YPVY.",
+      "gene": "CCKBR",
+      "accession": "P32239",
+      "protein": "Gastrin/cholecystokinin type B receptor",
+      "position": 185
+    }
+  ],
+  "disclaimer": "Triage scores are uncalibrated arbitrary units, not affinity or ddG predictions. The off-target list is a similarity shortlist, not a cross-reactivity prediction."
+}
