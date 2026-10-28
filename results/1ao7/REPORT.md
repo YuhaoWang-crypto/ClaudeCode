@@ -22,7 +22,7 @@ Chain typing decisions:
 
 * chain A -> MHC class I heavy chain (sequence fingerprint)
 * chain B -> beta-2 microglobulin (sequence fingerprint)
-* chain E -> TCR beta (TRBC constant-domain fingerprint)
+* chain E -> TCR beta (TRBC constant domain) (sequence fingerprint)
 * TCR alpha/beta resolved by docking geometry: D
 * chain C -> peptide (9 aa, 318 heavy-atom contacts to MHC)
 
@@ -72,47 +72,36 @@ Scores are reported in arbitrary units plus a z-score. Positions that touch the 
 
 | verdict | count |
 |---|---|
+| below-threshold | 196 |
 | reject-specificity | 195 |
-| below-threshold | 189 |
 | reject-liability | 27 |
-| advance | 5 |
-| watch-specificity | 2 |
 
 ### Advance
 
-Clean, peptide-focused, above threshold. These are the candidates worth spending real compute on.
+Clean, peptide-focused, and predicted to tighten binding. These are the candidates worth spending real compute on. When this list is empty, the best surviving candidates are still handed to tier 2: the calibrated model is known to under-call real improvements, so an empty list is a reason to spend the compute rather than to stop.
 
-| mutant | loop | score (a.u.) | z | pep contacts | MHC contacts | MHC frac | buried | why |
-|---|---|---|---|---|---|---|---|---|
-| `D:Q30E` | A-CDR1 | +0.65 | +1.33 | 23 | 22 | 0.49 | 0.83 | removes volume from a well-packed contact |
-| `D:S31V` | A-CDR1 | +0.42 | +1.10 | 8 | 0 | 0.00 | 0.92 | no room to enlarge side chain (steric clash likely) |
-| `D:S31A` | A-CDR1 | +0.40 | +1.08 | 8 | 0 | 0.00 | 0.92 | adds apolar surface at a well-buried position |
-| `D:S31I` | A-CDR1 | +0.40 | +1.08 | 8 | 0 | 0.00 | 0.92 | no room to enlarge side chain (steric clash likely) |
-| `D:Q30D` | A-CDR1 | +0.37 | +1.04 | 23 | 22 | 0.49 | 0.83 | removes volume from a well-packed contact |
+_none_
 
 ### Watch for specificity
 
 Predicted gain, but the position leans on MHC contacts.
 
-| mutant | loop | score (a.u.) | z | pep contacts | MHC contacts | MHC frac | buried | why |
-|---|---|---|---|---|---|---|---|---|
-| `E:G101V` | B-CDR3 | +0.34 | +1.02 | 11 | 26 | 0.70 | 1.00 | no room to enlarge side chain (steric clash likely) |
-| `E:G101R` | B-CDR3 | +0.34 | +1.02 | 11 | 26 | 0.70 | 1.00 | no room to enlarge side chain (steric clash likely) |
+_none_
 
 ### Rejected on specificity
 
 These score well and are still rejected: their contacts are almost entirely to MHC rather than the peptide, so any affinity they buy is peptide-independent. This is the dominant outcome of the scan and it is the main result worth taking away.
 
-| mutant | loop | score (a.u.) | z | pep contacts | MHC contacts | MHC frac | buried | why |
-|---|---|---|---|---|---|---|---|---|
-| `D:S51W` | A-CDR2 | +1.46 | +2.01 | 0 | 3 | 1.00 | 0.18 | aromatic insertion into available interface volume |
-| `D:S51R` | A-CDR2 | +1.36 | +1.91 | 0 | 3 | 1.00 | 0.18 | complementary charge pairing with the partner surface |
-| `D:S51Y` | A-CDR2 | +1.18 | +1.74 | 0 | 3 | 1.00 | 0.18 | aromatic insertion into available interface volume |
-| `D:S51K` | A-CDR2 | +1.14 | +1.70 | 0 | 3 | 1.00 | 0.18 | complementary charge pairing with the partner surface |
-| `D:S51F` | A-CDR2 | +1.06 | +1.62 | 0 | 3 | 1.00 | 0.18 | aromatic insertion into available interface volume |
-| `D:S51H` | A-CDR2 | +0.97 | +1.54 | 0 | 3 | 1.00 | 0.18 | aromatic insertion into available interface volume |
-| `D:T98D` | A-CDR3 | +0.95 | +1.52 | 0 | 5 | 1.00 | 0.63 | complementary charge pairing with the partner surface |
-| `D:T98E` | A-CDR3 | +0.92 | +1.49 | 0 | 5 | 1.00 | 0.63 | no room to enlarge side chain (steric clash likely) |
+| mutant | loop | predicted ddG | score (a.u.) | z | pep contacts | MHC contacts | MHC frac | buried | why |
+|---|---|---|---|---|---|---|---|---|---|
+| `D:S51W` | A-CDR2 | -0.52 | +1.46 | +2.01 | 0 | 3 | 1.00 | 0.18 | aromatic insertion into available interface volume |
+| `D:S51R` | A-CDR2 | -0.05 | +1.36 | +1.91 | 0 | 3 | 1.00 | 0.18 | complementary charge pairing with the partner surface |
+| `D:S51Y` | A-CDR2 | -0.37 | +1.18 | +1.74 | 0 | 3 | 1.00 | 0.18 | aromatic insertion into available interface volume |
+| `D:S51K` | A-CDR2 | -0.18 | +1.14 | +1.70 | 0 | 3 | 1.00 | 0.18 | complementary charge pairing with the partner surface |
+| `D:S51F` | A-CDR2 | -0.40 | +1.06 | +1.62 | 0 | 3 | 1.00 | 0.18 | aromatic insertion into available interface volume |
+| `D:S51H` | A-CDR2 | -0.12 | +0.97 | +1.54 | 0 | 3 | 1.00 | 0.18 | aromatic insertion into available interface volume |
+| `D:T98D` | A-CDR3 | +0.51 | +0.95 | +1.52 | 0 | 5 | 1.00 | 0.63 | complementary charge pairing with the partner surface |
+| `D:T98E` | A-CDR3 | +0.36 | +0.92 | +1.49 | 0 | 5 | 1.00 | 0.63 | no room to enlarge side chain (steric clash likely) |
 
 ## 4. Off-target screen `[heuristic]`
 
@@ -169,9 +158,11 @@ Order of trust for this problem, based on published TCR-specific validation: MM/
 
 ## 6. Honest limits of this pipeline
 
-**The triage score fails its own retrospective benchmark.** The one test buildable from public structures is the DMF5 TCR: `3QDG` is wild type and `4L3E` is a designed variant reported at roughly 400-fold improved affinity with retained specificity. Run `python -m tcr_design validate 3QDG 4L3E` and the two substitutions that achieved that (alpha D26Y in CDR1, beta L98W in CDR3) rank in the 47th and 44th percentile of a blind scan: no better than chance. One of them is rejected outright by the specificity gate, because in the wild-type structure that position contacts only MHC, yet the published variant kept its specificity. Two mutations is a smoke test rather than a benchmark, but the direction is clear and it is the number to keep in mind before acting on any ranking above.
+**Both the heuristic and the calibrated model fail the retrospective benchmark.** The one test buildable from public structures is the DMF5 TCR: `3QDG` is wild type and `4L3E` is a designed variant reported at roughly 400-fold improved affinity with retained specificity. The two substitutions that achieved it (alpha D26Y in CDR1, beta L98W in CDR3) rank in the 47th and 44th percentile of a blind scan with the raw heuristic, and the 25th and 26th with the calibrated model refitted without those structures. Calibration roughly halves the percentile, and L98W becomes the top-ranked substitution of 19 at its own position, but both are still predicted to *weaken* binding when D26Y in fact tightens it by about 1.8 kcal/mol. Neither would have been shortlisted. Run `python -m tcr_design validate 3QDG 4L3E --calibrated` to reproduce it.
 
-* The triage score is unfitted and ships no calibration set. Treat its ranking as a way to allocate compute, never as a result.
+* Against pooled ATLAS and SKEMPI measurements the calibrated model reaches a held-out Spearman of about +0.43 and an RMSE near 0.88 kcal/mol, versus 0.98 for predicting the mean. That is real but weak, and its predictions are compressed towards the middle of the range, so it rarely calls anything strongly stabilising.
+* The benchmark behind it is dominated by alanine scanning, so the model mostly learned that deleting a buried side chain weakens binding. Adding volume to gain affinity is the rarer direction and the one design needs.
+* The raw triage score is unfitted. Against the same measurements its correlation with ddG is about -0.08, which is no signal at all; refitting its six weights does not beat predicting the mean. Treat it as a way to allocate compute, never as a result.
 * The specificity gate uses contact partitioning in a single wild-type structure as a proxy for cross-reactivity risk. The DMF5 case above shows that proxy is crude: an MHC-contacting position can be enhanced without losing specificity. The gate raises a flag for triage, it does not establish risk.
 * Single point mutations only. Real affinity maturation explores combinations, and the best published TCR design result came from structure-based physics plus wet-lab iteration, not from a one-shot scan.
 * One static structure. Side-chain and loop rearrangement on binding is not modelled, and TCR CDR3 loops are flexible.

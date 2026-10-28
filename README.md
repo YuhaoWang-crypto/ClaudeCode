@@ -56,14 +56,28 @@ ProteinMPNN.
 ```bash
 pip install biopython matplotlib numpy pandas
 python3 -m tcr_design run 1AO7 --outdir results/1ao7   # ~14 s, no GPU
-python3 -m tcr_design validate 3QDG 4L3E               # retrospective benchmark
+python3 -m tcr_design benchmark --save-model           # calibrate on ATLAS + SKEMPI
+python3 -m tcr_design validate 3QDG 4L3E --calibrated  # leakage-free retrospective test
 ```
 
-The demo ships a benchmark **that its own scoring heuristic fails**: the two
-mutations behind the best-validated published TCR affinity design (DMF5,
-~400-fold) rank at the 47th and 44th percentile of a blind scan. That result is
-reported up front, and it is why the package is built as a funnel into real
-physics tools rather than as a predictor.
+The package is calibrated against every public measurement of TCR–pMHC mutation
+affinity — 368 pooled mutations from ATLAS and SKEMPI 2.0, validated
+leave-one-structure-out. Three findings, all reported up front:
+
+| | result |
+|---|---|
+| the hand-weighted heuristic | Spearman **−0.08** vs measured ΔΔG — no signal |
+| refitting its six weights | **does not beat** predicting the mean |
+| fitting the raw structural measurements | Spearman **+0.43**, RMSE **0.88** kcal/mol — real but weak |
+
+And the standing benchmark **both** still fail: the two mutations behind the
+best-validated published TCR affinity design (DMF5, ~400-fold) are ranked 25th
+and 26th percentile by the calibrated model — better than the 52nd/38th from the
+heuristic, with one becoming the top pick of 19 at its own position — yet both
+are still predicted to *weaken* binding when one in fact tightens it by
+1.8 kcal/mol. That is why the package is a funnel into real physics tools rather
+than a predictor.
 
 Survey, design rationale and full limits: [`tcr_design/README.md`](tcr_design/README.md).
-Example output: [`results/1ao7/REPORT.md`](results/1ao7/REPORT.md).
+Example output: [`results/1ao7/REPORT.md`](results/1ao7/REPORT.md) ·
+calibration: [`results/calibration/CALIBRATION.md`](results/calibration/CALIBRATION.md).

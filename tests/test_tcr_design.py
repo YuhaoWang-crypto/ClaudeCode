@@ -395,3 +395,271 @@ def test_proteome_screen_requires_identity_at_the_hottest_position():
         assert hit.peptide != complex_obj.peptide
         assert hit.peptide[1] in HLA_A0201_ANCHORS[2]
         assert hit.peptide[-1] in HLA_A0201_ANCHORS[-1]
+
+
+# --------------------------------------------------------------------------
+# Benchmark / calibration
+# --------------------------------------------------------------------------
+
+def test_ddg_sign_convention_is_positive_for_weaker_binding():
+    from tcr_design.benchmark import _ddg_from_affinities
+
+    # A mutant with a ten-fold larger Kd binds ten-fold more weakly.
+    weaker = _ddg_from_affinities("1e-5", "1e-6", 298.0)
+    tighter = _ddg_from_affinities("1e-7", "1e-6", 298.0)
+    assert weaker > 0
+    assert tighter < 0
+    assert weaker == pytest.approx(-tighter, rel=1e-6)
+    # RT ln(10) at 298 K is about 1.36 kcal/mol.
+    assert weaker == pytest.approx(1.364, abs=0.01)
+
+
+def test_ddg_rejects_nonsense_affinities():
+    from tcr_design.benchmark import _ddg_from_affinities
+
+    assert _ddg_from_affinities("", "1e-6", 298.0) is None
+    assert _ddg_from_affinities("0", "1e-6", 298.0) is None
+    assert _ddg_from_affinities("abc", "1e-6", 298.0) is None
+
+
+def test_atlas_measured_values_tolerate_error_bars():
+    from tcr_design.benchmark import _parse_measured_number
+
+    assert _parse_measured_number("0.19 ± 0.11") == pytest.approx(0.19)
+    assert _parse_measured_number("1.2 +/- 0.3") == pytest.approx(1.2)
+    assert _parse_measured_number("-0.04") == pytest.approx(-0.04)
+    assert _parse_measured_number("N/A") is None
+    assert _parse_measured_number("n.d.") is None
+
+
+def test_mutation_strings_parse_in_both_database_formats():
+    from tcr_design.benchmark import ATLAS_MUTATION, MUTATION_PATTERN
+
+    # SKEMPI carries the chain; ATLAS keeps it in a separate column.
+    wt, chain, number, insertion, mut = MUTATION_PATTERN.match("AE99S").groups()
+    assert (wt, chain, number, insertion, mut) == ("A", "E", "99", "", "S")
+    wt, number, insertion, mut = ATLAS_MUTATION.match("D26W").groups()
+    assert (wt, number, insertion, mut) == ("D", "26", "", "W")
+
+
+def test_repeat_measurements_are_averaged_not_double_counted():
+    from tcr_design.benchmark import BenchmarkEntry, _average_duplicates
+
+    def entry(ddg):
+        return BenchmarkEntry(
+            pdb_id="1AO7", chain="D", number=26, insertion="", wild_type="D",
+            mutant="W", ddg=ddg, side="tcr", location="COR", source="test",
+        )
+
+    merged = _average_duplicates([entry(1.0), entry(2.0), entry(3.0)])
+    assert len(merged) == 1
+    assert merged[0].ddg == pytest.approx(2.0)
+    assert "3 measurements" in merged[0].note
+
+
+def test_rank_data_averages_ties():
+    import numpy as np
+
+    from tcr_design.benchmark import _rankdata
+
+    assert list(_rankdata(np.array([1.0, 2.0, 2.0, 3.0]))) == [1.0, 2.5, 2.5, 4.0]
+
+
+def test_roc_auc_is_one_for_perfect_separation_and_half_for_none():
+    from tcr_design.benchmark import roc_auc
+
+    assert roc_auc([3, 4, 1, 2], [True, True, False, False]) == pytest.approx(1.0)
+    assert roc_auc([1, 2, 3, 4], [True, True, False, False]) == pytest.approx(0.0)
+    assert roc_auc([1, 1, 1, 1], [True, True, False, False]) == pytest.approx(0.5)
+
+
+def test_roc_auc_needs_both_classes():
+    from tcr_design.benchmark import roc_auc
+
+    assert roc_auc([1, 2, 3], [True, True, True]) is None
+
+
+def test_ridge_recovers_a_known_linear_relationship():
+    import numpy as np
+
+    from tcr_design.benchmark import _fit_ridge
+
+    rng = np.random.default_rng(0)
+    X = rng.normal(size=(200, 3))
+    truth = np.array([1.5, -2.0, 0.5])
+    y = X @ truth + 0.25
+
+    coefficients, intercept = _fit_ridge(X, y, ridge_lambda=1e-6)
+    assert coefficients == pytest.approx(truth, abs=0.01)
+    assert intercept == pytest.approx(0.25, abs=0.01)
+
+
+def test_stronger_ridge_shrinks_coefficients():
+    import numpy as np
+
+    from tcr_design.benchmark import _fit_ridge
+
+    rng = np.random.default_rng(1)
+    X = rng.normal(size=(100, 3))
+    y = X @ np.array([2.0, 2.0, 2.0])
+    weak, _ = _fit_ridge(X, y, 1e-6)
+    strong, _ = _fit_ridge(X, y, 1000.0)
+    assert np.abs(strong).sum() < np.abs(weak).sum()
+
+
+def test_spearman_and_pearson_agree_on_a_monotonic_relationship():
+    from tcr_design.benchmark import pearson, spearman
+
+    x = [1, 2, 3, 4, 5]
+    y = [1, 4, 9, 16, 25]
+    assert spearman(x, y) == pytest.approx(1.0)
+    assert pearson(x, y) < 1.0  # monotonic but not linear
+
+
+SKEMPI_CACHE = CACHE / "benchmark" / "skempi_v2.csv"
+ATLAS_CACHE = CACHE / "benchmark" / "atlas_Mutants.csv"
+
+
+@pytest.mark.skipif(not SKEMPI_CACHE.exists(), reason="SKEMPI not cached")
+def test_skempi_loads_only_tcr_side_single_mutations():
+    from tcr_design.benchmark import load_skempi
+
+    entries = load_skempi(SKEMPI_CACHE)
+    assert len(entries) > 100
+    assert all(e.side == "tcr" for e in entries)
+    assert all(e.source == "SKEMPI2" for e in entries)
+    assert all(e.wild_type in AA20 and e.mutant in AA20 for e in entries)
+
+
+@pytest.mark.skipif(not ATLAS_CACHE.exists(), reason="ATLAS not cached")
+def test_atlas_loads_tcr_mutants_with_wild_type_peptide_and_mhc():
+    from tcr_design.benchmark import load_atlas
+
+    entries = load_atlas(ATLAS_CACHE)
+    assert len(entries) > 100
+    assert all(e.side == "tcr" for e in entries)
+    assert all(e.source == "ATLAS" for e in entries)
+    # The A6 CDR1-alpha aromatic substitution is in ATLAS and tightens binding.
+    a6 = [
+        e for e in entries
+        if e.pdb_id == "1AO7" and e.number == 26 and e.mutant == "W"
+    ]
+    assert a6, "expected the A6 D26W mutation in ATLAS"
+    assert a6[0].ddg < -0.5
+
+    # Multi-point mutants are separated by '|' and must not leak in as singles.
+    assert all(
+        "|" not in e.wild_type and "|" not in e.mutant for e in entries
+    )
+
+
+@pytest.mark.skipif(
+    not (SKEMPI_CACHE.exists() and ATLAS_CACHE.exists()),
+    reason="both benchmark sources needed",
+)
+def test_pooling_deduplicates_overlapping_mutations():
+    from tcr_design.benchmark import load_combined
+
+    entries, provenance = load_combined(SKEMPI_CACHE, ATLAS_CACHE)
+    assert provenance["overlapping_mutations"] > 0
+    assert provenance["pooled_unique"] == len(entries)
+    assert provenance["pooled_unique"] < (
+        provenance["atlas_entries"] + provenance["skempi_entries"]
+    )
+    keys = [e.key for e in entries]
+    assert len(keys) == len(set(keys))
+
+
+# --------------------------------------------------------------------------
+# Calibrated model
+# --------------------------------------------------------------------------
+
+MODEL_PATH = Path(__file__).resolve().parents[1] / "tcr_design" / "data" / "calibrated_ddg_model.json"
+
+
+def test_ranking_key_prefers_predicted_ddg_when_available():
+    from tcr_design.scan import ranking_key
+
+    tighter = score_mutation(_residue(), "W")
+    weaker = score_mutation(_residue(), "A")
+    tighter.predicted_ddg, weaker.predicted_ddg = -1.5, +0.8
+    # Sorting ascending by the key must put the tighter binder first.
+    assert ranking_key(tighter) < ranking_key(weaker)
+
+
+def test_ranking_key_falls_back_to_the_z_score_without_a_model():
+    from tcr_design.scan import ranking_key
+
+    good = score_mutation(_residue(), "W")
+    bad = score_mutation(_residue(), "A")
+    good.peptide_z, bad.peptide_z = 2.0, -1.0
+    assert good.predicted_ddg is None
+    assert ranking_key(good) < ranking_key(bad)
+
+
+def test_gates_use_predicted_ddg_when_the_model_is_present():
+    from tcr_design.liability import apply_gates
+
+    complex_obj = _FakeComplex("GGSGGGG")
+
+    def gated(predicted, z):
+        mutation = score_mutation(_residue(aa="S", number=2, chain="D"), "W")
+        mutation.predicted_ddg = predicted
+        mutation.peptide_z = z
+        return apply_gates(complex_obj, [mutation], ddg_threshold=-0.25)[0].verdict
+
+    # A strongly negative predicted ddG advances even with a poor z-score,
+    # and a positive one is held back even with a good z-score.
+    assert gated(-1.0, -5.0) == "advance"
+    assert gated(+1.0, +5.0) == "below-threshold"
+
+
+@pytest.mark.skipif(not MODEL_PATH.exists(), reason="calibrated model not generated")
+def test_shipped_model_loads_and_declares_its_performance():
+    from tcr_design.calibrated import load_model
+
+    model = load_model(MODEL_PATH)
+    assert model is not None
+    assert model.feature_set == "extended"
+    held_out = model.performance["held_out"]
+    # The model is weak but must beat predicting the mean, or it should not ship.
+    assert held_out["rmse"] < held_out["rmse_predicting_the_mean"]
+    assert held_out["spearman"] > 0.2
+    assert "Spearman" in model.summary()
+
+
+@pytest.mark.skipif(not MODEL_PATH.exists(), reason="calibrated model not generated")
+@requires_pdb
+def test_shipped_model_predicts_physically_sensible_directions():
+    from tcr_design.calibrated import load_model
+    from tcr_design.structure import load_complex
+
+    model = load_model(MODEL_PATH)
+    complex_obj = load_complex("1AO7", PDB_CACHE)
+    # A large, well-buried, peptide-contacting residue: deleting it to alanine
+    # should be predicted to weaken binding more than a conservative swap.
+    target = max(
+        complex_obj.paratope(),
+        key=lambda r: r.contacts_peptide * r.buried_fraction,
+    )
+    to_alanine = score_mutation(target, "A")
+    to_similar = score_mutation(target, target.aa if target.aa != "A" else "S")
+    assert model.predict(target, to_alanine) > model.predict(target, to_similar)
+
+
+@pytest.mark.skipif(not MODEL_PATH.exists(), reason="calibrated model not generated")
+@requires_pdb
+def test_scan_attaches_predicted_ddg_only_when_a_model_is_passed():
+    from tcr_design.calibrated import load_model
+    from tcr_design.scan import scan_complex
+    from tcr_design.structure import load_complex
+
+    complex_obj = load_complex("1AO7", PDB_CACHE)
+    without = scan_complex(complex_obj, min_contacts=10)
+    with_model = scan_complex(
+        complex_obj, min_contacts=10, ddg_model=load_model(MODEL_PATH)
+    )
+    assert without and with_model
+    assert all(m.predicted_ddg is None for m in without)
+    assert all(m.predicted_ddg is not None for m in with_model)
+    assert all(-15.0 < m.predicted_ddg < 15.0 for m in with_model)

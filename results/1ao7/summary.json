@@ -18,19 +18,11 @@
   "buried_surface_A2": 993.0,
   "mutations_scanned": 418,
   "gate_counts": {
+    "below-threshold": 196,
     "reject-specificity": 195,
-    "below-threshold": 189,
-    "reject-liability": 27,
-    "advance": 5,
-    "watch-specificity": 2
+    "reject-liability": 27
   },
-  "advance": [
-    "D:Q30D",
-    "D:Q30E",
-    "D:S31A",
-    "D:S31I",
-    "D:S31V"
-  ],
+  "advance": [],
   "offtarget_motif": {
     "target_peptide": "LLFGYPVYV",
     "tcr_contacts_per_position": [

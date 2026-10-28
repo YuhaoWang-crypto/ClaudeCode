@@ -1,0 +1,296 @@
+{
+  "provenance": {
+    "atlas_entries": 273,
+    "skempi_entries": 189,
+    "overlapping_mutations": 94,
+    "pooled_unique": 368
+  },
+  "scored": 261,
+  "unmapped": 94,
+  "problems": [
+    "1AO7 E:D99A: structure has A99, benchmark says D",
+    "1MI5 D:D30aA: structure has T30, benchmark says D",
+    "1U3H D:D30A: structure has Y30, benchmark says D",
+    "1U3H D:S51A: structure has T51, benchmark says S",
+    "1U3H E:N30A: structure has D30, benchmark says N",
+    "1U3H E:Y50F: structure has L50, benchmark says Y",
+    "2BNR E:G51I: structure has A51, benchmark says G",
+    "2PXY E:N30A: residue absent from structure",
+    "2PXY E:Y50F: residue absent from structure",
+    "3MBE E:E97G: structure has V97, benchmark says E",
+    "3O6F: could not load (3O6F: no peptide chain identified; pass an explicit override)",
+    "3PL6: could not load (3PL6: no peptide chain identified; pass an explicit override)",
+    "3QIB D:R90P: structure has Y90, benchmark says R",
+    "3QIB D:N95P: structure has S95, benchmark says N",
+    "3QIB E:L96P: residue absent from structure",
+    "3QIB chain D: only 1/3 mutations match the structure's residue identities; the numbering schemes disagree, so the chain was discarded",
+    "4GG6 E:L37A: structure has D37, benchmark says L",
+    "4GG6 E:Y57F: structure has L57, benchmark says Y",
+    "4GG6 E:R66A: structure has V66, benchmark says R",
+    "4GG6 E:V108A: structure has D108, benchmark says V",
+    "4GG6 E:A109G: structure has G109, benchmark says A",
+    "4GG6 E:V110A: structure has R110, benchmark says V",
+    "4GG6 E:S111A: structure has G111, benchmark says S",
+    "4GG6 E:T113A: structure has A113, benchmark says T",
+    "4GG6 E:Y114A: structure has D114, benchmark says Y",
+    "4OZG D:N36A: structure has E36, benchmark says N",
+    "4OZG D:L57A: structure has A57, benchmark says L",
+    "4OZG E:Y55F: structure has H55, benchmark says Y",
+    "4OZG E:Q57A: structure has L57, benchmark says Q",
+    "4OZG E:N63A: residue absent from structure",
+    "4OZG E:F108A: structure has G108, benchmark says F",
+    "4OZG E:F110A: residue absent from structure",
+    "4OZG E:Y117F: structure has T117, benchmark says Y",
+    "4OZG G:N36A: chain is not a TCR chain here",
+    "4OZG G:Y38A: chain is not a TCR chain here",
+    "4OZG G:Y40F: chain is not a TCR chain here",
+    "4OZG G:L57A: chain is not a TCR chain here",
+    "4OZG H:Y55F: chain is not a TCR chain here",
+    "4OZG H:Q57A: chain is not a TCR chain here",
+    "4OZG H:N63A: chain is not a TCR chain here",
+    "4OZG H:F108A: chain is not a TCR chain here",
+    "4OZG H:R109A: chain is not a TCR chain here",
+    "4OZG H:F110A: chain is not a TCR chain here",
+    "4OZG H:D114A: chain is not a TCR chain here",
+    "4OZG H:Y117F: chain is not a TCR chain here",
+    "4OZG chain E: only 1/7 mutations match the structure's residue identities; the numbering schemes disagree, so the chain was discarded",
+    "4P23: could not load (4P23: no peptide chain identified; pass an explicit override)",
+    "5KS9 D:K66A: structure has E66, benchmark says K",
+    "5KS9 D:N109A: residue absent from structure",
+    "5KS9 D:N110A: residue absent from structure"
+  ],
+  "notes": [],
+  "unfitted": {
+    "n": 261,
+    "structures": 25,
+    "spearman": -0.08150867207405092,
+    "pearson": 0.006380926385707759,
+    "auc_find_stabilising": 0.5420626895854398,
+    "auc_avoid_destabilising": 0.5291027154663518,
+    "n_stabilising": 46,
+    "n_destabilising": 121,
+    "per_structure": {
+      "1AO7": {
+        "n": 49,
+        "spearman": -0.06908163265306122,
+        "pearson": 0.18561112362419618
+      },
+      "1MI5": {
+        "n": 38,
+        "spearman": -0.37839886629927283,
+        "pearson": -0.23313055718739376
+      },
+      "1OGA": {
+        "n": 22,
+        "spearman": -0.7748943802371981,
+        "pearson": -0.6822088557504683
+      },
+      "2AK4": {
+        "n": 13,
+        "spearman": -0.12434340715592189,
+        "pearson": 0.06210688431943272
+      },
+      "2VLJ": {
+        "n": 13,
+        "spearman": -0.2872972024571115,
+        "pearson": -0.31463656253147226
+      },
+      "3QDG": {
+        "n": 14,
+        "spearman": 0.11208791208791209,
+        "pearson": -0.01071802132116681
+      },
+      "3QDJ": {
+        "n": 16,
+        "spearman": 0.03823529411764706,
+        "pearson": -0.26022307543858264
+      },
+      "5BRZ": {
+        "n": 7,
+        "spearman": 0.7500000000000002,
+        "pearson": 0.8218331062171012
+      },
+      "5BS0": {
+        "n": 7,
+        "spearman": 0.7500000000000002,
+        "pearson": 0.9220407646027198
+      },
+      "5E9D": {
+        "n": 8,
+        "spearman": -0.4761904761904762,
+        "pearson": -0.6212173404522077
+      },
+      "6V1A": {
+        "n": 15,
+        "spearman": -0.010714285714285713,
+        "pearson": -0.18809464731242498
+      },
+      "8I5C": {
+        "n": 6,
+        "spearman": 0.3142857142857143,
+        "pearson": 0.2689104343018579
+      },
+      "8TRR": {
+        "n": 5,
+        "spearman": -0.7999999999999999,
+        "pearson": -0.6496346704250111
+      },
+      "9EJG": {
+        "n": 11,
+        "spearman": 0.3090909090909091,
+        "pearson": 0.4470102720211247
+      },
+      "9EJI": {
+        "n": 9,
+        "spearman": 0.08333333333333334,
+        "pearson": 0.3149339397649381
+      },
+      "9NMU": {
+        "n": 5,
+        "spearman": -0.3,
+        "pearson": -0.4503723686868356
+      }
+    },
+    "weights": {
+      "packing": 1.0,
+      "apolar_burial": 1.5,
+      "electrostatic": 1.0,
+      "hbond": 0.8,
+      "conformational": 1.0,
+      "substitution_prior": 0.3
+    },
+    "convention": "A working score correlates NEGATIVELY with ddG. AUC values above 0.5 mean the score ranks the named class correctly."
+  },
+  "fitted_components": {
+    "feature_set": "components",
+    "coefficients": {
+      "packing": -1.02645,
+      "apolar_burial": 0.24081,
+      "electrostatic": -0.22381,
+      "hbond": 0.29738,
+      "conformational": 0.07085,
+      "substitution_prior": 0.24251
+    },
+    "intercept": 0.5494,
+    "ridge_lambda": 1.0,
+    "n_train": 261,
+    "held_out": {
+      "n": 261,
+      "structures_held_out": 25,
+      "spearman": 0.12457078353795417,
+      "pearson": 0.12543937093328208,
+      "rmse": 0.979720540386476,
+      "mae": 0.7129885078985716,
+      "auc_find_stabilising": 0.567896865520728,
+      "rmse_predicting_the_mean": 0.9791397014698022,
+      "beats_predicting_the_mean": false
+    },
+    "in_sample": {
+      "n": 261,
+      "spearman": 0.240700740908753,
+      "pearson": 0.2663494236833962,
+      "rmse": 0.9440032583227003
+    },
+    "units": "kcal/mol, positive means weaker binding",
+    "ridge_search": [
+      {
+        "ridge_lambda": 0.01,
+        "held_out_rmse": 0.9807867706970823,
+        "held_out_spearman": 0.1295840237215717
+      },
+      {
+        "ridge_lambda": 0.1,
+        "held_out_rmse": 0.9806389896877107,
+        "held_out_spearman": 0.12921749761147286
+      },
+      {
+        "ridge_lambda": 1.0,
+        "held_out_rmse": 0.979720540386476,
+        "held_out_spearman": 0.12457078353795417
+      },
+      {
+        "ridge_lambda": 10.0,
+        "held_out_rmse": 0.9813815315956262,
+        "held_out_spearman": 0.07742897825940881
+      },
+      {
+        "ridge_lambda": 100.0,
+        "held_out_rmse": 0.9851136953359698,
+        "held_out_spearman": -0.09098268180955668
+      }
+    ]
+  },
+  "fitted_extended": {
+    "feature_set": "extended",
+    "coefficients": {
+      "buried_fraction": 0.36089,
+      "delta_sasa": -0.17184,
+      "relative_sasa_free": -0.2739,
+      "contacts_peptide": 0.42326,
+      "contacts_mhc": 0.01513,
+      "void_slots": -0.05871,
+      "growth_reaches_partner": 0.11139,
+      "partner_charge": 0.07556,
+      "partner_polar_atoms": -0.12505,
+      "delta_volume": -0.45775,
+      "delta_hydropathy": 0.0822,
+      "delta_charge": 0.10773,
+      "delta_hbond_capacity": 0.07467,
+      "blosum62": -0.03796,
+      "mutant_is_proline": -0.08643,
+      "mutant_is_glycine": 0.05372,
+      "wild_type_is_proline": 0.08619,
+      "wild_type_is_glycine": 0.17145,
+      "volume_times_burial": -0.10061,
+      "hydropathy_times_burial": -0.15982
+    },
+    "intercept": 0.32339,
+    "ridge_lambda": 10.0,
+    "n_train": 261,
+    "held_out": {
+      "n": 261,
+      "structures_held_out": 25,
+      "spearman": 0.4294881536241902,
+      "pearson": 0.4376311616996642,
+      "rmse": 0.8836696517979136,
+      "mae": 0.6584683384827291,
+      "auc_find_stabilising": 0.71840242669363,
+      "rmse_predicting_the_mean": 0.9791397014698022,
+      "beats_predicting_the_mean": true
+    },
+    "in_sample": {
+      "n": 261,
+      "spearman": 0.5500450753029819,
+      "pearson": 0.5867746813026651,
+      "rmse": 0.7949000974693005
+    },
+    "units": "kcal/mol, positive means weaker binding",
+    "ridge_search": [
+      {
+        "ridge_lambda": 0.01,
+        "held_out_rmse": 0.9151342832655627,
+        "held_out_spearman": 0.4089715045660627
+      },
+      {
+        "ridge_lambda": 0.1,
+        "held_out_rmse": 0.9134179811917458,
+        "held_out_spearman": 0.4092222673601109
+      },
+      {
+        "ridge_lambda": 1.0,
+        "held_out_rmse": 0.9031923005223665,
+        "held_out_spearman": 0.4127815465337745
+      },
+      {
+        "ridge_lambda": 10.0,
+        "held_out_rmse": 0.8836696517979136,
+        "held_out_spearman": 0.4294881536241902
+      },
+      {
+        "ridge_lambda": 100.0,
+        "held_out_rmse": 0.8888748107501107,
+        "held_out_spearman": 0.4191248664720458
+      }
+    ]
+  }
+}

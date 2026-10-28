@@ -1,0 +1,59 @@
+{
+  "feature_set": "extended",
+  "coefficients": {
+    "buried_fraction": 0.36089,
+    "delta_sasa": -0.17184,
+    "relative_sasa_free": -0.2739,
+    "contacts_peptide": 0.42326,
+    "contacts_mhc": 0.01513,
+    "void_slots": -0.05871,
+    "growth_reaches_partner": 0.11139,
+    "partner_charge": 0.07556,
+    "partner_polar_atoms": -0.12505,
+    "delta_volume": -0.45775,
+    "delta_hydropathy": 0.0822,
+    "delta_charge": 0.10773,
+    "delta_hbond_capacity": 0.07467,
+    "blosum62": -0.03796,
+    "mutant_is_proline": -0.08643,
+    "mutant_is_glycine": 0.05372,
+    "wild_type_is_proline": 0.08619,
+    "wild_type_is_glycine": 0.17145,
+    "volume_times_burial": -0.10061,
+    "hydropathy_times_burial": -0.15982
+  },
+  "intercept": 0.32339,
+  "ridge_lambda": 10.0,
+  "units": "kcal/mol, positive means weaker binding",
+  "performance": {
+    "held_out": {
+      "n": 261,
+      "structures_held_out": 25,
+      "spearman": 0.4294881536241902,
+      "pearson": 0.4376311616996642,
+      "rmse": 0.8836696517979136,
+      "mae": 0.6584683384827291,
+      "auc_find_stabilising": 0.71840242669363,
+      "rmse_predicting_the_mean": 0.9791397014698022,
+      "beats_predicting_the_mean": true
+    },
+    "in_sample": {
+      "n": 261,
+      "spearman": 0.5500450753029819,
+      "pearson": 0.5867746813026651,
+      "rmse": 0.7949000974693005
+    },
+    "validation": "leave-one-structure-out: every reported number comes from a model that never saw any mutation from the structure it was scored on"
+  },
+  "provenance": {
+    "atlas_entries": 273,
+    "skempi_entries": 189,
+    "overlapping_mutations": 94,
+    "pooled_unique": 368,
+    "scored": 261,
+    "sources": [
+      "ATLAS",
+      "SKEMPI 2.0 (TCR/pMHC subset)"
+    ]
+  }
+}

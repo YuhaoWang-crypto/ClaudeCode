@@ -184,20 +184,88 @@ def plot_gate_funnel(mutations: list[Mutation], path: Path) -> Path:
     return path
 
 
+def plot_calibration(entries, predictions, results: dict, path: Path) -> Path:
+    """Three panels: the unfitted score, the held-out fit, and per-structure spread."""
+    measured = np.array([e.ddg for e in entries], dtype=float)
+    triage = np.array([e.triage_score for e in entries], dtype=float)
+    predictions = np.asarray(predictions, dtype=float)
+    usable = ~np.isnan(predictions)
+
+    fig, axes = plt.subplots(1, 3, figsize=(16, 5))
+
+    unfitted = results["unfitted"]
+    axes[0].scatter(triage, measured, s=18, alpha=0.6, color="#718096")
+    axes[0].axhline(0, color="black", lw=0.8)
+    axes[0].set_xlabel("triage score, as shipped (a.u.)")
+    axes[0].set_ylabel("measured ddG (kcal/mol)")
+    axes[0].set_title(
+        f"Hand-weighted score\nSpearman {unfitted['spearman']:+.3f} "
+        "(negative would be correct)"
+    )
+    axes[0].grid(alpha=0.3)
+
+    held = results["fitted_extended"]["held_out"]
+    axes[1].scatter(
+        predictions[usable], measured[usable], s=18, alpha=0.6, color="#2b6cb0"
+    )
+    limits = [
+        min(predictions[usable].min(), measured[usable].min()) - 0.5,
+        max(predictions[usable].max(), measured[usable].max()) + 0.5,
+    ]
+    axes[1].plot(limits, limits, color="#c05621", lw=1, ls="--", label="y = x")
+    axes[1].set_xlim(limits)
+    axes[1].set_ylim(limits)
+    axes[1].set_xlabel("predicted ddG, held out by structure (kcal/mol)")
+    axes[1].set_ylabel("measured ddG (kcal/mol)")
+    spearman_text = (
+        "n/a" if held["spearman"] is None else f"{held['spearman']:+.3f}"
+    )
+    axes[1].set_title(
+        f"Fitted on structural measurements\n"
+        f"held-out Spearman {spearman_text}, RMSE {held['rmse']:.2f}"
+    )
+    axes[1].legend()
+    axes[1].grid(alpha=0.3)
+
+    per_structure = unfitted["per_structure"]
+    names = list(per_structure)
+    values = [
+        per_structure[n]["spearman"] if per_structure[n]["spearman"] is not None else 0.0
+        for n in names
+    ]
+    colours = ["#2f855a" if v < 0 else "#9b2c2c" for v in values]
+    axes[2].barh(names, values, color=colours)
+    axes[2].axvline(0, color="black", lw=0.8)
+    axes[2].set_xlabel("Spearman of shipped score vs ddG")
+    axes[2].set_title(
+        "Per structure (green = correct sign)\nthe score does not transfer"
+    )
+    axes[2].invert_yaxis()
+    axes[2].grid(axis="x", alpha=0.3)
+
+    fig.tight_layout()
+    fig.savefig(path, dpi=150)
+    plt.close(fig)
+    return path
+
+
 def _mutation_table(rows: list[Mutation], limit: int = 12) -> str:
     if not rows:
         return "_none_\n"
     header = (
-        "| mutant | loop | score (a.u.) | z | pep contacts | MHC contacts | "
-        "MHC frac | buried | why |\n"
-        "|---|---|---|---|---|---|---|---|---|\n"
+        "| mutant | loop | predicted ddG | score (a.u.) | z | pep contacts | "
+        "MHC contacts | MHC frac | buried | why |\n"
+        "|---|---|---|---|---|---|---|---|---|---|\n"
     )
     lines = []
     for mutation in rows[:limit]:
         z = mutation.peptide_z if mutation.peptide_z is not None else mutation.z_score
         why = mutation.notes[0] if mutation.notes else "-"
+        predicted = (
+            "-" if mutation.predicted_ddg is None else f"{mutation.predicted_ddg:+.2f}"
+        )
         lines.append(
-            f"| `{mutation.name}` | {mutation.loop or '-'} | "
+            f"| `{mutation.name}` | {mutation.loop or '-'} | {predicted} | "
             f"{mutation.triage_score:+.2f} | {z:+.2f} | "
             f"{mutation.contacts_peptide} | {mutation.contacts_mhc} | "
             f"{mutation.mhc_contact_fraction:.2f} | "
@@ -340,8 +408,11 @@ def write_report(
         "",
         "### Advance",
         "",
-        "Clean, peptide-focused, above threshold. These are the candidates worth "
-        "spending real compute on.",
+        "Clean, peptide-focused, and predicted to tighten binding. These are the "
+        "candidates worth spending real compute on. When this list is empty, the "
+        "best surviving candidates are still handed to tier 2: the calibrated "
+        "model is known to under-call real improvements, so an empty list is a "
+        "reason to spend the compute rather than to stop.",
         "",
         _mutation_table(advance),
         "### Watch for specificity",
@@ -426,21 +497,31 @@ def write_report(
         "",
         "## 6. Honest limits of this pipeline",
         "",
-        "**The triage score fails its own retrospective benchmark.** The one test "
-        "buildable from public structures is the DMF5 TCR: `3QDG` is wild type and "
-        "`4L3E` is a designed variant reported at roughly 400-fold improved "
-        "affinity with retained specificity. Run "
-        "`python -m tcr_design validate 3QDG 4L3E` and the two substitutions that "
-        "achieved that (alpha D26Y in CDR1, beta L98W in CDR3) rank in the 47th "
-        "and 44th percentile of a blind scan: no better than chance. One of them "
-        "is rejected outright by the specificity gate, because in the wild-type "
-        "structure that position contacts only MHC, yet the published variant kept "
-        "its specificity. Two mutations is a smoke test rather than a benchmark, "
-        "but the direction is clear and it is the number to keep in mind before "
-        "acting on any ranking above.",
+        "**Both the heuristic and the calibrated model fail the retrospective "
+        "benchmark.** The one test buildable from public structures is the DMF5 "
+        "TCR: `3QDG` is wild type and `4L3E` is a designed variant reported at "
+        "roughly 400-fold improved affinity with retained specificity. The two "
+        "substitutions that achieved it (alpha D26Y in CDR1, beta L98W in CDR3) "
+        "rank in the 47th and 44th percentile of a blind scan with the raw "
+        "heuristic, and the 25th and 26th with the calibrated model refitted "
+        "without those structures. Calibration roughly halves the percentile, and "
+        "L98W becomes the top-ranked substitution of 19 at its own position, but "
+        "both are still predicted to *weaken* binding when D26Y in fact tightens "
+        "it by about 1.8 kcal/mol. Neither would have been shortlisted. Run "
+        "`python -m tcr_design validate 3QDG 4L3E --calibrated` to reproduce it.",
         "",
-        "* The triage score is unfitted and ships no calibration set. Treat its "
-        "ranking as a way to allocate compute, never as a result.",
+        "* Against pooled ATLAS and SKEMPI measurements the calibrated model "
+        "reaches a held-out Spearman of about +0.43 and an RMSE near 0.88 "
+        "kcal/mol, versus 0.98 for predicting the mean. That is real but weak, and "
+        "its predictions are compressed towards the middle of the range, so it "
+        "rarely calls anything strongly stabilising.",
+        "* The benchmark behind it is dominated by alanine scanning, so the model "
+        "mostly learned that deleting a buried side chain weakens binding. Adding "
+        "volume to gain affinity is the rarer direction and the one design needs.",
+        "* The raw triage score is unfitted. Against the same measurements its "
+        "correlation with ddG is about -0.08, which is no signal at all; refitting "
+        "its six weights does not beat predicting the mean. Treat it as a way to "
+        "allocate compute, never as a result.",
         "* The specificity gate uses contact partitioning in a single wild-type "
         "structure as a proxy for cross-reactivity risk. The DMF5 case above shows "
         "that proxy is crude: an MHC-contacting position can be enhanced without "

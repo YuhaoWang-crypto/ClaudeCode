@@ -7,13 +7,14 @@
     {
       "name": "D:D26Y",
       "loop": "A-CDR1",
-      "rank": 216,
+      "rank": 112,
       "total": 456,
-      "percentile": 47.36842105263158,
-      "position_rank": 15,
+      "percentile": 24.56140350877193,
+      "position_rank": 5,
       "position_total": 19,
       "triage_score": -0.23580050591702517,
       "z_score": 0.24923589520375436,
+      "predicted_ddg": 0.14350354162943502,
       "verdict": "reject-specificity",
       "contacts_peptide": 0,
       "contacts_mhc": 14,
@@ -24,13 +25,14 @@
     {
       "name": "E:L98W",
       "loop": "B-CDR3",
-      "rank": 199,
+      "rank": 117,
       "total": 456,
-      "percentile": 43.64035087719298,
-      "position_rank": 5,
+      "percentile": 25.657894736842106,
+      "position_rank": 1,
       "position_total": 19,
       "triage_score": -0.14906302637641258,
       "z_score": 0.3243592107313626,
+      "predicted_ddg": 0.15757814864554287,
       "verdict": "below-threshold",
       "contacts_peptide": 4,
       "contacts_mhc": 5,
@@ -41,7 +43,15 @@
   ],
   "known_mutations_not_scanned": [],
   "non_tcr_differences": [],
-  "median_percentile": 47.36842105263158,
+  "median_percentile": 25.657894736842106,
   "would_have_advanced": [],
-  "verdict": "FAILED: none of the 2 experimentally validated mutations would have been shortlisted. Median rank was the 47th percentile, which is indistinguishable from picking at random. The score should not be trusted to enrich for real affinity gains."
+  "verdict": "FAILED: none of the 2 experimentally validated mutations would have been shortlisted; median rank was the 26th percentile. 1 of 2 ranked in the top 3 of the 19 substitutions available at their own position (E:L98W 1/19). So there is some signal in which substitution to choose at a given position, but not enough to clear the threshold for calling a mutation an improvement at all.",
+  "model": {
+    "excluded_structures": [
+      "3QDG",
+      "4L3E"
+    ],
+    "training_mutations": 243,
+    "training_structures": 23
+  }
 }

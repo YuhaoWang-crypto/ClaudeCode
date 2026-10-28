@@ -12,7 +12,7 @@ AlphaFold3 is the better choice for TCR-pMHC and should be run first if you
 have access to the weights:
 
 ```bash
-python run_alphafold.py --json_path=alphafold3/D_Q30E.json \
+python run_alphafold.py --json_path=alphafold3/D_T93W.json \
   --model_dir=$AF3_WEIGHTS --output_dir=af3_out
 ```
 

@@ -32,7 +32,7 @@ from dataclasses import dataclass
 from pathlib import Path
 
 from .liability import apply_gates
-from .scan import Mutation, scan_complex
+from .scan import Mutation, ranking_key as _ranking_key, scan_complex
 from .structure import Complex, load_complex
 
 # Known wild-type / engineered-variant structure pairs.
@@ -62,6 +62,7 @@ class RankedKnown:
     position_total: int
     triage_score: float
     z_score: float
+    predicted_ddg: float | None
     verdict: str
     contacts_peptide: int
     contacts_mhc: int
@@ -115,7 +116,7 @@ def locate_in_scan(
     mutations: list[Mutation], chain: str, number: int, mutant_aa: str
 ) -> RankedKnown | None:
     """Find a specific substitution in a completed scan and report its rank."""
-    ranked = sorted(mutations, key=lambda m: -m.triage_score)
+    ranked = sorted(mutations, key=_ranking_key)
     total = len(ranked)
     match = None
     rank = -1
@@ -132,7 +133,7 @@ def locate_in_scan(
 
     same_position = sorted(
         [m for m in mutations if m.chain == chain and m.number == number],
-        key=lambda m: -m.triage_score,
+        key=_ranking_key,
     )
     position_rank = next(
         i for i, m in enumerate(same_position, start=1) if m.mutant == mutant_aa
@@ -147,6 +148,7 @@ def locate_in_scan(
         position_total=len(same_position),
         triage_score=match.triage_score,
         z_score=match.z_score,
+        predicted_ddg=match.predicted_ddg,
         verdict=match.verdict,
         contacts_peptide=match.contacts_peptide,
         contacts_mhc=match.contacts_mhc,
@@ -161,8 +163,15 @@ def retrospective_check(
     cache_dir: Path,
     min_contacts: int = 3,
     z_threshold: float = 1.0,
+    ddg_model=None,
 ) -> dict:
-    """Score a wild-type complex blind, then look up the known mutations."""
+    """Score a wild-type complex blind, then look up the known mutations.
+
+    When ``ddg_model`` is supplied the ranking uses its predicted ddG instead
+    of the hand-weighted score. For the result to mean anything, that model
+    must have been fitted without the structures being tested here; see
+    ``benchmark.fit_excluding``.
+    """
     wild_type = load_complex(wild_type_id, cache_dir)
     variant = load_complex(variant_id, cache_dir)
 
@@ -172,7 +181,7 @@ def retrospective_check(
 
     mutations = apply_gates(
         wild_type,
-        scan_complex(wild_type, min_contacts=min_contacts),
+        scan_complex(wild_type, min_contacts=min_contacts, ddg_model=ddg_model),
         z_threshold=z_threshold,
     )
 
@@ -217,23 +226,48 @@ def _summarise(results: list[RankedKnown], median_percentile: float | None) -> s
     n = len(results)
     if median_percentile is None:
         return "inconclusive"
+
+    # Being ranked first among the 19 substitutions available at a position is
+    # informative even when the absolute threshold was not met, because that is
+    # the choice a designer actually faces once a position is selected.
+    top_at_position = [r for r in results if r.position_rank <= 3]
+    position_note = (
+        f" {len(top_at_position)} of {n} ranked in the top 3 of the 19 "
+        f"substitutions available at their own position"
+        f" ({', '.join(f'{r.name} {r.position_rank}/{r.position_total}' for r in top_at_position)})."
+        if top_at_position
+        else ""
+    )
+
     if median_percentile <= 10 and len(advanced) == n:
         return (
             f"Enriched: all {n} experimentally validated mutations landed in the "
             f"top {median_percentile:.0f}% of the blind scan and all would have "
-            "been shortlisted. With n this small that is encouraging, not proof."
+            f"been shortlisted.{position_note} With n this small that is "
+            "encouraging, not proof."
         )
     if len(advanced) == 0:
-        return (
+        verdict = (
             f"FAILED: none of the {n} experimentally validated mutations would "
-            f"have been shortlisted. Median rank was the {median_percentile:.0f}th "
-            "percentile, which is indistinguishable from picking at random. The "
-            "score should not be trusted to enrich for real affinity gains."
+            f"have been shortlisted; median rank was the "
+            f"{median_percentile:.0f}th percentile.{position_note}"
         )
+        if top_at_position:
+            verdict += (
+                " So there is some signal in which substitution to choose at a "
+                "given position, but not enough to clear the threshold for "
+                "calling a mutation an improvement at all."
+            )
+        else:
+            verdict += (
+                " That is indistinguishable from picking at random, and the "
+                "score should not be trusted to enrich for real affinity gains."
+            )
+        return verdict
     return (
         f"Mixed: {len(advanced)} of {n} validated mutations would have been "
-        f"shortlisted, median percentile {median_percentile:.0f}. Too weak to "
-        "rely on and too small a sample to characterise."
+        f"shortlisted, median percentile {median_percentile:.0f}.{position_note} "
+        "Too weak to rely on and too small a sample to characterise."
     )
 
 
@@ -334,15 +368,18 @@ def format_report(result: dict) -> str:
         f"{result['wild_type']} with no knowledge of the engineered variant, then "
         "looked up where the known substitutions ranked.",
         "",
-        "| mutation | loop | rank | percentile | rank at position | verdict | "
-        "pep contacts | MHC contacts |",
-        "|---|---|---|---|---|---|---|---|",
+        "| mutation | loop | rank | percentile | rank at position | predicted ddG | "
+        "verdict | pep contacts | MHC contacts |",
+        "|---|---|---|---|---|---|---|---|---|",
     ]
     for row in result["known_mutations"]:
+        predicted = row.get("predicted_ddg")
+        predicted_text = "-" if predicted is None else f"{predicted:+.2f}"
         lines.append(
             f"| `{row['name']}` | {row['loop'] or '-'} | "
             f"{row['rank']}/{row['total']} | top {row['percentile']:.0f}% | "
-            f"{row['position_rank']}/{row['position_total']} | {row['verdict']} | "
+            f"{row['position_rank']}/{row['position_total']} | {predicted_text} | "
+            f"{row['verdict']} | "
             f"{row['contacts_peptide']} | {row['contacts_mhc']} |"
         )
     lines += [

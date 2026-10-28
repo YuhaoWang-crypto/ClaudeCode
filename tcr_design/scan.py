@@ -66,6 +66,9 @@ class Mutation:
     triage_score: float = 0.0
     z_score: float = 0.0
     peptide_z: float | None = None
+    # Filled in when the calibrated model is available: predicted change in
+    # binding free energy, kcal/mol, negative meaning tighter binding.
+    predicted_ddg: float | None = None
 
     contacts_peptide: int = 0
     contacts_mhc: int = 0
@@ -88,6 +91,19 @@ class Mutation:
         row["liabilities"] = "; ".join(self.liabilities)
         row["notes"] = "; ".join(self.notes)
         return row
+
+
+def ranking_key(mutation: Mutation):
+    """Sort key putting the most promising candidate first.
+
+    Predicted ddG wins when the calibrated model is available, because it is
+    the only quantity here with a measured relationship to binding. Otherwise
+    fall back to the heuristic's z-score.
+    """
+    if mutation.predicted_ddg is not None:
+        return mutation.predicted_ddg  # lower is tighter binding
+    z = mutation.peptide_z if mutation.peptide_z is not None else mutation.z_score
+    return -z
 
 
 def _packing_term(residue: Residue, wt: str, mut: str) -> tuple[float, list[str]]:
@@ -264,6 +280,7 @@ def scan_complex(
     min_contacts: int = 3,
     loops: tuple[str, ...] | None = None,
     include_wild_type: bool = False,
+    ddg_model=None,
 ) -> list[Mutation]:
     """Run saturation mutagenesis over the contacting CDR positions.
 
@@ -279,7 +296,10 @@ def scan_complex(
         for mutant in AA20:
             if mutant == residue.aa and not include_wild_type:
                 continue
-            mutations.append(score_mutation(residue, mutant))
+            mutation = score_mutation(residue, mutant)
+            if ddg_model is not None:
+                mutation.predicted_ddg = ddg_model.predict(residue, mutation)
+            mutations.append(mutation)
 
     # Report each score relative to the scan as a whole. A z-score is the
     # honest way to read an uncalibrated function: it ranks, it does not

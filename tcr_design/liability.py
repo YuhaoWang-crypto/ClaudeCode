@@ -101,6 +101,7 @@ def apply_gates(
     complex_obj: Complex,
     mutations: list[Mutation],
     z_threshold: float = 1.0,
+    ddg_threshold: float = -0.25,
 ) -> list[Mutation]:
     """Attach liabilities and a final verdict to every scored mutation.
 
@@ -122,12 +123,19 @@ def apply_gates(
         effective_z = (
             mutation.peptide_z if mutation.peptide_z is not None else mutation.z_score
         )
+        # Where the calibrated model is available it decides the threshold,
+        # because it is the only part of this pipeline with a measured
+        # relationship to binding. The z-score is the fallback.
+        if mutation.predicted_ddg is not None:
+            promising = mutation.predicted_ddg <= ddg_threshold
+        else:
+            promising = effective_z >= z_threshold
 
         if hard:
             mutation.verdict = "reject-liability"
         elif mutation.specificity_flag == "mhc-dominated":
             mutation.verdict = "reject-specificity"
-        elif effective_z < z_threshold:
+        elif not promising:
             mutation.verdict = "below-threshold"
         elif mutation.specificity_flag == "mhc-leaning":
             mutation.verdict = "watch-specificity"

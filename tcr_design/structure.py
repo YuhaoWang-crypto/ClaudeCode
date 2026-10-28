@@ -200,28 +200,46 @@ def type_chains(
 
     peptide_candidates = [c for c, s in sequences.items() if 7 <= len(s) <= 20]
     tcr_candidates: list[str] = []
+    extra_copies: list[str] = []
 
     for chain_id, seq in sequences.items():
         if chain_id in peptide_candidates:
             continue
-        if _match_fingerprint(seq, "b2m") or (90 <= len(seq) <= 110 and "b2m" not in roles):
-            if _match_fingerprint(seq, "b2m"):
-                roles["b2m"] = chain_id
-                notes.append(f"chain {chain_id} -> beta-2 microglobulin (sequence fingerprint)")
-                continue
-        if _match_fingerprint(seq, "mhc_i"):
-            roles["mhc"] = chain_id
-            notes.append(f"chain {chain_id} -> MHC class I heavy chain (sequence fingerprint)")
+        # Crystal forms often contain several copies of the complex in the
+        # asymmetric unit. Keep the first copy of each role: later copies are
+        # redundant, and author numbering in the external databases that this
+        # package is benchmarked against refers to the first one.
+        matched_role = None
+        if _match_fingerprint(seq, "b2m"):
+            matched_role = "b2m"
+        elif _match_fingerprint(seq, "mhc_i"):
+            matched_role = "mhc"
+        elif _match_fingerprint(seq, "trac"):
+            matched_role = "tcr_alpha"
+        elif _match_fingerprint(seq, "trbc"):
+            matched_role = "tcr_beta"
+
+        if matched_role is None:
+            tcr_candidates.append(chain_id)
             continue
-        if _match_fingerprint(seq, "trac"):
-            roles["tcr_alpha"] = chain_id
-            notes.append(f"chain {chain_id} -> TCR alpha (TRAC constant-domain fingerprint)")
+        if matched_role in roles:
+            extra_copies.append(chain_id)
             continue
-        if _match_fingerprint(seq, "trbc"):
-            roles["tcr_beta"] = chain_id
-            notes.append(f"chain {chain_id} -> TCR beta (TRBC constant-domain fingerprint)")
-            continue
-        tcr_candidates.append(chain_id)
+        roles[matched_role] = chain_id
+        label = {
+            "b2m": "beta-2 microglobulin",
+            "mhc": "MHC class I heavy chain",
+            "tcr_alpha": "TCR alpha (TRAC constant domain)",
+            "tcr_beta": "TCR beta (TRBC constant domain)",
+        }[matched_role]
+        notes.append(f"chain {chain_id} -> {label} (sequence fingerprint)")
+
+    if extra_copies:
+        notes.append(
+            f"ignored {len(extra_copies)} redundant chain(s) from additional "
+            f"copies of the complex in the asymmetric unit: "
+            + ", ".join(sorted(extra_copies))
+        )
 
     # Chains that look like an immunoglobulin V domain but had no constant
     # domain to fingerprint.

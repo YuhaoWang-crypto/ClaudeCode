@@ -32,7 +32,7 @@ the most useful thing the demo has to say.
 | Epitope specificity from sequence, **unseen epitopes** | ❌ near random | — |
 | Effect of a point mutation in a peptide | ❌ **chance-level** | — |
 | Affinity from co-folding confidence | ❌ not affinity | — |
-| A TCR-specific ΔΔG predictor | ❌ **does not exist** | — |
+| A TCR-specific ΔΔG predictor | ❌ **does not exist** (this package fits a weak one, §2) | — |
 | An "RF-TCR" diffusion model | ❌ **does not exist** | — |
 
 ### 1.2 Structure prediction — the mature layer
@@ -247,6 +247,7 @@ python -m tcr_design run 1AO7 --outdir results/1ao7
 |---|---|---|
 | 1. Interface | Chain typing, CDR loops, contact maps, Shrake–Rupley burial, side-chain void probing | **measured** — deterministic geometry of the input structure |
 | 2. Scan | Saturation mutagenesis over contacting CDR positions, six-term component score | **heuristic** — uncalibrated, arbitrary units |
+| 2b. Calibrated ΔΔG | Ridge model over measured structural descriptors, fitted to ATLAS + SKEMPI | **calibrated but weak** — held-out Spearman +0.43, RMSE 0.88 kcal/mol |
 | 3. Gates | Peptide-vs-MHC contact partitioning; developability liability motifs | **heuristic** — flags risk, does not measure it |
 | 4. Off-target | Contact-weighted epitope motif → HLA anchor filter → reviewed human proteome | **heuristic** — a similarity shortlist, not a prediction |
 | 5. Handoff | AlphaFold3 / Boltz / Rosetta resfiles / FoldX / ProteinMPNN inputs + exact commands | **needs external tool** |
@@ -285,38 +286,142 @@ reduces 11.25M proteome windows to a ranked shortlist; the top human mimic of
 `LLFGYPVYV` is `LLNNYPVYI` (BEND4), matching 6 of 8 weighted positions including
 both tyrosines.
 
-### The benchmark the scoring function fails
+### Calibration against measured ΔΔG
 
 ```bash
-python -m tcr_design validate 3QDG 4L3E
+python -m tcr_design benchmark --save-model
 ```
 
-`3QDG` is wild-type DMF5; `4L3E` is the Pierce 2014 designed variant at ~400-fold
-improved affinity. The pipeline diffs the two structures, recovers the two
-substitutions (**αD26Y** in CDR1α, **βL98W** in CDR3β), scans the wild type
-blind, and looks up where they ranked:
+This pulls both public sources of measured TCR–pMHC mutation affinities,
+scores every mutation structurally, and fits a model — validated
+**leave-one-structure-out**, so it never sees the receptor it is scored on.
 
-| mutation | loop | rank | percentile | verdict | pep contacts | MHC contacts |
-|---|---|---|---|---|---|---|
-| `D:D26Y` | A-CDR1 | 216/456 | top 47% | **reject-specificity** | 0 | 14 |
-| `E:L98W` | B-CDR3 | 199/456 | top 44% | **below-threshold** | 4 | 5 |
+| source | entries |
+|---|---|
+| [ATLAS](https://atlas.ibbr.umd.edu) — TCR-side single mutants with ΔΔG | 273 |
+| [SKEMPI 2.0](https://life.bsc.es/pid/skempi2/) — `TCR/pMHC` subset, single mutants | 189 |
+| overlapping between the two | 94 |
+| **pooled unique** | **368** |
+| mapped onto structures and scored | 261 (25 structures) |
 
-**Outcome: failed.** Neither experimentally validated mutation would have been
-shortlisted; the median rank is the 47th percentile, indistinguishable from
-chance. Worse, αD26Y is *rejected* by the specificity gate because it contacts
-only MHC in the wild-type structure — yet the published variant retained its
-specificity. Two mutations is a smoke test, not a benchmark, but the direction
-is clear:
+ΔΔG = RT·ln(Kd_mut/Kd_wt), positive meaning weaker binding.
 
-- **The triage score has no demonstrated enrichment for real affinity gains.**
-  Use it to allocate compute, never as a result.
-- **The specificity gate's contact-partitioning proxy is crude.** An
-  MHC-contacting position can be enhanced without losing specificity.
+**Result 1 — the hand-weighted score is worthless.**
 
-This is why the package is built as a funnel into AlphaFold3/Rosetta/FoldX/MM-PBSA
-rather than as a predictor. To benchmark properly, point
-`validate.benchmark_from_csv` at ATLAS mutant affinities — it reports Spearman
-against measured ΔΔG.
+| | Spearman vs ΔΔG | AUC, finding stabilising |
+|---|---|---|
+| shipped heuristic | −0.082 | 0.542 |
+
+(A working score gives a *negative* Spearman; AUC above 0.5 is correct.) Per
+structure it ranges from −0.78 to +0.75 — i.e. noise.
+
+**Result 2 — refitting the six weights does not help.** Held-out Spearman
++0.125, RMSE 0.980 kcal/mol against 0.979 for predicting the training mean. The
+six hand-crafted terms carry essentially no transferable signal, and no choice
+of weights rescues them.
+
+**Result 3 — the raw structural measurements do carry signal.** Fitting ridge
+regression on 20 measured descriptors (burial, ΔSASA, contact counts, void,
+partner charge/polarity, Δvolume, Δhydropathy, and so on) instead of the six
+derived terms:
+
+| | held out | in sample |
+|---|---|---|
+| Spearman | **+0.429** | +0.550 |
+| Pearson | **+0.438** | +0.587 |
+| RMSE (kcal/mol) | **0.884** | 0.795 |
+| AUC, finding stabilising | **0.718** | — |
+
+versus 0.979 RMSE for predicting the mean. The fitted coefficients are
+physically sensible — larger side chain → tighter; mutating a buried,
+peptide-contacting position → weaker; mutating away from glycine → weaker —
+which is a reasonable sign it learned energetics rather than noise.
+
+For context: Rosetta flex ddG reaches R ≈ 0.6–0.7 on *general* protein
+interfaces (no TCR-specific benchmark exists), and MM/PBSA reached r = 0.74–0.9
+against ATLAS on n = 7 and n = 35. This model is weaker than both — and it runs
+in CPU-seconds, on 25 structures, with honest leave-one-structure-out numbers.
+
+The model ships at `tcr_design/data/calibrated_ddg_model.json` and the pipeline
+uses it automatically, reporting predicted ΔΔG in kcal/mol. `--no-calibration`
+falls back to the raw heuristic.
+
+### The benchmark both models still fail
+
+```bash
+python -m tcr_design validate 3QDG 4L3E --calibrated
+```
+
+`3QDG` is wild-type DMF5; `4L3E` is the Pierce 2014 designed variant at
+~400-fold improved affinity. The pipeline diffs the structures, recovers the
+two substitutions (**αD26Y** in CDR1α, **βL98W** in CDR3β), scans the wild type
+blind, and looks up where they ranked. With `--calibrated` the model is
+**refitted without 3QDG and 4L3E** (243 mutations from 23 other structures), so
+there is no leakage.
+
+| mutation | uncalibrated rank | calibrated rank | rank at its own position | predicted ΔΔG | measured ΔΔG |
+|---|---|---|---|---|---|
+| `D:D26Y` | 237/456 (52%) | **112/456 (25%)** | 15/19 → **5/19** | +0.14 | **−1.79** |
+| `E:L98W` | 174/456 (38%) | **117/456 (26%)** | 5/19 → **1/19** | +0.16 | — |
+
+(The DMF5 double mutant αD26Y + βL98W is recorded in ATLAS at **−3.28 kcal/mol**;
+SKEMPI records the αD26Y single at −1.79.)
+
+Calibration roughly **halves** the percentile, and βL98W becomes the
+**top-ranked substitution of 19** at its position. That is real improvement in
+the question a designer actually faces: *given this position, which residue?*
+
+But both are still predicted to **weaken** binding (+0.14, +0.16 kcal/mol) when
+αD26Y in fact tightens it by −1.79. Neither clears the threshold, so neither
+would be shortlisted. **The verdict is still `FAILED`.**
+
+The reason is visible in the middle panel of `results/calibration/calibration.png`:
+predictions are compressed into roughly 0 to +2 kcal/mol while the measurements
+span −2 to +8. The benchmark is dominated by alanine scanning, so the model
+mostly learned *deleting a buried side chain weakens binding*. Adding aromatic
+volume to gain affinity is the rarer direction, and it is exactly the direction
+design cares about.
+
+The compression is easy to quantify on the A6 CDR1α position-26 series, where
+ATLAS has four measurements. **1AO7 is in the training set, so this is in-sample
+and not evidence of generalisation** — but it shows the failure mode cleanly:
+
+| mutation | predicted ΔΔG | measured ΔΔG |
+|---|---|---|
+| `D26W` | −0.14 | **−1.08** |
+| `D26M` | +0.11 | +0.19 |
+| `D26V` | +0.23 | +1.45 |
+| `D26A` | +0.49 | +1.31 |
+
+The *ordering* is essentially right. The *range* is about four-fold too narrow,
+which is precisely why nothing ever clears a threshold set in real kcal/mol.
+
+One encouraging sign, on an unseen receptor: the calibrated model's best picks
+for the A6 TCR are aromatic insertions at peptide-contacting CDR positions
+(`T93W`, `G28W`, `G101W`, `T93F/Y`, `R95W`) — the same chemistry as both
+validated designs in this field. It is pointing at the right kind of change
+while being unable to say how big the change is.
+
+So, honestly:
+
+- **Calibration bought real ranking skill within a position, and no ability to
+  recognise an affinity-improving mutation as such.**
+- **The specificity gate's contact-partitioning proxy is crude.** αD26Y contacts
+  only MHC in the wild-type structure and is rejected on that basis, yet the
+  published variant retained its specificity.
+
+This is why the package remains a funnel into AlphaFold3 / Rosetta / FoldX /
+MM-PBSA rather than a predictor. To extend the benchmark with your own
+measurements, `validate.benchmark_from_csv` takes a CSV of chain/position/mutant/ΔΔG.
+
+#### A note on reaching ATLAS
+
+ATLAS serves a valid certificate but omits its InCommon intermediate, so a
+default trust store cannot build the chain and the download fails. The package
+repairs this properly — it fetches the intermediate from the address named in
+the certificate's own Authority Information Access extension and appends it to
+the bundle (`benchmark.build_atlas_ca_bundle`). TLS verification stays on; no
+`-k`, no `verify=False`.
 
 ### Commands
 
@@ -325,7 +430,9 @@ python -m tcr_design run 1AO7 --outdir results/1ao7          # full pipeline
 python -m tcr_design interface 1AO7                          # geometry only
 python -m tcr_design scan 1AO7 --loops A-CDR3,B-CDR3         # restrict to CDR3s
 python -m tcr_design run 1AO7 --skip-offtarget               # skip the proteome download
-python -m tcr_design validate 3QDG 4L3E                      # retrospective benchmark
+python -m tcr_design run 1AO7 --no-calibration               # raw heuristic only
+python -m tcr_design benchmark --save-model                  # calibrate against ATLAS + SKEMPI
+python -m tcr_design validate 3QDG 4L3E --calibrated         # leakage-free retrospective test
 python -m tcr_design run 5XOV --chains mhc=A,peptide=C,tcr_alpha=D,tcr_beta=E
 ```
 
@@ -334,6 +441,10 @@ Verified to run on 1AO7 (A6/Tax/HLA-A2), 3QDG and 4L3E (DMF5/MART-1).
 ### Outputs
 
 ```
+results/calibration/
+  CALIBRATION.md             # the full calibration write-up
+  calibration_data.csv       # every benchmark mutation, features, held-out prediction
+  calibration.png            # unfitted vs fitted vs per-structure
 results/1ao7/
   REPORT.md                  # labelled markdown report
   summary.json
