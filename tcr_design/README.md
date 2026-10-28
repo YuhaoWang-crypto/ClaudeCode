@@ -59,12 +59,32 @@ weights do not rescue a wrong docking mode.
 | **NetTCRfold-1.0** | [mnielLab/NetTCRfold-1.0](https://github.com/mnielLab/NetTCRfold-1.0) | not stated | TCR–pMHC-specialised AF3 pipeline (Aug 2026). New; requires SLURM |
 | ESMFold | Meta ESM | MIT | Single-chain monomer predictor — **not** a complex predictor. Don't use it for interfaces |
 
-**Second caveat: structure confidence is not affinity.** A Boltz-2 affinity-head
-adaptation reportedly scored r ≈ 0.15 against TCR3d affinity data, and a 2026
-analysis argues the apparent predictive power of AlphaFold-derived scores tracks
-*how the TCR is positioned* over the pMHC rather than the chemistry of the
-contacts. Use co-folding to reject mutants that break the interface, not to rank
-the ones that don't.
+**Second caveat: structure confidence is not affinity.** This is worth stating
+with numbers, because using ΔipTM between a wild type and its point mutants as
+an affinity signal is a common instinct and it has been directly tested:
+
+- **AlphaFold3 ipTM delta vs measured ΔΔG on SKEMPI v2** (7,085 mutations, 348
+  complexes): **Pearson R = 0.102.** The stated reason is mechanical — ipTM
+  operates on a coarse, near-binary scale and cannot express a continuous ΔΔG
+  ([ICLR 2025 GEM workshop](https://openreview.net/pdf/bce908983c69f44ef567607cf4a37711cdaa9a2e.pdf)).
+- **Boltz-2 fine-tuned specifically for protein–protein affinity**, evaluated on
+  TCR3d 2.0 (~251 TCR complexes): **r = 0.153**, and feeding it true
+  experimental structures instead of predicted ones barely moves it (r = 0.159),
+  so structure quality is not the bottleneck. Plain **ESM2-650M sequence
+  embeddings reach r = 0.239** on the same split — a sequence-only model beats
+  the co-folding model ([arXiv:2512.06592](https://arxiv.org/abs/2512.06592)).
+- Separately, AF3 *structures* are excellent ΔΔG substrate when fed to a
+  downstream model (r = 0.86 vs 0.88 with crystal structures), but **ipTM failed
+  to flag the structures with large errors**
+  ([JCIM 2024](https://pubs.acs.org/doi/10.1021/acs.jcim.4c00976)).
+
+The pattern is consistent: the **structures** are useful, the **confidence
+scores** are not the signal. Use co-folding to reject mutants that break the
+interface, not to rank the ones that don't. If you want to use a co-folding
+model quantitatively, take deltas on its *internal embeddings* rather than its
+confidence scores — that is what
+[PreFold-dG](https://academic.oup.com/bioinformatics/article/42/Supplement_2/btag489/8767279)
+does.
 
 ### 1.3 Sequence-based specificity prediction — the unreliable layer
 
