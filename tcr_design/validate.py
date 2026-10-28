@@ -31,6 +31,8 @@ import csv
 from dataclasses import dataclass
 from pathlib import Path
 
+from Bio.Align import PairwiseAligner, substitution_matrices
+
 from .liability import apply_gates
 from .scan import Mutation, ranking_key as _ranking_key, scan_complex
 from .structure import Complex, load_complex
@@ -81,32 +83,57 @@ def diff_structures(
 ) -> list[tuple[str, str, int, str, str, str | None]]:
     """Recover substitutions between two structures of the same receptor.
 
-    Residues are matched by author numbering within the corresponding chain
-    role, which is what makes the comparison meaningful across two separate
-    depositions whose chain letters may differ.
+    Residues are matched by **sequence alignment**, not by author numbering.
+    Two depositions of the same receptor routinely number their chains
+    differently; 2BNR and 2P5E, the wild-type and engineered 1G4 structures,
+    are offset by one residue in the beta chain. Matching on number there
+    reports almost every position as mutated, which is nonsense. Aligning
+    first costs nothing and removes the whole class of error.
 
-    Returns tuples of ``(role, chain_id_in_wild_type, number, wt_aa, var_aa, loop)``.
+    Returns tuples of ``(role, chain_id_in_wild_type, number, wt_aa, var_aa, loop)``,
+    numbered in the wild-type structure's own scheme.
     """
+    aligner = PairwiseAligner()
+    aligner.substitution_matrix = substitution_matrices.load("BLOSUM62")
+    aligner.open_gap_score = -11
+    aligner.extend_gap_score = -1
+    aligner.mode = "global"
+
     differences = []
     for role in ("tcr_alpha", "tcr_beta", "peptide", "mhc"):
         wt_chain = wild_type.chains.get(role)
         var_chain = variant.chains.get(role)
         if not wt_chain or not var_chain:
             continue
-        wt_map = {
-            r.number: r for r in wild_type.residues if r.chain == wt_chain
-        }
-        var_map = {r.number: r for r in variant.residues if r.chain == var_chain}
-        for number in sorted(set(wt_map) & set(var_map)):
-            if wt_map[number].aa != var_map[number].aa:
+        wt_residues = [r for r in wild_type.residues if r.chain == wt_chain]
+        var_residues = [r for r in variant.residues if r.chain == var_chain]
+        if not wt_residues or not var_residues:
+            continue
+
+        wt_sequence = "".join(r.aa for r in wt_residues)
+        var_sequence = "".join(r.aa for r in var_residues)
+        try:
+            alignment = aligner.align(wt_sequence, var_sequence)[0]
+        except (ValueError, IndexError):
+            continue
+
+        # Walk the aligned blocks, comparing residue by residue. Gaps are
+        # insertions or deletions rather than substitutions, so they are
+        # skipped: this function reports point mutations only.
+        for (wt_start, wt_end), (var_start, var_end) in zip(*alignment.aligned):
+            for offset in range(wt_end - wt_start):
+                wt_residue = wt_residues[wt_start + offset]
+                var_residue = var_residues[var_start + offset]
+                if wt_residue.aa == var_residue.aa:
+                    continue
                 differences.append(
                     (
                         role,
                         wt_chain,
-                        number,
-                        wt_map[number].aa,
-                        var_map[number].aa,
-                        wt_map[number].loop or var_map[number].loop,
+                        wt_residue.number,
+                        wt_residue.aa,
+                        var_residue.aa,
+                        wt_residue.loop or var_residue.loop,
                     )
                 )
     return differences
