@@ -184,6 +184,71 @@ def plot_gate_funnel(mutations: list[Mutation], path: Path) -> Path:
     return path
 
 
+def plot_additivity(results: dict, path: Path) -> Path:
+    """Sum-of-parts against measured, and how the error grows with stack size."""
+    pooled = results["pooled"]["decompositions"]
+    if not pooled:
+        return path
+
+    predicted = np.array([r["sum_of_parts"] for r in pooled], dtype=float)
+    measured = np.array([r["measured"] for r in pooled], dtype=float)
+    sizes = np.array([r["n_mutations"] for r in pooled], dtype=float)
+
+    fig, axes = plt.subplots(1, 2, figsize=(13, 5.4))
+
+    scatter = axes[0].scatter(
+        predicted, measured, c=sizes, cmap="viridis", s=55, alpha=0.85,
+        edgecolors="white", linewidths=0.5,
+    )
+    limits = [
+        min(predicted.min(), measured.min()) - 0.5,
+        max(predicted.max(), measured.max()) + 0.5,
+    ]
+    axes[0].plot(limits, limits, "--", color="#c05621", lw=1.2, label="perfect additivity")
+    axes[0].set_xlim(limits)
+    axes[0].set_ylim(limits)
+    axes[0].set_xlabel("sum of the measured parts (kcal/mol)")
+    axes[0].set_ylabel("measured whole (kcal/mol)")
+    axes[0].set_title(
+        "Does stacking mutations add up?\n"
+        "points above the line underdelivered against the sum"
+    )
+    axes[0].legend(loc="upper left")
+    axes[0].grid(alpha=0.3)
+    fig.colorbar(scatter, ax=axes[0], label="mutations stacked")
+
+    within = results["within_study"]["summary"].get("by_stack_size", {})
+    pooled_sizes = results["pooled"]["summary"].get("by_stack_size", {})
+    keys = sorted({int(k) for k in pooled_sizes} | {int(k) for k in within})
+    x = np.arange(len(keys))
+    width = 0.38
+    pooled_values = [pooled_sizes.get(k, {}).get("mean_error", np.nan) for k in keys]
+    within_values = [within.get(k, {}).get("mean_error", np.nan) for k in keys]
+
+    axes[1].bar(x - width / 2, pooled_values, width, label="pooled across studies",
+                color="#a0aec0")
+    axes[1].bar(x + width / 2, within_values, width, label="within one study",
+                color="#2b6cb0")
+    axes[1].axhline(0, color="black", lw=0.9)
+    axes[1].axhspan(-0.5, 0.5, color="#2f855a", alpha=0.12,
+                    label="within 0.5 kcal/mol")
+    axes[1].set_xticks(x)
+    axes[1].set_xticklabels([str(k) for k in keys])
+    axes[1].set_xlabel("mutations stacked")
+    axes[1].set_ylabel("mean error, measured minus predicted (kcal/mol)")
+    axes[1].set_title(
+        "Pairs add up; deep stacks fall short\n"
+        "positive means the stack underdelivered"
+    )
+    axes[1].legend(fontsize=8)
+    axes[1].grid(axis="y", alpha=0.3)
+
+    fig.tight_layout()
+    fig.savefig(path, dpi=150)
+    plt.close(fig)
+    return path
+
+
 def plot_calibration(entries, predictions, results: dict, path: Path) -> Path:
     """Three panels: the unfitted score, the held-out fit, and per-structure spread."""
     measured = np.array([e.ddg for e in entries], dtype=float)

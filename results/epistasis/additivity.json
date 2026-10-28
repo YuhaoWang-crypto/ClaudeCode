@@ -1,0 +1,862 @@
+{
+  "pooled": {
+    "summary": {
+      "n": 51,
+      "mean_error": 0.22400653594771247,
+      "median_error": -0.009999999999999787,
+      "stdev_error": 1.2022245783448504,
+      "fraction_within_half_kcal": 0.45098039215686275,
+      "by_stack_size": {
+        "2": {
+          "n": 14,
+          "mean_error": -0.16028571428571423,
+          "within_half_kcal": 12
+        },
+        "3": {
+          "n": 5,
+          "mean_error": -0.7969999999999999,
+          "within_half_kcal": 2
+        },
+        "4": {
+          "n": 13,
+          "mean_error": 0.005641025641025737,
+          "within_half_kcal": 3
+        },
+        "5": {
+          "n": 11,
+          "mean_error": 0.5130303030303031,
+          "within_half_kcal": 4
+        },
+        "6": {
+          "n": 1,
+          "mean_error": -0.3199999999999994,
+          "within_half_kcal": 1
+        },
+        "7": {
+          "n": 1,
+          "mean_error": 0.9199999999999999,
+          "within_half_kcal": 0
+        },
+        "8": {
+          "n": 5,
+          "mean_error": 1.5923333333333332,
+          "within_half_kcal": 1
+        },
+        "9": {
+          "n": 1,
+          "mean_error": 3.3749999999999996,
+          "within_half_kcal": 0
+        }
+      }
+    },
+    "decompositions": [
+      {
+        "tcr": "4TCR2",
+        "peptide": "VVGAVGVGK",
+        "study_pmid": "pooled",
+        "mutations": "E100V+K51M",
+        "n_mutations": 2,
+        "decomposed_as": "{K51M} | {E100V}",
+        "sum_of_parts": -1.382,
+        "measured": -1.45,
+        "error": -0.068,
+        "behaviour": "additive"
+      },
+      {
+        "tcr": "4TCR2",
+        "peptide": "VVGAVGVGK",
+        "study_pmid": "pooled",
+        "mutations": "E100H+K51M",
+        "n_mutations": 2,
+        "decomposed_as": "{K51M} | {E100H}",
+        "sum_of_parts": -1.499,
+        "measured": -1.64,
+        "error": -0.141,
+        "behaviour": "additive"
+      },
+      {
+        "tcr": "4TCR2",
+        "peptide": "VVGAVGVGK",
+        "study_pmid": "pooled",
+        "mutations": "E100M+K51M",
+        "n_mutations": 2,
+        "decomposed_as": "{K51M} | {E100M}",
+        "sum_of_parts": -0.737,
+        "measured": -0.807,
+        "error": -0.07,
+        "behaviour": "additive"
+      },
+      {
+        "tcr": "A6",
+        "peptide": "LLFGYPVYV",
+        "study_pmid": "pooled",
+        "mutations": "G28I+S100A",
+        "n_mutations": 2,
+        "decomposed_as": "{G28I} | {S100A}",
+        "sum_of_parts": -0.43,
+        "measured": -0.38,
+        "error": 0.05,
+        "behaviour": "additive"
+      },
+      {
+        "tcr": "A6",
+        "peptide": "LLFGYPVYV",
+        "study_pmid": "pooled",
+        "mutations": "G28I+S100T",
+        "n_mutations": 2,
+        "decomposed_as": "{G28I} | {S100T}",
+        "sum_of_parts": -0.76,
+        "measured": -0.9,
+        "error": -0.14,
+        "behaviour": "additive"
+      },
+      {
+        "tcr": "A6",
+        "peptide": "LLFGYPVYV",
+        "study_pmid": "pooled",
+        "mutations": "G28L+S100A",
+        "n_mutations": 2,
+        "decomposed_as": "{G28L} | {S100A}",
+        "sum_of_parts": -0.62,
+        "measured": -0.51,
+        "error": 0.11,
+        "behaviour": "additive"
+      },
+      {
+        "tcr": "A6",
+        "peptide": "LLFGYPVYV",
+        "study_pmid": "pooled",
+        "mutations": "G28L+S100T",
+        "n_mutations": 2,
+        "decomposed_as": "{G28L} | {S100T}",
+        "sum_of_parts": -0.95,
+        "measured": -1.03,
+        "error": -0.08,
+        "behaviour": "additive"
+      },
+      {
+        "tcr": "A6",
+        "peptide": "LLFGYPVYV",
+        "study_pmid": "pooled",
+        "mutations": "G28M+S100A",
+        "n_mutations": 2,
+        "decomposed_as": "{G28M} | {S100A}",
+        "sum_of_parts": -0.67,
+        "measured": -0.8,
+        "error": -0.13,
+        "behaviour": "additive"
+      },
+      {
+        "tcr": "A6",
+        "peptide": "LLFGYPVYV",
+        "study_pmid": "pooled",
+        "mutations": "G28M+S100T",
+        "n_mutations": 2,
+        "decomposed_as": "{G28M} | {S100T}",
+        "sum_of_parts": -1.0,
+        "measured": -1.75,
+        "error": -0.75,
+        "behaviour": "synergistic"
+      },
+      {
+        "tcr": "A6",
+        "peptide": "LLFGYPVYV",
+        "study_pmid": "pooled",
+        "mutations": "G101A+R102Q",
+        "n_mutations": 2,
+        "decomposed_as": "{G101A} | {R102Q}",
+        "sum_of_parts": -0.64,
+        "measured": -1.56,
+        "error": -0.92,
+        "behaviour": "synergistic"
+      },
+      {
+        "tcr": "A6",
+        "peptide": "LLFGYPVYV",
+        "study_pmid": "pooled",
+        "mutations": "A99M+G100S",
+        "n_mutations": 2,
+        "decomposed_as": "{A99M} | {G100S}",
+        "sum_of_parts": -0.635,
+        "measured": -1.04,
+        "error": -0.405,
+        "behaviour": "additive"
+      },
+      {
+        "tcr": "DMF5",
+        "peptide": "AAGIGILTV",
+        "study_pmid": "pooled",
+        "mutations": "D26W+L98W",
+        "n_mutations": 2,
+        "decomposed_as": "{D26W} | {L98W}",
+        "sum_of_parts": -2.98,
+        "measured": -2.53,
+        "error": 0.45,
+        "behaviour": "additive"
+      },
+      {
+        "tcr": "DMF5",
+        "peptide": "AAGIGILTV",
+        "study_pmid": "pooled",
+        "mutations": "D26Y+L98W",
+        "n_mutations": 2,
+        "decomposed_as": "{D26Y} | {L98W}",
+        "sum_of_parts": -2.15,
+        "measured": -1.91,
+        "error": 0.24,
+        "behaviour": "additive"
+      },
+      {
+        "tcr": "TCR156",
+        "peptide": "TLMSAMTNL",
+        "study_pmid": "pooled",
+        "mutations": "S30E+S32Q",
+        "n_mutations": 2,
+        "decomposed_as": "{S30E} | {S32Q}",
+        "sum_of_parts": -0.18,
+        "measured": -0.57,
+        "error": -0.39,
+        "behaviour": "additive"
+      },
+      {
+        "tcr": "A6",
+        "peptide": "LLFGYPVYV",
+        "study_pmid": "pooled",
+        "mutations": "A99M+G100S+G101A",
+        "n_mutations": 3,
+        "decomposed_as": "{G101A} | {A99M,G100S}",
+        "sum_of_parts": -2.13,
+        "measured": -3.545,
+        "error": -1.415,
+        "behaviour": "synergistic"
+      },
+      {
+        "tcr": "A6",
+        "peptide": "LLFGYPVYV",
+        "study_pmid": "pooled",
+        "mutations": "A99M+G100S+G101A",
+        "n_mutations": 3,
+        "decomposed_as": "{A99M} | {G100S} | {G101A}",
+        "sum_of_parts": -1.725,
+        "measured": -3.545,
+        "error": -1.82,
+        "behaviour": "synergistic"
+      },
+      {
+        "tcr": "A6",
+        "peptide": "LLFGYPVYV",
+        "study_pmid": "pooled",
+        "mutations": "G28M+S100T+S51M",
+        "n_mutations": 3,
+        "decomposed_as": "{S51M} | {G28M,S100T}",
+        "sum_of_parts": -2.12,
+        "measured": -2.13,
+        "error": -0.01,
+        "behaviour": "additive"
+      },
+      {
+        "tcr": "A6",
+        "peptide": "LLFGYPVYV",
+        "study_pmid": "pooled",
+        "mutations": "G28M+S100T+S51M",
+        "n_mutations": 3,
+        "decomposed_as": "{G28M} | {S51M} | {S100T}",
+        "sum_of_parts": -1.37,
+        "measured": -2.13,
+        "error": -0.76,
+        "behaviour": "synergistic"
+      },
+      {
+        "tcr": "A6",
+        "peptide": "LLFGYPVYV",
+        "study_pmid": "pooled",
+        "mutations": "G28T+S100T+S51M",
+        "n_mutations": 3,
+        "decomposed_as": "{G28T} | {S51M} | {S100T}",
+        "sum_of_parts": -1.62,
+        "measured": -1.6,
+        "error": 0.02,
+        "behaviour": "additive"
+      },
+      {
+        "tcr": "A6",
+        "peptide": "LLFGYPVYV",
+        "study_pmid": "pooled",
+        "mutations": "A99M+G100S+G101A+R102E",
+        "n_mutations": 4,
+        "decomposed_as": "{A99M} | {G100S,G101A,R102E}",
+        "sum_of_parts": -3.755,
+        "measured": -3.9,
+        "error": -0.145,
+        "behaviour": "additive"
+      },
+      {
+        "tcr": "A6",
+        "peptide": "LLFGYPVYV",
+        "study_pmid": "pooled",
+        "mutations": "A99M+G100S+G101A+R102Q",
+        "n_mutations": 4,
+        "decomposed_as": "{R102Q} | {A99M,G100S,G101A}",
+        "sum_of_parts": -3.095,
+        "measured": -3.957,
+        "error": -0.862,
+        "behaviour": "synergistic"
+      },
+      {
+        "tcr": "A6",
+        "peptide": "LLFGYPVYV",
+        "study_pmid": "pooled",
+        "mutations": "A99M+G100S+G101A+R102Q",
+        "n_mutations": 4,
+        "decomposed_as": "{G101A,R102Q} | {A99M,G100S}",
+        "sum_of_parts": -2.6,
+        "measured": -3.957,
+        "error": -1.357,
+        "behaviour": "synergistic"
+      },
+      {
+        "tcr": "A6",
+        "peptide": "LLFGYPVYV",
+        "study_pmid": "pooled",
+        "mutations": "A99M+G100S+G101A+R102Q",
+        "n_mutations": 4,
+        "decomposed_as": "{A99M} | {G100S} | {G101A,R102Q}",
+        "sum_of_parts": -2.195,
+        "measured": -3.957,
+        "error": -1.762,
+        "behaviour": "synergistic"
+      },
+      {
+        "tcr": "A6",
+        "peptide": "LLFGYPVYV",
+        "study_pmid": "pooled",
+        "mutations": "A99M+G100S+G101A+R102Q",
+        "n_mutations": 4,
+        "decomposed_as": "{G101A} | {R102Q} | {A99M,G100S}",
+        "sum_of_parts": -1.68,
+        "measured": -3.957,
+        "error": -2.277,
+        "behaviour": "synergistic"
+      },
+      {
+        "tcr": "A6",
+        "peptide": "LLFGYPVYV",
+        "study_pmid": "pooled",
+        "mutations": "G28M+R27F+S100T+S51M",
+        "n_mutations": 4,
+        "decomposed_as": "{R27F} | {G28M,S100T,S51M}",
+        "sum_of_parts": -2.35,
+        "measured": -1.8,
+        "error": 0.55,
+        "behaviour": "antagonistic"
+      },
+      {
+        "tcr": "A6",
+        "peptide": "LLFGYPVYV",
+        "study_pmid": "pooled",
+        "mutations": "G28M+R27F+S100T+S51M",
+        "n_mutations": 4,
+        "decomposed_as": "{R27F} | {S51M} | {G28M,S100T}",
+        "sum_of_parts": -2.34,
+        "measured": -1.8,
+        "error": 0.54,
+        "behaviour": "antagonistic"
+      },
+      {
+        "tcr": "A6",
+        "peptide": "LLFGYPVYV",
+        "study_pmid": "pooled",
+        "mutations": "G28T+R27F+S100T+S51M",
+        "n_mutations": 4,
+        "decomposed_as": "{R27F} | {G28T,S100T,S51M}",
+        "sum_of_parts": -1.82,
+        "measured": -1.6,
+        "error": 0.22,
+        "behaviour": "additive"
+      },
+      {
+        "tcr": "A6",
+        "peptide": "LLFGYPVYV",
+        "study_pmid": "pooled",
+        "mutations": "D26W+G28M+S100T+S51M",
+        "n_mutations": 4,
+        "decomposed_as": "{D26W} | {G28M,S100T,S51M}",
+        "sum_of_parts": -3.21,
+        "measured": -1.08,
+        "error": 2.13,
+        "behaviour": "antagonistic"
+      },
+      {
+        "tcr": "A6",
+        "peptide": "LLFGYPVYV",
+        "study_pmid": "pooled",
+        "mutations": "D26W+G28M+S100T+S51M",
+        "n_mutations": 4,
+        "decomposed_as": "{D26W} | {S51M} | {G28M,S100T}",
+        "sum_of_parts": -3.2,
+        "measured": -1.08,
+        "error": 2.12,
+        "behaviour": "antagonistic"
+      },
+      {
+        "tcr": "A6",
+        "peptide": "LLFGYPVYV",
+        "study_pmid": "pooled",
+        "mutations": "D26W+G28T+S100T+S51M",
+        "n_mutations": 4,
+        "decomposed_as": "{D26W} | {G28T,S100T,S51M}",
+        "sum_of_parts": -2.68,
+        "measured": -1.24,
+        "error": 1.44,
+        "behaviour": "antagonistic"
+      },
+      {
+        "tcr": "A6",
+        "peptide": "LLFGYPVYV",
+        "study_pmid": "pooled",
+        "mutations": "A99M+G100S+G101A+G28T",
+        "n_mutations": 4,
+        "decomposed_as": "{G28T} | {A99M,G100S,G101A}",
+        "sum_of_parts": -4.305,
+        "measured": -3.86,
+        "error": 0.445,
+        "behaviour": "additive"
+      },
+      {
+        "tcr": "A6",
+        "peptide": "LLFGYPVYV",
+        "study_pmid": "pooled",
+        "mutations": "A99M+G100S+G101A+G28T",
+        "n_mutations": 4,
+        "decomposed_as": "{G28T} | {G101A} | {A99M,G100S}",
+        "sum_of_parts": -2.89,
+        "measured": -3.86,
+        "error": -0.97,
+        "behaviour": "synergistic"
+      },
+      {
+        "tcr": "A6",
+        "peptide": "LLFGYPVYV",
+        "study_pmid": "pooled",
+        "mutations": "D26W+G28T+R27F+S100T+S51M",
+        "n_mutations": 5,
+        "decomposed_as": "{D26W} | {G28T,R27F,S100T,S51M}",
+        "sum_of_parts": -2.68,
+        "measured": -1.28,
+        "error": 1.4,
+        "behaviour": "antagonistic"
+      },
+      {
+        "tcr": "A6",
+        "peptide": "LLFGYPVYV",
+        "study_pmid": "pooled",
+        "mutations": "D26W+G28T+R27F+S100T+S51M",
+        "n_mutations": 5,
+        "decomposed_as": "{R27F} | {D26W,G28T,S100T,S51M}",
+        "sum_of_parts": -1.46,
+        "measured": -1.28,
+        "error": 0.18,
+        "behaviour": "additive"
+      },
+      {
+        "tcr": "A6",
+        "peptide": "LLFGYPVYV",
+        "study_pmid": "pooled",
+        "mutations": "D26W+G28T+R27F+S100T+S51M",
+        "n_mutations": 5,
+        "decomposed_as": "{G28T} | {D26W,R27F,S100T,S51M}",
+        "sum_of_parts": -3.49,
+        "measured": -1.28,
+        "error": 2.21,
+        "behaviour": "antagonistic"
+      },
+      {
+        "tcr": "A6",
+        "peptide": "LLFGYPVYV",
+        "study_pmid": "pooled",
+        "mutations": "D26W+G28T+R27F+S100T+S51M",
+        "n_mutations": 5,
+        "decomposed_as": "{D26W} | {R27F} | {G28T,S100T,S51M}",
+        "sum_of_parts": -2.9,
+        "measured": -1.28,
+        "error": 1.62,
+        "behaviour": "antagonistic"
+      },
+      {
+        "tcr": "A6",
+        "peptide": "LLFGYPVYV",
+        "study_pmid": "pooled",
+        "mutations": "A99M+G100S+G101A+G28T+R102Q",
+        "n_mutations": 5,
+        "decomposed_as": "{G28T} | {A99M,G100S,G101A,R102Q}",
+        "sum_of_parts": -4.717,
+        "measured": -3.97,
+        "error": 0.747,
+        "behaviour": "antagonistic"
+      },
+      {
+        "tcr": "A6",
+        "peptide": "LLFGYPVYV",
+        "study_pmid": "pooled",
+        "mutations": "A99M+G100S+G101A+G28T+R102Q",
+        "n_mutations": 5,
+        "decomposed_as": "{R102Q} | {A99M,G100S,G101A,G28T}",
+        "sum_of_parts": -3.41,
+        "measured": -3.97,
+        "error": -0.56,
+        "behaviour": "synergistic"
+      },
+      {
+        "tcr": "A6",
+        "peptide": "LLFGYPVYV",
+        "study_pmid": "pooled",
+        "mutations": "A99M+G100S+G101A+G28T+R102Q",
+        "n_mutations": 5,
+        "decomposed_as": "{G28T} | {R102Q} | {A99M,G100S,G101A}",
+        "sum_of_parts": -3.855,
+        "measured": -3.97,
+        "error": -0.115,
+        "behaviour": "additive"
+      },
+      {
+        "tcr": "A6",
+        "peptide": "LLFGYPVYV",
+        "study_pmid": "pooled",
+        "mutations": "A99M+G100S+G101A+G28T+R102Q",
+        "n_mutations": 5,
+        "decomposed_as": "{G28T} | {G101A,R102Q} | {A99M,G100S}",
+        "sum_of_parts": -3.36,
+        "measured": -3.97,
+        "error": -0.61,
+        "behaviour": "synergistic"
+      },
+      {
+        "tcr": "A6",
+        "peptide": "LLFGYPVYV",
+        "study_pmid": "pooled",
+        "mutations": "A99M+D26W+G100S+G101A+R102Q",
+        "n_mutations": 5,
+        "decomposed_as": "{D26W} | {A99M,G100S,G101A,R102Q}",
+        "sum_of_parts": -5.037,
+        "measured": -4.04,
+        "error": 0.997,
+        "behaviour": "antagonistic"
+      },
+      {
+        "tcr": "A6",
+        "peptide": "LLFGYPVYV",
+        "study_pmid": "pooled",
+        "mutations": "A99M+D26W+G100S+G101A+R102Q",
+        "n_mutations": 5,
+        "decomposed_as": "{D26W} | {R102Q} | {A99M,G100S,G101A}",
+        "sum_of_parts": -4.175,
+        "measured": -4.04,
+        "error": 0.135,
+        "behaviour": "additive"
+      },
+      {
+        "tcr": "A6",
+        "peptide": "LLFGYPVYV",
+        "study_pmid": "pooled",
+        "mutations": "A99M+D26W+G100S+G101A+R102Q",
+        "n_mutations": 5,
+        "decomposed_as": "{D26W} | {G101A,R102Q} | {A99M,G100S}",
+        "sum_of_parts": -3.68,
+        "measured": -4.04,
+        "error": -0.36,
+        "behaviour": "additive"
+      },
+      {
+        "tcr": "1G4",
+        "peptide": "SLLMWITQC",
+        "study_pmid": "pooled",
+        "mutations": "A50V+G49S+I52M+Q50P+S51F+S52W",
+        "n_mutations": 6,
+        "decomposed_as": "{Q50P,S51F,S52W} | {A50V,G49S,I52M}",
+        "sum_of_parts": -5.38,
+        "measured": -5.7,
+        "error": -0.32,
+        "behaviour": "additive"
+      },
+      {
+        "tcr": "A6",
+        "peptide": "LLFGYPVYV",
+        "study_pmid": "pooled",
+        "mutations": "A99M+D26W+G100S+G101A+R102Q+R27F+S51M",
+        "n_mutations": 7,
+        "decomposed_as": "{R27F} | {S51M} | {A99M,D26W,G100S,G101A,R102Q}",
+        "sum_of_parts": -4.63,
+        "measured": -3.71,
+        "error": 0.92,
+        "behaviour": "antagonistic"
+      },
+      {
+        "tcr": "A6",
+        "peptide": "LLFGYPVYV",
+        "study_pmid": "pooled",
+        "mutations": "A99M+D26W+G100S+G101A+R102Q+R27F+S100T+S51M",
+        "n_mutations": 8,
+        "decomposed_as": "{S100T} | {A99M,D26W,G100S,G101A,R102Q,R27F,S51M}",
+        "sum_of_parts": -4.2,
+        "measured": -3.45,
+        "error": 0.75,
+        "behaviour": "antagonistic"
+      },
+      {
+        "tcr": "A6",
+        "peptide": "LLFGYPVYV",
+        "study_pmid": "pooled",
+        "mutations": "A99M+D26W+G100S+G101A+R102Q+R27F+S100T+S51M",
+        "n_mutations": 8,
+        "decomposed_as": "{A99M,G100S,G101A,R102Q} | {D26W,R27F,S100T,S51M}",
+        "sum_of_parts": -6.687,
+        "measured": -3.45,
+        "error": 3.237,
+        "behaviour": "antagonistic"
+      },
+      {
+        "tcr": "A6",
+        "peptide": "LLFGYPVYV",
+        "study_pmid": "pooled",
+        "mutations": "A99M+D26W+G100S+G101A+R102Q+R27F+S100T+S51M",
+        "n_mutations": 8,
+        "decomposed_as": "{R102Q} | {A99M,G100S,G101A} | {D26W,R27F,S100T,S51M}",
+        "sum_of_parts": -5.825,
+        "measured": -3.45,
+        "error": 2.375,
+        "behaviour": "antagonistic"
+      },
+      {
+        "tcr": "A6",
+        "peptide": "LLFGYPVYV",
+        "study_pmid": "pooled",
+        "mutations": "A99M+D26W+G100S+G101A+R102Q+R27F+S100T+S51M",
+        "n_mutations": 8,
+        "decomposed_as": "{D26W,R27F,S100T,S51M} | {G101A,R102Q} | {A99M,G100S}",
+        "sum_of_parts": -5.33,
+        "measured": -3.45,
+        "error": 1.88,
+        "behaviour": "antagonistic"
+      },
+      {
+        "tcr": "ILAa1b1",
+        "peptide": "ILAKFLHWL",
+        "study_pmid": "pooled",
+        "mutations": "A94S+E53F+G98K+H51W+L95G+P52E+P96T+Y54E",
+        "n_mutations": 8,
+        "decomposed_as": "{A94S,G98K,L95G,P96T} | {E53F,H51W,P52E,Y54E}",
+        "sum_of_parts": 1.18,
+        "measured": 0.9,
+        "error": -0.28,
+        "behaviour": "additive"
+      },
+      {
+        "tcr": "ILAa1b1",
+        "peptide": "ILAKFLHWL",
+        "study_pmid": "pooled",
+        "mutations": "A94S+E53G+G98K+H51G+I50V+L95G+P52A+P96T+Y54I",
+        "n_mutations": 9,
+        "decomposed_as": "{A94S,G98K,L95G,P96T} | {E53G,H51G,I50V,P52A,Y54I}",
+        "sum_of_parts": 2.44,
+        "measured": 5.815,
+        "error": 3.375,
+        "behaviour": "antagonistic"
+      }
+    ]
+  },
+  "within_study": {
+    "summary": {
+      "n": 13,
+      "mean_error": 0.49315384615384633,
+      "median_error": -0.07000000000000006,
+      "stdev_error": 1.3706959403699808,
+      "fraction_within_half_kcal": 0.6923076923076923,
+      "by_stack_size": {
+        "2": {
+          "n": 6,
+          "mean_error": 0.0035000000000001696,
+          "within_half_kcal": 6
+        },
+        "4": {
+          "n": 2,
+          "mean_error": -0.7349999999999999,
+          "within_half_kcal": 1
+        },
+        "6": {
+          "n": 1,
+          "mean_error": -0.3199999999999994,
+          "within_half_kcal": 1
+        },
+        "8": {
+          "n": 3,
+          "mean_error": 1.6,
+          "within_half_kcal": 1
+        },
+        "9": {
+          "n": 1,
+          "mean_error": 3.3800000000000003,
+          "within_half_kcal": 0
+        }
+      }
+    },
+    "decompositions": [
+      {
+        "tcr": "4TCR2",
+        "peptide": "VVGAVGVGK",
+        "study_pmid": "38684865",
+        "mutations": "E100V+K51M",
+        "n_mutations": 2,
+        "decomposed_as": "{K51M} | {E100V}",
+        "sum_of_parts": -1.382,
+        "measured": -1.45,
+        "error": -0.068,
+        "behaviour": "additive"
+      },
+      {
+        "tcr": "4TCR2",
+        "peptide": "VVGAVGVGK",
+        "study_pmid": "38684865",
+        "mutations": "E100H+K51M",
+        "n_mutations": 2,
+        "decomposed_as": "{K51M} | {E100H}",
+        "sum_of_parts": -1.499,
+        "measured": -1.64,
+        "error": -0.141,
+        "behaviour": "additive"
+      },
+      {
+        "tcr": "4TCR2",
+        "peptide": "VVGAVGVGK",
+        "study_pmid": "38684865",
+        "mutations": "E100M+K51M",
+        "n_mutations": 2,
+        "decomposed_as": "{K51M} | {E100M}",
+        "sum_of_parts": -0.737,
+        "measured": -0.807,
+        "error": -0.07,
+        "behaviour": "additive"
+      },
+      {
+        "tcr": "DMF5",
+        "peptide": "AAGIGILTV",
+        "study_pmid": "24550723",
+        "mutations": "D26W+L98W",
+        "n_mutations": 2,
+        "decomposed_as": "{D26W} | {L98W}",
+        "sum_of_parts": -2.98,
+        "measured": -2.53,
+        "error": 0.45,
+        "behaviour": "additive"
+      },
+      {
+        "tcr": "DMF5",
+        "peptide": "AAGIGILTV",
+        "study_pmid": "24550723",
+        "mutations": "D26Y+L98W",
+        "n_mutations": 2,
+        "decomposed_as": "{D26Y} | {L98W}",
+        "sum_of_parts": -2.15,
+        "measured": -1.91,
+        "error": 0.24,
+        "behaviour": "additive"
+      },
+      {
+        "tcr": "TCR156",
+        "peptide": "TLMSAMTNL",
+        "study_pmid": "41855322",
+        "mutations": "S30E+S32Q",
+        "n_mutations": 2,
+        "decomposed_as": "{S30E} | {S32Q}",
+        "sum_of_parts": -0.18,
+        "measured": -0.57,
+        "error": -0.39,
+        "behaviour": "additive"
+      },
+      {
+        "tcr": "A6",
+        "peptide": "LLFGYPVYV",
+        "study_pmid": "23805144",
+        "mutations": "A99M+G100S+G101A+R102E",
+        "n_mutations": 4,
+        "decomposed_as": "{A99M} | {G100S,G101A,R102E}",
+        "sum_of_parts": -3.75,
+        "measured": -3.9,
+        "error": -0.15,
+        "behaviour": "additive"
+      },
+      {
+        "tcr": "A6",
+        "peptide": "LLFGYPVYV",
+        "study_pmid": "20681514",
+        "mutations": "A99M+G100S+G101A+R102Q",
+        "n_mutations": 4,
+        "decomposed_as": "{G101A,R102Q} | {A99M,G100S}",
+        "sum_of_parts": -2.6,
+        "measured": -3.92,
+        "error": -1.32,
+        "behaviour": "synergistic"
+      },
+      {
+        "tcr": "1G4",
+        "peptide": "SLLMWITQC",
+        "study_pmid": "16600963",
+        "mutations": "A50V+G49S+I52M+Q50P+S51F+S52W",
+        "n_mutations": 6,
+        "decomposed_as": "{Q50P,S51F,S52W} | {A50V,G49S,I52M}",
+        "sum_of_parts": -5.38,
+        "measured": -5.7,
+        "error": -0.32,
+        "behaviour": "additive"
+      },
+      {
+        "tcr": "A6",
+        "peptide": "LLFGYPVYV",
+        "study_pmid": "20681514",
+        "mutations": "A99M+D26W+G100S+G101A+R102Q+R27F+S100T+S51M",
+        "n_mutations": 8,
+        "decomposed_as": "{D26W,R27F,S100T,S51M} | {A99M,G100S,G101A,R102Q}",
+        "sum_of_parts": -6.65,
+        "measured": -3.45,
+        "error": 3.2,
+        "behaviour": "antagonistic"
+      },
+      {
+        "tcr": "A6",
+        "peptide": "LLFGYPVYV",
+        "study_pmid": "20681514",
+        "mutations": "A99M+D26W+G100S+G101A+R102Q+R27F+S100T+S51M",
+        "n_mutations": 8,
+        "decomposed_as": "{D26W,R27F,S100T,S51M} | {G101A,R102Q} | {A99M,G100S}",
+        "sum_of_parts": -5.33,
+        "measured": -3.45,
+        "error": 1.88,
+        "behaviour": "antagonistic"
+      },
+      {
+        "tcr": "ILAa1b1",
+        "peptide": "ILAKFLHWL",
+        "study_pmid": "24196962",
+        "mutations": "A94S+E53F+G98K+H51W+L95G+P52E+P96T+Y54E",
+        "n_mutations": 8,
+        "decomposed_as": "{A94S,G98K,L95G,P96T} | {E53F,H51W,P52E,Y54E}",
+        "sum_of_parts": 1.18,
+        "measured": 0.9,
+        "error": -0.28,
+        "behaviour": "additive"
+      },
+      {
+        "tcr": "ILAa1b1",
+        "peptide": "ILAKFLHWL",
+        "study_pmid": "24196962",
+        "mutations": "A94S+E53G+G98K+H51G+I50V+L95G+P52A+P96T+Y54I",
+        "n_mutations": 9,
+        "decomposed_as": "{A94S,G98K,L95G,P96T} | {E53G,H51G,I50V,P52A,Y54I}",
+        "sum_of_parts": 2.44,
+        "measured": 5.82,
+        "error": 3.38,
+        "behaviour": "antagonistic"
+      }
+    ]
+  },
+  "verdict": "Pairs add up: 6 of 6 two-mutation combinations measured within one study land inside 0.5 kcal/mol of the sum of their parts, mean error +0.00. Beyond six simultaneous mutations the measured gain falls short of the sum by about +3.4 kcal/mol, so stacking that deep cannot be predicted by adding up parts."
+}

@@ -414,6 +414,45 @@ This is why the package remains a funnel into AlphaFold3 / Rosetta / FoldX /
 MM-PBSA rather than a predictor. To extend the benchmark with your own
 measurements, `validate.benchmark_from_csv` takes a CSV of chain/position/mutant/ΔΔG.
 
+### Does stacking mutations add up?
+
+```bash
+python -m tcr_design epistasis
+```
+
+Greedy combination — take the best singles, stack them, assume the free
+energies add — is the standard move in computational affinity maturation, and
+it is an assumption that ATLAS can test. Wherever a measured multi-mutant
+decomposes into disjoint subsets that were *also* measured, the sum of the
+parts can be compared with the measured whole. 51 such decompositions exist
+across six TCR systems; 13 have every component measured in a single study,
+which controls for the fact that wild-type affinities differ between papers
+(DMF5 against ELAGIGILTV is reported at 5.6, 9.5, 11 and 36.4 µM — about
+1 kcal/mol of baseline noise).
+
+| mutations stacked | n (within one study) | mean error | within 0.5 kcal/mol |
+|---|---|---|---|
+| **2** | 6 | **+0.00** | **6/6** |
+| 4 | 2 | −0.73 | 1/2 |
+| 6 | 1 | −0.32 | 1/1 |
+| 8 | 3 | **+1.60** | 1/3 |
+| 9 | 1 | **+3.38** | 0/1 |
+
+Error is measured minus predicted, so positive means the stack underdelivered.
+
+**Pairs add up; deep stacks do not.** Every two-mutation combination measured
+within one study lands inside 0.5 kcal/mol of the sum of its parts. By eight or
+nine simultaneous mutations the measured gain falls short by 1.6 to 3.4
+kcal/mol — the diminishing return of an interface that is already optimised.
+The size-dependence survives the within-study restriction, so it is not an
+artefact of baseline noise.
+
+This is why the published deep variants — 1G4 reaches 14 simultaneous
+mutations and 26 pM — were found by directed evolution rather than by
+computational accumulation. Practically: predicting a double by summing two
+singles is sound, triples are borderline and should be checked, and beyond
+about four mutations summation is worthless.
+
 #### A note on reaching ATLAS
 
 ATLAS serves a valid certificate but omits its InCommon intermediate, so a
@@ -432,6 +471,7 @@ python -m tcr_design scan 1AO7 --loops A-CDR3,B-CDR3         # restrict to CDR3s
 python -m tcr_design run 1AO7 --skip-offtarget               # skip the proteome download
 python -m tcr_design run 1AO7 --no-calibration               # raw heuristic only
 python -m tcr_design benchmark --save-model                  # calibrate against ATLAS + SKEMPI
+python -m tcr_design epistasis                               # does stacking mutations add up?
 python -m tcr_design validate 3QDG 4L3E --calibrated         # leakage-free retrospective test
 python -m tcr_design run 5XOV --chains mhc=A,peptide=C,tcr_alpha=D,tcr_beta=E
 ```

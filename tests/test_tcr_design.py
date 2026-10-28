@@ -663,3 +663,99 @@ def test_scan_attaches_predicted_ddg_only_when_a_model_is_passed():
     assert all(m.predicted_ddg is None for m in without)
     assert all(m.predicted_ddg is not None for m in with_model)
     assert all(-15.0 < m.predicted_ddg < 15.0 for m in with_model)
+
+
+# --------------------------------------------------------------------------
+# Epistasis / additivity
+# --------------------------------------------------------------------------
+
+def test_mutation_set_splits_on_both_separators():
+    from tcr_design.epistasis import _mutation_set
+
+    assert _mutation_set("D26W | L98W") == {"D26W", "L98W"}
+    assert _mutation_set("A99M.G100S") == {"A99M", "G100S"}
+    assert _mutation_set("D26W") == {"D26W"}
+
+
+def test_decomposition_error_sign_and_labels():
+    from tcr_design.epistasis import Decomposition
+
+    def made(sum_of_parts, measured):
+        return Decomposition(
+            tcr="X", peptide="P", study="1", whole=frozenset({"a", "b"}),
+            parts=(frozenset({"a"}), frozenset({"b"})),
+            sum_of_parts=sum_of_parts, measured=measured,
+        )
+
+    # Measured minus predicted: positive means the stack underdelivered.
+    assert made(-2.0, -1.0).error == pytest.approx(1.0)
+    assert made(-2.0, -1.0).behaviour == "antagonistic"
+    assert made(-2.0, -3.0).behaviour == "synergistic"
+    assert made(-2.0, -2.1).behaviour == "additive"
+
+
+def test_decompositions_must_partition_the_whole_exactly():
+    from tcr_design.epistasis import find_decompositions
+
+    # {a,b} and {b,c} overlap, so {a,b,c} has no valid two-part decomposition
+    # from them; {a} + {b,c} does partition it.
+    index = {
+        ("T", "P"): {
+            frozenset({"a", "b", "c"}): -3.0,
+            frozenset({"a", "b"}): -2.0,
+            frozenset({"b", "c"}): -2.0,
+            frozenset({"a"}): -1.0,
+            frozenset({"b", "c"}): -2.0,
+        }
+    }
+    found = find_decompositions(index)
+    for item in found:
+        union = set()
+        for part in item.parts:
+            assert not (union & part), "parts must be disjoint"
+            union |= part
+        assert frozenset(union) == item.whole
+
+
+def test_decomposition_sums_the_parts_it_names():
+    from tcr_design.epistasis import find_decompositions
+
+    index = {
+        ("T", "P"): {
+            frozenset({"a", "b"}): -3.0,
+            frozenset({"a"}): -1.0,
+            frozenset({"b"}): -1.5,
+        }
+    }
+    found = find_decompositions(index)
+    assert len(found) == 1
+    assert found[0].sum_of_parts == pytest.approx(-2.5)
+    assert found[0].measured == pytest.approx(-3.0)
+    assert found[0].error == pytest.approx(-0.5)
+
+
+@pytest.mark.skipif(not ATLAS_CACHE.exists(), reason="ATLAS not cached")
+def test_atlas_index_keeps_different_peptides_apart():
+    from tcr_design.epistasis import index_atlas
+
+    index = index_atlas(ATLAS_CACHE, by_study=False)
+    # The same receptor against a different epitope must be a separate group,
+    # or changing the target would masquerade as epistasis.
+    dmf5 = [key for key in index if key[0] == "DMF5"]
+    assert len({key[1] for key in dmf5}) > 1
+
+
+@pytest.mark.skipif(not ATLAS_CACHE.exists(), reason="ATLAS not cached")
+def test_additivity_holds_for_pairs_and_fails_for_deep_stacks():
+    from tcr_design.epistasis import run_additivity_analysis
+
+    results = run_additivity_analysis(ATLAS_CACHE)
+    within = results["within_study"]["summary"]["by_stack_size"]
+    assert within[2]["n"] >= 3
+    # Pairs add up.
+    assert abs(within[2]["mean_error"]) < 0.5
+    assert within[2]["within_half_kcal"] == within[2]["n"]
+    # Deep stacks systematically underdeliver against the sum of their parts.
+    deep = [s for size, s in within.items() if size >= 8]
+    assert deep, "expected some deeply stacked variants in ATLAS"
+    assert max(s["mean_error"] for s in deep) > 1.0

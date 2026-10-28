@@ -22,10 +22,13 @@ from .benchmark import (
     score_entries,
 )
 from .calibrated import load_model, save_model
+from .epistasis import format_report as format_additivity_report
+from .epistasis import run_additivity_analysis
 from .handoff import write_handoff
 from .liability import apply_gates
 from .offtarget import download_proteome, peptide_contact_profile, scan_proteome
 from .report import (
+    plot_additivity,
     plot_calibration,
     plot_gate_funnel,
     plot_interface,
@@ -66,7 +69,10 @@ def build_parser() -> argparse.ArgumentParser:
     )
     parser.add_argument(
         "stage",
-        choices=["run", "interface", "scan", "offtarget", "validate", "benchmark"],
+        choices=[
+            "run", "interface", "scan", "offtarget", "validate", "benchmark",
+            "epistasis",
+        ],
         help="which part of the pipeline to run",
     )
     parser.add_argument(
@@ -165,6 +171,52 @@ def build_parser() -> argparse.ArgumentParser:
         help="skip the proteome screen (it downloads ~7 MB and takes about a minute)",
     )
     return parser
+
+
+def _run_epistasis(args, outdir: Path) -> int:
+    """Test whether stacked mutations add up, using measured ATLAS data."""
+    import pandas as pd
+
+    from .benchmark import download_atlas
+
+    print("[1/2] loading ATLAS and finding measured decompositions")
+    try:
+        atlas_path = download_atlas(args.cache / "benchmark")
+    except Exception as error:  # noqa: BLE001
+        print(f"could not obtain ATLAS: {error}", file=sys.stderr)
+        return 1
+
+    results = run_additivity_analysis(atlas_path)
+    pooled = results["pooled"]["summary"]
+    within = results["within_study"]["summary"]
+    print(
+        f"      {pooled['n']} decompositions pooled, "
+        f"{within['n']} within a single study"
+    )
+
+    print("\n[2/2] additivity by number of mutations stacked (within one study)")
+    for size, stats in within["by_stack_size"].items():
+        print(
+            f"      {size:2d} mutations: n={stats['n']:2d}  "
+            f"mean error {stats['mean_error']:+.2f} kcal/mol  "
+            f"within 0.5: {stats['within_half_kcal']}/{stats['n']}"
+        )
+    print(f"\n      {results['verdict']}")
+
+    outdir.mkdir(parents=True, exist_ok=True)
+    rows = results["pooled"]["decompositions"]
+    table = outdir / "additivity.csv"
+    pd.DataFrame(rows).to_csv(table, index=False)
+    figure = plot_additivity(results, outdir / "additivity.png")
+    report = outdir / "ADDITIVITY.md"
+    report.write_text(format_additivity_report(results))
+    (outdir / "additivity.json").write_text(
+        json.dumps(results, indent=2, default=str) + "\n"
+    )
+    print(f"\n      report: {report}")
+    print(f"      data:   {table}")
+    print(f"      figure: {figure}")
+    return 0
 
 
 def _run_benchmark(args, outdir: Path) -> int:
@@ -321,6 +373,8 @@ def main(argv: list[str] | None = None) -> int:
     outdir = args.outdir
     outdir.mkdir(parents=True, exist_ok=True)
 
+    if args.stage == "epistasis":
+        return _run_epistasis(args, outdir)
     if args.stage == "benchmark":
         return _run_benchmark(args, outdir)
     if not args.pdb_id:
