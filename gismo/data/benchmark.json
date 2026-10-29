@@ -1,0 +1,744 @@
+{
+ "descriptive": {
+  "n_genes": 19464,
+  "n_species": 462,
+  "median_losses_per_gene": 18.0,
+  "median_losses_per_species": 1130.5,
+  "median_one2zero_per_species": 1424.5,
+  "median_mean_missense": 26.8,
+  "median_mean_synonymous": 53.4,
+  "median_total_missense_per_species": 610602.9166666667,
+  "median_total_synonymous_per_species": 1084982.5833333335,
+  "n_zero_loss_genes": 6
+ },
+ "correlations": {
+  "rho_gismo_loeuf": [
+   0.385,
+   17265
+  ],
+  "rho_mis_loeuf": [
+   0.545,
+   15910
+  ],
+  "rho_gismo_moeuf": [
+   0.32,
+   17265
+  ],
+  "rho_mis_moeuf": [
+   0.602,
+   15910
+  ],
+  "rho_gismo_phaplo": [
+   -0.331,
+   16456
+  ],
+  "rho_mis_phaplo": [
+   -0.445,
+   15274
+  ],
+  "rho_gismo_ptriplo": [
+   -0.324,
+   16456
+  ],
+  "rho_mis_ptriplo": [
+   -0.502,
+   15274
+  ],
+  "rho_gismo_cds": [
+   -0.117,
+   17265
+  ],
+  "rho_mis_cds": [
+   -0.111,
+   15910
+  ],
+  "rho_gismo_loeuf_v4": [
+   0.408,
+   17258
+  ],
+  "rho_mis_loeuf_v4": [
+   0.528,
+   15950
+  ],
+  "rho_mis_alphamissense": [
+   -0.849,
+   11287
+  ],
+  "rho_gismo_alphamissense": [
+   -0.338,
+   11154
+  ],
+  "rho_loeuf_cds": [
+   -0.504,
+   17382
+  ],
+  "rho_gismo_mis": [
+   0.385,
+   17217
+  ]
+ },
+ "enrichment": {
+  "OR_d1_mouse_het_lethal_gismo": [
+   1.35,
+   0.05841080800801299,
+   385
+  ],
+  "OR_d1vd10_mouse_het_lethal_gismo": [
+   8.52,
+   7.946841738861683e-10,
+   56
+  ],
+  "OR_d12vd910_mouse_het_lethal_gismo": [
+   3.03,
+   1.6209655623660311e-09,
+   143
+  ],
+  "OR_logit_mouse_het_lethal_gismo": 2.94,
+  "OR_d1_mouse_het_lethal_mis": [
+   2.59,
+   9.435154077211367e-12,
+   371
+  ],
+  "OR_d1vd10_mouse_het_lethal_mis": [
+   9.38,
+   6.015779619937288e-16,
+   90
+  ],
+  "OR_d12vd910_mouse_het_lethal_mis": [
+   6.25,
+   7.570525970323402e-22,
+   162
+  ],
+  "OR_logit_mouse_het_lethal_mis": 7.15,
+  "OR_d1_mouse_lethal_gismo": [
+   2.04,
+   1.5493138888635522e-39,
+   3887
+  ],
+  "OR_d1vd10_mouse_lethal_gismo": [
+   17.06,
+   1.2945999262263312e-146,
+   673
+  ],
+  "OR_d12vd910_mouse_lethal_gismo": [
+   7.34,
+   8.435665106406025e-197,
+   1439
+  ],
+  "OR_logit_mouse_lethal_gismo": 6.36,
+  "OR_d1_mouse_lethal_mis": [
+   2.53,
+   6.311121894937263e-64,
+   3805
+  ],
+  "OR_d1vd10_mouse_lethal_mis": [
+   10.93,
+   2.833533245686504e-135,
+   769
+  ],
+  "OR_d12vd910_mouse_lethal_mis": [
+   6.48,
+   1.5666920450890474e-186,
+   1536
+  ],
+  "OR_logit_mouse_lethal_mis": 6.99,
+  "OR_d1_cell_essential_gismo": [
+   1.87,
+   4.785909014324172e-08,
+   661
+  ],
+  "OR_d1vd10_cell_essential_gismo": [
+   117.59,
+   8.916995097689473e-33,
+   112
+  ],
+  "OR_d12vd910_cell_essential_gismo": [
+   55.7,
+   2.0037589779471947e-58,
+   215
+  ],
+  "OR_logit_cell_essential_gismo": 7.04,
+  "OR_d1_cell_essential_mis": [
+   5.16,
+   4.197963382084364e-66,
+   660
+  ],
+  "OR_d1vd10_cell_essential_mis": [
+   51.23,
+   7.802262870987086e-63,
+   229
+  ],
+  "OR_d12vd910_cell_essential_mis": [
+   20.84,
+   1.6816451519746387e-77,
+   340
+  ],
+  "OR_logit_cell_essential_mis": 16.54,
+  "OR_d1_nonessential_gismo": [
+   0.21,
+   2.3565007749182266e-19,
+   886
+  ],
+  "OR_d1vd10_nonessential_gismo": [
+   0.07,
+   3.3203263713591485e-61,
+   294
+  ],
+  "OR_d12vd910_nonessential_gismo": [
+   0.08,
+   2.456551679901555e-95,
+   509
+  ],
+  "OR_logit_nonessential_gismo": 0.04,
+  "OR_d1_nonessential_mis": [
+   0.37,
+   1.3977417542891243e-08,
+   659
+  ],
+  "OR_d1vd10_nonessential_mis": [
+   0.12,
+   1.2835853391371969e-36,
+   229
+  ],
+  "OR_d12vd910_nonessential_mis": [
+   0.16,
+   2.5297030681829287e-46,
+   352
+  ],
+  "OR_logit_nonessential_mis": 0.09,
+  "OR_d1_olfactory_gismo": [
+   0.0,
+   3.444501777188733e-17,
+   361
+  ],
+  "OR_d1vd10_olfactory_gismo": [
+   0.0,
+   1.680750412850202e-69,
+   219
+  ],
+  "OR_d12vd910_olfactory_gismo": [
+   0.0,
+   4.567149390130801e-108,
+   345
+  ],
+  "OR_logit_olfactory_gismo": 0.0,
+  "OR_d1_olfactory_mis": [
+   0.0,
+   1.0954944696535951e-05,
+   112
+  ],
+  "OR_d1vd10_olfactory_mis": [
+   NaN,
+   1.0,
+   0
+  ],
+  "OR_d12vd910_olfactory_mis": [
+   0.0,
+   0.12489248082851057,
+   4
+  ],
+  "OR_logit_olfactory_mis": 0.17,
+  "OR_d1_recessive_gismo": [
+   1.38,
+   0.0005695482049651857,
+   1155
+  ],
+  "OR_d1vd10_recessive_gismo": [
+   14.79,
+   9.676634865754513e-34,
+   162
+  ],
+  "OR_d12vd910_recessive_gismo": [
+   5.01,
+   1.6578982677543462e-39,
+   365
+  ],
+  "OR_logit_recessive_gismo": 3.46,
+  "OR_d1_recessive_mis": [
+   0.29,
+   1.5153714382468075e-18,
+   1129
+  ],
+  "OR_d1vd10_recessive_mis": [
+   0.56,
+   0.004868983713483011,
+   102
+  ],
+  "OR_d12vd910_recessive_mis": [
+   0.61,
+   9.130416724796819e-05,
+   272
+  ],
+  "OR_logit_recessive_mis": 0.71,
+  "OR_d1_dominant_gismo": [
+   1.7,
+   3.3865775233180835e-06,
+   701
+  ],
+  "OR_d1vd10_dominant_gismo": [
+   4.96,
+   5.218918895772312e-15,
+   132
+  ],
+  "OR_d12vd910_dominant_gismo": [
+   3.05,
+   1.7044070343960197e-17,
+   280
+  ],
+  "OR_logit_dominant_gismo": 2.6,
+  "OR_d1_dominant_mis": [
+   1.72,
+   2.6658599562056115e-06,
+   669
+  ],
+  "OR_d1vd10_dominant_mis": [
+   4.4,
+   2.860655594181631e-13,
+   130
+  ],
+  "OR_d12vd910_dominant_mis": [
+   3.92,
+   1.8935183731942302e-22,
+   261
+  ],
+  "OR_logit_dominant_mis": 3.61
+ },
+ "pct_by_decile": {
+  "mouse_het_lethal_gismo": [
+   12.99,
+   14.81,
+   12.99,
+   12.47,
+   10.65,
+   10.65,
+   7.79,
+   8.31,
+   7.79,
+   1.56
+  ],
+  "mouse_het_lethal_mis": [
+   21.83,
+   15.63,
+   14.29,
+   12.4,
+   9.97,
+   8.89,
+   7.28,
+   3.5,
+   3.77,
+   2.43
+  ],
+  "mouse_lethal_gismo": [
+   15.98,
+   15.23,
+   14.2,
+   12.14,
+   11.5,
+   10.08,
+   8.05,
+   7.0,
+   4.48,
+   1.34
+  ],
+  "mouse_lethal_mis": [
+   17.71,
+   15.32,
+   13.27,
+   12.01,
+   11.56,
+   9.22,
+   7.52,
+   6.04,
+   4.84,
+   2.5
+  ],
+  "cell_essential_gismo": [
+   16.79,
+   15.13,
+   15.28,
+   14.37,
+   12.71,
+   10.74,
+   9.83,
+   4.54,
+   0.45,
+   0.15
+  ],
+  "cell_essential_mis": [
+   33.94,
+   15.0,
+   10.61,
+   9.85,
+   8.79,
+   8.33,
+   5.91,
+   5.0,
+   1.82,
+   0.76
+  ],
+  "nonessential_gismo": [
+   2.37,
+   2.6,
+   2.93,
+   4.29,
+   5.08,
+   6.66,
+   9.03,
+   14.56,
+   21.67,
+   30.81
+  ],
+  "nonessential_mis": [
+   4.1,
+   3.64,
+   3.79,
+   5.16,
+   5.77,
+   8.65,
+   13.05,
+   10.17,
+   15.02,
+   30.65
+  ],
+  "olfactory_gismo": [
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   0.28,
+   0.83,
+   3.32,
+   34.9,
+   60.66
+  ],
+  "olfactory_mis": [
+   0.0,
+   0.0,
+   0.0,
+   0.89,
+   5.36,
+   20.54,
+   39.29,
+   30.36,
+   3.57,
+   0.0
+  ],
+  "recessive_gismo": [
+   13.07,
+   12.99,
+   14.37,
+   12.99,
+   12.03,
+   10.74,
+   9.7,
+   8.57,
+   4.59,
+   0.95
+  ],
+  "recessive_mis": [
+   3.28,
+   5.93,
+   10.54,
+   12.49,
+   12.58,
+   15.06,
+   11.78,
+   13.46,
+   9.12,
+   5.76
+  ],
+  "dominant_gismo": [
+   15.55,
+   14.27,
+   9.7,
+   12.13,
+   9.13,
+   9.13,
+   9.27,
+   10.7,
+   6.85,
+   3.28
+  ],
+  "dominant_mis": [
+   15.7,
+   15.1,
+   12.86,
+   12.26,
+   11.06,
+   8.22,
+   8.22,
+   8.37,
+   4.48,
+   3.74
+  ]
+ },
+ "short_genes": {
+  "median_cds_top15_gismo": [
+   1509.0,
+   2590
+  ],
+  "median_cds_top15_mis": [
+   1284.0,
+   2387
+  ],
+  "median_cds_loeuf_lt_0.35": [
+   2262.0,
+   2853
+  ],
+  "median_cds_gismo_int_loeuf_tol": [
+   1278.0,
+   1873
+  ],
+  "median_cds_gismo_int_loeuf_int": [
+   2236.5,
+   714
+  ]
+ },
+ "recessive_rule": {
+  "both_constrained": {
+   "n": 979,
+   "pct_AR": 2.66,
+   "pct_AD": 9.4
+  },
+  "gismo_only": {
+   "n": 1914,
+   "pct_AR": 11.86,
+   "pct_AD": 4.02
+  },
+  "other": {
+   "n": 14372,
+   "pct_AR": 6.25,
+   "pct_AD": 3.69
+  }
+ },
+ "x_chrom": {
+  "pct_X_discordant": 16.94,
+  "pct_X_all": 3.82,
+  "n_discordant": 124,
+  "OR": [
+   5.27,
+   9.138360634507935e-09,
+   660
+  ]
+ },
+ "gc_bias": {
+  "rho_gc_gismo_all": [
+   0.193,
+   19300
+  ],
+  "rho_gc_gismo_mouse_lethal": [
+   0.366,
+   3887
+  ],
+  "rho_gc_gismo_loeuf_lt_0.35": [
+   0.306,
+   2845
+  ],
+  "rho_gc_gismo_hq": [
+   0.156,
+   19300
+  ],
+  "rho_gc_gismo_mis": [
+   0.016,
+   17138
+  ],
+  "mouse_lethal_pct_in_d9_10_by_gc_quintile": [
+   1.1,
+   0.9,
+   2.7,
+   4.6,
+   19.8
+  ],
+  "flag_d8_10_gc_top20": {
+   "flagged": {
+    "n": 1728,
+    "pct_mouse_lethal": 16.0,
+    "pct_loeuf_lt_0.35": 8.3,
+    "pct_phaplo_gt_0.86": 12.0
+   },
+   "other_d8_10": {
+    "n": 4003,
+    "pct_mouse_lethal": 5.5,
+    "pct_loeuf_lt_0.35": 4.2,
+    "pct_phaplo_gt_0.86": 3.2
+   }
+  }
+ },
+ "heritability_archive": {
+  "GISMO": {
+   "n_traits": 650,
+   "mean_enrichment_by_decile": [
+    1.228,
+    1.173,
+    1.146,
+    1.105,
+    1.101,
+    1.127,
+    1.042,
+    1.008,
+    1.019,
+    0.939
+   ]
+  },
+  "GISMO-mis": {
+   "n_traits": 650,
+   "mean_enrichment_by_decile": [
+    1.4,
+    1.315,
+    1.296,
+    1.268,
+    1.275,
+    1.154,
+    1.104,
+    1.101,
+    1.104,
+    0.943
+   ]
+  }
+ },
+ "fig4_vs_recomputed": {
+  "recessive_gismo": {
+   "paper_approx": [
+    12.8,
+    12.8,
+    13.4,
+    12.7,
+    12.4,
+    11.0,
+    11.0,
+    9.2,
+    5.1,
+    1.7
+   ],
+   "recomputed": [
+    13.07,
+    12.99,
+    14.37,
+    12.99,
+    12.03,
+    10.74,
+    9.7,
+    8.57,
+    4.59,
+    0.95
+   ],
+   "max_abs_diff": 1.3
+  },
+  "recessive_mis": {
+   "paper_approx": [
+    3.2,
+    5.7,
+    10.3,
+    12.3,
+    12.3,
+    14.8,
+    11.7,
+    12.9,
+    9.0,
+    5.6
+   ],
+   "recomputed": [
+    3.28,
+    5.93,
+    10.54,
+    12.49,
+    12.58,
+    15.06,
+    11.78,
+    13.46,
+    9.12,
+    5.76
+   ],
+   "max_abs_diff": 0.56
+  },
+  "dominant_gismo": {
+   "paper_approx": [
+    15.4,
+    14.0,
+    10.5,
+    11.7,
+    9.8,
+    9.2,
+    8.3,
+    10.9,
+    8.5,
+    4.5
+   ],
+   "recomputed": [
+    15.55,
+    14.27,
+    9.7,
+    12.13,
+    9.13,
+    9.13,
+    9.27,
+    10.7,
+    6.85,
+    3.28
+   ],
+   "max_abs_diff": 1.65
+  },
+  "dominant_mis": {
+   "paper_approx": [
+    15.4,
+    14.6,
+    12.7,
+    12.0,
+    10.8,
+    8.0,
+    7.9,
+    8.1,
+    4.4,
+    3.6
+   ],
+   "recomputed": [
+    15.7,
+    15.1,
+    12.86,
+    12.26,
+    11.06,
+    8.22,
+    8.22,
+    8.37,
+    4.48,
+    3.74
+   ],
+   "max_abs_diff": 0.5
+  }
+ },
+ "paper": {
+  "rho_gismo_loeuf": 0.38,
+  "rho_mis_loeuf": 0.56,
+  "rho_gismo_moeuf": 0.33,
+  "rho_mis_moeuf": 0.61,
+  "rho_gismo_phaplo": -0.32,
+  "rho_mis_phaplo": -0.44,
+  "rho_gismo_ptriplo": -0.32,
+  "rho_mis_ptriplo": -0.5,
+  "rho_mis_alphamissense": 0.84,
+  "rho_gismo_cds": -0.12,
+  "rho_mis_cds": -0.12,
+  "rho_loeuf_cds": -0.5,
+  "OR_d1_mouse_het_lethal_gismo": 3.43,
+  "OR_d1_mouse_het_lethal_mis": 5.78,
+  "OR_d1_mouse_lethal_gismo": 8.21,
+  "OR_d1_mouse_lethal_mis": 13.1,
+  "OR_d1_cell_essential_gismo": 4.34,
+  "OR_d1_cell_essential_mis": 10.7,
+  "median_cds_top15_gismo": 1502,
+  "median_cds_top15_mis": 1302,
+  "median_cds_loeuf_lt_0.35": 2267,
+  "OR_d1_recessive_gismo": 3.37,
+  "OR_d1_recessive_mis": 0.91,
+  "OR_d1_dominant_gismo": 9.92,
+  "OR_d1_dominant_mis": 4.38,
+  "median_losses_per_gene": 18,
+  "median_losses_per_species": 1130,
+  "median_total_missense_per_species": 610603,
+  "median_total_synonymous_per_species": 1084983,
+  "median_mean_missense": 27.7,
+  "median_mean_synonymous": 53.4,
+  "n_zero_loss_genes": 6
+ }
+}

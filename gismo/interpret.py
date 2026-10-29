@@ -46,7 +46,17 @@ def classify(row):
                         "LOEUF may be inflated (hemizygosity / mapping)")
         else:
             tags.append("human-specific constraint or lineage-specific dispensability")
-    if pd.notna(gd) and gd >= 9 and (pd.isna(md) or md >= 8):
+    hqd = row.get("gismo_hq_decile")
+    if pd.notna(gd) and pd.notna(hqd) and gd - hqd >= 3:
+        tags.append(f"assembly-sensitive: losses sit in fragmented genomes; GISMO decile "
+                    f"{int(gd)} -> {int(hqd)} using high-quality assemblies only")
+    gcp = row.get("gc_cds_pct")
+    gc_risk = pd.notna(gd) and gd >= 8 and pd.notna(gcp) and gcp >= 0.8
+    if gc_risk:
+        tags.append(f"GC-rich CDS (GC {row.get('gc_cds', float('nan')):.0%}, top 20%): many 'losses' "
+                    "may be assembly dropout - such d8-10 genes are mouse-lethal 3x as often "
+                    "(16% vs 5.5%); do not read as dispensable without other evidence")
+    if pd.notna(gd) and gd >= 9 and (pd.isna(md) or md >= 8) and not gc_risk:
         tags.append("frequently lost / fast-evolving across mammals (olfactory/immune-like)")
     if pd.notna(row.get("n_loss")) and row["n_loss"] == 0:
         tags.append("never lost in any of 462 mammals")

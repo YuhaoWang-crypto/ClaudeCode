@@ -104,6 +104,20 @@ LOEUF<0.35 but GISMO decile 9–10: n=124, 16.94% X-linked vs 3.82% of all genes
 - GISMO (650 trait IDs in archive; paper used 276 independent + 5 disease traits): d1 1.228, d2 1.173, d3 1.146, d4 1.105, d5 1.101, d6 1.127, d7 1.042, d8 1.008, d9 1.019, d10 0.939
 - GISMO-mis (650 trait IDs in archive; paper used 276 independent + 5 disease traits): d1 1.4, d2 1.315, d3 1.296, d4 1.268, d5 1.275, d6 1.154, d7 1.104, d8 1.101, d9 1.104, d10 0.943
 
+## Beyond the paper: GC-content bias (`gc_bias` in benchmark.json)
+
+| test | value |
+|---|---|
+| ρ(CDS GC, GISMO), all genes | +0.193 (n=19,300) |
+| ρ(CDS GC, GISMO), mouse-lethal genes | +0.366 (n=3,887) |
+| ρ(CDS GC, GISMO), LOEUF<0.35 genes | +0.306 (n=2,845) |
+| ρ(CDS GC, GISMO_hq) — high-N50 assemblies only | +0.156 |
+| ρ(CDS GC, GISMO-mis) | +0.016 |
+| mouse-lethal genes in GISMO d9–10 by GC quintile (low→high) | 1.1, 0.9, 2.7, 4.6, 19.8 % |
+| GISMO d8–10 & GC top 20% (n=1,728) vs other d8–10 (n=4,003): mouse-lethal | 16.0% vs 5.5% |
+| same: LOEUF<0.35 / pHaplo>0.86 | 8.3% vs 4.2% / 12.0% vs 3.2% |
+| global GC-adjusted GISMO, AUROC mouse-lethal / cell-essential | 0.663 / 0.639 (unadjusted 0.660 / 0.666) |
+
 ## Not reproduced
 
 - UK Biobank exome CNV deletion/duplication per kb (Fig. 2g,h): individual-level data.

@@ -46,6 +46,9 @@ REF_URLS = {
     "all_ar.tsv": GL + "all_ar.tsv",   # 1,183 OMIM autosomal recessive (= paper's set)
     "all_ad.tsv": GL + "all_ad.tsv",   # 709 OMIM autosomal dominant (= paper's set)
     "mgi_essential.tsv": GL + "mgi_essential.tsv",
+    # CDS sequences for the GC-content QC column
+    "gencode.v44.pc_transcripts.fa.gz": "https://ftp.ebi.ac.uk/pub/databases/gencode/"
+        "Gencode_human/release_44/gencode.v44.pc_transcripts.fa.gz",
 }
 
 

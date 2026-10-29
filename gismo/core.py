@@ -161,6 +161,88 @@ def gismo_mis(mis, syn):
     return df
 
 
+# ----------------------------------------------------------------- assembly QC
+def assembly_qc(loss, species):
+    """Sensitivity of GISMO to genome-assembly quality (not in the paper).
+
+    Gene losses are called more often in fragmented assemblies: genome-wide the
+    species losing a gene have ~half the contig N50 of the average species
+    (mean shift -0.30 log10). Two diagnostics per gene:
+      loss_n50_shift : mean log10(contig N50) of losing species minus the mean
+                       over all species (negative = losses sit in poor assemblies)
+      gismo_hq       : GISMO upper bound (normal approximation, p_hat per order,
+                       validated rho = 0.9999 vs simulation) using only species
+                       with contig N50 >= the median  -> gismo_hq_decile
+    A gene whose decile improves a lot in gismo_hq is likely losing ORFs to
+    assembly gaps rather than to evolution.
+    """
+    L = loss.to_numpy(bool)
+    n50 = np.log10(species["contig_N50_bp"].to_numpy(float))
+    nl = L.sum(1)
+    shift = np.where(nl > 0, (L * n50).sum(1) / np.maximum(nl, 1) - n50.mean(), np.nan)
+
+    hq = species["contig_N50_bp"].to_numpy() >= np.median(species["contig_N50_bp"])
+    I = L[:, hq].astype(np.float32)
+    sp = species[hq]
+    w = (sp["div.time"].to_numpy(float) / sp["div.time"].max()).astype(np.float32)
+    grp = sp["lin.num"].to_numpy()
+    P = np.zeros_like(I)
+    for g in np.unique(grp):
+        m = grp == g
+        P[:, m] = I[:, m].mean(1, keepdims=True)
+    N = I.shape[1]
+    up = (P * w).sum(1) / N + 1.959964 * np.sqrt((P * (1 - P) * w ** 2).sum(1)) / N
+    df = pd.DataFrame({"gene_id": loss.index, "loss_n50_shift": shift,
+                       "n_loss_hq": I.sum(1).astype(int), "gismo_hq": up})
+    df["gismo_hq_decile"] = ntile(df.gismo_hq, 10)
+    return df, int(hq.sum())
+
+
+def cds_gc(fasta, prefer_tx=None):
+    """CDS GC fraction per gene from GENCODE pc_transcripts (not in the paper).
+
+    Uses the TOGA/GISMO-mis transcript when given (prefer_tx: gene_id -> ENST),
+    else the longest CDS. Returns gene_id, gc_cds, gc_cds_5p (first 300 bp).
+
+    Why: GC-rich exons drop out of short-read assemblies, and TOGA then calls
+    the ORF lost. Genome-wide rho(GC, GISMO) = +0.19, and +0.37 among
+    mouse-lethal genes - essential genes do not truly get lost more often for
+    being GC-rich, so the high-GC tail of GISMO is partly technical.
+    """
+    rec, hdr, seq = [], None, []
+
+    def flush():
+        if hdr is None:
+            return
+        f = hdr[1:].split("|")
+        c = [x for x in f if x.startswith("CDS:")]
+        if not c:
+            return
+        a, b = map(int, c[0][4:].split("-"))
+        cds = "".join(seq)[a - 1:b].upper()
+        if len(cds) < 90:
+            return
+        gc = lambda x: (x.count("G") + x.count("C")) / len(x)
+        rec.append((f[0].split(".")[0], f[1].split(".")[0], len(cds), gc(cds), gc(cds[:300])))
+
+    with gzip.open(fasta, "rt") as fh:
+        for line in fh:
+            if line.startswith(">"):
+                flush(); hdr, seq = line.strip(), []
+            else:
+                seq.append(line.strip())
+    flush()
+    t = pd.DataFrame(rec, columns=["tx", "gene_id", "cds_len", "gc_cds", "gc_cds_5p"])
+    longest = t.sort_values("cds_len").drop_duplicates("gene_id", keep="last")
+    out = longest.set_index("gene_id")[["tx", "gc_cds", "gc_cds_5p"]]
+    if prefer_tx is not None:
+        bytx = t.drop_duplicates("tx").set_index("tx")
+        for gid, tx in prefer_tx.items():
+            if isinstance(tx, str) and tx in bytx.index and bytx.loc[tx, "gene_id"] == gid:
+                out.loc[gid, ["gc_cds", "gc_cds_5p"]] = bytx.loc[tx, ["gc_cds", "gc_cds_5p"]].values
+    return out.drop(columns="tx").reset_index()
+
+
 # ----------------------------------------------------------------- author truth
 # NOTE: partitioned-heritability/inputs/decile/d*/gene-set-file look like GISMO
 # deciles but are GISMO-mis deciles (README; 100% identical to `dec` below).
@@ -183,6 +265,9 @@ def build(n_iter=2000, out=paths.SCORES_TSV):
     ann = load_gene_annot(root)
     g["symbol"] = g.gene_id.map(ann.gene_name)
     g["chrom"] = g.gene_id.map(ann.seqnames).astype(str)
+    qc, n_hq = assembly_qc(loss, sp_used)
+    g = g.merge(qc, on="gene_id", how="left")
+    print(f"[gismo] assembly QC: gismo_hq on {n_hq} species with contig N50 >= median")
 
     mis, syn = load_mis_syn(root, sp_used)
     m = gismo_mis(mis, syn)
@@ -196,9 +281,21 @@ def build(n_iter=2000, out=paths.SCORES_TSV):
     full = g.merge(m_by_sym, left_on="symbol", right_on="symbol_mis", how="outer")
     full["symbol"] = full["symbol"].fillna(full["symbol_mis"])
     full = full.drop(columns=["symbol_mis"])
+    # GC-content QC (needs the GENCODE CDS fasta; skipped offline)
+    try:
+        gcd = cds_gc(paths.ref("gencode.v44.pc_transcripts.fa.gz"),
+                     prefer_tx=full.dropna(subset=["gene_id"]).set_index("gene_id").transcript_id)
+        full = full.merge(gcd, on="gene_id", how="left")
+        full["gc_cds_pct"] = full.gc_cds.rank(pct=True)
+        print(f"[gismo] CDS GC for {full.gc_cds.notna().sum()} genes")
+    except Exception as e:
+        print(f"[gismo] GC QC skipped ({type(e).__name__}: {e})")
+        full["gc_cds"] = full["gc_cds_5p"] = full["gc_cds_pct"] = np.nan
     cols = ["symbol", "gene_id", "chrom", "transcript_id",
             "n_loss", "gismo", "gismo_decile", "gismo_point", "gismo_lower",
             "gismo_median", "gismo_normal_upper",
+            "loss_n50_shift", "n_loss_hq", "gismo_hq", "gismo_hq_decile",
+            "gc_cds", "gc_cds_5p", "gc_cds_pct",
             "gismo_mis", "gismo_mis_decile", "mean_mis", "mean_syn",
             "gismo_mis_ratio_of_means", "n_species_mis", "author_gismo_mis",
             "author_gismo_mis_decile"]

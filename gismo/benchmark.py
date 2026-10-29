@@ -214,6 +214,7 @@ def run(fig=True):
                     "n_discordant": int(disc.sum()),
                     "OR": _or(pd.Series(np.where(disc, 1, 2), index=x.index), isx)}
 
+    r["gc_bias"] = gc_bias(d, sets)
     r["heritability_archive"] = heritability_from_archive()
     r["fig4_vs_recomputed"] = {
         k: {"paper_approx": v, "recomputed": pct[k],
@@ -226,6 +227,33 @@ def run(fig=True):
     if fig:
         plot(r)
     return r
+
+
+def gc_bias(d, sets):
+    """GC-content artefact in GISMO (not reported in the paper)."""
+    if "gc_cds" not in d or d.gc_cds.isna().all():
+        return None
+    ok = d.gismo.notna() & d.gc_cds.notna()
+    ml = sets["mouse_lethal"]
+    out = {"rho_gc_gismo_all": _rho(d.gismo[ok], d.gc_cds[ok]),
+           "rho_gc_gismo_mouse_lethal": _rho(d.gismo[ok & ml], d.gc_cds[ok & ml]),
+           "rho_gc_gismo_loeuf_lt_0.35": _rho(d.gismo[ok & (d.loeuf < 0.35)],
+                                              d.gc_cds[ok & (d.loeuf < 0.35)]),
+           "rho_gc_gismo_hq": _rho(d.gismo_hq[ok], d.gc_cds[ok]),
+           "rho_gc_gismo_mis": _rho(d.gismo_mis, d.gc_cds)}
+    q = pd.qcut(d.gc_cds[ok], 5, labels=False) + 1
+    out["mouse_lethal_pct_in_d9_10_by_gc_quintile"] = [
+        round(float((d.gismo_decile[ok & ml & (q == k)] >= 9).mean() * 100), 1)
+        for k in range(1, 6)]
+    hi = ok & (d.gismo_decile >= 8)
+    flag = hi & (d.gc_cds_pct >= 0.8)
+    rest = hi & (d.gc_cds_pct < 0.8)
+    out["flag_d8_10_gc_top20"] = {
+        k: {"n": int(m.sum()), "pct_mouse_lethal": round(float(ml[m].mean() * 100), 1),
+            "pct_loeuf_lt_0.35": round(float((d.loeuf[m] < 0.35).mean() * 100), 1),
+            "pct_phaplo_gt_0.86": round(float((d.pHaplo[m] > 0.86).mean() * 100), 1)}
+        for k, m in [("flagged", flag), ("other_d8_10", rest)]}
+    return out
 
 
 def heritability_from_archive():
@@ -301,5 +329,6 @@ if __name__ == "__main__":
     print(table(res).to_string(index=False))
     for k in ["recessive_rule", "x_chrom", "heritability_archive"]:
         print(k, json.dumps(res[k], default=float))
+    print("gc_bias", json.dumps(res["gc_bias"], default=float))
     for k, v in res["fig4_vs_recomputed"].items():
         print(k, "max|Δ| vs Fig.4 =", v["max_abs_diff"])

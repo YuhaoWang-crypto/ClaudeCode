@@ -30,6 +30,7 @@ literature-grounded systems where every number is *computed*, not asserted.
 | `m20b_biomodels_exact` | fetch + simulate EXACT curated models (fills M20 gap) | Markevich2004 (BIOMD27), Legewie2006 apoptosis (BIOMD102) | download method = biomodels GitHub mirror + libRoadRunner; official Km5=78 confirms hand-coded M15 (states to the decimal); Legewie caspase switch bistable in XIAP synthesis |
 | `m22_snic_mixed` | mixed bifurcation: saddle-node ON a limit cycle (SNIC) | θ / Ermentrout-Kopell normal form (cell-cycle / excitable) | finite-amplitude spikes whose period diverges (T~π/√I, log-log slope −0.50; frequency→0) — signature distinct from both Hopf and pure saddle-node; ISI mean+CV both grow |
 | `m23_gismo_paralogs` | GISMO essentiality inside fibers | 29 discordant paralogue families from M14 vs mouse KO lethality | most-constrained member is lethal: LOEUF 24/29, GISMO-mis 20/27, GISMO 16/29 (≈ random) — gene loss can't separate paralogues |
+| `m24_gismo_atlas` | GISMO annotation of every M14 gene | 165 genes in 18 pathways (+ gnomAD, mouse KO, OMIM) | pathway genes more constrained than genome (d4 vs 5.5) but no more than other mouse-lethal genes; no switch-class effect; GISMO has a GC bias (ρ=+0.37 among lethal genes) → 13 pathway genes flagged |
 
 ## Run
 

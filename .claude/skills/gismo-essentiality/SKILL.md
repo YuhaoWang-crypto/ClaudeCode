@@ -38,12 +38,15 @@ python3 -m gismo fetch                             # Zenodo inputs + gnomAD/gene
 python3 -m gismo build [N_ITER]                    # recompute scores (~4 min at 2000 sims)
 python3 -m gismo benchmark                         # paper-vs-recomputed table + figure
 python3 -m grn_pipeline.m23_gismo_paralogs         # essential paralogue in each pathway fiber
+python3 -m grn_pipeline.m24_gismo_atlas            # annotate all M14 pathway genes -> gismo/data/m14_pathway_gismo.tsv
 ```
 
 ```python
 from gismo.core import load_scores          # 19,686 genes: symbol, gene_id, chrom,
 d = load_scores()                            # gismo, gismo_decile, n_loss, gismo_mis,
-                                             # gismo_mis_decile, mean_mis, mean_syn, ...
+                                             # gismo_mis_decile, mean_mis, mean_syn,
+                                             # QC: gc_cds, gc_cds_pct, gismo_hq(_decile),
+                                             #     loss_n50_shift, n_loss_hq
 from gismo.interpret import lookup, classify # rule-based tags (below)
 ```
 
@@ -60,6 +63,8 @@ data — cite the paper). Raw inputs are never committed; they cache in
 | LOEUF high but CDS < 1 kb and GISMO d1–2 | LOEUF is underpowered (short gene); trust GISMO | e.g. KRAS: LOEUF 1.24, GISMO d2, mouse-lethal |
 | LOEUF < 0.35 but GISMO d9–10, **X-linked** | LOEUF likely inflated (hemizygosity / mapping) | X is 16.9% of these vs 3.8% of all genes (OR 5.3) |
 | GISMO d9–10 and GISMO-mis d≥8 | lineage-dispensable / fast-evolving (olfactory, immune) | 61% of olfactory receptors in GISMO d10 |
+| GISMO d8–10 **and** CDS GC in top 20% (`gc_cds_pct` ≥ 0.8) | "loss" may be GC-rich assembly dropout — don't call dispensable | such genes are mouse-lethal 16.0% vs 5.5% for other d8–10 genes; pHaplo>0.86 12.0% vs 3.2% |
+| GISMO decile improves ≥3 using only high-quality assemblies (`gismo_hq_decile`) | losses sit in fragmented genomes; treat GISMO as uncertain | 2.7% of genes |
 | Recessive gene discovery | use **GISMO**, not GISMO-mis | AR genes: GISMO enriched at d1–4, GISMO-mis *depleted* (3% in d1) |
 | Missense / protein-level questions | use **GISMO-mis** (tracks AlphaMissense, |ρ| = 0.85) | — |
 | Picking the essential member of a paralogue family | **GISMO-mis or LOEUF, not GISMO** | M23: LOEUF 24/29, GISMO-mis 20/27, GISMO 16/29 ≈ random |
@@ -86,6 +91,18 @@ asks users to calibrate thresholds against known gene sets for each use.
   `reference/paper-notes.md`.
 
 ## Gotchas found while re-implementing (real traps)
+
+- **GISMO is GC-biased (not reported in the paper).** ρ(CDS GC, GISMO) = +0.19
+  genome-wide and +0.37 among mouse-lethal genes; lethal genes in the top GC
+  quintile land in GISMO d9–10 19.8% of the time vs ~1% in low-GC quintiles.
+  Restricting to high-N50 assemblies does not remove it (ρ +0.16). GISMO-mis is
+  unaffected (ρ = 0.02). A global GC correction does not improve gene-set
+  prediction, so flag per gene instead (rule above). Examples: SHH, IRS2,
+  SMAD6, KEAP1. Gene losses in general concentrate in fragmented assemblies
+  (losing species have ~half the average contig N50).
+- Curated pathway gene lists are biased toward famous essential genes: compare
+  against other mouse-lethal genes, not just the genome (M24: same GISMO
+  decile, p = 0.28).
 
 - The LDSC files `partitioned-heritability/inputs/decile/d*/gene-set-file`
   look like GISMO deciles but are **GISMO-mis** deciles.

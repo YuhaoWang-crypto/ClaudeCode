@@ -140,6 +140,18 @@ def main():
         print("M23 GISMO   : essential paralogue in a fiber picked by " + ", ".join(
               f"{m} {v['hits']}/{v['n_families']}" for m, v in s23.items())
               + f" (random ~{next(iter(s23.values()))['random_baseline']:.0%})")
+    try:
+        from grn_pipeline import m24_gismo_atlas
+        r24 = m24_gismo_atlas.report();      print()
+    except Exception as e:
+        r24 = None
+        print(f"M24 GISMO atlas skipped ({type(e).__name__}: {e})\n")
+    if r24:
+        a24 = r24["contrasts"]["all_pathway_genes"]
+        print(f"M24 GISMO atlas: {r24['n_genes']} pathway genes, median GISMO decile "
+              f"{a24['median_gismo_decile']} / GISMO-mis {a24['median_mis_decile']} vs genome 5.5 "
+              f"(p={a24['p_vs_genome_gismo']:.1g}); switch class and singleton-vs-paralogue "
+              f"show no significant difference")
     print("\nAbstract, measurable biomarker candidates produced:")
     print("  * irreducible-core node identity        (M1 quotient)")
     print("  * deficiency delta / distance-to-bistability (M2)")

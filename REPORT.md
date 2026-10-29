@@ -652,3 +652,60 @@ M1/M11/M14 把 HRAS/KRAS/NRAS、MAP2K1/2 等旁系同源家族折叠成一个纤
 **未复现**:UK Biobank CNV(个体级数据)、S-LDSC 重跑(只汇总了作者附带的输出:两个指标的遗传力富集都从十分位 1 向 10 单调下降,GISMO-mis 1.40→0.94,GISMO 1.23→0.94)、GTEx、sHet、DDD 分析。
 
 完整对照表见 `.claude/skills/gismo-essentiality/reference/reproduction.md`;用法见 skill `gismo-essentiality`。
+
+---
+
+## M24 — 用 GISMO 注释 M14 全部通路基因 + 发现 GISMO 的 GC 偏差
+
+**做了什么**:M14 的 18 条通路共 165 个基因(169 条通路-基因记录;`NICD` 不是基因,跳过),全部在 GISMO 表中有分。每个基因标注:GISMO / GISMO-mis(值和十分位)、丢失物种数、LOEUF、CDS 长度、pHaplo/pTriplo、小鼠敲除致死、OMIM AR/AD、纤维内排名、组装质量与 GC 质控列、解读标签。逐基因表 `gismo/data/m14_pathway_gismo.tsv`,图 `figures/m24_gismo_atlas.png`(每个点是一个基因,颜色 = GISMO 十分位;方块 = 单成员节点,圆点 = 旁系同源纤维成员;黑边 = 小鼠致死;† = 高 GC 风险)。
+
+**各通路(按 GISMO 十分位中位数排序,1 = 最保守,基因组 = 5.5)**
+
+| 通路 | 开关类 | 基因数 | GISMO | 去掉 GC 风险基因后 | GISMO-mis | 小鼠致死% | 最保守 | 最不保守 |
+|---|---|---|---|---|---|---|---|---|
+| MAPK_ERK | high | 17 | 2 * | 2 | 2 * | 71 | NRAS, MAPK3 | EGF, MAP2K2† |
+| NFKB_CANONICAL | medium | 9 | 2 * | 2 | 5 | 78 | NFKBIE, RELA | IL1B, REL |
+| TGFb_SMAD | medium | 8 | 2 * | 2 | 2 * | 100 | SMAD4, TGFB2 | SMAD6†, SMAD7 |
+| MTOR_AMPK_AUTOPHAGY | medium | 6 | 2 * | 2 | 2.5 * | 50 | MTOR, TSC2 | ULK1, TSC1 |
+| TCR_NFAT | high | 7 | 2 * | 2 | 1 * | 86 | LCK, PPP3CB | NFATC1, NFATC2 |
+| P53_MDM2 | high | 8 | 3 | 3 | 7 | 63 | CHEK2, MDM2 | BBC3†, CDKN1A |
+| WNT_BCAT | medium | 11 | 3 * | 2 | 1 * | 82 | TCF7, TCF7L2 | WNT3A†, LRP5 |
+| HIF1_HYPOXIA | flux | 11 | 3 | 3 | 5 | 73 | EGLN3, VEGFA | EGLN1, LDHA |
+| MEVALONATE_CHOLESTEROL | flux | 4 | 3.5 | 3.5 | 4 | 75 | HMGCR | FDFT1 |
+| PI3K_AKT_MTOR | medium | 10 | 4 | 4 | 1.5 * | 70 | MTOR, RPS6KB1 | INSR, AKT1 |
+| HIPPO_YAP | medium | 10 | 4 | 4 | 2 * | 70 | TEAD1, STK3 | TEAD2, LATS2 |
+| NOTCH | medium | 10 | 5 | 5 | 3 * | 90 | JAG1, ADAM17 | NOTCH3†, HES1† |
+| APOPTOSIS_CASPASE | high | 9 | 5 | 5 | 8 | 44 | CASP7, BAK1 | TNFRSF10A, XIAP |
+| GLYCOLYSIS_WARBURG | flux | 11 | 5 | 5 | 4 * | 45 | PFKM, HK3 | PFKL, HK2 |
+| JAK_STAT | medium | 15 | 5 | 4 | 7 | 73 | STAT3, JAK1 | IL4R, SOCS1† |
+| NRF2_KEAP1 | medium | 7 | 6 | 6 | 5 | 57 | NQO1, NFE2L2 | MAFF†, KEAP1† |
+| HEDGEHOG_GLI | medium | 9 | 6 | 5.5 | 4 * | 67 | PTCH1, SMO | SHH†, DHH |
+| INSULIN_GLUT4 | flux | 7 | 6 | 4 | 3.5 * | 86 | SLC2A4, TBC1D4 | IRS2†, IRS1† |
+
+\* BH q < 0.05(单侧 Mann-Whitney,相对全基因组)。† = 高 GC 风险基因。
+
+**结论**
+
+1. ✅ 通路基因整体明显比基因组保守:GISMO 十分位中位数 4、GISMO-mis 3(基因组 5.5;p = 2×10⁻⁹ / 4×10⁻¹¹)。
+2. ⚠️ **但这主要是选基因造成的偏差**:M14 选的是"明星基因",70% 是小鼠致死基因(全基因组 20%)。拿其他小鼠致死基因做对照,通路里的致死基因在基因丢失上**一样保守**(都是十分位 4,p = 0.28);只有错义约束上**略高**(十分位 3 vs 4,p = 0.007),说明信号蛋白的序列本身更受约束,而不是基因更不能丢。
+3. 开关类型无差异:high(双稳开关)、medium、flux 三类通路的 GISMO 十分位中位数 3 / 4 / 4,high vs 其余 p = 0.29(GISMO-mis p = 0.86)。"能做开关"不意味着"更必需"。
+4. **纤维冗余假设**(M1/M11 把旁系同源成员视为可互换):单成员节点比纤维成员略保守但不显著(GISMO p = 0.15,LOEUF p = 0.12,n = 18;小鼠致死 83% vs 69%)。62 个旁系同源纤维内部,19% 的成员跨度 ≥5 个十分位(如 RAS、MAP2K、JAK、AKT、PHD),说明进化在这些纤维里打破了对称——结合 M23,应该用 GISMO-mis/LOEUF 来判断谁是关键成员。
+5. 进化快的通路:P53_MDM2、APOPTOSIS_CASPASE、JAK_STAT 的 GISMO-mis 十分位 7–8——免疫/细胞死亡相关基因有快速的氨基酸替换(和病原体的军备竞赛),但基因本身很少丢失。
+
+**新发现:GISMO 有 GC 含量偏差(论文未报告)**
+
+在核对"人类很保守、小鼠敲除致死,却被 GISMO 判为经常丢失"的基因(EGLN1、SHH、IRS2)时发现:
+
+| 检验 | 结果 |
+|---|---|
+| 全基因组 ρ(编码区 GC, GISMO) | +0.19(n = 19,300) |
+| 仅小鼠致死基因 ρ(GC, GISMO) | **+0.37** |
+| 小鼠致死基因中被排到 d9–10 的比例,按 GC 五分位 | 1.1%、0.9%、2.7%、4.6%、**19.8%** |
+| 只用组装质量较高的一半物种(contig N50 ≥ 中位数) | ρ 仍有 +0.16 —— 不能消除 |
+| ρ(GC, GISMO-mis) | +0.016 —— **GISMO-mis 不受影响** |
+
+必需基因不会因为 GC 高就真的更常丢失,所以这是技术伪影:高 GC 外显子在短读长组装里容易缺失,TOGA 就判成 ORF 丢失。**整体做 GC 校正不划算**(小鼠致死 AUC 0.660→0.663,细胞必需基因反而 0.666→0.639),所以改为逐基因打标记:**GISMO d8–10 且编码区 GC 位于前 20%** → "可能是组装缺失"。被标记的基因里小鼠致死占 16.0%,其他 d8–10 基因只有 5.5%;剂量敏感(pHaplo > 0.86)12.0% vs 3.2%。通路里有 13 个基因被标记:MAP2K2、JAK3、SOCS1、SMAD6、WNT3A、NOTCH3、HES1、SHH、KEAP1、MAFF、BBC3、IRS1、IRS2。去掉它们后,INSULIN_GLUT4 从十分位 6 变为 4,JAK_STAT 和 WNT_BCAT 各提升 1 级。
+
+同时做了组装质量敏感性检查:全基因组的丢失普遍偏向低质量组装(丢失物种的 contig N50 平均只有一半)。只用高质量组装重算的 GISMO 与原版秩相关 0.93,预测必需基因的能力相当,因此只作为逐基因检查:通路中 REL、LDHA、HEY1、NFE2L2、HMOX1、FDFT1 的十分位在高质量组装下改善 ≥3 级。EGF(反刍类丢失)和 TNFRSF10A(啮齿类本来就只有一个 TRAIL 死亡受体)的 GC 不高、组装质量正常,它们的丢失更可能是真实的谱系特异丢失。
+
+新列已加入 `gismo/data/gismo_scores.tsv.gz`:`gc_cds`、`gc_cds_5p`、`gc_cds_pct`、`loss_n50_shift`、`n_loss_hq`、`gismo_hq`、`gismo_hq_decile`(原有列逐位不变)。`python3 -m gismo lookup` 会自动给出 GC 风险和组装敏感提示。
