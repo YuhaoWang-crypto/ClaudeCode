@@ -1,0 +1,37 @@
+{
+  "target_peptide": "ELTLGEFLKL",
+  "weighting": "uniform over non-anchor positions (no structure used)",
+  "tcr_contacts_per_position": null,
+  "weights_used": [
+    1.0,
+    0.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    0.0
+  ],
+  "weighted_positions": [
+    "P1E",
+    "P3T",
+    "P4L",
+    "P5G",
+    "P6E",
+    "P7F",
+    "P8L",
+    "P9K"
+  ],
+  "anchor_filter": {
+    "P2": "AILMQTV",
+    "P10": "AILMTV"
+  },
+  "identity_required_at": [],
+  "windows_scanned": 11230909,
+  "windows_passing_all_filters": 1578308,
+  "hits_above_threshold": 161,
+  "min_similarity": 0.72,
+  "caveat": "Uniform weights are weaker than contact weights. Redo this with scan_proteome once a structure of the receptor exists."
+}

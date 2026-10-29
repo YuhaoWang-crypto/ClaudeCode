@@ -26,7 +26,12 @@ from .epistasis import format_report as format_additivity_report
 from .epistasis import run_additivity_analysis
 from .handoff import write_handoff
 from .liability import apply_gates
-from .offtarget import download_proteome, peptide_contact_profile, scan_proteome
+from .offtarget import (
+    download_proteome,
+    peptide_contact_profile,
+    scan_epitope,
+    scan_proteome,
+)
 from .report import (
     plot_additivity,
     plot_calibration,
@@ -71,7 +76,7 @@ def build_parser() -> argparse.ArgumentParser:
         "stage",
         choices=[
             "run", "interface", "scan", "offtarget", "validate", "benchmark",
-            "epistasis",
+            "epistasis", "epitope",
         ],
         help="which part of the pipeline to run",
     )
@@ -79,7 +84,10 @@ def build_parser() -> argparse.ArgumentParser:
         "pdb_id",
         nargs="?",
         default=None,
-        help="PDB id of a TCR-pMHC complex, e.g. 1AO7 (not needed for 'benchmark')",
+        help=(
+            "PDB id of a TCR-pMHC complex, e.g. 1AO7. For 'epitope' this is the "
+            "peptide sequence instead. Not needed for 'benchmark' or 'epistasis'."
+        ),
     )
     parser.add_argument(
         "variant_pdb_id",
@@ -142,6 +150,14 @@ def build_parser() -> argparse.ArgumentParser:
         ),
     )
     parser.add_argument(
+        "--pin-positions",
+        default=None,
+        help=(
+            "for 'epitope': 1-based peptide positions that must match exactly, "
+            "e.g. '5,8' when an experimental scan has shown them to be critical"
+        ),
+    )
+    parser.add_argument(
         "--no-calibration",
         action="store_true",
         help="ignore the calibrated model and use the raw heuristic",
@@ -171,6 +187,62 @@ def build_parser() -> argparse.ArgumentParser:
         help="skip the proteome screen (it downloads ~7 MB and takes about a minute)",
     )
     return parser
+
+
+def _run_epitope(args, outdir: Path) -> int:
+    """Screen an epitope against the human proteome with no structure required."""
+    import pandas as pd
+
+    peptide = (args.pdb_id or "").strip().upper()
+    if not peptide or not peptide.isalpha() or len(peptide) < 7:
+        print(
+            "epitope needs a peptide sequence, e.g.\n"
+            "  python -m tcr_design epitope ELTLGEFLKL",
+            file=sys.stderr,
+        )
+        return 2
+
+    print(f"[1/2] screening {peptide} ({len(peptide)}mer) against the human proteome")
+    print(
+        "      no structure used, so positions are weighted uniformly outside "
+        "the MHC anchors - this is the weaker screen"
+    )
+    proteome = download_proteome(args.cache / "proteome")
+    pinned = tuple(
+        int(p) for p in (args.pin_positions or "").split(",") if p.strip().isdigit()
+    )
+    hits, motif = scan_epitope(
+        peptide,
+        proteome,
+        top_n=args.offtarget_top,
+        min_similarity=args.offtarget_min_similarity,
+        require_identity_positions=pinned,
+    )
+    print(
+        f"      {motif['windows_scanned']:,} windows scanned, "
+        f"{motif['windows_passing_all_filters']:,} passed the filters, "
+        f"{motif['hits_above_threshold']:,} above similarity "
+        f"{motif['min_similarity']}, {len(hits)} reported"
+    )
+
+    print("\n[2/2] closest human peptides")
+    print(f"      {'peptide':>14} {'sim':>5}  gene / protein")
+    for hit in hits[:15]:
+        print(f"      {hit.peptide:>14} {hit.similarity:5.2f}  {hit.protein[:54]}")
+
+    outdir.mkdir(parents=True, exist_ok=True)
+    table = outdir / f"offtarget_{peptide}.csv"
+    pd.DataFrame([h.as_row() for h in hits]).to_csv(table, index=False)
+    (outdir / f"offtarget_{peptide}.json").write_text(
+        json.dumps(motif, indent=2, default=str) + "\n"
+    )
+    print(f"\n      data: {table}")
+    print(
+        "\nThis is a similarity shortlist, not a cross-reactivity prediction, and "
+        "uniform weights make it weaker than a structure-derived screen. Redo it "
+        "with 'run' once a structure of the receptor exists."
+    )
+    return 0
 
 
 def _run_epistasis(args, outdir: Path) -> int:
@@ -375,6 +447,8 @@ def main(argv: list[str] | None = None) -> int:
 
     if args.stage == "epistasis":
         return _run_epistasis(args, outdir)
+    if args.stage == "epitope":
+        return _run_epitope(args, outdir)
     if args.stage == "benchmark":
         return _run_benchmark(args, outdir)
     if not args.pdb_id:

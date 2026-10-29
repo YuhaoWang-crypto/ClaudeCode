@@ -1,0 +1,51 @@
+peptide,similarity,identical_at_contacts,contact_match,gene,accession,protein,position
+EISLGQFMKA,0.875,5,E.sLGqFmK.,SLC6A8,P48029,Sodium- and chloride-dependent creatine transporter 1,109
+ELTLGNLLRM,0.8056,5,E.TLG--Lr.,SACK1D,Q9H4H8,Scaffolding CK1 anchoring protein D,323
+SLTLSEFVKA,0.8056,5,-.TL-EFvK.,SAMD15,Q9P1V8,Sterile alpha motif domain-containing protein 15,641
+QLTIDEFMKI,0.8056,4,q.Ti-EFmK.,BRF1,Q92994,Transcription factor IIIB 90 kDa subunit,274
+DVTVGDFIRL,0.8056,3,d.TvGdFir.,ATP10D,Q9P241,Phospholipid-transporting ATPase VD,174
+EVTLGQVAKL,0.7917,5,E.TLGq--K.,EPPK1,P58107,Epiplakin,858
+ELSLGSLLKL,0.7917,5,E.sLG--LK.,TMEM260,Q9NX78,Protein O-mannosyl-transferase TMEM260,213
+EMTRGKFLNI,0.7917,5,E.T-GkFL-.,LIN52,Q52LA3,Protein lin-52 homolog,97
+LVTLEEFLKA,0.7778,6,-.TL-EFLK.,NUCB2,P80303,Nucleobindin-2,312
+TATLGNFAKA,0.7778,5,-.TLG-F-K.,RPS2,P15880,Small ribosomal subunit protein uS5,230
+EITFYEYLKT,0.7778,5,E.T--EyLK.,CHM,P24386,Rab proteins geranylgeranyltransferase component A 1,317
+EAALGSFIQI,0.7778,4,E.-LG-Fiq.,TTC21A,Q8NDW8,Tetratricopeptide repeat protein 21A,1144
+QTSLAQFLKL,0.7778,4,q.sL-qFLK.,DNAH8,Q96JB1,Dynein axonemal heavy chain 8,3706
+DTDIGNFLKV,0.7778,4,d.-iG-FLK.,NYNRIN,Q9P2P1,Protein NYNRIN,951
+QLSVGDFVKI,0.7778,3,q.svGdFvK.,CFAP337,Q8IV35,Cilia- and flagella-associated protein 337,41
+QMTLGFFLPL,0.7639,5,q.TLG-FL-.,CXCR6,O00574,C-X-C chemokine receptor type 6,195
+SVTKGEMLKI,0.7639,5,-.T-GE-LK.,MAGEB2,O15479,Melanoma-associated antigen B2,131
+EVTVGEGLNL,0.7639,5,E.TvGE-L-.,CSF1R,P07333,Macrophage colony-stimulating factor 1 receptor,312
+ELSLSEFLLL,0.7639,5,E.sL-EFL-.,CDC42BPG,Q6DT37,Serine/threonine-protein kinase MRCK gamma,1284
+EATSGEGMKA,0.7639,5,E.T-GE-mK.,FAIM2,Q9BWQ8,Protein lifeguard 2,40
+EVTLRDFSKL,0.7639,5,E.TL-dF-K.,NLRC4,Q9NPP4,NLR family CARD domain-containing protein 4,663
+LLSTGEFLKL,0.7639,5,-.s-GEFLK.,KLHL9,Q9P2J3,Kelch-like protein 9,184
+LLSTGEFLKL,0.7639,5,-.s-GEFLK.,KLHL13,Q9P2N7,Kelch-like protein 13,226
+ETTSGTFLSA,0.7639,5,E.T-G-FL-.,RCL1,Q9Y2P8,RNA 3'-terminal phosphate cyclase-like protein,248
+DTSLLEFLKI,0.7639,5,d.sL-EFLK.,OR4D2,P58180,Olfactory receptor 4D2,191
+DVTLGDLTKI,0.7639,4,d.TLGd--K.,INPPL1,O15357,"Phosphatidylinositol 3,4,5-trisphosphate 5-phosphatase 2",317
+EAALNEYLRV,0.7639,4,E.-L-EyLr.,ALDH1L1,O75891,Cytosolic 10-formyltetrahydrofolate dehydrogenase,886
+EQAMGSFLSV,0.7639,4,E.-mG-FL-.,LAP3,P28838,Cytosol aminopeptidase,242
+QLPLGNFVKM,0.7639,4,q.-LG-FvK.,TRMT10A,Q8TBZ6,tRNA methyltransferase 10 homolog A,231
+QQVVGELLKL,0.7639,4,q.-vGE-LK.,WDR35,Q9P2L0,WD repeat-containing protein 35,582
+EAVKGEVLKV,0.75,5,E.--GE-LK.,MET,P08581,Hepatocyte growth factor receptor,868
+EASLGEASKL,0.75,5,E.sLGE--K.,SPTBN1,Q01082,"Spectrin beta chain, non-erythrocytic 1",1055
+EVTLNLFLQI,0.75,5,E.TL--FLq.,NLRP9,Q7RTR0,"NACHT, LRR and PYD domains-containing protein 9",70
+EQTLDNLLKL,0.75,5,E.TL---LK.,STRA8,Q7Z7C7,Stimulated by retinoic acid gene 8 protein homolog,101
+EVTNQQFLKT,0.75,5,E.T--qFLK.,SCLT1,Q96NL6,Sodium channel and clathrin linker 1,204
+DTGTGDFLKA,0.75,4,d.--GdFLK.,SLC33A1,O00400,Acetyl-coenzyme A transporter 1,55
+EVTVGKFYAT,0.75,4,E.TvGkF--.,CACNA1F,O60840,Voltage-dependent L-type calcium channel subunit alpha-1F,1577
+EATVGERVRI,0.75,4,E.TvGE-vr.,KDR,P35968,Vascular endothelial growth factor receptor 2,341
+DVSLQEFVKA,0.75,4,d.sL-EFvK.,PSMD7,P51665,26S proteasome non-ATPase regulatory subunit 7,239
+EVTVGKFYAT,0.75,4,E.TvGkF--.,CACNA1D,Q01668,Voltage-dependent L-type calcium channel subunit alpha-1D,1600
+EVTVGKFYAT,0.75,4,E.TvGkF--.,CACNA1S,Q13698,Voltage-dependent L-type calcium channel subunit alpha-1S,1517
+EVTVGKFYAT,0.75,4,E.TvGkF--.,CACNA1C,Q13936,Voltage-dependent L-type calcium channel subunit alpha-1C,1660
+EMTQGSYLEI,0.75,4,E.T-G-yLe.,PARP6,Q2NL67,Protein mono-ADP-ribosyltransferase PARP6,394
+EMDLNDFVKT,0.75,4,E.-L-dFvK.,HYDIN,Q4G0P3,Axonemal central pair apparatus protein HYDIN,1254
+DLVRGEFLQL,0.75,4,d.--GEFLq.,PDSS1,Q5T2R2,All trans-polyprenyl-diphosphate synthase PDSS1,237
+EALLGEIVRA,0.75,4,E.-LGE-vr.,RASIP1,Q5U651,Ras-interacting protein 1,553
+KVTIGGFAKL,0.75,4,k.TiG-F-K.,TRIM46,Q7Z4K8,Tripartite motif-containing protein 46,749
+STEIGSFLKM,0.75,4,-.-iG-FLK.,ABCA13,Q86UQ4,ATP-binding cassette sub-family A member 13,2728
+EARQGEFIEM,0.75,4,E.--GEFie.,IHO1,Q8IYA8,Interactor of HORMAD1 protein 1,211
+ETTYGELISL,0.75,4,E.T-GE-i-.,ASPM,Q8IZT6,Abnormal spindle-like microcephaly-associated protein,829

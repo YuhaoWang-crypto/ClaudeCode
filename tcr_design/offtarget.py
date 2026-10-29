@@ -184,6 +184,136 @@ def _similarity(
     return total / best, identical, "".join(pattern)
 
 
+def scan_epitope(
+    peptide: str,
+    proteome_path: Path,
+    weights: list[float] | None = None,
+    anchors: dict[int, set[str]] | None = None,
+    top_n: int = 50,
+    min_similarity: float = 0.70,
+    require_identity_positions: tuple[int, ...] = (),
+    exclude_self: bool = True,
+) -> tuple[list[ProteomeHit], dict]:
+    """Screen an epitope against the proteome with no structure required.
+
+    ``scan_proteome`` weights each peptide position by how much contact the TCR
+    makes with it, which is what makes that screen sharp. When no structure of
+    the receptor exists yet - the usual situation early in a programme - this
+    function runs the same comparison with uniform weights over the non-anchor
+    positions instead.
+
+    That is deliberately the weaker screen, and the difference matters: a
+    contact-weighted motif is what moved the titin peptide from rank 27 to
+    rank 6 of 36,000 in the published MAGE-A3 reconstruction. Treat the output
+    as a baseline map of the neighbourhood around an epitope, to be redone
+    properly once a structure exists.
+
+    ``require_identity_positions`` is 1-based and lets you pin positions that
+    an experimental scan has shown to be critical.
+    """
+    length = len(peptide)
+    anchors = HLA_A0201_ANCHORS if anchors is None else anchors
+    anchor_checks = [
+        (position - 1 if position > 0 else length + position, allowed)
+        for position, allowed in anchors.items()
+    ]
+    anchor_checks = [
+        (index, allowed) for index, allowed in anchor_checks if 0 <= index < length
+    ]
+    anchor_indices = {index for index, _ in anchor_checks}
+
+    if weights is None:
+        # Uniform over everything the MHC is not holding down.
+        weight_array = np.array(
+            [0.0 if i in anchor_indices else 1.0 for i in range(length)], dtype=float
+        )
+    else:
+        weight_array = np.asarray(weights, dtype=float)
+        if len(weight_array) != length:
+            raise ValueError("weights must have one entry per peptide position")
+
+    pinned = [p - 1 for p in require_identity_positions if 0 < p <= length]
+
+    hits: list[ProteomeHit] = []
+    windows_seen = 0
+    windows_passing = 0
+
+    for accession, entry, gene, name, sequence in iter_proteome(proteome_path):
+        if len(sequence) < length:
+            continue
+        for start in range(len(sequence) - length + 1):
+            windows_seen += 1
+            candidate = sequence[start : start + length]
+            ok = True
+            for index, allowed in anchor_checks:
+                if candidate[index] not in allowed:
+                    ok = False
+                    break
+            if ok:
+                for index in pinned:
+                    if candidate[index] != peptide[index]:
+                        ok = False
+                        break
+            if not ok:
+                continue
+            windows_passing += 1
+            similarity, identical, pattern = _similarity(
+                peptide, candidate, weight_array
+            )
+            if similarity < min_similarity:
+                continue
+            if exclude_self and candidate == peptide:
+                continue
+            hits.append(
+                ProteomeHit(
+                    accession=accession,
+                    entry=entry,
+                    gene=gene,
+                    protein=name,
+                    position=start + 1,
+                    peptide=candidate,
+                    similarity=similarity,
+                    identical_contacts=identical,
+                    contact_positions_matched=pattern,
+                )
+            )
+
+    hits.sort(key=lambda h: (-h.similarity, -h.identical_contacts))
+    deduplicated: list[ProteomeHit] = []
+    seen: set = set()
+    for hit in hits:
+        key = (hit.gene, hit.peptide)
+        if key in seen:
+            continue
+        seen.add(key)
+        deduplicated.append(hit)
+        if len(deduplicated) >= top_n:
+            break
+
+    motif = {
+        "target_peptide": peptide,
+        "weighting": "uniform over non-anchor positions (no structure used)",
+        "tcr_contacts_per_position": None,
+        "weights_used": weight_array.tolist(),
+        "weighted_positions": [
+            f"P{i + 1}{peptide[i]}" for i in range(length) if weight_array[i] > 0
+        ],
+        "anchor_filter": {
+            f"P{i + 1}": "".join(sorted(allowed)) for i, allowed in anchor_checks
+        },
+        "identity_required_at": [f"P{p + 1}{peptide[p]}" for p in pinned],
+        "windows_scanned": windows_seen,
+        "windows_passing_all_filters": windows_passing,
+        "hits_above_threshold": len(hits),
+        "min_similarity": min_similarity,
+        "caveat": (
+            "Uniform weights are weaker than contact weights. Redo this with "
+            "scan_proteome once a structure of the receptor exists."
+        ),
+    }
+    return deduplicated, motif
+
+
 def scan_proteome(
     complex_obj: Complex,
     proteome_path: Path,

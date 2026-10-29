@@ -759,3 +759,50 @@ def test_additivity_holds_for_pairs_and_fails_for_deep_stacks():
     deep = [s for size, s in within.items() if size >= 8]
     assert deep, "expected some deeply stacked variants in ATLAS"
     assert max(s["mean_error"] for s in deep) > 1.0
+
+
+# --------------------------------------------------------------------------
+# Structure-free epitope screening
+# --------------------------------------------------------------------------
+
+@pytest.mark.skipif(not PROTEOME.exists(), reason="human proteome not cached")
+def test_epitope_screen_runs_without_any_structure():
+    from tcr_design.offtarget import scan_epitope
+
+    # The survivin HLA-A*02:01 epitope, a 10-mer.
+    hits, motif = scan_epitope("ELTLGEFLKL", PROTEOME, top_n=10)
+    assert motif["target_peptide"] == "ELTLGEFLKL"
+    assert motif["tcr_contacts_per_position"] is None
+    # Anchors are P2 and P-omega, which for a 10-mer is P10, and they must be
+    # excluded from the weighting rather than compared.
+    assert set(motif["anchor_filter"]) == {"P2", "P10"}
+    assert motif["weights_used"][1] == 0.0
+    assert motif["weights_used"][9] == 0.0
+    assert motif["weights_used"][0] == 1.0
+    for hit in hits:
+        assert len(hit.peptide) == 10
+        assert hit.peptide != "ELTLGEFLKL"
+        assert hit.peptide[1] in HLA_A0201_ANCHORS[2]
+        assert hit.peptide[-1] in HLA_A0201_ANCHORS[-1]
+
+
+@pytest.mark.skipif(not PROTEOME.exists(), reason="human proteome not cached")
+def test_pinning_a_position_restricts_the_hits_to_matches_there():
+    from tcr_design.offtarget import scan_epitope
+
+    loose, _ = scan_epitope("ELTLGEFLKL", PROTEOME, top_n=40)
+    pinned, motif = scan_epitope(
+        "ELTLGEFLKL", PROTEOME, top_n=40, require_identity_positions=(5, 8)
+    )
+    assert motif["identity_required_at"] == ["P5G", "P8L"]
+    for hit in pinned:
+        assert hit.peptide[4] == "G"
+        assert hit.peptide[7] == "L"
+    assert len(pinned) <= len(loose)
+
+
+def test_epitope_weights_must_match_the_peptide_length():
+    from tcr_design.offtarget import scan_epitope
+
+    with pytest.raises(ValueError, match="one entry per peptide position"):
+        scan_epitope("ELTLGEFLKL", Path("/nonexistent"), weights=[1.0, 1.0])
