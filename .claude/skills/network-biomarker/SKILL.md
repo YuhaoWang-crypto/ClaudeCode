@@ -89,6 +89,12 @@ overturned by data (e.g. M10 overturned M7's ranking), say so explicitly.
 - **Reproduce an EXACT literature model** (decimal-exact, not just topology) →
   `reference/data-access.md`. The working recipe behind the agent proxy is the
   **biomodels GitHub mirror + libRoadRunner**; `biomodels.org`/EBI are blocked.
+- **Cross-check a structural claim with a single-cell foundation model** →
+  `m23_geneformer` (Geneformer in-silico deletion on Modal GPU). Always pair
+  each deletion with a **rank-matched null gene from the same cell** (effect
+  size tracks rank position), run fp32 and measure the no-op noise floor, and
+  score against co-expression / expression-level baselines. On HEK293T the
+  M11 fibers were NOT recoverable (honest negative).
 - **The math in depth** (definitions, theorems, gotchas that were real bugs) →
   `reference/methodology.md`.
 - **Produce the summary report** → build a self-contained themed HTML report
@@ -105,5 +111,7 @@ overturned by data (e.g. M10 overturned M7's ranking), say so explicitly.
   rolling detrend removes the slow critical-slowing fluctuation you're measuring.
 - On an OFF branch where the mean → 0, CV explodes spuriously; use **absolute
   residual SD**.
+- Modal behind the agent proxy needs `pip install 'modal[api-proxy-support]'`;
+  the 10x CDN returns 403 to urllib's default User-Agent (send one).
 - Track the **least-stable / disappearing** branch (max λ) into a saddle-node,
   not the persistent one.

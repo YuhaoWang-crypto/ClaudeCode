@@ -33,6 +33,21 @@ Pre-registered readouts (fixed before the full run):
   sizes kept). Every Geneformer score is compared against two cheap
   baselines on the SAME pairs: co-expression (Spearman over all cells) and
   expression-level similarity (-|delta log mean expression|).
+
+HONEST FINDING (2,885 cells, 215k fp32 forward passes, noise floor 10x
+below signal): the M11 fiber collapse is NOT visible in Geneformer.
+  * D: 0/23 MAPK genes shift the cell more than a rank-matched random
+    gene; 21/23 shift it significantly LESS (median ratio ~0.92).
+  * A1: deleting ANY two co-detected MAPK genes moves the cell in a more
+    aligned direction than two rank-matched random genes (+0.04-0.05 cos,
+    significant in 75% of within- and 86% of cross-fiber pairs) - a pathway-wide
+    signal, but within-fiber pairs are not more aligned than cross-fiber
+    pairs (AUROC 0.40, perm p=0.92; paralog-only 0.40).
+  * A2/B: epistasis 0.57 (p=0.16), gene-embedding cosine 0.55 (p=0.22) -
+    not significant, and within 0.04 of the trivial expression-level
+    baseline (0.54); co-expression 0.46.
+Conclusion: M11 remains a ✅ symbolic result about the wiring diagram;
+Geneformer gives it no independent ⚠️ data support at fiber resolution.
 """
 import gzip
 import json

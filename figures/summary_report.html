@@ -226,7 +226,7 @@
     <header class="hero" id="top">
       <p class="kicker">数学 · 系统生物学 · 从头到尾的总结</p>
       <h1 class="serif">能不能把纯数学搬到生物网络里，找到可<em>检测</em>的 biomarker？</h1>
-      <p class="dek">从一个概念问题出发——群论、对称、不可约、分岔理论能否作用于哺乳动物调控网络（~2 万蛋白、~1600 个转录因子）——最后落成一套 <b>22 个模块、可真跑</b>的分析流水线。每个数字都是<b>计算出来的</b>，每条结论都带严格性标注。</p>
+      <p class="dek">从一个概念问题出发——群论、对称、不可约、分岔理论能否作用于哺乳动物调控网络（~2 万蛋白、~1600 个转录因子）——最后落成一套 <b>23 个模块、可真跑</b>的分析流水线。每个数字都是<b>计算出来的</b>，每条结论都带严格性标注。</p>
 
       <div class="meta-row">
         <span class="chip"><span class="dot" style="background:var(--ink)"></span><b>22</b> 模块</span>
@@ -644,6 +644,7 @@
             <tr><td class="mono">M20b</td><td>精确策展模型下载+仿真</td><td>Km5=78 确认；Legewie 双稳</td><td><span class="tag ok">严格</span> · 独立验证</td></tr>
             <tr><td class="mono">M21</td><td>振荡通路 Hopf</td><td>Re(λ)→0；谱峰锐化</td><td><span class="tag ok">严格</span></td></tr>
             <tr><td class="mono">M22</td><td>SNIC 混合分岔</td><td>T~π/√I；斜率 −0.50</td><td><span class="tag ok">严格</span></td></tr>
+            <tr><td class="mono">M23</td><td>Geneformer 审计 M11 纤维</td><td>2,885 细胞；同纤维 vs 跨纤维 AUROC 0.40（p=0.92）</td><td><span class="tag ok">严格</span> · 诚实负结果</td></tr>
           </tbody>
         </table>
       </div>
@@ -651,7 +652,7 @@
 
     <footer>
       <hr class="rule">
-      <p style="margin-top:22px"><strong style="color:var(--ink)">grn-pipeline</strong> · 22 个模块，从群论对称到 SNIC 分岔，把"数学能不能用在生物网络上"从类比做成了可复核的计算。完整代码与逐模块细节见仓库 <span class="mono">README.md</span> / <span class="mono">REPORT.md</span>；运行 <span class="mono">python3 -m grn_pipeline.run_all</span> 复现全部数字与图。</p>
+      <p style="margin-top:22px"><strong style="color:var(--ink)">grn-pipeline</strong> · 23 个模块，从群论对称到 SNIC 分岔，把"数学能不能用在生物网络上"从类比做成了可复核的计算。完整代码与逐模块细节见仓库 <span class="mono">README.md</span> / <span class="mono">REPORT.md</span>；运行 <span class="mono">python3 -m grn_pipeline.run_all</span> 复现全部数字与图。</p>
       <p style="margin-top:10px; color:var(--ink-faint)">图例：<span style="color:var(--good)">✅ 严格</span> = 确定性计算 / 逐位复现 / 实测统计量　·　<span style="color:var(--warn)">⚠️ 假设</span> = 待实验标定的可检验命题。所有严格性标注在本页与仓库报告中一致。</p>
     </footer>
 
