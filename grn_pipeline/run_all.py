@@ -55,6 +55,12 @@ def main():
         r20b = None
         print(f"M20b exact-biomodels skipped ({type(e).__name__}: {e})\n")
     r22 = m22_snic_mixed.report();           print()
+    try:
+        from grn_pipeline import m23_geneformer
+        r23 = m23_geneformer.report();       print()
+    except Exception as e:               # needs the cached Modal GPU output
+        r23 = None
+        print(f"M23 Geneformer skipped ({type(e).__name__}: {e})\n")
 
     print("=" * 68)
     print("CONSOLIDATED SUMMARY")
@@ -129,6 +135,11 @@ def main():
     print(f"M22 SNIC    : mixed saddle-node+oscillation; period diverges "
           f"(T~1/sqrt, slope {r22['slope']:.2f}) -> frequency->0 signature "
           f"distinct from Hopf and pure saddle-node")
+    if r23:
+        a = r23["auroc"]["align"]
+        print(f"M23 Geneformer: in-silico deletion on {r23['meta']['n_cells']} "
+              f"HEK293T cells; M11 fibers {r23['verdict']} "
+              f"(alignment AUROC {a['auroc']:.2f}, perm p={a['p']:.2g})")
     print("\nAbstract, measurable biomarker candidates produced:")
     print("  * irreducible-core node identity        (M1 quotient)")
     print("  * deficiency delta / distance-to-bistability (M2)")
