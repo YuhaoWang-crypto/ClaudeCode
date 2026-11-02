@@ -1,0 +1,2430 @@
+task_type,status,gold,ours,prompt
+transcription_coding,agree,AUAUUGCCUAACCCAGCUGACGAUCUGA,AUAUUGCCUAACCCAGCUGACGAUCUGA,"Given the coding DNA strand 5'-ATATTGCCTAACCCAGCTGACGATCTGA-3', determine the corresponding mRNA sequence in the 5'-to-3' direction."
+pyrimidine_count,agree,2,2,"Problem: for ATAATA, find how many pyrimidine bases it contains."
+polya_signal_position,agree,34,34,Consider the following 3' UTR sequence: 5'-CGGATCGAAGGGTCGCCCAGCCTTTTGTAGATTAATAAAATATCCCTAGACGTGTCTTCCTCA-3'. What is the 1-based starting position of the canonical polyadenylation signal AATAAA?
+orf_amino_acid_count,agree,25 amino acids,25 amino acids,"DNA: 5'-ATGCGCTGCCATGATGGACCGGACAGCAAGCCCAATGGTTGGAGACATGTCTATGGGTTCTATTCTATTGAGGGCTAGCGTAGAAACTCC-3'
+
+Translation begins at the first ATG. How many amino acids are encoded up to, but not including, the stop codon?"
+long_oligo_tm,agree,84.5 °C,84.5 °C,"What I have:
+Oligo: 5'-CGGGGCAGGAGCGTGCGAGCGCCGCCGGCCCCGCGGGCGTG-3'
+
+What I want to work out: Calculate the melting temperature using Tm = 64.9 + 41×((#(G+C)-16.4)/N), rounded to one decimal place."
+aligned_complement,agree,AAAAGGGTGGCATCTGGCCCGTCAGAAGATACATATCATTGAATCGA,AAAAGGGTGGCATCTGGCCCGTCAGAAGATACATATCATTGAATCGA,"Given the DNA strand 5'-TTTTCCCACCGTAGACCGGGCAGTCTTCTATGTATAGTAACTTAGCT-3', write its complementary strand base by base in the 3'-to-5' direction."
+reverse_complement,agree,CTAAGATCCCCACTCTGCGGCAGTAAGCCACCACGACACGAAACGAT,CTAAGATCCCCACTCTGCGGCAGTAAGCCACCACGACACGAAACGAT,"Given the following single-stranded DNA sequence written in the standard 5'-to-3' direction:
+
+ATCGTTTCGTGTCGTGGTGGCTTACTGCCGCAGAGTGGGGATCTTAG
+
+Determine the sequence of its reverse complement, reporting the final strand from 5' to 3'."
+hydrogen_bond_count,agree,219,219,"Sequence under study: GCTGAGACTGCCATCGGACGATAAGGGGTCTGGTTGGTCGAGACTTGCAAGGCGGACGGCGTCAAAGGCTGCAGGCATCGGCTT
+Determine the number of hydrogen bonds holding the duplex together."
+cpg_obs_exp,agree,Yes,Yes,"For the DNA sequence AGCTCTCTTTAGACCGGAAAGGTGCTGAACCGCACTCCTGGGATCGCGTTATGGTGGTCAAGTTAGACATTCTGAGGGTAGACCTGGCGATT, calculate the CpG observed/expected ratio using (CpG count × sequence length) ÷ (C count × G count). Is the resulting ratio greater than 0.8? Answer Yes or No."
+orf_amino_acid_count,agree,25 amino acids,25 amino acids,"DNA: 5'-ACATATTTTCCTCGATGTCTCACTCCAAACTAGTTTCAACCAAACTACCGAAGTGGCCAGACAGTCGTACTGTAGGCACGCCGGTCCCGTAGTTGAATGGCCGCG-3'
+
+My question: Translation begins at the first ATG. How many amino acids are encoded up to, but not including, the stop codon?
+
+Could you show your working?"
+polya_signal_position,agree,60,60,"Quick question for you.
+
+3' UTR: 5'-CGACCAAATAGATCTCCGATAGAGTTAGCTCGTAGCTCGTGTCCTGGTAATTAACCAGTAATAAATCTGGCCCTCCCGAAAAT-3'
+At which 1-based position does the AATAAA polyadenylation signal start?
+
+Could you show your working?"
+restriction_fragments_circular,agree,8,8,"Consider a closed circular DNA molecule with the following sequence, where the final base loops around to connect back to the first:
+
+GGAAGGCTGCAGCGGCCGCGTCTGCAGGTATCCTGCAGTGCGTGCTGCAGGATATGTACTGCAGAACCCAATTCTGCAGGCATCTGGACTGCAGCTGCGCTGCAGGATCAACA
+
+If you treat this DNA with the restriction endonuclease PstI, which targets the recognition sequence CTGCAG, how many separate fragments will be generated once digestion is complete?
+
+Explain your reasoning as you go."
+polya_signal_position,agree,61,61,"At which 1-based position does the AATAAA polyadenylation signal start?
+3' UTR: 5'-AGTGTACTGCCCACCCAACTAATGAAGCAGCGCATGATTTGGCTGTATCGCTAGGAGCCGAATAAACGCATAAAAACGTCTAGCAGGCT-3'"
+cas9_cut_position,agree,Between positions 37 and 38,Between positions 37 and 38,"Here is a DNA sequence: 5'-CGTTCACTTAGCAAGCACCCTAGATCTTGTACGACACCATCGGCC-3'
+
+There is just one NGG PAM motif present in this strand. Knowing that SpCas9 cleaves the DNA 3 base pairs upstream of the PAM, between which two positions does the cut take place? Please use 1-based coordinates."
+restriction_fragments_linear,agree,6,6,"I'd like a hand with the following.
+
+What I have:
+Enzyme: PstI (CTGCAG)
+DNA: 5'-CTTCTGCAGTTTACTCTGCAGAACTATCGCTGCAGTTCAGGCTGCAGGCTCAATCACCTGCAGATGGTGAGCG-3'
+
+What I want to work out: The DNA is linear. After complete digestion with this enzyme, how many fragments result?
+
+I'd like to see the reasoning."
+hydrogen_bond_count,agree,86,86,Here is a DNA sequence: CCGAGCCCATACGTCTTATCCAGGATTTCTCATAT (5' to 3'). Please calculate the number of hydrogen bonds holding the duplex together.
+mirna_seed_extraction,agree,UAUCAGA,UAUCAGA,"Here's something I want to check.
+
+For the mature miRNA mmu-miR-361-5p, 5'-UUAUCAGAAUCUCCAGGGGUAC-3', identify the seed sequence, defined as nucleotides 2 through 8.
+
+Appreciate the help."
+wallace_tm,agree,48°C,48°C,"Calculate the melting temperature using Tm = 2(A+T) + 4(G+C).
+Oligo: 5'-CACGGGCAGAAATCC-3'"
+orf_amino_acid_count,agree,16 amino acids,16 amino acids,"Translation begins at the first ATG. How many amino acids are encoded up to, but not including, the stop codon?
+DNA: 5'-CGAGCTTCAATGCCACACCCACCTAGCAAGTACGACTACGACAGCTCATATATCTTGTAGAGCCAGTGG-3'"
+cas9_cut_position,agree,Between positions 23 and 24,Between positions 23 and 24,"One more from my problem set.
+
+The DNA sequence, written 5′ to 3′, is ATACACCGTCTTACTTTGTTGTCCCACGGAGTCCGCAATAGAACACCTCGT. It contains exactly one NGG PAM. If SpCas9 cuts 3 bp upstream of this PAM, between which two positions does the cut occur using 1-based numbering?
+
+Appreciate the help."
+orf_amino_acid_count,agree,8 amino acids,8 amino acids,"I need to translation begins at the first ATG. How many amino acids are encoded up to, but not including, the stop codon?
+
+Details:
+DNA: 5'-GGAGCCCCATGCGGTCAGCCTCTAATGCGATATGAATCCCGTGCTAGC-3'"
+orf_amino_acid_count,agree,14,14 amino acids,"Consider the following DNA sequence: 5'-TCCCAAATTCAACATGTTGTTTAGCCCACACGCGTGCGACCGGGAGCCACCCATCTAAGCTTCTCG-3'. If translation initiates at the first ATG codon, determine the total number of amino acid residues synthesized before encountering the first in-frame stop codon."
+cas9_cut_position,agree,Between positions 18 and 19,Between positions 18 and 19,"Given the sequence 5'-GTACAGCACTTCAATCTGCTGAGGTTCCATTACCGATACTGAAT-3', determine the precise SpCas9 cleavage site. Assuming cleavage occurs 3 bp upstream of the single NGG PAM present in the target, between which two 1-based positions does the double-strand break occur?"
+cas9_cut_position,agree,Between positions 44 and 45,Between positions 44 and 45,"Given the DNA sequence 5'-CGAATGCGATCTTGTTCGACTCTTGTACCAAGTTATTGTCCTATGTGAGGTGCCAGAGTAGAA-3', there is exactly one NGG PAM. If SpCas9 cuts 3 bp upstream of this PAM, between which two positions does the cut occur? Number the bases starting from 1.
+
+Reason it out, then give your answer on a new line beginning with 'Answer:'."
+aligned_complement,agree,AGCGTTGCCGCGAAGCTCGAGGCTGACATGACTCCGTGTA,AGCGTTGCCGCGAAGCTCGAGGCTGACATGACTCCGTGTA,"Consider the following DNA strand oriented from the 5' end to the 3' end:
+TCGCAACGGCGCTTCGAGCTCCGACTGTACTGAGGCACAT
+
+What is the sequence of the complementary strand, determined base by base and written in the 3' to 5' direction?"
+gc_content,agree,46.6%,46.6%,"Work through GTTCAATAGGATTGTACCTCGAGGTTACACAATTACGCCGCCGTTCGCAATCTATGCGAAGGACTGAATGAGATACCGGCACTTCGCTCAAAATGACCTAGCCCAATTCTCAAACATG and report the GC percentage, to one decimal place."
+orf_amino_acid_count,agree,4 amino acids,4 amino acids,"Working through a problem set, this one came up.
+
+What I have:
+DNA: 5'-CTAATGCTAGAACATTGAGCTGCTT-3'
+
+I need to translation begins at the first ATG. How many amino acids are encoded up to, but not including, the stop codon?"
+shine_dalgarno_spacing,agree,10,10,Consider the following single-stranded DNA sequence: 5'-CAAGGAGGCGTAATAACTATGGTGCTTCT-3'. How many nucleotide bases are located in the region between the AGGAGG motif and the downstream ATG triplet?
+telomere_repeat_count,agree,4,4,"Repeat: CCCTAA
+DNA: 5'-CCACATTTCGCCCTAACCCTAACCCTAACCCTAAGTCGGG-3'
+
+My question: How many complete copies of the repeat are in the longest uninterrupted array?"
+polya_signal_position,agree,58,58,"Here's a problem I'm stuck on.
+
+3' UTR: 5'-TATCCCCCTTTGGATTCATAGGGAATTAGAATTGACACTTGTCACACACCGGTTTATAATAAATGGGCTTACATGATGACGTTG-3'
+At which 1-based position does the AATAAA polyadenylation signal start?
+
+Please walk me through it."
+pam_count,agree,2,2,"A colleague hands you the sequence ACAGGCTGCGCGGCGCG (5' to 3') and asks for the number of NGG PAM sites, counting overlaps. What is it?"
+restriction_fragments_circular,agree,8,8,"A circular DNA plasmid has the following sequence, where the end wraps around to join the beginning:
+
+AACTCGAGGATGAGTTAACTCGAGGGTAGATCTCGAGATTTTCGCTCGAGGTACAAGGCTCGAGTGTGGGTACCTCGAGGTTTGCTCGAGATGACCTCGAGATTTA
+
+If this molecule is completely digested with the restriction endonuclease XhoI (cleavage motif: CTCGAG), how many fragments are generated?"
+gc_content,agree,20.0%,20.0%,"Take ACATTTTACAACTAT and work out the GC percentage, to one decimal place."
+reverse_complement,agree,TGATCCTTGTAAG,TGATCCTTGTAAG,"Given the DNA sequence 5'-CTTACAAGGATCA-3', determine its reverse complement written in the 5'-to-3' direction. Appreciate the help.
+
+Reason it out, then report the result on a final line of the form 'Answer: ...', with nothing after it."
+wallace_tm,agree,56°C,56°C,"Using the Wallace rule formula, Tm = 2(A + T) + 4(G + C), determine the estimated melting temperature in degrees Celsius for the following oligonucleotide: 5'-GATACTAAATATTAGAATGTATC-3'."
+orf_amino_acid_count,agree,19 amino acids,19 amino acids,"What I have:
+DNA: 5'-CGTACGGGCCCCCGATGGTAACTTCGGGCGAAATCAAACCGAAGCCGATTGCGACCCAAGAGGTGTTCGGGTGAAACAA-3'
+
+Translation begins at the first ATG. How many amino acids are encoded up to, but not including, the stop codon?"
+restriction_site_count,agree,2,2,"Working through a problem set, this one came up.
+
+Here are the details:
+Enzyme: NotI (GCGGCCGC)
+DNA: 5'-CATCCCCCGCGGCCGCGCTGCATAGCGGCCGCTG-3'
+
+What I want to work out: How many exact recognition sites for this enzyme does the DNA contain? Count sites, not fragments."
+restriction_fragments_circular,agree,4,4,"A question came up in the lab today.
+
+Enzyme: HindIII (AAGCTT)
+DNA: 5'-GCCAAGCTTATCGGTGCGCAAGCTTGCGTAGAACCAAGCTTCCCCTAAGCTTATCGCAG-3'
+The DNA is circular, shown from an arbitrary start, with the last base joined to the first. After complete digestion with this enzyme, how many fragments result?"
+restriction_fragments_linear,agree,8,8,"Here's something I want to check.
+
+DNA: 5'-GTCGCAACTCGGATCCTTGGGATCCGACGGGATCCCAAGTGGATCCCCGGATCCAACCGTGGGATCCAGCCGGATCCGGTCTG-3'
+A linear DNA molecule is completely digested with BamHI, which recognizes GGATCC. How many DNA fragments are produced?"
+pam_count,agree,7,7,"Sequence under study: 5'-AAGGCAGGACCTGGCACTTCGGCAAGGAGAGCGGTGCAGGTACGA-3'
+Determine the count of SpCas9 NGG PAM sites on this strand.
+
+Explain your reasoning, then end with a line that starts 'Answer:' followed by the answer alone."
+aligned_complement,agree,AAGGCTCAACGTGCAGGGT,AAGGCTCAACGTGCAGGGT,"Solve the following problem, then report the result on a final line of the form 'Answer: ...', with nothing after it.
+
+Provide the Watson-Crick complementary sequence for the template 5'-TTCCGAGTTGCACGTCCCA-3', maintaining the 3'-to-5' orientation. Appreciate the help."
+transcription_coding,agree,GCUAGUGCUGAACAUAG,GCUAGUGCUGAACAUAG,You are provided with the DNA coding strand sequence 5'-GCTAGTGCTGAACATAG-3'. Determine the sequence of the resulting mRNA transcript written in the 5'-to-3' direction.
+translation_coding,agree,Met-Glu-Arg-Asn-Pro-Arg-Thr-His-Trp-Ser-Pro-Ile-Glu-Arg-Phe-Ser-Leu-Arg,Met-Glu-Arg-Asn-Pro-Arg-Thr-His-Trp-Ser-Pro-Ile-Glu-Arg-Phe-Ser-Leu-Arg,"You are given the coding strand of a DNA sequence: ATGGAGCGAAACCCGCGAACTCACTGGAGTCCTATTGAGAGATTTTCCCTGCGGTGA. Translate the open reading frame starting from the first codon. Provide the final peptide as three-letter amino acid codes separated by hyphens, omitting the stop codon."
+reverse_complement,agree,GTTTGGGGAGGCTATGCGAGTTACCGGGAATCAAAACCAGCCTTCCTTTGCATAATCC,GTTTGGGGAGGCTATGCGAGTTACCGGGAATCAAAACCAGCCTTCCTTTGCATAATCC,"Mind taking a look at this?
+
+Determine the reverse complement of the following DNA sequence in the 5'-to-3' direction:
+5'-GGATTATGCAAAGGAAGGCTGGTTTTGATTCCCGGTAACTCGCATAGCCTCCCCAAAC-3'"
+restriction_site_count,agree,4,4,"How many exact recognition sites for this enzyme does the DNA contain? Count sites, not fragments.
+Enzyme: PstI (CTGCAG)
+DNA: 5'-TTGTCGCTGCAGCCTGCTCTGCAGTGACTGCAGAGCTTTGACGCTGCAGGTCACT-3'"
+complete_codons,agree,27,27,"Need to settle this one.
+
+DNA: 5'-TATATCATGTTCATGTCTGGTCGCACAGTCTTCGCAGAACCAAATCACTACACCTTGACGACACGGCCTTCCATCGTGGGTAT-3'
+Starting at the first base, how many full codons are present in this DNA sequence?"
+cas9_cut_position,agree,Between positions 20 and 21,Between positions 20 and 21,"A question came up in the lab today.
+
+We have the following DNA target sequence:
+
+5'-TAGTCCCACCTCTATTCATTCGCAGGTGAGAACCCCTAGCCCCGCGATC-3'
+
+This sequence harbors a single canonical NGG PAM. Knowing that standard SpCas9 cleaves the phosphodiester backbone 3 base pairs upstream of the PAM motif, between which two nucleotide positions does the cut occur? Please provide the cut site using 1-based numbering."
+translation_coding,agree,Met-Val-Ser-Phe-Arg-Val-Ala-Val-Thr-Asn-Ser-Arg-Pro-Ile-Leu-Gln-Gly-Leu-Glu-Cys,Met-Val-Ser-Phe-Arg-Val-Ala-Val-Thr-Asn-Ser-Arg-Pro-Ile-Leu-Gln-Gly-Leu-Glu-Cys,"Reason about the problem below, then end with a line that starts 'Answer:' followed by the answer alone.
+
+Please translate the open reading frame for the coding DNA sequence below, starting from the initial codon and ending at the stop codon. Report the amino acid sequence with standard three-letter abbreviations joined by hyphens, leaving out the stop codon itself.
+
+Coding DNA: 5'-ATGGTTTCTTTTCGCGTAGCGGTAACCAACTCTCGACCAATACTGCAAGGCCTGGAATGCTAG-3'"
+telomere_repeat_count,agree,4,4,"Repeat: CCCTAA
+DNA: 5'-CCACATTTCGCCCTAACCCTAACCCTAACCCTAAGTCGGG-3'
+
+My question: How many complete copies of the repeat are in the longest uninterrupted array?"
+orf_amino_acid_count,agree,25,25 amino acids,"Here is a DNA coding sequence: 5'-TAGGAAATGGCGGGGTGGAAGTCAGGAGACACGAATGACTTCCTCTGTCTCAAGCTATTTTTAAACGCAATAAGCGTGGAATAGGGGCACG-3'. Assuming translation begins at the first ATG codon, how many amino acids will be in the synthesized chain before hitting a stop codon?
+
+Reason it out, then put your final answer on its own last line as 'Answer: ...'."
+restriction_fragments_circular,agree,5,5,"The DNA is circular, shown from an arbitrary start, with the last base joined to the first. After complete digestion with this enzyme, how many fragments result?
+Enzyme: PstI (CTGCAG)
+DNA: 5'-TCGGCACTGCAGTCGGCTGCAGACACATCTGCAGAGCTCCTGCAGTTTCCTGCAGTTAT-3'
+
+Explain your reasoning as you go."
+gc_content,agree,31.8%,31.8%,"The question is this: determine its GC content as a percentage, to one decimal place.
+
+Sequence: ATATTCGTGGATTAGATGTTGA"
+polya_signal_position,agree,7,7,"Here's a problem I'm stuck on.
+
+3' UTR: 5'-GGCAAGAATAAAGCGAAAACCGGCAGACTTTT-3'
+
+My question: At which 1-based position does the AATAAA polyadenylation signal start?
+
+Talk me through the steps."
+telomere_repeat_count,agree,2,2,"In the sequence 5'-TTTGGTCCCTAACCCTAAGGATCCT-3', what is the maximum number of consecutive, uninterrupted copies of the motif CCCTAA? Appreciate the help."
+reverse_complement,agree,ATGCTTTAATAAGGTCTGGATTGTTT,ATGCTTTAATAAGGTCTGGATTGTTT,Find the reverse complement of the DNA strand 5'-AAACAATCCAGACCTTATTAAAGCAT-3' and present the resulting sequence in the standard 5' to 3' direction.
+translation_coding,agree,Met-His-Asp-Thr-Ala-Ser-Pro-Thr-Gly-Lys-Val-Ser-Lys-Ser-Thr-Ile,Met-His-Asp-Thr-Ala-Ser-Pro-Thr-Gly-Lys-Val-Ser-Lys-Ser-Thr-Ile,"Coding DNA: 5'-ATGCACGACACGGCATCACCCACCGGAAAGGTTTCCAAGTCTACGATCTAA-3'
+
+Starting with the first codon, translate this open reading frame. Report the amino acids as three-letter codes separated by hyphens, and exclude the stop codon."
+wallace_tm,agree,40°C,40°C,"Using the Wallace formula Tm = 2(A+T) + 4(G+C), what is the estimated melting temperature of the oligonucleotide 5'-ATCGGCCTCCAG-3'?
+
+Think it through, then report the result on a final line of the form 'Answer: ...', with nothing after it."
+cpg_obs_exp,agree,Yes,Yes,"For the sequence GCTACGTCCACATCCATATCAACTGAAGTAGCGGTAAGTCGATAGGAAGTTCACTACCATTGTGCACAATTCCGGAGCAGACGTATA, calculate the observed-to-expected CpG ratio defined as (CpG count × sequence length) ÷ (C count × G count). Is this value strictly greater than 0.9? Provide your response as Yes or No. Explain your reasoning as you go."
+cas9_cut_position,agree,Between positions 22 and 23,Between positions 22 and 23,"For the DNA sequence 5'-GCCTCCATATTTATCTTACCTTAAGAGGCCTGCGCATCCGAT-3', there is exactly one NGG PAM. Using 1-based numbering, between which nucleotide positions will SpCas9 cleave if it cuts 3 bp upstream of the PAM?"
+polya_signal_position,agree,21,21,"Need to settle this one.
+
+In the following 3' UTR, what is the 1-based starting position of the AATAAA polyadenylation signal?
+
+CTCTCCATCGGAATCGGATAAATAAATTACCTATGGTGCTTCCTATGGAAACTTCC
+
+Thanks in advance."
+restriction_fragments_linear,agree,10,10,"A linear DNA molecule is completely digested with XhoI, which recognizes CTCGAG. How many DNA fragments are produced?
+
+DNA: 5'-AGAATTTTCCTCGAGGTACAAACACTCGAGGCTTGTTATCTCGAGCCGACTCGAGAGATGCTCGAGGGGTGACCACTCGAGGTGTCCGCCCTCGAGACTGCTCGAGAGGTACTCGAGGGTAATGC-3'"
+restriction_fragments_circular,agree,10,10,"Can you help me with this one?
+
+Enzyme: EcoRI (GAATTC)
+DNA: 5'-TGGCGCAGAATTCATGCGCGAGAATTCGTTAGATGGAATTCATGAAGTAGAATTCCAATTGAATTCCGATGAATTCCTCGCCTGTCGAATTCAGAAGGAATTCAACTTAGAGAGAATTCTCCCCGAATTCAC-3'
+
+So: The DNA is circular, shown from an arbitrary start, with the last base joined to the first. After complete digestion with this enzyme, how many fragments result?
+
+Explain your reasoning, then put your final answer on its own last line as 'Answer: ...'."
+cpg_obs_exp,agree,No,No,"Need to settle this one.
+
+For the DNA sequence CTCACATTTTAAGCGACTGAATGCCTTAAGTGTAGGAGGACAATGCGATCATAGCCTCACAGTGGAAACCGGAGAGAGCTTACCTATGACTCTCAGA, calculate the CpG observed/expected ratio using (CpG count × sequence length) ÷ (C count × G count). Is the resulting ratio greater than 0.6? Answer Yes or No.
+
+Thanks in advance."
+cpg_count,agree,6,6,"Problem: for CCGAAGCTCGCTGGCCGGACGACCTCGATACGAA (5' to 3'), find how many CpG dinucleotides it contains."
+shine_dalgarno_spacing,agree,10,10,Consider the DNA sequence 5'-CATAGGAGGTATCGCCTTCATGA-3'. How many nucleotides are positioned between the AGGAGG motif and the downstream ATG triplet?
+transcription_coding,agree,GUUACUGUAAGGGGGGCUGUAGCGACCGCAUCUGCCUCGCGGGGA,GUUACUGUAAGGGGGGCUGUAGCGACCGCAUCUGCCUCGCGGGGA,"A question came up in the lab today.
+
+Consider the following 5'-to-3' coding (sense) DNA strand: GTTACTGTAAGGGGGGCTGTAGCGACCGCATCTGCCTCGCGGGGA. Determine the sequence of the resulting mRNA transcript, oriented 5' to 3'.
+
+Explain your reasoning as you go."
+restriction_fragments_circular,agree,10,10,"What I have:
+Enzyme: XhoI (CTCGAG)
+DNA: 5'-ATCCCCCTCGAGTGGGCACTCGAGATAAGTACCTCGAGCCTCTACTCGAGCCCTCGAGGGATTCGCTCGAGACCAGAGTCTCGAGCGCTCGAGTGGGCCGCCTCGAGAATCTCGAGAA-3'
+
+The question is this: The DNA is circular, shown from an arbitrary start, with the last base joined to the first. After complete digestion with this enzyme, how many fragments result?"
+orf_amino_acid_count,agree,5 amino acids,5 amino acids,"DNA: 5'-TCATATGGTAATCGGCCCATAACAGT-3'
+
+Translation begins at the first ATG. How many amino acids are encoded up to, but not including, the stop codon?
+
+I'd like to see the reasoning."
+shine_dalgarno_spacing,agree,8,8,"I need to how many nucleotides lie between the AGGAGG motif and the ATG?
+
+DNA: 5'-TGTACCGTGCCGAGGAGGTTGTTCAGATGCACCGCC-3'
+
+Please walk me through it."
+orf_amino_acid_count,agree,22,22 amino acids,"Consider the following DNA sequence: 5'-CAATTATGTGTACCGAGGTTAGTGAGGGACTCGCGCCGTACAAAAAATTGTCCGATTTTAGCGGCGCATGGTGAGGTATGAG-3'. If translation initiates at the very first ATG start codon, how many amino acids will be incorporated into the peptide before reaching the first in-frame stop codon?"
+restriction_fragments_linear,agree,10,10,"Suppose we carry out a complete restriction digest of the following linear DNA molecule using the restriction endonuclease NotI, which recognizes the 8-base palindromic sequence GCGGCCGC:
+
+ACTCGCCAGCGGCCGCTTGGCGGCCGCATGGCGGCCGCGCGCGGCCGCAGCCGCGGCCGCTCGCGGCCGCGAGCGGCCGCTCGGGCGTGCGGCCGCACGCGGATTGCGGCCGCTG
+
+How many restriction fragments will be produced once all sites are fully cleaved?"
+cas9_cut_position,agree,Between positions 30 and 31,Between positions 30 and 31,"Consider the following DNA sequence: GACCCACATATTACGTGCTGCAAACTTGTCTGTAGGAATTT. If SpCas9 targets the single NGG PAM motif found in this sequence and cleaves 3 bp upstream of it, between which two positions does the cut occur? Report the location using 1-based indexing."
+polya_signal_position,agree,36,36,"Mind taking a look at this?
+
+Consider the following DNA sequence corresponding to a 3' untranslated region:
+AGCAGTAATCAAGGTAACGCAGACCAAAAAATCAAAATAAAAGATGGGCAATGATGACCCACGTTGACTGCAGCCG
+
+At which 1-based position does the canonical AATAAA polyadenylation signal begin?
+
+Explain your reasoning as you go."
+aligned_complement,agree,CTTTATGATGAACTTA,CTTTATGATGAACTTA,"Given the DNA sequence 5'-GAAATACTACTTGAAT-3', determine the sequence of its complementary strand written in the 3' to 5' direction. Step by step would be great."
+cas9_cut_position,agree,Between positions 26 and 27,Between positions 26 and 27,"Consider the following DNA sequence, written from 5' to 3':
+
+CGTTAGTACCCCAAAAACAGCGATTCTTTCGGTTTAAGAGCTGCG
+
+This sequence contains exactly one NGG protospacer adjacent motif (PAM) for the SpCas9 endonuclease. Given that SpCas9 introduces a double-strand break precisely 3 base pairs upstream of the PAM, between which two nucleotide positions does the cut occur? Report the cut site using 1-based indexing."
+reverse_complement,agree,CGTTCTTAAGCCACCCGGGAGGTACTTGTGAAAA,CGTTCTTAAGCCACCCGGGAGGTACTTGTGAAAA,"Got a sequence question for you.
+
+Given the DNA sequence 5'-TTTTCACAAGTACCTCCCGGGTGGCTTAAGAACG-3', determine its reverse complement in the standard 5' to 3' orientation.
+
+Step by step would be great."
+cas9_cut_position,agree,Between positions 22 and 23,Between positions 22 and 23,"Got a sequence question for you.
+
+You are given the following DNA sequence:
+
+AACCCCACGTATTAATCCAAAGATGCGGTGTTCCAGACCGCCCTA
+
+There is exactly one NGG PAM motif present in this sequence. Given that the SpCas9 enzyme cleaves DNA 3 base pairs upstream of this PAM, between which two positions does the cut occur? Please use 1-based numbering.
+
+Appreciate the help."
+hydrogen_bond_count,agree,133,133,"Read the strand CCCCAGACCTAGAGCGCGTAGACAGTTTAGACTCCACATAATAATGCGGGTCA, then report the duplex hydrogen-bond total."
+hydrogen_bond_count,agree,67,67,"Given TTTCCAGTCCACGATGCACACAATTCG (5' to 3'), what is the duplex hydrogen-bond total?"
+aligned_complement,agree,CAGCTGCGGTCACCGCAGGTCCTTCTGA,CAGCTGCGGTCACCGCAGGTCCTTCTGA,"For the single-stranded DNA sequence 5'-GTCGACGCCAGTGGCGTCCAGGAAGACT-3', determine the direct complementary strand base by base, keeping the sequence in the 3'-to-5' direction."
+complete_codons,agree,22,22,"Here's something I want to check.
+
+Consider the following DNA sequence: 5'-AATCTTGGTTCCGATAGCTTCCAGCTCCGCGTTTTAGCATCTCAGTGTCGCAGGTCAACGCTCATGG-3'. Starting from the first base, how many complete codons are contained within this strand?
+
+Explain your reasoning as you go."
+cas9_cut_position,agree,Between positions 19 and 20,Between positions 19 and 20,"For the 5′ to 3′ DNA sequence CCCCCGTGTTGCTAATATCGTGTGGCGATACCG, there is exactly one NGG PAM. Using 1-based numbering, between which two positions does SpCas9 cut if cleavage occurs 3 bp upstream of the PAM?"
+gc_content,agree,13.3%,13.3%,"Work through TAGTCAATATATTTT (5' to 3') and report the GC percentage, rounded to one decimal."
+transcription_template,agree,GACAUGCACAAUUCGGACGUGUGCCUAUAAGAA,GACAUGCACAAUUCGGACGUGUGCCUAUAAGAA,"Using the DNA template strand below, determine the corresponding mRNA sequence in the 5'-to-3' direction.
+
+Template DNA: 3'-CTGTACGTGTTAAGCCTGCACACGGATATTCTT-5'
+
+Thanks in advance."
+reverse_complement,agree,ATCCGATATCTACATCCGCTTGGAATGTA,ATCCGATATCTACATCCGCTTGGAATGTA,"For the DNA sequence below, determine its reverse complement and write the resulting strand in the standard 5' to 3' orientation:
+
+TACATTCCAAGCGGATGTAGATATCGGAT"
+transcription_coding,agree,AUUGUGCUUGACCUCAUUUUUCGGUUCGUAUUGUACGGGGGAA,AUUGUGCUUGACCUCAUUUUUCGGUUCGUAUUGUACGGGGGAA,"Need to settle this one.
+
+Given the coding DNA sequence ATTGTGCTTGACCTCATTTTTCGGTTCGTATTGTACGGGGGAA written in the 5' to 3' direction, determine the sequence of the transcribed mRNA from 5' to 3'.
+
+Explain your reasoning as you go."
+polya_signal_position,agree,30,30,"At which 1-based position does the AATAAA polyadenylation signal start?
+3' UTR: 5'-CATTAATCGCAGCGCGGCCCGGCTCCAAGAATAAAGATCCGTCGTCCAGCCGCTGAATATCGTCGACACACTAGGCG-3'"
+restriction_fragments_linear,agree,11,11,"Mind taking a look at this?
+
+Consider the following linear double-stranded DNA sequence:
+
+5'-GGCCCGGATCCAAGGGGATCCTGAGCTGACTGGATCCAGGTTGGATCCCATGAGGATCCCGGTGGATCCGCTGAGGGATCCTGCCAGGATCCTGTGTATAGGATCCCTCGAGAACTGGATCCCACT-3'
+
+If this substrate is subjected to complete restriction endonuclease cleavage using BamHI, which recognizes the palindromic hexanucleotide sequence GGATCC, how many distinct DNA fragments will be produced?
+
+Thanks in advance."
+restriction_fragments_circular,agree,6,6,"The question is this: The DNA is circular, shown from an arbitrary start, with the last base joined to the first. After complete digestion with this enzyme, how many fragments result?
+
+The specifics:
+Enzyme: NotI (GCGGCCGC)
+DNA: 5'-TAGCGGCCGCTTCCGAGATGCGGCCGCAATGCGGCCGCTGGCGGCCGCGCGCGGCCGCGGGGCGGCCGCGCTCAAC-3'
+
+Appreciate the help."
+pam_count,agree,8,8,"Determine the count of SpCas9 NGG PAM sites on this strand.
+
+Sequence: GCCTGCGGAGCTCCGGCCGGCAGGAGTGTGGTGCGGATTACGGCAAGGTTTAG (5' to 3')"
+purine_count,agree,58,58,"Read the strand TTCAGGGAGTGCGATAACCAAGTCGTCGACGGCGTGGATAATACAGTAAATGGTGTGGGAAGGAAGGTGCCGGAATACCATCGCTTACAAATA (5' to 3'), then report how many purine bases it contains."
+pam_count,agree,9,9,"Take GGAATAGGAGCGGCGTGTAGGTGATCCGGTCGGTTGGTGATGGAGAGCGGCTGGCCAT (5' to 3') and work out how many NGG PAM sites it contains on the strand as written, including overlapping sites."
+purine_count,agree,22,22,"DNA: GCGGCTTCAGTGTGCATACTAGACGACAGTTACTGAAGGC
+What I'm asking: How many of its bases are purines?"
+gc_content,agree,85.1%,85.1%,"CCGGGTGCCGCGGCCGGCCGAACGTCCGCCACGAGACCCCGCGGGCC
+
+For the sequence above, give its GC content as a percentage, to one decimal place."
+cpg_count,agree,10,10,Here is a DNA sequence: 5'-GGCCGCCGCTAGCGCCCGCTCGTCCGAGCGGCCTGCGAACGTTCGA-3'. Please calculate the number of CpG sites.
+cas9_cut_position,agree,Between positions 25 and 26,Between positions 25 and 26,"DNA: 5'-GCTTCCCTTATGTTGAATTTACAATGAGAGGC-3'
+
+Using 1-based numbering, identify the two positions between which SpCas9 cleaves this sequence, given that it contains exactly one NGG PAM and cleavage occurs 3 bp upstream of the PAM."
+pam_count,agree,9,9,Consider the DNA sequence 5'-CTGGCTGCGGCGCGGACGGCCCAATGGTCAAGGAAGGCCGGACAGGTGAC-3'. Report the count of SpCas9 NGG PAM sites on this strand.
+cpg_count,agree,9,9,"Sequence under study: GTAACGACGGGTGCGTGCCGTCACTCGCCCCCGTACGAAGTCGCCGGCA (5' to 3')
+Determine the number of CpG sites."
+transcription_coding,agree,GCCACCAGUUCAGUUUUGGAGC,GCCACCAGUUCAGUUUUGGAGC,"Find the 5'-to-3' mRNA transcript produced from this coding DNA strand:
+5'-GCCACCAGTTCAGTTTTGGAGC-3'"
+polya_signal_position,agree,54,54,"A question came up in the lab today.
+
+Below is a 3' untranslated region sequence:
+5'-TCCCAAGCGAACCACTTCACTCCATTACTACTAAGAAACTCTTTGACGCCGAAAATAAACTTCTTCAAGCATTGTGGAGTGGGGTACAGACGAAATCTA-3'
+
+What is the 1-based start position of the canonical AATAAA polyadenylation signal?
+
+Step by step would be great.
+
+Think it through, then report the result on a final line of the form 'Answer: ...', with nothing after it."
+reverse_complement,agree,CTGATCGTTAGTCCGTACTAG,CTGATCGTTAGTCCGTACTAG,"A question came up in the lab today.
+
+Here is a DNA sequence given from 5' to 3': CTAGTACGGACTAACGATCAG. What is its reverse complement, written in the 5' to 3' direction?
+
+Appreciate the help."
+orf_amino_acid_count,agree,13,13 amino acids,"Consider the following DNA coding strand: 5'-CGATTATGGATACTGTCTGGCAGATTCCCGTCATATCGCGACGCTAGGGCGGCTCT-3'
+
+Assuming translation initiates at the first ATG, determine the number of amino acids incorporated into the synthesized peptide prior to reaching the first in-frame stop codon."
+pyrimidine_count,agree,48,48,"Given AGTGCGCCGGCTCTTCTACCCCAACGGGGCCGACAAATGCCTAGCACGTCATAAATCATACCAGTTTTAGAGCAGCATCGCCTAACACGTCG, how many of its bases are pyrimidines?"
+restriction_fragments_linear,agree,4,4,"The question is this: The DNA is linear. After complete digestion with this enzyme, how many fragments result?
+
+Enzyme: PstI (CTGCAG)
+DNA: 5'-ACCGCTGCAGAGATCTGCAGCCTGGCCTGCAGCC-3'
+
+I'd like to see the reasoning."
+cpg_obs_exp,agree,Yes,Yes,"For the DNA sequence GCGCGCGGGCACGAACCGTATACCCACACAACGTTGCCCTTGCCAGCATATTACCGGCTTTAGG, determine the CpG observed/expected ratio using the formula (CpG count × sequence length) ÷ (C count × G count). Is this calculated ratio greater than 1.0? Please answer Yes or No."
+reverse_complement,agree,AAAACAACTACT,AAAACAACTACT,"Here's something I want to check.
+
+Determine the reverse complement of the DNA sequence 5'-AGTAGTTGTTTT-3', reporting the result in the standard 5'-to-3' orientation.
+
+Explain your reasoning as you go."
+telomere_repeat_count,agree,17,17,"Got a sequence question for you.
+
+Consider the following DNA sequence:
+
+5'-TGCCGTTTTACTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTCGCACATCGCTCCGG-3'
+
+Within this sequence, look for the motif TTAGGG. What is the total number of complete copies found in the longest uninterrupted tandem array of this repeat?"
+cpg_obs_exp,agree,No,No,"A question came up in the lab today.
+
+For the DNA sequence below, determine the CpG observed/expected ratio using the formula: (CpG count × sequence length) ÷ (C count × G count). Is this calculated ratio greater than 1.0? Respond with Yes or No.
+
+GTTTATTTTAGACAGACATGGTGTCTTTATCAGCCATTCAATTTTGCAGCATGGGCGAACACCTCCTCGGTGCCTAAGTACGCGCTTCCATGC
+
+Thanks in advance."
+hydrogen_bond_count,agree,43,43,"Given AGTCCTTTATATGGACTC (5' to 3'), what is the duplex hydrogen-bond total?"
+orf_amino_acid_count,agree,11,11 amino acids,"Reason about the problem below, then report the result on a final line of the form 'Answer: ...', with nothing after it.
+
+Need to settle this one.
+
+Consider the following sense-strand DNA sequence: 5'-TTATAACATAATATCATGCTACAGAAGAGCGGGAACTACTTTACCCCATAGAAATAGACGTTCT-3'. Assuming translation initiates at the first ATG start codon, how many amino acid residues will be incorporated into the synthesized peptide prior to reaching the first in-frame stop codon?
+
+Appreciate the help."
+translation_coding,agree,Met-Ile-His-Arg-Arg-Arg-Arg-Asn-Gly-Gly-Ser-Pro-Gln,Met-Ile-His-Arg-Arg-Arg-Arg-Asn-Gly-Gly-Ser-Pro-Gln,"Got a sequence question for you.
+
+Given the following coding DNA sequence, determine the translated amino acid sequence of the open reading frame starting from the very first codon. Report the peptide chain using three-letter amino acid abbreviations connected by hyphens, omitting the terminal stop codon:
+5'-ATGATACATAGAAGGCGACGTAACGGTGGGTCGCCTCAGTAG-3'
+
+Step by step would be great."
+translation_coding,agree,Met-Cys-Arg-Trp-Ile-Glu-Ala-Thr-Val-Thr-Ala-His-Ile-Ser-Val,Met-Cys-Arg-Trp-Ile-Glu-Ala-Thr-Val-Thr-Ala-His-Ile-Ser-Val,"A question came up in the lab today.
+
+You are given the following coding strand of DNA: 5'-ATGTGCCGCTGGATCGAGGCAACCGTTACAGCACATATAAGTGTATAA-3'. Translate the open reading frame starting from the first base. Report the resulting peptide using three-letter amino acid abbreviations separated by hyphens, omitting the stop codon.
+
+Step by step would be great."
+polya_signal_position,agree,34,34,"Got a sequence question for you.
+
+In the following 3' UTR, at which 1-based position does the AATAAA polyadenylation signal begin?
+5'-TCCGATTACGAGCTACACCGACATGGTGAACTCAATAAAGGCCGATTCATATAGAGTAGCTACCC-3'"
+wallace_tm,agree,68 °C,68°C,"The specifics:
+Oligo: 5'-TACGACGCATGCTTTGCGCCTT-3'
+
+The problem: Calculate the melting temperature using Tm = 2(A+T) + 4(G+C)."
+cas9_cut_position,agree,Between positions 43 and 44,Between positions 43 and 44,"Consider the following DNA sequence given in the 5' to 3' direction:
+
+AATGTCTATACCCGTAACCTGCGTCCAGTCACTTAGATAGCTGCTTAGGACTAT
+
+This target sequence includes a single canonical SpCas9 PAM site (NGG). Given that SpCas9 introduces a cut 3 base pairs upstream of this motif, determine the exact location of the cleavage. Using 1-based indexing, between which two positions does the cut fall?"
+wallace_tm,agree,88°C,88°C,"Here are the details:
+Oligo: 5'-GGGGCGATGCCCGCGCCCGGGCG-3'
+
+The problem: Calculate the melting temperature using Tm = 2(A+T) + 4(G+C)."
+mirna_seed_extraction,agree,CUCAAAC,CUCAAAC,"Consider the mature microRNA mmu-miR-292a-5p with the sequence ACUCAAACUGGGGGCUCUUUUG. What is the sequence of its seed region, defined as nucleotides 2 through 8?"
+aligned_complement,agree,GGGAGGAATCCCGACGGATCACAGAGCCTATGTGACG,GGGAGGAATCCCGACGGATCACAGAGCCTATGTGACG,"Got a sequence question for you.
+
+Given the DNA strand 5'-CCCTCCTTAGGGCTGCCTAGTGTCTCGGATACACTGC-3', determine its complementary strand, preserving base-by-base alignment and writing the result in the 3'-to-5' direction."
+cpg_count,agree,5,5,Work through CCGGAGACGACGGTACCGCCGC and report how many CpG sites it contains.
+restriction_fragments_linear,agree,8,8,"I'd like a hand with the following.
+
+Enzyme: PstI (CTGCAG)
+DNA: 5'-ACGACTGCAGCACGCGCTGCAGTTTGCCTGCAGACTCGTATTGCTGCAGTGCTGCAGTATCCGTCTCTGCAGCTCGAGCTGCAGCAGATA-3'
+The DNA is linear. After complete digestion with this enzyme, how many fragments result?"
+restriction_fragments_circular,agree,3,3,"I'd like a hand with the following.
+
+The question is this: The DNA is circular, shown from an arbitrary start, with the last base joined to the first. After complete digestion with this enzyme, how many fragments result?
+
+Details:
+Enzyme: XhoI (CTCGAG)
+DNA: 5'-AATTTAAGGCCTCGAGAGAACACGTCTCGAGTGCTCGAGTTCAGTTCT-3'
+
+I'd like to see the reasoning."
+mirna_seed_extraction,agree,CCUUCAU,CCUUCAU,The mature miRNA mmu-miR-205-5p has the sequence 5'-UCCUUCAUUCCACCGGAGUCUG-3'. Its seed region consists of nucleotides 2 through 8. What is the seed sequence? Thanks in advance.
+shine_dalgarno_spacing,agree,3,3,"In the sequence 5'-CGAGAAGGAGGGGAATGGAGAGGGCAGCG-3', how many intervening nucleotides separate the AGGAGG motif from the first downstream ATG codon?"
+transcription_coding,agree,CGUGCGUCUGCCAAUAUUCGCCGAGUCAACAC,CGUGCGUCUGCCAAUAUUCGCCGAGUCAACAC,"You are provided with the following 5'-to-3' coding (non-template) DNA sequence: CGTGCGTCTGCCAATATTCGCCGAGTCAACAC. Determine the sequence of the primary mRNA transcript produced from this segment, written in the standard 5'-to-3' orientation."
+restriction_fragments_circular,agree,7,7,"Work through the question that follows, then give your answer on a new line beginning with 'Answer:'.
+
+Quick question for you.
+
+Enzyme: BamHI (GGATCC)
+DNA: 5'-GTAGGATCCAGAGCTCTTGGGATCCTATCTGGATCCTGAGGAACGGATCCGTGAGCCGCGGGATCCGCATGGATCCGATATTAGCGGATCCCCTTC-3'
+
+The DNA is circular, shown from an arbitrary start, with the last base joined to the first. After complete digestion with this enzyme, how many fragments result?
+
+Could you show your working?"
+restriction_fragments_linear,agree,8,8,XhoI recognizes the sequence CTCGAG. A linear DNA molecule has the sequence 5'-ACGAAATTGCTCGAGATTCTCGAGTCACCTCTCGAGTTGGGTCTCGAGAGAAGGTCTCGAGCCACTCGAGTTCTGACTCGAGATAA-3'. How many fragments are produced after complete digestion with XhoI?
+orf_amino_acid_count,agree,8,8 amino acids,"Given the coding DNA sequence 5'-CGCGGTCTTCGCAATGGCTGTTAGATATCACGCAAAATGATTAACTT-3', determine the number of amino acid residues in the peptide synthesized when translation initiates at the first start codon and terminates at the first in-frame stop codon."
+complete_codons,agree,24,24,"Working through a problem set, this one came up.
+
+DNA: 5'-TTTGAAATACGTACTTTAATCTCTAACTCCCATGCGCCCTCTATAGCCCAACCATACCCAGCTAGAAGCCGA-3'
+
+Reading from the first base, how many complete codons does the sequence contain?"
+cas9_cut_position,agree,Between positions 33 and 34,Between positions 33 and 34,"Here's something I want to check.
+
+Consider the DNA sequence 5'-CAGCCCTAGACTAACCTCTTCGCGCACCCCAAATCGAGGTACCCTTACGTT-3'. It contains exactly one NGG PAM. If SpCas9 cuts 3 bp upstream of this PAM, between which two positions does the cut occur using 1-based numbering?"
+transcription_coding,agree,AUAUAUAGCUGAUCUCGGUGUACCAUUGGCAGUA,AUAUAUAGCUGAUCUCGGUGUACCAUUGGCAGUA,"Coding DNA: 5'-ATATATAGCTGATCTCGGTGTACCATTGGCAGTA-3'
+
+I need to transcribe the sequence and return the mRNA, written 5'-to-3'."
+transcription_coding,agree,AAAAGUUGGGCGACAUCUAUUAGAUUCGAGCUAGCCACAUGGACAUGCAGGUU,AAAAGUUGGGCGACAUCUAUUAGAUUCGAGCUAGCCACAUGGACAUGCAGGUU,"A segment of the coding DNA strand oriented 5' to 3' has the sequence AAAAGTTGGGCGACATCTATTAGATTCGAGCTAGCCACATGGACATGCAGGTT. What is the sequence of the mRNA transcript produced from this strand, written in the 5' to 3' direction?"
+restriction_fragments_linear,agree,5,5,"Enzyme: HindIII (AAGCTT)
+DNA: 5'-ATATCGATAAGCTTCTTAAGCTTCGTGAAGCTTTGAAGCTTCGAGTTC-3'
+
+The problem: The DNA is linear. After complete digestion with this enzyme, how many fragments result?"
+translation_coding,agree,Met-Ser-Gly-Ala-Ile-His-Val-Ser-Pro-Thr-Trp-Ile-Gly-Val-Ser-Arg-Leu-His-Arg-Val,Met-Ser-Gly-Ala-Ile-His-Val-Ser-Pro-Thr-Trp-Ile-Gly-Val-Ser-Arg-Leu-His-Arg-Val,"Below is a coding DNA sequence representing an open reading frame:
+
+5'-ATGTCAGGCGCAATCCATGTGAGCCCGACATGGATCGGTGTAAGCAGGCTACACCGGGTGTAG-3'
+
+Translate this sequence into an amino acid sequence starting from the very first codon and ending when a stop codon is reached. Provide the result as three-letter amino acid abbreviations joined by hyphens, omitting the stop codon."
+reverse_complement,agree,CTCGAGTAGATTCGCAAGACTGCGGGGGGTTTATGA,CTCGAGTAGATTCGCAAGACTGCGGGGGGTTTATGA,"Find the reverse complement of the following DNA strand and report it in the 5'-to-3' direction:
+
+5'-TCATAAACCCCCCGCAGTCTTGCGAATCTACTCGAG-3'"
+cpg_count,agree,8,8,Consider the DNA sequence TATACCGCCACGGCTCGAGTAACGGCCGTCGCTTCGCCGT (5' to 3'). Report the number of CpG sites.
+pam_count,agree,9,9,"Consider the DNA sequence CTCGCTGCCGAGGGAGTAGTCAACGTCCTGAGTCCCAGCAAGTTGTTCTACTTTGCCGGGATTTTCGTTGAAGTCAGGCAGTCTCAGGGGAGGTTCTGTTAAGATTCTTTTGTT (5' to 3'). Report the number of NGG PAM sites, counting overlaps."
+purine_count,agree,11,11,"Given ACACAAGTCCGTCTTGTTTTCGCTGTGCCTCCA, how many of its bases are purines?"
+pam_count,agree,4,4,A colleague hands you the sequence TGTCCCGGCCGTTGGATTGAAGGAGCCGGC and asks for how many NGG PAM sites it contains. What is it? Count every overlapping site on the strand shown.
+pam_count,agree,7,7,A colleague hands you the sequence CTTCCAATAGCGTAGAGTAGGTAGCTTTTCAACGGCCTGCTAGCGGCACATCTAATCATGGCAGGCGTCACGGAGGCATTGAACCC and asks for the count of SpCas9 NGG PAM sites on this strand. What is it?
+restriction_fragments_circular,agree,4,4,"I'd like a hand with the following.
+
+Enzyme: EcoRI (GAATTC)
+DNA: 5'-GCGGAATTCCGCGCGAATTCACTGAATTCCAGCTGCCGAATTCATGATC-3'
+The DNA is circular, shown from an arbitrary start, with the last base joined to the first. After complete digestion with this enzyme, how many fragments result?"
+pyrimidine_count,agree,27,27,"Work through 5'-GTCTGGAACGGAAGACCCCCTTCGTTGAGCTTCACGGTACTTGCCAATTA-3' and report the pyrimidine count.
+
+Think it through, then end with a line that starts 'Answer:' followed by the answer alone."
+cas9_cut_position,agree,Between positions 33 and 34,Between positions 33 and 34,"A question came up in the lab today.
+
+Consider the following DNA sequence:
+
+5'-TTAAATTATTAGTTCTTCGCATCATTCTTCCCGTCTAGGACTACTCACAATAC-3'
+
+This sequence contains a single NGG protospacer adjacent motif (PAM) for the SpCas9 endonuclease. SpCas9 generates a double-strand break 3 base pairs upstream of the PAM. Using 1-based coordinate numbering, between which two nucleotide positions does the cleavage occur?
+
+Step by step would be great."
+restriction_site_count,agree,10,10,"Here's something I want to check.
+
+How many exact recognition sites for the restriction enzyme XhoI, which targets CTCGAG, are present in the following DNA sequence? Please count the number of sites rather than fragments.
+
+CTGCTCGAGACGGCTCGAGCTGCGGATCTCGAGGTTAATCTCGAGAACTCGAGATCCATCGACCTCGAGCACCCCATACTCGAGCCGCTCTCGAGGTCTCGAGTTAGGGGCTCGAGCCGTAG
+
+Explain your reasoning as you go."
+telomere_repeat_count,agree,12,12,"Here's something I want to check.
+
+Consider the following DNA sequence:
+
+5'-CAGGATTTCCCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAAAAATCTTA-3'
+
+Determine the number of complete copies of the motif CCCTAA that make up its longest uninterrupted tandem array.
+
+Appreciate the help."
+complete_codons,agree,9,9,"DNA: 5'-CAAACACCTGGCGTCTTGGGCAGGCAAG-3'
+Reading from the first base, how many complete codons does the sequence contain?"
+gc_content,agree,28.2%,28.2%,"Work through the question that follows, then report the result on a final line of the form 'Answer: ...', with nothing after it.
+
+Here is a DNA sequence: CCCTAAGGCGTAATTAAGCATCAATAAATTAAATTTTAC. Please calculate the GC percentage, rounded to one decimal."
+cas9_cut_position,agree,Between positions 33 and 34,Between positions 33 and 34,"A question came up in the lab today.
+
+This DNA sequence has a single NGG PAM. Using 1-based numbering, identify the two positions between which SpCas9 cuts, given that cleavage occurs 3 bp upstream of the PAM.
+DNA: 5'-ACGCGTCCCCAATAAGAGATAGTAAGTGATGTTGAGCGGAAATAGTAAACTATCGCCTATTTCCCACCG-3'"
+cas9_cut_position,agree,Between positions 44 and 45,Between positions 44 and 45,"Got a sequence question for you.
+
+This DNA sequence has a single NGG PAM. Using 1-based numbering, between which nucleotide positions will SpCas9 cut if cleavage occurs 3 bp upstream of the PAM?
+DNA: CAATGCTAACGCCAATTACTCAACGTAGCTTCTTCTCGAACATATACAGGTGTCTACCGCTCTCCC
+
+Explain your reasoning as you go."
+aligned_complement,agree,ATGTAGACGAACGCTACTA,ATGTAGACGAACGCTACTA,"One more from my problem set.
+
+Given the DNA strand 5'-TACATCTGCTTGCGATGAT-3', write its complementary strand base by base in the 3'-to-5' direction."
+long_oligo_tm,agree,46.1 °C,46.1 °C,"The specifics:
+Oligo: 5'-TAAAATGTTATTAATTCACTTCATATA-3'
+
+What I want to work out: Calculate the melting temperature using Tm = 64.9 + 41×((#(G+C)-16.4)/N), rounded to one decimal place."
+pyrimidine_count,agree,28,28,"Problem: for TCGCTCGTAGGATGGTCTTGATGGTCAAATCGCAGGCTACGGCTTCGCGGTTTAG (5' to 3'), find how many pyrimidine bases it contains."
+restriction_fragments_circular,agree,2,2,"The DNA is circular, shown from an arbitrary start, with the last base joined to the first. After complete digestion with this enzyme, how many fragments result?
+Enzyme: HindIII (AAGCTT)
+DNA: 5'-AATCAAGCTTGCCTAAGCTTTCGGGTCTAC-3'
+
+Talk me through the steps."
+restriction_fragments_circular,agree,2,2,"Quick question for you.
+
+The DNA is circular, shown from an arbitrary start, with the last base joined to the first. After complete digestion with this enzyme, how many fragments result?
+Enzyme: BamHI (GGATCC)
+DNA: 5'-GGGCCAGGGGATCCCAACGGATCCTTGAC-3'"
+pyrimidine_count,agree,9,9,Analyse TCTCCACCAGATAC (5' to 3') and state the pyrimidine count.
+orf_amino_acid_count,agree,7,7 amino acids,"For the DNA sequence 5'-GTTTGGCAAAATAGATGCTCCATGTACGCTTACATTAACTGCATCCA-3', translation initiates at the first ATG. How many amino acids are encoded before the stop codon is reached?"
+restriction_fragments_circular,agree,7,7,"Here's something I want to check.
+
+Enzyme: EcoRI (GAATTC)
+DNA: 5'-TTGCGAATTCACTCCAAATGGAATTCTCCGGTTACCGAATTCAACAAAGGGGAATTCCAATTTGAATTCTTCATAGTTTGAATTCAATGGAGGAATTCGGATGA-3'
+
+The problem: The DNA is circular, shown from an arbitrary start, with the last base joined to the first. After complete digestion with this enzyme, how many fragments result?"
+shine_dalgarno_spacing,agree,18,18,"Can you help me with this one?
+
+How many nucleotides lie between the AGGAGG motif and the ATG?
+DNA: 5'-TTACTATTCAGGAGGACACTCGTTCGCAAGGCCATGATTGA-3'"
+gc_content,agree,47.4%,47.4%,"Read the question below, think it step by step, and then give your answer on a new line beginning with 'Answer:'.
+
+Read the strand GGGCGTACGGGATCTGCGTGTTAGGGTATTACGCCCTTCGCTGTCTGCTAGTTATCAATCAGTTATCGTTTAGTGATT (5' to 3'), then report the GC percentage, to one decimal place."
+restriction_site_count,agree,9,9,"Reason about the problem below, then give your answer on a new line beginning with 'Answer:'.
+
+BamHI recognizes the sequence GGATCC. In the DNA sequence 5'-CATTAAGGTGGATCCAGAACCGGATCCCTATGGATCCAGGGATCCAAAAGGATCCGATGGATCCACGGGATCCTTGGGATCCCAAATCTGAGGATCCCCCT-3', how many exact BamHI recognition sites are present? Count recognition sites rather than the resulting fragments. Thanks in advance."
+pyrimidine_count,agree,27,27,"Determine the number of pyrimidines.
+
+Sequence: CGAGGTTCTGCCTGATATAAGTCAGTCAGCAGTAAGCTTTATACGGATCCGTATAGAG (5' to 3')"
+wallace_tm,agree,34 °C,34°C,"Oligo: 5'-AGATTTTCTAAGG-3'
+
+So: Calculate the melting temperature using Tm = 2(A+T) + 4(G+C)."
+mirna_seed_extraction,agree,AGUGCCG,AGUGCCG,"Given the mature rno-miR-292-3p sequence 5'-AAGUGCCGCCAGGUUUUGAGUGU-3', identify the seed sequence defined by nucleotides 2 through 8."
+cpg_count,agree,7,7,"Determine how many CpG sites it contains.
+
+Sequence: CCGGCGCTTGGCGCCGCTTCCGGGCTTCGATCACCGAA (5' to 3')"
+telomere_repeat_count,agree,14,14,"Repeat: CCCTAA
+DNA: 5'-ATGATGGTACGCCCGCCAGCCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAATCCCTGCCCCAAA-3'
+How many complete copies of the repeat are in the longest uninterrupted array?
+
+Reason it out, then put your final answer on its own last line as 'Answer: ...'."
+pam_count,agree,2,2,"For the sequence AGAAAGGTGTTGTGGTCCAT, determine the count of SpCas9 NGG PAM sites on this strand."
+gc_content,agree,52.8%,52.8%,"Given CGTTGTTCCGTAGAACGCCTGGCGCTTAGGGTATAT (5' to 3'), what is its GC content as a percentage, to one decimal place?"
+wallace_tm,agree,48°C,48°C,"Calculate the melting temperature using Tm = 2(A+T) + 4(G+C).
+Oligo: 5'-CACGGGCAGAAATCC-3'"
+polya_signal_position,agree,38,38,"Can you help me with this one?
+
+At which 1-based position does the AATAAA polyadenylation signal start?
+3' UTR: 5'-AATGATAGTATATAGCCGCCCTCGATTGCCCACCTTCAATAAACGACAAATGCGGA-3'
+
+Talk me through the steps."
+telomere_repeat_count,agree,13,13,"Quick question for you.
+
+Repeat: TTAGGG
+DNA: 5'-GATCCGACACCCGATTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTGATGT-3'
+The specifics:
+The problem: How many complete copies of the repeat are in the longest uninterrupted array?"
+mirna_seed_extraction,agree,GAAUCUU,GAAUCUU,"The mature microRNA ath-miR172b-3p has the following 5' to 3' sequence:
+AGAAUCUUGAUGAUGCUGCAU
+
+Given that the functional seed region is defined as nucleotides 2 through 8 of the mature strand, what is the sequence of this seed?
+
+Thanks in advance."
+purine_count,agree,16,16,"Sequence under study: ACTGCTCTTGTAACTCGATAGATGACCCACCCGGTGT
+Determine the number of purines."
+shine_dalgarno_spacing,agree,12,12,"One more from my problem set.
+
+In the DNA sequence 5'-ACCGCGTGGAGGAGGCCTAGACGTCTAATGAGCTCTGGAAA-3', how many nucleotides are located between the AGGAGG motif and the ATG start codon?"
+wallace_tm,agree,34°C,34°C,"Reason about the problem below, then put your final answer on its own last line as 'Answer: ...'.
+
+Using the Wallace rule, Tm = 2(A+T) + 4(G+C), determine the melting temperature of the oligo 5'-TTAATGAATAATATAA-3'."
+cpg_obs_exp,agree,Yes,Yes,"Consider the following DNA sequence:
+
+CAATAAGCGGGTTATTTTTGGAGGCATTTCCACAAATGAGCCTAGGCCGTCGGAGAGCTGCGCCA
+
+Evaluate the CpG observed/expected ratio according to the standard formula: (CpG count × sequence length) ÷ (C count × G count). Does this calculated ratio exceed 0.7? Please provide your conclusion as Yes or No."
+gc_content,agree,53.0%,53.0%,"Analyse 5'-CCATTAGATTCTTGTCACGCCGGTCCGAGGGTGCAGTTCTTAGCACGAGGCCGGTATAATCCACTACGTGGCGATAACCGGGGCTCGGTAATGGCACCTACTTTTGAGTATGGTT-3' and state its GC content as a percentage, to one decimal place."
+shine_dalgarno_spacing,agree,13,13,Consider the following DNA sequence: 5'-TAGGAGGGAAGACTAGTATTATGA-3'. Determine the number of intervening nucleotides located between the AGGAGG motif and the downstream ATG triplet.
+telomere_repeat_count,agree,14,14,"A question came up in the lab today.
+
+Analyze the following DNA strand to find the longest continuous tandem array of the motif CCCTAA:
+
+5'-GGATGGATAGAATTCCCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAAGCT-3'
+
+How many complete, consecutive copies of this repeat unit are present in that uninterrupted block?
+
+Appreciate the help."
+pam_count,agree,9,9,"Sequence under study: GCTAGGTTTCCCGGCGAAGGTAGGAAAGATGGAAGGCAAACCGGAAGGTCGCGGAGTCG (5' to 3')
+Determine how many NGG PAM sites it contains on the strand as written, including overlapping sites."
+polya_signal_position,agree,25,25,"Here's what I need: At which 1-based position does the AATAAA polyadenylation signal start?
+
+3' UTR: 5'-CGCTTCCGGCATGTCATAGCACCCAATAAATGAGTCGAGCTGCCTCCCGGGAGAAATGTACACACA-3'"
+restriction_site_count,agree,6,6,"How many exact recognition sites for this enzyme does the DNA contain? Count sites, not fragments.
+Enzyme: XhoI (CTCGAG)
+DNA: 5'-GTGCTCGAGTATTCTGCTCGAGAACATACTCGAGCGCCTGGCCTCGAGACGATGCTCTCTCGAGGGCTCGAGTATGT-3'
+
+Please walk me through it."
+restriction_site_count,agree,5,5,"The restriction enzyme NotI recognizes the sequence GCGGCCGC. In the DNA sequence 5'-CTTGTGTGGGCGGCCGCGTGCGGCCGCAATTAGCGGCCGCAGGACGAGGCGGCCGCTAAAGCGGCCGCCGCGG-3', how many exact NotI recognition sites are present? Count recognition sites rather than resulting fragments. Thanks in advance."
+gc_content,agree,96.3%,96.3%,"Work through GGGCGGACCGGGGGGCGCGGGCGGCCC and report its GC content as a percentage, to one decimal place."
+aligned_complement,agree,GCGCAAGGTTCATCGTCTACCATTGCTAAACATCGCTGCCCCCCCCA,GCGCAAGGTTCATCGTCTACCATTGCTAAACATCGCTGCCCCCCCCA,"One more from my problem set.
+
+A DNA strand runs from 5' to 3' with the sequence CGCGTTCCAAGTAGCAGATGGTAACGATTTGTAGCGACGGGGGGGGT. What is its complementary strand, written from 3' to 5'?"
+restriction_fragments_circular,agree,10,10,"Quick question for you.
+
+The DNA is circular, shown from an arbitrary start, with the last base joined to the first. After complete digestion with this enzyme, how many fragments result?
+Enzyme: PstI (CTGCAG)
+DNA: 5'-GCTGCTGCAGTGTCACACTGCAGCGTACAACTGCAGACTAACTGCAGTTGCCGTCTGCAGCGTTGCCGCCTGCAGTTCCACTAGGCTGCAGATCTGCAGGCTAGGCTGCAGCAGACTGCAGGGGCGACCC-3'
+
+I'd like to see the reasoning."
+aligned_complement,agree,CGCAAATCACCGTAAACGGATTTTATGAACTGTAC,CGCAAATCACCGTAAACGGATTTTATGAACTGTAC,"Determine the complementary DNA strand for the sequence below, preserving base alignment and writing the result from 3' to 5':
+5'-GCGTTTAGTGGCATTTGCCTAAAATACTTGACATG-3'"
+cas9_cut_position,agree,Between positions 21 and 22,Between positions 21 and 22,"In the DNA sequence ACGCCCCTGTCGCTCCCCTCTAACCGGCGTCATCTGAAAGCGC, there is exactly one NGG PAM. Using 1-based numbering, between which two positions does SpCas9 cut if cleavage occurs 3 bp upstream of the PAM?"
+restriction_site_count,agree,2,2,"How many exact recognition sites for this enzyme does the DNA contain? Count sites, not fragments.
+Enzyme: EcoRI (GAATTC)
+DNA: 5'-TCGGAATTCGTGGAATTCCCGATTCT-3'"
+complete_codons,agree,15,15,"Quick question for you.
+
+DNA: 5'-CGCCCGGCTGCTCCATGGCATATGGACGAGTCCCCAGACCTCAGA-3'
+Reading from the first base, how many complete codons does the sequence contain?"
+long_oligo_tm,agree,79.8 °C,79.8 °C,"Here's a problem I'm stuck on.
+
+Calculate the melting temperature using Tm = 64.9 + 41×((#(G+C)-16.4)/N), rounded to one decimal place.
+Oligo: 5'-GCCCCGGCGACCGGCAGGCGCGCCCCGTCGTC-3'"
+aligned_complement,agree,TTTGACAAGTCCTTATAAGCGGTTGGA,TTTGACAAGTCCTTATAAGCGGTTGGA,"Given the DNA strand 5'-AAACTGTTCAGGAATATTCGCCAACCT-3', write its complementary strand base by base in the 3'-to-5' direction."
+polya_signal_position,agree,45,45,"Working through a problem set, this one came up.
+
+I need to at which 1-based position does the AATAAA polyadenylation signal start?
+
+3' UTR: 5'-GACGTAAGTGGGGGTCCATGAAGTGTAATCTCAGCGTTTGATGTAATAAATTCAGGGGGCTATTGTCGACACGACCCCCACGTAGCAGAAGGTCGCAACAACACAATA-3'
+
+I'd like to see the reasoning."
+polya_signal_position,agree,56,56,"In the following 3' UTR, what is the 1-based position of the first nucleotide of the AATAAA polyadenylation signal?
+
+5'-ACCGCGAGTGCTGAAGAACCTGCAATCTGATCTGAAACCCTACGCAGGTACCGAAAATAAATGCCCGTGGTAAACTGTTGTTTGTCCTCGCGATATGAGCA-3'
+
+Step by step would be great."
+wallace_tm,agree,24°C,24°C,"A question came up in the lab today.
+
+Using the Wallace rule formula Tm = 2(A+T) + 4(G+C), what is the estimated melting temperature for the oligonucleotide 5'-AATAAATTAAAT-3'?
+
+Explain your reasoning as you go."
+restriction_fragments_linear,agree,10,10,"Enzyme: XhoI (CTCGAG)
+DNA: 5'-CCGGCTACCTCGAGGGGCTAGCACTCGAGCTCCTCGAGAAATACCTTCTCGAGTTCACTCGAGGGGCGTGCTCGAGCTTCTCGAGAATCTCGAGCGTCTCGAGTAGTTTCT-3'
+
+What I'm asking: The DNA is linear. After complete digestion with this enzyme, how many fragments result?"
+complete_codons,agree,32,32,"Reading from the first base, how many complete codons does the sequence contain?
+DNA: 5'-TCCAATCTAAGGCCTATCTTATCGTGCCACGCCCTGTCATATCTCCCACTTCTCCACTCGTATTTCATTAAGAGTGAGAGCTTAATACCTCGTTTC-3'
+
+Talk me through the steps."
+cas9_cut_position,agree,Between positions 22 and 23,Between positions 22 and 23,"Here's something I want to check.
+
+In the DNA sequence below, there is exactly one NGG PAM. Using 1-based numbering and knowing that SpCas9 cuts 3 bp upstream of the PAM, between which two positions does cleavage occur?
+
+DNA: ACAAACATCTCGTTCCCGTTCCCCACGGTGTTTTACCACGTCCATTAC
+
+Explain your reasoning as you go."
+pam_count,agree,1,1,"Consider the problem below, then report the result on a final line of the form 'Answer: ...', with nothing after it.
+
+Problem: for 5'-GGAGGAT-3', find how many NGG PAM sites it contains, counting every overlapping site on the strand shown."
+orf_amino_acid_count,agree,7 amino acids,7 amino acids,"DNA: 5'-AGGGCTAGACAATGAGGTCTAACGCGGATATTTGATA-3'
+Translation begins at the first ATG. How many amino acids are encoded up to, but not including, the stop codon?"
+shine_dalgarno_spacing,agree,11,11,"Looking at the sequence 5'-ACCACTTAGGAGGTCAGAGGCTAAATGTAAGG-3', what is the spacer length—specifically, the exact number of intervening nucleotides—between the AGGAGG motif and the downstream ATG start codon?"
+telomere_repeat_count,agree,13,13,"Repeat: CCCTAA
+DNA: 5'-GGGGGGGATCGAGAAGTCTCCCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACGGCCGAA-3'
+How many complete copies of the repeat are in the longest uninterrupted array?
+
+Reason it out, then end with a line that starts 'Answer:' followed by the answer alone."
+restriction_fragments_linear,agree,4,4,"Here's something I want to check.
+
+Imagine you have a linear strand of DNA with the sequence CCCTCGAGTTTGCCTCGAGCTGATGGGCGCTCGAGCCA. If you completely digest this molecule using the restriction enzyme XhoI, which recognizes and cuts at the sequence CTCGAG, how many DNA fragments will be produced?
+
+Explain your reasoning as you go."
+telomere_repeat_count,agree,3,3,"Repeat: CCCTAA
+DNA: 5'-GGGTCACCCTAACCCTAACCCTAAGGTCA-3'
+
+What I want to work out: How many complete copies of the repeat are in the longest uninterrupted array?"
+gc_content,agree,76.6%,76.6%,"Here is a DNA sequence: TGCGCGCCCCCCAGCTGCGGCACGGCGGGCGTTTGTGCGGCGGGAAT (5' to 3'). Please calculate its GC content as a percentage, to one decimal place."
+pyrimidine_count,agree,14,14,"Reason about the problem below, then put your final answer on its own last line as 'Answer: ...'.
+
+Given 5'-CTCCAATACGGTGTAGTTGTTTGC-3', what is the number of pyrimidines?"
+purine_count,agree,14,14,You are given the oligonucleotide CCATGTCCGGGCTGGCAGAACGCAA (5' to 3'). Compute the purine count.
+restriction_fragments_circular,agree,8,8,"A circular DNA molecule is shown from an arbitrary starting point, with its final base connected to its first base. BamHI recognizes GGATCC. After complete digestion, how many DNA fragments are produced?
+
+DNA: CAGAGGATCCACAGATGTTCGGATCCCGGACACGGATCCAGGTACGGATCCACCGGATCCCCGGATCCGCTCTATTGGATCCTCACAGGATCCAT
+
+Step by step would be great."
+complete_codons,agree,30,30,"I'd like a hand with the following.
+
+Reading from the first base, how many complete codons does the sequence contain?
+DNA: 5'-ACCGGCCTAATTCTGCTTCTTTATCGAGGTGTACGTTACCTCACCCGGAAAAGCGAGCTCGTTGCATACACGCGTCACACAATAGCCATAG-3'"
+telomere_repeat_count,agree,15,15,"What I have:
+Repeat: TTAGGG
+DNA: 5'-TAGTAAACGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTATAATTAGCC-3'
+
+How many complete copies of the repeat are in the longest uninterrupted array?"
+cas9_cut_position,agree,Between positions 28 and 29,Between positions 28 and 29,"Consider the following DNA sequence:
+
+5'-TATCGCGCCGCACCCGTTTTTGTTCTAAGTTTGGCGATCTACG-3'
+
+This sequence contains a single NGG protospacer adjacent motif (PAM) recognized by the SpCas9 endonuclease. The SpCas9 enzyme introduces a double-strand break exactly 3 base pairs upstream of the PAM. Using 1-based indexing, between which two nucleotide positions does this cut occur?"
+restriction_site_count,agree,5,5,"Enzyme: BamHI (target sequence: GGATCC)
+DNA: 5'-GTAACGGATCCCCCGACAAAGGGATCCGCGCCGGATCCGGATACTTCGGATCCCCTCGGATCCCAGCA-3'
+
+How many complete recognition sites for BamHI are present in this DNA molecule? Count the total number of sites, not fragments."
+pyrimidine_count,agree,25,25,You are given the oligonucleotide CTCTAAACGCTGGGCGGCACGGCTTATTGAGAAGCTTGTGTAGACAGGTACAGCT (5' to 3'). Compute the number of pyrimidines.
+complete_codons,agree,25,25,"Can you help me with this one?
+
+Reading from the first base, how many complete codons does the sequence contain?
+DNA: 5'-CCGTGCCATCGCTGCTTACCGTTAAACAGCTTTGGGCCGAGACGGCTTAATCAGAGGATTATCCGCGGCCAACTC-3'
+
+Please walk me through it."
+hydrogen_bond_count,agree,125,125,"For the sequence GTCATGAAAGGCCGATAGACGACATCAGTCGCTAATCTCGTACATCCGAG (5' to 3'), determine the number of hydrogen bonds holding the duplex together."
+aligned_complement,agree,TGGTTTGTGATATCTCAGGACAT,TGGTTTGTGATATCTCAGGACAT,"Need to settle this one.
+
+Given the DNA sequence 5'-ACCAAACACTATAGAGTCCTGTA-3', determine the sequence of the complementary strand written in the 3' to 5' direction.
+
+Thanks in advance."
+wallace_tm,agree,46°C,46°C,"Need to settle this one.
+
+Please determine the melting temperature for the oligonucleotide primer 5'-ACCGCACGCTGCC-3' using the standard Wallace rule, Tm = 2(A+T) + 4(G+C)."
+hydrogen_bond_count,agree,145,145,"The problem: determine the number of hydrogen bonds holding the duplex together.
+
+Sequence: 5'-AATAGATGGCTCATACGCTGGGTCTATGTAGTTGCAGCGCTAGATGACAGATAGCCCC-3'"
+restriction_fragments_circular,agree,5,5,"Consider the problem below, then give your answer on a new line beginning with 'Answer:'.
+
+A circular DNA molecule is represented by the following sequence, with the final nucleotide covalently closed to the first:
+
+5'-CCTTCTGAATGGATCCAAAAACGGATCCGACAGAGTGGATCCGATTTCTGGATCCGCAGGTCAGGGATCCAGACCGAC-3'
+
+Following complete restriction endonuclease digestion with BamHI (recognition sequence: GGATCC), how many discrete fragments will be generated?
+
+Appreciate the help."
+cpg_obs_exp,agree,Yes,Yes,"Here's something I want to check.
+
+Using the DNA sequence AAGCCACGCCTTATAAAACAGTACTCTCGGCT, calculate the CpG observed/expected ratio with the formula (CpG count × sequence length) ÷ (C count × G count). Does this value turn out to be greater than 1.0? Respond with Yes or No.
+
+Explain your reasoning as you go."
+cpg_count,agree,4,4,Here is a DNA sequence: CTGTGCTTATAATTATTCACGCGAAGTAGTTACCACCAGGCTAAAATCTCTACCAGGACCCATTATTTGTCACGTATATCCCACCGACC (5' to 3'). Please calculate how many CpG dinucleotides it contains.
+gc_content,agree,61.9%,61.9%,"Problem: for TCTCCGGCTTGAGTGAAGCCC, find the GC percentage, rounded to one decimal."
+complete_codons,agree,13,13,"DNA: 5'-TGTCGCGCACTGAATATGATAGAATTTCATAACGTTCATA-3'
+Reading from the first base, how many complete codons does the sequence contain?"
+cpg_obs_exp,agree,Yes,Yes,"DNA: 5'-GTGGTACACGAAGCGGTAGAACATCTCAACTCTTACGCAGATTAGCCG-3'
+
+Compute the CpG observed/expected ratio as (CpG count × sequence length) ÷ (C count × G count). Is the ratio greater than 0.9? Answer Yes or No."
+restriction_fragments_circular,agree,8,8,"I need to the DNA is circular, shown from an arbitrary start, with the last base joined to the first. After complete digestion with this enzyme, how many fragments result?
+
+The specifics:
+Enzyme: PstI (CTGCAG)
+DNA: 5'-ACGATTCTGCAGGCACGCGCTGCAGGTTATCCTGCAGTCAGATCTGCAGTCCCGCTGCAGTACCCCTGCAGTGCTGCAGGCCCCTCCTGCAGTAGGGCG-3'
+
+I'd like to see the reasoning."
+cpg_count,agree,9,9,"Work through the question that follows, then report the result on a final line of the form 'Answer: ...', with nothing after it.
+
+Given TACGAGTGCGCATCTCGGGCTTCGCCTGCCGTGGCGGTCGGACGACTCGGGAA, how many CpG dinucleotides does it contain?"
+orf_amino_acid_count,agree,20,20 amino acids,"Consider the following DNA coding strand:
+
+5'-CTTGCTGATACAGATGAAATTAGCCCAGGAGTGTAACCGAGGGGTACTATATCATAGGGTAGAGGACCACGGCTAGAGCAAGTTGGT-3'
+
+Assuming translation initiates at the first start codon (ATG), determine the number of amino acids in the resulting polypeptide before encountering the first in-frame stop codon."
+purine_count,agree,29,29,Consider the DNA sequence 5'-ACGCGCTCCGAGGCTCGGAAGAGAATATAGGCGCATTACGGCACCTCATAA-3'. Report how many purine bases it contains.
+pyrimidine_count,agree,18,18,"What I want to work out: determine the pyrimidine count.
+
+Sequence: GGCTCGACAGCCAACATTGGAAATAAGCCACGTGCGTTAACGGAA (5' to 3')"
+shine_dalgarno_spacing,agree,14,14,"Need to settle this one.
+
+In the DNA sequence 5'-AAATTAGTAAGGAGGATATCGGTATTTGTATGTGTGCT-3', determine the number of intervening nucleotides located between the AGGAGG sequence motif and the downstream ATG start codon."
+polya_signal_position,agree,49,49,"Here's a problem I'm stuck on.
+
+3' UTR: 5'-GGTTTATCAATCGGAAACCAGCTTCTCTCCTGCCGTTTTCCATAAGTTAATAAACTCGACACGCTGAAACGGTC-3'
+At which 1-based position does the AATAAA polyadenylation signal start?
+
+Talk me through the steps."
+mirna_seed_extraction,agree,CUAGUAG,CUAGUAG,"You are given the mature microRNA sequence for rno-miR-325-5p: CCUAGUAGGUGCUCAGUAAGUGU (written in the 5' to 3' direction). Given that the seed sequence corresponds to nucleotides 2 through 8, what is the sequence of this seed region? Step by step would be great."
+orf_amino_acid_count,agree,18 amino acids,18 amino acids,"Can you help me with this one?
+
+Translation begins at the first ATG. How many amino acids are encoded up to, but not including, the stop codon?
+DNA: 5'-TGCCGGTAAGTCGGATGAACACTAGACAATGTTTGACGCGCGCAAATTGCTCTTTGGGGACTACTCTTTAA-3'"
+gc_content,agree,50.4%,50.4%,"Work through 5'-CGAGGGTGGTTGTACTTGAACGTGGTCTATGAGCACCGCTTGCTAGGCAAGATTGGCCTCTCTCTACGAGTCCAAAGCGGGGCCCGAGACATTATAGAAGTCTTTGGCAAGGCTATCAATTTATCTTCCCCCTAATGCT-3' and report its GC content as a percentage, to one decimal place."
+restriction_fragments_linear,agree,6,6,"Here's a problem I'm stuck on.
+
+Enzyme: HindIII (AAGCTT)
+DNA: 5'-CATCAATCAAAGCTTTAGGAAGCTTCGTGCGTTAAGCTTTGCGGCATAAGCTTGAGGAAGCTTCTCGGG-3'
+The DNA is linear. After complete digestion with this enzyme, how many fragments result?"
+complete_codons,agree,28,28,"Quick question for you.
+
+Reading from the first base, how many complete codons does the sequence contain?
+DNA: 5'-ATTAAGATGGTCACTTCGTCAGACTACAAAGACTTGTGGAAAAATTGCAGTGGGTGGCAACTATTGGCCGCGACTATCACATCAGA-3'"
+reverse_complement,agree,GCGACCTTGGGGCTTTCCCTCAGGGGCTTGCAATCTTGGGTGTACCAATATACTGATGCC,GCGACCTTGGGGCTTTCCCTCAGGGGCTTGCAATCTTGGGTGTACCAATATACTGATGCC,"Given the DNA sequence GGCATCAGTATATTGGTACACCCAAGATTGCAAGCCCCTGAGGGAAAGCCCCAAGGTCGC, determine its reverse complement in the 5-to-3 direction."
+telomere_repeat_count,agree,12,12,"Repeat: TTAGGG
+DNA: 5'-ACCTCTAACTTTCCTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTGGTTTTGT-3'
+How many complete copies of the repeat are in the longest uninterrupted array?"
+mirna_seed_extraction,agree,GUAAACA,GUAAACA,"Here's something I want to check.
+
+Consider the mature microRNA mmu-miR-30c-5p with the following sequence:
+
+UGUAAACAUCCUACACUCUCAGC
+
+The functional seed region is defined as nucleotides 2 through 8 counting from the 5' end. What is the sequence of this seed region?
+
+Thanks in advance."
+polya_signal_position,agree,18,18,"3' UTR: 5'-TAATCCCCGACATGTCCAATAAAGGTATGGGTTGTGCTCGCGCTACACCGAGCAATGTCTGCAAAA-3'
+At which 1-based position does the AATAAA polyadenylation signal start?"
+shine_dalgarno_spacing,agree,20,20,"Reason about the problem below, then report the result on a final line of the form 'Answer: ...', with nothing after it.
+
+Here's what I need: How many nucleotides lie between the AGGAGG motif and the ATG?
+
+DNA: 5'-TCGTATAGGAGGGCACCCCTCTCGACGACGGAATGGGCGCAGCG-3'"
+shine_dalgarno_spacing,agree,9,9,"Working through a problem set, this one came up.
+
+The question is this: How many nucleotides lie between the AGGAGG motif and the ATG?
+
+DNA: 5'-CCAGGAGGATCACGGTTATGTTGCTACAG-3'
+
+I'd like to see the reasoning."
+cpg_count,agree,10,10,Take 5'-GTCCGTTTCCTCTGCCCTGGGGAAGACTTGTTTATTTTCGTTTAACATGAGTTCCCATACTCGCCGAGCCCGTCGCATATTTCTATCGGCCTTACTCAGAGGAATTCGCCCAAAAATGGCAAGGTTGCAAAGGTCACCGGTTTAGTCCGT-3' and work out the CpG dinucleotide count.
+orf_amino_acid_count,agree,4 amino acids,4 amino acids,"The specifics:
+DNA: 5'-GATGAGGTTCACATGATAACTGATTGTTA-3'
+
+Translation begins at the first ATG. How many amino acids are encoded up to, but not including, the stop codon?"
+wallace_tm,agree,64°C,64°C,"Details:
+Oligo: 5'-GTATAGATAAGAATCTCAATTTCTC-3'
+
+The question is this: Calculate the melting temperature using Tm = 2(A+T) + 4(G+C)."
+shine_dalgarno_spacing,agree,4,4,"Mind taking a look at this?
+
+Consider the DNA sequence 5'-AGGAGGCCAGATGGACCCTA-3'. How many nucleotides are located between the AGGAGG motif and the ATG codon?
+
+Explain your reasoning as you go."
+mirna_seed_extraction,agree,AUCACAG,AUCACAG,"A question came up in the lab today.
+
+The sequence for the mature miRNA dme-miR-13b-3p is UAUCACAGCCAUUUUGACGAGU (oriented 5' to 3'). Given that the seed region is composed of nucleotides 2 through 8, what is the seed sequence?
+
+Explain your reasoning as you go."
+telomere_repeat_count,agree,15,15,"A DNA strand is provided below:
+5'-GCCTGCGCGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGGCCTGAAGAAA-3'
+
+Scan the sequence for the hexanucleotide motif TTAGGG. What is the total count of intact, consecutive repeats found in the longest uninterrupted tandem array?"
+wallace_tm,agree,34°C,34°C,"Calculate the melting temperature using Tm = 2(A+T) + 4(G+C).
+Oligo: 5'-AAAATATTAAAGATTT-3'"
+cpg_count,agree,7,7,"Work through the question that follows, then put your final answer on its own last line as 'Answer: ...'.
+
+Problem: for 5'-CCCTCGATTCGTTTCGCTATCGCCGCCGCCGCAC-3', find how many CpG sites it contains."
+cas9_cut_position,agree,Between positions 21 and 22,Between positions 21 and 22,"A question came up in the lab today.
+
+Consider the following DNA sequence:
+5'-TATGCCGTCACGATGCATCCTAATAGGTCATTAGTCAATCTACGTTCGTCA-3'
+
+This sequence contains a single NGG protospacer adjacent motif (PAM). Knowing that SpCas9 cleaves the DNA 3 base pairs upstream of the PAM, between which two positions does the cut occur? Provide your answer using 1-based numbering.
+
+Explain your reasoning as you go."
+orf_amino_acid_count,agree,3,3 amino acids,"For the DNA sequence GACATGGTTGTATGAATTGACGAGGTA, translation starts at the first ATG. How many amino acids are encoded before the stop codon?"
+restriction_site_count,agree,8,8,"Can you help me with this one?
+
+How many exact recognition sites for this enzyme does the DNA contain? Count sites, not fragments.
+Enzyme: XhoI (CTCGAG)
+DNA: 5'-GCCTGGCTCGAGGGGCGGCTCGAGGCGGCTCGAGTCTTGATTAACTCGAGTCGGGTACTCGAGCTCAGCTAACTCGAGCGACTCGAGAGTAGCTGCTCGAGCCCTGCATCA-3'
+
+Talk me through the steps.
+
+Think step by step, then report the result on a final line of the form 'Answer: ...', with nothing after it."
+complete_codons,agree,25,25,"Suppose we are examining the following DNA strand: CTCGTTCGGATACCTTCTTCTAGGCGCCTTACTCTCTTCTTAGATGGTGGGCGCGGAGAAACGCGTCTGGCTACCCT. If we begin reading directly from the initial 5' nucleotide, how many full codons are present in this sequence?"
+telomere_repeat_count,agree,13,13,"Repeat: CCCTAA
+DNA: 5'-GGGGGGGATCGAGAAGTCTCCCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACGGCCGAA-3'
+How many complete copies of the repeat are in the longest uninterrupted array?
+
+Reason it out, then end with a line that starts 'Answer:' followed by the answer alone."
+mirna_seed_extraction,agree,ACACACC,ACACACC,"For the mature miRNA rno-miR-329-3p, identify the seed sequence defined by nucleotides 2 through 8: 5'-AACACACCCAGCUAACCUUUUU-3'."
+transcription_template,agree,GCGGAACUAACUU,GCGGAACUAACUU,A DNA template strand reads 3'-CGCCTTGATTGAA-5'. What is the sequence of the synthesized mRNA transcript in the 5'-to-3' direction?
+orf_amino_acid_count,agree,21 amino acids,21 amino acids,"Translation begins at the first ATG. How many amino acids are encoded up to, but not including, the stop codon?
+DNA: 5'-CCGCGTGACCAAGAAATGAATAGCGGCGCATGTTCTATCTTTATTACCCACAGCTGGAGTACTACTGAGTCTAGCTCCTGAACATAGACCTGCC-3'
+
+Talk me through the steps."
+cpg_obs_exp,agree,No,No,"Consider the following DNA sequence:
+
+GGCGTAAGCGGGATCGTGTGAGGGAATAAGGCCCTAGAACAGAAACCCATCGACAGCTCCCACACT
+
+Calculate the CpG observed/expected ratio using the standard formula (CpG count × sequence length) ÷ (C count × G count). Is this value greater than 0.8? Respond with Yes or No."
+pam_count,agree,5,5,"Here is a DNA sequence: 5'-TCGGCGAGGACTGAGGCTTCATGGCCCCCGGAA-3'. Please calculate the number of NGG PAM sites, counting overlaps."
+orf_amino_acid_count,agree,24,24 amino acids,"Given the following DNA sequence in the 5′-to-3′ direction:
+
+ATTGTCCCCTACAAATGCTCTGCGTTGGGGGGCAACAAATTACCCTCAATAATGCCCTGGTGCAGACGCTTGGTGCAAAAATCATCTGAACATATGCGGCTGTG
+
+If translation starts at the first ATG, how many amino acids are encoded before the stop codon?"
+transcription_coding,agree,AAUAAAAGGACGGUCGCCCCGCCGAACACAGUGC,AAUAAAAGGACGGUCGCCCCGCCGAACACAGUGC,"Transcribe the following 5'-to-3' coding strand of DNA into an mRNA transcript, reported in the 5'-to-3' direction:
+AATAAAAGGACGGTCGCCCCGCCGAACACAGTGC"
+orf_amino_acid_count,agree,27,27 amino acids,"Given the DNA sequence 5'-TATCTGATATGTCTGATGTTGCTGATAATTGCGGGCTTCCACCTCTGATAAAATGGGATTACTCAGTTGGACCGCGGGAAGCGAACCCCTAATTTCGAAC-3', translation starts at the first ATG. How many amino acids are encoded before the stop codon? Thanks in advance."
+complete_codons,agree,20,20,"DNA: 5'-CTAGATGGCAGTGCTCTATTTAGTTTAGCTCAGGAGGTAAACGGGCCGAGTCTGAGCCGGCG-3'
+Reading from the first base, how many complete codons does the sequence contain?"
+reverse_complement,agree,CGTTAGTCGCGAGACGC,CGTTAGTCGCGAGACGC,"Mind taking a look at this?
+
+What is the 5′-to-3′ reverse complement of the following DNA strand?
+
+GCGTCTCGCGACTAACG
+
+Appreciate the help."
+orf_amino_acid_count,agree,7,7 amino acids,"A question came up in the lab today.
+
+For the DNA sequence 5'-GAGCCGTATGTCTCTGCCCGCGCCCAACTAATC-3', translation starts at the first ATG. How many amino acids are encoded before the stop codon?"
+restriction_fragments_circular,agree,7,7,"I'm trying to answer this question.
+
+The DNA is circular, shown from an arbitrary start, with the last base joined to the first. After complete digestion with this enzyme, how many fragments result?
+Enzyme: XhoI (CTCGAG)
+DNA: 5'-AGGCTCGAGCATCAATGAGCTCGAGTGTAACGCTCGAGGATTCCAAGACTCGAGGATGAGCCGCTCGAGTCCAATCTCGAGATGGCTCTCGAGGCGTGCAAT-3'"
+restriction_site_count,agree,10,10,"Working through a problem set, this one came up.
+
+Enzyme: EcoRI (GAATTC)
+DNA: 5'-CGGTGGAATTCGAGAATTCCGTCATGAATTCCATTGAATTCAAGCCCTATAGAATTCCTGAATTCGCCAAACTGAGAATTCTCTGAATTCTGCGAACAGCGAATTCGGACGAATTCTT-3'
+How many exact recognition sites for this enzyme does the DNA contain? Count sites, not fragments."
+polya_signal_position,agree,15,15,A 3' untranslated region is given by the sequence GCGTCATCATGCTTAATAAAAAACAGATTACACGGGGTTCGTCTTGTGGCAGAGGAGGCCGTCAGGTGTCGGCCCGCA. What is the 1-based starting position of the AATAAA polyadenylation signal in this sequence?
+cpg_obs_exp,agree,No,No,"Consider the DNA sequence CTTAGGGTAGCAGCGAAAATTCT. Using the formula (CpG count × sequence length) ÷ (C count × G count), determine the CpG observed/expected ratio. Is this ratio greater than 1.0? Answer Yes or No."
+orf_amino_acid_count,agree,7 amino acids,7 amino acids,"DNA: 5'-TGAGGGCCTACTGAATGGCAGACGGGCTAGAGCTATGAGTAGGTCAAACCCCA-3'
+Translation begins at the first ATG. How many amino acids are encoded up to, but not including, the stop codon?"
+shine_dalgarno_spacing,agree,19,19,"Consider the following DNA sequence:
+
+GTACGAAGGAGGCCAGTGCATAACATCCTCCATGGGCATAG
+
+Determine the number of nucleotides that lie in the intervening spacer region between the AGGAGG motif and the downstream ATG triplet."
+cpg_obs_exp,agree,Yes,Yes,"Here's a problem I'm stuck on.
+
+Here's what I need: Compute the CpG observed/expected ratio as (CpG count × sequence length) ÷ (C count × G count). Is the ratio greater than 0.9? Answer Yes or No.
+
+Details:
+DNA: 5'-GTCGCGTTTATCGAGTCCCAAATTGGCTTGA-3'
+
+Talk me through the steps."
+restriction_site_count,agree,5,5,"A question came up in the lab today.
+
+XhoI recognizes CTCGAG. How many exact XhoI recognition sites are present in the following DNA? Count recognition sites rather than resulting fragments.
+
+DNA: 5'-TCCCTCGAGTCCGCCGAACTCGAGCACTCGAGTTGCAGACTCGAGACACGCGGTCTCGAGTCAGACTGA-3'
+
+Appreciate the help.
+
+Think it through, then give your answer on a new line beginning with 'Answer:'."
+restriction_fragments_circular,agree,6,6,"Here's something I want to check.
+
+PstI recognizes the sequence CTGCAG. Consider the circular DNA molecule shown below, where the final base is connected to the first base:
+
+5'-TTCCTGCAGCGCCTGCAGAGCTGCAGCTGACTCTGCAGCTCCCTGCAGTGGGCTGCAGGC-3'
+
+How many DNA fragments are produced after complete digestion with PstI?
+
+Thanks in advance."
+pyrimidine_count,agree,1,1,Take 5'-GTGAG-3' and work out how many pyrimidine bases it contains.
+gc_content,agree,90.7%,90.7%,"DNA: 5'-TCCGCCGACCGCAGCCCGGCGGGCGCACGCCGCCGCCCGGGCG-3'
+What is the GC percentage, to one decimal place?
+
+Explain your reasoning, then report the result on a final line of the form 'Answer: ...', with nothing after it."
+cas9_cut_position,agree,Between positions 33 and 34,Between positions 33 and 34,"Consider the following DNA sequence:
+5'-GGAATTCCAACCTTTGAACGCTCCTCAATACTCTCCTGGAAGTGTCGACGATC-3'
+
+This sequence contains a single NGG protospacer adjacent motif (PAM) recognized by the SpCas9 endonuclease, which cleaves DNA 3 base pairs upstream of the PAM. Using 1-based indexing, between which two nucleotide positions does SpCas9 make the cut?"
+shine_dalgarno_spacing,agree,9,9,"DNA: 5'-TACAGAGGAGGTGAAGCCTCATGTG-3'
+How many nucleotides lie between the AGGAGG motif and the ATG?"
+cpg_obs_exp,agree,Yes,Yes,"For the DNA sequence 5'-GGCGTAGGTTTAAGGAATACATCCAGCAGTCTTATCTGTGATATCTCATACCGGGAGGAGGATTAGTATC-3', calculate the CpG observed/expected ratio using (CpG count × sequence length) ÷ (C count × G count). Does the resulting ratio exceed 0.6? Answer Yes or No."
+aligned_complement,agree,TGGCAACCAGCGCACCCTTGTGGTTGGAGACATTCCATGCCAGCAGTGGTACCAAGCACT,TGGCAACCAGCGCACCCTTGTGGTTGGAGACATTCCATGCCAGCAGTGGTACCAAGCACT,"Mind taking a look at this?
+
+For the DNA sequence ACCGTTGGTCGCGTGGGAACACCAACCTCTGTAAGGTACGGTCGTCACCATGGTTCGTGA oriented from 5' to 3', what is the complementary strand written in the 3' to 5' direction?
+
+Step by step would be great."
+pam_count,agree,6,6,"DNA: AAGGTTGGATAGGTCGCTTGGTACTCTGGTAGAGGT
+What I'm asking: What is the count of SpCas9 NGG PAM sites on this strand?"
+pam_count,agree,7,7,"What I want to work out: determine how many NGG PAM sites it contains.
+
+Sequence: 5'-TTCTACGGAAGAAGGCAGGACAAATGGTGATGGTACGGTAGGTCT-3', counting every overlapping site on the strand shown."
+restriction_fragments_linear,agree,9,9,"Enzyme: HindIII (AAGCTT)
+DNA: 5'-AGTTAAGCTTATGTGTTCAAGCTTGCGCATTTATAAGCTTGAGAGCCAAGCTTGTAAGCTTGTGAAGCTTATACAATTTAAGCTTCTCCCCCCAAGCTTAC-3'
+The DNA is linear. After complete digestion with this enzyme, how many fragments result?
+
+I'd like to see the reasoning."
+polya_signal_position,agree,55,55,"One more from my problem set.
+
+Here is a 3' UTR sequence from a eukaryotic gene: 5'-GTCCGCCATGGAGAAAACCACCGGGCCCACGGATGTGCGTCATCTTTCCCTAGTAATAAATGTCGTCCGCCATCTTGAGGCCATTAGAGTTACTGATTTGACTTATACAGACCACTTTT-3'
+
+Using 1-based numbering, identify the position where the canonical AATAAA polyadenylation signal begins.
+
+Explain your reasoning as you go."
+gc_content,agree,32.5%,32.5%,"Determine the GC percentage, to one decimal place.
+
+Sequence: GAAACCATTCCCAACTTATTATATCACTCATAGTATTGCA (5' to 3')"
+pam_count,agree,13,13,"Determine the number of NGG PAM sites, counting overlaps.
+
+Sequence: TCGATAGGCGGAAAGACGGGTCCAATCACAATGCACGACAAGCAGGACCTATGCCCCACCTCCAGACGCCACAGGCAGCCCTGAAGCGGTTTAAAGGCCTCCGAGGGCCCGGAACACATGGGTGACCTC (5' to 3')"
+pam_count,agree,4,4,Analyse TATGAAGGTAGGAAGCGGATTGGTTA (5' to 3') and state the count of SpCas9 NGG PAM sites on this strand.
+aligned_complement,agree,CAACCATCGTTGGCCTCCAGTGTCGAGCGCTGACTGGGGATGCCATGGGGCAGCAT,CAACCATCGTTGGCCTCCAGTGTCGAGCGCTGACTGGGGATGCCATGGGGCAGCAT,"Given the single-stranded DNA sequence written in the 5'-to-3' direction:
+GTTGGTAGCAACCGGAGGTCACAGCTCGCGACTGACCCCTACGGTACCCCGTCGTA
+
+Provide the exact nucleotide sequence of the complementary DNA strand written in the 3'-to-5' direction."
+polya_signal_position,agree,13,13,"In the following 3' UTR sequence, at what 1-based position does the AATAAA polyadenylation signal begin?
+
+5'-ACATGACTGCTTAATAAATCGCTGGGAAAAAAAAATTT-3'"
+reverse_complement,agree,TCTAAGTAAAAAAGTATAGCCTTGAGTTTAC,TCTAAGTAAAAAAGTATAGCCTTGAGTTTAC,"Mind taking a look at this?
+
+For the DNA strand 5'-GTAAACTCAAGGCTATACTTTTTTACTTAGA-3', determine its reverse complement in the 5'-to-3' direction.
+
+Step by step would be great."
+pyrimidine_count,agree,21,21,You are given the oligonucleotide GAAGGACCGCTGTACGAAATAGGTGATGAGCGACACTGTGCACACCTTGAT (5' to 3'). Compute how many pyrimidine bases it contains.
+telomere_repeat_count,agree,18,18,"Consider the following DNA sequence containing a tandem repeat region:
+
+5'-TCTTTTGACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACTACGGCAAATAGAACTT-3'
+
+What is the number of complete copies of the motif CCCTAA found in the longest uninterrupted array?"
+transcription_coding,agree,AAGGCAUGAAAUGCAUGAUGGCUGCG,AAGGCAUGAAAUGCAUGAUGGCUGCG,"Mind taking a look at this?
+
+A segment of the coding (sense) strand of DNA is provided below in the 5' to 3' orientation:
+
+AAGGCATGAAATGCATGATGGCTGCG
+
+Determine the sequence of the corresponding mRNA transcript, written from 5' to 3'.
+
+Explain your reasoning as you go."
+pyrimidine_count,agree,24,24,Here is a DNA sequence: GGTGGCTTTATATGCGTACAGTGAGATGGCGGTTCACCCGCAACGGAAACTGTA (5' to 3'). Please calculate how many of its bases are pyrimidines.
+pyrimidine_count,agree,71,71,Take CGCCGAGCGGCAGGCTTGCCTTGTCTCGTGTGTCAACGTCTCAAATCTCAGGAATCAGATGACAAAGGCCCACGAGGACGTTCCTGGAATGCGGCTTTGTCAGCGCGCGTCACGCATTGTAATTCTACAAACCATGATATGAA and work out the pyrimidine count.
+polya_signal_position,agree,11,11,"Can you help me with this one?
+
+Here are the details:
+3' UTR: 5'-GCGCCAAGAAAATAAACATGTGTTC-3'
+
+At which 1-based position does the AATAAA polyadenylation signal start?
+
+Talk me through the steps."
+aligned_complement,agree,ACTTGCGCGCATCATTTCTTTTGCCGTCGGCCCGAATCTAAACCAGTGTAGGGTCGGTA,ACTTGCGCGCATCATTTCTTTTGCCGTCGGCCCGAATCTAAACCAGTGTAGGGTCGGTA,"Work through the question that follows, then report the result on a final line of the form 'Answer: ...', with nothing after it.
+
+For the DNA strand 5'-TGAACGCGCGTAGTAAAGAAAACGGCAGCCGGGCTTAGATTTGGTCACATCCCAGCCAT-3', write its complementary strand base by base in the 3'-to-5' direction."
+pam_count,agree,0,0,A colleague hands you the sequence 5'-GATCTACCG-3' and asks for how many NGG PAM sites it contains. What is it? Use the strand as written and count overlaps.
+purine_count,agree,23,23,"DNA: TCTAGGACGGGTCTCTAAGCTGCAGTCGCTCGCACTTCTGAACCCGCCTGTTCGCTAC
+How many purine bases does it contain?"
+polya_signal_position,agree,52,52,"Given the 3' UTR sequence ACCTGCGCAGTAGCGAAACAGCTAGCGAGTAGAATGGCCTGGTAGGATGTTAATAAACCACACCGTAGCTCACTCGGCCTCACGCATTGGACAATGCGCTCA, at which 1-based nucleotide position does the AATAAA polyadenylation signal begin?"
+cpg_obs_exp,agree,Yes,Yes,"Got a sequence question for you.
+
+For the DNA sequence 5'-GTCGCCCATCTCTAACTTAGTGGATAGACTACTT-3', calculate the CpG observed/expected ratio using (CpG count × sequence length) ÷ (C count × G count). Is the result greater than 0.5? Answer Yes or No.
+
+Thanks in advance."
+restriction_fragments_circular,agree,8,8,"A question came up in the lab today.
+
+Here are the details:
+Enzyme: EcoRI (GAATTC)
+DNA: 5'-TGAGCTATGAATTCCAGAATTCGGCTTGCAGAATTCTGGGAATTCTTACCCAGTGAATTCCTAGGCGAATTCACCAGGTGAATTCATCCCACAGGAATTCTATCTGAC-3'
+
+I need to the DNA is circular, shown from an arbitrary start, with the last base joined to the first. After complete digestion with this enzyme, how many fragments result?"
+hydrogen_bond_count,agree,17,17,"I need to determine how many hydrogen bonds the duplex forms.
+
+Sequence: ACTTGTC (5' to 3')"
+translation_coding,agree,Met-Lys-Pro-Arg-Leu-Gln-Arg-Trp-Gly-Cys-Phe-Thr-Tyr-Leu-Glu,Met-Lys-Pro-Arg-Leu-Gln-Arg-Trp-Gly-Cys-Phe-Thr-Tyr-Leu-Glu,"Translate the open reading frame of the following coding DNA sequence starting from the initial base: 5'-ATGAAACCACGTCTCCAACGGTGGGGATGTTTTACGTATCTCGAGTAA-3'. Provide the peptide sequence using hyphen-separated three-letter amino acid codes, omitting the stop codon."
+translation_coding,agree,Met-Ser-Val-Thr-Ile-Leu-Cys-Lys-Lys-Ile-Trp,Met-Ser-Val-Thr-Ile-Leu-Cys-Lys-Lys-Ile-Trp,"Given the coding DNA strand 5'-ATGTCGGTTACCATCTTGTGTAAAAAGATATGGTAA-3', translate the open reading frame beginning at the first codon. Write the amino acids as three-letter codes separated by hyphens, and leave out the stop codon."
+cpg_obs_exp,agree,No,No,"For the DNA sequence CTACAGACGCTCATACCCACGGCCCCTGGAAAGCCGGGCCCTCCTCCCCGTACACCACCTAAGTGGGGCCCTCCCA, calculate the CpG observed/expected ratio using the formula: (CpG count × sequence length) ÷ (C count × G count). Is this ratio greater than 0.7? Please answer Yes or No. Step by step would be great."
+telomere_repeat_count,agree,12,12,"Here's something I want to check.
+
+Consider the following DNA sequence:
+
+5'-CAGGATTTCCCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAAAAATCTTA-3'
+
+Determine the number of complete copies of the motif CCCTAA that make up its longest uninterrupted tandem array.
+
+Appreciate the help."
+translation_coding,agree,Met-Ala-Thr-Gly-Leu-Gly-Pro-Cys-Ala-Ala-Ala-Leu-Asp-His-Phe-Thr-Ser-Arg-Trp-Gln,Met-Ala-Thr-Gly-Leu-Gly-Pro-Cys-Ala-Ala-Ala-Leu-Asp-His-Phe-Thr-Ser-Arg-Trp-Gln,"Translate the following coding DNA sequence from the first codon to the stop codon. Provide the resulting peptide sequence using three-letter amino acid abbreviations separated by hyphens, omitting the stop codon:
+
+5'-ATGGCGACAGGACTGGGACCCTGTGCCGCAGCACTGGACCACTTCACGAGTCGATGGCAATAA-3'"
+restriction_fragments_circular,agree,8,8,"BamHI recognizes the sequence GGATCC. Consider the following circular DNA molecule, whose displayed ends are joined because the starting point is arbitrary:
+
+5'-TAGTGGATCCGCTGAAGGTCGGATCCAAGGATCCAGATGGATCCGAATGGATCCGGACCAGTGGATCCAACCATGGGATCCTTCAACGGATCCGAGGGGA-3'
+
+After complete digestion with BamHI, how many DNA fragments are produced?
+
+Explain your reasoning as you go."
+mirna_seed_extraction,agree,UGACAGA,UGACAGA,"Got a sequence question for you.
+
+The mature osa-miR156j-5p sequence is 5'-UUGACAGAAGAGAGUGAGCACA-3'. Given that the seed comprises nucleotides 2 through 8, what is its sequence?
+
+Appreciate the help."
+transcription_coding,agree,UGACUGUCCGGUACACAG,UGACUGUCCGGUACACAG,"Here's something I want to check.
+
+Given the coding DNA sequence 5'-TGACTGTCCGGTACACAG-3', determine the resulting mRNA sequence written in the 5' to 3' direction.
+
+Appreciate the help."
+wallace_tm,agree,64°C,64°C,"Estimate the melting temperature (Tm) of the oligonucleotide 5'-CCGCGCGCGCCGCCGG-3' using the Wallace rule formula, Tm = 2(A + T) + 4(G + C). Explain your reasoning as you go."
+complete_codons,agree,16,16,"DNA: 5'-TTTGCTCCTGCGGACGGCGTTCTACAGATACGCAGAATGGGCCGCGCGCA-3'
+
+Reading from the first base, how many complete codons does the sequence contain?
+
+Please walk me through it."
+gc_content,agree,40.0%,40.0%,"Work through 5'-GCTAT-3' and report its GC content as a percentage, to one decimal place."
+telomere_repeat_count,agree,6,6,"Repeat: CCCTAA
+DNA: 5'-CGATTCGACGCGGTTCCCCTAACCCTAACCCTAACCCTAACCCTAACCCTAATTTGTCATCTGTTGATGGAA-3'
+
+What I'm asking: How many complete copies of the repeat are in the longest uninterrupted array?"
+gc_content,agree,56.9%,56.9%,"Work through GCCTGCCGGAGCAGCCAGGACTTACGCGCCACGTTGGGACCGTGTTTCGCTAGCGCGGCACTCAAGGAATACGAGTCAACTTGACAGGAAGAGCAGGTTAATTGTGCCATCGGAGAGGTAGAT (5' to 3') and report its GC content as a percentage, to one decimal place."
+purine_count,agree,24,24,"For the sequence TTATTAATTGTGGACATAGTTACGATGACCTTAACTACGCCGGCTTCACTGA (5' to 3'), determine how many purine bases it contains."
+orf_amino_acid_count,agree,16,16 amino acids,"Consider the following DNA sequence: 5'-AGCGAATTGATGCATAGGCGTGGACATCAGGAGGATCTCTGTATATCGCGCCTTTCATAGCGCGGA-3'. If translation starts at the first ATG codon, how many amino acids will be in the peptide chain before the first in-frame stop codon is reached?"
+polya_signal_position,agree,13,13,"Here are the details:
+3' UTR: 5'-CCCGGATGTCCGAATAAAGTTACGCCGAAGAG-3'
+
+I need to at which 1-based position does the AATAAA polyadenylation signal start?"
+purine_count,agree,12,12,Work through TTCGTTGTCTATTCAGCAAATGCCGTAATT (5' to 3') and report the purine count.
+polya_signal_position,agree,10,10,"3' UTR: 5'-AATTACGTAAATAAACGCTCAC-3'
+
+At which 1-based position does the AATAAA polyadenylation signal start?
+
+I'd like to see the reasoning."
+wallace_tm,agree,50°C,50°C,"For the oligonucleotide primer 5'-AAATTAATTAAATAAGATTATGT-3', determine the melting temperature (Tm) using the empirical Wallace formula, Tm = 2(A+T) + 4(G+C)."
+shine_dalgarno_spacing,agree,13,13,"For the DNA sequence 5'-AGGAGGACTAGTCCTAATCATGCACGTTCGA-3', how many nucleotides are located between the AGGAGG motif and the ATG start codon? Thanks in advance."
+restriction_fragments_circular,agree,8,8,"A question came up in the lab today.
+
+Consider a circular DNA molecule with the following sequence:
+
+CCACCTCGGATCCTGTGCGGATCCTATTCTGGCCGGATCCAGGGAGCCGGATCCCACCAGGATCCTCGACAAGTCGGATCCTTTGTGGGATCCCACCGGATCCGCGGT
+
+Because the molecule is circular, the last nucleotide connects back to the first. If the restriction enzyme BamHI cleaves the DNA at every occurrence of its recognition sequence, GGATCC, how many fragments are produced after complete digestion?
+
+Step by step would be great."
+shine_dalgarno_spacing,agree,0,0,"The specifics:
+DNA: 5'-ATCTAAGGTAGGAGGATGGTGGCCAGA-3'
+
+How many nucleotides lie between the AGGAGG motif and the ATG?"
+cas9_cut_position,agree,Between positions 22 and 23,Between positions 22 and 23,"Consider the following DNA sequence: 5'-GGCGATCCAACGCCGAATGTTGATGTGGTG-3'
+
+This sequence contains a single NGG PAM motif. Given that the SpCas9 endonuclease cleaves the target sequence 3 base pairs upstream of the PAM site, between which two positions does the cut occur? Use 1-based numbering.
+
+Explain your reasoning as you go."
+restriction_fragments_linear,agree,3,3,"A linear DNA strand has the sequence 5'-CGATGGGGAATTCGCGCTAACTAGAATTCCTCGCTCC-3'. If it undergoes complete digestion by the restriction enzyme EcoRI, which cleaves at GAATTC, how many fragments are generated?"
+cas9_cut_position,agree,Between positions 30 and 31,Between positions 30 and 31,"Consider the following DNA sequence given in the 5' to 3' direction:
+TAAGAGCATAGAGAGCTGTAGCACCATAATTATAGGTAGTTC
+
+This sequence contains a single NGG protospacer adjacent motif (PAM) recognized by the SpCas9 endonuclease. Given that SpCas9 cleaves the target DNA 3 bp upstream of the PAM site, between which two positions does the cut occur? Use 1-based numbering to specify the boundary."
+polya_signal_position,agree,61,61,"Need to settle this one.
+
+Consider the following 3' UTR sequence:
+ATTAACTTGAGGCCGGTATTGTGAATCTGAGACAGGCGAAAACGTTTTATGGAGTTGGGTAATAAATACAATGCTAGCTACCCGTCACCAACGACTATAGCTTATTAATCG
+
+Determine the 1-based start position of the canonical polyadenylation signal AATAAA within this sequence.
+
+Explain your reasoning as you go."
+purine_count,agree,7,7,"For the sequence GGCTCATGCTCCGCTCAGCC (5' to 3'), determine how many of its bases are purines."
+restriction_fragments_circular,agree,8,8,"Enzyme: BamHI (GGATCC)
+DNA: 5'-AACGGATCCCCGGATCCCTGGATCCATTATATCGGGGATCCTTTTCGCAATGGATCCGAAGTGGATCCATTGAATGGATCCGTGTCCGTGCGGATCCCTGC-3'
+The DNA is circular, shown from an arbitrary start, with the last base joined to the first. After complete digestion with this enzyme, how many fragments result?
+
+Talk me through the steps."
+gc_content,agree,61.9%,61.9%,"Problem: for AGGCCGCGCCGATTGAATCGT (5' to 3'), find the GC percentage, to one decimal place.
+
+Think it through, then put your final answer on its own last line as 'Answer: ...'."
+pam_count,agree,4,4,"Here is a DNA sequence: GTCAATGGTGCTGGAAGGAATCGGTCATC (5' to 3'). Please calculate how many NGG PAM sites it contains, counting overlaps on this strand."
+translation_coding,agree,Met-Leu-Lys-Thr-Asn-Thr-Leu-Leu-Ala-Thr,Met-Leu-Lys-Thr-Asn-Thr-Leu-Leu-Ala-Thr,"Got a sequence question for you.
+
+For the coding DNA sequence 5'-ATGCTGAAAACAAATACCTTATTAGCGACATAG-3', translate the open reading frame beginning at the first nucleotide. Report the peptide using three-letter amino-acid abbreviations separated by hyphens, and exclude the stop codon."
+shine_dalgarno_spacing,agree,5,5,"The question is this: How many nucleotides lie between the AGGAGG motif and the ATG?
+
+DNA: 5'-AACCTCATCCAGGAGGGAGTTATGTGTTTA-3'
+
+Talk me through the steps."
+hydrogen_bond_count,agree,46,46,"For the sequence 5'-GACGTCTTCGATTCCGTG-3', determine the number of hydrogen bonds holding the duplex together."
+translation_coding,agree,Met-Gly-Gln-Asp-Asp-Leu-Thr-Gly-Cys-Val-Thr-Ser-Ala-Ser-Val-Thr-Gly-Glu-Phe-Thr,Met-Gly-Gln-Asp-Asp-Leu-Thr-Gly-Cys-Val-Thr-Ser-Ala-Ser-Val-Thr-Gly-Glu-Phe-Thr,"Here is a coding DNA sequence: 5'-ATGGGGCAAGACGACCTCACGGGTTGCGTCACCAGCGCCTCCGTCACGGGCGAATTCACTTAA-3'. Starting from the first codon, translate the open reading frame into a sequence of amino acids. Write out your final answer using standard three-letter amino acid abbreviations connected by hyphens, omitting the stop codon. Explain your reasoning as you go."
+translation_coding,agree,Met-Arg-Ile-Cys-Arg-His-Gln-Glu-His-Gln-Gly-Arg-Pro-Gly-Gly-Thr-Leu-Pro-Gly-Arg,Met-Arg-Ile-Cys-Arg-His-Gln-Glu-His-Gln-Gly-Arg-Pro-Gly-Gly-Thr-Leu-Pro-Gly-Arg,"Given the coding DNA sequence 5'-ATGAGAATTTGTAGACACCAAGAACACCAGGGCCGGCCCGGCGGGACGCTACCAGGCCGGTGA-3', translate the open reading frame beginning with the first codon. Report the amino acids using three-letter codes separated by hyphens, and do not include the stop codon."
+wallace_tm,agree,44 °C,44°C,"Can you help me with this one?
+
+Oligo: 5'-CCTTCCCAGTAGTTT-3'
+Calculate the melting temperature using Tm = 2(A+T) + 4(G+C)."
+hydrogen_bond_count,agree,132,132,"Take 5'-AATACAAATACTCTATATCACCGACTCGAAAAAGATAACGCCCGACGAAATTCAAA-3' and work out the number of hydrogen bonds holding the duplex together.
+
+Think it through, then give your answer on a new line beginning with 'Answer:'."
+cas9_cut_position,agree,Between positions 46 and 47,Between positions 46 and 47,"Need to settle this one.
+
+A single NGG protospacer adjacent motif (PAM) is present in the sequence below. Given that SpCas9 cleaves 3 base pairs upstream of the PAM site, between which two positions does the DNA cut occur using 1-based numbering?
+
+AGAACTATACCCTCCCGCAGTACAGTTCCACGATCTAACATCAGTCTCCAGGC
+
+Thanks in advance."
+shine_dalgarno_spacing,agree,15,15,"A question came up in the lab today.
+
+Consider the following DNA sequence:
+
+5'-TAGTAGGAGGGGCAATAATATATTGATGGACAGAAG-3'
+
+How many nucleotides are positioned between the AGGAGG motif and the downstream ATG?"
+polya_signal_position,agree,32,32,"I'd like a hand with the following.
+
+3' UTR: 5'-ATGGCAGTGAGCGCGTATCGATCGGAAGGTAAATAAAACTTACGACGACTCGGCGAGATTTTGTTGCGATCTACATTAG-3'
+At which 1-based position does the AATAAA polyadenylation signal start?"
+translation_coding,agree,Met-Phe-Ala-Ser-Leu-Ile-Cys,Met-Phe-Ala-Ser-Leu-Ile-Cys,"Mind taking a look at this?
+
+Given the coding DNA strand 5'-ATGTTCGCATCGCTCATTTGTTGA-3', translate the open reading frame starting at the first codon. Write the amino acids using three-letter codes separated by hyphens, and leave out the stop codon.
+
+Step by step would be great."
+shine_dalgarno_spacing,agree,10,10,"Got a sequence question for you.
+
+In the prokaryotic regulatory DNA sequence 5'-CTCCTTGTCAGGAGGCGTCCATCGCATGCTGAATCT-3', determine the number of nucleotides that constitute the spacer region between the AGGAGG consensus element and the downstream ATG triplet.
+
+Appreciate the help.
+
+Explain your reasoning, then give your answer on a new line beginning with 'Answer:'."
+cpg_count,agree,6,6,"DNA: 5'-GAAGGACACCGGATGCTTTTAGTGAGCCGTCCCCACTTGATCCCGAAGAGGCAGCAGTAATCCCATCGGTCCGCGCAA-3'
+What I'm asking: What is the number of CpG sites?"
+cas9_cut_position,agree,Between positions 17 and 18,Between positions 17 and 18,"Here's something I want to check.
+
+For the DNA sequence CGTTCCTAGAGAGCCATATGAGGTATA, there is exactly one NGG PAM. Using 1-based numbering, between which positions does SpCas9 cut if it cleaves 3 bp upstream of the PAM?
+
+Thanks in advance."
+transcription_template,agree,AAACCGGUCCUCCUAUUUAAUGUUCUCAGGCUGUCAAUUGCCGCCGUGGCAGUCAA,AAACCGGUCCUCCUAUUUAAUGUUCUCAGGCUGUCAAUUGCCGCCGUGGCAGUCAA,"A question came up in the lab today.
+
+You are given the following DNA template strand:
+3'-TTTGGCCAGGAGGATAAATTACAAGAGTCCGACAGTTAACGGCGGCACCGTCAGTT-5'
+
+What is the sequence of the mRNA transcript produced from this strand, written in the 5'-to-3' direction?"
+telomere_repeat_count,agree,16,16,"Repeat: TTAGGG
+DNA: 5'-TTGTACTTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGGAGACCAACTTCACAAGT-3'
+
+What I'm asking: How many complete copies of the repeat are in the longest uninterrupted array?"
+pyrimidine_count,agree,9,9,"The problem: determine how many of its bases are pyrimidines.
+
+Sequence: CATGGAAATTACCCAGGACGC (5' to 3')"
+restriction_site_count,agree,9,9,"Quick question for you.
+
+What I want to work out: How many exact recognition sites for this enzyme does the DNA contain? Count sites, not fragments.
+
+Enzyme: PstI (CTGCAG)
+DNA: 5'-GACTTGTAACCTGCAGTCTTCCACTCTGCAGCGCTAACACTGCAGATCTGCAGAAGCCAATGACTGCAGAACTGCAGTTTCTGCAGTCAGCTGCAGGTCTGCAGTCG-3'"
+orf_amino_acid_count,agree,23 amino acids,23 amino acids,"I need to translation begins at the first ATG. How many amino acids are encoded up to, but not including, the stop codon?
+
+Here are the details:
+DNA: 5'-CCTGGCAATCATGTCGATCTGCGGTGTAGATAGGCCACTCAACGCGCAGATATACCGCCTGAAGCGTGTTACATTTACTTAGTCTCACA-3'"
+complete_codons,agree,15,15,"Quick question for you.
+
+DNA: 5'-CGCCCGGCTGCTCCATGGCATATGGACGAGTCCCCAGACCTCAGA-3'
+Reading from the first base, how many complete codons does the sequence contain?"
+purine_count,agree,21,21,Consider the DNA sequence GTTTTAGGTGCGAACCACTCACCTGTACTATGAAACAATGAT. Report how many purine bases it contains.
+telomere_repeat_count,agree,1,1,"Need to settle this one.
+
+For the repeat TTAGGG in the DNA sequence 5'-GCAACAGTTAGGGTCGGAGCCCCAGT-3', how many complete repeat copies occur in the longest uninterrupted tandem array?
+
+Appreciate the help."
+telomere_repeat_count,agree,9,9,"Quick question for you.
+
+Repeat: TTAGGG
+DNA: 5'-TAGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGGGCCGAAAGGGCGCTTCA-3'
+
+How many complete copies of the repeat are in the longest uninterrupted array?
+
+Please walk me through it."
+aligned_complement,agree,GGTGAATTGGATGACT,GGTGAATTGGATGACT,"Given the DNA strand 5'-CCACTTAACCTACTGA-3', write its complementary strand base by base in the 3'-to-5' direction."
+pam_count,agree,11,11,"Reason about the problem below, then report the result on a final line of the form 'Answer: ...', with nothing after it.
+
+Work through TCTGTCAGACAGCTCCATATTCGATTATCATATCTGCGAGCACGAGGCTGTGCGGGGCTCTTCCCTCGTATAAGGACCGTTGAAATCCTATTCTAGTGGGTGGAGAGTCTTAGACTAGGATCTTGGATGTTGGACCTGAACGCTAG (5' to 3') and report how many NGG PAM sites it contains, counting overlaps on this strand."
+hydrogen_bond_count,agree,17,17,Take TATTCCG (5' to 3') and work out the duplex hydrogen-bond total.
+pam_count,agree,3,3,Take AAAGGACCAGGCCGGC (5' to 3') and work out the count of SpCas9 NGG PAM sites on this strand.
+purine_count,agree,8,8,"Given GACACGGAAG (5' to 3'), how many purine bases does it contain?"
+aligned_complement,agree,TACTGTAGCGGGATTCAATTAAAGCCATTCGCTTGCAAGACATTAGGCGCACTC,TACTGTAGCGGGATTCAATTAAAGCCATTCGCTTGCAAGACATTAGGCGCACTC,"One more from my problem set.
+
+Given the DNA strand 5'-ATGACATCGCCCTAAGTTAATTTCGGTAAGCGAACGTTCTGTAATCCGCGTGAG-3', write its complementary strand base by base in the 3'-to-5' direction.
+
+Appreciate the help."
+restriction_fragments_circular,agree,10,10,"Can you help me with this one?
+
+Enzyme: HindIII (AAGCTT)
+DNA: 5'-GAGGAAGCTTATGTAAAGCTTATGGTCCAAGCTTAAAAGCTTCACTTGAAAAAGCTTCGCGGAAGCTTACGGCCCCGAAGCTTACTAAAAAGCTTCTTGTAAGCTTCAACGCCCAAGCTTAATGC-3'
+The DNA is circular, shown from an arbitrary start, with the last base joined to the first. After complete digestion with this enzyme, how many fragments result?"
+shine_dalgarno_spacing,agree,9,9,"Mind taking a look at this?
+
+In the sequence 5'-CAAAAATAGGAGGGGGTGATAGATGGATC-3', how many intervening nucleotides separate the AGGAGG motif from the downstream ATG start codon?"
+complete_codons,agree,19,19,"Here's something I want to check.
+
+For the DNA sequence provided below, determine the number of complete, non-overlapping codons present when reading continuously from the initial nucleotide at the 5' terminus:
+
+5'-GAGGGCCCCCCGAGGTCATGCTTACGGGGATACAAACGTATGACCGTGGAAGTTTTTG-3'
+
+Step by step would be great."
+polya_signal_position,agree,45,45,"Mind taking a look at this?
+
+Given the 3' UTR sequence GCGATGAACTCCGACGACAAGTGAACAGAACCACAGGACGCTAGAATAAACACAGGC, at which 1-based position does the AATAAA polyadenylation signal begin?
+
+Explain your reasoning as you go."
+reverse_complement,agree,TATAGGACCTCGGTTATGTGCGTAGAGGTGTCATGCCAAGAA,TATAGGACCTCGGTTATGTGCGTAGAGGTGTCATGCCAAGAA,"Got a sequence question for you.
+
+Given the DNA sequence 5'-TTCTTGGCATGACACCTCTACGCACATAACCGAGGTCCTATA-3', determine its reverse complement in the standard 5'-to-3' direction."
+cpg_count,agree,3,3,"Read the strand 5'-GCTGCGTCGAGGCTCGAAT-3', then report how many CpG dinucleotides it contains."
+shine_dalgarno_spacing,agree,7,7,"Here's something I want to check.
+
+In the DNA sequence GTGACATACAAGGAGGTGTATTCATGTCGAAA, how many nucleotides are located between the AGGAGG motif and the downstream ATG?
+
+Step by step would be great."
+cpg_count,agree,8,8,You are given the oligonucleotide 5'-TGTATCGTCGGGGTGCGTGCGAGCGTCGACGGGTACGAGCTT-3'. Compute the CpG dinucleotide count.
+restriction_fragments_linear,agree,10,10,"Consider the following linear DNA sequence:
+CCAGGACAAGCTTCACTTCAAAGCTTGAGCCGATAAGCTTTGGTTCCAAGCTTTGTACACGCGAAGCTTATATATGCAAGCTTCATAAGCTTGACAAGCTTGGCCTCTCAAAGCTTTTTTCGAG
+
+If this molecule undergoes complete restriction digestion by the enzyme HindIII, which recognizes the motif AAGCTT, how many separate fragments will result?"
+shine_dalgarno_spacing,agree,7,7,"Consider the following DNA sequence:
+5'-GGTATTAGGAGGAAAGACAATGTCACCTCACGA-3'
+
+Determine how many nucleotides are located strictly between the AGGAGG motif and the downstream ATG sequence.
+
+Show your work, then report the result on a final line of the form 'Answer: ...', with nothing after it."
+purine_count,agree,14,14,"For the sequence GAAAATCCCGACCACGTTGTTCTATGCACTCTCGC, determine how many of its bases are purines."
+gc_content,agree,89.8%,89.8%,"Consider the DNA sequence GCCCGACACCCCGCCGGGCCCCACGGGCCCCCCCGCCCGCGGCCAAGCG (5' to 3'). Report its GC content as a percentage, to one decimal place."
+telomere_repeat_count,agree,7,7,"I'm trying to answer this question.
+
+The question is this: How many complete copies of the repeat are in the longest uninterrupted array?
+Here are the details:
+Repeat: CCCTAA
+DNA: 5'-CTCAACCATAATGGCCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAAAGCACTACTCA-3'"
+restriction_fragments_linear,agree,5,5,"Suppose you subject the following linear DNA molecule to complete restriction digestion with the endonuclease NotI, which cleaves at the recognition sequence GCGGCCGC:
+
+5'-ATTACTGAGTGCGGCCGCGAATGGGGCGGCCGCCTCCAACGGCGGCCGCCCGCGGCCGCCTTATGCG-3'
+
+How many DNA fragments will be produced by this reaction?"
+transcription_coding,agree,AGGUUGUGCAAUCAUGGAGUGAG,AGGUUGUGCAAUCAUGGAGUGAG,"Here's something I want to check.
+
+Given the coding DNA strand 5'-AGGTTGTGCAATCATGGAGTGAG-3', write the transcribed mRNA sequence in the 5'-to-3' direction.
+
+Appreciate the help."
+orf_amino_acid_count,agree,21,21 amino acids,"Starting with the first ATG in the DNA sequence, how many amino acids are encoded before the stop codon?
+
+DNA: 5'-TTGGGTGTGCATGTGCATCACTCGGGGGGCCGCATCAGCTCCTCGCATCCGAGTTTACTGGCCGAATCACATTTAGTTCTCATTTGG-3'"
+wallace_tm,agree,44 °C,44°C,"Can you help me with this one?
+
+Oligo: 5'-GTCCCGCTCGGC-3'
+Calculate the melting temperature using Tm = 2(A+T) + 4(G+C)."
+shine_dalgarno_spacing,agree,16,16,Consider the sequence 5'-GACAGGAGGCATATTAGTTGCTCCTATGATAGAGGG-3'. How many nucleotides are positioned between the AGGAGG sequence and the downstream ATG triplet?
+orf_amino_acid_count,agree,3,3 amino acids,"One more from my problem set.
+
+Given the coding DNA sequence 5'-GACTCTGCTCGATGAGCTACTAAGCAGT-3', determine the number of amino acids in the resulting peptide if translation initiates at the first ATG codon and terminates at the first in-frame stop codon."
+telomere_repeat_count,agree,7,7,"Within the sequence 5'-AACACAAAGCGGGGTGGCTCTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGAACGGCGT-3', locate the longest uninterrupted tandem array of the repeat TTAGGG. What is the total number of complete monomer copies in this block?"
+hydrogen_bond_count,agree,94,94,You are given the oligonucleotide TGCGGGTAGGTGATAGCAGGCCTGCTTTGGAGTCGG (5' to 3'). Compute the duplex hydrogen-bond total.
+cpg_count,agree,8,8,Work through TCGTACGTTCTGCGCCGGCGTTCATCGCCCGACAGCGGAA (5' to 3') and report the number of CpG sites.
+cpg_count,agree,6,6,Consider the DNA sequence GCAGACGCCGGCGACGGCGTCGAGGT. Report the CpG dinucleotide count.
+shine_dalgarno_spacing,agree,20,20,"How many nucleotides lie between the AGGAGG motif and the ATG?
+DNA: 5'-ATAGGAGGTACCCCTACCCAGCATTTTGATGGTAGGATCCGT-3'
+
+Talk me through the steps."
+orf_amino_acid_count,agree,7,7 amino acids,"A question came up in the lab today.
+
+For the DNA sequence 5'-GAGCCGTATGTCTCTGCCCGCGCCCAACTAATC-3', translation starts at the first ATG. How many amino acids are encoded before the stop codon?"
+shine_dalgarno_spacing,agree,16,16,Consider the sequence 5'-GACAGGAGGCATATTAGTTGCTCCTATGATAGAGGG-3'. How many nucleotides are positioned between the AGGAGG sequence and the downstream ATG triplet?
+orf_amino_acid_count,agree,9,9 amino acids,"Let's look at the following DNA sequence: CGATGTGTGGTGGTTCTCGCATAATTCTTTAACTTTGGACGGGCG. Assuming translation initiates at the very first ATG codon, how many amino acids will be added to the growing chain before the ribosome reaches a stop codon?"
+complete_codons,agree,22,22,"Quick question for you.
+
+DNA: 5'-ACCGTGTCATTGGGTCGGCACAGTCCAACCGGGGGTCATACCGAAGAGGACGAGTCGTGTTTTTATT-3'
+
+Reading from the first base, how many complete codons does the sequence contain?
+
+Think it through, then report the result on a final line of the form 'Answer: ...', with nothing after it."
+pyrimidine_count,agree,16,16,You are given the oligonucleotide TAATTCAGCTGCTCTTTTATCC. Compute how many pyrimidine bases it contains.
+restriction_fragments_circular,agree,5,5,"Suppose you have a closed circular DNA molecule with the following sequence:
+
+5'-AGAGCTGCAGCGCGCTGCAGGTGGGCGCATCTGCAGTCACGATTTTCTGCAGGATTACTGCAGGCTCATGA-3'
+
+Because the molecule is circular, the 3' terminal base links directly to the 5' starting base. If this DNA is completely digested by the restriction endonuclease PstI, which recognizes the hexanucleotide motif CTGCAG, how many fragments will result?
+
+Thanks in advance."
+cpg_count,agree,4,4,"5'-ACCGCCGATCGAAGGACGTCAT-3'
+
+For the sequence above, give the number of CpG sites."
+complete_codons,agree,28,28,"Reading from the first base, how many complete codons does the sequence contain?
+DNA: 5'-TGGCACCCATACACCTGCGCCCTTCTAAGCCATTCTATCTACCCGTCTACAAAACGCCCAAACCAGCACACTGGGTGGCCCCAA-3'"
+restriction_fragments_linear,agree,9,9,"Details:
+Enzyme: NotI (GCGGCCGC)
+DNA: 5'-TTCGACGTTTGCGGCCGCGTTGCGCGGCCGCGGGCGGCCGCGCCCCAGCGGCCGCCCCGCGGCCGCTGCAAGCGGCCGCCCGTTGGTAGCGGCCGCCACCGCGGCCGCTAGG-3'
+
+The DNA is linear. After complete digestion with this enzyme, how many fragments result?"
+restriction_fragments_circular,agree,9,9,"A circular DNA molecule is written below from an arbitrary starting point, with its final base connected to its first base. HindIII recognizes the sequence AAGCTT. How many DNA fragments are produced after complete digestion?
+
+DNA: 5'-TAACCTCGTAAGCTTAATAGCTAAGCTTGACCCCAAGCTTGTATGTTTCTAAGCTTCAAAGCTTGACTAAAGCTTCAAAAGCTTACATTAATAAGCTTACCAGAAGCTTTCT-3'"
+restriction_fragments_circular,agree,6,6,"Details:
+Enzyme: NotI (GCGGCCGC)
+DNA: 5'-GTTGCGGCCGCAGGGTAAGCGGCCGCTCCTGGCGGCCGCGGCGCGGCCGCCGTAGTGCGGCCGCCACCCGGCGGCCGCTGTGCAT-3'
+
+The problem: The DNA is circular, shown from an arbitrary start, with the last base joined to the first. After complete digestion with this enzyme, how many fragments result?"
+cpg_obs_exp,agree,Yes,Yes,"Got a sequence question for you.
+
+Take a look at the following DNA sequence: 5'-CGAAAACGTTCCGGCGTGGGTATGTCCTCTGTGAAGTGGCGGACGGAGAAAAGCAGCTCAATACAAAACCTTGA-3'. Calculate its CpG observed/expected ratio using the formula: (CpG count × sequence length) ÷ (C count × G count). After finding the value, determine if it is greater than 1.0. Answer with either Yes or No."
+polya_signal_position,agree,36,36,"Mind taking a look at this?
+
+In eukaryotic pre-mRNA processing, the canonical polyadenylation signal directed by the hexanucleotide motif AATAAA serves as the primary recognition site for cleavage and polyadenylation specificity factor (CPSF). Within the following 3' untranslated region sequence, find the 1-based start position of this hexamer:
+
+GGTACTGAAAAACAGAGCGGTTAATATTGACTTGCAATAAATTCCAGGGCCTTAAGG"
+pyrimidine_count,agree,57,57,You are given the oligonucleotide CGGACGAATACGAGGTCTGCGATTTTTACCCCCCCGCCATAAGCACAAATGTGCATATTTCAGCAGGGATATATGTCTAATACGCTGTGTCCCACGCTACAACATAAGGTGAC. Compute how many pyrimidine bases it contains.
+complete_codons,agree,26,26,"DNA: 5'-TTCGAGCGGAGGAGTGCAGATAGTCACACCTTACCCCAATTTCCGCCTGGGCAGGGTACATTGCCGTCTGATATCCTT-3'
+Reading from the first base, how many complete codons does the sequence contain?"
+mirna_seed_extraction,agree,CCCUGUC,CCCUGUC,"The mature miRNA rno-miR-339-5p has the sequence 5'-UCCCUGUCCUCCAGGAGCUCACG-3'. Identify its seed sequence, defined as nucleotides 2 through 8."
+wallace_tm,agree,42 °C,42°C,"What I have:
+Oligo: 5'-TATCCGGTGGTGG-3'
+
+The problem: Calculate the melting temperature using Tm = 2(A+T) + 4(G+C)."
+cpg_count,agree,10,10,You are given the oligonucleotide TTCCGTGTCGACGCCCGCTCGACCTCGTGCGGACTTCGTCCGTACTCGGCCT. Compute the number of CpG sites.
+purine_count,agree,22,22,"Problem: for TAAAAAGCTCTATCCTTATTACGGAAATTTCTGCCAGACATATCACG (5' to 3'), find how many of its bases are purines."
+restriction_fragments_linear,agree,9,9,"Working through a problem set, this one came up.
+
+Enzyme: XhoI (CTCGAG)
+DNA: 5'-CCGCTCGAGACCTCGAGGCCGTGTGAACTCGAGCGTCTCGAGATCGTCAGCTCGAGGCTCACTCGAGTACTCGAGGTGGCGCTCGAGACGAGG-3'
+The DNA is linear. After complete digestion with this enzyme, how many fragments result?"
+restriction_fragments_linear,agree,9,9,"Enzyme: HindIII (AAGCTT)
+DNA: 5'-AAGGAGCTTGAAGCTTCTGAAAGCTTTCTAAGTGATAAGCTTCTCCAAGCTTACTAAAGCTTCTCAAAAAGCTTGTGTCAAGCTTAGATGGGTTAAGCTTAAAG-3'
+The DNA is linear. After complete digestion with this enzyme, how many fragments result?"
+polya_signal_position,agree,47,47,"Using 1-based indexing, where does the AATAAA polyadenylation signal begin in this 3' UTR?
+
+5'-AGCAAGCCGTGTCACCAACATATCATTTAGAGCTTTCCTCAGCCAGAATAAATATGTAAGTCCCCGTGCTCC-3'"
+hydrogen_bond_count,agree,78,78,Analyse 5'-GACCGCATTCTGACATAAACTTTTCGTGATCG-3' and state the total hydrogen bonds between this strand and its complement.
+reverse_complement,agree,ACCAGACTGAAGTAACCCGAGGGCGTAAATAAGATGGTAATATCATCT,ACCAGACTGAAGTAACCCGAGGGCGTAAATAAGATGGTAATATCATCT,"Need to settle this one.
+
+Given the DNA strand AGATGATATTACCATCTTATTTACGCCCTCGGGTTACTTCAGTCTGGT, which is written from 5' to 3', determine its reverse complement and report it from 5' to 3'."
+reverse_complement,agree,GGTAGATGCTTCACCAACCTGCTGGGTAACCTTGTGCATGTTTACACAGTATGATAA,GGTAGATGCTTCACCAACCTGCTGGGTAACCTTGTGCATGTTTACACAGTATGATAA,"Need to settle this one.
+
+The following DNA strand is written from 5' to 3':
+
+TTATCATACTGTGTAAACATGCACAAGGTTACCCAGCAGGTTGGTGAAGCATCTACC
+
+What is its reverse complement, written from 5' to 3'?"
+shine_dalgarno_spacing,agree,11,11,"Quick question for you.
+
+DNA: 5'-CGAGGAGGCTCACAGGTTAATGTCTCCT-3'
+
+What I want to work out: How many nucleotides lie between the AGGAGG motif and the ATG?"
+aligned_complement,agree,TGCGGATCCGCCTTAAATCGACTAGTGCTAGAATGTATC,TGCGGATCCGCCTTAAATCGACTAGTGCTAGAATGTATC,"A question came up in the lab today.
+
+The DNA sequence ACGCCTAGGCGGAATTTAGCTGATCACGATCTTACATAG is oriented 5'-to-3'. What is its complementary strand written 3'-to-5'?
+
+Appreciate the help."
+hydrogen_bond_count,agree,219,219,"Sequence under study: GCTGAGACTGCCATCGGACGATAAGGGGTCTGGTTGGTCGAGACTTGCAAGGCGGACGGCGTCAAAGGCTGCAGGCATCGGCTT
+Determine the number of hydrogen bonds holding the duplex together."
+shine_dalgarno_spacing,agree,10,10,"Mind taking a look at this?
+
+Consider the sequence 5'-TAAGTAGAGGAGGGATAAGAAGGATGTCGTATAGTTAT-3'. How many intervening nucleotides are located between the AGGAGG motif and the downstream ATG?
+
+Thanks in advance."
+restriction_site_count,agree,6,6,"A question came up in the lab today.
+
+HindIII recognizes the sequence AAGCTT. How many exact HindIII recognition sites occur in the following DNA sequence? Count sites, not fragments.
+
+GAATGACAAAGCTTCGCTAAGCTTAACGTTAAGCTTAGCAAGCTTACGAAGCAAGCTTGTAGTTGAAGCTTCTCTTA
+
+Thanks in advance."
+cas9_cut_position,agree,Between positions 38 and 39,Between positions 38 and 39,"Mind taking a look at this?
+
+You are analyzing the following DNA sequence:
+5'-TGTATTCATTGCGATAACCCCGCAACGCGCCTAATCAGAGCCGGTATTGAAGACG-3'
+
+This sequence contains exactly one NGG protospacer adjacent motif (PAM). Given that the SpCas9 endonuclease cleaves the target DNA 3 base pairs upstream of the PAM, between which two positions does the cut occur? Use 1-based numbering.
+
+Appreciate the help."
+cpg_obs_exp,agree,No,No,"I need to compute the CpG observed/expected ratio as (CpG count × sequence length) ÷ (C count × G count). Is the ratio greater than 1.0? Answer Yes or No.
+
+What I have:
+DNA: 5'-GAGGAGGCTCCCTGCAGAGAAATATAGGCAGAGGAGCCTCCCTATTGAGATAAGAGAACACATCGGGGACGACGCTGAACCACGCCA-3'"
+polya_signal_position,agree,42,42,Consider the following 3' UTR sequence: 5'-CCCCACCATGGCCCTGGCCCACATTCTCGGGGCACATCTAGAATAAAAAGGGGACTCCAAGTGCGGTCGTGTTACA-3'. What is the 1-based start position of the canonical polyadenylation signal AATAAA within this sequence?
+cas9_cut_position,agree,Between positions 19 and 20,Between positions 19 and 20,"Need to settle this one.
+
+Consider the following DNA sequence: 5'-TTTTAATTCTTATCTTTCTACTTGG-3'. This sequence possesses exactly one canonical NGG protospacer adjacent motif (PAM) for the SpCas9 endonuclease. Knowing that SpCas9 introduces a double-strand break 3 bp upstream of the PAM, identify between which two nucleotide positions the cut occurs using 1-based numbering."
+cas9_cut_position,agree,Between positions 21 and 22,Between positions 21 and 22,"Consider the following DNA sequence: 5'-GTTCCCAACCGCGTATCACCAGTGTGGCAGATGCT-3'. Within this sequence lies a single canonical SpCas9 protospacer adjacent motif (PAM) conforming to NGG. Given that wild-type SpCas9 typically generates a double-strand break exactly 3 base pairs upstream of the PAM, between which two nucleotide positions does this cleavage occur? Use standard 1-based numbering starting from the 5' end."
+long_oligo_tm,agree,58.7°C,58.7 °C,"One more from my problem set.
+
+For the oligo sequence TACTTGATTTGATATAGAGTTTATTTTAGTACTATTCGAATAAATAATA, calculate the melting temperature using Tm = 64.9 + 41 × ((#(G+C) - 16.4)/N). Round your result to one decimal place."
+cas9_cut_position,agree,Between positions 37 and 38,Between positions 37 and 38,"Here's something I want to check.
+
+In the DNA sequence GAGTACTTCTAGTCTTTATTTCCTTGCTAGAACGCTGTACAGGTTAATAGC, there is exactly one NGG PAM. Using 1-based numbering, between which two positions does SpCas9 cut if cleavage occurs 3 bp upstream of the PAM?"
+reverse_complement,agree,TACATCAGAATCGACA,TACATCAGAATCGACA,"Provide the reverse complement sequence in the 5' to 3' direction for the single-stranded DNA sequence 5'-TGTCGATTCTGATGTA-3'.
+
+Reason it out, then report the result on a final line of the form 'Answer: ...', with nothing after it."
+restriction_site_count,agree,2,2,"How many exact recognition sites for this enzyme does the DNA contain? Count sites, not fragments.
+Enzyme: HindIII (AAGCTT)
+DNA: 5'-GCCTTCAAGCTTACGTAATTAAGCTTTCCACCGTAA-3'
+
+Explain your reasoning, then end with a line that starts 'Answer:' followed by the answer alone."
+pyrimidine_count,agree,4,4,"Determine how many pyrimidine bases it contains.
+
+Sequence: GCGACAAATGT (5' to 3')"
+shine_dalgarno_spacing,agree,6,6,Consider the following DNA sequence containing a putative ribosome binding site: 5'-AACCTGAAGGAGGGCATATATGCACCTTGCG-3'. Determine the number of intervening nucleotides situated between the AGGAGG motif and the subsequent ATG start codon.
+purine_count,agree,20,20,Here is a DNA sequence: 5'-GTACGAATGGCAACTAGCGGGGTAGTCTAACTTAC-3'. Please calculate the purine count.
+restriction_fragments_linear,agree,10,10,"Imagine we have a linear piece of DNA with the sequence TCCGGCGGCCGCGATTTTGCATGCGGCCGCGGATGGCGGCCGCGGCGAGCGGCCGCAAAGTCCTGCGGCCGCCGGAGCCGGCGGCCGCCGAGTGCGGCCGCTTCCCTGCGGCCGCGTGGCGTGTGCGGCCGCTCCTG. If we expose this DNA to the restriction enzyme NotI, which recognizes and cuts at GCGGCCGC, how many fragments will we get after complete digestion?"
+long_oligo_tm,agree,63.6 °C,63.6 °C,"Calculate the melting temperature using Tm = 64.9 + 41×((#(G+C)-16.4)/N), rounded to one decimal place.
+Oligo: 5'-ATCAGTACTCAAATAGCTGAAGTTTGTCGAACTATTTACCAAGT-3'"
+shine_dalgarno_spacing,agree,16,16,"Given the DNA sequence 5'-AAGTAGGAGGGTGGGTGCAGGCTGCTATGTTTAGTAG-3', determine the number of intervening nucleotides between the AGGAGG motif and the downstream ATG triplet."
+translation_coding,agree,Met-Ser-Ile-Asn-Ala-Glu-Gly-Tyr-Ser-Leu-Asp-His-Gly-Arg-Asp,Met-Ser-Ile-Asn-Ala-Glu-Gly-Tyr-Ser-Leu-Asp-His-Gly-Arg-Asp,"Got a sequence question for you.
+
+Starting at the first codon, translate the following coding DNA ORF. Report the peptide using three-letter amino acid abbreviations separated by hyphens, and exclude the stop codon.
+
+Coding DNA: 5'-ATGTCCATCAATGCCGAGGGTTATTCACTCGATCACGGTAGAGACTAG-3'"
+translation_coding,agree,Met-Ser-Leu-Tyr-Pro-Gly-Arg-Leu-Pro-Pro-Lys-Leu-Ser-Gly-His,Met-Ser-Leu-Tyr-Pro-Gly-Arg-Leu-Pro-Pro-Lys-Leu-Ser-Gly-His,"Need to settle this one.
+
+Coding DNA: 5'-ATGAGCCTTTACCCGGGCCGACTGCCCCCAAAACTGAGTGGACATTAA-3'
+Starting at the first nucleotide, translate the open reading frame. Report the peptide using three-letter amino-acid abbreviations separated by hyphens, and exclude the stop codon."
+restriction_fragments_linear,agree,6,6,"A linear DNA molecule has the following sequence:
+
+5'-ATCGACGACTGCAGTAGTTTCAATCTGCAGGTGCACACTGCAGCACCCTGCAGGGCCAGCACTGCAGATTACTCT-3'
+
+Assuming complete digestion by the restriction endonuclease PstI, which recognizes the motif CTGCAG, how many total DNA fragments will be produced?"
+cas9_cut_position,agree,Between positions 31 and 32,Between positions 31 and 32,"Consider the following single strand of DNA written in the standard 5' to 3' direction:
+5'-CATGTTGCTCCCCGCCCCTAGTCGTAGCTGCTTCAGGCGCTATTGCG-3'
+
+This sequence contains exactly one canonical NGG protospacer adjacent motif (PAM). Standard SpCas9 endonuclease cleaves double-stranded DNA specifically 3 base pairs upstream of the 5' boundary of this PAM sequence. Using 1-based nucleotide numbering, between which two positions does SpCas9 make its cut?"
+gc_content,agree,42.9%,42.9%,"Take TAGTCCAACGAAAATCGTAGC and work out the GC percentage, to one decimal place."
+reverse_complement,agree,GTCCGCGCTGTGCGGCGG,GTCCGCGCTGTGCGGCGG,"Please determine the reverse complement of the DNA sequence 5'-CCGCCGCACAGCGCGGAC-3', writing the resulting sequence in the 5'-to-3' direction."
+hydrogen_bond_count,agree,25,25,You are given the oligonucleotide CCACCTCATA (5' to 3'). Compute the hydrogen-bond count for its double-stranded form.
+pyrimidine_count,agree,10,10,Work through GGCCACGAATTCCTATC and report the number of pyrimidines.
+complete_codons,agree,29,29,"Given the DNA sequence CGTTTGAGCAGTGTTCACTTTGCACCACATGCGTTGGATAAACCCGCTAACGGCGCCGACACTACGGCCAGCTGTACGACAAGATTGAG, determine the number of full, complete codons present if translation starts from the very first base."
+long_oligo_tm,agree,66.7°C,66.7 °C,"Mind taking a look at this?
+
+Using the salt-adjusted empirical formula Tm = 64.9 + 41 * ((#(G+C) - 16.4) / N), determine the melting temperature for the oligonucleotide 5'-CGAGATGGCTACGATCTGTTTGCTTGTGCATGAGAG-3'. Provide the final answer rounded to one decimal place."
+pyrimidine_count,agree,5,5,"Given 5'-CTAACGTAGT-3', what is the pyrimidine count?
+
+Work through it, then end with a line that starts 'Answer:' followed by the answer alone."
+reverse_complement,agree,CGTGAGGAATGTGACTAGTCTCAGATGGTTGTTAAGACCACACTGA,CGTGAGGAATGTGACTAGTCTCAGATGGTTGTTAAGACCACACTGA,"Need to settle this one.
+
+What is the reverse complement of the DNA sequence TCAGTGTGGTCTTAACAACCATCTGAGACTAGTCACATTCCTCACG, assuming it is oriented from 5' to 3' and the final result should also be written in the 5'-to-3' direction?"
+polya_signal_position,agree,16,16,Consider the following 3' UTR sequence: 5'-TGACGACGGCCTTAGAATAAATTCTCTCTATG-3'. What is the 1-based starting position of the canonical AATAAA polyadenylation signal?
+cas9_cut_position,agree,Between positions 18 and 19,Between positions 18 and 19,"Consider the following DNA sequence oriented from 5' to 3': ATTCGCGATCAACGAAGCACCTGGAC. This sequence contains a single NGG protospacer adjacent motif (PAM) used by the SpCas9 endonuclease. Given that SpCas9 cleaves the DNA target exactly 3 base pairs upstream of the PAM, between which two nucleotide positions does this cut occur? Provide your answer using 1-based numbering."
+hydrogen_bond_count,agree,48,48,"Sequence under study: 5'-TACGTCCCCTCCGGAAGC-3'
+Determine the number of hydrogen bonds holding the duplex together."
+cas9_cut_position,agree,Between positions 17 and 18,Between positions 17 and 18,"Mind taking a look at this?
+
+Consider the following DNA sequence written from 5' to 3': TCAGATAGTTAACTGACAGTTGGATA. This sequence contains a single SpCas9 NGG protospacer adjacent motif (PAM). Knowing that SpCas9 typically introduces a cut 3 base pairs upstream of the PAM, between which two positions will the DNA backbone be cleaved? Please use standard 1-based indexing.
+
+Step by step would be great."
+mirna_seed_extraction,agree,UCGCAGG,UCGCAGG,"For the mature miRNA ath-miR391-5p, the seed region consists of nucleotides 2 through 8. What is the seed sequence?
+
+Mature miRNA: 5'-UUCGCAGGAGAGAUAGCGCCAU-3'"
+cpg_obs_exp,agree,Yes,Yes,"Need to settle this one.
+
+Consider the following DNA sequence: TTCCGGATCTTTCTGGGGGACCGGTAAATCGTACGGCCACATTAATAGGCGCTTTGAAAATACAGGGGAAGTAAAGACACGGCGGACA. 
+
+Please find the CpG observed/expected ratio using the formula (CpG count × sequence length) ÷ (C count × G count). Based on your calculation, is this ratio greater than 1.0? Please answer with Yes or No.
+
+Explain your reasoning, then report the result on a final line of the form 'Answer: ...', with nothing after it."
+translation_coding,agree,Met-Asn-Arg-Tyr-Thr-Cys-Thr-Cys-Ser-Cys-Ser-Ala-Ile,Met-Asn-Arg-Tyr-Thr-Cys-Thr-Cys-Ser-Cys-Ser-Ala-Ile,"Given the coding DNA strand 5'-ATGAACCGGTACACATGCACCTGTTCGTGCAGTGCAATTTGA-3', translate the open reading frame beginning with the first codon. Write the amino acid sequence using three-letter codes separated by hyphens, and exclude the stop codon. Appreciate the help."
+telomere_repeat_count,agree,18,18,"Here's something I want to check.
+
+Consider the following DNA sequence: 5'-ACCCATATTGTACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAAGATTGTTTGACGTCTCC-3'. Identify the longest continuous tandem array of the motif CCCTAA. What is the total number of complete repeats found within this uninterrupted block?
+
+Step by step would be great."
+cas9_cut_position,agree,Between positions 19 and 20,Between positions 19 and 20,"Given the DNA sequence 5'-ACAATTAAATGCTTGCCACTTGTGGACTTCAAACCC-3', there is exactly one NGG PAM site. If SpCas9 cleaves 3 bp upstream of the PAM, between which two nucleotide positions does cleavage occur? Number the positions starting from 1."
+cas9_cut_position,agree,Between positions 29 and 30,Between positions 29 and 30,"Got a sequence question for you.
+
+Consider the following DNA sequence: 5'-TAATCTTCTATTGAATACGATTCAATATACTTTGGAC-3'
+
+This sequence contains a single NGG PAM sequence recognized by SpCas9. Assuming SpCas9 cleaves 3 bp upstream of the PAM, between which two positions (using 1-based numbering) does the cut occur?
+
+Explain your reasoning as you go."
+cpg_count,agree,9,9,"TCGAGCGCCGTCCGTATCCCGGTGTCGCCGTATCGAACGA (5' to 3')
+
+For the sequence above, give the number of CpG sites."
+polya_signal_position,agree,14,14,"Quick question for you.
+
+The problem: At which 1-based position does the AATAAA polyadenylation signal start?
+
+3' UTR: 5'-ATGGGTTGTCTCGAATAAAGCTATCAGGGCCAAACAACACTG-3'
+
+Please walk me through it."
+hydrogen_bond_count,agree,113,113,You are given the oligonucleotide 5'-ACTGAATCCGCCGGGGTAATAAAGTCCCTGATCAGGACTGTGGAT-3'. Compute the total hydrogen bonds in the duplex.
+cpg_obs_exp,agree,Yes,Yes,"For the sequence GCTACGTCCACATCCATATCAACTGAAGTAGCGGTAAGTCGATAGGAAGTTCACTACCATTGTGCACAATTCCGGAGCAGACGTATA, calculate the observed-to-expected CpG ratio defined as (CpG count × sequence length) ÷ (C count × G count). Is this value strictly greater than 0.9? Provide your response as Yes or No. Explain your reasoning as you go."
+orf_amino_acid_count,agree,17 amino acids,17 amino acids,"DNA: 5'-GATGTTACGGCCGCGTCCCTCCGCGTTTGAATCCTGCGCGCCGCTCGGTTTCTAATGTCT-3'
+Translation begins at the first ATG. How many amino acids are encoded up to, but not including, the stop codon?"
+cas9_cut_position,agree,Between positions 34 and 35,Between positions 34 and 35,"Consider the following DNA sequence:
+
+5'-CGAATCGAACCCGACCTGAACCATCACAAGAACGATCCGGCTAGAACTTTATCACA-3'
+
+This sequence contains a single NGG protospacer adjacent motif (PAM). Given that SpCas9 introduces a blunt cleavage 3 base pairs upstream of the PAM, determine the exact cleavage site. Report between which two nucleotide positions the cut occurs using 1-based indexing."
+wallace_tm,agree,52°C,52°C,"Oligo: 5'-CTGAGTTCTGGTATTATTTA-3'
+Calculate the melting temperature using Tm = 2(A+T) + 4(G+C)."
+orf_amino_acid_count,agree,18 amino acids,18 amino acids,"Can you help me with this one?
+
+Translation begins at the first ATG. How many amino acids are encoded up to, but not including, the stop codon?
+DNA: 5'-TGCCGGTAAGTCGGATGAACACTAGACAATGTTTGACGCGCGCAAATTGCTCTTTGGGGACTACTCTTTAA-3'"
+mirna_seed_extraction,agree,CACAGUG,CACAGUG,The mature miRNA hsa-miR-128-3p has the sequence 5'-UCACAGUGAACCGGUCUCUUU-3'. Its seed region consists of nucleotides 2 through 8. What is the seed sequence? Explain your reasoning as you go.
+orf_amino_acid_count,agree,25,25 amino acids,"Consider the following DNA coding strand:
+5'-ATGACAGATTGGGCGGTCGGCAAGGGGTGGAGGCCTACACCGGCACCCCTATACTCTCCAAGAATAAAACGCTTATGAAAC-3'
+
+If translation initiates at the very first ATG codon, how many amino acids are incorporated into the polypeptide chain prior to reaching the first in-frame stop codon?"
+cpg_obs_exp,agree,No,No,"Consider the following DNA sequence: ATACCAGCTAACGGTACCCAAGTGCAGAGGAAGCTTGGGCTCCCCCTCAGCCGCCTAATATCAATTAGCACTTTGTGATTGGA
+
+Calculate the CpG observed/expected ratio using the formula (CpG count × sequence length) ÷ (C count × G count). Does this ratio exceed 0.6? Answer Yes or No."
+aligned_complement,agree,GGGCTTCTTGCTATTTTGACTCGAAACTCTCCTCATGGCTCG,GGGCTTCTTGCTATTTTGACTCGAAACTCTCCTCATGGCTCG,"Given the DNA strand 5'-CCCGAAGAACGATAAAACTGAGCTTTGAGAGGAGTACCGAGC-3', write its complementary strand in the 3'-to-5' direction."
+restriction_fragments_circular,agree,5,5,"Mind taking a look at this?
+
+Imagine we have a circular piece of DNA with the sequence CGGACACGAATTCCAGGTAATAGAATTCGTAGAATTCCTCGACAGAATTCCGCTAAGGAATTCGT, where the strand loops continuously so the final base connects right back to the first base. If we completely digest this circular molecule using the restriction enzyme EcoRI, which recognizes and cuts at the sequence GAATTC, how many DNA fragments will be produced?
+
+Step by step would be great."
+purine_count,agree,14,14,Consider the DNA sequence 5'-ATCTCCGATGTGCGATCGCGAGTCACTCGCCTTG-3'. Report how many of its bases are purines.
+complete_codons,agree,7,7,"DNA: 5'-CGATGTGGAATCCGTTTTAATG-3'
+
+Reading from the first base, how many complete codons does the sequence contain?"
+reverse_complement,agree,TCCCTCAGCCGTTTCTGTTCCAAACTCTATCTCTCTATGCTACGCGCCCCCACAT,TCCCTCAGCCGTTTCTGTTCCAAACTCTATCTCTCTATGCTACGCGCCCCCACAT,"What is the 5'-to-3' reverse complement of the DNA sequence ATGTGGGGGCGCGTAGCATAGAGAGATAGAGTTTGGAACAGAAACGGCTGAGGGA?
+
+Think it through, then put your final answer on its own last line as 'Answer: ...'."
+restriction_fragments_circular,agree,9,9,"Details:
+Enzyme: EcoRI (GAATTC)
+DNA: 5'-AACTCTGGGAATTCCACTGCTCGAATTCCCCCCGCGAATTCTATACTGAATTCTAGACCGGAATTCCAGAGAATTCGCGCTGTGGTGAATTCAAGCGGGCGAATTCTCATCTGAATTCGTTTT-3'
+
+The question is this: The DNA is circular, shown from an arbitrary start, with the last base joined to the first. After complete digestion with this enzyme, how many fragments result?
+
+I'd like to see the reasoning."
+pam_count,agree,2,2,A colleague hands you the sequence GGTGCCGGCGATCGGCA and asks for how many NGG PAM sites it contains. What is it? Overlapping sites on this strand both count.
+hydrogen_bond_count,agree,124,124,"Read the strand 5'-AGGCGGTATTAGCGTTTAAGCATATGACGGGCTAATCAGTTGCAGAGGAC-3', then report the total hydrogen bonds between this strand and its complement."
+cas9_cut_position,agree,Between positions 30 and 31,Between positions 30 and 31,"Work through the question that follows, then put your final answer on its own last line as 'Answer: ...'.
+
+Consider the following DNA sequence:
+TCATGAATATCGTCCCACCTTTTCAATCTACCACGGATCA
+
+This sequence contains exactly one NGG protospacer adjacent motif (PAM). Given that the SpCas9 endonuclease introduces a double-strand break 3 base pairs upstream of the PAM, between which two nucleotide positions does the cut occur? Use 1-based indexing."
+long_oligo_tm,agree,42.0°C,42.0 °C,"Need to settle this one.
+
+For the oligonucleotide primer 5'-TTTATTACATTTTAAGTTTTTGAT-3', determine its melting temperature (Tm) using the empirical equation Tm = 64.9 + 41 × ((#(G+C) - 16.4) / N), where #(G+C) represents the total number of guanine and cytosine bases and N is the sequence length. Round the result to one decimal place.
+
+Appreciate the help."
+orf_amino_acid_count,agree,20 amino acids,20 amino acids,"DNA: 5'-TCACCGCGGTATGGGGTTGTCAAAGAGGTTTGAGCCTGAAGACGAGTTACTGCCTCTCGCGAGATCAACCTAAGACATTAC-3'
+
+Translation begins at the first ATG. How many amino acids are encoded up to, but not including, the stop codon?
+
+Please walk me through it."
+translation_coding,agree,Met-Arg-Gly-Pro-Pro-Leu-Pro-Pro-Ser-Asp-Arg-Arg-Asn,Met-Arg-Gly-Pro-Pro-Leu-Pro-Pro-Ser-Asp-Arg-Arg-Asn,"Translate the open reading frame of the following coding DNA sequence starting from the first codon. Provide the final peptide sequence as three-letter amino acid abbreviations separated by hyphens, omitting the stop codon.
+
+Coding DNA: 5'-ATGAGGGGACCCCCGCTCCCGCCTAGTGACAGACGCAACTAA-3'
+
+Explain your reasoning as you go."
+orf_amino_acid_count,agree,14,14 amino acids,"For the DNA sequence GCCATGACATCTTGCTACGTGAGAAACCAGTATGGGCGTTCTCCTTAGTCGATGG, translation starts at the first ATG. How many amino acids are encoded before the stop codon? Step by step would be great."
+restriction_site_count,agree,2,2,"I'd like a hand with the following.
+
+How many exact recognition sites for this enzyme does the DNA contain? Count sites, not fragments.
+Enzyme: BamHI (GGATCC)
+DNA: 5'-TCGGATTGTCGGATCCGAAACATTACGGATCCGCG-3'"
+reverse_complement,agree,TACATCTGCAGGATACTTACTCGTGTAGCCGGCACAGCCTTCATTTATCACGACCGAAAG,TACATCTGCAGGATACTTACTCGTGTAGCCGGCACAGCCTTCATTTATCACGACCGAAAG,"Got a sequence question for you.
+
+Determine the reverse complement of the following 5' to 3' DNA strand, reporting the final sequence in the 5'-to-3' direction: CTTTCGGTCGTGATAAATGAAGGCTGTGCCGGCTACACGAGTAAGTATCCTGCAGATGTA"
+translation_coding,agree,Met-Gly-Asp-Ser-Arg-Phe,Met-Gly-Asp-Ser-Arg-Phe,"One more from my problem set.
+
+Given the coding DNA sequence 5'-ATGGGAGATTCCAGATTTTAG-3', determine the translated open reading frame beginning at the first codon. Provide the result as three-letter amino acid codes separated by hyphens, excluding the stop codon.
+
+Work through it, then end with a line that starts 'Answer:' followed by the answer alone."
+wallace_tm,agree,50 °C,50°C,"Calculate the melting temperature using Tm = 2(A+T) + 4(G+C).
+Oligo: 5'-TCCTCCGGTTATAATAGA-3'"
+polya_signal_position,agree,34,34,"In the following 3′ UTR, what is the 1-based starting position of the AATAAA polyadenylation signal?
+
+GCTACAAGGCAGGTAGAGGCACTGTGATATGGAAATAAACGGAGGGGCGGTCTTTCGTAATTTGCCAAGCCCTAGTTCGACAA
+
+Step by step would be great."
+polya_signal_position,agree,12,12,"3' UTR: 5'-CTTAGGTATTCAATAAAATATTTCATTATATACACTAAACAACCCACCGTTGCTCAAACACC-3'
+At which 1-based position does the AATAAA polyadenylation signal start?"
+cpg_count,agree,7,7,"Read the strand 5'-GAACGTGGGCCGAAGCGGTCCTCGTCGTTTCGCATACCGGCTTG-3', then report how many CpG dinucleotides it contains."
+translation_coding,agree,Met-Arg-Ala-Gly-Leu-Lys-Val-Val-Pro-Ala-Ser-His-Ser-Gly-Val,Met-Arg-Ala-Gly-Leu-Lys-Val-Val-Pro-Ala-Ser-His-Ser-Gly-Val,"Given the coding DNA strand 5'-ATGAGGGCGGGGTTAAAGGTGGTCCCGGCCAGCCACTCAGGTGTTTAA-3', determine the amino acid sequence of the open reading frame starting from the first codon. Express the peptide using hyphen-separated three-letter amino acid abbreviations and omit the stop codon. Explain your reasoning as you go."
+pam_count,agree,4,4,"Work through CATGGAAACTAGGCTGGTTGGAAACC (5' to 3') and report how many NGG PAM sites it contains on the strand as written, including overlapping sites."
+transcription_coding,agree,CCGUAACAAGCAACUCCA,CCGUAACAAGCAACUCCA,"Given the coding DNA strand 5'-CCGTAACAAGCAACTCCA-3', determine the sequence of the transcribed mRNA written in the 5' to 3' direction. Thanks in advance."
+restriction_fragments_circular,agree,3,3,"Mind taking a look at this?
+
+The DNA is circular, shown from an arbitrary start, with the last base joined to the first. After complete digestion with this enzyme, how many fragments result?
+The specifics:
+Enzyme: EcoRI (GAATTC)
+DNA: 5'-CTTAGAATTCGATCGACTGAATTCAATAGAGGAGAATTCCAT-3'"
+reverse_complement,agree,GGTCCACCCTGCACGCCAAACCACTCTACGTAGTAAAATCC,GGTCCACCCTGCACGCCAAACCACTCTACGTAGTAAAATCC,"Given the DNA strand 5'-GGATTTTACTACGTAGAGTGGTTTGGCGTGCAGGGTGGACC-3', determine its reverse complement and write the result in the 5'-to-3' direction."
+gc_content,agree,48.6%,48.6%,"A colleague hands you the sequence ACACAGGTTAAAATAGTCACGTTACCTAGACGCTGTCATAGGGGTACTCGGATAGTGAGTCAACGAGTCTAATAACGTATTTAGGGTGCCCGTTCGCGCTTAGTGTCACTGCAGGCATGGAAAGGTTTCTGCTGAGGGAGGAGAGT (5' to 3') and asks for the GC percentage, to one decimal place. What is it?"
+pam_count,agree,7,7,"5'-AAACGGCCGGTATTTTGGTCCGGCGTCGGTCGGCATGGCGC-3'
+
+For the sequence above, give the count of SpCas9 NGG PAM sites on this strand."
+telomere_repeat_count,agree,11,11,"How many complete copies of the repeat are in the longest uninterrupted array?
+Repeat: CCCTAA
+DNA: 5'-GCATGACTTTCACGGTGTGCCCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAATTTGAGCTGA-3'"
+transcription_coding,agree,CUGUACAUUUGG,CUGUACAUUUGG,"A segment of the coding strand of a DNA molecule is given as 5'-CTGTACATTTGG-3'. Determine the sequence of the corresponding mRNA transcript, written in the 5'-to-3' direction."
+transcription_coding,agree,AUAUUGCCUAACCCAGCUGACGAUCUGA,AUAUUGCCUAACCCAGCUGACGAUCUGA,"Given the coding DNA strand 5'-ATATTGCCTAACCCAGCTGACGATCTGA-3', determine the corresponding mRNA sequence in the 5'-to-3' direction."
+pam_count,agree,8,8,"Here is a DNA sequence: 5'-AATGATGGCCCTGGCCGGCTATTGGATTATAGGTAAGATGGTAGGCTTTGGCATCA-3'. Please calculate how many NGG PAM sites it contains, counting every overlapping site on the strand shown."
+transcription_coding,agree,AUUAAAGAGUUAGUUGUUGUAAAUGUUCUCG,AUUAAAGAGUUAGUUGUUGUAAAUGUUCUCG,"Given the coding DNA strand 5'-ATTAAAGAGTTAGTTGTTGTAAATGTTCTCG-3', determine the corresponding mRNA sequence in the 5'-to-3' direction."
+cpg_count,agree,8,8,"Read the strand 5'-GGCGGCCGACCCGTGCTCGGAAACCGAACGACTCGCAGGCGCC-3', then report the number of CpG sites."
+orf_amino_acid_count,agree,19 amino acids,19 amino acids,"Here are the details:
+DNA: 5'-TACTACCACCATGTTAGATGCACTCAGTCTCTTCTCTACTGGCCGTGACAAATCGGTCCCGACCAGTTAAGGGTGGAA-3'
+
+Here's what I need: Translation begins at the first ATG. How many amino acids are encoded up to, but not including, the stop codon?"
+purine_count,agree,17,17,"Problem: for 5'-TCGAATATTGTCCGCCACAGGCGTTTGCGTAAATCGT-3', find how many of its bases are purines."
+pyrimidine_count,agree,16,16,Analyse CGTTATCTCCTGACCTGCCCATAAA and state the pyrimidine count.
+restriction_fragments_linear,agree,11,11,"Enzyme: XhoI (CTCGAG)
+DNA: 5'-TGCCCTCACCTCGAGCTCTCGAGCTCCAGCTCGAGGTGCTTCCCCCTCGAGTTTGCTCGAGTGATGTCTCTCGAGGTAATGGCTCGAGGTCACCCTCGAGGCACGCACTCGAGTCAGGAGAGACTCGAGACTTTTTTCC-3'
+
+My question: The DNA is linear. After complete digestion with this enzyme, how many fragments result?"
+translation_coding,agree,Met-Asn-Thr-Gln-Leu-Gln-Ala-Leu-Pro-Ala-Leu-Gln,Met-Asn-Thr-Gln-Leu-Gln-Ala-Leu-Pro-Ala-Leu-Gln,"For the coding DNA sequence 5'-ATGAATACTCAACTTCAGGCCTTGCCGGCGTTACAGTAA-3', translate the open reading frame beginning with the first codon. Report the peptide using three-letter amino acid abbreviations separated by hyphens, and exclude the stop codon."
+telomere_repeat_count,agree,13,13,"Quick question for you.
+
+How many complete copies of the repeat are in the longest uninterrupted array?
+Repeat: CCCTAA
+DNA: 5'-GGGGTTTACTCTCCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAAAAATAATACAGAAGAAGTGA-3'
+
+Could you show your working?
+
+Think it through, then put your final answer on its own last line as 'Answer: ...'."
+complete_codons,agree,25,25,"DNA: 5'-ATCCCACCGTGTTGCCCAGGCGTTAAGGATTGGTCACCAATGGAATACTTATCGGGGAATGACAACAGAAAGGCGT-3'
+
+My question: Reading from the first base, how many complete codons does the sequence contain?"
+shine_dalgarno_spacing,agree,11,11,"DNA: 5'-TCTTAGGCATCAGGAGGATTCGACACGAATGATTG-3'
+
+The question is this: How many nucleotides lie between the AGGAGG motif and the ATG?"
+shine_dalgarno_spacing,agree,14,14,"How many nucleotides lie between the AGGAGG motif and the ATG?
+
+DNA: 5'-TGAATCAGGATAAGGAGGCCAGGTACCGCCGGATGAACT-3'
+
+Could you show your working?"
+cpg_obs_exp,agree,Yes,Yes,"For the DNA sequence GTCTCGTAATACAGAGTCATCCGACCCTCTATTAGGTAACTTCACGCGTACGGTGCTCT, calculate the CpG observed/expected ratio using (CpG count × sequence length) ÷ (C count × G count). Is the resulting ratio greater than 0.7? Answer Yes or No. Appreciate the help."
+gc_content,agree,10.7%,10.7%,"DNA: 5'-GACTACTAATTAAAATTTATATTTATAA-3'
+What I'm asking: What is the GC percentage, rounded to one decimal?"
+cas9_cut_position,agree,Between positions 41 and 42,Between positions 41 and 42,"Consider the following DNA sequence:
+5'-TAAGCGATGTTAACCGAGCGATAATGTTGAAACATGTATGAATTCGGATATCA-3'
+
+The CRISPR endonuclease SpCas9 requires an NGG protospacer adjacent motif (PAM) to license cleavage and cuts the DNA 3 base pairs upstream of this motif. There is exactly one such PAM motif along this sequence. Using standard 1-based numbering, between which two base positions will SpCas9 introduce the cut?
+
+Show your work, then end with a line that starts 'Answer:' followed by the answer alone."
+polya_signal_position,agree,41,41,"Given the 3' UTR sequence TTGTCTGGGATATACTGGAATAACGGCAGCACAGGCATAAAATAAATAGAGCAATTGGAGACTGAA, at what 1-based nucleotide position does the AATAAA polyadenylation signal begin?"
+telomere_repeat_count,agree,2,2,"One more from my problem set.
+
+Given the DNA sequence 5'-TCAAAAAAACCCTAACCCTAATAGCC-3', identify the longest uninterrupted tandem run of the motif CCCTAA. What is the number of complete repeat units in this run?"
+gc_content,agree,11.9%,11.9%,"The question is this: determine the GC percentage, to one decimal place.
+
+Sequence: AACATGTTAATTTAGATATCAATAATTAAATTTTTTGTTAAA"
+wallace_tm,agree,42°C,42°C,"Determine the melting temperature (Tm) of the oligonucleotide primer 5'-TTATAATTTTCAAAATACA-3' using the Wallace rule, given by the formula Tm = 2(A+T) + 4(G+C)."
+gc_content,agree,90.3%,90.3%,"You are given the oligonucleotide GATGGCCGGGGGGGCCCGCTCCCCGCCCGGG (5' to 3'). Compute the GC percentage, to one decimal place."
+pyrimidine_count,agree,1,1,A colleague hands you the sequence ATGGA and asks for the number of pyrimidines. What is it?
+restriction_fragments_circular,agree,9,9,"One more from my problem set.
+
+Imagine we have a circular DNA molecule whose sequence is given below, with the understanding that the strand forms an unbroken loop connecting the final 3' base back to the first 5' base:
+
+5'-GGGTCGCGGCCGCACCCGATAAGGCGGCCGCGAGCGGCCGCAAGGCGGCGGCCGCAAACGGCGGCCGCGCCTTCGCCGCGGCCGCGCGGAGCGGCCGCAATATATCAAGCGGCCGCCAGCGGCCGCATCTGACCT-3'
+
+If this molecule undergoes complete digestion with the restriction enzyme NotI, which specifically cuts at the sequence GCGGCCGC, how many fragments of DNA will be generated?"
+transcription_template,agree,AUAUGGGCGCGGAC,AUAUGGGCGCGGAC,"Need to settle this one.
+
+Find the mRNA sequence (5' to 3') produced by transcribing the following template DNA strand: 3'-TATACCCGCGCCTG-5'.
+
+Step by step would be great."
+translation_coding,agree,Met-Ser-Cys-Ser-Pro-Leu-Trp-Lys-Asp-Cys-Leu-Lys-Thr-Ser-Ser-Val-Leu,Met-Ser-Cys-Ser-Pro-Leu-Trp-Lys-Asp-Cys-Leu-Lys-Thr-Ser-Ser-Val-Leu,"A question came up in the lab today.
+
+Starting with the first codon, translate the following coding DNA sequence into amino acids. Use three-letter amino-acid abbreviations joined by hyphens, and leave out the stop codon.
+
+Coding DNA: 5'-ATGTCGTGTTCCCCCTTGTGGAAGGATTGCCTGAAAACAAGCAGTGTTCTGTGA-3'
+
+Explain your reasoning as you go."
+transcription_coding,agree,GACCCCUCGAAUUCGUAGUAUC,GACCCCUCGAAUUCGUAGUAUC,"Given the coding DNA strand 5'-GACCCCTCGAATTCGTAGTATC-3', transcribe it into an mRNA sequence written from 5' to 3'."
+mirna_seed_extraction,agree,GUCAUGG,GUCAUGG,"Given the mature microRNA sequence for cel-miR-46-3p, 5'-UGUCAUGGAGUCGCUCUCUUCA-3', what is the sequence of its seed region, defined as positions 2 through 8?"
+aligned_complement,agree,ACGTCCTGCTTCCGTCCTCTGAGCTATTTCACACGTTCTGCGAAGAGATTTG,ACGTCCTGCTTCCGTCCTCTGAGCTATTTCACACGTTCTGCGAAGAGATTTG,"Given the 5' to 3' sequence TGCAGGACGAAGGCAGGAGACTCGATAAAGTGTGCAAGACGCTTCTCTAAAC, derive the direct complementary strand oriented 3' to 5'."
+pam_count,agree,8,8,"For the sequence TCAGGCGACGCGGACGCTGGTGCCGGCGTCTGGCTCATTGGAGAGGAAGGT, determine how many NGG PAM sites it contains, counting every overlapping site on the strand shown."
+cpg_count,agree,4,4,Here is a DNA sequence: CTGTGCTTATAATTATTCACGCGAAGTAGTTACCACCAGGCTAAAATCTCTACCAGGACCCATTATTTGTCACGTATATCCCACCGACC (5' to 3'). Please calculate how many CpG dinucleotides it contains.
+long_oligo_tm,agree,65.4°C,65.4 °C,"For the oligonucleotide sequence 5'-GATGTGTATCTTGTGGCGTACAGGCTTATTAATGTGATGTAGTTTTA-3', determine its melting temperature (Tm) using the empirical formula Tm = 64.9 + 41×((#(G+C)-16.4)/N). Please round your final result to one decimal place. Step by step would be great."
+cpg_obs_exp,agree,No,No,"For the following genomic DNA sequence, evaluate whether it meets the standard CpG island threshold of having an observed-to-expected CpG ratio greater than 0.6:
+
+GTGTGTACCCTAACGAATGAGTGGTACAAAGAGTCTGAACAAGCAATACCAGCCTACAC
+
+Calculate the ratio using the standard formula: (CpG dinucleotide count × sequence length) / (C count × G count). Is the resulting value strictly greater than 0.6? Answer Yes or No."
+cpg_obs_exp,agree,No,No,"Consider the problem below, then report the result on a final line of the form 'Answer: ...', with nothing after it.
+
+A question came up in the lab today.
+
+For the DNA sequence 5'-ATAGTCCCTAAAGATAAATTTGGAGTGTCACTA-3', calculate the CpG observed/expected ratio using (CpG count × sequence length) ÷ (C count × G count). Does the ratio exceed 0.8? Answer Yes or No."
+reverse_complement,agree,CCATAAGTAGCGAGCG,CCATAAGTAGCGAGCG,"For the DNA sequence CGCTCGCTACTTATGG, determine its reverse complement in the standard 5'-to-3' orientation."
+gc_content,agree,58.3%,58.3%,"Consider the DNA sequence CACTCCAACACGGTGAACGGATGC. Report the GC percentage, to one decimal place."
+telomere_repeat_count,agree,16,16,"How many complete, consecutive copies of the motif TTAGGG are found in the longest uninterrupted stretch of the following DNA sequence?
+
+5'-AGGCCCGTACCGAGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGACGAA-3'"
+orf_amino_acid_count,agree,12 amino acids,12 amino acids,"DNA: 5'-CAGCATTTATGCCAGTTAAGCCGTTTGTTGATTTGTCGGTCACTTGATTTTACGTGATT-3'
+Translation begins at the first ATG. How many amino acids are encoded up to, but not including, the stop codon?
+
+Could you show your working?"
+restriction_fragments_linear,agree,7,7,"One more from my problem set.
+
+How many DNA fragments are produced when this linear DNA molecule is completely digested with PstI, which recognizes CTGCAG?
+
+DNA: 5'-GAACTGCCAACTGCAGACACTTCCAACTGCAGATTTCAACTGCAGGCATTTAGCTGCAGGCCAGCATCTGCAGAACAGATACTGCAGGGGGTG-3'"
+polya_signal_position,agree,35,35,"3' UTR: 5'-GCCCTAGCTGACGCCGGAGGATCGCCAAAACTTCAATAAAGAGGGAGGACAGACAGACAGCTTCTGTAGATCGTCTGAAGAAGCCTCTCG-3'
+
+My question: At which 1-based position does the AATAAA polyadenylation signal start?"
+hydrogen_bond_count,agree,89,89,Analyse CAACGAAACATTTCTTACGCAGGCCCACACCTATCT (5' to 3') and state the total hydrogen bonds in the duplex.
+pyrimidine_count,agree,16,16,"Given CAACCAAGCTCATCCTGACTACCCGGTGA, what is the pyrimidine count?"
+restriction_fragments_circular,agree,4,4,"Details:
+Enzyme: HindIII (AAGCTT)
+DNA: 5'-ACCAAAGCTTTTACAAAGCTTTAGCTAGGAAGCTTGAACTAGGAAGCTTCTATCTCCA-3'
+
+The DNA is circular, shown from an arbitrary start, with the last base joined to the first. After complete digestion with this enzyme, how many fragments result?"
+wallace_tm,agree,60°C,60°C,"For the oligonucleotide 5'-AAGCGCGCGCCGCGGG-3', determine the melting temperature using the formula Tm = 2(A+T) + 4(G+C)."
+shine_dalgarno_spacing,agree,19,19,"In the following DNA sequence, how many nucleotides are located between the AGGAGG motif and the ATG?
+
+GTGTAGTAGGAGGGGTTTGCACCCGGTCAAAAATGCGACCGGTTTC"
+restriction_site_count,agree,8,8,"For the NotI recognition sequence GCGGCCGC, count the number of exact recognition sites in the following DNA strand. Report sites rather than the number of resulting fragments.
+
+5'-GCGGCGGCCGCTGCGAGTTGGCGGCCGCAGATGCAGCGGCCGCCTTGCGGCCGCCTCTGAAACAGCGGCCGCCTGCGGCCGCGTAATCGCGGCGGCCGCACGCGGCCGCGTCTGAA-3'"
+wallace_tm,agree,64 °C,64°C,"Here are the details:
+Oligo: 5'-AAGTTGGGCTCGAGAGAGGTT-3'
+
+I need to calculate the melting temperature using Tm = 2(A+T) + 4(G+C)."
+orf_amino_acid_count,agree,16,16 amino acids,"Given the DNA sequence 5'-GGATCATGCTGTATGCACAATGGGGATTCCTCGCCGGGTGCGCTCCCGTGGCGTGACTCATAGACG-3', assume translation initiates at the first start codon (ATG). How many amino acids will be incorporated into the peptide chain before encountering the first in-frame stop codon?"
+pam_count,agree,10,10,"DNA: 5'-ATGGCGCGGAAGGTTGGCTGGCTGGAAGGTTGATGGCTGGAAGGTGAGT-3'
+My question: How many NGG PAM sites does it contain? Overlapping sites on this strand both count."
+purine_count,agree,23,23,"Solve the following problem, then give your answer on a new line beginning with 'Answer:'.
+
+Analyse CCGGTATCGGAGGGCGGGGTTAATCCCGGTTTCTGACTGAAA and state how many of its bases are purines."
+gc_content,agree,50.0%,50.0%,"Here is a DNA sequence: 5'-TCCAGCGGAAGGACTATTCCACTCTA-3'. Please calculate its GC content as a percentage, to one decimal place."
+restriction_fragments_linear,agree,11,11,"What I want to work out: The DNA is linear. After complete digestion with this enzyme, how many fragments result?
+
+Details:
+Enzyme: EcoRI (GAATTC)
+DNA: 5'-CGGCGAATTCCCGAGAGAATTCTAGAATTCTCAGAATTCCTCCGGAATTCGACGGGAATTCCGGAATTCGCCGGGAATTCGTGGGACGAATTCGCGGGGATTTGAATTCAGTGGCCCAC-3'"
+reverse_complement,agree,GTTGCTGAGCTCGGGTATGAATAAACAAGACACCGC,GTTGCTGAGCTCGGGTATGAATAAACAAGACACCGC,"Provide the 5'-to-3' reverse complement for the following DNA sequence: GCGGTGTCTTGTTTATTCATACCCGAGCTCAGCAAC.
+
+Think it through, then end with a line that starts 'Answer:' followed by the answer alone."
+restriction_site_count,agree,9,9,"How many EcoRI recognition sites are present in the following DNA strand? EcoRI recognizes GAATTC. Count the exact sites rather than the fragments produced.
+
+DNA: 5'-TATTACTGAATTCACGAATTCAATGCTACTAGAATTCTTTGGCGAATTCACCAATGGCGAATTCGTGTCTAAGAATTCCTATCTATGAATTCCGAGAGGTCGGAATTCTGTGAATTCTAATTTGAAG-3'"
+shine_dalgarno_spacing,agree,16,16,"One more from my problem set.
+
+Consider the following DNA sequence: 5'-GCCGTTAGACGAGGAGGCTCCGTGCGCGGGCATATGTA-3'. How many intervening nucleotides are located between the AGGAGG motif and the ATG triplet?
+
+Step by step would be great."
+long_oligo_tm,agree,70.8°C,70.8 °C,"A question came up in the lab today.
+
+We have the oligonucleotide sequence GCCGGGAATCCCGCGGCAGCAGCGC. Using the formula Tm = 64.9 + 41 * ((#(G+C) - 16.4) / N), what is its melting temperature rounded to one decimal place?
+
+Explain your reasoning as you go."
+restriction_site_count,agree,8,8,"Need to settle this one.
+
+XhoI recognizes the sequence CTCGAG. In the DNA sequence 5'-TAATCAGACTCGAGCTCTTTCACCTCGAGTTCCAACTCGAGCGGCTTGGCTCGAGTAATCGATGCTCGAGATCAACTCGAGCCAGTGTCTCGAGAGGCGTCTCGAGCCGT-3', how many exact XhoI recognition sites are present? Count recognition sites rather than the resulting fragments.
+
+Explain your reasoning as you go."
+restriction_fragments_linear,agree,10,10,"Suppose you have the following linear DNA molecule:
+
+5'-CCTAGAATTCACGTCGAATTCACTTTCCGACGAATTCACCACCGAATTCAGGAATTCTTTGATTTGAATTCGAAAGTAGAATTCTGGCCGAGAAGAATTCACAAAGAATTCCGTC-3'
+
+If you perform a complete digestion of this DNA using the restriction enzyme EcoRI, which recognizes the motif GAATTC, how many fragments will be produced?"
+cas9_cut_position,agree,Between positions 21 and 22,Between positions 21 and 22,"Consider the following DNA sequence:
+5'-ATGTCAATGATGATCATTGTCTAGCGGACAT-3'
+
+This strand contains a single NGG protospacer adjacent motif (PAM). Given that SpCas9 introduces a double-strand cut 3 bp upstream of the PAM, between which two 1-based nucleotide positions does the cleavage fall?"
+purine_count,agree,19,19,"Read the strand CGGGTCATGTAAGATCACAGCGCACTGGAATGTC (5' to 3'), then report the purine count."
+complete_codons,agree,16,16,"DNA: 5'-AGATGTGGCTCCTCTGGGTGCATCTTAACCACCGTTCACGGAAGCCTCTC-3'
+
+So: Reading from the first base, how many complete codons does the sequence contain?"
+orf_amino_acid_count,agree,11,11 amino acids,"Got a sequence question for you.
+
+Consider the following DNA coding sequence:
+5'-GTAATGTGGACTGATTGCGTGGCGTTCAGTGGATTCTAAGGGACA-3'
+
+Assuming translation begins at the first ATG start codon, how many amino acids will be in the resulting polypeptide before encountering the first in-frame stop codon?"
+aligned_complement,agree,TGAACACGTCTGACGGCTCGCCTGAGAAGTACCCGCTCTACAAGCTGCGTGTTTCAA,TGAACACGTCTGACGGCTCGCCTGAGAAGTACCCGCTCTACAAGCTGCGTGTTTCAA,"For the DNA strand 5'-ACTTGTGCAGACTGCCGAGCGGACTCTTCATGGGCGAGATGTTCGACGCACAAAGTT-3', write its complementary strand in the 3'-to-5' direction, matching each base individually."
+gc_content,agree,70.0%,70.0%,"Work through 5'-CACTCCGACG-3' and report the GC percentage, rounded to one decimal.
+
+Work through it, then report the result on a final line of the form 'Answer: ...', with nothing after it."
+restriction_site_count,agree,5,5,"I'd like a hand with the following.
+
+Enzyme: XhoI (CTCGAG)
+DNA: 5'-AGCGCTCGAGAGGGGTTCTCGAGATTGACTCGAGTCCTCGAGACTTGTCTCGAGGGCGG-3'
+I need to how many exact recognition sites for this enzyme does the DNA contain? Count sites, not fragments.
+Here are the details:"
+restriction_fragments_circular,agree,2,2,"We have a circular DNA construct represented by the 5' to 3' sequence AACAACAATGGATCCCGTTAGGATCCATAGCGAG, circularized end-to-end. How many fragments are produced following complete digestion with the restriction endonuclease BamHI, which recognizes the motif GGATCC?"
+wallace_tm,agree,70 °C,70°C,"Oligo: 5'-GCTGACGCCGTCGAGGGAGG-3'
+
+My question: Calculate the melting temperature using Tm = 2(A+T) + 4(G+C)."
+long_oligo_tm,agree,88.8 °C,88.8 °C,"Here's what I need: Calculate the melting temperature using Tm = 64.9 + 41×((#(G+C)-16.4)/N), rounded to one decimal place.
+
+The specifics:
+Oligo: 5'-CGGCTGCGCGGCGCGGCGGCGGTCGGGGGGCCGGGGGCCCGGCG-3'"
+shine_dalgarno_spacing,agree,7,7,"Mind taking a look at this?
+
+In the prokaryotic leader region represented by the sequence 5'-GAGGAGGCGGTTCGATG-3', determine the number of intervening nucleotides separating the AGGAGG motif from the downstream ATG initiation codon."
+shine_dalgarno_spacing,agree,20,20,"Here's something I want to check.
+
+In the DNA sequence 5'-GCGCTAAGGAGGATTAATCGGAATTTCTGAGCATGAGATTGGTT-3', how many nucleotides are located between the AGGAGG motif and the ATG?
+
+Show your work, then end with a line that starts 'Answer:' followed by the answer alone."
+restriction_fragments_linear,agree,7,7,"I'd like a hand with the following.
+
+The DNA is linear. After complete digestion with this enzyme, how many fragments result?
+Enzyme: EcoRI (GAATTC)
+DNA: 5'-CGACAGCGATGAATTCGGACGTGTGAGAATTCTCTTTGAATTCAACCACTGAGAATTCTTAGTGGGAATTCCTTGAATTCCGCG-3'
+
+Talk me through the steps."
+restriction_fragments_circular,agree,5,5,"A circular DNA molecule is defined by the sequence below, with the understanding that the strand is closed so the final base connects directly to the first base:
+
+TGTTAGGGCGGCCGCTATGCGGCCGCCGGTGCGCGGCCGCGGGCGGCCGCGAGCGGCCGCATACCCAGAA
+
+If this DNA is subjected to complete digestion using the restriction enzyme NotI, which recognizes and cuts at GCGGCCGC, how many fragments will be produced?
+
+Explain your reasoning as you go."
+orf_amino_acid_count,agree,20,20 amino acids,"Got a sequence question for you.
+
+Consider the following DNA coding strand: 5'-TTCAGATATGCGCTTATCACCGCGAATATGTGCTCTCTTGCTTTGTCTGACAAGACAGTGGCTACTTTAGC-3'. Assuming protein translation initiates at the first ATG start codon, calculate the number of amino acids incorporated into the resulting polypeptide prior to encountering the first in-frame stop codon.
+
+Step by step would be great."
+cpg_obs_exp,agree,No,No,"Given the DNA sequence 5'-GGAACAATCATTTAGGTTATTATTTCTGGCTCTCCGGCATAGGAGATTTGGGGACTAGC-3', calculate the CpG observed-to-expected ratio using the formula (CpG count × sequence length) ÷ (C count × G count). Is this value greater than 0.9? Answer Yes or No."
+restriction_site_count,agree,7,7,"Got a sequence question for you.
+
+A restriction digest is planned using HindIII, which recognizes the sequence AAGCTT. How many exact recognition sites for this enzyme are present in the following DNA strand? Count the number of recognition sites, not fragments.
+
+GCGGAAGCTTAAAAGCTTCGAAGCTTCCAGGATAAAGCTTATCTCAAAAGCTTCTCGTTACCAAGCTTCTCCTATAAGCTTATAA
+
+Explain your reasoning as you go."
+pam_count,agree,10,10,Analyse 5'-AGCCGGCTGTCAGGTAGATGGCATGGATTGGTTAAGGAAGGCTCGGCATGGTAGGTCGT-3' and state the count of SpCas9 NGG PAM sites on this strand.
+purine_count,agree,30,30,Here is a DNA sequence: ACGGGTGAGCGCTCGACGAGAATAAGATGATCAACGGCCTATATGACGC (5' to 3'). Please calculate how many purine bases it contains.
+telomere_repeat_count,agree,2,2,"Repeat: TTAGGG
+DNA: 5'-GCATACTGTTAGGGTTAGGGGGGTGGGCGTGGGTGCTGGT-3'
+How many complete copies of the repeat are in the longest uninterrupted array?"
+orf_amino_acid_count,agree,18 amino acids,18 amino acids,"Can you help me with this one?
+
+Translation begins at the first ATG. How many amino acids are encoded up to, but not including, the stop codon?
+
+Here are the details:
+DNA: 5'-CATGAACCATCAGAAGCCGCACGAGTCGGAGAATCTTTGCCCAAGTAAACATCCGTAGCAGTTGCG-3'"
+pyrimidine_count,agree,13,13,"Analyse CAATTCGGTTGCAGGCTATGTAAGCGGGC (5' to 3') and state how many of its bases are pyrimidines.
+
+Explain your reasoning, then end with a line that starts 'Answer:' followed by the answer alone."
+restriction_fragments_linear,agree,6,6,"One more from my problem set.
+
+A linear DNA molecule has the sequence CGCGTTGGCGGCCGCCTTTAATGCGGCCGCATATTCTCGCGGCCGCCCGTGCGGCCGCAAAAAGCGCGGCCGCATATTCTT. If this molecule undergoes complete digestion with the restriction enzyme NotI, which recognizes the sequence GCGGCCGC, how many fragments are generated?
+
+Explain your reasoning as you go."
+restriction_fragments_linear,agree,8,8,"Mind taking a look at this?
+
+Suppose we have a linear DNA molecule with the following sequence:
+
+5'-GGCTTTTTGCGGATCCCGTGGGATCCGGGGATCCTAGGATCCTCAAGGATCCCAGGATCCTCTCAAGGATCCGA-3'
+
+If this sample is completely digested by the restriction enzyme BamHI, which cleaves at the recognition site GGATCC, how many fragments of DNA will be generated?"
+mirna_seed_extraction,agree,AAAGCUA,AAAGCUA,"One more from my problem set.
+
+You are given the mature microRNA sequence for dme-miR-79-3p: 5'-UAAAGCUAGAUUACCAAAGCAU-3'. The seed region of an miRNA consists of nucleotides 2 through 8 counting from the 5' terminus. What is the sequence of the seed region?"
+long_oligo_tm,agree,90.8°C,90.8 °C,"Using the equation Tm = 64.9 + 41 × ((#(G+C) - 16.4) / N), calculate the melting temperature for the following oligonucleotide, rounding your answer to one decimal place:
+5'-CCGCCCCCGCCCGCGGCGGCGCGCGCGCCGCGGCGGGCCGCCCACTCCCC-3'"
+cpg_count,agree,10,10,"Sequence under study: GGCGTCCTCGCATCCGGTAGTCGGCTGGCGGCTCGTATGCGGATCGTTGCGCCAGACGGCAC
+Determine how many CpG sites it contains."
+shine_dalgarno_spacing,agree,2,2,"One more from my problem set.
+
+In the DNA sequence 5'-CCGTAGGTCCAGGAGGACATG-3', how many nucleotides occur between the AGGAGG motif and the ATG start codon?
+
+Thanks in advance."
+polya_signal_position,agree,43,43,"Got a sequence question for you.
+
+In the following 3′ UTR, at what 1-based position does the AATAAA polyadenylation signal begin?
+
+CCCCTTTTTTACGCCAAACGTTCACAAAGGGTTGAACTCCTTAATAAATCCAATCGAAGTCAG"
+gc_content,agree,15.0%,15.0%,"For the sequence ATAAAAATCATAAAACTTTG (5' to 3'), determine its GC content as a percentage, to one decimal place."
+pyrimidine_count,agree,31,31,"Sequence under study: AAAGACTATTACTTCATGATACTATATGATTAGTATGCGCTTCGCCCCCGCCGAT (5' to 3')
+Determine the pyrimidine count."
+restriction_site_count,agree,8,8,"Here's a problem I'm stuck on.
+
+How many exact recognition sites for this enzyme does the DNA contain? Count sites, not fragments.
+Enzyme: HindIII (AAGCTT)
+DNA: 5'-TGACAAGCTTTCTAAGCTTAGCGAAGCTTCCGAAGAAGCTTCATTGTCCCAAGCTTCTTGGGTATAAGCTTCGAAGCTTACGAAAGCTTGCTGTGC-3'"
+transcription_coding,agree,GCACUGACCUUCUCGCUUGCUACACGACUUCAGCACGAACAGGCUUU,GCACUGACCUUCUCGCUUGCUACACGACUUCAGCACGAACAGGCUUU,Suppose we have the coding DNA sequence 5'-GCACTGACCTTCTCGCTTGCTACACGACTTCAGCACGAACAGGCTTT-3'. What would be the corresponding mRNA sequence written in the standard 5' to 3' orientation?
+restriction_fragments_linear,agree,9,9,"Can you help me with this one?
+
+Enzyme: NotI (GCGGCCGC)
+DNA: 5'-CCCGCGGCCGCGCGATCGCGGCCGCGCATGAGTGCGGCCGCACGCGGCCGCAATATCACGAGCGGCCGCAAGCCAGAGCGGCCGCTCAGGCGGCCGCCTCTTGCGGCCGCAGGTGGATTC-3'
+The DNA is linear. After complete digestion with this enzyme, how many fragments result?"
+cas9_cut_position,agree,Between positions 37 and 38,Between positions 37 and 38,"Consider the following 5'-to-3' DNA sequence:
+
+GGTGTGATAAACAATACGACAACGATCAGTGTAGAGAAAGTGGCGTCATCTTACTTTT
+
+This sequence contains a single canonical SpCas9 NGG protospacer adjacent motif (PAM). Assuming Streptococcus pyogenes Cas9 introduces a double-strand break precisely 3 bp upstream of the PAM, determine the location of this cleavage site. Between which two positions, using 1-based coordinates, does the cut occur?
+
+Step by step would be great."
+translation_coding,agree,Met-Asp-Tyr-Arg-Thr-Arg-Leu-Leu-Val-Ala-Gly-Leu-Gly-Lys-Ile-His-Ser-Trp-Leu-Lys,Met-Asp-Tyr-Arg-Thr-Arg-Leu-Leu-Val-Ala-Gly-Leu-Gly-Lys-Ile-His-Ser-Trp-Leu-Lys,"Got a sequence question for you.
+
+For the following 5' to 3' coding DNA strand, translate the open reading frame starting from the first codon: ATGGACTACCGAACTCGCCTCTTAGTGGCCGGGTTGGGCAAAATCCACTCATGGCTTAAGTAG. Express the resulting polypeptide using standard three-letter amino acid abbreviations connected by hyphens, omitting the stop codon."
+transcription_coding,agree,CACAUGUCGCGAUG,CACAUGUCGCGAUG,"Transcribe the following coding DNA strand into an mRNA sequence written from 5' to 3':
+
+Coding DNA: 5'-CACATGTCGCGATG-3'
+
+Step by step would be great."
+orf_amino_acid_count,agree,5,5 amino acids,"Consider the following coding sequence: ATGATCTTACGTCATTAACA. If translation initiates at the initial ATG, how many amino acid residues will be incorporated into the nascent polypeptide chain prior to reaching the first in-frame termination codon?
+
+Think step by step, then end with a line that starts 'Answer:' followed by the answer alone."
+pyrimidine_count,agree,24,24,Here is a DNA sequence: GGTGGCTTTATATGCGTACAGTGAGATGGCGGTTCACCCGCAACGGAAACTGTA (5' to 3'). Please calculate how many of its bases are pyrimidines.
+orf_amino_acid_count,agree,27 amino acids,27 amino acids,"Working through a problem set, this one came up.
+
+DNA: 5'-TGTATTATGACGCCCCCAAATCTAGACGGACCCGACGCCTGCGGGCTTGTGACGCATCCCAATGTCCAGATACAACCTTCATTATGCTAGTCGTGGGGACG-3'
+Translation begins at the first ATG. How many amino acids are encoded up to, but not including, the stop codon?"
+purine_count,agree,24,24,Work through CTCAAAAGGAAAGCTTCCAGTACTGCATAAAAAAATCGATCT (5' to 3') and report the purine count.
+wallace_tm,agree,62 °C,62°C,"I'd like a hand with the following.
+
+Calculate the melting temperature using Tm = 2(A+T) + 4(G+C).
+Oligo: 5'-GCGTCGCGCTGGGCCAG-3'
+
+Could you show your working?"
+restriction_site_count,agree,6,6,"Working through a problem set, this one came up.
+
+Enzyme: BamHI (GGATCC)
+DNA: 5'-ATGTCCCACGGGATCCCCATCACGGATCCAATCGGTTAGGATCCCGGGGGATCCAGGAAATTGGATCCCGGGGGTTGGATCCTTTAC-3'
+How many exact recognition sites for this enzyme does the DNA contain? Count sites, not fragments."
+polya_signal_position,agree,9,9,"Here's something I want to check.
+
+Consider the following 3' untranslated region (UTR) DNA sequence: TTGCTACTAATAAAAAATATCATAGAATAAGAGCACACATCTCTTACTCATCGTTAATATCTAAGT. Using 1-based indexing, identify the starting position where the canonical polyadenylation signal AATAAA is located.
+
+Step by step would be great."
+cpg_obs_exp,agree,Yes,Yes,"Solve the following problem, then give your answer on a new line beginning with 'Answer:'.
+
+DNA: 5'-CCAAGGAAGTACTTTACGGTTTCCGCCGTACGCCGACGCTCGTAGCCTAACACCTCGTGCTCGGTGTTT-3'
+
+What I'm asking: Compute the CpG observed/expected ratio as (CpG count × sequence length) ÷ (C count × G count). Is the ratio greater than 1.0? Answer Yes or No."
+hydrogen_bond_count,agree,25,25,"Given AGTACTAAGTT (5' to 3'), what is the duplex hydrogen-bond total?"
+hydrogen_bond_count,agree,17,17,"For the sequence ACTACGA, determine how many hydrogen bonds the duplex forms."
+polya_signal_position,agree,7,7,"Given the 3' UTR sequence 5'-CACTCTAATAAAGTCCGACACTAACGCGAGGTTCTGTGTTACGGATAGTAGCCAAAAGAGAGA-3', determine the 1-based position at which the AATAAA polyadenylation signal begins."
+orf_amino_acid_count,agree,1,1 amino acids,"Can you help me with this one?
+
+DNA: 5'-TGGTCGATGTAGTTTTCTATATACGC-3'
+Translation begins at the first ATG. How many amino acids are encoded up to, but not including, the stop codon?"
+pam_count,agree,7,7,A colleague hands you the sequence TGCGGAATCAGGCATGGACTGTGGCTGGTGAGGATGGAC and asks for the count of SpCas9 NGG PAM sites on this strand. What is it?
+restriction_fragments_circular,agree,9,9,"A question came up in the lab today.
+
+XhoI recognizes the sequence CTCGAG. Consider the following circular DNA molecule, displayed from an arbitrary starting point with its final base connected to its first base:
+
+5'-TCACGCCTCGAGGGGTTCTCGAGGTCTCGAGCGCACACGCCCTCGAGGTTCCACACTCGAGTGTCACTCTCGAGATCCCAGAAACTCGAGCTCATGCCTCGAGAGCATTACTCGAGTTACTTCGTG-3'
+
+How many DNA fragments are produced after complete digestion with XhoI?"
+pam_count,agree,5,5,Here is a DNA sequence: CAAGGTTTGGAAGGCGAGGTTTGGTG. Please calculate the count of SpCas9 NGG PAM sites on this strand.
+aligned_complement,agree,TATTCAACGCATCTTTGAGCTGTTTCTCGTAATCCTTAG,TATTCAACGCATCTTTGAGCTGTTTCTCGTAATCCTTAG,"Write the complementary DNA strand for the sequence below, preserving the base order so that the complement is oriented 3'-to-5'.
+
+DNA: 5'-ATAAGTTGCGTAGAAACTCGACAAAGAGCATTAGGAATC-3'"
+translation_coding,agree,Met-Val-Ser-Lys-Asn-Val-Ser-Thr-Val-Gly-Val-Ala-Gly-Pro-Asp-Val-Tyr-Gly-Thr-Leu,Met-Val-Ser-Lys-Asn-Val-Ser-Thr-Val-Gly-Val-Ala-Gly-Pro-Asp-Val-Tyr-Gly-Thr-Leu,"Need to settle this one.
+
+Please translate the open reading frame for the following coding DNA sequence, starting at the very first codon. Provide the amino acid sequence using standard three-letter abbreviations separated by hyphens, leaving out the stop codon:
+
+ATGGTCTCGAAAAACGTTTCTACAGTGGGAGTCGCGGGACCTGACGTTTACGGTACTCTGTAA
+
+Appreciate the help."
+wallace_tm,agree,66°C,66°C,"For the oligo 5'-CCAGCTGCACTCCGTCCCC-3', determine the melting temperature using the Wallace rule, Tm = 2(A+T) + 4(G+C)."
+pyrimidine_count,agree,8,8,Take AAATAATAACTTTAGGCTG and work out the pyrimidine count.
+orf_amino_acid_count,agree,3,3 amino acids,"Consider the following DNA coding strand: 5'-ATCGAGGTCGATGACTGCCTAAGG-3'. Assuming that translation begins at the first ATG codon, how many amino acids are incorporated into the nascent peptide before reaching the first in-frame stop codon? Step by step would be great."
+cas9_cut_position,agree,Between positions 25 and 26,Between positions 25 and 26,"Consider the following 5'-to-3' DNA sequence: GGCTGTCTATTAAGCGCTTATCGTTGCCTGGCTATGAAA. It harbors a single canonical SpCas9 NGG PAM. Knowing that SpCas9 cleaves target DNA 3 bp upstream of this PAM, identify the two 1-based nucleotide positions between which the cleavage occurs."
+wallace_tm,agree,76°C,76°C,"Calculate the melting temperature using Tm = 2(A+T) + 4(G+C).
+Oligo: 5'-AGGCCGCCGGCGGAGCAGACG-3'"
+pam_count,agree,8,8,"Take 5'-GTCCTCGGAAGGCAGGTCAGTGGTACAGGACAGGTTCCCGGTTAGTAGGA-3' and work out the number of NGG PAM sites, counting overlaps."
+cas9_cut_position,agree,Between positions 22 and 23,Between positions 22 and 23,"A DNA sequence contains exactly one NGG PAM. Using 1-based numbering, determine between which two positions SpCas9 cuts if cleavage occurs 3 bp upstream of the PAM.
+
+TACTTCGCTGACTGCTGCATGAGTATGGAGTGCCCCAGTCACCGCACCTATCCCTG"
+restriction_fragments_circular,agree,7,7,"A circular DNA molecule is displayed from an arbitrary starting point, with its final base connected to its first base. How many DNA fragments are produced after complete digestion with HindIII, which recognizes AAGCTT?
+
+DNA (5' to 3'): CTCAAATAAGCTTTAAAAGCTTCAATAAGCTTACCGCGAAGCTTTTACGAAGCTTGAAAGGTGGCAAGCTTCTAGGGTTAAAGCTTTTAACTGTTG"
+cpg_count,agree,7,7,"Read the strand TGAGTCGCCAGCGTCGTCGGCGCCTTCGTACCGT (5' to 3'), then report how many CpG dinucleotides it contains."
+polya_signal_position,agree,28,28,"Got a sequence question for you.
+
+Find the 1-based starting position of the canonical polyadenylation signal AATAAA in this 3' UTR sequence:
+5'-TTTACGTAGTTTCTCCCCATTTTTATCAATAAATGCCATGGGACACCGTGCGAGCCACCTGGACCGGCTGAATA-3'"
+cpg_count,agree,2,2,"Determine the number of CpG sites.
+
+Sequence: 5'-GGGACGGCGCCC-3'"
+restriction_site_count,agree,10,10,HindIII recognizes the sequence AAGCTT. Examine the DNA strand 5'-CCAATATAAGCTTCGCGTGAACAAGCTTCAGCAAAGAAAAGCTTCCAAAAGCTTGACAAAGTAAGCTTTAAAAAGCTTATGGGAGAAGCTTTAACTATTTCAAGCTTCCACCGCAAGCTTCCGTGTATTAAGCTTAAGATATAT-3'. How many exact HindIII recognition sites are present? Count recognition sites rather than the fragments produced.
+pyrimidine_count,agree,25,25,"The question is this: determine the number of pyrimidines.
+
+Sequence: 5'-CAAGAGGCAGTCAATTTGGGTTTAATGTCGCTCCATTCTTTAAGGTC-3'"
+pam_count,agree,9,9,"Here is a DNA sequence: GCGGTTGATTGGCATCCGGTTTGCTGGATCGTTGGTCTTTGGTTCCCGGCTCTGAGGCAGGTTT (5' to 3'). Please calculate the number of NGG PAM sites, counting overlaps."
+reverse_complement,agree,GTCCACGCGCTGCGTT,GTCCACGCGCTGCGTT,"Given the DNA sequence 5'-AACGCAGCGCGTGGAC-3', generate the corresponding reverse complement written in the 5' to 3' direction. Appreciate the help."
+pyrimidine_count,agree,48,48,"For the sequence GAGAATATTCGAGATTAACTTGATCTGGAGCCTGTCTGACAATCAATTTAGCGGCTATTACAGCTCTTGGGGCAAATTTGAGCCGGCAGTAGACCCTTGAG (5' to 3'), determine how many pyrimidine bases it contains."
+restriction_fragments_linear,agree,9,9,"Got a sequence question for you.
+
+Consider a linear double-stranded DNA molecule with the following sequence:
+
+5'-GACTGCAGTAGCTGCTGCAGTTAGTTACTGCAGGCCTTCCTGACTGCAGTCCTTCTCTCTGCAGTGATCCATACCTGCAGTTTTTAACACTGCAGACCGCTGCAGCGTCTAGGG-3'
+
+Assuming the restriction endonuclease PstI (recognition sequence CTGCAG) is introduced under optimal reaction conditions to achieve complete digestion, how many cleavage fragments will be produced?
+
+Appreciate the help."
+orf_amino_acid_count,agree,29 amino acids,29 amino acids,"I'm trying to answer this question.
+
+The specifics:
+DNA: 5'-CGTGCGTAATTAATGCTGCCTAAAGGTTCCGATCTTAGGACGAATAGTTTGGGCGTGACTCACGTGCCTTACTCCGATCCAGTTTCTGTTGGACGCCCATAAACCACC-3'
+
+Translation begins at the first ATG. How many amino acids are encoded up to, but not including, the stop codon?
+
+Please walk me through it."
+cas9_cut_position,agree,Between positions 28 and 29,Between positions 28 and 29,"Consider the following DNA sequence:
+
+5'-TATCGCGCCGCACCCGTTTTTGTTCTAAGTTTGGCGATCTACG-3'
+
+This sequence contains a single NGG protospacer adjacent motif (PAM) recognized by the SpCas9 endonuclease. The SpCas9 enzyme introduces a double-strand break exactly 3 base pairs upstream of the PAM. Using 1-based indexing, between which two nucleotide positions does this cut occur?"
+transcription_coding,agree,ACUGCAUGCAAAGCGUCUA,ACUGCAUGCAAAGCGUCUA,"A segment of a DNA coding strand is given below in the 5'-to-3' orientation:
+
+5'-ACTGCATGCAAAGCGTCTA-3'
+
+Determine the sequence of the synthesized mRNA transcript, writing your final answer in the 5'-to-3' direction."
+transcription_coding,agree,UGCGCUGACAUGGCUCGUGCCACAAAUCGGCAGUUGGGGUGUGAGGG,UGCGCUGACAUGGCUCGUGCCACAAAUCGGCAGUUGGGGUGUGAGGG,"One more from my problem set.
+
+Given the coding DNA strand 5'-TGCGCTGACATGGCTCGTGCCACAAATCGGCAGTTGGGGTGTGAGGG-3', write the corresponding mRNA sequence in the 5'-to-3' direction.
+
+Thanks in advance."
+orf_amino_acid_count,agree,16 amino acids,16 amino acids,"Working through a problem set, this one came up.
+
+Translation begins at the first ATG. How many amino acids are encoded up to, but not including, the stop codon?
+DNA: 5'-GGACATGGTCTCCAATAGTGCATTCTCGGAACGTGACAACACGGGAGTAAAATGA-3'
+
+Please walk me through it."
+wallace_tm,agree,52°C,52°C,"Can you help me with this one?
+
+Calculate the melting temperature using Tm = 2(A+T) + 4(G+C).
+
+Here are the details:
+Oligo: 5'-CCGGTGCCCGGGTC-3'
+
+I'd like to see the reasoning."
+mirna_seed_extraction,agree,AAGGUGC,AAGGUGC,"For the mature miRNA rno-miR-18a-5p, 5'-UAAGGUGCAUCUAGUGCAGAUAG-3', identify the seed sequence defined as nucleotides 2 through 8."
+translation_coding,agree,Met-Pro-Arg-Gly-Ala-Gly-Pro-Gln-His-Ile-Cys-Asn-Arg-Ile-Gly-Val-Ser-Ala,Met-Pro-Arg-Gly-Ala-Gly-Pro-Gln-His-Ile-Cys-Asn-Arg-Ile-Gly-Val-Ser-Ala,"One more from my problem set.
+
+Starting at the first codon, translate the following coding DNA sequence into its amino-acid sequence. Use three-letter amino-acid abbreviations separated by hyphens, and exclude the stop codon.
+
+5'-ATGCCACGGGGAGCTGGGCCACAACATATTTGCAATAGAATTGGAGTCTCCGCATGA-3'
+
+Step by step would be great."
+purine_count,agree,8,8,Work through 5'-GTCTCTCTCTTGACCAGTTTTAGCCGCC-3' and report how many purine bases it contains.
+reverse_complement,agree,TATTTGGACTAG,TATTTGGACTAG,"Given the DNA strand 5'-CTAGTCCAAATA-3', determine its reverse complement and report the resulting sequence in the 5'-to-3' direction."
+complete_codons,agree,9,9,"DNA: 5'-CAAACACCTGGCGTCTTGGGCAGGCAAG-3'
+Reading from the first base, how many complete codons does the sequence contain?"
+telomere_repeat_count,agree,16,16,"Repeat: CCCTAA
+DNA: 5'-CTTTACTTGTGCCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAAGAGC-3'
+
+How many complete copies of the repeat are in the longest uninterrupted array?
+
+Please walk me through it.
+
+Think it through, then end with a line that starts 'Answer:' followed by the answer alone."
+gc_content,agree,87.5%,87.5%,"Analyse 5'-GCGCGGCCCACGTGCGGTGGGCCGCCAGTGCGCCGCCGAGCCCGGGCG-3' and state its GC content as a percentage, to one decimal place."
+pyrimidine_count,agree,33,33,"Given GTATGAGATCATACCGGCTCTGTCTTTCGATACGTGCTACATAGCTTCCCAAAAACCT, what is the number of pyrimidines?"
+orf_amino_acid_count,agree,7,7 amino acids,"Here's something I want to check.
+
+Consider the following DNA coding sequence: GCTAGGGAGGAATGGATCCAGATACGACCAGCTAGTA. If translation initiates at the first ATG codon, how many amino acids will be incorporated into the peptide chain up to, but excluding, the stop codon?
+
+Step by step would be great."
+aligned_complement,agree,AAAAGGGTGGCATCTGGCCCGTCAGAAGATACATATCATTGAATCGA,AAAAGGGTGGCATCTGGCCCGTCAGAAGATACATATCATTGAATCGA,"Given the DNA strand 5'-TTTTCCCACCGTAGACCGGGCAGTCTTCTATGTATAGTAACTTAGCT-3', write its complementary strand base by base in the 3'-to-5' direction."
+aligned_complement,agree,TGAAAATTGTCTTAGCACAGACATGCCGATT,TGAAAATTGTCTTAGCACAGACATGCCGATT,"For the DNA sequence 5'-ACTTTTAACAGAATCGTGTCTGTACGGCTAA-3', determine the complementary strand written base by base in the 3'-to-5' direction."
+hydrogen_bond_count,agree,49,49,"Read the strand 5'-AATTTTCGATAATAGCACCTC-3', then report the number of hydrogen bonds holding the duplex together."
+pam_count,agree,4,4,"Read the strand CCTCGGTGTGTCGGCTGACTGGTAAGAGGCGAC, then report the number of NGG PAM sites, counting overlaps."
+gc_content,agree,64.3%,64.3%,"Analyse ACGGCCCCACTGTT and state its GC content as a percentage, to one decimal place."
+aligned_complement,agree,GCCGTTGGTACCCTCGTCGTAGATTAATCAAGCCACCCCGGGGGCCGA,GCCGTTGGTACCCTCGTCGTAGATTAATCAAGCCACCCCGGGGGCCGA,"Reason about the problem below, then give your answer on a new line beginning with 'Answer:'.
+
+Consider the following single-stranded DNA sequence provided in the 5'-to-3' direction:
+5'-CGGCAACCATGGGAGCAGCATCTAATTAGTTCGGTGGGGCCCCCGGCT-3'
+
+Determine the complementary DNA strand written in the 3'-to-5' direction."
+cas9_cut_position,agree,Between positions 17 and 18,Between positions 17 and 18,"One more from my problem set.
+
+Consider the following DNA sequence:
+
+5'-GACTAGAAACTTCCTAGCCCTGGTGAT-3'
+
+This sequence contains exactly one NGG protospacer adjacent motif (PAM). Given that the SpCas9 endonuclease cleaves DNA 3 base pairs upstream of the PAM, between which two nucleotide positions does the cut occur using 1-based numbering?
+
+Step by step would be great."
+cpg_obs_exp,agree,No,No,"What I have:
+DNA: 5'-ACATGCCTTCTCTTAAAGTGCACCCTCAGTA-3'
+
+Compute the CpG observed/expected ratio as (CpG count × sequence length) ÷ (C count × G count). Is the ratio greater than 0.6? Answer Yes or No."
+restriction_fragments_linear,agree,10,10,"The problem: The DNA is linear. After complete digestion with this enzyme, how many fragments result?
+
+The specifics:
+Enzyme: HindIII (AAGCTT)
+DNA: 5'-TACGCCAAGCTTAGAAGCTTGGTCAGGTAAGCTTTTCTCAAAGCTTCGAAGCTTGCCAGAAGCTTATCGTAAGCTTGGTCAACTAAGCTTCAAAAGCTTGGTAT-3'
+
+Could you show your working?"
+hydrogen_bond_count,agree,89,89,You are given the oligonucleotide ACCGCGTTTTCCATCATGTGCGGGATAAAGCATATG. Compute the duplex hydrogen-bond total.
+restriction_fragments_circular,agree,8,8,"Here's what I need: The DNA is circular, shown from an arbitrary start, with the last base joined to the first. After complete digestion with this enzyme, how many fragments result?
+
+Enzyme: BamHI (GGATCC)
+DNA: 5'-TCCGAGTAGGGGATCCGTGGATCCGACTATAACGGATCCTCGTGGGGATCCTTGGATCCTTTTTAGGAGGATCCACGCAGGATCCTTCAGCGGATCCAGGTGG-3'"
+wallace_tm,agree,26°C,26°C,"Here's a problem I'm stuck on.
+
+What I want to work out: Calculate the melting temperature using Tm = 2(A+T) + 4(G+C).
+
+Details:
+Oligo: 5'-TTAATTATTTATA-3'"
+cpg_obs_exp,agree,Yes,Yes,"Consider the following DNA sequence:
+
+TATGCCCTTCTTTACCCACTTAGTAATGACAAACTGCCTATTCGATATTTAGTCGCGTG
+
+Calculate the CpG observed-to-expected ratio using the formula (CpG count × sequence length) ÷ (C count × G count). Based on this calculation, is the observed-to-expected ratio greater than 0.8? Please respond with Yes or No."
+pyrimidine_count,agree,7,7,"The problem: determine how many pyrimidine bases it contains.
+
+Sequence: TAGTGAAGTCTGTGTGAA (5' to 3')"
+translation_coding,agree,Met-Arg-Ile-Tyr-Ser-Pro-Gly-Ala-Val-Leu-Trp-Ser-Ile-Cys-Ala-Ile-Leu-Gly,Met-Arg-Ile-Tyr-Ser-Pro-Gly-Ala-Val-Leu-Trp-Ser-Ile-Cys-Ala-Ile-Leu-Gly,"Please provide the peptide sequence translated from the following coding DNA strand, beginning at the first codon and proceeding through the open reading frame. Report the output as three-letter amino acid abbreviations separated by hyphens, omitting the stop codon:
+
+5'-ATGCGGATCTACAGTCCGGGAGCCGTACTGTGGAGTATTTGCGCAATCTTGGGTTAG-3'"
+gc_content,agree,18.6%,18.6%,"A colleague hands you the sequence 5'-ATATTATGTTTTTTTCGTATAAGAACTTCTAATTAAATTTCGT-3' and asks for its GC content as a percentage, to one decimal place. What is it?"
+telomere_repeat_count,agree,8,8,"Here's something I want to check.
+
+Given the repeat unit TTAGGG and the DNA sequence 5'-GACTATGCCTCGACTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTGCTTTGGACCAGCACC-3', how many complete repeat copies occur in the longest uninterrupted tandem array?
+
+Step by step would be great."
+polya_signal_position,agree,45,45,"Consider the following 3' UTR sequence:
+
+AGAGACGGGAGCCTACCTTTTACGGAGGCGGAACAACCGTACTTAATAAACATAACAAGA
+
+Using standard 1-based indexing from the 5' end, at what position does the canonical AATAAA polyadenylation signal sequence begin?"
+telomere_repeat_count,agree,18,18,"How many complete copies of the repeat are in the longest uninterrupted array?
+Repeat: CCCTAA
+DNA: 5'-AAGTCAGCCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAAGGCATCCTGCCGTTTC-3'
+
+Could you show your working?"
+mirna_seed_extraction,agree,GGAGAAG,GGAGAAG,"A question came up in the lab today.
+
+Given the mature microRNA ath-miR164a-5p sequence UGGAGAAGCAGGGCACGUGCAAAC, extract the seed region, which spans nucleotides 2 through 8.
+
+Appreciate the help."
+gc_content,agree,40.0%,40.0%,"Here is a DNA sequence: TAAGACCTGT. Please calculate the GC percentage, rounded to one decimal."
+cpg_count,agree,3,3,Consider the DNA sequence GGTCGGATCACGTAATCGATCAA. Report how many CpG dinucleotides it contains.
+hydrogen_bond_count,agree,17,17,Consider the DNA sequence 5'-AGCAGTT-3'. Report the number of hydrogen bonds holding the duplex together.
+reverse_complement,agree,ATACTTTCAACATTATGAGCAACAAGAGAGTTGCCAATCTGCCGGACCCTT,ATACTTTCAACATTATGAGCAACAAGAGAGTTGCCAATCTGCCGGACCCTT,"Given the single-stranded DNA sequence 5'-AAGGGTCCGGCAGATTGGCAACTCTCTTGTTGCTCATAATGTTGAAAGTAT-3', determine its reverse complement oriented in the 5'-to-3' direction."
+pam_count,agree,8,8,"Read the strand TAGGTTGGAAAGCTGGTCCGCGGTGAGGCACCGGAAGGTCAGGTA, then report the count of SpCas9 NGG PAM sites on this strand."
+aligned_complement,agree,TCCTAGCAAGTATCGCTAGTGCGCCACGTTAAGGCAGAGCTA,TCCTAGCAAGTATCGCTAGTGCGCCACGTTAAGGCAGAGCTA,"One more from my problem set.
+
+We are given the following DNA sequence reading from the 5' end to the 3' end:
+5'-AGGATCGTTCATAGCGATCACGCGGTGCAATTCCGTCTCGAT-3'
+
+Determine the sequence of the complementary DNA strand base by base, leaving it oriented in the 3'-to-5' direction.
+
+Thanks in advance."
+polya_signal_position,agree,9,9,"At which 1-based position does the AATAAA polyadenylation signal start?
+3' UTR: 5'-GTGCGTTGAATAAAGGGATT-3'
+
+Please walk me through it.
+
+Think it through, then give your answer on a new line beginning with 'Answer:'."
+wallace_tm,agree,100°C,100°C,"For the oligonucleotide CCCCGCGGCGGGGGCGGGCCCGGGC, calculate the melting temperature using Tm = 2(A+T) + 4(G+C)."
+polya_signal_position,agree,28,28,"Got a sequence question for you.
+
+Find the 1-based starting position of the canonical polyadenylation signal AATAAA in this 3' UTR sequence:
+5'-TTTACGTAGTTTCTCCCCATTTTTATCAATAAATGCCATGGGACACCGTGCGAGCCACCTGGACCGGCTGAATA-3'"
+hydrogen_bond_count,agree,51,51,"Work through the question that follows, then end with a line that starts 'Answer:' followed by the answer alone.
+
+Take CATGGAGCCGGTAGCCGGA (5' to 3') and work out the total hydrogen bonds in the duplex."
+hydrogen_bond_count,agree,82,82,Analyse 5'-CCGCTTTTTGATACGTTCAATATAACCGGCGCC-3' and state the number of hydrogen bonds holding the duplex together.
+translation_coding,agree,Met-Val-Ser-Lys-Phe-Arg-Trp-Gly,Met-Val-Ser-Lys-Phe-Arg-Trp-Gly,"Below is a coding DNA sequence:
+
+ATGGTATCGAAATTTCGGTGGGGCTAA
+
+Please translate this open reading frame beginning at the first codon. Provide the resulting peptide sequence using three-letter amino acid abbreviations joined by hyphens, omitting the stop codon."
+cas9_cut_position,agree,Between positions 18 and 19,Between positions 18 and 19,"One more from my problem set.
+
+Consider the DNA sequence TCGAGATCTCTGCATTCTCAGCGGCCCTTACTTAA, which contains a single NGG PAM sequence. If the SpCas9 enzyme cuts exactly 3 base pairs upstream of this PAM, between which two positions does the cut occur? Use 1-based indexing.
+
+Appreciate the help."
+wallace_tm,agree,52°C,52°C,"Read the question below, think it step by step, and then put your final answer on its own last line as 'Answer: ...'.
+
+What I want to work out: Calculate the melting temperature using Tm = 2(A+T) + 4(G+C).
+
+Oligo: 5'-CCGCCGTCGGTGACA-3'
+
+I'd like to see the reasoning."
+restriction_fragments_linear,agree,3,3,"The DNA is linear. After complete digestion with this enzyme, how many fragments result?
+Enzyme: NotI (GCGGCCGC)
+DNA: 5'-TGAAGTACTGCGGCCGCCTGCTTCATGCGGCCGCCGTT-3'"
+gc_content,agree,86.0%,86.0%,"Sequence under study: 5'-GAGCCGCGCCTCGGCCGGCCATCGGCGGCGGGGTGCTCGGCGG-3'
+Determine its GC content as a percentage, to one decimal place."
+wallace_tm,agree,54°C,54°C,"Mind taking a look at this?
+
+For the oligonucleotide 5'-GAAAAAAACTTACCCTAGTC-3', determine the melting temperature using the formula Tm = 2(A+T) + 4(G+C)."
+restriction_fragments_linear,agree,8,8,"A linear DNA molecule has the following sequence: 5'-CCTCACCTGCGGATCCCAAAGGATCCACGGATCCGCGTGGGATCCCCAGGGGATCCACGGATCCTAGCTAGACAGGATCCACCACATGTA-3'. If this DNA is completely digested by the restriction enzyme BamHI, which targets the recognition sequence GGATCC, how many fragments are generated?"
+gc_content,agree,100.0%,100.0%,"Analyse GCCGGCCCCGGCCCCCGGCGGGGCCC and state the GC percentage, rounded to one decimal."
+gc_content,agree,53.7%,53.7%,"DNA: 5'-CATTATAGCCATGCCGGCTAAAACGGACTAGCGCCGCATAC-3'
+What is its GC content as a percentage, to one decimal place?"
+pam_count,agree,9,9,"Read the strand AACGTCGGTTGCGGTGCACGGTCAATGGAATTGGACGGATATTCGGTTGGCCGGT (5' to 3'), then report how many NGG PAM sites it contains on this strand, counting overlaps."
+translation_coding,agree,Met-Gly-Thr-Leu-Leu-Gly-Ala-Arg-Ile-Ala-Leu-Gln-Gly-Ile-Gly-Leu-Ala-Gly-Ser,Met-Gly-Thr-Leu-Leu-Gly-Ala-Arg-Ile-Ala-Leu-Gln-Gly-Ile-Gly-Leu-Ala-Gly-Ser,"Starting at the first codon, translate the following coding DNA sequence into three-letter amino-acid codes separated by hyphens. Do not include the stop codon.
+
+Coding DNA: 5'-ATGGGAACTCTTCTCGGAGCCAGAATTGCACTCCAAGGCATAGGGCTCGCTGGCAGTTAG-3'"
+cpg_obs_exp,agree,No,No,"Quick question for you.
+
+The problem: Compute the CpG observed/expected ratio as (CpG count × sequence length) ÷ (C count × G count). Is the ratio greater than 0.9? Answer Yes or No.
+
+DNA: 5'-GTTGGTACTCTATTGCTGTTGAGCTGTGACAATGGCAAGATGCGGAAGTGA-3'"
+cas9_cut_position,agree,Between positions 34 and 35,Between positions 34 and 35,"Got a sequence question for you.
+
+Consider the following DNA sequence:
+5'-CTAGCATCCATAATATTTCCTGTTGCGTTACGATTCCCGGC-3'
+
+This sequence contains a single NGG protospacer adjacent motif (PAM) recognized by SpCas9. Given that SpCas9 introduces a blunt cleavage 3 base pairs upstream of the PAM, between which two nucleotide positions does the cut occur? Use 1-based numbering counting from the 5' end."
+cas9_cut_position,agree,Between positions 23 and 24,Between positions 23 and 24,"Here's something I want to check.
+
+Consider the target DNA sequence:
+5'-CACAAGTAAGACAGAAGCCTAACGTAAGGAC-3'
+
+SpCas9 recognizes an NGG PAM and cleaves the DNA backbone 3 bp upstream of this motif. Identifying the single NGG PAM present, between which two positions does SpCas9 introduce the cut? Provide your answer using 1-based coordinates.
+
+Appreciate the help."
+telomere_repeat_count,agree,20,20,"Given the repeat unit CCCTAA and the DNA sequence 5'-AGCCCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCTCCTCGTCTAATTACC-3', how many complete repeat copies occur in the longest uninterrupted tandem array? Step by step would be great."
+restriction_site_count,agree,9,9,"Got a sequence question for you.
+
+BamHI recognizes the sequence GGATCC. In the DNA sequence 5'-GTCAGGATCCAGGTCTCTTGGATCCCAAATGGATCCGTTAAATGGATCCTACTGAGGATCCTACTGGGATCCCGGGATCCTAAGATCGGATCCGAGGATCCTGCCCCGA-3', how many exact BamHI recognition sites are present? Count recognition sites rather than the resulting fragments.
+
+Explain your reasoning as you go."
+orf_amino_acid_count,agree,7 amino acids,7 amino acids,"Can you help me with this one?
+
+DNA: 5'-TAACCACCTATGGTATTTTCCTTGATACCGTAGCGGTATAATGC-3'
+Translation begins at the first ATG. How many amino acids are encoded up to, but not including, the stop codon?"
+restriction_fragments_linear,agree,7,7,"Got a sequence question for you.
+
+Suppose a linear DNA molecule with the sequence 5'-AGTCTGCAGGCTAGTCTGCAGGCACTACTGCAGTATTGTTGTACTGCAGGCCTGCAGTTCACTGCAGAA-3' is fully digested by the restriction endonuclease PstI (recognition site: CTGCAG). How many fragments will be generated after digestion is complete?
+
+Appreciate the help."
+transcription_template,agree,UGUAUGAACUAGGUCCGA,UGUAUGAACUAGGUCCGA,Provide the 5'-to-3' primary mRNA transcript derived from the following template DNA strand: 3'-ACATACTTGATCCAGGCT-5'.
+translation_coding,agree,Met-Gln-Cys-Lys-Cys-Asn-Ala-Ile-Arg-Arg-Asp-Tyr,Met-Gln-Cys-Lys-Cys-Asn-Ala-Ile-Arg-Arg-Asp-Tyr,"Given the coding DNA strand 5'-ATGCAATGTAAATGCAACGCTATTCGCCGGGATTACTGA-3', translate the open reading frame beginning at the first codon. Write the amino acids using three-letter codes separated by hyphens, and exclude the stop codon."
+cas9_cut_position,agree,Between positions 18 and 19,Between positions 18 and 19,"Consider the following DNA sequence:
+5'-GATGTCCAATATCAAGACCAGTGGATGCATTACGTTAATTC-3'
+
+This sequence contains a single NGG protospacer adjacent motif (PAM). Assuming Streptococcus pyogenes Cas9 (SpCas9) cleaves the target DNA precisely 3 base pairs upstream of the PAM, determine the location of the cut using 1-based coordinates. Between which two positions does the cut fall?
+
+Thanks in advance."
+reverse_complement,agree,ACTACAAATATGAAGCCTGTTACTCCGTGGGGCTCGTCTG,ACTACAAATATGAAGCCTGTTACTCCGTGGGGCTCGTCTG,"If you start with the 5' to 3' DNA strand CAGACGAGCCCCACGGAGTAACAGGCTTCATATTTGTAGT, what is its reverse complement written in the 5' to 3' direction?"
+wallace_tm,agree,46°C,46°C,"Solve the following problem, then report the result on a final line of the form 'Answer: ...', with nothing after it.
+
+Quick question for you.
+
+Oligo: 5'-CGGATTATGAGAAAGG-3'
+So: Calculate the melting temperature using Tm = 2(A+T) + 4(G+C)."
+orf_amino_acid_count,agree,23 amino acids,23 amino acids,"I need to translation begins at the first ATG. How many amino acids are encoded up to, but not including, the stop codon?
+
+Here are the details:
+DNA: 5'-CCTGGCAATCATGTCGATCTGCGGTGTAGATAGGCCACTCAACGCGCAGATATACCGCCTGAAGCGTGTTACATTTACTTAGTCTCACA-3'"
+telomere_repeat_count,agree,4,4,"Here's something I want to check.
+
+In the DNA sequence 5'-TGATCACGGTTGGCTTAGGGTTAGGGTTAGGGTTAGGGCAC-3', what is the count of complete, uninterrupted tandem copies of the repeat motif TTAGGG?"
+cpg_count,agree,6,6,Analyse GTCTGCTTAATTTCACAAGCGTCCCGACAAGCACTGAGGGAAGGGCTGGATTGCGGTAGATTTAAGGATCGCGTTTCTAGGCACTCAAACGTCTACTTATCAGCA and state the CpG dinucleotide count.
+polya_signal_position,agree,33,33,"In the 3′ UTR sequence CATCAATGCAAGGATCGGGCCCTAGCAGGGGTAATAAATTTTATGTAGTCTCATCGCGGTTTCTAGCAGATCTAAGAGTGGGCGGACTCCAA, at which 1-based nucleotide position does the AATAAA polyadenylation signal begin?"
+complete_codons,agree,22,22,"The DNA sequence written from 5′ to 3′ is CAGTTGCCATGCAAGAAGATGTCGACTATTCAGCATAAATTACTAGTCAGACCCCACCCCCTGCCA. Starting at the first base, how many complete codons are present?"
+complete_codons,agree,31,31,"Working through a problem set, this one came up.
+
+DNA: 5'-TCAGGCTGCACACGCCATGCCACGAACTCAAAATCGGCTATCTCATATGCTGCTCGGATTCATGAGAAGGGTGACCAGACCCCGATTATTGTT-3'
+
+My question: Reading from the first base, how many complete codons does the sequence contain?"
+restriction_site_count,agree,10,10,"How many exact recognition sites for this enzyme does the DNA contain? Count sites, not fragments.
+Enzyme: NotI (GCGGCCGC)
+DNA: 5'-ACAAGCGCGGCCGCACTCTGCGGCCGCAAAGCGCGGCCGCCCTTGGCGGCCGCAAGTTCGCGGCCGCTAAGACAAGCGGCCGCGTCCAGGCGGCCGCAGCTGTTGCGGCCGCTTCAAGGAGCGGCCGCAAATTTGCGGCCGCTGC-3'
+
+Reason it out, then give your answer on a new line beginning with 'Answer:'."
+purine_count,agree,59,59,"Given 5'-CACGAGGCTAGGATGCCATTCAACGTCAGTCGAGGGATAAAGGAAAGGACCCGTATTTAACGTACTTGGGAGGGGAACTAGGGAATCAAGG-3', how many of its bases are purines?"
+purine_count,agree,11,11,"DNA: CTACCTCAAACCGTAGTCCAGCTGG
+My question: What is the number of purines?"
+shine_dalgarno_spacing,agree,4,4,"Given the DNA sequence 5'-AGGAGGAGTCATGCGTAAGTAA-3', determine the number of intervening nucleotides located between the AGGAGG motif and the downstream ATG codon."
+aligned_complement,agree,TTCTATCACTTGCCCGTCAAGTTAAT,TTCTATCACTTGCCCGTCAAGTTAAT,"Need to settle this one.
+
+Given the DNA strand 5'-AAGATAGTGAACGGGCAGTTCAATTA-3', write its complementary strand in the 3'-to-5' direction."
+restriction_fragments_circular,agree,4,4,"A question came up in the lab today.
+
+Suppose we have a circular DNA molecule whose sequence is given below, with the final nucleotide covalently bonded back to the first:
+
+TACATCGAGTCTCGAGGCCTCCTCGAGTCAGAGGCTCGAGTACCACTTGTCTCGAGAAGGGGGATA
+
+If this circular molecule is completely digested using the restriction endonuclease XhoI, which cleaves at the specific sequence CTCGAG, how many fragments of DNA will be generated?
+
+Appreciate the help."
+complete_codons,agree,13,13,"DNA: 5'-GTTCGACAAAGACTTGGAAAGGAGGAACCGGGGCTGGAA-3'
+
+What I'm asking: Reading from the first base, how many complete codons does the sequence contain?"
+gc_content,agree,47.6%,47.6%,"Read the strand GTGTGCAATTTACGTCACGAG, then report the GC percentage, rounded to one decimal."
+transcription_template,agree,UAGAUUAUAAUUGAGGCUAACCUUGAGCUAGUUCUAUGCGGGAACGGAUUGAA,UAGAUUAUAAUUGAGGCUAACCUUGAGCUAGUUCUAUGCGGGAACGGAUUGAA,"Consider the following template DNA strand:
+3'-ATCTAATATTAACTCCGATTGGAACTCGATCAAGATACGCCCTTGCCTAACTT-5'
+
+Determine the sequence of the mRNA transcript produced from this template, written in the standard 5'-to-3' direction."
+cas9_cut_position,agree,Between positions 44 and 45,Between positions 44 and 45,"Got a sequence question for you.
+
+Consider the following 5' to 3' DNA sequence:
+
+GCGTGTCGTAATCTAAAGTAACTATACTCCCTATGTTTGAAGTGCGTAGGCCCGCCTAGAAT
+
+The target sequence contains a single canonical SpCas9 protospacer adjacent motif (PAM) of the sequence NGG. Streptococcus pyogenes Cas9 introduces a double-strand break precisely 3 base pairs upstream of the PAM sequence. Utilizing 1-based indexing, between which two positions is the cut made?
+
+Appreciate the help."
+translation_coding,agree,Met-Ser-Leu-Cys-Arg-Ser-Ile-Ser-Leu-Arg-Gly,Met-Ser-Leu-Cys-Arg-Ser-Ile-Ser-Leu-Arg-Gly,"Mind taking a look at this?
+
+Given the coding DNA sequence 5'-ATGTCTCTTTGCAGGAGCATCTCCCTACGGGGGTGA-3', determine the translated polypeptide sequence of the open reading frame starting at the first codon. Express the peptide using three-letter amino acid abbreviations separated by hyphens, excluding the terminal stop codon.
+
+Step by step would be great."
+cpg_count,agree,8,8,"For the sequence 5'-TCCACCGAGCGATGCCCGGTCGATACGACGTCTCGACGC-3', determine the number of CpG sites."
+cas9_cut_position,agree,Between positions 24 and 25,Between positions 24 and 25,"Identify the cleavage site for SpCas9 in the DNA sequence below. SpCas9 introduces a cut 3 bp upstream of its NGG protospacer adjacent motif (PAM), and there is exactly one such motif present. Using 1-based numbering, between which two positions does the cut occur?
+
+5'-GTTCCCGATAACAACGCCTAATTCACTTGGCCTACCCAAGCTCGCTGTCAGCTGACTGA-3'
+
+Thanks in advance."
+restriction_fragments_circular,agree,10,10,"What I want to work out: The DNA is circular, shown from an arbitrary start, with the last base joined to the first. After complete digestion with this enzyme, how many fragments result?
+
+Enzyme: BamHI (GGATCC)
+DNA: 5'-TTGCGGATCCTATCCTAGGATCCCAAAGGATCCACTTAAGGATCCGGATTCAATTGGATCCCCTTCAAAGTGGATCCCCGGATCCCCGGGATCCAGTGGATCCAGCTGACCTAGGATCCCTTGGATCG-3'"
+cpg_count,agree,10,10,"Read the strand 5'-ACGCCGATTCGTTCGGGTTGCGTGACGTCGAGAGCGGCGAGTCGA-3', then report how many CpG sites it contains."
+complete_codons,agree,31,31,"Here's what I need: Reading from the first base, how many complete codons does the sequence contain?
+
+Here are the details:
+DNA: 5'-ATGGATGTGCTGGTTATACACGGGTTTTTGACGGGACCTCAGATACGGCTAAAGATAGCCTACTTGCCGAACGTTCAGAGTTACTTAAGCAGGC-3'"
+pam_count,agree,5,5,"The question is this: determine how many NGG PAM sites it contains.
+
+Sequence: GTACAATCGAATTCTCGACGGAGCGTCTAGTTGTGGAGGTAGACTTTCTCAATACCAGTCTGATGACCTGTTGGTGTGCTTGCACGATAGCCCTTTAATAACAATCTCAATTACTCGG, counting overlaps on this strand."
+polya_signal_position,agree,20,20,"Got a sequence question for you.
+
+In the following 3' UTR sequence, at which 1-based position does the AATAAA polyadenylation signal begin?
+
+AGATAAGTGCCAATCAGACAATAAAGGCCACTCATTTTTAGATAATTTGGGATACATGGCCATATTCGCAGTTATATCA
+
+Step by step would be great."
+cas9_cut_position,agree,Between positions 20 and 21,Between positions 20 and 21,"Mind taking a look at this?
+
+Take a look at the following DNA sequence read in the 5' to 3' direction: CCTCACCAATATTGATGAAACTGAGGCCCCCGCT. It contains a single NGG PAM site recognized by the SpCas9 endonuclease. Since SpCas9 cuts the DNA exactly 3 base pairs upstream of this motif, between which two positions does the cleavage take place? Please give your answer using 1-based indexing.
+
+Think it through, then give your answer on a new line beginning with 'Answer:'."
+cpg_obs_exp,agree,No,No,"Consider the following DNA sequence:
+CACTCACGGGGTTGCTGCGCTGTGCCCCAAAATCGAGGTTCAGTGGCAAATTGGGGTTAACACATCACATGGTCCGG
+
+Calculate the CpG observed/expected ratio using the formula (CpG count × sequence length) ÷ (C count × G count). Does this ratio exceed 0.7? Please answer Yes or No."
+complete_codons,agree,13,13,"I'd like a hand with the following.
+
+The question is this: Reading from the first base, how many complete codons does the sequence contain?
+
+Details:
+DNA: 5'-AGCGGAGAGTCGATACACATTCGGGTGAACGATCGACAG-3'
+
+Talk me through the steps."
+gc_content,agree,81.2%,81.2%,"Consider the DNA sequence CGCCCGAACCGTGCCC. Report its GC content as a percentage, to one decimal place."

@@ -1,0 +1,320 @@
+{
+  "dna": {
+    "Mammal": {
+      "config": "mid_dna_eukaryote_vertebrate_mammalian",
+      "sequences": 300,
+      "distinct_source_ids": 41,
+      "median_len_bp": 7455.0,
+      "median_gc_pct": 45.5,
+      "median_cpg_oe": 0.307,
+      "pct_len_multiple_of_6": 100.0,
+      "pct_with_tags": 47.7,
+      "mean_lowercase_frac": 0.0,
+      "top_tags": [
+        [
+          "mammalian_species",
+          100
+        ],
+        [
+          "protein_coding_region",
+          69
+        ],
+        [
+          "non_coding_rna",
+          20
+        ],
+        [
+          "pseudo_gene",
+          6
+        ],
+        [
+          "miscellaneous_rna",
+          1
+        ],
+        [
+          "transfer_rna",
+          1
+        ]
+      ]
+    },
+    "Invertebrate": {
+      "config": "mid_dna_eukaryote_invertebrate",
+      "sequences": 300,
+      "distinct_source_ids": 25,
+      "median_len_bp": 4614.0,
+      "median_gc_pct": 37.4,
+      "median_cpg_oe": 0.906,
+      "pct_len_multiple_of_6": 100.0,
+      "pct_with_tags": 50.3,
+      "mean_lowercase_frac": 0.0,
+      "top_tags": [
+        [
+          "invertebrate_species",
+          103
+        ],
+        [
+          "protein_coding_region",
+          84
+        ],
+        [
+          "non_coding_rna",
+          11
+        ],
+        [
+          "transfer_rna",
+          3
+        ],
+        [
+          "ribosomal_rna",
+          2
+        ],
+        [
+          "pseudo_gene",
+          2
+        ]
+      ]
+    },
+    "Plant": {
+      "config": "mid_dna_eukaryote_plant",
+      "sequences": 300,
+      "distinct_source_ids": 31,
+      "median_len_bp": 2484.0,
+      "median_gc_pct": 38.3,
+      "median_cpg_oe": 0.555,
+      "pct_len_multiple_of_6": 100.0,
+      "pct_with_tags": 47.0,
+      "mean_lowercase_frac": 0.0,
+      "top_tags": [
+        [
+          "plant_species",
+          92
+        ],
+        [
+          "protein_coding_region",
+          78
+        ],
+        [
+          "non_coding_rna",
+          9
+        ],
+        [
+          "pseudo_gene",
+          9
+        ],
+        [
+          "transfer_rna",
+          5
+        ],
+        [
+          "miscellaneous_rna",
+          1
+        ]
+      ]
+    },
+    "Prokaryote": {
+      "config": "mid_dna_prokaryote",
+      "sequences": 300,
+      "distinct_source_ids": 300,
+      "median_len_bp": 7887.0,
+      "median_gc_pct": 50.4,
+      "median_cpg_oe": 1.0,
+      "pct_len_multiple_of_6": 100.0,
+      "pct_with_tags": 0.0,
+      "mean_lowercase_frac": 0.0,
+      "top_tags": []
+    },
+    "mRNA": {
+      "config": "mid_dna_mrna",
+      "sequences": 300,
+      "distinct_source_ids": 300,
+      "median_len_bp": 1698.0,
+      "median_gc_pct": 48.0,
+      "median_cpg_oe": 0.715,
+      "pct_len_multiple_of_6": 100.0,
+      "pct_with_tags": 0.0,
+      "mean_lowercase_frac": 0.0,
+      "top_tags": []
+    }
+  },
+  "tokenization_example": {
+    "raw_prefix": "<non_coding_rna><dna>ATTTTTTTTTAGACAGAATCTTGTCCTGTTGCACAGGGTGGGGTACAATGGCGCCATCT",
+    "first_6mer_tokens": [
+      "ATTTTT",
+      "TTTTAG",
+      "ACAGAA",
+      "TCTTGT",
+      "CCTGTT",
+      "GCACAG",
+      "GGTGGG",
+      "GTACAA",
+      "TGGCGC",
+      "CATCTT"
+    ]
+  },
+  "sft": {
+    "rows": 2000,
+    "domains": [
+      [
+        "sequence_continuation",
+        566
+      ],
+      [
+        "variant_effect_prediction",
+        535
+      ],
+      [
+        "dna_computation",
+        452
+      ],
+      [
+        "sequence_classification",
+        177
+      ],
+      [
+        "chat",
+        90
+      ],
+      [
+        "sequence_analysis",
+        82
+      ],
+      [
+        "instruction_following",
+        50
+      ],
+      [
+        "biology_qa",
+        48
+      ]
+    ],
+    "median_messages": {
+      "dna_computation": 2.0,
+      "sequence_continuation": 2.0,
+      "variant_effect_prediction": 2,
+      "instruction_following": 3.0,
+      "chat": 6.0,
+      "sequence_classification": 2,
+      "sequence_analysis": 4.0,
+      "biology_qa": 2.0
+    }
+  },
+  "rl": {
+    "rows": 5000,
+    "task_groups": [
+      [
+        "basic_dna",
+        1581
+      ],
+      [
+        "bioreason",
+        1009
+      ],
+      [
+        "genomeqa",
+        701
+      ],
+      [
+        "bio_mcq",
+        522
+      ],
+      [
+        "vepqa",
+        376
+      ],
+      [
+        "dna_skills",
+        322
+      ],
+      [
+        "seqrecqa_position",
+        275
+      ],
+      [
+        "if",
+        214
+      ]
+    ],
+    "basic_dna_check": {
+      "totals": {
+        "no_checker": 861,
+        "agree": 717,
+        "unparsed": 3
+      },
+      "per_task_type": {
+        "aligned_complement": {
+          "agree": 26
+        },
+        "cas9_cut_position": {
+          "agree": 50
+        },
+        "complete_codons": {
+          "agree": 28
+        },
+        "cpg_count": {
+          "agree": 28
+        },
+        "cpg_obs_exp": {
+          "agree": 28
+        },
+        "gc_content": {
+          "agree": 37
+        },
+        "hydrogen_bond_count": {
+          "agree": 26
+        },
+        "long_oligo_tm": {
+          "agree": 11
+        },
+        "mirna_seed_extraction": {
+          "agree": 17
+        },
+        "orf_amino_acid_count": {
+          "agree": 50
+        },
+        "pam_count": {
+          "agree": 35
+        },
+        "polya_signal_position": {
+          "agree": 44
+        },
+        "purine_count": {
+          "agree": 24
+        },
+        "pyrimidine_count": {
+          "agree": 30
+        },
+        "restriction_fragments_circular": {
+          "agree": 39
+        },
+        "restriction_fragments_linear": {
+          "agree": 34
+        },
+        "restriction_site_count": {
+          "agree": 25
+        },
+        "reverse_complement": {
+          "agree": 27
+        },
+        "shine_dalgarno_spacing": {
+          "agree": 37
+        },
+        "telomere_repeat_count": {
+          "agree": 33,
+          "unparsed": 3
+        },
+        "transcription_coding": {
+          "agree": 21
+        },
+        "transcription_template": {
+          "agree": 6
+        },
+        "translation_coding": {
+          "agree": 29
+        },
+        "wallace_tm": {
+          "agree": 32
+        }
+      }
+    }
+  }
+}

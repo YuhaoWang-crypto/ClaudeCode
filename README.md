@@ -1,5 +1,7 @@
 # grn-pipeline
 
+> Also in this repo: [`finedna_demo/`](finedna_demo/) — a streaming demo of the HuggingFaceBio/FineDNA dataset (DNA composition, SFT/RL mix, independent re-check of RL gold answers).
+
 A small, fully-runnable pipeline that applies four "irreducibility / symmetry"
 mathematical tools to gene-regulatory and metabolic networks, on concrete
 literature-grounded systems where every number is *computed*, not asserted.
