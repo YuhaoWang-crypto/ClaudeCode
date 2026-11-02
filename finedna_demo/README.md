@@ -75,6 +75,42 @@ Cas9 切点、Tm 值……共 60 多种）。[`verifiers.py`](verifiers.py) 用�
 逐条结果在 [`results/rl_check_details.csv`](results/rl_check_details.csv)。这些求解器也可以直接当作 RL
 的奖励函数使用。
 
+## 4. 在 Hugging Face 上考一考线上的 Carbon-X
+
+Carbon-X（14.8B 参数）没有官方托管的推理接口，但社区有 Space 在 ZeroGPU（A10G）上跑它。
+[`eval_carbonx_space.py`](eval_carbonx_space.py) 通过 `gradio_client` 远程调用
+[`mbcredits/carbon-x-demo`](https://huggingface.co/spaces/mbcredits/carbon-x-demo)
+（最终版 `HuggingFaceBio/Carbon-X`，关闭 thinking），本地不需要 GPU：
+
+```bash
+pip install gradio_client
+```
+
+```bash
+export HF_TOKEN=hf_...   # 用你自己账号的 ZeroGPU 配额
+python finedna_demo/eval_carbonx_space.py --per-type 3
+```
+
+每种题型出两类题：
+
+- **seen**：`rl_mix` 原题。Carbon-X 的 RL 阶段就是用这些题训练的，所以它见过。
+- **fresh**：题面不变，把 DNA 换成同长度的随机序列，标准答案由 `verifiers.py` 重新计算。模型没见过，考的是算，不是记。
+
+回答缓存在 `results/carbonx_space_eval.jsonl`，配额用完后第二天重跑会接着问；被截断的回答会重新问。
+
+**目前结果（免费账号配额只跑了 7 题）：**
+
+| 题型 | seen | fresh |
+|---|---|---|
+| 反向互补 | 0/1（步骤对，结尾多写了 `TG`） | 1/1 |
+| 互补链 | 1/1 | 1/1 |
+| 转录（DNA→mRNA） | 1/1 | — |
+| GC 含量 | 回答被截断 | 回答被截断 |
+
+GC 含量题模型会逐个碱基数数，128 bp 的序列在 512 token 内写不完。脚本现在默认用 Space 允许的上限 1024，
+被截断的回答记为"截断"，不计对错。7 题太少，还不能下结论；完整跑 72 题大约需要 15 分钟 GPU 时间，
+超出免费账号每天的 ZeroGPU 额度（PRO 账号每天 40 分钟）。
+
 ## 局限
 
 - 这是抽样，不是全量统计。真核配置的 300 条只来自 25–41 个不同的基因组 contig（流式读取集中在一个分片），
