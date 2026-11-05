@@ -1,0 +1,68 @@
+
+======================================================================
+1. Synthetic data + train a CNN
+======================================================================
+train (30000, 4, 200), test (2000, 4, 200), y range [-2.25, 10.22]
+
+======================================================================
+2. marginalize: insert each motif into neutral backgrounds
+======================================================================
+GATA               GATAAG   true +1.00   recovered +1.007 ± 0.126
+EBOX               CACGTG   true +1.50   recovered +1.509 ± 0.157
+AP1                TGACTCA  true -1.00   recovered -0.989 ± 0.067
+control(shuffled)  AGTCAG   true +0.00   recovered +0.006 ± 0.068
+
+======================================================================
+3. space: GATA -> EBOX spacing sweep (cooperativity)
+======================================================================
+recovered optimal gap = 10 bp (truth 10); peak interaction 1.71 (truth 2.0)
+
+======================================================================
+4. deep_lift_shap attributions + recursive_seqlets + TOMTOM annotation
+======================================================================
+called 1087 positive and 299 negative seqlets on 500 sequences
+/usr/local/lib/python3.13/site-packages/tangermeme/annotate.py:103: UserWarning: tomtom was given 3 target motifs. Its p-values use the target columns as the background, so with fewer than 25 targets they depend strongly on which targets are included. Use a larger target set, such as a complete motif database, for reliable p-values.
+  p_values, _, _, _, _, idxs = tomtom(X_seqlets, motif_pwms,
+            count   mean
+motif_name              
+AP1           299 -0.991
+EBOX          525  1.632
+GATA          562  1.152
+recall of true motif sites: 1394/1416 = 98.4%
+
+======================================================================
+5. saturation_mutagenesis (ISM) on the same sequence
+======================================================================
+Pearson(DeepLIFT, ISM) on seq #19: 0.928
+
+======================================================================
+6. substitution_effect: point mutations inside the GATA site
+======================================================================
+  156:T>C    Δ = -1.038
+  159:G>C    Δ = -1.034
+  156:T>A    Δ = -1.031
+  158:A>C    Δ = -1.030
+  156:T>G    Δ = -1.029
+mean Δ over all 18 SNVs in GATA: -1.025
+
+======================================================================
+7. greedy_substitution: design a high-activity sequence
+======================================================================
+start pred -0.04 -> designed pred 11.99  (true grammar score 10.00)
+motifs in designed sequence: [(130, 'EBOX'), (137, 'GATA'), (153, 'EBOX'), (158, 'GATA'), (174, 'EBOX'), (188, 'EBOX')]
+GATA->EBOX gaps in design: [10, 31, 45, 10, 24]
+
+======================================================================
+Summary
+======================================================================
+test_pearson_r           0.995
+marginalize              {'GATA': 1.007, 'EBOX': 1.509, 'AP1': -0.989, 'control(shuffled)': 0.006}
+space_best_gap           10
+space_peak_interaction   1.714
+seqlet_recall            0.984
+seqlet_labelled_frac     1.0
+deeplift_vs_ism_r        0.928
+design_pred_start_end    (-0.04, 11.99)
+design_true_score        10.0
+design_gata_ebox_gaps    [10, 31, 45, 10, 24]
+runtime_s                31.6

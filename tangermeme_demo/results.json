@@ -1,0 +1,27 @@
+{
+  "test_pearson_r":0.995,
+  "marginalize":{
+    "GATA":1.007,
+    "EBOX":1.509,
+    "AP1":-0.989,
+    "control(shuffled)":0.006
+  },
+  "space_best_gap":10,
+  "space_peak_interaction":1.714,
+  "seqlet_recall":0.984,
+  "seqlet_labelled_frac":1.0,
+  "deeplift_vs_ism_r":0.928,
+  "design_pred_start_end":[
+    -0.04,
+    11.99
+  ],
+  "design_true_score":10.0,
+  "design_gata_ebox_gaps":[
+    10,
+    31,
+    45,
+    10,
+    24
+  ],
+  "runtime_s":31.6
+}
