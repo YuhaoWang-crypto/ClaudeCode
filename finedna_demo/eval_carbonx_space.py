@@ -3,8 +3,10 @@
     python finedna_demo/eval_carbonx_space.py --per-type 3
 
 Carbon-X has no hosted inference endpoint, so this calls a public Gradio Space
-that runs it on ZeroGPU (default: mbcredits/carbon-x-demo, endpoint /ask_carbon).
-Set HF_TOKEN to use your own ZeroGPU quota.
+that runs it on ZeroGPU. Two Spaces expose a usable API (see SPACES below); both
+load HuggingFaceBio/Carbon-X with thinking off and sample at temperature 0.6,
+the authors' setting. Set HF_TOKEN to use your own ZeroGPU quota, which is per
+account and shared by every Space.
 
 For each task type it asks two kinds of question:
   * seen  - the rl_mix prompt as-is. Carbon-X was RL-trained on rl_mix, so these
@@ -29,7 +31,27 @@ HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
 from verifiers import CHECKERS, compare, longest  # noqa: E402
 
-SPACE, API = "mbcredits/carbon-x-demo", "/ask_carbon"
+def _ask_mbcredits(client, prompt, max_new):
+    # /ask_carbon(question, reference_dna, variant_dna, extra_dna, extra_name, context, max_new_tokens)
+    return client.predict(prompt, "", "", "", "extra", "", max_new, api_name="/ask_carbon")
+
+
+def _ask_mrfakename(client, prompt, max_new):
+    # /chat(message, history, temperature, max_new_tokens) -> (history, textbox, timing)
+    history, _, _ = client.predict(prompt, [], 0.6, max_new, api_name="/chat")
+    content = history[-1]["content"]
+    if isinstance(content, list):
+        content = "".join(part.get("text", "") for part in content if isinstance(part, dict))
+    return content
+
+
+# name -> (caller, max_new_tokens cap). fffiloni/Carbon-X-Playground runs Carbon-X too,
+# but exposes no API endpoints, so it can only be used in the browser.
+SPACES = {
+    "mrfakename/carbon-x": (_ask_mrfakename, 1536),
+    "mbcredits/carbon-x-demo": (_ask_mbcredits, 1024),
+}
+DEFAULT_SPACE = "mrfakename/carbon-x"
 RL_CACHE = HERE / "cache" / "rl_mix_5000_0.jsonl"
 OUT = HERE / "results" / "carbonx_space_eval.jsonl"
 # Task types whose prompt makes no claim about the sequence, so any random DNA is valid.
@@ -58,6 +80,7 @@ def has_final_answer(reply):
 
 
 def extract_answer(reply, task_type):
+    reply = reply.replace("`", "")  # mrfakename's Space wraps DNA-like spans in backticks
     lines = [ln.strip() for ln in reply.strip().splitlines() if ln.strip()]
     ans = next((ln.split(":", 1)[1] for ln in reversed(lines) if ln.lower().startswith("answer")),
                lines[-1] if lines else "")
@@ -95,17 +118,24 @@ def build_questions(per_type, seed=0):
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--per-type", type=int, default=3, help="seen+fresh pairs per task type")
-    ap.add_argument("--space", default=SPACE)
-    ap.add_argument("--max-new-tokens", type=int, default=1024, help="the Space caps this at 1024")
+    ap.add_argument("--space", default=DEFAULT_SPACE, choices=list(SPACES))
+    ap.add_argument("--max-new-tokens", type=int, help="default: the Space's cap")
+    ap.add_argument("--skip-types", nargs="*", default=[],
+                    help="task types not to ask, e.g. gc_content (its base-by-base count of a "
+                         "~120 bp sequence needs ~1,900 tokens, more than either Space allows)")
     args = ap.parse_args()
+    ask, cap = SPACES[args.space]
+    max_new = min(args.max_new_tokens or cap, cap)
 
     done = {}
     if OUT.exists():
         for line in OUT.open():
             d = json.loads(line)
-            if d["correct"] or has_final_answer(d["reply"]):  # re-ask replies that were cut off
+            # A reply that was cut off is asked again only with a bigger token budget.
+            if d["correct"] or has_final_answer(d["reply"]) or d.get("max_new_tokens", 512) >= max_new:
                 done[d["qid"]] = d
-    qs = [q for q in build_questions(args.per_type) if q["qid"] not in done]
+    qs = [q for q in build_questions(args.per_type)
+          if q["qid"] not in done and q["task_type"] not in args.skip_types]
     print(f"{len(done)} cached, {len(qs)} to ask on {args.space}", flush=True)
 
     if qs:
@@ -115,12 +145,13 @@ def main():
             for q in qs:
                 t0 = time.time()
                 try:
-                    reply = client.predict(q["prompt"], "", "", "", "extra", "", args.max_new_tokens, api_name=API)
+                    reply = ask(client, q["prompt"], max_new)
                 except Exception as e:  # quota exhausted, Space asleep, ...
                     print(f"  stopped at {q['qid']}: {type(e).__name__}: {str(e)[:200]}", flush=True)
                     break
                 ans = extract_answer(reply, q["task_type"])
-                rec = {**q, "reply": reply, "model_answer": ans, "correct": compare(ans, q["gold"]),
+                rec = {**q, "space": args.space, "max_new_tokens": max_new,
+                       "reply": reply, "model_answer": ans, "correct": compare(ans, q["gold"]),
                        "truncated": not has_final_answer(reply),
                        "seconds": round(time.time() - t0, 1)}
                 f.write(json.dumps(rec, ensure_ascii=False) + "\n"); f.flush()
@@ -137,7 +168,9 @@ def main():
             continue  # ran out of tokens: neither right nor wrong
         cell = table[r["task_type"]][r["kind"]]
         cell[0] += r["correct"]; cell[1] += 1
-    print(f"\n{len(recs)} answered, {len(cut)} cut off before a final answer (excluded): {cut}")
+    by_space = collections.Counter(r.get("space", "mbcredits/carbon-x-demo") for r in recs)
+    print(f"\n{len(recs)} answered ({dict(by_space)}), "
+          f"{len(cut)} cut off before a final answer (excluded): {cut}")
     print(f"{'task_type':<22}{'seen':>8}{'fresh':>8}")
     tot = {"seen": [0, 0], "fresh": [0, 0]}
     for t in FRESH_OK:

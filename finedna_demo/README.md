@@ -78,9 +78,17 @@ Cas9 切点、Tm 值……共 60 多种）。[`verifiers.py`](verifiers.py) 用�
 ## 4. 在 Hugging Face 上考一考线上的 Carbon-X
 
 Carbon-X（14.8B 参数）没有官方托管的推理接口，但社区有 Space 在 ZeroGPU（A10G）上跑它。
-[`eval_carbonx_space.py`](eval_carbonx_space.py) 通过 `gradio_client` 远程调用
-[`mbcredits/carbon-x-demo`](https://huggingface.co/spaces/mbcredits/carbon-x-demo)
-（最终版 `HuggingFaceBio/Carbon-X`，关闭 thinking），本地不需要 GPU：
+[`eval_carbonx_space.py`](eval_carbonx_space.py) 通过 `gradio_client` 远程调用，本地不需要 GPU。
+三个运行 Carbon-X 的 Space：
+
+| Space | 能否用脚本调用 | token 上限 | 模型版本 |
+|---|---|---:|---|
+| [`mrfakename/carbon-x`](https://huggingface.co/spaces/mrfakename/carbon-x)（默认） | ✓ `/chat` | 1536 | 固定在 `1fac52c` |
+| [`mbcredits/carbon-x-demo`](https://huggingface.co/spaces/mbcredits/carbon-x-demo) | ✓ `/ask_carbon` | 1024 | 最新 `main`（`17de891`） |
+| [`fffiloni/Carbon-X-Playground`](https://huggingface.co/spaces/fffiloni/Carbon-X-Playground) | ✗ 关闭了 API，只能在网页上用 | — | `1fac52c` |
+
+两个版本的模型权重和聊天模板完全相同，只差一次 tokenizer 修复和结束符配置调整。两边都关闭 thinking，
+temperature 0.6（作者报告结果时用的设置）。每条记录都写明是哪个 Space 答的。
 
 ```bash
 pip install gradio_client
@@ -88,28 +96,39 @@ pip install gradio_client
 
 ```bash
 export HF_TOKEN=hf_...   # 用你自己账号的 ZeroGPU 配额
-python finedna_demo/eval_carbonx_space.py --per-type 3
+python finedna_demo/eval_carbonx_space.py --per-type 3 --skip-types gc_content
 ```
+
+```bash
+python finedna_demo/eval_carbonx_space.py --per-type 3 --space mbcredits/carbon-x-demo --skip-types gc_content
+```
+
+**ZeroGPU 配额按 Hugging Face 账号计算，所有 Space 共用**，免费账号每天约 5 分钟 GPU 时间，换 Space 不会多出额度。
 
 每种题型出两类题：
 
 - **seen**：`rl_mix` 原题。Carbon-X 的 RL 阶段就是用这些题训练的，所以它见过。
 - **fresh**：题面不变，把 DNA 换成同长度的随机序列，标准答案由 `verifiers.py` 重新计算。模型没见过，考的是算，不是记。
 
-回答缓存在 `results/carbonx_space_eval.jsonl`，配额用完后第二天重跑会接着问；被截断的回答会重新问。
+回答缓存在 `results/carbonx_space_eval.jsonl`，配额用完后第二天重跑会接着问。被截断的回答只有在换用更高的
+token 上限时才会重问。
 
-**目前结果（免费账号配额只跑了 7 题）：**
+**目前结果（用了两天的免费配额，共 7 道题）：**
 
 | 题型 | seen | fresh |
 |---|---|---|
 | 反向互补 | 0/1（步骤对，结尾多写了 `TG`） | 1/1 |
 | 互补链 | 1/1 | 1/1 |
 | 转录（DNA→mRNA） | 1/1 | — |
-| GC 含量 | 回答被截断 | 回答被截断 |
+| GC 含量（118 bp） | 截断 ×2 | 截断 ×2 |
 
-GC 含量题模型会逐个碱基数数，128 bp 的序列在 512 token 内写不完。脚本现在默认用 Space 允许的上限 1024，
-被截断的回答记为"截断"，不计对错。7 题太少，还不能下结论；完整跑 72 题大约需要 15 分钟 GPU 时间，
-超出免费账号每天的 ZeroGPU 额度（PRO 账号每天 40 分钟）。
+**GC 含量题在这两个 Space 上答不完。** 模型的做法是逐个碱基累加计数（`97. C (G=22, C=24)` 这样一行一个碱基），
+每个碱基约 15 个 token，118 bp 的序列需要约 1,900 个 token。在 `mbcredits`（512 token）停在第 28 个碱基，
+在 `mrfakename`（1536 token）停在第 97–99 个碱基，而且每题耗掉约 70 秒 GPU 时间。截断的回答不计对错；
+继续跑时建议加 `--skip-types gc_content`。
+
+7 题太少，还不能下结论。剩下 61 题（不含 GC）大约需要 8–10 分钟 GPU 时间：免费账号要跑 2–3 天，
+PRO 账号（每天 40 分钟）一次就能跑完。
 
 ## 局限
 
