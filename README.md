@@ -41,3 +41,41 @@ python3 -m grn_pipeline.m1_symmetry   # or any single module
 Figures are written to `figures/`. A full write-up with numbers, rigour
 labels, and the interpretation (including the Lyapunov-exponent biomarker
 question) is in [`REPORT.md`](REPORT.md).
+
+---
+
+# glycan-pipeline
+
+A second, independent pipeline in the same spirit, adapting **Lunn-Halbert et
+al., *Programming N-linked glycan composition through de novo protein design***
+(bioRxiv 2026.10.07.757460). N-glycan composition is not templated by sequence
+— it is set by whether processing enzymes can physically reach the glycan. So
+the fold around a glycan can encode its final composition.
+
+| Module | Tool | System | Key result |
+|---|---|---|---|
+| `g1_delta_rasa` | two-pass Shrake-Rupley ΔRASA glycan shielding | 5FYL (HIV-1 Env), 6VXX, 7PFP | SASA engine matches Biopython to 1.4e-14 Å²; per-site shielding for all 22 Env sites; converged in sphere resolution |
+| `g2_confounds` | controls for a naive ΔRASA screen | 5FYL biological assembly, 66 glycans | size confound ρ = −0.38 → −0.07 after standardising; median glycan modelled = 55% of a Man9; C3 replicates agree to 0.012% (the real error bar) |
+| `g3_underprocessing` | ordinal 1–20 underprocessing score + ladder sensitivity | 9 glycan profiles | dominance orderings held 17000/17000 random monotone ladders; the absolute 1500 cutoff flips for all four O-designs |
+| `g4_triage` | sequons, confidence gates, filter payoff | Extended Data Table 2 + Results counts | reproduces "only O2 passes the AF2 gate" and Fisher p = 2.0e-11 (paper: p < 1e-10); 0 of 128 observed glycans sat off a canonical sequon |
+
+## Run
+
+```bash
+pip install numpy biopython matplotlib
+python3 -m glycan_pipeline.run_all          # full pipeline + figures (~45 s)
+python3 -m glycan_pipeline.g1_delta_rasa    # or any single module
+```
+
+Structures are fetched once from RCSB and cached in `figures/_pdb_cache/`;
+after that the pipeline is offline. Figures go to `figures/g*.png`.
+
+The methodology, the design-campaign parameters, the bench validation decision
+tree, and a copy-paste campaign scorer live in the
+[`glycan-steric-design`](.claude/skills/glycan-steric-design/SKILL.md) skill.
+
+**Rigour note.** The ΔRASA geometry, the confound correlations, the Fisher and
+AF2-gate reproductions and the sequon audit are all computed. The 1–20
+underprocessing ladder is **reconstructed, not published**, and `g3`'s glycan
+profiles are **illustrative**, built only from the paper's qualitative
+sentences — swap in Supplementary Data S4/S5 for real numbers.
