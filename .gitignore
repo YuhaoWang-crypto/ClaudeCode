@@ -3,3 +3,4 @@ __pycache__/
 alphago_zero/runs/*/latest.pt
 alphago_zero/runs/*/gens/
 alphago_zero/runs/*/train.log
+alphago_zero/runs/
