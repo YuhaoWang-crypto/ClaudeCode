@@ -1,0 +1,516 @@
+<title>七路 Zero 围棋</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Noto+Serif+SC:wght@600;900&display=swap">
+<style>
+/* Layout: board as the instrument, a narrow readout column beside it; the "how it learned" notes run underneath. */
+:root {
+  --bg: #e9ece8;          /* cool slate-green paper */
+  --surface: #f6f7f4;
+  --ink: #18201c;
+  --muted: #5b6761;
+  --line: #c9cfc9;
+  --kaya: #dcb46e;        /* kaya-wood board */
+  --kaya-ink: #3d2d17;
+  --jade: #23705f;        /* AI thinking */
+  --jade-soft: rgba(35,112,95,.16);
+  --win: #23705f;
+  --loss: #a2402d;
+  --stone-b: #141614;
+  --stone-w: #f4f3ee;
+  --f-display: "Noto Serif SC", "Songti SC", "SimSun", serif;
+  --f-body: "IBM Plex Sans", "PingFang SC", "Microsoft YaHei", "Noto Sans SC", system-ui, sans-serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #111614; --surface: #19201d; --ink: #e2e8e4; --muted: #93a19a; --line: #2c3632;
+    --kaya: #b48c4f; --kaya-ink: #2a1e0e; --jade: #6cc3ad; --jade-soft: rgba(108,195,173,.2);
+    --win: #6cc3ad; --loss: #e08a72; --stone-b: #0b0c0b; --stone-w: #ecebe4;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #111614; --surface: #19201d; --ink: #e2e8e4; --muted: #93a19a; --line: #2c3632;
+  --kaya: #b48c4f; --kaya-ink: #2a1e0e; --jade: #6cc3ad; --jade-soft: rgba(108,195,173,.2);
+  --win: #6cc3ad; --loss: #e08a72; --stone-b: #0b0c0b; --stone-w: #ecebe4;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font-family: var(--f-body); font-size: 15px; line-height: 1.55; }
+.wrap { max-width: 1080px; margin: 0 auto; padding-block: 28px 64px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+  display: grid; gap: 36px; }
+header { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px 24px; }
+h1 { font-family: var(--f-display); font-weight: 900; font-size: clamp(30px, 5vw, 44px); line-height: 1.1; margin: 0; letter-spacing: .02em; text-wrap: balance; }
+h1 small { font-family: var(--f-mono); font-weight: 400; font-size: 13px; color: var(--muted); letter-spacing: .08em; margin-left: 10px; vertical-align: middle; }
+.lede { margin: 6px 0 0; color: var(--muted); max-width: 60ch; }
+.badge { font-family: var(--f-mono); font-size: 12px; color: var(--muted); border: 1px solid var(--line); padding: 4px 10px; border-radius: 999px; white-space: nowrap; }
+
+.game { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 28px; align-items: start; }
+@media (max-width: 860px) { .game { grid-template-columns: minmax(0, 1fr); } }
+.board-wrap { display: grid; gap: 10px; justify-items: center; }
+canvas#board { width: 100%; max-width: 600px; aspect-ratio: 1; touch-action: manipulation; cursor: pointer; border-radius: 4px;
+  box-shadow: 0 1px 0 rgba(0,0,0,.08), 0 18px 40px -22px rgba(40,30,10,.55); }
+.caption { font-family: var(--f-mono); font-size: 12.5px; color: var(--muted); min-height: 1.5em; text-align: center; }
+
+.panel { display: grid; gap: 18px; min-width: 0; }
+.block { display: grid; gap: 8px; }
+.label { font-size: 11.5px; text-transform: uppercase; letter-spacing: .12em; color: var(--muted); font-family: var(--f-mono); }
+.turn { display: flex; align-items: center; gap: 10px; font-size: 18px; font-weight: 600; }
+.dot { width: 16px; height: 16px; border-radius: 50%; border: 1px solid var(--muted); flex: none; }
+.dot.b { background: var(--stone-b); } .dot.w { background: var(--stone-w); }
+.meta { font-family: var(--f-mono); font-size: 12.5px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.meter { height: 14px; border-radius: 7px; overflow: hidden; display: flex; border: 1px solid var(--line); background: var(--stone-w); }
+.meter > i { display: block; background: var(--stone-b); transition: width .35s ease; }
+.meter-row { display: flex; justify-content: space-between; font-family: var(--f-mono); font-size: 12.5px; font-variant-numeric: tabular-nums; }
+.seg { display: grid; grid-template-columns: 1fr 1fr; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+.seg button { border: 0; border-radius: 0; background: transparent; }
+.seg button[aria-pressed="true"] { background: var(--ink); color: var(--bg); }
+button { font: inherit; font-size: 14px; color: var(--ink); background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 8px 12px; cursor: pointer; }
+button:hover:not(:disabled) { border-color: var(--muted); }
+button:focus-visible, input:focus-visible { outline: 2px solid var(--jade); outline-offset: 2px; }
+button:disabled { opacity: .45; cursor: default; }
+button.primary { background: var(--jade); border-color: var(--jade); color: var(--surface); font-weight: 600; }
+.btns { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+.range { display: flex; align-items: center; gap: 10px; }
+.range input { flex: 1; accent-color: var(--jade); min-width: 0; }
+.range output { font-family: var(--f-mono); font-size: 13px; width: 4ch; text-align: right; font-variant-numeric: tabular-nums; }
+.check { display: flex; gap: 8px; align-items: center; font-size: 14px; cursor: pointer; }
+.check input { accent-color: var(--jade); width: 16px; height: 16px; }
+.moves { font-family: var(--f-mono); font-size: 12.5px; color: var(--muted); max-height: 120px; overflow-y: auto; margin: 0; padding: 0; list-style: none;
+  display: flex; flex-wrap: wrap; gap: 4px 10px; font-variant-numeric: tabular-nums; }
+.moves li b { color: var(--ink); font-weight: 500; }
+.result { border-left: 3px solid var(--jade); padding: 8px 12px; background: var(--surface); font-size: 14px; }
+.result[data-tone="loss"] { border-left-color: var(--loss); }
+
+.learn { display: grid; gap: 22px; border-top: 1px solid var(--line); padding-top: 28px; }
+h2 { font-family: var(--f-display); font-weight: 600; font-size: 24px; margin: 0; text-wrap: balance; }
+.learn p { margin: 0; max-width: 68ch; }
+.loop { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+@media (max-width: 760px) { .loop { grid-template-columns: minmax(0, 1fr); } }
+.step { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; display: grid; gap: 6px; align-content: start; min-width: 0; }
+.step h3 { margin: 0; font-size: 15px; font-weight: 600; display: flex; gap: 8px; align-items: baseline; }
+.step h3 span { font-family: var(--f-mono); font-size: 12px; color: var(--jade); }
+.step p { font-size: 13.5px; color: var(--muted); }
+.step code, .learn code { font-family: var(--f-mono); font-size: 12.5px; color: var(--ink); }
+.charts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+@media (max-width: 760px) { .charts { grid-template-columns: minmax(0, 1fr); } }
+figure { margin: 0; display: grid; gap: 6px; min-width: 0; }
+figcaption { font-size: 13px; color: var(--muted); }
+figure svg { width: 100%; height: auto; display: block; }
+.table-wrap { overflow-x: auto; }
+table { border-collapse: collapse; font-size: 13.5px; min-width: 520px; width: 100%; }
+th, td { text-align: left; padding: 7px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-weight: 600; font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: .08em; font-family: var(--f-mono); }
+td.num { font-family: var(--f-mono); font-variant-numeric: tabular-nums; white-space: nowrap; }
+@media (prefers-reduced-motion: reduce) { .meter > i { transition: none; } }
+</style>
+
+<div class="wrap">
+  <header>
+    <div>
+      <h1>七路 Zero<small id="hdr-meta"></small></h1>
+      <p class="lede">一个从零开始、只靠自我对弈学会下棋的 7×7 围棋 AI。规则以外，它没有见过任何人类棋谱。点棋盘落子，和它下一局。</p>
+    </div>
+    <span class="badge" id="badge"></span>
+  </header>
+
+  <main class="game">
+    <div class="board-wrap">
+      <canvas id="board" width="600" height="600" aria-label="7 路棋盘"></canvas>
+      <div class="caption" id="caption"></div>
+    </div>
+    <aside class="panel">
+      <div class="block">
+        <span class="label">轮到</span>
+        <div class="turn"><span class="dot" id="turn-dot"></span><span id="turn-text"></span></div>
+        <div class="meta" id="meta"></div>
+      </div>
+      <div class="block">
+        <span class="label">AI 的胜率估计（MCTS 根节点）</span>
+        <div class="meter" aria-hidden="true"><i id="meter-b" style="width:50%"></i></div>
+        <div class="meter-row"><span id="pb">黑 —</span><span id="pw">白 —</span></div>
+      </div>
+      <div class="block">
+        <span class="label">你执</span>
+        <div class="seg" role="group" aria-label="选择颜色">
+          <button id="as-black" aria-pressed="true">黑（先手）</button>
+          <button id="as-white" aria-pressed="false">白（后手）</button>
+        </div>
+      </div>
+      <div class="block">
+        <label class="label" for="sims">每步搜索次数</label>
+        <div class="range"><input type="range" id="sims" min="25" max="800" step="25" value="200"><output id="sims-out" for="sims">200</output></div>
+      </div>
+      <div class="btns">
+        <button id="pass">停一手</button>
+        <button id="undo">悔棋</button>
+        <button id="hint">提示</button>
+        <button id="new" class="primary">新对局</button>
+      </div>
+      <label class="check"><input type="checkbox" id="show" checked> 显示 AI 的搜索（访问次数）</label>
+      <div class="result" id="result" hidden></div>
+      <div class="block">
+        <span class="label">棋谱</span>
+        <ol class="moves" id="moves"></ol>
+      </div>
+    </aside>
+  </main>
+
+  <section class="learn">
+    <h2>它是怎么学会的</h2>
+    <p id="learn-intro"></p>
+    <div class="loop">
+      <div class="step"><h3><span>①</span>自我对弈</h3>
+        <p>当前最强的网络和自己下棋。每一步都做 MCTS 搜索：用网络给出的先验 <code>p</code> 和局面价值 <code>v</code> 代替随机走子，搜索后的访问分布 <code>π</code> 就是比网络更强的“老师”。根节点加 Dirichlet 噪声，开局几步按 π 抽样，保证探索。</p></div>
+      <div class="step"><h3><span>②</span>训练网络</h3>
+        <p>每个局面存成 <code>(s, π, z)</code>，<code>z</code> 是最终胜负（±1）。从最近的对局里随机采样，配合 8 种旋转翻转做数据增强，最小化 <code>(z − v)² − πᵀ log p + c‖θ‖²</code>。</p></div>
+      <div class="step"><h3><span>③</span>评估把关</h3>
+        <p>新网络和当前最强网络对弈，胜率 ≥ 55% 才“晋级”，之后由它来产生新的自我对弈棋谱。循环往复：搜索让网络变强，网络又让搜索变强。</p></div>
+    </div>
+    <div class="charts">
+      <figure><svg id="chart-elo" viewBox="0 0 480 240" role="img" aria-label="Elo 随训练变化"></svg>
+        <figcaption id="cap-elo"></figcaption></figure>
+      <figure><svg id="chart-win" viewBox="0 0 480 240" role="img" aria-label="对固定对手的胜率"></svg>
+        <figcaption>当前最强网络（带搜索）对两个固定对手的胜率：均匀随机棋手（不填自己的眼）、训练开始时的随机初始化网络（同样带搜索）。</figcaption></figure>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>要素</th><th>AlphaGo Zero 论文</th><th>这个精简版</th></tr></thead>
+        <tbody id="ptable"></tbody>
+      </table>
+    </div>
+  </section>
+</div>
+
+<script>/*__ENGINE__*/</script>
+<script>
+/*__MODEL__*/
+/*__RUN__*/
+(() => {
+  "use strict";
+  const { BLACK, WHITE, State, Net, Node, Search, COLS } = GoZero;
+  const net = new Net(MODEL);
+  const meta = MODEL.meta;
+  const N = meta.n, N2 = N * N, PASS = N2;
+  const search = new Search(net, meta.c_puct);
+  const $ = (id) => document.getElementById(id);
+  const css = (name) => getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+
+  let history, state, human = BLACK, token = 0, thinking = false;
+  let liveRoot = null, hintRoot = null, aiValue = null, over = null, hover = -1, notice = "";
+  let sims = 200, show = true;
+
+  // ------------------------------------------------------------ board drawing
+  const cv = $("board"), ctx = cv.getContext("2d");
+  let S = 600, M = 0, C = 0;
+  function resize() {
+    const w = cv.getBoundingClientRect().width || 600, dpr = window.devicePixelRatio || 1;
+    cv.width = Math.round(w * dpr); cv.height = Math.round(w * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    S = w; M = S * 0.095; C = (S - 2 * M) / (N - 1);
+    draw();
+  }
+  const xy = (p) => [M + (p % N) * C, M + ((p / N) | 0) * C];
+  function stone(x, y, col, alpha = 1) {
+    const r = C * 0.46;
+    ctx.save(); ctx.globalAlpha = alpha;
+    const g = ctx.createRadialGradient(x - r * .35, y - r * .4, r * .1, x, y, r);
+    if (col === BLACK) { g.addColorStop(0, "#5a5f5b"); g.addColorStop(1, css("--stone-b")); }
+    else { g.addColorStop(0, "#ffffff"); g.addColorStop(1, css("--stone-w")); }
+    ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI * 2);
+    ctx.shadowColor = "rgba(0,0,0,.35)"; ctx.shadowBlur = r * .25; ctx.shadowOffsetY = r * .1;
+    ctx.fillStyle = g; ctx.fill();
+    ctx.shadowColor = "transparent";
+    if (col === WHITE) { ctx.lineWidth = 1; ctx.strokeStyle = "rgba(0,0,0,.25)"; ctx.stroke(); }
+    ctx.restore();
+  }
+  function draw() {
+    if (!state) return;
+    const ink = css("--kaya-ink");
+    ctx.clearRect(0, 0, S, S);
+    ctx.fillStyle = css("--kaya"); ctx.fillRect(0, 0, S, S);
+    // subtle grain
+    ctx.save(); ctx.globalAlpha = .07; ctx.strokeStyle = ink;
+    for (let i = 0; i < 26; i++) { const y = (i + .5) * S / 26 + Math.sin(i * 1.7) * 4;
+      ctx.beginPath(); ctx.moveTo(0, y); ctx.bezierCurveTo(S * .3, y + 6, S * .7, y - 6, S, y + 2); ctx.stroke(); }
+    ctx.restore();
+    ctx.strokeStyle = ink; ctx.lineWidth = 1.2;
+    for (let i = 0; i < N; i++) {
+      ctx.beginPath(); ctx.moveTo(M, M + i * C); ctx.lineTo(S - M, M + i * C); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(M + i * C, M); ctx.lineTo(M + i * C, S - M); ctx.stroke();
+    }
+    ctx.fillStyle = ink;
+    const stars = N === 7 ? [[2, 2], [2, 4], [4, 2], [4, 4], [3, 3]] : N === 9 ? [[2, 2], [2, 6], [6, 2], [6, 6], [4, 4]] : [];
+    for (const [r, c] of stars) { ctx.beginPath(); ctx.arc(M + c * C, M + r * C, Math.max(2.5, C * .06), 0, Math.PI * 2); ctx.fill(); }
+    ctx.font = `500 ${Math.max(10, C * .2)}px ${css("--f-mono")}`; ctx.textAlign = "center"; ctx.textBaseline = "middle";
+    ctx.globalAlpha = .75;
+    for (let i = 0; i < N; i++) {
+      ctx.fillText(COLS[i], M + i * C, M * .45); ctx.fillText(COLS[i], M + i * C, S - M * .45);
+      ctx.fillText(String(N - i), M * .45, M + i * C); ctx.fillText(String(N - i), S - M * .45, M + i * C);
+    }
+    ctx.globalAlpha = 1;
+    const b = state.board;
+    for (let p = 0; p < N2; p++) if (b[p]) { const [x, y] = xy(p); stone(x, y, b[p]); }
+    // territory at game end
+    if (over) {
+      const own = state.ownership();
+      for (let p = 0; p < N2; p++) if (own[p] && own[p] !== b[p]) {
+        const [x, y] = xy(p), s = C * .26;
+        ctx.fillStyle = own[p] === BLACK ? css("--stone-b") : css("--stone-w");
+        ctx.strokeStyle = "rgba(0,0,0,.35)"; ctx.lineWidth = 1;
+        ctx.fillRect(x - s / 2, y - s / 2, s, s); ctx.strokeRect(x - s / 2, y - s / 2, s, s);
+      }
+    }
+    // last move
+    const lm = state.lastMove;
+    if (lm !== null && lm !== PASS && b[lm]) {
+      const [x, y] = xy(lm);
+      ctx.beginPath(); ctx.arc(x, y, C * .14, 0, Math.PI * 2);
+      ctx.fillStyle = b[lm] === BLACK ? css("--stone-w") : css("--stone-b"); ctx.fill();
+    }
+    // search overlay
+    const root = liveRoot || hintRoot;
+    if (root && root.expanded && (show || hintRoot)) {
+      let mx = 1; for (let a = 0; a < N2; a++) mx = Math.max(mx, root.N[a]);
+      const best = argmax(root.N);
+      ctx.font = `600 ${Math.max(10, C * .2)}px ${css("--f-mono")}`;
+      for (let a = 0; a < N2; a++) {
+        if (!root.N[a] || b[a]) continue;
+        const [x, y] = xy(a), f = root.N[a] / mx;
+        ctx.beginPath(); ctx.arc(x, y, C * (.16 + .26 * f), 0, Math.PI * 2);
+        ctx.fillStyle = css("--jade"); ctx.globalAlpha = .18 + .55 * f; ctx.fill(); ctx.globalAlpha = 1;
+        if (a === best) { ctx.lineWidth = 2.5; ctx.strokeStyle = css("--jade"); ctx.stroke(); }
+        if (f > .08) { ctx.fillStyle = css("--surface"); ctx.fillText(Math.round(100 * root.N[a] / root.Nsum) + "", x, y + 1); }
+      }
+    }
+    // hover ghost
+    if (hover >= 0 && !thinking && !over && state.toPlay === human && !b[hover] && state.legalMask()[hover]) {
+      const [x, y] = xy(hover); stone(x, y, human, .4);
+    }
+  }
+  const argmax = (a) => { let bi = 0; for (let i = 1; i < a.length; i++) if (a[i] > a[bi]) bi = i; return bi; };
+
+  // ------------------------------------------------------------- UI updates
+  const colName = (c) => (c === BLACK ? "黑" : "白");
+  function updateUI(searchInfo) {
+    const tp = state.toPlay;
+    $("turn-dot").className = "dot " + (tp === BLACK ? "b" : "w");
+    $("turn-text").textContent = over ? "对局结束" : thinking ? `${colName(tp)} · AI 思考中…` : tp === human ? `${colName(tp)} · 你` : `${colName(tp)} · AI`;
+    let capB = 0, capW = 0;
+    for (const s of history) if (s.captures) { if (s.toPlay === WHITE) capB += s.captures; else capW += s.captures; }
+    $("meta").textContent = `第 ${state.moveNum} 手 · 提子 黑 ${capB} / 白 ${capW} · 贴目 ${meta.komi}` + (searchInfo ? ` · ${searchInfo}` : "");
+    if (aiValue !== null) {
+      const pb = Math.round(100 * (aiValue + 1) / 2);
+      $("meter-b").style.width = pb + "%";
+      $("pb").textContent = `黑 ${pb}%`; $("pw").textContent = `白 ${100 - pb}%`;
+    }
+    const ol = $("moves"); ol.innerHTML = "";
+    for (let i = 1; i < history.length; i++) {
+      const s = history[i], li = document.createElement("li");
+      li.innerHTML = `${i}.<b>${history[i - 1].moveName(s.lastMove)}</b>`;
+      ol.appendChild(li);
+    }
+    ol.scrollTop = ol.scrollHeight;
+    $("undo").disabled = history.length < 2;
+    $("pass").disabled = thinking || !!over || tp !== human;
+    $("hint").disabled = thinking || !!over || tp !== human;
+    const r = $("result");
+    if (over) {
+      r.hidden = false; r.dataset.tone = over.winner === human ? "win" : "loss";
+      r.textContent = `${colName(over.winner)}胜 ${Math.abs(over.score)} 目（数子法，贴 ${meta.komi}）` + (over.winner === human ? "。你赢了。" : "。");
+    } else r.hidden = true;
+    $("caption").textContent = notice;
+    draw();
+  }
+
+  // ---------------------------------------------------------------- game flow
+  function finishIfOver() {
+    if (state.isTerminal()) { const sc = state.score(); over = { score: sc, winner: sc > 0 ? BLACK : WHITE }; }
+  }
+  function newGame(color) {
+    token++; thinking = false; liveRoot = hintRoot = null; over = null; aiValue = null; notice = "";
+    human = color; state = State.initial(N, meta.komi); history = [state];
+    $("as-black").setAttribute("aria-pressed", String(color === BLACK));
+    $("as-white").setAttribute("aria-pressed", String(color === WHITE));
+    $("meter-b").style.width = "50%"; $("pb").textContent = "黑 —"; $("pw").textContent = "白 —";
+    updateUI(); saveSnap();
+    if (state.toPlay !== human) aiMove();
+  }
+  function commit(m) {
+    const was = state;
+    state = state.play(m); history.push(state);
+    notice = m === PASS ? `${colName(was.toPlay)}停一手` + (state.passes >= 2 ? "，双方连续停手，终局。" : "") : "";
+    finishIfOver(); saveSnap();
+  }
+  async function think(st, n, onTick) {
+    const my = token, root = new Node(st);
+    let done = 0;
+    while (done < n) {
+      const t0 = performance.now();
+      while (done < n && performance.now() - t0 < 30) { search.simulate(root); done++; }
+      onTick(root, done);
+      await new Promise((r) => setTimeout(r, 0));
+      if (my !== token) return null;
+    }
+    return root;
+  }
+  async function aiMove() {
+    if (over) return;
+    thinking = true; hintRoot = null; updateUI();
+    const st = state, t0 = performance.now();
+    const root = await think(st, sims, (r, d) => {
+      liveRoot = r;
+      const v = r.value(); aiValue = st.toPlay === BLACK ? v : -v;
+      updateUI(`搜索 ${d}/${sims}`);
+    });
+    if (!root) return;
+    const a = argmax(root.N);
+    liveRoot = null; thinking = false;
+    const secs = ((performance.now() - t0) / 1000).toFixed(1);
+    commit(a);
+    if (a !== PASS) notice = `AI 下 ${st.moveName(a)}（${sims} 次搜索，${secs} 秒，网络先验 ${(100 * root.P[a]).toFixed(0)}%）`;
+    updateUI();
+  }
+  function humanPlay(m) {
+    if (thinking || over || state.toPlay !== human) return;
+    if (!state.legalMask()[m]) { notice = "这里不能下（自杀或打劫禁着）"; updateUI(); return; }
+    hintRoot = null; commit(m); updateUI();
+    if (!over) aiMove();
+  }
+
+  // ------------------------------------------------------------------ events
+  function pointAt(ev) {
+    const r = cv.getBoundingClientRect(), x = ev.clientX - r.left, y = ev.clientY - r.top;
+    const c = Math.round((x - M) / C), rr = Math.round((y - M) / C);
+    if (c < 0 || c >= N || rr < 0 || rr >= N) return -1;
+    const [px, py] = xy(rr * N + c);
+    return Math.hypot(px - x, py - y) < C * .5 ? rr * N + c : -1;
+  }
+  cv.addEventListener("click", (e) => { const p = pointAt(e); if (p >= 0) humanPlay(p); });
+  cv.addEventListener("mousemove", (e) => { const p = pointAt(e); if (p !== hover) { hover = p; draw(); } });
+  cv.addEventListener("mouseleave", () => { hover = -1; draw(); });
+  $("pass").onclick = () => humanPlay(PASS);
+  $("new").onclick = () => newGame(human);
+  $("as-black").onclick = () => newGame(BLACK);
+  $("as-white").onclick = () => newGame(WHITE);
+  $("undo").onclick = () => {
+    token++; thinking = false; liveRoot = hintRoot = null; over = null; notice = "";
+    while (history.length > 1) { history.pop(); if (history[history.length - 1].toPlay === human) break; }
+    state = history[history.length - 1]; updateUI(); saveSnap();
+    if (state.toPlay !== human) aiMove();
+  };
+  $("hint").onclick = async () => {
+    if (thinking || over || state.toPlay !== human) return;
+    thinking = true; updateUI();
+    const st = state;
+    const root = await think(st, sims, (r, d) => { hintRoot = r; updateUI(`提示搜索 ${d}/${sims}`); });
+    thinking = false;
+    if (root) { hintRoot = root; notice = `提示：${st.moveName(argmax(root.N))}（圈越大，搜索访问越多）`; updateUI(); }
+  };
+  $("sims").oninput = (e) => { sims = +e.target.value; $("sims-out").textContent = sims; };
+  $("show").onchange = (e) => { show = e.target.checked; draw(); };
+  window.addEventListener("resize", resize);
+  if (window.matchMedia) window.matchMedia("(prefers-color-scheme: dark)").addEventListener?.("change", draw);
+  new MutationObserver(draw).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+
+  // keep the game across live page updates
+  function saveSnap() {
+    const moves = history.slice(1).map((s) => s.lastMove);
+    window.claude?.hot?.snapshot?.(() => ({ moves, human }));
+  }
+  function restore(data) {
+    if (!data || !data.moves) return false;
+    human = data.human; state = State.initial(N, meta.komi); history = [state];
+    try { for (const m of data.moves) { state = state.play(m); history.push(state); } } catch (e) { return false; }
+    finishIfOver(); return true;
+  }
+
+  // ---------------------------------------------------------- learning notes
+  function renderLearn() {
+    const m = RUN.metrics || [], cfg = RUN.config || {};
+    const last = m[m.length - 1] || {};
+    $("hdr-meta").textContent = `${N}×${N} · 第 ${meta.generation} 代网络`;
+    $("badge").textContent = `${(meta.games || last.games || 0).toLocaleString()} 局自我对弈训练`;
+    $("learn-intro").textContent =
+      `这个网络从完全随机的参数出发，在 4 个 CPU 核上训练了约 ${Math.round(last.elapsed_min || 0)} 分钟：` +
+      `共下了 ${(last.games || 0).toLocaleString()} 盘自我对弈，产生 ${last.iteration || 0} 个候选网络，其中 ${meta.generation} 个通过 55% 的评估门槛成为新的“最强网络”。` +
+      `你现在对弈的就是最后一代。它和 AlphaGo Zero 用的是同一套方法，只是棋盘、网络和搜索都缩小了几十到几百倍。`;
+    const rows = [
+      ["棋盘", "19×19，贴 7.5", `${N}×${N}，贴 ${meta.komi}`],
+      ["输入特征", "17 个平面：双方最近 8 步棋子 + 轮到谁", `${meta.in_planes} 个平面（同样的构造）`],
+      ["网络", "残差网络 20 或 40 块 × 256 通道，策略头 + 价值头", `残差网络 ${meta.blocks} 块 × ${meta.filters} 通道，策略头 + 价值头`],
+      ["每步搜索", "1600 次模拟", `${cfg.sims || "?"} 次（自我对弈），可在上面调到 800`],
+      ["探索", "Dirichlet(0.03)，ε = 0.25；前 30 手按访问次数抽样", `Dirichlet(${cfg.dir_alpha})，ε = ${cfg.dir_eps}；前 ${cfg.temp_moves} 手抽样`],
+      ["训练数据", "最近 50 万局，批大小 2048", `最近 ${(cfg.window_games || 0).toLocaleString()} 局，批大小 ${cfg.batch_size}`],
+      ["损失函数", "(z − v)² − πᵀ log p + c‖θ‖²，c = 10⁻⁴", "完全相同"],
+      ["评估", "400 局，胜率 > 55% 晋级", `${cfg.eval_games} 局，胜率 ≥ 55% 晋级`],
+      ["认输", "自动校准阈值，误判 < 5%；10% 对局禁止认输", "同样的校准方法"],
+      ["算力", "约 3 天，数千个 TPU", `约 ${Math.round(last.elapsed_min || 0)} 分钟，4 个 CPU 核`],
+    ];
+    $("ptable").innerHTML = rows.map((r) => `<tr><td>${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td></tr>`).join("");
+    drawCharts(m);
+  }
+  function lineChart(svg, series, opts) {
+    const W = 480, H = 240, L = 46, R = 12, T = 14, B = 36;
+    const xs = series.flatMap((s) => s.pts.map((p) => p[0])), ys = series.flatMap((s) => s.pts.map((p) => p[1]));
+    if (!xs.length) { svg.innerHTML = `<text x="240" y="120" text-anchor="middle" fill="var(--muted)" font-size="13">暂无数据</text>`; return; }
+    const x0 = 0, x1 = Math.max(...xs) || 1;
+    const y0 = opts.y0 ?? Math.min(0, ...ys), y1 = opts.y1 ?? (Math.max(...ys) * 1.05 || 1);
+    const sx = (x) => L + (x - x0) / (x1 - x0) * (W - L - R), sy = (y) => H - B - (y - y0) / (y1 - y0) * (H - T - B);
+    let g = "";
+    const ticks = opts.yTicks || niceTicks(y0, y1, 4);
+    for (const t of ticks) {
+      g += `<line x1="${L}" x2="${W - R}" y1="${sy(t)}" y2="${sy(t)}" stroke="var(--line)" stroke-width="1"/>`;
+      g += `<text x="${L - 6}" y="${sy(t) + 4}" text-anchor="end" font-size="11" fill="var(--muted)" font-family="var(--f-mono)">${opts.fmt ? opts.fmt(t) : t}</text>`;
+    }
+    for (const t of niceTicks(0, x1, 4)) {
+      if (t > x1) continue;
+      g += `<text x="${sx(t)}" y="${H - B + 16}" text-anchor="middle" font-size="11" fill="var(--muted)" font-family="var(--f-mono)">${t.toLocaleString()}</text>`;
+    }
+    g += `<text x="${(L + W - R) / 2}" y="${H - 4}" text-anchor="middle" font-size="11" fill="var(--muted)">${opts.xlabel}</text>`;
+    series.forEach((s, i) => {
+      const d = s.pts.map((p, j) => `${j ? "L" : "M"}${sx(p[0]).toFixed(1)},${sy(p[1]).toFixed(1)}`).join("");
+      g += `<path d="${d}" fill="none" stroke="${s.color}" stroke-width="2" ${s.dash ? 'stroke-dasharray="4 4"' : ""}/>`;
+      const lp = s.pts[s.pts.length - 1];
+      g += `<circle cx="${sx(lp[0])}" cy="${sy(lp[1])}" r="3.5" fill="${s.color}"/>`;
+      g += `<rect x="${L + 8 + i * 150}" y="${T + 2}" width="12" height="3" fill="${s.color}"/><text x="${L + 24 + i * 150}" y="${T + 7}" font-size="11" fill="var(--ink)">${s.name}</text>`;
+    });
+    svg.innerHTML = g;
+  }
+  function niceTicks(a, b, n) {
+    const span = b - a || 1, step0 = span / n, mag = Math.pow(10, Math.floor(Math.log10(step0)));
+    const step = [1, 2, 2.5, 5, 10].map((k) => k * mag).find((s) => span / s <= n) || mag * 10;
+    const out = []; for (let t = Math.ceil(a / step) * step; t <= b + 1e-9; t += step) out.push(+t.toFixed(6));
+    return out;
+  }
+  function drawCharts(m) {
+    const lad = RUN.ladder;
+    if (lad && lad.games && lad.games.length) {
+      lineChart($("chart-elo"), [{ name: "Elo（循环赛）", color: "var(--jade)", pts: lad.games.map((g, i) => [g, lad.elo[i]]) }],
+        { xlabel: "自我对弈局数", fmt: (t) => Math.round(t) });
+      $("cap-elo").textContent = `每一代“最强网络”的 Elo，由各代之间的循环赛（每对 ${lad.games_per_pair} 局）用最大似然拟合得到，第 0 代（随机网络）记为 0。`;
+    } else {
+      lineChart($("chart-elo"), [{ name: "Elo（评估链）", color: "var(--jade)", pts: m.map((r) => [r.games, r.elo]) }],
+        { xlabel: "自我对弈局数", fmt: (t) => Math.round(t) });
+      $("cap-elo").textContent = "每次晋级时由评估胜率累加得到的 Elo（第 0 代 = 0）。";
+    }
+    const pr = m.filter((r) => r.best_vs_random != null);
+    lineChart($("chart-win"), [
+      { name: "对随机棋手", color: "var(--jade)", pts: pr.map((r) => [r.games, 100 * r.best_vs_random]) },
+      { name: "对初始网络", color: "var(--loss)", dash: true, pts: pr.map((r) => [r.games, 100 * r.best_vs_gen0]) },
+    ], { xlabel: "自我对弈局数", y0: 0, y1: 100, yTicks: [0, 25, 50, 75, 100], fmt: (t) => t + "%" });
+  }
+
+  // ------------------------------------------------------------------- start
+  renderLearn();
+  const start = (data) => {
+    resize();
+    if (restore(data)) { updateUI(); if (!over && state.toPlay !== human) aiMove(); }
+    else newGame(BLACK);
+  };
+  window.claude?.hot?.ready ? window.claude.hot.ready(start) : start(window.claude?.hot?.data ?? {});
+})();
+</script>
