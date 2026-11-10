@@ -5,7 +5,9 @@
 
 ## 在线玩
 
-打开 **<https://raw.githack.com/YuhaoWang-crypto/ClaudeCode/claude/pensive-turing-r25ie6/alphazero_chess/web/index.html>** 即可（这是从 GitHub 仓库直接托管的页面，不需要登录）。第一次打开要下载约 22 MB 的权重，之后浏览器会缓存。
+打开 **<https://raw.githack.com/YuhaoWang-crypto/ClaudeCode/claude/pensive-turing-r25ie6/alphazero_chess/web/index.html>** 即可。这是 raw.githack 直接从 GitHub 仓库托管的页面，不需要登录；第一次打开时它会先显示一个 “One more step” 提示页，点 **Open the page** 就进入游戏。第一次要下载约 22 MB 的权重，之后浏览器会缓存。
+
+想要一个没有提示页的固定网址，可以开启 GitHub Pages：仓库 **Settings → Pages → Build and deployment**，Source 选 *Deploy from a branch*，分支选 `claude/pensive-turing-r25ie6`（合并后选 `main`），文件夹选 `/ (root)`，保存。几分钟后游戏地址是 <https://yuhaowang-crypto.github.io/ClaudeCode/alphazero_chess/web/>。
 
 页面不依赖任何第三方 CDN：TensorFlow.js 和 chess.js 都放在 `web/vendor/` 里，权重存成文本文件，字体加载失败也会用系统字体照常显示。
 
@@ -47,15 +49,15 @@ python3 -m http.server 8000
 
 | 改动 | 作用 | 对局结果 |
 |---|---|---|
-| 首次探索惩罚（FPU = 0.3） | 原项目把没搜过的走法当成“平局”（Q = 0），局面差时会浪费大量搜索在烂棋上。改为“比当前局面估值低一点”，搜索集中在好棋上 | 对不加 FPU 的同一引擎 FPU_RESULT |
-| 搜索树复用 | 上一步搜过的分支留着继续用，相当于免费多搜 | 与杀棋求解器合并测试 |
-| 杀棋求解器 | 搜索中一旦证明某步是将杀就直接走，证明会被将杀的走法就避开 | 与搜索树复用合并测试 |
+| 首次探索惩罚（FPU = 0.3） | 原项目把没搜过的走法当成“平局”（Q = 0），局面差时会浪费大量搜索在烂棋上。改为“比当前局面估值低一点”，搜索集中在好棋上 | 对不加 FPU 的同一引擎 18 胜 5 和 1 负（85%，约 +300 等级分） |
+| 搜索树复用 | 上一步搜过的分支留着继续用，相当于免费多搜 | 两项合并对原引擎 8 盘 3 胜 2 和 3 负，看不出差别；保留是因为不增加计算，而且能保证直接走出看到的杀棋 |
+| 杀棋求解器 | 搜索中一旦证明某步是将杀就直接走，证明会被将杀的走法就避开 | 同上 |
 | 按时间思考 | 难度按秒数而不是固定次数，GPU 快的电脑同样时间能搜几百上千次 | — |
 | 后台推演 | 你思考时 AI 继续搜索，你走完后直接沿用 | — |
 
-全部合在一起，对原项目的搜索方式（同样每步 100 次模拟）：PACKAGE_RESULT。
+全部合在一起，对原项目的搜索方式（同样每步 100 次模拟）：24 盘 17 胜 3 和 4 负（77%，约 +210 等级分）。在真实对局里，按时间思考和后台推演还会让它在快电脑上搜得更多，强得更多。
 
-另外试过把 FPU 调到 0.6，反而略差（对 0.3 是 1 胜 7 和 4 负），所以保留 0.3。CPUCT_LINE
+另外试过把 FPU 调到 0.6，反而略差（对 0.3 是 1 胜 7 和 4 负），所以保留 0.3。把探索系数 cpuct 从 1.0 提到 1.6 也更差（2 胜 4 和 6 负），所以保持原项目的 1.0。
 
 ## 有多强
 
