@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>AlphaZero 国际象棋</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@500;700&family=Noto+Sans+SC:wght@400;500;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Symbols+2&text=%E2%99%9A%E2%99%9B%E2%99%9C%E2%99%9D%E2%99%9E%E2%99%9F&display=block">
+<style>
+/* Layout: board + eval bar on the left, a narrow "engine console" on the right; stacks on phones. */
+:root {
+  --bg: #eef0ec;
+  --surface: #f9faf7;
+  --ink: #1b201d;
+  --muted: #5d6862;
+  --line: #d5dad3;
+  --accent: #b45309;
+  --accent-soft: rgba(180, 83, 9, .14);
+  --sq-light: #e6e0d0;
+  --sq-dark: #849788;
+  --sq-coord-light: #6d7d71;
+  --sq-coord-dark: #eee8da;
+  --select: rgba(37, 99, 235, .38);
+  --last: rgba(234, 179, 8, .42);
+  --check: rgba(220, 38, 38, .55);
+  --bar-white: #f4f2ec;
+  --bar-black: #2a302c;
+  --font-display: "Sora", "Noto Sans SC", system-ui, sans-serif;
+  --font-body: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --font-piece: "Noto Sans Symbols 2", "Segoe UI Symbol", "DejaVu Sans", "Apple Symbols", serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #131714; --surface: #1b201c; --ink: #e5eae6; --muted: #98a39c; --line: #2d3530;
+    --accent: #f59e0b; --accent-soft: rgba(245, 158, 11, .16);
+    --sq-light: #cfc8b6; --sq-dark: #66796a; --sq-coord-light: #5a6a5e; --sq-coord-dark: #e4ddcc;
+    --bar-white: #e8e5dc; --bar-black: #0c0f0d;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #131714; --surface: #1b201c; --ink: #e5eae6; --muted: #98a39c; --line: #2d3530;
+  --accent: #f59e0b; --accent-soft: rgba(245, 158, 11, .16);
+  --sq-light: #cfc8b6; --sq-dark: #66796a; --sq-coord-light: #5a6a5e; --sq-coord-dark: #e4ddcc;
+  --bar-white: #e8e5dc; --bar-black: #0c0f0d;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html, body { margin: 0; }
+body {
+  background: var(--bg); color: var(--ink); font: 15px/1.6 var(--font-body);
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 20px 40px;
+}
+.wrap { max-width: 1080px; margin: 0 auto; display: grid; gap: 28px; }
+header h1 { font: 700 26px/1.2 var(--font-display); margin: 0; letter-spacing: -.01em; text-wrap: balance; }
+header p { margin: 4px 0 0; color: var(--muted); max-width: 62ch; }
+header a, .how a { color: var(--accent); }
+
+.game { display: grid; grid-template-columns: minmax(0, 1fr) 340px; gap: 24px; align-items: start; }
+@media (max-width: 860px) { .game { grid-template-columns: minmax(0, 1fr); } }
+
+/* board */
+.board-area { display: flex; gap: 10px; min-width: 0; }
+.evalbar { width: 12px; border-radius: 3px; background: var(--bar-black); position: relative; overflow: hidden; flex: none; border: 1px solid var(--line); }
+.evalbar .fill { position: absolute; left: 0; right: 0; bottom: 0; height: 50%; background: var(--bar-white); transition: height .4s ease; }
+.evalbar.flipped .fill { bottom: auto; top: 0; }
+.board-col { flex: 1; min-width: 0; max-width: 640px; display: grid; gap: 8px; }
+.board-wrap { position: relative; width: 100%; aspect-ratio: 1; max-width: 100%; }
+.board {
+  position: absolute; inset: 0; display: grid; grid-template: repeat(8, 1fr) / repeat(8, 1fr);
+  border-radius: 4px; overflow: hidden; touch-action: none; user-select: none; -webkit-user-select: none;
+  box-shadow: 0 1px 0 var(--line), 0 10px 30px -18px rgba(0,0,0,.45);
+}
+.sq { position: relative; display: grid; place-items: center; }
+.sq.l { background: var(--sq-light); }
+.sq.d { background: var(--sq-dark); }
+.sq.last::before, .sq.sel::before, .sq.check::before { content: ""; position: absolute; inset: 0; }
+.sq.last::before { background: var(--last); }
+.sq.sel::before { background: var(--select); }
+.sq.check::before { background: radial-gradient(circle, var(--check) 0 45%, transparent 72%); }
+.sq.tgt::after { content: ""; position: absolute; width: 30%; height: 30%; border-radius: 50%; background: rgba(20, 30, 25, .28); }
+.sq.tgt.cap::after { width: 86%; height: 86%; background: none; border: 4px solid rgba(20, 30, 25, .3); }
+.coord { position: absolute; font: 600 clamp(8px, 1.5vw, 11px)/1 var(--font-mono); pointer-events: none; }
+.coord.f { right: 4%; bottom: 4%; }
+.coord.r { left: 5%; top: 5%; }
+.sq.l .coord { color: var(--sq-coord-light); }
+.sq.d .coord { color: var(--sq-coord-dark); }
+.pc {
+  position: relative; z-index: 1; font-family: var(--font-piece); font-size: min(9.6vw, 62px); line-height: 1;
+  pointer-events: none; transform: translateY(-2%);
+}
+.pc.w { color: #fbfaf6; -webkit-text-stroke: 1.4px #1c211e; paint-order: stroke fill; text-shadow: 0 1px 1px rgba(0,0,0,.35); }
+.pc.b { color: #1c211e; -webkit-text-stroke: .6px #1c211e; text-shadow: 0 1px 0 rgba(255,255,255,.25); }
+.pc.dragging { opacity: .25; }
+.ghost { position: fixed; z-index: 50; pointer-events: none; transform: translate(-50%, -55%); }
+.arrows { position: absolute; inset: 0; pointer-events: none; z-index: 2; }
+.promo {
+  position: absolute; inset: 0; z-index: 5; display: grid; place-items: center;
+  background: rgba(10, 14, 12, .45); border-radius: 4px;
+}
+.promo .box { display: flex; gap: 6px; background: var(--surface); padding: 10px; border-radius: 8px; border: 1px solid var(--line); }
+.promo button { width: 64px; height: 64px; border-radius: 6px; border: 1px solid var(--line); background: var(--sq-light); cursor: pointer; display: grid; place-items: center; }
+.promo button:hover, .promo button:focus-visible { outline: 2px solid var(--accent); }
+.promo .pc { font-size: 46px; }
+
+.status { display: flex; align-items: center; gap: 10px; min-height: 28px; font-weight: 500; }
+.dot { width: 10px; height: 10px; border-radius: 50%; flex: none; border: 1px solid var(--muted); }
+.dot.w { background: var(--bar-white); } .dot.b { background: var(--bar-black); }
+.status .think { color: var(--accent); font-family: var(--font-mono); font-size: 13px; }
+
+/* console */
+.console { display: grid; gap: 18px; min-width: 0; }
+.panel { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; display: grid; gap: 10px; min-width: 0; }
+.label { font: 600 11px/1 var(--font-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.seg { display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+.seg button { border: 0; background: transparent; color: var(--ink); padding: 7px 4px; font: 500 13px/1.25 var(--font-body); cursor: pointer; display: grid; gap: 1px; }
+.seg button small { font: 400 10.5px/1 var(--font-mono); color: var(--muted); }
+.seg button + button { border-left: 1px solid var(--line); }
+.seg button[aria-pressed="true"] { background: var(--ink); color: var(--surface); }
+.seg button[aria-pressed="true"] small { color: inherit; opacity: .7; }
+.btn { border: 1px solid var(--line); background: var(--surface); color: var(--ink); border-radius: 8px; padding: 7px 12px; font: 500 13px/1.2 var(--font-body); cursor: pointer; }
+.btn:hover { border-color: var(--muted); }
+.btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+button:disabled { opacity: .45; cursor: default; }
+
+.winline { display: flex; justify-content: space-between; font: 600 13px/1 var(--font-mono); font-variant-numeric: tabular-nums; }
+.winbar { height: 8px; border-radius: 4px; background: var(--bar-black); overflow: hidden; border: 1px solid var(--line); }
+.winbar div { height: 100%; width: 50%; background: var(--bar-white); transition: width .4s ease; }
+table.cand { width: 100%; border-collapse: collapse; table-layout: fixed; font: 13px/1.3 var(--font-mono); font-variant-numeric: tabular-nums; }
+.cand th { text-align: right; font: 600 10.5px/1 var(--font-mono); color: var(--muted); padding: 0 0 6px; letter-spacing: .04em; }
+.cand th:first-child, .cand td:first-child { text-align: left; }
+.cand td { text-align: right; padding: 4px 0; border-top: 1px solid var(--line); }
+.cand .mv { font-weight: 600; width: 64px; }
+.cand .num { width: 58px; }
+.cand .vis { padding: 0 10px 0 4px; text-align: left; }
+.cand th.vis { text-align: left; }
+.vbar { height: 6px; border-radius: 3px; background: var(--accent-soft); position: relative; }
+.vbar i { position: absolute; inset: 0 auto 0 0; background: var(--accent); border-radius: 3px; }
+.cand tr.top td.mv { color: var(--accent); }
+.hint { font-size: 13px; color: var(--muted); margin: 0; }
+
+.moves { max-height: 220px; overflow-y: auto; font: 13px/1.7 var(--font-mono); margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: 34px 1fr 1fr; }
+.moves li { display: contents; }
+.moves span { padding: 0 4px; }
+.moves .n { color: var(--muted); }
+.moves .cur { background: var(--accent-soft); border-radius: 3px; }
+
+/* loader */
+.loader { position: absolute; inset: 0; z-index: 6; display: grid; place-items: center; background: color-mix(in srgb, var(--bg) 72%, transparent); border-radius: 4px; text-align: center; padding: 16px; }
+.loader .box { display: grid; gap: 10px; width: min(300px, 90%); background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 16px; }
+.loader .bar { height: 6px; background: var(--line); border-radius: 3px; overflow: hidden; }
+.loader .bar i { display: block; height: 100%; width: 0; background: var(--accent); transition: width .2s; }
+.loader small { color: var(--muted); }
+
+/* explainer */
+.how { display: grid; gap: 14px; }
+.how h2 { font: 700 19px/1.3 var(--font-display); margin: 0; }
+.steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+@media (max-width: 760px) { .steps { grid-template-columns: minmax(0, 1fr); } }
+.step { border-top: 2px solid var(--ink); padding-top: 10px; min-width: 0; }
+.step h3 { margin: 0 0 4px; font: 700 15px/1.35 var(--font-body); }
+.step p { margin: 0; color: var(--muted); font-size: 14px; }
+.step code, .how code { font-family: var(--font-mono); font-size: 12.5px; background: var(--accent-soft); padding: 1px 4px; border-radius: 3px; color: var(--ink); }
+.fine { color: var(--muted); font-size: 13px; margin: 0; max-width: 80ch; }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.22.0/dist/tf.min.js"></script>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>AlphaZero 国际象棋</h1>
+    <p>和一个用 AlphaZero 方法训练的神经网络下棋。它先用“直觉”（策略网络）挑出候选步，再用蒙特卡洛树搜索推演，右侧实时显示它在想什么。</p>
+  </header>
+
+  <section class="game">
+    <div class="board-area">
+      <div class="evalbar" id="evalbar" title="白方胜率"><div class="fill" id="evalfill"></div></div>
+      <div class="board-col">
+        <div class="board-wrap">
+          <div class="board" id="board" aria-label="棋盘"></div>
+          <svg class="arrows" id="arrows" viewBox="0 0 8 8" preserveAspectRatio="none" aria-hidden="true"></svg>
+          <div class="promo" id="promo" hidden><div class="box" id="promobox"></div></div>
+          <div class="loader" id="loader">
+            <div class="box">
+              <strong id="loadmsg">正在载入神经网络权重…</strong>
+              <div class="bar"><i id="loadbar"></i></div>
+              <small id="loadsub">约 17 MB，只需加载一次</small>
+            </div>
+          </div>
+        </div>
+        <div class="status" id="status"><span class="dot w"></span><span>准备中</span></div>
+      </div>
+    </div>
+
+    <aside class="console">
+      <div class="panel">
+        <span class="label">执子</span>
+        <div class="seg" id="side">
+          <button type="button" id="side-w" data-side="w" aria-pressed="true">执白先行</button>
+          <button type="button" id="side-b" data-side="b" aria-pressed="false">执黑后行</button>
+        </div>
+        <span class="label">AI 思考深度</span>
+        <div class="seg" id="level">
+          <button type="button" id="lv-1" data-sims="1">直觉<small>1 次</small></button>
+          <button type="button" id="lv-64" data-sims="64">快速<small>64 次</small></button>
+          <button type="button" id="lv-200" data-sims="200" aria-pressed="true">标准<small>200 次</small></button>
+          <button type="button" id="lv-800" data-sims="800">深思<small>800 次</small></button>
+        </div>
+        <p class="hint" id="speed">每步模拟次数越多，AI 越强，也越慢。</p>
+        <div class="row">
+          <button type="button" class="btn primary" id="new">新对局</button>
+          <button type="button" class="btn" id="undo">悔棋</button>
+          <button type="button" class="btn" id="hint">提示</button>
+          <button type="button" class="btn" id="flip">翻转</button>
+          <button type="button" class="btn" id="pgn">复制 PGN</button>
+        </div>
+      </div>
+
+      <div class="panel" id="analysis">
+        <span class="label" id="an-title">AI 的思考</span>
+        <div class="winline"><span id="win-w">白 50%</span><span id="win-b">黑 50%</span></div>
+        <div class="winbar"><div id="winfill"></div></div>
+        <table class="cand" id="cand">
+          <thead><tr><th class="mv">候选</th><th class="vis">搜索次数 N</th><th class="num">直觉 P</th><th class="num">胜率 Q</th></tr></thead>
+          <tbody id="candbody"></tbody>
+        </table>
+        <p class="hint" id="an-note">AI 走棋时，这里会列出它最看重的几步。</p>
+      </div>
+
+      <div class="panel">
+        <span class="label">棋谱</span>
+        <ol class="moves" id="moves"></ol>
+      </div>
+    </aside>
+  </section>
+
+  <section class="how">
+    <h2>它是怎么下棋的</h2>
+    <div class="steps">
+      <div class="step">
+        <h3>看棋盘：18 层 8×8 平面</h3>
+        <p>12 层标记双方 6 种棋子的位置，4 层是易位权，1 层是 50 步计数，1 层是吃过路兵格。轮到黑方时整盘棋上下翻转，网络永远“站在走棋方”看局面。</p>
+      </div>
+      <div class="step">
+        <h3>凭直觉：策略 + 价值网络</h3>
+        <p>7 个残差块、每层 256 个卷积核。策略头给出 <code>1968</code> 种走法各自的概率 P，价值头给出当前局面的胜负估计 v ∈ [−1, 1]。</p>
+      </div>
+      <div class="step">
+        <h3>再推演：PUCT 蒙特卡洛树搜索</h3>
+        <p>每次模拟选择 <code>Q + c·P·√N / (1+n)</code> 最大的走法往下走，到新局面就问网络，再把 v 逐层回传。最后走被搜索次数最多的那步。</p>
+      </div>
+    </div>
+    <p class="fine">权重来自 <a href="https://github.com/zeta36/chess-alpha-zero" target="_blank" rel="noopener">zeta36/chess-alpha-zero</a>（MIT 许可），用约 1 万盘人类对局做监督学习训练。原作者估计它在每步 1200 次模拟时约 1200 等级分；这里每步模拟次数更少，所以会更弱一些。所有计算都在你的浏览器里完成。</p>
+  </section>
+</div>
+<script type="module" src="./app.js"></script>
+</body>
+</html>
