@@ -1,5 +1,5 @@
 // Game interface: board, input, game flow and the live "what the AI is thinking" panel.
-import { Chess } from "https://cdn.jsdelivr.net/npm/chess.js@1.4.0/dist/esm/chess.js";
+import { Chess } from "./vendor/chess.js";
 import { AlphaZeroNet, search } from "./engine.js";
 
 const tf = window.tf;
@@ -7,14 +7,29 @@ const $ = (id) => document.getElementById(id);
 const START = new Chess().fen();
 const GLYPH = { k: "♚", q: "♛", r: "♜", b: "♝", n: "♞", p: "♟" };
 const FILES = "abcdefgh";
-const STORE_KEY = "az-chess-v1";
+const STORE_KEY = "az-chess-v2";
+
+// Strength levels: a time budget per move (fast devices simply search more) and a cap.
+const LEVELS = {
+  "1":  { sims: 1 },
+  "1s": { timeMs: 1000, sims: 800 },
+  "3s": { timeMs: 3000, sims: 2400 },
+  "8s": { timeMs: 8000, sims: 6400 },
+};
+// Settings chosen from engine-vs-engine matches (see tests/match.mjs and README).
+const SEARCH = { batch: 8, cpuct: 1.0, fpu: 0.3, solver: true, earlyStop: true };
+const PONDER = { timeMs: 60000, sims: 4000 };
 
 const S = {
   net: null,
   game: new Chess(),
   history: [],          // uci moves from START
   human: "w",
-  sims: 200,
+  level: "3s",
+  ponder: true,          // keep searching while the human thinks
+  tree: null,            // search tree, reused from move to move
+  cache: new Map(),      // position -> network output
+  running: Promise.resolve(),
   flipped: false,
   selected: null,
   thinking: false,
@@ -27,19 +42,20 @@ const S = {
 
 // ------------------------------------------------------------ persistence
 function save() {
-  try { localStorage.setItem(STORE_KEY, JSON.stringify({ history: S.history, human: S.human, sims: S.sims })); } catch {}
+  try { localStorage.setItem(STORE_KEY, JSON.stringify({ history: S.history, human: S.human, level: S.level, ponder: S.ponder })); } catch {}
 }
 function restore(data) {
   let d = data && data.history ? data : null;
   if (!d) { try { d = JSON.parse(localStorage.getItem(STORE_KEY) || "null"); } catch {} }
   if (!d) return;
   if (d.human === "w" || d.human === "b") S.human = d.human;
-  if ([1, 64, 200, 800].includes(d.sims)) { S.sims = d.sims; S.simsSaved = true; }
+  if (d.level in LEVELS) { S.level = d.level; S.levelSaved = true; }
+  if (typeof d.ponder === "boolean") S.ponder = d.ponder;
   for (const u of d.history || []) {
     try { S.game.move(toMove(u)); S.history.push(u); } catch { break; }
   }
 }
-try { window.claude?.hot?.snapshot?.(() => ({ history: S.history, human: S.human, sims: S.sims })); } catch {}
+try { window.claude?.hot?.snapshot?.(() => ({ history: S.history, human: S.human, level: S.level, ponder: S.ponder })); } catch {}
 
 const toMove = (u) => ({ from: u.slice(0, 2), to: u.slice(2, 4), promotion: u[4] });
 
@@ -126,8 +142,8 @@ function renderAnalysis() {
   $("an-note").hidden = true;
   const who = a.turn === "w" ? "白方" : "黑方";
   $("an-title").textContent = S.analysisFor === "hint"
-    ? `给你的提示（${who}）· ${a.sims}/${a.total} 次模拟`
-    : `AI（${who}）的思考 · ${a.sims}/${a.total} 次模拟`;
+    ? `给你的提示（${who}）· ${a.sims} 次模拟`
+    : `AI（${who}）的思考 · ${a.sims} 次模拟`;
   const whiteV = a.turn === "w" ? a.value : -a.value;
   setWin(whiteV);
   const total = Math.max(1, a.stats.reduce((s, x) => s + x.n, 0));
@@ -184,7 +200,8 @@ function renderStatus(extra) {
 
 function renderControls() {
   for (const b of document.querySelectorAll("#side button")) b.setAttribute("aria-pressed", String(b.dataset.side === S.human));
-  for (const b of document.querySelectorAll("#level button")) b.setAttribute("aria-pressed", String(Number(b.dataset.sims) === S.sims));
+  for (const b of document.querySelectorAll("#level button")) b.setAttribute("aria-pressed", String(b.dataset.level === S.level));
+  $("ponder").checked = S.ponder;
   const ready = !!S.net;
   $("undo").disabled = !ready || S.history.length === 0;
   $("hint").disabled = !ready || S.thinking || S.game.turn() !== S.human || !!gameOverText();
@@ -239,25 +256,42 @@ function askPromotion(from, to) {
 
 const nextFrame = () => new Promise((r) => setTimeout(r, 30));
 
+// Only one search runs at a time: a new one bumps the token (the old one stops after
+// its current batch) and waits for it to finish, so they never share the tree at once.
+function exclusive(fn) {
+  const prev = S.running;
+  let release;
+  S.running = new Promise((r) => { release = r; });
+  return prev.then(fn).finally(release);
+}
+
 async function runSearch(kind) {
   const token = ++S.token;
-  S.thinking = kind === "ai";
-  S.analysisFor = kind;
-  renderAll(kind === "ai" ? "" : "");
-  await nextFrame();
-  const res = await search({
-    net: S.net, Chess, startFen: START, moves: S.history.slice(), sims: S.sims, batch: 8, cpuct: 1.0,
-    shouldStop: () => token !== S.token,
-    onProgress: (info) => {
-      if (token !== S.token) return;
-      S.analysis = info;
-      renderAnalysis(); renderArrows();
-      if (kind === "ai") renderStatus(`${info.sims}/${info.total}`);
-    },
+  if (kind === "ai") { S.thinking = true; S.analysisFor = "ai"; renderAll(); }
+  return exclusive(async () => {
+    if (token !== S.token) return null;
+    if (kind !== "ponder") await nextFrame();
+    else renderStatus("AI 正在利用你的时间思考");
+    const budget = kind === "ponder" ? PONDER : LEVELS[S.level];
+    const res = await search({
+      net: S.net, Chess, startFen: START, moves: S.history.slice(), ...SEARCH, ...budget,
+      earlyStop: kind !== "ponder" && SEARCH.earlyStop,
+      tree: S.tree, cache: S.cache,
+      shouldStop: () => token !== S.token,
+      onProgress: (info) => {
+        if (token !== S.token) return;
+        if (kind === "ponder") { renderStatus(`AI 正在利用你的时间思考 · ${info.newSims} 次`); return; }
+        S.analysisFor = kind;
+        S.analysis = info;
+        renderAnalysis(); renderArrows();
+        if (kind === "ai") renderStatus(`${(info.ms / 1000).toFixed(1)} 秒 · ${info.sims} 次模拟`);
+      },
+    });
+    if (res) S.tree = res.tree;
+    if (token !== S.token || !res) return null;
+    if (kind !== "ponder") S.analysis = res;
+    return res;
   });
-  if (token !== S.token) return null;
-  S.analysis = res;
-  return res;
 }
 
 async function maybeAiMove() {
@@ -267,6 +301,13 @@ async function maybeAiMove() {
   S.thinking = false;
   play(res.best.uci);
   renderAll();
+  maybePonder();
+}
+
+async function maybePonder() {
+  if (!S.ponder || !S.net || gameOverText() || S.game.turn() !== S.human) return;
+  const res = await runSearch("ponder");
+  if (res) renderStatus();
 }
 
 async function hint() {
@@ -276,6 +317,7 @@ async function hint() {
   renderAll();
   $("an-note").hidden = false;
   $("an-note").textContent = `建议：${res.best.san}（箭头所示）`;
+  maybePonder();
 }
 
 function cancelSearch() { S.token++; S.thinking = false; }
@@ -288,6 +330,7 @@ function newGame(human) {
   S.selected = null;
   S.analysis = null;
   S.flipped = false;
+  S.tree = null;
   $("promo").hidden = true; S.pendingPromo = null;
   save();
   renderAll();
@@ -303,7 +346,7 @@ function undo() {
   $("promo").hidden = true; S.pendingPromo = null;
   save();
   renderAll();
-  maybeAiMove();
+  if (S.game.turn() === S.human) maybePonder(); else maybeAiMove();
 }
 
 // ------------------------------------------------------------ input (click + drag)
@@ -366,8 +409,14 @@ function setupInput() {
 function setupControls() {
   for (const b of document.querySelectorAll("#side button")) b.onclick = () => newGame(b.dataset.side);
   for (const b of document.querySelectorAll("#level button")) {
-    b.onclick = () => { S.sims = Number(b.dataset.sims); save(); renderControls(); };
+    b.onclick = () => { S.level = b.dataset.level; save(); renderControls(); };
   }
+  $("ponder").onchange = () => {
+    S.ponder = $("ponder").checked;
+    save();
+    if (S.ponder) maybePonder();
+    else if (!S.thinking) { S.token++; renderStatus(); }
+  };
   $("new").onclick = () => newGame();
   $("undo").onclick = undo;
   $("hint").onclick = hint;
@@ -410,11 +459,12 @@ async function start(data) {
     const t0 = performance.now();
     await S.net.predict(Array(8).fill(START));
     const perSec = 8000 / Math.max(1, performance.now() - t0);
-    if (!S.simsSaved && 200 / perSec > 12) S.sims = 64 / perSec > 12 ? 1 : 64;
-    $("speed").textContent = `本设备约每秒 ${perSec >= 10 ? Math.round(perSec) : perSec.toFixed(1)} 次模拟（${backend === "webgl" ? "GPU" : "CPU"}）。模拟越多越强，也越慢。`;
+    if (!S.levelSaved && perSec < 2) S.level = "1";
+    const rate = perSec >= 10 ? Math.round(perSec) : perSec.toFixed(1);
+    $("speed").textContent = `本设备每秒约 ${rate} 次模拟（${backend === "webgl" ? "GPU" : "CPU"}），“标准”每步约 ${Math.round(perSec * 3)} 次。思考越久越强。`;
     $("loader").hidden = true;
     renderAll();
-    maybeAiMove();
+    if (S.game.turn() === S.human) maybePonder(); else maybeAiMove();
   } catch (err) {
     console.error(err);
     $("loadmsg").textContent = "神经网络没能加载";

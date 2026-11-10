@@ -8,13 +8,17 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import * as tf from "@tensorflow/tfjs";
+// (swap in "@tensorflow/tfjs-node" for a much faster run if it is installed)
 import { Chess } from "chess.js";
 import { AlphaZeroNet, LABEL_INDEX, mirrorUci, search } from "../web/engine.js";
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const modelDir = path.join(here, "../web/model");
 const manifest = JSON.parse(fs.readFileSync(path.join(modelDir, "weights.json")));
-const buf = Buffer.concat(manifest.parts.map((p) => fs.readFileSync(path.join(modelDir, p))));
+const raw = manifest.parts.map((p) => fs.readFileSync(path.join(modelDir, p)));
+const buf = manifest.encoding === "base64"
+  ? Buffer.concat(raw.map((b) => Buffer.from(b.toString().trim(), "base64")))
+  : Buffer.concat(raw);
 const net = AlphaZeroNet.fromBuffer(tf, buf.buffer.slice(buf.byteOffset, buf.byteOffset + buf.length));
 
 let failures = 0;

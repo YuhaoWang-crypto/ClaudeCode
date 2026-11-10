@@ -125,24 +125,29 @@ export class AlphaZeroNet {
     const manifest = await (await fetch(new URL("weights.json", baseUrl))).json();
     const buf = new Uint8Array(manifest.bytes);
     let off = 0;
+    const b64 = manifest.encoding === "base64"; // parts stored as base64 text (served by any host)
     for (const part of manifest.parts) {
       const res = await fetch(new URL(part, baseUrl));
       if (!res.ok) throw new Error(`failed to load ${part}: ${res.status}`);
-      if (manifest.encoding === "base64") {
-        // for hosts that only serve text files
-        const bin = atob((await res.text()).trim());
-        for (let i = 0; i < bin.length; i++) buf[off + i] = bin.charCodeAt(i);
-        off += bin.length;
-        if (onProgress) onProgress(off / manifest.bytes);
-        continue;
-      }
       const reader = res.body.getReader();
+      const chunks = [];
+      let got = 0;
       for (;;) {
         const { done, value } = await reader.read();
         if (done) break;
-        buf.set(value, off);
-        off += value.length;
-        if (onProgress) onProgress(off / manifest.bytes);
+        if (b64) chunks.push(value); else buf.set(value, off + got);
+        got += value.length;
+        if (onProgress) onProgress(Math.min(1, (off + got * (b64 ? 0.75 : 1)) / manifest.bytes));
+      }
+      if (b64) {
+        const bytes = new Uint8Array(got);
+        let o = 0;
+        for (const c of chunks) { bytes.set(c, o); o += c.length; }
+        const bin = atob(new TextDecoder().decode(bytes).trim());
+        for (let i = 0; i < bin.length; i++) buf[off + i] = bin.charCodeAt(i);
+        off += bin.length;
+      } else {
+        off += got;
       }
     }
     return AlphaZeroNet.fromBuffer(tf, buf.buffer);
@@ -180,6 +185,7 @@ export class AlphaZeroNet {
 
 // ------------------------------------------------------------ MCTS
 const uciOf = (m) => m.from + m.to + (m.promotion || "");
+const posKey = (fen) => fen.split(" ").slice(0, 5).join(" "); // the net ignores the move number
 
 class Node {
   constructor(move, prior) {
@@ -189,6 +195,7 @@ class Node {
     this.W = 0;           // total value, from the view of the player who made `move`
     this.children = null; // null = not expanded yet
     this.pending = false; // waiting for a network evaluation
+    this.proof = 0;       // solver: +1 forced win / -1 forced loss for the player who made `move`
   }
   get Q() { return this.N ? this.W / this.N : 0; }
 }
@@ -196,13 +203,16 @@ class Node {
 // Prior over the legal moves of `game`, renormalised (as in the original
 // select_action_q_and_u). Policy is canonical: mirror moves when Black is to move.
 function priorsFor(policy, legal, blackToMove) {
-  const pri = legal.map((m) => {
+  const pri = new Float32Array(legal.length);
+  let tot = 1e-8;
+  legal.forEach((m, i) => {
     const u = uciOf(m);
     const idx = LABEL_INDEX.get(blackToMove ? mirrorUci(u) : u);
-    return idx === undefined ? 0 : policy[idx];
+    pri[i] = idx === undefined ? 0 : policy[idx];
+    tot += pri[i];
   });
-  const tot = pri.reduce((a, b) => a + b, 1e-8);
-  return pri.map((p) => p / tot);
+  for (let i = 0; i < pri.length; i++) pri[i] /= tot;
+  return pri;
 }
 
 function terminalValue(game) {
@@ -212,29 +222,88 @@ function terminalValue(game) {
   return null;
 }
 
+// Mate solver: a node is lost for the player who moved into it if the opponent
+// has a winning reply, and won if every reply loses.
+function updateProof(node) {
+  if (!node.children || !node.children.length || node.proof) return;
+  let allLose = true;
+  for (const c of node.children) {
+    if (c.proof === 1) { node.proof = -1; return; }
+    if (c.proof !== -1) allLose = false;
+  }
+  if (allLose) node.proof = 1;
+}
+
 /**
  * Run a search and return the chosen move plus statistics.
- * opts: { net, Chess, startFen, moves (array of uci), sims, batch, cpuct,
- *         onProgress(info), shouldStop() }
+ * opts: {
+ *   net, Chess, startFen, moves (uci list from startFen),
+ *   sims        maximum number of simulations,
+ *   timeMs      optional time budget; the search stops when either limit is hit,
+ *   batch, cpuct, virtualLoss,
+ *   fpu         first-play urgency reduction (0 = original: unvisited moves count as Q=0),
+ *   solver      prove forced mates inside the tree and play/avoid them,
+ *   tree        result.tree from the previous search, reused if the game continued from it,
+ *   cache       Map shared between searches: position -> network output,
+ *   earlyStop   stop when the most-visited move can no longer be overtaken,
+ *   onProgress(info), shouldStop()
+ * }
  */
 export async function search(opts) {
-  const { net, Chess, startFen, moves = [], sims = 200, batch = 8, cpuct = 1.0,
-          virtualLoss = 1, onProgress, shouldStop } = opts;
+  const { net, Chess, startFen, moves = [], sims = 200, timeMs = 0, batch = 8, cpuct = 1.0,
+          virtualLoss = 1, fpu = 0, solver = false, tree = null, cache = null, earlyStop = false,
+          onProgress, shouldStop } = opts;
   const game = new Chess(startFen);
   for (const u of moves) game.move({ from: u.slice(0, 2), to: u.slice(2, 4), promotion: u[4] });
   if (terminalValue(game) !== null) return null;
+  const t0 = performance.now();
 
-  const root = new Node(null, 1);
-  const expand = (node, policy) => {
-    const legal = game.moves({ verbose: true });
-    const pri = priorsFor(policy, legal, game.turn() === "b");
-    node.children = legal.map((m, i) => new Node(m, pri[i]));
+  // ---- root: reuse the subtree from the previous search when possible
+  let root = null;
+  if (tree && tree.startFen === startFen && tree.moves.length <= moves.length &&
+      tree.moves.every((u, i) => u === moves[i])) {
+    root = tree.root;
+    for (const u of moves.slice(tree.moves.length)) {
+      const c = root && root.children && root.children.find((ch) => uciOf(ch.move) === u);
+      root = c && c.children ? c : null;
+      if (!root) break;
+    }
+  }
+  const reused = root ? root.N : 0;
+  if (!root) root = new Node(null, 1);
+  root.move = null;
+
+  const evalOf = async (fens) => {
+    const out = new Array(fens.length), miss = [];
+    fens.forEach((f, i) => { const hit = cache && cache.get(posKey(f)); if (hit) out[i] = hit; else miss.push(i); });
+    if (miss.length) {
+      const res = await net.predict(miss.map((i) => fens[i]));
+      miss.forEach((i, k) => { out[i] = { policy: res[k].policy, value: res[k].value }; });
+    }
+    return out;
+  };
+  const remember = (fen, pri, value) => {
+    if (!cache) return;
+    if (cache.size > 200000) cache.clear();
+    cache.set(posKey(fen), { pri, value });
+  };
+  const expandWith = (node, ev, fen, legal, black) => {
+    const pri = ev.pri || priorsFor(ev.policy, legal, black);
+    if (!ev.pri) remember(fen, pri, ev.value);
+    node.children = legal.map((m, k) => new Node(m, pri[k]));
   };
 
-  const [rootEval] = await net.predict([game.fen()]);
-  expand(root, rootEval.policy);
-  root.N = 1;
-  const rawValue = rootEval.value;
+  let rawValue;
+  if (!root.children) {
+    const legal = game.moves({ verbose: true });
+    const [ev] = await evalOf([game.fen()]);
+    expandWith(root, ev, game.fen(), legal, game.turn() === "b");
+    root.N = 1;
+    root.W = -ev.value;
+    rawValue = ev.value;
+  } else {
+    rawValue = -root.Q;
+  }
 
   const backup = (path, v) => {
     // v is from the view of the side to move at the leaf
@@ -244,12 +313,45 @@ export async function search(opts) {
       path[i].W += v;
     }
     root.N += 1;
+    root.W -= v;
+    if (solver) { for (let i = path.length - 1; i >= 0; i--) updateProof(path[i]); updateProof(root); }
   };
 
-  let done = 1;
-  const t0 = performance.now();
-  while (done < sims) {
+  const select = (node) => {
+    const kids = node.children;
+    if (solver) {
+      for (const c of kids) if (c.proof === 1) return c;
+    }
+    const sq = Math.sqrt(node.N + 1);
+    let fpuQ = 0;
+    if (fpu) {
+      let seen = 0;
+      for (const c of kids) if (c.N) seen += c.P;
+      fpuQ = -node.Q - fpu * Math.sqrt(seen);
+    }
+    let best = kids[0], bestS = -Infinity;
+    for (const c of kids) {
+      let s = (c.N ? c.Q : fpuQ) + cpuct * c.P * sq / (1 + c.N);
+      if (c.proof === -1) s -= 10;
+      if (s > bestS) { bestS = s; best = c; }
+    }
+    return best;
+  };
+
+  let done = 0;
+  const timeUp = () => timeMs && performance.now() - t0 > timeMs;
+  while (done < sims && !timeUp() && !(solver && root.proof)) {
     if (shouldStop && shouldStop()) break;
+    if (solver && root.children.some((c) => c.proof === 1)) break; // forced mate found
+    if (earlyStop && done >= 16 && root.children.length > 1) {
+      // stop once the runner-up can no longer catch the leader in the time/sims left
+      let n1 = 0, n2 = 0;
+      for (const c of root.children) { if (c.N > n1) { n2 = n1; n1 = c.N; } else if (c.N > n2) n2 = c.N; }
+      const elapsed = performance.now() - t0;
+      let left = sims - done;
+      if (timeMs) left = Math.min(left, (done / Math.max(elapsed, 1)) * (timeMs - elapsed));
+      if (n1 - n2 > left) break;
+    }
     const leaves = [];
     const want = Math.min(batch, sims - done);
     let attempts = 0;
@@ -258,31 +360,26 @@ export async function search(opts) {
       // ---- select
       const path = [];
       let node = root;
-      while (node.children && node.children.length) {
-        const sq = Math.sqrt(node.N + 1);
-        let best = null, bestS = -Infinity;
-        for (const c of node.children) {
-          const s = c.Q + cpuct * c.P * sq / (1 + c.N);
-          if (s > bestS) { bestS = s; best = c; }
-        }
-        node = best;
+      while (node.children && node.children.length && !(solver && node.proof)) {
+        node = select(node);
         path.push(node);
         game.move(node.move);
         if (node.pending) break;
       }
-      const tv = terminalValue(game);
       if (node.pending) {
         // already queued in this batch; stop collecting to avoid duplicate work
         for (let i = 0; i < path.length; i++) game.undo();
         break;
       }
+      let tv = solver && node.proof ? -node.proof : terminalValue(game);
+      if (tv !== null && tv === -1 && solver) node.proof = 1;
       if (tv !== null) {
         for (let i = 0; i < path.length; i++) game.undo();
         backup(path, tv);
         done++;
         continue;
       }
-      // ---- virtual loss: make other threads in this batch look elsewhere
+      // ---- virtual loss: make the rest of this batch look elsewhere
       for (const p of path) { p.N += virtualLoss; p.W -= virtualLoss; }
       node.pending = true;
       leaves.push({ path, node, fen: game.fen(), legal: game.moves({ verbose: true }), black: game.turn() === "b" });
@@ -291,10 +388,9 @@ export async function search(opts) {
     if (!leaves.length) continue; // only terminal leaves this round (already counted)
 
     // ---- evaluate + expand + backup
-    const evals = await net.predict(leaves.map((l) => l.fen));
+    const evals = await evalOf(leaves.map((l) => l.fen));
     leaves.forEach((leaf, i) => {
-      const pri = priorsFor(evals[i].policy, leaf.legal, leaf.black);
-      leaf.node.children = leaf.legal.map((m, k) => new Node(m, pri[k]));
+      expandWith(leaf.node, evals[i], leaf.fen, leaf.legal, leaf.black);
       leaf.node.pending = false;
       for (const p of leaf.path) { p.N -= virtualLoss; p.W += virtualLoss; }
       backup(leaf.path, evals[i].value);
@@ -305,13 +401,16 @@ export async function search(opts) {
 
   function summary() {
     const stats = root.children
-      .map((c) => ({ uci: uciOf(c.move), san: c.move.san, n: c.N, q: c.Q, p: c.P }))
-      .sort((a, b) => b.n - a.n || b.p - a.p);
+      .map((c) => ({ uci: uciOf(c.move), san: c.move.san, n: c.N, q: c.Q, p: c.P, proof: c.proof }))
+      .sort((a, b) => (b.proof === 1) - (a.proof === 1) || (a.proof === -1) - (b.proof === -1) ||
+                      b.n - a.n || b.p - a.p);
     const best = stats[0];
+    let value = best && best.n ? best.q : rawValue;
+    if (best && best.proof) value = best.proof;
     return {
-      stats, best, sims: done, total: sims,
-      value: best && best.n ? best.q : rawValue, rawValue,
-      ms: performance.now() - t0, turn: game.turn(),
+      stats, best, sims: done + reused, newSims: done, total: Math.max(sims, done + reused),
+      value, rawValue, ms: performance.now() - t0, turn: game.turn(),
+      tree: { startFen, moves: moves.slice(), root },
     };
   }
   return summary();

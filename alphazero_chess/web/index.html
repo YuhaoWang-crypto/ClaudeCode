@@ -5,10 +5,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>AlphaZero 国际象棋</title>
 <meta name="claude:viewport-fit-sides" content="cover">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@500;700&family=Noto+Sans+SC:wght@400;500;700&family=JetBrains+Mono:wght@400;600&display=swap">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Symbols+2&text=%E2%99%9A%E2%99%9B%E2%99%9C%E2%99%9D%E2%99%9E%E2%99%9F&display=block">
+<script>
+  // Web fonts are optional: load them without blocking the page (system fonts are the fallback).
+  for (const href of [
+    "https://fonts.googleapis.com/css2?family=Sora:wght@500;700&family=Noto+Sans+SC:wght@400;500;700&family=JetBrains+Mono:wght@400;600&display=swap",
+    "https://fonts.googleapis.com/css2?family=Noto+Sans+Symbols+2&text=%E2%99%9A%E2%99%9B%E2%99%9C%E2%99%9D%E2%99%9E%E2%99%9F&display=swap",
+  ]) {
+    const l = document.createElement("link");
+    l.rel = "stylesheet"; l.href = href;
+    document.head.appendChild(l);
+  }
+</script>
 <style>
 /* Layout: board + eval bar on the left, a narrow "engine console" on the right; stacks on phones. */
 :root {
@@ -147,6 +154,8 @@ table.cand { width: 100%; border-collapse: collapse; table-layout: fixed; font: 
 .vbar i { position: absolute; inset: 0 auto 0 0; background: var(--accent); border-radius: 3px; }
 .cand tr.top td.mv { color: var(--accent); }
 .hint { font-size: 13px; color: var(--muted); margin: 0; }
+.check { display: flex; gap: 8px; align-items: center; font-size: 13px; cursor: pointer; }
+.check input { accent-color: var(--accent); width: 16px; height: 16px; margin: 0; }
 
 .moves { max-height: 220px; overflow-y: auto; font: 13px/1.7 var(--font-mono); margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: 34px 1fr 1fr; }
 .moves li { display: contents; }
@@ -173,7 +182,7 @@ table.cand { width: 100%; border-collapse: collapse; table-layout: fixed; font: 
 .fine { color: var(--muted); font-size: 13px; margin: 0; max-width: 80ch; }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
 </style>
-<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.22.0/dist/tf.min.js"></script>
+<script src="./vendor/tf.min.js"></script>
 </head>
 <body>
 <div class="wrap">
@@ -211,12 +220,13 @@ table.cand { width: 100%; border-collapse: collapse; table-layout: fixed; font: 
         </div>
         <span class="label">AI 思考深度</span>
         <div class="seg" id="level">
-          <button type="button" id="lv-1" data-sims="1">直觉<small>1 次</small></button>
-          <button type="button" id="lv-64" data-sims="64">快速<small>64 次</small></button>
-          <button type="button" id="lv-200" data-sims="200" aria-pressed="true">标准<small>200 次</small></button>
-          <button type="button" id="lv-800" data-sims="800">深思<small>800 次</small></button>
+          <button type="button" id="lv-1" data-level="1">直觉<small>不搜索</small></button>
+          <button type="button" id="lv-1s" data-level="1s">快速<small>约 1 秒</small></button>
+          <button type="button" id="lv-3s" data-level="3s" aria-pressed="true">标准<small>约 3 秒</small></button>
+          <button type="button" id="lv-8s" data-level="8s">深思<small>约 8 秒</small></button>
         </div>
-        <p class="hint" id="speed">每步模拟次数越多，AI 越强，也越慢。</p>
+        <p class="hint" id="speed">思考越久，AI 越强。</p>
+        <label class="check" for="ponder"><input type="checkbox" id="ponder" checked> 你思考时 AI 也在后台推演</label>
         <div class="row">
           <button type="button" class="btn primary" id="new">新对局</button>
           <button type="button" class="btn" id="undo">悔棋</button>
@@ -257,10 +267,10 @@ table.cand { width: 100%; border-collapse: collapse; table-layout: fixed; font: 
       </div>
       <div class="step">
         <h3>再推演：PUCT 蒙特卡洛树搜索</h3>
-        <p>每次模拟选择 <code>Q + c·P·√N / (1+n)</code> 最大的走法往下走，到新局面就问网络，再把 v 逐层回传。最后走被搜索次数最多的那步。</p>
+        <p>每次模拟选择 <code>Q + c·P·√N / (1+n)</code> 最大的走法往下走，到新局面就问网络，再把 v 逐层回传。最后走被搜索次数最多的那步。搜索树会留到下一步继续用，能证明的杀棋直接走。</p>
       </div>
     </div>
-    <p class="fine">权重来自 <a href="https://github.com/zeta36/chess-alpha-zero" target="_blank" rel="noopener">zeta36/chess-alpha-zero</a>（MIT 许可），用约 1 万盘人类对局做监督学习训练。原作者估计它在每步 1200 次模拟时约 1200 等级分；这里每步模拟次数更少，所以会更弱一些。所有计算都在你的浏览器里完成。</p>
+    <p class="fine">权重来自 <a href="https://github.com/zeta36/chess-alpha-zero" target="_blank" rel="noopener">zeta36/chess-alpha-zero</a>（MIT 许可），用约 1 万盘人类对局做监督学习训练。原作者估计它在每步 1200 次模拟时约 1200 等级分。它的强弱主要取决于每步能搜索多少次，所以有独立显卡的电脑会明显更强。所有计算都在你的浏览器里完成。</p>
   </section>
 </div>
 <script type="module" src="./app.js"></script>

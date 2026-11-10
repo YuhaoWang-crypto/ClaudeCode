@@ -4,7 +4,7 @@ into a compact file the browser engine can load.
 
   * BatchNorm is folded into the preceding conv (kernel * s, bias = beta - mean * s)
   * weights are stored as float16 (2x smaller than the original, ~lossless)
-    and the file is split into parts of <= 9 MB for easy hosting
+    and the file is split into base64 text parts of ~8 MB for easy hosting
   * the policy dense rows are reordered from channels-first to channels-last
     flatten order so the browser can use NHWC tensors directly
 
@@ -13,6 +13,7 @@ Usage:
          --vectors ../tests/vectors.json
 """
 import argparse
+import base64
 import json
 import struct
 import sys
@@ -23,7 +24,7 @@ import numpy as np
 sys.path.insert(0, str(Path(__file__).parent))
 import az_reference as ref  # noqa: E402
 
-PART_BYTES = 9_000_000
+PART_BYTES = 6_000_000  # 8 MB per part once base64-encoded
 
 TEST_FENS = [
     "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
@@ -83,12 +84,14 @@ def write_bin(layers, out_path):
     hj = json.dumps({"format": "AZC1-f16", "layers": header}).encode()
     hj += b" " * ((-len(hj)) % 4)
     data = b"AZC1" + struct.pack("<I", len(hj)) + hj + b"".join(blobs)
-    parts = [data[i:i + PART_BYTES] for i in range(0, len(data), PART_BYTES)]
-    for i, part in enumerate(parts):
-        Path(f"{out_path}.part{i}.bin").write_bytes(part)
+    # Parts are base64 text so that any static host / CDN serves them as-is.
+    parts = []
+    for i in range(0, len(data), PART_BYTES):
+        name = f"{Path(out_path).name}.b64.{len(parts)}.txt"
+        Path(out_path).with_name(name).write_text(base64.b64encode(data[i:i + PART_BYTES]).decode())
+        parts.append(name)
     Path(f"{out_path}.json").write_text(json.dumps(
-        {"parts": [f"{Path(out_path).name}.part{i}.bin" for i in range(len(parts))],
-         "bytes": len(data)}))
+        {"parts": parts, "bytes": len(data), "encoding": "base64"}))
     return stored
 
 

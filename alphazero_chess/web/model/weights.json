@@ -1,1 +1,1 @@
-{"parts": ["weights.part0.bin", "weights.part1.bin"], "bytes": 17162504}
+{"parts": ["weights.b64.0.txt", "weights.b64.1.txt", "weights.b64.2.txt"], "bytes": 17162504, "encoding": "base64"}
