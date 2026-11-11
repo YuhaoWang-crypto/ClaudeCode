@@ -71,6 +71,7 @@ def main():
     ap.add_argument("--out", default=os.path.join(HERE, "web", "go_zero.html"))
     ap.add_argument("--json", default=None, help="also write the model JSON here")
     ap.add_argument("--ladder", default=None, help="ladder.json from analyze.py")
+    ap.add_argument("--sims", type=int, default=None, help="default search size in the page")
     args = ap.parse_args()
 
     net, ck = load(args.ckpt)
@@ -88,6 +89,11 @@ def main():
         json.dump(model, open(args.json, "w"))
     tpl = open(os.path.join(HERE, "web", "template.html")).read()
     engine = open(os.path.join(HERE, "web", "engine.js")).read()
+    n = meta["n"]
+    road = {5: "五路", 7: "七路", 9: "九路", 13: "十三路", 19: "十九路"}.get(n, f"{n}路")
+    sims = args.sims or (200 if n <= 7 else 100)
+    tpl = (tpl.replace("__ROAD__", road).replace("__N__", str(n))
+              .replace("__SIMS__", str(sims)))
     html = (tpl.replace("/*__ENGINE__*/", engine)
                .replace("/*__MODEL__*/", "const MODEL = " + json.dumps(model) + ";")
                .replace("/*__RUN__*/", "const RUN = " + json.dumps(extra) + ";"))

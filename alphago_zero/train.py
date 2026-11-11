@@ -91,6 +91,43 @@ class Replay:
         self.games.extend(records)
         self._cache = None
 
+    # Each iteration's games are also written to disk so that a restarted
+    # run (--resume) continues with the same training window.
+    @staticmethod
+    def save_chunk(out_dir, it, records):
+        d = os.path.join(out_dir, "buffer")
+        os.makedirs(d, exist_ok=True)
+        np.savez_compressed(
+            os.path.join(d, f"iter_{it:05d}.npz"),
+            feats=np.concatenate([r["feats"] for r in records]),
+            pis=np.concatenate([r["pis"] for r in records]).astype(np.float16),
+            z=np.concatenate([r["z"] for r in records]).astype(np.int8),
+            lengths=np.array([r["length"] for r in records]))
+
+    def load_chunks(self, out_dir, upto_iter, games_per_chunk):
+        d = os.path.join(out_dir, "buffer")
+        if not os.path.isdir(d):
+            return 0
+        need = -(-self.games.maxlen // games_per_chunk) + 1
+        files = sorted(f for f in os.listdir(d)
+                       if int(f[5:10]) <= upto_iter)[-need:]
+        for f in files:
+            c = np.load(os.path.join(d, f))
+            ends = np.cumsum(c["lengths"])
+            for a, b in zip(np.r_[0, ends[:-1]], ends):
+                self.games.append(dict(feats=c["feats"][a:b],
+                                       pis=c["pis"][a:b].astype(np.float32),
+                                       z=c["z"][a:b].astype(np.float32)))
+        self._cache = None
+        return len(files)
+
+    @staticmethod
+    def prune(out_dir, it, keep):
+        d = os.path.join(out_dir, "buffer")
+        for f in os.listdir(d):
+            if int(f[5:10]) <= it - keep:
+                os.remove(os.path.join(d, f))
+
     def arrays(self):
         if self._cache is None:
             self._cache = (np.concatenate([g["feats"] for g in self.games]),
@@ -194,6 +231,10 @@ def main():
         save_ckpt(os.path.join(cfg.out_dir, "best.pt"), net_cfg, best_sd, cfg,
                   generation=0, elo=0.0)
     replay = Replay(cfg.window_games)
+    keep_chunks = -(-cfg.window_games // cfg.games_per_iter) + 1
+    if resume:
+        n = replay.load_chunks(cfg.out_dir, state["iteration"], cfg.games_per_iter)
+        print(f"reloaded {len(replay.games)} games from {n} buffer files", flush=True)
     resign_vals = collections.deque(maxlen=600)
     log = open(os.path.join(cfg.out_dir, "metrics.jsonl"), "a")
     budget = cfg.time_budget_min * 60
@@ -212,6 +253,8 @@ def main():
             v_res = state["v_resign"] if it > cfg.resign_start_iter else None
             recs, evals = run_selfplay(pool, net_cfg, best_sd, cfg, v_res, seed)
             replay.add(recs)
+            Replay.save_chunk(cfg.out_dir, it, recs)
+            Replay.prune(cfg.out_dir, it, keep_chunks)
             for r in recs:
                 if r["winner_min_v"] is not None:
                     resign_vals.append(r["winner_min_v"])
