@@ -91,18 +91,75 @@ LANDSCAPE = {"human_targets": 626, "total_biomolecules": 686, "drugs": 1702,
                         "Endogenous peptides": 45, "Transporters": 25,
                         "Nuclear hormone receptors": 19}}
 
-# A deliberately spread demonstration panel: an approved target, a surface
-# antigen, two "classically undruggable" scaffolds, an RNA-only success, and a
-# tumour-suppressor. gene -> ensembl id (fixed so the demo is deterministic).
-PANEL = {
-    "KRAS":  "ENSG00000133703",   # was 'undruggable'; now covalent G12C SM
-    "PCSK9": "ENSG00000169174",   # SM-hard; mAb + siRNA (inclisiran) success
-    "MYC":   "ENSG00000136997",   # TF, no pocket -> the hard case
-    "TP53":  "ENSG00000141510",   # tumour suppressor; reactivators / no classic pocket
-    "EGFR":  "ENSG00000146648",   # textbook kinase + mAb, fully drugged
-    "TTR":   "ENSG00000118271",   # stabiliser SM + ASO/siRNA (RNA route)
-    "SOD1":  "ENSG00000142168",   # ALS; ASO (tofersen) — RNA-only route
+# A deliberately spread demonstration panel, grouped by the paper's privileged
+# protein families + the "modality decides" hard cases. gene -> (ensembl id,
+# family group, one-line why-it-is-here). Fixed IDs so the demo is deterministic.
+PANEL_GROUPS = {
+ "GPCR": {
+    "GLP1R": ("ENSG00000112164", "incretin GPCR; peptide + SM agonists (obesity/T2D)"),
+    "ADRB2": ("ENSG00000169252", "textbook GPCR; SM agonist/antagonist"),
+    "CNR1":  ("ENSG00000118432", "cannabinoid GPCR; CNS SM"),
+    "HTR2A": ("ENSG00000102468", "serotonin GPCR; antipsychotics"),
+ },
+ "Kinase / catalytic receptor": {
+    "EGFR":  ("ENSG00000146648", "textbook kinase + mAb, fully drugged"),
+    "ERBB2": ("ENSG00000141736", "HER2; mAb/ADC + TKI — surface + catalytic"),
+    "BRAF":  ("ENSG00000157764", "V600E kinase; SM inhibitors"),
+    "JAK2":  ("ENSG00000096968", "MPN kinase; SM (ruxolitinib)"),
+    "BTK":   ("ENSG00000010671", "B-cell kinase; covalent SM + degraders"),
+    "CDK4":  ("ENSG00000135446", "cell-cycle kinase; SM (palbociclib)"),
+ },
+ "Enzyme (non-kinase)": {
+    "KRAS":  ("ENSG00000133703", "GTPase; was 'undruggable', covalent G12C SM"),
+    "PCSK9": ("ENSG00000169174", "secreted enzyme; mAb + siRNA (inclisiran)"),
+    "BACE1": ("ENSG00000186318", "aspartyl protease; AD SM (clinically hard)"),
+    "HMGCR": ("ENSG00000113161", "statin target; SM"),
+    "IDH1":  ("ENSG00000138413", "mutant metabolic enzyme; SM (ivosidenib)"),
+    "DHODH": ("ENSG00000102967", "pyrimidine synthesis; SM"),
+    "XDH":   ("ENSG00000158125", "xanthine oxidase; gout SM (allopurinol)"),
+    "EZH2":  ("ENSG00000106462", "epigenetic methyltransferase; SM (tazemetostat)"),
+    "PTPN11":("ENSG00000179295", "phosphatase (SHP2); allosteric SM"),
+ },
+ "Ion channel": {
+    "SCN9A": ("ENSG00000169432", "Nav1.7 pain channel; SM"),
+    "CFTR":  ("ENSG00000001626", "chloride channel; SM modulators (ivacaftor)"),
+    "KCNQ1": ("ENSG00000053918", "K+ channel; cardiac"),
+ },
+ "Nuclear hormone receptor": {
+    "NR3C1": ("ENSG00000113580", "glucocorticoid receptor; most-drugged target"),
+    "AR":    ("ENSG00000169083", "androgen receptor; SM + degraders"),
+    "ESR1":  ("ENSG00000091831", "estrogen receptor; SM + SERD degraders"),
+ },
+ "Transporter": {
+    "SLC6A4":("ENSG00000108576", "SERT; SSRIs"),
+    "SLC2A1":("ENSG00000117394", "GLUT1; metabolic, SM-hard"),
+    "SORT1": ("ENSG00000134243", "sortilin; trafficking receptor"),
+ },
+ "Surface antigen (mAb / ADC route)": {
+    "CD19":   ("ENSG00000177455", "B-cell antigen; CAR-T / bispecific / ADC"),
+    "MS4A1":  ("ENSG00000156738", "CD20; rituximab and successors"),
+    "NECTIN4":("ENSG00000143217", "ADC target (enfortumab vedotin)"),
+    "TACSTD2":("ENSG00000184292", "TROP2; ADC (sacituzumab govitecan)"),
+ },
+ "Classic 'undruggable' TF / scaffold": {
+    "MYC":   ("ENSG00000136997", "TF, no pocket — the hard case"),
+    "TP53":  ("ENSG00000141510", "tumour suppressor; reactivators emerging"),
+    "STAT3": ("ENSG00000168610", "TF; degraders / decoy routes"),
+    "CTNNB1":("ENSG00000168036", "beta-catenin; scaffold, SM-hard"),
+    "SMAD4": ("ENSG00000141646", "TF tumour suppressor; loss-of-function"),
+    "FOXP3": ("ENSG00000049768", "Treg TF; intracellular, SM-hard"),
+    "RHOA":  ("ENSG00000067560", "small GTPase; SM-hard like RAS"),
+    "PTEN":  ("ENSG00000171862", "phosphatase tumour suppressor; restore-not-inhibit"),
+ },
+ "RNA-route success (ASO / siRNA)": {
+    "TTR":   ("ENSG00000118271", "SM stabiliser + ASO/siRNA (patisiran/inotersen)"),
+    "SOD1":  ("ENSG00000142168", "ALS; ASO (tofersen) — RNA-only"),
+    "HTT":   ("ENSG00000197386", "huntingtin; ASO (tominersen) — RNA-only"),
+    "APOB":  ("ENSG00000084674", "ASO (mipomersen) — RNA route"),
+ },
 }
+# Flattened {gene: ensembl_id} for evaluate()/backwards compatibility.
+PANEL = {g: v[0] for grp in PANEL_GROUPS.values() for g, v in grp.items()}
 
 
 def _gql(url, query, variables=None, timeout=45):
@@ -326,26 +383,42 @@ def report(online=True):
           "AND\n      (a VALIDATED disease link). Druggability evolves with "
           "modality, so\n      'no SM pocket' is never 'undruggable'.")
     print("-" * 74)
-    print(f"{'gene':6} {'score':>5} {'engage':>6} {'valid':>5}  {'best modality':26} verdict")
     rows = []
-    for sym, eid in PANEL.items():
-        r = evaluate(sym, eid, online=online)
-        rows.append(r)
-        tag = "" if r.get("live") else " ⚠️cached"
-        print(f"{r.get('symbol', sym):6} {r.get('score', 0):>5.2f} "
-              f"{r.get('best_engagement', 0):>6.2f} {r.get('validation', 0):>5.2f}  "
-              f"{r.get('best_route', '?'):26} {r.get('verdict', '?')}{tag}")
+    for group, members in PANEL_GROUPS.items():
+        print(f"\n▸ {group}")
+        print(f"  {'gene':8} {'score':>5} {'eng':>4} {'val':>4}  "
+              f"{'best modality':26} verdict")
+        for sym, (eid, _why) in members.items():
+            r = evaluate(sym, eid, online=online)
+            r["group"] = group
+            rows.append(r)
+            tag = "" if r.get("live") else " ⚠️cached"
+            print(f"  {r.get('symbol', sym):8} {r.get('score', 0):>5.2f} "
+                  f"{r.get('best_engagement', 0):>4.2f} {r.get('validation', 0):>4.2f}  "
+                  f"{r.get('best_route', '?'):26} {r.get('verdict', '?')}{tag}")
     # per-gene modality vector + driving evidence (transparency for each verdict)
-    print("-" * 74)
+    print("\n" + "-" * 74)
     print("PER-MODALITY ENGAGEMENT (why each verdict) — SM / AB / oligo / PROTAC:")
     for r in rows:
         m = r.get("modalities")
         if not m:
             continue
         vec = " ".join(f"{k.split()[0][:5]}={v:.2f}" for k, v in m.items())
-        print(f"  {r['symbol']:6} {vec}   assoc={r.get('assoc','?')} "
+        print(f"  {r['symbol']:8} {vec}   assoc={r.get('assoc','?')} "
               f"genetic={r.get('genetic','?')} tdl={r.get('tdl')} "
               f"dx={r.get('top_disease')}")
+    # aggregate: which modality wins for how many proteins
+    from collections import Counter
+    best_c = Counter(r.get("best_route") for r in rows if r.get("modalities"))
+    verd_c = Counter(r.get("verdict") for r in rows if r.get("verdict"))
+    print("-" * 74)
+    print(f"PANEL SUMMARY ({len([r for r in rows if r.get('modalities')])} proteins, "
+          "live): best-route distribution")
+    for k, v in best_c.most_common():
+        print(f"   {v:>2}× {k}")
+    print("  verdict distribution:")
+    for k, v in verd_c.most_common():
+        print(f"   {v:>2}× {k}")
     print("-" * 74)
     print("READING IT (pattern, not fixed genes — the data decides):")
     print(" · BOTH axes high  -> ESTABLISHED: a modality route AND genetics/clinic")

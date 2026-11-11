@@ -617,19 +617,28 @@ M19 是纯鞍结(双稳开关,无振荡),M21 是纯 Hopf(振荡,固有频率固�
 
 **判定 = f(最佳 engagement, validation)**,分数取**几何平均** `√(engage·valid)` —— 两轴缺一不可,正好对应论文 MoA 定义里的"结合 ∧ 临床相关性"合取。
 
-### 三、在 7 基因演示盘上**实跑(live Open Targets + Pharos)**
+### 三、在 **44 蛋白演示盘**上**实跑(live Open Targets + Pharos,~30s)**
 
-| 基因 | score | engage | valid | 最佳 modality | 判定 |
-|---|---|---|---|---|---|
-| KRAS | 0.97 | 1.00 | 0.95 | 小分子 | ESTABLISHED(共价 G12C 打破"undruggable") |
-| EGFR | 0.97 | 1.00 | 0.94 | 小分子 | ESTABLISHED(激酶 SM + mAb) |
-| TTR | 0.95 | 1.00 | 0.91 | 小分子 | ESTABLISHED(tafamidis + ASO/siRNA) |
-| PCSK9 | 0.93 | 1.00 | 0.86 | 抗体/ADC | ESTABLISHED(mAb + siRNA inclisiran;SM 难) |
-| TP53 | 0.89 | 0.80 | 1.00 | 小分子\* | ESTABLISHED(p53 reactivator 已进临床) |
-| SOD1 | 0.74 | 0.60 | 0.91 | (SM 0.60 / **oligo**) | TARGETABLE(**tofersen ASO 是真正获批路线**) |
-| MYC | 0.68 | 0.60 | 0.77 | 小分子\* | TARGETABLE(结构配体 + 降解/RNA 路线) |
+演示盘按论文的 **8 个优先蛋白族 + "modality 决定"硬案例** 分组覆盖:GPCR、激酶/催化受体、非激酶酶、离子通道、核激素受体、转运体、表面抗原(mAb/ADC)、经典"undruggable" TF/scaffold、RNA 路线成功案例。代表性结果:
 
-每个基因都打印**四 modality 向量**(SM/AB/oligo/PROTAC)+ 驱动证据(assoc、genetic、TDL、top disease),让每个判定都可追溯 —— 不是黑箱。
+| 组 | 基因 | score | eng | val | 最佳 modality | 判定 |
+|---|---|---|---|---|---|---|
+| GPCR | GLP1R | 0.86 | 0.95 | 0.77 | 小分子 | ESTABLISHED(incretin;肥胖/T2D) |
+| 激酶 | BRAF / BTK | 1.00 | 1.00 | 1.00 | 小分子 | ESTABLISHED |
+| 非激酶酶 | EZH2 | 0.98 | 1.00 | 0.97 | 小分子 | ESTABLISHED(表观甲基转移酶) |
+| 非激酶酶 | BACE1 | 0.51 | 0.80 | 0.33 | 小分子 | **EMERGING**(有口袋但 AD 临床验证弱) |
+| 离子通道 | CFTR | 0.97 | 1.00 | 0.94 | 小分子 | ESTABLISHED(ivacaftor) |
+| 核激素受体 | AR | 1.00 | 1.00 | 1.00 | 小分子 | ESTABLISHED(SM + SERD 降解) |
+| 转运体 | SLC2A1 | 0.77 | 0.60 | 0.99 | 小分子 | TARGETABLE(验证极强、SM 难) |
+| 表面抗原 | CD19 | 0.92 | 1.00 | 0.85 | **抗体/ADC** | ESTABLISHED(CAR-T/双抗/ADC) |
+| TF/scaffold | TP53 | 0.89 | 0.80 | 1.00 | 小分子\* | ESTABLISHED(reactivator 进临床) |
+| TF/scaffold | CTNNB1 | 0.75 | 0.60 | 0.94 | 小分子\* | TARGETABLE(β-catenin scaffold) |
+| TF/scaffold | **FOXP3** | 0.70 | 0.50 | 0.98 | **寡核苷酸** | EMERGING(**SM=0.08,真正没有小分子路线**) |
+| RNA 路线 | SOD1 | 0.74 | 0.60 | 0.91 | (SM 0.60 / **oligo**) | TARGETABLE(**tofersen ASO 是真正获批路线**) |
+
+**全盘统计(44 蛋白):最佳路线 39× 小分子 / 4× 抗体-ADC / 1× 寡核苷酸;判定 31× ESTABLISHED / 11× TARGETABLE / 2× EMERGING。**
+
+每个基因都打印**四 modality 向量**(SM/AB/oligo/PROTAC)+ 驱动证据(assoc、genetic、TDL、top disease),让每个判定都可追溯 —— 不是黑箱。**FOXP3** 是框架价值的最佳例证:它是验证极强(val=0.98,IPEX 综合征)却 **SM=0.08** 的胞内 TF,框架自动把最佳路线判给**寡核苷酸**,正是论文"可成药性随 modality 演化"的直接体现。
 
 ### 四、怎么读(模式,不是写死的基因 —— 数据说了算)
 

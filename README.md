@@ -29,7 +29,7 @@ literature-grounded systems where every number is *computed*, not asserted.
 | `m21_oscillators` | extend framework to oscillatory (Hopf) pathways | Goodwin (circadian), p53-Mdm2, Brusselator (glycolytic) | approaching Hopf: variance rises AND a spectral peak sharpens at the intrinsic frequency — distinct from saddle-node |
 | `m20b_biomodels_exact` | fetch + simulate EXACT curated models (fills M20 gap) | Markevich2004 (BIOMD27), Legewie2006 apoptosis (BIOMD102) | download method = biomodels GitHub mirror + libRoadRunner; official Km5=78 confirms hand-coded M15 (states to the decimal); Legewie caspase switch bistable in XIAP synthesis |
 | `m22_snic_mixed` | mixed bifurcation: saddle-node ON a limit cycle (SNIC) | θ / Ermentrout-Kopell normal form (cell-cycle / excitable) | finite-amplitude spikes whose period diverges (T~π/√I, log-log slope −0.50; frequency→0) — signature distinct from both Hopf and pure saddle-node; ISI mean+CV both grow |
-| `m23_targetability` | can a genome protein be a drug target? (internalises Nat Rev Drug Discov 2026 target logic) | live Open Targets + Pharos for a 7-gene panel | engagement×validation geometric-mean verdict; "no SM pocket ≠ undruggable" — modality (SM/AB/oligo/PROTAC) chosen per protein; former undruggables (MYC/TP53) show SM engagement rising |
+| `m23_targetability` | can a genome protein be a drug target? (internalises Nat Rev Drug Discov 2026 target logic) | live Open Targets + Pharos for a 44-protein panel across all 8 paper families | engagement×validation geometric-mean verdict; "no SM pocket ≠ undruggable" — modality (SM/AB/oligo/PROTAC) chosen per protein; 31 ESTABLISHED / 11 TARGETABLE / 2 EMERGING; FOXP3 falls out as a true oligo-only case |
 
 ## Run
 
