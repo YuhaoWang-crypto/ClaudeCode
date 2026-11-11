@@ -5,3 +5,4 @@ alphago_zero/runs/*/gens/
 alphago_zero/runs/*/train.log
 alphago_zero/runs/*/analyze.log
 alphago_zero/runs/*/buffer/
+alphago_zero/runs/9x9/
