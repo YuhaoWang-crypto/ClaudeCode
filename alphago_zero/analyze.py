@@ -182,7 +182,8 @@ def plot(run, lad):
     fig.tight_layout()
     out = os.path.join(os.path.dirname(os.path.abspath(__file__)), "figures")
     os.makedirs(out, exist_ok=True)
-    fig.savefig(os.path.join(out, "training_7x7.png"), dpi=130)
+    name = os.path.basename(os.path.normpath(run))
+    fig.savefig(os.path.join(out, f"training_{name}.png"), dpi=130)
     print("saved figure")
 
 
