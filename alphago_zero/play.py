@@ -16,7 +16,13 @@ from .model import load
 def ai_move(state, ev, sims, c_puct, rng):
     root = Node(state)
     search([root], ev, sims, c_puct, None, rng)
-    a = int(np.argmax(root.N))
+    # most visits, ties by mean value; never pass while passing back would lose
+    n = state.n * state.n
+    mine = state.score() * (1 if state.to_play == BLACK else -1)
+    key = root.N + 1e-3 * root.W / np.maximum(root.N, 1)
+    if mine < 0 and key[:n].max() > 0:
+        key[n] = -np.inf
+    a = int(np.argmax(key))
     return a, root
 
 

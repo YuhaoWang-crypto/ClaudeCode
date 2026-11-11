@@ -275,7 +275,7 @@ td.num { font-family: var(--f-mono); font-variant-numeric: tabular-nums; white-s
     const root = liveRoot || hintRoot;
     if (root && root.expanded && (show || hintRoot)) {
       let mx = 1; for (let a = 0; a < N2; a++) mx = Math.max(mx, root.N[a]);
-      const best = argmax(root.N);
+      const best = chooseMove(root, root.state);
       ctx.font = `600 ${Math.max(10, C * .2)}px ${css("--f-mono")}`;
       for (let a = 0; a < N2; a++) {
         if (!root.N[a] || b[a]) continue;
@@ -292,6 +292,19 @@ td.num { font-family: var(--f-mono); font-variant-numeric: tabular-nums; white-s
     }
   }
   const argmax = (a) => { let bi = 0; for (let i = 1; i < a.length; i++) if (a[i] > a[bi]) bi = i; return bi; };
+  // Most-visited move, ties broken by mean value. With a small search the
+  // opening policy is nearly flat, so a pass can tie for most visits; never
+  // pass while passing would lose if the opponent simply passed back.
+  function chooseMove(root, st) {
+    const q = (a) => root.W[a] / Math.max(root.N[a], 1);
+    const mine = (st.toPlay === BLACK ? 1 : -1) * st.score();
+    let best = -1;
+    for (let a = 0; a < root.N.length; a++) {
+      if (!root.N[a] || (a === PASS && mine < 0)) continue;
+      if (best < 0 || root.N[a] > root.N[best] || (root.N[a] === root.N[best] && q(a) > q(best))) best = a;
+    }
+    return best < 0 ? argmax(root.N) : best;
+  }
 
   // ------------------------------------------------------------- UI updates
   const colName = (c) => (c === BLACK ? "黑" : "白");
@@ -367,7 +380,7 @@ td.num { font-family: var(--f-mono); font-variant-numeric: tabular-nums; white-s
       updateUI(`搜索 ${d}/${sims}`);
     });
     if (!root) return;
-    const a = argmax(root.N);
+    const a = chooseMove(root, st);
     liveRoot = null; thinking = false;
     const secs = ((performance.now() - t0) / 1000).toFixed(1);
     commit(a);
@@ -408,7 +421,7 @@ td.num { font-family: var(--f-mono); font-variant-numeric: tabular-nums; white-s
     const st = state;
     const root = await think(st, sims, (r, d) => { hintRoot = r; updateUI(`提示搜索 ${d}/${sims}`); });
     thinking = false;
-    if (root) { hintRoot = root; notice = `提示：${st.moveName(argmax(root.N))}（圈越大，搜索访问越多）`; updateUI(); }
+    if (root) { hintRoot = root; notice = `提示：${st.moveName(chooseMove(root, st))}（圈越大，搜索访问越多）`; updateUI(); }
   };
   $("sims").oninput = (e) => { sims = +e.target.value; $("sims-out").textContent = sims; };
   $("show").onchange = (e) => { show = e.target.checked; draw(); };
