@@ -587,3 +587,60 @@ M19 是纯鞍结(双稳开关,无振荡),M21 是纯 Hopf(振荡,固有频率固�
 - **Hopf 分岔**(振荡器):M21 —— 3 条(circadian/p53/代谢)。
 - **SNIC 混合分岔**(可兴奋/细胞周期):M22 —— 鞍结+振荡的混合签名(周期→∞)。
 - 一个统一的临界慢化 biomarker 框架,覆盖细胞生物学**三类**动力学失稳(开关 / 时钟 / 可兴奋周期)。
+
+## M23 — 从"通路动力学"到"靶点判定":内化 Nature Reviews Drug Discovery 2026 的靶点逻辑
+
+> 论文:Halip, Avram, Overington, Al-Lazikani 等,*The evolving landscape of drug targets*,**Nat Rev Drug Discov (2026)**,[10.1038/s41573-026-01530-3](https://doi.org/10.1038/s41573-026-01530-3)。正文付费;本模块基于其**公开的补充表(本仓库已下载解析)+ 术语表/图注**,把论文的靶点**判定规则**变成可复现、可对任意基因组蛋白运行的打分。
+
+### 一、内化了论文怎么"定义"和"找"靶点(✅ 原文事实)
+
+1. **MoA / 疗效靶点的定义**:药物**直接结合以产生疗效**的蛋白(酶、GPCR、转运体、离子通道……)**或其他生物分子**(mRNA、pre-mRNA、DNA、肽)。**明确排除** ADMET 相关蛋白、以及"缺乏已验证临床相关性"的蛋白。
+   → 靶点资格 = **(a) 一条物理结合/engagement 通路** ∧ **(b) 已验证的疾病关联**。两者都要,这正是我们打分的两根轴。
+2. **25 年全景(论文定量)**:**686 个生物分子 被 1,702 个获批药物调控**;其中 626 个人类 MoA 靶点落在 8 个优先蛋白族:酶 214 · GPCR 101 · 离子通道 92 · 催化受体 73 · 其他蛋白 56 · 内源肽 45 · 转运体 25 · 核激素受体 19(其 Supp Table 6 / Fig 2)。→ 属于这些族 = 很强的**小分子可成药家族先验**。
+3. **可成药性不是蛋白的固定属性 —— 它随 modality 演化(论文主旨)**:没有小分子口袋的蛋白**不等于 undruggable**。
+   - mAb / ADC / 放射配体 → 只要**胞外或细胞表面**可及;
+   - **ASO / siRNA → 靶的是 mRNA / pre-mRNA**,绕过"蛋白口袋"这道坎(论文把 mRNA/pre-mRNA 列为合法靶点);
+   - **PROTAC / 分子胶** → 只需一个**可配体化表面**,不需要催化口袋(事件驱动降解)。
+   → 正确的问题永远不是"蛋白 X 可成药吗",而是"**用哪种 modality,疾病关联验证了没有**"。
+4. **First-in-class** = MoA 靶点此前从未被任何获批药物调控。零药但强验证的蛋白是 first-in-class **机会**,不是死胡同。
+
+### 二、把定性规则变成一个数(⚠️ 我们的 operationalisation)
+
+两根正交轴,精确对应规则(1):
+
+- **ENGAGEMENT(有没有物理进入通路,取各 modality 的最大值)**
+  - SM:Open Targets 小分子 tractability 桶(获批药 / 临床 / structure-with-ligand / 高质量口袋)+ Pharos TDL + 规则(2)的家族先验;
+  - AB:Open Targets 抗体桶(需高置信度表面/分泌定位);
+  - OLIGO:任何蛋白编码基因都有转录本 → **RNA 路线对所有蛋白天然可用**(论文的核心"演化"扩张),记为 *modality-enabled*,除非已有临床寡核苷酸才算 *validated*;
+  - PROTAC:可配体化 ∧ 胞内 → 降解路线。
+- **VALIDATION(疾病关联真不真)**:Open Targets 综合关联分 + 遗传证据 datatype + 遗传约束(LOEUF 桶)+ 临床先例疾病。
+
+**判定 = f(最佳 engagement, validation)**,分数取**几何平均** `√(engage·valid)` —— 两轴缺一不可,正好对应论文 MoA 定义里的"结合 ∧ 临床相关性"合取。
+
+### 三、在 7 基因演示盘上**实跑(live Open Targets + Pharos)**
+
+| 基因 | score | engage | valid | 最佳 modality | 判定 |
+|---|---|---|---|---|---|
+| KRAS | 0.97 | 1.00 | 0.95 | 小分子 | ESTABLISHED(共价 G12C 打破"undruggable") |
+| EGFR | 0.97 | 1.00 | 0.94 | 小分子 | ESTABLISHED(激酶 SM + mAb) |
+| TTR | 0.95 | 1.00 | 0.91 | 小分子 | ESTABLISHED(tafamidis + ASO/siRNA) |
+| PCSK9 | 0.93 | 1.00 | 0.86 | 抗体/ADC | ESTABLISHED(mAb + siRNA inclisiran;SM 难) |
+| TP53 | 0.89 | 0.80 | 1.00 | 小分子\* | ESTABLISHED(p53 reactivator 已进临床) |
+| SOD1 | 0.74 | 0.60 | 0.91 | (SM 0.60 / **oligo**) | TARGETABLE(**tofersen ASO 是真正获批路线**) |
+| MYC | 0.68 | 0.60 | 0.77 | 小分子\* | TARGETABLE(结构配体 + 降解/RNA 路线) |
+
+每个基因都打印**四 modality 向量**(SM/AB/oligo/PROTAC)+ 驱动证据(assoc、genetic、TDL、top disease),让每个判定都可追溯 —— 不是黑箱。
+
+### 四、怎么读(模式,不是写死的基因 —— 数据说了算)
+
+- **两轴都高 → ESTABLISHED**:有 modality 路线 **且** 遗传/临床支持疾病(KRAS、EGFR、PCSK9、TTR)。
+- **验证高、SM engagement 低 → 论文的核心命题**:蛋白是真的,**赢点在于选对 modality**(RNA ASO/siRNA、降解剂、表面抗体),而不是硬找小分子口袋。注意 live 调用已经显示**昔日"undruggable"的 SM engagement 在爬升**(p53 reactivator 进临床、MYC 出现结构配体)—— 这个上升本身就是论文的主旨。
+- 分数是几何平均:一个靶点**两轴都要有**,正如论文 MoA 定义要求的(结合 ∧ 已验证临床相关性)。
+
+### ⚠️ 诚实边界
+
+- 分数是**我们**对论文定性规则的 operationalisation;engagement/validation 的证据是 **live**(Open Targets + Pharos),但权重与阈值是我们设的。
+- Open Targets 的 tractability 桶**不编码已获批的寡核苷酸**(tofersen / inclisiran),所以 SM/AB 路线可能**盖过实际获批的 RNA 路线**(见 SOD1)——**要读 modality 向量,别只看 "best"**。
+- 演示盘与权重是可配置的;换一组基因只需传 `evaluate(symbol, ensembl_id)`。离线时回退到缓存盘(标 ⚠️cached),保证 `run_all` 不断链。
+
+> 一句话:M1–M22 把"通路在哪里会失稳 / 哪个节点是不可约核心 / 哪个 biomarker 能预警"算清楚;**M23 则接着问——这个核心节点蛋白,到底能不能做成药靶,用哪种 modality**。前者给**生物学上该打哪**,后者给**药学上打得动吗**,合起来就是从网络到靶点的完整判定链。

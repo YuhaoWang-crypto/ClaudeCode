@@ -55,6 +55,12 @@ def main():
         r20b = None
         print(f"M20b exact-biomodels skipped ({type(e).__name__}: {e})\n")
     r22 = m22_snic_mixed.report();           print()
+    try:                                     # needs network (Open Targets + Pharos)
+        from grn_pipeline import m23_targetability
+        r23 = m23_targetability.report();    print()
+    except Exception as e:
+        r23 = None
+        print(f"M23 targetability skipped ({type(e).__name__}: {e})\n")
 
     print("=" * 68)
     print("CONSOLIDATED SUMMARY")
