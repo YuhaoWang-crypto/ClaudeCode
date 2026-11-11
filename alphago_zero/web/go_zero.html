@@ -801,7 +801,7 @@ const RUN = {"metrics": [{"iteration": 1, "games": 128, "elo": 168.4, "generatio
     drawCharts(m);
   }
   function lineChart(svg, series, opts) {
-    const W = 480, H = 240, L = 46, R = 12, T = 14, B = 36;
+    const W = 480, H = 240, L = 46, R = 12, T = 30, B = 36;  // legend sits above the plot
     const xs = series.flatMap((s) => s.pts.map((p) => p[0])), ys = series.flatMap((s) => s.pts.map((p) => p[1]));
     if (!xs.length) { svg.innerHTML = `<text x="240" y="120" text-anchor="middle" fill="var(--muted)" font-size="13">暂无数据</text>`; return; }
     const x0 = 0, x1 = Math.max(...xs) || 1;
@@ -823,7 +823,7 @@ const RUN = {"metrics": [{"iteration": 1, "games": 128, "elo": 168.4, "generatio
       g += `<path d="${d}" fill="none" stroke="${s.color}" stroke-width="2" ${s.dash ? 'stroke-dasharray="4 4"' : ""}/>`;
       const lp = s.pts[s.pts.length - 1];
       g += `<circle cx="${sx(lp[0])}" cy="${sy(lp[1])}" r="3.5" fill="${s.color}"/>`;
-      g += `<rect x="${L + 8 + i * 150}" y="${T + 2}" width="12" height="3" fill="${s.color}"/><text x="${L + 24 + i * 150}" y="${T + 7}" font-size="11" fill="var(--ink)">${s.name}</text>`;
+      g += `<rect x="${L + 8 + i * 150}" y="8" width="12" height="3" fill="${s.color}"/><text x="${L + 24 + i * 150}" y="13" font-size="11" fill="var(--ink)">${s.name}</text>`;
     });
     svg.innerHTML = g;
   }
