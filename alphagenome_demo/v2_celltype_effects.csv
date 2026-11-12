@@ -1,0 +1,109 @@
+condition,biosample,assay,endedness,strand,mode,ref,alt,log2fc
+UBERON:0001157,transverse colon,polyA plus RNA-seq,paired,+,imputed_supported,3.3890695571899414,2.3381447792053223,-0.5355249047279358
+UBERON:0001157,transverse colon,polyA plus RNA-seq,single,+,imputed_supported,2.6900181770324707,2.1032204627990723,-0.3550158143043518
+UBERON:0001157,transverse colon,total RNA-seq,paired,+,observed,0.8807482123374939,1.1212694644927979,0.34833142161369324
+UBERON:0001157,transverse colon,total RNA-seq,single,+,imputed_supported,1.7049407958984375,2.023482084274292,0.24711842834949493
+UBERON:0001157,transverse colon,polyA plus RNA-seq,paired,-,imputed_supported,228.68069458007812,69.07421112060547,-1.727115511894226
+UBERON:0001157,transverse colon,polyA plus RNA-seq,single,-,imputed_supported,23.935894012451172,9.810457229614258,-1.2867834568023682
+UBERON:0001157,transverse colon,total RNA-seq,paired,-,observed,101.5822982788086,35.01743698120117,-1.536503553390503
+UBERON:0001157,transverse colon,total RNA-seq,single,-,imputed_supported,142.55763244628906,51.567543029785156,-1.4670100212097168
+UBERON:0001157,transverse colon,polyA plus RNA-seq,paired,.,imputed_supported,299.75848388671875,82.27305603027344,-1.8653086423873901
+UBERON:0001157,transverse colon,polyA plus RNA-seq,single,.,imputed_supported,405.2842712402344,110.0805892944336,-1.8803740739822388
+UBERON:0001157,transverse colon,polyA plus RNA-seq,paired,.,observed,563.6159057617188,179.70703125,-1.649065375328064
+UBERON:0001157,transverse colon,total RNA-seq,paired,.,imputed_supported,299.8627624511719,120.38812255859375,-1.316609263420105
+UBERON:0001157_CL:0011108,transverse colon colonocyte,polyA plus RNA-seq,paired,+,imputed_supported,3.9209272861480713,3.9666707515716553,0.01673382893204689
+UBERON:0001157_CL:0011108,transverse colon colonocyte,polyA plus RNA-seq,single,+,imputed_supported,5.6482253074646,5.65854024887085,0.0026323713827878237
+UBERON:0001157_CL:0011108,transverse colon colonocyte,total RNA-seq,paired,+,imputed_supported,5.065993785858154,5.212810039520264,0.04121596738696098
+UBERON:0001157_CL:0011108,transverse colon colonocyte,total RNA-seq,single,+,imputed_supported,6.970958232879639,7.175353527069092,0.04169290512800217
+UBERON:0001157_CL:0011108,transverse colon colonocyte,polyA plus RNA-seq,paired,-,imputed_supported,14.429415702819824,12.562149047851562,-0.19992956519126892
+UBERON:0001157_CL:0011108,transverse colon colonocyte,polyA plus RNA-seq,single,-,imputed_supported,7.658513069152832,7.484316349029541,-0.03319375962018967
+UBERON:0001157_CL:0011108,transverse colon colonocyte,total RNA-seq,paired,-,imputed_supported,16.105985641479492,14.582693099975586,-0.14333976805210114
+UBERON:0001157_CL:0011108,transverse colon colonocyte,total RNA-seq,single,-,imputed_supported,20.94735336303711,19.40384864807129,-0.11042510718107224
+UBERON:0001157_CL:0011108,transverse colon colonocyte,polyA plus RNA-seq,paired,.,imputed_supported,23.05521011352539,20.225746154785156,-0.1888999342918396
+UBERON:0001157_CL:0011108,transverse colon colonocyte,polyA plus RNA-seq,single,.,imputed_supported,25.989023208618164,22.560752868652344,-0.20408718287944794
+UBERON:0001157_CL:0011108,transverse colon colonocyte,polyA plus RNA-seq,paired,.,imputed_supported,50.695579528808594,47.120391845703125,-0.10550840944051743
+UBERON:0001157_CL:0011108,transverse colon colonocyte,total RNA-seq,paired,.,imputed_supported,79.64442443847656,74.23817443847656,-0.10141216963529587
+UBERON:0001157_CL:0019031,transverse colon intestine goblet cell,polyA plus RNA-seq,paired,+,imputed_supported,5.676915645599365,5.800353050231934,0.031033452600240707
+UBERON:0001157_CL:0019031,transverse colon intestine goblet cell,polyA plus RNA-seq,single,+,imputed_supported,7.454981803894043,7.1642632484436035,-0.057386524975299835
+UBERON:0001157_CL:0019031,transverse colon intestine goblet cell,total RNA-seq,paired,+,imputed_supported,6.536446571350098,6.829007148742676,0.06316924840211868
+UBERON:0001157_CL:0019031,transverse colon intestine goblet cell,total RNA-seq,single,+,imputed_supported,8.339153289794922,8.705235481262207,0.06198238208889961
+UBERON:0001157_CL:0019031,transverse colon intestine goblet cell,polyA plus RNA-seq,paired,-,imputed_supported,34.98833465576172,23.019866943359375,-0.6039944887161255
+UBERON:0001157_CL:0019031,transverse colon intestine goblet cell,polyA plus RNA-seq,single,-,imputed_supported,12.8040771484375,10.692638397216797,-0.25998541712760925
+UBERON:0001157_CL:0019031,transverse colon intestine goblet cell,total RNA-seq,paired,-,imputed_supported,35.6483154296875,24.21068572998047,-0.558189868927002
+UBERON:0001157_CL:0019031,transverse colon intestine goblet cell,total RNA-seq,single,-,imputed_supported,43.195308685302734,30.376440048217773,-0.5079217553138733
+UBERON:0001157_CL:0019031,transverse colon intestine goblet cell,polyA plus RNA-seq,paired,.,imputed_supported,53.644168853759766,36.8305549621582,-0.542518138885498
+UBERON:0001157_CL:0019031,transverse colon intestine goblet cell,polyA plus RNA-seq,single,.,imputed_supported,61.3355827331543,42.16144561767578,-0.5407999157905579
+UBERON:0001157_CL:0019031,transverse colon intestine goblet cell,polyA plus RNA-seq,paired,.,imputed_supported,102.5583724975586,79.5110092163086,-0.3672187626361847
+UBERON:0001157_CL:0019031,transverse colon intestine goblet cell,total RNA-seq,paired,.,imputed_supported,138.89755249023438,112.62024688720703,-0.3025549352169037
+UBERON:0001157_CL:0009010,transverse colon transit amplifying cell,polyA plus RNA-seq,paired,+,imputed_supported,5.864307403564453,5.9592766761779785,0.023176508024334908
+UBERON:0001157_CL:0009010,transverse colon transit amplifying cell,polyA plus RNA-seq,single,+,imputed_supported,7.405980587005615,7.338606834411621,-0.01318457443267107
+UBERON:0001157_CL:0009010,transverse colon transit amplifying cell,total RNA-seq,paired,+,imputed_supported,6.897421360015869,7.109529495239258,0.043697014451026917
+UBERON:0001157_CL:0009010,transverse colon transit amplifying cell,total RNA-seq,single,+,imputed_supported,9.326478004455566,9.621006965637207,0.044855497777462006
+UBERON:0001157_CL:0009010,transverse colon transit amplifying cell,polyA plus RNA-seq,paired,-,imputed_supported,20.606529235839844,16.375925064086914,-0.33152514696121216
+UBERON:0001157_CL:0009010,transverse colon transit amplifying cell,polyA plus RNA-seq,single,-,imputed_supported,10.740116119384766,9.934990882873535,-0.1124190166592598
+UBERON:0001157_CL:0009010,transverse colon transit amplifying cell,total RNA-seq,paired,-,imputed_supported,21.72154426574707,17.812000274658203,-0.2862771451473236
+UBERON:0001157_CL:0009010,transverse colon transit amplifying cell,total RNA-seq,single,-,imputed_supported,28.389095306396484,23.816225051879883,-0.2533921003341675
+UBERON:0001157_CL:0009010,transverse colon transit amplifying cell,polyA plus RNA-seq,paired,.,imputed_supported,33.55723190307617,27.697307586669922,-0.2768779993057251
+UBERON:0001157_CL:0009010,transverse colon transit amplifying cell,polyA plus RNA-seq,single,.,imputed_supported,38.43443298339844,31.40907859802246,-0.29121771454811096
+UBERON:0001157_CL:0009010,transverse colon transit amplifying cell,polyA plus RNA-seq,paired,.,imputed_supported,74.37799072265625,65.77812194824219,-0.17726795375347137
+UBERON:0001157_CL:0009010,transverse colon transit amplifying cell,total RNA-seq,paired,.,imputed_supported,105.67542266845703,95.07207489013672,-0.15254633128643036
+UBERON:0001157_CL:0000186,transverse colon myofibroblast cell,polyA plus RNA-seq,paired,+,imputed_supported,15.104369163513184,14.368448257446289,-0.07206166535615921
+UBERON:0001157_CL:0000186,transverse colon myofibroblast cell,polyA plus RNA-seq,single,+,imputed_supported,14.260543823242188,12.33365249633789,-0.20942887663841248
+UBERON:0001157_CL:0000186,transverse colon myofibroblast cell,total RNA-seq,paired,+,imputed_supported,20.79868507385254,20.43180274963379,-0.025675831362605095
+UBERON:0001157_CL:0000186,transverse colon myofibroblast cell,total RNA-seq,single,+,imputed_supported,26.214632034301758,26.021530151367188,-0.010666485875844955
+UBERON:0001157_CL:0000186,transverse colon myofibroblast cell,polyA plus RNA-seq,paired,-,imputed_supported,121.2623062133789,39.359561920166016,-1.6233450174331665
+UBERON:0001157_CL:0000186,transverse colon myofibroblast cell,polyA plus RNA-seq,single,-,imputed_supported,34.72078323364258,18.218839645385742,-0.9303684830665588
+UBERON:0001157_CL:0000186,transverse colon myofibroblast cell,total RNA-seq,paired,-,imputed_supported,122.47798919677734,46.67295455932617,-1.3918637037277222
+UBERON:0001157_CL:0000186,transverse colon myofibroblast cell,total RNA-seq,single,-,imputed_supported,143.04464721679688,58.652774810791016,-1.2861942052841187
+UBERON:0001157_CL:0000186,transverse colon myofibroblast cell,polyA plus RNA-seq,paired,.,imputed_supported,148.0439910888672,68.13065338134766,-1.1196500062942505
+UBERON:0001157_CL:0000186,transverse colon myofibroblast cell,polyA plus RNA-seq,single,.,imputed_supported,136.54844665527344,64.93209838867188,-1.0724091529846191
+UBERON:0001157_CL:0000186,transverse colon myofibroblast cell,polyA plus RNA-seq,paired,.,imputed_supported,275.5732421875,160.6721954345703,-0.778315544128418
+UBERON:0001157_CL:0000186,transverse colon myofibroblast cell,total RNA-seq,paired,.,imputed_supported,279.5923156738281,172.86659240722656,-0.6936656832695007
+UBERON:0001157_CL:0000235,transverse colon macrophage,polyA plus RNA-seq,paired,+,imputed_supported,10.250020027160645,9.546378135681152,-0.10260134190320969
+UBERON:0001157_CL:0000235,transverse colon macrophage,polyA plus RNA-seq,single,+,imputed_supported,14.105316162109375,11.460870742797852,-0.29952239990234375
+UBERON:0001157_CL:0000235,transverse colon macrophage,total RNA-seq,paired,+,imputed_supported,13.777032852172852,14.036947250366211,0.02696407400071621
+UBERON:0001157_CL:0000235,transverse colon macrophage,total RNA-seq,single,+,imputed_supported,16.759075164794922,17.38997459411621,0.05331325903534889
+UBERON:0001157_CL:0000235,transverse colon macrophage,polyA plus RNA-seq,paired,-,imputed_supported,238.8196563720703,55.90719985961914,-2.094815492630005
+UBERON:0001157_CL:0000235,transverse colon macrophage,polyA plus RNA-seq,single,-,imputed_supported,63.56407165527344,23.247488021850586,-1.4511367082595825
+UBERON:0001157_CL:0000235,transverse colon macrophage,total RNA-seq,paired,-,imputed_supported,258.2744445800781,65.16382598876953,-1.9867616891860962
+UBERON:0001157_CL:0000235,transverse colon macrophage,total RNA-seq,single,-,imputed_supported,296.26220703125,80.58866119384766,-1.8782259225845337
+UBERON:0001157_CL:0000235,transverse colon macrophage,polyA plus RNA-seq,paired,.,imputed_supported,291.3694152832031,74.28721618652344,-1.9716635942459106
+UBERON:0001157_CL:0000235,transverse colon macrophage,polyA plus RNA-seq,single,.,imputed_supported,316.38873291015625,85.605712890625,-1.885919213294983
+UBERON:0001157_CL:0000235,transverse colon macrophage,polyA plus RNA-seq,paired,.,imputed_supported,439.7787170410156,153.335205078125,-1.520088791847229
+UBERON:0001157_CL:0000235,transverse colon macrophage,total RNA-seq,paired,.,imputed_supported,438.054443359375,184.63485717773438,-1.246435284614563
+UBERON:0001157_CL:0000236,transverse colon B cell,polyA plus RNA-seq,paired,+,imputed_supported,13.140924453735352,13.494702339172363,0.03832641988992691
+UBERON:0001157_CL:0000236,transverse colon B cell,polyA plus RNA-seq,single,+,imputed_supported,10.276510238647461,10.42972469329834,0.021350586786866188
+UBERON:0001157_CL:0000236,transverse colon B cell,total RNA-seq,paired,+,imputed_supported,18.471511840820312,18.975126266479492,0.03880749270319939
+UBERON:0001157_CL:0000236,transverse colon B cell,total RNA-seq,single,+,imputed_supported,22.06439208984375,22.751192092895508,0.044222164899110794
+UBERON:0001157_CL:0000236,transverse colon B cell,polyA plus RNA-seq,paired,-,imputed_supported,22.48897933959961,20.981962203979492,-0.10006856918334961
+UBERON:0001157_CL:0000236,transverse colon B cell,polyA plus RNA-seq,single,-,imputed_supported,12.150529861450195,11.972220420837402,-0.021328462287783623
+UBERON:0001157_CL:0000236,transverse colon B cell,total RNA-seq,paired,-,imputed_supported,28.204740524291992,26.678892135620117,-0.08023893088102341
+UBERON:0001157_CL:0000236,transverse colon B cell,total RNA-seq,single,-,imputed_supported,34.20476150512695,32.59541702270508,-0.0695280209183693
+UBERON:0001157_CL:0000236,transverse colon B cell,polyA plus RNA-seq,paired,.,imputed_supported,48.023372650146484,46.45494079589844,-0.047904692590236664
+UBERON:0001157_CL:0000236,transverse colon B cell,polyA plus RNA-seq,single,.,imputed_supported,51.81432342529297,49.45683288574219,-0.06718115508556366
+UBERON:0001157_CL:0000236,transverse colon B cell,polyA plus RNA-seq,paired,.,imputed_supported,119.20693969726562,116.94998168945312,-0.02757660113275051
+UBERON:0001157_CL:0000236,transverse colon B cell,total RNA-seq,paired,.,imputed_supported,143.0811767578125,139.9090118408203,-0.032344967126846313
+UBERON:0001157_CL:0000624,"transverse colon CD4-positive, alpha-beta T cell",polyA plus RNA-seq,paired,+,imputed_supported,4.249616622924805,4.42889404296875,0.059613801538944244
+UBERON:0001157_CL:0000624,"transverse colon CD4-positive, alpha-beta T cell",polyA plus RNA-seq,single,+,imputed_supported,5.06215763092041,5.0888471603393555,0.0075864666141569614
+UBERON:0001157_CL:0000624,"transverse colon CD4-positive, alpha-beta T cell",total RNA-seq,paired,+,imputed_supported,6.2123613357543945,6.506843566894531,0.06681612133979797
+UBERON:0001157_CL:0000624,"transverse colon CD4-positive, alpha-beta T cell",total RNA-seq,single,+,imputed_supported,7.95154333114624,8.336899757385254,0.06827609241008759
+UBERON:0001157_CL:0000624,"transverse colon CD4-positive, alpha-beta T cell",polyA plus RNA-seq,paired,-,imputed_supported,20.015888214111328,16.73773765563965,-0.2580410838127136
+UBERON:0001157_CL:0000624,"transverse colon CD4-positive, alpha-beta T cell",polyA plus RNA-seq,single,-,imputed_supported,8.567090034484863,8.0172700881958,-0.09569420665502548
+UBERON:0001157_CL:0000624,"transverse colon CD4-positive, alpha-beta T cell",total RNA-seq,paired,-,imputed_supported,24.93912696838379,21.010746002197266,-0.24728360772132874
+UBERON:0001157_CL:0000624,"transverse colon CD4-positive, alpha-beta T cell",total RNA-seq,single,-,imputed_supported,30.909460067749023,26.710233688354492,-0.2106558084487915
+UBERON:0001157_CL:0000624,"transverse colon CD4-positive, alpha-beta T cell",polyA plus RNA-seq,paired,.,imputed_supported,24.76292610168457,21.644254684448242,-0.19419769942760468
+UBERON:0001157_CL:0000624,"transverse colon CD4-positive, alpha-beta T cell",polyA plus RNA-seq,single,.,imputed_supported,30.608287811279297,26.780845642089844,-0.19272084534168243
+UBERON:0001157_CL:0000624,"transverse colon CD4-positive, alpha-beta T cell",polyA plus RNA-seq,paired,.,imputed_supported,57.32124328613281,53.37527084350586,-0.10289840400218964
+UBERON:0001157_CL:0000624,"transverse colon CD4-positive, alpha-beta T cell",total RNA-seq,paired,.,imputed_supported,86.94486999511719,80.58808898925781,-0.10953429341316223
+UBERON:0001157_CL:0002144,transverse colon capillary endothelial cell,polyA plus RNA-seq,paired,+,imputed_supported,16.888263702392578,15.250983238220215,-0.14711879193782806
+UBERON:0001157_CL:0002144,transverse colon capillary endothelial cell,polyA plus RNA-seq,single,+,imputed_supported,17.03853416442871,13.402588844299316,-0.3462895154953003
+UBERON:0001157_CL:0002144,transverse colon capillary endothelial cell,total RNA-seq,paired,+,imputed_supported,18.088478088378906,18.624420166015625,0.04212441295385361
+UBERON:0001157_CL:0002144,transverse colon capillary endothelial cell,total RNA-seq,single,+,imputed_supported,24.03293228149414,25.336257934570312,0.0761907622218132
+UBERON:0001157_CL:0002144,transverse colon capillary endothelial cell,polyA plus RNA-seq,paired,-,imputed_supported,220.23617553710938,44.103878021240234,-2.3200740814208984
+UBERON:0001157_CL:0002144,transverse colon capillary endothelial cell,polyA plus RNA-seq,single,-,imputed_supported,55.303348541259766,19.087221145629883,-1.5347596406936646
+UBERON:0001157_CL:0002144,transverse colon capillary endothelial cell,total RNA-seq,paired,-,imputed_supported,209.3286895751953,44.7585563659668,-2.225534677505493
+UBERON:0001157_CL:0002144,transverse colon capillary endothelial cell,total RNA-seq,single,-,imputed_supported,240.666015625,57.839698791503906,-2.0569005012512207
+UBERON:0001157_CL:0002144,transverse colon capillary endothelial cell,polyA plus RNA-seq,paired,.,imputed_supported,278.08868408203125,62.577335357666016,-2.1518328189849854
+UBERON:0001157_CL:0002144,transverse colon capillary endothelial cell,polyA plus RNA-seq,single,.,imputed_supported,292.0158996582031,67.3224868774414,-2.116886615753174
+UBERON:0001157_CL:0002144,transverse colon capillary endothelial cell,polyA plus RNA-seq,paired,.,imputed_supported,400.4147033691406,132.02008056640625,-1.6007375717163086
+UBERON:0001157_CL:0002144,transverse colon capillary endothelial cell,total RNA-seq,paired,.,imputed_supported,409.7905578613281,160.59059143066406,-1.351499319076538
