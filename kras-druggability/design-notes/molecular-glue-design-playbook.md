@@ -74,7 +74,7 @@
 ### 3.1 把 presenter 选择变成"可计算的决策"
 - **动作**：对候选 presenter（CypA、FKBP12、14‑3‑3、其他高丰度免疫亲和素/伴侣）逐一评估与目标靶面的**形状+静电互补**。
 - **计算**：① 对 presenter:target 做**无胶二元**预测（protein_protein_binding）看 apo 不自发结合（应低置信，符合"需要胶"）；② 关键用**界面静电互补 + 可诱导性**打分（可在我们 `tri_analyze.py` 基础上加一个静电互补度量）。
-- **可复现文中结论**：CypA vs FKBP12 对 KRAS 效应面的互补差异——这是一个**现成的、可立即跑的新实验**（我们还没做 FKBP12）。
+- **✅ 已验证（Pilot 1，见 [`pilot1/RESULTS.md`](pilot1/RESULTS.md)）**：量化真实 9BFX 的 CypA–KRAS 界面 = **CypA 碱性(+5) ↔ KRAS 酸性(−5)、8 盐桥、0 冲突、EC+1.15**，复现"局部电荷互补"；同口径下 **FKBP12–KRAS** 找不到干净互补界面（EC+0.11、首现 2 个同电荷冲突、binding_confidence 最低 0.171）——方向上支持"选 CypA 不选 FKBP12"。即 **presenter 选择可被量化成筛选器**。
 
 ### 3.2 弹头-残基匹配矩阵（温和弹头库）
 - **动作**：建立"可及亲核残基 → 温和弹头"对照库（Cys→acrylamide/ynamide；Asp/Glu→aziridine/温和亲电；Lys→活化酯/醛亚胺；Ser/Thr/Tyr→探索）。选择性由**界面把弹头摆到目标残基旁**决定。
@@ -108,7 +108,7 @@
 
 ## 5. 建议的下一步计算 pilot（择一即可，低成本）
 
-1. **复现文中 presenter 选择结论（最贴题）**：CypA vs FKBP12 对 KRAS 效应面的界面/静电互补对比 → 验证"为什么选 CypA"，并把 `tri_analyze.py` 扩一个静电互补度量。（新实验，我们没做过 FKBP12）
+1. ~~**复现文中 presenter 选择结论**：CypA vs FKBP12 界面/静电互补对比~~ ✅ **已完成，见 [`pilot1/RESULTS.md`](pilot1/RESULTS.md)**（新增 `pilot1/electro_complementarity.py` 静电互补度量）。
 2. **平台外推 demo**：把 CypA 招募用到另一 RAS 分支或一个无口袋 PPI 靶点，跑 presenter:靶点 互补预筛 + 候选胶三元预测。
 3. **温和弹头-残基匹配 demo**：对 G12D + 氮丙啶弹头显式建 Asp12↔弹头键，复现"温和弹头 + 界面几何=选择性共价"。
 
