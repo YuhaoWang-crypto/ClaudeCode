@@ -1,0 +1,1062 @@
+{
+  "C01_CDRH3_S1": {
+    "prediction_id": "sab_pred_3kmYfjrTfr6SJvEyqpKK",
+    "status": "succeeded",
+    "samples": [
+      {
+        "index": 0,
+        "structure_confidence": 0.917004406452179,
+        "ptm": 0.9773790836334229,
+        "iptm": 0.9757636189460754,
+        "complex_plddt": 0.9023145437240601,
+        "complex_iplddt": 0.8834465742111206,
+        "complex_pde": 0.27714574337005615,
+        "complex_ipde": 0.34486904740333557
+      },
+      {
+        "index": 1,
+        "structure_confidence": 0.9076542258262634,
+        "ptm": 0.899372935295105,
+        "iptm": 0.9573290944099426,
+        "complex_plddt": 0.8952354192733765,
+        "complex_iplddt": 0.873314380645752,
+        "complex_pde": 0.5125105977058411,
+        "complex_ipde": 1.5234540700912476
+      },
+      {
+        "index": 2,
+        "structure_confidence": 0.9071663022041321,
+        "ptm": 0.970177948474884,
+        "iptm": 0.9702507257461548,
+        "complex_plddt": 0.8913951516151428,
+        "complex_iplddt": 0.8908835053443909,
+        "complex_pde": 0.3074236512184143,
+        "complex_ipde": 0.46397653222084045
+      },
+      {
+        "index": 3,
+        "structure_confidence": 0.9069482088088989,
+        "ptm": 0.915172815322876,
+        "iptm": 0.9576420783996582,
+        "complex_plddt": 0.8942747116088867,
+        "complex_iplddt": 0.8601927161216736,
+        "complex_pde": 0.4581879675388336,
+        "complex_ipde": 1.1684653759002686
+      },
+      {
+        "index": 4,
+        "structure_confidence": 0.9066387414932251,
+        "ptm": 0.9219223260879517,
+        "iptm": 0.9587140679359436,
+        "complex_plddt": 0.8936198353767395,
+        "complex_iplddt": 0.8767391443252563,
+        "complex_pde": 0.42891252040863037,
+        "complex_ipde": 1.1614561080932617
+      }
+    ]
+  },
+  "C02_CDRH3_S2": {
+    "prediction_id": "sab_pred_orm31amvkEGJBBOmKoGc",
+    "status": "succeeded",
+    "samples": [
+      {
+        "index": 0,
+        "structure_confidence": 0.9343907237052917,
+        "ptm": 0.9677155017852783,
+        "iptm": 0.9698629379272461,
+        "complex_plddt": 0.9255226850509644,
+        "complex_iplddt": 0.8972881436347961,
+        "complex_pde": 0.3363889455795288,
+        "complex_ipde": 0.6008499264717102
+      },
+      {
+        "index": 1,
+        "structure_confidence": 0.9313780069351196,
+        "ptm": 0.9378011226654053,
+        "iptm": 0.9614437818527222,
+        "complex_plddt": 0.923861563205719,
+        "complex_iplddt": 0.9096171855926514,
+        "complex_pde": 0.4686759114265442,
+        "complex_ipde": 1.1791027784347534
+      },
+      {
+        "index": 2,
+        "structure_confidence": 0.9201774597167969,
+        "ptm": 0.9649688005447388,
+        "iptm": 0.9716528058052063,
+        "complex_plddt": 0.9073085784912109,
+        "complex_iplddt": 0.8761638402938843,
+        "complex_pde": 0.35383474826812744,
+        "complex_ipde": 0.6783949136734009
+      },
+      {
+        "index": 3,
+        "structure_confidence": 0.9193755388259888,
+        "ptm": 0.9501442313194275,
+        "iptm": 0.9669708609580994,
+        "complex_plddt": 0.9074766635894775,
+        "complex_iplddt": 0.8896406888961792,
+        "complex_pde": 0.41914239525794983,
+        "complex_ipde": 0.9410360455513
+      },
+      {
+        "index": 4,
+        "structure_confidence": 0.9185481071472168,
+        "ptm": 0.9553844928741455,
+        "iptm": 0.970210075378418,
+        "complex_plddt": 0.9056326150894165,
+        "complex_iplddt": 0.8646844029426575,
+        "complex_pde": 0.3903525173664093,
+        "complex_ipde": 0.8584535717964172
+      }
+    ]
+  },
+  "C03_CDRH3_S3": {
+    "prediction_id": "sab_pred_0MiL4KdOq7gdHJUD63ho",
+    "status": "succeeded",
+    "samples": [
+      {
+        "index": 0,
+        "structure_confidence": 0.9157993197441101,
+        "ptm": 0.96014803647995,
+        "iptm": 0.9601321220397949,
+        "complex_plddt": 0.9047161340713501,
+        "complex_iplddt": 0.8577470183372498,
+        "complex_pde": 0.33887383341789246,
+        "complex_ipde": 0.6280692219734192
+      },
+      {
+        "index": 1,
+        "structure_confidence": 0.9124228358268738,
+        "ptm": 0.9595518708229065,
+        "iptm": 0.9631049036979675,
+        "complex_plddt": 0.8997523188591003,
+        "complex_iplddt": 0.8634252548217773,
+        "complex_pde": 0.36343127489089966,
+        "complex_ipde": 0.8876422643661499
+      },
+      {
+        "index": 2,
+        "structure_confidence": 0.9123110175132751,
+        "ptm": 0.9360899925231934,
+        "iptm": 0.9538137912750244,
+        "complex_plddt": 0.9019352197647095,
+        "complex_iplddt": 0.8586307168006897,
+        "complex_pde": 0.4318588078022003,
+        "complex_ipde": 1.2551158666610718
+      },
+      {
+        "index": 3,
+        "structure_confidence": 0.9102358222007751,
+        "ptm": 0.9699239134788513,
+        "iptm": 0.9654656052589417,
+        "complex_plddt": 0.8964283466339111,
+        "complex_iplddt": 0.8480139970779419,
+        "complex_pde": 0.30903494358062744,
+        "complex_ipde": 0.49254271388053894
+      },
+      {
+        "index": 4,
+        "structure_confidence": 0.9044529795646667,
+        "ptm": 0.9052013158798218,
+        "iptm": 0.9470462799072266,
+        "complex_plddt": 0.893804669380188,
+        "complex_iplddt": 0.842682957649231,
+        "complex_pde": 0.5611128211021423,
+        "complex_ipde": 1.9444801807403564
+      }
+    ]
+  },
+  "C04_CDRH3_S4": {
+    "prediction_id": "sab_pred_L7Dw7hlv79ID6cPQ9NGM",
+    "status": "succeeded",
+    "samples": [
+      {
+        "index": 0,
+        "structure_confidence": 0.9144228100776672,
+        "ptm": 0.9728636741638184,
+        "iptm": 0.9710652828216553,
+        "complex_plddt": 0.9002621173858643,
+        "complex_iplddt": 0.8604188561439514
+      },
+      {
+        "index": 1,
+        "structure_confidence": 0.91268390417099,
+        "ptm": 0.9610650539398193,
+        "iptm": 0.966760516166687,
+        "complex_plddt": 0.8991647362709045,
+        "complex_iplddt": 0.8759031295776367
+      },
+      {
+        "index": 2,
+        "structure_confidence": 0.9079713821411133,
+        "ptm": 0.9702288508415222,
+        "iptm": 0.9704223871231079,
+        "complex_plddt": 0.892358660697937,
+        "complex_iplddt": 0.8453226685523987
+      },
+      {
+        "index": 3,
+        "structure_confidence": 0.9046521186828613,
+        "ptm": 0.9331846833229065,
+        "iptm": 0.960631251335144,
+        "complex_plddt": 0.8906573057174683,
+        "complex_iplddt": 0.8449915051460266
+      },
+      {
+        "index": 4,
+        "structure_confidence": 0.8999381065368652,
+        "ptm": 0.9515941143035889,
+        "iptm": 0.9624005556106567,
+        "complex_plddt": 0.884322464466095,
+        "complex_iplddt": 0.8306154012680054
+      }
+    ]
+  },
+  "C05_CH3-AB_S1": {
+    "prediction_id": "sab_pred_WBHZnyrLKMQTlVp1y9hj",
+    "status": "succeeded",
+    "samples": [
+      {
+        "index": 0,
+        "structure_confidence": 0.8469898104667664,
+        "ptm": 0.8041268587112427,
+        "iptm": 0.7258409857749939,
+        "complex_plddt": 0.8772770762443542,
+        "complex_iplddt": 0.9116277694702148,
+        "complex_pde": 0.793111264705658,
+        "complex_ipde": 6.638128280639648
+      },
+      {
+        "index": 1,
+        "structure_confidence": 0.8264495730400085,
+        "ptm": 0.7886391878128052,
+        "iptm": 0.689782440662384,
+        "complex_plddt": 0.8606163859367371,
+        "complex_iplddt": 0.879573404788971,
+        "complex_pde": 0.8423125743865967,
+        "complex_ipde": 8.032296180725098
+      },
+      {
+        "index": 2,
+        "structure_confidence": 0.8211857676506042,
+        "ptm": 0.7849400043487549,
+        "iptm": 0.6860641241073608,
+        "complex_plddt": 0.8549662232398987,
+        "complex_iplddt": 0.8797035813331604,
+        "complex_pde": 0.8768389225006104,
+        "complex_ipde": 8.128494262695312
+      },
+      {
+        "index": 3,
+        "structure_confidence": 0.7720710635185242,
+        "ptm": 0.6979336142539978,
+        "iptm": 0.5545790195465088,
+        "complex_plddt": 0.8264440894126892,
+        "complex_iplddt": 0.8172230124473572,
+        "complex_pde": 1.1626826524734497,
+        "complex_ipde": 11.715849876403809
+      },
+      {
+        "index": 4,
+        "structure_confidence": 0.7134868502616882,
+        "ptm": 0.6056647300720215,
+        "iptm": 0.3493447005748749,
+        "complex_plddt": 0.8045223951339722,
+        "complex_iplddt": 0.6966139078140259,
+        "complex_pde": 1.1124838590621948,
+        "complex_ipde": 11.834121704101562
+      }
+    ]
+  },
+  "C06_CH3-AB_S2": {
+    "prediction_id": "sab_pred_RU5wqihM3zut7EkSVu7n",
+    "status": "succeeded",
+    "samples": [
+      {
+        "index": 0,
+        "structure_confidence": 0.7878140211105347,
+        "ptm": 0.8044515252113342,
+        "iptm": 0.7439641952514648,
+        "complex_plddt": 0.7987764477729797,
+        "complex_iplddt": 0.7666842341423035,
+        "complex_pde": 1.0119376182556152,
+        "complex_ipde": 6.272340297698975
+      },
+      {
+        "index": 1,
+        "structure_confidence": 0.7817273139953613,
+        "ptm": 0.775766909122467,
+        "iptm": 0.7130293846130371,
+        "complex_plddt": 0.7989017963409424,
+        "complex_iplddt": 0.7632508873939514,
+        "complex_pde": 1.1400865316390991,
+        "complex_ipde": 7.035250663757324
+      },
+      {
+        "index": 2,
+        "structure_confidence": 0.7790051102638245,
+        "ptm": 0.7478057146072388,
+        "iptm": 0.6799585223197937,
+        "complex_plddt": 0.8037667274475098,
+        "complex_iplddt": 0.7933623194694519,
+        "complex_pde": 1.249061107635498,
+        "complex_ipde": 7.8420515060424805
+      },
+      {
+        "index": 3,
+        "structure_confidence": 0.7735137343406677,
+        "ptm": 0.741690993309021,
+        "iptm": 0.678132176399231,
+        "complex_plddt": 0.797359049320221,
+        "complex_iplddt": 0.756740152835846,
+        "complex_pde": 1.2462141513824463,
+        "complex_ipde": 7.426828861236572
+      },
+      {
+        "index": 4,
+        "structure_confidence": 0.7668301463127136,
+        "ptm": 0.7541815638542175,
+        "iptm": 0.68400639295578,
+        "complex_plddt": 0.787536084651947,
+        "complex_iplddt": 0.7785353660583496,
+        "complex_pde": 1.1927967071533203,
+        "complex_ipde": 7.708902835845947
+      }
+    ]
+  },
+  "C07_CH3-AB_S3": {
+    "prediction_id": "sab_pred_Xgn7r4Ipzar4jIWD0I1M",
+    "status": "succeeded",
+    "samples": [
+      {
+        "index": 0,
+        "structure_confidence": 0.7539026141166687,
+        "ptm": 0.768660843372345,
+        "iptm": 0.6871778964996338,
+        "complex_plddt": 0.7705838084220886,
+        "complex_iplddt": 0.7262572646141052,
+        "complex_pde": 1.1017740964889526,
+        "complex_ipde": 5.73323392868042
+      },
+      {
+        "index": 1,
+        "structure_confidence": 0.7496597170829773,
+        "ptm": 0.6997078657150269,
+        "iptm": 0.5806425213813782,
+        "complex_plddt": 0.7919140458106995,
+        "complex_iplddt": 0.7299268841743469,
+        "complex_pde": 1.432888388633728,
+        "complex_ipde": 8.095818519592285
+      },
+      {
+        "index": 2,
+        "structure_confidence": 0.7341309785842896,
+        "ptm": 0.7341887950897217,
+        "iptm": 0.6127043962478638,
+        "complex_plddt": 0.764487624168396,
+        "complex_iplddt": 0.7005689144134521,
+        "complex_pde": 1.2649998664855957,
+        "complex_ipde": 8.15312385559082
+      },
+      {
+        "index": 3,
+        "structure_confidence": 0.7144593596458435,
+        "ptm": 0.6825688481330872,
+        "iptm": 0.54836505651474,
+        "complex_plddt": 0.7559829354286194,
+        "complex_iplddt": 0.6863903999328613,
+        "complex_pde": 1.474312663078308,
+        "complex_ipde": 8.993555068969727
+      },
+      {
+        "index": 4,
+        "structure_confidence": 0.7124406099319458,
+        "ptm": 0.672220766544342,
+        "iptm": 0.5244364142417908,
+        "complex_plddt": 0.759441614151001,
+        "complex_iplddt": 0.7128817439079285,
+        "complex_pde": 1.4583133459091187,
+        "complex_ipde": 9.480101585388184
+      }
+    ]
+  },
+  "C08_CH3-AB_S4": {
+    "prediction_id": "sab_pred_m2uBjjdkK3MYGAgYR7NT",
+    "status": "succeeded",
+    "samples": [
+      {
+        "index": 0,
+        "structure_confidence": 0.811744213104248,
+        "ptm": 0.8191424012184143,
+        "iptm": 0.7792863249778748,
+        "complex_plddt": 0.819858729839325,
+        "complex_iplddt": 0.7962020635604858,
+        "complex_pde": 1.0554336309432983,
+        "complex_ipde": 5.104660987854004
+      },
+      {
+        "index": 1,
+        "structure_confidence": 0.8038536310195923,
+        "ptm": 0.8261846899986267,
+        "iptm": 0.7895698547363281,
+        "complex_plddt": 0.8074246048927307,
+        "complex_iplddt": 0.7554761171340942,
+        "complex_pde": 0.973198652267456,
+        "complex_ipde": 4.548672199249268
+      },
+      {
+        "index": 2,
+        "structure_confidence": 0.8029014468193054,
+        "ptm": 0.8525886535644531,
+        "iptm": 0.8256164789199829,
+        "complex_plddt": 0.7972227334976196,
+        "complex_iplddt": 0.769238293170929,
+        "complex_pde": 0.894669771194458,
+        "complex_ipde": 3.935997724533081
+      },
+      {
+        "index": 3,
+        "structure_confidence": 0.7924074530601501,
+        "ptm": 0.8254194259643555,
+        "iptm": 0.7903175354003906,
+        "complex_plddt": 0.7929299473762512,
+        "complex_iplddt": 0.7544159293174744,
+        "complex_pde": 1.039865255355835,
+        "complex_ipde": 4.92357063293457
+      },
+      {
+        "index": 4,
+        "structure_confidence": 0.7908942699432373,
+        "ptm": 0.8458253145217896,
+        "iptm": 0.8171133995056152,
+        "complex_plddt": 0.7843394875526428,
+        "complex_iplddt": 0.7347539663314819,
+        "complex_pde": 0.9730969667434692,
+        "complex_ipde": 4.633280277252197
+      }
+    ]
+  },
+  "C09_CH3-CD_S1": {
+    "prediction_id": "sab_pred_xwngwaW0lpagroxW7Tuv",
+    "status": "succeeded",
+    "samples": [
+      {
+        "index": 0,
+        "structure_confidence": 0.843519389629364,
+        "ptm": 0.9240504503250122,
+        "iptm": 0.9039890766143799,
+        "complex_plddt": 0.828402042388916,
+        "complex_iplddt": 0.9118368029594421,
+        "complex_pde": 0.4673174023628235,
+        "complex_ipde": 1.6853199005126953
+      },
+      {
+        "index": 1,
+        "structure_confidence": 0.8258575797080994,
+        "ptm": 0.9350638389587402,
+        "iptm": 0.9131197929382324,
+        "complex_plddt": 0.8040419816970825,
+        "complex_iplddt": 0.881964385509491,
+        "complex_pde": 0.458731085062027,
+        "complex_ipde": 1.5737993717193604
+      },
+      {
+        "index": 2,
+        "structure_confidence": 0.8256362080574036,
+        "ptm": 0.8617284893989563,
+        "iptm": 0.8189035654067993,
+        "complex_plddt": 0.827319324016571,
+        "complex_iplddt": 0.9083678722381592,
+        "complex_pde": 0.7118734121322632,
+        "complex_ipde": 3.5869319438934326
+      },
+      {
+        "index": 3,
+        "structure_confidence": 0.8251428008079529,
+        "ptm": 0.8633008003234863,
+        "iptm": 0.8133577108383179,
+        "complex_plddt": 0.8280890583992004,
+        "complex_iplddt": 0.9014458060264587,
+        "complex_pde": 0.7551512122154236,
+        "complex_ipde": 3.883375644683838
+      },
+      {
+        "index": 4,
+        "structure_confidence": 0.8144608736038208,
+        "ptm": 0.8452432155609131,
+        "iptm": 0.7937875986099243,
+        "complex_plddt": 0.8196291923522949,
+        "complex_iplddt": 0.9068637490272522,
+        "complex_pde": 0.7801193594932556,
+        "complex_ipde": 4.105956554412842
+      }
+    ]
+  },
+  "C10_CH3-CD_S2": {
+    "prediction_id": "sab_pred_uykPxFAqL1evcEKBBWl8",
+    "status": "succeeded",
+    "samples": [
+      {
+        "index": 0,
+        "structure_confidence": 0.8245542645454407,
+        "ptm": 0.9435940384864807,
+        "iptm": 0.9317997694015503,
+        "complex_plddt": 0.7977429032325745,
+        "complex_iplddt": 0.8444158434867859,
+        "complex_pde": 0.4477340281009674,
+        "complex_ipde": 0.9699115753173828
+      },
+      {
+        "index": 1,
+        "structure_confidence": 0.8204967379570007,
+        "ptm": 0.9137728214263916,
+        "iptm": 0.8944685459136963,
+        "complex_plddt": 0.8020038604736328,
+        "complex_iplddt": 0.887295126914978,
+        "complex_pde": 0.5887142419815063,
+        "complex_ipde": 1.666778326034546
+      },
+      {
+        "index": 2,
+        "structure_confidence": 0.8103089332580566,
+        "ptm": 0.8883671164512634,
+        "iptm": 0.8630865812301636,
+        "complex_plddt": 0.7971144914627075,
+        "complex_iplddt": 0.8769729137420654,
+        "complex_pde": 0.701116144657135,
+        "complex_ipde": 2.3821959495544434
+      },
+      {
+        "index": 3,
+        "structure_confidence": 0.7890533208847046,
+        "ptm": 0.9068973064422607,
+        "iptm": 0.8891279697418213,
+        "complex_plddt": 0.764034628868103,
+        "complex_iplddt": 0.8364371657371521,
+        "complex_pde": 0.6308967471122742,
+        "complex_ipde": 1.732558012008667
+      },
+      {
+        "index": 4,
+        "structure_confidence": 0.7679188251495361,
+        "ptm": 0.8176910281181335,
+        "iptm": 0.7855784893035889,
+        "complex_plddt": 0.763503909111023,
+        "complex_iplddt": 0.860463559627533,
+        "complex_pde": 1.1176379919052124,
+        "complex_ipde": 3.125734806060791
+      }
+    ]
+  },
+  "C11_CH3-CD_S3": {
+    "prediction_id": "sab_pred_39TJJk9Jb690ESDve200",
+    "status": "succeeded",
+    "samples": [
+      {
+        "index": 0,
+        "structure_confidence": 0.8402184844017029,
+        "ptm": 0.8728511929512024,
+        "iptm": 0.8291284441947937,
+        "complex_plddt": 0.8429909944534302,
+        "complex_iplddt": 0.8799972534179688,
+        "complex_pde": 0.6438624858856201,
+        "complex_ipde": 3.5387814044952393
+      },
+      {
+        "index": 1,
+        "structure_confidence": 0.8144291043281555,
+        "ptm": 0.8728930354118347,
+        "iptm": 0.8231570720672607,
+        "complex_plddt": 0.8122470378875732,
+        "complex_iplddt": 0.865545392036438,
+        "complex_pde": 0.6705731153488159,
+        "complex_ipde": 4.104013442993164
+      },
+      {
+        "index": 2,
+        "structure_confidence": 0.8098788261413574,
+        "ptm": 0.8250896334648132,
+        "iptm": 0.7672728896141052,
+        "complex_plddt": 0.820530354976654,
+        "complex_iplddt": 0.8697229623794556,
+        "complex_pde": 0.7887609601020813,
+        "complex_ipde": 4.532948017120361
+      },
+      {
+        "index": 3,
+        "structure_confidence": 0.8058638572692871,
+        "ptm": 0.8629379868507385,
+        "iptm": 0.8146130442619324,
+        "complex_plddt": 0.8036766052246094,
+        "complex_iplddt": 0.8537663221359253,
+        "complex_pde": 0.6694833040237427,
+        "complex_ipde": 3.8621137142181396
+      },
+      {
+        "index": 4,
+        "structure_confidence": 0.7593871355056763,
+        "ptm": 0.7298116683959961,
+        "iptm": 0.6287781596183777,
+        "complex_plddt": 0.7920393347740173,
+        "complex_iplddt": 0.8646727204322815,
+        "complex_pde": 1.1753454208374023,
+        "complex_ipde": 8.539922714233398
+      }
+    ]
+  },
+  "C12_CH3-CD_S4": {
+    "prediction_id": "sab_pred_y1qYUIOwTWTBTid7q32O",
+    "status": "succeeded",
+    "samples": [
+      {
+        "index": 0,
+        "structure_confidence": 0.8225154876708984,
+        "ptm": 0.8837087154388428,
+        "iptm": 0.8604947924613953,
+        "complex_plddt": 0.8130207061767578,
+        "complex_iplddt": 0.897990345954895,
+        "complex_pde": 0.6884443163871765,
+        "complex_ipde": 2.165526866912842
+      },
+      {
+        "index": 1,
+        "structure_confidence": 0.8201465606689453,
+        "ptm": 0.8951442837715149,
+        "iptm": 0.8738409280776978,
+        "complex_plddt": 0.8067229390144348,
+        "complex_iplddt": 0.8773579597473145,
+        "complex_pde": 0.7052476406097412,
+        "complex_ipde": 1.994261622428894
+      },
+      {
+        "index": 2,
+        "structure_confidence": 0.8088276982307434,
+        "ptm": 0.864177405834198,
+        "iptm": 0.8419853448867798,
+        "complex_plddt": 0.8005383014678955,
+        "complex_iplddt": 0.8543318510055542,
+        "complex_pde": 0.826482892036438,
+        "complex_ipde": 2.3101096153259277
+      },
+      {
+        "index": 3,
+        "structure_confidence": 0.8033278584480286,
+        "ptm": 0.892128586769104,
+        "iptm": 0.8680549263954163,
+        "complex_plddt": 0.7871460318565369,
+        "complex_iplddt": 0.8653627038002014,
+        "complex_pde": 0.7298927903175354,
+        "complex_ipde": 2.24385666847229
+      },
+      {
+        "index": 4,
+        "structure_confidence": 0.7940728664398193,
+        "ptm": 0.8206366300582886,
+        "iptm": 0.78757643699646,
+        "complex_plddt": 0.7956969738006592,
+        "complex_iplddt": 0.885059654712677,
+        "complex_pde": 1.0848342180252075,
+        "complex_ipde": 3.1221072673797607
+      }
+    ]
+  },
+  "C13_CH3-EF_S1": {
+    "prediction_id": "sab_pred_2nH6zsWN7ynKGMxKm3To",
+    "status": "succeeded",
+    "samples": [
+      {
+        "index": 0,
+        "structure_confidence": 0.8463957905769348,
+        "ptm": 0.8816030025482178,
+        "iptm": 0.8358022570610046,
+        "complex_plddt": 0.849044144153595,
+        "complex_iplddt": 0.835179328918457,
+        "complex_pde": 0.6732736825942993,
+        "complex_ipde": 3.843449354171753
+      },
+      {
+        "index": 1,
+        "structure_confidence": 0.8450767397880554,
+        "ptm": 0.8873310089111328,
+        "iptm": 0.8438730239868164,
+        "complex_plddt": 0.8453776836395264,
+        "complex_iplddt": 0.8586862087249756,
+        "complex_pde": 0.6629486083984375,
+        "complex_ipde": 3.636709451675415
+      },
+      {
+        "index": 2,
+        "structure_confidence": 0.8316581845283508,
+        "ptm": 0.847527027130127,
+        "iptm": 0.7901502251625061,
+        "complex_plddt": 0.8420351147651672,
+        "complex_iplddt": 0.8365183472633362,
+        "complex_pde": 0.8151647448539734,
+        "complex_ipde": 4.904932498931885
+      },
+      {
+        "index": 3,
+        "structure_confidence": 0.8059180378913879,
+        "ptm": 0.7796719074249268,
+        "iptm": 0.6987592577934265,
+        "complex_plddt": 0.8327077627182007,
+        "complex_iplddt": 0.8560687899589539,
+        "complex_pde": 1.1128300428390503,
+        "complex_ipde": 7.062978744506836
+      },
+      {
+        "index": 4,
+        "structure_confidence": 0.8054491877555847,
+        "ptm": 0.7859684824943542,
+        "iptm": 0.6964671015739441,
+        "complex_plddt": 0.8326947689056396,
+        "complex_iplddt": 0.8312353491783142,
+        "complex_pde": 1.0305160284042358,
+        "complex_ipde": 7.201802730560303
+      }
+    ]
+  },
+  "C14_CH3-EF_S2": {
+    "prediction_id": "sab_pred_uf3B4zmlKi9jqrgQFHKN",
+    "status": "succeeded",
+    "samples": [
+      {
+        "index": 0,
+        "structure_confidence": 0.8544966578483582,
+        "ptm": 0.9677545428276062,
+        "iptm": 0.960231602191925,
+        "complex_plddt": 0.8280629515647888,
+        "complex_iplddt": 0.8588228821754456,
+        "complex_pde": 0.3529601991176605,
+        "complex_ipde": 0.6990489959716797
+      },
+      {
+        "index": 1,
+        "structure_confidence": 0.8337969183921814,
+        "ptm": 0.8189528584480286,
+        "iptm": 0.7705513834953308,
+        "complex_plddt": 0.8496082425117493,
+        "complex_iplddt": 0.8117524981498718,
+        "complex_pde": 0.9696282148361206,
+        "complex_ipde": 5.370793342590332
+      },
+      {
+        "index": 2,
+        "structure_confidence": 0.8322343826293945,
+        "ptm": 0.9060565829277039,
+        "iptm": 0.8844476342201233,
+        "complex_plddt": 0.8191810250282288,
+        "complex_iplddt": 0.8173514604568481,
+        "complex_pde": 0.5993243455886841,
+        "complex_ipde": 2.2295327186584473
+      },
+      {
+        "index": 3,
+        "structure_confidence": 0.8270560503005981,
+        "ptm": 0.9755515456199646,
+        "iptm": 0.9705422520637512,
+        "complex_plddt": 0.7911844253540039,
+        "complex_iplddt": 0.7113354206085205,
+        "complex_pde": 0.3049345016479492,
+        "complex_ipde": 0.5295055508613586
+      },
+      {
+        "index": 4,
+        "structure_confidence": 0.8026952743530273,
+        "ptm": 0.8612368702888489,
+        "iptm": 0.8265461921691895,
+        "complex_plddt": 0.796732485294342,
+        "complex_iplddt": 0.7777665853500366,
+        "complex_pde": 0.8016136288642883,
+        "complex_ipde": 3.5800881385803223
+      }
+    ]
+  },
+  "C15_CH3-EF_S3": {
+    "prediction_id": "sab_pred_iRsPcOGxtFzIsOZFhRpc",
+    "status": "succeeded",
+    "samples": [
+      {
+        "index": 0,
+        "structure_confidence": 0.8714852333068848,
+        "ptm": 0.9070886969566345,
+        "iptm": 0.8935053944587708,
+        "complex_plddt": 0.8659801483154297,
+        "complex_iplddt": 0.9165245890617371,
+        "complex_pde": 0.5919040441513062,
+        "complex_ipde": 1.3785133361816406
+      },
+      {
+        "index": 1,
+        "structure_confidence": 0.8671318292617798,
+        "ptm": 0.9553657174110413,
+        "iptm": 0.94630366563797,
+        "complex_plddt": 0.847338855266571,
+        "complex_iplddt": 0.9143213033676147,
+        "complex_pde": 0.3790959119796753,
+        "complex_ipde": 0.7740866541862488
+      },
+      {
+        "index": 2,
+        "structure_confidence": 0.848598301410675,
+        "ptm": 0.9589059352874756,
+        "iptm": 0.9521596431732178,
+        "complex_plddt": 0.822708010673523,
+        "complex_iplddt": 0.8970459699630737,
+        "complex_pde": 0.380475252866745,
+        "complex_ipde": 0.6454727649688721
+      },
+      {
+        "index": 3,
+        "structure_confidence": 0.8265956044197083,
+        "ptm": 0.9196497201919556,
+        "iptm": 0.9058982133865356,
+        "complex_plddt": 0.8067699670791626,
+        "complex_iplddt": 0.8682529330253601,
+        "complex_pde": 0.558632493019104,
+        "complex_ipde": 1.4830254316329956
+      },
+      {
+        "index": 4,
+        "structure_confidence": 0.8260765075683594,
+        "ptm": 0.845038652420044,
+        "iptm": 0.8262187838554382,
+        "complex_plddt": 0.8260409832000732,
+        "complex_iplddt": 0.9055778384208679,
+        "complex_pde": 0.8895359039306641,
+        "complex_ipde": 2.347517728805542
+      }
+    ]
+  },
+  "C16_CH3-EF_S4": {
+    "prediction_id": "sab_pred_L8hLSRwDs6I5F3ATMgSl",
+    "status": "succeeded",
+    "samples": [
+      {
+        "index": 0,
+        "structure_confidence": 0.872617244720459,
+        "ptm": 0.9558127522468567,
+        "iptm": 0.9473780393600464,
+        "complex_plddt": 0.8539270758628845,
+        "complex_iplddt": 0.8831086754798889
+      },
+      {
+        "index": 1,
+        "structure_confidence": 0.8343828320503235,
+        "ptm": 0.9414663910865784,
+        "iptm": 0.9323659539222717,
+        "complex_plddt": 0.8098870515823364,
+        "complex_iplddt": 0.842911422252655
+      },
+      {
+        "index": 2,
+        "structure_confidence": 0.8291168212890625,
+        "ptm": 0.9323134422302246,
+        "iptm": 0.9201493859291077,
+        "complex_plddt": 0.8063586354255676,
+        "complex_iplddt": 0.809761643409729
+      },
+      {
+        "index": 3,
+        "structure_confidence": 0.8177704811096191,
+        "ptm": 0.8929957747459412,
+        "iptm": 0.8762280941009521,
+        "complex_plddt": 0.8031560778617859,
+        "complex_iplddt": 0.812129557132721
+      },
+      {
+        "index": 4,
+        "structure_confidence": 0.8007873892784119,
+        "ptm": 0.8316346406936646,
+        "iptm": 0.7949943542480469,
+        "complex_plddt": 0.8022356629371643,
+        "complex_iplddt": 0.7832523584365845
+      }
+    ]
+  },
+  "WT_Fv": {
+    "prediction_id": "sab_pred_bLzqtOkaQ0bKU2b249x5",
+    "status": "succeeded",
+    "samples": [
+      {
+        "index": 0,
+        "structure_confidence": 0.9617088437080383,
+        "ptm": 0.975692093372345,
+        "iptm": 0.9665026068687439,
+        "complex_plddt": 0.9605104327201843,
+        "complex_iplddt": 0.9539374113082886
+      },
+      {
+        "index": 1,
+        "structure_confidence": 0.9614424109458923,
+        "ptm": 0.9696381688117981,
+        "iptm": 0.957686722278595,
+        "complex_plddt": 0.9623813033103943,
+        "complex_iplddt": 0.9493776559829712
+      },
+      {
+        "index": 2,
+        "structure_confidence": 0.9609164595603943,
+        "ptm": 0.9757067561149597,
+        "iptm": 0.965518057346344,
+        "complex_plddt": 0.9597660303115845,
+        "complex_iplddt": 0.9462379813194275
+      },
+      {
+        "index": 3,
+        "structure_confidence": 0.9608815312385559,
+        "ptm": 0.9731561541557312,
+        "iptm": 0.9631250500679016,
+        "complex_plddt": 0.9603206515312195,
+        "complex_iplddt": 0.9552280306816101
+      },
+      {
+        "index": 4,
+        "structure_confidence": 0.9602434039115906,
+        "ptm": 0.9734960794448853,
+        "iptm": 0.9629260897636414,
+        "complex_plddt": 0.9595727920532227,
+        "complex_iplddt": 0.9519977569580078
+      }
+    ]
+  },
+  "WT_CH3": {
+    "prediction_id": "sab_pred_FZDxdK6AQNoueok9rRD9",
+    "status": "succeeded",
+    "samples": [
+      {
+        "index": 0,
+        "structure_confidence": 0.9678835272789001,
+        "ptm": 0.9786779880523682,
+        "iptm": 0.9728156924247742,
+        "complex_plddt": 0.9666504859924316,
+        "complex_iplddt": 0.9771042466163635
+      },
+      {
+        "index": 1,
+        "structure_confidence": 0.9678064584732056,
+        "ptm": 0.9799983501434326,
+        "iptm": 0.9746781587600708,
+        "complex_plddt": 0.9660885334014893,
+        "complex_iplddt": 0.9763447046279907
+      },
+      {
+        "index": 2,
+        "structure_confidence": 0.967443585395813,
+        "ptm": 0.9786953330039978,
+        "iptm": 0.9728191494941711,
+        "complex_plddt": 0.9660996794700623,
+        "complex_iplddt": 0.9692203998565674
+      },
+      {
+        "index": 3,
+        "structure_confidence": 0.967329204082489,
+        "ptm": 0.9774190783500671,
+        "iptm": 0.9714294075965881,
+        "complex_plddt": 0.9663041830062866,
+        "complex_iplddt": 0.9766088128089905
+      },
+      {
+        "index": 4,
+        "structure_confidence": 0.9671691060066223,
+        "ptm": 0.9778174757957458,
+        "iptm": 0.972233235836029,
+        "complex_plddt": 0.9659030437469482,
+        "complex_iplddt": 0.9767636060714722
+      }
+    ]
+  },
+  "REF_4delta_free": {
+    "prediction_id": "sab_pred_o5mwQQLRfm3dQdUO4h1O",
+    "status": "succeeded",
+    "samples": [
+      {
+        "index": 0,
+        "structure_confidence": 0.8058644533157349,
+        "ptm": 0.5487260818481445,
+        "iptm": 0,
+        "complex_plddt": 0.8701490163803101,
+        "complex_iplddt": 0.8701490163803101
+      },
+      {
+        "index": 1,
+        "structure_confidence": 0.8052480816841125,
+        "ptm": 0.5486964583396912,
+        "iptm": 0,
+        "complex_plddt": 0.8693860173225403,
+        "complex_iplddt": 0.8693860173225403
+      },
+      {
+        "index": 2,
+        "structure_confidence": 0.8043444752693176,
+        "ptm": 0.5387575030326843,
+        "iptm": 0,
+        "complex_plddt": 0.8707412481307983,
+        "complex_iplddt": 0.8707412481307983
+      },
+      {
+        "index": 3,
+        "structure_confidence": 0.8023829460144043,
+        "ptm": 0.5418431758880615,
+        "iptm": 0,
+        "complex_plddt": 0.86751788854599,
+        "complex_iplddt": 0.86751788854599
+      },
+      {
+        "index": 4,
+        "structure_confidence": 0.7911226749420166,
+        "ptm": 0.5464362502098083,
+        "iptm": 0,
+        "complex_plddt": 0.8522942662239075,
+        "complex_iplddt": 0.8522942662239075
+      }
+    ]
+  },
+  "BM_CH3_Cterm_fusion": {
+    "prediction_id": "sab_pred_mHMa05SSokbNqq9Kbu5R",
+    "status": "succeeded",
+    "samples": [
+      {
+        "index": 0,
+        "structure_confidence": 0.864436149597168,
+        "ptm": 0.8340042233467102,
+        "iptm": 0.8067898154258728,
+        "complex_plddt": 0.8788477778434753,
+        "complex_iplddt": 0.8259050846099854
+      },
+      {
+        "index": 1,
+        "structure_confidence": 0.8541778922080994,
+        "ptm": 0.7746913433074951,
+        "iptm": 0.725914478302002,
+        "complex_plddt": 0.8862436413764954,
+        "complex_iplddt": 0.8343532681465149
+      },
+      {
+        "index": 2,
+        "structure_confidence": 0.8462967276573181,
+        "ptm": 0.7736741900444031,
+        "iptm": 0.737209677696228,
+        "complex_plddt": 0.8735684752464294,
+        "complex_iplddt": 0.8310477137565613
+      },
+      {
+        "index": 3,
+        "structure_confidence": 0.8422339558601379,
+        "ptm": 0.8212891817092896,
+        "iptm": 0.7820132970809937,
+        "complex_plddt": 0.8572890758514404,
+        "complex_iplddt": 0.8148646354675293
+      },
+      {
+        "index": 4,
+        "structure_confidence": 0.8058735728263855,
+        "ptm": 0.7456545233726501,
+        "iptm": 0.6783965229988098,
+        "complex_plddt": 0.837742805480957,
+        "complex_iplddt": 0.8045840859413147
+      }
+    ]
+  }
+}

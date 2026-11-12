@@ -1,0 +1,179 @@
+{
+  "crystal_reference": {
+    "arg_to_alphaV_Asp218_A": 3.61,
+    "asp_to_MIDAS_metal_A": 2.13
+  },
+  "results": {
+    "INT_LAP_methodctrl": {
+      "ligand": "HGRGDLGRLKK",
+      "purpose": "method validation - the actual 4UM9 co-crystal ligand; must be redocked into the crystal pose",
+      "n_samples": 5,
+      "engagement_criteria": {
+        "acid_to_metal_max_A": 3.0,
+        "arg_to_alphaV_Asp218_max_A": 5.0
+      },
+      "samples_fully_engaged": 5,
+      "samples_with_metal_coordination": 5,
+      "best_acid_to_MIDAS_metal_A": 2.23,
+      "best_arg_to_alphaV_Asp218_A": 3.45,
+      "best_pose_rmsd_vs_crystal_A": 0.91,
+      "max_contacts_4.5A": 208.0,
+      "per_sample": [
+        {
+          "file": "sample_0.cif",
+          "acid_to_MIDAS_metal_A": 2.35,
+          "arg_to_alphaV_Asp218_A": 3.45,
+          "ligand_pose_rmsd_vs_LAP_crystal_A": 0.91,
+          "receptor_superposition_rmsd_A": 2.25,
+          "ligand_receptor_contacts_4.5A": 182
+        },
+        {
+          "file": "sample_1.cif",
+          "acid_to_MIDAS_metal_A": 2.28,
+          "arg_to_alphaV_Asp218_A": 3.52,
+          "ligand_pose_rmsd_vs_LAP_crystal_A": 1.58,
+          "receptor_superposition_rmsd_A": 2.31,
+          "ligand_receptor_contacts_4.5A": 162
+        },
+        {
+          "file": "sample_2.cif",
+          "acid_to_MIDAS_metal_A": 2.36,
+          "arg_to_alphaV_Asp218_A": 3.45,
+          "ligand_pose_rmsd_vs_LAP_crystal_A": 0.91,
+          "receptor_superposition_rmsd_A": 2.24,
+          "ligand_receptor_contacts_4.5A": 197
+        },
+        {
+          "file": "sample_3.cif",
+          "acid_to_MIDAS_metal_A": 2.31,
+          "arg_to_alphaV_Asp218_A": 3.63,
+          "ligand_pose_rmsd_vs_LAP_crystal_A": 1.36,
+          "receptor_superposition_rmsd_A": 2.41,
+          "ligand_receptor_contacts_4.5A": 174
+        },
+        {
+          "file": "sample_4.cif",
+          "acid_to_MIDAS_metal_A": 2.23,
+          "arg_to_alphaV_Asp218_A": 3.66,
+          "ligand_pose_rmsd_vs_LAP_crystal_A": 1.18,
+          "receptor_superposition_rmsd_A": 2.28,
+          "ligand_receptor_contacts_4.5A": 208
+        }
+      ]
+    },
+    "INT_4delta_free": {
+      "ligand": "FETLRGDLRILSILRHQNLLKEL",
+      "purpose": "positive reference - free 4-Delta binding mode and confidence",
+      "n_samples": 5,
+      "engagement_criteria": {
+        "acid_to_metal_max_A": 3.0,
+        "arg_to_alphaV_Asp218_max_A": 5.0
+      },
+      "samples_fully_engaged": 0,
+      "samples_with_metal_coordination": 1,
+      "best_acid_to_MIDAS_metal_A": 2.91,
+      "best_arg_to_alphaV_Asp218_A": 8.38,
+      "best_pose_rmsd_vs_crystal_A": 3.59,
+      "max_contacts_4.5A": 192.0,
+      "per_sample": [
+        {
+          "file": "sample_0.cif",
+          "acid_to_MIDAS_metal_A": 2.91,
+          "arg_to_alphaV_Asp218_A": 12.31,
+          "ligand_pose_rmsd_vs_LAP_crystal_A": 3.59,
+          "receptor_superposition_rmsd_A": 2.38,
+          "ligand_receptor_contacts_4.5A": 107
+        },
+        {
+          "file": "sample_1.cif",
+          "acid_to_MIDAS_metal_A": 4.54,
+          "arg_to_alphaV_Asp218_A": 9.15,
+          "ligand_pose_rmsd_vs_LAP_crystal_A": 4.53,
+          "receptor_superposition_rmsd_A": 2.26,
+          "ligand_receptor_contacts_4.5A": 164
+        },
+        {
+          "file": "sample_2.cif",
+          "acid_to_MIDAS_metal_A": 4.74,
+          "arg_to_alphaV_Asp218_A": 14.14,
+          "ligand_pose_rmsd_vs_LAP_crystal_A": 4.74,
+          "receptor_superposition_rmsd_A": 2.29,
+          "ligand_receptor_contacts_4.5A": 145
+        },
+        {
+          "file": "sample_3.cif",
+          "acid_to_MIDAS_metal_A": 7.62,
+          "arg_to_alphaV_Asp218_A": 8.38,
+          "ligand_pose_rmsd_vs_LAP_crystal_A": 4.98,
+          "receptor_superposition_rmsd_A": 2.37,
+          "ligand_receptor_contacts_4.5A": 192
+        },
+        {
+          "file": "sample_4.cif",
+          "acid_to_MIDAS_metal_A": 11.8,
+          "arg_to_alphaV_Asp218_A": 17.75,
+          "ligand_pose_rmsd_vs_LAP_crystal_A": 8.5,
+          "receptor_superposition_rmsd_A": 2.32,
+          "ligand_receptor_contacts_4.5A": 123
+        }
+      ]
+    },
+    "INT_4delta_RGE_neg": {
+      "ligand": "FETLRGELRILSILRHQNLLKEL",
+      "purpose": "specificity control - D45E (RGD->RGE) abolishes integrin recognition in published assays, so this must score worse",
+      "n_samples": 5,
+      "engagement_criteria": {
+        "acid_to_metal_max_A": 3.0,
+        "arg_to_alphaV_Asp218_max_A": 5.0
+      },
+      "samples_fully_engaged": 0,
+      "samples_with_metal_coordination": 0,
+      "best_acid_to_MIDAS_metal_A": 10.38,
+      "best_arg_to_alphaV_Asp218_A": 6.93,
+      "best_pose_rmsd_vs_crystal_A": 4.15,
+      "max_contacts_4.5A": 242.0,
+      "per_sample": [
+        {
+          "file": "sample_0.cif",
+          "acid_to_MIDAS_metal_A": 11.27,
+          "arg_to_alphaV_Asp218_A": 8.78,
+          "ligand_pose_rmsd_vs_LAP_crystal_A": 5.3,
+          "receptor_superposition_rmsd_A": 2.46,
+          "ligand_receptor_contacts_4.5A": 206
+        },
+        {
+          "file": "sample_1.cif",
+          "acid_to_MIDAS_metal_A": 17.08,
+          "arg_to_alphaV_Asp218_A": 16.37,
+          "ligand_pose_rmsd_vs_LAP_crystal_A": 12.49,
+          "receptor_superposition_rmsd_A": 2.3,
+          "ligand_receptor_contacts_4.5A": 106
+        },
+        {
+          "file": "sample_2.cif",
+          "acid_to_MIDAS_metal_A": 10.38,
+          "arg_to_alphaV_Asp218_A": 6.93,
+          "ligand_pose_rmsd_vs_LAP_crystal_A": 4.15,
+          "receptor_superposition_rmsd_A": 2.32,
+          "ligand_receptor_contacts_4.5A": 213
+        },
+        {
+          "file": "sample_3.cif",
+          "acid_to_MIDAS_metal_A": 27.51,
+          "arg_to_alphaV_Asp218_A": 21.2,
+          "ligand_pose_rmsd_vs_LAP_crystal_A": 18.52,
+          "receptor_superposition_rmsd_A": 2.41,
+          "ligand_receptor_contacts_4.5A": 90
+        },
+        {
+          "file": "sample_4.cif",
+          "acid_to_MIDAS_metal_A": 28.6,
+          "arg_to_alphaV_Asp218_A": 40.91,
+          "ligand_pose_rmsd_vs_LAP_crystal_A": 39.82,
+          "receptor_superposition_rmsd_A": 2.36,
+          "ligand_receptor_contacts_4.5A": 242
+        }
+      ]
+    }
+  }
+}

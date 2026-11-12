@@ -53,13 +53,19 @@ def res_atom(residue, name, xyz):
 # crystal pose of the LAP motif, in receptor frame
 LAP_MOTIF = [241, 242, 243, 244, 245, 246, 247]
 lap_ca_cryst = np.array([res_atom(lap_res[s], "CA", rxyz) for s in LAP_MOTIF])
-# receptor CA frame used for superposition
+# Receptor CA frame used for superposition.
+# IMPORTANT: superpose on alpha-v ONLY. The predicted alpha-v chain (built from the
+# 5FFG construct) shares residue numbering with the 4UM9 alpha-v chain - both start
+# at mature residue 1 (F) - which is why alpha-v Asp218 resolves correctly in both.
+# The beta-6 chains do NOT share numbering (prediction 1-250 vs crystal 5-474), so
+# including beta-6 by residue number would pair unrelated residues and corrupt the
+# superposition.
 ref_rec_ca = {}
-for ci, tag in ((ALPHA_CI, "V"), (BETA_CI, "W")):
-    for r in rchains[ci]:
-        c = res_atom(r, "CA", rxyz)
-        if c is not None:
-            ref_rec_ca[(tag, r.resSeq)] = c
+for r in rchains[ALPHA_CI]:
+    c = res_atom(r, "CA", rxyz)
+    if c is not None:
+        ref_rec_ca[("V", r.resSeq)] = c
+print(f"superposition frame: alpha-v only, {len(ref_rec_ca)} CA atoms")
 
 # crystal hallmark distances, as the yardstick
 av_asp = next((r for r in rchains[ALPHA_CI] if r.resSeq == ALPHA_V_ASP), None)
@@ -153,14 +159,13 @@ def analyse(cid, ligand_seq, motif_offset=4):
 
         # 3. receptor-frame superposition -> is the ligand in the crystal pose?
         mob, tgt = [], []
-        for ci, tag in ((alpha_ci, "V"), (beta_ci, "W")):
-            for r in chs[ci]:
-                key = (tag, r.resSeq)
-                if key in ref_rec_ca:
-                    c = res_atom(r, "CA", xyz)
-                    if c is not None:
-                        mob.append(c)
-                        tgt.append(ref_rec_ca[key])
+        for r in chs[alpha_ci]:
+            key = ("V", r.resSeq)
+            if key in ref_rec_ca:
+                c = res_atom(r, "CA", xyz)
+                if c is not None:
+                    mob.append(c)
+                    tgt.append(ref_rec_ca[key])
         pose_rmsd = rec_rmsd = None
         if len(mob) > 200:
             moved, rec_rmsd = kabsch_apply(mob, tgt, xyz)
@@ -212,8 +217,20 @@ if __name__ == "__main__":
             if not v:
                 return None
             return round(float(min(v) if lo else max(v)), 2)
+        # a sample counts as "engaged" only if BOTH hallmarks of integrin RGD
+        # chemistry are satisfied at once, in the same structure
+        METAL_CUT, ARG_CUT = 3.0, 5.0
+        engaged = sum(1 for r in rows
+                      if (r.get("acid_to_MIDAS_metal_A") or 99) <= METAL_CUT
+                      and (r.get("arg_to_alphaV_Asp218_A") or 99) <= ARG_CUT)
+        metal_only = sum(1 for r in rows
+                         if (r.get("acid_to_MIDAS_metal_A") or 99) <= METAL_CUT)
         out["results"][name] = {
             "ligand": lig, "purpose": meta["purpose"], "n_samples": len(rows),
+            "engagement_criteria": {"acid_to_metal_max_A": METAL_CUT,
+                                    "arg_to_alphaV_Asp218_max_A": ARG_CUT},
+            "samples_fully_engaged": engaged,
+            "samples_with_metal_coordination": metal_only,
             "best_acid_to_MIDAS_metal_A": best("acid_to_MIDAS_metal_A"),
             "best_arg_to_alphaV_Asp218_A": best("arg_to_alphaV_Asp218_A"),
             "best_pose_rmsd_vs_crystal_A": best("ligand_pose_rmsd_vs_LAP_crystal_A"),
@@ -224,6 +241,7 @@ if __name__ == "__main__":
         print(f"{name:<22} Asp->metal {str(r['best_acid_to_MIDAS_metal_A']):>6}  "
               f"Arg->avD218 {str(r['best_arg_to_alphaV_Asp218_A']):>6}  "
               f"pose-RMSD {str(r['best_pose_rmsd_vs_crystal_A']):>6}  "
-              f"contacts {r['max_contacts_4.5A']}")
+              f"engaged {r['samples_fully_engaged']}/{r['n_samples']}  "
+              f"(metal-coordinated {r['samples_with_metal_coordination']}/{r['n_samples']})")
     json.dump(out, open(OUT, "w"), indent=2)
     print(f"\nwrote {OUT}")

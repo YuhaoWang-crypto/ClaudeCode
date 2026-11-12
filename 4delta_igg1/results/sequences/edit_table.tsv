@@ -1,0 +1,17 @@
+id	site	strategy	edit	n_junction	payload	c_junction	cassette_length_aa	net_length_change_aa	rank	score_total	selected_top12
+C09_CH3-CD_S1	CH3-CD	S1_minimal	insert after EU 386 inside the CH3-CD loop EU 383-391 (SNGQPENNY); native loop retained	GS	FETLRGDLRILSILRHQNLLKEL	SG	27	27	1	63.0	True
+C11_CH3-CD_S3	CH3-CD	S3_replace	replace EU 383-391 (SNGQPENNY) in full	GD	FETLRGDLRILSILRHQNLLKEL	GPGGGGGS	33	24	2	62.5	True
+C01_CDRH3_S1	CDRH3	S1_minimal	heavy chain CDRH3 (WGGDGFYAMDY); insert after CDRH3 position 4 (apex)	GS	FETLRGDLRILSILRHQNLLKEL	SG	27	27	3	57.9	True
+C05_CH3-AB_S1	CH3-AB	S1_minimal	insert after EU 358 inside the CH3-AB loop EU 355-362 (RDELTKNQ); native loop retained	GS	FETLRGDLRILSILRHQNLLKEL	SG	27	27	4	57.3	True
+C15_CH3-EF_S3	CH3-EF	S3_replace	replace EU 413-422 (DKSRWQQGNV) in full	GD	FETLRGDLRILSILRHQNLLKEL	GPGGGGGS	33	23	5	55.5	True
+C06_CH3-AB_S2	CH3-AB	S2_spanmatch	insert after EU 358 inside the CH3-AB loop EU 355-362 (RDELTKNQ); native loop retained	GS	FETLRGDLRILSILRHQNLLKEL	GGGGSGGGGS	35	35	6	55.3	True
+C03_CDRH3_S3	CDRH3	S3_replace	heavy chain CDRH3 (WGGDGFYAMDY); replace CDRH3 in full	GD	FETLRGDLRILSILRHQNLLKEL	GPGGGGGS	33	22	7	53.6	True
+C13_CH3-EF_S1	CH3-EF	S1_minimal	insert after EU 417 inside the CH3-EF loop EU 413-422 (DKSRWQQGNV); native loop retained	GS	FETLRGDLRILSILRHQNLLKEL	SG	27	27	8	52.4	True
+C04_CDRH3_S4	CDRH3	S4_coretrunc	heavy chain CDRH3 (WGGDGFYAMDY); insert after CDRH3 position 4 (apex)	GS	FETLRGDLRILSILRHQN	GGGGSGGGGS	30	30	9	51.9	True
+C12_CH3-CD_S4	CH3-CD	S4_coretrunc	insert after EU 386 inside the CH3-CD loop EU 383-391 (SNGQPENNY); native loop retained	GS	FETLRGDLRILSILRHQN	GGGGSGGGGS	30	30	10	50.4	True
+C10_CH3-CD_S2	CH3-CD	S2_spanmatch	insert after EU 386 inside the CH3-CD loop EU 383-391 (SNGQPENNY); native loop retained	GS	FETLRGDLRILSILRHQNLLKEL	GGGGSGGGGS	35	35	11	49.7	True
+C16_CH3-EF_S4	CH3-EF	S4_coretrunc	insert after EU 417 inside the CH3-EF loop EU 413-422 (DKSRWQQGNV); native loop retained	GS	FETLRGDLRILSILRHQN	GGGGSGGGGS	30	30	12	45.8	True
+C07_CH3-AB_S3	CH3-AB	S3_replace	replace EU 355-362 (RDELTKNQ) in full	GD	FETLRGDLRILSILRHQNLLKEL	GPGGGGGS	33	25	13	44.9	False
+C02_CDRH3_S2	CDRH3	S2_spanmatch	heavy chain CDRH3 (WGGDGFYAMDY); insert after CDRH3 position 4 (apex)	GS	FETLRGDLRILSILRHQNLLKEL	GGGGSGGGGS	35	35	14	37.8	False
+C14_CH3-EF_S2	CH3-EF	S2_spanmatch	insert after EU 417 inside the CH3-EF loop EU 413-422 (DKSRWQQGNV); native loop retained	GS	FETLRGDLRILSILRHQNLLKEL	GGGGSGGGGS	35	35	15	34.2	False
+C08_CH3-AB_S4	CH3-AB	S4_coretrunc	insert after EU 358 inside the CH3-AB loop EU 355-362 (RDELTKNQ); native loop retained	GS	FETLRGDLRILSILRHQN	GGGGSGGGGS	30	30	16	23.4	False

@@ -1,0 +1,46 @@
+{
+  "model": "boltz-2.1 (v2026-03-01)",
+  "num_samples_per_job": 5,
+  "templates": "none - the scaffold is left free so that graft-induced distortion is measurable",
+  "msa": "automatic",
+  "jobs": {
+    "C01_CDRH3_S1": "sab_pred_3kmYfjrTfr6SJvEyqpKK",
+    "C02_CDRH3_S2": "sab_pred_orm31amvkEGJBBOmKoGc",
+    "C03_CDRH3_S3": "sab_pred_0MiL4KdOq7gdHJUD63ho",
+    "C04_CDRH3_S4": "sab_pred_L7Dw7hlv79ID6cPQ9NGM",
+    "C05_CH3-AB_S1": "sab_pred_WBHZnyrLKMQTlVp1y9hj",
+    "C06_CH3-AB_S2": "sab_pred_RU5wqihM3zut7EkSVu7n",
+    "C07_CH3-AB_S3": "sab_pred_Xgn7r4Ipzar4jIWD0I1M",
+    "C08_CH3-AB_S4": "sab_pred_m2uBjjdkK3MYGAgYR7NT",
+    "C09_CH3-CD_S1": "sab_pred_xwngwaW0lpagroxW7Tuv",
+    "C10_CH3-CD_S2": "sab_pred_uykPxFAqL1evcEKBBWl8",
+    "C11_CH3-CD_S3": "sab_pred_39TJJk9Jb690ESDve200",
+    "C12_CH3-CD_S4": "sab_pred_y1qYUIOwTWTBTid7q32O",
+    "C13_CH3-EF_S1": "sab_pred_2nH6zsWN7ynKGMxKm3To",
+    "C14_CH3-EF_S2": "sab_pred_uf3B4zmlKi9jqrgQFHKN",
+    "C15_CH3-EF_S3": "sab_pred_iRsPcOGxtFzIsOZFhRpc",
+    "C16_CH3-EF_S4": "sab_pred_L8hLSRwDs6I5F3ATMgSl",
+    "WT_Fv": "sab_pred_bLzqtOkaQ0bKU2b249x5",
+    "WT_CH3": "sab_pred_FZDxdK6AQNoueok9rRD9",
+    "REF_4delta_free": "sab_pred_o5mwQQLRfm3dQdUO4h1O",
+    "BM_CH3_Cterm_fusion": "sab_pred_mHMa05SSokbNqq9Kbu5R"
+  },
+  "tier2_integrin_complexes": {
+    "_target": "alpha-v/beta-6 headpiece from 5FFG (alpha-v 601 aa + beta-6 betaI 250 aa, His-tag trimmed) plus MG (MIDAS) and 2x CA",
+    "INT_LAP_methodctrl": {
+      "id": "sab_pred_Mgscxqru7cZJ3JHTKMOS",
+      "ligand": "HGRGDLGRLKK",
+      "purpose": "method validation - the actual 4UM9 co-crystal ligand; must be redocked into the crystal pose"
+    },
+    "INT_4delta_free": {
+      "id": "sab_pred_tzKcSM0u4jCeV98rzUwy",
+      "ligand": "FETLRGDLRILSILRHQNLLKEL",
+      "purpose": "positive reference - free 4-Delta binding mode and confidence"
+    },
+    "INT_4delta_RGE_neg": {
+      "id": "sab_pred_9bW6KNpZhhH5GKrFA4In",
+      "ligand": "FETLRGELRILSILRHQNLLKEL",
+      "purpose": "specificity control - D45E (RGD->RGE) abolishes integrin recognition in published assays, so this must score worse"
+    }
+  }
+}

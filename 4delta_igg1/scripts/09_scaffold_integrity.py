@@ -114,21 +114,31 @@ def kabsch_rmsd(m, t):
 
 
 # ------------------------------------------------------------------ WT references
-wt_ref = {}
+# The flanks differ per graft site, so the WT reference coordinates have to be
+# extracted with THAT candidate's own flanks - one global reference would only
+# match the site it was built from.
+wt_models = {}
 for wt in ("WT_CH3", "WT_Fv"):
     ms = load(wt)
     if not ms:
         print(f"! {wt} missing")
         continue
-    pre, post, kind = flanks(wt)
-    f, t = ms[0]                                  # sample_0 as the reference frame
-    chs = chain_residues(t)
-    host = min(chs)                               # chain A / H
-    a = seg_ca(chs[host], None, pre, True)
-    b = seg_ca(chs[host], None, post, False)
-    if a and b:
-        wt_ref[kind] = {"xyz": t.xyz[0][a + b] * 10.0, "n": len(a) + len(b)}
-        print(f"{wt}: scaffold reference = {len(a)+len(b)} CA atoms ({kind})")
+    kind = "CH3" if wt == "WT_CH3" else "Fv"
+    wt_models[kind] = ms[0][1]                    # sample_0 as the reference frame
+    print(f"{wt}: reference frame loaded ({kind})")
+
+
+def wt_flank_xyz(kind, pre, post):
+    """CA coordinates of these two flanks inside the WT model of that module."""
+    t = wt_models.get(kind)
+    if t is None:
+        return None
+    rs = chain_residues(t)[min(chain_residues(t))]
+    a = seg_ca(rs, None, pre, True)
+    b = seg_ca(rs, None, post, False)
+    if not a or not b:
+        return None
+    return t.xyz[0][a + b] * 10.0
 
 
 def dimer_contacts(t, native_only=True):
@@ -181,11 +191,12 @@ if __name__ == "__main__":
             s_plddt = float(np.mean(allv)) if allv else None
 
             rmsd = None
-            if kind in wt_ref:
+            wt_xyz = wt_flank_xyz(kind, pre, post) if (pre and post) else None
+            if wt_xyz is not None:
                 a = seg_ca(rs, None, pre, True)
                 b = seg_ca(rs, None, post, False)
-                if a and b and len(a) + len(b) == wt_ref[kind]["n"]:
-                    rmsd = kabsch_rmsd(t.xyz[0][a + b] * 10.0, wt_ref[kind]["xyz"])
+                if a and b and len(a) + len(b) == len(wt_xyz):
+                    rmsd = kabsch_rmsd(t.xyz[0][a + b] * 10.0, wt_xyz)
 
             rows.append({
                 "file": os.path.basename(f),

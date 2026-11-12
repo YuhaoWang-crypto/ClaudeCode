@@ -1,0 +1,140 @@
+{
+  "INT_LAP_methodctrl": {
+    "prediction_id": "sab_pred_Mgscxqru7cZJ3JHTKMOS",
+    "status": "succeeded",
+    "samples": [
+      {
+        "index": 0,
+        "structure_confidence": 0.9516998529434204,
+        "ptm": 0.9625399112701416,
+        "iptm": 0.9798937439918518,
+        "complex_plddt": 0.9446513652801514,
+        "complex_iplddt": 0.9438796043395996
+      },
+      {
+        "index": 1,
+        "structure_confidence": 0.9516716003417969,
+        "ptm": 0.9586530327796936,
+        "iptm": 0.9781196117401123,
+        "complex_plddt": 0.945059597492218,
+        "complex_iplddt": 0.9434683918952942
+      },
+      {
+        "index": 2,
+        "structure_confidence": 0.9509527087211609,
+        "ptm": 0.9556697607040405,
+        "iptm": 0.9750511646270752,
+        "complex_plddt": 0.9449281096458435,
+        "complex_iplddt": 0.9491287469863892
+      },
+      {
+        "index": 3,
+        "structure_confidence": 0.9508774876594543,
+        "ptm": 0.9581908583641052,
+        "iptm": 0.9787302613258362,
+        "complex_plddt": 0.9439142942428589,
+        "complex_iplddt": 0.9473111033439636
+      },
+      {
+        "index": 4,
+        "structure_confidence": 0.9507544636726379,
+        "ptm": 0.9568625092506409,
+        "iptm": 0.9758469462394714,
+        "complex_plddt": 0.944481372833252,
+        "complex_iplddt": 0.9462236166000366
+      }
+    ]
+  },
+  "INT_4delta_free": {
+    "prediction_id": "sab_pred_tzKcSM0u4jCeV98rzUwy",
+    "status": "succeeded",
+    "samples": [
+      {
+        "index": 0,
+        "structure_confidence": 0.9336889386177063,
+        "ptm": 0.928533673286438,
+        "iptm": 0.9326503872871399,
+        "complex_plddt": 0.9339485764503479,
+        "complex_iplddt": 0.9290704727172852
+      },
+      {
+        "index": 1,
+        "structure_confidence": 0.928230881690979,
+        "ptm": 0.9267275929450989,
+        "iptm": 0.9234946370124817,
+        "complex_plddt": 0.9294148683547974,
+        "complex_iplddt": 0.9124902486801147
+      },
+      {
+        "index": 2,
+        "structure_confidence": 0.9280713200569153,
+        "ptm": 0.9246336221694946,
+        "iptm": 0.9229362607002258,
+        "complex_plddt": 0.9293550848960876,
+        "complex_iplddt": 0.9181110858917236
+      },
+      {
+        "index": 3,
+        "structure_confidence": 0.9279502034187317,
+        "ptm": 0.9372086524963379,
+        "iptm": 0.9429176449775696,
+        "complex_plddt": 0.9242083430290222,
+        "complex_iplddt": 0.9130821824073792
+      },
+      {
+        "index": 4,
+        "structure_confidence": 0.9228622317314148,
+        "ptm": 0.9282657504081726,
+        "iptm": 0.9238359928131104,
+        "complex_plddt": 0.9226187467575073,
+        "complex_iplddt": 0.8977833390235901
+      }
+    ]
+  },
+  "INT_4delta_RGE_neg": {
+    "prediction_id": "sab_pred_9bW6KNpZhhH5GKrFA4In",
+    "status": "succeeded",
+    "samples": [
+      {
+        "index": 0,
+        "structure_confidence": 0.9254227876663208,
+        "ptm": 0.9315166473388672,
+        "iptm": 0.933432400226593,
+        "complex_plddt": 0.9234203100204468,
+        "complex_iplddt": 0.9108960628509521
+      },
+      {
+        "index": 1,
+        "structure_confidence": 0.9237567186355591,
+        "ptm": 0.9306677579879761,
+        "iptm": 0.9235180020332336,
+        "complex_plddt": 0.9238163232803345,
+        "complex_iplddt": 0.9126183390617371
+      },
+      {
+        "index": 2,
+        "structure_confidence": 0.9235620498657227,
+        "ptm": 0.9348511099815369,
+        "iptm": 0.9437390565872192,
+        "complex_plddt": 0.9185178279876709,
+        "complex_iplddt": 0.9066199064254761
+      },
+      {
+        "index": 3,
+        "structure_confidence": 0.9211479425430298,
+        "ptm": 0.9247049689292908,
+        "iptm": 0.91765958070755,
+        "complex_plddt": 0.9220200181007385,
+        "complex_iplddt": 0.9155189394950867
+      },
+      {
+        "index": 4,
+        "structure_confidence": 0.9143893122673035,
+        "ptm": 0.9185709357261658,
+        "iptm": 0.8975974917411804,
+        "complex_plddt": 0.918587327003479,
+        "complex_iplddt": 0.8935626745223999
+      }
+    ]
+  }
+}

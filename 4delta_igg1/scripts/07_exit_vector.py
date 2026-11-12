@@ -98,8 +98,11 @@ print(f"escape cone: {free_frac*100:.1f}% of directions let a {BODY_RADIUS:.0f} 
       f"body clear {PROBE_LEN:.0f} A  ({int(free_mask.sum())}/{len(DIRS)} directions)")
 
 # ------------------------------------------------------------------ 2. natural exit vectors
+# N-side uses LAP 240 (238 is a non-standard capping residue with no CA);
+# C-side uses LAP 249. In pro-TGF-beta1 the LAP domain continues C-TERMINALLY
+# from the RGD, so the C-side vector is the one nature actually hangs a domain on.
 nat = {}
-for label, resseq in (("N_side", 238), ("C_side", 249)):
+for label, resseq in (("N_side", 240), ("C_side", 249)):
     r = lap_res.get(resseq)
     if r is None:
         continue

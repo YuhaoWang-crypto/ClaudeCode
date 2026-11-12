@@ -1,0 +1,1087 @@
+{
+  "escape_cone": {
+    "body_radius_A": 6.0,
+    "clearance_required_A": 25.0,
+    "free_direction_fraction": 0.061,
+    "n_directions_sampled": 2000,
+    "interpretation": "fraction of directions out of the receptor-bound RGD along which a domain-sized body can escape the alpha-v/beta-6 cleft"
+  },
+  "natural_exit_vectors": {
+    "N_side": {
+      "lap_residue": 240,
+      "unit_vector": [
+        -0.291,
+        0.843,
+        -0.452
+      ],
+      "is_itself_open": true,
+      "angle_to_nearest_open_direction_deg": 1.4
+    },
+    "C_side": {
+      "lap_residue": 249,
+      "unit_vector": [
+        -0.23,
+        0.906,
+        0.354
+      ],
+      "is_itself_open": true,
+      "angle_to_nearest_open_direction_deg": 1.8
+    }
+  },
+  "candidates": {
+    "C01_CDRH3_S1": {
+      "n_samples": 5,
+      "angle_to_open_deg": {
+        "mean": 18.4,
+        "min": 3.3
+      },
+      "scaffold_centroid_distance_A": {
+        "mean": 27.3
+      },
+      "per_sample": [
+        {
+          "file": "sample_0.cif",
+          "scaffold_direction_unit": [
+            0.631,
+            0.575,
+            -0.521
+          ],
+          "scaffold_centroid_distance_A": 24.5,
+          "angle_to_nearest_open_direction_deg": 31.4
+        },
+        {
+          "file": "sample_1.cif",
+          "scaffold_direction_unit": [
+            0.387,
+            0.864,
+            -0.322
+          ],
+          "scaffold_centroid_distance_A": 29.4,
+          "angle_to_nearest_open_direction_deg": 12.4
+        },
+        {
+          "file": "sample_2.cif",
+          "scaffold_direction_unit": [
+            0.053,
+            0.879,
+            0.473
+          ],
+          "scaffold_centroid_distance_A": 28.0,
+          "angle_to_nearest_open_direction_deg": 3.3
+        },
+        {
+          "file": "sample_3.cif",
+          "scaffold_direction_unit": [
+            -0.632,
+            0.282,
+            -0.722
+          ],
+          "scaffold_centroid_distance_A": 26.1,
+          "angle_to_nearest_open_direction_deg": 32.2
+        },
+        {
+          "file": "sample_4.cif",
+          "scaffold_direction_unit": [
+            0.393,
+            0.853,
+            -0.343
+          ],
+          "scaffold_centroid_distance_A": 28.7,
+          "angle_to_nearest_open_direction_deg": 12.7
+        }
+      ]
+    },
+    "C02_CDRH3_S2": {
+      "n_samples": 5,
+      "angle_to_open_deg": {
+        "mean": 88.4,
+        "min": 82.6
+      },
+      "scaffold_centroid_distance_A": {
+        "mean": 21.7
+      },
+      "per_sample": [
+        {
+          "file": "sample_0.cif",
+          "scaffold_direction_unit": [
+            -0.703,
+            -0.675,
+            0.226
+          ],
+          "scaffold_centroid_distance_A": 22.2,
+          "angle_to_nearest_open_direction_deg": 92.3
+        },
+        {
+          "file": "sample_1.cif",
+          "scaffold_direction_unit": [
+            -0.864,
+            -0.47,
+            -0.179
+          ],
+          "scaffold_centroid_distance_A": 20.3,
+          "angle_to_nearest_open_direction_deg": 82.6
+        },
+        {
+          "file": "sample_2.cif",
+          "scaffold_direction_unit": [
+            -0.787,
+            -0.583,
+            0.202
+          ],
+          "scaffold_centroid_distance_A": 21.4,
+          "angle_to_nearest_open_direction_deg": 86.6
+        },
+        {
+          "file": "sample_3.cif",
+          "scaffold_direction_unit": [
+            -0.716,
+            -0.633,
+            0.294
+          ],
+          "scaffold_centroid_distance_A": 21.4,
+          "angle_to_nearest_open_direction_deg": 88.4
+        },
+        {
+          "file": "sample_4.cif",
+          "scaffold_direction_unit": [
+            -0.526,
+            -0.703,
+            0.479
+          ],
+          "scaffold_centroid_distance_A": 23.3,
+          "angle_to_nearest_open_direction_deg": 92.1
+        }
+      ]
+    },
+    "C03_CDRH3_S3": {
+      "n_samples": 5,
+      "angle_to_open_deg": {
+        "mean": 26.8,
+        "min": 1.8
+      },
+      "scaffold_centroid_distance_A": {
+        "mean": 21.8
+      },
+      "per_sample": [
+        {
+          "file": "sample_0.cif",
+          "scaffold_direction_unit": [
+            0.584,
+            0.79,
+            0.185
+          ],
+          "scaffold_centroid_distance_A": 23.2,
+          "angle_to_nearest_open_direction_deg": 26.0
+        },
+        {
+          "file": "sample_1.cif",
+          "scaffold_direction_unit": [
+            0.973,
+            0.188,
+            -0.135
+          ],
+          "scaffold_centroid_distance_A": 17.3,
+          "angle_to_nearest_open_direction_deg": 65.0
+        },
+        {
+          "file": "sample_2.cif",
+          "scaffold_direction_unit": [
+            -0.062,
+            0.889,
+            -0.453
+          ],
+          "scaffold_centroid_distance_A": 25.6,
+          "angle_to_nearest_open_direction_deg": 1.8
+        },
+        {
+          "file": "sample_3.cif",
+          "scaffold_direction_unit": [
+            0.548,
+            0.837,
+            -0.012
+          ],
+          "scaffold_centroid_distance_A": 22.6,
+          "angle_to_nearest_open_direction_deg": 21.4
+        },
+        {
+          "file": "sample_4.cif",
+          "scaffold_direction_unit": [
+            0.509,
+            0.76,
+            -0.404
+          ],
+          "scaffold_centroid_distance_A": 20.2,
+          "angle_to_nearest_open_direction_deg": 19.6
+        }
+      ]
+    },
+    "C04_CDRH3_S4": {
+      "n_samples": 5,
+      "angle_to_open_deg": {
+        "mean": 37.3,
+        "min": 19.8
+      },
+      "scaffold_centroid_distance_A": {
+        "mean": 22.6
+      },
+      "per_sample": [
+        {
+          "file": "sample_0.cif",
+          "scaffold_direction_unit": [
+            0.222,
+            0.205,
+            0.953
+          ],
+          "scaffold_centroid_distance_A": 19.8,
+          "angle_to_nearest_open_direction_deg": 52.0
+        },
+        {
+          "file": "sample_1.cif",
+          "scaffold_direction_unit": [
+            0.257,
+            0.476,
+            0.841
+          ],
+          "scaffold_centroid_distance_A": 25.8,
+          "angle_to_nearest_open_direction_deg": 35.5
+        },
+        {
+          "file": "sample_2.cif",
+          "scaffold_direction_unit": [
+            0.335,
+            0.35,
+            0.875
+          ],
+          "scaffold_centroid_distance_A": 20.6,
+          "angle_to_nearest_open_direction_deg": 43.7
+        },
+        {
+          "file": "sample_3.cif",
+          "scaffold_direction_unit": [
+            -0.621,
+            0.697,
+            -0.358
+          ],
+          "scaffold_centroid_distance_A": 24.4,
+          "angle_to_nearest_open_direction_deg": 19.8
+        },
+        {
+          "file": "sample_4.cif",
+          "scaffold_direction_unit": [
+            -0.945,
+            0.325,
+            0.04
+          ],
+          "scaffold_centroid_distance_A": 22.5,
+          "angle_to_nearest_open_direction_deg": 35.3
+        }
+      ]
+    },
+    "C05_CH3-AB_S1": {
+      "n_samples": 5,
+      "angle_to_open_deg": {
+        "mean": 37.6,
+        "min": 2.9
+      },
+      "scaffold_centroid_distance_A": {
+        "mean": 24.7
+      },
+      "per_sample": [
+        {
+          "file": "sample_0.cif",
+          "scaffold_direction_unit": [
+            0.4,
+            0.459,
+            -0.793
+          ],
+          "scaffold_centroid_distance_A": 28.7,
+          "angle_to_nearest_open_direction_deg": 33.6
+        },
+        {
+          "file": "sample_1.cif",
+          "scaffold_direction_unit": [
+            0.061,
+            0.974,
+            -0.216
+          ],
+          "scaffold_centroid_distance_A": 33.1,
+          "angle_to_nearest_open_direction_deg": 2.9
+        },
+        {
+          "file": "sample_2.cif",
+          "scaffold_direction_unit": [
+            -0.03,
+            -0.125,
+            -0.992
+          ],
+          "scaffold_centroid_distance_A": 22.6,
+          "angle_to_nearest_open_direction_deg": 50.0
+        },
+        {
+          "file": "sample_3.cif",
+          "scaffold_direction_unit": [
+            0.579,
+            0.718,
+            0.386
+          ],
+          "scaffold_centroid_distance_A": 22.3,
+          "angle_to_nearest_open_direction_deg": 29.2
+        },
+        {
+          "file": "sample_4.cif",
+          "scaffold_direction_unit": [
+            0.945,
+            -0.021,
+            -0.328
+          ],
+          "scaffold_centroid_distance_A": 17.0,
+          "angle_to_nearest_open_direction_deg": 72.2
+        }
+      ]
+    },
+    "C06_CH3-AB_S2": {
+      "n_samples": 5,
+      "angle_to_open_deg": {
+        "mean": 57.3,
+        "min": 8.2
+      },
+      "scaffold_centroid_distance_A": {
+        "mean": 22.7
+      },
+      "per_sample": [
+        {
+          "file": "sample_0.cif",
+          "scaffold_direction_unit": [
+            -0.148,
+            -0.957,
+            0.249
+          ],
+          "scaffold_centroid_distance_A": 20.9,
+          "angle_to_nearest_open_direction_deg": 121.2
+        },
+        {
+          "file": "sample_1.cif",
+          "scaffold_direction_unit": [
+            0.366,
+            0.912,
+            -0.184
+          ],
+          "scaffold_centroid_distance_A": 25.9,
+          "angle_to_nearest_open_direction_deg": 8.7
+        },
+        {
+          "file": "sample_2.cif",
+          "scaffold_direction_unit": [
+            -0.825,
+            -0.378,
+            0.42
+          ],
+          "scaffold_centroid_distance_A": 22.0,
+          "angle_to_nearest_open_direction_deg": 70.9
+        },
+        {
+          "file": "sample_3.cif",
+          "scaffold_direction_unit": [
+            -0.296,
+            0.554,
+            -0.778
+          ],
+          "scaffold_centroid_distance_A": 23.4,
+          "angle_to_nearest_open_direction_deg": 8.2
+        },
+        {
+          "file": "sample_4.cif",
+          "scaffold_direction_unit": [
+            -0.751,
+            -0.451,
+            -0.482
+          ],
+          "scaffold_centroid_distance_A": 21.1,
+          "angle_to_nearest_open_direction_deg": 77.7
+        }
+      ]
+    },
+    "C07_CH3-AB_S3": {
+      "n_samples": 5,
+      "angle_to_open_deg": {
+        "mean": 38.3,
+        "min": 10.0
+      },
+      "scaffold_centroid_distance_A": {
+        "mean": 21.0
+      },
+      "per_sample": [
+        {
+          "file": "sample_0.cif",
+          "scaffold_direction_unit": [
+            0.863,
+            -0.189,
+            -0.469
+          ],
+          "scaffold_centroid_distance_A": 17.9,
+          "angle_to_nearest_open_direction_deg": 78.3
+        },
+        {
+          "file": "sample_1.cif",
+          "scaffold_direction_unit": [
+            0.463,
+            0.043,
+            -0.885
+          ],
+          "scaffold_centroid_distance_A": 18.1,
+          "angle_to_nearest_open_direction_deg": 55.1
+        },
+        {
+          "file": "sample_2.cif",
+          "scaffold_direction_unit": [
+            0.389,
+            0.663,
+            -0.639
+          ],
+          "scaffold_centroid_distance_A": 22.0,
+          "angle_to_nearest_open_direction_deg": 20.7
+        },
+        {
+          "file": "sample_3.cif",
+          "scaffold_direction_unit": [
+            0.629,
+            0.729,
+            -0.27
+          ],
+          "scaffold_centroid_distance_A": 23.8,
+          "angle_to_nearest_open_direction_deg": 27.3
+        },
+        {
+          "file": "sample_4.cif",
+          "scaffold_direction_unit": [
+            0.375,
+            0.919,
+            -0.124
+          ],
+          "scaffold_centroid_distance_A": 23.2,
+          "angle_to_nearest_open_direction_deg": 10.0
+        }
+      ]
+    },
+    "C08_CH3-AB_S4": {
+      "n_samples": 5,
+      "angle_to_open_deg": {
+        "mean": 57.0,
+        "min": 52.5
+      },
+      "scaffold_centroid_distance_A": {
+        "mean": 16.7
+      },
+      "per_sample": [
+        {
+          "file": "sample_0.cif",
+          "scaffold_direction_unit": [
+            -0.801,
+            -0.122,
+            -0.586
+          ],
+          "scaffold_centroid_distance_A": 14.6,
+          "angle_to_nearest_open_direction_deg": 58.7
+        },
+        {
+          "file": "sample_1.cif",
+          "scaffold_direction_unit": [
+            0.872,
+            0.318,
+            -0.373
+          ],
+          "scaffold_centroid_distance_A": 12.8,
+          "angle_to_nearest_open_direction_deg": 52.5
+        },
+        {
+          "file": "sample_2.cif",
+          "scaffold_direction_unit": [
+            0.248,
+            0.016,
+            0.969
+          ],
+          "scaffold_centroid_distance_A": 18.5,
+          "angle_to_nearest_open_direction_deg": 62.9
+        },
+        {
+          "file": "sample_3.cif",
+          "scaffold_direction_unit": [
+            0.298,
+            0.116,
+            0.947
+          ],
+          "scaffold_centroid_distance_A": 18.5,
+          "angle_to_nearest_open_direction_deg": 57.3
+        },
+        {
+          "file": "sample_4.cif",
+          "scaffold_direction_unit": [
+            0.207,
+            0.176,
+            0.962
+          ],
+          "scaffold_centroid_distance_A": 18.9,
+          "angle_to_nearest_open_direction_deg": 53.7
+        }
+      ]
+    },
+    "C09_CH3-CD_S1": {
+      "n_samples": 5,
+      "angle_to_open_deg": {
+        "mean": 36.2,
+        "min": 12.4
+      },
+      "scaffold_centroid_distance_A": {
+        "mean": 26.8
+      },
+      "per_sample": [
+        {
+          "file": "sample_0.cif",
+          "scaffold_direction_unit": [
+            -0.516,
+            0.281,
+            -0.809
+          ],
+          "scaffold_centroid_distance_A": 30.3,
+          "angle_to_nearest_open_direction_deg": 28.4
+        },
+        {
+          "file": "sample_1.cif",
+          "scaffold_direction_unit": [
+            0.548,
+            0.443,
+            -0.709
+          ],
+          "scaffold_centroid_distance_A": 23.7,
+          "angle_to_nearest_open_direction_deg": 36.7
+        },
+        {
+          "file": "sample_2.cif",
+          "scaffold_direction_unit": [
+            -0.572,
+            0.24,
+            -0.784
+          ],
+          "scaffold_centroid_distance_A": 30.5,
+          "angle_to_nearest_open_direction_deg": 32.2
+        },
+        {
+          "file": "sample_3.cif",
+          "scaffold_direction_unit": [
+            0.377,
+            0.784,
+            -0.493
+          ],
+          "scaffold_centroid_distance_A": 24.6,
+          "angle_to_nearest_open_direction_deg": 12.4
+        },
+        {
+          "file": "sample_4.cif",
+          "scaffold_direction_unit": [
+            -0.471,
+            -0.481,
+            -0.74
+          ],
+          "scaffold_centroid_distance_A": 25.1,
+          "angle_to_nearest_open_direction_deg": 71.3
+        }
+      ]
+    },
+    "C10_CH3-CD_S2": {
+      "n_samples": 5,
+      "angle_to_open_deg": {
+        "mean": 64.7,
+        "min": 48.1
+      },
+      "scaffold_centroid_distance_A": {
+        "mean": 26.7
+      },
+      "per_sample": [
+        {
+          "file": "sample_0.cif",
+          "scaffold_direction_unit": [
+            -0.637,
+            -0.037,
+            -0.77
+          ],
+          "scaffold_centroid_distance_A": 28.2,
+          "angle_to_nearest_open_direction_deg": 48.1
+        },
+        {
+          "file": "sample_1.cif",
+          "scaffold_direction_unit": [
+            -0.966,
+            -0.131,
+            -0.224
+          ],
+          "scaffold_centroid_distance_A": 29.8,
+          "angle_to_nearest_open_direction_deg": 62.4
+        },
+        {
+          "file": "sample_2.cif",
+          "scaffold_direction_unit": [
+            -0.869,
+            0.153,
+            -0.47
+          ],
+          "scaffold_centroid_distance_A": 27.9,
+          "angle_to_nearest_open_direction_deg": 49.5
+        },
+        {
+          "file": "sample_3.cif",
+          "scaffold_direction_unit": [
+            -0.98,
+            -0.182,
+            0.081
+          ],
+          "scaffold_centroid_distance_A": 27.4,
+          "angle_to_nearest_open_direction_deg": 64.9
+        },
+        {
+          "file": "sample_4.cif",
+          "scaffold_direction_unit": [
+            0.67,
+            -0.496,
+            0.552
+          ],
+          "scaffold_centroid_distance_A": 20.1,
+          "angle_to_nearest_open_direction_deg": 98.4
+        }
+      ]
+    },
+    "C11_CH3-CD_S3": {
+      "n_samples": 5,
+      "angle_to_open_deg": {
+        "mean": 66.6,
+        "min": 14.1
+      },
+      "scaffold_centroid_distance_A": {
+        "mean": 29.1
+      },
+      "per_sample": [
+        {
+          "file": "sample_0.cif",
+          "scaffold_direction_unit": [
+            -0.673,
+            -0.251,
+            -0.696
+          ],
+          "scaffold_centroid_distance_A": 28.2,
+          "angle_to_nearest_open_direction_deg": 61.2
+        },
+        {
+          "file": "sample_1.cif",
+          "scaffold_direction_unit": [
+            -0.454,
+            -0.888,
+            -0.072
+          ],
+          "scaffold_centroid_distance_A": 23.6,
+          "angle_to_nearest_open_direction_deg": 115.8
+        },
+        {
+          "file": "sample_2.cif",
+          "scaffold_direction_unit": [
+            0.45,
+            0.879,
+            -0.156
+          ],
+          "scaffold_centroid_distance_A": 37.3,
+          "angle_to_nearest_open_direction_deg": 14.1
+        },
+        {
+          "file": "sample_3.cif",
+          "scaffold_direction_unit": [
+            -0.386,
+            0.289,
+            -0.876
+          ],
+          "scaffold_centroid_distance_A": 33.0,
+          "angle_to_nearest_open_direction_deg": 25.1
+        },
+        {
+          "file": "sample_4.cif",
+          "scaffold_direction_unit": [
+            -0.413,
+            -0.91,
+            0.017
+          ],
+          "scaffold_centroid_distance_A": 23.2,
+          "angle_to_nearest_open_direction_deg": 117.0
+        }
+      ]
+    },
+    "C12_CH3-CD_S4": {
+      "n_samples": 5,
+      "angle_to_open_deg": {
+        "mean": 91.1,
+        "min": 62.9
+      },
+      "scaffold_centroid_distance_A": {
+        "mean": 23.0
+      },
+      "per_sample": [
+        {
+          "file": "sample_0.cif",
+          "scaffold_direction_unit": [
+            -0.343,
+            -0.934,
+            0.095
+          ],
+          "scaffold_centroid_distance_A": 23.8,
+          "angle_to_nearest_open_direction_deg": 118.2
+        },
+        {
+          "file": "sample_1.cif",
+          "scaffold_direction_unit": [
+            0.751,
+            -0.399,
+            0.526
+          ],
+          "scaffold_centroid_distance_A": 20.0,
+          "angle_to_nearest_open_direction_deg": 93.6
+        },
+        {
+          "file": "sample_2.cif",
+          "scaffold_direction_unit": [
+            -0.963,
+            -0.139,
+            -0.23
+          ],
+          "scaffold_centroid_distance_A": 31.6,
+          "angle_to_nearest_open_direction_deg": 62.9
+        },
+        {
+          "file": "sample_3.cif",
+          "scaffold_direction_unit": [
+            0.782,
+            -0.254,
+            0.569
+          ],
+          "scaffold_centroid_distance_A": 19.9,
+          "angle_to_nearest_open_direction_deg": 85.0
+        },
+        {
+          "file": "sample_4.cif",
+          "scaffold_direction_unit": [
+            0.777,
+            -0.416,
+            0.473
+          ],
+          "scaffold_centroid_distance_A": 19.9,
+          "angle_to_nearest_open_direction_deg": 95.7
+        }
+      ]
+    },
+    "C13_CH3-EF_S1": {
+      "n_samples": 5,
+      "angle_to_open_deg": {
+        "mean": 67.3,
+        "min": 1.1
+      },
+      "scaffold_centroid_distance_A": {
+        "mean": 21.1
+      },
+      "per_sample": [
+        {
+          "file": "sample_0.cif",
+          "scaffold_direction_unit": [
+            0.53,
+            -0.819,
+            -0.22
+          ],
+          "scaffold_centroid_distance_A": 16.8,
+          "angle_to_nearest_open_direction_deg": 119.3
+        },
+        {
+          "file": "sample_1.cif",
+          "scaffold_direction_unit": [
+            0.106,
+            0.228,
+            -0.968
+          ],
+          "scaffold_centroid_distance_A": 22.2,
+          "angle_to_nearest_open_direction_deg": 34.1
+        },
+        {
+          "file": "sample_2.cif",
+          "scaffold_direction_unit": [
+            0.45,
+            -0.48,
+            -0.753
+          ],
+          "scaffold_centroid_distance_A": 18.2,
+          "angle_to_nearest_open_direction_deg": 82.2
+        },
+        {
+          "file": "sample_3.cif",
+          "scaffold_direction_unit": [
+            0.749,
+            -0.54,
+            -0.384
+          ],
+          "scaffold_centroid_distance_A": 17.5,
+          "angle_to_nearest_open_direction_deg": 99.6
+        },
+        {
+          "file": "sample_4.cif",
+          "scaffold_direction_unit": [
+            0.0,
+            0.953,
+            -0.301
+          ],
+          "scaffold_centroid_distance_A": 30.8,
+          "angle_to_nearest_open_direction_deg": 1.1
+        }
+      ]
+    },
+    "C14_CH3-EF_S2": {
+      "n_samples": 5,
+      "angle_to_open_deg": {
+        "mean": 69.5,
+        "min": 48.3
+      },
+      "scaffold_centroid_distance_A": {
+        "mean": 20.1
+      },
+      "per_sample": [
+        {
+          "file": "sample_0.cif",
+          "scaffold_direction_unit": [
+            -0.65,
+            -0.618,
+            -0.442
+          ],
+          "scaffold_centroid_distance_A": 17.2,
+          "angle_to_nearest_open_direction_deg": 87.0
+        },
+        {
+          "file": "sample_1.cif",
+          "scaffold_direction_unit": [
+            -0.397,
+            -0.12,
+            -0.91
+          ],
+          "scaffold_centroid_distance_A": 24.0,
+          "angle_to_nearest_open_direction_deg": 48.3
+        },
+        {
+          "file": "sample_2.cif",
+          "scaffold_direction_unit": [
+            0.17,
+            -0.252,
+            -0.953
+          ],
+          "scaffold_centroid_distance_A": 21.1,
+          "angle_to_nearest_open_direction_deg": 60.7
+        },
+        {
+          "file": "sample_3.cif",
+          "scaffold_direction_unit": [
+            0.121,
+            -0.57,
+            -0.813
+          ],
+          "scaffold_centroid_distance_A": 20.7,
+          "angle_to_nearest_open_direction_deg": 79.1
+        },
+        {
+          "file": "sample_4.cif",
+          "scaffold_direction_unit": [
+            0.505,
+            -0.282,
+            -0.816
+          ],
+          "scaffold_centroid_distance_A": 17.5,
+          "angle_to_nearest_open_direction_deg": 72.6
+        }
+      ]
+    },
+    "C15_CH3-EF_S3": {
+      "n_samples": 5,
+      "angle_to_open_deg": {
+        "mean": 26.6,
+        "min": 15.5
+      },
+      "scaffold_centroid_distance_A": {
+        "mean": 30.8
+      },
+      "per_sample": [
+        {
+          "file": "sample_0.cif",
+          "scaffold_direction_unit": [
+            0.157,
+            0.612,
+            -0.775
+          ],
+          "scaffold_centroid_distance_A": 34.0,
+          "angle_to_nearest_open_direction_deg": 17.7
+        },
+        {
+          "file": "sample_1.cif",
+          "scaffold_direction_unit": [
+            -0.819,
+            0.563,
+            -0.11
+          ],
+          "scaffold_centroid_distance_A": 29.8,
+          "angle_to_nearest_open_direction_deg": 20.3
+        },
+        {
+          "file": "sample_2.cif",
+          "scaffold_direction_unit": [
+            -0.734,
+            -0.235,
+            0.637
+          ],
+          "scaffold_centroid_distance_A": 26.6,
+          "angle_to_nearest_open_direction_deg": 61.1
+        },
+        {
+          "file": "sample_3.cif",
+          "scaffold_direction_unit": [
+            0.461,
+            0.882,
+            -0.098
+          ],
+          "scaffold_centroid_distance_A": 31.8,
+          "angle_to_nearest_open_direction_deg": 15.5
+        },
+        {
+          "file": "sample_4.cif",
+          "scaffold_direction_unit": [
+            -0.007,
+            0.471,
+            -0.882
+          ],
+          "scaffold_centroid_distance_A": 31.7,
+          "angle_to_nearest_open_direction_deg": 18.3
+        }
+      ]
+    },
+    "C16_CH3-EF_S4": {
+      "n_samples": 5,
+      "angle_to_open_deg": {
+        "mean": 57.7,
+        "min": 35.3
+      },
+      "scaffold_centroid_distance_A": {
+        "mean": 20.7
+      },
+      "per_sample": [
+        {
+          "file": "sample_0.cif",
+          "scaffold_direction_unit": [
+            0.062,
+            -0.707,
+            0.704
+          ],
+          "scaffold_centroid_distance_A": 17.1,
+          "angle_to_nearest_open_direction_deg": 103.7
+        },
+        {
+          "file": "sample_1.cif",
+          "scaffold_direction_unit": [
+            -0.326,
+            0.35,
+            0.878
+          ],
+          "scaffold_centroid_distance_A": 25.9,
+          "angle_to_nearest_open_direction_deg": 35.3
+        },
+        {
+          "file": "sample_2.cif",
+          "scaffold_direction_unit": [
+            -0.669,
+            0.117,
+            0.734
+          ],
+          "scaffold_centroid_distance_A": 22.0,
+          "angle_to_nearest_open_direction_deg": 41.1
+        },
+        {
+          "file": "sample_3.cif",
+          "scaffold_direction_unit": [
+            -0.56,
+            0.09,
+            0.824
+          ],
+          "scaffold_centroid_distance_A": 22.7,
+          "angle_to_nearest_open_direction_deg": 44.0
+        },
+        {
+          "file": "sample_4.cif",
+          "scaffold_direction_unit": [
+            0.552,
+            -0.08,
+            -0.83
+          ],
+          "scaffold_centroid_distance_A": 16.0,
+          "angle_to_nearest_open_direction_deg": 64.4
+        }
+      ]
+    },
+    "BM_CH3_Cterm_fusion": {
+      "n_samples": 5,
+      "angle_to_open_deg": {
+        "mean": 77.0,
+        "min": 61.6
+      },
+      "scaffold_centroid_distance_A": {
+        "mean": 27.1
+      },
+      "per_sample": [
+        {
+          "file": "sample_0.cif",
+          "scaffold_direction_unit": [
+            0.531,
+            -0.261,
+            -0.806
+          ],
+          "scaffold_centroid_distance_A": 30.7,
+          "angle_to_nearest_open_direction_deg": 72.5
+        },
+        {
+          "file": "sample_1.cif",
+          "scaffold_direction_unit": [
+            0.288,
+            -0.212,
+            -0.934
+          ],
+          "scaffold_centroid_distance_A": 33.2,
+          "angle_to_nearest_open_direction_deg": 61.6
+        },
+        {
+          "file": "sample_2.cif",
+          "scaffold_direction_unit": [
+            0.512,
+            -0.333,
+            -0.792
+          ],
+          "scaffold_centroid_distance_A": 32.5,
+          "angle_to_nearest_open_direction_deg": 75.7
+        },
+        {
+          "file": "sample_3.cif",
+          "scaffold_direction_unit": [
+            0.743,
+            -0.59,
+            -0.317
+          ],
+          "scaffold_centroid_distance_A": 18.5,
+          "angle_to_nearest_open_direction_deg": 103.9
+        },
+        {
+          "file": "sample_4.cif",
+          "scaffold_direction_unit": [
+            0.384,
+            -0.335,
+            -0.861
+          ],
+          "scaffold_centroid_distance_A": 20.5,
+          "angle_to_nearest_open_direction_deg": 71.2
+        }
+      ]
+    }
+  }
+}

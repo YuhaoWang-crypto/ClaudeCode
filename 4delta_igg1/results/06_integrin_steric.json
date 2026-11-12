@@ -1,0 +1,1456 @@
+{
+  "reference": {
+    "complex": "4UM9 alpha-v/beta-6 + pro-TGF-beta1 LAP peptide",
+    "lap_motif": "RGDLGRL (resSeq 241-247)",
+    "candidate_motif": "RGDLRIL (4-Delta payload indices 4-10)",
+    "clash_cutoff_A": 3.0,
+    "contact_cutoff_A": 4.5,
+    "free_vs_bound_motif_rmsd_A": {
+      "value": "1.77-2.43 (mean 2.08) over 15 NMR models",
+      "meaning": "the experimental FREE-state motif (6R2X CgA43-49) already sits ~2.1 A from the receptor-BOUND pose, because free 4-Delta has its RGD inside the helix (DSSP SHHHHH) whereas the bound LAP motif has RGD in a turn with the helix starting at +4 (DSSP STTHHH). alpha-v/beta-6 engagement therefore requires the RGD to unwind locally out of the helix. A candidate motif_fit_rmsd near 2.1 A is behaving like the free peptide; this is the calibration baseline, NOT zero."
+    },
+    "core_clash_definition": "clashes counted after excluding the payload and the flexible Gly/Ser/Pro junction residues flanking it, since those will rearrange; this scores the folded Ig core against the receptor"
+  },
+  "results": {
+    "C01_CDRH3_S1": {
+      "n_samples": 5,
+      "core_receptor_clashes": {
+        "mean": 651.6,
+        "min": 19,
+        "max": 2480
+      },
+      "n_samples_core_clash_free": 0,
+      "motif_fit_rmsd_A": {
+        "mean": 2.922,
+        "min": 2.863,
+        "sd": 0.092
+      },
+      "scaffold_receptor_clashes": {
+        "mean": 652.6,
+        "min": 20,
+        "max": 2481
+      },
+      "scaffold_receptor_contacts": {
+        "mean": 2321.2
+      },
+      "n_samples_clash_free": 0,
+      "per_sample": [
+        {
+          "file": "sample_0.cif",
+          "motif_fit_rmsd_A": 2.904,
+          "scaffold_receptor_clashes": 706,
+          "scaffold_receptor_clash_residues": 33,
+          "scaffold_receptor_contacts": 2340,
+          "nearest_scaffold_receptor_A": 0.43,
+          "core_receptor_clashes": 706,
+          "core_receptor_clash_residues": 33,
+          "nearest_core_receptor_A": 0.43
+        },
+        {
+          "file": "sample_1.cif",
+          "motif_fit_rmsd_A": 3.103,
+          "scaffold_receptor_clashes": 32,
+          "scaffold_receptor_clash_residues": 4,
+          "scaffold_receptor_contacts": 122,
+          "nearest_scaffold_receptor_A": 0.78,
+          "core_receptor_clashes": 31,
+          "core_receptor_clash_residues": 3,
+          "nearest_core_receptor_A": 0.78
+        },
+        {
+          "file": "sample_2.cif",
+          "motif_fit_rmsd_A": 2.872,
+          "scaffold_receptor_clashes": 20,
+          "scaffold_receptor_clash_residues": 4,
+          "scaffold_receptor_contacts": 120,
+          "nearest_scaffold_receptor_A": 1.51,
+          "core_receptor_clashes": 19,
+          "core_receptor_clash_residues": 3,
+          "nearest_core_receptor_A": 1.51
+        },
+        {
+          "file": "sample_3.cif",
+          "motif_fit_rmsd_A": 2.869,
+          "scaffold_receptor_clashes": 2481,
+          "scaffold_receptor_clash_residues": 93,
+          "scaffold_receptor_contacts": 8906,
+          "nearest_scaffold_receptor_A": 0.21,
+          "core_receptor_clashes": 2480,
+          "core_receptor_clash_residues": 92,
+          "nearest_core_receptor_A": 0.21
+        },
+        {
+          "file": "sample_4.cif",
+          "motif_fit_rmsd_A": 2.863,
+          "scaffold_receptor_clashes": 24,
+          "scaffold_receptor_clash_residues": 3,
+          "scaffold_receptor_contacts": 118,
+          "nearest_scaffold_receptor_A": 1.79,
+          "core_receptor_clashes": 22,
+          "core_receptor_clash_residues": 2,
+          "nearest_core_receptor_A": 1.79
+        }
+      ]
+    },
+    "C02_CDRH3_S2": {
+      "n_samples": 5,
+      "core_receptor_clashes": {
+        "mean": 6711.4,
+        "min": 5414,
+        "max": 7286
+      },
+      "n_samples_core_clash_free": 0,
+      "motif_fit_rmsd_A": {
+        "mean": 1.911,
+        "min": 1.901,
+        "sd": 0.006
+      },
+      "scaffold_receptor_clashes": {
+        "mean": 6884.8,
+        "min": 5606,
+        "max": 7379
+      },
+      "scaffold_receptor_contacts": {
+        "mean": 22989.6
+      },
+      "n_samples_clash_free": 0,
+      "per_sample": [
+        {
+          "file": "sample_0.cif",
+          "motif_fit_rmsd_A": 1.91,
+          "scaffold_receptor_clashes": 7257,
+          "scaffold_receptor_clash_residues": 191,
+          "scaffold_receptor_contacts": 24037,
+          "nearest_scaffold_receptor_A": 0.13,
+          "core_receptor_clashes": 7132,
+          "core_receptor_clash_residues": 182,
+          "nearest_core_receptor_A": 0.13
+        },
+        {
+          "file": "sample_1.cif",
+          "motif_fit_rmsd_A": 1.911,
+          "scaffold_receptor_clashes": 7203,
+          "scaffold_receptor_clash_residues": 198,
+          "scaffold_receptor_contacts": 24183,
+          "nearest_scaffold_receptor_A": 0.09,
+          "core_receptor_clashes": 6855,
+          "core_receptor_clash_residues": 185,
+          "nearest_core_receptor_A": 0.09
+        },
+        {
+          "file": "sample_2.cif",
+          "motif_fit_rmsd_A": 1.917,
+          "scaffold_receptor_clashes": 7379,
+          "scaffold_receptor_clash_residues": 201,
+          "scaffold_receptor_contacts": 24404,
+          "nearest_scaffold_receptor_A": 0.08,
+          "core_receptor_clashes": 7286,
+          "core_receptor_clash_residues": 191,
+          "nearest_core_receptor_A": 0.08
+        },
+        {
+          "file": "sample_3.cif",
+          "motif_fit_rmsd_A": 1.901,
+          "scaffold_receptor_clashes": 6979,
+          "scaffold_receptor_clash_residues": 193,
+          "scaffold_receptor_contacts": 23166,
+          "nearest_scaffold_receptor_A": 0.21,
+          "core_receptor_clashes": 6870,
+          "core_receptor_clash_residues": 185,
+          "nearest_core_receptor_A": 0.21
+        },
+        {
+          "file": "sample_4.cif",
+          "motif_fit_rmsd_A": 1.916,
+          "scaffold_receptor_clashes": 5606,
+          "scaffold_receptor_clash_residues": 160,
+          "scaffold_receptor_contacts": 19158,
+          "nearest_scaffold_receptor_A": 0.09,
+          "core_receptor_clashes": 5414,
+          "core_receptor_clash_residues": 148,
+          "nearest_core_receptor_A": 0.09
+        }
+      ]
+    },
+    "C03_CDRH3_S3": {
+      "n_samples": 5,
+      "core_receptor_clashes": {
+        "mean": 810.8,
+        "min": 69,
+        "max": 2847
+      },
+      "n_samples_core_clash_free": 0,
+      "motif_fit_rmsd_A": {
+        "mean": 2.889,
+        "min": 2.825,
+        "sd": 0.061
+      },
+      "scaffold_receptor_clashes": {
+        "mean": 812.2,
+        "min": 69,
+        "max": 2849
+      },
+      "scaffold_receptor_contacts": {
+        "mean": 2809.8
+      },
+      "n_samples_clash_free": 0,
+      "per_sample": [
+        {
+          "file": "sample_0.cif",
+          "motif_fit_rmsd_A": 2.98,
+          "scaffold_receptor_clashes": 69,
+          "scaffold_receptor_clash_residues": 9,
+          "scaffold_receptor_contacts": 298,
+          "nearest_scaffold_receptor_A": 0.82,
+          "core_receptor_clashes": 69,
+          "core_receptor_clash_residues": 9,
+          "nearest_core_receptor_A": 0.82
+        },
+        {
+          "file": "sample_1.cif",
+          "motif_fit_rmsd_A": 2.942,
+          "scaffold_receptor_clashes": 2849,
+          "scaffold_receptor_clash_residues": 93,
+          "scaffold_receptor_contacts": 9774,
+          "nearest_scaffold_receptor_A": 0.14,
+          "core_receptor_clashes": 2847,
+          "core_receptor_clash_residues": 92,
+          "nearest_core_receptor_A": 0.14
+        },
+        {
+          "file": "sample_2.cif",
+          "motif_fit_rmsd_A": 2.864,
+          "scaffold_receptor_clashes": 376,
+          "scaffold_receptor_clash_residues": 16,
+          "scaffold_receptor_contacts": 1324,
+          "nearest_scaffold_receptor_A": 0.28,
+          "core_receptor_clashes": 376,
+          "core_receptor_clash_residues": 16,
+          "nearest_core_receptor_A": 0.28
+        },
+        {
+          "file": "sample_3.cif",
+          "motif_fit_rmsd_A": 2.825,
+          "scaffold_receptor_clashes": 242,
+          "scaffold_receptor_clash_residues": 14,
+          "scaffold_receptor_contacts": 792,
+          "nearest_scaffold_receptor_A": 0.64,
+          "core_receptor_clashes": 242,
+          "core_receptor_clash_residues": 14,
+          "nearest_core_receptor_A": 0.64
+        },
+        {
+          "file": "sample_4.cif",
+          "motif_fit_rmsd_A": 2.834,
+          "scaffold_receptor_clashes": 525,
+          "scaffold_receptor_clash_residues": 27,
+          "scaffold_receptor_contacts": 1861,
+          "nearest_scaffold_receptor_A": 0.44,
+          "core_receptor_clashes": 520,
+          "core_receptor_clash_residues": 26,
+          "nearest_core_receptor_A": 0.44
+        }
+      ]
+    },
+    "C04_CDRH3_S4": {
+      "n_samples": 5,
+      "core_receptor_clashes": {
+        "mean": 1701.6,
+        "min": 1185,
+        "max": 2773
+      },
+      "n_samples_core_clash_free": 0,
+      "motif_fit_rmsd_A": {
+        "mean": 2.605,
+        "min": 1.29,
+        "sd": 0.695
+      },
+      "scaffold_receptor_clashes": {
+        "mean": 1702.2,
+        "min": 1185,
+        "max": 2775
+      },
+      "scaffold_receptor_contacts": {
+        "mean": 5838.8
+      },
+      "n_samples_clash_free": 0,
+      "per_sample": [
+        {
+          "file": "sample_0.cif",
+          "motif_fit_rmsd_A": 3.051,
+          "scaffold_receptor_clashes": 1539,
+          "scaffold_receptor_clash_residues": 61,
+          "scaffold_receptor_contacts": 5520,
+          "nearest_scaffold_receptor_A": 0.24,
+          "core_receptor_clashes": 1539,
+          "core_receptor_clash_residues": 61,
+          "nearest_core_receptor_A": 0.24
+        },
+        {
+          "file": "sample_1.cif",
+          "motif_fit_rmsd_A": 3.209,
+          "scaffold_receptor_clashes": 1496,
+          "scaffold_receptor_clash_residues": 59,
+          "scaffold_receptor_contacts": 4957,
+          "nearest_scaffold_receptor_A": 0.34,
+          "core_receptor_clashes": 1496,
+          "core_receptor_clash_residues": 59,
+          "nearest_core_receptor_A": 0.34
+        },
+        {
+          "file": "sample_2.cif",
+          "motif_fit_rmsd_A": 2.944,
+          "scaffold_receptor_clashes": 1516,
+          "scaffold_receptor_clash_residues": 60,
+          "scaffold_receptor_contacts": 5359,
+          "nearest_scaffold_receptor_A": 0.23,
+          "core_receptor_clashes": 1515,
+          "core_receptor_clash_residues": 59,
+          "nearest_core_receptor_A": 0.23
+        },
+        {
+          "file": "sample_3.cif",
+          "motif_fit_rmsd_A": 1.29,
+          "scaffold_receptor_clashes": 1185,
+          "scaffold_receptor_clash_residues": 42,
+          "scaffold_receptor_contacts": 4034,
+          "nearest_scaffold_receptor_A": 0.17,
+          "core_receptor_clashes": 1185,
+          "core_receptor_clash_residues": 42,
+          "nearest_core_receptor_A": 0.17
+        },
+        {
+          "file": "sample_4.cif",
+          "motif_fit_rmsd_A": 2.53,
+          "scaffold_receptor_clashes": 2775,
+          "scaffold_receptor_clash_residues": 100,
+          "scaffold_receptor_contacts": 9324,
+          "nearest_scaffold_receptor_A": 0.16,
+          "core_receptor_clashes": 2773,
+          "core_receptor_clash_residues": 98,
+          "nearest_core_receptor_A": 0.16
+        }
+      ]
+    },
+    "C05_CH3-AB_S1": {
+      "n_samples": 5,
+      "core_receptor_clashes": {
+        "mean": 2085.0,
+        "min": 0,
+        "max": 4821
+      },
+      "n_samples_core_clash_free": 1,
+      "motif_fit_rmsd_A": {
+        "mean": 2.829,
+        "min": 2.768,
+        "sd": 0.046
+      },
+      "scaffold_receptor_clashes": {
+        "mean": 2085.6,
+        "min": 1,
+        "max": 4822
+      },
+      "scaffold_receptor_contacts": {
+        "mean": 7150.8
+      },
+      "n_samples_clash_free": 0,
+      "per_sample": [
+        {
+          "file": "sample_0.cif",
+          "motif_fit_rmsd_A": 2.799,
+          "scaffold_receptor_clashes": 337,
+          "scaffold_receptor_clash_residues": 25,
+          "scaffold_receptor_contacts": 1161,
+          "nearest_scaffold_receptor_A": 0.31,
+          "core_receptor_clashes": 336,
+          "core_receptor_clash_residues": 24,
+          "nearest_core_receptor_A": 0.31
+        },
+        {
+          "file": "sample_1.cif",
+          "motif_fit_rmsd_A": 2.839,
+          "scaffold_receptor_clashes": 1,
+          "scaffold_receptor_clash_residues": 1,
+          "scaffold_receptor_contacts": 9,
+          "nearest_scaffold_receptor_A": 2.99,
+          "core_receptor_clashes": 0,
+          "core_receptor_clash_residues": 0,
+          "nearest_core_receptor_A": 4.71
+        },
+        {
+          "file": "sample_2.cif",
+          "motif_fit_rmsd_A": 2.836,
+          "scaffold_receptor_clashes": 4531,
+          "scaffold_receptor_clash_residues": 133,
+          "scaffold_receptor_contacts": 15431,
+          "nearest_scaffold_receptor_A": 0.15,
+          "core_receptor_clashes": 4531,
+          "core_receptor_clash_residues": 133,
+          "nearest_core_receptor_A": 0.15
+        },
+        {
+          "file": "sample_3.cif",
+          "motif_fit_rmsd_A": 2.768,
+          "scaffold_receptor_clashes": 737,
+          "scaffold_receptor_clash_residues": 35,
+          "scaffold_receptor_contacts": 2681,
+          "nearest_scaffold_receptor_A": 0.24,
+          "core_receptor_clashes": 737,
+          "core_receptor_clash_residues": 35,
+          "nearest_core_receptor_A": 0.24
+        },
+        {
+          "file": "sample_4.cif",
+          "motif_fit_rmsd_A": 2.905,
+          "scaffold_receptor_clashes": 4822,
+          "scaffold_receptor_clash_residues": 119,
+          "scaffold_receptor_contacts": 16472,
+          "nearest_scaffold_receptor_A": 0.19,
+          "core_receptor_clashes": 4821,
+          "core_receptor_clash_residues": 118,
+          "nearest_core_receptor_A": 0.19
+        }
+      ]
+    },
+    "C06_CH3-AB_S2": {
+      "n_samples": 5,
+      "core_receptor_clashes": {
+        "mean": 4328.0,
+        "min": 159,
+        "max": 7310
+      },
+      "n_samples_core_clash_free": 0,
+      "motif_fit_rmsd_A": {
+        "mean": 2.371,
+        "min": 1.818,
+        "sd": 0.445
+      },
+      "scaffold_receptor_clashes": {
+        "mean": 4531.2,
+        "min": 159,
+        "max": 7516
+      },
+      "scaffold_receptor_contacts": {
+        "mean": 15245.6
+      },
+      "n_samples_clash_free": 0,
+      "per_sample": [
+        {
+          "file": "sample_0.cif",
+          "motif_fit_rmsd_A": 2.456,
+          "scaffold_receptor_clashes": 7516,
+          "scaffold_receptor_clash_residues": 213,
+          "scaffold_receptor_contacts": 25689,
+          "nearest_scaffold_receptor_A": 0.07,
+          "core_receptor_clashes": 7310,
+          "core_receptor_clash_residues": 203,
+          "nearest_core_receptor_A": 0.07
+        },
+        {
+          "file": "sample_1.cif",
+          "motif_fit_rmsd_A": 2.935,
+          "scaffold_receptor_clashes": 159,
+          "scaffold_receptor_clash_residues": 10,
+          "scaffold_receptor_contacts": 546,
+          "nearest_scaffold_receptor_A": 0.54,
+          "core_receptor_clashes": 159,
+          "core_receptor_clash_residues": 10,
+          "nearest_core_receptor_A": 0.54
+        },
+        {
+          "file": "sample_2.cif",
+          "motif_fit_rmsd_A": 1.818,
+          "scaffold_receptor_clashes": 6517,
+          "scaffold_receptor_clash_residues": 193,
+          "scaffold_receptor_contacts": 21555,
+          "nearest_scaffold_receptor_A": 0.04,
+          "core_receptor_clashes": 6328,
+          "core_receptor_clash_residues": 182,
+          "nearest_core_receptor_A": 0.04
+        },
+        {
+          "file": "sample_3.cif",
+          "motif_fit_rmsd_A": 2.744,
+          "scaffold_receptor_clashes": 1120,
+          "scaffold_receptor_clash_residues": 53,
+          "scaffold_receptor_contacts": 3855,
+          "nearest_scaffold_receptor_A": 0.25,
+          "core_receptor_clashes": 800,
+          "core_receptor_clash_residues": 41,
+          "nearest_core_receptor_A": 0.44
+        },
+        {
+          "file": "sample_4.cif",
+          "motif_fit_rmsd_A": 1.902,
+          "scaffold_receptor_clashes": 7344,
+          "scaffold_receptor_clash_residues": 206,
+          "scaffold_receptor_contacts": 24583,
+          "nearest_scaffold_receptor_A": 0.15,
+          "core_receptor_clashes": 7043,
+          "core_receptor_clash_residues": 194,
+          "nearest_core_receptor_A": 0.15
+        }
+      ]
+    },
+    "C07_CH3-AB_S3": {
+      "n_samples": 5,
+      "core_receptor_clashes": {
+        "mean": 2162.0,
+        "min": 294,
+        "max": 5568
+      },
+      "n_samples_core_clash_free": 0,
+      "motif_fit_rmsd_A": {
+        "mean": 2.875,
+        "min": 2.773,
+        "sd": 0.073
+      },
+      "scaffold_receptor_clashes": {
+        "mean": 2189.0,
+        "min": 309,
+        "max": 5568
+      },
+      "scaffold_receptor_contacts": {
+        "mean": 7421.0
+      },
+      "n_samples_clash_free": 0,
+      "per_sample": [
+        {
+          "file": "sample_0.cif",
+          "motif_fit_rmsd_A": 2.88,
+          "scaffold_receptor_clashes": 5568,
+          "scaffold_receptor_clash_residues": 150,
+          "scaffold_receptor_contacts": 18721,
+          "nearest_scaffold_receptor_A": 0.21,
+          "core_receptor_clashes": 5568,
+          "core_receptor_clash_residues": 150,
+          "nearest_core_receptor_A": 0.21
+        },
+        {
+          "file": "sample_1.cif",
+          "motif_fit_rmsd_A": 2.834,
+          "scaffold_receptor_clashes": 4030,
+          "scaffold_receptor_clash_residues": 128,
+          "scaffold_receptor_contacts": 13854,
+          "nearest_scaffold_receptor_A": 0.21,
+          "core_receptor_clashes": 4030,
+          "core_receptor_clash_residues": 128,
+          "nearest_core_receptor_A": 0.21
+        },
+        {
+          "file": "sample_2.cif",
+          "motif_fit_rmsd_A": 2.773,
+          "scaffold_receptor_clashes": 448,
+          "scaffold_receptor_clash_residues": 26,
+          "scaffold_receptor_contacts": 1421,
+          "nearest_scaffold_receptor_A": 0.24,
+          "core_receptor_clashes": 329,
+          "core_receptor_clash_residues": 18,
+          "nearest_core_receptor_A": 0.24
+        },
+        {
+          "file": "sample_3.cif",
+          "motif_fit_rmsd_A": 2.993,
+          "scaffold_receptor_clashes": 590,
+          "scaffold_receptor_clash_residues": 29,
+          "scaffold_receptor_contacts": 1975,
+          "nearest_scaffold_receptor_A": 0.53,
+          "core_receptor_clashes": 589,
+          "core_receptor_clash_residues": 28,
+          "nearest_core_receptor_A": 0.53
+        },
+        {
+          "file": "sample_4.cif",
+          "motif_fit_rmsd_A": 2.896,
+          "scaffold_receptor_clashes": 309,
+          "scaffold_receptor_clash_residues": 18,
+          "scaffold_receptor_contacts": 1134,
+          "nearest_scaffold_receptor_A": 0.43,
+          "core_receptor_clashes": 294,
+          "core_receptor_clash_residues": 14,
+          "nearest_core_receptor_A": 0.43
+        }
+      ]
+    },
+    "C08_CH3-AB_S4": {
+      "n_samples": 5,
+      "core_receptor_clashes": {
+        "mean": 3892.6,
+        "min": 2622,
+        "max": 6520
+      },
+      "n_samples_core_clash_free": 0,
+      "motif_fit_rmsd_A": {
+        "mean": 2.545,
+        "min": 2.395,
+        "sd": 0.157
+      },
+      "scaffold_receptor_clashes": {
+        "mean": 3892.6,
+        "min": 2622,
+        "max": 6520
+      },
+      "scaffold_receptor_contacts": {
+        "mean": 13026.2
+      },
+      "n_samples_clash_free": 0,
+      "per_sample": [
+        {
+          "file": "sample_0.cif",
+          "motif_fit_rmsd_A": 2.846,
+          "scaffold_receptor_clashes": 6520,
+          "scaffold_receptor_clash_residues": 177,
+          "scaffold_receptor_contacts": 21702,
+          "nearest_scaffold_receptor_A": 0.13,
+          "core_receptor_clashes": 6520,
+          "core_receptor_clash_residues": 177,
+          "nearest_core_receptor_A": 0.13
+        },
+        {
+          "file": "sample_1.cif",
+          "motif_fit_rmsd_A": 2.458,
+          "scaffold_receptor_clashes": 4123,
+          "scaffold_receptor_clash_residues": 131,
+          "scaffold_receptor_contacts": 14076,
+          "nearest_scaffold_receptor_A": 0.13,
+          "core_receptor_clashes": 4123,
+          "core_receptor_clash_residues": 131,
+          "nearest_core_receptor_A": 0.13
+        },
+        {
+          "file": "sample_2.cif",
+          "motif_fit_rmsd_A": 2.519,
+          "scaffold_receptor_clashes": 3135,
+          "scaffold_receptor_clash_residues": 110,
+          "scaffold_receptor_contacts": 10335,
+          "nearest_scaffold_receptor_A": 0.22,
+          "core_receptor_clashes": 3135,
+          "core_receptor_clash_residues": 110,
+          "nearest_core_receptor_A": 0.22
+        },
+        {
+          "file": "sample_3.cif",
+          "motif_fit_rmsd_A": 2.395,
+          "scaffold_receptor_clashes": 3063,
+          "scaffold_receptor_clash_residues": 100,
+          "scaffold_receptor_contacts": 10022,
+          "nearest_scaffold_receptor_A": 0.2,
+          "core_receptor_clashes": 3063,
+          "core_receptor_clash_residues": 100,
+          "nearest_core_receptor_A": 0.2
+        },
+        {
+          "file": "sample_4.cif",
+          "motif_fit_rmsd_A": 2.508,
+          "scaffold_receptor_clashes": 2622,
+          "scaffold_receptor_clash_residues": 91,
+          "scaffold_receptor_contacts": 8996,
+          "nearest_scaffold_receptor_A": 0.17,
+          "core_receptor_clashes": 2622,
+          "core_receptor_clash_residues": 91,
+          "nearest_core_receptor_A": 0.17
+        }
+      ]
+    },
+    "C09_CH3-CD_S1": {
+      "n_samples": 5,
+      "core_receptor_clashes": {
+        "mean": 2796.4,
+        "min": 16,
+        "max": 7893
+      },
+      "n_samples_core_clash_free": 0,
+      "motif_fit_rmsd_A": {
+        "mean": 2.785,
+        "min": 2.624,
+        "sd": 0.117
+      },
+      "scaffold_receptor_clashes": {
+        "mean": 2798.6,
+        "min": 21,
+        "max": 7896
+      },
+      "scaffold_receptor_contacts": {
+        "mean": 9388.2
+      },
+      "n_samples_clash_free": 0,
+      "per_sample": [
+        {
+          "file": "sample_0.cif",
+          "motif_fit_rmsd_A": 2.921,
+          "scaffold_receptor_clashes": 2550,
+          "scaffold_receptor_clash_residues": 84,
+          "scaffold_receptor_contacts": 8572,
+          "nearest_scaffold_receptor_A": 0.06,
+          "core_receptor_clashes": 2548,
+          "core_receptor_clash_residues": 83,
+          "nearest_core_receptor_A": 0.06
+        },
+        {
+          "file": "sample_1.cif",
+          "motif_fit_rmsd_A": 2.624,
+          "scaffold_receptor_clashes": 798,
+          "scaffold_receptor_clash_residues": 39,
+          "scaffold_receptor_contacts": 2698,
+          "nearest_scaffold_receptor_A": 0.35,
+          "core_receptor_clashes": 798,
+          "core_receptor_clash_residues": 39,
+          "nearest_core_receptor_A": 0.35
+        },
+        {
+          "file": "sample_2.cif",
+          "motif_fit_rmsd_A": 2.897,
+          "scaffold_receptor_clashes": 2728,
+          "scaffold_receptor_clash_residues": 90,
+          "scaffold_receptor_contacts": 9322,
+          "nearest_scaffold_receptor_A": 0.28,
+          "core_receptor_clashes": 2727,
+          "core_receptor_clash_residues": 89,
+          "nearest_core_receptor_A": 0.28
+        },
+        {
+          "file": "sample_3.cif",
+          "motif_fit_rmsd_A": 2.678,
+          "scaffold_receptor_clashes": 21,
+          "scaffold_receptor_clash_residues": 5,
+          "scaffold_receptor_contacts": 155,
+          "nearest_scaffold_receptor_A": 1.29,
+          "core_receptor_clashes": 16,
+          "core_receptor_clash_residues": 4,
+          "nearest_core_receptor_A": 1.29
+        },
+        {
+          "file": "sample_4.cif",
+          "motif_fit_rmsd_A": 2.805,
+          "scaffold_receptor_clashes": 7896,
+          "scaffold_receptor_clash_residues": 212,
+          "scaffold_receptor_contacts": 26194,
+          "nearest_scaffold_receptor_A": 0.06,
+          "core_receptor_clashes": 7893,
+          "core_receptor_clash_residues": 211,
+          "nearest_core_receptor_A": 0.06
+        }
+      ]
+    },
+    "C10_CH3-CD_S2": {
+      "n_samples": 5,
+      "core_receptor_clashes": {
+        "mean": 4749.8,
+        "min": 2996,
+        "max": 6110
+      },
+      "n_samples_core_clash_free": 0,
+      "motif_fit_rmsd_A": {
+        "mean": 2.274,
+        "min": 1.855,
+        "sd": 0.52
+      },
+      "scaffold_receptor_clashes": {
+        "mean": 4848.6,
+        "min": 3047,
+        "max": 6262
+      },
+      "scaffold_receptor_contacts": {
+        "mean": 16262.6
+      },
+      "n_samples_clash_free": 0,
+      "per_sample": [
+        {
+          "file": "sample_0.cif",
+          "motif_fit_rmsd_A": 1.855,
+          "scaffold_receptor_clashes": 3047,
+          "scaffold_receptor_clash_residues": 104,
+          "scaffold_receptor_contacts": 10120,
+          "nearest_scaffold_receptor_A": 0.3,
+          "core_receptor_clashes": 2996,
+          "core_receptor_clash_residues": 102,
+          "nearest_core_receptor_A": 0.3
+        },
+        {
+          "file": "sample_1.cif",
+          "motif_fit_rmsd_A": 1.932,
+          "scaffold_receptor_clashes": 5621,
+          "scaffold_receptor_clash_residues": 163,
+          "scaffold_receptor_contacts": 18930,
+          "nearest_scaffold_receptor_A": 0.19,
+          "core_receptor_clashes": 5547,
+          "core_receptor_clash_residues": 155,
+          "nearest_core_receptor_A": 0.19
+        },
+        {
+          "file": "sample_2.cif",
+          "motif_fit_rmsd_A": 2.49,
+          "scaffold_receptor_clashes": 3608,
+          "scaffold_receptor_clash_residues": 111,
+          "scaffold_receptor_contacts": 12231,
+          "nearest_scaffold_receptor_A": 0.12,
+          "core_receptor_clashes": 3608,
+          "core_receptor_clash_residues": 111,
+          "nearest_core_receptor_A": 0.12
+        },
+        {
+          "file": "sample_3.cif",
+          "motif_fit_rmsd_A": 1.89,
+          "scaffold_receptor_clashes": 6262,
+          "scaffold_receptor_clash_residues": 184,
+          "scaffold_receptor_contacts": 21059,
+          "nearest_scaffold_receptor_A": 0.16,
+          "core_receptor_clashes": 6110,
+          "core_receptor_clash_residues": 175,
+          "nearest_core_receptor_A": 0.16
+        },
+        {
+          "file": "sample_4.cif",
+          "motif_fit_rmsd_A": 3.204,
+          "scaffold_receptor_clashes": 5705,
+          "scaffold_receptor_clash_residues": 174,
+          "scaffold_receptor_contacts": 18973,
+          "nearest_scaffold_receptor_A": 0.05,
+          "core_receptor_clashes": 5488,
+          "core_receptor_clash_residues": 166,
+          "nearest_core_receptor_A": 0.05
+        }
+      ]
+    },
+    "C11_CH3-CD_S3": {
+      "n_samples": 5,
+      "core_receptor_clashes": {
+        "mean": 4245.2,
+        "min": 0,
+        "max": 6939
+      },
+      "n_samples_core_clash_free": 1,
+      "motif_fit_rmsd_A": {
+        "mean": 2.699,
+        "min": 2.617,
+        "sd": 0.067
+      },
+      "scaffold_receptor_clashes": {
+        "mean": 4332.4,
+        "min": 0,
+        "max": 7158
+      },
+      "scaffold_receptor_contacts": {
+        "mean": 14616.0
+      },
+      "n_samples_clash_free": 1,
+      "per_sample": [
+        {
+          "file": "sample_0.cif",
+          "motif_fit_rmsd_A": 2.783,
+          "scaffold_receptor_clashes": 6745,
+          "scaffold_receptor_clash_residues": 189,
+          "scaffold_receptor_contacts": 22650,
+          "nearest_scaffold_receptor_A": 0.09,
+          "core_receptor_clashes": 6743,
+          "core_receptor_clash_residues": 188,
+          "nearest_core_receptor_A": 0.09
+        },
+        {
+          "file": "sample_1.cif",
+          "motif_fit_rmsd_A": 2.719,
+          "scaffold_receptor_clashes": 7158,
+          "scaffold_receptor_clash_residues": 198,
+          "scaffold_receptor_contacts": 24032,
+          "nearest_scaffold_receptor_A": 0.21,
+          "core_receptor_clashes": 6939,
+          "core_receptor_clash_residues": 190,
+          "nearest_core_receptor_A": 0.21
+        },
+        {
+          "file": "sample_2.cif",
+          "motif_fit_rmsd_A": 2.617,
+          "scaffold_receptor_clashes": 0,
+          "scaffold_receptor_clash_residues": 0,
+          "scaffold_receptor_contacts": 9,
+          "nearest_scaffold_receptor_A": 3.54,
+          "core_receptor_clashes": 0,
+          "core_receptor_clash_residues": 0,
+          "nearest_core_receptor_A": 4.31
+        },
+        {
+          "file": "sample_3.cif",
+          "motif_fit_rmsd_A": 2.752,
+          "scaffold_receptor_clashes": 794,
+          "scaffold_receptor_clash_residues": 41,
+          "scaffold_receptor_contacts": 2814,
+          "nearest_scaffold_receptor_A": 0.53,
+          "core_receptor_clashes": 794,
+          "core_receptor_clash_residues": 41,
+          "nearest_core_receptor_A": 0.53
+        },
+        {
+          "file": "sample_4.cif",
+          "motif_fit_rmsd_A": 2.626,
+          "scaffold_receptor_clashes": 6965,
+          "scaffold_receptor_clash_residues": 195,
+          "scaffold_receptor_contacts": 23575,
+          "nearest_scaffold_receptor_A": 0.11,
+          "core_receptor_clashes": 6750,
+          "core_receptor_clash_residues": 187,
+          "nearest_core_receptor_A": 0.11
+        }
+      ]
+    },
+    "C12_CH3-CD_S4": {
+      "n_samples": 5,
+      "core_receptor_clashes": {
+        "mean": 5747.2,
+        "min": 5124,
+        "max": 6123
+      },
+      "n_samples_core_clash_free": 0,
+      "motif_fit_rmsd_A": {
+        "mean": 2.384,
+        "min": 2.078,
+        "sd": 0.27
+      },
+      "scaffold_receptor_clashes": {
+        "mean": 5908.6,
+        "min": 5331,
+        "max": 6393
+      },
+      "scaffold_receptor_contacts": {
+        "mean": 19716.0
+      },
+      "n_samples_clash_free": 0,
+      "per_sample": [
+        {
+          "file": "sample_0.cif",
+          "motif_fit_rmsd_A": 2.711,
+          "scaffold_receptor_clashes": 6393,
+          "scaffold_receptor_clash_residues": 189,
+          "scaffold_receptor_contacts": 21541,
+          "nearest_scaffold_receptor_A": 0.16,
+          "core_receptor_clashes": 6123,
+          "core_receptor_clash_residues": 178,
+          "nearest_core_receptor_A": 0.16
+        },
+        {
+          "file": "sample_1.cif",
+          "motif_fit_rmsd_A": 2.232,
+          "scaffold_receptor_clashes": 5994,
+          "scaffold_receptor_clash_residues": 172,
+          "scaffold_receptor_contacts": 19667,
+          "nearest_scaffold_receptor_A": 0.21,
+          "core_receptor_clashes": 5850,
+          "core_receptor_clash_residues": 166,
+          "nearest_core_receptor_A": 0.21
+        },
+        {
+          "file": "sample_2.cif",
+          "motif_fit_rmsd_A": 2.708,
+          "scaffold_receptor_clashes": 5700,
+          "scaffold_receptor_clash_residues": 180,
+          "scaffold_receptor_contacts": 19131,
+          "nearest_scaffold_receptor_A": 0.11,
+          "core_receptor_clashes": 5658,
+          "core_receptor_clash_residues": 172,
+          "nearest_core_receptor_A": 0.11
+        },
+        {
+          "file": "sample_3.cif",
+          "motif_fit_rmsd_A": 2.193,
+          "scaffold_receptor_clashes": 5331,
+          "scaffold_receptor_clash_residues": 164,
+          "scaffold_receptor_contacts": 17583,
+          "nearest_scaffold_receptor_A": 0.19,
+          "core_receptor_clashes": 5124,
+          "core_receptor_clash_residues": 156,
+          "nearest_core_receptor_A": 0.19
+        },
+        {
+          "file": "sample_4.cif",
+          "motif_fit_rmsd_A": 2.078,
+          "scaffold_receptor_clashes": 6125,
+          "scaffold_receptor_clash_residues": 179,
+          "scaffold_receptor_contacts": 20658,
+          "nearest_scaffold_receptor_A": 0.25,
+          "core_receptor_clashes": 5981,
+          "core_receptor_clash_residues": 174,
+          "nearest_core_receptor_A": 0.25
+        }
+      ]
+    },
+    "C13_CH3-EF_S1": {
+      "n_samples": 5,
+      "core_receptor_clashes": {
+        "mean": 5616.6,
+        "min": 31,
+        "max": 8841
+      },
+      "n_samples_core_clash_free": 0,
+      "motif_fit_rmsd_A": {
+        "mean": 2.852,
+        "min": 2.768,
+        "sd": 0.059
+      },
+      "scaffold_receptor_clashes": {
+        "mean": 5625.8,
+        "min": 31,
+        "max": 8848
+      },
+      "scaffold_receptor_contacts": {
+        "mean": 18846.0
+      },
+      "n_samples_clash_free": 0,
+      "per_sample": [
+        {
+          "file": "sample_0.cif",
+          "motif_fit_rmsd_A": 2.937,
+          "scaffold_receptor_clashes": 8729,
+          "scaffold_receptor_clash_residues": 223,
+          "scaffold_receptor_contacts": 29392,
+          "nearest_scaffold_receptor_A": 0.09,
+          "core_receptor_clashes": 8707,
+          "core_receptor_clash_residues": 222,
+          "nearest_core_receptor_A": 0.09
+        },
+        {
+          "file": "sample_1.cif",
+          "motif_fit_rmsd_A": 2.866,
+          "scaffold_receptor_clashes": 2977,
+          "scaffold_receptor_clash_residues": 88,
+          "scaffold_receptor_contacts": 10068,
+          "nearest_scaffold_receptor_A": 0.33,
+          "core_receptor_clashes": 2977,
+          "core_receptor_clash_residues": 88,
+          "nearest_core_receptor_A": 0.33
+        },
+        {
+          "file": "sample_2.cif",
+          "motif_fit_rmsd_A": 2.768,
+          "scaffold_receptor_clashes": 7544,
+          "scaffold_receptor_clash_residues": 190,
+          "scaffold_receptor_contacts": 25353,
+          "nearest_scaffold_receptor_A": 0.19,
+          "core_receptor_clashes": 7527,
+          "core_receptor_clash_residues": 188,
+          "nearest_core_receptor_A": 0.19
+        },
+        {
+          "file": "sample_3.cif",
+          "motif_fit_rmsd_A": 2.808,
+          "scaffold_receptor_clashes": 8848,
+          "scaffold_receptor_clash_residues": 213,
+          "scaffold_receptor_contacts": 29275,
+          "nearest_scaffold_receptor_A": 0.07,
+          "core_receptor_clashes": 8841,
+          "core_receptor_clash_residues": 212,
+          "nearest_core_receptor_A": 0.07
+        },
+        {
+          "file": "sample_4.cif",
+          "motif_fit_rmsd_A": 2.882,
+          "scaffold_receptor_clashes": 31,
+          "scaffold_receptor_clash_residues": 2,
+          "scaffold_receptor_contacts": 142,
+          "nearest_scaffold_receptor_A": 1.4,
+          "core_receptor_clashes": 31,
+          "core_receptor_clash_residues": 2,
+          "nearest_core_receptor_A": 1.4
+        }
+      ]
+    },
+    "C14_CH3-EF_S2": {
+      "n_samples": 5,
+      "core_receptor_clashes": {
+        "mean": 6416.4,
+        "min": 4271,
+        "max": 9119
+      },
+      "n_samples_core_clash_free": 0,
+      "motif_fit_rmsd_A": {
+        "mean": 2.664,
+        "min": 2.586,
+        "sd": 0.086
+      },
+      "scaffold_receptor_clashes": {
+        "mean": 6507.0,
+        "min": 4432,
+        "max": 9204
+      },
+      "scaffold_receptor_contacts": {
+        "mean": 21702.8
+      },
+      "n_samples_clash_free": 0,
+      "per_sample": [
+        {
+          "file": "sample_0.cif",
+          "motif_fit_rmsd_A": 2.587,
+          "scaffold_receptor_clashes": 9204,
+          "scaffold_receptor_clash_residues": 242,
+          "scaffold_receptor_contacts": 30387,
+          "nearest_scaffold_receptor_A": 0.05,
+          "core_receptor_clashes": 9119,
+          "core_receptor_clash_residues": 232,
+          "nearest_core_receptor_A": 0.05
+        },
+        {
+          "file": "sample_1.cif",
+          "motif_fit_rmsd_A": 2.609,
+          "scaffold_receptor_clashes": 4432,
+          "scaffold_receptor_clash_residues": 138,
+          "scaffold_receptor_contacts": 15115,
+          "nearest_scaffold_receptor_A": 0.11,
+          "core_receptor_clashes": 4271,
+          "core_receptor_clash_residues": 131,
+          "nearest_core_receptor_A": 0.11
+        },
+        {
+          "file": "sample_2.cif",
+          "motif_fit_rmsd_A": 2.773,
+          "scaffold_receptor_clashes": 5136,
+          "scaffold_receptor_clash_residues": 149,
+          "scaffold_receptor_contacts": 17555,
+          "nearest_scaffold_receptor_A": 0.09,
+          "core_receptor_clashes": 5114,
+          "core_receptor_clash_residues": 145,
+          "nearest_core_receptor_A": 0.09
+        },
+        {
+          "file": "sample_3.cif",
+          "motif_fit_rmsd_A": 2.586,
+          "scaffold_receptor_clashes": 7152,
+          "scaffold_receptor_clash_residues": 196,
+          "scaffold_receptor_contacts": 23589,
+          "nearest_scaffold_receptor_A": 0.18,
+          "core_receptor_clashes": 7013,
+          "core_receptor_clash_residues": 188,
+          "nearest_core_receptor_A": 0.18
+        },
+        {
+          "file": "sample_4.cif",
+          "motif_fit_rmsd_A": 2.763,
+          "scaffold_receptor_clashes": 6611,
+          "scaffold_receptor_clash_residues": 177,
+          "scaffold_receptor_contacts": 21868,
+          "nearest_scaffold_receptor_A": 0.16,
+          "core_receptor_clashes": 6565,
+          "core_receptor_clash_residues": 171,
+          "nearest_core_receptor_A": 0.16
+        }
+      ]
+    },
+    "C15_CH3-EF_S3": {
+      "n_samples": 5,
+      "core_receptor_clashes": {
+        "mean": 894.0,
+        "min": 0,
+        "max": 2896
+      },
+      "n_samples_core_clash_free": 1,
+      "motif_fit_rmsd_A": {
+        "mean": 2.907,
+        "min": 2.79,
+        "sd": 0.11
+      },
+      "scaffold_receptor_clashes": {
+        "mean": 961.6,
+        "min": 0,
+        "max": 2997
+      },
+      "scaffold_receptor_contacts": {
+        "mean": 3170.8
+      },
+      "n_samples_clash_free": 1,
+      "per_sample": [
+        {
+          "file": "sample_0.cif",
+          "motif_fit_rmsd_A": 2.921,
+          "scaffold_receptor_clashes": 51,
+          "scaffold_receptor_clash_residues": 6,
+          "scaffold_receptor_contacts": 195,
+          "nearest_scaffold_receptor_A": 0.75,
+          "core_receptor_clashes": 12,
+          "core_receptor_clash_residues": 2,
+          "nearest_core_receptor_A": 2.05
+        },
+        {
+          "file": "sample_1.cif",
+          "motif_fit_rmsd_A": 2.804,
+          "scaffold_receptor_clashes": 1427,
+          "scaffold_receptor_clash_residues": 47,
+          "scaffold_receptor_contacts": 4642,
+          "nearest_scaffold_receptor_A": 0.35,
+          "core_receptor_clashes": 1423,
+          "core_receptor_clash_residues": 46,
+          "nearest_core_receptor_A": 0.35
+        },
+        {
+          "file": "sample_2.cif",
+          "motif_fit_rmsd_A": 3.097,
+          "scaffold_receptor_clashes": 2997,
+          "scaffold_receptor_clash_residues": 100,
+          "scaffold_receptor_contacts": 9812,
+          "nearest_scaffold_receptor_A": 0.26,
+          "core_receptor_clashes": 2896,
+          "core_receptor_clash_residues": 94,
+          "nearest_core_receptor_A": 0.26
+        },
+        {
+          "file": "sample_3.cif",
+          "motif_fit_rmsd_A": 2.925,
+          "scaffold_receptor_clashes": 0,
+          "scaffold_receptor_clash_residues": 0,
+          "scaffold_receptor_contacts": 6,
+          "nearest_scaffold_receptor_A": 3.48,
+          "core_receptor_clashes": 0,
+          "core_receptor_clash_residues": 0,
+          "nearest_core_receptor_A": 3.48
+        },
+        {
+          "file": "sample_4.cif",
+          "motif_fit_rmsd_A": 2.79,
+          "scaffold_receptor_clashes": 333,
+          "scaffold_receptor_clash_residues": 20,
+          "scaffold_receptor_contacts": 1199,
+          "nearest_scaffold_receptor_A": 0.58,
+          "core_receptor_clashes": 139,
+          "core_receptor_clash_residues": 12,
+          "nearest_core_receptor_A": 0.58
+        }
+      ]
+    },
+    "C16_CH3-EF_S4": {
+      "n_samples": 5,
+      "core_receptor_clashes": {
+        "mean": 3494.4,
+        "min": 852,
+        "max": 5923
+      },
+      "n_samples_core_clash_free": 0,
+      "motif_fit_rmsd_A": {
+        "mean": 2.412,
+        "min": 2.266,
+        "sd": 0.176
+      },
+      "scaffold_receptor_clashes": {
+        "mean": 3599.6,
+        "min": 852,
+        "max": 6172
+      },
+      "scaffold_receptor_contacts": {
+        "mean": 11995.2
+      },
+      "n_samples_clash_free": 0,
+      "per_sample": [
+        {
+          "file": "sample_0.cif",
+          "motif_fit_rmsd_A": 2.583,
+          "scaffold_receptor_clashes": 6172,
+          "scaffold_receptor_clash_residues": 178,
+          "scaffold_receptor_contacts": 20629,
+          "nearest_scaffold_receptor_A": 0.22,
+          "core_receptor_clashes": 5923,
+          "core_receptor_clash_residues": 167,
+          "nearest_core_receptor_A": 0.22
+        },
+        {
+          "file": "sample_1.cif",
+          "motif_fit_rmsd_A": 2.266,
+          "scaffold_receptor_clashes": 852,
+          "scaffold_receptor_clash_residues": 38,
+          "scaffold_receptor_contacts": 2889,
+          "nearest_scaffold_receptor_A": 0.41,
+          "core_receptor_clashes": 852,
+          "core_receptor_clash_residues": 38,
+          "nearest_core_receptor_A": 0.41
+        },
+        {
+          "file": "sample_2.cif",
+          "motif_fit_rmsd_A": 2.275,
+          "scaffold_receptor_clashes": 2939,
+          "scaffold_receptor_clash_residues": 105,
+          "scaffold_receptor_contacts": 9716,
+          "nearest_scaffold_receptor_A": 0.15,
+          "core_receptor_clashes": 2929,
+          "core_receptor_clash_residues": 104,
+          "nearest_core_receptor_A": 0.15
+        },
+        {
+          "file": "sample_3.cif",
+          "motif_fit_rmsd_A": 2.269,
+          "scaffold_receptor_clashes": 2377,
+          "scaffold_receptor_clash_residues": 89,
+          "scaffold_receptor_contacts": 7988,
+          "nearest_scaffold_receptor_A": 0.34,
+          "core_receptor_clashes": 2377,
+          "core_receptor_clash_residues": 89,
+          "nearest_core_receptor_A": 0.34
+        },
+        {
+          "file": "sample_4.cif",
+          "motif_fit_rmsd_A": 2.666,
+          "scaffold_receptor_clashes": 5658,
+          "scaffold_receptor_clash_residues": 151,
+          "scaffold_receptor_contacts": 18754,
+          "nearest_scaffold_receptor_A": 0.22,
+          "core_receptor_clashes": 5391,
+          "core_receptor_clash_residues": 139,
+          "nearest_core_receptor_A": 0.22
+        }
+      ]
+    },
+    "REF_4delta_free": {
+      "n_samples": 5,
+      "core_receptor_clashes": {
+        "mean": 0.0,
+        "min": 0,
+        "max": 0
+      },
+      "n_samples_core_clash_free": 5,
+      "motif_fit_rmsd_A": {
+        "mean": 1.899,
+        "min": 1.886,
+        "sd": 0.018
+      },
+      "scaffold_receptor_clashes": {
+        "mean": 0.0,
+        "min": 0,
+        "max": 0
+      },
+      "scaffold_receptor_contacts": {
+        "mean": 0.0
+      },
+      "n_samples_clash_free": 5,
+      "per_sample": [
+        {
+          "file": "sample_0.cif",
+          "motif_fit_rmsd_A": 1.89,
+          "scaffold_receptor_clashes": 0,
+          "scaffold_receptor_clash_residues": 0,
+          "scaffold_receptor_contacts": 0,
+          "nearest_scaffold_receptor_A": NaN,
+          "core_receptor_clashes": 0,
+          "core_receptor_clash_residues": 0,
+          "nearest_core_receptor_A": NaN
+        },
+        {
+          "file": "sample_1.cif",
+          "motif_fit_rmsd_A": 1.886,
+          "scaffold_receptor_clashes": 0,
+          "scaffold_receptor_clash_residues": 0,
+          "scaffold_receptor_contacts": 0,
+          "nearest_scaffold_receptor_A": NaN,
+          "core_receptor_clashes": 0,
+          "core_receptor_clash_residues": 0,
+          "nearest_core_receptor_A": NaN
+        },
+        {
+          "file": "sample_2.cif",
+          "motif_fit_rmsd_A": 1.934,
+          "scaffold_receptor_clashes": 0,
+          "scaffold_receptor_clash_residues": 0,
+          "scaffold_receptor_contacts": 0,
+          "nearest_scaffold_receptor_A": NaN,
+          "core_receptor_clashes": 0,
+          "core_receptor_clash_residues": 0,
+          "nearest_core_receptor_A": NaN
+        },
+        {
+          "file": "sample_3.cif",
+          "motif_fit_rmsd_A": 1.893,
+          "scaffold_receptor_clashes": 0,
+          "scaffold_receptor_clash_residues": 0,
+          "scaffold_receptor_contacts": 0,
+          "nearest_scaffold_receptor_A": NaN,
+          "core_receptor_clashes": 0,
+          "core_receptor_clash_residues": 0,
+          "nearest_core_receptor_A": NaN
+        },
+        {
+          "file": "sample_4.cif",
+          "motif_fit_rmsd_A": 1.892,
+          "scaffold_receptor_clashes": 0,
+          "scaffold_receptor_clash_residues": 0,
+          "scaffold_receptor_contacts": 0,
+          "nearest_scaffold_receptor_A": NaN,
+          "core_receptor_clashes": 0,
+          "core_receptor_clash_residues": 0,
+          "nearest_core_receptor_A": NaN
+        }
+      ]
+    },
+    "BM_CH3_Cterm_fusion": {
+      "n_samples": 5,
+      "core_receptor_clashes": {
+        "mean": 5260.8,
+        "min": 2929,
+        "max": 8851
+      },
+      "n_samples_core_clash_free": 0,
+      "motif_fit_rmsd_A": {
+        "mean": 2.019,
+        "min": 1.807,
+        "sd": 0.382
+      },
+      "scaffold_receptor_clashes": {
+        "mean": 5370.8,
+        "min": 3061,
+        "max": 8884
+      },
+      "scaffold_receptor_contacts": {
+        "mean": 18082.2
+      },
+      "n_samples_clash_free": 0,
+      "per_sample": [
+        {
+          "file": "sample_0.cif",
+          "motif_fit_rmsd_A": 1.807,
+          "scaffold_receptor_clashes": 4318,
+          "scaffold_receptor_clash_residues": 136,
+          "scaffold_receptor_contacts": 14591,
+          "nearest_scaffold_receptor_A": 0.12,
+          "core_receptor_clashes": 4207,
+          "core_receptor_clash_residues": 131,
+          "nearest_core_receptor_A": 0.12
+        },
+        {
+          "file": "sample_1.cif",
+          "motif_fit_rmsd_A": 1.85,
+          "scaffold_receptor_clashes": 3061,
+          "scaffold_receptor_clash_residues": 102,
+          "scaffold_receptor_contacts": 10058,
+          "nearest_scaffold_receptor_A": 0.18,
+          "core_receptor_clashes": 2929,
+          "core_receptor_clash_residues": 97,
+          "nearest_core_receptor_A": 0.18
+        },
+        {
+          "file": "sample_2.cif",
+          "motif_fit_rmsd_A": 1.826,
+          "scaffold_receptor_clashes": 4437,
+          "scaffold_receptor_clash_residues": 141,
+          "scaffold_receptor_contacts": 15301,
+          "nearest_scaffold_receptor_A": 0.05,
+          "core_receptor_clashes": 4284,
+          "core_receptor_clash_residues": 136,
+          "nearest_core_receptor_A": 0.05
+        },
+        {
+          "file": "sample_3.cif",
+          "motif_fit_rmsd_A": 2.782,
+          "scaffold_receptor_clashes": 8884,
+          "scaffold_receptor_clash_residues": 231,
+          "scaffold_receptor_contacts": 29564,
+          "nearest_scaffold_receptor_A": 0.14,
+          "core_receptor_clashes": 8851,
+          "core_receptor_clash_residues": 228,
+          "nearest_core_receptor_A": 0.14
+        },
+        {
+          "file": "sample_4.cif",
+          "motif_fit_rmsd_A": 1.828,
+          "scaffold_receptor_clashes": 6154,
+          "scaffold_receptor_clash_residues": 175,
+          "scaffold_receptor_contacts": 20897,
+          "nearest_scaffold_receptor_A": 0.19,
+          "core_receptor_clashes": 6033,
+          "core_receptor_clash_residues": 170,
+          "nearest_core_receptor_A": 0.19
+        }
+      ]
+    }
+  }
+}

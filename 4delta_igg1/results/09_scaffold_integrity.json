@@ -1,0 +1,1532 @@
+{
+  "C01_CDRH3_S1": {
+    "n_samples": 5,
+    "module": "Fv",
+    "metrics": {
+      "graft_plddt": {
+        "mean": 52.26,
+        "sd": 2.07,
+        "min": 49.8,
+        "max": 56.1
+      },
+      "rgd_plddt": {
+        "mean": 47.36,
+        "sd": 2.31,
+        "min": 43.8,
+        "max": 50.9
+      },
+      "model_plddt": {
+        "mean": 89.52,
+        "sd": 0.37,
+        "min": 89.1,
+        "max": 90.2
+      },
+      "scaffold_rmsd_vs_wt_A": {
+        "mean": 0.12,
+        "sd": 0.02,
+        "min": 0.09,
+        "max": 0.16
+      },
+      "interchain_contacts": {
+        "mean": 350.6,
+        "sd": 21.58,
+        "min": 308.0,
+        "max": 365.0
+      }
+    },
+    "per_sample": [
+      {
+        "file": "sample_0.cif",
+        "graft_plddt": 56.1,
+        "rgd_plddt": 50.9,
+        "model_plddt": 90.2,
+        "scaffold_rmsd_vs_wt_A": 0.16,
+        "interchain_contacts": 365
+      },
+      {
+        "file": "sample_1.cif",
+        "graft_plddt": 52.0,
+        "rgd_plddt": 46.4,
+        "model_plddt": 89.5,
+        "scaffold_rmsd_vs_wt_A": 0.09,
+        "interchain_contacts": 364
+      },
+      {
+        "file": "sample_2.cif",
+        "graft_plddt": 51.6,
+        "rgd_plddt": 47.9,
+        "model_plddt": 89.1,
+        "scaffold_rmsd_vs_wt_A": 0.13,
+        "interchain_contacts": 355
+      },
+      {
+        "file": "sample_3.cif",
+        "graft_plddt": 49.8,
+        "rgd_plddt": 43.8,
+        "model_plddt": 89.4,
+        "scaffold_rmsd_vs_wt_A": 0.11,
+        "interchain_contacts": 361
+      },
+      {
+        "file": "sample_4.cif",
+        "graft_plddt": 51.8,
+        "rgd_plddt": 47.8,
+        "model_plddt": 89.4,
+        "scaffold_rmsd_vs_wt_A": 0.13,
+        "interchain_contacts": 308
+      }
+    ]
+  },
+  "C02_CDRH3_S2": {
+    "n_samples": 5,
+    "module": "Fv",
+    "metrics": {
+      "graft_plddt": {
+        "mean": 67.8,
+        "sd": 5.48,
+        "min": 62.8,
+        "max": 74.7
+      },
+      "rgd_plddt": {
+        "mean": 65.36,
+        "sd": 6.39,
+        "min": 58.4,
+        "max": 74.0
+      },
+      "model_plddt": {
+        "mean": 91.4,
+        "sd": 0.9,
+        "min": 90.6,
+        "max": 92.6
+      },
+      "scaffold_rmsd_vs_wt_A": {
+        "mean": 0.13,
+        "sd": 0.02,
+        "min": 0.1,
+        "max": 0.16
+      },
+      "interchain_contacts": {
+        "mean": 386.8,
+        "sd": 26.81,
+        "min": 346.0,
+        "max": 426.0
+      }
+    },
+    "per_sample": [
+      {
+        "file": "sample_0.cif",
+        "graft_plddt": 74.7,
+        "rgd_plddt": 71.9,
+        "model_plddt": 92.6,
+        "scaffold_rmsd_vs_wt_A": 0.12,
+        "interchain_contacts": 403
+      },
+      {
+        "file": "sample_1.cif",
+        "graft_plddt": 74.3,
+        "rgd_plddt": 74.0,
+        "model_plddt": 92.4,
+        "scaffold_rmsd_vs_wt_A": 0.1,
+        "interchain_contacts": 426
+      },
+      {
+        "file": "sample_2.cif",
+        "graft_plddt": 63.7,
+        "rgd_plddt": 62.8,
+        "model_plddt": 90.7,
+        "scaffold_rmsd_vs_wt_A": 0.16,
+        "interchain_contacts": 346
+      },
+      {
+        "file": "sample_3.cif",
+        "graft_plddt": 62.8,
+        "rgd_plddt": 59.7,
+        "model_plddt": 90.7,
+        "scaffold_rmsd_vs_wt_A": 0.14,
+        "interchain_contacts": 383
+      },
+      {
+        "file": "sample_4.cif",
+        "graft_plddt": 63.5,
+        "rgd_plddt": 58.4,
+        "model_plddt": 90.6,
+        "scaffold_rmsd_vs_wt_A": 0.13,
+        "interchain_contacts": 376
+      }
+    ]
+  },
+  "C03_CDRH3_S3": {
+    "n_samples": 5,
+    "module": "Fv",
+    "metrics": {
+      "graft_plddt": {
+        "mean": 55.04,
+        "sd": 2.16,
+        "min": 52.1,
+        "max": 57.1
+      },
+      "rgd_plddt": {
+        "mean": 49.98,
+        "sd": 2.2,
+        "min": 48.0,
+        "max": 54.1
+      },
+      "model_plddt": {
+        "mean": 89.94,
+        "sd": 0.4,
+        "min": 89.4,
+        "max": 90.5
+      },
+      "scaffold_rmsd_vs_wt_A": {
+        "mean": 0.16,
+        "sd": 0.01,
+        "min": 0.14,
+        "max": 0.17
+      },
+      "interchain_contacts": {
+        "mean": 333.4,
+        "sd": 29.89,
+        "min": 289.0,
+        "max": 372.0
+      }
+    },
+    "per_sample": [
+      {
+        "file": "sample_0.cif",
+        "graft_plddt": 57.1,
+        "rgd_plddt": 49.9,
+        "model_plddt": 90.5,
+        "scaffold_rmsd_vs_wt_A": 0.14,
+        "interchain_contacts": 372
+      },
+      {
+        "file": "sample_1.cif",
+        "graft_plddt": 57.1,
+        "rgd_plddt": 54.1,
+        "model_plddt": 90.0,
+        "scaffold_rmsd_vs_wt_A": 0.16,
+        "interchain_contacts": 289
+      },
+      {
+        "file": "sample_2.cif",
+        "graft_plddt": 56.1,
+        "rgd_plddt": 48.2,
+        "model_plddt": 90.2,
+        "scaffold_rmsd_vs_wt_A": 0.17,
+        "interchain_contacts": 310
+      },
+      {
+        "file": "sample_3.cif",
+        "graft_plddt": 52.8,
+        "rgd_plddt": 49.7,
+        "model_plddt": 89.6,
+        "scaffold_rmsd_vs_wt_A": 0.15,
+        "interchain_contacts": 344
+      },
+      {
+        "file": "sample_4.cif",
+        "graft_plddt": 52.1,
+        "rgd_plddt": 48.0,
+        "model_plddt": 89.4,
+        "scaffold_rmsd_vs_wt_A": 0.17,
+        "interchain_contacts": 352
+      }
+    ]
+  },
+  "C04_CDRH3_S4": {
+    "n_samples": 5,
+    "module": "Fv",
+    "metrics": {
+      "graft_plddt": {
+        "mean": 49.48,
+        "sd": 3.4,
+        "min": 44.2,
+        "max": 54.7
+      },
+      "rgd_plddt": {
+        "mean": 46.08,
+        "sd": 4.09,
+        "min": 38.7,
+        "max": 51.3
+      },
+      "model_plddt": {
+        "mean": 89.32,
+        "sd": 0.58,
+        "min": 88.4,
+        "max": 90.0
+      },
+      "scaffold_rmsd_vs_wt_A": {
+        "mean": 0.16,
+        "sd": 0.03,
+        "min": 0.13,
+        "max": 0.21
+      },
+      "interchain_contacts": {
+        "mean": 409.4,
+        "sd": 32.85,
+        "min": 371.0,
+        "max": 459.0
+      }
+    },
+    "per_sample": [
+      {
+        "file": "sample_0.cif",
+        "graft_plddt": 54.7,
+        "rgd_plddt": 51.3,
+        "model_plddt": 90.0,
+        "scaffold_rmsd_vs_wt_A": 0.21,
+        "interchain_contacts": 459
+      },
+      {
+        "file": "sample_1.cif",
+        "graft_plddt": 50.5,
+        "rgd_plddt": 47.0,
+        "model_plddt": 89.9,
+        "scaffold_rmsd_vs_wt_A": 0.13,
+        "interchain_contacts": 386
+      },
+      {
+        "file": "sample_2.cif",
+        "graft_plddt": 49.8,
+        "rgd_plddt": 47.0,
+        "model_plddt": 89.2,
+        "scaffold_rmsd_vs_wt_A": 0.16,
+        "interchain_contacts": 395
+      },
+      {
+        "file": "sample_3.cif",
+        "graft_plddt": 48.2,
+        "rgd_plddt": 46.4,
+        "model_plddt": 89.1,
+        "scaffold_rmsd_vs_wt_A": 0.16,
+        "interchain_contacts": 371
+      },
+      {
+        "file": "sample_4.cif",
+        "graft_plddt": 44.2,
+        "rgd_plddt": 38.7,
+        "model_plddt": 88.4,
+        "scaffold_rmsd_vs_wt_A": 0.14,
+        "interchain_contacts": 436
+      }
+    ]
+  },
+  "C05_CH3-AB_S1": {
+    "n_samples": 5,
+    "module": "CH3",
+    "metrics": {
+      "graft_plddt": {
+        "mean": 59.88,
+        "sd": 5.37,
+        "min": 49.8,
+        "max": 65.2
+      },
+      "rgd_plddt": {
+        "mean": 55.18,
+        "sd": 5.2,
+        "min": 47.4,
+        "max": 61.1
+      },
+      "model_plddt": {
+        "mean": 84.48,
+        "sd": 2.58,
+        "min": 80.5,
+        "max": 87.7
+      },
+      "scaffold_rmsd_vs_wt_A": {
+        "mean": 0.62,
+        "sd": 0.13,
+        "min": 0.46,
+        "max": 0.76
+      },
+      "interchain_contacts": {
+        "mean": 354.6,
+        "sd": 111.13,
+        "min": 183.0,
+        "max": 530.0
+      }
+    },
+    "per_sample": [
+      {
+        "file": "sample_0.cif",
+        "graft_plddt": 65.2,
+        "rgd_plddt": 60.8,
+        "model_plddt": 87.7,
+        "scaffold_rmsd_vs_wt_A": 0.76,
+        "interchain_contacts": 324
+      },
+      {
+        "file": "sample_1.cif",
+        "graft_plddt": 63.4,
+        "rgd_plddt": 61.1,
+        "model_plddt": 86.1,
+        "scaffold_rmsd_vs_wt_A": 0.46,
+        "interchain_contacts": 379
+      },
+      {
+        "file": "sample_2.cif",
+        "graft_plddt": 59.8,
+        "rgd_plddt": 54.0,
+        "model_plddt": 85.5,
+        "scaffold_rmsd_vs_wt_A": 0.74,
+        "interchain_contacts": 357
+      },
+      {
+        "file": "sample_3.cif",
+        "graft_plddt": 49.8,
+        "rgd_plddt": 47.4,
+        "model_plddt": 82.6,
+        "scaffold_rmsd_vs_wt_A": 0.67,
+        "interchain_contacts": 530
+      },
+      {
+        "file": "sample_4.cif",
+        "graft_plddt": 61.2,
+        "rgd_plddt": 52.6,
+        "model_plddt": 80.5,
+        "scaffold_rmsd_vs_wt_A": 0.48,
+        "interchain_contacts": 183
+      }
+    ]
+  },
+  "C06_CH3-AB_S2": {
+    "n_samples": 5,
+    "module": "CH3",
+    "metrics": {
+      "graft_plddt": {
+        "mean": 52.64,
+        "sd": 1.53,
+        "min": 50.7,
+        "max": 55.0
+      },
+      "rgd_plddt": {
+        "mean": 47.44,
+        "sd": 1.05,
+        "min": 45.9,
+        "max": 49.1
+      },
+      "model_plddt": {
+        "mean": 79.74,
+        "sd": 0.52,
+        "min": 78.8,
+        "max": 80.4
+      },
+      "scaffold_rmsd_vs_wt_A": {
+        "mean": 0.84,
+        "sd": 0.27,
+        "min": 0.46,
+        "max": 1.23
+      },
+      "interchain_contacts": {
+        "mean": 702.4,
+        "sd": 74.65,
+        "min": 592.0,
+        "max": 821.0
+      }
+    },
+    "per_sample": [
+      {
+        "file": "sample_0.cif",
+        "graft_plddt": 52.1,
+        "rgd_plddt": 47.9,
+        "model_plddt": 79.9,
+        "scaffold_rmsd_vs_wt_A": 0.62,
+        "interchain_contacts": 592
+      },
+      {
+        "file": "sample_1.cif",
+        "graft_plddt": 53.7,
+        "rgd_plddt": 47.2,
+        "model_plddt": 79.9,
+        "scaffold_rmsd_vs_wt_A": 0.92,
+        "interchain_contacts": 821
+      },
+      {
+        "file": "sample_2.cif",
+        "graft_plddt": 55.0,
+        "rgd_plddt": 49.1,
+        "model_plddt": 80.4,
+        "scaffold_rmsd_vs_wt_A": 1.23,
+        "interchain_contacts": 709
+      },
+      {
+        "file": "sample_3.cif",
+        "graft_plddt": 50.7,
+        "rgd_plddt": 45.9,
+        "model_plddt": 79.7,
+        "scaffold_rmsd_vs_wt_A": 0.98,
+        "interchain_contacts": 668
+      },
+      {
+        "file": "sample_4.cif",
+        "graft_plddt": 51.7,
+        "rgd_plddt": 47.1,
+        "model_plddt": 78.8,
+        "scaffold_rmsd_vs_wt_A": 0.46,
+        "interchain_contacts": 722
+      }
+    ]
+  },
+  "C07_CH3-AB_S3": {
+    "n_samples": 5,
+    "module": "CH3",
+    "metrics": {
+      "graft_plddt": {
+        "mean": 48.22,
+        "sd": 2.5,
+        "min": 45.3,
+        "max": 51.4
+      },
+      "rgd_plddt": {
+        "mean": 42.7,
+        "sd": 2.79,
+        "min": 38.3,
+        "max": 45.1
+      },
+      "model_plddt": {
+        "mean": 76.84,
+        "sd": 1.28,
+        "min": 75.6,
+        "max": 79.2
+      },
+      "scaffold_rmsd_vs_wt_A": {
+        "mean": 1.43,
+        "sd": 0.41,
+        "min": 0.76,
+        "max": 1.98
+      },
+      "interchain_contacts": {
+        "mean": 448.6,
+        "sd": 78.54,
+        "min": 342.0,
+        "max": 584.0
+      }
+    },
+    "per_sample": [
+      {
+        "file": "sample_0.cif",
+        "graft_plddt": 50.7,
+        "rgd_plddt": 45.1,
+        "model_plddt": 77.1,
+        "scaffold_rmsd_vs_wt_A": 1.98,
+        "interchain_contacts": 342
+      },
+      {
+        "file": "sample_1.cif",
+        "graft_plddt": 51.4,
+        "rgd_plddt": 45.0,
+        "model_plddt": 79.2,
+        "scaffold_rmsd_vs_wt_A": 1.24,
+        "interchain_contacts": 415
+      },
+      {
+        "file": "sample_2.cif",
+        "graft_plddt": 48.0,
+        "rgd_plddt": 44.6,
+        "model_plddt": 76.4,
+        "scaffold_rmsd_vs_wt_A": 1.52,
+        "interchain_contacts": 584
+      },
+      {
+        "file": "sample_3.cif",
+        "graft_plddt": 45.3,
+        "rgd_plddt": 38.3,
+        "model_plddt": 75.6,
+        "scaffold_rmsd_vs_wt_A": 0.76,
+        "interchain_contacts": 449
+      },
+      {
+        "file": "sample_4.cif",
+        "graft_plddt": 45.7,
+        "rgd_plddt": 40.5,
+        "model_plddt": 75.9,
+        "scaffold_rmsd_vs_wt_A": 1.63,
+        "interchain_contacts": 453
+      }
+    ]
+  },
+  "C08_CH3-AB_S4": {
+    "n_samples": 5,
+    "module": "CH3",
+    "metrics": {
+      "graft_plddt": {
+        "mean": 46.28,
+        "sd": 4.15,
+        "min": 41.5,
+        "max": 52.7
+      },
+      "rgd_plddt": {
+        "mean": 45.94,
+        "sd": 4.27,
+        "min": 39.9,
+        "max": 50.9
+      },
+      "model_plddt": {
+        "mean": 80.02,
+        "sd": 1.24,
+        "min": 78.4,
+        "max": 82.0
+      },
+      "scaffold_rmsd_vs_wt_A": {
+        "mean": 0.8,
+        "sd": 0.34,
+        "min": 0.38,
+        "max": 1.37
+      },
+      "interchain_contacts": {
+        "mean": 854.6,
+        "sd": 180.55,
+        "min": 660.0,
+        "max": 1167.0
+      }
+    },
+    "per_sample": [
+      {
+        "file": "sample_0.cif",
+        "graft_plddt": 52.7,
+        "rgd_plddt": 50.9,
+        "model_plddt": 82.0,
+        "scaffold_rmsd_vs_wt_A": 0.95,
+        "interchain_contacts": 660
+      },
+      {
+        "file": "sample_1.cif",
+        "graft_plddt": 48.8,
+        "rgd_plddt": 49.7,
+        "model_plddt": 80.7,
+        "scaffold_rmsd_vs_wt_A": 1.37,
+        "interchain_contacts": 709
+      },
+      {
+        "file": "sample_2.cif",
+        "graft_plddt": 46.1,
+        "rgd_plddt": 47.1,
+        "model_plddt": 79.7,
+        "scaffold_rmsd_vs_wt_A": 0.6,
+        "interchain_contacts": 814
+      },
+      {
+        "file": "sample_3.cif",
+        "graft_plddt": 41.5,
+        "rgd_plddt": 42.1,
+        "model_plddt": 79.3,
+        "scaffold_rmsd_vs_wt_A": 0.7,
+        "interchain_contacts": 923
+      },
+      {
+        "file": "sample_4.cif",
+        "graft_plddt": 42.3,
+        "rgd_plddt": 39.9,
+        "model_plddt": 78.4,
+        "scaffold_rmsd_vs_wt_A": 0.38,
+        "interchain_contacts": 1167
+      }
+    ]
+  },
+  "C09_CH3-CD_S1": {
+    "n_samples": 5,
+    "module": "CH3",
+    "metrics": {
+      "graft_plddt": {
+        "mean": 54.2,
+        "sd": 1.43,
+        "min": 51.9,
+        "max": 56.1
+      },
+      "rgd_plddt": {
+        "mean": 47.04,
+        "sd": 1.65,
+        "min": 44.1,
+        "max": 48.8
+      },
+      "model_plddt": {
+        "mean": 82.14,
+        "sd": 0.92,
+        "min": 80.4,
+        "max": 82.8
+      },
+      "scaffold_rmsd_vs_wt_A": {
+        "mean": 0.49,
+        "sd": 0.25,
+        "min": 0.26,
+        "max": 0.96
+      },
+      "interchain_contacts": {
+        "mean": 305.6,
+        "sd": 15.13,
+        "min": 292.0,
+        "max": 332.0
+      }
+    },
+    "per_sample": [
+      {
+        "file": "sample_0.cif",
+        "graft_plddt": 54.7,
+        "rgd_plddt": 47.6,
+        "model_plddt": 82.8,
+        "scaffold_rmsd_vs_wt_A": 0.3,
+        "interchain_contacts": 313
+      },
+      {
+        "file": "sample_1.cif",
+        "graft_plddt": 51.9,
+        "rgd_plddt": 44.1,
+        "model_plddt": 80.4,
+        "scaffold_rmsd_vs_wt_A": 0.96,
+        "interchain_contacts": 332
+      },
+      {
+        "file": "sample_2.cif",
+        "graft_plddt": 54.9,
+        "rgd_plddt": 48.8,
+        "model_plddt": 82.7,
+        "scaffold_rmsd_vs_wt_A": 0.26,
+        "interchain_contacts": 297
+      },
+      {
+        "file": "sample_3.cif",
+        "graft_plddt": 56.1,
+        "rgd_plddt": 48.2,
+        "model_plddt": 82.8,
+        "scaffold_rmsd_vs_wt_A": 0.46,
+        "interchain_contacts": 292
+      },
+      {
+        "file": "sample_4.cif",
+        "graft_plddt": 53.4,
+        "rgd_plddt": 46.5,
+        "model_plddt": 82.0,
+        "scaffold_rmsd_vs_wt_A": 0.49,
+        "interchain_contacts": 294
+      }
+    ]
+  },
+  "C10_CH3-CD_S2": {
+    "n_samples": 5,
+    "module": "CH3",
+    "metrics": {
+      "graft_plddt": {
+        "mean": 50.94,
+        "sd": 4.71,
+        "min": 44.6,
+        "max": 55.4
+      },
+      "rgd_plddt": {
+        "mean": 46.48,
+        "sd": 3.88,
+        "min": 41.8,
+        "max": 52.2
+      },
+      "model_plddt": {
+        "mean": 78.5,
+        "sd": 1.72,
+        "min": 76.4,
+        "max": 80.2
+      },
+      "scaffold_rmsd_vs_wt_A": {
+        "mean": 0.71,
+        "sd": 0.26,
+        "min": 0.44,
+        "max": 1.13
+      },
+      "interchain_contacts": {
+        "mean": 304.2,
+        "sd": 20.19,
+        "min": 285.0,
+        "max": 339.0
+      }
+    },
+    "per_sample": [
+      {
+        "file": "sample_0.cif",
+        "graft_plddt": 54.4,
+        "rgd_plddt": 52.2,
+        "model_plddt": 79.8,
+        "scaffold_rmsd_vs_wt_A": 0.47,
+        "interchain_contacts": 314
+      },
+      {
+        "file": "sample_1.cif",
+        "graft_plddt": 55.4,
+        "rgd_plddt": 49.7,
+        "model_plddt": 80.2,
+        "scaffold_rmsd_vs_wt_A": 0.63,
+        "interchain_contacts": 285
+      },
+      {
+        "file": "sample_2.cif",
+        "graft_plddt": 54.5,
+        "rgd_plddt": 45.1,
+        "model_plddt": 79.7,
+        "scaffold_rmsd_vs_wt_A": 0.87,
+        "interchain_contacts": 287
+      },
+      {
+        "file": "sample_3.cif",
+        "graft_plddt": 44.6,
+        "rgd_plddt": 43.6,
+        "model_plddt": 76.4,
+        "scaffold_rmsd_vs_wt_A": 1.13,
+        "interchain_contacts": 339
+      },
+      {
+        "file": "sample_4.cif",
+        "graft_plddt": 45.8,
+        "rgd_plddt": 41.8,
+        "model_plddt": 76.4,
+        "scaffold_rmsd_vs_wt_A": 0.44,
+        "interchain_contacts": 296
+      }
+    ]
+  },
+  "C11_CH3-CD_S3": {
+    "n_samples": 5,
+    "module": "CH3",
+    "metrics": {
+      "graft_plddt": {
+        "mean": 55.98,
+        "sd": 4.61,
+        "min": 49.4,
+        "max": 63.8
+      },
+      "rgd_plddt": {
+        "mean": 52.52,
+        "sd": 5.43,
+        "min": 43.6,
+        "max": 60.5
+      },
+      "model_plddt": {
+        "mean": 81.44,
+        "sd": 1.72,
+        "min": 79.2,
+        "max": 84.3
+      },
+      "scaffold_rmsd_vs_wt_A": {
+        "mean": 0.69,
+        "sd": 0.18,
+        "min": 0.51,
+        "max": 0.99
+      },
+      "interchain_contacts": {
+        "mean": 321.4,
+        "sd": 16.64,
+        "min": 305.0,
+        "max": 349.0
+      }
+    },
+    "per_sample": [
+      {
+        "file": "sample_0.cif",
+        "graft_plddt": 63.8,
+        "rgd_plddt": 60.5,
+        "model_plddt": 84.3,
+        "scaffold_rmsd_vs_wt_A": 0.51,
+        "interchain_contacts": 312
+      },
+      {
+        "file": "sample_1.cif",
+        "graft_plddt": 55.7,
+        "rgd_plddt": 51.6,
+        "model_plddt": 81.2,
+        "scaffold_rmsd_vs_wt_A": 0.53,
+        "interchain_contacts": 349
+      },
+      {
+        "file": "sample_2.cif",
+        "graft_plddt": 54.7,
+        "rgd_plddt": 52.5,
+        "model_plddt": 82.1,
+        "scaffold_rmsd_vs_wt_A": 0.99,
+        "interchain_contacts": 305
+      },
+      {
+        "file": "sample_3.cif",
+        "graft_plddt": 56.3,
+        "rgd_plddt": 54.4,
+        "model_plddt": 80.4,
+        "scaffold_rmsd_vs_wt_A": 0.76,
+        "interchain_contacts": 332
+      },
+      {
+        "file": "sample_4.cif",
+        "graft_plddt": 49.4,
+        "rgd_plddt": 43.6,
+        "model_plddt": 79.2,
+        "scaffold_rmsd_vs_wt_A": 0.67,
+        "interchain_contacts": 309
+      }
+    ]
+  },
+  "C12_CH3-CD_S4": {
+    "n_samples": 5,
+    "module": "CH3",
+    "metrics": {
+      "graft_plddt": {
+        "mean": 48.04,
+        "sd": 3.09,
+        "min": 44.7,
+        "max": 53.5
+      },
+      "rgd_plddt": {
+        "mean": 47.46,
+        "sd": 3.68,
+        "min": 42.1,
+        "max": 52.4
+      },
+      "model_plddt": {
+        "mean": 80.08,
+        "sd": 0.9,
+        "min": 78.7,
+        "max": 81.3
+      },
+      "scaffold_rmsd_vs_wt_A": {
+        "mean": 0.77,
+        "sd": 0.11,
+        "min": 0.58,
+        "max": 0.92
+      },
+      "interchain_contacts": {
+        "mean": 315.6,
+        "sd": 14.25,
+        "min": 291.0,
+        "max": 330.0
+      }
+    },
+    "per_sample": [
+      {
+        "file": "sample_0.cif",
+        "graft_plddt": 53.5,
+        "rgd_plddt": 52.4,
+        "model_plddt": 81.3,
+        "scaffold_rmsd_vs_wt_A": 0.8,
+        "interchain_contacts": 291
+      },
+      {
+        "file": "sample_1.cif",
+        "graft_plddt": 49.0,
+        "rgd_plddt": 50.5,
+        "model_plddt": 80.7,
+        "scaffold_rmsd_vs_wt_A": 0.92,
+        "interchain_contacts": 317
+      },
+      {
+        "file": "sample_2.cif",
+        "graft_plddt": 47.2,
+        "rgd_plddt": 42.1,
+        "model_plddt": 80.1,
+        "scaffold_rmsd_vs_wt_A": 0.78,
+        "interchain_contacts": 329
+      },
+      {
+        "file": "sample_3.cif",
+        "graft_plddt": 45.8,
+        "rgd_plddt": 47.1,
+        "model_plddt": 78.7,
+        "scaffold_rmsd_vs_wt_A": 0.75,
+        "interchain_contacts": 330
+      },
+      {
+        "file": "sample_4.cif",
+        "graft_plddt": 44.7,
+        "rgd_plddt": 45.2,
+        "model_plddt": 79.6,
+        "scaffold_rmsd_vs_wt_A": 0.58,
+        "interchain_contacts": 311
+      }
+    ]
+  },
+  "C13_CH3-EF_S1": {
+    "n_samples": 5,
+    "module": "CH3",
+    "metrics": {
+      "graft_plddt": {
+        "mean": 56.06,
+        "sd": 1.71,
+        "min": 54.8,
+        "max": 59.4
+      },
+      "rgd_plddt": {
+        "mean": 51.14,
+        "sd": 1.98,
+        "min": 47.5,
+        "max": 53.0
+      },
+      "model_plddt": {
+        "mean": 84.04,
+        "sd": 0.64,
+        "min": 83.3,
+        "max": 84.9
+      },
+      "scaffold_rmsd_vs_wt_A": {
+        "mean": 1.18,
+        "sd": 0.27,
+        "min": 0.83,
+        "max": 1.55
+      },
+      "interchain_contacts": {
+        "mean": 441.4,
+        "sd": 39.76,
+        "min": 385.0,
+        "max": 505.0
+      }
+    },
+    "per_sample": [
+      {
+        "file": "sample_0.cif",
+        "graft_plddt": 59.4,
+        "rgd_plddt": 51.4,
+        "model_plddt": 84.9,
+        "scaffold_rmsd_vs_wt_A": 1.45,
+        "interchain_contacts": 505
+      },
+      {
+        "file": "sample_1.cif",
+        "graft_plddt": 55.1,
+        "rgd_plddt": 51.0,
+        "model_plddt": 84.5,
+        "scaffold_rmsd_vs_wt_A": 1.06,
+        "interchain_contacts": 385
+      },
+      {
+        "file": "sample_2.cif",
+        "graft_plddt": 55.9,
+        "rgd_plddt": 52.8,
+        "model_plddt": 84.2,
+        "scaffold_rmsd_vs_wt_A": 1.03,
+        "interchain_contacts": 460
+      },
+      {
+        "file": "sample_3.cif",
+        "graft_plddt": 54.8,
+        "rgd_plddt": 53.0,
+        "model_plddt": 83.3,
+        "scaffold_rmsd_vs_wt_A": 1.55,
+        "interchain_contacts": 428
+      },
+      {
+        "file": "sample_4.cif",
+        "graft_plddt": 55.1,
+        "rgd_plddt": 47.5,
+        "model_plddt": 83.3,
+        "scaffold_rmsd_vs_wt_A": 0.83,
+        "interchain_contacts": 429
+      }
+    ]
+  },
+  "C14_CH3-EF_S2": {
+    "n_samples": 5,
+    "module": "CH3",
+    "metrics": {
+      "graft_plddt": {
+        "mean": 58.74,
+        "sd": 5.72,
+        "min": 52.2,
+        "max": 66.4
+      },
+      "rgd_plddt": {
+        "mean": 53.34,
+        "sd": 3.86,
+        "min": 48.5,
+        "max": 58.6
+      },
+      "model_plddt": {
+        "mean": 81.7,
+        "sd": 2.14,
+        "min": 79.1,
+        "max": 85.0
+      },
+      "scaffold_rmsd_vs_wt_A": {
+        "mean": 0.98,
+        "sd": 0.33,
+        "min": 0.64,
+        "max": 1.57
+      },
+      "interchain_contacts": {
+        "mean": 485.0,
+        "sd": 91.14,
+        "min": 408.0,
+        "max": 655.0
+      }
+    },
+    "per_sample": [
+      {
+        "file": "sample_0.cif",
+        "graft_plddt": 66.4,
+        "rgd_plddt": 58.6,
+        "model_plddt": 82.8,
+        "scaffold_rmsd_vs_wt_A": 1.57,
+        "interchain_contacts": 440
+      },
+      {
+        "file": "sample_1.cif",
+        "graft_plddt": 64.1,
+        "rgd_plddt": 56.2,
+        "model_plddt": 85.0,
+        "scaffold_rmsd_vs_wt_A": 0.91,
+        "interchain_contacts": 503
+      },
+      {
+        "file": "sample_2.cif",
+        "graft_plddt": 58.0,
+        "rgd_plddt": 53.9,
+        "model_plddt": 81.9,
+        "scaffold_rmsd_vs_wt_A": 0.73,
+        "interchain_contacts": 408
+      },
+      {
+        "file": "sample_3.cif",
+        "graft_plddt": 53.0,
+        "rgd_plddt": 48.5,
+        "model_plddt": 79.1,
+        "scaffold_rmsd_vs_wt_A": 1.07,
+        "interchain_contacts": 655
+      },
+      {
+        "file": "sample_4.cif",
+        "graft_plddt": 52.2,
+        "rgd_plddt": 49.5,
+        "model_plddt": 79.7,
+        "scaffold_rmsd_vs_wt_A": 0.64,
+        "interchain_contacts": 419
+      }
+    ]
+  },
+  "C15_CH3-EF_S3": {
+    "n_samples": 5,
+    "module": "CH3",
+    "metrics": {
+      "graft_plddt": {
+        "mean": 60.42,
+        "sd": 5.74,
+        "min": 53.6,
+        "max": 70.3
+      },
+      "rgd_plddt": {
+        "mean": 53.72,
+        "sd": 5.82,
+        "min": 48.1,
+        "max": 64.1
+      },
+      "model_plddt": {
+        "mean": 83.38,
+        "sd": 2.05,
+        "min": 80.7,
+        "max": 86.6
+      },
+      "scaffold_rmsd_vs_wt_A": {
+        "mean": 1.47,
+        "sd": 0.08,
+        "min": 1.4,
+        "max": 1.62
+      },
+      "interchain_contacts": {
+        "mean": 299.6,
+        "sd": 11.62,
+        "min": 280.0,
+        "max": 313.0
+      }
+    },
+    "per_sample": [
+      {
+        "file": "sample_0.cif",
+        "graft_plddt": 70.3,
+        "rgd_plddt": 64.1,
+        "model_plddt": 86.6,
+        "scaffold_rmsd_vs_wt_A": 1.41,
+        "interchain_contacts": 295
+      },
+      {
+        "file": "sample_1.cif",
+        "graft_plddt": 62.8,
+        "rgd_plddt": 55.9,
+        "model_plddt": 84.7,
+        "scaffold_rmsd_vs_wt_A": 1.44,
+        "interchain_contacts": 309
+      },
+      {
+        "file": "sample_2.cif",
+        "graft_plddt": 58.1,
+        "rgd_plddt": 48.1,
+        "model_plddt": 82.3,
+        "scaffold_rmsd_vs_wt_A": 1.4,
+        "interchain_contacts": 313
+      },
+      {
+        "file": "sample_3.cif",
+        "graft_plddt": 53.6,
+        "rgd_plddt": 49.5,
+        "model_plddt": 80.7,
+        "scaffold_rmsd_vs_wt_A": 1.62,
+        "interchain_contacts": 280
+      },
+      {
+        "file": "sample_4.cif",
+        "graft_plddt": 57.3,
+        "rgd_plddt": 51.0,
+        "model_plddt": 82.6,
+        "scaffold_rmsd_vs_wt_A": 1.47,
+        "interchain_contacts": 301
+      }
+    ]
+  },
+  "C16_CH3-EF_S4": {
+    "n_samples": 5,
+    "module": "CH3",
+    "metrics": {
+      "graft_plddt": {
+        "mean": 51.88,
+        "sd": 6.28,
+        "min": 43.7,
+        "max": 60.2
+      },
+      "rgd_plddt": {
+        "mean": 50.78,
+        "sd": 5.51,
+        "min": 42.3,
+        "max": 57.5
+      },
+      "model_plddt": {
+        "mean": 81.5,
+        "sd": 1.97,
+        "min": 80.2,
+        "max": 85.4
+      },
+      "scaffold_rmsd_vs_wt_A": {
+        "mean": 0.75,
+        "sd": 0.2,
+        "min": 0.53,
+        "max": 1.12
+      },
+      "interchain_contacts": {
+        "mean": 472.2,
+        "sd": 61.93,
+        "min": 399.0,
+        "max": 557.0
+      }
+    },
+    "per_sample": [
+      {
+        "file": "sample_0.cif",
+        "graft_plddt": 60.2,
+        "rgd_plddt": 57.5,
+        "model_plddt": 85.4,
+        "scaffold_rmsd_vs_wt_A": 1.12,
+        "interchain_contacts": 399
+      },
+      {
+        "file": "sample_1.cif",
+        "graft_plddt": 58.2,
+        "rgd_plddt": 56.0,
+        "model_plddt": 81.0,
+        "scaffold_rmsd_vs_wt_A": 0.63,
+        "interchain_contacts": 443
+      },
+      {
+        "file": "sample_2.cif",
+        "graft_plddt": 48.7,
+        "rgd_plddt": 49.9,
+        "model_plddt": 80.6,
+        "scaffold_rmsd_vs_wt_A": 0.53,
+        "interchain_contacts": 557
+      },
+      {
+        "file": "sample_3.cif",
+        "graft_plddt": 48.6,
+        "rgd_plddt": 48.2,
+        "model_plddt": 80.3,
+        "scaffold_rmsd_vs_wt_A": 0.68,
+        "interchain_contacts": 428
+      },
+      {
+        "file": "sample_4.cif",
+        "graft_plddt": 43.7,
+        "rgd_plddt": 42.3,
+        "model_plddt": 80.2,
+        "scaffold_rmsd_vs_wt_A": 0.79,
+        "interchain_contacts": 534
+      }
+    ]
+  },
+  "WT_Fv": {
+    "n_samples": 5,
+    "module": "Fv",
+    "metrics": {
+      "graft_plddt": null,
+      "rgd_plddt": null,
+      "model_plddt": {
+        "mean": 96.06,
+        "sd": 0.08,
+        "min": 96.0,
+        "max": 96.2
+      },
+      "scaffold_rmsd_vs_wt_A": {
+        "mean": 0.09,
+        "sd": 0.05,
+        "min": 0.0,
+        "max": 0.13
+      },
+      "interchain_contacts": {
+        "mean": 252.2,
+        "sd": 5.78,
+        "min": 246.0,
+        "max": 263.0
+      }
+    },
+    "per_sample": [
+      {
+        "file": "sample_0.cif",
+        "graft_plddt": null,
+        "rgd_plddt": null,
+        "model_plddt": 96.1,
+        "scaffold_rmsd_vs_wt_A": 0.0,
+        "interchain_contacts": 263
+      },
+      {
+        "file": "sample_1.cif",
+        "graft_plddt": null,
+        "rgd_plddt": null,
+        "model_plddt": 96.2,
+        "scaffold_rmsd_vs_wt_A": 0.11,
+        "interchain_contacts": 251
+      },
+      {
+        "file": "sample_2.cif",
+        "graft_plddt": null,
+        "rgd_plddt": null,
+        "model_plddt": 96.0,
+        "scaffold_rmsd_vs_wt_A": 0.12,
+        "interchain_contacts": 246
+      },
+      {
+        "file": "sample_3.cif",
+        "graft_plddt": null,
+        "rgd_plddt": null,
+        "model_plddt": 96.0,
+        "scaffold_rmsd_vs_wt_A": 0.09,
+        "interchain_contacts": 249
+      },
+      {
+        "file": "sample_4.cif",
+        "graft_plddt": null,
+        "rgd_plddt": null,
+        "model_plddt": 96.0,
+        "scaffold_rmsd_vs_wt_A": 0.13,
+        "interchain_contacts": 252
+      }
+    ]
+  },
+  "WT_CH3": {
+    "n_samples": 5,
+    "module": "CH3",
+    "metrics": {
+      "graft_plddt": null,
+      "rgd_plddt": null,
+      "model_plddt": {
+        "mean": 96.62,
+        "sd": 0.04,
+        "min": 96.6,
+        "max": 96.7
+      },
+      "scaffold_rmsd_vs_wt_A": {
+        "mean": 0.27,
+        "sd": 0.15,
+        "min": 0.0,
+        "max": 0.44
+      },
+      "interchain_contacts": {
+        "mean": 315.6,
+        "sd": 9.18,
+        "min": 306.0,
+        "max": 332.0
+      }
+    },
+    "per_sample": [
+      {
+        "file": "sample_0.cif",
+        "graft_plddt": null,
+        "rgd_plddt": null,
+        "model_plddt": 96.7,
+        "scaffold_rmsd_vs_wt_A": 0.0,
+        "interchain_contacts": 306
+      },
+      {
+        "file": "sample_1.cif",
+        "graft_plddt": null,
+        "rgd_plddt": null,
+        "model_plddt": 96.6,
+        "scaffold_rmsd_vs_wt_A": 0.24,
+        "interchain_contacts": 315
+      },
+      {
+        "file": "sample_2.cif",
+        "graft_plddt": null,
+        "rgd_plddt": null,
+        "model_plddt": 96.6,
+        "scaffold_rmsd_vs_wt_A": 0.37,
+        "interchain_contacts": 332
+      },
+      {
+        "file": "sample_3.cif",
+        "graft_plddt": null,
+        "rgd_plddt": null,
+        "model_plddt": 96.6,
+        "scaffold_rmsd_vs_wt_A": 0.44,
+        "interchain_contacts": 317
+      },
+      {
+        "file": "sample_4.cif",
+        "graft_plddt": null,
+        "rgd_plddt": null,
+        "model_plddt": 96.6,
+        "scaffold_rmsd_vs_wt_A": 0.3,
+        "interchain_contacts": 308
+      }
+    ]
+  },
+  "REF_4delta_free": {
+    "n_samples": 5,
+    "module": null,
+    "metrics": {
+      "graft_plddt": {
+        "mean": 86.6,
+        "sd": 0.71,
+        "min": 85.2,
+        "max": 87.1
+      },
+      "rgd_plddt": {
+        "mean": 88.2,
+        "sd": 0.87,
+        "min": 86.5,
+        "max": 88.9
+      },
+      "model_plddt": {
+        "mean": 86.6,
+        "sd": 0.71,
+        "min": 85.2,
+        "max": 87.1
+      },
+      "scaffold_rmsd_vs_wt_A": null,
+      "interchain_contacts": null
+    },
+    "per_sample": [
+      {
+        "file": "sample_0.cif",
+        "graft_plddt": 87.0,
+        "rgd_plddt": 88.4,
+        "model_plddt": 87.0,
+        "scaffold_rmsd_vs_wt_A": null,
+        "interchain_contacts": null
+      },
+      {
+        "file": "sample_1.cif",
+        "graft_plddt": 86.9,
+        "rgd_plddt": 88.7,
+        "model_plddt": 86.9,
+        "scaffold_rmsd_vs_wt_A": null,
+        "interchain_contacts": null
+      },
+      {
+        "file": "sample_2.cif",
+        "graft_plddt": 87.1,
+        "rgd_plddt": 88.9,
+        "model_plddt": 87.1,
+        "scaffold_rmsd_vs_wt_A": null,
+        "interchain_contacts": null
+      },
+      {
+        "file": "sample_3.cif",
+        "graft_plddt": 86.8,
+        "rgd_plddt": 88.5,
+        "model_plddt": 86.8,
+        "scaffold_rmsd_vs_wt_A": null,
+        "interchain_contacts": null
+      },
+      {
+        "file": "sample_4.cif",
+        "graft_plddt": 85.2,
+        "rgd_plddt": 86.5,
+        "model_plddt": 85.2,
+        "scaffold_rmsd_vs_wt_A": null,
+        "interchain_contacts": null
+      }
+    ]
+  },
+  "BM_CH3_Cterm_fusion": {
+    "n_samples": 5,
+    "module": "CH3",
+    "metrics": {
+      "graft_plddt": {
+        "mean": 63.86,
+        "sd": 4.97,
+        "min": 56.2,
+        "max": 70.0
+      },
+      "rgd_plddt": {
+        "mean": 55.24,
+        "sd": 6.29,
+        "min": 46.2,
+        "max": 62.5
+      },
+      "model_plddt": {
+        "mean": 86.68,
+        "sd": 1.73,
+        "min": 83.8,
+        "max": 88.6
+      },
+      "scaffold_rmsd_vs_wt_A": {
+        "mean": 1.03,
+        "sd": 0.41,
+        "min": 0.5,
+        "max": 1.72
+      },
+      "interchain_contacts": {
+        "mean": 599.0,
+        "sd": 51.12,
+        "min": 534.0,
+        "max": 671.0
+      }
+    },
+    "per_sample": [
+      {
+        "file": "sample_0.cif",
+        "graft_plddt": 67.5,
+        "rgd_plddt": 60.4,
+        "model_plddt": 87.9,
+        "scaffold_rmsd_vs_wt_A": 0.81,
+        "interchain_contacts": 637
+      },
+      {
+        "file": "sample_1.cif",
+        "graft_plddt": 70.0,
+        "rgd_plddt": 62.5,
+        "model_plddt": 88.6,
+        "scaffold_rmsd_vs_wt_A": 0.91,
+        "interchain_contacts": 601
+      },
+      {
+        "file": "sample_2.cif",
+        "graft_plddt": 65.2,
+        "rgd_plddt": 57.5,
+        "model_plddt": 87.4,
+        "scaffold_rmsd_vs_wt_A": 0.5,
+        "interchain_contacts": 534
+      },
+      {
+        "file": "sample_3.cif",
+        "graft_plddt": 60.4,
+        "rgd_plddt": 49.6,
+        "model_plddt": 85.7,
+        "scaffold_rmsd_vs_wt_A": 1.22,
+        "interchain_contacts": 552
+      },
+      {
+        "file": "sample_4.cif",
+        "graft_plddt": 56.2,
+        "rgd_plddt": 46.2,
+        "model_plddt": 83.8,
+        "scaffold_rmsd_vs_wt_A": 1.72,
+        "interchain_contacts": 671
+      }
+    ]
+  }
+}

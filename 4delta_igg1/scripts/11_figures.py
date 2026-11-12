@@ -268,4 +268,53 @@ try:
 except (FileNotFoundError, KeyError) as e:
     print(f"  skip fig4/5: {e}")
 
+# ============================================================ Fig 6 binding-mode ladder
+try:
+    bm = json.load(open("results/08_binding_mode.json"))
+    cr = bm["crystal_reference"]
+    order6 = [("INT_LAP_methodctrl", "LAP  GRGDLGRL\n(method control)", S1),
+              ("INT_4delta_free", "4Δ  RGDLRIL\n(free peptide)", S3),
+              ("INT_4delta_RGE_neg", "4Δ RGE mutant\n(specificity control)", S2)]
+    fig, (b1, b2) = plt.subplots(1, 2, figsize=(10.6, 4.6),
+                                 gridspec_kw={"wspace": 0.28})
+    for ax, key, lab, ref in (
+            (b1, "acid_to_MIDAS_metal_A", "acidic carboxylate → MIDAS metal (Å)",
+             cr.get("asp_to_MIDAS_metal_A")),
+            (b2, "arg_to_alphaV_Asp218_A", "RGD Arg → αv Asp218 (Å)",
+             cr.get("arg_to_alphaV_Asp218_A"))):
+        for i, (cid, nm, col) in enumerate(order6):
+            r = bm["results"].get(cid)
+            if not r:
+                continue
+            vals = [s[key] for s in r["per_sample"] if s.get(key) is not None]
+            jitter = np.linspace(-0.13, 0.13, len(vals))
+            ax.scatter([i + j for j in jitter], vals, s=85, color=col,
+                       edgecolor=SURFACE, linewidth=1.4, zorder=3)
+            # label the BEST (= lowest) value, next to the point it describes
+            ax.annotate(f"best {min(vals):.2f}", (i + jitter[int(np.argmin(vals))],
+                                                  min(vals)),
+                        textcoords="offset points", xytext=(13, -3), ha="left",
+                        fontsize=8, color=INK, fontweight="bold")
+        if ref:
+            ax.axhline(ref, color=INK, lw=1.4, ls=(0, (4, 2)), zorder=1)
+            ax.text(2.45, ref, f"crystal {ref:.2f} Å ", ha="right", va="bottom",
+                    fontsize=8, color=INK, fontweight="bold")
+        ax.set_xticks(range(len(order6)))
+        ax.set_xticklabels([n for _, n, _ in order6], fontsize=8.5)
+        ax.set_ylabel(lab)
+        ax.grid(axis="y", zorder=0)
+        ax.set_axisbelow(True)
+        ax.set_xlim(-0.5, 2.5)
+    b1.set_title("a   metal coordination", fontsize=10)
+    b2.set_title("b   the αv salt bridge", fontsize=10)
+    fig.suptitle("Binding-mode validation: the method reproduces the co-crystal, and the "
+                 "dead mutant fails\n(each dot = one of 5 predicted samples)",
+                 fontsize=11, fontweight="bold", x=0.009, ha="left", y=1.06)
+    fig.text(0.009, -0.07,
+             "ipTM cannot separate these: 0.943 (4Δ) vs 0.944 (dead RGE mutant). "
+             "Only the geometry does.", fontsize=8.5, color=INK2, style="italic")
+    save(fig, "fig6_binding_mode.png")
+except (FileNotFoundError, KeyError) as e:
+    print(f"  skip fig6: {e}")
+
 print("figures done")

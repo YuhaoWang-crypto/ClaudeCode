@@ -94,6 +94,12 @@ for cid, c in by_id.items():
     if iface and kind in wt_iface and wt_iface[kind]:
         iface_ratio = iface / wt_iface[kind]
 
+    # model confidence from Boltz (best-sample complex pLDDT / pTM)
+    cmeta = conf.get(cid, {})
+    csamples = cmeta.get("samples", [])
+    best_plddt = max((s.get("complex_plddt", 0) for s in csamples), default=None)
+    best_ptm = max((s.get("ptm", 0) for s in csamples), default=None)
+
     # ----------------------------------------------------------- component scores
     c1a = 22 * lin(ang_best, 0.0, 60.0)
     c1b = 13 * lin(fit_best, 1.5, 3.0)
@@ -158,6 +164,8 @@ for cid, c in by_id.items():
             "interface_ratio_vs_wt": None if iface_ratio is None else round(iface_ratio, 2),
             "graft_plddt": graft_plddt,
             "min_core_receptor_clashes": core_clash,
+            "boltz_best_complex_plddt": best_plddt,
+            "boltz_best_ptm": best_ptm,
         },
         "component_scores": {
             "exit_geometry_22": round(c1a, 1), "motif_fit_13": round(c1b, 1),

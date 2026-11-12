@@ -1,0 +1,2968 @@
+{
+  "reference_6R2X": {
+    "helix_frac_core": 1.0,
+    "rgd_rel_sasa": 0.577,
+    "pharmacophore_A": 9.02,
+    "end_to_end_A": 35.75
+  },
+  "results": {
+    "C01_CDRH3_S1": {
+      "n_samples": 5,
+      "payload": "FETLRGDLRILSILRHQNLLKEL",
+      "metrics": {
+        "helix_frac_core": {
+          "mean": 0.836,
+          "sd": 0.036,
+          "min": 0.818,
+          "max": 0.909,
+          "n": 5
+        },
+        "helix_frac_payload": {
+          "mean": 0.713,
+          "sd": 0.094,
+          "min": 0.565,
+          "max": 0.826,
+          "n": 5
+        },
+        "rmsd_to_6R2X_A": {
+          "mean": 4.246,
+          "sd": 0.518,
+          "min": 3.304,
+          "max": 4.779,
+          "n": 5
+        },
+        "end_to_end_A": {
+          "mean": 11.035,
+          "sd": 4.251,
+          "min": 4.876,
+          "max": 15.939,
+          "n": 5
+        },
+        "rgd_rel_sasa": {
+          "mean": 0.572,
+          "sd": 0.017,
+          "min": 0.542,
+          "max": 0.588,
+          "n": 5
+        },
+        "rgd_bulky_probe_sasa_A2": {
+          "mean": 348.067,
+          "sd": 68.449,
+          "min": 232.77,
+          "max": 421.855,
+          "n": 5
+        },
+        "hydrophobic_face_rel_sasa": {
+          "mean": 0.284,
+          "sd": 0.103,
+          "min": 0.158,
+          "max": 0.467,
+          "n": 5
+        },
+        "pharmacophore_A": {
+          "mean": 12.787,
+          "sd": 1.336,
+          "min": 11.036,
+          "max": 15.151,
+          "n": 5
+        },
+        "rgd_protrusion_A": {
+          "mean": 26.396,
+          "sd": 1.769,
+          "min": 23.425,
+          "max": 28.415,
+          "n": 5
+        },
+        "rgd_min_dist_to_scaffold_A": {
+          "mean": 4.289,
+          "sd": 0.902,
+          "min": 3.313,
+          "max": 5.565,
+          "n": 5
+        },
+        "graft_scaffold_clashes": {
+          "mean": 2.0,
+          "sd": 0.0,
+          "min": 2.0,
+          "max": 2.0,
+          "n": 5
+        }
+      },
+      "per_sample": [
+        {
+          "file": "sample_0.cif",
+          "helix_frac_core": 0.9090909090909091,
+          "helix_frac_payload": 0.8260869565217391,
+          "rmsd_to_6R2X_A": 3.304027771124271,
+          "end_to_end_A": 15.939208030700684,
+          "rgd_rel_sasa": 0.5794937014579773,
+          "rgd_bulky_probe_sasa_A2": 232.76956176757812,
+          "hydrophobic_face_rel_sasa": 0.4667147099971771,
+          "pharmacophore_A": 12.894506454467773,
+          "rgd_protrusion_A": 23.424787521362305,
+          "rgd_min_dist_to_scaffold_A": 3.821042060852051,
+          "graft_scaffold_clashes": 2,
+          "n_chains": 2,
+          "_traj_index": 0
+        },
+        {
+          "file": "sample_1.cif",
+          "helix_frac_core": 0.8181818181818182,
+          "helix_frac_payload": 0.782608695652174,
+          "rmsd_to_6R2X_A": 4.4302239173801565,
+          "end_to_end_A": 15.750306129455566,
+          "rgd_rel_sasa": 0.5838515162467957,
+          "rgd_bulky_probe_sasa_A2": 372.84967041015625,
+          "hydrophobic_face_rel_sasa": 0.308961421251297,
+          "pharmacophore_A": 15.15145492553711,
+          "rgd_protrusion_A": 28.415075302124023,
+          "rgd_min_dist_to_scaffold_A": 3.582287549972534,
+          "graft_scaffold_clashes": 2,
+          "n_chains": 2,
+          "_traj_index": 1
+        },
+        {
+          "file": "sample_2.cif",
+          "helix_frac_core": 0.8181818181818182,
+          "helix_frac_payload": 0.5652173913043478,
+          "rmsd_to_6R2X_A": 4.593225695708237,
+          "end_to_end_A": 9.015872955322266,
+          "rgd_rel_sasa": 0.588424801826477,
+          "rgd_bulky_probe_sasa_A2": 421.8545837402344,
+          "hydrophobic_face_rel_sasa": 0.15792426466941833,
+          "pharmacophore_A": 12.4608793258667,
+          "rgd_protrusion_A": 27.143815994262695,
+          "rgd_min_dist_to_scaffold_A": 5.16450309753418,
+          "graft_scaffold_clashes": 2,
+          "n_chains": 2,
+          "_traj_index": 2
+        },
+        {
+          "file": "sample_3.cif",
+          "helix_frac_core": 0.8181818181818182,
+          "helix_frac_payload": 0.6521739130434783,
+          "rmsd_to_6R2X_A": 4.12413179461843,
+          "end_to_end_A": 9.593986511230469,
+          "rgd_rel_sasa": 0.5418497323989868,
+          "rgd_bulky_probe_sasa_A2": 312.0796813964844,
+          "hydrophobic_face_rel_sasa": 0.24874337017536163,
+          "pharmacophore_A": 11.036001205444336,
+          "rgd_protrusion_A": 25.46051597595215,
+          "rgd_min_dist_to_scaffold_A": 3.3131346702575684,
+          "graft_scaffold_clashes": 2,
+          "n_chains": 2,
+          "_traj_index": 3
+        },
+        {
+          "file": "sample_4.cif",
+          "helix_frac_core": 0.8181818181818182,
+          "helix_frac_payload": 0.7391304347826086,
+          "rmsd_to_6R2X_A": 4.779199318722389,
+          "end_to_end_A": 4.876471042633057,
+          "rgd_rel_sasa": 0.564983069896698,
+          "rgd_bulky_probe_sasa_A2": 400.78082275390625,
+          "hydrophobic_face_rel_sasa": 0.23759226500988007,
+          "pharmacophore_A": 12.394649505615234,
+          "rgd_protrusion_A": 27.53660011291504,
+          "rgd_min_dist_to_scaffold_A": 5.5652546882629395,
+          "graft_scaffold_clashes": 2,
+          "n_chains": 2,
+          "_traj_index": 4
+        }
+      ]
+    },
+    "C02_CDRH3_S2": {
+      "n_samples": 5,
+      "payload": "FETLRGDLRILSILRHQNLLKEL",
+      "metrics": {
+        "helix_frac_core": {
+          "mean": 0.836,
+          "sd": 0.036,
+          "min": 0.818,
+          "max": 0.909,
+          "n": 5
+        },
+        "helix_frac_payload": {
+          "mean": 0.757,
+          "sd": 0.076,
+          "min": 0.696,
+          "max": 0.87,
+          "n": 5
+        },
+        "rmsd_to_6R2X_A": {
+          "mean": 3.803,
+          "sd": 0.108,
+          "min": 3.633,
+          "max": 3.954,
+          "n": 5
+        },
+        "end_to_end_A": {
+          "mean": 21.309,
+          "sd": 0.124,
+          "min": 21.168,
+          "max": 21.471,
+          "n": 5
+        },
+        "rgd_rel_sasa": {
+          "mean": 0.181,
+          "sd": 0.022,
+          "min": 0.149,
+          "max": 0.209,
+          "n": 5
+        },
+        "rgd_bulky_probe_sasa_A2": {
+          "mean": 173.449,
+          "sd": 25.992,
+          "min": 146.671,
+          "max": 209.901,
+          "n": 5
+        },
+        "hydrophobic_face_rel_sasa": {
+          "mean": 0.265,
+          "sd": 0.087,
+          "min": 0.141,
+          "max": 0.411,
+          "n": 5
+        },
+        "pharmacophore_A": {
+          "mean": 11.364,
+          "sd": 0.903,
+          "min": 10.466,
+          "max": 12.661,
+          "n": 5
+        },
+        "rgd_protrusion_A": {
+          "mean": 20.529,
+          "sd": 1.008,
+          "min": 19.135,
+          "max": 22.145,
+          "n": 5
+        },
+        "rgd_min_dist_to_scaffold_A": {
+          "mean": 2.578,
+          "sd": 0.378,
+          "min": 1.975,
+          "max": 3.156,
+          "n": 5
+        },
+        "graft_scaffold_clashes": {
+          "mean": 3.4,
+          "sd": 0.49,
+          "min": 3.0,
+          "max": 4.0,
+          "n": 5
+        }
+      },
+      "per_sample": [
+        {
+          "file": "sample_0.cif",
+          "helix_frac_core": 0.8181818181818182,
+          "helix_frac_payload": 0.6956521739130435,
+          "rmsd_to_6R2X_A": 3.9544933218329206,
+          "end_to_end_A": 21.17547607421875,
+          "rgd_rel_sasa": 0.19758833944797516,
+          "rgd_bulky_probe_sasa_A2": 198.87278747558594,
+          "hydrophobic_face_rel_sasa": 0.2629363238811493,
+          "pharmacophore_A": 10.703227996826172,
+          "rgd_protrusion_A": 21.032726287841797,
+          "rgd_min_dist_to_scaffold_A": 3.1561286449432373,
+          "graft_scaffold_clashes": 4,
+          "n_chains": 2,
+          "_traj_index": 0
+        },
+        {
+          "file": "sample_1.cif",
+          "helix_frac_core": 0.8181818181818182,
+          "helix_frac_payload": 0.8695652173913043,
+          "rmsd_to_6R2X_A": 3.83681700109753,
+          "end_to_end_A": 21.47129249572754,
+          "rgd_rel_sasa": 0.14904356002807617,
+          "rgd_bulky_probe_sasa_A2": 161.8121795654297,
+          "hydrophobic_face_rel_sasa": 0.14066512882709503,
+          "pharmacophore_A": 12.66117000579834,
+          "rgd_protrusion_A": 19.135183334350586,
+          "rgd_min_dist_to_scaffold_A": 1.9748375415802002,
+          "graft_scaffold_clashes": 3,
+          "n_chains": 2,
+          "_traj_index": 1
+        },
+        {
+          "file": "sample_2.cif",
+          "helix_frac_core": 0.8181818181818182,
+          "helix_frac_payload": 0.6956521739130435,
+          "rmsd_to_6R2X_A": 3.632873672278075,
+          "end_to_end_A": 21.3095645904541,
+          "rgd_rel_sasa": 0.16634304821491241,
+          "rgd_bulky_probe_sasa_A2": 209.90097045898438,
+          "hydrophobic_face_rel_sasa": 0.41108763217926025,
+          "pharmacophore_A": 12.240262985229492,
+          "rgd_protrusion_A": 20.129451751708984,
+          "rgd_min_dist_to_scaffold_A": 2.5774128437042236,
+          "graft_scaffold_clashes": 4,
+          "n_chains": 2,
+          "_traj_index": 2
+        },
+        {
+          "file": "sample_3.cif",
+          "helix_frac_core": 0.9090909090909091,
+          "helix_frac_payload": 0.8260869565217391,
+          "rmsd_to_6R2X_A": 3.744783394602857,
+          "end_to_end_A": 21.42224884033203,
+          "rgd_rel_sasa": 0.1825670748949051,
+          "rgd_bulky_probe_sasa_A2": 146.67071533203125,
+          "hydrophobic_face_rel_sasa": 0.2770249545574188,
+          "pharmacophore_A": 10.746977806091309,
+          "rgd_protrusion_A": 20.199995040893555,
+          "rgd_min_dist_to_scaffold_A": 2.6828222274780273,
+          "graft_scaffold_clashes": 3,
+          "n_chains": 2,
+          "_traj_index": 3
+        },
+        {
+          "file": "sample_4.cif",
+          "helix_frac_core": 0.8181818181818182,
+          "helix_frac_payload": 0.6956521739130435,
+          "rmsd_to_6R2X_A": 3.8450832854741295,
+          "end_to_end_A": 21.16758918762207,
+          "rgd_rel_sasa": 0.20932747423648834,
+          "rgd_bulky_probe_sasa_A2": 149.98822021484375,
+          "hydrophobic_face_rel_sasa": 0.23304058611392975,
+          "pharmacophore_A": 10.466044425964355,
+          "rgd_protrusion_A": 22.145252227783203,
+          "rgd_min_dist_to_scaffold_A": 2.499828815460205,
+          "graft_scaffold_clashes": 3,
+          "n_chains": 2,
+          "_traj_index": 4
+        }
+      ]
+    },
+    "C03_CDRH3_S3": {
+      "n_samples": 5,
+      "payload": "FETLRGDLRILSILRHQNLLKEL",
+      "metrics": {
+        "helix_frac_core": {
+          "mean": 0.764,
+          "sd": 0.109,
+          "min": 0.545,
+          "max": 0.818,
+          "n": 5
+        },
+        "helix_frac_payload": {
+          "mean": 0.609,
+          "sd": 0.048,
+          "min": 0.565,
+          "max": 0.696,
+          "n": 5
+        },
+        "rmsd_to_6R2X_A": {
+          "mean": 4.871,
+          "sd": 0.497,
+          "min": 4.258,
+          "max": 5.613,
+          "n": 5
+        },
+        "end_to_end_A": {
+          "mean": 9.289,
+          "sd": 1.671,
+          "min": 6.228,
+          "max": 11.31,
+          "n": 5
+        },
+        "rgd_rel_sasa": {
+          "mean": 0.485,
+          "sd": 0.146,
+          "min": 0.267,
+          "max": 0.719,
+          "n": 5
+        },
+        "rgd_bulky_probe_sasa_A2": {
+          "mean": 210.205,
+          "sd": 116.941,
+          "min": 42.681,
+          "max": 398.113,
+          "n": 5
+        },
+        "hydrophobic_face_rel_sasa": {
+          "mean": 0.161,
+          "sd": 0.044,
+          "min": 0.115,
+          "max": 0.224,
+          "n": 5
+        },
+        "pharmacophore_A": {
+          "mean": 12.527,
+          "sd": 0.446,
+          "min": 11.724,
+          "max": 12.96,
+          "n": 5
+        },
+        "rgd_protrusion_A": {
+          "mean": 20.762,
+          "sd": 2.782,
+          "min": 16.465,
+          "max": 24.597,
+          "n": 5
+        },
+        "rgd_min_dist_to_scaffold_A": {
+          "mean": 3.72,
+          "sd": 1.141,
+          "min": 2.563,
+          "max": 5.732,
+          "n": 5
+        },
+        "graft_scaffold_clashes": {
+          "mean": 3.2,
+          "sd": 1.47,
+          "min": 2.0,
+          "max": 5.0,
+          "n": 5
+        }
+      },
+      "per_sample": [
+        {
+          "file": "sample_0.cif",
+          "helix_frac_core": 0.8181818181818182,
+          "helix_frac_payload": 0.6086956521739131,
+          "rmsd_to_6R2X_A": 4.560596398887063,
+          "end_to_end_A": 9.343439102172852,
+          "rgd_rel_sasa": 0.5382658839225769,
+          "rgd_bulky_probe_sasa_A2": 222.80409240722656,
+          "hydrophobic_face_rel_sasa": 0.11988350003957748,
+          "pharmacophore_A": 12.959793090820312,
+          "rgd_protrusion_A": 22.053953170776367,
+          "rgd_min_dist_to_scaffold_A": 3.3759634494781494,
+          "graft_scaffold_clashes": 5,
+          "n_chains": 2,
+          "_traj_index": 0
+        },
+        {
+          "file": "sample_1.cif",
+          "helix_frac_core": 0.8181818181818182,
+          "helix_frac_payload": 0.5652173913043478,
+          "rmsd_to_6R2X_A": 5.274749814746964,
+          "end_to_end_A": 6.2279791831970215,
+          "rgd_rel_sasa": 0.26728084683418274,
+          "rgd_bulky_probe_sasa_A2": 42.6810188293457,
+          "hydrophobic_face_rel_sasa": 0.2016192227602005,
+          "pharmacophore_A": 12.56539535522461,
+          "rgd_protrusion_A": 16.46531105041504,
+          "rgd_min_dist_to_scaffold_A": 2.5633432865142822,
+          "graft_scaffold_clashes": 2,
+          "n_chains": 2,
+          "_traj_index": 1
+        },
+        {
+          "file": "sample_2.cif",
+          "helix_frac_core": 0.8181818181818182,
+          "helix_frac_payload": 0.5652173913043478,
+          "rmsd_to_6R2X_A": 4.257946489011548,
+          "end_to_end_A": 11.310356140136719,
+          "rgd_rel_sasa": 0.7190250754356384,
+          "rgd_bulky_probe_sasa_A2": 398.1126708984375,
+          "hydrophobic_face_rel_sasa": 0.22416754066944122,
+          "pharmacophore_A": 12.924026489257812,
+          "rgd_protrusion_A": 24.597274780273438,
+          "rgd_min_dist_to_scaffold_A": 5.732443332672119,
+          "graft_scaffold_clashes": 2,
+          "n_chains": 2,
+          "_traj_index": 2
+        },
+        {
+          "file": "sample_3.cif",
+          "helix_frac_core": 0.5454545454545454,
+          "helix_frac_payload": 0.6086956521739131,
+          "rmsd_to_6R2X_A": 5.61344178436736,
+          "end_to_end_A": 9.851030349731445,
+          "rgd_rel_sasa": 0.4514654874801636,
+          "rgd_bulky_probe_sasa_A2": 240.07852172851562,
+          "hydrophobic_face_rel_sasa": 0.11504599452018738,
+          "pharmacophore_A": 11.724386215209961,
+          "rgd_protrusion_A": 21.67408561706543,
+          "rgd_min_dist_to_scaffold_A": 4.124848365783691,
+          "graft_scaffold_clashes": 2,
+          "n_chains": 2,
+          "_traj_index": 3
+        },
+        {
+          "file": "sample_4.cif",
+          "helix_frac_core": 0.8181818181818182,
+          "helix_frac_payload": 0.6956521739130435,
+          "rmsd_to_6R2X_A": 4.647187145834355,
+          "end_to_end_A": 9.714674949645996,
+          "rgd_rel_sasa": 0.45066550374031067,
+          "rgd_bulky_probe_sasa_A2": 147.34674072265625,
+          "hydrophobic_face_rel_sasa": 0.14387725293636322,
+          "pharmacophore_A": 12.460132598876953,
+          "rgd_protrusion_A": 19.021602630615234,
+          "rgd_min_dist_to_scaffold_A": 2.8037025928497314,
+          "graft_scaffold_clashes": 5,
+          "n_chains": 2,
+          "_traj_index": 4
+        }
+      ]
+    },
+    "C04_CDRH3_S4": {
+      "n_samples": 5,
+      "payload": "FETLRGDLRILSILRHQN",
+      "metrics": {
+        "helix_frac_core": {
+          "mean": 0.182,
+          "sd": 0.364,
+          "min": 0.0,
+          "max": 0.909,
+          "n": 5
+        },
+        "helix_frac_payload": {
+          "mean": 0.133,
+          "sd": 0.267,
+          "min": 0.0,
+          "max": 0.667,
+          "n": 5
+        },
+        "rmsd_to_6R2X_A": {
+          "mean": 4.94,
+          "sd": 2.113,
+          "min": 0.775,
+          "max": 6.452,
+          "n": 5
+        },
+        "end_to_end_A": {
+          "mean": 23.538,
+          "sd": 3.553,
+          "min": 18.299,
+          "max": 27.163,
+          "n": 5
+        },
+        "rgd_rel_sasa": {
+          "mean": 0.632,
+          "sd": 0.111,
+          "min": 0.46,
+          "max": 0.783,
+          "n": 5
+        },
+        "rgd_bulky_probe_sasa_A2": {
+          "mean": 430.675,
+          "sd": 102.22,
+          "min": 296.709,
+          "max": 552.957,
+          "n": 5
+        },
+        "hydrophobic_face_rel_sasa": {
+          "mean": 0.238,
+          "sd": 0.075,
+          "min": 0.155,
+          "max": 0.376,
+          "n": 5
+        },
+        "pharmacophore_A": {
+          "mean": 10.517,
+          "sd": 2.306,
+          "min": 6.428,
+          "max": 13.297,
+          "n": 5
+        },
+        "rgd_protrusion_A": {
+          "mean": 22.649,
+          "sd": 2.295,
+          "min": 19.957,
+          "max": 26.56,
+          "n": 5
+        },
+        "rgd_min_dist_to_scaffold_A": {
+          "mean": 3.489,
+          "sd": 0.917,
+          "min": 2.404,
+          "max": 4.485,
+          "n": 5
+        },
+        "graft_scaffold_clashes": {
+          "mean": 3.6,
+          "sd": 0.49,
+          "min": 3.0,
+          "max": 4.0,
+          "n": 5
+        }
+      },
+      "per_sample": [
+        {
+          "file": "sample_0.cif",
+          "helix_frac_core": 0.0,
+          "helix_frac_payload": 0.0,
+          "rmsd_to_6R2X_A": 5.760868450717848,
+          "end_to_end_A": 25.2383975982666,
+          "rgd_rel_sasa": 0.4598177671432495,
+          "rgd_bulky_probe_sasa_A2": 296.7086486816406,
+          "hydrophobic_face_rel_sasa": 0.15482859313488007,
+          "pharmacophore_A": 10.055379867553711,
+          "rgd_protrusion_A": 19.957002639770508,
+          "rgd_min_dist_to_scaffold_A": 2.4189414978027344,
+          "graft_scaffold_clashes": 3,
+          "n_chains": 2,
+          "_traj_index": 0
+        },
+        {
+          "file": "sample_1.cif",
+          "helix_frac_core": 0.0,
+          "helix_frac_payload": 0.0,
+          "rmsd_to_6R2X_A": 6.452425425711424,
+          "end_to_end_A": 26.62921142578125,
+          "rgd_rel_sasa": 0.6944007873535156,
+          "rgd_bulky_probe_sasa_A2": 489.68682861328125,
+          "hydrophobic_face_rel_sasa": 0.37595200538635254,
+          "pharmacophore_A": 6.427824974060059,
+          "rgd_protrusion_A": 26.559810638427734,
+          "rgd_min_dist_to_scaffold_A": 3.739285945892334,
+          "graft_scaffold_clashes": 3,
+          "n_chains": 2,
+          "_traj_index": 1
+        },
+        {
+          "file": "sample_2.cif",
+          "helix_frac_core": 0.0,
+          "helix_frac_payload": 0.0,
+          "rmsd_to_6R2X_A": 6.265637787422757,
+          "end_to_end_A": 27.162656784057617,
+          "rgd_rel_sasa": 0.5650777220726013,
+          "rgd_bulky_probe_sasa_A2": 321.15472412109375,
+          "hydrophobic_face_rel_sasa": 0.19758929312229156,
+          "pharmacophore_A": 10.975813865661621,
+          "rgd_protrusion_A": 20.763620376586914,
+          "rgd_min_dist_to_scaffold_A": 2.4038660526275635,
+          "graft_scaffold_clashes": 4,
+          "n_chains": 2,
+          "_traj_index": 2
+        },
+        {
+          "file": "sample_3.cif",
+          "helix_frac_core": 0.9090909090909091,
+          "helix_frac_payload": 0.6666666666666666,
+          "rmsd_to_6R2X_A": 0.7747642207610544,
+          "end_to_end_A": 20.360260009765625,
+          "rgd_rel_sasa": 0.6558603644371033,
+          "rgd_bulky_probe_sasa_A2": 492.86962890625,
+          "hydrophobic_face_rel_sasa": 0.2480355203151703,
+          "pharmacophore_A": 13.296698570251465,
+          "rgd_protrusion_A": 23.07921028137207,
+          "rgd_min_dist_to_scaffold_A": 4.399946212768555,
+          "graft_scaffold_clashes": 4,
+          "n_chains": 2,
+          "_traj_index": 3
+        },
+        {
+          "file": "sample_4.cif",
+          "helix_frac_core": 0.0,
+          "helix_frac_payload": 0.0,
+          "rmsd_to_6R2X_A": 5.445794922866331,
+          "end_to_end_A": 18.298749923706055,
+          "rgd_rel_sasa": 0.7827098369598389,
+          "rgd_bulky_probe_sasa_A2": 552.9567260742188,
+          "hydrophobic_face_rel_sasa": 0.2116115689277649,
+          "pharmacophore_A": 11.831208229064941,
+          "rgd_protrusion_A": 22.885324478149414,
+          "rgd_min_dist_to_scaffold_A": 4.485103130340576,
+          "graft_scaffold_clashes": 4,
+          "n_chains": 2,
+          "_traj_index": 4
+        }
+      ]
+    },
+    "C05_CH3-AB_S1": {
+      "n_samples": 5,
+      "payload": "FETLRGDLRILSILRHQNLLKEL",
+      "metrics": {
+        "helix_frac_core": {
+          "mean": 0.764,
+          "sd": 0.109,
+          "min": 0.545,
+          "max": 0.818,
+          "n": 5
+        },
+        "helix_frac_payload": {
+          "mean": 0.704,
+          "sd": 0.051,
+          "min": 0.609,
+          "max": 0.739,
+          "n": 5
+        },
+        "rmsd_to_6R2X_A": {
+          "mean": 4.677,
+          "sd": 0.112,
+          "min": 4.497,
+          "max": 4.796,
+          "n": 5
+        },
+        "end_to_end_A": {
+          "mean": 5.661,
+          "sd": 0.511,
+          "min": 4.75,
+          "max": 6.326,
+          "n": 5
+        },
+        "rgd_rel_sasa": {
+          "mean": 0.415,
+          "sd": 0.168,
+          "min": 0.192,
+          "max": 0.638,
+          "n": 5
+        },
+        "rgd_bulky_probe_sasa_A2": {
+          "mean": 207.396,
+          "sd": 163.599,
+          "min": 10.67,
+          "max": 456.556,
+          "n": 5
+        },
+        "hydrophobic_face_rel_sasa": {
+          "mean": 0.231,
+          "sd": 0.076,
+          "min": 0.09,
+          "max": 0.305,
+          "n": 5
+        },
+        "pharmacophore_A": {
+          "mean": 12.832,
+          "sd": 0.463,
+          "min": 12.086,
+          "max": 13.247,
+          "n": 5
+        },
+        "rgd_protrusion_A": {
+          "mean": 23.959,
+          "sd": 5.408,
+          "min": 16.4,
+          "max": 32.132,
+          "n": 5
+        },
+        "rgd_min_dist_to_scaffold_A": {
+          "mean": 3.107,
+          "sd": 1.138,
+          "min": 1.913,
+          "max": 5.275,
+          "n": 5
+        },
+        "graft_scaffold_clashes": {
+          "mean": 2.4,
+          "sd": 0.8,
+          "min": 2.0,
+          "max": 4.0,
+          "n": 5
+        }
+      },
+      "per_sample": [
+        {
+          "file": "sample_0.cif",
+          "helix_frac_core": 0.8181818181818182,
+          "helix_frac_payload": 0.6956521739130435,
+          "rmsd_to_6R2X_A": 4.68884574093083,
+          "end_to_end_A": 5.6601786613464355,
+          "rgd_rel_sasa": 0.5716940760612488,
+          "rgd_bulky_probe_sasa_A2": 237.79238891601562,
+          "hydrophobic_face_rel_sasa": 0.2854539155960083,
+          "pharmacophore_A": 12.493789672851562,
+          "rgd_protrusion_A": 27.59786033630371,
+          "rgd_min_dist_to_scaffold_A": 1.913028597831726,
+          "graft_scaffold_clashes": 4,
+          "n_chains": 2,
+          "_traj_index": 0
+        },
+        {
+          "file": "sample_1.cif",
+          "helix_frac_core": 0.8181818181818182,
+          "helix_frac_payload": 0.7391304347826086,
+          "rmsd_to_6R2X_A": 4.618896264742265,
+          "end_to_end_A": 6.325737953186035,
+          "rgd_rel_sasa": 0.6379426121711731,
+          "rgd_bulky_probe_sasa_A2": 456.55615234375,
+          "hydrophobic_face_rel_sasa": 0.2473333328962326,
+          "pharmacophore_A": 12.085796356201172,
+          "rgd_protrusion_A": 32.13245391845703,
+          "rgd_min_dist_to_scaffold_A": 5.275028705596924,
+          "graft_scaffold_clashes": 2,
+          "n_chains": 2,
+          "_traj_index": 1
+        },
+        {
+          "file": "sample_2.cif",
+          "helix_frac_core": 0.8181818181818182,
+          "helix_frac_payload": 0.7391304347826086,
+          "rmsd_to_6R2X_A": 4.496529785427808,
+          "end_to_end_A": 5.808157444000244,
+          "rgd_rel_sasa": 0.2844764292240143,
+          "rgd_bulky_probe_sasa_A2": 46.217315673828125,
+          "hydrophobic_face_rel_sasa": 0.2280205935239792,
+          "pharmacophore_A": 13.246549606323242,
+          "rgd_protrusion_A": 21.809125900268555,
+          "rgd_min_dist_to_scaffold_A": 2.7215402126312256,
+          "graft_scaffold_clashes": 2,
+          "n_chains": 2,
+          "_traj_index": 2
+        },
+        {
+          "file": "sample_3.cif",
+          "helix_frac_core": 0.5454545454545454,
+          "helix_frac_payload": 0.6086956521739131,
+          "rmsd_to_6R2X_A": 4.7964155855762565,
+          "end_to_end_A": 5.761340141296387,
+          "rgd_rel_sasa": 0.3877790868282318,
+          "rgd_bulky_probe_sasa_A2": 285.7419738769531,
+          "hydrophobic_face_rel_sasa": 0.30512115359306335,
+          "pharmacophore_A": 13.10876178741455,
+          "rgd_protrusion_A": 21.855934143066406,
+          "rgd_min_dist_to_scaffold_A": 2.6916208267211914,
+          "graft_scaffold_clashes": 2,
+          "n_chains": 2,
+          "_traj_index": 3
+        },
+        {
+          "file": "sample_4.cif",
+          "helix_frac_core": 0.8181818181818182,
+          "helix_frac_payload": 0.7391304347826086,
+          "rmsd_to_6R2X_A": 4.786389901529197,
+          "end_to_end_A": 4.750018119812012,
+          "rgd_rel_sasa": 0.19208188354969025,
+          "rgd_bulky_probe_sasa_A2": 10.670254707336426,
+          "hydrophobic_face_rel_sasa": 0.09007349610328674,
+          "pharmacophore_A": 13.222881317138672,
+          "rgd_protrusion_A": 16.400020599365234,
+          "rgd_min_dist_to_scaffold_A": 2.9315755367279053,
+          "graft_scaffold_clashes": 2,
+          "n_chains": 2,
+          "_traj_index": 4
+        }
+      ]
+    },
+    "C06_CH3-AB_S2": {
+      "n_samples": 5,
+      "payload": "FETLRGDLRILSILRHQNLLKEL",
+      "metrics": {
+        "helix_frac_core": {
+          "mean": 0.855,
+          "sd": 0.045,
+          "min": 0.818,
+          "max": 0.909,
+          "n": 5
+        },
+        "helix_frac_payload": {
+          "mean": 0.574,
+          "sd": 0.104,
+          "min": 0.391,
+          "max": 0.696,
+          "n": 5
+        },
+        "rmsd_to_6R2X_A": {
+          "mean": 4.292,
+          "sd": 0.379,
+          "min": 3.618,
+          "max": 4.646,
+          "n": 5
+        },
+        "end_to_end_A": {
+          "mean": 14.056,
+          "sd": 4.113,
+          "min": 8.368,
+          "max": 20.113,
+          "n": 5
+        },
+        "rgd_rel_sasa": {
+          "mean": 0.38,
+          "sd": 0.126,
+          "min": 0.233,
+          "max": 0.61,
+          "n": 5
+        },
+        "rgd_bulky_probe_sasa_A2": {
+          "mean": 230.818,
+          "sd": 81.066,
+          "min": 99.881,
+          "max": 344.846,
+          "n": 5
+        },
+        "hydrophobic_face_rel_sasa": {
+          "mean": 0.157,
+          "sd": 0.039,
+          "min": 0.118,
+          "max": 0.218,
+          "n": 5
+        },
+        "pharmacophore_A": {
+          "mean": 11.798,
+          "sd": 0.99,
+          "min": 10.108,
+          "max": 12.671,
+          "n": 5
+        },
+        "rgd_protrusion_A": {
+          "mean": 21.747,
+          "sd": 1.611,
+          "min": 20.291,
+          "max": 24.703,
+          "n": 5
+        },
+        "rgd_min_dist_to_scaffold_A": {
+          "mean": 2.842,
+          "sd": 0.391,
+          "min": 2.37,
+          "max": 3.318,
+          "n": 5
+        },
+        "graft_scaffold_clashes": {
+          "mean": 2.6,
+          "sd": 0.49,
+          "min": 2.0,
+          "max": 3.0,
+          "n": 5
+        }
+      },
+      "per_sample": [
+        {
+          "file": "sample_0.cif",
+          "helix_frac_core": 0.8181818181818182,
+          "helix_frac_payload": 0.6521739130434783,
+          "rmsd_to_6R2X_A": 4.64646691316307,
+          "end_to_end_A": 8.367897987365723,
+          "rgd_rel_sasa": 0.34459128975868225,
+          "rgd_bulky_probe_sasa_A2": 245.69845581054688,
+          "hydrophobic_face_rel_sasa": 0.13480497896671295,
+          "pharmacophore_A": 12.671003341674805,
+          "rgd_protrusion_A": 20.291475296020508,
+          "rgd_min_dist_to_scaffold_A": 3.2006280422210693,
+          "graft_scaffold_clashes": 3,
+          "n_chains": 2,
+          "_traj_index": 0
+        },
+        {
+          "file": "sample_1.cif",
+          "helix_frac_core": 0.9090909090909091,
+          "helix_frac_payload": 0.5652173913043478,
+          "rmsd_to_6R2X_A": 4.146255228464134,
+          "end_to_end_A": 13.827279090881348,
+          "rgd_rel_sasa": 0.6104558110237122,
+          "rgd_bulky_probe_sasa_A2": 344.84649658203125,
+          "hydrophobic_face_rel_sasa": 0.18878968060016632,
+          "pharmacophore_A": 12.620756149291992,
+          "rgd_protrusion_A": 24.702783584594727,
+          "rgd_min_dist_to_scaffold_A": 2.9037933349609375,
+          "graft_scaffold_clashes": 3,
+          "n_chains": 2,
+          "_traj_index": 1
+        },
+        {
+          "file": "sample_2.cif",
+          "helix_frac_core": 0.9090909090909091,
+          "helix_frac_payload": 0.5652173913043478,
+          "rmsd_to_6R2X_A": 3.6183770750333286,
+          "end_to_end_A": 20.11252784729004,
+          "rgd_rel_sasa": 0.2334335297346115,
+          "rgd_bulky_probe_sasa_A2": 267.1053466796875,
+          "hydrophobic_face_rel_sasa": 0.1264439970254898,
+          "pharmacophore_A": 11.247319221496582,
+          "rgd_protrusion_A": 21.136859893798828,
+          "rgd_min_dist_to_scaffold_A": 2.370434045791626,
+          "graft_scaffold_clashes": 3,
+          "n_chains": 2,
+          "_traj_index": 2
+        },
+        {
+          "file": "sample_3.cif",
+          "helix_frac_core": 0.8181818181818182,
+          "helix_frac_payload": 0.391304347826087,
+          "rmsd_to_6R2X_A": 4.590647677744642,
+          "end_to_end_A": 11.20409107208252,
+          "rgd_rel_sasa": 0.3198052644729614,
+          "rgd_bulky_probe_sasa_A2": 99.8814926147461,
+          "hydrophobic_face_rel_sasa": 0.11762138456106186,
+          "pharmacophore_A": 10.107645034790039,
+          "rgd_protrusion_A": 22.122358322143555,
+          "rgd_min_dist_to_scaffold_A": 2.4161410331726074,
+          "graft_scaffold_clashes": 2,
+          "n_chains": 2,
+          "_traj_index": 3
+        },
+        {
+          "file": "sample_4.cif",
+          "helix_frac_core": 0.8181818181818182,
+          "helix_frac_payload": 0.6956521739130435,
+          "rmsd_to_6R2X_A": 4.45650925852665,
+          "end_to_end_A": 16.769102096557617,
+          "rgd_rel_sasa": 0.38936224579811096,
+          "rgd_bulky_probe_sasa_A2": 196.5573272705078,
+          "hydrophobic_face_rel_sasa": 0.21808688342571259,
+          "pharmacophore_A": 12.345209121704102,
+          "rgd_protrusion_A": 20.481393814086914,
+          "rgd_min_dist_to_scaffold_A": 3.318328857421875,
+          "graft_scaffold_clashes": 2,
+          "n_chains": 2,
+          "_traj_index": 4
+        }
+      ]
+    },
+    "C07_CH3-AB_S3": {
+      "n_samples": 5,
+      "payload": "FETLRGDLRILSILRHQNLLKEL",
+      "metrics": {
+        "helix_frac_core": {
+          "mean": 0.836,
+          "sd": 0.036,
+          "min": 0.818,
+          "max": 0.909,
+          "n": 5
+        },
+        "helix_frac_payload": {
+          "mean": 0.574,
+          "sd": 0.033,
+          "min": 0.522,
+          "max": 0.609,
+          "n": 5
+        },
+        "rmsd_to_6R2X_A": {
+          "mean": 5.144,
+          "sd": 0.231,
+          "min": 4.871,
+          "max": 5.519,
+          "n": 5
+        },
+        "end_to_end_A": {
+          "mean": 6.179,
+          "sd": 0.891,
+          "min": 5.204,
+          "max": 7.723,
+          "n": 5
+        },
+        "rgd_rel_sasa": {
+          "mean": 0.319,
+          "sd": 0.155,
+          "min": 0.068,
+          "max": 0.509,
+          "n": 5
+        },
+        "rgd_bulky_probe_sasa_A2": {
+          "mean": 101.108,
+          "sd": 73.484,
+          "min": 0.0,
+          "max": 187.331,
+          "n": 5
+        },
+        "hydrophobic_face_rel_sasa": {
+          "mean": 0.167,
+          "sd": 0.046,
+          "min": 0.115,
+          "max": 0.25,
+          "n": 5
+        },
+        "pharmacophore_A": {
+          "mean": 12.667,
+          "sd": 0.499,
+          "min": 11.792,
+          "max": 13.139,
+          "n": 5
+        },
+        "rgd_protrusion_A": {
+          "mean": 20.194,
+          "sd": 2.118,
+          "min": 17.625,
+          "max": 22.616,
+          "n": 5
+        },
+        "rgd_min_dist_to_scaffold_A": {
+          "mean": 2.525,
+          "sd": 0.541,
+          "min": 1.715,
+          "max": 3.406,
+          "n": 5
+        },
+        "graft_scaffold_clashes": {
+          "mean": 2.6,
+          "sd": 0.49,
+          "min": 2.0,
+          "max": 3.0,
+          "n": 5
+        }
+      },
+      "per_sample": [
+        {
+          "file": "sample_0.cif",
+          "helix_frac_core": 0.9090909090909091,
+          "helix_frac_payload": 0.6086956521739131,
+          "rmsd_to_6R2X_A": 5.277710343507746,
+          "end_to_end_A": 5.452920913696289,
+          "rgd_rel_sasa": 0.22457672655582428,
+          "rgd_bulky_probe_sasa_A2": 32.572357177734375,
+          "hydrophobic_face_rel_sasa": 0.16227106750011444,
+          "pharmacophore_A": 11.79201602935791,
+          "rgd_protrusion_A": 17.747068405151367,
+          "rgd_min_dist_to_scaffold_A": 2.460179090499878,
+          "graft_scaffold_clashes": 2,
+          "n_chains": 2,
+          "_traj_index": 0
+        },
+        {
+          "file": "sample_1.cif",
+          "helix_frac_core": 0.8181818181818182,
+          "helix_frac_payload": 0.5652173913043478,
+          "rmsd_to_6R2X_A": 4.871496271922273,
+          "end_to_end_A": 6.46976900100708,
+          "rgd_rel_sasa": 0.06801256537437439,
+          "rgd_bulky_probe_sasa_A2": 0.0,
+          "hydrophobic_face_rel_sasa": 0.24953897297382355,
+          "pharmacophore_A": 13.034523963928223,
+          "rgd_protrusion_A": 17.62490463256836,
+          "rgd_min_dist_to_scaffold_A": 2.634305000305176,
+          "graft_scaffold_clashes": 3,
+          "n_chains": 2,
+          "_traj_index": 1
+        },
+        {
+          "file": "sample_2.cif",
+          "helix_frac_core": 0.8181818181818182,
+          "helix_frac_payload": 0.6086956521739131,
+          "rmsd_to_6R2X_A": 5.5191139171683625,
+          "end_to_end_A": 6.043417930603027,
+          "rgd_rel_sasa": 0.41052258014678955,
+          "rgd_bulky_probe_sasa_A2": 166.96310424804688,
+          "hydrophobic_face_rel_sasa": 0.11459910869598389,
+          "pharmacophore_A": 12.438719749450684,
+          "rgd_protrusion_A": 20.938995361328125,
+          "rgd_min_dist_to_scaffold_A": 2.4110074043273926,
+          "graft_scaffold_clashes": 2,
+          "n_chains": 2,
+          "_traj_index": 2
+        },
+        {
+          "file": "sample_3.cif",
+          "helix_frac_core": 0.8181818181818182,
+          "helix_frac_payload": 0.5652173913043478,
+          "rmsd_to_6R2X_A": 4.975488077890587,
+          "end_to_end_A": 5.203784942626953,
+          "rgd_rel_sasa": 0.3842606842517853,
+          "rgd_bulky_probe_sasa_A2": 118.67253112792969,
+          "hydrophobic_face_rel_sasa": 0.13545991480350494,
+          "pharmacophore_A": 13.138774871826172,
+          "rgd_protrusion_A": 22.616409301757812,
+          "rgd_min_dist_to_scaffold_A": 1.7154755592346191,
+          "graft_scaffold_clashes": 3,
+          "n_chains": 2,
+          "_traj_index": 3
+        },
+        {
+          "file": "sample_4.cif",
+          "helix_frac_core": 0.8181818181818182,
+          "helix_frac_payload": 0.5217391304347826,
+          "rmsd_to_6R2X_A": 5.0759939998805805,
+          "end_to_end_A": 7.723193168640137,
+          "rgd_rel_sasa": 0.5089476704597473,
+          "rgd_bulky_probe_sasa_A2": 187.33074951171875,
+          "hydrophobic_face_rel_sasa": 0.17348402738571167,
+          "pharmacophore_A": 12.932257652282715,
+          "rgd_protrusion_A": 22.043088912963867,
+          "rgd_min_dist_to_scaffold_A": 3.406447649002075,
+          "graft_scaffold_clashes": 3,
+          "n_chains": 2,
+          "_traj_index": 4
+        }
+      ]
+    },
+    "C08_CH3-AB_S4": {
+      "n_samples": 5,
+      "payload": "FETLRGDLRILSILRHQN",
+      "metrics": {
+        "helix_frac_core": {
+          "mean": 0.0,
+          "sd": 0.0,
+          "min": 0.0,
+          "max": 0.0,
+          "n": 5
+        },
+        "helix_frac_payload": {
+          "mean": 0.044,
+          "sd": 0.089,
+          "min": 0.0,
+          "max": 0.222,
+          "n": 5
+        },
+        "rmsd_to_6R2X_A": {
+          "mean": 5.824,
+          "sd": 0.52,
+          "min": 5.3,
+          "max": 6.489,
+          "n": 5
+        },
+        "end_to_end_A": {
+          "mean": 20.566,
+          "sd": 7.18,
+          "min": 8.227,
+          "max": 29.613,
+          "n": 5
+        },
+        "rgd_rel_sasa": {
+          "mean": 0.275,
+          "sd": 0.157,
+          "min": 0.108,
+          "max": 0.553,
+          "n": 5
+        },
+        "rgd_bulky_probe_sasa_A2": {
+          "mean": 72.712,
+          "sd": 106.351,
+          "min": 0.0,
+          "max": 281.511,
+          "n": 5
+        },
+        "hydrophobic_face_rel_sasa": {
+          "mean": 0.379,
+          "sd": 0.04,
+          "min": 0.305,
+          "max": 0.421,
+          "n": 5
+        },
+        "pharmacophore_A": {
+          "mean": 11.161,
+          "sd": 3.172,
+          "min": 5.425,
+          "max": 14.562,
+          "n": 5
+        },
+        "rgd_protrusion_A": {
+          "mean": 16.858,
+          "sd": 2.696,
+          "min": 12.358,
+          "max": 19.547,
+          "n": 5
+        },
+        "rgd_min_dist_to_scaffold_A": {
+          "mean": 2.575,
+          "sd": 0.142,
+          "min": 2.403,
+          "max": 2.83,
+          "n": 5
+        },
+        "graft_scaffold_clashes": {
+          "mean": 2.6,
+          "sd": 0.8,
+          "min": 2.0,
+          "max": 4.0,
+          "n": 5
+        }
+      },
+      "per_sample": [
+        {
+          "file": "sample_0.cif",
+          "helix_frac_core": 0.0,
+          "helix_frac_payload": 0.0,
+          "rmsd_to_6R2X_A": 5.300145837535128,
+          "end_to_end_A": 8.227261543273926,
+          "rgd_rel_sasa": 0.17727410793304443,
+          "rgd_bulky_probe_sasa_A2": 25.258737564086914,
+          "hydrophobic_face_rel_sasa": 0.3894073963165283,
+          "pharmacophore_A": 10.370864868164062,
+          "rgd_protrusion_A": 15.225005149841309,
+          "rgd_min_dist_to_scaffold_A": 2.5604002475738525,
+          "graft_scaffold_clashes": 4,
+          "n_chains": 2,
+          "_traj_index": 0
+        },
+        {
+          "file": "sample_1.cif",
+          "helix_frac_core": 0.0,
+          "helix_frac_payload": 0.0,
+          "rmsd_to_6R2X_A": 5.520811803254644,
+          "end_to_end_A": 19.745826721191406,
+          "rgd_rel_sasa": 0.10835228115320206,
+          "rgd_bulky_probe_sasa_A2": 0.0,
+          "hydrophobic_face_rel_sasa": 0.37154513597488403,
+          "pharmacophore_A": 13.128134727478027,
+          "rgd_protrusion_A": 12.357768058776855,
+          "rgd_min_dist_to_scaffold_A": 2.4970285892486572,
+          "graft_scaffold_clashes": 3,
+          "n_chains": 2,
+          "_traj_index": 1
+        },
+        {
+          "file": "sample_2.cif",
+          "helix_frac_core": 0.0,
+          "helix_frac_payload": 0.0,
+          "rmsd_to_6R2X_A": 6.48857824354648,
+          "end_to_end_A": 25.318687438964844,
+          "rgd_rel_sasa": 0.33070555329322815,
+          "rgd_bulky_probe_sasa_A2": 1.112919807434082,
+          "hydrophobic_face_rel_sasa": 0.30489131808280945,
+          "pharmacophore_A": 5.425065040588379,
+          "rgd_protrusion_A": 18.223915100097656,
+          "rgd_min_dist_to_scaffold_A": 2.8300833702087402,
+          "graft_scaffold_clashes": 2,
+          "n_chains": 2,
+          "_traj_index": 2
+        },
+        {
+          "file": "sample_3.cif",
+          "helix_frac_core": 0.0,
+          "helix_frac_payload": 0.0,
+          "rmsd_to_6R2X_A": 5.390445178520671,
+          "end_to_end_A": 19.925336837768555,
+          "rgd_rel_sasa": 0.5533900856971741,
+          "rgd_bulky_probe_sasa_A2": 281.51092529296875,
+          "hydrophobic_face_rel_sasa": 0.4207615852355957,
+          "pharmacophore_A": 14.561541557312012,
+          "rgd_protrusion_A": 18.935470581054688,
+          "rgd_min_dist_to_scaffold_A": 2.5842337608337402,
+          "graft_scaffold_clashes": 2,
+          "n_chains": 2,
+          "_traj_index": 3
+        },
+        {
+          "file": "sample_4.cif",
+          "helix_frac_core": 0.0,
+          "helix_frac_payload": 0.2222222222222222,
+          "rmsd_to_6R2X_A": 6.421896240368506,
+          "end_to_end_A": 29.6131649017334,
+          "rgd_rel_sasa": 0.20751816034317017,
+          "rgd_bulky_probe_sasa_A2": 55.675689697265625,
+          "hydrophobic_face_rel_sasa": 0.4069939851760864,
+          "pharmacophore_A": 12.321483612060547,
+          "rgd_protrusion_A": 19.54656982421875,
+          "rgd_min_dist_to_scaffold_A": 2.402550220489502,
+          "graft_scaffold_clashes": 2,
+          "n_chains": 2,
+          "_traj_index": 4
+        }
+      ]
+    },
+    "C09_CH3-CD_S1": {
+      "n_samples": 5,
+      "payload": "FETLRGDLRILSILRHQNLLKEL",
+      "metrics": {
+        "helix_frac_core": {
+          "mean": 0.836,
+          "sd": 0.036,
+          "min": 0.818,
+          "max": 0.909,
+          "n": 5
+        },
+        "helix_frac_payload": {
+          "mean": 0.609,
+          "sd": 0.163,
+          "min": 0.391,
+          "max": 0.783,
+          "n": 5
+        },
+        "rmsd_to_6R2X_A": {
+          "mean": 4.683,
+          "sd": 0.317,
+          "min": 4.368,
+          "max": 5.293,
+          "n": 5
+        },
+        "end_to_end_A": {
+          "mean": 7.33,
+          "sd": 2.009,
+          "min": 5.008,
+          "max": 10.666,
+          "n": 5
+        },
+        "rgd_rel_sasa": {
+          "mean": 0.498,
+          "sd": 0.074,
+          "min": 0.416,
+          "max": 0.628,
+          "n": 5
+        },
+        "rgd_bulky_probe_sasa_A2": {
+          "mean": 280.511,
+          "sd": 78.144,
+          "min": 221.347,
+          "max": 426.633,
+          "n": 5
+        },
+        "hydrophobic_face_rel_sasa": {
+          "mean": 0.212,
+          "sd": 0.027,
+          "min": 0.17,
+          "max": 0.25,
+          "n": 5
+        },
+        "pharmacophore_A": {
+          "mean": 12.33,
+          "sd": 0.745,
+          "min": 11.293,
+          "max": 13.393,
+          "n": 5
+        },
+        "rgd_protrusion_A": {
+          "mean": 26.058,
+          "sd": 3.009,
+          "min": 22.757,
+          "max": 29.762,
+          "n": 5
+        },
+        "rgd_min_dist_to_scaffold_A": {
+          "mean": 2.98,
+          "sd": 0.356,
+          "min": 2.521,
+          "max": 3.428,
+          "n": 5
+        },
+        "graft_scaffold_clashes": {
+          "mean": 2.6,
+          "sd": 1.2,
+          "min": 2.0,
+          "max": 5.0,
+          "n": 5
+        }
+      },
+      "per_sample": [
+        {
+          "file": "sample_0.cif",
+          "helix_frac_core": 0.8181818181818182,
+          "helix_frac_payload": 0.7391304347826086,
+          "rmsd_to_6R2X_A": 4.598211790169279,
+          "end_to_end_A": 5.694475173950195,
+          "rgd_rel_sasa": 0.46777477860450745,
+          "rgd_bulky_probe_sasa_A2": 224.59262084960938,
+          "hydrophobic_face_rel_sasa": 0.25025779008865356,
+          "pharmacophore_A": 12.745536804199219,
+          "rgd_protrusion_A": 29.57866859436035,
+          "rgd_min_dist_to_scaffold_A": 2.600508451461792,
+          "graft_scaffold_clashes": 2,
+          "n_chains": 2,
+          "_traj_index": 0
+        },
+        {
+          "file": "sample_1.cif",
+          "helix_frac_core": 0.8181818181818182,
+          "helix_frac_payload": 0.391304347826087,
+          "rmsd_to_6R2X_A": 4.36847715400906,
+          "end_to_end_A": 10.665755271911621,
+          "rgd_rel_sasa": 0.4162532091140747,
+          "rgd_bulky_probe_sasa_A2": 297.1773376464844,
+          "hydrophobic_face_rel_sasa": 0.17047946155071259,
+          "pharmacophore_A": 11.29335880279541,
+          "rgd_protrusion_A": 22.75664520263672,
+          "rgd_min_dist_to_scaffold_A": 2.5206568241119385,
+          "graft_scaffold_clashes": 2,
+          "n_chains": 2,
+          "_traj_index": 1
+        },
+        {
+          "file": "sample_2.cif",
+          "helix_frac_core": 0.8181818181818182,
+          "helix_frac_payload": 0.6956521739130435,
+          "rmsd_to_6R2X_A": 4.5937191356362925,
+          "end_to_end_A": 5.007603168487549,
+          "rgd_rel_sasa": 0.4517044126987457,
+          "rgd_bulky_probe_sasa_A2": 221.3470001220703,
+          "hydrophobic_face_rel_sasa": 0.2277677059173584,
+          "pharmacophore_A": 13.39295482635498,
+          "rgd_protrusion_A": 29.76212501525879,
+          "rgd_min_dist_to_scaffold_A": 3.2070255279541016,
+          "graft_scaffold_clashes": 2,
+          "n_chains": 2,
+          "_traj_index": 2
+        },
+        {
+          "file": "sample_3.cif",
+          "helix_frac_core": 0.9090909090909091,
+          "helix_frac_payload": 0.43478260869565216,
+          "rmsd_to_6R2X_A": 5.293442375631336,
+          "end_to_end_A": 8.267291069030762,
+          "rgd_rel_sasa": 0.6283032894134521,
+          "rgd_bulky_probe_sasa_A2": 426.6325988769531,
+          "hydrophobic_face_rel_sasa": 0.19456863403320312,
+          "pharmacophore_A": 11.723405838012695,
+          "rgd_protrusion_A": 23.572805404663086,
+          "rgd_min_dist_to_scaffold_A": 3.142733097076416,
+          "graft_scaffold_clashes": 5,
+          "n_chains": 2,
+          "_traj_index": 3
+        },
+        {
+          "file": "sample_4.cif",
+          "helix_frac_core": 0.8181818181818182,
+          "helix_frac_payload": 0.782608695652174,
+          "rmsd_to_6R2X_A": 4.560182773666994,
+          "end_to_end_A": 7.017002582550049,
+          "rgd_rel_sasa": 0.527860164642334,
+          "rgd_bulky_probe_sasa_A2": 232.80494689941406,
+          "hydrophobic_face_rel_sasa": 0.2167513221502304,
+          "pharmacophore_A": 12.495213508605957,
+          "rgd_protrusion_A": 24.619535446166992,
+          "rgd_min_dist_to_scaffold_A": 3.427793264389038,
+          "graft_scaffold_clashes": 2,
+          "n_chains": 2,
+          "_traj_index": 4
+        }
+      ]
+    },
+    "C10_CH3-CD_S2": {
+      "n_samples": 5,
+      "payload": "FETLRGDLRILSILRHQNLLKEL",
+      "metrics": {
+        "helix_frac_core": {
+          "mean": 0.836,
+          "sd": 0.036,
+          "min": 0.818,
+          "max": 0.909,
+          "n": 5
+        },
+        "helix_frac_payload": {
+          "mean": 0.635,
+          "sd": 0.125,
+          "min": 0.391,
+          "max": 0.739,
+          "n": 5
+        },
+        "rmsd_to_6R2X_A": {
+          "mean": 4.349,
+          "sd": 0.539,
+          "min": 3.489,
+          "max": 5.161,
+          "n": 5
+        },
+        "end_to_end_A": {
+          "mean": 18.98,
+          "sd": 5.219,
+          "min": 10.584,
+          "max": 26.478,
+          "n": 5
+        },
+        "rgd_rel_sasa": {
+          "mean": 0.293,
+          "sd": 0.097,
+          "min": 0.188,
+          "max": 0.448,
+          "n": 5
+        },
+        "rgd_bulky_probe_sasa_A2": {
+          "mean": 119.419,
+          "sd": 54.947,
+          "min": 33.275,
+          "max": 182.034,
+          "n": 5
+        },
+        "hydrophobic_face_rel_sasa": {
+          "mean": 0.278,
+          "sd": 0.065,
+          "min": 0.17,
+          "max": 0.343,
+          "n": 5
+        },
+        "pharmacophore_A": {
+          "mean": 12.104,
+          "sd": 0.764,
+          "min": 10.819,
+          "max": 13.098,
+          "n": 5
+        },
+        "rgd_protrusion_A": {
+          "mean": 25.362,
+          "sd": 3.499,
+          "min": 18.517,
+          "max": 28.127,
+          "n": 5
+        },
+        "rgd_min_dist_to_scaffold_A": {
+          "mean": 2.633,
+          "sd": 0.227,
+          "min": 2.19,
+          "max": 2.831,
+          "n": 5
+        },
+        "graft_scaffold_clashes": {
+          "mean": 3.0,
+          "sd": 0.632,
+          "min": 2.0,
+          "max": 4.0,
+          "n": 5
+        }
+      },
+      "per_sample": [
+        {
+          "file": "sample_0.cif",
+          "helix_frac_core": 0.8181818181818182,
+          "helix_frac_payload": 0.6956521739130435,
+          "rmsd_to_6R2X_A": 4.22317881235819,
+          "end_to_end_A": 26.47752571105957,
+          "rgd_rel_sasa": 0.18847422301769257,
+          "rgd_bulky_probe_sasa_A2": 78.9006576538086,
+          "hydrophobic_face_rel_sasa": 0.32828372716903687,
+          "pharmacophore_A": 10.81948184967041,
+          "rgd_protrusion_A": 27.41193389892578,
+          "rgd_min_dist_to_scaffold_A": 2.8312559127807617,
+          "graft_scaffold_clashes": 3,
+          "n_chains": 2,
+          "_traj_index": 0
+        },
+        {
+          "file": "sample_1.cif",
+          "helix_frac_core": 0.9090909090909091,
+          "helix_frac_payload": 0.7391304347826086,
+          "rmsd_to_6R2X_A": 4.3238545245070465,
+          "end_to_end_A": 19.27665138244629,
+          "rgd_rel_sasa": 0.25264212489128113,
+          "rgd_bulky_probe_sasa_A2": 182.03396606445312,
+          "hydrophobic_face_rel_sasa": 0.3118186295032501,
+          "pharmacophore_A": 11.879373550415039,
+          "rgd_protrusion_A": 28.126657485961914,
+          "rgd_min_dist_to_scaffold_A": 2.7473599910736084,
+          "graft_scaffold_clashes": 4,
+          "n_chains": 2,
+          "_traj_index": 1
+        },
+        {
+          "file": "sample_2.cif",
+          "helix_frac_core": 0.8181818181818182,
+          "helix_frac_payload": 0.6521739130434783,
+          "rmsd_to_6R2X_A": 4.548053604481904,
+          "end_to_end_A": 17.13509750366211,
+          "rgd_rel_sasa": 0.35890889167785645,
+          "rgd_bulky_probe_sasa_A2": 156.99856567382812,
+          "hydrophobic_face_rel_sasa": 0.23634879291057587,
+          "pharmacophore_A": 12.578984260559082,
+          "rgd_protrusion_A": 26.84705924987793,
+          "rgd_min_dist_to_scaffold_A": 2.7257227897644043,
+          "graft_scaffold_clashes": 2,
+          "n_chains": 2,
+          "_traj_index": 2
+        },
+        {
+          "file": "sample_3.cif",
+          "helix_frac_core": 0.8181818181818182,
+          "helix_frac_payload": 0.6956521739130435,
+          "rmsd_to_6R2X_A": 3.48904483136744,
+          "end_to_end_A": 21.424461364746094,
+          "rgd_rel_sasa": 0.2153567224740982,
+          "rgd_bulky_probe_sasa_A2": 145.88572692871094,
+          "hydrophobic_face_rel_sasa": 0.34344756603240967,
+          "pharmacophore_A": 12.143741607666016,
+          "rgd_protrusion_A": 25.909317016601562,
+          "rgd_min_dist_to_scaffold_A": 2.6691160202026367,
+          "graft_scaffold_clashes": 3,
+          "n_chains": 2,
+          "_traj_index": 3
+        },
+        {
+          "file": "sample_4.cif",
+          "helix_frac_core": 0.8181818181818182,
+          "helix_frac_payload": 0.391304347826087,
+          "rmsd_to_6R2X_A": 5.161076277119908,
+          "end_to_end_A": 10.583819389343262,
+          "rgd_rel_sasa": 0.4478021562099457,
+          "rgd_bulky_probe_sasa_A2": 33.275001525878906,
+          "hydrophobic_face_rel_sasa": 0.1700640469789505,
+          "pharmacophore_A": 13.097615242004395,
+          "rgd_protrusion_A": 18.516515731811523,
+          "rgd_min_dist_to_scaffold_A": 2.1901907920837402,
+          "graft_scaffold_clashes": 3,
+          "n_chains": 2,
+          "_traj_index": 4
+        }
+      ]
+    },
+    "C11_CH3-CD_S3": {
+      "n_samples": 5,
+      "payload": "FETLRGDLRILSILRHQNLLKEL",
+      "metrics": {
+        "helix_frac_core": {
+          "mean": 0.818,
+          "sd": 0.0,
+          "min": 0.818,
+          "max": 0.818,
+          "n": 5
+        },
+        "helix_frac_payload": {
+          "mean": 0.443,
+          "sd": 0.064,
+          "min": 0.391,
+          "max": 0.522,
+          "n": 5
+        },
+        "rmsd_to_6R2X_A": {
+          "mean": 4.982,
+          "sd": 0.287,
+          "min": 4.633,
+          "max": 5.386,
+          "n": 5
+        },
+        "end_to_end_A": {
+          "mean": 8.875,
+          "sd": 1.53,
+          "min": 6.133,
+          "max": 10.863,
+          "n": 5
+        },
+        "rgd_rel_sasa": {
+          "mean": 0.578,
+          "sd": 0.037,
+          "min": 0.532,
+          "max": 0.628,
+          "n": 5
+        },
+        "rgd_bulky_probe_sasa_A2": {
+          "mean": 374.83,
+          "sd": 59.671,
+          "min": 276.857,
+          "max": 457.015,
+          "n": 5
+        },
+        "hydrophobic_face_rel_sasa": {
+          "mean": 0.316,
+          "sd": 0.017,
+          "min": 0.299,
+          "max": 0.348,
+          "n": 5
+        },
+        "pharmacophore_A": {
+          "mean": 11.154,
+          "sd": 1.706,
+          "min": 8.456,
+          "max": 12.925,
+          "n": 5
+        },
+        "rgd_protrusion_A": {
+          "mean": 28.446,
+          "sd": 4.905,
+          "min": 23.245,
+          "max": 36.015,
+          "n": 5
+        },
+        "rgd_min_dist_to_scaffold_A": {
+          "mean": 3.405,
+          "sd": 0.283,
+          "min": 2.948,
+          "max": 3.689,
+          "n": 5
+        },
+        "graft_scaffold_clashes": {
+          "mean": 2.2,
+          "sd": 0.4,
+          "min": 2.0,
+          "max": 3.0,
+          "n": 5
+        }
+      },
+      "per_sample": [
+        {
+          "file": "sample_0.cif",
+          "helix_frac_core": 0.8181818181818182,
+          "helix_frac_payload": 0.5217391304347826,
+          "rmsd_to_6R2X_A": 4.679558826914019,
+          "end_to_end_A": 10.86345386505127,
+          "rgd_rel_sasa": 0.5759963989257812,
+          "rgd_bulky_probe_sasa_A2": 276.856689453125,
+          "hydrophobic_face_rel_sasa": 0.34839001297950745,
+          "pharmacophore_A": 12.925124168395996,
+          "rgd_protrusion_A": 27.65213394165039,
+          "rgd_min_dist_to_scaffold_A": 3.6885602474212646,
+          "graft_scaffold_clashes": 2,
+          "n_chains": 2,
+          "_traj_index": 0
+        },
+        {
+          "file": "sample_1.cif",
+          "helix_frac_core": 0.8181818181818182,
+          "helix_frac_payload": 0.391304347826087,
+          "rmsd_to_6R2X_A": 5.1635710852951995,
+          "end_to_end_A": 8.962187767028809,
+          "rgd_rel_sasa": 0.54339998960495,
+          "rgd_bulky_probe_sasa_A2": 369.93682861328125,
+          "hydrophobic_face_rel_sasa": 0.31427544355392456,
+          "pharmacophore_A": 12.252889633178711,
+          "rgd_protrusion_A": 23.53000831604004,
+          "rgd_min_dist_to_scaffold_A": 3.587017059326172,
+          "graft_scaffold_clashes": 3,
+          "n_chains": 2,
+          "_traj_index": 1
+        },
+        {
+          "file": "sample_2.cif",
+          "helix_frac_core": 0.8181818181818182,
+          "helix_frac_payload": 0.391304347826087,
+          "rmsd_to_6R2X_A": 5.385559005487998,
+          "end_to_end_A": 6.133307456970215,
+          "rgd_rel_sasa": 0.6280695796012878,
+          "rgd_bulky_probe_sasa_A2": 457.0149841308594,
+          "hydrophobic_face_rel_sasa": 0.2994135320186615,
+          "pharmacophore_A": 9.860283851623535,
+          "rgd_protrusion_A": 36.01525115966797,
+          "rgd_min_dist_to_scaffold_A": 3.5986056327819824,
+          "graft_scaffold_clashes": 2,
+          "n_chains": 2,
+          "_traj_index": 2
+        },
+        {
+          "file": "sample_3.cif",
+          "helix_frac_core": 0.8181818181818182,
+          "helix_frac_payload": 0.5217391304347826,
+          "rmsd_to_6R2X_A": 4.6333157405453145,
+          "end_to_end_A": 9.266350746154785,
+          "rgd_rel_sasa": 0.6089444756507874,
+          "rgd_bulky_probe_sasa_A2": 360.5519714355469,
+          "hydrophobic_face_rel_sasa": 0.31271684169769287,
+          "pharmacophore_A": 12.273890495300293,
+          "rgd_protrusion_A": 31.788358688354492,
+          "rgd_min_dist_to_scaffold_A": 3.204716205596924,
+          "graft_scaffold_clashes": 2,
+          "n_chains": 2,
+          "_traj_index": 3
+        },
+        {
+          "file": "sample_4.cif",
+          "helix_frac_core": 0.8181818181818182,
+          "helix_frac_payload": 0.391304347826087,
+          "rmsd_to_6R2X_A": 5.047207964317061,
+          "end_to_end_A": 9.149395942687988,
+          "rgd_rel_sasa": 0.53192538022995,
+          "rgd_bulky_probe_sasa_A2": 409.78839111328125,
+          "hydrophobic_face_rel_sasa": 0.303592324256897,
+          "pharmacophore_A": 8.456063270568848,
+          "rgd_protrusion_A": 23.24483299255371,
+          "rgd_min_dist_to_scaffold_A": 2.947619915008545,
+          "graft_scaffold_clashes": 2,
+          "n_chains": 2,
+          "_traj_index": 4
+        }
+      ]
+    },
+    "C12_CH3-CD_S4": {
+      "n_samples": 5,
+      "payload": "FETLRGDLRILSILRHQN",
+      "metrics": {
+        "helix_frac_core": {
+          "mean": 0.709,
+          "sd": 0.226,
+          "min": 0.364,
+          "max": 1.0,
+          "n": 5
+        },
+        "helix_frac_payload": {
+          "mean": 0.489,
+          "sd": 0.226,
+          "min": 0.222,
+          "max": 0.889,
+          "n": 5
+        },
+        "rmsd_to_6R2X_A": {
+          "mean": 3.317,
+          "sd": 0.967,
+          "min": 1.721,
+          "max": 4.372,
+          "n": 5
+        },
+        "end_to_end_A": {
+          "mean": 10.907,
+          "sd": 4.287,
+          "min": 5.868,
+          "max": 18.678,
+          "n": 5
+        },
+        "rgd_rel_sasa": {
+          "mean": 0.405,
+          "sd": 0.107,
+          "min": 0.247,
+          "max": 0.572,
+          "n": 5
+        },
+        "rgd_bulky_probe_sasa_A2": {
+          "mean": 213.135,
+          "sd": 80.278,
+          "min": 100.904,
+          "max": 330.524,
+          "n": 5
+        },
+        "hydrophobic_face_rel_sasa": {
+          "mean": 0.266,
+          "sd": 0.041,
+          "min": 0.204,
+          "max": 0.321,
+          "n": 5
+        },
+        "pharmacophore_A": {
+          "mean": 12.684,
+          "sd": 0.703,
+          "min": 11.888,
+          "max": 13.62,
+          "n": 5
+        },
+        "rgd_protrusion_A": {
+          "mean": 21.891,
+          "sd": 4.881,
+          "min": 18.366,
+          "max": 30.917,
+          "n": 5
+        },
+        "rgd_min_dist_to_scaffold_A": {
+          "mean": 2.265,
+          "sd": 0.363,
+          "min": 1.685,
+          "max": 2.669,
+          "n": 5
+        },
+        "graft_scaffold_clashes": {
+          "mean": 3.4,
+          "sd": 1.02,
+          "min": 2.0,
+          "max": 5.0,
+          "n": 5
+        }
+      },
+      "per_sample": [
+        {
+          "file": "sample_0.cif",
+          "helix_frac_core": 1.0,
+          "helix_frac_payload": 0.8888888888888888,
+          "rmsd_to_6R2X_A": 2.7165500542551593,
+          "end_to_end_A": 18.677635192871094,
+          "rgd_rel_sasa": 0.2468782216310501,
+          "rgd_bulky_probe_sasa_A2": 100.90400695800781,
+          "hydrophobic_face_rel_sasa": 0.32142993807792664,
+          "pharmacophore_A": 11.975215911865234,
+          "rgd_protrusion_A": 23.233762741088867,
+          "rgd_min_dist_to_scaffold_A": 2.309875965118408,
+          "graft_scaffold_clashes": 3,
+          "n_chains": 2,
+          "_traj_index": 0
+        },
+        {
+          "file": "sample_1.cif",
+          "helix_frac_core": 0.6363636363636364,
+          "helix_frac_payload": 0.3888888888888889,
+          "rmsd_to_6R2X_A": 3.9290665393005964,
+          "end_to_end_A": 9.054777145385742,
+          "rgd_rel_sasa": 0.40500107407569885,
+          "rgd_bulky_probe_sasa_A2": 150.39419555664062,
+          "hydrophobic_face_rel_sasa": 0.24797284603118896,
+          "pharmacophore_A": 13.62006664276123,
+          "rgd_protrusion_A": 18.52002716064453,
+          "rgd_min_dist_to_scaffold_A": 2.601759910583496,
+          "graft_scaffold_clashes": 2,
+          "n_chains": 2,
+          "_traj_index": 1
+        },
+        {
+          "file": "sample_2.cif",
+          "helix_frac_core": 0.9090909090909091,
+          "helix_frac_payload": 0.5555555555555556,
+          "rmsd_to_6R2X_A": 1.7214107777588221,
+          "end_to_end_A": 11.536568641662598,
+          "rgd_rel_sasa": 0.5721672177314758,
+          "rgd_bulky_probe_sasa_A2": 330.5244445800781,
+          "hydrophobic_face_rel_sasa": 0.20397105813026428,
+          "pharmacophore_A": 12.583561897277832,
+          "rgd_protrusion_A": 30.917436599731445,
+          "rgd_min_dist_to_scaffold_A": 2.6692981719970703,
+          "graft_scaffold_clashes": 3,
+          "n_chains": 2,
+          "_traj_index": 2
+        },
+        {
+          "file": "sample_3.cif",
+          "helix_frac_core": 0.36363636363636365,
+          "helix_frac_payload": 0.2222222222222222,
+          "rmsd_to_6R2X_A": 4.371920950443176,
+          "end_to_end_A": 5.867784023284912,
+          "rgd_rel_sasa": 0.3551754951477051,
+          "rgd_bulky_probe_sasa_A2": 230.69906616210938,
+          "hydrophobic_face_rel_sasa": 0.2983560264110565,
+          "pharmacophore_A": 11.887585639953613,
+          "rgd_protrusion_A": 18.419246673583984,
+          "rgd_min_dist_to_scaffold_A": 1.6848350763320923,
+          "graft_scaffold_clashes": 5,
+          "n_chains": 2,
+          "_traj_index": 3
+        },
+        {
+          "file": "sample_4.cif",
+          "helix_frac_core": 0.6363636363636364,
+          "helix_frac_payload": 0.3888888888888889,
+          "rmsd_to_6R2X_A": 3.847853888038767,
+          "end_to_end_A": 9.399057388305664,
+          "rgd_rel_sasa": 0.4476388692855835,
+          "rgd_bulky_probe_sasa_A2": 253.15447998046875,
+          "hydrophobic_face_rel_sasa": 0.2574178874492645,
+          "pharmacophore_A": 13.354574203491211,
+          "rgd_protrusion_A": 18.365690231323242,
+          "rgd_min_dist_to_scaffold_A": 2.05714750289917,
+          "graft_scaffold_clashes": 4,
+          "n_chains": 2,
+          "_traj_index": 4
+        }
+      ]
+    },
+    "C13_CH3-EF_S1": {
+      "n_samples": 5,
+      "payload": "FETLRGDLRILSILRHQNLLKEL",
+      "metrics": {
+        "helix_frac_core": {
+          "mean": 0.818,
+          "sd": 0.0,
+          "min": 0.818,
+          "max": 0.818,
+          "n": 5
+        },
+        "helix_frac_payload": {
+          "mean": 0.678,
+          "sd": 0.128,
+          "min": 0.522,
+          "max": 0.783,
+          "n": 5
+        },
+        "rmsd_to_6R2X_A": {
+          "mean": 4.485,
+          "sd": 0.571,
+          "min": 3.367,
+          "max": 4.921,
+          "n": 5
+        },
+        "end_to_end_A": {
+          "mean": 10.072,
+          "sd": 3.167,
+          "min": 7.741,
+          "max": 15.997,
+          "n": 5
+        },
+        "rgd_rel_sasa": {
+          "mean": 0.275,
+          "sd": 0.204,
+          "min": 0.15,
+          "max": 0.678,
+          "n": 5
+        },
+        "rgd_bulky_probe_sasa_A2": {
+          "mean": 101.964,
+          "sd": 183.032,
+          "min": 0.0,
+          "max": 466.975,
+          "n": 5
+        },
+        "hydrophobic_face_rel_sasa": {
+          "mean": 0.237,
+          "sd": 0.108,
+          "min": 0.125,
+          "max": 0.415,
+          "n": 5
+        },
+        "pharmacophore_A": {
+          "mean": 12.787,
+          "sd": 0.448,
+          "min": 12.022,
+          "max": 13.248,
+          "n": 5
+        },
+        "rgd_protrusion_A": {
+          "mean": 20.758,
+          "sd": 4.806,
+          "min": 16.997,
+          "max": 29.846,
+          "n": 5
+        },
+        "rgd_min_dist_to_scaffold_A": {
+          "mean": 3.223,
+          "sd": 1.182,
+          "min": 2.54,
+          "max": 5.581,
+          "n": 5
+        },
+        "graft_scaffold_clashes": {
+          "mean": 2.2,
+          "sd": 0.4,
+          "min": 2.0,
+          "max": 3.0,
+          "n": 5
+        }
+      },
+      "per_sample": [
+        {
+          "file": "sample_0.cif",
+          "helix_frac_core": 0.8181818181818182,
+          "helix_frac_payload": 0.5217391304347826,
+          "rmsd_to_6R2X_A": 4.920929312212418,
+          "end_to_end_A": 10.742966651916504,
+          "rgd_rel_sasa": 0.15791332721710205,
+          "rgd_bulky_probe_sasa_A2": 0.0,
+          "hydrophobic_face_rel_sasa": 0.12927550077438354,
+          "pharmacophore_A": 12.02191162109375,
+          "rgd_protrusion_A": 16.99650001525879,
+          "rgd_min_dist_to_scaffold_A": 2.540128231048584,
+          "graft_scaffold_clashes": 2,
+          "n_chains": 2,
+          "_traj_index": 0
+        },
+        {
+          "file": "sample_1.cif",
+          "helix_frac_core": 0.8181818181818182,
+          "helix_frac_payload": 0.782608695652174,
+          "rmsd_to_6R2X_A": 3.367180990572075,
+          "end_to_end_A": 15.997132301330566,
+          "rgd_rel_sasa": 0.2399611473083496,
+          "rgd_bulky_probe_sasa_A2": 37.282814025878906,
+          "hydrophobic_face_rel_sasa": 0.4146275520324707,
+          "pharmacophore_A": 13.247846603393555,
+          "rgd_protrusion_A": 21.434673309326172,
+          "rgd_min_dist_to_scaffold_A": 2.7857108116149902,
+          "graft_scaffold_clashes": 2,
+          "n_chains": 2,
+          "_traj_index": 1
+        },
+        {
+          "file": "sample_2.cif",
+          "helix_frac_core": 0.8181818181818182,
+          "helix_frac_payload": 0.782608695652174,
+          "rmsd_to_6R2X_A": 4.610986466707554,
+          "end_to_end_A": 7.765487194061279,
+          "rgd_rel_sasa": 0.14980114996433258,
+          "rgd_bulky_probe_sasa_A2": 0.0,
+          "hydrophobic_face_rel_sasa": 0.2258710414171219,
+          "pharmacophore_A": 13.161005973815918,
+          "rgd_protrusion_A": 18.10880470275879,
+          "rgd_min_dist_to_scaffold_A": 2.6437861919403076,
+          "graft_scaffold_clashes": 3,
+          "n_chains": 2,
+          "_traj_index": 2
+        },
+        {
+          "file": "sample_3.cif",
+          "helix_frac_core": 0.8181818181818182,
+          "helix_frac_payload": 0.782608695652174,
+          "rmsd_to_6R2X_A": 4.86074848539534,
+          "end_to_end_A": 8.112832069396973,
+          "rgd_rel_sasa": 0.15017813444137573,
+          "rgd_bulky_probe_sasa_A2": 5.564598560333252,
+          "hydrophobic_face_rel_sasa": 0.28990474343299866,
+          "pharmacophore_A": 12.929988861083984,
+          "rgd_protrusion_A": 17.40517234802246,
+          "rgd_min_dist_to_scaffold_A": 2.563800573348999,
+          "graft_scaffold_clashes": 2,
+          "n_chains": 2,
+          "_traj_index": 3
+        },
+        {
+          "file": "sample_4.cif",
+          "helix_frac_core": 0.8181818181818182,
+          "helix_frac_payload": 0.5217391304347826,
+          "rmsd_to_6R2X_A": 4.665222017298733,
+          "end_to_end_A": 7.740631580352783,
+          "rgd_rel_sasa": 0.6779026985168457,
+          "rgd_bulky_probe_sasa_A2": 466.9750671386719,
+          "hydrophobic_face_rel_sasa": 0.12529538571834564,
+          "pharmacophore_A": 12.574180603027344,
+          "rgd_protrusion_A": 29.846473693847656,
+          "rgd_min_dist_to_scaffold_A": 5.580835342407227,
+          "graft_scaffold_clashes": 2,
+          "n_chains": 2,
+          "_traj_index": 4
+        }
+      ]
+    },
+    "C14_CH3-EF_S2": {
+      "n_samples": 5,
+      "payload": "FETLRGDLRILSILRHQNLLKEL",
+      "metrics": {
+        "helix_frac_core": {
+          "mean": 0.836,
+          "sd": 0.036,
+          "min": 0.818,
+          "max": 0.909,
+          "n": 5
+        },
+        "helix_frac_payload": {
+          "mean": 0.443,
+          "sd": 0.064,
+          "min": 0.391,
+          "max": 0.522,
+          "n": 5
+        },
+        "rmsd_to_6R2X_A": {
+          "mean": 5.489,
+          "sd": 0.424,
+          "min": 4.814,
+          "max": 5.933,
+          "n": 5
+        },
+        "end_to_end_A": {
+          "mean": 12.619,
+          "sd": 5.02,
+          "min": 7.554,
+          "max": 21.716,
+          "n": 5
+        },
+        "rgd_rel_sasa": {
+          "mean": 0.203,
+          "sd": 0.074,
+          "min": 0.077,
+          "max": 0.284,
+          "n": 5
+        },
+        "rgd_bulky_probe_sasa_A2": {
+          "mean": 48.582,
+          "sd": 57.501,
+          "min": 1.669,
+          "max": 152.64,
+          "n": 5
+        },
+        "hydrophobic_face_rel_sasa": {
+          "mean": 0.236,
+          "sd": 0.044,
+          "min": 0.173,
+          "max": 0.304,
+          "n": 5
+        },
+        "pharmacophore_A": {
+          "mean": 10.399,
+          "sd": 1.75,
+          "min": 7.266,
+          "max": 11.976,
+          "n": 5
+        },
+        "rgd_protrusion_A": {
+          "mean": 19.276,
+          "sd": 2.318,
+          "min": 16.394,
+          "max": 22.734,
+          "n": 5
+        },
+        "rgd_min_dist_to_scaffold_A": {
+          "mean": 2.389,
+          "sd": 0.163,
+          "min": 2.067,
+          "max": 2.521,
+          "n": 5
+        },
+        "graft_scaffold_clashes": {
+          "mean": 3.2,
+          "sd": 0.98,
+          "min": 2.0,
+          "max": 5.0,
+          "n": 5
+        }
+      },
+      "per_sample": [
+        {
+          "file": "sample_0.cif",
+          "helix_frac_core": 0.8181818181818182,
+          "helix_frac_payload": 0.5217391304347826,
+          "rmsd_to_6R2X_A": 4.813853675932347,
+          "end_to_end_A": 21.715784072875977,
+          "rgd_rel_sasa": 0.28354957699775696,
+          "rgd_bulky_probe_sasa_A2": 152.64019775390625,
+          "hydrophobic_face_rel_sasa": 0.2098100334405899,
+          "pharmacophore_A": 9.74446964263916,
+          "rgd_protrusion_A": 17.005918502807617,
+          "rgd_min_dist_to_scaffold_A": 2.4643983840942383,
+          "graft_scaffold_clashes": 3,
+          "n_chains": 2,
+          "_traj_index": 0
+        },
+        {
+          "file": "sample_1.cif",
+          "helix_frac_core": 0.8181818181818182,
+          "helix_frac_payload": 0.391304347826087,
+          "rmsd_to_6R2X_A": 5.207897358031185,
+          "end_to_end_A": 8.591318130493164,
+          "rgd_rel_sasa": 0.24935519695281982,
+          "rgd_bulky_probe_sasa_A2": 69.60665893554688,
+          "hydrophobic_face_rel_sasa": 0.23714543879032135,
+          "pharmacophore_A": 11.771531105041504,
+          "rgd_protrusion_A": 22.734498977661133,
+          "rgd_min_dist_to_scaffold_A": 2.4570488929748535,
+          "graft_scaffold_clashes": 3,
+          "n_chains": 2,
+          "_traj_index": 1
+        },
+        {
+          "file": "sample_2.cif",
+          "helix_frac_core": 0.8181818181818182,
+          "helix_frac_payload": 0.391304347826087,
+          "rmsd_to_6R2X_A": 5.8772032940279315,
+          "end_to_end_A": 7.554068088531494,
+          "rgd_rel_sasa": 0.16210870444774628,
+          "rgd_bulky_probe_sasa_A2": 1.669379711151123,
+          "hydrophobic_face_rel_sasa": 0.2540825307369232,
+          "pharmacophore_A": 11.975985527038574,
+          "rgd_protrusion_A": 20.087133407592773,
+          "rgd_min_dist_to_scaffold_A": 2.434343099594116,
+          "graft_scaffold_clashes": 2,
+          "n_chains": 2,
+          "_traj_index": 2
+        },
+        {
+          "file": "sample_3.cif",
+          "helix_frac_core": 0.8181818181818182,
+          "helix_frac_payload": 0.391304347826087,
+          "rmsd_to_6R2X_A": 5.612846197441322,
+          "end_to_end_A": 13.450444221496582,
+          "rgd_rel_sasa": 0.07733169943094254,
+          "rgd_bulky_probe_sasa_A2": 7.862292766571045,
+          "hydrophobic_face_rel_sasa": 0.17263157665729523,
+          "pharmacophore_A": 7.266170978546143,
+          "rgd_protrusion_A": 20.160436630249023,
+          "rgd_min_dist_to_scaffold_A": 2.521282911300659,
+          "graft_scaffold_clashes": 3,
+          "n_chains": 2,
+          "_traj_index": 3
+        },
+        {
+          "file": "sample_4.cif",
+          "helix_frac_core": 0.9090909090909091,
+          "helix_frac_payload": 0.5217391304347826,
+          "rmsd_to_6R2X_A": 5.932618405814538,
+          "end_to_end_A": 11.785475730895996,
+          "rgd_rel_sasa": 0.24300412833690643,
+          "rgd_bulky_probe_sasa_A2": 11.129197120666504,
+          "hydrophobic_face_rel_sasa": 0.3044302761554718,
+          "pharmacophore_A": 11.237195014953613,
+          "rgd_protrusion_A": 16.394102096557617,
+          "rgd_min_dist_to_scaffold_A": 2.067258596420288,
+          "graft_scaffold_clashes": 5,
+          "n_chains": 2,
+          "_traj_index": 4
+        }
+      ]
+    },
+    "C15_CH3-EF_S3": {
+      "n_samples": 5,
+      "payload": "FETLRGDLRILSILRHQNLLKEL",
+      "metrics": {
+        "helix_frac_core": {
+          "mean": 0.491,
+          "sd": 0.401,
+          "min": 0.0,
+          "max": 0.818,
+          "n": 5
+        },
+        "helix_frac_payload": {
+          "mean": 0.304,
+          "sd": 0.256,
+          "min": 0.0,
+          "max": 0.565,
+          "n": 5
+        },
+        "rmsd_to_6R2X_A": {
+          "mean": 5.832,
+          "sd": 0.813,
+          "min": 5.019,
+          "max": 7.273,
+          "n": 5
+        },
+        "end_to_end_A": {
+          "mean": 9.223,
+          "sd": 2.372,
+          "min": 5.472,
+          "max": 12.613,
+          "n": 5
+        },
+        "rgd_rel_sasa": {
+          "mean": 0.648,
+          "sd": 0.054,
+          "min": 0.57,
+          "max": 0.71,
+          "n": 5
+        },
+        "rgd_bulky_probe_sasa_A2": {
+          "mean": 432.802,
+          "sd": 105.554,
+          "min": 286.377,
+          "max": 560.86,
+          "n": 5
+        },
+        "hydrophobic_face_rel_sasa": {
+          "mean": 0.288,
+          "sd": 0.05,
+          "min": 0.202,
+          "max": 0.357,
+          "n": 5
+        },
+        "pharmacophore_A": {
+          "mean": 12.176,
+          "sd": 1.858,
+          "min": 8.514,
+          "max": 13.579,
+          "n": 5
+        },
+        "rgd_protrusion_A": {
+          "mean": 29.917,
+          "sd": 1.703,
+          "min": 27.696,
+          "max": 32.692,
+          "n": 5
+        },
+        "rgd_min_dist_to_scaffold_A": {
+          "mean": 4.105,
+          "sd": 0.76,
+          "min": 3.055,
+          "max": 4.975,
+          "n": 5
+        },
+        "graft_scaffold_clashes": {
+          "mean": 2.8,
+          "sd": 0.748,
+          "min": 2.0,
+          "max": 4.0,
+          "n": 5
+        }
+      },
+      "per_sample": [
+        {
+          "file": "sample_0.cif",
+          "helix_frac_core": 0.8181818181818182,
+          "helix_frac_payload": 0.5652173913043478,
+          "rmsd_to_6R2X_A": 5.018762235969428,
+          "end_to_end_A": 12.613204956054688,
+          "rgd_rel_sasa": 0.5697299838066101,
+          "rgd_bulky_probe_sasa_A2": 286.37677001953125,
+          "hydrophobic_face_rel_sasa": 0.298690527677536,
+          "pharmacophore_A": 13.579312324523926,
+          "rgd_protrusion_A": 32.69231033325195,
+          "rgd_min_dist_to_scaffold_A": 3.0548062324523926,
+          "graft_scaffold_clashes": 2,
+          "n_chains": 2,
+          "_traj_index": 0
+        },
+        {
+          "file": "sample_1.cif",
+          "helix_frac_core": 0.0,
+          "helix_frac_payload": 0.0,
+          "rmsd_to_6R2X_A": 6.162405412392721,
+          "end_to_end_A": 10.598691940307617,
+          "rgd_rel_sasa": 0.7072598338127136,
+          "rgd_bulky_probe_sasa_A2": 537.9718627929688,
+          "hydrophobic_face_rel_sasa": 0.2915281057357788,
+          "pharmacophore_A": 12.645174026489258,
+          "rgd_protrusion_A": 28.651533126831055,
+          "rgd_min_dist_to_scaffold_A": 3.956380844116211,
+          "graft_scaffold_clashes": 3,
+          "n_chains": 2,
+          "_traj_index": 1
+        },
+        {
+          "file": "sample_2.cif",
+          "helix_frac_core": 0.0,
+          "helix_frac_payload": 0.0,
+          "rmsd_to_6R2X_A": 7.272699507457371,
+          "end_to_end_A": 9.003066062927246,
+          "rgd_rel_sasa": 0.7103706002235413,
+          "rgd_bulky_probe_sasa_A2": 560.8595581054688,
+          "hydrophobic_face_rel_sasa": 0.29128146171569824,
+          "pharmacophore_A": 8.514297485351562,
+          "rgd_protrusion_A": 27.69610023498535,
+          "rgd_min_dist_to_scaffold_A": 3.580979347229004,
+          "graft_scaffold_clashes": 4,
+          "n_chains": 2,
+          "_traj_index": 2
+        },
+        {
+          "file": "sample_3.cif",
+          "helix_frac_core": 0.8181818181818182,
+          "helix_frac_payload": 0.5652173913043478,
+          "rmsd_to_6R2X_A": 5.37966785164334,
+          "end_to_end_A": 5.471702575683594,
+          "rgd_rel_sasa": 0.6167450547218323,
+          "rgd_bulky_probe_sasa_A2": 428.3988342285156,
+          "hydrophobic_face_rel_sasa": 0.2020200490951538,
+          "pharmacophore_A": 12.885812759399414,
+          "rgd_protrusion_A": 30.35508918762207,
+          "rgd_min_dist_to_scaffold_A": 4.959193229675293,
+          "graft_scaffold_clashes": 3,
+          "n_chains": 2,
+          "_traj_index": 3
+        },
+        {
+          "file": "sample_4.cif",
+          "helix_frac_core": 0.8181818181818182,
+          "helix_frac_payload": 0.391304347826087,
+          "rmsd_to_6R2X_A": 5.324664636425119,
+          "end_to_end_A": 8.429903984069824,
+          "rgd_rel_sasa": 0.6378378868103027,
+          "rgd_bulky_probe_sasa_A2": 350.404541015625,
+          "hydrophobic_face_rel_sasa": 0.3568148910999298,
+          "pharmacophore_A": 13.25704288482666,
+          "rgd_protrusion_A": 30.18878746032715,
+          "rgd_min_dist_to_scaffold_A": 4.974733352661133,
+          "graft_scaffold_clashes": 2,
+          "n_chains": 2,
+          "_traj_index": 4
+        }
+      ]
+    },
+    "C16_CH3-EF_S4": {
+      "n_samples": 5,
+      "payload": "FETLRGDLRILSILRHQN",
+      "metrics": {
+        "helix_frac_core": {
+          "mean": 0.382,
+          "sd": 0.469,
+          "min": 0.0,
+          "max": 1.0,
+          "n": 5
+        },
+        "helix_frac_payload": {
+          "mean": 0.233,
+          "sd": 0.286,
+          "min": 0.0,
+          "max": 0.611,
+          "n": 5
+        },
+        "rmsd_to_6R2X_A": {
+          "mean": 4.564,
+          "sd": 1.991,
+          "min": 2.106,
+          "max": 6.376,
+          "n": 5
+        },
+        "end_to_end_A": {
+          "mean": 18.646,
+          "sd": 4.594,
+          "min": 13.29,
+          "max": 24.648,
+          "n": 5
+        },
+        "rgd_rel_sasa": {
+          "mean": 0.477,
+          "sd": 0.227,
+          "min": 0.177,
+          "max": 0.757,
+          "n": 5
+        },
+        "rgd_bulky_probe_sasa_A2": {
+          "mean": 202.069,
+          "sd": 161.529,
+          "min": 1.669,
+          "max": 415.454,
+          "n": 5
+        },
+        "hydrophobic_face_rel_sasa": {
+          "mean": 0.153,
+          "sd": 0.06,
+          "min": 0.073,
+          "max": 0.239,
+          "n": 5
+        },
+        "pharmacophore_A": {
+          "mean": 10.498,
+          "sd": 1.997,
+          "min": 6.926,
+          "max": 12.546,
+          "n": 5
+        },
+        "rgd_protrusion_A": {
+          "mean": 20.66,
+          "sd": 4.319,
+          "min": 14.449,
+          "max": 26.314,
+          "n": 5
+        },
+        "rgd_min_dist_to_scaffold_A": {
+          "mean": 2.934,
+          "sd": 0.5,
+          "min": 2.436,
+          "max": 3.894,
+          "n": 5
+        },
+        "graft_scaffold_clashes": {
+          "mean": 3.0,
+          "sd": 0.894,
+          "min": 2.0,
+          "max": 4.0,
+          "n": 5
+        }
+      },
+      "per_sample": [
+        {
+          "file": "sample_0.cif",
+          "helix_frac_core": 0.9090909090909091,
+          "helix_frac_payload": 0.5555555555555556,
+          "rmsd_to_6R2X_A": 2.1634475499264916,
+          "end_to_end_A": 13.289602279663086,
+          "rgd_rel_sasa": 0.2707320749759674,
+          "rgd_bulky_probe_sasa_A2": 75.47227478027344,
+          "hydrophobic_face_rel_sasa": 0.2385091781616211,
+          "pharmacophore_A": 6.926207065582275,
+          "rgd_protrusion_A": 16.975099563598633,
+          "rgd_min_dist_to_scaffold_A": 2.7000367641448975,
+          "graft_scaffold_clashes": 2,
+          "n_chains": 2,
+          "_traj_index": 0
+        },
+        {
+          "file": "sample_1.cif",
+          "helix_frac_core": 0.0,
+          "helix_frac_payload": 0.0,
+          "rmsd_to_6R2X_A": 6.376208884863832,
+          "end_to_end_A": 18.5108642578125,
+          "rgd_rel_sasa": 0.48939529061317444,
+          "rgd_bulky_probe_sasa_A2": 153.32142639160156,
+          "hydrophobic_face_rel_sasa": 0.1972552239894867,
+          "pharmacophore_A": 12.545748710632324,
+          "rgd_protrusion_A": 26.314144134521484,
+          "rgd_min_dist_to_scaffold_A": 2.4360077381134033,
+          "graft_scaffold_clashes": 3,
+          "n_chains": 2,
+          "_traj_index": 1
+        },
+        {
+          "file": "sample_2.cif",
+          "helix_frac_core": 0.0,
+          "helix_frac_payload": 0.0,
+          "rmsd_to_6R2X_A": 6.315111748215751,
+          "end_to_end_A": 24.64846420288086,
+          "rgd_rel_sasa": 0.6918988227844238,
+          "rgd_bulky_probe_sasa_A2": 364.43011474609375,
+          "hydrophobic_face_rel_sasa": 0.10183507949113846,
+          "pharmacophore_A": 11.634021759033203,
+          "rgd_protrusion_A": 22.509540557861328,
+          "rgd_min_dist_to_scaffold_A": 2.8471877574920654,
+          "graft_scaffold_clashes": 4,
+          "n_chains": 2,
+          "_traj_index": 2
+        },
+        {
+          "file": "sample_3.cif",
+          "helix_frac_core": 0.0,
+          "helix_frac_payload": 0.0,
+          "rmsd_to_6R2X_A": 5.856872333958929,
+          "end_to_end_A": 22.89737319946289,
+          "rgd_rel_sasa": 0.7573245167732239,
+          "rgd_bulky_probe_sasa_A2": 415.4542541503906,
+          "hydrophobic_face_rel_sasa": 0.15432266891002655,
+          "pharmacophore_A": 11.591353416442871,
+          "rgd_protrusion_A": 23.053314208984375,
+          "rgd_min_dist_to_scaffold_A": 3.8941142559051514,
+          "graft_scaffold_clashes": 4,
+          "n_chains": 2,
+          "_traj_index": 3
+        },
+        {
+          "file": "sample_4.cif",
+          "helix_frac_core": 1.0,
+          "helix_frac_payload": 0.6111111111111112,
+          "rmsd_to_6R2X_A": 2.1062140569183825,
+          "end_to_end_A": 13.882397651672363,
+          "rgd_rel_sasa": 0.17681242525577545,
+          "rgd_bulky_probe_sasa_A2": 1.669379711151123,
+          "hydrophobic_face_rel_sasa": 0.07315713167190552,
+          "pharmacophore_A": 9.794772148132324,
+          "rgd_protrusion_A": 14.448559761047363,
+          "rgd_min_dist_to_scaffold_A": 2.794799566268921,
+          "graft_scaffold_clashes": 2,
+          "n_chains": 2,
+          "_traj_index": 4
+        }
+      ]
+    },
+    "REF_4delta_free": {
+      "n_samples": 5,
+      "payload": "FETLRGDLRILSILRHQNLLKEL",
+      "metrics": {
+        "helix_frac_core": {
+          "mean": 1.0,
+          "sd": 0.0,
+          "min": 1.0,
+          "max": 1.0,
+          "n": 5
+        },
+        "helix_frac_payload": {
+          "mean": 0.887,
+          "sd": 0.035,
+          "min": 0.826,
+          "max": 0.913,
+          "n": 5
+        },
+        "rmsd_to_6R2X_A": {
+          "mean": 0.569,
+          "sd": 0.058,
+          "min": 0.49,
+          "max": 0.645,
+          "n": 5
+        },
+        "end_to_end_A": {
+          "mean": 33.412,
+          "sd": 0.226,
+          "min": 33.078,
+          "max": 33.694,
+          "n": 5
+        },
+        "rgd_rel_sasa": {
+          "mean": 0.499,
+          "sd": 0.019,
+          "min": 0.468,
+          "max": 0.527,
+          "n": 5
+        },
+        "rgd_bulky_probe_sasa_A2": {
+          "mean": 340.951,
+          "sd": 32.014,
+          "min": 303.012,
+          "max": 398.348,
+          "n": 5
+        },
+        "hydrophobic_face_rel_sasa": {
+          "mean": 0.589,
+          "sd": 0.008,
+          "min": 0.576,
+          "max": 0.598,
+          "n": 5
+        },
+        "pharmacophore_A": {
+          "mean": 12.135,
+          "sd": 0.384,
+          "min": 11.71,
+          "max": 12.72,
+          "n": 5
+        },
+        "rgd_protrusion_A": null,
+        "rgd_min_dist_to_scaffold_A": null,
+        "graft_scaffold_clashes": {
+          "mean": 0.0,
+          "sd": 0.0,
+          "min": 0.0,
+          "max": 0.0,
+          "n": 5
+        }
+      },
+      "per_sample": [
+        {
+          "file": "sample_0.cif",
+          "helix_frac_core": 1.0,
+          "helix_frac_payload": 0.9130434782608695,
+          "rmsd_to_6R2X_A": 0.5558669966609445,
+          "end_to_end_A": 33.22572708129883,
+          "rgd_rel_sasa": 0.49824967980384827,
+          "rgd_bulky_probe_sasa_A2": 344.2936706542969,
+          "hydrophobic_face_rel_sasa": 0.5856139659881592,
+          "pharmacophore_A": 12.720490455627441,
+          "rgd_protrusion_A": null,
+          "rgd_min_dist_to_scaffold_A": null,
+          "graft_scaffold_clashes": 0,
+          "n_chains": 1,
+          "_traj_index": 0
+        },
+        {
+          "file": "sample_1.cif",
+          "helix_frac_core": 1.0,
+          "helix_frac_payload": 0.9130434782608695,
+          "rmsd_to_6R2X_A": 0.5294100554686909,
+          "end_to_end_A": 33.078025817871094,
+          "rgd_rel_sasa": 0.5267733931541443,
+          "rgd_bulky_probe_sasa_A2": 337.28533935546875,
+          "hydrophobic_face_rel_sasa": 0.594094455242157,
+          "pharmacophore_A": 12.451406478881836,
+          "rgd_protrusion_A": null,
+          "rgd_min_dist_to_scaffold_A": null,
+          "graft_scaffold_clashes": 0,
+          "n_chains": 1,
+          "_traj_index": 1
+        },
+        {
+          "file": "sample_2.cif",
+          "helix_frac_core": 1.0,
+          "helix_frac_payload": 0.9130434782608695,
+          "rmsd_to_6R2X_A": 0.49032074903280254,
+          "end_to_end_A": 33.5507926940918,
+          "rgd_rel_sasa": 0.4684084355831146,
+          "rgd_bulky_probe_sasa_A2": 303.0116882324219,
+          "hydrophobic_face_rel_sasa": 0.5982715487480164,
+          "pharmacophore_A": 11.709996223449707,
+          "rgd_protrusion_A": null,
+          "rgd_min_dist_to_scaffold_A": null,
+          "graft_scaffold_clashes": 0,
+          "n_chains": 1,
+          "_traj_index": 2
+        },
+        {
+          "file": "sample_3.cif",
+          "helix_frac_core": 1.0,
+          "helix_frac_payload": 0.8695652173913043,
+          "rmsd_to_6R2X_A": 0.6244380361428262,
+          "end_to_end_A": 33.509700775146484,
+          "rgd_rel_sasa": 0.5083306431770325,
+          "rgd_bulky_probe_sasa_A2": 321.8154296875,
+          "hydrophobic_face_rel_sasa": 0.5756257176399231,
+          "pharmacophore_A": 11.906112670898438,
+          "rgd_protrusion_A": null,
+          "rgd_min_dist_to_scaffold_A": null,
+          "graft_scaffold_clashes": 0,
+          "n_chains": 1,
+          "_traj_index": 3
+        },
+        {
+          "file": "sample_4.cif",
+          "helix_frac_core": 1.0,
+          "helix_frac_payload": 0.8260869565217391,
+          "rmsd_to_6R2X_A": 0.644566855368319,
+          "end_to_end_A": 33.6935920715332,
+          "rgd_rel_sasa": 0.49562177062034607,
+          "rgd_bulky_probe_sasa_A2": 398.3476257324219,
+          "hydrophobic_face_rel_sasa": 0.5938201546669006,
+          "pharmacophore_A": 11.886870384216309,
+          "rgd_protrusion_A": null,
+          "rgd_min_dist_to_scaffold_A": null,
+          "graft_scaffold_clashes": 0,
+          "n_chains": 1,
+          "_traj_index": 4
+        }
+      ]
+    },
+    "BM_CH3_Cterm_fusion": {
+      "n_samples": 5,
+      "payload": "FETLRGDLRILSILRHQNLLKEL",
+      "metrics": {
+        "helix_frac_core": {
+          "mean": 0.818,
+          "sd": 0.0,
+          "min": 0.818,
+          "max": 0.818,
+          "n": 5
+        },
+        "helix_frac_payload": {
+          "mean": 0.635,
+          "sd": 0.122,
+          "min": 0.391,
+          "max": 0.696,
+          "n": 5
+        },
+        "rmsd_to_6R2X_A": {
+          "mean": 3.753,
+          "sd": 0.481,
+          "min": 3.462,
+          "max": 4.71,
+          "n": 5
+        },
+        "end_to_end_A": {
+          "mean": 27.241,
+          "sd": 0.797,
+          "min": 26.126,
+          "max": 28.614,
+          "n": 5
+        },
+        "rgd_rel_sasa": {
+          "mean": 0.185,
+          "sd": 0.024,
+          "min": 0.151,
+          "max": 0.219,
+          "n": 5
+        },
+        "rgd_bulky_probe_sasa_A2": {
+          "mean": 90.709,
+          "sd": 73.123,
+          "min": 0.0,
+          "max": 179.71,
+          "n": 5
+        },
+        "hydrophobic_face_rel_sasa": {
+          "mean": 0.249,
+          "sd": 0.02,
+          "min": 0.219,
+          "max": 0.277,
+          "n": 5
+        },
+        "pharmacophore_A": {
+          "mean": 11.864,
+          "sd": 0.697,
+          "min": 10.695,
+          "max": 12.684,
+          "n": 5
+        },
+        "rgd_protrusion_A": {
+          "mean": 27.14,
+          "sd": 6.211,
+          "min": 18.52,
+          "max": 33.11,
+          "n": 5
+        },
+        "rgd_min_dist_to_scaffold_A": {
+          "mean": 2.55,
+          "sd": 0.128,
+          "min": 2.472,
+          "max": 2.805,
+          "n": 5
+        },
+        "graft_scaffold_clashes": {
+          "mean": 1.0,
+          "sd": 0.0,
+          "min": 1.0,
+          "max": 1.0,
+          "n": 5
+        }
+      },
+      "per_sample": [
+        {
+          "file": "sample_0.cif",
+          "helix_frac_core": 0.8181818181818182,
+          "helix_frac_payload": 0.6956521739130435,
+          "rmsd_to_6R2X_A": 3.466626460770353,
+          "end_to_end_A": 27.103986740112305,
+          "rgd_rel_sasa": 0.168831467628479,
+          "rgd_bulky_probe_sasa_A2": 78.41223907470703,
+          "hydrophobic_face_rel_sasa": 0.2563941478729248,
+          "pharmacophore_A": 10.694655418395996,
+          "rgd_protrusion_A": 30.773393630981445,
+          "rgd_min_dist_to_scaffold_A": 2.515653371810913,
+          "graft_scaffold_clashes": 1,
+          "n_chains": 2,
+          "_traj_index": 0
+        },
+        {
+          "file": "sample_1.cif",
+          "helix_frac_core": 0.8181818181818182,
+          "helix_frac_payload": 0.6956521739130435,
+          "rmsd_to_6R2X_A": 3.5151099733727826,
+          "end_to_end_A": 27.068796157836914,
+          "rgd_rel_sasa": 0.2002226859331131,
+          "rgd_bulky_probe_sasa_A2": 169.60089111328125,
+          "hydrophobic_face_rel_sasa": 0.23570042848587036,
+          "pharmacophore_A": 12.323960304260254,
+          "rgd_protrusion_A": 33.10971450805664,
+          "rgd_min_dist_to_scaffold_A": 2.480787515640259,
+          "graft_scaffold_clashes": 1,
+          "n_chains": 2,
+          "_traj_index": 1
+        },
+        {
+          "file": "sample_2.cif",
+          "helix_frac_core": 0.8181818181818182,
+          "helix_frac_payload": 0.6956521739130435,
+          "rmsd_to_6R2X_A": 3.6100653709183863,
+          "end_to_end_A": 26.126445770263672,
+          "rgd_rel_sasa": 0.21890313923358917,
+          "rgd_bulky_probe_sasa_A2": 179.7095489501953,
+          "hydrophobic_face_rel_sasa": 0.21859149634838104,
+          "pharmacophore_A": 12.68388557434082,
+          "rgd_protrusion_A": 32.534515380859375,
+          "rgd_min_dist_to_scaffold_A": 2.4722707271575928,
+          "graft_scaffold_clashes": 1,
+          "n_chains": 2,
+          "_traj_index": 2
+        },
+        {
+          "file": "sample_3.cif",
+          "helix_frac_core": 0.8181818181818182,
+          "helix_frac_payload": 0.391304347826087,
+          "rmsd_to_6R2X_A": 4.70953630376657,
+          "end_to_end_A": 28.613555908203125,
+          "rgd_rel_sasa": 0.18729954957962036,
+          "rgd_bulky_probe_sasa_A2": 0.0,
+          "hydrophobic_face_rel_sasa": 0.27656999230384827,
+          "pharmacophore_A": 12.099936485290527,
+          "rgd_protrusion_A": 18.520122528076172,
+          "rgd_min_dist_to_scaffold_A": 2.804657459259033,
+          "graft_scaffold_clashes": 1,
+          "n_chains": 2,
+          "_traj_index": 3
+        },
+        {
+          "file": "sample_4.cif",
+          "helix_frac_core": 0.8181818181818182,
+          "helix_frac_payload": 0.6956521739130435,
+          "rmsd_to_6R2X_A": 3.4615794972504186,
+          "end_to_end_A": 27.290170669555664,
+          "rgd_rel_sasa": 0.15137635171413422,
+          "rgd_bulky_probe_sasa_A2": 25.822982788085938,
+          "hydrophobic_face_rel_sasa": 0.2571354806423187,
+          "pharmacophore_A": 11.518691062927246,
+          "rgd_protrusion_A": 20.764394760131836,
+          "rgd_min_dist_to_scaffold_A": 2.4746646881103516,
+          "graft_scaffold_clashes": 1,
+          "n_chains": 2,
+          "_traj_index": 4
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,567 @@
+{
+  "scaffold": {
+    "antibody": "trastuzumab (reference human IgG1; client HC/LC sequences not supplied)",
+    "VH": "EVQLVESGGGLVQPGGSLRLSCAASGFNIKDTYIHWVRQAPGKGLEWVARIYPTNGYTRYADSVKGRFTISADTSKNTAYLQMNSLRAEDTAVYYCSRWGGDGFYAMDYWGQGTLVTVSS",
+    "VL": "DIQMTQSPSSLSASVGDRVTITCRASQDVNTAVAWYQQKPGKAPKLLIYSASFLYSGVPSRFSGSRSGTDFTLTISSLQPEDFATYYCQQHYTTPPTFGQGTKVEIK",
+    "CH3_341_447": "GQPREPQVYTLPPSRDELTKNQVSLTCLVKGFYPSDIAVEWESNGQPENNYKTTPPVLDSDGSFFLYSKLTVDKSRWQQGNVFSCSVMHEALHNHYTQKSLSLSPGK",
+    "assumption_note": "All designs are expressed as EU-numbered edits so they transfer unchanged to the client's own IgG1 once its sequences arrive."
+  },
+  "peptide": {
+    "4delta": "FETLRGDLRILSILRHQNLLKEL",
+    "4delta_core_1_18": "FETLRGDLRILSILRHQN",
+    "bioactive_end_to_end_A": 35.75
+  },
+  "strategies": {
+    "S1_minimal": "GS + payload + SG; native loop kept. No slack budget - naive insertion.",
+    "S2_spanmatch": "GS + payload + (GGGGS)x2; native loop kept. C-return linker sized to the slack.",
+    "S3_replace": "GD + payload + GPG+(GGGGS); native loop deleted. Max room, helix capped, beta-strands protected.",
+    "S4_coretrunc": "GS + 4delta(1-18) + (GGGGS)x2; native loop kept. Rigid helix core only."
+  },
+  "candidates": [
+    {
+      "id": "C01_CDRH3_S1",
+      "site": "CDRH3",
+      "strategy": "S1_minimal",
+      "module": "Fv",
+      "native_loop": "VH CDRH3 WGGDGFYAMDY",
+      "placement": "inserted after VH CDRH3 position 4 (apex), native loop retained",
+      "payload": "FETLRGDLRILSILRHQNLLKEL",
+      "payload_len": 23,
+      "n_junction": "GS",
+      "c_junction": "SG",
+      "insert": "GSFETLRGDLRILSILRHQNLLKELSG",
+      "insert_len": 27,
+      "length_change_vs_wt": 27,
+      "graft_index_range_0based": [
+        102,
+        128
+      ],
+      "chains": {
+        "H": "EVQLVESGGGLVQPGGSLRLSCAASGFNIKDTYIHWVRQAPGKGLEWVARIYPTNGYTRYADSVKGRFTISADTSKNTAYLQMNSLRAEDTAVYYCSRWGGDGSFETLRGDLRILSILRHQNLLKELSGGFYAMDYWGQGTLVTVSS",
+        "L": "DIQMTQSPSSLSASVGDRVTITCRASQDVNTAVAWYQQKPGKAPKLLIYSASFLYSGVPSRFSGSRSGTDFTLTISSLQPEDFATYYCQQHYTTPPTFGQGTKVEIK"
+      },
+      "geometry_budget": {
+        "anchor_CA_A": 6.86,
+        "payload_end_to_end_A": 35.75,
+        "slack_to_absorb_A": 28.89,
+        "c_linker_residues": 2,
+        "c_linker_max_reach_A": 6.0,
+        "slack_covered": false
+      }
+    },
+    {
+      "id": "C02_CDRH3_S2",
+      "site": "CDRH3",
+      "strategy": "S2_spanmatch",
+      "module": "Fv",
+      "native_loop": "VH CDRH3 WGGDGFYAMDY",
+      "placement": "inserted after VH CDRH3 position 4 (apex), native loop retained",
+      "payload": "FETLRGDLRILSILRHQNLLKEL",
+      "payload_len": 23,
+      "n_junction": "GS",
+      "c_junction": "GGGGSGGGGS",
+      "insert": "GSFETLRGDLRILSILRHQNLLKELGGGGSGGGGS",
+      "insert_len": 35,
+      "length_change_vs_wt": 35,
+      "graft_index_range_0based": [
+        102,
+        136
+      ],
+      "chains": {
+        "H": "EVQLVESGGGLVQPGGSLRLSCAASGFNIKDTYIHWVRQAPGKGLEWVARIYPTNGYTRYADSVKGRFTISADTSKNTAYLQMNSLRAEDTAVYYCSRWGGDGSFETLRGDLRILSILRHQNLLKELGGGGSGGGGSGFYAMDYWGQGTLVTVSS",
+        "L": "DIQMTQSPSSLSASVGDRVTITCRASQDVNTAVAWYQQKPGKAPKLLIYSASFLYSGVPSRFSGSRSGTDFTLTISSLQPEDFATYYCQQHYTTPPTFGQGTKVEIK"
+      },
+      "geometry_budget": {
+        "anchor_CA_A": 6.86,
+        "payload_end_to_end_A": 35.75,
+        "slack_to_absorb_A": 28.89,
+        "c_linker_residues": 10,
+        "c_linker_max_reach_A": 30.0,
+        "slack_covered": true
+      }
+    },
+    {
+      "id": "C03_CDRH3_S3",
+      "site": "CDRH3",
+      "strategy": "S3_replace",
+      "module": "Fv",
+      "native_loop": "VH CDRH3 WGGDGFYAMDY",
+      "placement": "native CDRH3 replaced in full",
+      "payload": "FETLRGDLRILSILRHQNLLKEL",
+      "payload_len": 23,
+      "n_junction": "GD",
+      "c_junction": "GPGGGGGS",
+      "insert": "GDFETLRGDLRILSILRHQNLLKELGPGGGGGS",
+      "insert_len": 33,
+      "length_change_vs_wt": 22,
+      "graft_index_range_0based": [
+        98,
+        130
+      ],
+      "chains": {
+        "H": "EVQLVESGGGLVQPGGSLRLSCAASGFNIKDTYIHWVRQAPGKGLEWVARIYPTNGYTRYADSVKGRFTISADTSKNTAYLQMNSLRAEDTAVYYCSRGDFETLRGDLRILSILRHQNLLKELGPGGGGGSWGQGTLVTVSS",
+        "L": "DIQMTQSPSSLSASVGDRVTITCRASQDVNTAVAWYQQKPGKAPKLLIYSASFLYSGVPSRFSGSRSGTDFTLTISSLQPEDFATYYCQQHYTTPPTFGQGTKVEIK"
+      },
+      "geometry_budget": {
+        "anchor_CA_A": 6.86,
+        "payload_end_to_end_A": 35.75,
+        "slack_to_absorb_A": 28.89,
+        "c_linker_residues": 8,
+        "c_linker_max_reach_A": 24.0,
+        "slack_covered": false
+      }
+    },
+    {
+      "id": "C04_CDRH3_S4",
+      "site": "CDRH3",
+      "strategy": "S4_coretrunc",
+      "module": "Fv",
+      "native_loop": "VH CDRH3 WGGDGFYAMDY",
+      "placement": "inserted after VH CDRH3 position 4 (apex), native loop retained",
+      "payload": "FETLRGDLRILSILRHQN",
+      "payload_len": 18,
+      "n_junction": "GS",
+      "c_junction": "GGGGSGGGGS",
+      "insert": "GSFETLRGDLRILSILRHQNGGGGSGGGGS",
+      "insert_len": 30,
+      "length_change_vs_wt": 30,
+      "graft_index_range_0based": [
+        102,
+        131
+      ],
+      "chains": {
+        "H": "EVQLVESGGGLVQPGGSLRLSCAASGFNIKDTYIHWVRQAPGKGLEWVARIYPTNGYTRYADSVKGRFTISADTSKNTAYLQMNSLRAEDTAVYYCSRWGGDGSFETLRGDLRILSILRHQNGGGGSGGGGSGFYAMDYWGQGTLVTVSS",
+        "L": "DIQMTQSPSSLSASVGDRVTITCRASQDVNTAVAWYQQKPGKAPKLLIYSASFLYSGVPSRFSGSRSGTDFTLTISSLQPEDFATYYCQQHYTTPPTFGQGTKVEIK"
+      },
+      "geometry_budget": {
+        "anchor_CA_A": 6.86,
+        "payload_end_to_end_A": null,
+        "slack_to_absorb_A": 28.89,
+        "c_linker_residues": 10,
+        "c_linker_max_reach_A": 30.0,
+        "slack_covered": true
+      }
+    },
+    {
+      "id": "C05_CH3-AB_S1",
+      "site": "CH3-AB",
+      "strategy": "S1_minimal",
+      "module": "CH3 homodimer",
+      "native_loop": "CH3 CH3-AB EU 355-362 RDELTKNQ",
+      "placement": "inserted at apex of CH3-AB loop (EU 355-362), after EU 358; native loop retained",
+      "payload": "FETLRGDLRILSILRHQNLLKEL",
+      "payload_len": 23,
+      "n_junction": "GS",
+      "c_junction": "SG",
+      "insert": "GSFETLRGDLRILSILRHQNLLKELSG",
+      "insert_len": 27,
+      "length_change_vs_wt": 27,
+      "graft_index_range_0based": [
+        18,
+        44
+      ],
+      "chains": {
+        "A": "GQPREPQVYTLPPSRDELGSFETLRGDLRILSILRHQNLLKELSGTKNQVSLTCLVKGFYPSDIAVEWESNGQPENNYKTTPPVLDSDGSFFLYSKLTVDKSRWQQGNVFSCSVMHEALHNHYTQKSLSLSPGK",
+        "B": "GQPREPQVYTLPPSRDELGSFETLRGDLRILSILRHQNLLKELSGTKNQVSLTCLVKGFYPSDIAVEWESNGQPENNYKTTPPVLDSDGSFFLYSKLTVDKSRWQQGNVFSCSVMHEALHNHYTQKSLSLSPGK"
+      },
+      "geometry_budget": {
+        "anchor_CA_A": 8.47,
+        "payload_end_to_end_A": 35.75,
+        "slack_to_absorb_A": 27.28,
+        "c_linker_residues": 2,
+        "c_linker_max_reach_A": 6.0,
+        "slack_covered": false
+      }
+    },
+    {
+      "id": "C06_CH3-AB_S2",
+      "site": "CH3-AB",
+      "strategy": "S2_spanmatch",
+      "module": "CH3 homodimer",
+      "native_loop": "CH3 CH3-AB EU 355-362 RDELTKNQ",
+      "placement": "inserted at apex of CH3-AB loop (EU 355-362), after EU 358; native loop retained",
+      "payload": "FETLRGDLRILSILRHQNLLKEL",
+      "payload_len": 23,
+      "n_junction": "GS",
+      "c_junction": "GGGGSGGGGS",
+      "insert": "GSFETLRGDLRILSILRHQNLLKELGGGGSGGGGS",
+      "insert_len": 35,
+      "length_change_vs_wt": 35,
+      "graft_index_range_0based": [
+        18,
+        52
+      ],
+      "chains": {
+        "A": "GQPREPQVYTLPPSRDELGSFETLRGDLRILSILRHQNLLKELGGGGSGGGGSTKNQVSLTCLVKGFYPSDIAVEWESNGQPENNYKTTPPVLDSDGSFFLYSKLTVDKSRWQQGNVFSCSVMHEALHNHYTQKSLSLSPGK",
+        "B": "GQPREPQVYTLPPSRDELGSFETLRGDLRILSILRHQNLLKELGGGGSGGGGSTKNQVSLTCLVKGFYPSDIAVEWESNGQPENNYKTTPPVLDSDGSFFLYSKLTVDKSRWQQGNVFSCSVMHEALHNHYTQKSLSLSPGK"
+      },
+      "geometry_budget": {
+        "anchor_CA_A": 8.47,
+        "payload_end_to_end_A": 35.75,
+        "slack_to_absorb_A": 27.28,
+        "c_linker_residues": 10,
+        "c_linker_max_reach_A": 30.0,
+        "slack_covered": true
+      }
+    },
+    {
+      "id": "C07_CH3-AB_S3",
+      "site": "CH3-AB",
+      "strategy": "S3_replace",
+      "module": "CH3 homodimer",
+      "native_loop": "CH3 CH3-AB EU 355-362 RDELTKNQ",
+      "placement": "native CH3-AB loop (EU 355-362) replaced in full",
+      "payload": "FETLRGDLRILSILRHQNLLKEL",
+      "payload_len": 23,
+      "n_junction": "GD",
+      "c_junction": "GPGGGGGS",
+      "insert": "GDFETLRGDLRILSILRHQNLLKELGPGGGGGS",
+      "insert_len": 33,
+      "length_change_vs_wt": 25,
+      "graft_index_range_0based": [
+        14,
+        46
+      ],
+      "chains": {
+        "A": "GQPREPQVYTLPPSGDFETLRGDLRILSILRHQNLLKELGPGGGGGSVSLTCLVKGFYPSDIAVEWESNGQPENNYKTTPPVLDSDGSFFLYSKLTVDKSRWQQGNVFSCSVMHEALHNHYTQKSLSLSPGK",
+        "B": "GQPREPQVYTLPPSGDFETLRGDLRILSILRHQNLLKELGPGGGGGSVSLTCLVKGFYPSDIAVEWESNGQPENNYKTTPPVLDSDGSFFLYSKLTVDKSRWQQGNVFSCSVMHEALHNHYTQKSLSLSPGK"
+      },
+      "geometry_budget": {
+        "anchor_CA_A": 8.47,
+        "payload_end_to_end_A": 35.75,
+        "slack_to_absorb_A": 27.28,
+        "c_linker_residues": 8,
+        "c_linker_max_reach_A": 24.0,
+        "slack_covered": false
+      }
+    },
+    {
+      "id": "C08_CH3-AB_S4",
+      "site": "CH3-AB",
+      "strategy": "S4_coretrunc",
+      "module": "CH3 homodimer",
+      "native_loop": "CH3 CH3-AB EU 355-362 RDELTKNQ",
+      "placement": "inserted at apex of CH3-AB loop (EU 355-362), after EU 358; native loop retained",
+      "payload": "FETLRGDLRILSILRHQN",
+      "payload_len": 18,
+      "n_junction": "GS",
+      "c_junction": "GGGGSGGGGS",
+      "insert": "GSFETLRGDLRILSILRHQNGGGGSGGGGS",
+      "insert_len": 30,
+      "length_change_vs_wt": 30,
+      "graft_index_range_0based": [
+        18,
+        47
+      ],
+      "chains": {
+        "A": "GQPREPQVYTLPPSRDELGSFETLRGDLRILSILRHQNGGGGSGGGGSTKNQVSLTCLVKGFYPSDIAVEWESNGQPENNYKTTPPVLDSDGSFFLYSKLTVDKSRWQQGNVFSCSVMHEALHNHYTQKSLSLSPGK",
+        "B": "GQPREPQVYTLPPSRDELGSFETLRGDLRILSILRHQNGGGGSGGGGSTKNQVSLTCLVKGFYPSDIAVEWESNGQPENNYKTTPPVLDSDGSFFLYSKLTVDKSRWQQGNVFSCSVMHEALHNHYTQKSLSLSPGK"
+      },
+      "geometry_budget": {
+        "anchor_CA_A": 8.47,
+        "payload_end_to_end_A": null,
+        "slack_to_absorb_A": 27.28,
+        "c_linker_residues": 10,
+        "c_linker_max_reach_A": 30.0,
+        "slack_covered": true
+      }
+    },
+    {
+      "id": "C09_CH3-CD_S1",
+      "site": "CH3-CD",
+      "strategy": "S1_minimal",
+      "module": "CH3 homodimer",
+      "native_loop": "CH3 CH3-CD EU 383-391 SNGQPENNY",
+      "placement": "inserted at apex of CH3-CD loop (EU 383-391), after EU 386; native loop retained",
+      "payload": "FETLRGDLRILSILRHQNLLKEL",
+      "payload_len": 23,
+      "n_junction": "GS",
+      "c_junction": "SG",
+      "insert": "GSFETLRGDLRILSILRHQNLLKELSG",
+      "insert_len": 27,
+      "length_change_vs_wt": 27,
+      "graft_index_range_0based": [
+        46,
+        72
+      ],
+      "chains": {
+        "A": "GQPREPQVYTLPPSRDELTKNQVSLTCLVKGFYPSDIAVEWESNGQGSFETLRGDLRILSILRHQNLLKELSGPENNYKTTPPVLDSDGSFFLYSKLTVDKSRWQQGNVFSCSVMHEALHNHYTQKSLSLSPGK",
+        "B": "GQPREPQVYTLPPSRDELTKNQVSLTCLVKGFYPSDIAVEWESNGQGSFETLRGDLRILSILRHQNLLKELSGPENNYKTTPPVLDSDGSFFLYSKLTVDKSRWQQGNVFSCSVMHEALHNHYTQKSLSLSPGK"
+      },
+      "geometry_budget": {
+        "anchor_CA_A": 12.99,
+        "payload_end_to_end_A": 35.75,
+        "slack_to_absorb_A": 22.76,
+        "c_linker_residues": 2,
+        "c_linker_max_reach_A": 6.0,
+        "slack_covered": false
+      }
+    },
+    {
+      "id": "C10_CH3-CD_S2",
+      "site": "CH3-CD",
+      "strategy": "S2_spanmatch",
+      "module": "CH3 homodimer",
+      "native_loop": "CH3 CH3-CD EU 383-391 SNGQPENNY",
+      "placement": "inserted at apex of CH3-CD loop (EU 383-391), after EU 386; native loop retained",
+      "payload": "FETLRGDLRILSILRHQNLLKEL",
+      "payload_len": 23,
+      "n_junction": "GS",
+      "c_junction": "GGGGSGGGGS",
+      "insert": "GSFETLRGDLRILSILRHQNLLKELGGGGSGGGGS",
+      "insert_len": 35,
+      "length_change_vs_wt": 35,
+      "graft_index_range_0based": [
+        46,
+        80
+      ],
+      "chains": {
+        "A": "GQPREPQVYTLPPSRDELTKNQVSLTCLVKGFYPSDIAVEWESNGQGSFETLRGDLRILSILRHQNLLKELGGGGSGGGGSPENNYKTTPPVLDSDGSFFLYSKLTVDKSRWQQGNVFSCSVMHEALHNHYTQKSLSLSPGK",
+        "B": "GQPREPQVYTLPPSRDELTKNQVSLTCLVKGFYPSDIAVEWESNGQGSFETLRGDLRILSILRHQNLLKELGGGGSGGGGSPENNYKTTPPVLDSDGSFFLYSKLTVDKSRWQQGNVFSCSVMHEALHNHYTQKSLSLSPGK"
+      },
+      "geometry_budget": {
+        "anchor_CA_A": 12.99,
+        "payload_end_to_end_A": 35.75,
+        "slack_to_absorb_A": 22.76,
+        "c_linker_residues": 10,
+        "c_linker_max_reach_A": 30.0,
+        "slack_covered": true
+      }
+    },
+    {
+      "id": "C11_CH3-CD_S3",
+      "site": "CH3-CD",
+      "strategy": "S3_replace",
+      "module": "CH3 homodimer",
+      "native_loop": "CH3 CH3-CD EU 383-391 SNGQPENNY",
+      "placement": "native CH3-CD loop (EU 383-391) replaced in full",
+      "payload": "FETLRGDLRILSILRHQNLLKEL",
+      "payload_len": 23,
+      "n_junction": "GD",
+      "c_junction": "GPGGGGGS",
+      "insert": "GDFETLRGDLRILSILRHQNLLKELGPGGGGGS",
+      "insert_len": 33,
+      "length_change_vs_wt": 24,
+      "graft_index_range_0based": [
+        42,
+        74
+      ],
+      "chains": {
+        "A": "GQPREPQVYTLPPSRDELTKNQVSLTCLVKGFYPSDIAVEWEGDFETLRGDLRILSILRHQNLLKELGPGGGGGSKTTPPVLDSDGSFFLYSKLTVDKSRWQQGNVFSCSVMHEALHNHYTQKSLSLSPGK",
+        "B": "GQPREPQVYTLPPSRDELTKNQVSLTCLVKGFYPSDIAVEWEGDFETLRGDLRILSILRHQNLLKELGPGGGGGSKTTPPVLDSDGSFFLYSKLTVDKSRWQQGNVFSCSVMHEALHNHYTQKSLSLSPGK"
+      },
+      "geometry_budget": {
+        "anchor_CA_A": 12.99,
+        "payload_end_to_end_A": 35.75,
+        "slack_to_absorb_A": 22.76,
+        "c_linker_residues": 8,
+        "c_linker_max_reach_A": 24.0,
+        "slack_covered": true
+      }
+    },
+    {
+      "id": "C12_CH3-CD_S4",
+      "site": "CH3-CD",
+      "strategy": "S4_coretrunc",
+      "module": "CH3 homodimer",
+      "native_loop": "CH3 CH3-CD EU 383-391 SNGQPENNY",
+      "placement": "inserted at apex of CH3-CD loop (EU 383-391), after EU 386; native loop retained",
+      "payload": "FETLRGDLRILSILRHQN",
+      "payload_len": 18,
+      "n_junction": "GS",
+      "c_junction": "GGGGSGGGGS",
+      "insert": "GSFETLRGDLRILSILRHQNGGGGSGGGGS",
+      "insert_len": 30,
+      "length_change_vs_wt": 30,
+      "graft_index_range_0based": [
+        46,
+        75
+      ],
+      "chains": {
+        "A": "GQPREPQVYTLPPSRDELTKNQVSLTCLVKGFYPSDIAVEWESNGQGSFETLRGDLRILSILRHQNGGGGSGGGGSPENNYKTTPPVLDSDGSFFLYSKLTVDKSRWQQGNVFSCSVMHEALHNHYTQKSLSLSPGK",
+        "B": "GQPREPQVYTLPPSRDELTKNQVSLTCLVKGFYPSDIAVEWESNGQGSFETLRGDLRILSILRHQNGGGGSGGGGSPENNYKTTPPVLDSDGSFFLYSKLTVDKSRWQQGNVFSCSVMHEALHNHYTQKSLSLSPGK"
+      },
+      "geometry_budget": {
+        "anchor_CA_A": 12.99,
+        "payload_end_to_end_A": null,
+        "slack_to_absorb_A": 22.76,
+        "c_linker_residues": 10,
+        "c_linker_max_reach_A": 30.0,
+        "slack_covered": true
+      }
+    },
+    {
+      "id": "C13_CH3-EF_S1",
+      "site": "CH3-EF",
+      "strategy": "S1_minimal",
+      "module": "CH3 homodimer",
+      "native_loop": "CH3 CH3-EF EU 413-422 DKSRWQQGNV",
+      "placement": "inserted at apex of CH3-EF loop (EU 413-422), after EU 417; native loop retained",
+      "payload": "FETLRGDLRILSILRHQNLLKEL",
+      "payload_len": 23,
+      "n_junction": "GS",
+      "c_junction": "SG",
+      "insert": "GSFETLRGDLRILSILRHQNLLKELSG",
+      "insert_len": 27,
+      "length_change_vs_wt": 27,
+      "graft_index_range_0based": [
+        77,
+        103
+      ],
+      "chains": {
+        "A": "GQPREPQVYTLPPSRDELTKNQVSLTCLVKGFYPSDIAVEWESNGQPENNYKTTPPVLDSDGSFFLYSKLTVDKSRWGSFETLRGDLRILSILRHQNLLKELSGQQGNVFSCSVMHEALHNHYTQKSLSLSPGK",
+        "B": "GQPREPQVYTLPPSRDELTKNQVSLTCLVKGFYPSDIAVEWESNGQPENNYKTTPPVLDSDGSFFLYSKLTVDKSRWGSFETLRGDLRILSILRHQNLLKELSGQQGNVFSCSVMHEALHNHYTQKSLSLSPGK"
+      },
+      "geometry_budget": {
+        "anchor_CA_A": 9.78,
+        "payload_end_to_end_A": 35.75,
+        "slack_to_absorb_A": 25.97,
+        "c_linker_residues": 2,
+        "c_linker_max_reach_A": 6.0,
+        "slack_covered": false
+      }
+    },
+    {
+      "id": "C14_CH3-EF_S2",
+      "site": "CH3-EF",
+      "strategy": "S2_spanmatch",
+      "module": "CH3 homodimer",
+      "native_loop": "CH3 CH3-EF EU 413-422 DKSRWQQGNV",
+      "placement": "inserted at apex of CH3-EF loop (EU 413-422), after EU 417; native loop retained",
+      "payload": "FETLRGDLRILSILRHQNLLKEL",
+      "payload_len": 23,
+      "n_junction": "GS",
+      "c_junction": "GGGGSGGGGS",
+      "insert": "GSFETLRGDLRILSILRHQNLLKELGGGGSGGGGS",
+      "insert_len": 35,
+      "length_change_vs_wt": 35,
+      "graft_index_range_0based": [
+        77,
+        111
+      ],
+      "chains": {
+        "A": "GQPREPQVYTLPPSRDELTKNQVSLTCLVKGFYPSDIAVEWESNGQPENNYKTTPPVLDSDGSFFLYSKLTVDKSRWGSFETLRGDLRILSILRHQNLLKELGGGGSGGGGSQQGNVFSCSVMHEALHNHYTQKSLSLSPGK",
+        "B": "GQPREPQVYTLPPSRDELTKNQVSLTCLVKGFYPSDIAVEWESNGQPENNYKTTPPVLDSDGSFFLYSKLTVDKSRWGSFETLRGDLRILSILRHQNLLKELGGGGSGGGGSQQGNVFSCSVMHEALHNHYTQKSLSLSPGK"
+      },
+      "geometry_budget": {
+        "anchor_CA_A": 9.78,
+        "payload_end_to_end_A": 35.75,
+        "slack_to_absorb_A": 25.97,
+        "c_linker_residues": 10,
+        "c_linker_max_reach_A": 30.0,
+        "slack_covered": true
+      }
+    },
+    {
+      "id": "C15_CH3-EF_S3",
+      "site": "CH3-EF",
+      "strategy": "S3_replace",
+      "module": "CH3 homodimer",
+      "native_loop": "CH3 CH3-EF EU 413-422 DKSRWQQGNV",
+      "placement": "native CH3-EF loop (EU 413-422) replaced in full",
+      "payload": "FETLRGDLRILSILRHQNLLKEL",
+      "payload_len": 23,
+      "n_junction": "GD",
+      "c_junction": "GPGGGGGS",
+      "insert": "GDFETLRGDLRILSILRHQNLLKELGPGGGGGS",
+      "insert_len": 33,
+      "length_change_vs_wt": 23,
+      "graft_index_range_0based": [
+        72,
+        104
+      ],
+      "chains": {
+        "A": "GQPREPQVYTLPPSRDELTKNQVSLTCLVKGFYPSDIAVEWESNGQPENNYKTTPPVLDSDGSFFLYSKLTVGDFETLRGDLRILSILRHQNLLKELGPGGGGGSFSCSVMHEALHNHYTQKSLSLSPGK",
+        "B": "GQPREPQVYTLPPSRDELTKNQVSLTCLVKGFYPSDIAVEWESNGQPENNYKTTPPVLDSDGSFFLYSKLTVGDFETLRGDLRILSILRHQNLLKELGPGGGGGSFSCSVMHEALHNHYTQKSLSLSPGK"
+      },
+      "geometry_budget": {
+        "anchor_CA_A": 9.78,
+        "payload_end_to_end_A": 35.75,
+        "slack_to_absorb_A": 25.97,
+        "c_linker_residues": 8,
+        "c_linker_max_reach_A": 24.0,
+        "slack_covered": false
+      }
+    },
+    {
+      "id": "C16_CH3-EF_S4",
+      "site": "CH3-EF",
+      "strategy": "S4_coretrunc",
+      "module": "CH3 homodimer",
+      "native_loop": "CH3 CH3-EF EU 413-422 DKSRWQQGNV",
+      "placement": "inserted at apex of CH3-EF loop (EU 413-422), after EU 417; native loop retained",
+      "payload": "FETLRGDLRILSILRHQN",
+      "payload_len": 18,
+      "n_junction": "GS",
+      "c_junction": "GGGGSGGGGS",
+      "insert": "GSFETLRGDLRILSILRHQNGGGGSGGGGS",
+      "insert_len": 30,
+      "length_change_vs_wt": 30,
+      "graft_index_range_0based": [
+        77,
+        106
+      ],
+      "chains": {
+        "A": "GQPREPQVYTLPPSRDELTKNQVSLTCLVKGFYPSDIAVEWESNGQPENNYKTTPPVLDSDGSFFLYSKLTVDKSRWGSFETLRGDLRILSILRHQNGGGGSGGGGSQQGNVFSCSVMHEALHNHYTQKSLSLSPGK",
+        "B": "GQPREPQVYTLPPSRDELTKNQVSLTCLVKGFYPSDIAVEWESNGQPENNYKTTPPVLDSDGSFFLYSKLTVDKSRWGSFETLRGDLRILSILRHQNGGGGSGGGGSQQGNVFSCSVMHEALHNHYTQKSLSLSPGK"
+      },
+      "geometry_budget": {
+        "anchor_CA_A": 9.78,
+        "payload_end_to_end_A": null,
+        "slack_to_absorb_A": 25.97,
+        "c_linker_residues": 10,
+        "c_linker_max_reach_A": 30.0,
+        "slack_covered": true
+      }
+    }
+  ],
+  "controls": [
+    {
+      "id": "WT_Fv",
+      "site": "none",
+      "strategy": "control",
+      "module": "Fv",
+      "chains": {
+        "H": "EVQLVESGGGLVQPGGSLRLSCAASGFNIKDTYIHWVRQAPGKGLEWVARIYPTNGYTRYADSVKGRFTISADTSKNTAYLQMNSLRAEDTAVYYCSRWGGDGFYAMDYWGQGTLVTVSS",
+        "L": "DIQMTQSPSSLSASVGDRVTITCRASQDVNTAVAWYQQKPGKAPKLLIYSASFLYSGVPSRFSGSRSGTDFTLTISSLQPEDFATYYCQQHYTTPPTFGQGTKVEIK"
+      },
+      "note": "unmodified trastuzumab Fv baseline"
+    },
+    {
+      "id": "WT_CH3",
+      "site": "none",
+      "strategy": "control",
+      "module": "CH3 homodimer",
+      "chains": {
+        "A": "GQPREPQVYTLPPSRDELTKNQVSLTCLVKGFYPSDIAVEWESNGQPENNYKTTPPVLDSDGSFFLYSKLTVDKSRWQQGNVFSCSVMHEALHNHYTQKSLSLSPGK",
+        "B": "GQPREPQVYTLPPSRDELTKNQVSLTCLVKGFYPSDIAVEWESNGQPENNYKTTPPVLDSDGSFFLYSKLTVDKSRWQQGNVFSCSVMHEALHNHYTQKSLSLSPGK"
+      },
+      "note": "unmodified human IgG1 CH3 homodimer baseline"
+    },
+    {
+      "id": "REF_4delta_free",
+      "site": "none",
+      "strategy": "control",
+      "module": "peptide",
+      "chains": {
+        "P": "FETLRGDLRILSILRHQNLLKEL"
+      },
+      "note": "free 4-Delta peptide; validates the pipeline against PDB 6R2X"
+    },
+    {
+      "id": "BM_CH3_Cterm_fusion",
+      "site": "CH3-Cterm",
+      "strategy": "benchmark",
+      "module": "CH3 homodimer",
+      "chains": {
+        "A": "GQPREPQVYTLPPSRDELTKNQVSLTCLVKGFYPSDIAVEWESNGQPENNYKTTPPVLDSDGSFFLYSKLTVDKSRWQQGNVFSCSVMHEALHNHYTQKSLSLSPGKGGGGSFETLRGDLRILSILRHQNLLKEL",
+        "B": "GQPREPQVYTLPPSRDELTKNQVSLTCLVKGFYPSDIAVEWESNGQPENNYKTTPPVLDSDGSFFLYSKLTVDKSRWQQGNVFSCSVMHEALHNHYTQKSLSLSPGKGGGGSFETLRGDLRILSILRHQNLLKEL"
+      },
+      "note": "topology benchmark: 4-Delta appended to the free C-terminus (K447) via G4S. No closed-loop span penalty - shows the attainable ceiling for RGD presentation and is NOT one of the 16 requested designs.",
+      "graft_index_range_0based": [
+        112,
+        134
+      ]
+    }
+  ]
+}

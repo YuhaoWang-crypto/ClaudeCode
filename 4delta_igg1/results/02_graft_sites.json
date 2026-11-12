@@ -1,0 +1,177 @@
+{
+  "CH3": {
+    "source": "3AVE human IgG1 Fc; loop ranges from Fcab literature, validated on structure",
+    "dssp_strands_in_ch3": [
+      [
+        347,
+        351
+      ],
+      [
+        362,
+        373
+      ],
+      [
+        378,
+        383
+      ],
+      [
+        386,
+        387
+      ],
+      [
+        391,
+        393
+      ],
+      [
+        397,
+        398
+      ],
+      [
+        404,
+        413
+      ],
+      [
+        423,
+        428
+      ],
+      [
+        436,
+        441
+      ]
+    ],
+    "loops": {
+      "AB": {
+        "loop_eu_range": [
+          355,
+          362
+        ],
+        "loop_length": 8,
+        "loop_sequence": "RDELTKNQ",
+        "anchor_residues_eu": [
+          354,
+          363
+        ],
+        "anchor_CA_distance_A": 8.47,
+        "loop_sasa_A2": 702.2,
+        "distance_from_CH2_centroid_A": 48.3,
+        "residues_at_dimer_interface": [
+          356,
+          357,
+          360
+        ]
+      },
+      "CD": {
+        "loop_eu_range": [
+          383,
+          391
+        ],
+        "loop_length": 9,
+        "loop_sequence": "SNGQPENNY",
+        "anchor_residues_eu": [
+          382,
+          392
+        ],
+        "anchor_CA_distance_A": 12.99,
+        "loop_sasa_A2": 711.7,
+        "distance_from_CH2_centroid_A": 35.0,
+        "residues_at_dimer_interface": [
+          390
+        ]
+      },
+      "EF": {
+        "loop_eu_range": [
+          413,
+          422
+        ],
+        "loop_length": 10,
+        "loop_sequence": "DKSRWQQGNV",
+        "anchor_residues_eu": [
+          412,
+          423
+        ],
+        "anchor_CA_distance_A": 9.78,
+        "loop_sasa_A2": 674.5,
+        "distance_from_CH2_centroid_A": 46.9,
+        "residues_at_dimer_interface": []
+      }
+    },
+    "dimer_interface_residues_eu": [
+      341,
+      342,
+      343,
+      347,
+      349,
+      350,
+      351,
+      352,
+      353,
+      354,
+      356,
+      357,
+      360,
+      364,
+      366,
+      368,
+      370,
+      390,
+      392,
+      393,
+      394,
+      395,
+      397,
+      398,
+      399,
+      400,
+      405,
+      407,
+      408,
+      409,
+      439
+    ],
+    "ch3_sequence_341_447": "GQPREPQVYTLPPSRDELTKNQVSLTCLVKGFYPSDIAVEWESNGQPENNYKTTPPVLDSDGSFFLYSKLTVDKSRWQQGNVFSCSVMHEALHNHYTQKSLSLS???"
+  },
+  "CDRH3": {
+    "source": "1N8Z trastuzumab Fab/HER2",
+    "scaffold_antibody": "trastuzumab (reference IgG1; client sequences not supplied)",
+    "cdrh3_sequence": "WGGDGFYAMDY",
+    "cdrh3_author_range": [
+      99,
+      109
+    ],
+    "anchor_residues": [
+      "98R",
+      "110W"
+    ],
+    "anchor_CA_distance_A": 6.86,
+    "cdrh3_sasa_A2": 278.1,
+    "cdrh3_residues_in_HER2_paratope": [
+      99,
+      103,
+      104,
+      105
+    ],
+    "heavy_chain_sequence": "EVQLVESGGGLVQPGGSLRLSCAASGFNIKDTYIHWVRQAPGKGLEWVARIYPTNGYTRYADSVKGRFTISADTSKNTAYLQMNSLRAEDTAVYYCSRWGGDGFYAMDYWGQGTLVTVSSASTKGPSVFPLAPSSKSTSGGTAALGCLVKDYFPEPVTVSWNSGALTSGVHTFPAVLQSSGLYSLSSVVTVPSSSLGTQTYICNVNHKPSNTKVDKKVEP",
+    "light_chain_sequence": "DIQMTQSPSSLSASVGDRVTITCRASQDVNTAVAWYQQKPGKAPKLLIYSASFLYSGVPSRFSGSRSGTDFTLTISSLQPEDFATYYCQQHYTTPPTFGQGTKVEIKRTVAAPSVFIFPPSDEQLKSGTASVVCLLNNFYPREAKVQWKVDNALQSGNSQESVTEQDSKDSTYSLSSTLTLSKADYEKHKVYACEVTHQGLSSPVTKSFNRGEC"
+  },
+  "span_reconciliation": {
+    "fourdelta_end_to_end_A": 35.75,
+    "sites": {
+      "CDRH3": {
+        "anchor_CA_A": 6.86,
+        "slack_to_absorb_A": 28.89
+      },
+      "CH3-AB": {
+        "anchor_CA_A": 8.47,
+        "slack_to_absorb_A": 27.28
+      },
+      "CH3-CD": {
+        "anchor_CA_A": 12.99,
+        "slack_to_absorb_A": 22.76
+      },
+      "CH3-EF": {
+        "anchor_CA_A": 9.78,
+        "slack_to_absorb_A": 25.97
+      }
+    }
+  }
+}
