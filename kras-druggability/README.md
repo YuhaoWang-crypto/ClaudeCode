@@ -139,8 +139,18 @@ KRAS 通过 C 端**法尼基化**锚定在细胞质膜内侧，而常规大分�
 2. **诱导新生蛋白–蛋白界面（Neo‑PPI Interface）**：当"CYPA:小分子"靠近 GTP 态 KRAS 时，不仅小分子外露端（Warhead/Linker）接触 Switch‑I/II，更**迫使 CYPA 表面与 KRAS 表面大面积直接接触**，埋藏数百 Å² 的溶剂可及表面积（BSA），形成大量额外的蛋白–蛋白氢键、盐桥与疏水堆积。[^rsc]
 3. **巨大热力学正协同（Positive Cooperativity, α≫1）+ 立体位阻封锁**：新生界面提供巨大的额外结合自由能补偿（ΔΔG_coop < 0），使三元复合物的解离速率（k_off）**数量级下降**；同时庞大的 CYPA 像盾牌一样直接盖在 KRAS 的效应器结合面上，通过物理位阻彻底阻断 RAF 等下游蛋白的靠近。[^pdb9bfx]
 
-> 📌 结构实证：**PDB 9BFX**（CYPA : 分子胶 : KRAS 三元复合物）。
+> 📌 结构实证：**PDB 9BFX**（CYPA : 分子胶 : KRAS 三元复合物）；最初解析的"初始三元"是 **PDB 8G9Q**（CypA : Compound‑1 : KRAS G12C, 1.40 Å, Schulze 2023）。
 > ✅ 本节已做计算 demo（Boltz‑2 复现 9BFX + 有/无胶对照）：见 §10.2 与 [`demo/tricomplex/RESULTS.md`](demo/tricomplex/RESULTS.md)。
+
+### 7.4 研发与设计思路（这套"招募伴侣造界面"怎么被设计出来）
+
+- **思想源头**：Gregory Verdine "Drugging the undruggable"——选一个**伴侣蛋白（presenter）**，设计能与它**共同识别靶点**的分子；想法写进专利 **US20160199506A1**（Warp Drive Bio），在 Third Rock Ventures 孵化后成为 Revolution Medicines。
+- **为什么是 CypA**：①胞内高丰度广泛表达；②有化学起点（天然产物 **Sanglifehrin A**，对 CypA 亲和力约环孢素 A 的 10–20×）；③与 KRAS 效应面有**局部电荷互补**（FKBP12 不具同样互补）。
+- **工具分子 Compound‑1**：双功能（抓 CypA 端 + Cys 反应抓手），用**共价栓系**先锁住弱三元、拿到初始三元晶体（8G9Q）作 SAR 起点——与 2013 年钓 Switch‑II 隐匿口袋是**同一套 tethering 思路**。
+- **工具分子→候选药的 4 个杠杆**：①骨架**大环化**（预组织、降熵罚）；②**共价/非共价并行**；③**更换弹头**（丙烯酰胺→炔酰胺 ynamide，三元 IC50 52→28 nM，结合速率 ×26）；④**优化连接段构象**（RMC‑4998，调整弹头姿势，速率再 ×14）。小分子结合后**CypA 表面也诱导重排**，共建识别面。
+- **一个平台、三条 RAS 分支**：**elironrasib/RMC‑6291**（G12C，共价）、**daraxonrasib/RMC‑6236**（泛 RAS，非共价）、**zoldonrasib/RMC‑9805**（G12D，共价——用**温和弹头氮丙啶 aziridine** + 界面几何攻克弱亲核的 Asp12，"关键不只在弹头，也在界面"）。
+
+> 📘 完整的**可迁移设计准则 + 对设计新分子的具体启发 + 计算验证方案**整理在 [`design-notes/molecular-glue-design-playbook.md`](design-notes/molecular-glue-design-playbook.md)。
 
 ---
 
