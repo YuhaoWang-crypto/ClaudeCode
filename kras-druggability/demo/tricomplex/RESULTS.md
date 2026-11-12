@@ -11,7 +11,8 @@
 
 | 体系 | 组成 | binding 模式 | prediction_id |
 |---|---|---|---|
-| **T1 三元（含胶）** | CYPA + KRAS(G12C) + **RMC‑6291** + GppNHp + Mg²⁺ | ligand_protein_binding（胶为 binder） | `sab_pred_gpde8tALI5RaqTWFI6Nq` |
+| **T1 三元（非共价）** | CYPA + KRAS(G12C) + **RMC‑6291** + GppNHp + Mg²⁺ | ligand_protein_binding（胶为 binder） | `sab_pred_gpde8tALI5RaqTWFI6Nq` |
+| **T1cov 三元（显式共价）** | 同 T1，另声明 **Cys12 SG ↔ 胶弹头β‑碳** 共价键 | ligand_protein_binding + `bonds` | `sab_pred_28wbJ0CBYwkBZccMRzm8` |
 | **T2 对照（无胶）** | CYPA + KRAS(G12C)（apo） | protein_protein_binding（KRAS 为 binder） | `sab_pred_dIK0dZok68JJwAlw1jwU` |
 | **参照** | PDB **9BFX**（实验，ON 态 GppNHp） | — | 链 A=KRAS, D=CypA, 胶=A1AOD |
 
@@ -26,7 +27,8 @@
 
 | 体系 | protein_iptm（PPI 界面置信） | ligand_iptm | **binding_confidence** | complex_ipde（越低越准） | 3 样本 protein_iptm |
 |---|---|---|---|---|---|
-| **T1 含胶** | **0.819** | 0.935 | **0.903** | **0.97** | 0.819 / 0.824 / 0.789 |
+| **T1 非共价** | 0.819 | 0.935 | 0.903 | 0.97 | 0.819 / 0.824 / 0.789 |
+| **T1cov 共价** | 0.754 | 0.916 | **0.931** | **0.99** | 0.754 / 0.769 / 0.618 |
 | **T2 无胶** | 0.644 | — | **0.317** | 5.69 | 0.644 / 0.677 / **0.207** |
 
 - 含胶时 CYPA–KRAS 界面**置信度高（protein_iptm 0.82）、三样本稳定、界面误差低（ipde≈1）**。
@@ -40,15 +42,16 @@
 
 界面接触判据：残基最近重原子 ≤ 4.5 Å；BSA 为自实现 SASA 估算（绝对值仅供比较，约 ±10–15%）。
 
-| 指标 | **9BFX 实验** | **T1 含胶（预测）** | **T2 无胶（预测）** |
-|---|---|---|---|
-| CYPA–KRAS 接触原子对 | 79 | 36 | 169 |
-| KRAS 界面残基数 | 10 | 7 | 18 |
-| CYPA 界面残基数 | 11 | 9 | 11 |
-| 蛋白–蛋白 BSA (Å²) | ~425 | ~337 | ~580\* |
-| 胶同时桥接两蛋白 | ✓（Cys12 1.68 Å，共价） | ✓（Cys12 4.66 Å，非共价） | — |
-| **KRAS 界面残基 vs 9BFX** | — | **precision 100% / recall 70%** | precision 28% / recall 50% |
-| CYPA 界面残基 vs 9BFX | — | precision 67% / recall 55% | precision 64% / recall 64% |
+| 指标 | **9BFX 实验** | **T1 非共价** | **T1cov 共价** | **T2 无胶** |
+|---|---|---|---|---|
+| CYPA–KRAS 接触原子对 | 79 | 36 | 54 | 169 |
+| KRAS 界面残基数 | 10 | 7 | 9 | 18 |
+| CYPA 界面残基数 | 11 | 9 | 10 | 11 |
+| 蛋白–蛋白 BSA (Å²) | ~425 | ~337 | **~417** | ~580\* |
+| 胶↔Cys12 最近 (Å) | 1.68（共价） | 4.66 | **1.96** | — |
+| 胶同时桥接两蛋白 | ✓ | ✓ | ✓（含 Cys12） | — |
+| **KRAS 界面残基 vs 9BFX** | — | precision 100% / recall 70% | **89% / 80%** | precision 28% / recall 50% |
+| **CYPA 界面残基 vs 9BFX** | — | precision 67% / recall 55% | **90% / 82%** | precision 64% / recall 64% |
 
 **关键判读（KRAS 侧界面是"胜负手"）：**
 
@@ -65,6 +68,19 @@
 
 ---
 
+## 3b. 结果三：显式声明共价键，三元排布更贴近晶体 ✅
+
+RMC‑6291 的弹头是 α,β‑不饱和酰胺（Michael 受体），对 **KRAS G12C 的 Cys12 共价加成**（9BFX 中 SG↔胶 C15 = 1.68 Å）。在 Boltz 输入 `bonds` 里声明 **Cys12 SG ↔ 胶弹头 β‑碳** 后（**T1cov**）：
+
+- 胶↔Cys12 从 **4.66 Å（非共价）收紧到 1.96 Å**（≈ 共价 C–S 键长），胶↔KRAS 接触残基重新纳入 **Cys12、Ala11**（非共价版丢失的共价锚点）；
+- 蛋白–蛋白 **BSA 337 → 417 Å²**，几乎等于实验 **425 Å²**；
+- **CYPA 侧界面回收率大幅提升**：precision 67%→**90%**、recall 55%→**82%**（KRAS 侧维持在 89%/80%）；
+- binding_confidence 0.903 → **0.931**。
+
+> 直觉：共价锚点把胶的一端钉死在 Cys12，等于给三元复合物加了一个正确的"铆钉"，使 CYPA 被胶拉到的相对取向更接近天然——**约束越符合真实化学，预测越贴近晶体**。
+
+---
+
 ## 4. 一句话结论
 
 > **胶把一个"测不出的二元亲和力"变成了一个"高置信、可复现、与晶体一致的三元界面"。** Boltz 在含胶时稳定复现 9BFX 的 CYPA–KRAS neo‑PPI（KRAS 界面残基 100% 命中），去掉胶后界面置信度崩塌且变成非天然接触——正是正文 §7 所说的"分子胶诱导新生蛋白界面 + 正协同"的计算侧印证。
@@ -74,7 +90,7 @@
 ## 5. 诚实边界 ⚠️
 
 - **这不是协同自由能（ΔΔG_coop）的定量。** 置信度/界面回收率能定性区分"胶模板化的天然界面" vs "硬对接的非天然界面"，但要给出正文 §8 要求的**协同系数 α**，仍需双体系 FEP（有/无伴侣蛋白）。本 demo 的 T1/T2 对照是**协同性的定性代理**，非金标准定量。
-- **共价未建模。** RMC‑6291 对 KRAS **G12C 是共价**（9BFX 中胶↔Cys12 = 1.68 Å）；本 demo 按非共价预测，胶↔Cys12 落在 4.66 Å，这也解释了 T1 的 KRAS 侧界面/BSA 略小于实验。若要更贴，应在输入里声明 Cys12 SG ↔ 胶弹头碳的共价键。
+- **共价键已显式建模（T1cov）。** RMC‑6291 对 KRAS **G12C 是共价**（9BFX 中胶↔Cys12 = 1.68 Å）。T1（非共价）胶↔Cys12 落在 4.66 Å，故 KRAS 侧界面/BSA 略小于实验；在输入 `bonds` 里声明 **Cys12 SG ↔ 胶弹头 β‑碳**（加成后饱和形式，β‑碳标 `[CH:1]`）后的 **T1cov**，胶↔Cys12 收紧到 **1.96 Å**（≈ C–S 键），BSA 回到 **417 Å²（≈ 实验 425）**，CYPA 界面回收率从 55%→**82%**。见下节「结果三」。
 - **BSA 为近似 SASA**（自实现 Shrake–Rupley，192 点），绝对值有系统误差；文中只用其做**相对比较**与趋势，不作绝对结论。
 - 构建体用规范 KRAS/CypA（非 9BFX 的 cysteine‑light 结晶突变体），编号与前序 demo 一致；不影响界面定性结论。
 
@@ -83,11 +99,17 @@
 ## 6. 复现
 
 ```bash
-ls structures/   # 9BFX.cif  pred_T1_ternary.cif  pred_T2_noglue.cif
-# 界面 + BSA + 胶桥接分析
-python3 tri_analyze.py structures/9BFX.cif          --kras A --cypa D --glue-comp A1AOD
-python3 tri_analyze.py structures/pred_T1_ternary.cif --kras A --cypa C --glue L
-python3 tri_analyze.py structures/pred_T2_noglue.cif  --kras A --cypa C
+ls structures/   # 9BFX.cif  pred_T1_ternary.cif  pred_T1cov_ternary.cif  pred_T2_noglue.cif
+# 界面 + BSA + 胶桥接分析（完整输出见 tri_analysis.txt）
+python3 tri_analyze.py structures/9BFX.cif             --kras A --cypa D --glue-comp A1AOD
+python3 tri_analyze.py structures/pred_T1_ternary.cif    --kras A --cypa C --glue L
+python3 tri_analyze.py structures/pred_T1cov_ternary.cif --kras A --cypa C --glue L
+python3 tri_analyze.py structures/pred_T2_noglue.cif     --kras A --cypa C
 ```
 
-Boltz 输入：`structure_and_binding`，T1 = 2 蛋白 + 胶(SMILES) + GNP(ccd) + MG(ccd)，binding=ligand_protein_binding(binder=胶)；T2 = 2 蛋白，binding=protein_protein_binding(binder=KRAS)。胶 SMILES 见 `chem_A1AOD.json`（来自 RCSB，PDB 配体 A1AOD）。
+Boltz 输入：`structure_and_binding`。
+- **T1** = 2 蛋白 + 胶(SMILES) + GNP(ccd) + MG(ccd)，binding=ligand_protein_binding(binder=胶)。
+- **T1cov** = 同 T1，胶弹头 β‑碳在 SMILES 中标 `[CH:1]`（加成后饱和形式），并加 `bonds: [{atom1: polymer_atom(chain A, residue_index 11=Cys12, atom_name "SG"), atom2: smiles_atom(chain L, atom_map 1)}]`。
+- **T2** = 2 蛋白，binding=protein_protein_binding(binder=KRAS)。
+
+胶 SMILES 见 `chem_A1AOD.json`（来自 RCSB，PDB 配体 A1AOD）；共价版 SMILES 把 `...C(=O)/C=C/C(C)(C)N(C)C` 改为 `...C(=O)C[CH:1]C(C)(C)N(C)C`。

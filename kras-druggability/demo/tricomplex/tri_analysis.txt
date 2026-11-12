@@ -17,9 +17,9 @@ KRAS链 A: 1361 重原子 | CYPA链 D: 1241 重原子
   => 胶同时接触两个蛋白: 是 ✓ (molecular glue 几何成立)
   KRAS 第12位(CYS12) ↔ 胶 最近 = 1.68 Å
 
-### T1 含胶
+### T1 非共价
 
-########## Boltz T1 三元(含胶) ##########
+########## Boltz T1 三元(非共价) ##########
 KRAS链 A: 1352 重原子 | CYPA链 C: 1265 重原子
 
 [CYPA–KRAS 蛋白-蛋白界面]  接触原子对=36  界面残基: KRAS 7 / CYPA 9
@@ -35,6 +35,25 @@ KRAS链 A: 1352 重原子 | CYPA链 C: 1265 重原子
   胶 ↔ CYPA: 接触 18 残基 (191 原子对): ARG55, ILE57, PHE60, MET61, GLN63, ARG69, GLY72, THR73, GLY74, GLU81, ALA101, ASN102, ALA103, GLN111, PHE113, TRP121, LEU122, HIS126
   => 胶同时接触两个蛋白: 是 ✓ (molecular glue 几何成立)
   KRAS 第12位(CYS12) ↔ 胶 最近 = 4.66 Å
+
+### T1cov 共价
+
+########## Boltz T1cov 三元(Cys12 共价) ##########
+KRAS链 A: 1352 重原子 | CYPA链 C: 1265 重原子
+
+[CYPA–KRAS 蛋白-蛋白界面]  接触原子对=54  界面残基: KRAS 9 / CYPA 10
+  KRAS 界面残基: TYR32, ASP33, PRO34, ILE36, GLU37, ASP38, GLN61, GLU63, TYR64
+  CYPA 界面残基: ARG55, ILE57, ASN71, THR73, ALA103, LEU122, LYS125, ARG148, ASN149, LYS151
+
+[BSA 埋藏表面积 (CYPA–KRAS, 仅两蛋白)]
+  SASA(KRAS)=8518  SASA(CYPA)=7631  SASA(复合)=15315
+  => 界面 BSA ≈ 417 Å²  (每侧埋藏 ≈ 417 Å²)
+
+[分子胶桥接检验]  胶链 L: 73 重原子
+  胶 ↔ KRAS: 接触 14 残基 (189 原子对): ALA11, CYS12, TYR32, PRO34, THR35, ILE36, ALA59, GLY60, GLN61, GLU62, TYR64, MET67, ASP92, TYR96
+  胶 ↔ CYPA: 接触 15 残基 (151 原子对): ARG55, ILE57, PHE60, MET61, GLN63, GLY72, ALA101, ASN102, ALA103, GLN111, PHE113, TRP121, LEU122, HIS126, ARG148
+  => 胶同时接触两个蛋白: 是 ✓ (molecular glue 几何成立)
+  KRAS 第12位(CYS12) ↔ 胶 最近 = 1.96 Å
 
 ### T2 无胶
 
@@ -54,3 +73,5 @@ T1(含胶)  KRAS界面: 重叠7  precision=100% recall=70%  ∩=[32, 33, 34, 36,
 T1(含胶)  CYPA界面: 重叠6  precision=67% recall=55%  ∩=[55, 57, 71, 73, 149, 151]
 T2(无胶)  KRAS界面: 重叠5  precision=28% recall=50%  ∩=[37, 38, 63, 64, 67]
 T2(无胶)  CYPA界面: 重叠7  precision=64% recall=64%  ∩=[55, 57, 73, 121, 122, 148, 149]
+T1cov KRAS界面 vs 9BFX: 重叠8  precision=89% recall=80%
+T1cov CYPA界面 vs 9BFX: 重叠9  precision=90% recall=82%

@@ -2,3 +2,5 @@ T1(含胶)  KRAS界面: 重叠7  precision=100% recall=70%  ∩=[32, 33, 34, 36,
 T1(含胶)  CYPA界面: 重叠6  precision=67% recall=55%  ∩=[55, 57, 71, 73, 149, 151]
 T2(无胶)  KRAS界面: 重叠5  precision=28% recall=50%  ∩=[37, 38, 63, 64, 67]
 T2(无胶)  CYPA界面: 重叠7  precision=64% recall=64%  ∩=[55, 57, 73, 121, 122, 148, 149]
+T1cov KRAS界面 vs 9BFX: 重叠8  precision=89% recall=80%
+T1cov CYPA界面 vs 9BFX: 重叠9  precision=90% recall=82%
