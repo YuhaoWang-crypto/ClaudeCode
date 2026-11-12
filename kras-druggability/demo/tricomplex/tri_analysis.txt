@@ -1,0 +1,56 @@
+### 9BFX 参照
+
+########## 9BFX 实验参照 ##########
+KRAS链 A: 1361 重原子 | CYPA链 D: 1241 重原子
+
+[CYPA–KRAS 蛋白-蛋白界面]  接触原子对=79  界面残基: KRAS 10 / CYPA 11
+  KRAS 界面残基: GLU31, TYR32, ASP33, PRO34, ILE36, GLU37, ASP38, GLU63, TYR64, MET67
+  CYPA 界面残基: ARG55, ILE57, ARG69, ASN71, THR73, TRP121, LEU122, LYS125, ARG148, ASN149, LYS151
+
+[BSA 埋藏表面积 (CYPA–KRAS, 仅两蛋白)]
+  SASA(KRAS)=8652  SASA(CYPA)=7595  SASA(复合)=15397
+  => 界面 BSA ≈ 425 Å²  (每侧埋藏 ≈ 425 Å²)
+
+[分子胶桥接检验]  胶链 None: 146 重原子
+  胶 ↔ KRAS: 接触 12 残基 (124 原子对): CYS12, TYR32, PRO34, THR35, ILE36, GLU37, ALA59, GLY60, GLN61, TYR64, MET67, TYR71
+  胶 ↔ CYPA: 接触 16 残基 (166 原子对): ARG55, ILE57, PHE60, MET61, GLN63, GLY72, THR73, ALA101, ASN102, ALA103, GLN111, PHE113, TRP121, LEU122, HIS126, ARG148
+  => 胶同时接触两个蛋白: 是 ✓ (molecular glue 几何成立)
+  KRAS 第12位(CYS12) ↔ 胶 最近 = 1.68 Å
+
+### T1 含胶
+
+########## Boltz T1 三元(含胶) ##########
+KRAS链 A: 1352 重原子 | CYPA链 C: 1265 重原子
+
+[CYPA–KRAS 蛋白-蛋白界面]  接触原子对=36  界面残基: KRAS 7 / CYPA 9
+  KRAS 界面残基: TYR32, ASP33, PRO34, ILE36, ASP38, GLU63, TYR64
+  CYPA 界面残基: ARG55, ILE57, ASN71, THR73, ALA103, GLY104, HIS126, ASN149, LYS151
+
+[BSA 埋藏表面积 (CYPA–KRAS, 仅两蛋白)]
+  SASA(KRAS)=8398  SASA(CYPA)=7528  SASA(复合)=15253
+  => 界面 BSA ≈ 337 Å²  (每侧埋藏 ≈ 337 Å²)
+
+[分子胶桥接检验]  胶链 L: 73 重原子
+  胶 ↔ KRAS: 接触 9 残基 (164 原子对): TYR32, PRO34, THR35, ILE36, GLU37, ALA59, GLN61, TYR64, MET67
+  胶 ↔ CYPA: 接触 18 残基 (191 原子对): ARG55, ILE57, PHE60, MET61, GLN63, ARG69, GLY72, THR73, GLY74, GLU81, ALA101, ASN102, ALA103, GLN111, PHE113, TRP121, LEU122, HIS126
+  => 胶同时接触两个蛋白: 是 ✓ (molecular glue 几何成立)
+  KRAS 第12位(CYS12) ↔ 胶 最近 = 4.66 Å
+
+### T2 无胶
+
+########## Boltz T2 对照(无胶) ##########
+KRAS链 A: 1352 重原子 | CYPA链 C: 1258 重原子
+
+[CYPA–KRAS 蛋白-蛋白界面]  接触原子对=169  界面残基: KRAS 18 / CYPA 11
+  KRAS 界面残基: LYS5, LEU6, VAL7, GLU37, ASP38, SER39, ASP54, ILE55, LEU56, GLU63, TYR64, ALA66, MET67, ASP69, GLN70, ARG73, THR74, GLY75
+  CYPA 界面残基: ARG55, ILE57, PRO58, PHE60, THR73, GLU120, TRP121, LEU122, HIS126, ARG148, ASN149
+
+[BSA 埋藏表面积 (CYPA–KRAS, 仅两蛋白)]
+  SASA(KRAS)=8173  SASA(CYPA)=7840  SASA(复合)=14854
+  => 界面 BSA ≈ 580 Å²  (每侧埋藏 ≈ 580 Å²)
+
+### 界面残基回收率(对 9BFX)
+T1(含胶)  KRAS界面: 重叠7  precision=100% recall=70%  ∩=[32, 33, 34, 36, 38, 63, 64]
+T1(含胶)  CYPA界面: 重叠6  precision=67% recall=55%  ∩=[55, 57, 71, 73, 149, 151]
+T2(无胶)  KRAS界面: 重叠5  precision=28% recall=50%  ∩=[37, 38, 63, 64, 67]
+T2(无胶)  CYPA界面: 重叠7  precision=64% recall=64%  ∩=[55, 57, 73, 121, 122, 148, 149]

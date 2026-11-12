@@ -89,6 +89,6 @@ python3 analyze_pocket.py structures/*.cif
 
 ## 6. 下一步（把 demo 推向正文 §7 分子胶 / §8 金标准）
 
-1. **三元复合物（分子胶，§7）**：用 Boltz `protein_protein_binding`，输入 **CYPA(PPIA) + KRAS(1–169, GTP态) + 分子胶 SMILES**，预测新生 PPI 界面并算埋藏面积（BSA）；对照 **PDB 9BFX**。
+1. **三元复合物（分子胶，§7）** ✅ 已完成：见 [`tricomplex/RESULTS.md`](tricomplex/RESULTS.md)。Boltz 含胶时复现了 9BFX 的 CYPA–KRAS 界面（KRAS 界面残基 100% 命中），无胶对照界面置信度崩塌。
 2. **共价 G12C 定量（§4）**：在输入中声明 Cys12 SG ↔ 丙烯酰胺末端碳共价键，重跑并比较位姿。
 3. **进金标准（§8）**：把 Boltz 位姿作为 MD/FEP 的起始构象，跑显式水多重复 MD + 关键盐桥占据率 + FEP(ΔΔG)，对 G12D vs WT 做协同/选择性的自由能级定量。
