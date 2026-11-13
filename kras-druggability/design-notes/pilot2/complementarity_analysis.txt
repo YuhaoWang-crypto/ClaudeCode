@@ -1,0 +1,33 @@
+# Pilot 2 (STAT3) 分析汇总
+
+## 基线(KRAS, 来自 pilot1)
+
+########## 基线 CypA–KRAS 共价三元(可成胶, binding_conf 0.93) ##########
+presenter链 C: 1265 原子 | KRAS链 A: 1352 原子
+界面残基: presenter 10 (净电荷 +4) | KRAS 9 (净电荷 -4)
+跨界面盐桥(<4Å): 3 | 同电荷冲突(<4Å): 0
+静电互补分 EC = +1.06  (每界面残基 +0.056; 正=互补)
+电荷互补判读: KRAS面 酸性 ↔ presenter面 碱性 → 互补 ✓
+
+########## 基线 CypA–KRAS apo(无胶, binding_conf 0.317) ##########
+presenter链 C: 1258 原子 | KRAS链 A: 1352 原子
+界面残基: presenter 11 (净电荷 +2) | KRAS 18 (净电荷 -3)
+跨界面盐桥(<4Å): 2 | 同电荷冲突(<4Å): 0
+静电互补分 EC = +0.38  (每界面残基 +0.013; 正=互补)
+电荷互补判读: KRAS面 酸性 ↔ presenter面 碱性 → 互补 ✓
+
+## STAT3-SH2 预筛
+
+########## CypA–STAT3-SH2 apo (binding_conf 0.0002) ##########
+presenter链 P: 1265 原子 | KRAS链 S: 1083 原子
+界面残基: presenter 23 (净电荷 +4) | KRAS 17 (净电荷 -3)
+跨界面盐桥(<4Å): 5 | 同电荷冲突(<4Å): 0
+静电互补分 EC = +0.64  (每界面残基 +0.016; 正=互补)
+电荷互补判读: KRAS面 酸性 ↔ presenter面 碱性 → 互补 ✓
+
+########## FKBP12–STAT3-SH2 apo (binding_conf 0.019) ##########
+presenter链 P: 839 原子 | KRAS链 S: 1083 原子
+界面残基: presenter 29 (净电荷 +2) | KRAS 25 (净电荷 -1)
+跨界面盐桥(<4Å): 2 | 同电荷冲突(<4Å): 1
+静电互补分 EC = +0.10  (每界面残基 +0.002; 正=互补)
+电荷互补判读: KRAS面 酸性 ↔ presenter面 碱性 → 互补 ✓

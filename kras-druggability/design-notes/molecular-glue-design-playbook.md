@@ -124,7 +124,8 @@
 - **14‑3‑3 做 presenter 枢纽**：fusicoccin 类稳定 14‑3‑3 : 客户蛋白复合物——一个很贴切的"刚性 scaffold + 小分子编程界面"的例子。
 - **免疫亲和素**：rapamycin→FKBP12→mTOR；FK506→FKBP12→钙调磷酸酶；sanglifehrin→CypA→RAS（本案例）。
 
-**适合的靶点画像**：平坦 PPI 面 / 持续活化开关 / 无深口袋的"光滑球" / 高丰度难成药癌蛋白 / 其他小 G 蛋白（RHO/RAC/RAL/RAB）/ 转录因子（**STAT3 正是"无口袋直接抑制失败"的典型——天然适合换成这种范式**）。
+**适合的靶点画像**：平坦 PPI 面 / 持续活化开关 / 无深口袋的"光滑球" / 高丰度难成药癌蛋白 / 其他小 G 蛋白（RHO/RAC/RAL/RAB）/ 转录因子。
+> ⚠️ 但"适合换范式"≠"适合每一条分支"。**Pilot 2（STAT3）实测**：STAT3 的功能面是 **pTyr705↔SH2‑Arg609 磷酸锁孔热点（近中性宽面）**，CypA/FKBP12 式刚性遮盖 presenter **抓不住**（预筛 binding_conf ~0）；STAT3 应走**降解分支（E3）或口袋直给**。→ 范式内还要先判"**哪条分支适配该靶**"，预筛正是干这个的。见 [`pilot2/RESULTS.md`](pilot2/RESULTS.md)。
 
 **成功的硬条件（缺一不可）**：
 1. 靶面存在一块**功能相关**的表面（不必是口袋，但要能被"presenter+胶"的复合面互补并且阻断它有治疗意义，如遮住效应器面/招募降解）。
@@ -151,7 +152,7 @@
 ## 5. 建议的下一步计算 pilot（择一即可，低成本）
 
 1. ~~**复现文中 presenter 选择结论**：CypA vs FKBP12 界面/静电互补对比~~ ✅ **已完成，见 [`pilot1/RESULTS.md`](pilot1/RESULTS.md)**（新增 `pilot1/electro_complementarity.py` 静电互补度量）。
-2. **平台外推 demo**：把 CypA 招募用到另一 RAS 分支或一个无口袋 PPI 靶点，跑 presenter:靶点 互补预筛 + 候选胶三元预测。
+2. ~~**平台外推 demo**：把 CypA 招募用到一个无口袋 PPI 靶点~~ ✅ **已完成（STAT3），见 [`pilot2/RESULTS.md`](pilot2/RESULTS.md)**：预筛判定 STAT3‑SH2 **不适合 CypA 式遮盖**（binding_conf ~0），应走降解/口袋分支。
 3. **温和弹头-残基匹配 demo**：对 G12D + 氮丙啶弹头显式建 Asp12↔弹头键，复现"温和弹头 + 界面几何=选择性共价"。
 
 > 每个 pilot 约 $0.1–0.3（Boltz）。我可直接执行其一并产出对照结果；默认推荐 **pilot 1**（最能把"设计决策"量化，且是全新实验）。
