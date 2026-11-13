@@ -1,0 +1,7 @@
+sequence,total RNA-seq (gene strand),GTEx polyA+ (unstranded),log2FC total RNA-seq,log2FC GTEx polyA+
+reference,89.0219,395.49094,0.0,0.0
+hotspot scrambled,23.096828,68.15629,-1.9464655,-2.536726
+control scrambled,89.85069,390.82544,0.013369363,-0.01712024
+hotspot masked (N),36.65406,101.17264,-1.2801872,-1.9668254
+reverse complement,102.02417,502.2063,0.19667882,0.3446355
+random DNA,0.3198871,1.1287463,-8.120454,-8.45278
