@@ -1,0 +1,440 @@
+<meta name="claude:viewport-fit-sides" content="cover">
+<title>KRAS 分子胶设计报告</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap">
+<style>
+  /* 布局：顶部粘性标题栏 + 左侧粘性目录 + 右侧正文；窄屏折叠为单列、目录可展开 */
+  :root{
+    --bg:#f7f8fa; --panel:#ffffff; --fg:#161a22; --muted:#5a6475; --faint:#8b94a6;
+    --line:#e3e7ee; --accent:#0e8f8a; --accent-soft:#d6efed;
+    --good:#1a8f4a; --good-soft:#dcf0e4; --warn:#b4701a; --warn-soft:#f6e9d6;
+    --bad:#c23b4b; --bad-soft:#f6dde0; --code:#eef1f6;
+    --sans:'Inter',system-ui,-apple-system,"Segoe UI",sans-serif;
+    --disp:'Space Grotesk',var(--sans);
+    --mono:ui-monospace,"SF Mono","JetBrains Mono","Cascadia Code",Menlo,Consolas,monospace;
+  }
+  @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+    --bg:#0e1116; --panel:#161b23; --fg:#e7ebf2; --muted:#9aa4b5; --faint:#6d778a;
+    --line:#262d39; --accent:#39c0b8; --accent-soft:#113532;
+    --good:#52c483; --good-soft:#12281c; --warn:#d99a4e; --warn-soft:#2c2112;
+    --bad:#e8707e; --bad-soft:#2c1619; --code:#1b212b; color-scheme:dark;
+  }}
+  :root[data-theme="dark"]{
+    --bg:#0e1116; --panel:#161b23; --fg:#e7ebf2; --muted:#9aa4b5; --faint:#6d778a;
+    --line:#262d39; --accent:#39c0b8; --accent-soft:#113532;
+    --good:#52c483; --good-soft:#12281c; --warn:#d99a4e; --warn-soft:#2c2112;
+    --bad:#e8707e; --bad-soft:#2c1619; --code:#1b212b; color-scheme:dark;
+  }
+  *{box-sizing:border-box}
+  body{background:var(--bg);color:var(--fg);font-family:var(--sans);line-height:1.65;
+    font-size:15.5px;-webkit-font-smoothing:antialiased}
+  a{color:var(--accent);text-decoration:none}
+  a:hover{text-decoration:underline}
+  h1,h2,h3{font-family:var(--disp);line-height:1.2;text-wrap:balance;font-weight:600}
+  code,.mono{font-family:var(--mono);font-size:.86em}
+  :focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:4px}
+
+  /* 顶栏 */
+  .topbar{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--panel);
+    border-bottom:1px solid var(--line);display:flex;align-items:center;gap:14px}
+  body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);
+    background:var(--panel);z-index:21}
+  .topbar-inner{display:flex;align-items:center;gap:12px;width:100%;
+    padding-left:max(16px,env(safe-area-inset-left,0px));
+    padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:11px}
+  .brand{font-family:var(--disp);font-weight:700;font-size:15px;letter-spacing:.2px;white-space:nowrap}
+  .brand .dot{color:var(--accent)}
+  .brand small{display:block;font-family:var(--sans);font-weight:400;font-size:11.5px;color:var(--faint);letter-spacing:0}
+  .topbar .spacer{flex:1}
+  .btn{font:inherit;font-size:13px;color:var(--muted);background:transparent;border:1px solid var(--line);
+    border-radius:8px;padding:6px 11px;cursor:pointer;white-space:nowrap}
+  .btn:hover{color:var(--fg);border-color:var(--accent)}
+  #menuBtn{display:none}
+
+  /* 外壳 */
+  .shell{display:grid;grid-template-columns:260px minmax(0,1fr);gap:34px;max-width:1180px;margin:0 auto;
+    padding-left:max(16px,env(safe-area-inset-left,0px));
+    padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:30px 60px}
+
+  /* 目录 */
+  nav.toc{position:sticky;top:calc(env(safe-area-inset-top,0px) + 70px);align-self:start;
+    max-height:calc(100vh - 110px);overflow:auto;font-size:13.5px}
+  nav.toc .eyebrow{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);margin:0 0 10px 10px}
+  nav.toc ol{list-style:none;margin:0;padding:0;border-left:1px solid var(--line)}
+  nav.toc li>a{display:block;padding:5px 12px;color:var(--muted);border-left:2px solid transparent;margin-left:-1px}
+  nav.toc li>a:hover{color:var(--fg);text-decoration:none}
+  nav.toc li>a.active{color:var(--accent);border-left-color:var(--accent);font-weight:600}
+  nav.toc .sub a{padding-left:24px;font-size:12.5px}
+
+  main{min-width:0}
+
+  /* 英雄区 */
+  .hero{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:26px 26px 22px}
+  .hero h1{font-size:clamp(25px,4.6vw,38px);margin:.1em 0 .35em;font-weight:700}
+  .hero .lede{font-size:16.5px;color:var(--muted);margin:0 0 18px;max-width:62ch}
+  .hero .lede b{color:var(--fg);font-weight:600}
+  .meta{display:flex;flex-wrap:wrap;gap:8px}
+  .pill{font-size:12px;border:1px solid var(--line);border-radius:999px;padding:4px 11px;color:var(--muted);
+    background:var(--bg);white-space:nowrap}
+  .pill b{color:var(--accent);font-weight:600}
+  .legend{display:flex;flex-wrap:wrap;gap:16px;margin-top:18px;padding-top:16px;border-top:1px solid var(--line);font-size:13px;color:var(--muted)}
+  .legend span{display:inline-flex;align-items:center;gap:7px}
+  .tick{width:9px;height:9px;border-radius:50%;flex:none}
+  .tick.g{background:var(--good)} .tick.w{background:var(--warn)}
+
+  section{margin-top:40px;scroll-margin-top:calc(env(safe-area-inset-top,0px) + 78px)}
+  section>h2{font-size:22px;margin:0 0 4px;padding-bottom:10px;border-bottom:2px solid var(--line);
+    display:flex;align-items:baseline;gap:11px}
+  section>h2 .no{font-size:13px;color:var(--accent);font-family:var(--mono);font-weight:500}
+  h3{font-size:16.5px;margin:26px 0 8px}
+  p{margin:10px 0}
+  .lead{color:var(--muted)}
+  ul{margin:10px 0;padding-left:20px}
+  li{margin:5px 0}
+  strong{font-weight:600}
+
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:13px;padding:18px 20px;margin:16px 0}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+
+  /* 标注块 */
+  .note{border-radius:11px;padding:12px 15px;margin:14px 0;font-size:14px;border:1px solid}
+  .note.good{background:var(--good-soft);border-color:color-mix(in srgb,var(--good) 30%,transparent)}
+  .note.warn{background:var(--warn-soft);border-color:color-mix(in srgb,var(--warn) 32%,transparent)}
+  .note .lbl{font-weight:700;font-family:var(--disp)}
+  .note.good .lbl{color:var(--good)} .note.warn .lbl{color:var(--warn)}
+
+  /* 表格 */
+  .tw{overflow-x:auto;margin:16px 0;border:1px solid var(--line);border-radius:12px}
+  table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:520px}
+  th,td{padding:9px 13px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+  thead th{background:var(--bg);color:var(--muted);font-weight:600;font-family:var(--disp);font-size:12.5px;
+    position:sticky;top:0;white-space:nowrap}
+  tbody tr:last-child td{border-bottom:none}
+  td .mono,th .mono{font-variant-numeric:tabular-nums}
+  .num{font-variant-numeric:tabular-nums;font-family:var(--mono)}
+  .hi{color:var(--accent);font-weight:600}
+  .lo{color:var(--bad);font-weight:600}
+
+  /* 条形图 */
+  .chart{margin:16px 0}
+  .bar-row{display:grid;grid-template-columns:minmax(120px,210px) 1fr;gap:12px;align-items:center;margin:9px 0}
+  .bar-row .lab{font-size:13px;min-width:0}
+  .bar-row .lab small{display:block;color:var(--faint);font-size:11px}
+  .track{background:var(--bg);border:1px solid var(--line);border-radius:7px;height:26px;position:relative;overflow:hidden}
+  .fill{position:absolute;inset:0 auto 0 0;border-radius:6px 0 0 6px;display:flex;align-items:center;justify-content:flex-end;
+    padding-right:8px;font-size:12px;font-weight:600;color:#fff;font-variant-numeric:tabular-nums;min-width:30px}
+  .fill.ok{background:linear-gradient(90deg,color-mix(in srgb,var(--accent) 65%,#000 0),var(--accent))}
+  .fill.bad{background:var(--bad)}
+  .fill.mid{background:var(--faint)}
+  .chart .axis{display:flex;justify-content:space-between;color:var(--faint);font-size:11px;
+    grid-column:2;font-variant-numeric:tabular-nums;margin-top:2px}
+
+  /* 流程框 */
+  pre.flow{background:var(--code);border:1px solid var(--line);border-radius:12px;padding:16px;overflow-x:auto;
+    font-family:var(--mono);font-size:12.5px;line-height:1.7;color:var(--fg)}
+  pre.tree{background:var(--code);border:1px solid var(--line);border-radius:12px;padding:16px;overflow-x:auto;
+    font-family:var(--mono);font-size:12px;line-height:1.55;color:var(--muted)}
+  .fpath{font-family:var(--mono);font-size:.84em;background:var(--code);border:1px solid var(--line);
+    border-radius:5px;padding:1px 6px}
+
+  footer{max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));
+    padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:26px 50px;color:var(--muted);font-size:13px;
+    border-top:1px solid var(--line)}
+  footer h3{font-size:14px;margin:0 0 8px}
+  .refs{columns:2;column-gap:28px}
+  .refs div{break-inside:avoid;margin-bottom:6px}
+
+  .scrim{display:none}
+  @media (max-width:860px){
+    .shell{grid-template-columns:1fr;gap:0;padding-block:20px 50px}
+    #menuBtn{display:inline-block}
+    nav.toc{position:fixed;top:0;left:0;bottom:0;width:80%;max-width:300px;max-height:none;background:var(--panel);
+      border-right:1px solid var(--line);z-index:40;transform:translateX(-102%);transition:transform .25s ease;
+      padding:calc(env(safe-area-inset-top,0px) + 64px) 18px 24px;overflow:auto}
+    nav.toc.open{transform:none}
+    .scrim.show{display:block;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:35}
+    .refs{columns:1}
+    .grid2,.grid3{grid-template-columns:1fr}
+  }
+  @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <button class="btn" id="menuBtn" aria-label="目录">☰ 目录</button>
+    <div class="brand">KRAS<span class="dot">·</span>分子胶设计报告<small>招募 presenter 造界面 · 可计算的设计决策</small></div>
+    <div class="spacer"></div>
+    <button class="btn" id="themeBtn" aria-label="切换主题">◐ 主题</button>
+  </div>
+</header>
+
+<div class="scrim" id="scrim"></div>
+
+<div class="shell">
+  <nav class="toc" id="toc" aria-label="目录">
+    <p class="eyebrow">目录</p>
+    <ol>
+      <li><a href="#bg">1 · 科学背景</a></li>
+      <li><a href="#demo">2 · 计算 Demo</a></li>
+      <li><a href="#playbook">3 · 设计 Playbook</a></li>
+      <li><a href="#pilots">4 · 设计 Pilots</a>
+        <ol class="sub">
+          <li><a href="#p1">Pilot 1 · presenter 选择</a></li>
+          <li><a href="#pflex">Pilot‑flex · 刚 or 柔</a></li>
+          <li><a href="#p2">Pilot 2 · STAT3 判分支</a></li>
+          <li><a href="#p3">Pilot 3 · STAT3 降解</a></li>
+        </ol>
+      </li>
+      <li><a href="#results">5 · 总结果 + 决策流程</a></li>
+      <li><a href="#bounds">6 · 诚实边界</a></li>
+      <li><a href="#files">7 · 文件与复现</a></li>
+    </ol>
+  </nav>
+
+  <main>
+    <div class="hero">
+      <h1>从 KRAS「不可成药」到可计算的分子胶设计</h1>
+      <p class="lede">一条把<b>科学背景</b>、<b>计算 demo</b> 与<b>可迁移设计方法</b>串起来的主线：当靶点没有口袋，就招募高丰度伴侣蛋白（presenter），用小分子让两者共建一个原本不存在的识别界面。全部结构/亲和力预测由 <b>Boltz‑2.1</b> 完成，并用自写的纯 numpy 分析器对照真实晶体与实验数据。</p>
+      <div class="meta">
+        <span class="pill">计算引擎 · <b>Boltz‑2.1</b></span>
+        <span class="pill">对照 · <b>RCSB PDB</b></span>
+        <span class="pill">实验锚点 · <b>ChEMBL v34</b></span>
+        <span class="pill">体系 · <b>12</b> 个预测</span>
+        <span class="pill">设计 Pilot · <b>4</b> 个</span>
+      </div>
+      <div class="legend">
+        <span><i class="tick g"></i><b style="color:var(--good)">✅ 可信</b>：基于真实结构 / 实验的结论</span>
+        <span><i class="tick w"></i><b style="color:var(--warn)">⚠️ 假设</b>：深度学习预测、非金标准定量</span>
+      </div>
+    </div>
+
+    <!-- 1 背景 -->
+    <section id="bg">
+      <h2><span class="no">01</span>科学背景：KRAS 为何曾「不可成药」</h2>
+      <p class="lead">KRAS 是小 G 蛋白分子开关，在 GTP(ON)/GDP(OFF) 间循环；癌症突变（G12/G13/Q61）破坏 GAP 水解、锁死激活态。破局靠<strong>变构隐匿口袋</strong>与<strong>分子胶三元复合物</strong>。</p>
+      <div class="grid3">
+        <div class="card"><h3 style="margin-top:0">① 竞争壁垒</h3><p style="margin-bottom:0;font-size:13.5px;color:var(--muted)">对内源 GTP/GDP 亲和力达 <b style="color:var(--fg)">皮摩尔</b>，胞内 GTP 高达 <b style="color:var(--fg)">~0.5 mM</b> —— 无法去核苷酸口袋硬抢。</p></div>
+        <div class="card"><h3 style="margin-top:0">② 变构壁垒</h3><p style="margin-bottom:0;font-size:13.5px;color:var(--muted)">静态表面像「台球」般光滑，缺深疏水凹槽，HTS 命中「结合即脱离」。</p></div>
+        <div class="card"><h3 style="margin-top:0">③ 抗体壁垒</h3><p style="margin-bottom:0;font-size:13.5px;color:var(--muted)">法尼基化锚在质膜内侧，150 kDa 单抗无法穿膜。</p></div>
+      </div>
+      <h3>破局：构象呼吸 + 两大突破口 + 分子胶</h3>
+      <ul>
+        <li><strong>构象呼吸</strong>：Switch‑I/II 高度柔性，隐匿口袋会瞬时张开。</li>
+        <li><strong>突破口一（G12C 共价）</strong>：二硫键栓系钓出 Switch‑II 隐匿口袋（S‑IIP），丙烯酰胺弹头 + His95 沟槽 → Sotorasib。</li>
+        <li><strong>突破口二（G12D 非共价）</strong>：双环二胺与 Asp12 羧基形成<strong>盐桥</strong> → MRTX1133，亲和力推到 pM。</li>
+        <li><strong>分子胶（ON 态）</strong>：Revolution Medicines 以 Sanglifehrin A 为锚，招募高丰度<strong>亲环蛋白 CYPA</strong>，诱导 CYPA–KRAS 新生界面钉住 KRAS(ON)。三分支：RMC‑6291 / RMC‑6236 / RMC‑9805。</li>
+      </ul>
+      <div class="note good"><span class="lbl">✅ 核心判据</span> ——可信结论来自「动态采样 + 显式溶剂 + 自由能(FEP)」；单一静态刚性对接打分几乎必然高假阳性。</div>
+    </section>
+
+    <!-- 2 demo -->
+    <section id="demo">
+      <h2><span class="no">02</span>计算 Demo：复现两大突破口与分子胶</h2>
+      <h3>2.1 二元复合物（统一构建体 KRAS 1–169）</h3>
+      <div class="tw"><table>
+        <thead><tr><th>体系</th><th>结构验证关键发现</th><th class="num">binding_conf</th></tr></thead>
+        <tbody>
+          <tr><td>G12C + <b>Sotorasib</b></td><td>弹头落 <b>Cys12 SG 2.75 Å</b>，嵌 Switch‑II + His95，核苷酸口袋零接触</td><td class="num">0.925</td></tr>
+          <tr><td>G12C + <b>Adagrasib</b></td><td>Cys12 SG 2.73 Å，交叉印证</td><td class="num">0.971</td></tr>
+          <tr><td>G12D + <b>MRTX1133</b></td><td><b>Asp12 羧基↔配体N 3.0 Å 盐桥</b>，Switch‑II 9 残基</td><td class="num">0.995</td></tr>
+          <tr><td>WT + MRTX1133 <span style="color:var(--faint)">(对照)</span></td><td>同口袋但 <b>Gly12 4.14 Å，无盐桥</b></td><td class="num">0.988</td></tr>
+        </tbody>
+      </table></div>
+      <div class="note good"><span class="lbl">✅ 三条机制证据</span> ——(a) 配体占据 Switch‑II 隐匿口袋而非核苷酸口袋；(b) 共价弹头精准对准 Cys12 + 接触 His95；(c) Asp12 盐桥是 G12D 选择性的结构根源（WT Gly12 无此桥，实验 G12D 0.4 nM vs WT 细胞 &gt;3000 nM）。</div>
+      <div class="note warn"><span class="lbl">⚠️ 诚实点</span> ——标量 optimization_score 几乎没区分 G12D/WT，是<strong>相互作用层面的结构分析</strong>揭示了盐桥有无。「不能只看一个分数」。</div>
+
+      <h3>2.2 分子胶三元复合物 —— 对照 PDB 9BFX + 显式共价键</h3>
+      <div class="tw"><table>
+        <thead><tr><th>指标</th><th class="num">9BFX 实验</th><th class="num">T1 非共价</th><th class="num">T1cov 共价</th><th class="num">T2 无胶</th></tr></thead>
+        <tbody>
+          <tr><td>binding_confidence</td><td class="num">—</td><td class="num">0.903</td><td class="num hi">0.931</td><td class="num">0.317</td></tr>
+          <tr><td>胶 ↔ Cys12 (Å)</td><td class="num">1.68</td><td class="num">4.66</td><td class="num hi">1.96</td><td class="num">—</td></tr>
+          <tr><td>CYPA–KRAS BSA (Å²)</td><td class="num">~425</td><td class="num">~337</td><td class="num hi">~417</td><td class="num">~580*</td></tr>
+          <tr><td>KRAS 界面残基 vs 9BFX</td><td class="num">—</td><td class="num">100%/70%</td><td class="num">89%/80%</td><td class="num lo">28%/50%</td></tr>
+          <tr><td>CYPA 界面残基 vs 9BFX</td><td class="num">—</td><td class="num">67%/55%</td><td class="num hi">90%/82%</td><td class="num">64%/64%</td></tr>
+        </tbody>
+      </table></div>
+      <div class="note good"><span class="lbl">✅ 结论</span> ——含胶预测复现 9BFX 天然界面（KRAS 侧 100% precision）；无胶对照界面崩塌。<strong>显式声明 Cys12 共价键</strong>后，胶↔Cys12 收紧到 1.96 Å、BSA≈实验、CYPA 回收率升到 82% —— 约束越贴合真实化学，预测越贴近晶体。</div>
+    </section>
+
+    <!-- 3 playbook -->
+    <section id="playbook">
+      <h2><span class="no">03</span>设计 Playbook：可迁移的准则</h2>
+      <p class="lead">一句话：<strong>靶点没口袋时别找口袋 —— 招募高丰度伴侣蛋白(presenter)，设计小分子让两者共建一个原本不存在的识别界面(neomorphic interface)。</strong></p>
+      <div class="grid2">
+        <div class="card"><h3 style="margin-top:0">B · presenter 三选一</h3>①胞内高丰度广泛表达；②有化学起点（已知高亲和天然配体，如 sanglifehrin A↔CypA）；③与靶面有潜在<strong>表面互补</strong>。</div>
+        <div class="card"><h3 style="margin-top:0">C · 工具分子先行</h3>双功能最小体（presenter 端 + 靶点栓系端），常用<strong>共价栓系</strong>先锁住弱三元、拿可解析晶体作 SAR 起点。</div>
+        <div class="card"><h3 style="margin-top:0">D · 四个优化杠杆</h3>①大环化/预组织（降熵罚）②弹头工程 ③连接段构象（调姿势，kobs 数量级↑）④界面诱导重排。</div>
+        <div class="card"><h3 style="margin-top:0">E · 弹头‑残基匹配</h3>选择性来自<strong>界面几何</strong>不只弹头反应性 —— 弱亲核 Asp12 用温和弹头 aziridine + 界面把弹头摆到位。</div>
+      </div>
+      <div class="note warn"><span class="lbl">⚠️ 反直觉推论</span> —— presenter <strong>不是靠「柔」通吃</strong>：它是刚性锚 + 本就带的潜在互补面 + 少量 rim 可塑；真正「编程新界面」的是小分子。真实 campaign 还把胶<strong>刚化</strong>来预付熵（见 Pilot‑flex）。</div>
+    </section>
+
+    <!-- 4 pilots -->
+    <section id="pilots">
+      <h2><span class="no">04</span>设计 Pilots：把设计决策变成可计算判据</h2>
+
+      <h3 id="p1">Pilot 1 · presenter 选择（CypA vs FKBP12）</h3>
+      <p>把「为什么选 CypA」量化成<strong>界面静电互补</strong>。</p>
+      <ul>
+        <li><strong style="color:var(--good)">✅ 真实 9BFX</strong>：CypA 面偏碱(+5) ↔ KRAS 效应面偏酸(−5)，<strong>8 盐桥、0 冲突</strong>，EC = +1.15 —— 复现「局部电荷互补」。</li>
+        <li><strong style="color:var(--warn)">⚠️ FKBP12 对照</strong>：找不到干净互补界面，EC +0.11、首现 2 个同电荷冲突、binding_conf 最低(0.171) —— 支持「选 CypA 不选 FKBP12」。</li>
+      </ul>
+
+      <h3 id="pflex">Pilot‑flex · presenter 是刚是柔？</h3>
+      <p>apo CypA(2CPL) vs 结合态 CypA(9BFX) 叠合：<strong class="hi">全局 Cα RMSD 0.41 Å</strong>（晶体噪声级）→ CypA 整体<strong>刚性</strong>；界面 rim 仅个别残基动（Asn71 2.15 Å、Arg69 1.39 Å）= 局部诱导契合。适配新界面靠<strong>重设计胶</strong>，不靠 presenter 变柔。</p>
+
+      <h3 id="p2">Pilot 2 · 平台外推 STAT3：判定走哪条分支</h3>
+      <ul>
+        <li><strong style="color:var(--good)">✅ 功能面</strong>（真实 1BG1）：STAT3 二聚界面近中性(+1)，核心是 <strong>pTyr705(−2) ↔ SH2 Arg609(+) 磷酸锁孔</strong> —— 与 KRAS 宽阔酸性面(−5)性质完全不同。</li>
+        <li><strong style="color:var(--warn)">⚠️ 遮盖预筛</strong>：CypA/FKBP12 对 STAT3‑SH2 都<strong>抓不住</strong>（binding_conf <span class="lo">0.0002 / 0.019</span>，比 CypA–KRAS apo 低约 1000× / 17×）。</li>
+      </ul>
+      <div class="note warn"><span class="lbl">⚠️ 方法学教训</span> —— CypA–STAT3 的 EC(+0.64) 反而高于 CypA–KRAS apo(+0.38)：任意对接能凑电荷，<strong>EC 单看会误导</strong>；判别要靠 binding_confidence + 靶面生物学。</div>
+      <p><strong>判定：STAT3‑SH2 不适合 CypA 式遮盖，应走降解分支(E3)或口袋直给。</strong></p>
+
+      <h3 id="p3">Pilot 3 · STAT3 降解分支：CRBN 诱导邻近</h3>
+      <p>换分支的判据：不看静电遮盖，看<strong>三元 + 赖氨酸递呈</strong>。用真实 STAT3 PROTAC <strong>SD‑36</strong>（已验证强效降解剂）招募 CRBN。</p>
+      <ul>
+        <li><strong class="hi">三元 binding_conf 0.871</strong>、protein_iptm 0.856、ligand_iptm 0.97 —— 与遮盖分支的 ~0 天壤之别。</li>
+        <li><strong>PROTAC 双端锚对</strong>：谷氨酰亚胺端进 CRBN tri‑Trp 口袋 2.84 Å，pTyr 模拟膦酸端锚 STAT3‑SH2。</li>
+        <li><strong>赖氨酸递呈</strong>：STAT3 <strong>K707/K709 被递到 CRBN 面前 6.1 Å</strong>，25 Å 内还有 K658/K685 等 —— 充足泛素化把手。</li>
+      </ul>
+      <div class="note good"><span class="lbl">✅ 闭环</span> —— STAT3 能被这套范式攻克，但走<strong>降解分支(PROTAC+CRBN)</strong>，与 SD‑36 真实有效一致。「先判分支、再按分支判据建模」成立。</div>
+    </section>
+
+    <!-- 5 results -->
+    <section id="results">
+      <h2><span class="no">05</span>总结果 + 可计算的设计决策流程</h2>
+
+      <h3>核心故事：同一个 STAT3，换了分支就「成」了</h3>
+      <div class="chart">
+        <div class="bar-row"><div class="lab">CypA–STAT3 <small>遮盖分支</small></div><div class="track"><div class="fill bad" style="width:4%">0.0002</div></div></div>
+        <div class="bar-row"><div class="lab">FKBP12–STAT3 <small>遮盖分支</small></div><div class="track"><div class="fill bad" style="width:5%">0.019</div></div></div>
+        <div class="bar-row"><div class="lab">CRBN : SD‑36 : STAT3 <small>降解分支 ✓</small></div><div class="track"><div class="fill ok" style="width:87%">0.871</div></div></div>
+        <div class="bar-row"><div class="lab">CYPA : RMC6291 : KRAS <small>共价三元 · 参照</small></div><div class="track"><div class="fill ok" style="width:93%">0.931</div></div></div>
+        <div class="axis"><span>0</span><span>binding_confidence</span><span>1.0</span></div>
+      </div>
+
+      <h3>全部 12 个 Boltz 体系</h3>
+      <div class="tw"><table>
+        <thead><tr><th>类别</th><th>体系</th><th class="num">binding_conf</th><th>关键读出</th></tr></thead>
+        <tbody>
+          <tr><td>二元·共价</td><td>G12C + Sotorasib</td><td class="num">0.925</td><td>弹头@Cys12 2.75Å</td></tr>
+          <tr><td>二元·共价</td><td>G12C + Adagrasib</td><td class="num">0.971</td><td>交叉印证</td></tr>
+          <tr><td>二元·非共价</td><td>G12D + MRTX1133</td><td class="num">0.995</td><td>Asp12 盐桥 3.0Å</td></tr>
+          <tr><td>二元·对照</td><td>WT + MRTX1133</td><td class="num">0.988</td><td>Gly12 无盐桥</td></tr>
+          <tr><td>三元·胶</td><td>CYPA:RMC6291:KRAS</td><td class="num">0.903</td><td>复现 9BFX</td></tr>
+          <tr><td>三元·共价胶</td><td>+ 显式 Cys12 键</td><td class="num hi">0.931</td><td>Cys12 1.96Å, 回收82%</td></tr>
+          <tr><td>三元·无胶</td><td>CYPA + KRAS</td><td class="num">0.317</td><td>界面崩塌</td></tr>
+          <tr><td>预筛·遮盖</td><td>CypA + KRAS(apo)</td><td class="num">0.317</td><td>基线</td></tr>
+          <tr><td>预筛·遮盖</td><td>FKBP12 + KRAS(apo)</td><td class="num">0.171</td><td>互补差</td></tr>
+          <tr><td>预筛·遮盖</td><td>CypA + STAT3‑SH2</td><td class="num lo">0.0002</td><td>遮盖分支否定</td></tr>
+          <tr><td>预筛·遮盖</td><td>FKBP12 + STAT3‑SH2</td><td class="num lo">0.019</td><td>遮盖分支否定</td></tr>
+          <tr><td>诱导邻近·降解</td><td>CRBN:SD‑36:STAT3</td><td class="num hi">0.871</td><td>降解分支证实</td></tr>
+        </tbody>
+      </table></div>
+
+      <h3>方法论产出：可计算的设计决策流程</h3>
+      <pre class="flow">新的不可成药靶点
+   │
+   ├─[1] 刻画靶「功能面」性质（真实结构 / 预测）
+   │      宽阔带电平面 → 偏遮盖分支     磷酸/口袋热点 → 偏口袋/降解分支
+   │
+   ├─[2] 分支预筛（按分支选判据）
+   │      遮盖: presenter×靶 的 EC + 盐桥/冲突 + binding_confidence    (Pilot 1/2)
+   │      降解: E3 + PROTAC 三元 + 赖氨酸递呈(可及区)                  (Pilot 3)
+   │      ※ 教训：别只看单一分数(EC)，联合 binding_confidence 与生物学
+   │
+   ├─[3] 分支内优化（playbook 四杠杆）
+   │      大环化 · 弹头工程 · 连接段姿势 · 界面/共价锚定
+   │      读出：protein_iptm / BSA / 界面回收率 / 共价距离（demo 已验证）
+   │
+   └─[4] 金标准闭环（未做）：MD/FEP 协同自由能 + 实验 k_off / HDX / 结构</pre>
+    </section>
+
+    <!-- 6 bounds -->
+    <section id="bounds">
+      <h2><span class="no">06</span>方法学诚实边界</h2>
+      <div class="note warn"><span class="lbl">⚠️ 适用范围</span>
+        <ul style="margin:8px 0 0">
+          <li><strong>Boltz‑2 ≠ 金标准</strong>：单结构 + 标量/校准置信度，适合快速假设生成与几何合理性检查，不替代 MD/FEP 对「稳定结合、协同自由能」的定量。</li>
+          <li><strong>apo 蛋白‑蛋白预测本就低置信</strong>：有意义的是同口径的<strong>数量级对比</strong>，不是绝对值。</li>
+          <li><strong>静电互补 EC</strong> 是概念性相对度量（非泊松–玻尔兹曼），且单看会误导。</li>
+          <li><strong>BSA</strong> 为近似 Shrake–Rupley SASA，只做相对比较。</li>
+          <li><strong>PROTAC/三元预测是公认难题</strong>；共价与降解的「可及区」是几何代理，非催化胜任度证明（只建 CRBN‑TBD，无 DDB1/CUL4/E2~Ub 全酶）。</li>
+          <li>构件为<strong>结构域片段</strong>（KRAS 1–169 / STAT3‑SH2 / CRBN‑TBD），非全长语境。</li>
+          <li>机制数字以原始论文/实验为准；时效性信息转述自来源、未独立核实。<strong>专利/FTO</strong>：US20160199506A1 等覆盖三元范式，新设计需规避分析。</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 7 files -->
+    <section id="files">
+      <h2><span class="no">07</span>文件与复现</h2>
+      <p class="lead">所有分析脚本<strong>纯 numpy、无第三方依赖</strong>；Boltz 预测的 prediction_id 与输入规格记录在各 RESULTS 与 <span class="fpath">demo/inputs.md</span>。仓库：<span class="fpath">YuhaoWang-crypto/ClaudeCode · kras-druggability/</span></p>
+      <pre class="tree">kras-druggability/
+├── REPORT.md                 总报告（Markdown 版）
+├── README.md                 科学背景全文
+├── demo/
+│   ├── RESULTS.md            二元复合物 demo
+│   ├── analyze_pocket.py     口袋接触分析
+│   └── tricomplex/           分子胶三元（对照 9BFX + 共价）
+│       ├── RESULTS.md · tri_analyze.py
+└── design-notes/
+    ├── molecular-glue-design-playbook.md   设计 playbook
+    ├── pilot1/   presenter 选择 · electro_complementarity.py
+    ├── pilot_flex/ CypA 刚性 · rmsd.py
+    ├── pilot2/   STAT3 分支判定
+    └── pilot3/   STAT3 降解三元 · proximity_analyze.py</pre>
+    </section>
+  </main>
+</div>
+
+<footer>
+  <h3>参考文献（节选）</h3>
+  <div class="refs">
+    <div>Ostrem / Shokat et al., <i>Nature</i> 2013 — G12C 二硫键栓系 S‑IIP</div>
+    <div>Schulze et al., <i>Science</i> 2023 — CYPA 分子胶三元（PDB 8G9Q）</div>
+    <div>Weller et al., <i>Science</i> 2025 — G12D 共价 aziridine</div>
+    <div>专利 US20160199506A1 — Warp Drive Bio / Verdine</div>
+    <div>Becker et al., <i>Nature</i> 1998 — STAT3（PDB 1BG1）</div>
+    <div>Zhou et al. 2019 — STAT3 降解剂 SD‑36</div>
+    <div>RCSB PDB：9BFX / 8G9Q / 1BG1 / 2CPL；ChEMBL v34；UniProt</div>
+    <div>计算：Boltz‑2.1（本工作全部预测）</div>
+  </div>
+  <p style="margin-top:16px;color:var(--faint)">技术学习与方法探索整理；⚠️ 标注内容为假设生成层面，非监管级结论。定量结论请以原始论文与金标准实验/计算为准。</p>
+</footer>
+
+<script>
+(function(){
+  var root=document.documentElement, KEY="kras-report-theme";
+  try{var s=localStorage.getItem(KEY); if(s) root.setAttribute("data-theme",s);}catch(e){}
+  document.getElementById("themeBtn").addEventListener("click",function(){
+    var cur=root.getAttribute("data-theme");
+    var isDark = cur ? cur==="dark" : matchMedia("(prefers-color-scheme:dark)").matches;
+    var next= isDark ? "light":"dark";
+    root.setAttribute("data-theme",next);
+    try{localStorage.setItem(KEY,next);}catch(e){}
+  });
+  // 移动端目录
+  var toc=document.getElementById("toc"), scrim=document.getElementById("scrim"),
+      mb=document.getElementById("menuBtn");
+  function close(){toc.classList.remove("open");scrim.classList.remove("show");}
+  mb.addEventListener("click",function(){toc.classList.toggle("open");scrim.classList.toggle("show");});
+  scrim.addEventListener("click",close);
+  toc.addEventListener("click",function(e){ if(e.target.closest("a")) close(); });
+  // 滚动高亮
+  var links=[].slice.call(toc.querySelectorAll("a")),
+      map={}; links.forEach(function(a){map[a.getAttribute("href").slice(1)]=a;});
+  var ids=Object.keys(map), secs=ids.map(function(id){return document.getElementById(id);}).filter(Boolean);
+  var obs=new IntersectionObserver(function(ents){
+    ents.forEach(function(en){
+      if(en.isIntersecting){
+        links.forEach(function(a){a.classList.remove("active");});
+        var a=map[en.target.id]; if(a) a.classList.add("active");
+      }
+    });
+  },{rootMargin:"-40% 0px -55% 0px",threshold:0});
+  secs.forEach(function(s){obs.observe(s);});
+})();
+</script>
