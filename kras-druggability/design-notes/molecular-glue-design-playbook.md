@@ -126,6 +126,7 @@
 
 **适合的靶点画像**：平坦 PPI 面 / 持续活化开关 / 无深口袋的"光滑球" / 高丰度难成药癌蛋白 / 其他小 G 蛋白（RHO/RAC/RAL/RAB）/ 转录因子。
 > ⚠️ 但"适合换范式"≠"适合每一条分支"。**Pilot 2（STAT3）实测**：STAT3 的功能面是 **pTyr705↔SH2‑Arg609 磷酸锁孔热点（近中性宽面）**，CypA/FKBP12 式刚性遮盖 presenter **抓不住**（预筛 binding_conf ~0）；STAT3 应走**降解分支（E3）或口袋直给**。→ 范式内还要先判"**哪条分支适配该靶**"，预筛正是干这个的。见 [`pilot2/RESULTS.md`](pilot2/RESULTS.md)。
+> ✅ **Pilot 3 证实了"换分支就成"**：给 STAT3 一个真实双功能 PROTAC（**SD‑36**）招募 **CRBN**，Boltz 形成**高置信三元（binding_conf 0.87**，遮盖分支才 ~0），PROTAC 两端分别锚定 CRBN tri‑Trp 口袋与 STAT3 SH2，并把 STAT3 的 **K707/K709 递到 CRBN 面前（6.1 Å）**——降解分支的"诱导邻近 + 赖氨酸递呈"判据全部满足。见 [`pilot3/RESULTS.md`](pilot3/RESULTS.md)。
 
 **成功的硬条件（缺一不可）**：
 1. 靶面存在一块**功能相关**的表面（不必是口袋，但要能被"presenter+胶"的复合面互补并且阻断它有治疗意义，如遮住效应器面/招募降解）。
@@ -153,7 +154,8 @@
 
 1. ~~**复现文中 presenter 选择结论**：CypA vs FKBP12 界面/静电互补对比~~ ✅ **已完成，见 [`pilot1/RESULTS.md`](pilot1/RESULTS.md)**（新增 `pilot1/electro_complementarity.py` 静电互补度量）。
 2. ~~**平台外推 demo**：把 CypA 招募用到一个无口袋 PPI 靶点~~ ✅ **已完成（STAT3），见 [`pilot2/RESULTS.md`](pilot2/RESULTS.md)**：预筛判定 STAT3‑SH2 **不适合 CypA 式遮盖**（binding_conf ~0），应走降解/口袋分支。
-3. **温和弹头-残基匹配 demo**：对 G12D + 氮丙啶弹头显式建 Asp12↔弹头键，复现"温和弹头 + 界面几何=选择性共价"。
+3. ✅ **降解分支 demo（STAT3 + CRBN）已完成，见 [`pilot3/RESULTS.md`](pilot3/RESULTS.md)**：真实 PROTAC（SD‑36）招募 CRBN → 高置信诱导邻近三元 + STAT3 赖氨酸递呈（新增 `pilot3/proximity_analyze.py` 诱导邻近/赖氨酸递呈判据）。
+4. **温和弹头-残基匹配 demo**（未做）：对 G12D + 氮丙啶弹头显式建 Asp12↔弹头键，复现"温和弹头 + 界面几何=选择性共价"。
 
 > 每个 pilot 约 $0.1–0.3（Boltz）。我可直接执行其一并产出对照结果；默认推荐 **pilot 1**（最能把"设计决策"量化，且是全新实验）。
 
