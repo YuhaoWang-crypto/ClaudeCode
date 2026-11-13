@@ -217,6 +217,7 @@ kras-druggability/
 │       └── structures/*.cif      ← 9BFX + T1/T1cov/T2 结构
 └── design-notes/
     ├── molecular-glue-design-playbook.md   ← 设计 playbook（第三部分详版）
+    ├── expansion-and-modular-reagents.md   ← 拓展靶点 + 模块化试剂构想（可行性梳理）
     ├── pilot1/   (presenter 选择, electro_complementarity.py)
     ├── pilot_flex/ (CypA 刚性, rmsd.py)
     ├── pilot2/   (STAT3 分支判定)
