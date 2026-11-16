@@ -1,0 +1,7 @@
+# large assets fetched on demand (see README) — not committed
+data/
+weights/
+*.zip
+__pycache__/
+*.pyc
+venv/

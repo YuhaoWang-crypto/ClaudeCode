@@ -1,0 +1,421 @@
+<title>mRNA-LM 图解</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap">
+<style>
+/* Layout: single editorial column; a hero strip, then stacked explainer sections,
+   with one live tokenizer panel and SVG schematics. Nucleotide colors are semantic. */
+:root{
+  --bg:#f5f8f7; --surface:#ffffff; --surface2:#eef3f2; --fg:#15201e; --muted:#5a6b68;
+  --line:#dbe4e1; --accent:#0f766e; --accent2:#c2410c; --accentsoft:#0f766e1a;
+  --A:#15803d; --U:#c0362c; --G:#b45309; --C:#1d4ed8; --N:#6b7280;
+  --ok:#15803d; --warn:#b45309;
+  --ff-disp:"Space Grotesk",system-ui,sans-serif;
+  --ff-body:"Inter",system-ui,sans-serif;
+  --ff-mono:"JetBrains Mono",ui-monospace,"SF Mono",Menlo,monospace;
+  --maxw:980px;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0c1312; --surface:#111b19; --surface2:#16211f; --fg:#e7efed; --muted:#93a39f;
+  --line:#243330; --accent:#2dd4bf; --accent2:#fb923c; --accentsoft:#2dd4bf1f;
+  --A:#4ade80; --U:#f87171; --G:#fbbf24; --C:#60a5fa; --N:#9ca3af;
+  --ok:#4ade80; --warn:#fbbf24; color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --bg:#0c1312; --surface:#111b19; --surface2:#16211f; --fg:#e7efed; --muted:#93a39f;
+  --line:#243330; --accent:#2dd4bf; --accent2:#fb923c; --accentsoft:#2dd4bf1f;
+  --A:#4ade80; --U:#f87171; --G:#fbbf24; --C:#60a5fa; --N:#9ca3af;
+  --ok:#4ade80; --warn:#fbbf24; color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--ff-body);line-height:1.6;
+  -webkit-font-smoothing:antialiased}
+.wrap{max-width:var(--maxw);margin:0 auto;
+  padding-left:max(18px,env(safe-area-inset-left,0px));
+  padding-right:max(18px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--ff-disp);font-weight:600;line-height:1.15;text-wrap:balance;margin:0}
+p{margin:0}
+a{color:var(--accent)}
+.mono{font-family:var(--ff-mono)}
+.eyebrow{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);
+  font-weight:600;font-family:var(--ff-mono)}
+.muted{color:var(--muted)}
+
+/* hero */
+header.hero{padding-block:52px 30px}
+.hero h1{font-size:clamp(2.1rem,6vw,3.3rem);font-weight:700;letter-spacing:-.02em}
+.hero .sub{font-size:clamp(1rem,2.4vw,1.2rem);color:var(--muted);margin-top:14px;max-width:60ch}
+.hero .tag{margin-top:10px;font-size:.85rem}
+
+/* mRNA strip */
+.strip{margin-top:30px;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--surface)}
+.strip-track{display:flex;min-height:66px;font-family:var(--ff-mono);font-weight:700}
+.seg{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:12px 10px;
+  color:#fff;gap:3px;text-align:center;min-width:0;flex:1}
+.seg small{font-weight:500;opacity:.9;font-family:var(--ff-body);font-size:.68rem;letter-spacing:.02em}
+.seg.s5{background:linear-gradient(135deg,#0ea5a0,#0f766e);flex:0 0 22%}
+.seg.cds{background:linear-gradient(135deg,#d97706,#c2410c)}
+.seg.s3{background:linear-gradient(135deg,#0ea5a0,#0f766e);flex:0 0 30%}
+.seg .lab{font-size:.9rem}
+.caps{display:flex;font-size:.7rem;color:var(--muted);font-family:var(--ff-mono)}
+.caps span{flex:1;text-align:center;padding:8px 4px}
+.caps .c5{flex:0 0 22%}.caps .c3{flex:0 0 30%}
+
+section{padding-block:30px;border-top:1px solid var(--line)}
+section h2{font-size:clamp(1.4rem,3.6vw,1.9rem);letter-spacing:-.01em}
+section .lead{color:var(--muted);margin-top:8px;max-width:66ch}
+
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:22px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px}
+.card h3{font-size:1rem}
+.card p{font-size:.88rem;color:var(--muted);margin-top:6px}
+.card .k{font-family:var(--ff-mono);font-size:.72rem;color:var(--accent);font-weight:700;text-transform:uppercase;letter-spacing:.08em}
+
+/* tokenizer */
+.tok-panel{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px;margin-top:22px}
+.tok-controls{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:14px}
+.segbtns{display:inline-flex;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.segbtns button{font-family:var(--ff-body);font-size:.85rem;font-weight:600;padding:8px 14px;border:0;
+  background:transparent;color:var(--muted);cursor:pointer}
+.segbtns button[aria-pressed="true"]{background:var(--accent);color:#fff}
+.tok-controls .chip-ex{font-size:.8rem;color:var(--muted);cursor:pointer;border:1px dashed var(--line);
+  padding:6px 10px;border-radius:8px;background:transparent}
+textarea#seq{width:100%;min-height:74px;resize:vertical;font-family:var(--ff-mono);font-size:.9rem;
+  line-height:1.5;padding:12px;border:1px solid var(--line);border-radius:10px;background:var(--surface2);
+  color:var(--fg);letter-spacing:.04em}
+.tok-meta{display:flex;flex-wrap:wrap;gap:16px;margin:12px 2px;font-size:.8rem;color:var(--muted);font-family:var(--ff-mono)}
+.tok-meta b{color:var(--fg)}
+.tokens{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px;max-height:260px;overflow:auto}
+.tk{font-family:var(--ff-mono);font-weight:700;font-size:.8rem;border:1px solid var(--line);
+  border-radius:7px;padding:4px 7px;display:flex;flex-direction:column;align-items:center;line-height:1.1;
+  background:var(--surface)}
+.tk .aa{font-size:.6rem;font-weight:500;color:var(--muted);margin-top:2px;font-family:var(--ff-body)}
+.tk.special{background:var(--accentsoft);color:var(--accent);border-color:transparent}
+.nt-A{color:var(--A)}.nt-U{color:var(--U)}.nt-G{color:var(--G)}.nt-C{color:var(--C)}.nt-N{color:var(--N)}
+.legend{display:flex;flex-wrap:wrap;gap:12px;margin-top:12px;font-size:.74rem;font-family:var(--ff-mono)}
+.legend span{display:inline-flex;align-items:center;gap:5px}
+.legend i{width:11px;height:11px;border-radius:3px;display:inline-block}
+
+/* diagram */
+.diagram{margin-top:22px;border:1px solid var(--line);border-radius:14px;background:var(--surface);padding:10px}
+.diagram svg{width:100%;height:auto;display:block}
+.svgtxt{font-family:var(--ff-body);fill:var(--fg)}
+.svgmono{font-family:var(--ff-mono);fill:var(--fg)}
+.svgmut{fill:var(--muted)}
+
+/* results */
+.res-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:22px}
+.res{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px}
+.res h3{font-size:1.05rem;display:flex;align-items:center;gap:8px}
+.res .big{font-family:var(--ff-disp);font-weight:700;font-size:2.2rem;letter-spacing:-.01em;margin-top:4px}
+.res .big span{font-size:1rem;color:var(--muted);font-weight:500}
+.bar{height:26px;border-radius:6px;background:var(--surface2);position:relative;margin:7px 0;overflow:hidden}
+.bar>i{position:absolute;left:0;top:0;bottom:0;border-radius:6px;display:block}
+.barrow{display:grid;grid-template-columns:118px 1fr 52px;align-items:center;gap:10px;font-size:.8rem;
+  font-family:var(--ff-mono);margin-top:8px}
+.barrow .v{text-align:right;font-weight:700}
+.codon-demo{font-family:var(--ff-mono);font-size:.82rem;background:var(--surface2);border-radius:10px;
+  padding:12px;margin-top:14px;line-height:1.8;overflow-x:auto}
+.codon-demo .hit{color:var(--ok);font-weight:700}
+.codon-demo .syn{color:var(--accent);font-weight:700}
+
+table.tasks{width:100%;border-collapse:collapse;margin-top:22px;font-size:.88rem}
+table.tasks th,table.tasks td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+table.tasks th{font-family:var(--ff-mono);font-size:.72rem;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);font-weight:600}
+table.tasks td.t{font-family:var(--ff-mono);font-weight:700;color:var(--accent);white-space:nowrap}
+
+.note{font-size:.82rem;color:var(--muted);margin-top:16px;padding:12px 14px;border-left:3px solid var(--accent);
+  background:var(--accentsoft);border-radius:0 8px 8px 0}
+footer{padding-block:34px 50px;border-top:1px solid var(--line);color:var(--muted);font-size:.82rem}
+footer code{font-family:var(--ff-mono);background:var(--surface2);padding:2px 6px;border-radius:5px;font-size:.78rem}
+
+@media (max-width:720px){
+  .cards{grid-template-columns:1fr}
+  .res-grid{grid-template-columns:1fr}
+}
+</style>
+
+<div class="wrap">
+
+<header class="hero">
+  <div class="eyebrow">mRNA 语言模型 · 图解</div>
+  <h1>mRNA-LM 是怎么读懂一条 mRNA 的</h1>
+  <p class="sub">把 5′UTR、CDS、3′UTR 三个功能区各交给一个 BERT 编码器,再融合起来预测半衰期、表达量等分子性质。下面有可交互的分词器、结构图,以及本机实测结果。</p>
+  <p class="tag muted">复现自 Sanofi-Public / mRNA-LM · 含真实 CodonBERT 权重实测</p>
+
+  <div class="strip" aria-label="mRNA 三区域结构">
+    <div class="strip-track">
+      <div class="seg s5"><span class="lab">5′UTR</span><small>翻译起始调控</small></div>
+      <div class="seg cds"><span class="lab">CDS 编码区</span><small>AUG……终止密码子</small></div>
+      <div class="seg s3"><span class="lab">3′UTR</span><small>稳定性 / 定位</small></div>
+    </div>
+    <div class="caps" style="border-top:1px solid var(--line)">
+      <span class="c5">单核苷酸分词</span>
+      <span>密码子(3-mer)分词</span>
+      <span class="c3">单核苷酸分词</span>
+    </div>
+  </div>
+</header>
+
+<section>
+  <div class="eyebrow">核心思想</div>
+  <h2>三个区域,三个语言模型</h2>
+  <p class="lead">一条成熟 mRNA 的三个区域承担不同功能,"语言"也不同。mRNA-LM 不把整条序列塞进一个模型,而是让每个区域由各自预训练的 BERT 来读,再把三份理解拼起来。</p>
+  <div class="cards">
+    <div class="card"><div class="k">5′UTR</div><h3>5UTRBERT</h3><p>单核苷酸分词。影响核糖体何时、以多高效率开始翻译。</p></div>
+    <div class="card"><div class="k">CDS</div><h3>CodonBERT</h3><p>按密码子(3 个核苷酸)分词。编码氨基酸序列,也携带密码子偏好信号。</p></div>
+    <div class="card"><div class="k">3′UTR</div><h3>3UTRBERT</h3><p>单核苷酸分词。调控 mRNA 稳定性、半衰期与亚细胞定位。</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="eyebrow">动手试试</div>
+  <h2>分词器:序列怎么变成 token</h2>
+  <p class="lead">这是 mRNA-LM 的第一步,和原仓库 <span class="mono">dataload.py</span> 完全一致:先把 <b>T→U</b>,UTR 按单个核苷酸切,CDS 按每 3 个核苷酸一个密码子切。改下面的序列或切换区域试试。</p>
+
+  <div class="tok-panel">
+    <div class="tok-controls">
+      <div class="segbtns" role="group" aria-label="选择区域分词方式">
+        <button id="btn-utr" aria-pressed="true">5′/3′UTR · 单核苷酸</button>
+        <button id="btn-cds" aria-pressed="false">CDS · 密码子</button>
+      </div>
+      <button class="chip-ex" id="ex-utr">载入 UTR 示例</button>
+      <button class="chip-ex" id="ex-cds">载入 CDS 示例</button>
+    </div>
+    <textarea id="seq" spellcheck="false" aria-label="输入 mRNA 序列"></textarea>
+    <div class="tok-meta">
+      <span>碱基数 <b id="m-len">0</b></span>
+      <span>token 数 <b id="m-tok">0</b></span>
+      <span id="m-vocab">词表 —</span>
+      <span id="m-trunc" class="muted"></span>
+    </div>
+    <div class="tokens" id="tokens" aria-live="polite"></div>
+    <div class="legend" id="legend"></div>
+  </div>
+  <p class="note">CDS 模式下每个密码子下方标注了它翻译成的氨基酸(单字母);<b>AUG</b>=甲硫氨酸/起始(M),<b>UAA/UAG/UGA</b>=终止(*)。这正是 CodonBERT 需要从数据里学会的"遗传密码"。</p>
+</section>
+
+<section>
+  <div class="eyebrow">模型结构</div>
+  <h2>三塔 → 融合 → 预测</h2>
+  <p class="lead">每个区域 BERT 输出逐 token 的向量,做掩码平均池化得到一个 768 维区域向量;三份拼成 768×3,过一层 Dense+GELU+LayerNorm,再由预测头给出结果。对应原仓库 <span class="mono">FullModel.py</span>。</p>
+
+  <div class="diagram">
+    <svg viewBox="0 0 920 440" role="img" aria-label="mRNA-LM 三塔融合结构图">
+      <!-- towers -->
+      <g font-size="13">
+        <!-- 5UTR tower -->
+        <rect x="24" y="40" width="150" height="46" rx="9" fill="var(--accentsoft)" stroke="var(--accent)"/>
+        <text x="99" y="62" text-anchor="middle" class="svgmono" font-weight="700" font-size="12">5′UTR 序列</text>
+        <text x="99" y="78" text-anchor="middle" class="svgmut" font-size="10">单核苷酸 token</text>
+        <rect x="24" y="104" width="150" height="54" rx="10" fill="var(--surface2)" stroke="var(--line)"/>
+        <text x="99" y="130" text-anchor="middle" class="svgtxt" font-weight="700">5UTRBERT</text>
+        <text x="99" y="147" text-anchor="middle" class="svgmut" font-size="10">BERT · +LoRA</text>
+
+        <!-- CDS tower -->
+        <rect x="385" y="40" width="150" height="46" rx="9" fill="#c2410c22" stroke="var(--accent2)"/>
+        <text x="460" y="62" text-anchor="middle" class="svgmono" font-weight="700" font-size="12">CDS 序列</text>
+        <text x="460" y="78" text-anchor="middle" class="svgmut" font-size="10">密码子 token</text>
+        <rect x="385" y="104" width="150" height="54" rx="10" fill="var(--surface2)" stroke="var(--line)"/>
+        <text x="460" y="130" text-anchor="middle" class="svgtxt" font-weight="700">CodonBERT</text>
+        <text x="460" y="147" text-anchor="middle" class="svgmut" font-size="10">BERT · +LoRA</text>
+
+        <!-- 3UTR tower -->
+        <rect x="746" y="40" width="150" height="46" rx="9" fill="var(--accentsoft)" stroke="var(--accent)"/>
+        <text x="821" y="62" text-anchor="middle" class="svgmono" font-weight="700" font-size="12">3′UTR 序列</text>
+        <text x="821" y="78" text-anchor="middle" class="svgmut" font-size="10">单核苷酸 token</text>
+        <rect x="746" y="104" width="150" height="54" rx="10" fill="var(--surface2)" stroke="var(--line)"/>
+        <text x="821" y="130" text-anchor="middle" class="svgtxt" font-weight="700">3UTRBERT</text>
+        <text x="821" y="147" text-anchor="middle" class="svgmut" font-size="10">BERT · +LoRA</text>
+      </g>
+
+      <!-- arrows seq->bert -->
+      <g stroke="var(--muted)" stroke-width="1.6" fill="none" marker-end="url(#ar)">
+        <path d="M99,86 L99,102"/><path d="M460,86 L460,102"/><path d="M821,86 L821,102"/>
+      </g>
+
+      <!-- pool -->
+      <g font-size="11">
+        <rect x="39" y="178" width="120" height="30" rx="8" fill="var(--surface)" stroke="var(--line)"/>
+        <text x="99" y="198" text-anchor="middle" class="svgmut">mean-pool → 768d</text>
+        <rect x="400" y="178" width="120" height="30" rx="8" fill="var(--surface)" stroke="var(--line)"/>
+        <text x="460" y="198" text-anchor="middle" class="svgmut">mean-pool → 768d</text>
+        <rect x="761" y="178" width="120" height="30" rx="8" fill="var(--surface)" stroke="var(--line)"/>
+        <text x="821" y="198" text-anchor="middle" class="svgmut">mean-pool → 768d</text>
+      </g>
+      <g stroke="var(--muted)" stroke-width="1.6" fill="none" marker-end="url(#ar)">
+        <path d="M99,158 L99,176"/><path d="M460,158 L460,176"/><path d="M821,158 L821,176"/>
+      </g>
+
+      <!-- CLIP bracket -->
+      <g>
+        <path d="M159,193 C250,193 250,193 395,193" stroke="var(--accent)" stroke-width="1.4" fill="none" stroke-dasharray="4 4"/>
+        <path d="M525,193 C640,193 640,193 761,193" stroke="var(--accent)" stroke-width="1.4" fill="none" stroke-dasharray="4 4"/>
+        <text x="460" y="224" text-anchor="middle" fill="var(--accent)" font-size="10.5" class="svgmono">可选 CLIP 对比损失:对齐 UTR ↔ CDS 表示</text>
+      </g>
+
+      <!-- concat -->
+      <rect x="330" y="250" width="260" height="40" rx="10" fill="var(--accentsoft)" stroke="var(--accent)"/>
+      <text x="460" y="275" text-anchor="middle" class="svgmono" font-weight="700" font-size="12">concat → 768 × 3 = 2304d</text>
+      <g stroke="var(--muted)" stroke-width="1.6" fill="none" marker-end="url(#ar)">
+        <path d="M99,208 L99,230 Q99,250 160,255 L327,268"/>
+        <path d="M460,208 L460,248"/>
+        <path d="M821,208 L821,230 Q821,250 760,255 L593,268"/>
+      </g>
+
+      <!-- fusion head -->
+      <rect x="350" y="316" width="220" height="40" rx="10" fill="var(--surface2)" stroke="var(--line)"/>
+      <text x="460" y="336" text-anchor="middle" class="svgtxt" font-weight="700" font-size="12">融合头</text>
+      <text x="460" y="350" text-anchor="middle" class="svgmut" font-size="10">Dense · GELU · LayerNorm · Dropout</text>
+      <path d="M460,290 L460,314" stroke="var(--muted)" stroke-width="1.6" fill="none" marker-end="url(#ar)"/>
+
+      <!-- output -->
+      <rect x="360" y="384" width="200" height="42" rx="11" fill="var(--accent)"/>
+      <text x="460" y="404" text-anchor="middle" fill="#fff" font-weight="700" font-size="13" font-family="var(--ff-disp)">预测值</text>
+      <text x="460" y="419" text-anchor="middle" fill="#ffffffcc" font-size="10">半衰期 / 表达量 / 分类</text>
+      <path d="M460,356 L460,382" stroke="var(--muted)" stroke-width="1.6" fill="none" marker-end="url(#ar)"/>
+
+      <defs>
+        <marker id="ar" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+          <path d="M1,1 L6,4 L1,7" fill="none" stroke="var(--muted)" stroke-width="1.4"/>
+        </marker>
+      </defs>
+    </svg>
+  </div>
+  <p class="note"><b>LoRA 微调:</b>三个 BERT 主干冻结,只训练低秩适配器 + 融合头,省显存也防过拟合。<b>CLIP(可选):</b>用对比损失把 5′UTR、CDS、3′UTR 的向量在同一空间里对齐,让"同属一条 mRNA"的区域互相靠近。</p>
+</section>
+
+<section>
+  <div class="eyebrow">本机实测</div>
+  <h2>两个 DEMO 的真实结果</h2>
+  <p class="lead">我在这个会话里真的跑了:一个忠实复现的三塔小模型(CPU,从零训练),一个加载 Sanofi 官方 CodonBERT 权重。数据都是原仓库自带的真实人类 mRNA。</p>
+
+  <div class="res-grid">
+    <div class="res">
+      <h3>① 三塔模型预测 mRNA 半衰期</h3>
+      <p class="muted" style="font-size:.84rem;margin-top:4px">忠实复现结构,在 12,919 条真实 mRNA 上训练(CPU,约 3 分钟)。指标:测试集 Spearman 相关。</p>
+      <div class="big" id="spear">+0.348 <span>测试集 Spearman</span></div>
+      <div class="barrow"><span>随机初始化</span><div class="bar"><i style="width:2%;background:var(--N)"></i></div><span class="v">0.01</span></div>
+      <div class="barrow"><span>训练 1 轮</span><div class="bar"><i style="width:46%;background:var(--accent2)"></i></div><span class="v">0.32</span></div>
+      <div class="barrow"><span>训练 3 轮(测试)</span><div class="bar"><i style="width:50%;background:var(--accent)"></i></div><span class="v">0.35</span></div>
+      <p class="muted" style="font-size:.8rem;margin-top:10px">从 ≈0 升到 0.35,说明"三区域分词 + 三塔融合"确实能从序列读出半衰期信号。<br>(小型从零训练,非论文 SOTA;论文用大预训练权重 + LoRA 会更高。)</p>
+    </div>
+
+    <div class="res">
+      <h3>② 真·CodonBERT 掩码密码子预测</h3>
+      <p class="muted" style="font-size:.84rem;margin-top:4px">加载官方权重(BERT 12 层 / 86.5M 参数 / 词表 69)。遮住密码子让它猜,60 条基因共 1284 个掩码位点。</p>
+      <div class="big" id="mlm">15.5% <span>top-1 恢复率</span></div>
+      <div class="barrow"><span>随机基线</span><div class="bar"><i style="width:4%;background:var(--N)"></i></div><span class="v">1.6%</span></div>
+      <div class="barrow"><span>top-1</span><div class="bar"><i style="width:40%;background:var(--accent2)"></i></div><span class="v">15.5%</span></div>
+      <div class="barrow"><span>top-5</span><div class="bar"><i style="width:96%;background:var(--accent)"></i></div><span class="v">38.3%</span></div>
+      <div class="codon-demo">
+        遮住位点 &nbsp;真实=<b>UUA</b>(Leu)<br>
+        模型 top-5:<span class="syn">CUU</span> UUU <span class="syn">CUG</span> <span class="syn">UUG</span> <span class="syn">UUA</span><br>
+        <span class="muted">→ 5 个里 4 个都是亮氨酸同义密码子!</span>
+      </div>
+      <p class="muted" style="font-size:.8rem;margin-top:10px">约 10 倍于随机;top-5 常是真实或<b>同义</b>密码子 → 模型确实学到了遗传密码与密码子偏好。</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="eyebrow">能做什么</div>
+  <h2>四个下游任务</h2>
+  <p class="lead">同一套三塔骨架,换预测头和数据即可。原仓库入口:<span class="mono">python finetune_all.py --task &lt;任务&gt; --output out/</span></p>
+  <table class="tasks">
+    <thead><tr><th>任务</th><th>含义</th><th>类型</th><th>数据(仓库自带)</th></tr></thead>
+    <tbody>
+      <tr><td class="t">halflife</td><td>mRNA 半衰期</td><td>回归</td><td class="mono">mrna_half-life.csv</td></tr>
+      <tr><td class="t">tr</td><td>翻译速率</td><td>回归</td><td class="mono">translation_rate.csv</td></tr>
+      <tr><td class="t">liver</td><td>肝脏转录本表达</td><td>回归</td><td class="mono">transcript_expression_liver.csv</td></tr>
+      <tr><td class="t">5class</td><td>蛋白表达量分级</td><td>5 分类</td><td class="mono">protein_expression_5class.csv</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<footer class="wrap">
+  <p>可视化讲解复现自开源项目 <b>Sanofi-Public / mRNA-LM</b>。页面中的两组实测数字来自本会话实跑:<code>mrna_lm_demo.py</code> 与 <code>codonbert_real_demo.py</code>。</p>
+  <p style="margin-top:8px">分词、三塔结构、LoRA/CLIP 均依据原仓库 <code>dataload.py</code> / <code>FullModel.py</code> / <code>OneModel.py</code>。CodonBERT 词表依据原版 <code>benchmarks/utils/tokenizer.py</code>(AUGC · 64 密码子)。</p>
+</footer>
+
+</div>
+
+<script>
+(function(){
+  var GENETIC={ // RNA codon -> amino acid 1-letter
+    UUU:'F',UUC:'F',UUA:'L',UUG:'L',CUU:'L',CUC:'L',CUA:'L',CUG:'L',
+    AUU:'I',AUC:'I',AUA:'I',AUG:'M',GUU:'V',GUC:'V',GUA:'V',GUG:'V',
+    UCU:'S',UCC:'S',UCA:'S',UCG:'S',AGU:'S',AGC:'S',CCU:'P',CCC:'P',CCA:'P',CCG:'P',
+    ACU:'T',ACC:'T',ACA:'T',ACG:'T',GCU:'A',GCC:'A',GCA:'A',GCG:'A',
+    UAU:'Y',UAC:'Y',UAA:'*',UAG:'*',UGA:'*',CAU:'H',CAC:'H',CAA:'Q',CAG:'Q',
+    AAU:'N',AAC:'N',AAA:'K',AAG:'K',GAU:'D',GAC:'D',GAA:'E',GAG:'E',
+    UGU:'C',UGC:'C',UGG:'W',CGU:'R',CGC:'R',CGA:'R',CGG:'R',AGA:'R',AGG:'R',
+    GGU:'G',GGC:'G',GGA:'G',GGG:'G'
+  };
+  var EX_UTR="GGGCTTTGGCCCTGGAAAGCCTCGCGGACGTGTTCTGACCCAAGGTTTTAGCAGTGGATGTGGCGTTTTCT";
+  var EX_CDS="ATGTTTTTACCTCATATGAACCACCTGACATTGGAACAGACTTTCTTTTCACAAGTGTTACCAAAGACTGTG";
+  var MAX=120;
+  var mode="utr";
+  var seqEl=document.getElementById('seq');
+  var tokensEl=document.getElementById('tokens');
+  var btnU=document.getElementById('btn-utr'), btnC=document.getElementById('btn-cds');
+
+  function clean(s){return (s||'').toUpperCase().replace(/[^ACGUTN]/g,'').replace(/T/g,'U');}
+
+  function render(){
+    var raw=clean(seqEl.value);
+    document.getElementById('m-len').textContent=raw.length;
+    var toks=[];
+    if(mode==='utr'){ for(var i=0;i<raw.length;i++) toks.push(raw[i]); }
+    else { for(var j=0;j+3<=raw.length;j+=3) toks.push(raw.slice(j,j+3)); }
+    document.getElementById('m-tok').textContent=toks.length;
+    document.getElementById('m-vocab').textContent = mode==='utr'
+      ? '词表 单核苷酸 A/U/G/C(+N)' : '词表 69 = 5 特殊符 + 64 密码子';
+    var shown=toks.slice(0,MAX);
+    document.getElementById('m-trunc').textContent = toks.length>MAX ? ('(只显示前 '+MAX+' 个)') : '';
+
+    var html='<div class="tk special">[CLS]</div>';
+    for(var k=0;k<shown.length;k++){
+      var t=shown[k];
+      if(mode==='utr'){
+        html+='<div class="tk nt-'+(t||'N')+'">'+t+'</div>';
+      } else {
+        var aa=GENETIC[t]||'?';
+        var cls = t==='AUG' ? 'nt-A' : (aa==='*' ? 'nt-U' : '');
+        html+='<div class="tk '+cls+'">'+t+'<span class="aa">'+aa+'</span></div>';
+      }
+    }
+    html+='<div class="tk special">[SEP]</div>';
+    tokensEl.innerHTML=html;
+  }
+
+  function legend(){
+    var L=document.getElementById('legend');
+    if(mode==='utr'){
+      L.innerHTML=['A','U','G','C','N'].map(function(n){
+        return '<span><i style="background:var(--'+n+')"></i>'+n+'</span>';}).join('')
+        + '<span class="muted">· 每个核苷酸 = 1 个 token</span>';
+    } else {
+      L.innerHTML='<span><i style="background:var(--A)"></i>AUG 起始(M)</span>'
+        +'<span><i style="background:var(--U)"></i>终止密码子(*)</span>'
+        +'<span class="muted">· 每 3 个核苷酸 = 1 个密码子 token,下标为氨基酸</span>';
+    }
+  }
+
+  function setMode(m){
+    mode=m;
+    btnU.setAttribute('aria-pressed', m==='utr');
+    btnC.setAttribute('aria-pressed', m==='cds');
+    legend(); render();
+  }
+  btnU.onclick=function(){setMode('utr');};
+  btnC.onclick=function(){setMode('cds');};
+  document.getElementById('ex-utr').onclick=function(){seqEl.value=EX_UTR;setMode('utr');};
+  document.getElementById('ex-cds').onclick=function(){seqEl.value=EX_CDS;setMode('cds');};
+  seqEl.addEventListener('input',render);
+
+  seqEl.value=EX_UTR;
+  setMode('utr');
+})();
+</script>
