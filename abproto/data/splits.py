@@ -15,7 +15,9 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
+from .anarci import concat_cdrs, has_anarci
 from .classify import AbAgComplex
+from .cluster_seqs import cluster as seq_cluster, has_mmseqs
 from .dedup import cluster_sequences
 
 
@@ -28,10 +30,27 @@ class Split:
 
 def make_splits(complexes: list[AbAgComplex], date_cutoff: str = "2021-09-30",
                 antigen_homology: float = 0.4,
-                dedup_identity: float = 0.95) -> Split:
-    """Return a Split with dedup + time + antigen-homology controls applied."""
+                dedup_identity: float = 0.95,
+                cdr_dedup: bool = True) -> Split:
+    """Return a Split with dedup + time + antigen-homology controls applied.
+
+    Uses mmseqs2 for antigen-homology clustering when available (else k-mer
+    proxy). With ``cdr_dedup`` and ANARCI present, near-duplicate antibodies are
+    detected on their CONCATENATED CDRs (what actually defines the binder)
+    instead of the whole chain.
+    """
     # 1. Dedup near-identical complexes (same Ab against same Ag re-deposits).
-    keys = [c.antibody_seq + "|" + c.antigen_seq for c in complexes]
+    use_cdr = cdr_dedup and has_anarci()
+    keys = []
+    for c in complexes:
+        hseq = c.heavy[0].sequence if c.heavy else ""
+        lseq = c.light[0].sequence if c.light else ""
+        ab_key = ""
+        if use_cdr:
+            ab_key = concat_cdrs(hseq, lseq)
+        if not ab_key:                      # ANARCI off or no CDRs found
+            ab_key = c.antibody_seq
+        keys.append(ab_key + "|" + c.antigen_seq)
     dd_labels = cluster_sequences(keys, threshold=dedup_identity)
     seen: dict[int, AbAgComplex] = {}
     for c, lab in zip(complexes, dd_labels):
@@ -41,8 +60,8 @@ def make_splits(complexes: list[AbAgComplex], date_cutoff: str = "2021-09-30",
             seen[int(lab)] = c
     uniq = list(seen.values())
 
-    # 2. Antigen-homology clusters.
-    ag_labels = cluster_sequences([c.antigen_seq for c in uniq], threshold=antigen_homology)
+    # 2. Antigen-homology clusters (mmseqs2 when available).
+    ag_labels = seq_cluster([c.antigen_seq for c in uniq], min_seq_id=antigen_homology)
     cluster_of = {id(c): int(lab) for c, lab in zip(uniq, ag_labels)}
 
     # 3. Time split, then enforce cluster-disjointness: any antigen cluster that
@@ -67,5 +86,7 @@ def make_splits(complexes: list[AbAgComplex], date_cutoff: str = "2021-09-30",
         "test": len(test),
         "test_gpcr": sum(1 for c in test if c.is_gpcr),
         "leak_forced_to_train": len(after) - len(test),
+        "identity_backend": "mmseqs2" if has_mmseqs() else "kmer-jaccard(fallback)",
+        "cdr_annotation": "anarci" if (cdr_dedup and has_anarci()) else "whole-chain(fallback)",
     }
     return Split(train=train, test=test, stats=stats)
