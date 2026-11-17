@@ -39,6 +39,35 @@ def kabsch_rmsd(P: np.ndarray, Q: np.ndarray) -> float:
     return float(np.sqrt((diff * diff).sum() / P.shape[0]))
 
 
+def kabsch_fit(mobile: np.ndarray, ref: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
+    """Optimal rigid transform (R, t) mapping ``mobile`` onto ``ref``.
+
+    Returns R (3,3), t (3,) such that ``mobile @ R.T + t`` best overlays ``ref``.
+    Use it to align on one region (e.g. antigen) and apply the SAME transform to
+    another (e.g. paratope) — the basis of interface-RMSD.
+    """
+    mobile = np.asarray(mobile, float)
+    ref = np.asarray(ref, float)
+    mc, rc = mobile.mean(0), ref.mean(0)
+    H = (mobile - mc).T @ (ref - rc)
+    U, _, Vt = np.linalg.svd(H)
+    d = np.sign(np.linalg.det(Vt.T @ U.T))
+    R = Vt.T @ np.diag([1.0, 1.0, d]) @ U.T
+    t = rc - R @ mc
+    return R, t
+
+
+def apply_transform(coords: np.ndarray, R: np.ndarray, t: np.ndarray) -> np.ndarray:
+    return np.asarray(coords, float) @ R.T + t
+
+
+def rmsd(P: np.ndarray, Q: np.ndarray) -> float:
+    """Plain RMSD between two aligned equal-length point sets (no superposition)."""
+    P = np.asarray(P, float); Q = np.asarray(Q, float)
+    diff = P - Q
+    return float(np.sqrt((diff * diff).sum() / len(P)))
+
+
 def self_clash_count(coords: np.ndarray, contact: float = 3.0) -> int:
     """Count non-sequential C-alpha pairs closer than ``contact`` angstrom.
 

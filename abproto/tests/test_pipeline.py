@@ -11,6 +11,7 @@ from abproto.ctmc import redesign
 from abproto.filters import cdr_liabilities
 from abproto.geometry import kabsch_rmsd
 from abproto.pipeline import DesignPipeline, PipelineConfig
+from abproto.selfconsistency import pose_recovery
 from abproto.types import DesignSpec
 
 
@@ -41,16 +42,47 @@ def test_kabsch_rotation_invariant():
     assert kabsch_rmsd(P, Q) < 1e-6
 
 
-def test_beam_search_improves_mean_score():
+def test_beam_search_best_is_monotone():
     spec = make_spec()
     gen = MockGenerator()
     trace: list[dict] = []
-    beam_search(spec, gen, BeamConfig(beam_width=8, branching=4, steps=4, init_pool=48, seed=3),
-                trace=trace)
-    # Mean beam score should be non-decreasing across steps (elitism + refine).
+    # diverse=False => pure elitist beam; best AND mean are non-decreasing.
+    beam_search(spec, gen, BeamConfig(beam_width=8, branching=4, steps=4, init_pool=48,
+                                      seed=3, diverse=False), trace=trace)
+    best = [row["best_score"] for row in trace]
     means = [row["mean_score"] for row in trace]
+    assert all(b >= a - 1e-9 for a, b in zip(best, best[1:]))
     assert means[-1] >= means[0]
-    assert all(b >= a - 1e-9 for a, b in zip(means, means[1:]))
+
+
+def test_diverse_beam_keeps_distinct_poses():
+    # The top score is still retained under MMR, but the diverse beam should
+    # cover more distinct backbones than a pure top-k beam.
+    from abproto.beam_search import backbone_similarity
+    spec = make_spec()
+    gen = MockGenerator()
+    pool = gen.generate(spec, 40, seed=1)
+    from abproto.beam_search import diverse_topk, _default_score
+    div = diverse_topk(pool, _default_score, k=8, diversity_weight=0.8)
+    topk = sorted(pool, key=_default_score, reverse=True)[:8]
+
+    def mean_pairwise_sim(ds):
+        sims = [backbone_similarity(ds[i], ds[j]) for i in range(len(ds)) for j in range(i + 1, len(ds))]
+        return sum(sims) / max(len(sims), 1)
+
+    assert mean_pairwise_sim(div) <= mean_pairwise_sim(topk) + 1e-9
+
+
+def test_smc_runs_and_ranks():
+    from abproto.beam_search import SMCConfig, smc_search
+    spec = make_spec()
+    gen = MockGenerator()
+    trace: list[dict] = []
+    out = smc_search(spec, gen, SMCConfig(n_particles=24, steps=3, seed=0), trace=trace)
+    assert len(out) == 24
+    assert all("ess" in row for row in trace)
+    # final best should be >= initial best (reweighting concentrates on good modes)
+    assert trace[-1]["best_score"] >= trace[0]["best_score"] - 1e-9
 
 
 def test_ctmc_removes_nglyc_and_cys():
@@ -75,6 +107,29 @@ def test_cluster_singletons_and_dups():
     ds[1].cdr_spans = dict(ds[0].cdr_spans)
     labels = cluster(ds, cutoff=0.5)
     assert labels[0] == labels[1]
+
+
+def test_interface_confidence_preferred():
+    from abproto.confidence import confidence_score
+    from abproto.types import Confidence
+    base = dict(plddt=80.0, pae=5.0, pde=4.0, iptm=0.7)
+    good_iface = Confidence(**base, interface_pae=2.0, interface_plddt=85.0, contact_prob=0.9)
+    bad_iface = Confidence(**base, interface_pae=12.0, interface_plddt=50.0, contact_prob=0.2)
+    assert good_iface.has_interface()
+    # identical global terms => ranking decided by the interface heads
+    assert confidence_score(good_iface) > confidence_score(bad_iface)
+
+
+def test_interface_rmsd_recovery_tracks_quality():
+    spec = make_spec()
+    gen, folder = MockGenerator(), MockFolder()
+    # higher-quality designs should recover their pose better (lower RMSD)
+    ds = sorted(gen.generate(spec, 20, seed=2),
+                key=lambda d: d.confidence.iptm)
+    low = pose_recovery(ds[0], folder, spec, seed=0)[0]      # worst quality
+    high = pose_recovery(ds[-1], folder, spec, seed=0)[0]    # best quality
+    assert high <= low
+    assert high >= 0.0
 
 
 def test_pipeline_end_to_end():

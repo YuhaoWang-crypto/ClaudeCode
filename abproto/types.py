@@ -48,15 +48,32 @@ class DesignSpec:
 
 @dataclass
 class Confidence:
-    """Model-predicted confidence for one complex (Boltz/AF3-style heads)."""
+    """Model-predicted confidence for one complex (Boltz/AF3-style heads).
+
+    Global heads plus optional INTERFACE-restricted heads (epitope x paratope).
+    For antibody binders the interface metrics predict binding far better than
+    global plDDT, so the scorer prefers them when present (optimisation #1).
+    """
 
     plddt: float          # mean predicted lDDT, higher is better (0-100 or 0-1)
     pae: float            # mean predicted aligned error (A), lower is better
     pde: float            # mean predicted distance error (A), lower is better
     iptm: float = 0.0     # interface pTM proxy, higher is better
+    # Optional interface-restricted heads (None => not available).
+    interface_pae: Optional[float] = None    # mean PAE on epitope x paratope block
+    interface_plddt: Optional[float] = None  # mean plDDT over interface residues
+    contact_prob: Optional[float] = None     # mean predicted contact prob at interface
+
+    def has_interface(self) -> bool:
+        return self.interface_pae is not None
 
     def as_dict(self) -> dict[str, float]:
-        return {"plddt": self.plddt, "pae": self.pae, "pde": self.pde, "iptm": self.iptm}
+        d = {"plddt": self.plddt, "pae": self.pae, "pde": self.pde, "iptm": self.iptm}
+        for k in ("interface_pae", "interface_plddt", "contact_prob"):
+            v = getattr(self, k)
+            if v is not None:
+                d[k] = v
+        return d
 
 
 @dataclass

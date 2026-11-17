@@ -107,7 +107,15 @@ class MockGenerator:
         iptm = np.clip(0.3 + 0.6 * q + rng.normal(scale=0.03), 0, 1)
         pae = np.clip(12.0 * (1 - q) + 2.0 + rng.normal(scale=0.5), 0.5, None)
         pde = np.clip(8.0 * (1 - q) + 1.5 + rng.normal(scale=0.4), 0.3, None)
-        return Confidence(plddt=float(plddt), pae=float(pae), pde=float(pde), iptm=float(iptm))
+        # Interface heads: more quality-sensitive than the global ones (the
+        # interface is where binding is decided), so scoring on them separates
+        # good binders better.
+        i_pae = np.clip(15.0 * (1 - q) + 1.5 + rng.normal(scale=0.6), 0.3, None)
+        i_plddt = np.clip(100.0 * (0.45 + 0.5 * q) + rng.normal(scale=2.5), 0, 100)
+        contact = np.clip(0.2 + 0.75 * q + rng.normal(scale=0.03), 0, 1)
+        return Confidence(plddt=float(plddt), pae=float(pae), pde=float(pde), iptm=float(iptm),
+                          interface_pae=float(i_pae), interface_plddt=float(i_plddt),
+                          contact_prob=float(contact))
 
     # -- Generator protocol ---------------------------------------------
     def generate(self, spec: DesignSpec, n: int, seed: Optional[int] = None) -> list[Design]:
