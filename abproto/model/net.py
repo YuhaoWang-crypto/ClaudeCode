@@ -87,6 +87,46 @@ if _HAS_TORCH:
             d_out = x[:, :Ld]
             return self.velocity_head(d_out), self.sequence_head(d_out)
 
+    class IPABackbone(nn.Module):
+        """SE(3)-equivariant backbone: frames from CA (Gram-Schmidt) + IPA blocks.
+
+        Velocity output v_i = R_i @ u_i is EQUIVARIANT; sequence logits are
+        INVARIANT (both verified in tests). The velocity's rotation-only form
+        means it transforms as a displacement (no translation component)."""
+
+        def __init__(self, d_model: int = 128, n_layers: int = 4, n_heads: int = 4):
+            super().__init__()
+            from .ipa import IPABlock, frames_from_ca, rotate
+            self._frames = frames_from_ca
+            self._rotate = rotate
+            self.d_model = d_model
+            self.tok_emb = nn.Embedding(VOCAB, d_model)
+            self.chain_emb = nn.Embedding(2, d_model)
+            self.time_mlp = nn.Sequential(
+                nn.Linear(d_model, d_model), nn.SiLU(), nn.Linear(d_model, d_model))
+            self.blocks = nn.ModuleList([IPABlock(d_model, n_heads=n_heads) for _ in range(n_layers)])
+            self.vel_local = nn.Linear(d_model, 3)       # local displacement u_i
+            self.sequence_head = nn.Linear(d_model, N_AA)
+
+        def forward(self, design_coords, design_tokens, antigen_coords, antigen_tokens, t):
+            B, Ld, _ = design_coords.shape
+            La = antigen_coords.shape[1]
+            ca = torch.cat([design_coords, antigen_coords], dim=1)
+            R, tr = self._frames(ca)
+
+            tok = torch.cat([design_tokens, antigen_tokens], dim=1)
+            chain = torch.cat([torch.zeros(B, Ld, dtype=torch.long, device=t.device),
+                               torch.ones(B, La, dtype=torch.long, device=t.device)], dim=1)
+            temb = self.time_mlp(sinusoidal_time_embedding(t, self.d_model))[:, None, :]
+            s = self.tok_emb(tok) + self.chain_emb(chain) + temb
+            for blk in self.blocks:
+                s = blk(s, R, tr)
+
+            s_d, R_d = s[:, :Ld], R[:, :Ld]
+            u = self.vel_local(s_d)                      # (B,Ld,3) invariant local vector
+            v = self._rotate(R_d, u)                     # (B,Ld,3) equivariant
+            return v, self.sequence_head(s_d)
+
 
 @dataclass
 class CoDesignModel:
@@ -98,11 +138,17 @@ class CoDesignModel:
     struct_first_delta: float = 0.2
     lr: float = 1e-3
     device: str = "cpu"
+    backbone: str = "mlp"      # "mlp" (transformer) | "ipa" (SE(3)-equivariant)
 
     def __post_init__(self):
         if not _HAS_TORCH:
             raise RuntimeError("PyTorch required: pip install torch")
-        self.net = SharedBackboneNet(self.d_model, self.n_layers).to(self.device)
+        if self.backbone == "ipa":
+            self.net = IPABackbone(self.d_model, self.n_layers).to(self.device)
+        elif self.backbone == "mlp":
+            self.net = SharedBackboneNet(self.d_model, self.n_layers).to(self.device)
+        else:
+            raise ValueError(f"unknown backbone '{self.backbone}'")
         self.opt = torch.optim.Adam(self.net.parameters(), lr=self.lr)
 
     # -- training --------------------------------------------------------
