@@ -1,0 +1,11 @@
+# Core (required) — the scaffold runs end-to-end with just these:
+numpy>=1.24
+pyyaml>=6.0            # only for the Boltz YAML writer
+
+# Optional — better clustering (average linkage); falls back to single-linkage:
+# scipy>=1.10
+
+# Optional — real backends (heavy; not needed for the mock dry run):
+# boltz>=2.0           # Folder backend, pulls torch, downloads weights
+# torch>=2.2           # required by Multiflow generator
+#   Multiflow is used from source: git clone https://github.com/jasonkyuyim/multiflow
