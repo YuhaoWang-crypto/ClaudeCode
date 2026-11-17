@@ -1,2 +1,8 @@
 __pycache__/
 *.pyc
+
+# training artifacts
+structures_cache/
+*.pt
+*.cif
+stage1/

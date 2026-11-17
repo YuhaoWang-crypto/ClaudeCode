@@ -112,7 +112,7 @@ class InvariantPointAttention(nn.Module):
         centers = torch.linspace(0.0, 20.0, self.n_rbf, device=t.device)
         return torch.exp(-((d[..., None] - centers) ** 2) / 2.0)
 
-    def forward(self, s, R, t):
+    def forward(self, s, R, t, key_pad_mask=None):
         B, L, _ = s.shape
         H, c = self.H, self.c
 
@@ -136,6 +136,10 @@ class InvariantPointAttention(nn.Module):
         b_pair = self.pair_bias(self._rbf(t)).permute(0, 3, 1, 2)  # (B,H,L,L)
 
         logits = (a_scalar + a_point + b_pair) * (1.0 / (3.0 ** 0.5))
+        if key_pad_mask is not None:
+            # mask padded KEYS (j) so queries never attend to padding
+            neg = torch.finfo(logits.dtype).min
+            logits = logits.masked_fill(~key_pad_mask[:, None, None, :], neg)
         att = torch.softmax(logits, dim=-1)                     # (B,H,Li,Lj)
 
         o_scalar = torch.einsum("bhij,bhjc->bhic", att, v)      # (B,H,L,c)
@@ -163,7 +167,7 @@ class IPABlock(nn.Module):
         self.norm2 = nn.LayerNorm(c_s)
         self.ff = nn.Sequential(nn.Linear(c_s, 2 * c_s), nn.GELU(), nn.Linear(2 * c_s, c_s))
 
-    def forward(self, s, R, t):
-        s = self.norm1(s + self.ipa(s, R, t))
+    def forward(self, s, R, t, key_pad_mask=None):
+        s = self.norm1(s + self.ipa(s, R, t, key_pad_mask))
         s = self.norm2(s + self.ff(s))
         return s

@@ -72,9 +72,15 @@ if _HAS_TORCH:
             self.velocity_head = nn.Linear(d_model, 3)
             self.sequence_head = nn.Linear(d_model, N_AA)
 
-        def forward(self, design_coords, design_tokens, antigen_coords, antigen_tokens, t):
+        def forward(self, design_coords, design_tokens, antigen_coords, antigen_tokens, t,
+                    design_pad=None, antigen_pad=None):
             B, Ld, _ = design_coords.shape
             La = antigen_coords.shape[1]
+            src_key_padding = None
+            if design_pad is not None or antigen_pad is not None:
+                dp = design_pad if design_pad is not None else torch.ones(B, Ld, dtype=torch.bool, device=t.device)
+                ap = antigen_pad if antigen_pad is not None else torch.ones(B, La, dtype=torch.bool, device=t.device)
+                src_key_padding = ~torch.cat([dp, ap], dim=1)   # True = pad (ignored)
 
             d_feat = (self.tok_emb(design_tokens) + self.coord_proj(design_coords)
                       + self.chain_emb(torch.zeros(B, Ld, dtype=torch.long, device=t.device)))
@@ -83,7 +89,7 @@ if _HAS_TORCH:
 
             temb = self.time_mlp(sinusoidal_time_embedding(t, self.d_model))[:, None, :]
             x = torch.cat([d_feat, a_feat], dim=1) + temb
-            x = self.norm(self.encoder(x))
+            x = self.norm(self.encoder(x, src_key_padding_mask=src_key_padding))
             d_out = x[:, :Ld]
             return self.velocity_head(d_out), self.sequence_head(d_out)
 
@@ -108,21 +114,32 @@ if _HAS_TORCH:
             self.vel_local = nn.Linear(d_model, 3)       # local displacement u_i
             self.sequence_head = nn.Linear(d_model, N_AA)
 
-        def forward(self, design_coords, design_tokens, antigen_coords, antigen_tokens, t):
+        def forward(self, design_coords, design_tokens, antigen_coords, antigen_tokens, t,
+                    design_pad=None, antigen_pad=None):
             B, Ld, _ = design_coords.shape
             La = antigen_coords.shape[1]
-            ca = torch.cat([design_coords, antigen_coords], dim=1)
-            R, tr = self._frames(ca)
+            # Per-block frames (a residue's frame depends only on its own chain,
+            # so padding / the other block never corrupts it).
+            R_d, t_d = self._frames(design_coords)
+            R_a, t_a = self._frames(antigen_coords)
+            R = torch.cat([R_d, R_a], dim=1)
+            tr = torch.cat([t_d, t_a], dim=1)
 
             tok = torch.cat([design_tokens, antigen_tokens], dim=1)
             chain = torch.cat([torch.zeros(B, Ld, dtype=torch.long, device=t.device),
                                torch.ones(B, La, dtype=torch.long, device=t.device)], dim=1)
             temb = self.time_mlp(sinusoidal_time_embedding(t, self.d_model))[:, None, :]
             s = self.tok_emb(tok) + self.chain_emb(chain) + temb
-            for blk in self.blocks:
-                s = blk(s, R, tr)
 
-            s_d, R_d = s[:, :Ld], R[:, :Ld]
+            kpm = None
+            if design_pad is not None or antigen_pad is not None:
+                dp = design_pad if design_pad is not None else torch.ones(B, Ld, dtype=torch.bool, device=t.device)
+                ap = antigen_pad if antigen_pad is not None else torch.ones(B, La, dtype=torch.bool, device=t.device)
+                kpm = torch.cat([dp, ap], dim=1)
+            for blk in self.blocks:
+                s = blk(s, R, tr, kpm)
+
+            s_d = s[:, :Ld]
             u = self.vel_local(s_d)                      # (B,Ld,3) invariant local vector
             v = self._rotate(R_d, u)                     # (B,Ld,3) equivariant
             return v, self.sequence_head(s_d)
@@ -164,25 +181,42 @@ class CoDesignModel:
         ag_c = batch["antigen_coords"].to(self.device)
         ag_t = batch["antigen_tokens"].to(self.device)
         B, Ld, _ = x1.shape
+        dev = self.device
 
-        t = torch.rand(B, device=self.device)
+        # generate_mask: positions being designed (CDRs). Default: all positions.
+        gen = batch.get("generate_mask")
+        gen = (torch.ones(B, Ld, dtype=torch.bool, device=dev) if gen is None
+               else gen.to(dev).bool())
+        design_pad = batch.get("design_pad")
+        design_pad = (torch.ones(B, Ld, dtype=torch.bool, device=dev) if design_pad is None
+                      else design_pad.to(dev).bool())
+        antigen_pad = batch.get("antigen_pad")
+        antigen_pad = None if antigen_pad is None else antigen_pad.to(dev).bool()
+        gen = gen & design_pad                              # never design padding
+
+        t = torch.rand(B, device=dev)
         x0 = torch.randn_like(x1)
-        xt = t[:, None, None] * x1 + (1 - t)[:, None, None] * x0
-        target_v = x1 - x0                                 # linear interpolant, latent 0
+        tb = t[:, None, None]
+        # Noise ONLY the generated (CDR) positions; framework/antigen stay clean.
+        xt = torch.where(gen[..., None], tb * x1 + (1 - tb) * x0, x1)
+        target_v = x1 - x0
 
-        # Sequence masking at the structure-first (lagged) time.
+        # Sequence: mask a fraction of generated positions at the lagged time.
         t_seq = torch.tensor([structure_first_time(float(ti), self.struct_first_delta)
-                              for ti in t], device=self.device)
-        keep = torch.rand(B, Ld, device=self.device) < t_seq[:, None]   # unmasked
-        seq_in = torch.where(keep, seq1, torch.full_like(seq1, MASK))
+                              for ti in t], device=dev)
+        masked = gen & (torch.rand(B, Ld, device=dev) >= t_seq[:, None])
+        seq_in = torch.where(masked, torch.full_like(seq1, MASK), seq1)
 
-        v_pred, logits = self.net(xt, seq_in, ag_c, ag_t, t)
-        l_flow = F.mse_loss(v_pred, target_v)
-        masked = ~keep
-        if masked.any():
-            l_ctmc = F.cross_entropy(logits[masked], seq1[masked])
+        v_pred, logits = self.net(xt, seq_in, ag_c, ag_t, t,
+                                  design_pad=design_pad, antigen_pad=antigen_pad)
+
+        if gen.any():
+            d = (v_pred - target_v)[gen]
+            l_flow = (d * d).mean()
         else:
-            l_ctmc = torch.zeros((), device=self.device)
+            l_flow = torch.zeros((), device=dev)
+        l_ctmc = (F.cross_entropy(logits[masked], seq1[masked]) if masked.any()
+                  else torch.zeros((), device=dev))
         loss = l_flow + self.lam * l_ctmc
 
         self.opt.zero_grad(); loss.backward(); self.opt.step()
