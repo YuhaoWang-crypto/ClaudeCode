@@ -144,6 +144,59 @@ if _HAS_TORCH:
             v = self._rotate(R_d, u)                     # (B,Ld,3) equivariant
             return v, self.sequence_head(s_d)
 
+    class IPABackboneBB(nn.Module):
+        """SE(3)-equivariant backbone using REAL N-CA-C frames.
+
+        State is the three backbone atoms per residue (B, L, 3, 3) = [N, CA, C],
+        so frames come from frames_from_backbone (residue-local, non-degenerate)
+        and can be rebuilt from the flowed atoms at every sampling step. Velocity
+        is 3 equivariant vectors per residue (one per atom)."""
+
+        def __init__(self, d_model: int = 128, n_layers: int = 4, n_heads: int = 4):
+            super().__init__()
+            from .ipa import IPABlock, frames_from_backbone, rotate
+            self._frames_bb = frames_from_backbone
+            self._rotate = rotate
+            self.d_model = d_model
+            self.tok_emb = nn.Embedding(VOCAB, d_model)
+            self.chain_emb = nn.Embedding(2, d_model)
+            self.time_mlp = nn.Sequential(
+                nn.Linear(d_model, d_model), nn.SiLU(), nn.Linear(d_model, d_model))
+            self.blocks = nn.ModuleList([IPABlock(d_model, n_heads=n_heads) for _ in range(n_layers)])
+            self.vel_local = nn.Linear(d_model, 9)       # 3 atoms x 3
+            self.sequence_head = nn.Linear(d_model, N_AA)
+
+        def _frames(self, bb):      # bb: (B,L,3,3) = [N,CA,C]
+            return self._frames_bb(bb[..., 0, :], bb[..., 1, :], bb[..., 2, :])
+
+        def forward(self, design_coords, design_tokens, antigen_coords, antigen_tokens, t,
+                    design_pad=None, antigen_pad=None):
+            B, Ld = design_coords.shape[:2]
+            La = antigen_coords.shape[1]
+            R_d, t_d = self._frames(design_coords)
+            R_a, t_a = self._frames(antigen_coords)
+            R = torch.cat([R_d, R_a], dim=1)
+            tr = torch.cat([t_d, t_a], dim=1)
+
+            tok = torch.cat([design_tokens, antigen_tokens], dim=1)
+            chain = torch.cat([torch.zeros(B, Ld, dtype=torch.long, device=t.device),
+                               torch.ones(B, La, dtype=torch.long, device=t.device)], dim=1)
+            temb = self.time_mlp(sinusoidal_time_embedding(t, self.d_model))[:, None, :]
+            s = self.tok_emb(tok) + self.chain_emb(chain) + temb
+
+            kpm = None
+            if design_pad is not None or antigen_pad is not None:
+                dp = design_pad if design_pad is not None else torch.ones(B, Ld, dtype=torch.bool, device=t.device)
+                ap = antigen_pad if antigen_pad is not None else torch.ones(B, La, dtype=torch.bool, device=t.device)
+                kpm = torch.cat([dp, ap], dim=1)
+            for blk in self.blocks:
+                s = blk(s, R, tr, kpm)
+
+            s_d = s[:, :Ld]
+            u = self.vel_local(s_d).view(B, Ld, 3, 3)    # local: 3 vectors / residue
+            v = self._rotate(R_d, u)                     # (B,Ld,3,3) equivariant
+            return v, self.sequence_head(s_d)
+
 
 @dataclass
 class CoDesignModel:
@@ -162,10 +215,13 @@ class CoDesignModel:
             raise RuntimeError("PyTorch required: pip install torch")
         if self.backbone == "ipa":
             self.net = IPABackbone(self.d_model, self.n_layers).to(self.device)
+        elif self.backbone == "ipa_bb":
+            self.net = IPABackboneBB(self.d_model, self.n_layers).to(self.device)
         elif self.backbone == "mlp":
             self.net = SharedBackboneNet(self.d_model, self.n_layers).to(self.device)
         else:
             raise ValueError(f"unknown backbone '{self.backbone}'")
+        self.atoms3 = self.backbone == "ipa_bb"      # state is (B,L,3,3) not (B,L,3)
         self.opt = torch.optim.Adam(self.net.parameters(), lr=self.lr)
 
     # -- training --------------------------------------------------------
@@ -180,7 +236,7 @@ class CoDesignModel:
         seq1 = batch["design_tokens"].to(self.device)
         ag_c = batch["antigen_coords"].to(self.device)
         ag_t = batch["antigen_tokens"].to(self.device)
-        B, Ld, _ = x1.shape
+        B, Ld = x1.shape[:2]
         dev = self.device
 
         # generate_mask: positions being designed (CDRs). Default: all positions.
@@ -196,9 +252,11 @@ class CoDesignModel:
 
         t = torch.rand(B, device=dev)
         x0 = torch.randn_like(x1)
-        tb = t[:, None, None]
+        nd = x1.dim()                                    # 3 for CA, 4 for N-CA-C
+        tb = t.view(B, *([1] * (nd - 1)))
+        gb = gen.view(B, Ld, *([1] * (nd - 2)))
         # Noise ONLY the generated (CDR) positions; framework/antigen stay clean.
-        xt = torch.where(gen[..., None], tb * x1 + (1 - tb) * x0, x1)
+        xt = torch.where(gb, tb * x1 + (1 - tb) * x0, x1)
         target_v = x1 - x0
 
         # Sequence: mask a fraction of generated positions at the lagged time.

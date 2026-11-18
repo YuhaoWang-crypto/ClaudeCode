@@ -32,9 +32,13 @@ CIF_URL = "https://files.rcsb.org/download/{}.cif"
 class Chain:
     chain_id: str
     seq: str
-    ca: np.ndarray                  # (N, 3)
+    bb: np.ndarray                  # (N_res, 3, 3) = [N, CA, C] per residue
     role: str = "?"                 # "heavy" | "light" | "antigen"
     cdr_spans: dict = field(default_factory=dict)
+
+    @property
+    def ca(self) -> np.ndarray:
+        return self.bb[:, 1, :]
 
 
 @dataclass
@@ -56,13 +60,17 @@ def fetch_cif(pdb_id: str, cache_dir: Path, timeout: float = 90.0) -> Path:
     return path
 
 
-def parse_ca_chains(cif_path: Path) -> dict[str, tuple[str, np.ndarray]]:
-    """auth chain -> (sequence, CA coords). First model, first altloc only."""
+def parse_backbone_chains(cif_path: Path) -> dict[str, tuple[str, np.ndarray]]:
+    """auth chain -> (sequence, backbone (N_res,3,3)=[N,CA,C]). First model/altloc.
+
+    Only residues with all three backbone atoms (N, CA, C) present are kept, in
+    chain order.
+    """
     cols: list[str] = []
     in_loop = False
-    seqs: dict[str, list[str]] = {}
-    xyz: dict[str, list[list[float]]] = {}
-    seen: dict[str, set] = {}
+    # per chain: ordered residue keys, and per residue the atom coords + resname
+    order: dict[str, list] = {}
+    atoms: dict[tuple, dict] = {}
     for line in cif_path.read_text().splitlines():
         if line.startswith("_atom_site."):
             cols.append(line.strip().split(".")[1]); in_loop = True; continue
@@ -71,26 +79,35 @@ def parse_ca_chains(cif_path: Path) -> dict[str, tuple[str, np.ndarray]]:
             if len(f) < len(cols):
                 continue
             rec = dict(zip(cols, f))
-            if rec.get("label_atom_id") != "CA":
+            atom = rec.get("label_atom_id")
+            if atom not in ("N", "CA", "C"):
                 continue
-            model = rec.get("pdbx_PDB_model_num", "1")
-            if model not in ("1", "."):
+            if rec.get("pdbx_PDB_model_num", "1") not in ("1", "."):
                 continue
             ch = rec.get("auth_asym_id", rec.get("label_asym_id", "?"))
-            key = (ch, rec.get("auth_seq_id"), rec.get("pdbx_PDB_ins_code", "."))
-            seen.setdefault(ch, set())
-            if key in seen[ch]:
-                continue
-            seen[ch].add(key)
+            rkey = (ch, rec.get("auth_seq_id"), rec.get("pdbx_PDB_ins_code", "."))
             try:
                 p = [float(rec["Cartn_x"]), float(rec["Cartn_y"]), float(rec["Cartn_z"])]
             except (KeyError, ValueError):
                 continue
-            seqs.setdefault(ch, []).append(_THREE2ONE.get(rec.get("label_comp_id", ""), "X"))
-            xyz.setdefault(ch, []).append(p)
+            if rkey not in atoms:
+                atoms[rkey] = {"resname": rec.get("label_comp_id", ""), "ch": ch}
+                order.setdefault(ch, []).append(rkey)
+            atoms[rkey].setdefault(atom, p)
         elif in_loop and line.startswith("#") and cols:
             break
-    return {ch: ("".join(seqs[ch]), np.asarray(xyz[ch], float)) for ch in seqs}
+
+    out: dict[str, tuple[str, np.ndarray]] = {}
+    for ch, keys in order.items():
+        seq, bb = [], []
+        for k in keys:
+            a = atoms[k]
+            if "N" in a and "CA" in a and "C" in a:
+                seq.append(_THREE2ONE.get(a["resname"], "X"))
+                bb.append([a["N"], a["CA"], a["C"]])
+        if bb:
+            out[ch] = ("".join(seq), np.asarray(bb, float))
+    return out
 
 
 def _classify_chain(seq: str) -> tuple[str, dict]:
@@ -112,15 +129,15 @@ def _classify_chain(seq: str) -> tuple[str, dict]:
 def build_structure(pdb_id: str, cache_dir: Path) -> Optional[ComplexStructure]:
     try:
         cif = fetch_cif(pdb_id, cache_dir)
-        chains = parse_ca_chains(cif)
+        chains = parse_backbone_chains(cif)
     except Exception:
         return None
     cx = ComplexStructure(pdb_id=pdb_id.upper())
-    for ch, (seq, ca) in chains.items():
+    for ch, (seq, bb) in chains.items():
         if len(seq) < 20:
             continue
         role, spans = _classify_chain(seq)
-        c = Chain(ch, seq, ca, role, spans)
+        c = Chain(ch, seq, bb, role, spans)
         if role == "heavy" and cx.heavy is None:
             cx.heavy = c
         elif role == "light" and cx.light is None:

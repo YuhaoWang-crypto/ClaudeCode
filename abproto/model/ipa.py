@@ -61,6 +61,27 @@ def frames_from_ca(ca: torch.Tensor, eps: float = 1e-6):
     return R, ca
 
 
+def frames_from_backbone(N: torch.Tensor, CA: torch.Tensor, C: torch.Tensor,
+                         eps: float = 1e-8):
+    r"""Real per-residue frames from backbone N, CA, C atoms (AF2 Alg. 21,
+    rigidFrom3Points). Inputs (..., 3); returns R (..., 3, 3), t (..., 3).
+
+    e1 along (C - CA), e2 orthogonalised from (N - CA), e3 = e1 x e2; t = CA.
+    Residue-LOCAL (no neighbour dependency), so unlike the CA-only pseudo-frame
+    it does not degenerate for collinear CA triples. Equivariant under a proper
+    rigid motion applied to all three atoms. Degenerate only if N, CA, C are
+    themselves collinear (does not happen for real backbones).
+    """
+    v1 = C - CA
+    v2 = N - CA
+    e1 = F.normalize(v1, dim=-1, eps=eps)
+    u2 = v2 - (e1 * v2).sum(-1, keepdim=True) * e1
+    e2 = F.normalize(u2, dim=-1, eps=eps)
+    e3 = torch.cross(e1, e2, dim=-1)
+    R = torch.stack([e1, e2, e3], dim=-1)          # columns = basis vectors
+    return R, CA
+
+
 def rotate(R: torch.Tensor, p: torch.Tensor) -> torch.Tensor:
     """Apply R (B,L,3,3) to points p (B,L,...,3) along the last axis."""
     return torch.einsum("blij,bl...j->bl...i", R, p)

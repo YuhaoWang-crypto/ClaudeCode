@@ -30,7 +30,7 @@ def example_from_structure(cx: ComplexStructure, flank: int = 3, ka: int = 32,
     Coordinates are centred on the antigen and divided by ``coord_scale`` (~nm)
     so the flow-matching target x1-x0 is O(1), which conditions training well.
     """
-    design_ca, design_tok, gen = [], [], []
+    design_bb, design_tok, gen = [], [], []
     for chain in (cx.heavy, cx.light):
         if chain is None or not chain.cdr_spans:
             continue
@@ -42,32 +42,32 @@ def example_from_structure(cx: ComplexStructure, flank: int = 3, ka: int = 32,
         crop = sorted({j for i in cdr_idx for j in range(i - flank, i + flank + 1)
                        if 0 <= j < len(chain.seq)})
         for j in crop:
-            design_ca.append(chain.ca[j])
+            design_bb.append(chain.bb[j])          # (3,3) = [N,CA,C]
             design_tok.append(_tok(chain.seq[j]))
             gen.append(j in cdr_idx)
     if sum(gen) < 3:
         return None
-    design_ca = np.asarray(design_ca, float)
+    design_bb = np.asarray(design_bb, float)       # (Ld,3,3)
     gen = np.asarray(gen, bool)
 
-    # Antigen context: residues nearest to the CDR CAs.
-    ag_ca = np.concatenate([c.ca for c in cx.antigen], axis=0)
+    # Antigen context: residues nearest to the CDR CAs (CA = backbone atom 1).
+    ag_bb = np.concatenate([c.bb for c in cx.antigen], axis=0)   # (Na,3,3)
     ag_seq = "".join(c.seq for c in cx.antigen)
-    if len(ag_ca) < min_antigen:
+    if len(ag_bb) < min_antigen:
         return None
-    cdr_ca = design_ca[gen]
+    cdr_ca = design_bb[gen][:, 1, :]
+    ag_ca = ag_bb[:, 1, :]
     dmin = np.linalg.norm(ag_ca[:, None, :] - cdr_ca[None, :, :], axis=-1).min(axis=1)
-    sel = np.argsort(dmin)[:ka]
-    sel = np.sort(sel)                        # keep sequence order
-    antigen_ca = ag_ca[sel]
+    sel = np.sort(np.argsort(dmin)[:ka])
+    antigen_bb = ag_bb[sel]
     antigen_tok = np.array([_tok(ag_seq[i]) for i in sel], dtype=np.int64)
 
-    center = antigen_ca.mean(axis=0)
+    center = antigen_bb[:, 1, :].mean(axis=0)      # antigen CA centroid
     return {
-        "design_coords": ((design_ca - center) / coord_scale).astype("float32"),
+        "design_coords": ((design_bb - center) / coord_scale).astype("float32"),
         "design_tokens": np.asarray(design_tok, dtype=np.int64),
         "generate_mask": gen,
-        "antigen_coords": ((antigen_ca - center) / coord_scale).astype("float32"),
+        "antigen_coords": ((antigen_bb - center) / coord_scale).astype("float32"),
         "antigen_tokens": antigen_tok,
         "pdb_id": cx.pdb_id,
     }
@@ -97,13 +97,17 @@ def collate(batch: list[dict]):
     Ld = max(3, max(len(e["design_tokens"]) for e in batch))
     Ka = max(3, max(len(e["antigen_tokens"]) for e in batch))
 
-    dc = torch.zeros(B, Ld, 3)
+    # backbone state: (B, L, 3, 3) = [N, CA, C] per residue
+    dc = torch.zeros(B, Ld, 3, 3)
     dt = torch.zeros(B, Ld, dtype=torch.long)
     gm = torch.zeros(B, Ld, dtype=torch.bool)
     dp = torch.zeros(B, Ld, dtype=torch.bool)
-    ac = torch.zeros(B, Ka, 3)
+    ac = torch.zeros(B, Ka, 3, 3)
     at = torch.zeros(B, Ka, dtype=torch.long)
     ap = torch.zeros(B, Ka, dtype=torch.bool)
+
+    # A canonical N-CA-C triangle (A) so padded residues get a valid, finite frame.
+    tri = torch.tensor([[-1.46, 0.0, 0.0], [0.0, 0.0, 0.0], [0.55, 1.42, 0.0]])
 
     for b, e in enumerate(batch):
         ld, ka = len(e["design_tokens"]), len(e["antigen_tokens"])
@@ -114,11 +118,12 @@ def collate(batch: list[dict]):
         ac[b, :ka] = torch.from_numpy(e["antigen_coords"])
         at[b, :ka] = torch.from_numpy(e["antigen_tokens"])
         ap[b, :ka] = True
-        # Spread padded CA apart so per-block frames stay finite (not all-coincident).
-        if ld < Ld:
-            dc[b, ld:] = torch.arange(1, Ld - ld + 1).float()[:, None] * 50.0
-        if ka < Ka:
-            ac[b, ka:] = torch.arange(1, Ka - ka + 1).float()[:, None] * 50.0
+        # Padded residues: a spread-apart canonical triangle (valid non-degenerate
+        # frame, far from real residues; excluded from attention and loss anyway).
+        for j in range(ld, Ld):
+            dc[b, j] = tri + (j - ld + 1) * 50.0
+        for j in range(ka, Ka):
+            ac[b, j] = tri + (j - ka + 1) * 50.0
 
     return {
         "design_coords": dc, "design_tokens": dt, "generate_mask": gm, "design_pad": dp,

@@ -52,10 +52,11 @@ def _loss_only(model, batch) -> float:
     x1 = batch["design_coords"].to(dev); seq1 = batch["design_tokens"].to(dev)
     ag_c = batch["antigen_coords"].to(dev); ag_t = batch["antigen_tokens"].to(dev)
     gen = (batch["generate_mask"].to(dev) & batch["design_pad"].to(dev))
-    B, Ld, _ = x1.shape
+    B, Ld = x1.shape[:2]
     t = torch.full((B,), 0.5, device=dev)
     x0 = torch.randn_like(x1)
-    xt = torch.where(gen[..., None], 0.5 * x1 + 0.5 * x0, x1)
+    gb = gen.view(B, Ld, *([1] * (x1.dim() - 2)))
+    xt = torch.where(gb, 0.5 * x1 + 0.5 * x0, x1)
     tseq = structure_first_time(0.5, model.struct_first_delta)
     masked = gen & (torch.rand(B, Ld, device=dev) >= tseq)
     seq_in = torch.where(masked, torch.full_like(seq1, MASK), seq1)
@@ -77,6 +78,8 @@ def main(argv=None) -> int:
     p.add_argument("--batch-size", type=int, default=4)
     p.add_argument("--d-model", type=int, default=64)
     p.add_argument("--n-layers", type=int, default=3)
+    p.add_argument("--backbone", default="ipa_bb", choices=["ipa_bb", "ipa"],
+                   help="ipa_bb = real N-CA-C frames (default); ipa = CA-only pseudo-frames")
     p.add_argument("--lr", type=float, default=2e-3)
     p.add_argument("--val-frac", type=float, default=0.2)
     p.add_argument("--device", default="cpu")
@@ -106,7 +109,7 @@ def main(argv=None) -> int:
 
     torch.manual_seed(args.seed)
     model = CoDesignModel(d_model=args.d_model, n_layers=args.n_layers, lr=args.lr,
-                          backbone="ipa", device=args.device)
+                          backbone=args.backbone, device=args.device)
 
     step = 0
     hist = []

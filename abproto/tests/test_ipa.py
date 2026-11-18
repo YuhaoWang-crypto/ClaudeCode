@@ -10,8 +10,8 @@ import pytest
 
 torch = pytest.importorskip("torch")
 
-from abproto.model.ipa import frames_from_ca, to_global, to_local
-from abproto.model.net import CoDesignModel, IPABackbone, N_AA
+from abproto.model.ipa import frames_from_backbone, frames_from_ca, to_global, to_local
+from abproto.model.net import CoDesignModel, IPABackbone, IPABackboneBB, N_AA
 
 
 def _random_rotation(seed=0):
@@ -71,6 +71,58 @@ def test_ipa_velocity_equivariant_and_logits_invariant():
     assert torch.allclose(v1, v0 @ Rg.T, atol=1e-4), (v1 - v0 @ Rg.T).abs().max().item()
     # sequence logits are invariant
     assert torch.allclose(logits1, logits0, atol=1e-4)
+
+
+def test_backbone_frames_equivariant_and_orthonormal():
+    rng = torch.Generator().manual_seed(3)
+    N = torch.randn(2, 7, 3, generator=rng)
+    CA = torch.randn(2, 7, 3, generator=rng)
+    C = torch.randn(2, 7, 3, generator=rng)
+    R, t = frames_from_backbone(N, CA, C)
+    # proper orthonormal frames
+    eye = torch.eye(3)
+    assert torch.allclose(R.transpose(-1, -2) @ R, eye.expand_as(R), atol=1e-4)
+    assert torch.allclose(torch.det(R), torch.ones(2, 7), atol=1e-4)
+    assert torch.allclose(t, CA)
+    # equivariance under proper rigid motion
+    Rg = _random_rotation(5); tg = torch.randn(3)
+    R2, t2 = frames_from_backbone(N @ Rg.T + tg, CA @ Rg.T + tg, C @ Rg.T + tg)
+    assert torch.allclose(R2, Rg @ R, atol=1e-4)
+    assert torch.allclose(t2, CA @ Rg.T + tg, atol=1e-4)
+
+
+def test_backbone_frames_handle_collinear_ca():
+    # Three residues whose CAs are collinear (x-axis). CA-only frames degenerate
+    # here (e2 -> 0); real N-CA-C frames stay orthonormal.
+    CA = torch.tensor([[[0.0, 0, 0], [1.0, 0, 0], [2.0, 0, 0]]])     # (1,3,3)
+    N = CA + torch.tensor([0.0, 1.46, 0.0])
+    C = CA + torch.tensor([0.55, -1.42, 0.3])
+    R, _ = frames_from_backbone(N, CA, C)
+    eye = torch.eye(3)
+    assert torch.allclose(R.transpose(-1, -2) @ R, eye.expand_as(R), atol=1e-4)
+    # CA-only frames on the same collinear CAs are NOT orthonormal (degenerate)
+    Rca, _ = frames_from_ca(CA)
+    err = (Rca.transpose(-1, -2) @ Rca - eye).abs().max()
+    assert err > 0.1
+
+
+def test_bb_model_velocity_equivariant():
+    torch.manual_seed(0)
+    net = IPABackboneBB(d_model=48, n_layers=2).eval()
+    g = torch.Generator().manual_seed(1)
+    design = torch.randn(2, 6, 3, 3, generator=g)
+    antigen = torch.randn(2, 8, 3, 3, generator=g)
+    dtok = torch.randint(0, N_AA, (2, 6), generator=g)
+    atok = torch.randint(0, N_AA, (2, 8), generator=g)
+    t = torch.rand(2, generator=g)
+    Rg = _random_rotation(7); tg = torch.randn(3)
+
+    with torch.no_grad():
+        v0, lg0 = net(design, dtok, antigen, atok, t)
+        v1, lg1 = net(design @ Rg.T + tg, dtok, antigen @ Rg.T + tg, atok, t)
+    # each atom's velocity (a displacement) rotates with Rg
+    assert torch.allclose(v1, v0 @ Rg.T, atol=1e-4)
+    assert torch.allclose(lg1, lg0, atol=1e-4)
 
 
 def test_ipa_model_trains():
