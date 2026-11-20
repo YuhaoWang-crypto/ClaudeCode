@@ -18,4 +18,36 @@ fitting ContextTransfer on the source screen + target controls only
 count targets: oracle median 593
   naive transfer: deployable count median 22
   ContextTransfer: deployable count median 22
-ian 22
+
+==============================================================================================
+K562 -> Jurkat, zero-shot: source effects plus the target's control cells only
+6 perturbations, cell counts matched between reference and prediction
+
+  arm                                              calls   recall  jaccard  fidelity   reach    nmae
+  --------------------------------------------------------------------------------------------
+  naive transfer: uncalibrated                      1726    0.330   0.1071    0.6191  0.2826  0.9744
+  naive transfer: calibrated (source counts)         112    0.042   0.0261    0.3082  0.0598  1.0722
+  naive transfer: oracle counts [not submittable]     470    0.142   0.0927    0.5979  0.1854  0.9911
+  ContextTransfer: uncalibrated                      266    0.107   0.0705    0.3838  0.1989  0.8405
+  ContextTransfer: calibrated (source counts)         86    0.039   0.1934    0.1449  0.0473  0.9842
+  ContextTransfer: oracle counts [not submittable]     128    0.067   0.2224    0.1834  0.1198  0.9114
+  reference (measured, = the 1.0 anchor)             593    1.000   1.0000    1.0000  1.0000  0.0000
+
+==============================================================================================
+The unmeasured number, measured: recall retained when the call count is corrected
+
+  naive transfer
+    uncalibrated       1726 calls  recall  33.0%  raw J 0.1071  scaled J +0.211  composite +0.0352
+    deployable          112 calls  recall   4.2%  raw J 0.0261  scaled J -0.008  composite -0.0013
+    oracle counts       470 calls  recall  14.2%  raw J 0.0927  scaled J +0.172  composite +0.0287
+
+  ContextTransfer
+    uncalibrated        266 calls  recall  10.7%  raw J 0.0705  scaled J +0.112  composite +0.0187
+    deployable           86 calls  recall   3.9%  raw J 0.1934  scaled J +0.444  composite +0.0741
+    oracle counts       128 calls  recall   6.7%  raw J 0.2224  scaled J +0.523  composite +0.0871
+
+  Scaling uses the published anchors for the official contexts, so it is an
+  indicative translation onto the leaderboard's units, not a leaderboard score:
+  these are different cells, a different panel and fewer cells per group.
+
+wrote results/de_recall_smoke.json

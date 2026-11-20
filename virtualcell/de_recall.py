@@ -220,6 +220,10 @@ def main() -> None:
     ap.add_argument("--source", type=Path, default=DATA / "k562_de.h5ad")
     ap.add_argument("--n-perts", type=int, default=100)
     ap.add_argument("--min-cells", type=int, default=80)
+    ap.add_argument("--min-real", type=int, default=10,
+                    help="drop perturbations whose reference response is "
+                         "smaller than this (default matches the "
+                         "specification's own min_gate_size for nmae)")
     ap.add_argument("--seed", type=int, default=0)
     ap.add_argument("--out", type=Path, default=Path("results/de_recall.json"))
     args = ap.parse_args()
@@ -290,10 +294,26 @@ def main() -> None:
                       "ncells": cells.shape[0]}
         if (k + 1) % 20 == 0:
             print(f"  {k + 1}/{len(usable)}", flush=True)
+    # A perturbation whose reference response is empty is not informative about
+    # ranking, and it actively corrupts the mean: the specification defines
+    # Jaccard on an empty union as 1.0, so a dud perturbation that the model
+    # also calls nothing for scores a perfect 1.0.  In the official data every
+    # construct passed a knockdown-efficiency filter and the median response is
+    # 22-44 genes, so such cases are rare there; in a small sample here one of
+    # them moved the mean by 1/n.  They are dropped, and the count is reported.
+    dropped = [n for n in usable if real[n]["n"] < args.min_real]
+    if dropped:
+        print(f"  dropping {len(dropped)} perturbation(s) with a reference "
+              f"response below {args.min_real} genes: "
+              f"{', '.join(dropped[:8])}{' ...' if len(dropped) > 8 else ''}")
+        usable = [n for n in usable if n not in set(dropped)]
+        if not usable:
+            raise SystemExit("every perturbation was dropped")
     n_real = np.array([real[n]["n"] for n in usable])
     print(f"  significant genes per target: median {np.median(n_real):.0f}, "
           f"IQR {np.percentile(n_real, 25):.0f}-{np.percentile(n_real, 75):.0f}, "
-          f"range {n_real.min()}-{n_real.max()}")
+          f"range {n_real.min()}-{n_real.max()} "
+          f"({len(usable)} perturbations)")
 
     # the source's own response sizes, which is what a submission may use
     print("\nsource response sizes (the deployable count estimate)")
