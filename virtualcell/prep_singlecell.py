@@ -53,7 +53,7 @@ def _is_sparse(h5: h5py.File) -> bool:
 
 
 def subsample(path: Path, out: Path, per_pert: int = 20, per_control: int = 2000,
-              seed: int = 0) -> None:
+              seed: int = 0, max_perts: int | None = None) -> None:
     t0 = time.time()
     rng = np.random.default_rng(seed)
 
@@ -64,9 +64,24 @@ def subsample(path: Path, out: Path, per_pert: int = 20, per_control: int = 2000
             else _column(h5, "var", h5["var"].attrs.get("_index", "gene_id"))
         gene_names = _column(h5, "var", "gene_name")
 
+        names = np.unique(target)
+        if max_perts is not None:
+            # Keeping a *few* perturbations with all their cells is the right
+            # trade for a differential-expression measurement, where per-group
+            # cell count sets the test's power and a thin group is worth less
+            # than no group.  Keeping every perturbation thinly is the right
+            # trade for pseudobulk.  Rank by cell count and take the top N.
+            per = {n: int((target == n).sum()) for n in names
+                   if n != CONTROL_LABEL}
+            chosen = sorted(per, key=per.get, reverse=True)[:max_perts]
+            names = np.array(sorted(chosen) + [CONTROL_LABEL])
+            print(f"  {len(per):,} perturbations available, keeping the "
+                  f"{len(chosen)} largest "
+                  f"({per[chosen[-1]]}-{per[chosen[0]]} cells each)")
+
         # choose the rows to keep before touching X
         keep: list[int] = []
-        for name in np.unique(target):
+        for name in names:
             rows = np.flatnonzero(target == name)
             budget = per_control if name == CONTROL_LABEL else per_pert
             if rows.size > budget:
@@ -121,9 +136,12 @@ def main() -> None:
     ap.add_argument("--per-pert", type=int, default=20)
     ap.add_argument("--per-control", type=int, default=2000)
     ap.add_argument("--seed", type=int, default=0)
+    ap.add_argument("--max-perts", type=int, default=None,
+                    help="keep only the N perturbations with the most cells")
     args = ap.parse_args()
     print(f"subsampling {args.h5ad}")
-    subsample(args.h5ad, args.out, args.per_pert, args.per_control, args.seed)
+    subsample(args.h5ad, args.out, args.per_pert, args.per_control, args.seed,
+              args.max_perts)
 
 
 if __name__ == "__main__":

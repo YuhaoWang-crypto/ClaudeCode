@@ -193,42 +193,55 @@ def expression_gate(ctrl_cpm: np.ndarray, min_cpm: float = MIN_CPM
     return ctrl_cpm.mean(axis=0) > min_cpm
 
 
-def wilcoxon_p(group: np.ndarray, ctrl: np.ndarray) -> np.ndarray:
+def wilcoxon_p(group: np.ndarray, ctrl: np.ndarray, chunk: int = 1500
+               ) -> np.ndarray:
     """Two-sided Mann-Whitney p per gene, normal approximation with tie correction.
 
-    Vectorised over genes.  ``group`` and ``ctrl`` are (cells, genes) CPM.
+    Vectorised over genes and chunked over them, because the intermediates are
+    (cells x genes) and about eight of them are live at once: unchunked, a
+    20,000-cell control pool against 8,000 genes wants ~10 GB and gets killed.
+    ``chunk`` trades peak memory for a few percent of speed and changes no
+    result.
     """
+    if group.shape[1] > chunk:
+        return np.concatenate([
+            wilcoxon_p(group[:, i:i + chunk], ctrl[:, i:i + chunk], chunk)
+            for i in range(0, group.shape[1], chunk)])
+
     n1, n2 = group.shape[0], ctrl.shape[0]
     stacked = np.concatenate([group, ctrl], axis=0)
     n = n1 + n2
     order = np.argsort(stacked, axis=0, kind="stable")
     srt = np.take_along_axis(stacked, order, axis=0)
 
-    # average ranks within tied blocks, per gene
-    ranks = np.empty_like(srt)
-    idx = np.arange(1, n + 1, dtype=np.float64)[:, None]
-    start = 0
-    # boundaries where the sorted value changes, computed per gene via cumsum
-    newblock = np.ones_like(srt, dtype=bool)
-    newblock[1:] = srt[1:] != srt[:-1]
-    block_id = np.cumsum(newblock, axis=0) - 1
-    for g in range(srt.shape[1]):
-        bid = block_id[:, g]
-        sums = np.bincount(bid, weights=idx[:, 0])
-        cnts = np.bincount(bid)
-        ranks[:, g] = (sums / cnts)[bid]
-    del start
+    # Tied blocks, fully vectorised over genes.  For each element find the first
+    # and last index of its tied run; the average rank of the run is then
+    # (start + end)/2 + 1, and a run of length t contributes t^3 - t to the tie
+    # correction -- which is the same as every one of its t elements
+    # contributing t^2 - 1, so the correction needs no per-gene grouping either.
+    # This matters for cost: the measurement below runs this hundreds of times
+    # on (400 + 20,000) cells x ~8,000 genes, and a per-gene Python loop over
+    # bincount dominated everything else.
+    idx = np.arange(n)[:, None]
+    newblock = np.empty(srt.shape, dtype=bool)
+    newblock[0] = True
+    np.not_equal(srt[1:], srt[:-1], out=newblock[1:])
+
+    start = np.maximum.accumulate(np.where(newblock, idx, 0), axis=0)
+    endmark = np.empty_like(newblock)
+    endmark[:-1] = newblock[1:]
+    endmark[-1] = True
+    end = np.minimum.accumulate(np.where(endmark, idx, n - 1)[::-1], axis=0)[::-1]
+
+    ranks = (start + end) * 0.5 + 1.0
     back = np.empty_like(ranks)
     np.put_along_axis(back, order, ranks, axis=0)
 
     R1 = back[:n1].sum(axis=0)
     U = R1 - n1 * (n1 + 1) / 2.0
     mu = n1 * n2 / 2.0
-    # tie correction: sum over tied blocks of (t^3 - t)
-    tie = np.zeros(srt.shape[1])
-    for g in range(srt.shape[1]):
-        cnts = np.bincount(block_id[:, g]).astype(np.float64)
-        tie[g] = ((cnts ** 3) - cnts).sum()
+    t = (end - start + 1).astype(np.float64)
+    tie = (t * t - 1.0).sum(axis=0)
     var = n1 * n2 / 12.0 * ((n + 1) - tie / (n * (n - 1)))
     with np.errstate(invalid="ignore", divide="ignore"):
         z = (U - mu) / np.sqrt(var)
