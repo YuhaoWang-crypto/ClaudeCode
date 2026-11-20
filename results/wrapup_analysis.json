@@ -1,0 +1,241 @@
+{
+  "podium_scaled": {
+    "BioInsight AI Lab (1st, Illumina)": {
+      "pds_cosine": 0.8313,
+      "mse": 0.6842,
+      "nmae": 0.4399,
+      "fidelity": 0.1908,
+      "reach": 0.4288,
+      "jaccard": 0.0642
+    },
+    "FlowState (2nd, independent)": {
+      "pds_cosine": 0.8363,
+      "mse": 0.3632,
+      "nmae": 0.3286,
+      "fidelity": 0.1695,
+      "reach": 0.3128,
+      "jaccard": -0.0018
+    },
+    "X-team (3rd, Xaira)": {
+      "pds_cosine": 0.7346,
+      "mse": 0.4681,
+      "nmae": 0.3038,
+      "fidelity": 0.0659,
+      "reach": 0.3186,
+      "jaccard": 0.0667
+    }
+  },
+  "overall_published": {
+    "BioInsight AI Lab (1st, Illumina)": 0.4399,
+    "FlowState (2nd, independent)": 0.3348,
+    "X-team (3rd, Xaira)": 0.3263
+  },
+  "aggregation_check": {
+    "BioInsight AI Lab (1st, Illumina)": {
+      "mean_of_six": 0.43986666666666663,
+      "published": 0.4399,
+      "abs_diff": 3.333333333338517e-05
+    },
+    "FlowState (2nd, independent)": {
+      "mean_of_six": 0.3347666666666667,
+      "published": 0.3348,
+      "abs_diff": 3.333333333327415e-05
+    },
+    "X-team (3rd, Xaira)": {
+      "mean_of_six": 0.32628333333333337,
+      "published": 0.3263,
+      "abs_diff": 1.666666666660932e-05
+    }
+  },
+  "headroom_winner": {
+    "jaccard": {
+      "scaled": 0.0642,
+      "raw": 0.052753999999999995,
+      "raw_lo": 0.043726799999999996,
+      "raw_hi": 0.061781199999999994,
+      "left_to_replicate": 0.9358,
+      "share_of_headroom": 0.27844560818852654
+    },
+    "fidelity": {
+      "scaled": 0.1908,
+      "raw": 0.57074,
+      "raw_lo": 0.560332,
+      "raw_hi": 0.581148,
+      "left_to_replicate": 0.8092,
+      "share_of_headroom": 0.2407760057129255
+    },
+    "reach": {
+      "scaled": 0.4288,
+      "raw": 0.45620479999999997,
+      "raw_lo": 0.4376368,
+      "raw_hi": 0.4747728,
+      "left_to_replicate": 0.5711999999999999,
+      "share_of_headroom": 0.169959533444418
+    },
+    "nmae": {
+      "scaled": 0.4399,
+      "raw": 0.7367881300000001,
+      "raw_lo": 0.7229271899999999,
+      "raw_hi": 0.75064907,
+      "left_to_replicate": 0.5601,
+      "share_of_headroom": 0.16665674839323974
+    },
+    "mse": {
+      "scaled": 0.6842,
+      "raw": 0.3372995,
+      "raw_lo": 0.33053639999999995,
+      "raw_hi": 0.3440626,
+      "left_to_replicate": 0.31579999999999997,
+      "share_of_headroom": 0.09396572244703642
+    },
+    "pds_cosine": {
+      "scaled": 0.8313,
+      "raw": 0.87865715,
+      "raw_lo": 0.8549651,
+      "raw_hi": 0.9023492,
+      "left_to_replicate": 0.16869999999999996,
+      "share_of_headroom": 0.05019638181385384
+    }
+  },
+  "jaccard_overcalling": {
+    "X-team": {
+      "n_called": [
+        122,
+        136
+      ],
+      "jaccard_ceiling": 0.2558139534883721,
+      "raw_jaccard": 0.053679,
+      "frac_of_ceiling": 0.2098360909090909,
+      "implied_recall": 0.25009048382770355
+    },
+    "BioInsight AI Lab": {
+      "n_called": [
+        500,
+        500
+      ],
+      "jaccard_ceiling": 0.066,
+      "raw_jaccard": 0.052753999999999995,
+      "frac_of_ceiling": 0.7993030303030302,
+      "implied_recall": 0.8093600502140389
+    },
+    "rest of top ten": {
+      "n_called": [
+        340,
+        4200
+      ],
+      "jaccard_ceiling": 0.014537444933920705
+    }
+  },
+  "jaccard_sweep_scaled": {
+    "33": {
+      "recall_0.3": {
+        "raw_jaccard": 0.17647058823529413,
+        "scaled": 0.39856915739268683,
+        "composite_delta": 0.05572819289878114
+      },
+      "recall_0.5": {
+        "raw_jaccard": 0.3333333333333333,
+        "scaled": 0.8225225225225226,
+        "composite_delta": 0.1263870870870871
+      },
+      "recall_0.7": {
+        "raw_jaccard": 0.5384615384615383,
+        "scaled": 1.3769230769230765,
+        "composite_delta": 0.2187871794871794
+      },
+      "recall_0.9": {
+        "raw_jaccard": 0.8181818181818182,
+        "scaled": 2.132923832923833,
+        "composite_delta": 0.34478730548730546
+      }
+    },
+    "66": {
+      "recall_0.3": {
+        "raw_jaccard": 0.11111111111111112,
+        "scaled": 0.22192192192192195,
+        "composite_delta": 0.026286986986986994
+      },
+      "recall_0.5": {
+        "raw_jaccard": 0.2,
+        "scaled": 0.4621621621621622,
+        "composite_delta": 0.06632702702702704
+      },
+      "recall_0.7": {
+        "raw_jaccard": 0.3043478260869565,
+        "scaled": 0.7441833137485311,
+        "composite_delta": 0.11333055229142185
+      },
+      "recall_0.9": {
+        "raw_jaccard": 0.4285714285714286,
+        "scaled": 1.07992277992278,
+        "composite_delta": 0.16928712998713
+      }
+    },
+    "132": {
+      "recall_0.3": {
+        "raw_jaccard": 0.06382978723404256,
+        "scaled": 0.09413456009200694,
+        "composite_delta": 0.004989093348667824
+      },
+      "recall_0.5": {
+        "raw_jaccard": 0.1111111111111111,
+        "scaled": 0.22192192192192192,
+        "composite_delta": 0.026286986986986987
+      },
+      "recall_0.7": {
+        "raw_jaccard": 0.1627906976744186,
+        "scaled": 0.36159648020113133,
+        "composite_delta": 0.04956608003352189
+      },
+      "recall_0.9": {
+        "raw_jaccard": 0.2195121951219512,
+        "scaled": 0.5148978246539222,
+        "composite_delta": 0.07511630410898704
+      }
+    },
+    "130": {
+      "recall_0.3": {
+        "raw_jaccard": 0.06466361854996734,
+        "scaled": 0.09638815824315498,
+        "composite_delta": 0.005364693040525832
+      },
+      "recall_0.5": {
+        "raw_jaccard": 0.11262798634812286,
+        "scaled": 0.2260215847246564,
+        "composite_delta": 0.026970264120776067
+      },
+      "recall_0.7": {
+        "raw_jaccard": 0.16511794138670477,
+        "scaled": 0.3678863280721751,
+        "composite_delta": 0.050614388012029186
+      },
+      "recall_0.9": {
+        "raw_jaccard": 0.22280570142535633,
+        "scaled": 0.5237991930415036,
+        "composite_delta": 0.07659986550691726
+      }
+    },
+    "500": {
+      "recall_0.3": {
+        "raw_jaccard": 0.01892563563372204,
+        "scaled": -0.02722801180075124,
+        "composite_delta": -0.015238001966791872
+      },
+      "recall_0.5": {
+        "raw_jaccard": 0.031945788964181994,
+        "scaled": 0.007961591795086476,
+        "composite_delta": -0.009373068034152254
+      },
+      "recall_0.7": {
+        "raw_jaccard": 0.045303000588350656,
+        "scaled": 0.04406216375229908,
+        "composite_delta": -0.0033563060412834856
+      },
+      "recall_0.9": {
+        "raw_jaccard": 0.059010530498708524,
+        "scaled": 0.08110954188840143,
+        "composite_delta": 0.002818256981400239
+      }
+    }
+  }
+}
