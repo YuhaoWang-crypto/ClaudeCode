@@ -160,6 +160,56 @@ def de_table(cells: sparse.csr_matrix, ctrl_dense: np.ndarray,
     return sig, lfc, p
 
 
+def ranking_curve(full_delta: np.ndarray, usable: list[str], real: dict,
+                  gate: np.ndarray, ks=(10, 30, 100, 300)) -> list[dict]:
+    """Precision at k, and the Jaccard that calling exactly k genes would give.
+
+    This exists because the two things the over-calling argument needs are not
+    the same question, and only one of them needs real data:
+
+    * **how good is the ranking** -- what fraction of a prediction's top k genes
+      are really responding.  That is a model property, needs measurement, and
+      is what this returns;
+    * **what is the right k** -- a property of the target panel.  Measuring that
+      here is confounded: the source screen in this comparison carries ~60 cells
+      per perturbation against the target's 400, and the Wilcoxon's power is set
+      by the smaller group, so the source's apparent response sizes are
+      power-suppressed rather than biologically smaller.  The organizers
+      published the real prior for the official panel instead (a median of 22-44
+      significant genes per target).
+
+    Separating them makes the result transferable.  Calling exactly ``k`` genes
+    with precision ``p`` gives ``m = p*k`` true positives and therefore
+
+        J(k) = m / (k + n_real - m)
+
+    so a precision curve converts into the Jaccard for *any* call count,
+    including the official panel's, without rerunning anything.
+    """
+    rows = []
+    n_gated = int(gate.sum())
+    for i, name in enumerate(usable):
+        sig = real[name]["sig"]
+        n_real = int(sig.sum())
+        if n_real == 0:
+            continue
+        order = np.argsort(-np.abs(full_delta[i][gate]))
+        hits = np.cumsum(sig[order])
+        row = {"pert": name, "n_real": n_real,
+               "base_rate": n_real / n_gated}
+        # The fixed k's and n_real get distinct keys unconditionally.  Tagging
+        # by value would collide whenever n_real happens to equal a requested k,
+        # leaving different perturbations with different key sets -- which the
+        # aggregation below would then fail on rather than notice.
+        for k in list(ks) + ["n_real"]:
+            kk = int(min(n_real if k == "n_real" else k, order.size))
+            m = int(hits[kk - 1])
+            row[f"prec@{k}"] = m / kk
+            row[f"jaccard@{k}"] = m / (kk + n_real - m)
+        rows.append(row)
+    return rows
+
+
 # ---------------------------------------------------------------------------
 # the measurement
 # ---------------------------------------------------------------------------
@@ -286,8 +336,14 @@ def main() -> None:
 
     def run(full_delta: np.ndarray, label: str,
             k_per_pert: np.ndarray | None) -> dict:
+        import time
+        t0 = time.time()
+        print(f"  arm: {label}", flush=True)
         rows = []
         for i, name in enumerate(usable):
+            if i and i % 20 == 0:
+                print(f"    {i}/{len(usable)} ({time.time() - t0:.0f}s)",
+                      flush=True)
             eff = full_delta[i].copy()
             if k_per_pert is not None:
                 # Sparsify only *within* the gated set.  Genes below the 5-CPM
@@ -378,6 +434,32 @@ def main() -> None:
             (unc["jaccard"] - b) / (r_anchor - b)
         out["arms"][f"{mname}: calibrated (source counts)"]["scaled_jaccard"] = \
             (cal["jaccard"] - b) / (r_anchor - b)
+
+    # --- the transferable form: ranking quality, decoupled from the count ---
+    print("\n" + "=" * 94)
+    print("Ranking quality, which is the part that needed real data")
+    print("prec@k = fraction of the top k predicted genes that really respond; "
+          "jaccard@k is\nwhat calling exactly k genes would score. "
+          "k=30 is the official panel's regime\n(organizers: 22-44 significant "
+          "genes per target); k=n_real is this panel's.\n")
+    out["ranking"] = {}
+    for mname, full_delta in models.items():
+        curve = ranking_curve(full_delta, usable, real, gate)
+        out["ranking"][mname] = curve
+        if not curve:
+            continue
+        keys = [k for k in curve[0] if k.startswith("prec@")]
+        print(f"  {mname}  (base rate {np.mean([r['base_rate'] for r in curve]):.3f}"
+              f", n_real median {np.median([r['n_real'] for r in curve]):.0f})")
+        print(f"    {'k':<10}{'prec@k':>9}{'lift':>8}{'jaccard@k':>12}"
+              f"{'scaled J':>11}")
+        for key in keys:
+            k = key.split("@")[1]
+            p = float(np.mean([r[key] for r in curve]))
+            j = float(np.mean([r[f"jaccard@{k}"] for r in curve]))
+            br = float(np.mean([r["base_rate"] for r in curve]))
+            print(f"    {k:<10}{p:>9.3f}{p / max(br, 1e-9):>7.1f}x"
+                  f"{j:>12.4f}{(j - b) / (r_anchor - b):>+11.3f}")
     print("\n  Scaling uses the published anchors for the official contexts, so "
           "it is an\n  indicative translation onto the leaderboard's units, not "
           "a leaderboard score:\n  these are different cells, a different panel "
