@@ -1,0 +1,11 @@
+loading
+  target 54,656 cells x 8,882 genes, 151 labels
+  source 120,707 cells x 8,563 genes, 2058 labels
+  shared genes: 7,565
+lls x 8,563 genes, 2058 labels
+  shared genes: 7,565
+  target controls: 8,000 cells
+  scoring 6 perturbations present in both, 400-400 cells each
+  genes passing the 5-CPM gate: 7,565
+
+reference DE on measured target cells
