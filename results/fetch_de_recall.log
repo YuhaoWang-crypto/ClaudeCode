@@ -1,0 +1,24 @@
+== downloading jurkat_de
+-rw-r--r-- 1 root root 9366490264 Nov 20 22:22 /home/user/vcc_data/raw/jurkat.h5ad
+== subsampling jurkat_de: per-pert 400, control 8000, max-perts 150
+subsampling /home/user/vcc_data/raw/jurkat.h5ad
+  2,393 perturbations available, keeping the 150 largest (221-2555 cells each)
+  keeping 54,656 of 262,956 cells (2,394 conditions)
+    20,000/262,956 (5s)
+    40,000/262,956 (5s)
+    60,000/262,956 (6s)
+    80,000/262,956 (7s)
+    100,000/262,956 (8s)
+    120,000/262,956 (9s)
+    140,000/262,956 (10s)
+    160,000/262,956 (11s)
+    180,000/262,956 (12s)
+    200,000/262,956 (13s)
+    220,000/262,956 (14s)
+    240,000/262,956 (15s)
+    260,000/262,956 (16s)
+    262,956/262,956 (16s)
+  wrote /home/user/vcc_data/singlecell/jurkat_de.h5ad (426.7 MB, 54,656 cells x 8,882 genes, 41s)
+  verified 54,656 cells x 8,882 genes
+/dev/vda        252G  9.5G   60G  14% /
+== downloading k562_de
