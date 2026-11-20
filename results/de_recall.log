@@ -7,3 +7,19 @@ loading
   genes passing the 5-CPM gate: 7,565
 
 reference DE on measured target cells
+  20/60
+  40/60
+  60/60
+  dropping 9 perturbation(s) with a reference response below 10 genes: ANAPC15, SHQ1, SLC1A5, TWF1, IK, SSBP3, MIS18BP1, HSD17B12 ...
+  significant genes per target: median 542, IQR 152-1318, range 18-3667 (51 perturbations)
+
+source response sizes (the deployable count estimate)
+  median 17, range 0-1882 (from 40 source perturbations)
+
+fitting ContextTransfer on the source screen + target controls only
+  fitted on 2,049 source perturbations
+
+count targets: oracle median 542
+  naive transfer: deployable count median 19
+  arm: naive transfer: uncalibrated
+    20/51 (215s)
