@@ -252,14 +252,25 @@ def main() -> None:
     print("4. Two consequences for this project's existing tuning")
     print("""
    (a) pds_cosine is scale-invariant, so effect magnitude no longer buys
-       discrimination.  This project tuned `beta` on a magnitude frontier
+       *discrimination*.  This project tuned `beta` on a magnitude frontier
        against the 2025 L1 discrimination score, and Liu et al. (arXiv
        2511.16954) show exactly why that worked: L1/L2 PDS rises with a global
        rescaling of the prediction and plateaus, while cosine PDS does not move
-       at all.  Arc adopted cosine for 2026.  So `beta` now acts only through
-       mse and nmae, and every magnitude hyperparameter has to be re-tuned
-       against those two.  The `norm_cv` diagnostic was measuring a real metric
-       artifact -- and the artifact has been removed.
+       at all.  Arc adopted cosine for 2026.  The `norm_cv` diagnostic was
+       measuring a real metric artifact, and the artifact has been removed.
+
+       It does NOT follow that magnitude stopped mattering -- the opposite.
+       Four of the six members are differential-expression metrics decided by a
+       Wilcoxon test on the submitted cells, and that test's power depends
+       directly on effect size.  virtualcell.de_recall measures the
+       consequence: asked to call its top 542 genes, ContextTransfer's
+       generated cells get only 57 of them past Benjamini-Hochberg (18%)
+       against naive transfer's 359 (61%), and its Jaccard loses 2.47x between
+       the genes it *intends* to call and the genes the test *does* call.  Its
+       gene ranking is the better of the two at every depth; its magnitudes are
+       too small to be detected.  So magnitude is now load-bearing for five of
+       the six metrics rather than one, and `beta`, `shrink`, `smooth`,
+       `use_global` and `rank_mix` all have to be re-tuned with that in view.
 
    (b) The organizers' own diagnosis of the field is the failure this project
        already has a measured remedy for: predicted responses to one target in
