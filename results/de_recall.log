@@ -23,3 +23,13 @@ count targets: oracle median 542
   naive transfer: deployable count median 19
   arm: naive transfer: uncalibrated
     20/51 (215s)
+    40/51 (424s)
+  arm: naive transfer: calibrated (source counts)
+    20/51 (217s)
+    40/51 (443s)
+  arm: naive transfer: oracle counts [not submittable]
+    20/51 (220s)
+    40/51 (435s)
+  ContextTransfer: deployable count median 19
+  arm: ContextTransfer: uncalibrated
+    20/51 (214s)
