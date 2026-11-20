@@ -72,13 +72,15 @@ def significant_counts(pert_cells: dict[str, np.ndarray],
         if gated_names is not None:
             hit = np.flatnonzero(gated_names == name)
             drop = int(hit[0]) if hit.size else None
+        # Benjamini-Hochberg runs over every gene that passed the expression
+        # gate; the target gene is removed from the *metric*, not from the test.
+        # The specification puts the low-expression filter before BH and the
+        # target-gene restriction after it, and doing it the other way round
+        # would quietly change every other gene's adjusted p-value.
+        sig = M.bh_reject(p, alpha)
         if drop is not None:
-            keep = np.ones(p.size, bool)
-            keep[drop] = False
-            sig = M.bh_reject(p[keep], alpha)
-            out[name] = int(sig.sum())
-        else:
-            out[name] = int(M.bh_reject(p, alpha).sum())
+            sig[drop] = False
+        out[name] = int(sig.sum())
     return out
 
 

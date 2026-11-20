@@ -89,7 +89,7 @@ def subsample(path: Path, out: Path, per_pert: int = 20, per_control: int = 2000
             keep.extend(rows.tolist())
         keep = np.sort(np.array(keep))
         print(f"  keeping {keep.size:,} of {target.size:,} cells "
-              f"({np.unique(target).size:,} conditions)")
+              f"({names.size:,} of {np.unique(target).size:,} conditions)")
 
         n_genes = h5["X"].shape[1] if not _is_sparse(h5) else \
             h5["X"].attrs["shape"][1]

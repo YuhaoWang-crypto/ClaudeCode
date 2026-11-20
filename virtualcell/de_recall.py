@@ -54,8 +54,20 @@ import numpy as np
 from scipy import sparse
 
 from . import vcc2026_metrics as M
+from .data import CellLine
 from .de_calibration import rank_matched_targets
+from .model import ContextTransferModel, Hyper, SourceBank
 from .vcc_submit import sample_cells
+
+#: Hyperparameters from this project's single-source benchmark, Jurkat fold.
+#: That fold tuned on RPE1 and HepG2 only, so using it on a Jurkat target is
+#: leakage-free -- but it was tuned against the **2025** metrics, where L1
+#: discrimination rewarded magnitude spread.  Re-tuning against the 2026 suite
+#: is a separate job; this arm measures the model as it stands.
+JURKAT_FOLD_HYPER = dict(
+    temp=float("inf"), smooth=0.5, n_neighbors=5, shrink=0.5, gamma=0.5,
+    mod_clip=2.0, beta=0.8, use_global=0.2, on_target=True, rank=80,
+    rank_mix=0.25, unseen_k=25, renorm=0.0)
 
 DATA = Path("/home/user/vcc_data/singlecell")
 CONTROL = "non-targeting"
@@ -94,6 +106,36 @@ def log1p_cp10k(X: sparse.csr_matrix) -> np.ndarray:
     return np.log1p(total / max(total.sum(), 1.0) * 1e4)
 
 
+def source_cellline(X: sparse.csr_matrix, label: np.ndarray, sym: np.ndarray,
+                    name: str = "K562", n_splits: int = 10, min_cells: int = 10,
+                    seed: int = 0) -> CellLine:
+    """Pseudobulk a single-cell screen into the model's source representation.
+
+    The control cells are split into ``n_splits`` disjoint pseudo-replicates
+    rather than pooled, because :class:`CellLine` uses the spread *between*
+    control replicates to estimate what a null difference looks like, and a
+    single pooled control would leave that at zero.
+    """
+    rng = np.random.default_rng(seed)
+    idx = np.flatnonzero(label == CONTROL)
+    rng.shuffle(idx)
+    groups = [g for g in np.array_split(idx, n_splits) if g.size]
+    ctrl = np.stack([log1p_cp10k(X[np.sort(g)]) for g in groups])
+    ctrl_ncells = np.array([g.size for g in groups])
+
+    names, pert, ncells = [], [], []
+    for n in sorted(set(label.tolist()) - {CONTROL}):
+        rows = np.flatnonzero(label == n)
+        if rows.size < min_cells:
+            continue
+        names.append(n)
+        pert.append(log1p_cp10k(X[rows]))
+        ncells.append(rows.size)
+    return CellLine(name=name, ctrl=ctrl, pert=np.stack(pert),
+                    names=np.array(names), ncells=np.array(ncells),
+                    ctrl_ncells=ctrl_ncells, genes=sym, symbols=sym)
+
+
 # ---------------------------------------------------------------------------
 # the DE table, for one group against the reference control
 # ---------------------------------------------------------------------------
@@ -111,6 +153,10 @@ def de_table(cells: sparse.csr_matrix, ctrl_dense: np.ndarray,
     p = M.wilcoxon_p(g, ctrl_dense)
     sig = M.bh_reject(p)
     lfc = M.log2fc(g, ctrl_mean)
+    # Returned as the third value and handed to `direction_reach` for both its
+    # adjusted-p and raw-p ordering tiers.  Within one perturbation BH is
+    # monotone in the raw p-value, so ordering by either gives the same
+    # sequence, and the tiers only ever break ties.
     return sig, lfc, p
 
 
@@ -220,24 +266,40 @@ def main() -> None:
           f"(from {src_counts.size} source perturbations)")
 
     # --- prediction arms ------------------------------------------------
-    pred_delta = np.stack([src_effect[n][gate] for n in usable])
-    full_delta = np.stack([src_effect[n] for n in usable])
+    models: dict[str, np.ndarray] = {
+        "naive transfer": np.stack([src_effect[n] for n in usable])}
+
+    print("\nfitting ContextTransfer on the source screen + target controls only")
+    try:
+        line = source_cellline(Xs, ls, sym, seed=args.seed)
+        bank = SourceBank.build([line], np.ones(1))
+        hp = Hyper(**JURKAT_FOLD_HYPER)
+        model = ContextTransferModel(hp).fit([line], t_ctrl_mean_log, sym,
+                                             bank=bank)
+        models["ContextTransfer"] = model.predict(np.array(usable))
+        print(f"  fitted on {line.names.size:,} source perturbations")
+    except Exception as exc:                       # noqa: BLE001
+        print(f"  SKIPPED: {type(exc).__name__}: {exc}")
 
     oracle_k = n_real.copy()
-    deployable_k = rank_matched_targets(pred_delta, src_counts)
-    print(f"\ncount targets: oracle median {np.median(oracle_k):.0f}, "
-          f"deployable median {np.median(deployable_k):.0f}")
+    print(f"\ncount targets: oracle median {np.median(oracle_k):.0f}")
 
-    def run(label: str, k_per_pert: np.ndarray | None) -> dict:
+    def run(full_delta: np.ndarray, label: str,
+            k_per_pert: np.ndarray | None) -> dict:
         rows = []
         for i, name in enumerate(usable):
             eff = full_delta[i].copy()
             if k_per_pert is not None:
+                # Sparsify only *within* the gated set.  Genes below the 5-CPM
+                # gate are never tested, but they do carry counts, so zeroing
+                # them would change the generated cells' library sizes and
+                # therefore every gene's CPM -- making the arms differ by more
+                # than the one thing under test.  They are left alone.
                 keep_idx = np.flatnonzero(gate)
                 scores = np.abs(eff[keep_idx])
                 k = int(min(max(k_per_pert[i], 1), keep_idx.size))
                 top = keep_idx[np.argpartition(-scores, k - 1)[:k]]
-                mask = np.zeros_like(eff, dtype=bool)
+                mask = ~gate.copy()
                 mask[top] = True
                 eff = np.where(mask, eff, 0.0)
             cells = sample_cells(t_ctrl, eff, real[name]["ncells"], rng,
@@ -257,22 +319,30 @@ def main() -> None:
                 "nmae": M.lfc_nmae(lfc, rl, r)})
         return {"label": label, "rows": rows}
 
-    arms = [run("uncalibrated (effect on every gene)", None),
-            run("calibrated (source counts)", deployable_k),
-            run("oracle counts (not submittable)", oracle_k)]
+    arms = []
+    for mname, full_delta in models.items():
+        deployable_k = rank_matched_targets(full_delta[:, gate], src_counts)
+        print(f"  {mname}: deployable count median "
+              f"{np.median(deployable_k):.0f}")
+        arms.append(run(full_delta, f"{mname}: uncalibrated", None))
+        arms.append(run(full_delta, f"{mname}: calibrated (source counts)",
+                        deployable_k))
+        arms.append(run(full_delta, f"{mname}: oracle counts [not submittable]",
+                        oracle_k))
 
     def agg(rows, key):
         v = np.array([r[key] for r in rows], dtype=float)
         v = v[np.isfinite(v)]
         return float(np.mean(v)) if v.size else float("nan")
 
-    print("\n" + "=" * 86)
-    print("Naive transfer of the measured K562 effect into Jurkat, zero-shot")
+    print("\n" + "=" * 94)
+    print("K562 -> Jurkat, zero-shot: source effects plus the target's control "
+          "cells only")
     print(f"{len(usable)} perturbations, cell counts matched between reference "
           f"and prediction\n")
-    print(f"  {'arm':<36}{'calls':>8}{'recall':>9}{'jaccard':>9}"
+    print(f"  {'arm':<46}{'calls':>8}{'recall':>9}{'jaccard':>9}"
           f"{'fidelity':>10}{'reach':>8}{'nmae':>8}")
-    print("  " + "-" * 84)
+    print("  " + "-" * 92)
     out = {"n_perts": len(usable), "n_genes_gated": int(gate.sum()),
            "n_real_median": float(np.median(n_real)),
            "source_counts": src_counts.tolist(), "arms": {}}
@@ -281,31 +351,33 @@ def main() -> None:
         rec = {k: agg(r, k) for k in
                ("n_pred", "recall", "jaccard", "fidelity", "reach", "nmae")}
         out["arms"][a["label"]] = {"mean": rec, "rows": r}
-        print(f"  {a['label']:<36}{rec['n_pred']:>8.0f}{rec['recall']:>9.3f}"
+        print(f"  {a['label']:<46}{rec['n_pred']:>8.0f}{rec['recall']:>9.3f}"
               f"{rec['jaccard']:>9.4f}{rec['fidelity']:>10.4f}"
               f"{rec['reach']:>8.4f}{rec['nmae']:>8.4f}")
-    print(f"  {'reference (measured)':<36}{np.median(n_real):>8.0f}"
-          f"{1.0:>9.3f}{1.0:>9.4f}{1.0:>10.4f}{1.0:>8.4f}{0.0:>8.4f}")
+    print(f"  {'reference (measured, = the 1.0 anchor)':<46}"
+          f"{np.median(n_real):>8.0f}{1.0:>9.3f}{1.0:>9.4f}{1.0:>10.4f}"
+          f"{1.0:>8.4f}{0.0:>8.4f}")
 
     # the number this module exists to produce
-    unc = out["arms"]["uncalibrated (effect on every gene)"]["mean"]
-    cal = out["arms"]["calibrated (source counts)"]["mean"]
-    orc = out["arms"]["oracle counts (not submittable)"]["mean"]
-    print("\n" + "=" * 86)
-    print("The unmeasured number, measured")
-    print(f"  recall at the uncalibrated call count ({unc['n_pred']:.0f} genes): "
-          f"{unc['recall']:.1%}")
-    print(f"  recall after thresholding to the deployable count "
-          f"({cal['n_pred']:.0f}):  {cal['recall']:.1%}")
-    print(f"  recall after thresholding to the oracle count "
-          f"({orc['n_pred']:.0f}):      {orc['recall']:.1%}")
-    print(f"\n  raw Jaccard: {unc['jaccard']:.4f} uncalibrated -> "
-          f"{cal['jaccard']:.4f} deployable -> {orc['jaccard']:.4f} oracle")
     b, r_anchor = 0.029, 0.399          # published jaccard anchors, midpoints
-    for label, v in (("uncalibrated", unc), ("deployable", cal),
-                     ("oracle", orc)):
-        print(f"    {label:<14} scaled jaccard "
-              f"{(v['jaccard'] - b) / (r_anchor - b):+.3f}")
+    print("\n" + "=" * 94)
+    print("The unmeasured number, measured: recall retained when the call count "
+          "is corrected")
+    for mname in models:
+        unc = out["arms"][f"{mname}: uncalibrated"]["mean"]
+        cal = out["arms"][f"{mname}: calibrated (source counts)"]["mean"]
+        orc = out["arms"][f"{mname}: oracle counts [not submittable]"]["mean"]
+        print(f"\n  {mname}")
+        for label, v in (("uncalibrated", unc), ("deployable", cal),
+                         ("oracle counts", orc)):
+            print(f"    {label:<16} {v['n_pred']:>6.0f} calls  "
+                  f"recall {v['recall']:>6.1%}  raw J {v['jaccard']:.4f}  "
+                  f"scaled J {(v['jaccard'] - b) / (r_anchor - b):+.3f}  "
+                  f"composite {((v['jaccard'] - b) / (r_anchor - b)) / 6:+.4f}")
+        out["arms"][f"{mname}: uncalibrated"]["scaled_jaccard"] = \
+            (unc["jaccard"] - b) / (r_anchor - b)
+        out["arms"][f"{mname}: calibrated (source counts)"]["scaled_jaccard"] = \
+            (cal["jaccard"] - b) / (r_anchor - b)
     print("\n  Scaling uses the published anchors for the official contexts, so "
           "it is an\n  indicative translation onto the leaderboard's units, not "
           "a leaderboard score:\n  these are different cells, a different panel "
