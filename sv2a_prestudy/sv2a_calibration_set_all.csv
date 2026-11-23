@@ -1,0 +1,62 @@
+document_chembl_id,assay_chembl_id,standard_type,molecule_chembl_id,pAct,smiles,assay
+CHEMBL1148391,CHEMBL857182,IC50,CHEMBL1286,6.1,CC[C@@H](C(N)=O)N1CCCC1=O,In vitro inhibitory activity against [3H](2S)-2-[4-(3-azidophenyl)-2-oxopyrrolid
+CHEMBL1148391,CHEMBL857182,IC50,CHEMBL149348,7.0,CC[C@@H](C(N)=O)N1C[C@H](CO[N+](=O)[O-])CC1=O,In vitro inhibitory activity against [3H](2S)-2-[4-(3-azidophenyl)-2-oxopyrrolid
+CHEMBL1148391,CHEMBL857182,IC50,CHEMBL149400,5.9,CC[C@@H](C(N)=O)N1C[C@H](C)CC1=O,In vitro inhibitory activity against [3H](2S)-2-[4-(3-azidophenyl)-2-oxopyrrolid
+CHEMBL1148391,CHEMBL857182,IC50,CHEMBL150241,6.9,CC[C@@H](C(N)=O)N1CC(CC2CC2)CC1=O,In vitro inhibitory activity against [3H](2S)-2-[4-(3-azidophenyl)-2-oxopyrrolid
+CHEMBL1148391,CHEMBL857182,IC50,CHEMBL150281,5.6,CCCCCCCN(C(=O)Cc1ccc(OC)cc1)C(CC)C(N)=O,In vitro inhibitory activity against [3H](2S)-2-[4-(3-azidophenyl)-2-oxopyrrolid
+CHEMBL1148391,CHEMBL857182,IC50,CHEMBL150331,6.4,CCCC1(C)CC(=O)N([C@@H](CC)C(N)=O)C1,In vitro inhibitory activity against [3H](2S)-2-[4-(3-azidophenyl)-2-oxopyrrolid
+CHEMBL1148391,CHEMBL857182,IC50,CHEMBL150393,5.5,C[C@@H](C(N)=O)N1CCCC1=O,In vitro inhibitory activity against [3H](2S)-2-[4-(3-azidophenyl)-2-oxopyrrolid
+CHEMBL1148391,CHEMBL857182,IC50,CHEMBL150456,4.2,CCC(C(N)=O)N1C(=O)CCC1(C)C,In vitro inhibitory activity against [3H](2S)-2-[4-(3-azidophenyl)-2-oxopyrrolid
+CHEMBL1148391,CHEMBL857182,IC50,CHEMBL150791,5.8,CCC(C(N)=O)N1CC(COC)CC1=O,In vitro inhibitory activity against [3H](2S)-2-[4-(3-azidophenyl)-2-oxopyrrolid
+CHEMBL1148391,CHEMBL857182,IC50,CHEMBL150903,5.0,CCCCN(C(=O)CC)[C@@H](CC)C(N)=O,In vitro inhibitory activity against [3H](2S)-2-[4-(3-azidophenyl)-2-oxopyrrolid
+CHEMBL1148391,CHEMBL857182,IC50,CHEMBL151072,5.4,CCCCCCCCN(C(=O)CC)C(CC)C(N)=O,In vitro inhibitory activity against [3H](2S)-2-[4-(3-azidophenyl)-2-oxopyrrolid
+CHEMBL1148391,CHEMBL857182,IC50,CHEMBL151650,5.7,CC[C@@H](C(=O)NO)N1CCCC1=O,In vitro inhibitory activity against [3H](2S)-2-[4-(3-azidophenyl)-2-oxopyrrolid
+CHEMBL1148391,CHEMBL857182,IC50,CHEMBL152911,6.6,CCC[C@H]1CC(=O)N([C@@H](CC)C(N)=O)C1,In vitro inhibitory activity against [3H](2S)-2-[4-(3-azidophenyl)-2-oxopyrrolid
+CHEMBL1148391,CHEMBL857182,IC50,CHEMBL153180,4.9,CC[C@@H](C(=O)NC)N1CCCC1=O,In vitro inhibitory activity against [3H](2S)-2-[4-(3-azidophenyl)-2-oxopyrrolid
+CHEMBL1148391,CHEMBL857182,IC50,CHEMBL153264,5.7,CCCCCCCCN(C(=O)Cc1ccc(Cl)cc1)C(CC)C(N)=O,In vitro inhibitory activity against [3H](2S)-2-[4-(3-azidophenyl)-2-oxopyrrolid
+CHEMBL1148391,CHEMBL857182,IC50,CHEMBL153282,5.7,CCC(C(N)=O)N1CC2(CCC2)CC1=O,In vitro inhibitory activity against [3H](2S)-2-[4-(3-azidophenyl)-2-oxopyrrolid
+CHEMBL1148391,CHEMBL857182,IC50,CHEMBL153619,4.7,CC[C@@H](C(N)=O)N1CCC(C)C1=O,In vitro inhibitory activity against [3H](2S)-2-[4-(3-azidophenyl)-2-oxopyrrolid
+CHEMBL1148391,CHEMBL857182,IC50,CHEMBL153690,5.6,CC[C@@H](C(N)=O)N1C(=O)CCC1C,In vitro inhibitory activity against [3H](2S)-2-[4-(3-azidophenyl)-2-oxopyrrolid
+CHEMBL1148391,CHEMBL857182,IC50,CHEMBL153729,4.7,CC(C)C(C(N)=O)N1CCCC1=O,In vitro inhibitory activity against [3H](2S)-2-[4-(3-azidophenyl)-2-oxopyrrolid
+CHEMBL1148391,CHEMBL857182,IC50,CHEMBL154863,5.6,CCC(C(N)=O)N1CC(Cc2ccccc2)CC1=O,In vitro inhibitory activity against [3H](2S)-2-[4-(3-azidophenyl)-2-oxopyrrolid
+CHEMBL1148391,CHEMBL857182,IC50,CHEMBL154929,4.6,CC[C@@H](C(N)=O)N1C[C@H](n2ncc(C)[n+]2C)CC1=O,In vitro inhibitory activity against [3H](2S)-2-[4-(3-azidophenyl)-2-oxopyrrolid
+CHEMBL1148391,CHEMBL857182,IC50,CHEMBL154983,5.9,CCCCCC1CC(=O)N(C(CC)C(N)=O)C1,In vitro inhibitory activity against [3H](2S)-2-[4-(3-azidophenyl)-2-oxopyrrolid
+CHEMBL1148391,CHEMBL857182,IC50,CHEMBL2111197,5.3,CCC[C@@H](C(N)=O)N1CCCC1=O,In vitro inhibitory activity against [3H](2S)-2-[4-(3-azidophenyl)-2-oxopyrrolid
+CHEMBL1148391,CHEMBL857182,IC50,CHEMBL2111255,3.0,CCC[C@H](C(N)=O)N1CCCC1=O,In vitro inhibitory activity against [3H](2S)-2-[4-(3-azidophenyl)-2-oxopyrrolid
+CHEMBL1148391,CHEMBL857182,IC50,CHEMBL345318,5.9,CCC1CC(=O)N([C@@H](CC)C(N)=O)C1,In vitro inhibitory activity against [3H](2S)-2-[4-(3-azidophenyl)-2-oxopyrrolid
+CHEMBL1148391,CHEMBL857182,IC50,CHEMBL346199,4.8,CC[C@@H](C(N)=O)N(C)C(C)=O,In vitro inhibitory activity against [3H](2S)-2-[4-(3-azidophenyl)-2-oxopyrrolid
+CHEMBL1148391,CHEMBL857182,IC50,CHEMBL346223,5.9,CC[C@@H](C(N)=O)N1C[C@H](CF)CC1=O,In vitro inhibitory activity against [3H](2S)-2-[4-(3-azidophenyl)-2-oxopyrrolid
+CHEMBL1148391,CHEMBL857182,IC50,CHEMBL347071,6.6,CC[C@@H](C(N)=O)N1C[C@H](CBr)CC1=O,In vitro inhibitory activity against [3H](2S)-2-[4-(3-azidophenyl)-2-oxopyrrolid
+CHEMBL1148391,CHEMBL857182,IC50,CHEMBL348187,6.8,CC[C@@H](C(N)=O)N1C[C@H](CI)CC1=O,In vitro inhibitory activity against [3H](2S)-2-[4-(3-azidophenyl)-2-oxopyrrolid
+CHEMBL1148391,CHEMBL857182,IC50,CHEMBL358161,6.3,CCC(C(N)=O)N(S)C(=S)C1CC1,In vitro inhibitory activity against [3H](2S)-2-[4-(3-azidophenyl)-2-oxopyrrolid
+CHEMBL1148391,CHEMBL857182,IC50,CHEMBL358239,6.1,CC[C@@H](C(N)=O)N1CC(CC(C)(C)C)CC1=O,In vitro inhibitory activity against [3H](2S)-2-[4-(3-azidophenyl)-2-oxopyrrolid
+CHEMBL1148391,CHEMBL857182,IC50,CHEMBL358242,6.9,CC[C@@H](C(N)=O)N1C[C@H](CSC)CC1=O,In vitro inhibitory activity against [3H](2S)-2-[4-(3-azidophenyl)-2-oxopyrrolid
+CHEMBL1148391,CHEMBL857182,IC50,CHEMBL358393,6.7,CC[C@@H](C(N)=O)N1C[C@H](CCl)CC1=O,In vitro inhibitory activity against [3H](2S)-2-[4-(3-azidophenyl)-2-oxopyrrolid
+CHEMBL1148391,CHEMBL857182,IC50,CHEMBL358877,5.7,CCCCCN(C(=O)CC)C(CC)C(N)=O,In vitro inhibitory activity against [3H](2S)-2-[4-(3-azidophenyl)-2-oxopyrrolid
+CHEMBL1148391,CHEMBL857182,IC50,CHEMBL359062,6.4,CCCCC1CC(=O)N(C(CC)C(N)=O)C1,In vitro inhibitory activity against [3H](2S)-2-[4-(3-azidophenyl)-2-oxopyrrolid
+CHEMBL1148391,CHEMBL857182,IC50,CHEMBL36715,4.4,NC(=O)CN1CCCC1=O,In vitro inhibitory activity against [3H](2S)-2-[4-(3-azidophenyl)-2-oxopyrrolid
+CHEMBL1148391,CHEMBL857182,IC50,CHEMBL421785,5.8,CC[C@@H](C(N)=O)N1CC(NC(=O)OC)CC1=O,In vitro inhibitory activity against [3H](2S)-2-[4-(3-azidophenyl)-2-oxopyrrolid
+CHEMBL1148391,CHEMBL857182,IC50,CHEMBL434705,7.1,CC[C@@H](C(N)=O)N1C[C@H](CN=[N+]=[N-])CC1=O,In vitro inhibitory activity against [3H](2S)-2-[4-(3-azidophenyl)-2-oxopyrrolid
+CHEMBL1148391,CHEMBL857182,IC50,CHEMBL440539,5.4,CCC(C(N)=O)N1CC(C(C)C)CC1=O,In vitro inhibitory activity against [3H](2S)-2-[4-(3-azidophenyl)-2-oxopyrrolid
+CHEMBL1148391,CHEMBL857182,IC50,CHEMBL607297,5.2,CCC(C(N)=O)N(O)CC1CCC1,In vitro inhibitory activity against [3H](2S)-2-[4-(3-azidophenyl)-2-oxopyrrolid
+CHEMBL1148391,CHEMBL857182,IC50,CHEMBL607343,4.9,CC[C@@H](C(=N)N)N1CCCC1=O,In vitro inhibitory activity against [3H](2S)-2-[4-(3-azidophenyl)-2-oxopyrrolid
+CHEMBL1148391,CHEMBL857182,IC50,CHEMBL607346,5.2,CC[C@@H](C(=O)NN)N1CCCC1=O,In vitro inhibitory activity against [3H](2S)-2-[4-(3-azidophenyl)-2-oxopyrrolid
+CHEMBL1148391,CHEMBL857182,IC50,CHEMBL607399,4.7,CC[C@@H](C(=O)N(C)O)N1CCCC1=O,In vitro inhibitory activity against [3H](2S)-2-[4-(3-azidophenyl)-2-oxopyrrolid
+CHEMBL1148391,CHEMBL857182,IC50,CHEMBL607400,7.0,CCC[C@@H]1CC(=O)N([C@@H](CC)C(N)=O)C1,In vitro inhibitory activity against [3H](2S)-2-[4-(3-azidophenyl)-2-oxopyrrolid
+CHEMBL5729459,CHEMBL5738746,IC50,CHEMBL5750496,7.121478204498794,Cc1cnccc1CN1C[C@H](c2cc(F)c(F)c(F)c2)CC1=O,"Radioligand Competition Binding Assay: For competition binding experiments, 0.5 "
+CHEMBL5729459,CHEMBL5738746,IC50,CHEMBL5767888,7.899629454882437,Cc1cnccc1CN1C[C@@H](c2ccc(F)c(F)c2)CC1=O,"Radioligand Competition Binding Assay: For competition binding experiments, 0.5 "
+CHEMBL5729459,CHEMBL5738746,IC50,CHEMBL5853051,6.156144577376839,Cc1cnccc1CN1C[C@H](c2cc(F)cc(F)c2)CC1=O,"Radioligand Competition Binding Assay: For competition binding experiments, 0.5 "
+CHEMBL5729459,CHEMBL5738746,IC50,CHEMBL5908355,7.2441251443275085,Cc1cnccc1CN1C[C@H](c2ccc(F)c(F)c2)CC1=O,"Radioligand Competition Binding Assay: For competition binding experiments, 0.5 "
+CHEMBL5729459,CHEMBL5738746,IC50,CHEMBL5953017,6.962573502059376,Cc1cnccc1CN1C[C@H](c2cccc(F)c2)CC1=O,"Radioligand Competition Binding Assay: For competition binding experiments, 0.5 "
+CHEMBL5729459,CHEMBL5738746,IC50,CHEMBL5968935,8.453457336521868,Cc1cnccc1CN1C[C@@H](c2cc(F)cc(F)c2)CC1=O,"Radioligand Competition Binding Assay: For competition binding experiments, 0.5 "
+CHEMBL5729459,CHEMBL5738746,IC50,CHEMBL5976738,7.5718652059712115,O=C1C[C@H](c2cccc(F)c2)CN1Cc1ccncc1,"Radioligand Competition Binding Assay: For competition binding experiments, 0.5 "
+CHEMBL5729459,CHEMBL5738746,IC50,CHEMBL5999955,8.790484985457368,Cc1cnccc1CN1C[C@@H](c2cc(F)c(F)c(F)c2)CC1=O,"Radioligand Competition Binding Assay: For competition binding experiments, 0.5 "
+CHEMBL5729459,CHEMBL5738746,IC50,CHEMBL6052267,7.570247719997592,Cc1cnccc1CN1C[C@@H](c2cccc(F)c2)CC1=O,"Radioligand Competition Binding Assay: For competition binding experiments, 0.5 "
+CHEMBL5729459,CHEMBL5738746,Ki,CHEMBL5750496,7.903089986991944,Cc1cnccc1CN1C[C@H](c2cc(F)c(F)c(F)c2)CC1=O,"Radioligand Competition Binding Assay: For competition binding experiments, 0.5 "
+CHEMBL5729459,CHEMBL5738746,Ki,CHEMBL5767888,8.681936665037238,Cc1cnccc1CN1C[C@@H](c2ccc(F)c(F)c2)CC1=O,"Radioligand Competition Binding Assay: For competition binding experiments, 0.5 "
+CHEMBL5729459,CHEMBL5738746,Ki,CHEMBL5853051,6.939302159646388,Cc1cnccc1CN1C[C@H](c2cc(F)cc(F)c2)CC1=O,"Radioligand Competition Binding Assay: For competition binding experiments, 0.5 "
+CHEMBL5729459,CHEMBL5738746,Ki,CHEMBL5908355,8.025488307262671,Cc1cnccc1CN1C[C@H](c2ccc(F)c(F)c2)CC1=O,"Radioligand Competition Binding Assay: For competition binding experiments, 0.5 "
+CHEMBL5729459,CHEMBL5738746,Ki,CHEMBL5953017,7.739928612014925,Cc1cnccc1CN1C[C@H](c2cccc(F)c2)CC1=O,"Radioligand Competition Binding Assay: For competition binding experiments, 0.5 "
+CHEMBL5729459,CHEMBL5738746,Ki,CHEMBL5968935,9.236572006437063,Cc1cnccc1CN1C[C@@H](c2cc(F)cc(F)c2)CC1=O,"Radioligand Competition Binding Assay: For competition binding experiments, 0.5 "
+CHEMBL5729459,CHEMBL5738746,Ki,CHEMBL5999955,9.568636235841012,Cc1cnccc1CN1C[C@@H](c2cc(F)c(F)c(F)c2)CC1=O,"Radioligand Competition Binding Assay: For competition binding experiments, 0.5 "
+CHEMBL5729459,CHEMBL5738746,Ki,CHEMBL6052267,8.35261702988538,Cc1cnccc1CN1C[C@@H](c2cccc(F)c2)CC1=O,"Radioligand Competition Binding Assay: For competition binding experiments, 0.5 "
