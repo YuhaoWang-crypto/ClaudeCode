@@ -1,6 +1,7 @@
 import sys, json, numpy as np, pandas as pd
 from scipy.stats import spearmanr, kendalltau
 from rdkit import Chem
+from rdkit.Chem import AllChem
 from rdkit.Chem import rdMolAlign, rdFreeSASA
 from meeko import PDBQTMolecule, RDKitMolCreate
 from Bio.PDB import MMCIFParser, Superimposer
@@ -16,7 +17,7 @@ def rmsd_to_xtal(cid,smiles,xtal_pdb,coords_xf=None):
     mol=RDKitMolCreate.from_pdbqt_mol(pm)[0]
     tmpl=Chem.MolFromSmiles(smiles)
     x=Chem.MolFromPDBFile(xtal_pdb,removeHs=True,sanitize=False)
-    x=Chem.AssignBondsFromTemplate(tmpl,x)
+    x=AllChem.AssignBondOrdersFromTemplate(tmpl,x)
     if coords_xf is not None:
         c=x.GetConformer(); 
         for i in range(x.GetNumAtoms()):
