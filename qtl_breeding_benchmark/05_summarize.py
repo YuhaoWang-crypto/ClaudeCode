@@ -49,7 +49,7 @@ sc = [("unseen lines, random split (whole panel r)", "GBLUP, random split, r ove
       ("10 top markers chosen in training fold (r within subpopulation)", "10 top SNPs, r within subpopulation", "#fee090")]
 for j, (s, lab, c) in enumerate(sc):
     ax[1].bar(k + (j - 2) * .16, [r[(r.trait == x) & (r.scenario == s)].r.mean() for x in tr], .155, label=lab, color=c)
-ax[1].set_xticks(k, [x.replace(" at Arkansas", "") for x in tr]); ax[1].legend(fontsize=7.5); ax[1].axhline(0, c="k", lw=.6)
+ax[1].set_xticks(k, [x.replace(" at Arkansas", "") for x in tr]); ax[1].legend(fontsize=7.5, ncol=2, loc="upper left"); ax[1].set_ylim(0, 1.05); ax[1].axhline(0, c="k", lw=.6)
 ax[1].set(ylabel="prediction accuracy r", title="Rice Diversity Panel, 413 accessions")
 fig.tight_layout(); fig.savefig("results/fig3_genomic_selection.png", dpi=130)
 json.dump(S, open("results/summary.json", "w"), indent=1)
