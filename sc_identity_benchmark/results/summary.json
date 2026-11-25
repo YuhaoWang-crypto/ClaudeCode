@@ -1,0 +1,555 @@
+{
+ "design": {
+  "ref_cells_original": 66613,
+  "ref_cells_after_study_removal": 54320,
+  "ref_cells_training": 52891,
+  "ref_donors": 13,
+  "ref_fine_labels": 34,
+  "queries": {
+   "q_triana_wta": {
+    "cells": 13165,
+    "hvg_missing_zero_filled": 40,
+    "donors": [
+     "BM3"
+    ],
+    "coarse_counts": {
+     "T": 4047,
+     "B mature": 2947,
+     "HSPC": 1257,
+     "Neutrophil lineage": 1074,
+     "Ery/Mk": 1048,
+     "B progenitor": 980,
+     "NK": 903,
+     "cDC": 457,
+     "Mono/Mac": 260,
+     "pDC": 103,
+     "Mast/Baso": 59,
+     "Plasma": 30
+    }
+   },
+   "q_ts_bm": {
+    "cells": 23981,
+    "hvg_missing_zero_filled": 3,
+    "donors": [
+     "TSP11",
+     "TSP14",
+     "TSP2",
+     "TSP21",
+     "TSP25",
+     "TSP27"
+    ],
+    "coarse_counts": {
+     "Neutrophil lineage": 8732,
+     "T": 5144,
+     "HSPC": 2638,
+     "Mono/Mac": 2443,
+     "B mature": 1679,
+     "Ery/Mk": 1279,
+     "Plasma": 1073,
+     "NK": 845,
+     "cDC": 107,
+     "Mast/Baso": 23,
+     "Stroma": 9,
+     "pDC": 9
+    }
+   }
+  },
+  "donor_overlap_ref_vs_query": []
+ },
+ "q_triana_wta": {
+  "coarse_known_lineages": {
+   "scANVI+scArches": {
+    "n": 13032,
+    "accuracy": 0.8722,
+    "macro_F1": 0.7935
+   },
+   "kNN on scANVI latent": {
+    "n": 13032,
+    "accuracy": 0.8635,
+    "macro_F1": 0.762
+   },
+   "CellTypist (trained on our reference)": {
+    "n": 13032,
+    "accuracy": 0.7898,
+    "macro_F1": 0.6381
+   }
+  },
+  "coarse_all_lineages_pretrained_CellTypist": {
+   "n": 13165,
+   "accuracy": 0.7186,
+   "macro_F1": 0.7091
+  },
+  "per_lineage_recall_scANVI": {
+   "B mature": 0.994,
+   "B progenitor": 0.804,
+   "Ery/Mk": 0.993,
+   "HSPC": 0.77,
+   "Mast/Baso": 0.831,
+   "Mono/Mac": 0.988,
+   "NK": 0.913,
+   "Neutrophil lineage": 0.25,
+   "T": 0.977,
+   "cDC": 0.63
+  },
+  "per_lineage_recall_CellTypist_custom": {
+   "B mature": 0.975,
+   "B progenitor": 0.526,
+   "Ery/Mk": 0.787,
+   "HSPC": 0.78,
+   "Mast/Baso": 0.746,
+   "Mono/Mac": 1.0,
+   "NK": 0.922,
+   "Neutrophil lineage": 0.088,
+   "T": 0.956,
+   "cDC": 0.0
+  },
+  "per_lineage_recall_CellTypist_pretrained": {
+   "B mature": 0.986,
+   "B progenitor": 0.892,
+   "Ery/Mk": 0.931,
+   "HSPC": 0.818,
+   "Mast/Baso": 0.78,
+   "Mono/Mac": 0.973,
+   "NK": 0.927,
+   "Neutrophil lineage": 0.221,
+   "Plasma": 0.867,
+   "T": 0.488,
+   "cDC": 0.444,
+   "pDC": 0.981
+  },
+  "fine_subtypes_shared_with_reference": {
+   "n_shared_fine_labels": 16,
+   "scANVI+scArches": {
+    "n": 6059,
+    "accuracy": 0.7174,
+    "macro_F1": 0.5104
+   },
+   "CellTypist (trained on our reference)": {
+    "n": 6059,
+    "accuracy": 0.6927,
+    "macro_F1": 0.3303
+   },
+   "per_label_recall_scANVI": {
+    "CD16-negative, CD56-bright natural killer cell, human": [
+     131,
+     0.221
+    ],
+    "CD16-positive, CD56-dim natural killer cell, human": [
+     760,
+     0.892
+    ],
+    "central memory CD8-positive, alpha-beta T cell": [
+     215,
+     0.019
+    ],
+    "classical monocyte": [
+     163,
+     0.963
+    ],
+    "common dendritic progenitor": [
+     145,
+     0.241
+    ],
+    "conventional dendritic cell": [
+     312,
+     0.388
+    ],
+    "effector memory CD8-positive, alpha-beta T cell": [
+     263,
+     0.049
+    ],
+    "erythroid lineage cell": [
+     2,
+     1.0
+    ],
+    "gamma-delta T cell": [
+     92,
+     0.0
+    ],
+    "hematopoietic multipotent progenitor cell": [
+     805,
+     0.768
+    ],
+    "megakaryocyte progenitor cell": [
+     181,
+     0.569
+    ],
+    "megakaryocyte-erythroid progenitor cell": [
+     214,
+     0.14
+    ],
+    "naive B cell": [
+     2152,
+     0.918
+    ],
+    "non-classical monocyte": [
+     97,
+     1.0
+    ],
+    "pro-B cell": [
+     515,
+     0.938
+    ],
+    "small pre-B-II cell": [
+     12,
+     0.083
+    ]
+   }
+  },
+  "coarse_known_excluding_mature_neutrophils": {
+   "scANVI+scArches": {
+    "n": 13032,
+    "accuracy": 0.8722,
+    "macro_F1": 0.7935
+   },
+   "CellTypist (trained on our reference)": {
+    "n": 13032,
+    "accuracy": 0.7898,
+    "macro_F1": 0.6381
+   }
+  },
+  "novelty": {
+   "n_novel": 133,
+   "n_known": 13032,
+   "scores": {
+    "scANVI 1-max prob": {
+     "AUROC": 0.671,
+     "AUPRC": 0.018,
+     "prevalence": 0.01,
+     "recall_at_5pct_FPR": 0.083,
+     "AUROC_Plasma_vs_known": 0.455,
+     "AUROC_pDC_vs_known": 0.734
+    },
+    "kNN distance to reference (latent)": {
+     "AUROC": 0.947,
+     "AUPRC": 0.196,
+     "prevalence": 0.01,
+     "recall_at_5pct_FPR": 0.767,
+     "AUROC_Plasma_vs_known": 0.849,
+     "AUROC_pDC_vs_known": 0.976
+    },
+    "CellTypist(custom) 1-max prob": {
+     "AUROC": 0.623,
+     "AUPRC": 0.013,
+     "prevalence": 0.01,
+     "recall_at_5pct_FPR": 0.066,
+     "AUROC_Plasma_vs_known": 0.623,
+     "AUROC_pDC_vs_known": 0.623
+    }
+   },
+   "held_out_cells_were_called": {
+    "Plasma": {
+     "B mature": 24,
+     "Ery/Mk": 3,
+     "cDC": 1
+    },
+    "pDC": {
+     "cDC": 86,
+     "T": 9,
+     "B mature": 4
+    }
+   }
+  },
+  "potency": {
+   "n_cells": 6787,
+   "CytoTRACE2_Score": {
+    "spearman_vs_ordinal_potency": 0.816,
+    "AUROC_multipotent_vs_mature": 0.996,
+    "AUROC_committed_progenitor_vs_mature": 0.969,
+    "AUROC_multipotent_vs_committed_progenitor": 0.809
+   },
+   "baseline_n_genes_detected": {
+    "spearman_vs_ordinal_potency": 0.644,
+    "AUROC_multipotent_vs_mature": 0.868,
+    "AUROC_committed_progenitor_vs_mature": 0.89,
+    "AUROC_multipotent_vs_committed_progenitor": 0.297
+   },
+   "mean_score_by_level": {
+    "0": 0.109,
+    "1": 0.426,
+    "2": 0.542
+   },
+   "predicted_category_by_level": {
+    "Differentiated": {
+     "0": 3347,
+     "1": 25,
+     "2": 0
+    },
+    "Multipotent": {
+     "0": 9,
+     "1": 665,
+     "2": 250
+    },
+    "Oligopotent": {
+     "0": 223,
+     "1": 1460,
+     "2": 49
+    },
+    "Unipotent": {
+     "0": 273,
+     "1": 485,
+     "2": 1
+    }
+   }
+  }
+ },
+ "q_ts_bm": {
+  "coarse_known_lineages": {
+   "scANVI+scArches": {
+    "n": 22890,
+    "accuracy": 0.6521,
+    "macro_F1": 0.6311
+   },
+   "kNN on scANVI latent": {
+    "n": 22890,
+    "accuracy": 0.5059,
+    "macro_F1": 0.5645
+   },
+   "CellTypist (trained on our reference)": {
+    "n": 22890,
+    "accuracy": 0.5011,
+    "macro_F1": 0.5392
+   }
+  },
+  "coarse_all_lineages_pretrained_CellTypist": {
+   "n": 23981,
+   "accuracy": 0.4543,
+   "macro_F1": 0.4603
+  },
+  "per_lineage_recall_scANVI": {
+   "B mature": 0.992,
+   "Ery/Mk": 0.999,
+   "HSPC": 0.196,
+   "Mast/Baso": 0.522,
+   "Mono/Mac": 0.935,
+   "NK": 0.89,
+   "Neutrophil lineage": 0.434,
+   "T": 0.889,
+   "cDC": 0.533
+  },
+  "per_lineage_recall_CellTypist_custom": {
+   "B mature": 0.99,
+   "Ery/Mk": 0.958,
+   "HSPC": 0.146,
+   "Mast/Baso": 0.478,
+   "Mono/Mac": 0.969,
+   "NK": 0.885,
+   "Neutrophil lineage": 0.064,
+   "T": 0.874,
+   "cDC": 0.168
+  },
+  "per_lineage_recall_CellTypist_pretrained": {
+   "B mature": 0.987,
+   "Ery/Mk": 0.894,
+   "HSPC": 0.277,
+   "Mast/Baso": 0.348,
+   "Mono/Mac": 0.908,
+   "NK": 0.915,
+   "Neutrophil lineage": 0.049,
+   "Plasma": 0.993,
+   "Stroma": 1.0,
+   "T": 0.544,
+   "cDC": 0.477,
+   "pDC": 1.0
+  },
+  "fine_subtypes_shared_with_reference": {
+   "n_shared_fine_labels": 7,
+   "scANVI+scArches": {
+    "n": 9437,
+    "accuracy": 0.3326,
+    "macro_F1": 0.368
+   },
+   "CellTypist (trained on our reference)": {
+    "n": 9437,
+    "accuracy": 0.0532,
+    "macro_F1": 0.2764
+   },
+   "per_label_recall_scANVI": {
+    "classical monocyte": [
+     231,
+     0.926
+    ],
+    "common myeloid progenitor": [
+     388,
+     0.005
+    ],
+    "erythrocyte": [
+     429,
+     0.03
+    ],
+    "mature NK T cell": [
+     64,
+     0.062
+    ],
+    "neutrophil": [
+     8258,
+     0.344
+    ],
+    "non-classical monocyte": [
+     53,
+     1.0
+    ],
+    "regulatory T cell": [
+     14,
+     0.857
+    ]
+   }
+  },
+  "coarse_known_excluding_mature_neutrophils": {
+   "scANVI+scArches": {
+    "n": 14158,
+    "accuracy": 0.7869,
+    "macro_F1": 0.6907
+   },
+   "CellTypist (trained on our reference)": {
+    "n": 14158,
+    "accuracy": 0.7709,
+    "macro_F1": 0.6468
+   }
+  },
+  "novelty": {
+   "n_novel": 1091,
+   "n_known": 22890,
+   "scores": {
+    "scANVI 1-max prob": {
+     "AUROC": 0.364,
+     "AUPRC": 0.037,
+     "prevalence": 0.045,
+     "recall_at_5pct_FPR": 0.046,
+     "AUROC_Plasma_vs_known": 0.358
+    },
+    "kNN distance to reference (latent)": {
+     "AUROC": 0.815,
+     "AUPRC": 0.252,
+     "prevalence": 0.045,
+     "recall_at_5pct_FPR": 0.335,
+     "AUROC_Plasma_vs_known": 0.814
+    },
+    "CellTypist(custom) 1-max prob": {
+     "AUROC": 0.859,
+     "AUPRC": 0.145,
+     "prevalence": 0.045,
+     "recall_at_5pct_FPR": 0.178,
+     "AUROC_Plasma_vs_known": 0.859
+    }
+   },
+   "held_out_cells_were_called": {
+    "Plasma": {
+     "B mature": 1004,
+     "cDC": 21,
+     "Neutrophil lineage": 16
+    },
+    "pDC": {
+     "cDC": 6,
+     "T": 2,
+     "B progenitor": 1
+    },
+    "Stroma": {
+     "Mono/Mac": 8,
+     "HSPC": 1
+    }
+   }
+  },
+  "potency": {
+   "n_cells": 5032,
+   "CytoTRACE2_Score": {
+    "spearman_vs_ordinal_potency": 0.69,
+    "AUROC_multipotent_vs_mature": 0.979,
+    "AUROC_committed_progenitor_vs_mature": 0.956,
+    "AUROC_multipotent_vs_committed_progenitor": 0.655
+   },
+   "baseline_n_genes_detected": {
+    "spearman_vs_ordinal_potency": 0.413,
+    "AUROC_multipotent_vs_mature": 0.746,
+    "AUROC_committed_progenitor_vs_mature": 0.836,
+    "AUROC_multipotent_vs_committed_progenitor": 0.321
+   },
+   "mean_score_by_level": {
+    "0": 0.125,
+    "1": 0.39,
+    "2": 0.471
+   },
+   "predicted_category_by_level": {
+    "Differentiated": {
+     "0": 2980,
+     "1": 1,
+     "2": 7
+    },
+    "Multipotent": {
+     "0": 12,
+     "1": 12,
+     "2": 233
+    },
+    "Oligopotent": {
+     "0": 169,
+     "1": 377,
+     "2": 326
+    },
+    "Totipotent": {
+     "0": 4,
+     "1": 1,
+     "2": 0
+    },
+    "Unipotent": {
+     "0": 667,
+     "1": 209,
+     "2": 34
+    }
+   }
+  }
+ },
+ "senescence_GSE115301": {
+  "n": {
+   "growing": 207,
+   "RIS_primary": 240,
+   "GFP_bystander_secondary": 33
+  },
+  "AUROC_RIS_vs_growing": {
+   "SID1": 0.761,
+   "SID2": 0.888,
+   "SID3": 0.889,
+   "SID4": 0.838,
+   "SID_mean": 0.893,
+   "CDKN1A": 0.731,
+   "CDKN2A": 0.715,
+   "neg_MKI67_TOP2A": 0.791
+  },
+  "AUROC_bystander_vs_growing": {
+   "SID1": 0.772,
+   "SID2": 0.851,
+   "SID3": 0.822,
+   "SID4": 0.808,
+   "SID_mean": 0.85,
+   "CDKN1A": 0.703,
+   "CDKN2A": 0.565,
+   "neg_MKI67_TOP2A": 0.762
+  },
+  "fraction_called_senescent_SID>0.5": {
+   "SID1": {
+    "growing": 0.42,
+    "RIS": 0.821,
+    "bystander": 0.879
+   },
+   "SID2": {
+    "growing": 0.0,
+    "RIS": 0.233,
+    "bystander": 0.03
+   },
+   "SID3": {
+    "growing": 0.184,
+    "RIS": 0.817,
+    "bystander": 0.697
+   },
+   "SID4": {
+    "growing": 0.638,
+    "RIS": 0.975,
+    "bystander": 0.97
+   },
+   "SID_mean": {
+    "growing": 0.251,
+    "RIS": 0.854,
+    "bystander": 0.758
+   }
+  }
+ }
+}

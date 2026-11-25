@@ -15,10 +15,13 @@ ref = ad.read_h5ad(f"{WORK}/ref.h5ad")
 if not os.path.exists(f"{mdir}/scanvi/model.pt"):
     t = time.time()
     scvi.model.SCVI.setup_anndata(ref, batch_key="batch", labels_key="fine")
-    m = scvi.model.SCVI(ref, n_layers=2, n_latent=30, gene_likelihood="nb", encode_covariates=True,
-                        use_layer_norm="both", use_batch_norm="none", dropout_rate=0.2)
-    m.train(max_epochs=EP_SCVI, batch_size=256, **kw)
-    m.save(f"{mdir}/scvi", overwrite=True)
+    if os.path.exists(f"{mdir}/scvi/model.pt"):          # resume after an interrupted run
+        m = scvi.model.SCVI.load(f"{mdir}/scvi", ref)
+    else:
+        m = scvi.model.SCVI(ref, n_layers=2, n_latent=30, gene_likelihood="nb", encode_covariates=True,
+                            use_layer_norm="both", use_batch_norm="none", dropout_rate=0.2)
+        m.train(max_epochs=EP_SCVI, batch_size=256, **kw)
+        m.save(f"{mdir}/scvi", overwrite=True)
     print("scVI done", time.time() - t, flush=True)
     lm = scvi.model.SCANVI.from_scvi_model(m, unlabeled_category="Unknown", labels_key="fine")
     lm.train(max_epochs=EP_SCANVI, n_samples_per_label=100, batch_size=256, **kw)
