@@ -1,0 +1,134 @@
+{
+ "Amylose content": {
+  "naive_linear": {
+   "n_snps": 25293,
+   "lambda_GC": 112.75,
+   "n_bonferroni_hits": 18695,
+   "n_chromosomes_with_hits": 12,
+   "known_gene": "Waxy",
+   "best_p_within_0.5Mb_of_gene": 2.862035e-54,
+   "gene_region_passes_bonferroni": true,
+   "rank_of_gene_bin_among_1Mb_bins": 1,
+   "lead_snp": "chr6:1.61Mb",
+   "lead_snp_is_at_gene": true
+  },
+  "LMM_kinship": {
+   "n_snps": 25293,
+   "lambda_GC": 0.72,
+   "n_bonferroni_hits": 11,
+   "n_chromosomes_with_hits": 3,
+   "known_gene": "Waxy",
+   "best_p_within_0.5Mb_of_gene": 5.918289e-10,
+   "gene_region_passes_bonferroni": true,
+   "rank_of_gene_bin_among_1Mb_bins": 1,
+   "lead_snp": "chr6:1.61Mb",
+   "lead_snp_is_at_gene": true
+  }
+ },
+ "Seed length": {
+  "naive_linear": {
+   "n_snps": 25021,
+   "lambda_GC": 11.17,
+   "n_bonferroni_hits": 2213,
+   "n_chromosomes_with_hits": 12,
+   "known_gene": "GS3",
+   "best_p_within_0.5Mb_of_gene": 1.33023e-14,
+   "gene_region_passes_bonferroni": true,
+   "rank_of_gene_bin_among_1Mb_bins": 93,
+   "lead_snp": "chr5:19.66Mb",
+   "lead_snp_is_at_gene": false
+  },
+  "LMM_kinship": {
+   "n_snps": 25021,
+   "lambda_GC": 0.81,
+   "n_bonferroni_hits": 4,
+   "n_chromosomes_with_hits": 1,
+   "known_gene": "GS3",
+   "best_p_within_0.5Mb_of_gene": 1.248203e-07,
+   "gene_region_passes_bonferroni": true,
+   "rank_of_gene_bin_among_1Mb_bins": 1,
+   "lead_snp": "chr3:16.07Mb",
+   "lead_snp_is_at_gene": false
+  }
+ },
+ "Seed width": {
+  "naive_linear": {
+   "n_snps": 25021,
+   "lambda_GC": 59.21,
+   "n_bonferroni_hits": 13972,
+   "n_chromosomes_with_hits": 12,
+   "known_gene": "qSW5/GW5",
+   "best_p_within_0.5Mb_of_gene": 3.154226e-32,
+   "gene_region_passes_bonferroni": true,
+   "rank_of_gene_bin_among_1Mb_bins": 54,
+   "lead_snp": "chr3:7.83Mb",
+   "lead_snp_is_at_gene": false
+  },
+  "LMM_kinship": {
+   "n_snps": 25021,
+   "lambda_GC": 0.83,
+   "n_bonferroni_hits": 16,
+   "n_chromosomes_with_hits": 2,
+   "known_gene": "qSW5/GW5",
+   "best_p_within_0.5Mb_of_gene": 9.250389e-16,
+   "gene_region_passes_bonferroni": true,
+   "rank_of_gene_bin_among_1Mb_bins": 1,
+   "lead_snp": "chr5:5.40Mb",
+   "lead_snp_is_at_gene": true
+  }
+ },
+ "Pericarp color": {
+  "naive_linear": {
+   "n_snps": 25021,
+   "lambda_GC": 31.86,
+   "n_bonferroni_hits": 10288,
+   "n_chromosomes_with_hits": 12,
+   "known_gene": "Rc",
+   "best_p_within_0.5Mb_of_gene": 9.330347e-39,
+   "gene_region_passes_bonferroni": true,
+   "rank_of_gene_bin_among_1Mb_bins": 2,
+   "lead_snp": "chr5:24.71Mb",
+   "lead_snp_is_at_gene": false
+  },
+  "LMM_kinship": {
+   "n_snps": 25021,
+   "lambda_GC": 0.8,
+   "n_bonferroni_hits": 7,
+   "n_chromosomes_with_hits": 4,
+   "known_gene": "Rc",
+   "best_p_within_0.5Mb_of_gene": 2.6984070000000003e-17,
+   "gene_region_passes_bonferroni": true,
+   "rank_of_gene_bin_among_1Mb_bins": 1,
+   "lead_snp": "chr7:6.07Mb",
+   "lead_snp_is_at_gene": true
+  }
+ },
+ "Plant height": {
+  "naive_linear": {
+   "n_snps": 25221,
+   "lambda_GC": 52.15,
+   "n_bonferroni_hits": 12982,
+   "n_chromosomes_with_hits": 12
+  },
+  "LMM_kinship": {
+   "n_snps": 25221,
+   "lambda_GC": 0.94,
+   "n_bonferroni_hits": 1,
+   "n_chromosomes_with_hits": 1
+  }
+ },
+ "Flowering time at Arkansas": {
+  "naive_linear": {
+   "n_snps": 25084,
+   "lambda_GC": 30.59,
+   "n_bonferroni_hits": 7998,
+   "n_chromosomes_with_hits": 12
+  },
+  "LMM_kinship": {
+   "n_snps": 25084,
+   "lambda_GC": 0.85,
+   "n_bonferroni_hits": 1,
+   "n_chromosomes_with_hits": 1
+  }
+ }
+}

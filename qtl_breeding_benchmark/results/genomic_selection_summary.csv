@@ -1,0 +1,38 @@
+data,scenario,model,trait,mean,min,max,size
+rice,10 top markers chosen in training fold,OLS on 10 SNPs,Amylose content,0.732,0.724,0.74,3
+rice,10 top markers chosen in training fold,OLS on 10 SNPs,Flowering time at Arkansas,0.477,0.449,0.505,3
+rice,10 top markers chosen in training fold,OLS on 10 SNPs,Plant height,0.612,0.606,0.619,3
+rice,10 top markers chosen in training fold,OLS on 10 SNPs,Seed length,0.515,0.505,0.523,3
+rice,10 top markers chosen in training fold (r within subpopulation),OLS on 10 SNPs,Amylose content,0.305,0.285,0.33,3
+rice,10 top markers chosen in training fold (r within subpopulation),OLS on 10 SNPs,Flowering time at Arkansas,0.109,0.046,0.166,3
+rice,10 top markers chosen in training fold (r within subpopulation),OLS on 10 SNPs,Plant height,0.255,0.235,0.266,3
+rice,10 top markers chosen in training fold (r within subpopulation),OLS on 10 SNPs,Seed length,0.126,0.098,0.157,3
+rice,10 top markers chosen on ALL lines (leaky),OLS on 10 SNPs,Amylose content,0.735,0.727,0.74,3
+rice,10 top markers chosen on ALL lines (leaky),OLS on 10 SNPs,Flowering time at Arkansas,0.506,0.503,0.508,3
+rice,10 top markers chosen on ALL lines (leaky),OLS on 10 SNPs,Plant height,0.623,0.616,0.627,3
+rice,10 top markers chosen on ALL lines (leaky),OLS on 10 SNPs,Seed length,0.584,0.56,0.6,3
+rice,"unseen lines, different environment",GBLUP,Flowering time at Arkansas,0.399,0.328,0.464,6
+rice,"unseen lines, random split (r within subpopulation)",GBLUP,Amylose content,0.395,0.341,0.497,3
+rice,"unseen lines, random split (r within subpopulation)",GBLUP,Flowering time at Arkansas,0.475,0.466,0.491,3
+rice,"unseen lines, random split (r within subpopulation)",GBLUP,Plant height,0.58,0.569,0.594,3
+rice,"unseen lines, random split (r within subpopulation)",GBLUP,Seed length,0.607,0.598,0.617,3
+rice,"unseen lines, random split (whole panel r)",GBLUP,Amylose content,0.765,0.734,0.81,3
+rice,"unseen lines, random split (whole panel r)",GBLUP,Flowering time at Arkansas,0.672,0.667,0.68,3
+rice,"unseen lines, random split (whole panel r)",GBLUP,Plant height,0.754,0.745,0.762,3
+rice,"unseen lines, random split (whole panel r)",GBLUP,Seed length,0.74,0.722,0.753,3
+rice,unseen subpopulation,GBLUP,Amylose content,0.186,0.121,0.252,4
+rice,unseen subpopulation,GBLUP,Flowering time at Arkansas,0.112,-0.096,0.244,4
+rice,unseen subpopulation,GBLUP,Plant height,0.291,-0.045,0.542,4
+rice,unseen subpopulation,GBLUP,Seed length,0.454,0.241,0.692,4
+wheat,"unseen lines, different environment",GBLUP,env1,-0.124,-0.193,-0.066,9
+wheat,"unseen lines, different environment",GBLUP,env2,0.196,-0.118,0.404,9
+wheat,"unseen lines, different environment",GBLUP,env3,0.215,-0.112,0.428,9
+wheat,"unseen lines, different environment",GBLUP,env4,0.137,-0.203,0.318,9
+wheat,"unseen lines, same environment",BayesB,env1,0.517,0.517,0.517,1
+wheat,"unseen lines, same environment",BayesB,env2,0.486,0.486,0.486,1
+wheat,"unseen lines, same environment",BayesB,env3,0.363,0.363,0.363,1
+wheat,"unseen lines, same environment",BayesB,env4,0.421,0.421,0.421,1
+wheat,"unseen lines, same environment",GBLUP,env1,0.531,0.516,0.551,3
+wheat,"unseen lines, same environment",GBLUP,env2,0.49,0.472,0.505,3
+wheat,"unseen lines, same environment",GBLUP,env3,0.37,0.358,0.386,3
+wheat,"unseen lines, same environment",GBLUP,env4,0.446,0.434,0.465,3

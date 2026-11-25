@@ -1,0 +1,135 @@
+"data","scenario","model","trait","target","rep","r","n_test"
+"wheat","unseen lines, same environment","GBLUP","env1","env1",1,0.52561865752689,119.8
+"wheat","unseen lines, same environment","BayesB","env1","env1",1,0.517300335002314,119.8
+"wheat","unseen lines, different environment","GBLUP","env1","env2",1,-0.123704644920099,119.8
+"wheat","unseen lines, different environment","GBLUP","env1","env3",1,-0.0939604529415723,119.8
+"wheat","unseen lines, different environment","GBLUP","env1","env4",1,-0.188549912519457,119.8
+"wheat","unseen lines, same environment","GBLUP","env2","env2",1,0.493755698169193,119.8
+"wheat","unseen lines, same environment","BayesB","env2","env2",1,0.486166855740768,119.8
+"wheat","unseen lines, different environment","GBLUP","env2","env1",1,-0.117651888991233,119.8
+"wheat","unseen lines, different environment","GBLUP","env2","env3",1,0.393604604468885,119.8
+"wheat","unseen lines, different environment","GBLUP","env2","env4",1,0.306086134045486,119.8
+"wheat","unseen lines, same environment","GBLUP","env3","env3",1,0.367646187276809,119.8
+"wheat","unseen lines, same environment","BayesB","env3","env3",1,0.36250142467823,119.8
+"wheat","unseen lines, different environment","GBLUP","env3","env1",1,-0.0963009111769206,119.8
+"wheat","unseen lines, different environment","GBLUP","env3","env2",1,0.415131823497898,119.8
+"wheat","unseen lines, different environment","GBLUP","env3","env4",1,0.321773650640343,119.8
+"wheat","unseen lines, same environment","GBLUP","env4","env4",1,0.439471221621655,119.8
+"wheat","unseen lines, same environment","BayesB","env4","env4",1,0.421425432122366,119.8
+"wheat","unseen lines, different environment","GBLUP","env4","env1",1,-0.20314972914151,119.8
+"wheat","unseen lines, different environment","GBLUP","env4","env2",1,0.299036753129715,119.8
+"wheat","unseen lines, different environment","GBLUP","env4","env3",1,0.29785511528643,119.8
+"wheat","unseen lines, same environment","GBLUP","env1","env1",2,0.551423852165541,119.8
+"wheat","unseen lines, different environment","GBLUP","env1","env2",2,-0.100931500423485,119.8
+"wheat","unseen lines, different environment","GBLUP","env1","env3",2,-0.0932413805699129,119.8
+"wheat","unseen lines, different environment","GBLUP","env1","env4",2,-0.192843269135744,119.8
+"wheat","unseen lines, same environment","GBLUP","env2","env2",2,0.472436019777769,119.8
+"wheat","unseen lines, different environment","GBLUP","env2","env1",2,-0.108566604248238,119.8
+"wheat","unseen lines, different environment","GBLUP","env2","env3",2,0.387861535831489,119.8
+"wheat","unseen lines, different environment","GBLUP","env2","env4",2,0.304002014194034,119.8
+"wheat","unseen lines, same environment","GBLUP","env3","env3",2,0.385645326648529,119.8
+"wheat","unseen lines, different environment","GBLUP","env3","env1",2,-0.112449598824483,119.8
+"wheat","unseen lines, different environment","GBLUP","env3","env2",2,0.428351643028349,119.8
+"wheat","unseen lines, different environment","GBLUP","env3","env4",2,0.348681616078627,119.8
+"wheat","unseen lines, same environment","GBLUP","env4","env4",2,0.464603476315609,119.8
+"wheat","unseen lines, different environment","GBLUP","env4","env1",2,-0.196095869838266,119.8
+"wheat","unseen lines, different environment","GBLUP","env4","env2",2,0.303850288665652,119.8
+"wheat","unseen lines, different environment","GBLUP","env4","env3",2,0.318334588689706,119.8
+"wheat","unseen lines, same environment","GBLUP","env1","env1",3,0.516289079191259,119.8
+"wheat","unseen lines, different environment","GBLUP","env1","env2",3,-0.0857336279709154,119.8
+"wheat","unseen lines, different environment","GBLUP","env1","env3",3,-0.0662060523976635,119.8
+"wheat","unseen lines, different environment","GBLUP","env1","env4",3,-0.174182013560428,119.8
+"wheat","unseen lines, same environment","GBLUP","env2","env2",3,0.505302321805299,119.8
+"wheat","unseen lines, different environment","GBLUP","env2","env1",3,-0.108425849705006,119.8
+"wheat","unseen lines, different environment","GBLUP","env2","env3",3,0.403568582618546,119.8
+"wheat","unseen lines, different environment","GBLUP","env2","env4",3,0.302308720195561,119.8
+"wheat","unseen lines, same environment","GBLUP","env3","env3",3,0.357797149892858,119.8
+"wheat","unseen lines, different environment","GBLUP","env3","env1",3,-0.0926800464759274,119.8
+"wheat","unseen lines, different environment","GBLUP","env3","env2",3,0.407324501923211,119.8
+"wheat","unseen lines, different environment","GBLUP","env3","env4",3,0.311865128303171,119.8
+"wheat","unseen lines, same environment","GBLUP","env4","env4",3,0.433735365579806,119.8
+"wheat","unseen lines, different environment","GBLUP","env4","env1",3,-0.191429597379883,119.8
+"wheat","unseen lines, different environment","GBLUP","env4","env2",3,0.300234512247451,119.8
+"wheat","unseen lines, different environment","GBLUP","env4","env3",3,0.300254929939097,119.8
+"rice","unseen lines, random split (whole panel r)","GBLUP","Flowering time at Arkansas","Flowering time at Arkansas",1,0.666592261765346,74.8
+"rice","unseen lines, random split (r within subpopulation)","GBLUP","Flowering time at Arkansas","Flowering time at Arkansas",1,0.490901748932236,NA
+"rice","10 top markers chosen in training fold","OLS on 10 SNPs","Flowering time at Arkansas","Flowering time at Arkansas",1,0.448706112168817,74.8
+"rice","10 top markers chosen in training fold (r within subpopulation)","OLS on 10 SNPs","Flowering time at Arkansas","Flowering time at Arkansas",1,0.113557834797085,NA
+"rice","10 top markers chosen on ALL lines (leaky)","OLS on 10 SNPs","Flowering time at Arkansas","Flowering time at Arkansas",1,0.503489076305085,74.8
+"rice","unseen lines, different environment","GBLUP","Flowering time at Arkansas","Flowering time at Faridpur",1,0.455782359414916,NA
+"rice","unseen lines, different environment","GBLUP","Flowering time at Arkansas","Flowering time at Aberdeen",1,0.328253473724163,NA
+"rice","unseen lines, random split (whole panel r)","GBLUP","Flowering time at Arkansas","Flowering time at Arkansas",2,0.680082896685646,74.8
+"rice","unseen lines, random split (r within subpopulation)","GBLUP","Flowering time at Arkansas","Flowering time at Arkansas",2,0.466398158696183,NA
+"rice","10 top markers chosen in training fold","OLS on 10 SNPs","Flowering time at Arkansas","Flowering time at Arkansas",2,0.504855459169196,74.8
+"rice","10 top markers chosen in training fold (r within subpopulation)","OLS on 10 SNPs","Flowering time at Arkansas","Flowering time at Arkansas",2,0.166144105402828,NA
+"rice","10 top markers chosen on ALL lines (leaky)","OLS on 10 SNPs","Flowering time at Arkansas","Flowering time at Arkansas",2,0.508108765618324,74.8
+"rice","unseen lines, different environment","GBLUP","Flowering time at Arkansas","Flowering time at Faridpur",2,0.463888501379038,NA
+"rice","unseen lines, different environment","GBLUP","Flowering time at Arkansas","Flowering time at Aberdeen",2,0.363488358095661,NA
+"rice","unseen lines, random split (whole panel r)","GBLUP","Flowering time at Arkansas","Flowering time at Arkansas",3,0.667921132486194,74.8
+"rice","unseen lines, random split (r within subpopulation)","GBLUP","Flowering time at Arkansas","Flowering time at Arkansas",3,0.467771192203624,NA
+"rice","10 top markers chosen in training fold","OLS on 10 SNPs","Flowering time at Arkansas","Flowering time at Arkansas",3,0.477801287937351,74.8
+"rice","10 top markers chosen in training fold (r within subpopulation)","OLS on 10 SNPs","Flowering time at Arkansas","Flowering time at Arkansas",3,0.0458650255532231,NA
+"rice","10 top markers chosen on ALL lines (leaky)","OLS on 10 SNPs","Flowering time at Arkansas","Flowering time at Arkansas",3,0.506136721263237,74.8
+"rice","unseen lines, different environment","GBLUP","Flowering time at Arkansas","Flowering time at Faridpur",3,0.444323067301465,NA
+"rice","unseen lines, different environment","GBLUP","Flowering time at Arkansas","Flowering time at Aberdeen",3,0.340644299375258,NA
+"rice","unseen subpopulation","GBLUP","Flowering time at Arkansas","IND",1,-0.0957513756039433,72
+"rice","unseen subpopulation","GBLUP","Flowering time at Arkansas","TEJ",1,0.18583373036196,86
+"rice","unseen subpopulation","GBLUP","Flowering time at Arkansas","TRJ",1,0.244187939448312,91
+"rice","unseen subpopulation","GBLUP","Flowering time at Arkansas","AUS",1,0.114678044269911,55
+"rice","unseen lines, random split (whole panel r)","GBLUP","Plant height","Plant height",1,0.745477707614916,76.6
+"rice","unseen lines, random split (r within subpopulation)","GBLUP","Plant height","Plant height",1,0.56857671360371,NA
+"rice","10 top markers chosen in training fold","OLS on 10 SNPs","Plant height","Plant height",1,0.606035143816735,76.6
+"rice","10 top markers chosen in training fold (r within subpopulation)","OLS on 10 SNPs","Plant height","Plant height",1,0.234680618410865,NA
+"rice","10 top markers chosen on ALL lines (leaky)","OLS on 10 SNPs","Plant height","Plant height",1,0.627392190539951,76.6
+"rice","unseen lines, random split (whole panel r)","GBLUP","Plant height","Plant height",2,0.761774220100934,76.6
+"rice","unseen lines, random split (r within subpopulation)","GBLUP","Plant height","Plant height",2,0.5944516358046,NA
+"rice","10 top markers chosen in training fold","OLS on 10 SNPs","Plant height","Plant height",2,0.618910878534631,76.6
+"rice","10 top markers chosen in training fold (r within subpopulation)","OLS on 10 SNPs","Plant height","Plant height",2,0.266041970549714,NA
+"rice","10 top markers chosen on ALL lines (leaky)","OLS on 10 SNPs","Plant height","Plant height",2,0.627064477006084,76.6
+"rice","unseen lines, random split (whole panel r)","GBLUP","Plant height","Plant height",3,0.75512546290078,76.6
+"rice","unseen lines, random split (r within subpopulation)","GBLUP","Plant height","Plant height",3,0.575508482300052,NA
+"rice","10 top markers chosen in training fold","OLS on 10 SNPs","Plant height","Plant height",3,0.611709612092826,76.6
+"rice","10 top markers chosen in training fold (r within subpopulation)","OLS on 10 SNPs","Plant height","Plant height",3,0.263321620123412,NA
+"rice","10 top markers chosen on ALL lines (leaky)","OLS on 10 SNPs","Plant height","Plant height",3,0.615855409705578,76.6
+"rice","unseen subpopulation","GBLUP","Plant height","IND",1,0.430746043618046,79
+"rice","unseen subpopulation","GBLUP","Plant height","TEJ",1,0.235264877326698,88
+"rice","unseen subpopulation","GBLUP","Plant height","TRJ",1,0.541991278642916,90
+"rice","unseen subpopulation","GBLUP","Plant height","AUS",1,-0.0449868953641527,55
+"rice","unseen lines, random split (whole panel r)","GBLUP","Seed length","Seed length",1,0.74432501574757,75.4
+"rice","unseen lines, random split (r within subpopulation)","GBLUP","Seed length","Seed length",1,0.605222128124359,NA
+"rice","10 top markers chosen in training fold","OLS on 10 SNPs","Seed length","Seed length",1,0.505356870020689,75.4
+"rice","10 top markers chosen in training fold (r within subpopulation)","OLS on 10 SNPs","Seed length","Seed length",1,0.122910601917226,NA
+"rice","10 top markers chosen on ALL lines (leaky)","OLS on 10 SNPs","Seed length","Seed length",1,0.559618665226493,75.4
+"rice","unseen lines, random split (whole panel r)","GBLUP","Seed length","Seed length",2,0.722250086208936,75.4
+"rice","unseen lines, random split (r within subpopulation)","GBLUP","Seed length","Seed length",2,0.597979039564873,NA
+"rice","10 top markers chosen in training fold","OLS on 10 SNPs","Seed length","Seed length",2,0.516309939421452,75.4
+"rice","10 top markers chosen in training fold (r within subpopulation)","OLS on 10 SNPs","Seed length","Seed length",2,0.157416349412829,NA
+"rice","10 top markers chosen on ALL lines (leaky)","OLS on 10 SNPs","Seed length","Seed length",2,0.600157129608388,75.4
+"rice","unseen lines, random split (whole panel r)","GBLUP","Seed length","Seed length",3,0.753055259273873,75.4
+"rice","unseen lines, random split (r within subpopulation)","GBLUP","Seed length","Seed length",3,0.616987428331469,NA
+"rice","10 top markers chosen in training fold","OLS on 10 SNPs","Seed length","Seed length",3,0.523236090183316,75.4
+"rice","10 top markers chosen in training fold (r within subpopulation)","OLS on 10 SNPs","Seed length","Seed length",3,0.0982858093702807,NA
+"rice","10 top markers chosen on ALL lines (leaky)","OLS on 10 SNPs","Seed length","Seed length",3,0.591101602127939,75.4
+"rice","unseen subpopulation","GBLUP","Seed length","IND",1,0.458974793198346,74
+"rice","unseen subpopulation","GBLUP","Seed length","TEJ",1,0.69200547433396,88
+"rice","unseen subpopulation","GBLUP","Seed length","TRJ",1,0.425425833227994,90
+"rice","unseen subpopulation","GBLUP","Seed length","AUS",1,0.24059475441177,55
+"rice","unseen lines, random split (whole panel r)","GBLUP","Amylose content","Amylose content",1,0.733750322581043,80.2
+"rice","unseen lines, random split (r within subpopulation)","GBLUP","Amylose content","Amylose content",1,0.346077049689755,NA
+"rice","10 top markers chosen in training fold","OLS on 10 SNPs","Amylose content","Amylose content",1,0.72438588569886,80.2
+"rice","10 top markers chosen in training fold (r within subpopulation)","OLS on 10 SNPs","Amylose content","Amylose content",1,0.285358062899182,NA
+"rice","10 top markers chosen on ALL lines (leaky)","OLS on 10 SNPs","Amylose content","Amylose content",1,0.726784716816603,80.2
+"rice","unseen lines, random split (whole panel r)","GBLUP","Amylose content","Amylose content",2,0.751536107042943,80.2
+"rice","unseen lines, random split (r within subpopulation)","GBLUP","Amylose content","Amylose content",2,0.341299484010668,NA
+"rice","10 top markers chosen in training fold","OLS on 10 SNPs","Amylose content","Amylose content",2,0.731185886099011,80.2
+"rice","10 top markers chosen in training fold (r within subpopulation)","OLS on 10 SNPs","Amylose content","Amylose content",2,0.300225752636377,NA
+"rice","10 top markers chosen on ALL lines (leaky)","OLS on 10 SNPs","Amylose content","Amylose content",2,0.738469466795614,80.2
+"rice","unseen lines, random split (whole panel r)","GBLUP","Amylose content","Amylose content",3,0.810155514544473,80.2
+"rice","unseen lines, random split (r within subpopulation)","GBLUP","Amylose content","Amylose content",3,0.497003475429356,NA
+"rice","10 top markers chosen in training fold","OLS on 10 SNPs","Amylose content","Amylose content",3,0.740196219205521,80.2
+"rice","10 top markers chosen in training fold (r within subpopulation)","OLS on 10 SNPs","Amylose content","Amylose content",3,0.330484416805262,NA
+"rice","10 top markers chosen on ALL lines (leaky)","OLS on 10 SNPs","Amylose content","Amylose content",3,0.73979592468945,80.2
+"rice","unseen subpopulation","GBLUP","Amylose content","IND",1,0.121366657240812,83
+"rice","unseen subpopulation","GBLUP","Amylose content","TEJ",1,0.163200693091503,94
+"rice","unseen subpopulation","GBLUP","Amylose content","TRJ",1,0.205010137438494,94
+"rice","unseen subpopulation","GBLUP","Amylose content","AUS",1,0.252462061309908,55

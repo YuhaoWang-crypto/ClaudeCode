@@ -1,0 +1,558 @@
+{
+ "cross_known_answer": [
+  {
+   "trait": "agouti",
+   "gene": "a (nonagouti)",
+   "gene_chr": 2,
+   "gene_Mb": 154.8,
+   "peak_chr": 2,
+   "peak_marker_Mb": 156.82,
+   "LOD": 62.8,
+   "interval_Mb": [
+    149.6,
+    159.1
+   ],
+   "gene_inside_interval": true,
+   "best_LOD_on_any_other_chr": 2.7
+  },
+  {
+   "trait": "tufted",
+   "gene": "Itpr3",
+   "gene_chr": 17,
+   "gene_Mb": 27.3,
+   "peak_chr": 17,
+   "peak_marker_Mb": 27.25,
+   "LOD": 63.8,
+   "interval_Mb": [
+    25.5,
+    28.9
+   ],
+   "gene_inside_interval": true,
+   "best_LOD_on_any_other_chr": 2.6
+  }
+ ],
+ "cross_insulin_discovery_validation": {
+  "splits": 20,
+  "n_discovery": 272,
+  "lod_threshold_5pct": 3.83,
+  "splits_with_any_significant_qtl": 8,
+  "significant_qtl_calls": 11,
+  "calls_replicated_in_unseen_half": 2,
+  "mean_variance_explained_discovery": 0.062,
+  "mean_variance_explained_validation": 0.01,
+  "calls_by_chr": {
+   "12": 5,
+   "2": 2,
+   "6": 1,
+   "19": 1,
+   "7": 1,
+   "14": 1
+  }
+ },
+ "rice_gwas": {
+  "Amylose content": {
+   "naive_linear": {
+    "n_snps": 25293,
+    "lambda_GC": 112.75,
+    "n_bonferroni_hits": 18695,
+    "n_chromosomes_with_hits": 12,
+    "known_gene": "Waxy",
+    "best_p_within_0.5Mb_of_gene": 2.862035e-54,
+    "gene_region_passes_bonferroni": true,
+    "rank_of_gene_bin_among_1Mb_bins": 1,
+    "lead_snp": "chr6:1.61Mb",
+    "lead_snp_is_at_gene": true
+   },
+   "LMM_kinship": {
+    "n_snps": 25293,
+    "lambda_GC": 0.72,
+    "n_bonferroni_hits": 11,
+    "n_chromosomes_with_hits": 3,
+    "known_gene": "Waxy",
+    "best_p_within_0.5Mb_of_gene": 5.918289e-10,
+    "gene_region_passes_bonferroni": true,
+    "rank_of_gene_bin_among_1Mb_bins": 1,
+    "lead_snp": "chr6:1.61Mb",
+    "lead_snp_is_at_gene": true
+   }
+  },
+  "Seed length": {
+   "naive_linear": {
+    "n_snps": 25021,
+    "lambda_GC": 11.17,
+    "n_bonferroni_hits": 2213,
+    "n_chromosomes_with_hits": 12,
+    "known_gene": "GS3",
+    "best_p_within_0.5Mb_of_gene": 1.33023e-14,
+    "gene_region_passes_bonferroni": true,
+    "rank_of_gene_bin_among_1Mb_bins": 93,
+    "lead_snp": "chr5:19.66Mb",
+    "lead_snp_is_at_gene": false
+   },
+   "LMM_kinship": {
+    "n_snps": 25021,
+    "lambda_GC": 0.81,
+    "n_bonferroni_hits": 4,
+    "n_chromosomes_with_hits": 1,
+    "known_gene": "GS3",
+    "best_p_within_0.5Mb_of_gene": 1.248203e-07,
+    "gene_region_passes_bonferroni": true,
+    "rank_of_gene_bin_among_1Mb_bins": 1,
+    "lead_snp": "chr3:16.07Mb",
+    "lead_snp_is_at_gene": false
+   }
+  },
+  "Seed width": {
+   "naive_linear": {
+    "n_snps": 25021,
+    "lambda_GC": 59.21,
+    "n_bonferroni_hits": 13972,
+    "n_chromosomes_with_hits": 12,
+    "known_gene": "qSW5/GW5",
+    "best_p_within_0.5Mb_of_gene": 3.154226e-32,
+    "gene_region_passes_bonferroni": true,
+    "rank_of_gene_bin_among_1Mb_bins": 54,
+    "lead_snp": "chr3:7.83Mb",
+    "lead_snp_is_at_gene": false
+   },
+   "LMM_kinship": {
+    "n_snps": 25021,
+    "lambda_GC": 0.83,
+    "n_bonferroni_hits": 16,
+    "n_chromosomes_with_hits": 2,
+    "known_gene": "qSW5/GW5",
+    "best_p_within_0.5Mb_of_gene": 9.250389e-16,
+    "gene_region_passes_bonferroni": true,
+    "rank_of_gene_bin_among_1Mb_bins": 1,
+    "lead_snp": "chr5:5.40Mb",
+    "lead_snp_is_at_gene": true
+   }
+  },
+  "Pericarp color": {
+   "naive_linear": {
+    "n_snps": 25021,
+    "lambda_GC": 31.86,
+    "n_bonferroni_hits": 10288,
+    "n_chromosomes_with_hits": 12,
+    "known_gene": "Rc",
+    "best_p_within_0.5Mb_of_gene": 9.330347e-39,
+    "gene_region_passes_bonferroni": true,
+    "rank_of_gene_bin_among_1Mb_bins": 2,
+    "lead_snp": "chr5:24.71Mb",
+    "lead_snp_is_at_gene": false
+   },
+   "LMM_kinship": {
+    "n_snps": 25021,
+    "lambda_GC": 0.8,
+    "n_bonferroni_hits": 7,
+    "n_chromosomes_with_hits": 4,
+    "known_gene": "Rc",
+    "best_p_within_0.5Mb_of_gene": 2.6984070000000003e-17,
+    "gene_region_passes_bonferroni": true,
+    "rank_of_gene_bin_among_1Mb_bins": 1,
+    "lead_snp": "chr7:6.07Mb",
+    "lead_snp_is_at_gene": true
+   }
+  },
+  "Plant height": {
+   "naive_linear": {
+    "n_snps": 25221,
+    "lambda_GC": 52.15,
+    "n_bonferroni_hits": 12982,
+    "n_chromosomes_with_hits": 12
+   },
+   "LMM_kinship": {
+    "n_snps": 25221,
+    "lambda_GC": 0.94,
+    "n_bonferroni_hits": 1,
+    "n_chromosomes_with_hits": 1
+   }
+  },
+  "Flowering time at Arkansas": {
+   "naive_linear": {
+    "n_snps": 25084,
+    "lambda_GC": 30.59,
+    "n_bonferroni_hits": 7998,
+    "n_chromosomes_with_hits": 12
+   },
+   "LMM_kinship": {
+    "n_snps": 25084,
+    "lambda_GC": 0.85,
+    "n_bonferroni_hits": 1,
+    "n_chromosomes_with_hits": 1
+   }
+  }
+ },
+ "genomic_selection": [
+  {
+   "data": "rice",
+   "scenario": "10 top markers chosen in training fold",
+   "model": "OLS on 10 SNPs",
+   "trait": "Amylose content",
+   "mean": 0.732,
+   "min": 0.724,
+   "max": 0.74,
+   "size": 3
+  },
+  {
+   "data": "rice",
+   "scenario": "10 top markers chosen in training fold",
+   "model": "OLS on 10 SNPs",
+   "trait": "Flowering time at Arkansas",
+   "mean": 0.477,
+   "min": 0.449,
+   "max": 0.505,
+   "size": 3
+  },
+  {
+   "data": "rice",
+   "scenario": "10 top markers chosen in training fold",
+   "model": "OLS on 10 SNPs",
+   "trait": "Plant height",
+   "mean": 0.612,
+   "min": 0.606,
+   "max": 0.619,
+   "size": 3
+  },
+  {
+   "data": "rice",
+   "scenario": "10 top markers chosen in training fold",
+   "model": "OLS on 10 SNPs",
+   "trait": "Seed length",
+   "mean": 0.515,
+   "min": 0.505,
+   "max": 0.523,
+   "size": 3
+  },
+  {
+   "data": "rice",
+   "scenario": "10 top markers chosen in training fold (r within subpopulation)",
+   "model": "OLS on 10 SNPs",
+   "trait": "Amylose content",
+   "mean": 0.305,
+   "min": 0.285,
+   "max": 0.33,
+   "size": 3
+  },
+  {
+   "data": "rice",
+   "scenario": "10 top markers chosen in training fold (r within subpopulation)",
+   "model": "OLS on 10 SNPs",
+   "trait": "Flowering time at Arkansas",
+   "mean": 0.109,
+   "min": 0.046,
+   "max": 0.166,
+   "size": 3
+  },
+  {
+   "data": "rice",
+   "scenario": "10 top markers chosen in training fold (r within subpopulation)",
+   "model": "OLS on 10 SNPs",
+   "trait": "Plant height",
+   "mean": 0.255,
+   "min": 0.235,
+   "max": 0.266,
+   "size": 3
+  },
+  {
+   "data": "rice",
+   "scenario": "10 top markers chosen in training fold (r within subpopulation)",
+   "model": "OLS on 10 SNPs",
+   "trait": "Seed length",
+   "mean": 0.126,
+   "min": 0.098,
+   "max": 0.157,
+   "size": 3
+  },
+  {
+   "data": "rice",
+   "scenario": "10 top markers chosen on ALL lines (leaky)",
+   "model": "OLS on 10 SNPs",
+   "trait": "Amylose content",
+   "mean": 0.735,
+   "min": 0.727,
+   "max": 0.74,
+   "size": 3
+  },
+  {
+   "data": "rice",
+   "scenario": "10 top markers chosen on ALL lines (leaky)",
+   "model": "OLS on 10 SNPs",
+   "trait": "Flowering time at Arkansas",
+   "mean": 0.506,
+   "min": 0.503,
+   "max": 0.508,
+   "size": 3
+  },
+  {
+   "data": "rice",
+   "scenario": "10 top markers chosen on ALL lines (leaky)",
+   "model": "OLS on 10 SNPs",
+   "trait": "Plant height",
+   "mean": 0.623,
+   "min": 0.616,
+   "max": 0.627,
+   "size": 3
+  },
+  {
+   "data": "rice",
+   "scenario": "10 top markers chosen on ALL lines (leaky)",
+   "model": "OLS on 10 SNPs",
+   "trait": "Seed length",
+   "mean": 0.584,
+   "min": 0.56,
+   "max": 0.6,
+   "size": 3
+  },
+  {
+   "data": "rice",
+   "scenario": "unseen lines, different environment",
+   "model": "GBLUP",
+   "trait": "Flowering time at Arkansas",
+   "mean": 0.399,
+   "min": 0.328,
+   "max": 0.464,
+   "size": 6
+  },
+  {
+   "data": "rice",
+   "scenario": "unseen lines, random split (r within subpopulation)",
+   "model": "GBLUP",
+   "trait": "Amylose content",
+   "mean": 0.395,
+   "min": 0.341,
+   "max": 0.497,
+   "size": 3
+  },
+  {
+   "data": "rice",
+   "scenario": "unseen lines, random split (r within subpopulation)",
+   "model": "GBLUP",
+   "trait": "Flowering time at Arkansas",
+   "mean": 0.475,
+   "min": 0.466,
+   "max": 0.491,
+   "size": 3
+  },
+  {
+   "data": "rice",
+   "scenario": "unseen lines, random split (r within subpopulation)",
+   "model": "GBLUP",
+   "trait": "Plant height",
+   "mean": 0.58,
+   "min": 0.569,
+   "max": 0.594,
+   "size": 3
+  },
+  {
+   "data": "rice",
+   "scenario": "unseen lines, random split (r within subpopulation)",
+   "model": "GBLUP",
+   "trait": "Seed length",
+   "mean": 0.607,
+   "min": 0.598,
+   "max": 0.617,
+   "size": 3
+  },
+  {
+   "data": "rice",
+   "scenario": "unseen lines, random split (whole panel r)",
+   "model": "GBLUP",
+   "trait": "Amylose content",
+   "mean": 0.765,
+   "min": 0.734,
+   "max": 0.81,
+   "size": 3
+  },
+  {
+   "data": "rice",
+   "scenario": "unseen lines, random split (whole panel r)",
+   "model": "GBLUP",
+   "trait": "Flowering time at Arkansas",
+   "mean": 0.672,
+   "min": 0.667,
+   "max": 0.68,
+   "size": 3
+  },
+  {
+   "data": "rice",
+   "scenario": "unseen lines, random split (whole panel r)",
+   "model": "GBLUP",
+   "trait": "Plant height",
+   "mean": 0.754,
+   "min": 0.745,
+   "max": 0.762,
+   "size": 3
+  },
+  {
+   "data": "rice",
+   "scenario": "unseen lines, random split (whole panel r)",
+   "model": "GBLUP",
+   "trait": "Seed length",
+   "mean": 0.74,
+   "min": 0.722,
+   "max": 0.753,
+   "size": 3
+  },
+  {
+   "data": "rice",
+   "scenario": "unseen subpopulation",
+   "model": "GBLUP",
+   "trait": "Amylose content",
+   "mean": 0.186,
+   "min": 0.121,
+   "max": 0.252,
+   "size": 4
+  },
+  {
+   "data": "rice",
+   "scenario": "unseen subpopulation",
+   "model": "GBLUP",
+   "trait": "Flowering time at Arkansas",
+   "mean": 0.112,
+   "min": -0.096,
+   "max": 0.244,
+   "size": 4
+  },
+  {
+   "data": "rice",
+   "scenario": "unseen subpopulation",
+   "model": "GBLUP",
+   "trait": "Plant height",
+   "mean": 0.291,
+   "min": -0.045,
+   "max": 0.542,
+   "size": 4
+  },
+  {
+   "data": "rice",
+   "scenario": "unseen subpopulation",
+   "model": "GBLUP",
+   "trait": "Seed length",
+   "mean": 0.454,
+   "min": 0.241,
+   "max": 0.692,
+   "size": 4
+  },
+  {
+   "data": "wheat",
+   "scenario": "unseen lines, different environment",
+   "model": "GBLUP",
+   "trait": "env1",
+   "mean": -0.124,
+   "min": -0.193,
+   "max": -0.066,
+   "size": 9
+  },
+  {
+   "data": "wheat",
+   "scenario": "unseen lines, different environment",
+   "model": "GBLUP",
+   "trait": "env2",
+   "mean": 0.196,
+   "min": -0.118,
+   "max": 0.404,
+   "size": 9
+  },
+  {
+   "data": "wheat",
+   "scenario": "unseen lines, different environment",
+   "model": "GBLUP",
+   "trait": "env3",
+   "mean": 0.215,
+   "min": -0.112,
+   "max": 0.428,
+   "size": 9
+  },
+  {
+   "data": "wheat",
+   "scenario": "unseen lines, different environment",
+   "model": "GBLUP",
+   "trait": "env4",
+   "mean": 0.137,
+   "min": -0.203,
+   "max": 0.318,
+   "size": 9
+  },
+  {
+   "data": "wheat",
+   "scenario": "unseen lines, same environment",
+   "model": "BayesB",
+   "trait": "env1",
+   "mean": 0.517,
+   "min": 0.517,
+   "max": 0.517,
+   "size": 1
+  },
+  {
+   "data": "wheat",
+   "scenario": "unseen lines, same environment",
+   "model": "BayesB",
+   "trait": "env2",
+   "mean": 0.486,
+   "min": 0.486,
+   "max": 0.486,
+   "size": 1
+  },
+  {
+   "data": "wheat",
+   "scenario": "unseen lines, same environment",
+   "model": "BayesB",
+   "trait": "env3",
+   "mean": 0.363,
+   "min": 0.363,
+   "max": 0.363,
+   "size": 1
+  },
+  {
+   "data": "wheat",
+   "scenario": "unseen lines, same environment",
+   "model": "BayesB",
+   "trait": "env4",
+   "mean": 0.421,
+   "min": 0.421,
+   "max": 0.421,
+   "size": 1
+  },
+  {
+   "data": "wheat",
+   "scenario": "unseen lines, same environment",
+   "model": "GBLUP",
+   "trait": "env1",
+   "mean": 0.531,
+   "min": 0.516,
+   "max": 0.551,
+   "size": 3
+  },
+  {
+   "data": "wheat",
+   "scenario": "unseen lines, same environment",
+   "model": "GBLUP",
+   "trait": "env2",
+   "mean": 0.49,
+   "min": 0.472,
+   "max": 0.505,
+   "size": 3
+  },
+  {
+   "data": "wheat",
+   "scenario": "unseen lines, same environment",
+   "model": "GBLUP",
+   "trait": "env3",
+   "mean": 0.37,
+   "min": 0.358,
+   "max": 0.386,
+   "size": 3
+  },
+  {
+   "data": "wheat",
+   "scenario": "unseen lines, same environment",
+   "model": "GBLUP",
+   "trait": "env4",
+   "mean": 0.446,
+   "min": 0.434,
+   "max": 0.465,
+   "size": 3
+  }
+ ]
+}

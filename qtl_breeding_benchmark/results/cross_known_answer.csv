@@ -1,0 +1,3 @@
+"trait","known_gene","known_chr","known_Mb","peak_chr","peak_cM","peak_LOD","peak_marker_Mb","ci_lo_Mb","ci_hi_Mb","second_best_chr_LOD"
+"agouti","a (nonagouti)","2",154.8,"2",78.0022,62.7889653681078,156.821534,149.56121,159.118061,2.66975563158087
+"tufted","Itpr3","17",27.3,"17",13.4100105758994,63.7561617567166,27.245269,25.506994,28.916155,2.60777366408155
