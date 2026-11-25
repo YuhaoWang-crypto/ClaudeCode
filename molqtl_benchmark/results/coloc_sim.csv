@@ -1,0 +1,7 @@
+"scenario","runs","mean_PP_H4","called_shared_H4_gt_0.8","called_distinct_H3_gt_0.8"
+"GWAS signal only, no eQTL",150,0.048,0,0
+"different variants, r2 0.3-0.7",142,0.118,0.049,0.831
+"different variants, r2 0.8-0.95",105,0.914,0.886,0.01
+"different variants, r2 < 0.1",150,0,0,0.98
+"same causal variant, strong eQTL",150,0.973,0.973,0
+"same causal variant, weak eQTL (4% of variance)",150,0.78,0.673,0

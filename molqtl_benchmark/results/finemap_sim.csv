@@ -1,0 +1,13 @@
+"method","n_causal","runs","cs_per_run","coverage","false_cs_per_run","power","median_cs_size","top_pip_is_causal"
+"individual-level data",1,150,1,0.987,0.013,0.987,4,0.5
+"summary stats + external LD, other ancestry (89 YRI)",1,150,9.29,0.047,8.86,0.433,1,0.067
+"summary stats + external LD, same ancestry (112 EUR)",1,150,1.4,0.705,0.413,0.987,6,0.4
+"summary stats + in-sample LD",1,150,1,1,0,1,6,0.493
+"individual-level data",2,150,1.52,0.934,0.1,0.713,7,0.547
+"summary stats + external LD, other ancestry (89 YRI)",2,149,9.5,0.056,8.966,0.265,1,0.081
+"summary stats + external LD, same ancestry (112 EUR)",2,150,1.77,0.692,0.547,0.617,5,0.427
+"summary stats + in-sample LD",2,150,1.42,0.972,0.04,0.693,8.5,0.547
+"individual-level data",3,150,1.85,0.935,0.12,0.598,8.75,0.613
+"summary stats + external LD, other ancestry (89 YRI)",3,150,9.42,0.059,8.867,0.187,1,0.067
+"summary stats + external LD, same ancestry (112 EUR)",3,150,2.19,0.652,0.76,0.496,7,0.453
+"summary stats + in-sample LD",3,150,1.56,0.953,0.073,0.52,10.5,0.607

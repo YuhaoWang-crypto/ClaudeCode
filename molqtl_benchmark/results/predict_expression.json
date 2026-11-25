@@ -1,0 +1,82 @@
+{
+ "pretrained_GTEx_LCL_weights": {
+  "genes_with_model_and_measured": 112,
+  "median_fraction_of_model_snps_found": 1.0,
+  "gtex_reported_median_cv_rho": 0.367,
+  "EUR_all": {
+   "n_genes": 112,
+   "median_r": 0.145,
+   "mean_r2_signed": 0.072,
+   "frac_r>0.1": 0.58,
+   "frac_r>0.3": 0.286,
+   "frac_r<=0": 0.143,
+   "n_people": 373
+  },
+  "EUR_test": {
+   "n_genes": 112,
+   "median_r": 0.168,
+   "mean_r2_signed": 0.073,
+   "frac_r>0.1": 0.652,
+   "frac_r>0.3": 0.304,
+   "frac_r<=0": 0.205,
+   "n_people": 112
+  },
+  "YRI": {
+   "n_genes": 112,
+   "median_r": 0.094,
+   "mean_r2_signed": 0.047,
+   "frac_r>0.1": 0.491,
+   "frac_r>0.3": 0.152,
+   "frac_r<=0": 0.259,
+   "n_people": 89
+  },
+  "spearman_reported_rho_vs_observed_r_EUR": 0.286
+ },
+ "trained_here_on_EUR_train": {
+  "all_genes": {
+   "EUR_test": {
+    "n_genes": 894,
+    "median_r": 0.0,
+    "mean_r2_signed": 0.023,
+    "frac_r>0.1": 0.227,
+    "frac_r>0.3": 0.077,
+    "frac_r<=0": 0.65,
+    "n_people": 112
+   },
+   "YRI": {
+    "n_genes": 894,
+    "median_r": 0.0,
+    "mean_r2_signed": 0.013,
+    "frac_r>0.1": 0.164,
+    "frac_r>0.3": 0.046,
+    "frac_r<=0": 0.714,
+    "n_people": 89
+   }
+  },
+  "training_eGenes_only": {
+   "EUR_test": {
+    "n_genes": 141,
+    "median_r": 0.276,
+    "mean_r2_signed": 0.128,
+    "frac_r>0.1": 0.823,
+    "frac_r>0.3": 0.461,
+    "frac_r<=0": 0.078,
+    "n_people": 112
+   },
+   "YRI": {
+    "n_genes": 141,
+    "median_r": 0.152,
+    "mean_r2_signed": 0.072,
+    "frac_r>0.1": 0.596,
+    "frac_r>0.3": 0.262,
+    "frac_r<=0": 0.248,
+    "n_people": 89
+   }
+  }
+ },
+ "same_genes_pretrained_vs_trained_here_EUR_test": {
+  "n_genes": 112,
+  "median_r_pretrained": 0.168,
+  "median_r_trained_here": 0.228
+ }
+}

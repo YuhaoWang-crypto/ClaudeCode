@@ -1,0 +1,514 @@
+{
+ "cis_eqtl": {
+  "genes_tested": 897,
+  "n_train": 261,
+  "eGenes_FDR5pct": 141,
+  "EUR_test": {
+   "n_people": 112,
+   "lead_variants_testable": 141,
+   "lead_variants_monomorphic_or_missing": 0,
+   "same_direction": 0.936,
+   "replicated_p<0.05_same_direction": 0.773,
+   "replicated_as_fraction_of_all_eGenes": 0.773,
+   "median_abs_effect_ratio_vs_train": 0.86,
+   "effect_size_correlation": 0.937
+  },
+  "YRI": {
+   "n_people": 89,
+   "lead_variants_testable": 126,
+   "lead_variants_monomorphic_or_missing": 15,
+   "same_direction": 0.857,
+   "replicated_p<0.05_same_direction": 0.373,
+   "replicated_as_fraction_of_all_eGenes": 0.333,
+   "median_abs_effect_ratio_vs_train": 0.59,
+   "effect_size_correlation": 0.711
+  }
+ },
+ "predict_expression": {
+  "pretrained_GTEx_LCL_weights": {
+   "genes_with_model_and_measured": 112,
+   "median_fraction_of_model_snps_found": 1.0,
+   "gtex_reported_median_cv_rho": 0.367,
+   "EUR_all": {
+    "n_genes": 112,
+    "median_r": 0.145,
+    "mean_r2_signed": 0.072,
+    "frac_r>0.1": 0.58,
+    "frac_r>0.3": 0.286,
+    "frac_r<=0": 0.143,
+    "n_people": 373
+   },
+   "EUR_test": {
+    "n_genes": 112,
+    "median_r": 0.168,
+    "mean_r2_signed": 0.073,
+    "frac_r>0.1": 0.652,
+    "frac_r>0.3": 0.304,
+    "frac_r<=0": 0.205,
+    "n_people": 112
+   },
+   "YRI": {
+    "n_genes": 112,
+    "median_r": 0.094,
+    "mean_r2_signed": 0.047,
+    "frac_r>0.1": 0.491,
+    "frac_r>0.3": 0.152,
+    "frac_r<=0": 0.259,
+    "n_people": 89
+   },
+   "spearman_reported_rho_vs_observed_r_EUR": 0.286
+  },
+  "trained_here_on_EUR_train": {
+   "all_genes": {
+    "EUR_test": {
+     "n_genes": 894,
+     "median_r": 0.0,
+     "mean_r2_signed": 0.023,
+     "frac_r>0.1": 0.227,
+     "frac_r>0.3": 0.077,
+     "frac_r<=0": 0.65,
+     "n_people": 112
+    },
+    "YRI": {
+     "n_genes": 894,
+     "median_r": 0.0,
+     "mean_r2_signed": 0.013,
+     "frac_r>0.1": 0.164,
+     "frac_r>0.3": 0.046,
+     "frac_r<=0": 0.714,
+     "n_people": 89
+    }
+   },
+   "training_eGenes_only": {
+    "EUR_test": {
+     "n_genes": 141,
+     "median_r": 0.276,
+     "mean_r2_signed": 0.128,
+     "frac_r>0.1": 0.823,
+     "frac_r>0.3": 0.461,
+     "frac_r<=0": 0.078,
+     "n_people": 112
+    },
+    "YRI": {
+     "n_genes": 141,
+     "median_r": 0.152,
+     "mean_r2_signed": 0.072,
+     "frac_r>0.1": 0.596,
+     "frac_r>0.3": 0.262,
+     "frac_r<=0": 0.248,
+     "n_people": 89
+    }
+   }
+  },
+  "same_genes_pretrained_vs_trained_here_EUR_test": {
+   "n_genes": 112,
+   "median_r_pretrained": 0.168,
+   "median_r_trained_here": 0.228
+  }
+ },
+ "finemap_simulation": [
+  {
+   "method": "individual-level data",
+   "n_causal": 1,
+   "runs": 150,
+   "cs_per_run": 1.0,
+   "coverage": 0.987,
+   "false_cs_per_run": 0.013,
+   "power": 0.987,
+   "median_cs_size": 4.0,
+   "top_pip_is_causal": 0.5
+  },
+  {
+   "method": "summary stats + external LD, other ancestry (89 YRI)",
+   "n_causal": 1,
+   "runs": 150,
+   "cs_per_run": 9.29,
+   "coverage": 0.047,
+   "false_cs_per_run": 8.86,
+   "power": 0.433,
+   "median_cs_size": 1.0,
+   "top_pip_is_causal": 0.067
+  },
+  {
+   "method": "summary stats + external LD, same ancestry (112 EUR)",
+   "n_causal": 1,
+   "runs": 150,
+   "cs_per_run": 1.4,
+   "coverage": 0.705,
+   "false_cs_per_run": 0.413,
+   "power": 0.987,
+   "median_cs_size": 6.0,
+   "top_pip_is_causal": 0.4
+  },
+  {
+   "method": "summary stats + in-sample LD",
+   "n_causal": 1,
+   "runs": 150,
+   "cs_per_run": 1.0,
+   "coverage": 1.0,
+   "false_cs_per_run": 0.0,
+   "power": 1.0,
+   "median_cs_size": 6.0,
+   "top_pip_is_causal": 0.493
+  },
+  {
+   "method": "individual-level data",
+   "n_causal": 2,
+   "runs": 150,
+   "cs_per_run": 1.52,
+   "coverage": 0.934,
+   "false_cs_per_run": 0.1,
+   "power": 0.713,
+   "median_cs_size": 7.0,
+   "top_pip_is_causal": 0.547
+  },
+  {
+   "method": "summary stats + external LD, other ancestry (89 YRI)",
+   "n_causal": 2,
+   "runs": 149,
+   "cs_per_run": 9.5,
+   "coverage": 0.056,
+   "false_cs_per_run": 8.966,
+   "power": 0.265,
+   "median_cs_size": 1.0,
+   "top_pip_is_causal": 0.081
+  },
+  {
+   "method": "summary stats + external LD, same ancestry (112 EUR)",
+   "n_causal": 2,
+   "runs": 150,
+   "cs_per_run": 1.77,
+   "coverage": 0.692,
+   "false_cs_per_run": 0.547,
+   "power": 0.617,
+   "median_cs_size": 5.0,
+   "top_pip_is_causal": 0.427
+  },
+  {
+   "method": "summary stats + in-sample LD",
+   "n_causal": 2,
+   "runs": 150,
+   "cs_per_run": 1.42,
+   "coverage": 0.972,
+   "false_cs_per_run": 0.04,
+   "power": 0.693,
+   "median_cs_size": 8.5,
+   "top_pip_is_causal": 0.547
+  },
+  {
+   "method": "individual-level data",
+   "n_causal": 3,
+   "runs": 150,
+   "cs_per_run": 1.85,
+   "coverage": 0.935,
+   "false_cs_per_run": 0.12,
+   "power": 0.598,
+   "median_cs_size": 8.75,
+   "top_pip_is_causal": 0.613
+  },
+  {
+   "method": "summary stats + external LD, other ancestry (89 YRI)",
+   "n_causal": 3,
+   "runs": 150,
+   "cs_per_run": 9.42,
+   "coverage": 0.059,
+   "false_cs_per_run": 8.867,
+   "power": 0.187,
+   "median_cs_size": 1.0,
+   "top_pip_is_causal": 0.067
+  },
+  {
+   "method": "summary stats + external LD, same ancestry (112 EUR)",
+   "n_causal": 3,
+   "runs": 150,
+   "cs_per_run": 2.19,
+   "coverage": 0.652,
+   "false_cs_per_run": 0.76,
+   "power": 0.496,
+   "median_cs_size": 7.0,
+   "top_pip_is_causal": 0.453
+  },
+  {
+   "method": "summary stats + in-sample LD",
+   "n_causal": 3,
+   "runs": 150,
+   "cs_per_run": 1.56,
+   "coverage": 0.953,
+   "false_cs_per_run": 0.073,
+   "power": 0.52,
+   "median_cs_size": 10.5,
+   "top_pip_is_causal": 0.607
+  }
+ ],
+ "coloc_simulation": [
+  {
+   "scenario": "GWAS signal only, no eQTL",
+   "runs": 150,
+   "mean_PP_H4": 0.048,
+   "called_shared_H4_gt_0.8": 0.0,
+   "called_distinct_H3_gt_0.8": 0.0
+  },
+  {
+   "scenario": "different variants, r2 0.3-0.7",
+   "runs": 142,
+   "mean_PP_H4": 0.118,
+   "called_shared_H4_gt_0.8": 0.049,
+   "called_distinct_H3_gt_0.8": 0.831
+  },
+  {
+   "scenario": "different variants, r2 0.8-0.95",
+   "runs": 105,
+   "mean_PP_H4": 0.914,
+   "called_shared_H4_gt_0.8": 0.886,
+   "called_distinct_H3_gt_0.8": 0.01
+  },
+  {
+   "scenario": "different variants, r2 < 0.1",
+   "runs": 150,
+   "mean_PP_H4": 0.0,
+   "called_shared_H4_gt_0.8": 0.0,
+   "called_distinct_H3_gt_0.8": 0.98
+  },
+  {
+   "scenario": "same causal variant, strong eQTL",
+   "runs": 150,
+   "mean_PP_H4": 0.973,
+   "called_shared_H4_gt_0.8": 0.973,
+   "called_distinct_H3_gt_0.8": 0.0
+  },
+  {
+   "scenario": "same causal variant, weak eQTL (4% of variance)",
+   "runs": 150,
+   "mean_PP_H4": 0.78,
+   "called_shared_H4_gt_0.8": 0.673,
+   "called_distinct_H3_gt_0.8": 0.0
+  }
+ ],
+ "sort1_real_locus": [
+  {
+   "tissue": "liver",
+   "gene": "SORT1",
+   "n_eqtl": 208,
+   "snps": 1242,
+   "min_p_eqtl": 3.25351e-54,
+   "min_p_gwas": 0,
+   "PP_H3_distinct": 0.0,
+   "PP_H4_shared": 1.0,
+   "lead_eqtl": "rs12740374",
+   "lead_eqtl_p": 3.25351e-54,
+   "lead_eqtl_gwas_p": 0.0,
+   "wald_ratio_LDL_per_SD_expression": -0.112,
+   "wald_se": 0.001
+  },
+  {
+   "tissue": "liver",
+   "gene": "PSRC1",
+   "n_eqtl": 208,
+   "snps": 1242,
+   "min_p_eqtl": 7.7667e-37,
+   "min_p_gwas": 0,
+   "PP_H3_distinct": 0.0,
+   "PP_H4_shared": 1.0,
+   "lead_eqtl": "rs12740374",
+   "lead_eqtl_p": 7.7667e-37,
+   "lead_eqtl_gwas_p": 0.0,
+   "wald_ratio_LDL_per_SD_expression": -0.116,
+   "wald_se": 0.001
+  },
+  {
+   "tissue": "liver",
+   "gene": "CELSR2",
+   "n_eqtl": 208,
+   "snps": 1242,
+   "min_p_eqtl": 1.8691299999999998e-37,
+   "min_p_gwas": 0,
+   "PP_H3_distinct": 0.0,
+   "PP_H4_shared": 1.0,
+   "lead_eqtl": "rs12740374",
+   "lead_eqtl_p": 1.8691299999999998e-37,
+   "lead_eqtl_gwas_p": 0.0,
+   "wald_ratio_LDL_per_SD_expression": -0.132,
+   "wald_se": 0.001
+  },
+  {
+   "tissue": "blood",
+   "gene": "SORT1",
+   "n_eqtl": 670,
+   "snps": 1401,
+   "min_p_eqtl": 0.00350544,
+   "min_p_gwas": 0,
+   "PP_H3_distinct": 0.113,
+   "PP_H4_shared": 0.037,
+   "lead_eqtl": "rs1889470",
+   "lead_eqtl_p": 0.00350544,
+   "lead_eqtl_gwas_p": 9.81e-11,
+   "wald_ratio_LDL_per_SD_expression": -0.138,
+   "wald_se": 0.021
+  },
+  {
+   "tissue": "blood",
+   "gene": "PSRC1",
+   "n_eqtl": 670,
+   "snps": 1401,
+   "min_p_eqtl": 2.28563e-05,
+   "min_p_gwas": 0,
+   "PP_H3_distinct": 0.092,
+   "PP_H4_shared": 0.837,
+   "lead_eqtl": "rs629301",
+   "lead_eqtl_p": 2.28563e-05,
+   "lead_eqtl_gwas_p": 0.0,
+   "wald_ratio_LDL_per_SD_expression": -0.722,
+   "wald_se": 0.008
+  },
+  {
+   "tissue": "blood",
+   "gene": "CELSR2",
+   "n_eqtl": 670,
+   "snps": 1401,
+   "min_p_eqtl": 1.31744e-07,
+   "min_p_gwas": 0,
+   "PP_H3_distinct": 0.972,
+   "PP_H4_shared": 0.002,
+   "lead_eqtl": "rs12081530",
+   "lead_eqtl_p": 1.31744e-07,
+   "lead_eqtl_gwas_p": 4.05e-201,
+   "wald_ratio_LDL_per_SD_expression": 0.166,
+   "wald_se": 0.005
+  },
+  {
+   "tissue": "LCL",
+   "gene": "SORT1",
+   "n_eqtl": 147,
+   "snps": 1208,
+   "min_p_eqtl": 0.00100478,
+   "min_p_gwas": 0,
+   "PP_H3_distinct": 0.186,
+   "PP_H4_shared": 0.059,
+   "lead_eqtl": "rs11102981",
+   "lead_eqtl_p": 0.00100478,
+   "lead_eqtl_gwas_p": 5.7299999999999996e-40,
+   "wald_ratio_LDL_per_SD_expression": 0.057,
+   "wald_se": 0.004
+  },
+  {
+   "tissue": "LCL",
+   "gene": "PSRC1",
+   "n_eqtl": 147,
+   "snps": 1208,
+   "min_p_eqtl": 0.00234555,
+   "min_p_gwas": 0,
+   "PP_H3_distinct": 0.089,
+   "PP_H4_shared": 0.082,
+   "lead_eqtl": "rs78421006",
+   "lead_eqtl_p": 0.00234555,
+   "lead_eqtl_gwas_p": 1.1e-16,
+   "wald_ratio_LDL_per_SD_expression": -0.044,
+   "wald_se": 0.005
+  },
+  {
+   "tissue": "LCL",
+   "gene": "CELSR2",
+   "n_eqtl": 147,
+   "snps": 1208,
+   "min_p_eqtl": 0.00407094,
+   "min_p_gwas": 0,
+   "PP_H3_distinct": 0.111,
+   "PP_H4_shared": 0.057,
+   "lead_eqtl": "rs72074532",
+   "lead_eqtl_p": 0.00407094,
+   "lead_eqtl_gwas_p": 0.765,
+   "wald_ratio_LDL_per_SD_expression": 0.002,
+   "wald_se": 0.005
+  },
+  {
+   "tissue": "muscle",
+   "gene": "SORT1",
+   "n_eqtl": 702,
+   "snps": 1379,
+   "min_p_eqtl": 0.00452037,
+   "min_p_gwas": 0,
+   "PP_H3_distinct": 0.11,
+   "PP_H4_shared": 0.034,
+   "lead_eqtl": "rs60895407",
+   "lead_eqtl_p": 0.00452037,
+   "lead_eqtl_gwas_p": 0.999,
+   "wald_ratio_LDL_per_SD_expression": 0.0,
+   "wald_se": 0.036
+  },
+  {
+   "tissue": "muscle",
+   "gene": "PSRC1",
+   "n_eqtl": 702,
+   "snps": 1379,
+   "min_p_eqtl": 1.74574e-09,
+   "min_p_gwas": 0,
+   "PP_H3_distinct": 0.033,
+   "PP_H4_shared": 0.967,
+   "lead_eqtl": "rs629301",
+   "lead_eqtl_p": 1.74574e-09,
+   "lead_eqtl_gwas_p": 0.0,
+   "wald_ratio_LDL_per_SD_expression": -0.431,
+   "wald_se": 0.005
+  },
+  {
+   "tissue": "muscle",
+   "gene": "CELSR2",
+   "n_eqtl": 702,
+   "snps": 1379,
+   "min_p_eqtl": 5.475720000000001e-47,
+   "min_p_gwas": 0,
+   "PP_H3_distinct": 0.0,
+   "PP_H4_shared": 1.0,
+   "lead_eqtl": "rs12740374",
+   "lead_eqtl_p": 5.475720000000001e-47,
+   "lead_eqtl_gwas_p": 0.0,
+   "wald_ratio_LDL_per_SD_expression": -0.267,
+   "wald_se": 0.003
+  },
+  {
+   "tissue": "adipose",
+   "gene": "SORT1",
+   "n_eqtl": 581,
+   "snps": 1398,
+   "min_p_eqtl": 5.33835e-06,
+   "min_p_gwas": 0,
+   "PP_H3_distinct": 0.102,
+   "PP_H4_shared": 0.053,
+   "lead_eqtl": "rs112939096",
+   "lead_eqtl_p": 5.33835e-06,
+   "lead_eqtl_gwas_p": 0.000746,
+   "wald_ratio_LDL_per_SD_expression": 0.112,
+   "wald_se": 0.033
+  },
+  {
+   "tissue": "adipose",
+   "gene": "PSRC1",
+   "n_eqtl": 581,
+   "snps": 1398,
+   "min_p_eqtl": 1.25089e-15,
+   "min_p_gwas": 0,
+   "PP_H3_distinct": 1.0,
+   "PP_H4_shared": 0.0,
+   "lead_eqtl": "rs3738777",
+   "lead_eqtl_p": 1.25089e-15,
+   "lead_eqtl_gwas_p": 2.97e-25,
+   "wald_ratio_LDL_per_SD_expression": -0.036,
+   "wald_se": 0.003
+  },
+  {
+   "tissue": "adipose",
+   "gene": "CELSR2",
+   "n_eqtl": 581,
+   "snps": 1398,
+   "min_p_eqtl": 4.59058e-06,
+   "min_p_gwas": 0,
+   "PP_H3_distinct": 0.65,
+   "PP_H4_shared": 0.014,
+   "lead_eqtl": "rs4268379",
+   "lead_eqtl_p": 4.59058e-06,
+   "lead_eqtl_gwas_p": 7.690000000000001e-163,
+   "wald_ratio_LDL_per_SD_expression": 0.186,
+   "wald_se": 0.007
+  }
+ ]
+}
