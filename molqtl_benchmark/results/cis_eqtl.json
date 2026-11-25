@@ -1,0 +1,25 @@
+{
+ "genes_tested": 897,
+ "n_train": 261,
+ "eGenes_FDR5pct": 141,
+ "EUR_test": {
+  "n_people": 112,
+  "lead_variants_testable": 141,
+  "lead_variants_monomorphic_or_missing": 0,
+  "same_direction": 0.936,
+  "replicated_p<0.05_same_direction": 0.773,
+  "replicated_as_fraction_of_all_eGenes": 0.773,
+  "median_abs_effect_ratio_vs_train": 0.86,
+  "effect_size_correlation": 0.937
+ },
+ "YRI": {
+  "n_people": 89,
+  "lead_variants_testable": 126,
+  "lead_variants_monomorphic_or_missing": 15,
+  "same_direction": 0.857,
+  "replicated_p<0.05_same_direction": 0.373,
+  "replicated_as_fraction_of_all_eGenes": 0.333,
+  "median_abs_effect_ratio_vs_train": 0.59,
+  "effect_size_correlation": 0.711
+ }
+}
