@@ -1,0 +1,57 @@
+{
+ "ref_cells_original": 66613,
+ "ref_cells_after_study_removal": 54320,
+ "ref_cells_training": 52891,
+ "ref_donors": 13,
+ "ref_fine_labels": 34,
+ "queries": {
+  "q_triana_wta": {
+   "cells": 13165,
+   "hvg_missing_zero_filled": 40,
+   "donors": [
+    "BM3"
+   ],
+   "coarse_counts": {
+    "T": 4047,
+    "B mature": 2947,
+    "HSPC": 1257,
+    "Neutrophil lineage": 1074,
+    "Ery/Mk": 1048,
+    "B progenitor": 980,
+    "NK": 903,
+    "cDC": 457,
+    "Mono/Mac": 260,
+    "pDC": 103,
+    "Mast/Baso": 59,
+    "Plasma": 30
+   }
+  },
+  "q_ts_bm": {
+   "cells": 23981,
+   "hvg_missing_zero_filled": 3,
+   "donors": [
+    "TSP11",
+    "TSP14",
+    "TSP2",
+    "TSP21",
+    "TSP25",
+    "TSP27"
+   ],
+   "coarse_counts": {
+    "Neutrophil lineage": 8732,
+    "T": 5144,
+    "HSPC": 2638,
+    "Mono/Mac": 2443,
+    "B mature": 1679,
+    "Ery/Mk": 1279,
+    "Plasma": 1073,
+    "NK": 845,
+    "cDC": 107,
+    "Mast/Baso": 23,
+    "Stroma": 9,
+    "pDC": 9
+   }
+  }
+ },
+ "donor_overlap_ref_vs_query": []
+}
