@@ -1,0 +1,1 @@
+{"baseline_feature_importance_note": "HistGBM", "features": ["MFE_full", "MFE_3prime20", "GC", "uAUG_count", "len", "fA", "fC", "fG", "fT"], "n_baseline_train": 60000}

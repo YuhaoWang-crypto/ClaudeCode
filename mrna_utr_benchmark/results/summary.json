@@ -1,0 +1,71 @@
+{
+ "random_test_held_out": {
+  "CNN_Optimus": {
+   "pearson_r": 0.966,
+   "r2": 0.934,
+   "spearman": 0.951,
+   "n": 20000
+  },
+  "biophysical_baseline": {
+   "pearson_r": 0.736,
+   "r2": 0.542,
+   "spearman": 0.682,
+   "n": 20000
+  }
+ },
+ "human_5UTRs_endogenous": {
+  "CNN_Optimus": {
+   "pearson_r": 0.864,
+   "r2": 0.746,
+   "spearman": 0.848,
+   "n": 41862
+  },
+  "biophysical_baseline": {
+   "pearson_r": 0.749,
+   "r2": 0.561,
+   "spearman": 0.763,
+   "n": 41862
+  }
+ },
+ "human_5UTRs_high_read_depth": {
+  "CNN_Optimus": {
+   "pearson_r": 0.896,
+   "r2": 0.804,
+   "spearman": 0.881,
+   "n": 20931
+  },
+  "n_note": "top 50% by reads"
+ },
+ "designed_sergii_utrs": {
+  "pearson_r": 0.933,
+  "r2": 0.87,
+  "spearman": 0.892,
+  "n": 4882
+ },
+ "designed_step_worst_to_best_no_uatg": {
+  "pearson_r": 0.865,
+  "r2": 0.748,
+  "spearman": 0.83,
+  "n": 4403
+ },
+ "designed_snv": {
+  "pearson_r": 0.805,
+  "r2": 0.649,
+  "spearman": 0.789,
+  "n": 8738
+ },
+ "uAUG_effect": {
+  "random_test": {
+   "measured_MRL_no_uAUG": 7.7,
+   "measured_MRL_with_uAUG": 4.86,
+   "CNN_MRL_no_uAUG": 0.72,
+   "CNN_MRL_with_uAUG": -1.0
+  },
+  "human": {
+   "measured_MRL_no_uAUG": 6.07,
+   "measured_MRL_with_uAUG": 4.27,
+   "CNN_MRL_no_uAUG": 0.34,
+   "CNN_MRL_with_uAUG": -0.84
+  }
+ }
+}
