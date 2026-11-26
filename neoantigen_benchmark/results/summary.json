@@ -1,0 +1,157 @@
+{
+ "A_presentation_vs_decoys": {
+  "n_epitopes": 12752,
+  "n_decoys": 38256,
+  "AUROC_presentation_score": 0.945,
+  "AUROC_processing_score": 0.79,
+  "AUROC_neg_affinity": 0.943,
+  "decoy_FPR_at_98th_decoy_pctile": 0.02,
+  "epitope_recall_at_2pct_decoy_FPR": 0.644,
+  "fraction_epitopes_strong_binder_<500nM": 0.755,
+  "fraction_decoys_strong_binder_<500nM": 0.035
+ },
+ "B_immunogenicity_gap_all": {
+  "n": 46799,
+  "n_pos": 12752,
+  "n_neg": 34047,
+  "AUROC_presentation_for_immunogenicity": 0.576,
+  "AUROC_affinity_for_immunogenicity": 0.594,
+  "AUROC_processing_for_immunogenicity": 0.524,
+  "among_predicted_strong_binders": {
+   "n": 33009,
+   "n_pos": 9625,
+   "n_neg": 23384,
+   "AUROC_presentation": 0.593,
+   "AUROC_affinity": 0.629,
+   "pos_rate_overall": 0.272,
+   "pos_rate_among_strong_binders": 0.292
+  }
+ },
+ "B_by_allele": {
+  "HLA-A*02:01": {
+   "n": 9701,
+   "n_pos": 4765,
+   "n_neg": 4936,
+   "AUROC_presentation_for_immunogenicity": 0.582,
+   "AUROC_affinity_for_immunogenicity": 0.577,
+   "AUROC_processing_for_immunogenicity": 0.565,
+   "among_predicted_strong_binders": {
+    "n": 7254,
+    "n_pos": 3735,
+    "n_neg": 3519,
+    "AUROC_presentation": 0.582,
+    "AUROC_affinity": 0.578,
+    "pos_rate_overall": 0.491,
+    "pos_rate_among_strong_binders": 0.515
+   }
+  },
+  "HLA-A*11:01": {
+   "n": 3258,
+   "n_pos": 537,
+   "n_neg": 2721,
+   "AUROC_presentation_for_immunogenicity": 0.584,
+   "AUROC_affinity_for_immunogenicity": 0.58,
+   "AUROC_processing_for_immunogenicity": 0.576,
+   "among_predicted_strong_binders": {
+    "n": 2520,
+    "n_pos": 427,
+    "n_neg": 2093,
+    "AUROC_presentation": 0.621,
+    "AUROC_affinity": 0.616,
+    "pos_rate_overall": 0.165,
+    "pos_rate_among_strong_binders": 0.169
+   }
+  },
+  "HLA-A*24:02": {
+   "n": 2991,
+   "n_pos": 939,
+   "n_neg": 2052,
+   "AUROC_presentation_for_immunogenicity": 0.481,
+   "AUROC_affinity_for_immunogenicity": 0.483,
+   "AUROC_processing_for_immunogenicity": 0.509,
+   "among_predicted_strong_binders": {
+    "n": 2273,
+    "n_pos": 657,
+    "n_neg": 1616,
+    "AUROC_presentation": 0.551,
+    "AUROC_affinity": 0.558,
+    "pos_rate_overall": 0.314,
+    "pos_rate_among_strong_binders": 0.289
+   }
+  },
+  "HLA-A*03:01": {
+   "n": 2694,
+   "n_pos": 454,
+   "n_neg": 2240,
+   "AUROC_presentation_for_immunogenicity": 0.65,
+   "AUROC_affinity_for_immunogenicity": 0.648,
+   "AUROC_processing_for_immunogenicity": 0.603,
+   "among_predicted_strong_binders": {
+    "n": 1970,
+    "n_pos": 383,
+    "n_neg": 1587,
+    "AUROC_presentation": 0.645,
+    "AUROC_affinity": 0.645,
+    "pos_rate_overall": 0.169,
+    "pos_rate_among_strong_binders": 0.194
+   }
+  },
+  "HLA-B*07:02": {
+   "n": 2123,
+   "n_pos": 725,
+   "n_neg": 1398,
+   "AUROC_presentation_for_immunogenicity": 0.543,
+   "AUROC_affinity_for_immunogenicity": 0.529,
+   "AUROC_processing_for_immunogenicity": 0.569,
+   "among_predicted_strong_binders": {
+    "n": 1589,
+    "n_pos": 558,
+    "n_neg": 1031,
+    "AUROC_presentation": 0.54,
+    "AUROC_affinity": 0.527,
+    "pos_rate_overall": 0.341,
+    "pos_rate_among_strong_binders": 0.351
+   }
+  },
+  "HLA-A*01:01": {
+   "n": 1802,
+   "n_pos": 513,
+   "n_neg": 1289,
+   "AUROC_presentation_for_immunogenicity": 0.534,
+   "AUROC_affinity_for_immunogenicity": 0.542,
+   "AUROC_processing_for_immunogenicity": 0.524,
+   "among_predicted_strong_binders": {
+    "n": 1312,
+    "n_pos": 376,
+    "n_neg": 936,
+    "AUROC_presentation": 0.574,
+    "AUROC_affinity": 0.586,
+    "pos_rate_overall": 0.285,
+    "pos_rate_among_strong_binders": 0.287
+   }
+  }
+ },
+ "C_presentation_vs_decoys_note": "decoys are random proteome; presentation AUROC is not affected by IEDB recency",
+ "C_immunogenicity_gap_refs_2021plus": {
+  "n": 9657,
+  "n_pos": 5136,
+  "n_neg": 4521,
+  "AUROC_presentation_for_immunogenicity": 0.504,
+  "AUROC_affinity_for_immunogenicity": 0.492,
+  "AUROC_processing_for_immunogenicity": 0.528,
+  "among_predicted_strong_binders": {
+   "n": 7039,
+   "n_pos": 3700,
+   "n_neg": 3339,
+   "AUROC_presentation": 0.521,
+   "AUROC_affinity": 0.504,
+   "pos_rate_overall": 0.532,
+   "pos_rate_among_strong_binders": 0.526
+  }
+ },
+ "C_presentation_2021plus": {
+  "n_epitopes": 5136,
+  "AUROC_presentation": 0.94,
+  "epitope_recall_at_2pct_decoy_FPR": 0.602
+ }
+}
