@@ -1,0 +1,130 @@
+{
+ "chromosomes_used": [
+  2,
+  3,
+  7
+ ],
+ "n_samples": 2504,
+ "variants_scored": {
+  "T2D": 1543,
+  "LDL": 320,
+  "Height": 659,
+  "CAD": 15380
+ },
+ "variants_total_in_panel": {
+  "T2D": 7502,
+  "LDL": 2335,
+  "Height": 3290,
+  "CAD": 75028
+ },
+ "by_ancestry": {
+  "T2D": {
+   "EUR": {
+    "mean_PRS_z_vs_EUR": 0.0,
+    "sd": 1.0,
+    "pct_above_EUR_95th_pctile": 3.6
+   },
+   "SAS": {
+    "mean_PRS_z_vs_EUR": 1.45,
+    "sd": 0.99,
+    "pct_above_EUR_95th_pctile": 42.3
+   },
+   "AMR": {
+    "mean_PRS_z_vs_EUR": 0.79,
+    "sd": 0.99,
+    "pct_above_EUR_95th_pctile": 20.2
+   },
+   "EAS": {
+    "mean_PRS_z_vs_EUR": 2.76,
+    "sd": 0.81,
+    "pct_above_EUR_95th_pctile": 90.9
+   },
+   "AFR": {
+    "mean_PRS_z_vs_EUR": 1.36,
+    "sd": 1.0,
+    "pct_above_EUR_95th_pctile": 38.3
+   }
+  },
+  "LDL": {
+   "EUR": {
+    "mean_PRS_z_vs_EUR": 0.0,
+    "sd": 1.0,
+    "pct_above_EUR_95th_pctile": 3.6
+   },
+   "SAS": {
+    "mean_PRS_z_vs_EUR": -0.09,
+    "sd": 0.69,
+    "pct_above_EUR_95th_pctile": 1.0
+   },
+   "AMR": {
+    "mean_PRS_z_vs_EUR": 0.03,
+    "sd": 0.8,
+    "pct_above_EUR_95th_pctile": 1.7
+   },
+   "EAS": {
+    "mean_PRS_z_vs_EUR": 0.13,
+    "sd": 0.33,
+    "pct_above_EUR_95th_pctile": 0.2
+   },
+   "AFR": {
+    "mean_PRS_z_vs_EUR": -0.54,
+    "sd": 0.45,
+    "pct_above_EUR_95th_pctile": 0.0
+   }
+  },
+  "Height": {
+   "EUR": {
+    "mean_PRS_z_vs_EUR": -0.0,
+    "sd": 1.0,
+    "pct_above_EUR_95th_pctile": 6.2
+   },
+   "SAS": {
+    "mean_PRS_z_vs_EUR": -0.73,
+    "sd": 0.91,
+    "pct_above_EUR_95th_pctile": 0.4
+   },
+   "AMR": {
+    "mean_PRS_z_vs_EUR": -0.41,
+    "sd": 0.99,
+    "pct_above_EUR_95th_pctile": 2.6
+   },
+   "EAS": {
+    "mean_PRS_z_vs_EUR": -0.73,
+    "sd": 0.88,
+    "pct_above_EUR_95th_pctile": 0.4
+   },
+   "AFR": {
+    "mean_PRS_z_vs_EUR": 0.68,
+    "sd": 0.84,
+    "pct_above_EUR_95th_pctile": 10.0
+   }
+  },
+  "CAD": {
+   "EUR": {
+    "mean_PRS_z_vs_EUR": 0.0,
+    "sd": 1.0,
+    "pct_above_EUR_95th_pctile": 5.0
+   },
+   "SAS": {
+    "mean_PRS_z_vs_EUR": 0.66,
+    "sd": 1.0,
+    "pct_above_EUR_95th_pctile": 16.6
+   },
+   "AMR": {
+    "mean_PRS_z_vs_EUR": 0.24,
+    "sd": 0.94,
+    "pct_above_EUR_95th_pctile": 6.1
+   },
+   "EAS": {
+    "mean_PRS_z_vs_EUR": 0.72,
+    "sd": 0.93,
+    "pct_above_EUR_95th_pctile": 15.3
+   },
+   "AFR": {
+    "mean_PRS_z_vs_EUR": 0.72,
+    "sd": 0.67,
+    "pct_above_EUR_95th_pctile": 8.8
+   }
+  }
+ }
+}

@@ -1,0 +1,256 @@
+{
+ "prs_ancestry": {
+  "chromosomes_used": [
+   2,
+   3,
+   7
+  ],
+  "n_samples": 2504,
+  "variants_scored": {
+   "T2D": 1543,
+   "LDL": 320,
+   "Height": 659,
+   "CAD": 15380
+  },
+  "variants_total_in_panel": {
+   "T2D": 7502,
+   "LDL": 2335,
+   "Height": 3290,
+   "CAD": 75028
+  },
+  "by_ancestry": {
+   "T2D": {
+    "EUR": {
+     "mean_PRS_z_vs_EUR": 0.0,
+     "sd": 1.0,
+     "pct_above_EUR_95th_pctile": 3.6
+    },
+    "SAS": {
+     "mean_PRS_z_vs_EUR": 1.45,
+     "sd": 0.99,
+     "pct_above_EUR_95th_pctile": 42.3
+    },
+    "AMR": {
+     "mean_PRS_z_vs_EUR": 0.79,
+     "sd": 0.99,
+     "pct_above_EUR_95th_pctile": 20.2
+    },
+    "EAS": {
+     "mean_PRS_z_vs_EUR": 2.76,
+     "sd": 0.81,
+     "pct_above_EUR_95th_pctile": 90.9
+    },
+    "AFR": {
+     "mean_PRS_z_vs_EUR": 1.36,
+     "sd": 1.0,
+     "pct_above_EUR_95th_pctile": 38.3
+    }
+   },
+   "LDL": {
+    "EUR": {
+     "mean_PRS_z_vs_EUR": 0.0,
+     "sd": 1.0,
+     "pct_above_EUR_95th_pctile": 3.6
+    },
+    "SAS": {
+     "mean_PRS_z_vs_EUR": -0.09,
+     "sd": 0.69,
+     "pct_above_EUR_95th_pctile": 1.0
+    },
+    "AMR": {
+     "mean_PRS_z_vs_EUR": 0.03,
+     "sd": 0.8,
+     "pct_above_EUR_95th_pctile": 1.7
+    },
+    "EAS": {
+     "mean_PRS_z_vs_EUR": 0.13,
+     "sd": 0.33,
+     "pct_above_EUR_95th_pctile": 0.2
+    },
+    "AFR": {
+     "mean_PRS_z_vs_EUR": -0.54,
+     "sd": 0.45,
+     "pct_above_EUR_95th_pctile": 0.0
+    }
+   },
+   "Height": {
+    "EUR": {
+     "mean_PRS_z_vs_EUR": -0.0,
+     "sd": 1.0,
+     "pct_above_EUR_95th_pctile": 6.2
+    },
+    "SAS": {
+     "mean_PRS_z_vs_EUR": -0.73,
+     "sd": 0.91,
+     "pct_above_EUR_95th_pctile": 0.4
+    },
+    "AMR": {
+     "mean_PRS_z_vs_EUR": -0.41,
+     "sd": 0.99,
+     "pct_above_EUR_95th_pctile": 2.6
+    },
+    "EAS": {
+     "mean_PRS_z_vs_EUR": -0.73,
+     "sd": 0.88,
+     "pct_above_EUR_95th_pctile": 0.4
+    },
+    "AFR": {
+     "mean_PRS_z_vs_EUR": 0.68,
+     "sd": 0.84,
+     "pct_above_EUR_95th_pctile": 10.0
+    }
+   },
+   "CAD": {
+    "EUR": {
+     "mean_PRS_z_vs_EUR": 0.0,
+     "sd": 1.0,
+     "pct_above_EUR_95th_pctile": 5.0
+    },
+    "SAS": {
+     "mean_PRS_z_vs_EUR": 0.66,
+     "sd": 1.0,
+     "pct_above_EUR_95th_pctile": 16.6
+    },
+    "AMR": {
+     "mean_PRS_z_vs_EUR": 0.24,
+     "sd": 0.94,
+     "pct_above_EUR_95th_pctile": 6.1
+    },
+    "EAS": {
+     "mean_PRS_z_vs_EUR": 0.72,
+     "sd": 0.93,
+     "pct_above_EUR_95th_pctile": 15.3
+    },
+    "AFR": {
+     "mean_PRS_z_vs_EUR": 0.72,
+     "sd": 0.67,
+     "pct_above_EUR_95th_pctile": 8.8
+    }
+   }
+  }
+ },
+ "prognostic_panel": {
+  "per_cancer_mean": {
+   "BRCA": {
+    "rep": 2.0,
+    "n_train": 649.0,
+    "n_test": 432.0,
+    "panel_size": 44.667,
+    "c_train": 0.817,
+    "c_test_panel": 0.596,
+    "c_test_clinical": 0.731,
+    "c_test_both": 0.694
+   },
+   "KIRC": {
+    "rep": 2.0,
+    "n_train": 319.0,
+    "n_test": 212.0,
+    "panel_size": 29.0,
+    "c_train": 0.769,
+    "c_test_panel": 0.716,
+    "c_test_clinical": 0.748,
+    "c_test_both": 0.779
+   },
+   "LUAD": {
+    "rep": 2.0,
+    "n_train": 301.0,
+    "n_test": 201.0,
+    "panel_size": 28.667,
+    "c_train": 0.757,
+    "c_test_panel": 0.609,
+    "c_test_clinical": 0.671,
+    "c_test_both": 0.658
+   },
+   "LUSC": {
+    "rep": 2.0,
+    "n_train": 296.0,
+    "n_test": 198.0,
+    "panel_size": 4.667,
+    "c_train": 0.66,
+    "c_test_panel": 0.534,
+    "c_test_clinical": 0.573,
+    "c_test_both": 0.562
+   }
+  },
+  "cross_cancer_transfer_cindex": [
+   {
+    "train": "BRCA",
+    "test": "KIRC",
+    "c_index": 0.443
+   },
+   {
+    "train": "BRCA",
+    "test": "LUAD",
+    "c_index": 0.549
+   },
+   {
+    "train": "BRCA",
+    "test": "LUSC",
+    "c_index": 0.474
+   },
+   {
+    "train": "KIRC",
+    "test": "BRCA",
+    "c_index": 0.546
+   },
+   {
+    "train": "KIRC",
+    "test": "LUAD",
+    "c_index": 0.579
+   },
+   {
+    "train": "KIRC",
+    "test": "LUSC",
+    "c_index": 0.486
+   },
+   {
+    "train": "LUAD",
+    "test": "BRCA",
+    "c_index": 0.551
+   },
+   {
+    "train": "LUAD",
+    "test": "KIRC",
+    "c_index": 0.571
+   },
+   {
+    "train": "LUAD",
+    "test": "LUSC",
+    "c_index": 0.531
+   },
+   {
+    "train": "LUSC",
+    "test": "BRCA",
+    "c_index": 0.439
+   },
+   {
+    "train": "LUSC",
+    "test": "KIRC",
+    "c_index": 0.453
+   },
+   {
+    "train": "LUSC",
+    "test": "LUAD",
+    "c_index": 0.556
+   }
+  ],
+  "null_permuted_cindex": [
+   {
+    "cancer": "LUAD",
+    "null_permuted_c_index": NaN
+   },
+   {
+    "cancer": "LUSC",
+    "null_permuted_c_index": NaN
+   },
+   {
+    "cancer": "KIRC",
+    "null_permuted_c_index": 0.456
+   },
+   {
+    "cancer": "BRCA",
+    "null_permuted_c_index": NaN
+   }
+  ]
+ }
+}
