@@ -1,0 +1,53 @@
+{
+ "n_variants": 1900,
+ "n_scored_by_spliceai": 1883,
+ "groups": {
+  "path_canonical_splice": 700,
+  "path_intronic_noncanonical": 300,
+  "benign_synonymous": 500,
+  "benign_other": 400
+ },
+ "recall_at_delta_0.2": {
+  "path_canonical_splice": 0.997,
+  "path_intronic_noncanonical": 0.26,
+  "benign_false_positive_rate": 0.024
+ },
+ "recall_at_delta_0.5": {
+  "path_canonical_splice": 0.981,
+  "path_intronic_noncanonical": 0.147,
+  "benign_false_positive_rate": 0.007
+ },
+ "recall_at_delta_0.8": {
+  "path_canonical_splice": 0.919,
+  "path_intronic_noncanonical": 0.073,
+  "benign_false_positive_rate": 0.004
+ },
+ "AUROC": {
+  "canonical_splice_vs_benign": 0.998,
+  "intronic_noncanonical_vs_benign": 0.689,
+  "all_pathogenic_vs_benign": 0.905
+ },
+ "median_delta": {
+  "path_canonical_splice": 0.99,
+  "path_intronic_noncanonical": 0.02,
+  "benign_synonymous": 0.0,
+  "benign_other": 0.0
+ },
+ "pathogenic_detection_by_distance_to_splice_event": {
+  "0-2 (canonical)": {
+   "n": 734,
+   "median_delta": 0.99,
+   "pct_detected_delta>=0.5": 94.1
+  },
+  "3-10": {
+   "n": 90,
+   "median_delta": 0.15,
+   "pct_detected_delta>=0.5": 35.6
+  },
+  "11-50": {
+   "n": 176,
+   "median_delta": 0.01,
+   "pct_detected_delta>=0.5": 4.5
+  }
+ }
+}
