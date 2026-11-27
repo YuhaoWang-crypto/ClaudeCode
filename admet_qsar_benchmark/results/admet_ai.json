@@ -1,0 +1,34 @@
+{
+ "Lipophilicity_AstraZeneca": {
+  "n_test": 840,
+  "spearman": 0.94,
+  "pearson_r2": 0.894
+ },
+ "Solubility_AqSolDB": {
+  "n_test": 1996,
+  "spearman": 0.941,
+  "pearson_r2": 0.9
+ },
+ "Caco2_Wang": {
+  "n_test": 182,
+  "spearman": 0.901,
+  "pearson_r2": 0.848
+ },
+ "hERG": {
+  "n_test": 132,
+  "AUROC": 0.911
+ },
+ "BBB_Martins": {
+  "n_test": 406,
+  "AUROC": 0.95
+ },
+ "CYP2D6_Veith": {
+  "n_test": 2626,
+  "AUROC": 0.935
+ },
+ "Clearance_Hepatocyte_AZ": {
+  "n_test": 243,
+  "spearman": 0.673,
+  "pearson_r2": 0.474
+ }
+}

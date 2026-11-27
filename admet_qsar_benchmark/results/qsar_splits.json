@@ -1,0 +1,100 @@
+{
+ "Caco2_Wang": {
+  "n": 910,
+  "n_scaffolds": 450,
+  "test_frac": 0.19,
+  "random_split": {
+   "spearman": 0.779,
+   "pearson_r2": 0.644
+  },
+  "scaffold_split": {
+   "spearman": 0.659,
+   "pearson_r2": 0.473
+  }
+ },
+ "Lipophilicity_AstraZeneca": {
+  "n": 4200,
+  "n_scaffolds": 2408,
+  "test_frac": 0.21,
+  "random_split": {
+   "spearman": 0.742,
+   "pearson_r2": 0.586
+  },
+  "scaffold_split": {
+   "spearman": 0.649,
+   "pearson_r2": 0.446
+  }
+ },
+ "Solubility_AqSolDB": {
+  "n": 9980,
+  "n_scaffolds": 1947,
+  "test_frac": 0.31,
+  "random_split": {
+   "spearman": 0.81,
+   "pearson_r2": 0.672
+  },
+  "scaffold_split": {
+   "spearman": 0.538,
+   "pearson_r2": 0.286
+  }
+ },
+ "Half_Life_Obach": {
+  "n": 667,
+  "n_scaffolds": 445,
+  "test_frac": 0.19,
+  "random_split": {
+   "spearman": 0.324,
+   "pearson_r2": 0.234
+  },
+  "scaffold_split": {
+   "spearman": 0.275,
+   "pearson_r2": 0.072
+  }
+ },
+ "Clearance_Hepatocyte_AZ": {
+  "n": 1213,
+  "n_scaffolds": 745,
+  "test_frac": 0.19,
+  "random_split": {
+   "spearman": 0.554,
+   "pearson_r2": 0.246
+  },
+  "scaffold_split": {
+   "spearman": 0.446,
+   "pearson_r2": 0.262
+  }
+ },
+ "hERG": {
+  "n": 655,
+  "n_scaffolds": 393,
+  "test_frac": 0.21,
+  "random_split": {
+   "AUROC": 0.927
+  },
+  "scaffold_split": {
+   "AUROC": 0.847
+  }
+ },
+ "CYP2D6_Veith": {
+  "n": 13130,
+  "n_scaffolds": 7778,
+  "test_frac": 0.19,
+  "random_split": {
+   "AUROC": 0.871
+  },
+  "scaffold_split": {
+   "AUROC": 0.838
+  }
+ },
+ "BBB_Martins": {
+  "n": 2030,
+  "n_scaffolds": 1025,
+  "test_frac": 0.15,
+  "random_split": {
+   "AUROC": 0.917
+  },
+  "scaffold_split": {
+   "AUROC": 0.93
+  }
+ }
+}

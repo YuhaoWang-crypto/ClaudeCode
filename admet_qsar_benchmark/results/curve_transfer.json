@@ -1,0 +1,64 @@
+{
+ "learning_curve": {
+  "Lipophilicity_AstraZeneca": {
+   "1": 0.0,
+   "3": 0.061,
+   "10": 0.129,
+   "30": 0.101,
+   "100": 0.286,
+   "300": 0.429,
+   "1000": 0.596,
+   "3600": 0.722
+  },
+  "Solubility_AqSolDB": {
+   "1": 0.0,
+   "3": 0.16,
+   "10": 0.315,
+   "30": 0.346,
+   "100": 0.528,
+   "300": 0.606,
+   "1000": 0.708,
+   "9380": 0.862
+  }
+ },
+ "cross_endpoint_transfer_spearman": {
+  "Lipophilic->Solubility": -0.466,
+  "Lipophilic->Caco2_Wang": 0.29,
+  "Lipophilic->Clearance_": 0.358,
+  "Solubility->Lipophilic": -0.229,
+  "Solubility->Caco2_Wang": -0.114,
+  "Solubility->Clearance_": -0.006,
+  "Caco2_Wang->Lipophilic": 0.116,
+  "Caco2_Wang->Solubility": -0.083,
+  "Caco2_Wang->Clearance_": 0.093,
+  "Clearance_->Lipophilic": 0.144,
+  "Clearance_->Solubility": -0.136,
+  "Clearance_->Caco2_Wang": 0.004
+ },
+ "endpoint_label_correlation_on_shared_molecules": {
+  "Lipophilic~Solubility": {
+   "n_shared": 204,
+   "spearman": -0.551
+  },
+  "Lipophilic~Caco2_Wang": {
+   "n_shared": 67,
+   "spearman": 0.01
+  },
+  "Lipophilic~Clearance_": {
+   "n_shared": 710,
+   "spearman": 0.38
+  },
+  "Solubility~Caco2_Wang": {
+   "n_shared": 110,
+   "spearman": -0.027
+  },
+  "Solubility~Clearance_": {
+   "n_shared": 65,
+   "spearman": -0.256
+  },
+  "Caco2_Wang~Clearance_": {
+   "n_shared": 44,
+   "spearman": 0.085
+  }
+ }
+}
