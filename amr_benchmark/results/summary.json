@@ -1,0 +1,158 @@
+{
+ "n_genomes_genotyped": 2355,
+ "per_drug": [
+  {
+   "drug": "meropenem",
+   "n": 1598,
+   "pct_R": 0.45,
+   "sensitivity": 0.422,
+   "specificity": 0.966,
+   "PPV": 0.91,
+   "concordance": 0.721,
+   "AUROC": 0.694,
+   "very_major_error_missedR": 0.578,
+   "major_error_falseR": 0.034
+  },
+  {
+   "drug": "imipenem",
+   "n": 1123,
+   "pct_R": 0.49,
+   "sensitivity": 0.484,
+   "specificity": 0.918,
+   "PPV": 0.849,
+   "concordance": 0.707,
+   "AUROC": 0.701,
+   "very_major_error_missedR": 0.516,
+   "major_error_falseR": 0.082
+  },
+  {
+   "drug": "ceftazidime",
+   "n": 1465,
+   "pct_R": 0.74,
+   "sensitivity": 0.306,
+   "specificity": 0.696,
+   "PPV": 0.745,
+   "concordance": 0.405,
+   "AUROC": 0.501,
+   "very_major_error_missedR": 0.694,
+   "major_error_falseR": 0.304
+  },
+  {
+   "drug": "ceftriaxone",
+   "n": 1183,
+   "pct_R": 0.79,
+   "sensitivity": 0.339,
+   "specificity": 0.552,
+   "PPV": 0.741,
+   "concordance": 0.384,
+   "AUROC": 0.446,
+   "very_major_error_missedR": 0.661,
+   "major_error_falseR": 0.448
+  },
+  {
+   "drug": "cefepime",
+   "n": 1134,
+   "pct_R": 0.63,
+   "sensitivity": 0.417,
+   "specificity": 0.635,
+   "PPV": 0.663,
+   "concordance": 0.497,
+   "AUROC": 0.526,
+   "very_major_error_missedR": 0.583,
+   "major_error_falseR": 0.365
+  },
+  {
+   "drug": "ciprofloxacin",
+   "n": 1567,
+   "pct_R": 0.71,
+   "sensitivity": 0.38,
+   "specificity": 0.714,
+   "PPV": 0.765,
+   "concordance": 0.477,
+   "AUROC": 0.547,
+   "very_major_error_missedR": 0.62,
+   "major_error_falseR": 0.286
+  },
+  {
+   "drug": "levofloxacin",
+   "n": 748,
+   "pct_R": 0.72,
+   "sensitivity": 0.148,
+   "specificity": 0.611,
+   "PPV": 0.497,
+   "concordance": 0.277,
+   "AUROC": 0.379,
+   "very_major_error_missedR": 0.852,
+   "major_error_falseR": 0.389
+  },
+  {
+   "drug": "gentamicin",
+   "n": 1686,
+   "pct_R": 0.41,
+   "sensitivity": 0.341,
+   "specificity": 0.808,
+   "PPV": 0.553,
+   "concordance": 0.616,
+   "AUROC": 0.574,
+   "very_major_error_missedR": 0.659,
+   "major_error_falseR": 0.192
+  },
+  {
+   "drug": "tobramycin",
+   "n": 717,
+   "pct_R": 0.57,
+   "sensitivity": 0.138,
+   "specificity": 0.977,
+   "PPV": 0.891,
+   "concordance": 0.495,
+   "AUROC": 0.558,
+   "very_major_error_missedR": 0.862,
+   "major_error_falseR": 0.023
+  },
+  {
+   "drug": "amikacin",
+   "n": 1350,
+   "pct_R": 0.25,
+   "sensitivity": 0.588,
+   "specificity": 0.809,
+   "PPV": 0.506,
+   "concordance": 0.754,
+   "AUROC": 0.699,
+   "very_major_error_missedR": 0.412,
+   "major_error_falseR": 0.191
+  },
+  {
+   "drug": "trimethoprim/sulfamethoxazole",
+   "n": 1326,
+   "pct_R": 0.72,
+   "sensitivity": 0.36,
+   "specificity": 0.947,
+   "PPV": 0.945,
+   "concordance": 0.526,
+   "AUROC": 0.653,
+   "very_major_error_missedR": 0.64,
+   "major_error_falseR": 0.053
+  },
+  {
+   "drug": "aztreonam",
+   "n": 1028,
+   "pct_R": 0.78,
+   "sensitivity": 0.219,
+   "specificity": 0.691,
+   "PPV": 0.718,
+   "concordance": 0.321,
+   "AUROC": 0.455,
+   "very_major_error_missedR": 0.781,
+   "major_error_falseR": 0.309
+  }
+ ],
+ "mean_AUROC_acquired_gene_drugs": 0.603,
+ "mean_sensitivity_acquired": 0.372,
+ "fluoroquinolone_AUROC": 0.547,
+ "carbapenem_known_answer": {
+  "blaKPC+_meropenem_R_rate": 0.983,
+  "carbapenemase+_R_rate": 0.959,
+  "carbapenemase-_R_rate": 0.366,
+  "frac_of_R_without_carbapenemase": 0.696
+ }
+}
