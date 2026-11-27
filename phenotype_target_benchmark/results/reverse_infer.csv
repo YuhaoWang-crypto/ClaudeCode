@@ -1,0 +1,532 @@
+drug,target,moa,n_lines,target_corr,target_rank,pct_genes_beaten,best_gene,best_corr
+1-naphthyl-PP1,SRC,src inhibitor,369,-0.018,11059,40.0,DHX38,0.256
+10-hydroxycamptothecin,TOP1,topoisomerase inhibitor,387,0.035,4302,76.7,CCL23,0.241
+2'-MeCCPA,ADORA1,adenosine receptor agonist,344,0.11,539,97.1,ZCCHC9,0.236
+"2,3-DCPE",BCL2L1,Bcl-XL downregulator,375,0.19,6,100.0,EZR,0.197
+3'-fluorobenzylspiperone,DRD2,dopamine receptor ligand,327,-0.051,13821,25.1,KCMF1,0.217
+3-amino-benzamide,PARP1,PARP inhibitor,387,-0.046,14059,23.8,H3C6,0.21
+3-deazaneplanocin-A,EZH2,histone lysine methyltransferase inhibitor,394,-0.025,11394,38.2,GOLM1,0.192
+4-(4-fluorobenzoyl)-1-(4-phenylbutyl)-piperidine,HTR2A,serotonin receptor antagonist,382,-0.046,12992,29.6,CCDC122,0.235
+4-chlorophenylguanidine,PLAUR,urokinase inhibitor,350,-0.092,16265,11.8,GPR34,0.238
+4-iodo-6-phenylpyrimidine,MIF,macrophage migration inhibiting factor inhibitor,351,0.044,3273,82.3,MLKL,0.209
+4-methylhistamine,HRH4,histamine receptor agonist,340,0.034,4758,74.2,GPR34,0.251
+5-hydroxymethyl-tolterodine,CHRM3,acetylcholine receptor antagonist,327,-0.005,9381,49.1,MECP2,0.224
+8-bromo-cGMP,PRKG1,PKA activator,332,-0.048,13823,25.1,BMF,0.23
+A-803467,SCN10A,sodium channel blocker,328,-0.112,16709,9.4,XKR8,0.221
+A61603,ADRA1A,adrenergic receptor agonist,373,-0.002,8953,51.5,PSMD14,0.234
+ABT-702,ADK,adenosine kinase inhibitor,389,-0.069,14920,19.1,TMEM231,0.205
+ABT-751,TUBB,tubulin polymerization inhibitor,388,-0.108,16531,10.4,PSMD8,0.205
+AC-264613,F2RL1,PAR agonist,385,0.071,1864,89.9,ARHGEF10,0.245
+ACDPP,GRM5,glutamate receptor antagonist,318,0.004,8524,53.8,HNRNPA0,0.229
+ADL5859,OPRD1,opioid receptor agonist,352,0.073,1351,92.7,NICN1,0.19
+AG-14361,PARP1,PARP inhibitor,343,-0.1,16448,10.8,BIRC6,0.241
+AM-580,RARA,retinoid receptor agonist,336,-0.137,17042,7.6,SNX12,0.2
+AMG-208,MET,tyrosine kinase inhibitor,357,-0.024,11335,38.5,TMEM74,0.199
+AMG-232,MDM2,MDM inhibitor,367,-0.537,17109,7.2,TP53,0.526
+AMG458,MET,MET inhibitor,381,-0.106,16765,9.1,LACTB,0.206
+AR-12,PDPK1,phosphoinositide dependent kinase inhibitor,372,0.019,6159,66.6,RPEL1,0.197
+AR-42,HDAC1,HDAC inhibitor,392,-0.077,15466,16.1,PRKRA,0.243
+ARRY-334543,ERBB2,EGFR inhibitor,400,-0.349,17108,7.2,ITGAV,0.339
+AS-1949490,INPP5D,SHIP2 phosphatase inhibitor,365,,17922,2.8,CCL23,0.182
+AT13387,HSP90AA1,HSP antagonist,400,0.043,3746,79.7,TRPC4AP,0.23
+AZ960,JAK2,JAK inhibitor,384,-0.017,10316,44.1,COPB2,0.251
+AZD2014,MTOR,mTOR inhibitor,400,-0.197,17108,7.2,CSTA,0.228
+AZD2858,GSK3B,glycogen synthase kinase inhibitor,378,-0.056,14188,23.1,ABCB11,0.226
+AZD5438,KCNH2,CDK inhibitor,380,-0.089,16333,11.4,VAX1,0.223
+AZD8055,MTOR,mTOR inhibitor,380,-0.193,17104,7.3,MMUT,0.211
+AZD9668,ELANE,elastase inhibitor,374,-0.053,13541,26.6,SF3A1,0.221
+BAM7,BAX,BAX activator,374,0.04,3904,78.8,BUD31,0.181
+BAN-ORL-24,OPRL1,nociceptin/orphanin FQ receptor antagonist,348,-0.022,11401,38.2,ASCC3,0.202
+BAY-11-7082,RELA,NFkB pathway inhibitor,373,0.033,4607,75.0,PNPLA1,0.198
+BAY-11-7085,NFKBIA,NFkB pathway inhibitor,382,0.012,6649,63.9,NELL1,0.2
+BAY-87-2243,HIF1A,hypoxia inducible factor inhibitor,388,0.042,3997,78.3,ARGLU1,0.221
+BAY-K-8644-(s)-(-),CACNA1C,L-type calcium channel activator,348,0.024,6050,67.2,TMEM30B,0.205
+BF2.649,HRH3,histamine receptor antagonist,385,-0.002,8990,51.3,EXOC3,0.209
+BI-78D3,MAPK8,JNK inhibitor,372,-0.034,12540,32.0,UBE2V1,0.25
+BIBR-1532,TERT,telomerase inhibitor,395,0.005,7818,57.6,RARB,0.2
+BIBU-1361,EGFR,EGFR inhibitor,385,-0.296,17109,7.2,ITGAV,0.272
+BIIB021,HSP90AA1,HSP inhibitor,401,-0.002,8928,51.6,ARGLU1,0.237
+BIX-02188,MAP2K5,MEK inhibitor,373,0.011,7471,59.5,IMPDH2,0.204
+BMS-986020,LPAR1,lysophosphatidic acid receptor antagonist,381,-0.006,9693,47.4,ARHGAP17,0.194
+CCMI,CHRNA7,acetylcholine receptor allosteric modulator,380,0.005,7826,57.6,SUPT5H,0.207
+CD-437,RARG,retinoid receptor agonist,390,-0.08,15893,13.8,ITGAV,0.226
+CEP-33779,JAK2,JAK inhibitor,327,0.004,7946,56.9,TXN,0.212
+CEP-37440,ALK,ALK tyrosine kinase receptor inhibitor,385,0.046,3047,83.5,IL13RA1,0.193
+CGM097,MDM2,MDM inhibitor,358,-0.453,17109,7.2,TP53,0.396
+CGP-52411,EGFR,EGFR inhibitor,375,0.005,7484,59.4,HDGF,0.183
+CHIR-124,CHEK1,CHK inhibitor,375,-0.08,15690,14.9,TYRO3,0.211
+CID-5458317,MAPK3,MAP kinase phosphatase inhibitor,397,-0.035,12273,33.5,WASF2,0.233
+CNX-2006,EGFR,EGFR inhibitor,363,-0.14,16939,8.2,L3HYPDH,0.216
+CNX-774,BTK,Bruton's tyrosine kinase (BTK) inhibitor,377,-0.019,11165,39.5,COG4,0.245
+CP-724714,ERBB2,"EGFR inhibitor, protein tyrosine kinase inhibitor",400,-0.108,16705,9.4,ILK,0.212
+"CP-945,598",CNR1,cannabinoid receptor antagonist,385,0.019,6215,66.3,IGF1R,0.219
+CPI-1189,TNF,tumor necrosis factor release inhibitor,391,0.078,1161,93.7,COL20A1,0.196
+CR8-(R),CCNA2,CDK inhibitor,399,0.017,6639,64.0,BTBD7,0.229
+CS-110266,SLC6A3,dopamine receptor agonist,356,-0.058,14543,21.1,PCSK1,0.19
+CYT-997,TUBB,tubulin polymerization inhibitor,395,-0.139,16875,8.5,YRDC,0.281
+D-64131,TUBB,microtubule inhibitor,354,-0.076,15141,17.9,PSMD8,0.268
+DMH1,ACVR1,ALK tyrosine kinase receptor inhibitor,370,-0.04,13174,28.6,NPAT,0.22
+DPI-201106,ADRB2,sodium channel activator,380,-0.02,10906,40.9,BMAL1,0.203
+EMD-53998,TNNC1,phosphodiesterase inhibitor,361,-0.056,14626,20.7,NPAT,0.199
+EPZ-5676,DOT1L,histone lysine methyltransferase inhibitor,379,-0.012,10228,44.5,GJB3,0.214
+ER-27319,SYK,"mediator release inhibitor, SYK inhibitor",393,-0.012,9992,45.8,RHEB,0.214
+FERb-033,ERBB2,EGFR inhibitor,345,0.024,5718,69.0,CEP135,0.193
+FG-4592,EGLN2,hypoxia inducible factor prolyl hydroxylase inhibitor,359,-0.014,10636,42.3,PSMB5,0.225
+FK-3311,PTGS2,cyclooxygenase inhibitor,389,0.052,2777,84.9,GINS2,0.219
+FK-866,NAMPT,niacinamide phosphoribosyltransferase inhibitor,402,-0.077,15307,17.0,ARHGAP11A,0.248
+FR-139317,EDNRA,endothelin receptor antagonist,381,0.044,3362,81.8,CRHBP,0.199
+G-1,GPER1,G protein-coupled receptor agonist,380,0.041,3976,78.4,HMGCS1,0.206
+GDC-0349,PIK3CA,Pim kinase inhibitor,394,-0.063,15057,18.4,PCDHGA10,0.217
+GDC-0879,BRAF,RAF inhibitor,339,-0.172,17039,7.6,SUB1,0.269
+GGTI-298,CDKN1A,GGTase inhibitor,372,-0.054,14577,21.0,GREB1,0.209
+GS-39783,GABBR1,GABA receptor modulator,349,0.063,2155,88.3,TMEM54,0.211
+GS-9973,SYK,syk inhibitor,369,0.028,5120,72.2,KRTAP4-5,0.191
+GSK1292263,GRPR,glucose dependent insulinotropic receptor agonist,382,0.02,5935,67.8,FURIN,0.218
+GSK256066,PDE4A,phosphodiesterase inhibitor,271,-0.008,9442,48.8,LYL1,0.222
+GSK2830371,PPM1D,protein phosphatase inhibitor,353,-0.212,17107,7.2,RASD1,0.221
+GSK429286A,ROCK1,rho associated kinase inhibitor,356,-0.061,14687,20.4,GPRASP1,0.203
+GSK461364,PLK1,PLK inhibitor,393,0.018,6223,66.3,GFPT1,0.199
+GSK923295,CENPE,centromere associated protein inhibitor,367,0.03,5274,71.4,SPTLC2,0.229
+GW-405833,CNR2,cannabinoid receptor agonist,371,0.0,8637,53.2,CROT,0.235
+GW-441756,NTRK1,growth factor receptor inhibitor,357,0.095,674,96.3,TYROBP,0.216
+GW-842166,CNR2,cannabinoid receptor agonist,380,0.015,6733,63.5,CHEK1,0.214
+HA14-1,BCL2,BCL inhibitor,370,-0.071,15829,14.2,DDHD1,0.215
+HMN-214,PLK1,PLK inhibitor,393,0.003,8199,55.5,SPTLC2,0.205
+ICG-001,CTNNB1,beta-catenin inhibitor,387,0.033,4868,73.6,SF3A1,0.223
+ICI-162846,HRH2,histamine receptor antagonist,360,-0.019,10389,43.7,IMPA1,0.224
+IEM1754,GRIA1,glutamate receptor antagonist,369,0.009,7451,59.6,HDAC6,0.217
+IKK-16,IKBKB,IKK inhibitor,386,0.009,7460,59.6,CPLANE2,0.195
+IKK-2-inhibitor-V,IKBKB,"IKK inhibitor, NFkB pathway inhibitor",399,-0.067,15179,17.7,DEFB118,0.195
+INC-280,MET,c-Met inhibitor,398,-0.027,12156,34.1,KCNG2,0.199
+INH1,NDC80,Hec1 inhibitor,366,0.164,24,99.9,OSGIN2,0.223
+IOWH032,CFTR,CFTR channel antagonist,372,0.024,5430,70.6,RFESD,0.187
+JIB04,KDM4E,histone lysine demethylase inhibitor,388,-0.017,10906,40.9,CASKIN2,0.227
+JNJ-16259685,GRM1,glutamate receptor antagonist,330,0.055,2882,84.4,ATMIN,0.223
+JTC-801,OPRL1,opioid receptor antagonist,390,-0.111,16859,8.6,CUX2,0.206
+JZL-184,MGLL,monoacylglucerol lipase inhibitor,365,-0.074,15927,13.6,ZNF267,0.225
+K-858,KIF11,kinesin-like spindle protein inhibitor,376,-0.026,11589,37.2,GFPT1,0.239
+KD025,ROCK2,rho associated kinase inhibitor,387,-0.055,14912,19.1,MED28,0.196
+KF-38789,SELP,P selectin inhibitor,395,0.02,6093,67.0,NUP205,0.236
+KI-8751,KDR,"KIT inhibitor, PDGFR tyrosine kinase receptor inhibitor, VEGFR inhibitor",383,0.078,1282,93.0,BRF2,0.206
+KPT-185,XPO1,exportin antagonist,396,-0.056,13815,25.1,HNF4A,0.226
+KPT-276,XPO1,exportin antagonist,389,-0.109,16678,9.6,QARS1,0.224
+KX2-391,SRC,"src inhibitor, tubulin polymerization inhibitor",379,-0.034,12214,33.8,XAB2,0.252
+KY02111,DKK1,Wnt pathway inhibitor,350,-0.014,10580,42.6,POU3F4,0.213
+"L-798,106",PTGER3,prostanoid receptor antagonist,376,0.059,2200,88.1,MUC6,0.198
+LE-135,RARB,retinoid receptor agonist,382,0.078,1039,94.4,NPRL2,0.185
+LGX818,BRAF,RAF inhibitor,368,-0.157,17012,7.8,EXT1,0.252
+LY2090314,GSK3B,glycogen synthase kinase inhibitor,384,-0.052,14348,22.2,IL2RB,0.206
+LY2183240,FAAH,"FAAH inhibitor, FAAH reuptake inhibitor",396,-0.046,13505,26.8,IFT74,0.215
+LY2603618,CHEK1,CHK inhibitor,401,-0.056,14141,23.3,MYADM,0.193
+LY2606368,CHEK1,CHK inhibitor,394,-0.144,16945,8.1,NDUFA4,0.226
+LY2608204,GCK,glucokinase activator,372,0.05,3063,83.4,FNDC10,0.187
+LY2801653,MET,MET inhibitor,400,-0.076,15490,16.0,CTBP2,0.234
+LY3023414,MTOR,"PI3K inhibitor, mTOR inhibitor",395,-0.156,17037,7.6,IGF1R,0.254
+LY364947,TGFBR1,"TGF beta receptor inhibitor, p38 MAPK inhibitor",336,-0.044,13253,28.1,ENTPD8,0.219
+LY456236,GRM1,glutamate receptor antagonist,385,-0.045,13668,25.9,ARMS2,0.18
+MEK1-2-inhibitor,MAP2K2,MEK inhibitor,366,-0.037,13229,28.3,POLK,0.189
+MG-132,PSMB1,proteasome inhibitor,387,0.049,3170,82.8,DKK3,0.213
+MK-0773,AR,androgen receptor modulator,321,0.034,5039,72.7,ZNF354A,0.226
+MK-0812,CCR2,CC chemokine receptor antagonist,373,-0.004,8658,53.1,RBM44,0.223
+MK-1775,WEE1,WEE1 kinase inhibitor,402,-0.075,15548,15.7,FSD2,0.198
+MK-3207,CALCA,calcitonin antagonist,345,-0.048,13440,27.1,UBR4,0.209
+MK-8245,SCD,stearoyl-CoA desaturase inhibitor,389,-0.096,16330,11.5,TOP2B,0.227
+MK-8745,AURKA,Aurora kinase inhibitor,372,-0.062,14607,20.8,ETF1,0.221
+MLN-8054,AURKA,Aurora kinase inhibitor,302,-0.097,16401,11.1,AHCYL1,0.263
+MPI-0479605,TTK,mitotic kinase inhibitor,375,-0.031,11692,36.6,THOC2,0.266
+N-acetylmannosamine,CHIT1,,328,-0.012,9934,46.1,ABCA3,0.204
+NMS-873,VCP,ATPase inhibitor,387,0.052,2680,85.5,ASAP3,0.197
+NSC-3852,HDAC1,HDAC inhibitor,370,-0.011,9478,48.6,PSMC1,0.26
+NSC-697923,UBE2N,ubiquitin-conjugating enzyme inhibitor,392,-0.09,15894,13.8,CD44,0.213
+NVP-BHG712,EPHB4,ephrin inhibitor,369,0.004,8084,56.2,SDC2,0.244
+NVP-BVU972,MET,MET inhibitor,379,0.016,6571,64.4,BANP,0.182
+NVP-TAE226,PTK2,protein tyrosine kinase inhibitor,386,0.155,99,99.5,NUP160,0.241
+OLDA,GPR119,TRPV agonist,324,0.045,4035,78.1,DDX24,0.226
+ONC201,TNFSF10,"AKT inhibitor, MAP kinase inhibitor",399,0.016,6495,64.8,VPS26C,0.215
+OSI-027,MTOR,mTOR inhibitor,399,-0.032,12286,33.4,ITGB5,0.211
+OSI-420,EGFR,EGFR inhibitor,383,-0.192,17089,7.3,ITGAV,0.23
+OTS167,MELK,maternal embryonic leucine zipper kinase inhibitor,399,-0.028,12239,33.6,HOXD11,0.173
+P22077,USP7,ubiquitin specific protease inhibitor,378,-0.068,15116,18.0,CASP7,0.209
+P5091,USP7,ubiquitin specific protease inhibitor,385,0.017,6482,64.9,CCNL2,0.201
+PAC-1,CASP3,caspase activator,384,-0.029,11708,36.5,NUP58,0.236
+PD-0325901,MAP2K1,MEK inhibitor,388,-0.218,17074,7.4,FRS2,0.299
+PD-318088,MAP2K1,MEK inhibitor,388,-0.211,17083,7.4,ASB6,0.265
+PD-407824,WEE1,PKC inhibitor,368,-0.043,13035,29.3,PHC1,0.23
+PETCM,CASP3,caspase activator,370,-0.046,13676,25.8,MEPCE,0.213
+PF-03758309,PAK4,p21 activated kinase inhibitor,278,0.063,3239,82.4,MXRA5,0.326
+PF-04217903,MET,c-Met inhibitor,370,-0.101,16729,9.3,NAP1L5,0.186
+PF-04457845,FAAH,FAAH inhibitor,389,0.004,7798,57.7,TRIP4,0.184
+PF-3845,FAAH,FAAH inhibitor,361,-0.022,11317,38.6,DNAJC7,0.217
+PF-4981517,CYP3A4,cytochrome P450 inhibitor,370,0.017,6528,64.6,SF3B3,0.237
+PFI-1,BRD4,bromodomain inhibitor,381,-0.024,11428,38.0,CTF1,0.212
+PFK-015,PFKFB3,phosphofructokinase inhibitor,304,0.002,7932,57.0,RASD1,0.21
+PHA-665752,MET,c-Met inhibitor,372,-0.066,15154,17.8,PRIM1,0.201
+PKI-179,MTOR,"mTOR inhibitor, PI3K inhibitor",393,-0.147,17052,7.5,IGF1R,0.254
+PPT,ESR1,estrogen receptor agonist,366,0.008,7734,58.1,CCDC40,0.233
+PQ-401,IGF1R,IGF-1 inhibitor,350,0.148,58,99.7,BIRC7,0.199
+PRT062070,SYK,"JAK inhibitor, syk inhibitor",381,0.076,1447,92.2,PSMC1,0.231
+PU-H71,HSP90AA1,HSP inhibitor,393,0.002,8408,54.4,WAPL,0.214
+RAF265,BRAF,"RAF inhibitor, VEGFR inhibitor",387,-0.104,16112,12.6,ITGB5,0.229
+RGFP966,HDAC3,HDAC inhibitor,324,-0.076,15098,18.1,DYRK3,0.26
+RI-1,RAD51,,355,0.011,7219,60.9,C1QBP,0.239
+RITA,MDM2,MDM inhibitor,384,-0.089,15949,13.5,CD44,0.249
+RN-1734,TRPV4,TRPV antagonist,381,-0.008,9610,47.9,TSEN2,0.196
+RS-67506,HTR4,serotonin receptor partial agonist,319,-0.044,13887,24.7,PSG8,0.25
+RU-58841,AR,androgen receptor antagonist,283,0.083,1278,93.1,SPAG1,0.227
+Ro-04-5595,GRIN2B,,368,0.014,6642,64.0,TMCC1,0.205
+Ro-10-5824,DRD4,dopamine receptor agonist,353,-0.052,14408,21.9,SS18,0.208
+Ro-4987655,MAP2K1,MEK inhibitor,389,-0.185,17037,7.6,KCNJ9,0.268
+Ro-90-7501,APP,,377,-0.011,10280,44.3,MTERF2,0.23
+S26948,PPARG,PPAR receptor agonist,344,-0.014,10471,43.2,TBX18,0.231
+SAR131675,FLT4,VEGFR inhibitor,370,-0.037,12901,30.0,TREX1,0.229
+SB-218078,CHEK1,CHK inhibitor,389,0.065,2577,86.0,MMUT,0.221
+SB-218795,TACR3,tachykinin antagonist,365,0.072,1600,91.3,LYSMD4,0.216
+SB-225002,CXCR2,CC chemokine receptor antagonist,337,0.036,4780,74.1,DDX24,0.234
+SB-366791,TRPV1,TRPV antagonist,371,0.028,5278,71.4,KRT73,0.214
+SB-505124,TGFBR1,ALK tyrosine kinase receptor inhibitor,377,-0.066,15187,17.7,SPRYD4,0.212
+SB-525334,TGFBR1,TGF beta receptor inhibitor,330,0.018,6756,63.4,NDST3,0.238
+SB-590885,BRAF,RAF inhibitor,358,-0.12,16769,9.1,EXTL3,0.277
+SB-657510,UTS2R,urotensin receptor antagonist,361,-0.035,12779,30.7,INTS8,0.232
+SC-12267,IL17A,dihydroorotate dehydrogenase inhibitor,367,-0.013,10239,44.5,DKK3,0.21
+SDZ-WAG-994,ADORA1,adenosine receptor agonist,385,-0.034,12710,31.1,GPR182,0.196
+SIB-1757,GRM5,glutamate receptor antagonist,305,-0.027,11941,35.3,DOCK3,0.234
+SID-7969543,NR5A1,steroidogenic factor antagonist,346,-0.05,14085,23.6,STOML3,0.216
+SKI-II,SPHK1,sphingosine kinase inhibitor,368,0.047,3427,81.4,MTF2,0.202
+SMI-4a,PIM1,Pim kinase inhibitor,369,0.01,7403,59.9,DDIAS,0.198
+SN-38,TOP1,topoisomerase inhibitor,265,0.077,2292,87.6,BTBD3,0.24
+SNX-5422,HSP90AA1,HSP inhibitor,338,-0.02,10690,42.0,WAPL,0.24
+SR-27897,CCKAR,CCK receptor antagonist,368,0.046,3706,79.9,C3orf33,0.201
+SR-57227A,HTR3A,serotonin receptor agonist,380,-0.022,11557,37.3,TRAPPC5,0.202
+SRT1720,SIRT1,SIRT activator,366,0.074,1404,92.4,CYP26B1,0.22
+STA-5326,IL12A,interleukin synthesis inhibitor,401,-0.041,12201,33.8,S100A14,0.265
+STF-118804,NAMPT,NAMPT inhibitor,387,-0.013,9590,48.0,USP37,0.241
+SU014813,KDR,"PDGFR tyrosine kinase receptor inhibitor, VEGFR inhibitor",383,-0.013,10169,44.9,CNFN,0.21
+SU3327,MAPK8,JNK inhibitor,394,0.071,1572,91.5,WNK1,0.211
+TAK-285,ERBB2,EGFR inhibitor,388,-0.245,17107,7.2,ITGAV,0.31
+TAK-632,BRAF,RAF inhibitor,373,-0.193,17076,7.4,RAB33A,0.258
+TAK-715,MAPK14,p38 MAPK inhibitor,354,0.005,8543,53.7,CDK12,0.218
+TAK-733,MAP2K1,MEK inhibitor,389,-0.194,17064,7.5,FRS2,0.264
+TAK-901,AURKB,Aurora kinase inhibitor,397,-0.077,15120,18.0,SPTLC2,0.245
+TAS-103,TOP1,topoisomerase inhibitor,373,0.045,4371,76.3,RBM8A,0.266
+TC1,BACE1,beta-secretase inhibitor,342,-0.054,14257,22.7,AADAT,0.209
+TPCA-1,IKBKB,IKK inhibitor,389,-0.026,11480,37.8,IFFO1,0.198
+UK-383367,BMP1,Procollagen C-Endopeptidase Inhibitors,383,-0.017,10198,44.7,LIPK,0.218
+UNC0631,EHMT2,histone lysine methyltransferase inhibitor,382,-0.083,16394,11.1,PIK3R2,0.198
+UNC2250,MERTK,MER tyrosine kinase inhibitor,372,0.083,1332,92.8,KRT77,0.217
+VE-821,ATR,ATR kinase inhibitor,389,-0.2,17101,7.3,TRIP4,0.23
+VER-49009,HSP90AA1,HSP inhibitor,382,-0.041,13550,26.5,AHCYL1,0.226
+VLX600,USP14,ubiquitin C-terminal hydrolase inhibitor,394,-0.047,13421,27.2,GBF1,0.292
+VTP-27999,REN,renin inhibitor,297,-0.043,13161,28.6,RACGAP1,0.237
+VU0238429,CHRM5,acetylcholine receptor allosteric modulator,385,0.04,4005,78.3,HMGCS1,0.304
+VU0361737,GRM4,glutamate receptor positive allosteric modulator,371,-0.021,11199,39.3,ZNF557,0.179
+VU0364770,GRM4,glutamate receptor positive allosteric modulator,379,0.026,5879,68.1,SLC24A2,0.273
+VX-765,CASP1,caspase inhibitor,382,0.01,7375,60.0,CD300LD,0.186
+WAY-170523,MMP13,metalloproteinase inhibitor,389,0.098,456,97.5,UQCC5,0.2
+WAY-600,MTOR,mTOR inhibitor,396,-0.168,17084,7.4,HMGB1,0.192
+WP1066,STAT3,STAT inhibitor,394,0.061,1950,89.4,DNAJA4,0.201
+WYE-125132,MTOR,mTOR inhibitor,386,-0.167,17088,7.3,RAB2A,0.223
+WYE-354,MTOR,mTOR inhibitor,398,-0.05,14226,22.9,ABCC1,0.206
+WZ-3146,EGFR,EGFR inhibitor,372,-0.2,17101,7.3,PRKAR1A,0.213
+WZ8040,EGFR,EGFR inhibitor,381,-0.259,17109,7.2,R3HDM4,0.218
+XBD173,TSPO,benzodiazepine receptor ligand,360,-0.089,16163,12.4,ZC3H13,0.233
+XL388,MTOR,mTOR inhibitor,371,-0.127,16767,9.1,CDKN1A,0.222
+Y-320,IL17A,interleukin inhibitor,354,-0.027,12409,32.7,GMNN,0.227
+YM-155,BIRC5,survivin inhibitor,394,0.125,428,97.7,TFAP4,0.248
+YM-976,PDE4A,phosphodiesterase inhibitor,374,-0.074,15600,15.4,SLC30A6,0.214
+ZK811752,CCR1,CC chemokine receptor antagonist,394,-0.072,15503,15.9,NUP107,0.2
+abiraterone-acetate,CYP17A1,androgen biosynthesis inhibitor,331,-0.088,16036,13.1,DAPL1,0.219
+acipimox,HCAR2,cholesterol inhibitor,375,0.026,5610,69.6,POLR3C,0.233
+acivicin,CTPS1,gamma glutamyltransferase Inhibitors,319,-0.021,11027,40.2,GLOD4,0.268
+ajmaline,SCN5A,sodium channel blocker,339,0.063,2216,88.0,CELA1,0.194
+alexidine,PTPMT1,phosphatidylglycerophosphatase inhibitor,387,-0.059,14731,20.1,KRTAP19-2,0.241
+alisertib,AURKA,Aurora kinase inhibitor,397,0.05,3531,80.9,SPTLC2,0.267
+alogliptin,DPP4,dipeptidyl peptidase inhibitor,308,0.019,6349,65.6,KIRREL1,0.268
+alvespimycin,HSP90AA1,HSP inhibitor,395,-0.02,11204,39.3,RGS14,0.191
+ammonium-lactate,HCAR1,,367,0.093,827,95.5,SNAPC4,0.206
+anagrelide,PDE3A,phosphodiesterase inhibitor,390,-0.018,10791,41.5,SLAMF1,0.213
+anastrozole,CYP19A1,aromatase inhibitor,308,-0.148,16997,7.8,SYK,0.259
+anguidine,SLC5A1,protein synthesis inhibitor,387,-0.011,9729,47.2,MOB4,0.242
+artemisinin,CYP2B6,DNA synthesis inhibitor,381,-0.003,8665,53.0,SLC25A27,0.19
+aurora-a-inhibitor-i,AURKA,Aurora kinase inhibitor,383,-0.102,16334,11.4,PIGK,0.233
+avanafil,PDE5A,phosphodiesterase inhibitor,335,-0.016,10336,44.0,PTPA,0.212
+azithromycin,MLNR,bacterial 50S ribosomal subunit inhibitor,357,-0.037,12865,30.2,ACOT9,0.222
+baicalin,PREP,beta glucuronidase inhibitor,338,-0.053,14616,20.8,SLC38A5,0.232
+barasertib-HQPA,AURKB,Aurora kinase inhibitor,377,-0.084,15311,17.0,PSMC1,0.249
+benfotiamine,AGER,antioxidant,327,0.047,3624,80.4,DHX9,0.225
+benzethonium,SCN10A,sodium channel blocker,314,-0.064,14568,21.0,SUSD5,0.245
+benzocaine,SCN10A,sodium channel blocker,273,0.0,8852,52.0,SNX7,0.259
+berberine,LDLR,LDL receptor activator,392,0.003,8168,55.7,SLC25A27,0.201
+beta-lapachone,TOP1,topoisomerase inhibitor,393,0.031,4937,73.2,EDNRA,0.214
+betamethasone,NR3C1,glucocorticoid receptor agonist,334,0.02,6269,66.0,GREB1L,0.219
+betulinic-acid,GPBAR1,"apoptosis stimulant, NFkB pathway inhibitor",329,0.015,6816,63.0,SRP9,0.205
+bicalutamide,AR,androgen receptor antagonist,327,0.081,1348,92.7,KCNK17,0.222
+bis(maltolato)oxovanadium(IV),PTPN1,tyrosine phosphatase inhibitor,379,0.011,7131,61.3,RAB6A,0.288
+brequinar,DHODH,dihydroorotate dehydrogenase inhibitor,401,-0.132,17029,7.7,REG3A,0.19
+brivaracetam,SV2A,voltage-gated sodium channel blocker,387,-0.103,16284,11.7,NEDD9,0.221
+buphenine,ADRB2,adrenergic receptor agonist,334,-0.066,15097,18.1,TMPRSS11A,0.214
+buthionine-sulfoximine,GCLM,glutathione transferase inhibitor,354,-0.047,13761,25.4,TMPRSS6,0.199
+caffeic-acid-phenethyl-ester,RELA,HIV integrase inhibitor,363,-0.104,16705,9.4,IFT46,0.237
+calcitriol,VDR,vitamin D receptor agonist,362,-0.037,12434,32.6,ELMO2,0.208
+camptothecin,TOP1,topoisomerase inhibitor,302,0.059,2577,86.0,ABCA9,0.217
+candesartan,AGTR1,angiotensin receptor antagonist,331,-0.008,9237,49.9,C2CD4A,0.212
+canrenone,NR3C2,mineralocorticoid receptor antagonist,369,0.006,7594,58.8,IGF1R,0.208
+capecitabine,TYMS,"DNA synthesis inhibitor, thymidylate synthase inhibitor",393,0.049,3318,82.0,PNPT1,0.214
+carboxyamidotriazole,CXCL8,calcium channel blocker,380,-0.038,12624,31.6,RGS2,0.218
+cariporide,SLC9A1,sodium/hydrogen exchanger inhibitor,381,0.045,3466,81.2,CSF2RB,0.191
+carmofur,TYMS,thymidylate synthase inhibitor,396,-0.099,16470,10.7,ITGAV,0.213
+carmustine,GSR,"DNA alkylating agent, DNA inhibitor",377,-0.026,12003,34.9,LMAN1,0.226
+cefdinir,MPO,bacterial cell wall synthesis inhibitor,380,0.064,1901,89.7,PDX1,0.186
+chicago-sky-blue-6b,MIF,"glutamate inhibitor, macrophage migration inhibiting factor inhibitor",352,0.057,2697,85.4,NDUFA7,0.228
+chloroxine,OPRK1,opioid receptor antagonist,395,-0.01,9799,46.9,PIGK,0.22
+chlorpyrifos,ACHE,acetylcholinesterase inhibitor,358,0.038,3936,78.7,CCDC182,0.197
+cholecalciferol,VDR,,382,-0.06,14781,19.9,UBE2Q2,0.209
+ciclopirox,ATP1A1,membrane integrity inhibitor,389,-0.02,11217,39.2,NUP58,0.218
+cinacalcet,CASR,calcium channel activator,395,0.011,7376,60.0,HAUS3,0.246
+cinalukast,CYSLTR1,leukotriene receptor antagonist,358,-0.024,11719,36.5,RDH14,0.2
+ciprofibrate,PPARA,PPAR receptor agonist,340,-0.004,8905,51.7,SYNJ2BP,0.215
+cisplatin,XIAP,"DNA alkylating agent, DNA synthesis inhibitor",375,0.01,6701,63.7,PTPN9,0.205
+clomifene,ESR1,estrogen receptor antagonist,381,0.02,6263,66.0,REST,0.217
+crizotinib-(S),NUDT1,MTH1 inhibitor,372,0.002,8305,55.0,C16orf87,0.214
+cycloheximide,RPL3,protein synthesis inhibitor,386,-0.043,12787,30.7,SPTLC2,0.218
+cyclosporin-a,PPP3CA,calcineurin inhibitor,361,0.006,7714,58.2,INPP5B,0.236
+cyclovalone,ABCG2,breast cancer resistance protein inhibitor,391,-0.003,9275,49.7,C1orf131,0.207
+cytochalasin-b,ACTB,microtubule inhibitor,396,-0.031,12573,31.8,HSPA5,0.19
+dalcetrapib,CETP,cholesteryl ester transfer protein inhibitor,346,-0.044,13881,24.7,ZNF816,0.252
+darapladib,PLA2G7,phospholipase inhibitor,388,0.033,4287,76.8,DZIP1,0.17
+defactinib,PTK2,focal adhesion kinase inhibitor,300,-0.027,11710,36.5,SCN9A,0.21
+deferasirox,CYP3A4,chelating agent,377,-0.058,14326,22.3,NUP58,0.235
+deflazacort,NR3C1,glucocorticoid receptor agonist,366,0.006,7707,58.2,ITGB5,0.224
+deforolimus,MTOR,mTOR inhibitor,395,-0.106,16593,10.0,IGF1R,0.241
+deoxycorticosterone-acetate,NR3C2,progestogen hormone,386,0.03,5062,72.6,KDELR3,0.205
+dichloroacetate,PDK1,pyruvate dehydrogenase kinase inhibitor,393,-0.023,11489,37.7,ARFRP1,0.193
+dienogest,PGR,progesterone receptor agonist,380,0.04,3950,78.6,SRSF4,0.191
+difluprednate,NR3C1,glucocorticoid receptor agonist,387,0.034,4446,75.9,KIN,0.206
+digitoxigenin,ATP1A1,ATPase inhibitor,398,-0.023,11598,37.1,SOX9,0.201
+digitoxin,ATP1A1,ATPase inhibitor,288,0.032,5355,71.0,GFPT1,0.242
+digoxin,ATP1A1,ATPase inhibitor,372,0.021,6184,66.5,STAM,0.218
+dioscin,CXCR3,apoptosis stimulant,366,0.018,6281,65.9,RNASE3,0.196
+diphemanil,CHRM3,acetylcholine receptor antagonist,361,-0.014,10276,44.3,PI3,0.199
+dolastatin-10,TUBB,tubulin polymerization inhibitor,383,-0.153,16949,8.1,GFPT1,0.262
+doxercalciferol,VDR,vitamin D receptor agonist,317,-0.021,10668,42.2,SBK1,0.247
+doxifluridine,TYMS,thymidylate synthase inhibitor,355,-0.071,15478,16.1,CHD2,0.22
+doxorubicin,TOP2A,topoisomerase inhibitor,391,-0.08,15409,16.5,RAB10,0.226
+doxycycline,MMP8,metalloproteinase inhibitor,402,-0.03,11869,35.6,TM9SF2,0.21
+elacridar,ABCB1,P glycoprotein inhibitor,387,0.017,6402,65.3,TRMT10B,0.221
+eltrombopag,MPL,thrombopoietin receptor agonist,387,-0.017,10595,42.6,APOBEC3H,0.222
+embelin,XIAP,"HCV inhibitor, XIAP inhibitor",325,0.057,2597,85.9,TEX36,0.208
+emetine,RPS2,protein synthesis inhibitor,388,,17312,6.1,ZNF729,0.258
+enoximone,PDE3A,phosphodiesterase inhibitor,362,-0.117,16762,9.1,SCGB2B2,0.223
+enzalutamide,AR,androgen receptor antagonist,292,0.132,229,98.8,ZFAND4,0.243
+epiandrosterone,G6PD,steroid,360,0.124,144,99.2,RAB11FIP5,0.209
+eplerenone,NR3C2,cytochrome P450 inhibitor,369,-0.009,10036,45.6,FAM241B,0.185
+eprobemide,MAOA,monoamine oxidase inhibitor,336,0.055,2770,85.0,IFFO1,0.224
+eprosartan,AGTR1,angiotensin receptor antagonist,357,0.087,1716,90.7,TRIQK,0.249
+erastin,VDAC2,ion channel antagonist,331,0.031,5628,69.5,ERBB2,0.256
+ercalcitriol,VDR,vitamin D receptor agonist,371,0.029,5574,69.8,NUP54,0.263
+estradiol-benzoate,ESR1,contraceptive agent,328,-0.042,13417,27.3,TWSG1,0.231
+estradiol-cypionate,ESR1,estrogen receptor agonist,361,0.017,7018,61.9,KLHL35,0.19
+etofylline-clofibrate,PPARA,platelet aggregation inhibitor,266,0.025,6302,65.8,BTBD18,0.274
+etomoxir,CPT1A,carnitine palmitoyltransferase inhibitor,368,-0.036,12929,29.9,NDUFS6,0.209
+etoposide-phosphate,TOP2A,topoisomerase inhibitor,384,-0.011,9770,47.0,R3HDML,0.239
+evacetrapib,CETP,cholesteryl ester transfer protein inhibitor,382,0.011,7541,59.1,LNPEP,0.218
+everolimus,MTOR,mTOR inhibitor,388,-0.116,16842,8.7,MMUT,0.202
+evodiamine,TRPV1,"ATPase inhibitor, TRPV agonist",394,0.029,5254,71.5,SPTLC2,0.221
+exemestane,CYP19A1,aromatase inhibitor,274,-0.025,11639,36.9,BIRC7,0.246
+famotidine,HRH2,histamine receptor antagonist,327,-0.004,8841,52.1,PRDM1,0.213
+fenbendazole,TUBB,tubulin polymerization inhibitor,349,-0.078,15415,16.4,JMJD4,0.239
+fendiline,HTR2B,calcium channel blocker,323,-0.001,8753,52.5,RAE1,0.227
+fenretinide,RARA,"apoptosis stimulant, retinoid receptor agonist",361,0.005,8137,55.9,CXCR6,0.203
+filanesib,KIF11,"kinesin inhibitor, kinesin-like spindle protein inhibitor",390,-0.023,11354,38.4,RAD9B,0.196
+floxuridine,TYMS,DNA synthesis inhibitor,386,-0.109,16573,10.1,SF3A1,0.228
+flubendazole,TUBB,tubulin polymerization inhibitor,399,-0.085,15948,13.5,GRIN2C,0.229
+fluorometholone,NR3C1,glucocorticoid receptor agonist,362,-0.078,15361,16.7,SPTLC2,0.231
+fluvastatin,HMGCR,HMGCR inhibitor,394,-0.148,16917,8.3,RAB10,0.294
+formestane,CYP19A1,aromatase inhibitor,358,-0.096,16598,10.0,C16orf95,0.205
+forodesine,PNP,purinergic receptor antagonist,353,0.084,979,94.7,WASL,0.216
+fosbretabulin,CDH5,"tubulin polymerization inhibitor, VE-cadherin antagonist",401,-0.078,15333,16.9,RAC1,0.239
+ftorafur,TYMS,thymidylate synthase inhibitor,374,-0.077,15874,13.9,SOX17,0.191
+gambogic-acid,BCL2,caspase activator,401,-0.029,11809,36.0,RAB10,0.283
+ganetespib,HSP90AA1,HSP inhibitor,402,0.015,6657,63.9,TMED10,0.224
+gefitinib,EGFR,EGFR inhibitor,392,-0.395,17109,7.2,ITGB5,0.309
+genz-644282,TOP1,topoisomerase inhibitor,393,0.071,1995,89.2,GOSR2,0.234
+gilteritinib,FLT3,FLT3 inhibitor,371,-0.103,16533,10.4,PCID2,0.215
+gimeracil,DPYD,dihydropyrimidine dehydrogenase inhibitor,347,0.069,1951,89.4,URAD,0.224
+golgicide-a,GBF1,ARF inhibitor,377,0.047,3280,82.2,CST3,0.225
+gossypol,BCL2,"BCL inhibitor, MCL1 inhibitor",387,0.052,3145,82.9,PHC2,0.235
+halcinonide,NR3C1,glucocorticoid receptor agonist,347,0.031,5116,72.3,PMF1,0.232
+hesperadin,AURKB,Aurora kinase inhibitor,304,-0.071,14617,20.7,GBF1,0.294
+hexylresorcinol,TYR,local anesthetic,301,-0.081,15715,14.8,SMARCAD1,0.238
+homoharringtonine,RPL3,protein synthesis inhibitor,398,0.019,6797,63.1,EFL1,0.283
+"hydroxytacrine-maleate-(r,s)",ACHE,cholinesterase inhibitor,365,-0.004,9339,49.4,GNAO1,0.207
+icotinib,EGFR,EGFR inhibitor,400,-0.245,17109,7.2,CCKBR,0.217
+idarubicin,TOP2A,topoisomerase inhibitor,349,-0.053,13542,26.6,TREX1,0.229
+idazoxan,ADRA2A,adrenergic receptor antagonist,389,-0.017,10520,43.0,UMOD,0.234
+imidapril,ACE,angiotensin converting enzyme inhibitor,397,0.004,8285,55.1,FASN,0.224
+indiplon,GABRA1,benzodiazepine receptor agonist,376,-0.039,13295,27.9,LRRC8C,0.186
+iodipamide,ALB,radiopaque medium,356,0.008,7703,58.2,WBP11,0.218
+ipsapirone,HTR1A,serotonin receptor agonist,303,-0.071,15517,15.9,CYSTM1,0.217
+isoflupredone-acetate,NR3C1,,331,0.098,836,95.5,FERMT2,0.245
+ispinesib,KIF11,kinesin inhibitor,402,-0.1,16182,12.3,GFPT1,0.216
+ku-0063794,MTOR,mTOR inhibitor,399,-0.192,17106,7.2,PAX1,0.202
+lafutidine,HRH2,histamine receptor antagonist,374,0.049,3326,82.0,KCNQ2,0.202
+latanoprost,PTGFR,prostanoid receptor agonist,347,0.03,5420,70.6,EFHC2,0.196
+lerisetron,HTR3A,serotonin receptor antagonist,374,0.005,7940,56.9,KATNA1,0.212
+letrozole,CYP19A1,aromatase inhibitor,359,-0.023,11448,37.9,GAREM1,0.21
+leucovorin,TYMS,folate receptor ligand,325,0.088,1170,93.7,FGD3,0.246
+levocetirizine,HRH1,histamine receptor antagonist,381,0.002,8568,53.5,ROGDI,0.224
+licochalcone-a,PTPN1,topoisomerase inhibitor,383,0.069,1857,89.9,TNK1,0.206
+litronesib,KIF11,kinesin-like spindle protein inhibitor,397,-0.109,16411,11.0,GFPT1,0.23
+lomitapide,MTTP,microsomal trigylceride transfer protein inhibitor,347,0.035,4649,74.8,FGF11,0.213
+lorlatinib,ALK,ALK tyrosine kinase receptor inhibitor,365,-0.032,12644,31.4,SSBP2,0.193
+loxistatin-acid,CTSB,cysteine peptidase inhibitor,349,0.05,3257,82.3,GLI3,0.192
+maxacalcitol,VDR,vitamin D receptor agonist,355,-0.007,9395,49.1,ELMO2,0.253
+meglitinide,CCR2,potassium channel blocker,371,-0.036,12242,33.6,POPDC2,0.23
+mepivacaine,SCN10A,"potassium channel blocker, sodium channel blocker",355,0.0,8967,51.4,CHRNA2,0.201
+merimepodib,IMPDH1,inosine monophosphate dehydrogenase inhibitor,369,-0.056,13723,25.6,CREB3L2,0.216
+metaraminol,ADRA1A,adrenergic receptor agonist,391,0.031,4851,73.7,PI4K2A,0.218
+methocarbamol,CA1,muscle relaxant,255,-0.008,9373,49.2,SPRY3,0.227
+methotrexate,DHFR,dihydrofolate reductase inhibitor,290,,17245,6.5,FERMT2,0.211
+methylprednisolone,NR3C1,glucocorticoid receptor agonist,330,0.132,260,98.6,KIAA1522,0.262
+metyrapone,CYP11B1,cytochrome P450 inhibitor,364,-0.046,13781,25.3,PTDSS1,0.202
+mevastatin,HMGCR,HMGCR inhibitor,385,-0.104,16318,11.5,EGFR,0.26
+mibampator,GRIA1,glutamate receptor modulator,333,0.06,2268,87.7,CCNA2,0.211
+mitoxantrone,TOP2A,topoisomerase inhibitor,349,-0.115,16470,10.7,RBM8A,0.25
+monobenzone,TYR,melanin inhibitor,282,-0.0,9241,49.9,TCP11L2,0.238
+naftifine,SQLE,fungal squalene epoxidase inhibitor,386,-0.019,10871,41.1,GOSR2,0.186
+napabucasin,STAT3,STAT inhibitor,400,0.08,1245,93.2,FAM110C,0.208
+nefiracetam,CHRM1,"acetylcholine receptor agonist, benzodiazepine receptor agonist",358,0.148,76,99.6,SLC22A7,0.221
+nelarabine,POLA1,"DNA synthesis inhibitor, T cell inhibitor",341,0.02,7036,61.9,P2RY10,0.219
+niclosamide,STAT3,"DNA replication inhibitor, STAT inhibitor",390,0.017,6368,65.5,ARF4,0.196
+nicorandil,KCNJ11,"nitric oxide donor, potassium channel activator",363,0.038,4483,75.7,PRSS8,0.207
+nilutamide,AR,androgen receptor antagonist,343,0.07,2269,87.7,ZNF816,0.233
+niraparib,PARP1,PARP inhibitor,397,-0.105,16390,11.1,PSMD8,0.24
+nitisinone,HPD,hydroxyphenylpyruvate dioxygenase inhibitor,336,0.02,6289,65.9,LAMC1,0.216
+nitrocaramiphen,CHRM1,cholinergic receptor antagonist,287,0.045,3826,79.3,HEG1,0.211
+nizatidine,HRH2,histamine receptor antagonist,342,-0.092,16139,12.5,NDUFS6,0.247
+nobiletin,MAP2K1,MEK inhibitor,382,-0.023,11317,38.6,MS4A14,0.214
+nocodazole,HPGDS,tubulin polymerization inhibitor,391,0.057,2556,86.1,TOP2B,0.229
+nomegestrol-acetate,PGR,progesterone receptor agonist,294,-0.055,14022,24.0,CDH16,0.248
+norethindrone,PGR,progesterone receptor agonist,377,-0.002,9101,50.7,LPAR4,0.213
+noretynodrel,PGR,progestogen hormone,345,0.039,4080,77.9,DOK5,0.194
+norfloxacin,TOP2A,bacterial DNA gyrase inhibitor,383,-0.051,14392,22.0,CNEP1R1,0.188
+norgestrel,PGR,progesterone receptor agonist,346,0.023,6177,66.5,RASSF1,0.211
+obatoclax,BCL2,BCL inhibitor,396,-0.038,12714,31.1,ECD,0.198
+obidoxime,ACHE,cholinesterase reactivator,356,-0.032,12483,32.3,GTF3A,0.205
+odanacatib,CTSK,cathepsin inhibitor,379,0.0,8489,54.0,PJA2,0.214
+oleanolic-acid,GPBAR1,G protein-coupled receptor agonist,343,0.086,955,94.8,DCTN5,0.232
+oltipraz,ANG,"nuclear factor erythroid derived, like (NRF2) activator",395,0.051,2677,85.5,PCDHA8,0.187
+oridonin,BCL2,BCL inhibitor,373,-0.067,14657,20.5,FECH,0.213
+orotic-acid,DHODH,,357,0.031,4879,73.5,ADRB1,0.211
+osimertinib,EGFR,EGFR inhibitor,402,-0.391,17108,7.2,ITGAV,0.406
+ouabain,ATP1A1,ATPase inhibitor,337,-0.058,14395,21.9,SOX9,0.261
+oxyquinoline,METAP2,chelating agent,401,-0.011,9817,46.8,FGF3,0.189
+palmatine-chloride,CYP3A4,dopamine synthesis inhibitor,371,0.063,2317,87.4,CMTM1,0.23
+palomid-529,MTOR,"AKT inhibitor, mTOR inhibitor",351,0.052,3306,82.1,BPGM,0.224
+parbendazole,TUBB,tubulin polymerization inhibitor,390,-0.093,15764,14.5,SPTLC2,0.276
+paricalcitol,VDR,vitamin D receptor agonist,279,0.008,6990,62.1,C5orf63,0.217
+parthenolide-(-),HDAC1,NFkB pathway inhibitor,382,-0.107,16657,9.7,HOXB1,0.227
+pelitinib,EGFR,EGFR inhibitor,402,-0.394,17109,7.2,ITGB5,0.379
+penfluridol,CACNA1G,T-type calcium channel blocker,390,-0.029,11961,35.1,TICRR,0.236
+pentagastrin,CCKBR,CCK receptor agonist,323,0.052,2984,83.8,FAM47A,0.234
+pentamidine,TRDMT1,anti-pneumocystis agent,344,-0.095,16362,11.3,USP28,0.241
+pentostatin,ADA,"adenosine deaminase inhibitor, ribonucleotide reductase inhibitor",347,-0.027,11822,35.9,GOLGA7,0.203
+pheniramine,HRH1,histamine receptor antagonist,381,0.008,7964,56.8,ZIC5,0.218
+piperazine,GABRB3,benzodiazepine receptor agonist,335,-0.026,12158,34.1,ALKBH5,0.227
+pitavastatin,HMGCR,HMGCR inhibitor,285,-0.132,16615,9.9,RAB10,0.306
+polydatin,ICAM1,ICAM1 expression inhibitor,381,-0.057,14286,22.5,AKIRIN2,0.234
+posaconazole,CYP3A4,sterol demethylase inhibitor,375,0.007,7958,56.9,BTN3A1,0.209
+practolol,ADRB1,adrenergic receptor antagonist,289,0.01,7727,58.1,RMC1,0.225
+pranidipine,CACNA1C,calcium channel blocker,375,-0.065,15008,18.6,ARID3C,0.207
+prednisolone-acetate,NR3C1,glucocorticoid receptor agonist,336,0.08,1514,91.8,WDFY2,0.223
+prednisolone-hemisuccinate,NR3C1,glucocorticoid receptor agonist,384,0.007,8041,56.4,DEFB115,0.206
+proflavine-hemisulfate,F2,topical anesthetic,330,-0.025,11749,36.3,PSMB5,0.223
+protirelin,TRHR,thyrotropin releasing hormone receptor agonist,336,-0.012,9887,46.4,IL7,0.251
+pterostilbene,PTGS2,"cyclooxygenase inhibitor, PPAR receptor agonist",320,-0.036,12978,29.6,SERPINB7,0.225
+pyroxamide,HDAC1,HDAC inhibitor,365,0.017,6410,65.2,PRKRA,0.232
+rabeprazole,ATP4A,"ATPase inhibitor, gastrin inhibitor",279,-0.032,11822,35.9,ABHD12B,0.248
+racecadotril,MME,enkephalinase inhibitor,355,-0.022,11563,37.3,ZBTB38,0.229
+ranitidine,HRH2,histamine receptor antagonist,260,-0.016,9940,46.1,TOM1,0.286
+repsox,TGFBR1,TGF beta receptor inhibitor,388,-0.043,13154,28.7,ITGAV,0.257
+resatorvid,TLR4,toll-like receptor antagonist,375,-0.026,11548,37.4,POLR3D,0.213
+rheochrysidin,PTPN1,protein tyrosine kinase inhibitor,369,-0.093,16239,12.0,CACNG3,0.241
+rigosertib,PLK1,"cell cycle inhibitor, PLK inhibitor",397,0.06,2555,86.1,GFPT1,0.304
+ritodrine,ADRB2,adrenergic receptor agonist,353,0.065,1889,89.8,SPPL2C,0.185
+rociletinib,EGFR,EGFR inhibitor,397,-0.257,17108,7.2,CDS2,0.236
+rubitecan,TOP1,topoisomerase inhibitor,398,0.055,2666,85.5,GBF1,0.215
+rucinol,TYR,tyrosinase inhibitor,352,-0.017,10916,40.8,HINT2,0.216
+rutin,AKR1C3,"antioxidant, capillary stabilizing agent, nitric oxide scavenger",390,0.023,5462,70.4,IMPA1,0.194
+salidroside,APP,beta amyloid protein neurotoxicity inhibitor,356,-0.01,9769,47.0,PCSK1,0.198
+salvianolic-acid-B,MMP9,"metalloproteinase inhibitor, EGFR inhibitor",351,-0.071,15574,15.6,SNAP23,0.197
+saxagliptin,DPP4,dipeptidyl peptidase inhibitor,380,0.051,2950,84.0,MED22,0.213
+securinine,GABRA1,"GABA receptor antagonist, TP53 activator",371,0.022,5562,69.8,PDCD7,0.197
+selinexor,XPO1,exportin antagonist,402,-0.109,16449,10.8,SPTLC2,0.207
+selumetinib,MAP2K1,MEK inhibitor,399,-0.141,16909,8.3,PRR7,0.259
+serdemetan,MDM2,MDM inhibitor,251,-0.108,15883,13.9,GOSR2,0.266
+skepinone-l,MAPK14,p38 MAPK inhibitor,367,-0.016,10313,44.1,SERPINB13,0.231
+sonidegib,SMO,smoothened receptor antagonist,386,-0.028,12179,34.0,ZNF830,0.214
+sparfloxacin,TOP2A,bacterial DNA gyrase inhibitor,372,-0.055,14127,23.4,BLNK,0.207
+spiradoline,OPRK1,opioid receptor agonist,386,0.004,8135,55.9,NPAT,0.201
+stemregenin-1,AHR,aryl hydrocarbon receptor antagonist,317,-0.099,16331,11.5,RDM1,0.219
+streptozotocin,SLC2A2,DNA alkylating agent,295,0.072,1538,91.7,LIFR,0.212
+tacalcitol,VDR,vitamin D receptor agonist,368,0.029,5260,71.5,TSPAN15,0.248
+tacedinaline,HDAC1,HDAC inhibitor,397,-0.041,12758,30.8,C19orf18,0.223
+tacrolimus,FKBP1A,calcineurin inhibitor,378,,18108,1.8,RAB10,0.197
+tagatose,PYGL,phosphorylase inhibitor,358,0.022,6027,67.3,METAP2,0.202
+talazoparib,PARP2,PARP inhibitor,403,0.063,2180,88.2,ARHGEF7,0.224
+taltirelin,TRHR,thyrotropin releasing hormone receptor agonist,357,-0.044,13665,25.9,SOX9,0.213
+tanaproget,PGR,progesterone receptor agonist,389,-0.064,14879,19.3,FBXO5,0.212
+tanespimycin,HSP90AA1,HSP inhibitor,402,-0.026,11164,39.5,TP53BP2,0.19
+tanshinone-i,IFNG,AP inhibitor,352,0.061,2360,87.2,NBL1,0.212
+taselisib,PIK3CA,PI3K inhibitor,392,-0.43,17109,7.2,ITGAV,0.279
+tazemetostat,EZH2,histone lysine methyltransferase inhibitor,381,-0.099,16717,9.4,CNPY3,0.207
+tecastemizole,KCNH2,histamine receptor antagonist,358,-0.035,12787,30.7,SREK1IP1,0.209
+telatinib,KDR,"KIT inhibitor, PDGFR tyrosine kinase receptor inhibitor, VEGFR inhibitor",383,0.091,1221,93.4,PHAX,0.231
+temocapril,ACE,angiotensin converting enzyme inhibitor,358,-0.017,10094,45.3,ZNF14,0.201
+temozolomide,MGMT,DNA alkylating agent,349,0.034,4192,77.3,FIGN,0.193
+temsirolimus,MTOR,mTOR inhibitor,395,-0.122,16911,8.3,U2SURP,0.204
+tepoxalin,ALOX5,"cyclooxygenase inhibitor, lipoxygenase inhibitor",403,-0.043,13741,25.5,ZIC1,0.204
+terbutaline,ADRB2,adrenergic receptor agonist,355,0.065,2121,88.5,TRUB1,0.224
+teriflunomide,DHODH,dihydroorotate dehydrogenase inhibitor,380,-0.007,9492,48.5,RASD1,0.222
+tetrahydrouridine,CDA,cytidine deaminase inhibitor,377,0.066,1995,89.2,WASF2,0.218
+tetrandrine,SLC6A3,calcium channel blocker,381,0.025,5523,70.1,VCL,0.205
+thiomersal,OXCT1,other antibiotic,391,-0.071,15264,17.2,FAM83H,0.216
+thiostrepton,FOXM1,"FOXM1 inhibitor, protein synthesis inhibitor",334,0.036,4546,75.4,SCFD1,0.237
+thiram,JAK2,,349,0.032,4600,75.1,IGF2,0.197
+tiagabine,SLC6A1,GABA uptake inhibitor,298,-0.034,12035,34.7,CDC14A,0.236
+tideglusib,GSK3B,glycogen synthase kinase inhibitor,386,-0.04,12843,30.4,FBLN5,0.213
+tiotidine,HRH2,histamine receptor antagonist,385,-0.021,11307,38.7,HES5,0.215
+tioxolone,CA2,carbonic anhydrase inhibitor,375,0.051,3018,83.6,ROGDI,0.244
+tipiracil,TYMP,thymidine phosphorylase inhibitor,394,0.008,7738,58.0,TUBAL3,0.186
+tivantinib,MET,tyrosine kinase inhibitor,402,-0.074,15213,17.5,YRDC,0.215
+tofogliflozin,GCK,sodium/glucose cotransporter inhibitor,383,-0.062,15088,18.2,YTHDC1,0.211
+torasemide,SLC12A1,"electrolyte reabsorption inhibitor, thromboxane receptor antagonist",354,-0.021,11262,38.9,GREB1,0.244
+torcetrapib,CETP,cholesteryl ester transfer protein inhibitor,357,-0.04,12729,31.0,PDP1,0.205
+toremifene,ESR1,"estrogen receptor antagonist, selective estrogen receptor modulator (SERM)",386,-0.047,13788,25.2,STAC2,0.22
+torin-1,MTOR,mTOR inhibitor,391,-0.175,17068,7.5,PPP1R10,0.235
+torin-2,MTOR,mTOR inhibitor,387,-0.147,17069,7.4,IRS2,0.237
+trapidil,PDGFRA,PDGFR tyrosine kinase receptor inhibitor,375,0.01,7692,58.3,ATAD3C,0.21
+trequinsin,PDE5A,phosphodiesterase inhibitor,370,-0.006,9546,48.2,LIN37,0.224
+triamcinolone-acetonide,NR3C1,"glucocorticoid receptor agonist, immunosuppressant",267,0.008,7930,57.0,RALGDS,0.249
+triclabendazole,DNMT1,microtubule inhibitor,393,0.014,6711,63.6,GZF1,0.221
+trifluridine,TYMS,"DNA directed DNA polymerase inhibitor, thymidylate synthase inhibitor",390,0.021,6809,63.1,GBF1,0.248
+triptolide,RELA,RNA polymerase inhibitor,354,-0.103,16257,11.9,POLA1,0.234
+trovafloxacin,TOP2A,bacterial DNA gyrase inhibitor,362,0.003,7972,56.8,VPS53,0.257
+tryptanthrin,IDO1,cyclooxygenase inhibitor,398,0.008,7258,60.6,RPL10A,0.187
+tucatinib,ERBB2,EGFR inhibitor,399,-0.3,17108,7.2,ITGAV,0.256
+tyrphostin-AG-1296,FLT3,FLT3 inhibitor,383,-0.095,16445,10.8,CPN1,0.199
+tyrphostin-AG-494,EGFR,EGFR inhibitor,337,0.042,4099,77.8,SLC25A35,0.218
+tyrphostin-AG-99,EGFR,tyrosine kinase inhibitor,394,-0.023,11193,39.3,SUPT5H,0.23
+ulipristal,PGR,progesterone receptor antagonist,268,-0.015,10136,45.0,GLIS2,0.249
+uric-acid,PYGL,,359,-0.097,16332,11.4,ZMAT5,0.218
+usniacin-(+),PTPN1,MAP kinase activator,365,-0.005,9552,48.2,C2,0.195
+valrubicin,TOP2A,"DNA inhibitor, topoisomerase inhibitor",387,-0.072,14265,22.7,HMGCS1,0.237
+vanoxerine,SLC6A3,dopamine uptake inhibitor,394,0.0,8107,56.0,CCDC166,0.183
+venetoclax,BCL2,BCL inhibitor,396,-0.07,15887,13.9,CAPS,0.193
+verubulin,TUBB,tubulin polymerization inhibitor,397,-0.143,16865,8.6,GFPT1,0.268
+vidarabine,ADA,antiviral,369,0.055,2315,87.4,RAPGEF6,0.197
+vismodegib,SMO,"hedgehog pathway inhibitor, smoothened receptor antagonist",393,0.04,3880,79.0,FBXL20,0.219
+volasertib,PLK1,PLK inhibitor,400,-0.033,12095,34.4,MAB21L1,0.201
+voreloxin,TOP2A,topoisomerase inhibitor,380,-0.133,16458,10.8,RBM8A,0.262
+warfarin,VKORC1,vitamin K antagonist,357,0.003,8274,55.1,ADCY7,0.221
+zaldaride,CALM1,calmodulin antagonist,380,0.05,2932,84.1,RBPMS2,0.2
+zardaverine,PDE4D,phosphodiesterase inhibitor,390,-0.043,13419,27.2,CCDC166,0.177

@@ -1,0 +1,56 @@
+{
+ "n_drugs": 531,
+ "n_genes": 18443,
+ "n_cell_lines": 403,
+ "target_rank_median": 10636,
+ "target_rank_mean": 10095,
+ "frac_target_is_top1": 0.0,
+ "frac_target_in_top10": 0.002,
+ "frac_target_in_top100": 0.009,
+ "frac_target_in_top1pct": 0.011,
+ "frac_positive_target_corr": 0.395,
+ "random_expectation_median_rank": 9221,
+ "frac_target_corr_gt_0.2": 0.0,
+ "best_recovered_moas": [
+  {
+   "moa": "topoisomerase inhibitor",
+   "n": 13,
+   "median_rank": 4371.0
+  },
+  {
+   "moa": "adrenergic receptor agonist",
+   "n": 5,
+   "median_rank": 4851.0
+  },
+  {
+   "moa": "glucocorticoid receptor agonist",
+   "n": 8,
+   "median_rank": 5692.5
+  },
+  {
+   "moa": "ATPase inhibitor",
+   "n": 5,
+   "median_rank": 6184.0
+  },
+  {
+   "moa": "vitamin D receptor agonist",
+   "n": 6,
+   "median_rank": 8192.5
+  },
+  {
+   "moa": "glutamate receptor antagonist",
+   "n": 5,
+   "median_rank": 8524.0
+  },
+  {
+   "moa": "progesterone receptor agonist",
+   "n": 5,
+   "median_rank": 9101.0
+  },
+  {
+   "moa": "histamine receptor antagonist",
+   "n": 10,
+   "median_rank": 9465.0
+  }
+ ]
+}
