@@ -1,0 +1,2189 @@
+genome_id,isolation_source,host_name,cat,aerobactin_iuc,yersiniabactin_ybt,salmochelin_iro,colibactin_clb,rmpA_regulator,n_virulence_genes,invasive
+573.44022,pus,Homo sapiens,invasive,0,1,1,0,0,302,1
+573.80787,blood,Homo sapiens,invasive,0,1,1,0,0,292,1
+573.13741,blood,"Human, Homo sapiens",invasive,0,1,1,0,0,354,1
+573.45192,blood,Homo sapiens,invasive,0,0,0,0,0,281,1
+573.40999,blood,Homo sapiens,invasive,1,1,1,0,0,346,1
+573.78003,blood,Homo sapiens,invasive,0,1,1,0,0,293,1
+573.21834,blood,"Human, Homo sapiens",invasive,0,0,0,0,0,278,1
+573.41184,blood,Homo sapiens,invasive,0,1,1,0,0,338,1
+573.12578,blood,"Human, Homo sapiens",invasive,0,0,1,0,0,346,1
+573.57131,blood,Homo sapiens,invasive,1,1,1,0,0,371,1
+573.38743,liver abscess,Homo sapiens,invasive,1,1,1,0,0,332,1
+573.38742,liver abscess,Homo sapiens,invasive,1,1,1,0,0,328,1
+573.9794,blood,"Human, Homo sapiens",invasive,0,0,1,0,0,351,1
+573.37584,blood,Homo sapiens,invasive,0,0,0,0,0,284,1
+573.43517,blood,Homo sapiens,invasive,0,1,1,0,0,299,1
+573.1347,blood,"Human, Homo sapiens",invasive,0,1,1,0,0,290,1
+573.42286,blood,Homo sapiens,invasive,0,0,0,0,0,292,1
+573.52187,blood,Homo sapiens,invasive,0,1,1,0,0,341,1
+573.17796,liver abscess puncture fluid,"Human, Homo sapiens",invasive,0,1,1,0,0,289,1
+573.4094,blood,"Human, Homo sapiens",invasive,0,0,0,0,0,267,1
+573.4143,blood,"Human, Homo sapiens",invasive,0,0,0,0,0,287,1
+573.44006,blood,Homo sapiens,invasive,1,1,1,0,0,308,1
+573.26051,oral cavity pus,"Human, Homo sapiens",invasive,0,1,1,0,0,304,1
+573.50136,blood,Homo sapiens,invasive,0,1,1,0,0,288,1
+573.33845,blood,"Human, Homo sapiens",invasive,0,0,0,0,0,294,1
+573.42281,blood,Homo sapiens,invasive,0,0,0,0,0,294,1
+573.37277,pus,Homo sapiens,invasive,0,0,0,0,0,281,1
+573.77792,blood from critically ill patient,Homo sapiens,invasive,0,1,1,0,0,288,1
+573.58978,blood,Homo sapiens,invasive,0,0,0,0,0,281,1
+573.68382,blood,Homo sapiens,invasive,1,0,0,0,0,287,1
+573.43186,blood,Homo sapiens,invasive,0,1,1,0,0,304,1
+573.4146,blood,"Human, Homo sapiens",invasive,0,0,0,0,0,286,1
+573.43549,blood,Homo sapiens,invasive,0,0,0,0,0,286,1
+573.29537,blood,"Human, Homo sapiens",invasive,0,1,1,0,0,298,1
+573.44024,pus,Homo sapiens,invasive,0,1,1,0,0,294,1
+573.21053,blood,"Human, Homo sapiens",invasive,0,1,1,0,0,301,1
+573.44499,blood,Homo sapiens,invasive,0,1,1,0,0,288,1
+573.25783,blood samples collected from 23 hospitals,"Human, Homo sapiens",invasive,0,0,0,0,0,281,1
+573.35659,blood,"Human, Homo sapiens",invasive,1,1,1,0,0,315,1
+573.50588,blood,Homo sapiens,invasive,0,1,1,0,0,302,1
+573.57008,blood,Homo sapiens,invasive,1,1,1,0,0,311,1
+573.45924,blood,Homo sapiens,invasive,0,0,0,0,0,292,1
+573.56966,blood,Homo sapiens,invasive,1,1,1,0,0,332,1
+573.21267,blood,"Human, Homo sapiens",invasive,0,1,1,0,0,298,1
+573.18011,"wound, pus","Human, Homo sapiens",invasive,0,1,1,0,0,301,1
+573.78318,blood,Homo sapiens,invasive,1,1,1,0,0,324,1
+573.35546,blood,"Human, Homo sapiens",invasive,0,0,0,0,0,283,1
+573.30924,blood,"Human, Homo sapiens",invasive,0,1,1,0,0,294,1
+573.54789,blood,Homo sapiens,invasive,1,1,1,0,0,337,1
+573.18529,blood,"Human, Homo sapiens",invasive,0,0,0,0,0,278,1
+573.43807,blood,Homo sapiens,invasive,0,0,0,0,0,292,1
+573.14285,blood,"Human, Homo sapiens",invasive,0,0,0,0,0,339,1
+573.58451,blood,Homo sapiens,invasive,0,0,1,0,0,288,1
+573.43169,blood,Homo sapiens,invasive,0,0,0,0,0,292,1
+573.43542,blood,Homo sapiens,invasive,0,0,0,0,0,274,1
+573.9733,blood,"Human, Homo sapiens",invasive,0,0,0,0,0,448,1
+573.68467,bloodstream,Homo sapiens,invasive,1,1,1,0,0,326,1
+573.43527,blood,Homo sapiens,invasive,0,0,0,0,0,262,1
+573.81693,blood culture,Homo sapiens,invasive,0,1,1,0,0,295,1
+573.7247,blood specimen,"Human, Homo sapiens",invasive,0,1,1,0,0,295,1
+573.35564,blood,"Human, Homo sapiens",invasive,1,0,1,0,0,314,1
+573.45782,blood,Homo sapiens,invasive,1,1,1,0,0,308,1
+573.82032,blood,Homo sapiens,invasive,0,0,0,0,0,282,1
+573.15265,blood,"Human, Homo sapiens",invasive,0,0,0,0,0,299,1
+573.54154,blood,Homo sapiens,invasive,0,1,1,0,0,293,1
+573.43154,blood,Homo sapiens,invasive,0,0,0,0,0,289,1
+573.4195,blood,"Human, Homo sapiens",invasive,0,0,0,0,0,281,1
+573.22053,blood,"Human, Homo sapiens",invasive,0,1,1,0,0,299,1
+573.6983,blood,"Human, Homo sapiens",invasive,0,1,1,0,0,295,1
+573.7076,blood,"Human, Homo sapiens",invasive,0,0,0,0,0,285,1
+573.78607,liver abscess,Homo sapiens,invasive,1,1,1,0,0,331,1
+573.18015,pus,"Human, Homo sapiens",invasive,0,1,1,0,0,303,1
+573.57015,blood,Homo sapiens,invasive,1,1,1,0,0,313,1
+573.41451,blood,Homo sapiens,invasive,0,1,1,0,0,296,1
+573.27264,blood,"Human, Homo sapiens",invasive,0,1,1,0,0,610,1
+573.79188,blood,Homo sapiens,invasive,0,0,0,0,0,276,1
+573.77749,blood,Homo sapiens,invasive,0,1,1,0,0,295,1
+573.14071,blood,"Human, Homo sapiens",invasive,0,0,0,0,0,330,1
+573.43193,blood,Homo sapiens,invasive,0,1,1,0,0,297,1
+573.97701,catheter-related bloodstream infection,"Human, Homo sapiens",invasive,0,1,1,0,0,153,1
+573.52447,blood,Homo sapiens,invasive,0,1,1,0,0,320,1
+573.44831,blood,Homo sapiens,invasive,0,1,1,0,0,299,1
+573.1994,blood,"Human, Homo sapiens",invasive,0,1,1,0,0,298,1
+573.22474,blood,"Human, Homo sapiens",invasive,0,0,0,0,0,279,1
+573.12717,blood,"Human, Homo sapiens",invasive,0,1,1,0,0,355,1
+573.12726,blood,"Human, Homo sapiens",invasive,0,0,1,0,0,374,1
+573.37609,blood culture of pediatric patients,Homo sapiens,invasive,0,0,0,0,0,309,1
+573.35638,blood,"Human, Homo sapiens",invasive,1,1,1,0,0,318,1
+573.80872,pus,Homo sapiens,invasive,1,1,1,0,0,320,1
+573.42245,blood,Homo sapiens,invasive,0,0,0,0,0,290,1
+573.15508,blood,"Human, Homo sapiens",invasive,0,1,1,0,0,323,1
+573.12537,blood,"Human, Homo sapiens",invasive,0,0,1,0,0,334,1
+573.1371,blood,"Human, Homo sapiens",invasive,0,1,1,0,0,293,1
+573.77754,blood,Homo sapiens,invasive,0,1,1,0,0,296,1
+573.65484,neonatal blood,Homo sapiens,invasive,0,0,0,0,0,285,1
+573.50471,blood,Homo sapiens,invasive,0,0,0,0,0,274,1
+573.43802,blood,Homo sapiens,invasive,0,1,1,0,0,316,1
+573.49461,blood,Homo sapiens,invasive,0,0,0,0,0,285,1
+573.62467,blood,Homo sapiens,invasive,0,1,1,0,0,302,1
+573.78687,blood,Homo sapiens,invasive,0,0,0,0,0,288,1
+573.7073,blood,"Human, Homo sapiens",invasive,0,1,1,0,0,302,1
+573.12754,blood,"Human, Homo sapiens",invasive,0,1,1,0,0,352,1
+573.83868,blood,Homo sapiens,invasive,0,1,1,0,0,299,1
+573.22471,blood,"Human, Homo sapiens",invasive,0,0,0,0,0,279,1
+573.43251,blood culture,Homo sapiens,invasive,0,0,0,0,0,281,1
+573.52702,blood,Homo sapiens,invasive,0,0,0,0,0,287,1
+573.63318,blood,Homo sapiens,invasive,0,1,1,0,0,305,1
+573.43769,blood,Homo sapiens,invasive,0,1,1,0,0,311,1
+573.12523,blood,"Human, Homo sapiens",invasive,0,1,1,0,0,334,1
+573.22525,blood,"Human, Homo sapiens",invasive,0,0,0,0,0,281,1
+573.47345,blood,Homo sapiens,invasive,1,0,1,0,0,310,1
+573.30954,blood,"Human, Homo sapiens",invasive,0,1,1,0,0,298,1
+573.78467,blood,Homo sapiens,invasive,0,0,0,0,0,282,1
+573.65446,cervical abscess,Homo sapiens,invasive,1,1,1,0,0,325,1
+573.14966,blood,"Human, Homo sapiens",invasive,1,1,1,0,0,313,1
+573.54745,blood,Homo sapiens,invasive,1,1,1,0,0,341,1
+573.81817,liver,Homo sapiens,invasive,1,1,1,0,0,329,1
+573.34142,blood,,invasive,1,1,1,0,0,312,1
+573.48266,blood,Homo sapiens,invasive,0,1,1,0,0,302,1
+573.4099,blood,"Human, Homo sapiens",invasive,1,1,1,0,0,324,1
+573.35012,blood,"Human, Homo sapiens",invasive,0,1,1,0,0,291,1
+573.77768,blood,Homo sapiens,invasive,1,1,1,0,0,312,1
+573.9762,catheter-related bloodstream infection,"Human, Homo sapiens",invasive,0,1,1,0,0,495,1
+573.58934,blood,Homo sapiens,invasive,0,0,0,0,0,277,1
+573.15977,blood,"Human, Homo sapiens",invasive,1,0,1,0,0,31,1
+573.58977,blood,Homo sapiens,invasive,0,0,0,0,0,285,1
+573.63121,blood,Homo sapiens,invasive,0,1,1,0,0,299,1
+573.62415,pus,Homo sapiens,invasive,0,1,1,0,0,295,1
+573.39612,blood culture,Homo sapiens,invasive,1,1,1,0,0,314,1
+573.69395,bloodstream,Homo sapiens,invasive,0,0,0,0,0,280,1
+573.31346,blood,"Human, Homo sapiens",invasive,1,0,0,0,0,295,1
+573.56317,pus,Homo sapiens,invasive,0,1,1,0,0,304,1
+573.42792,blood,Homo sapiens,invasive,0,0,0,0,0,294,1
+573.50749,blood,Homo sapiens,invasive,0,0,0,0,0,276,1
+573.50959,blood,Homo sapiens,invasive,0,1,1,0,0,312,1
+573.41905,blood,Homo sapiens,invasive,0,0,0,0,0,279,1
+573.14777,blood,"Human, Homo sapiens",invasive,0,1,1,0,0,302,1
+573.20631,blood,"Human, Homo sapiens",invasive,0,1,1,0,0,298,1
+573.13235,blood,"Human, Homo sapiens",invasive,0,0,0,0,0,356,1
+573.52956,blood,Homo sapiens,invasive,0,1,1,0,0,296,1
+573.42397,blood,Homo sapiens,invasive,0,0,0,0,0,286,1
+573.4103,blood,"Human, Homo sapiens",invasive,0,0,0,0,0,281,1
+573.52947,blood,Homo sapiens,invasive,0,1,1,0,0,316,1
+573.36031,blood,Homo sapiens,invasive,1,1,1,0,0,314,1
+573.43335,blood,Homo sapiens,invasive,0,0,0,0,0,283,1
+573.45129,blood,Homo sapiens,invasive,0,0,0,0,0,272,1
+573.21232,blood,"Human, Homo sapiens",invasive,0,0,0,0,0,278,1
+573.38741,liver abscess,Homo sapiens,invasive,1,1,1,0,0,330,1
+573.49668,blood,Homo sapiens,invasive,0,0,0,0,0,279,1
+573.68013,blood,Homo sapiens,invasive,0,1,1,0,0,295,1
+573.28653,blood,"Human, Homo sapiens",invasive,0,0,0,0,0,290,1
+573.22486,blood,"Human, Homo sapiens",invasive,0,0,0,0,0,280,1
+573.97722,catheter-related bloodstream infection,"Human, Homo sapiens",invasive,0,1,1,0,0,155,1
+573.50072,blood,Homo sapiens,invasive,0,1,1,0,0,306,1
+573.43999,blood culture,Homo sapiens,invasive,1,1,1,0,0,324,1
+573.14471,blood,"Human, Homo sapiens",invasive,0,0,0,0,0,339,1
+573.54336,blood,Homo sapiens,invasive,0,0,0,0,0,275,1
+573.1361,blood from patient with pneumonia,"Human, Homo sapiens",invasive,0,0,0,0,0,275,1
+573.81776,liver,Homo sapiens,invasive,1,1,1,0,0,328,1
+573.42193,liver abscess,Homo sapiens,invasive,1,1,1,0,0,322,1
+573.36084,blood,Homo sapiens,invasive,0,0,0,0,0,289,1
+573.41023,blood,Homo sapiens,invasive,1,1,1,0,0,311,1
+573.31877,blood,"Human, Homo sapiens",invasive,0,0,0,0,0,280,1
+573.65192,blood,Homo sapiens,invasive,0,1,1,0,0,311,1
+573.42836,blood,Homo sapiens,invasive,1,1,1,0,0,320,1
+573.78455,blood,Homo sapiens,invasive,0,0,0,0,0,282,1
+573.25579,blood,"Human, Homo sapiens",invasive,1,1,1,0,0,337,1
+573.15324,blood,"Human, Homo sapiens",invasive,0,1,1,0,0,328,1
+573.22518,blood,"Human, Homo sapiens",invasive,0,0,0,0,0,279,1
+573.65535,blood,Homo sapiens,invasive,1,0,1,0,0,309,1
+573.44621,blood,Homo sapiens,invasive,0,1,1,0,0,289,1
+573.63186,blood,Homo sapiens,invasive,0,1,1,0,0,304,1
+573.79182,blood,Homo sapiens,invasive,0,0,0,0,0,289,1
+573.12564,blood,"Human, Homo sapiens",invasive,0,0,1,0,0,340,1
+573.33827,blood,"Human, Homo sapiens",invasive,0,0,0,0,0,287,1
+573.55211,blood,Homo sapiens,invasive,0,0,0,0,0,298,1
+573.44449,blood,Homo sapiens,invasive,1,1,1,0,0,316,1
+573.45793,blood,Homo sapiens,invasive,1,1,1,0,0,325,1
+573.57052,blood,Homo sapiens,invasive,1,1,1,0,0,311,1
+573.81764,liver,Homo sapiens,invasive,1,1,1,0,0,339,1
+573.79082,blood,Homo sapiens,invasive,0,1,1,0,0,303,1
+573.35021,blood,"Human, Homo sapiens",invasive,0,0,0,0,0,293,1
+573.47359,blood,Homo sapiens,invasive,1,0,1,0,0,309,1
+573.78559,blood,Homo sapiens,invasive,0,1,1,0,0,289,1
+573.13696,blood,"Human, Homo sapiens",invasive,0,0,0,0,0,322,1
+573.81691,blood culture,Homo sapiens,invasive,0,1,1,0,0,291,1
+573.53547,wound/abscess,Homo sapiens,invasive,0,0,0,0,0,271,1
+573.52227,pus,Homo sapiens,invasive,0,0,0,0,0,278,1
+573.23194,blood,"Human, Homo sapiens",invasive,1,1,1,0,0,322,1
+573.50477,blood,Homo sapiens,invasive,0,0,0,0,0,285,1
+573.32184,cerebrospinal fluid,Homo sapiens sapiens,invasive,1,1,1,0,0,335,1
+573.25758,blood samples collected from 23 hospitals,"Human, Homo sapiens",invasive,0,0,0,0,0,277,1
+573.65211,blood,Homo sapiens,invasive,0,0,0,0,0,275,1
+573.42412,blood,Homo sapiens,invasive,1,0,1,0,0,306,1
+573.77775,blood,Homo sapiens,invasive,0,1,1,0,0,294,1
+573.62394,blood,Homo sapiens,invasive,0,1,1,0,0,308,1
+573.54216,blood,Homo sapiens,invasive,0,1,1,0,0,292,1
+573.50482,blood,Homo sapiens,invasive,0,0,0,0,0,286,1
+573.28669,blood,"Human, Homo sapiens",invasive,1,1,1,0,0,323,1
+573.52175,liver abscess,Homo sapiens,invasive,1,1,1,0,0,327,1
+573.20564,other (pus),"Human, Homo sapiens",invasive,0,1,1,0,0,410,1
+573.12547,blood,"Human, Homo sapiens",invasive,0,1,1,0,0,332,1
+573.63123,blood,Homo sapiens,invasive,0,1,1,0,0,296,1
+573.50105,blood,Homo sapiens,invasive,0,0,0,0,0,276,1
+573.41039,blood,Homo sapiens,invasive,1,1,1,0,0,320,1
+573.56947,blood,Homo sapiens,invasive,1,1,1,0,0,313,1
+573.7087,blood,"Human, Homo sapiens",invasive,0,0,0,0,0,285,1
+573.5796,pus,"Human, Homo sapiens",invasive,0,0,0,0,0,287,1
+573.9751,blood,"Human, Homo sapiens",invasive,0,0,0,0,0,348,1
+573.7384,blood,"Human, Homo sapiens",invasive,0,1,1,0,0,292,1
+573.56155,blood,Homo sapiens,invasive,0,0,0,0,0,283,1
+573.19957,blood,"Human, Homo sapiens",invasive,0,0,0,0,0,298,1
+573.4227,blood,"Human, Homo sapiens",invasive,0,1,1,0,0,299,1
+573.48139,blood,Homo sapiens,invasive,1,1,1,0,0,317,1
+573.77755,blood,Homo sapiens,invasive,0,1,1,0,0,301,1
+573.31262,blood,"Human, Homo sapiens",invasive,0,1,1,0,0,301,1
+573.21833,blood,"Human, Homo sapiens",invasive,0,0,0,0,0,279,1
+573.77446,blood culture/respiratory culture,Homo sapiens,invasive,0,1,1,0,0,293,1
+573.83678,blood stream,,invasive,0,1,1,0,0,306,1
+573.41341,blood,Homo sapiens,invasive,0,0,0,0,0,291,1
+573.7079,blood,"Human, Homo sapiens",invasive,0,0,0,0,0,277,1
+573.43789,blood,Homo sapiens,invasive,0,0,0,0,0,292,1
+573.64815,blood,Homo sapiens,invasive,1,1,1,0,0,311,1
+573.83586,blood,Homo sapiens,invasive,1,1,1,0,0,330,1
+573.68412,blood,Homo sapiens,invasive,0,0,0,0,0,287,1
+573.56945,blood,Homo sapiens,invasive,0,0,0,0,0,308,1
+573.44597,pus from wound,Homo sapiens,invasive,1,1,1,0,0,338,1
+573.65199,pus,,invasive,0,1,1,0,0,315,1
+573.37297,blood,Homo sapiens,invasive,0,0,0,0,0,283,1
+573.42229,blood,Homo sapiens,invasive,0,1,1,0,0,316,1
+573.81792,liver,Homo sapiens,invasive,1,1,1,0,0,324,1
+573.56971,blood,Homo sapiens,invasive,1,1,1,0,0,321,1
+573.45922,blood,Homo sapiens,invasive,0,0,0,0,0,287,1
+573.37605,blood culture of pediatric patients,Homo sapiens,invasive,0,0,0,0,0,294,1
+573.63251,blood,Homo sapiens,invasive,0,1,1,0,0,296,1
+573.57044,blood,Homo sapiens,invasive,1,1,1,0,0,311,1
+573.14976,blood,"Human, Homo sapiens",invasive,0,0,0,0,0,282,1
+573.39822,cerebrospinal fluid,Homo sapiens,invasive,0,0,0,0,0,17,1
+573.81695,blood culture,Homo sapiens,invasive,0,1,1,0,0,293,1
+573.45778,blood,Homo sapiens,invasive,1,1,1,0,0,306,1
+573.37618,blood culture of pediatric patients,Homo sapiens,invasive,0,1,1,0,0,306,1
+573.44187,blood,Homo sapiens,invasive,0,1,1,0,0,305,1
+573.62371,blood,Homo sapiens,invasive,1,1,1,0,0,320,1
+573.40309,blood,Homo sapiens,invasive,1,0,0,0,0,294,1
+573.77734,blood culture,Homo sapiens,invasive,0,0,0,0,0,301,1
+573.73028,blood,Homo sapiens,invasive,1,1,1,0,0,328,1
+573.22472,blood,"Human, Homo sapiens",invasive,0,0,0,0,0,279,1
+573.43546,blood,Homo sapiens,invasive,0,0,0,0,0,282,1
+573.77732,blood culture,Homo sapiens,invasive,1,1,1,0,0,327,1
+573.19894,blood,"Human, Homo sapiens",invasive,0,1,1,0,0,301,1
+573.12528,blood,"Human, Homo sapiens",invasive,0,1,1,0,0,358,1
+573.52972,blood,Homo sapiens,invasive,0,1,1,0,0,302,1
+573.27973,primary bloodstream infection,"Human, Homo sapiens",invasive,1,1,1,0,0,334,1
+573.9768,wound abscess,"Human, Homo sapiens",invasive,0,1,1,0,0,342,1
+573.57017,blood,Homo sapiens,invasive,0,1,1,0,0,298,1
+573.78867,blood,Homo sapiens,invasive,1,1,1,0,0,316,1
+573.48268,blood,Homo sapiens,invasive,0,1,1,0,0,300,1
+573.20566,blood,"Human, Homo sapiens",invasive,0,1,1,0,0,301,1
+573.43811,blood,Homo sapiens,invasive,0,0,0,0,0,292,1
+573.48138,blood,Homo sapiens,invasive,1,1,1,0,0,317,1
+573.50837,blood,Homo sapiens,invasive,0,0,0,0,0,284,1
+573.25811,blood,"Human, Homo sapiens",invasive,1,0,0,0,0,308,1
+573.42097,blood,Homo sapiens,invasive,0,1,1,0,0,289,1
+573.81705,blood culture,Homo sapiens,invasive,1,1,1,0,0,306,1
+573.20622,blood,"Human, Homo sapiens",invasive,0,1,1,0,0,282,1
+573.35089,blood,"Human, Homo sapiens",invasive,0,1,1,0,0,306,1
+573.44504,blood,Homo sapiens,invasive,0,0,0,0,0,277,1
+573.29524,blood,"Human, Homo sapiens",invasive,0,1,1,0,0,297,1
+573.21336,blood,"Human, Homo sapiens",invasive,0,1,1,0,0,294,1
+573.52942,blood,Homo sapiens,invasive,0,1,1,0,0,313,1
+573.15304,pus,"Human, Homo sapiens",invasive,0,0,0,0,0,286,1
+573.49995,pus aspirate,Homo sapiens,invasive,0,0,0,0,0,283,1
+573.54741,blood,Homo sapiens,invasive,1,1,1,0,0,336,1
+573.9755,blood,"Human, Homo sapiens",invasive,0,0,1,0,0,350,1
+573.43788,blood,Homo sapiens,invasive,0,0,0,0,0,284,1
+573.20921,blood,"Human, Homo sapiens",invasive,0,1,1,0,0,316,1
+573.69645,blood,Homo sapiens,invasive,0,0,0,0,0,277,1
+573.21301,blood,"Human, Homo sapiens",invasive,0,0,0,0,0,292,1
+573.22529,blood,"Human, Homo sapiens",invasive,0,0,0,0,0,276,1
+573.4223,blood,"Human, Homo sapiens",invasive,0,0,0,0,0,277,1
+573.42226,blood,Homo sapiens,invasive,0,0,0,0,0,292,1
+573.14316,blood,"Human, Homo sapiens",invasive,0,0,0,0,0,346,1
+573.35656,blood,"Human, Homo sapiens",invasive,1,1,1,0,0,316,1
+573.40333,pus,Homo sapiens,invasive,0,1,1,0,0,294,1
+573.54161,blood,Homo sapiens,invasive,0,1,1,0,0,291,1
+573.13203,blood,"Human, Homo sapiens",invasive,0,0,0,0,0,337,1
+573.15015,blood,"Human, Homo sapiens",invasive,0,1,1,0,0,316,1
+573.62711,neonatal blood,Homo sapiens,invasive,0,0,0,0,0,277,1
+573.54345,blood,Homo sapiens,invasive,0,0,0,0,0,280,1
+573.45796,blood,Homo sapiens,invasive,1,1,1,0,0,330,1
+573.43516,blood,Homo sapiens,invasive,0,1,1,0,0,292,1
+573.69467,pus,Homo sapiens,invasive,0,1,1,0,0,303,1
+573.49958,abscess,Dog,invasive,0,0,0,0,0,281,1
+573.42415,blood,Homo sapiens,invasive,1,1,1,0,0,325,1
+573.25573,blood,"Human, Homo sapiens",invasive,1,1,1,0,0,337,1
+573.4119,blood,"Human, Homo sapiens",invasive,0,0,0,0,0,279,1
+573.12572,blood,"Human, Homo sapiens",invasive,0,1,1,0,0,340,1
+573.97589,catheter-related bloodstream infection,"Human, Homo sapiens",invasive,0,0,0,0,0,147,1
+573.15919,blood,"Human, Homo sapiens",invasive,0,0,0,0,0,1,1
+573.50785,blood,Homo sapiens,invasive,0,0,0,0,0,280,1
+573.79095,blood,Homo sapiens,invasive,0,1,1,0,0,300,1
+573.54772,blood,Homo sapiens,invasive,1,0,1,0,0,307,1
+573.42237,blood,Homo sapiens,invasive,0,0,0,0,0,296,1
+573.64479,blood,Homo sapiens,invasive,0,1,1,0,0,289,1
+573.65237,blood,Homo sapiens,invasive,0,0,0,0,0,283,1
+573.4167,blood,"Human, Homo sapiens",invasive,0,1,1,0,0,297,1
+573.50747,blood,Homo sapiens,invasive,0,1,1,0,0,295,1
+573.38726,blood sample from neonates,Homo sapiens,invasive,0,1,1,0,0,303,1
+573.12571,blood,"Human, Homo sapiens",invasive,0,1,1,0,0,335,1
+573.15918,blood,"Human, Homo sapiens",invasive,0,0,0,0,0,2,1
+573.83646,blood,Homo sapiens,invasive,1,0,0,0,0,291,1
+573.4063,blood,"Human, Homo sapiens",invasive,0,0,0,0,0,280,1
+573.30947,blood,"Human, Homo sapiens",invasive,0,0,0,0,0,280,1
+573.78164,blood culture,Homo sapiens,invasive,0,1,1,0,0,292,1
+573.35079,blood,"Human, Homo sapiens",invasive,0,0,0,0,0,280,1
+573.38725,blood sample from neonates,Homo sapiens,invasive,0,1,1,0,0,300,1
+573.1502,blood,"Human, Homo sapiens",invasive,0,1,1,0,0,294,1
+573.14184,abscess,"Human, Homo sapiens",invasive,0,1,1,0,0,356,1
+573.84186,blood,Homo sapiens,invasive,0,1,1,0,0,288,1
+573.25747,blood samples collected from 23 hospitals,"Human, Homo sapiens",invasive,1,0,1,0,0,313,1
+573.43003,blood culture,Homo sapiens,invasive,0,0,0,0,0,278,1
+573.15472,blood,"Human, Homo sapiens",invasive,0,1,1,0,0,305,1
+573.50855,blood,Homo sapiens,invasive,0,0,0,0,0,283,1
+573.42407,blood,Homo sapiens,invasive,0,0,0,0,0,274,1
+573.16447,blood,"Human, Homo sapiens",invasive,0,1,1,0,0,335,1
+573.24346,blood,"Human, Homo sapiens",invasive,0,0,0,0,0,279,1
+573.41474,blood,Homo sapiens,invasive,0,0,0,0,0,274,1
+573.50753,blood,Homo sapiens,invasive,0,0,0,0,0,280,1
+573.21431,blood,"Human, Homo sapiens",invasive,0,0,0,0,0,285,1
+573.25692,blood samples collected from 23 hospitals,"Human, Homo sapiens",invasive,0,0,0,0,0,292,1
+573.50166,blood,Homo sapiens,invasive,1,1,1,0,0,311,1
+573.29409,liver,"Pig, Sus scrofa",invasive,0,0,0,0,0,283,1
+573.25748,blood samples collected from 23 hospitals,"Human, Homo sapiens",invasive,0,0,0,0,0,278,1
+573.4185,blood,"Human, Homo sapiens",invasive,0,0,0,0,0,568,1
+573.50433,blood,Homo sapiens,invasive,1,1,1,0,0,312,1
+573.35571,blood,"Human, Homo sapiens",invasive,0,0,0,0,0,269,1
+573.54701,blood,Homo sapiens,invasive,0,0,0,0,0,289,1
+573.44432,blood culture,Homo sapiens,invasive,0,0,0,0,0,275,1
+573.63277,blood,Homo sapiens,invasive,0,0,0,0,0,288,1
+573.31254,blood,"Human, Homo sapiens",invasive,0,1,1,0,0,298,1
+573.52382,liver abscess puncture fluid,Homo sapiens,invasive,1,1,1,0,0,352,1
+573.42392,blood,Homo sapiens,invasive,0,1,1,0,0,296,1
+573.79172,blood,Homo sapiens,invasive,0,1,1,0,0,297,1
+573.4158,blood,"Human, Homo sapiens",invasive,0,0,0,0,0,280,1
+573.31225,blood,"Human, Homo sapiens",invasive,0,1,1,0,0,318,1
+573.25733,blood samples collected from 23 hospitals,"Human, Homo sapiens",invasive,0,1,1,0,0,298,1
+573.25799,blood,"Human, Homo sapiens",invasive,0,0,0,0,0,278,1
+573.41475,blood,Homo sapiens,invasive,0,1,1,0,0,298,1
+573.57009,blood,Homo sapiens,invasive,1,1,1,0,0,311,1
+573.77552,cerebrospinal fluid,Homo sapiens,invasive,1,1,1,0,0,312,1
+573.65216,blood,Homo sapiens,invasive,1,1,1,0,0,318,1
+573.50845,blood,Homo sapiens,invasive,0,1,1,0,0,294,1
+573.36688,blood,Homo sapiens,invasive,0,0,0,0,0,277,1
+573.63981,blood,Homo sapiens,invasive,0,0,0,0,0,312,1
+573.13429,pus,"Human, Homo sapiens",invasive,0,0,1,0,0,330,1
+573.25699,blood samples collected from 23 hospitals,"Human, Homo sapiens",invasive,0,0,0,0,0,278,1
+573.52185,blood,Homo sapiens,invasive,0,1,1,0,0,331,1
+573.77776,blood,Homo sapiens,invasive,0,1,1,0,0,294,1
+573.78609,liver abscess,Homo sapiens,invasive,1,0,1,0,0,312,1
+573.80792,blood,Homo sapiens,invasive,0,1,1,0,0,298,1
+573.42222,blood,Homo sapiens,invasive,0,0,0,0,0,295,1
+573.1963,blood,"Human, Homo sapiens",invasive,0,1,1,0,0,299,1
+573.4151,blood,"Human, Homo sapiens",invasive,0,0,0,0,0,285,1
+573.79338,blood culture,Homo sapiens,invasive,0,1,1,0,0,298,1
+573.22492,blood,"Human, Homo sapiens",invasive,0,1,1,0,0,305,1
+573.31714,blood,"Human, Homo sapiens",invasive,0,0,0,0,0,285,1
+573.7081,blood,"Human, Homo sapiens",invasive,0,0,0,0,0,283,1
+573.62412,peritoneal pus,Homo sapiens,invasive,0,1,1,0,0,298,1
+573.50521,pus,Homo sapiens,invasive,1,0,0,0,0,297,1
+573.31591,blood,"Human, Homo sapiens",invasive,0,0,0,0,0,280,1
+573.80916,pus,Homo sapiens,invasive,0,1,1,0,0,299,1
+573.12694,blood,"Human, Homo sapiens",invasive,0,0,1,0,0,381,1
+573.7065,blood,"Human, Homo sapiens",invasive,0,0,0,0,0,277,1
+573.35022,blood,"Human, Homo sapiens",invasive,0,0,0,0,0,275,1
+573.7233,blood,"Human, Homo sapiens",invasive,0,0,0,0,0,287,1
+573.21897,blood,"Human, Homo sapiens",invasive,0,1,1,0,0,299,1
+573.65483,neonatal blood,Homo sapiens,invasive,0,0,0,0,0,283,1
+573.1993,blood,"Human, Homo sapiens",invasive,0,0,0,0,0,285,1
+573.25585,blood,"Human, Homo sapiens",invasive,1,1,1,0,0,351,1
+573.56968,blood,Homo sapiens,invasive,0,1,1,0,0,301,1
+573.12719,blood,"Human, Homo sapiens",invasive,0,1,1,0,0,375,1
+573.5702,pus,"Human, Homo sapiens",invasive,0,0,0,0,0,284,1
+573.97594,catheter-related bloodstream infection,"Human, Homo sapiens",invasive,0,1,1,0,0,151,1
+573.62646,blood,Homo sapiens,invasive,0,1,1,0,0,294,1
+573.19858,blood,"Human, Homo sapiens",invasive,0,1,1,0,0,321,1
+573.41166,abscess,Homo sapiens,invasive,0,0,0,0,0,284,1
+573.32179,cerebrospinal fluid,Homo sapiens sapiens,invasive,1,1,1,0,0,351,1
+573.12507,blood,"Human, Homo sapiens",invasive,0,0,1,0,0,342,1
+573.7041,blood,"Human, Homo sapiens",invasive,0,0,0,0,0,276,1
+573.19979,blood,"Human, Homo sapiens",invasive,0,1,1,0,0,292,1
+573.15012,blood,"Human, Homo sapiens",invasive,0,1,1,0,0,312,1
+573.22475,blood,"Human, Homo sapiens",invasive,0,0,0,0,0,280,1
+573.15259,blood,"Human, Homo sapiens",invasive,0,0,0,0,0,293,1
+573.21276,blood,"Human, Homo sapiens",invasive,0,1,1,0,0,300,1
+573.58435,blood,Homo sapiens,invasive,1,0,1,0,0,297,1
+573.73582,blood,Homo sapiens,invasive,0,0,0,0,0,275,1
+573.25703,blood samples collected from 23 hospitals,"Human, Homo sapiens",invasive,0,0,0,0,0,288,1
+573.31325,pus,"Human, Homo sapiens",invasive,0,1,1,0,0,292,1
+573.21875,blood,"Human, Homo sapiens",invasive,0,0,0,0,0,278,1
+573.4214,blood,"Human, Homo sapiens",invasive,0,0,0,0,0,283,1
+573.56952,blood,Homo sapiens,invasive,1,1,1,0,0,310,1
+573.54743,blood,Homo sapiens,invasive,1,0,1,0,0,312,1
+573.83854,blood,Homo sapiens,invasive,1,1,1,0,0,318,1
+573.22542,blood,"Human, Homo sapiens",invasive,0,0,0,0,0,279,1
+573.79351,blood culture,Homo sapiens,invasive,0,0,0,0,0,282,1
+573.10049,blood,,invasive,0,0,1,0,0,361,1
+573.97638,catheter-related bloodstream infection,"Human, Homo sapiens",invasive,0,0,0,0,0,149,1
+573.54221,blood,Homo sapiens,invasive,0,1,1,0,0,293,1
+573.43923,blood,Homo sapiens,invasive,1,1,1,0,0,329,1
+573.68083,blood,Homo sapiens,invasive,1,1,1,0,0,317,1
+573.35068,blood,"Human, Homo sapiens",invasive,0,0,0,0,0,285,1
+573.18493,blood,"Human, Homo sapiens",invasive,0,0,0,0,0,287,1
+573.38221,blood,Homo sapiens,invasive,0,1,1,0,0,304,1
+573.45789,blood,Homo sapiens,invasive,1,1,1,0,0,326,1
+573.20647,blood,"Human, Homo sapiens",invasive,0,1,1,0,0,301,1
+573.33874,blood,"Human, Homo sapiens",invasive,1,1,1,0,0,330,1
+573.12536,blood,"Human, Homo sapiens",invasive,0,1,1,0,0,358,1
+573.4163,blood,"Human, Homo sapiens",invasive,0,0,0,0,0,282,1
+573.52882,liver puncture,Homo sapiens,invasive,0,0,0,0,0,292,1
+573.41045,blood,Homo sapiens,invasive,0,0,0,0,0,279,1
+573.15506,blood,"Human, Homo sapiens",invasive,0,1,1,0,0,303,1
+573.40367,blood,Homo sapiens,invasive,0,0,0,0,0,287,1
+573.65212,blood,Homo sapiens,invasive,0,1,1,0,0,306,1
+573.36594,blood,Homo sapiens,invasive,0,1,1,0,0,300,1
+573.79446,blood,Homo sapiens,invasive,1,1,1,0,0,313,1
+573.56316,blood,Homo sapiens,invasive,1,1,1,0,0,320,1
+573.45768,blood,Homo sapiens,invasive,0,1,1,0,0,291,1
+573.53553,blood,Homo sapiens,invasive,0,0,0,0,0,287,1
+573.1375,blood,"Human, Homo sapiens",invasive,0,1,1,0,0,296,1
+573.42204,blood,Homo sapiens,invasive,0,1,1,0,0,293,1
+573.35522,blood,"Human, Homo sapiens",invasive,1,1,1,0,0,333,1
+573.41355,blood,Homo sapiens,invasive,0,0,0,0,0,288,1
+573.52715,blood,Homo sapiens,invasive,0,0,0,0,0,280,1
+573.43932,blood,Homo sapiens,invasive,1,1,1,0,0,314,1
+573.62587,blood,Homo sapiens,invasive,0,1,1,0,0,301,1
+573.4147,blood,Homo sapiens,invasive,0,0,0,0,0,564,1
+573.21905,blood,"Human, Homo sapiens",invasive,0,0,0,0,0,288,1
+573.44826,blood,Homo sapiens,invasive,0,0,0,0,0,293,1
+573.15298,blood,"Human, Homo sapiens",invasive,0,0,0,0,0,319,1
+573.12732,blood,"Human, Homo sapiens",invasive,0,1,1,0,0,375,1
+573.13789,blood,"Human, Homo sapiens",invasive,0,1,1,0,0,355,1
+573.21832,blood,"Human, Homo sapiens",invasive,0,1,1,0,0,299,1
+573.42293,blood,Homo sapiens,invasive,0,0,0,0,0,295,1
+573.52574,blood,,invasive,0,0,0,0,0,286,1
+573.43928,blood,Homo sapiens,invasive,0,0,0,0,0,286,1
+573.62355,blood,Homo sapiens,invasive,1,1,1,0,0,314,1
+573.56902,blood,Homo sapiens,invasive,1,1,1,0,0,311,1
+573.57022,blood,Homo sapiens,invasive,0,0,0,0,0,284,1
+573.50481,blood,Homo sapiens,invasive,0,0,0,0,0,283,1
+573.4154,blood,"Human, Homo sapiens",invasive,0,0,0,0,0,282,1
+573.13812,blood,"Human, Homo sapiens",invasive,0,0,0,0,0,354,1
+573.37286,pus,Homo sapiens,invasive,0,0,0,0,0,324,1
+573.65241,blood,Homo sapiens,invasive,0,1,1,0,0,295,1
+573.4147,blood,"Human, Homo sapiens",invasive,0,0,0,0,0,564,1
+573.43402,blood,Homo sapiens,invasive,0,0,0,0,0,277,1
+573.50844,blood,Homo sapiens,invasive,0,0,0,0,0,274,1
+573.12698,blood,"Human, Homo sapiens",invasive,0,1,1,0,0,356,1
+573.77645,blood,Homo sapiens,invasive,0,1,1,0,0,347,1
+573.41371,blood,Homo sapiens,invasive,0,0,0,0,0,294,1
+573.7093,blood,"Human, Homo sapiens",invasive,0,0,0,0,0,280,1
+573.38811,blood,Homo sapiens,invasive,0,0,0,0,0,281,1
+573.41402,blood,Homo sapiens,invasive,0,0,0,0,0,292,1
+573.41053,pus,Homo sapiens,invasive,0,1,1,0,0,294,1
+573.21021,blood,"Human, Homo sapiens",invasive,1,1,1,0,0,351,1
+573.44227,blood,Homo sapiens,invasive,0,1,1,0,0,304,1
+573.22505,blood,"Human, Homo sapiens",invasive,0,0,0,0,0,288,1
+573.68248,blood,Homo sapiens,invasive,0,1,1,0,0,323,1
+573.44212,blood,Homo sapiens,invasive,0,1,1,0,0,295,1
+573.43798,blood,Homo sapiens,invasive,0,0,0,0,0,296,1
+573.56405,blood from hospitalized preterm neonate,Homo sapiens,invasive,0,0,0,0,0,285,1
+573.12513,blood,"Human, Homo sapiens",invasive,0,0,0,0,0,334,1
+573.57019,blood,Homo sapiens,invasive,1,1,1,0,0,312,1
+573.80785,blood,Homo sapiens,invasive,0,0,0,0,0,278,1
+573.63191,pus swab,Homo sapiens,invasive,0,1,1,0,0,307,1
+573.41354,blood,Homo sapiens,invasive,0,1,1,0,0,296,1
+573.73538,pus,Homo sapiens,invasive,0,1,1,0,0,301,1
+573.77717,blood,Homo sapiens,invasive,0,0,0,0,0,284,1
+573.15237,blood,"Human, Homo sapiens",invasive,1,1,1,0,0,330,1
+573.56477,blood culture,Homo sapiens,invasive,0,1,1,0,0,327,1
+573.80956,blood culture,Homo sapiens,invasive,0,1,1,0,0,311,1
+573.43333,blood,Homo sapiens,invasive,0,1,1,0,0,294,1
+573.4079,blood,"Human, Homo sapiens",invasive,0,0,0,0,0,277,1
+573.12576,blood,"Human, Homo sapiens",invasive,0,1,1,0,0,352,1
+573.77995,blood,Homo sapiens,invasive,0,1,1,0,0,293,1
+573.69386,bloodstream,Homo sapiens,invasive,0,0,0,0,0,283,1
+573.4138,blood,Homo sapiens,invasive,0,0,0,0,0,287,1
+573.52446,blood,Homo sapiens,invasive,0,1,1,0,0,309,1
+573.20485,blood,"Human, Homo sapiens",invasive,0,1,1,0,0,293,1
+573.42251,blood,Homo sapiens,invasive,0,0,0,0,0,294,1
+573.52562,abscess,Homo sapiens,invasive,0,1,1,0,0,314,1
+573.13394,blood,"Human, Homo sapiens",invasive,0,0,0,0,0,324,1
+573.37603,blood culture of pediatric patients,Homo sapiens,invasive,0,1,1,0,0,306,1
+573.56384,blood peripheral,Homo sapiens,invasive,0,1,1,0,0,296,1
+573.44226,blood,Homo sapiens,invasive,0,1,1,0,0,302,1
+573.25725,blood samples collected from 23 hospitals,"Human, Homo sapiens",invasive,0,0,0,0,0,287,1
+573.25798,blood,"Human, Homo sapiens",invasive,0,1,1,0,0,293,1
+573.14462,blood,"Human, Homo sapiens",invasive,0,0,1,0,0,333,1
+573.63346,blood,Homo sapiens,invasive,0,1,1,0,0,295,1
+573.73032,blood,Homo sapiens,invasive,1,1,1,0,0,334,1
+573.21111,blood,"Human, Homo sapiens",invasive,0,1,1,0,0,310,1
+573.36087,blood,Homo sapiens,invasive,0,0,0,0,0,276,1
+573.63313,blood,Homo sapiens,invasive,0,0,0,0,0,281,1
+573.57217,blood,Homo sapiens,invasive,0,1,1,0,0,299,1
+573.4083,blood,"Human, Homo sapiens",invasive,0,0,0,0,0,285,1
+573.84285,liver,Homo sapiens,invasive,1,1,1,0,0,331,1
+573.84022,blood culture,Restricted access,invasive,0,1,1,0,0,289,1
+573.44221,blood,Homo sapiens,invasive,0,0,0,0,0,286,1
+573.77996,blood,Homo sapiens,invasive,0,0,0,0,0,279,1
+573.63201,pus swab,Homo sapiens,invasive,0,1,1,0,0,299,1
+573.13296,blood,"Human, Homo sapiens",invasive,0,0,0,0,0,330,1
+573.41993,blood,Homo sapiens,invasive,0,1,1,0,0,296,1
+573.35565,blood,"Human, Homo sapiens",invasive,0,1,1,0,0,305,1
+573.48963,blood,Homo sapiens,invasive,0,1,1,0,0,322,1
+573.4203,blood,"Human, Homo sapiens",invasive,0,1,1,0,0,302,1
+573.22535,blood,"Human, Homo sapiens",invasive,0,1,1,0,0,295,1
+573.83857,blood,Homo sapiens,invasive,1,1,1,0,0,318,1
+573.73038,blood,Homo sapiens,invasive,1,1,1,0,0,321,1
+573.43779,blood,Homo sapiens,invasive,0,0,0,0,0,290,1
+573.73036,blood,Homo sapiens,invasive,1,1,1,0,0,317,1
+573.50847,blood,Homo sapiens,invasive,1,1,1,0,0,325,1
+573.43995,blood,Homo sapiens,invasive,1,0,0,0,0,294,1
+573.14991,blood,"Human, Homo sapiens",invasive,0,0,0,0,0,283,1
+573.12579,blood,"Human, Homo sapiens",invasive,0,1,1,0,0,346,1
+573.72797,blood,Homo sapiens,invasive,0,1,1,0,0,292,1
+573.4066,blood,"Human, Homo sapiens",invasive,0,0,0,0,0,280,1
+573.14959,blood,"Human, Homo sapiens",invasive,0,1,1,0,0,289,1
+573.65222,blood,Homo sapiens,invasive,0,0,0,0,0,293,1
+573.42386,blood,Homo sapiens,invasive,0,0,0,0,0,286,1
+573.79165,blood,Homo sapiens,invasive,0,1,1,0,0,304,1
+573.69617,aspirate liver abscess,Homo sapiens,invasive,1,1,1,0,0,335,1
+573.36089,blood,Homo sapiens,invasive,0,0,0,0,0,278,1
+573.35018,blood,"Human, Homo sapiens",invasive,0,0,0,0,0,275,1
+573.31227,blood,"Human, Homo sapiens",invasive,1,1,1,0,0,405,1
+573.41853,blood,Homo sapiens,invasive,0,0,0,0,0,290,1
+573.14946,blood,"Human, Homo sapiens",invasive,1,1,1,0,0,336,1
+573.35523,blood,"Human, Homo sapiens",invasive,0,0,0,0,0,277,1
+573.25763,blood samples collected from 23 hospitals,"Human, Homo sapiens",invasive,1,1,1,0,0,318,1
+573.53041,blood,Homo sapiens,invasive,0,0,0,0,0,290,1
+573.47342,blood,Homo sapiens,invasive,0,0,0,0,0,283,1
+573.13517,blood,"Human, Homo sapiens",invasive,0,0,0,0,0,334,1
+573.36046,pus,Homo sapiens,invasive,0,0,0,0,0,288,1
+573.54748,blood,Homo sapiens,invasive,1,0,1,0,0,315,1
+573.79183,blood,Homo sapiens,invasive,0,0,0,0,0,287,1
+573.41408,blood,Homo sapiens,invasive,0,0,0,0,0,292,1
+573.29589,cerebrospinal fluid,"Human, Homo sapiens",invasive,1,1,1,0,0,333,1
+573.4179,blood,"Human, Homo sapiens",invasive,0,0,0,0,0,282,1
+573.63124,blood,Homo sapiens,invasive,1,1,1,0,0,316,1
+573.56478,blood culture,Homo sapiens,invasive,0,0,0,0,0,282,1
+573.41317,blood/pneumoniae,Homo sapiens,invasive,1,1,1,0,0,320,1
+573.20621,blood,"Human, Homo sapiens",invasive,0,1,1,0,0,295,1
+573.64975,blood,Homo sapiens,invasive,0,0,0,0,0,275,1
+573.25881,blood,"Human, Homo sapiens",invasive,0,1,1,0,0,305,1
+573.63199,pus swab,Homo sapiens,invasive,0,0,0,0,0,277,1
+573.4141,blood,Homo sapiens,invasive,0,1,1,0,0,299,1
+573.25934,blood,"Mouse, Mus musculus",invasive,0,0,0,0,0,297,1
+573.43859,blood,Homo sapiens,invasive,0,1,1,0,0,296,1
+573.52717,blood,Homo sapiens,invasive,0,1,1,0,0,294,1
+573.65486,neonatal blood,Homo sapiens,invasive,0,0,0,0,0,287,1
+573.63269,blood,Homo sapiens,invasive,0,0,0,0,0,277,1
+573.56977,blood,Homo sapiens,invasive,1,1,1,0,0,313,1
+573.31267,blood,"Human, Homo sapiens",invasive,0,1,1,0,0,304,1
+573.31268,blood,"Human, Homo sapiens",invasive,0,1,1,0,0,292,1
+573.30961,blood,"Human, Homo sapiens",invasive,0,1,1,0,0,296,1
+573.78119,blood,Homo sapiens,invasive,1,1,1,0,0,332,1
+573.52445,blood,Homo sapiens,invasive,1,1,1,0,0,312,1
+573.62533,blood,Homo sapiens,invasive,0,0,0,0,0,282,1
+573.62413,rectal swab,Homo sapiens,carriage,0,1,1,0,0,300,0
+573.15603,rectal swab,"Human, Homo sapiens",carriage,0,1,1,0,0,297,0
+573.62404,rectal swab,Homo sapiens,carriage,0,1,1,0,0,298,0
+573.36156,feces,Homo sapiens,carriage,0,0,0,0,0,283,0
+573.62528,infant feces,,carriage,0,0,0,0,0,277,0
+573.62475,infant feces,,carriage,0,0,0,0,0,283,0
+573.44495,rectal swab,Homo sapiens,carriage,0,1,1,0,0,293,0
+573.54317,stool,Homo sapiens,carriage,0,0,0,0,0,300,0
+573.14923,feces,"Human, Homo sapiens",carriage,0,1,1,0,0,289,0
+573.62507,infant feces,,carriage,0,0,0,0,0,248,0
+573.44537,rectal swab,Homo sapiens,carriage,1,1,1,0,0,321,0
+573.81011,rectal swab,Homo sapiens,carriage,1,1,1,0,0,319,0
+573.78713,rectal swab,Homo sapiens,carriage,0,1,1,0,0,293,0
+573.51021,feces,Homo sapiens,carriage,0,0,0,0,0,280,0
+573.49579,feces,Homo sapiens,carriage,0,0,0,0,0,272,0
+573.62481,infant feces,,carriage,0,0,0,0,0,277,0
+573.14911,feces,"Human, Homo sapiens",carriage,0,1,1,0,0,305,0
+573.17816,rectal,"Human, Homo sapiens",carriage,0,0,0,0,0,274,0
+573.72932,feces,Homo sapiens,carriage,1,1,1,0,0,313,0
+573.49646,feces,Homo sapiens,carriage,0,0,0,0,0,287,0
+573.32137,rectal,"Human, Homo sapiens",carriage,0,1,1,0,0,364,0
+573.34109,human fecal samples,Human,carriage,0,0,0,0,0,279,0
+573.69592,rectal,Homo sapiens,carriage,1,1,1,0,0,336,0
+573.57263,rectal swab,Homo sapiens,carriage,0,1,1,0,0,297,0
+573.53509,fecal material [envo:00002003],Homo sapiens,carriage,0,0,0,0,0,282,0
+573.50986,stool,Homo sapiens,carriage,0,0,0,0,0,280,0
+573.31617,rectal swab,"Human, Homo sapiens",carriage,0,0,0,0,0,282,0
+573.44667,feces,Homo sapiens,carriage,0,1,1,0,0,296,0
+573.77725,gut,Homo sapiens,carriage,0,0,0,0,0,285,0
+573.37238,fecal swab,Primate,carriage,0,0,0,0,0,279,0
+573.81024,rectal swab,Homo sapiens,carriage,1,1,1,0,0,315,0
+573.80811,intestinal contents,Chicken,carriage,0,0,0,0,0,289,0
+573.33952,feces,"Chicken, Gallus gallus",carriage,0,0,0,0,0,279,0
+573.50015,stool,Homo sapiens,carriage,0,0,0,0,0,289,0
+573.81682,rectal,Homo sapiens,carriage,0,1,1,0,0,301,0
+573.34206,gut,"Human, Homo sapiens",carriage,0,1,1,0,0,294,0
+573.73004,rectal swab,Homo sapiens,carriage,0,1,1,0,0,295,0
+573.18544,rectal smear,"Human, Homo sapiens",carriage,0,1,1,0,0,296,0
+573.27366,stool,"Human, Homo sapiens",carriage,0,0,0,0,0,277,0
+573.53518,fecal material [envo:00002003],Homo sapiens,carriage,0,0,0,0,0,284,0
+573.57145,stool,Homo sapiens,carriage,0,0,0,0,0,292,0
+573.9975,faeces,,carriage,0,0,0,0,0,339,0
+573.79272,feces,Homo sapiens,carriage,0,0,0,0,0,281,0
+573.62472,infant feces,,carriage,0,0,0,0,0,285,0
+573.55097,feces; evolved day7-5,Homo sapiens,carriage,0,0,0,0,0,285,0
+573.43912,rectal swab,Homo sapiens,carriage,0,1,1,0,0,292,0
+573.79298,feces,Homo sapiens,carriage,0,0,0,0,0,275,0
+573.68225,stool,Homo sapiens,carriage,0,0,0,0,0,282,0
+573.37697,stool,Homo sapiens,carriage,0,0,0,0,0,282,0
+573.73012,rectal swab,Homo sapiens,carriage,0,1,1,0,0,295,0
+573.14903,feces,"Human, Homo sapiens",carriage,1,1,1,0,0,314,0
+573.32167,stool,Pan troglodytes verus,carriage,0,0,0,0,0,284,0
+573.79297,feces,Homo sapiens,carriage,0,1,1,0,0,288,0
+573.83655,rectal,Homo sapiens,carriage,1,1,1,0,0,306,0
+573.53521,fecal material [envo:00002003],Homo sapiens,carriage,0,0,0,0,0,279,0
+573.62471,infant feces,,carriage,0,0,0,0,0,300,0
+573.27395,feces,"Human, Homo sapiens",carriage,0,0,0,0,0,285,0
+573.79278,feces,Homo sapiens,carriage,0,0,0,0,0,279,0
+573.10007,faeces,,carriage,0,1,1,0,0,336,0
+573.52169,feces,Homo sapiens,carriage,0,0,0,0,0,281,0
+573.68026,stool,Homo sapiens,carriage,0,1,1,0,0,307,0
+573.46045,feces,,carriage,0,0,0,0,0,286,0
+573.50013,stool,Homo sapiens,carriage,0,0,0,0,0,280,0
+573.50017,stool,Homo sapiens,carriage,0,0,0,0,0,287,0
+573.31723,rectal swab,"Human, Homo sapiens",carriage,0,0,0,0,0,289,0
+573.62489,infant feces,,carriage,0,0,0,0,0,282,0
+573.9844,faeces,,carriage,0,0,0,0,0,317,0
+573.25857,stool,"Human, Homo sapiens",carriage,0,1,1,0,0,303,0
+573.62505,infant feces,,carriage,0,1,1,0,0,299,0
+573.56363,feces,Mouse,carriage,0,1,1,0,0,302,0
+573.44823,rectal swab,Homo sapiens,carriage,0,0,0,0,0,290,0
+573.32094,rectal swab,"Human, Homo sapiens",carriage,0,1,1,0,0,301,0
+573.68181,stool,Homo sapiens,carriage,0,0,0,0,0,277,0
+573.34047,rectal swab,"Human, Homo sapiens",carriage,0,1,1,0,0,297,0
+573.57264,feces,Elephant,carriage,1,1,1,0,0,314,0
+573.27386,feces,"Human, Homo sapiens",carriage,0,0,0,0,0,272,0
+573.78829,fecal sample,Homo sapiens,carriage,0,0,0,0,0,288,0
+573.68221,stool,Homo sapiens,carriage,0,0,0,0,0,280,0
+573.25825,stool,"Human, Homo sapiens",carriage,0,1,1,0,0,294,0
+573.5792,fecal swab,"Pig, Sus scrofa",carriage,0,0,0,0,0,281,0
+573.72988,rectal swab,Homo sapiens,carriage,0,1,1,0,0,295,0
+573.52732,stool sample,Homo sapiens,carriage,1,1,1,0,0,331,0
+573.37677,stool,Homo sapiens,carriage,0,0,0,0,0,291,0
+573.15538,rectal swab,"Human, Homo sapiens",carriage,0,0,0,0,0,282,0
+573.78362,feces,Homo sapiens,carriage,0,1,1,0,0,294,0
+573.62522,infant feces,,carriage,0,0,0,0,0,281,0
+573.54066,feces,Homo sapiens,carriage,0,0,0,0,0,286,0
+573.10033,faeces,,carriage,0,0,0,0,0,311,0
+573.43902,rectal swab,Homo sapiens,carriage,0,1,1,0,0,299,0
+573.37691,stool,Homo sapiens,carriage,0,0,0,0,0,282,0
+573.56314,chicken intestinal contents,Chicken,carriage,0,0,0,0,0,281,0
+573.84272,gut,Homo sapiens,carriage,0,0,0,0,0,283,0
+573.69577,rectal,Homo sapiens,carriage,1,1,1,0,0,329,0
+573.31613,rectal swab,"Human, Homo sapiens",carriage,0,0,0,0,0,278,0
+573.27392,feces,"Human, Homo sapiens",carriage,0,0,0,0,0,285,0
+573.10001,faeces,,carriage,0,0,0,0,0,312,0
+573.65154,rectal swab,Homo sapiens,carriage,0,0,0,0,0,292,0
+573.10092,faeces,,carriage,0,0,0,0,0,324,0
+573.27356,rectal swab,"Human, Homo sapiens",carriage,0,1,1,0,0,302,0
+573.56217,rectal swab,Homo sapiens,carriage,0,0,0,0,0,276,0
+573.69614,rectal,Homo sapiens,carriage,1,1,1,0,0,331,0
+573.46037,feces,,carriage,1,0,0,0,0,306,0
+573.43905,rectal swab,Homo sapiens,carriage,0,1,1,0,0,297,0
+573.78833,fecal sample,Homo sapiens,carriage,0,0,0,0,0,271,0
+573.50561,feces,Homo sapiens,carriage,0,0,0,0,0,298,0
+573.84271,gut,Homo sapiens,carriage,0,0,0,0,0,267,0
+573.10028,faeces,,carriage,0,0,0,0,0,312,0
+573.17894,fecal swab,"Cat, Felis catus",carriage,0,0,0,0,0,287,0
+573.36574,rectal swab,Homo sapiens,carriage,0,1,1,0,0,301,0
+573.82137,rectal swab,Homo sapiens,carriage,0,1,1,0,0,285,0
+573.40271,feces,Homo sapiens,carriage,0,0,0,0,0,280,0
+573.49602,feces,Homo sapiens,carriage,0,0,0,0,0,289,0
+573.9922,faeces,,carriage,0,1,1,0,0,332,0
+573.74264,feces,Homo sapiens,carriage,1,1,1,0,0,313,0
+573.55095,feces; evolved day8-4,Homo sapiens,carriage,0,0,0,0,0,260,0
+573.63133,rectal swab,Homo sapiens,carriage,0,1,1,0,0,294,0
+573.31726,rectal swab,"Human, Homo sapiens",carriage,0,0,0,0,0,285,0
+573.63073,infant feces,,carriage,0,1,1,0,0,316,0
+573.10022,faeces,,carriage,0,0,0,0,0,336,0
+573.37686,stool,Homo sapiens,carriage,0,0,0,0,0,287,0
+573.16233,rectal,"Human, Homo sapiens",carriage,0,0,0,0,0,1,0
+573.45929,rectal,Homo sapiens,carriage,0,0,0,0,0,291,0
+573.67993,stool,Homo sapiens,carriage,1,1,1,0,0,310,0
+573.51014,fresh feces,Swine,carriage,1,0,0,0,0,309,0
+573.9984,faeces,,carriage,0,0,0,0,0,333,0
+573.41417,rectal swab sample,Homo sapiens,carriage,0,0,0,0,0,277,0
+573.63072,infant feces,,carriage,1,0,1,0,0,308,0
+573.78144,rectal swab,Homo sapiens,carriage,0,1,1,0,0,292,0
+573.37579,rectal swab,Homo sapiens,carriage,0,1,1,0,0,288,0
+573.78148,rectal swab,Homo sapiens,carriage,0,0,0,0,0,288,0
+573.45868,rectal swab,Homo sapiens,carriage,0,0,0,0,0,280,0
+573.31291,rectal swab,"Human, Homo sapiens",carriage,1,1,1,0,0,320,0
+573.78147,rectal swab,Homo sapiens,carriage,0,1,1,0,0,292,0
+573.63117,rectal swab,Homo sapiens,carriage,0,1,1,0,0,303,0
+573.50981,stool,Homo sapiens,carriage,0,0,0,0,0,272,0
+573.69547,rectal,Homo sapiens,carriage,1,1,1,0,0,339,0
+573.34044,rectal swab,"Human, Homo sapiens",carriage,0,1,1,0,0,300,0
+573.68268,perirectal swab,Homo sapiens,carriage,0,1,1,0,0,297,0
+573.74269,feces,Homo sapiens,carriage,0,1,1,0,0,300,0
+573.69568,rectal,Homo sapiens,carriage,1,1,1,0,0,330,0
+573.56443,feces,Gallus gallus,carriage,0,0,0,0,0,293,0
+573.50544,fresh feces,swine,carriage,1,0,0,0,0,303,0
+573.10014,faeces,,carriage,0,1,1,0,0,333,0
+573.54289,stool,Homo sapiens,carriage,0,0,0,0,0,302,0
+573.62473,infant feces,,carriage,0,0,0,0,0,154,0
+573.81677,rectal,Homo sapiens,carriage,0,1,1,0,0,296,0
+573.79293,feces,Homo sapiens,carriage,0,0,0,0,0,282,0
+573.68152,stool,Homo sapiens,carriage,0,1,1,0,0,307,0
+573.80779,rectal swab,Homo sapiens,carriage,0,0,0,0,0,281,0
+573.19873,fecal sample,"Human, Homo sapiens",carriage,0,1,1,0,0,299,0
+573.77901,feces,Homo sapiens,carriage,0,0,0,0,0,275,0
+573.34202,gut,"Human, Homo sapiens",carriage,0,0,0,0,0,293,0
+573.49607,feces,Homo sapiens,carriage,1,1,1,0,0,334,0
+573.69605,rectal,Homo sapiens,carriage,1,1,1,0,0,327,0
+573.6996,rectal,"Human, Homo sapiens",carriage,0,1,1,0,0,296,0
+573.15584,rectal swab,"Human, Homo sapiens",carriage,0,0,0,0,0,288,0
+573.78468,newborn feces,Homo sapiens,carriage,1,1,1,0,0,338,0
+573.28579,stool,"Human, Homo sapiens",carriage,0,0,0,0,0,282,0
+573.67998,stool,Homo sapiens,carriage,0,1,1,0,0,295,0
+573.25945,stool,"Human, Homo sapiens",carriage,0,1,1,0,0,288,0
+573.27393,feces,"Human, Homo sapiens",carriage,0,1,1,0,0,319,0
+573.68246,stool,Homo sapiens,carriage,0,0,0,0,0,282,0
+573.34138,rectal swab,"Human, Homo sapiens",carriage,0,1,1,0,0,297,0
+573.81685,rectal,Homo sapiens,carriage,0,0,0,0,0,281,0
+573.63163,rectal swab,Homo sapiens,carriage,1,1,1,0,0,314,0
+573.49064,feces,Homo sapiens,carriage,0,0,0,0,0,289,0
+573.9845,faeces,,carriage,0,0,0,0,0,316,0
+573.78157,rectal swab,Homo sapiens,carriage,1,0,0,0,0,299,0
+573.81045,rectal swab,Homo sapiens,carriage,0,1,1,0,0,302,0
+573.37813,rectal,Homo sapiens,carriage,0,1,1,0,0,297,0
+573.10088,faeces,,carriage,0,0,0,0,0,308,0
+573.49032,feces,Homo sapiens,carriage,0,1,1,0,0,319,0
+573.68204,stool,Homo sapiens,carriage,0,1,1,0,0,295,0
+573.20096,feces,"Human, Homo sapiens",carriage,0,0,0,0,0,338,0
+573.82004,stool,Homo sapiens,carriage,0,0,0,0,0,290,0
+573.19898,stool 1,"Human, Homo sapiens",carriage,0,1,1,0,0,293,0
+573.9974,faeces,,carriage,0,0,0,0,0,309,0
+573.62526,infant feces,,carriage,0,0,0,0,0,284,0
+573.55094,feces; evolved day8-2,Homo sapiens,carriage,0,0,0,0,0,287,0
+573.41044,rectal swab,Homo sapiens,carriage,0,0,0,0,0,281,0
+573.72925,feces,Homo sapiens,carriage,0,1,1,0,0,306,0
+573.65165,stool,Homo sapiens,carriage,0,0,0,0,0,281,0
+573.34096,wild yak feces,,carriage,1,0,0,0,0,303,0
+573.31317,rectal swab,"Human, Homo sapiens",carriage,0,1,1,0,0,294,0
+573.35685,stool,"Human, Homo sapiens",carriage,1,1,1,0,0,313,0
+573.10042,faeces,,carriage,0,0,0,0,0,331,0
+573.62501,infant feces,,carriage,0,1,1,0,0,300,0
+573.44281,rectal swab,Homo sapiens,carriage,0,0,0,0,0,264,0
+573.50041,rectal swab,Homo sapiens,carriage,0,0,0,0,0,280,0
+573.9925,faeces,,carriage,0,1,1,0,0,332,0
+573.78379,feces,Homo sapiens,carriage,0,1,1,0,0,290,0
+573.68158,stool,Homo sapiens,carriage,0,0,0,0,0,289,0
+573.46031,feces,,carriage,1,0,0,0,0,304,0
+573.10077,faeces,,carriage,0,0,0,0,0,334,0
+573.72934,feces,Homo sapiens,carriage,1,1,1,0,0,313,0
+573.5766,stool,"Human, Homo sapiens",carriage,0,0,0,0,0,281,0
+573.68245,stool,Homo sapiens,carriage,0,0,0,0,0,286,0
+573.15577,rectal swab,"Human, Homo sapiens",carriage,0,0,0,0,0,281,0
+573.57285,rectal swab,Homo sapiens,carriage,0,0,0,0,0,311,0
+573.49056,feces,Homo sapiens,carriage,0,0,0,0,0,300,0
+573.79276,feces,Homo sapiens,carriage,0,0,0,0,0,285,0
+573.49041,feces,Homo sapiens,carriage,0,1,1,0,0,335,0
+573.56288,feces,Gallus gallus,carriage,0,0,0,0,0,287,0
+573.77819,feces,Homo sapiens,carriage,0,0,0,0,0,296,0
+573.49037,feces,Homo sapiens,carriage,0,1,1,0,0,305,0
+573.56328,feces,Gallus gallus,carriage,0,0,0,0,0,288,0
+573.15613,rectal swab,"Human, Homo sapiens",carriage,0,0,0,0,0,283,0
+573.55319,poultry faeces,,carriage,0,0,0,0,0,283,0
+573.58454,stool,Homo sapiens,carriage,1,1,1,0,0,314,0
+573.9931,faeces,,carriage,0,0,0,0,0,330,0
+573.50108,human rectal swab,Homo sapiens,carriage,0,1,1,0,0,286,0
+573.51017,feces,Homo sapiens,carriage,0,0,0,0,0,305,0
+573.54095,feces,Homo sapiens,carriage,0,0,0,0,0,279,0
+573.62508,infant feces,,carriage,0,0,0,0,0,283,0
+573.50558,feces,Homo sapiens,carriage,0,0,0,0,0,313,0
+573.9908,faeces,,carriage,0,0,0,0,0,334,0
+573.48271,rectal swab,Homo sapiens,carriage,0,1,1,0,0,301,0
+573.63162,rectal swab,Homo sapiens,carriage,1,1,1,0,0,306,0
+573.54694,feces,Poultry,carriage,0,0,0,0,0,279,0
+573.37576,rectal swab,Homo sapiens,carriage,0,1,1,0,0,294,0
+573.14782,rectal swab,"Human, Homo sapiens",carriage,0,0,0,0,0,302,0
+573.9887,faeces,,carriage,0,0,0,0,0,341,0
+573.9981,faeces,,carriage,0,0,0,0,0,338,0
+573.55099,feces; evolved day7-2,Homo sapiens,carriage,0,0,0,0,0,285,0
+573.27363,stool,"Human, Homo sapiens",carriage,0,0,0,0,0,287,0
+573.47133,stool sample,Homo sapiens,carriage,0,0,0,0,0,316,0
+573.39839,feces,Homo sapiens,carriage,0,1,1,0,0,296,0
+573.49626,feces,Homo sapiens,carriage,0,0,0,0,0,275,0
+573.18238,rectal swab,"Human, Homo sapiens",carriage,0,1,1,0,0,294,0
+573.78719,rectal swab,Homo sapiens,carriage,0,1,1,0,0,300,0
+573.79305,feces,Homo sapiens,carriage,1,0,0,0,0,309,0
+573.64588,gut,Homo sapiens,carriage,1,1,1,0,0,315,0
+573.15622,rectal swab,"Human, Homo sapiens",carriage,0,0,0,0,0,282,0
+573.47137,feces,Homo sapiens,carriage,1,1,1,0,0,317,0
+573.44017,rectal swab,Homo sapiens,carriage,0,0,0,0,0,281,0
+573.50051,rectal swab,Homo sapiens,carriage,0,0,0,0,0,282,0
+573.63254,stool,Homo sapiens,carriage,0,1,1,0,0,302,0
+573.49589,feces,Homo sapiens,carriage,0,0,0,0,0,284,0
+573.10036,faeces,,carriage,0,0,1,0,0,334,0
+573.31048,stool,"Human, Homo sapiens",carriage,1,1,1,0,0,320,0
+573.43319,rectal swab,Homo sapiens,carriage,0,1,1,0,0,294,0
+573.10031,faeces,,carriage,0,0,0,0,0,313,0
+573.49031,feces,Homo sapiens,carriage,0,1,1,0,0,313,0
+573.20095,feces,"Human, Homo sapiens",carriage,0,0,0,0,0,356,0
+573.56453,feces,Gallus gallus,carriage,0,0,0,0,0,280,0
+573.37669,intestine,Homo sapiens,carriage,0,1,1,0,0,307,0
+573.20027,feces,"Human, Homo sapiens",carriage,1,1,1,0,0,332,0
+573.14935,feces,"Human, Homo sapiens",carriage,0,1,1,0,0,299,0
+573.49484,rectal swab,Homo sapiens,carriage,0,1,1,0,0,304,0
+573.65476,stool,Homo sapiens,carriage,1,1,1,0,0,312,0
+573.47144,rectal swab,Homo sapiens,carriage,1,1,1,0,0,313,0
+573.43281,feces,Homo sapiens,carriage,0,0,0,0,0,276,0
+573.43388,rectal swab,Homo sapiens,carriage,0,1,1,0,0,289,0
+573.22596,rectal swab,"Human, Homo sapiens",carriage,0,1,1,0,0,312,0
+573.64032,feces,Homo sapiens,carriage,0,0,0,0,0,282,0
+573.69574,rectal,Homo sapiens,carriage,1,1,1,0,0,318,0
+573.14883,feces,"Human, Homo sapiens",carriage,0,1,1,0,0,293,0
+573.62485,infant feces,,carriage,0,0,0,0,0,275,0
+573.72999,rectal swab,Homo sapiens,carriage,0,1,1,0,0,301,0
+573.77825,feces,Cat,carriage,0,0,0,0,0,280,0
+573.78717,rectal swab,Homo sapiens,carriage,0,0,0,0,0,291,0
+573.49645,feces,Homo sapiens,carriage,0,0,0,0,0,283,0
+573.50543,fresh feces,swine,carriage,1,1,1,0,0,313,0
+573.64662,rectal swab,Homo sapiens,carriage,0,0,0,0,0,279,0
+573.49051,feces,Homo sapiens,carriage,0,1,1,0,0,326,0
+573.78197,feces,Homo sapiens,carriage,0,0,0,0,0,289,0
+573.1562,rectal swab,"Human, Homo sapiens",carriage,0,1,1,0,0,290,0
+573.4185,feces,Homo sapiens,carriage,0,0,0,0,0,568,0
+573.50107,human rectal swab,Homo sapiens,carriage,0,0,0,0,0,293,0
+573.79296,feces,Homo sapiens,carriage,0,0,0,0,0,286,0
+573.83813,stool,Homo sapiens,carriage,1,1,1,0,0,303,0
+573.73051,feces,Homo sapiens,carriage,0,0,0,0,0,278,0
+573.25984,rectal swab,"Human, Homo sapiens",carriage,1,1,1,0,0,321,0
+573.56394,feces,Mouse,carriage,0,1,1,0,0,302,0
+573.57267,human feces metagenome,Human,carriage,0,1,1,0,0,276,0
+573.43908,rectal swab,Homo sapiens,carriage,0,0,0,0,0,286,0
+573.14872,feces,"Human, Homo sapiens",carriage,0,1,1,0,0,290,0
+573.25943,stool,"Human, Homo sapiens",carriage,0,1,1,0,0,303,0
+573.35051,rectal,,carriage,0,0,0,0,0,278,0
+573.69548,rectal,Homo sapiens,carriage,1,1,1,0,0,327,0
+573.64727,rectal swab,Homo sapiens,carriage,0,0,0,0,0,278,0
+573.9866,faeces,,carriage,0,0,1,0,0,330,0
+573.53506,fecal material [envo:00002003],Homo sapiens,carriage,0,0,0,0,0,282,0
+573.81683,rectal,Homo sapiens,carriage,0,0,0,0,0,284,0
+573.63142,rectal swab,Homo sapiens,carriage,0,1,1,0,0,299,0
+573.68025,stool,Homo sapiens,carriage,0,1,1,0,0,292,0
+573.27397,feces,"Human, Homo sapiens",carriage,0,0,0,0,0,285,0
+573.49593,feces,Homo sapiens,carriage,0,0,0,0,0,282,0
+573.25792,feces,Migratory bird,carriage,0,0,0,0,0,283,0
+573.54871,rectal swab,Homo sapiens,carriage,0,0,0,0,0,279,0
+573.38776,rectal swab,Homo sapiens,carriage,0,0,0,0,0,287,0
+573.64726,rectal swab,Homo sapiens,carriage,0,0,0,0,0,278,0
+573.72993,rectal swab,Homo sapiens,carriage,0,1,1,0,0,295,0
+573.37692,stool,Homo sapiens,carriage,0,0,0,0,0,278,0
+573.54877,rectal swab,Homo sapiens,carriage,0,0,0,0,0,279,0
+573.15581,rectal swab,"Human, Homo sapiens",carriage,0,0,0,0,0,286,0
+573.54072,feces,Homo sapiens,carriage,0,0,0,0,0,284,0
+573.51013,rectal,Homo sapiens,carriage,0,1,1,0,0,358,0
+573.79286,feces,Homo sapiens,carriage,0,0,0,0,0,287,0
+573.5769,stool,"Human, Homo sapiens",carriage,0,1,1,0,0,296,0
+573.56276,rectal swab,Homo sapiens,carriage,0,0,0,0,0,285,0
+573.77727,gut,Homo sapiens,carriage,0,0,0,0,0,283,0
+573.32155,stool,Pan troglodytes verus,carriage,0,0,0,0,0,288,0
+573.78342,feces,Hoplobatrachus rugulosus,carriage,0,1,1,0,0,299,0
+573.10085,faeces,,carriage,0,0,0,0,0,308,0
+573.68151,stool,Homo sapiens,carriage,0,0,0,0,0,291,0
+573.67996,stool,Homo sapiens,carriage,0,0,0,0,0,283,0
+573.5644,stool,"Human, Homo sapiens",carriage,0,0,0,0,0,290,0
+573.57132,rectal swab,Homo sapiens,carriage,0,0,0,0,0,277,0
+573.68199,stool,Homo sapiens,carriage,0,0,0,0,0,288,0
+573.43119,feces,Homo sapiens,carriage,0,1,1,0,0,296,0
+573.50985,stool,Homo sapiens,carriage,0,0,0,0,0,279,0
+573.57364,feces,Homo sapiens,carriage,1,1,1,0,0,314,0
+573.46042,feces,,carriage,0,0,0,0,0,277,0
+573.50991,stool,Homo sapiens,carriage,0,0,0,0,0,275,0
+573.62511,infant feces,,carriage,0,0,0,0,0,304,0
+573.38774,rectal swab,Homo sapiens,carriage,0,0,0,0,0,278,0
+573.64959,stool,Homo sapiens,carriage,0,0,0,0,0,281,0
+573.45849,rectal colonization,Homo sapiens,carriage,0,0,0,0,0,303,0
+573.68162,rectal swab,Homo sapiens,carriage,0,1,1,0,0,304,0
+573.57138,stool,Homo sapiens,carriage,0,1,1,0,0,299,0
+573.69621,rectal,Homo sapiens,carriage,1,1,1,0,0,336,0
+573.37699,stool,Homo sapiens,carriage,0,0,0,0,0,277,0
+573.68028,stool,Homo sapiens,carriage,0,1,1,0,0,314,0
+573.62469,infant feces,,carriage,0,0,0,0,0,298,0
+573.83674,rectal,Homo sapiens,carriage,1,0,0,0,0,282,0
+573.37296,rectal swab,Homo sapiens,carriage,0,0,0,0,0,289,0
+573.49073,feces,Homo sapiens,carriage,0,0,0,0,0,304,0
+573.53511,fecal material [envo:00002003],Homo sapiens,carriage,0,1,1,0,0,306,0
+573.26325,"various environments (clinical samples, water, carriage)",,carriage,0,1,1,0,0,292,0
+573.29495,rectal swab,"Human, Homo sapiens",carriage,0,1,1,0,0,296,0
+573.43996,rectal swab,Homo sapiens,carriage,0,1,1,0,0,300,0
+573.84007,rectal swab,Restricted access,carriage,0,0,0,0,0,284,0
+573.32164,stool,Pan troglodytes verus,carriage,0,0,0,0,0,279,0
+573.15627,rectal swab,"Human, Homo sapiens",carriage,0,0,0,0,0,291,0
+573.31747,"hospital-2, op, stool #2","Human, Homo sapiens",carriage,0,0,0,0,0,282,0
+573.54318,stool,Homo sapiens,carriage,0,0,0,0,0,307,0
+573.49628,feces,Homo sapiens,carriage,0,0,0,0,0,283,0
+573.43242,rectal swab isolate from a 57-year-old man,Homo sapiens,carriage,0,1,1,0,0,305,0
+573.58207,stool,Homo sapiens,carriage,0,0,0,0,0,289,0
+573.47145,rectal swab,Homo sapiens,carriage,1,1,1,0,0,389,0
+573.48947,stool,Homo sapiens,carriage,0,0,0,0,0,315,0
+573.19988,rectal swab,"Human, Homo sapiens",carriage,0,0,0,0,0,293,0
+573.25893,stool,"Human, Homo sapiens",carriage,0,1,1,0,0,301,0
+573.32396,pooled sheep fecal samples collected from floor of farm,,carriage,0,0,0,0,0,275,0
+573.53761,rectal swab,Homo sapiens,carriage,1,1,1,0,0,304,0
+573.17827,rectal smear surveillance,"Human, Homo sapiens",carriage,0,0,0,0,0,291,0
+573.79313,feces,Homo sapiens,carriage,0,0,0,0,0,284,0
+573.37785,feces,swine,carriage,1,0,0,0,0,303,0
+573.5763,stool,"Human, Homo sapiens",carriage,0,1,1,0,0,291,0
+573.49614,feces,Homo sapiens,carriage,0,1,1,0,0,296,0
+573.50004,stool,Homo sapiens,carriage,0,0,0,0,0,293,0
+573.9983,faeces,,carriage,0,0,1,0,0,330,0
+573.46029,feces,,carriage,1,0,0,0,0,304,0
+573.32416,rectal swab,"Human, Homo sapiens",carriage,0,1,1,0,0,302,0
+573.64691,rectal swab,Bos taurus indicus,carriage,0,1,1,0,0,310,0
+573.54875,rectal swab,Homo sapiens,carriage,0,0,0,0,0,279,0
+573.28582,stool,"Human, Homo sapiens",carriage,0,0,0,0,0,273,0
+573.74272,feces,Homo sapiens,carriage,1,1,1,0,0,317,0
+573.62438,rectal swab,Homo sapiens,carriage,0,1,1,0,0,300,0
+573.63071,infant feces,,carriage,1,0,1,0,0,317,0
+573.62488,infant feces,,carriage,0,0,0,0,0,250,0
+573.49028,feces,Homo sapiens,carriage,0,1,1,0,0,320,0
+573.16227,rectal,"Human, Homo sapiens",carriage,0,0,0,0,0,3,0
+573.27399,feces,"Human, Homo sapiens",carriage,0,0,0,0,0,285,0
+573.68031,stool,Homo sapiens,carriage,0,0,0,0,0,284,0
+573.49637,feces,Homo sapiens,carriage,0,0,0,0,0,282,0
+573.43852,rectal swab isolate from a 57-year-old man,Homo sapiens,carriage,0,1,1,0,0,305,0
+573.9968,faeces,,carriage,0,1,1,0,0,334,0
+573.69558,feces,Homo sapiens,carriage,1,1,1,0,0,337,0
+573.31619,rectal swab,"Human, Homo sapiens",carriage,0,0,0,0,0,287,0
+573.49594,feces,Homo sapiens,carriage,0,0,0,0,0,285,0
+573.15599,rectal swab,"Human, Homo sapiens",carriage,0,0,0,0,0,288,0
+573.34081,rectal swab,"Human, Homo sapiens",carriage,0,0,0,0,0,291,0
+573.37667,stool,Homo sapiens,carriage,0,0,0,0,0,288,0
+573.78172,rectal swab,Homo sapiens,carriage,1,0,1,0,0,304,0
+573.10076,faeces,,carriage,0,0,0,0,0,347,0
+573.56124,feces,Gallus gallus,carriage,0,0,0,0,0,285,0
+573.10035,faeces,,carriage,0,0,0,0,0,329,0
+573.84006,rectal swab,Restricted access,carriage,0,1,1,0,0,290,0
+573.37805,a feces sample of swine origin,,carriage,1,0,0,0,0,297,0
+573.34203,gut,"Human, Homo sapiens",carriage,0,0,0,0,0,289,0
+573.63119,rectal swab,Homo sapiens,carriage,1,1,1,0,0,313,0
+573.15618,rectal swab,"Human, Homo sapiens",carriage,0,0,0,0,0,285,0
+573.81008,rectal swab,Homo sapiens,carriage,1,1,1,0,0,317,0
+573.31023,stool from adult,"Human, Homo sapiens",carriage,1,1,1,0,0,332,0
+573.37769,rectal surveillance swabs,Homo sapiens,carriage,0,1,1,0,0,293,0
+573.37252,rectal swab,Homo sapiens,carriage,0,1,1,0,0,289,0
+573.83668,rectal,Homo sapiens,carriage,0,1,1,0,0,305,0
+573.72971,rectal swab,Homo sapiens,carriage,0,1,1,0,0,295,0
+573.36155,feces,Homo sapiens,carriage,1,0,0,0,0,309,0
+573.55096,feces; evolved day7-4,Homo sapiens,carriage,0,0,0,0,0,287,0
+573.74285,feces,Homo sapiens,carriage,1,1,1,0,0,313,0
+573.25878,stool,"Human, Homo sapiens",carriage,0,1,1,0,0,305,0
+573.19872,fecal sample,"Human, Homo sapiens",carriage,0,1,1,0,0,299,0
+573.83695,rectal swab,Homo sapiens,carriage,0,0,0,0,0,300,0
+573.15592,rectal swab,"Human, Homo sapiens",carriage,0,1,1,0,0,314,0
+573.78171,rectal swab,Homo sapiens,carriage,0,0,0,0,0,275,0
+573.81696,feces,Homo sapiens,carriage,0,1,1,0,0,299,0
+573.83653,rectal,Homo sapiens,carriage,0,0,0,0,0,284,0
+573.36158,feces,Homo sapiens,carriage,0,0,0,0,0,285,0
+573.56157,chicken intestinal contents,Chicken,carriage,0,0,0,0,0,281,0
+573.22604,rectal swab,"Human, Homo sapiens",carriage,0,1,1,0,0,300,0
+573.9896,faeces,,carriage,0,0,1,0,0,336,0
+573.17818,rectal,"Human, Homo sapiens",carriage,0,0,0,0,0,277,0
+573.63138,rectal swab,Homo sapiens,carriage,0,1,1,0,0,299,0
+573.1497,perirectal,"Human, Homo sapiens",carriage,0,1,1,0,0,293,0
+573.79307,feces,Homo sapiens,carriage,0,0,0,0,0,282,0
+573.56482,stool,Homo sapiens,carriage,0,1,1,0,0,299,0
+573.78192,feces,Homo sapiens,carriage,0,1,1,0,0,307,0
+573.45073,stool,Homo sapiens,carriage,0,1,1,0,0,297,0
+573.14873,feces,"Human, Homo sapiens",carriage,0,0,0,0,0,291,0
+573.27373,stool,"Human, Homo sapiens",carriage,0,0,0,0,0,289,0
+573.27732,human gut,Human,carriage,0,0,0,0,0,277,0
+573.44524,rectal swab,Homo sapiens,carriage,0,1,1,0,0,290,0
+573.81019,rectal swab,Homo sapiens,carriage,1,1,1,0,0,298,0
+573.40289,rectal swab,Homo sapiens,carriage,1,1,1,0,0,320,0
+573.49055,feces,Homo sapiens,carriage,0,0,0,0,0,288,0
+573.49049,feces,Homo sapiens,carriage,0,0,0,0,0,298,0
+573.63154,feces,Homo sapiens,carriage,1,1,1,0,0,314,0
+573.84012,rectal swab,Restricted access,carriage,0,1,1,0,0,296,0
+573.27511,rectal,"Human, Homo sapiens",carriage,1,1,1,0,0,322,0
+573.2032,rectal,"Human, Homo sapiens",carriage,0,0,0,0,0,277,0
+573.18693,stool,"Human, Homo sapiens",carriage,0,1,1,0,0,313,0
+573.25854,stool,"Human, Homo sapiens",carriage,0,1,1,0,0,298,0
+573.43137,rectal swab,Homo sapiens,carriage,0,0,0,0,0,289,0
+573.83816,stool,Homo sapiens,carriage,1,1,1,0,0,316,0
+573.49479,rectal swab,Homo sapiens,carriage,0,0,0,0,0,278,0
+573.69563,rectal,Homo sapiens,carriage,1,1,1,0,0,339,0
+573.52784,feces,Mouse,carriage,0,0,0,0,0,283,0
+573.69611,rectal,Homo sapiens,carriage,1,1,1,0,0,330,0
+573.69633,rectal,Homo sapiens,carriage,1,1,1,0,0,335,0
+573.9892,faeces,,carriage,0,0,0,0,0,316,0
+573.68116,peri-rectal,Homo sapiens,carriage,0,1,1,0,0,298,0
+573.79288,feces,Homo sapiens,carriage,0,0,0,0,0,281,0
+573.84013,rectal swab,Restricted access,carriage,0,1,1,0,0,293,0
+573.83811,stool,Homo sapiens,carriage,1,1,1,0,0,338,0
+573.9897,faeces,,carriage,0,0,0,0,0,318,0
+573.35104,rectal swab,"Human, Homo sapiens",carriage,1,1,1,0,0,316,0
+573.81042,rectal swab,Homo sapiens,carriage,0,0,0,0,0,282,0
+573.10039,faeces,,carriage,0,0,1,0,0,340,0
+573.50081,feces,Homo sapiens,carriage,0,1,1,0,0,306,0
+573.43911,rectal swab,Homo sapiens,carriage,0,1,1,0,0,293,0
+573.25858,stool,"Human, Homo sapiens",carriage,0,1,1,0,0,304,0
+573.69578,rectal,Homo sapiens,carriage,1,1,1,0,0,334,0
+573.84016,rectal swab,Restricted access,carriage,0,0,0,0,0,287,0
+573.68163,rectal swab,Homo sapiens,carriage,0,1,1,0,0,302,0
+573.49046,feces,Homo sapiens,carriage,0,0,0,0,0,306,0
+573.78166,rectal swab,Homo sapiens,carriage,0,1,1,0,0,299,0
+573.14909,feces,"Human, Homo sapiens",carriage,0,1,1,0,0,296,0
+573.50054,rectal swab,Homo sapiens,carriage,0,1,1,0,0,298,0
+573.20034,feces,"Human, Homo sapiens",carriage,1,1,1,0,0,329,0
+573.19864,feces,"Human, Homo sapiens",carriage,0,0,0,0,0,297,0
+573.26326,"various environments (clinical samples, water, carriage)",,carriage,0,1,1,0,0,291,0
+573.56271,anorectal swab,Homo sapiens,carriage,0,0,0,0,0,293,0
+573.49577,feces,Homo sapiens,carriage,0,0,0,0,0,291,0
+573.69616,rectal,Homo sapiens,carriage,1,1,1,0,0,339,0
+573.64689,feces,Capra aegagrus hircus,carriage,0,0,0,0,0,278,0
+573.69571,rectal,Homo sapiens,carriage,1,1,1,0,0,337,0
+573.54326,rectal swab,Homo sapiens,carriage,1,1,1,0,0,319,0
+573.25869,stool,"Human, Homo sapiens",carriage,0,1,1,0,0,304,0
+573.43871,feces,Homo sapiens,carriage,1,1,1,0,0,314,0
+573.9641,human gut metagenome,,carriage,0,1,1,0,0,307,0
+573.48131,stools,Homo sapiens,carriage,0,0,0,0,0,293,0
+573.49665,feces,Homo sapiens,carriage,0,0,0,0,0,282,0
+573.34121,human fecal samples,Human,carriage,0,0,0,0,0,280,0
+573.47131,stool sample,Homo sapiens,carriage,1,1,1,0,0,381,0
+573.10006,faeces,,carriage,0,1,1,0,0,342,0
+573.50109,human rectal swab,Homo sapiens,carriage,0,1,1,0,0,290,0
+573.9972,faeces,,carriage,0,0,0,0,0,336,0
+573.27341,feces,Homo sapiens sapiens,carriage,1,1,1,0,0,367,0
+573.49573,feces,Homo sapiens,carriage,0,0,0,0,0,285,0
+573.56376,rectal swab,Homo sapiens,carriage,0,1,1,0,0,296,0
+573.74273,feces,Homo sapiens,carriage,1,1,1,0,0,317,0
+573.51891,stool,Homo sapiens,carriage,1,1,1,0,0,316,0
+573.43856,feces,Homo sapiens,carriage,0,0,0,0,0,280,0
+573.81027,rectal swab,Homo sapiens,carriage,0,0,0,0,0,291,0
+573.69674,stool,Gallus gallus domesticus,carriage,0,0,0,0,0,285,0
+573.53514,fecal material [envo:00002003],Homo sapiens,carriage,0,0,0,0,0,284,0
+573.41403,rectal swab,Homo sapiens,carriage,0,0,0,0,0,290,0
+573.12485,rectal,"Human, Homo sapiens",carriage,0,0,1,0,0,366,0
+573.64034,feces,Homo sapiens,carriage,0,0,0,0,0,279,0
+573.1492,feces,"Human, Homo sapiens",carriage,0,0,0,0,0,277,0
+573.68166,rectal swab,Homo sapiens,carriage,0,1,1,0,0,301,0
+573.43903,rectal swab,Homo sapiens,carriage,0,0,0,0,0,281,0
+573.45851,stool,Homo sapiens,carriage,0,0,0,0,0,275,0
+573.69566,rectal,Homo sapiens,carriage,1,1,1,0,0,329,0
+573.68024,stool,Homo sapiens,carriage,1,1,1,0,0,315,0
+573.25894,stool,"Human, Homo sapiens",carriage,0,1,1,0,0,301,0
+573.14882,feces,"Human, Homo sapiens",carriage,0,1,1,0,0,300,0
+573.27389,feces,"Human, Homo sapiens",carriage,0,0,0,0,0,276,0
+573.31615,rectal swab,"Human, Homo sapiens",carriage,0,0,0,0,0,285,0
+573.30984,feces,"Human, Homo sapiens",carriage,1,0,0,0,0,303,0
+573.69555,rectal,Homo sapiens,carriage,1,1,1,0,0,336,0
+573.18096,rectal swab,"Human, Homo sapiens",carriage,0,0,0,0,0,295,0
+573.49601,feces,Homo sapiens,carriage,0,1,1,0,0,295,0
+573.72924,feces,Homo sapiens,carriage,1,1,1,0,0,313,0
+573.69557,rectal,Homo sapiens,carriage,1,1,1,0,0,337,0
+573.1973,rectal swab,"Human, Homo sapiens",carriage,0,1,1,0,0,303,0
+573.43142,rectal swab,Homo sapiens,carriage,0,0,0,0,0,290,0
+573.49662,feces,Homo sapiens,carriage,0,0,0,0,0,284,0
+573.27346,feces,Homo sapiens sapiens,carriage,0,0,0,0,0,307,0
+573.65151,human rectal swab,Human,carriage,0,0,0,0,0,290,0
+573.20035,feces,"Human, Homo sapiens",carriage,0,0,0,0,0,296,0
+573.37684,stool,Homo sapiens,carriage,0,0,0,0,0,285,0
+573.78358,feces,Homo sapiens,carriage,0,0,0,0,0,287,0
+573.14912,feces,"Human, Homo sapiens",carriage,1,1,1,0,0,315,0
+573.27565,human feces,"Human, Homo sapiens",carriage,0,0,0,0,0,284,0
+573.15557,rectal swab,"Human, Homo sapiens",carriage,0,0,0,0,0,275,0
+573.32136,rectal,"Human, Homo sapiens",carriage,0,0,0,0,0,279,0
+573.57144,stool,Homo sapiens,carriage,0,1,1,0,0,292,0
+573.83658,rectal,Homo sapiens,carriage,1,0,0,0,0,272,0
+573.37803,a feces sample of swine origin,,carriage,1,0,0,0,0,292,0
+573.56324,feces,Gallus gallus,carriage,0,1,1,0,0,292,0
+573.58991,rectal swab,Homo sapiens,carriage,1,1,1,0,0,305,0
+573.49611,feces,Homo sapiens,carriage,0,1,1,0,0,316,0
+573.84023,rectal swab,Restricted access,carriage,0,0,0,0,0,286,0
+573.58441,feces,Homo sapiens,carriage,0,0,1,0,0,279,0
+573.56327,feces,Gallus gallus,carriage,0,1,1,0,0,292,0
+573.1488,feces,"Human, Homo sapiens",carriage,1,1,1,0,0,326,0
+573.50265,intestinal tissue,Capra aegagrus hircus,carriage,0,1,1,0,0,294,0
+573.50569,rectal swab,Homo sapiens,carriage,0,0,0,0,0,275,0
+573.16235,rectal,"Human, Homo sapiens",carriage,0,0,0,0,0,2,0
+573.79294,feces,Homo sapiens,carriage,0,0,0,0,0,282,0
+573.27503,rectal swab,"Human, Homo sapiens",carriage,1,1,1,0,0,339,0
+573.84019,rectal swab,Restricted access,carriage,0,1,1,0,0,288,0
+573.80943,feces,,carriage,0,1,1,0,0,307,0
+573.72978,rectal swab,Homo sapiens,carriage,0,1,1,0,0,295,0
+573.79417,raw milk,,environmental,0,0,0,0,0,270,0
+573.77991,environmental,,environmental,1,1,1,0,0,331,0
+573.79386,sewage,,environmental,0,1,1,0,0,302,0
+573.79415,raw milk,,environmental,0,0,0,0,0,280,0
+573.55281,freshwater lake,,environmental,0,0,0,0,0,5,0
+573.41221,wastewater from wwtp,,environmental,1,1,1,0,0,315,0
+573.80777,environmental swab of broiler farm,,environmental,0,1,1,0,0,304,0
+573.44389,wastewater from wwtp,,environmental,1,1,1,0,0,316,0
+573.54654,environmental samples 3,,environmental,0,1,1,0,0,291,0
+573.34016,water,,environmental,0,0,0,0,0,283,0
+573.64679,ganga river,,environmental,0,0,0,0,0,303,0
+573.18685,root nodules and soil,,environmental,0,0,0,0,0,241,0
+573.17751,milk,Bos taurus,environmental,0,0,0,0,0,342,0
+573.40471,waste water,,environmental,1,1,1,0,0,315,0
+573.52319,milk,Cow,environmental,0,0,0,0,0,333,0
+573.64768,milk,Bos taurus,environmental,0,0,0,0,0,279,0
+573.17884,patients and hospital environment,"Human, Homo sapiens",environmental,0,0,0,0,0,287,0
+573.55308,freshwater lake,,environmental,0,0,0,0,0,1,0
+573.43027,wastewater from wwtp,,environmental,1,1,1,0,0,317,0
+573.52348,milk,Cow,environmental,0,1,1,0,0,343,0
+573.35039,river,,environmental,0,0,0,0,0,275,0
+573.49528,environmental,,environmental,0,1,1,0,0,306,0
+573.68463,water,,environmental,0,1,1,0,0,300,0
+573.51092,freshwater lake,,environmental,0,0,0,0,0,3,0
+573.17947,clinical and environmental samples,"Human, Homo sapiens",environmental,0,0,0,0,0,274,0
+573.37255,"wound, l plantar foot",Homo sapiens,environmental,0,1,1,0,0,288,0
+573.80796,waste water,,environmental,1,1,1,0,0,322,0
+573.56297,in-house environment,,environmental,0,0,0,0,0,285,0
+573.78477,ikopa river,,environmental,0,0,1,0,0,372,0
+573.54085,hospital environment,,environmental,0,1,1,0,0,301,0
+573.47238,marine environment,,environmental,0,0,0,0,0,278,0
+573.78681,raw milk,,environmental,0,0,0,0,0,278,0
+573.65878,water,,environmental,0,0,0,0,0,286,0
+573.68472,water,,environmental,0,1,1,0,0,299,0
+573.68458,water,,environmental,0,0,0,0,0,278,0
+573.43237,water,,environmental,0,0,0,0,0,279,0
+573.20079,river water,,environmental,0,1,1,0,0,297,0
+573.55054,influent wastewater,,environmental,0,0,0,0,0,302,0
+573.78473,wastewater from ravoahangy andrianavalona university hospital of antananarivo city,,environmental,0,0,0,0,0,413,0
+573.41224,wastewater from wwtp,,environmental,1,1,1,0,0,316,0
+573.79022,surface water,,environmental,0,0,0,0,0,277,0
+573.55291,freshwater lake,,environmental,0,0,0,0,0,1,0
+573.42986,waste water,,environmental,1,1,1,0,0,315,0
+573.32392,wastewater influent sample,,environmental,0,0,0,0,0,286,0
+573.55312,freshwater lake,,environmental,0,0,0,0,0,1,0
+573.83519,river water microplastics,,environmental,0,1,1,0,0,300,0
+573.28633,wastewater influent,"Human, Homo sapiens",environmental,1,1,1,0,0,331,0
+573.9964,sewage,,environmental,0,0,1,0,0,348,0
+573.17721,milk,Bos taurus,environmental,0,0,0,0,0,290,0
+573.47251,marine environment,,environmental,0,0,0,0,0,284,0
+573.50426,freshwater lake,,environmental,0,0,0,0,0,5,0
+573.64742,milk,Bos taurus,environmental,0,0,0,0,0,281,0
+573.32172,environment,Ancistrotermes cavithorax,environmental,0,0,0,0,0,285,0
+573.1977,environment,,environmental,0,0,0,0,0,364,0
+573.32411,wastewater treatment plant effluent,,environmental,0,1,1,0,0,297,0
+573.17724,milk,Bos taurus,environmental,0,0,0,0,0,292,0
+573.9936,sewage,,environmental,0,0,1,0,0,372,0
+573.52349,milk,Cow,environmental,0,0,0,0,0,331,0
+573.55286,freshwater lake,,environmental,0,0,0,0,0,2,0
+573.1373,water from farm,,environmental,0,0,0,0,0,283,0
+573.38795,food,,environmental,0,0,0,0,0,275,0
+573.56296,in-house environment,,environmental,0,0,0,0,0,275,0
+573.64772,milk,Bos taurus,environmental,0,0,0,0,0,282,0
+573.47245,marine environment,,environmental,0,0,0,0,0,269,0
+573.9864,sewage,,environmental,0,0,0,0,0,334,0
+573.32327,freshwater sample from downstream of wastewater treatment plant,,environmental,0,0,0,0,0,280,0
+573.32326,wastewater influent sample,,environmental,0,0,0,0,0,278,0
+573.50086,seafood,,environmental,0,1,1,0,0,302,0
+573.9946,sewage,,environmental,0,0,1,0,0,350,0
+573.52304,milk,Cow,environmental,0,0,0,0,0,309,0
+573.47244,marine environment,,environmental,0,0,0,0,0,285,0
+573.45835,environment,,environmental,0,1,1,0,0,299,0
+573.17723,milk,Bos taurus,environmental,0,0,0,0,0,372,0
+573.22555,vegetables,,environmental,0,0,0,0,0,282,0
+573.41238,wastewater from wwtp,,environmental,1,1,1,0,0,313,0
+573.44153,vegetable,,environmental,0,0,0,0,0,281,0
+573.16202,wastewater,,environmental,0,0,0,0,0,2,0
+573.64777,milk,Bos taurus,environmental,0,0,0,0,0,279,0
+573.47208,marine environment,,environmental,0,0,0,0,0,295,0
+573.47179,marine environment,,environmental,0,0,0,0,0,286,0
+573.68448,water,,environmental,0,0,0,0,0,284,0
+573.17595,water,,environmental,0,0,0,0,0,288,0
+573.28018,water,,environmental,0,0,0,0,0,285,0
+573.47227,marine environment,,environmental,0,0,0,0,0,273,0
+573.18044,clinical and environmental samples,"Human, Homo sapiens",environmental,0,0,0,0,0,280,0
+573.23232,sewage contaminated river water,"Human, Homo sapiens",environmental,0,0,0,0,0,279,0
+573.56123,in-house environment,,environmental,0,0,0,0,0,287,0
+573.17717,milk,Bos taurus,environmental,0,0,0,0,0,379,0
+573.68464,water,,environmental,0,0,0,0,0,287,0
+573.41219,wastewater from wwtp,,environmental,1,1,1,0,0,317,0
+573.64764,milk,Bos taurus,environmental,0,0,0,0,0,286,0
+573.54827,raw milk,,environmental,0,0,0,0,0,283,0
+573.38788,food,,environmental,0,0,0,0,0,275,0
+573.62619,hospital sewage,,environmental,0,1,1,0,0,292,0
+573.42141,wastewater from wwtp,,environmental,0,0,0,0,0,286,0
+573.18048,clinical and environmental samples,"Human, Homo sapiens",environmental,0,1,1,0,0,297,0
+573.52313,milk,Cow,environmental,0,0,0,0,0,292,0
+573.18456,domestic sewage,,environmental,0,0,1,0,0,355,0
+573.17742,milk,Bos taurus,environmental,0,0,0,0,0,286,0
+573.68125,waste water treatment plant,,environmental,0,0,0,0,0,361,0
+573.52345,milk,Cow,environmental,0,0,0,0,0,308,0
+573.44424,wastewater from wwtp,,environmental,1,1,1,0,0,316,0
+573.43276,vegetable,,environmental,0,1,1,0,0,299,0
+573.47192,marine environment,,environmental,0,0,0,0,0,279,0
+573.50494,hospital sewage,,environmental,0,1,1,0,0,295,0
+573.78472,wastewater from ravoahangy andrianavalona university hospital of antananarivo city,,environmental,0,0,0,0,0,364,0
+573.42333,vegetable,,environmental,0,0,0,0,0,269,0
+573.49525,environmental,,environmental,0,1,1,0,0,294,0
+573.51055,freshwater lake,,environmental,0,0,0,0,0,4,0
+573.43306,patient and environment samples,Homo sapiens,environmental,0,0,0,0,0,297,0
+573.73587,raw milk,,environmental,0,1,1,0,0,278,0
+573.43063,wastewater from wwtp,,environmental,1,1,1,0,0,310,0
+573.18037,clinical and environmental samples,"Human, Homo sapiens",environmental,0,0,0,0,0,278,0
+573.32355,environmental surface,,environmental,0,1,1,0,0,301,0
+573.77986,raw milk,,environmental,0,0,0,0,0,281,0
+573.68447,water,,environmental,0,0,0,0,0,285,0
+573.50088,seafood,,environmental,0,1,1,0,0,293,0
+573.17727,milk,Bos taurus,environmental,0,0,0,0,0,333,0
+573.10051,environment,,environmental,1,1,1,0,0,387,0
+573.50396,freshwater lake,,environmental,0,0,0,0,0,1,0
+573.81713,riverwater from bunurong lands,,environmental,0,1,1,0,0,294,0
+573.56125,out-of-house environment,,environmental,0,0,0,0,0,291,0
+573.52311,milk,Cow,environmental,0,0,0,0,0,352,0
+573.43846,water,,environmental,0,0,0,0,0,279,0
+573.22561,river water,,environmental,0,0,0,0,0,266,0
+573.47197,marine environment,,environmental,0,0,0,0,0,276,0
+573.44045,sea water,,environmental,0,0,0,0,0,299,0
+573.18027,clinical and environmental samples,"Human, Homo sapiens",environmental,0,0,0,0,0,278,0
+573.41218,wastewater from wwtp,,environmental,1,1,1,0,0,323,0
+573.32379,environmental surface,,environmental,0,1,1,0,0,301,0
+573.77933,raw milk,,environmental,0,0,0,0,0,282,0
+573.56212,freshwater lake,,environmental,0,0,0,0,0,1,0
+573.38822,lake,Mystus tengara,environmental,0,0,0,0,0,294,0
+573.54836,natural water sources close by farm or community,,environmental,0,0,0,0,0,280,0
+573.53823,milk,Cow,environmental,0,0,0,0,0,287,0
+573.32359,environmental surface,,environmental,0,1,1,0,0,301,0
+573.32366,environmental surface,,environmental,0,1,1,0,0,301,0
+573.32508,environmental surface,,environmental,0,1,1,0,0,301,0
+573.45175,environment,,environmental,0,1,1,0,0,308,0
+573.51061,freshwater lake,,environmental,0,0,0,0,0,3,0
+573.73589,raw milk,,environmental,0,0,0,0,0,281,0
+573.7224,environmental,,environmental,0,0,0,0,0,285,0
+573.41425,environment,,environmental,0,0,0,0,0,285,0
+573.32171,environment,Ancistrotermes cavithorax,environmental,0,0,0,0,0,285,0
+573.43879,irrigation water,,environmental,0,0,0,0,0,298,0
+573.20088,lake-wetland,,environmental,0,0,0,0,0,275,0
+573.58439,hospital sewage,,environmental,0,0,1,0,0,282,0
+573.9909,sewage,,environmental,0,0,1,0,0,340,0
+573.68104,environment,,environmental,0,0,0,0,0,279,0
+573.43274,vegetable,,environmental,0,0,0,0,0,280,0
+573.41217,wastewater from wwtp,,environmental,1,1,1,0,0,319,0
+573.65159,soil,,environmental,0,0,0,0,0,275,0
+573.50619,freshwater lake,,environmental,0,0,0,0,0,4,0
+573.50616,freshwater lake,,environmental,0,0,0,0,0,3,0
+573.47222,marine environment,,environmental,0,1,1,0,0,296,0
+573.9912,sewage,,environmental,0,0,1,0,0,334,0
+573.50883,hospital sewage,,environmental,0,1,1,0,0,287,0
+573.43311,patient and environment samples,Homo sapiens,environmental,0,0,0,0,0,303,0
+573.51096,freshwater lake,,environmental,0,0,0,0,0,5,0
+573.56329,in-house environment,,environmental,0,0,0,0,0,288,0
+573.17949,clinical and environmental samples,,environmental,0,0,1,0,0,288,0
+573.50439,freshwater lake,,environmental,0,0,0,0,0,3,0
+573.83619,environment,,environmental,0,0,0,0,0,298,0
+573.79405,raw milk,,environmental,0,0,0,0,0,287,0
+573.28628,wastewater effluent,,environmental,0,1,1,0,0,309,0
+573.42151,wastewater from wwtp,,environmental,1,1,1,0,0,309,0
+573.56428,environmental swabs,,environmental,1,1,1,0,0,315,0
+573.47211,marine environment,,environmental,0,0,0,0,0,283,0
+573.32356,environmental surface,,environmental,0,1,1,0,0,301,0
+573.42144,wastewater from wwtp,,environmental,0,0,0,0,0,292,0
+573.58404,hospital sewage,,environmental,0,0,0,0,0,284,0
+573.47237,marine environment,,environmental,0,1,1,0,0,293,0
+573.58994,environment,,environmental,0,0,0,0,0,280,0
+573.78891,raw milk,,environmental,0,0,0,0,0,282,0
+573.58363,aquatic environment,,environmental,0,0,0,0,0,277,0
+573.54099,environmental samples 2,,environmental,0,0,0,0,0,489,0
+573.17725,milk,Bos taurus,environmental,0,0,0,0,0,359,0
+573.17946,clinical and environmental samples,"Human, Homo sapiens",environmental,0,0,0,0,0,278,0
+573.47254,marine environment,,environmental,0,0,0,0,0,287,0
+573.47205,marine environment,,environmental,0,0,0,0,0,277,0
+573.44406,wastewater from wwtp,,environmental,0,0,0,0,0,292,0
+573.47181,marine environment,,environmental,0,0,0,0,0,279,0
+573.62625,hospital sewage,,environmental,0,0,0,0,0,287,0
+573.52318,milk,"Human, Homo sapiens",environmental,0,0,0,0,0,359,0
+573.32513,wastewater influent sample,,environmental,0,0,0,0,0,283,0
+573.4215,wastewater from wwtp,,environmental,0,0,0,0,0,282,0
+573.62603,hospital sewage,,environmental,0,0,0,0,0,300,0
+573.41252,wastewater from wwtp,,environmental,1,1,1,0,0,313,0
+573.40351,mastitis-milk,Bovine,environmental,0,0,0,0,0,277,0
+573.23274,water,,environmental,0,0,0,0,0,289,0
+573.52331,milk,Cow,environmental,0,0,0,0,0,286,0
+573.50437,freshwater lake,,environmental,0,0,0,0,0,4,0
+573.50421,freshwater lake,,environmental,0,0,0,0,0,5,0
+573.62626,hospital sewage,,environmental,0,1,1,0,0,296,0
+573.18051,clinical and environmental samples,"Human, Homo sapiens",environmental,0,0,0,0,0,286,0
+573.38796,food,,environmental,0,0,0,0,0,279,0
+573.21881,other (membrane bone implants),"Human, Homo sapiens",environmental,0,1,1,0,0,294,0
+573.46017,soil,,environmental,1,0,0,0,0,306,0
+573.42373,patient and environment samples,Homo sapiens,environmental,0,0,0,0,0,292,0
+573.53822,milk,Cow,environmental,0,0,0,0,0,282,0
+573.50497,hospital sewage,,environmental,0,0,0,0,0,280,0
+573.45837,environment,,environmental,0,0,0,0,0,279,0
+573.17772,milk,Bos taurus,environmental,0,0,0,0,0,416,0
+573.47226,marine environment,,environmental,0,1,1,0,0,289,0
+573.32174,environment,Trinervitermes sp.,environmental,0,0,0,0,0,284,0
+573.52322,milk,"Human, Homo sapiens",environmental,0,0,0,0,0,319,0
+573.52338,milk,Cow,environmental,0,0,0,0,0,374,0
+573.52308,milk,Cow,environmental,0,0,0,0,0,378,0
+573.42188,"aquatic animals, plants, and environment",,environmental,0,0,0,0,0,284,0
+573.43309,patient and environment samples,Homo sapiens,environmental,0,0,0,0,0,295,0
+573.43055,wastewater from wwtp,,environmental,0,1,1,0,0,303,0
+573.49524,environmental,,environmental,0,0,0,0,0,275,0
+573.41244,wastewater from wwtp,,environmental,0,0,0,0,0,278,0
+573.23271,water,,environmental,0,0,0,0,0,292,0
+573.9634,urban river,,environmental,0,0,0,0,0,279,0
+573.32345,environmental surface,,environmental,0,1,1,0,0,296,0
+573.44415,wastewater from wwtp,,environmental,0,0,0,0,0,284,0
+573.37787,wastewater,,environmental,1,0,0,0,0,306,0
+573.68124,waste water treatment plant,,environmental,1,1,1,0,0,443,0
+573.19904,environment,,environmental,0,0,0,0,0,284,0
+573.41232,wastewater from wwtp,,environmental,1,1,1,0,0,313,0
+573.52746,environmental,"Human, Homo sapiens",environmental,0,0,0,0,0,286,0
+573.79355,milk,Cow,environmental,0,0,0,0,0,278,0
+573.32509,environmental surface,,environmental,0,1,1,0,0,303,0
+573.50622,freshwater lake,,environmental,0,0,0,0,0,1,0
+573.10059,environment,,environmental,1,1,1,0,0,401,0
+573.54906,pooled soil sample collected from floor of pig farm,,environmental,0,0,0,0,0,280,0
+573.9871,sewage,,environmental,0,0,0,0,0,343,0
+573.9635,milk,Bos taurus,environmental,0,0,0,0,0,281,0
+573.51063,freshwater lake,,environmental,0,0,0,0,0,4,0
+573.69366,water,,environmental,0,1,1,0,0,294,0
+573.41928,mastitis-milk,Bovine,environmental,0,0,0,0,0,277,0
+573.9917,sewage,,environmental,0,0,1,0,0,346,0
+573.38797,food,,environmental,0,0,0,0,0,277,0
+573.64781,milk,Bos taurus,environmental,0,0,0,0,0,278,0
+573.62628,hospital sewage,,environmental,0,0,0,0,0,302,0
+573.44414,wastewater from wwtp,,environmental,1,1,1,0,0,315,0
+573.22558,river water,,environmental,0,0,0,0,0,282,0
+573.59053,potable water,,environmental,0,0,0,0,0,250,0
+573.17722,milk,Bos taurus,environmental,0,0,0,0,0,356,0
+573.32329,wastewater influent sample,,environmental,0,1,1,0,0,294,0
+573.17765,milk,Bos taurus,environmental,0,0,0,0,0,393,0
+573.52312,milk,"Human, Homo sapiens",environmental,0,0,0,0,0,324,0
+573.78693,water,,environmental,0,0,0,0,0,278,0
+573.45177,environment,,environmental,0,0,0,0,0,290,0
+573.54867,environmental wastewater,,environmental,0,0,0,0,0,285,0
+573.79416,raw milk,,environmental,0,1,1,0,0,293,0
+573.64765,milk,Bos taurus,environmental,0,0,0,0,0,278,0
+573.37595,urban river water,,environmental,0,1,1,0,0,304,0
+573.35036,river,,environmental,0,0,0,0,0,281,0
+573.54865,environmental wastewater,,environmental,0,0,0,0,0,285,0
+573.9963,environment,,environmental,0,0,0,0,0,334,0
+573.9906,sewage,,environmental,0,0,1,0,0,344,0
+573.50182,well water,,environmental,0,0,0,0,0,275,0
+573.10053,environment,,environmental,1,1,1,0,0,387,0
+573.27376,water,,environmental,0,0,0,0,0,284,0
+573.65876,water,,environmental,0,1,1,0,0,296,0
+573.51091,freshwater lake,,environmental,0,0,0,0,0,4,0
+573.17821,patients and hospital environment,"Human, Homo sapiens",environmental,0,0,0,0,0,281,0
+573.41924,mastitis-milk,Bovine,environmental,0,1,1,0,0,291,0
+573.45836,environment,,environmental,0,0,0,0,0,277,0
+573.42155,wastewater from wwtp,,environmental,1,1,1,0,0,315,0
+573.52359,milk,Cow,environmental,0,0,0,0,0,362,0
+573.32415,wastewater treatment plant effluent,,environmental,0,0,0,0,0,280,0
+573.31336,milk,Bos taurus,environmental,0,0,0,0,0,285,0
+573.52344,milk,Cow,environmental,0,0,0,0,0,343,0
+573.52317,milk,"Human, Homo sapiens",environmental,0,0,0,0,0,300,0
+573.73049,river water/sediment,,environmental,0,0,0,0,0,282,0
+573.56409,wastewater,,environmental,0,1,1,0,0,295,0
+573.41256,wastewater from wwtp,,environmental,1,1,1,0,0,310,0
+573.56421,wastewater,,environmental,0,1,1,0,0,292,0
+573.44392,wastewater from wwtp,,environmental,1,1,1,0,0,315,0
+573.44388,wastewater from wwtp,,environmental,1,1,1,0,0,317,0
+573.56419,wastewater,,environmental,0,0,0,0,0,284,0
+573.47218,marine environment,,environmental,0,0,0,0,0,286,0
+573.32502,wastewater influent sample,,environmental,0,0,0,0,0,281,0
+573.41255,wastewater from wwtp,,environmental,1,1,1,0,0,313,0
+573.41245,wastewater from wwtp,,environmental,0,0,0,0,0,276,0
+573.17879,patients and hospital environment,"Human, Homo sapiens",environmental,0,0,0,0,0,271,0
+573.42374,patient and environment samples,Homo sapiens,environmental,0,0,0,0,0,291,0
+573.41236,wastewater from wwtp,,environmental,0,0,0,0,0,286,0
+573.51066,freshwater lake,,environmental,0,0,0,0,0,1,0
+573.10071,sewage,,environmental,0,0,0,0,0,314,0
+573.64652,ecological wastewater treatment,,environmental,0,0,0,0,0,270,0
+573.43067,wastewater from wwtp,,environmental,1,1,1,0,0,317,0
+573.17822,patients and hospital environment,"Human, Homo sapiens",environmental,0,0,0,0,0,284,0
+573.9932,sewage,,environmental,0,0,1,0,0,370,0
+573.62599,hospital sewage,,environmental,0,1,1,0,0,298,0
+573.50879,hospital sewage,,environmental,0,0,0,0,0,280,0
+573.64743,milk,Bos taurus,environmental,0,0,0,0,0,285,0
+573.44041,mastitis-milk,Bovine,environmental,0,0,0,0,0,280,0
+573.44302,waste water,,environmental,1,1,1,0,0,315,0
+573.53815,milk,Cow,environmental,0,0,0,0,0,281,0
+573.78475,andriantany community wastewater channel,,environmental,0,0,0,0,0,334,0
+573.32365,environmental surface,,environmental,0,1,1,0,0,301,0
+573.42868,mastitis-milk,Bovine,environmental,0,0,0,0,0,277,0
+573.62618,hospital sewage,,environmental,0,1,1,0,0,296,0
+573.52747,environmental,,environmental,1,1,1,0,0,331,0
+573.17773,milk,Bos taurus,environmental,1,1,1,0,0,488,0
+573.41257,wastewater from wwtp,,environmental,1,1,1,0,0,316,0
+573.52336,milk,Cow,environmental,0,0,0,0,0,320,0
+573.64756,milk,Bos taurus,environmental,0,1,1,0,0,291,0
+573.44418,wastewater from wwtp,,environmental,1,1,1,0,0,309,0
+573.9902,sewage,,environmental,0,0,0,0,0,358,0
+573.50441,freshwater lake,,environmental,0,0,0,0,0,3,0
+573.50495,hospital sewage,,environmental,0,1,1,0,0,295,0
+573.7359,raw milk,,environmental,0,1,1,0,0,294,0
+573.9944,sewage,,environmental,0,0,1,0,0,374,0
+573.54087,water treatment plant sample,,environmental,0,0,0,0,0,313,0
+573.64593,waste water system,,environmental,0,1,1,0,0,306,0
+573.42371,patient and environment samples,Homo sapiens,environmental,0,0,0,0,0,296,0
+573.25814,environment,,environmental,0,0,0,0,0,279,0
+573.9903,sewage,,environmental,0,0,0,0,0,358,0
+573.64684,milk,Bos taurus indicus,environmental,0,0,0,0,0,283,0
+573.52323,milk,"Human, Homo sapiens",environmental,0,0,0,0,0,308,0
+573.9937,environment,,environmental,0,0,0,0,0,339,0
+573.9857,sewage,,environmental,0,0,0,0,0,334,0
+573.47233,marine environment,,environmental,0,0,0,0,0,273,0
+573.17904,patients and hospital environment,"Human, Homo sapiens",environmental,0,0,0,0,0,280,0
+573.65189,hospital sewage,,environmental,0,0,0,0,0,281,0
+573.18033,clinical and environmental samples,"Human, Homo sapiens",environmental,0,0,0,0,0,284,0
+573.73588,raw milk,,environmental,0,0,0,0,0,273,0
+573.73026,environment,,environmental,0,0,0,0,0,336,0
+573.52909,environment,,environmental,0,0,0,0,0,284,0
+573.28626,wastewater effluent,,environmental,0,1,1,0,0,321,0
+573.41253,wastewater from wwtp,,environmental,0,0,0,0,0,284,0
+573.17733,milk,Bos taurus,environmental,0,0,0,0,0,340,0
+573.32311,freshwater sample from downstream of wastewater treatment plant,,environmental,0,0,0,0,0,267,0
+573.47255,marine environment,,environmental,0,0,0,0,0,283,0
+573.32315,wastewater influent sample,,environmental,0,0,0,0,0,265,0
+573.64763,milk,Bos taurus,environmental,0,1,1,0,0,294,0
+573.78692,water,,environmental,0,0,0,0,0,285,0
+573.38791,food,,environmental,0,0,0,0,0,271,0
+573.17748,milk,Bos taurus,environmental,0,0,0,0,0,411,0
+573.62622,hospital sewage,,environmental,0,0,0,0,0,295,0
+573.17738,milk,Bos taurus,environmental,0,0,0,0,0,334,0
+573.45827,environment,,environmental,0,0,0,0,0,294,0
+573.43039,wastewater from wwtp,,environmental,1,1,1,0,0,313,0
+573.41925,mastitis-milk,Bovine,environmental,0,0,0,0,0,273,0
+573.79406,raw milk,,environmental,0,1,1,0,0,294,0
+573.62616,hospital sewage,,environmental,1,1,1,0,0,319,0
+573.17728,milk,Bos taurus,environmental,1,0,0,0,0,405,0
+573.47219,marine environment,,environmental,0,0,0,0,0,274,0
+573.18032,clinical and environmental samples,"Human, Homo sapiens",environmental,0,0,0,0,0,281,0
+573.50876,hospital sewage,,environmental,0,1,1,0,0,295,0
+573.44409,wastewater from wwtp,,environmental,0,1,1,0,0,292,0
+573.68122,waste water treatment plant,,environmental,0,0,0,0,0,392,0
+573.64741,milk,Bos taurus,environmental,0,0,0,0,0,282,0
+573.34013,water,,environmental,0,0,0,0,0,276,0
+573.17768,milk,Bos taurus,environmental,0,0,0,0,0,346,0
+573.51058,freshwater lake,,environmental,0,0,0,0,0,1,0
+573.62617,hospital sewage,,environmental,0,1,1,0,0,294,0
+573.32312,freshwater sample from upstream of wastewater treatment plant,,environmental,0,0,0,0,0,284,0
+573.62612,hospital sewage,,environmental,0,1,1,0,0,294,0
+573.59005,potable water,,environmental,0,0,0,0,0,242,0
+573.47228,marine environment,,environmental,0,0,0,0,0,285,0
+573.47236,marine environment,Patent,environmental,0,0,0,0,0,279,0
+573.50613,freshwater lake,,environmental,0,0,0,0,0,5,0
+573.9916,sewage,,environmental,0,0,0,0,0,336,0
+573.42123,wastewater from wwtp,,environmental,1,1,1,0,0,315,0
+573.17882,patients and hospital environment,"Human, Homo sapiens",environmental,0,0,0,0,0,279,0
+573.78678,raw milk,,environmental,0,0,0,0,0,281,0
+573.34153,sewage,,environmental,0,0,0,0,0,283,0
+573.43025,wastewater from wwtp,,environmental,1,1,1,0,0,315,0
+573.65601,river estuary,,environmental,0,1,1,0,0,293,0
+573.51095,freshwater lake,,environmental,0,0,0,0,0,5,0
+573.10061,environment,,environmental,1,1,1,0,0,403,0
+573.55278,freshwater lake,,environmental,0,0,0,0,0,2,0
+573.62598,hospital sewage,,environmental,0,0,0,0,0,283,0
+573.9632,poultry farm soil,,environmental,0,1,1,0,0,298,0
+573.50877,hospital sewage,,environmental,0,1,1,0,0,295,0
+573.43029,wastewater from wwtp,,environmental,1,1,1,0,0,316,0
+573.46016,soil,,environmental,1,0,0,0,0,299,0
+573.65177,wastewater,,environmental,0,0,0,0,0,276,0
+573.45833,environment,,environmental,0,0,0,0,0,288,0
+573.54896,milk,Bovine,environmental,0,0,0,0,0,284,0
+573.79409,raw milk,,environmental,0,0,0,0,0,272,0
+573.45176,environment,,environmental,0,0,0,0,0,273,0
+573.43262,vegetable,,environmental,0,0,0,0,0,281,0
+573.47174,marine environment,,environmental,0,0,0,0,0,278,0
+573.50936,drinking water,Chicken,environmental,0,0,0,0,0,283,0
+573.52326,milk,Cow,environmental,0,0,0,0,0,331,0
+573.22556,waste water,,environmental,0,0,0,0,0,274,0
+573.44425,wastewater from wwtp,,environmental,1,1,1,0,0,313,0
+573.32313,freshwater sample from downstream of wastewater treatment plant,,environmental,0,0,0,0,0,268,0
+573.9867,sewage,,environmental,0,0,1,0,0,352,0
+573.50881,hospital sewage,,environmental,0,1,1,0,0,299,0
+573.23272,water,,environmental,0,0,0,0,0,285,0
+573.2315,environment,,environmental,0,1,1,0,0,304,0
+573.32177,environment,soil substrate,environmental,0,0,0,0,0,285,0
+573.43053,wastewater from wwtp,,environmental,1,1,1,0,0,309,0
+573.53818,milk,Cow,environmental,0,0,0,0,0,291,0
+573.52366,milk,Cow,environmental,0,0,0,0,0,386,0
+573.62606,hospital sewage,,environmental,1,1,1,0,0,313,0
+573.42165,wastewater from wwtp,,environmental,1,1,1,0,0,317,0
+573.55298,freshwater lake,,environmental,0,0,0,0,0,4,0
+573.52341,milk,Cow,environmental,0,0,0,0,0,411,0
+573.32323,wastewater influent sample,,environmental,0,0,0,0,0,285,0
+573.45173,environment,,environmental,1,1,1,0,0,322,0
+573.45829,environment,,environmental,0,0,0,0,0,286,0
+573.65205,seawater,,environmental,0,0,0,0,0,281,0
+573.62624,hospital sewage,,environmental,0,0,0,0,0,295,0
+573.38798,food,,environmental,0,0,0,0,0,277,0
+573.43061,wastewater from wwtp,,environmental,1,1,1,0,0,313,0
+573.50939,ground water,,environmental,0,0,0,0,0,283,0
+573.55299,freshwater lake,,environmental,0,0,0,0,0,7,0
+573.9851,sewage,,environmental,0,0,0,0,0,320,0
+573.81916,freshwater lake,,environmental,0,0,0,0,0,3,0
+573.79391,sewage,,environmental,0,1,1,0,0,302,0
+573.47175,marine environment,,environmental,0,0,0,0,0,278,0
+573.65607,river water,,environmental,0,0,0,0,0,281,0
+573.84189,raw milk,,environmental,0,0,0,0,0,280,0
+573.18042,clinical and environmental samples,,environmental,0,0,0,0,0,280,0
+573.43024,wastewater from wwtp,,environmental,1,1,1,0,0,319,0
+573.32368,environmental surface,,environmental,0,1,1,0,0,301,0
+573.77433,water,,environmental,0,0,0,0,0,278,0
+573.47212,marine environment,,environmental,0,0,0,0,0,284,0
+573.22564,river water,,environmental,0,0,0,0,0,281,0
+573.68446,water,,environmental,0,0,0,0,0,284,0
+573.50397,freshwater lake,,environmental,0,0,0,0,0,2,0
+573.53548,river water,,environmental,0,0,0,0,0,280,0
+573.9889,sewage,,environmental,0,0,1,0,0,348,0
+573.53039,barn environment,,environmental,0,0,0,0,0,285,0
+573.45179,environment,,environmental,1,1,1,0,0,308,0
+573.56407,wastewater,,environmental,0,0,0,0,0,291,0
+573.47234,marine environment,,environmental,0,0,0,0,0,283,0
+573.79404,raw milk,,environmental,0,1,1,0,0,318,0
+573.48989,outdoors environment of a veterinary clinic,,environmental,0,1,1,0,0,302,0
+573.59006,potable water,,environmental,0,0,0,0,0,277,0
+573.58359,aquatic environment,,environmental,0,0,0,0,0,279,0
+573.50884,hospital sewage,,environmental,0,0,0,0,0,281,0
+573.4107,mastitis-milk,Bovine,environmental,0,0,0,0,0,273,0
+573.68109,water,,environmental,0,0,0,0,0,284,0
+573.10072,sewage,,environmental,0,0,0,0,0,347,0
+573.9891,sewage,,environmental,0,0,0,0,0,327,0
+573.17745,milk,Bos taurus,environmental,0,0,0,0,0,435,0
+573.56128,in-house environment,,environmental,1,0,0,0,0,287,0
+573.32504,wastewater influent sample,,environmental,0,0,0,0,0,282,0
+573.50429,freshwater lake,,environmental,0,0,0,0,0,4,0
+573.52364,milk,Cow,environmental,0,0,0,0,0,416,0
+573.38707,tertiary treatment wastewater,,environmental,0,1,1,0,0,300,0
+573.64623,river,,environmental,0,0,0,0,0,271,0
+573.56286,in-house environment,,environmental,0,0,0,0,0,298,0
+573.73086,river water,,environmental,0,1,1,0,0,295,0
+573.43273,water,,environmental,0,0,0,0,0,288,0
+573.53526,water from livestock farm,,environmental,0,0,0,0,0,296,0
+573.79385,sewage,,environmental,0,1,1,0,0,301,0
+573.79023,surface water,,environmental,0,0,0,0,0,277,0
+573.62597,hospital sewage,,environmental,1,1,1,0,0,315,0
+573.64745,milk,Bos taurus,environmental,0,0,0,0,0,277,0
+573.62633,hospital sewage,,environmental,1,1,1,0,0,321,0
+573.58361,aquatic environment,,environmental,0,0,0,0,0,277,0
+573.50422,freshwater lake,,environmental,0,0,0,0,0,5,0
+573.31216,river water,,environmental,0,0,0,0,0,280,0
+573.65176,wastewater,,environmental,0,0,0,0,0,283,0
+573.44042,mastitis-milk,Bovine,environmental,0,0,0,0,0,277,0
+573.43044,wastewater from wwtp,,environmental,1,1,1,0,0,313,0
+573.45167,environment,,environmental,0,0,0,0,0,284,0
+573.47225,marine environment,,environmental,0,0,0,0,0,287,0
+573.20033,food,,environmental,0,0,0,0,0,257,0
+573.41424,environment,,environmental,0,0,0,0,0,299,0
+573.48988,outdoors environment of a veterinary clinic,,environmental,0,0,0,0,0,284,0
+573.44404,wastewater from wwtp,,environmental,0,0,0,0,0,286,0
+573.17739,milk,Bos taurus,environmental,0,0,0,0,0,287,0
+573.55287,freshwater lake,,environmental,0,0,0,0,0,5,0
+573.52357,milk,Cow,environmental,0,0,0,0,0,393,0
+573.78873,wastewater,,environmental,0,0,0,0,0,277,0
+573.43307,patient and environment samples,Homo sapiens,environmental,0,0,0,0,0,321,0
+573.45178,environment,,environmental,0,0,0,0,0,275,0
+573.44171,vegetable,,environmental,0,0,0,0,0,269,0
+573.42125,wastewater from wwtp,,environmental,1,1,1,0,0,316,0
+573.43232,environment,,environmental,0,0,0,0,0,285,0
+573.10057,environment,,environmental,1,1,1,0,0,407,0
+573.32414,wastewater treatment plant effluent,,environmental,0,1,1,0,0,294,0
+573.9879,sewage,,environmental,0,0,0,0,0,326,0
+573.45115,environmental swab veterinary clinic,,environmental,0,0,0,0,0,279,0
+573.41248,wastewater from wwtp,,environmental,0,1,1,0,0,303,0
+573.43305,patient and environment samples,Homo sapiens,environmental,0,0,0,0,0,291,0
+573.45169,environment,,environmental,1,1,1,0,0,314,0
+573.44413,wastewater from wwtp,,environmental,0,0,0,0,0,276,0
+573.10054,environment,,environmental,1,1,1,0,0,408,0
+573.51068,freshwater lake,,environmental,0,0,0,0,0,1,0
+573.57059,river water,,environmental,0,0,0,0,0,304,0
+573.44169,water,,environmental,0,0,0,0,0,288,0
+573.32373,environmental surface,,environmental,0,1,1,0,0,298,0
+573.55303,freshwater lake,,environmental,0,0,0,0,0,5,0
+573.68479,water,,environmental,0,1,1,0,0,304,0
+573.4216,wastewater from wwtp,,environmental,0,0,0,0,0,283,0
+573.52356,milk,Cow,environmental,0,0,0,0,0,338,0
+573.64748,milk,Bos taurus,environmental,0,0,0,0,0,278,0
+573.9913,sewage,,environmental,0,0,0,0,0,314,0
+573.52325,milk,Cow,environmental,0,0,0,0,0,322,0
+573.17753,milk,Bos taurus,environmental,0,0,0,0,0,308,0
+573.43312,soil/stream/plastic litter,,environmental,0,1,1,0,0,294,0
+573.51071,freshwater lake,,environmental,0,0,0,0,0,2,0
+573.42376,patient and environment samples,Homo sapiens,environmental,0,0,0,0,0,321,0
+573.41075,mastitis-milk,Bovine,environmental,0,0,0,0,0,275,0
+573.56408,wastewater,,environmental,0,0,0,0,0,291,0
+573.78682,raw milk,,environmental,0,0,0,0,0,280,0
+573.17718,milk,Bos taurus,environmental,0,0,0,0,0,352,0
+573.64779,milk,Bos taurus,environmental,0,0,0,0,0,279,0
+573.50424,freshwater lake,,environmental,0,0,0,0,0,1,0
+573.1987,the activated sludge of harbin taiping wastewater treatment plant,,environmental,0,0,0,0,0,277,0
+573.43913,environmental swab veterinary clinic,,environmental,0,0,0,0,0,290,0
+573.17746,milk,Bos taurus,environmental,0,0,0,0,0,365,0
+573.55055,influent wastewater,,environmental,0,1,1,0,0,307,0
+573.9973,sewage,,environmental,0,0,1,0,0,350,0
+573.78478,ikopa river,,environmental,0,0,0,0,0,360,0
+573.37235,environment,,environmental,0,0,0,0,0,290,0
+573.41195,waste water,,environmental,1,1,1,0,0,315,0
+573.54653,hospital wastewater,,environmental,0,1,1,0,0,470,0
+573.50885,hospital sewage,,environmental,0,0,0,0,0,282,0
+573.32091,irrigation water,,environmental,0,0,0,0,0,281,0
+573.54837,natural water sources close by farm or community,,environmental,0,0,0,0,0,280,0
+573.9869,sewage,,environmental,0,1,1,0,0,362,0
+573.38696,raw wastewater,,environmental,0,1,1,0,0,304,0
+573.51081,freshwater lake,,environmental,0,0,0,0,0,3,0
+573.42158,wastewater from wwtp,,environmental,1,1,1,0,0,316,0
+573.52347,milk,Cow,environmental,0,0,0,0,0,281,0
+573.51077,freshwater lake,,environmental,0,0,0,0,0,1,0
+573.21419,lower respiratory tract secrection,"Human, Homo sapiens",mucosal,0,0,0,0,0,285,0
+573.35498,urinary tract infection,"Human, Homo sapiens",mucosal,0,1,1,0,0,292,0
+573.26009,sputum,"Human, Homo sapiens",mucosal,0,1,1,0,0,293,0
+573.43478,sputum,Homo sapiens,mucosal,1,1,1,0,0,312,0
+573.80909,wound,Homo sapiens,mucosal,0,1,1,0,0,295,0
+573.13507,wound,"Human, Homo sapiens",mucosal,0,0,0,0,0,335,0
+573.79097,urine,Homo sapiens,mucosal,0,1,1,0,0,300,0
+573.13909,urine,"Human, Homo sapiens",mucosal,0,0,0,0,0,327,0
+573.81726,urine,Homo sapiens,mucosal,0,0,0,0,0,277,0
+573.13803,respiratory,"Human, Homo sapiens",mucosal,0,0,1,0,0,338,0
+573.27375,sputum,"Human, Homo sapiens",mucosal,1,1,1,0,0,318,0
+573.73524,sputum,Homo sapiens,mucosal,1,1,1,0,0,328,0
+573.32501,urine,"Human, Homo sapiens",mucosal,0,1,1,0,0,307,0
+573.73048,sputum,Homo sapiens,mucosal,1,1,1,0,0,319,0
+573.97624,urinary tract infection,"Human, Homo sapiens",mucosal,0,0,0,0,0,149,0
+573.15432,urine,"Human, Homo sapiens",mucosal,0,0,0,0,0,287,0
+573.80825,clean urine,Homo sapiens,mucosal,0,1,1,0,0,294,0
+573.35596,urinary tract infection,"Human, Homo sapiens",mucosal,0,1,1,0,0,296,0
+573.37164,respiratory specimen,Homo sapiens,mucosal,0,1,1,0,0,295,0
+573.31717,urine,"Human, Homo sapiens",mucosal,0,0,0,0,0,280,0
+573.26005,urine,"Human, Homo sapiens",mucosal,0,1,1,0,0,296,0
+573.1634,urine,"Human, Homo sapiens",mucosal,0,0,0,0,0,279,0
+573.44639,urine,Homo sapiens,mucosal,0,0,0,0,0,284,0
+573.21849,lower respiratory tract secrection,"Human, Homo sapiens",mucosal,0,0,0,0,0,277,0
+573.78805,urine,Homo sapiens,mucosal,0,1,1,0,0,303,0
+573.13719,urine,"Human, Homo sapiens",mucosal,0,0,0,0,0,353,0
+573.37257,urine,Homo sapiens,mucosal,0,0,0,0,0,281,0
+573.97764,urinary tract infection,"Human, Homo sapiens",mucosal,0,1,1,0,0,152,0
+573.42005,urine,Homo sapiens,mucosal,0,0,0,0,0,287,0
+573.36081,urine,Homo sapiens,mucosal,0,0,0,0,0,284,0
+573.52786,sputum,Homo sapiens,mucosal,1,1,1,0,0,316,0
+573.50148,sputum,Homo sapiens,mucosal,1,0,1,0,0,310,0
+573.26008,urine,"Human, Homo sapiens",mucosal,1,1,1,0,0,332,0
+573.21725,urine,"Human, Homo sapiens",mucosal,0,0,0,0,0,281,0
+573.13958,wound,"Human, Homo sapiens",mucosal,0,0,0,0,0,328,0
+573.13143,urine,"Human, Homo sapiens",mucosal,0,0,0,0,0,342,0
+573.49859,sputum,Homo sapiens,mucosal,0,0,0,0,0,283,0
+573.65599,bronchial secretion,Homo sapiens,mucosal,0,0,0,0,0,289,0
+573.14394,respiratory,"Human, Homo sapiens",mucosal,0,0,0,0,0,320,0
+573.24438,urine,"Human, Homo sapiens",mucosal,0,1,1,0,0,298,0
+573.45946,respiratory swab,Homo sapiens,mucosal,1,1,1,0,0,317,0
+573.13662,urine,"Human, Homo sapiens",mucosal,0,0,0,0,0,338,0
+573.39629,wound secretion,Homo sapiens,mucosal,0,1,1,0,0,304,0
+573.9792,endobronchial swab,"Human, Homo sapiens",mucosal,0,0,1,0,0,377,0
+573.35595,urinary tract infection,"Human, Homo sapiens",mucosal,0,1,1,0,0,299,0
+573.32408,sputum,"Human, Homo sapiens",mucosal,0,1,1,0,0,301,0
+573.13761,urine,"Human, Homo sapiens",mucosal,0,0,0,0,0,339,0
+573.41104,wound,Homo sapiens,mucosal,0,0,0,0,0,277,0
+573.20511,urine,"Human, Homo sapiens",mucosal,0,1,1,0,0,465,0
+573.45949,respiratory swab,Homo sapiens,mucosal,0,1,1,0,0,308,0
+573.58282,nasal swab,Dog,mucosal,0,1,1,0,0,315,0
+573.22037,urine,"Human, Homo sapiens",mucosal,0,1,1,0,0,305,0
+573.21298,lower respiratory tract secrection,"Human, Homo sapiens",mucosal,0,0,0,0,0,282,0
+573.69483,urine,Homo sapiens,mucosal,0,0,0,0,0,280,0
+573.39614,wound secretion,Homo sapiens,mucosal,0,0,0,0,0,282,0
+573.78563,respiratory tract,Homo sapiens,mucosal,0,1,1,0,0,295,0
+573.13455,wound,"Human, Homo sapiens",mucosal,0,0,1,0,0,331,0
+573.15001,urine,"Human, Homo sapiens",mucosal,0,1,1,0,0,289,0
+573.13123,wound,"Human, Homo sapiens",mucosal,0,1,1,0,0,344,0
+573.50009,sputum,Homo sapiens,mucosal,1,1,1,0,0,316,0
+573.14246,urine,"Human, Homo sapiens",mucosal,0,0,0,0,0,344,0
+573.81504,sputum,Homo sapiens,mucosal,0,0,0,0,0,283,0
+573.35105,sputum,"Human, Homo sapiens",mucosal,1,1,1,0,0,313,0
+573.34135,wound swab,"Human, Homo sapiens",mucosal,0,0,0,0,0,281,0
+573.80884,bronchoscopic brushing,Homo sapiens,mucosal,1,1,1,0,0,322,0
+573.15338,urine,,mucosal,0,1,1,0,0,299,0
+573.20531,urine,"Human, Homo sapiens",mucosal,0,1,1,0,0,295,0
+573.14403,urine,"Human, Homo sapiens",mucosal,0,0,0,0,0,346,0
+573.27291,sputum,"Human, Homo sapiens",mucosal,1,1,1,0,0,318,0
+573.57104,urine,Homo sapiens,mucosal,1,0,0,0,0,297,0
+573.50905,clinical wounds,Homo sapiens,mucosal,0,1,1,0,0,302,0
+573.78606,bronchial washing,Homo sapiens,mucosal,1,1,1,0,0,328,0
+573.45271,sputum,Homo sapiens,mucosal,0,1,1,0,0,306,0
+573.57106,urine,Homo sapiens,mucosal,0,0,0,0,0,277,0
+573.58972,throat,Homo sapiens,mucosal,0,0,0,0,0,282,0
+573.78406,urine,Homo sapiens,mucosal,1,1,1,0,0,314,0
+573.24332,urine,"Human, Homo sapiens",mucosal,0,0,0,0,0,299,0
+573.13488,urine,"Human, Homo sapiens",mucosal,0,0,0,0,0,328,0
+573.14783,urine,"Human, Homo sapiens",mucosal,0,1,1,0,0,294,0
+573.81626,sputum,Homo sapiens,mucosal,1,1,1,0,0,314,0
+573.15536,sputum,"Human, Homo sapiens",mucosal,0,0,0,0,0,286,0
+573.13655,urine,"Human, Homo sapiens",mucosal,0,0,1,0,0,334,0
+573.37291,wound swab,Homo sapiens,mucosal,1,1,1,0,0,328,0
+573.78519,genital tract,Homo sapiens,mucosal,0,1,1,0,0,300,0
+573.83687,sputum,Homo sapiens,mucosal,0,0,0,0,0,277,0
+573.44595,urine,Homo sapiens,mucosal,0,0,0,0,0,276,0
+573.13114,urine,"Human, Homo sapiens",mucosal,0,0,0,0,0,312,0
+573.37184,respiratory specimen,Homo sapiens,mucosal,1,1,1,0,0,318,0
+573.21986,urine,"Human, Homo sapiens",mucosal,0,0,0,0,0,293,0
+573.14415,respiratory,"Human, Homo sapiens",mucosal,0,1,1,0,0,381,0
+573.45973,respiratory swab,Homo sapiens,mucosal,1,1,1,0,0,321,0
+573.39626,wound secretion,Homo sapiens,mucosal,0,0,0,0,0,286,0
+573.34073,sputum,"Human, Homo sapiens",mucosal,0,1,1,0,0,293,0
+573.36631,sputum from patient from coronary care unit,Homo sapiens,mucosal,1,1,1,0,0,314,0
+573.36063,urine,Homo sapiens,mucosal,0,0,0,0,0,281,0
+573.63149,urine,Homo sapiens,mucosal,0,1,1,0,0,301,0
+573.40406,urine,Homo sapiens,mucosal,0,0,0,0,0,283,0
+573.21697,urine,"Human, Homo sapiens",mucosal,0,0,0,0,0,284,0
+573.57363,urine,Homo sapiens,mucosal,0,1,1,0,0,294,0
+573.49079,urine,Homo sapiens,mucosal,1,1,1,0,0,316,0
+573.54339,urine,Homo sapiens,mucosal,0,1,1,0,0,292,0
+573.13713,urine,"Human, Homo sapiens",mucosal,0,0,0,0,0,350,0
+573.41158,wound,Homo sapiens,mucosal,0,0,0,0,0,279,0
+573.13414,urine,"Human, Homo sapiens",mucosal,0,0,1,0,0,332,0
+573.41139,urine,Homo sapiens,mucosal,0,1,1,0,0,298,0
+573.9793,wound swab,"Human, Homo sapiens",mucosal,0,0,1,0,0,360,0
+573.9772,urinary tract infection,"Human, Homo sapiens",mucosal,0,0,0,0,0,330,0
+573.13965,respiratory,"Human, Homo sapiens",mucosal,0,0,0,0,0,352,0
+573.37636,urine,Homo sapiens,mucosal,0,0,0,0,0,285,0
+573.30834,lung,"Human, Homo sapiens",mucosal,0,0,1,0,0,307,0
+573.30837,lung,"Human, Homo sapiens",mucosal,1,1,1,0,0,331,0
+573.13505,urine,"Human, Homo sapiens",mucosal,0,0,0,0,0,410,0
+573.41153,urine,Homo sapiens,mucosal,0,1,1,0,0,296,0
+573.24446,urine,"Human, Homo sapiens",mucosal,0,0,0,0,0,285,0
+573.56193,sputum,Homo sapiens,mucosal,1,1,1,0,0,313,0
+573.69531,wound/skin swab,Homo sapiens,mucosal,0,0,0,0,0,285,0
+573.49509,respiratory specimen,Homo sapiens,mucosal,0,0,0,0,0,285,0
+573.81733,urine,Homo sapiens,mucosal,0,0,0,0,0,277,0
+573.5806,urine,"Human, Homo sapiens",mucosal,0,0,0,0,0,285,0
+573.65167,wound surface,Homo sapiens,mucosal,0,1,1,0,0,307,0
+573.44068,urine,Homo sapiens,mucosal,0,0,0,0,0,284,0
+573.45879,sputum,Homo sapiens,mucosal,0,0,0,0,0,289,0
+573.79058,urine,Homo sapiens,mucosal,0,1,1,0,0,302,0
+573.14423,wound,"Human, Homo sapiens",mucosal,0,0,0,0,0,333,0
+573.81635,urine,Homo sapiens,mucosal,1,1,1,0,0,318,0
+573.43404,urine,Homo sapiens,mucosal,0,1,1,0,0,297,0
+573.73519,sputum,Homo sapiens,mucosal,0,1,1,0,0,289,0
+573.13047,urine,"Human, Homo sapiens",mucosal,0,0,0,0,0,328,0
+573.78009,urine,Homo sapiens,mucosal,0,0,0,0,0,298,0
+573.14499,respiratory,"Human, Homo sapiens",mucosal,0,0,0,0,0,328,0
+573.49466,urine,Homo sapiens,mucosal,0,0,0,0,0,277,0
+573.20478,urine,"Human, Homo sapiens",mucosal,0,0,0,0,0,297,0
+573.53503,urine cc,Homo sapiens,mucosal,0,1,1,0,0,292,0
+573.13222,respiratory,"Human, Homo sapiens",mucosal,0,0,0,0,0,356,0
+573.30869,lung,"Human, Homo sapiens",mucosal,0,0,0,0,0,448,0
+573.54353,sputum,Homo sapiens,mucosal,0,1,1,0,0,300,0
+573.13077,urine,"Human, Homo sapiens",mucosal,0,0,0,0,0,337,0
+573.81459,sputum,Homo sapiens,mucosal,0,1,1,0,0,306,0
+573.40361,urine,Homo sapiens,mucosal,0,0,0,0,0,286,0
+573.21302,lower respiratory tract secrection,"Human, Homo sapiens",mucosal,0,1,1,0,0,293,0
+573.56379,urine,Homo sapiens,mucosal,0,0,0,0,0,276,0
+573.41936,urine,Homo sapiens,mucosal,0,0,0,0,0,290,0
+573.52888,sputum,Homo sapiens,mucosal,0,1,1,0,0,293,0
+573.44036,urine,Homo sapiens,mucosal,0,1,1,0,0,293,0
+573.9749,urine,"Human, Homo sapiens",mucosal,0,1,1,0,0,354,0
+573.54312,urine,Homo sapiens,mucosal,0,0,0,0,0,280,0
+573.16196,wound,"Human, Homo sapiens",mucosal,0,0,0,0,0,3,0
+573.77722,sputum,Homo sapiens,mucosal,1,1,1,0,0,325,0
+573.29103,urine,"Human, Homo sapiens",mucosal,0,1,1,0,0,303,0
+573.24421,urine,"Human, Homo sapiens",mucosal,0,1,1,0,0,298,0
+573.73581,broncho-alveolar lavage,,mucosal,1,1,1,0,0,327,0
+573.78809,wound,Homo sapiens,mucosal,0,1,1,0,0,297,0
+573.81488,sputum,Homo sapiens,mucosal,0,1,1,0,0,299,0
+573.39664,wound secretion,Homo sapiens,mucosal,1,1,1,0,0,335,0
+573.14138,urine,"Human, Homo sapiens",mucosal,0,0,0,0,0,348,0
+573.52714,urine,Homo sapiens,mucosal,0,0,0,0,0,284,0
+573.20804,urine,"Human, Homo sapiens",mucosal,0,1,1,0,0,300,0
+573.41998,wound,Homo sapiens,mucosal,0,0,0,0,0,276,0
+573.14174,respiratory,"Human, Homo sapiens",mucosal,0,0,0,0,0,340,0
+573.13943,urine,"Human, Homo sapiens",mucosal,0,0,0,0,0,326,0
+573.14385,respiratory,"Human, Homo sapiens",mucosal,0,0,0,0,0,320,0
+573.37663,sputum,Homo sapiens,mucosal,0,1,1,0,0,312,0
+573.1929,sputum,"Human, Homo sapiens",mucosal,0,0,0,0,0,288,0
+573.13293,urine,"Human, Homo sapiens",mucosal,0,0,0,0,0,349,0
+573.78543,respiratory tract,Homo sapiens,mucosal,1,0,1,0,0,311,0
+573.14043,urine,"Human, Homo sapiens",mucosal,0,0,1,0,0,342,0
+573.44348,urine,Homo sapiens,mucosal,0,1,1,0,0,294,0
+573.35697,sputum,"Human, Homo sapiens",mucosal,1,1,1,0,0,317,0
+573.53481,sputum unspecified,Homo sapiens,mucosal,0,0,0,0,0,278,0
+573.73505,sputum,Homo sapiens,mucosal,1,1,1,0,0,316,0
+573.44063,urine,Homo sapiens,mucosal,0,0,0,0,0,273,0
+573.39698,wound,Homo sapiens,mucosal,0,1,1,0,0,298,0
+573.1366,wound,"Human, Homo sapiens",mucosal,0,1,1,0,0,295,0
+573.9734,urine,"Human, Homo sapiens",mucosal,0,1,1,0,0,350,0
+573.21821,urine,"Human, Homo sapiens",mucosal,0,0,0,0,0,285,0
+573.20075,urine,"Human, Homo sapiens",mucosal,0,0,0,0,0,282,0
+573.13369,respiratory,"Human, Homo sapiens",mucosal,0,0,0,0,0,317,0
+573.21176,urine,"Human, Homo sapiens",mucosal,0,0,0,0,0,279,0
+573.81007,urine,Homo sapiens,mucosal,0,1,1,0,0,304,0
+573.35594,low respiratory tract infection,"Human, Homo sapiens",mucosal,0,1,1,0,0,294,0
+573.27283,sputum,"Human, Homo sapiens",mucosal,1,1,1,0,0,322,0
+573.24279,sputum,"Human, Homo sapiens",mucosal,0,0,0,0,0,287,0
+573.83605,blind protected bronchial sampling,Homo sapiens,mucosal,1,0,0,0,0,322,0
+573.1553,wound swab,"Human, Homo sapiens",mucosal,0,1,1,0,0,288,0
+573.13844,wound,"Human, Homo sapiens",mucosal,0,1,1,0,0,357,0
+573.83785,wound surface,Homo sapiens,mucosal,0,0,0,0,0,291,0
+573.83594,nasal swab,Swine,mucosal,0,0,0,0,0,258,0
+573.13873,urine,"Human, Homo sapiens",mucosal,0,0,0,0,0,350,0
+573.17597,urine,"Human, Homo sapiens",mucosal,0,0,0,0,0,412,0
+573.13448,respiratory,"Human, Homo sapiens",mucosal,0,1,1,0,0,334,0
+573.50008,sputum,Homo sapiens,mucosal,1,1,1,0,0,316,0
+573.45061,sputum,Homo sapiens,mucosal,1,1,1,0,0,318,0
+573.25843,sputum,"Human, Homo sapiens",mucosal,0,1,1,0,0,303,0
+573.84223,throat,Homo sapiens,mucosal,0,0,0,0,0,287,0
+573.13403,respiratory,"Human, Homo sapiens",mucosal,0,0,0,0,0,336,0
+573.19973,urine,"Human, Homo sapiens",mucosal,0,1,1,0,0,308,0
+573.78425,urine,Homo sapiens,mucosal,1,1,1,0,0,312,0
+573.80858,bronchoscopic brushing,Homo sapiens,mucosal,1,1,1,0,0,315,0
+573.33894,respiratory sample from patients who developed covid-19 within the first three months of the pandemic in new york city,"Human, Homo sapiens",mucosal,0,0,0,0,0,544,0
+573.36135,sputum,Homo sapiens,mucosal,1,1,1,0,0,314,0
+573.33951,urine,"Human, Homo sapiens",mucosal,0,1,1,0,0,295,0
+573.13359,urine,"Human, Homo sapiens",mucosal,0,0,1,0,0,353,0
+573.62411,sputum,Homo sapiens,mucosal,0,1,1,0,0,302,0
+573.21658,urine,"Human, Homo sapiens",mucosal,0,0,0,0,0,283,0
+573.13691,urine,"Human, Homo sapiens",mucosal,0,1,1,0,0,355,0
+573.50865,sputum,Homo sapiens,mucosal,0,1,1,0,0,303,0
+573.27948,urine,"Human, Homo sapiens",mucosal,0,0,0,0,0,283,0
+573.20913,lower respiratory tract secrection,"Human, Homo sapiens",mucosal,0,0,0,0,0,279,0
+573.37299,urine,Homo sapiens,mucosal,0,0,0,0,0,287,0
+573.56466,urine,Homo sapiens,mucosal,0,1,1,0,0,384,0
+573.13288,urine,"Human, Homo sapiens",mucosal,0,0,1,0,0,343,0
+573.14208,wound,"Human, Homo sapiens",mucosal,0,0,0,0,0,328,0
+573.1546,urine,"Human, Homo sapiens",mucosal,0,1,1,0,0,294,0
+573.13822,urine,"Human, Homo sapiens",mucosal,1,0,1,0,0,794,0
+573.35644,wound swab,"Human, Homo sapiens",mucosal,1,1,1,0,0,314,0
+573.45099,urine,Homo sapiens,mucosal,0,0,0,0,0,284,0
+573.79115,urine,Homo sapiens,mucosal,0,1,1,0,0,300,0
+573.20659,urine,"Human, Homo sapiens",mucosal,0,0,0,0,0,274,0
+573.1625,sputum,"Human, Homo sapiens",mucosal,0,1,1,0,0,294,0
+573.5625,sputum,"Human, Homo sapiens",mucosal,0,0,0,0,0,284,0
+573.21326,lower respiratory tract secrection,"Human, Homo sapiens",mucosal,1,1,1,0,0,329,0
+573.31322,urine,"Human, Homo sapiens",mucosal,0,1,1,0,0,296,0
+573.13243,respiratory,"Human, Homo sapiens",mucosal,0,0,1,0,0,346,0
+573.21583,wound secretion,"Human, Homo sapiens",mucosal,0,1,1,0,0,299,0
+573.15963,urine sample,"Human, Homo sapiens",mucosal,0,0,0,0,0,5,0
+573.1612,urine,"Human, Homo sapiens",mucosal,0,1,1,0,0,294,0
+573.54188,urine,Homo sapiens,mucosal,0,1,1,0,0,302,0
+573.54882,sputum,Homo,mucosal,1,0,1,0,0,311,0
+573.13791,urine,"Human, Homo sapiens",mucosal,0,0,1,0,0,399,0
+573.25911,sputum,"Human, Homo sapiens",mucosal,1,1,1,0,0,319,0
+573.10099,urine,"Human, Homo sapiens",mucosal,0,0,1,0,0,338,0
+573.18479,urinary tract,female dog,mucosal,0,0,0,0,0,299,0
+573.21857,urine,"Human, Homo sapiens",mucosal,0,0,0,0,0,292,0
+573.64701,nasal swab,Bos taurus indicus,mucosal,0,0,0,0,0,278,0
+573.5798,sputum,"Human, Homo sapiens",mucosal,0,1,1,0,0,293,0
+573.13728,respiratory,"Human, Homo sapiens",mucosal,0,0,0,0,0,349,0
+573.44115,urine,Homo sapiens,mucosal,0,0,0,0,0,277,0
+573.13584,urine,"Human, Homo sapiens",mucosal,0,1,1,0,0,361,0
+573.16125,respiratory,"Human, Homo sapiens",mucosal,0,0,0,0,0,5,0
+573.43398,urine,Homo sapiens,mucosal,0,0,0,0,0,279,0
+573.21391,urine,"Human, Homo sapiens",mucosal,0,1,1,0,0,293,0
+573.48162,wound,Homo sapiens,mucosal,1,1,1,0,0,526,0
+573.73091,sputum,Homo sapiens,mucosal,1,1,1,0,0,313,0
+573.37226,burn wound,Homo sapiens,mucosal,0,0,0,0,0,277,0
+573.36127,urine,Homo sapiens,mucosal,0,1,1,0,0,305,0
+573.30807,urine,"Human, Homo sapiens",mucosal,0,1,1,0,0,309,0
+573.13653,urine,"Human, Homo sapiens",mucosal,0,0,1,0,0,332,0
+573.53575,sputum,Homo sapiens,mucosal,1,1,1,0,0,313,0
+573.73065,sputum,Homo sapiens,mucosal,1,1,1,0,0,310,0
+573.43826,urine,Homo sapiens,mucosal,0,1,1,0,0,295,0
+573.13187,urine,"Human, Homo sapiens",mucosal,0,0,0,0,0,343,0
+573.56315,patient urine,Homo sapiens,mucosal,0,0,0,0,0,283,0
+573.51906,urine,Homo sapiens,mucosal,1,1,1,0,0,328,0
+573.22428,urine,"Human, Homo sapiens",mucosal,0,1,1,0,0,295,0
+573.21708,lower respiratory tract secrection,"Human, Homo sapiens",mucosal,0,1,1,0,0,298,0
+573.43479,sputum,Homo sapiens,mucosal,1,1,1,0,0,306,0
+573.57359,urine,Homo sapiens,mucosal,0,0,0,0,0,289,0
+573.21962,urine,"Human, Homo sapiens",mucosal,0,1,1,0,0,306,0
+573.81732,urine,Homo sapiens,mucosal,0,0,0,0,0,277,0
+573.27202,urine,"Human, Homo sapiens",mucosal,0,1,1,0,0,293,0
+573.78497,urinary tract,Homo sapiens,mucosal,0,1,1,0,0,300,0
+573.83842,sputum,Homo sapiens,mucosal,1,1,1,0,0,318,0
+573.21532,urine,"Human, Homo sapiens",mucosal,0,0,0,0,0,277,0
+573.59081,urine,Homo sapiens,mucosal,0,1,1,0,0,299,0
+573.26028,sputum,"Human, Homo sapiens",mucosal,0,1,1,0,0,307,0
+573.13573,urine,"Human, Homo sapiens",mucosal,0,0,1,0,0,341,0
+573.13913,wound,"Human, Homo sapiens",mucosal,0,1,1,0,0,354,0
+573.80828,sputum,Homo sapiens,mucosal,0,1,1,0,0,294,0
+573.56885,urine,Homo sapiens,mucosal,0,0,0,0,0,274,0
+573.20584,urine,"Human, Homo sapiens",mucosal,0,1,1,0,0,304,0
+573.62395,sputum,Homo sapiens,mucosal,1,0,0,0,0,295,0
+573.1356,respiratory secretions,"Human, Homo sapiens",mucosal,0,0,0,0,0,279,0
+573.52459,sputum,Homo sapiens,mucosal,1,1,1,0,0,313,0
+573.38721,bile bronchoalveolar lavage fluid,,mucosal,0,1,1,0,0,295,0
+573.51857,urine,Homo sapiens,mucosal,0,0,0,0,0,285,0
+573.26014,sputum,"Human, Homo sapiens",mucosal,0,1,1,0,0,295,0
+573.81412,urine,Homo sapiens,mucosal,1,1,1,0,0,333,0
+573.5687,sputum,"Human, Homo sapiens",mucosal,0,1,1,0,0,298,0
+573.34061,urine,"Human, Homo sapiens",mucosal,0,1,1,0,0,285,0
+573.16038,urine sample,"Human, Homo sapiens",mucosal,0,0,0,0,0,1,0
+573.45942,respiratory swab,Homo sapiens,mucosal,1,1,1,0,0,325,0
+573.35601,low respiratory tract infection,"Human, Homo sapiens",mucosal,0,1,1,0,0,298,0
+573.44442,sputum,Homo sapiens,mucosal,1,1,1,0,0,312,0
+573.31875,sputum,"Human, Homo sapiens",mucosal,1,1,1,0,0,314,0
+573.45028,sputum,Homo sapiens,mucosal,1,1,1,0,0,315,0
+573.41105,urine,Homo sapiens,mucosal,0,1,1,0,0,300,0
+573.29511,wound,"Human, Homo sapiens",mucosal,0,1,1,0,0,294,0
+573.21952,urine,"Human, Homo sapiens",mucosal,0,0,0,0,0,282,0
+573.19923,urine,"Human, Homo sapiens",mucosal,0,0,0,0,0,282,0
+573.37189,respiratory specimen,Homo sapiens,mucosal,0,1,1,0,0,291,0
+573.36132,urine,Homo sapiens,mucosal,0,1,1,0,0,302,0
+573.41939,urine,Homo sapiens,mucosal,1,1,1,0,0,331,0
+573.13973,urine,"Human, Homo sapiens",mucosal,0,0,0,0,0,353,0
+573.77784,urine,Homo sapiens,mucosal,0,0,0,0,0,283,0
+573.41958,urine,Homo sapiens,mucosal,0,1,1,0,0,300,0
+573.50946,wound discharge,Homo sapiens,mucosal,0,1,1,0,0,290,0
+573.80865,urine,Homo sapiens,mucosal,1,1,1,0,0,315,0
+573.42909,urine,Homo sapiens,mucosal,0,0,0,0,0,279,0
+573.43077,sputum,Homo sapiens,mucosal,1,1,1,0,0,318,0
+573.13996,urine,"Human, Homo sapiens",mucosal,0,1,1,0,0,380,0
+573.5633,urine,Homo sapiens,mucosal,0,0,0,0,0,264,0
+573.7246,wound swab,"Human, Homo sapiens",mucosal,0,1,1,0,0,293,0
+573.13467,urine,"Human, Homo sapiens",mucosal,0,0,0,0,0,347,0
+573.53567,urine,Homo sapiens,mucosal,0,1,1,0,0,293,0
+573.24423,urine,"Human, Homo sapiens",mucosal,0,0,0,0,0,279,0
+573.81444,sputum,Homo sapiens,mucosal,1,1,1,0,0,315,0
+573.13511,urine,"Human, Homo sapiens",mucosal,0,1,1,0,0,364,0
+573.64963,wound thigh secretion,Homo sapiens,mucosal,0,1,1,0,0,296,0
+573.48151,wound,Homo sapiens,mucosal,0,0,0,0,0,303,0
+573.4021,urine sample,"Human, Homo sapiens",mucosal,0,1,1,0,0,298,0
+573.9732,urine,"Human, Homo sapiens",mucosal,0,0,0,0,0,337,0
+573.49868,patient2 sputum,Homo sapiens,mucosal,0,1,1,0,0,309,0
+573.24368,urine,"Human, Homo sapiens",mucosal,0,0,0,0,0,282,0
+573.78553,respiratory tract,Homo sapiens,mucosal,0,1,1,0,0,299,0
+573.1409,respiratory,"Human, Homo sapiens",mucosal,0,0,0,0,0,279,0
+573.9761,urinary tract infection,"Human, Homo sapiens",mucosal,0,1,1,0,0,405,0
+573.43127,urinary tract,Homo sapiens,mucosal,0,1,1,0,0,289,0
+573.44257,wound swab,Homo sapiens,mucosal,0,0,0,0,0,278,0
+573.42964,respiratory,Homo sapiens,mucosal,0,1,1,0,0,295,0
+573.25892,sputum,"Human, Homo sapiens",mucosal,0,1,1,0,0,303,0
+573.49957,urine,Dog,mucosal,0,0,0,0,0,292,0
+573.20608,wound secretion,"Human, Homo sapiens",mucosal,0,0,0,0,0,281,0
+573.13477,urine,"Human, Homo sapiens",mucosal,0,0,1,0,0,336,0
+573.77452,respiratory culture: tracheal aspirate,Homo sapiens,mucosal,0,1,1,0,0,293,0
+573.44503,urine,Homo sapiens,mucosal,0,0,0,0,0,284,0
+573.54231,urine,Homo sapiens,mucosal,0,1,1,0,0,290,0
+573.13521,respiratory,"Human, Homo sapiens",mucosal,0,0,1,0,0,339,0
+573.13436,urine,"Human, Homo sapiens",mucosal,0,0,1,0,0,351,0
+573.56991,urine,Homo sapiens,mucosal,0,1,1,0,0,292,0
+573.1481,respiratory secretion,"Human, Homo sapiens",mucosal,0,0,0,0,0,281,0
+573.78557,respiratory tract,Homo sapiens,mucosal,0,1,1,0,0,299,0
+573.21185,urine,"Human, Homo sapiens",mucosal,0,0,0,0,0,281,0
+573.97689,urinary tract infection,"Human, Homo sapiens",mucosal,0,0,0,0,0,149,0
+573.14443,urine,"Human, Homo sapiens",mucosal,0,0,0,0,0,331,0
+573.21362,wound secretion,"Human, Homo sapiens",mucosal,0,0,0,0,0,284,0
+573.13914,urine,"Human, Homo sapiens",mucosal,0,0,1,0,0,335,0
+573.1947,urine,"Human, Homo sapiens",mucosal,0,1,1,0,0,298,0
+573.20546,urine,"Human, Homo sapiens",mucosal,0,1,1,0,0,304,0
+573.14067,urine,"Human, Homo sapiens",mucosal,0,0,0,0,0,339,0
+573.1454,urine,"Human, Homo sapiens",mucosal,0,0,0,0,0,285,0
+573.13502,urine,"Human, Homo sapiens",mucosal,0,0,1,0,0,337,0
+573.73504,sputum,Homo sapiens,mucosal,1,1,1,0,0,316,0
+573.15347,sputum,,mucosal,0,0,0,0,0,290,0
+573.22043,lower respiratory tract secrection,"Human, Homo sapiens",mucosal,0,1,1,0,0,297,0
+573.21941,wound secretion,"Human, Homo sapiens",mucosal,0,1,1,0,0,306,0
+573.49386,respiratory,Homo sapiens,mucosal,0,1,1,0,0,294,0
+573.29568,sputum,"Human, Homo sapiens",mucosal,0,1,1,0,0,289,0
+573.21966,urine,"Human, Homo sapiens",mucosal,0,1,1,0,0,301,0
+573.50912,nasal swabs,Homo sapiens,mucosal,0,0,0,0,0,285,0
+573.44748,respiratory medicine,Homo sapiens,mucosal,0,1,1,0,0,294,0
+573.21563,urine,"Human, Homo sapiens",mucosal,0,0,0,0,0,274,0
+573.31734,wound,"Human, Homo sapiens",mucosal,0,1,1,0,0,301,0
+573.36646,wound secretion from patient,Homo sapiens,mucosal,1,1,1,0,0,329,0
+573.14286,respiratory,"Human, Homo sapiens",mucosal,0,0,0,0,0,341,0
+573.29378,sputum,"Human, Homo sapiens",mucosal,0,1,1,0,0,298,0
+573.48967,urine,Homo sapiens,mucosal,0,0,0,0,0,278,0
+573.39758,urine,Homo sapiens,mucosal,0,0,0,0,0,279,0
+573.69425,sputum,Homo sapiens,mucosal,0,0,0,0,0,285,0
+573.21652,lower respiratory tract secrection,"Human, Homo sapiens",mucosal,0,1,1,0,0,299,0
+573.21386,urine,"Human, Homo sapiens",mucosal,0,0,0,0,0,274,0
+573.69685,urine,,mucosal,0,0,0,0,0,1,0
+573.69643,urine culture,Homo sapiens,mucosal,0,0,0,0,0,271,0
+573.1613,urine,"Human, Homo sapiens",mucosal,0,1,1,0,0,293,0
+573.15479,urine,"Human, Homo sapiens",mucosal,0,0,0,0,0,285,0
+573.67978,urine,Homo sapiens,mucosal,0,1,1,0,0,294,0
+573.21878,wound secretion,"Human, Homo sapiens",mucosal,0,0,0,0,0,286,0
+573.35614,urinary tract infection,"Human, Homo sapiens",mucosal,0,0,0,0,0,282,0
+573.58297,nasal swab,Swine,mucosal,1,1,1,0,0,357,0
+573.73586,urine,Homo sapiens,mucosal,0,0,0,0,0,288,0
+573.73512,urine,Homo sapiens,mucosal,1,1,1,0,0,316,0
+573.63323,urinary tract,Homo sapiens,mucosal,0,1,1,0,0,295,0
+573.44073,urine,Homo sapiens,mucosal,0,1,1,0,0,300,0
+573.34057,throat,"Human, Homo sapiens",mucosal,1,1,1,0,0,332,0
+573.38763,urine,Homo sapiens,mucosal,0,0,0,0,0,297,0
+573.14252,urine,"Human, Homo sapiens",mucosal,0,0,0,0,0,336,0
+573.52843,sputum,Homo sapiens,mucosal,0,0,0,0,0,296,0
+573.14461,urine,"Human, Homo sapiens",mucosal,0,0,0,0,0,327,0
+573.14161,wound,"Human, Homo sapiens",mucosal,0,0,0,0,0,328,0
+573.35577,urinary tract infection,"Human, Homo sapiens",mucosal,0,1,1,0,0,311,0
+573.48161,sputum,Homo sapiens,mucosal,0,0,0,0,0,378,0
+573.14288,respiratory,"Human, Homo sapiens",mucosal,0,1,1,0,0,341,0
+573.65505,urine,Homo sapiens,mucosal,0,0,0,0,0,280,0
+573.45086,urine,Homo sapiens,mucosal,0,1,1,0,0,296,0
+573.79105,urine,Homo sapiens,mucosal,0,1,1,0,0,300,0
+573.29512,wound,"Human, Homo sapiens",mucosal,1,1,1,0,0,330,0
+573.21577,wound secretion,"Human, Homo sapiens",mucosal,1,1,1,0,0,322,0
+573.27982,urine,"Human, Homo sapiens",mucosal,1,1,1,0,0,316,0
+573.43141,urine,Homo sapiens,mucosal,0,1,1,0,0,317,0
+573.65264,sputum,Homo sapiens,mucosal,1,1,1,0,0,313,0
+573.36693,midstream urine,Homo sapiens,mucosal,0,1,1,0,0,322,0
+573.20155,urine,,mucosal,0,0,0,0,0,320,0
+573.31323,sputum,"Human, Homo sapiens",mucosal,0,1,1,0,0,289,0
+573.58306,nasal swab,Swine,mucosal,0,0,0,0,0,314,0
+573.14412,urine,"Human, Homo sapiens",mucosal,0,0,0,0,0,328,0
+573.5678,sputum,"Human, Homo sapiens",mucosal,0,1,1,0,0,312,0
+573.49832,patient18 sputum,Homo sapiens,mucosal,0,1,1,0,0,293,0
+573.13362,respiratory,"Human, Homo sapiens",mucosal,0,0,1,0,0,331,0
+573.13241,urine,"Human, Homo sapiens",mucosal,0,0,0,0,0,327,0
+573.31736,urine,"Human, Homo sapiens",mucosal,0,0,0,0,0,280,0
+573.52716,urine,Homo sapiens,mucosal,0,0,0,0,0,277,0
+573.20577,urine,"Human, Homo sapiens",mucosal,0,1,1,0,0,302,0
+573.44538,urine,Homo sapiens,mucosal,0,0,0,0,0,281,0
+573.54854,urine,Homo sapiens,mucosal,0,0,0,0,0,283,0
+573.20592,urine,"Human, Homo sapiens",mucosal,0,1,1,0,0,302,0
+573.81536,urine,Homo sapiens,mucosal,0,0,0,0,0,307,0
+573.83671,sputum,Homo sapiens,mucosal,1,0,0,0,0,282,0
+573.54278,urine,Homo sapiens,mucosal,0,0,0,0,0,287,0
+573.44705,lung,Dog,mucosal,0,0,0,0,0,283,0
+573.14275,urine,"Human, Homo sapiens",mucosal,0,0,0,0,0,350,0
+573.25596,sputum,"Human, Homo sapiens",mucosal,0,0,0,0,0,275,0
+573.13092,urine,"Human, Homo sapiens",mucosal,0,0,0,0,0,338,0
+573.14194,respiratory,"Human, Homo sapiens",mucosal,0,0,0,0,0,328,0
+573.62405,urine,Homo sapiens,mucosal,0,1,1,0,0,298,0
+573.51037,sputum,Homo sapiens,mucosal,0,0,0,0,0,275,0
+573.14538,urine,"Human, Homo sapiens",mucosal,0,1,1,0,0,346,0
+573.45045,sputum,Homo sapiens,mucosal,1,1,1,0,0,314,0
+573.52561,sputum,Homo sapiens,mucosal,1,0,1,0,0,298,0
+573.15255,urine,"Human, Homo sapiens",mucosal,0,1,1,0,0,304,0
+573.21884,wound secretion,"Human, Homo sapiens",mucosal,0,0,0,0,0,281,0
+573.13853,urine,"Human, Homo sapiens",mucosal,0,1,1,0,0,364,0
+573.65156,sputum,Homo sapiens,mucosal,1,1,1,0,0,320,0
+573.21866,urine,"Human, Homo sapiens",mucosal,0,0,0,0,0,282,0
+573.79348,urine,Homo sapiens,mucosal,0,0,0,0,0,275,0
+573.41946,urine,Homo sapiens,mucosal,0,0,0,0,0,280,0
+573.58314,nasal swab,Swine,mucosal,1,1,1,0,0,341,0
+573.27558,urine,"Human, Homo sapiens",mucosal,1,1,1,0,0,322,0
+573.29377,bronchoalveolar lavage,"Human, Homo sapiens",mucosal,1,1,1,0,0,329,0
+573.35026,urine,"Human, Homo sapiens",mucosal,0,0,0,0,0,281,0
+573.69524,wound/skin swab,Homo sapiens,mucosal,0,0,0,0,0,278,0
+573.4186,wound,Homo sapiens,mucosal,0,0,0,0,0,283,0
+573.42929,wound,Homo sapiens,mucosal,0,0,0,0,0,282,0
+573.13355,urine,"Human, Homo sapiens",mucosal,0,0,0,0,0,351,0
+573.58295,nasal swab,Swine,mucosal,1,1,1,0,0,334,0
+573.16002,wound swab,"Human, Homo sapiens",mucosal,0,0,0,0,0,2,0
+573.33896,respiratory sample from patients who developed covid-19 within the first three months of the pandemic in new york city,"Human, Homo sapiens",mucosal,0,0,1,0,0,549,0
+573.45108,urine,Homo sapiens,mucosal,0,0,0,0,0,292,0
+573.37244,urine,Homo sapiens,mucosal,0,1,1,0,0,293,0
+573.81431,sputum,Homo sapiens,mucosal,1,1,1,0,0,333,0
+573.81496,sputum,Homo sapiens,mucosal,0,0,0,0,0,281,0
+573.41911,urine,Homo sapiens,mucosal,0,0,0,0,0,286,0
+573.14341,urine,"Human, Homo sapiens",mucosal,0,0,0,0,0,329,0
+573.78638,urine,Homo sapiens,mucosal,0,1,1,0,0,297,0
+573.13328,urine,"Human, Homo sapiens",mucosal,0,0,0,0,0,337,0
+573.50162,sputum,Homo sapiens,mucosal,1,1,1,0,0,316,0
+573.53601,sputum,Homo sapiens,mucosal,0,1,1,0,0,299,0
+573.81266,sputum,Homo sapiens,mucosal,1,1,1,0,0,311,0
+573.52699,urine,Homo sapiens,mucosal,0,0,0,0,0,281,0
+573.14266,respiratory,"Human, Homo sapiens",mucosal,0,0,1,0,0,334,0
+573.15039,urine,"Human, Homo sapiens",mucosal,0,0,0,0,0,312,0
+573.36659,urine,Homo sapiens,mucosal,1,0,0,0,0,304,0
+573.57353,urine,Homo sapiens,mucosal,0,0,0,0,0,289,0
+573.50128,urine,Homo sapiens,mucosal,0,0,0,0,0,284,0
+573.15553,throat swab,"Human, Homo sapiens",mucosal,0,0,0,0,0,291,0
+573.45974,respiratory swab,Homo sapiens,mucosal,1,1,1,0,0,315,0
+573.21646,urine,"Human, Homo sapiens",mucosal,0,0,0,0,0,283,0
+573.21876,urine,"Human, Homo sapiens",mucosal,0,1,1,0,0,307,0
+573.25816,wound swab,"Human, Homo sapiens",mucosal,0,0,0,0,0,284,0
+573.73092,sputum,Homo sapiens,mucosal,1,1,1,0,0,319,0
+573.14095,urine,"Human, Homo sapiens",mucosal,0,0,1,0,0,352,0
+573.7354,nasal swab,"Human, Homo sapiens",mucosal,0,1,1,0,0,290,0
+573.22046,urine,"Human, Homo sapiens",mucosal,0,0,0,0,0,279,0
+573.13977,urine,"Human, Homo sapiens",mucosal,0,0,1,0,0,335,0
+573.27555,sputum,"Human, Homo sapiens",mucosal,1,1,1,0,0,326,0
+573.63214,wound,Homo sapiens,mucosal,1,0,1,0,0,309,0
+573.51874,sputum,Homo sapiens,mucosal,0,1,1,0,0,310,0
+573.80928,urine,Homo sapiens,mucosal,0,1,1,0,0,295,0
+573.69532,urine,Homo sapiens,mucosal,0,1,1,0,0,300,0
+573.25902,sputum,"Human, Homo sapiens",mucosal,0,1,1,0,0,305,0
+573.15555,throat swab,"Human, Homo sapiens",mucosal,0,0,0,0,0,274,0
+573.37586,urine,Homo sapiens,mucosal,0,1,1,0,0,299,0
+573.43327,urine,Homo sapiens,mucosal,0,1,1,0,0,294,0
+573.18718,wound swab,"Human, Homo sapiens",mucosal,0,0,0,0,0,294,0
+573.38704,urine,Homo sapiens,mucosal,0,1,1,0,0,301,0
+573.1952,urine,"Human, Homo sapiens",mucosal,0,0,0,0,0,282,0
+573.78182,sputum,Homo sapiens,mucosal,0,1,1,0,0,298,0
+573.1408,respiratory,"Human, Homo sapiens",mucosal,0,0,0,0,0,286,0
+573.13768,urine,"Human, Homo sapiens",mucosal,0,0,1,0,0,337,0
+573.13725,urine,"Human, Homo sapiens",mucosal,0,0,1,0,0,335,0
+573.78623,sputum,Homo sapiens,mucosal,0,1,1,0,0,304,0
+573.80827,sputum,Homo sapiens,mucosal,1,1,1,0,0,341,0
+573.52688,urine,Homo sapiens,mucosal,0,1,1,0,0,301,0
+573.81421,sputum,Homo sapiens,mucosal,1,1,1,0,0,312,0
+573.13061,urine,"Human, Homo sapiens",mucosal,0,0,0,0,0,341,0
+573.47269,sputum,Homo sapiens,mucosal,1,1,1,0,0,314,0
+573.27993,urine,"Human, Homo sapiens",mucosal,0,0,0,0,0,283,0
+573.58998,urine,Homo sapiens,mucosal,0,0,0,0,0,285,0
+573.49095,urine,Homo sapiens,mucosal,1,1,1,0,0,373,0
+573.21601,lower respiratory tract secrection,"Human, Homo sapiens",mucosal,0,1,1,0,0,292,0
+573.21914,lower respiratory tract secrection,"Human, Homo sapiens",mucosal,0,0,0,0,0,281,0
+573.14479,urine,"Human, Homo sapiens",mucosal,0,1,1,0,0,399,0
+573.77448,urine culture,Homo sapiens,mucosal,0,0,0,0,0,287,0
+573.65181,urine,Homo sapiens,mucosal,0,0,0,0,0,286,0
+573.5682,sputum,"Human, Homo sapiens",mucosal,0,0,0,0,0,280,0
+573.13901,urine,"Human, Homo sapiens",mucosal,0,0,1,0,0,351,0
+573.40419,urine,Homo sapiens,mucosal,0,1,1,0,0,290,0
+573.69486,wound/skin swab,Homo sapiens,mucosal,0,0,0,0,0,277,0
+573.13778,urine,"Human, Homo sapiens",mucosal,0,0,1,0,0,333,0
+573.78512,respiratory tract,Homo sapiens,mucosal,0,1,1,0,0,306,0
+573.13104,urine,"Human, Homo sapiens",mucosal,0,0,1,0,0,357,0
+573.49088,urine,Homo sapiens,mucosal,1,1,1,0,0,310,0
+573.26069,urine,"Human, Homo sapiens",mucosal,0,0,0,0,0,279,0
+573.15594,urine,"Human, Homo sapiens",mucosal,0,0,0,0,0,280,0
+573.44122,urine,Homo sapiens,mucosal,0,1,1,0,0,296,0
+573.83831,sputum,Homo sapiens,mucosal,1,1,1,0,0,320,0
+573.50565,urinary tract,Homo sapiens,mucosal,0,1,1,0,0,290,0
+573.24452,urine,"Human, Homo sapiens",mucosal,0,0,0,0,0,282,0
+573.81301,sputum,Homo sapiens,mucosal,0,1,1,0,0,304,0
+573.42936,urine,Homo sapiens,mucosal,0,1,1,0,0,290,0
+573.24412,urine,"Human, Homo sapiens",mucosal,0,0,0,0,0,282,0
+573.14473,urine,"Human, Homo sapiens",mucosal,0,0,0,0,0,341,0
+573.54626,sputum,Homo sapiens,mucosal,1,1,1,0,0,318,0
+573.38768,urine,Homo sapiens,mucosal,0,1,1,0,0,300,0
+573.14771,urine,"Human, Homo sapiens",mucosal,0,0,0,0,0,286,0
+573.47286,chronic wound,Homo sapiens,mucosal,0,1,1,0,0,294,0
+573.13183,urine,"Human, Homo sapiens",mucosal,0,0,1,0,0,353,0
+573.56171,sputum,Homo sapiens,mucosal,1,1,1,0,0,323,0
+573.20457,wound secretion,"Human, Homo sapiens",mucosal,0,1,1,0,0,297,0
+573.36602,sputum,Homo sapiens,mucosal,0,0,0,0,0,285,0
+573.18512,urine,"Human, Homo sapiens",mucosal,0,1,1,0,0,295,0
+573.44094,urine,Homo sapiens,mucosal,0,0,0,0,0,282,0
+573.69482,wound/skin swab,Homo sapiens,mucosal,0,0,0,0,0,274,0
+573.21858,urine,"Human, Homo sapiens",mucosal,0,1,1,0,0,293,0
+573.78428,urine,Homo sapiens,mucosal,1,1,1,0,0,312,0
+573.7341,urine,"Human, Homo sapiens",mucosal,0,1,1,0,0,341,0
+573.41162,wound,Homo sapiens,mucosal,0,0,0,0,0,283,0
+573.13784,urine,"Human, Homo sapiens",mucosal,0,0,1,0,0,338,0
+573.13887,urine,"Human, Homo sapiens",mucosal,0,0,1,0,0,339,0
+573.24328,urine,"Human, Homo sapiens",mucosal,0,0,0,0,0,278,0
+573.27564,sputum,"Human, Homo sapiens",mucosal,1,1,1,0,0,324,0
+573.56887,middle urine,Homo sapiens,mucosal,0,0,0,0,0,292,0
+573.21402,urine,"Human, Homo sapiens",mucosal,0,1,1,0,0,343,0
+573.21732,urine,"Human, Homo sapiens",mucosal,0,0,0,0,0,286,0
+573.14364,urine,"Human, Homo sapiens",mucosal,0,0,1,0,0,339,0
+573.25997,sputum,"Human, Homo sapiens",mucosal,0,1,1,0,0,312,0
+573.20574,urine,"Human, Homo sapiens",mucosal,0,1,1,0,0,301,0
+573.97733,urinary tract infection,"Human, Homo sapiens",mucosal,0,1,1,0,0,152,0
+573.22386,respiratory,"Human, Homo sapiens",mucosal,0,0,0,0,0,281,0
+573.43256,urine,Homo sapiens,mucosal,0,0,0,0,0,279,0
+573.63267,urine,Homo sapiens,mucosal,0,1,1,0,0,301,0
+573.44742,respiratory medicine,Homo sapiens,mucosal,0,1,1,0,0,295,0
+573.81731,urine,Homo sapiens,mucosal,0,0,0,0,0,279,0
+573.78888,urine,Homo sapiens,mucosal,0,0,0,0,0,290,0
+573.42016,urine,Homo sapiens,mucosal,0,1,1,0,0,297,0
+573.33892,respiratory sample from patients who developed covid-19 within the first three months of the pandemic in new york city,"Human, Homo sapiens",mucosal,0,0,0,0,0,545,0
+573.64046,sputum,Homo sapiens,mucosal,0,1,1,0,0,289,0
+573.73526,sputum,Homo sapiens,mucosal,0,1,1,0,0,299,0
+573.31383,sputum,"Human, Homo sapiens",mucosal,0,1,1,0,0,291,0
+573.54281,urine,Homo sapiens,mucosal,0,0,0,0,0,282,0
+573.80841,sputum,Homo sapiens,mucosal,1,1,1,0,0,326,0
+573.21254,urine,"Human, Homo sapiens",mucosal,0,0,0,0,0,282,0
+573.21211,urine,"Human, Homo sapiens",mucosal,0,1,1,0,0,303,0
+573.43922,sputum,Homo sapiens,mucosal,0,1,1,0,0,302,0
+573.21805,urine,"Human, Homo sapiens",mucosal,0,0,0,0,0,281,0
+573.77515,urine,Homo sapiens,mucosal,0,1,1,0,0,297,0
+573.27525,wound secretion,"Human, Homo sapiens",mucosal,1,0,0,0,0,303,0
+573.83457,sputum,Homo sapiens,mucosal,1,1,1,0,0,318,0
+573.21387,urine,"Human, Homo sapiens",mucosal,0,0,0,0,0,277,0
+573.49087,urine,Homo sapiens,mucosal,0,1,1,0,0,290,0
+573.13739,urine,"Human, Homo sapiens",mucosal,0,0,1,0,0,329,0
+573.44261,urine,Homo sapiens,mucosal,0,0,0,0,0,286,0
+573.13181,urine,"Human, Homo sapiens",mucosal,0,0,0,0,0,339,0
+573.43436,urine,Homo sapiens,mucosal,0,0,0,0,0,281,0
+573.22084,wound secretion,"Human, Homo sapiens",mucosal,0,0,0,0,0,279,0
+573.25909,sputum,"Human, Homo sapiens",mucosal,0,1,1,0,0,302,0
+573.44346,urine,Homo sapiens,mucosal,0,1,1,0,0,325,0
+573.13657,urine,"Human, Homo sapiens",mucosal,0,0,0,0,0,341,0
+573.21223,wound secretion,"Human, Homo sapiens",mucosal,0,0,0,0,0,288,0
+573.13076,respiratory,"Human, Homo sapiens",mucosal,0,1,1,0,0,343,0
+573.22435,urine,"Human, Homo sapiens",mucosal,0,0,0,0,0,278,0
+573.20607,urine,"Human, Homo sapiens",mucosal,0,1,1,0,0,297,0
+573.13832,urine,"Human, Homo sapiens",mucosal,0,0,1,0,0,360,0
+573.56447,urine,Homo sapiens,mucosal,0,1,1,0,0,306,0
+573.14995,sputum,"Human, Homo sapiens",mucosal,0,0,0,0,0,291,0
+573.50023,sputum,Homo sapiens,mucosal,0,1,1,0,0,314,0

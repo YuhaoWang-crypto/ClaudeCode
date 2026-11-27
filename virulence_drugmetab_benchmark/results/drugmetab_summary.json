@@ -1,0 +1,238 @@
+{
+ "enzymes": {
+  "beta-glucuronidase": {
+   "short": "GUS",
+   "drug": "SN-38/irinotecan, NSAID reactivation"
+  },
+  "azoreductase": {
+   "short": "azoR",
+   "drug": "sulfasalazine -> 5-ASA"
+  },
+  "nitroreductase": {
+   "short": "nfs",
+   "drug": "metronidazole, nitrazepam"
+  },
+  "choloylglycine hydrolase": {
+   "short": "BSH",
+   "drug": "bile salt hydrolase; drug deconjugation"
+  },
+  "tyrosine decarboxylase": {
+   "short": "tyrDC",
+   "drug": "L-DOPA inactivation"
+  },
+  "cardiac glycoside": {
+   "short": "cgr",
+   "drug": "digoxin inactivation"
+  }
+ },
+ "total_genomes": {
+  "Bacteroides fragilis": 1285,
+  "Bacteroides thetaiotaomicron": 1483,
+  "Escherichia coli": 115756,
+  "Eggerthella lenta": 298,
+  "Enterococcus faecalis": 5724,
+  "Enterococcus faecium": 9338,
+  "Bifidobacterium longum": 930,
+  "Lactobacillus plantarum": 1799,
+  "Clostridioides difficile": 4358,
+  "Parabacteroides distasonis": 1702,
+  "Akkermansia muciniphila": 1984,
+  "Clostridium perfringens": 1447
+ },
+ "feature_counts": {
+  "Bacteroides fragilis": {
+   "beta-glucuronidase": 513,
+   "azoreductase": 3,
+   "nitroreductase": 15167,
+   "choloylglycine hydrolase": 2252,
+   "tyrosine decarboxylase": 0,
+   "cardiac glycoside": 0
+  },
+  "Bacteroides thetaiotaomicron": {
+   "beta-glucuronidase": 955,
+   "azoreductase": 4,
+   "nitroreductase": 14760,
+   "choloylglycine hydrolase": 3116,
+   "tyrosine decarboxylase": 0,
+   "cardiac glycoside": 0
+  },
+  "Escherichia coli": {
+   "beta-glucuronidase": 205621,
+   "azoreductase": 199270,
+   "nitroreductase": 585841,
+   "choloylglycine hydrolase": 428,
+   "tyrosine decarboxylase": 13,
+   "cardiac glycoside": 0
+  },
+  "Eggerthella lenta": {
+   "beta-glucuronidase": 1,
+   "azoreductase": 295,
+   "nitroreductase": 1722,
+   "choloylglycine hydrolase": 2,
+   "tyrosine decarboxylase": 2,
+   "cardiac glycoside": 0
+  },
+  "Enterococcus faecalis": {
+   "beta-glucuronidase": 241,
+   "azoreductase": 9267,
+   "nitroreductase": 31452,
+   "choloylglycine hydrolase": 13789,
+   "tyrosine decarboxylase": 3386,
+   "cardiac glycoside": 0
+  },
+  "Enterococcus faecium": {
+   "beta-glucuronidase": 3934,
+   "azoreductase": 12381,
+   "nitroreductase": 17954,
+   "choloylglycine hydrolase": 27081,
+   "tyrosine decarboxylase": 7917,
+   "cardiac glycoside": 0
+  },
+  "Bifidobacterium longum": {
+   "beta-glucuronidase": 945,
+   "azoreductase": 0,
+   "nitroreductase": 2548,
+   "choloylglycine hydrolase": 1189,
+   "tyrosine decarboxylase": 2,
+   "cardiac glycoside": 0
+  },
+  "Lactobacillus plantarum": {
+   "beta-glucuronidase": 46,
+   "azoreductase": 5318,
+   "nitroreductase": 9269,
+   "choloylglycine hydrolase": 9068,
+   "tyrosine decarboxylase": 1,
+   "cardiac glycoside": 0
+  },
+  "Clostridioides difficile": {
+   "beta-glucuronidase": 3,
+   "azoreductase": 5755,
+   "nitroreductase": 54973,
+   "choloylglycine hydrolase": 747,
+   "tyrosine decarboxylase": 0,
+   "cardiac glycoside": 0
+  },
+  "Parabacteroides distasonis": {
+   "beta-glucuronidase": 113,
+   "azoreductase": 0,
+   "nitroreductase": 12353,
+   "choloylglycine hydrolase": 3942,
+   "tyrosine decarboxylase": 0,
+   "cardiac glycoside": 0
+  },
+  "Akkermansia muciniphila": {
+   "beta-glucuronidase": 5,
+   "azoreductase": 26,
+   "nitroreductase": 8595,
+   "choloylglycine hydrolase": 13,
+   "tyrosine decarboxylase": 0,
+   "cardiac glycoside": 0
+  },
+  "Clostridium perfringens": {
+   "beta-glucuronidase": 1563,
+   "azoreductase": 3979,
+   "nitroreductase": 5935,
+   "choloylglycine hydrolase": 3878,
+   "tyrosine decarboxylase": 2,
+   "cardiac glycoside": 0
+  }
+ },
+ "prevalence_fraction": {
+  "Bacteroides fragilis": {
+   "GUS": 0.4,
+   "azoR": 0.0,
+   "nfs": 11.8,
+   "BSH": 1.75,
+   "tyrDC": 0.0,
+   "cgr": 0.0
+  },
+  "Bacteroides thetaiotaomicron": {
+   "GUS": 0.64,
+   "azoR": 0.0,
+   "nfs": 9.95,
+   "BSH": 2.1,
+   "tyrDC": 0.0,
+   "cgr": 0.0
+  },
+  "Escherichia coli": {
+   "GUS": 1.78,
+   "azoR": 1.72,
+   "nfs": 5.06,
+   "BSH": 0.0,
+   "tyrDC": 0.0,
+   "cgr": 0.0
+  },
+  "Eggerthella lenta": {
+   "GUS": 0.0,
+   "azoR": 0.99,
+   "nfs": 5.78,
+   "BSH": 0.01,
+   "tyrDC": 0.01,
+   "cgr": 0.0
+  },
+  "Enterococcus faecalis": {
+   "GUS": 0.04,
+   "azoR": 1.62,
+   "nfs": 5.49,
+   "BSH": 2.41,
+   "tyrDC": 0.59,
+   "cgr": 0.0
+  },
+  "Enterococcus faecium": {
+   "GUS": 0.42,
+   "azoR": 1.33,
+   "nfs": 1.92,
+   "BSH": 2.9,
+   "tyrDC": 0.85,
+   "cgr": 0.0
+  },
+  "Bifidobacterium longum": {
+   "GUS": 1.02,
+   "azoR": 0.0,
+   "nfs": 2.74,
+   "BSH": 1.28,
+   "tyrDC": 0.0,
+   "cgr": 0.0
+  },
+  "Lactobacillus plantarum": {
+   "GUS": 0.03,
+   "azoR": 2.96,
+   "nfs": 5.15,
+   "BSH": 5.04,
+   "tyrDC": 0.0,
+   "cgr": 0.0
+  },
+  "Clostridioides difficile": {
+   "GUS": 0.0,
+   "azoR": 1.32,
+   "nfs": 12.61,
+   "BSH": 0.17,
+   "tyrDC": 0.0,
+   "cgr": 0.0
+  },
+  "Parabacteroides distasonis": {
+   "GUS": 0.07,
+   "azoR": 0.0,
+   "nfs": 7.26,
+   "BSH": 2.32,
+   "tyrDC": 0.0,
+   "cgr": 0.0
+  },
+  "Akkermansia muciniphila": {
+   "GUS": 0.0,
+   "azoR": 0.01,
+   "nfs": 4.33,
+   "BSH": 0.01,
+   "tyrDC": 0.0,
+   "cgr": 0.0
+  },
+  "Clostridium perfringens": {
+   "GUS": 1.08,
+   "azoR": 2.75,
+   "nfs": 4.1,
+   "BSH": 2.68,
+   "tyrDC": 0.0,
+   "cgr": 0.0
+  }
+ }
+}

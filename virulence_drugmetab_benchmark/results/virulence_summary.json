@@ -1,0 +1,85 @@
+{
+ "n_genomes": 2188,
+ "by_category_n": {
+  "mucosal": 574,
+  "invasive": 566,
+  "carriage": 528,
+  "environmental": 520
+ },
+ "marker_prevalence_by_category": {
+  "aerobactin_iuc": {
+   "invasive": 0.212,
+   "mucosal": 0.171,
+   "carriage": 0.174,
+   "environmental": 0.121
+  },
+  "yersiniabactin_ybt": {
+   "invasive": 0.537,
+   "mucosal": 0.493,
+   "carriage": 0.436,
+   "environmental": 0.269
+  },
+  "salmochelin_iro": {
+   "invasive": 0.58,
+   "mucosal": 0.566,
+   "carriage": 0.455,
+   "environmental": 0.3
+  },
+  "colibactin_clb": {
+   "invasive": 0.0,
+   "mucosal": 0.0,
+   "carriage": 0.0,
+   "environmental": 0.0
+  },
+  "rmpA_regulator": {
+   "invasive": 0.0,
+   "mucosal": 0.0,
+   "carriage": 0.0,
+   "environmental": 0.0
+  }
+ },
+ "invasive_vs_rest_enrichment": {
+  "aerobactin_iuc": {
+   "odds_ratio": 1.46,
+   "p": 0.0016426131514555202,
+   "prev_invasive": 0.212,
+   "prev_noninvasive": 0.156
+  },
+  "yersiniabactin_ybt": {
+   "odds_ratio": 1.72,
+   "p": 2.0094243464134045e-08,
+   "prev_invasive": 0.537,
+   "prev_noninvasive": 0.403
+  },
+  "salmochelin_iro": {
+   "odds_ratio": 1.72,
+   "p": 2.0070473304260917e-08,
+   "prev_invasive": 0.58,
+   "prev_noninvasive": 0.445
+  },
+  "colibactin_clb": {
+   "odds_ratio": NaN,
+   "p": 1.0,
+   "prev_invasive": 0.0,
+   "prev_noninvasive": 0.0
+  },
+  "rmpA_regulator": {
+   "odds_ratio": NaN,
+   "p": 1.0,
+   "prev_invasive": 0.0,
+   "prev_noninvasive": 0.0
+  }
+ },
+ "mean_hvkp_loci_by_category": {
+  "invasive": 1.33,
+  "mucosal": 1.23,
+  "carriage": 1.06,
+  "environmental": 0.69
+ },
+ "mean_total_virulence_genes_by_category": {
+  "invasive": 301,
+  "mucosal": 305,
+  "carriage": 296,
+  "environmental": 279
+ }
+}
