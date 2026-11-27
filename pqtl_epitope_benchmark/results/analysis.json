@@ -1,0 +1,47 @@
+{
+ "n_cis_leads_annotated": 56,
+ "n_genome_wide_sig": 28,
+ "pct_sig_lead_is_PAV_in_cognate": 10.7,
+ "consequence_breakdown_sig": {
+  "intron_variant": 22,
+  "upstream_gene_variant": 2,
+  "stop_gained": 2,
+  "5_prime_UTR_variant": 1,
+  "missense_variant": 1
+ },
+ "effect_size": {
+  "median_abs_beta_PAV": 0.369,
+  "median_abs_beta_nonPAV": 0.171,
+  "mannwhitney_p": null,
+  "frac_PAV_abs_beta_gt_1": 0.0,
+  "frac_nonPAV_abs_beta_gt_1": 0.0
+ },
+ "n_PAV_flagged": 3,
+ "n_nonPAV": 25,
+ "flagged_examples": [
+  {
+   "gene": "TNFSF14",
+   "lead_rsid": "rs344560",
+   "most_severe": "stop_gained",
+   "cognate_consequences": "NMD_transcript_variant;intron_variant;missense_variant;stop_gained",
+   "abs_beta": 0.4894,
+   "p": 7.290000000000001e-72
+  },
+  {
+   "gene": "IL15RA",
+   "lead_rsid": "rs2228059",
+   "most_severe": "missense_variant",
+   "cognate_consequences": "3_prime_UTR_variant;NMD_transcript_variant;intron_variant;missense_variant;non_coding_transcript_exon_variant",
+   "abs_beta": 0.3692,
+   "p": 8.39e-186
+  },
+  {
+   "gene": "HGF",
+   "lead_rsid": "rs5745687",
+   "most_severe": "stop_gained",
+   "cognate_consequences": "missense_variant;stop_gained",
+   "abs_beta": 0.1943,
+   "p": 9.83e-16
+  }
+ ]
+}

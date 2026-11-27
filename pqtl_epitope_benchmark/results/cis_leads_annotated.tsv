@@ -1,0 +1,57 @@
+acc	protein	gene	chr	tss	lead_pos	lead_rsid	variant_id	beta	se	eaf	p	n_cis	most_severe	cognate_consequences	pav_in_cognate	pav_any
+GCST90274758	Eukaryotic translation initiation factor 4E-binding protein 1 levels	EIF4EBP1	8	38030533	38312606	rs570809698	8_38170124_T_C	-0.6484	0.1497	0.0057	1.48e-5	2826	intron_variant	none	0	0
+GCST90274759	Adenosine deaminase levels	ADA	20	44651699	44604439	rs76418401	20_43233080_A_C	0.907	0.0214	0.07010000000000005	1.61e-392	3947	intron_variant	NMD_transcript_variant;intron_variant	0	0
+GCST90274760	Artemin levels	ARTN	1	43933800	44117558	rs1637284	1_44583230_T_C	0.235	0.0628	0.0163	1.83e-4	3572	upstream_gene_variant	none	0	0
+GCST90274761	Axin-1 levels	AXIN1	16	352723	306689	rs1981492	16_356689_A_G	0.0585	0.0134	0.4582	1.27e-5	4541	intron_variant	NMD_transcript_variant;intron_variant;non_coding_transcript_variant	0	0
+GCST90274771	Natural killer cell receptor 2B4 levels	CD244	1	160862887	160834012	rs11265493	1_160803802_A_G	-0.2122	0.0119	0.5933999999999999	3.99e-71	4831	intron_variant	NMD_transcript_variant;intron_variant;non_coding_transcript_variant	0	0
+GCST90274776	Macrophage colony-stimulating factor 1 levels	CSF1	1	109910848	109960674	rs17610659	1_110503296_T_C	-0.1684	0.0118	0.5179	3.31e-46	4055	intron_variant	none	0	0
+GCST90274777	Cystatin D levels	CST5	20	23879748	23829871	rs11696133	20_23810508_T_C	0.6554	0.0149	0.1834	1.31e-422	6087	upstream_gene_variant	none	0	0
+GCST90274778	Fractalkine levels	CX3CL1	16	57372489	57378890	rs671623	16_57412802_C_G	-0.2041	0.0118	0.5760000000000001	4.99e-67	5221	5_prime_UTR_variant	5_prime_UTR_variant;intron_variant	0	0
+GCST90274787	Fibroblast growth factor 19 levels	FGF19	11	69704022	69443306	rs7928827	11_69258074_A_G	-0.0457	0.0122	0.4073	1.8e-4	5384	intron_variant	none	0	0
+GCST90274788	Fibroblast growth factor 21 levels	FGF21	19	48755523	48757420	rs838131	19_49260677_A_C	-0.1627	0.013	0.499	6.15e-36	5262	intron_variant	intron_variant	0	0
+GCST90274789	Fibroblast growth factor 23 levels	FGF23	12	4379712	4384549	rs66486362	12_4493715_CA_C	0.0804	0.0149	0.2892	6.82e-8	4555	upstream_gene_variant	upstream_gene_variant	0	0
+GCST90274790	Fibroblast growth factor 5 levels	FGF5	4	80266587	80243569	rs1458038	4_81164723_T_C	0.5159	0.0126	0.3173	1.79e-366	4435	intron_variant	none	0	0
+GCST90274791	Fms-related tyrosine kinase 3 ligand levels	FLT3LG	19	49474214	49476141	rs17272847	19_49979398_A_G	0.1179	0.022	0.0907	8.36e-8	4844	missense_variant	NMD_transcript_variant;intron_variant;missense_variant;non_coding_transcript_exon_variant;non_coding_transcript_variant;splice_polypyrimidine_tract_variant;splice_region_variant;upstream_gene_variant	1	1
+GCST90274793	Hepatocyte growth factor levels	HGF	7	81770047	81729735	rs5745687	7_81359051_T_C	-0.1943	0.0242	0.0608	9.83e-16	4380	stop_gained	missense_variant;stop_gained	1	1
+GCST90274794	Interferon gamma levels	IFNG	12	68159740	67816974	rs2160584	12_68210754_A_G	0.058	0.0152	0.7775	1.36e-4	4541	intergenic_variant	none	0	0
+GCST90274795	Interleukin-10 levels	IL10	1	206772494	206781221	rs12123181	1_206954566_A_G	-0.0996	0.0151	0.2042	4.22e-11	3401	intron_variant	none	0	0
+GCST90274796	Interleukin-10 receptor subunit alpha levels	IL10RA	11	117986393	117993348	rs3135932	11_117864063_A_G	0.0844	0.0168	0.18289999999999995	5.07e-7	4748	missense_variant	3_prime_UTR_variant;NMD_transcript_variant;downstream_gene_variant;missense_variant;non_coding_transcript_exon_variant	1	1
+GCST90274797	Interleukin-10 receptor subunit beta levels	IL10RB	21	33266366	33287091	rs2266590	21_34659396_A_G	0.4105	0.0108	0.45740000000000003	4.06e-316	4046	intron_variant	NMD_transcript_variant;downstream_gene_variant;intron_variant;non_coding_transcript_variant	0	0
+GCST90274799	Interleukin-13 levels	IL13	5	132658172	133121474	rs60312712	5_132457166_A_G	0.2699	0.0789	0.01	6.24e-4	4096	intron_variant	none	0	0
+GCST90274800	Interleukin-15 receptor subunit alpha levels	IL15RA	10	5978187	5960405	rs2228059	10_6002368_T_G	-0.3692	0.0127	0.48540000000000005	8.39e-186	6168	missense_variant	3_prime_UTR_variant;NMD_transcript_variant;intron_variant;missense_variant;non_coding_transcript_exon_variant	1	1
+GCST90274801	Interleukin-17A levels	IL17A	6	52186374	52588542	rs2239618	6_52453340_A_T	0.0501	0.0134	0.44220000000000004	1.85e-4	4958	non_coding_transcript_exon_variant	none	0	0
+GCST90274802	Interleukin-17C levels	IL17C	16	88638571	88618087	rs17700884	16_88684495_T_G	-0.105	0.0136	0.3783	1.16e-14	6449	intron_variant	none	0	0
+GCST90274803	Interleukin-18 levels	IL18	11	112164094	112154583	rs5744249	11_112025306_A_C	-0.2039	0.0135	0.23819999999999997	1.53e-51	3755	intron_variant	NMD_transcript_variant;intron_variant;non_coding_transcript_variant;upstream_gene_variant	0	0
+GCST90274804	Interleukin-18 receptor 1 levels	IL18R1	2	102356282	102296204	rs951774	2_102912664_A_C	0.5719	0.0148	0.1798	1.18e-326	4544	intron_variant	none	0	0
+GCST90274805	Interleukin-1-alpha levels	IL1A	2	112784493	112813495	rs12711742	2_113571072_C_G	-0.0795	0.0197	0.878	5.45e-5	4051	non_coding_transcript_exon_variant	none	0	0
+GCST90274806	Interleukin-2 levels	IL2	4	122456725	122828819	rs79745878	4_123749974_T_G	-0.3112	0.0852	0.022499999999999964	2.6e-4	4123	intron_variant	none	0	0
+GCST90274807	Interleukin-20 levels	IL20	1	206863564	207240907	rs72742984	1_207414252_A_C	-0.3951	0.1218	0.0067	1.18e-3	3557	intron_variant	none	0	0
+GCST90274808	Interleukin-20 receptor subunit alpha levels	IL20RA	6	137045180	137296000	rs547234358	6_137617137_A_G	0.8624	0.1907	0.0041	6.12e-6	4219	intergenic_variant	none	0	0
+GCST90274809	Interleukin-22 receptor subunit alpha-1 levels	IL22RA1	1	24143140	24196391	rs114879793	1_24522881_T_C	-0.4005	0.1034	0.010600000000000054	1.07e-4	3941	upstream_gene_variant	none	0	0
+GCST90274810	Interleukin-24 levels	IL24	1	206897442	206722997	rs4240846	1_206896342_A_G	-0.1674	0.0524	0.9787	1.4e-3	3604	intron_variant	none	0	0
+GCST90274811	Interleukin-2 receptor subunit beta levels	IL2RB	22	37175056	37577523	rs76799883	22_37973530_T_C	0.0625	0.017	0.41200000000000003	2.36e-4	4980	intron_variant	none	0	0
+GCST90274812	Interleukin-33 levels	IL33	9	6215785	5806889	rs117980606	9_5806889_A_G	-0.1354	0.0428	0.0259	1.56e-3	4905	intron_variant	none	0	0
+GCST90274813	Interleukin-4 levels	IL4	5	132673985	132440039	rs72795190	5_131775731_C_G	0.1936	0.0444	0.026	1.3e-5	4110	intron_variant	none	0	0
+GCST90274814	Interleukin-5 levels	IL5	5	132543522	132987254	rs4705878	5_132322946_A_T	0.1118	0.033	0.9339999999999999	7.04e-4	3944	intron_variant	none	0	0
+GCST90274815	Interleukin-6 levels	IL6	7	22727199	23217332	rs78213073	7_23256951_C_G	0.1025	0.0267	0.0557	1.24e-4	5081	downstream_gene_variant	none	0	0
+GCST90274816	Interleukin-7 levels	IL7	8	78805523	78801518	rs144088095	8_79713753_G_GAGCCATGGCCGTA	-0.1694	0.0225	0.1	5.12e-14	4635	intron_variant	NMD_transcript_variant;intron_variant;non_coding_transcript_variant	0	0
+GCST90274817	Interleukin-8 levels	CXCL8	4	73740568	73708548	rs6446951	4_74574265_A_G	-0.1894	0.0241	0.0665	3.87e-15	3625	intron_variant	none	0	0
+GCST90274819	Leukemia inhibitory factor levels	LIF	22	30246759	30141595	rs35003620	22_30537584_CT_C	-0.0583	0.0169	0.3637	5.61e-4	4374	intron_variant	none	0	0
+GCST90274820	Leukemia inhibitory factor receptor levels	LIFR	5	38556646	38527126	rs2289779	5_38527228_T_G	-0.0788	0.0134	0.45809999999999995	4.09e-9	4275	intron_variant	NMD_transcript_variant;downstream_gene_variant;intron_variant;non_coding_transcript_variant	0	0
+GCST90274821	Monocyte chemoattractant protein-1 levels	CCL2	17	34255284	34240660	rs11870164	17_32567679_T_C	0.0751	0.013	0.2772	7.61e-9	5167	intron_variant	none	0	0
+GCST90274823	Monocyte chemoattractant protein-3 levels	CCL7	17	34270220	34195594	rs7213460	17_32522613_A_G	0.0942	0.0132	0.4161	9.58e-13	5064	intron_variant	none	0	0
+GCST90274828	Neurturin levels	NRTN	19	5805066	5305989	rs117764349	19_5306000_T_C	0.0885	0.0256	0.07120000000000004	5.46e-4	5362	intron_variant	none	0	0
+GCST90274829	Neurotrophin-3 levels	NTF3	12	5494131	5570938	rs58399805	12_5680104_A_T	0.1106	0.022	0.0799	4.98e-7	4953	intron_variant	none	0	0
+GCST90274830	Osteoprotegerin levels	TNFRSF11B	8	118951885	119068792	rs2247769	8_120081031_T_C	0.1705	0.0114	0.4423	1.42e-50	4735	intron_variant	none	0	0
+GCST90274831	Oncostatin-M levels	OSM	22	30266240	30204116	rs4823082	22_30600105_C_G	-0.159	0.0346	0.0363	4.32e-6	4391	intron_variant	none	0	0
+GCST90274832	Programmed cell death 1 ligand 1 levels	CD274	9	5450502	5448218	rs822335	9_5448218_T_C	0.1295	0.012	0.6529	3.77e-27	4632	intron_variant	upstream_gene_variant	0	0
+GCST90274833	Stem cell factor levels	KITLG	12	88580471	88976029	rs11608458	12_89369806_T_C	-0.0707	0.0122	0.6366	6.83e-9	3051	intron_variant	none	0	0
+GCST90274835	Signaling lymphocytic activation molecule levels	SLAMF1	1	160647311	160666769	rs60094514	1_160636559_T_C	-0.2209	0.0162	0.14939999999999998	2.45e-42	4544	intron_variant	none	0	0
+GCST90274837	STAM binding protein levels	STAMBP	2	73828910	73834105	rs111872246	2_74061232_A_G	0.2195	0.0425	0.0229	2.41e-7	3641	intron_variant	NMD_transcript_variant;intron_variant;non_coding_transcript_variant	0	0
+GCST90274838	Transforming growth factor-alpha levels	TGFA	2	70553446	70547163	rs72912115	2_70774295_A_T	0.137	0.0184	0.114	9.65e-14	4742	intron_variant	NMD_transcript_variant;intron_variant;non_coding_transcript_variant	0	0
+GCST90274839	Tumor necrosis factor levels	TNF	6	31575564	31302732	rs6908066	6_31270509_A_G	0.0611	0.0176	0.1821	5.17e-4	13888	intron_variant	none	0	0
+GCST90274841	Tumor necrosis factor receptor superfamily member 9 levels	TNFRSF9	1	7940839	7912141	rs1776354	1_7972201_A_G	0.1301	0.013	0.4797	1.41e-23	4440	intron_variant	downstream_gene_variant	0	0
+GCST90274842	Tumor necrosis factor ligand superfamily member 14 levels	TNFSF14	19	6670588	6665009	rs344560	19_6665020_T_C	0.4894	0.0273	0.9375	7.29e-72	6153	stop_gained	NMD_transcript_variant;intron_variant;missense_variant;stop_gained	1	1
+GCST90274845	Thymic stromal lymphopoietin levels	TSLP	5	111071712	110751458	rs456236	5_110087158_T_G	-0.0495	0.0139	0.4112	3.69e-4	4190	intron_variant	none	0	0
+GCST90274846	Tumor necrosis factor ligand superfamily member 12 levels	TNFSF12	17	7549057	7547793	rs34790908	17_7451110_T_C	0.211	0.0129	0.2563	3.9e-60	4504	upstream_gene_variant	upstream_gene_variant	0	0
+GCST90274848	Vascular endothelial growth factor A levels	VEGFA	6	43771967	43957870	rs6921438	6_43925607_A_G	-0.4343	0.0113	0.4867	3.62e-323	4279	intron_variant	none	0	0
