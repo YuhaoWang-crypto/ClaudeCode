@@ -1,0 +1,10 @@
+{
+ "comparison": "mac_naive_to_mac_IFNg",
+ "n_checked": 233,
+ "median_p_naive": 0.00333385,
+ "median_abs_beta_stim": 0.627,
+ "median_abs_beta_naive": 0.4,
+ "frac_naive_nonsignificant_p>1e-4": 0.807,
+ "frac_confirmed_reQTL_naiveP>0.01_and_betadrop2x": 0.296,
+ "median_effect_fold_change_stim_over_naive": 1.49
+}

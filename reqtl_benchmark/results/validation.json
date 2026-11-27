@@ -1,0 +1,134 @@
+{
+ "enrichment": {
+  "naive_to_IAV": {
+   "IFN response": {
+    "set": "IFN response",
+    "gained_in_set": 32,
+    "gained_total": 1247,
+    "pct_in_set": 2.6,
+    "background_pct": 1.6,
+    "odds_ratio": 1.71,
+    "p": 0.005728185090627653
+   },
+   "inflammatory": {
+    "set": "inflammatory",
+    "gained_in_set": 18,
+    "gained_total": 1247,
+    "pct_in_set": 1.4,
+    "background_pct": 1.3,
+    "odds_ratio": 1.12,
+    "p": 0.36478042127236976
+   }
+  },
+  "naive_to_R848": {
+   "IFN response": {
+    "set": "IFN response",
+    "gained_in_set": 29,
+    "gained_total": 1138,
+    "pct_in_set": 2.5,
+    "background_pct": 1.6,
+    "odds_ratio": 1.68,
+    "p": 0.010009345465654764
+   },
+   "inflammatory": {
+    "set": "inflammatory",
+    "gained_in_set": 18,
+    "gained_total": 1138,
+    "pct_in_set": 1.6,
+    "background_pct": 1.3,
+    "odds_ratio": 1.23,
+    "p": 0.235549777676329
+   }
+  },
+  "naive_to_LPS": {
+   "IFN response": {
+    "set": "IFN response",
+    "gained_in_set": 28,
+    "gained_total": 931,
+    "pct_in_set": 3.0,
+    "background_pct": 1.6,
+    "odds_ratio": 2.0,
+    "p": 0.0012477269297264644
+   },
+   "inflammatory": {
+    "set": "inflammatory",
+    "gained_in_set": 19,
+    "gained_total": 931,
+    "pct_in_set": 2.0,
+    "background_pct": 1.3,
+    "odds_ratio": 1.61,
+    "p": 0.04211855939725155
+   }
+  },
+  "naive_to_Pam3": {
+   "IFN response": {
+    "set": "IFN response",
+    "gained_in_set": 17,
+    "gained_total": 1123,
+    "pct_in_set": 1.5,
+    "background_pct": 1.6,
+    "odds_ratio": 0.92,
+    "p": 0.6603965103333748
+   },
+   "inflammatory": {
+    "set": "inflammatory",
+    "gained_in_set": 24,
+    "gained_total": 1123,
+    "pct_in_set": 2.1,
+    "background_pct": 1.3,
+    "odds_ratio": 1.73,
+    "p": 0.01287823798310681
+   }
+  },
+  "mac_naive_to_mac_IFNg": {
+   "IFN response": {
+    "set": "IFN response",
+    "gained_in_set": 16,
+    "gained_total": 602,
+    "pct_in_set": 2.7,
+    "background_pct": 1.5,
+    "odds_ratio": 1.89,
+    "p": 0.016924865428180516
+   },
+   "inflammatory": {
+    "set": "inflammatory",
+    "gained_in_set": 5,
+    "gained_total": 602,
+    "pct_in_set": 0.8,
+    "background_pct": 1.2,
+    "odds_ratio": 0.68,
+    "p": 0.8498640255159291
+   }
+  }
+ },
+ "stimulus_coherence_jaccard": {
+  "IAV~R848": 0.174,
+  "IAV~LPS": 0.13,
+  "IAV~Pam3": 0.137,
+  "R848~LPS": 0.299,
+  "R848~Pam3": 0.344,
+  "LPS~Pam3": 0.382
+ },
+ "tabix_confirmation": {
+  "naive_to_IAV": {
+   "comparison": "naive_to_IAV",
+   "n_checked": 147,
+   "median_p_naive": 0.0063346,
+   "median_abs_beta_stim": 0.47,
+   "median_abs_beta_naive": 0.241,
+   "frac_naive_nonsignificant_p>1e-4": 0.769,
+   "frac_confirmed_reQTL_naiveP>0.01_and_betadrop2x": 0.401,
+   "median_effect_fold_change_stim_over_naive": 2.05
+  },
+  "mac_naive_to_mac_IFNg": {
+   "comparison": "mac_naive_to_mac_IFNg",
+   "n_checked": 233,
+   "median_p_naive": 0.00333385,
+   "median_abs_beta_stim": 0.627,
+   "median_abs_beta_naive": 0.4,
+   "frac_naive_nonsignificant_p>1e-4": 0.807,
+   "frac_confirmed_reQTL_naiveP>0.01_and_betadrop2x": 0.296,
+   "median_effect_fold_change_stim_over_naive": 1.49
+  }
+ }
+}

@@ -1,0 +1,10 @@
+{
+ "comparison": "naive_to_IAV",
+ "n_checked": 147,
+ "median_p_naive": 0.0063346,
+ "median_abs_beta_stim": 0.47,
+ "median_abs_beta_naive": 0.241,
+ "frac_naive_nonsignificant_p>1e-4": 0.769,
+ "frac_confirmed_reQTL_naiveP>0.01_and_betadrop2x": 0.401,
+ "median_effect_fold_change_stim_over_naive": 2.05
+}

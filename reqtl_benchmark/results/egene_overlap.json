@@ -1,0 +1,72 @@
+{
+ "n_genes_tested": {
+  "naive": 15235,
+  "LPS": 14562,
+  "R848": 14522,
+  "IAV": 16259,
+  "Pam3": 14738,
+  "mac_naive": 16108,
+  "mac_IFNg": 15054
+ },
+ "n_eGenes_q0.05": {
+  "naive": 5362,
+  "LPS": 4769,
+  "R848": 4583,
+  "IAV": 4540,
+  "Pam3": 5067,
+  "mac_naive": 1724,
+  "mac_IFNg": 1685
+ },
+ "comparisons": {
+  "naive->LPS": {
+   "n_eGenes_baseline": 5362,
+   "n_eGenes_stimulated": 4769,
+   "response_gained_eGenes": 1045,
+   "pct_of_stim_eGenes_baseline_invisible": 21.9,
+   "shared_eGenes": 3724,
+   "baseline_only_lost": 1638,
+   "median_abs_beta_shared_baseline": 0.64,
+   "median_abs_beta_shared_stim": 0.638
+  },
+  "naive->R848": {
+   "n_eGenes_baseline": 5362,
+   "n_eGenes_stimulated": 4583,
+   "response_gained_eGenes": 1309,
+   "pct_of_stim_eGenes_baseline_invisible": 28.6,
+   "shared_eGenes": 3274,
+   "baseline_only_lost": 2088,
+   "median_abs_beta_shared_baseline": 0.643,
+   "median_abs_beta_shared_stim": 0.631
+  },
+  "naive->IAV": {
+   "n_eGenes_baseline": 5362,
+   "n_eGenes_stimulated": 4540,
+   "response_gained_eGenes": 1445,
+   "pct_of_stim_eGenes_baseline_invisible": 31.8,
+   "shared_eGenes": 3095,
+   "baseline_only_lost": 2267,
+   "median_abs_beta_shared_baseline": 0.655,
+   "median_abs_beta_shared_stim": 0.619
+  },
+  "naive->Pam3": {
+   "n_eGenes_baseline": 5362,
+   "n_eGenes_stimulated": 5067,
+   "response_gained_eGenes": 1268,
+   "pct_of_stim_eGenes_baseline_invisible": 25.0,
+   "shared_eGenes": 3799,
+   "baseline_only_lost": 1563,
+   "median_abs_beta_shared_baseline": 0.634,
+   "median_abs_beta_shared_stim": 0.649
+  },
+  "mac_naive->mac_IFNg": {
+   "n_eGenes_baseline": 1724,
+   "n_eGenes_stimulated": 1685,
+   "response_gained_eGenes": 642,
+   "pct_of_stim_eGenes_baseline_invisible": 38.1,
+   "shared_eGenes": 1043,
+   "baseline_only_lost": 681,
+   "median_abs_beta_shared_baseline": 0.746,
+   "median_abs_beta_shared_stim": 0.722
+  }
+ }
+}
