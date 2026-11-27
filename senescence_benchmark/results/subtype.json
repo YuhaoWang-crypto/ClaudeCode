@@ -1,0 +1,24 @@
+{
+ "subtype_specific_score_diff": {
+  "Replicative": {
+   "Replicative": -0.12,
+   "Doxorubicin": 0.3,
+   "IR_Senescence": 0.03
+  },
+  "Oncogene-induced": {
+   "Replicative": 0.09,
+   "Doxorubicin": 0.13,
+   "IR_Senescence": -0.42
+  },
+  "Stress-induced": {
+   "Replicative": 0.06,
+   "Doxorubicin": 0.29,
+   "IR_Senescence": 0.05
+  }
+ },
+ "subset_sizes": {
+  "Replicative": 62,
+  "Oncogene-induced": 121,
+  "Stress-induced": 79
+ }
+}

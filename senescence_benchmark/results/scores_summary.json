@@ -1,0 +1,117 @@
+{
+ "singlecell_AUROC_RAS_senescence": {
+  "SenMayo": 0.914,
+  "Fridman_up": 0.719,
+  "Reactome_senescence": 0.505,
+  "CellAge_induces": 0.812,
+  "SenCID_geneset": 0.237,
+  "Core_markers_up": 0.861,
+  "Proliferation_down": 0.85
+ },
+ "bulk_cross_inducer_score_difference_sen_minus_control": {
+  "SenMayo": {
+   "Replicative": 0.57,
+   "Doxorubicin": 0.82,
+   "IR_Senescence": 0.77
+  },
+  "Fridman_up": {
+   "Replicative": 0.3,
+   "Doxorubicin": 0.24,
+   "IR_Senescence": 0.38
+  },
+  "Reactome_senescence": {
+   "Replicative": 0.01,
+   "Doxorubicin": -0.0,
+   "IR_Senescence": -0.49
+  },
+  "CellAge_induces": {
+   "Replicative": 0.13,
+   "Doxorubicin": 0.14,
+   "IR_Senescence": -0.23
+  },
+  "SenCID_geneset": {
+   "Replicative": -0.25,
+   "Doxorubicin": -0.01,
+   "IR_Senescence": -0.59
+  },
+  "Core_markers_up": {
+   "Replicative": 0.81,
+   "Doxorubicin": 0.88,
+   "IR_Senescence": 0.95
+  },
+  "Proliferation_down": {
+   "Replicative": 0.94,
+   "Doxorubicin": 0.44,
+   "IR_Senescence": 2.13
+  }
+ },
+ "inter_signature_spearman_singlecell": {
+  "SenMayo": {
+   "SenMayo": 1.0,
+   "Fridman_up": 0.6,
+   "Reactome_senescence": 0.11,
+   "CellAge_induces": 0.73,
+   "SenCID_geneset": -0.4,
+   "Core_markers_up": 0.74,
+   "Proliferation_down": 0.65
+  },
+  "Fridman_up": {
+   "SenMayo": 0.6,
+   "Fridman_up": 1.0,
+   "Reactome_senescence": -0.13,
+   "CellAge_induces": 0.59,
+   "SenCID_geneset": -0.37,
+   "Core_markers_up": 0.55,
+   "Proliferation_down": 0.56
+  },
+  "Reactome_senescence": {
+   "SenMayo": 0.11,
+   "Fridman_up": -0.13,
+   "Reactome_senescence": 1.0,
+   "CellAge_induces": 0.25,
+   "SenCID_geneset": 0.39,
+   "Core_markers_up": 0.11,
+   "Proliferation_down": -0.28
+  },
+  "CellAge_induces": {
+   "SenMayo": 0.73,
+   "Fridman_up": 0.59,
+   "Reactome_senescence": 0.25,
+   "CellAge_induces": 1.0,
+   "SenCID_geneset": -0.15,
+   "Core_markers_up": 0.59,
+   "Proliferation_down": 0.43
+  },
+  "SenCID_geneset": {
+   "SenMayo": -0.4,
+   "Fridman_up": -0.37,
+   "Reactome_senescence": 0.39,
+   "CellAge_induces": -0.15,
+   "SenCID_geneset": 1.0,
+   "Core_markers_up": -0.47,
+   "Proliferation_down": -0.78
+  },
+  "Core_markers_up": {
+   "SenMayo": 0.74,
+   "Fridman_up": 0.55,
+   "Reactome_senescence": 0.11,
+   "CellAge_induces": 0.59,
+   "SenCID_geneset": -0.47,
+   "Core_markers_up": 1.0,
+   "Proliferation_down": 0.6
+  },
+  "Proliferation_down": {
+   "SenMayo": 0.65,
+   "Fridman_up": 0.56,
+   "Reactome_senescence": -0.28,
+   "CellAge_induces": 0.43,
+   "SenCID_geneset": -0.78,
+   "Core_markers_up": 0.6,
+   "Proliferation_down": 1.0
+  }
+ },
+ "n_singlecell": {
+  "growing": 207,
+  "RIS": 240
+ }
+}
