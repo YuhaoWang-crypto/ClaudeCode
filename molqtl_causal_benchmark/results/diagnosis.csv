@@ -1,0 +1,16 @@
+locus,causal_has_cis_eQTL,causal_eQTL_minP,n_genes_with_eQTL,n_coloc_0.5,n_coloc_0.8,causal_PPH4
+PCSK9,True,2e-06,8,0,0,0.04
+SORT1,True,3e-54,20,4,3,1.0
+APOB,False,2e-05,3,0,0,0.04
+ABCG8,False,1e-04,4,0,0,0.06
+HMGCR,False,2e-03,2,0,0,0.05
+NPC1L1,False,2e-04,13,0,0,0.08
+LDLR,True,8e-06,20,0,0,0.07
+APOE,False,4e-05,12,0,0,0.2
+CETP,False,4e-04,9,0,0,0.1
+ABCA1,False,1e-04,3,0,0,0.05
+LPA,True,2e-08,4,0,0,0.02
+LIPC,True,2e-32,6,1,1,0.94
+LCAT,True,2e-09,15,0,0,0.04
+LDLRAP1,True,6e-13,6,1,0,0.02
+PNPLA3,False,4e-04,4,0,0,0.07

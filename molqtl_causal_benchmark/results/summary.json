@@ -1,0 +1,15 @@
+{
+ "n_loci": 15,
+ "n_coloc_tests": 1256,
+ "per_locus": {},
+ "threshold_PP_H4": 0.8,
+ "summary": {
+  "loci_with_any_coloc": 2,
+  "mean_genes_colocalizing_per_locus": 2.0,
+  "loci_where_causal_colocalizes": 2,
+  "loci_where_causal_is_TOP_gene": 2,
+  "loci_where_coloc_UNIQUELY_identifies_causal(1 gene & its the causal)": 1,
+  "frac_coloc_loci_with_multiple_genes": 0.5,
+  "causal_gene_median_rank": 13.0
+ }
+}
