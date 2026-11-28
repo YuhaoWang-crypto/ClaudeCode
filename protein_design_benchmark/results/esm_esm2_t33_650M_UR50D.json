@@ -1,0 +1,23 @@
+{
+ "SPG1_STRSG_Olson_2014": {
+  "label": "GB1 (IgG-Fc binding)",
+  "n": 1045,
+  "len": 448,
+  "spearman_wt_marginal": 0.295,
+  "spearman_masked_marginal": 0.276
+ },
+ "BLAT_ECOLX_Stiffler_2015": {
+  "label": "beta-lactamase (Amp resistance)",
+  "n": 3000,
+  "len": 286,
+  "spearman_wt_marginal": 0.722,
+  "spearman_masked_marginal": 0.732
+ },
+ "GFP_AEQVI_Sarkisyan_2016": {
+  "label": "GFP (fluorescence)",
+  "n": 1084,
+  "len": 238,
+  "spearman_wt_marginal": 0.063,
+  "spearman_masked_marginal": 0.052
+ }
+}
