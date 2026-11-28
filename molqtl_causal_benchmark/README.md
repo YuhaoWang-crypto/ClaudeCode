@@ -78,15 +78,37 @@ python 01_harvest.py && Rscript 02_coloc.R && python 03_eval.py && python 04_fig
 - **一旦位点有多个信号**(性状1除共享变异外还有一个独立信号),单变量 coloc.abf 被稀释,只有 **65%** 正确判出"共享";coloc.susie 把信号拆开后recover到 **77%**。多信号位点正是 SuSiE-coloc 的价值所在。
 - 对 SORT1 那种"多个基因真共享同一个变异"的情形:SuSiE-coloc 会(正确地)仍判为共享——多基因歧义是**真实的生物学**(一个增强子变异影响整个基因簇),不是 coloc 方法的假象,换 SuSiE-coloc 也解不开。这和第一轮的结论一致。
 
-## 3. 加 pQTL:受数据获取限制未完成(诚实说明)
+## 3. 加 pQTL:蛋白机制基因能否被救回(已完成)
 
-科学预判很明确:上一轮发现 PCSK9、LDLR、APOB 等药靶基因的 eQTL 不与 LDL GWAS 共定位(因为因果变异走蛋白功能、不走表达);**pQTL(蛋白水平 QTL)应当能救回这些基因**——这正是领域转向 pQTL 的原因。
+科学预判:上一轮发现 PCSK9、LDLR、APOB 等药靶基因的 cis-eQTL **不与** LDL GWAS 共定位(因果变异走蛋白功能/丰度、不走 mRNA 表达),pQTL(血浆蛋白水平 QTL)理论上应能救回。本轮取到 **deCODE/AGES SomaScan 血浆 pQTL**(Ferkingstad 2021, PMID 35078996,EBI 托管的 harmonised GRCh38 summary),对 7 个蛋白做 cis-pQTL vs LDL-C GWAS 共定位,与上一轮 eQTL 结果逐基因对比。
 
-但本会话**无法取到这几个特定蛋白的 cis-pQTL**:
-- deCODE(SomaScan)summary 在下载门户的 JS/验证墙后;
-- UKB-PPP(Olink)在 EBI GWAS Catalog 上确有(harmonised、可 tabix),但**没有可用的"蛋白→GCST 编号"索引**;蛋白分散在不连续的编号里。我扫了 7,000+ 个候选编号(GCST90270000–90298000),发现该范围其实以**代谢物 QTL**(Docosanoid/Eicosanoid)为主,仅零星混入 UKB-PPP 蛋白,PCSK9/LDLR/APOB/CETP/APOE/LCAT/LPA 均不在其中。
-- GWAS Catalog 的按性状检索 REST 已废弃(410),无法直接定位。
+数据获取的坑(诚实记录):deCODE 官方门户在 reCAPTCHA 墙后,无法程序化取;改用 **EBI GWAS Catalog 托管的同一套 deCODE 存档**(性状名即 "Serum levels of protein <GENE>")。每个蛋白的 harmonised 文件 **EFO 后缀逐基因不同**(需从目录列表动态解析,不能套同一个 EFO),这是最初几次下载失败的根因。
 
-要补这一步,需要其一:① UKB-PPP 或 deCODE 的官方"蛋白↔accession/SeqId"映射表(我有映射表就能立刻 tabix 做 pQTL 共定位);② deCODE 下载门户的直接文件入口。给到任一入口,我可以把"pQTL 救回蛋白机制基因"的已知答案补完。
+| 基因 | eQTL PP.H4 | **pQTL PP.H4** | cis-pQTL -log10P | 结论 |
+|---|---|---|---|---|
+| **PCSK9** | 0.04 | **1.00 ✅** | 41 | **pQTL 救回**(eQTL 完全漏) |
+| **APOE**  | 0.20 | **1.00 ✅** | 91 | **pQTL 救回** |
+| APOB  | 0.04 | 0.00 | 32(强) | 有强 cis-pQTL 但 **PP.H3≈1**(不同变异/表位假象) |
+| LDLR  | 0.07 | 0.01 | 2.4 | 两者都不中:血浆**无 cis-pQTL** |
+| HMGCR | 0.05 | 0.01 | 3.4 | 血浆无 cis-pQTL |
+| CETP  | 0.10 | 0.01 | 2.5 | 血浆无 cis-pQTL |
+| SORT1 | **1.00** | 0.01 | 2.9 | **仅 eQTL**:SORT1 蛋白无 cis-pQTL |
 
-数字在 `results/susie_coloc_raw.csv`,图 `results/fig2_susie_coloc.png`。
+**核心结论:pQTL 与 eQTL 是互补的,不是谁全面更好。**
+1. **pQTL 独家救回 PCSK9**(0.04→1.00)和 **APOE**(0.20→1.00)——正是表达共定位完全失手的蛋白机制/分泌丰度型靶点。这验证了"领域转向 pQTL"的动机,也是本行矩阵里 pQTL 真正的增量。
+2. 但 pQTL **不是万能补丁**:LDLR/HMGCR/CETP 在血浆里**根本没有 cis-pQTL**(-log10P<4),pQTL 同样救不回——蛋白得先在血浆被检测到、且受 cis 变异调控才行。
+3. **SORT1 反向**:最强 cis-eQTL(-log10P=54,eQTL coloc=1.0)的基因,其蛋白却无血浆 cis-pQTL——所以 eQTL、pQTL 各能照亮对方的盲区。
+4. **APOB 是经典 pQTL 陷阱**:cis-pQTL 极强(P=5e-32)却 PP.H3≈1(与 GWAS 是**不同**因果变异)。这与"pQTL 表位假象"一行吻合——SomaScan 适配体受 APOB 编码变异影响,cis 信号可能是结合表位的假象而非真实丰度,故不与 LDL 共定位。盲目把强 cis-pQTL 当因果会踩雷。
+
+### 对矩阵的修订建议
+- "分子 QTL 因果定位"这一行,**单靠 eQTL 共定位不足以唯一锁定因果基因**(15 个已知 LDL 位点只中 2 个)。应标注为:**eQTL+pQTL 联合**,且 **pQTL 命中需先过表位/等位异质性(PP.H3、allelic series)排雷**,否则把 APOB 式假象当真。
+- SuSiE-coloc 只在**多信号位点**带来增量(77% vs 65%);真实的多基因共享变异(SORT1)是生物学,不是方法假象。
+
+### 复现(pQTL 部分)
+```bash
+# acc.json: {"PCSK9":"GCST90088969", ...}  deCODE/AGES 蛋白→GCST 映射
+bash 07c_pqtl_harvest.sh $PQ $GENE38   # 动态解析 harmonised 文件名,抽 cis±500kb
+Rscript 08_pqtl_coloc.R $PQ $LOCI results/pqtl_coloc.csv
+python 09_pqtl_fig.py
+```
+数字在 `results/pqtl_coloc.csv`、`results/susie_coloc_raw.csv`,图 `results/fig3_pqtl_coloc.png`、`results/fig2_susie_coloc.png`。
